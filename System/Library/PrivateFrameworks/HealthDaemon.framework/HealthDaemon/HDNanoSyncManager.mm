@@ -90,6 +90,7 @@
 - (void)sendTinkerWatchPairingRequest:(id)request forNRDeviceUUID:(id)d completion:(id)completion;
 - (void)syncHealthDataWithOptions:(unint64_t)options completion:(id)completion;
 - (void)syncHealthDataWithOptions:(unint64_t)options reason:(id)reason accessibilityAssertion:(id)assertion completion:(id)completion;
+- (void)syncSession:(id)session didFinishSuccessfully:(BOOL)successfully error:(id)error;
 - (void)syncSession:(id)session sendChanges:(id)changes completion:(id)completion;
 - (void)unitTest_performWithActiveSyncStore:(id)store;
 - (void)updatePairedDevicesWithCompletion:(id)completion;
@@ -116,7 +117,7 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
 
 - (void)_queue_updateSyncStores
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (*(self + 24))
@@ -132,33 +133,33 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
     *(self + 120) = dictionary;
 
     obj = [MEMORY[0x277CBEB18] array];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     nanoSyncDevices = [*(self + 72) nanoSyncDevices];
-    v6 = [nanoSyncDevices countByEnumeratingWithState:&v53 objects:v59 count:16];
+    v6 = [nanoSyncDevices countByEnumeratingWithState:&v52 objects:v58 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v54;
+      v8 = *v53;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v54 != v8)
+          if (*v53 != v8)
           {
             objc_enumerationMutation(nanoSyncDevices);
           }
 
-          v10 = *(*(&v53 + 1) + 8 * i);
+          v10 = *(*(&v52 + 1) + 8 * i);
           if ([v10 isLocallyPaired])
           {
             [obj addObject:v10];
           }
         }
 
-        v7 = [nanoSyncDevices countByEnumeratingWithState:&v53 objects:v59 count:16];
+        v7 = [nanoSyncDevices countByEnumeratingWithState:&v52 objects:v58 count:16];
       }
 
       while (v7);
@@ -166,27 +167,27 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
 
     objc_storeStrong((self + 128), obj);
     array = [MEMORY[0x277CBEB18] array];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v45 = *(self + 128);
-    v11 = [v45 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v44 = *(self + 128);
+    v11 = [v44 countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v11)
     {
       v12 = v11;
-      v47 = 0;
-      v13 = *v50;
+      v46 = 0;
+      v13 = *v49;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v50 != v13)
+          if (*v49 != v13)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v44);
           }
 
-          v15 = *(*(&v49 + 1) + 8 * j);
+          v15 = *(*(&v48 + 1) + 8 * j);
           hd_deviceIdentifier = [v15 hd_deviceIdentifier];
           v17 = [v2 objectForKeyedSubscript:hd_deviceIdentifier];
           isActive = [v17 isActive];
@@ -199,7 +200,7 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
           {
             if ([v17 isActive])
             {
-              v21 = v47 == 0;
+              v21 = v46 == 0;
             }
 
             else
@@ -215,7 +216,7 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
 
             if ([v17 isActive])
             {
-              if (v47)
+              if (v46)
               {
                 _HKInitializeLogging();
                 v22 = *MEMORY[0x277CCC328];
@@ -230,7 +231,7 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
 
               else
               {
-                v47 = v17;
+                v46 = v17;
               }
             }
 
@@ -240,7 +241,7 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
           }
         }
 
-        v12 = [v45 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v12 = [v44 countByEnumeratingWithState:&v48 objects:v57 count:16];
       }
 
       while (v12);
@@ -248,32 +249,32 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     v26 = *(self + 40);
     v27 = [objc_alloc(MEMORY[0x277CCD6B8]) initWithPairedDeviceInfos:array];
     objc_setProperty_atomic(self, v28, v27, 40);
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke;
-    v48[3] = &unk_278617508;
-    v48[4] = self;
-    [v2 enumerateKeysAndObjectsUsingBlock:v48];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke;
+    v47[3] = &unk_278617508;
+    v47[4] = self;
+    [v2 enumerateKeysAndObjectsUsingBlock:v47];
 
-    if (*(self + 96) != v47)
+    if (*(self + 96) != v46)
     {
       _HKInitializeLogging();
       v29 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = v47;
+        *(&buf + 4) = v46;
         _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "got new active paired device %{public}@", &buf, 0xCu);
       }
 
-      objc_storeStrong((self + 96), v47);
-      if (v47)
+      objc_storeStrong((self + 96), v46);
+      if (v46)
       {
         dispatch_assert_queue_V2(*(self + 56));
         if (!*(self + 136) && [self enablePeriodicSyncTimer])
@@ -289,12 +290,12 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
           v34 = *(self + 136);
           *&buf = MEMORY[0x277D85DD0];
           *(&buf + 1) = 3221225472;
-          v61 = __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_invoke;
-          v62 = &unk_278616F38;
-          objc_copyWeak(v63, &location);
+          v60 = __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_invoke;
+          v61 = &unk_278616F38;
+          objc_copyWeak(v62, &location);
           dispatch_source_set_event_handler(v34, &buf);
           dispatch_resume(*(self + 136));
-          objc_destroyWeak(v63);
+          objc_destroyWeak(v62);
           objc_destroyWeak(&location);
         }
 
@@ -319,7 +320,7 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
           CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.springboard.appIconVisibilityPreferencesChanged", 0, 0, 1u);
         }
 
-        [(HDNanoSyncManager *)self _queue_updateDeviceNameIfNecessaryWithSyncStore:v47];
+        [(HDNanoSyncManager *)self _queue_updateDeviceNameIfNecessaryWithSyncStore:v46];
       }
 
       else
@@ -342,8 +343,6 @@ void __61__HDNanoSyncManager__queue_startPeriodicSyncTimerIfNecessary__block_inv
       [(HDNanoSyncManager *)self _notifyObserversPairedDevicesChanged:v27];
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -361,32 +360,32 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
 
 - (id)_queue_eligibleInactiveSyncStores
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(self + 56));
   date = [MEMORY[0x277CBEAA8] date];
   v3 = [date dateByAddingTimeInterval:-604800.0];
 
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allValues = [*(self + 120) allValues];
-  v6 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if (([v10 isActive] & 1) == 0)
         {
           if ([v10 isRestoreComplete])
@@ -402,13 +401,11 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -522,7 +519,7 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
 
 - (void)_queue_generateWatchActivationSamples
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 56));
@@ -542,9 +539,9 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
       }
 
       v7 = v2;
-      v34 = 0;
-      v8 = [v7 numberForKey:@"WatchSwitchIndex" error:&v34];
-      v9 = v34;
+      v33 = 0;
+      v8 = [v7 numberForKey:@"WatchSwitchIndex" error:&v33];
+      v9 = v33;
       v10 = v9;
       if (v8 || !v9)
       {
@@ -579,25 +576,25 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
           dictionary = [MEMORY[0x277CBEB38] dictionary];
           *&buf = 0;
           *(&buf + 1) = &buf;
-          v38 = 0x2020000000;
-          v39 = unsignedIntValue;
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke;
-          v29[3] = &unk_2786175D0;
-          v33 = unsignedIntValue;
-          v20 = watchActivationType;
-          v30 = v20;
-          v21 = dictionary;
-          v31 = v21;
-          p_buf = &buf;
-          [nanoPairedDeviceRegistry getSwitchEventsFromIndex:unsignedIntValue inlineCallback:v29];
+          v37 = 0x2020000000;
+          v38 = unsignedIntValue;
           v28[0] = MEMORY[0x277D85DD0];
           v28[1] = 3221225472;
-          v28[2] = __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke_552;
-          v28[3] = &unk_2786175F8;
-          v28[4] = self;
-          [v21 enumerateKeysAndObjectsUsingBlock:v28];
+          v28[2] = __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke;
+          v28[3] = &unk_2786175D0;
+          v32 = unsignedIntValue;
+          v20 = watchActivationType;
+          v29 = v20;
+          v21 = dictionary;
+          v30 = v21;
+          p_buf = &buf;
+          [nanoPairedDeviceRegistry getSwitchEventsFromIndex:unsignedIntValue inlineCallback:v28];
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke_552;
+          v27[3] = &unk_2786175F8;
+          v27[4] = self;
+          [v21 enumerateKeysAndObjectsUsingBlock:v27];
           if (*(*(&buf + 1) + 24) == unsignedIntValue)
           {
             v22 = v10;
@@ -606,9 +603,9 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
           else
           {
             v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
-            v27 = v10;
-            v24 = [v7 setNumber:v23 forKey:@"WatchSwitchIndex" error:&v27];
-            v22 = v27;
+            v26 = v10;
+            v24 = [v7 setNumber:v23 forKey:@"WatchSwitchIndex" error:&v26];
+            v22 = v26;
 
             if ((v24 & 1) == 0)
             {
@@ -616,9 +613,9 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
               v25 = *MEMORY[0x277CCC328];
               if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
               {
-                *v35 = 138543362;
-                v36 = v22;
-                _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "failed to set switch index: %{public}@", v35, 0xCu);
+                *v34 = 138543362;
+                v35 = v22;
+                _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "failed to set switch index: %{public}@", v34, 0xCu);
               }
             }
           }
@@ -642,8 +639,6 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (HDNanoSyncManager)initWithProfile:(id)profile isMaster:(BOOL)master
@@ -729,7 +724,7 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
 
 - (void)_invalidate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = *(self + 136);
@@ -753,38 +748,36 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
     [defaultCenter2 removeObserver:self name:*MEMORY[0x277D2BC88] object:0];
     [defaultCenter2 removeObserver:self name:*MEMORY[0x277D2BC78] object:0];
     [defaultCenter2 removeObserver:self name:*MEMORY[0x277D2BC48] object:0];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     allValues = [*(self + 120) allValues];
-    v10 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) invalidate];
+          [*(*(&v14 + 1) + 8 * v13++) invalidate];
         }
 
         while (v11 != v13);
-        v11 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)obliterateWithOptions:(unint64_t)options reason:(id)reason
@@ -806,35 +799,35 @@ void __44__HDNanoSyncManager__queue_updateSyncStores__block_invoke(uint64_t a1, 
 
 uint64_t __50__HDNanoSyncManager_obliterateWithOptions_reason___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1 && *(a1 + 48) == 1)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = [*(v2 + 120) allValues];
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v10 + 1) + 8 * v7++) prepareForObliteration];
+          [*(*(&v9 + 1) + 8 * v7++) prepareForObliteration];
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
@@ -843,9 +836,7 @@ uint64_t __50__HDNanoSyncManager_obliterateWithOptions_reason___block_invoke(uin
     v2 = *(a1 + 32);
   }
 
-  result = [*(v2 + 72) obliterateWithReason:*(a1 + 40) preserveCopy:*(a1 + 49)];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(v2 + 72) obliterateWithReason:*(a1 + 40) preserveCopy:*(a1 + 49)];
 }
 
 - (void)initializeMessageCenterIfNeeded
@@ -887,7 +878,7 @@ uint64_t __50__HDNanoSyncManager_obliterateWithOptions_reason___block_invoke(uin
 
 void __43__HDNanoSyncManager_profileDidBecomeReady___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC328];
   v3 = *MEMORY[0x277CCC328];
@@ -898,9 +889,9 @@ void __43__HDNanoSyncManager_profileDidBecomeReady___block_invoke(uint64_t a1)
   }
 
   v4 = *(a1 + 32);
-  v9 = 0;
+  v8 = 0;
   v5 = [(HDNanoSyncManager *)v4 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v6 = v9;
+  v6 = v8;
   if ((v5 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -908,12 +899,10 @@ void __43__HDNanoSyncManager_profileDidBecomeReady___block_invoke(uint64_t a1)
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "failed to initialize NanoSync after first unlock: %{public}@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)_queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:(uint64_t)error
@@ -1023,7 +1012,7 @@ void __43__HDNanoSyncManager_profileDidBecomeReady___block_invoke(uint64_t a1)
 
 void __62__HDNanoSyncManager_database_protectedDataDidBecomeAvailable___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if ((a2 & 1) == 0 && ([v4 hk_isDatabaseAccessibilityError] & 1) == 0)
@@ -1032,27 +1021,25 @@ void __62__HDNanoSyncManager_database_protectedDataDidBecomeAvailable___block_in
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "post-unlock sync failed: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "post-unlock sync failed: %{public}@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_syncImmediatelyWithReason:(uint64_t)reason options:(void *)options accessibilityAssertion:(void *)assertion completion:
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   v9 = a2;
   optionsCopy = options;
   assertionCopy = assertion;
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 56));
-    v67 = 0;
+    v66 = 0;
     v12 = [(HDNanoSyncManager *)self _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-    v13 = v67;
+    v13 = v66;
     _HKInitializeLogging();
     v14 = *MEMORY[0x277CCC328];
     v15 = *MEMORY[0x277CCC328];
@@ -1060,13 +1047,13 @@ void __62__HDNanoSyncManager_database_protectedDataDidBecomeAvailable___block_in
     {
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v48 = v14;
-        v49 = _StringFromSyncOptions(reason);
+        v47 = v14;
+        v48 = _StringFromSyncOptions(reason);
         *buf = 138412546;
-        v79 = v9;
-        v80 = 2112;
-        v81 = v49;
-        _os_log_debug_impl(&dword_228986000, v48, OS_LOG_TYPE_DEBUG, "syncing immediately with reason %@ options:'%@'", buf, 0x16u);
+        v78 = v9;
+        v79 = 2112;
+        v80 = v48;
+        _os_log_debug_impl(&dword_228986000, v47, OS_LOG_TYPE_DEBUG, "syncing immediately with reason %@ options:'%@'", buf, 0x16u);
       }
 
       v16 = [HDKeyValueDomain alloc];
@@ -1075,52 +1062,52 @@ void __62__HDNanoSyncManager_database_protectedDataDidBecomeAvailable___block_in
       v18 = [(HDKeyValueDomain *)v16 initWithCategory:0 domainName:@"CloudSync" profile:WeakRetained];
 
       v19 = *MEMORY[0x277CCE388];
-      v73 = 0;
-      v60 = v19;
-      v61 = v18;
+      v72 = 0;
+      v59 = v19;
+      v60 = v18;
       v20 = [HDKeyValueDomain numberForKey:v18 error:"numberForKey:error:"];
-      v21 = v73;
+      v21 = v72;
       v22 = v21;
       if (v20 || !v21)
       {
         if (([v20 BOOLValue] & 1) == 0)
         {
-          v52 = v20;
+          v51 = v20;
           reasonCopy = reason;
-          v54 = v13;
-          v55 = assertionCopy;
-          v56 = optionsCopy;
-          v57 = v9;
+          v53 = v13;
+          v54 = assertionCopy;
+          v55 = optionsCopy;
+          v56 = v9;
           v24 = objc_loadWeakRetained((selfCopy + 48));
           daemon = [v24 daemon];
           nanoPairedDeviceRegistry = [daemon nanoPairedDeviceRegistry];
 
-          v51 = nanoPairedDeviceRegistry;
+          v50 = nanoPairedDeviceRegistry;
           getPairedDevices = [nanoPairedDeviceRegistry getPairedDevices];
+          v68 = 0u;
           v69 = 0u;
           v70 = 0u;
           v71 = 0u;
-          v72 = 0u;
           v28 = getPairedDevices;
-          v29 = [v28 countByEnumeratingWithState:&v69 objects:buf count:16];
+          v29 = [v28 countByEnumeratingWithState:&v68 objects:buf count:16];
           if (v29)
           {
             v31 = v29;
-            v32 = *v70;
+            v32 = *v69;
             v33 = @"21R0";
             *&v30 = 138543618;
-            v50 = v30;
-            v59 = v28;
+            v49 = v30;
+            v58 = v28;
             while (2)
             {
               for (i = 0; i != v31; ++i)
               {
-                if (*v70 != v32)
+                if (*v69 != v32)
                 {
                   objc_enumerationMutation(v28);
                 }
 
-                v35 = *(*(&v69 + 1) + 8 * i);
+                v35 = *(*(&v68 + 1) + 8 * i);
                 hd_productType = [v35 hd_productType];
                 v37 = [hd_productType hasPrefix:@"Watch"];
 
@@ -1131,15 +1118,15 @@ void __62__HDNanoSyncManager_database_protectedDataDidBecomeAvailable___block_in
                   {
                     v40 = v33;
                     v41 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:1];
-                    v68 = v22;
-                    v42 = [(HDKeyValueDomain *)v61 setNumber:v41 forKey:v60 error:&v68];
-                    v39 = v68;
+                    v67 = v22;
+                    v42 = [(HDKeyValueDomain *)v60 setNumber:v41 forKey:v59 error:&v67];
+                    v39 = v67;
 
                     if (v42)
                     {
 
                       v22 = v39;
-                      v28 = v59;
+                      v28 = v58;
                       goto LABEL_33;
                     }
 
@@ -1147,15 +1134,15 @@ void __62__HDNanoSyncManager_database_protectedDataDidBecomeAvailable___block_in
                     v43 = *MEMORY[0x277CCC328];
                     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                     {
-                      *v74 = v50;
-                      v75 = selfCopy;
-                      v76 = 2114;
-                      v77 = v39;
-                      _os_log_error_impl(&dword_228986000, v43, OS_LOG_TYPE_ERROR, "%{public}@: Failed to set flag for old watch paired to Dawn+ phone %{public}@.", v74, 0x16u);
+                      *v73 = v49;
+                      v74 = selfCopy;
+                      v75 = 2114;
+                      v76 = v39;
+                      _os_log_error_impl(&dword_228986000, v43, OS_LOG_TYPE_ERROR, "%{public}@: Failed to set flag for old watch paired to Dawn+ phone %{public}@.", v73, 0x16u);
                     }
 
                     v33 = v40;
-                    v28 = v59;
+                    v28 = v58;
                   }
 
                   else
@@ -1167,7 +1154,7 @@ void __62__HDNanoSyncManager_database_protectedDataDidBecomeAvailable___block_in
                 }
               }
 
-              v31 = [v28 countByEnumeratingWithState:&v69 objects:buf count:16];
+              v31 = [v28 countByEnumeratingWithState:&v68 objects:buf count:16];
               if (v31)
               {
                 continue;
@@ -1179,11 +1166,11 @@ void __62__HDNanoSyncManager_database_protectedDataDidBecomeAvailable___block_in
 
 LABEL_33:
 
-          optionsCopy = v56;
-          v9 = v57;
-          v13 = v54;
-          assertionCopy = v55;
-          v20 = v52;
+          optionsCopy = v55;
+          v9 = v56;
+          v13 = v53;
+          assertionCopy = v54;
+          v20 = v51;
           reason = reasonCopy;
         }
       }
@@ -1195,9 +1182,9 @@ LABEL_33:
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v79 = selfCopy;
-          v80 = 2114;
-          v81 = v22;
+          v78 = selfCopy;
+          v79 = 2114;
+          v80 = v22;
           _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: Could not read key for whether device was ever paired to old watch %{public}@.", buf, 0x16u);
         }
       }
@@ -1207,12 +1194,12 @@ LABEL_33:
       aBlock[1] = 3221225472;
       aBlock[2] = __96__HDNanoSyncManager__queue_syncImmediatelyWithReason_options_accessibilityAssertion_completion___block_invoke;
       aBlock[3] = &unk_2786177A8;
-      v65 = Current;
+      v64 = Current;
       aBlock[4] = selfCopy;
       v45 = v9;
-      v63 = v45;
+      v62 = v45;
       reasonCopy2 = reason;
-      v64 = assertionCopy;
+      v63 = assertionCopy;
       v46 = _Block_copy(aBlock);
       [(HDNanoSyncManager *)selfCopy _queue_synchronizeWithOptions:reason restoreMessagesSentHandler:0 targetSyncStore:*(selfCopy + 96) reason:v45 accessibilityAssertion:optionsCopy completion:v46];
     }
@@ -1222,9 +1209,9 @@ LABEL_33:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v79 = v9;
-        v80 = 2114;
-        v81 = v13;
+        v78 = v9;
+        v79 = 2114;
+        v80 = v13;
         _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "failed to sync immediately for reason %{public}@: %{public}@", buf, 0x16u);
       }
 
@@ -1239,8 +1226,6 @@ LABEL_33:
       }
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pairedSyncDidBeginForDevice:(id)device messagesSentHandler:(id)handler completion:(id)completion
@@ -1265,11 +1250,11 @@ LABEL_33:
 
 void __80__HDNanoSyncManager_pairedSyncDidBeginForDevice_messagesSentHandler_completion___block_invoke(void *a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v29 = 0;
+  v28 = 0;
   v3 = [(HDNanoSyncManager *)v2 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v4 = v29;
+  v4 = v28;
   if (v3)
   {
     v6 = a1[4];
@@ -1286,35 +1271,35 @@ void __80__HDNanoSyncManager_pairedSyncDidBeginForDevice_messagesSentHandler_com
       aBlock[1] = 3221225472;
       aBlock[2] = __87__HDNanoSyncManager__queue_pairedSyncDidBeginForDevice_messagesSentHandler_completion___block_invoke;
       aBlock[3] = &unk_2786130D8;
-      v31 = v11;
+      v30 = v11;
       v11 = _Block_copy(aBlock);
       if (v9)
       {
         [(HDNanoSyncManager *)v6 _queue_updateSyncStores];
-        v28 = v9;
+        v27 = v9;
         v12 = [v9 hd_pairingID];
         dispatch_assert_queue_V2(*(v6 + 56));
-        v34 = 0u;
-        v35 = 0u;
-        v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
+        v31 = 0u;
+        v32 = 0u;
         v13 = [*(v6 + 120) allValues];
-        v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
         if (v14)
         {
-          v26 = v10;
-          v27 = v4;
-          v15 = *v33;
+          v25 = v10;
+          v26 = v4;
+          v15 = *v32;
           while (2)
           {
             for (i = 0; i != v14; i = i + 1)
             {
-              if (*v33 != v15)
+              if (*v32 != v15)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v17 = *(*(&v32 + 1) + 8 * i);
+              v17 = *(*(&v31 + 1) + 8 * i);
               v18 = [v17 nanoRegistryUUID];
               v19 = [v18 isEqual:v12];
 
@@ -1325,7 +1310,7 @@ void __80__HDNanoSyncManager_pairedSyncDidBeginForDevice_messagesSentHandler_com
               }
             }
 
-            v14 = [v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
             if (v14)
             {
               continue;
@@ -1335,31 +1320,31 @@ void __80__HDNanoSyncManager_pairedSyncDidBeginForDevice_messagesSentHandler_com
           }
 
 LABEL_16:
-          v10 = v26;
-          v4 = v27;
+          v10 = v25;
+          v4 = v26;
         }
 
         if (v14)
         {
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __87__HDNanoSyncManager__queue_pairedSyncDidBeginForDevice_messagesSentHandler_completion___block_invoke_2;
-          v36[3] = &unk_278613150;
-          v9 = v28;
-          v37 = v28;
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __87__HDNanoSyncManager__queue_pairedSyncDidBeginForDevice_messagesSentHandler_completion___block_invoke_2;
+          v35[3] = &unk_278613150;
+          v9 = v27;
+          v36 = v27;
           v21 = v14;
-          v38 = v21;
-          v39 = v11;
-          [(HDNanoSyncManager *)v6 _queue_synchronizeWithOptions:v10 restoreMessagesSentHandler:v21 targetSyncStore:@"PairedSync session began" reason:0 accessibilityAssertion:v36 completion:?];
+          v37 = v21;
+          v38 = v11;
+          [(HDNanoSyncManager *)v6 _queue_synchronizeWithOptions:v10 restoreMessagesSentHandler:v21 targetSyncStore:@"PairedSync session began" reason:0 accessibilityAssertion:v35 completion:?];
 
-          v22 = v37;
+          v22 = v36;
         }
 
         else
         {
           v23 = MEMORY[0x277CCA9B8];
-          v9 = v28;
-          v22 = [v28 hd_shortDescription];
+          v9 = v27;
+          v22 = [v27 hd_shortDescription];
           v24 = [v23 hk_error:100 format:{@"failed to find sync store for device %@", v22}];
           (*(v11 + 2))(v11, 0, v24);
         }
@@ -1381,8 +1366,6 @@ LABEL_16:
       (*(v20 + 16))(v20, 0, v4);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncHealthDataWithOptions:(unint64_t)options completion:(id)completion
@@ -1394,7 +1377,7 @@ LABEL_16:
 
 - (void)syncHealthDataWithOptions:(unint64_t)options reason:(id)reason accessibilityAssertion:(id)assertion completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   completionCopy = completion;
   if (assertion)
@@ -1404,10 +1387,10 @@ LABEL_16:
     database = [WeakRetained database];
     v15 = objc_opt_class();
     v16 = NSStringFromClass(v15);
-    v35 = 0;
-    assertion = [database cloneAccessibilityAssertion:assertionCopy ownerIdentifier:v16 error:&v35];
+    v34 = 0;
+    assertion = [database cloneAccessibilityAssertion:assertionCopy ownerIdentifier:v16 error:&v34];
 
-    v17 = v35;
+    v17 = v34;
     if (!assertion)
     {
       _HKInitializeLogging();
@@ -1416,8 +1399,8 @@ LABEL_16:
       {
         *buf = 138543618;
         selfCopy = self;
-        v38 = 2114;
-        v39 = v17;
+        v37 = 2114;
+        v38 = v17;
         _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: Unable to clone assertion error: %{public}@", buf, 0x16u);
       }
     }
@@ -1428,26 +1411,24 @@ LABEL_16:
   aBlock[2] = __88__HDNanoSyncManager_syncHealthDataWithOptions_reason_accessibilityAssertion_completion___block_invoke;
   aBlock[3] = &unk_2786173C8;
   assertionCopy2 = assertion;
-  v33 = assertionCopy2;
-  v34 = completionCopy;
+  v32 = assertionCopy2;
+  v33 = completionCopy;
   v20 = completionCopy;
   v21 = _Block_copy(aBlock);
   queue = self->_queue;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __88__HDNanoSyncManager_syncHealthDataWithOptions_reason_accessibilityAssertion_completion___block_invoke_2;
-  v27[3] = &unk_2786173F0;
-  v27[4] = self;
-  v28 = reasonCopy;
-  v30 = v21;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __88__HDNanoSyncManager_syncHealthDataWithOptions_reason_accessibilityAssertion_completion___block_invoke_2;
+  v26[3] = &unk_2786173F0;
+  v26[4] = self;
+  v27 = reasonCopy;
+  v29 = v21;
   optionsCopy = options;
-  v29 = assertionCopy2;
+  v28 = assertionCopy2;
   v23 = v21;
   v24 = assertionCopy2;
   v25 = reasonCopy;
-  dispatch_async(queue, v27);
-
-  v26 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v26);
 }
 
 void __88__HDNanoSyncManager_syncHealthDataWithOptions_reason_accessibilityAssertion_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1588,11 +1569,11 @@ void __81__HDNanoSyncManager_waitForLastChanceSyncWithDevicePairingID_timeout_co
 
 void __45__HDNanoSyncManager_resetSyncWithCompletion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v16 = 0;
+  v15 = 0;
   v3 = [(HDNanoSyncManager *)v2 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v4 = v16;
+  v4 = v15;
   if (v3)
   {
     v5 = *(a1 + 32);
@@ -1602,8 +1583,8 @@ void __45__HDNanoSyncManager_resetSyncWithCompletion___block_invoke(uint64_t a1)
       dispatch_assert_queue_V2(*(v5 + 56));
       if (*(v5 + 24))
       {
-        v15 = [MEMORY[0x277CCA890] currentHandler];
-        [v15 handleFailureInMethod:sel__queue_resetSyncWithCompletion_ object:v5 file:@"HDNanoSyncManager.m" lineNumber:1793 description:{@"Invalid parameter not satisfying: %@", @"_waitingForFirstUnlock == NO"}];
+        v14 = [MEMORY[0x277CCA890] currentHandler];
+        [v14 handleFailureInMethod:sel__queue_resetSyncWithCompletion_ object:v5 file:@"HDNanoSyncManager.m" lineNumber:1793 description:{@"Invalid parameter not satisfying: %@", @"_waitingForFirstUnlock == NO"}];
       }
 
       v7 = *(v5 + 96);
@@ -1625,7 +1606,7 @@ void __45__HDNanoSyncManager_resetSyncWithCompletion___block_invoke(uint64_t a1)
         {
           v12 = *(v5 + 96);
           *buf = 138543362;
-          v18 = v12;
+          v17 = v12;
           _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "resetting sync store %{public}@", buf, 0xCu);
         }
       }
@@ -1645,8 +1626,6 @@ void __45__HDNanoSyncManager_resetSyncWithCompletion___block_invoke(uint64_t a1)
       (*(v13 + 16))(v13, 0, v4);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePairedDevicesWithCompletion:(id)completion
@@ -1737,11 +1716,11 @@ void __55__HDNanoSyncManager_updatePairedDevicesWithCompletion___block_invoke(ui
 
 void __88__HDNanoSyncManager_requestAuthorizationForRequestRecord_requestSentHandler_completion___block_invoke(void *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v27 = 0;
+  v26 = 0;
   v3 = [(HDNanoSyncManager *)v2 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v4 = v27;
+  v4 = v26;
   if (v3)
   {
     v6 = a1[4];
@@ -1772,10 +1751,10 @@ void __88__HDNanoSyncManager_requestAuthorizationForRequestRecord_requestSentHan
     v18 = [HDCodableAuthorizationRequestMessage codableAuthorizationRequestWithRecord:v10];
     [v17 setPbRequest:v18];
 
-    v28 = @"auth-identifier";
+    v27 = @"auth-identifier";
     v19 = [v10 sessionIdentifier];
     *buf = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v28 count:1];
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v27 count:1];
     [v17 setPersistentUserInfo:v20];
 
     [(HDNanoSyncManager *)v6 _queue_sendRequest:v17 syncStore:v11];
@@ -1796,8 +1775,6 @@ void __88__HDNanoSyncManager_requestAuthorizationForRequestRecord_requestSentHan
   {
     (*(a1[7] + 16))();
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendStartWorkoutAppRequest:(id)request completion:(id)completion
@@ -1819,11 +1796,11 @@ void __88__HDNanoSyncManager_requestAuthorizationForRequestRecord_requestSentHan
 
 void __59__HDNanoSyncManager_sendStartWorkoutAppRequest_completion___block_invoke(void *a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v26 = 0;
+  v25 = 0;
   v3 = [(HDNanoSyncManager *)v2 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v4 = v26;
+  v4 = v25;
   if (v3)
   {
     v5 = a1[4];
@@ -1844,9 +1821,9 @@ void __59__HDNanoSyncManager_sendStartWorkoutAppRequest_completion___block_invok
 
       if (v15)
       {
-        v27 = @"workout-launch";
-        v28[0] = v15;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+        v26 = @"workout-launch";
+        v27[0] = v15;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
         [v12 setPersistentUserInfo:v16];
 
         [v12 setPriority:1];
@@ -1887,8 +1864,6 @@ void __59__HDNanoSyncManager_sendStartWorkoutAppRequest_completion___block_invok
       (*(v20 + 16))(v20, 0, v4);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCompanionUserNotificationRequest:(id)request completion:(id)completion
@@ -1910,11 +1885,11 @@ void __59__HDNanoSyncManager_sendStartWorkoutAppRequest_completion___block_invok
 
 void __69__HDNanoSyncManager_sendCompanionUserNotificationRequest_completion___block_invoke(void *a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v26 = 0;
+  v25 = 0;
   v3 = [(HDNanoSyncManager *)v2 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v4 = v26;
+  v4 = v25;
   if (v3)
   {
     v5 = a1[4];
@@ -1937,9 +1912,9 @@ void __69__HDNanoSyncManager_sendCompanionUserNotificationRequest_completion___b
         v15 = [v9 requestIdentifier];
         v16 = [v14 initWithUUIDString:v15];
 
-        v27 = @"companion-user-notification";
-        v28[0] = v16;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+        v26 = @"companion-user-notification";
+        v27[0] = v16;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
         [v12 setPersistentUserInfo:v17];
 
         [v12 setPriority:1];
@@ -1981,8 +1956,6 @@ void __69__HDNanoSyncManager_sendCompanionUserNotificationRequest_completion___b
       (*(v21 + 16))(v21, 0, v4);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendNotificationInstructionMessageRequest:(id)request completion:(id)completion
@@ -2077,13 +2050,13 @@ void __74__HDNanoSyncManager_sendNotificationInstructionMessageRequest_completio
   dispatch_async(queue, v15);
 }
 
-void __78__HDNanoSyncManager_sendTinkerSharingOptInRequest_forNRDeviceUUID_completion___block_invoke(uint64_t *a1)
+void __78__HDNanoSyncManager_sendTinkerSharingOptInRequest_forNRDeviceUUID_completion___block_invoke(void *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v32 = 0;
+  v31 = 0;
   v3 = [(HDNanoSyncManager *)v2 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v4 = v32;
+  v4 = v31;
   if (v3)
   {
     [(HDNanoSyncManager *)a1[4] _queue_updateTinkerSyncStore];
@@ -2109,10 +2082,10 @@ void __78__HDNanoSyncManager_sendTinkerSharingOptInRequest_forNRDeviceUUID_compl
           v16 = [v11 requestIdentifier];
           *buf = 138543874;
           *&buf[4] = v7;
-          v35 = 2114;
-          v36 = v16;
-          v37 = 2114;
-          v38 = v12;
+          v34 = 2114;
+          v35 = v16;
+          v36 = 2114;
+          v37 = v12;
           _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Will send Tinker opt in request %{public}@, syncStore %{public}@ (#t0)", buf, 0x20u);
         }
 
@@ -2126,9 +2099,9 @@ void __78__HDNanoSyncManager_sendTinkerSharingOptInRequest_forNRDeviceUUID_compl
           v20 = [v11 requestIdentifier];
           v21 = [v19 initWithUUIDString:v20];
 
-          v33 = @"tinker-optin";
+          v32 = @"tinker-optin";
           *buf = v21;
-          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v33 count:1];
+          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v32 count:1];
           [v17 setPersistentUserInfo:v22];
 
           [v17 setPriority:1];
@@ -2174,13 +2147,11 @@ void __78__HDNanoSyncManager_sendTinkerSharingOptInRequest_forNRDeviceUUID_compl
   {
     (*(a1[7] + 16))();
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateTinkerSyncStore
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (*(self + 24))
@@ -2212,10 +2183,10 @@ void __78__HDNanoSyncManager_sendTinkerSharingOptInRequest_forNRDeviceUUID_compl
       hd_deviceIdentifier = [v10 hd_deviceIdentifier];
       *buf = 138412802;
       selfCopy2 = self;
-      v25 = 2112;
-      v26 = hd_pairingID;
-      v27 = 2112;
-      v28 = hd_deviceIdentifier;
+      v24 = 2112;
+      v25 = hd_pairingID;
+      v26 = 2112;
+      v27 = hd_deviceIdentifier;
       _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "%@ Active tinker NR device %@, IDS device %@ (#t0)", buf, 0x20u);
     }
 
@@ -2233,13 +2204,11 @@ void __78__HDNanoSyncManager_sendTinkerSharingOptInRequest_forNRDeviceUUID_compl
       v20 = *(self + 104);
       *buf = 138543618;
       selfCopy2 = self;
-      v25 = 2114;
-      v26 = v20;
+      v24 = 2114;
+      v25 = v20;
       _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ Active tinker store %{public}@ (#t0)", buf, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendTinkerWatchPairingRequest:(id)request forNRDeviceUUID:(id)d completion:(id)completion
@@ -2264,11 +2233,11 @@ void __78__HDNanoSyncManager_sendTinkerSharingOptInRequest_forNRDeviceUUID_compl
 
 void __78__HDNanoSyncManager_sendTinkerWatchPairingRequest_forNRDeviceUUID_completion___block_invoke(uint64_t *a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v28 = 0;
+  v27 = 0;
   v3 = [(HDNanoSyncManager *)v2 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v4 = v28;
+  v4 = v27;
   if (v3)
   {
     [(HDNanoSyncManager *)a1[4] _queue_updateTinkerSyncStore];
@@ -2304,9 +2273,9 @@ void __78__HDNanoSyncManager_sendTinkerWatchPairingRequest_forNRDeviceUUID_compl
           v18 = [v11 requestIdentifier];
           v19 = [v17 initWithUUIDString:v18];
 
-          v29 = @"tinker-pairing";
+          v28 = @"tinker-pairing";
           *buf = v19;
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v29 count:1];
+          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v28 count:1];
           [v15 setPersistentUserInfo:v20];
 
           [v15 setPriority:1];
@@ -2350,8 +2319,6 @@ void __78__HDNanoSyncManager_sendTinkerWatchPairingRequest_forNRDeviceUUID_compl
   {
     (*(a1[7] + 16))();
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendTinkerEndToEndCloudSyncRequestForNRDeviceUUID:(id)d completion:(id)completion
@@ -2373,11 +2340,11 @@ void __78__HDNanoSyncManager_sendTinkerWatchPairingRequest_forNRDeviceUUID_compl
 
 void __82__HDNanoSyncManager_sendTinkerEndToEndCloudSyncRequestForNRDeviceUUID_completion___block_invoke(uint64_t *a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v30 = 0;
+  v29 = 0;
   v3 = [(HDNanoSyncManager *)v2 _queue_finishInitializationAfterFirstUnlockIfNecessaryWithError:?];
-  v4 = v30;
+  v4 = v29;
   if (v3)
   {
     [(HDNanoSyncManager *)a1[4] _queue_updateTinkerSyncStore];
@@ -2404,11 +2371,11 @@ void __82__HDNanoSyncManager_sendTinkerEndToEndCloudSyncRequestForNRDeviceUUID_c
           v15 = v14;
           v16 = [(HDCodableTinkerEndToEndCloudSyncRequest *)v12 requestIdentifier];
           *buf = 138543874;
-          v32 = v7;
-          v33 = 2114;
-          v34 = v16;
-          v35 = 2114;
-          v36 = v9;
+          v31 = v7;
+          v32 = 2114;
+          v33 = v16;
+          v34 = 2114;
+          v35 = v9;
           _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Will send Tinker end to end Cloud Sync request %{public}@, syncStore %{public}@ (#t0)", buf, 0x20u);
         }
 
@@ -2433,14 +2400,14 @@ void __82__HDNanoSyncManager_sendTinkerEndToEndCloudSyncRequestForNRDeviceUUID_c
 
         else
         {
-          v29 = v11;
+          v28 = v11;
           v25 = MEMORY[0x277CCA9B8];
           v26 = objc_opt_class();
           v20 = [(HDCodableTinkerEndToEndCloudSyncRequest *)v12 requestIdentifier];
           v27 = [v25 hk_errorForInvalidArgument:@"@" class:v26 selector:sel__queue_sendTinkerEndToEndCloudSyncRequestWithSyncStore_completion_ format:{@"Invalid request identifier %@", v20}];
           (*(v10 + 2))(v10, 0, v27);
 
-          v11 = v29;
+          v11 = v28;
         }
       }
 
@@ -2464,8 +2431,6 @@ void __82__HDNanoSyncManager_sendTinkerEndToEndCloudSyncRequestForNRDeviceUUID_c
   {
     (*(a1[6] + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_sendRequest:(uint64_t)request syncStore:
@@ -2580,14 +2545,14 @@ LABEL_7:
 
 - (id)_queue_validatedSyncStore:(void *)store device:(void *)device message:(uint64_t)message error:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v9 = a2;
   storeCopy = store;
   deviceCopy = device;
   dispatch_assert_queue_V2(*(self + 56));
   if (([deviceCopy hasVersion] & 1) == 0)
   {
-    [MEMORY[0x277CCA9B8] hk_assignError:message code:3 format:{@"Incoming message has no sync version information.", v21, v22, v23}];
+    [MEMORY[0x277CCA9B8] hk_assignError:message code:3 format:{@"Incoming message has no sync version information.", v20, v21, v22}];
 LABEL_5:
     v14 = 0;
     goto LABEL_6;
@@ -2601,7 +2566,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v17 = protocolVersion;
+  v16 = protocolVersion;
   if (version > 17 || version <= protocolVersion)
   {
     [MEMORY[0x277CCA9B8] hk_assignError:message code:3 format:{@"Incoming message has unexpected version %d (expected %d, current is %d).", version, protocolVersion, 17}];
@@ -2609,28 +2574,27 @@ LABEL_5:
   }
 
   _HKInitializeLogging();
-  v18 = *MEMORY[0x277CCC328];
+  v17 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
     selfCopy = self;
-    v26 = 1024;
-    v27 = version;
-    v28 = 1024;
-    v29 = v17;
-    v30 = 1024;
-    v31 = version;
-    _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Incoming message has sync protocol version %d, but we were only expecting %d. Adjusting expected version to %d", buf, 0x1Eu);
+    v25 = 1024;
+    v26 = version;
+    v27 = 1024;
+    v28 = v16;
+    v29 = 1024;
+    v30 = version;
+    _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Incoming message has sync protocol version %d, but we were only expecting %d. Adjusting expected version to %d", buf, 0x1Eu);
   }
 
   v14 = [v9 nanoSyncStoreForProtocolVersion:version];
   [v9 invalidate];
-  v19 = *(self + 120);
+  v18 = *(self + 120);
   hd_deviceIdentifier = [storeCopy hd_deviceIdentifier];
-  [v19 setObject:v14 forKeyedSubscript:hd_deviceIdentifier];
+  [v18 setObject:v14 forKeyedSubscript:hd_deviceIdentifier];
 
 LABEL_6:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -2684,7 +2648,7 @@ LABEL_5:
 
 - (void)_logIncomingRequest:(uint64_t)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (request)
@@ -2697,20 +2661,18 @@ LABEL_5:
       v7 = v6;
       nanoSyncDescription = [v4 nanoSyncDescription];
       v9 = [fromParticipant description];
-      v11 = 138543618;
-      v12 = nanoSyncDescription;
-      v13 = 2114;
-      v14 = v9;
-      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "received %{public}@ from %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = nanoSyncDescription;
+      v12 = 2114;
+      v13 = v9;
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "received %{public}@ from %{public}@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HDNanoSyncManager__handleIncomingRequest_usingBlock___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) fromParticipant];
   v4 = [v3 device];
@@ -2732,13 +2694,11 @@ void __55__HDNanoSyncManager__handleIncomingRequest_usingBlock___block_invoke(ui
       v9 = [v7 fromParticipant];
       v10 = [v9 device];
       v11 = [v10 description];
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "unable to find sync store for request from device %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "unable to find sync store for request from device %{public}@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleIncomingResponse:(void *)response usingBlock:
@@ -2790,7 +2750,7 @@ LABEL_5:
 
 void __56__HDNanoSyncManager__handleIncomingResponse_usingBlock___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) fromParticipant];
   v4 = [v3 device];
@@ -2812,18 +2772,16 @@ void __56__HDNanoSyncManager__handleIncomingResponse_usingBlock___block_invoke(u
       v9 = [v7 fromParticipant];
       v10 = [v9 device];
       v11 = [v10 description];
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "unable to find sync store for response from device %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "unable to find sync store for response from device %{public}@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDNanoSyncManager__syncronouslyHandleIncomingRequest_usingBlock___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) fromParticipant];
   v4 = [v3 device];
@@ -2831,13 +2789,13 @@ void __67__HDNanoSyncManager__syncronouslyHandleIncomingRequest_usingBlock___blo
 
   if (v5)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __67__HDNanoSyncManager__syncronouslyHandleIncomingRequest_usingBlock___block_invoke_2;
-    v14[3] = &unk_278613968;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __67__HDNanoSyncManager__syncronouslyHandleIncomingRequest_usingBlock___block_invoke_2;
+    v13[3] = &unk_278613968;
     v6 = *(a1 + 56);
-    v15 = *(a1 + 48);
-    (*(v6 + 16))(v6, v5, v14);
+    v14 = *(a1 + 48);
+    (*(v6 + 16))(v6, v5, v13);
   }
 
   else
@@ -2852,14 +2810,12 @@ void __67__HDNanoSyncManager__syncronouslyHandleIncomingRequest_usingBlock___blo
       v11 = [v10 device];
       v12 = [v11 description];
       *buf = 138543362;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "unable to find sync store for request from device %{public}@", buf, 0xCu);
     }
 
     dispatch_semaphore_signal(*(a1 + 48));
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleOutgoingMessageError:(void *)error usingBlock:
@@ -2911,7 +2867,7 @@ LABEL_5:
 
 - (void)_logOutgoingMessageError:(uint64_t)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (error)
@@ -2924,34 +2880,32 @@ LABEL_5:
     v9 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v11 = v9;
-      v12 = HDNanoSyncMessageIDString(hd_messageID);
-      v16 = 2080;
-      v13 = "response";
-      v14 = 138544386;
-      v15 = v12;
+      v10 = v9;
+      v11 = HDNanoSyncMessageIDString(hd_messageID);
+      v15 = 2080;
+      v12 = "response";
+      v13 = 138544386;
+      v14 = v11;
       if (hd_isFromRequest)
       {
-        v13 = "request";
+        v12 = "request";
       }
 
-      v17 = v13;
-      v18 = 2114;
-      v19 = hd_messageIDSIdentifier;
-      v20 = 2114;
-      v21 = hd_messageIDSDeviceIdentifier;
-      v22 = 2114;
-      v23 = v4;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@ %s %{public}@ to device %{public}@ error: %{public}@", &v14, 0x34u);
+      v16 = v12;
+      v17 = 2114;
+      v18 = hd_messageIDSIdentifier;
+      v19 = 2114;
+      v20 = hd_messageIDSDeviceIdentifier;
+      v21 = 2114;
+      v22 = v4;
+      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@ %s %{public}@ to device %{public}@ error: %{public}@", &v13, 0x34u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HDNanoSyncManager__handleOutgoingMessageError_usingBlock___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = v3;
@@ -2995,21 +2949,19 @@ void __60__HDNanoSyncManager__handleOutgoingMessageError_usingBlock___block_invo
     v11 = [v9 hd_messageIDSIdentifier];
     v12 = [*(a1 + 40) hd_messageIDSDeviceIdentifier];
     *buf = 138543618;
-    v15 = v11;
-    v16 = 2114;
-    v17 = v12;
+    v14 = v11;
+    v15 = 2114;
+    v16 = v12;
     _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "unable to find sync store for error from message %{public}@ to device %{public}@", buf, 0x16u);
   }
 
   v6 = 0;
 LABEL_13:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenter:(id)center didResolveIDSIdentifierForRequest:(id)request
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   toParticipant = [requestCopy toParticipant];
   _HKInitializeLogging();
@@ -3019,19 +2971,17 @@ LABEL_13:
     v7 = v6;
     nanoSyncDescription = [requestCopy nanoSyncDescription];
     v9 = [toParticipant description];
-    v11 = 138543618;
-    v12 = nanoSyncDescription;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "resolved %{public}@ to %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = nanoSyncDescription;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "resolved %{public}@ to %{public}@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenter:(id)center didResolveIDSIdentifierForResponse:(id)response
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   toParticipant = [responseCopy toParticipant];
   _HKInitializeLogging();
@@ -3041,19 +2991,17 @@ LABEL_13:
     v7 = v6;
     nanoSyncDescription = [responseCopy nanoSyncDescription];
     v9 = [toParticipant description];
-    v11 = 138543618;
-    v12 = nanoSyncDescription;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "resolved %{public}@ to %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = nanoSyncDescription;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "resolved %{public}@ to %{public}@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenter:(id)center activeDeviceDidChange:(id)change acknowledgementHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   changeCopy = change;
   handlerCopy = handler;
@@ -3063,29 +3011,27 @@ LABEL_13:
     v11 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v17 = v11;
+      v16 = v11;
       hd_shortDescription = [changeCopy hd_shortDescription];
       *buf = 138543362;
-      v25 = hd_shortDescription;
-      _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "IDS bug: active device isActive=NO %{public}@", buf, 0xCu);
+      v24 = hd_shortDescription;
+      _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "IDS bug: active device isActive=NO %{public}@", buf, 0xCu);
     }
   }
 
   queue = self->_queue;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgementHandler___block_invoke;
-  v19[3] = &unk_278617468;
-  v20 = centerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgementHandler___block_invoke;
+  v18[3] = &unk_278617468;
+  v19 = centerCopy;
   selfCopy = self;
-  v22 = changeCopy;
-  v23 = handlerCopy;
+  v21 = changeCopy;
+  v22 = handlerCopy;
   v13 = changeCopy;
   v14 = handlerCopy;
   v15 = centerCopy;
-  dispatch_async(queue, v19);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v18);
 }
 
 void __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgementHandler___block_invoke(uint64_t a1)
@@ -3093,30 +3039,29 @@ void __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgement
   v2 = *(a1 + 40);
   if (*(a1 + 32) == *(v2 + 72))
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgementHandler___block_invoke_2;
-    v7[3] = &unk_278617490;
-    v5 = *(a1 + 48);
-    v6 = *(a1 + 40);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgementHandler___block_invoke_2;
+    v6[3] = &unk_278617490;
+    v4 = *(a1 + 48);
+    v5 = *(a1 + 40);
+    v7 = v4;
     v8 = v5;
-    v9 = v6;
-    v10 = *(a1 + 56);
-    [(HDNanoSyncManager *)v2 _queue_updateSyncStoresWithCompletion:v7];
+    v9 = *(a1 + 56);
+    [(HDNanoSyncManager *)v2 _queue_updateSyncStoresWithCompletion:v6];
   }
 
   else
   {
-    v3 = *(a1 + 56);
-    v4 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v4();
+    v3();
   }
 }
 
 void __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgementHandler___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) hd_deviceIdentifier];
   v3 = [*(*(a1 + 40) + 96) device];
   v4 = [v3 hd_deviceIdentifier];
@@ -3127,19 +3072,17 @@ void __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgement
     v5 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = *(*(a1 + 40) + 96);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2114;
-      v12 = v7;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "unexpected active store %{public}@ after switch to device %{public}@", &v9, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = *(*(a1 + 40) + 96);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2114;
+      v11 = v6;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "unexpected active store %{public}@ after switch to device %{public}@", &v8, 0x16u);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveRestoreRequest:(id)request
@@ -3157,7 +3100,7 @@ void __80__HDNanoSyncManager_messageCenter_activeDeviceDidChange_acknowledgement
 
 void __59__HDNanoSyncManager_messageCenterDidReceiveRestoreRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -3179,8 +3122,8 @@ void __59__HDNanoSyncManager_messageCenterDidReceiveRestoreRequest___block_invok
 
   else
   {
-    v35 = [MEMORY[0x277CCA890] currentHandler];
-    [v35 handleFailureInMethod:sel__queue_handleRestoreRequest_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2134 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
+    v33 = [MEMORY[0x277CCA890] currentHandler];
+    [v33 handleFailureInMethod:sel__queue_handleRestoreRequest_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2134 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
 
     if (v6)
     {
@@ -3188,207 +3131,205 @@ void __59__HDNanoSyncManager_messageCenterDidReceiveRestoreRequest___block_invok
     }
   }
 
-  v36 = [MEMORY[0x277CCA890] currentHandler];
-  [v36 handleFailureInMethod:sel__queue_handleRestoreRequest_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2135 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+  v34 = [MEMORY[0x277CCA890] currentHandler];
+  [v34 handleFailureInMethod:sel__queue_handleRestoreRequest_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2135 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
 
 LABEL_4:
   v7 = [v4 pbRequest];
   v8 = [v7 activationRestore];
-  v53 = [v8 decodedRestoreUUID];
-  v51 = [v8 sequenceNumber];
+  v51 = [v8 decodedRestoreUUID];
+  v49 = [v8 sequenceNumber];
   v9 = [v4 fromParticipant];
   v10 = [v9 device];
-  v57 = 0;
-  v11 = [(HDNanoSyncManager *)v3 _queue_validatedSyncStore:v6 device:v10 message:v7 error:&v57];
-  v50 = v57;
+  v55 = 0;
+  v11 = [(HDNanoSyncManager *)v3 _queue_validatedSyncStore:v6 device:v10 message:v7 error:&v55];
+  v48 = v55;
 
   if (!v11)
   {
     _HKInitializeLogging();
-    v20 = *MEMORY[0x277CCC328];
+    v19 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = v20;
-      v22 = [v4 idsIdentifier];
+      v20 = v19;
+      v21 = [v4 idsIdentifier];
       *buf = 138543618;
-      *&buf[4] = v22;
+      *&buf[4] = v21;
       *&buf[12] = 2114;
-      *&buf[14] = v50;
-      _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "ignoring restore request %{public}@: %{public}@", buf, 0x16u);
+      *&buf[14] = v48;
+      _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "ignoring restore request %{public}@: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_33;
   }
 
-  v12 = *MEMORY[0x277CCC328];
-  v13 = _HKLogSignpostIDGenerate();
+  v12 = _HKLogSignpostIDGenerate();
   _HKInitializeLogging();
-  v14 = *MEMORY[0x277CCC328];
+  v13 = *MEMORY[0x277CCC328];
   if (os_signpost_enabled(*MEMORY[0x277CCC328]))
   {
+    v14 = v13;
     v15 = v14;
-    v16 = v15;
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      v17 = [v4 idsIdentifier];
+      v16 = [v4 idsIdentifier];
       *buf = 138543362;
-      *&buf[4] = v17;
-      _os_signpost_emit_with_name_impl(&dword_228986000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v13, "nano-sync-restore-request", "request %{public}@", buf, 0xCu);
+      *&buf[4] = v16;
+      _os_signpost_emit_with_name_impl(&dword_228986000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "nano-sync-restore-request", "request %{public}@", buf, 0xCu);
     }
   }
 
-  v18 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:v3 activityName:@"ReceiveRestoreRequest"];
-  v55[0] = 0;
-  v55[1] = v55;
-  v55[2] = 0x3032000000;
-  v55[3] = __Block_byref_object_copy__30;
-  v55[4] = __Block_byref_object_dispose__30;
-  v56 = 0;
+  v17 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:v3 activityName:@"ReceiveRestoreRequest"];
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x3032000000;
+  v53[3] = __Block_byref_object_copy__30;
+  v53[4] = __Block_byref_object_dispose__30;
+  v54 = 0;
   obj = 0;
-  v19 = v4;
-  v52 = v11;
+  v18 = v4;
+  v50 = v11;
   dispatch_assert_queue_V2(*(v3 + 56));
   if (*(v3 + 8) != 1)
   {
-    v23 = [v19 pbRequest];
-    v45 = [v23 decodedPersistentPairingUUID];
-    v44 = [v23 decodedHealthPairingUUID];
-    if (v45)
+    v22 = [v18 pbRequest];
+    v43 = [v22 decodedPersistentPairingUUID];
+    v42 = [v22 decodedHealthPairingUUID];
+    if (v43)
     {
-      if (v44)
+      if (v42)
       {
-        v24 = [v23 activationRestore];
-        v43 = v24;
-        if (v24)
+        v23 = [v22 activationRestore];
+        v41 = v23;
+        if (v23)
         {
-          if ([v24 hasRequiredFields])
+          if ([v23 hasRequiredFields])
           {
-            if ([v43 sequenceNumber] == 1)
+            if ([v41 sequenceNumber] == 1)
             {
-              if ([v43 statusCode] == 3)
+              if ([v41 statusCode] == 3)
               {
                 [MEMORY[0x277CCA9B8] hk_assignError:&obj code:100 description:@"remote requested abort"];
-                v46 = 2;
+                v44 = 2;
               }
 
               else
               {
-                v41 = [v52 persistentUUID];
-                v42 = [v52 healthUUID];
-                if (v42 && ([v43 decodedObliteratedHealthPairingUUIDs], v47 = objc_claimAutoreleasedReturnValue(), v39 = objc_msgSend(v47, "containsObject:", v42), v47, (v39 & 1) != 0))
+                v39 = [v50 persistentUUID];
+                v40 = [v50 healthUUID];
+                if (v40 && ([v41 decodedObliteratedHealthPairingUUIDs], v45 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v45, "containsObject:", v40), v45, (v37 & 1) != 0))
                 {
-                  v33 = 4;
+                  v31 = 4;
                 }
 
-                else if (v41 && ![v41 isEqual:v45] || v42 && (objc_msgSend(v42, "isEqual:", v44) & 1) == 0)
+                else if (v39 && ![v39 isEqual:v43] || v40 && (objc_msgSend(v40, "isEqual:", v42) & 1) == 0)
                 {
                   _HKInitializeLogging();
-                  v48 = *MEMORY[0x277CCC328];
+                  v46 = *MEMORY[0x277CCC328];
                   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
                   {
-                    v38 = v48;
-                    v49 = [v19 idsIdentifier];
-                    v40 = [v45 UUIDString];
-                    v34 = [v41 UUIDString];
+                    v36 = v46;
+                    v47 = [v18 idsIdentifier];
+                    v38 = [v43 UUIDString];
+                    v32 = [v39 UUIDString];
                     *buf = 138543874;
-                    *&buf[4] = v49;
+                    *&buf[4] = v47;
                     *&buf[12] = 2114;
-                    *&buf[14] = v40;
+                    *&buf[14] = v38;
                     *&buf[22] = 2114;
-                    v59 = v34;
-                    v37 = v34;
-                    _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "received restore message %{public}@ with unknown persistent pairing UUID %{public}@ (expected %{public}@)", buf, 0x20u);
+                    v57 = v32;
+                    v35 = v32;
+                    _os_log_impl(&dword_228986000, v36, OS_LOG_TYPE_DEFAULT, "received restore message %{public}@ with unknown persistent pairing UUID %{public}@ (expected %{public}@)", buf, 0x20u);
                   }
 
-                  v33 = 3;
+                  v31 = 3;
                 }
 
                 else
                 {
-                  v33 = 1;
+                  v31 = 1;
                 }
 
-                v46 = v33;
+                v44 = v31;
               }
 
               goto LABEL_28;
             }
 
-            v26 = @"restore request has invalid sequence number";
+            v25 = @"restore request has invalid sequence number";
           }
 
           else
           {
-            v26 = @"restore request missing required fields";
+            v25 = @"restore request missing required fields";
           }
         }
 
         else
         {
-          v26 = @"missing restore request content";
+          v25 = @"missing restore request content";
         }
 
-        [MEMORY[0x277CCA9B8] hk_assignError:&obj code:100 description:v26];
-        v46 = 0;
+        [MEMORY[0x277CCA9B8] hk_assignError:&obj code:100 description:v25];
+        v44 = 0;
 LABEL_28:
 
         goto LABEL_29;
       }
 
-      v25 = @"missing health UUID";
+      v24 = @"missing health UUID";
     }
 
     else
     {
-      v25 = @"missing persistent UUID";
+      v24 = @"missing persistent UUID";
     }
 
-    [MEMORY[0x277CCA9B8] hk_assignError:&obj code:100 description:v25];
-    v46 = 0;
+    [MEMORY[0x277CCA9B8] hk_assignError:&obj code:100 description:v24];
+    v44 = 0;
 LABEL_29:
 
     goto LABEL_30;
   }
 
   [MEMORY[0x277CCA9B8] hk_assignError:&obj code:100 description:@"unexpected restore request on master device"];
-  v46 = 0;
+  v44 = 0;
 LABEL_30:
 
-  objc_storeStrong(&v56, obj);
-  v27 = [v52 restoreSession];
-  if (v46 == 1)
+  objc_storeStrong(&v54, obj);
+  v26 = [v50 restoreSession];
+  if (v44 == 1)
   {
-    v28 = [v52 beginRestoreSessionWithUUID:v53 timeout:0 timeoutHandler:0.0];
+    v27 = [v50 beginRestoreSessionWithUUID:v51 timeout:0 timeoutHandler:0.0];
 
-    v27 = v28;
+    v26 = v27;
   }
 
-  [v27 setSequenceNumber:v51];
-  v29 = *(v3 + 64);
+  [v26 setSequenceNumber:v49];
+  v28 = *(v3 + 64);
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invoke;
-  v59 = &unk_278617690;
-  v60 = v52;
-  v30 = v7;
-  v68 = v46;
-  v61 = v30;
-  v62 = v3;
-  v63 = v8;
-  v64 = v19;
-  v67 = v55;
+  v57 = &unk_278617690;
+  v58 = v50;
+  v29 = v7;
+  v66 = v44;
+  v59 = v29;
+  v60 = v3;
+  v61 = v8;
+  v62 = v18;
   v65 = v53;
-  v66 = v18;
-  v69 = v51;
-  v70 = v13;
-  v31 = v18;
-  dispatch_async(v29, buf);
+  v63 = v51;
+  v64 = v17;
+  v67 = v49;
+  v68 = v12;
+  v30 = v17;
+  dispatch_async(v28, buf);
 
-  _Block_object_dispose(v55, 8);
+  _Block_object_dispose(v53, 8);
 LABEL_33:
 
 LABEL_34:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveRestoreResponse:(id)response
@@ -3406,7 +3347,7 @@ LABEL_34:
 
 void __60__HDNanoSyncManager_messageCenterDidReceiveRestoreResponse___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -3428,8 +3369,8 @@ void __60__HDNanoSyncManager_messageCenterDidReceiveRestoreResponse___block_invo
 
   else
   {
-    v35 = [MEMORY[0x277CCA890] currentHandler];
-    [v35 handleFailureInMethod:sel__queue_handleRestoreResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2229 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
+    v34 = [MEMORY[0x277CCA890] currentHandler];
+    [v34 handleFailureInMethod:sel__queue_handleRestoreResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2229 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
 
     if (v6)
     {
@@ -3437,48 +3378,48 @@ void __60__HDNanoSyncManager_messageCenterDidReceiveRestoreResponse___block_invo
     }
   }
 
-  v36 = [MEMORY[0x277CCA890] currentHandler];
-  [v36 handleFailureInMethod:sel__queue_handleRestoreResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2230 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+  v35 = [MEMORY[0x277CCA890] currentHandler];
+  [v35 handleFailureInMethod:sel__queue_handleRestoreResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2230 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
 
 LABEL_4:
   v7 = [v4 pbResponse];
   v8 = [v7 activationRestore];
-  v40 = [v8 decodedRestoreUUID];
+  v39 = [v8 decodedRestoreUUID];
   v9 = [v8 sequenceNumber];
   v10 = [v8 statusCode];
-  v41 = [v6 restoreSession];
+  v40 = [v6 restoreSession];
   v11 = [v4 fromParticipant];
   v12 = [v11 device];
-  v42 = 0;
-  v13 = [(HDNanoSyncManager *)v3 _queue_validatedSyncStore:v6 device:v12 message:v7 error:&v42];
-  v39 = v42;
+  v41 = 0;
+  v13 = [(HDNanoSyncManager *)v3 _queue_validatedSyncStore:v6 device:v12 message:v7 error:&v41];
+  v38 = v41;
 
   if (v13)
   {
     if (*(v3 + 8) == 1)
     {
-      v14 = v40;
+      v14 = v39;
       if (v8)
       {
         if ([v13 validatePairingUUIDsWithIncomingMessage:v7])
         {
           if ([v8 hasRequiredFields])
           {
-            if (v41)
+            if (v40)
             {
-              v15 = [v41 sessionUUID];
-              v16 = [v40 isEqual:v15];
+              v15 = [v40 sessionUUID];
+              v16 = [v39 isEqual:v15];
 
               if (v16)
               {
                 *aBlock = MEMORY[0x277D85DD0];
                 *&aBlock[8] = 3221225472;
                 *&aBlock[16] = __60__HDNanoSyncManager__queue_handleRestoreResponse_syncStore___block_invoke;
-                v48 = &unk_2786176B8;
+                v47 = &unk_2786176B8;
                 v17 = v4;
-                v51 = v10;
-                v49 = v17;
-                v50 = v9;
+                v50 = v10;
+                v48 = v17;
+                v49 = v9;
                 v18 = _Block_copy(aBlock);
                 v19 = v18;
                 v20 = v18[2];
@@ -3491,21 +3432,21 @@ LABEL_4:
 LABEL_34:
 
                     _HKInitializeLogging();
-                    v34 = *MEMORY[0x277CCC328];
+                    v33 = *MEMORY[0x277CCC328];
                     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                     {
-                      v37 = v34;
-                      v38 = [v17 idsIdentifier];
+                      v36 = v33;
+                      v37 = [v17 idsIdentifier];
                       *buf = 138543618;
-                      v44 = v38;
-                      v45 = 2114;
-                      v46 = v25;
-                      _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "aborted restore with message %{public}@: %{public}@", buf, 0x16u);
+                      v43 = v37;
+                      v44 = 2114;
+                      v45 = v25;
+                      _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "aborted restore with message %{public}@: %{public}@", buf, 0x16u);
                     }
 
-                    v24 = v39;
-                    v14 = v40;
-                    if (!v39)
+                    v24 = v38;
+                    v14 = v39;
+                    if (!v38)
                     {
                       v24 = [MEMORY[0x277CCA9B8] hk_error:100 description:v25];
                     }
@@ -3519,7 +3460,7 @@ LABEL_26:
                   if (v10 == 2)
                   {
                     (v20)(v18, 0, @"finishing restore");
-                    if (v9 == [v41 sequenceNumber])
+                    if (v9 == [v40 sequenceNumber])
                     {
                       [(HDNanoSyncManager *)v3 _queue_transitionToRestoreCompleteWithSyncStore:v13];
 LABEL_29:
@@ -3527,7 +3468,7 @@ LABEL_29:
                       goto LABEL_30;
                     }
 
-                    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"unxpected finish sequence number %lld (expected %lld)", v9, objc_msgSend(v41, "sequenceNumber")];
+                    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"unxpected finish sequence number %lld (expected %lld)", v9, objc_msgSend(v40, "sequenceNumber")];
                     goto LABEL_34;
                   }
                 }
@@ -3537,8 +3478,8 @@ LABEL_29:
               }
 
               v26 = MEMORY[0x277CCACA8];
-              v27 = [v40 UUIDString];
-              v28 = [v41 sessionUUID];
+              v27 = [v39 UUIDString];
+              v28 = [v40 sessionUUID];
               v29 = [v28 UUIDString];
               v25 = [v26 stringWithFormat:@"unexpected restore UUID %@ (expected %@)", v27, v29];
             }
@@ -3570,12 +3511,12 @@ LABEL_29:
     else
     {
       v25 = @"unexpected restore response on slave";
-      v14 = v40;
+      v14 = v39;
     }
 
     _HKInitializeLogging();
     v30 = *MEMORY[0x277CCC328];
-    v24 = v39;
+    v24 = v38;
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
       v31 = v30;
@@ -3595,8 +3536,8 @@ LABEL_29:
   if (!os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
 LABEL_30:
-    v24 = v39;
-    v14 = v40;
+    v24 = v38;
+    v14 = v39;
     goto LABEL_31;
   }
 
@@ -3605,15 +3546,14 @@ LABEL_30:
   *aBlock = 138543618;
   *&aBlock[4] = v23;
   *&aBlock[12] = 2114;
-  v24 = v39;
-  *&aBlock[14] = v39;
+  v24 = v38;
+  *&aBlock[14] = v38;
   _os_log_impl(&dword_228986000, v22, OS_LOG_TYPE_DEFAULT, "ignoring restore response %{public}@: %{public}@", aBlock, 0x16u);
 
-  v14 = v40;
+  v14 = v39;
 LABEL_31:
 
 LABEL_32:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveChangesRequest:(id)request
@@ -3655,14 +3595,14 @@ LABEL_32:
 
 void __59__HDNanoSyncManager_messageCenterDidReceiveChangesRequest___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
   v7 = a2;
-  v39 = a3;
+  v38 = a3;
   if (!v5)
   {
-    v40 = v7;
+    v39 = v7;
     goto LABEL_27;
   }
 
@@ -3677,8 +3617,8 @@ void __59__HDNanoSyncManager_messageCenterDidReceiveChangesRequest___block_invok
 
   else
   {
-    v34 = [MEMORY[0x277CCA890] currentHandler];
-    [v34 handleFailureInMethod:sel__queue_receiveChangeRequest_syncStore_completion_ object:v5 file:@"HDNanoSyncManager.m" lineNumber:2484 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
+    v33 = [MEMORY[0x277CCA890] currentHandler];
+    [v33 handleFailureInMethod:sel__queue_receiveChangeRequest_syncStore_completion_ object:v5 file:@"HDNanoSyncManager.m" lineNumber:2484 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
 
     if (v7)
     {
@@ -3686,23 +3626,23 @@ void __59__HDNanoSyncManager_messageCenterDidReceiveChangesRequest___block_invok
     }
   }
 
-  v35 = [MEMORY[0x277CCA890] currentHandler];
-  [v35 handleFailureInMethod:sel__queue_receiveChangeRequest_syncStore_completion_ object:v5 file:@"HDNanoSyncManager.m" lineNumber:2485 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+  v34 = [MEMORY[0x277CCA890] currentHandler];
+  [v34 handleFailureInMethod:sel__queue_receiveChangeRequest_syncStore_completion_ object:v5 file:@"HDNanoSyncManager.m" lineNumber:2485 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
 
 LABEL_4:
   HDSetHealthInUseDefaultWithReason(@"Received sync data.");
   v8 = [v6 pbRequest];
-  v38 = [v8 changeSet];
-  v41 = [v8 status];
-  v9 = [v41 statusCode];
+  v37 = [v8 changeSet];
+  v40 = [v8 status];
+  v9 = [v40 statusCode];
   [(HDNanoSyncManager *)v5 persistChildIdentityFromCodable:v8];
   v10 = [v6 fromParticipant];
   v11 = [v10 device];
-  v44 = 0;
-  v40 = [(HDNanoSyncManager *)v5 _queue_validatedSyncStore:v7 device:v11 message:v8 error:&v44];
-  v37 = v44;
+  v43 = 0;
+  v39 = [(HDNanoSyncManager *)v5 _queue_validatedSyncStore:v7 device:v11 message:v8 error:&v43];
+  v36 = v43;
 
-  if (!v40)
+  if (!v39)
   {
     _HKInitializeLogging();
     v19 = *MEMORY[0x277CCC328];
@@ -3713,17 +3653,17 @@ LABEL_4:
       *buf = 138543618;
       *&buf[4] = v21;
       *&buf[12] = 2114;
-      *&buf[14] = v37;
+      *&buf[14] = v36;
       _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "ignoring change request %{public}@: %{public}@", buf, 0x16u);
     }
 
-    v39[2]();
+    v38[2]();
     goto LABEL_26;
   }
 
-  v36 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:v5 activityName:@"ReceiveChangeRequest"];
+  v35 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:v5 activityName:@"ReceiveChangeRequest"];
   v12 = v8;
-  v13 = v40;
+  v13 = v39;
   dispatch_assert_queue_V2(*(v5 + 56));
   v14 = [v12 decodedHealthPairingUUID];
   *buf = 0;
@@ -3763,9 +3703,9 @@ LABEL_14:
 LABEL_15:
 
   v22 = v17;
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x2020000000;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x2020000000;
   if (v18 > 1)
   {
     if (v18 == 2)
@@ -3785,14 +3725,14 @@ LABEL_15:
   {
     v23 = 0;
 LABEL_22:
-    v43 = v23;
+    v42 = v23;
     _HKInitializeLogging();
     v26 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v33 = [v6 idsIdentifier];
+      v32 = [v6 idsIdentifier];
       *buf = 138543618;
-      *&buf[4] = v33;
+      *&buf[4] = v32;
       *&buf[12] = 2114;
       *&buf[14] = v22;
       _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "will not apply change request %{public}@: %{public}@", buf, 0x16u);
@@ -3803,7 +3743,7 @@ LABEL_22:
     goto LABEL_25;
   }
 
-  v43 = 1;
+  v42 = 1;
   v24 = [(HDNanoSyncManager *)v5 _queue_eligibleInactiveSyncStores];
   v25 = v9;
 LABEL_25:
@@ -3811,29 +3751,28 @@ LABEL_25:
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke;
-  v46 = &unk_278617758;
-  v47 = v5;
-  v56 = v18;
-  v48 = v38;
-  v49 = v13;
+  v45 = &unk_278617758;
+  v46 = v5;
+  v55 = v18;
+  v47 = v37;
+  v48 = v13;
   v28 = v6;
-  v55 = v42;
-  v50 = v28;
-  v51 = v24;
-  v29 = v41;
-  v57 = v25;
-  v52 = v29;
-  v53 = v36;
-  v54 = v39;
-  v30 = v36;
+  v54 = v41;
+  v49 = v28;
+  v50 = v24;
+  v29 = v40;
+  v56 = v25;
+  v51 = v29;
+  v52 = v35;
+  v53 = v38;
+  v30 = v35;
   v31 = v24;
   dispatch_async(v27, buf);
 
-  _Block_object_dispose(v42, 8);
+  _Block_object_dispose(v41, 8);
 LABEL_26:
 
 LABEL_27:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveChangesResponse:(id)response
@@ -3851,7 +3790,7 @@ LABEL_27:
 
 void __60__HDNanoSyncManager_messageCenterDidReceiveChangesResponse___block_invoke(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -3873,8 +3812,8 @@ void __60__HDNanoSyncManager_messageCenterDidReceiveChangesResponse___block_invo
 
   else
   {
-    v36 = [MEMORY[0x277CCA890] currentHandler];
-    [v36 handleFailureInMethod:sel__queue_receiveChangeResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2724 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
+    v35 = [MEMORY[0x277CCA890] currentHandler];
+    [v35 handleFailureInMethod:sel__queue_receiveChangeResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2724 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
 
     if (v6)
     {
@@ -3882,8 +3821,8 @@ void __60__HDNanoSyncManager_messageCenterDidReceiveChangesResponse___block_invo
     }
   }
 
-  v37 = [MEMORY[0x277CCA890] currentHandler];
-  [v37 handleFailureInMethod:sel__queue_receiveChangeResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2725 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+  v36 = [MEMORY[0x277CCA890] currentHandler];
+  [v36 handleFailureInMethod:sel__queue_receiveChangeResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:2725 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
 
 LABEL_4:
   v7 = [v4 pbResponse];
@@ -3892,9 +3831,9 @@ LABEL_4:
   [(HDNanoSyncManager *)v3 persistChildIdentityFromCodable:v7];
   v10 = [v4 fromParticipant];
   v11 = [v10 device];
-  v40 = 0;
-  v12 = [(HDNanoSyncManager *)v3 _queue_validatedSyncStore:v6 device:v11 message:v7 error:&v40];
-  v13 = v40;
+  v39 = 0;
+  v12 = [(HDNanoSyncManager *)v3 _queue_validatedSyncStore:v6 device:v11 message:v7 error:&v39];
+  v13 = v39;
 
   if (!v12)
   {
@@ -3914,8 +3853,8 @@ LABEL_4:
     goto LABEL_25;
   }
 
-  v39 = v13;
-  v38 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:v3 activityName:@"ReceiveChangeResponse"];
+  v38 = v13;
+  v37 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:v3 activityName:@"ReceiveChangeResponse"];
   v14 = v7;
   v15 = v12;
   dispatch_assert_queue_V2(*(v3 + 56));
@@ -3942,21 +3881,21 @@ LABEL_4:
       if ([v15 validatePairingUUIDsWithIncomingMessage:v14])
       {
 
-        v29 = *(v3 + 64);
+        v28 = *(v3 + 64);
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __60__HDNanoSyncManager__queue_receiveChangeResponse_syncStore___block_invoke;
-        v42 = &unk_278617780;
-        v47 = v9;
-        v43 = v3;
-        v44 = v8;
-        v45 = v15;
-        v27 = v38;
-        v46 = v38;
-        dispatch_async(v29, buf);
+        v41 = &unk_278617780;
+        v46 = v9;
+        v42 = v3;
+        v43 = v8;
+        v44 = v15;
+        v27 = v37;
+        v45 = v37;
+        dispatch_async(v28, buf);
 
         v25 = 0;
-        v13 = v39;
+        v13 = v38;
         goto LABEL_24;
       }
 
@@ -4003,16 +3942,16 @@ LABEL_21:
     v25 = v19;
     _HKInitializeLogging();
     v26 = *MEMORY[0x277CCC328];
-    v13 = v39;
+    v13 = v38;
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v30 = v26;
-      v31 = [v4 idsIdentifier];
+      v29 = v26;
+      v30 = [v4 idsIdentifier];
       *buf = 138543618;
-      *&buf[4] = v31;
+      *&buf[4] = v30;
       *&buf[12] = 2114;
       *&buf[14] = v25;
-      _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "ignoring status response %{public}@: %{public}@", buf, 0x16u);
+      _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "ignoring status response %{public}@: %{public}@", buf, 0x16u);
     }
 
     goto LABEL_23;
@@ -4029,14 +3968,14 @@ LABEL_20:
   }
 
   _HKInitializeLogging();
-  v33 = *MEMORY[0x277CCC328];
+  v32 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v34 = v33;
-    v35 = [v4 idsIdentifier];
+    v33 = v32;
+    v34 = [v4 idsIdentifier];
     *buf = 138543362;
-    *&buf[4] = v35;
-    _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_DEFAULT, "Obliterating in response to request %{public}@", buf, 0xCu);
+    *&buf[4] = v34;
+    _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_DEFAULT, "Obliterating in response to request %{public}@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((v3 + 48));
@@ -4044,16 +3983,14 @@ LABEL_20:
 LABEL_38:
 
   v25 = 0;
-  v13 = v39;
+  v13 = v38;
 LABEL_23:
-  v27 = v38;
-  [v38 invalidate];
+  v27 = v37;
+  [v37 invalidate];
 LABEL_24:
 
 LABEL_25:
 LABEL_26:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterChangesError:(id)error
@@ -4071,16 +4008,16 @@ LABEL_26:
 
 void __47__HDNanoSyncManager_messageCenterChangesError___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v30 = a2;
+  v29 = a2;
   v4 = [v3 hd_isFromRequest];
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
   if (v4)
   {
     v7 = v5;
-    v8 = v30;
+    v8 = v29;
     if (!v6)
     {
       goto LABEL_20;
@@ -4108,10 +4045,10 @@ void __47__HDNanoSyncManager_messageCenterChangesError___block_invoke(uint64_t a
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __74__HDNanoSyncManager__queue_changeRequestDidFailToSendWithError_syncStore___block_invoke;
-      v32 = &unk_278613830;
-      v33 = v6;
-      v34 = v23;
-      v35 = v8;
+      v31 = &unk_278613830;
+      v32 = v6;
+      v33 = v23;
+      v34 = v8;
       v10 = v23;
       dispatch_async(v28, buf);
 
@@ -4135,7 +4072,7 @@ void __47__HDNanoSyncManager_messageCenterChangesError___block_invoke(uint64_t a
   else
   {
     v7 = v5;
-    v8 = v30;
+    v8 = v29;
     if (!v6)
     {
       goto LABEL_20;
@@ -4180,18 +4117,16 @@ void __47__HDNanoSyncManager_messageCenterChangesError___block_invoke(uint64_t a
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __75__HDNanoSyncManager__queue_changeResponseDidFailToSendWithError_syncStore___block_invoke;
-    v32 = &unk_278613830;
-    v33 = v6;
-    v34 = v12;
-    v35 = v8;
+    v31 = &unk_278613830;
+    v32 = v6;
+    v33 = v12;
+    v34 = v8;
     v11 = v12;
     dispatch_async(v22, buf);
   }
 
 LABEL_19:
 LABEL_20:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveAuthorizationRequest:(id)request
@@ -4323,7 +4258,7 @@ LABEL_8:
 
 void __66__HDNanoSyncManager_messageCenterDidReceiveAuthorizationResponse___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -4335,8 +4270,8 @@ void __66__HDNanoSyncManager_messageCenterDidReceiveAuthorizationResponse___bloc
   dispatch_assert_queue_V2(*(v3 + 56));
   if (!v4)
   {
-    v17 = [MEMORY[0x277CCA890] currentHandler];
-    [v17 handleFailureInMethod:sel__queue_receiveAuthorizationResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:4275 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
+    v16 = [MEMORY[0x277CCA890] currentHandler];
+    [v16 handleFailureInMethod:sel__queue_receiveAuthorizationResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:4275 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
 
     if (v5)
     {
@@ -4344,8 +4279,8 @@ void __66__HDNanoSyncManager_messageCenterDidReceiveAuthorizationResponse___bloc
     }
 
 LABEL_20:
-    v18 = [MEMORY[0x277CCA890] currentHandler];
-    [v18 handleFailureInMethod:sel__queue_receiveAuthorizationResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:4276 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+    v17 = [MEMORY[0x277CCA890] currentHandler];
+    [v17 handleFailureInMethod:sel__queue_receiveAuthorizationResponse_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:4276 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
 
     goto LABEL_4;
   }
@@ -4364,7 +4299,7 @@ LABEL_4:
     if (v8)
     {
       v9 = [v4 pbResponse];
-      v19 = [v9 shouldPrompt];
+      v18 = [v9 shouldPrompt];
       v10 = [v9 errorDescription];
       v11 = [v9 hostAppName];
       _HKInitializeLogging();
@@ -4379,7 +4314,7 @@ LABEL_4:
           *buf = 138412802;
           *&buf[4] = v11;
           *&buf[12] = 1024;
-          *&buf[14] = v19;
+          *&buf[14] = v18;
           *&buf[18] = 2114;
           *&buf[20] = v10;
           _os_log_debug_impl(&dword_228986000, v14, OS_LOG_TYPE_DEBUG, "Received response to authorization request; host app is %@ and should prompt is %d; error: %{public}@", buf, 0x1Cu);
@@ -4402,17 +4337,16 @@ LABEL_4:
         *&buf[8] = 3221225472;
         *&buf[16] = __67__HDNanoSyncManager__queue_receiveAuthorizationResponse_syncStore___block_invoke;
         *&buf[24] = &unk_278617A98;
-        v21 = v8;
-        v24 = v19;
-        v22 = v11;
-        v23 = v15;
+        v20 = v8;
+        v23 = v18;
+        v21 = v11;
+        v22 = v15;
         HKDispatchAsyncOnGlobalConcurrentQueue();
       }
     }
   }
 
 LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveAuthorizationError:(id)error
@@ -4430,13 +4364,13 @@ LABEL_18:
 
 void __63__HDNanoSyncManager_messageCenterDidReceiveAuthorizationError___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v12 = a2;
+  v19 = *MEMORY[0x277D85DE8];
+  v11 = a2;
   if ([*(a1 + 32) hd_isFromRequest])
   {
     v3 = *(a1 + 40);
     v4 = *(a1 + 32);
-    v5 = v12;
+    v5 = v11;
     if (v3)
     {
       dispatch_assert_queue_V2(*(v3 + 56));
@@ -4461,17 +4395,17 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveAuthorizationError___block_i
           {
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v16 = __81__HDNanoSyncManager__queue_authorizationRequestDidFailToSendWithError_syncStore___block_invoke;
-            v17 = &unk_278613920;
-            v18 = v9;
-            v19 = v4;
+            v15 = __81__HDNanoSyncManager__queue_authorizationRequestDidFailToSendWithError_syncStore___block_invoke;
+            v16 = &unk_278613920;
+            v17 = v9;
+            v18 = v4;
             HKDispatchAsyncOnGlobalConcurrentQueue();
           }
 
           if (v10[3])
           {
-            v13 = v10;
-            v14 = v4;
+            v12 = v10;
+            v13 = v4;
             HKDispatchAsyncOnGlobalConcurrentQueue();
           }
 
@@ -4480,8 +4414,6 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveAuthorizationError___block_i
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveAuthorizationCompleteRequest:(id)request
@@ -4499,7 +4431,7 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveAuthorizationError___block_i
 
 void __73__HDNanoSyncManager_messageCenterDidReceiveAuthorizationCompleteRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -4516,8 +4448,8 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveAuthorizationCompleteRequest
 
     else
     {
-      v23 = [MEMORY[0x277CCA890] currentHandler];
-      [v23 handleFailureInMethod:sel__queue_receiveAuthorizationCompleteRequest_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:4339 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
+      v22 = [MEMORY[0x277CCA890] currentHandler];
+      [v22 handleFailureInMethod:sel__queue_receiveAuthorizationCompleteRequest_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:4339 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
 
       if (v5)
       {
@@ -4525,8 +4457,8 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveAuthorizationCompleteRequest
       }
     }
 
-    v24 = [MEMORY[0x277CCA890] currentHandler];
-    [v24 handleFailureInMethod:sel__queue_receiveAuthorizationCompleteRequest_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:4340 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+    v23 = [MEMORY[0x277CCA890] currentHandler];
+    [v23 handleFailureInMethod:sel__queue_receiveAuthorizationCompleteRequest_syncStore_ object:v3 file:@"HDNanoSyncManager.m" lineNumber:4340 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
 
 LABEL_4:
     v6 = [v4 pbRequest];
@@ -4592,12 +4524,12 @@ LABEL_18:
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __74__HDNanoSyncManager__queue_receiveAuthorizationCompleteRequest_syncStore___block_invoke;
-          v26 = &unk_278613920;
-          v27 = v10;
-          v28 = v13;
+          v25 = &unk_278613920;
+          v26 = v10;
+          v27 = v13;
           HKDispatchAsyncOnGlobalConcurrentQueue();
 
-          v19 = v27;
+          v19 = v26;
         }
 
         else
@@ -4640,8 +4572,6 @@ LABEL_24:
   }
 
 LABEL_27:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveRoutineRequest:(id)request
@@ -4724,7 +4654,7 @@ LABEL_5:
 
 void __67__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -4736,39 +4666,37 @@ void __67__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppRequest___blo
     v7 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
     {
-      v14 = v7;
-      v15 = [v6 requestIdentifier];
+      v13 = v7;
+      v14 = [v6 requestIdentifier];
       LODWORD(aBlock) = 138412290;
-      *(&aBlock + 4) = v15;
-      _os_log_debug_impl(&dword_228986000, v14, OS_LOG_TYPE_DEBUG, "Received start workout app request %@", &aBlock, 0xCu);
+      *(&aBlock + 4) = v14;
+      _os_log_debug_impl(&dword_228986000, v13, OS_LOG_TYPE_DEBUG, "Received start workout app request %@", &aBlock, 0xCu);
     }
 
-    v16[0] = 0;
-    v16[1] = v16;
-    v16[2] = 0x3032000000;
-    v16[3] = __Block_byref_object_copy__30;
-    v16[4] = __Block_byref_object_dispose__30;
+    v15[0] = 0;
+    v15[1] = v15;
+    v15[2] = 0x3032000000;
+    v15[3] = __Block_byref_object_copy__30;
+    v15[4] = __Block_byref_object_dispose__30;
     v8 = v4;
-    v17 = v8;
+    v16 = v8;
     *&aBlock = MEMORY[0x277D85DD0];
     *(&aBlock + 1) = 3221225472;
-    v19 = __68__HDNanoSyncManager__queue_recieveStartWorkoutAppRequest_syncStore___block_invoke;
-    v20 = &unk_278617848;
+    v18 = __68__HDNanoSyncManager__queue_recieveStartWorkoutAppRequest_syncStore___block_invoke;
+    v19 = &unk_278617848;
     v9 = v6;
-    v21 = v9;
-    v22 = v8;
-    v23 = v3;
-    v24 = v5;
-    v25 = v16;
+    v20 = v9;
+    v21 = v8;
+    v22 = v3;
+    v23 = v5;
+    v24 = v15;
     v10 = _Block_copy(&aBlock);
     WeakRetained = objc_loadWeakRetained((v3 + 48));
     v12 = [WeakRetained workoutManager];
     [v12 receivedStartWorkoutAppRequest:v9 completion:v10];
 
-    _Block_object_dispose(v16, 8);
+    _Block_object_dispose(v15, 8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveStartWorkoutAppResponse:(id)response
@@ -4786,7 +4714,7 @@ void __67__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppRequest___blo
 
 void __68__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppResponse___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = a2;
@@ -4814,13 +4742,13 @@ void __68__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppResponse___bl
     v12 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
     {
-      v22 = v12;
-      v23 = [v8 requestIdentifier];
-      *v24 = 138412546;
-      *&v24[4] = v23;
-      *&v24[12] = 2114;
-      *&v24[14] = v10;
-      _os_log_debug_impl(&dword_228986000, v22, OS_LOG_TYPE_DEBUG, "Received response to start workout app request %@, error: %{public}@", v24, 0x16u);
+      v21 = v12;
+      v22 = [v8 requestIdentifier];
+      *v23 = 138412546;
+      *&v23[4] = v22;
+      *&v23[12] = 2114;
+      *&v23[14] = v10;
+      _os_log_debug_impl(&dword_228986000, v21, OS_LOG_TYPE_DEBUG, "Received response to start workout app request %@, error: %{public}@", v23, 0x16u);
     }
 
     v13 = [v7 objectForKeyedSubscript:@"workout-launch"];
@@ -4834,13 +4762,13 @@ void __68__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppResponse___bl
         v17 = v16;
         if (v16)
         {
-          *v24 = MEMORY[0x277D85DD0];
-          *&v24[8] = 3221225472;
-          *&v24[16] = __69__HDNanoSyncManager__queue_recieveStartWorkoutAppResponse_syncStore___block_invoke;
-          v25 = &unk_278616488;
-          v28 = v16;
-          v26 = v8;
-          v27 = v10;
+          *v23 = MEMORY[0x277D85DD0];
+          *&v23[8] = 3221225472;
+          *&v23[16] = __69__HDNanoSyncManager__queue_recieveStartWorkoutAppResponse_syncStore___block_invoke;
+          v24 = &unk_278616488;
+          v27 = v16;
+          v25 = v8;
+          v26 = v10;
           HKDispatchAsyncOnGlobalConcurrentQueue();
         }
       }
@@ -4858,9 +4786,9 @@ LABEL_16:
 
         v17 = v19;
         v20 = [v13 UUIDString];
-        *v24 = 138412290;
-        *&v24[4] = v20;
-        _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_INFO, "Ignoring response: no context for %@", v24, 0xCu);
+        *v23 = 138412290;
+        *&v23[4] = v20;
+        _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_INFO, "Ignoring response: no context for %@", v23, 0xCu);
       }
     }
 
@@ -4877,17 +4805,15 @@ LABEL_17:
 
       v15 = v18;
       v17 = [v8 requestIdentifier];
-      *v24 = 138412290;
-      *&v24[4] = v17;
-      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, "Ignoring response: no request identifier for %@", v24, 0xCu);
+      *v23 = 138412290;
+      *&v23[4] = v17;
+      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, "Ignoring response: no request identifier for %@", v23, 0xCu);
     }
 
     goto LABEL_16;
   }
 
 LABEL_18:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveStartWorkoutAppError:(id)error
@@ -4905,13 +4831,13 @@ LABEL_18:
 
 void __65__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppError___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v15 = a2;
+  v20 = *MEMORY[0x277D85DE8];
+  v14 = a2;
   if ([*(a1 + 32) hd_isFromRequest])
   {
     v3 = *(a1 + 40);
     v4 = *(a1 + 32);
-    v5 = v15;
+    v5 = v14;
     if (v3)
     {
       dispatch_assert_queue_V2(*(v3 + 56));
@@ -4929,10 +4855,10 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppError___block
           {
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v17 = __83__HDNanoSyncManager__queue_startWorkoutAppRequestDidFailToSendWithError_syncStore___block_invoke;
-            v18 = &unk_278614008;
-            v20 = v10;
-            v19 = v4;
+            v16 = __83__HDNanoSyncManager__queue_startWorkoutAppRequestDidFailToSendWithError_syncStore___block_invoke;
+            v17 = &unk_278614008;
+            v19 = v10;
+            v18 = v4;
             HKDispatchAsyncOnGlobalConcurrentQueue();
           }
 
@@ -4964,8 +4890,6 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppError___block
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveCompanionUserNotificationRequest:(id)request
@@ -4983,7 +4907,7 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveStartWorkoutAppError___block
 
 void __77__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v5 = a2;
@@ -4995,39 +4919,37 @@ void __77__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationReq
     v7 = *MEMORY[0x277CCC300];
     if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEBUG))
     {
-      v14 = v7;
-      v15 = [v6 requestIdentifier];
+      v13 = v7;
+      v14 = [v6 requestIdentifier];
       LODWORD(aBlock) = 138412290;
-      *(&aBlock + 4) = v15;
-      _os_log_debug_impl(&dword_228986000, v14, OS_LOG_TYPE_DEBUG, "Received display notification request %@", &aBlock, 0xCu);
+      *(&aBlock + 4) = v14;
+      _os_log_debug_impl(&dword_228986000, v13, OS_LOG_TYPE_DEBUG, "Received display notification request %@", &aBlock, 0xCu);
     }
 
-    v16[0] = 0;
-    v16[1] = v16;
-    v16[2] = 0x3032000000;
-    v16[3] = __Block_byref_object_copy__30;
-    v16[4] = __Block_byref_object_dispose__30;
+    v15[0] = 0;
+    v15[1] = v15;
+    v15[2] = 0x3032000000;
+    v15[3] = __Block_byref_object_copy__30;
+    v15[4] = __Block_byref_object_dispose__30;
     v8 = v4;
-    v17 = v8;
+    v16 = v8;
     *&aBlock = MEMORY[0x277D85DD0];
     *(&aBlock + 1) = 3221225472;
-    v19 = __78__HDNanoSyncManager__queue_recieveCompanionUserNotificationRequest_syncStore___block_invoke;
-    v20 = &unk_278617890;
+    v18 = __78__HDNanoSyncManager__queue_recieveCompanionUserNotificationRequest_syncStore___block_invoke;
+    v19 = &unk_278617890;
     v9 = v6;
-    v21 = v9;
-    v22 = v8;
-    v23 = v3;
-    v24 = v5;
-    v25 = v16;
+    v20 = v9;
+    v21 = v8;
+    v22 = v3;
+    v23 = v5;
+    v24 = v15;
     v10 = _Block_copy(&aBlock);
     WeakRetained = objc_loadWeakRetained((v3 + 48));
     v12 = [WeakRetained notificationManager];
     [v12 receivedCompanionUserNotificationRequest:v9 completion:v10];
 
-    _Block_object_dispose(v16, 8);
+    _Block_object_dispose(v15, 8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveCompanionUserNotificationResponse:(id)response
@@ -5045,7 +4967,7 @@ void __77__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationReq
 
 void __78__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationResponse___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = a2;
@@ -5073,13 +4995,13 @@ void __78__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationRes
     v12 = *MEMORY[0x277CCC300];
     if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEBUG))
     {
-      v22 = v12;
-      v23 = [v8 requestIdentifier];
-      *v24 = 138412546;
-      *&v24[4] = v23;
-      *&v24[12] = 2112;
-      *&v24[14] = v10;
-      _os_log_debug_impl(&dword_228986000, v22, OS_LOG_TYPE_DEBUG, "Received response to display notification request %@, error: %@", v24, 0x16u);
+      v21 = v12;
+      v22 = [v8 requestIdentifier];
+      *v23 = 138412546;
+      *&v23[4] = v22;
+      *&v23[12] = 2112;
+      *&v23[14] = v10;
+      _os_log_debug_impl(&dword_228986000, v21, OS_LOG_TYPE_DEBUG, "Received response to display notification request %@, error: %@", v23, 0x16u);
     }
 
     v13 = [v7 objectForKeyedSubscript:@"companion-user-notification"];
@@ -5093,13 +5015,13 @@ void __78__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationRes
         v17 = v16;
         if (v16)
         {
-          *v24 = MEMORY[0x277D85DD0];
-          *&v24[8] = 3221225472;
-          *&v24[16] = __79__HDNanoSyncManager__queue_recieveCompanionUserNotificationResponse_syncStore___block_invoke;
-          v25 = &unk_278616488;
-          v28 = v16;
-          v26 = v8;
-          v27 = v10;
+          *v23 = MEMORY[0x277D85DD0];
+          *&v23[8] = 3221225472;
+          *&v23[16] = __79__HDNanoSyncManager__queue_recieveCompanionUserNotificationResponse_syncStore___block_invoke;
+          v24 = &unk_278616488;
+          v27 = v16;
+          v25 = v8;
+          v26 = v10;
           HKDispatchAsyncOnGlobalConcurrentQueue();
         }
       }
@@ -5117,9 +5039,9 @@ LABEL_16:
 
         v17 = v19;
         v20 = [v13 UUIDString];
-        *v24 = 138412290;
-        *&v24[4] = v20;
-        _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_INFO, "Ignoring response: no context for %@", v24, 0xCu);
+        *v23 = 138412290;
+        *&v23[4] = v20;
+        _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_INFO, "Ignoring response: no context for %@", v23, 0xCu);
       }
     }
 
@@ -5136,17 +5058,15 @@ LABEL_17:
 
       v15 = v18;
       v17 = [v8 requestIdentifier];
-      *v24 = 138412290;
-      *&v24[4] = v17;
-      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, "Ignoring response: no request identifier for %@", v24, 0xCu);
+      *v23 = 138412290;
+      *&v23[4] = v17;
+      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, "Ignoring response: no request identifier for %@", v23, 0xCu);
     }
 
     goto LABEL_16;
   }
 
 LABEL_18:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveCompanionUserNotificationError:(id)error
@@ -5164,13 +5084,13 @@ LABEL_18:
 
 void __75__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationError___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v15 = a2;
+  v20 = *MEMORY[0x277D85DE8];
+  v14 = a2;
   if ([*(a1 + 32) hd_isFromRequest])
   {
     v3 = *(a1 + 40);
     v4 = *(a1 + 32);
-    v5 = v15;
+    v5 = v14;
     if (v3)
     {
       dispatch_assert_queue_V2(*(v3 + 56));
@@ -5188,10 +5108,10 @@ void __75__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationErr
           {
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v17 = __93__HDNanoSyncManager__queue_companionUserNotificationRequestDidFailToSendWithError_syncStore___block_invoke;
-            v18 = &unk_278614008;
-            v20 = v10;
-            v19 = v4;
+            v16 = __93__HDNanoSyncManager__queue_companionUserNotificationRequestDidFailToSendWithError_syncStore___block_invoke;
+            v17 = &unk_278614008;
+            v19 = v10;
+            v18 = v4;
             HKDispatchAsyncOnGlobalConcurrentQueue();
           }
 
@@ -5223,8 +5143,6 @@ void __75__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationErr
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveNotificationInstructionRequest:(id)request
@@ -5242,7 +5160,7 @@ void __75__HDNanoSyncManager_messageCenterDidReceiveCompanionUserNotificationErr
 
 void __75__HDNanoSyncManager_messageCenterDidReceiveNotificationInstructionRequest___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1)
@@ -5253,15 +5171,15 @@ void __75__HDNanoSyncManager_messageCenterDidReceiveNotificationInstructionReque
     v4 = *MEMORY[0x277CCC300];
     if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEBUG))
     {
-      v19 = v4;
-      v20 = objc_opt_class();
-      v21 = v20;
-      v22 = [v3 requestIdentifier];
-      *v23 = 138543618;
-      *&v23[4] = v20;
-      *&v23[12] = 2112;
-      *&v23[14] = v22;
-      _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "[%{public}@] Received notification instruction request %@", v23, 0x16u);
+      v18 = v4;
+      v19 = objc_opt_class();
+      v20 = v19;
+      v21 = [v3 requestIdentifier];
+      *v22 = 138543618;
+      *&v22[4] = v19;
+      *&v22[12] = 2112;
+      *&v22[14] = v21;
+      _os_log_debug_impl(&dword_228986000, v18, OS_LOG_TYPE_DEBUG, "[%{public}@] Received notification instruction request %@", v22, 0x16u);
     }
 
     v5 = [MEMORY[0x277CBEAA8] now];
@@ -5290,17 +5208,15 @@ void __75__HDNanoSyncManager_messageCenterDidReceiveNotificationInstructionReque
 
     WeakRetained = objc_loadWeakRetained((v1 + 48));
     v16 = [WeakRetained notificationSyncManager];
-    *v23 = MEMORY[0x277D85DD0];
-    *&v23[8] = 3221225472;
-    *&v23[16] = __76__HDNanoSyncManager__queue_receiveNotificationInstructionRequest_syncStore___block_invoke;
-    v24 = &unk_278616020;
-    v25 = v1;
-    v26 = v3;
+    *v22 = MEMORY[0x277D85DD0];
+    *&v22[8] = 3221225472;
+    *&v22[16] = __76__HDNanoSyncManager__queue_receiveNotificationInstructionRequest_syncStore___block_invoke;
+    v23 = &unk_278616020;
+    v24 = v1;
+    v25 = v3;
     v17 = v3;
-    [v16 nanoSyncManagerDidReceiveNotificationInstructionRequest:v17 receivedDate:v5 sendingDeviceName:v10 completion:v23];
+    [v16 nanoSyncManagerDidReceiveNotificationInstructionRequest:v17 receivedDate:v5 sendingDeviceName:v10 completion:v22];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerOptInRequest:(id)request
@@ -5320,7 +5236,7 @@ void __75__HDNanoSyncManager_messageCenterDidReceiveNotificationInstructionReque
 
 void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_invoke(uint64_t a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   [*(*(a1 + 32) + 104) invalidate];
   WeakRetained = objc_loadWeakRetained(*v2 + 6);
@@ -5352,14 +5268,14 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_i
     dispatch_assert_queue_V2(*(v13 + 56));
     if (!v15)
     {
-      v54 = [MEMORY[0x277CCA890] currentHandler];
-      [v54 handleFailureInMethod:sel__queue_receiveTinkerOptInRequest_syncStore_ object:v13 file:@"HDNanoSyncManager.m" lineNumber:3509 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
+      v53 = [MEMORY[0x277CCA890] currentHandler];
+      [v53 handleFailureInMethod:sel__queue_receiveTinkerOptInRequest_syncStore_ object:v13 file:@"HDNanoSyncManager.m" lineNumber:3509 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
     }
 
     if (!v16)
     {
-      v55 = [MEMORY[0x277CCA890] currentHandler];
-      [v55 handleFailureInMethod:sel__queue_receiveTinkerOptInRequest_syncStore_ object:v13 file:@"HDNanoSyncManager.m" lineNumber:3510 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+      v54 = [MEMORY[0x277CCA890] currentHandler];
+      [v54 handleFailureInMethod:sel__queue_receiveTinkerOptInRequest_syncStore_ object:v13 file:@"HDNanoSyncManager.m" lineNumber:3510 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
     }
 
     v17 = [v15 pbRequest];
@@ -5376,23 +5292,23 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_i
       *&buf[12] = 2114;
       *&buf[14] = v20;
       *&buf[22] = 2114;
-      v64 = v21;
-      LOWORD(v65) = 2114;
-      *(&v65 + 2) = v22;
+      v63 = v21;
+      LOWORD(v64) = 2114;
+      *(&v64 + 2) = v22;
       _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Did receive Tinker opt in request from guardian %{public}@, active NR device ID %{public}@, active IDS device %{public}@ (#t0)", buf, 0x2Au);
     }
 
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __64__HDNanoSyncManager__queue_receiveTinkerOptInRequest_syncStore___block_invoke;
-    v64 = &unk_2786178B8;
-    *&v65 = v13;
+    v63 = &unk_2786178B8;
+    *&v64 = v13;
     v23 = v15;
-    *(&v65 + 1) = v23;
+    *(&v64 + 1) = v23;
     v24 = v17;
-    v66 = v24;
+    v65 = v24;
     v25 = v16;
-    v67 = v25;
+    v66 = v25;
     v26 = _Block_copy(buf);
     v27 = objc_loadWeakRetained((v13 + 48));
     v28 = [v27 daemon];
@@ -5409,7 +5325,7 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_i
         v31 = *(v13 + 112);
         if (v31)
         {
-          v32 = [v30 copy];
+          v32 = objc_msgSend_copy(v30);
           v33 = _Block_copy(v32);
           [v31 addObject:v33];
         }
@@ -5417,7 +5333,7 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_i
         else
         {
           v40 = objc_alloc(MEMORY[0x277CBEB18]);
-          v41 = [v30 copy];
+          v41 = objc_msgSend_copy(v30);
           v42 = [v40 initWithObjects:{v41, 0}];
           v43 = *(v13 + 112);
           *(v13 + 112) = v42;
@@ -5428,17 +5344,17 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_i
           handler[1] = 3221225472;
           handler[2] = __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithResponse___block_invoke;
           handler[3] = &unk_278613BF0;
-          objc_copyWeak(&v61, &location);
+          objc_copyWeak(&v60, &location);
           notify_register_dispatch(*MEMORY[0x277CCCE10], (v13 + 28), v44, handler);
           v45 = *(v13 + 56);
-          v58[0] = MEMORY[0x277D85DD0];
-          v58[1] = 3221225472;
-          v58[2] = __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithResponse___block_invoke_2;
-          v58[3] = &unk_278613BF0;
-          objc_copyWeak(&v59, &location);
-          notify_register_dispatch(*MEMORY[0x277CCCE18], (v13 + 32), v45, v58);
-          objc_destroyWeak(&v59);
-          objc_destroyWeak(&v61);
+          v57[0] = MEMORY[0x277D85DD0];
+          v57[1] = 3221225472;
+          v57[2] = __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithResponse___block_invoke_2;
+          v57[3] = &unk_278613BF0;
+          objc_copyWeak(&v58, &location);
+          notify_register_dispatch(*MEMORY[0x277CCCE18], (v13 + 32), v45, v57);
+          objc_destroyWeak(&v58);
+          objc_destroyWeak(&v60);
           objc_destroyWeak(&location);
         }
 
@@ -5448,9 +5364,9 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_i
 
         if ((isKindOfClass & 1) == 0)
         {
-          v56 = [MEMORY[0x277CCA890] currentHandler];
-          v57 = objc_loadWeakRetained((v13 + 48));
-          [v56 handleFailureInMethod:sel__queue_receiveTinkerOptInRequest_syncStore_ object:v13 file:@"HDNanoSyncManager.m" lineNumber:3556 description:{@"[sharing-setup] Profile %@ is not an instance of type HDPrimaryProfile (#t0)", v57}];
+          v55 = [MEMORY[0x277CCA890] currentHandler];
+          v56 = objc_loadWeakRetained((v13 + 48));
+          [v55 handleFailureInMethod:sel__queue_receiveTinkerOptInRequest_syncStore_ object:v13 file:@"HDNanoSyncManager.m" lineNumber:3556 description:{@"[sharing-setup] Profile %@ is not an instance of type HDPrimaryProfile (#t0)", v56}];
         }
 
         v48 = [HDNotificationManager alloc];
@@ -5496,8 +5412,6 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_i
     *&buf[4] = v37;
     _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for request from device %{public}@ (#t0)", buf, 0xCu);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerOptInResponse:(id)response
@@ -5517,27 +5431,11 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInRequest___block_i
 
 void __64__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInResponse___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 104);
-  if (v3)
+  if (v3 || (WeakRetained = objc_loadWeakRetained((v2 + 48)), [*(a1 + 40) fromParticipant], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "device"), v6 = objc_claimAutoreleasedReturnValue(), +[HDNanoSyncStore nanoSyncStoreWithProfile:device:delegate:tinkerPaired:](HDNanoSyncStore, "nanoSyncStoreWithProfile:device:delegate:tinkerPaired:", WeakRetained, v6, *(a1 + 32), 1), v7 = objc_claimAutoreleasedReturnValue(), v8 = *(a1 + 32), v9 = *(v8 + 104), *(v8 + 104) = v7, v9, v6, v5, WeakRetained, v2 = *(a1 + 32), (v3 = *(v2 + 104)) != 0))
   {
-    goto LABEL_3;
-  }
-
-  WeakRetained = objc_loadWeakRetained((v2 + 48));
-  v5 = [*(a1 + 40) fromParticipant];
-  v6 = [v5 device];
-  v7 = [HDNanoSyncStore nanoSyncStoreWithProfile:WeakRetained device:v6 delegate:*(a1 + 32) tinkerPaired:1];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 104);
-  *(v8 + 104) = v7;
-
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 104);
-  if (v3)
-  {
-LABEL_3:
     v10 = *(a1 + 40);
     v11 = v3;
     v12 = *(v2 + 56);
@@ -5545,8 +5443,8 @@ LABEL_3:
     dispatch_assert_queue_V2(v12);
     if (!v13)
     {
-      v36 = [MEMORY[0x277CCA890] currentHandler];
-      [v36 handleFailureInMethod:sel__queue_receiveTinkerOptInResponse_syncStore_ object:v2 file:@"HDNanoSyncManager.m" lineNumber:3611 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
+      v35 = [MEMORY[0x277CCA890] currentHandler];
+      [v35 handleFailureInMethod:sel__queue_receiveTinkerOptInResponse_syncStore_ object:v2 file:@"HDNanoSyncManager.m" lineNumber:3611 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
     }
 
     v14 = [v13 requestPersistentUserInfo];
@@ -5575,7 +5473,7 @@ LABEL_3:
       *&buf[12] = 2112;
       *&buf[14] = v21;
       *&buf[22] = 2112;
-      v38 = v17;
+      v37 = v17;
       _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Did receive Tinker opt in response from watch %@, error: %@ (#t0)", buf, 0x20u);
     }
 
@@ -5593,10 +5491,10 @@ LABEL_3:
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __65__HDNanoSyncManager__queue_receiveTinkerOptInResponse_syncStore___block_invoke;
-          v38 = &unk_278616488;
-          v41 = v25;
-          v39 = v15;
-          v40 = v17;
+          v37 = &unk_278616488;
+          v40 = v25;
+          v38 = v15;
+          v39 = v17;
           HKDispatchAsyncOnGlobalConcurrentQueue();
         }
       }
@@ -5628,7 +5526,7 @@ LABEL_19:
       {
 LABEL_20:
 
-        goto LABEL_21;
+        return;
       }
 
       v24 = v27;
@@ -5642,20 +5540,17 @@ LABEL_20:
   }
 
   _HKInitializeLogging();
-  v31 = *MEMORY[0x277CCC328];
+  v30 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v32 = *(a1 + 40);
-    v33 = v31;
-    v34 = [v32 fromParticipant];
-    v35 = [v34 description];
+    v31 = *(a1 + 40);
+    v32 = v30;
+    v33 = [v31 fromParticipant];
+    v34 = [v33 description];
     *buf = 138543362;
-    *&buf[4] = v35;
-    _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for response from device %{public}@ (#t0)", buf, 0xCu);
+    *&buf[4] = v34;
+    _os_log_impl(&dword_228986000, v32, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for response from device %{public}@ (#t0)", buf, 0xCu);
   }
-
-LABEL_21:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerOptInError:(id)error
@@ -5675,7 +5570,7 @@ LABEL_21:
 
 void __61__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInError___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 104))
   {
     if ([*(a1 + 40) hd_isFromRequest])
@@ -5689,9 +5584,9 @@ void __61__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInError___block_inv
       v6 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        *v19 = 138543362;
-        *&v19[4] = v4;
-        _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[sharing-setup] Error sending health sharing opt in request %{public}@ (#t0)", v19, 0xCu);
+        *v18 = 138543362;
+        *&v18[4] = v4;
+        _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[sharing-setup] Error sending health sharing opt in request %{public}@ (#t0)", v18, 0xCu);
       }
 
       v7 = [v4 hd_persistentUserInfo];
@@ -5706,12 +5601,12 @@ void __61__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInError___block_inv
           v12 = v11;
           if (v11)
           {
-            *v19 = MEMORY[0x277D85DD0];
-            *&v19[8] = 3221225472;
-            *&v19[16] = __79__HDNanoSyncManager__queue_tinkerOptInRequestDidFailToSendWithError_syncStore___block_invoke;
-            v20 = &unk_278614008;
-            v22 = v11;
-            v21 = v4;
+            *v18 = MEMORY[0x277D85DD0];
+            *&v18[8] = 3221225472;
+            *&v18[16] = __79__HDNanoSyncManager__queue_tinkerOptInRequestDidFailToSendWithError_syncStore___block_invoke;
+            v19 = &unk_278614008;
+            v21 = v11;
+            v20 = v4;
             HKDispatchAsyncOnGlobalConcurrentQueue();
           }
 
@@ -5731,15 +5626,13 @@ void __61__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInError___block_inv
       v15 = v13;
       v16 = [v14 hd_messageIDSIdentifier];
       v17 = [*(a1 + 40) hd_messageIDSDeviceIdentifier];
-      *v19 = 138543618;
-      *&v19[4] = v16;
-      *&v19[12] = 2114;
-      *&v19[14] = v17;
-      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to find sync store for error from message %{public}@ to device %{public}@ (#t0)", v19, 0x16u);
+      *v18 = 138543618;
+      *&v18[4] = v16;
+      *&v18[12] = 2114;
+      *&v18[14] = v17;
+      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to find sync store for error from message %{public}@ to device %{public}@ (#t0)", v18, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerPairingRequest:(id)request
@@ -5759,7 +5652,7 @@ void __61__HDNanoSyncManager_messageCenterDidReceiveTinkerOptInError___block_inv
 
 void __65__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingRequest___block_invoke(uint64_t a1)
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   [*(*(a1 + 32) + 104) invalidate];
   WeakRetained = objc_loadWeakRetained(*v2 + 6);
@@ -5790,14 +5683,14 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingRequest___block
     dispatch_assert_queue_V2(*(v12 + 56));
     if (!v14)
     {
-      v54 = [MEMORY[0x277CCA890] currentHandler];
-      [v54 handleFailureInMethod:sel__queue_receiveTinkerPairingRequest_syncStore_ object:v12 file:@"HDNanoSyncManager.m" lineNumber:3711 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
+      v53 = [MEMORY[0x277CCA890] currentHandler];
+      [v53 handleFailureInMethod:sel__queue_receiveTinkerPairingRequest_syncStore_ object:v12 file:@"HDNanoSyncManager.m" lineNumber:3711 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
     }
 
     if (!v15)
     {
-      v55 = [MEMORY[0x277CCA890] currentHandler];
-      [v55 handleFailureInMethod:sel__queue_receiveTinkerPairingRequest_syncStore_ object:v12 file:@"HDNanoSyncManager.m" lineNumber:3712 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+      v54 = [MEMORY[0x277CCA890] currentHandler];
+      [v54 handleFailureInMethod:sel__queue_receiveTinkerPairingRequest_syncStore_ object:v12 file:@"HDNanoSyncManager.m" lineNumber:3712 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
     }
 
     v16 = [v14 pbRequest];
@@ -5814,7 +5707,7 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingRequest___block
       *&buf[12] = 2114;
       *&buf[14] = v20;
       *&buf[22] = 2114;
-      v88 = v21;
+      v87 = v21;
       _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Received health sharing request from guardian %{public}@, active NR device ID %{public}@, active IDS device %{public}@ (#t0)", buf, 0x20u);
     }
 
@@ -5823,12 +5716,12 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingRequest___block
     aBlock[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke;
     aBlock[3] = &unk_2786178E0;
     v22 = v14;
-    v83 = v22;
+    v82 = v22;
     v23 = v16;
-    v84 = v23;
-    v85 = v12;
+    v83 = v23;
+    v84 = v12;
     v24 = v15;
-    v86 = v24;
+    v85 = v24;
     v25 = _Block_copy(aBlock);
     v26 = [v23 guardianIcloudIdentifier];
     if (v26)
@@ -5838,11 +5731,11 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingRequest___block
         v27 = objc_alloc_init(HDMutableDatabaseTransactionContext);
         v28 = objc_loadWeakRetained((v12 + 48));
         v29 = [v28 database];
-        v81 = 0;
-        v30 = [v29 takeAccessibilityAssertionWithOwnerIdentifier:@"Tinker Setup" timeout:&v81 error:600.0];
-        v58 = v81;
+        v80 = 0;
+        v30 = [v29 takeAccessibilityAssertionWithOwnerIdentifier:@"Tinker Setup" timeout:&v80 error:600.0];
+        v57 = v80;
 
-        v57 = v27;
+        v56 = v27;
         if (v30)
         {
           [(HDMutableDatabaseTransactionContext *)v27 addAccessibilityAssertion:v30];
@@ -5857,106 +5750,106 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingRequest___block
             *buf = 138543618;
             *&buf[4] = v12;
             *&buf[12] = 2114;
-            *&buf[14] = v58;
+            *&buf[14] = v57;
             _os_log_error_impl(&dword_228986000, v39, OS_LOG_TYPE_ERROR, "%{public}@: Failed to take tinker setup accessibility assertion (#t0): %{public}@", buf, 0x16u);
           }
         }
 
-        v79[0] = 0;
-        v79[1] = v79;
-        v79[2] = 0x3032000000;
-        v79[3] = __Block_byref_object_copy__30;
-        v79[4] = __Block_byref_object_dispose__30;
-        v80 = 0;
-        v77[0] = 0;
-        v77[1] = v77;
-        v77[2] = 0x3032000000;
-        v77[3] = __Block_byref_object_copy__30;
-        v77[4] = __Block_byref_object_dispose__30;
-        v78 = 0;
+        v78[0] = 0;
+        v78[1] = v78;
+        v78[2] = 0x3032000000;
+        v78[3] = __Block_byref_object_copy__30;
+        v78[4] = __Block_byref_object_dispose__30;
+        v79 = 0;
+        v76[0] = 0;
+        v76[1] = v76;
+        v76[2] = 0x3032000000;
+        v76[3] = __Block_byref_object_copy__30;
+        v76[4] = __Block_byref_object_dispose__30;
+        v77 = 0;
         v40 = objc_alloc(MEMORY[0x277D10AC8]);
-        v73[0] = MEMORY[0x277D85DD0];
-        v73[1] = 3221225472;
-        v73[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_863;
-        v73[3] = &unk_278617908;
-        v75 = v25;
-        v76 = v77;
-        v56 = v30;
-        v74 = v56;
-        v41 = [v40 initWithDescription:@"Setup Tinker sharing." completion:v73];
-        v42 = *(v12 + 56);
         v72[0] = MEMORY[0x277D85DD0];
         v72[1] = 3221225472;
-        v72[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_865;
-        v72[3] = &unk_278617930;
-        v72[4] = v12;
-        [v41 addTaskOnQueue:v42 task:v72];
+        v72[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_863;
+        v72[3] = &unk_278617908;
+        v74 = v25;
+        v75 = v76;
+        v55 = v30;
+        v73 = v55;
+        v41 = [v40 initWithDescription:@"Setup Tinker sharing." completion:v72];
+        v42 = *(v12 + 56);
+        v71[0] = MEMORY[0x277D85DD0];
+        v71[1] = 3221225472;
+        v71[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_865;
+        v71[3] = &unk_278617930;
+        v71[4] = v12;
+        [v41 addTaskOnQueue:v42 task:v71];
         v43 = *(v12 + 56);
-        v69[0] = MEMORY[0x277D85DD0];
-        v69[1] = 3221225472;
-        v69[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2;
-        v69[3] = &unk_278617958;
+        v68[0] = MEMORY[0x277D85DD0];
+        v68[1] = 3221225472;
+        v68[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2;
+        v68[3] = &unk_278617958;
         v44 = v23;
-        v70 = v44;
-        v71 = v12;
-        [v41 addTaskOnQueue:v43 task:v69];
+        v69 = v44;
+        v70 = v12;
+        [v41 addTaskOnQueue:v43 task:v68];
         v45 = *(v12 + 56);
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_868;
-        v88 = &unk_2786179A8;
+        v87 = &unk_2786179A8;
         v46 = v44;
-        v89 = v46;
-        v90 = v12;
-        v91 = v22;
-        v92 = v77;
-        v93 = v79;
+        v88 = v46;
+        v89 = v12;
+        v90 = v22;
+        v91 = v76;
+        v92 = v78;
         [v41 addTaskOnQueue:v45 task:buf];
         v47 = *(v12 + 56);
-        v64[0] = MEMORY[0x277D85DD0];
-        v64[1] = 3221225472;
-        v64[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_873;
-        v64[3] = &unk_2786179F8;
-        v68 = v79;
-        v65 = v46;
-        v66 = v12;
-        v48 = v57;
-        v67 = v48;
-        [v41 addTaskOnQueue:v47 task:v64];
+        v63[0] = MEMORY[0x277D85DD0];
+        v63[1] = 3221225472;
+        v63[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_873;
+        v63[3] = &unk_2786179F8;
+        v67 = v78;
+        v64 = v46;
+        v65 = v12;
+        v48 = v56;
+        v66 = v48;
+        [v41 addTaskOnQueue:v47 task:v63];
         v49 = *(v12 + 56);
-        v62[0] = MEMORY[0x277D85DD0];
-        v62[1] = 3221225472;
-        v62[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_876;
-        v62[3] = &unk_278617958;
-        v62[4] = v12;
-        v38 = v48;
-        v63 = v38;
-        [v41 addTaskOnQueue:v49 task:v62];
-        v50 = *(v12 + 56);
         v61[0] = MEMORY[0x277D85DD0];
         v61[1] = 3221225472;
-        v61[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_878;
-        v61[3] = &unk_278617930;
+        v61[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_876;
+        v61[3] = &unk_278617958;
         v61[4] = v12;
-        [v41 addTaskOnQueue:v50 task:v61];
-        v51 = *(v12 + 56);
+        v38 = v48;
+        v62 = v38;
+        [v41 addTaskOnQueue:v49 task:v61];
+        v50 = *(v12 + 56);
         v60[0] = MEMORY[0x277D85DD0];
         v60[1] = 3221225472;
-        v60[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_880;
+        v60[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_878;
         v60[3] = &unk_278617930;
         v60[4] = v12;
-        [v41 addTaskOnQueue:v51 task:v60];
-        v52 = *(v12 + 56);
+        [v41 addTaskOnQueue:v50 task:v60];
+        v51 = *(v12 + 56);
         v59[0] = MEMORY[0x277D85DD0];
         v59[1] = 3221225472;
-        v59[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_882;
+        v59[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_880;
         v59[3] = &unk_278617930;
         v59[4] = v12;
-        [v41 addTaskOnQueue:v52 task:v59];
+        [v41 addTaskOnQueue:v51 task:v59];
+        v52 = *(v12 + 56);
+        v58[0] = MEMORY[0x277D85DD0];
+        v58[1] = 3221225472;
+        v58[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_882;
+        v58[3] = &unk_278617930;
+        v58[4] = v12;
+        [v41 addTaskOnQueue:v52 task:v58];
         [v41 begin];
 
-        _Block_object_dispose(v77, 8);
-        _Block_object_dispose(v79, 8);
+        _Block_object_dispose(v76, 8);
+        _Block_object_dispose(v78, 8);
       }
 
       else
@@ -5987,8 +5880,6 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingRequest___block
     *&buf[4] = v34;
     _os_log_impl(&dword_228986000, v32, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for request from device %{public}@ (#t0)", buf, 0xCu);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerPairingResponse:(id)response
@@ -6008,27 +5899,11 @@ void __65__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingRequest___block
 
 void __66__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingResponse___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 104);
-  if (v3)
+  if (v3 || (WeakRetained = objc_loadWeakRetained((v2 + 48)), [*(a1 + 40) fromParticipant], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "device"), v6 = objc_claimAutoreleasedReturnValue(), +[HDNanoSyncStore nanoSyncStoreWithProfile:device:delegate:tinkerPaired:](HDNanoSyncStore, "nanoSyncStoreWithProfile:device:delegate:tinkerPaired:", WeakRetained, v6, *(a1 + 32), 1), v7 = objc_claimAutoreleasedReturnValue(), v8 = *(a1 + 32), v9 = *(v8 + 104), *(v8 + 104) = v7, v9, v6, v5, WeakRetained, v2 = *(a1 + 32), (v3 = *(v2 + 104)) != 0))
   {
-    goto LABEL_3;
-  }
-
-  WeakRetained = objc_loadWeakRetained((v2 + 48));
-  v5 = [*(a1 + 40) fromParticipant];
-  v6 = [v5 device];
-  v7 = [HDNanoSyncStore nanoSyncStoreWithProfile:WeakRetained device:v6 delegate:*(a1 + 32) tinkerPaired:1];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 104);
-  *(v8 + 104) = v7;
-
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 104);
-  if (v3)
-  {
-LABEL_3:
     v10 = *(a1 + 40);
     v11 = v3;
     v12 = *(v2 + 56);
@@ -6036,8 +5911,8 @@ LABEL_3:
     dispatch_assert_queue_V2(v12);
     if (!v13)
     {
-      v36 = [MEMORY[0x277CCA890] currentHandler];
-      [v36 handleFailureInMethod:sel__queue_receiveTinkerPairingResponse_syncStore_ object:v2 file:@"HDNanoSyncManager.m" lineNumber:3935 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
+      v35 = [MEMORY[0x277CCA890] currentHandler];
+      [v35 handleFailureInMethod:sel__queue_receiveTinkerPairingResponse_syncStore_ object:v2 file:@"HDNanoSyncManager.m" lineNumber:3935 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
     }
 
     v14 = [v13 requestPersistentUserInfo];
@@ -6082,10 +5957,10 @@ LABEL_3:
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __67__HDNanoSyncManager__queue_receiveTinkerPairingResponse_syncStore___block_invoke;
-          v38 = &unk_278616488;
-          v41 = v25;
-          v39 = v15;
-          v40 = v17;
+          v37 = &unk_278616488;
+          v40 = v25;
+          v38 = v15;
+          v39 = v17;
           HKDispatchAsyncOnGlobalConcurrentQueue();
         }
       }
@@ -6117,7 +5992,7 @@ LABEL_19:
       {
 LABEL_20:
 
-        goto LABEL_21;
+        return;
       }
 
       v24 = v27;
@@ -6131,20 +6006,17 @@ LABEL_20:
   }
 
   _HKInitializeLogging();
-  v31 = *MEMORY[0x277CCC328];
+  v30 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v32 = *(a1 + 40);
-    v33 = v31;
-    v34 = [v32 fromParticipant];
-    v35 = [v34 description];
+    v31 = *(a1 + 40);
+    v32 = v30;
+    v33 = [v31 fromParticipant];
+    v34 = [v33 description];
     *buf = 138543362;
-    *&buf[4] = v35;
-    _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for response from device %{public}@ (#t0)", buf, 0xCu);
+    *&buf[4] = v34;
+    _os_log_impl(&dword_228986000, v32, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for response from device %{public}@ (#t0)", buf, 0xCu);
   }
-
-LABEL_21:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerPairingError:(id)error
@@ -6164,7 +6036,7 @@ LABEL_21:
 
 void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingError___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 104))
   {
     if ([*(a1 + 40) hd_isFromRequest])
@@ -6178,9 +6050,9 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingError___block_i
       v6 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        *v17 = 138543362;
-        *&v17[4] = v4;
-        _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[sharing-setup] Error sending health sharing request %{public}@ (#t0)", v17, 0xCu);
+        *v16 = 138543362;
+        *&v16[4] = v4;
+        _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[sharing-setup] Error sending health sharing request %{public}@ (#t0)", v16, 0xCu);
       }
 
       v7 = [v4 hd_persistentUserInfo];
@@ -6193,12 +6065,12 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingError___block_i
         {
           if (v9[2])
           {
-            *v17 = MEMORY[0x277D85DD0];
-            *&v17[8] = 3221225472;
-            *&v17[16] = __81__HDNanoSyncManager__queue_tinkerPairingRequestDidFailToSendWithError_syncStore___block_invoke;
-            v18 = &unk_278613920;
-            v19 = v9;
-            v20 = v4;
+            *v16 = MEMORY[0x277D85DD0];
+            *&v16[8] = 3221225472;
+            *&v16[16] = __81__HDNanoSyncManager__queue_tinkerPairingRequestDidFailToSendWithError_syncStore___block_invoke;
+            v17 = &unk_278613920;
+            v18 = v9;
+            v19 = v4;
             HKDispatchAsyncOnGlobalConcurrentQueue();
           }
 
@@ -6218,15 +6090,13 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingError___block_i
       v13 = v11;
       v14 = [v12 hd_messageIDSIdentifier];
       v15 = [*(a1 + 40) hd_messageIDSDeviceIdentifier];
-      *v17 = 138543618;
-      *&v17[4] = v14;
-      *&v17[12] = 2114;
-      *&v17[14] = v15;
-      _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to find sync store for error from message %{public}@ to device %{public}@ (#t0)", v17, 0x16u);
+      *v16 = 138543618;
+      *&v16[4] = v14;
+      *&v16[12] = 2114;
+      *&v16[14] = v15;
+      _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to find sync store for error from message %{public}@ to device %{public}@ (#t0)", v16, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerEndToEndCloudSyncRequest:(id)request
@@ -6246,7 +6116,7 @@ void __63__HDNanoSyncManager_messageCenterDidReceiveTinkerPairingError___block_i
 
 void __75__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncRequest___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 104) invalidate];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
   v3 = [*(a1 + 40) fromParticipant];
@@ -6296,23 +6166,23 @@ LABEL_6:
           *&buf[12] = 2114;
           *&buf[14] = v21;
           *&buf[22] = 2114;
-          v45 = v22;
-          LOWORD(v46) = 2114;
-          *(&v46 + 2) = v23;
+          v44 = v22;
+          LOWORD(v45) = 2114;
+          *(&v45 + 2) = v23;
           _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Did receive Tinker end to end Cloud Sync request from guardian %{public}@, active NR device ID %{public}@, active IDS device %{public}@ (#t0)", buf, 0x2Au);
         }
 
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __76__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore___block_invoke;
-        v45 = &unk_2786178B8;
-        *&v46 = v14;
+        v44 = &unk_2786178B8;
+        *&v45 = v14;
         v24 = v16;
-        *(&v46 + 1) = v24;
+        *(&v45 + 1) = v24;
         v25 = v18;
-        v47 = v25;
+        v46 = v25;
         v26 = v17;
-        v48 = v26;
+        v47 = v26;
         v27 = _Block_copy(buf);
         if ([v26 isAltAccount])
         {
@@ -6321,13 +6191,13 @@ LABEL_6:
           v29 = [[HDCloudSyncContext alloc] initForPurpose:0 options:0 reason:20];
           v30 = objc_loadWeakRetained((v14 + 48));
           v31 = [v30 cloudSyncManager];
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __80__HDNanoSyncManager__queue_performSyncForTinkerEndToEndCloudSyncWithCompletion___block_invoke;
-          v42[3] = &unk_2786130D8;
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = __80__HDNanoSyncManager__queue_performSyncForTinkerEndToEndCloudSyncWithCompletion___block_invoke;
+          v41[3] = &unk_2786130D8;
           v32 = v28;
-          v43 = v32;
-          v33 = [v31 syncWithContext:v29 completion:v42];
+          v42 = v32;
+          v33 = [v31 syncWithContext:v29 completion:v41];
         }
 
         else
@@ -6336,14 +6206,14 @@ LABEL_6:
           (*(v27 + 2))(v27, 0, v38);
         }
 
-        goto LABEL_14;
+        return;
       }
     }
 
     else
     {
-      v40 = [MEMORY[0x277CCA890] currentHandler];
-      [v40 handleFailureInMethod:sel__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore_ object:v14 file:@"HDNanoSyncManager.m" lineNumber:4032 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
+      v39 = [MEMORY[0x277CCA890] currentHandler];
+      [v39 handleFailureInMethod:sel__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore_ object:v14 file:@"HDNanoSyncManager.m" lineNumber:4032 description:{@"Invalid parameter not satisfying: %@", @"request != nil"}];
 
       if (v17)
       {
@@ -6351,8 +6221,8 @@ LABEL_6:
       }
     }
 
-    v41 = [MEMORY[0x277CCA890] currentHandler];
-    [v41 handleFailureInMethod:sel__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore_ object:v14 file:@"HDNanoSyncManager.m" lineNumber:4033 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
+    v40 = [MEMORY[0x277CCA890] currentHandler];
+    [v40 handleFailureInMethod:sel__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore_ object:v14 file:@"HDNanoSyncManager.m" lineNumber:4033 description:{@"Invalid parameter not satisfying: %@", @"syncStore != nil"}];
 
     goto LABEL_6;
   }
@@ -6367,9 +6237,6 @@ LABEL_6:
     *&buf[4] = v37;
     _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for end to end Cloud Sync request from device %{public}@ (#t0)", buf, 0xCu);
   }
-
-LABEL_14:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerEndToEndCloudSyncResponse:(id)response
@@ -6389,35 +6256,19 @@ LABEL_14:
 
 void __76__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncResponse___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 104);
-  if (v3)
+  if (v3 || (WeakRetained = objc_loadWeakRetained((v2 + 48)), [*(a1 + 40) fromParticipant], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "device"), v6 = objc_claimAutoreleasedReturnValue(), +[HDNanoSyncStore nanoSyncStoreWithProfile:device:delegate:tinkerPaired:](HDNanoSyncStore, "nanoSyncStoreWithProfile:device:delegate:tinkerPaired:", WeakRetained, v6, *(a1 + 32), 1), v7 = objc_claimAutoreleasedReturnValue(), v8 = *(a1 + 32), v9 = *(v8 + 104), *(v8 + 104) = v7, v9, v6, v5, WeakRetained, v2 = *(a1 + 32), (v3 = *(v2 + 104)) != 0))
   {
-    goto LABEL_3;
-  }
-
-  WeakRetained = objc_loadWeakRetained((v2 + 48));
-  v5 = [*(a1 + 40) fromParticipant];
-  v6 = [v5 device];
-  v7 = [HDNanoSyncStore nanoSyncStoreWithProfile:WeakRetained device:v6 delegate:*(a1 + 32) tinkerPaired:1];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 104);
-  *(v8 + 104) = v7;
-
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 104);
-  if (v3)
-  {
-LABEL_3:
     v10 = *(a1 + 40);
     v11 = *(v2 + 56);
     v12 = v3;
     dispatch_assert_queue_V2(v11);
     if (!v10)
     {
-      v34 = [MEMORY[0x277CCA890] currentHandler];
-      [v34 handleFailureInMethod:sel__queue_receiveTinkerEndToEndCloudSyncResponse_syncStore_ object:v2 file:@"HDNanoSyncManager.m" lineNumber:4086 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
+      v33 = [MEMORY[0x277CCA890] currentHandler];
+      [v33 handleFailureInMethod:sel__queue_receiveTinkerEndToEndCloudSyncResponse_syncStore_ object:v2 file:@"HDNanoSyncManager.m" lineNumber:4086 description:{@"Invalid parameter not satisfying: %@", @"response != nil"}];
     }
 
     v13 = [v10 pbResponse];
@@ -6444,7 +6295,7 @@ LABEL_3:
       *&buf[12] = 2112;
       *&buf[14] = v19;
       *&buf[22] = 2112;
-      v36 = v15;
+      v35 = v15;
       _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Did receive Tinker end to end Cloud Sync response from watch %@, error: %@ (#t0)", buf, 0x20u);
     }
 
@@ -6463,10 +6314,10 @@ LABEL_3:
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __77__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncResponse_syncStore___block_invoke;
-        v36 = &unk_278616488;
-        v39 = v24;
-        v37 = v13;
-        v38 = v15;
+        v35 = &unk_278616488;
+        v38 = v24;
+        v36 = v13;
+        v37 = v15;
         HKDispatchAsyncOnGlobalConcurrentQueue();
       }
     }
@@ -6479,7 +6330,7 @@ LABEL_3:
       {
 LABEL_16:
 
-        goto LABEL_17;
+        return;
       }
 
       v25 = v26;
@@ -6493,20 +6344,17 @@ LABEL_16:
   }
 
   _HKInitializeLogging();
-  v29 = *MEMORY[0x277CCC328];
+  v28 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v30 = *(a1 + 40);
-    v31 = v29;
-    v32 = [v30 fromParticipant];
-    v33 = [v32 description];
+    v29 = *(a1 + 40);
+    v30 = v28;
+    v31 = [v29 fromParticipant];
+    v32 = [v31 description];
     *buf = 138543362;
-    *&buf[4] = v33;
-    _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for end to end Cloud Sync response from device %{public}@ (#t0)", buf, 0xCu);
+    *&buf[4] = v32;
+    _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to create sync store for end to end Cloud Sync response from device %{public}@ (#t0)", buf, 0xCu);
   }
-
-LABEL_17:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageCenterDidReceiveTinkerEndToEndCloudSyncError:(id)error
@@ -6526,7 +6374,7 @@ LABEL_17:
 
 void __73__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncError___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 104))
   {
     if ([*(a1 + 40) hd_isFromRequest])
@@ -6540,9 +6388,9 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncError
       v6 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        *v19 = 138543362;
-        *&v19[4] = v4;
-        _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[sharing-setup] Error sending Tinker end to end Cloud Sync request %{public}@ (#t0)", v19, 0xCu);
+        *v18 = 138543362;
+        *&v18[4] = v4;
+        _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[sharing-setup] Error sending Tinker end to end Cloud Sync request %{public}@ (#t0)", v18, 0xCu);
       }
 
       v7 = [v4 hd_persistentUserInfo];
@@ -6557,12 +6405,12 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncError
           v12 = v11;
           if (v11)
           {
-            *v19 = MEMORY[0x277D85DD0];
-            *&v19[8] = 3221225472;
-            *&v19[16] = __91__HDNanoSyncManager__queue_tinkerEndToEndCloudSyncRequestDidFailToSendWithError_syncStore___block_invoke;
-            v20 = &unk_278614008;
-            v22 = v11;
-            v21 = v4;
+            *v18 = MEMORY[0x277D85DD0];
+            *&v18[8] = 3221225472;
+            *&v18[16] = __91__HDNanoSyncManager__queue_tinkerEndToEndCloudSyncRequestDidFailToSendWithError_syncStore___block_invoke;
+            v19 = &unk_278614008;
+            v21 = v11;
+            v20 = v4;
             HKDispatchAsyncOnGlobalConcurrentQueue();
           }
 
@@ -6582,15 +6430,13 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncError
       v15 = v13;
       v16 = [v14 hd_messageIDSIdentifier];
       v17 = [*(a1 + 40) hd_messageIDSDeviceIdentifier];
-      *v19 = 138543618;
-      *&v19[4] = v16;
-      *&v19[12] = 2114;
-      *&v19[14] = v17;
-      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to find sync store for end to end Cloud Sync error from message %{public}@ to device %{public}@ (#t0)", v19, 0x16u);
+      *v18 = 138543618;
+      *&v18[4] = v16;
+      *&v18[12] = 2114;
+      *&v18[14] = v17;
+      _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Unable to find sync store for end to end Cloud Sync error from message %{public}@ to device %{public}@ (#t0)", v18, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateDeviceNameIfNecessaryWithSyncStore:(uint64_t)store
@@ -6631,39 +6477,38 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncError
 
 - (void)_queue_synchronizeWithOptions:(void *)options restoreMessagesSentHandler:(void *)handler targetSyncStore:(void *)store reason:(void *)reason accessibilityAssertion:(void *)assertion completion:
 {
-  v75[2] = *MEMORY[0x277D85DE8];
+  v73[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   handlerCopy = handler;
   storeCopy = store;
   reasonCopy = reason;
   assertionCopy = assertion;
   dispatch_assert_queue_V2(*(self + 56));
-  v55 = [MEMORY[0x277CCD288] transactionWithOwner:self activityName:@"NanoSyncManager#_queue_synchronizeWithOptions"];
+  v53 = [MEMORY[0x277CCD288] transactionWithOwner:self activityName:@"NanoSyncManager#_queue_synchronizeWithOptions"];
   [(HDNanoSyncManager *)self _queue_updateSyncStores];
   v15 = *(self + 8);
-  v66 = 0;
+  v64 = 0;
   dispatch_assert_queue_V2(*(self + 56));
   if ([*(self + 160) permitSynchronization])
   {
     if (handlerCopy || (handlerCopy = *(self + 96)) != 0)
     {
       v16 = MEMORY[0x277CCC328];
-      v17 = *MEMORY[0x277CCC328];
-      v18 = _HKLogSignpostIDGenerate();
+      v17 = _HKLogSignpostIDGenerate();
       _HKInitializeLogging();
-      v19 = *v16;
+      v18 = *v16;
       if (os_signpost_enabled(*v16))
       {
+        v19 = v18;
         v20 = v19;
-        v21 = v20;
-        if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+        if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
         {
-          v22 = _StringFromSyncOptions(a2);
+          v21 = _StringFromSyncOptions(a2);
           *buf = 138543618;
           *&buf[4] = storeCopy;
           *&buf[12] = 2114;
-          *&buf[14] = v22;
-          _os_signpost_emit_with_name_impl(&dword_228986000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v18, "nano-sync-with-options", "reason=%{public}@ options=%{public}@", buf, 0x16u);
+          *&buf[14] = v21;
+          _os_signpost_emit_with_name_impl(&dword_228986000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "nano-sync-with-options", "reason=%{public}@ options=%{public}@", buf, 0x16u);
         }
       }
 
@@ -6672,34 +6517,34 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncError
       aBlock[1] = 3221225472;
       aBlock[2] = __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentHandler_targetSyncStore_reason_accessibilityAssertion_completion___block_invoke;
       aBlock[3] = &unk_2786175A8;
-      v65 = ((a2 & 4) == 0) & v15;
-      v61 = optionsCopy;
+      v63 = ((a2 & 4) == 0) & v15;
+      v59 = optionsCopy;
       aBlock[4] = self;
-      v57 = reasonCopy;
-      v62 = assertionCopy;
-      v63 = v18;
-      v58 = v55;
+      v55 = reasonCopy;
+      v60 = assertionCopy;
+      v61 = v17;
+      v56 = v53;
       handlerCopy = handlerCopy;
-      v59 = handlerCopy;
-      v64 = a2;
-      v60 = storeCopy;
+      v57 = handlerCopy;
+      v62 = a2;
+      v58 = storeCopy;
       assertionCopy = _Block_copy(aBlock);
       if (restoreState != 3 && *(self + 8) == 1)
       {
         if (restoreState == 1)
         {
           _HKInitializeLogging();
-          v24 = *v16;
+          v23 = *v16;
           if (os_log_type_enabled(*v16, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
             *&buf[4] = handlerCopy;
-            _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_INFO, "will attempt restore for paired device %{public}@", buf, 0xCu);
+            _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_INFO, "will attempt restore for paired device %{public}@", buf, 0xCu);
           }
 
-          v25 = handlerCopy;
+          v24 = handlerCopy;
           dispatch_assert_queue_V2(*(self + 56));
-          if ([v25 restoreState] == 1)
+          if ([v24 restoreState] == 1)
           {
             if ((*(self + 8) & 1) == 0)
             {
@@ -6707,68 +6552,68 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncError
               [currentHandler handleFailureInMethod:sel__queue_transitionToRestoreInProgressWithSyncStore_ object:self file:@"HDNanoSyncManager.m" lineNumber:1771 description:{@"Invalid parameter not satisfying: %@", @"_isMaster"}];
             }
 
-            persistentUUID = [v25 persistentUUID];
-            v27 = persistentUUID == 0;
+            persistentUUID = [v24 persistentUUID];
+            v26 = persistentUUID == 0;
 
-            if (v27)
+            if (v26)
             {
               currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
               [currentHandler2 handleFailureInMethod:sel__queue_transitionToRestoreInProgressWithSyncStore_ object:self file:@"HDNanoSyncManager.m" lineNumber:1772 description:{@"Invalid parameter not satisfying: %@", @"[syncStore persistentUUID] != nil"}];
             }
 
-            v28 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:self activityName:@"Restore"];
-            v67[0] = MEMORY[0x277D85DD0];
-            v67[1] = 3221225472;
-            v68 = __71__HDNanoSyncManager__queue_transitionToRestoreInProgressWithSyncStore___block_invoke;
-            v69 = &unk_2786130B0;
-            v70 = v28;
-            v49 = v28;
-            v29 = v25;
-            v51 = v67;
+            v27 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:self activityName:@"Restore"];
+            v65[0] = MEMORY[0x277D85DD0];
+            v65[1] = 3221225472;
+            v66 = __71__HDNanoSyncManager__queue_transitionToRestoreInProgressWithSyncStore___block_invoke;
+            v67 = &unk_2786130B0;
+            v68 = v27;
+            v47 = v27;
+            v28 = v24;
+            v49 = v65;
             dispatch_assert_queue_V2(*(self + 56));
-            if ([v29 restoreState] == 1)
+            if ([v28 restoreState] == 1)
             {
               objc_initWeak(&location, self);
               uUID = [MEMORY[0x277CCAD78] UUID];
               [self restoreTimeout];
-              v32 = v31;
+              v31 = v30;
               *buf = MEMORY[0x277D85DD0];
               *&buf[8] = 3221225472;
               *&buf[16] = __61__HDNanoSyncManager__queue_beginRestoreWithStore_completion___block_invoke;
-              v73 = &unk_278617620;
-              objc_copyWeak(v75, &location);
-              v33 = v29;
-              v74 = v33;
-              v47 = [v33 beginRestoreSessionWithUUID:uUID timeout:buf timeoutHandler:v32];
+              v71 = &unk_278617620;
+              objc_copyWeak(v73, &location);
+              v32 = v28;
+              v72 = v32;
+              v45 = [v32 beginRestoreSessionWithUUID:uUID timeout:buf timeoutHandler:v31];
 
-              sessionUUID = [v47 sessionUUID];
-              v35 = *(self + 56);
-              v48 = sessionUUID;
-              v36 = v33;
-              dispatch_assert_queue_V2(v35);
-              v50 = [HDCodableNanoSyncActivationRestore activationRestoreWithRestoreUUID:v48 sequenceNumber:1 statusCode:2];
+              sessionUUID = [v45 sessionUUID];
+              v34 = *(self + 56);
+              v46 = sessionUUID;
+              v35 = v32;
+              dispatch_assert_queue_V2(v34);
+              v48 = [HDCodableNanoSyncActivationRestore activationRestoreWithRestoreUUID:v46 sequenceNumber:1 statusCode:2];
 
-              sourceBundleIdentifier = [v36 sourceBundleIdentifier];
-              [v50 setDefaultSourceBundleIdentifier:sourceBundleIdentifier];
+              sourceBundleIdentifier = [v35 sourceBundleIdentifier];
+              [v48 setDefaultSourceBundleIdentifier:sourceBundleIdentifier];
 
-              obliteratedDatabaseUUIDs = [v36 obliteratedDatabaseUUIDs];
-              [v50 encodeObliteratedHealthPairingUUIDs:obliteratedDatabaseUUIDs];
+              obliteratedDatabaseUUIDs = [v35 obliteratedDatabaseUUIDs];
+              [v48 encodeObliteratedHealthPairingUUIDs:obliteratedDatabaseUUIDs];
 
               WeakRetained = objc_loadWeakRetained((self + 48));
-              v40 = [HDIDSOutgoingRequest activationRequestWithRestore:v50 syncStore:v36 profile:WeakRetained];
+              v39 = [HDIDSOutgoingRequest activationRequestWithRestore:v48 syncStore:v35 profile:WeakRetained];
 
-              [(HDNanoSyncManager *)self _queue_sendRequest:v40 syncStore:v36];
-              [v47 setSequenceNumber:1];
-              (v68)(v51, 1, 0);
+              [(HDNanoSyncManager *)self _queue_sendRequest:v39 syncStore:v35];
+              [v45 setSequenceNumber:1];
+              (v66)(v49, 1, 0);
 
-              objc_destroyWeak(v75);
+              objc_destroyWeak(v73);
               objc_destroyWeak(&location);
             }
 
             else
             {
-              v42 = [MEMORY[0x277CCA9B8] hk_error:100 format:{@"Unexpected restore state %ld", objc_msgSend(v29, "restoreState")}];
-              (v68)(v51, 0, v42);
+              v41 = [MEMORY[0x277CCA9B8] hk_error:100 format:{@"Unexpected restore state %ld", objc_msgSend(v28, "restoreState")}];
+              (v66)(v49, 0, v41);
             }
           }
         }
@@ -6784,35 +6629,33 @@ void __73__HDNanoSyncManager_messageCenterDidReceiveTinkerEndToEndCloudSyncError
         (*(assertionCopy + 2))(assertionCopy, restoreState == 3, 0);
       }
 
-      v41 = 0;
+      v40 = 0;
     }
 
     else
     {
-      v41 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"no active paired device"];
+      v40 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"no active paired device"];
       if (assertionCopy)
       {
-        (*(assertionCopy + 2))(assertionCopy, 0, v41);
+        (*(assertionCopy + 2))(assertionCopy, 0, v40);
       }
 
-      [v55 invalidate];
+      [v53 invalidate];
       handlerCopy = 0;
     }
   }
 
   else
   {
-    [MEMORY[0x277CCA9B8] hk_assignError:&v66 code:100 description:@"sync is restricted by PairedSync"];
-    v41 = v66;
+    [MEMORY[0x277CCA9B8] hk_assignError:&v64 code:100 description:@"sync is restricted by PairedSync"];
+    v40 = v64;
     if (assertionCopy)
     {
-      (*(assertionCopy + 2))(assertionCopy, 0, v41);
+      (*(assertionCopy + 2))(assertionCopy, 0, v40);
     }
 
-    [v55 invalidate];
+    [v53 invalidate];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentHandler_targetSyncStore_reason_accessibilityAssertion_completion___block_invoke(uint64_t a1, int a2, void *a3)
@@ -6866,7 +6709,7 @@ void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentH
 
 void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentHandler_targetSyncStore_reason_accessibilityAssertion_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(a1 + 56);
   if (v6)
@@ -6884,8 +6727,8 @@ void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentH
     block[2] = __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentHandler_targetSyncStore_reason_accessibilityAssertion_completion___block_invoke_3;
     block[3] = &unk_278614160;
     block[4] = v8;
-    v18 = v7;
-    v19 = *(a1 + 64);
+    v17 = v7;
+    v18 = *(a1 + 64);
     dispatch_async(v9, block);
   }
 
@@ -6920,19 +6763,17 @@ void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentH
       }
 
       *buf = 136315138;
-      v21 = v15;
+      v20 = v15;
       _os_signpost_emit_with_name_impl(&dword_228986000, v13, OS_SIGNPOST_INTERVAL_END, v14, "nano-sync-with-options", "success=%s", buf, 0xCu);
     }
   }
 
   [*(a1 + 48) invalidate];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentHandler_targetSyncStore_reason_accessibilityAssertion_completion___block_invoke_3(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 40);
@@ -6977,34 +6818,34 @@ LABEL_17:
   }
 
   v8 = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = [(HDNanoSyncManager *)v1 _queue_eligibleInactiveSyncStores];
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v18 + 1) + 8 * v13) device];
+        v14 = [*(*(&v17 + 1) + 8 * v13) device];
         [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
@@ -7012,8 +6853,6 @@ LABEL_17:
 
   [(HDNanoSyncManager *)v1 _queue_performNextProactiveSyncWithRemainingDevices:v8 accessibilityAssertion:v3 completion:v4];
 LABEL_18:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentHandler_targetSyncStore_reason_accessibilityAssertion_completion___block_invoke_506(uint64_t a1)
@@ -7069,7 +6908,7 @@ void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentH
 
 - (void)_queue_transitionToRestoreIncompleteWithSyncStore:(void *)store error:
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   storeCopy = store;
   if (self)
@@ -7101,9 +6940,9 @@ void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentH
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v11 = v5;
-        v12 = 2114;
-        v13 = storeCopy;
+        v10 = v5;
+        v11 = 2114;
+        v12 = storeCopy;
         _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "resetting restore state to incomplete for paired device %{public}@, error: %{public}@", buf, 0x16u);
       }
 
@@ -7112,13 +6951,11 @@ void __135__HDNanoSyncManager__queue_synchronizeWithOptions_restoreMessagesSentH
   }
 
 LABEL_8:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_transitionToRestoreCompleteWithSyncStore:(uint64_t)store
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (store)
   {
@@ -7129,27 +6966,25 @@ LABEL_8:
       v4 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
       {
-        LODWORD(v9) = 138543362;
-        *(&v9 + 4) = v3;
-        _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "finished restore for paired device %{public}@", &v9, 0xCu);
+        LODWORD(v8) = 138543362;
+        *(&v8 + 4) = v3;
+        _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_INFO, "finished restore for paired device %{public}@", &v8, 0xCu);
       }
 
       v5 = v3;
       v6 = *(store + 64);
-      *&v9 = MEMORY[0x277D85DD0];
-      *(&v9 + 1) = 3221225472;
-      v10 = __47__HDNanoSyncManager__resetSyncAnchorsForStore___block_invoke;
-      v11 = &unk_278613920;
+      *&v8 = MEMORY[0x277D85DD0];
+      *(&v8 + 1) = 3221225472;
+      v9 = __47__HDNanoSyncManager__resetSyncAnchorsForStore___block_invoke;
+      v10 = &unk_278613920;
       storeCopy = store;
       v7 = v5;
-      v13 = v7;
-      dispatch_async(v6, &v9);
+      v12 = v7;
+      dispatch_async(v6, &v8);
 
       [v7 finishRestoreSessionWithError:0];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HDNanoSyncManager__restoreTimedOutWithSyncStore___block_invoke(uint64_t a1)
@@ -7228,7 +7063,7 @@ void __44__HDNanoSyncManager__deviceDidBecomeActive___block_invoke(uint64_t a1)
 
 void __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke(uint64_t a1, unsigned int a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = v8;
@@ -7256,36 +7091,34 @@ void __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke
     v12 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
     {
-      v14[0] = 67109634;
-      v14[1] = a2;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v7;
-      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_INFO, "got index %u pairingID %@ and date %@ from getSwitchEventsFromIndex", v14, 0x1Cu);
+      v13[0] = 67109634;
+      v13[1] = a2;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v7;
+      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_INFO, "got index %u pairingID %@ and date %@ from getSwitchEventsFromIndex", v13, 0x1Cu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke_552(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
-  v27 = 0;
-  v8 = [HDNanoPairingEntity sourceEntityForRegistryUUID:v5 profile:WeakRetained error:&v27];
-  v9 = v27;
+  v26 = 0;
+  v8 = [HDNanoPairingEntity sourceEntityForRegistryUUID:v5 profile:WeakRetained error:&v26];
+  v9 = v26;
 
   if (v8)
   {
     v10 = objc_loadWeakRetained((*(a1 + 32) + 48));
     v11 = [v10 dataManager];
-    v26 = v9;
-    v12 = [v11 insertDataObjects:v6 sourceEntity:v8 deviceEntity:0 sourceVersion:0 creationDate:&v26 error:2.22507386e-308];
-    v13 = v26;
+    v25 = v9;
+    v12 = [v11 insertDataObjects:v6 sourceEntity:v8 deviceEntity:0 sourceVersion:0 creationDate:&v25 error:2.22507386e-308];
+    v13 = v25;
 
     _HKInitializeLogging();
     v14 = *MEMORY[0x277CCC328];
@@ -7298,9 +7131,9 @@ void __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke
         v17 = [v6 count];
         v18 = [v5 UUIDString];
         *buf = 134218242;
-        v29 = v17;
-        v30 = 2112;
-        v31 = v18;
+        v28 = v17;
+        v29 = 2112;
+        v30 = v18;
         _os_log_debug_impl(&dword_228986000, v16, OS_LOG_TYPE_DEBUG, "inserted %lu activation samples for pairing ID %@", buf, 0x16u);
       }
     }
@@ -7308,7 +7141,7 @@ void __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke
     else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v29 = v13;
+      v28 = v13;
       _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "failed to insert watch activation samples: %{public}@", buf, 0xCu);
     }
   }
@@ -7322,13 +7155,13 @@ void __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke
     {
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v24 = v19;
-        v25 = [v5 UUIDString];
+        v23 = v19;
+        v24 = [v5 UUIDString];
         *buf = 138543618;
-        v29 = v25;
-        v30 = 2114;
-        v31 = v9;
-        _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "failed to get source for watch activation with pairing ID %{public}@: %{public}@", buf, 0x16u);
+        v28 = v24;
+        v29 = 2114;
+        v30 = v9;
+        _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "failed to get source for watch activation with pairing ID %{public}@: %{public}@", buf, 0x16u);
       }
 
       v13 = v9;
@@ -7341,15 +7174,13 @@ void __58__HDNanoSyncManager__queue_generateWatchActivationSamples__block_invoke
         v21 = v19;
         v22 = [v5 UUIDString];
         *buf = 138543362;
-        v29 = v22;
+        v28 = v22;
         _os_log_impl(&dword_228986000, v21, OS_LOG_TYPE_DEFAULT, "no source exists for watch activation with pairing ID %{public}@", buf, 0xCu);
       }
 
       v13 = 0;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__HDNanoSyncManager__queue_pairedSyncDidBeginForDevice_messagesSentHandler_completion___block_invoke(uint64_t a1)
@@ -7365,7 +7196,7 @@ uint64_t __87__HDNanoSyncManager__queue_pairedSyncDidBeginForDevice_messagesSent
 
 void __87__HDNanoSyncManager__queue_pairedSyncDidBeginForDevice_messagesSentHandler_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if ((a2 & 1) == 0 && [v5 hk_isDatabaseAccessibilityError])
@@ -7377,9 +7208,9 @@ void __87__HDNanoSyncManager__queue_pairedSyncDidBeginForDevice_messagesSentHand
       v8 = *(a1 + 32);
       v9 = v7;
       v10 = [v8 hd_shortDescription];
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "PairedSync for device %{public}@ postponed until unlock", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "PairedSync for device %{public}@ postponed until unlock", &v11, 0xCu);
     }
 
     [*(a1 + 40) setNeedsSyncOnUnlock:1];
@@ -7388,8 +7219,6 @@ void __87__HDNanoSyncManager__queue_pairedSyncDidBeginForDevice_messagesSentHand
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HDNanoSyncManager__queue_beginRestoreWithStore_completion___block_invoke(uint64_t a1)
@@ -7411,105 +7240,94 @@ void __61__HDNanoSyncManager__queue_beginRestoreWithStore_completion___block_inv
 
 uint64_t __73__HDNanoSyncManager__syncQueue_prepareForCompanionChangeWithStore_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) resetProvenanceWithError:?])
+  v31 = *MEMORY[0x277D85DE8];
+  if (![*(a1 + 32) resetProvenanceWithError:?])
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v5 = [*(a1 + 32) orderedSyncEntities];
-    v6 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
-    if (v6)
+    return 0;
+  }
+
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v5 = [*(a1 + 32) orderedSyncEntities];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v20 = a3;
+    v8 = *v23;
+    while (2)
     {
-      v7 = v6;
-      v23 = a3;
-      v8 = *v26;
-      v9 = &selRef_client;
-      while (2)
+      for (i = 0; i != v7; ++i)
       {
-        v10 = 0;
-        v11 = v9[294];
-        do
+        if (*v23 != v8)
         {
-          if (*v26 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
+          objc_enumerationMutation(v5);
+        }
 
-          v12 = *(*(&v25 + 1) + 8 * v10);
-          if (objc_opt_respondsToSelector())
-          {
-            WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
-            v24 = 0;
-            v14 = [v12 companionDidChangeForProfile:WeakRetained error:&v24];
-            v15 = v24;
+        v10 = *(*(&v22 + 1) + 8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
+          v21 = 0;
+          v12 = [v10 companionDidChangeForProfile:WeakRetained error:&v21];
+          v13 = v21;
 
-            if ((v14 & 1) == 0)
+          if ((v12 & 1) == 0)
+          {
+            _HKInitializeLogging();
+            v15 = *MEMORY[0x277CCC328];
+            if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              _HKInitializeLogging();
-              v17 = *MEMORY[0x277CCC328];
-              if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
-              {
-                *buf = 138543618;
-                v30 = v12;
-                v31 = 2114;
-                v32 = v15;
-                _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%{public}@: failed to apply companion change: %{public}@", buf, 0x16u);
-              }
-
-              v18 = v15;
-              v19 = v18;
-              if (v18)
-              {
-                if (v23)
-                {
-                  v20 = v18;
-                  *v23 = v19;
-                }
-
-                else
-                {
-                  _HKLogDroppedError();
-                }
-              }
-
-              v16 = 0;
-              goto LABEL_21;
+              *buf = 138543618;
+              v27 = v10;
+              v28 = 2114;
+              v29 = v13;
+              _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: failed to apply companion change: %{public}@", buf, 0x16u);
             }
+
+            v16 = v13;
+            v17 = v16;
+            if (v16)
+            {
+              if (v20)
+              {
+                v18 = v16;
+                *v20 = v17;
+              }
+
+              else
+              {
+                _HKLogDroppedError();
+              }
+            }
+
+            v14 = 0;
+            goto LABEL_21;
           }
-
-          ++v10;
         }
-
-        while (v7 != v10);
-        v7 = [v5 countByEnumeratingWithState:&v25 objects:v33 count:16];
-        v9 = &selRef_client;
-        if (v7)
-        {
-          continue;
-        }
-
-        break;
       }
+
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v16 = 1;
+  v14 = 1;
 LABEL_21:
-  }
 
-  else
-  {
-    v16 = 0;
-  }
-
-  v21 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v14;
 }
 
 void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invoke(uint64_t a1)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) decodedPersistentPairingUUID];
   [v2 setPersistentUUID:v3];
@@ -7555,16 +7373,16 @@ void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invok
       LOBYTE(v9) = 1;
       if (v20 && v21)
       {
-        v53 = v17;
+        v52 = v17;
         WeakRetained = objc_loadWeakRetained((v10 + 48));
         v23 = [WeakRetained sourceManager];
-        v67 = 0;
-        LODWORD(v9) = [v23 setLocalDeviceSourceUUID:v20 bundleIdentifier:v21 error:&v67];
-        v24 = v67;
+        v66 = 0;
+        LODWORD(v9) = [v23 setLocalDeviceSourceUUID:v20 bundleIdentifier:v21 error:&v66];
+        v24 = v66;
 
         if (v9)
         {
-          v52 = v24;
+          v51 = v24;
           v25 = objc_loadWeakRetained((v10 + 48));
           v26 = [v25 daemon];
           v27 = [v26 behavior];
@@ -7574,11 +7392,11 @@ void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invok
           {
             _HKInitializeLogging();
             v29 = *MEMORY[0x277CCC328];
-            v17 = v53;
+            v17 = v52;
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
             {
               v30 = v29;
-              v31 = [v53 idsIdentifier];
+              v31 = [v52 idsIdentifier];
               *buf = 138543618;
               *&buf[4] = v21;
               *&buf[12] = 2114;
@@ -7587,14 +7405,14 @@ void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invok
             }
 
             v8 = &unk_229165000;
-            v24 = v52;
+            v24 = v51;
           }
 
           else
           {
             v8 = &unk_229165000;
-            v24 = v52;
-            v17 = v53;
+            v24 = v51;
+            v17 = v52;
           }
         }
 
@@ -7610,7 +7428,7 @@ void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invok
           }
 
           v43 = v24;
-          v17 = v53;
+          v17 = v52;
           if (v43)
           {
             v43 = v43;
@@ -7642,7 +7460,7 @@ LABEL_28:
     v33 = *(*(a1 + 88) + 8);
     v35 = *(v33 + 40);
     v34 = (v33 + 40);
-    v66 = v35;
+    v65 = v35;
     v36 = v32;
     if (v9)
     {
@@ -7653,13 +7471,13 @@ LABEL_28:
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __73__HDNanoSyncManager__syncQueue_prepareForCompanionChangeWithStore_error___block_invoke;
-      v69 = &unk_278613218;
-      v70 = v36;
-      v71 = v9;
-      LOBYTE(v9) = [v38 performTransactionWithContext:v39 error:&v66 block:buf inaccessibilityHandler:&__block_literal_global_599];
+      v68 = &unk_278613218;
+      v69 = v36;
+      v70 = v9;
+      LOBYTE(v9) = [v38 performTransactionWithContext:v39 error:&v65 block:buf inaccessibilityHandler:&__block_literal_global_599];
     }
 
-    v40 = v66;
+    v40 = v65;
     v41 = v34;
     goto LABEL_28;
   }
@@ -7679,30 +7497,28 @@ LABEL_29:
   block[2] = __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invoke_2;
   block[3] = &unk_278617668;
   v45 = *(a1 + 56);
-  v64 = v9;
+  v63 = v9;
   v46 = *(a1 + 48);
-  v55 = v45;
-  v56 = v46;
-  v57 = *(a1 + 32);
-  v65 = v6;
+  v54 = v45;
+  v55 = v46;
+  v56 = *(a1 + 32);
+  v64 = v6;
   v47 = *(a1 + 64);
   v48 = *(a1 + 88);
-  v58 = v47;
-  v61 = v48;
-  v59 = *(a1 + 72);
-  v62 = vextq_s8(*(a1 + 96), *(a1 + 96), 8uLL);
+  v57 = v47;
+  v60 = v48;
+  v58 = *(a1 + 72);
+  v61 = vextq_s8(*(a1 + 96), *(a1 + 96), 8uLL);
   v49 = *(a1 + 80);
   v50 = *(a1 + 112);
-  v60 = v49;
-  v63 = v50;
+  v59 = v49;
+  v62 = v50;
   dispatch_async(v44, block);
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invoke_2(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statusCode];
   v3 = [*(a1 + 32) statusCode];
   v4 = MEMORY[0x277CCC328];
@@ -7724,20 +7540,20 @@ void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invok
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v30 = *(a1 + 48);
-        v31 = v6;
-        v32 = [v30 restoreSession];
-        v33 = [v32 sessionUUID];
-        v34 = [v33 UUIDString];
-        v35 = [*(a1 + 56) idsIdentifier];
-        v36 = *(*(*(a1 + 80) + 8) + 40);
-        v37 = 138543874;
-        *v38 = v34;
-        *&v38[8] = 2114;
-        *&v38[10] = v35;
-        v39 = 2114;
-        v40 = v36;
-        _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "aborting restore %{public}@ after message %{public}@: %{public}@", &v37, 0x20u);
+        v29 = *(a1 + 48);
+        v30 = v6;
+        v31 = [v29 restoreSession];
+        v32 = [v31 sessionUUID];
+        v33 = [v32 UUIDString];
+        v34 = [*(a1 + 56) idsIdentifier];
+        v35 = *(*(*(a1 + 80) + 8) + 40);
+        v36 = 138543874;
+        *v37 = v33;
+        *&v37[8] = 2114;
+        *&v37[10] = v34;
+        v38 = 2114;
+        v39 = v35;
+        _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "aborting restore %{public}@ after message %{public}@: %{public}@", &v36, 0x20u);
       }
 
       v3 = 3;
@@ -7749,11 +7565,11 @@ void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invok
       v9 = v6;
       v10 = [v8 idsIdentifier];
       v11 = *(*(*(a1 + 80) + 8) + 40);
-      v37 = 138543618;
-      *v38 = v10;
-      *&v38[8] = 2114;
-      *&v38[10] = v11;
-      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "unhandled restore message %{public}@: %{public}@", &v37, 0x16u);
+      v36 = 138543618;
+      *v37 = v10;
+      *&v37[8] = 2114;
+      *&v37[10] = v11;
+      _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "unhandled restore message %{public}@: %{public}@", &v36, 0x16u);
     }
   }
 
@@ -7783,9 +7599,9 @@ void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invok
       v18 = *(a1 + 56);
       v19 = v17;
       v20 = [v18 idsIdentifier];
-      v37 = 138543362;
-      *v38 = v20;
-      _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "obliterating in response to restore message %{public}@", &v37, 0xCu);
+      v36 = 138543362;
+      *v37 = v20;
+      _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "obliterating in response to restore message %{public}@", &v36, 0xCu);
     }
 
     v21 = *(a1 + 40);
@@ -7814,20 +7630,18 @@ void __59__HDNanoSyncManager__queue_handleRestoreRequest_syncStore___block_invok
     {
       v27 = *(a1 + 112);
       v28 = *(a1 + 96);
-      v37 = 67109376;
-      *v38 = v27;
-      *&v38[4] = 2048;
-      *&v38[6] = v28;
-      _os_signpost_emit_with_name_impl(&dword_228986000, v25, OS_SIGNPOST_INTERVAL_END, v26, "nano-sync-restore-request", "didApply=%d action=%ld", &v37, 0x12u);
+      v36 = 67109376;
+      *v37 = v27;
+      *&v37[4] = 2048;
+      *&v37[6] = v28;
+      _os_signpost_emit_with_name_impl(&dword_228986000, v25, OS_SIGNPOST_INTERVAL_END, v26, "nano-sync-restore-request", "didApply=%d action=%ld", &v36, 0x12u);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HDNanoSyncManager__queue_handleRestoreResponse_syncStore___block_invoke(uint64_t a1, os_log_type_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], a2))
@@ -7837,18 +7651,16 @@ void __60__HDNanoSyncManager__queue_handleRestoreResponse_syncStore___block_invo
     v9 = [v7 idsIdentifier];
     v10 = *(a1 + 48);
     v11 = *(a1 + 40);
-    v13 = 138413058;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 1024;
-    v18 = v10;
-    v19 = 2048;
-    v20 = v11;
-    _os_log_impl(&dword_228986000, v8, a2, "%@ with response %{public}@ statusCode:%d seq:%lld", &v13, 0x26u);
+    v12 = 138413058;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 1024;
+    v17 = v10;
+    v18 = 2048;
+    v19 = v11;
+    _os_log_impl(&dword_228986000, v8, a2, "%@ with response %{public}@ statusCode:%d seq:%lld", &v12, 0x26u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_sendChangeSet:(void *)set status:(void *)status session:(void *)session completion:
@@ -7956,14 +7768,14 @@ LABEL_11:
 
 - (void)persistChildIdentityFromCodable:(uint64_t)codable
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 hasCurrentSyncIdentity])
   {
     currentSyncIdentity = [v3 currentSyncIdentity];
-    v19 = 0;
-    v5 = [HDSyncIdentity syncIdentityWithCodable:currentSyncIdentity error:&v19];
-    v6 = v19;
+    v18 = 0;
+    v5 = [HDSyncIdentity syncIdentityWithCodable:currentSyncIdentity error:&v18];
+    v6 = v18;
 
     if (v5)
     {
@@ -7979,15 +7791,15 @@ LABEL_11:
     {
       WeakRetained = objc_loadWeakRetained((codable + 48));
       database = [WeakRetained database];
-      v18 = v6;
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __53__HDNanoSyncManager_persistChildIdentityFromCodable___block_invoke;
-      v16[3] = &unk_278613218;
-      v16[4] = codable;
-      v17 = v5;
-      v10 = [(HDHealthEntity *)HDSyncIdentityEntity performWriteTransactionWithHealthDatabase:database error:&v18 block:v16];
-      v11 = v18;
+      v17 = v6;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __53__HDNanoSyncManager_persistChildIdentityFromCodable___block_invoke;
+      v15[3] = &unk_278613218;
+      v15[4] = codable;
+      v16 = v5;
+      v10 = [(HDHealthEntity *)HDSyncIdentityEntity performWriteTransactionWithHealthDatabase:database error:&v17 block:v15];
+      v11 = v17;
 
       if (!v10)
       {
@@ -7996,7 +7808,7 @@ LABEL_11:
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v21 = v11;
+          v20 = v11;
           _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Could not persist child sync identity from HDCodableNanoSyncMessage, %{public}@", buf, 0xCu);
         }
       }
@@ -8009,15 +7821,13 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v21 = v6;
+        v20 = v6;
         _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Could not extract sync identity from HDCodableNanoSyncMessage, %@", buf, 0xCu);
       }
 
       v11 = v6;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__HDNanoSyncManager_persistChildIdentityFromCodable___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -8069,18 +7879,18 @@ uint64_t __53__HDNanoSyncManager_persistChildIdentityFromCodable___block_invoke(
 
 void __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
-  v32 = [WeakRetained syncEngine];
+  v31 = [WeakRetained syncEngine];
 
-  v58[0] = 0;
-  v58[1] = v58;
-  v58[2] = 0x2020000000;
-  v59 = 0;
-  v56[0] = 0;
-  v56[1] = v56;
-  v56[2] = 0x2020000000;
-  v57 = 0;
+  v57[0] = 0;
+  v57[1] = v57;
+  v57[2] = 0x2020000000;
+  v58 = 0;
+  v55[0] = 0;
+  v55[1] = v55;
+  v55[2] = 0x2020000000;
+  v56 = 0;
   if (*(a1 + 104) == 1)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -8088,27 +7898,27 @@ void __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___
     [(HDMutableDatabaseTransactionContext *)v4 setCacheScope:1];
     v5 = objc_loadWeakRetained((*(a1 + 32) + 48));
     v6 = [v5 database];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke_2;
-    v43[3] = &unk_278617708;
-    v44 = *(a1 + 40);
-    v45 = v32;
-    v46 = *(a1 + 48);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke_2;
+    v42[3] = &unk_278617708;
+    v43 = *(a1 + 40);
+    v44 = v31;
+    v45 = *(a1 + 48);
     v7 = v3;
-    v47 = v7;
+    v46 = v7;
     v8 = *(a1 + 56);
-    v52 = *(a1 + 96);
+    v51 = *(a1 + 96);
     v9 = *(a1 + 32);
-    v48 = v8;
-    v49 = v9;
-    v50 = *(a1 + 64);
+    v47 = v8;
+    v48 = v9;
+    v49 = *(a1 + 64);
     v10 = *(a1 + 72);
-    v55 = *(a1 + 112);
-    v51 = v10;
-    v53 = v58;
-    v54 = v56;
-    [v6 performWithTransactionContext:v4 error:0 block:v43];
+    v54 = *(a1 + 112);
+    v50 = v10;
+    v52 = v57;
+    v53 = v55;
+    [v6 performWithTransactionContext:v4 error:0 block:v42];
   }
 
   v11 = *(a1 + 32);
@@ -8121,9 +7931,9 @@ void __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___
     v16 = [HDCodableNanoSyncStatus statusWithStatusCode:v13];
     v17 = objc_loadWeakRetained((v11 + 48));
     v18 = [v17 syncEngine];
-    v60 = 0;
-    v19 = [v18 getReceivedAnchorMap:v16 forStore:v15 error:&v60];
-    v31 = v60;
+    v59 = 0;
+    v19 = [v18 getReceivedAnchorMap:v16 forStore:v15 error:&v59];
+    v30 = v59;
 
     if ((v19 & 1) == 0)
     {
@@ -8132,7 +7942,7 @@ void __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v62 = v31;
+        v61 = v30;
         _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "failed to get received anchors: %{public}@", buf, 0xCu);
       }
 
@@ -8162,63 +7972,61 @@ void __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___
   block[1] = 3221225472;
   block[2] = __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke_671;
   block[3] = &unk_278617730;
-  v34 = *(a1 + 56);
-  v35 = *(a1 + 48);
-  v36 = *(a1 + 40);
-  v37 = v26;
-  v38 = *(a1 + 32);
-  v41 = v58;
-  v42 = v56;
-  v39 = *(a1 + 80);
-  v40 = *(a1 + 88);
+  v33 = *(a1 + 56);
+  v34 = *(a1 + 48);
+  v35 = *(a1 + 40);
+  v36 = v26;
+  v37 = *(a1 + 32);
+  v40 = v57;
+  v41 = v55;
+  v38 = *(a1 + 80);
+  v39 = *(a1 + 88);
   v29 = v26;
   dispatch_async(v28, block);
 
-  _Block_object_dispose(v56, 8);
-  _Block_object_dispose(v58, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v55, 8);
+  _Block_object_dispose(v57, 8);
 }
 
 uint64_t __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke_2(uint64_t a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v2 = [*(a1 + 32) changes];
-  v3 = [v2 countByEnumeratingWithState:&v51 objects:v63 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v50 objects:v62 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v52;
+    v5 = *v51;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v52 != v5)
+        if (*v51 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v51 + 1) + 8 * i);
-        v44[1] = MEMORY[0x277D85DD0];
-        v44[2] = 3221225472;
-        v44[3] = __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke_3;
-        v44[4] = &unk_2786176E0;
-        v45 = *(a1 + 40);
-        v46 = v7;
-        v47 = *(a1 + 48);
-        v48 = *(a1 + 56);
+        v7 = *(*(&v50 + 1) + 8 * i);
+        v43[1] = MEMORY[0x277D85DD0];
+        v43[2] = 3221225472;
+        v43[3] = __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke_3;
+        v43[4] = &unk_2786176E0;
+        v44 = *(a1 + 40);
+        v45 = v7;
+        v46 = *(a1 + 48);
+        v47 = *(a1 + 56);
         v8 = *(a1 + 64);
         v9 = *(a1 + 96);
-        v49 = v8;
-        v50 = v9;
+        v48 = v8;
+        v49 = v9;
         HKWithAutoreleasePool();
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v51 objects:v63 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v50 objects:v62 count:16];
     }
 
     while (v4);
@@ -8247,29 +8055,29 @@ LABEL_29:
 LABEL_12:
         if (*(v11 + 8) && [v13 count] && objc_msgSend(v14, "count"))
         {
-          v41 = v14;
+          v40 = v14;
           [MEMORY[0x277CBEB18] array];
-          v43 = v42 = v13;
+          v42 = v41 = v13;
+          v58 = 0u;
           v59 = 0u;
           v60 = 0u;
           v61 = 0u;
-          v62 = 0u;
           v16 = v13;
-          v17 = [v16 countByEnumeratingWithState:&v59 objects:buf count:16];
+          v17 = [v16 countByEnumeratingWithState:&v58 objects:buf count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v60;
+            v19 = *v59;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v60 != v19)
+                if (*v59 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v59 + 1) + 8 * j);
+                v21 = *(*(&v58 + 1) + 8 * j);
                 WeakRetained = objc_loadWeakRetained((v11 + 48));
                 v23 = [v21 syncEntityClassForProfile:WeakRetained];
 
@@ -8278,32 +8086,32 @@ LABEL_12:
                   v24 = [v21 speculativeCopy];
                   if (v24)
                   {
-                    [v43 addObject:v24];
+                    [v42 addObject:v24];
                   }
                 }
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v59 objects:buf count:16];
+              v18 = [v16 countByEnumeratingWithState:&v58 objects:buf count:16];
             }
 
             while (v18);
           }
 
-          v14 = v41;
-          if ([v43 count])
+          v14 = v40;
+          if ([v42 count])
           {
             v25 = *(v11 + 56);
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = __119__HDNanoSyncManager__syncQueue_forwardSpeculativeChangeSetIfNecessaryForChanges_destinationSyncStores_originSyncStore___block_invoke;
             block[3] = &unk_278613830;
-            v56 = v41;
-            v57 = v43;
-            v58 = v11;
+            v55 = v40;
+            v56 = v42;
+            v57 = v11;
             dispatch_async(v25, block);
           }
 
-          v13 = v42;
+          v13 = v41;
         }
 
         goto LABEL_29;
@@ -8312,8 +8120,8 @@ LABEL_12:
 
     else
     {
-      v39 = [MEMORY[0x277CCA890] currentHandler];
-      [v39 handleFailureInMethod:sel__syncQueue_forwardSpeculativeChangeSetIfNecessaryForChanges_destinationSyncStores_originSyncStore_ object:v11 file:@"HDNanoSyncManager.m" lineNumber:2980 description:{@"Invalid parameter not satisfying: %@", @"changes != nil"}];
+      v38 = [MEMORY[0x277CCA890] currentHandler];
+      [v38 handleFailureInMethod:sel__syncQueue_forwardSpeculativeChangeSetIfNecessaryForChanges_destinationSyncStores_originSyncStore_ object:v11 file:@"HDNanoSyncManager.m" lineNumber:2980 description:{@"Invalid parameter not satisfying: %@", @"changes != nil"}];
 
       if (v15)
       {
@@ -8321,8 +8129,8 @@ LABEL_12:
       }
     }
 
-    v40 = [MEMORY[0x277CCA890] currentHandler];
-    [v40 handleFailureInMethod:sel__syncQueue_forwardSpeculativeChangeSetIfNecessaryForChanges_destinationSyncStores_originSyncStore_ object:v11 file:@"HDNanoSyncManager.m" lineNumber:2981 description:{@"Invalid parameter not satisfying: %@", @"originSyncStore != nil"}];
+    v39 = [MEMORY[0x277CCA890] currentHandler];
+    [v39 handleFailureInMethod:sel__syncQueue_forwardSpeculativeChangeSetIfNecessaryForChanges_destinationSyncStores_originSyncStore_ object:v11 file:@"HDNanoSyncManager.m" lineNumber:2981 description:{@"Invalid parameter not satisfying: %@", @"originSyncStore != nil"}];
 
     goto LABEL_12;
   }
@@ -8333,9 +8141,9 @@ LABEL_30:
   {
     v27 = *(a1 + 40);
     v28 = *(a1 + 48);
-    v44[0] = 0;
-    v29 = [v27 applyAcknowledgedAnchorMap:v26 forStore:v28 resetNext:1 resetInvalid:1 error:v44];
-    v30 = v44[0];
+    v43[0] = 0;
+    v29 = [v27 applyAcknowledgedAnchorMap:v26 forStore:v28 resetNext:1 resetInvalid:1 error:v43];
+    v30 = v43[0];
     if ((v29 & 1) == 0)
     {
       _HKInitializeLogging();
@@ -8346,9 +8154,9 @@ LABEL_30:
         v35 = v33;
         v36 = [v34 idsIdentifier];
         *buf = 138543618;
-        v65 = v36;
-        v66 = 2114;
-        v67 = v30;
+        v64 = v36;
+        v65 = 2114;
+        v66 = v30;
         _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "failed to apply acknowledged anchors for request %{public}@: %{public}@", buf, 0x16u);
       }
 
@@ -8368,7 +8176,7 @@ LABEL_30:
       {
 LABEL_39:
 
-        goto LABEL_40;
+        return 1;
       }
 
       v32 = *(*(a1 + 104) + 8);
@@ -8378,20 +8186,18 @@ LABEL_39:
     goto LABEL_39;
   }
 
-LABEL_40:
-  v37 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completion___block_invoke_3(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v14 = 0;
-  v5 = [v2 applySyncChange:v3 forStore:v4 error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [v2 applySyncChange:v3 forStore:v4 error:&v13];
+  v6 = v13;
   if (v5)
   {
     [*(a1 + 56) addObject:*(a1 + 40)];
@@ -8403,23 +8209,22 @@ uint64_t __70__HDNanoSyncManager__queue_receiveChangeRequest_syncStore_completio
     v7 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 64);
-      v11 = v7;
-      v12 = [v10 idsIdentifier];
-      v13 = [*(a1 + 40) nanoSyncDescription];
+      v9 = *(a1 + 64);
+      v10 = v7;
+      v11 = [v9 idsIdentifier];
+      v12 = [*(a1 + 40) nanoSyncDescription];
       *buf = 138543874;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v6;
-      _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "failed to apply request %{public}@ change %{public}@: %{public}@", buf, 0x20u);
+      v15 = v11;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v6;
+      _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "failed to apply request %{public}@ change %{public}@: %{public}@", buf, 0x20u);
     }
 
     *(*(*(a1 + 72) + 8) + 24) = 2;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -8487,15 +8292,15 @@ void __75__HDNanoSyncManager__queue_changeResponseDidFailToSendWithError_syncSto
 
 void __60__HDNanoSyncManager__queue_receiveChangeResponse_syncStore___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64) == 2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
   v4 = [WeakRetained syncEngine];
   v5 = *(a1 + 40);
   v6 = *(a1 + 48);
-  v11 = 0;
-  v7 = [v4 applyAcknowledgedAnchorMap:v5 forStore:v6 resetNext:v2 resetInvalid:1 error:&v11];
-  v8 = v11;
+  v10 = 0;
+  v7 = [v4 applyAcknowledgedAnchorMap:v5 forStore:v6 resetNext:v2 resetInvalid:1 error:&v10];
+  v8 = v10;
 
   if ((v7 & 1) == 0)
   {
@@ -8504,19 +8309,17 @@ void __60__HDNanoSyncManager__queue_receiveChangeResponse_syncStore___block_invo
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v13 = v8;
+      v12 = v8;
       _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "failed to apply received anchors: %{public}@", buf, 0xCu);
     }
   }
 
   [*(a1 + 56) invalidate];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __96__HDNanoSyncManager__queue_syncImmediatelyWithReason_options_accessibilityAssertion_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = CFAbsoluteTimeGetCurrent() - *(a1 + 56);
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
@@ -8540,21 +8343,21 @@ void __96__HDNanoSyncManager__queue_syncImmediatelyWithReason_options_accessibil
   v14 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
   {
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 64);
-    v19 = v14;
-    v20 = _StringFromSyncOptions(v18);
-    v21 = 138413314;
-    v22 = v17;
-    v23 = 2048;
-    v24 = v6;
-    v25 = 2112;
-    v26 = v20;
-    v27 = 1024;
-    v28 = a2;
-    v29 = 2114;
-    v30 = v5;
-    _os_log_debug_impl(&dword_228986000, v19, OS_LOG_TYPE_DEBUG, "Finished sync (%@) in %lfs options='%@' success=%d error=%{public}@", &v21, 0x30u);
+    v16 = *(a1 + 40);
+    v17 = *(a1 + 64);
+    v18 = v14;
+    v19 = _StringFromSyncOptions(v17);
+    v20 = 138413314;
+    v21 = v16;
+    v22 = 2048;
+    v23 = v6;
+    v24 = 2112;
+    v25 = v19;
+    v26 = 1024;
+    v27 = a2;
+    v28 = 2114;
+    v29 = v5;
+    _os_log_debug_impl(&dword_228986000, v18, OS_LOG_TYPE_DEBUG, "Finished sync (%@) in %lfs options='%@' success=%d error=%{public}@", &v20, 0x30u);
   }
 
   v15 = *(a1 + 48);
@@ -8562,13 +8365,11 @@ void __96__HDNanoSyncManager__queue_syncImmediatelyWithReason_options_accessibil
   {
     (*(v15 + 16))(v15, a2, v5);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_performNextProactiveSyncWithRemainingDevices:(void *)devices accessibilityAssertion:(void *)assertion completion:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a2;
   devicesCopy = devices;
   assertionCopy = assertion;
@@ -8584,7 +8385,7 @@ void __96__HDNanoSyncManager__queue_syncImmediatelyWithReason_options_accessibil
       {
         v12 = v11;
         *buf = 134217984;
-        v28 = [v7 count];
+        v27 = [v7 count];
         _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_INFO, "performing proactive sync with %lu remaining device(s)", buf, 0xCu);
       }
 
@@ -8596,16 +8397,16 @@ void __96__HDNanoSyncManager__queue_syncImmediatelyWithReason_options_accessibil
 
       if (v16 && ([v16 isActive] & 1) == 0 && objc_msgSend(v16, "isRestoreComplete"))
       {
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __107__HDNanoSyncManager__queue_performNextProactiveSyncWithRemainingDevices_accessibilityAssertion_completion___block_invoke;
-        v21[3] = &unk_2786177D0;
-        v22 = v16;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __107__HDNanoSyncManager__queue_performNextProactiveSyncWithRemainingDevices_accessibilityAssertion_completion___block_invoke;
+        v20[3] = &unk_2786177D0;
+        v21 = v16;
         selfCopy = self;
-        v24 = v7;
-        v25 = devicesCopy;
-        v26 = assertionCopy;
-        [(HDNanoSyncManager *)self _queue_synchronizeWithOptions:0 restoreMessagesSentHandler:v22 targetSyncStore:@"proactive sync" reason:v25 accessibilityAssertion:v21 completion:?];
+        v23 = v7;
+        v24 = devicesCopy;
+        v25 = assertionCopy;
+        [(HDNanoSyncManager *)self _queue_synchronizeWithOptions:0 restoreMessagesSentHandler:v21 targetSyncStore:@"proactive sync" reason:v24 accessibilityAssertion:v20 completion:?];
       }
 
       else
@@ -8617,9 +8418,9 @@ void __96__HDNanoSyncManager__queue_syncImmediatelyWithReason_options_accessibil
           v18 = v17;
           hd_shortDescription = [firstObject hd_shortDescription];
           *buf = 138543618;
-          v28 = v16;
-          v29 = 2114;
-          v30 = hd_shortDescription;
+          v27 = v16;
+          v28 = 2114;
+          v29 = hd_shortDescription;
           _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "skipping proactive sync for store %{public}@ for device %{public}@", buf, 0x16u);
         }
 
@@ -8632,13 +8433,11 @@ void __96__HDNanoSyncManager__queue_syncImmediatelyWithReason_options_accessibil
       (*(assertionCopy + 2))(assertionCopy, 1, 0);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HDNanoSyncManager__queue_performNextProactiveSyncWithRemainingDevices_accessibilityAssertion_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a2 & 1) == 0)
   {
@@ -8646,11 +8445,11 @@ void __107__HDNanoSyncManager__queue_performNextProactiveSyncWithRemainingDevice
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
+      v12 = *(a1 + 32);
       *buf = 138543618;
-      v19 = v13;
-      v20 = 2114;
-      v21 = v5;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v5;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "failed proactive sync for store %{public}@: %{public}@", buf, 0x16u);
     }
   }
@@ -8659,65 +8458,63 @@ void __107__HDNanoSyncManager__queue_performNextProactiveSyncWithRemainingDevice
   block[1] = 3221225472;
   block[2] = __107__HDNanoSyncManager__queue_performNextProactiveSyncWithRemainingDevices_accessibilityAssertion_completion___block_invoke_714;
   block[3] = &unk_278613680;
-  v14 = *(a1 + 40);
-  v7 = *(v14 + 56);
-  v8 = *(&v14 + 1);
+  v13 = *(a1 + 40);
+  v7 = *(v13 + 56);
+  v8 = *(&v13 + 1);
   v9 = *(a1 + 56);
   v10 = *(a1 + 64);
   *&v11 = v9;
   *(&v11 + 1) = v10;
-  v16 = v14;
-  v17 = v11;
+  v15 = v13;
+  v16 = v11;
   dispatch_async(v7, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __119__HDNanoSyncManager__syncQueue_forwardSpeculativeChangeSetIfNecessaryForChanges_destinationSyncStores_originSyncStore___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = *(a1 + 32);
-  v26 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v25)
   {
-    v25 = *v33;
+    v24 = *v32;
     do
     {
       v2 = 0;
       do
       {
-        if (*v33 != v25)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = v2;
-        v3 = *(*(&v32 + 1) + 8 * v2);
+        v26 = v2;
+        v3 = *(*(&v31 + 1) + 8 * v2);
         v4 = objc_alloc_init(HDCodableNanoSyncChangeSet);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         v5 = *(a1 + 40);
-        v6 = [v5 countByEnumeratingWithState:&v28 objects:v39 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v27 objects:v38 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v29;
+          v8 = *v28;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v29 != v8)
+              if (*v28 != v8)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v10 = *(*(&v28 + 1) + 8 * i);
+              v10 = *(*(&v27 + 1) + 8 * i);
               WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 48));
               v12 = [v10 syncEntityClassForProfile:WeakRetained];
 
@@ -8727,7 +8524,7 @@ void __119__HDNanoSyncManager__syncQueue_forwardSpeculativeChangeSetIfNecessaryF
               }
             }
 
-            v7 = [v5 countByEnumeratingWithState:&v28 objects:v39 count:16];
+            v7 = [v5 countByEnumeratingWithState:&v27 objects:v38 count:16];
           }
 
           while (v7);
@@ -8743,8 +8540,8 @@ void __119__HDNanoSyncManager__syncQueue_forwardSpeculativeChangeSetIfNecessaryF
             v15 = [(HDCodableNanoSyncChangeSet *)v4 nanoSyncDescription];
             *buf = 138543618;
             *&buf[4] = v15;
-            v37 = 2114;
-            v38 = v3;
+            v36 = 2114;
+            v37 = v3;
             _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "forwarding speculative change set %{public}@ to %{public}@", buf, 0x16u);
           }
 
@@ -8768,17 +8565,15 @@ void __119__HDNanoSyncManager__syncQueue_forwardSpeculativeChangeSetIfNecessaryF
           }
         }
 
-        v2 = v27 + 1;
+        v2 = v26 + 1;
       }
 
-      while (v27 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      while (v26 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncImmediatelyWithReason:(uint64_t)reason options:
@@ -8858,7 +8653,7 @@ void __82__HDNanoSyncManager__queue_waitForLastChanceSyncWithPairingID_timeout_c
 
 void __82__HDNanoSyncManager__queue_waitForLastChanceSyncWithPairingID_timeout_completion___block_invoke_3(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -8866,13 +8661,11 @@ void __82__HDNanoSyncManager__queue_waitForLastChanceSyncWithPairingID_timeout_c
     v5 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v4;
-      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "error occurred during last-chance sync request: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "error occurred during last-chance sync request: %{public}@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendFinalStatusMessageForSyncSession:(char)session didFinishSuccessfully:(void *)successfully error:
@@ -8896,23 +8689,23 @@ void __82__HDNanoSyncManager__queue_waitForLastChanceSyncWithPairingID_timeout_c
 
 void __68__HDNanoSyncManager__queue_recieveStartWorkoutAppRequest_syncStore___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v19 = @"with response";
+    v18 = @"with response";
     if (!v5)
     {
-      v19 = @"with nil response";
+      v18 = @"with nil response";
     }
 
     *buf = 138412546;
-    v27 = v19;
-    v28 = 2114;
-    v29 = v6;
+    v26 = v18;
+    v27 = 2114;
+    v28 = v6;
     _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "Start workout app request complete %@, error: %{public}@", buf, 0x16u);
   }
 
@@ -8935,45 +8728,41 @@ void __68__HDNanoSyncManager__queue_recieveStartWorkoutAppRequest_syncStore___bl
   v12 = *(a1 + 32);
   v13 = *(a1 + 48);
   v14 = *(a1 + 56);
-  v21 = v12;
-  v22 = v13;
-  v23 = v10;
+  v20 = v12;
+  v21 = v13;
+  v22 = v10;
   v15 = v14;
   v16 = *(a1 + 64);
-  v24 = v15;
-  v25 = v16;
+  v23 = v15;
+  v24 = v16;
   v17 = v10;
   dispatch_async(v11, block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HDNanoSyncManager__queue_recieveStartWorkoutAppRequest_syncStore___block_invoke_796(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = v2;
-    v8 = [v6 requestIdentifier];
-    v9 = 138412290;
-    v10 = v8;
-    _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "Sending response to start app request %@", &v9, 0xCu);
+    v5 = *(a1 + 32);
+    v6 = v2;
+    v7 = [v5 requestIdentifier];
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "Sending response to start app request %@", &v8, 0xCu);
   }
 
   [(HDNanoSyncManager *)*(a1 + 40) _queue_sendResponse:*(a1 + 56) syncStore:?];
   v3 = *(*(a1 + 64) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HDNanoSyncManager__queue_sendCompanionUserNotificationRequest_syncStore_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (!a2)
@@ -8984,35 +8773,33 @@ void __86__HDNanoSyncManager__queue_sendCompanionUserNotificationRequest_syncSto
       v6 = *MEMORY[0x277CCC300];
       if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_ERROR))
       {
-        v8 = 138412290;
-        v9 = v5;
-        _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Request to display companion user notification failed: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v5;
+        _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Request to display companion user notification failed: %@", &v7, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDNanoSyncManager__queue_recieveCompanionUserNotificationRequest_syncStore___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC300];
   if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEBUG))
   {
-    v19 = @"with response";
+    v18 = @"with response";
     if (!v5)
     {
-      v19 = @"with nil response";
+      v18 = @"with nil response";
     }
 
     *buf = 138412546;
-    v27 = v19;
-    v28 = 2112;
-    v29 = v6;
+    v26 = v18;
+    v27 = 2112;
+    v28 = v6;
     _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "Display notification request complete %@, error: %@", buf, 0x16u);
   }
 
@@ -9035,71 +8822,64 @@ void __78__HDNanoSyncManager__queue_recieveCompanionUserNotificationRequest_sync
   v12 = *(a1 + 32);
   v13 = *(a1 + 48);
   v14 = *(a1 + 56);
-  v21 = v12;
-  v22 = v13;
-  v23 = v10;
+  v20 = v12;
+  v21 = v13;
+  v22 = v10;
   v15 = v14;
   v16 = *(a1 + 64);
-  v24 = v15;
-  v25 = v16;
+  v23 = v15;
+  v24 = v16;
   v17 = v10;
   dispatch_async(v11, block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __78__HDNanoSyncManager__queue_recieveCompanionUserNotificationRequest_syncStore___block_invoke_807(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC300];
   if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
-    v7 = v2;
-    v8 = [v6 requestIdentifier];
-    v9 = 138412290;
-    v10 = v8;
-    _os_log_debug_impl(&dword_228986000, v7, OS_LOG_TYPE_DEBUG, "Sending response to start app request %@", &v9, 0xCu);
+    v5 = *(a1 + 32);
+    v6 = v2;
+    v7 = [v5 requestIdentifier];
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "Sending response to start app request %@", &v8, 0xCu);
   }
 
   [(HDNanoSyncManager *)*(a1 + 40) _queue_sendResponse:*(a1 + 56) syncStore:?];
   v3 = *(*(a1 + 64) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HDNanoSyncManager__queue_receiveNotificationInstructionRequest_syncStore___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC300];
   if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
-    v8 = v5;
-    v9 = objc_opt_class();
-    v10 = *(a1 + 40);
-    v11 = v9;
-    v12 = [v10 requestIdentifier];
-    v13 = 138543874;
-    v14 = v9;
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = *(a1 + 40);
+    v9 = v7;
+    v10 = [v8 requestIdentifier];
+    v11 = 138543874;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v10;
     v15 = 2112;
-    v16 = v12;
-    v17 = 2112;
-    v18 = v4;
-    _os_log_debug_impl(&dword_228986000, v8, OS_LOG_TYPE_DEBUG, "[%{public}@] Processed Notification instruction request %@, error: %@", &v13, 0x20u);
+    v16 = v4;
+    _os_log_debug_impl(&dword_228986000, v6, OS_LOG_TYPE_DEBUG, "[%{public}@] Processed Notification instruction request %@, error: %@", &v11, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HDNanoSyncManager__queue_receiveTinkerOptInRequest_syncStore___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
@@ -9107,9 +8887,9 @@ void __64__HDNanoSyncManager__queue_receiveTinkerOptInRequest_syncStore___block_
   {
     v7 = *(a1 + 32);
     *buf = 138543618;
-    v21 = v7;
-    v22 = 2114;
-    v23 = v5;
+    v20 = v7;
+    v21 = 2114;
+    v22 = v5;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Preparing response to Tinker opt in request; error: %{public}@ (#t0)", buf, 0x16u);
   }
 
@@ -9128,23 +8908,21 @@ void __64__HDNanoSyncManager__queue_receiveTinkerOptInRequest_syncStore___block_
   [v8 setPbResponse:v9];
   v12 = *(a1 + 32);
   v13 = *(v12 + 56);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __64__HDNanoSyncManager__queue_receiveTinkerOptInRequest_syncStore___block_invoke_821;
-  v16[3] = &unk_278616D68;
-  v16[4] = v12;
-  v17 = *(a1 + 48);
-  v18 = v8;
-  v19 = *(a1 + 56);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __64__HDNanoSyncManager__queue_receiveTinkerOptInRequest_syncStore___block_invoke_821;
+  v15[3] = &unk_278616D68;
+  v15[4] = v12;
+  v16 = *(a1 + 48);
+  v17 = v8;
+  v18 = *(a1 + 56);
   v14 = v8;
-  dispatch_async(v13, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(v13, v15);
 }
 
 void __64__HDNanoSyncManager__queue_receiveTinkerOptInRequest_syncStore___block_invoke_821(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -9153,15 +8931,14 @@ void __64__HDNanoSyncManager__queue_receiveTinkerOptInRequest_syncStore___block_
     v3 = *(a1 + 40);
     v5 = v2;
     v6 = [v3 requestIdentifier];
-    v8 = 138543618;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Will send Tinker opt in response to request %{public}@ (#t0)", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Will send Tinker opt in response to request %{public}@ (#t0)", &v7, 0x16u);
   }
 
   [(HDNanoSyncManager *)*(a1 + 32) _queue_sendResponse:*(a1 + 56) syncStore:?];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithResponse___block_invoke(uint64_t a1)
@@ -9172,7 +8949,7 @@ void __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithRespon
 
 - (void)_queue_handleTinkerOptInNotification:(uint64_t)notification
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (notification)
   {
     dispatch_assert_queue_V2(*(notification + 56));
@@ -9188,33 +8965,33 @@ void __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithRespon
         v6 = *(notification + 112);
         v7 = v4;
         *buf = 134349056;
-        v33 = [v6 count];
+        v32 = [v6 count];
         _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Tinker opt in accepted for the previous %{public}lu requests. Sending answer to companion (#t0)", buf, 0xCu);
       }
 
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v8 = *(notification + 112);
-      v9 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v27;
+        v11 = *v26;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v27 != v11)
+            if (*v26 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            (*(*(*(&v26 + 1) + 8 * i) + 16))();
+            (*(*(*(&v25 + 1) + 8 * i) + 16))();
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
         }
 
         while (v10);
@@ -9228,34 +9005,34 @@ void __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithRespon
         v13 = *(notification + 112);
         v14 = v4;
         *buf = 134349056;
-        v33 = [v13 count];
+        v32 = [v13 count];
         _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Tinker opt in declined for the previous %{public}lu requests. Sending answer to companion (#t0)", buf, 0xCu);
       }
 
       v8 = [MEMORY[0x277CCA9B8] hk_error:4 format:@"Tinker user declined Health sharing opt-in"];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       v15 = *(notification + 112);
-      v16 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v23;
+        v18 = *v22;
         do
         {
           for (j = 0; j != v17; ++j)
           {
-            if (*v23 != v18)
+            if (*v22 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            (*(*(*(&v22 + 1) + 8 * j) + 16))(*(*(&v22 + 1) + 8 * j));
+            (*(*(*(&v21 + 1) + 8 * j) + 16))(*(*(&v21 + 1) + 8 * j));
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
         }
 
         while (v17);
@@ -9265,8 +9042,6 @@ void __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithRespon
     v20 = *(notification + 112);
     *(notification + 112) = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HDNanoSyncManager__queue_registerForTinkerOptInNotificationWithResponse___block_invoke_2(uint64_t a1)
@@ -9287,7 +9062,7 @@ uint64_t __65__HDNanoSyncManager__queue_receiveTinkerOptInResponse_syncStore___b
 
 void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _HKInitializeLogging();
@@ -9295,9 +9070,9 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v24 = v5;
-    v25 = 2114;
-    v26 = v6;
+    v23 = v5;
+    v24 = 2114;
+    v25 = v6;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Preparing response %{public}@ to Tinker pairing request; error: %{public}@ (#t0)", buf, 0x16u);
   }
 
@@ -9315,26 +9090,24 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
 
   [v8 setPbResponse:v9];
   v12 = *(*(a1 + 48) + 56);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_848;
-  v18[3] = &unk_278616D68;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_848;
+  v17[3] = &unk_278616D68;
   v13 = *(a1 + 40);
   v14 = *(a1 + 48);
   v15 = *(a1 + 56);
-  v19 = v13;
-  v20 = v14;
-  v21 = v8;
-  v22 = v15;
+  v18 = v13;
+  v19 = v14;
+  v20 = v8;
+  v21 = v15;
   v16 = v8;
-  dispatch_async(v12, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(v12, v17);
 }
 
 void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_848(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -9342,18 +9115,17 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 requestIdentifier];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Sending response to Tinker pairing request %{public}@ (#t0)", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Sending response to Tinker pairing request %{public}@ (#t0)", &v6, 0xCu);
   }
 
   [(HDNanoSyncManager *)*(a1 + 40) _queue_sendResponse:*(a1 + 56) syncStore:?];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_863(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a4;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC328];
@@ -9362,9 +9134,9 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = v6;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[sharing-setup] Failed health sharing set up process: %{public}@ (#t0)", &v12, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[sharing-setup] Failed health sharing set up process: %{public}@ (#t0)", &v10, 0xCu);
     }
 
     v9 = *(*(a1 + 40) + 16);
@@ -9374,18 +9146,15 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Successfully finished health sharing set up process, sending response (#t0)", &v12, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Successfully finished health sharing set up process, sending response (#t0)", &v10, 2u);
     }
 
-    v10 = *(*(*(a1 + 48) + 8) + 40);
     v9 = *(*(a1 + 40) + 16);
   }
 
   v9();
   [*(a1 + 32) invalidate];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_865(uint64_t a1, uint64_t a2, void *a3)
@@ -9495,7 +9264,7 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
 
 void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_868(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc(MEMORY[0x277CBC7C8]);
   v6 = [*(a1 + 32) guardianIcloudIdentifier];
@@ -9506,29 +9275,27 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = v7;
+    v19 = v7;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Starting sharing setup with lookupInfo %{public}@ (#t0)", buf, 0xCu);
   }
 
   v9 = [*(a1 + 32) setupType] == 1;
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
   v11 = [WeakRetained cloudSyncManager];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_871;
-  v15[3] = &unk_278617980;
-  v17 = v4;
-  v16 = *(a1 + 48);
-  v18 = *(a1 + 56);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_871;
+  v14[3] = &unk_278617980;
+  v16 = v4;
+  v15 = *(a1 + 48);
+  v17 = *(a1 + 56);
   v12 = v4;
-  v13 = [v11 setupSharingToAccountWithIdentityLookupInfo:v7 requireExistingRelationship:v9 requireZoneDeviceMode:&unk_283CB08B8 completion:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [v11 setupSharingToAccountWithIdentityLookupInfo:v7 requireExistingRelationship:v9 requireZoneDeviceMode:&unk_283CB08B8 completion:v14];
 }
 
 void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_871(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   _HKInitializeLogging();
@@ -9541,13 +9308,13 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
     {
       v11 = a1[4];
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Set up shares in response to Tinker pairing request %{public}@ (#t0)", buf, 0xCu);
     }
 
-    v19 = 0;
-    v12 = [v6 codableSharingSetupMetadataWithError:&v19];
-    v13 = v19;
+    v18 = 0;
+    v12 = [v6 codableSharingSetupMetadataWithError:&v18];
+    v13 = v18;
     v14 = *(a1[6] + 8);
     v15 = *(v14 + 40);
     *(v14 + 40) = v12;
@@ -9565,7 +9332,7 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v21 = v13;
+        v20 = v13;
         _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "[sharing-setup] Encoding sharing setup metadata failed %{public}@ (#t0)", buf, 0xCu);
       }
 
@@ -9580,19 +9347,17 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v21 = v7;
+      v20 = v7;
       _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "[sharing-setup] Share setup failed %{public}@ (#t0)", buf, 0xCu);
     }
 
     (*(a1[5] + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_873(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
@@ -9602,7 +9367,7 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
     v7 = v5;
     v8 = [v6 shareParticipant];
     *buf = 138543362;
-    v25 = v8;
+    v24 = v8;
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Sharing set up successful to %{public}@. Save guardian details for transparency alert (#t0)", buf, 0xCu);
   }
 
@@ -9618,18 +9383,18 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
   v14 = [WeakRetained database];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_875;
-  v20[3] = &unk_2786179D0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_875;
+  v19[3] = &unk_2786179D0;
   v15 = *(a1 + 48);
-  v20[4] = *(a1 + 40);
-  v21 = v9;
-  v22 = *(a1 + 56);
-  v23 = 0;
+  v19[4] = *(a1 + 40);
+  v20 = v9;
+  v21 = *(a1 + 56);
+  v22 = 0;
   v16 = v9;
-  LODWORD(v9) = [v14 performWithTransactionContext:v15 error:&v23 block:v20];
-  v17 = v23;
+  LODWORD(v9) = [v14 performWithTransactionContext:v15 error:&v22 block:v19];
+  v17 = v22;
 
   if (v9)
   {
@@ -9642,13 +9407,11 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
   }
 
   v4[2](v4, v18, v17);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_875(void *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   v3 = a1[5];
   v5 = [*(*(a1[6] + 8) + 40) shareParticipant];
@@ -9663,11 +9426,11 @@ uint64_t __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___
   v8 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543618;
-    v16 = v6;
-    v17 = 2114;
-    v18 = v7;
-    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Saving guardian info %{public}@, guardianParticipant %{public}@ (#t0)", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v7;
+    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Saving guardian info %{public}@, guardianParticipant %{public}@ (#t0)", &v14, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((v4 + 48));
@@ -9685,7 +9448,6 @@ LABEL_6:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -9727,12 +9489,11 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
 
 uint64_t __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_877(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (!v2)
   {
-    v19 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   _HKInitializeLogging();
@@ -9740,8 +9501,8 @@ uint64_t __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    *v22 = 0;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Set up transparency alert to fire after buddy flow (#t0)", v22, 2u);
+    *v21 = 0;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[sharing-setup] Set up transparency alert to fire after buddy flow (#t0)", v21, 2u);
   }
 
   v6 = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -9758,13 +9519,13 @@ uint64_t __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___
     {
       v12 = v11;
       v13 = NSStringFromSelector(sel__scheduleTransparencyAlert_);
-      *v22 = 138543618;
-      *&v22[4] = v13;
-      *&v22[12] = 2114;
-      *&v22[14] = v10;
+      *v21 = 138543618;
+      *&v21[4] = v13;
+      *&v21[12] = 2114;
+      *&v21[14] = v10;
       v14 = "[sharing-setup] %{public}@ Found user defaults, scheduling alert for %{public}@ (#t0)";
 LABEL_10:
-      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, v14, v22, 0x16u);
+      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, v14, v21, 0x16u);
     }
   }
 
@@ -9777,23 +9538,21 @@ LABEL_10:
     {
       v12 = v15;
       v13 = NSStringFromSelector(sel__scheduleTransparencyAlert_);
-      *v22 = 138543618;
-      *&v22[4] = v13;
-      *&v22[12] = 2114;
-      *&v22[14] = v10;
+      *v21 = 138543618;
+      *&v21[4] = v13;
+      *&v21[12] = 2114;
+      *&v21[14] = v10;
       v14 = "[sharing-setup] %{public}@ Did not find any user defaults. Scheduling alert for %{public}@ (#t0)";
       goto LABEL_10;
     }
   }
 
-  v16 = [v9 components:62 fromDate:{v10, *v22, *&v22[16], v23}];
+  v16 = [v9 components:62 fromDate:{v10, *v21, *&v21[8], v22}];
   [v16 setCalendar:v9];
   WeakRetained = objc_loadWeakRetained((v2 + 48));
   v18 = [WeakRetained tinkerPrivacyAlertCoordinator];
   v19 = [v18 scheduleEventIfRequiredForDateComponents:v16 eventIdentifier:@"TinkerPrivacyAlertEventSharingSetUp" error:a2];
 
-LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -9875,7 +9634,7 @@ uint64_t __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___
 
 void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___block_invoke_2_882(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [HDKeyValueDomain alloc];
   v6 = *MEMORY[0x277CCE3B8];
@@ -9893,9 +9652,9 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
   v9 = [(HDKeyValueDomain *)v5 initWithCategory:100 domainName:v6 profile:WeakRetained];
 
   v10 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277CCE3B0]];
-  v15 = 0;
-  v11 = [(HDKeyValueDomain *)v9 removeValuesForKeys:v10 error:&v15];
-  v12 = v15;
+  v14 = 0;
+  v11 = [(HDKeyValueDomain *)v9 removeValuesForKeys:v10 error:&v14];
+  v12 = v14;
 
   if (!v11)
   {
@@ -9904,14 +9663,12 @@ void __66__HDNanoSyncManager__queue_receiveTinkerPairingRequest_syncStore___bloc
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = v12;
+      v16 = v12;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[sharing-setup] Failed to purge sharing state cache with error: %{public}@ (#t0)", buf, 0xCu);
     }
   }
 
   (*(v4 + 2))(v4, 0, 0);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDNanoSyncManager__queue_receiveTinkerPairingResponse_syncStore___block_invoke(uint64_t a1)
@@ -9934,7 +9691,7 @@ uint64_t __81__HDNanoSyncManager__queue_tinkerPairingRequestDidFailToSendWithErr
 
 void __76__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
@@ -9942,9 +9699,9 @@ void __76__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncRequest_syncSt
   {
     v7 = *(a1 + 32);
     *buf = 138543618;
-    v21 = v7;
-    v22 = 2114;
-    v23 = v5;
+    v20 = v7;
+    v21 = 2114;
+    v22 = v5;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Preparing response to Tinker end to end Cloud Sync request; error: %{public}@ (#t0)", buf, 0x16u);
   }
 
@@ -9963,23 +9720,21 @@ void __76__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncRequest_syncSt
   [v8 setPbResponse:v9];
   v12 = *(a1 + 32);
   v13 = *(v12 + 56);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __76__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore___block_invoke_895;
-  v16[3] = &unk_278616D68;
-  v16[4] = v12;
-  v17 = *(a1 + 48);
-  v18 = v8;
-  v19 = *(a1 + 56);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __76__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore___block_invoke_895;
+  v15[3] = &unk_278616D68;
+  v15[4] = v12;
+  v16 = *(a1 + 48);
+  v17 = v8;
+  v18 = *(a1 + 56);
   v14 = v8;
-  dispatch_async(v13, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  dispatch_async(v13, v15);
 }
 
 void __76__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncRequest_syncStore___block_invoke_895(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -9988,15 +9743,14 @@ void __76__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncRequest_syncSt
     v3 = *(a1 + 40);
     v5 = v2;
     v6 = [v3 requestIdentifier];
-    v8 = 138543618;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v6;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Will send Tinker end to end Cloud Sync response to request %{public}@ (#t0)", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[sharing-setup] %{public}@ Will send Tinker end to end Cloud Sync response to request %{public}@ (#t0)", &v7, 0x16u);
   }
 
   [(HDNanoSyncManager *)*(a1 + 32) _queue_sendResponse:*(a1 + 56) syncStore:?];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HDNanoSyncManager__queue_performSyncForTinkerEndToEndCloudSyncWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -10018,7 +9772,7 @@ uint64_t __77__HDNanoSyncManager__queue_receiveTinkerEndToEndCloudSyncResponse_s
 
 void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a4;
   _HKInitializeLogging();
   v7 = HKLogAuthorization();
@@ -10030,33 +9784,31 @@ void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___bloc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109378;
-      v21 = a3;
-      v22 = 2114;
-      v23 = v6;
+      v20 = a3;
+      v21 = 2114;
+      v22 = v6;
       _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "Authorization request complete with success: %d, error: %{public}@.", buf, 0x12u);
     }
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_911;
-  v15[3] = &unk_2786178B8;
-  v16 = v6;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_911;
+  v14[3] = &unk_2786178B8;
+  v15 = v6;
   v10 = *(a1 + 32);
-  v17 = *(a1 + 40);
+  v16 = *(a1 + 40);
   v11 = *(a1 + 48);
   v12 = *(a1 + 32);
-  v18 = v11;
-  v19 = v12;
+  v17 = v11;
+  v18 = v12;
   v13 = v6;
-  [v10 syncHealthDataWithOptions:0 reason:@"Remote authorization request complete" completion:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [v10 syncHealthDataWithOptions:0 reason:@"Remote authorization request complete" completion:v14];
 }
 
 void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_911(uint64_t a1, int a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = HKLogAuthorization();
@@ -10067,11 +9819,11 @@ void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___bloc
     v8 = HKLogAuthorization();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v20 = *(a1 + 32);
+      v19 = *(a1 + 32);
       *buf = 67109378;
-      v25 = a2;
-      v26 = 2114;
-      v27 = v20;
+      v24 = a2;
+      v25 = 2114;
+      v26 = v19;
       _os_log_debug_impl(&dword_228986000, v8, OS_LOG_TYPE_DEBUG, "Post-authorization sync complete with success: %d, error: %{public}@.", buf, 0x12u);
     }
   }
@@ -10100,17 +9852,15 @@ void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___bloc
   block[2] = __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_912;
   block[3] = &unk_278613830;
   block[4] = v16;
-  v22 = v14;
-  v23 = v15;
+  v21 = v14;
+  v22 = v15;
   v18 = v14;
   dispatch_async(v17, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   _HKInitializeLogging();
@@ -10123,11 +9873,11 @@ void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___bloc
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v26 = v7;
-      v27 = 1024;
-      v28 = a2;
-      v29 = 2114;
-      v30 = v8;
+      v25 = v7;
+      v26 = 1024;
+      v27 = a2;
+      v28 = 2114;
+      v29 = v8;
       _os_log_debug_impl(&dword_228986000, v11, OS_LOG_TYPE_DEBUG, "Sending response to authorization request; host app is %@ and should prompt is %d; error: %{public}@", buf, 0x1Cu);
     }
   }
@@ -10157,17 +9907,15 @@ void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___bloc
   block[2] = __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_914;
   block[3] = &unk_278613830;
   block[4] = v18;
-  v23 = v12;
-  v24 = v17;
+  v22 = v12;
+  v23 = v17;
   v20 = v12;
   dispatch_async(v19, block);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_2_916(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a4;
   if (!a3)
@@ -10185,34 +9933,33 @@ void __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___bloc
     if (!v10)
     {
       _HKInitializeLogging();
-      v16 = HKLogAuthorization();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+      v15 = HKLogAuthorization();
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
       if (v9)
       {
-        if (v17)
+        if (v16)
         {
-          v18 = *(a1 + 32);
+          v17 = *(a1 + 32);
           *buf = 138412290;
-          v27 = v18;
-          v19 = "Failed to lookup name for bundle '%@': got a proxy, but didn't find a localizedName or localizedShortName.";
+          v25 = v17;
+          v18 = "Failed to lookup name for bundle '%@': got a proxy, but didn't find a localizedName or localizedShortName.";
 LABEL_14:
-          _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, v19, buf, 0xCu);
+          _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
         }
       }
 
-      else if (v17)
+      else if (v16)
       {
-        v22 = *(a1 + 32);
+        v20 = *(a1 + 32);
         *buf = 138412290;
-        v27 = v22;
-        v19 = "Failed to lookup name for bundle '%@': failed to get an application proxy object from LSApplicationProxy.";
+        v25 = v20;
+        v18 = "Failed to lookup name for bundle '%@': failed to get an application proxy object from LSApplicationProxy.";
         goto LABEL_14;
       }
 
-      v20 = *(a1 + 56);
-      v21 = *(a1 + 40);
+      v19 = *(a1 + 56);
       v11 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:*(a1 + 64) format:@"Unable to look up host app with requested bundle identifier."];
-      (*(v20 + 16))(v20, 0, 0, v11);
+      (*(v19 + 16))(v19, 0, 0, v11);
       goto LABEL_5;
     }
   }
@@ -10221,19 +9968,18 @@ LABEL_14:
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
   v13 = [WeakRetained authorizationManager];
   v14 = *(a1 + 32);
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_3;
-  v23[3] = &unk_278616CC8;
-  v25 = *(a1 + 48);
-  v24 = v7;
-  [v13 openAppForAuthorization:v14 sessionIdentifier:v24 completion:v23];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_3;
+  v21[3] = &unk_278616CC8;
+  v23 = *(a1 + 48);
+  v22 = v7;
+  [v13 openAppForAuthorization:v14 sessionIdentifier:v22 completion:v21];
 
   (*(*(a1 + 56) + 16))(*(a1 + 56), 1, v11, 0);
 LABEL_5:
 
 LABEL_7:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__HDNanoSyncManager__queue_receiveAuthorizationRequest_syncStore___block_invoke_3(uint64_t result, char a2, uint64_t a3)
@@ -10307,7 +10053,7 @@ uint64_t __74__HDNanoSyncManager__queue_receiveAuthorizationCompleteRequest_sync
 
 void __64__HDNanoSyncManager__scheduleResetReceivedNanoSyncAnchorsForHFD__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC2A0];
   v3 = *MEMORY[0x277CCC2A0];
@@ -10330,9 +10076,9 @@ void __64__HDNanoSyncManager__scheduleResetReceivedNanoSyncAnchorsForHFD__block_
 
   v6 = [WeakRetained database];
   v7 = +[HDDatabaseTransactionContext contextForWriting];
-  v14 = 0;
-  v8 = [v6 performTransactionWithContext:v7 error:&v14 block:&__block_literal_global_931 inaccessibilityHandler:0];
-  v9 = v14;
+  v13 = 0;
+  v8 = [v6 performTransactionWithContext:v7 error:&v13 block:&__block_literal_global_931 inaccessibilityHandler:0];
+  v9 = v13;
 
   _HKInitializeLogging();
   v10 = *v2;
@@ -10348,13 +10094,11 @@ void __64__HDNanoSyncManager__scheduleResetReceivedNanoSyncAnchorsForHFD__block_
 
   else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v13;
+    v15 = v12;
     _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Failed to reset sync anchors as requested after HFD rebuild step.", buf, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __64__HDNanoSyncManager__scheduleResetReceivedNanoSyncAnchorsForHFD__block_invoke_929(uint64_t a1, void *a2, uint64_t a3)
@@ -10404,6 +10148,38 @@ uint64_t __64__HDNanoSyncManager__scheduleResetReceivedNanoSyncAnchorsForHFD__bl
   dispatch_async(queue, v15);
 }
 
+- (void)syncSession:(id)session didFinishSuccessfully:(BOOL)successfully error:(id)error
+{
+  successfullyCopy = successfully;
+  sessionCopy = session;
+  errorCopy = error;
+  if (successfullyCopy)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_profile);
+    daemon = [WeakRetained daemon];
+    behavior = [daemon behavior];
+    isAppleWatch = [behavior isAppleWatch];
+
+    if ((isAppleWatch & 1) == 0)
+    {
+      syncStore = [sessionCopy syncStore];
+      messageCenter = self->_messageCenter;
+      device = [syncStore device];
+      [(HDIDSMessageCenter *)messageCenter cancelPendingRequestsWithMessageID:7 device:device];
+    }
+  }
+
+  if ([sessionCopy isPullRequest])
+  {
+    [(HDNanoSyncManager *)self _sendFinalStatusMessageForSyncSession:sessionCopy didFinishSuccessfully:successfullyCopy error:errorCopy];
+  }
+
+  else
+  {
+    [(HDNanoSyncManager *)self _sendFinalMessageForSyncSession:sessionCopy status:0 success:successfullyCopy error:errorCopy];
+  }
+}
+
 - (void)_sendFinalMessageForSyncSession:(void *)session status:(uint64_t)status success:(void *)success error:
 {
   v9 = a2;
@@ -10435,7 +10211,7 @@ uint64_t __64__HDNanoSyncManager__scheduleResetReceivedNanoSyncAnchorsForHFD__bl
 
 void __87__HDNanoSyncManager__sendFinalStatusMessageForSyncSession_didFinishSuccessfully_error___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isLastChance])
   {
     v2 = 5;
@@ -10450,9 +10226,9 @@ void __87__HDNanoSyncManager__sendFinalStatusMessageForSyncSession_didFinishSucc
   v4 = [*(a1 + 32) syncStore];
   WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
   v6 = [WeakRetained syncEngine];
-  v16 = 0;
-  v7 = [v6 getReceivedAnchorMap:v3 forStore:v4 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [v6 getReceivedAnchorMap:v3 forStore:v4 error:&v15];
+  v8 = v15;
 
   if (v7)
   {
@@ -10470,7 +10246,7 @@ void __87__HDNanoSyncManager__sendFinalStatusMessageForSyncSession_didFinishSucc
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "failed to get received anchors for outgoing change pull request: %{public}@", buf, 0xCu);
     }
 
@@ -10491,8 +10267,6 @@ void __87__HDNanoSyncManager__sendFinalStatusMessageForSyncSession_didFinishSucc
   }
 
   [(HDNanoSyncManager *)v9 _sendFinalMessageForSyncSession:v10 status:v13 success:v11 error:v12];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HDNanoSyncManager__sendFinalMessageForSyncSession_status_success_error___block_invoke(uint64_t a1)
@@ -10523,7 +10297,6 @@ void __74__HDNanoSyncManager__sendFinalMessageForSyncSession_status_success_erro
 
 uint64_t __74__HDNanoSyncManager__sendFinalMessageForSyncSession_status_success_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 32);
   if (*(a1 + 40))
   {
     a3 = *(a1 + 40);
@@ -10551,23 +10324,22 @@ uint64_t __74__HDNanoSyncManager__sendFinalMessageForSyncSession_status_success_
 
 void __69__HDNanoSyncManager_nanoSyncStore_remoteSystemBuildVersionDidChange___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138543618;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "store %{public}@ remote system build version changed to %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = v3;
+    v7 = 2114;
+    v8 = v4;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "store %{public}@ remote system build version changed to %{public}@", &v5, 0x16u);
   }
 
   [*(a1 + 32) invalidate];
   [(HDNanoSyncManager *)*(a1 + 48) _queue_updateSyncStores];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nanoSyncStore:(id)store deviceNameDidChange:(id)change
@@ -10586,15 +10358,15 @@ void __69__HDNanoSyncManager_nanoSyncStore_remoteSystemBuildVersionDidChange___b
 
 void __55__HDNanoSyncManager_nanoSyncStore_deviceNameDidChange___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "store %{public}@ device name did change", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "store %{public}@ device name did change", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -10603,27 +10375,25 @@ void __55__HDNanoSyncManager_nanoSyncStore_deviceNameDidChange___block_invoke(ui
   {
     [(HDNanoSyncManager *)v4 _queue_updateDeviceNameIfNecessaryWithSyncStore:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___block_invoke(void *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1[4] + 48));
   v3 = [WeakRetained sourceManager];
   v4 = a1[5];
-  v20 = 0;
-  v5 = [v3 localSourceForBundleIdentifier:v4 error:&v20];
-  v6 = v20;
+  v19 = 0;
+  v5 = [v3 localSourceForBundleIdentifier:v4 error:&v19];
+  v6 = v19;
 
   if (v5)
   {
     v7 = a1[7];
     v8 = objc_loadWeakRetained((a1[4] + 48));
-    v19 = v6;
-    v9 = [v5 setName:v7 profile:v8 error:&v19];
-    v10 = v19;
+    v18 = v6;
+    v9 = [v5 setName:v7 profile:v8 error:&v18];
+    v10 = v18;
 
     _HKInitializeLogging();
     v11 = *MEMORY[0x277CCC328];
@@ -10635,20 +10405,20 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
         v14 = a1[6];
         v13 = a1[7];
         *buf = 138412546;
-        v22 = v13;
-        v23 = 2112;
-        v24 = v14;
+        v21 = v13;
+        v22 = 2112;
+        v23 = v14;
         _os_log_debug_impl(&dword_228986000, v11, OS_LOG_TYPE_DEBUG, "updated device name to %@ for %@", buf, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v18 = a1[6];
+      v17 = a1[6];
       *buf = 138543618;
-      v22 = v18;
-      v23 = 2114;
-      v24 = v10;
+      v21 = v17;
+      v22 = 2114;
+      v23 = v10;
       _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "failed to set device name for %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -10663,14 +10433,12 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
     {
       v16 = a1[6];
       *buf = 138543618;
-      v22 = v16;
-      v23 = 2114;
-      v24 = v6;
+      v21 = v16;
+      v22 = 2114;
+      v23 = v6;
       _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "failed to look up source for %{public}@: %{public}@", buf, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)nanoSyncStore:(id)store restoreStateDidChange:(int64_t)change
@@ -10686,7 +10454,7 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
 
 - (id)diagnosticDescription
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   v4 = string;
   if (self->_isMaster)
@@ -10713,29 +10481,29 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
   v10 = [allValues count];
   if (!v6 || v10 >= 2)
   {
-    v25 = v6;
+    v23 = v6;
     [v4 appendString:@"\n\n\tInactive Stores:\n\t"];
-    v28 = 0u;
-    v29 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v24 = allValues;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = allValues;
     v11 = allValues;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v26 + 1) + 8 * i);
+          v16 = *(*(&v24 + 1) + 8 * i);
           if (v16 != self->_activeSyncStore)
           {
             diagnosticDescription2 = [(HDNanoSyncStore *)v16 diagnosticDescription];
@@ -10744,14 +10512,14 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v13);
     }
 
-    allValues = v24;
-    v6 = v25;
+    allValues = v22;
+    v6 = v23;
   }
 
   if (self->_periodicSyncTimer)
@@ -10765,18 +10533,15 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
   }
 
   [v4 appendFormat:@"\n\tPeriodic sync timer: %s", v19];
-  lastPeriodicSyncDate = self->_lastPeriodicSyncDate;
-  v21 = HKDiagnosticStringFromDate();
-  [v4 appendFormat:@"\n\tLast periodic sync: %@", v21];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = HKDiagnosticStringFromDate();
+  [v4 appendFormat:@"\n\tLast periodic sync: %@", v20];
 
   return v4;
 }
 
 - (void)foregroundClientProcessesDidChange:(id)change previouslyForegroundBundleIdentifiers:(id)identifiers
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   identifiersCopy = identifiers;
   _HKInitializeLogging();
@@ -10784,11 +10549,11 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
   v9 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 138412546;
-    v29 = changeCopy;
-    v30 = 2112;
-    v31 = identifiersCopy;
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "CoreDuet: Attempt to add new foregroundClientBundleIds: %@ \n and remove previouslyForegroundBundleIds: %@", &v28, 0x16u);
+    v27 = 138412546;
+    v28 = changeCopy;
+    v29 = 2112;
+    v30 = identifiersCopy;
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "CoreDuet: Attempt to add new foregroundClientBundleIds: %@ \n and remove previouslyForegroundBundleIds: %@", &v27, 0x16u);
   }
 
   keyPathForServicesAppearingForeground = [MEMORY[0x277CFE338] keyPathForServicesAppearingForeground];
@@ -10804,16 +10569,16 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
       v13 = *v8;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
-        v25 = self->_context;
-        v26 = v13;
-        v27 = [(_CDLocalContext *)v25 objectForContextualKeyPath:keyPathForServicesAppearingForeground];
-        v28 = 138412802;
-        v29 = v25;
-        v30 = 2112;
-        v31 = keyPathForServicesAppearingForeground;
-        v32 = 2112;
-        v33 = v27;
-        _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "CoreDuet: Unsuccessful attempt to remove previously foreground bundleIDs from context %@ at keypath %@. Existing foreground bundleIDs: %@", &v28, 0x20u);
+        v24 = self->_context;
+        v25 = v13;
+        v26 = [(_CDLocalContext *)v24 objectForContextualKeyPath:keyPathForServicesAppearingForeground];
+        v27 = 138412802;
+        v28 = v24;
+        v29 = 2112;
+        v30 = keyPathForServicesAppearingForeground;
+        v31 = 2112;
+        v32 = v26;
+        _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "CoreDuet: Unsuccessful attempt to remove previously foreground bundleIDs from context %@ at keypath %@. Existing foreground bundleIDs: %@", &v27, 0x20u);
       }
     }
   }
@@ -10833,13 +10598,13 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
         v17 = self->_context;
         v18 = v16;
         v19 = [(_CDLocalContext *)v17 objectForContextualKeyPath:keyPathForServicesAppearingForeground];
-        v28 = 138412802;
-        v29 = v17;
-        v30 = 2112;
-        v31 = keyPathForServicesAppearingForeground;
-        v32 = 2112;
-        v33 = v19;
-        _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_INFO, "CoreDuet: Unsuccessful attempt to add new foreground bundle ids to context %@ at keypath %@. Existing foreground bundleIDs: %@", &v28, 0x20u);
+        v27 = 138412802;
+        v28 = v17;
+        v29 = 2112;
+        v30 = keyPathForServicesAppearingForeground;
+        v31 = 2112;
+        v32 = v19;
+        _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_INFO, "CoreDuet: Unsuccessful attempt to add new foreground bundle ids to context %@ at keypath %@. Existing foreground bundleIDs: %@", &v27, 0x20u);
       }
     }
 
@@ -10853,8 +10618,6 @@ void __69__HDNanoSyncManager__queue_updateDeviceNameIfNecessaryWithSyncStore___b
       [(HDNanoSyncManager *)self _syncImmediatelyWithReason:1 options:?];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

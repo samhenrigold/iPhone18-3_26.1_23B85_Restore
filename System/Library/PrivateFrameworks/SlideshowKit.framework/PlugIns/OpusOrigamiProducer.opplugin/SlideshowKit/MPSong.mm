@@ -105,7 +105,7 @@
 - (id)description
 {
   v3 = [NSString stringWithFormat:@"==================================== Song %d ===================================\n", [(MPSong *)self index]];
-  [(MPSong *)self duration];
+  objc_msgSend_duration(self);
   v5 = [(NSString *)v3 stringByAppendingFormat:@"\t                   Duration: %f\n", v4];
   if (self->_song)
   {
@@ -128,13 +128,13 @@
   }
 
   self->_path = path;
-  [(MPSongInternal *)self->_internal duration];
+  objc_msgSend_duration(self->_internal);
   v6 = -1.0;
   v8 = v7 == -1.0;
   v9 = -1.0;
   if (!v8)
   {
-    [(MPSong *)self duration];
+    objc_msgSend_duration(self, -1.0);
   }
 
   [(MPSong *)self setDuration:v9];
@@ -219,7 +219,7 @@
     }
   }
 
-  [(MPSong *)self duration];
+  objc_msgSend_duration(self);
   v10 = v9;
   if ([(MPSongInternal *)self->_internal assetLogging])
   {
@@ -229,16 +229,16 @@
   [(MPSongInternal *)self->_internal setStartTime:time];
   if (v6 && [objc_msgSend(v6 documentAttributeForKey:{kMPDocumentEnforceSafeTiming), "BOOLValue"}])
   {
-    [(MPSongInternal *)self->_internal duration];
+    objc_msgSend_duration(self->_internal);
     if (v11 == -1.0)
     {
       [(MPSong *)self willChangeValueForKey:@"duration"];
       parentPlaylist = self->_parentPlaylist;
       if (parentPlaylist)
       {
-        [(MPAudioPlaylist *)self->_parentPlaylist duration];
+        objc_msgSend_duration(self->_parentPlaylist);
         v15 = v14;
-        [(MPSong *)self duration];
+        objc_msgSend_duration(self);
         [(MPAudioPlaylist *)parentPlaylist setDuration:v15 + v16 - v10];
       }
 
@@ -247,7 +247,7 @@
 
     else
     {
-      [(MPSong *)self duration];
+      objc_msgSend_duration(self);
       if (v7 != 0.0 && time + v12 > v7)
       {
         [(MPSong *)self setDuration:v7 - time];
@@ -274,7 +274,7 @@
 
 - (double)duration
 {
-  [(MPSongInternal *)self->_internal duration];
+  objc_msgSend_duration(self->_internal, a2);
   if (result == -1.0)
   {
     [(MPSong *)self stopTime];
@@ -305,7 +305,7 @@
     }
   }
 
-  [(MPSong *)self duration];
+  objc_msgSend_duration(self);
   v12 = v11;
   if ([(MPSongInternal *)self->_internal assetLogging])
   {
@@ -316,9 +316,9 @@
   parentPlaylist = self->_parentPlaylist;
   if (parentPlaylist)
   {
-    [(MPAudioPlaylist *)self->_parentPlaylist duration];
+    objc_msgSend_duration(self->_parentPlaylist);
     v15 = v14;
-    [(MPSong *)self duration];
+    objc_msgSend_duration(self);
     [(MPAudioPlaylist *)parentPlaylist setDuration:v15 + v16 - v12];
   }
 
@@ -440,7 +440,7 @@
 
 - (void)copyStruct:(id)struct
 {
-  [struct duration];
+  objc_msgSend_duration(struct, a2);
   [(MPSongInternal *)self->_internal setDuration:?];
   [struct startTime];
   [(MPSongInternal *)self->_internal setStartTime:?];
@@ -482,10 +482,10 @@
       [(MCSong *)self->_song setStartTime:?];
     }
 
-    [(MPSongInternal *)self->_internal duration];
+    objc_msgSend_duration(self->_internal);
     if (v10 != -1.0)
     {
-      [(MPSongInternal *)self->_internal duration];
+      objc_msgSend_duration(self->_internal);
       [(MCSong *)self->_song setDuration:?];
     }
 
@@ -510,7 +510,7 @@
 
 - (void)setInternalDuration
 {
-  [(MPSong *)self duration];
+  objc_msgSend_duration(self, a2);
   internal = self->_internal;
 
   [(MPSongInternal *)internal setDuration:?];

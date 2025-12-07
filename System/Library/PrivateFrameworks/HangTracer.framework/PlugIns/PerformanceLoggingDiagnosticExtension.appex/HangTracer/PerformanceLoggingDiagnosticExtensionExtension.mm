@@ -29,76 +29,77 @@
 {
   paramsCopy = params;
   v4 = +[NSMutableDictionary dictionary];
+  v5 = v4;
   if (paramsCopy)
   {
-    v5 = [paramsCopy objectForKeyedSubscript:@"shouldCreateTarBall"];
+    v6 = [paramsCopy objectForKeyedSubscript:@"shouldCreateTarBall"];
 
-    if (v5)
+    if (v6)
     {
-      v6 = [paramsCopy objectForKeyedSubscript:@"shouldCreateTarBall"];
-      [v4 setObject:v6 forKeyedSubscript:@"shouldCreateTarBall"];
+      v7 = [paramsCopy objectForKeyedSubscript:@"shouldCreateTarBall"];
+      [v5 setObject:v7 forKeyedSubscript:@"shouldCreateTarBall"];
     }
 
     else
     {
-      [v4 setObject:&__kCFBooleanTrue forKeyedSubscript:@"shouldCreateTarBall"];
+      [v5 setObject:&__kCFBooleanTrue forKeyedSubscript:@"shouldCreateTarBall"];
     }
 
-    v9 = [paramsCopy objectForKeyedSubscript:@"forceDiagnostic"];
+    v10 = [paramsCopy objectForKeyedSubscript:@"forceDiagnostic"];
 
-    if (v9)
+    if (v10)
     {
-      v10 = [paramsCopy objectForKeyedSubscript:@"forceDiagnostic"];
-      [v4 setObject:v10 forKeyedSubscript:@"forceDiagnostic"];
+      v11 = [paramsCopy objectForKeyedSubscript:@"forceDiagnostic"];
+      [v5 setObject:v11 forKeyedSubscript:@"forceDiagnostic"];
     }
 
     else
     {
-      [v4 setObject:&__kCFBooleanFalse forKeyedSubscript:@"forceDiagnostic"];
+      [v5 setObject:&__kCFBooleanFalse forKeyedSubscript:@"forceDiagnostic"];
     }
 
-    v25[0] = @"HangTracerTailspins";
-    v23 = @"maxSizeMB";
-    v11 = [NSNumber numberWithUnsignedInteger:55];
-    v24 = v11;
-    v12 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v26[0] = v12;
-    v25[1] = @"ForceResetTailspins";
-    v21 = @"maxSizeMB";
-    v13 = [NSNumber numberWithUnsignedInteger:175];
-    v22 = v13;
-    v14 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v26[1] = v14;
-    v25[2] = @"crashes_and_spins/MemoryExceptions";
-    v19 = @"maxSizeMB";
-    v15 = [NSNumber numberWithUnsignedInteger:50];
-    v20 = v15;
-    v16 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v26[2] = v16;
-    v17 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:3];
-    [v4 setObject:v17 forKeyedSubscript:@"capOverride"];
+    v26[0] = @"HangTracerTailspins";
+    v24 = @"maxSizeMB";
+    v12 = [NSNumber numberWithUnsignedInteger:55];
+    v25 = v12;
+    v13 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v27[0] = v13;
+    v26[1] = @"ForceResetTailspins";
+    v22 = @"maxSizeMB";
+    v14 = [NSNumber numberWithUnsignedInteger:175];
+    v23 = v14;
+    v15 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v27[1] = v15;
+    v26[2] = @"crashes_and_spins/MemoryExceptions";
+    v20 = @"maxSizeMB";
+    v16 = [NSNumber numberWithUnsignedInteger:50];
+    v21 = v16;
+    v17 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v27[2] = v17;
+    v18 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:3];
+    [v5 setObject:v18 forKeyedSubscript:@"capOverride"];
 
-    v8 = v4;
+    v9 = v5;
   }
 
   else
   {
-    v7 = shared_pl_log_handle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = shared_pl_log_handle(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100008B04();
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)takeSysdiagnose:(id)sysdiagnose error:(id *)error
 {
   sysdiagnoseCopy = sysdiagnose;
-  v6 = shared_pl_log_handle();
+  v6 = shared_pl_log_handle(sysdiagnoseCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -108,27 +109,27 @@
   if (sysdiagnoseCopy)
   {
     v14 = 0;
-    v7 = [Libsysdiagnose sysdiagnoseWithMetadata:sysdiagnoseCopy withError:&v14];
-    v8 = v14;
-    v9 = v8;
+    v8 = [Libsysdiagnose sysdiagnoseWithMetadata:sysdiagnoseCopy withError:&v14];
+    v9 = v14;
+    v10 = v9;
     if (error)
     {
-      v10 = v8;
-      *error = v9;
+      v9 = v9;
+      *error = v10;
     }
 
-    v11 = shared_pl_log_handle();
+    v11 = shared_pl_log_handle(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v16 = v7;
+      v16 = v8;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Returned sysdiagnose path: %@", buf, 0xCu);
     }
 
     goto LABEL_13;
   }
 
-  v12 = shared_pl_log_handle();
+  v12 = shared_pl_log_handle(v7);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     sub_100008B38();
@@ -136,18 +137,18 @@
 
   if (error)
   {
-    v9 = [NSDictionary dictionaryWithObject:@"sysdiagnose parameters dictionary is nil" forKey:NSLocalizedDescriptionKey];
-    [NSError errorWithDomain:@"EPLErrorDomain" code:1 userInfo:v9];
-    *error = v7 = 0;
+    v10 = [NSDictionary dictionaryWithObject:@"sysdiagnose parameters dictionary is nil" forKey:NSLocalizedDescriptionKey];
+    [NSError errorWithDomain:@"EPLErrorDomain" code:1 userInfo:v10];
+    *error = v8 = 0;
 LABEL_13:
 
     goto LABEL_14;
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_14:
 
-  return v7;
+  return v8;
 }
 
 - (id)linkRMEAndGetEPLProfilePath
@@ -160,7 +161,7 @@ LABEL_14:
   if (qword_10001A198)
   {
     getEPLProfilePath = [qword_10001A198 getEPLProfilePath];
-    v3 = shared_pl_log_handle();
+    v3 = shared_pl_log_handle(getEPLProfilePath);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *v5 = 0;
@@ -170,7 +171,7 @@ LABEL_14:
 
   else
   {
-    v3 = shared_pl_log_handle();
+    v3 = shared_pl_log_handle(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_100008B80();
@@ -197,128 +198,130 @@ LABEL_14:
       v8 = +[NSDate date];
       localizedDescription = [v7 dateByAddingComponents:v6 toDate:v8 options:0];
 
-      v38[0] = @"FullDiagLimit";
-      v38[1] = @"LiteDiagLimit";
-      v39[0] = &off_100015D00;
-      v39[1] = &off_100015D18;
-      v38[2] = @"PerProcessLimit";
-      v38[3] = @"ExpirationDate";
-      v39[2] = &off_100015D30;
-      v39[3] = localizedDescription;
-      v10 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:4];
-      v31 = 0;
-      v11 = [NSPropertyListSerialization dataWithPropertyList:v10 format:100 options:0 error:&v31];
-      v12 = v31;
+      v42[0] = @"FullDiagLimit";
+      v42[1] = @"LiteDiagLimit";
+      v43[0] = &off_100015D00;
+      v43[1] = &off_100015D18;
+      v42[2] = @"PerProcessLimit";
+      v42[3] = @"ExpirationDate";
+      v43[2] = &off_100015D30;
+      v43[3] = localizedDescription;
+      v10 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:4];
+      v35 = 0;
+      v11 = [NSPropertyListSerialization dataWithPropertyList:v10 format:100 options:0 error:&v35];
+      v12 = v35;
+      v13 = v12;
       if (v11)
       {
-        v13 = open([v5 UTF8String], 1538, 420);
-        if (v13 == -1)
+        v14 = open([v5 UTF8String], 1538, 420);
+        if (v14 == -1)
         {
-          v17 = shared_pl_log_handle();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v18 = shared_pl_log_handle(v14);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            sub_100008D9C(v5, v17);
+            sub_100008D9C(v5, v18);
           }
         }
 
         else
         {
-          v14 = v13;
-          v28 = v12;
-          v36 = NSFileProtectionKey;
-          v37 = NSFileProtectionNone;
-          v15 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-          v16 = +[NSFileManager defaultManager];
-          v30 = 0;
-          v27 = v15;
-          LODWORD(v15) = [v16 setAttributes:v15 ofItemAtPath:v5 error:&v30];
-          v17 = v30;
+          v15 = v14;
+          v32 = v13;
+          v40 = NSFileProtectionKey;
+          v41 = NSFileProtectionNone;
+          v16 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+          v17 = +[NSFileManager defaultManager];
+          v34 = 0;
+          v31 = v16;
+          LODWORD(v16) = [v17 setAttributes:v16 ofItemAtPath:v5 error:&v34];
+          v18 = v34;
 
-          if (v15)
+          if (v16)
           {
-            v18 = write(v14, [v11 bytes], objc_msgSend(v11, "length"));
-            v19 = shared_pl_log_handle();
-            v20 = v19;
-            if (v18 == -1)
+            v20 = write(v15, [v11 bytes], objc_msgSend(v11, "length"));
+            v21 = shared_pl_log_handle(v20);
+            v22 = v21;
+            if (v20 == -1)
             {
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 sub_100008D10();
               }
             }
 
-            else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            else if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v33 = v5;
-              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Successfully wrote ReportMemoryException plist at %@", buf, 0xCu);
+              v37 = v5;
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Successfully wrote ReportMemoryException plist at %@", buf, 0xCu);
             }
           }
 
           else
           {
-            v20 = shared_pl_log_handle();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v22 = shared_pl_log_handle(v19);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              sub_100008C74(v5, v17);
+              sub_100008C74(v5, v18);
             }
           }
 
-          close(v14);
-          v12 = v28;
+          close(v15);
+          v13 = v32;
         }
       }
 
       else
       {
-        v17 = shared_pl_log_handle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = shared_pl_log_handle(v12);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          sub_100008E14(v5, v12);
+          sub_100008E14(v5, v13);
         }
       }
     }
 
     else
     {
-      v21 = truncate([linkRMEAndGetEPLProfilePath UTF8String], 0);
-      v22 = shared_pl_log_handle();
-      v23 = v22;
-      if (v21 == -1)
+      v23 = truncate([linkRMEAndGetEPLProfilePath UTF8String], 0);
+      v24 = v23;
+      v25 = shared_pl_log_handle(v23);
+      v26 = v25;
+      if (v24 == -1)
       {
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           sub_100008BE8();
         }
       }
 
-      else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v33 = v5;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Successfully truncated ReportMemoryException plist at %@", buf, 0xCu);
+        v37 = v5;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Successfully truncated ReportMemoryException plist at %@", buf, 0xCu);
       }
 
-      v24 = +[NSFileManager defaultManager];
-      v29 = 0;
-      v25 = [v24 removeItemAtPath:v5 error:&v29];
-      v6 = v29;
+      v27 = +[NSFileManager defaultManager];
+      v33 = 0;
+      v28 = [v27 removeItemAtPath:v5 error:&v33];
+      v6 = v33;
 
-      v7 = shared_pl_log_handle();
-      v26 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
-      if (v25)
+      v7 = shared_pl_log_handle(v29);
+      v30 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+      if (v28)
       {
-        if (v26)
+        if (v30)
         {
           *buf = 138412290;
-          v33 = v5;
+          v37 = v5;
           _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Successfully deleted ReportMemoryException plist at %@", buf, 0xCu);
         }
 
         goto LABEL_32;
       }
 
-      if (!v26)
+      if (!v30)
       {
 LABEL_32:
 
@@ -327,16 +330,16 @@ LABEL_32:
 
       localizedDescription = [v6 localizedDescription];
       *buf = 138412546;
-      v33 = v5;
-      v34 = 2112;
-      v35 = localizedDescription;
+      v37 = v5;
+      v38 = 2112;
+      v39 = localizedDescription;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Failed to delete ReportMemoryException plist at %@ with error %@", buf, 0x16u);
     }
 
     goto LABEL_32;
   }
 
-  v6 = shared_pl_log_handle();
+  v6 = shared_pl_log_handle(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_100008EB0();
@@ -459,75 +462,76 @@ LABEL_22:
     sub_100008EE4();
   }
 
-  [qword_10001A188 lock];
+  lock = [qword_10001A188 lock];
   if (byte_10001A1B0)
   {
-    v5 = shared_pl_log_handle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = shared_pl_log_handle(lock);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100009018();
     }
 
     [qword_10001A188 unlock];
-    v6 = &__NSArray0__struct;
+    v7 = &__NSArray0__struct;
   }
 
   else
   {
     byte_10001A1B0 = 1;
     [qword_10001A188 unlock];
-    v21 = 0;
-    [(PerformanceLoggingDiagnosticExtensionExtension *)self setEPLKeysForParameters:parametersCopy error:&v21];
-    v7 = v21;
-    v8 = shared_pl_log_handle();
-    v9 = v8;
-    if (v7)
+    v24 = 0;
+    [(PerformanceLoggingDiagnosticExtensionExtension *)self setEPLKeysForParameters:parametersCopy error:&v24];
+    v8 = v24;
+    v9 = shared_pl_log_handle(v8);
+    v10 = v9;
+    if (v8)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_100008EF8(v7);
+        sub_100008EF8(v8);
       }
 
       [qword_10001A188 lock];
       byte_10001A1B0 = 0;
       [qword_10001A188 unlock];
-      v6 = &__NSArray0__struct;
+      v7 = &__NSArray0__struct;
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v10 = [parametersCopy objectForKeyedSubscript:@"EnableEnhancedPerformanceLogging"];
+        v11 = [parametersCopy objectForKeyedSubscript:@"EnableEnhancedPerformanceLogging"];
         *buf = 138412290;
-        v23 = v10;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Posting notification regarding EPL state change: %@", buf, 0xCu);
+        v26 = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Posting notification regarding EPL state change: %@", buf, 0xCu);
       }
 
       notify_post(EPL_STATE_CHANGED_NOTIFICATION);
-      v11 = [parametersCopy objectForKeyedSubscript:@"EnableEnhancedPerformanceLogging"];
-      if (v11)
+      v12 = [parametersCopy objectForKeyedSubscript:@"EnableEnhancedPerformanceLogging"];
+      if (v12)
       {
-        v12 = [parametersCopy objectForKeyedSubscript:@"EnableEnhancedPerformanceLogging"];
-        bOOLValue = [v12 BOOLValue];
+        v13 = [parametersCopy objectForKeyedSubscript:@"EnableEnhancedPerformanceLogging"];
+        bOOLValue = [v13 BOOLValue];
 
         if (bOOLValue)
         {
-          v11 = 0;
+          v12 = 0;
         }
 
         else
         {
-          v14 = [(PerformanceLoggingDiagnosticExtensionExtension *)self sysdiagnoseParamsFromDEParams:parametersCopy];
-          v20 = 0;
-          v11 = [(PerformanceLoggingDiagnosticExtensionExtension *)self takeSysdiagnose:v14 error:&v20];
-          v15 = v20;
-          if (v15)
+          v15 = [(PerformanceLoggingDiagnosticExtensionExtension *)self sysdiagnoseParamsFromDEParams:parametersCopy];
+          v23 = 0;
+          v12 = [(PerformanceLoggingDiagnosticExtensionExtension *)self takeSysdiagnose:v15 error:&v23];
+          v16 = v23;
+          v17 = v16;
+          if (v16)
           {
-            v16 = shared_pl_log_handle();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v18 = shared_pl_log_handle(v16);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              sub_100008F88(v15);
+              sub_100008F88(v17);
             }
           }
 
@@ -536,19 +540,20 @@ LABEL_22:
         }
       }
 
-      v6 = +[NSMutableArray array];
-      if (v11)
+      v19 = +[NSMutableArray array];
+      v7 = v19;
+      if (v12)
       {
-        v17 = shared_pl_log_handle();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v20 = shared_pl_log_handle(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Constructing DEAttachmentItem for sysdiagnose file", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Constructing DEAttachmentItem for sysdiagnose file", buf, 2u);
         }
 
-        v18 = [DEAttachmentItem attachmentWithPath:v11];
-        [v18 setDeleteOnAttach:&__kCFBooleanTrue];
-        [v6 addObject:v18];
+        v21 = [DEAttachmentItem attachmentWithPath:v12];
+        [v21 setDeleteOnAttach:&__kCFBooleanTrue];
+        [v7 addObject:v21];
       }
 
       [qword_10001A188 lock];
@@ -557,7 +562,7 @@ LABEL_22:
     }
   }
 
-  return v6;
+  return v7;
 }
 
 @end

@@ -375,38 +375,36 @@ LABEL_6:
 
 - (id)allValues
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableDictionary count](self->_dictionary, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   allValues = [(NSMutableDictionary *)self->_dictionary allValues];
-  v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        object = [*(*(&v12 + 1) + 8 * i) object];
+        object = [*(*(&v11 + 1) + 8 * i) object];
         [v3 addObject:object];
       }
 
-      v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

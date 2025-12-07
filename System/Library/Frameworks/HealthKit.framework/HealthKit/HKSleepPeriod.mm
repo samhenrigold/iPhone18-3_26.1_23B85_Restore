@@ -73,56 +73,56 @@
 
 - (double)durationForCategory:(int64_t)category overlappingDateInterval:(id)interval
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = self->_segments;
-  v7 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v7 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v28;
+    v9 = *v27;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         if ([v12 category] == category)
         {
-          v25 = 0u;
-          v26 = 0u;
-          v23 = 0u;
           v24 = 0u;
+          v25 = 0u;
+          v22 = 0u;
+          v23 = 0u;
           sampleIntervals = [v12 sampleIntervals];
-          v14 = [sampleIntervals countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v14 = [sampleIntervals countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v24;
+            v16 = *v23;
             do
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v24 != v16)
+                if (*v23 != v16)
                 {
                   objc_enumerationMutation(sampleIntervals);
                 }
 
-                v18 = [*(*(&v23 + 1) + 8 * j) intersectionWithDateInterval:intervalCopy];
+                v18 = [*(*(&v22 + 1) + 8 * j) intersectionWithDateInterval:intervalCopy];
                 [v18 duration];
                 v10 = v10 + v19;
               }
 
-              v15 = [sampleIntervals countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v15 = [sampleIntervals countByEnumeratingWithState:&v22 objects:v30 count:16];
             }
 
             while (v15);
@@ -130,7 +130,7 @@
         }
       }
 
-      v8 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v8);
@@ -141,62 +141,61 @@
     v10 = 0.0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (double)durationForCategory:(int64_t)category bestFittingSleepDayInterval:(id)interval consideringInterval:(id)consideringInterval
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   consideringIntervalCopy = consideringInterval;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = self->_segments;
-  v10 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v10 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v34;
+    v12 = *v33;
     v13 = 0.0;
-    v26 = *v34;
+    v25 = *v33;
     do
     {
       v14 = 0;
-      v27 = v11;
+      v26 = v11;
       do
       {
-        if (*v34 != v12)
+        if (*v33 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * v14);
+        v15 = *(*(&v32 + 1) + 8 * v14);
         if ([v15 category] == category)
         {
           categoryCopy = category;
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           sampleIntervals = [v15 sampleIntervals];
-          v18 = [sampleIntervals countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v18 = [sampleIntervals countByEnumeratingWithState:&v28 objects:v36 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v30;
+            v20 = *v29;
             do
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v30 != v20)
+                if (*v29 != v20)
                 {
                   objc_enumerationMutation(sampleIntervals);
                 }
 
-                v22 = *(*(&v29 + 1) + 8 * i);
+                v22 = *(*(&v28 + 1) + 8 * i);
                 if ([objc_opt_class() _isSleepDayInterval:intervalCopy bestFitForSampleInterval:v22 consideringInterval:consideringIntervalCopy])
                 {
                   [v22 duration];
@@ -204,22 +203,22 @@
                 }
               }
 
-              v19 = [sampleIntervals countByEnumeratingWithState:&v29 objects:v37 count:16];
+              v19 = [sampleIntervals countByEnumeratingWithState:&v28 objects:v36 count:16];
             }
 
             while (v19);
           }
 
           category = categoryCopy;
-          v12 = v26;
-          v11 = v27;
+          v12 = v25;
+          v11 = v26;
         }
 
         ++v14;
       }
 
       while (v14 != v11);
-      v11 = [(NSArray *)obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v11 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v11);
@@ -230,7 +229,6 @@
     v13 = 0.0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -318,11 +316,11 @@ LABEL_6:
 
 - (HKSleepPeriod)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = HKSleepPeriod;
-  v5 = [(HKSleepPeriod *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = HKSleepPeriod;
+  v5 = [(HKSleepPeriod *)&v16 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"DateInterval"];
@@ -330,9 +328,9 @@ LABEL_6:
     v5->_dateInterval = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"Segments"];
     segments = v5->_segments;
@@ -344,7 +342,6 @@ LABEL_6:
     v5->_timezoneName = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

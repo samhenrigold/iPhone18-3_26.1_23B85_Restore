@@ -22,7 +22,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   activeConnection = [(WFSpringBoardRemoteAlertPresenter *)self activeConnection];
@@ -34,7 +34,7 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v26 = "[WFSpringBoardRemoteAlertPresenter listener:shouldAcceptNewConnection:]";
+      v25 = "[WFSpringBoardRemoteAlertPresenter listener:shouldAcceptNewConnection:]";
       _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_ERROR, "%s Not accepting new connection since there is already an active one.", buf, 0xCu);
     }
   }
@@ -44,26 +44,26 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v26 = "[WFSpringBoardRemoteAlertPresenter listener:shouldAcceptNewConnection:]";
+      v25 = "[WFSpringBoardRemoteAlertPresenter listener:shouldAcceptNewConnection:]";
       _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_DEFAULT, "%s Setting activeConnection", buf, 0xCu);
     }
 
     [(WFSpringBoardRemoteAlertPresenter *)self setActiveConnection:connectionCopy];
     objc_initWeak(buf, self);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection___block_invoke;
-    v23[3] = &unk_278900170;
-    objc_copyWeak(&v24, buf);
-    [connectionCopy setInvalidationHandler:v23];
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection___block_invoke_186;
-    v21 = &unk_278900170;
-    objc_copyWeak(&v22, buf);
-    [connectionCopy setInterruptionHandler:&v18];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection___block_invoke;
+    v22[3] = &unk_278900170;
+    objc_copyWeak(&v23, buf);
+    [connectionCopy setInvalidationHandler:v22];
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection___block_invoke_186;
+    v20 = &unk_278900170;
+    objc_copyWeak(&v21, buf);
+    [connectionCopy setInterruptionHandler:&v17];
     v11 = WFDialogXPCInterface();
-    [connectionCopy setRemoteObjectInterface:{v11, v18, v19, v20, v21}];
+    [connectionCopy setRemoteObjectInterface:{v11, v17, v18, v19, v20}];
 
     v12 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2845F5BC8];
     [connectionCopy setExportedInterface:v12];
@@ -76,25 +76,24 @@
     remoteObjectProxy = [connectionCopy remoteObjectProxy];
     [delegate2 dialogAlertPresenter:self didConnectToAlert:remoteObjectProxy];
 
-    objc_destroyWeak(&v22);
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return activeConnection == 0;
 }
 
 void __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFDialogLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[WFSpringBoardRemoteAlertPresenter listener:shouldAcceptNewConnection:]_block_invoke";
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEBUG, "%s Connection to dialog was invalidated.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFSpringBoardRemoteAlertPresenter listener:shouldAcceptNewConnection:]_block_invoke";
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEBUG, "%s Connection to dialog was invalidated.", &v4, 0xCu);
   }
 
   v3 = [WeakRetained delegate];
@@ -102,20 +101,18 @@ void __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection_
 
   [WeakRetained setActiveConnection:0];
   [WeakRetained setActiveHandle:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection___block_invoke_186(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFDialogLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315138;
-    v6 = "[WFSpringBoardRemoteAlertPresenter listener:shouldAcceptNewConnection:]_block_invoke";
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_ERROR, "%s Connection to dialog was interrupted", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFSpringBoardRemoteAlertPresenter listener:shouldAcceptNewConnection:]_block_invoke";
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_ERROR, "%s Connection to dialog was interrupted", &v4, 0xCu);
   }
 
   v3 = [WeakRetained delegate];
@@ -123,22 +120,20 @@ void __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection_
 
   [WeakRetained setActiveConnection:0];
   [WeakRetained setActiveHandle:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = getWFDialogLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[WFSpringBoardRemoteAlertPresenter remoteAlertHandle:didInvalidateWithError:]";
-    v14 = 2114;
-    v15 = errorCopy;
-    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Remote alert did invalidate with error: %{public}@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[WFSpringBoardRemoteAlertPresenter remoteAlertHandle:didInvalidateWithError:]";
+    v13 = 2114;
+    v14 = errorCopy;
+    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s Remote alert did invalidate with error: %{public}@", &v11, 0x16u);
   }
 
   deactivateTimer = [(WFSpringBoardRemoteAlertPresenter *)self deactivateTimer];
@@ -155,18 +150,16 @@ void __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection_
   [(WFSpringBoardRemoteAlertPresenter *)self setActiveHandle:0];
   delegate = [(WFSpringBoardRemoteAlertPresenter *)self delegate];
   [delegate dialogAlertPresenterDidInvalidateAlert:self];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = getWFDialogLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v12 = "[WFSpringBoardRemoteAlertPresenter remoteAlertHandleDidDeactivate:]";
+    v11 = "[WFSpringBoardRemoteAlertPresenter remoteAlertHandleDidDeactivate:]";
     _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEBUG, "%s Remote alert did deactivate", buf, 0xCu);
   }
 
@@ -185,8 +178,6 @@ void __72__WFSpringBoardRemoteAlertPresenter_listener_shouldAcceptNewConnection_
   handler[4] = self;
   dispatch_source_set_event_handler(v8, handler);
   dispatch_resume(v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__WFSpringBoardRemoteAlertPresenter_remoteAlertHandleDidDeactivate___block_invoke(uint64_t a1)
@@ -201,27 +192,25 @@ void __68__WFSpringBoardRemoteAlertPresenter_remoteAlertHandleDidDeactivate___bl
 
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = getWFDialogLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[WFSpringBoardRemoteAlertPresenter remoteAlertHandleDidActivate:]";
-    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEBUG, "%s Remote alert did activate", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFSpringBoardRemoteAlertPresenter remoteAlertHandleDidActivate:]";
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEBUG, "%s Remote alert did activate", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deactivateAlert
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = getWFDialogLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[WFSpringBoardRemoteAlertPresenter deactivateAlert]";
-    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Dismissing remote alert", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[WFSpringBoardRemoteAlertPresenter deactivateAlert]";
+    _os_log_impl(&dword_23103C000, v3, OS_LOG_TYPE_DEFAULT, "%s Dismissing remote alert", &v6, 0xCu);
   }
 
   activeConnection = [(WFSpringBoardRemoteAlertPresenter *)self activeConnection];
@@ -229,13 +218,11 @@ void __68__WFSpringBoardRemoteAlertPresenter_remoteAlertHandleDidDeactivate___bl
 
   activeHandle = [(WFSpringBoardRemoteAlertPresenter *)self activeHandle];
   [activeHandle invalidate];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateAlertWithPresentationTarget:(id)target
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D66BC0];
   targetCopy = target;
   v6 = objc_alloc_init(v4);
@@ -247,9 +234,9 @@ void __68__WFSpringBoardRemoteAlertPresenter_remoteAlertHandleDidDeactivate___bl
     v17 = getWFDialogLogObject();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v20 = 136315138;
-      v21 = "[WFSpringBoardRemoteAlertPresenter activateAlertWithPresentationTarget:]";
-      _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_INFO, "%s Reactivating existing remote alert", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[WFSpringBoardRemoteAlertPresenter activateAlertWithPresentationTarget:]";
+      _os_log_impl(&dword_23103C000, v17, OS_LOG_TYPE_INFO, "%s Reactivating existing remote alert", &v19, 0xCu);
     }
 
     activeHandle2 = [(WFSpringBoardRemoteAlertPresenter *)self activeHandle];
@@ -270,20 +257,18 @@ void __68__WFSpringBoardRemoteAlertPresenter_remoteAlertHandleDidDeactivate___bl
     [v16 activateWithContext:v6];
     [(WFSpringBoardRemoteAlertPresenter *)self setActiveHandle:v16];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activateAlertInMainSceneOfApplicationWithBundleIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = getWFDialogLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 136315138;
-    v19 = "[WFSpringBoardRemoteAlertPresenter activateAlertInMainSceneOfApplicationWithBundleIdentifier:]";
-    _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_DEBUG, "%s Requesting remote alert activation", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[WFSpringBoardRemoteAlertPresenter activateAlertInMainSceneOfApplicationWithBundleIdentifier:]";
+    _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_DEBUG, "%s Requesting remote alert activation", &v17, 0xCu);
   }
 
   currentDevice = [MEMORY[0x277D79F18] currentDevice];
@@ -317,8 +302,6 @@ void __68__WFSpringBoardRemoteAlertPresenter_remoteAlertHandleDidDeactivate___bl
       [(WFSpringBoardRemoteAlertPresenter *)self activateAlertWithPresentationTarget:0];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)alertIsActive

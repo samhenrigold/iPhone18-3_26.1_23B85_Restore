@@ -56,7 +56,7 @@
 
 - (void)beginRequest:(id)request payload:(id)payload completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   payloadCopy = payload;
   completionCopy = completion;
@@ -74,36 +74,36 @@
   [v14 setCompletionHandlerExecuted:0];
   [requestCopy setContext:v14];
   [requestCopy setDelegate:self];
-  v34 = 0;
-  v35[0] = &v34;
-  v35[1] = 0x3032000000;
-  v35[2] = __Block_byref_object_copy__1;
-  v35[3] = __Block_byref_object_dispose__1;
-  v36 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__1;
-  v32 = __Block_byref_object_dispose__1;
   v33 = 0;
+  v34[0] = &v33;
+  v34[1] = 0x3032000000;
+  v34[2] = __Block_byref_object_copy__1;
+  v34[3] = __Block_byref_object_dispose__1;
+  v35 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__1;
+  v31 = __Block_byref_object_dispose__1;
+  v32 = 0;
   adapterConnectQueue = [(DKExtensionAdapter *)self adapterConnectQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __54__DKExtensionAdapter_beginRequest_payload_completion___block_invoke;
   block[3] = &unk_278F6C328;
-  v26 = &v28;
+  v25 = &v27;
   v17 = requestCopy;
-  v25 = v17;
-  v27 = &v34;
+  v24 = v17;
+  v26 = &v33;
   dispatch_sync(adapterConnectQueue, block);
 
-  if (v29[5])
+  if (v28[5])
   {
     extensionToRequestIdentifierLookup = [(DKExtensionAdapter *)self extensionToRequestIdentifierLookup];
     objc_sync_enter(extensionToRequestIdentifierLookup);
     requestIdentifier2 = [v17 requestIdentifier];
     extensionToRequestIdentifierLookup2 = [(DKExtensionAdapter *)self extensionToRequestIdentifierLookup];
-    [extensionToRequestIdentifierLookup2 setObject:requestIdentifier2 forKeyedSubscript:v29[5]];
+    [extensionToRequestIdentifierLookup2 setObject:requestIdentifier2 forKeyedSubscript:v28[5]];
 
     objc_sync_exit(extensionToRequestIdentifierLookup);
     [v17 beginWithPayload:payloadCopy];
@@ -115,16 +115,14 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       requestIdentifier3 = [v17 requestIdentifier];
-      [(DKExtensionAdapter *)requestIdentifier3 beginRequest:v35 payload:buf completion:v21];
+      [(DKExtensionAdapter *)requestIdentifier3 beginRequest:v34 payload:buf completion:v21];
     }
 
-    [DKAnalytics sendAnalyticsWithEvent:3 error:*(v35[0] + 40)];
+    [DKAnalytics sendAnalyticsWithEvent:3 error:*(v34[0] + 40)];
   }
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v34, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
 }
 
 void __54__DKExtensionAdapter_beginRequest_payload_completion___block_invoke(void *a1)
@@ -141,7 +139,7 @@ void __54__DKExtensionAdapter_beginRequest_payload_completion___block_invoke(voi
 
 - (void)cancelAll
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   requestLookup = [(DKExtensionAdapter *)self requestLookup];
   objc_sync_enter(requestLookup);
   requestLookup2 = [(DKExtensionAdapter *)self requestLookup];
@@ -149,41 +147,39 @@ void __54__DKExtensionAdapter_beginRequest_payload_completion___block_invoke(voi
   v6 = [allValues copy];
 
   objc_sync_exit(requestLookup);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) cancel];
+        [*(*(&v11 + 1) + 8 * v10++) cancel];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)request:(id)request didCompleteWithPayload:(id)payload error:(id)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   payloadCopy = payload;
   errorCopy = error;
@@ -191,13 +187,13 @@ void __54__DKExtensionAdapter_beginRequest_payload_completion___block_invoke(voi
   v12 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412802;
-    v26 = requestIdentifier;
-    v27 = 2112;
-    v28 = payloadCopy;
-    v29 = 2112;
-    v30 = errorCopy;
-    _os_log_impl(&dword_248B9D000, v12, OS_LOG_TYPE_DEFAULT, "[RID: %@] request:didCompleteWithPayload: %@, error: %@", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = requestIdentifier;
+    v26 = 2112;
+    v27 = payloadCopy;
+    v28 = 2112;
+    v29 = errorCopy;
+    _os_log_impl(&dword_248B9D000, v12, OS_LOG_TYPE_DEFAULT, "[RID: %@] request:didCompleteWithPayload: %@, error: %@", &v24, 0x20u);
   }
 
   extensionRequestIdentifier = [requestCopy extensionRequestIdentifier];
@@ -230,9 +226,9 @@ void __54__DKExtensionAdapter_beginRequest_payload_completion___block_invoke(voi
       v22 = DiagnosticsKitLogHandleForCategory(1);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = requestIdentifier;
-        _os_log_impl(&dword_248B9D000, v22, OS_LOG_TYPE_DEFAULT, "[RID: %@] Calling final completion.", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = requestIdentifier;
+        _os_log_impl(&dword_248B9D000, v22, OS_LOG_TYPE_DEFAULT, "[RID: %@] Calling final completion.", &v24, 0xCu);
       }
 
       completion2 = [context completion];
@@ -242,8 +238,6 @@ void __54__DKExtensionAdapter_beginRequest_payload_completion___block_invoke(voi
       [context setCompletionHandlerExecuted:1];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -290,35 +284,33 @@ void __54__DKExtensionAdapter_beginRequest_payload_completion___block_invoke(voi
 
 void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_248B9D000, v5, OS_LOG_TYPE_DEFAULT, "[ERID: %@] requestCompletionBlock", buf, 0xCu);
   }
 
   if (WeakRetained)
   {
     v6 = [WeakRetained adapterQueue];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_25;
-    v8[3] = &unk_278F6C090;
-    v8[4] = WeakRetained;
-    v9 = v3;
-    dispatch_async(v6, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_25;
+    v7[3] = &unk_278F6C090;
+    v7[4] = WeakRetained;
+    v8 = v3;
+    dispatch_async(v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -326,7 +318,7 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2(uint64
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = v5;
+    v14 = v5;
     _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "[ERID: %@] requestCancellationBlock", buf, 0xCu);
   }
 
@@ -339,12 +331,10 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2(uint64
     block[2] = __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_27;
     block[3] = &unk_278F6C378;
     block[4] = WeakRetained;
-    v12 = v5;
-    v13 = v6;
+    v11 = v5;
+    v12 = v6;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uint64_t a1, void *a2)
@@ -375,7 +365,7 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uin
 
 - (id)_requestForExtensionRequestIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   requestLookup = [(DKExtensionAdapter *)self requestLookup];
   objc_sync_enter(requestLookup);
@@ -386,11 +376,11 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uin
   v8 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = v7;
-    v16 = 2112;
-    v17 = identifierCopy;
-    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "[RID: %@] [ERID: %@] Looking up request identifier", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = v7;
+    v15 = 2112;
+    v16 = identifierCopy;
+    _os_log_impl(&dword_248B9D000, v8, OS_LOG_TYPE_DEFAULT, "[RID: %@] [ERID: %@] Looking up request identifier", &v13, 0x16u);
   }
 
   if (v7)
@@ -407,8 +397,6 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uin
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -456,7 +444,7 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uin
 
 - (void)_didInterruptExtensionRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [(DKExtensionAdapter *)self _requestForExtensionRequestIdentifier:requestCopy];
   requestLookup = [(DKExtensionAdapter *)self requestLookup];
@@ -485,9 +473,9 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uin
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     requestIdentifier = [v5 requestIdentifier];
-    v21 = 138412290;
-    v22 = requestIdentifier;
-    _os_log_impl(&dword_248B9D000, v12, OS_LOG_TYPE_DEFAULT, "[RID: %@] Calling interrupt", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = requestIdentifier;
+    _os_log_impl(&dword_248B9D000, v12, OS_LOG_TYPE_DEFAULT, "[RID: %@] Calling interrupt", &v20, 0xCu);
   }
 
   [v5 interrupt];
@@ -499,9 +487,9 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uin
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       requestIdentifier2 = [v5 requestIdentifier];
-      v21 = 138412290;
-      v22 = requestIdentifier2;
-      _os_log_impl(&dword_248B9D000, v15, OS_LOG_TYPE_DEFAULT, "[RID: %@] Cancelling extension request", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = requestIdentifier2;
+      _os_log_impl(&dword_248B9D000, v15, OS_LOG_TYPE_DEFAULT, "[RID: %@] Cancelling extension request", &v20, 0xCu);
     }
 
     extensionAttributes = [(DKExtensionAdapter *)self extensionAttributes];
@@ -509,8 +497,6 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uin
     extensionRequestIdentifier2 = [v5 extensionRequestIdentifier];
     [extension cancelExtensionRequestWithIdentifier:extensionRequestIdentifier2];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginRequest:(uint8_t *)buf payload:(os_log_t)log completion:.cold.1(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -523,46 +509,12 @@ void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29(uin
   _os_log_error_impl(&dword_248B9D000, log, OS_LOG_TYPE_ERROR, "[RID: %@] Did not get extension request identifier, error: %@", buf, 0x16u);
 }
 
-void __49__DKExtensionAdapter__attachHandlersToExtension___block_invoke_2_29_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_248B9D000, v0, v1, "[ERID: %@] requestInterruptionBlock", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_didCompleteExtensionRequest:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_248B9D000, v0, v1, "[ERID: %@] Received completion for an unknown request.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_didCancelExtensionRequest:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_248B9D000, v0, v1, "[ERID: %@] Received cancellation for an unknown request.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_didInterruptExtensionRequest:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 requestIdentifier];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "[RID: %@] Received interruption for active request.", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_didInterruptExtensionRequest:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_248B9D000, v0, v1, "[ERID: %@] Received interruption for an unknown request.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "[RID: %@] Received interruption for active request.", v4, 0xCu);
 }
 
 @end

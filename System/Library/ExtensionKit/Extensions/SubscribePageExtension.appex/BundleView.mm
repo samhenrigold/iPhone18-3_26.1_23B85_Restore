@@ -15,7 +15,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for BundleView();
+  v9.super_class = type metadata accessor for BundleView(0);
   changeCopy = change;
   v5 = v9.receiver;
   [(BundleView *)&v9 traitCollectionDidChange:changeCopy];
@@ -29,20 +29,21 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
   width = fits.width;
-  v5 = sub_10074F314();
-  v6 = *(v5 - 8);
-  v7 = __chkstk_darwin(v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v6 + 16))(v9, self + OBJC_IVAR____TtC22SubscribePageExtension10BundleView_iconStyle, v5, v7);
+  v6 = sub_10074F314();
+  v7 = *(v6 - 8);
+  v8 = __chkstk_darwin(v6);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v7 + 16))(v10, self + OBJC_IVAR____TtC22SubscribePageExtension10BundleView_iconStyle, v6, v8);
   selfCopy = self;
-  v11 = sub_1007100EC(v9, _swiftEmptyArrayStorage, selfCopy);
+  v12 = sub_1007100EC(v10, _swiftEmptyArrayStorage, selfCopy, width, height);
 
-  (*(v6 + 8))(v9, v5);
-  v12 = width;
-  v13 = v11;
-  result.height = v13;
-  result.width = v12;
+  (*(v7 + 8))(v10, v6);
+  v13 = width;
+  v14 = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 

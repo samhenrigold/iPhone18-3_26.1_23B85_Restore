@@ -1,679 +1,9 @@
-uint64_t specialized == infix<A>(_:_:)(unsigned __int8 a1, char a2)
-{
-  v2 = 0x796E614D6E6FLL;
-  v3 = 0xE600000000000000;
-  v4 = a1;
-  v5 = 0x796E614D6E6FLL;
-  switch(v4)
-  {
-    case 1:
-      v3 = 0xE800000000000000;
-      v5 = 0x656C676E69536E6FLL;
-      break;
-    case 2:
-      v3 = 0xE400000000000000;
-      v5 = 2037277037;
-      break;
-    case 3:
-      v5 = 0x68746957796E616DLL;
-      v3 = 0xEC0000006F72655ALL;
-      break;
-    default:
-      break;
-  }
-
-  v6 = 0xE600000000000000;
-  switch(a2)
-  {
-    case 1:
-      v6 = 0xE800000000000000;
-      v2 = 0x656C676E69536E6FLL;
-      break;
-    case 2:
-      v6 = 0xE400000000000000;
-      v2 = 2037277037;
-      break;
-    case 3:
-      v2 = 0x68746957796E616DLL;
-      v6 = 0xEC0000006F72655ALL;
-      break;
-    default:
-      break;
-  }
-
-  if (v5 == v2 && v3 == v6)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  }
-
-  return v8 & 1;
-}
-
-Swift::Int CAFMediaSource.SeekDirection.hashValue.getter()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  MEMORY[0x245D0A920](v1);
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CAFMediaSource.SeekDirection()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  MEMORY[0x245D0A920](v1);
-  return Hasher._finalize()();
-}
-
-uint64_t CAFMediaSource.sortedStations.getter()
-{
-  v1 = [v0 mediaItems];
-  if (!v1)
-  {
-    return MEMORY[0x277D84F90];
-  }
-
-  v2 = v1;
-  v3 = [v1 mediaItems];
-
-  type metadata accessor for CAFMediaItem();
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v4 = v0;
-
-  v7 = specialized Array._copyToContiguousArray()(v5);
-  specialized MutableCollection<>.sort(by:)(&v7, v4);
-
-  return v7;
-}
-
-void CAFMediaSource.playingStation.getter()
-{
-  if ([v0 hasCurrentMediaItemIdentifier] && (objc_msgSend(v0, sel_currentMediaItemIdentifierInvalid) & 1) == 0)
-  {
-    v7 = CAFMediaSource.sortedStations.getter();
-    v8 = specialized Array._getCount()(v7);
-    for (i = 0; ; ++i)
-    {
-      if (v8 == i)
-      {
-        goto LABEL_32;
-      }
-
-      if ((v7 & 0xC000000000000001) != 0)
-      {
-        v10 = MEMORY[0x245D0A790](i, v7);
-      }
-
-      else
-      {
-        if (i >= *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10))
-        {
-          goto LABEL_38;
-        }
-
-        v10 = *(v7 + 8 * i + 32);
-      }
-
-      v11 = v10;
-      if (__OFADD__(i, 1))
-      {
-        __break(1u);
-LABEL_38:
-        __break(1u);
-LABEL_39:
-        __break(1u);
-LABEL_40:
-        __break(1u);
-        return;
-      }
-
-      v12 = outlined bridged method (pb) of @objc CAFMediaItem.identifier.getter(v10, &selRef_identifier);
-      v14 = v13;
-      v15 = outlined bridged method (pb) of @objc CAFMediaItem.identifier.getter(v0, &selRef_currentMediaItemIdentifier);
-      if (!v14)
-      {
-        break;
-      }
-
-      if (!v16)
-      {
-        goto LABEL_29;
-      }
-
-      if (v12 == v15 && v14 == v16)
-      {
-
-LABEL_36:
-
-        return;
-      }
-
-      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      if (v18)
-      {
-        goto LABEL_36;
-      }
-
-LABEL_30:
-      ;
-    }
-
-    if (!v16)
-    {
-      goto LABEL_36;
-    }
-
-LABEL_29:
-
-    goto LABEL_30;
-  }
-
-  if ([v0 hasCurrentFrequency] && (objc_msgSend(v0, sel_currentFrequencyInvalid) & 1) == 0)
-  {
-    v1 = CAFMediaSource.sortedStations.getter();
-    v2 = specialized Array._getCount()(v1);
-    for (j = 0; v2 != j; ++j)
-    {
-      if ((v1 & 0xC000000000000001) != 0)
-      {
-        v4 = MEMORY[0x245D0A790](j, v1);
-      }
-
-      else
-      {
-        if (j >= *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
-        {
-          goto LABEL_40;
-        }
-
-        v4 = *(v1 + 8 * j + 32);
-      }
-
-      v5 = v4;
-      if (__OFADD__(j, 1))
-      {
-        goto LABEL_39;
-      }
-
-      v6 = [v4 frequency];
-      if (v6 == [v0 currentFrequency])
-      {
-        goto LABEL_36;
-      }
-    }
-
-LABEL_32:
-  }
-}
-
-id CAFMediaSource.station(for:)(uint64_t a1, void *a2)
-{
-  v2 = CAFMediaSource.stations(for:)(a1, a2);
-  if (specialized Array._getCount()(v2))
-  {
-    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(0, (v2 & 0xC000000000000001) == 0, v2);
-    if ((v2 & 0xC000000000000001) != 0)
-    {
-      v3 = MEMORY[0x245D0A790](0, v2);
-    }
-
-    else
-    {
-      v3 = *(v2 + 32);
-    }
-
-    v4 = v3;
-  }
-
-  else
-  {
-
-    return 0;
-  }
-
-  return v4;
-}
-
-uint64_t CAFMediaSource.stations(for:)(uint64_t a1, void *a2)
-{
-  v4 = CAFMediaSource.sortedStations.getter();
-  v21 = MEMORY[0x277D84F90];
-  v5 = specialized Array._getCount()(v4);
-  for (i = 0; ; ++i)
-  {
-    if (v5 == i)
-    {
-
-      v21 = specialized Array._copyToContiguousArray()(v18);
-      specialized MutableCollection<>.sort(by:)(&v21);
-
-      return v21;
-    }
-
-    if ((v4 & 0xC000000000000001) != 0)
-    {
-      v7 = MEMORY[0x245D0A790](i, v4);
-    }
-
-    else
-    {
-      if (i >= *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10))
-      {
-        goto LABEL_25;
-      }
-
-      v7 = *(v4 + 8 * i + 32);
-    }
-
-    v8 = v7;
-    if (__OFADD__(i, 1))
-    {
-      break;
-    }
-
-    v9 = [v20 mediaSourceSemanticType];
-    v10 = [v8 frequency];
-    if (v9 == 2 || v9 == 8)
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
-      v12 = swift_allocObject();
-      *(v12 + 16) = xmmword_2422F24A0;
-      *(v12 + 56) = MEMORY[0x277D839F8];
-      *(v12 + 64) = MEMORY[0x277D83A80];
-      *(v12 + 32) = v10 / 1000.0;
-      v13 = String.init(format:_:)();
-    }
-
-    else
-    {
-      v13 = dispatch thunk of CustomStringConvertible.description.getter();
-    }
-
-    if (v13 == a1 && v14 == a2)
-    {
-    }
-
-    else
-    {
-      v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      if ((v16 & 1) == 0)
-      {
-
-        continue;
-      }
-    }
-
-    specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-    v17 = *(v21 + 16);
-    specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
-    specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-    specialized ContiguousArray._endMutation()();
-  }
-
-  __break(1u);
-LABEL_25:
-  __break(1u);
-
-  __break(1u);
-  return result;
-}
-
-void CAFMediaSource.seek(direction:completion:)(char *a1, uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v32 = a3;
-  v34 = a2;
-  aBlock = 0;
-  v5 = 0xE900000000000029;
-  v6 = 0x6E776F6E6B6E7528;
-  v7 = *a1;
-  v36 = 0xE000000000000000;
-  _StringGuts.grow(_:)(38);
-  MEMORY[0x245D0A530](0xD000000000000012, 0x800000024230B2F0);
-  v41 = v7;
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x245D0A530](0xD000000000000010, 0x800000024230B310);
-  [v3 mediaSourceSemanticType];
-  v8 = NSStringFromMediaSourceSemanticType();
-  if (v8)
-  {
-    v9 = v8;
-    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = 0xE900000000000029;
-  }
-
-  MEMORY[0x245D0A530](v6, v11);
-
-  v13 = aBlock;
-  v12 = v36;
-  v14 = static os_log_type_t.info.getter();
-  if (one-time initialization token for default != -1)
-  {
-    swift_once();
-  }
-
-  v15 = static OS_os_log.default;
-  v33 = " in source type ";
-  if (os_log_type_enabled(static OS_os_log.default, v14))
-  {
-    v16 = swift_slowAlloc();
-    aBlock = swift_slowAlloc();
-    *v16 = 136315650;
-    *(v16 + 4) = OUTLINED_FUNCTION_2_2(" in source type ", v32, " in source type ", v34);
-    *(v16 + 12) = 2048;
-    *(v16 + 14) = 62;
-    *(v16 + 22) = 2080;
-    *(v16 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v12, &aBlock);
-    _os_log_impl(&dword_2421B0000, v15, v14, "%s: %ld  %s", v16, 0x20u);
-    swift_arrayDestroy();
-    OUTLINED_FUNCTION_15();
-    v5 = 0xE900000000000029;
-    OUTLINED_FUNCTION_15();
-  }
-
-  LOBYTE(aBlock) = v7;
-  v17 = CAFMediaSource.seekedStation(direction:)(&aBlock);
-  if (v17)
-  {
-    v18 = v17;
-    v19 = [v4 car];
-    if (v19 && (v20 = v19, v21 = [v19 media], v20, v21))
-    {
-      if (v34)
-      {
-        v39 = v34;
-        v40 = v32;
-        aBlock = MEMORY[0x277D85DD0];
-        v36 = 1107296256;
-        OUTLINED_FUNCTION_0_4();
-        v37 = v22;
-        v38 = &block_descriptor_0;
-        v23 = _Block_copy(&aBlock);
-      }
-
-      else
-      {
-        v23 = 0;
-      }
-
-      [v21 tuneToMediaItem:v18 inSource:v4 completion:{v23, v32}];
-
-      _Block_release(v23);
-    }
-
-    else
-    {
-    }
-  }
-
-  else
-  {
-    aBlock = 0;
-    v36 = 0xE000000000000000;
-    _StringGuts.grow(_:)(68);
-    MEMORY[0x245D0A530](0xD000000000000032, 0x800000024230B350);
-    v41 = v7;
-    _print_unlocked<A, B>(_:_:)();
-    MEMORY[0x245D0A530](0x656372756F73202CLL, 0xEE00206570797420);
-    [v4 mediaSourceSemanticType];
-    v24 = NSStringFromMediaSourceSemanticType();
-    if (v24)
-    {
-      v25 = v24;
-      v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v5 = v27;
-    }
-
-    else
-    {
-      v26 = 0x6E776F6E6B6E7528;
-    }
-
-    MEMORY[0x245D0A530](v26, v5);
-
-    v29 = aBlock;
-    v28 = v36;
-    v30 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v15, v30))
-    {
-      v31 = swift_slowAlloc();
-      aBlock = swift_slowAlloc();
-      *v31 = 136315650;
-      *(v31 + 4) = OUTLINED_FUNCTION_2_2(v33, v32, v33, v34);
-      *(v31 + 12) = 2048;
-      *(v31 + 14) = 70;
-      *(v31 + 22) = 2080;
-      *(v31 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v28, &aBlock);
-      _os_log_impl(&dword_2421B0000, v15, v30, "%s: %ld  %s", v31, 0x20u);
-      swift_arrayDestroy();
-      OUTLINED_FUNCTION_15();
-      OUTLINED_FUNCTION_15();
-    }
-  }
-}
-
-void *CAFMediaSource.seekedStation(direction:)(char *a1)
-{
-  v2 = v1;
-  v3 = *a1;
-  v4 = CAFMediaSource.sortedStations.getter();
-  v5 = specialized Array._getCount()(v4);
-
-  if (!v5)
-  {
-    v38 = 0;
-    v39 = 0xE000000000000000;
-    _StringGuts.grow(_:)(52);
-    MEMORY[0x245D0A530](0xD000000000000032, 0x800000024230B460);
-    [v1 mediaSourceSemanticType];
-    v10 = NSStringFromMediaSourceSemanticType();
-    if (v10)
-    {
-      v11 = v10;
-      v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v14 = v13;
-    }
-
-    else
-    {
-      v12 = 0x6E776F6E6B6E7528;
-      v14 = 0xE900000000000029;
-    }
-
-    MEMORY[0x245D0A530](v12, v14);
-
-    v21 = v38;
-    v20 = v39;
-    v22 = static os_log_type_t.info.getter();
-    if (one-time initialization token for default != -1)
-    {
-      swift_once();
-    }
-
-    v23 = static OS_os_log.default;
-    if (!os_log_type_enabled(static OS_os_log.default, v22))
-    {
-      goto LABEL_24;
-    }
-
-    v24 = swift_slowAlloc();
-    v25 = swift_slowAlloc();
-    v38 = v25;
-    *v24 = 136315650;
-    *(v24 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000019, 0x800000024230B3F0, &v38);
-    *(v24 + 12) = 2048;
-    v26 = 136;
-    goto LABEL_23;
-  }
-
-  CAFMediaSource.playingStation.getter();
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  v7 = v6;
-  if (![v6 multicast])
-  {
-
-    goto LABEL_9;
-  }
-
-  CAFMediaSource.currentMulticasts.getter();
-  LOBYTE(v38) = v3;
-  v9 = Array<A>.multicastNeighbor(for:direction:)(v7, &v38, v8);
-
-  if (!v9)
-  {
-LABEL_9:
-    v15 = [v2 mediaSourceSemanticType];
-    if (v15 - 1 < 3)
-    {
-      LOBYTE(v38) = v3;
-      return CAFMediaSource.seekedFrequencyStation(direction:)(&v38);
-    }
-
-    if (v15 == 6 || v15 == 8)
-    {
-      CAFMediaSource.playingStation.getter();
-      if (v17)
-      {
-        v18 = v17;
-        LOBYTE(v38) = v3;
-        CAFMediaSource.seekedIdentifierStation(direction:playingStation:)(&v38, v17);
-        v9 = v19;
-
-        return v9;
-      }
-
-      v38 = 0;
-      v39 = 0xE000000000000000;
-      _StringGuts.grow(_:)(71);
-      MEMORY[0x245D0A530](0xD000000000000045, 0x800000024230B410);
-      [v2 mediaSourceSemanticType];
-      v33 = NSStringFromMediaSourceSemanticType();
-      if (v33)
-      {
-        v34 = v33;
-        v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v37 = v36;
-      }
-
-      else
-      {
-        v35 = 0x6E776F6E6B6E7528;
-        v37 = 0xE900000000000029;
-      }
-
-      MEMORY[0x245D0A530](v35, v37);
-
-      v21 = v38;
-      v20 = v39;
-      v22 = static os_log_type_t.info.getter();
-      if (one-time initialization token for default != -1)
-      {
-        swift_once();
-      }
-
-      v23 = static OS_os_log.default;
-      if (!os_log_type_enabled(static OS_os_log.default, v22))
-      {
-LABEL_24:
-
-        return 0;
-      }
-
-      v24 = swift_slowAlloc();
-      v25 = swift_slowAlloc();
-      v38 = v25;
-      *v24 = 136315650;
-      *(v24 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000019, 0x800000024230B3F0, &v38);
-      *(v24 + 12) = 2048;
-      v26 = 157;
-    }
-
-    else
-    {
-      v38 = 0;
-      v39 = 0xE000000000000000;
-      _StringGuts.grow(_:)(50);
-
-      v38 = 0xD000000000000030;
-      v39 = 0x800000024230B3B0;
-      [v2 mediaSourceSemanticType];
-      v28 = NSStringFromMediaSourceSemanticType();
-      if (v28)
-      {
-        v29 = v28;
-        v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v32 = v31;
-      }
-
-      else
-      {
-        v30 = 0x6E776F6E6B6E7528;
-        v32 = 0xE900000000000029;
-      }
-
-      MEMORY[0x245D0A530](v30, v32);
-
-      v21 = v38;
-      v20 = v39;
-      v22 = static os_log_type_t.info.getter();
-      if (one-time initialization token for default != -1)
-      {
-        swift_once();
-      }
-
-      v23 = static OS_os_log.default;
-      if (!os_log_type_enabled(static OS_os_log.default, v22))
-      {
-        goto LABEL_24;
-      }
-
-      v24 = swift_slowAlloc();
-      v25 = swift_slowAlloc();
-      v38 = v25;
-      *v24 = 136315650;
-      *(v24 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000019, 0x800000024230B3F0, &v38);
-      *(v24 + 12) = 2048;
-      v26 = 162;
-    }
-
-LABEL_23:
-    *(v24 + 14) = v26;
-    *(v24 + 22) = 2080;
-    *(v24 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v20, &v38);
-    _os_log_impl(&dword_2421B0000, v23, v22, "%s: %ld  %s", v24, 0x20u);
-    swift_arrayDestroy();
-    MEMORY[0x245D0B280](v25, -1, -1);
-    MEMORY[0x245D0B280](v24, -1, -1);
-    goto LABEL_24;
-  }
-
-  return v9;
-}
-
 void thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Error?) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 void CAFMediaSource.step(direction:completion:)(unsigned __int8 *a1, void *a2, uint64_t a3)
@@ -737,7 +67,7 @@ LABEL_12:
 
 LABEL_13:
   v18 = CAFMediaSource.sortedStations.getter();
-  v19 = specialized Array._getCount()(v18);
+  v19 = specialized Array._getCount()();
   for (i = 0; v19 != i; ++i)
   {
     if ((v18 & 0xC000000000000001) != 0)
@@ -831,7 +161,7 @@ void CAFMediaSource.endStep(direction:completion:)(char *a1, uint64_t a2, uint64
   {
     v14 = v6;
     v7 = CAFMediaSource.sortedStations.getter();
-    v8 = specialized Array._getCount()(v7);
+    v8 = specialized Array._getCount()();
     v9 = 0;
     do
     {
@@ -880,48 +210,45 @@ LABEL_17:
 void CAFMediaSource.currentMulticasts.getter()
 {
   CAFMediaSource.playingStation.getter();
-  v2 = MEMORY[0x277D84F90];
   if (v1)
   {
-    v3 = v1;
-    v4 = UInt32.formattedUserEnteredFrequency(mediaSourceType:)([v0 mediaSourceSemanticType], objc_msgSend(v1, sel_frequency));
-    v6 = CAFMediaSource.stations(for:)(v4, v5);
+    v2 = v1;
+    v3 = UInt32.formattedUserEnteredFrequency(mediaSourceType:)([v0 mediaSourceSemanticType], objc_msgSend(v1, sel_frequency));
+    v5 = CAFMediaSource.stations(for:)(v3, v4);
 
-    v12 = v2;
-    v7 = specialized Array._getCount()(v6);
+    v6 = specialized Array._getCount()();
     for (i = 0; ; ++i)
     {
-      if (v7 == i)
+      if (v6 == i)
       {
 
         return;
       }
 
-      if ((v6 & 0xC000000000000001) != 0)
+      if ((v5 & 0xC000000000000001) != 0)
       {
-        v9 = MEMORY[0x245D0A790](i, v6);
+        v8 = MEMORY[0x245D0A790](i, v5);
       }
 
       else
       {
-        if (i >= *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (i >= *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_16;
         }
 
-        v9 = *(v6 + 8 * i + 32);
+        v8 = *(v5 + 8 * i + 32);
       }
 
-      v10 = v9;
+      v9 = v8;
       if (__OFADD__(i, 1))
       {
         break;
       }
 
-      if ([v9 multicast])
+      if ([v8 multicast])
       {
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v11 = *(v12 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
@@ -973,7 +300,7 @@ LABEL_19:
       return _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lFxq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxs5NeverOqd_0_Isgnrzr_xSgAb2ERsd__Ri_d_0_r_0_lIetMgnrzo_Tpq5Si_So12CAFMediaItemCTg5(partial apply for specialized closure #1 in BidirectionalCollection.last(where:), v16, v13, v12 & 1);
     }
 
-    v5 = specialized Array._getCount()(a3);
+    v5 = specialized Array._getCount()();
     for (i = 0; v5 != i; ++i)
     {
       if ((a3 & 0xC000000000000001) != 0)
@@ -1071,7 +398,7 @@ LABEL_22:
   }
 
   v4 = CAFMediaSource.sortedStations.getter();
-  v5 = specialized Array._getCount()(v4);
+  v5 = specialized Array._getCount()();
   if (!v5)
   {
     v7 = 0;
@@ -1096,7 +423,7 @@ LABEL_25:
     return v12;
   }
 
-  specialized Array._checkSubscript(_:wasNativeTypeChecked:)(0, (v4 & 0xC000000000000001) == 0, v4);
+  specialized Array._checkSubscript(_:wasNativeTypeChecked:)();
   if ((v4 & 0xC000000000000001) != 0)
   {
     v6 = MEMORY[0x245D0A790](0, v4);
@@ -1160,7 +487,7 @@ LABEL_35:
     goto LABEL_22;
   }
 
-  specialized Array._checkSubscript(_:wasNativeTypeChecked:)(0, v9 == 0, v4);
+  specialized Array._checkSubscript(_:wasNativeTypeChecked:)();
   if (v9)
   {
     v27 = MEMORY[0x245D0A790](0, v4);
@@ -1180,7 +507,7 @@ void CAFMediaSource.seekedIdentifierStation(direction:playingStation:)(char *a1,
 {
   v33 = *a1;
   v4 = CAFMediaSource.sortedStations.getter();
-  v5 = specialized Array._getCount()(v4);
+  v5 = specialized Array._getCount()();
   if (!v5)
   {
 LABEL_21:
@@ -1349,7 +676,7 @@ LABEL_50:
   }
 
 LABEL_37:
-  v31 = specialized Array._getCount()(v4);
+  v31 = specialized Array._getCount()();
   if (v7 < 0)
   {
     v7 = v31 - 1;
@@ -1367,7 +694,7 @@ LABEL_37:
   }
 
 LABEL_42:
-  specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v7, v8 == 0, v4);
+  specialized Array._checkSubscript(_:wasNativeTypeChecked:)();
   if (v8)
   {
     MEMORY[0x245D0A790](v7, v4);
@@ -1379,7 +706,7 @@ LABEL_42:
   }
 }
 
-char *specialized BidirectionalCollection.last.getter(uint64_t a1)
+char *specialized BidirectionalCollection.last.getter(unint64_t a1)
 {
   v1 = a1;
   if (!(a1 >> 62))
@@ -1399,7 +726,7 @@ LABEL_3:
 
     else
     {
-      specialized Array._checkSubscript(_:wasNativeTypeChecked:)(result - 1, (v1 & 0xC000000000000001) == 0, v1);
+      specialized Array._checkSubscript(_:wasNativeTypeChecked:)();
       if ((v1 & 0xC000000000000001) == 0)
       {
         return *(v1 + 8 * v3 + 32);
@@ -1409,7 +736,7 @@ LABEL_3:
     return MEMORY[0x245D0A790](v3, v1);
   }
 
-  if (a1 >= 0)
+  if ((a1 & 0x8000000000000000) == 0)
   {
     a1 &= 0xFFFFFFFFFFFFFF8uLL;
   }
@@ -1470,7 +797,7 @@ unint64_t Array<A>.frequencyNeighbor(for:direction:)(unsigned int a1, _BYTE *a2,
     {
       v17 = a3;
 
-      v9 = specialized MutableCollection<>.sort(by:)(&v17);
+      specialized MutableCollection<>.sort(by:)(&v17);
       v10 = *(v17 + 16);
       do
       {
@@ -1551,7 +878,7 @@ unint64_t type metadata accessor for CAFMediaItem()
   return result;
 }
 
-size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC13CarAssetUtils19CAUVehicleLayoutKeyO_Tt1g5(uint64_t a1, uint64_t a2)
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC13CarAssetUtils19CAUVehicleLayoutKeyO_Tt1g5(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
   {
@@ -1576,7 +903,7 @@ size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi
   result = _swift_stdlib_malloc_size(v7);
   if (v5)
   {
-    if (result - v6 != 0x8000000000000000 || v5 != -1)
+    if ((result - v6) != 0x8000000000000000 || v5 != -1)
     {
       v7[2] = a1;
       v7[3] = 2 * ((result - v6) / v5);
@@ -1656,7 +983,7 @@ uint64_t specialized MutableCollection<>.sort(by:)(uint64_t *a1)
   return specialized ContiguousArray._endMutation()();
 }
 
-Swift::Int specialized MutableCollection<>.sort(by:)(uint64_t *a1)
+void specialized MutableCollection<>.sort(by:)(uint64_t *a1)
 {
   v2 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -1666,11 +993,10 @@ Swift::Int specialized MutableCollection<>.sort(by:)(uint64_t *a1)
   }
 
   v4 = *(v2 + 16);
-  v6[0] = v2 + 32;
-  v6[1] = v4;
-  result = specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v6);
+  v5[0] = v2 + 32;
+  v5[1] = v4;
+  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v5);
   *a1 = v2;
-  return result;
 }
 
 void specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t *a1, void *a2)
@@ -1683,7 +1009,7 @@ void specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t *a1, v
     v7 = v6;
     UninitializedySayxG_SpyxGtSiFZSo12CAFMediaItemC_Tt0g5 = _sSa22_allocateUninitializedySayxG_SpyxGtSiFZSo12CAFMediaItemC_Tt0g5(v4 / 2);
     v10[0] = v9;
-    v10[1] = v4 / 2;
+    v10[1] = (v4 / 2);
     v5 = v5;
     specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v10, v11, a1, v7, v5);
     if (v2)
@@ -1769,15 +1095,14 @@ LABEL_5:
   }
 }
 
-Swift::Int specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t *a1)
 {
   v2 = a1[1];
-  result = _minimumMergeRunLength(_:)(v2);
-  if (result < v2)
+  v3 = _minimumMergeRunLength(_:)(v2);
+  if (v3 < v2)
   {
     if (v2 >= -1)
     {
-      v4 = result;
+      v4 = v3;
       v5 = v2 / 2;
       if (v2 <= 1)
       {
@@ -1794,12 +1119,14 @@ Swift::Int specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t 
       v7[1] = v5;
       specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v7, v8, a1, v4);
       *(v6 + 16) = 0;
+
+      return;
     }
 
     __break(1u);
 LABEL_12:
     __break(1u);
-    return result;
+    return;
   }
 
   if (v2 < 0)
@@ -1809,10 +1136,8 @@ LABEL_12:
 
   if (v2)
   {
-    return specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(0, v2, 1, a1);
+    specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(0, v2, 1, a1);
   }
-
-  return result;
 }
 
 void specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, void *a5)
@@ -1967,10 +1292,10 @@ uint64_t specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(ui
   return result;
 }
 
-void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char *a1, uint64_t a2, uint64_t *a3, uint64_t a4, void *a5)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(void **a1, uint64_t a2, uint64_t *a3, uint64_t a4, void *a5)
 {
   v6 = a3[1];
-  v125 = a5;
+  v124 = a5;
   if (v6 < 1)
   {
     v8 = MEMORY[0x277D84F90];
@@ -1981,64 +1306,64 @@ LABEL_93:
       goto LABEL_136;
     }
 
-    v110 = v125;
+    v109 = v124;
     if (swift_isUniquelyReferenced_nonNull_native())
     {
 LABEL_95:
-      v97 = v8 + 16;
-      v96 = *(v8 + 2);
+      v96 = v8 + 16;
+      v95 = *(v8 + 2);
       for (i = v8; ; v8 = i)
       {
-        if (v96 < 2)
+        if (v95 < 2)
         {
 
           return;
         }
 
-        v98 = *a3;
+        v97 = *a3;
         if (!*a3)
         {
           goto LABEL_133;
         }
 
-        v99 = &v8[16 * v96];
-        v100 = *v99;
-        v8 = v97;
-        v101 = &v97[16 * v96];
-        v102 = *(v101 + 1);
-        v103 = (v98 + 8 * *v99);
-        v114 = (v98 + 8 * v102);
-        v118 = (v98 + 8 * *v101);
-        v104 = v110;
-        specialized _merge<A>(low:mid:high:buffer:by:)(v103, v118, v114, a1, v104);
-        if (v124)
+        v98 = &v8[16 * v95];
+        v99 = *v98;
+        v8 = v96;
+        v100 = &v96[16 * v95];
+        v101 = *(v100 + 1);
+        v102 = (v97 + 8 * *v98);
+        v113 = (v97 + 8 * v101);
+        v117 = (v97 + 8 * *v100);
+        v103 = v109;
+        specialized _merge<A>(low:mid:high:buffer:by:)(v102, v117, v113, a1, v103);
+        if (v123)
         {
           break;
         }
 
-        if (v102 < v100)
+        if (v101 < v99)
         {
           goto LABEL_121;
         }
 
-        if (v96 - 2 >= *v8)
+        if (v95 - 2 >= *v8)
         {
           goto LABEL_122;
         }
 
-        v97 = v8;
-        *v99 = v100;
-        *(v99 + 1) = v102;
-        v105 = *v8 - v96;
-        if (*v8 < v96)
+        v96 = v8;
+        *v98 = v99;
+        *(v98 + 1) = v101;
+        v104 = *v8 - v95;
+        if (*v8 < v95)
         {
           goto LABEL_123;
         }
 
-        v124 = 0;
-        v96 = *v8 - 1;
-        memmove(v101, v101 + 16, 16 * v105);
-        *v8 = v96;
+        v123 = 0;
+        v95 = *v8 - 1;
+        memmove(v100, v100 + 16, 16 * v104);
+        *v8 = v95;
       }
 
 LABEL_105:
@@ -2050,7 +1375,7 @@ LABEL_130:
     goto LABEL_95;
   }
 
-  v106 = a4;
+  v105 = a4;
   v7 = 0;
   v8 = MEMORY[0x277D84F90];
   while (1)
@@ -2059,8 +1384,8 @@ LABEL_130:
     v10 = v7 + 1;
     if (v7 + 1 < v6)
     {
-      v115 = v6;
-      v119 = v8;
+      v114 = v6;
+      v118 = v8;
       v11 = v7;
       v12 = v7 + 1;
       v13 = (*a3 + 8 * v7);
@@ -2069,11 +1394,11 @@ LABEL_130:
       v8 = (v13 + 2);
       v16 = *(*a3 + 8 * v10);
       v17 = v15;
-      v111 = CAFMediaItem.isOrderedAscending(preferringFrequency:to:in:)([v125 mediaSourceSemanticType] != 8, v17, objc_msgSend(v125, sel_mediaSourceSemanticType));
+      v110 = CAFMediaItem.isOrderedAscending(preferringFrequency:to:in:)([v124 mediaSourceSemanticType] != 8, v17, objc_msgSend(v124, sel_mediaSourceSemanticType));
 
-      v107 = v11;
+      v106 = v11;
       v18 = v11 + 2;
-      v19 = v115;
+      v19 = v114;
       while (1)
       {
         v20 = v18;
@@ -2086,15 +1411,15 @@ LABEL_130:
         v21 = *(v8 - 1);
         v22 = *v8;
         v23 = v21;
-        v24 = [v125 mediaSourceSemanticType] != 8;
-        v25 = [v125 mediaSourceSemanticType];
+        v24 = [v124 mediaSourceSemanticType] != 8;
+        v25 = [v124 mediaSourceSemanticType];
         v26 = v24;
-        v19 = v115;
+        v19 = v114;
         LODWORD(v21) = CAFMediaItem.isOrderedAscending(preferringFrequency:to:in:)(v26, v23, v25);
 
         v8 += 8;
         v18 = v20 + 1;
-        if (v111 != v21)
+        if (v110 != v21)
         {
           goto LABEL_9;
         }
@@ -2102,18 +1427,18 @@ LABEL_130:
 
       v12 = v19;
 LABEL_9:
-      if (v111)
+      if (v110)
       {
-        v9 = v107;
-        if (v12 < v107)
+        v9 = v106;
+        if (v12 < v106)
         {
           goto LABEL_127;
         }
 
         v10 = v12;
-        if (v107 >= v12)
+        if (v106 >= v12)
         {
-          v8 = v119;
+          v8 = v118;
         }
 
         else
@@ -2130,8 +1455,8 @@ LABEL_9:
 
           v28 = 8 * v27 - 8;
           v29 = v12;
-          v30 = v107;
-          v8 = v119;
+          v30 = v106;
+          v8 = v118;
           do
           {
             if (v30 != --v29)
@@ -2158,9 +1483,9 @@ LABEL_9:
 
       else
       {
-        v8 = v119;
+        v8 = v118;
         v10 = v12;
-        v9 = v107;
+        v9 = v106;
       }
     }
 
@@ -2172,7 +1497,7 @@ LABEL_9:
         goto LABEL_126;
       }
 
-      if (v10 - v9 < v106)
+      if (v10 - v9 < v105)
       {
         break;
       }
@@ -2184,12 +1509,11 @@ LABEL_39:
       goto LABEL_125;
     }
 
-    v117 = v10;
+    v116 = v10;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v93 = *(v8 + 2);
       specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-      v8 = v94;
+      v8 = v93;
     }
 
     v46 = *(v8 + 2);
@@ -2197,7 +1521,7 @@ LABEL_39:
     if (v46 >= *(v8 + 3) >> 1)
     {
       specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-      v8 = v95;
+      v8 = v94;
     }
 
     *(v8 + 2) = v47;
@@ -2205,7 +1529,7 @@ LABEL_39:
     v49 = &v8[16 * v46 + 32];
     *v49 = v9;
     *(v49 + 1) = v10;
-    v113 = *a1;
+    v112 = *a1;
     if (!*a1)
     {
       goto LABEL_135;
@@ -2213,8 +1537,8 @@ LABEL_39:
 
     if (v46)
     {
-      v110 = v8 + 32;
-      v121 = v8;
+      v109 = v8 + 32;
+      v120 = v8;
       while (1)
       {
         v50 = v47 - 1;
@@ -2368,21 +1692,21 @@ LABEL_128:
         v88 = (v82 + 8 * *v83);
         v89 = (v82 + 8 * *v86);
         v90 = (v82 + 8 * v87);
-        v91 = v125;
-        specialized _merge<A>(low:mid:high:buffer:by:)(v88, v89, v90, v113, v91);
-        if (v124)
+        v91 = v124;
+        specialized _merge<A>(low:mid:high:buffer:by:)(v88, v89, v90, v112, v91);
+        if (v123)
         {
 
           goto LABEL_105;
         }
 
-        v8 = v121;
+        v8 = v120;
         if (v87 < v84)
         {
           goto LABEL_107;
         }
 
-        v92 = *(v121 + 2);
+        v92 = *(v120 + 2);
         if (v85 > v92)
         {
           goto LABEL_108;
@@ -2395,11 +1719,11 @@ LABEL_128:
           goto LABEL_109;
         }
 
-        v124 = 0;
+        v123 = 0;
         v47 = v92 - 1;
         memmove(v86, v86 + 16, 16 * (v92 - 1 - v85));
-        *(v121 + 2) = v92 - 1;
-        v48 = v110;
+        *(v120 + 2) = v92 - 1;
+        v48 = v109;
         if (v92 <= 2)
         {
           goto LABEL_89;
@@ -2464,15 +1788,15 @@ LABEL_128:
 
 LABEL_89:
     v6 = a3[1];
-    v7 = v117;
-    if (v117 >= v6)
+    v7 = v116;
+    if (v116 >= v6)
     {
       goto LABEL_93;
     }
   }
 
-  v34 = (v9 + v106);
-  if (__OFADD__(v9, v106))
+  v34 = v9 + v105;
+  if (__OFADD__(v9, v105))
   {
     goto LABEL_128;
   }
@@ -2494,15 +1818,15 @@ LABEL_129:
     goto LABEL_39;
   }
 
-  v120 = v8;
+  v119 = v8;
   v35 = *a3;
   v36 = *a3 + 8 * v10 - 8;
-  v108 = v9;
+  v107 = v9;
   v37 = v9 - v10;
-  v110 = v34;
+  v109 = v34;
 LABEL_32:
-  v112 = v36;
-  v116 = v10;
+  v111 = v36;
+  v115 = v10;
   v38 = *(v35 + 8 * v10);
   v39 = v37;
   while (1)
@@ -2510,19 +1834,19 @@ LABEL_32:
     v40 = *v36;
     v41 = v38;
     v42 = v40;
-    v43 = CAFMediaItem.isOrderedAscending(preferringFrequency:to:in:)([v125 mediaSourceSemanticType] != 8, v42, objc_msgSend(v125, sel_mediaSourceSemanticType));
+    v43 = CAFMediaItem.isOrderedAscending(preferringFrequency:to:in:)([v124 mediaSourceSemanticType] != 8, v42, objc_msgSend(v124, sel_mediaSourceSemanticType));
 
     if (!v43)
     {
 LABEL_37:
-      v10 = v116 + 1;
-      v36 = v112 + 8;
+      v10 = v115 + 1;
+      v36 = v111 + 8;
       --v37;
-      if ((v116 + 1) == v110)
+      if ((v115 + 1) == v109)
       {
-        v10 = v110;
-        v8 = v120;
-        v9 = v108;
+        v10 = v109;
+        v8 = v119;
+        v9 = v107;
         goto LABEL_39;
       }
 
@@ -2563,7 +1887,7 @@ LABEL_136:
   __break(1u);
 }
 
-void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(void ***a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v5 = v4;
   v6 = a3[1];
@@ -2571,7 +1895,7 @@ void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(c
   {
     v8 = MEMORY[0x277D84F90];
 LABEL_94:
-    v112 = *a1;
+    v111 = *a1;
     if (!*a1)
     {
       goto LABEL_135;
@@ -2580,48 +1904,48 @@ LABEL_94:
     if (swift_isUniquelyReferenced_nonNull_native())
     {
 LABEL_96:
-      v91 = (v8 + 16);
-      v92 = *(v8 + 16);
-      while (v92 >= 2)
+      v90 = (v8 + 16);
+      v91 = *(v8 + 16);
+      while (v91 >= 2)
       {
         if (!*a3)
         {
           goto LABEL_132;
         }
 
-        v93 = v8;
-        v94 = (v8 + 16 * v92);
-        v95 = *v94;
-        v96 = &v91[2 * v92];
-        v8 = v96[1];
-        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * *v94), (*a3 + 8 * *v96), (*a3 + 8 * v8), v112);
+        v92 = v8;
+        v93 = (v8 + 16 * v91);
+        v94 = *v93;
+        v95 = &v90[2 * v91];
+        v8 = v95[1];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * *v93), (*a3 + 8 * *v95), (*a3 + 8 * v8), v111);
         if (v5)
         {
           break;
         }
 
-        if (v8 < v95)
+        if (v8 < v94)
         {
           goto LABEL_120;
         }
 
-        if (v92 - 2 >= *v91)
+        if (v91 - 2 >= *v90)
         {
           goto LABEL_121;
         }
 
-        *v94 = v95;
-        v94[1] = v8;
-        v97 = *v91 - v92;
-        if (*v91 < v92)
+        *v93 = v94;
+        v93[1] = v8;
+        v96 = *v90 - v91;
+        if (*v90 < v91)
         {
           goto LABEL_122;
         }
 
-        v92 = *v91 - 1;
-        memmove(v96, v96 + 2, 16 * v97);
-        *v91 = v92;
-        v8 = v93;
+        v91 = *v90 - 1;
+        memmove(v95, v95 + 2, 16 * v96);
+        *v90 = v91;
+        v8 = v92;
       }
 
 LABEL_104:
@@ -2642,18 +1966,18 @@ LABEL_129:
     v10 = v7 + 1;
     if (v7 + 1 < v6)
     {
-      v100 = v8;
-      v102 = v5;
+      v99 = v8;
+      v101 = v5;
       v11 = (*a3 + 8 * v7);
-      v98 = 8 * v7;
+      v97 = 8 * v7;
       v13 = *v11;
       v12 = v11 + 2;
       v8 = *(*a3 + 8 * v10);
       v5 = v13;
-      v108 = [v8 multicast];
-      v107 = [v5 multicast];
+      v107 = [v8 multicast];
+      v106 = [v5 multicast];
 
-      v104 = v9;
+      v103 = v9;
       v14 = v9 + 2;
       while (1)
       {
@@ -2664,7 +1988,7 @@ LABEL_129:
           break;
         }
 
-        LODWORD(v112) = v108 < v107;
+        LODWORD(v111) = v107 < v106;
         v17 = *(v12 - 1);
         v8 = *v12;
         v5 = v17;
@@ -2675,7 +1999,7 @@ LABEL_129:
         v21 = v19 >= v20;
         v10 = v18;
         v22 = v21;
-        v23 = v112 ^ v22;
+        v23 = v111 ^ v22;
         ++v12;
         v14 = v15 + 1;
         if ((v23 & 1) == 0)
@@ -2686,25 +2010,25 @@ LABEL_129:
 
       v10 = v6;
 LABEL_12:
-      if (v108 >= v107)
+      if (v107 >= v106)
       {
-        v8 = v100;
-        v5 = v102;
-        v9 = v104;
+        v8 = v99;
+        v5 = v101;
+        v9 = v103;
       }
 
       else
       {
-        v9 = v104;
-        if (v10 < v104)
+        v9 = v103;
+        if (v10 < v103)
         {
           goto LABEL_126;
         }
 
-        if (v104 >= v10)
+        if (v103 >= v10)
         {
-          v8 = v100;
-          v5 = v102;
+          v8 = v99;
+          v5 = v101;
         }
 
         else
@@ -2721,10 +2045,10 @@ LABEL_12:
 
           v25 = 8 * v24 - 8;
           v26 = v10;
-          v27 = v104;
-          v8 = v100;
-          v5 = v102;
-          v28 = v98;
+          v27 = v103;
+          v8 = v99;
+          v5 = v101;
+          v28 = v97;
           do
           {
             if (v27 != --v26)
@@ -2772,9 +2096,8 @@ LABEL_42:
 
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
-      v88 = *(v8 + 16);
       specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-      v8 = v89;
+      v8 = v88;
     }
 
     v45 = *(v8 + 16);
@@ -2782,7 +2105,7 @@ LABEL_42:
     if (v45 >= *(v8 + 24) >> 1)
     {
       specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-      v8 = v90;
+      v8 = v89;
     }
 
     *(v8 + 16) = v46;
@@ -2790,13 +2113,13 @@ LABEL_42:
     v48 = (v8 + 32 + 16 * v45);
     *v48 = v9;
     v48[1] = v10;
-    v110 = *a1;
+    v109 = *a1;
     if (!*a1)
     {
       goto LABEL_134;
     }
 
-    v112 = v10;
+    v111 = v10;
     if (v45)
     {
       while (1)
@@ -2949,7 +2272,7 @@ LABEL_127:
         v84 = v49;
         v8 = v47 + 16 * v49;
         v85 = *(v8 + 8);
-        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * *v82), (*a3 + 8 * *v8), (*a3 + 8 * v85), v110);
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * *v82), (*a3 + 8 * *v8), (*a3 + 8 * v85), v109);
         if (v5)
         {
           goto LABEL_104;
@@ -3044,14 +2367,14 @@ LABEL_127:
 
 LABEL_91:
     v6 = a3[1];
-    v7 = v112;
-    if (v112 >= v6)
+    v7 = v111;
+    if (v111 >= v6)
     {
       goto LABEL_94;
     }
   }
 
-  v32 = (v9 + a4);
+  v32 = v9 + a4;
   if (__OFADD__(v9, a4))
   {
     goto LABEL_127;
@@ -3074,15 +2397,15 @@ LABEL_128:
     goto LABEL_42;
   }
 
-  v101 = v8;
-  v103 = v5;
+  v100 = v8;
+  v102 = v5;
   v33 = *a3;
   v34 = *a3 + 8 * v10 - 8;
-  v105 = v9;
+  v104 = v9;
   v35 = v9 - v10;
-  v109 = v32;
+  v108 = v32;
 LABEL_35:
-  v112 = v10;
+  v111 = v10;
   v36 = *(v33 + 8 * v10);
   v37 = v35;
   v38 = v34;
@@ -3097,15 +2420,15 @@ LABEL_35:
     if (v42 >= v43)
     {
 LABEL_40:
-      v10 = (v112 + 1);
+      v10 = v111 + 1;
       v34 += 8;
       --v35;
-      if (v112 + 1 == v109)
+      if ((v111 + 1) == v108)
       {
-        v10 = v109;
-        v8 = v101;
-        v5 = v103;
-        v9 = v105;
+        v10 = v108;
+        v8 = v100;
+        v5 = v102;
+        v9 = v104;
         goto LABEL_42;
       }
 
@@ -3142,14 +2465,15 @@ LABEL_135:
   __break(1u);
 }
 
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v78 = MEMORY[0x277D84F90];
+  v77 = MEMORY[0x277D84F90];
   v5 = a3[1];
   if (v5 >= 1)
   {
     v6 = 0;
     v7 = MEMORY[0x277D84F90];
-    v73 = a4;
+    v72 = a4;
     while (1)
     {
       v8 = v6 + 1;
@@ -3299,12 +2623,11 @@ LABEL_115:
         goto LABEL_106;
       }
 
-      v75 = v8;
+      v74 = v8;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v70 = v7[2];
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v7 = v71;
+        v7 = v70;
       }
 
       v28 = v7[2];
@@ -3312,7 +2635,7 @@ LABEL_115:
       if (v28 >= v7[3] >> 1)
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v7 = v72;
+        v7 = v71;
       }
 
       v7[2] = v29;
@@ -3320,7 +2643,7 @@ LABEL_115:
       v31 = &v7[2 * v28 + 4];
       *v31 = v6;
       v31[1] = v8;
-      v76 = *a1;
+      v75 = *a1;
       if (!*a1)
       {
         goto LABEL_114;
@@ -3470,7 +2793,7 @@ LABEL_109:
           v65 = *v64;
           v66 = &v30[2 * v32];
           v67 = v66[1];
-          specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 4 * *v64), (*a3 + 4 * *v66), (*a3 + 4 * v67), v76);
+          specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 4 * *v64), (*a3 + 4 * *v66), (*a3 + 4 * v67), v75);
           if (v4)
           {
             goto LABEL_89;
@@ -3564,11 +2887,11 @@ LABEL_109:
 
 LABEL_85:
       v5 = a3[1];
-      v6 = v75;
-      a4 = v73;
-      if (v75 >= v5)
+      v6 = v74;
+      a4 = v72;
+      if (v74 >= v5)
       {
-        v78 = v7;
+        v77 = v7;
         break;
       }
     }
@@ -3579,7 +2902,7 @@ LABEL_85:
     goto LABEL_115;
   }
 
-  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v78, *a1, a3);
+  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v77, *a1, a3);
 LABEL_89:
 }
 
@@ -3655,7 +2978,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, id *a3, char *a4, void *a5)
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, id *a3, void **a4, void *a5)
 {
   v5 = a4;
   v6 = a3;
@@ -3694,7 +3017,7 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, id *
       }
 
 LABEL_13:
-      ++v8;
+      v8 += 8;
       v6 = v13;
     }
 
@@ -3766,7 +3089,7 @@ LABEL_28:
   return 1;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, id *a3, char *a4)
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, id *a3, void **a4)
 {
   v4 = a4;
   v5 = a3;
@@ -3877,7 +3200,7 @@ LABEL_28:
   return 1;
 }
 
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, char *a3, char *a4)
+uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, unsigned int *a3, char *a4)
 {
   v4 = a4;
   v5 = a3;
@@ -3930,13 +3253,13 @@ LABEL_12:
   specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2, (a3 - a2) / 4, a4);
   v10 = &v4[4 * v9];
 LABEL_15:
-  v14 = v6 - 4;
-  for (v5 -= 4; v10 > v4 && v6 > v7; v5 -= 4)
+  v14 = (v6 - 4);
+  for (--v5; v10 > v4 && v6 > v7; --v5)
   {
     v16 = *(v10 - 1);
     if (v16 < *v14)
     {
-      v13 = v5 + 4 == v6;
+      v13 = v5 + 1 == v6;
       v6 -= 4;
       if (!v13)
       {
@@ -3947,7 +3270,7 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    if (v10 != v5 + 4)
+    if (v10 != (v5 + 1))
     {
       *v5 = v16;
     }
@@ -3967,7 +3290,7 @@ LABEL_28:
 
 void specialized BidirectionalCollection.lastIndex(where:)(uint64_t a1, void *a2)
 {
-  v3 = specialized Array._getCount()(a1);
+  v3 = specialized Array._getCount()();
   v9 = a1;
   while (1)
   {
@@ -4023,7 +3346,7 @@ LABEL_14:
 }
 
 {
-  v4 = specialized Array._getCount()(a1);
+  v4 = specialized Array._getCount()();
   v5 = a1 & 0xC000000000000001;
   v6 = a1 & 0xFFFFFFFFFFFFFF8;
   v13 = a1;
@@ -4084,7 +3407,7 @@ LABEL_14:
 id specialized closure #1 in BidirectionalCollection.last(where:)(uint64_t a1, uint64_t a2)
 {
   v4 = a2 & 0xC000000000000001;
-  specialized Array._checkSubscript(_:wasNativeTypeChecked:)(a1, (a2 & 0xC000000000000001) == 0, a2);
+  specialized Array._checkSubscript(_:wasNativeTypeChecked:)();
   if (v4)
   {
     return MEMORY[0x245D0A790](a1, a2);
@@ -4166,12 +3489,12 @@ uint64_t outlined bridged method (pb) of @objc CAFMediaItem.identifier.getter(vo
   return v4;
 }
 
-uint64_t specialized Array._copyToContiguousArray()(uint64_t a1)
+void *specialized Array._copyToContiguousArray()(unint64_t a1)
 {
   v1 = a1;
   if (a1 >> 62)
   {
-    if (a1 >= 0)
+    if ((a1 & 0x8000000000000000) == 0)
     {
       a1 &= 0xFFFFFFFFFFFFFF8uLL;
     }
@@ -4195,7 +3518,7 @@ uint64_t specialized Array._copyToContiguousArray()(uint64_t a1)
     return MEMORY[0x277D84F90];
   }
 
-  return a1 & 0xFFFFFFFFFFFFFF8;
+  return (a1 & 0xFFFFFFFFFFFFFF8);
 }
 
 uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
@@ -4425,7 +3748,7 @@ uint64_t static CAUVehicleLayoutKey.seatKeys.getter()
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy13CarAssetUtils19CAUVehicleLayoutKeyOGMd, &_ss23_ContiguousArrayStorageCy13CarAssetUtils19CAUVehicleLayoutKeyOGMR);
   v3 = type metadata accessor for CAUVehicleLayoutKey();
-  OUTLINED_FUNCTION_30(v3);
+  OUTLINED_FUNCTION_30();
   v5 = v4;
   v7 = *(v6 + 72);
   v8 = OUTLINED_FUNCTION_1_7();
@@ -4437,28 +3760,28 @@ uint64_t static CAUVehicleLayoutKey.seatKeys.getter()
   v10(v9 + 2 * v7, *MEMORY[0x277CF8838], v3);
   v10(v9 + 3 * v7, *MEMORY[0x277CF87E8], v3);
   v11 = swift_allocObject();
-  v20 = OUTLINED_FUNCTION_2_3(v11, v12, v13, v14, v15, v16, v17, v18, v32, v34, v36, v38, v19);
-  (v10)(v2, *MEMORY[0x277CF8828], v3, v20);
+  v21 = OUTLINED_FUNCTION_2_3(v11, v12, v13, v14, v15, v16, v17, v18, v19, v34, v36, v38, v40, v20);
+  (v10)(v2, *MEMORY[0x277CF8828], v3, v21);
   v10(v2 + v7, *MEMORY[0x277CF8860], v3);
   v10(v2 + 2 * v7, *MEMORY[0x277CF8848], v3);
   v10(v2 + 3 * v7, *MEMORY[0x277CF87F0], v3);
-  v40 = v8;
+  v42 = v8;
   specialized Array.append<A>(contentsOf:)(v9);
-  v21 = swift_allocObject();
-  v30 = OUTLINED_FUNCTION_3_4(v21, v22, v23, v24, v25, v26, v27, v28, v33, v35, v37, v39, v29);
-  (v10)(&v40, *MEMORY[0x277CF8830], v3, v30);
-  v10(&v40 + v7, *MEMORY[0x277CF8868], v3);
-  v10(&v40 + 2 * v7, *MEMORY[0x277CF8850], v3);
-  v10(&v40 + 3 * v7, *MEMORY[0x277CF87F8], v3);
+  v22 = swift_allocObject();
+  v32 = OUTLINED_FUNCTION_3_4(v22, v23, v24, v25, v26, v27, v28, v29, v30, v35, v37, v39, v41, v31);
+  (v10)(&v42, *MEMORY[0x277CF8830], v3, v32);
+  v10(&v42 + v7, *MEMORY[0x277CF8868], v3);
+  v10(&v42 + 2 * v7, *MEMORY[0x277CF8850], v3);
+  v10(&v42 + 3 * v7, *MEMORY[0x277CF87F8], v3);
   specialized Array.append<A>(contentsOf:)(v0);
-  return v40;
+  return v42;
 }
 
 uint64_t static CAUVehicleLayoutKey.rhdSeatKeys.getter()
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy13CarAssetUtils19CAUVehicleLayoutKeyOGMd, &_ss23_ContiguousArrayStorageCy13CarAssetUtils19CAUVehicleLayoutKeyOGMR);
   v3 = type metadata accessor for CAUVehicleLayoutKey();
-  OUTLINED_FUNCTION_30(v3);
+  OUTLINED_FUNCTION_30();
   v5 = v4;
   v7 = *(v6 + 72);
   v8 = OUTLINED_FUNCTION_1_7();
@@ -4470,28 +3793,28 @@ uint64_t static CAUVehicleLayoutKey.rhdSeatKeys.getter()
   v10(v9 + 2 * v7, *MEMORY[0x277CF8810], v3);
   v10(v9 + 3 * v7, *MEMORY[0x277CF87E8], v3);
   v11 = swift_allocObject();
-  v20 = OUTLINED_FUNCTION_2_3(v11, v12, v13, v14, v15, v16, v17, v18, v32, v34, v36, v38, v19);
-  (v10)(v2, *MEMORY[0x277CF8848], v3, v20);
+  v21 = OUTLINED_FUNCTION_2_3(v11, v12, v13, v14, v15, v16, v17, v18, v19, v34, v36, v38, v40, v20);
+  (v10)(v2, *MEMORY[0x277CF8848], v3, v21);
   v10(v2 + v7, *MEMORY[0x277CF8860], v3);
   v10(v2 + 2 * v7, *MEMORY[0x277CF8828], v3);
   v10(v2 + 3 * v7, *MEMORY[0x277CF87F0], v3);
-  v40 = v8;
+  v42 = v8;
   specialized Array.append<A>(contentsOf:)(v9);
-  v21 = swift_allocObject();
-  v30 = OUTLINED_FUNCTION_3_4(v21, v22, v23, v24, v25, v26, v27, v28, v33, v35, v37, v39, v29);
-  (v10)(&v40, *MEMORY[0x277CF8850], v3, v30);
-  v10(&v40 + v7, *MEMORY[0x277CF8868], v3);
-  v10(&v40 + 2 * v7, *MEMORY[0x277CF8830], v3);
-  v10(&v40 + 3 * v7, *MEMORY[0x277CF87F8], v3);
+  v22 = swift_allocObject();
+  v32 = OUTLINED_FUNCTION_3_4(v22, v23, v24, v25, v26, v27, v28, v29, v30, v35, v37, v39, v41, v31);
+  (v10)(&v42, *MEMORY[0x277CF8850], v3, v32);
+  v10(&v42 + v7, *MEMORY[0x277CF8868], v3);
+  v10(&v42 + 2 * v7, *MEMORY[0x277CF8830], v3);
+  v10(&v42 + 3 * v7, *MEMORY[0x277CF87F8], v3);
   specialized Array.append<A>(contentsOf:)(v0);
-  return v40;
+  return v42;
 }
 
 uint64_t static CAUVehicleLayoutKey.seatFrontKeys.getter(unsigned int *a1, unsigned int *a2, unsigned int *a3, unsigned int *a4)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy13CarAssetUtils19CAUVehicleLayoutKeyOGMd, &_ss23_ContiguousArrayStorageCy13CarAssetUtils19CAUVehicleLayoutKeyOGMR);
   v8 = type metadata accessor for CAUVehicleLayoutKey();
-  OUTLINED_FUNCTION_30(v8);
+  OUTLINED_FUNCTION_30();
   v10 = v9;
   v12 = *(v11 + 72);
   v13 = (*(v9 + 80) + 32) & ~*(v9 + 80);
@@ -4511,7 +3834,7 @@ uint64_t static CAUVehicleLayoutKey.defrostKeys.getter()
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy13CarAssetUtils19CAUVehicleLayoutKeyOGMd, &_ss23_ContiguousArrayStorageCy13CarAssetUtils19CAUVehicleLayoutKeyOGMR);
   v0 = type metadata accessor for CAUVehicleLayoutKey();
-  OUTLINED_FUNCTION_30(v0);
+  OUTLINED_FUNCTION_30();
   v2 = v1;
   v4 = *(v3 + 72);
   v5 = (*(v1 + 80) + 32) & ~*(v1 + 80);
@@ -4529,22 +3852,21 @@ uint64_t static CAUVehicleLayoutKey.defrostKeys.getter()
 
 uint64_t OUTLINED_FUNCTION_1_7()
 {
-  v2 = *(v0 + 80);
 
   return swift_allocObject();
 }
 
-__n128 OUTLINED_FUNCTION_2_3(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a13)
+__n128 OUTLINED_FUNCTION_2_3(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a13, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a14)
 {
-  result = a13;
-  a1[1] = a13;
+  result = a14;
+  a1[1] = a14;
   return result;
 }
 
-__n128 OUTLINED_FUNCTION_3_4(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a13)
+__n128 OUTLINED_FUNCTION_3_4(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a13, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a14)
 {
-  result = a13;
-  a1[1] = a13;
+  result = a14;
+  a1[1] = a14;
   return result;
 }
 
@@ -4601,31 +3923,30 @@ uint64_t specialized CAFObservable.notifyChange()()
 
 uint64_t CAFEqualizerObservable.type.getter()
 {
-  OUTLINED_FUNCTION_228(OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__type);
-  v3 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
+  OUTLINED_FUNCTION_228();
+  v1 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
 
-  v1 = v3;
-  OUTLINED_FUNCTION_231();
+  v2 = v1;
+  OUTLINED_FUNCTION_231(v2, v3, v4, v5, v6, v7, v8, v9, v1);
 
-  return v4;
+  return v11;
 }
 
 uint64_t CAFEqualizerObservable.sortOrder.getter()
 {
-  OUTLINED_FUNCTION_228(OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__sortOrder);
-  v3 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
+  OUTLINED_FUNCTION_228();
+  v1 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
 
-  v1 = v3;
-  OUTLINED_FUNCTION_231();
+  v2 = v1;
+  OUTLINED_FUNCTION_231(v2, v3, v4, v5, v6, v7, v8, v9, v1);
 
-  return v4;
+  return v11;
 }
 
-void (*CAFEqualizerObservable.$type.getter(void *a1, void (*a2)(uint64_t)))(uint64_t)
+uint64_t (*CAFEqualizerObservable.$type.getter(void *a1, uint64_t (*a2)(uint64_t)))(uint64_t)
 {
-  v4 = *(v2 + *a1);
 
-  a2(v5);
+  a2(v3);
   OUTLINED_FUNCTION_149();
 
   return a2;
@@ -4636,78 +3957,72 @@ void CAFEqualizerObservable.value.getter(uint64_t a1, uint64_t a2, uint64_t a3, 
   OUTLINED_FUNCTION_219();
   a23 = v25;
   a24 = v26;
-  v27 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value;
-  OUTLINED_FUNCTION_234();
-  v28 = *(*(v24 + v27) + 16);
-  v29 = *(v24 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
-  a13 = v29;
+  OUTLINED_FUNCTION_234(v24 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value, &a14);
+  v27 = *(v24 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
+  a13 = v27;
 
-  v30 = v29;
-  v31 = swift_readAtKeyPath();
-  v33 = *v32;
-  v31(&a9, 0);
+  v28 = v27;
+  v29 = swift_readAtKeyPath();
+  v29(&a9, 0);
 
   OUTLINED_FUNCTION_218();
 }
 
-uint64_t CAFEqualizerObservable.value.setter(char a1)
+uint64_t CAFEqualizerObservable.value.setter(uint64_t a1)
 {
-  swift_getKeyPath();
-  swift_getKeyPath();
-  v3 = v1;
+  v2 = a1;
+  KeyPath = swift_getKeyPath();
+  v4 = swift_getKeyPath();
+  v5 = v1;
 
-  return _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA22CAFEqualizerObservableC_s4Int8VTt3g5(a1, v3);
+  return _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA22CAFEqualizerObservableC_s4Int8VTt3g5(v2, v5, KeyPath, v4);
 }
 
-uint64_t _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA22CAFEqualizerObservableC_s4Int8VTt3g5(char a1, void *a2)
+uint64_t _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA22CAFEqualizerObservableC_s4Int8VTt3g5(unsigned __int8 a1, void *a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for CAFEqualizerObservable();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFEqualizerObservable and conformance CAFEqualizerObservable, v4, type metadata accessor for CAFEqualizerObservable);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFEqualizerObservable and conformance CAFEqualizerObservable, v6, type metadata accessor for CAFEqualizerObservable);
   dispatch thunk of ObservableObject.objectWillChange.getter();
   ObservableObjectPublisher.send()();
 
-  v14 = a2;
-  v5 = a2;
+  v13 = a2;
+  v7 = a2;
 
-  v6 = swift_readAtKeyPath();
-  v8 = *v7;
+  v8 = swift_readAtKeyPath();
 
-  v6(&v13, 0);
+  v8(&v12, 0);
 
-  v9 = *(v8 + 16);
-  v13 = *&v5[OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed];
-  v10 = v13;
-  LOBYTE(v14) = a1;
+  v12 = *&v7[OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed];
+  v9 = v12;
+  LOBYTE(v13) = a1;
 
-  v11 = v10;
+  v10 = v9;
   swift_setAtReferenceWritableKeyPath();
 
-  specialized SafePublished.value.setter();
+  specialized SafePublished.value.setter(a1);
 }
 
-uint64_t _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA25CAFFloatSettingObservableC_SfTt3g5(void *a1)
+uint64_t _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA25CAFFloatSettingObservableC_SfTt3g5(void *a1, uint64_t a2, uint64_t a3, float a4)
 {
   type metadata accessor for CAFFloatSettingObservable();
   OUTLINED_FUNCTION_27_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v6, 255, v7);
   dispatch thunk of ObservableObject.objectWillChange.getter();
-  v4 = v22;
   ObservableObjectPublisher.send()();
 
-  v5 = a1;
+  v8 = a1;
 
-  v6 = OUTLINED_FUNCTION_153();
-  v8 = OUTLINED_FUNCTION_206(v6, v7);
-  v16 = OUTLINED_FUNCTION_156(v8, v9, v10, v11, v12, v13, v14, v15, v21, v22);
-  v6(v16);
+  v10 = OUTLINED_FUNCTION_153(v9);
+  v12 = OUTLINED_FUNCTION_206(v10, v11);
+  v20 = OUTLINED_FUNCTION_156(v12, v13, v14, v15, v16, v17, v18, v19, v24, v25);
+  v10(v20);
 
-  v17 = *(v4 + 16);
-  v18 = *&v5[OBJC_IVAR____TtC10CAFCombine25CAFFloatSettingObservable_observed];
+  v21 = *&v8[OBJC_IVAR____TtC10CAFCombine25CAFFloatSettingObservable_observed];
 
-  v19 = v18;
+  v22 = v21;
   swift_setAtReferenceWritableKeyPath();
 
-  specialized SafePublished.value.setter();
+  specialized SafePublished.value.setter(LODWORD(a4));
 }
 
 void _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA33CAFMinimumChargingLevelObservableC_10Foundation11MeasurementVySo14CAFUnitPercentCGTt3g5()
@@ -4716,44 +4031,40 @@ void _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24Re
   OUTLINED_FUNCTION_201(v3, v4, v5);
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGSgMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGSgMR);
   OUTLINED_FUNCTION_165(v6);
-  v8 = *(v7 + 64);
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_200(v8, v21);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
+  OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_13_0();
   MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_200(v10, v27);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
-  OUTLINED_FUNCTION_30(v11);
-  v13 = *(v12 + 64);
-  OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_71();
   type metadata accessor for CAFMinimumChargingLevelObservable();
   OUTLINED_FUNCTION_136();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v15, 255, v16);
-  OUTLINED_FUNCTION_202();
-  v17 = v28;
+  v12 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v10, 255, v11);
+  OUTLINED_FUNCTION_202(v12);
   ObservableObjectPublisher.send()();
 
-  v29 = v1;
-  v18 = v1;
+  v23 = v1;
+  v13 = v1;
 
-  v19 = OUTLINED_FUNCTION_224();
-  OUTLINED_FUNCTION_206(v19, v20);
-  v19(&v28, 0);
+  v14 = OUTLINED_FUNCTION_224();
+  OUTLINED_FUNCTION_206(v14, v15);
+  v14(&v22, 0);
 
-  v21 = *(v17 + 16);
-  v22 = OUTLINED_FUNCTION_162(OBJC_IVAR____TtC10CAFCombine33CAFMinimumChargingLevelObservable_observed);
-  v0(v22);
+  v16 = OUTLINED_FUNCTION_162(OBJC_IVAR____TtC10CAFCombine33CAFMinimumChargingLevelObservable_observed);
+  v0(v16);
 
-  v23 = v2;
+  v17 = v2;
   OUTLINED_FUNCTION_216();
 
-  v24 = OUTLINED_FUNCTION_199();
-  v0(v24);
+  v18 = OUTLINED_FUNCTION_199();
+  v0(v18);
   OUTLINED_FUNCTION_215();
   specialized SafePublished.value.setter();
 
-  v25 = OUTLINED_FUNCTION_198();
-  v26(v25);
+  v19 = OUTLINED_FUNCTION_198();
+  v20(v19);
   OUTLINED_FUNCTION_32();
 }
 
@@ -4763,44 +4074,40 @@ void _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24Re
   OUTLINED_FUNCTION_201(v3, v4, v5);
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGSgMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGSgMR);
   OUTLINED_FUNCTION_165(v6);
-  v8 = *(v7 + 64);
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_200(v8, v21);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
+  OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_13_0();
   MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_200(v10, v27);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
-  OUTLINED_FUNCTION_30(v11);
-  v13 = *(v12 + 64);
-  OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_71();
   type metadata accessor for CAFTargetChargingLevelObservable();
   OUTLINED_FUNCTION_135();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v15, 255, v16);
-  OUTLINED_FUNCTION_202();
-  v17 = v28;
+  v12 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v10, 255, v11);
+  OUTLINED_FUNCTION_202(v12);
   ObservableObjectPublisher.send()();
 
-  v29 = v1;
-  v18 = v1;
+  v23 = v1;
+  v13 = v1;
 
-  v19 = OUTLINED_FUNCTION_224();
-  OUTLINED_FUNCTION_206(v19, v20);
-  v19(&v28, 0);
+  v14 = OUTLINED_FUNCTION_224();
+  OUTLINED_FUNCTION_206(v14, v15);
+  v14(&v22, 0);
 
-  v21 = *(v17 + 16);
-  v22 = OUTLINED_FUNCTION_162(OBJC_IVAR____TtC10CAFCombine32CAFTargetChargingLevelObservable_observed);
-  v0(v22);
+  v16 = OUTLINED_FUNCTION_162(OBJC_IVAR____TtC10CAFCombine32CAFTargetChargingLevelObservable_observed);
+  v0(v16);
 
-  v23 = v2;
+  v17 = v2;
   OUTLINED_FUNCTION_216();
 
-  v24 = OUTLINED_FUNCTION_199();
-  v0(v24);
+  v18 = OUTLINED_FUNCTION_199();
+  v0(v18);
   OUTLINED_FUNCTION_215();
   specialized SafePublished.value.setter();
 
-  v25 = OUTLINED_FUNCTION_198();
-  v26(v25);
+  v19 = OUTLINED_FUNCTION_198();
+  v20(v19);
   OUTLINED_FUNCTION_32();
 }
 
@@ -4810,44 +4117,40 @@ void _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24Re
   OUTLINED_FUNCTION_201(v3, v4, v5);
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGSgMR);
   OUTLINED_FUNCTION_165(v6);
-  v8 = *(v7 + 64);
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_200(v8, v21);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
+  OUTLINED_FUNCTION_30();
   OUTLINED_FUNCTION_13_0();
   MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_200(v10, v27);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
-  OUTLINED_FUNCTION_30(v11);
-  v13 = *(v12 + 64);
-  OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_71();
   type metadata accessor for CAFTemperatureObservable();
   OUTLINED_FUNCTION_44();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v15, 255, v16);
-  OUTLINED_FUNCTION_202();
-  v17 = v28;
+  v12 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v10, 255, v11);
+  OUTLINED_FUNCTION_202(v12);
   ObservableObjectPublisher.send()();
 
-  v29 = v1;
-  v18 = v1;
+  v23 = v1;
+  v13 = v1;
 
-  v19 = OUTLINED_FUNCTION_224();
-  OUTLINED_FUNCTION_206(v19, v20);
-  v19(&v28, 0);
+  v14 = OUTLINED_FUNCTION_224();
+  OUTLINED_FUNCTION_206(v14, v15);
+  v14(&v22, 0);
 
-  v21 = *(v17 + 16);
-  v22 = OUTLINED_FUNCTION_162(OBJC_IVAR____TtC10CAFCombine24CAFTemperatureObservable_observed);
-  v0(v22);
+  v16 = OUTLINED_FUNCTION_162(OBJC_IVAR____TtC10CAFCombine24CAFTemperatureObservable_observed);
+  v0(v16);
 
-  v23 = v2;
+  v17 = v2;
   OUTLINED_FUNCTION_216();
 
-  v24 = OUTLINED_FUNCTION_199();
-  v0(v24);
+  v18 = OUTLINED_FUNCTION_199();
+  v0(v18);
   OUTLINED_FUNCTION_215();
   specialized SafePublished.value.setter();
 
-  v25 = OUTLINED_FUNCTION_198();
-  v26(v25);
+  v19 = OUTLINED_FUNCTION_198();
+  v20(v19);
   OUTLINED_FUNCTION_32();
 }
 
@@ -4858,28 +4161,24 @@ void (*CAFEqualizerObservable.value.modify(void *a1))(uint64_t a1)
   v3[8] = v1;
   v3[9] = swift_getKeyPath();
   v3[10] = swift_getKeyPath();
-  v4 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value;
-  OUTLINED_FUNCTION_234();
-  v5 = *(*(v1 + v4) + 16);
-  v6 = *(v1 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
-  v3[7] = v6;
+  OUTLINED_FUNCTION_234(v1 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value, (v3 + 4));
+  v4 = *(v1 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
+  v3[7] = v4;
 
-  v7 = v6;
+  v5 = v4;
   OUTLINED_FUNCTION_176();
-  v8 = swift_readAtKeyPath();
-  v10 = *v9;
-  v8(v3, 0);
+  v6 = swift_readAtKeyPath();
+  v8 = *v7;
+  v6(v3, 0);
 
-  *(v3 + 88) = v10;
+  *(v3 + 88) = v8;
   return CAFEqualizerObservable.value.modify;
 }
 
 void CAFEqualizerObservable.value.modify(uint64_t a1)
 {
   v1 = *a1;
-  v3 = *(*a1 + 72);
-  v2 = *(*a1 + 80);
-  _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA22CAFEqualizerObservableC_s4Int8VTt3g5(*(*a1 + 88), *(*a1 + 64));
+  _s10CAFCombine13SafePublishedC18_enclosingInstance7wrapped7storageq_x_s24ReferenceWritableKeyPathCyxq_GAHyxACyxq_GGtcisZAA22CAFEqualizerObservableC_s4Int8VTt3g5(*(*a1 + 88), *(*a1 + 64), *(*a1 + 72), *(*a1 + 80));
 
   free(v1);
 }
@@ -4887,8 +4186,7 @@ void CAFEqualizerObservable.value.modify(uint64_t a1)
 uint64_t CAFEqualizerObservable.$value.getter()
 {
   v1 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value;
-  OUTLINED_FUNCTION_234();
-  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_234(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value, v3);
 
   specialized SafePublished.projectedValue.getter();
   OUTLINED_FUNCTION_149();
@@ -4898,24 +4196,22 @@ uint64_t CAFEqualizerObservable.$value.getter()
 
 uint64_t CAFEqualizerObservable.userVisibleLabel.getter()
 {
-  OUTLINED_FUNCTION_228(OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__userVisibleLabel);
-  v3 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
+  OUTLINED_FUNCTION_228();
+  v2 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
 
-  v1 = v3;
-  OUTLINED_FUNCTION_232();
+  OUTLINED_FUNCTION_232(v2);
 
-  return v4;
+  return v3;
 }
 
 uint64_t CAFEqualizerObservable.name.getter()
 {
-  OUTLINED_FUNCTION_228(OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__name);
-  v3 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
+  OUTLINED_FUNCTION_228();
+  v2 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed);
 
-  v1 = v3;
-  OUTLINED_FUNCTION_232();
+  OUTLINED_FUNCTION_232(v2);
 
-  return v4;
+  return v3;
 }
 
 uint64_t CAFEqualizerObservable._description.getter()
@@ -4998,21 +4294,18 @@ uint64_t CAFEqualizerObservable.description.getter()
   v3 = (v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_cachedDescription);
   if (*(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_cachedDescription + 8))
   {
-    v4 = *v3;
-    v5 = *(v0 + v1);
+    v4 = *(v0 + v1);
   }
 
   else
   {
-    v6 = CAFEqualizerObservable._description.getter();
-    v7 = v3[1];
-    *v3 = v6;
-    v3[1] = v8;
+    *v3 = CAFEqualizerObservable._description.getter();
+    v3[1] = v5;
 
-    v5 = *(v0 + v1);
+    v4 = *(v0 + v1);
   }
 
-  os_unfair_lock_unlock(v5 + 4);
+  os_unfair_lock_unlock(v4 + 4);
 
   return OUTLINED_FUNCTION_197();
 }
@@ -5029,43 +4322,43 @@ id CAFEqualizerObservable.init(_:)(void *a1)
   *(v6 + 16) = 0;
   *&v2[v5] = v6;
   v7 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__type;
+  KeyPath = swift_getKeyPath();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSo0F4TypeVGMd, _s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSo0F4TypeVGMR);
+  v10 = OUTLINED_FUNCTION_225(v9);
+  specialized SafePublished.init(observedValuekeypath:)(KeyPath, &_s7Combine9PublishedVySo16CAFEqualizerTypeVSgGMd, &_s7Combine9PublishedVySo16CAFEqualizerTypeVSgGMR, &_sSo16CAFEqualizerTypeVSgMd, &_sSo16CAFEqualizerTypeVSgMR, v10, v11, v12, v35.receiver, v35.super_class, v36, v37, v38, v39, vars0, vars8);
+  *&v2[v7] = v13;
+  v14 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__sortOrder;
+  v15 = swift_getKeyPath();
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCs5UInt8VGMd, &_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCs5UInt8VGMR);
+  v17 = OUTLINED_FUNCTION_225(v16);
+  specialized SafePublished.init(observedValuekeypath:)(v15, &_s7Combine9PublishedVys5UInt8VSgGMd, &_s7Combine9PublishedVys5UInt8VSgGMR, &_ss5UInt8VSgMd, &_ss5UInt8VSgMR, v17, v18, v19, v35.receiver, v35.super_class, v36, v37, v38, v39, vars0, vars8);
+  *&v2[v14] = v20;
+  v21 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value;
+  v22 = swift_getKeyPath();
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine13SafePublishedCyAA22CAFEqualizerObservableCs4Int8VGMd, _s10CAFCombine13SafePublishedCyAA22CAFEqualizerObservableCs4Int8VGMR);
+  v24 = OUTLINED_FUNCTION_225(v23);
+  specialized SafePublished.init(observedValuekeypath:)(v22, &_s7Combine9PublishedVys4Int8VSgGMd, &_s7Combine9PublishedVys4Int8VSgGMR, &_ss4Int8VSgMd, &_ss4Int8VSgMR, v24, v25, v26, v35.receiver, v35.super_class, v36, v37, v38, v39, vars0, vars8);
+  *&v2[v21] = v27;
+  v28 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__userVisibleLabel;
   swift_getKeyPath();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSo0F4TypeVGMd, _s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSo0F4TypeVGMR);
-  OUTLINED_FUNCTION_225(v8);
-  specialized SafePublished.init(observedValuekeypath:)();
-  *&v2[v7] = v9;
-  v10 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__sortOrder;
-  swift_getKeyPath();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCs5UInt8VGMd, &_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCs5UInt8VGMR);
-  OUTLINED_FUNCTION_225(v11);
-  specialized SafePublished.init(observedValuekeypath:)();
-  *&v2[v10] = v12;
-  v13 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value;
-  swift_getKeyPath();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine13SafePublishedCyAA22CAFEqualizerObservableCs4Int8VGMd, _s10CAFCombine13SafePublishedCyAA22CAFEqualizerObservableCs4Int8VGMR);
-  OUTLINED_FUNCTION_225(v14);
-  specialized SafePublished.init(observedValuekeypath:)();
-  *&v2[v13] = v15;
-  v16 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__userVisibleLabel;
-  swift_getKeyPath();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSSSgGMd, &_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSSSgGMR);
-  OUTLINED_FUNCTION_225(v17);
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSSSgGMd, &_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSSSgGMR);
+  OUTLINED_FUNCTION_225(v29);
   OUTLINED_FUNCTION_23_0();
-  *&v2[v16] = _s10CAFCombine13SafePublishedC20observedValuekeypathACyxq_Gs24ReferenceWritableKeyPathCy8ObservedQzq_G_tcfcAA21CAFTypeTestObservableC_SSSgTg5_0();
-  v18 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__name;
+  *&v2[v28] = _s10CAFCombine13SafePublishedC20observedValuekeypathACyxq_Gs24ReferenceWritableKeyPathCy8ObservedQzq_G_tcfcAA21CAFTypeTestObservableC_SSSgTg5_0();
+  v30 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__name;
   swift_getKeyPath();
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSSGMd, _s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSSGMR);
-  OUTLINED_FUNCTION_225(v19);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSSGMd, _s10CAFCombine21SafeReadOnlyPublishedCyAA22CAFEqualizerObservableCSSGMR);
+  OUTLINED_FUNCTION_225(v31);
   OUTLINED_FUNCTION_23_0();
-  *&v2[v18] = specialized SafePublished.init(observedValuekeypath:)();
+  *&v2[v30] = specialized SafePublished.init(observedValuekeypath:)();
   *&v2[OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable_observed] = a1;
-  v23.receiver = v2;
-  v23.super_class = type metadata accessor for CAFEqualizerObservable();
-  v20 = a1;
-  v21 = objc_msgSendSuper2(&v23, sel_init);
-  [v20 registerObserver_];
+  v35.receiver = v2;
+  v35.super_class = type metadata accessor for CAFEqualizerObservable();
+  v32 = a1;
+  v33 = objc_msgSendSuper2(&v35, sel_init);
+  [v32 registerObserver_];
 
-  return v21;
+  return v33;
 }
 
 uint64_t CAFEqualizerObservable.resetCachedDescription()()
@@ -5099,44 +4392,39 @@ id protocol witness for CAFObservable.observed.getter in conformance CAFEqualize
   return result;
 }
 
-uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance CAFEqualizerObservable@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance CAFEqualizerObservable@<X0>(uint64_t *a3@<X8>)
 {
   type metadata accessor for CAFEqualizerObservable();
   result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
+  *a3 = result;
   return result;
 }
 
 uint64_t CAFEqualizerObservable.equalizerService(_:didUpdateType:)(uint64_t a1, unsigned __int8 a2, void *a3, void (*a4)(void))
 {
-  v7 = *(v4 + *a3);
 
   a4(a2);
 }
 
-uint64_t CAFEqualizerObservable.equalizerService(_:didUpdateValue:)()
+uint64_t CAFEqualizerObservable.equalizerService(_:didUpdateValue:)(uint64_t a1, unsigned __int8 a2)
 {
-  v1 = OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value;
-  OUTLINED_FUNCTION_234();
-  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_234(v2 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__value, v5);
 
-  specialized SafePublished.value.setter();
+  specialized SafePublished.value.setter(a2);
 }
 
-uint64_t CAFEqualizerObservable.equalizerService(_:didUpdateUserVisibleLabel:)()
+uint64_t CAFEqualizerObservable.equalizerService(_:didUpdateUserVisibleLabel:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__userVisibleLabel);
 
-  OUTLINED_FUNCTION_197();
-  specialized SafeReadOnlyPublished.value.setter();
+  v3 = OUTLINED_FUNCTION_197();
+  specialized SafeReadOnlyPublished.value.setter(v3, v4);
 }
 
-uint64_t CAFEqualizerObservable.equalizerService(_:didUpdateName:)()
+uint64_t CAFEqualizerObservable.equalizerService(_:didUpdateName:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(v0 + OBJC_IVAR____TtC10CAFCombine22CAFEqualizerObservable__name);
 
-  OUTLINED_FUNCTION_197();
-  specialized SafeReadOnlyPublished.value.setter();
+  v3 = OUTLINED_FUNCTION_197();
+  specialized SafeReadOnlyPublished.value.setter(v3, v4);
 }
 
 uint64_t CAFEqualizerObservable.serviceDidUpdate(_:characteristic:fromGroupUpdate:)(uint64_t a1, uint64_t a2, char a3)
@@ -5160,23 +4448,23 @@ uint64_t CAFEqualizerObservable.serviceDidUpdate(_:receivedAllValues:)(uint64_t 
   return result;
 }
 
-uint64_t specialized SafePublished.value.setter()
+uint64_t specialized SafePublished.value.setter(uint64_t a1)
 {
   type metadata accessor for CAFEqualizerObservable();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFEqualizerObservable and conformance CAFEqualizerObservable, v0, type metadata accessor for CAFEqualizerObservable);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFEqualizerObservable and conformance CAFEqualizerObservable, v1, type metadata accessor for CAFEqualizerObservable);
   swift_getKeyPath();
   swift_getKeyPath();
 
   return static Published.subscript.setter();
 }
 
-void specialized SafePublished.value.setter()
+void specialized SafePublished.value.setter(uint64_t a1)
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFSoundDistributionObservable();
   OUTLINED_FUNCTION_94();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5189,13 +4477,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFSoundDistributionObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss4Int8VSgMd, &_ss4Int8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_94();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5208,10 +4496,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFVolumeObservable();
   OUTLINED_FUNCTION_33_0();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5224,13 +4512,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFVolumeObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_33_0();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5243,13 +4531,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFCameraButtonObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CAFButtonActionVSgMd, &_sSo15CAFButtonActionVSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_20_2();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5262,13 +4550,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFCameraButtonObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_20_2();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5281,10 +4569,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFCameraGeneralObservable();
   OUTLINED_FUNCTION_138();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5296,30 +4584,14 @@ void specialized SafePublished.value.setter()
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFHistoricalNotificationObservable();
-  OUTLINED_FUNCTION_5_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_157();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_73();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_105();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFHistoricalNotificationObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFNotificationSeverity(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFNotificationSeverity(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_5_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5332,13 +4604,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFHistoricalNotificationObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_5_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5351,10 +4623,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFHistoricalNotificationObservable();
   OUTLINED_FUNCTION_5_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5367,13 +4639,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFHistoricalNotificationObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_5_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5386,13 +4658,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFActionRemoteNotificationObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFButtonAction(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFButtonAction(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_19_2();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5405,10 +4677,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFActionRemoteNotificationObservable();
   OUTLINED_FUNCTION_19_2();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5421,10 +4693,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFAlertRemoteNotificationObservable();
   OUTLINED_FUNCTION_48();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5437,13 +4709,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFAutomakerSettingsRemoteNotificationObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFButtonAction(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFButtonAction(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_47();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5456,13 +4728,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFMinimalRemoteNotificationObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFButtonAction(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFButtonAction(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_61();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5475,13 +4747,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFMultiSelectRemoteNotificationObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFButtonAction(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFButtonAction(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_29_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5500,23 +4772,23 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_29_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFPickerObservable();
   OUTLINED_FUNCTION_60();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5529,10 +4801,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFRemoteNotificationObservable();
   OUTLINED_FUNCTION_59();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5545,13 +4817,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFSingleSelectRemoteNotificationObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFButtonAction(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFButtonAction(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_28_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5564,10 +4836,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFSingleSelectRemoteNotificationObservable();
   OUTLINED_FUNCTION_28_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5580,10 +4852,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFRequestContentObservable();
   OUTLINED_FUNCTION_93();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5596,10 +4868,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFRequestTemporaryContentObservable();
   OUTLINED_FUNCTION_58();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5611,27 +4883,11 @@ void specialized SafePublished.value.setter()
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFRequestTemporaryContentObservable();
-  OUTLINED_FUNCTION_58();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_157();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_73();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_105();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFBooleanSettingObservable();
   OUTLINED_FUNCTION_12_2();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5644,13 +4900,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFButtonSettingObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFButtonAction(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFButtonAction(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_18_2();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5666,14 +4922,14 @@ void specialized SafePublished.value.setter()
   OUTLINED_FUNCTION_97();
   type metadata accessor for CAFFloatSettingObservable();
   OUTLINED_FUNCTION_27_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_141();
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -5682,14 +4938,14 @@ void specialized SafePublished.value.setter()
   OUTLINED_FUNCTION_97();
   type metadata accessor for CAFIntegerSettingObservable();
   OUTLINED_FUNCTION_17_2();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_141();
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -5701,14 +4957,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_10_3();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -5720,23 +4976,23 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_11_2();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFSingleSelectImageSettingObservable();
   OUTLINED_FUNCTION_9_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5749,10 +5005,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFSingleSelectSettingObservable();
   OUTLINED_FUNCTION_8_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5764,66 +5020,14 @@ void specialized SafePublished.value.setter()
 }
 
 {
-  OUTLINED_FUNCTION_13_1();
-  OUTLINED_FUNCTION_166();
-  v0 = OUTLINED_FUNCTION_211();
-  OUTLINED_FUNCTION_165(v0);
-  v2 = *(v1 + 64);
-  OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_51();
-  v4 = type metadata accessor for CAFMinimumChargingLevelObservable();
-  OUTLINED_FUNCTION_169(v4);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
-  OUTLINED_FUNCTION_168(v5);
-  OUTLINED_FUNCTION_136();
-  v8 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v6, 255, v7);
-  OUTLINED_FUNCTION_167(v8);
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_82();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_78();
-
-  OUTLINED_FUNCTION_108();
-  OUTLINED_FUNCTION_160();
-  OUTLINED_FUNCTION_32();
-}
-
-{
-  OUTLINED_FUNCTION_13_1();
-  OUTLINED_FUNCTION_166();
-  v0 = OUTLINED_FUNCTION_211();
-  OUTLINED_FUNCTION_165(v0);
-  v2 = *(v1 + 64);
-  OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_51();
-  v4 = type metadata accessor for CAFTargetChargingLevelObservable();
-  OUTLINED_FUNCTION_169(v4);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
-  OUTLINED_FUNCTION_168(v5);
-  OUTLINED_FUNCTION_135();
-  v8 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v6, 255, v7);
-  OUTLINED_FUNCTION_167(v8);
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_82();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_78();
-
-  OUTLINED_FUNCTION_108();
-  OUTLINED_FUNCTION_160();
-  OUTLINED_FUNCTION_32();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFAutoClimateControlObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_46();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5836,13 +5040,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFAutoClimateControlObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20CAFAutoModeIntensityVSgMd, &_sSo20CAFAutoModeIntensityVSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_46();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5855,13 +5059,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFCabinObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_196();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5874,13 +5078,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFClimateControlsLockedObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFLockState(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFLockState(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_92();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5893,10 +5097,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFDefrostObservable();
   OUTLINED_FUNCTION_91();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5909,10 +5113,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFFanObservable();
   OUTLINED_FUNCTION_45();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5925,13 +5129,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFFanObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_45();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -5944,10 +5148,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFRecirculationObservable();
   OUTLINED_FUNCTION_134();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -5963,14 +5167,14 @@ void specialized SafePublished.value.setter()
   OUTLINED_FUNCTION_97();
   type metadata accessor for CAFSteeringWheelHeatingCoolingObservable();
   OUTLINED_FUNCTION_133();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_141();
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -5979,26 +5183,26 @@ void specialized SafePublished.value.setter()
   OUTLINED_FUNCTION_97();
   type metadata accessor for CAFTemperatureLevelObservable();
   OUTLINED_FUNCTION_57();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_141();
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFTemperatureLevelObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_57();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6010,40 +5214,14 @@ void specialized SafePublished.value.setter()
 }
 
 {
-  OUTLINED_FUNCTION_13_1();
-  OUTLINED_FUNCTION_166();
-  v0 = OUTLINED_FUNCTION_211();
-  OUTLINED_FUNCTION_165(v0);
-  v2 = *(v1 + 64);
-  OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_51();
-  v4 = type metadata accessor for CAFTemperatureObservable();
-  OUTLINED_FUNCTION_169(v4);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
-  OUTLINED_FUNCTION_168(v5);
-  OUTLINED_FUNCTION_44();
-  v8 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v6, 255, v7);
-  OUTLINED_FUNCTION_167(v8);
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_82();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_78();
-
-  OUTLINED_FUNCTION_108();
-  OUTLINED_FUNCTION_160();
-  OUTLINED_FUNCTION_32();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFTemperatureObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_44();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6059,26 +5237,26 @@ void specialized SafePublished.value.setter()
   OUTLINED_FUNCTION_97();
   type metadata accessor for CAFVentObservable();
   OUTLINED_FUNCTION_32_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_141();
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFVentObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_32_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6091,10 +5269,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFZoneOnObservable();
   OUTLINED_FUNCTION_132();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -6107,10 +5285,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFZonesSyncedObservable();
   OUTLINED_FUNCTION_90();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -6119,22 +5297,6 @@ void specialized SafePublished.value.setter()
 
   OUTLINED_FUNCTION_111();
   OUTLINED_FUNCTION_218();
-}
-
-{
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFInteriorAmbientLightsObservable();
-  OUTLINED_FUNCTION_56();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_157();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_73();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_105();
-  OUTLINED_FUNCTION_220();
 }
 
 {
@@ -6145,26 +5307,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32VSgMd, &_ss6UInt32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_56();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFRouteObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFRouteState(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFRouteState(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_6_3();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6176,30 +5338,11 @@ void specialized SafePublished.value.setter()
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFRouteObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_6_3();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFRouteObservable();
   OUTLINED_FUNCTION_6_3();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -6212,13 +5355,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFRouteObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFGeodeticSystem(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFGeodeticSystem(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_6_3();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6237,14 +5380,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFPointOfInterestCSgMd, _sSo18CAFPointOfInterestCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_6_3();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6256,26 +5399,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12CAFRouteLegsCSgMd, &_sSo12CAFRouteLegsCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_6_3();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFSeatFanObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_43();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6288,10 +5431,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFSeatFanObservable();
   OUTLINED_FUNCTION_43();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
@@ -6304,13 +5447,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFSeatHeatingCoolingObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_42();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6326,35 +5469,19 @@ void specialized SafePublished.value.setter()
   OUTLINED_FUNCTION_97();
   type metadata accessor for CAFSeatHeatingCoolingObservable();
   OUTLINED_FUNCTION_42();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_157();
   swift_getKeyPath();
   OUTLINED_FUNCTION_73();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_141();
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
-  specialized SafePublished.value.setter();
-}
-
-{
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFProtocolPerfTestObservable();
-  OUTLINED_FUNCTION_31_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_157();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_73();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_105();
-  OUTLINED_FUNCTION_220();
+  specialized SafePublished.value.setter(a1);
 }
 
 {
@@ -6365,14 +5492,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int32VSgMd, &_ss5Int32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_131();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6384,26 +5511,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int32VSgMd, &_ss5Int32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_130();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFTypeTestMultiObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6416,13 +5543,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestMultiObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6435,13 +5562,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestMultiObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt16VSgMd, &_ss6UInt16VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6460,45 +5587,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32VSgMd, &_ss6UInt32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_100();
-  type metadata accessor for CAFTypeTestMultiObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt64VSgMd, &_ss6UInt64VSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestMultiObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss4Int8VSgMd, &_ss4Int8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6511,13 +5619,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestMultiObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int16VSgMd, &_ss5Int16VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6536,34 +5644,15 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int32VSgMd, &_ss5Int32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
-}
-
-{
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_100();
-  type metadata accessor for CAFTypeTestMultiObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int64VSgMd, &_ss5Int64VSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
 }
 
 {
@@ -6574,64 +5663,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSfSgMd, &_sSfSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFTypeTestMultiObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFTypeTestMultiObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, _s10Foundation4DataVSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestMultiObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CAFButtonActionVSgMd, &_sSo15CAFButtonActionVSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6644,13 +5695,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestMultiObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CAFUnitTypeVSgMd, &_sSo11CAFUnitTypeVSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6669,14 +5720,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFTestComplexItemCSgMd, &_sSo18CAFTestComplexItemCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6688,14 +5739,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySbGSgMd, &_sSaySbGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6707,14 +5758,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGSgMd, &_sSays5UInt8VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6726,14 +5777,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt16VGSgMd, &_sSays6UInt16VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6745,14 +5796,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGSgMd, &_sSays6UInt32VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6764,14 +5815,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt64VGSgMd, &_sSays6UInt64VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6783,14 +5834,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays4Int8VGSgMd, &_sSays4Int8VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6802,14 +5853,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int16VGSgMd, &_sSays5Int16VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6821,14 +5872,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int32VGSgMd, &_sSays5Int32VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6840,14 +5891,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int64VGSgMd, &_sSays5Int64VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6859,14 +5910,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGSgMd, &_sSaySfGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6878,14 +5929,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGSgMd, &_sSaySSGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6897,14 +5948,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGSgMd, &_sSay10Foundation4DataVGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -6916,26 +5967,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19CAFTestComplexItemsCSgMd, &_sSo19CAFTestComplexItemsCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_3_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFTypeTestObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6948,13 +5999,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6967,13 +6018,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt16VSgMd, &_ss6UInt16VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -6992,45 +6043,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32VSgMd, &_ss6UInt32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_100();
-  type metadata accessor for CAFTypeTestObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt64VSgMd, &_ss6UInt64VSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss4Int8VSgMd, &_ss4Int8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7043,13 +6075,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int16VSgMd, &_ss5Int16VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7068,34 +6100,15 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int32VSgMd, &_ss5Int32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
-}
-
-{
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_100();
-  type metadata accessor for CAFTypeTestObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int64VSgMd, &_ss5Int64VSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
 }
 
 {
@@ -7106,64 +6119,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSfSgMd, &_sSfSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFTypeTestObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFTypeTestObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, _s10Foundation4DataVSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CAFButtonActionVSgMd, &_sSo15CAFButtonActionVSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7176,13 +6151,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CAFUnitTypeVSgMd, &_sSo11CAFUnitTypeVSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7201,14 +6176,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFTestComplexItemCSgMd, &_sSo18CAFTestComplexItemCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7220,14 +6195,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySbGSgMd, &_sSaySbGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7239,14 +6214,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGSgMd, &_sSays5UInt8VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7258,14 +6233,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt16VGSgMd, &_sSays6UInt16VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7277,14 +6252,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGSgMd, &_sSays6UInt32VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7296,14 +6271,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt64VGSgMd, &_sSays6UInt64VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7315,14 +6290,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays4Int8VGSgMd, &_sSays4Int8VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7334,14 +6309,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int16VGSgMd, &_sSays5Int16VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7353,14 +6328,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int32VGSgMd, &_sSays5Int32VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7372,14 +6347,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int64VGSgMd, &_sSays5Int64VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7391,14 +6366,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGSgMd, &_sSaySfGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7410,14 +6385,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGSgMd, &_sSaySSGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7429,14 +6404,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGSgMd, &_sSay10Foundation4DataVGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7448,14 +6423,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19CAFTestComplexItemsCSgMd, &_sSo19CAFTestComplexItemsCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7467,14 +6442,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23CAFTestComplexArrayItemCSgMd, &_sSo23CAFTestComplexArrayItemCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7486,14 +6461,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFTestComplexNestedItemCSgMd, &_sSo24CAFTestComplexNestedItemCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7505,14 +6480,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo25CAFTestComplexNestedItemsCSgMd, &_sSo25CAFTestComplexNestedItemsCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7524,26 +6499,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo28CAFTestComplexNestedListItemCSgMd, &_sSo28CAFTestComplexNestedListItemCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_2_4();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFTypeTestWithStatesObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7556,13 +6531,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestWithStatesObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7575,13 +6550,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestWithStatesObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt16VSgMd, &_ss6UInt16VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7600,45 +6575,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32VSgMd, &_ss6UInt32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_100();
-  type metadata accessor for CAFTypeTestWithStatesObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt64VSgMd, &_ss6UInt64VSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestWithStatesObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss4Int8VSgMd, &_ss4Int8VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7651,13 +6607,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestWithStatesObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int16VSgMd, &_ss5Int16VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7676,34 +6632,15 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int32VSgMd, &_ss5Int32VSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
-}
-
-{
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_100();
-  type metadata accessor for CAFTypeTestWithStatesObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int64VSgMd, &_ss5Int64VSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
 }
 
 {
@@ -7714,64 +6651,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSfSgMd, &_sSfSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFTypeTestWithStatesObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
-  OUTLINED_FUNCTION_221();
-  OUTLINED_FUNCTION_159();
-  type metadata accessor for CAFTypeTestWithStatesObservable();
-  OUTLINED_FUNCTION_152();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, _s10Foundation4DataVSgMR);
-  OUTLINED_FUNCTION_151();
-  OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
-  OUTLINED_FUNCTION_150();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_67();
-  swift_getKeyPath();
-  OUTLINED_FUNCTION_149();
-
-  OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_220();
-}
-
-{
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFTypeTestWithStatesObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CAFButtonActionVSgMd, &_sSo15CAFButtonActionVSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7784,13 +6683,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_53(v0);
+  OUTLINED_FUNCTION_53(v1);
   type metadata accessor for CAFTypeTestWithStatesObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CAFUnitTypeVSgMd, &_sSo11CAFUnitTypeVSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -7809,14 +6708,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFTestComplexItemCSgMd, &_sSo18CAFTestComplexItemCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7828,14 +6727,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySbGSgMd, &_sSaySbGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7847,14 +6746,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGSgMd, &_sSays5UInt8VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7866,14 +6765,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt16VGSgMd, &_sSays6UInt16VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7885,14 +6784,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGSgMd, &_sSays6UInt32VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7904,14 +6803,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt64VGSgMd, &_sSays6UInt64VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7923,14 +6822,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays4Int8VGSgMd, &_sSays4Int8VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7942,14 +6841,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int16VGSgMd, &_sSays5Int16VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7961,14 +6860,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int32VGSgMd, &_sSays5Int32VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7980,14 +6879,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int64VGSgMd, &_sSays5Int64VGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -7999,14 +6898,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGSgMd, &_sSaySfGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -8018,14 +6917,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGSgMd, &_sSaySSGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -8037,14 +6936,14 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGSgMd, &_sSay10Foundation4DataVGSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
@@ -8056,26 +6955,26 @@ void specialized SafePublished.value.setter()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19CAFTestComplexItemsCSgMd, &_sSo19CAFTestComplexItemsCSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_4_5();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v0, 255, v1);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
 
-  OUTLINED_FUNCTION_103();
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
   OUTLINED_FUNCTION_218();
 }
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_161(v0);
+  OUTLINED_FUNCTION_161(v1);
   type metadata accessor for CAFTripObservable();
   OUTLINED_FUNCTION_152();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_7_3();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -8088,13 +6987,13 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_40(v0);
+  OUTLINED_FUNCTION_40(v1);
   type metadata accessor for CAFUIAppearanceObservable();
-  v1 = OUTLINED_FUNCTION_95();
-  type metadata accessor for CAFAppearanceMode(v1);
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFAppearanceMode(v2);
   OUTLINED_FUNCTION_151();
   OUTLINED_FUNCTION_129();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
   OUTLINED_FUNCTION_150();
   swift_getKeyPath();
   OUTLINED_FUNCTION_67();
@@ -8107,10 +7006,10 @@ void specialized SafePublished.value.setter()
 
 {
   OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_52(v0);
+  OUTLINED_FUNCTION_52(v1);
   type metadata accessor for CAFProtocolPerfTestObservable();
   OUTLINED_FUNCTION_31_1();
-  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
   swift_getKeyPath();
   swift_getKeyPath();
   OUTLINED_FUNCTION_149();
@@ -8119,1797 +7018,5561 @@ void specialized SafePublished.value.setter()
   OUTLINED_FUNCTION_218();
 }
 
+void specialized SafePublished.value.setter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFHistoricalNotificationObservable();
+  OUTLINED_FUNCTION_5_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_105(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFRequestTemporaryContentObservable();
+  OUTLINED_FUNCTION_58();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_105(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFInteriorAmbientLightsObservable();
+  OUTLINED_FUNCTION_56();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_105(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFRouteObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_6_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFProtocolPerfTestObservable();
+  OUTLINED_FUNCTION_31_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_105(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_100();
+  type metadata accessor for CAFTypeTestMultiObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt64VSgMd, &_ss6UInt64VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_3_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_100();
+  type metadata accessor for CAFTypeTestMultiObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int64VSgMd, &_ss5Int64VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_3_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFTypeTestMultiObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_3_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFTypeTestMultiObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, _s10Foundation4DataVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_3_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_100();
+  type metadata accessor for CAFTypeTestObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt64VSgMd, &_ss6UInt64VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_2_4();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_100();
+  type metadata accessor for CAFTypeTestObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int64VSgMd, &_ss5Int64VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_2_4();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFTypeTestObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_2_4();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFTypeTestObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, _s10Foundation4DataVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_2_4();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_100();
+  type metadata accessor for CAFTypeTestWithStatesObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt64VSgMd, &_ss6UInt64VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_4_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_100();
+  type metadata accessor for CAFTypeTestWithStatesObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int64VSgMd, &_ss5Int64VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_4_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFTypeTestWithStatesObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_4_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+{
+  OUTLINED_FUNCTION_221();
+  OUTLINED_FUNCTION_159();
+  type metadata accessor for CAFTypeTestWithStatesObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, _s10Foundation4DataVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_4_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_107(v4, v5, v6, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_220();
+}
+
+void specialized SafePublished.value.setter()
+{
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_166();
+  v0 = OUTLINED_FUNCTION_211();
+  OUTLINED_FUNCTION_165(v0);
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_51();
+  v2 = type metadata accessor for CAFMinimumChargingLevelObservable();
+  OUTLINED_FUNCTION_169(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
+  OUTLINED_FUNCTION_168(v3);
+  OUTLINED_FUNCTION_136();
+  v6 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v4, 255, v5);
+  OUTLINED_FUNCTION_167(v6);
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_82();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_78();
+
+  OUTLINED_FUNCTION_108();
+  OUTLINED_FUNCTION_160();
+  OUTLINED_FUNCTION_32();
+}
+
+{
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_166();
+  v0 = OUTLINED_FUNCTION_211();
+  OUTLINED_FUNCTION_165(v0);
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_51();
+  v2 = type metadata accessor for CAFTargetChargingLevelObservable();
+  OUTLINED_FUNCTION_169(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
+  OUTLINED_FUNCTION_168(v3);
+  OUTLINED_FUNCTION_135();
+  v6 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v4, 255, v5);
+  OUTLINED_FUNCTION_167(v6);
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_82();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_78();
+
+  OUTLINED_FUNCTION_108();
+  OUTLINED_FUNCTION_160();
+  OUTLINED_FUNCTION_32();
+}
+
+{
+  OUTLINED_FUNCTION_13_1();
+  OUTLINED_FUNCTION_166();
+  v0 = OUTLINED_FUNCTION_211();
+  OUTLINED_FUNCTION_165(v0);
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_51();
+  v2 = type metadata accessor for CAFTemperatureObservable();
+  OUTLINED_FUNCTION_169(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
+  OUTLINED_FUNCTION_168(v3);
+  OUTLINED_FUNCTION_44();
+  v6 = lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v4, 255, v5);
+  OUTLINED_FUNCTION_167(v6);
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_82();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_78();
+
+  OUTLINED_FUNCTION_108();
+  OUTLINED_FUNCTION_160();
+  OUTLINED_FUNCTION_32();
+}
+
 uint64_t specialized SafePublished.projectedValue.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVys4Int8VSg_GMd, &_s7Combine9PublishedV9PublisherVys4Int8VSg_GMR);
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20](v1);
-  v5 = &v14 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMR);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v14 - v9;
-  v11 = *(*v0 + 112);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVys4Int8VSg_GMd, &_s7Combine9PublishedV9PublisherVys4Int8VSg_GMR);
+  v1 = *(v0 - 8);
+  MEMORY[0x28223BE20](v0);
+  v3 = &v10 - v2;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMR);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - v6;
   swift_beginAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys4Int8VSgGMd, &_s7Combine9PublishedVys4Int8VSgGMR);
   Published.projectedValue.getter();
   swift_endAccess();
   lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Published<Int8?>.Publisher and conformance Published<A>.Publisher, &_s7Combine9PublishedV9PublisherVys4Int8VSg_GMd, &_s7Combine9PublishedV9PublisherVys4Int8VSg_GMR);
   Publisher.compactMap<A>(_:)();
-  (*(v2 + 8))(v5, v1);
+  (*(v1 + 8))(v3, v0);
   lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(&lazy protocol witness table cache variable for type Publishers.CompactMap<Published<Int8?>.Publisher, Int8> and conformance Publishers.CompactMap<A, B>, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMR);
-  v12 = Publisher.eraseToAnyPublisher()();
-  (*(v7 + 8))(v10, v6);
-  return v12;
+  v8 = Publisher.eraseToAnyPublisher()();
+  (*(v5 + 8))(v7, v4);
+  return v8;
 }
 
 void specialized SafePublished.projectedValue.getter()
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_210();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_210();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_70();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_16_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys4Int8VSgGMd, &_s7Combine9PublishedVys4Int8VSgGMR);
-  OUTLINED_FUNCTION_209();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys4Int8VSgGMd, &_s7Combine9PublishedVys4Int8VSgGMR);
+  OUTLINED_FUNCTION_209(v2);
   swift_endAccess();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_208(v10);
-  OUTLINED_FUNCTION_69();
-  v11 = OUTLINED_FUNCTION_72();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_208(v3);
+  OUTLINED_FUNCTION_69(v4, v5, v6, MEMORY[0x277D84900], v4);
+  v7 = OUTLINED_FUNCTION_72();
+  v8(v7);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMR);
+  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v9, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSg_GAKGMR);
   OUTLINED_FUNCTION_147();
   Publisher.eraseToAnyPublisher()();
-  v14 = OUTLINED_FUNCTION_39();
-  v15(v14);
+  v10 = OUTLINED_FUNCTION_39();
+  v11(v10);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys4Int8VSgSgGMd, &_s7Combine9PublishedVys4Int8VSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys4Int8VSgSgGMd, &_s7Combine9PublishedVys4Int8VSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss4Int8VSgMd, &_ss4Int8VSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys4Int8VSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_210();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_210();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_70();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_16_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5UInt8VSgGMd, &_s7Combine9PublishedVys5UInt8VSgGMR);
-  OUTLINED_FUNCTION_209();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5UInt8VSgGMd, &_s7Combine9PublishedVys5UInt8VSgGMR);
+  OUTLINED_FUNCTION_209(v2);
   swift_endAccess();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_208(v10);
-  OUTLINED_FUNCTION_69();
-  v11 = OUTLINED_FUNCTION_72();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_208(v3);
+  OUTLINED_FUNCTION_69(v4, v5, v6, MEMORY[0x277D84B78], v4);
+  v7 = OUTLINED_FUNCTION_72();
+  v8(v7);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSg_GAKGMR);
+  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v9, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSg_GAKGMR);
   OUTLINED_FUNCTION_147();
   Publisher.eraseToAnyPublisher()();
-  v14 = OUTLINED_FUNCTION_39();
-  v15(v14);
+  v10 = OUTLINED_FUNCTION_39();
+  v11(v10);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSgSg_GAJGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSgSg_GAJGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbSgSgGMd, &_s7Combine9PublishedVySbSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbSgSgGMd, &_s7Combine9PublishedVySbSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSgSg_GAJGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSgSg_GAJGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo15CAFButtonActionVSgSgGMd, &_s7Combine9PublishedVySo15CAFButtonActionVSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo15CAFButtonActionVSgSgGMd, &_s7Combine9PublishedVySo15CAFButtonActionVSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CAFButtonActionVSgMd, &_sSo15CAFButtonActionVSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5UInt8VSgSgGMd, &_s7Combine9PublishedVys5UInt8VSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5UInt8VSgSgGMd, &_s7Combine9PublishedVys5UInt8VSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5UInt8VSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_210();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_210();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_70();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSg_GSbGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSg_GSbGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSg_GSbGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSg_GSbGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_16_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbSgGMd, &_s7Combine9PublishedVySbSgGMR);
-  OUTLINED_FUNCTION_209();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbSgGMd, &_s7Combine9PublishedVySbSgGMR);
+  OUTLINED_FUNCTION_209(v2);
   swift_endAccess();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_208(v10);
-  OUTLINED_FUNCTION_69();
-  v11 = OUTLINED_FUNCTION_72();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_208(v3);
+  OUTLINED_FUNCTION_69(v4, v5, v6, MEMORY[0x277D839B0], v4);
+  v7 = OUTLINED_FUNCTION_72();
+  v8(v7);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSg_GSbGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSg_GSbGMR);
+  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v9, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSg_GSbGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySbSg_GSbGMR);
   OUTLINED_FUNCTION_147();
   Publisher.eraseToAnyPublisher()();
-  v14 = OUTLINED_FUNCTION_39();
-  v15(v14);
+  v10 = OUTLINED_FUNCTION_39();
+  v11(v10);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_210();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_210();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_70();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSg_GSSGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSg_GSSGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSg_GSSGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSg_GSSGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_16_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
-  OUTLINED_FUNCTION_209();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
+  OUTLINED_FUNCTION_209(v2);
   swift_endAccess();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_208(v10);
-  OUTLINED_FUNCTION_69();
-  v11 = OUTLINED_FUNCTION_72();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_208(v3);
+  OUTLINED_FUNCTION_69(v4, v5, v6, MEMORY[0x277D837D0], v4);
+  v7 = OUTLINED_FUNCTION_72();
+  v8(v7);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSg_GSSGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSg_GSSGMR);
+  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v9, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSg_GSSGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSg_GSSGMR);
   OUTLINED_FUNCTION_147();
   Publisher.eraseToAnyPublisher()();
-  v14 = OUTLINED_FUNCTION_39();
-  v15(v14);
+  v10 = OUTLINED_FUNCTION_39();
+  v11(v10);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFNotificationSeverityVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFNotificationSeverityVSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFNotificationSeverityVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFNotificationSeverityVSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo23CAFNotificationSeverityVSgGMd, &_s7Combine9PublishedVySo23CAFNotificationSeverityVSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo23CAFNotificationSeverityVSgGMd, &_s7Combine9PublishedVySo23CAFNotificationSeverityVSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   type metadata accessor for CAFNotificationSeverity(0);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFNotificationSeverityVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFNotificationSeverityVSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFNotificationSeverityVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFNotificationSeverityVSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo15CAFButtonActionVSgGMd, &_s7Combine9PublishedVySo15CAFButtonActionVSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo15CAFButtonActionVSgGMd, &_s7Combine9PublishedVySo15CAFButtonActionVSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   type metadata accessor for CAFButtonAction(0);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo15CAFButtonActionVSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5UInt8VGSgGMd, &_s7Combine9PublishedVySays5UInt8VGSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5UInt8VGSgGMd, &_s7Combine9PublishedVySays5UInt8VGSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_210();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_210();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_70();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSg_GSfGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSg_GSfGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSg_GSfGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSg_GSfGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_16_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySfSgGMd, &_s7Combine9PublishedVySfSgGMR);
-  OUTLINED_FUNCTION_209();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySfSgGMd, &_s7Combine9PublishedVySfSgGMR);
+  OUTLINED_FUNCTION_209(v2);
   swift_endAccess();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_208(v10);
-  OUTLINED_FUNCTION_69();
-  v11 = OUTLINED_FUNCTION_72();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_208(v3);
+  OUTLINED_FUNCTION_69(v4, v5, v6, MEMORY[0x277D83A90], v4);
+  v7 = OUTLINED_FUNCTION_72();
+  v8(v7);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSg_GSfGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSg_GSfGMR);
+  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v9, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSg_GSfGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSg_GSfGMR);
   OUTLINED_FUNCTION_147();
   Publisher.eraseToAnyPublisher()();
-  v14 = OUTLINED_FUNCTION_39();
-  v15(v14);
+  v10 = OUTLINED_FUNCTION_39();
+  v11(v10);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_210();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_210();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_70();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_16_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int32VSgGMd, &_s7Combine9PublishedVys5Int32VSgGMR);
-  OUTLINED_FUNCTION_209();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int32VSgGMd, &_s7Combine9PublishedVys5Int32VSgGMR);
+  OUTLINED_FUNCTION_209(v2);
   swift_endAccess();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_208(v10);
-  OUTLINED_FUNCTION_69();
-  v11 = OUTLINED_FUNCTION_72();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_208(v3);
+  OUTLINED_FUNCTION_69(v4, v5, v6, MEMORY[0x277D849A8], v4);
+  v7 = OUTLINED_FUNCTION_72();
+  v8(v7);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSg_GAKGMR);
+  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v9, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSg_GAKGMR);
   OUTLINED_FUNCTION_147();
   Publisher.eraseToAnyPublisher()();
-  v14 = OUTLINED_FUNCTION_39();
-  v15(v14);
+  v10 = OUTLINED_FUNCTION_39();
+  v11(v10);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo14CAFUnitPercentCGSg_GAOGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo14CAFUnitPercentCGSg_GAOGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo14CAFUnitPercentCGSg_GAOGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo14CAFUnitPercentCGSg_GAOGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy10Foundation11MeasurementVySo14CAFUnitPercentCGSgGMd, &_s7Combine9PublishedVy10Foundation11MeasurementVySo14CAFUnitPercentCGSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy10Foundation11MeasurementVySo14CAFUnitPercentCGSgGMd, &_s7Combine9PublishedVy10Foundation11MeasurementVySo14CAFUnitPercentCGSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo14CAFUnitPercentCGMd, &_s10Foundation11MeasurementVySo14CAFUnitPercentCGMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo14CAFUnitPercentCGSg_GAOGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo14CAFUnitPercentCGSg_GAOGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo14CAFUnitPercentCGSg_GAOGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo14CAFUnitPercentCGSg_GAOGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo20CAFAutoModeIntensityVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo20CAFAutoModeIntensityVSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo20CAFAutoModeIntensityVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo20CAFAutoModeIntensityVSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo20CAFAutoModeIntensityVSgSgGMd, &_s7Combine9PublishedVySo20CAFAutoModeIntensityVSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo20CAFAutoModeIntensityVSgSgGMd, &_s7Combine9PublishedVySo20CAFAutoModeIntensityVSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20CAFAutoModeIntensityVSgMd, &_sSo20CAFAutoModeIntensityVSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo20CAFAutoModeIntensityVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo20CAFAutoModeIntensityVSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo20CAFAutoModeIntensityVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo20CAFAutoModeIntensityVSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFLockStateVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFLockStateVSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFLockStateVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFLockStateVSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12CAFLockStateVSgGMd, &_s7Combine9PublishedVySo12CAFLockStateVSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12CAFLockStateVSgGMd, &_s7Combine9PublishedVySo12CAFLockStateVSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   type metadata accessor for CAFLockState(0);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFLockStateVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFLockStateVSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFLockStateVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFLockStateVSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSg_GAOGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSg_GAOGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSg_GAOGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSg_GAOGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSgGMd, &_s7Combine9PublishedVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSgGMd, &_s7Combine9PublishedVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMd, &_s10Foundation11MeasurementVySo17NSUnitTemperatureCGMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSg_GAOGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSg_GAOGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSg_GAOGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation11MeasurementVySo17NSUnitTemperatureCGSg_GAOGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_210();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_210();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_70();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_16_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys6UInt32VSgGMd, &_s7Combine9PublishedVys6UInt32VSgGMR);
-  OUTLINED_FUNCTION_209();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys6UInt32VSgGMd, &_s7Combine9PublishedVys6UInt32VSgGMR);
+  OUTLINED_FUNCTION_209(v2);
   swift_endAccess();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_208(v10);
-  OUTLINED_FUNCTION_69();
-  v11 = OUTLINED_FUNCTION_72();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_208(v3);
+  OUTLINED_FUNCTION_69(v4, v5, v6, MEMORY[0x277D84CC0], v4);
+  v7 = OUTLINED_FUNCTION_72();
+  v8(v7);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSg_GAKGMR);
+  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v9, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSg_GAKGMR);
   OUTLINED_FUNCTION_147();
   Publisher.eraseToAnyPublisher()();
-  v14 = OUTLINED_FUNCTION_39();
-  v15(v14);
+  v10 = OUTLINED_FUNCTION_39();
+  v11(v10);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys6UInt32VSgSgGMd, &_s7Combine9PublishedVys6UInt32VSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys6UInt32VSgSgGMd, &_s7Combine9PublishedVys6UInt32VSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32VSgMd, &_ss6UInt32VSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt32VSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo13CAFRouteStateVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo13CAFRouteStateVSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo13CAFRouteStateVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo13CAFRouteStateVSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo13CAFRouteStateVSgGMd, &_s7Combine9PublishedVySo13CAFRouteStateVSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo13CAFRouteStateVSgGMd, &_s7Combine9PublishedVySo13CAFRouteStateVSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   type metadata accessor for CAFRouteState(0);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo13CAFRouteStateVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo13CAFRouteStateVSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo13CAFRouteStateVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo13CAFRouteStateVSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSgSg_GAJGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSgSg_GAJGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgSgGMd, &_s7Combine9PublishedVySSSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgSgGMd, &_s7Combine9PublishedVySSSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSgSg_GAJGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySSSgSg_GAJGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFGeodeticSystemVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFGeodeticSystemVSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFGeodeticSystemVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFGeodeticSystemVSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17CAFGeodeticSystemVSgGMd, &_s7Combine9PublishedVySo17CAFGeodeticSystemVSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17CAFGeodeticSystemVSgGMd, &_s7Combine9PublishedVySo17CAFGeodeticSystemVSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   type metadata accessor for CAFGeodeticSystem(0);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFGeodeticSystemVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFGeodeticSystemVSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFGeodeticSystemVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFGeodeticSystemVSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFPointOfInterestCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFPointOfInterestCSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFPointOfInterestCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFPointOfInterestCSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo18CAFPointOfInterestCSgSgGMd, &_s7Combine9PublishedVySo18CAFPointOfInterestCSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo18CAFPointOfInterestCSgSgGMd, &_s7Combine9PublishedVySo18CAFPointOfInterestCSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFPointOfInterestCSgMd, _sSo18CAFPointOfInterestCSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFPointOfInterestCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFPointOfInterestCSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFPointOfInterestCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFPointOfInterestCSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFRouteLegsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFRouteLegsCSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFRouteLegsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFRouteLegsCSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12CAFRouteLegsCSgSgGMd, &_s7Combine9PublishedVySo12CAFRouteLegsCSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12CAFRouteLegsCSgSgGMd, &_s7Combine9PublishedVySo12CAFRouteLegsCSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12CAFRouteLegsCSgMd, &_sSo12CAFRouteLegsCSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFRouteLegsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFRouteLegsCSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFRouteLegsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo12CAFRouteLegsCSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_210();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_210();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_70();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_16_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int16VSgGMd, &_s7Combine9PublishedVys5Int16VSgGMR);
-  OUTLINED_FUNCTION_209();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int16VSgGMd, &_s7Combine9PublishedVys5Int16VSgGMR);
+  OUTLINED_FUNCTION_209(v2);
   swift_endAccess();
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_208(v10);
-  OUTLINED_FUNCTION_69();
-  v11 = OUTLINED_FUNCTION_72();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_208(v3);
+  OUTLINED_FUNCTION_69(v4, v5, v6, MEMORY[0x277D84958], v4);
+  v7 = OUTLINED_FUNCTION_72();
+  v8(v7);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSg_GAKGMR);
+  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v9, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSg_GAKGMR);
   OUTLINED_FUNCTION_147();
   Publisher.eraseToAnyPublisher()();
-  v14 = OUTLINED_FUNCTION_39();
-  v15(v14);
+  v10 = OUTLINED_FUNCTION_39();
+  v11(v10);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int32VSgSgGMd, &_s7Combine9PublishedVys5Int32VSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int32VSgSgGMd, &_s7Combine9PublishedVys5Int32VSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int32VSgMd, &_ss5Int32VSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int32VSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt16VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt16VSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt16VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt16VSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys6UInt16VSgSgGMd, &_s7Combine9PublishedVys6UInt16VSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys6UInt16VSgSgGMd, &_s7Combine9PublishedVys6UInt16VSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt16VSgMd, &_ss6UInt16VSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt16VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt16VSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt16VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt16VSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt64VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt64VSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt64VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt64VSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys6UInt64VSgSgGMd, &_s7Combine9PublishedVys6UInt64VSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys6UInt64VSgSgGMd, &_s7Combine9PublishedVys6UInt64VSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt64VSgMd, &_ss6UInt64VSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt64VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt64VSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt64VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys6UInt64VSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int16VSgSgGMd, &_s7Combine9PublishedVys5Int16VSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int16VSgSgGMd, &_s7Combine9PublishedVys5Int16VSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int16VSgMd, &_ss5Int16VSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int16VSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int64VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int64VSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int64VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int64VSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int64VSgSgGMd, &_s7Combine9PublishedVys5Int64VSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVys5Int64VSgSgGMd, &_s7Combine9PublishedVys5Int64VSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Int64VSgMd, &_ss5Int64VSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int64VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int64VSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int64VSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVys5Int64VSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSgSg_GAJGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSgSg_GAJGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySfSgSgGMd, &_s7Combine9PublishedVySfSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySfSgSgGMd, &_s7Combine9PublishedVySfSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSfSgMd, &_sSfSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSgSg_GAJGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSgSg_GAJGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySfSgSg_GAJGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation4DataVSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation4DataVSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation4DataVSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation4DataVSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy10Foundation4DataVSgSgGMd, &_s7Combine9PublishedVy10Foundation4DataVSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy10Foundation4DataVSgSgGMd, &_s7Combine9PublishedVy10Foundation4DataVSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DataVSgMd, _s10Foundation4DataVSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation4DataVSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation4DataVSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation4DataVSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVy10Foundation4DataVSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo11CAFUnitTypeVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo11CAFUnitTypeVSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo11CAFUnitTypeVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo11CAFUnitTypeVSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo11CAFUnitTypeVSgSgGMd, &_s7Combine9PublishedVySo11CAFUnitTypeVSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo11CAFUnitTypeVSgSgGMd, &_s7Combine9PublishedVySo11CAFUnitTypeVSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CAFUnitTypeVSgMd, &_sSo11CAFUnitTypeVSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo11CAFUnitTypeVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo11CAFUnitTypeVSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo11CAFUnitTypeVSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo11CAFUnitTypeVSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFTestComplexItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFTestComplexItemCSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFTestComplexItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFTestComplexItemCSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo18CAFTestComplexItemCSgSgGMd, &_s7Combine9PublishedVySo18CAFTestComplexItemCSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo18CAFTestComplexItemCSgSgGMd, &_s7Combine9PublishedVySo18CAFTestComplexItemCSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFTestComplexItemCSgMd, &_sSo18CAFTestComplexItemCSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFTestComplexItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFTestComplexItemCSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFTestComplexItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo18CAFTestComplexItemCSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySbGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySbGSgSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySbGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySbGSgSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySbGSgSgGMd, &_s7Combine9PublishedVySaySbGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySbGSgSgGMd, &_s7Combine9PublishedVySaySbGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySbGSgMd, &_sSaySbGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySbGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySbGSgSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySbGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySbGSgSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5UInt8VGSgSgGMd, &_s7Combine9PublishedVySays5UInt8VGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5UInt8VGSgSgGMd, &_s7Combine9PublishedVySays5UInt8VGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGSgMd, &_sSays5UInt8VGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5UInt8VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt16VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt16VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt16VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt16VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays6UInt16VGSgSgGMd, &_s7Combine9PublishedVySays6UInt16VGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays6UInt16VGSgSgGMd, &_s7Combine9PublishedVySays6UInt16VGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt16VGSgMd, &_sSays6UInt16VGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt16VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt16VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt16VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt16VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt32VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt32VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt32VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt32VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays6UInt32VGSgSgGMd, &_s7Combine9PublishedVySays6UInt32VGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays6UInt32VGSgSgGMd, &_s7Combine9PublishedVySays6UInt32VGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt32VGSgMd, &_sSays6UInt32VGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt32VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt32VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt32VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt32VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt64VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt64VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt64VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt64VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays6UInt64VGSgSgGMd, &_s7Combine9PublishedVySays6UInt64VGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays6UInt64VGSgSgGMd, &_s7Combine9PublishedVySays6UInt64VGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays6UInt64VGSgMd, &_sSays6UInt64VGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt64VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt64VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt64VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays6UInt64VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays4Int8VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays4Int8VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays4Int8VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays4Int8VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays4Int8VGSgSgGMd, &_s7Combine9PublishedVySays4Int8VGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays4Int8VGSgSgGMd, &_s7Combine9PublishedVySays4Int8VGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays4Int8VGSgMd, &_sSays4Int8VGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays4Int8VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays4Int8VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays4Int8VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays4Int8VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int16VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int16VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int16VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int16VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5Int16VGSgSgGMd, &_s7Combine9PublishedVySays5Int16VGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5Int16VGSgSgGMd, &_s7Combine9PublishedVySays5Int16VGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int16VGSgMd, &_sSays5Int16VGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int16VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int16VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int16VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int16VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int32VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int32VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int32VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int32VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5Int32VGSgSgGMd, &_s7Combine9PublishedVySays5Int32VGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5Int32VGSgSgGMd, &_s7Combine9PublishedVySays5Int32VGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int32VGSgMd, &_sSays5Int32VGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int32VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int32VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int32VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int32VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int64VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int64VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int64VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int64VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5Int64VGSgSgGMd, &_s7Combine9PublishedVySays5Int64VGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySays5Int64VGSgSgGMd, &_s7Combine9PublishedVySays5Int64VGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5Int64VGSgMd, &_sSays5Int64VGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int64VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int64VGSgSg_GAMGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int64VGSgSg_GAMGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySays5Int64VGSgSg_GAMGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySfGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySfGSgSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySfGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySfGSgSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySfGSgSgGMd, &_s7Combine9PublishedVySaySfGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySfGSgSgGMd, &_s7Combine9PublishedVySaySfGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGSgMd, &_sSaySfGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySfGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySfGSgSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySfGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySfGSgSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySSGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySSGSgSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySSGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySSGSgSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySSGSgSgGMd, &_s7Combine9PublishedVySaySSGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySaySSGSgSgGMd, &_s7Combine9PublishedVySaySSGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGSgMd, &_sSaySSGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySSGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySSGSgSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySSGSgSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySaySSGSgSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySay10Foundation4DataVGSgSg_GANGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySay10Foundation4DataVGSgSg_GANGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySay10Foundation4DataVGSgSg_GANGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySay10Foundation4DataVGSgSg_GANGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySay10Foundation4DataVGSgSgGMd, &_s7Combine9PublishedVySay10Foundation4DataVGSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySay10Foundation4DataVGSgSgGMd, &_s7Combine9PublishedVySay10Foundation4DataVGSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGSgMd, &_sSay10Foundation4DataVGSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySay10Foundation4DataVGSgSg_GANGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySay10Foundation4DataVGSgSg_GANGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySay10Foundation4DataVGSgSg_GANGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySay10Foundation4DataVGSgSg_GANGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo19CAFTestComplexItemsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo19CAFTestComplexItemsCSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo19CAFTestComplexItemsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo19CAFTestComplexItemsCSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo19CAFTestComplexItemsCSgSgGMd, &_s7Combine9PublishedVySo19CAFTestComplexItemsCSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo19CAFTestComplexItemsCSgSgGMd, &_s7Combine9PublishedVySo19CAFTestComplexItemsCSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19CAFTestComplexItemsCSgMd, &_sSo19CAFTestComplexItemsCSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo19CAFTestComplexItemsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo19CAFTestComplexItemsCSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo19CAFTestComplexItemsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo19CAFTestComplexItemsCSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFTestComplexArrayItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFTestComplexArrayItemCSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFTestComplexArrayItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFTestComplexArrayItemCSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo23CAFTestComplexArrayItemCSgSgGMd, &_s7Combine9PublishedVySo23CAFTestComplexArrayItemCSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo23CAFTestComplexArrayItemCSgSgGMd, &_s7Combine9PublishedVySo23CAFTestComplexArrayItemCSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23CAFTestComplexArrayItemCSgMd, &_sSo23CAFTestComplexArrayItemCSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFTestComplexArrayItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFTestComplexArrayItemCSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFTestComplexArrayItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo23CAFTestComplexArrayItemCSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo24CAFTestComplexNestedItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo24CAFTestComplexNestedItemCSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo24CAFTestComplexNestedItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo24CAFTestComplexNestedItemCSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo24CAFTestComplexNestedItemCSgSgGMd, &_s7Combine9PublishedVySo24CAFTestComplexNestedItemCSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo24CAFTestComplexNestedItemCSgSgGMd, &_s7Combine9PublishedVySo24CAFTestComplexNestedItemCSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFTestComplexNestedItemCSgMd, &_sSo24CAFTestComplexNestedItemCSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo24CAFTestComplexNestedItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo24CAFTestComplexNestedItemCSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo24CAFTestComplexNestedItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo24CAFTestComplexNestedItemCSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo25CAFTestComplexNestedItemsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo25CAFTestComplexNestedItemsCSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo25CAFTestComplexNestedItemsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo25CAFTestComplexNestedItemsCSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CAFTestComplexNestedItemsCSgSgGMd, &_s7Combine9PublishedVySo25CAFTestComplexNestedItemsCSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CAFTestComplexNestedItemsCSgSgGMd, &_s7Combine9PublishedVySo25CAFTestComplexNestedItemsCSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo25CAFTestComplexNestedItemsCSgMd, &_sSo25CAFTestComplexNestedItemsCSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo25CAFTestComplexNestedItemsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo25CAFTestComplexNestedItemsCSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo25CAFTestComplexNestedItemsCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo25CAFTestComplexNestedItemsCSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo28CAFTestComplexNestedListItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo28CAFTestComplexNestedListItemCSgSg_GALGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo28CAFTestComplexNestedListItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo28CAFTestComplexNestedListItemCSgSg_GALGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo28CAFTestComplexNestedListItemCSgSgGMd, &_s7Combine9PublishedVySo28CAFTestComplexNestedListItemCSgSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo28CAFTestComplexNestedListItemCSgSgGMd, &_s7Combine9PublishedVySo28CAFTestComplexNestedListItemCSgSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo28CAFTestComplexNestedListItemCSgMd, &_sSo28CAFTestComplexNestedListItemCSgMR);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo28CAFTestComplexNestedListItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo28CAFTestComplexNestedListItemCSgSg_GALGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo28CAFTestComplexNestedListItemCSgSg_GALGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo28CAFTestComplexNestedListItemCSgSg_GALGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
 }
 
 {
   OUTLINED_FUNCTION_13_1();
-  v0 = OUTLINED_FUNCTION_205();
-  OUTLINED_FUNCTION_14_2(v0);
-  v2 = *(v1 + 64);
+  OUTLINED_FUNCTION_205();
+  OUTLINED_FUNCTION_14_2();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v0);
   OUTLINED_FUNCTION_6_2();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFAppearanceModeVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFAppearanceModeVSg_GAKGMR);
-  OUTLINED_FUNCTION_1_0(v4);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFAppearanceModeVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFAppearanceModeVSg_GAKGMR);
+  OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_13_0();
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v1);
   OUTLINED_FUNCTION_15_2();
-  v9 = *(v8 + 112);
   OUTLINED_FUNCTION_101();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17CAFAppearanceModeVSgGMd, &_s7Combine9PublishedVySo17CAFAppearanceModeVSgGMR);
-  OUTLINED_FUNCTION_203();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17CAFAppearanceModeVSgGMd, &_s7Combine9PublishedVySo17CAFAppearanceModeVSgGMR);
+  OUTLINED_FUNCTION_203(v2);
   swift_endAccess();
   type metadata accessor for CAFAppearanceMode(0);
   OUTLINED_FUNCTION_1_8();
-  OUTLINED_FUNCTION_204(v10);
-  OUTLINED_FUNCTION_54();
-  v11 = OUTLINED_FUNCTION_65();
-  v12(v11);
+  v4 = OUTLINED_FUNCTION_204(v3);
+  OUTLINED_FUNCTION_54(v4, v5, v6, v7, v4);
+  v8 = OUTLINED_FUNCTION_65();
+  v9(v8);
   OUTLINED_FUNCTION_0_5();
-  lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v13, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFAppearanceModeVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFAppearanceModeVSg_GAKGMR);
-  OUTLINED_FUNCTION_146();
-  v14 = OUTLINED_FUNCTION_36();
-  v15(v14);
+  v11 = lazy protocol witness table accessor for type Published<String?>.Publisher and conformance Published<A>.Publisher(v10, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFAppearanceModeVSg_GAKGMd, &_s7Combine10PublishersO10CompactMapVy_AA9PublishedV9PublisherVySo17CAFAppearanceModeVSg_GAKGMR);
+  OUTLINED_FUNCTION_146(v11);
+  v12 = OUTLINED_FUNCTION_36();
+  v13(v12);
   OUTLINED_FUNCTION_148();
   OUTLINED_FUNCTION_32();
+}
+
+uint64_t specialized SafePublished.init(observedValuekeypath:)()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo12CAFRouteLegsCSgSgGMd, &_s7Combine9PublishedVySo12CAFRouteLegsCSgSgGMR);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v0);
+  OUTLINED_FUNCTION_24_1();
+  OUTLINED_FUNCTION_172();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12CAFRouteLegsCSgSgMd, &_sSo12CAFRouteLegsCSgSgMR);
+  OUTLINED_FUNCTION_163(v1);
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
+  return OUTLINED_FUNCTION_80();
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo18CAFPointOfInterestCSgSgGMd, &_s7Combine9PublishedVySo18CAFPointOfInterestCSgSgGMR);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v0);
+  OUTLINED_FUNCTION_24_1();
+  OUTLINED_FUNCTION_172();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFPointOfInterestCSgSgMd, &_sSo18CAFPointOfInterestCSgSgMR);
+  OUTLINED_FUNCTION_163(v1);
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
+  return OUTLINED_FUNCTION_80();
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo28CAFTestComplexNestedListItemCSgSgGMd, &_s7Combine9PublishedVySo28CAFTestComplexNestedListItemCSgSgGMR);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v0);
+  OUTLINED_FUNCTION_24_1();
+  OUTLINED_FUNCTION_172();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo28CAFTestComplexNestedListItemCSgSgMd, &_sSo28CAFTestComplexNestedListItemCSgSgMR);
+  OUTLINED_FUNCTION_163(v1);
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
+  return OUTLINED_FUNCTION_80();
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo25CAFTestComplexNestedItemsCSgSgGMd, &_s7Combine9PublishedVySo25CAFTestComplexNestedItemsCSgSgGMR);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v0);
+  OUTLINED_FUNCTION_24_1();
+  OUTLINED_FUNCTION_172();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo25CAFTestComplexNestedItemsCSgSgMd, &_sSo25CAFTestComplexNestedItemsCSgSgMR);
+  OUTLINED_FUNCTION_163(v1);
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
+  return OUTLINED_FUNCTION_80();
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo24CAFTestComplexNestedItemCSgSgGMd, &_s7Combine9PublishedVySo24CAFTestComplexNestedItemCSgSgGMR);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v0);
+  OUTLINED_FUNCTION_24_1();
+  OUTLINED_FUNCTION_172();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFTestComplexNestedItemCSgSgMd, &_sSo24CAFTestComplexNestedItemCSgSgMR);
+  OUTLINED_FUNCTION_163(v1);
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
+  return OUTLINED_FUNCTION_80();
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo23CAFTestComplexArrayItemCSgSgGMd, &_s7Combine9PublishedVySo23CAFTestComplexArrayItemCSgSgGMR);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v0);
+  OUTLINED_FUNCTION_24_1();
+  OUTLINED_FUNCTION_172();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23CAFTestComplexArrayItemCSgSgMd, &_sSo23CAFTestComplexArrayItemCSgSgMR);
+  OUTLINED_FUNCTION_163(v1);
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
+  return OUTLINED_FUNCTION_80();
+}
+
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySSSgGMd, &_s7Combine9PublishedVySSSgGMR);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v0);
+  OUTLINED_FUNCTION_24_1();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
+  OUTLINED_FUNCTION_212(v1);
+  v2 = OUTLINED_FUNCTION_50();
+  v3(v2);
+  return OUTLINED_FUNCTION_80();
+}
+
+void specialized SafePublished.init(observedValuekeypath:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+{
+  specialized SafePublished.init(observedValuekeypath:)(a1, &_s7Combine9PublishedVySo17CAFGeodeticSystemVSgGMd, &_s7Combine9PublishedVySo17CAFGeodeticSystemVSgGMR, &_sSo17CAFGeodeticSystemVSgMd, &_sSo17CAFGeodeticSystemVSgMR, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+}
+
+{
+  specialized SafePublished.init(observedValuekeypath:)(a1, &_s7Combine9PublishedVySo13CAFRouteStateVSgGMd, &_s7Combine9PublishedVySo13CAFRouteStateVSgGMR, &_sSo13CAFRouteStateVSgMd, &_sSo13CAFRouteStateVSgMR, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+}
+
+{
+  specialized SafePublished.init(observedValuekeypath:)(a1, &_s7Combine9PublishedVySo17CAFAppearanceModeVSgGMd, &_s7Combine9PublishedVySo17CAFAppearanceModeVSgGMR, &_sSo17CAFAppearanceModeVSgMd, &_sSo17CAFAppearanceModeVSgMR, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+}
+
+{
+  specialized SafePublished.init(observedValuekeypath:)(a1, &_s7Combine9PublishedVys5Int16VSgGMd, &_s7Combine9PublishedVys5Int16VSgGMR, &_ss5Int16VSgMd, &_ss5Int16VSgMR, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+}
+
+{
+  specialized SafePublished.init(observedValuekeypath:)(a1, &_s7Combine9PublishedVySo20CAFAutoModeIntensityVSgSgGMd, &_s7Combine9PublishedVySo20CAFAutoModeIntensityVSgSgGMR, &_sSo20CAFAutoModeIntensityVSgSgMd, &_sSo20CAFAutoModeIntensityVSgSgMR, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+}
+
+{
+  OUTLINED_FUNCTION_235();
+  OUTLINED_FUNCTION_140(v16, v17, v18);
+  OUTLINED_FUNCTION_30();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_70();
+  OUTLINED_FUNCTION_7_2();
+  v20 = OUTLINED_FUNCTION_197();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v20, v21);
+  Published.init(initialValue:)();
+  v22 = OUTLINED_FUNCTION_139();
+  v23(v22);
+  OUTLINED_FUNCTION_173();
+  OUTLINED_FUNCTION_236();
+}
+
+{
+  specialized SafePublished.init(observedValuekeypath:)(a1, &_s7Combine9PublishedVySo12CAFLockStateVSgGMd, &_s7Combine9PublishedVySo12CAFLockStateVSgGMR, &_sSo12CAFLockStateVSgMd, &_sSo12CAFLockStateVSgMR, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+}
+
+{
+  specialized SafePublished.init(observedValuekeypath:)(a1, &_s7Combine9PublishedVySo23CAFNotificationSeverityVSgGMd, &_s7Combine9PublishedVySo23CAFNotificationSeverityVSgGMR, &_sSo23CAFNotificationSeverityVSgMd, &_sSo23CAFNotificationSeverityVSgMR, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16);
+}
+
+{
+  OUTLINED_FUNCTION_235();
+  OUTLINED_FUNCTION_140(v16, v17, v18);
+  OUTLINED_FUNCTION_30();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_70();
+  OUTLINED_FUNCTION_7_2();
+  v20 = OUTLINED_FUNCTION_197();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v20, v21);
+  Published.init(initialValue:)();
+  v22 = OUTLINED_FUNCTION_139();
+  v23(v22);
+  OUTLINED_FUNCTION_173();
+  OUTLINED_FUNCTION_236();
+}
+
+{
+  OUTLINED_FUNCTION_235();
+  OUTLINED_FUNCTION_140(v16, v17, v18);
+  OUTLINED_FUNCTION_30();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_70();
+  OUTLINED_FUNCTION_7_2();
+  v20 = OUTLINED_FUNCTION_197();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v20, v21);
+  Published.init(initialValue:)();
+  v22 = OUTLINED_FUNCTION_139();
+  v23(v22);
+  OUTLINED_FUNCTION_173();
+  OUTLINED_FUNCTION_236();
+}
+
+{
+  OUTLINED_FUNCTION_235();
+  OUTLINED_FUNCTION_140(v16, v17, v18);
+  OUTLINED_FUNCTION_30();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_70();
+  OUTLINED_FUNCTION_7_2();
+  v20 = OUTLINED_FUNCTION_197();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v20, v21);
+  Published.init(initialValue:)();
+  v22 = OUTLINED_FUNCTION_139();
+  v23(v22);
+  OUTLINED_FUNCTION_173();
+  OUTLINED_FUNCTION_236();
+}
+
+{
+  OUTLINED_FUNCTION_235();
+  OUTLINED_FUNCTION_140(v16, v17, v18);
+  OUTLINED_FUNCTION_30();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_70();
+  OUTLINED_FUNCTION_7_2();
+  v20 = OUTLINED_FUNCTION_197();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v20, v21);
+  Published.init(initialValue:)();
+  v22 = OUTLINED_FUNCTION_139();
+  v23(v22);
+  OUTLINED_FUNCTION_173();
+  OUTLINED_FUNCTION_236();
+}
+
+{
+  OUTLINED_FUNCTION_235();
+  OUTLINED_FUNCTION_140(v16, v17, v18);
+  OUTLINED_FUNCTION_30();
+  OUTLINED_FUNCTION_13_0();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_70();
+  OUTLINED_FUNCTION_7_2();
+  v20 = OUTLINED_FUNCTION_197();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v20, v21);
+  Published.init(initialValue:)();
+  v22 = OUTLINED_FUNCTION_139();
+  v23(v22);
+  OUTLINED_FUNCTION_173();
+  OUTLINED_FUNCTION_236();
+}
+
+uint64_t specialized SafeReadOnlyPublished.value.setter(uint64_t a1)
+{
+  type metadata accessor for CAFEqualizerObservable();
+  type metadata accessor for CAFEqualizerType(0);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFEqualizerObservable and conformance CAFEqualizerObservable, v1, type metadata accessor for CAFEqualizerObservable);
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  return static Published.subscript.setter();
+}
+
+{
+  type metadata accessor for CAFEqualizerObservable();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFEqualizerObservable and conformance CAFEqualizerObservable, v1, type metadata accessor for CAFEqualizerObservable);
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  return static Published.subscript.setter();
+}
+
+uint64_t specialized SafeReadOnlyPublished.value.setter(uint64_t a1, uint64_t a2)
+{
+  type metadata accessor for CAFEqualizerObservable();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, _sSSSgMR);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFEqualizerObservable and conformance CAFEqualizerObservable, v2, type metadata accessor for CAFEqualizerObservable);
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  return static Published.subscript.setter();
+}
+
+{
+  type metadata accessor for CAFEqualizerObservable();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFEqualizerObservable and conformance CAFEqualizerObservable, v2, type metadata accessor for CAFEqualizerObservable);
+  swift_getKeyPath();
+  swift_getKeyPath();
+
+  return static Published.subscript.setter();
+}
+
+void specialized SafeReadOnlyPublished.value.setter(uint64_t a1)
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFVolumeObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFVolumeType(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_33_0();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFCameraButtonObservable();
+  OUTLINED_FUNCTION_20_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFCameraButtonObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_20_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFCameraButtonObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGSgMd, &_sSaySSGSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_20_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFCameraGeneralObservable();
+  OUTLINED_FUNCTION_138();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFCriticalInputStreamObservable();
+  OUTLINED_FUNCTION_195();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFHistoricalNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo36CAFHistoricalNotificationUserActionsCSgMd, &_sSo36CAFHistoricalNotificationUserActionsCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_5_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFActionRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSymbolImageWithColor, 0x277CF8688);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_19_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFActionRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFTrailingButton, 0x277CF86F0);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_19_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFActionRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSymbolNotificationUserActions, 0x277CF8698);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_19_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFActionRemoteNotificationObservable();
+  OUTLINED_FUNCTION_19_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFAlertRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSymbolImageWithColor, 0x277CF8688);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_48();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFAlertRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFNotificationUserActions, 0x277CF8550);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_48();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFAlertRemoteNotificationObservable();
+  OUTLINED_FUNCTION_48();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFAutomakerSettingsRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSymbolImageWithColor, 0x277CF8688);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_47();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFAutomakerSettingsRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFTrailingButton, 0x277CF86F0);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_47();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFAutomakerSettingsRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_47();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFDynamicContentElementObservable();
+  OUTLINED_FUNCTION_194();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFDynamicLocalNotificationObservable();
+  OUTLINED_FUNCTION_128();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFDynamicLocalNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSymbolImageWithColor, 0x277CF8688);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_128();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMinimalRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSymbolImageWithColor, 0x277CF8688);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_61();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMinimalRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFTrailingButton, 0x277CF86F0);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_61();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultiSelectRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSymbolImageWithColor, 0x277CF8688);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_29_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultiSelectRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFTrailingButton, 0x277CF86F0);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_29_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultiSelectRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSelectableNotificationEntryList, 0x277CF8638);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_29_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFPickerObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFEntryList, 0x277CF8488);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_60();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFPickerObservable();
+  OUTLINED_FUNCTION_60();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFNotificationUserActions, 0x277CF8550);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_59();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23CAFSymbolImageWithColorCSgMd, &_sSo23CAFSymbolImageWithColorCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_59();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSymbolImageWithColor, 0x277CF8688);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_28_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFTrailingButton, 0x277CF86F0);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_28_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectRemoteNotificationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSelectableNotificationEntryList, 0x277CF8638);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_28_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFOverlayViewObservable();
+  OUTLINED_FUNCTION_127();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_97();
+  type metadata accessor for CAFOverlayViewObservable();
+  OUTLINED_FUNCTION_127();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFRequestContentObservable();
+  OUTLINED_FUNCTION_93();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFBooleanSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_12_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFBooleanSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_12_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFBooleanSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_12_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFBooleanSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_12_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFBooleanSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo33CAFUserVisibleDetailedDescriptionCSgMd, &_sSo33CAFUserVisibleDetailedDescriptionCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_12_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFBooleanSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo34CAFBooleanSettingNotificationEntryCSgMd, &_sSo34CAFBooleanSettingNotificationEntryCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_12_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFButtonSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_18_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFButtonSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_18_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFButtonSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_18_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFButtonSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_18_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFButtonSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo27CAFSettingNotificationEntryCSgMd, &_sSo27CAFSettingNotificationEntryCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_18_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFDeepLinkSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_26_0();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFDeepLinkSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_26_0();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFDeepLinkSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_26_0();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFDeepLinkSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_26_0();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFDeepLinkSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo33CAFUserVisibleDetailedDescriptionCSgMd, &_sSo33CAFUserVisibleDetailedDescriptionCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_26_0();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFDeepLinkSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo27CAFSettingNotificationEntryCSgMd, &_sSo27CAFSettingNotificationEntryCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_26_0();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFFloatSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_27_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFFloatSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_27_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFFloatSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_27_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFFloatSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_27_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFIntegerSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_17_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFIntegerSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_17_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFIntegerSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_17_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFIntegerSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_17_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFIntegerSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo33CAFUserVisibleDetailedDescriptionCSgMd, &_sSo33CAFUserVisibleDetailedDescriptionCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_17_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFMultipleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_10_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFMultipleSelectImageSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_10_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFMultipleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_10_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultipleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_10_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultipleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_10_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultipleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGMd, &_sSay10Foundation4DataVGMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_10_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultipleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo33CAFUserVisibleDetailedDescriptionCSgMd, &_sSo33CAFUserVisibleDetailedDescriptionCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_10_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFMultipleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_11_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFMultipleSelectSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_11_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFMultipleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_11_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultipleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_11_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultipleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSelectSettingEntryList, 0x277CF8620);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_11_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMultipleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo33CAFUserVisibleDetailedDescriptionCSgMd, &_sSo33CAFUserVisibleDetailedDescriptionCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_11_2();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFSettingsSectionObservable();
+  OUTLINED_FUNCTION_126();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFSingleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_9_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFSingleSelectImageSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_9_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFSingleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_9_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_9_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_9_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGMd, &_sSay10Foundation4DataVGMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_9_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectImageSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo33CAFUserVisibleDetailedDescriptionCSgMd, &_sSo33CAFUserVisibleDetailedDescriptionCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_9_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFSingleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_8_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFSingleSelectSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_8_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFSingleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_8_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_8_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFSelectSettingEntryList, 0x277CF8620);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_8_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo33CAFUserVisibleDetailedDescriptionCSgMd, &_sSo33CAFUserVisibleDetailedDescriptionCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_8_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFSingleSelectSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo37CAFSelectSettingNotificationEntryListCSgMd, &_sSo37CAFSelectSettingNotificationEntryListCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_8_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFStaticSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5UInt8VSgMd, &_ss5UInt8VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_25_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFStaticSettingObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSettingsCategory(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_25_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFStaticSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_25_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFStaticSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo24CAFProminenceInformationCSgMd, &_sSo24CAFProminenceInformationCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_25_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFStaticSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGSgMd, &_sSaySSGSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_25_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFStaticSettingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo33CAFUserVisibleDetailedDescriptionCSgMd, &_sSo33CAFUserVisibleDetailedDescriptionCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_25_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFChargingStatusObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16CAFChargingStateVSgMd, _sSo16CAFChargingStateVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_89();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFChargingStatusObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CAFCableStateVSgMd, &_sSo13CAFCableStateVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_89();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFChargingStatusObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20CAFPortSideIndicatorVSgMd, &_sSo20CAFPortSideIndicatorVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_89();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFFanObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_45();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFRecirculationObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_134();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFSteeringWheelHeatingCoolingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_133();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFVentObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo12CAFVentTypesVGMd, &_sSaySo12CAFVentTypesVGMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_32_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFVentObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_32_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFClosureStateObservable();
+  OUTLINED_FUNCTION_192();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFTargetSpeedObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFTargetSpeedState(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_125();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFTargetSpeedObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_125();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFDriveModeObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_88();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_97();
+  type metadata accessor for CAFDriveModeObservable();
+  OUTLINED_FUNCTION_88();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_34();
+  type metadata accessor for CAFDriveModeObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32VSgMd, &_ss6UInt32VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_88();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFDriveModeObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_88();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFGearRecommendationObservable();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFGearRecommendationObservable and conformance CAFGearRecommendationObservable, 255, type metadata accessor for CAFGearRecommendationObservable);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFTransmissionStatusObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFTransmissionMode(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_191();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFTransmissionStatusObservable();
+  OUTLINED_FUNCTION_191();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFEnginePowerLevelObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CAFPowerStateVSgMd, &_sSo13CAFPowerStateVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_124();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFEnginePowerObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CAFPowerStateVSgMd, &_sSo13CAFPowerStateVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_123();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFExteriorConditionsObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16CAFIcyConditionsVSgMd, &_sSo16CAFIcyConditionsVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_122();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFFuelLevelObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFFuelLevelState(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_55();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFFuelLevelObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFFillLevelLabel(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_55();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFFuelLevelObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFPortSideIndicator(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_55();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFFuelRemainingRangeObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_189();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFBatteryConditioningObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFBatteryConditioningState(v2);
+  OUTLINED_FUNCTION_151();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFBatteryConditioningObservable and conformance CAFBatteryConditioningObservable, 255, type metadata accessor for CAFBatteryConditioningObservable);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFBatteryLevelObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFBatteryLevelState(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_121();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFBatteryRemainingRangeObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_188();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFBatteryTemperatureObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFTemperatureState(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_120();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFProximityAlertsObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17CAFProximityAlertVSgMd, &_sSo17CAFProximityAlertVSgMR);
+  OUTLINED_FUNCTION_151();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFProximityAlertsObservable and conformance CAFProximityAlertsObservable, 255, type metadata accessor for CAFProximityAlertsObservable);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFTurnSignalsObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFTurnSignal(v2);
+  OUTLINED_FUNCTION_151();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFTurnSignalsObservable and conformance CAFTurnSignalsObservable, 255, type metadata accessor for CAFTurnSignalsObservable);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFEngineRPMObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23CAFRotationalSpeedStateVSgMd, &_sSo23CAFRotationalSpeedStateVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_119();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFEngineTemperatureObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFTemperatureState(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_118();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFInteriorAmbientLightsObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFSupportedColorsCSgMd, &_sSo18CAFSupportedColorsCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_56();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_34();
+  type metadata accessor for CAFMediaSourceObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6UInt32VSgMd, &_ss6UInt32VSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_30_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMediaSourceObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CAFMediaItemsCSgMd, &_sSo13CAFMediaItemsCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_30_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFMediaSourceObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFMediaSourceSemanticType(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_30_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFMediaSourceObservable();
+  OUTLINED_FUNCTION_30_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFMediaSourceObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo18CAFMediaItemImagesCSgMd, &_sSo18CAFMediaItemImagesCSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_30_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFRouteObservable();
+  OUTLINED_FUNCTION_6_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFNowPlayingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16CAFPlaybackStateVSgMd, &_sSo16CAFPlaybackStateVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_41();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFNowPlayingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20CAFAudioContentBadgeVSgMd, &_sSo20CAFAudioContentBadgeVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_41();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFPairedDevicesInformationObservable();
+  OUTLINED_FUNCTION_152();
+  type metadata accessor for CAFVehicleUnits(0, &lazy cache variable for type metadata for CAFPairedDeviceList, 0x277CF8578);
+  OUTLINED_FUNCTION_151();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFPairedDevicesInformationObservable and conformance CAFPairedDevicesInformationObservable, 255, type metadata accessor for CAFPairedDevicesInformationObservable);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v1, v2, v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFSeatBeltObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16CAFSeatOccupancyVSgMd, &_sSo16CAFSeatOccupancyVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_87();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFSeatBeltObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo12CAFLockStateVSgMd, &_sSo12CAFLockStateVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_87();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFSeatBeltObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFSeatBeltIndicator(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_87();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFSeatFanObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_43();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFSeatHeatingCoolingObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_42();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFActivityIndicatorObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFActivityIndicatorObservable and conformance CAFActivityIndicatorObservable, 255, type metadata accessor for CAFActivityIndicatorObservable);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFBluetoothStatusObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFModuleStatus(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_186();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFCellularStatusObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFModuleStatus(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_86();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFCellularStatusObservable();
+  OUTLINED_FUNCTION_86();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFCellularStatusObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CAFCellularTypeVSgMd, &_sSo15CAFCellularTypeVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_86();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFCurrentUserStatusObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_117();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFDeepLinkStatusItemObservable();
+  OUTLINED_FUNCTION_85();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFDeepLinkStatusItemObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_85();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFStatusItemObservable();
+  OUTLINED_FUNCTION_84();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFStatusItemObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_84();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFWiFiStatusObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFModuleStatus(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_116();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFWiFiStatusObservable();
+  OUTLINED_FUNCTION_116();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_97();
+  type metadata accessor for CAFProtocolPerfTestObservable();
+  OUTLINED_FUNCTION_31_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_97();
+  type metadata accessor for CAFProtocolPerfTestObservable();
+  OUTLINED_FUNCTION_31_1();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_141(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  specialized SafePublished.value.setter(a1);
+}
+
+{
+  specialized SafeReadOnlyPublished.value.setter(a1);
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFTypeTestMultiObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGSgMd, &_sSay10Foundation4DataVGSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_3_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFTypeTestObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGSgMd, &_sSay10Foundation4DataVGSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_2_4();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFTypeTestWithStatesObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation4DataVGSgMd, &_sSay10Foundation4DataVGSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_4_5();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFTirePressureObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo14CAFSensorStateVSgMd, _sSo14CAFSensorStateVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_83();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFTirePressureObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFPressureState(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_83();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFRemainingRangeObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_185();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFTripObservable();
+  OUTLINED_FUNCTION_7_3();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_112();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFEngineGaugeUIObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFUIEmphasizedEngineGauge(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_184();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFEngineGaugeUIObservable();
+  OUTLINED_FUNCTION_184();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFUIAppearanceObservable();
+  OUTLINED_FUNCTION_129();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_157();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_73();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_111();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFUIConfigurationObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGSgMd, &_sSaySSGSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_183();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFUIInputDeviceButtonObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFUIInputDevicePurpose(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_115();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFUIInputDeviceButtonObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFUIInputDeviceButtonEvent(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_115();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_40(v1);
+  type metadata accessor for CAFUIStateObservable();
+  v2 = OUTLINED_FUNCTION_95();
+  type metadata accessor for CAFUISceneState(v2);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_114();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v3, 255, v4);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_158();
+  type metadata accessor for CAFUIStateObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGSgMd, &_sSaySSGSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_114();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v1, 255, v2);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_103(v3, v4, v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_52(v1);
+  type metadata accessor for CAFUIStateObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13CAFDriverSideVSgMd, &_sSo13CAFDriverSideVSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_114();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_161(v1);
+  type metadata accessor for CAFDisplayedSpeedObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  OUTLINED_FUNCTION_151();
+  OUTLINED_FUNCTION_182();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v2, 255, v3);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_110();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  specialized SafeReadOnlyPublished.value.setter(a1);
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  v2 = v1;
+  v4 = v3;
+  v6 = OUTLINED_FUNCTION_52(v5);
+  v7(v6);
+  type metadata accessor for CAFUnitType(0);
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(v4, 255, v2);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_229();
+  OUTLINED_FUNCTION_218();
+}
+
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_53(v1);
+  type metadata accessor for CAFDisplayUnitsObservable();
+  OUTLINED_FUNCTION_152();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo11CAFUnitTypeVSgMd, &_sSo11CAFUnitTypeVSgMR);
+  OUTLINED_FUNCTION_151();
+  lazy protocol witness table accessor for type CAFEqualizerObservable and conformance CAFEqualizerObservable(&lazy protocol witness table cache variable for type CAFDisplayUnitsObservable and conformance CAFDisplayUnitsObservable, 255, type metadata accessor for CAFDisplayUnitsObservable);
+  OUTLINED_FUNCTION_150();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_67();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_149();
+
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_218();
 }

@@ -2,9 +2,11 @@
 - (BOOL)translatesPair:(id)pair;
 - (_LTCombinedEngine)init;
 - (void)addSpeechAudioData:(id)data;
+- (void)cancelSpeechTranslation:(BOOL)translation;
 - (void)endAudio;
 - (void)endpoint;
 - (void)hybridEndpointerFoundEndpoint;
+- (void)preheatAsynchronously:(BOOL)asynchronously withContext:(id)context;
 - (void)serverEndpointerFeatures:(id)features locale:(id)locale;
 - (void)setLanguagesRecognized:(id)recognized context:(id)context;
 - (void)speak:(id)speak withContext:(id)context completion:(id)completion;
@@ -50,6 +52,17 @@
   }
 
   return v6;
+}
+
+- (void)preheatAsynchronously:(BOOL)asynchronously withContext:(id)context
+{
+  asynchronouslyCopy = asynchronously;
+  contextCopy = context;
+  offlineEngine = [(_LTCombinedEngine *)self offlineEngine];
+  [offlineEngine preheatAsynchronously:asynchronouslyCopy withContext:contextCopy];
+
+  onlineEngine = [(_LTCombinedEngine *)self onlineEngine];
+  [onlineEngine preheatAsynchronously:asynchronouslyCopy withContext:contextCopy];
 }
 
 - (void)addSpeechAudioData:(id)data
@@ -99,17 +112,17 @@
   delegateCopy = delegate;
   textCopy = text;
   contextCopy = context;
-  v11 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = _LTOSLogTranslationEngine(contextCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [_LTCombinedEngine startTextToSpeechTranslationWithContext:v11 text:? delegate:?];
+    [_LTCombinedEngine startTextToSpeechTranslationWithContext:v12 text:? delegate:?];
   }
 
   objc_storeWeak(&self->_delegate, delegateCopy);
   self->_onlineTranslationStarted = 0;
-  v12 = objc_alloc_init(_LTSpeechTranslationResultsBuffer);
+  v13 = objc_alloc_init(_LTSpeechTranslationResultsBuffer);
   offlineDelegateBuffer = self->_offlineDelegateBuffer;
-  self->_offlineDelegateBuffer = v12;
+  self->_offlineDelegateBuffer = v13;
 
   [(_LTSpeechTranslationResultsBuffer *)self->_offlineDelegateBuffer setDelegate:delegateCopy];
   onlineEngine = [(_LTCombinedEngine *)self onlineEngine];
@@ -135,6 +148,16 @@
 
   offlineEngine = [(_LTCombinedEngine *)self offlineEngine];
   [offlineEngine startSpeechTranslationWithContext:contextCopy delegate:self->_offlineDelegateBuffer];
+}
+
+- (void)cancelSpeechTranslation:(BOOL)translation
+{
+  translationCopy = translation;
+  onlineEngine = [(_LTCombinedEngine *)self onlineEngine];
+  [onlineEngine cancelSpeechTranslation:translationCopy];
+
+  offlineEngine = [(_LTCombinedEngine *)self offlineEngine];
+  [offlineEngine cancelSpeechTranslation:translationCopy];
 }
 
 - (void)speak:(id)speak withContext:(id)context completion:(id)completion
@@ -339,7 +362,7 @@
 
 - (void)hybridEndpointerFoundEndpoint
 {
-  v3 = _LTOSLogSpeech();
+  v3 = _LTOSLogSpeech(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(_LTCombinedEngine *)v3 hybridEndpointerFoundEndpoint];
@@ -401,22 +424,23 @@
 - (void)translationDidFinishWithError:(id)error
 {
   errorCopy = error;
-  v5 = _LTOSLogTranslationEngine();
-  v6 = v5;
+  v6 = _LTOSLogTranslationEngine(errorCopy, v5);
+  v7 = v6;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(_LTCombinedEngine *)errorCopy translationDidFinishWithError:v6];
+      [(_LTCombinedEngine *)errorCopy translationDidFinishWithError:v7];
     }
 
-    if (![(_LTSpeechTranslationResultsBuffer *)self->_offlineDelegateBuffer hasFailed])
+    hasFailed = [(_LTSpeechTranslationResultsBuffer *)self->_offlineDelegateBuffer hasFailed];
+    if ((hasFailed & 1) == 0)
     {
-      v7 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v10 = _LTOSLogTranslationEngine(hasFailed, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "Online translation failed, continue with offline", v12, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_INFO, "Online translation failed, continue with offline", v15, 2u);
       }
 
       onlineEngine = [(_LTCombinedEngine *)self onlineEngine];
@@ -427,20 +451,20 @@
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "Server translation finished successfully", buf, 2u);
+    _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "Server translation finished successfully", buf, 2u);
   }
 
   self->_serverCompleted = 1;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v10 = objc_opt_respondsToSelector();
+  v13 = objc_opt_respondsToSelector();
 
-  if (v10)
+  if (v13)
   {
-    v11 = objc_loadWeakRetained(&self->_delegate);
-    [v11 translationDidFinishWithError:errorCopy];
+    v14 = objc_loadWeakRetained(&self->_delegate);
+    [v14 translationDidFinishWithError:errorCopy];
   }
 
 LABEL_12:
@@ -448,11 +472,10 @@ LABEL_12:
 
 - (void)translationDidFinishWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Server translation finished with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Server translation finished with error: %@", &v2, 0xCu);
 }
 
 @end

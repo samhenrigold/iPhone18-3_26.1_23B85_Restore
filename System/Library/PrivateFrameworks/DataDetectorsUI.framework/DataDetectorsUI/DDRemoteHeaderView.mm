@@ -70,10 +70,10 @@
   return v6;
 }
 
-uint64_t __37__DDRemoteHeaderView_initWithAction___block_invoke(uint64_t a1)
+void *__37__DDRemoteHeaderView_initWithAction___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if ((*(result + 448) & 1) == 0 && !*(result + 432))
+  if ((*(result + 448) & 1) == 0 && !*(result + 54))
   {
     return [result showLoadingView];
   }
@@ -83,12 +83,12 @@ uint64_t __37__DDRemoteHeaderView_initWithAction___block_invoke(uint64_t a1)
 
 - (void)loadRemoteView
 {
-  v28[1] = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v21 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.DataDetectorsUI.ActionsExtension" error:&v27];
-  v3 = v27;
-  v20 = v3;
-  if (v21)
+  v27[1] = *MEMORY[0x277D85DE8];
+  v26 = 0;
+  v20 = [MEMORY[0x277CCA9C8] extensionWithIdentifier:@"com.apple.DataDetectorsUI.ActionsExtension" error:&v26];
+  v3 = v26;
+  v19 = v3;
+  if (v20)
   {
     v4 = v3 == 0;
   }
@@ -100,7 +100,7 @@ uint64_t __37__DDRemoteHeaderView_initWithAction___block_invoke(uint64_t a1)
 
   if (!v4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    [(DDRemoteActionManagerViewController *)v20 loadRemoteAction];
+    [(DDRemoteActionManagerViewController *)v19 loadRemoteAction];
   }
 
   action = [(DDRemoteHeaderView *)self action];
@@ -116,23 +116,21 @@ uint64_t __37__DDRemoteHeaderView_initWithAction___block_invoke(uint64_t a1)
 
   v15 = objc_alloc_init(MEMORY[0x277CCA9D8]);
   objc_initWeak(&location, self);
-  v28[0] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __36__DDRemoteHeaderView_loadRemoteView__block_invoke;
-  v22[3] = &unk_278290BA0;
-  objc_copyWeak(&v25, &location);
-  v17 = v21;
-  v23 = v17;
+  v27[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __36__DDRemoteHeaderView_loadRemoteView__block_invoke;
+  v21[3] = &unk_278290BA0;
+  objc_copyWeak(&v24, &location);
+  v17 = v20;
+  v22 = v17;
   v18 = v14;
-  v24 = v18;
-  [v17 instantiateViewControllerWithInputItems:v16 connectionHandler:v22];
+  v23 = v18;
+  [v17 instantiateViewControllerWithInputItems:v16 connectionHandler:v21];
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __36__DDRemoteHeaderView_loadRemoteView__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -304,117 +302,75 @@ void __50__DDRemoteHeaderView_removeLoadingViewToShowView___block_invoke_2(uint6
 
 - (void)showErrorView
 {
-  v37[1] = *MEMORY[0x277D85DE8];
-  if ([MEMORY[0x277CCACC8] isMainThread])
+  v36[1] = *MEMORY[0x277D85DE8];
+  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
   {
-    v3 = objc_opt_new();
-    [(DDRemoteHeaderView *)self addSubview:v3];
-    [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
-    objc_storeStrong(&self->_errorView, v3);
-    v4 = [MEMORY[0x277CCAAD0] constraintWithItem:self attribute:5 relatedBy:0 toItem:v3 attribute:5 multiplier:1.0 constant:0.0];
-    [v4 setActive:1];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __35__DDRemoteHeaderView_showErrorView__block_invoke;
+    block[3] = &unk_278290B50;
+    block[4] = self;
+    dispatch_sync(MEMORY[0x277D85CD0], block);
+    return;
+  }
 
-    v5 = [MEMORY[0x277CCAAD0] constraintWithItem:self attribute:6 relatedBy:0 toItem:v3 attribute:6 multiplier:1.0 constant:0.0];
-    [v5 setActive:1];
+  v3 = objc_opt_new();
+  [(DDRemoteHeaderView *)self addSubview:v3];
+  [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
+  objc_storeStrong(&self->_errorView, v3);
+  v4 = [MEMORY[0x277CCAAD0] constraintWithItem:self attribute:5 relatedBy:0 toItem:v3 attribute:5 multiplier:1.0 constant:0.0];
+  [v4 setActive:1];
 
-    v6 = [MEMORY[0x277CCAAD0] constraintWithItem:self attribute:3 relatedBy:0 toItem:v3 attribute:3 multiplier:1.0 constant:0.0];
-    [v6 setActive:1];
+  v5 = [MEMORY[0x277CCAAD0] constraintWithItem:self attribute:6 relatedBy:0 toItem:v3 attribute:6 multiplier:1.0 constant:0.0];
+  [v5 setActive:1];
 
-    v7 = [MEMORY[0x277CCAAD0] constraintWithItem:self attribute:4 relatedBy:0 toItem:v3 attribute:4 multiplier:1.0 constant:0.0];
-    [v7 setActive:1];
+  v6 = [MEMORY[0x277CCAAD0] constraintWithItem:self attribute:3 relatedBy:0 toItem:v3 attribute:3 multiplier:1.0 constant:0.0];
+  [v6 setActive:1];
 
-    v8 = *MEMORY[0x277D74388];
-    v35[0] = *MEMORY[0x277D74398];
-    v35[1] = v8;
-    v36[0] = &unk_282C2BC68;
-    v36[1] = &unk_282C2BC80;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
-    v37[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+  v7 = [MEMORY[0x277CCAAD0] constraintWithItem:self attribute:4 relatedBy:0 toItem:v3 attribute:4 multiplier:1.0 constant:0.0];
+  [v7 setActive:1];
 
-    v11 = *MEMORY[0x277D74338];
-    v34[0] = v10;
-    v12 = *MEMORY[0x277D74340];
-    v33[0] = v11;
-    v33[1] = v12;
-    v13 = _UISystemFontName();
-    v34[1] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+  v8 = *MEMORY[0x277D74388];
+  v34[0] = *MEMORY[0x277D74398];
+  v34[1] = v8;
+  v35[0] = &unk_282C2BC68;
+  v35[1] = &unk_282C2BC80;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v36[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
 
-    v15 = [objc_alloc(MEMORY[0x277D74310]) initWithFontAttributes:v14];
-    v16 = [MEMORY[0x277D74300] fontWithDescriptor:v15 size:14.0];
-    [v3 setFont:v16];
+  v11 = *MEMORY[0x277D74338];
+  v33[0] = v10;
+  v12 = *MEMORY[0x277D74340];
+  v32[0] = v11;
+  v32[1] = v12;
+  v13 = _UISystemFontName();
+  v33[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
 
-    secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
-    [v3 setTextColor:secondaryLabelColor];
+  v15 = [objc_alloc(MEMORY[0x277D74310]) initWithFontAttributes:v14];
+  v16 = [MEMORY[0x277D74300] fontWithDescriptor:v15 size:14.0];
+  [v3 setFont:v16];
 
-    [v3 setTextAlignment:1];
-    action = [(DDRemoteHeaderView *)self action];
-    result = [action result];
+  secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
+  [v3 setTextColor:secondaryLabelColor];
 
-    if (result)
+  [v3 setTextAlignment:1];
+  action = [(DDRemoteHeaderView *)self action];
+  result = [action result];
+
+  if (result)
+  {
+    v20 = +[DDDetectionController sharedController];
+    action2 = [(DDRemoteHeaderView *)self action];
+    v22 = [v20 attributedTitleForResult:objc_msgSend(action2 updaterBlock:{"result"), 0}];
+
+    if (!v22)
     {
-      v20 = +[DDDetectionController sharedController];
-      action2 = [(DDRemoteHeaderView *)self action];
-      v22 = [v20 attributedTitleForResult:objc_msgSend(action2 updaterBlock:{"result"), 0}];
-
-      if (!v22)
-      {
-        goto LABEL_10;
-      }
+      goto LABEL_10;
     }
 
-    else
-    {
-      action3 = [(DDRemoteHeaderView *)self action];
-      v24 = [action3 url];
-
-      if (!v24)
-      {
-        goto LABEL_10;
-      }
-
-      v25 = +[DDDetectionController sharedController];
-      action4 = [(DDRemoteHeaderView *)self action];
-      v27 = [action4 url];
-      v22 = [v25 attributedTitleForURL:v27 updaterBlock:0];
-
-      if (!v22)
-      {
-LABEL_10:
-        v28 = DDLocalizedString(@"Information not available");
-        [v3 setText:v28];
-
-        if (!self->_loadingView)
-        {
-LABEL_11:
-          if (self->_remoteViewController)
-          {
-            [(UIView *)self->_errorView setAlpha:0.0];
-            v30[4] = self;
-            v31[0] = MEMORY[0x277D85DD0];
-            v31[1] = 3221225472;
-            v31[2] = __35__DDRemoteHeaderView_showErrorView__block_invoke_2;
-            v31[3] = &unk_278290B50;
-            v31[4] = self;
-            v30[0] = MEMORY[0x277D85DD0];
-            v30[1] = 3221225472;
-            v30[2] = __35__DDRemoteHeaderView_showErrorView__block_invoke_3;
-            v30[3] = &unk_278290BF0;
-            [MEMORY[0x277D75D18] animateWithDuration:v31 animations:v30 completion:0.2];
-          }
-
-          goto LABEL_13;
-        }
-
-LABEL_9:
-        [(DDRemoteHeaderView *)self removeLoadingViewToShowView:self->_errorView];
-LABEL_13:
-
-        goto LABEL_14;
-      }
-    }
-
+LABEL_8:
     [v3 setAttributedText:v22];
 
     if (!self->_loadingView)
@@ -425,14 +381,51 @@ LABEL_13:
     goto LABEL_9;
   }
 
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = __35__DDRemoteHeaderView_showErrorView__block_invoke;
-  block[3] = &unk_278290B50;
-  block[4] = self;
-  dispatch_sync(MEMORY[0x277D85CD0], block);
-LABEL_14:
-  v29 = *MEMORY[0x277D85DE8];
+  action3 = [(DDRemoteHeaderView *)self action];
+  v24 = [action3 url];
+
+  if (v24)
+  {
+    v25 = +[DDDetectionController sharedController];
+    action4 = [(DDRemoteHeaderView *)self action];
+    v27 = [action4 url];
+    v22 = [v25 attributedTitleForURL:v27 updaterBlock:0];
+
+    if (v22)
+    {
+      goto LABEL_8;
+    }
+  }
+
+LABEL_10:
+  v28 = DDLocalizedString(@"Information not available");
+  [v3 setText:v28];
+
+  if (!self->_loadingView)
+  {
+LABEL_11:
+    if (self->_remoteViewController)
+    {
+      [(UIView *)self->_errorView setAlpha:0.0];
+      v29[4] = self;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __35__DDRemoteHeaderView_showErrorView__block_invoke_2;
+      v30[3] = &unk_278290B50;
+      v30[4] = self;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __35__DDRemoteHeaderView_showErrorView__block_invoke_3;
+      v29[3] = &unk_278290BF0;
+      [MEMORY[0x277D75D18] animateWithDuration:v30 animations:v29 completion:0.2];
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_9:
+  [(DDRemoteHeaderView *)self removeLoadingViewToShowView:self->_errorView];
+LABEL_13:
 }
 
 void __35__DDRemoteHeaderView_showErrorView__block_invoke_2(uint64_t a1)

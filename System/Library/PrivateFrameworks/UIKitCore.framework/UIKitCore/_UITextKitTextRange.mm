@@ -217,7 +217,7 @@
 LABEL_4:
     _attachmentRange3 = [(UITextRange *)self _attachmentRange];
     _attachmentRange4 = [equalCopy _attachmentRange];
-    v9 = [_attachmentRange3 isEqual:_attachmentRange4];
+    isEqual = objc_msgSend_isEqual_(_attachmentRange3);
 
     if (equalCopy)
     {
@@ -227,13 +227,13 @@ LABEL_4:
     goto LABEL_15;
   }
 
-  v9 = 1;
+  isEqual = 1;
   if (equalCopy)
   {
 LABEL_5:
     start = [(_UITextKitTextRange *)self start];
     start2 = [equalCopy start];
-    if (![start isEqual:start2])
+    if (!objc_msgSend_isEqual_(start))
     {
       v22 = 0;
 LABEL_23:
@@ -243,7 +243,7 @@ LABEL_23:
 
     v12 = [(_UITextKitTextRange *)self end];
     v13 = [equalCopy end];
-    if (([v12 isEqual:v13] & v9) != 1)
+    if ((objc_msgSend_isEqual_(v12) & isEqual) != 1)
     {
       v22 = 0;
 LABEL_22:

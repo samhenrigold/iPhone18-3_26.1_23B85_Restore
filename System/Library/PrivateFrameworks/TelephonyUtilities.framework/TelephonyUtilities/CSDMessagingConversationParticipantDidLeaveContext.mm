@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)leaveReasonAsString:(int)string;
 - (int)StringAsLeaveReason:(id)reason;
 - (int)leaveReason;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   {
     return 0;
   }
+}
+
+- (id)leaveReasonAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_10061F200 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsLeaveReason:(id)reason
@@ -119,20 +135,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    leaveReason = self->_leaveReason;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

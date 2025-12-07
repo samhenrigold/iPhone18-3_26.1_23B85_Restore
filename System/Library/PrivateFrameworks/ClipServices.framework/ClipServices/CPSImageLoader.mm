@@ -73,27 +73,27 @@ void __53__CPSImageLoader_loadImageWithURL_completionHandler___block_invoke(uint
   {
     v6 = [*(a1 + 32) imageStore];
     v7 = *(a1 + 40);
-    v12 = 0;
-    v8 = [v6 storeImageData:v5 forKey:v7 error:&v12];
-    v9 = v12;
+    v14 = 0;
+    v8 = [v6 storeImageData:v5 forKey:v7 error:&v14];
+    v9 = v14;
 
     if (v9)
     {
-      v10 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __53__CPSImageLoader_loadImageWithURL_completionHandler___block_invoke_cold_1(a1, v10);
+        __53__CPSImageLoader_loadImageWithURL_completionHandler___block_invoke_cold_1(a1, v12);
       }
 
-      v11 = *(*(a1 + 56) + 16);
+      v13 = *(*(a1 + 56) + 16);
     }
 
     else
     {
-      v11 = *(*(a1 + 56) + 16);
+      v13 = *(*(a1 + 56) + 16);
     }
 
-    v11();
+    v13();
   }
 }
 
@@ -149,27 +149,27 @@ void __67__CPSImageLoader_loadImageForGEOStyleAttributes_completionHandler___blo
   {
     v6 = [*(a1 + 32) imageStore];
     v7 = *(a1 + 40);
-    v12 = 0;
-    v8 = [v6 storeImageData:v5 forKey:v7 error:&v12];
-    v9 = v12;
+    v14 = 0;
+    v8 = [v6 storeImageData:v5 forKey:v7 error:&v14];
+    v9 = v14;
 
     if (v9)
     {
-      v10 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __67__CPSImageLoader_loadImageForGEOStyleAttributes_completionHandler___block_invoke_cold_1(a1, v10);
+        __67__CPSImageLoader_loadImageForGEOStyleAttributes_completionHandler___block_invoke_cold_1(a1, v12);
       }
 
-      v11 = *(*(a1 + 56) + 16);
+      v13 = *(*(a1 + 56) + 16);
     }
 
     else
     {
-      v11 = *(*(a1 + 56) + 16);
+      v13 = *(*(a1 + 56) + 16);
     }
 
-    v11();
+    v13();
   }
 }
 
@@ -224,64 +224,52 @@ void __60__CPSImageLoader_loadImageForMapItemMUID_completionHandler___block_invo
   {
     v6 = [*(a1 + 32) imageStore];
     v7 = *(a1 + 40);
-    v12 = 0;
-    v8 = [v6 storeImageData:v5 forKey:v7 error:&v12];
-    v9 = v12;
+    v14 = 0;
+    v8 = [v6 storeImageData:v5 forKey:v7 error:&v14];
+    v9 = v14;
 
     if (v9)
     {
-      v10 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = CPS_LOG_CHANNEL_PREFIXClipServices(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        __60__CPSImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_cold_1(a1, v10);
+        __60__CPSImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_cold_1(a1, v12);
       }
 
-      v11 = *(*(a1 + 48) + 16);
+      v13 = *(*(a1 + 48) + 16);
     }
 
     else
     {
-      v11 = *(*(a1 + 48) + 16);
+      v13 = *(*(a1 + 48) + 16);
     }
 
-    v11();
+    v13();
   }
 }
 
 void __53__CPSImageLoader_loadImageWithURL_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 48);
-  v3 = a2;
-  v4 = [0 cps_privacyPreservingDescription];
+  v2 = a2;
+  v3 = [0 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_2436ED000, v5, v6, "Failed to store image for imageURL %{sensitive}@ - %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_2436ED000, v4, v5, "Failed to store image for imageURL %{sensitive}@ - %{public}@", v6, v7, v8, v9);
 }
 
 void __67__CPSImageLoader_loadImageForGEOStyleAttributes_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 48);
-  v3 = a2;
-  v4 = [0 cps_privacyPreservingDescription];
+  v2 = a2;
+  v3 = [0 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_2436ED000, v5, v6, "Failed to store image for style attributes %@ - %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_2436ED000, v4, v5, "Failed to store image for style attributes %@ - %{public}@", v6, v7, v8, v9);
 }
 
 void __60__CPSImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 56);
-  v3 = a2;
-  v4 = [0 cps_privacyPreservingDescription];
+  v2 = a2;
+  v3 = [0 cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_2436ED000, v5, v6, "Failed to store image for map item with MUID %{private}llu - %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_2436ED000, v4, v5, "Failed to store image for map item with MUID %{private}llu - %{public}@", v6, v7, v8, v9);
 }
 
 @end

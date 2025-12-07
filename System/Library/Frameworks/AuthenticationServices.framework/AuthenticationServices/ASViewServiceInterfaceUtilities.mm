@@ -54,7 +54,7 @@
   return *&headerIconCornerRadius_cornerRadius;
 }
 
-uint64_t __57__ASViewServiceInterfaceUtilities_headerIconCornerRadius__block_invoke(uint64_t a1)
+void *__57__ASViewServiceInterfaceUtilities_headerIconCornerRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _iconCornerRadiusForSize:{54.0, 54.0}];
   headerIconCornerRadius_cornerRadius = v2;
@@ -85,7 +85,7 @@ uint64_t __57__ASViewServiceInterfaceUtilities_headerIconCornerRadius__block_inv
   return *&headerBadgeIconCornerRadius_cornerRadius;
 }
 
-uint64_t __62__ASViewServiceInterfaceUtilities_headerBadgeIconCornerRadius__block_invoke(uint64_t a1)
+void *__62__ASViewServiceInterfaceUtilities_headerBadgeIconCornerRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _iconCornerRadiusForSize:{34.0, 34.0}];
   headerBadgeIconCornerRadius_cornerRadius = v2;
@@ -116,7 +116,7 @@ uint64_t __62__ASViewServiceInterfaceUtilities_headerBadgeIconCornerRadius__bloc
   return *&headerSmallBadgeIconCornerRadius_cornerRadius;
 }
 
-uint64_t __67__ASViewServiceInterfaceUtilities_headerSmallBadgeIconCornerRadius__block_invoke(uint64_t a1)
+void *__67__ASViewServiceInterfaceUtilities_headerSmallBadgeIconCornerRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _iconCornerRadiusForSize:{34.0, 34.0}];
   headerSmallBadgeIconCornerRadius_cornerRadius = v2;
@@ -147,7 +147,7 @@ uint64_t __67__ASViewServiceInterfaceUtilities_headerSmallBadgeIconCornerRadius_
   return *&cellIconCornerRadius_cornerRadius;
 }
 
-uint64_t __55__ASViewServiceInterfaceUtilities_cellIconCornerRadius__block_invoke(uint64_t a1)
+void *__55__ASViewServiceInterfaceUtilities_cellIconCornerRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _iconCornerRadiusForSize:{36.0, 36.0}];
   cellIconCornerRadius_cornerRadius = v2;

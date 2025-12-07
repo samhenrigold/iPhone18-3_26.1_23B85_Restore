@@ -151,7 +151,7 @@ LABEL_22:
   requestCopy = request;
   v4 = [[GEOUtilityDefaultNavigationStateReply alloc] initWithRequest:requestCopy];
 
-  if (!sub_10003CDE0())
+  if (!sub_10003CDE0(0))
   {
     v14 = @"CoreServices unavailable";
     v15 = -6;

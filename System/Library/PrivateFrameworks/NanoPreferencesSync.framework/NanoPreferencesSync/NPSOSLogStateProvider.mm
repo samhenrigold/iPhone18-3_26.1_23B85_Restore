@@ -50,11 +50,8 @@
 {
   nameCopy = name;
   blockCopy = block;
-  queue = self->_queue;
-  v11 = nameCopy;
-  v12 = blockCopy;
-  v9 = nameCopy;
-  v10 = blockCopy;
+  v5 = nameCopy;
+  v6 = blockCopy;
   os_state_add_handler();
 }
 

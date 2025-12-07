@@ -222,8 +222,8 @@
           _Block_object_dispose(&v39, 8);
           if (!v17)
           {
-            dlerror();
-            abort_report_np();
+            v28 = dlerror();
+            abort_report_np("%s", v28);
             __break(1u);
           }
 
@@ -311,7 +311,6 @@ LABEL_23:
     v30 = 1;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
@@ -329,35 +328,35 @@ LABEL_23:
   speedAccuracyCopy = speedAccuracy;
   accuracyCopy = accuracy;
   baselineCopy = baseline;
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (baseline || accuracy || speedAccuracy || horizAccuracy || vertAccuracy || precision)
   {
-    v28 = 0u;
-    v29 = 0u;
+    v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     obj = [request locations];
-    v14 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v14 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (!v14)
     {
       goto LABEL_34;
     }
 
     v15 = v14;
-    v16 = *v27;
+    v16 = *v24;
     while (1)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v27 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * i);
+        v18 = *(*(&v23 + 1) + 8 * i);
         if (baselineCopy)
         {
-          [*(*(&v26 + 1) + 8 * i) clearAppBundleIdIndices];
+          [*(*(&v23 + 1) + 8 * i) clearAppBundleIdIndices];
           [v18 setHasProvider:0];
           [v18 setHasFloor:0];
           [v18 setHasMotionVehicleConnectedStateChanged:0];
@@ -417,7 +416,6 @@ LABEL_22:
         {
 LABEL_23:
           [v18 horizontalAccuracy];
-          v21 = dword_1AB6C3090[*&v20 > 50.0];
           if (*&v20 <= 10.0)
           {
             *&v20 = 1111.0;
@@ -447,32 +445,29 @@ LABEL_27:
         if ([v18 hasVerticalAccuracy])
         {
           [v18 verticalAccuracy];
-          v23 = dword_1AB6C3090[*&v22 > 50.0];
-          if (*&v22 <= 10.0)
+          if (*&v21 <= 10.0)
           {
-            *&v22 = 1111.0;
+            *&v21 = 1111.0;
           }
 
           else
           {
-            LODWORD(v22) = dword_1AB6C3090[*&v22 > 50.0];
+            LODWORD(v21) = dword_1AB6C3090[*&v21 > 50.0];
           }
 
-          [v18 setVerticalAccuracy:v22];
+          [v18 setVerticalAccuracy:v21];
         }
       }
 
-      v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v15 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (!v15)
       {
 LABEL_34:
 
-        break;
+        return;
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

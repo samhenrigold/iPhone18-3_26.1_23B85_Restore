@@ -30,32 +30,32 @@
 
 + (unordered_set<unsigned)loadUInt32ListFromPlistURL:(std:(std:(id)l :(SEL)a3 allocator<unsigned int>> *__return_ptr)retstr :(id)a4 equal_to<unsigned)int>
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = [SNLPAssetVersionChecker loadNSNumberListFromPlistURL:a4];
   retstr->var0.var0 = 0u;
   *&retstr->var0.var1.var0 = 0u;
   retstr->var0.var3 = 1.0;
-  v18 = v5;
+  v17 = v5;
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__rehash<true>(retstr, [v5 count]);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
-  obj = v18;
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  obj = v17;
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntValue = [*(*(&v20 + 1) + 8 * i) unsignedIntValue];
+        unsignedIntValue = [*(*(&v19 + 1) + 8 * i) unsignedIntValue];
         var0 = retstr->var0.var0.var1.var0;
         if (!var0)
         {
@@ -125,13 +125,12 @@ LABEL_21:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 

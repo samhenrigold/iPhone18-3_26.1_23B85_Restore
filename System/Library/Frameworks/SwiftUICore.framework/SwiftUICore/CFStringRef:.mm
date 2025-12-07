@@ -11,10 +11,10 @@
   {
     type metadata accessor for CFStringRef(255);
     lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [CFStringRef : Any]);
+      atomic_store(v1, &lazy cache variable for type metadata for [CFStringRef : Any]);
     }
   }
 }
@@ -24,11 +24,11 @@
   if (!lazy cache variable for type metadata for [CFStringRef : CGFloat])
   {
     type metadata accessor for CFStringRef(255);
-    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef);
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    lazy protocol witness table accessor for type CFStringRef and conformance CFStringRef(&lazy protocol witness table cache variable for type CFStringRef and conformance CFStringRef, type metadata accessor for CFStringRef, protocol conformance descriptor for CFStringRef);
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [CFStringRef : CGFloat]);
+      atomic_store(v1, &lazy cache variable for type metadata for [CFStringRef : CGFloat]);
     }
   }
 }

@@ -172,7 +172,7 @@
   if ((change & 6) != 0)
   {
     memset(&v11[1], 0, 32);
-    [(PXAssetsSectionLayout *)self sectionIndexPath];
+    objc_msgSend_sectionIndexPath(self);
     PXGAXAddSimpleIndexPathGroupChangeUserInfo();
     bodyItemsGeometry = [(PXAssetsSectionLayout *)self bodyItemsGeometry];
     PXGAXAddItemGeometryGroupChangeUserInfo();
@@ -355,7 +355,7 @@ LABEL_12:
   v14 = dataSource2;
   if (dataSource2)
   {
-    [dataSource2 indexPathForAssetReference:v11];
+    objc_msgSend_indexPathForAssetReference_(dataSource2);
   }
 
   else
@@ -1067,43 +1067,15 @@ void __58__PXAssetsSectionLayout_enumerateAssetsInRect_enumerator___block_invoke
 {
   v4 = *(a1 + 32);
   v5 = a2[1];
-  v13 = *a2;
-  v14 = v5;
-  v6 = [v4 assetAtItemIndexPath:&v13];
-  v7 = [*(a1 + 40) spriteIndexForItem:*(a2 + 2)];
-  v8 = *(a1 + 40);
-  if (v8)
-  {
-    [v8 geometryForSpriteAtIndex:v7];
-    v9 = *(&v14 + 8);
-    v11 = *(&v13 + 1);
-    v10 = *&v13;
-  }
-
-  else
-  {
-    v9 = 0;
-    v11 = 0.0;
-    v10 = 0.0;
-  }
-
-  v12 = vmul_f32(v9, 0x3F0000003F000000);
-  (*(*(a1 + 48) + 16))(v10 - v12.f32[0], v11 - v12.f32[1], v9.f32[0], v9.f32[1]);
-}
-
-void __58__PXAssetsSectionLayout_enumerateAssetsInRect_enumerator___block_invoke_93(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 32);
-  v12 = *(a1 + 56);
-  v13 = a2;
-  v14 = 0x7FFFFFFFFFFFFFFFLL;
-  v5 = [v4 assetAtItemIndexPath:&v12];
-  v6 = [*(a1 + 40) spriteIndexForItem:a2];
+  v12 = *a2;
+  v13 = v5;
+  v6 = [v4 assetAtItemIndexPath:&v12];
+  [*(a1 + 40) spriteIndexForItem:*(a2 + 2)];
   v7 = *(a1 + 40);
   if (v7)
   {
-    [v7 geometryForSpriteAtIndex:v6];
-    v8 = v14;
+    objc_msgSend_geometryForSpriteAtIndex_(v7);
+    v8 = *(&v13 + 8);
     v10 = *(&v12 + 1);
     v9 = *&v12;
   }
@@ -1117,6 +1089,34 @@ void __58__PXAssetsSectionLayout_enumerateAssetsInRect_enumerator___block_invoke
 
   v11 = vmul_f32(v8, 0x3F0000003F000000);
   (*(*(a1 + 48) + 16))(v9 - v11.f32[0], v10 - v11.f32[1], v8.f32[0], v8.f32[1]);
+}
+
+void __58__PXAssetsSectionLayout_enumerateAssetsInRect_enumerator___block_invoke_93(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 32);
+  v11 = *(a1 + 56);
+  v12 = a2;
+  v13 = 0x7FFFFFFFFFFFFFFFLL;
+  v5 = [v4 assetAtItemIndexPath:&v11];
+  [*(a1 + 40) spriteIndexForItem:a2];
+  v6 = *(a1 + 40);
+  if (v6)
+  {
+    objc_msgSend_geometryForSpriteAtIndex_(v6);
+    v7 = v13;
+    v9 = *(&v11 + 1);
+    v8 = *&v11;
+  }
+
+  else
+  {
+    v7 = 0;
+    v9 = 0.0;
+    v8 = 0.0;
+  }
+
+  v10 = vmul_f32(v7, 0x3F0000003F000000);
+  (*(*(a1 + 48) + 16))(v8 - v10.f32[0], v9 - v10.f32[1], v7.f32[0], v7.f32[1]);
 }
 
 - (void)enumerateAssetCollectionsInRect:(CGRect)rect enumerator:(id)enumerator
@@ -1283,7 +1283,7 @@ LABEL_15:
   return v20;
 }
 
-id __61__PXAssetsSectionLayout_locationNamesFutureForContentInRect___block_invoke(uint64_t a1, uint64_t a2)
+id __61__PXAssetsSectionLayout_locationNamesFutureForContentInRect___block_invoke(uint64_t a1, void *a2)
 {
   if ([*(a1 + 32) identifier] == a2)
   {
@@ -1318,7 +1318,7 @@ id __61__PXAssetsSectionLayout_locationNamesFutureForContentInRect___block_invok
   return v9;
 }
 
-id __61__PXAssetsSectionLayout_locationNamesFutureForContentInRect___block_invoke_4(uint64_t a1, uint64_t a2)
+id __61__PXAssetsSectionLayout_locationNamesFutureForContentInRect___block_invoke_4(uint64_t a1, void *a2)
 {
   if ([*(a1 + 32) identifier] == a2)
   {
@@ -1445,7 +1445,7 @@ LABEL_15:
   return v22;
 }
 
-id __65__PXAssetsSectionLayout_dateIntervalFutureForContentInRect_type___block_invoke(uint64_t a1, uint64_t a2)
+id __65__PXAssetsSectionLayout_dateIntervalFutureForContentInRect_type___block_invoke(uint64_t a1, void *a2)
 {
   if ([*(a1 + 32) identifier] == a2)
   {
@@ -1509,7 +1509,7 @@ id __65__PXAssetsSectionLayout_dateIntervalFutureForContentInRect_type___block_i
   return v15;
 }
 
-id __65__PXAssetsSectionLayout_dateIntervalFutureForContentInRect_type___block_invoke_3(uint64_t a1, uint64_t a2)
+id __65__PXAssetsSectionLayout_dateIntervalFutureForContentInRect_type___block_invoke_3(uint64_t a1, void *a2)
 {
   if ([*(a1 + 32) identifier] == a2)
   {
@@ -1588,30 +1588,30 @@ LABEL_6:
     goto LABEL_27;
   }
 
-  v30 = 0u;
-  v31 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   if (dataSource)
   {
-    [dataSource indexPathForAssetCollectionReference:v9];
-    v26 = v30;
-    v27 = v31;
-    [dataSource keyAssetIndexPathForSectionIndexPath:&v26];
+    objc_msgSend_indexPathForAssetCollectionReference_(dataSource);
+    v22 = v26;
+    v23 = v27;
+    objc_msgSend_keyAssetIndexPathForSectionIndexPath_(dataSource);
   }
 
   else
   {
-    v28 = 0uLL;
-    v29 = 0uLL;
+    v24 = 0uLL;
+    v25 = 0uLL;
   }
 
   v11 = 0;
-  v30 = v28;
-  v31 = v29;
-  if (v28.i64[0] != *MEMORY[0x277D3CF78] && *&v31.f64[0] != 0x7FFFFFFFFFFFFFFFLL && *&v31.f64[1] == 0x7FFFFFFFFFFFFFFFLL)
+  v26 = v24;
+  v27 = v25;
+  if (v24.i64[0] != *MEMORY[0x277D3CF78] && *&v27.f64[0] != 0x7FFFFFFFFFFFFFFFLL && *&v27.f64[1] == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v28 = v30;
-    v29 = v31;
-    v10 = [dataSource assetReferenceAtItemIndexPath:&v28];
+    v24 = v26;
+    v25 = v27;
+    v10 = [dataSource assetReferenceAtItemIndexPath:&v24];
     goto LABEL_6;
   }
 
@@ -1621,67 +1621,63 @@ LABEL_7:
     goto LABEL_27;
   }
 
-  v30 = 0u;
-  v31 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   if (dataSource)
   {
-    [dataSource indexPathForAssetReference:v11];
-    v28 = 0u;
-    v29 = 0u;
-    identifier = [dataSource identifier];
-    section = [(PXAssetsSectionLayout *)self section];
-    v26.i64[0] = identifier;
-    v26.i64[1] = section;
-    v14.f64[0] = NAN;
-    v14.f64[1] = NAN;
-    v27 = vnegq_f64(v14);
-    [dataSource keyAssetIndexPathForSectionIndexPath:&v26];
-    v15 = v28;
-    v16 = v29;
-    v18 = v30;
-    v17 = v31;
+    objc_msgSend_indexPathForAssetReference_(dataSource);
+    v24 = 0u;
+    v25 = 0u;
+    v22.i64[0] = [dataSource identifier];
+    v22.i64[1] = [(PXAssetsSectionLayout *)self section];
+    v12.f64[0] = NAN;
+    v12.f64[1] = NAN;
+    v23 = vnegq_f64(v12);
+    objc_msgSend_keyAssetIndexPathForSectionIndexPath_(dataSource);
+    v13 = v24;
+    v14 = v25;
+    v16 = v26;
+    v15 = v27;
   }
 
   else
   {
-    identifier2 = [0 identifier];
-    section2 = [(PXAssetsSectionLayout *)self section];
-    v26.i64[0] = identifier2;
-    v26.i64[1] = section2;
-    v21.f64[0] = NAN;
-    v21.f64[1] = NAN;
-    v18 = 0uLL;
-    v27 = vnegq_f64(v21);
-    v28 = 0u;
-    v29 = 0u;
-    v17 = 0uLL;
-    v15 = 0uLL;
+    v22.i64[0] = [0 identifier];
+    v22.i64[1] = [(PXAssetsSectionLayout *)self section];
+    v17.f64[0] = NAN;
+    v17.f64[1] = NAN;
     v16 = 0uLL;
+    v23 = vnegq_f64(v17);
+    v24 = 0u;
+    v25 = 0u;
+    v15 = 0uLL;
+    v13 = 0uLL;
+    v14 = 0uLL;
   }
 
-  if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(v18, v15), vceqq_s64(v17, v16)))) & 1) == 0)
+  if ((vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(v16, v13), vceqq_s64(v15, v14)))) & 1) == 0)
   {
     goto LABEL_27;
   }
 
-  v22 = v16.i64[0] - 1;
-  if (v16.i64[0] >= 1)
+  v18 = v14.i64[0] - 1;
+  if (v14.i64[0] >= 1)
   {
     goto LABEL_25;
   }
 
-  if (v16.i64[0] < [dataSource numberOfItemsInSection:v15.i64[1]] - 1)
+  if (v14.i64[0] < [dataSource numberOfItemsInSection:v13.i64[1]] - 1)
   {
-    v22 = *&v31.f64[0] + 1;
+    v18 = *&v27.f64[0] + 1;
 LABEL_25:
-    *&v31.f64[0] = v22;
+    *&v27.f64[0] = v18;
   }
 
-  v25[0] = v30;
-  v25[1] = v31;
-  v23 = [dataSource assetReferenceAtItemIndexPath:v25];
+  v21[0] = v26;
+  v21[1] = v27;
+  v19 = [dataSource assetReferenceAtItemIndexPath:v21];
 
-  v11 = v23;
+  v11 = v19;
 LABEL_27:
 
   return v11;
@@ -1725,7 +1721,7 @@ LABEL_27:
 
     if (v13)
     {
-      [v13 indexPathForObjectReference:v15];
+      objc_msgSend_indexPathForObjectReference_(v13);
     }
 
     else
@@ -1778,7 +1774,7 @@ LABEL_27:
 
   else
   {
-    [(PXAssetsSectionLayout *)self _dataSourceIndexPathForObjectReference:referenceCopy options:options updatedObjectReference:objectReference];
+    objc_msgSend__dataSourceIndexPathForObjectReference_options_updatedObjectReference_(self);
     v12 = -1;
   }
 
@@ -1787,7 +1783,7 @@ LABEL_27:
 
 - (int64_t)sublayoutIndexForObjectReference:(id)reference options:(unint64_t)options updatedObjectReference:(id *)objectReference
 {
-  [(PXAssetsSectionLayout *)self _dataSourceIndexPathForObjectReference:reference options:options updatedObjectReference:objectReference];
+  objc_msgSend__dataSourceIndexPathForObjectReference_options_updatedObjectReference_(self, a2, reference, options, objectReference);
   v6 = 0x7FFFFFFFFFFFFFFFLL;
   bodyContainerLayout = [(PXAssetsSectionLayout *)self bodyContainerLayout];
   if (bodyContainerLayout || ([(PXAssetsSectionLayout *)self bodyContentLayout], (bodyContainerLayout = objc_claimAutoreleasedReturnValue()) != 0))
@@ -2135,34 +2131,26 @@ LABEL_5:
 
 - (int64_t)keyItemIndex
 {
-  v9 = 0u;
-  v10 = 0u;
   dataSource = [(PXAssetsSectionLayout *)self dataSource];
   dataSource2 = [(PXAssetsSectionLayout *)self dataSource];
-  v7[0] = [dataSource2 identifier];
-  v7[1] = [(PXAssetsSectionLayout *)self section];
+  identifier = [dataSource2 identifier];
+  section = [(PXAssetsSectionLayout *)self section];
   v5.f64[0] = NAN;
   v5.f64[1] = NAN;
-  v8 = vnegq_f64(v5);
+  v9 = vnegq_f64(v5);
   if (dataSource)
   {
-    [dataSource keyAssetIndexPathForSectionIndexPath:v7];
+    objc_msgSend_keyAssetIndexPathForSectionIndexPath_(dataSource, identifier, section, *&v9);
+  }
+
+  if (*MEMORY[0x277D3CF78])
+  {
+    return 0;
   }
 
   else
-  {
-    v9 = 0u;
-    v10 = 0u;
-  }
-
-  if (v9 == *MEMORY[0x277D3CF78])
   {
     return 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    return v10;
   }
 }
 
@@ -2180,12 +2168,12 @@ LABEL_5:
   assetCollectionReference = self->_assetCollectionReference;
   if (!assetCollectionReference)
   {
-    goto LABEL_8;
+    goto LABEL_7;
   }
 
-  [(PXAssetCollectionReference *)assetCollectionReference indexPath];
-  [(PXAssetsSectionLayout *)self sectionIndexPath];
-  if (v14[0] != v10 || v14[1] != v11 || v14[2] != v12 || v14[3] != v13)
+  objc_msgSend_indexPath(assetCollectionReference, a2);
+  objc_msgSend_sectionIndexPath(self);
+  if (v13[0] != v10 || *&v13[1] != v11 || v13[3] != v12)
   {
     v4 = self->_assetCollectionReference;
     self->_assetCollectionReference = 0;
@@ -2193,12 +2181,12 @@ LABEL_5:
 
   if (!self->_assetCollectionReference)
   {
-LABEL_8:
+LABEL_7:
     if ([(PXAssetsSectionLayout *)self section]!= 0x7FFFFFFFFFFFFFFFLL)
     {
       dataSource = [(PXAssetsSectionLayout *)self dataSource];
-      [(PXAssetsSectionLayout *)self sectionIndexPath];
-      v6 = [dataSource assetCollectionReferenceAtSectionIndexPath:v14];
+      objc_msgSend_sectionIndexPath(self);
+      v6 = [dataSource assetCollectionReferenceAtSectionIndexPath:v13];
       v7 = self->_assetCollectionReference;
       self->_assetCollectionReference = v6;
     }
@@ -2219,7 +2207,7 @@ LABEL_8:
   else
   {
     dataSource = [(PXAssetsSectionLayout *)self dataSource];
-    [(PXAssetsSectionLayout *)self sectionIndexPath];
+    objc_msgSend_sectionIndexPath(self);
     v3 = [dataSource assetCollectionAtSectionIndexPath:&v6];
   }
 
@@ -2639,7 +2627,7 @@ unsigned int *__44__PXAssetsSectionLayout__updateLocalSprites__block_invoke_2(ui
     v18 = *(a1 + 64);
   }
 
-  [*(a1 + 32) sectionIndexPath];
+  objc_msgSend_sectionIndexPath(*(a1 + 32));
   result = *(a1 + 32);
   v20 = result[266];
   v21 = MEMORY[0x277D73D78];
@@ -3062,13 +3050,14 @@ LABEL_5:
   {
     v6 = layoutCopy;
     objc_storeStrong(&self->_headerLayout, layout);
-    if ([(PXAssetsSectionLayout *)self numberOfAssets])
+    layoutCopy = [(PXAssetsSectionLayout *)self numberOfAssets];
+    if (layoutCopy)
     {
-      [(PXGSplitLayout *)self setFirstSublayout:v6];
+      layoutCopy = [(PXGSplitLayout *)self setFirstSublayout:v6];
     }
   }
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](layoutCopy);
 }
 
 - (NSString)description
@@ -3181,7 +3170,7 @@ LABEL_5:
       [(PXAssetsSectionLayout *)self _updateFooter];
     }
 
-    [(PXAssetsSectionLayout *)self sectionIndexPath];
+    objc_msgSend_sectionIndexPath(self);
     v8 = v31;
     *&self->_presentedSectionIndexPath.dataSourceIdentifier = v30;
     *&self->_presentedSectionIndexPath.item = v8;
@@ -3635,49 +3624,60 @@ LABEL_6:
 - (void)setSkimmingIndexPaths:(id)paths
 {
   pathsCopy = paths;
-  if (self->_skimmingIndexPaths != pathsCopy && ([(PXIndexPathSet *)pathsCopy isEqual:?]& 1) == 0)
+  v6 = pathsCopy;
+  if (self->_skimmingIndexPaths != pathsCopy)
   {
-    objc_storeStrong(&self->_skimmingIndexPaths, paths);
-    p_updateFlags = &self->_updateFlags;
-    needsUpdate = self->_updateFlags.needsUpdate;
-    if (needsUpdate)
+    v12 = pathsCopy;
+    pathsCopy = [pathsCopy isEqual:?];
+    v6 = v12;
+    if ((pathsCopy & 1) == 0)
     {
-      if (!self->_updateFlags.isPerformingUpdate)
+      objc_storeStrong(&self->_skimmingIndexPaths, paths);
+      p_updateFlags = &self->_updateFlags;
+      needsUpdate = self->_updateFlags.needsUpdate;
+      if (needsUpdate)
       {
+        if (!self->_updateFlags.isPerformingUpdate)
+        {
 LABEL_8:
-        p_updateFlags->needsUpdate = needsUpdate | 2;
-        goto LABEL_9;
-      }
+          p_updateFlags->needsUpdate = needsUpdate | 2;
+LABEL_9:
+          v6 = v12;
+          goto LABEL_10;
+        }
 
 LABEL_7:
-      if ((self->_updateFlags.updated & 2) != 0)
-      {
-        currentHandler = [MEMORY[0x277CCA890] currentHandler];
-        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PXAssetsSectionLayout setSkimmingIndexPaths:]"];
-        [currentHandler handleFailureInFunction:v10 file:@"PXAssetsSectionLayout.m" lineNumber:258 description:{@"invalidating %lu after it already has been updated", 2}];
+        if ((self->_updateFlags.updated & 2) != 0)
+        {
+          currentHandler = [MEMORY[0x277CCA890] currentHandler];
+          v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PXAssetsSectionLayout setSkimmingIndexPaths:]"];
+          [currentHandler handleFailureInFunction:v11 file:@"PXAssetsSectionLayout.m" lineNumber:258 description:{@"invalidating %lu after it already has been updated", 2}];
 
-        abort();
+          abort();
+        }
+
+        goto LABEL_8;
       }
 
-      goto LABEL_8;
-    }
+      if (self->_updateFlags.isPerformingUpdate)
+      {
+        goto LABEL_7;
+      }
 
-    if (self->_updateFlags.isPerformingUpdate)
-    {
-      goto LABEL_7;
-    }
-
-    willPerformUpdate = self->_updateFlags.willPerformUpdate;
-    p_updateFlags->needsUpdate = 2;
-    if (!willPerformUpdate)
-    {
-      [(PXAssetsSectionLayout *)self setNeedsUpdate];
+      willPerformUpdate = self->_updateFlags.willPerformUpdate;
+      p_updateFlags->needsUpdate = 2;
+      v6 = v12;
+      if (!willPerformUpdate)
+      {
+        pathsCopy = [(PXAssetsSectionLayout *)self setNeedsUpdate];
+        goto LABEL_9;
+      }
     }
   }
 
-LABEL_9:
+LABEL_10:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](pathsCopy, v6);
 }
 
 - (void)setIsSkimming:(BOOL)skimming

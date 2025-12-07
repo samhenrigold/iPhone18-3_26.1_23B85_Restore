@@ -10,6 +10,7 @@
 - (VSUserAccountRegistryDelegate)delegate;
 - (id)_accountForAutoSignInWithClientAccountType:(int64_t)type;
 - (id)_amsAccountStoreForAccountType:(int64_t)type;
+- (id)_predicateForIsSignedOut:(BOOL)out;
 - (id)_predicateForQueryRequestWithOptions:(int64_t)options;
 - (id)_predicateForUserAccountFromCurrentDevice;
 - (id)_predicateForUserAccountWithDeviceIdentifier:(id)identifier sourceIdentifier:(id)sourceIdentifier sourceType:(id)type;
@@ -283,7 +284,7 @@
         v19 = v18;
         if (v18)
         {
-          [v18 auditToken];
+          objc_msgSend_auditToken(v18);
         }
 
         else
@@ -1542,6 +1543,14 @@ LABEL_9:
   }
 
   return v7;
+}
+
+- (id)_predicateForIsSignedOut:(BOOL)out
+{
+  v3 = [NSNumber numberWithBool:out];
+  v4 = +[NSPredicate predicateWithFormat:](NSPredicate, "predicateWithFormat:", @"%K = %d", @"signedOut", [v3 intValue]);
+
+  return v4;
 }
 
 - (id)_predicateForUserAccountFromCurrentDevice

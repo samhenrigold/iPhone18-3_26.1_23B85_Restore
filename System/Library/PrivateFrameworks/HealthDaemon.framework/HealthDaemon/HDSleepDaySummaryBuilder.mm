@@ -129,47 +129,47 @@ LABEL_11:
 
 - (id)applicableSleepSchedules:(id)schedules
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   schedulesCopy = schedules;
   sleepScheduleSamples = [(HDSleepDaySummaryBuilder *)self sleepScheduleSamples];
   morningIndex = [(HDSleepDaySummaryBuilder *)self morningIndex];
   calendar = [(HDSleepDaySummaryBuilder *)self calendar];
   dateInterval = [(HDSleepDaySummaryBuilder *)self dateInterval];
-  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v34 = [sleepScheduleSamples hk_mapToSet:&__block_literal_global_97];
-  v39 = objc_alloc_init(MEMORY[0x277CCD0A0]);
+  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = [sleepScheduleSamples hk_mapToSet:&__block_literal_global_97];
+  v38 = objc_alloc_init(MEMORY[0x277CCD0A0]);
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v32 = sleepScheduleSamples;
+  v31 = sleepScheduleSamples;
   obj = [sleepScheduleSamples reverseObjectEnumerator];
-  v6 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v6 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v44;
+    v8 = *v43;
     selfCopy = self;
-    v38 = *v44;
+    v37 = *v43;
     do
     {
       v9 = 0;
-      v40 = v7;
+      v39 = v7;
       do
       {
-        if (*v44 != v8)
+        if (*v43 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * v9);
+        v10 = *(*(&v42 + 1) + 8 * v9);
         if ([(HDSleepDaySummaryBuilder *)self scheduleAppliesToWeekday:v10])
         {
           v11 = MEMORY[0x277CBEBB0];
           _timeZoneName = [v10 _timeZoneName];
           v13 = [v11 timeZoneWithName:_timeZoneName];
 
-          v14 = [v39 calendarForTimeZone:v13];
+          v14 = [v38 calendarForTimeZone:v13];
           if ([v10 weekdays])
           {
             v15 = [v10 wakeDateComponentsForMorningIndex:morningIndex calendar:v14];
@@ -180,7 +180,7 @@ LABEL_11:
             if (v18)
             {
               v19 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v15, "hk_dayIndex")}];
-              v20 = [v34 containsObject:v19];
+              v20 = [v33 containsObject:v19];
 
               if (v20)
               {
@@ -217,13 +217,13 @@ LABEL_12:
               if ([v26 intersectsDateInterval:dateInterval] && (objc_msgSend(schedulesCopy, "hasOverlapWithInterval:", v15) & 1) == 0)
               {
                 [schedulesCopy insertInterval:v15];
-                [v33 addObject:v10];
+                [v32 addObject:v10];
               }
             }
 
 LABEL_22:
-            v8 = v38;
-            v7 = v40;
+            v8 = v37;
+            v7 = v39;
             goto LABEL_23;
           }
 
@@ -236,14 +236,13 @@ LABEL_23:
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v7 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v7);
   }
 
-  v29 = [v33 copy];
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = objc_msgSend_copy(v32);
 
   return v29;
 }
@@ -282,13 +281,13 @@ uint64_t __57__HDSleepDaySummaryBuilder__creationIntervalFromSamples___block_inv
 - (id)createDaySummary
 {
   selfCopy = self;
-  v142 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   sleepAnalysisSamples = [(HDSleepDaySummaryBuilder *)self sleepAnalysisSamples];
   v4 = objc_alloc_init(MEMORY[0x277CCD2D8]);
-  v103 = [(HDSleepDaySummaryBuilder *)selfCopy applicableSleepSchedules:v4];
+  v102 = [(HDSleepDaySummaryBuilder *)selfCopy applicableSleepSchedules:v4];
   v5 = sleepAnalysisSamples;
   v6 = v4;
-  v104 = v6;
+  v103 = v6;
   if (!selfCopy)
   {
 
@@ -299,7 +298,7 @@ uint64_t __57__HDSleepDaySummaryBuilder__creationIntervalFromSamples___block_inv
     goto LABEL_85;
   }
 
-  v105 = selfCopy;
+  v104 = selfCopy;
   if (!selfCopy->_containsAsleepOrInBedData)
   {
 
@@ -318,40 +317,40 @@ uint64_t __57__HDSleepDaySummaryBuilder__creationIntervalFromSamples___block_inv
 
   v15 = [v14 sortedSleepPeriodSegmentsFromSamples:v7];
 
-  v100 = v105->_options;
+  v99 = v104->_options;
   v16 = v7;
-  v17 = v104;
-  v18 = v105->_options;
-  v101 = v17;
-  v102 = v16;
+  v17 = v103;
+  v18 = v104->_options;
+  v100 = v17;
+  v101 = v16;
   if ((v18 & 4) != 0)
   {
-    v98 = v15;
+    v97 = v15;
     v19 = objc_alloc_init(MEMORY[0x277CCD2D8]);
     [v19 setMergeIntervals:1];
-    v127 = 0u;
-    v128 = 0u;
-    v125 = 0u;
     v126 = 0u;
+    v127 = 0u;
+    v124 = 0u;
+    v125 = 0u;
     mergedIntervals = [v17 mergedIntervals];
-    v23 = [mergedIntervals countByEnumeratingWithState:&v125 objects:v139 count:16];
+    v23 = [mergedIntervals countByEnumeratingWithState:&v124 objects:v138 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v126;
+      v25 = *v125;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v126 != v25)
+          if (*v125 != v25)
           {
             objc_enumerationMutation(mergedIntervals);
           }
 
-          [v19 insertInterval:*(*(&v125 + 1) + 8 * i)];
+          [v19 insertInterval:*(*(&v124 + 1) + 8 * i)];
         }
 
-        v24 = [mergedIntervals countByEnumeratingWithState:&v125 objects:v139 count:16];
+        v24 = [mergedIntervals countByEnumeratingWithState:&v124 objects:v138 count:16];
       }
 
       while (v24);
@@ -367,7 +366,7 @@ uint64_t __57__HDSleepDaySummaryBuilder__creationIntervalFromSamples___block_inv
 
   if ((v18 & 0xA) != 0)
   {
-    v98 = v15;
+    v97 = v15;
     [0 setMergeIntervals:1];
     v19 = 0;
     if ((v18 & 2) != 0)
@@ -376,48 +375,48 @@ LABEL_6:
       v20 = objc_alloc_init(MEMORY[0x277CCD2D8]);
 LABEL_17:
       [v20 setMergeIntervals:1];
-      v99 = v5;
-      v106 = v20;
+      v98 = v5;
+      v105 = v20;
       if ((v18 & 8) != 0)
       {
-        v108 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v107 = objc_alloc_init(MEMORY[0x277CBEB38]);
       }
 
       else
       {
-        v108 = 0;
+        v107 = 0;
       }
 
-      v123 = 0u;
-      v124 = 0u;
-      v121 = 0u;
       v122 = 0u;
+      v123 = 0u;
+      v120 = 0u;
+      v121 = 0u;
       obj = v16;
-      v27 = [obj countByEnumeratingWithState:&v121 objects:v138 count:16];
-      v107 = v19;
+      v27 = [obj countByEnumeratingWithState:&v120 objects:v137 count:16];
+      v106 = v19;
       if (v27)
       {
         v28 = v27;
-        v29 = *v122;
-        v111 = *MEMORY[0x277CCE100];
-        v113 = *MEMORY[0x277CCE0F8];
-        v109 = *MEMORY[0x277CCE0E0];
+        v29 = *v121;
+        v110 = *MEMORY[0x277CCE100];
+        v112 = *MEMORY[0x277CCE0F8];
+        v108 = *MEMORY[0x277CCE0E0];
         do
         {
           for (j = 0; j != v28; ++j)
           {
-            if (*v122 != v29)
+            if (*v121 != v29)
             {
               objc_enumerationMutation(obj);
             }
 
-            v31 = *(*(&v121 + 1) + 8 * j);
+            v31 = *(*(&v120 + 1) + 8 * j);
             metadata = [v31 metadata];
             v33 = metadata;
             if ((v18 & 4) != 0)
             {
-              v34 = [metadata objectForKeyedSubscript:v113];
-              v35 = [v33 objectForKeyedSubscript:v111];
+              v34 = [metadata objectForKeyedSubscript:v112];
+              v35 = [v33 objectForKeyedSubscript:v110];
               v36 = v35;
               if (v34)
               {
@@ -452,17 +451,17 @@ LABEL_39:
                   endDate = [v31 endDate];
                   v48 = [v45 initWithStartDate:startDate endDate:endDate];
 
-                  v49 = [v108 objectForKeyedSubscript:_timeZoneName];
+                  v49 = [v107 objectForKeyedSubscript:_timeZoneName];
                   if (!v49)
                   {
                     v49 = objc_alloc_init(MEMORY[0x277CCD2D8]);
                     [v49 setMergeIntervals:1];
-                    [v108 setObject:v49 forKeyedSubscript:_timeZoneName];
+                    [v107 setObject:v49 forKeyedSubscript:_timeZoneName];
                   }
 
                   [v49 insertInterval:v48];
 
-                  v19 = v107;
+                  v19 = v106;
                 }
 
                 goto LABEL_44;
@@ -479,12 +478,12 @@ LABEL_39:
             endDate2 = [v31 endDate];
             v42 = [v39 initWithStartDate:startDate2 endDate:endDate2];
 
-            v43 = [v33 objectForKeyedSubscript:v109];
+            v43 = [v33 objectForKeyedSubscript:v108];
             LODWORD(endDate2) = [v43 BOOLValue];
 
             if (endDate2)
             {
-              [v106 insertInterval:v42];
+              [v105 insertInterval:v42];
             }
 
             if ((v18 & 8) != 0)
@@ -495,16 +494,16 @@ LABEL_39:
 LABEL_44:
           }
 
-          v28 = [obj countByEnumeratingWithState:&v121 objects:v138 count:16];
+          v28 = [obj countByEnumeratingWithState:&v120 objects:v137 count:16];
         }
 
         while (v28);
       }
 
-      v110 = [HDSleepPeriodInfo alloc];
+      v109 = [HDSleepPeriodInfo alloc];
       mergedIntervals2 = [v19 mergedIntervals];
       v51 = MEMORY[0x277CBEBF8];
-      v112 = mergedIntervals2;
+      v111 = mergedIntervals2;
       if (mergedIntervals2)
       {
         v52 = mergedIntervals2;
@@ -515,9 +514,9 @@ LABEL_44:
         v52 = MEMORY[0x277CBEBF8];
       }
 
-      v96 = v52;
-      mergedIntervals3 = [v106 mergedIntervals];
-      v97 = mergedIntervals3;
+      v95 = v52;
+      mergedIntervals3 = [v105 mergedIntervals];
+      v96 = mergedIntervals3;
       if (mergedIntervals3)
       {
         v54 = mergedIntervals3;
@@ -528,73 +527,73 @@ LABEL_44:
         v54 = v51;
       }
 
-      v95 = v54;
-      v55 = v108;
+      v94 = v54;
+      v55 = v107;
       v56 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v132 = 0u;
       v133 = 0u;
       v134 = 0u;
       v135 = 0u;
-      v136 = 0u;
       obja = v55;
       allKeys = [v55 allKeys];
-      v57 = [allKeys countByEnumeratingWithState:&v133 objects:v141 count:16];
+      v57 = [allKeys countByEnumeratingWithState:&v132 objects:v140 count:16];
       if (v57)
       {
         v58 = v57;
-        v59 = *v134;
+        v59 = *v133;
         do
         {
           for (k = 0; k != v58; ++k)
           {
-            if (*v134 != v59)
+            if (*v133 != v59)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v61 = *(*(&v133 + 1) + 8 * k);
+            v61 = *(*(&v132 + 1) + 8 * k);
             v62 = [obja objectForKeyedSubscript:v61];
+            v128 = 0u;
             v129 = 0u;
             v130 = 0u;
             v131 = 0u;
-            v132 = 0u;
             mergedIntervals4 = [v62 mergedIntervals];
-            v64 = [mergedIntervals4 countByEnumeratingWithState:&v129 objects:v140 count:16];
+            v64 = [mergedIntervals4 countByEnumeratingWithState:&v128 objects:v139 count:16];
             if (v64)
             {
               v65 = v64;
-              v66 = *v130;
+              v66 = *v129;
               do
               {
                 for (m = 0; m != v65; ++m)
                 {
-                  if (*v130 != v66)
+                  if (*v129 != v66)
                   {
                     objc_enumerationMutation(mergedIntervals4);
                   }
 
-                  [v56 setObject:v61 forKeyedSubscript:*(*(&v129 + 1) + 8 * m)];
+                  [v56 setObject:v61 forKeyedSubscript:*(*(&v128 + 1) + 8 * m)];
                 }
 
-                v65 = [mergedIntervals4 countByEnumeratingWithState:&v129 objects:v140 count:16];
+                v65 = [mergedIntervals4 countByEnumeratingWithState:&v128 objects:v139 count:16];
               }
 
               while (v65);
             }
           }
 
-          v58 = [allKeys countByEnumeratingWithState:&v133 objects:v141 count:16];
+          v58 = [allKeys countByEnumeratingWithState:&v132 objects:v140 count:16];
         }
 
         while (v58);
       }
 
-      v68 = [v56 copy];
-      v69 = [(HDSleepPeriodInfo *)v110 initWithUserSetSchedules:v96 incompleteSessions:v95 mappedTimezones:v68];
+      v68 = objc_msgSend_copy(v56);
+      v69 = [(HDSleepPeriodInfo *)v109 initWithUserSetSchedules:v95 incompleteSessions:v94 mappedTimezones:v68];
 
-      v15 = v98;
-      v5 = v99;
-      v17 = v101;
-      v16 = v102;
+      v15 = v97;
+      v5 = v98;
+      v17 = v100;
+      v16 = v101;
       goto LABEL_67;
     }
 
@@ -606,30 +605,30 @@ LABEL_16:
   v69 = objc_alloc_init(HDSleepPeriodInfo);
 LABEL_67:
 
-  v70 = [[HDSleepPeriodArrayBuilder alloc] initWithInfo:v69 options:v100 & 0xF];
+  v70 = [[HDSleepPeriodArrayBuilder alloc] initWithInfo:v69 options:v99 & 0xF];
+  v116 = 0u;
   v117 = 0u;
   v118 = 0u;
   v119 = 0u;
-  v120 = 0u;
   v71 = v15;
-  v72 = [v71 countByEnumeratingWithState:&v117 objects:v137 count:16];
+  v72 = [v71 countByEnumeratingWithState:&v116 objects:v136 count:16];
   if (v72)
   {
     v73 = v72;
-    v74 = *v118;
+    v74 = *v117;
     do
     {
       for (n = 0; n != v73; ++n)
       {
-        if (*v118 != v74)
+        if (*v117 != v74)
         {
           objc_enumerationMutation(v71);
         }
 
-        [(HDSleepPeriodArrayBuilder *)v70 addOrderedSegment:*(*(&v117 + 1) + 8 * n)];
+        [(HDSleepPeriodArrayBuilder *)v70 addOrderedSegment:*(*(&v116 + 1) + 8 * n)];
       }
 
-      v73 = [v71 countByEnumeratingWithState:&v117 objects:v137 count:16];
+      v73 = [v71 countByEnumeratingWithState:&v116 objects:v136 count:16];
     }
 
     while (v73);
@@ -637,7 +636,7 @@ LABEL_67:
 
   finish = [(HDSleepPeriodArrayBuilder *)v70 finish];
 
-  selfCopy = v105;
+  selfCopy = v104;
 LABEL_75:
   sleepDurationGoalSamples = [(HDSleepDaySummaryBuilder *)selfCopy sleepDurationGoalSamples];
   lastObject = [sleepDurationGoalSamples lastObject];
@@ -677,7 +676,7 @@ LABEL_75:
     v90 = [v84 initWithStartDate:_creationDate endDate:_creationDate2];
 
     v5 = v87;
-    selfCopy = v105;
+    selfCopy = v104;
 
     goto LABEL_86;
   }
@@ -686,9 +685,7 @@ LABEL_85:
   v90 = 0;
 LABEL_86:
 
-  v92 = [MEMORY[0x277CCD9B0] daySummaryWithMorningIndex:-[HDSleepDaySummaryBuilder morningIndex](selfCopy dateInterval:"morningIndex") calendar:selfCopy->_dateInterval periods:selfCopy->_gregorianCalendar schedules:finish sleepDurationGoal:v103 minimumRecommendedSleepDurationGoal:quantity creationInterval:{v81, v90}];
-
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = [MEMORY[0x277CCD9B0] daySummaryWithMorningIndex:-[HDSleepDaySummaryBuilder morningIndex](selfCopy dateInterval:"morningIndex") calendar:selfCopy->_dateInterval periods:selfCopy->_gregorianCalendar schedules:finish sleepDurationGoal:v102 minimumRecommendedSleepDurationGoal:quantity creationInterval:{v81, v90}];
 
   return v92;
 }

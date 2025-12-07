@@ -11,18 +11,18 @@
   selfCopy = self;
   sub_1C99D2278();
 
-  type metadata accessor for SNSoundActionCommand();
-  v3 = sub_1C9A92768();
+  type metadata accessor for SNSoundActionCommand(v3);
+  v4 = sub_1C9A92768();
 
-  return v3;
+  return v4;
 }
 
 - (void)setCommands:(id)commands
 {
-  type metadata accessor for SNSoundActionCommand();
-  v4 = sub_1C9A92798();
+  type metadata accessor for SNSoundActionCommand(v3);
+  v5 = sub_1C9A92798();
   selfCopy = self;
-  sub_1C99D2418(v4);
+  sub_1C99D2418(v5);
 }
 
 - (SNDetectSoundActionsRequest)initWithModel:(id)model dictionary:(id)dictionary error:(id *)error

@@ -16,24 +16,23 @@
 {
   v3 = sub_31CC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_31BC();
   sub_310C();
-  v8 = swift_allocObject();
-  *(v8 + 16) = xmmword_3780;
-  v9 = objc_allocWithZone(type metadata accessor for HealthTopicsDiagnosticOperation());
-  sub_31AC(v10);
-  v12 = v11;
-  v13 = [v9 initWithAttachmentDirectoryURL:v11];
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_3780;
+  v8 = objc_allocWithZone(type metadata accessor for HealthTopicsDiagnosticOperation());
+  sub_31AC(v9);
+  v11 = v10;
+  v12 = [v8 initWithAttachmentDirectoryURL:v10];
 
-  *(v8 + 32) = v13;
-  (*(v4 + 8))(v7, v3);
+  *(v7 + 32) = v12;
+  (*(v4 + 8))(v6, v3);
   sub_3160();
-  v14.super.isa = sub_32AC().super.isa;
+  v13.super.isa = sub_32AC().super.isa;
 
-  return v14.super.isa;
+  return v13.super.isa;
 }
 
 @end

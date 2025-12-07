@@ -1,7 +1,8 @@
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 id ea_getFormattedDatePrint(void *a1, BOOL *a2)
@@ -85,7 +86,7 @@ uint64_t ea_getEpochTimestamp()
 
 id ea_getHashForString(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v1 = [a1 UTF8String];
@@ -103,32 +104,29 @@ id ea_getHashForString(void *a1)
     v3 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 void ea_sendSafetyAlertTapIndication(void *a1, uint64_t a2)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v10[0] = a1;
-  v9[0] = @"WeaMessage";
-  v9[1] = @"WeaHash";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v9[0] = a1;
+  v8[0] = @"WeaMessage";
+  v8[1] = @"WeaHash";
   v3 = a1;
   v4 = ea_getHashForString(v3);
-  v10[1] = v4;
-  v9[2] = @"UserInteractionType";
+  v9[1] = v4;
+  v8[2] = @"UserInteractionType";
   v5 = [MEMORY[0x277CCABB0] numberWithInt:a2];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   v7 = [MEMORY[0x277D4A9F8] sharedInterface];
 
   [v7 onUserTappedOnWeaWithInfo:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void EARegisterUserNotificationsLogging()
+void EARegisterUserNotificationsLogging(uint64_t result, uint64_t a2)
 {
   if (EARegisterUserNotificationsLogging_onceToken != -1)
   {
@@ -159,26 +157,21 @@ void EAHandleCellBroadcastMessageReceivedNotification(int a1, uint64_t a2, CFTyp
 
 void __EAHandleCellBroadcastMessageReceivedNotification_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = EALogDefault;
   if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_249FC1000, v2, OS_LOG_TYPE_DEFAULT, "Received broadcast message notification %{public}@", &v6, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_249FC1000, v2, OS_LOG_TYPE_DEFAULT, "Received broadcast message notification %{public}@", &v4, 0xCu);
   }
 
-  if (*(a1 + 32))
+  if (*(a1 + 32) && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v4 = *(a1 + 40);
-    if (objc_opt_respondsToSelector())
-    {
-      [*(a1 + 40) _cellBroadcastMessageReceived:*(a1 + 32)];
-    }
+    [*(a1 + 40) _cellBroadcastMessageReceived:*(a1 + 32)];
   }
 
   CFRelease(*(a1 + 48));
   CFRelease(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }

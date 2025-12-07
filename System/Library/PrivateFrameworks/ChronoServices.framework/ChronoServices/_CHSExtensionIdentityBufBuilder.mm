@@ -1,6 +1,6 @@
 @interface _CHSExtensionIdentityBufBuilder
-- (id)initWithBufferBuilder:(id *)builder;
 - (void)dealloc;
+- (void)initWithBufferBuilder:(void *)builder;
 - (void)setContainerBundleIdentifier:(id)identifier;
 - (void)setDeviceIdentifier:(id)identifier;
 - (void)setExtensionBundleIdentifier:(id)identifier;
@@ -9,7 +9,7 @@
 
 @implementation _CHSExtensionIdentityBufBuilder
 
-- (id)initWithBufferBuilder:(id *)builder
+- (void)initWithBufferBuilder:(void *)builder
 {
   v4 = a2;
   if (builder)
@@ -48,7 +48,6 @@
 
 - (void)setTokenString:(id)string
 {
-  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (!stringCopy)
   {
@@ -63,13 +62,10 @@
     v7 = stringCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 4, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setExtensionBundleIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -84,13 +80,10 @@
     v7 = identifierCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 6, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setContainerBundleIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -105,13 +98,10 @@
     v7 = identifierCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 8, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDeviceIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -126,8 +116,6 @@
     v7 = identifierCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 10, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

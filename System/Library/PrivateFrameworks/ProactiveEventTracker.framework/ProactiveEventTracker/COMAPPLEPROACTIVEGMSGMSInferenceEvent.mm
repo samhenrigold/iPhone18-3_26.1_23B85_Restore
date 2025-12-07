@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requestTypeAsString:(int)string;
 - (int)StringAsRequestType:(id)type;
 - (int)requestType;
 - (unint64_t)hash;
@@ -1791,7 +1792,6 @@ LABEL_23:
   has = self->_has;
   if ((*&has & 0x100000) != 0)
   {
-    requestType = self->_requestType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((*&has & 8) == 0)
@@ -1811,7 +1811,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  inputTokensCount = self->_inputTokensCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1826,7 +1825,6 @@ LABEL_4:
   }
 
 LABEL_28:
-  outputTokensCount = self->_outputTokensCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1841,7 +1839,6 @@ LABEL_5:
   }
 
 LABEL_29:
-  totalLatencyMillis = self->_totalLatencyMillis;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1856,7 +1853,6 @@ LABEL_6:
   }
 
 LABEL_30:
-  timeToFirstTokenMillis = self->_timeToFirstTokenMillis;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1871,7 +1867,6 @@ LABEL_7:
   }
 
 LABEL_31:
-  tokensPerSecond = self->_tokensPerSecond;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1886,7 +1881,6 @@ LABEL_8:
   }
 
 LABEL_32:
-  version = self->_version;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1901,7 +1895,6 @@ LABEL_9:
   }
 
 LABEL_33:
-  inferenceTimeMillis = self->_inferenceTimeMillis;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1916,7 +1909,6 @@ LABEL_10:
   }
 
 LABEL_34:
-  extendInferenceMillis = self->_extendInferenceMillis;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1931,7 +1923,6 @@ LABEL_11:
   }
 
 LABEL_35:
-  assetLoadAndTtftCombinedMillis = self->_assetLoadAndTtftCombinedMillis;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1946,7 +1937,6 @@ LABEL_12:
   }
 
 LABEL_36:
-  sdTinyModelInferenceCallCount = self->_sdTinyModelInferenceCallCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1961,7 +1951,6 @@ LABEL_13:
   }
 
 LABEL_37:
-  sdDraftModelInferenceCallCount = self->_sdDraftModelInferenceCallCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1976,7 +1965,6 @@ LABEL_14:
   }
 
 LABEL_38:
-  sdTargetModelInferenceCallCount = self->_sdTargetModelInferenceCallCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1991,7 +1979,6 @@ LABEL_15:
   }
 
 LABEL_39:
-  sdDraftTokenAcceptanceRate = self->_sdDraftTokenAcceptanceRate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -2006,7 +1993,6 @@ LABEL_16:
   }
 
 LABEL_40:
-  sdTinyTokenAcceptanceRate = self->_sdTinyTokenAcceptanceRate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -2021,7 +2007,6 @@ LABEL_17:
   }
 
 LABEL_41:
-  sdSpeculationSuccessRate = self->_sdSpeculationSuccessRate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -2036,7 +2021,6 @@ LABEL_18:
   }
 
 LABEL_42:
-  sdDraftOutputTokensCount = self->_sdDraftOutputTokensCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -2051,7 +2035,6 @@ LABEL_19:
   }
 
 LABEL_43:
-  sdTotalOutputTokensCount = self->_sdTotalOutputTokensCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -2066,7 +2049,6 @@ LABEL_20:
   }
 
 LABEL_44:
-  sdTinyModelTotalLatencyMillis = self->_sdTinyModelTotalLatencyMillis;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -2081,12 +2063,10 @@ LABEL_21:
   }
 
 LABEL_45:
-  sdDraftModelTotalLatencyMillis = self->_sdDraftModelTotalLatencyMillis;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x800) != 0)
   {
 LABEL_22:
-    sdTargetModelTotalLatencyMillis = self->_sdTargetModelTotalLatencyMillis;
     PBDataWriterWriteDoubleField();
   }
 
@@ -2743,6 +2723,21 @@ LABEL_27:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)requestTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86C2DB8[string];
   }
 
   return v4;

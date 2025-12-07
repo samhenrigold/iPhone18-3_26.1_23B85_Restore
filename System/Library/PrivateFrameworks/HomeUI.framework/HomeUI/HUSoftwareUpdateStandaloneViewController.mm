@@ -36,7 +36,7 @@
 
 - (void)refreshDataModelForHome:(id)home
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v12 - v5;
   v7 = sub_20D567C58();

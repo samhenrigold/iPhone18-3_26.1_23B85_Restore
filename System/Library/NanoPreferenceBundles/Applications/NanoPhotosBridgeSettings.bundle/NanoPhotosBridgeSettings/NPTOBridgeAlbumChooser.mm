@@ -16,7 +16,10 @@
 - (void)dealloc;
 - (void)photoLibraryDidChange:(id)change;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)updateNavigationBarAnimated:(BOOL)animated;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NPTOBridgeAlbumChooser
@@ -66,6 +69,52 @@
   [_mainTableView setSeparatorStyle:1];
 
   [(NPTOBridgeAlbumChooser *)self _reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = NPTOBridgeAlbumChooser;
+  [(NPTOBridgeAlbumChooser *)&v12 viewWillAppear:appear];
+  +[NPTOBridgeUserVisitDonation donateUserVisitForSelectedPhotoAlbumSection];
+  objc_initWeak(&location, self);
+  if (!self->_syncedAlbumIdentifierPreferenceObserver)
+  {
+    _preferencesAccessor = [(NPTOBridgeAlbumChooser *)self _preferencesAccessor];
+    v5 = +[NSOperationQueue mainQueue];
+    v6 = NPTOPreferencesSyncedAlbumIdentifierKey;
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_42E4;
+    v9[3] = &unk_C468;
+    objc_copyWeak(&v10, &location);
+    v7 = [_preferencesAccessor changeObserverForKey:v6 queue:v5 block:v9];
+    syncedAlbumIdentifierPreferenceObserver = self->_syncedAlbumIdentifierPreferenceObserver;
+    self->_syncedAlbumIdentifierPreferenceObserver = v7;
+
+    objc_destroyWeak(&v10);
+  }
+
+  objc_destroyWeak(&location);
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = NPTOBridgeAlbumChooser;
+  [(NPTOBridgeAlbumChooser *)&v5 viewDidDisappear:disappear];
+  syncedAlbumIdentifierPreferenceObserver = self->_syncedAlbumIdentifierPreferenceObserver;
+  self->_syncedAlbumIdentifierPreferenceObserver = 0;
+}
+
+- (void)updateNavigationBarAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v6.receiver = self;
+  v6.super_class = NPTOBridgeAlbumChooser;
+  [(NPTOBridgeAlbumChooser *)&v6 updateNavigationBarAnimated:?];
+  navigationItem = [(NPTOBridgeAlbumChooser *)self navigationItem];
+  [navigationItem setRightBarButtonItems:0 animated:animatedCopy];
 }
 
 - (void)_reloadData

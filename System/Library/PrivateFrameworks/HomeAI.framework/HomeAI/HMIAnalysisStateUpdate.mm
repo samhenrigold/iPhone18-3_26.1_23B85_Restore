@@ -29,8 +29,8 @@
 
 - (HMIAnalysisStateUpdate)initWithTorsoAnnotationsArray:(id)array
 {
-  v4 = [MEMORY[0x277CBEB98] setWithArray:array];
-  v5 = [(HMIAnalysisStateUpdate *)self initWithTorsoAnnotations:v4];
+  v4 = [MEMORY[0x277CBEB98] setWithArray:?];
+  v5 = [(HMIAnalysisStateUpdate *)self initWithTorsoAnnotations:?];
 
   return v5;
 }
@@ -41,21 +41,20 @@
   torsoAnnotations = [(HMIAnalysisStateUpdate *)self torsoAnnotations];
   torsoAnnotations2 = [updateCopy torsoAnnotations];
 
-  v7 = [torsoAnnotations setByAddingObjectsFromSet:torsoAnnotations2];
+  v7 = [torsoAnnotations setByAddingObjectsFromSet:?];
 
-  v8 = [[HMIAnalysisStateUpdate alloc] initWithTorsoAnnotations:v7];
+  v8 = [[HMIAnalysisStateUpdate alloc] initWithTorsoAnnotations:?];
 
   return v8;
 }
 
 - (id)attributeDescriptions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   torsoAnnotations = [(HMIAnalysisStateUpdate *)self torsoAnnotations];
-  v5 = [v3 initWithName:@"Torso Annotations" value:torsoAnnotations];
-  v8[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v5 = [v3 initWithName:? value:?];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:v8];
 
   return v6;
 }
@@ -79,7 +78,7 @@
   {
     torsoAnnotations = [(HMIAnalysisStateUpdate *)self torsoAnnotations];
     torsoAnnotations2 = [v6 torsoAnnotations];
-    v9 = [torsoAnnotations isEqual:torsoAnnotations2];
+    v9 = [torsoAnnotations isEqual:?];
   }
 
   else
@@ -102,23 +101,23 @@
 {
   coderCopy = coder;
   torsoAnnotations = [(HMIAnalysisStateUpdate *)self torsoAnnotations];
-  [coderCopy encodeObject:torsoAnnotations forKey:@"HMIASU.ck.ta"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (HMIAnalysisStateUpdate)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = MEMORY[0x277CBEB98];
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v7 = [v5 setWithArray:v6];
-  v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"HMIASU.ck.ta"];
+  v17 = objc_opt_class();
+  v18 = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v7 = [v5 setWithArray:?];
+  v8 = [coderCopy decodeObjectOfClasses:? forKey:?];
 
   if (v8)
   {
-    selfCopy = [(HMIAnalysisStateUpdate *)self initWithTorsoAnnotations:v8];
+    selfCopy = [(HMIAnalysisStateUpdate *)self initWithTorsoAnnotations:?];
     v10 = selfCopy;
   }
 

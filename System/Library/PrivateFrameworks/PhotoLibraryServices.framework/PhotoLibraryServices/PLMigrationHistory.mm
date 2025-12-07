@@ -462,7 +462,7 @@ LABEL_37:
 
   [v29 setForceRebuildReason:v28];
   [v29 setOrigin:v27];
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
     v35 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v14];
     [v29 setGlobalKeyValues:v35];
@@ -699,7 +699,7 @@ LABEL_34:
   [v23 setFrameworkUUID:uUIDString];
 
   v34 = [PLGlobalKeyValue dictionaryWithManagedObjectContext:contextCopy forMigrationHistory:1];
-  if ([v34 count])
+  if (objc_msgSend_count(v34))
   {
     v35 = v34;
   }

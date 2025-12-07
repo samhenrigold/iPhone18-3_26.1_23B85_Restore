@@ -8,9 +8,9 @@
 
 - (void)addEntitySpan:(id)span
 {
-  v87 = *MEMORY[0x1E69E9840];
-  v80.__r_.__value_.__s.__data_[0] = 0;
-  v81 = 0;
+  v79 = *MEMORY[0x1E69E9840];
+  v72.__r_.__value_.__s.__data_[0] = 0;
+  v73 = 0;
   spanCopy = span;
   originAppId = [spanCopy originAppId];
 
@@ -20,9 +20,9 @@
     uTF8String = [originAppId2 UTF8String];
     originAppId3 = [spanCopy originAppId];
     std::string::basic_string[abi:ne200100](&__dst, uTF8String, [originAppId3 lengthOfBytesUsingEncoding:4]);
-    v80 = __dst;
+    v72 = __dst;
     memset(&__dst, 0, sizeof(__dst));
-    v81 = 1;
+    v73 = 1;
   }
 
   sourceComponent = [spanCopy sourceComponent];
@@ -34,8 +34,8 @@
     [sourceComponent2 unsignedIntValue];
   }
 
-  v78.__r_.__value_.__s.__data_[0] = 0;
-  v79 = 0;
+  v70.__r_.__value_.__s.__data_[0] = 0;
+  v71 = 0;
   label = [spanCopy label];
   v11 = label == 0;
 
@@ -46,9 +46,9 @@
     uTF8String2 = [label2 UTF8String];
     label3 = [spanCopy label];
     std::string::basic_string[abi:ne200100](&__dst, uTF8String2, [label3 lengthOfBytesUsingEncoding:4]);
-    v78 = __dst;
+    v70 = __dst;
     memset(&__dst, 0, sizeof(__dst));
-    v79 = 1;
+    v71 = 1;
   }
 
   matchInfo = [spanCopy matchInfo];
@@ -61,31 +61,26 @@
   }
 
   __src = 0;
-  v76 = 0;
-  v77 = 0;
+  v68 = 0;
+  v69 = 0;
   properties = [spanCopy properties];
   v17 = properties == 0;
 
   if (!v17)
   {
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
-    v72 = 0u;
+    memset(v66, 0, sizeof(v66));
     properties2 = [spanCopy properties];
-    if ([properties2 countByEnumeratingWithState:&v71 objects:v86 count:16])
+    if ([properties2 countByEnumeratingWithState:v66 objects:v78 count:16])
     {
-      *v72;
-      *v72;
-      v19 = **(&v71 + 1);
+      v19 = **(&v66[0] + 1);
       v20 = [v19 key];
       v21 = v20;
       uTF8String3 = [v20 UTF8String];
       v23 = [v19 key];
-      std::string::basic_string[abi:ne200100](&v63, uTF8String3, [v23 lengthOfBytesUsingEncoding:4]);
+      std::string::basic_string[abi:ne200100](&v61, uTF8String3, [v23 lengthOfBytesUsingEncoding:4]);
 
       __p.__r_.__value_.__s.__data_[0] = 0;
-      v84 = 0;
+      v76 = 0;
       valueString = [v19 valueString];
       v25 = valueString != 0;
 
@@ -98,7 +93,7 @@
         std::string::basic_string[abi:ne200100](&__dst, uTF8String4, [valueString3 lengthOfBytesUsingEncoding:4]);
         __p = __dst;
         memset(&__dst, 0, sizeof(__dst));
-        v84 = 1;
+        v76 = 1;
       }
 
       valueInt = [v19 valueInt];
@@ -141,24 +136,19 @@
     [endIndex2 unsignedIntValue];
   }
 
-  v69[0] = 0;
-  v69[1] = 0;
-  v70 = 0;
+  v64[0] = 0;
+  v64[1] = 0;
+  v65 = 0;
   alternatives = [spanCopy alternatives];
   v43 = alternatives == 0;
 
   if (!v43)
   {
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
-    v66 = 0u;
+    memset(v63, 0, sizeof(v63));
     alternatives2 = [spanCopy alternatives];
-    if ([alternatives2 countByEnumeratingWithState:&v65 objects:v85 count:16])
+    if ([alternatives2 countByEnumeratingWithState:v63 objects:v77 count:16])
     {
-      *v66;
-      *v66;
-      v45 = **(&v65 + 1);
+      v45 = **(&v63[0] + 1);
       value = [v45 value];
       v47 = value;
       uTF8String5 = [value UTF8String];
@@ -178,8 +168,8 @@
     }
   }
 
-  v63.__r_.__value_.__s.__data_[0] = 0;
-  v64 = 0;
+  v61.__r_.__value_.__s.__data_[0] = 0;
+  v62 = 0;
   originEntityId = [spanCopy originEntityId];
   v54 = originEntityId != 0;
 
@@ -190,36 +180,34 @@
     uTF8String6 = [originEntityId2 UTF8String];
     originEntityId3 = [spanCopy originEntityId];
     std::string::basic_string[abi:ne200100](&__dst, uTF8String6, [originEntityId3 lengthOfBytesUsingEncoding:4]);
-    v63 = __dst;
+    v61 = __dst;
     memset(&__dst, 0, sizeof(__dst));
-    v64 = 1;
+    v62 = 1;
   }
 
-  usoEntityNode = self->_usoEntityNode;
   operator new();
 }
 
 - (void)addIdentifierWithValue:(id)value appBundleId:(id)id namespaceString:(id)string probability:(optional<double>)probability nluComponent:(optional<siri:(optional<unsigned int>)component :(optional<unsigned int>)a9 ontology::UsoIdentifier::NluComponent>)a7 groupIndex:interpretationGroup:
 {
   probabilityCopy = probability;
-  __dst[3] = a7;
+  v22 = a7;
   valueCopy = value;
   idCopy = id;
   stringCopy = string;
   std::string::basic_string[abi:ne200100](__dst, [valueCopy UTF8String], objc_msgSend(valueCopy, "lengthOfBytesUsingEncoding:", 4));
-  std::string::basic_string[abi:ne200100](&v21, [idCopy UTF8String], objc_msgSend(idCopy, "lengthOfBytesUsingEncoding:", 4));
+  std::string::basic_string[abi:ne200100](v20, [idCopy UTF8String], objc_msgSend(idCopy, "lengthOfBytesUsingEncoding:", 4));
   LOBYTE(__p[0]) = 0;
-  v20 = 0;
+  v19 = 0;
   if (stringCopy)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v16, [stringCopy UTF8String]);
-    *__p = v16;
-    v19 = v17;
-    v20 = 1;
+    std::string::basic_string[abi:ne200100]<0>(&v15, [stringCopy UTF8String]);
+    *__p = v15;
+    v18 = v16;
+    v19 = 1;
   }
 
-  usoEntityNode = self->_usoEntityNode;
-  siri::ontology::UsoEntityNode::addIdentifier();
+  siri::ontology::UsoEntityNode::addIdentifier(self->_usoEntityNode, __dst, v20, __p, &probabilityCopy.var0, &v22, &component, &a9);
 }
 
 - (USOEntityNode)initWithCppEntityNode:(void *)node

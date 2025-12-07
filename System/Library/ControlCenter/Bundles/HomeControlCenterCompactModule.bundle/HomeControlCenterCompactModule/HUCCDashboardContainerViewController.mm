@@ -9,9 +9,11 @@
 - (void)_requestRemoteViewControllerForHome:(id)home;
 - (void)_stopAndRemoveRemoteViewController;
 - (void)loadView;
+- (void)quickControlsPresentationDidUpdate:(BOOL)update;
 - (void)remoteDashboard:(id)dashboard viewServiceDidTerminateWithError:(id)error;
 - (void)requestDismissal;
 - (void)requestLockAuthenticationForRemoteDashboard:(id)dashboard;
+- (void)willBeginTransition:(BOOL)transition forCompactModule:(BOOL)module;
 - (void)willFinishTransition:(BOOL)transition forCompactModule:(BOOL)module;
 @end
 
@@ -43,6 +45,22 @@
   home = [mEMORY[0x29EDC5390] home];
 
   [(HUCCDashboardContainerViewController *)self _requestRemoteViewControllerForHome:home];
+}
+
+- (void)willBeginTransition:(BOOL)transition forCompactModule:(BOOL)module
+{
+  moduleCopy = module;
+  transitionCopy = transition;
+  if (transition)
+  {
+    view = [(HUCCDashboardContainerViewController *)self view];
+    remoteDashboardViewController = [(HUCCDashboardContainerViewController *)self remoteDashboardViewController];
+    view2 = [remoteDashboardViewController view];
+    [view addSubview:view2];
+  }
+
+  serviceViewControllerProxy = [(HUCCDashboardContainerViewController *)self serviceViewControllerProxy];
+  [serviceViewControllerProxy willBeginTransition:transitionCopy forCompactModule:moduleCopy];
 }
 
 - (void)willFinishTransition:(BOOL)transition forCompactModule:(BOOL)module
@@ -279,6 +297,13 @@
   v5[3] = &unk_29F339AA8;
   v5[4] = self;
   [delegate requestAuthenticationIfLockedWithCompletionHandler:v5];
+}
+
+- (void)quickControlsPresentationDidUpdate:(BOOL)update
+{
+  updateCopy = update;
+  delegate = [(HUCCDashboardContainerViewController *)self delegate];
+  [delegate quickControlsPresentationDidUpdate:updateCopy];
 }
 
 - (HUCCDashboardContainerViewControllerDelegate)delegate

@@ -330,7 +330,7 @@ uint64_t __54__ML3DatabaseConnectionPool__connectionForIdentifier___block_invoke
   dispatch_sync(serialQueue, block);
 }
 
-uint64_t __39__ML3DatabaseConnectionPool_setClosed___block_invoke(uint64_t a1)
+void *__39__ML3DatabaseConnectionPool_setClosed___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 8) setSubPoolIsClosed];
   result = [*(*(a1 + 32) + 16) setSubPoolIsClosed];
@@ -588,7 +588,7 @@ LABEL_25:
 LABEL_38:
 }
 
-uint64_t __47__ML3DatabaseConnectionPool_checkInConnection___block_invoke(uint64_t a1)
+void *__47__ML3DatabaseConnectionPool_checkInConnection___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setUseCount:{objc_msgSend(*(a1 + 32), "useCount") - 1}];
   result = [*(a1 + 32) useCount];

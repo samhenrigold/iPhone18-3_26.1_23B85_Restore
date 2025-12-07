@@ -13,25 +13,25 @@
 + (uint64_t)tint
 {
   objc_opt_self();
-  v0 = MEMORY[0x277D75348];
+  v1 = MEMORY[0x277D75348];
 
-  return [v0 systemBlueColor];
+  return [v1 systemBlueColor];
 }
 
 + (uint64_t)primaryLabel
 {
   objc_opt_self();
-  v0 = MEMORY[0x277D75348];
+  v1 = MEMORY[0x277D75348];
 
-  return [v0 labelColor];
+  return [v1 labelColor];
 }
 
 + (uint64_t)secondaryLabel
 {
   objc_opt_self();
-  v0 = MEMORY[0x277D75348];
+  v1 = MEMORY[0x277D75348];
 
-  return [v0 secondaryLabelColor];
+  return [v1 secondaryLabelColor];
 }
 
 + (id)artworkPlaceholder
@@ -42,9 +42,9 @@
     +[ASCSemanticColor artworkPlaceholder];
   }
 
-  v0 = artworkPlaceholder_defaultPlaceholderColor;
+  v1 = artworkPlaceholder_defaultPlaceholderColor;
 
-  return v0;
+  return v1;
 }
 
 void __38__ASCSemanticColor_artworkPlaceholder__block_invoke()
@@ -65,9 +65,9 @@ void __38__ASCSemanticColor_artworkPlaceholder__block_invoke()
     +[ASCSemanticColor artworkBorder];
   }
 
-  v0 = artworkBorder_borderColor;
+  v1 = artworkBorder_borderColor;
 
-  return v0;
+  return v1;
 }
 
 void __33__ASCSemanticColor_artworkBorder__block_invoke()
@@ -88,9 +88,9 @@ void __33__ASCSemanticColor_artworkBorder__block_invoke()
     +[ASCSemanticColor artworkSymbolTint];
   }
 
-  v0 = artworkSymbolTint_symbolTintColor;
+  v1 = artworkSymbolTint_symbolTintColor;
 
-  return v0;
+  return v1;
 }
 
 void __37__ASCSemanticColor_artworkSymbolTint__block_invoke()
@@ -105,9 +105,9 @@ void __37__ASCSemanticColor_artworkSymbolTint__block_invoke()
 
 + (id)loading
 {
-  objc_opt_self();
+  v1 = objc_opt_self();
 
-  return +[ASCSemanticColor artworkPlaceholder];
+  return +[(ASCSemanticColor *)v1];
 }
 
 @end

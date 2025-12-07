@@ -87,20 +87,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    faceTimeAudioAvailable = self->_faceTimeAudioAvailable;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    faceTimeVideoAvailable = self->_faceTimeVideoAvailable;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -167,7 +165,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v7 = equalCopy[8];
   if (self->_faceTimeAudioAvailable)
   {
     if ((equalCopy[8] & 1) == 0)

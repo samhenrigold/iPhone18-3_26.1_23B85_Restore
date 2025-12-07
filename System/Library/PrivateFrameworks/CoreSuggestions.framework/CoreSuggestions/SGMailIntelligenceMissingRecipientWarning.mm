@@ -1,5 +1,7 @@
 @interface SGMailIntelligenceMissingRecipientWarning
 - (SGMailIntelligenceMissingRecipientWarning)initWithCoder:(id)coder;
+- (SGMailIntelligenceMissingRecipientWarning)initWithSnippet:(id)snippet core:(id)core handle:(id)handle signature:(id)signature detectedLanguage:(id)language isIncomingMessage:(BOOL)message score:(id)score matchFoundInBCC:(id)self0;
+- (SGMailIntelligenceMissingRecipientWarning)initWithSnippet:(id)snippet core:(id)core signature:(id)signature detectedLanguage:(id)language isIncomingMessage:(BOOL)message score:(id)score matchFoundInBCC:(id)c;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -84,6 +86,42 @@
   }
 
   return v15;
+}
+
+- (SGMailIntelligenceMissingRecipientWarning)initWithSnippet:(id)snippet core:(id)core handle:(id)handle signature:(id)signature detectedLanguage:(id)language isIncomingMessage:(BOOL)message score:(id)score matchFoundInBCC:(id)self0
+{
+  messageCopy = message;
+  handleCopy = handle;
+  cCopy = c;
+  v22.receiver = self;
+  v22.super_class = SGMailIntelligenceMissingRecipientWarning;
+  v18 = [(SGMailIntelligenceWarning *)&v22 initWithSnippet:snippet core:core signature:signature detectedLanguage:language isIncomingMessage:messageCopy score:score];
+  v19 = v18;
+  if (v18)
+  {
+    objc_storeStrong(&v18->_matchFoundInBCC, c);
+    objc_storeStrong(&v19->_handle, handle);
+  }
+
+  return v19;
+}
+
+- (SGMailIntelligenceMissingRecipientWarning)initWithSnippet:(id)snippet core:(id)core signature:(id)signature detectedLanguage:(id)language isIncomingMessage:(BOOL)message score:(id)score matchFoundInBCC:(id)c
+{
+  messageCopy = message;
+  cCopy = c;
+  v21.receiver = self;
+  v21.super_class = SGMailIntelligenceMissingRecipientWarning;
+  v17 = [(SGMailIntelligenceWarning *)&v21 initWithSnippet:snippet core:core signature:signature detectedLanguage:language isIncomingMessage:messageCopy score:score];
+  v18 = v17;
+  if (v17)
+  {
+    objc_storeStrong(&v17->_matchFoundInBCC, c);
+    handle = v18->_handle;
+    v18->_handle = 0;
+  }
+
+  return v18;
 }
 
 @end

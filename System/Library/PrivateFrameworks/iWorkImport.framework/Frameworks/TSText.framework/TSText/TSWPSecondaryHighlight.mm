@@ -17,7 +17,7 @@
   length = range.length;
   location = range.location;
   ObjectType = swift_getObjectType();
-  sub_276F48C74(&qword_280A57BA0);
+  sub_276F48C74(&qword_280A57BA0, &qword_276FAC860);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_276FAC850;
   *(v10 + 32) = location;
@@ -45,7 +45,7 @@
 
 - (NSArray)layers
 {
-  sub_276F494D0(0, &qword_280A57C70);
+  sub_276F494D0(0, &qword_280A57C70, 0x277CD9F90);
 
   v2 = sub_276F59D58();
 
@@ -68,11 +68,11 @@
 
 - (void)updateLayersForRep:(id)rep columns:(id)columns
 {
-  sub_276F494D0(0, &qword_280A57C68);
-  sub_276F59D68();
+  sub_276F494D0(0, &qword_280A57C68, off_27A6F2A30);
+  v6 = sub_276F59D68();
   repCopy = rep;
   selfCopy = self;
-  sub_276F48CBC();
+  sub_276F48CBC(v6);
 }
 
 - (BOOL)wantsCaretAndSelectionVisibleFor:(id)for

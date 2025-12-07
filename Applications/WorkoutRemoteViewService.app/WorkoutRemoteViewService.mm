@@ -120,7 +120,7 @@ LABEL_20:
     if (v17)
     {
       v18 = aBlock;
-      WorkoutRemoteAlertServiceViewController.presentPreviewController(with:)();
+      WorkoutRemoteAlertServiceViewController.presentPreviewController(with:)(aBlock, *(&aBlock + 1));
       v17 = outlined consume of Data._Representation(v18, *(&v18 + 1));
     }
 
@@ -140,77 +140,75 @@ LABEL_22:
 
 void thunk for @escaping @callee_guaranteed (@guaranteed Error?) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
-uint64_t WorkoutRemoteAlertServiceViewController.presentPreviewController(with:)()
+uint64_t WorkoutRemoteAlertServiceViewController.presentPreviewController(with:)(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
-  v2 = type metadata accessor for WorkoutConfigurationView();
-  v27[0] = *(v2 - 8);
-  v3 = *(v27[0] + 64);
-  v4 = (__chkstk_darwin)();
-  v6 = v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v8 = v27 - v7;
+  v3 = v2;
+  v4 = type metadata accessor for WorkoutConfigurationView();
+  v28[0] = *(v4 - 8);
+  v5 = __chkstk_darwin(v4);
+  v7 = v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = v28 - v8;
   type metadata accessor for WorkoutConfiguration();
   type metadata accessor for Occurrence();
-  v9 = Occurrence.__allocating_init(count:)();
+  v10 = Occurrence.__allocating_init(count:)();
   type metadata accessor for WorkoutConfigurationValidator();
   static WorkoutConfigurationValidator.shared.getter();
-  v10 = static WorkoutConfiguration.importFromData(_:with:validator:)();
+  v11 = static WorkoutConfiguration.importFromData(_:with:validator:)();
 
   type metadata accessor for WorkoutCoreInjector();
-  v11 = static WorkoutCoreInjector.shared.getter();
-  v12 = dispatch thunk of WorkoutCoreInjector.inject()();
+  v12 = static WorkoutCoreInjector.shared.getter();
+  v13 = dispatch thunk of WorkoutCoreInjector.inject()();
 
-  *(swift_allocObject() + 16) = v1;
-  v13 = v10;
-  v14 = v12;
-  v15 = v1;
+  *(swift_allocObject() + 16) = v3;
+  v14 = v11;
+  v15 = v13;
+  v16 = v3;
   WorkoutConfigurationView.init(workoutConfiguration:formattingManager:showAddButton:showStartWorkoutButton:overrideSaveWorkoutAction:startWorkoutAction:overrideDismissAction:referenceIntervalWorkoutConfiguration:)();
-  v16 = v27[0];
-  (*(v27[0] + 16))(v6, v8, v2);
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type WorkoutConfigurationView and conformance WorkoutConfigurationView, &type metadata accessor for WorkoutConfigurationView);
+  v17 = v28[0];
+  (*(v28[0] + 16))(v7, v9, v4);
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type WorkoutConfigurationView and conformance WorkoutConfigurationView, &type metadata accessor for WorkoutConfigurationView, &protocol conformance descriptor for WorkoutConfigurationView);
   AnyView.init<A>(_:)();
-  v17 = _makeUIHostingController(_:)();
+  v18 = _makeUIHostingController(_:)();
 
   objc_opt_self();
-  v18 = swift_dynamicCastObjCClass();
-  if (v18)
+  v19 = swift_dynamicCastObjCClass();
+  if (v19)
   {
-    v19 = v18;
-    v20 = objc_allocWithZone(UINavigationController);
-    v21 = v17;
-    v22 = [v20 initWithRootViewController:v19];
-    [v22 setModalInPresentation:1];
-    [v15 presentViewController:v22 animated:1 completion:0];
+    v20 = v19;
+    v21 = objc_allocWithZone(UINavigationController);
+    v22 = v18;
+    v23 = [v21 initWithRootViewController:v20];
+    [v23 setModalInPresentation:1];
+    [v16 presentViewController:v23 animated:1 completion:0];
 
-    return (*(v16 + 8))(v8, v2);
+    return (*(v17 + 8))(v9, v4);
   }
 
   else
   {
 
-    v24 = type metadata accessor for ImportError();
-    lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type ImportError and conformance ImportError, &type metadata accessor for ImportError);
-    v25 = swift_allocError();
-    (*(*(v24 - 8) + 104))(v26, enum case for ImportError.unexpectedValueType(_:), v24);
+    v25 = type metadata accessor for ImportError();
+    lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type ImportError and conformance ImportError, &type metadata accessor for ImportError, &protocol conformance descriptor for ImportError);
+    v26 = swift_allocError();
+    (*(*(v25 - 8) + 104))(v27, enum case for ImportError.unexpectedValueType(_:), v25);
     swift_willThrow();
 
-    (*(v16 + 8))(v8, v2);
-    WorkoutRemoteAlertServiceViewController.presentError(_:)(v25);
+    (*(v17 + 8))(v9, v4);
+    WorkoutRemoteAlertServiceViewController.presentError(_:)(v26);
   }
 }
 
 void WorkoutRemoteAlertServiceViewController.presentError(_:)(uint64_t a1)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10WorkoutKit11ImportErrorOSgMd, &_s10WorkoutKit11ImportErrorOSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10WorkoutKit11ImportErrorOSgMd, &_s10WorkoutKit11ImportErrorOSgMR);
+  __chkstk_darwin(v3 - 8);
   v5 = aBlock - v4;
   aBlock[0] = a1;
   swift_errorRetain();
@@ -275,13 +273,13 @@ void WorkoutRemoteAlertServiceViewController.presentError(_:)(uint64_t a1)
   }
 }
 
-void closure #1 in WorkoutRemoteAlertServiceViewController.presentError(_:)()
+void closure #1 in WorkoutRemoteAlertServiceViewController.presentError(_:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     WorkoutRemoteAlertServiceViewController.dismissView()();
   }
 }
@@ -321,24 +319,22 @@ uint64_t closure #1 in WorkoutRemoteAlertServiceViewController.dismissView()(voi
 {
   v2 = type metadata accessor for DispatchWorkItemFlags();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin();
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for DispatchQoS();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin();
-  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = closure #1 in closure #1 in WorkoutRemoteAlertServiceViewController.dismissView();
-  v24 = 0;
+  __chkstk_darwin(v2);
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for DispatchQoS();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = closure #1 in closure #1 in WorkoutRemoteAlertServiceViewController.dismissView();
+  v22 = 0;
   *&aBlock = _NSConcreteStackBlock;
   *(&aBlock + 1) = 1107296256;
-  *&v22 = thunk for @escaping @callee_guaranteed (@guaranteed Error?) -> ();
-  *(&v22 + 1) = &block_descriptor_6;
-  v12 = _Block_copy(&aBlock);
-  v13 = [a1 _remoteViewControllerProxyWithErrorHandler:v12];
-  _Block_release(v12);
-  if (v13)
+  *&v20 = thunk for @escaping @callee_guaranteed (@guaranteed Error?) -> ();
+  *(&v20 + 1) = &block_descriptor_6;
+  v10 = _Block_copy(&aBlock);
+  v11 = [a1 _remoteViewControllerProxyWithErrorHandler:v10];
+  _Block_release(v10);
+  if (v11)
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
@@ -347,50 +343,50 @@ uint64_t closure #1 in WorkoutRemoteAlertServiceViewController.dismissView()(voi
   else
   {
     aBlock = 0u;
-    v22 = 0u;
+    v20 = 0u;
   }
 
-  v25[0] = aBlock;
-  v25[1] = v22;
-  outlined init with copy of Any?(v25, &aBlock);
-  if (*(&v22 + 1))
+  v23[0] = aBlock;
+  v23[1] = v20;
+  outlined init with copy of Any?(v23, &aBlock);
+  if (*(&v20 + 1))
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo28SBUIRemoteAlertHostInterface_pMd, &_sSo28SBUIRemoteAlertHostInterface_pMR);
     if (swift_dynamicCast())
     {
-      v14 = v20;
-      [v20 deactivate];
-      [v14 invalidate];
+      v12 = v18;
+      [v18 deactivate];
+      [v12 invalidate];
       type metadata accessor for OS_dispatch_queue();
-      v15 = static OS_dispatch_queue.main.getter();
-      v23 = closure #2 in closure #1 in WorkoutRemoteAlertServiceViewController.dismissView();
-      v24 = 0;
+      v13 = static OS_dispatch_queue.main.getter();
+      v21 = closure #2 in closure #1 in WorkoutRemoteAlertServiceViewController.dismissView();
+      v22 = 0;
       *&aBlock = _NSConcreteStackBlock;
       *(&aBlock + 1) = 1107296256;
-      *&v22 = thunk for @escaping @callee_guaranteed () -> ();
-      *(&v22 + 1) = &block_descriptor_9;
-      v16 = _Block_copy(&aBlock);
+      *&v20 = thunk for @escaping @callee_guaranteed () -> ();
+      *(&v20 + 1) = &block_descriptor_9;
+      v14 = _Block_copy(&aBlock);
       static DispatchQoS.unspecified.getter();
       *&aBlock = &_swiftEmptyArrayStorage;
-      lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags);
-      v19 = v7;
+      lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      v17 = v6;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
       lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
       dispatch thunk of SetAlgebra.init<A>(_:)();
       OS_dispatch_queue.async(group:qos:flags:execute:)();
-      _Block_release(v16);
+      _Block_release(v14);
       swift_unknownObjectRelease();
 
-      (*(v3 + 8))(v6, v2);
-      (*(v8 + 8))(v11, v19);
+      (*(v3 + 8))(v5, v2);
+      (*(v7 + 8))(v9, v17);
     }
 
-    p_aBlock = v25;
+    p_aBlock = v23;
   }
 
   else
   {
-    outlined destroy of Any?(v25, &_sypSgMd, &_sypSgMR);
+    outlined destroy of Any?(v23, &_sypSgMd, &_sypSgMR);
     p_aBlock = &aBlock;
   }
 
@@ -401,31 +397,30 @@ uint64_t closure #1 in WorkoutRemoteAlertServiceViewController.configure(with:co
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static WOLog.app.getter();
   swift_errorRetain();
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.error.getter();
+  v6 = Logger.logObject.getter();
+  v7 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v7, v8))
+  if (os_log_type_enabled(v6, v7))
   {
+    v8 = swift_slowAlloc();
     v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    v15 = a1;
-    v16 = v10;
-    *v9 = 136315138;
+    v14 = a1;
+    v15 = v9;
+    *v8 = 136315138;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pSgMd, &_ss5Error_pSgMR);
-    v11 = Optional.description.getter();
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v16);
+    v10 = Optional.description.getter();
+    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v15);
 
-    *(v9 + 4) = v13;
-    _os_log_impl(&_mh_execute_header, v7, v8, "[RemoteAlert] proxy error: %s", v9, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v10);
+    *(v8 + 4) = v12;
+    _os_log_impl(&_mh_execute_header, v6, v7, "[RemoteAlert] proxy error: %s", v8, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v9);
   }
 
-  return (*(v3 + 8))(v6, v2);
+  return (*(v3 + 8))(v5, v2);
 }
 
 id closure #2 in closure #1 in WorkoutRemoteAlertServiceViewController.dismissView()()
@@ -443,16 +438,15 @@ id closure #2 in closure #1 in WorkoutRemoteAlertServiceViewController.dismissVi
 uint64_t thunk for @escaping @callee_guaranteed () -> ()(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
-id WorkoutRemoteAlertServiceViewController.__deallocating_deinit()
+id WorkoutRemoteAlertServiceViewController.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for WorkoutRemoteAlertServiceViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for WorkoutRemoteAlertServiceViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_1000034C0()
@@ -463,16 +457,8 @@ uint64_t sub_1000034C0()
 
 uint64_t sub_100003500()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
-}
-
-uint64_t partial apply for closure #2 in WorkoutRemoteAlertServiceViewController.dismissView()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -494,7 +480,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -533,7 +518,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -541,7 +525,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -641,11 +625,9 @@ LABEL_8:
 
 char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
@@ -745,7 +727,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -759,15 +740,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -782,15 +763,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -799,12 +780,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -912,15 +893,17 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
@@ -945,7 +928,7 @@ uint64_t sub_100003DDC()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -958,7 +941,7 @@ uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and
   return result;
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -982,13 +965,13 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1)
   return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v4);
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -1021,11 +1004,10 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
 
 void thunk for @escaping @callee_guaranteed (@guaranteed UIAlertAction) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 id WorkoutPreviewViewController.formattingManager.getter()
@@ -1065,25 +1047,24 @@ id @objc static WorkoutPreviewViewController._remoteViewControllerInterface()(ui
 void WorkoutPreviewViewController.presentConfigurationViewer(for:)(void *a1)
 {
   v3 = type metadata accessor for WorkoutConfigurationView();
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3);
-  v5 = a1;
+  v4 = a1;
   WorkoutPreviewViewController.formattingManager.getter();
   *(swift_allocObject() + 16) = v1;
-  v6 = v1;
+  v5 = v1;
   WorkoutConfigurationView.init(workoutConfiguration:formattingManager:showAddButton:showStartWorkoutButton:overrideSaveWorkoutAction:startWorkoutAction:overrideDismissAction:referenceIntervalWorkoutConfiguration:)();
   lazy protocol witness table accessor for type WorkoutConfigurationView and conformance WorkoutConfigurationView();
   AnyView.init<A>(_:)();
-  v7 = _makeUIHostingController(_:)();
+  v6 = _makeUIHostingController(_:)();
 
   objc_opt_self();
-  v8 = swift_dynamicCastObjCClass();
-  if (v8)
+  v7 = swift_dynamicCastObjCClass();
+  if (v7)
   {
-    v9 = [objc_allocWithZone(UINavigationController) initWithRootViewController:v8];
-    WorkoutPreviewViewController.displayViewController(_:)(v9);
+    v8 = [objc_allocWithZone(UINavigationController) initWithRootViewController:v7];
+    WorkoutPreviewViewController.displayViewController(_:)(v8);
 
-    v7 = v9;
+    v6 = v8;
   }
 }
 
@@ -1245,64 +1226,63 @@ LABEL_25:
 void WorkoutPreviewViewController.presentError(_:)(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10WorkoutKit11ImportErrorOSgMd, &_s10WorkoutKit11ImportErrorOSgMR);
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  v5 = aBlock - v4;
+  v4 = aBlock - v3;
   aBlock[0] = a1;
   swift_errorRetain();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-  v6 = type metadata accessor for ImportError();
-  v7 = swift_dynamicCast();
-  v8 = *(*(v6 - 8) + 56);
-  if (v7)
+  v5 = type metadata accessor for ImportError();
+  v6 = swift_dynamicCast();
+  v7 = *(*(v5 - 8) + 56);
+  if (v6)
   {
-    v9 = *(v6 - 8);
-    v8(v5, 0, 1, v6);
-    (*(v9 + 88))(v5, v6);
-    (*(v9 + 8))(v5, v6);
+    v8 = *(v5 - 8);
+    v7(v4, 0, 1, v5);
+    (*(v8 + 88))(v4, v5);
+    (*(v8 + 8))(v4, v5);
   }
 
   else
   {
-    v8(v5, 1, 1, v6);
-    outlined destroy of ImportError?(v5);
+    v7(v4, 1, 1, v5);
+    outlined destroy of ImportError?(v4);
   }
 
   String.workoutKitLocalized()();
   String.workoutKitLocalized()();
   String.workoutKitLocalized()();
+  v9 = String._bridgeToObjectiveC()();
   v10 = String._bridgeToObjectiveC()();
-  v11 = String._bridgeToObjectiveC()();
 
-  v12 = [objc_opt_self() alertControllerWithTitle:v10 message:v11 preferredStyle:1];
+  v11 = [objc_opt_self() alertControllerWithTitle:v9 message:v10 preferredStyle:1];
 
-  v13 = swift_allocObject();
+  v12 = swift_allocObject();
   swift_unknownObjectWeakInit();
 
-  v14 = String._bridgeToObjectiveC()();
+  v13 = String._bridgeToObjectiveC()();
   aBlock[4] = partial apply for closure #1 in WorkoutPreviewViewController.presentError(_:);
-  aBlock[5] = v13;
+  aBlock[5] = v12;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIAlertAction) -> ();
   aBlock[3] = &block_descriptor_0;
-  v15 = _Block_copy(aBlock);
+  v14 = _Block_copy(aBlock);
 
-  v16 = [objc_opt_self() actionWithTitle:v14 style:0 handler:v15];
-  _Block_release(v15);
+  v15 = [objc_opt_self() actionWithTitle:v13 style:0 handler:v14];
+  _Block_release(v14);
 
-  [v12 addAction:v16];
-  v17 = [objc_allocWithZone(UIViewController) init];
-  v18 = [v17 view];
-  if (v18)
+  [v11 addAction:v15];
+  v16 = [objc_allocWithZone(UIViewController) init];
+  v17 = [v16 view];
+  if (v17)
   {
-    v19 = v18;
+    v18 = v17;
 
-    v20 = [objc_opt_self() systemBackgroundColor];
-    [v19 setBackgroundColor:v20];
+    v19 = [objc_opt_self() systemBackgroundColor];
+    [v18 setBackgroundColor:v19];
 
-    WorkoutPreviewViewController.displayViewController(_:)(v17);
-    [v17 presentViewController:v12 animated:0 completion:0];
+    WorkoutPreviewViewController.displayViewController(_:)(v16);
+    [v16 presentViewController:v11 animated:0 completion:0];
   }
 
   else
@@ -1311,28 +1291,28 @@ void WorkoutPreviewViewController.presentError(_:)(uint64_t a1)
   }
 }
 
-void closure #1 in WorkoutPreviewViewController.presentError(_:)()
+void closure #1 in WorkoutPreviewViewController.presentError(_:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = WorkoutRemoteViewServiceExportedInterfaceFunc([Strong _remoteViewControllerProxy]);
+    v3 = Strong;
+    v4 = WorkoutRemoteViewServiceExportedInterfaceFunc([Strong _remoteViewControllerProxy]);
     swift_unknownObjectRelease();
-    if (v2)
+    if (v4)
     {
-      [v2 dismiss];
+      [v4 dismiss];
       swift_unknownObjectRelease();
     }
   }
 }
 
-id WorkoutPreviewViewController.__deallocating_deinit()
+id WorkoutPreviewViewController.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for WorkoutPreviewViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for WorkoutPreviewViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t outlined destroy of ImportError?(uint64_t a1)

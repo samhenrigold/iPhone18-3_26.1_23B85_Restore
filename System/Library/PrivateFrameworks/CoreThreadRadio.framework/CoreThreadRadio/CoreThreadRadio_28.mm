@@ -1,3 +1,2269 @@
+void ot::BackboneRouter::Manager::HandleDadBackboneAnswer(ot::BackboneRouter::Manager *this, const ot::Ip6::Address *a2, const ot::Ip6::InterfaceIdentifier *a3)
+{
+  v24 = this;
+  v23 = a2;
+  v22 = a3;
+  v21 = 0;
+  v20 = ot::BackboneRouter::NdProxyTable::ResolveDua((this + 8), a2);
+  v19 = 0;
+  if (v20)
+  {
+    MeshLocalIid = ot::BackboneRouter::NdProxyTable::NdProxy::GetMeshLocalIid(v20);
+    v19 = ot::Unequatable<ot::Ip6::InterfaceIdentifier>::operator!=(MeshLocalIid, v22);
+    if (v19)
+    {
+      v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+      MeshLocalPrefix = ot::Mle::Mle::GetMeshLocalPrefix(v4);
+      Rloc16 = ot::BackboneRouter::NdProxyTable::NdProxy::GetRloc16(v20);
+      ot::Ip6::Address::SetToRoutingLocator(&v18, MeshLocalPrefix, Rloc16);
+      v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(this);
+      ot::AddressResolver::SendAddressError(v6, v23, v22, &v18);
+    }
+
+    ot::BackboneRouter::NdProxyTable::NotifyDadComplete(v20, v19);
+  }
+
+  else
+  {
+    v21 = 23;
+  }
+
+  v13 = ot::ErrorToString(v21);
+  ot::Ip6::Address::ToString(v26, v23);
+  v14 = ot::String<(unsigned short)40>::AsCString(v26);
+  ot::Ip6::InterfaceIdentifier::ToString(v22, v25);
+  v15 = ot::String<(unsigned short)17>::AsCString(v25);
+  if (v19)
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("BbrManager", "HandleDadBackboneAnswer: %s, target=%s, mliid=%s, duplicate=%s", v7, v8, v9, v10, v11, v12, v13, v14, v15, "Y");
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("BbrManager", "HandleDadBackboneAnswer: %s, target=%s, mliid=%s, duplicate=%s", v7, v8, v9, v10, v11, v12, v13, v14, v15, "N");
+  }
+}
+
+void ot::BackboneRouter::Manager::HandleExtendedBackboneAnswer(ot::BackboneRouter::Manager *this, const ot::Ip6::Address *a2, const ot::Ip6::InterfaceIdentifier *a3, unsigned int a4, unsigned __int16 a5)
+{
+  v22 = this;
+  v21 = a2;
+  *&v20[1] = a3;
+  v20[0] = a4;
+  v19 = a5;
+  v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Mle::MleRouter>(this);
+  MeshLocalPrefix = ot::Mle::Mle::GetMeshLocalPrefix(v5);
+  ot::Ip6::Address::SetToRoutingLocator(v18, MeshLocalPrefix, v19);
+  v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::AddressResolver>(this);
+  ot::AddressResolver::SendAddressQueryResponse(v7, v21, *&v20[1], v20, v18);
+  ot::Ip6::Address::ToString(v24, v21);
+  v16 = ot::String<(unsigned short)40>::AsCString(v24);
+  ot::Ip6::InterfaceIdentifier::ToString(*&v20[1], v23);
+  v17 = ot::String<(unsigned short)17>::AsCString(v23);
+  v8 = ot::ToUlong(v20[0]);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("BbrManager", "HandleExtendedBackboneAnswer: target=%s, mliid=%s, LTT=%lus, rloc16=%04x", v9, v10, v11, v12, v13, v14, v16, v17, v8, v19);
+}
+
+uint64_t ot::BackboneRouter::Manager::SendProactiveBackboneNotification(ot::BackboneRouter::Manager *this, const ot::Ip6::Address *a2, const ot::Ip6::InterfaceIdentifier *a3, unsigned int a4)
+{
+  v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Local>(this);
+  AllDomainBackboneRoutersAddress = ot::BackboneRouter::Local::GetAllDomainBackboneRoutersAddress(v4);
+  return ot::BackboneRouter::Manager::SendBackboneAnswer(this, AllDomainBackboneRoutersAddress, a2, a3, a4, 0xFFFEu);
+}
+
+uint64_t ot::BackboneRouter::Manager::SendBackboneAnswer(ot::BackboneRouter::Manager *this, const ot::Ip6::Address *a2, const ot::Ip6::Address *a3, const ot::Ip6::InterfaceIdentifier *a4, unsigned int a5, unsigned __int16 a6)
+{
+  v41 = this;
+  v40 = a2;
+  v39 = a3;
+  v38 = a4;
+  v37 = a5;
+  v36 = a6;
+  v35 = 0;
+  v34 = 0;
+  ot::Ip6::MessageInfo::MessageInfo(v33);
+  IsMulticast = ot::Ip6::Address::IsMulticast(v40);
+  v34 = ot::Coap::CoapBase::NewPriorityMessage((this + 7576));
+  if (v34)
+  {
+    v35 = ot::Coap::Message::Init(v34, IsMulticast, 2, 7u);
+    if (!v35)
+    {
+      v35 = ot::Coap::Message::SetPayloadMarker(v34);
+      if (!v35)
+      {
+        v35 = ot::Tlv::Append<ot::SimpleTlvInfo<(unsigned char)0,ot::Ip6::Address>>(v34, v39, v6, v7, v8);
+        if (!v35)
+        {
+          v35 = ot::Tlv::Append<ot::SimpleTlvInfo<(unsigned char)3,ot::Ip6::InterfaceIdentifier>>(v34, v38, v9, v10, v11);
+          if (!v35)
+          {
+            v35 = ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)6,unsigned int>>(v34, v37);
+            if (!v35)
+            {
+              v30 = v34;
+              v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::NetworkNameManager>(this);
+              ot::MeshCoP::NetworkNameManager::GetNetworkName(v12);
+              ot::MeshCoP::NetworkName::GetAsCString(v13);
+              v35 = ot::Tlv::Append<ot::StringTlvInfo<(unsigned char)12,(unsigned char)16>>(v30, v14, v15, v16, v17);
+              if (!v35 && (v36 == 65534 || !ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)2,unsigned short>>(v34, v36)))
+              {
+                ot::Ip6::MessageInfo::SetPeerAddr(v33, v40);
+                ot::Ip6::MessageInfo::SetPeerPort(v33, 61631);
+                ot::Ip6::MessageInfo::SetHopLimit(v33, 1);
+                ot::Ip6::MessageInfo::SetIsHostInterface(v33, 1);
+                v35 = ot::Coap::CoapBase::SendMessage((this + 7576), v34, v33);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v35 = 3;
+  }
+
+  v18 = "PRO_BB.ntf";
+  if (!IsMulticast)
+  {
+    v18 = "BB.ans";
+  }
+
+  v27 = v18;
+  ot::Ip6::Address::ToString(v42, v39);
+  v28 = ot::String<(unsigned short)40>::AsCString(v42);
+  v29 = v36;
+  v19 = ot::ErrorToString(v35);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("BbrManager", "Send %s for %s (rloc16=%04x): %s", v20, v21, v22, v23, v24, v25, v27, v28, v29, v19);
+  if (v35 && v34)
+  {
+    ot::Message::Free(v34);
+  }
+
+  return v35;
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::NdProxy::GetMeshLocalIid(ot::BackboneRouter::NdProxyTable::NdProxy *this)
+{
+  return this + 8;
+}
+
+{
+  return ot::BackboneRouter::NdProxyTable::NdProxy::GetMeshLocalIid(this);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::NdProxy::GetTimeSinceLastTransaction(ot::BackboneRouter::NdProxyTable::NdProxy *this)
+{
+  v5 = this;
+  Now = ot::TimerMilli::GetNow(this);
+  v1 = ot::Time::operator-(&Now, this + 4);
+  return ot::Time::MsecToSec(v1);
+}
+
+{
+  return ot::BackboneRouter::NdProxyTable::NdProxy::GetTimeSinceLastTransaction(this);
+}
+
+BOOL ot::Ip6::Address::IsMulticast(ot::Ip6::Address *this)
+{
+  return *this == 255;
+}
+
+{
+  return ot::Ip6::Address::IsMulticast(this);
+}
+
+uint64_t ot::Tlv::Append<ot::SimpleTlvInfo<(unsigned char)3,ot::Ip6::InterfaceIdentifier>>(ot::Tlv *a1, void *a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
+{
+  return ot::Tlv::AppendTlv(a1, 3, a2, 8);
+}
+
+{
+  return ot::Tlv::Append<ot::SimpleTlvInfo<(unsigned char)3,ot::Ip6::InterfaceIdentifier>>(a1, a2, a3, a4, a5);
+}
+
+uint64_t ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)6,unsigned int>>(ot::Tlv *a1, unsigned int a2)
+{
+  return ot::Tlv::AppendUintTlv<unsigned int>(a1, 6u, a2);
+}
+
+{
+  return ot::Tlv::Append<ot::UintTlvInfo<(unsigned char)6,unsigned int>>(a1, a2);
+}
+
+uint64_t ot::Tlv::Append<ot::StringTlvInfo<(unsigned char)12,(unsigned char)16>>(ot::Tlv *a1, ot *a2, uint64_t a3, uint64_t a4, const char *a5)
+{
+  return ot::Tlv::AppendStringTlv(a1, 0xC, 0x10u, a2, a5);
+}
+
+{
+  return ot::Tlv::Append<ot::StringTlvInfo<(unsigned char)12,(unsigned char)16>>(a1, a2, a3, a4, a5);
+}
+
+uint64_t ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::NetworkNameManager>(ot::InstanceLocator *a1)
+{
+  Instance = ot::InstanceLocator::GetInstance(a1);
+  return ot::Instance::Get<ot::MeshCoP::NetworkNameManager>(Instance);
+}
+
+{
+  return ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshCoP::NetworkNameManager>(a1);
+}
+
+BOOL ot::Unequatable<ot::Ip6::InterfaceIdentifier>::operator!=(const void *a1, const void *a2)
+{
+  return !ot::Equatable<ot::Ip6::InterfaceIdentifier>::operator==(a1, a2);
+}
+
+{
+  return ot::Unequatable<ot::Ip6::InterfaceIdentifier>::operator!=(a1, a2);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::NdProxy::GetRloc16(ot::BackboneRouter::NdProxyTable::NdProxy *this)
+{
+  return *(this + 10);
+}
+
+{
+  return ot::BackboneRouter::NdProxyTable::NdProxy::GetRloc16(this);
+}
+
+BOOL ot::Equatable<ot::Ip6::InterfaceIdentifier>::operator==(const void *a1, const void *a2)
+{
+  return memcmp(a1, a2, 8uLL) == 0;
+}
+
+{
+  return ot::Equatable<ot::Ip6::InterfaceIdentifier>::operator==(a1, a2);
+}
+
+ot::BackboneRouter::NdProxyTable::NdProxy *ot::BackboneRouter::NdProxyTable::NdProxy::NdProxy(ot::BackboneRouter::NdProxyTable::NdProxy *this)
+{
+  ot::BackboneRouter::NdProxyTable::NdProxy::NdProxy(this);
+  return this;
+}
+
+{
+  ot::Clearable<ot::BackboneRouter::NdProxyTable::NdProxy>::Clear(this);
+  return this;
+}
+
+void *ot::Clearable<ot::BackboneRouter::NdProxyTable::NdProxy>::Clear(void *a1)
+{
+  return ot::ClearAllBytes<ot::BackboneRouter::NdProxyTable::NdProxy>(a1);
+}
+
+{
+  return ot::Clearable<ot::BackboneRouter::NdProxyTable::NdProxy>::Clear(a1);
+}
+
+void *ot::ClearAllBytes<ot::BackboneRouter::NdProxyTable::NdProxy>(void *result)
+{
+  *result = 0;
+  result[1] = 0;
+  result[2] = 0;
+  return result;
+}
+
+{
+  return ot::ClearAllBytes<ot::BackboneRouter::NdProxyTable::NdProxy>(result);
+}
+
+ot::BackboneRouter::MulticastListenersTable::Listener *ot::BackboneRouter::MulticastListenersTable::Listener::Listener(ot::BackboneRouter::MulticastListenersTable::Listener *this)
+{
+  ot::BackboneRouter::MulticastListenersTable::Listener::Listener(this);
+  return this;
+}
+
+{
+  ot::Clearable<ot::BackboneRouter::MulticastListenersTable::Listener>::Clear(this);
+  return this;
+}
+
+uint64_t ot::Clearable<ot::BackboneRouter::MulticastListenersTable::Listener>::Clear(uint64_t a1)
+{
+  return ot::ClearAllBytes<ot::BackboneRouter::MulticastListenersTable::Listener>(a1);
+}
+
+{
+  return ot::Clearable<ot::BackboneRouter::MulticastListenersTable::Listener>::Clear(a1);
+}
+
+uint64_t ot::ClearAllBytes<ot::BackboneRouter::MulticastListenersTable::Listener>(uint64_t result)
+{
+  *result = 0;
+  *(result + 8) = 0;
+  *(result + 16) = 0;
+  return result;
+}
+
+{
+  return ot::ClearAllBytes<ot::BackboneRouter::MulticastListenersTable::Listener>(result);
+}
+
+_BYTE *ot::ThreadTlv::SetType(ot::Tlv *a1, char a2)
+{
+  return ot::Tlv::SetType(a1, a2);
+}
+
+{
+  return ot::ThreadTlv::SetType(a1, a2);
+}
+
+void *ot::Clearable<ot::Ip6::MessageInfo>::Clear(void *a1)
+{
+  return ot::ClearAllBytes<ot::Ip6::MessageInfo>(a1);
+}
+
+{
+  return ot::Clearable<ot::Ip6::MessageInfo>::Clear(a1);
+}
+
+void *ot::ClearAllBytes<ot::Ip6::MessageInfo>(void *a1)
+{
+  return memset(a1, 0, 0x26uLL);
+}
+
+{
+  return ot::ClearAllBytes<ot::Ip6::MessageInfo>(a1);
+}
+
+uint64_t ot::Time::MsecToSec(ot::Time *this)
+{
+  return this / 0x3E8;
+}
+
+{
+  return ot::Time::MsecToSec(this);
+}
+
+uint64_t ot::BackboneRouter::MulticastListenersTable::Add(ot::BackboneRouter::MulticastListenersTable *a1, __n128 *a2, int a3)
+{
+  v16 = a3;
+  v15 = a1;
+  v14 = a2;
+  v13 = 0;
+  if (ot::Ip6::Address::IsMulticastLargerThanRealmLocal(a2))
+  {
+    for (i = 0; i < *(a1 + 750); ++i)
+    {
+      v11 = (a1 + 20 * i);
+      ot::BackboneRouter::MulticastListenersTable::Listener::GetAddress(v11);
+      if (ot::Equatable<ot::Ip6::Address>::operator==(v3, v14))
+      {
+        v10[2] = v16;
+        ot::BackboneRouter::MulticastListenersTable::Listener::SetExpireTime(v11, v16);
+        ot::BackboneRouter::MulticastListenersTable::FixHeap(a1, i);
+        goto LABEL_12;
+      }
+    }
+
+    v7 = *(a1 + 750);
+    v4 = ot::GetArrayLength<ot::BackboneRouter::MulticastListenersTable::Listener,(unsigned short)75>();
+    if (v7 < v4)
+    {
+      ot::BackboneRouter::MulticastListenersTable::Listener::SetAddress((a1 + 20 * *(a1 + 750)), v14);
+      v5 = (a1 + 20 * *(a1 + 750));
+      v10[1] = v16;
+      ot::BackboneRouter::MulticastListenersTable::Listener::SetExpireTime(v5, v16);
+      ot::BackboneRouter::MulticastListenersTable::FixHeap(a1, (*(a1 + 750))++);
+      v10[0] = ot::MapEnum<ot::BackboneRouter::MulticastListenersTable::Listener::Event>(0);
+      v9 = v14;
+      ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(a1 + 188, v10, &v9);
+    }
+
+    else
+    {
+      v13 = 3;
+    }
+  }
+
+  else
+  {
+    v13 = 7;
+  }
+
+LABEL_12:
+  ot::BackboneRouter::MulticastListenersTable::Log(a1, 0, v14, v16, v13);
+  ot::BackboneRouter::MulticastListenersTable::CheckInvariants(a1);
+  return v13;
+}
+
+void ot::BackboneRouter::MulticastListenersTable::Listener::GetAddress(ot::BackboneRouter::MulticastListenersTable::Listener *this)
+{
+  ;
+}
+
+{
+  ot::BackboneRouter::MulticastListenersTable::Listener::GetAddress(this);
+}
+
+uint64_t ot::BackboneRouter::MulticastListenersTable::Listener::SetExpireTime(uint64_t result, int a2)
+{
+  *(result + 16) = a2;
+  return result;
+}
+
+{
+  return ot::BackboneRouter::MulticastListenersTable::Listener::SetExpireTime(result, a2);
+}
+
+double ot::BackboneRouter::MulticastListenersTable::FixHeap(ot::BackboneRouter::MulticastListenersTable *this, unsigned __int16 a2)
+{
+  if (!ot::BackboneRouter::MulticastListenersTable::SiftHeapElemDown(this, a2))
+  {
+    return ot::BackboneRouter::MulticastListenersTable::SiftHeapElemUp(this, a2);
+  }
+
+  return result;
+}
+
+uint64_t ot::GetArrayLength<ot::BackboneRouter::MulticastListenersTable::Listener,(unsigned short)75>()
+{
+  return 75;
+}
+
+{
+  return ot::GetArrayLength<ot::BackboneRouter::MulticastListenersTable::Listener,(unsigned short)75>();
+}
+
+__n128 ot::BackboneRouter::MulticastListenersTable::Listener::SetAddress(__n128 *this, __n128 *a2)
+{
+  result = *a2;
+  *this = *a2;
+  return result;
+}
+
+void *ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(void *result, unsigned int *a2, void *a3)
+{
+  if (*result)
+  {
+    return ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(result, a2, a3);
+  }
+
+  return result;
+}
+
+{
+  return ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(result, a2, a3);
+}
+
+uint64_t ot::MapEnum<ot::BackboneRouter::MulticastListenersTable::Listener::Event>(uint64_t result)
+{
+  return result;
+}
+
+{
+  return ot::MapEnum<ot::BackboneRouter::MulticastListenersTable::Listener::Event>(result);
+}
+
+void ot::BackboneRouter::MulticastListenersTable::Log(uint64_t a1, unsigned __int8 a2, ot::Ip6::Address *a3, int a4, int a5)
+{
+  v14 = &v22;
+  v22 = a4;
+  v21 = a1;
+  v20 = a2;
+  v19 = a3;
+  v18 = a5;
+  v15 = ot::BackboneRouter::MulticastListenersTable::Log(ot::BackboneRouter::MulticastListenersTable::Action,ot::Ip6::Address const&,ot::Time,otError)const::kActionStrings[a2];
+  v13 = v23;
+  ot::Ip6::Address::ToString(v23, a3);
+  v16 = ot::String<(unsigned short)40>::AsCString(v23);
+  Value = ot::Time::GetValue(&v22);
+  v17 = ot::ToUlong(Value);
+  v6 = ot::ErrorToString(v18);
+  ot::Logger::LogAtLevel<(ot::LogLevel)5>("BbrMlt", "%s %s expire %lu: %s", v7, v8, v9, v10, v11, v12, v15, v16, v17, v6);
+}
+
+void ot::BackboneRouter::MulticastListenersTable::Remove(ot::BackboneRouter::MulticastListenersTable *this, const ot::Ip6::Address *a2)
+{
+  v14 = this;
+  v13 = a2;
+  v12 = 23;
+  for (i = 0; i < *(this + 750); ++i)
+  {
+    v10 = (this + 20 * i);
+    ot::BackboneRouter::MulticastListenersTable::Listener::GetAddress(v10);
+    if (ot::Equatable<ot::Ip6::Address>::operator==(v2, v13))
+    {
+      if (i != --*(this + 750))
+      {
+        v3 = this + 20 * *(this + 750);
+        v4 = v10;
+        *v10 = *v3;
+        *(v4 + 4) = *(v3 + 4);
+        ot::BackboneRouter::MulticastListenersTable::FixHeap(this, i);
+      }
+
+      v9 = ot::MapEnum<ot::BackboneRouter::MulticastListenersTable::Listener::Event>(1);
+      v8 = v13;
+      ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(this + 188, &v9, &v8);
+      v12 = 0;
+      break;
+    }
+  }
+
+  v5 = v13;
+  ot::Time::Time(&v7, 0);
+  ot::BackboneRouter::MulticastListenersTable::Log(this, 1u, v5, v7, v12);
+  ot::BackboneRouter::MulticastListenersTable::CheckInvariants(this);
+}
+
+void ot::BackboneRouter::MulticastListenersTable::Expire(ot::BackboneRouter::MulticastListenersTable *this)
+{
+  v13 = this;
+  Now = ot::TimerMilli::GetNow(this);
+  while (1)
+  {
+    v5 = 0;
+    if (*(this + 750))
+    {
+      ExpireTime = ot::BackboneRouter::MulticastListenersTable::Listener::GetExpireTime(this);
+      v5 = ot::Time::operator>=(&Now, &ExpireTime);
+    }
+
+    if (!v5)
+    {
+      break;
+    }
+
+    ot::BackboneRouter::MulticastListenersTable::Listener::GetAddress(this);
+    v4 = v1;
+    v9 = ot::BackboneRouter::MulticastListenersTable::Listener::GetExpireTime(this);
+    ot::BackboneRouter::MulticastListenersTable::Log(this, 2u, v4, v9, 0);
+    ot::BackboneRouter::MulticastListenersTable::Listener::GetAddress(this);
+    v11 = *v2;
+    if (--*(this + 750))
+    {
+      v3 = this + 20 * *(this + 750);
+      *this = *v3;
+      *(this + 4) = *(v3 + 4);
+      ot::BackboneRouter::MulticastListenersTable::FixHeap(this, 0);
+    }
+
+    v8 = ot::MapEnum<ot::BackboneRouter::MulticastListenersTable::Listener::Event>(1);
+    v7 = &v11;
+    ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address *>(this + 188, &v8, &v7);
+  }
+
+  ot::BackboneRouter::MulticastListenersTable::CheckInvariants(this);
+}
+
+BOOL ot::Time::operator>=(unsigned int *a1, unsigned int *a2)
+{
+  return !ot::Time::operator<(a1, a2);
+}
+
+{
+  return ot::Time::operator>=(a1, a2);
+}
+
+uint64_t ot::BackboneRouter::MulticastListenersTable::Listener::GetExpireTime(ot::BackboneRouter::MulticastListenersTable::Listener *this)
+{
+  return *(this + 4);
+}
+
+{
+  return ot::BackboneRouter::MulticastListenersTable::Listener::GetExpireTime(this);
+}
+
+void *ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address *>(void *result, unsigned int *a2, void *a3)
+{
+  if (*result)
+  {
+    return ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address *>(result, a2, a3);
+  }
+
+  return result;
+}
+
+{
+  return ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address *>(result, a2, a3);
+}
+
+BOOL ot::BackboneRouter::MulticastListenersTable::SiftHeapElemDown(ot::BackboneRouter::MulticastListenersTable *this, unsigned __int16 a2)
+{
+  v13 = this;
+  v12 = a2;
+  v11 = a2;
+  ot::BackboneRouter::MulticastListenersTable::Listener::Listener(&v9);
+  if (v12 >= *(this + 750))
+  {
+    __assert_rtn("SiftHeapElemDown", "multicast_listeners_table.cpp", 189, "aIndex < mNumValidListeners");
+  }
+
+  v2 = 20 * v12;
+  v9 = *(this + v2);
+  v10 = *(this + v2 + 16);
+  while (1)
+  {
+    v8 = 2 * v11 + 1;
+    if (v8 >= *(this + 750) || v8 <= v11)
+    {
+      break;
+    }
+
+    if (v8 + 1 < *(this + 750) && ot::BackboneRouter::MulticastListenersTable::Listener::operator<((this + 20 * v8 + 20), (this + 20 * v8)))
+    {
+      ++v8;
+    }
+
+    if (!ot::BackboneRouter::MulticastListenersTable::Listener::operator<((this + 20 * v8), &v9))
+    {
+      break;
+    }
+
+    v3 = this + 20 * v8;
+    v4 = this + 20 * v11;
+    *v4 = *v3;
+    *(v4 + 4) = *(v3 + 4);
+    v11 = v8;
+  }
+
+  if (v11 > v12)
+  {
+    v5 = this + 20 * v11;
+    *v5 = v9;
+    *(v5 + 4) = v10;
+  }
+
+  return v11 > v12;
+}
+
+double ot::BackboneRouter::MulticastListenersTable::SiftHeapElemUp(ot::BackboneRouter::MulticastListenersTable *this, unsigned __int16 a2)
+{
+  v14 = this;
+  v13 = a2;
+  v12 = a2;
+  ot::BackboneRouter::MulticastListenersTable::Listener::Listener(&v10);
+  if (v13 >= *(this + 750))
+  {
+    __assert_rtn("SiftHeapElemUp", "multicast_listeners_table.cpp", 230, "aIndex < mNumValidListeners");
+  }
+
+  v2 = 20 * v13;
+  v3 = *(this + v2);
+  v10 = v3;
+  v11 = *(this + v2 + 16);
+  while (1)
+  {
+    v9 = (v12 - 1) / 2;
+    if (!v12 || !ot::BackboneRouter::MulticastListenersTable::Listener::operator<(&v10, (this + 20 * v9)))
+    {
+      break;
+    }
+
+    v4 = this + 20 * v9;
+    v5 = this + 20 * v12;
+    v3 = *v4;
+    *v5 = *v4;
+    *(v5 + 4) = *(v4 + 4);
+    v12 = v9;
+  }
+
+  if (v12 < v13)
+  {
+    v6 = this + 20 * v12;
+    *&v3 = v10;
+    *v6 = v10;
+    *(v6 + 4) = v11;
+  }
+
+  return *&v3;
+}
+
+BOOL ot::BackboneRouter::MulticastListenersTable::Listener::operator<(ot::BackboneRouter::MulticastListenersTable::Listener *a1, ot::BackboneRouter::MulticastListenersTable::Listener *a2)
+{
+  v6 = a1;
+  v5 = a2;
+  ExpireTime = ot::BackboneRouter::MulticastListenersTable::Listener::GetExpireTime(a1);
+  v3 = ot::BackboneRouter::MulticastListenersTable::Listener::GetExpireTime(v5);
+  return ot::Time::operator<(&ExpireTime, &v3);
+}
+
+{
+  return ot::BackboneRouter::MulticastListenersTable::Listener::operator<(a1, a2);
+}
+
+uint64_t ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::MulticastListenersTable>(ot::InstanceLocator *a1)
+{
+  Instance = ot::InstanceLocator::GetInstance(a1);
+  return ot::Instance::Get<ot::BackboneRouter::MulticastListenersTable>(Instance);
+}
+
+{
+  return ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::MulticastListenersTable>(a1);
+}
+
+void ot::BackboneRouter::MulticastListenersTable::Clear(ot::BackboneRouter::MulticastListenersTable *this)
+{
+  v6 = this;
+  if (ot::CallbackBase<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*)>::IsSet(this + 188))
+  {
+    for (i = 0; i < *(this + 750); ++i)
+    {
+      v4 = ot::MapEnum<ot::BackboneRouter::MulticastListenersTable::Listener::Event>(1);
+      ot::BackboneRouter::MulticastListenersTable::Listener::GetAddress((this + 20 * i));
+      v3 = v1;
+      ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(this + 1504, &v4, &v3);
+    }
+  }
+
+  *(this + 750) = 0;
+  ot::BackboneRouter::MulticastListenersTable::CheckInvariants(this);
+}
+
+BOOL ot::CallbackBase<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*)>::IsSet(void *a1)
+{
+  return *a1 != 0;
+}
+
+{
+  return ot::CallbackBase<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*)>::IsSet(a1);
+}
+
+uint64_t ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(uint64_t a1, unsigned int *a2, void *a3)
+{
+  return (*a1)(*(a1 + 8), *a2, *a3);
+}
+
+{
+  return ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(a1, a2, a3);
+}
+
+uint64_t ot::BackboneRouter::MulticastListenersTable::SetCallback(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v11 = a1;
+  v10 = a2;
+  v9 = a3;
+  ot::CallbackBase<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*)>::Set((a1 + 1504), a2, a3);
+  result = ot::CallbackBase<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*)>::IsSet((a1 + 1504));
+  if (result)
+  {
+    for (i = 0; i < *(a1 + 1500); ++i)
+    {
+      v7 = ot::MapEnum<ot::BackboneRouter::MulticastListenersTable::Listener::Event>(0);
+      ot::BackboneRouter::MulticastListenersTable::Listener::GetAddress((a1 + 20 * i));
+      v6 = v4;
+      result = ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address const*>(a1 + 1504, &v7, &v6);
+    }
+  }
+
+  return result;
+}
+
+void *ot::CallbackBase<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*)>::Set(void *result, uint64_t a2, uint64_t a3)
+{
+  *result = a2;
+  result[1] = a3;
+  return result;
+}
+
+{
+  return ot::CallbackBase<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*)>::Set(result, a2, a3);
+}
+
+uint64_t ot::BackboneRouter::MulticastListenersTable::GetNext(ot::TimerMilli *a1, unsigned __int16 *a2, uint64_t a3)
+{
+  v10 = a1;
+  v9 = a2;
+  v8 = a3;
+  v7 = 0;
+  if (*a2 < *(a1 + 750))
+  {
+    Now = ot::TimerMilli::GetNow(a1);
+    *v8 = *(a1 + 20 * *v9);
+    if (ot::Time::operator>(a1 + 5 * *v9 + 4, &Now))
+    {
+      v4 = ot::Time::operator-(a1 + 5 * *v9 + 4, &Now);
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+
+    *(v8 + 16) = ot::Time::MsecToSec(v4);
+    ++*v9;
+  }
+
+  else
+  {
+    return 23;
+  }
+
+  return v7;
+}
+
+BOOL ot::Time::operator>(unsigned int *a1, unsigned int *a2)
+{
+  return ot::Time::operator<(a2, a1);
+}
+
+{
+  return ot::Time::operator>(a1, a2);
+}
+
+BOOL ot::Time::operator<(unsigned int *a1, unsigned int *a2)
+{
+  return ot::SerialNumber::IsLess<unsigned int>(*a1, *a2);
+}
+
+{
+  return ot::Time::operator<(a1, a2);
+}
+
+BOOL ot::SerialNumber::IsLess<unsigned int>(int a1, int a2)
+{
+  return a1 - a2 < 0;
+}
+
+{
+  return ot::SerialNumber::IsLess<unsigned int>(a1, a2);
+}
+
+uint64_t ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address *>(uint64_t a1, unsigned int *a2, void *a3)
+{
+  return (*a1)(*(a1 + 8), *a2, *a3);
+}
+
+{
+  return ot::Callback<void (*)(void *,otBackboneRouterMulticastListenerEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterMulticastListenerEvent,ot::Ip6::Address *>(a1, a2, a3);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::NdProxy::Init(ot::BackboneRouter::NdProxyTable::NdProxy *this, const ot::Ip6::InterfaceIdentifier *a2, const ot::Ip6::InterfaceIdentifier *a3, __int16 a4, unsigned int a5)
+{
+  if ((*(this + 22) & 8) != 0)
+  {
+    __assert_rtn("Init", "ndproxy_table.cpp", 54, "!mValid");
+  }
+
+  ot::Clearable<ot::BackboneRouter::NdProxyTable::NdProxy>::Clear(this);
+  *(this + 22) = *(this + 22) & 0xF7 | 8;
+  *this = *a2;
+  *(this + 1) = *a3;
+  *(this + 22) = *(this + 22) & 0xFB | 4;
+  return ot::BackboneRouter::NdProxyTable::NdProxy::Update(this, a4, a5);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::NdProxy::Update(ot::BackboneRouter::NdProxyTable::NdProxy *this, __int16 a2, unsigned int a3)
+{
+  v10 = this;
+  v9 = a2;
+  v8 = a3;
+  if ((*(this + 22) & 8) == 0)
+  {
+    __assert_rtn("Update", "ndproxy_table.cpp", 68, "mValid");
+  }
+
+  *(this + 10) = v9;
+  v3 = ot::Min<unsigned int>(v8, 0xD2F00u);
+  v8 = v3;
+  Now = ot::TimerMilli::GetNow(v3);
+  v4 = ot::Time::SecToMsec(v8);
+  result = ot::Time::operator-(&Now, v4);
+  *(this + 4) = result;
+  return result;
+}
+
+BOOL ot::BackboneRouter::NdProxyTable::MatchesFilter(uint64_t a1, char a2)
+{
+  v4 = 0;
+  if (a2)
+  {
+    if (a2 == 1)
+    {
+      return (*(a1 + 22) & 8) != 0;
+    }
+
+    else if (a2 == 2)
+    {
+      LOBYTE(v3) = 0;
+      if ((*(a1 + 22) & 8) != 0)
+      {
+        return (*(a1 + 22) >> 2) & 1;
+      }
+
+      return v3;
+    }
+  }
+
+  else
+  {
+    return (*(a1 + 22) & 8) == 0;
+  }
+
+  return v4;
+}
+
+ot::InstanceLocator *ot::BackboneRouter::NdProxyTable::Iterator::Iterator(ot::InstanceLocator *a1, ot::Instance *a2, char a3)
+{
+  ot::InstanceLocator::InstanceLocator(a1, a2);
+  ot::Ptr<ot::Message>::Ptr(a1);
+  *(a1 + 8) = a3;
+  Instance = ot::InstanceLocator::GetInstance(a1);
+  *a1 = ot::Instance::Get<ot::BackboneRouter::NdProxyTable>(Instance);
+  if (!ot::BackboneRouter::NdProxyTable::MatchesFilter(*a1, *(a1 + 8)))
+  {
+    ot::BackboneRouter::NdProxyTable::Iterator::Advance(a1);
+  }
+
+  return a1;
+}
+
+{
+  ot::BackboneRouter::NdProxyTable::Iterator::Iterator(a1, a2, a3);
+  return a1;
+}
+
+unint64_t ot::BackboneRouter::NdProxyTable::Iterator::Advance(ot::BackboneRouter::NdProxyTable::Iterator *this)
+{
+  Instance = ot::InstanceLocator::GetInstance(this);
+  v6 = ot::Instance::Get<ot::BackboneRouter::NdProxyTable>(Instance);
+  do
+  {
+    *this += 24;
+    v3 = *this;
+    result = ot::GetArrayEnd<ot::BackboneRouter::NdProxyTable::NdProxy,(unsigned short)250>(v6);
+    v4 = 0;
+    if (v3 < result)
+    {
+      result = ot::BackboneRouter::NdProxyTable::MatchesFilter(*this, *(this + 8));
+      v4 = result ^ 1;
+    }
+  }
+
+  while ((v4 & 1) != 0);
+  return result;
+}
+
+ot::InstanceLocator *ot::BackboneRouter::NdProxyTable::Iterator::Iterator(ot::InstanceLocator *a1, ot::Instance *a2)
+{
+  ot::InstanceLocator::InstanceLocator(a1, a2);
+  ot::Ptr<ot::Message>::Ptr(a1);
+  Instance = ot::InstanceLocator::GetInstance(a1);
+  v6 = ot::Instance::Get<ot::BackboneRouter::NdProxyTable>(Instance);
+  v3 = ot::GetArrayEnd<ot::BackboneRouter::NdProxyTable::NdProxy,(unsigned short)250>(v6);
+  result = a1;
+  *a1 = v3;
+  return result;
+}
+
+{
+  ot::BackboneRouter::NdProxyTable::Iterator::Iterator(a1, a2);
+  return a1;
+}
+
+uint64_t ot::GetArrayEnd<ot::BackboneRouter::NdProxyTable::NdProxy,(unsigned short)250>(uint64_t a1)
+{
+  return a1 + 6000;
+}
+
+{
+  return ot::GetArrayEnd<ot::BackboneRouter::NdProxyTable::NdProxy,(unsigned short)250>(a1);
+}
+
+void ot::BackboneRouter::NdProxyTable::HandleDomainPrefixUpdate(ot::BackboneRouter::NdProxyTable *result, char a2)
+{
+  if (!a2 || a2 == 1 || a2 == 2)
+  {
+    ot::BackboneRouter::NdProxyTable::Clear(result);
+  }
+}
+
+void ot::BackboneRouter::NdProxyTable::Clear(ot::BackboneRouter::NdProxyTable *this)
+{
+  v14 = this;
+  v13 = this;
+  v12 = this;
+  v11 = (this + 6000);
+  while (v12 != v11)
+  {
+    v10 = v12;
+    ot::Clearable<ot::BackboneRouter::NdProxyTable::NdProxy>::Clear(v12);
+    v12 += 3;
+  }
+
+  v9 = ot::MapEnum<ot::BackboneRouter::NdProxyTable::NdProxy::Event>(3);
+  v8 = 0;
+  ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterNdProxyEvent,decltype(nullptr)>(this + 750, &v9, &v8);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("BbrNdProxy", "NdProxyTable::Clear!", v1, v2, v3, v4, v5, v6);
+}
+
+void *ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterNdProxyEvent,decltype(nullptr)>(void *result, unsigned int *a2, uint64_t a3)
+{
+  if (*result)
+  {
+    return ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterNdProxyEvent,decltype(nullptr)>(result, a2);
+  }
+
+  return result;
+}
+
+{
+  return ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::InvokeIfSet<otBackboneRouterNdProxyEvent,decltype(nullptr)>(result, a2, a3);
+}
+
+uint64_t ot::MapEnum<ot::BackboneRouter::NdProxyTable::NdProxy::Event>(uint64_t result)
+{
+  return result;
+}
+
+{
+  return ot::MapEnum<ot::BackboneRouter::NdProxyTable::NdProxy::Event>(result);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::Register(ot::BackboneRouter::NdProxyTable *this, const ot::Ip6::InterfaceIdentifier *a2, const ot::Ip6::InterfaceIdentifier *a3, unsigned __int16 a4, unsigned int *a5)
+{
+  v28 = this;
+  v27 = a2;
+  v26 = a3;
+  v25 = a4;
+  v24 = a5;
+  v21 = this;
+  v23 = 0;
+  *&v22[1] = ot::BackboneRouter::NdProxyTable::FindByAddressIid(this, a2);
+  if (v24)
+  {
+    v20 = *v24;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v22[0] = v20;
+  if (!*&v22[1])
+  {
+    *&v22[1] = ot::BackboneRouter::NdProxyTable::FindByMeshLocalIid(v21, v26);
+    if (*&v22[1])
+    {
+      ot::BackboneRouter::NdProxyTable::TriggerCallback(v21, 1u, *&v22[1]);
+      ot::BackboneRouter::NdProxyTable::Erase(*&v22[1], v5);
+    }
+
+    else
+    {
+      *&v22[1] = ot::BackboneRouter::NdProxyTable::FindInvalid(v21);
+      if (!*&v22[1])
+      {
+        v23 = 3;
+        goto LABEL_13;
+      }
+    }
+
+    ot::BackboneRouter::NdProxyTable::NdProxy::Init(*&v22[1], v27, v26, v25, v22[0]);
+    *(v21 + 6016) = *(v21 + 6016) & 0xFE | 1;
+    goto LABEL_13;
+  }
+
+  if (ot::Equatable<ot::Ip6::InterfaceIdentifier>::operator==((*&v22[1] + 8), v26))
+  {
+    ot::BackboneRouter::NdProxyTable::NdProxy::Update(*&v22[1], v25, v22[0]);
+    ot::BackboneRouter::NdProxyTable::NotifyDuaRegistrationOnBackboneLink(v21, *&v22[1], 1);
+  }
+
+  else
+  {
+    v23 = 29;
+  }
+
+LABEL_13:
+  v14 = v30;
+  ot::Ip6::InterfaceIdentifier::ToString(v27, v30);
+  v16 = ot::String<(unsigned short)17>::AsCString(v30);
+  v15 = v29;
+  ot::Ip6::InterfaceIdentifier::ToString(v26, v29);
+  v17 = ot::String<(unsigned short)17>::AsCString(v29);
+  v18 = v25;
+  v19 = ot::ToUlong(v22[0]);
+  v6 = ot::ErrorToString(v23);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("BbrNdProxy", "NdProxyTable::Register %s MLIID %s RLOC16 %04x LTT %lu => %s", v7, v8, v9, v10, v11, v12, v16, v17, v25, v19, v6);
+  return v23;
+}
+
+char *ot::BackboneRouter::NdProxyTable::FindByAddressIid(ot::BackboneRouter::NdProxyTable *this, const ot::Ip6::InterfaceIdentifier *a2)
+{
+  v28 = this;
+  v27 = a2;
+  v26 = 0;
+  v24 = ot::BackboneRouter::NdProxyTable::Iterate(this, 1);
+  v25 = &v24;
+  v33 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::begin(&v24);
+  v34 = v2;
+  v22 = v33;
+  v23 = v2;
+  v31 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::end(v25);
+  v32 = v3;
+  v20 = v31;
+  v21 = v3;
+  while (ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator!=(&v22, &v20))
+  {
+    v19 = ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator*(&v22);
+    if (ot::Equatable<ot::Ip6::InterfaceIdentifier>::operator==(v19, v27))
+    {
+      v26 = v19;
+      break;
+    }
+
+    ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator++(&v22);
+  }
+
+  ot::Ip6::InterfaceIdentifier::ToString(v27, v30);
+  v18 = ot::String<(unsigned short)17>::AsCString(v30);
+  if (v26)
+  {
+    ot::Ip6::InterfaceIdentifier::ToString((v26 + 8), v29);
+    v17 = ot::String<(unsigned short)17>::AsCString(v29);
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>("BbrNdProxy", "NdProxyTable::FindByAddressIid(%s) => %s", v10, v11, v12, v13, v14, v15, v18, v17);
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>("BbrNdProxy", "NdProxyTable::FindByAddressIid(%s) => %s", v4, v5, v6, v7, v8, v9, v18, "NOT_FOUND");
+  }
+
+  return v26;
+}
+
+void ot::BackboneRouter::NdProxyTable::NotifyDuaRegistrationOnBackboneLink(ot::BackboneRouter::NdProxyTable *this, ot::BackboneRouter::NdProxyTable::NdProxy *a2, char a3)
+{
+  v12 = this;
+  v11 = a2;
+  v10 = a3;
+  if ((*(a2 + 22) & 4) == 0)
+  {
+    if (v10)
+    {
+      v3 = 2;
+    }
+
+    else
+    {
+      v3 = 0;
+    }
+
+    ot::BackboneRouter::NdProxyTable::TriggerCallback(this, v3, v11);
+    v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Manager>(this);
+    v9[0] = ot::BackboneRouter::NdProxyTable::GetDua(this, v11);
+    v9[1] = v4;
+    MeshLocalIid = ot::BackboneRouter::NdProxyTable::NdProxy::GetMeshLocalIid(v11);
+    TimeSinceLastTransaction = ot::BackboneRouter::NdProxyTable::NdProxy::GetTimeSinceLastTransaction(v11);
+    ot::BackboneRouter::Manager::SendProactiveBackboneNotification(v7, v9, MeshLocalIid, TimeSinceLastTransaction);
+    IgnoreError();
+  }
+}
+
+ot::Ip6::InterfaceIdentifier *ot::BackboneRouter::NdProxyTable::FindByMeshLocalIid(ot::BackboneRouter::NdProxyTable *this, const ot::Ip6::InterfaceIdentifier *a2)
+{
+  v28 = this;
+  v27 = a2;
+  v26 = 0;
+  v24 = ot::BackboneRouter::NdProxyTable::Iterate(this, 1);
+  v25 = &v24;
+  v33 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::begin(&v24);
+  v34 = v2;
+  v22 = v33;
+  v23 = v2;
+  v31 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::end(v25);
+  v32 = v3;
+  v20 = v31;
+  v21 = v3;
+  while (ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator!=(&v22, &v20))
+  {
+    v19 = ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator*(&v22);
+    if (ot::Equatable<ot::Ip6::InterfaceIdentifier>::operator==((v19 + 8), v27))
+    {
+      v26 = v19;
+      break;
+    }
+
+    ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator++(&v22);
+  }
+
+  ot::Ip6::InterfaceIdentifier::ToString(v27, v30);
+  v18 = ot::String<(unsigned short)17>::AsCString(v30);
+  if (v26)
+  {
+    ot::Ip6::InterfaceIdentifier::ToString(v26, v29);
+    v17 = ot::String<(unsigned short)17>::AsCString(v29);
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>("BbrNdProxy", "NdProxyTable::FindByMeshLocalIid(%s) => %s", v10, v11, v12, v13, v14, v15, v18, v17);
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>("BbrNdProxy", "NdProxyTable::FindByMeshLocalIid(%s) => %s", v4, v5, v6, v7, v8, v9, v18, "NOT_FOUND");
+  }
+
+  return v26;
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::TriggerCallback(void *a1, unsigned int a2, const ot::Ip6::InterfaceIdentifier *a3)
+{
+  v12 = a1;
+  v11 = a2;
+  v10 = a3;
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Leader>(a1);
+  DomainPrefix = ot::BackboneRouter::Leader::GetDomainPrefix(v3);
+  result = ot::CallbackBase<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*)>::IsSet(a1 + 750);
+  if (result)
+  {
+    if (!DomainPrefix)
+    {
+      __assert_rtn("TriggerCallback", "ndproxy_table.cpp", 274, "prefix != nullptr");
+    }
+
+    ot::Ip6::Address::SetPrefix(v9, DomainPrefix);
+    ot::Ip6::Address::SetIid(v9, v10);
+    v7 = ot::MapEnum<ot::BackboneRouter::NdProxyTable::NdProxy::Event>(v11);
+    v6 = v9;
+    return ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterNdProxyEvent,ot::Ip6::Address *>((a1 + 750), &v7, &v6);
+  }
+
+  return result;
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::FindInvalid(ot::BackboneRouter::NdProxyTable *this)
+{
+  v18 = this;
+  v17 = 0;
+  v15 = ot::BackboneRouter::NdProxyTable::Iterate(this, 0);
+  v16 = &v15;
+  v21 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::begin(&v15);
+  v22 = v1;
+  v13 = v21;
+  v14 = v1;
+  v19 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::end(v16);
+  v20 = v2;
+  v11 = v19;
+  v12 = v2;
+  if (ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator!=(&v13, &v11))
+  {
+    v17 = ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator*(&v13);
+  }
+
+  v9 = "OK";
+  if (!v17)
+  {
+    v9 = "NOT_FOUND";
+  }
+
+  ot::Logger::LogAtLevel<(ot::LogLevel)5>("BbrNdProxy", "NdProxyTable::FindInvalid() => %s", v3, v4, v5, v6, v7, v8, v9);
+  return v17;
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::Iterate(ot::InstanceLocator *a1, char a2)
+{
+  Instance = ot::InstanceLocator::GetInstance(a1);
+  ot::ChildTable::IteratorBuilder::IteratorBuilder(&v5, Instance, a2);
+  return v5;
+}
+
+{
+  return ot::BackboneRouter::NdProxyTable::Iterate(a1, a2);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::IteratorBuilder::begin(ot::BackboneRouter::NdProxyTable::IteratorBuilder *this)
+{
+  Instance = ot::InstanceLocator::GetInstance(this);
+  ot::BackboneRouter::NdProxyTable::Iterator::Iterator(&v4, Instance, *this);
+  return v4;
+}
+
+{
+  return ot::BackboneRouter::NdProxyTable::IteratorBuilder::begin(this);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::IteratorBuilder::end(ot::BackboneRouter::NdProxyTable::IteratorBuilder *this)
+{
+  Instance = ot::InstanceLocator::GetInstance(this);
+  ot::BackboneRouter::NdProxyTable::Iterator::Iterator(&v3, Instance);
+  return v3;
+}
+
+{
+  return ot::BackboneRouter::NdProxyTable::IteratorBuilder::end(this);
+}
+
+BOOL ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator!=(void *a1, void *a2)
+{
+  return *a1 != *a2;
+}
+
+{
+  return ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator!=(a1, a2);
+}
+
+uint64_t ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator*(uint64_t a1)
+{
+  return *a1;
+}
+
+{
+  return ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator*(a1);
+}
+
+unint64_t ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator++(ot::BackboneRouter::NdProxyTable::Iterator *a1)
+{
+  return ot::BackboneRouter::NdProxyTable::Iterator::Advance(a1);
+}
+
+{
+  return ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator++(a1);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::HandleTimer(uint64_t this)
+{
+  v14 = this;
+  v5 = this;
+  if (*(this + 6016))
+  {
+    *(this + 6016) &= ~1u;
+    v12 = ot::BackboneRouter::NdProxyTable::Iterate(this, 2);
+    v13 = &v12;
+    v17 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::begin(&v12);
+    v18 = v1;
+    v10 = v17;
+    v11 = v1;
+    v15 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::end(v13);
+    v16 = v2;
+    v8 = v15;
+    v9 = v2;
+    while (1)
+    {
+      this = ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator!=(&v10, &v8);
+      if ((this & 1) == 0)
+      {
+        break;
+      }
+
+      v7 = ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator*(&v10);
+      if (ot::BackboneRouter::NdProxyTable::NdProxy::IsDadAttemptsComplete(v7))
+      {
+        *(v7 + 22) &= ~4u;
+        ot::BackboneRouter::NdProxyTable::NotifyDuaRegistrationOnBackboneLink(v5, v7, 0);
+      }
+
+      else
+      {
+        *(v5 + 6016) = *(v5 + 6016) & 0xFE | 1;
+        v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Manager>(v5);
+        v6[0] = ot::BackboneRouter::NdProxyTable::GetDua(v5, v7);
+        v6[1] = v3;
+        if (!ot::BackboneRouter::Manager::SendBackboneQuery(v4, v6, 0xFFFEu))
+        {
+          ot::BackboneRouter::NdProxyTable::NdProxy::IncreaseDadAttempts(v7);
+        }
+      }
+
+      ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator++(&v10);
+    }
+  }
+
+  return this;
+}
+
+BOOL ot::BackboneRouter::NdProxyTable::NdProxy::IsDadAttemptsComplete(ot::BackboneRouter::NdProxyTable::NdProxy *this)
+{
+  return (*(this + 22) & 3) == 3;
+}
+
+{
+  return ot::BackboneRouter::NdProxyTable::NdProxy::IsDadAttemptsComplete(this);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::GetDua(ot::BackboneRouter::NdProxyTable *this, ot::BackboneRouter::NdProxyTable::NdProxy *a2)
+{
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Leader>(this);
+  DomainPrefix = ot::BackboneRouter::Leader::GetDomainPrefix(v2);
+  if (!DomainPrefix)
+  {
+    __assert_rtn("GetDua", "ndproxy_table.cpp", 302, "domainPrefix != nullptr");
+  }
+
+  ot::Ip6::Address::SetPrefix(&v6, DomainPrefix);
+  ot::Ip6::Address::SetIid(&v6, a2);
+  return v6;
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::NdProxy::IncreaseDadAttempts(uint64_t this)
+{
+  *(this + 22) = *(this + 22) & 0xFC | ((*(this + 22) & 3) + 1) & 3;
+  return this;
+}
+
+{
+  return ot::BackboneRouter::NdProxyTable::NdProxy::IncreaseDadAttempts(this);
+}
+
+BOOL ot::CallbackBase<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*)>::IsSet(void *a1)
+{
+  return *a1 != 0;
+}
+
+{
+  return ot::CallbackBase<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*)>::IsSet(a1);
+}
+
+void *ot::Ip6::Address::SetIid(ot::Ip6::Address *this, const ot::Ip6::InterfaceIdentifier *a2)
+{
+  result = ot::Ip6::Address::GetIid(this);
+  *result = *a2;
+  return result;
+}
+
+{
+  return ot::Ip6::Address::SetIid(this, a2);
+}
+
+uint64_t ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterNdProxyEvent,ot::Ip6::Address *>(uint64_t a1, unsigned int *a2, void *a3)
+{
+  return (*a1)(*(a1 + 8), *a2, *a3);
+}
+
+{
+  return ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterNdProxyEvent,ot::Ip6::Address *>(a1, a2, a3);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::NotifyDadComplete(uint64_t this, ot::BackboneRouter::NdProxyTable::NdProxy *a2)
+{
+  if (a2)
+  {
+    return ot::BackboneRouter::NdProxyTable::Erase(this, a2);
+  }
+
+  *(this + 22) = *(this + 22) & 0xFC | 3;
+  return this;
+}
+
+char *ot::BackboneRouter::NdProxyTable::ResolveDua(ot::BackboneRouter::NdProxyTable *this, const ot::Ip6::Address *a2)
+{
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Leader>(this);
+  if (!ot::BackboneRouter::Leader::IsDomainUnicast(v2, a2))
+  {
+    return 0;
+  }
+
+  Iid = ot::Ip6::Address::GetIid(a2);
+  return ot::BackboneRouter::NdProxyTable::FindByAddressIid(this, Iid);
+}
+
+uint64_t ot::BackboneRouter::NdProxyTable::GetInfo(ot::InstanceLocator *a1, ot::Ip6::Address *a2, uint64_t a3)
+{
+  v20 = a1;
+  v19 = a2;
+  v18 = a3;
+  v17 = 23;
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::BackboneRouter::Leader>(a1);
+  if (ot::BackboneRouter::Leader::IsDomainUnicast(v3, v19))
+  {
+    v15 = ot::BackboneRouter::NdProxyTable::Iterate(a1, 1);
+    v16 = &v15;
+    v23 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::begin(&v15);
+    v24 = v4;
+    v13 = v23;
+    v14 = v4;
+    v21 = ot::BackboneRouter::NdProxyTable::IteratorBuilder::end(v16);
+    v22 = v5;
+    v11 = v21;
+    v12 = v5;
+    while (ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator!=(&v13, &v11))
+    {
+      v10 = ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator*(&v13);
+      Iid = ot::Ip6::Address::GetIid(v19);
+      if (ot::Equatable<ot::Ip6::InterfaceIdentifier>::operator==(v10, Iid))
+      {
+        *v18 = v10 + 8;
+        TimeSinceLastTransaction = ot::BackboneRouter::NdProxyTable::NdProxy::GetTimeSinceLastTransaction(v10);
+        *(v18 + 8) = TimeSinceLastTransaction;
+        *(v18 + 12) = *(v10 + 10);
+        return 0;
+      }
+
+      ot::ItemPtrIterator<ot::BackboneRouter::NdProxyTable::NdProxy,ot::BackboneRouter::NdProxyTable::Iterator>::operator++(&v13);
+    }
+  }
+
+  else
+  {
+    return 7;
+  }
+
+  return v17;
+}
+
+uint64_t ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterNdProxyEvent,decltype(nullptr)>(uint64_t a1, unsigned int *a2)
+{
+  return (*a1)(*(a1 + 8), *a2, 0);
+}
+
+{
+  return ot::Callback<void (*)(void *,otBackboneRouterNdProxyEvent,otIp6Address const*),(ot::CallbackContextPosition)0>::Invoke<otBackboneRouterNdProxyEvent,decltype(nullptr)>(a1, a2);
+}
+
+uint64_t ot::Coap::CoapBase::CoapBase(uint64_t a1, ot::Instance *a2, uint64_t a3)
+{
+  ot::InstanceLocator::InstanceLocator(a1, a2);
+  v3 = ot::Coap::MessageQueue::MessageQueue(a1);
+  *(a1 + 8) = ot::Random::NonCrypto::GetUint16(v3);
+  ot::TimerMilliContext::TimerMilliContext((a1 + 16), a2, ot::Coap::CoapBase::HandleRetransmissionTimer, a1);
+  ot::OwnedPtr<ot::Message>::OwnedPtr((a1 + 48));
+  ot::Callback<void (*)(void *,otBackboneRouterDomainPrefixEvent,otIp6Prefix const*),(ot::CallbackContextPosition)0>::Callback((a1 + 56));
+  ot::Coap::ResponsesQueue::ResponsesQueue((a1 + 72), a2);
+  ot::Callback<void (*)(void *,otBackboneRouterDomainPrefixEvent,otIp6Prefix const*),(ot::CallbackContextPosition)0>::Callback((a1 + 112));
+  result = a1;
+  *(a1 + 128) = 0;
+  *(a1 + 136) = a3;
+  return result;
+}
+
+{
+  ot::Coap::CoapBase::CoapBase(a1, a2, a3);
+  return a1;
+}
+
+ot::Coap::MessageQueue *ot::Coap::MessageQueue::MessageQueue(ot::Coap::MessageQueue *this)
+{
+  ot::Coap::MessageQueue::MessageQueue(this);
+  return this;
+}
+
+{
+  ot::MessageQueue::MessageQueue(this);
+  return this;
+}
+
+uint64_t ot::Random::NonCrypto::GetUint16(ot::Random::NonCrypto *this)
+{
+  return ot::Random::NonCrypto::GetUint32(this);
+}
+
+{
+  return ot::Random::NonCrypto::GetUint16(this);
+}
+
+ot::Coap::ResponsesQueue *ot::Coap::ResponsesQueue::ResponsesQueue(ot::Coap::ResponsesQueue *this, ot::Instance *a2)
+{
+  ot::Coap::ResponsesQueue::ResponsesQueue(this, a2);
+  return this;
+}
+
+{
+  ot::Coap::MessageQueue::MessageQueue(this);
+  ot::TimerMilliContext::TimerMilliContext((this + 8), a2, ot::Coap::ResponsesQueue::HandleTimer, this);
+  return this;
+}
+
+BOOL ot::Coap::CoapBase::ClearRequests(ot::Coap::CoapBase *this, const ot::Ip6::Address *a2)
+{
+  v13 = this;
+  v12 = a2;
+  v11 = this;
+  v10[0] = ot::Coap::MessageQueue::begin(this);
+  v10[1] = v2;
+  v9[0] = ot::Coap::MessageQueue::end(v11);
+  v9[1] = v3;
+  while (1)
+  {
+    result = ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator!=(v10, v9);
+    if (!result)
+    {
+      break;
+    }
+
+    v8 = ot::Coap::Message::Iterator::operator*(v10);
+    ot::Coap::CoapBase::Metadata::ReadFrom(v7, v8);
+    if (!v12 || ot::Equatable<ot::Ip6::Address>::operator==(v7, v12))
+    {
+      ot::Coap::CoapBase::FinalizeCoapTransaction(this, v8, v7, 0, 0, 0xBu);
+    }
+
+    ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(v10, v5);
+  }
+
+  return result;
+}
+
+{
+  return ot::Coap::CoapBase::ClearRequests(this, a2);
+}
+
+uint64_t ot::Coap::MessageQueue::end(ot::Coap::MessageQueue *this)
+{
+  v2[0] = 0;
+  v2[1] = 0;
+  ot::Coap::Message::Iterator::Iterator(v2);
+  return v2[0];
+}
+
+{
+  v2 = 0;
+  ot::Coap::Message::ConstIterator::ConstIterator(&v2);
+  return v2;
+}
+
+{
+  return ot::Coap::MessageQueue::end(this);
+}
+
+{
+  return ot::Coap::MessageQueue::end(this);
+}
+
+BOOL ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator!=(void *a1, void *a2)
+{
+  return *a1 != *a2;
+}
+
+{
+  return ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator!=(a1, a2);
+}
+
+uint64_t ot::Coap::Message::Iterator::operator*(uint64_t a1)
+{
+  return ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator*(a1);
+}
+
+{
+  return ot::Coap::Message::Iterator::operator*(a1);
+}
+
+void ot::Coap::CoapBase::Metadata::ReadFrom(ot::Coap::CoapBase::Metadata *this, const ot::Coap::Message *a2)
+{
+  Length = ot::Message::GetLength(a2);
+  if (Length < 0x48uLL)
+  {
+    __assert_rtn("ReadFrom", "coap.cpp", 1514, "length >= sizeof(*this)");
+  }
+
+  ot::Message::Read<ot::Coap::CoapBase::Metadata>(a2, Length - 72, this);
+  IgnoreError();
+}
+
+void ot::Coap::CoapBase::FinalizeCoapTransaction(ot::Coap::CoapBase *a1, ot::Coap::Message *a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6)
+{
+  ot::Coap::CoapBase::DequeueMessage(a1, a2);
+  if (*(a3 + 40))
+  {
+    (*(a3 + 40))(*(a3 + 48), a4, a5, a6);
+  }
+}
+
+uint64_t ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(ot::Message::Iterator *a1, ot::Message *a2)
+{
+  return ot::Message::Iterator::Advance(a1, a2);
+}
+
+{
+  return ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(a1, a2);
+}
+
+uint64_t ot::LinkedList<ot::Coap::Resource>::Add(uint64_t *a1, uint64_t a2)
+{
+  v4 = 0;
+  if (ot::LinkedList<ot::Coap::Resource>::Contains(a1, a2))
+  {
+    return 24;
+  }
+
+  else
+  {
+    ot::LinkedList<ot::Coap::Resource>::Push(a1, a2);
+  }
+
+  return v4;
+}
+
+{
+  return ot::LinkedList<ot::Coap::Resource>::Add(a1, a2);
+}
+
+uint64_t ot::Coap::CoapBase::RemoveResource(ot::Coap::CoapBase *this, ot::Coap::Resource *a2)
+{
+  ot::LinkedList<ot::Coap::Resource>::Remove(this + 6, a2);
+  IgnoreError();
+  return ot::LinkedListEntry<ot::Coap::Resource>::SetNext(a2, 0);
+}
+
+uint64_t ot::LinkedList<ot::Coap::Resource>::Remove(uint64_t *a1, uint64_t a2)
+{
+  v5[2] = a1;
+  v5[1] = a2;
+  v5[0] = 0;
+  v4 = ot::LinkedList<ot::Coap::Resource>::Find(a1, a2, v5);
+  if (!v4)
+  {
+    ot::LinkedList<ot::Coap::Resource>::PopAfter(a1, v5[0]);
+  }
+
+  return v4;
+}
+
+{
+  return ot::LinkedList<ot::Coap::Resource>::Remove(a1, a2);
+}
+
+uint64_t ot::LinkedListEntry<ot::Coap::Resource>::SetNext(uint64_t result, uint64_t a2)
+{
+  *(result + 24) = a2;
+  return result;
+}
+
+{
+  return ot::LinkedListEntry<ot::Coap::Resource>::SetNext(result, a2);
+}
+
+ot::Message *ot::Coap::CoapBase::NewMessage(ot::Coap::CoapBase *this, const ot::Message::Settings *a2)
+{
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Udp>(this);
+  ot::Ip6::Udp::NewMessage(v2, 0, a2);
+  ot::AsCoapMessagePtr();
+  v5 = v3;
+  if (v3)
+  {
+    ot::Message::SetOffset(v3, 0);
+  }
+
+  return v5;
+}
+
+uint64_t ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Udp>(ot::InstanceLocator *a1)
+{
+  Instance = ot::InstanceLocator::GetInstance(a1);
+  return ot::Instance::Get<ot::Ip6::Udp>(Instance);
+}
+
+{
+  return ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Udp>(a1);
+}
+
+void *ot::Message::Settings::GetDefault(ot::Message::Settings *this)
+{
+  return &ot::Message::Settings::kDefault;
+}
+
+{
+  return ot::Message::Settings::GetDefault(this);
+}
+
+ot::Message *ot::Coap::CoapBase::NewPriorityMessage(ot::Coap::CoapBase *this)
+{
+  v4 = this;
+  ot::Message::Settings::Settings(v3, 1, 3);
+  return ot::Coap::CoapBase::NewMessage(this, v3);
+}
+
+ot::Coap::Message *ot::Coap::CoapBase::InitMessage(uint64_t a1, ot::Coap::Message *a2, char a3, unsigned __int8 a4)
+{
+  v6 = a2;
+  v5 = 0;
+  if (a2)
+  {
+    v5 = ot::Coap::Message::Init(a2, a3, 2, a4);
+    if (!v5)
+    {
+      v5 = ot::Coap::Message::SetPayloadMarker(v6);
+    }
+  }
+
+  if (v5 && v6)
+  {
+    ot::Message::Free(v6);
+    return 0;
+  }
+
+  return v6;
+}
+
+ot::Coap::Message *ot::Coap::CoapBase::InitResponse(ot::Coap::CoapBase *this, ot::Coap::Message *a2, const ot::Coap::Message *a3)
+{
+  v5 = a2;
+  v4 = 0;
+  if (a2)
+  {
+    v4 = ot::Coap::Message::SetDefaultResponseHeader(a2, a3);
+    if (!v4)
+    {
+      v4 = ot::Coap::Message::SetPayloadMarker(v5);
+    }
+  }
+
+  if (v4 && v5)
+  {
+    ot::Message::Free(v5);
+    return 0;
+  }
+
+  return v5;
+}
+
+uint64_t ot::Coap::CoapBase::SendMessage(_WORD *a1, ot::Coap::Message *a2, ot::Ip6::MessageInfo *a3, ot::Coap::TxParameters *a4, uint64_t a5, uint64_t a6)
+{
+  v36 = a1;
+  v35 = a2;
+  v34 = a3;
+  v33 = a4;
+  v32 = a5;
+  v31 = a6;
+  v30 = 0;
+  v29 = 0;
+  Length = 0;
+  Type = ot::Coap::Message::GetType(a2);
+  if (Type == 2)
+  {
+    ot::Coap::ResponsesQueue::EnqueueResponse((a1 + 36), v35, v34, v33);
+  }
+
+  else if (Type == 3)
+  {
+    if (ot::Coap::Message::GetCode(v35))
+    {
+      __assert_rtn("SendMessage", "coap.cpp", 243, "aMessage.GetCode() == kCodeEmpty");
+    }
+  }
+
+  else
+  {
+    v6 = v35;
+    v7 = a1[4];
+    a1[4] = v7 + 1;
+    ot::Coap::Message::SetMessageId(v6, v7);
+  }
+
+  ot::Coap::Message::Finish(v35);
+  if (ot::Coap::Message::IsConfirmable(v35))
+  {
+    Length = ot::Message::GetLength(v35);
+  }
+
+  else if (ot::Coap::Message::IsNonConfirmable(v35) && v32)
+  {
+    Length = ot::Coap::Message::GetOptionStart(v35);
+  }
+
+  if (!Length || ((ot::Ip6::MessageInfo::GetSockAddr(v34), v19[0] = *v8, PeerPort = ot::Ip6::MessageInfo::GetPeerPort(v34), ot::Ip6::MessageInfo::GetPeerAddr(v34), v19[1] = *v9, v27 = v27 & 0xFB | (4 * ot::Ip6::MessageInfo::GetMulticastLoop(v34)), v21 = v32, v22 = v31, v25 = *(v33 + 6), v24 = ot::Coap::TxParameters::CalculateInitialRetransmissionTimeout(v33, v10, v11), v27 = v27 & 0xFC | (2 * ot::Coap::Message::IsConfirmable(v35)), HopLimit = ot::Ip6::MessageInfo::GetHopLimit(v34), IsHostInterface = ot::Ip6::MessageInfo::IsHostInterface(v34), v27 = v27 & 0xF7 | (8 * IsHostInterface), v18[0] = ot::TimerMilli::GetNow(IsHostInterface), (v27 & 2) == 0) ? (v15 = ot::Coap::TxParameters::CalculateMaxTransmitWait(v33), v13 = ot::Time::operator+(v18, v15)) : (v13 = ot::Time::operator+(v18, v24)), v18[1] = v13, v23 = v13, (v29 = ot::Coap::CoapBase::CopyAndEnqueueMessage(a1, v35, Length, v19)) != 0))
+  {
+    v30 = ot::Coap::CoapBase::Send(a1, v35, v34);
+  }
+
+  else
+  {
+    v30 = 3;
+  }
+
+  if (v30 && v29)
+  {
+    ot::Coap::CoapBase::DequeueMessage(a1, v29);
+  }
+
+  return v30;
+}
+
+void ot::Coap::ResponsesQueue::EnqueueResponse(ot::Coap::ResponsesQueue *this, ot::Coap::Message *a2, const ot::Ip6::MessageInfo *a3, const ot::Coap::TxParameters *a4)
+{
+  v15 = this;
+  v14 = a2;
+  v13 = a3;
+  v12 = a4;
+  v11 = 0;
+  v4 = ot::Coap::ResponsesQueue::ResponseMetadata::ResponseMetadata(&v9);
+  Now = ot::TimerMilli::GetNow(v4);
+  v5 = ot::Coap::TxParameters::CalculateExchangeLifetime(v12);
+  v8 = ot::Time::operator+(&Now, v5);
+  v9 = v8;
+  memcpy(v10, v13, sizeof(v10));
+  if (!ot::Coap::ResponsesQueue::FindMatchedResponse(this, v14, v13))
+  {
+    ot::Coap::ResponsesQueue::UpdateQueue(this);
+    v11 = ot::Coap::Message::Clone(v14);
+    if (v11)
+    {
+      if (ot::Coap::ResponsesQueue::ResponseMetadata::AppendTo(&v9, v11))
+      {
+        ot::Message::Free(v11);
+      }
+
+      else
+      {
+        ot::Coap::MessageQueue::Enqueue(this, v11);
+        ot::TimerMilli::FireAtIfEarlier((this + 8), v9);
+      }
+    }
+  }
+}
+
+BOOL ot::Coap::Message::IsNonConfirmable(ot::Coap::Message *this)
+{
+  return ot::Coap::Message::GetType(this) == 1;
+}
+
+{
+  return ot::Coap::Message::IsNonConfirmable(this);
+}
+
+uint64_t ot::Coap::Message::GetOptionStart(ot::Coap::Message *this)
+{
+  return ot::Coap::Message::GetTokenLength(this) + 4;
+}
+
+{
+  return ot::Coap::Message::GetOptionStart(this);
+}
+
+uint64_t ot::Ip6::MessageInfo::GetPeerPort(ot::Ip6::MessageInfo *this)
+{
+  return *(this + 17);
+}
+
+{
+  return ot::Ip6::MessageInfo::GetPeerPort(this);
+}
+
+uint64_t ot::Ip6::MessageInfo::GetMulticastLoop(ot::Ip6::MessageInfo *this)
+{
+  return (*(this + 37) >> 4) & 1;
+}
+
+{
+  return ot::Ip6::MessageInfo::GetMulticastLoop(this);
+}
+
+uint64_t ot::Ip6::MessageInfo::GetHopLimit(ot::Ip6::MessageInfo *this)
+{
+  return *(this + 36);
+}
+
+{
+  return ot::Ip6::MessageInfo::GetHopLimit(this);
+}
+
+ot::Coap::Message *ot::Coap::CoapBase::CopyAndEnqueueMessage(ot::Coap::CoapBase *this, const ot::Coap::Message *a2, unsigned __int16 a3, const ot::Coap::CoapBase::Metadata *a4)
+{
+  v6 = ot::Coap::Message::Clone(a2, a3);
+  if (v6)
+  {
+    v7 = ot::Coap::CoapBase::Metadata::AppendTo(a4, v6);
+    if (!v7)
+    {
+      ot::TimerMilli::FireAtIfEarlier((this + 16), *(a4 + 14));
+      ot::Coap::MessageQueue::Enqueue(this, v6);
+    }
+  }
+
+  else
+  {
+    v7 = 3;
+  }
+
+  if (v7 && v6)
+  {
+    ot::Message::Free(v6);
+    return 0;
+  }
+
+  return v6;
+}
+
+void ot::Coap::CoapBase::DequeueMessage(ot::Coap::CoapBase *this, ot::Coap::Message *a2)
+{
+  ot::Coap::MessageQueue::Dequeue(this, a2);
+  if (ot::Timer::IsRunning((this + 16)) && !ot::Coap::MessageQueue::GetHead(this))
+  {
+    ot::TimerMilli::Stop((this + 16));
+  }
+
+  ot::Message::Free(a2);
+}
+
+uint64_t ot::Coap::CoapBase::SendEmptyMessage(ot::Coap::CoapBase *a1, char a2, ot::Coap::Message *a3, uint64_t a4)
+{
+  v7 = 0;
+  if (ot::Coap::Message::IsConfirmable(a3))
+  {
+    v7 = ot::Coap::CoapBase::NewMessage(a1);
+    if (v7)
+    {
+      ot::Coap::Message::Init(v7, a2, 0);
+      MessageId = ot::Coap::Message::GetMessageId(a3);
+      ot::Coap::Message::SetMessageId(v7, MessageId);
+      ot::Coap::Message::Finish(v7);
+      v8 = ot::Coap::CoapBase::Send(a1, v7, a4);
+    }
+
+    else
+    {
+      v8 = 3;
+    }
+  }
+
+  else
+  {
+    v8 = 7;
+  }
+
+  if (v8 && v7)
+  {
+    ot::Message::Free(v7);
+  }
+
+  return v8;
+}
+
+uint64_t ot::Coap::CoapBase::SendEmptyAck(ot::Coap::CoapBase *a1, ot::Coap::Message *a2, const ot::Ip6::MessageInfo *a3, char a4)
+{
+  if (ot::Coap::Message::IsConfirmable(a2))
+  {
+    return ot::Coap::CoapBase::SendHeaderResponse(a1, a4, a2, a3);
+  }
+
+  else
+  {
+    return 7;
+  }
+}
+
+uint64_t ot::Coap::CoapBase::SendHeaderResponse(ot::Coap::CoapBase *a1, char a2, ot::Coap::Message *a3, const ot::Ip6::MessageInfo *a4)
+{
+  v8 = 0;
+  if (ot::Coap::Message::IsRequest(a3))
+  {
+    v8 = ot::Coap::CoapBase::NewMessage(a1);
+    if (v8)
+    {
+      Type = ot::Coap::Message::GetType(a3);
+      if (Type)
+      {
+        if (Type != 1)
+        {
+          v9 = 7;
+          goto LABEL_12;
+        }
+
+        ot::Coap::Message::Init(v8, 1, a2);
+      }
+
+      else
+      {
+        ot::Coap::Message::Init(v8, 2, a2);
+        MessageId = ot::Coap::Message::GetMessageId(a3);
+        ot::Coap::Message::SetMessageId(v8, MessageId);
+      }
+
+      v9 = ot::Coap::Message::SetTokenFromMessage(v8, a3);
+      if (!v9)
+      {
+        v9 = ot::Coap::CoapBase::SendMessage(a1, v8, a4);
+      }
+    }
+
+    else
+    {
+      v9 = 3;
+    }
+  }
+
+  else
+  {
+    v9 = 7;
+  }
+
+LABEL_12:
+  if (v9 && v8)
+  {
+    ot::Message::Free(v8);
+  }
+
+  return v9;
+}
+
+BOOL ot::Coap::Message::IsRequest(ot::Coap::Message *this)
+{
+  v3 = 0;
+  if (ot::Coap::Message::GetCode(this) >= 1)
+  {
+    return ot::Coap::Message::GetCode(this) <= 4;
+  }
+
+  return v3;
+}
+
+{
+  return ot::Coap::Message::IsRequest(this);
+}
+
+uint64_t ot::Coap::CoapBase::HandleRetransmissionTimer(ot::Coap::CoapBase *this)
+{
+  v22 = this;
+  ot::NextFireTime::NextFireTime(v21);
+  ot::Ip6::MessageInfo::MessageInfo(v12);
+  v11[2] = this;
+  v11[0] = ot::Coap::MessageQueue::begin(this);
+  v11[1] = v1;
+  v10[0] = ot::Coap::MessageQueue::end(this);
+  v10[1] = v2;
+  while (ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator!=(v11, v10))
+  {
+    v9 = ot::Coap::Message::Iterator::operator*(v11);
+    ot::Coap::CoapBase::Metadata::ReadFrom(&v13, v9);
+    Now = ot::NextFireTime::GetNow(v21);
+    if (ot::Time::operator>=(&Now, &v16))
+    {
+      if ((v20 & 2) == 0 || !v18)
+      {
+        ot::Coap::CoapBase::FinalizeCoapTransaction(this, v9, &v13, 0, 0, 0x1Cu);
+        goto LABEL_10;
+      }
+
+      --v18;
+      v17 *= 2;
+      v6 = ot::NextFireTime::GetNow(v21);
+      v7 = ot::Time::operator+(&v6, v17);
+      v16 = v7;
+      ot::Coap::CoapBase::Metadata::UpdateIn(&v13, v9);
+      if ((v20 & 1) == 0)
+      {
+        ot::Ip6::MessageInfo::SetPeerAddr(v12, &v14);
+        ot::Ip6::MessageInfo::SetPeerPort(v12, v15);
+        ot::Ip6::MessageInfo::SetSockAddr(v12, &v13);
+        ot::Ip6::MessageInfo::SetHopLimit(v12, v19);
+        ot::Ip6::MessageInfo::SetIsHostInterface(v12, (v20 & 8) != 0);
+        ot::Ip6::MessageInfo::SetMulticastLoop(v12, (v20 & 4) != 0);
+        ot::Coap::CoapBase::SendCopy(this, v9, v12);
+      }
+    }
+
+    ot::NextFireTime::UpdateIfEarlier(v21, v16);
+LABEL_10:
+    ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(v11, v3);
+  }
+
+  return ot::TimerMilli::FireAt((this + 16), v21);
+}
+
+uint64_t ot::NextFireTime::GetNow(ot::NextFireTime *this)
+{
+  return *this;
+}
+
+{
+  return ot::NextFireTime::GetNow(this);
+}
+
+__n128 ot::Ip6::MessageInfo::SetSockAddr(__n128 *this, __n128 *a2)
+{
+  result = *a2;
+  *this = *a2;
+  return result;
+}
+
+uint64_t ot::Ip6::MessageInfo::SetMulticastLoop(uint64_t this, char a2)
+{
+  *(this + 37) = *(this + 37) & 0xEF | (16 * (a2 & 1));
+  return this;
+}
+
+{
+  return ot::Ip6::MessageInfo::SetMulticastLoop(this, a2);
+}
+
+void ot::Coap::CoapBase::SendCopy(ot::Coap::CoapBase *this, const ot::Coap::Message *a2, const ot::Ip6::MessageInfo *a3)
+{
+  v17 = this;
+  v16 = a2;
+  v15 = a3;
+  v11 = this;
+  v14 = 0;
+  v12 = a2;
+  Length = ot::Message::GetLength(a2);
+  v13 = ot::Coap::Message::Clone(v12, Length - 72);
+  if (v13)
+  {
+    v14 = ot::Coap::CoapBase::Send(v11, v13, v15);
+  }
+
+  else
+  {
+    v14 = 3;
+  }
+
+  if (v14)
+  {
+    v4 = ot::ErrorToString(v14);
+    ot::Logger::LogAtLevel<(ot::LogLevel)2>("Coap", "Failed to send copy: %s", v5, v6, v7, v8, v9, v10, v4);
+    if (v13)
+    {
+      ot::Message::Free(v13);
+    }
+  }
+}
+
+uint64_t ot::Coap::CoapBase::AbortTransaction(ot::Coap::MessageQueue *a1, uint64_t a2, uint64_t a3)
+{
+  v18 = a1;
+  v17 = a2;
+  v16 = a3;
+  v15 = 23;
+  v11 = a1;
+  v10[0] = ot::Coap::MessageQueue::begin(a1);
+  v10[1] = v3;
+  v9[0] = ot::Coap::MessageQueue::end(v11);
+  v9[1] = v4;
+  while (ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator!=(v10, v9))
+  {
+    v8 = ot::Coap::Message::Iterator::operator*(v10);
+    ot::Coap::CoapBase::Metadata::ReadFrom(v12, v8);
+    if (v13 == v17 && v14 == v16)
+    {
+      ot::Coap::CoapBase::FinalizeCoapTransaction(a1, v8, v12, 0, 0, 0xBu);
+      v15 = 0;
+    }
+
+    ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(v10, v5);
+  }
+
+  return v15;
+}
+
+uint64_t ot::Coap::CoapBase::Metadata::AppendTo(ot::Coap::CoapBase::Metadata *this, ot::Coap::Message *a2)
+{
+  return ot::Message::Append<ot::Coap::CoapBase::Metadata>(a2, this);
+}
+
+{
+  return ot::Coap::CoapBase::Metadata::AppendTo(this, a2);
+}
+
+ot::Message **ot::Coap::MessageQueue::Enqueue(ot::Coap::MessageQueue *this, ot::Coap::Message *a2)
+{
+  return ot::Coap::MessageQueue::Enqueue(this, a2, 1);
+}
+
+{
+  return ot::Coap::MessageQueue::Enqueue(this, a2);
+}
+
+uint64_t ot::Coap::CoapBase::EvictMessage(ot::Coap::CoapBase *this)
+{
+  v10 = 0;
+  Head = ot::Coap::MessageQueue::GetHead(this);
+  if (Head)
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Coap", "Evicting message from head of CoAP pending requests queue", v1, v2, v3, v4, v5, v6);
+    ot::Coap::CoapBase::DequeueMessage(this, Head);
+  }
+
+  else
+  {
+    return 23;
+  }
+
+  return v10;
+}
+
 uint64_t ot::Coap::MessageQueue::GetHead(ot::Coap::MessageQueue *this)
 {
   return ot::MessageQueue::GetHead(this);
@@ -26,136 +2292,136 @@ uint64_t ot::Coap::MessageQueue::Dequeue(ot::Coap::MessageQueue *this, ot::Coap:
 
 ot::Coap::Message *ot::Coap::CoapBase::FindRelatedRequest(ot::Coap::CoapBase *this, const ot::Coap::Message *a2, const ot::Ip6::MessageInfo *a3, ot::Coap::CoapBase::Metadata *a4)
 {
-  v22 = this;
-  v21 = a2;
-  v20 = a3;
-  v19 = a4;
-  v18 = 0;
-  v17 = this;
-  v16[0] = ot::Coap::MessageQueue::begin(this);
-  v16[1] = v4;
-  v15[0] = ot::Coap::MessageQueue::end(v17);
-  v15[1] = v5;
-  while (ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator!=(v16, v15))
+  v23 = this;
+  v22 = a2;
+  v21 = a3;
+  v20 = a4;
+  v19 = 0;
+  v18 = this;
+  v17[0] = ot::Coap::MessageQueue::begin(this);
+  v17[1] = v4;
+  v16[0] = ot::Coap::MessageQueue::end(v18);
+  v16[1] = v5;
+  while (ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator!=(v17, v16))
   {
-    v14 = ot::Coap::Message::Iterator::operator*(v16);
-    ot::Coap::CoapBase::Metadata::ReadFrom(v19, v14);
-    v13 = v19 + 16;
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v20);
-    if (ot::Equatable<ot::Ip6::Address>::operator==(v13, PeerAddr) || ot::Ip6::Address::IsMulticast((v19 + 16)) || (Iid = ot::Ip6::Address::GetIid((v19 + 16)), ot::Ip6::InterfaceIdentifier::IsAnycastLocator(Iid)))
+    v15 = ot::Coap::Message::Iterator::operator*(v17);
+    ot::Coap::CoapBase::Metadata::ReadFrom(v20, v15);
+    v14 = v20 + 16;
+    ot::Ip6::MessageInfo::GetPeerAddr(v21);
+    if (ot::Equatable<ot::Ip6::Address>::operator==(v14, v6) || ot::Ip6::Address::IsMulticast((v20 + 16)) || (Iid = ot::Ip6::Address::GetIid((v20 + 16)), ot::Ip6::InterfaceIdentifier::IsAnycastLocator(Iid, v8)))
     {
-      v12 = *(v19 + 16);
-      if (v12 == ot::Ip6::MessageInfo::GetPeerPort(v20))
+      v13 = *(v20 + 16);
+      if (v13 == ot::Ip6::MessageInfo::GetPeerPort(v21))
       {
-        Type = ot::Coap::Message::GetType(v21);
+        Type = ot::Coap::Message::GetType(v22);
         if (Type <= 1)
         {
-          if (ot::Coap::Message::IsTokenEqual(v21, v14))
+          if (ot::Coap::Message::IsTokenEqual(v22, v15))
           {
-            return v14;
+            return v15;
           }
         }
 
         else if (Type == 3 || Type == 2)
         {
-          MessageId = ot::Coap::Message::GetMessageId(v21);
-          if (MessageId == ot::Coap::Message::GetMessageId(v14))
+          MessageId = ot::Coap::Message::GetMessageId(v22);
+          if (MessageId == ot::Coap::Message::GetMessageId(v15))
           {
-            return v14;
+            return v15;
           }
         }
       }
     }
 
-    ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(v16, v8);
+    ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(v17, v9);
   }
 
-  return v18;
+  return v19;
 }
 
 void ot::Coap::CoapBase::Receive(ot::Coap::CoapBase *this, ot::Message *a2, const ot::Ip6::MessageInfo *a3)
 {
   ot::AsCoapMessage();
-  v13 = v3;
+  v12 = v3;
   if (ot::Coap::Message::ParseHeader(v3))
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)5>("Coap", "Failed to parse CoAP header", v4, v5, v6, v7, v8, v9, v11);
-    SockAddr = ot::Ip6::MessageInfo::GetSockAddr(a3);
-    if (!ot::Ip6::Address::IsMulticast(SockAddr) && ot::Coap::Message::IsConfirmable(v13))
+    ot::Logger::LogAtLevel<(ot::LogLevel)5>("Coap", "Failed to parse CoAP header", v4, v5, v6, v7, v8, v9);
+    ot::Ip6::MessageInfo::GetSockAddr(a3);
+    if (!ot::Ip6::Address::IsMulticast(v10) && ot::Coap::Message::IsConfirmable(v12))
     {
-      ot::Coap::CoapBase::SendReset(this, v13, a3);
+      ot::Coap::CoapBase::SendReset(this, v12, a3);
       IgnoreError();
     }
   }
 
-  else if (ot::Coap::Message::IsRequest(v13))
+  else if (ot::Coap::Message::IsRequest(v12))
   {
-    ot::Coap::CoapBase::ProcessReceivedRequest(this, v13, a3);
+    ot::Coap::CoapBase::ProcessReceivedRequest(this, v12, a3);
   }
 
   else
   {
-    ot::Coap::CoapBase::ProcessReceivedResponse(this, v13, a3);
+    ot::Coap::CoapBase::ProcessReceivedResponse(this, v12, a3);
   }
 }
 
 void ot::Coap::CoapBase::ProcessReceivedRequest(ot::Coap::CoapBase *this, ot::Coap::Message *a2, const ot::Ip6::MessageInfo *a3)
 {
-  v31 = this;
-  v30 = a2;
-  v29 = a3;
-  v28 = 0;
-  v27 = 0;
-  if (!ot::CallbackBase<otError (*)(ot::Coap::Message const&,ot::Ip6::MessageInfo const&,void *)>::IsSet(this + 7) || (v27 = ot::Callback<otError (*)(ot::Coap::Message const&,ot::Ip6::MessageInfo const&,void *),(ot::CallbackContextPosition)1>::Invoke<ot::Coap::Message&,ot::Ip6::MessageInfo const&>(this + 56, v30, v29)) == 0)
+  v36 = this;
+  v35 = a2;
+  v34 = a3;
+  v33 = 0;
+  v32 = 0;
+  if (!ot::CallbackBase<otError (*)(ot::Coap::Message const&,ot::Ip6::MessageInfo const&,void *)>::IsSet(this + 7) || (v32 = ot::Callback<otError (*)(ot::Coap::Message const&,ot::Ip6::MessageInfo const&,void *),(ot::CallbackContextPosition)1>::Invoke<ot::Coap::Message&,ot::Ip6::MessageInfo const&>(this + 56, v35, v34)) == 0)
   {
-    MatchedResponseCopy = ot::Coap::ResponsesQueue::GetMatchedResponseCopy((this + 72), v30, v29, &v28);
+    MatchedResponseCopy = ot::Coap::ResponsesQueue::GetMatchedResponseCopy((this + 72), v35, v34, &v33);
     if (MatchedResponseCopy)
     {
       if (MatchedResponseCopy == 3)
       {
-        v27 = 3;
+        v32 = 3;
       }
 
       else
       {
-        UriPathOptions = ot::Coap::Message::ReadUriPathOptions(v30, __s2);
-        v27 = UriPathOptions;
+        UriPathOptions = ot::Coap::Message::ReadUriPathOptions(v35, __s2);
+        v32 = UriPathOptions;
         if (!UriPathOptions)
         {
-          if (*(this + 16) && ((*(this + 16))(this, __s2, v30, v29) & 1) != 0)
+          if (*(this + 16) && ((*(this + 16))(this, __s2, v35, v34) & 1) != 0)
           {
-            v27 = 0;
+            v32 = 0;
           }
 
           else
           {
-            v26[1] = this + 48;
-            v26[0] = ot::LinkedList<ot::Coap::Resource>::begin(this + 48);
-            v25 = ot::LinkedList<ot::Coap::Resource>::end();
-            while (ot::ItemPtrIterator<ot::Coap::Resource,ot::LinkedList<ot::Coap::Resource>::Iterator>::operator!=(v26, &v25))
+            v31[1] = this + 48;
+            v31[0] = ot::LinkedList<ot::Coap::Resource>::begin(this + 48);
+            v30 = ot::LinkedList<ot::Coap::Resource>::end();
+            while (ot::ItemPtrIterator<ot::Coap::Resource,ot::LinkedList<ot::Coap::Resource>::Iterator>::operator!=(v31, &v30))
             {
-              v24 = ot::ItemPtrIterator<ot::Coap::Resource,ot::LinkedList<ot::Coap::Resource>::Iterator>::operator*(v26);
-              if (!strcmp(*v24, __s2))
+              v29 = ot::ItemPtrIterator<ot::Coap::Resource,ot::LinkedList<ot::Coap::Resource>::Iterator>::operator*(v31);
+              if (!strcmp(*v29, __s2))
               {
-                ot::Coap::Resource::HandleRequest(v24, v30, v29);
-                v27 = 0;
+                ot::Coap::Resource::HandleRequest(v29, v35, v34);
+                v32 = 0;
                 goto LABEL_20;
               }
 
-              ot::ItemPtrIterator<ot::Coap::Resource,ot::LinkedList<ot::Coap::Resource>::Iterator>::operator++(v26);
+              ot::ItemPtrIterator<ot::Coap::Resource,ot::LinkedList<ot::Coap::Resource>::Iterator>::operator++(v31);
             }
 
             if (ot::CallbackBase<void (*)(void *,otMessage *,otMessageInfo const*)>::IsSet(this + 14))
             {
-              v23 = v30;
-              v22 = v29;
-              ot::Callback<void (*)(void *,otMessage *,otMessageInfo const*),(ot::CallbackContextPosition)0>::Invoke<ot::Coap::Message *,ot::Ip6::MessageInfo const*>(this + 112, &v23, &v22);
-              v27 = 0;
+              v28 = v35;
+              v27 = v34;
+              ot::Callback<void (*)(void *,otMessage *,otMessageInfo const*),(ot::CallbackContextPosition)0>::Invoke<ot::Coap::Message *,ot::Ip6::MessageInfo const*>(this + 112, &v28, &v27);
+              v32 = 0;
             }
 
             else
             {
-              v27 = 23;
+              v32 = 23;
             }
           }
         }
@@ -164,99 +2430,99 @@ void ot::Coap::CoapBase::ProcessReceivedRequest(ot::Coap::CoapBase *this, ot::Co
 
     else
     {
-      ot::Coap::Message::Finish(v28);
-      v27 = ot::Coap::CoapBase::Send(this, v28, v29);
+      ot::Coap::Message::Finish(v33);
+      v32 = ot::Coap::CoapBase::Send(this, v33, v34);
     }
   }
 
 LABEL_20:
-  if (v27)
+  if (v32)
   {
-    v4 = ot::ErrorToString(v27);
+    v4 = ot::ErrorToString(v32);
     ot::Logger::LogAtLevel<(ot::LogLevel)4>("Coap", "Failed to process request: %s", v5, v6, v7, v8, v9, v10, v4);
-    ot::Message::GetLength(v30);
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v29);
-    ot::Ip6::Address::ToString(PeerAddr, v33);
-    ot::String<(unsigned short)40>::AsCString(v33);
-    ot::Ip6::MessageInfo::GetPeerPort(v29);
-    SockAddr = ot::Ip6::MessageInfo::GetSockAddr(v29);
-    ot::Ip6::Address::ToString(SockAddr, v32);
-    ot::String<(unsigned short)40>::AsCString(v32);
-    ot::Ip6::MessageInfo::GetSockPort(v29);
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Coap", "Failed message info: uri %s, length %u, source %s/%u, destination %s/%u", v13, v14, v15, v16, v17, v18, __s2);
-    if (v27 == 23)
+    Length = ot::Message::GetLength(v35);
+    ot::Ip6::MessageInfo::GetPeerAddr(v34);
+    ot::Ip6::Address::ToString(v38, v11);
+    v22 = ot::String<(unsigned short)40>::AsCString(v38);
+    PeerPort = ot::Ip6::MessageInfo::GetPeerPort(v34);
+    ot::Ip6::MessageInfo::GetSockAddr(v34);
+    ot::Ip6::Address::ToString(v37, v12);
+    v24 = ot::String<(unsigned short)40>::AsCString(v37);
+    SockPort = ot::Ip6::MessageInfo::GetSockPort(v34);
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Coap", "Failed message info: uri %s, length %u, source %s/%u, destination %s/%u", v14, v15, v16, v17, v18, v19, __s2, Length, v22, PeerPort, v24, SockPort);
+    if (v32 == 23)
     {
-      v19 = ot::Ip6::MessageInfo::GetSockAddr(v29);
-      if (!ot::Ip6::Address::IsMulticast(v19))
+      ot::Ip6::MessageInfo::GetSockAddr(v34);
+      if (!ot::Ip6::Address::IsMulticast(v20))
       {
-        ot::Coap::CoapBase::SendNotFound(this, v30, v29);
+        ot::Coap::CoapBase::SendNotFound(this, v35, v34);
         IgnoreError();
       }
     }
 
-    if (v28)
+    if (v33)
     {
-      ot::Message::Free(v28);
+      ot::Message::Free(v33);
     }
   }
 }
 
 void ot::Coap::CoapBase::ProcessReceivedResponse(ot::Coap::CoapBase *this, ot::Coap::Message *a2, const ot::Ip6::MessageInfo *a3)
 {
-  v29 = this;
-  v28 = a2;
-  v27 = a3;
-  RelatedRequest = ot::Coap::CoapBase::FindRelatedRequest(this, a2, a3, v22);
+  v32 = this;
+  v31 = a2;
+  v30 = a3;
+  RelatedRequest = ot::Coap::CoapBase::FindRelatedRequest(this, a2, a3, v25);
   if (!RelatedRequest)
   {
     goto LABEL_24;
   }
 
-  Type = ot::Coap::Message::GetType(v28);
+  Type = ot::Coap::Message::GetType(v31);
   switch(Type)
   {
     case 0:
-      ot::Coap::CoapBase::SendAck(this, v28, v27);
+      ot::Coap::CoapBase::SendAck(this, v31, v30);
       IgnoreError();
       goto LABEL_20;
     case 1:
 LABEL_20:
-      if (v24 && ot::Ip6::Address::IsMulticast(&v23))
+      if (v27 && ot::Ip6::Address::IsMulticast(&v26))
       {
-        v24(v25, v28, v27, 0);
+        v27(v28, v31, v30, 0);
       }
 
       else
       {
-        ot::Coap::CoapBase::FinalizeCoapTransaction(this, RelatedRequest, v22, v28, v27, 0);
+        ot::Coap::CoapBase::FinalizeCoapTransaction(this, RelatedRequest, v25, v31, v30, 0);
       }
 
       break;
     case 2:
-      if (ot::Coap::Message::IsEmpty(v28))
+      if (ot::Coap::Message::IsEmpty(v31))
       {
-        if ((v26 & 2) != 0)
+        if ((v29 & 2) != 0)
         {
-          v26 = v26 & 0xFE | 1;
-          ot::Coap::CoapBase::Metadata::UpdateIn(v22, RelatedRequest);
+          v29 = v29 & 0xFE | 1;
+          ot::Coap::CoapBase::Metadata::UpdateIn(v25, RelatedRequest);
         }
 
-        if (!v24)
+        if (!v27)
         {
           ot::Coap::CoapBase::DequeueMessage(this, RelatedRequest);
         }
       }
 
-      else if (ot::Coap::Message::IsResponse(v28) && ot::Coap::Message::IsTokenEqual(v28, RelatedRequest))
+      else if (ot::Coap::Message::IsResponse(v31) && ot::Coap::Message::IsTokenEqual(v31, RelatedRequest))
       {
-        ot::Coap::CoapBase::FinalizeCoapTransaction(this, RelatedRequest, v22, v28, v27, 0);
+        ot::Coap::CoapBase::FinalizeCoapTransaction(this, RelatedRequest, v25, v31, v30, 0);
       }
 
       break;
     default:
-      if (Type == 3 && ot::Coap::Message::IsEmpty(v28))
+      if (Type == 3 && ot::Coap::Message::IsEmpty(v31))
       {
-        ot::Coap::CoapBase::FinalizeCoapTransaction(this, RelatedRequest, v22, 0, 0, 0xBu);
+        ot::Coap::CoapBase::FinalizeCoapTransaction(this, RelatedRequest, v25, 0, 0, 0xBu);
       }
 
       break;
@@ -265,20 +2531,20 @@ LABEL_20:
 LABEL_24:
   if (!RelatedRequest)
   {
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Coap", "Failed to process response: no matching request", v3, v4, v5, v6, v7, v8, v17);
-    Length = ot::Message::GetLength(v28);
-    PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v27);
-    ot::Ip6::Address::ToString(PeerAddr, v31);
-    ot::String<(unsigned short)40>::AsCString(v31);
-    ot::Ip6::MessageInfo::GetPeerPort(v27);
-    SockAddr = ot::Ip6::MessageInfo::GetSockAddr(v27);
-    ot::Ip6::Address::ToString(SockAddr, v30);
-    ot::String<(unsigned short)40>::AsCString(v30);
-    ot::Ip6::MessageInfo::GetSockPort(v27);
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Coap", "Failed message info: length %u, source %s/%u, destination %s/%u", v11, v12, v13, v14, v15, v16, Length);
-    if (ot::Coap::Message::IsConfirmable(v28) || ot::Coap::Message::IsNonConfirmable(v28))
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Coap", "Failed to process response: no matching request", v3, v4, v5, v6, v7, v8);
+    Length = ot::Message::GetLength(v31);
+    ot::Ip6::MessageInfo::GetPeerAddr(v30);
+    ot::Ip6::Address::ToString(v34, v9);
+    v19 = ot::String<(unsigned short)40>::AsCString(v34);
+    PeerPort = ot::Ip6::MessageInfo::GetPeerPort(v30);
+    ot::Ip6::MessageInfo::GetSockAddr(v30);
+    ot::Ip6::Address::ToString(v33, v10);
+    v21 = ot::String<(unsigned short)40>::AsCString(v33);
+    SockPort = ot::Ip6::MessageInfo::GetSockPort(v30);
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Coap", "Failed message info: length %u, source %s/%u, destination %s/%u", v12, v13, v14, v15, v16, v17, Length, v19, PeerPort, v21, SockPort);
+    if (ot::Coap::Message::IsConfirmable(v31) || ot::Coap::Message::IsNonConfirmable(v31))
     {
-      ot::Coap::CoapBase::SendReset(this, v28, v27);
+      ot::Coap::CoapBase::SendReset(this, v31, v30);
       IgnoreError();
     }
   }
@@ -437,37 +2703,38 @@ uint64_t ot::Message::Write<ot::Coap::CoapBase::Metadata>(ot::Message *a1, unsig
 
 ot::Coap::Message *ot::Coap::ResponsesQueue::FindMatchedResponse(ot::Coap::ResponsesQueue *this, const ot::Coap::Message *a2, const ot::Ip6::MessageInfo *a3)
 {
-  v17 = this;
-  v16 = a2;
-  v15 = a3;
-  v14 = 0;
-  v13 = this;
-  v12 = ot::Coap::MessageQueue::begin(this);
-  v11 = ot::Coap::MessageQueue::end(v13);
-  while (ot::ItemPtrIterator<ot::Message const,ot::Message::ConstIterator>::operator!=(&v12, &v11))
+  v18 = this;
+  v17 = a2;
+  v16 = a3;
+  v15 = 0;
+  v14 = this;
+  v13 = ot::Coap::MessageQueue::begin(this);
+  v12 = ot::Coap::MessageQueue::end(v14);
+  while (ot::ItemPtrIterator<ot::Message const,ot::Message::ConstIterator>::operator!=(&v13, &v12))
   {
-    v10 = ot::Coap::Message::ConstIterator::operator*(&v12);
-    MessageId = ot::Coap::Message::GetMessageId(v10);
-    if (MessageId == ot::Coap::Message::GetMessageId(v16))
+    v11 = ot::Coap::Message::ConstIterator::operator*(&v13);
+    MessageId = ot::Coap::Message::GetMessageId(v11);
+    if (MessageId == ot::Coap::Message::GetMessageId(v17))
     {
-      ot::Coap::ResponsesQueue::ResponseMetadata::ResponseMetadata(v8);
-      ot::Coap::ResponsesQueue::ResponseMetadata::ReadFrom(v8, v10);
-      PeerPort = ot::Ip6::MessageInfo::GetPeerPort(v9);
-      if (PeerPort == ot::Ip6::MessageInfo::GetPeerPort(v15))
+      ot::Coap::ResponsesQueue::ResponseMetadata::ResponseMetadata(v9);
+      ot::Coap::ResponsesQueue::ResponseMetadata::ReadFrom(v9, v11);
+      PeerPort = ot::Ip6::MessageInfo::GetPeerPort(v10);
+      if (PeerPort == ot::Ip6::MessageInfo::GetPeerPort(v16))
       {
-        PeerAddr = ot::Ip6::MessageInfo::GetPeerAddr(v9);
-        v3 = ot::Ip6::MessageInfo::GetPeerAddr(v15);
-        if (ot::Equatable<ot::Ip6::Address>::operator==(PeerAddr, v3))
+        ot::Ip6::MessageInfo::GetPeerAddr(v10);
+        v6 = v3;
+        ot::Ip6::MessageInfo::GetPeerAddr(v16);
+        if (ot::Equatable<ot::Ip6::Address>::operator==(v6, v4))
         {
-          return v10;
+          return v11;
         }
       }
     }
 
-    ot::ItemPtrIterator<ot::Message const,ot::Message::ConstIterator>::operator++(&v12);
+    ot::ItemPtrIterator<ot::Message const,ot::Message::ConstIterator>::operator++(&v13);
   }
 
-  return v14;
+  return v15;
 }
 
 BOOL ot::ItemPtrIterator<ot::Message const,ot::Message::ConstIterator>::operator!=(void *a1, void *a2)
@@ -552,7 +2819,7 @@ void ot::Coap::ResponsesQueue::UpdateQueue(ot::Coap::ResponsesQueue *this)
   }
 }
 
-ot::Message *ot::Coap::Message::Clone(ot::Coap::Message *this)
+ot::Coap::Message *ot::Coap::Message::Clone(ot::Coap::Message *this)
 {
   Length = ot::Message::GetLength(this);
   return ot::Coap::Message::Clone(this, Length);
@@ -583,7 +2850,7 @@ void ot::Coap::MessageQueue::DequeueAndFree(ot::Coap::MessageQueue *this, ot::Co
 uint64_t ot::Coap::ResponsesQueue::HandleTimer(ot::Coap::ResponsesQueue *this)
 {
   v12 = this;
-  ot::NextFireTime::NextFireTime(&v11);
+  ot::NextFireTime::NextFireTime(v11);
   v10[2] = this;
   v10[0] = ot::Coap::MessageQueue::begin(this);
   v10[1] = v1;
@@ -594,7 +2861,7 @@ uint64_t ot::Coap::ResponsesQueue::HandleTimer(ot::Coap::ResponsesQueue *this)
     v8 = ot::Coap::Message::Iterator::operator*(v10);
     ot::Coap::ResponsesQueue::ResponseMetadata::ResponseMetadata(v7);
     ot::Coap::ResponsesQueue::ResponseMetadata::ReadFrom(v7, v8);
-    Now = ot::NextFireTime::GetNow(&v11);
+    Now = ot::NextFireTime::GetNow(v11);
     if (ot::Time::operator>=(&Now, v7))
     {
       ot::Coap::ResponsesQueue::DequeueResponse(this, v8);
@@ -602,13 +2869,13 @@ uint64_t ot::Coap::ResponsesQueue::HandleTimer(ot::Coap::ResponsesQueue *this)
 
     else
     {
-      ot::NextFireTime::UpdateIfEarlier(&v11, v7[0]);
+      ot::NextFireTime::UpdateIfEarlier(v11, v7[0]);
     }
 
     ot::ItemPtrIterator<ot::Message,ot::Message::Iterator>::operator++(v10, v3);
   }
 
-  return ot::TimerMilli::FireAt((this + 8), &v11);
+  return ot::TimerMilli::FireAt((this + 8), v11);
 }
 
 uint64_t ot::Message::Read<ot::Coap::ResponsesQueue::ResponseMetadata>(ot::Message *a1, unsigned __int16 a2, char *a3)
@@ -620,23 +2887,23 @@ uint64_t ot::Message::Read<ot::Coap::ResponsesQueue::ResponseMetadata>(ot::Messa
   return ot::Message::Read<ot::Coap::ResponsesQueue::ResponseMetadata>(a1, a2, a3);
 }
 
-BOOL ot::Coap::TxParameters::IsValid(ot::Coap::TxParameters *this)
+BOOL ot::Coap::TxParameters::IsValid(ot::Coap::TxParameters *this, uint64_t a2, unsigned int a3)
 {
-  v7 = 0;
+  v9 = 0;
   if (*(this + 5) && *(this + 4) >= *(this + 5) && *this >= 0x3E8u && *(this + 6) <= 0x14u)
   {
-    v1 = ot::Coap::Multiply(*this, (1 << (*(this + 6) + 1)) - 1);
-    v6 = ot::Coap::Multiply(v1, *(this + 4)) / *(this + 5);
-    v4 = 0;
-    if (v6)
+    v3 = ot::Coap::Multiply(*this, (1 << (*(this + 6) + 1)) - 1);
+    v8 = ot::Coap::Multiply(v3, *(this + 4)) / *(this + 5);
+    v6 = 0;
+    if (v8)
     {
-      return *this != -200000 && v6 + *this + 200000 >= v6;
+      return *this != -200000 && v8 + *this + 200000 >= v8;
     }
 
-    return v4;
+    return v6;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t ot::Coap::Multiply(ot::Coap *this, int a2)
@@ -974,11 +3241,12 @@ ot::Message *ot::Message::ConstIterator::Advance(ot::Message **this)
   return ot::Message::ConstIterator::Advance(this);
 }
 
-uint64_t ot::Ip6::Udp::SocketIn<ot::Coap::Coap,&ot::Coap::Coap::HandleUdpReceive>::HandleUdpReceive(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t ot::Ip6::Udp::SocketIn<ot::Coap::Coap,&ot::Coap::Coap::HandleUdpReceive>::HandleUdpReceive(ot::Coap::Coap *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = ot::AsCoreType<otMessage>(a2);
-  v3 = ot::AsCoreType<otMessageInfo>(a3);
-  return (ot::Coap::Coap::HandleUdpReceive)(a1, v5, v3);
+  ot::AsCoreType<otMessage>(a2);
+  v6 = v3;
+  ot::AsCoreType<otMessageInfo>(a3);
+  return (ot::Coap::Coap::HandleUdpReceive)(a1, v6, v4);
 }
 
 void ot::Coap::Message::Init(ot::Coap::Message *this)
@@ -1037,49 +3305,49 @@ void ot::Coap::Message::SetType(ot::Coap::Message *a1, char a2)
 uint64_t ot::Coap::Message::Init(ot::Coap::Message *a1, char a2, char a3, unsigned __int8 a4)
 {
   ot::Coap::Message::Init(a1, a2, a3);
-  RandomToken = ot::Coap::Message::GenerateRandomToken(a1, 2u);
+  RandomToken = ot::Coap::Message::GenerateRandomToken(a1, 2u, v4);
   if (!RandomToken)
   {
-    v4 = ot::PathForUri(a4);
-    return ot::Coap::Message::AppendUriPathOptions(a1, v4);
+    v5 = ot::PathForUri(a4);
+    return ot::Coap::Message::AppendUriPathOptions(a1, v5, v6);
   }
 
   return RandomToken;
 }
 
-uint64_t ot::Coap::Message::GenerateRandomToken(ot::Coap::Message *this, unsigned __int8 a2)
+uint64_t ot::Coap::Message::GenerateRandomToken(ot::Coap::Message *this, unsigned __int8 a2, unsigned __int16 a3)
 {
   if (a2 > 8uLL)
   {
     __assert_rtn("GenerateRandomToken", "coap_message.cpp", 421, "aTokenLength <= sizeof(token)");
   }
 
-  ot::Random::Crypto::FillBuffer(v5, a2);
+  ot::Random::Crypto::FillBuffer(v6, a2, a3);
   IgnoreError();
-  return ot::Coap::Message::SetToken(this, v5, a2);
+  return ot::Coap::Message::SetToken(this, v6, a2);
 }
 
-uint64_t ot::Coap::Message::AppendUriPathOptions(ot::Coap::Message *this, ot *a2)
+uint64_t ot::Coap::Message::AppendUriPathOptions(ot::Coap::Message *this, ot *a2, char a3)
 {
-  v6 = a2;
-  for (i = ot::StringFind(a2, 0x2F); ; i = ot::StringFind((v5 + 1), 0x2F))
+  v7 = a2;
+  for (i = ot::StringFind(a2, 0x2F); ; i = ot::StringFind((v6 + 1), 0x2F))
   {
-    v5 = i;
+    v6 = i;
     if (!i)
     {
       break;
     }
 
-    appended = ot::Coap::Message::AppendOption(this, 0xBu, i - v6, v6);
+    appended = ot::Coap::Message::AppendOption(this, 0xBu, i - v7, v7);
     if (appended)
     {
       return appended;
     }
 
-    v6 = (v5 + 1);
+    v7 = (v6 + 1);
   }
 
-  return ot::Coap::Message::AppendStringOption(this, 0xBu, v6);
+  return ot::Coap::Message::AppendStringOption(this, 0xBu, v7);
 }
 
 BOOL ot::Coap::Message::IsConfirmablePostRequest(ot::Coap::Message *this)
@@ -1358,27 +3626,27 @@ uint64_t ot::Coap::Option::Iterator::ReadOptionValue(ot::Coap::Option::Iterator 
   return v5;
 }
 
-uint64_t ot::Coap::Message::AppendUriQueryOptions(ot::Coap::Message *this, ot *a2)
+uint64_t ot::Coap::Message::AppendUriQueryOptions(ot::Coap::Message *this, ot *a2, char a3)
 {
-  v6 = a2;
-  for (i = ot::StringFind(a2, 0x26); ; i = ot::StringFind((v5 + 1), 0x26))
+  v7 = a2;
+  for (i = ot::StringFind(a2, 0x26); ; i = ot::StringFind((v6 + 1), 0x26))
   {
-    v5 = i;
+    v6 = i;
     if (!i)
     {
       break;
     }
 
-    appended = ot::Coap::Message::AppendOption(this, 0xFu, i - v6, v6);
+    appended = ot::Coap::Message::AppendOption(this, 0xFu, i - v7, v7);
     if (appended)
     {
       return appended;
     }
 
-    v6 = (v5 + 1);
+    v7 = (v6 + 1);
   }
 
-  return ot::Coap::Message::AppendStringOption(this, 0xFu, v6);
+  return ot::Coap::Message::AppendStringOption(this, 0xFu, v7);
 }
 
 uint64_t ot::Coap::Message::AppendBlockOption(ot::Coap::Message *a1, char a2, unsigned int a3, char a4, int a5)
@@ -1658,13 +3926,13 @@ uint64_t ot::Coap::Message::GetToken(ot::Coap::Message *this)
   return ot::Coap::Message::GetToken(this);
 }
 
-uint64_t ot::Random::Crypto::FillBuffer(ot::Random::Crypto *this, unsigned __int8 *a2)
+uint64_t ot::Random::Crypto::FillBuffer(ot::Random::Crypto *this, unsigned __int8 *a2, unsigned __int16 a3)
 {
   return ot::Random::Manager::CryptoFillBuffer(this, a2);
 }
 
 {
-  return ot::Random::Crypto::FillBuffer(this, a2);
+  return ot::Random::Crypto::FillBuffer(this, a2, a3);
 }
 
 uint64_t ot::Coap::Message::SetTokenFromMessage(ot::Coap::Message *this, const ot::Coap::Message *a2)
@@ -1696,7 +3964,7 @@ uint64_t ot::Coap::Message::SetDefaultResponseHeader(ot::Coap::Message *this, co
   return ot::Coap::Message::SetTokenFromMessage(this, a2);
 }
 
-ot::Message *ot::Coap::Message::Clone(ot::Coap::Message *this, unsigned __int16 a2)
+ot::Coap::Message *ot::Coap::Message::Clone(ot::Coap::Message *this, unsigned __int16 a2)
 {
   v6 = ot::Message::Clone(this, a2);
   if (v6)
@@ -1777,29 +4045,29 @@ uint64_t ot::Coap::Option::Iterator::MarkAsDone(uint64_t this)
 
 uint64_t ot::Coap::Option::Iterator::ReadExtendedOptionField(ot::Coap::Option::Iterator *this, unsigned __int16 *a2)
 {
-  v7 = this;
-  v6 = a2;
-  v5 = 0;
+  v8 = this;
+  v7 = a2;
+  v6 = 0;
   if (*a2 >= 0xDu)
   {
-    if (*v6 == 13)
+    if (*v7 == 13)
     {
-      v4 = 0;
-      v5 = ot::Coap::Option::Iterator::Read(this, 1u, &v4);
-      if (!v5)
+      v5 = 0;
+      v6 = ot::Coap::Option::Iterator::Read(this, 1u, &v5);
+      if (!v6)
       {
-        *v6 = v4 + 13;
+        *v7 = v5 + 13;
       }
     }
 
-    else if (*v6 == 14)
+    else if (*v7 == 14)
     {
-      v3 = 0;
-      v5 = ot::Coap::Option::Iterator::Read(this, 2u, &v3);
-      if (!v5)
+      v4 = 0;
+      v6 = ot::Coap::Option::Iterator::Read(this, 2u, &v4);
+      if (!v6)
       {
-        v3 = ot::BigEndian::HostSwap16(v3);
-        *v6 = v3 + 269;
+        v4 = ot::BigEndian::HostSwap16(v4, v2);
+        *v7 = v4 + 269;
       }
     }
 
@@ -1809,7 +4077,7 @@ uint64_t ot::Coap::Option::Iterator::ReadExtendedOptionField(ot::Coap::Option::I
     }
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t ot::Coap::Option::Iterator::ReadOptionValue(ot::Coap::Option::Iterator *this, unint64_t *a2)
@@ -2016,7 +4284,7 @@ ot::TaskletContext *ot::TaskletContext::TaskletContext(ot::TaskletContext *this,
   return result;
 }
 
-uint64_t ot::Coap::CoapSecure::Start(ot::Coap::CoapSecure *this, __int16 a2, __int16 a3, void (*a4)(void *), uint64_t a5)
+uint64_t ot::Coap::CoapSecure::Start(ot::Coap::CoapSecure *this, unsigned __int16 a2, __int16 a3, void (*a4)(void *), uint64_t a5)
 {
   v7 = ot::Coap::CoapSecure::Open(this, a3, a4, a5);
   if (!v7)
@@ -2095,11 +4363,11 @@ void *ot::CallbackBase<void (*)(BOOL,void *)>::Set(void *result, uint64_t a2, ui
 
 uint64_t ot::Coap::CoapSecure::SetPsk(ot::Coap::CoapSecure *this, const ot::MeshCoP::JoinerPskd *a2)
 {
-  v6 = (this + 144);
+  v8 = (this + 144);
   ot::MeshCoP::JoinerPskd::GetAsCString(a2);
-  v5 = v2;
-  Length = ot::MeshCoP::JoinerPskd::GetLength(a2);
-  result = ot::MeshCoP::SecureTransport::SetPsk(v6, v5, Length);
+  v7 = v2;
+  Length = ot::MeshCoP::JoinerPskd::GetLength(a2, v3, v4);
+  result = ot::MeshCoP::SecureTransport::SetPsk(v8, v7, Length);
   if (result)
   {
     __assert_rtn("SetPsk", "coap_secure.cpp", 118, "false");
@@ -2117,13 +4385,13 @@ void ot::MeshCoP::JoinerPskd::GetAsCString(ot::MeshCoP::JoinerPskd *this)
   ot::MeshCoP::JoinerPskd::GetAsCString(this);
 }
 
-uint64_t ot::MeshCoP::JoinerPskd::GetLength(ot::MeshCoP::JoinerPskd *this)
+uint64_t ot::MeshCoP::JoinerPskd::GetLength(ot::MeshCoP::JoinerPskd *this, uint64_t a2, unsigned __int16 a3)
 {
   return ot::StringLength(this, 0x21);
 }
 
 {
-  return ot::MeshCoP::JoinerPskd::GetLength(this);
+  return ot::MeshCoP::JoinerPskd::GetLength(this, a2, a3);
 }
 
 uint64_t ot::Coap::CoapSecure::SendMessage(uint64_t a1, ot::Coap::Message *a2, uint64_t a3, uint64_t a4)
@@ -2237,23 +4505,27 @@ uint64_t ot::TaskletContext::GetContext(ot::TaskletContext *this)
 
 void ot::Coap::CoapSecure::HandleTransmit(ot::Coap::CoapSecure *this)
 {
-  v18 = 0;
+  v21 = this;
+  v18 = this;
+  v20 = 0;
   Head = ot::MessageQueue::GetHead((this + 1176));
   if (Head)
   {
-    ot::MessageQueue::Dequeue((this + 1176), Head);
-    if (ot::MessageQueue::GetHead((this + 1176)))
+    ot::MessageQueue::Dequeue((v18 + 1176), Head);
+    if (ot::MessageQueue::GetHead((v18 + 1176)))
     {
-      ot::Tasklet::Post((this + 1184));
+      ot::Tasklet::Post((v18 + 1184));
     }
 
+    v17 = (v18 + 144);
+    v16 = Head;
     Length = ot::Message::GetLength(Head);
-    v18 = ot::MeshCoP::SecureTransport::Send((this + 144), Head, Length);
+    v20 = ot::MeshCoP::SecureTransport::Send((v18 + 144), Head, Length);
   }
 
-  if (v18)
+  if (v20)
   {
-    v2 = ot::ErrorToString(v18);
+    v2 = ot::ErrorToString(v20);
     ot::Logger::LogAtLevel<(ot::LogLevel)3>("CoapSecure", "Transmit: %s", v3, v4, v5, v6, v7, v8, v2);
     ot::Message::Free(Head);
   }
@@ -2301,7 +4573,7 @@ uint64_t ot::Callback<void (*)(void *),(ot::CallbackContextPosition)0>::Invoke<>
   return ot::Callback<void (*)(void *),(ot::CallbackContextPosition)0>::Invoke<>(a1);
 }
 
-_WORD *ot::Crc16::Crc16(_WORD *a1, __int16 a2)
+ot::Crc16 *ot::Crc16::Crc16(ot::Crc16 *a1, __int16 a2)
 {
   *a1 = a2;
   ot::Crc16::Init(a1);
@@ -2368,11 +4640,12 @@ uint64_t ot::GetArrayLength<char const*,(unsigned short)38>()
   return ot::GetArrayLength<char const*,(unsigned short)38>();
 }
 
-uint64_t ot::Heap::CAlloc(ot::Heap *this, __int16 a2)
+uint64_t ot::Heap::CAlloc(ot::Heap *this, unint64_t a2)
 {
   v5 = this;
+  v4 = a2;
   Heap = ot::Instance::GetHeap(this);
-  return ot::Utils::Heap::CAlloc(Heap, v5, a2);
+  return ot::Utils::Heap::CAlloc(Heap, v5, v4);
 }
 
 ot::MessagePool *ot::MessagePool::MessagePool(ot::MessagePool *this, ot::Instance *a2)
@@ -2440,37 +4713,37 @@ ot::Message *ot::MessagePool::Allocate(ot::MessagePool *a1, char a2, __int16 a3,
   return v9;
 }
 
-ot::Buffer *ot::MessagePool::NewBuffer(ot::InstanceLocator *a1, unsigned __int8 a2)
+ot::Buffer *ot::MessagePool::NewBuffer(ot::InstanceLocator *a1, char a2)
 {
-  v76 = a1;
-  v75 = a2;
-  v48 = a1;
-  v74 = 0;
+  v45 = a1;
+  v44 = a2;
+  v17 = a1;
+  v43 = 0;
   while (1)
   {
-    v74 = ot::Pool<ot::Buffer,(unsigned short)256>::Allocate(v48 + 1);
-    if (v74)
+    v43 = ot::Pool<ot::Buffer,(unsigned short)256>::Allocate(v17 + 1);
+    if (v43)
     {
       break;
     }
 
-    if (ot::MessagePool::ReclaimBuffers(v48, v75))
+    if (ot::MessagePool::ReclaimBuffers(v17, v44))
     {
       goto LABEL_14;
     }
   }
 
-  if (*(v48 + 85012))
+  if (*(v17 + 85012))
   {
-    ot::MessagePool::UpdateBufferStats(v48, v74, 1);
+    ot::MessagePool::UpdateBufferStats(v17, v43, 1);
   }
 
-  v2 = v48;
-  ++*(v48 + 32776);
-  v47 = 65554;
-  *(v48 + 32777) = ot::Max<unsigned short>(*(v2 + 32777), *(v2 + 32776));
-  ot::Buffer::SetNextBuffer(v74, 0);
-  FreeBufferCount = ot::MessagePool::GetFreeBufferCount(v48);
+  v2 = v17;
+  ++*(v17 + 32776);
+  v16[29] = 65554;
+  *(v17 + 32777) = ot::Max<unsigned short>(*(v2 + 32777), *(v2 + 32776));
+  ot::Buffer::SetNextBuffer(v43, 0);
+  FreeBufferCount = ot::MessagePool::GetFreeBufferCount(v17);
   if (256 - FreeBufferCount >= 230 && FreeBufferCount != 26)
   {
     handle_ot_buffer_threshold_captureABC();
@@ -2478,65 +4751,33 @@ ot::Buffer *ot::MessagePool::NewBuffer(ot::InstanceLocator *a1, unsigned __int8 
 
   if ((rcpBuffersAvailable & 1) == 1)
   {
-    v4 = ot::MessagePool::GetFreeBufferCount(v48);
+    v4 = ot::MessagePool::GetFreeBufferCount(v17);
     if (256 - v4 >= 192 && v4 != 64)
     {
-      v46 = v74;
-      v5 = ot::MessagePool::GetFreeBufferCount(v48);
-      v6 = *(v48 + 32776);
-      v7 = *(v48 + 32777);
-      v19 = 256;
-      v20 = v5;
-      v21 = v6;
-      v22 = v7;
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>("Message", "HIGH_WATER_MARK: Low message buffer : buffer = %p,total buffers = %d, free buffers = %d, allocated buffers = %d, max allocated = %d", v8, v9, v10, v11, v12, v13, v74);
+      v16[28] = v43;
+      v5 = ot::MessagePool::GetFreeBufferCount(v17);
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>("Message", "HIGH_WATER_MARK: Low message buffer : buffer = %p,total buffers = %d, free buffers = %d, allocated buffers = %d, max allocated = %d", v6, v7, v8, v9, v10, v11, v43, 256, v5, *(v17 + 32776), *(v17 + 32777));
       rcpBuffersAvailable = 0;
     }
   }
 
-  if (ot::MessagePool::GetFreeBufferCount(v48) <= 2)
+  if (ot::MessagePool::GetFreeBufferCount(v17) <= 2)
   {
     update_buff_limit_exceedeed_metric(1);
   }
 
 LABEL_14:
-  if (!v74)
+  if (!v43)
   {
-    Instance = ot::InstanceLocator::GetInstance(v48);
-    otMessageGetBufferInfo(Instance, v49);
-    v15 = ot::MessagePool::GetFreeBufferCount(v48);
-    v16 = *(v48 + 32777);
-    v45 = &v18;
-    v19 = v15;
-    v20 = v56;
-    v21 = v57;
-    v22 = v58;
-    v23 = v50;
-    v24 = v51;
-    v25 = v52;
-    v26 = v53;
-    v27 = v54;
-    v28 = v55;
-    v29 = v62;
-    v30 = v63;
-    v31 = v64;
-    v32 = v65;
-    v33 = v66;
-    v34 = v67;
-    v35 = v68;
-    v36 = v69;
-    v37 = v70;
-    v38 = v59;
-    v39 = v60;
-    v40 = v61;
-    v41 = v71;
-    v42 = v72;
-    v43 = v73;
-    v44 = v16;
-    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Message", "No available message buffer : [tot:%d, free:%d], Ip6:[msgs:%u, bufs:%u, totbytes:%u] 6LoSend:[%u, %u, %u] 6LoReas:[%u, %u, %u] mle:[%u, %u, %u,], coap:[%u, %u, %u], coapSec:[%u, %u, %u], mpl:[%u %u %u], applCoap:[%u, %u, %u], max allocated = %d", v33, v33, v65, v30, v30, v62, 0);
+    Instance = ot::InstanceLocator::GetInstance(v17);
+    otMessageGetBufferInfo(Instance, v18);
+    v13 = ot::MessagePool::GetFreeBufferCount(v17);
+    v14 = *(v17 + 32777);
+    v16[27] = v16;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Message", "No available message buffer : [tot:%d, free:%d], Ip6:[msgs:%u, bufs:%u, totbytes:%u] 6LoSend:[%u, %u, %u] 6LoReas:[%u, %u, %u] mle:[%u, %u, %u,], coap:[%u, %u, %u], coapSec:[%u, %u, %u], mpl:[%u %u %u], applCoap:[%u, %u, %u], max allocated = %d", v35, v35, v34, v32, v32, v31, 256, v13, v25, v26, v27, v19, v20, v21, v22, v23, v24, v31, v32, v33, v34, v35, v36, v37, v38, v39, v28, v29, v30, v40, v41, v42, v14);
   }
 
-  return v74;
+  return v43;
 }
 
 uint64_t ot::Message::Settings::GetPriority(ot::Message::Settings *this)
@@ -2712,10 +4953,8 @@ void ot::MessagePool::FreeBuffers(ot::MessagePool *this, ot::Buffer *a2)
     --*(this + 32776);
     if ((rcpBuffersAvailable & 1) == 0 && (256 - ot::MessagePool::GetFreeBufferCount(this)) < 115)
     {
-      ot::MessagePool::GetFreeBufferCount(this);
-      v8 = *(this + 32776);
-      v9 = *(this + 32777);
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>("Message", "LOW_WATER_MARK: allocated buffers = %d, free buffers = %d, allocated buffers=%d, max allocated=%d", v2, v3, v4, v5, v6, v7, 0);
+      FreeBufferCount = ot::MessagePool::GetFreeBufferCount(this);
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>("Message", "LOW_WATER_MARK: allocated buffers = %d, free buffers = %d, allocated buffers=%d, max allocated=%d", v3, v4, v5, v6, v7, v8, 256, FreeBufferCount, *(this + 32776), *(this + 32777));
       rcpBuffersAvailable = 1;
     }
 
@@ -2732,7 +4971,7 @@ uint64_t ot::Pool<ot::Buffer,(unsigned short)256>::Allocate(uint64_t *a1)
   return ot::Pool<ot::Buffer,(unsigned short)256>::Allocate(a1);
 }
 
-uint64_t ot::MessagePool::ReclaimBuffers(ot::InstanceLocator *a1, unsigned __int8 a2)
+uint64_t ot::MessagePool::ReclaimBuffers(ot::InstanceLocator *a1, char a2)
 {
   v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::MeshForwarder>(a1);
   v6 = ot::MeshForwarder::EvictMessage(v2, a2);
@@ -2827,9 +5066,8 @@ void ot::MessagePool::ReclaimAllBuffers(ot::MessagePool *this)
 {
   v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Tmf::Agent>(this);
   ot::Coap::CoapBase::ClearRequestsAndResponses(v1);
-  ot::MessagePool::GetFreeBufferCount(this);
-  v8 = *(this + 32776);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Message", "ReclaimAllBuff:Total[%d],free[%d],allocated[%d]", v2, v3, v4, v5, v6, v7, 0);
+  FreeBufferCount = ot::MessagePool::GetFreeBufferCount(this);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Message", "ReclaimAllBuff:Total[%d],free[%d],allocated[%d]", v3, v4, v5, v6, v7, v8, 256, FreeBufferCount, *(this + 32776));
 }
 
 uint64_t ot::MessagePool::GetIndexOf(ot::MessagePool *this, const ot::Buffer *a2)
@@ -2847,7 +5085,6 @@ uint64_t ot::MessagePool::ResetBufferStats(uint64_t this)
   {
     *(this + 65556 + 76 * i) -= *(this + 65556 + 76 * i + 4);
     v1 = this + 65556 + 76 * i;
-    *(v1 + 4);
     *(v1 + 4) = 0;
     *(v1 + 41) = 0u;
     *(v1 + 57) = 0u;
@@ -2871,23 +5108,25 @@ BOOL *ot::Message::Settings::Settings(BOOL *result, char a2, BOOL a3)
 
 void *ot::Message::Settings::From(uint64_t a1)
 {
-  if (a1)
-  {
-    return ot::AsCoreType<otMessageSettings>(a1);
-  }
-
-  else
+  if (!a1)
   {
     return ot::Message::Settings::GetDefault(0);
   }
+
+  ot::AsCoreType<otMessageSettings>(a1);
+  return v1;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> ot::AsCoreType<otMessageSettings>(uint64_t a1)
+void ot::AsCoreType<otMessageSettings>(uint64_t a1)
 {
   if (!a1)
   {
     __assert_rtn("AsCoreType", "as_core_type.hpp", 85, "(aObject) != nullptr");
   }
+}
+
+{
+  ot::AsCoreType<otMessageSettings>(a1);
 }
 
 uint64_t ot::Message::Iterator::Advance(ot::Message::Iterator *this, ot::Message *a2)
@@ -3626,7 +5865,7 @@ BOOL ot::OffsetRange::Contains(ot::OffsetRange *this, unsigned int a2)
   return ot::OffsetRange::Contains(this, a2);
 }
 
-BOOL ot::Message::CompareBytes(ot::Message *this, unsigned __int16 a2, const unsigned __int8 *a3, unsigned __int16 a4, BOOL (*a5)(unsigned __int8, unsigned __int8))
+BOOL ot::Message::CompareBytes(ot::Message *this, unsigned __int16 a2, char *a3, unsigned __int16 a4, BOOL (*a5)(unsigned __int8, unsigned __int8))
 {
   v18 = this;
   v17 = a2;
@@ -4025,7 +6264,7 @@ uint64_t ot::Message::UpdateLinkInfoFrom(ot::Message *this, const ot::ThreadLink
   return ot::Message::SetHopsLft(this, *(a2 + 17));
 }
 
-void ot::Message::AddRss(ot::Message *this, char a2)
+void ot::Message::AddRss(ot::Message *this, signed __int8 a2)
 {
   Metadata = ot::Buffer::GetMetadata(this);
   ot::RssAverager::Add((Metadata + 58), a2);
@@ -4277,7 +6516,7 @@ uint64_t ot::PriorityQueue::PrevPriority(ot::PriorityQueue *this, char a2)
   return ot::PriorityQueue::PrevPriority(this, a2);
 }
 
-uint64_t ot::PriorityQueue::GetHeadForPriority(ot::PriorityQueue *a1, unsigned __int8 a2)
+uint64_t ot::PriorityQueue::GetHeadForPriority(ot::PriorityQueue *a1, char a2)
 {
   if (!*(a1 + a2))
   {
@@ -4723,11 +6962,11 @@ uint64_t ot::Notifier::RemoveCallback(uint64_t this, void (*a2)(unint64_t, void 
   return this;
 }
 
-uint64_t ot::Notifier::Signal(void *a1, uint64_t a2)
+void ot::Notifier::Signal(void *a1, uint64_t a2)
 {
   ot::Events::Add(a1, a2);
   ot::Events::Add(a1 + 1, a2);
-  return ot::Tasklet::Post((a1 + 2));
+  ot::Tasklet::Post((a1 + 2));
 }
 
 void *ot::Events::Add(void *result, uint64_t a2)
@@ -4740,15 +6979,12 @@ void *ot::Events::Add(void *result, uint64_t a2)
   return ot::Events::Add(result, a2);
 }
 
-uint64_t ot::Notifier::SignalIfFirst(void *a1, uint64_t a2)
+void ot::Notifier::SignalIfFirst(void *a1, uint64_t a2)
 {
-  result = ot::Notifier::HasSignaled(a1, a2);
-  if ((result & 1) == 0)
+  if (!ot::Notifier::HasSignaled(a1, a2))
   {
-    return ot::Notifier::Signal(a1, a2);
+    ot::Notifier::Signal(a1, a2);
   }
-
-  return result;
 }
 
 BOOL ot::Notifier::HasSignaled(uint64_t a1, uint64_t a2)
@@ -4781,40 +7017,56 @@ void *ot::Events::Clear(void *this)
 
 void ot::Notifier::LogEvents(uint64_t a1, uint64_t a2)
 {
-  v23 = a2;
-  AsFlags = ot::Events::GetAsFlags(&v23);
-  v21 = 0;
-  ot::String<(unsigned short)95>::String(v24);
+  v30 = a2;
+  AsFlags = ot::Events::GetAsFlags(&v30);
+  v28 = 0;
+  v27 = 0;
+  ot::String<(unsigned short)95>::String(v31);
   for (i = 0; i < 0x40uLL && AsFlags; ++i)
   {
     if ((AsFlags & (1 << i)) != 0)
     {
-      if (ot::StringWriter::GetLength(v24) >= 70)
+      if (ot::StringWriter::GetLength(v31) >= 70)
       {
-        v18 = ot::Events::GetAsFlags(&v23);
-        ot::String<(unsigned short)95>::AsCString(v24);
-        ot::Logger::LogAtLevel<(ot::LogLevel)4>("Notifier", "StateChanged (0x%llx) %s%s ...", v2, v3, v4, v5, v6, v7, v18);
-        ot::StringWriter::Clear(v24);
-        v21 = 0;
+        v23 = ot::Events::GetAsFlags(&v30);
+        v2 = "... ";
+        if ((v27 & 1) == 0)
+        {
+          v2 = "[";
+        }
+
+        v24 = v2;
+        v3 = ot::String<(unsigned short)95>::AsCString(v31);
+        ot::Logger::LogAtLevel<(ot::LogLevel)4>("Notifier", "StateChanged (0x%llx) %s%s ...", v4, v5, v6, v7, v8, v9, v23, v24, v3);
+        ot::StringWriter::Clear(v31);
+        v27 = 1;
+        v28 = 0;
       }
 
-      v8 = " ";
-      if ((v21 & 1) == 0)
+      v10 = " ";
+      if ((v28 & 1) == 0)
       {
-        v8 = "";
+        v10 = "";
       }
 
-      v17 = v8;
-      v9 = ot::Notifier::EventToString(a1, 1 << i);
-      ot::StringWriter::Append(v24, "%s%s", v17, v9);
-      v21 = 1;
+      v22 = v10;
+      v11 = ot::Notifier::EventToString(a1, 1 << i);
+      ot::StringWriter::Append(v31, "%s%s", v22, v11);
+      v28 = 1;
       AsFlags ^= 1 << i;
     }
   }
 
-  v16 = ot::Events::GetAsFlags(&v23);
-  ot::String<(unsigned short)95>::AsCString(v24);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Notifier", "StateChanged (0x%llx) %s%s]", v10, v11, v12, v13, v14, v15, v16);
+  v20 = ot::Events::GetAsFlags(&v30);
+  v12 = "... ";
+  if ((v27 & 1) == 0)
+  {
+    v12 = "[";
+  }
+
+  v21 = v12;
+  v13 = ot::String<(unsigned short)95>::AsCString(v31);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Notifier", "StateChanged (0x%llx) %s%s]", v14, v15, v16, v17, v18, v19, v20, v21, v13);
 }
 
 uint64_t ot::GetProvider<ot::InstanceLocator>::Get<ot::EnergyScanServer>(ot::InstanceLocator *a1)
@@ -4900,14 +7152,14 @@ uint64_t ot::Events::GetAsFlags(ot::Events *this)
   return ot::Events::GetAsFlags(this);
 }
 
-uint64_t ot::String<(unsigned short)95>::String(uint64_t a1)
+char *ot::String<(unsigned short)95>::String(char *a1)
 {
   ot::String<(unsigned short)95>::String(a1);
   return a1;
 }
 
 {
-  ot::StringWriter::StringWriter(a1, (a1 + 12), 95);
+  ot::StringWriter::StringWriter(a1, a1 + 12, 95);
   return a1;
 }
 
@@ -4990,45 +7242,45 @@ uint64_t ot::Callback<void (*)(unsigned long long,void *),(ot::CallbackContextPo
 
 void ot::SettingsBase::NetworkInfo::Log(ot::SettingsBase::NetworkInfo *a1, unsigned __int8 a2)
 {
-  v29 = ot::SettingsBase::ActionToString(a2);
-  ot::SettingsBase::NetworkInfo::GetRloc16(a1);
+  v36 = ot::SettingsBase::ActionToString(a2);
+  Rloc16 = ot::SettingsBase::NetworkInfo::GetRloc16(a1, v36);
   ExtAddress = ot::SettingsBase::NetworkInfo::GetExtAddress(a1);
-  ot::Mac::ExtAddress::ToString(ExtAddress, v33);
-  ot::String<(unsigned short)17>::AsCString(v33);
+  ot::Mac::ExtAddress::ToString(ExtAddress, v47);
+  v38 = ot::String<(unsigned short)17>::AsCString(v47);
   Role = ot::SettingsBase::NetworkInfo::GetRole(a1);
-  ot::Mle::RoleToString(Role);
-  ot::SettingsBase::NetworkInfo::GetDeviceMode(a1);
-  ot::SettingsBase::NetworkInfo::GetVersion(a1);
-  KeySequence = ot::SettingsBase::NetworkInfo::GetKeySequence(a1);
-  ot::ToUlong(KeySequence);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s NetworkInfo {rloc:0x%04x, extaddr:%s, role:%s, mode:0x%02x, version:%u, keyseq:0x%lx, ...", v5, v6, v7, v8, v9, v10, v29);
+  v39 = ot::Mle::RoleToString(Role);
+  DeviceMode = ot::SettingsBase::NetworkInfo::GetDeviceMode(a1);
+  Version = ot::SettingsBase::NetworkInfo::GetVersion(a1, v4);
+  KeySequence = ot::SettingsBase::NetworkInfo::GetKeySequence(a1, v5);
+  v7 = ot::ToUlong(KeySequence);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s NetworkInfo {rloc:0x%04x, extaddr:%s, role:%s, mode:0x%02x, version:%u, keyseq:0x%lx, ...", v8, v9, v10, v11, v12, v13, v36, Rloc16, v38, v39, DeviceMode, Version, v7);
   WasChildStatus = ot::SettingsBase::NetworkInfo::GetWasChildStatus(a1);
-  v18 = "TRUE";
+  v21 = "TRUE";
   if ((WasChildStatus & 1) == 0)
   {
-    v18 = "FALSE";
+    v21 = "FALSE";
   }
 
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "... wasChild:%s", v11, v12, v13, v14, v15, v16, v18);
-  PreviousPartitionId = ot::SettingsBase::NetworkInfo::GetPreviousPartitionId(a1);
-  v31 = ot::ToUlong(PreviousPartitionId);
-  MleFrameCounter = ot::SettingsBase::NetworkInfo::GetMleFrameCounter(a1);
-  ot::ToUlong(MleFrameCounter);
-  MacFrameCounter = ot::SettingsBase::NetworkInfo::GetMacFrameCounter(a1);
-  ot::ToUlong(MacFrameCounter);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "... wasChild:%s", v14, v15, v16, v17, v18, v19, v21);
+  PreviousPartitionId = ot::SettingsBase::NetworkInfo::GetPreviousPartitionId(a1, v22);
+  v43 = ot::ToUlong(PreviousPartitionId);
+  MleFrameCounter = ot::SettingsBase::NetworkInfo::GetMleFrameCounter(a1, v24);
+  v44 = ot::ToUlong(MleFrameCounter);
+  MacFrameCounter = ot::SettingsBase::NetworkInfo::GetMacFrameCounter(a1, v26);
+  v45 = ot::ToUlong(MacFrameCounter);
   MeshLocalIid = ot::SettingsBase::NetworkInfo::GetMeshLocalIid(a1);
-  ot::Ip6::InterfaceIdentifier::ToString(MeshLocalIid, v32);
-  ot::String<(unsigned short)17>::AsCString(v32);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "... pid:0x%lx, mlecntr:0x%lx, maccntr:0x%lx, mliid:%s}", v23, v24, v25, v26, v27, v28, v31);
+  ot::Ip6::InterfaceIdentifier::ToString(MeshLocalIid, v46);
+  v29 = ot::String<(unsigned short)17>::AsCString(v46);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "... pid:0x%lx, mlecntr:0x%lx, maccntr:0x%lx, mliid:%s}", v30, v31, v32, v33, v34, v35, v43, v44, v45, v29);
 }
 
-uint64_t ot::SettingsBase::NetworkInfo::GetRloc16(ot::SettingsBase::NetworkInfo *this)
+uint64_t ot::SettingsBase::NetworkInfo::GetRloc16(ot::SettingsBase::NetworkInfo *this, unsigned __int16 a2)
 {
   return ot::LittleEndian::HostSwap16(*(this + 1));
 }
 
 {
-  return ot::SettingsBase::NetworkInfo::GetRloc16(this);
+  return ot::SettingsBase::NetworkInfo::GetRloc16(this, a2);
 }
 
 uint64_t ot::SettingsBase::NetworkInfo::GetExtAddress(ot::SettingsBase::NetworkInfo *this)
@@ -5058,22 +7310,22 @@ uint64_t ot::SettingsBase::NetworkInfo::GetDeviceMode(ot::SettingsBase::NetworkI
   return ot::SettingsBase::NetworkInfo::GetDeviceMode(this);
 }
 
-uint64_t ot::SettingsBase::NetworkInfo::GetVersion(ot::SettingsBase::NetworkInfo *this)
+uint64_t ot::SettingsBase::NetworkInfo::GetVersion(ot::SettingsBase::NetworkInfo *this, unsigned __int16 a2)
 {
   return ot::LittleEndian::HostSwap16(*(this + 18));
 }
 
 {
-  return ot::SettingsBase::NetworkInfo::GetVersion(this);
+  return ot::SettingsBase::NetworkInfo::GetVersion(this, a2);
 }
 
-uint64_t ot::SettingsBase::NetworkInfo::GetKeySequence(ot::SettingsBase::NetworkInfo *this)
+uint64_t ot::SettingsBase::NetworkInfo::GetKeySequence(ot::SettingsBase::NetworkInfo *this, unsigned int a2)
 {
   return ot::LittleEndian::HostSwap32(*(this + 1));
 }
 
 {
-  return ot::SettingsBase::NetworkInfo::GetKeySequence(this);
+  return ot::SettingsBase::NetworkInfo::GetKeySequence(this, a2);
 }
 
 uint64_t ot::SettingsBase::NetworkInfo::GetWasChildStatus(ot::SettingsBase::NetworkInfo *this)
@@ -5085,31 +7337,31 @@ uint64_t ot::SettingsBase::NetworkInfo::GetWasChildStatus(ot::SettingsBase::Netw
   return ot::SettingsBase::NetworkInfo::GetWasChildStatus(this);
 }
 
-uint64_t ot::SettingsBase::NetworkInfo::GetPreviousPartitionId(ot::SettingsBase::NetworkInfo *this)
+uint64_t ot::SettingsBase::NetworkInfo::GetPreviousPartitionId(ot::SettingsBase::NetworkInfo *this, unsigned int a2)
 {
   return ot::LittleEndian::HostSwap32(*(this + 4));
 }
 
 {
-  return ot::SettingsBase::NetworkInfo::GetPreviousPartitionId(this);
+  return ot::SettingsBase::NetworkInfo::GetPreviousPartitionId(this, a2);
 }
 
-uint64_t ot::SettingsBase::NetworkInfo::GetMleFrameCounter(ot::SettingsBase::NetworkInfo *this)
+uint64_t ot::SettingsBase::NetworkInfo::GetMleFrameCounter(ot::SettingsBase::NetworkInfo *this, unsigned int a2)
 {
   return ot::LittleEndian::HostSwap32(*(this + 2));
 }
 
 {
-  return ot::SettingsBase::NetworkInfo::GetMleFrameCounter(this);
+  return ot::SettingsBase::NetworkInfo::GetMleFrameCounter(this, a2);
 }
 
-uint64_t ot::SettingsBase::NetworkInfo::GetMacFrameCounter(ot::SettingsBase::NetworkInfo *this)
+uint64_t ot::SettingsBase::NetworkInfo::GetMacFrameCounter(ot::SettingsBase::NetworkInfo *this, unsigned int a2)
 {
   return ot::LittleEndian::HostSwap32(*(this + 3));
 }
 
 {
-  return ot::SettingsBase::NetworkInfo::GetMacFrameCounter(this);
+  return ot::SettingsBase::NetworkInfo::GetMacFrameCounter(this, a2);
 }
 
 uint64_t ot::SettingsBase::NetworkInfo::GetMeshLocalIid(ot::SettingsBase::NetworkInfo *this)
@@ -5123,13 +7375,17 @@ uint64_t ot::SettingsBase::NetworkInfo::GetMeshLocalIid(ot::SettingsBase::Networ
 
 void ot::SettingsBase::ParentInfo::Log(ot::SettingsBase::ParentInfo *a1, unsigned __int8 a2)
 {
-  v10 = ot::SettingsBase::ActionToString(a2);
-  ExtAddress = ot::SettingsBase::ParentInfo::GetExtAddress(a1);
-  ot::Mac::ExtAddress::ToString(ExtAddress, v11);
-  ot::String<(unsigned short)17>::AsCString(v11);
-  ot::SettingsBase::ParentInfo::GetVersion(a1);
-  ot::SettingsBase::ParentInfo::GetLastHeardTime(a1);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s ParentInfo {extaddr:%s, version:%u lastHeard:%llu}", v3, v4, v5, v6, v7, v8, v10);
+  v16 = a1;
+  v15 = a2;
+  v11 = a1;
+  v12 = ot::SettingsBase::ActionToString(a2);
+  ExtAddress = ot::SettingsBase::ParentInfo::GetExtAddress(v11);
+  v10 = v17;
+  ot::Mac::ExtAddress::ToString(ExtAddress, v17);
+  v13 = ot::String<(unsigned short)17>::AsCString(v17);
+  Version = ot::SettingsBase::ParentInfo::GetVersion(v11, v13);
+  LastHeardTime = ot::SettingsBase::ParentInfo::GetLastHeardTime(v11);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s ParentInfo {extaddr:%s, version:%u lastHeard:%llu}", v4, v5, v6, v7, v8, v9, v12, v13, Version, LastHeardTime);
 }
 
 uint64_t ot::SettingsBase::ParentInfo::GetExtAddress(ot::SettingsBase::ParentInfo *this)
@@ -5141,13 +7397,13 @@ uint64_t ot::SettingsBase::ParentInfo::GetExtAddress(ot::SettingsBase::ParentInf
   return ot::SettingsBase::ParentInfo::GetExtAddress(this);
 }
 
-uint64_t ot::SettingsBase::ParentInfo::GetVersion(ot::SettingsBase::ParentInfo *this)
+uint64_t ot::SettingsBase::ParentInfo::GetVersion(ot::SettingsBase::ParentInfo *this, unsigned __int16 a2)
 {
   return ot::LittleEndian::HostSwap16(*(this + 10));
 }
 
 {
-  return ot::SettingsBase::ParentInfo::GetVersion(this);
+  return ot::SettingsBase::ParentInfo::GetVersion(this, a2);
 }
 
 uint64_t ot::SettingsBase::ParentInfo::GetLastHeardTime(ot::SettingsBase::ParentInfo *this)
@@ -5161,25 +7417,25 @@ uint64_t ot::SettingsBase::ParentInfo::GetLastHeardTime(ot::SettingsBase::Parent
 
 void ot::SettingsBase::ChildInfo::Log(ot::SettingsBase::ChildInfo *a1, unsigned __int8 a2)
 {
-  v11 = ot::SettingsBase::ActionToString(a2);
-  ot::SettingsBase::ChildInfo::GetRloc16(a1);
+  v13 = ot::SettingsBase::ActionToString(a2);
+  Rloc16 = ot::SettingsBase::ChildInfo::GetRloc16(a1, v13);
   ot::SettingsBase::ChildInfo::GetExtAddress(a1);
-  ot::Mac::ExtAddress::ToString(v2, v12);
-  ot::String<(unsigned short)17>::AsCString(v12);
-  Timeout = ot::SettingsBase::ChildInfo::GetTimeout(a1);
-  ot::ToUlong(Timeout);
-  ot::SettingsBase::ChildInfo::GetMode(a1);
-  ot::SettingsBase::ChildInfo::GetVersion(a1);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s ChildInfo {rloc:0x%04x, extaddr:%s, timeout:%lu, mode:0x%02x, version:%u}", v4, v5, v6, v7, v8, v9, v11);
+  ot::Mac::ExtAddress::ToString(v2, v18);
+  v15 = ot::String<(unsigned short)17>::AsCString(v18);
+  Timeout = ot::SettingsBase::ChildInfo::GetTimeout(a1, v15);
+  v16 = ot::ToUlong(Timeout);
+  Mode = ot::SettingsBase::ChildInfo::GetMode(a1);
+  Version = ot::SettingsBase::ChildInfo::GetVersion(a1, v4);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s ChildInfo {rloc:0x%04x, extaddr:%s, timeout:%lu, mode:0x%02x, version:%u}", v6, v7, v8, v9, v10, v11, v13, Rloc16, v15, v16, Mode, Version);
 }
 
-uint64_t ot::SettingsBase::ChildInfo::GetRloc16(ot::SettingsBase::ChildInfo *this)
+uint64_t ot::SettingsBase::ChildInfo::GetRloc16(ot::SettingsBase::ChildInfo *this, unsigned __int16 a2)
 {
   return ot::LittleEndian::HostSwap16(*(this + 6));
 }
 
 {
-  return ot::SettingsBase::ChildInfo::GetRloc16(this);
+  return ot::SettingsBase::ChildInfo::GetRloc16(this, a2);
 }
 
 void ot::SettingsBase::ChildInfo::GetExtAddress(ot::SettingsBase::ChildInfo *this)
@@ -5191,13 +7447,13 @@ void ot::SettingsBase::ChildInfo::GetExtAddress(ot::SettingsBase::ChildInfo *thi
   ot::SettingsBase::ChildInfo::GetExtAddress(this);
 }
 
-uint64_t ot::SettingsBase::ChildInfo::GetTimeout(ot::SettingsBase::ChildInfo *this)
+uint64_t ot::SettingsBase::ChildInfo::GetTimeout(ot::SettingsBase::ChildInfo *this, unsigned int a2)
 {
   return ot::LittleEndian::HostSwap32(*(this + 2));
 }
 
 {
-  return ot::SettingsBase::ChildInfo::GetTimeout(this);
+  return ot::SettingsBase::ChildInfo::GetTimeout(this, a2);
 }
 
 uint64_t ot::SettingsBase::ChildInfo::GetMode(ot::SettingsBase::ChildInfo *this)
@@ -5209,20 +7465,20 @@ uint64_t ot::SettingsBase::ChildInfo::GetMode(ot::SettingsBase::ChildInfo *this)
   return ot::SettingsBase::ChildInfo::GetMode(this);
 }
 
-uint64_t ot::SettingsBase::ChildInfo::GetVersion(ot::SettingsBase::ChildInfo *this)
+uint64_t ot::SettingsBase::ChildInfo::GetVersion(ot::SettingsBase::ChildInfo *this, unsigned __int16 a2)
 {
   return ot::LittleEndian::HostSwap16(*(this + 15));
 }
 
 {
-  return ot::SettingsBase::ChildInfo::GetVersion(this);
+  return ot::SettingsBase::ChildInfo::GetVersion(this, a2);
 }
 
 void ot::SettingsBase::DadInfo::Log(ot::SettingsBase::DadInfo *a1, unsigned __int8 a2)
 {
-  v9 = ot::SettingsBase::ActionToString(a2);
-  ot::SettingsBase::DadInfo::GetDadCounter(a1);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s DadInfo {DadCounter:%2d}", v2, v3, v4, v5, v6, v7, v9);
+  v10 = ot::SettingsBase::ActionToString(a2);
+  DadCounter = ot::SettingsBase::DadInfo::GetDadCounter(a1);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s DadInfo {DadCounter:%2d}", v3, v4, v5, v6, v7, v8, v10, DadCounter);
 }
 
 uint64_t ot::SettingsBase::DadInfo::GetDadCounter(ot::SettingsBase::DadInfo *this)
@@ -5242,7 +7498,7 @@ void ot::SettingsBase::BorderAgentId::Log(ot::SettingsBase::BorderAgentId *a1, u
   ot::SettingsBase::BorderAgentId::GetId(a1);
   ot::StringWriter::AppendHexBytes(v11, v2, 16);
   v3 = ot::SettingsBase::ActionToString(v12);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s BorderAgentId {id:%s}", v4, v5, v6, v7, v8, v9, v3);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s BorderAgentId {id:%s}", v4, v5, v6, v7, v8, v9, v3, v14);
 }
 
 void ot::SettingsBase::BorderAgentId::GetId(ot::SettingsBase::BorderAgentId *this)
@@ -5310,8 +7566,8 @@ uint64_t ot::GetArrayLength<unsigned short,(unsigned short)3>()
 
 uint64_t ot::SettingsDriver::Deinit(ot::SettingsDriver *this)
 {
-  ot::SettingsDriver::GetInstancePtr(this);
-  return otPlatSettingsDeinit();
+  InstancePtr = ot::SettingsDriver::GetInstancePtr(this);
+  return otPlatSettingsDeinit(InstancePtr);
 }
 
 {
@@ -5322,13 +7578,13 @@ void ot::Settings::Wipe(ot::Settings *this)
 {
   v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::SettingsDriver>(this);
   ot::SettingsDriver::Wipe(v1);
-  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "Wiped all info", v2, v3, v4, v5, v6, v7, v8);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "Wiped all info", v2, v3, v4, v5, v6, v7);
 }
 
 uint64_t ot::SettingsDriver::Wipe(ot::SettingsDriver *this)
 {
-  ot::SettingsDriver::GetInstancePtr(this);
-  return otPlatSettingsWipe();
+  InstancePtr = ot::SettingsDriver::GetInstancePtr(this);
+  return otPlatSettingsWipe(InstancePtr);
 }
 
 {
@@ -5401,78 +7657,104 @@ uint64_t ot::MeshCoP::Dataset::GetLength(ot::MeshCoP::Dataset *this)
 
 void ot::Settings::Log(unsigned __int8 a1, int a2, unsigned __int16 a3, ot::SettingsBase::NetworkInfo *a4)
 {
-  ot::ErrorToString(a2);
-  ot::SettingsBase::KeyToString(a3);
-  ot::Logger::LogAtLevel<(ot::LogLevel)2>("Settings", "%s: Error: %s, action: %hhu, key: %s", v4, v5, v6, v7, v8, v9, "Log");
-  if (a2)
+  v36 = a1;
+  v35 = a2;
+  v34 = a3;
+  v33 = a4;
+  v30 = ot::ErrorToString(a2);
+  v31 = v36;
+  v4 = ot::SettingsBase::KeyToString(v34);
+  ot::Logger::LogAtLevel<(ot::LogLevel)2>("Settings", "%s: Error: %s, action: %hhu, key: %s", v5, v6, v7, v8, v9, v10, "Log", v30, v36, v4);
+  if (v35)
   {
-    if (a1)
+    v32 = "";
+    v29 = v36;
+    if (v36)
     {
-      switch(a1)
+      if (v29 != 2 && v29 != 1)
       {
-        case 2u:
-        case 1u:
-          goto LABEL_18;
-        case 3u:
-          if (a2 == 23)
-          {
-            return;
-          }
+        switch(v29)
+        {
+          case 3:
+            if (v35 == 23)
+            {
+              return;
+            }
 
-          goto LABEL_18;
-        case 4u:
-          goto LABEL_18;
-        case 5u:
-          if (a2 == 23)
-          {
-            return;
-          }
+            v32 = "deleting";
+            break;
+          case 4:
+            v32 = "adding";
+            break;
+          case 5:
+            if (v35 == 23)
+            {
+              return;
+            }
 
-          goto LABEL_18;
+            v32 = "removing";
+            break;
+          case 6:
+            if (v35 == 23)
+            {
+              return;
+            }
+
+            v32 = "deleting all";
+            break;
+        }
       }
 
-      if (a1 != 6 || a2 != 23)
+      else
       {
-LABEL_18:
-        v23 = ot::ErrorToString(a2);
-        ot::SettingsBase::KeyToString(a3);
-        ot::Logger::LogAtLevel<(ot::LogLevel)2>("Settings", "Error %s %s %s", v10, v11, v12, v13, v14, v15, v23);
+        v32 = "saving";
       }
+
+      v27 = ot::ErrorToString(v35);
+      v28 = v32;
+      v11 = ot::SettingsBase::KeyToString(v34);
+      ot::Logger::LogAtLevel<(ot::LogLevel)2>("Settings", "Error %s %s %s", v12, v13, v14, v15, v16, v17, v27, v28, v11);
     }
   }
 
   else
   {
-    if (a4)
+    if (v33)
     {
-      switch(a3)
+      v26 = v34;
+      if (v34 == 3)
       {
-        case 3u:
-          ot::SettingsBase::NetworkInfo::Log(a4, a1);
-          break;
-        case 4u:
-          ot::SettingsBase::ParentInfo::Log(a4, a1);
-          break;
-        case 5u:
-          ot::SettingsBase::ChildInfo::Log(a4, a1);
-          break;
-        case 8u:
-          ot::SettingsBase::DadInfo::Log(a4, a1);
-          break;
-        case 0x11u:
-          ot::SettingsBase::BorderAgentId::Log(a4, a1);
-          break;
-        default:
-          a4 = 0;
-          break;
+        ot::SettingsBase::NetworkInfo::Log(v33, v36);
+      }
+
+      else
+      {
+        switch(v26)
+        {
+          case 4:
+            ot::SettingsBase::ParentInfo::Log(v33, v36);
+            break;
+          case 5:
+            ot::SettingsBase::ChildInfo::Log(v33, v36);
+            break;
+          case 8:
+            ot::SettingsBase::DadInfo::Log(v33, v36);
+            break;
+          case 17:
+            ot::SettingsBase::BorderAgentId::Log(v33, v36);
+            break;
+          default:
+            v33 = 0;
+            break;
+        }
       }
     }
 
-    if (!a4)
+    if (!v33)
     {
-      v22 = ot::SettingsBase::ActionToString(a1);
-      ot::SettingsBase::KeyToString(a3);
-      ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s %s", v16, v17, v18, v19, v20, v21, v22);
+      v25 = ot::SettingsBase::ActionToString(v36);
+      v18 = ot::SettingsBase::KeyToString(v34);
+      ot::Logger::LogAtLevel<(ot::LogLevel)4>("Settings", "%s %s", v19, v20, v21, v22, v23, v24, v25, v18);
     }
   }
 }
@@ -5601,11 +7883,11 @@ void ot::Settings::ChildInfoIterator::Read(ot::Settings::ChildInfoIterator *this
   *(this + 20) = v3 != 0;
 }
 
-void ot::Settings::ChildInfoIterator::Advance(ot::Settings::ChildInfoIterator *this)
+void ot::Settings::ChildInfoIterator::Advance(uint64_t this)
 {
   if ((*(this + 20) & 1) == 0)
   {
-    ++*(this + 9);
+    ++*(this + 18);
     ot::Settings::ChildInfoIterator::Read(this);
   }
 }
@@ -5662,7 +7944,7 @@ uint64_t ot::Settings::ReadEntry(ot::InstanceLocator *a1, unsigned __int16 a2, v
   return v7;
 }
 
-uint64_t ot::Settings::SaveEntry(ot::InstanceLocator *a1, __int16 a2, ot::SettingsBase::NetworkInfo *a3, uint64_t a4, unsigned __int16 a5)
+uint64_t ot::Settings::SaveEntry(ot::InstanceLocator *a1, unsigned __int16 a2, ot::SettingsBase::NetworkInfo *a3, uint64_t a4, unsigned __int16 a5)
 {
   v14 = a1;
   v13 = a2;
@@ -5687,7 +7969,7 @@ uint64_t ot::Settings::SaveEntry(ot::InstanceLocator *a1, __int16 a2, ot::Settin
   return v10;
 }
 
-uint64_t ot::Settings::DeleteEntry(ot::InstanceLocator *a1, __int16 a2)
+uint64_t ot::Settings::DeleteEntry(ot::InstanceLocator *a1, unsigned __int16 a2)
 {
   v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::SettingsDriver>(a1);
   v4 = ot::SettingsDriver::Delete(v2, a2, -1);
@@ -5815,19 +8097,20 @@ const char *ot::StringFind(const char *a1, char *a2, char a3)
 
 uint64_t ot::anonymous namespace::Match(char *a1, char *a2, char a3)
 {
-  v10 = 0;
+  v12 = a2;
+  v11 = 0;
   if (a3)
   {
     if (a3 == 1)
     {
-      while (*a2)
+      while (*v12)
       {
         v5 = a1++;
-        v9 = ot::ToLowercase(*v5);
-        v6 = a2++;
-        if (v9 != ot::ToLowercase(*v6))
+        v10 = ot::ToLowercase(*v5, a2);
+        v6 = v12++;
+        if (v10 != ot::ToLowercase(*v6, v7))
         {
-          return v10;
+          return v11;
         }
       }
     }
@@ -5835,13 +8118,13 @@ uint64_t ot::anonymous namespace::Match(char *a1, char *a2, char a3)
 
   else
   {
-    while (*a2)
+    while (*v12)
     {
       v3 = a1++;
-      v4 = a2++;
+      v4 = v12++;
       if (*v3 != *v4)
       {
-        return v10;
+        return v11;
       }
     }
   }
@@ -5988,10 +8271,6 @@ LABEL_16:
 
 uint64_t ot::StringParseUint8(ot *this, const char **a2, unsigned __int8 *a3)
 {
-  return ot::StringParseUint8(this, a2, 0xFF);
-}
-
-{
   v10 = this;
   v9 = a2;
   v8 = a3;
@@ -6038,44 +8317,44 @@ _BYTE *ot::StringConvertToLowercase(_BYTE *this, char *a2)
 {
   for (i = this; *i; ++i)
   {
-    this = ot::ToLowercase(*i);
+    this = ot::ToLowercase(*i, a2);
     *i = this;
   }
 
   return this;
 }
 
-uint64_t ot::ToLowercase(ot *this)
+uint64_t ot::ToLowercase(ot *this, char a2)
 {
-  v2 = this;
+  v3 = this;
   if (ot::IsUppercase(this))
   {
-    v2 += 32;
+    v3 += 32;
   }
 
-  return v2;
+  return v3;
 }
 
 _BYTE *ot::StringConvertToUppercase(_BYTE *this, char *a2)
 {
   for (i = this; *i; ++i)
   {
-    this = ot::ToUppercase(*i);
+    this = ot::ToUppercase(*i, a2);
     *i = this;
   }
 
   return this;
 }
 
-uint64_t ot::ToUppercase(ot *this)
+uint64_t ot::ToUppercase(ot *this, char a2)
 {
-  v2 = this;
+  v3 = this;
   if (ot::IsLowercase(this))
   {
-    v2 -= 32;
+    v3 -= 32;
   }
 
-  return v2;
+  return v3;
 }
 
 BOOL ot::IsUppercase(ot *this)
@@ -6250,16 +8529,13 @@ int isascii(int _c)
   return isascii(_c);
 }
 
-uint64_t ot::Tasklet::Post(ot::Tasklet *this)
+void ot::Tasklet::Post(ot::Tasklet *this)
 {
-  result = ot::Tasklet::IsPosted(this);
-  if ((result & 1) == 0)
+  if (!ot::Tasklet::IsPosted(this))
   {
-    v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Tasklet::Scheduler>(this);
-    return ot::Tasklet::Scheduler::PostTasklet(v2, this);
+    v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Tasklet::Scheduler>(this);
+    ot::Tasklet::Scheduler::PostTasklet(v1, this);
   }
-
-  return result;
 }
 
 BOOL ot::Tasklet::IsPosted(ot::Tasklet *this)
@@ -6281,7 +8557,7 @@ uint64_t ot::GetProvider<ot::InstanceLocator>::Get<ot::Tasklet::Scheduler>(ot::I
   return ot::GetProvider<ot::InstanceLocator>::Get<ot::Tasklet::Scheduler>(a1);
 }
 
-uint64_t ot::Tasklet::Scheduler::PostTasklet(uint64_t this, ot::Tasklet *a2)
+void ot::Tasklet::Scheduler::PostTasklet(ot::Tasklet::Scheduler *this, ot::Tasklet *a2)
 {
   if (*this)
   {
@@ -6294,11 +8570,9 @@ uint64_t ot::Tasklet::Scheduler::PostTasklet(uint64_t this, ot::Tasklet *a2)
   {
     *this = a2;
     *(*this + 8) = *this;
-    Instance = ot::InstanceLocator::GetInstance(a2);
-    return otTaskletsSignalPending(Instance);
+    ot::InstanceLocator::GetInstance(a2);
+    otTaskletsSignalPending();
   }
-
-  return this;
 }
 
 uint64_t ot::Tasklet::RunTask(uint64_t (**this)(void))
@@ -6498,7 +8772,7 @@ uint64_t ot::Time::GetDistantFuture(ot::Time *this)
   return ot::Time::GetDistantFuture(this);
 }
 
-uint64_t ot::NextFireTime::UpdateIfEarlier(int *a1, int a2)
+uint64_t ot::NextFireTime::UpdateIfEarlier(unsigned int *a1, int a2)
 {
   v5 = a1[1];
   v2 = ot::Max<ot::Time>(*a1, a2);
@@ -6572,7 +8846,7 @@ BOOL ot::Timer::DoesFireBefore(ot::Timer *a1, ot::Timer *a2, int a3)
   }
 }
 
-uint64_t ot::TimerMilli::StartAt(ot::InstanceLocator *a1, int a2, unsigned int a3)
+uint64_t ot::TimerMilli::StartAt(ot::TimerMilli *a1, int a2, unsigned int a3)
 {
   v6 = a2;
   if (a3 > 0x7FFFFFFF)
@@ -6584,7 +8858,7 @@ uint64_t ot::TimerMilli::StartAt(ot::InstanceLocator *a1, int a2, unsigned int a
   return ot::TimerMilli::FireAt(a1, v5);
 }
 
-uint64_t ot::TimerMilli::FireAt(ot::InstanceLocator *a1, int a2)
+uint64_t ot::TimerMilli::FireAt(ot::TimerMilli *a1, int a2)
 {
   *(a1 + 2) = a2;
   v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::TimerMilli::Scheduler>(a1);
@@ -6641,7 +8915,7 @@ uint64_t ot::NextFireTime::GetNextTime(ot::NextFireTime *this)
   return ot::NextFireTime::GetNextTime(this);
 }
 
-uint64_t ot::TimerMilli::FireAtIfEarlier(int *a1, int a2)
+uint64_t ot::TimerMilli::FireAtIfEarlier(ot::TimerMilli *a1, int a2)
 {
   v4 = a2;
   if (!ot::Timer::IsRunning(a1))
@@ -6947,7 +9221,7 @@ uint64_t ot::Timer::Fired(uint64_t (**this)(void))
   return ot::Timer::Fired(this);
 }
 
-uint64_t ot::Timer::Scheduler::RemoveAll(uint64_t *a1, uint64_t a2)
+uint64_t ot::Timer::Scheduler::RemoveAll(ot::InstanceLocator *a1, uint64_t a2)
 {
   while (1)
   {
@@ -6968,7 +9242,7 @@ uint64_t otPlatAlarmMilliFired(uint64_t a1)
   result = otInstanceIsInitialized(a1);
   if (result)
   {
-    v2 = ot::AsCoreType<otInstance>(a1);
+    ot::AsCoreType<otInstance>(a1);
     v3 = ot::Instance::Get<ot::TimerMilli::Scheduler>(v2);
     return ot::TimerMilli::Scheduler::ProcessTimers(v3);
   }
@@ -6985,7 +9259,7 @@ uint64_t ot::TimerMilli::Scheduler::ProcessTimers(ot::TimerMilli::Scheduler *thi
   return ot::TimerMilli::Scheduler::ProcessTimers(this);
 }
 
-uint64_t ot::TimerMicro::StartAt(ot::InstanceLocator *a1, int a2, unsigned int a3)
+uint64_t ot::TimerMicro::StartAt(ot::TimerMicro *a1, int a2, unsigned int a3)
 {
   v6 = a2;
   if (a3 > 0x7FFFFFFF)
@@ -6997,7 +9271,7 @@ uint64_t ot::TimerMicro::StartAt(ot::InstanceLocator *a1, int a2, unsigned int a
   return ot::TimerMicro::FireAt(a1, v5);
 }
 
-uint64_t ot::TimerMicro::FireAt(ot::InstanceLocator *a1, int a2)
+uint64_t ot::TimerMicro::FireAt(ot::TimerMicro *a1, int a2)
 {
   *(a1 + 2) = a2;
   v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::TimerMicro::Scheduler>(a1);
@@ -7055,7 +9329,7 @@ uint64_t otPlatAlarmMicroFired(uint64_t a1)
   result = otInstanceIsInitialized(a1);
   if (result)
   {
-    v2 = ot::AsCoreType<otInstance>(a1);
+    ot::AsCoreType<otInstance>(a1);
     v3 = ot::Instance::Get<ot::TimerMicro::Scheduler>(v2);
     return ot::TimerMicro::Scheduler::ProcessTimers(v3);
   }
@@ -7179,7 +9453,7 @@ uint64_t ot::LinkedList<ot::Timer>::Find(uint64_t *a1, uint64_t a2, uint64_t *a3
   return ot::LinkedList<ot::Timer>::Find(a1, a2, a3);
 }
 
-uint64_t ot::Tlv::ReadUintTlv<unsigned char>(ot::Tlv *a1, unsigned __int16 a2, char *a3)
+uint64_t ot::Tlv::ReadUintTlv<unsigned char>(ot::Tlv *a1, unsigned __int16 a2, char *a3, uint64_t a4, unsigned __int8 a5)
 {
   TlvValue = ot::Tlv::ReadTlvValue(a1, a2, a3, 1);
   if (!TlvValue)
@@ -7191,7 +9465,7 @@ uint64_t ot::Tlv::ReadUintTlv<unsigned char>(ot::Tlv *a1, unsigned __int16 a2, c
 }
 
 {
-  return ot::Tlv::ReadUintTlv<unsigned char>(a1, a2, a3);
+  return ot::Tlv::ReadUintTlv<unsigned char>(a1, a2, a3, a4, a5);
 }
 
 uint64_t ot::Tlv::ReadTlvValue(ot::Tlv *this, const ot::Message *a2, char *a3, void *a4)
@@ -7233,7 +9507,7 @@ uint64_t ot::Tlv::ReadUintTlv<unsigned short>(ot::Tlv *a1, unsigned __int16 a2, 
   TlvValue = ot::Tlv::ReadTlvValue(a1, a2, a3, 2);
   if (!TlvValue)
   {
-    *a3 = ot::BigEndian::HostSwap<unsigned short>(*a3);
+    *a3 = ot::BigEndian::HostSwap<unsigned short>(*a3, v3);
   }
 
   return TlvValue;
@@ -7243,13 +9517,13 @@ uint64_t ot::Tlv::ReadUintTlv<unsigned short>(ot::Tlv *a1, unsigned __int16 a2, 
   return ot::Tlv::ReadUintTlv<unsigned short>(a1, a2, a3);
 }
 
-uint64_t ot::BigEndian::HostSwap<unsigned short>(unsigned __int16 a1)
+uint64_t ot::BigEndian::HostSwap<unsigned short>(unsigned __int16 a1, unsigned __int16 a2)
 {
-  return ot::BigEndian::HostSwap16(a1);
+  return ot::BigEndian::HostSwap16(a1, a2);
 }
 
 {
-  return ot::BigEndian::HostSwap<unsigned short>(a1);
+  return ot::BigEndian::HostSwap<unsigned short>(a1, a2);
 }
 
 uint64_t ot::Tlv::ReadUintTlv<unsigned int>(ot::Tlv *a1, unsigned __int16 a2, char *a3)
@@ -7257,7 +9531,7 @@ uint64_t ot::Tlv::ReadUintTlv<unsigned int>(ot::Tlv *a1, unsigned __int16 a2, ch
   TlvValue = ot::Tlv::ReadTlvValue(a1, a2, a3, 4);
   if (!TlvValue)
   {
-    *a3 = ot::BigEndian::HostSwap<unsigned int>(*a3);
+    *a3 = ot::BigEndian::HostSwap<unsigned int>(*a3, v3);
   }
 
   return TlvValue;
@@ -7267,30 +9541,30 @@ uint64_t ot::Tlv::ReadUintTlv<unsigned int>(ot::Tlv *a1, unsigned __int16 a2, ch
   return ot::Tlv::ReadUintTlv<unsigned int>(a1, a2, a3);
 }
 
-uint64_t ot::BigEndian::HostSwap<unsigned int>(unsigned int a1)
+uint64_t ot::BigEndian::HostSwap<unsigned int>(unsigned int a1, unsigned int a2)
 {
-  return ot::BigEndian::HostSwap32(a1);
+  return ot::BigEndian::HostSwap32(a1, a2);
 }
 
 {
-  return ot::BigEndian::HostSwap<unsigned int>(a1);
+  return ot::BigEndian::HostSwap<unsigned int>(a1, a2);
 }
 
 uint64_t ot::Tlv::FindUintTlv<unsigned char>(const ot::Message *a1, unsigned __int8 a2, char *a3)
 {
-  v11 = a1;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  v8 = ot::Tlv::ParsedInfo::FindIn(v6, a1, a2);
-  if (!v8)
+  v13 = a1;
+  v12 = a2;
+  v11 = a3;
+  v10 = 0;
+  v10 = ot::Tlv::ParsedInfo::FindIn(v8, a1, a2);
+  if (!v10)
   {
-    v5 = v11;
-    Offset = ot::OffsetRange::GetOffset(&v7);
-    return ot::Tlv::ReadUintTlv<unsigned char>(v5, Offset, v9);
+    v7 = v13;
+    Offset = ot::OffsetRange::GetOffset(&v9);
+    return ot::Tlv::ReadUintTlv<unsigned char>(v7, Offset, v11, v4, v5);
   }
 
-  return v8;
+  return v10;
 }
 
 {
@@ -7396,12 +9670,12 @@ uint64_t ot::Tlv::AppendTlv(ot::Tlv *this, ot::Message *a2, void *a3, const void
   return v6;
 }
 
-uint64_t ot::Tlv::AppendUintTlv<unsigned short>(uint64_t a1, char a2, unsigned __int16 a3)
+uint64_t ot::Tlv::AppendUintTlv<unsigned short>(uint64_t a1, unsigned __int16 a2, unsigned __int16 a3)
 {
   *&v5[1] = a1;
   v5[0] = a2;
   v4[1] = a3;
-  v4[0] = ot::BigEndian::HostSwap<unsigned short>(a3);
+  v4[0] = ot::BigEndian::HostSwap<unsigned short>(a3, a2);
   return ot::Tlv::AppendTlv(*&v5[1], v5[0], v4, 2);
 }
 
@@ -7414,7 +9688,7 @@ uint64_t ot::Tlv::AppendUintTlv<unsigned int>(ot::Tlv *a1, unsigned __int8 a2, u
   v6 = a1;
   v5 = a2;
   v4[1] = a3;
-  v4[0] = ot::BigEndian::HostSwap<unsigned int>(a3);
+  v4[0] = ot::BigEndian::HostSwap<unsigned int>(a3, a2);
   return ot::Tlv::AppendTlv(v6, v5, v4, 4);
 }
 
@@ -7430,7 +9704,7 @@ uint64_t ot::Tlv::GetSize(ot::Tlv *this)
   }
 
   ot::As<ot::ExtendedTlv>();
-  return ot::ExtendedTlv::GetLength(v1) + 4;
+  return ot::ExtendedTlv::GetLength(v1, v2) + 4;
 }
 
 void ot::As<ot::ExtendedTlv>()
@@ -7442,13 +9716,13 @@ void ot::As<ot::ExtendedTlv>()
   ot::As<ot::ExtendedTlv>();
 }
 
-uint64_t ot::ExtendedTlv::GetLength(ot::ExtendedTlv *this)
+uint64_t ot::ExtendedTlv::GetLength(ot::ExtendedTlv *this, unsigned __int16 a2)
 {
-  return ot::BigEndian::HostSwap16(*(this + 1));
+  return ot::BigEndian::HostSwap16(*(this + 1), a2);
 }
 
 {
-  return ot::ExtendedTlv::GetLength(this);
+  return ot::ExtendedTlv::GetLength(this, a2);
 }
 
 uint64_t ot::Tlv::GetValue(ot::Tlv *this)
@@ -7531,43 +9805,43 @@ uint64_t ot::Tlv::ParsedInfo::ParseFrom(ot::Tlv::ParsedInfo *this, const ot::Mes
 
 uint64_t ot::Tlv::ParsedInfo::ParseFrom(ot::Tlv::ParsedInfo *this, const ot::Message *a2, const ot::OffsetRange *a3)
 {
-  v13 = this;
-  v12 = a2;
-  v11 = a3;
-  v10 = 0;
-  v10 = ot::Message::Read<ot::Tlv>(a2, a3, v9);
-  if (!v10)
+  v14 = this;
+  v13 = a2;
+  v12 = a3;
+  v11 = 0;
+  v11 = ot::Message::Read<ot::Tlv>(a2, a3, v10);
+  if (!v11)
   {
-    *this = ot::Tlv::GetType(v9);
-    if (ot::Tlv::IsExtended(v9))
+    *this = ot::Tlv::GetType(v10);
+    if (ot::Tlv::IsExtended(v10))
     {
-      v10 = ot::Message::Read<ot::ExtendedTlv>(v12, v11, v8);
-      if (v10)
+      v11 = ot::Message::Read<ot::ExtendedTlv>(v13, v12, v9);
+      if (v11)
       {
-        return v10;
+        return v11;
       }
 
       *(this + 1) = 1;
-      v7 = 4;
-      v6 = ot::ExtendedTlv::GetLength(v8) + 4;
+      v8 = 4;
+      v7 = ot::ExtendedTlv::GetLength(v9, v3) + 4;
     }
 
     else
     {
       *(this + 1) = 0;
-      v7 = 2;
-      v6 = ot::Tlv::GetLength(v9) + 2;
+      v8 = 2;
+      v7 = ot::Tlv::GetLength(v10) + 2;
     }
 
-    *(this + 2) = *v11;
-    if (ot::OffsetRange::Contains((this + 2), v6))
+    *(this + 2) = *v12;
+    if (ot::OffsetRange::Contains((this + 2), v7))
     {
-      ot::OffsetRange::ShrinkLength(this + 2, v6);
+      ot::OffsetRange::ShrinkLength(this + 2, v7);
       EndOffset = ot::OffsetRange::GetEndOffset((this + 2));
-      if (EndOffset <= ot::Message::GetLength(v12))
+      if (EndOffset <= ot::Message::GetLength(v13))
       {
         *(this + 6) = *(this + 2);
-        ot::OffsetRange::AdvanceOffset(this + 3, v7);
+        ot::OffsetRange::AdvanceOffset(this + 3, v8);
       }
 
       else
@@ -7582,2263 +9856,5 @@ uint64_t ot::Tlv::ParsedInfo::ParseFrom(ot::Tlv::ParsedInfo *this, const ot::Mes
     }
   }
 
-  return v10;
-}
-
-uint64_t ot::Message::Read<ot::Tlv>(ot::Message *a1, const ot::OffsetRange *a2, char *a3)
-{
-  return ot::Message::Read(a1, a2, a3, 2u);
-}
-
-{
-  return ot::Message::Read<ot::Tlv>(a1, a2, a3);
-}
-
-uint64_t ot::Tlv::GetType(ot::Tlv *this)
-{
-  return *this;
-}
-
-{
-  return ot::Tlv::GetType(this);
-}
-
-uint64_t ot::Message::Read<ot::ExtendedTlv>(ot::Message *a1, const ot::OffsetRange *a2, char *a3)
-{
-  return ot::Message::Read(a1, a2, a3, 4u);
-}
-
-{
-  return ot::Message::Read<ot::ExtendedTlv>(a1, a2, a3);
-}
-
-uint64_t ot::Tlv::ReadStringTlv(ot::Tlv *this, const ot::Message *a2, unsigned __int8 a3, char *a4, char *a5)
-{
-  v13 = this;
-  v12 = a2;
-  v11 = a3;
-  v10 = a4;
-  v9 = 0;
-  v9 = ot::Tlv::ParsedInfo::ParseFrom(v7, this, a2);
-  if (!v9)
-  {
-    ot::OffsetRange::ShrinkLength(v8, v11);
-    ot::Message::ReadBytes(v13, v8, v10);
-    v6 = v10;
-    v6[ot::OffsetRange::GetLength(v8)] = 0;
-  }
-
-  return v9;
-}
-
-uint64_t ot::Tlv::FindStringTlv(ot::Tlv *this, const ot::Message *a2, unsigned __int8 a3, uint64_t a4, char *a5)
-{
-  v15 = this;
-  v14 = a2;
-  v13 = a3;
-  *v12 = a4;
-  v11 = 0;
-  v11 = ot::Tlv::ParsedInfo::FindIn(v9, this, a2);
-  if (!v11)
-  {
-    v8 = v15;
-    Offset = ot::OffsetRange::GetOffset(&v10);
-    return ot::Tlv::ReadStringTlv(v8, Offset, v13, *v12, v6);
-  }
-
   return v11;
-}
-
-uint64_t ot::Tlv::FindTlv(ot::Tlv *this, const ot::Message *a2, void *a3, ot::OffsetRange *a4)
-{
-  v10 = this;
-  v9 = a2;
-  v8 = a3;
-  v7 = a4;
-  TlvValueOffsetRange = 0;
-  TlvValueOffsetRange = ot::Tlv::FindTlvValueOffsetRange(this, a2, &v5, a4);
-  if (!TlvValueOffsetRange)
-  {
-    return ot::Message::Read(v10, &v5, v8, v7);
-  }
-
-  return TlvValueOffsetRange;
-}
-
-uint64_t ot::Tlv::AppendStringTlv(ot::Tlv *this, ot::Message *a2, unsigned __int8 a3, ot *a4, const char *a5)
-{
-  v8 = a2;
-  if (a4)
-  {
-    v6 = ot::StringLength(a4, a3);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  return ot::Tlv::AppendTlv(this, v8, a4, v6);
-}
-
-uint64_t ot::Message::Append<ot::Tlv>(ot::Message *a1, const void *a2)
-{
-  return ot::Message::AppendBytes(a1, a2, 2u);
-}
-
-{
-  return ot::Message::Append<ot::Tlv>(a1, a2);
-}
-
-ot::Tlv *ot::Tlv::FindTlv(ot::Tlv *this, const void *a2, unsigned __int8 a3)
-{
-  v7 = (this + a2);
-  for (i = this; i < v7; i = ot::Tlv::GetNext(i))
-  {
-    if ((i + 2) > v7)
-    {
-      return 0;
-    }
-
-    if (ot::Tlv::IsExtended(i))
-    {
-      ot::As<ot::ExtendedTlv>();
-      v6 = v3 + 4;
-      ot::As<ot::ExtendedTlv>();
-      if (v6 > v4)
-      {
-        return 0;
-      }
-    }
-
-    if (ot::Tlv::GetNext(i) > v7)
-    {
-      return 0;
-    }
-
-    if (ot::Tlv::GetType(i) == a3)
-    {
-      return i;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t ot::Tlv::GetNext(ot::Tlv *this)
-{
-  return this + ot::Tlv::GetSize(this);
-}
-
-{
-  return ot::Tlv::GetNext(this);
-}
-
-ot::TrickleTimer *ot::TrickleTimer::TrickleTimer(ot::TrickleTimer *this, ot::Instance *a2, void (*a3)(ot::TrickleTimer *))
-{
-  ot::TimerMilli::TimerMilli(this, a2, ot::TrickleTimer::HandleTimer);
-  result = this;
-  *(this + 6) = 0;
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  *(this + 9) = 0;
-  *(this + 20) = 0;
-  *(this + 21) = 0;
-  *(this + 6) = a3;
-  *(this + 56) = 0;
-  *(this + 57) = 0;
-  return result;
-}
-
-{
-  ot::TrickleTimer::TrickleTimer(this, a2, a3);
-  return this;
-}
-
-uint64_t ot::TrickleTimer::GetStartTimeOfCurrentInterval(ot::TrickleTimer *this)
-{
-  FireTime = ot::Timer::GetFireTime(this);
-  if (*(this + 56) == 1)
-  {
-LABEL_6:
-    ot::Time::operator-=(&FireTime, *(this + 8));
-    return FireTime;
-  }
-
-  if (*(this + 57))
-  {
-    if (*(this + 57) != 1)
-    {
-      return FireTime;
-    }
-
-    goto LABEL_6;
-  }
-
-  ot::Time::operator-=(&FireTime, *(this + 9));
-  return FireTime;
-}
-
-_DWORD *ot::Time::operator-=(_DWORD *result, int a2)
-{
-  *result -= a2;
-  return result;
-}
-
-{
-  return ot::Time::operator-=(result, a2);
-}
-
-uint64_t ot::TrickleTimer::SetIntervalMin(ot::TrickleTimer *this, int a2)
-{
-  result = ot::TrickleTimer::IsRunning(this);
-  if (result)
-  {
-    *(this + 6) = a2;
-    if (*(this + 7) < *(this + 6))
-    {
-      return ot::TrickleTimer::SetIntervalMax(this, *(this + 6));
-    }
-  }
-
-  return result;
-}
-
-BOOL ot::TrickleTimer::IsRunning(ot::TrickleTimer *this)
-{
-  return ot::Timer::IsRunning(this);
-}
-
-{
-  return ot::TrickleTimer::IsRunning(this);
-}
-
-uint64_t ot::TrickleTimer::SetIntervalMax(ot::TrickleTimer *this, unsigned int a2)
-{
-  v7 = this;
-  v6 = a2;
-  result = ot::TrickleTimer::IsRunning(this);
-  if (result)
-  {
-    result = ot::Max<unsigned int>(*(this + 6), v6);
-    v6 = result;
-    if (result != *(this + 7))
-    {
-      *(this + 7) = v6;
-      if (*(this + 7) < *(this + 8))
-      {
-        v4[0] = ot::TrickleTimer::GetStartTimeOfCurrentInterval(this);
-        result = ot::Time::operator+(v4, *(this + 7));
-        v4[1] = result;
-        v5 = result;
-        if (*(this + 56) == 1)
-        {
-          return ot::TimerMilli::FireAt(this, v5);
-        }
-
-        *(this + 8) = v6;
-        if (*(this + 57))
-        {
-          if (*(this + 57) != 1)
-          {
-            return result;
-          }
-
-          return ot::TimerMilli::FireAt(this, v5);
-        }
-
-        if (v6 < *(this + 9))
-        {
-          *(this + 9) = v6;
-          return ot::TimerMilli::FireAt(this, v5);
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t ot::TrickleTimer::Start(uint64_t a1, char a2, unsigned int a3, unsigned int a4, __int16 a5)
-{
-  v7 = 0;
-  if (a4 >= a3)
-  {
-    v7 = a3 != 0;
-  }
-
-  if (!v7)
-  {
-    __assert_rtn("Start", "trickle_timer.cpp", 211, "(aIntervalMax >= aIntervalMin) && (aIntervalMin > 0)");
-  }
-
-  *(a1 + 24) = a3;
-  *(a1 + 28) = a4;
-  *(a1 + 40) = a5;
-  *(a1 + 56) = a2;
-  *(a1 + 32) = ot::Random::NonCrypto::GetUint32InRange(*(a1 + 24), *(a1 + 28) + 1);
-  return ot::TrickleTimer::StartNewInterval(a1);
-}
-
-uint64_t ot::TrickleTimer::StartNewInterval(ot::TrickleTimer *this)
-{
-  if (*(this + 56))
-  {
-    if (*(this + 56) == 1)
-    {
-      *(this + 9) = *(this + 8);
-    }
-  }
-
-  else
-  {
-    if (*(this + 8) / 2u >= *(this + 8))
-    {
-      Uint32InRange = *(this + 8) / 2u;
-    }
-
-    else
-    {
-      Uint32InRange = ot::Random::NonCrypto::GetUint32InRange((*(this + 8) / 2u), *(this + 8));
-    }
-
-    *(this + 9) = Uint32InRange;
-    *(this + 21) = 0;
-    *(this + 57) = 0;
-  }
-
-  return ot::TimerMilli::Start(this, *(this + 9));
-}
-
-uint64_t ot::TrickleTimer::IndicateConsistent(uint64_t this)
-{
-  if (*(this + 42) != 0xFFFF)
-  {
-    ++*(this + 42);
-  }
-
-  return this;
-}
-
-uint64_t ot::TrickleTimer::IndicateInconsistent(uint64_t this)
-{
-  v1 = this;
-  if (!*(this + 56))
-  {
-    this = ot::TrickleTimer::IsRunning(this);
-    if ((this & 1) != 0 && *(v1 + 8) != *(v1 + 6))
-    {
-      *(v1 + 8) = *(v1 + 6);
-      return ot::TrickleTimer::StartNewInterval(v1);
-    }
-  }
-
-  return this;
-}
-
-uint64_t ot::TrickleTimer::HandleTimer(ot::TrickleTimer *this)
-{
-  if (*(this + 56))
-  {
-    if (*(this + 56) == 1)
-    {
-      *(this + 8) = ot::Random::NonCrypto::GetUint32InRange(*(this + 6), *(this + 7) + 1);
-      ot::TrickleTimer::StartNewInterval(this);
-    }
-
-    return (*(this + 6))();
-  }
-
-  if (!*(this + 57))
-  {
-    *(this + 57) = 1;
-    result = ot::TimerMilli::Start(this, *(this + 8) - *(this + 9));
-    if (*(this + 21) >= *(this + 20))
-    {
-      return result;
-    }
-
-    return (*(this + 6))();
-  }
-
-  if (*(this + 57) != 1)
-  {
-    return (*(this + 6))();
-  }
-
-  if (*(this + 8))
-  {
-    if (*(this + 8) > (*(this + 7) - *(this + 8)))
-    {
-      *(this + 8) = *(this + 7);
-    }
-
-    else
-    {
-      *(this + 8) *= 2;
-    }
-  }
-
-  else
-  {
-    *(this + 8) = 1;
-  }
-
-  return ot::TrickleTimer::StartNewInterval(this);
-}
-
-uint64_t ot::Crypto::AesCcm::SetKey(ot::Crypto::AesCcm *this, const unsigned __int8 *a2, __int16 a3)
-{
-  v8 = this;
-  v7 = a2;
-  v6 = a3;
-  ot::Crypto::Key::Set(v5, a2, a3);
-  return ot::Crypto::AesCcm::SetKey(this, v5);
-}
-
-uint64_t ot::Crypto::AesCcm::SetKey(ot::Crypto::AesCcm *this, const ot::Crypto::Key *a2)
-{
-  return ot::Crypto::AesEcb::SetKey(this, a2);
-}
-
-{
-  return ot::Crypto::AesCcm::SetKey(this, a2);
-}
-
-uint64_t ot::Crypto::AesCcm::SetKey(ot::Crypto::AesCcm *this, const ot::Mac::KeyMaterial *a2)
-{
-  v6 = this;
-  v5 = a2;
-  ot::Mac::KeyMaterial::ConvertToCryptoKey(a2, v4);
-  return ot::Crypto::AesCcm::SetKey(this, v4);
-}
-
-void ot::Crypto::AesCcm::Init(ot::Crypto::AesCcm *this, unsigned int a2, unsigned int a3, unsigned __int8 a4, const void *a5, unsigned __int8 a6)
-{
-  v17 = a6;
-  v14 = 0;
-  v9 = 0;
-  if ((a4 & 1) == 0)
-  {
-    v9 = 0;
-    if (a4 >= 4u)
-    {
-      v9 = a4 <= 0x10u;
-    }
-  }
-
-  if (!v9)
-  {
-    __assert_rtn("Init", "aes_ccm.cpp", 72, "((aTagLength & 0x1) == 0) && (kMinTagLength <= aTagLength) && (aTagLength <= kMaxTagLength)");
-  }
-
-  v11 = 0;
-  for (i = a3; i; i >>= 8)
-  {
-    ++v11;
-  }
-
-  if (v11 <= 1u)
-  {
-    v11 = 2;
-  }
-
-  if (a6 > 0xDu)
-  {
-    v17 = 13;
-  }
-
-  if (v11 < 15 - v17)
-  {
-    v11 = 15 - v17;
-  }
-
-  if (v17 > 15 - v11)
-  {
-    v17 = 15 - v11;
-  }
-
-  *(this + 304) = (8 * ((a4 - 2) >> 1)) | ((a2 != 0) << 6) | (v11 - 1);
-  memcpy(this + 305, a5, v17);
-  v13 = a3;
-  for (j = 15; j > v17; --j)
-  {
-    *(this + j + 304) = v13;
-    v13 >>= 8;
-  }
-
-  ot::Crypto::AesEcb::Encrypt(this, this + 304, this + 304);
-  if (a2)
-  {
-    if (a2 >= 0xFF00)
-    {
-      *(this + 304) = ~*(this + 304);
-      *(this + 305) ^= 0xFEu;
-      *(this + 306) ^= HIBYTE(a2);
-      v14 = 4;
-      *(this + 307) ^= BYTE2(a2);
-    }
-
-    v6 = v14;
-    v15 = v14 + 1;
-    *(this + v6 + 304) ^= BYTE1(a2);
-    v7 = v15;
-    v14 = v15 + 1;
-    *(this + v7 + 304) ^= a2;
-  }
-
-  *(this + 320) = v11 - 1;
-  memcpy(this + 321, a5, v17);
-  bzero(this + v17 + 321, 15 - v17);
-  *(this + 372) = v17;
-  *(this + 88) = a2;
-  *(this + 89) = 0;
-  *(this + 90) = a3;
-  *(this + 91) = 0;
-  *(this + 184) = v14;
-  *(this + 185) = 16;
-  *(this + 373) = a4;
-}
-
-ot::Crypto::AesEcb *ot::Crypto::AesCcm::Header(ot::Crypto::AesEcb *this, _BYTE *a2, unsigned int a3)
-{
-  v5 = this;
-  if (*(this + 89) + a3 > *(this + 88))
-  {
-    __assert_rtn("Header", "aes_ccm.cpp", 163, "mHeaderCur + aHeaderLength <= mHeaderLength");
-  }
-
-  for (i = 0; i < a3; ++i)
-  {
-    if (*(v5 + 184) == 16)
-    {
-      this = ot::Crypto::AesEcb::Encrypt(v5, v5 + 304, v5 + 304);
-      *(v5 + 184) = 0;
-    }
-
-    v3 = a2[i];
-    v4 = (*(v5 + 184))++;
-    *(v5 + v4 + 304) ^= v3;
-  }
-
-  *(v5 + 89) += a3;
-  if (*(v5 + 89) == *(v5 + 88))
-  {
-    if (*(v5 + 184))
-    {
-      this = ot::Crypto::AesEcb::Encrypt(v5, v5 + 304, v5 + 304);
-    }
-
-    *(v5 + 184) = 0;
-  }
-
-  return this;
-}
-
-void ot::Crypto::AesCcm::Payload(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, char a5)
-{
-  if (*(a1 + 364) + a4 > *(a1 + 360))
-  {
-    __assert_rtn("Payload", "aes_ccm.cpp", 197, "mPlainTextCur + aLength <= mPlainTextLength");
-  }
-
-  for (i = 0; i < a4; ++i)
-  {
-    if (*(a1 + 370) == 16)
-    {
-      for (j = 15; j > *(a1 + 372); --j)
-      {
-        v5 = (a1 + 320 + j);
-        v6 = *v5 + 1;
-        *v5 = v6;
-        if (v6)
-        {
-          break;
-        }
-      }
-
-      ot::Crypto::AesEcb::Encrypt(a1, (a1 + 320), (a1 + 336));
-      *(a1 + 370) = 0;
-    }
-
-    if (a5)
-    {
-      v8 = *(a3 + i);
-      v9 = (*(a1 + 370))++;
-      v14 = v8 ^ *(a1 + 336 + v9);
-      *(a2 + i) = v14;
-    }
-
-    else
-    {
-      v14 = *(a2 + i);
-      v7 = (*(a1 + 370))++;
-      *(a3 + i) = v14 ^ *(a1 + 336 + v7);
-    }
-
-    if (*(a1 + 368) == 16)
-    {
-      ot::Crypto::AesEcb::Encrypt(a1, (a1 + 304), (a1 + 304));
-      *(a1 + 368) = 0;
-    }
-
-    v10 = (*(a1 + 368))++;
-    *(a1 + 304 + v10) ^= v14;
-  }
-
-  *(a1 + 364) += a4;
-  if (*(a1 + 364) >= *(a1 + 360))
-  {
-    if (*(a1 + 368))
-    {
-      ot::Crypto::AesEcb::Encrypt(a1, (a1 + 304), (a1 + 304));
-    }
-
-    bzero((a1 + 320 + *(a1 + 372) + 1), 15 - *(a1 + 372));
-  }
-}
-
-uint64_t ot::Crypto::AesCcm::Payload(uint64_t a1, ot::Message *a2, unsigned __int16 a3, unsigned __int16 a4, char a5)
-{
-  v16 = a1;
-  v15 = a2;
-  v14[1] = a3;
-  v14[0] = a4;
-  v13 = a5;
-  ot::Message::GetFirstChunk(a2, a3, v14, v12);
-  while (1)
-  {
-    result = ot::Data<(ot::DataLengthType)1>::GetLength(v12);
-    if (result <= 0)
-    {
-      break;
-    }
-
-    ot::Message::MutableChunk::GetBytes(v12);
-    v9 = v6;
-    ot::Message::MutableChunk::GetBytes(v12);
-    v10 = v7;
-    Length = ot::Data<(ot::DataLengthType)1>::GetLength(v12);
-    ot::Crypto::AesCcm::Payload(a1, v9, v10, Length, v13);
-    ot::Message::GetNextChunk(v15, v14, v12);
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::AesCcm::Finalize(ot::Crypto::AesCcm *this, _BYTE *a2)
-{
-  if (*(this + 91) != *(this + 90))
-  {
-    __assert_rtn("Finalize", "aes_ccm.cpp", 268, "mPlainTextCur == mPlainTextLength");
-  }
-
-  result = ot::Crypto::AesEcb::Encrypt(this, this + 320, this + 336);
-  for (i = 0; i < *(this + 373); ++i)
-  {
-    a2[i] = *(this + i + 304) ^ *(this + i + 336);
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::AesCcm::GenerateNonce(ot::Crypto::AesCcm *this, const ot::Mac::ExtAddress *a2, unsigned __int8 *a3, uint64_t a4, unsigned __int8 *a5)
-{
-  v7 = a3;
-  *a4 = *this;
-  *v6 = a4 + 8;
-  result = ot::BigEndian::WriteUint32(a2, (a4 + 8), a3);
-  *(*v6 + 4) = v7;
-  return result;
-}
-
-ot::Crypto::AesEcb *ot::Crypto::AesEcb::AesEcb(ot::Crypto::AesEcb *this)
-{
-  *this = this + 16;
-  *(this + 4) = 288;
-  if (j__otPlatCryptoAesInit(this))
-  {
-    __assert_rtn("AesEcb", "aes_ecb.cpp", 45, "false");
-  }
-
-  return this;
-}
-
-{
-  ot::Crypto::AesEcb::AesEcb(this);
-  return this;
-}
-
-uint64_t ot::Crypto::AesEcb::SetKey(ot::Crypto::AesEcb *this, const ot::Crypto::Key *a2)
-{
-  result = j__otPlatCryptoAesSetKey(this, a2);
-  if (result)
-  {
-    __assert_rtn("SetKey", "aes_ecb.cpp", 48, "false");
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::AesEcb::Encrypt(ot::Crypto::AesEcb *this, unsigned __int8 *a2, unsigned __int8 *a3)
-{
-  result = j__otPlatCryptoAesEncrypt(this, a2, a3);
-  if (result)
-  {
-    __assert_rtn("Encrypt", "aes_ecb.cpp", 52, "false");
-  }
-
-  return result;
-}
-
-void ot::Crypto::AesEcb::~AesEcb(ot::Crypto::AesEcb *this)
-{
-  if (j__otPlatCryptoAesFree(this))
-  {
-    __assert_rtn("~AesEcb", "aes_ecb.cpp", 55, "false");
-  }
-}
-
-{
-  ot::Crypto::AesEcb::~AesEcb(this);
-}
-
-ot::Crypto::HmacSha256 *ot::Crypto::HmacSha256::HmacSha256(ot::Crypto::HmacSha256 *this)
-{
-  *this = this + 16;
-  *(this + 4) = 24;
-  if (j__otPlatCryptoHmacSha256Init(this))
-  {
-    __assert_rtn("HmacSha256", "hmac_sha256.cpp", 47, "false");
-  }
-
-  return this;
-}
-
-{
-  ot::Crypto::HmacSha256::HmacSha256(this);
-  return this;
-}
-
-void ot::Crypto::HmacSha256::~HmacSha256(ot::Crypto::HmacSha256 *this)
-{
-  if (j__otPlatCryptoHmacSha256Deinit(this))
-  {
-    __assert_rtn("~HmacSha256", "hmac_sha256.cpp", 50, "false");
-  }
-}
-
-{
-  ot::Crypto::HmacSha256::~HmacSha256(this);
-}
-
-uint64_t ot::Crypto::HmacSha256::Start(ot::Crypto::HmacSha256 *this, const ot::Crypto::Key *a2)
-{
-  result = j__otPlatCryptoHmacSha256Start(this, a2);
-  if (result)
-  {
-    __assert_rtn("Start", "hmac_sha256.cpp", 52, "false");
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::HmacSha256::Update(ot::Crypto::HmacSha256 *this, uint64_t a2, unsigned __int16 a3)
-{
-  result = j__otPlatCryptoHmacSha256Update(this, a2, a3);
-  if (result)
-  {
-    __assert_rtn("Update", "hmac_sha256.cpp", 56, "false");
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::HmacSha256::Finish(ot::Crypto::HmacSha256 *this, ot::Crypto::Sha256::Hash *a2)
-{
-  result = j__otPlatCryptoHmacSha256Finish(this);
-  if (result)
-  {
-    __assert_rtn("Finish", "hmac_sha256.cpp", 61, "false");
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::HmacSha256::Update(ot::Crypto::HmacSha256 *this, const ot::Message *a2, unsigned __int16 a3, unsigned __int16 a4)
-{
-  v11 = this;
-  v10 = a2;
-  v9[1] = a3;
-  v9[0] = a4;
-  ot::Message::GetFirstChunk(a2, a3, v9, v8);
-  while (1)
-  {
-    result = ot::Data<(ot::DataLengthType)1>::GetLength(v8);
-    if (result <= 0)
-    {
-      break;
-    }
-
-    Bytes = ot::Data<(ot::DataLengthType)1>::GetBytes(v8);
-    Length = ot::Data<(ot::DataLengthType)1>::GetLength(v8);
-    ot::Crypto::HmacSha256::Update(this, Bytes, Length);
-    ot::Message::GetNextChunk(v10, v9, v8);
-  }
-
-  return result;
-}
-
-ot::Crypto::MbedTls *ot::Crypto::MbedTls::MbedTls(ot::Crypto::MbedTls *this)
-{
-  mbedtls_platform_set_calloc_free(ot::Heap::CAlloc, ot::Heap::Free);
-  return this;
-}
-
-{
-  ot::Crypto::MbedTls::MbedTls(this);
-  return this;
-}
-
-uint64_t ot::Crypto::MbedTls::MapError(ot::Crypto::MbedTls *this)
-{
-  switch(this)
-  {
-    case 0xFFFF8100:
-      return 3;
-    case 0xFFFF8F00:
-      return 7;
-    case 0xFFFF9700:
-      return 5;
-    case 0xFFFF9780:
-      return 3;
-    case 0xFFFF9800:
-      return 5;
-    case 0xFFFFFFC0:
-      return 8;
-    case 0xFFFFFFC2:
-      return 3;
-    case 0xFFFFFFC4:
-    case 0xFFFFFFC3:
-      return 8;
-    case 0xFFFFFFC8:
-    case 0xFFFFFFCA:
-      return 7;
-    case 0xFFFFFFCC:
-    case 0xFFFFFFE2:
-    case 0xFFFFFFE4:
-      return 8;
-  }
-
-  return this < 0;
-}
-
-uint64_t ot::Crypto::MbedTls::CryptoSecurePrng(ot::Crypto::MbedTls *this, ot::Random::Crypto *a2, unsigned __int8 *a3)
-{
-  ot::Random::Crypto::FillBuffer(a2, a3);
-  IgnoreError();
-  return 0;
-}
-
-ot::Crypto::Sha256 *ot::Crypto::Sha256::Sha256(ot::Crypto::Sha256 *this)
-{
-  *this = this + 16;
-  *(this + 4) = 104;
-  if (j__otPlatCryptoSha256Init(this))
-  {
-    __assert_rtn("Sha256", "sha256.cpp", 47, "false");
-  }
-
-  return this;
-}
-
-{
-  ot::Crypto::Sha256::Sha256(this);
-  return this;
-}
-
-void ot::Crypto::Sha256::~Sha256(ot::Crypto::Sha256 *this)
-{
-  if (j__otPlatCryptoSha256Deinit(this))
-  {
-    __assert_rtn("~Sha256", "sha256.cpp", 50, "false");
-  }
-}
-
-{
-  ot::Crypto::Sha256::~Sha256(this);
-}
-
-uint64_t ot::Crypto::Sha256::Start(ot::Crypto::Sha256 *this)
-{
-  result = j__otPlatCryptoSha256Start(this);
-  if (result)
-  {
-    __assert_rtn("Start", "sha256.cpp", 52, "false");
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::Sha256::Update(ot::Crypto::Sha256 *this, uint64_t a2, unsigned __int16 a3)
-{
-  result = j__otPlatCryptoSha256Update(this, a2, a3);
-  if (result)
-  {
-    __assert_rtn("Update", "sha256.cpp", 56, "false");
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::Sha256::Update(ot::Crypto::Sha256 *this, const ot::Message *a2, unsigned __int16 a3, unsigned __int16 a4)
-{
-  v11 = this;
-  v10 = a2;
-  v9[1] = a3;
-  v9[0] = a4;
-  ot::Message::GetFirstChunk(a2, a3, v9, v8);
-  while (1)
-  {
-    result = ot::Data<(ot::DataLengthType)1>::GetLength(v8);
-    if (result <= 0)
-    {
-      break;
-    }
-
-    Bytes = ot::Data<(ot::DataLengthType)1>::GetBytes(v8);
-    Length = ot::Data<(ot::DataLengthType)1>::GetLength(v8);
-    ot::Crypto::Sha256::Update(this, Bytes, Length);
-    ot::Message::GetNextChunk(v10, v9, v8);
-  }
-
-  return result;
-}
-
-uint64_t ot::Crypto::Sha256::Finish(ot::Crypto::Sha256 *this, ot::Crypto::Sha256::Hash *a2)
-{
-  result = j__otPlatCryptoSha256Finish(this);
-  if (result)
-  {
-    __assert_rtn("Finish", "sha256.cpp", 72, "false");
-  }
-
-  return result;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessChannel(ot::FactoryDiags::Diags *this, char a2, ot::FactoryDiags::Diags **a3)
-{
-  v11 = this;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  if (otPlatDiagModeGet())
-  {
-    if (v10)
-    {
-      *v7 = 0;
-      v8 = ot::FactoryDiags::Diags::ParseLong(*v9, v7, v3);
-      if (!v8)
-      {
-        if (*v7 >= 11 && *v7 <= 25)
-        {
-          *(this + 32) = v7[0];
-          v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-          ot::Radio::Receive(v4, *(this + 32));
-          IgnoreError();
-          otPlatDiagChannelSet(*(this + 32));
-          ot::FactoryDiags::Diags::Output(this, "set channel to %d\r\nstatus 0x%02x\r\n", *(this + 32), v8);
-        }
-
-        else
-        {
-          v8 = 7;
-        }
-      }
-    }
-
-    else
-    {
-      ot::FactoryDiags::Diags::Output(this, "channel: %d\r\n", *(this + 32));
-    }
-  }
-
-  else
-  {
-    v8 = 13;
-  }
-
-  ot::FactoryDiags::Diags::AppendErrorResult(this, v8);
-  return v8;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessPower(ot::FactoryDiags::Diags *this, char a2, ot::FactoryDiags::Diags **a3)
-{
-  v11 = this;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  if (otPlatDiagModeGet())
-  {
-    if (v10)
-    {
-      *v7 = 0;
-      v8 = ot::FactoryDiags::Diags::ParseLong(*v9, v7, v3);
-      if (!v8)
-      {
-        *(this + 33) = v7[0];
-        v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-        v8 = ot::Radio::SetTransmitPower(v4, *(this + 33));
-        if (!v8)
-        {
-          otPlatDiagTxPowerSet(*(this + 33));
-          ot::FactoryDiags::Diags::Output(this, "set tx power to %d dBm\r\nstatus 0x%02x\r\n", *(this + 33), v8);
-        }
-      }
-    }
-
-    else
-    {
-      ot::FactoryDiags::Diags::Output(this, "tx power: %d dBm\r\n", *(this + 33));
-    }
-  }
-
-  else
-  {
-    v8 = 13;
-  }
-
-  ot::FactoryDiags::Diags::AppendErrorResult(this, v8);
-  return v8;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessRadio(ot::FactoryDiags::Diags *this, char a2, const char **a3)
-{
-  v10 = 7;
-  if (otPlatDiagModeGet())
-  {
-    if (a2)
-    {
-      if (!strcmp(*a3, "sleep"))
-      {
-        v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-        v10 = ot::Radio::Sleep(v3);
-        if (!v10)
-        {
-          ot::FactoryDiags::Diags::Output(this, "set radio from receive to sleep \r\nstatus 0x%02x\r\n", 0);
-        }
-      }
-
-      else if (!strcmp(*a3, "receive"))
-      {
-        v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-        v10 = ot::Radio::Receive(v4, *(this + 32));
-        if (!v10)
-        {
-          v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-          v10 = ot::Radio::SetTransmitPower(v5, *(this + 33));
-          if (!v10)
-          {
-            otPlatDiagChannelSet(*(this + 32));
-            otPlatDiagTxPowerSet(*(this + 33));
-            ot::FactoryDiags::Diags::Output(this, "set radio from sleep to receive on channel %d\r\nstatus 0x%02x\r\n", *(this + 32), 0);
-          }
-        }
-      }
-
-      else if (!strcmp(*a3, "state"))
-      {
-        v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-        State = ot::Radio::GetState(v6);
-        v10 = 0;
-        if (State)
-        {
-          switch(State)
-          {
-            case 1:
-              ot::FactoryDiags::Diags::Output(this, "sleep\r\n");
-              break;
-            case 2:
-              ot::FactoryDiags::Diags::Output(this, "receive\r\n");
-              break;
-            case 3:
-              ot::FactoryDiags::Diags::Output(this, "transmit\r\n");
-              break;
-            default:
-              ot::FactoryDiags::Diags::Output(this, "invalid\r\n");
-              break;
-          }
-        }
-
-        else
-        {
-          ot::FactoryDiags::Diags::Output(this, "disabled\r\n");
-        }
-      }
-
-      ot::FactoryDiags::Diags::AppendErrorResult(this, v10);
-    }
-
-    else
-    {
-      v10 = 7;
-      ot::FactoryDiags::Diags::AppendErrorResult(this, 7);
-    }
-  }
-
-  else
-  {
-    v10 = 13;
-    ot::FactoryDiags::Diags::AppendErrorResult(this, 13);
-  }
-
-  return v10;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessLinkRaw(ot::FactoryDiags::Diags *this, char a2, const char **a3)
-{
-  v8 = 0;
-  if (a2)
-  {
-    if (!strcmp(*a3, "start"))
-    {
-      Instance = ot::InstanceLocator::GetInstance(this);
-      v8 = otPlatRadioEnable(Instance);
-      if (!v8)
-      {
-        ot::FactoryDiags::Diags::Output(this, "raw link started\r\n");
-      }
-    }
-
-    else if (!strcmp(*a3, "stop"))
-    {
-      ot::InstanceLocator::GetInstance(this);
-      v8 = otPlatRadioDisable();
-      if (!v8)
-      {
-        ot::FactoryDiags::Diags::Output(this, "raw link stopped\r\n");
-      }
-    }
-
-    else
-    {
-      return 35;
-    }
-  }
-
-  else
-  {
-    ot::InstanceLocator::GetInstance(this);
-    IsEnabled = otPlatRadioIsEnabled();
-    v4 = "enabled";
-    if (!IsEnabled)
-    {
-      v4 = "disabled";
-    }
-
-    ot::FactoryDiags::Diags::Output(this, "raw link is %s\r\n", v4);
-  }
-
-  return v8;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessRepeat(ot::FactoryDiags::Diags *this, unsigned __int8 a2, ot::FactoryDiags::Diags **a3)
-{
-  v13 = this;
-  v12 = a2;
-  v11 = a3;
-  v10 = 0;
-  if (otPlatDiagModeGet())
-  {
-    if (v12)
-    {
-      if (!strcmp(*v11, "stop"))
-      {
-        ot::InstanceLocator::GetInstance(this);
-        otPlatAlarmMilliStop();
-        *(this + 36) = 0;
-        ot::FactoryDiags::Diags::Output(this, "repeated packet transmission is stopped\r\nstatus 0x%02x\r\n", v10);
-      }
-
-      else
-      {
-        *v9 = 0;
-        v10 = ot::FactoryDiags::Diags::ParseLong(*v11, v9, v3);
-        if (!v10)
-        {
-          *(this + 6) = *v9;
-          if (v12 < 2u)
-          {
-            if ((*(this + 35) & 1) == 0)
-            {
-              v10 = 7;
-              goto LABEL_19;
-            }
-
-            *v9 = *(*(this + 2) + 8);
-          }
-
-          else
-          {
-            v10 = ot::FactoryDiags::Diags::ParseLong(v11[1], v9, v4);
-            if (v10)
-            {
-              goto LABEL_19;
-            }
-
-            *(this + 35) = 0;
-          }
-
-          if (*v9 <= 127)
-          {
-            if (*v9 >= 3)
-            {
-              *(this + 34) = v9[0];
-              *(this + 36) = 1;
-              Now = otPlatAlarmMilliGetNow();
-              Instance = ot::InstanceLocator::GetInstance(this);
-              otPlatAlarmMilliStartAt(Instance, Now, *(this + 6));
-              ot::FactoryDiags::Diags::Output(this, "sending packets of length %#x at the delay of %#x ms\r\nstatus 0x%02x\r\n", *(this + 34), *(this + 6), v10);
-            }
-
-            else
-            {
-              v10 = 7;
-            }
-          }
-
-          else
-          {
-            v10 = 7;
-          }
-        }
-      }
-    }
-
-    else
-    {
-      v10 = 7;
-    }
-  }
-
-  else
-  {
-    v10 = 13;
-  }
-
-LABEL_19:
-  ot::FactoryDiags::Diags::AppendErrorResult(this, v10);
-  return v10;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessSend(ot::FactoryDiags::Diags *this, unsigned __int8 a2, ot::FactoryDiags::Diags **a3)
-{
-  v12 = this;
-  v11 = a2;
-  v10 = a3;
-  v9 = 0;
-  *v8 = 0;
-  if (otPlatDiagModeGet())
-  {
-    if (v11)
-    {
-      v4 = ot::FactoryDiags::Diags::ParseLong(*v10, v8, v3);
-      v9 = v4;
-      if (!v4)
-      {
-        *(this + 7) = *v8;
-        if (v11 < 2u)
-        {
-          if ((*(this + 35) & 1) == 0)
-          {
-            v9 = 7;
-            goto LABEL_18;
-          }
-
-          *v8 = *(*(this + 2) + 8);
-        }
-
-        else
-        {
-          if (ot::FactoryDiags::Diags::ParseLong(v10[1], v8, v5))
-          {
-            goto LABEL_18;
-          }
-
-          *(this + 35) = 0;
-        }
-
-        if (*v8 <= 127)
-        {
-          if (*v8 >= 3)
-          {
-            *(this + 34) = v8[0];
-            ot::FactoryDiags::Diags::Output(this, "sending %#x packet(s), length %#x\r\nstatus 0x%02x\r\n", *(this + 7), *(this + 34), v9);
-            ot::FactoryDiags::Diags::TransmitPacket(this);
-          }
-
-          else
-          {
-            v9 = 7;
-          }
-        }
-
-        else
-        {
-          v9 = 7;
-        }
-      }
-    }
-
-    else
-    {
-      v9 = 7;
-    }
-  }
-
-  else
-  {
-    v9 = 13;
-  }
-
-LABEL_18:
-  ot::FactoryDiags::Diags::AppendErrorResult(this, v9);
-  return v9;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessStart(ot::FactoryDiags::Diags *this, unsigned __int8 a2, char **a3)
-{
-  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
-  if (ot::ThreadNetif::IsUp(v3))
-  {
-    v10 = 13;
-    ot::FactoryDiags::Diags::AppendErrorResult(this, 13);
-  }
-
-  else
-  {
-    otPlatDiagChannelSet(*(this + 32));
-    otPlatDiagTxPowerSet(*(this + 33));
-    v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-    ot::Radio::Enable(v4);
-    IgnoreError();
-    v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-    ot::Radio::SetPromiscuous(v5, 1);
-    ot::InstanceLocator::GetInstance(this);
-    otPlatAlarmMilliStop();
-    v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-    v10 = ot::Radio::Receive(v6, *(this + 32));
-    if (!v10)
-    {
-      v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-      v10 = ot::Radio::SetTransmitPower(v7, *(this + 33));
-      if (!v10)
-      {
-        otPlatDiagModeSet(1);
-        ot::Clearable<ot::FactoryDiags::Diags::Stats>::Clear(this);
-        ot::FactoryDiags::Diags::Output(this, "start diagnostics mode\r\nstatus 0x%02x\r\n", 0);
-      }
-    }
-
-    ot::FactoryDiags::Diags::AppendErrorResult(this, v10);
-  }
-
-  return v10;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessStats(ot::FactoryDiags::Diags *this, char a2, const char **a3)
-{
-  v5 = 0;
-  if (otPlatDiagModeGet())
-  {
-    if (a2 == 1 && !strcmp(*a3, "clear"))
-    {
-      ot::Clearable<ot::FactoryDiags::Diags::Stats>::Clear(this);
-      ot::FactoryDiags::Diags::Output(this, "stats cleared\r\n");
-    }
-
-    else
-    {
-      if (a2)
-      {
-        v5 = 7;
-        ot::FactoryDiags::Diags::AppendErrorResult(this, 7);
-        return v5;
-      }
-
-      ot::FactoryDiags::Diags::Output(this, "received packets: %d\r\nsent packets: %d\r\nfirst received packet: rssi=%d, lqi=%d\r\nlast received packet: rssi=%d, lqi=%d\r\n", *this, *(this + 1), *(this + 8), *(this + 9), *(this + 10), *(this + 11));
-    }
-
-    ot::FactoryDiags::Diags::AppendErrorResult(this, 0);
-    return v5;
-  }
-
-  v5 = 13;
-  ot::FactoryDiags::Diags::AppendErrorResult(this, 13);
-  return v5;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessStop(ot::FactoryDiags::Diags *this, unsigned __int8 a2, char **a3)
-{
-  v6 = 0;
-  if (otPlatDiagModeGet())
-  {
-    ot::InstanceLocator::GetInstance(this);
-    otPlatAlarmMilliStop();
-    otPlatDiagModeSet(0);
-    v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-    ot::Radio::SetPromiscuous(v3, 0);
-    ot::FactoryDiags::Diags::Output(this, "received packets: %d\r\nsent packets: %d\r\nfirst received packet: rssi=%d, lqi=%d\r\nlast received packet: rssi=%d, lqi=%d\r\n\nstop diagnostics mode\r\nstatus 0x%02x\r\n", *this, *(this + 1), *(this + 8), *(this + 9), *(this + 10), *(this + 11), 0);
-    ot::FactoryDiags::Diags::AppendErrorResult(this, 0);
-  }
-
-  else
-  {
-    v6 = 13;
-    ot::FactoryDiags::Diags::AppendErrorResult(this, 13);
-  }
-
-  return v6;
-}
-
-ot::FactoryDiags::Diags *ot::FactoryDiags::Diags::Diags(ot::FactoryDiags::Diags *this, ot::Instance *a2)
-{
-  ot::InstanceLocator::InstanceLocator(this, a2);
-  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-  *(this + 2) = ot::Radio::GetTransmitBuffer(v2);
-  *(this + 6) = 0;
-  *(this + 7) = 0;
-  *(this + 32) = 20;
-  *(this + 33) = 0;
-  *(this + 34) = 0;
-  *(this + 35) = 0;
-  *(this + 36) = 0;
-  *(this + 37) = 0;
-  *(this + 5) = 0;
-  *(this + 6) = 0;
-  ot::Clearable<ot::FactoryDiags::Diags::Stats>::Clear(this);
-  return this;
-}
-
-{
-  ot::FactoryDiags::Diags::Diags(this, a2);
-  return this;
-}
-
-uint64_t ot::Radio::GetTransmitBuffer(ot::Radio *this)
-{
-  ot::Radio::GetInstancePtr(this);
-  return otPlatRadioGetTransmitBuffer();
-}
-
-{
-  return ot::Radio::GetTransmitBuffer(this);
-}
-
-uint64_t ot::Clearable<ot::FactoryDiags::Diags::Stats>::Clear(uint64_t a1)
-{
-  return ot::ClearAllBytes<ot::FactoryDiags::Diags::Stats>(a1);
-}
-
-{
-  return ot::Clearable<ot::FactoryDiags::Diags::Stats>::Clear(a1);
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessFrame(unsigned __int16 ***this, char a2, ot::Utils::CmdLineParser **a3, unsigned __int8 *a4)
-{
-  v10 = this;
-  v9 = a2;
-  v8 = a3;
-  v7 = 0;
-  *v6 = 127;
-  if (a2 == 1)
-  {
-    v7 = ot::Utils::CmdLineParser::ParseAsHexString(*v8, v6, *this[2], a4);
-    if (!v7)
-    {
-      if (*v6 <= 0x7Fu)
-      {
-        if (*v6 >= 3u)
-        {
-          *(this[2] + 4) = *v6;
-          *(this + 35) = 1;
-        }
-
-        else
-        {
-          v7 = 7;
-        }
-      }
-
-      else
-      {
-        v7 = 7;
-      }
-    }
-  }
-
-  else
-  {
-    v7 = 7;
-  }
-
-  ot::FactoryDiags::Diags::AppendErrorResult(this, v7);
-  return v7;
-}
-
-uint64_t ot::FactoryDiags::Diags::AppendErrorResult(uint64_t result, int a2)
-{
-  if (a2)
-  {
-    return ot::FactoryDiags::Diags::Output(result, "failed\r\nstatus %#x\r\n", a2);
-  }
-
-  return result;
-}
-
-uint64_t ot::FactoryDiags::Diags::Output(uint64_t this, const char *a2, ...)
-{
-  va_start(va, a2);
-  if (*(this + 40))
-  {
-    return (*(this + 40))(a2, va, *(this + 48));
-  }
-
-  return this;
-}
-
-uint64_t ot::FactoryDiags::Diags::ParseLong(ot::FactoryDiags::Diags *this, char *a2, uint64_t *a3)
-{
-  v7 = this;
-  v6 = a2;
-  __endptr = 0;
-  v3 = strtol(this, &__endptr, 0);
-  *v6 = v3;
-  if (*__endptr)
-  {
-    return 6;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t ot::Radio::Receive(ot::Radio *this, unsigned __int8 a2)
-{
-  InstancePtr = ot::Radio::GetInstancePtr(this);
-  return otPlatRadioReceive(InstancePtr, a2);
-}
-
-{
-  return ot::Radio::Receive(this, a2);
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessUartDisable(ot::FactoryDiags::Diags *this, char a2, ot::FactoryDiags::Diags **a3)
-{
-  v12 = this;
-  v11 = a2;
-  v10 = a3;
-  v9 = 0;
-  if (otPlatDiagModeGet())
-  {
-    if (v11)
-    {
-      *v8 = 0;
-      v9 = ot::FactoryDiags::Diags::ParseLong(*v10, v8, v3);
-      if (!v9)
-      {
-        v7 = *v8;
-        Instance = ot::InstanceLocator::GetInstance(this);
-        v9 = otPlatVendorUartDisableStart(Instance, v7);
-        if (!v9)
-        {
-          ot::FactoryDiags::Diags::Output(this, " Uart disabled for %d mSec\r\n", v7);
-        }
-      }
-    }
-
-    else
-    {
-      ot::FactoryDiags::Diags::Output(this, "missing argument for uart renable time in mSec:");
-    }
-  }
-
-  else
-  {
-    v9 = 13;
-  }
-
-  ot::FactoryDiags::Diags::AppendErrorResult(this, v9);
-  return v9;
-}
-
-uint64_t ot::Radio::SetTransmitPower(ot::Radio *this, signed __int8 a2)
-{
-  InstancePtr = ot::Radio::GetInstancePtr(this);
-  return otPlatRadioSetTransmitPower(InstancePtr, a2);
-}
-
-{
-  return ot::Radio::SetTransmitPower(this, a2);
-}
-
-void ot::FactoryDiags::Diags::TransmitPacket(ot::FactoryDiags::Diags *this)
-{
-  *(*(this + 2) + 10) = *(this + 32);
-  if ((*(this + 35) & 1) == 0)
-  {
-    *(*(this + 2) + 8) = *(this + 34);
-    for (i = 0; i < *(this + 34); ++i)
-    {
-      *(**(this + 2) + i) = i;
-    }
-  }
-
-  *(this + 37) = 1;
-  v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Radio>(this);
-  ot::Radio::Transmit(v1, *(this + 2));
-  IgnoreError();
-}
-
-uint64_t ot::Radio::Enable(ot::Radio *this)
-{
-  InstancePtr = ot::Radio::GetInstancePtr(this);
-  return otPlatRadioEnable(InstancePtr);
-}
-
-{
-  return ot::Radio::Enable(this);
-}
-
-uint64_t ot::Radio::SetPromiscuous(ot::Radio *this, char a2)
-{
-  InstancePtr = ot::Radio::GetInstancePtr(this);
-  return otPlatRadioSetPromiscuous(InstancePtr, a2 & 1);
-}
-
-{
-  return ot::Radio::SetPromiscuous(this, a2);
-}
-
-uint64_t ot::Radio::Sleep(ot::Radio *this)
-{
-  ot::Radio::GetInstancePtr(this);
-  return otPlatRadioSleep();
-}
-
-{
-  return ot::Radio::Sleep(this);
-}
-
-uint64_t ot::Radio::GetState(ot::Radio *this)
-{
-  ot::Radio::GetInstancePtr(this);
-  return otPlatRadioGetState();
-}
-
-{
-  return ot::Radio::GetState(this);
-}
-
-void otPlatDiagAlarmFired(uint64_t a1)
-{
-  v1 = ot::AsCoreType<otInstance>(a1);
-  v2 = ot::Instance::Get<ot::FactoryDiags::Diags>(v1);
-  ot::FactoryDiags::Diags::AlarmFired(v2);
-}
-
-void ot::FactoryDiags::Diags::AlarmFired(ot::FactoryDiags::Diags *this)
-{
-  if (*(this + 36))
-  {
-    Now = otPlatAlarmMilliGetNow();
-    ot::FactoryDiags::Diags::TransmitPacket(this);
-    Instance = ot::InstanceLocator::GetInstance(this);
-    otPlatAlarmMilliStartAt(Instance, Now, *(this + 6));
-  }
-
-  else
-  {
-    ot::InstanceLocator::GetInstance(this);
-    otPlatDiagAlarmCallback();
-  }
-}
-
-void ot::FactoryDiags::Diags::ReceiveDone(ot::InstanceLocator *a1, uint64_t a2, int a3)
-{
-  if (!a3)
-  {
-    if (!*a1)
-    {
-      *(a1 + 8) = *(a2 + 29);
-      *(a1 + 9) = *(a2 + 30);
-    }
-
-    *(a1 + 10) = *(a2 + 29);
-    *(a1 + 11) = *(a2 + 30);
-    ++*a1;
-  }
-
-  ot::InstanceLocator::GetInstance(a1);
-  otPlatDiagRadioReceived();
-}
-
-void ot::FactoryDiags::Diags::TransmitDone(uint64_t a1, int a2)
-{
-  if (*(a1 + 37))
-  {
-    *(a1 + 37) = 0;
-    if (!a2)
-    {
-      ++*(a1 + 4);
-      if (*(a1 + 28) <= 1u)
-      {
-        return;
-      }
-
-      --*(a1 + 28);
-    }
-
-    if ((*(a1 + 36) & 1) == 0)
-    {
-      ot::FactoryDiags::Diags::TransmitPacket(a1);
-    }
-  }
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessContinuousWave(ot::FactoryDiags::Diags *this, char a2, const char **a3)
-{
-  v7 = 7;
-  if (otPlatDiagModeGet())
-  {
-    if (a2)
-    {
-      if (!strcmp(*a3, "start"))
-      {
-        Instance = ot::InstanceLocator::GetInstance(this);
-        v7 = otPlatDiagRadioTransmitCarrier(Instance, 1);
-        ot::FactoryDiags::Diags::AppendErrorResult(this, v7);
-      }
-
-      else
-      {
-        if (!strcmp(*a3, "stop"))
-        {
-          v4 = ot::InstanceLocator::GetInstance(this);
-          v7 = otPlatDiagRadioTransmitCarrier(v4, 0);
-        }
-
-        ot::FactoryDiags::Diags::AppendErrorResult(this, v7);
-      }
-    }
-
-    else
-    {
-      v7 = 7;
-      ot::FactoryDiags::Diags::AppendErrorResult(this, 7);
-    }
-  }
-
-  else
-  {
-    v7 = 13;
-    ot::FactoryDiags::Diags::AppendErrorResult(this, 13);
-  }
-
-  return v7;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessStream(ot::FactoryDiags::Diags *this, char a2, const char **a3)
-{
-  v7 = 7;
-  if (otPlatDiagModeGet())
-  {
-    if (a2)
-    {
-      if (!strcmp(*a3, "start"))
-      {
-        Instance = ot::InstanceLocator::GetInstance(this);
-        v7 = otPlatDiagRadioTransmitStream(Instance, 1);
-        ot::FactoryDiags::Diags::AppendErrorResult(this, v7);
-      }
-
-      else
-      {
-        if (!strcmp(*a3, "stop"))
-        {
-          v4 = ot::InstanceLocator::GetInstance(this);
-          v7 = otPlatDiagRadioTransmitStream(v4, 0);
-        }
-
-        ot::FactoryDiags::Diags::AppendErrorResult(this, v7);
-      }
-    }
-
-    else
-    {
-      v7 = 7;
-      ot::FactoryDiags::Diags::AppendErrorResult(this, 7);
-    }
-  }
-
-  else
-  {
-    v7 = 13;
-    ot::FactoryDiags::Diags::AppendErrorResult(this, 13);
-  }
-
-  return v7;
-}
-
-uint64_t ot::FactoryDiags::Diags::GetPowerSettings(ot::InstanceLocator *a1, unsigned __int8 a2, uint64_t a3)
-{
-  *(a3 + 20) = 16;
-  Instance = ot::InstanceLocator::GetInstance(a1);
-  return otPlatDiagRadioGetPowerSettings(Instance, a2, a3, (a3 + 2), (a3 + 4), (a3 + 20));
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessPowerSettings(ot::FactoryDiags::Diags *this, char a2, ot::Utils::CmdLineParser **a3)
-{
-  v19 = this;
-  v18 = a2;
-  v17 = a3;
-  PowerSettings = 7;
-  i = 0;
-  if (otPlatDiagModeGet())
-  {
-    if (v18)
-    {
-      if (v18 == 1)
-      {
-        PowerSettings = ot::Utils::CmdLineParser::ParseAsUint8(*v17, &i, v3);
-        if (!PowerSettings)
-        {
-          if (i >= 0xBu && i <= 0x19u)
-          {
-            PowerSettings = ot::FactoryDiags::Diags::GetPowerSettings(this, i, v23);
-            if (!PowerSettings)
-            {
-              v7 = *v23;
-              v8 = *&v23[2];
-              ot::FactoryDiags::Diags::RawPowerSetting::ToString(&v23[4], v20);
-              v5 = ot::String<(unsigned short)33>::AsCString(v20);
-              ot::FactoryDiags::Diags::Output(this, "TargetPower(0.01dBm): %d\r\nActualPower(0.01dBm): %d\r\nRawPowerSetting: %s\r\n", v7, v8, v5);
-            }
-          }
-
-          else
-          {
-            PowerSettings = 7;
-          }
-        }
-      }
-    }
-
-    else
-    {
-      v14 = 0;
-      v13 = 0;
-      ot::FactoryDiags::Diags::Output(this, "| StartCh | EndCh | TargetPower | ActualPower | RawPowerSetting |\r\n+---------+-------+-------------+-------------+-----------------+\r\n");
-      for (i = 11; i <= 0x1Au; ++i)
-      {
-        if (i == 26)
-        {
-          v11 = 23;
-        }
-
-        else
-        {
-          v11 = ot::FactoryDiags::Diags::GetPowerSettings(this, i, v23);
-        }
-
-        PowerSettings = v11;
-        if ((v14 & 1) != 0 && (ot::FactoryDiags::Diags::PowerSettings::operator!=(v23, v22) || PowerSettings))
-        {
-          v9 = v22[0];
-          v10 = v22[1];
-          ot::FactoryDiags::Diags::RawPowerSetting::ToString(&v22[2], v21);
-          v4 = ot::String<(unsigned short)33>::AsCString(v21);
-          ot::FactoryDiags::Diags::Output(this, "| %7u | %5u | %11d | %11d | %15s |\r\n", v13, i - 1, v9, v10, v4);
-          v14 = 0;
-        }
-
-        if (!PowerSettings && (v14 & 1) == 0)
-        {
-          v13 = i;
-          *v22 = *v23;
-          *&v22[7] = *&v23[14];
-          v14 = 1;
-        }
-      }
-
-      PowerSettings = 0;
-    }
-  }
-
-  else
-  {
-    PowerSettings = 13;
-  }
-
-  ot::FactoryDiags::Diags::AppendErrorResult(this, PowerSettings);
-  return PowerSettings;
-}
-
-BOOL ot::FactoryDiags::Diags::PowerSettings::operator!=(unsigned __int16 *a1, unsigned __int16 *a2)
-{
-  v3 = 1;
-  if (*a1 == *a2)
-  {
-    v3 = 1;
-    if (a1[1] == a2[1])
-    {
-      return ot::FactoryDiags::Diags::RawPowerSetting::operator!=(a1 + 2, a2 + 2);
-    }
-  }
-
-  return v3;
-}
-
-{
-  return ot::FactoryDiags::Diags::PowerSettings::operator!=(a1, a2);
-}
-
-ot::StringWriter *ot::FactoryDiags::Diags::RawPowerSetting::ToString@<X0>(ot::FactoryDiags::Diags::RawPowerSetting *this@<X0>, ot::StringWriter *a2@<X8>)
-{
-  ot::String<(unsigned short)33>::String(a2);
-  return ot::StringWriter::AppendHexBytes(a2, this, *(this + 8));
-}
-
-{
-  return ot::FactoryDiags::Diags::RawPowerSetting::ToString(this, a2);
-}
-
-uint64_t ot::FactoryDiags::Diags::GetRawPowerSetting(ot::FactoryDiags::Diags *this, ot::FactoryDiags::Diags::RawPowerSetting *a2)
-{
-  *(a2 + 8) = 16;
-  Instance = ot::InstanceLocator::GetInstance(this);
-  return otPlatDiagRadioGetRawPowerSetting(Instance, a2, a2 + 16);
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessRawPowerSetting(ot::FactoryDiags::Diags *this, char a2, const char **a3)
-{
-  if (otPlatDiagModeGet())
-  {
-    if (a2)
-    {
-      if (!strcmp(*a3, "enable"))
-      {
-        Instance = ot::InstanceLocator::GetInstance(this);
-        RawPowerSetting = otPlatDiagRadioRawPowerSettingEnable(Instance, 1);
-        ot::FactoryDiags::Diags::AppendErrorResult(this, RawPowerSetting);
-        return RawPowerSetting;
-      }
-
-      if (!strcmp(*a3, "disable"))
-      {
-        v6 = ot::InstanceLocator::GetInstance(this);
-        RawPowerSetting = otPlatDiagRadioRawPowerSettingEnable(v6, 0);
-        ot::FactoryDiags::Diags::AppendErrorResult(this, RawPowerSetting);
-        return RawPowerSetting;
-      }
-
-      v15 = 16;
-      RawPowerSetting = ot::Utils::CmdLineParser::ParseAsHexString(*a3, &v15, v14, v5);
-      if (!RawPowerSetting)
-      {
-        v7 = ot::InstanceLocator::GetInstance(this);
-        RawPowerSetting = otPlatDiagRadioSetRawPowerSetting(v7, v14, v15);
-      }
-    }
-
-    else
-    {
-      RawPowerSetting = ot::FactoryDiags::Diags::GetRawPowerSetting(this, v14);
-      if (!RawPowerSetting)
-      {
-        ot::FactoryDiags::Diags::RawPowerSetting::ToString(v14, v13);
-        v3 = ot::String<(unsigned short)33>::AsCString(v13);
-        ot::FactoryDiags::Diags::Output(this, "%s\r\n", v3);
-      }
-    }
-
-    ot::FactoryDiags::Diags::AppendErrorResult(this, RawPowerSetting);
-    return RawPowerSetting;
-  }
-
-  RawPowerSetting = 13;
-  ot::FactoryDiags::Diags::AppendErrorResult(this, 13);
-  return RawPowerSetting;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessGpio(ot::FactoryDiags::Diags *this, unsigned __int8 a2, char **a3)
-{
-  v16 = this;
-  v15 = a2;
-  v14 = a3;
-  Mode = 7;
-  *v12 = 0;
-  v11 = 0;
-  v10 = 0;
-  v9 = 0;
-  if (a2 == 2 && !strcmp(*v14, "get"))
-  {
-    Mode = ot::FactoryDiags::Diags::ParseLong(v14[1], v12, v3);
-    if (!Mode)
-    {
-      v11 = v12[0];
-      Mode = otPlatDiagGpioGet(v12[0], &v10);
-      if (!Mode)
-      {
-        ot::FactoryDiags::Diags::Output(this, "%d\r\n", v10 & 1);
-      }
-    }
-  }
-
-  else if (v15 == 3 && !strcmp(*v14, "set"))
-  {
-    Mode = ot::FactoryDiags::Diags::ParseLong(v14[1], v12, v4);
-    if (!Mode)
-    {
-      v11 = v12[0];
-      Mode = ot::FactoryDiags::Diags::ParseBool(v14[2], &v10, v5);
-      if (!Mode)
-      {
-        Mode = otPlatDiagGpioSet(v11, v10 & 1);
-      }
-    }
-  }
-
-  else if (v15 >= 2u && !strcmp(*v14, "mode"))
-  {
-    Mode = ot::FactoryDiags::Diags::ParseLong(v14[1], v12, v6);
-    if (!Mode)
-    {
-      v11 = v12[0];
-      if (v15 == 2)
-      {
-        Mode = otPlatDiagGpioGetMode(v11, &v9);
-        if (!Mode)
-        {
-          if (v9)
-          {
-            if (v9 == 1)
-            {
-              ot::FactoryDiags::Diags::Output(this, "out\r\n");
-            }
-          }
-
-          else
-          {
-            ot::FactoryDiags::Diags::Output(this, "in\r\n");
-          }
-        }
-      }
-
-      else if (v15 == 3 && !strcmp(v14[2], "in"))
-      {
-        Mode = otPlatDiagGpioSetMode(v11, 0);
-      }
-
-      else if (v15 == 3 && !strcmp(v14[2], "out"))
-      {
-        Mode = otPlatDiagGpioSetMode(v11, 1);
-      }
-    }
-  }
-
-  ot::FactoryDiags::Diags::AppendErrorResult(this, Mode);
-  return Mode;
-}
-
-uint64_t ot::FactoryDiags::Diags::ParseBool(ot::FactoryDiags::Diags *this, char *a2, BOOL *a3)
-{
-  v7 = this;
-  v6 = a2;
-  v5 = 0;
-  v4 = 0;
-  v5 = ot::FactoryDiags::Diags::ParseLong(this, &v4, a3);
-  if (!v5)
-  {
-    if (v4 < 2)
-    {
-      *v6 = v4 != 0;
-    }
-
-    else
-    {
-      return 6;
-    }
-  }
-
-  return v5;
-}
-
-uint64_t ot::FactoryDiags::Diags::ParseCmd(ot::FactoryDiags::Diags *this, ot::Utils::CmdLineParser *a2, unsigned __int8 *a3, char **a4)
-{
-  v7 = ot::Utils::CmdLineParser::ParseCmd<(unsigned char)33>(a2, v10);
-  if (!v7)
-  {
-    *a3 = ot::Utils::CmdLineParser::Arg::GetArgsLength(v10, v4);
-    ot::Utils::CmdLineParser::Arg::CopyArgsToStringArray(v10, a4, v5);
-  }
-
-  return v7;
-}
-
-uint64_t ot::Utils::CmdLineParser::ParseCmd<(unsigned char)33>(ot::Utils::CmdLineParser *a1, char *a2)
-{
-  return ot::Utils::CmdLineParser::ParseCmd(a1, a2, 0x21);
-}
-
-{
-  return ot::Utils::CmdLineParser::ParseCmd<(unsigned char)33>(a1, a2);
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessLine(ot::FactoryDiags::Diags *this, char *a2)
-{
-  v8 = this;
-  __src = a2;
-  v6 = 256;
-  v5 = 0;
-  memset(__b, 0, sizeof(__b));
-  v4 = 0;
-  if (ot::StringLength(__src, 0x100) < 256)
-  {
-    strcpy(__dst, __src);
-    v5 = ot::FactoryDiags::Diags::ParseCmd(this, __dst, &v4, __b);
-  }
-
-  else
-  {
-    v5 = 3;
-  }
-
-  if (v5)
-  {
-    if (v5 == 3)
-    {
-      ot::FactoryDiags::Diags::Output(this, "failed: command string too long\r\n");
-    }
-
-    else if (v5 == 7)
-    {
-      ot::FactoryDiags::Diags::Output(this, "failed: command string contains too many arguments\r\n");
-    }
-
-    else
-    {
-      ot::FactoryDiags::Diags::Output(this, "failed to parse command string\r\n");
-    }
-  }
-
-  else
-  {
-    return ot::FactoryDiags::Diags::ProcessCmd(this, v4, __b);
-  }
-
-  return v5;
-}
-
-uint64_t ot::FactoryDiags::Diags::ProcessCmd(ot::FactoryDiags::Diags *this, unsigned __int8 a2, const char **a3)
-{
-  v18 = 0;
-  if (a2)
-  {
-    ot::InstanceLocator::GetInstance(this);
-    if (otPlatRadioGetRcp2Vendor2Enabled())
-    {
-      for (i = &ot::FactoryDiags::Diags::sCommandsProxima; i != &ot::FactoryDiags::Diags::sCommands; i += 3)
-      {
-        if (!strcmp(*a3, *i))
-        {
-          v5 = i[2];
-          v14 = (this + (v5 >> 1));
-          if (v5)
-          {
-            v13 = *(*v14 + i[1]);
-          }
-
-          else
-          {
-            v13 = i[1];
-          }
-
-          if (a2 <= 1u)
-          {
-            v6 = (v13)(v14, (a2 - 1), 0);
-          }
-
-          else
-          {
-            v6 = (v13)(v14, (a2 - 1), a3 + 1);
-          }
-
-          v18 = v6;
-          goto LABEL_29;
-        }
-      }
-    }
-
-    for (j = &ot::FactoryDiags::Diags::sCommands; ; j += 3)
-    {
-      if (j == ot::Mac::Mac::OperationToString(ot::Mac::Mac::Operation)::kOperationStrings)
-      {
-        Instance = ot::InstanceLocator::GetInstance(this);
-        v18 = otPlatDiagProcess(Instance, a2, a3);
-        goto LABEL_29;
-      }
-
-      if (!strcmp(*a3, *j))
-      {
-        break;
-      }
-    }
-
-    v7 = j[2];
-    v12 = (this + (v7 >> 1));
-    if (v7)
-    {
-      v11 = *(*v12 + j[1]);
-    }
-
-    else
-    {
-      v11 = j[1];
-    }
-
-    if (a2 <= 1u)
-    {
-      v8 = (v11)(v12, (a2 - 1), 0);
-    }
-
-    else
-    {
-      v8 = (v11)(v12, (a2 - 1), a3 + 1);
-    }
-
-    v18 = v8;
-  }
-
-  else
-  {
-    v3 = otPlatDiagModeGet();
-    v4 = "enabled";
-    if ((v3 & 1) == 0)
-    {
-      v4 = "disabled";
-    }
-
-    ot::FactoryDiags::Diags::Output(this, "diagnostics mode is %s\r\n", v4);
-  }
-
-LABEL_29:
-  if (v18 == 35 && a2 > 1u)
-  {
-    ot::FactoryDiags::Diags::Output(this, "diag feature '%s' is not supported\r\n", *a3);
-  }
-
-  return v18;
 }

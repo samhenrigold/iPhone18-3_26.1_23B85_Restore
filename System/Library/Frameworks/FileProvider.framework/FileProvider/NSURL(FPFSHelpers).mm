@@ -105,31 +105,31 @@ LABEL_16:
 
 - (id)fp_scanForURLOfChildWithName:()FPFSHelpers isFolder:maxChildrenCount:notMatchingFileID:nextAvailableBounceNumber:
 {
-  v88[3] = *MEMORY[0x1E69E9840];
+  v87[3] = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a6;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v13 = *MEMORY[0x1E695E2B0];
-  v75 = *MEMORY[0x1E695DC30];
-  v88[0] = *MEMORY[0x1E695DC30];
-  v88[1] = v13;
+  v74 = *MEMORY[0x1E695DC30];
+  v87[0] = *MEMORY[0x1E695DC30];
+  v87[1] = v13;
   v14 = *MEMORY[0x1E695DB00];
-  v88[2] = *MEMORY[0x1E695DB00];
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:3];
+  v87[2] = *MEMORY[0x1E695DB00];
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v87 count:3];
   selfCopy = self;
   v16 = [defaultManager enumeratorAtURL:self includingPropertiesForKeys:v15 options:1 errorHandler:0];
 
-  v84 = 0;
-  v72 = v10;
-  v71 = [v10 fp_stringByDeletingPathBounceNo:&v84 andPathExtension:0 isFolder:a4];
-  v17 = v84;
+  v83 = 0;
+  v71 = v10;
+  v70 = [v10 fp_stringByDeletingPathBounceNo:&v83 andPathExtension:0 isFolder:a4];
+  v17 = v83;
   v18 = objc_alloc_init(FPNSURLBitVectorForBounce);
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   v19 = v16;
-  v20 = [v19 countByEnumeratingWithState:&v80 objects:v87 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v79 objects:v86 count:16];
   if (!v20)
   {
     v42 = 0;
@@ -139,34 +139,34 @@ LABEL_16:
   }
 
   v21 = v20;
-  v65 = v14;
-  v67 = v17;
-  v68 = v11;
+  v64 = v14;
+  v66 = v17;
+  v67 = v11;
   v22 = 0;
-  v69 = 0;
+  v68 = 0;
   v23 = 0;
-  v24 = *v81;
+  v24 = *v80;
   obj = v19;
 LABEL_3:
   v25 = 0;
-  v66 = v22 + v21;
+  v65 = v22 + v21;
   while (1)
   {
-    if (*v81 != v24)
+    if (*v80 != v24)
     {
       objc_enumerationMutation(obj);
     }
 
-    v26 = *(*(&v80 + 1) + 8 * v25);
+    v26 = *(*(&v79 + 1) + 8 * v25);
     v27 = objc_autoreleasePoolPush();
     if (v22 > a5 || [(FPNSURLBitVectorForBounce *)v18 foundAllAvailableBounceNumbers])
     {
       break;
     }
 
-    v79 = 0;
-    v28 = [v26 getResourceValue:&v79 forKey:v75 error:0];
-    v29 = v79;
+    v78 = 0;
+    v28 = [v26 getResourceValue:&v78 forKey:v74 error:0];
+    v29 = v78;
     v30 = v29;
     if (v28)
     {
@@ -194,23 +194,23 @@ LABEL_3:
       }
     }
 
-    if (!v23 && ![v72 compare:v30 options:1])
+    if (!v23 && ![v71 compare:v30 options:1])
     {
-      if (v68)
+      if (v67)
       {
-        v78 = 0;
-        v38 = [v26 getResourceValue:&v78 forKey:v65 error:0];
-        v34 = v78;
+        v77 = 0;
+        v38 = [v26 getResourceValue:&v77 forKey:v64 error:0];
+        v34 = v77;
         if ((v38 & 1) == 0)
         {
           v39 = fp_current_or_default_log();
           if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
           {
-            [NSURL(FPFSHelpers) fp_scanForURLOfChildWithName:v85 isFolder:v26 maxChildrenCount:&v86 notMatchingFileID:v39 nextAvailableBounceNumber:?];
+            [NSURL(FPFSHelpers) fp_scanForURLOfChildWithName:v84 isFolder:v26 maxChildrenCount:&v85 notMatchingFileID:v39 nextAvailableBounceNumber:?];
           }
         }
 
-        if (v34 && ([v68 isEqual:v34] & 1) != 0)
+        if (v34 && ([v67 isEqual:v34] & 1) != 0)
         {
           v23 = 0;
           v33 = v30;
@@ -229,19 +229,19 @@ LABEL_3:
       {
         v55 = v40;
 
-        v17 = v67;
-        v11 = v68;
+        v17 = v66;
+        v11 = v67;
         v19 = obj;
-        v45 = v69;
+        v45 = v68;
         goto LABEL_74;
       }
 
 LABEL_17:
-      v77 = 0;
-      v33 = [v30 fp_stringByDeletingPathBounceNo:&v77 andPathExtension:0 isFolder:{objc_msgSend(v26, "fp_isFolder", v65)}];
-      v34 = v77;
+      v76 = 0;
+      v33 = [v30 fp_stringByDeletingPathBounceNo:&v76 andPathExtension:0 isFolder:{objc_msgSend(v26, "fp_isFolder", v64)}];
+      v34 = v76;
 
-      if (v34 && ![v71 compare:v33 options:1])
+      if (v34 && ![v70 compare:v33 options:1])
       {
         unsignedIntegerValue = [v34 unsignedIntegerValue];
         if (unsignedIntegerValue <= [MEMORY[0x1E696AEC0] fp_maximumBounceLevel])
@@ -249,11 +249,11 @@ LABEL_17:
           [(FPNSURLBitVectorForBounce *)v18 markBounceNumberAsFound:v34];
         }
 
-        if (!v69 || (v36 = [v69 intValue], v36 < objc_msgSend(v34, "intValue")))
+        if (!v68 || (v36 = [v68 intValue], v36 < objc_msgSend(v34, "intValue")))
         {
           v37 = v34;
 
-          v69 = v37;
+          v68 = v37;
         }
       }
 
@@ -276,29 +276,29 @@ LABEL_25:
     if (v21 == v25)
     {
       v19 = obj;
-      v41 = [obj countByEnumeratingWithState:&v80 objects:v87 count:16];
+      v41 = [obj countByEnumeratingWithState:&v79 objects:v86 count:16];
       v21 = v41;
-      v22 = v66;
+      v22 = v65;
       if (!v41)
       {
 
         if (a7)
         {
-          v11 = v68;
+          v11 = v67;
           v42 = v23;
           if (v23)
           {
             findNextAvailableBounceNumber = [(FPNSURLBitVectorForBounce *)v18 findNextAvailableBounceNumber];
             intValue = [findNextAvailableBounceNumber intValue];
-            v45 = v69;
-            if (intValue < [v69 intValue])
+            v45 = v68;
+            if (intValue < [v68 intValue])
             {
               v46 = findNextAvailableBounceNumber;
 
               v45 = v46;
             }
 
-            v17 = v67;
+            v17 = v66;
             v47 = v45;
             *a7 = v45;
 LABEL_56:
@@ -312,11 +312,11 @@ LABEL_57:
         else
         {
           v42 = v23;
-          v11 = v68;
+          v11 = v67;
         }
 
-        v17 = v67;
-        v45 = v69;
+        v17 = v66;
+        v45 = v68;
         goto LABEL_57;
       }
 
@@ -324,24 +324,24 @@ LABEL_57:
     }
   }
 
-  v11 = v68;
+  v11 = v67;
   if (!v23)
   {
-    v23 = [selfCopy _fp_lookupURLOfChildWithName:v72 notMatchingFileID:v68];
+    v23 = [selfCopy _fp_lookupURLOfChildWithName:v71 notMatchingFileID:v67];
   }
 
-  v17 = v67;
+  v17 = v66;
   v19 = obj;
   if (!a7 || !v23)
   {
-    v50 = v69;
+    v50 = v68;
     goto LABEL_73;
   }
 
   if ([(FPNSURLBitVectorForBounce *)v18 bitCount]< 2)
   {
-    v50 = v69;
-    if (v67)
+    v50 = v68;
+    if (v66)
     {
       goto LABEL_63;
     }
@@ -353,17 +353,17 @@ LABEL_57:
   v49 = 1;
   while (2)
   {
-    v50 = [(FPNSURLBitVectorForBounce *)v18 findNextAvailableBounceNumberFromIndex:v49, v65];
+    v50 = [(FPNSURLBitVectorForBounce *)v18 findNextAvailableBounceNumberFromIndex:v49, v64];
     intValue2 = [v50 intValue];
     v52 = [v50 intValue] + 1;
-    if (v52 >= [v69 intValue])
+    if (v52 >= [v68 intValue])
     {
 LABEL_53:
       v49 = (intValue2 + 1);
 
       if (v49 >= [(FPNSURLBitVectorForBounce *)v18 bitCount])
       {
-        v50 = v69;
+        v50 = v68;
         goto LABEL_62;
       }
 
@@ -384,15 +384,15 @@ LABEL_53:
 
 LABEL_62:
   v23 = v48;
-  v11 = v68;
-  if (v67)
+  v11 = v67;
+  if (v66)
   {
 LABEL_63:
     if (v50)
     {
       v56 = MEMORY[0x1E696AD98];
       v57 = v23;
-      longValue = [v67 longValue];
+      longValue = [v66 longValue];
       longValue2 = [v50 longValue];
       if (longValue <= longValue2)
       {
@@ -405,15 +405,15 @@ LABEL_63:
       }
 
       v23 = v57;
-      v61 = [v56 numberWithLong:{v60, v65}];
+      v61 = [v56 numberWithLong:{v60, v64}];
       goto LABEL_72;
     }
   }
 
 LABEL_68:
-  if (v67)
+  if (v66)
   {
-    v62 = v67;
+    v62 = v66;
   }
 
   else
@@ -431,7 +431,6 @@ LABEL_74:
   objc_autoreleasePoolPop(v27);
 
 LABEL_75:
-  v63 = *MEMORY[0x1E69E9840];
 
   return v55;
 }
@@ -544,24 +543,24 @@ LABEL_16:
 
 - (BOOL)fp_queued_moveUnderFolder:()FPFSHelpers withNewName:coordinationOptions:allowBounce:allowCoordination:moveHandler:completionHandler:
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   v12 = a3;
   v13 = a4;
-  v74 = a8;
-  v70 = a9;
-  v105 = 0;
-  v106 = 0;
-  v71 = v13;
-  v81 = [v71 fp_stringByDeletingPathBounceNo:&v106 andPathExtension:&v105 isFolder:{objc_msgSend(self, "fp_isFolder")}];
-  v14 = v106;
-  v72 = v105;
-  selfCopy = self;
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x3032000000;
-  v102 = __Block_byref_object_copy__1;
-  v103 = __Block_byref_object_dispose__1;
+  v73 = a8;
+  v69 = a9;
   v104 = 0;
+  v105 = 0;
+  v70 = v13;
+  v80 = [v70 fp_stringByDeletingPathBounceNo:&v105 andPathExtension:&v104 isFolder:{objc_msgSend(self, "fp_isFolder")}];
+  v14 = v105;
+  v71 = v104;
+  selfCopy = self;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x3032000000;
+  v101 = __Block_byref_object_copy__1;
+  v102 = __Block_byref_object_dispose__1;
+  v103 = 0;
   if (![v14 intValue])
   {
 
@@ -574,24 +573,24 @@ LABEL_16:
   {
     fp_shortDescription = [selfCopy fp_shortDescription];
     fp_shortDescription2 = [v12 fp_shortDescription];
-    *v113 = 134218754;
-    *&v113[4] = section;
-    *&v113[12] = 2112;
-    *&v113[14] = fp_shortDescription;
-    *&v113[22] = 2112;
-    v114 = fp_shortDescription2;
-    LOWORD(v115) = 2112;
-    *(&v115 + 2) = v71;
-    _os_log_debug_impl(&dword_1AAAE1000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx moving %@ to %@ as %@", v113, 0x2Au);
+    *v112 = 134218754;
+    *&v112[4] = section;
+    *&v112[12] = 2112;
+    *&v112[14] = fp_shortDescription;
+    *&v112[22] = 2112;
+    v113 = fp_shortDescription2;
+    LOWORD(v114) = 2112;
+    *(&v114 + 2) = v70;
+    _os_log_debug_impl(&dword_1AAAE1000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx moving %@ to %@ as %@", v112, 0x2Au);
   }
 
-  *v113 = 0;
-  *&v113[8] = v113;
-  *&v113[16] = 0x3032000000;
-  v114 = __Block_byref_object_copy__1;
-  *&v115 = __Block_byref_object_dispose__1;
-  *(&v115 + 1) = 0;
-  v76 = [MEMORY[0x1E696ABF8] fp_fileCoordinatorForCurrentProcess:0];
+  *v112 = 0;
+  *&v112[8] = v112;
+  *&v112[16] = 0x3032000000;
+  v113 = __Block_byref_object_copy__1;
+  *&v114 = __Block_byref_object_dispose__1;
+  *(&v114 + 1) = 0;
+  v75 = [MEMORY[0x1E696ABF8] fp_fileCoordinatorForCurrentProcess:0];
   startAccessingSecurityScopedResource = [selfCopy startAccessingSecurityScopedResource];
   v16 = _CFURLPromiseCopyPhysicalURL();
   if (!v16)
@@ -601,12 +600,12 @@ LABEL_16:
 
   if (a5)
   {
-    v97 = 0;
-    v18 = *MEMORY[0x1E695DA98];
     v96 = 0;
-    v19 = [v16 getResourceValue:&v97 forKey:v18 error:&v96];
-    v75 = v97;
-    v17 = v96;
+    v18 = *MEMORY[0x1E695DA98];
+    v95 = 0;
+    v19 = [v16 getResourceValue:&v96 forKey:v18 error:&v95];
+    v74 = v96;
+    v17 = v95;
     if ((v19 & 1) == 0)
     {
       v20 = fp_current_or_default_log();
@@ -623,15 +622,15 @@ LABEL_16:
 
   else
   {
-    v75 = 0;
+    v74 = 0;
     v17 = 0;
   }
 
-  v95 = 0;
-  v21 = [v16 getResourceValue:&v95 forKey:*MEMORY[0x1E695DB00] error:0];
-  v67 = v16;
-  v68 = v17;
-  v82 = v95;
+  v94 = 0;
+  v21 = [v16 getResourceValue:&v94 forKey:*MEMORY[0x1E695DB00] error:0];
+  v66 = v16;
+  v67 = v17;
+  v81 = v94;
   if ((v21 & 1) == 0)
   {
     v22 = fp_current_or_default_log();
@@ -641,36 +640,36 @@ LABEL_16:
     }
   }
 
-  v80 = 0;
+  v79 = 0;
   v23 = 0;
-  v24 = &v94;
+  v24 = &v93;
   if (!a6)
   {
     v24 = 0;
   }
 
-  v78 = v24;
-  v77 = *MEMORY[0x1E696A250];
+  v77 = v24;
+  v76 = *MEMORY[0x1E696A250];
   v25 = 1;
-  v26 = v71;
+  v26 = v70;
   do
   {
-    *v111 = 0;
-    *&v111[8] = v111;
-    *&v111[16] = 0x2020000000;
-    LOBYTE(v112) = 0;
+    *v110 = 0;
+    *&v110[8] = v110;
+    *&v110[16] = 0x2020000000;
+    LOBYTE(v111) = 0;
     if (v25)
     {
       fp_isFolder = [selfCopy fp_isFolder];
       if (a6)
       {
-        v94 = 0;
+        v93 = 0;
       }
 
-      v28 = [v12 fp_existingURLOfChildWithName:v26 isFolder:fp_isFolder notMatchingFileID:v82 nextAvailableBounceNumber:v78 forceFetchingBounceNumber:0];
+      v28 = [v12 fp_existingURLOfChildWithName:v26 isFolder:fp_isFolder notMatchingFileID:v81 nextAvailableBounceNumber:v77 forceFetchingBounceNumber:0];
       if (a6)
       {
-        v29 = v94;
+        v29 = v93;
         if (v29)
         {
           intValue = [v14 intValue];
@@ -691,7 +690,7 @@ LABEL_16:
 
     else
     {
-      v28 = [v12 _fp_lookupURLOfChildWithName:v26 notMatchingFileID:v82];
+      v28 = [v12 _fp_lookupURLOfChildWithName:v26 notMatchingFileID:v81];
     }
 
     if (v28)
@@ -701,17 +700,17 @@ LABEL_16:
       {
         fp_shortDescription3 = [v12 fp_shortDescription];
         *buf = 138412546;
-        v108 = v26;
-        v109 = 2112;
-        v110 = fp_shortDescription3;
+        v107 = v26;
+        v108 = 2112;
+        v109 = fp_shortDescription3;
         _os_log_impl(&dword_1AAAE1000, v31, OS_LOG_TYPE_INFO, "[INFO] won't create '%@' because it already exists under %@", buf, 0x16u);
       }
 
-      *(*&v111[8] + 24) = 0;
+      *(*&v110[8] + 24) = 0;
       v33 = [MEMORY[0x1E696ABC0] fp_errorForCollisionWithURL:v28];
       v34 = 0;
-      v35 = *(*&v113[8] + 40);
-      *(*&v113[8] + 40) = v33;
+      v35 = *(*&v112[8] + 40);
+      *(*&v112[8] + 40) = v33;
     }
 
     else
@@ -723,21 +722,21 @@ LABEL_16:
       aBlock[1] = 3221225472;
       aBlock[2] = __140__NSURL_FPFSHelpers__fp_queued_moveUnderFolder_withNewName_coordinationOptions_allowBounce_allowCoordination_moveHandler_completionHandler___block_invoke;
       aBlock[3] = &unk_1E793A3A8;
-      v87 = v75;
-      v90 = v113;
-      v93 = a7;
-      v38 = v76;
-      v88 = v38;
-      v91 = v111;
-      v89 = v74;
-      v92 = &v99;
+      v86 = v74;
+      v89 = v112;
+      v92 = a7;
+      v38 = v75;
+      v87 = v38;
+      v90 = v110;
+      v88 = v73;
+      v91 = &v98;
       v39 = _Block_copy(aBlock);
       v40 = v39;
       if (a7)
       {
-        v85 = 0;
-        [v38 coordinateWritingItemAtURL:selfCopy options:a5 writingItemAtURL:v37 options:4 error:&v85 byAccessor:v39];
-        v34 = v85;
+        v84 = 0;
+        [v38 coordinateWritingItemAtURL:selfCopy options:a5 writingItemAtURL:v37 options:4 error:&v84 byAccessor:v39];
+        v34 = v84;
       }
 
       else
@@ -747,34 +746,34 @@ LABEL_16:
       }
 
       v23 = 0;
-      v35 = v87;
-      v80 = v37;
+      v35 = v86;
+      v79 = v37;
     }
 
-    if (((a6 ^ 1 | *(*&v111[8] + 24)) & 1) == 0)
+    if (((a6 ^ 1 | *(*&v110[8] + 24)) & 1) == 0)
     {
-      domain = [*(*&v113[8] + 40) domain];
-      if ([domain isEqualToString:v77])
+      domain = [*(*&v112[8] + 40) domain];
+      if ([domain isEqualToString:v76])
       {
-        v42 = [*(*&v113[8] + 40) code] == 516;
+        v42 = [*(*&v112[8] + 40) code] == 516;
 
         if (!v42)
         {
           goto LABEL_46;
         }
 
-        v43 = *(*&v113[8] + 40);
-        *(*&v113[8] + 40) = 0;
+        v43 = *(*&v112[8] + 40);
+        *(*&v112[8] + 40) = 0;
 
         v44 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v14, "intValue") + 1}];
 
         unsignedIntegerValue = [v44 unsignedIntegerValue];
         if (unsignedIntegerValue <= [MEMORY[0x1E696AEC0] fp_maximumBounceLevel])
         {
-          v52 = [v81 fp_representableHFSFileNameWithNumber:v44 addedExtension:v72 makeDotFile:0];
+          v52 = [v80 fp_representableHFSFileNameWithNumber:v44 addedExtension:v71 makeDotFile:0];
           v23 = 1;
           domain = v26;
-          v50 = v81;
+          v50 = v80;
         }
 
         else
@@ -789,11 +788,11 @@ LABEL_16:
 
           v49 = [v48 stringByReplacingOccurrencesOfString:@"/" withString:@":"];
 
-          v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@", v81, v49];
+          v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %@", v80, v49];
 
-          if (v72)
+          if (v71)
           {
-            v51 = [v50 stringByAppendingPathExtension:v72];
+            v51 = [v50 stringByAppendingPathExtension:v71];
           }
 
           else
@@ -811,18 +810,18 @@ LABEL_16:
       else
       {
         v44 = v14;
-        v50 = v81;
+        v50 = v80;
         v52 = v26;
       }
 
-      v81 = v50;
+      v80 = v50;
       v26 = v52;
       v14 = v44;
     }
 
 LABEL_46:
 
-    _Block_object_dispose(v111, 8);
+    _Block_object_dispose(v110, 8);
     if (v34)
     {
       v53 = 1;
@@ -847,33 +846,33 @@ LABEL_46:
     [selfCopy stopAccessingSecurityScopedResource];
   }
 
-  if (v34 || *(*&v113[8] + 40))
+  if (v34 || *(*&v112[8] + 40))
   {
     v54 = fp_current_or_default_log();
     if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       fp_shortDescription4 = [selfCopy fp_shortDescription];
       fp_shortDescription5 = [v12 fp_shortDescription];
-      v65 = fp_shortDescription5;
-      v66 = v34;
+      v64 = fp_shortDescription5;
+      v65 = v34;
       if (!v34)
       {
-        v66 = *(*&v113[8] + 40);
+        v65 = *(*&v112[8] + 40);
       }
 
-      *v111 = 138412802;
-      *&v111[4] = fp_shortDescription4;
-      *&v111[12] = 2112;
-      *&v111[14] = fp_shortDescription5;
-      *&v111[22] = 2112;
-      v112 = v66;
-      _os_log_error_impl(&dword_1AAAE1000, v54, OS_LOG_TYPE_ERROR, "[ERROR] couldn't move %@ to %@: %@", v111, 0x20u);
+      *v110 = 138412802;
+      *&v110[4] = fp_shortDescription4;
+      *&v110[12] = 2112;
+      *&v110[14] = fp_shortDescription5;
+      *&v110[22] = 2112;
+      v111 = v65;
+      _os_log_error_impl(&dword_1AAAE1000, v54, OS_LOG_TYPE_ERROR, "[ERROR] couldn't move %@ to %@: %@", v110, 0x20u);
     }
 
     v55 = v34;
     if (!v34)
     {
-      v55 = *(*&v113[8] + 40);
+      v55 = *(*&v112[8] + 40);
     }
 
     v56 = v55;
@@ -883,17 +882,16 @@ LABEL_46:
 
   else
   {
-    v57 = v68;
+    v57 = v67;
   }
 
   v58 = v57;
-  v70[2](v70, v100[5]);
+  v69[2](v69, v99[5]);
 
-  _Block_object_dispose(v113, 8);
+  _Block_object_dispose(v112, 8);
   __fp_leave_section_Debug(&section);
-  _Block_object_dispose(&v99, 8);
+  _Block_object_dispose(&v98, 8);
 
-  v59 = *MEMORY[0x1E69E9840];
   return v58 == 0;
 }
 
@@ -981,18 +979,18 @@ LABEL_46:
 
 - (uint64_t)fp_createSubFolder:()FPFSHelpers completionHandler:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [self fp_existingURLOfChildWithName:v6 isFolder:1];
   if (!v8)
   {
-    v25 = 0;
-    v13 = [self fp_uniqueTempFolderWithError:&v25];
-    v14 = v25;
-    v24 = v14;
-    v15 = [v13 fp_addDocumentTrackingWithError:&v24];
-    v11 = v24;
+    v24 = 0;
+    v13 = [self fp_uniqueTempFolderWithError:&v24];
+    v14 = v24;
+    v23 = v14;
+    v15 = [v13 fp_addDocumentTrackingWithError:&v23];
+    v11 = v23;
 
     if (!v15)
     {
@@ -1005,9 +1003,9 @@ LABEL_15:
 
     v16 = [self URLByAppendingPathComponent:v6 isDirectory:1];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v23 = v11;
-    v12 = [defaultManager moveItemAtURL:v13 toURL:v16 error:&v23];
-    v18 = v23;
+    v22 = v11;
+    v12 = [defaultManager moveItemAtURL:v13 toURL:v16 error:&v22];
+    v18 = v22;
 
     if (v12)
     {
@@ -1042,9 +1040,9 @@ LABEL_13:
   {
     fp_shortDescription = [self fp_shortDescription];
     *buf = 138412546;
-    v27 = v6;
-    v28 = 2112;
-    v29 = fp_shortDescription;
+    v26 = v6;
+    v27 = 2112;
+    v28 = fp_shortDescription;
     _os_log_impl(&dword_1AAAE1000, v9, OS_LOG_TYPE_INFO, "[INFO] won't create '%@' because it already exists under %@", buf, 0x16u);
   }
 
@@ -1053,7 +1051,6 @@ LABEL_13:
   v12 = 0;
 LABEL_16:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1094,21 +1091,21 @@ LABEL_16:
 
 - (void)fp_coordinatedDeleteWithHandler:()FPFSHelpers
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x3032000000;
-  v22[3] = __Block_byref_object_copy__1;
-  v22[4] = __Block_byref_object_dispose__1;
-  v23 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = __Block_byref_object_copy__1;
+  v21[4] = __Block_byref_object_dispose__1;
+  v22 = 0;
   v5 = [MEMORY[0x1E696ABF8] fp_fileCoordinatorForCurrentProcess:0];
-  v21 = 0;
-  v6 = *MEMORY[0x1E695DA98];
   v20 = 0;
-  v7 = [self getResourceValue:&v21 forKey:v6 error:&v20];
-  v8 = v21;
-  v9 = v20;
+  v6 = *MEMORY[0x1E695DA98];
+  v19 = 0;
+  v7 = [self getResourceValue:&v20 forKey:v6 error:&v19];
+  v8 = v20;
+  v9 = v19;
   if ((v7 & 1) == 0)
   {
     v10 = fp_current_or_default_log();
@@ -1122,25 +1119,24 @@ LABEL_16:
     }
   }
 
-  v19 = 0;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __54__NSURL_FPFSHelpers__fp_coordinatedDeleteWithHandler___block_invoke;
-  v15[3] = &unk_1E793A448;
+  v18 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __54__NSURL_FPFSHelpers__fp_coordinatedDeleteWithHandler___block_invoke;
+  v14[3] = &unk_1E793A448;
   v11 = v8;
-  v16 = v11;
-  v18 = v22;
+  v15 = v11;
+  v17 = v21;
   v12 = v4;
-  v17 = v12;
-  [v5 coordinateWritingItemAtURL:self options:1 error:&v19 byAccessor:v15];
-  v13 = v19;
+  v16 = v12;
+  [v5 coordinateWritingItemAtURL:self options:1 error:&v18 byAccessor:v14];
+  v13 = v18;
   if (v13)
   {
     (*(v12 + 2))(v12, 0, v13);
   }
 
-  _Block_object_dispose(v22, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v21, 8);
 }
 
 - (BOOL)fp_deleteAllowingCoordination:()FPFSHelpers completionHandler:
@@ -1260,7 +1256,7 @@ LABEL_6:
               v28 = fp_current_or_default_log();
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
               {
-                [NSURL(FPFSHelpers) fp_withReadWriteAccess:?];
+                [NSURL(FPFSHelpers) fp_withReadWriteAccess:];
               }
 
               close(v6);
@@ -1423,24 +1419,18 @@ LABEL_59:
 
 - (void)fp_existingURLOfChildWithName:()FPFSHelpers isFolder:notMatchingFileID:nextAvailableBounceNumber:forceFetchingBounceNumber:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_existingURLOfChildWithName:()FPFSHelpers isFolder:notMatchingFileID:nextAvailableBounceNumber:forceFetchingBounceNumber:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_shortDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_queued_moveUnderFolder:()FPFSHelpers withNewName:coordinationOptions:allowBounce:allowCoordination:moveHandler:completionHandler:.cold.1()
@@ -1452,120 +1442,88 @@ LABEL_59:
 
 - (void)fp_queued_moveUnderFolder:()FPFSHelpers withNewName:coordinationOptions:allowBounce:allowCoordination:moveHandler:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_deleteStaleBusyFileWithFileDescriptor:()FPFSHelpers coordinatorPurposeIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_27();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fp_withReadWriteAccess:()FPFSHelpers .cold.2()
 {
   OUTLINED_FUNCTION_10_1();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_11_0(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_11_0(v0 v1)];
   OUTLINED_FUNCTION_16_0();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)fp_withReadWriteAccess:()FPFSHelpers .cold.4()
 {
   OUTLINED_FUNCTION_10_1();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_11_0(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_11_0(v0 v1)];
   OUTLINED_FUNCTION_16_0();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fp_withReadWriteAccess:()FPFSHelpers .cold.5(unsigned __int16 *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_27();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)fp_withReadWriteAccess:()FPFSHelpers .cold.6()
 {
   OUTLINED_FUNCTION_6_0();
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)fp_withReadWriteAccess:()FPFSHelpers .cold.7()
 {
   OUTLINED_FUNCTION_10_1();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_11_0(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_11_0(v0 v1)];
   OUTLINED_FUNCTION_16_0();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)fp_withReadWriteAccess:()FPFSHelpers .cold.8()
 {
   OUTLINED_FUNCTION_6_0();
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)fp_withReadWriteAccess:()FPFSHelpers .cold.9()
 {
   OUTLINED_FUNCTION_6_0();
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)fp_withReadWriteAccess:()FPFSHelpers .cold.10()
 {
   OUTLINED_FUNCTION_6_0();
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)fp_withReadWriteAccess:()FPFSHelpers .cold.11()
 {
   OUTLINED_FUNCTION_6_0();
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 @end

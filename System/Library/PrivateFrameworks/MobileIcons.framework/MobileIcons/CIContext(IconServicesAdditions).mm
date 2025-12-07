@@ -11,9 +11,9 @@
     +[CIContext(IconServicesAdditions) _MI_sharedIconCompositorContext];
   }
 
-  v1 = _MI_sharedIconCompositorContext_contextCacheClearScheduler;
+  v2 = _MI_sharedIconCompositorContext_contextCacheClearScheduler;
 
-  return [v1 object];
+  return [v2 object];
 }
 
 @end

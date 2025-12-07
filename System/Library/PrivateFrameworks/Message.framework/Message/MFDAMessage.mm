@@ -11,12 +11,12 @@
 
 - (MFDAMessage)initWithDAMailMessage:(id)message mailbox:(id)mailbox
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   mailboxCopy = mailbox;
-  v19.receiver = self;
-  v19.super_class = MFDAMessage;
-  v9 = [(MFDAMessage *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MFDAMessage;
+  v9 = [(MFDAMessage *)&v18 init];
   if (v9)
   {
     rfc822Data = [messageCopy rfc822Data];
@@ -35,12 +35,11 @@
     {
       subject = [(MFDAMessage *)v9 subject];
       *buf = 138412290;
-      v21 = subject;
+      v20 = subject;
       _os_log_impl(&dword_1B0389000, v15, OS_LOG_TYPE_INFO, "#Power [New Message] subject=%@;", buf, 0xCu);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

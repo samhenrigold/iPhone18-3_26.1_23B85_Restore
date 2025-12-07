@@ -19,7 +19,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1001F8D94();
+  sub_1001F8D94(delegate);
 }
 
 - (TUCall)prioritizedCall

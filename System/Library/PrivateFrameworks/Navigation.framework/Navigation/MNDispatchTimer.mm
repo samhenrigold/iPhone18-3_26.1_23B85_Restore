@@ -26,7 +26,6 @@
   if (*(&self->super.isa + OBJC_IVAR___MNDispatchTimer__isRunning) == 1)
   {
     *(&self->super.isa + OBJC_IVAR___MNDispatchTimer__isRunning) = 0;
-    v3 = *(&self->super.isa + OBJC_IVAR___MNDispatchTimer__internalTimer);
     swift_getObjectType();
     selfCopy = self;
     sub_1D3277440();
@@ -37,9 +36,9 @@
     selfCopy2 = self;
   }
 
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for DispatchTimer();
-  [(MNDispatchTimer *)&v6 dealloc];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for DispatchTimer();
+  [(MNDispatchTimer *)&v5 dealloc];
 }
 
 - (MNDispatchTimer)initWithTime:(double)time queue:(id)queue handler:(id)handler
@@ -67,7 +66,6 @@
   if ((*(&self->super.isa + OBJC_IVAR___MNDispatchTimer__isRunning) & 1) == 0)
   {
     *(&self->super.isa + OBJC_IVAR___MNDispatchTimer__isRunning) = 1;
-    v3 = *(&self->super.isa + OBJC_IVAR___MNDispatchTimer__internalTimer);
     swift_getObjectType();
     selfCopy = self;
     sub_1D3277450();
@@ -79,7 +77,6 @@
   if (*(&self->super.isa + OBJC_IVAR___MNDispatchTimer__isRunning) == 1)
   {
     *(&self->super.isa + OBJC_IVAR___MNDispatchTimer__isRunning) = 0;
-    v3 = *(&self->super.isa + OBJC_IVAR___MNDispatchTimer__internalTimer);
     swift_getObjectType();
     selfCopy = self;
     sub_1D3277440();

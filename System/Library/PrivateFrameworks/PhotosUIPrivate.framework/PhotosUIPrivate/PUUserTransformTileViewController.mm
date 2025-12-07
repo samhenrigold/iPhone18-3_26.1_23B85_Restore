@@ -479,7 +479,7 @@ LABEL_8:
   v23 = 0u;
   if (userTransformView)
   {
-    [userTransformView userAffineTransform];
+    objc_msgSend_userAffineTransform(userTransformView);
   }
 
   _userInputOriginIdentifier = [(PUUserTransformTileViewController *)self _userInputOriginIdentifier];
@@ -598,8 +598,8 @@ LABEL_8:
 
   if (![(PUUserTransformTileViewController *)self _shouldPreventScaledOffsetAdjustments])
   {
-    indexPath = [infoCopy indexPath];
-    v8 = [(PUUserTransformTileViewController *)self _insetModeForItemAtIndexPath:indexPath];
+    v7 = objc_msgSend_indexPath(infoCopy);
+    v8 = [(PUUserTransformTileViewController *)self _insetModeForItemAtIndexPath:v7];
 
     if (v8 == 2)
     {

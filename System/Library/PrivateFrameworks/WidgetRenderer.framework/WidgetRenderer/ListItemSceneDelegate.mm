@@ -29,7 +29,7 @@
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC14WidgetRenderer21ListItemSceneDelegate__cancellables) = MEMORY[0x1E69E7CC0];
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ListItemSceneDelegate();
+  v3.super_class = type metadata accessor for ListItemSceneDelegate(0);
   return [(SingleActivitySceneDelegate *)&v3 init];
 }
 

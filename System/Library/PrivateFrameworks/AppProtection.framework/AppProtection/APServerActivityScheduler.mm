@@ -28,24 +28,25 @@ void __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2)
   {
-    if (xpc_activity_set_state(v3, 4))
+    v4 = xpc_activity_set_state(v3, 4);
+    if (v4)
     {
-      v4 = *(a1 + 32);
-      v6[0] = MEMORY[0x1E69E9820];
-      v6[1] = 3221225472;
-      v6[2] = __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block_invoke_2;
-      v6[3] = &unk_1E6EE8948;
-      v7 = v3;
-      (*(v4 + 16))(v4, v6);
-      v5 = v7;
+      v5 = *(a1 + 32);
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block_invoke_2;
+      v7[3] = &unk_1E6EE8948;
+      v8 = v3;
+      (*(v5 + 16))(v5, v7);
+      v6 = v8;
     }
 
     else
     {
-      v5 = APDefaultFrameworkLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = APDefaultFrameworkLog(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block_invoke_cold_1(v5);
+        __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block_invoke_cold_1(v6);
       }
     }
   }
@@ -53,12 +54,13 @@ void __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block
 
 void __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block_invoke_2(uint64_t a1)
 {
-  if (!xpc_activity_set_state(*(a1 + 32), 5))
+  v1 = xpc_activity_set_state(*(a1 + 32), 5);
+  if (!v1)
   {
-    v1 = APDefaultFrameworkLog();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = APDefaultFrameworkLog(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block_invoke_2_cold_1(v1);
+      __65__APServerActivityScheduler_registerWeeklyActivityWithName_work___block_invoke_2_cold_1(v2);
     }
   }
 }

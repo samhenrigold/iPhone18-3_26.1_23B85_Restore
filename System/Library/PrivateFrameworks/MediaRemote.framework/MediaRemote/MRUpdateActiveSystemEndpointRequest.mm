@@ -169,7 +169,7 @@
 
 - (void)perform:(id)perform completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = MEMORY[0x1E695DF00];
   performCopy = perform;
@@ -212,7 +212,7 @@
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v41 = v19;
+    v40 = v19;
     _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
@@ -227,28 +227,26 @@
 
   v26 = [[MRUpdateActiveSystemEndpointMessage alloc] initWithRequest:self];
   v27 = MRGetSharedService();
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __58__MRUpdateActiveSystemEndpointRequest_perform_completion___block_invoke;
-  v34[3] = &unk_1E76A1BC0;
-  v35 = outputDeviceUID;
-  v36 = active;
-  v37 = uUIDString;
-  v38 = date;
-  v39 = completionCopy;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __58__MRUpdateActiveSystemEndpointRequest_perform_completion___block_invoke;
+  v33[3] = &unk_1E76A1BC0;
+  v34 = outputDeviceUID;
+  v35 = active;
+  v36 = uUIDString;
+  v37 = date;
+  v38 = completionCopy;
   v28 = completionCopy;
   v29 = date;
   v30 = uUIDString;
   v31 = active;
   v32 = outputDeviceUID;
-  MRMediaRemoteServiceUpdateActiveSystemEndpointUID(v27, v26, performCopy, v34);
-
-  v33 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceUpdateActiveSystemEndpointUID(v27, v26, performCopy, v33);
 }
 
 void __58__MRUpdateActiveSystemEndpointRequest_perform_completion___block_invoke(void *a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[4];
   v5 = _MRLogForCategory(0xAuLL);
@@ -268,14 +266,14 @@ void __58__MRUpdateActiveSystemEndpointRequest_perform_completion___block_invoke
       v16 = a1[4];
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:a1[7]];
-      v26 = 138544130;
-      v27 = v15;
-      v28 = 2114;
-      v29 = v14;
-      v30 = 2114;
-      v31 = v16;
-      v32 = 2048;
-      v33 = v17;
+      v25 = 138544130;
+      v26 = v15;
+      v27 = 2114;
+      v28 = v14;
+      v29 = 2114;
+      v30 = v16;
+      v31 = 2048;
+      v32 = v17;
       v18 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v19 = v6;
       v20 = 42;
@@ -292,18 +290,18 @@ void __58__MRUpdateActiveSystemEndpointRequest_perform_completion___block_invoke
       v22 = a1[6];
       v11 = [MEMORY[0x1E695DF00] date];
       [v11 timeIntervalSinceDate:a1[7]];
-      v26 = 138543874;
-      v27 = v21;
-      v28 = 2114;
-      v29 = v22;
-      v30 = 2048;
-      v31 = v23;
+      v25 = 138543874;
+      v26 = v21;
+      v27 = 2114;
+      v28 = v22;
+      v29 = 2048;
+      v30 = v23;
       v18 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v19 = v6;
       v20 = 32;
     }
 
-    _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, v18, &v26, v20);
+    _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, v18, &v25, v20);
     goto LABEL_13;
   }
 
@@ -320,17 +318,17 @@ void __58__MRUpdateActiveSystemEndpointRequest_perform_completion___block_invoke
     v10 = a1[4];
     v11 = [MEMORY[0x1E695DF00] date];
     [v11 timeIntervalSinceDate:a1[7]];
-    v26 = 138544386;
-    v27 = v9;
-    v28 = 2114;
-    v29 = v8;
-    v30 = 2114;
-    v31 = v3;
-    v32 = 2114;
-    v33 = v10;
-    v34 = 2048;
-    v35 = v12;
-    _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v26, 0x34u);
+    v25 = 138544386;
+    v26 = v9;
+    v27 = 2114;
+    v28 = v8;
+    v29 = 2114;
+    v30 = v3;
+    v31 = 2114;
+    v32 = v10;
+    v33 = 2048;
+    v34 = v12;
+    _os_log_error_impl(&dword_1A2860000, v6, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", &v25, 0x34u);
 LABEL_13:
 
     goto LABEL_14;
@@ -348,8 +346,6 @@ LABEL_14:
     v24 = [[MRUpdateActiveSystemEndpointResponse alloc] initWithError:v3];
     (*(a1[8] + 16))();
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -3,6 +3,7 @@
 - (NSArray)unsavedSectionIDsOrdering;
 - (REMMemberships)unsavedMembershipsOfRemindersInSections;
 - (REMSmartListSectionContextChangeItem)initWithSmartListChangeItem:(id)item;
+- (void)setShouldUpdateSectionsOrdering:(BOOL)ordering;
 - (void)setUnsavedMembershipsOfRemindersInSections:(id)sections;
 - (void)setUnsavedSectionIDsOrdering:(id)ordering;
 - (void)undeleteSectionWithID:(id)d;
@@ -36,6 +37,13 @@
   shouldUpdateSectionsOrdering = [smartListChangeItem shouldUpdateSectionsOrdering];
 
   return shouldUpdateSectionsOrdering;
+}
+
+- (void)setShouldUpdateSectionsOrdering:(BOOL)ordering
+{
+  orderingCopy = ordering;
+  smartListChangeItem = [(REMSmartListSectionContextChangeItem *)self smartListChangeItem];
+  [smartListChangeItem setShouldUpdateSectionsOrdering:orderingCopy];
 }
 
 - (NSArray)unsavedSectionIDsOrdering

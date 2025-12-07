@@ -1,8 +1,8 @@
 @interface HKMedicationSchedule
 + (HKMedicationSchedule)_activeXDaysPauseYDaysWithUUID:(void *)d medicationIdentifier:(void *)identifier createdUTCOffset:(void *)offset startDateTime:(void *)time endDateTime:(void *)dateTime timeIntervals:(void *)intervals cycleStartDateComponents:(void *)components note:(unint64_t)self0 scheduleType:;
-+ (HKMedicationSchedule)_deletedScheduleWithUUID:(void *)d medicationUUID:(void *)iD creationTimestamp:;
-+ (HKMedicationSchedule)_invalidScheduleWithUUID:(void *)d medicationUUID:(void *)iD medicationIdentifier:(void *)identifier creationTimestamp:;
-+ (HKMedicationSchedule)_unavailableScheduleWithUUID:(void *)d medicationUUID:(void *)iD medicationIdentifier:(void *)identifier creationTimestamp:(uint64_t)timestamp compatibilityRange:;
++ (HKMedicationSchedule)_deletedScheduleWithUUID:(void *)d medicationUUID:(double)iD creationTimestamp:;
++ (HKMedicationSchedule)_invalidScheduleWithUUID:(void *)d medicationUUID:(void *)iD medicationIdentifier:(double)identifier creationTimestamp:;
++ (HKMedicationSchedule)_unavailableScheduleWithUUID:(void *)d medicationUUID:(void *)iD medicationIdentifier:(uint64_t)identifier creationTimestamp:(double)timestamp compatibilityRange:;
 + (id)activeXWeeksPauseYWeeksWithUUID:(id)d medicationIdentifier:(id)identifier createdUTCOffset:(id)offset startDateTime:(id)time endDateTime:(id)dateTime timeIntervals:(id)intervals cycleStartDateComponents:(id)components note:(id)self0;
 + (id)dailyScheduleWithUUID:(id)d medicationIdentifier:(id)identifier createdUTCOffset:(id)offset startDateTime:(id)time endDateTime:(id)dateTime timeIntervals:(id)intervals note:(id)note;
 + (id)daysOfWeekScheduleWithUUID:(id)d medicationIdentifier:(id)identifier createdUTCOffset:(id)offset startDateTime:(id)time endDateTime:(id)dateTime timeIntervals:(id)intervals note:(id)note;
@@ -205,45 +205,42 @@
 - (void)_setMedicationUUID:(id)d
 {
   v4 = [d copy];
-  medicationUUID = self->_medicationUUID;
   self->_medicationUUID = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4);
 }
 
 - (id)deletedSchedule
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   UUID = self->_UUID;
   medicationUUID = self->_medicationUUID;
   Current = CFAbsoluteTimeGetCurrent();
-  v6 = [(HKMedicationSchedule *)Current _deletedScheduleWithUUID:UUID medicationUUID:medicationUUID creationTimestamp:?];
+  v6 = [HKMedicationSchedule _deletedScheduleWithUUID:medicationUUID medicationUUID:Current creationTimestamp:?];
   _HKInitializeLogging();
   v7 = HKLogMedication();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543874;
-    v11 = objc_opt_class();
-    v12 = 2114;
+    v9 = 138543874;
+    v10 = objc_opt_class();
+    v11 = 2114;
     selfCopy = self;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_2517E7000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] deleting: %{public}@ -> %{public}@", &v10, 0x20u);
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_2517E7000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] deleting: %{public}@ -> %{public}@", &v9, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
-+ (HKMedicationSchedule)_deletedScheduleWithUUID:(void *)d medicationUUID:(void *)iD creationTimestamp:
++ (HKMedicationSchedule)_deletedScheduleWithUUID:(void *)d medicationUUID:(double)iD creationTimestamp:
 {
-  iDCopy = iD;
   dCopy = d;
+  v7 = a2;
   objc_opt_self();
   v8 = [HKMedicationSchedule alloc];
-  v9 = iDCopy;
-  if (!iDCopy)
+  v9 = dCopy;
+  if (!dCopy)
   {
     v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
   }
@@ -251,9 +248,9 @@
   v10 = [MEMORY[0x277CBEBB0] timeZoneForSecondsFromGMT:0];
   v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:0.0];
   LOBYTE(v14) = 1;
-  v12 = [(HKMedicationSchedule *)v8 initWithUUID:dCopy medicationUUID:v9 medicationIdentifier:0 createdUTCOffset:v10 startDateTime:v11 endDateTime:0 timeIntervals:self scheduleType:MEMORY[0x277CBEBF8] displayOptions:0 cycleStartDateComponents:0 deleted:0 creationTimestamp:v14 note:0 compatibilityVersionRange:0, 1];
+  v12 = [(HKMedicationSchedule *)v8 initWithUUID:v7 medicationUUID:v9 medicationIdentifier:0 createdUTCOffset:v10 startDateTime:v11 endDateTime:0 timeIntervals:iD scheduleType:MEMORY[0x277CBEBF8] displayOptions:0 cycleStartDateComponents:0 deleted:0 creationTimestamp:v14 note:0 compatibilityVersionRange:0, 1];
 
-  if (!iDCopy)
+  if (!dCopy)
   {
   }
 
@@ -277,7 +274,7 @@
 
 - (id)unavailableSchedule
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   isInvalid = [(HKMedicationSchedule *)self isInvalid];
   medicationUUID = self->_medicationUUID;
   UUID = self->_UUID;
@@ -285,54 +282,51 @@
   creationTimestamp = self->_creationTimestamp;
   if (isInvalid)
   {
-    v8 = [(HKMedicationSchedule *)creationTimestamp _invalidScheduleWithUUID:UUID medicationUUID:medicationUUID medicationIdentifier:medicationIdentifier creationTimestamp:?];
+    v8 = [HKMedicationSchedule _invalidScheduleWithUUID:medicationUUID medicationUUID:medicationIdentifier medicationIdentifier:creationTimestamp creationTimestamp:?];
   }
 
   else
   {
-    origin = self->_compatibilityRange.origin;
-    v8 = [(HKMedicationSchedule *)creationTimestamp _unavailableScheduleWithUUID:UUID medicationUUID:medicationUUID medicationIdentifier:medicationIdentifier creationTimestamp:self->_compatibilityRange.minimum compatibilityRange:?];
+    v8 = [HKMedicationSchedule _unavailableScheduleWithUUID:medicationUUID medicationUUID:medicationIdentifier medicationIdentifier:self->_compatibilityRange.minimum creationTimestamp:creationTimestamp compatibilityRange:?];
     _HKInitializeLogging();
-    v10 = HKLogMedication();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = HKLogMedication();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543874;
-      v14 = objc_opt_class();
-      v15 = 2114;
+      v11 = 138543874;
+      v12 = objc_opt_class();
+      v13 = 2114;
       selfCopy = self;
-      v17 = 2114;
-      v18 = v8;
-      _os_log_impl(&dword_2517E7000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] unavailable-ing: %{public}@ -> %{public}@", &v13, 0x20u);
+      v15 = 2114;
+      v16 = v8;
+      _os_log_impl(&dword_2517E7000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] unavailable-ing: %{public}@ -> %{public}@", &v11, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
-+ (HKMedicationSchedule)_invalidScheduleWithUUID:(void *)d medicationUUID:(void *)iD medicationIdentifier:(void *)identifier creationTimestamp:
++ (HKMedicationSchedule)_invalidScheduleWithUUID:(void *)d medicationUUID:(void *)iD medicationIdentifier:(double)identifier creationTimestamp:
 {
-  identifierCopy = identifier;
   iDCopy = iD;
   dCopy = d;
+  v10 = a2;
   objc_opt_self();
   v11 = [HKMedicationSchedule alloc];
   v12 = [MEMORY[0x277CBEBB0] timeZoneForSecondsFromGMT:0];
   v13 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:0.0];
   LOBYTE(v16) = 0;
-  v14 = [(HKMedicationSchedule *)v11 initWithUUID:dCopy medicationUUID:iDCopy medicationIdentifier:identifierCopy createdUTCOffset:v12 startDateTime:v13 endDateTime:0 timeIntervals:self scheduleType:MEMORY[0x277CBEBF8] displayOptions:0 cycleStartDateComponents:0 deleted:0 creationTimestamp:v16 note:0 compatibilityVersionRange:0x7FFFFFFFLL, 1];
+  v14 = [(HKMedicationSchedule *)v11 initWithUUID:v10 medicationUUID:dCopy medicationIdentifier:iDCopy createdUTCOffset:v12 startDateTime:v13 endDateTime:0 timeIntervals:identifier scheduleType:MEMORY[0x277CBEBF8] displayOptions:0 cycleStartDateComponents:0 deleted:0 creationTimestamp:v16 note:0 compatibilityVersionRange:0x7FFFFFFFLL, 1];
 
   return v14;
 }
 
-+ (HKMedicationSchedule)_unavailableScheduleWithUUID:(void *)d medicationUUID:(void *)iD medicationIdentifier:(void *)identifier creationTimestamp:(uint64_t)timestamp compatibilityRange:
++ (HKMedicationSchedule)_unavailableScheduleWithUUID:(void *)d medicationUUID:(void *)iD medicationIdentifier:(uint64_t)identifier creationTimestamp:(double)timestamp compatibilityRange:
 {
-  identifierCopy = identifier;
   iDCopy = iD;
   dCopy = d;
+  v12 = a2;
   v13 = objc_opt_self();
-  if (timestamp <= 1)
+  if (identifier <= 1)
   {
     [HKMedicationSchedule _unavailableScheduleWithUUID:v13 medicationUUID:? medicationIdentifier:? creationTimestamp:? compatibilityRange:?];
   }
@@ -341,7 +335,7 @@
   v15 = [MEMORY[0x277CBEBB0] timeZoneForSecondsFromGMT:0];
   v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:0.0];
   LOBYTE(v19) = 0;
-  v17 = [(HKMedicationSchedule *)v14 initWithUUID:dCopy medicationUUID:iDCopy medicationIdentifier:identifierCopy createdUTCOffset:v15 startDateTime:v16 endDateTime:0 timeIntervals:self scheduleType:MEMORY[0x277CBEBF8] displayOptions:0 cycleStartDateComponents:0 deleted:0 creationTimestamp:v19 note:0 compatibilityVersionRange:timestamp, 1];
+  v17 = [(HKMedicationSchedule *)v14 initWithUUID:v12 medicationUUID:dCopy medicationIdentifier:iDCopy createdUTCOffset:v15 startDateTime:v16 endDateTime:0 timeIntervals:timestamp scheduleType:MEMORY[0x277CBEBF8] displayOptions:0 cycleStartDateComponents:0 deleted:0 creationTimestamp:v19 note:0 compatibilityVersionRange:identifier, 1];
 
   return v17;
 }
@@ -685,33 +679,32 @@ LABEL_31:
 
 - (id)description
 {
-  v19 = MEMORY[0x277CCACA8];
-  v18 = objc_opt_class();
+  v18 = MEMORY[0x277CCACA8];
+  v17 = objc_opt_class();
   uUIDString = [(NSUUID *)self->_UUID UUIDString];
   uUIDString2 = [(NSUUID *)self->_medicationUUID UUIDString];
-  medicationIdentifier = self->_medicationIdentifier;
-  v6 = HKSensitiveLogItem();
-  v7 = [(NSTimeZone *)self->_createdUTCOffset secondsFromGMT]/ 3600;
-  v17 = *&self->_startDateTime;
-  v16 = *&self->_frequencyType;
+  v5 = HKSensitiveLogItem();
+  v6 = [(NSTimeZone *)self->_createdUTCOffset secondsFromGMT]/ 3600;
+  v16 = *&self->_startDateTime;
+  v15 = *&self->_frequencyType;
   displayOptions = self->_displayOptions;
   cycleStartDate = self->_cycleStartDate;
   creationTimestamp = self->_creationTimestamp;
   if (self->_deleted)
   {
-    v11 = @"YES";
+    v10 = @"YES";
   }
 
   else
   {
-    v11 = @"NO";
+    v10 = @"NO";
   }
 
-  v12 = HKMedicationScheduleCompatibilityRangeToString(self->_compatibilityRange.minimum, self->_compatibilityRange.origin);
+  v11 = HKMedicationScheduleCompatibilityRangeToString(self->_compatibilityRange.minimum, self->_compatibilityRange.origin);
   _timeIntervalsString = [(HKMedicationSchedule *)&self->super.isa _timeIntervalsString];
-  v14 = [v19 stringWithFormat:@"<%@: %p>: UUID: %@, medUUID: %@, medID: %@, timezoneOffset: %ld, startDateTime: %@, endDateTime: %@, frequencyType: %i, scheduleType: %i, displayOptions: %i, cycleStartDate: %@ creationTimestamp: %f, deleted: %@, compatibilityVersionRange: %@, timeIntervals:\n%@", v18, self, uUIDString, uUIDString2, v6, v7, v17, v16, displayOptions, cycleStartDate, *&creationTimestamp, v11, v12, _timeIntervalsString];
+  v13 = [v18 stringWithFormat:@"<%@: %p>: UUID: %@, medUUID: %@, medID: %@, timezoneOffset: %ld, startDateTime: %@, endDateTime: %@, frequencyType: %i, scheduleType: %i, displayOptions: %i, cycleStartDate: %@ creationTimestamp: %f, deleted: %@, compatibilityVersionRange: %@, timeIntervals:\n%@", v17, self, uUIDString, uUIDString2, v5, v6, v16, v15, displayOptions, cycleStartDate, *&creationTimestamp, v10, v11, _timeIntervalsString];
 
-  return v14;
+  return v13;
 }
 
 - ($0AC6E346AE4835514AAA8AC86D8F4844)compatibilityRange
@@ -740,42 +733,40 @@ LABEL_31:
 
 + (void)_validateDailyScheduleTimeIntervals:(uint64_t)intervals
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_self();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         [(HKMedicationSchedule *)v3 _assertDaysOfTheWeekNoneForInterval:v9 scheduleType:2uLL];
         [(HKMedicationSchedule *)v3 _assertCycleIndexIsNilForInterval:v9 scheduleType:2uLL];
         [(HKMedicationSchedule *)v3 _assertCycleIntervalDaysIsNilForInterval:v9 scheduleType:2uLL];
         [(HKMedicationSchedule *)v3 _assertDoseGreaterThanZeroForInterval:v9 scheduleType:2uLL];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)everyXDaysScheduleWithUUID:(id)d medicationIdentifier:(id)identifier createdUTCOffset:(id)offset startDateTime:(id)time endDateTime:(id)dateTime timeIntervals:(id)intervals cycleStartDateComponents:(id)components note:(id)self0
@@ -796,30 +787,30 @@ LABEL_31:
 
 + (void)_validateEveryXDaysScheduleTimeIntervals:(uint64_t)intervals
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_self();
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+  v4 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v51;
+    v6 = *v50;
     v7 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v51 != v6)
+        if (*v50 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v50 + 1) + 8 * i);
+        v9 = *(*(&v49 + 1) + 8 * i);
         [(HKMedicationSchedule *)v3 _assertDaysOfTheWeekNoneForInterval:v9 scheduleType:1uLL];
         cycleIndex = [v9 cycleIndex];
         if ([cycleIndex integerValue])
@@ -905,13 +896,11 @@ LABEL_10:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v5 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
     }
 
     while (v5);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 + (id)daysOfWeekScheduleWithUUID:(id)d medicationIdentifier:(id)identifier createdUTCOffset:(id)offset startDateTime:(id)time endDateTime:(id)dateTime timeIntervals:(id)intervals note:(id)note
@@ -931,7 +920,7 @@ LABEL_10:
 
 + (void)_validateDaysOfWeekScheduleTimeIntervals:(unint64_t)intervals scheduleType:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = objc_opt_self();
   if (intervals != 3 && intervals != 5)
@@ -940,35 +929,35 @@ LABEL_10:
     [currentHandler handleFailureInMethod:sel__validateDaysOfWeekScheduleTimeIntervals_scheduleType_ object:v5 file:@"HKMedicationSchedule+Convenience.m" lineNumber:226 description:{@"Invalid parameter not satisfying: %@", @"scheduleType == HKMedicationScheduleTypeDaysOfWeek || scheduleType == HKMedicationScheduleTypeDifferentDosesDaysOfWeek"}];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
     daysOfWeek = 0;
-    v24 = *v26;
-    v22 = *MEMORY[0x277CBE660];
+    v23 = *v25;
+    v21 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v24)
+        if (*v25 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         if (![v11 daysOfWeek])
         {
           v12 = MEMORY[0x277CBEAD8];
           v13 = objc_opt_class();
           v14 = HKStringFromMedicationScheduleType(intervals);
           v15 = HKStringFromReminderWeekdayOptions([v11 daysOfWeek]);
-          [v12 raise:v22 format:{@"%@ with type %@ cannot have an interval with daysOfWeek %@", v13, v14, v15}];
+          [v12 raise:v21 format:{@"%@ with type %@ cannot have an interval with daysOfWeek %@", v13, v14, v15}];
         }
 
         [(HKMedicationSchedule *)v5 _assertCycleIndexIsNilForInterval:v11 scheduleType:intervals];
@@ -983,7 +972,7 @@ LABEL_10:
             v18 = HKStringFromMedicationScheduleType(3uLL);
             v19 = HKStringFromReminderWeekdayOptions([v11 daysOfWeek]);
             v20 = HKStringFromReminderWeekdayOptions(daysOfWeek);
-            [v16 raise:v22 format:{@"%@ with type %@ cannot have an interval for days %@. All intervals must be for days %@", v17, v18, v19, v20}];
+            [v16 raise:v21 format:{@"%@ with type %@ cannot have an interval for days %@. All intervals must be for days %@", v17, v18, v19, v20}];
           }
         }
 
@@ -993,13 +982,11 @@ LABEL_10:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v8);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)differentDosesDaysOfWeekScheduleWithUUID:(id)d medicationIdentifier:(id)identifier createdUTCOffset:(id)offset startDateTime:(id)time endDateTime:(id)dateTime timeIntervals:(id)intervals note:(id)note
@@ -1052,7 +1039,7 @@ LABEL_10:
 
 + (void)_validateActiveXWeeksPauseYWeeksTimeIntervals:(unint64_t)intervals scheduleType:
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_self();
   v4 = [v3 count];
@@ -1092,27 +1079,27 @@ LABEL_10:
     while ([v3 count] > v13);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = v3;
-  v19 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v19 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
   if (v19)
   {
     v20 = v19;
-    v61 = *v64;
+    v60 = *v63;
     v21 = *v5;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v64 != v61)
+        if (*v63 != v60)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v63 + 1) + 8 * i);
+        v23 = *(*(&v62 + 1) + 8 * i);
         cycleIndex4 = [v23 cycleIndex];
         if (([cycleIndex4 integerValue] & 0x8000000000000001) == 1)
         {
@@ -1221,18 +1208,16 @@ LABEL_33:
         }
       }
 
-      v20 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v20 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
     }
 
     while (v20);
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_validateActiveXPauseYScheduleTimeIntervals:(unint64_t)intervals scheduleType:
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = objc_opt_self();
   v6 = v5;
@@ -1241,27 +1226,27 @@ LABEL_33:
     [HKMedicationSchedule _validateActiveXPauseYScheduleTimeIntervals:v5 scheduleType:?];
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = v4;
-  v7 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v7 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v38;
-    v36 = *MEMORY[0x277CBE660];
+    v9 = *v37;
+    v35 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v38 != v9)
+        if (*v37 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * i);
+        v11 = *(*(&v36 + 1) + 8 * i);
         [(HKMedicationSchedule *)v6 _assertDaysOfTheWeekNoneForInterval:v11 scheduleType:intervals];
         cycleIndex = [v11 cycleIndex];
         if (![cycleIndex integerValue])
@@ -1278,7 +1263,7 @@ LABEL_33:
           v16 = objc_opt_class();
           cycleIndex = HKStringFromMedicationScheduleType(7uLL);
           cycleIndex3 = [v11 cycleIndex];
-          [v15 raise:v36 format:{@"%@ with type %@ cannot have an interval with cycleIndex %ld", v16, cycleIndex, objc_msgSend(cycleIndex3, "integerValue")}];
+          [v15 raise:v35 format:{@"%@ with type %@ cannot have an interval with cycleIndex %ld", v16, cycleIndex, objc_msgSend(cycleIndex3, "integerValue")}];
 
 LABEL_12:
         }
@@ -1300,7 +1285,7 @@ LABEL_12:
           cycleIndex4 = HKStringFromMedicationScheduleType(intervals);
           dose2 = [v11 dose];
           [dose2 doubleValue];
-          [v22 raise:v36 format:{@"%@ with type %@ cannot have a %f value dose in cycle 0", v23, cycleIndex4, v25}];
+          [v22 raise:v35 format:{@"%@ with type %@ cannot have a %f value dose in cycle 0", v23, cycleIndex4, v25}];
         }
 
 LABEL_17:
@@ -1321,17 +1306,15 @@ LABEL_17:
           cycleIndex5 = HKStringFromMedicationScheduleType(intervals);
           dose4 = [v11 dose];
           [dose4 doubleValue];
-          [v30 raise:v36 format:{@"%@ with type %@ cannot have a non-zero value dose %f in cycle 1", v31, cycleIndex5, v33}];
+          [v30 raise:v35 format:{@"%@ with type %@ cannot have a non-zero value dose %f in cycle 1", v31, cycleIndex5, v33}];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v8);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_assertDaysOfTheWeekNoneForInterval:(unint64_t)interval scheduleType:
@@ -1442,36 +1425,36 @@ LABEL_17:
 - (id)_timeIntervalsString
 {
   selfCopy = self;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self)
   {
     string = [MEMORY[0x277CCAB68] string];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v3 = selfCopy[8];
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v14;
+      v6 = *v13;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
           v8 = MEMORY[0x277CCACA8];
-          v9 = [*(*(&v13 + 1) + 8 * i) description];
+          v9 = [*(*(&v12 + 1) + 8 * i) description];
           v10 = [v8 stringWithFormat:@"%@\n", v9];
           [string appendString:v10];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v5);
@@ -1479,8 +1462,6 @@ LABEL_17:
 
     selfCopy = [MEMORY[0x277CCACA8] stringWithString:string];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -1493,13 +1474,11 @@ LABEL_17:
 
 - (void)dayInCycleFor:(uint64_t)a1 calendar:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138543362;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_2517E7000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] dayInCycle() called for a schedule that has not yet started or a non cyclic schedule type.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_2517E7000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] dayInCycle() called for a schedule that has not yet started or a non cyclic schedule type.", &v4, 0xCu);
 }
 
 + (void)_validateActiveXPauseYScheduleTimeIntervals:(uint64_t)a1 scheduleType:.cold.1(uint64_t a1)

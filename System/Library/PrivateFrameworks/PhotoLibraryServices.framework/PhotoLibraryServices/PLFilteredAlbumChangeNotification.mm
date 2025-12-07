@@ -35,7 +35,7 @@
       v14 = 1;
     }
 
-    if (v14 || -[NSIndexSet count](v11, "count") && (v15 = [v9 count], v15 <= -[NSIndexSet lastIndex](v11, "lastIndex")) || objc_msgSend(v13, "count") && (v16 = objc_msgSend(v10, "count"), v16 <= objc_msgSend(v13, "lastIndex")))
+    if (v14 || objc_msgSend_count(v11) && (v15 = objc_msgSend_count(v9), v15 <= -[NSIndexSet lastIndex](v11, "lastIndex")) || objc_msgSend_count(v13) && (v16 = objc_msgSend_count(v10), v16 <= [v13 lastIndex]))
     {
       v21 = 0;
     }
@@ -160,9 +160,9 @@
     return 1;
   }
 
-  v4 = [(NSIndexSet *)oldFilteredIndexes count];
+  v4 = objc_msgSend_count(oldFilteredIndexes, a2);
   updatedFilteredIndexes = [(PLFilteredAlbumChangeNotification *)self updatedFilteredIndexes];
-  v6 = v4 != [updatedFilteredIndexes count];
+  v6 = v4 != objc_msgSend_count(updatedFilteredIndexes);
 
   return v6;
 }

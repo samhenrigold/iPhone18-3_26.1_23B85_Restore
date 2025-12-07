@@ -10,9 +10,12 @@
 - (void)_updateFilteredListForClient:(id)client forConnection:(id)connection;
 - (void)_updateFilteredListForClient:(id)client forEndpoint:(id)endpoint connection:(id)connection;
 - (void)accessoryConnectionAttached:(id)attached type:(int)type info:(id)info properties:(id)properties;
+- (void)accessoryConnectionAttached:(id)attached type:(int)type info:(id)info properties:(id)properties forClient:(id)client;
 - (void)accessoryConnectionDetached:(id)detached;
 - (void)accessoryConnectionDetached:(id)detached forClient:(id)client;
 - (void)accessoryConnectionInfoPropertyChanged:(id)changed properties:(id)properties;
+- (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection;
+- (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection forClient:(id)client;
 - (void)accessoryEndpointDetached:(id)detached forConnection:(id)connection;
 - (void)accessoryEndpointDetached:(id)detached forConnection:(id)connection forClient:(id)client;
 - (void)accessoryEndpointInfoPropertyChanged:(id)changed properties:(id)properties forConnection:(id)connection;
@@ -978,6 +981,107 @@ id __62__ACCConnectionInfoServer_listener_shouldAcceptNewConnection___block_invo
   }
 }
 
+- (void)accessoryConnectionAttached:(id)attached type:(int)type info:(id)info properties:(id)properties forClient:(id)client
+{
+  v10 = *&type;
+  attachedCopy = attached;
+  infoCopy = info;
+  propertiesCopy = properties;
+  clientCopy = client;
+  v16 = [(ACCConnectionInfoServer *)self accessoryConnectionFiltered:attachedCopy forClient:clientCopy];
+  if (gLogObjects)
+  {
+    v17 = gNumLogObjects <= 8;
+  }
+
+  else
+  {
+    v17 = 1;
+  }
+
+  v18 = !v17;
+  if (v16)
+  {
+    if (v18)
+    {
+      xPCConnection = *(gLogObjects + 64);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      xPCConnection = &_os_log_default;
+      v21 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(xPCConnection, OS_LOG_TYPE_DEBUG))
+    {
+      [ACCConnectionInfoServer accessoryConnectionAttached:type:info:properties:forClient:];
+    }
+  }
+
+  else
+  {
+    if (v18)
+    {
+      v20 = *(gLogObjects + 64);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v20 = &_os_log_default;
+      v22 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    {
+      [ACCConnectionInfoServer accessoryConnectionAttached:type:info:properties:forClient:];
+    }
+
+    clientUID = [clientCopy clientUID];
+
+    if (clientUID)
+    {
+      xPCConnection = [clientCopy XPCConnection];
+      v24 = [xPCConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_3];
+      [v24 accessoryConnectionAttached:attachedCopy type:v10 info:infoCopy properties:propertiesCopy];
+    }
+
+    else
+    {
+      if (gLogObjects && gNumLogObjects >= 9)
+      {
+        xPCConnection = *(gLogObjects + 64);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          platform_connectionInfo_configStreamGetCategories_cold_2();
+        }
+
+        xPCConnection = &_os_log_default;
+        v25 = &_os_log_default;
+      }
+
+      if (os_log_type_enabled(xPCConnection, OS_LOG_TYPE_DEBUG))
+      {
+        [ACCConnectionInfoServer accessoryConnectionAttached:type:info:properties:forClient:];
+      }
+    }
+  }
+}
+
 void __86__ACCConnectionInfoServer_accessoryConnectionAttached_type_info_properties_forClient___block_invoke(id a1, NSError *a2)
 {
   v2 = a2;
@@ -1275,6 +1379,329 @@ void __65__ACCConnectionInfoServer_accessoryConnectionDetached_forClient___block
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __86__ACCConnectionInfoServer_accessoryConnectionAttached_type_info_properties_forClient___block_invoke_cold_2();
+  }
+}
+
+- (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection
+{
+  v9 = *&type;
+  attachedCopy = attached;
+  propertiesCopy = properties;
+  connectionCopy = connection;
+  if (gLogObjects)
+  {
+    v12 = gNumLogObjects < 9;
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  if (v12)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v14 = &_os_log_default;
+    v13 = &_os_log_default;
+  }
+
+  else
+  {
+    v14 = *(gLogObjects + 64);
+  }
+
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  {
+    v15 = [(NSMutableSet *)self->_clientConnections count];
+    *buf = 138412802;
+    v49 = attachedCopy;
+    v50 = 2112;
+    v51 = connectionCopy;
+    v52 = 2048;
+    v53 = v15;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "sending accessoryEndpointAttached for endpointUUID %@, connectionUUID %@, to %lu clients", buf, 0x20u);
+  }
+
+  connectedAccessoryLock = [(ACCConnectionInfoServer *)self connectedAccessoryLock];
+  [connectedAccessoryLock lock];
+
+  v17 = [(NSMutableDictionary *)self->_endpoints objectForKey:connectionCopy];
+  if (!v17)
+  {
+    v17 = objc_alloc_init(NSMutableSet);
+    [(NSMutableDictionary *)self->_endpoints setObject:v17 forKey:connectionCopy];
+  }
+
+  if (([(NSMutableDictionary *)v17 containsObject:attachedCopy]& 1) == 0)
+  {
+    [(NSMutableDictionary *)v17 addObject:attachedCopy];
+    if (gLogObjects && gNumLogObjects >= 9)
+    {
+      v18 = *(gLogObjects + 64);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v18 = &_os_log_default;
+      v19 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412802;
+      v49 = attachedCopy;
+      v50 = 2112;
+      v51 = connectionCopy;
+      v52 = 2112;
+      v53 = v17;
+      _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "accessoryEndpointAttached:%@, connectionUUID %@, added to endpointSet %@ ", buf, 0x20u);
+    }
+  }
+
+  v39 = v17;
+  if (gLogObjects && gNumLogObjects >= 9)
+  {
+    v20 = *(gLogObjects + 64);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v20 = &_os_log_default;
+    v21 = &_os_log_default;
+  }
+
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    endpoints = self->_endpoints;
+    *buf = 138412802;
+    v49 = attachedCopy;
+    v50 = 2112;
+    v51 = connectionCopy;
+    v52 = 2112;
+    v53 = endpoints;
+    _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "accessoryEndpointAttached:%@, connectionUUID %@, endpoints %@ ", buf, 0x20u);
+  }
+
+  connectedAccessoryLock2 = [(ACCConnectionInfoServer *)self connectedAccessoryLock];
+  [connectedAccessoryLock2 unlock];
+
+  clientListLock = [(ACCConnectionInfoServer *)self clientListLock];
+  [clientListLock lock];
+
+  v24 = [(NSMutableSet *)self->_clientConnections copy];
+  clientListLock2 = [(ACCConnectionInfoServer *)self clientListLock];
+  [clientListLock2 unlock];
+
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v26 = v24;
+  v27 = [v26 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  if (v27)
+  {
+    v28 = v27;
+    v29 = *v44;
+    do
+    {
+      for (i = 0; i != v28; i = i + 1)
+      {
+        if (*v44 != v29)
+        {
+          objc_enumerationMutation(v26);
+        }
+
+        v31 = *(*(&v43 + 1) + 8 * i);
+        clientUID = [v31 clientUID];
+
+        if (clientUID)
+        {
+          [(ACCConnectionInfoServer *)self updateFilteredListForClient:v31];
+          [(ACCConnectionInfoServer *)self accessoryEndpointAttached:attachedCopy transportType:v9 protocol:protocol properties:propertiesCopy forConnection:connectionCopy forClient:v31];
+        }
+
+        else
+        {
+          v33 = gLogObjects;
+          v34 = gNumLogObjects;
+          if (gLogObjects)
+          {
+            v35 = gNumLogObjects < 9;
+          }
+
+          else
+          {
+            v35 = 1;
+          }
+
+          if (v35)
+          {
+            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 134218240;
+              v49 = v33;
+              v50 = 1024;
+              LODWORD(v51) = v34;
+              _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+            }
+
+            v36 = &_os_log_default;
+            v37 = &_os_log_default;
+          }
+
+          else
+          {
+            v37 = *(gLogObjects + 64);
+          }
+
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "skip processing unregistered client", buf, 2u);
+          }
+        }
+      }
+
+      v28 = [v26 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    }
+
+    while (v28);
+  }
+}
+
+- (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection forClient:(id)client
+{
+  v11 = *&protocol;
+  v12 = *&type;
+  attachedCopy = attached;
+  propertiesCopy = properties;
+  connectionCopy = connection;
+  clientCopy = client;
+  v18 = [(ACCConnectionInfoServer *)self accessoryEndpointFiltered:attachedCopy forConnection:connectionCopy forClient:clientCopy];
+  if (gLogObjects)
+  {
+    v19 = gNumLogObjects <= 8;
+  }
+
+  else
+  {
+    v19 = 1;
+  }
+
+  v20 = !v19;
+  if (v18)
+  {
+    if (v20)
+    {
+      xPCConnection = *(gLogObjects + 64);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      xPCConnection = &_os_log_default;
+      v23 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(xPCConnection, OS_LOG_TYPE_DEBUG))
+    {
+      clientUID = [clientCopy clientUID];
+      clientBundleID = [clientCopy clientBundleID];
+      *buf = 138413058;
+      v33 = attachedCopy;
+      v34 = 2112;
+      v35 = connectionCopy;
+      v36 = 2112;
+      v37 = clientUID;
+      v38 = 2112;
+      v39 = clientBundleID;
+      _os_log_debug_impl(&_mh_execute_header, xPCConnection, OS_LOG_TYPE_DEBUG, "Skip sending filtered accessoryEndpointAttached for endpointUUID %@, connectionUUID %@, to client %@ (%@)", buf, 0x2Au);
+    }
+  }
+
+  else
+  {
+    if (v20)
+    {
+      v22 = *(gLogObjects + 64);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v22 = &_os_log_default;
+      v26 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    {
+      clientUID2 = [clientCopy clientUID];
+      [clientCopy clientBundleID];
+      *buf = 138413058;
+      v33 = attachedCopy;
+      v34 = 2112;
+      v35 = connectionCopy;
+      v36 = 2112;
+      v37 = clientUID2;
+      v39 = v38 = 2112;
+      v30 = v39;
+      _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "sending accessoryEndpointAttached for endpointUUID %@, connectionUUID %@, to client %@ (%@)", buf, 0x2Au);
+    }
+
+    clientUID3 = [clientCopy clientUID];
+
+    if (clientUID3)
+    {
+      xPCConnection = [clientCopy XPCConnection];
+      v28 = [xPCConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_208];
+      [v28 accessoryEndpointAttached:attachedCopy transportType:v12 protocol:v11 properties:propertiesCopy forConnection:connectionCopy];
+    }
+
+    else
+    {
+      if (gLogObjects && gNumLogObjects >= 9)
+      {
+        xPCConnection = *(gLogObjects + 64);
+      }
+
+      else
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          platform_connectionInfo_configStreamGetCategories_cold_2();
+        }
+
+        xPCConnection = &_os_log_default;
+        v29 = &_os_log_default;
+      }
+
+      if (os_log_type_enabled(xPCConnection, OS_LOG_TYPE_DEBUG))
+      {
+        [ACCConnectionInfoServer accessoryConnectionAttached:type:info:properties:forClient:];
+      }
+    }
   }
 }
 
@@ -1836,7 +2263,7 @@ LABEL_27:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [(ACCConnectionInfoServer *)clientCopy updateFilteredListForClient:v12];
+    [ACCConnectionInfoServer updateFilteredListForClient:];
   }
 }
 
@@ -2025,7 +2452,7 @@ LABEL_27:
 
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
   {
-    [ACCConnectionInfoServer _updateFilteredListForClient:clientCopy forConnection:v32];
+    [ACCConnectionInfoServer _updateFilteredListForClient:forConnection:];
   }
 }
 
@@ -2197,7 +2624,7 @@ LABEL_27:
 
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    [ACCConnectionInfoServer _updateFilteredListForClient:clientCopy forEndpoint:v28 connection:?];
+    [ACCConnectionInfoServer _updateFilteredListForClient:forEndpoint:connection:];
   }
 }
 
@@ -3720,6 +4147,21 @@ void __86__ACCConnectionInfoServer_accessoryConnectionAttached_type_info_propert
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
 }
 
+- (void)updateFilteredListForClient:.cold.2()
+{
+  OUTLINED_FUNCTION_17_7();
+  v1 = v0;
+  v2 = [v0 clientUID];
+  v3 = [v1 clientBundleID];
+  v4 = [v1 accessoryFilterDictionary];
+  v5 = [v1 filteredAccessories];
+  v6 = [v1 filteredEndpoints];
+  OUTLINED_FUNCTION_5_7();
+  OUTLINED_FUNCTION_9_4(&_mh_execute_header, v7, v8, "updateFilteredListForClient:%@ (%@), filter %@, filteredAccessories %@, filteredEndpoints %@", v9, v10, v11, v12);
+
+  OUTLINED_FUNCTION_16_4();
+}
+
 - (void)_updateFilteredListForClient:forConnection:.cold.3()
 {
   OUTLINED_FUNCTION_17_7();
@@ -3752,6 +4194,21 @@ void __86__ACCConnectionInfoServer_accessoryConnectionAttached_type_info_propert
   OUTLINED_FUNCTION_16_4();
 }
 
+- (void)_updateFilteredListForClient:forConnection:.cold.8()
+{
+  OUTLINED_FUNCTION_17_7();
+  v1 = v0;
+  v2 = [v0 clientUID];
+  v3 = [v1 clientBundleID];
+  v4 = [v1 accessoryFilterDictionary];
+  v5 = [v1 filteredAccessories];
+  v6 = [v1 filteredEndpoints];
+  OUTLINED_FUNCTION_5_7();
+  OUTLINED_FUNCTION_9_4(&_mh_execute_header, v7, v8, "updateFilteredListForClient:%@ (%@) forConnection:, filter %@, filteredAccessories %@, filteredEndpoints %@", v9, v10, v11, v12);
+
+  OUTLINED_FUNCTION_16_4();
+}
+
 - (void)_updateFilteredListForClient:forEndpoint:connection:.cold.4()
 {
   OUTLINED_FUNCTION_17_7();
@@ -3780,6 +4237,21 @@ void __86__ACCConnectionInfoServer_accessoryConnectionAttached_type_info_propert
   OUTLINED_FUNCTION_2_13();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
+
+  OUTLINED_FUNCTION_16_4();
+}
+
+- (void)_updateFilteredListForClient:forEndpoint:connection:.cold.8()
+{
+  OUTLINED_FUNCTION_17_7();
+  v1 = v0;
+  v2 = [v0 clientUID];
+  v3 = [v1 clientBundleID];
+  v4 = [v1 accessoryFilterDictionary];
+  v5 = [v1 filteredAccessories];
+  v6 = [v1 filteredEndpoints];
+  OUTLINED_FUNCTION_5_7();
+  OUTLINED_FUNCTION_9_4(&_mh_execute_header, v7, v8, "updateFilteredListForClient:%@ (%@) forEndpoint:connection:, filter %@, filteredAccessories %@, filteredEndpoints %@", v9, v10, v11, v12);
 
   OUTLINED_FUNCTION_16_4();
 }

@@ -93,26 +93,59 @@
 
 - (void)_execute
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error archiving subsequent _CDFTCPInteraction data collection session: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "Data collection for _CDFTCPInteraction task will execute %td queries against the interaction store", v1, 0xCu);
 }
 
 - (void)cleanup
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error remove previous session file (_CDFTCPInteraction data collection): %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
+  if ([(_CDFTCPInteractionDataCollectionTask *)self deleteSessionOnCleanup])
+  {
+    defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    sessionPath = [(_CDFTCPInteractionDataCollectionTask *)self sessionPath];
+    v11 = 0;
+    [defaultManager removeItemAtPath:sessionPath error:&v11];
+    v5 = v11;
 
-- (void)initWithStore:activity:sessionPath:collectionDate:samplingRate:maxBatches:daysPerBatch:twoWeekPeriodsInLookback:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error unarchiving _CDFTCPInteraction data collection session: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+    if (!v5)
+    {
+LABEL_12:
+
+      return;
+    }
+
+    userInfo = [v5 userInfo];
+    v7 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
+
+    if (v7)
+    {
+      domain = [v7 domain];
+      if ([domain isEqualToString:*MEMORY[0x1E696A798]])
+      {
+        code = [v7 code];
+
+        if (code == 2)
+        {
+          goto LABEL_11;
+        }
+      }
+
+      else
+      {
+      }
+
+      v10 = +[_CDLogging dataCollectionChannel];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        [_CDFTCPInteractionDataCollectionTask cleanup];
+      }
+    }
+
+LABEL_11:
+
+    goto LABEL_12;
+  }
 }
 
 @end

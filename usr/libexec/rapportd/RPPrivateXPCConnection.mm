@@ -39,10 +39,10 @@
   else if (error)
   {
 LABEL_9:
-    v9 = RPErrorF();
-    v10 = v9;
+    v15 = RPErrorF(4294896128, "Missing entitlement '%@'", v9, v10, v11, v12, v13, v14, @"com.apple.rapport");
+    v16 = v15;
     result = 0;
-    *error = v9;
+    *error = v15;
     return result;
   }
 
@@ -56,7 +56,7 @@ LABEL_9:
   {
     if (dword_1001D4A70 < 31 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
     {
-      sub_100126F50(&self->_xpcCnx);
+      sub_100126F50(&self->_xpcCnx, v3);
     }
 
     if (!self->_direct)
@@ -73,7 +73,7 @@ LABEL_9:
   {
     if (dword_1001D4A70 < 31 && (dword_1001D4A70 != -1 || _LogCategory_Initialize()))
     {
-      sub_100126F50(&self->_xpcCnx);
+      sub_100126F50(&self->_xpcCnx, v5);
     }
 
     if (!self->_direct)

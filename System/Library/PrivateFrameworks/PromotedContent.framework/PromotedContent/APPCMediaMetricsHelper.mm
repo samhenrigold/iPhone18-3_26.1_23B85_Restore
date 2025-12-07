@@ -69,7 +69,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1C1AC0530(v7);
+  sub_1C1AC0530(v7, v8);
 }
 
 - (void)setVisiblePercentage:(int64_t)percentage

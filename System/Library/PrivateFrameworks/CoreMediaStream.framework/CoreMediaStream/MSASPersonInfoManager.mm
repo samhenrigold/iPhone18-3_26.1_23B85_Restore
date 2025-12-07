@@ -127,7 +127,7 @@ void __38__MSASPersonInfoManager_sharedManager__block_invoke(uint64_t a1)
 
 - (BOOL)updateWithSharingRelationship:(id)relationship
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   relationshipCopy = relationship;
   personID = [relationshipCopy personID];
   if (personID)
@@ -143,9 +143,9 @@ void __38__MSASPersonInfoManager_sharedManager__block_invoke(uint64_t a1)
       v8 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
     }
 
-    v22 = [v8 objectForKey:kMSASPersonInfoFirstNameKey];
+    v21 = [v8 objectForKey:kMSASPersonInfoFirstNameKey];
     firstName = [relationshipCopy firstName];
-    if (firstName && ([v22 isEqualToString:firstName] & 1) == 0)
+    if (firstName && ([v21 isEqualToString:firstName] & 1) == 0)
     {
       [v8 setObject:firstName forKey:kMSASPersonInfoFirstNameKey];
       v9 = 1;
@@ -156,17 +156,17 @@ void __38__MSASPersonInfoManager_sharedManager__block_invoke(uint64_t a1)
       v9 = 0;
     }
 
-    v21 = [v8 objectForKey:kMSASPersonInfoLastNameKey];
+    v20 = [v8 objectForKey:kMSASPersonInfoLastNameKey];
     lastName = [relationshipCopy lastName];
-    if (lastName && ([v21 isEqualToString:lastName] & 1) == 0)
+    if (lastName && ([v20 isEqualToString:lastName] & 1) == 0)
     {
       [v8 setObject:lastName forKey:kMSASPersonInfoLastNameKey];
       v9 = 1;
     }
 
-    v20 = [v8 objectForKey:kMSASPersonInfoFullNameKey];
+    v19 = [v8 objectForKey:kMSASPersonInfoFullNameKey];
     fullName = [relationshipCopy fullName];
-    if (fullName && ([v20 isEqualToString:fullName] & 1) == 0)
+    if (fullName && ([v19 isEqualToString:fullName] & 1) == 0)
     {
       [v8 setObject:fullName forKey:kMSASPersonInfoFullNameKey];
       v9 = 1;
@@ -195,11 +195,11 @@ LABEL_24:
       personIDToPersonInfoDictionary = selfCopy->_personIDToPersonInfoDictionary;
       pathForPersonInfoDictionary = v15->_pathForPersonInfoDictionary;
       *buf = 138543874;
-      v25 = v15;
-      v26 = 2114;
-      v27 = personIDToPersonInfoDictionary;
-      v28 = 2112;
-      v29 = pathForPersonInfoDictionary;
+      v24 = v15;
+      v25 = 2114;
+      v26 = personIDToPersonInfoDictionary;
+      v27 = 2112;
+      v28 = pathForPersonInfoDictionary;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to save personIDToPersonInfo dictionary %{public}@ to %@.", buf, 0x20u);
     }
 
@@ -212,7 +212,6 @@ LABEL_24:
   v10 = 0;
 LABEL_25:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

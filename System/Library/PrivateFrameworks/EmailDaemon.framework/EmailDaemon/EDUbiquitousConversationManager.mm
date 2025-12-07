@@ -165,15 +165,15 @@ void __71__EDUbiquitousConversationManager_syncKeyForUpdatedConversation_flags__
 
 - (void)setFlags:(unint64_t)flags forConversations:(id)conversations
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   conversationsCopy = conversations;
   v7 = +[EDUbiquitousConversationManager log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     flagsCopy = flags;
-    v17 = 2112;
-    v18 = conversationsCopy;
+    v16 = 2112;
+    v17 = conversationsCopy;
     _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Setting conversation flags %llu for conversations: %@", buf, 0x16u);
   }
 
@@ -182,13 +182,11 @@ void __71__EDUbiquitousConversationManager_syncKeyForUpdatedConversation_flags__
   block[1] = 3221225472;
   block[2] = __61__EDUbiquitousConversationManager_setFlags_forConversations___block_invoke;
   block[3] = &unk_1E8251A78;
-  v12 = conversationsCopy;
+  v11 = conversationsCopy;
   selfCopy = self;
   flagsCopy2 = flags;
   v9 = conversationsCopy;
   dispatch_async(queue, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__EDUbiquitousConversationManager_setFlags_forConversations___block_invoke(uint64_t a1)
@@ -207,7 +205,7 @@ uint64_t __61__EDUbiquitousConversationManager_setFlags_forConversations___block
 
 void __61__EDUbiquitousConversationManager_setFlags_forConversations___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 longLongValue];
@@ -237,13 +235,13 @@ LABEL_19:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           v16 = *(a1 + 40);
-          v32 = 138412802;
-          v33 = v5;
-          v34 = 2048;
-          v35 = v8;
-          v36 = 2048;
-          v37 = v16;
-          _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "modifying %@ (conversationID: %lld): flags = %llu", &v32, 0x20u);
+          v31 = 138412802;
+          v32 = v5;
+          v33 = 2048;
+          v34 = v8;
+          v35 = 2048;
+          v36 = v16;
+          _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "modifying %@ (conversationID: %lld): flags = %llu", &v31, 0x20u);
         }
 
         v17 = [*(a1 + 32) delegate];
@@ -253,9 +251,9 @@ LABEL_19:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           v20 = [v18 count];
-          v32 = 134217984;
-          v33 = v20;
-          _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "found %lu message ids for conversation", &v32, 0xCu);
+          v31 = 134217984;
+          v32 = v20;
+          _os_log_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEFAULT, "found %lu message ids for conversation", &v31, 0xCu);
         }
 
         v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(a1 + 40)];
@@ -272,11 +270,11 @@ LABEL_19:
         v30 = +[EDUbiquitousConversationManager log];
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v32 = 138412546;
-          v33 = v5;
-          v34 = 2048;
-          v35 = v8;
-          _os_log_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_DEFAULT, "delete %@ (conversationID: %lld)", &v32, 0x16u);
+          v31 = 138412546;
+          v32 = v5;
+          v33 = 2048;
+          v34 = v8;
+          _os_log_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_DEFAULT, "delete %@ (conversationID: %lld)", &v31, 0x16u);
         }
 
         [*(a1 + 32) _setCloudStorageValue:0 forKey:v5];
@@ -297,9 +295,9 @@ LABEL_19:
       v25 = +[EDUbiquitousConversationManager log];
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 134217984;
-        v33 = [v18 count];
-        _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "found %lu message ids for conversation", &v32, 0xCu);
+        v31 = 134217984;
+        v32 = [v18 count];
+        _os_log_impl(&dword_1C61EF000, v25, OS_LOG_TYPE_DEFAULT, "found %lu message ids for conversation", &v31, 0xCu);
       }
 
       v26 = [v18 componentsJoinedByString:@" "];
@@ -308,11 +306,11 @@ LABEL_19:
       v27 = +[EDUbiquitousConversationManager log];
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = 138412546;
-        v33 = v5;
-        v34 = 2112;
-        v35 = v11;
-        _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "creating new cloud entry %@: %@", &v32, 0x16u);
+        v31 = 138412546;
+        v32 = v5;
+        v33 = 2112;
+        v34 = v11;
+        _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "creating new cloud entry %@: %@", &v31, 0x16u);
       }
 
       [*(a1 + 32) _setCloudStorageValue:v11 forKey:v5];
@@ -325,8 +323,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setCloudStorageValue:(id)value forKey:(id)key
@@ -351,28 +347,28 @@ LABEL_20:
 
 - (id)_syncKeyForConversationID:(int64_t)d
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   conversationIDsBySyncKey = [(EDUbiquitousConversationManager *)self conversationIDsBySyncKey];
   allKeys = [conversationIDsBySyncKey allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         conversationIDsBySyncKey2 = [(EDUbiquitousConversationManager *)self conversationIDsBySyncKey];
         v12 = [conversationIDsBySyncKey2 objectForKeyedSubscript:v10];
         v13 = [v12 longLongValue] == d;
@@ -384,7 +380,7 @@ LABEL_20:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -397,14 +393,12 @@ LABEL_20:
   v14 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (BOOL)_synchronize
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   cloudStorage = [(EDUbiquitousConversationManager *)self cloudStorage];
   synchronize = [cloudStorage synchronize];
 
@@ -419,53 +413,50 @@ LABEL_11:
       v8 = @"succeeded";
     }
 
-    v11 = 138412546;
-    v12 = v8;
-    v13 = 2112;
-    v14 = cloudStorage2;
-    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Synchronizing with cloud store %@: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = cloudStorage2;
+    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Synchronizing with cloud store %@: %@", &v10, 0x16u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return synchronize;
 }
 
 - (void)_mergeServerChanges:(id)changes
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   v5 = +[EDUbiquitousConversationManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = changesCopy;
+    v17 = changesCopy;
     _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Merging server changes: %@", buf, 0xCu);
   }
 
   conversationIDsBySyncKey = [(EDUbiquitousConversationManager *)self conversationIDsBySyncKey];
   allKeys = [conversationIDsBySyncKey allKeys];
 
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __55__EDUbiquitousConversationManager__mergeServerChanges___block_invoke;
-  v14 = &unk_1E8256300;
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __55__EDUbiquitousConversationManager__mergeServerChanges___block_invoke;
+  v13 = &unk_1E8256300;
   selfCopy = self;
   v8 = allKeys;
-  v16 = v8;
-  [changesCopy enumerateKeysAndObjectsUsingBlock:&v11];
-  v9 = [EDUbiquitousConversationManager log:v11];
+  v15 = v8;
+  [changesCopy enumerateKeysAndObjectsUsingBlock:&v10];
+  v9 = [EDUbiquitousConversationManager log:v10];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Finished merging server changes", buf, 2u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __55__EDUbiquitousConversationManager__mergeServerChanges___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) conversationIDsBySyncKey];
@@ -479,9 +470,9 @@ void __55__EDUbiquitousConversationManager__mergeServerChanges___block_invoke(ui
     v23 = +[EDUbiquitousConversationManager log];
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = 134217984;
-      v36 = v9;
-      _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "Server change. Clearing conversation flags for conversation: %lld", &v35, 0xCu);
+      v34 = 134217984;
+      v35 = v9;
+      _os_log_impl(&dword_1C61EF000, v23, OS_LOG_TYPE_DEFAULT, "Server change. Clearing conversation flags for conversation: %lld", &v34, 0xCu);
     }
 
     v24 = *(a1 + 32);
@@ -524,13 +515,13 @@ void __55__EDUbiquitousConversationManager__mergeServerChanges___block_invoke(ui
         v21 = +[EDUbiquitousConversationManager log];
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = 134218496;
-          v36 = v9;
-          v37 = 2048;
-          v38 = v15;
-          v39 = 2048;
-          v40 = v20;
-          _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Server change. Updating conversation flags for conversation: %lld. Old flags %llu new flags %llu", &v35, 0x20u);
+          v34 = 134218496;
+          v35 = v9;
+          v36 = 2048;
+          v37 = v15;
+          v38 = 2048;
+          v39 = v20;
+          _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Server change. Updating conversation flags for conversation: %lld. Old flags %llu new flags %llu", &v34, 0x20u);
         }
 
         if (v15 == v20)
@@ -550,9 +541,9 @@ void __55__EDUbiquitousConversationManager__mergeServerChanges___block_invoke(ui
         v27 = +[EDUbiquitousConversationManager log];
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = 134217984;
-          v36 = v9;
-          _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "Server change. Setting conversation flags for conversation: %lld", &v35, 0xCu);
+          v34 = 134217984;
+          v35 = v9;
+          _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "Server change. Setting conversation flags for conversation: %lld", &v34, 0xCu);
         }
 
         if (v9 == *v18)
@@ -560,8 +551,8 @@ void __55__EDUbiquitousConversationManager__mergeServerChanges___block_invoke(ui
           v28 = +[EDUbiquitousConversationManager log];
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v35) = 0;
-            _os_log_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEFAULT, "could not find a conversation that matched those message ids", &v35, 2u);
+            LOWORD(v34) = 0;
+            _os_log_impl(&dword_1C61EF000, v28, OS_LOG_TYPE_DEFAULT, "could not find a conversation that matched those message ids", &v34, 2u);
           }
 
           v22 = [*(a1 + 32) unmatchedKeys];
@@ -573,9 +564,9 @@ void __55__EDUbiquitousConversationManager__mergeServerChanges___block_invoke(ui
           v29 = +[EDUbiquitousConversationManager log];
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            v35 = 134217984;
-            v36 = v9;
-            _os_log_impl(&dword_1C61EF000, v29, OS_LOG_TYPE_DEFAULT, "found conversation %lld", &v35, 0xCu);
+            v34 = 134217984;
+            v35 = v9;
+            _os_log_impl(&dword_1C61EF000, v29, OS_LOG_TYPE_DEFAULT, "found conversation %lld", &v34, 0xCu);
           }
 
           v30 = [*(a1 + 32) delegate];
@@ -593,9 +584,9 @@ LABEL_25:
         v32 = +[EDUbiquitousConversationManager log];
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = 134217984;
-          v36 = v9;
-          _os_log_impl(&dword_1C61EF000, v32, OS_LOG_TYPE_DEFAULT, "Updating message ids for conversation %lld", &v35, 0xCu);
+          v34 = 134217984;
+          v35 = v9;
+          _os_log_impl(&dword_1C61EF000, v32, OS_LOG_TYPE_DEFAULT, "Updating message ids for conversation %lld", &v34, 0xCu);
         }
 
         v33 = [*(a1 + 32) delegate];
@@ -613,48 +604,45 @@ LABEL_25:
   }
 
 LABEL_30:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pruneDatabasePurgingOldestEntries:(BOOL)entries
 {
   entriesCopy = entries;
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = +[EDUbiquitousConversationManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = entriesCopy;
+    v10 = entriesCopy;
     _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Pruning database. Purging oldest entries %d", buf, 8u);
   }
 
   queue = self->_queue;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke;
-  v8[3] = &unk_1E8256800;
-  v8[4] = self;
-  v9 = entriesCopy;
-  dispatch_async(queue, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke;
+  v7[3] = &unk_1E8256800;
+  v7[4] = self;
+  v8 = entriesCopy;
+  dispatch_async(queue, v7);
 }
 
 void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v38 = *MEMORY[0x1E69E9840];
+  v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v2 = [*(a1 + 32) cloudStorage];
   v3 = [v2 dictionaryRepresentation];
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke_2;
-  v36[3] = &unk_1E8251F88;
-  v4 = v27;
-  v37 = v4;
-  v28 = v3;
-  [v3 enumerateKeysAndObjectsUsingBlock:v36];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke_2;
+  v35[3] = &unk_1E8251F88;
+  v4 = v26;
+  v36 = v4;
+  v27 = v3;
+  [v3 enumerateKeysAndObjectsUsingBlock:v35];
   v5 = [v3 keysOfEntriesPassingTest:&__block_literal_global_96];
   v6 = [v5 allObjects];
   [v4 addObjectsFromArray:v6];
@@ -662,13 +650,13 @@ void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___b
   if (*(a1 + 40) == 1)
   {
     v7 = [MEMORY[0x1E695DF70] array];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke_34;
-    v34[3] = &unk_1E8255B38;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke_34;
+    v33[3] = &unk_1E8255B38;
     v8 = v7;
-    v35 = v8;
-    [v3 enumerateKeysAndObjectsUsingBlock:v34];
+    v34 = v8;
+    [v3 enumerateKeysAndObjectsUsingBlock:v33];
     v9 = [v8 sortedArrayUsingComparator:&__block_literal_global_42_2];
     v10 = [v9 count];
     if (v10 >= 0xA)
@@ -692,25 +680,25 @@ void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___b
   if ([v4 count])
   {
     v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v16 = v4;
-    v17 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v17)
     {
-      v18 = *v31;
+      v18 = *v30;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v31 != v18)
+          if (*v30 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v30 + 1) + 8 * i);
+          v20 = *(*(&v29 + 1) + 8 * i);
           v21 = [*(a1 + 32) conversationIDsBySyncKey];
           v22 = [v21 objectForKeyedSubscript:v20];
 
@@ -724,7 +712,7 @@ void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___b
           [*(a1 + 32) _setCloudStorageValue:0 forKey:v20];
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v17);
@@ -743,13 +731,11 @@ void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___b
   block[3] = &unk_1E8250260;
   block[4] = *(a1 + 32);
   dispatch_async(v25, block);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 objectForKeyedSubscript:@"flags"];
@@ -760,15 +746,13 @@ void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___b
     v9 = +[EDUbiquitousConversationManager log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "deleting entry with flag value of zero: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "deleting entry with flag value of zero: %@", &v10, 0xCu);
     }
 
     [*(a1 + 32) addObject:v5];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke_32(uint64_t a1, uint64_t a2, void *a3)
@@ -797,19 +781,17 @@ BOOL __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___b
 
 void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke_34(uint64_t a1, void *a2, void *a3)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 objectForKeyedSubscript:@"last-modified"];
   v8 = *(a1 + 32);
-  v11[0] = @"key";
-  v11[1] = @"last-modified";
-  v12[0] = v5;
-  v12[1] = v7;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[0] = @"key";
+  v10[1] = @"last-modified";
+  v11[0] = v5;
+  v11[1] = v7;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   [v8 addObject:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___block_invoke_2_39(uint64_t a1, void *a2, void *a3)
@@ -834,16 +816,16 @@ void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___b
 
 - (void)conversationRemoteStorage:(id)storage didChangeEntries:(id)entries reason:(int64_t)reason
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   entriesCopy = entries;
   v10 = +[EDUbiquitousConversationManager log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v17 = storageCopy;
-    v18 = 2112;
-    v19 = entriesCopy;
+    v16 = storageCopy;
+    v17 = 2112;
+    v18 = entriesCopy;
     _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Conversation Remote Storage %{public}@ did change entries %@", buf, 0x16u);
   }
 
@@ -865,66 +847,62 @@ void __69__EDUbiquitousConversationManager_pruneDatabasePurgingOldestEntries___b
   else
   {
     queue = self->_queue;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __85__EDUbiquitousConversationManager_conversationRemoteStorage_didChangeEntries_reason___block_invoke;
-    v14[3] = &unk_1E8250128;
-    v14[4] = self;
-    v15 = entriesCopy;
-    dispatch_async(queue, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __85__EDUbiquitousConversationManager_conversationRemoteStorage_didChangeEntries_reason___block_invoke;
+    v13[3] = &unk_1E8250128;
+    v13[4] = self;
+    v14 = entriesCopy;
+    dispatch_async(queue, v13);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performDailyExportForChangedConversations:(id)conversations
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   conversationsCopy = conversations;
   v5 = +[EDUbiquitousConversationManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = conversationsCopy;
+    v12 = conversationsCopy;
     _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Perform daily export for changed conversations: %@", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __77__EDUbiquitousConversationManager_performDailyExportForChangedConversations___block_invoke;
-  v9[3] = &unk_1E8250128;
-  v10 = conversationsCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __77__EDUbiquitousConversationManager_performDailyExportForChangedConversations___block_invoke;
+  v8[3] = &unk_1E8250128;
+  v9 = conversationsCopy;
   selfCopy = self;
   v7 = conversationsCopy;
-  dispatch_sync(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_sync(queue, v8);
 }
 
 void __77__EDUbiquitousConversationManager_performDailyExportForChangedConversations___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+  v2 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
   if (v2)
   {
-    v37 = 0;
-    v3 = *v46;
+    v36 = 0;
+    v3 = *v45;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v46 != v3)
+        if (*v45 != v3)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = [*(*(&v45 + 1) + 8 * i) longLongValue];
+        v5 = [*(*(&v44 + 1) + 8 * i) longLongValue];
         v6 = [*(a1 + 40) _syncKeyForConversationID:v5];
         if (v6)
         {
@@ -941,17 +919,17 @@ void __77__EDUbiquitousConversationManager_performDailyExportForChangedConversat
           {
             [v9 setObject:v12 forKeyedSubscript:@"message-ids"];
             [*(a1 + 40) _setCloudStorageValue:v9 forKey:v6];
-            v37 = 1;
+            v36 = 1;
           }
         }
       }
 
-      v2 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
+      v2 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
     }
 
     while (v2);
 
-    if (v37)
+    if (v36)
     {
       [*(a1 + 40) _synchronize];
     }
@@ -962,28 +940,28 @@ void __77__EDUbiquitousConversationManager_performDailyExportForChangedConversat
   }
 
   obja = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v36 = [*(a1 + 40) unmatchedKeys];
-  v14 = [v36 countByEnumeratingWithState:&v41 objects:v51 count:16];
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v35 = [*(a1 + 40) unmatchedKeys];
+  v14 = [v35 countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v14)
   {
-    v16 = *v42;
-    v38 = *MEMORY[0x1E699A728];
+    v16 = *v41;
+    v37 = *MEMORY[0x1E699A728];
     *&v15 = 134217984;
-    v35 = v15;
+    v34 = v15;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v42 != v16)
+        if (*v41 != v16)
         {
-          objc_enumerationMutation(v36);
+          objc_enumerationMutation(v35);
         }
 
-        v18 = *(*(&v41 + 1) + 8 * j);
+        v18 = *(*(&v40 + 1) + 8 * j);
         v19 = [*(a1 + 40) cloudStorage];
         v20 = [v19 dictionaryForKey:v18];
 
@@ -995,7 +973,7 @@ void __77__EDUbiquitousConversationManager_performDailyExportForChangedConversat
           v23 = [*(a1 + 40) delegate];
           v24 = [v23 conversationIDForMessageIDs:v22];
 
-          if (v24 == v38)
+          if (v24 == v37)
           {
             v25 = +[EDUbiquitousConversationManager log];
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -1010,8 +988,8 @@ void __77__EDUbiquitousConversationManager_performDailyExportForChangedConversat
             v27 = +[EDUbiquitousConversationManager log];
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v35;
-              v50 = v24;
+              *buf = v34;
+              v49 = v24;
               _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "found conversation %lld", buf, 0xCu);
             }
 
@@ -1035,7 +1013,7 @@ void __77__EDUbiquitousConversationManager_performDailyExportForChangedConversat
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v50 = v18;
+            v49 = v18;
             _os_log_impl(&dword_1C61EF000, v26, OS_LOG_TYPE_DEFAULT, "Removing orphaned entry from unknwown leys set: %@", buf, 0xCu);
           }
 
@@ -1043,7 +1021,7 @@ void __77__EDUbiquitousConversationManager_performDailyExportForChangedConversat
         }
       }
 
-      v14 = [v36 countByEnumeratingWithState:&v41 objects:v51 count:16];
+      v14 = [v35 countByEnumeratingWithState:&v40 objects:v50 count:16];
     }
 
     while (v14);
@@ -1051,8 +1029,6 @@ void __77__EDUbiquitousConversationManager_performDailyExportForChangedConversat
 
   v33 = [*(a1 + 40) unmatchedKeys];
   [v33 ef_removeObjectsInArray:obja];
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (EDUbiquitousConversationManagerDelegate)delegate

@@ -9,7 +9,7 @@
 
 - (_TtC6HomeUI28UtilityDetailsViewController)initWithHome:(id)home details:(id)details
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81CE20);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81CE20, &unk_20D5BD520);
   v6 = sub_20D567758();
   *(&self->super.super.super.isa + OBJC_IVAR____TtC6HomeUI28UtilityDetailsViewController_home) = home;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC6HomeUI28UtilityDetailsViewController_details) = v6;

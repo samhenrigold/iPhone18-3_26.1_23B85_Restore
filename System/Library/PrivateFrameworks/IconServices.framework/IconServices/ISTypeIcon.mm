@@ -31,8 +31,8 @@
 
   if (!symbol)
   {
-    v5 = _ISDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _ISDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       type2 = [(ISTypeIcon *)self type];
       *buf = 138412290;
@@ -43,8 +43,6 @@
     v9.super_class = ISTypeIcon;
     symbol = [(ISConcreteIcon *)&v9 symbol];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return symbol;
 }
@@ -65,27 +63,28 @@
   {
     v5 = [objc_alloc(MEMORY[0x1E6963638]) initWithTypeIdentifier:self->_type];
     [v5 setBundleClassMask:2052];
-    v13 = 0;
-    v4 = [objc_alloc(MEMORY[0x1E6963630]) initWithConfiguration:v5 error:&v13];
-    v6 = v13;
+    v14 = 0;
+    v4 = [objc_alloc(MEMORY[0x1E6963630]) initWithConfiguration:v5 error:&v14];
+    v6 = v14;
+    v7 = v6;
     if (!v4)
     {
-      v7 = _ISDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = _ISDefaultLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        [(ISTagIcon *)v6 makeResourceProvider];
+        [(ISTagIcon *)v7 makeResourceProvider];
       }
     }
   }
 
   _IS_primaryFilenameExtension = [v3 _IS_primaryFilenameExtension];
-  v9 = [(ISBindableIcon *)self resourceProviderWithClaim:v4 typeRecord:v3 fileExtension:_IS_primaryFilenameExtension];
-  v10 = [ISIcon templateTypeForType:self->_type];
-  [v9 setTemplateType:v10];
+  v10 = [(ISBindableIcon *)self resourceProviderWithClaim:v4 typeRecord:v3 fileExtension:_IS_primaryFilenameExtension];
+  v11 = [ISIcon templateTypeForType:self->_type];
+  [v10 setTemplateType:v11];
   iconConfig = [(ISTypeIcon *)self iconConfig];
-  [v9 setIconConfig:iconConfig];
+  [v10 setIconConfig:iconConfig];
 
-  return v9;
+  return v10;
 }
 
 - (ISTypeIcon)initWithType:(id)type iconConfiguration:(id)configuration

@@ -18,7 +18,7 @@
     return (&gElementCategoriesEmbedded + 24 * index);
   }
 
-  _CUILog(1, "Error: index out of range for elementCategoryAtIndex:", v4, v5, v6, v7, v8, v9, v11);
+  _CUILog(1, "Error: index out of range for elementCategoryAtIndex:");
   return 0;
 }
 
@@ -29,7 +29,7 @@
     return &gElementDefinitionsEmbedded[444 * index];
   }
 
-  _CUILog(1, "Error: index out of range for elementDefinitionsAtIndex:", v4, v5, v6, v7, v8, v9, v11);
+  _CUILog(1, "Error: index out of range for elementDefinitionsAtIndex:");
   return 0;
 }
 
@@ -56,7 +56,7 @@
     return gElementDefinitionsEmbedded;
   }
 
-  _CUILog(1, "Unable to find elementDefinition for Name: %@", v5, v6, v7, v8, v9, v10, name);
+  _CUILog(1, "Unable to find elementDefinition for Name: %@", name);
   return 0;
 }
 
@@ -74,16 +74,16 @@
 
   if ([(_CUIiPhoneOSThemeSchema *)self elementCategoryCount])
   {
-    v11 = 0;
+    v5 = 0;
     while (1)
     {
-      result = [(_CUIiPhoneOSThemeSchema *)self elementCategoryAtIndex:v11];
+      result = [(_CUIiPhoneOSThemeSchema *)self elementCategoryAtIndex:v5];
       if (result->var0 == var3)
       {
         break;
       }
 
-      if (++v11 >= [(_CUIiPhoneOSThemeSchema *)self elementCategoryCount])
+      if (++v5 >= [(_CUIiPhoneOSThemeSchema *)self elementCategoryCount])
       {
         goto LABEL_8;
       }
@@ -93,7 +93,7 @@
   else
   {
 LABEL_8:
-    _CUILog(1, "Unable to find category definition for ID: %ld", v5, v6, v7, v8, v9, v10, var3);
+    _CUILog(1, "Unable to find category definition for ID: %ld", var3);
     return 0;
   }
 
@@ -107,7 +107,7 @@ LABEL_8:
     return &gEffectDefinitionsEmbedded[444 * index];
   }
 
-  _CUILog(1, "Error: index out of range for effectDefinitionAtIndex:", v4, v5, v6, v7, v8, v9, v11);
+  _CUILog(1, "Error: index out of range for effectDefinitionAtIndex:");
   return 0;
 }
 
@@ -134,7 +134,7 @@ LABEL_8:
     return gEffectDefinitionsEmbedded;
   }
 
-  _CUILog(1, "Unable to find elementDefinition for Name: %@", v5, v6, v7, v8, v9, v10, name);
+  _CUILog(1, "Unable to find elementDefinition for Name: %@", name);
   return 0;
 }
 

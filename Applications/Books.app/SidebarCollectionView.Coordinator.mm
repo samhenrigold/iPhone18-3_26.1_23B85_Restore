@@ -53,7 +53,7 @@
   selfCopy = self;
   if ([viewCopy isEditing])
   {
-    sub_1005243DC();
+    sub_1005243DC(v9, 1);
   }
 
   (*(v7 + 8))(v9, v6);
@@ -68,7 +68,7 @@
   sub_100796E14();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_100524824(viewCopy);
+  LOBYTE(self) = sub_100524824(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -83,7 +83,7 @@
   sub_100796E14();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1005274C4();
+  v13 = sub_1005274C4(v10);
 
   (*(v8 + 8))(v10, v7);
 
@@ -102,11 +102,11 @@
   v15 = &v22 - v14;
   sub_100796E14();
   sub_100796E14();
-  sub_1000229CC(&qword_100AE8DA8, &type metadata accessor for IndexPath);
+  sub_1000229CC(&qword_100AE8DA8, &type metadata accessor for IndexPath, &protocol conformance descriptor for IndexPath);
   selfCopy = self;
   if (sub_1007A28A4())
   {
-    v17 = sub_100525158();
+    v17 = sub_100525158(v9);
 
     if (v17)
     {
@@ -148,7 +148,7 @@
   sub_100796E14();
   viewCopy = view;
   selfCopy = self;
-  LOBYTE(self) = sub_100527790();
+  LOBYTE(self) = sub_100527790(v9);
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -156,7 +156,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = sub_1001F1160(&qword_100AECD00);
+  v9 = sub_1001F1160(&qword_100AECD00, &qword_10082F610);
   __chkstk_darwin(v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -178,7 +178,7 @@
   v16 = sub_100525848(viewCopy, update, v11);
 
   swift_unknownObjectRelease();
-  sub_100007840(v11, &qword_100AECD00);
+  sub_100007840(v11, &qword_100AECD00, &qword_10082F610);
 
   return v16;
 }
@@ -242,21 +242,21 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_1005263C4(editingCopy);
+  sub_1005263C4(editingCopy, 2);
 }
 
 - (void)searchBarSearchButtonClicked:(id)clicked
 {
   clickedCopy = clicked;
   selfCopy = self;
-  sub_1005263C4(clickedCopy);
+  sub_1005263C4(clickedCopy, 3);
 }
 
 - (void)searchBarCancelButtonClicked:(id)clicked
 {
   clickedCopy = clicked;
   selfCopy = self;
-  sub_1005263C4(clickedCopy);
+  sub_1005263C4(clickedCopy, 4);
 }
 
 - (void)textFieldDidEndEditing:(id)editing
@@ -277,7 +277,7 @@
 {
   cellCopy = cell;
   selfCopy = self;
-  sub_10052892C(cell);
+  sub_10052892C(cell, v6);
 }
 
 @end

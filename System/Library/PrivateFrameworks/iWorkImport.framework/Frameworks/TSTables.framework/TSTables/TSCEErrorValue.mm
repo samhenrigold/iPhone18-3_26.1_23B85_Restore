@@ -18,33 +18,33 @@
 {
   valueCopy = value;
   v4 = [TSCEErrorValue alloc];
-  v8 = objc_msgSend_initWithError_(v4, v5, valueCopy, v6, v7);
+  v7 = objc_msgSend_initWithError_(v4, v5, valueCopy, v6);
 
-  return v8;
+  return v7;
 }
 
 - (TSCEErrorValue)initWithError:(id)error
 {
   errorCopy = error;
-  v22.receiver = self;
-  v22.super_class = TSCEErrorValue;
-  v9 = [(TSCEValue *)&v22 init];
-  if (v9)
+  v19.receiver = self;
+  v19.super_class = TSCEErrorValue;
+  v8 = [(TSCEValue *)&v19 init];
+  if (v8)
   {
     if (!errorCopy)
     {
-      v10 = MEMORY[0x277D81150];
-      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSCEErrorValue initWithError:]", v7, v8);
-      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v13, v14);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 30, 0, "Internal Error: Creating a TSCEErrorValue with a nil TSCEError");
+      v9 = MEMORY[0x277D81150];
+      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSCEErrorValue initWithError:]", v7);
+      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v12);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 30, 0, "Internal Error: Creating a TSCEErrorValue with a nil TSCEError");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
     }
 
-    objc_storeStrong(&v9->_error, error);
+    objc_storeStrong(&v8->_error, error);
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -62,15 +62,15 @@
   {
     v8 = MEMORY[0x277D81150];
     v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEErrorValue asNumber:functionSpec:argumentIndex:outError:]", spec, *&index);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 58, 0, "outError pointer is required for this API");
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 58, 0, "outError pointer is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   *error = self->_error;
 
-  return objc_msgSend_zero(TSCENumberValue, v19, v20, v21, v22);
+  return objc_msgSend_zero(TSCENumberValue, v17, v18, v19);
 }
 
 - (id)asDate:(id)date functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
@@ -79,10 +79,10 @@
   {
     v8 = MEMORY[0x277D81150];
     v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEErrorValue asDate:functionSpec:argumentIndex:outError:]", spec, *&index);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 67, 0, "outError pointer is required for this API");
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 67, 0, "outError pointer is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   *error = self->_error;
@@ -95,10 +95,10 @@
   {
     v8 = MEMORY[0x277D81150];
     v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEErrorValue asString:functionSpec:argumentIndex:outError:]", spec, *&index);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 76, 0, "outError pointer is required for this API");
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 76, 0, "outError pointer is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   *error = self->_error;
@@ -111,10 +111,10 @@
   {
     v8 = MEMORY[0x277D81150];
     v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEErrorValue asRawString:functionSpec:argumentIndex:outError:]", spec, *&index);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 85, 0, "outError pointer is required for this API");
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 85, 0, "outError pointer is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   *error = self->_error;
@@ -127,10 +127,10 @@
   {
     v8 = MEMORY[0x277D81150];
     v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEErrorValue asBoolean:functionSpec:argumentIndex:outError:]", spec, *&index);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 94, 0, "outError pointer is required for this API");
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 94, 0, "outError pointer is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   *error = self->_error;
@@ -143,15 +143,15 @@
   {
     v8 = MEMORY[0x277D81150];
     v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEErrorValue asReference:functionSpec:argumentIndex:outError:]", spec, *&index);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 103, 0, "outError pointer is required for this API");
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 103, 0, "outError pointer is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16);
   }
 
   *error = self->_error;
 
-  return objc_msgSend_emptyReferenceValue(TSCEReferenceValue, v19, v20, v21, v22);
+  return objc_msgSend_emptyReferenceValue(TSCEReferenceValue, v17, v18, v19);
 }
 
 - (id)asGrid:(id)grid functionSpec:(id)spec argumentIndex:(int)index applyPreferredFormat:(BOOL)format outError:(id *)error
@@ -160,24 +160,24 @@
   {
     v9 = MEMORY[0x277D81150];
     v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEErrorValue asGrid:functionSpec:argumentIndex:applyPreferredFormat:outError:]", spec, *&index, format);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v12, v13);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v15, v10, v14, 113, 0, "outError pointer is required for this API");
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEErrorValue.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 113, 0, "outError pointer is required for this API");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18, v19);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
   }
 
   *error = self->_error;
-  memset(v22, 0, 24);
+  memset(v20, 0, 24);
   selfCopy = self;
-  v22[8] = v22;
-  sub_22107C1F0(v22, 1uLL);
+  v20[8] = v20;
+  sub_22107C1F0(v20, 1uLL);
 }
 
 - (id)description
 {
-  v5 = MEMORY[0x277CCACA8];
-  v6 = objc_msgSend_errorType(self->_error, a2, v2, v3, v4);
-  return objc_msgSend_stringWithFormat_(v5, v7, @"<error %d>", v8, v9, v6);
+  v4 = MEMORY[0x277CCACA8];
+  v5 = objc_msgSend_errorType(self->_error, a2, v2, v3);
+  return objc_msgSend_stringWithFormat_(v4, v6, @"<error %d>", v7, v5);
 }
 
 @end

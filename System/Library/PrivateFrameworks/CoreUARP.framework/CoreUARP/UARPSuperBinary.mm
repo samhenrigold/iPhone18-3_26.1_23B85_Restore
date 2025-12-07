@@ -14,6 +14,7 @@
 - (id)getDataBlock:(unint64_t)block offset:(unint64_t)offset;
 - (id)payloadWith4ccTag:(id)tag;
 - (id)payloadsWithout4ccTag:(id)tag;
+- (id)personalizeSuperBinary:(unint64_t)binary signingServer:(id)server ssoOnly:(BOOL)only;
 - (id)personalizedMetaData;
 - (id)requiredTSSOptions;
 - (id)tatsuMeasurements:(unint64_t)measurements;
@@ -36,44 +37,13 @@
   v23.super_class = UARPSuperBinary;
   v11 = [(UARPSuperBinary *)&v23 init];
   v12 = v11;
-  if (!v11)
+  if (!v11 || dataCopy && (objc_storeWeak(&v11->_delegate, delegateCopy), objc_storeStrong(&v12->_delegateQueue, queue), v13 = [dataCopy copy], data = v12->_data, v12->_data = v13, data, v15 = objc_opt_new(), tlvs = v12->_tlvs, v12->_tlvs = v15, tlvs, v17 = objc_opt_new(), trimmedTlvs = v12->_trimmedTlvs, v12->_trimmedTlvs = v17, trimmedTlvs, v19 = objc_opt_new(), measurements = v12->_measurements, v12->_measurements = v19, measurements, v12->_totalLength = -[NSData length](v12->_data, "length"), -[UARPSuperBinary expandSuperBinary](v12, "expandSuperBinary")))
   {
-    goto LABEL_4;
-  }
-
-  if (!dataCopy)
-  {
-    goto LABEL_5;
-  }
-
-  objc_storeWeak(&v11->_delegate, delegateCopy);
-  objc_storeStrong(&v12->_delegateQueue, queue);
-  v13 = [dataCopy copy];
-  data = v12->_data;
-  v12->_data = v13;
-
-  v15 = objc_opt_new();
-  tlvs = v12->_tlvs;
-  v12->_tlvs = v15;
-
-  v17 = objc_opt_new();
-  trimmedTlvs = v12->_trimmedTlvs;
-  v12->_trimmedTlvs = v17;
-
-  v19 = objc_opt_new();
-  measurements = v12->_measurements;
-  v12->_measurements = v19;
-
-  v12->_totalLength = [(NSData *)v12->_data length];
-  if ([(UARPSuperBinary *)v12 expandSuperBinary])
-  {
-LABEL_4:
     v21 = v12;
   }
 
   else
   {
-LABEL_5:
     v21 = 0;
   }
 
@@ -244,27 +214,27 @@ LABEL_5:
 
 - (id)payloadWith4ccTag:(id)tag
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   tagCopy = tag;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_payloads;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [v9 tag];
         v11 = [v10 isEqual:tagCopy];
 
@@ -275,7 +245,7 @@ LABEL_5:
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -287,36 +257,34 @@ LABEL_5:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)payloadsWithout4ccTag:(id)tag
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   tagCopy = tag;
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = self->_payloads;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = [v11 tag];
         v13 = [v12 isEqual:tagCopy];
 
@@ -326,7 +294,7 @@ LABEL_11:
         }
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -334,36 +302,34 @@ LABEL_11:
 
   v14 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)personalizedMetaData
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   [(NSMutableArray *)self->_trimmedTlvs removeAllObjects];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   selfCopy = self;
   v3 = self->_tlvs;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -395,7 +361,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v5);
@@ -412,38 +378,36 @@ LABEL_11:
   }
 
   v11 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v12 = selfCopy->_trimmedTlvs;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        generateTLV = [*(*(&v22 + 1) + 8 * j) generateTLV];
+        generateTLV = [*(*(&v21 + 1) + 8 * j) generateTLV];
         [v11 appendData:generateTLV];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v14);
   }
 
   v18 = [MEMORY[0x277CBEA90] dataWithData:v11];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -492,6 +456,89 @@ LABEL_11:
   return 1;
 }
 
+- (id)personalizeSuperBinary:(unint64_t)binary signingServer:(id)server ssoOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v30 = *MEMORY[0x277D85DE8];
+  serverCopy = server;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v8 = self->_payloads;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v26;
+    while (2)
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v26 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v25 + 1) + 8 * i);
+        if ([v13 needsHostPersonalization])
+        {
+          [v13 setBoardID:self->_boardID];
+          [v13 setChipID:self->_chipID];
+          [v13 setEcID:self->_ecID];
+          [v13 setNonce:self->_nonce];
+          [v13 setProductionMode:self->_productionMode];
+          [v13 setSecurityDomain:self->_securityDomain];
+          [v13 setSecurityMode:self->_securityMode];
+          [v13 setTrustedOverride:self->_trustedOverride];
+          [v13 setDemote:self->_demote];
+          [(UARPSuperBinary *)self log:@"Personalizing %@", v13];
+          v14 = [v13 composeTSSRequest:binary];
+          if (!v14 || (v15 = v14, [v13 tag], v16 = objc_claimAutoreleasedReturnValue(), -[UARPSuperBinary log:](self, "log:", @"TSS Request Options for payload %@", v16), v16, objc_msgSend(v13, "tssRequest"), v17 = objc_claimAutoreleasedReturnValue(), -[UARPSuperBinary log:](self, "log:", @"%@", v17), v17, LODWORD(v17) = objc_msgSend(v13, "queryTatsuSigningServer:ssoOnly:error:", serverCopy, onlyCopy, 0), v15, !v17))
+          {
+            v21 = 0;
+            goto LABEL_18;
+          }
+        }
+
+        else
+        {
+          v18 = [v13 tag];
+          [(UARPSuperBinary *)self log:@"Host Personalization not required for payload %@", v18];
+        }
+      }
+
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      if (v10)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  if (![(UARPSuperBinary *)self needsHostPersonalization]|| (v19 = [(UARPSuperBinary *)self composeTSSRequest:binary asMeasurement:0], v20 = [(UARPSuperBinary *)self queryTatsuSigningServer:serverCopy ssoOnly:onlyCopy error:0], v21 = 0, v20))
+  {
+    generatePersonalizedSuperBinary = [(UARPSuperBinary *)self generatePersonalizedSuperBinary];
+    v8 = generatePersonalizedSuperBinary;
+    if (generatePersonalizedSuperBinary)
+    {
+      v8 = generatePersonalizedSuperBinary;
+      v21 = v8;
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+LABEL_18:
+  }
+
+  return v21;
+}
+
 - (BOOL)queryTatsuSigningServer:(id)server ssoOnly:(BOOL)only error:(id *)error
 {
   onlyCopy = only;
@@ -525,31 +572,31 @@ LABEL_11:
 
 - (id)generatePersonalizedSuperBinaryWithoutRRKO
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = [[UARPAssetTag alloc] initWithString:@"RRKO"];
   v4 = [[UARPAssetTag alloc] initWithString:@"rrko"];
   selfCopy = self;
-  v18 = objc_opt_new();
+  v17 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = self->_payloads;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [v10 tag];
         if ([v11 isEqual:v3])
         {
@@ -562,20 +609,18 @@ LABEL_11:
 
           if ((v13 & 1) == 0)
           {
-            [v18 addObject:v10];
+            [v17 addObject:v10];
           }
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
 
-  v14 = [(UARPSuperBinary *)selfCopy generatePersonalizedSuperBinaryInternal:v18];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [(UARPSuperBinary *)selfCopy generatePersonalizedSuperBinaryInternal:v17];
 
   return v14;
 }
@@ -736,34 +781,34 @@ LABEL_11:
 
 - (void)generateTatsuMeasurementsPerPayload:(unint64_t)payload
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_payloads;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
         if (payload)
         {
-          v10 = *(*(&v14 + 1) + 8 * v9);
+          v10 = *(*(&v13 + 1) + 8 * v9);
           v11 = 1;
           do
           {
-            v12 = [v10 tatsuMeasurements:{v11, v14}];
+            v12 = [v10 tatsuMeasurements:{v11, v13}];
             if (v12)
             {
               [(NSMutableDictionary *)self->_tatsuMeasurements addEntriesFromDictionary:v12];
@@ -779,13 +824,11 @@ LABEL_11:
       }
 
       while (v9 != v7);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateTatsuMeasurements:(unint64_t)measurements
@@ -817,55 +860,52 @@ LABEL_11:
 
 - (void)processTLVsForPersonalization
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v3 = self->_tlvs;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = 0x278EC0000uLL;
-    v7 = *v18;
+    v6 = *v15;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * v8);
-        v10 = *(v6 + 3656);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          self->_needsHostPersonalization = [v9 isRequired] != 0;
+          self->_needsHostPersonalization = [v8 isRequired] != 0;
           goto LABEL_13;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = v9;
-          ticketPrefix = [v11 ticketPrefix];
+          v9 = v8;
+          ticketPrefix = [v9 ticketPrefix];
           ticketPrefix = self->_ticketPrefix;
           self->_ticketPrefix = ticketPrefix;
 LABEL_12:
 
-          v6 = 0x278EC0000;
           goto LABEL_13;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v11 = v9;
-          manifestSuffix = [v11 manifestSuffix];
+          v9 = v8;
+          manifestSuffix = [v9 manifestSuffix];
           ticketPrefix = self->_ticketSuffix;
           self->_ticketSuffix = manifestSuffix;
           goto LABEL_12;
@@ -874,7 +914,7 @@ LABEL_12:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          self->_ticketNeedsUnitNumber = [v9 ticketNeedsLogicalUnitNumber] != 0;
+          self->_ticketNeedsUnitNumber = [v8 ticketNeedsLogicalUnitNumber] != 0;
         }
 
         else
@@ -882,7 +922,7 @@ LABEL_12:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            self->_prefixNeedsUnitNumber = [v9 prefixNeedsLogicalUnitNumber] != 0;
+            self->_prefixNeedsUnitNumber = [v8 prefixNeedsLogicalUnitNumber] != 0;
           }
 
           else
@@ -890,7 +930,7 @@ LABEL_12:
             objc_opt_class();
             if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()))
             {
-              self->_suffixNeedsUnitNumber = [v9 suffixNeedsLogicalUnitNumber] != 0;
+              self->_suffixNeedsUnitNumber = [v8 suffixNeedsLogicalUnitNumber] != 0;
             }
 
             else
@@ -898,7 +938,7 @@ LABEL_12:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [(NSMutableArray *)self->_measurements addObject:v9, v17];
+                [(NSMutableArray *)self->_measurements addObject:v8, v14];
               }
             }
           }
@@ -908,33 +948,31 @@ LABEL_13:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          self->_life = [v9 life];
+          self->_life = [v8 life];
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          self->_provisioning = [v9 provisioning] != 0;
+          self->_provisioning = [v8 provisioning] != 0;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          self->_manifestEpoch = [v9 manifestEpoch];
+          self->_manifestEpoch = [v8 manifestEpoch];
         }
 
-        ++v8;
+        ++v7;
       }
 
-      while (v5 != v8);
-      v15 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      v5 = v15;
+      while (v5 != v7);
+      v13 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = v13;
     }
 
-    while (v15);
+    while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tatsuMeasurements:(unint64_t)measurements
@@ -951,7 +989,7 @@ LABEL_13:
 - (id)composeTSSRequest:(unint64_t)request asMeasurement:(BOOL)measurement
 {
   measurementCopy = measurement;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   manifest = self->_manifest;
   self->_manifest = 0;
 
@@ -974,27 +1012,27 @@ LABEL_13:
   v12 = objc_opt_new();
   [v12 appendFormat:@"@%@", self->_keyManifest];
   [(NSMutableDictionary *)self->_tssRequest setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v12];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v13 = requiredTSSOptions;
-  v14 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v35;
+    v16 = *v34;
     do
     {
       v17 = 0;
       do
       {
-        if (*v35 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        unsignedLongValue = [*(*(&v34 + 1) + 8 * v17) unsignedLongValue];
+        unsignedLongValue = [*(*(&v33 + 1) + 8 * v17) unsignedLongValue];
         if (unsignedLongValue <= 9)
         {
           if (unsignedLongValue <= 6)
@@ -1124,7 +1162,7 @@ LABEL_40:
       }
 
       while (v15 != v17);
-      v29 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v29 = [v13 countByEnumeratingWithState:&v33 objects:v37 count:16];
       v15 = v29;
     }
 
@@ -1133,8 +1171,6 @@ LABEL_40:
 
   [(UARPSuperBinary *)self processMeasurementsForTSSOptions:self->_tssRequest unitNumber:request asMeasurement:measurementCopy];
   v30 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:self->_tssRequest];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -1162,73 +1198,73 @@ LABEL_40:
 
 - (void)processMeasurementsForTSSOptions:(id)options unitNumber:(unint64_t)number asMeasurement:(BOOL)measurement
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   selfCopy = self;
-  v36 = objc_opt_new();
+  v35 = objc_opt_new();
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = self->_payloads;
-  v29 = [(NSMutableArray *)obj countByEnumeratingWithState:&v46 objects:v52 count:16];
-  if (v29)
+  v28 = [(NSMutableArray *)obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+  if (v28)
   {
-    v28 = *v47;
+    v27 = *v46;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v47 != v28)
+        if (*v46 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        measurements = [*(*(&v46 + 1) + 8 * i) measurements];
+        measurements = [*(*(&v45 + 1) + 8 * i) measurements];
+        v41 = 0u;
         v42 = 0u;
         v43 = 0u;
         v44 = 0u;
-        v45 = 0u;
-        v31 = measurements;
-        v33 = [measurements countByEnumeratingWithState:&v42 objects:v51 count:16];
-        if (v33)
+        v30 = measurements;
+        v32 = [measurements countByEnumeratingWithState:&v41 objects:v50 count:16];
+        if (v32)
         {
-          v30 = i;
+          v29 = i;
           v8 = 0;
           v9 = 0;
-          v32 = *v43;
+          v31 = *v42;
           do
           {
             v10 = 0;
             do
             {
-              if (*v43 != v32)
+              if (*v42 != v31)
               {
-                objc_enumerationMutation(v31);
+                objc_enumerationMutation(v30);
               }
 
-              v34 = v10;
-              v11 = *(*(&v42 + 1) + 8 * v10);
+              v33 = v10;
+              v11 = *(*(&v41 + 1) + 8 * v10);
+              v37 = 0u;
               v38 = 0u;
               v39 = 0u;
               v40 = 0u;
-              v41 = 0u;
               tlvs = [v11 tlvs];
-              v13 = [tlvs countByEnumeratingWithState:&v38 objects:v50 count:16];
+              v13 = [tlvs countByEnumeratingWithState:&v37 objects:v49 count:16];
               if (v13)
               {
                 v14 = v13;
-                v15 = *v39;
+                v15 = *v38;
                 do
                 {
                   for (j = 0; j != v14; ++j)
                   {
-                    if (*v39 != v15)
+                    if (*v38 != v15)
                     {
                       objc_enumerationMutation(tlvs);
                     }
 
-                    v17 = *(*(&v38 + 1) + 8 * j);
+                    v17 = *(*(&v37 + 1) + 8 * j);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
@@ -1264,38 +1300,38 @@ LABEL_40:
                             v22 = MEMORY[0x277CBEC28];
                           }
 
-                          [v36 setObject:v22 forKeyedSubscript:@"EPRO"];
+                          [v35 setObject:v22 forKeyedSubscript:@"EPRO"];
                         }
                       }
                     }
                   }
 
-                  v14 = [tlvs countByEnumeratingWithState:&v38 objects:v50 count:16];
+                  v14 = [tlvs countByEnumeratingWithState:&v37 objects:v49 count:16];
                 }
 
                 while (v14);
               }
 
-              v10 = v34 + 1;
+              v10 = v33 + 1;
             }
 
-            while (v34 + 1 != v33);
-            v33 = [v31 countByEnumeratingWithState:&v42 objects:v51 count:16];
+            while (v33 + 1 != v32);
+            v32 = [v30 countByEnumeratingWithState:&v41 objects:v50 count:16];
           }
 
-          while (v33);
+          while (v32);
           if (v9)
           {
-            i = v30;
+            i = v29;
             if (v8)
             {
-              [v36 setObject:v8 forKeyedSubscript:v9];
+              [v35 setObject:v8 forKeyedSubscript:v9];
             }
           }
 
           else
           {
-            i = v30;
+            i = v29;
           }
         }
 
@@ -1306,10 +1342,10 @@ LABEL_40:
         }
       }
 
-      v29 = [(NSMutableArray *)obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v28 = [(NSMutableArray *)obj countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
   v23 = objc_opt_new();
@@ -1320,35 +1356,33 @@ LABEL_40:
   }
 
   [v23 appendFormat:@", %@", selfCopy->_ticketSuffix];
-  [optionsCopy setObject:v36 forKeyedSubscript:v23];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [optionsCopy setObject:v35 forKeyedSubscript:v23];
 }
 
 - (id)requiredTSSOptions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = self->_tlvs;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1425,13 +1459,11 @@ LABEL_29:
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

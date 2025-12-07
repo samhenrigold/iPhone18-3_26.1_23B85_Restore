@@ -68,9 +68,12 @@
 - (void)_activate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100972A88 <= 50 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
+  if (dword_100972A88 <= 50)
   {
-    sub_1001F9694();
+    if (dword_100972A88 != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      sub_1001F9694(v3, v4, v5);
+    }
   }
 
   [(SDSubCredentialAgent *)self prefsChanged];
@@ -90,51 +93,57 @@
 - (void)_invalidate
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (dword_100972A88 <= 50 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
+  if (dword_100972A88 <= 50)
   {
-    sub_1001F96B0();
+    if (dword_100972A88 != -1 || (v2 = _LogCategory_Initialize(), v2))
+    {
+      sub_1001F96B0(v2, v3, v4);
+    }
   }
 }
 
 - (void)prefsChanged
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v3 = CFPrefs_GetInt64() != 0;
-  if (self->_prefAppInfoDownload != v3)
+  Int64 = CFPrefs_GetInt64();
+  v4 = Int64 != 0;
+  if (self->_prefAppInfoDownload != v4)
   {
-    if (dword_100972A88 <= 40 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
+    if (dword_100972A88 <= 40)
     {
-      sub_1001F96CC();
+      v5 = Int64;
+      if (dword_100972A88 != -1 || _LogCategory_Initialize())
+      {
+        sub_1001F96CC(v5 != 0);
+      }
     }
 
-    self->_prefAppInfoDownload = v3;
+    self->_prefAppInfoDownload = v4;
   }
 
   CFStringGetTypeID();
-  v4 = CFPrefs_CopyTypedValue();
-  if (v4)
+  v6 = CFPrefs_CopyTypedValue();
+  if (v6)
   {
     if (dword_100972A88 <= 50 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
     {
-      prefAppStoreURL = self->_prefAppStoreURL;
-      LogPrintF();
+      LogPrintF(&dword_100972A88, "[SDSubCredentialAgent prefsChanged]", 50, "App Store URL updated: %@ -> %@\n", self->_prefAppStoreURL, v6);
     }
 
-    objc_storeStrong(&self->_prefAppStoreURL, v4);
+    objc_storeStrong(&self->_prefAppStoreURL, v6);
   }
 
   CFStringGetTypeID();
-  v5 = CFPrefs_CopyTypedValue();
+  v7 = CFPrefs_CopyTypedValue();
 
-  if (v5)
+  if (v7)
   {
     if (dword_100972A88 <= 50 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
     {
-      prefWalletLaunchURL = self->_prefWalletLaunchURL;
-      LogPrintF();
+      LogPrintF(&dword_100972A88, "[SDSubCredentialAgent prefsChanged]", 50, "Launch URL updated: %@ -> %@\n", self->_prefWalletLaunchURL, v7);
     }
 
-    objc_storeStrong(&self->_prefWalletLaunchURL, v5);
+    objc_storeStrong(&self->_prefWalletLaunchURL, v7);
   }
 }
 
@@ -168,8 +177,8 @@
   }
 
   adamID = [paramsCopy adamID];
-  v31 = adamID;
-  v9 = [NSArray arrayWithObjects:&v31 count:1];
+  v32 = adamID;
+  v9 = [NSArray arrayWithObjects:&v32 count:1];
 
   if (v9)
   {
@@ -182,13 +191,13 @@ LABEL_4:
         sub_1001F98B4();
       }
 
-      subtitle = NSErrorWithOSStatusF();
+      subtitle = NSErrorWithOSStatusF(4294960591, "Title missing.");
       if (completionCopy)
       {
         completionCopy[2](completionCopy, subtitle);
       }
 
-      goto LABEL_41;
+      goto LABEL_43;
     }
 
     subtitle = [paramsCopy subtitle];
@@ -204,6 +213,8 @@ LABEL_4:
           {
             sub_1001F9818();
           }
+
+          NSErrorWithOSStatusF(4294960561, "Prox cards currently suppressed.");
         }
 
         else if ([(SDSubCredentialAgent *)self _uiShowing])
@@ -212,12 +223,14 @@ LABEL_4:
           {
             sub_1001F97E4();
           }
+
+          NSErrorWithOSStatusF(4294960575, "Prox card already visible.");
         }
 
         else
         {
           v15 = +[SDStatusMonitor sharedMonitor];
-          [v15 systemUIFlags];
+          systemUIFlags = [v15 systemUIFlags];
 
           v16 = +[SDStatusMonitor sharedMonitor];
           v17 = [v16 systemUIFlags] & 0x5C808;
@@ -226,7 +239,7 @@ LABEL_4:
           {
             if (dword_100972A88 <= 30 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
             {
-              sub_1001F9770();
+              sub_1001F9770(v9);
             }
 
             v19 = objc_alloc_init(NSMutableDictionary);
@@ -249,7 +262,7 @@ LABEL_4:
               [v19 setObject:prefWalletLaunchURL forKeyedSubscript:@"launchURL"];
             }
 
-            v30 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:@"com.apple.SharingViewService" viewControllerClassName:@"SubCredentialActivationMainController"];
+            v31 = [[SBSRemoteAlertDefinition alloc] initWithServiceName:@"com.apple.SharingViewService" viewControllerClassName:@"SubCredentialActivationMainController"];
             v23 = objc_opt_new();
             [v23 setUserInfo:v19];
             alertHandle = self->_alertHandle;
@@ -261,7 +274,7 @@ LABEL_4:
               self->_alertHandle = 0;
             }
 
-            v26 = [SBSRemoteAlertHandle newHandleWithDefinition:v30 configurationContext:v23];
+            v26 = [SBSRemoteAlertHandle newHandleWithDefinition:v31 configurationContext:v23];
             v27 = self->_alertHandle;
             self->_alertHandle = v26;
 
@@ -273,7 +286,7 @@ LABEL_4:
                 sub_1001F97B0();
               }
 
-              v29 = NSErrorWithOSStatusF();
+              v29 = NSErrorWithOSStatusF(4294960556, "Alert creation failed.");
               if (completionCopy)
               {
                 completionCopy[2](completionCopy, v29);
@@ -289,45 +302,52 @@ LABEL_4:
               completionCopy[2](completionCopy, 0);
             }
 
-            goto LABEL_40;
+            goto LABEL_42;
           }
 
           if (dword_100972A88 <= 90 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001F9728();
+            sub_1001F9728(systemUIFlags);
           }
-        }
 
-        v18 = NSErrorWithOSStatusF();
+          NSErrorWithOSStatusF(4294960587, "Card not supported over current UI.");
+        }
+        v18 = ;
         if (completionCopy)
         {
           completionCopy[2](completionCopy, v18);
         }
 
-LABEL_40:
-LABEL_41:
+LABEL_42:
+LABEL_43:
 
-        goto LABEL_42;
+        goto LABEL_44;
       }
 
       if (dword_100972A88 <= 90 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
       {
         sub_1001F984C();
       }
+
+      NSErrorWithOSStatusF(4294960591, "Issuer ID missing.");
     }
 
-    else if (dword_100972A88 <= 90 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
+    else
     {
-      sub_1001F9880();
-    }
+      if (dword_100972A88 <= 90 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
+      {
+        sub_1001F9880();
+      }
 
-    v14 = NSErrorWithOSStatusF();
+      NSErrorWithOSStatusF(4294960591, "Subtitle missing.");
+    }
+    v14 = ;
     if (completionCopy)
     {
       completionCopy[2](completionCopy, v14);
     }
 
-    goto LABEL_40;
+    goto LABEL_42;
   }
 
   if (dword_100972A88 <= 90 && (dword_100972A88 != -1 || _LogCategory_Initialize()))
@@ -335,13 +355,13 @@ LABEL_41:
     sub_1001F98E8();
   }
 
-  v9 = NSErrorWithOSStatusF();
+  v9 = NSErrorWithOSStatusF(4294960591, "Adam IDs missing.");
   if (completionCopy)
   {
     completionCopy[2](completionCopy, v9);
   }
 
-LABEL_42:
+LABEL_44:
 }
 
 - (void)remoteAlertHandleDidActivate:(id)activate

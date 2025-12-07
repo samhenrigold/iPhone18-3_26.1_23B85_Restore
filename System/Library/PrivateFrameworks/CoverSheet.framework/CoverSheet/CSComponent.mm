@@ -153,7 +153,7 @@
     {
       if (((1 << v6) & properties) != 0)
       {
-        (v10)(v5);
+        v10(v5);
         if (v13)
         {
           break;
@@ -176,7 +176,7 @@
   self->_properties &= ~properties;
 }
 
-uint64_t __31__CSComponent_resetProperties___block_invoke(uint64_t result, uint64_t a2)
+void *__31__CSComponent_resetProperties___block_invoke(void *result, uint64_t a2)
 {
   if (a2 <= 63)
   {
@@ -185,15 +185,15 @@ uint64_t __31__CSComponent_resetProperties___block_invoke(uint64_t result, uint6
       switch(a2)
       {
         case 8:
-          v14 = *(result + 32);
+          v14 = result[4];
 
           return [v14 setFlag:0x7FFFFFFFFFFFFFFFLL];
         case 16:
-          v18 = *(result + 32);
+          v18 = result[4];
 
           return [v18 setView:0];
         case 32:
-          v7 = *(result + 32);
+          v7 = result[4];
 
           return [v7 setLegibilitySettings:0];
       }
@@ -204,17 +204,17 @@ uint64_t __31__CSComponent_resetProperties___block_invoke(uint64_t result, uint6
       switch(a2)
       {
         case 1:
-          v13 = *(result + 32);
+          v13 = result[4];
 
           return [v13 setHidden:0];
         case 2:
-          v15 = *(result + 32);
+          v15 = result[4];
           v16 = *MEMORY[0x277CBF348];
           v17 = *(MEMORY[0x277CBF348] + 8);
 
           return [v15 setOffset:{v16, v17}];
         case 4:
-          v5 = *(result + 32);
+          v5 = result[4];
 
           return [v5 setValue:0];
       }
@@ -226,17 +226,17 @@ uint64_t __31__CSComponent_resetProperties___block_invoke(uint64_t result, uint6
     switch(a2)
     {
       case 64:
-        v11 = *(result + 32);
+        v11 = result[4];
 
         return [v11 setColor:0];
       case 128:
-        v12 = *(result + 32);
+        v12 = result[4];
 
         return [v12 setTransitionModifiers:0];
       case 256:
         v24 = v2;
         v25 = v3;
-        v6 = *(result + 32);
+        v6 = result[4];
         v19 = 0;
         v20 = *MEMORY[0x277CBF348];
         v22 = 0;
@@ -250,14 +250,14 @@ uint64_t __31__CSComponent_resetProperties___block_invoke(uint64_t result, uint6
   {
     if (a2 == 2048)
     {
-      v10 = *(result + 32);
+      v10 = result[4];
 
       return [v10 setBlurRadius:0.0];
     }
 
     else if (a2 == 4096)
     {
-      v8 = *(result + 32);
+      v8 = result[4];
 
       return [v8 setLevel:0];
     }
@@ -265,14 +265,14 @@ uint64_t __31__CSComponent_resetProperties___block_invoke(uint64_t result, uint6
 
   else if (a2 == 512)
   {
-    v9 = *(result + 32);
+    v9 = result[4];
 
     return [v9 setScale:1.0];
   }
 
   else if (a2 == 1024)
   {
-    v4 = *(result + 32);
+    v4 = result[4];
 
     return [v4 setAnimationDuration:0.0];
   }
@@ -369,7 +369,7 @@ uint64_t __31__CSComponent_resetProperties___block_invoke(uint64_t result, uint6
 
     if (equalCopy)
     {
-      [(CSComponent *)equalCopy transitionInputs];
+      objc_msgSend_transitionInputs(equalCopy);
     }
 
     else
@@ -453,7 +453,7 @@ LABEL_36:
   [v4 setLegibilitySettings:legibilitySettings];
 
   [v4 setTransitionModifiers:{-[CSComponent transitionModifiers](self, "transitionModifiers")}];
-  [(CSComponent *)self transitionInputs];
+  objc_msgSend_transitionInputs(self);
   [v4 setTransitionInputs:&v12];
   [(CSComponent *)self scale];
   [v4 setScale:?];
@@ -575,7 +575,7 @@ LABEL_30:
         v17 = *(a1 + 40);
         if (v17)
         {
-          [v17 transitionInputs];
+          objc_msgSend_transitionInputs(v17);
         }
 
         else

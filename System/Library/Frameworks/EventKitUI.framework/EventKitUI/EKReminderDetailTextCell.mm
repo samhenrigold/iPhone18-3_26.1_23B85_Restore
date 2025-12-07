@@ -93,8 +93,8 @@
   [(UILabel *)self->_title setText:titleCopy];
   LODWORD(v11) = 1148846080;
   [(UILabel *)self->_title setContentCompressionResistancePriority:1 forAxis:v11];
-  contentView = [(EKReminderDetailTextCell *)self contentView];
-  [contentView addSubview:self->_title];
+  v12 = objc_msgSend_contentView(self);
+  [v12 addSubview:self->_title];
 
   v13 = objc_alloc_init(MEMORY[0x1E69DD168]);
   textView = self->_textView;
@@ -122,14 +122,14 @@
   [(EKReminderDetailTextCell *)self _updateTextViewColorAndFont];
   LODWORD(v20) = 1148846080;
   [(UITextView *)self->_textView setContentCompressionResistancePriority:1 forAxis:v20];
-  contentView2 = [(EKReminderDetailTextCell *)self contentView];
-  [contentView2 addSubview:self->_textView];
+  v21 = objc_msgSend_contentView(self);
+  [v21 addSubview:self->_textView];
 
   v58 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(UILabel *)self->_title leadingAnchor];
   v67 = leadingAnchor;
-  contentView3 = [(EKReminderDetailTextCell *)self contentView];
-  layoutMarginsGuide = [contentView3 layoutMarginsGuide];
+  v69 = objc_msgSend_contentView(self);
+  layoutMarginsGuide = [v69 layoutMarginsGuide];
   leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
   v66 = leadingAnchor2;
   if (self->_noBackgroundStyle)
@@ -146,8 +146,8 @@
   v70[0] = v65;
   trailingAnchor = [(UILabel *)self->_title trailingAnchor];
   v62 = trailingAnchor;
-  contentView4 = [(EKReminderDetailTextCell *)self contentView];
-  layoutMarginsGuide2 = [contentView4 layoutMarginsGuide];
+  v64 = objc_msgSend_contentView(self);
+  layoutMarginsGuide2 = [v64 layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide2 trailingAnchor];
   v61 = trailingAnchor2;
   if (self->_noBackgroundStyle)
@@ -164,8 +164,8 @@
   v70[1] = v60;
   leadingAnchor3 = [(UITextView *)self->_textView leadingAnchor];
   v57 = leadingAnchor3;
-  contentView5 = [(EKReminderDetailTextCell *)self contentView];
-  layoutMarginsGuide3 = [contentView5 layoutMarginsGuide];
+  v59 = objc_msgSend_contentView(self);
+  layoutMarginsGuide3 = [v59 layoutMarginsGuide];
   leadingAnchor4 = [layoutMarginsGuide3 leadingAnchor];
   v55 = leadingAnchor4;
   if (self->_noBackgroundStyle)
@@ -182,8 +182,8 @@
   v70[2] = v54;
   trailingAnchor3 = [(UITextView *)self->_textView trailingAnchor];
   v52 = trailingAnchor3;
-  contentView6 = [(EKReminderDetailTextCell *)self contentView];
-  layoutMarginsGuide4 = [contentView6 layoutMarginsGuide];
+  v53 = objc_msgSend_contentView(self);
+  layoutMarginsGuide4 = [v53 layoutMarginsGuide];
   trailingAnchor4 = [layoutMarginsGuide4 trailingAnchor];
   v50 = trailingAnchor4;
   if (self->_noBackgroundStyle)
@@ -200,8 +200,8 @@
   v70[3] = v49;
   topAnchor = [(UILabel *)self->_title topAnchor];
   v47 = topAnchor;
-  contentView7 = [(EKReminderDetailTextCell *)self contentView];
-  topAnchor2 = [contentView7 topAnchor];
+  v48 = objc_msgSend_contentView(self);
+  topAnchor2 = [v48 topAnchor];
   v36 = 15.0;
   if (self->_noBackgroundStyle)
   {
@@ -215,8 +215,8 @@
   v40 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
   v70[5] = v40;
   bottomAnchor2 = [(UITextView *)self->_textView bottomAnchor];
-  contentView8 = [(EKReminderDetailTextCell *)self contentView];
-  bottomAnchor3 = [contentView8 bottomAnchor];
+  v42 = objc_msgSend_contentView(self);
+  bottomAnchor3 = [v42 bottomAnchor];
   v44 = -15.0;
   if (self->_noBackgroundStyle)
   {

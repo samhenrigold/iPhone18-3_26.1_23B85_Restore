@@ -97,32 +97,31 @@
 
 + (id)stringArrayForObject:(id)object
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = 0u;
-    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v4 = objectCopy;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     v6 = v4;
     if (v5)
     {
       v7 = v5;
-      v8 = *v14;
+      v8 = *v12;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -132,7 +131,7 @@
           }
         }
 
-        v7 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v7)
         {
           continue;
@@ -152,8 +151,6 @@ LABEL_13:
 
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -332,17 +329,17 @@ LABEL_20:
 
 + (id)URLForObject:(id)object
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   NSClassFromString(&cfstr_Nsdata.isa);
   if (objc_opt_isKindOfClass())
   {
     v4 = MEMORY[0x1E696ACD0];
     objectCopy = objectCopy;
-    v13 = 0;
-    v5 = [v4 unarchivedObjectOfClass:objc_opt_class() fromData:objectCopy error:&v13];
+    v12 = 0;
+    v5 = [v4 unarchivedObjectOfClass:objc_opt_class() fromData:objectCopy error:&v12];
 
-    stringByExpandingTildeInPath = v13;
+    stringByExpandingTildeInPath = v12;
     if (stringByExpandingTildeInPath)
     {
       v7 = nps_daemon_log;
@@ -351,7 +348,7 @@ LABEL_20:
         v8 = v7;
         v9 = [objectCopy length];
         *buf = 134217984;
-        v15 = v9;
+        v14 = v9;
         _os_log_impl(&dword_1C0D93000, v8, OS_LOG_TYPE_DEFAULT, "URL unarchiving fail from %ld bytes of data", buf, 0xCu);
       }
     }
@@ -372,14 +369,13 @@ LABEL_7:
 
   v5 = 0;
 LABEL_9:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)objectForURL:(id)l
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if ([lCopy isFileURL])
   {
@@ -393,20 +389,20 @@ LABEL_9:
     }
 
     v4 = MEMORY[0x1E696ACC8];
-    v14 = 0;
-    v5 = &v14;
-    v6 = &v14;
+    v13 = 0;
+    v5 = &v13;
+    v6 = &v13;
   }
 
   else
   {
     v4 = MEMORY[0x1E696ACC8];
-    v15 = 0;
-    v5 = &v15;
-    v6 = &v15;
+    v14 = 0;
+    v5 = &v14;
+    v6 = &v14;
   }
 
-  stringByAbbreviatingWithTildeInPath = [v4 archivedDataWithRootObject:lCopy requiringSecureCoding:1 error:{v6, v14, v15}];
+  stringByAbbreviatingWithTildeInPath = [v4 archivedDataWithRootObject:lCopy requiringSecureCoding:1 error:{v6, v13, v14}];
   v8 = *v5;
   if (!v8)
   {
@@ -418,16 +414,15 @@ LABEL_9:
   if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = lCopy;
-    v18 = 2112;
-    v19 = absoluteURL;
+    v16 = lCopy;
+    v17 = 2112;
+    v18 = absoluteURL;
     _os_log_impl(&dword_1C0D93000, v10, OS_LOG_TYPE_DEFAULT, "URL archiving of %@ returned error %@", buf, 0x16u);
   }
 
 LABEL_9:
 
 LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
 
   return stringByAbbreviatingWithTildeInPath;
 }

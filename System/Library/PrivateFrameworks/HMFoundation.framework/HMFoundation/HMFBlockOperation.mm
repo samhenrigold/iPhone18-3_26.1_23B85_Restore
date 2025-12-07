@@ -10,17 +10,15 @@
 
 + (id)blockOperationWithBlock:(id)block
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = objc_alloc_init(self);
   v6 = _Block_copy(blockCopy);
 
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v8 = v5[39];
   v5[39] = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -83,15 +81,15 @@
   {
     v5 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle(selfCopy, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(selfCopy);
+      v9 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543618;
-      v24 = v8;
+      v24 = v9;
       v25 = 2048;
       v26 = v4;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@Executing %tu blocks", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@Executing %tu blocks", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -100,41 +98,39 @@
     v18 = 0u;
     v19 = 0u;
     executionBlocks2 = [(HMFBlockOperation *)selfCopy executionBlocks];
-    v10 = [executionBlocks2 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v10)
+    v11 = [executionBlocks2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v19;
+      v12 = v11;
+      v13 = *v19;
       do
       {
-        v13 = 0;
+        v14 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(executionBlocks2);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * v13);
+          v15 = *(*(&v18 + 1) + 8 * v14);
           queue = selfCopy->super._queue;
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __25__HMFBlockOperation_main__block_invoke;
           block[3] = &unk_2786E7490;
-          block[4] = v14;
+          block[4] = v15;
           dispatch_async(queue, block);
-          ++v13;
+          ++v14;
         }
 
-        while (v11 != v13);
-        v11 = [executionBlocks2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        while (v12 != v14);
+        v12 = [executionBlocks2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -76,7 +76,7 @@
   v3 = *MEMORY[0x1E69C57B8];
   if (!*(&self->super.super.super.super.super.isa + v3))
   {
-    v4 = _AAUILogSystem();
+    v4 = _AAUILogSystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v11) = 0;
@@ -88,7 +88,7 @@
     *(&self->super.super.super.super.super.isa + v3) = _specifiersForShowAccessKey;
   }
 
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(&self->super.super.super.super.super.isa + v3);
@@ -159,16 +159,17 @@
 
 void __48__AAUIShowAccessKeyViewController__printTapped___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = a4;
+  v5 = v4;
   if (v4)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAUILogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "Error presenting printInteractionController - %@", &v6, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Error presenting printInteractionController - %@", &v7, 0xCu);
     }
   }
 }
@@ -177,7 +178,7 @@ void __48__AAUIShowAccessKeyViewController__printTapped___block_invoke(uint64_t 
 {
   v10 = *MEMORY[0x1E69E9840];
   finishCopy = finish;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(finishCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -196,7 +197,7 @@ void __48__AAUIShowAccessKeyViewController__printTapped___block_invoke(uint64_t 
 {
   v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_opt_class();
@@ -234,14 +235,14 @@ void __67__AAUIShowAccessKeyViewController_inviteMessageWasSent_completion___blo
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __67__AAUIShowAccessKeyViewController_inviteMessageWasSent_completion___block_invoke_2(uint64_t a1)
+uint64_t __67__AAUIShowAccessKeyViewController_inviteMessageWasSent_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = _AALogSystem();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _AALogSystem();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __73__AAUIMyPendingBeneficiaryActionHandler_inviteMessageWasSent_completion___block_invoke_2_cold_1(a1, v2);
+      __73__AAUIMyPendingBeneficiaryActionHandler_inviteMessageWasSent_completion___block_invoke_2_cold_1(a1, v3);
     }
 
     return (*(*(a1 + 48) + 16))();
@@ -249,9 +250,9 @@ uint64_t __67__AAUIShowAccessKeyViewController_inviteMessageWasSent_completion__
 
   else
   {
-    v4 = *(*(a1 + 48) + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    return v4();
+    return v5();
   }
 }
 

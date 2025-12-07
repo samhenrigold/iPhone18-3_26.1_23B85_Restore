@@ -44,15 +44,15 @@ void *CoreRecognition::EspressoModelWrapper::EspressoModelWrapper(void *this)
   return this;
 }
 
-void CoreRecognition::EspressoModelWrapper::~EspressoModelWrapper(void **this)
+void CoreRecognition::EspressoModelWrapper::~EspressoModelWrapper(void **this, uint64_t a2)
 {
-  if ((CoreRecognition::EspressoModelWrapper::resetEspressoState(this) & 1) == 0)
+  if ((CoreRecognition::EspressoModelWrapper::resetEspressoState(this, a2) & 1) == 0)
   {
-    v2 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_1B40D2000, v2, OS_LOG_TYPE_FAULT, "EspressoModelWrapper::~EspressoModelWrapper Error destroying model", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_1B40D2000, v3, OS_LOG_TYPE_FAULT, "EspressoModelWrapper::~EspressoModelWrapper Error destroying model", v4, 2u);
     }
   }
 
@@ -62,20 +62,20 @@ void CoreRecognition::EspressoModelWrapper::~EspressoModelWrapper(void **this)
   }
 }
 
-uint64_t CoreRecognition::EspressoModelWrapper::resetEspressoState(CoreRecognition::EspressoModelWrapper *this)
+uint64_t CoreRecognition::EspressoModelWrapper::resetEspressoState(CoreRecognition::EspressoModelWrapper *this, uint64_t a2)
 {
   if (*(this + 2))
   {
     if (espresso_plan_destroy())
     {
-      v2 = CROSLogForCategory(0);
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v3 = CROSLogForCategory(0);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v7 = 0;
-        v3 = "EspressoModelWrapper::resetEspressoState Error destroying plan";
-        v4 = &v7;
+        v8 = 0;
+        v4 = "EspressoModelWrapper::resetEspressoState Error destroying plan";
+        v5 = &v8;
 LABEL_10:
-        _os_log_impl(&dword_1B40D2000, v2, OS_LOG_TYPE_ERROR, v3, v4, 2u);
+        _os_log_impl(&dword_1B40D2000, v3, OS_LOG_TYPE_ERROR, v4, v5, 2u);
         goto LABEL_11;
       }
 
@@ -89,12 +89,12 @@ LABEL_10:
   {
     if (espresso_context_destroy())
     {
-      v2 = CROSLogForCategory(0);
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v3 = CROSLogForCategory(0);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        v6 = 0;
-        v3 = "EspressoModelWrapper::resetEspressoState Error destroying context";
-        v4 = &v6;
+        v7 = 0;
+        v4 = "EspressoModelWrapper::resetEspressoState Error destroying context";
+        v5 = &v7;
         goto LABEL_10;
       }
 
@@ -109,7 +109,7 @@ LABEL_11:
   return 1;
 }
 
-uint64_t CoreRecognition::EspressoModelWrapper::createContext(_DWORD *a1, void *a2)
+uint64_t CoreRecognition::EspressoModelWrapper::createContext(unsigned int *a1, void *a2)
 {
   v3 = a2;
   if (v3 && *a1 == 5)
@@ -122,7 +122,7 @@ uint64_t CoreRecognition::EspressoModelWrapper::createContext(_DWORD *a1, void *
   return context;
 }
 
-uint64_t CoreRecognition::EspressoModelWrapper::initialize(int *a1, uint64_t a2, int a3, void *a4)
+uint64_t CoreRecognition::EspressoModelWrapper::initialize(uint64_t a1, uint64_t *a2, int a3, void *a4)
 {
   v6 = 65552;
   v7 = a4;
@@ -130,9 +130,9 @@ uint64_t CoreRecognition::EspressoModelWrapper::initialize(int *a1, uint64_t a2,
   if (a3 == 10007 || a3 == 5)
   {
 LABEL_5:
-    a1[1] = v6;
+    *(a1 + 4) = v6;
     Context = CoreRecognition::EspressoModelWrapper::createContext(a1, v7);
-    *(a1 + 1) = Context;
+    *(a1 + 8) = Context;
     if (Context)
     {
       goto LABEL_6;
@@ -150,7 +150,7 @@ LABEL_5:
 
       *a1 = 5;
       v15 = CoreRecognition::EspressoModelWrapper::createContext(a1, v7);
-      *(a1 + 1) = v15;
+      *(a1 + 8) = v15;
       if (v15)
       {
         goto LABEL_6;
@@ -167,22 +167,22 @@ LABEL_5:
     v16 = CROSLogForCategory(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      *v28 = 0;
-      _os_log_impl(&dword_1B40D2000, v16, OS_LOG_TYPE_ERROR, "EspressoModelWrapper::initialize Cannot create MPS context, fallback to CPU", v28, 2u);
+      *v30 = 0;
+      _os_log_impl(&dword_1B40D2000, v16, OS_LOG_TYPE_ERROR, "EspressoModelWrapper::initialize Cannot create MPS context, fallback to CPU", v30, 2u);
     }
 
     *a1 = 0x1002000000000;
     v17 = CoreRecognition::EspressoModelWrapper::createContext(a1, v7);
-    *(a1 + 1) = v17;
+    *(a1 + 8) = v17;
     if (!v17)
     {
 LABEL_19:
       v18 = CROSLogForCategory(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v27 = 0;
+        v29 = 0;
         v19 = "EspressoModelWrapper::initialize Error creating context";
-        v20 = &v27;
+        v20 = &v29;
 LABEL_23:
         _os_log_impl(&dword_1B40D2000, v18, OS_LOG_TYPE_ERROR, v19, v20, 2u);
         goto LABEL_24;
@@ -193,17 +193,17 @@ LABEL_23:
 
 LABEL_6:
     plan = espresso_create_plan();
-    *(a1 + 2) = plan;
+    *(a1 + 16) = plan;
     if (!plan)
     {
       v21 = CROSLogForCategory(0);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        *v26 = 0;
-        _os_log_impl(&dword_1B40D2000, v21, OS_LOG_TYPE_ERROR, "EspressoModelWrapper::initialize Error creating plan", v26, 2u);
+        *v28 = 0;
+        _os_log_impl(&dword_1B40D2000, v21, OS_LOG_TYPE_ERROR, "EspressoModelWrapper::initialize Error creating plan", v28, 2u);
       }
 
-      CoreRecognition::EspressoModelWrapper::resetEspressoState(a1);
+      CoreRecognition::EspressoModelWrapper::resetEspressoState(a1, v22);
       goto LABEL_33;
     }
 
@@ -214,21 +214,21 @@ LABEL_6:
       {
 LABEL_32:
 
-        CoreRecognition::EspressoModelWrapper::resetEspressoState(a1);
+        CoreRecognition::EspressoModelWrapper::resetEspressoState(a1, v23);
         goto LABEL_33;
       }
 
-      v25 = 0;
+      v27 = 0;
       v11 = "EspressoModelWrapper::initialize Error loading model";
-      v12 = &v25;
+      v12 = &v27;
     }
 
     else
     {
       if (!espresso_plan_build())
       {
-        MEMORY[0x1B8C73D60](a1 + 10, "");
-        v22 = 1;
+        MEMORY[0x1B8C73D60](a1 + 40, "");
+        v24 = 1;
         goto LABEL_34;
       }
 
@@ -238,9 +238,9 @@ LABEL_32:
         goto LABEL_32;
       }
 
-      v24 = 0;
+      v26 = 0;
       v11 = "EspressoModelWrapper::initialize Error building plan";
-      v12 = &v24;
+      v12 = &v26;
     }
 
     _os_log_impl(&dword_1B40D2000, v10, OS_LOG_TYPE_ERROR, v11, v12, 2u);
@@ -256,24 +256,26 @@ LABEL_32:
   v18 = CROSLogForCategory(0);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    *v30 = 0;
+    *v32 = 0;
     v19 = "EspressoModelWrapper::initialize Unexpected computeEngine";
-    v20 = v30;
+    v20 = v32;
     goto LABEL_23;
   }
 
 LABEL_24:
 
 LABEL_33:
-  v22 = 0;
+  v24 = 0;
 LABEL_34:
 
-  return v22;
+  return v24;
 }
 
-uint64_t CoreRecognition::EspressoModelWrapper::bindInput(uint64_t a1, uint64_t a2)
+uint64_t CoreRecognition::EspressoModelWrapper::bindInput(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v17 = 0;
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
   v13 = 0u;
@@ -282,34 +284,32 @@ uint64_t CoreRecognition::EspressoModelWrapper::bindInput(uint64_t a1, uint64_t 
   v12 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v7 = 0u;
-  v8 = 0u;
   if (espresso_buffer_pack_tensor_shape())
   {
-    v3 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      v4 = "EspressoModelWrapper::setInput Error setting input buffer shape";
+      *v8 = 0;
+      v6 = "EspressoModelWrapper::setInput Error setting input buffer shape";
 LABEL_7:
-      _os_log_impl(&dword_1B40D2000, v3, OS_LOG_TYPE_ERROR, v4, v6, 2u);
+      _os_log_impl(&dword_1B40D2000, v5, OS_LOG_TYPE_ERROR, v6, v8, 2u);
     }
   }
 
   else
   {
-    *&v7 = a2;
-    LODWORD(v17) = 65568;
+    *&v9 = a2;
+    LODWORD(v19) = 65568;
     if (!espresso_network_bind_buffer())
     {
       return 1;
     }
 
-    v3 = CROSLogForCategory(0);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = CROSLogForCategory(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      v4 = "EspressoModelWrapper::setInput Error binding input buffer";
+      *v8 = 0;
+      v6 = "EspressoModelWrapper::setInput Error binding input buffer";
       goto LABEL_7;
     }
   }
@@ -457,7 +457,7 @@ BOOL CoreRecognition::EspressoModelWrapper::execute(CoreRecognition::EspressoMod
   return v1 == 0;
 }
 
-void sub_1B421D1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id a52)
+void sub_1B421D1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, id a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id a52)
 {
   _Block_object_dispose(&a29, 8);
 
@@ -862,18 +862,18 @@ LABEL_49:
   return result;
 }
 
-void sub_1B421FAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1B421FAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B422543C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B422543C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -884,9 +884,9 @@ uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B422C378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1B422C378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -906,33 +906,33 @@ void sub_1B422D208(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t nms::PyramidNMS<unsigned short,double,unsigned char>::operator=(uint64_t a1, uint64_t a2)
+void *nms::PyramidNMS<unsigned short,double,unsigned char>::operator=(void *a1, uint64_t a2)
 {
-  *(a1 + 968) = *(a2 + 968);
-  memcpy((a1 + 984), (a2 + 984), 0x148uLL);
-  std::deque<std::valarray<unsigned char>>::__move_assign(a1 + 200, a2 + 200);
-  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign(a1 + 248, a2 + 248);
-  std::deque<std::valarray<unsigned char>>::__move_assign(a1 + 296, a2 + 296);
-  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign(a1 + 344, a2 + 344);
-  std::deque<std::valarray<unsigned char>>::__move_assign(a1 + 392, a2 + 392);
-  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign(a1 + 440, a2 + 440);
-  std::deque<std::valarray<unsigned char>>::__move_assign(a1 + 488, a2 + 488);
-  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign(a1 + 536, a2 + 536);
-  std::deque<std::valarray<unsigned char>>::__move_assign(a1 + 584, a2 + 584);
-  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign(a1 + 632, a2 + 632);
-  std::deque<std::valarray<unsigned char>>::__move_assign(a1 + 680, a2 + 680);
-  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign(a1 + 728, a2 + 728);
-  std::deque<std::valarray<unsigned char>>::__move_assign(a1 + 776, a2 + 776);
-  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign(a1 + 824, a2 + 824);
-  std::deque<std::valarray<unsigned char>>::__move_assign(a1 + 872, a2 + 872);
-  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign(a1 + 920, a2 + 920);
-  std::deque<std::valarray<BOOL>>::__move_assign(a1 + 56, a2 + 56);
-  std::deque<std::valarray<BOOL>>::__move_assign(a1 + 104, a2 + 104);
-  std::deque<std::valarray<BOOL>>::__move_assign(a1 + 152, a2 + 152);
+  a1[121] = *(a2 + 968);
+  memcpy(a1 + 123, (a2 + 984), 0x148uLL);
+  std::deque<std::valarray<unsigned char>>::__move_assign((a1 + 25), a2 + 200);
+  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign((a1 + 31), a2 + 248);
+  std::deque<std::valarray<unsigned char>>::__move_assign((a1 + 37), a2 + 296);
+  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign((a1 + 43), a2 + 344);
+  std::deque<std::valarray<unsigned char>>::__move_assign((a1 + 49), a2 + 392);
+  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign((a1 + 55), a2 + 440);
+  std::deque<std::valarray<unsigned char>>::__move_assign((a1 + 61), a2 + 488);
+  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign((a1 + 67), a2 + 536);
+  std::deque<std::valarray<unsigned char>>::__move_assign((a1 + 73), a2 + 584);
+  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign((a1 + 79), a2 + 632);
+  std::deque<std::valarray<unsigned char>>::__move_assign((a1 + 85), a2 + 680);
+  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign((a1 + 91), a2 + 728);
+  std::deque<std::valarray<unsigned char>>::__move_assign((a1 + 97), a2 + 776);
+  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign((a1 + 103), a2 + 824);
+  std::deque<std::valarray<unsigned char>>::__move_assign((a1 + 109), a2 + 872);
+  std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::__move_assign((a1 + 115), a2 + 920);
+  std::deque<std::valarray<BOOL>>::__move_assign(a1 + 7, a2 + 56);
+  std::deque<std::valarray<BOOL>>::__move_assign(a1 + 13, a2 + 104);
+  std::deque<std::valarray<BOOL>>::__move_assign(a1 + 19, a2 + 152);
   return a1;
 }
 
-__n128 std::deque<nms::RectForest<unsigned short,double>>::push_back(void *a1, uint64_t a2)
+__n128 std::deque<nms::RectForest<unsigned short,double>>::push_back(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -976,7 +976,7 @@ __n128 std::deque<nms::RectForest<unsigned short,double>>::push_back(void *a1, u
 
     a1[4] = v9;
     v20 = *v4;
-    a1[1] = v4 + 8;
+    a1[1] = (v4 + 1);
     std::__split_buffer<std::valarray<double> *,std::allocator<std::valarray<double> *>>::emplace_back<std::valarray<double> *&>(a1, &v20);
     v4 = a1[1];
     v5 = a1[2];
@@ -990,7 +990,7 @@ __n128 std::deque<nms::RectForest<unsigned short,double>>::push_back(void *a1, u
   else
   {
     v14 = a1[5] + a1[4];
-    v15 = *&v4[8 * (v14 / 0x14)] + 200 * (v14 % 0x14);
+    v15 = v4[v14 / 0x14] + 200 * (v14 % 0x14);
   }
 
   *(v15 + 64) = 0u;
@@ -1054,7 +1054,7 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
   v112 = 0;
   *(a1 + 184) = 0;
   *(a1 + 176) = a1 + 184;
-  v3 = a1 + 176;
+  v3 = (a1 + 176);
   *(a1 + 128) = 0u;
   v4 = (a1 + 128);
   *(a1 + 192) = 0;
@@ -1065,19 +1065,19 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
   *a1 = &unk_1F2BAF6E8;
   *(a1 + 8) = 0;
   v113 = &v112;
-  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(a1 + 176, 0)[5] = 5;
+  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 176), 0, &v113)[5] = 5;
   v112 = 1;
   v113 = &v112;
-  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, 1uLL)[5] = 5;
+  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, 1uLL, &v113)[5] = 5;
   v112 = 2;
   v113 = &v112;
-  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, 2uLL)[5] = 9;
+  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, 2uLL, &v113)[5] = 9;
   v112 = 3;
   v113 = &v112;
-  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, 3uLL)[5] = 8;
+  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, 3uLL, &v113)[5] = 8;
   v112 = 4;
   v113 = &v112;
-  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, 4uLL)[5] = 8;
+  std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v3, 4uLL, &v113)[5] = 8;
   v5 = *(a1 + 120);
   if (v5 > 4)
   {
@@ -1336,7 +1336,7 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
       v73 = *(a1 + 144);
       v74 = (v72 + 8 * (v71 / 0x55));
       v75 = *v74;
-      v76 = *v74 + 48 * (v71 % 0x55);
+      v76 = &(*v74)[6 * (v71 % 0x55)];
       if (v73 == v72)
       {
         v76 = 0;
@@ -1349,7 +1349,7 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
         v84 = 78 - v78;
         v80 = &v74[-(v84 / 0x55)];
         v81 = *v80;
-        v82 = *v80 + 48 * (85 * (v84 / 0x55) - v84) + 4032;
+        v82 = &(*v80)[6 * (85 * (v84 / 0x55) - v84) + 504];
       }
 
       else
@@ -1357,7 +1357,7 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
         v79 = v78 + 6;
         v80 = &v74[v79 / 0x55];
         v81 = *v80;
-        v82 = *v80 + 48 * (v79 % 0x55);
+        v82 = &(*v80)[6 * (v79 % 0x55)];
       }
 
       v85 = (v72 + 8 * ((v71 + v56) / 0x55));
@@ -1377,7 +1377,7 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
         v88 = 85 * (v85 - v80) + 0x5555555555555555 * v87 - 0x5555555555555555 * ((v86 - *v85) >> 4);
         if (v88 >= 1)
         {
-          v89 = v75 + 48 * (v71 % 0x55);
+          v89 = &v75[6 * (v71 % 0x55)];
           if (v73 == v72)
           {
             v90 = 0;
@@ -1409,7 +1409,7 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
             do
             {
               v93 = (std::deque<std::pair<unsigned short,unsigned short>>::~deque[abi:ne200100](v93) + 48);
-              if ((v93 - *v94) == 4080)
+              if (v93 - *v94 == 4080)
               {
                 v95 = v94[1];
                 ++v94;
@@ -1551,7 +1551,7 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
 
     else
     {
-      v98 = (*v97 + 48 * (v63 % 0x55));
+      v98 = &(*v97)[6 * (v63 % 0x55)];
       v99 = v98;
     }
 
@@ -1571,7 +1571,7 @@ uint64_t nms::RectForest<unsigned short,double>::RectForest(uint64_t a1, uint64_
 
         else
         {
-          v102 = *v97 + 4080;
+          v102 = (*v97 + 510);
         }
 
         if (v98 == v102)
@@ -1637,10 +1637,10 @@ void sub_1B422EC08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B42309A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1B42309A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  nms::RectForest<unsigned short,double>::~RectForest(&a71);
-  std::deque<std::pair<unsigned short,unsigned short>>::~deque[abi:ne200100]((v71 - 192));
+  nms::RectForest<unsigned short,double>::~RectForest(&a66);
+  std::deque<std::pair<unsigned short,unsigned short>>::~deque[abi:ne200100]((v66 - 192));
   nms::RectForest<unsigned short,double>::~RectForest(&a40);
   std::deque<std::valarray<unsigned char>>::~deque[abi:ne200100](&a65);
   nms::RectForest<unsigned short,double>::~RectForest(&a15);
@@ -1648,18 +1648,18 @@ void sub_1B42309A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::valarray<double>::resize(uint64_t a1, unint64_t a2)
+void std::valarray<double>::resize(uint64_t a1, unint64_t a2, double a3)
 {
-  v4 = *a1;
-  if (v4)
+  v5 = *a1;
+  if (v5)
   {
-    v5 = *(a1 + 8);
-    if (v5 != v4)
+    v6 = *(a1 + 8);
+    if (v6 != v5)
     {
-      *(a1 + 8) = &v5[(v4 - v5 + 7) & 0xFFFFFFFFFFFFFFF8];
+      *(a1 + 8) = &v6[(v5 - v6 + 7) & 0xFFFFFFFFFFFFFFF8];
     }
 
-    operator delete(v4);
+    operator delete(v5);
     *a1 = 0;
     *(a1 + 8) = 0;
   }
@@ -1685,36 +1685,36 @@ void sub_1B4231964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *nms::RectForest<unsigned short,double>::setDataRepresentationDims(void *result, uint64_t a2)
+uint64_t **nms::RectForest<unsigned short,double>::setDataRepresentationDims(uint64_t **result, uint64_t a2)
 {
   if (!a2)
   {
-    v7 = v2;
-    v8 = v3;
+    v6[5] = v2;
+    v6[6] = v3;
     v4 = result;
     result[1] = 0;
     v5 = 0;
-    v6 = &v5;
-    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((result + 22), a2)[5] = 5;
+    v6[0] = &v5;
+    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(result + 22, a2, v6)[5] = 5;
     v5 = 1;
-    v6 = &v5;
-    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v4 + 22), 1uLL)[5] = 5;
+    v6[0] = &v5;
+    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v4 + 22, 1uLL, v6)[5] = 5;
     v5 = 2;
-    v6 = &v5;
-    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v4 + 22), 2uLL)[5] = 9;
+    v6[0] = &v5;
+    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v4 + 22, 2uLL, v6)[5] = 9;
     v5 = 3;
-    v6 = &v5;
-    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v4 + 22), 3uLL)[5] = 8;
+    v6[0] = &v5;
+    std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v4 + 22, 3uLL, v6)[5] = 8;
     v5 = 4;
-    v6 = &v5;
-    result = std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v4 + 22), 4uLL);
+    v6[0] = &v5;
+    result = std::__tree<std::__value_type<unsigned long,double>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,double>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,double>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v4 + 22, 4uLL, v6);
     result[5] = 8;
   }
 
   return result;
 }
 
-void std::deque<std::pair<unsigned short,unsigned short>>::resize(void *a1, unint64_t a2)
+void std::deque<std::pair<unsigned short,unsigned short>>::resize(unint64_t *a1, unint64_t a2)
 {
   v3 = a1[5];
   v4 = a2 - v3;
@@ -3381,9 +3381,9 @@ LABEL_311:
   std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::shrink_to_fit((a1 + 103));
   std::deque<std::valarray<unsigned char>>::shrink_to_fit((a1 + 109));
   std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::shrink_to_fit((a1 + 115));
-  std::deque<std::valarray<BOOL>>::shrink_to_fit((a1 + 7));
-  std::deque<std::valarray<BOOL>>::shrink_to_fit((a1 + 13));
-  std::deque<std::valarray<BOOL>>::shrink_to_fit((a1 + 19));
+  std::deque<std::valarray<BOOL>>::shrink_to_fit(a1 + 7);
+  std::deque<std::valarray<BOOL>>::shrink_to_fit(a1 + 13);
+  std::deque<std::valarray<BOOL>>::shrink_to_fit(a1 + 19);
   std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::~deque[abi:ne200100]((a1 + 115));
   std::deque<std::valarray<unsigned char>>::~deque[abi:ne200100]((a1 + 109));
   std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::~deque[abi:ne200100]((a1 + 103));
@@ -3527,24 +3527,24 @@ void std::deque<std::deque<std::deque<std::deque<unsigned short>>>>::shrink_to_f
   std::__split_buffer<std::deque<std::deque<std::deque<unsigned short>>> *,std::allocator<std::deque<std::deque<std::deque<unsigned short>>> *>>::shrink_to_fit(a1);
 }
 
-void std::deque<std::valarray<BOOL>>::shrink_to_fit(uint64_t a1)
+void std::deque<std::valarray<BOOL>>::shrink_to_fit(void **a1)
 {
-  v2 = *(a1 + 40);
+  v2 = a1[5];
   if (v2)
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 8);
+    v3 = a1[4];
+    v4 = a1[1];
     if (v3 >= 0x100)
     {
       operator delete(*v4);
-      v4 = (*(a1 + 8) + 8);
-      *(a1 + 8) = v4;
-      v2 = *(a1 + 40);
-      v3 = *(a1 + 32) - 256;
-      *(a1 + 32) = v3;
+      v4 = (a1[1] + 8);
+      a1[1] = v4;
+      v2 = a1[5];
+      v3 = a1[4] - 256;
+      a1[4] = v3;
     }
 
-    v5 = *(a1 + 16);
+    v5 = a1[2];
     if (v5 == v4)
     {
       v6 = 0;
@@ -3558,21 +3558,21 @@ void std::deque<std::valarray<BOOL>>::shrink_to_fit(uint64_t a1)
     if (v6 - (v2 + v3) >= 0x100)
     {
       operator delete(*(v5 - 1));
-      *(a1 + 16) -= 8;
+      a1[2] = a1[2] - 8;
     }
   }
 
   else
   {
-    v8 = *(a1 + 8);
-    for (i = *(a1 + 16); i != v8; *(a1 + 16) = i)
+    v8 = a1[1];
+    for (i = a1[2]; i != v8; a1[2] = i)
     {
       operator delete(*(i - 8));
-      v8 = *(a1 + 8);
-      i = *(a1 + 16) - 8;
+      v8 = a1[1];
+      i = a1[2] - 8;
     }
 
-    *(a1 + 32) = 0;
+    a1[4] = 0;
   }
 
   std::__split_buffer<std::valarray<BOOL> *,std::allocator<std::valarray<BOOL> *>>::shrink_to_fit(a1);
@@ -3894,7 +3894,7 @@ void std::__split_buffer<std::valarray<unsigned char> *,std::allocator<std::vala
     if (v4 >> 3)
     {
       v7 = a1[1];
-      v8 = a1[2] - v7;
+      v8 = (a1[2] - v7);
       if (v8)
       {
         v9 = 0;
@@ -3997,7 +3997,7 @@ void std::__split_buffer<std::deque<std::deque<std::deque<unsigned short>>> *,st
     if (v4 >> 3)
     {
       v7 = a1[1];
-      v8 = a1[2] - v7;
+      v8 = (a1[2] - v7);
       if (v8)
       {
         v9 = 0;
@@ -4051,7 +4051,7 @@ void std::__split_buffer<std::valarray<BOOL> *,std::allocator<std::valarray<BOOL
     if (v4 >> 3)
     {
       v7 = a1[1];
-      v8 = a1[2] - v7;
+      v8 = (a1[2] - v7);
       if (v8)
       {
         v9 = 0;
@@ -4496,24 +4496,24 @@ LABEL_15:
   return result;
 }
 
-double std::deque<std::valarray<BOOL>>::__move_assign(uint64_t a1, uint64_t a2)
+double std::deque<std::valarray<BOOL>>::__move_assign(void *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
+  v4 = a1[1];
+  v5 = a1[2];
   if (v5 == v4)
   {
-    v6 = (a1 + 40);
-    v5 = *(a1 + 8);
+    v6 = a1 + 5;
+    v5 = a1[1];
   }
 
   else
   {
-    v6 = (a1 + 40);
-    v7 = *(a1 + 32);
+    v6 = a1 + 5;
+    v7 = a1[4];
     v8 = &v4[v7 >> 8];
     v9 = *v8;
     v10 = *v8 + 16 * v7;
-    v11 = *(v4 + (((*(a1 + 40) + v7) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(a1 + 40) + v7);
+    v11 = *(v4 + (((a1[5] + v7) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(a1 + 40) + v7);
     if (v10 != v11)
     {
       do
@@ -4543,8 +4543,8 @@ double std::deque<std::valarray<BOOL>>::__move_assign(uint64_t a1, uint64_t a2)
       }
 
       while (v10 != v11);
-      v4 = *(a1 + 8);
-      v5 = *(a1 + 16);
+      v4 = a1[1];
+      v5 = a1[2];
     }
   }
 
@@ -4555,9 +4555,9 @@ double std::deque<std::valarray<BOOL>>::__move_assign(uint64_t a1, uint64_t a2)
     do
     {
       operator delete(*v4);
-      v15 = *(a1 + 16);
-      v4 = (*(a1 + 8) + 8);
-      *(a1 + 8) = v4;
+      v15 = a1[2];
+      v4 = (a1[1] + 8);
+      a1[1] = v4;
       v14 = (v15 - v4) >> 3;
     }
 
@@ -4579,24 +4579,24 @@ double std::deque<std::valarray<BOOL>>::__move_assign(uint64_t a1, uint64_t a2)
     v16 = 256;
   }
 
-  *(a1 + 32) = v16;
+  a1[4] = v16;
 LABEL_19:
   std::deque<std::valarray<BOOL>>::shrink_to_fit(a1);
-  v18 = *(a1 + 8);
-  v17 = *(a1 + 16);
+  v18 = a1[1];
+  v17 = a1[2];
   if (v17 != v18)
   {
-    *(a1 + 16) = v17 + ((v18 - v17 + 7) & 0xFFFFFFFFFFFFFFF8);
+    a1[2] = v17 + ((v18 - v17 + 7) & 0xFFFFFFFFFFFFFFF8);
   }
 
   std::__split_buffer<std::valarray<BOOL> *,std::allocator<std::valarray<BOOL> *>>::shrink_to_fit(a1);
   *a1 = *a2;
-  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 1) = *(a2 + 16);
   result = 0.0;
   *a2 = 0u;
   *(a2 + 16) = 0u;
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = *(a2 + 40);
+  a1[4] = *(a2 + 32);
+  a1[5] = *(a2 + 40);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   return result;
@@ -4645,24 +4645,23 @@ void *std::__deque_iterator<std::valarray<double>,std::valarray<double>*,std::va
   return result;
 }
 
-void *std::__split_buffer<std::valarray<double> *,std::allocator<std::valarray<double> *>>::emplace_back<std::valarray<double> *&>(void *result, void *a2)
+void std::__split_buffer<std::valarray<double> *,std::allocator<std::valarray<double> *>>::emplace_back<std::valarray<double> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::valarray<unsigned char> *>>(v11);
@@ -4674,28 +4673,26 @@ void *std::__split_buffer<std::valarray<double> *,std::allocator<std::valarray<d
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::valarray<double> *,std::allocator<std::valarray<double> *>>::emplace_front<std::valarray<double> *>(const void **result, void *a2)
+void std::__split_buffer<std::valarray<double> *,std::allocator<std::valarray<double> *>>::emplace_front<std::valarray<double> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4715,22 +4712,21 @@ const void **std::__split_buffer<std::valarray<double> *,std::allocator<std::val
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::allocator<std::valarray<double>>::destroy[abi:ne200100](uint64_t a1)
@@ -5262,7 +5258,7 @@ void std::__split_buffer<std::valarray<double> *,std::allocator<std::valarray<do
     if (v4 >> 3)
     {
       v7 = a1[1];
-      v8 = a1[2] - v7;
+      v8 = (a1[2] - v7);
       if (v8)
       {
         v9 = 0;
@@ -5316,7 +5312,7 @@ void std::__split_buffer<std::deque<std::pair<unsigned short,unsigned short>> *,
     if (v4 >> 3)
     {
       v7 = a1[1];
-      v8 = a1[2] - v7;
+      v8 = (a1[2] - v7);
       if (v8)
       {
         v9 = 0;
@@ -5591,16 +5587,16 @@ void *std::__val_expr<std::_BinaryOp<std::less<unsigned char>,std::valarray<unsi
   return result;
 }
 
-void *std::mask_array<unsigned char>::mask_array[abi:ne200100](void *result, unsigned __int8 **a2, uint64_t a3)
+void *std::mask_array<unsigned char>::mask_array[abi:ne200100](void *a1, unsigned __int8 **a2, uint64_t a3)
 {
-  *result = a3;
-  v3 = result + 1;
+  *a1 = a3;
+  v3 = a1 + 1;
   v4 = *a2;
   v5 = a2[1];
   if (*a2 == v5)
   {
     *v3 = 0;
-    result[2] = 0;
+    a1[2] = 0;
   }
 
   else
@@ -5614,7 +5610,7 @@ void *std::mask_array<unsigned char>::mask_array[abi:ne200100](void *result, uns
 
     while (v4 != v5);
     *v3 = 0;
-    result[2] = 0;
+    a1[2] = 0;
     if (v6)
     {
       if (!(v6 >> 61))
@@ -5651,7 +5647,7 @@ void *std::mask_array<unsigned char>::mask_array[abi:ne200100](void *result, uns
     while (v10 != v11);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t std::deque<unsigned char>::~deque[abi:ne200100](void *a1)
@@ -6476,7 +6472,7 @@ LABEL_532:
                 nms::max<double>(&v556, &v555, &v562);
                 nms::min<double>(&v550, &v554, &v560);
                 nms::min<double>(&v548, &v553, &v558);
-                std::valarray<double>::resize(v531, v72);
+                std::valarray<double>::resize(v531, v72, 0.0);
                 std::mask_array<unsigned char>::mask_array[abi:ne200100](&v569, &v536, v531[0]);
                 v376 = *(&v569 + 1);
                 v377 = v570;
@@ -6622,7 +6618,7 @@ LABEL_120:
 
             v80 = v531[0];
             v496 = v531[0];
-            std::valarray<double>::resize(&v534, v497);
+            std::valarray<double>::resize(&v534, v497, 0.0);
             std::mask_array<unsigned char>::mask_array[abi:ne200100](&v569, &v536, v80);
             std::valarray<double>::valarray(&v550, &v569);
             if (*(&v569 + 1))
@@ -6688,7 +6684,7 @@ LABEL_120:
 
             operator delete(v82);
 LABEL_138:
-            std::valarray<double>::resize(&v532, v497);
+            std::valarray<double>::resize(&v532, v497, 0.0);
             v66 = v525;
             nms::min<double>(v565, (*(*(v538[1] + (((v540 + v62) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v540 + v62)) + 8 * v525), &v548);
             std::mask_array<unsigned char>::mask_array[abi:ne200100](&v569, &v536, v532);
@@ -7123,7 +7119,7 @@ LABEL_233:
                 v163 = LOWORD(v531[0]);
               }
 
-              std::valarray<double>::resize(&v546, 5uLL);
+              std::valarray<double>::resize(&v546, 5uLL, 0.0);
               v164 = *(a1 + 968);
               v165 = v164[5];
               if (v165 <= v509 || v165 <= v523)
@@ -7289,7 +7285,7 @@ LABEL_233:
 
                 else
                 {
-                  v189 = dbl_1B42AFA98[v188];
+                  v189 = *&qword_1B42AFA98[v188];
                 }
               }
 
@@ -7420,7 +7416,7 @@ LABEL_302:
 
                     else
                     {
-                      v193 = *&dbl_1B42AFA98[v203];
+                      v193 = qword_1B42AFA98[v203];
                     }
                   }
 
@@ -7457,20 +7453,20 @@ LABEL_302:
                   if (v271 == v185 || v271[4] > 1 || (v272 = v271[5], v272 > 8))
                   {
 LABEL_406:
-                    v273 = 0.0;
+                    v273 = 0;
                   }
 
                   else
                   {
-                    v273 = dbl_1B42AFA98[v272];
+                    v273 = qword_1B42AFA98[v272];
                   }
 
                   v274 = (v267 + 4 * (v266 & 0x3FF));
                   v275 = *v274;
                   v276 = v274[1] - v275 + 1;
                   v565[0] = (*(v183[11] + (((v183[14] + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v183 + 112) + 1));
-                  v565[1] = (*&v273 * v275);
-                  *&v566.f64[0] = *&v273 * v276;
+                  v565[1] = (v273 * v275);
+                  *&v566.f64[0] = v273 * v276;
                   *&v566.f64[1] = 1;
                   std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v558, v565);
                   v277 = *(v187 + 1072);
@@ -7591,7 +7587,7 @@ LABEL_330:
 
                           else
                           {
-                            v228 = dbl_1B42AFA98[v227];
+                            v228 = *&qword_1B42AFA98[v227];
                           }
 
                           v565[0] = (*(v168[11] + (((v168[14] + v215) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v168 + 112) + v215));
@@ -7599,7 +7595,7 @@ LABEL_330:
                           v566.f64[0] = v228;
                           *&v566.f64[1] = 1;
                           std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v558, v565);
-                          nms::rasterizeQuadByQuantizedScoreMap<double>(&v558, &v560, (v168 + 8), v168[6], v168[7], 1u, 0);
+                          nms::rasterizeQuadByQuantizedScoreMap<double>(&v558, &v560, v168 + 8, v168[6], v168[7], 1u, 0);
                           if (v558)
                           {
                             if (v559 != v558)
@@ -7667,7 +7663,7 @@ LABEL_352:
 
                           else
                           {
-                            v240 = dbl_1B42AFA98[v239];
+                            v240 = *&qword_1B42AFA98[v239];
                           }
 
                           v565[0] = (*(v183[11] + (((v183[14] + v215) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v183 + 112) + v215));
@@ -7675,7 +7671,7 @@ LABEL_352:
                           v566.f64[0] = v240;
                           *&v566.f64[1] = 1;
                           std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v558, v565);
-                          nms::rasterizeQuadByQuantizedScoreMap<double>(&v558, &v560, (v183 + 8), v183[6], v183[7], 2u, 0);
+                          nms::rasterizeQuadByQuantizedScoreMap<double>(&v558, &v560, v183 + 8, v183[6], v183[7], 2u, 0);
                           if (v558)
                           {
                             if (v559 != v558)
@@ -7805,7 +7801,7 @@ LABEL_434:
                     else
                     {
                       v291 = v282;
-                      v292 = dbl_1B42AFA98[v290];
+                      v292 = *&qword_1B42AFA98[v290];
                     }
 
                     v293 = *(v218 + 32) + *v514;
@@ -7844,7 +7840,7 @@ LABEL_445:
 
                     else
                     {
-                      v300 = dbl_1B42AFA98[v299];
+                      v300 = *&qword_1B42AFA98[v299];
                     }
 
                     v301 = *(v230 + 32) + *v513;
@@ -7954,16 +7950,16 @@ LABEL_754:
                     if (v341 == v339 + 23 || v341[4] || (v342 = v341[5], v342 > 8))
                     {
 LABEL_505:
-                      v343 = 0.0;
+                      v343 = 0;
                     }
 
                     else
                     {
-                      v343 = dbl_1B42AFA98[v342];
+                      v343 = qword_1B42AFA98[v342];
                     }
 
                     v344 = (*(v339[11] + ((v339[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v339[14]);
-                    v345 = *&v343 * v525 + 4;
+                    v345 = v343 * v525 + 4;
                     if (v345 < (v344[1] - *v344) >> 3)
                     {
                       *(*v344 + 8 * v345) = 0;
@@ -8041,16 +8037,16 @@ LABEL_505:
                     if (v324 == v322 + 23 || v324[4] || (v325 = v324[5], v325 > 8))
                     {
 LABEL_511:
-                      v326 = 0.0;
+                      v326 = 0;
                     }
 
                     else
                     {
-                      v326 = dbl_1B42AFA98[v325];
+                      v326 = qword_1B42AFA98[v325];
                     }
 
                     v355 = (*(v322[11] + ((v322[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v322[14]);
-                    v356 = *&v326 * v525 + 4;
+                    v356 = v326 * v525 + 4;
                     if (v356 < (v355[1] - *v355) >> 3)
                     {
                       *(*v355 + 8 * v356) = 0;
@@ -8591,7 +8587,7 @@ LABEL_717:
   return std::deque<std::pair<int,int>>::~deque[abi:ne200100](v544);
 }
 
-void sub_1B423AE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, void *a41, uint64_t a42, void *a43, uint64_t a44, void *a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59)
+void sub_1B423AE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, void *a41, uint64_t a42, void *a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59)
 {
   operator delete(v60);
   if (v59)
@@ -8654,8 +8650,8 @@ void nms::PyramidNMS<unsigned short,double,unsigned char>::performNMSAtOneLevel(
       }
 
       while (v8 != v9);
-      v2 = *(v1 + 64);
-      v3 = *(v1 + 72);
+      v2 = v1[8];
+      v3 = v1[9];
     }
   }
 
@@ -8666,9 +8662,9 @@ void nms::PyramidNMS<unsigned short,double,unsigned char>::performNMSAtOneLevel(
     do
     {
       operator delete(*v2);
-      v13 = *(v1 + 72);
-      v2 = (*(v1 + 64) + 8);
-      *(v1 + 64) = v2;
+      v13 = v1[9];
+      v2 = (v1[8] + 8);
+      v1[8] = v2;
       v12 = (v13 - v2) >> 3;
     }
 
@@ -8690,25 +8686,25 @@ void nms::PyramidNMS<unsigned short,double,unsigned char>::performNMSAtOneLevel(
     v14 = 256;
   }
 
-  *(v1 + 88) = v14;
+  v1[11] = v14;
 LABEL_19:
-  std::deque<std::valarray<BOOL>>::shrink_to_fit(v1 + 56);
-  v15 = *(v1 + 112);
-  v16 = *(v1 + 120);
+  std::deque<std::valarray<BOOL>>::shrink_to_fit(v1 + 7);
+  v15 = v1[14];
+  v16 = v1[15];
   if (v16 == v15)
   {
-    v17 = (v1 + 144);
-    v16 = *(v1 + 112);
+    v17 = v1 + 18;
+    v16 = v1[14];
   }
 
   else
   {
-    v17 = (v1 + 144);
-    v18 = *(v1 + 136);
+    v17 = v1 + 18;
+    v18 = v1[17];
     v19 = &v15[v18 >> 8];
     v20 = *v19;
     v21 = *v19 + 16 * v18;
-    v22 = *(v15 + (((*(v1 + 144) + v18) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 144) + v18);
+    v22 = *(v15 + (((v1[18] + v18) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 144) + v18);
     if (v21 != v22)
     {
       do
@@ -8738,8 +8734,8 @@ LABEL_19:
       }
 
       while (v21 != v22);
-      v15 = *(v1 + 112);
-      v16 = *(v1 + 120);
+      v15 = v1[14];
+      v16 = v1[15];
     }
   }
 
@@ -8750,9 +8746,9 @@ LABEL_19:
     do
     {
       operator delete(*v15);
-      v26 = *(v1 + 120);
-      v15 = (*(v1 + 112) + 8);
-      *(v1 + 112) = v15;
+      v26 = v1[15];
+      v15 = (v1[14] + 8);
+      v1[14] = v15;
       v25 = (v26 - v15) >> 3;
     }
 
@@ -8774,25 +8770,25 @@ LABEL_19:
     v27 = 256;
   }
 
-  *(v1 + 136) = v27;
+  v1[17] = v27;
 LABEL_37:
-  std::deque<std::valarray<BOOL>>::shrink_to_fit(v1 + 104);
-  v28 = *(v1 + 160);
-  v29 = *(v1 + 168);
+  std::deque<std::valarray<BOOL>>::shrink_to_fit(v1 + 13);
+  v28 = v1[20];
+  v29 = v1[21];
   if (v29 == v28)
   {
-    v30 = (v1 + 192);
-    v29 = *(v1 + 160);
+    v30 = v1 + 24;
+    v29 = v1[20];
   }
 
   else
   {
-    v30 = (v1 + 192);
-    v31 = *(v1 + 184);
+    v30 = v1 + 24;
+    v31 = v1[23];
     v32 = &v28[v31 >> 8];
     v33 = *v32;
     v34 = *v32 + 16 * v31;
-    v35 = *(v28 + (((*(v1 + 192) + v31) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 192) + v31);
+    v35 = *(v28 + (((v1[24] + v31) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 192) + v31);
     if (v34 != v35)
     {
       do
@@ -8822,8 +8818,8 @@ LABEL_37:
       }
 
       while (v34 != v35);
-      v28 = *(v1 + 160);
-      v29 = *(v1 + 168);
+      v28 = v1[20];
+      v29 = v1[21];
     }
   }
 
@@ -8834,9 +8830,9 @@ LABEL_37:
     do
     {
       operator delete(*v28);
-      v39 = *(v1 + 168);
-      v28 = (*(v1 + 160) + 8);
-      *(v1 + 160) = v28;
+      v39 = v1[21];
+      v28 = (v1[20] + 8);
+      v1[20] = v28;
       v38 = (v39 - v28) >> 3;
     }
 
@@ -8858,10 +8854,10 @@ LABEL_37:
     v40 = 256;
   }
 
-  *(v1 + 184) = v40;
+  v1[23] = v40;
 LABEL_55:
-  std::deque<std::valarray<BOOL>>::shrink_to_fit(v1 + 152);
-  v41 = *(v1 + 968);
+  std::deque<std::valarray<BOOL>>::shrink_to_fit(v1 + 19);
+  v41 = v1[121];
   v862 = v1;
   if (v41)
   {
@@ -8872,7 +8868,7 @@ LABEL_55:
       v44 = v1;
       do
       {
-        v45 = *(v44 + 968);
+        v45 = v44[121];
         if (v45[5] <= v43)
         {
           std::__throw_out_of_range[abi:ne200100]("deque");
@@ -8898,7 +8894,7 @@ LABEL_55:
           }
 
           while (v48);
-          if (v52 == v47 || v52[4] || (v53 = v52[5], v53 >= 9) || (v54 = dbl_1B42AFA98[v53], __p[0] = 0, __p[1] = 0, *&v54 <= v51))
+          if (v52 == v47 || v52[4] || (v53 = v52[5], v53 >= 9) || (v54 = qword_1B42AFA98[v53], __p[0] = 0, __p[1] = 0, v54 <= v51))
           {
 LABEL_66:
             operator new();
@@ -8911,7 +8907,7 @@ LABEL_66:
           __p[1] = 0;
         }
 
-        std::deque<std::valarray<BOOL>>::push_back((v1 + 56), __p);
+        std::deque<std::valarray<BOOL>>::push_back(v1 + 7, __p);
         if (__p[0])
         {
           operator delete(__p[0]);
@@ -8919,7 +8915,7 @@ LABEL_66:
 
         __p[0] = 0;
         __p[1] = 0;
-        std::deque<std::valarray<BOOL>>::push_back((v1 + 104), __p);
+        std::deque<std::valarray<BOOL>>::push_back(v1 + 13, __p);
         if (__p[0])
         {
           operator delete(__p[0]);
@@ -8928,7 +8924,7 @@ LABEL_66:
         __p[0] = 0;
         __p[1] = 0;
         v44 = v1;
-        std::deque<std::valarray<BOOL>>::push_back((v1 + 152), __p);
+        std::deque<std::valarray<BOOL>>::push_back(v1 + 19, __p);
         if (__p[0])
         {
           operator delete(__p[0]);
@@ -8938,14 +8934,14 @@ LABEL_66:
       }
 
       while (v43 != v42);
-      if (v42 == 2 && (*(v1 + 1048) & 1) != 0)
+      if (v42 == 2 && (v1[131] & 1) != 0)
       {
-        v55 = (*(*(v1 + 592) + (((*(v1 + 616) + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 616) + 1));
+        v55 = (*(v1[74] + (((v1[77] + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 616) + 1));
         v57 = *v55;
         v56 = v55[1];
-        v58 = *(v1 + 712) + 1;
-        v59 = *(*(v1 + 688) + ((v58 >> 5) & 0x7FFFFFFFFFFFFF8));
-        v60 = *(v1 + 808) + 1;
+        v58 = v1[89] + 1;
+        v59 = *(v1[86] + ((v58 >> 5) & 0x7FFFFFFFFFFFFF8));
+        v60 = v1[101] + 1;
         v61 = *(*(v862 + 784) + ((v60 >> 5) & 0x7FFFFFFFFFFFFF8));
         v62 = *(v862 + 904) + 1;
         v63 = *(*(v862 + 880) + ((v62 >> 5) & 0x7FFFFFFFFFFFFF8));
@@ -9107,31 +9103,31 @@ LABEL_93:
                 if (v92 == v90 + 23 || v92[4] > 3uLL || (v96 = v92[5], v96 > 8))
                 {
 LABEL_110:
-                  v97 = 0.0;
+                  v97 = 0;
                 }
 
                 else
                 {
-                  v97 = dbl_1B42AFA98[v96];
+                  v97 = qword_1B42AFA98[v96];
                 }
 
                 v98 = *(v90[17] + 8 * ((v90[20] + 4) / 0x55uLL)) + 48 * ((v90[20] + 4) % 0x55uLL);
-                v99 = (*&v97 * *(*(*(v98 + 8) + (((*(v98 + 32) + v88) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((*(v98 + 32) + v88) & 0x3FF)));
+                v99 = v97 * *(*(*(v98 + 8) + (((*(v98 + 32) + v88) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((*(v98 + 32) + v88) & 0x3FF));
                 __p[0] = (*(v90[11] + (((v90[14] + 3) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v90 + 112) + 3));
                 __p[1] = v99;
                 *&v885 = v97;
                 *(&v885 + 1) = 1;
                 std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v890, __p);
-                v100 = *v890;
-                if (*(&v890 + 1) != v890)
+                v100 = *v890.i64[0];
+                if (v890.i64[1] != v890.i64[0])
                 {
-                  *(&v890 + 1) += (v890 - *(&v890 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+                  v890.i64[1] += (v890.i64[0] - v890.i64[1] + 7) & 0xFFFFFFFFFFFFFFF8;
                 }
 
                 v101 = *(v862 + 1120);
-                v102 = vsubq_f64(v100, *(v890 + 48));
+                v102 = vsubq_f64(v100, *(v890.i64[0] + 48));
                 v103 = sqrt(vaddvq_f64(vmulq_f64(v102, v102)));
-                operator delete(v890);
+                operator delete(v890.i64[0]);
                 if (v103 <= v101)
                 {
                   v122 = v862;
@@ -9159,7 +9155,7 @@ LABEL_110:
                 v844 = v85;
                 v875[0] = 0;
                 v875[1] = 0;
-                std::valarray<double>::resize(v875, 5uLL);
+                std::valarray<double>::resize(v875, 5uLL, 0.0);
                 v113 = *(v862 + 968);
                 if (v113[5] <= v86)
                 {
@@ -9209,17 +9205,17 @@ LABEL_138:
                     v128 = v127[5];
                     if (v128 <= 8)
                     {
-                      v129 = dbl_1B42AFA98[v128];
+                      v129 = qword_1B42AFA98[v128];
                       goto LABEL_145;
                     }
                   }
                 }
 
-                v129 = 0.0;
+                v129 = 0;
 LABEL_145:
                 v130 = v875[0];
                 v131 = (*(v114[11] + ((v114[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v114[14]);
-                v132 = v120 + *&v129 * v88;
+                v132 = v120 + v129 * v88;
                 if (v132 < (v131[1] - *v131) >> 3)
                 {
                   *v875[0] = *(*v131 + 8 * v132);
@@ -9280,17 +9276,17 @@ LABEL_154:
                 if (v142 == v116 || v142[4] > 1 || (v143 = v142[5], v143 > 8))
                 {
 LABEL_164:
-                  v144 = 0.0;
+                  v144 = 0;
                 }
 
                 else
                 {
-                  v144 = dbl_1B42AFA98[v143];
+                  v144 = qword_1B42AFA98[v143];
                 }
 
                 __p[0] = (*(v114[11] + (((v114[14] + 1) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v114 + 112) + 1));
-                __p[1] = (*&v144 * v139);
-                *&v885 = *&v144 * (v140 - v139 + 1);
+                __p[1] = (v144 * v139);
+                *&v885 = v144 * (v140 - v139 + 1);
                 *(&v885 + 1) = 1;
                 std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v890, __p);
                 if (v137 == 5)
@@ -9310,7 +9306,7 @@ LABEL_164:
 
                 if (v146)
                 {
-                  v147 = (((*(&v890 + 1) - v890) >> 3) / v146);
+                  v147 = (((v890.i64[1] - v890.i64[0]) >> 3) / v146);
                 }
 
                 else
@@ -9400,20 +9396,20 @@ LABEL_182:
                           if (v195 == v116 || v195[4] > 4 || (v198 = v195[5], v198 > 8))
                           {
 LABEL_254:
-                            v199 = 0.0;
+                            v199 = 0;
                           }
 
                           else
                           {
-                            v199 = dbl_1B42AFA98[v198];
+                            v199 = qword_1B42AFA98[v198];
                           }
 
                           __p[0] = (*(v114[11] + (((v114[14] + 4) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v114 + 112) + 4));
-                          __p[1] = (*&v199 * v193);
+                          __p[1] = (v199 * v193);
                           *&v885 = v199;
                           *(&v885 + 1) = 1;
                           std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(v878, __p);
-                          *&v200 = COERCE_DOUBLE(nms::rasterizeQuadByQuantizedScoreMap<double>(v878, v881, (v114 + 8), v114[6], v114[7], 0, *(v862 + 1008)));
+                          v200 = nms::rasterizeQuadByQuantizedScoreMap<double>(v878, v881, v114 + 8, v114[6], v114[7], 0, *(v862 + 1008));
                           v161 = v201;
                           if (v878[0])
                           {
@@ -9531,14 +9527,14 @@ LABEL_268:
                   v130[4] = v166 * v161;
                 }
 
-                if (v890)
+                if (v890.i64[0])
                 {
-                  if (*(&v890 + 1) != v890)
+                  if (v890.i64[1] != v890.i64[0])
                   {
-                    *(&v890 + 1) += (v890 - *(&v890 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+                    v890.i64[1] += (v890.i64[0] - v890.i64[1] + 7) & 0xFFFFFFFFFFFFFFF8;
                   }
 
-                  operator delete(v890);
+                  operator delete(v890.i64[0]);
                 }
 
                 v121 = *(v875[1] - 1);
@@ -9574,15 +9570,15 @@ LABEL_426:
                   if (v267 == v828 || v267[4] || (v268 = v267[5], v268 > 8))
                   {
 LABEL_443:
-                    v269 = 0.0;
+                    v269 = 0;
                   }
 
                   else
                   {
-                    v269 = dbl_1B42AFA98[v268];
+                    v269 = qword_1B42AFA98[v268];
                   }
 
-                  v273 = v820 + *&v269 * v88;
+                  v273 = v820 + v269 * v88;
                   v275 = (*(v822[11] + ((v822[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v822[14]);
                   v274 = *v275;
                   if (v273 < (v275[1] - *v275) >> 3)
@@ -9812,7 +9808,7 @@ LABEL_202:
               operator new();
             }
 
-            std::valarray<double>::resize(&v863, 4uLL);
+            std::valarray<double>::resize(&v863, 4uLL, 0.0);
             v175 = *v852;
             if (!*v852)
             {
@@ -9829,16 +9825,16 @@ LABEL_202:
             if (v176 == v852 || v176[4] || (v177 = v176[5], v177 > 8))
             {
 LABEL_222:
-              v178 = 0.0;
+              v178 = 0;
             }
 
             else
             {
-              v178 = dbl_1B42AFA98[v177];
+              v178 = qword_1B42AFA98[v177];
             }
 
             __p[0] = (*(v833[11] + ((v833[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v833[14]);
-            __p[1] = (*&v178 * v88);
+            __p[1] = (v178 * v88);
             *&v885 = v178;
             *(&v885 + 1) = 1;
             std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v865, __p);
@@ -9933,8 +9929,8 @@ LABEL_222:
                   operator delete(v878[0]);
                 }
 
-                v183 = *(&v890 + 1);
-                v182 = v890;
+                v183 = v890.i64[1];
+                v182 = v890.i64[0];
                 *v878 = v890;
               }
 
@@ -10009,7 +10005,7 @@ LABEL_222:
               v229 = v881[0];
               if (v220)
               {
-                v230 = (v890 + 16);
+                v230 = (v890.i64[0] + 16);
                 v231 = (v875[0] + 16);
                 v232 = v881[0];
                 v233 = v220;
@@ -10037,14 +10033,14 @@ LABEL_331:
                 goto LABEL_331;
               }
 
-              __p[0] = (v890 + 8);
+              __p[0] = (v890.i64[0] + 8);
               __p[1] = v220;
               *&v885 = 4;
               std::valarray<double>::valarray(v881, __p);
               v235 = v881[0];
               if (v220)
               {
-                v236 = (v890 + 24);
+                v236 = (v890.i64[0] + 24);
                 v237 = (v875[0] + 24);
                 v238 = v881[0];
                 v239 = v220;
@@ -10072,16 +10068,16 @@ LABEL_339:
                 goto LABEL_339;
               }
 
-              v242 = *(&v890 + 1);
-              for (i = v890; i != v242; ++i)
+              v242 = v890.i64[1];
+              for (i = v890.i64[0]; i != v242; ++i)
               {
                 *i = *i * v181;
               }
 
-              std::valarray<double>::apply(__p, &v890);
-              if (v890)
+              std::valarray<double>::apply(__p, &v890, nms::intersectionPenalizedUnionOfRects<double>(std::valarray<double> const&,std::valarray<double>&,unsigned long,nms::RepresentationDimType)::{lambda(double)#1}::__invoke);
+              if (v890.i64[0])
               {
-                operator delete(v890);
+                operator delete(v890.i64[0]);
               }
 
               v890 = *__p;
@@ -10089,9 +10085,9 @@ LABEL_339:
               nms::max<double>(v881, &v868, &v890);
               v867 = v181;
               nms::min<double>(__p, &v867, v881);
-              if (v890)
+              if (v890.i64[0])
               {
-                operator delete(v890);
+                operator delete(v890.i64[0]);
               }
 
               v890 = *__p;
@@ -10211,14 +10207,14 @@ LABEL_446:
                 operator delete(v244);
               }
 
-              if (v890)
+              if (v890.i64[0])
               {
-                if (*(&v890 + 1) != v890)
+                if (v890.i64[1] != v890.i64[0])
                 {
-                  *(&v890 + 1) += (v890 - *(&v890 + 1) + 7) & 0xFFFFFFFFFFFFFFF8;
+                  v890.i64[1] += (v890.i64[0] - v890.i64[1] + 7) & 0xFFFFFFFFFFFFFFF8;
                 }
 
-                operator delete(v890);
+                operator delete(v890.i64[0]);
               }
 
               v186 = 0.0 / 0;
@@ -10257,7 +10253,7 @@ LABEL_383:
             {
               if (v180 != v179)
               {
-                v866 = &v180[(v179 - v180 + 7) & 0xFFFFFFFFFFFFFFF8];
+                v866 = (v180 + ((v179 - v180 + 7) & 0xFFFFFFFFFFFFFFF8));
               }
 
               operator delete(v179);
@@ -10324,21 +10320,21 @@ LABEL_383:
               if (v262 == v852 || v262[4] || (v263 = v262[5], v263 > 8))
               {
 LABEL_411:
-                v264 = 0.0;
+                v264 = 0;
               }
 
               else
               {
-                v264 = dbl_1B42AFA98[v263];
+                v264 = qword_1B42AFA98[v263];
               }
 
               __p[0] = (*(v833[11] + ((v833[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v833[14]);
-              __p[1] = (*&v264 * v88);
+              __p[1] = (v264 * v88);
               *&v885 = v264;
               *(&v885 + 1) = 1;
               std::__val_expr<std::__slice_expr<std::valarray<double> const&>>::operator std::valarray<double>(&v890, __p);
-              v265 = v890;
-              v254[3] = v254[3] * (*(v890 + 16) * *(v890 + 24));
+              v265 = v890.i64[0];
+              v254[3] = v254[3] * (*(v890.i64[0] + 16) * *(v890.i64[0] + 24));
             }
 
             else
@@ -10409,7 +10405,7 @@ LABEL_452:
         v818 = 0;
         while (1)
         {
-          v279 = *(v1 + 968);
+          v279 = v1[121];
           if (v279[5] <= v278)
           {
             std::__throw_out_of_range[abi:ne200100]("deque");
@@ -10447,10 +10443,10 @@ LABEL_452:
           }
 
           v285 = v278;
-          v286 = (*(*(v1 + 592) + (((*(v1 + 616) + v278) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 616) + v278));
+          v286 = (*(v1[74] + (((v1[77] + v278) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 616) + v278));
           LOBYTE(v875[0]) = 0;
           v287 = v286[1] - *v286;
-          *(&v890 + 1) = v286;
+          v890.i64[1] = v286;
           *&v891 = v875;
           *(&v891 + 1) = v287;
           std::__val_expr<std::_BinaryOp<std::greater<unsigned char>,std::valarray<unsigned char>,std::__scalar_expr<unsigned char>>>::operator std::valarray<BOOL>(v878, &v890);
@@ -10484,7 +10480,7 @@ LABEL_452:
           v894 = 0u;
           v895 = 0u;
           v893 = 0u;
-          LODWORD(v890) = 0;
+          v890.i32[0] = 0;
           if (v885 != __p[1])
           {
             v288 = __p[1] + 8 * (v886 >> 11);
@@ -10502,7 +10498,7 @@ LABEL_593:
           v278 = ++v818;
           if (v829 <= v818)
           {
-            v41 = *(v1 + 968);
+            v41 = v1[121];
             v277 = v824;
             goto LABEL_596;
           }
@@ -10559,29 +10555,29 @@ LABEL_490:
           if (v297 == v832 || v297[4] || (v298 = v297[5], v298 > 8))
           {
 LABEL_497:
-            v299 = 0.0;
+            v299 = 0;
           }
 
           else
           {
-            v299 = dbl_1B42AFA98[v298];
+            v299 = qword_1B42AFA98[v298];
           }
 
           v819 = v288;
           v821 = v289;
-          v300 = v831 + *&v299 * v834;
+          v300 = v831 + v299 * v834;
           v301 = *(*(v280[11] + ((v280[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v280[14]);
           if (v300 < (*(*(v280[11] + ((v280[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v280[14] + 8) - v301) >> 3)
           {
             v290 = *(v301 + 8 * v300);
           }
 
-          LOWORD(v890) = v818;
+          v890.i16[0] = v818;
           v849 = v834;
           v302 = v818;
           v840 = v818;
           v303 = v818;
-          WORD1(v890) = v834;
+          v890.i16[1] = v834;
           v859 = v818;
           LOWORD(v881[0]) = v818;
           v854 = v834;
@@ -10590,7 +10586,7 @@ LABEL_497:
           {
             while (1)
             {
-              v305 = *(v1 + 968);
+              v305 = v1[121];
               if (v305[5] <= v304)
               {
                 std::__throw_out_of_range[abi:ne200100]("deque");
@@ -10623,7 +10619,7 @@ LABEL_508:
               }
 
               v845 = v311;
-              v312 = *(*(v1 + 640) + 8 * ((*(v1 + 664) + v827) / 0x55)) + 48 * ((*(v1 + 664) + v827) % 0x55);
+              v312 = *(v1[80] + 8 * ((v1[83] + v827) / 0x55)) + 48 * ((v1[83] + v827) % 0x55);
               v313 = (*(*(v312 + 8) + 8 * ((*(v312 + 32) + v304) / 0x55)) + 48 * ((*(v312 + 32) + v304) % 0x55));
               if (v313[5])
               {
@@ -10692,15 +10688,15 @@ LABEL_574:
                   if (v345 == v308 || v345[4] || (v346 = v345[5], v346 > 8))
                   {
 LABEL_562:
-                    v347 = 0.0;
+                    v347 = 0;
                   }
 
                   else
                   {
-                    v347 = dbl_1B42AFA98[v346];
+                    v347 = qword_1B42AFA98[v346];
                   }
 
-                  v354 = v831 + *&v347 * v321;
+                  v354 = v831 + v347 * v321;
                   v356 = (*(v306[11] + ((v306[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v306[14]);
                   v355 = *v356;
                   if (v354 < (v356[1] - *v356) >> 3)
@@ -10709,8 +10705,8 @@ LABEL_562:
                   }
 
                   v849 = v321;
-                  LOWORD(v890) = v303;
-                  WORD1(v890) = v321;
+                  v890.i16[0] = v303;
+                  v890.i16[1] = v321;
                   v840 = v303;
                   v859 = v303;
                   v854 = v321;
@@ -10741,15 +10737,15 @@ LABEL_562:
                   if (v341 == v832 || v341[4] || (v342 = v341[5], v342 > 8))
                   {
 LABEL_552:
-                    v343 = 0.0;
+                    v343 = 0;
                   }
 
                   else
                   {
-                    v343 = dbl_1B42AFA98[v342];
+                    v343 = qword_1B42AFA98[v342];
                   }
 
-                  v348 = v831 + *&v343 * v834;
+                  v348 = v831 + v343 * v834;
                   v349 = *(*(v280[11] + ((v280[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v280[14]);
                   if (v348 < (*(*(v280[11] + ((v280[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v280[14] + 8) - v349) >> 3)
                   {
@@ -10784,15 +10780,15 @@ LABEL_518:
                       if (v351 == v308 || v351[4] || (v352 = v351[5], v352 > 8))
                       {
 LABEL_566:
-                        v353 = 0.0;
+                        v353 = 0;
                       }
 
                       else
                       {
-                        v353 = dbl_1B42AFA98[v352];
+                        v353 = qword_1B42AFA98[v352];
                       }
 
-                      v337 = v845 + *&v353 * v321;
+                      v337 = v845 + v353 * v321;
                       v357 = (*(v306[11] + ((v306[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v306[14]);
                       v338 = *v357;
                       v290 = 0.0;
@@ -10823,15 +10819,15 @@ LABEL_532:
                     if (v334 == v308 || v334[4] || (v335 = v334[5], v335 > 8))
                     {
 LABEL_530:
-                      v336 = 0.0;
+                      v336 = 0;
                     }
 
                     else
                     {
-                      v336 = dbl_1B42AFA98[v335];
+                      v336 = qword_1B42AFA98[v335];
                     }
 
-                    v337 = v845 + *&v336 * v321;
+                    v337 = v845 + v336 * v321;
                     v339 = (*(v306[11] + ((v306[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v306[14]);
                     v338 = *v339;
                     if (v337 < (v339[1] - *v339) >> 3)
@@ -10852,11 +10848,11 @@ LABEL_530:
                 else
                 {
                   std::deque<std::pair<unsigned short,unsigned short>>::emplace_back<std::pair<unsigned short,unsigned short>&>(&v893, &v890);
-                  LOWORD(v890) = v303;
+                  v890.i16[0] = v303;
                   v849 = v321;
                   v840 = v303;
                   v859 = v303;
-                  WORD1(v890) = v321;
+                  v890.i16[1] = v321;
                   v854 = v321;
                   v320 = v321;
                   v291 = v331;
@@ -10883,8 +10879,8 @@ LABEL_530:
 LABEL_576:
           if (v293 == v292)
           {
-            v363 = *(v1 + 136);
-            v364 = *(v1 + 112);
+            v363 = v1[17];
+            v364 = v1[14];
             v365 = v821;
           }
 
@@ -10894,27 +10890,27 @@ LABEL_576:
             v360 = *v359;
             v361 = (*v359 + 4 * (v895 & 0x3FF));
             v362 = *(v292 + (((*(&v895 + 1) + v895) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((*(&v895 + 1) + v895) & 0x3FF);
-            v363 = *(v1 + 136);
-            v364 = *(v1 + 112);
+            v363 = v1[17];
+            v364 = v1[14];
             v365 = v821;
             while (v361 != v362)
             {
               v366 = *v361;
               v367 = v361[1];
               v368 = *(*(v364 + (((v363 + v366) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v363 + v366));
-              if (*(v368 + v367) != 1 || (v369 = *(*(*(v1 + 64) + (((*(v1 + 88) + v366) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v366)), *(v369 + v367) == 1))
+              if (*(v368 + v367) != 1 || (v369 = *(*(v1[8] + (((v1[11] + v366) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v366)), *(v369 + v367) == 1))
               {
                 nms::PyramidNMS<unsigned short,double,unsigned char>::isolateDatum(v1, *v361, v361[1]);
-                v363 = *(v1 + 136);
-                v364 = *(v1 + 112);
-                v369 = *(*(*(v1 + 64) + (((*(v1 + 88) + v366) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v366));
+                v363 = v1[17];
+                v364 = v1[14];
+                v369 = *(*(v1[8] + (((v1[11] + v366) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v366));
                 v368 = *(*(v364 + (((v363 + v366) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v363 + v366));
                 v360 = *v359;
               }
 
               *(v369 + v367) = 0;
               *(v368 + v367) = 1;
-              *(*(*(*(v1 + 160) + (((*(v1 + 184) + v366) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 184) + v366)) + v367) = 0;
+              *(*(*(v1[20] + (((v1[23] + v366) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 184) + v366)) + v367) = 0;
               v361 += 2;
               if (v361 - v360 == 4096)
               {
@@ -10926,14 +10922,14 @@ LABEL_576:
             }
           }
 
-          if (!*(*(*(*(v1 + 880) + (((*(v1 + 904) + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 904) + v302)) + v849) && !*(*(*(*(v1 + 784) + (((*(v1 + 808) + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 808) + v302)) + v849))
+          if (!*(*(*(v1[110] + (((v1[113] + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 904) + v302)) + v849) && !*(*(*(v1[98] + (((v1[101] + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 808) + v302)) + v849))
           {
             v371 = *(*(v364 + (((v363 + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v363 + v302));
-            if (!(*(*(*(*(v1 + 688) + (((*(v1 + 712) + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 712) + v302)) + v849) | *(v371 + v849)))
+            if (!(*(*(*(v1[86] + (((v1[89] + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 712) + v302)) + v849) | *(v371 + v849)))
             {
-              *(*(*(*(v1 + 64) + (((*(v1 + 88) + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v302)) + v849) = 1;
+              *(*(*(v1[8] + (((v1[11] + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v302)) + v849) = 1;
               *(v371 + v849) = 0;
-              *(*(*(*(v1 + 160) + (((*(v1 + 184) + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 184) + v302)) + v849) = 0;
+              *(*(*(v1[20] + (((v1[23] + v302) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 184) + v302)) + v849) = 0;
             }
           }
 
@@ -10974,14 +10970,14 @@ LABEL_596:
         v374 = 0;
         do
         {
-          v375 = (*(*(v1 + 688) + (((*(v1 + 712) + v374) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 712) + v374));
+          v375 = (*(v1[86] + (((v1[89] + v374) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 712) + v374));
           LOBYTE(v872[0]) = 0;
           v376 = v375[1] - *v375;
-          *(&v890 + 1) = v375;
+          v890.i64[1] = v375;
           *&v891 = v872;
           *(&v891 + 1) = v376;
           std::__val_expr<std::_BinaryOp<std::greater<unsigned char>,std::valarray<unsigned char>,std::__scalar_expr<unsigned char>>>::operator std::valarray<BOOL>(v878, &v890);
-          v377 = (*(*(v1 + 784) + (((*(v1 + 808) + v373) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 808) + v373));
+          v377 = (*(v1[98] + (((v1[101] + v373) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 808) + v373));
           if (v377[1] != *v377)
           {
             operator new();
@@ -11012,7 +11008,7 @@ LABEL_596:
             v380 = *(*(&v893 + 1) + (((*(&v895 + 1) + v895) >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * ((*(&v895 + 1) + v895) & 0x7FF);
             while (v379 != v380)
             {
-              LOWORD(v890) = *v379;
+              v890.i16[0] = *v379;
               std::deque<std::pair<unsigned short,unsigned short>>::emplace_back<unsigned short &,unsigned short &>(__p, v875, &v890);
               if ((++v379 - *v378) == 4096)
               {
@@ -11046,7 +11042,7 @@ LABEL_596:
               *&v886 = v886 - 1024;
             }
 
-            if ((*(*(*(*(v1 + 112) + (((*(v1 + 136) + v384) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 136) + v384)) + v385) & 1) == 0)
+            if ((*(*(*(v1[14] + (((v1[17] + v384) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 136) + v384)) + v385) & 1) == 0)
             {
               break;
             }
@@ -11095,8 +11091,8 @@ LABEL_707:
               {
                 std::deque<std::pair<unsigned short,unsigned short>>::__add_back_capacity(&v890, v391 - (v392 >> 2));
                 v394 = *(&v892 + 1);
-                v395 = (*(&v890 + 1) + 8 * ((v892 + *(&v892 + 1)) >> 10));
-                if (v891 != *(&v890 + 1))
+                v395 = (v890.i64[1] + 8 * ((v892 + *(&v892 + 1)) >> 10));
+                if (v891 != v890.i64[1])
                 {
                   v396 = *v395 + 4 * ((v892 + WORD4(v892)) & 0x3FF);
 LABEL_627:
@@ -11147,12 +11143,12 @@ LABEL_627:
                   *v878 = 0u;
                   v879 = 0u;
                   nms::PyramidNMS<unsigned short,double,unsigned char>::processContainmentOfOneDatum(v1, v384, v385, &v890, v878, v881);
-                  v404 = *(v1 + 136);
-                  v405 = *(v1 + 112);
+                  v404 = v1[17];
+                  v405 = v1[14];
                   v406 = *(*(v405 + (((v404 + v384) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v404 + v384));
                   v407 = *(v406 + v385);
-                  v408 = *(v1 + 184);
-                  v409 = *(v1 + 160);
+                  v408 = v1[23];
+                  v409 = v1[20];
                   if ((v407 & 1) != 0 || (*(*(*(v409 + (((v408 + v384) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v408 + v384)) + v385) & 1) != 0 || *(v1 + 1128) != 1)
                   {
                     goto LABEL_679;
@@ -11161,21 +11157,21 @@ LABEL_627:
                   v876 = 0u;
                   v877 = 0u;
                   *v875 = 0u;
-                  if (!nms::PyramidNMS<unsigned short,double,unsigned char>::getOverlappingDatums(v1, v384, v385, v875))
+                  if (!nms::PyramidNMS<unsigned short,double,unsigned char>::getOverlappingDatums(v1, v384, v385, v875, 0))
                   {
 LABEL_678:
                     std::deque<std::pair<unsigned short,unsigned short>>::~deque[abi:ne200100](v875);
-                    v404 = *(v1 + 136);
-                    v405 = *(v1 + 112);
-                    v408 = *(v1 + 184);
-                    v409 = *(v1 + 160);
+                    v404 = v1[17];
+                    v405 = v1[14];
+                    v408 = v1[23];
+                    v409 = v1[20];
                     v406 = *(*(v405 + (((v404 + v384) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v404 + v384));
                     v407 = *(v406 + v385);
 LABEL_679:
                     v434 = *(*(v409 + (((v408 + v384) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v408 + v384));
                     v435 = *(v434 + v385) | v407;
-                    v436 = *(v1 + 88);
-                    v437 = *(v1 + 64);
+                    v436 = v1[11];
+                    v437 = v1[8];
                     v438 = *(*(v437 + (((v436 + v384) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v436 + v384));
                     *(v438 + v385) = v435 ^ 1;
                     if (v435)
@@ -11187,7 +11183,7 @@ LABEL_679:
                         v441 = *(*(&v893 + 1) + (((*(&v895 + 1) + v895) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((*(&v895 + 1) + v895) & 0x3FF);
                         while (v440 != v441)
                         {
-                          nms::PyramidNMS<unsigned short,double,unsigned char>::computeConstitutedIndices(v875, v1, *v440, v440[1], (v1 + 104));
+                          nms::PyramidNMS<unsigned short,double,unsigned char>::computeConstitutedIndices(v875, v1, *v440, v440[1], v1 + 13);
                           if (!*(&v877 + 1))
                           {
                             std::deque<std::pair<unsigned short,unsigned short>>::emplace_back<std::pair<unsigned short,unsigned short>&>(__p, v440);
@@ -11256,14 +11252,14 @@ LABEL_700:
                             if (*(v456 + v448) != 1 || (v457 = *(*(v437 + (((v436 + v447) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v436 + v447)), *(v457 + v448) == 1))
                             {
                               nms::PyramidNMS<unsigned short,double,unsigned char>::isolateDatum(v1, *v445, v445[1]);
-                              v436 = *(v1 + 88);
-                              v437 = *(v1 + 64);
-                              v404 = *(v1 + 136);
-                              v405 = *(v1 + 112);
+                              v436 = v1[11];
+                              v437 = v1[8];
+                              v404 = v1[17];
+                              v405 = v1[14];
                               v457 = *(*(v437 + (((v436 + v447) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v436 + v447));
                               v456 = *(*(v405 + (((v404 + v447) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v404 + v447));
-                              v408 = *(v1 + 184);
-                              v409 = *(v1 + 160);
+                              v408 = v1[23];
+                              v409 = v1[20];
                               v444 = *v443;
                             }
 
@@ -11353,18 +11349,18 @@ LABEL_652:
                     }
                   }
 
-                  v417 = *(&v890 + 1);
+                  v417 = v890.i64[1];
                   v418 = v891;
                   *(&v892 + 1) = 0;
-                  v419 = (v891 - *(&v890 + 1)) >> 3;
+                  v419 = (v891 - v890.i64[1]) >> 3;
                   if (v419 >= 3)
                   {
                     do
                     {
                       operator delete(*v417);
                       v418 = v891;
-                      v417 = (*(&v890 + 1) + 8);
-                      *(&v890 + 1) = v417;
+                      v417 = (v890.i64[1] + 8);
+                      v890.i64[1] = v417;
                       v419 = (v891 - v417) >> 3;
                     }
 
@@ -11413,12 +11409,12 @@ LABEL_665:
                   {
                     v425 = (*v424 + 4 * (v895 & 0x3FF));
                     v426 = (*(&v893 + 1) + 8 * ((*(&v895 + 1) + v895) >> 10));
-                    v427 = &(*v426)[(*(&v895 + 1) + v895) & 0x3FF];
+                    v427 = (*v426 + 4 * ((*(&v895 + 1) + v895) & 0x3FF));
                   }
 
                   std::deque<std::pair<unsigned short,unsigned short>>::insert<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,0>(&v890, v422, v423, v424, v425, v426, v427);
-                  v428 = (*(&v890 + 1) + 8 * ((v892 + *(&v892 + 1)) >> 10));
-                  if (v891 == *(&v890 + 1))
+                  v428 = (v890.i64[1] + 8 * ((v892 + *(&v892 + 1)) >> 10));
+                  if (v891 == v890.i64[1])
                   {
                     v429 = 0;
                   }
@@ -11428,19 +11424,19 @@ LABEL_665:
                     v429 = *v428 + 4 * ((v892 + WORD4(v892)) & 0x3FF);
                   }
 
-                  v430 = (v875[1] + 8 * (v877 >> 10));
+                  v430 = v875[1] + 8 * (v877 >> 10);
                   if (v876 == v875[1])
                   {
                     v431 = 0;
                     v433 = 0;
-                    v432 = (v875[1] + 8 * ((*(&v877 + 1) + v877) >> 10));
+                    v432 = v875[1] + 8 * ((*(&v877 + 1) + v877) >> 10);
                   }
 
                   else
                   {
                     v431 = (*v430 + 4 * (v877 & 0x3FF));
-                    v432 = (v875[1] + 8 * ((*(&v877 + 1) + v877) >> 10));
-                    v433 = &(*v432)[(*(&v877 + 1) + v877) & 0x3FF];
+                    v432 = v875[1] + 8 * ((*(&v877 + 1) + v877) >> 10);
+                    v433 = (*v432 + 4 * ((*(&v877 + 1) + v877) & 0x3FF));
                   }
 
                   std::deque<std::pair<unsigned short,unsigned short>>::insert<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,0>(&v890, v428, v429, v430, v431, v432, v433);
@@ -11469,7 +11465,7 @@ LABEL_665:
 
 LABEL_708:
     std::deque<std::pair<unsigned short,unsigned short>>::~deque[abi:ne200100](__p);
-    v41 = *(v1 + 968);
+    v41 = v1[121];
   }
 
   if (*(v1 + 1100) != 1)
@@ -11491,7 +11487,7 @@ LABEL_708:
       v460 = 0;
       do
       {
-        v461 = (*(*(v1 + 880) + (((*(v1 + 904) + v460) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 904) + v460));
+        v461 = (*(v1[110] + (((v1[113] + v460) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 904) + v460));
         v463 = *v461;
         v462 = v461[1];
         v890 = 0uLL;
@@ -11508,7 +11504,7 @@ LABEL_708:
           v466 = *(*(&v893 + 1) + (((*(&v895 + 1) + v895) >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * ((*(&v895 + 1) + v895) & 0x7FF);
           while (v465 != v466)
           {
-            LOWORD(v890) = *v465;
+            v890.i16[0] = *v465;
             std::deque<std::pair<unsigned short,unsigned short>>::emplace_back<unsigned short &,unsigned short &>(__p, v881, &v890);
             if ((++v465 - *v464) == 4096)
             {
@@ -11647,32 +11643,32 @@ LABEL_736:
         v485 = v484[5];
         if (v485 <= 8)
         {
-          v486 = dbl_1B42AFA98[v485];
+          v486 = qword_1B42AFA98[v485];
           goto LABEL_743;
         }
       }
 
 LABEL_742:
-      v486 = 0.0;
+      v486 = 0;
 LABEL_743:
       v487 = (*(v477[11] + ((v477[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v477[14]);
-      v488 = v483 + *&v486 * v475;
+      v488 = v483 + v486 * v475;
       v489 = 0.0;
       if (v488 < (v487[1] - *v487) >> 3)
       {
         v489 = *(*v487 + 8 * v488);
       }
 
-      v490 = *(&v890 + 1);
+      v490 = v890.i64[1];
       *(&v892 + 1) = 0;
-      v491 = (v891 - *(&v890 + 1)) >> 3;
+      v491 = (v891 - v890.i64[1]) >> 3;
       if (v491 >= 3)
       {
         do
         {
           operator delete(*v490);
-          v490 = (*(&v890 + 1) + 8);
-          *(&v890 + 1) = v490;
+          v490 = (v890.i64[1] + 8);
+          v890.i64[1] = v490;
           v491 = (v891 - v490) >> 3;
         }
 
@@ -11763,10 +11759,10 @@ LABEL_759:
       *&v880 = v498;
 LABEL_766:
       ContainedDatums = nms::PyramidNMS<unsigned short,double,unsigned char>::getContainedDatums(v862, v474, v475, v881);
-      if (ContainedDatums | nms::PyramidNMS<unsigned short,double,unsigned char>::getOverlappingDatums(v862, v474, v475, v878))
+      if (ContainedDatums | nms::PyramidNMS<unsigned short,double,unsigned char>::getOverlappingDatums(v862, v474, v475, v878, 1))
       {
-        v500 = (*(&v890 + 1) + 8 * ((v892 + *(&v892 + 1)) >> 10));
-        if (v891 == *(&v890 + 1))
+        v500 = (v890.i64[1] + 8 * ((v892 + *(&v892 + 1)) >> 10));
+        if (v891 == v890.i64[1])
         {
           v501 = 0;
         }
@@ -11776,24 +11772,24 @@ LABEL_766:
           v501 = *v500 + 4 * ((v892 + WORD4(v892)) & 0x3FF);
         }
 
-        v502 = (v881[1] + 8 * (v883 >> 10));
+        v502 = v881[1] + 8 * (v883 >> 10);
         if (v882 == v881[1])
         {
           v503 = 0;
           v505 = 0;
-          v504 = (v881[1] + 8 * ((*(&v883 + 1) + v883) >> 10));
+          v504 = v881[1] + 8 * ((*(&v883 + 1) + v883) >> 10);
         }
 
         else
         {
           v503 = (*v502 + 4 * (v883 & 0x3FF));
-          v504 = (v881[1] + 8 * ((*(&v883 + 1) + v883) >> 10));
-          v505 = &(*v504)[(*(&v883 + 1) + v883) & 0x3FF];
+          v504 = v881[1] + 8 * ((*(&v883 + 1) + v883) >> 10);
+          v505 = (*v504 + 4 * ((*(&v883 + 1) + v883) & 0x3FF));
         }
 
         std::deque<std::pair<unsigned short,unsigned short>>::insert<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,0>(&v890, v500, v501, v502, v503, v504, v505);
-        v506 = (*(&v890 + 1) + 8 * ((v892 + *(&v892 + 1)) >> 10));
-        if (v891 == *(&v890 + 1))
+        v506 = (v890.i64[1] + 8 * ((v892 + *(&v892 + 1)) >> 10));
+        if (v891 == v890.i64[1])
         {
           v507 = 0;
         }
@@ -11803,30 +11799,30 @@ LABEL_766:
           v507 = *v506 + 4 * ((v892 + WORD4(v892)) & 0x3FF);
         }
 
-        v508 = (v878[1] + 8 * (v880 >> 10));
+        v508 = v878[1] + 8 * (v880 >> 10);
         if (v879 == v878[1])
         {
           v509 = 0;
           v511 = 0;
-          v510 = (v878[1] + 8 * ((*(&v880 + 1) + v880) >> 10));
+          v510 = v878[1] + 8 * ((*(&v880 + 1) + v880) >> 10);
         }
 
         else
         {
           v509 = (*v508 + 4 * (v880 & 0x3FF));
-          v510 = (v878[1] + 8 * ((*(&v880 + 1) + v880) >> 10));
-          v511 = &(*v510)[(*(&v880 + 1) + v880) & 0x3FF];
+          v510 = v878[1] + 8 * ((*(&v880 + 1) + v880) >> 10);
+          v511 = (*v510 + 4 * ((*(&v880 + 1) + v880) & 0x3FF));
         }
 
         std::deque<std::pair<unsigned short,unsigned short>>::insert<std::__deque_iterator<std::pair<unsigned short,unsigned short>,std::pair<unsigned short,unsigned short>*,std::pair<unsigned short,unsigned short>&,std::pair<unsigned short,unsigned short>**,long,1024l>,0>(&v890, v506, v507, v508, v509, v510, v511);
         if (nms::PyramidNMS<unsigned short,double,unsigned char>::computeAggregatedScore(v862, &v890) <= v489)
         {
-          if (v891 != *(&v890 + 1))
+          if (v891 != v890.i64[1])
           {
-            v515 = (*(&v890 + 1) + 8 * (v892 >> 10));
+            v515 = (v890.i64[1] + 8 * (v892 >> 10));
             v516 = *v515;
             v517 = &(*v515)[2 * (v892 & 0x3FF)];
-            v518 = *(*(&v890 + 1) + (((*(&v892 + 1) + v892) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((*(&v892 + 1) + v892) & 0x3FF);
+            v518 = *(v890.i64[1] + (((*(&v892 + 1) + v892) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((*(&v892 + 1) + v892) & 0x3FF);
             if (v517 != v518)
             {
               v519 = *(v862 + 136);
@@ -11921,19 +11917,19 @@ LABEL_798:
   {
     v535 = *v530;
     v536 = v530[1];
-    if (*(*(*(*(v1 + 64) + (((*(v1 + 88) + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v535)) + v536))
+    if (*(*(*(v1[8] + (((v1[11] + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v535)) + v536))
     {
       goto LABEL_899;
     }
 
-    v537 = *(v1 + 136);
-    v538 = *(v1 + 112);
+    v537 = v1[17];
+    v538 = v1[14];
     if (*(*(*(v538 + (((v537 + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v537 + v535)) + v536))
     {
       goto LABEL_899;
     }
 
-    v539 = *(v1 + 968);
+    v539 = v1[121];
     if (v539[5] <= v535)
     {
       std::__throw_out_of_range[abi:ne200100]("deque");
@@ -11982,16 +11978,16 @@ LABEL_811:
     if (v547 == v541 || v547[4] || (v548 = v547[5], v548 > 8))
     {
 LABEL_818:
-      v549 = 0.0;
+      v549 = 0;
     }
 
     else
     {
-      v549 = dbl_1B42AFA98[v548];
+      v549 = qword_1B42AFA98[v548];
     }
 
     v550 = (*(v540[11] + ((v540[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v540[14]);
-    v551 = v855 + *&v549 * v536;
+    v551 = v855 + v549 * v536;
     v552 = 0.0;
     if (v551 < (v550[1] - *v550) >> 3)
     {
@@ -12013,10 +12009,10 @@ LABEL_818:
     v553 = 0;
     while (1)
     {
-      v556 = *(*(v1 + 928) + 8 * ((*(v1 + 952) + v535) / 0x55)) + 48 * ((*(v1 + 952) + v535) % 0x55);
+      v556 = *(v1[116] + 8 * ((v1[119] + v535) / 0x55)) + 48 * ((v1[119] + v535) % 0x55);
       v557 = *(*(v556 + 8) + 8 * ((*(v556 + 32) + v555) / 0x55uLL)) + 48 * ((*(v556 + 32) + v555) % 0x55uLL);
       v558 = (*(*(v557 + 8) + 8 * ((*(v557 + 32) + v536) / 0x55uLL)) + 48 * ((*(v557 + 32) + v536) % 0x55uLL));
-      if (*(v1 + 1224) == 0.0)
+      if (*(v1 + 153) == 0.0)
       {
         goto LABEL_836;
       }
@@ -12032,17 +12028,17 @@ LABEL_818:
       }
 
       v559 = *(*(v558[1] + ((v558[4] >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * (v558[4] & 0x7FFLL));
-      v560 = *(*(*(v1 + 112) + ((*(v1 + 136) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(v1 + 136));
-      if (*(v560 + v559) != 1 || (v561 = *(*(*(v1 + 64) + ((*(v1 + 88) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(v1 + 88)), *(v561 + v559) == 1))
+      v560 = *(*(v1[14] + ((v1[17] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v1[17]);
+      if (*(v560 + v559) != 1 || (v561 = *(*(v1[8] + ((v1[11] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v1[11]), *(v561 + v559) == 1))
       {
         nms::PyramidNMS<unsigned short,double,unsigned char>::isolateDatum(v1, 0, v559);
-        v561 = *(*(*(v1 + 64) + ((*(v1 + 88) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(v1 + 88));
-        v560 = *(*(*(v1 + 112) + ((*(v1 + 136) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(v1 + 136));
+        v561 = *(*(v1[8] + ((v1[11] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v1[11]);
+        v560 = *(*(v1[14] + ((v1[17] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v1[17]);
       }
 
       *(v561 + v559) = 0;
       *(v560 + v559) = 1;
-      *(*(*(*(v1 + 160) + ((*(v1 + 184) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(v1 + 184)) + v559) = 0;
+      *(*(*(v1[20] + ((v1[23] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v1[23]) + v559) = 0;
 LABEL_865:
       LOWORD(v865) = ++v554;
       v555 = v554;
@@ -12070,8 +12066,8 @@ LABEL_836:
         v567 = *(v562 + (((v558[5] + v563) >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * ((v558[5] + v563) & 0x7FF);
         if (v566 != v567)
         {
-          v568 = *(v1 + 88);
-          v569 = *(v1 + 64);
+          v568 = v1[11];
+          v569 = v1[8];
           while (*(*(*(v569 + (((v568 + v554) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v568 + v554)) + *v566) != 1)
           {
             if (++v566 - v565 == 4096)
@@ -12088,23 +12084,23 @@ LABEL_836:
             }
           }
 
-          v571 = *(*(*(v1 + 112) + (((*(v1 + 136) + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 136) + v535));
+          v571 = *(*(v1[14] + (((v1[17] + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 136) + v535));
           if (*(v571 + v536) != 1 || (v572 = *(*(v569 + (((v568 + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v568 + v535)), *(v572 + v536) == 1))
           {
             nms::PyramidNMS<unsigned short,double,unsigned char>::isolateDatum(v1, v535, v536);
-            v572 = *(*(*(v1 + 64) + (((*(v1 + 88) + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v535));
-            v571 = *(*(*(v1 + 112) + (((*(v1 + 136) + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 136) + v535));
+            v572 = *(*(v1[8] + (((v1[11] + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v535));
+            v571 = *(*(v1[14] + (((v1[17] + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 136) + v535));
           }
 
           *(v572 + v536) = 0;
           *(v571 + v536) = 1;
-          *(*(*(*(v1 + 160) + (((*(v1 + 184) + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 184) + v535)) + v536) = 0;
+          *(*(*(v1[20] + (((v1[23] + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 184) + v535)) + v536) = 0;
         }
       }
 
 LABEL_848:
-      v537 = *(v1 + 136);
-      v538 = *(v1 + 112);
+      v537 = v1[17];
+      v538 = v1[14];
       if (*(*(*(v538 + (((v537 + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v537 + v535)) + v536))
       {
         goto LABEL_867;
@@ -12178,10 +12174,10 @@ LABEL_862:
       goto LABEL_865;
     }
 
-    v537 = *(v1 + 136);
-    v538 = *(v1 + 112);
+    v537 = v1[17];
+    v538 = v1[14];
     v617 = *(*(v538 + ((v537 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v537);
-    if (*(v617 + v536) == 1 && (v618 = *(*(*(v1 + 64) + ((*(v1 + 88) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(v1 + 88)), *(v618 + v536) != 1))
+    if (*(v617 + v536) == 1 && (v618 = *(*(v1[8] + ((v1[11] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v1[11]), *(v618 + v536) != 1))
     {
       v534 = v846;
     }
@@ -12190,15 +12186,15 @@ LABEL_862:
     {
       nms::PyramidNMS<unsigned short,double,unsigned char>::isolateDatum(v1, 0, v536);
       v534 = v846;
-      v537 = *(v1 + 136);
-      v538 = *(v1 + 112);
-      v618 = *(*(*(v1 + 64) + ((*(v1 + 88) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(v1 + 88));
+      v537 = v1[17];
+      v538 = v1[14];
+      v618 = *(*(v1[8] + ((v1[11] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v1[11]);
       v617 = *(*(v538 + ((v537 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v537);
     }
 
     *(v618 + v536) = 0;
     *(v617 + v536) = 1;
-    *(*(*(*(v1 + 160) + ((*(v1 + 184) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(v1 + 184)) + v536) = 0;
+    *(*(*(v1[20] + ((v1[23] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v1[23]) + v536) = 0;
 LABEL_868:
     v587 = *(*(v538 + (((v537 + v535) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v537 + v535));
     if ((*(v587 + v536) & 1) == 0 && !v553)
@@ -12206,10 +12202,10 @@ LABEL_868:
       v841 = v528;
       if (v870 == v869[1] || (v588 = v869[1] + 8 * (v871 >> 10), v589 = (*v588 + 4 * (v871 & 0x3FF)), v590 = *(v869[1] + (((*(&v871 + 1) + v871) >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * ((*(&v871 + 1) + v871) & 0x3FF), v589 == v590))
       {
-        v605 = *(v1 + 88);
-        v606 = *(v1 + 64);
-        v613 = *(v1 + 184);
-        v614 = *(v1 + 160);
+        v605 = v1[11];
+        v606 = v1[8];
+        v613 = v1[23];
+        v614 = v1[20];
       }
 
       else
@@ -12242,17 +12238,17 @@ LABEL_868:
           if (v597 == v595 + 23 || v597[4] || (v598 = v597[5], v598 > 8))
           {
 LABEL_880:
-            v599 = 0.0;
+            v599 = 0;
           }
 
           else
           {
-            v599 = dbl_1B42AFA98[v598];
+            v599 = qword_1B42AFA98[v598];
           }
 
           v600 = v589[1];
           v601 = (*(v595[11] + ((v595[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v595[14]);
-          v602 = v855 + *&v599 * v600;
+          v602 = v855 + v599 * v600;
           v603 = 0.0;
           if (v602 < (v601[1] - *v601) >> 3)
           {
@@ -12353,7 +12349,7 @@ LABEL_908:
   std::deque<std::pair<unsigned short,unsigned short>>::~deque[abi:ne200100](&v890);
   std::deque<std::pair<int,int>>::~deque[abi:ne200100](&v893);
   std::deque<std::pair<unsigned short,unsigned short>>::~deque[abi:ne200100](__p);
-  v41 = *(v1 + 968);
+  v41 = v1[121];
 LABEL_909:
   if (*(v1 + 1101) == 1)
   {
@@ -12367,7 +12363,7 @@ LABEL_909:
         v851 = *(v41 + 40);
         do
         {
-          v621 = *(v1 + 968);
+          v621 = v1[121];
           if (v621[5] <= v620)
           {
             std::__throw_out_of_range[abi:ne200100]("deque");
@@ -12405,14 +12401,14 @@ LABEL_920:
           std::__val_expr<std::_BinaryOp<std::bit_and<BOOL>,std::valarray<BOOL>,std::__val_expr<std::_UnaryOp<std::logical_not<BOOL>,std::valarray<BOOL> const&>>>>::operator std::valarray<BOOL>(&v890, &v893);
           nms::BOOLeanMaskToIndices<unsigned short>(__p, &v890);
           v627 = v825;
-          if (v890)
+          if (v890.i64[0])
           {
-            if (*(&v890 + 1) != v890)
+            if (v890.i64[1] != v890.i64[0])
             {
-              *(&v890 + 1) = v890;
+              v890.i64[1] = v890.i64[0];
             }
 
-            operator delete(v890);
+            operator delete(v890.i64[0]);
           }
 
           if (v885 != __p[1])
@@ -12440,17 +12436,17 @@ LABEL_920:
               if (v632 == v861 || v632[4] || (v633 = v632[5], v633 > 8))
               {
 LABEL_934:
-                v634 = 0.0;
+                v634 = 0;
               }
 
               else
               {
-                v634 = dbl_1B42AFA98[v633];
+                v634 = qword_1B42AFA98[v633];
               }
 
               v837 = v629;
               v635 = *v629;
-              v636 = v625 + *&v634 * v635;
+              v636 = v625 + v634 * v635;
               v638 = (*(v856[11] + ((v856[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v856[14]);
               v637 = *v638;
               v639 = 0.0;
@@ -12534,15 +12530,15 @@ LABEL_934:
                           if (v660 == v658 + 23 || v660[4] || (v661 = v660[5], v661 > 8))
                           {
 LABEL_952:
-                            v662 = 0.0;
+                            v662 = 0;
                           }
 
                           else
                           {
-                            v662 = dbl_1B42AFA98[v661];
+                            v662 = qword_1B42AFA98[v661];
                           }
 
-                          v663 = v625 + *&v662 * v656;
+                          v663 = v625 + v662 * v656;
                           v665 = (*(v658[11] + ((v658[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v658[14]);
                           v664 = *v665;
                           v666 = 0.0;
@@ -12733,15 +12729,15 @@ LABEL_969:
                           if (v697 == v695 + 23 || v697[4] || (v698 = v697[5], v698 > 8))
                           {
 LABEL_997:
-                            v699 = 0.0;
+                            v699 = 0;
                           }
 
                           else
                           {
-                            v699 = dbl_1B42AFA98[v698];
+                            v699 = qword_1B42AFA98[v698];
                           }
 
-                          v700 = v625 + *&v699 * v693;
+                          v700 = v625 + v699 * v693;
                           v702 = (*(v695[11] + ((v695[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v695[14]);
                           v701 = *v702;
                           v703 = 0.0;
@@ -12929,15 +12925,15 @@ LABEL_1072:
                               if (v734 == v732 + 23 || v734[4] || (v735 = v734[5], v735 > 8))
                               {
 LABEL_1042:
-                                v736 = 0.0;
+                                v736 = 0;
                               }
 
                               else
                               {
-                                v736 = dbl_1B42AFA98[v735];
+                                v736 = qword_1B42AFA98[v735];
                               }
 
-                              v737 = v625 + *&v736 * v730;
+                              v737 = v625 + v736 * v730;
                               v739 = (*(v732[11] + ((v732[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v732[14]);
                               v738 = *v739;
                               v740 = 0.0;
@@ -13117,15 +13113,15 @@ LABEL_1059:
                           if (v771 == v861 || v771[4] || (v772 = v771[5], v772 > 8))
                           {
 LABEL_1087:
-                            v773 = 0.0;
+                            v773 = 0;
                           }
 
                           else
                           {
-                            v773 = dbl_1B42AFA98[v772];
+                            v773 = qword_1B42AFA98[v772];
                           }
 
-                          v774 = v625 + *&v773 * v635;
+                          v774 = v625 + v773 * v635;
                           v776 = (*(v856[11] + ((v856[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v856[14]);
                           v775 = *v776;
                           v777 = 0.0;
@@ -13151,15 +13147,15 @@ LABEL_1087:
                           if (v780 == v778 + 23 || v780[4] || (v781 = v780[5], v781 > 8))
                           {
 LABEL_1096:
-                            v782 = 0.0;
+                            v782 = 0;
                           }
 
                           else
                           {
-                            v782 = dbl_1B42AFA98[v781];
+                            v782 = qword_1B42AFA98[v781];
                           }
 
-                          v783 = v625 + *&v782 * v768;
+                          v783 = v625 + v782 * v768;
                           v785 = (*(v778[11] + ((v778[14] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v778[14]);
                           v784 = *v785;
                           v786 = 0.0;
@@ -13329,7 +13325,7 @@ LABEL_1137:
         v805 = 0;
         do
         {
-          v806 = (*(*(v1 + 64) + (((*(v1 + 88) + v804) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v804));
+          v806 = (*(v1[8] + (((v1[11] + v804) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v1 + 88) + v804));
           v893 = 0uLL;
           if (v806[1] != *v806)
           {

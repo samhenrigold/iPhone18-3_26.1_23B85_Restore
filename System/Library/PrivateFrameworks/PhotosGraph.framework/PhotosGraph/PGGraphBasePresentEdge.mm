@@ -6,6 +6,7 @@
 + (void)setNumberOfAssets:(unint64_t)assets onPresentEdgeForIdentifier:(unint64_t)identifier inGraph:(id)graph;
 - (BOOL)hasProperties:(id)properties;
 - (PGGraphBasePresentEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphBasePresentEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)edgeDescription;
 - (id)initFromPersonNode:(id)node toMomentNode:(id)momentNode importance:(double)importance numberOfAssets:(unint64_t)assets;
 - (id)label;
@@ -33,16 +34,14 @@
 
 - (id)propertyDictionary
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"importance";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"importance";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_importance];
-  v8[1] = @"numberOfAssets";
-  v9[0] = v3;
+  v7[1] = @"numberOfAssets";
+  v8[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 10)];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -74,6 +73,43 @@
   }
 
   return v10;
+}
+
+- (PGGraphBasePresentEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"importance"];
+
+  if (v18)
+  {
+    v19 = propertiesCopy;
+  }
+
+  else
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"importance"];
+
+    v22 = [propertiesCopy objectForKeyedSubscript:@"cnt"];
+
+    if (v22)
+    {
+      v23 = [propertiesCopy objectForKeyedSubscript:@"cnt"];
+      [v19 setObject:v23 forKeyedSubscript:@"numberOfAssets"];
+
+      [v19 setObject:0 forKeyedSubscript:@"cnt"];
+    }
+  }
+
+  v24 = [(PGGraphBasePresentEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:v19];
+
+  return v24;
 }
 
 - (PGGraphBasePresentEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties
@@ -119,16 +155,14 @@
 
 + (MAEdgeFilter)consolidatedPresentInAssetsFilter
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D22C20]);
   v3 = [MEMORY[0x277CBEB98] setWithObjects:{@"PRESENT", @"CPRESENT", 0}];
-  v9 = @"numberOfAssets";
+  v8 = @"numberOfAssets";
   v4 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:5 value:&unk_2844845F0];
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v2 initWithLabels:v3 domain:300 properties:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

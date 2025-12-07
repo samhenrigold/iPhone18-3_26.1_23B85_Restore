@@ -110,7 +110,7 @@ void __91__PKTextInputReserveSpaceController_beginIfPossibleWithElement_atLocati
   {
     if (v8)
     {
-      v5 = *(v8 + 3);
+      v5 = v8[3];
       v6 = *(a1 + 32);
       if (v5)
       {
@@ -627,7 +627,7 @@ void __77__PKTextInputReserveSpaceController__finishAndResetStateInsertingWhites
 
     v14 = v13 - 15;
     contentLength = [(PKTextInputElementContent *)v4 contentLength];
-    v16 = v11 + 15 >= contentLength ? contentLength : v11 + 15;
+    v16 = v11 + 15 >= contentLength ? contentLength : (v11 + 15);
     [(PKTextInputReserveSpaceController *)self _targetPointInElement];
     if (v14 < v16)
     {
@@ -657,8 +657,8 @@ void __77__PKTextInputReserveSpaceController__finishAndResetStateInsertingWhites
       }
 
       v28 = [(PKTextInputElementContent *)v4 rangeOfCharacterAtIndex:v22];
-      v30 = v28 + v29;
-      if ((v28 + v29) >= v16 - 1)
+      v30 = &v28[v29];
+      if (&v28[v29] >= v16 - 1)
       {
         v32 = 0;
       }

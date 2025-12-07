@@ -8,54 +8,53 @@ uint64_t sub_245D8107C(uint64_t result)
   return result;
 }
 
-void sub_245D810A4(void **a1)
+void sub_245D810A4(PB::Base *a1)
 {
   *a1 = &unk_2858CC818;
-  v2 = a1 + 1;
+  v2 = (a1 + 8);
   sub_245DF837C(&v2);
   PB::Base::~Base(a1);
 }
 
-uint64_t sub_245D81100(void **a1)
+uint64_t sub_245D81100(PB::Base *a1)
 {
   *a1 = &unk_2858CC818;
-  v3 = a1 + 1;
+  v3 = (a1 + 8);
   sub_245DF837C(&v3);
   PB::Base::~Base(a1);
   return MEMORY[0x24C194490]();
 }
 
-uint64_t sub_245D81170(uint64_t result, uint64_t a2)
+uint64_t sub_245D81170(uint64_t a1, uint64_t a2)
 {
-  *result = &unk_2858CC818;
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *(result + 24) = 0;
-  *(result + 48) = 0;
+  *a1 = &unk_2858CC818;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 48) = 0;
   v2 = *(a2 + 8);
   if (v2 != *(a2 + 16))
   {
-    v3 = *v2;
-    sub_245D81230();
+    sub_245D81230(a1 + 8, *v2);
   }
 
-  v4 = *(a2 + 48);
-  if ((v4 & 2) != 0)
+  v3 = *(a2 + 48);
+  if ((v3 & 2) != 0)
   {
-    v5 = *(a2 + 40);
-    *(result + 48) |= 2u;
-    *(result + 40) = v5;
-    v4 = *(a2 + 48);
+    v4 = *(a2 + 40);
+    *(a1 + 48) |= 2u;
+    *(a1 + 40) = v4;
+    v3 = *(a2 + 48);
   }
 
-  if (v4)
+  if (v3)
   {
-    v6 = *(a2 + 32);
-    *(result + 48) |= 1u;
-    *(result + 32) = v6;
+    v5 = *(a2 + 32);
+    *(a1 + 48) |= 1u;
+    *(a1 + 32) = v5;
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_245D81388(uint64_t a1, PB::TextFormatter *this, char *a3)
@@ -201,7 +200,7 @@ LABEL_35:
 
       if (v22 == 1)
       {
-        sub_245D816CC();
+        sub_245D816CC(a1 + 8);
       }
 
       if ((PB::Reader::skip(this) & 1) == 0)
@@ -316,7 +315,6 @@ uint64_t sub_245D81974(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 20);
   if ((v5 & 2) != 0)
   {
-    v6 = *(a1 + 16);
     PB::TextFormatter::format(this, "isCovered");
     v5 = *(a1 + 20);
   }
@@ -495,7 +493,6 @@ uint64_t sub_245D81BFC(uint64_t result, PB::Writer *this)
 
   if ((v4 & 2) != 0)
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::write(this);
   }
@@ -721,7 +718,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v12 = *(a1 + 72);
   PB::TextFormatter::format(this, "faceDownState");
   v11 = *(a1 + 96);
   if ((v11 & 8) == 0)
@@ -764,7 +760,6 @@ LABEL_10:
   }
 
 LABEL_22:
-  v13 = *(a1 + 92);
   PB::TextFormatter::format(this, "isFaceDown");
   v11 = *(a1 + 96);
   if ((v11 & 0x20) == 0)
@@ -807,7 +802,6 @@ LABEL_13:
   }
 
 LABEL_25:
-  v14 = *(a1 + 93);
   PB::TextFormatter::format(this, "shouldSuppress");
   if ((*(a1 + 96) & 2) != 0)
   {
@@ -1511,7 +1505,6 @@ LABEL_12:
   }
 
 LABEL_20:
-  v11 = *(v3 + 92);
   result = PB::Writer::write(this);
   v10 = *(v3 + 96);
   if ((v10 & 0x100) == 0)
@@ -1526,7 +1519,6 @@ LABEL_13:
   }
 
 LABEL_21:
-  v12 = *(v3 + 93);
   result = PB::Writer::write(this);
   v10 = *(v3 + 96);
   if ((v10 & 4) == 0)
@@ -1541,7 +1533,6 @@ LABEL_14:
   }
 
 LABEL_22:
-  v13 = *(v3 + 72);
   result = PB::Writer::writeVarInt(this);
   v10 = *(v3 + 96);
   if ((v10 & 0x20) == 0)
@@ -1577,9 +1568,9 @@ LABEL_16:
   }
 
 LABEL_25:
-  v14 = *(v3 + 56);
+  v11 = *(v3 + 56);
 
-  return PB::Writer::write(this, v14);
+  return PB::Writer::write(this, v11);
 }
 
 uint64_t sub_245D82AB0(uint64_t result)
@@ -2194,7 +2185,6 @@ LABEL_6:
   }
 
 LABEL_41:
-  v6 = *(a1 + 40);
   PB::TextFormatter::format(this, "failureCode");
   v5 = *(a1 + 140);
   if ((v5 & 0x80) == 0)
@@ -2335,7 +2325,6 @@ LABEL_16:
   }
 
 LABEL_51:
-  v7 = *(a1 + 80);
   PB::TextFormatter::format(this, "numberOfDetectedFaces");
   v5 = *(a1 + 140);
   if ((v5 & 0x20000) == 0)
@@ -2350,7 +2339,6 @@ LABEL_17:
   }
 
 LABEL_52:
-  v8 = *(a1 + 84);
   PB::TextFormatter::format(this, "orientation");
   v5 = *(a1 + 140);
   if ((v5 & 0x40000) == 0)
@@ -2365,7 +2353,6 @@ LABEL_18:
   }
 
 LABEL_53:
-  v9 = *(a1 + 88);
   PB::TextFormatter::format(this, "poseLibrary");
   v5 = *(a1 + 140);
   if ((v5 & 0x80000) == 0)
@@ -2492,7 +2479,6 @@ LABEL_27:
   }
 
 LABEL_62:
-  v10 = *(a1 + 136);
   PB::TextFormatter::format(this, "sensorCovered");
   v5 = *(a1 + 140);
   if ((v5 & 2) == 0)
@@ -2521,7 +2507,6 @@ LABEL_29:
   }
 
 LABEL_64:
-  v11 = *(a1 + 137);
   PB::TextFormatter::format(this, "tooDark");
   v5 = *(a1 + 140);
   if ((v5 & 0x4000000) == 0)
@@ -2536,7 +2521,6 @@ LABEL_30:
   }
 
 LABEL_65:
-  v12 = *(a1 + 120);
   PB::TextFormatter::format(this, "type");
   v5 = *(a1 + 140);
   if ((v5 & 0x8000000) == 0)
@@ -3436,7 +3420,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v5 = *(v3 + 120);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 140);
   if ((v4 & 0x20000) == 0)
@@ -3451,7 +3434,6 @@ LABEL_4:
   }
 
 LABEL_36:
-  v6 = *(v3 + 84);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 140);
   if ((v4 & 0x100000) == 0)
@@ -3634,7 +3616,6 @@ LABEL_17:
   }
 
 LABEL_49:
-  v7 = *(v3 + 88);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 140);
   if ((v4 & 0x40) == 0)
@@ -3649,7 +3630,6 @@ LABEL_18:
   }
 
 LABEL_50:
-  v8 = *(v3 + 40);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 140);
   if ((v4 & 1) == 0)
@@ -3678,7 +3658,6 @@ LABEL_20:
   }
 
 LABEL_52:
-  v9 = *(v3 + 137);
   result = PB::Writer::write(this);
   v4 = *(v3 + 140);
   if ((v4 & 0x40000000) == 0)
@@ -3693,7 +3672,6 @@ LABEL_21:
   }
 
 LABEL_53:
-  v10 = *(v3 + 136);
   result = PB::Writer::write(this);
   v4 = *(v3 + 140);
   if ((v4 & 8) == 0)
@@ -3855,7 +3833,6 @@ LABEL_32:
   }
 
 LABEL_65:
-  v11 = *(v3 + 80);
 
   return PB::Writer::writeVarInt(this);
 }
@@ -3888,16 +3865,16 @@ void sub_245D844C0(PB::Base *a1)
   JUMPOUT(0x24C194490);
 }
 
-uint64_t sub_245D844F8(uint64_t result, uint64_t a2)
+uint64_t sub_245D844F8(uint64_t a1, uint64_t a2)
 {
-  *result = &unk_2858CC8F8;
-  *(result + 24) = 0;
-  *(result + 32) = 0;
+  *a1 = &unk_2858CC8F8;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
   if ((*(a2 + 32) & 2) != 0)
   {
     v3 = *(a2 + 16);
-    *(result + 32) = 2;
-    *(result + 16) = v3;
+    *(a1 + 32) = 2;
+    *(a1 + 16) = v3;
     v2 = 3;
     if ((*(a2 + 32) & 1) == 0)
     {
@@ -3912,8 +3889,8 @@ uint64_t sub_245D844F8(uint64_t result, uint64_t a2)
   {
 LABEL_5:
     v4 = *(a2 + 8);
-    *(result + 32) = v2;
-    *(result + 8) = v4;
+    *(a1 + 32) = v2;
+    *(a1 + 8) = v4;
   }
 
 LABEL_6:
@@ -3922,7 +3899,7 @@ LABEL_6:
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_245D845E4(uint64_t a1, PB::TextFormatter *this, char *a3)
@@ -4220,7 +4197,6 @@ uint64_t sub_245D84B08(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 32);
   if ((v5 & 2) != 0)
   {
-    v7 = *(a1 + 16);
     PB::TextFormatter::format(this, "cyclingState");
     v5 = *(a1 + 32);
     if ((v5 & 4) == 0)
@@ -4240,7 +4216,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(a1 + 20);
   PB::TextFormatter::format(this, "cyclingStateSummary");
   v5 = *(a1 + 32);
   if ((v5 & 8) == 0)
@@ -4269,12 +4244,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  v9 = *(a1 + 28);
   PB::TextFormatter::format(this, "motionType");
   if (*(a1 + 32))
   {
 LABEL_6:
-    v6 = *(a1 + 8);
     PB::TextFormatter::format(this, "timestamp");
   }
 
@@ -4792,7 +4765,6 @@ uint64_t sub_245D851E4(uint64_t result, PB::Writer *this)
   v4 = *(result + 32);
   if (v4)
   {
-    v5 = *(result + 8);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 32);
     if ((v4 & 0x10) == 0)
@@ -4812,7 +4784,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 28);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 32);
   if ((v4 & 2) == 0)
@@ -4824,7 +4795,6 @@ LABEL_4:
     }
 
 LABEL_10:
-    v8 = *(v3 + 20);
     result = PB::Writer::writeVarInt(this);
     if ((*(v3 + 32) & 8) == 0)
     {
@@ -4835,7 +4805,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  v7 = *(v3 + 16);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 32);
   if ((v4 & 4) != 0)
@@ -4850,9 +4819,9 @@ LABEL_5:
   }
 
 LABEL_11:
-  v9 = *(v3 + 24);
+  v5 = *(v3 + 24);
 
-  return PB::Writer::write(this, v9);
+  return PB::Writer::write(this, v5);
 }
 
 void *sub_245D852A8(void *result)
@@ -5552,7 +5521,6 @@ LABEL_6:
   }
 
 LABEL_46:
-  v7 = *(a1 + 48);
   PB::TextFormatter::format(this, "crown");
   v5 = *(a1 + 156);
   if ((v5 & 0x100) == 0)
@@ -5609,7 +5577,6 @@ LABEL_10:
   }
 
 LABEL_50:
-  v8 = *(a1 + 152);
   PB::TextFormatter::format(this, "isFall");
   v5 = *(a1 + 156);
   if ((v5 & 0x400000000) == 0)
@@ -5624,7 +5591,6 @@ LABEL_11:
   }
 
 LABEL_51:
-  v9 = *(a1 + 153);
   PB::TextFormatter::format(this, "isNearFall");
   v5 = *(a1 + 156);
   if ((v5 & 0x400) == 0)
@@ -5849,7 +5815,6 @@ LABEL_27:
   }
 
 LABEL_67:
-  v10 = *(a1 + 120);
   PB::TextFormatter::format(this, "operatingMode");
   v5 = *(a1 + 156);
   if ((v5 & 2) == 0)
@@ -5864,7 +5829,6 @@ LABEL_28:
   }
 
 LABEL_68:
-  v11 = *(a1 + 16);
   PB::TextFormatter::format(this, "peakTimestamp");
   v5 = *(a1 + 156);
   if ((v5 & 0x4000000) == 0)
@@ -5907,7 +5871,6 @@ LABEL_31:
   }
 
 LABEL_71:
-  v12 = *(a1 + 24);
   PB::TextFormatter::format(this, "sensorTime");
   v5 = *(a1 + 156);
   if ((v5 & 0x10000000) == 0)
@@ -5978,7 +5941,6 @@ LABEL_36:
   }
 
 LABEL_76:
-  v13 = *(a1 + 148);
   PB::TextFormatter::format(this, "type");
   v5 = *(a1 + 156);
   if ((v5 & 0x800000000) == 0)
@@ -5993,12 +5955,10 @@ LABEL_37:
   }
 
 LABEL_77:
-  v14 = *(a1 + 154);
   PB::TextFormatter::format(this, "withinCyclingImpactThresholds");
   if ((*(a1 + 156) & 0x1000000000) != 0)
   {
 LABEL_38:
-    v6 = *(a1 + 155);
     PB::TextFormatter::format(this, "withinHardThresholds");
   }
 
@@ -6931,7 +6891,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v5 = *(v3 + 24);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 156);
   if ((v4 & 2) == 0)
@@ -6946,7 +6905,6 @@ LABEL_4:
   }
 
 LABEL_41:
-  v6 = *(v3 + 16);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 156);
   if ((v4 & 0x40) == 0)
@@ -7143,7 +7101,6 @@ LABEL_18:
   }
 
 LABEL_55:
-  v7 = *(v3 + 48);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 156);
   if ((v4 & 0x8000000) == 0)
@@ -7172,7 +7129,6 @@ LABEL_20:
   }
 
 LABEL_57:
-  v8 = *(v3 + 152);
   result = PB::Writer::write(this);
   v4 = *(v3 + 156);
   if ((v4 & 0x100000000) == 0)
@@ -7187,7 +7143,6 @@ LABEL_21:
   }
 
 LABEL_58:
-  v9 = *(v3 + 148);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 156);
   if ((v4 & 0x80000000) == 0)
@@ -7258,7 +7213,6 @@ LABEL_26:
   }
 
 LABEL_63:
-  v10 = *(v3 + 153);
   result = PB::Writer::write(this);
   v4 = *(v3 + 156);
   if ((v4 & 0x800000) == 0)
@@ -7329,7 +7283,6 @@ LABEL_31:
   }
 
 LABEL_68:
-  v11 = *(v3 + 155);
   result = PB::Writer::write(this);
   v4 = *(v3 + 156);
   if ((v4 & 0x100000) == 0)
@@ -7358,7 +7311,6 @@ LABEL_33:
   }
 
 LABEL_70:
-  v12 = *(v3 + 120);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 156);
   if ((v4 & 0x200) == 0)
@@ -7408,7 +7360,6 @@ LABEL_74:
   }
 
 LABEL_73:
-  v13 = *(v3 + 154);
   result = PB::Writer::write(this);
   v4 = *(v3 + 156);
   if ((v4 & 0x40000) != 0)
@@ -7423,9 +7374,9 @@ LABEL_37:
   }
 
 LABEL_75:
-  v14 = *(v3 + 32);
+  v5 = *(v3 + 32);
 
-  return PB::Writer::write(this, v14);
+  return PB::Writer::write(this, v5);
 }
 
 uint64_t sub_245D86F10(uint64_t result)
@@ -7478,14 +7429,12 @@ uint64_t sub_245D86FD4(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 20);
   if ((v5 & 2) != 0)
   {
-    v6 = *(a1 + 16);
     PB::TextFormatter::format(this, "gyroOn");
     v5 = *(a1 + 20);
   }
 
   if (v5)
   {
-    v7 = *(a1 + 8);
     PB::TextFormatter::format(this, "timestamp");
   }
 
@@ -7729,14 +7678,12 @@ uint64_t sub_245D87310(uint64_t result, PB::Writer *this)
   v4 = *(result + 20);
   if (v4)
   {
-    v5 = *(result + 8);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 20);
   }
 
   if ((v4 & 2) != 0)
   {
-    v6 = *(v3 + 16);
 
     return PB::Writer::write(this);
   }
@@ -7972,7 +7919,6 @@ uint64_t sub_245D87574(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 52);
   if ((v5 & 0x40) != 0)
   {
-    v7 = *(a1 + 44);
     PB::TextFormatter::format(this, "consideredAlert");
     v5 = *(a1 + 52);
     if ((v5 & 0x80) == 0)
@@ -7992,7 +7938,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(a1 + 45);
   PB::TextFormatter::format(this, "consideredRecovery");
   v5 = *(a1 + 52);
   if ((v5 & 0x100) == 0)
@@ -8007,7 +7952,6 @@ LABEL_4:
   }
 
 LABEL_20:
-  v9 = *(a1 + 46);
   PB::TextFormatter::format(this, "consideredSOS");
   v5 = *(a1 + 52);
   if ((v5 & 0x200) == 0)
@@ -8022,7 +7966,6 @@ LABEL_5:
   }
 
 LABEL_21:
-  v10 = *(a1 + 47);
   PB::TextFormatter::format(this, "droppedAlert");
   v5 = *(a1 + 52);
   if ((v5 & 0x400) == 0)
@@ -8037,7 +7980,6 @@ LABEL_6:
   }
 
 LABEL_22:
-  v11 = *(a1 + 48);
   PB::TextFormatter::format(this, "droppedRecovery");
   v5 = *(a1 + 52);
   if ((v5 & 0x800) == 0)
@@ -8052,7 +7994,6 @@ LABEL_7:
   }
 
 LABEL_23:
-  v12 = *(a1 + 49);
   PB::TextFormatter::format(this, "droppedSOS");
   v5 = *(a1 + 52);
   if ((v5 & 1) == 0)
@@ -8067,7 +8008,6 @@ LABEL_8:
   }
 
 LABEL_24:
-  v13 = *(a1 + 8);
   PB::TextFormatter::format(this, "fallTime");
   v5 = *(a1 + 52);
   if ((v5 & 8) == 0)
@@ -8082,7 +8022,6 @@ LABEL_9:
   }
 
 LABEL_25:
-  v14 = *(a1 + 32);
   PB::TextFormatter::format(this, "impactOperatingMode");
   v5 = *(a1 + 52);
   if ((v5 & 2) == 0)
@@ -8111,7 +8050,6 @@ LABEL_11:
   }
 
 LABEL_27:
-  v15 = *(a1 + 50);
   PB::TextFormatter::format(this, "isOtherStateMachineProcessingNearbyImpact");
   v5 = *(a1 + 52);
   if ((v5 & 0x10) == 0)
@@ -8126,7 +8064,6 @@ LABEL_12:
   }
 
 LABEL_28:
-  v16 = *(a1 + 36);
   PB::TextFormatter::format(this, "refereeCyclingStateDecision");
   v5 = *(a1 + 52);
   if ((v5 & 0x20) == 0)
@@ -8141,12 +8078,10 @@ LABEL_13:
   }
 
 LABEL_29:
-  v17 = *(a1 + 40);
   PB::TextFormatter::format(this, "refereeOperatingMode");
   if ((*(a1 + 52) & 4) != 0)
   {
 LABEL_14:
-    v6 = *(a1 + 24);
     PB::TextFormatter::format(this, "sensorTime");
   }
 
@@ -8859,7 +8794,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v5 = *(v3 + 24);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 52);
   if ((v4 & 1) == 0)
@@ -8874,7 +8808,6 @@ LABEL_4:
   }
 
 LABEL_17:
-  v6 = *(v3 + 8);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 52);
   if ((v4 & 8) == 0)
@@ -8889,7 +8822,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  v7 = *(v3 + 32);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x20) == 0)
@@ -8904,7 +8836,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  v8 = *(v3 + 40);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x10) == 0)
@@ -8919,7 +8850,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  v9 = *(v3 + 36);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x1000) == 0)
@@ -8934,7 +8864,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  v10 = *(v3 + 50);
   result = PB::Writer::write(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x40) == 0)
@@ -8949,7 +8878,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  v11 = *(v3 + 44);
   result = PB::Writer::write(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x80) == 0)
@@ -8964,7 +8892,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  v12 = *(v3 + 45);
   result = PB::Writer::write(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x100) == 0)
@@ -8979,7 +8906,6 @@ LABEL_11:
   }
 
 LABEL_24:
-  v13 = *(v3 + 46);
   result = PB::Writer::write(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x200) == 0)
@@ -8991,7 +8917,6 @@ LABEL_12:
     }
 
 LABEL_26:
-    v15 = *(v3 + 48);
     result = PB::Writer::write(this);
     if ((*(v3 + 52) & 0x800) == 0)
     {
@@ -9002,7 +8927,6 @@ LABEL_26:
   }
 
 LABEL_25:
-  v14 = *(v3 + 47);
   result = PB::Writer::write(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x400) != 0)
@@ -9017,7 +8941,6 @@ LABEL_13:
   }
 
 LABEL_27:
-  v16 = *(v3 + 49);
 
   return PB::Writer::write(this);
 }
@@ -9797,7 +9720,6 @@ uint64_t sub_245D887B0(uint64_t a1, PB::TextFormatter *this, char *a3)
   v6 = *(a1 + 364);
   if (v6)
   {
-    v8 = *(a1 + 8);
     PB::TextFormatter::format(this, "alertCanceledBecauseOfAbsenceOfQuiessence");
     v6 = *v5;
     if ((*v5 & 2) == 0)
@@ -9817,7 +9739,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v9 = *(a1 + 16);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfActive");
   v6 = *v5;
   if ((*v5 & 4) == 0)
@@ -9832,7 +9753,6 @@ LABEL_4:
   }
 
 LABEL_52:
-  v10 = *(a1 + 24);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfChargerState");
   v6 = *v5;
   if ((*v5 & 8) == 0)
@@ -9847,7 +9767,6 @@ LABEL_5:
   }
 
 LABEL_53:
-  v11 = *(a1 + 32);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfCyclingPostImpact");
   v6 = *v5;
   if ((*v5 & 0x10) == 0)
@@ -9862,7 +9781,6 @@ LABEL_6:
   }
 
 LABEL_54:
-  v12 = *(a1 + 40);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfDecimatedLowFrequencyFFT");
   v6 = *v5;
   if ((*v5 & 0x20) == 0)
@@ -9877,7 +9795,6 @@ LABEL_7:
   }
 
 LABEL_55:
-  v13 = *(a1 + 48);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfDistanceTraveledPostImpact");
   v6 = *v5;
   if ((*v5 & 0x40) == 0)
@@ -9892,7 +9809,6 @@ LABEL_8:
   }
 
 LABEL_56:
-  v14 = *(a1 + 56);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfHighFrequencyFFT");
   v6 = *v5;
   if ((*v5 & 0x80) == 0)
@@ -9907,7 +9823,6 @@ LABEL_9:
   }
 
 LABEL_57:
-  v15 = *(a1 + 64);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfLockedNoMotionPre");
   v6 = *v5;
   if ((*v5 & 0x100) == 0)
@@ -9922,7 +9837,6 @@ LABEL_10:
   }
 
 LABEL_58:
-  v16 = *(a1 + 72);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfLowFrequencyFFT");
   v6 = *v5;
   if ((*v5 & 0x200) == 0)
@@ -9937,7 +9851,6 @@ LABEL_11:
   }
 
 LABEL_59:
-  v17 = *(a1 + 80);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfNumberOfPeaksFFT");
   v6 = *v5;
   if ((*v5 & 0x400) == 0)
@@ -9952,7 +9865,6 @@ LABEL_12:
   }
 
 LABEL_60:
-  v18 = *(a1 + 88);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfOffBody");
   v6 = *v5;
   if ((*v5 & 0x800) == 0)
@@ -9967,7 +9879,6 @@ LABEL_13:
   }
 
 LABEL_61:
-  v19 = *(a1 + 96);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfRepetitiveMotion");
   v6 = *v5;
   if ((*v5 & 0x1000) == 0)
@@ -9982,7 +9893,6 @@ LABEL_14:
   }
 
 LABEL_62:
-  v20 = *(a1 + 104);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfRetraction");
   v6 = *v5;
   if ((*v5 & 0x2000) == 0)
@@ -9997,7 +9907,6 @@ LABEL_15:
   }
 
 LABEL_63:
-  v21 = *(a1 + 112);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfSimilarPeaks");
   v6 = *v5;
   if ((*v5 & 0x4000) == 0)
@@ -10012,7 +9921,6 @@ LABEL_16:
   }
 
 LABEL_64:
-  v22 = *(a1 + 120);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfStand");
   v6 = *v5;
   if ((*v5 & 0x8000) == 0)
@@ -10027,7 +9935,6 @@ LABEL_17:
   }
 
 LABEL_65:
-  v23 = *(a1 + 128);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfSteps");
   v6 = *v5;
   if ((*v5 & 0x10000) == 0)
@@ -10042,7 +9949,6 @@ LABEL_18:
   }
 
 LABEL_66:
-  v24 = *(a1 + 136);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfWristState");
   v6 = *v5;
   if ((*v5 & 0x20000) == 0)
@@ -10057,7 +9963,6 @@ LABEL_19:
   }
 
 LABEL_67:
-  v25 = *(a1 + 144);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfWristStatePost");
   v6 = *v5;
   if ((*v5 & 0x40000) == 0)
@@ -10072,7 +9977,6 @@ LABEL_20:
   }
 
 LABEL_68:
-  v26 = *(a1 + 152);
   PB::TextFormatter::format(this, "alertCanceledBecauseOfWristStatePre");
   v6 = *v5;
   if ((*v5 & 0x80000) == 0)
@@ -10087,7 +9991,6 @@ LABEL_21:
   }
 
 LABEL_69:
-  v27 = *(a1 + 160);
   PB::TextFormatter::format(this, "fallStatsDispatchResetOnAccelSensorTime");
   v6 = *v5;
   if ((*v5 & 0x100000) == 0)
@@ -10102,7 +10005,6 @@ LABEL_22:
   }
 
 LABEL_70:
-  v28 = *(a1 + 168);
   PB::TextFormatter::format(this, "fallStatsDispatchRestoredOnAccelSensorTime");
   v6 = *v5;
   if ((*v5 & 0x200000) == 0)
@@ -10117,7 +10019,6 @@ LABEL_23:
   }
 
 LABEL_71:
-  v29 = *(a1 + 176);
   PB::TextFormatter::format(this, "hkWorkoutId");
   v6 = *v5;
   if ((*v5 & 0x400000) == 0)
@@ -10132,7 +10033,6 @@ LABEL_24:
   }
 
 LABEL_72:
-  v30 = *(a1 + 184);
   PB::TextFormatter::format(this, "impactCanceledBecauseOfExistingAlert");
   v6 = *v5;
   if ((*v5 & 0x800000) == 0)
@@ -10147,7 +10047,6 @@ LABEL_25:
   }
 
 LABEL_73:
-  v31 = *(a1 + 192);
   PB::TextFormatter::format(this, "impactNotConsideredBecauseOfCyclingImpactThresholds");
   v6 = *v5;
   if ((*v5 & 0x1000000) == 0)
@@ -10162,7 +10061,6 @@ LABEL_26:
   }
 
 LABEL_74:
-  v32 = *(a1 + 200);
   PB::TextFormatter::format(this, "impactNotConsideredBecauseOfMaxAccelNormThreshold");
   v6 = *v5;
   if ((*v5 & 0x2000000) == 0)
@@ -10177,7 +10075,6 @@ LABEL_27:
   }
 
 LABEL_75:
-  v33 = *(a1 + 208);
   PB::TextFormatter::format(this, "impactNotConsideredBecauseOfMultiPeaks");
   v6 = *v5;
   if ((*v5 & 0x4000000) == 0)
@@ -10192,7 +10089,6 @@ LABEL_28:
   }
 
 LABEL_76:
-  v34 = *(a1 + 216);
   PB::TextFormatter::format(this, "impactNotConsideredBecauseOfNaiveBayesClassifier");
   v6 = *v5;
   if ((*v5 & 0x8000000) == 0)
@@ -10207,7 +10103,6 @@ LABEL_29:
   }
 
 LABEL_77:
-  v35 = *(a1 + 224);
   PB::TextFormatter::format(this, "impactNotConsideredBecauseOfOtherHardThresholds");
   v6 = *v5;
   if ((*v5 & 0x10000000) == 0)
@@ -10222,7 +10117,6 @@ LABEL_30:
   }
 
 LABEL_78:
-  v36 = *(a1 + 232);
   PB::TextFormatter::format(this, "leavingImpactBecauseOfNewImpactNewImpact");
   v6 = *v5;
   if ((*v5 & 0x20000000) == 0)
@@ -10237,7 +10131,6 @@ LABEL_31:
   }
 
 LABEL_79:
-  v37 = *(a1 + 240);
   PB::TextFormatter::format(this, "leavingImpactBecauseOfNewImpactOldImpact");
   v6 = *v5;
   if ((*v5 & 0x100000000000) == 0)
@@ -10252,7 +10145,6 @@ LABEL_32:
   }
 
 LABEL_80:
-  v38 = *(a1 + 360);
   PB::TextFormatter::format(this, "operatingMode");
   v6 = *v5;
   if ((*v5 & 0x40000000) == 0)
@@ -10267,7 +10159,6 @@ LABEL_33:
   }
 
 LABEL_81:
-  v39 = *(a1 + 248);
   PB::TextFormatter::format(this, "skippedFallStatsSensorTime");
   v6 = *v5;
   if ((*v5 & 0x80000000) == 0)
@@ -10282,7 +10173,6 @@ LABEL_34:
   }
 
 LABEL_82:
-  v40 = *(a1 + 256);
   PB::TextFormatter::format(this, "skippedGyroSensorTime");
   v6 = *v5;
   if ((*v5 & 0x100000000) == 0)
@@ -10297,7 +10187,6 @@ LABEL_35:
   }
 
 LABEL_83:
-  v41 = *(a1 + 264);
   PB::TextFormatter::format(this, "sosCanceledBecauseOfAbsenceOfLongLie");
   v6 = *v5;
   if ((*v5 & 0x200000000) == 0)
@@ -10312,7 +10201,6 @@ LABEL_36:
   }
 
 LABEL_84:
-  v42 = *(a1 + 272);
   PB::TextFormatter::format(this, "sosCanceledBecauseOfActive");
   v6 = *v5;
   if ((*v5 & 0x400000000) == 0)
@@ -10327,7 +10215,6 @@ LABEL_37:
   }
 
 LABEL_85:
-  v43 = *(a1 + 280);
   PB::TextFormatter::format(this, "sosCanceledBecauseOfStand");
   v6 = *v5;
   if ((*v5 & 0x800000000) == 0)
@@ -10342,7 +10229,6 @@ LABEL_38:
   }
 
 LABEL_86:
-  v44 = *(a1 + 288);
   PB::TextFormatter::format(this, "sosCanceledBecauseOfSteps");
   v6 = *v5;
   if ((*v5 & 0x1000000000) == 0)
@@ -10357,7 +10243,6 @@ LABEL_39:
   }
 
 LABEL_87:
-  v45 = *(a1 + 296);
   PB::TextFormatter::format(this, "sosConsideredFallTimestamp");
   v6 = *v5;
   if ((*v5 & 0x2000000000) == 0)
@@ -10386,7 +10271,6 @@ LABEL_41:
   }
 
 LABEL_89:
-  v46 = *(a1 + 312);
   PB::TextFormatter::format(this, "sosConsideredSensorTime");
   v6 = *v5;
   if ((*v5 & 0x8000000000) == 0)
@@ -10401,7 +10285,6 @@ LABEL_42:
   }
 
 LABEL_90:
-  v47 = *(a1 + 320);
   PB::TextFormatter::format(this, "workoutId");
   v6 = *v5;
   if ((*v5 & 0x10000000000) == 0)
@@ -10416,7 +10299,6 @@ LABEL_43:
   }
 
 LABEL_91:
-  v48 = *(a1 + 328);
   PB::TextFormatter::format(this, "workoutTransitionPause");
   v6 = *v5;
   if ((*v5 & 0x20000000000) == 0)
@@ -10431,7 +10313,6 @@ LABEL_44:
   }
 
 LABEL_92:
-  v49 = *(a1 + 336);
   PB::TextFormatter::format(this, "workoutTransitionResume");
   v6 = *v5;
   if ((*v5 & 0x40000000000) == 0)
@@ -10446,12 +10327,10 @@ LABEL_45:
   }
 
 LABEL_93:
-  v50 = *(a1 + 344);
   PB::TextFormatter::format(this, "workoutTransitionStart");
   if ((*v5 & 0x80000000000) != 0)
   {
 LABEL_46:
-    v7 = *(a1 + 352);
     PB::TextFormatter::format(this, "workoutTransitionStop");
   }
 

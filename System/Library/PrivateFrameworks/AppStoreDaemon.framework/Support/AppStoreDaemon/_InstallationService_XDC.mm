@@ -20,7 +20,7 @@
   _init = [(InstallationService *)&v7 _init];
   if (_init)
   {
-    v3 = sub_1002EB36C();
+    v3 = sub_1002EB36C(XDCService);
     v4 = *(_init + 7);
     *(_init + 7) = v3;
 
@@ -380,7 +380,7 @@ LABEL_13:
 
   v35 = sub_1003862F8(XDCInstallResponse, v34);
   v36 = sub_100342264(selfa, v35, 6);
-  v37 = sub_1002EB36C();
+  v37 = sub_1002EB36C(XDCService);
   v38 = v37;
   if (v37)
   {

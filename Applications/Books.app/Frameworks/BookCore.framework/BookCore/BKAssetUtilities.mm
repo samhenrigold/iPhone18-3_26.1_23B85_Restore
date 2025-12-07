@@ -400,7 +400,7 @@ LABEL_18:
     {
       if (type == 2)
       {
-        v4 = IMCommonCoreBundle();
+        v4 = IMCommonCoreBundle(self);
         v5 = v4;
         v6 = @"Text";
         goto LABEL_4;
@@ -408,14 +408,14 @@ LABEL_18:
 
       if (type == 3)
       {
-        v4 = IMCommonCoreBundle();
+        v4 = IMCommonCoreBundle(self);
         v5 = v4;
         v6 = @"PDF document";
         goto LABEL_4;
       }
     }
 
-    v4 = IMCommonCoreBundle();
+    v4 = IMCommonCoreBundle(self);
     v5 = v4;
     v6 = @"Book";
     goto LABEL_4;
@@ -423,7 +423,7 @@ LABEL_18:
 
   if ((type - 7) < 0xD)
   {
-    v4 = IMCommonCoreBundle();
+    v4 = IMCommonCoreBundle(self);
     v5 = v4;
     v6 = @"Audiobook Track";
 LABEL_4:
@@ -439,7 +439,7 @@ LABEL_4:
 
   if (type == 6)
   {
-    v4 = IMCommonCoreBundle();
+    v4 = IMCommonCoreBundle(self);
     v5 = v4;
     v6 = @"Audiobook";
     goto LABEL_4;

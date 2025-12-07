@@ -1,7 +1,6 @@
 @interface GreenGhostCommon
 - (GreenGhostCommon)initWithMetalContext:(id)context;
 - (SidecarWriter)sidecarWriter;
-- (id)functionNameForProgram:(int)program;
 - (int)blobDetection:(id)detection output:(id)output params:(BlobTuning)params;
 - (int)boxFilter:(id)filter withRadius:(unsigned int)radius output:(id)output;
 - (int)brightnessDetectionInput:(id)input output:(id)output params:(BrightnessTuning)params processingROIInfo:(ProcessingROIInfo *)info;
@@ -12,21 +11,11 @@
 - (int)dilateTexture:(id)texture withNormalizedRadius:(float)radius withThreshold:(id)threshold subtractTexture:(id)subtractTexture output:(id)output;
 - (int)downscaleInput:(id)input output:(id)output;
 - (int)erodeTexture:(id)texture withNormalizedRadius:(float)radius output:(id)output;
+- (int)extractFaceBodyBoundariesFromFaceLandMarks:(GreenGhostCommon *)self ev0FrameMetadata:(SEL)metadata imgSize:(id)size faceBoundaryPaddingRatio:(const frameMetadata *)ratio bodyBoundaryPaddingRatio:(CGSize)paddingRatio output:(FaceBodyBoundaries *)output;
 - (int)greenDetectionLuma:(id)luma chroma:(id)chroma output:(id)output params:(GreenTuning)params processingROIInfo:(ProcessingROIInfo *)info;
 @end
 
 @implementation GreenGhostCommon
-
-- (id)functionNameForProgram:(int)program
-{
-  if (program < 0xD)
-  {
-    return *(&off_29EDDBFD0 + program);
-  }
-
-  FigDebugAssert3();
-  return 0;
-}
 
 - (int)compileDilateVerticalShaders
 {
@@ -696,6 +685,157 @@ LABEL_8:
   return v142;
 }
 
+- (int)extractFaceBodyBoundariesFromFaceLandMarks:(GreenGhostCommon *)self ev0FrameMetadata:(SEL)metadata imgSize:(id)size faceBoundaryPaddingRatio:(const frameMetadata *)ratio bodyBoundaryPaddingRatio:(CGSize)paddingRatio output:(FaceBodyBoundaries *)output
+{
+  v9 = v7;
+  v10 = v6;
+  height = paddingRatio.height;
+  width = paddingRatio.width;
+  v14 = &ratio->ltmCurves.ccmLut.ccmV1.lutsData[2044];
+  sizeCopy = size;
+  memset(&v51, 0, sizeof(v51));
+  v19 = objc_msgSend_count(sizeCopy, v16, v17, v18);
+  v21 = *&v14[33].BG.highlights;
+  if (v19)
+  {
+    v22 = 1;
+  }
+
+  else
+  {
+    v22 = v21 == 0;
+  }
+
+  v23 = !v22;
+  if (!output)
+  {
+    sub_29589AFA8(&v50);
+    a_low = LODWORD(v50.a);
+    goto LABEL_29;
+  }
+
+  if (!v23)
+  {
+    v21 = v19;
+  }
+
+  if (v21 >= 0xA)
+  {
+    v24 = 10;
+  }
+
+  else
+  {
+    v24 = v21;
+  }
+
+  output->nFaces = v24;
+  v25 = *&v14[41].GR.shadows;
+  output[44].nFaces = v25;
+  if (!(v21 | v25))
+  {
+    sub_29589AF48();
+LABEL_28:
+    a_low = 0;
+    goto LABEL_29;
+  }
+
+  if (v23)
+  {
+    if (v21)
+    {
+      v26 = output + 4;
+      p_mid = &v14[34].GR.mid;
+      do
+      {
+        v20.i64[0] = *(p_mid - 3);
+        *v20.i64 = sub_295828118(1, v20, *(p_mid - 2), *(p_mid - 1), *p_mid, width, height, v10);
+        *&v26->nFaces = v20;
+        v26 += 4;
+        p_mid += 5;
+        --v24;
+      }
+
+      while (v24);
+    }
+
+    goto LABEL_25;
+  }
+
+  *v20.i64 = sub_295816EA0(ratio->exifOrientation, &v51);
+  if (!output->nFaces)
+  {
+LABEL_25:
+    nFaces = output[44].nFaces;
+    if (nFaces)
+    {
+      v46 = output + 48;
+      v47 = &v14[41].BB.mid;
+      do
+      {
+        v20.i64[0] = *(v47 - 3);
+        *v20.i64 = sub_295828118(1, v20, *(v47 - 2), *(v47 - 1), *v47, width, height, v9);
+        *&v46->nFaces = v20;
+        v46 += 4;
+        v47 += 5;
+        --nFaces;
+      }
+
+      while (nFaces);
+    }
+
+    goto LABEL_28;
+  }
+
+  v30 = 0;
+  while (1)
+  {
+    v34 = objc_msgSend_objectAtIndexedSubscript_(sizeCopy, v28, v30, v29, *v20.i64);
+    v52 = 0;
+    v53 = &v52;
+    v54 = 0x2050000000;
+    v35 = qword_2A138BA60;
+    v55 = qword_2A138BA60;
+    if (!qword_2A138BA60)
+    {
+      *&v50.a = MEMORY[0x29EDCA5F8];
+      *&v50.b = 3221225472;
+      *&v50.c = sub_295829264;
+      *&v50.d = &unk_29EDDBEE8;
+      *&v50.tx = &v52;
+      sub_295829264(&v50, v31, v32, v33);
+      v35 = v53[3];
+    }
+
+    v36 = v35;
+    _Block_object_dispose(&v52, 8);
+    isKindOfClass = objc_opt_isKindOfClass();
+
+    if ((isKindOfClass & 1) == 0)
+    {
+      break;
+    }
+
+    v40 = objc_msgSend_objectAtIndexedSubscript_(sizeCopy, v38, v30, v39);
+    objc_msgSend_boundingBox(v40, v41, v42, v43);
+    v50 = v51;
+    v57 = CGRectApplyAffineTransform(v56, &v50);
+    *&v44 = sub_295828118(0, v57.origin, v57.origin.y, v57.size.width, v57.size.height, width, height, v10);
+    *&output[4 * v30 + 4].nFaces = v44;
+
+    if (++v30 >= output->nFaces)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  sub_29589AEF0();
+  a_low = -12780;
+LABEL_29:
+
+  return a_low;
+}
+
 - (int)brightnessDetectionInput:(id)input output:(id)output params:(BrightnessTuning)params processingROIInfo:(ProcessingROIInfo *)info
 {
   v7 = v6;
@@ -703,109 +843,108 @@ LABEL_8:
   outputCopy = output;
   var0 = info->var0;
   v13 = vadd_f32(*&info[2].var0, *&info[2].var0);
-  v138 = objc_msgSend_width(inputCopy, v14, v15, v16);
+  v137 = objc_msgSend_width(inputCopy, v14, v15, v16);
   v20 = objc_msgSend_height(inputCopy, v17, v18, v19);
-  v21.f32[0] = v138;
+  v21.f32[0] = v137;
   v21.f32[1] = v20;
-  v22 = *v7;
-  v143 = *v7;
-  v144 = vmul_f32(v13, v21);
-  v23 = v7[4];
-  v142 = 0;
-  v27 = objc_msgSend_commandQueue(self->_metal, v24, v25, v26);
-  v31 = objc_msgSend_commandBuffer(v27, v28, v29, v30);
+  v142 = *v7;
+  v143 = vmul_f32(v13, v21);
+  v22 = v7[4];
+  v141 = 0;
+  v26 = objc_msgSend_commandQueue(self->_metal, v23, v24, v25);
+  v30 = objc_msgSend_commandBuffer(v26, v27, v28, v29);
 
-  if (!v31)
+  if (!v30)
   {
-    sub_29589B2E4(v141);
+    sub_29589B2E4(v140);
 LABEL_14:
-    v136 = v141[0];
+    v135 = v140[0];
     goto LABEL_9;
   }
 
-  v35 = objc_msgSend_computeCommandEncoder(v31, v32, v33, v34);
-  if (!v35)
+  v34 = objc_msgSend_computeCommandEncoder(v30, v31, v32, v33);
+  if (!v34)
   {
-    sub_29589B25C(v141);
+    sub_29589B25C(v140);
     goto LABEL_14;
   }
 
-  v39 = v35;
-  v40 = objc_msgSend_allocator(self->_metal, v36, v37, v38);
-  v44 = objc_msgSend_newTextureDescriptor(v40, v41, v42, v43);
+  v38 = v34;
+  v39 = objc_msgSend_allocator(self->_metal, v35, v36, v37);
+  v43 = objc_msgSend_newTextureDescriptor(v39, v40, v41, v42);
 
-  if (!v44)
+  if (!v43)
   {
-    sub_29589B1C0(v39);
+    sub_29589B1C0(v38);
     goto LABEL_14;
   }
 
-  v48 = objc_msgSend_desc(v44, v45, v46, v47);
-  objc_msgSend_setCompressionMode_(v48, v49, 2, v50);
+  v47 = objc_msgSend_desc(v43, v44, v45, v46);
+  objc_msgSend_setCompressionMode_(v47, v48, 2, v49);
 
-  v54 = objc_msgSend_desc(v44, v51, v52, v53);
-  objc_msgSend_setCompressionFootprint_(v54, v55, 0, v56);
+  v53 = objc_msgSend_desc(v43, v50, v51, v52);
+  objc_msgSend_setCompressionFootprint_(v53, v54, 0, v55);
 
-  v60 = objc_msgSend_desc(v44, v57, v58, v59);
-  objc_msgSend_setUsage_(v60, v61, 7, v62);
+  v59 = objc_msgSend_desc(v43, v56, v57, v58);
+  objc_msgSend_setUsage_(v59, v60, 7, v61);
 
-  v66 = objc_msgSend_pixelFormat(inputCopy, v63, v64, v65);
-  v70 = objc_msgSend_desc(v44, v67, v68, v69);
-  objc_msgSend_setPixelFormat_(v70, v71, v66, v72);
+  v65 = objc_msgSend_pixelFormat(inputCopy, v62, v63, v64);
+  v69 = objc_msgSend_desc(v43, v66, v67, v68);
+  objc_msgSend_setPixelFormat_(v69, v70, v65, v71);
 
-  v76 = objc_msgSend_width(outputCopy, v73, v74, v75);
-  v80 = objc_msgSend_desc(v44, v77, v78, v79);
-  objc_msgSend_setWidth_(v80, v81, v76, v82);
+  v75 = objc_msgSend_width(outputCopy, v72, v73, v74);
+  v79 = objc_msgSend_desc(v43, v76, v77, v78);
+  objc_msgSend_setWidth_(v79, v80, v75, v81);
 
-  v86 = objc_msgSend_height(outputCopy, v83, v84, v85);
-  v90 = objc_msgSend_desc(v44, v87, v88, v89);
-  objc_msgSend_setHeight_(v90, v91, v86, v92);
+  v85 = objc_msgSend_height(outputCopy, v82, v83, v84);
+  v89 = objc_msgSend_desc(v43, v86, v87, v88);
+  objc_msgSend_setHeight_(v89, v90, v85, v91);
 
-  objc_msgSend_setLabel_(v44, v93, 0, v94);
-  v98 = objc_msgSend_allocator(self->_metal, v95, v96, v97);
-  v101 = objc_msgSend_newTextureWithDescriptor_(v98, v99, v44, v100);
-  v142 = v101;
+  objc_msgSend_setLabel_(v43, v92, 0, v93);
+  v97 = objc_msgSend_allocator(self->_metal, v94, v95, v96);
+  v100 = objc_msgSend_newTextureWithDescriptor_(v97, v98, v43, v99);
+  v141 = v100;
 
-  if (!v101)
+  if (!v100)
   {
-    sub_29589B110(v44, v39, v141);
+    sub_29589B110(v43, v38, v140);
     goto LABEL_14;
   }
 
-  objc_msgSend_setComputePipelineState_(v39, v102, self->_pipelineStates[10], v103);
-  v139 = inputCopy;
-  objc_msgSend_setTexture_atIndex_(v39, v104, inputCopy, 0);
-  objc_msgSend_setTexture_atIndex_(v39, v105, outputCopy, 1);
-  objc_msgSend_setBytes_length_atIndex_(v39, v106, &var0, 4, 0);
-  objc_msgSend_setBytes_length_atIndex_(v39, v107, &v144, 8, 1);
-  objc_msgSend_setBytes_length_atIndex_(v39, v108, &v143, 8, 2);
-  v112 = objc_msgSend_threadExecutionWidth(self->_pipelineStates[10], v109, v110, v111);
-  v116 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_pipelineStates[10], v113, v114, v115) / v112;
-  v141[0] = objc_msgSend_width(outputCopy, v117, v118, v119);
-  v141[1] = objc_msgSend_height(outputCopy, v120, v121, v122);
-  v141[2] = 1;
-  v140[0] = v112;
-  v140[1] = v116;
+  objc_msgSend_setComputePipelineState_(v38, v101, self->_pipelineStates[10], v102);
+  v138 = inputCopy;
+  objc_msgSend_setTexture_atIndex_(v38, v103, inputCopy, 0);
+  objc_msgSend_setTexture_atIndex_(v38, v104, outputCopy, 1);
+  objc_msgSend_setBytes_length_atIndex_(v38, v105, &var0, 4, 0);
+  objc_msgSend_setBytes_length_atIndex_(v38, v106, &v143, 8, 1);
+  objc_msgSend_setBytes_length_atIndex_(v38, v107, &v142, 8, 2);
+  v111 = objc_msgSend_threadExecutionWidth(self->_pipelineStates[10], v108, v109, v110);
+  v115 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_pipelineStates[10], v112, v113, v114) / v111;
+  v140[0] = objc_msgSend_width(outputCopy, v116, v117, v118);
+  v140[1] = objc_msgSend_height(outputCopy, v119, v120, v121);
   v140[2] = 1;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v39, v123, v141, v140);
-  objc_msgSend_endEncoding(v39, v124, v125, v126);
-  objc_msgSend_commit(v31, v127, v128, v129);
-  *&v130 = v23 * info[5].var0;
-  v132 = objc_msgSend_erodeTexture_withNormalizedRadius_output_(self, v131, outputCopy, v101, v130);
-  if (v132)
+  v139[0] = v111;
+  v139[1] = v115;
+  v139[2] = 1;
+  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v38, v122, v140, v139);
+  objc_msgSend_endEncoding(v38, v123, v124, v125);
+  objc_msgSend_commit(v30, v126, v127, v128);
+  *&v129 = v22 * info[5].var0;
+  v131 = objc_msgSend_erodeTexture_withNormalizedRadius_output_(self, v130, outputCopy, v100, v129);
+  if (v131)
   {
-    v136 = v132;
-    sub_29589B030(v132, v44, v39);
+    v135 = v131;
+    sub_29589B030(v131, v43, v38);
   }
 
   else
   {
-    *&v134 = v23 * info[4].var0;
-    v135 = objc_msgSend_dilateTexture_withNormalizedRadius_output_(self, v133, v101, outputCopy, v134);
-    v136 = v135;
-    if (v135)
+    *&v133 = v22 * info[4].var0;
+    v134 = objc_msgSend_dilateTexture_withNormalizedRadius_output_(self, v132, v100, outputCopy, v133);
+    v135 = v134;
+    if (v134)
     {
-      sub_29589B0A0(v135, v44, v39);
+      sub_29589B0A0(v134, v43, v38);
     }
 
     else
@@ -814,10 +953,10 @@ LABEL_14:
     }
   }
 
-  inputCopy = v139;
+  inputCopy = v138;
 LABEL_9:
 
-  return v136;
+  return v135;
 }
 
 - (int)blobDetection:(id)detection output:(id)output params:(BlobTuning)params

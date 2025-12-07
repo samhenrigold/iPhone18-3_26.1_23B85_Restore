@@ -58,46 +58,58 @@ LABEL_4:
   depthCopy = depth;
   disparityCopy = disparity;
   v13 = self->_aneScalerComputePipelinesState;
-  if (depthCopy && disparityCopy)
+  if (!depthCopy)
   {
-    v14 = objc_msgSend_commandBuffer(self->_mtlContext, v8, v9, v10, v11, v12);
-    v20 = v14;
-    if (v14 && (objc_msgSend_computeCommandEncoder(v14, v15, v16, v17, v18, v19), (v21 = objc_claimAutoreleasedReturnValue()) != 0))
-    {
-      v26 = v21;
-      objc_msgSend_setComputePipelineState_(v21, v22, v13, v23, v24, v25);
-      objc_msgSend_setTexture_atIndex_(v26, v27, depthCopy, 0, v28, v29);
-      objc_msgSend_setTexture_atIndex_(v26, v30, disparityCopy, 1, v31, v32);
-      v38 = objc_msgSend_threadExecutionWidth(v13, v33, v34, v35, v36, v37);
-      v44 = objc_msgSend_maxTotalThreadsPerThreadgroup(v13, v39, v40, v41, v42, v43) / v38;
-      v71[0] = objc_msgSend_width(disparityCopy, v45, v46, v47, v48, v49);
-      v71[1] = objc_msgSend_height(disparityCopy, v50, v51, v52, v53, v54);
-      v71[2] = 1;
-      v70[0] = v38;
-      v70[1] = v44;
-      v70[2] = 1;
-      objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v26, v55, v71, v70, v56, v57);
-      objc_msgSend_endEncoding(v26, v58, v59, v60, v61, v62);
-      objc_msgSend_commit(self->_mtlContext, v63, v64, v65, v66, v67);
+    sub_29571ECCC();
+    sub_29571EE34();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v73, v74, v75, v76, v77, v78, v79, v80);
+    v70 = sub_29571ECCC();
+    v71 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v70, 4294893831, "(Fig)", 76);
+LABEL_10:
+    v68 = v71;
+    v20 = 0;
+    goto LABEL_6;
+  }
 
-      v68 = 0;
-    }
+  if (!disparityCopy)
+  {
+    sub_29571ECCC();
+    sub_29571EE34();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v73, v74, v75, v76, v77, v78, v79, v80);
+    v72 = sub_29571ECCC();
+    v71 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v72, 4294893831, "(Fig)", 77);
+    goto LABEL_10;
+  }
 
-    else
-    {
-      v68 = -12786;
-    }
+  v14 = objc_msgSend_commandBuffer(self->_mtlContext, v8, v9, v10, v11, v12);
+  v20 = v14;
+  if (v14 && (objc_msgSend_computeCommandEncoder(v14, v15, v16, v17, v18, v19), (v21 = objc_claimAutoreleasedReturnValue()) != 0))
+  {
+    v26 = v21;
+    objc_msgSend_setComputePipelineState_(v21, v22, v13, v23, v24, v25);
+    objc_msgSend_setTexture_atIndex_(v26, v27, depthCopy, 0, v28, v29);
+    objc_msgSend_setTexture_atIndex_(v26, v30, disparityCopy, 1, v31, v32);
+    v38 = objc_msgSend_threadExecutionWidth(v13, v33, v34, v35, v36, v37);
+    v44 = objc_msgSend_maxTotalThreadsPerThreadgroup(v13, v39, v40, v41, v42, v43) / v38;
+    v78 = objc_msgSend_width(disparityCopy, v45, v46, v47, v48, v49);
+    v79 = objc_msgSend_height(disparityCopy, v50, v51, v52, v53, v54);
+    v80 = 1;
+    v75 = v38;
+    v76 = v44;
+    v77 = 1;
+    objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v26, v55, &v78, &v75, v56, v57);
+    objc_msgSend_endEncoding(v26, v58, v59, v60, v61, v62);
+    objc_msgSend_commit(self->_mtlContext, v63, v64, v65, v66, v67);
+
+    v68 = 0;
   }
 
   else
   {
-    sub_29571ECCC();
-    sub_29571EE34();
-    FigDebugAssert3();
-    sub_29571ECCC();
-    v68 = FigSignalErrorAtGM();
-    v20 = 0;
+    v68 = -12786;
   }
+
+LABEL_6:
 
   return v68;
 }

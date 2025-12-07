@@ -1,10 +1,12 @@
 @interface IDSConnection
++ (id)_connectionWithAccount:(id)account commands:(id)commands indirectDelegateCallouts:(BOOL)callouts;
 - (BOOL)isActive;
 - (BOOL)sendData:(id)data toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error;
 - (BOOL)sendMessage:(id)message toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error;
 - (BOOL)sendProtobuf:(id)protobuf toDestinations:(id)destinations priority:(int64_t)priority options:(id)options identifier:(id *)identifier error:(id *)error;
 - (IDSAccount)account;
 - (_IDSConnection)_internal;
+- (id)_initWithAccount:(id)account commands:(id)commands indirectDelegateCallouts:(BOOL)callouts;
 - (void)addDelegate:(id)delegate queue:(id)queue;
 - (void)dealloc;
 - (void)removeDelegate:(id)delegate;
@@ -29,6 +31,63 @@
   internal = self->_internal;
 
   return internal;
+}
+
++ (id)_connectionWithAccount:(id)account commands:(id)commands indirectDelegateCallouts:(BOOL)callouts
+{
+  calloutsCopy = callouts;
+  commandsCopy = commands;
+  accountCopy = account;
+  v10 = [[self alloc] _initWithAccount:accountCopy commands:commandsCopy indirectDelegateCallouts:calloutsCopy];
+
+  return v10;
+}
+
+- (id)_initWithAccount:(id)account commands:(id)commands indirectDelegateCallouts:(BOOL)callouts
+{
+  calloutsCopy = callouts;
+  accountCopy = account;
+  commandsCopy = commands;
+  if (_IDSRunningInDaemon())
+  {
+    v10 = +[IDSLogging IDSConnection];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      sub_195B26A7C(self, v10);
+    }
+
+    selfCopy = 0;
+  }
+
+  else
+  {
+    v12 = +[IDSInternalQueueController sharedInstance];
+    assertQueueIsCurrent = [v12 assertQueueIsCurrent];
+
+    if (assertQueueIsCurrent)
+    {
+      utilities = [MEMORY[0x1E69A5270] utilities];
+      if (os_log_type_enabled(utilities, OS_LOG_TYPE_ERROR))
+      {
+        sub_195B2AB18();
+      }
+    }
+
+    v19.receiver = self;
+    v19.super_class = IDSConnection;
+    v15 = [(IDSConnection *)&v19 init];
+    if (v15)
+    {
+      v16 = [[_IDSConnection alloc] initWithAccount:accountCopy commands:commandsCopy indirectDelegateCallouts:calloutsCopy delegateContext:v15];
+      internal = v15->_internal;
+      v15->_internal = v16;
+    }
+
+    self = v15;
+    selfCopy = self;
+  }
+
+  return selfCopy;
 }
 
 - (void)dealloc

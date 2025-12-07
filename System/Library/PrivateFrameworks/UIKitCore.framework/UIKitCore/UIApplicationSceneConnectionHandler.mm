@@ -26,19 +26,19 @@ void _UIApplicationSceneConnectionHandler_block_invoke(uint64_t a1, void *a2, vo
 
     if ([UIApp _appAdoptsUISceneLifecycle])
     {
-      v10 = 0;
+      isEqual = 0;
     }
 
     else
     {
       v11 = [UIApp _defaultSceneIfExists];
       v12 = [v8 _FBSScene];
-      v10 = [v11 isEqual:v12];
+      isEqual = objc_msgSend_isEqual_(v11);
     }
 
     v13 = [(UIScene *)_UIPlaceholderWindowScene _scenesIncludingInternal:1];
     v14 = v13;
-    if (v10 && [v13 count] && v9 & 1 | ((objc_msgSend(UIApp, "isFrontBoard") & 1) == 0))
+    if (isEqual && [v13 count] && v9 & 1 | ((objc_msgSend(UIApp, "isFrontBoard") & 1) == 0))
     {
       v48 = v5;
       v64 = 0u;
@@ -183,7 +183,7 @@ void _UIApplicationSceneConnectionHandler_block_invoke(uint64_t a1, void *a2, vo
 
         if (!v41)
         {
-          v42 = *(__UILogGetCategoryCachedImpl("KeyWindow", &unk_1ED49CBF0) + 8);
+          v42 = *(__UILogGetCategoryCachedImpl("KeyWindow", &qword_1ED49CBF0) + 8);
           if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             v43 = v42;

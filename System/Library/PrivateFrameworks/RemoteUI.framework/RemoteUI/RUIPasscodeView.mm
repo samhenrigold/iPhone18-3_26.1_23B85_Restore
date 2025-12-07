@@ -156,7 +156,7 @@
 
 - (id)passcodeView
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (!self->_containerView)
   {
     v3 = objc_alloc(MEMORY[0x277D759D8]);
@@ -196,43 +196,43 @@
 
     if ([(RUIPasscodeView *)self _requiresLocalPasscodeValidation])
     {
-      LODWORD(v47) = 0;
+      LODWORD(v51) = 0;
       sharedConnection = [getMCProfileConnectionClass_0() sharedConnection];
-      v18 = [sharedConnection unlockScreenTypeWithOutSimplePasscodeType:&v47];
+      v18 = [sharedConnection unlockScreenTypeWithOutSimplePasscodeType:&v51];
 
       if (v18)
       {
         if (v18 == 2)
         {
-          v19 = 0;
+          v21 = 0;
           goto LABEL_11;
         }
 
         if (v18 == 1)
         {
-          v19 = 1;
+          v21 = 1;
 LABEL_11:
-          v20 = [objc_alloc(MEMORY[0x277D75BB8]) initWithFrame:{v4, v5, v6, v7}];
+          v22 = [objc_alloc(MEMORY[0x277D75BB8]) initWithFrame:{v4, v5, v6, v7}];
           p_complexPasscodeField = &self->_complexPasscodeField;
           complexPasscodeField = self->_complexPasscodeField;
-          self->_complexPasscodeField = v20;
+          self->_complexPasscodeField = v22;
 
           [(UITextField *)self->_complexPasscodeField setKeyboardAppearance:self->_keyboardAppearance];
           [(UITextField *)self->_complexPasscodeField setEnablesReturnKeyAutomatically:1];
           [(UITextField *)self->_complexPasscodeField addTarget:self action:sel__complexPasscodeFieldDidChange_ forControlEvents:983040];
-          v23 = self->_complexPasscodeField;
-          v24 = MEMORY[0x277D74300];
+          v25 = self->_complexPasscodeField;
+          v26 = MEMORY[0x277D74300];
           currentDevice = [MEMORY[0x277D75418] currentDevice];
           userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-          v27 = 18.0;
+          v29 = 18.0;
           if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
           {
-            v27 = 23.0;
+            v29 = 23.0;
           }
 
-          v28 = [v24 systemFontOfSize:{v27, v47}];
-          [(UITextField *)v23 setFont:v28];
+          v30 = [v26 systemFontOfSize:{v29, v51}];
+          [(UITextField *)v25 setFont:v30];
 
           [*p_complexPasscodeField setSecureTextEntry:1];
           [*p_complexPasscodeField setTextAlignment:1];
@@ -241,13 +241,13 @@ LABEL_11:
 
           layer2 = [*p_complexPasscodeField layer];
           _labelColor = [MEMORY[0x277D75348] _labelColor];
-          v32 = _labelColor;
+          v34 = _labelColor;
           [layer2 setBorderColor:{objc_msgSend(_labelColor, "CGColor")}];
 
           layer3 = [*p_complexPasscodeField layer];
           [layer3 setCornerRadius:10.0];
 
-          if (v19)
+          if (v21)
           {
             [*p_complexPasscodeField setKeyboardType:4];
           }
@@ -257,74 +257,76 @@ LABEL_29:
           goto LABEL_30;
         }
 
-        if (_isInternalInstall())
+        isInternalInstall = _isInternalInstall(v19, v20);
+        if (isInternalInstall)
         {
-          v35 = _RUILoggingFacility();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          v38 = _RUILoggingFacility(isInternalInstall);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
             *&buf[4] = v18;
-            _os_log_impl(&dword_21B93D000, v35, OS_LOG_TYPE_DEFAULT, "Error! Unexpected unlock type: %d", buf, 8u);
+            _os_log_impl(&dword_21B93D000, v38, OS_LOG_TYPE_DEFAULT, "Error! Unexpected unlock type: %d", buf, 8u);
           }
         }
       }
 
       else
       {
-        if (v47 == 1)
+        if (v51 == 1)
         {
-          v34 = 6;
+          v36 = 6;
         }
 
         else
         {
-          if (v47)
+          if (v51)
           {
-            if (_isInternalInstall())
+            v49 = _isInternalInstall(v19, v20);
+            if (v49)
             {
-              v46 = _RUILoggingFacility();
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+              v50 = _RUILoggingFacility(v49);
+              if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 67109120;
-                *&buf[4] = v47;
-                _os_log_impl(&dword_21B93D000, v46, OS_LOG_TYPE_DEFAULT, "Error! Unlock type is MCUnlockScreenSimple, but value for MCSimplePasscodeType (%d) is invalid.", buf, 8u);
+                *&buf[4] = v51;
+                _os_log_impl(&dword_21B93D000, v50, OS_LOG_TYPE_DEFAULT, "Error! Unlock type is MCUnlockScreenSimple, but value for MCSimplePasscodeType (%d) is invalid.", buf, 8u);
               }
             }
 
             goto LABEL_24;
           }
 
-          v34 = 4;
+          v36 = 4;
         }
 
-        self->_numberOfEntryFields = v34;
+        self->_numberOfEntryFields = v36;
       }
     }
 
 LABEL_24:
-    v47 = 0;
-    v48 = &v47;
-    v49 = 0x2050000000;
-    v36 = getPSPasscodeFieldClass_softClass_0;
-    v50 = getPSPasscodeFieldClass_softClass_0;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x2050000000;
+    v39 = getPSPasscodeFieldClass_softClass_0;
+    v54 = getPSPasscodeFieldClass_softClass_0;
     if (!getPSPasscodeFieldClass_softClass_0)
     {
       *buf = MEMORY[0x277D85DD0];
-      v52 = 3221225472;
-      v53 = __getPSPasscodeFieldClass_block_invoke_0;
-      v54 = &unk_2782E8258;
-      v55 = &v47;
+      v56 = 3221225472;
+      v57 = __getPSPasscodeFieldClass_block_invoke_0;
+      v58 = &unk_2782E8258;
+      v59 = &v51;
       __getPSPasscodeFieldClass_block_invoke_0(buf);
-      v36 = v48[3];
+      v39 = v52[3];
     }
 
-    v37 = v36;
-    _Block_object_dispose(&v47, 8);
-    v38 = [v36 alloc];
-    v39 = [v38 initWithNumberOfEntryFields:{self->_numberOfEntryFields, v47}];
+    v40 = v39;
+    _Block_object_dispose(&v51, 8);
+    v41 = [v39 alloc];
+    v42 = [v41 initWithNumberOfEntryFields:{self->_numberOfEntryFields, v51}];
     p_complexPasscodeField = &self->_passcodeField;
     passcodeField = self->_passcodeField;
-    self->_passcodeField = v39;
+    self->_passcodeField = v42;
 
     [(PSPasscodeField *)self->_passcodeField setAccessibilityTraits:*MEMORY[0x277D765A8]];
     _passcodeFieldAccessibilityIdentifier = [(RUIPasscodeView *)self _passcodeFieldAccessibilityIdentifier];
@@ -337,18 +339,18 @@ LABEL_24:
 
     [(RUIPasscodeView *)self _updateFieldSpacer];
     [*p_complexPasscodeField setKeyboardAppearance:self->_keyboardAppearance];
-    v42 = self->_containerView;
+    v45 = self->_containerView;
     activityIndicatorView = [(RUIPasscodeView *)self activityIndicatorView];
-    [(UIScrollView *)v42 addSubview:activityIndicatorView];
+    [(UIScrollView *)v45 addSubview:activityIndicatorView];
 
     [*p_complexPasscodeField setDelegate:self];
     goto LABEL_29;
   }
 
 LABEL_30:
-  v44 = self->_containerView;
+  v47 = self->_containerView;
 
-  return v44;
+  return v47;
 }
 
 - (id)_passcodeFieldAccessibilityIdentifier
@@ -510,13 +512,14 @@ LABEL_5:
   self->_appeared = 1;
   if (self->_pendingAutoFillToken)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(self, a2);
+    if (isInternalInstall)
     {
-      v4 = _RUILoggingFacility();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_21B93D000, v4, OS_LOG_TYPE_DEFAULT, "Filling pending PINView token", v13, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_21B93D000, v5, OS_LOG_TYPE_DEFAULT, "Filling pending PINView token", v14, 2u);
       }
     }
 
@@ -528,15 +531,15 @@ LABEL_5:
   }
 
   [(UIScrollView *)self->_containerView contentSize];
-  v8 = v7;
+  v9 = v8;
   view = [(RUIPasscodeView *)self view];
   readableContentGuide = [view readableContentGuide];
   [readableContentGuide layoutFrame];
-  v12 = v11;
+  v13 = v12;
 
   if ([(RUIPasscodeView *)self shouldManageScrollViewInsets])
   {
-    [(UIScrollView *)self->_containerView setContentOffset:1 animated:0.0, fmax(v8 - v12, 0.0)];
+    [(UIScrollView *)self->_containerView setContentOffset:1 animated:0.0, fmax(v9 - v13, 0.0)];
   }
 }
 
@@ -1055,7 +1058,7 @@ LABEL_5:
 
 - (void)submitPIN
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   _requiresLocalPasscodeValidation = [(RUIPasscodeView *)self _requiresLocalPasscodeValidation];
   passcodeField = self->_passcodeField;
   if (!passcodeField)
@@ -1088,18 +1091,22 @@ LABEL_5:
         v19 = 0;
 LABEL_15:
         sharedConnection = [getMCProfileConnectionClass_0() sharedConnection];
-        v27 = 0;
-        v21 = [sharedConnection unlockDeviceWithPasscode:v19 outError:&v27];
-        v22 = v27;
+        v30 = 0;
+        v21 = [sharedConnection unlockDeviceWithPasscode:v19 outError:&v30];
+        v22 = v30;
 
-        if (v22 && _isInternalInstall())
+        if (v22)
         {
-          v23 = _RUILoggingFacility();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          isInternalInstall = _isInternalInstall(v23, v24);
+          if (isInternalInstall)
           {
-            *buf = 138412290;
-            v29 = v22;
-            _os_log_impl(&dword_21B93D000, v23, OS_LOG_TYPE_DEFAULT, "Error! Entered passcode does not validate: %@", buf, 0xCu);
+            v26 = _RUILoggingFacility(isInternalInstall);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v32 = v22;
+              _os_log_impl(&dword_21B93D000, v26, OS_LOG_TYPE_DEFAULT, "Error! Entered passcode does not validate: %@", buf, 0xCu);
+            }
           }
         }
 
@@ -1110,13 +1117,13 @@ LABEL_15:
           if (self->_passcodeValidationAttempts < 3)
           {
             [(RUIPasscodeView *)self _jiggleView:v5];
-            v24 = dispatch_time(0, 250000000);
+            v27 = dispatch_time(0, 250000000);
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = __28__RUIPasscodeView_submitPIN__block_invoke;
             block[3] = &unk_2782E7F30;
             block[4] = self;
-            dispatch_after(v24, MEMORY[0x277D85CD0], block);
+            dispatch_after(v27, MEMORY[0x277D85CD0], block);
             goto LABEL_9;
           }
 
@@ -1126,12 +1133,12 @@ LABEL_15:
         [(RUIPasscodeView *)self setSubmittedPIN:0];
 LABEL_7:
         WeakRetained = objc_loadWeakRetained(&self->_objectModel);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __28__RUIPasscodeView_submitPIN__block_invoke_2;
-        v25[3] = &unk_2782E8018;
-        v25[4] = self;
-        [WeakRetained passcodeViewOM:self activatedElement:self completion:v25];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __28__RUIPasscodeView_submitPIN__block_invoke_2;
+        v28[3] = &unk_2782E8018;
+        v28[4] = self;
+        [WeakRetained passcodeViewOM:self activatedElement:self completion:v28];
         goto LABEL_8;
       }
 
@@ -1197,21 +1204,23 @@ void __28__RUIPasscodeView_submitPIN__block_invoke_2(uint64_t a1)
 - (void)autofillWithToken:(id)token
 {
   tokenCopy = token;
+  v7 = tokenCopy;
   if (self->_appeared)
   {
     passcodeField = [(RUIPasscodeView *)self passcodeField];
-    [passcodeField setStringValue:tokenCopy];
+    [passcodeField setStringValue:v7];
   }
 
   else
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(tokenCopy, v6);
+    if (isInternalInstall)
     {
-      v7 = _RUILoggingFacility();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v10 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_21B93D000, v7, OS_LOG_TYPE_DEFAULT, "PINView autofill pending appearance", v8, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_21B93D000, v10, OS_LOG_TYPE_DEFAULT, "PINView autofill pending appearance", v11, 2u);
       }
     }
 

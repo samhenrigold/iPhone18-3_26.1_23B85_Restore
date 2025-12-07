@@ -16,8 +16,8 @@
 - (void)loadView
 {
   selfCopy = self;
-  v2 = sub_1A22D8A00();
-  [(MRUSessionsContainerViewController *)selfCopy setView:v2];
+  v3 = sub_1A22D8A00(selfCopy, v2);
+  [(MRUSessionsContainerViewController *)selfCopy setView:v3];
 }
 
 - (MPMediaControlsConfiguration)configuration
@@ -76,10 +76,11 @@
   v6 = (self + OBJC_IVAR___MRUSessionsContainerViewController_dismissalBlock);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A210F5C0(v7);
+  sub_1A210F5C0(v7, v8);
 }
 
 - (id)customRowTappedBlock
@@ -124,10 +125,11 @@
   v6 = (self + OBJC_IVAR___MRUSessionsContainerViewController_customRowTappedBlock);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A210F5C0(v7);
+  sub_1A210F5C0(v7, v8);
 }
 
 - (void)transitionToVisible:(BOOL)visible animated:(BOOL)animated

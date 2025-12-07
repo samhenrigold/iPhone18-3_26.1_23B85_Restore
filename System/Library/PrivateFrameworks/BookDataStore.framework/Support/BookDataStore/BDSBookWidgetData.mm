@@ -218,7 +218,7 @@ LABEL_39:
     title2 = [(BDSBookWidgetData *)v5 title];
     v24 = title;
     v28 = title2;
-    v57 = v28;
+    v58 = v28;
     if (v24 == v28)
     {
     }
@@ -234,21 +234,21 @@ LABEL_37:
         goto LABEL_38;
       }
 
-      v55 = [v24 isEqualToString:v28];
+      v56 = [v24 isEqualToString:v28];
 
-      if (!v55)
+      if (!v56)
       {
         goto LABEL_37;
       }
     }
 
-    v56 = v24;
+    v57 = v24;
     coverURL = [(BDSBookWidgetData *)self coverURL];
     coverURL2 = [(BDSBookWidgetData *)v5 coverURL];
     v29 = coverURL;
     v32 = coverURL2;
     v33 = v32;
-    v54 = v32;
+    v55 = v32;
     if (v29 == v32)
     {
     }
@@ -259,26 +259,26 @@ LABEL_37:
       {
 
 LABEL_35:
-        v24 = v56;
+        v24 = v57;
         goto LABEL_36;
       }
 
-      v52 = [v29 isEqualToString:v32];
+      v53 = [v29 isEqualToString:v32];
 
-      if (!v52)
+      if (!v53)
       {
         goto LABEL_35;
       }
     }
 
-    v53 = v29;
+    v54 = v29;
     cloudAssetType = [(BDSBookWidgetData *)self cloudAssetType];
     cloudAssetType2 = [(BDSBookWidgetData *)v5 cloudAssetType];
     v36 = cloudAssetType;
     v37 = cloudAssetType2;
     v38 = v37;
-    v50 = v37;
-    v51 = v36;
+    v51 = v37;
+    v52 = v36;
     if (v36 == v37)
     {
     }
@@ -287,22 +287,22 @@ LABEL_35:
     {
       if (!v37)
       {
-        v49 = 1;
+        v50 = 1;
 LABEL_57:
-        v40 = v53;
+        v40 = v54;
 
-        v39 = v49;
+        v39 = v50;
 LABEL_58:
 
         if (v39)
         {
 LABEL_44:
-          v13 = sub_10000DE28();
+          v13 = sub_10000DE28(v41);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v59 = v5;
-            v60 = 2112;
+            v60 = v5;
+            v61 = 2112;
             selfCopy2 = self;
             goto LABEL_46;
           }
@@ -311,16 +311,16 @@ LABEL_44:
         }
 
 LABEL_59:
-        v41 = 0;
+        v42 = 0;
         goto LABEL_60;
       }
 
-      v48 = [v36 isEqualToString:v37];
+      v49 = [v36 isEqualToString:v37];
 
-      if (!v48)
+      if (!v49)
       {
         v39 = 1;
-        v40 = v53;
+        v40 = v54;
         goto LABEL_58;
       }
     }
@@ -328,37 +328,37 @@ LABEL_59:
     libraryAssetType = [(BDSBookWidgetData *)self libraryAssetType];
     libraryAssetType2 = [(BDSBookWidgetData *)v5 libraryAssetType];
     v36 = libraryAssetType;
-    v44 = libraryAssetType2;
-    v45 = v44;
-    if (v36 == v44)
+    v45 = libraryAssetType2;
+    v46 = v45;
+    if (v36 == v45)
     {
-      v49 = 0;
+      v50 = 0;
     }
 
     else
     {
-      if (v44)
+      if (v45)
       {
-        v46 = [v36 isEqualToString:v44] ^ 1;
+        v47 = [v36 isEqualToString:v45] ^ 1;
       }
 
       else
       {
-        LOBYTE(v46) = 1;
+        LOBYTE(v47) = 1;
       }
 
-      v49 = v46;
+      v50 = v47;
     }
 
     goto LABEL_57;
   }
 
-  v13 = sub_10000DE28();
+  v13 = sub_10000DE28(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v59 = 0;
-    v60 = 2112;
+    v60 = 0;
+    v61 = 2112;
     selfCopy2 = self;
 LABEL_46:
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Found changes between %@ and %@:", buf, 0x16u);
@@ -366,10 +366,10 @@ LABEL_46:
 
 LABEL_47:
 
-  v41 = 1;
+  v42 = 1;
 LABEL_60:
 
-  return v41;
+  return v42;
 }
 
 - (id)description

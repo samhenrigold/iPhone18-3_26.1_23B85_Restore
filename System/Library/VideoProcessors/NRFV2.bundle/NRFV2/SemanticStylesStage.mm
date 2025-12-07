@@ -788,15 +788,15 @@ LABEL_9:
   skyMaskTexCopy = skyMaskTex;
   if (!self->_shaders)
   {
-    sub_29588CCE0(&v55);
+    sub_29588CCE0(&v53);
 LABEL_14:
-    v53 = v55;
+    v51 = v53;
     goto LABEL_9;
   }
 
   if (!self->_guidedFilter)
   {
-    sub_29588CC44(&v55);
+    sub_29588CC44(&v53);
     goto LABEL_14;
   }
 
@@ -805,7 +805,7 @@ LABEL_14:
 
   if (!v18)
   {
-    sub_29588CBA8(&v55);
+    sub_29588CBA8(&v53);
     goto LABEL_14;
   }
 
@@ -826,37 +826,35 @@ LABEL_14:
   v33 = objc_msgSend_encodeToCommandBuffer_inputTexture_guideTexture_outputTexture_kernelRadius_epsilon_(self->_guidedFilter, v30, v18, texCopy, self->_guideTex, v32, 5, v31);
   if (v33)
   {
-    v53 = v33;
+    v51 = v33;
     sub_29588CA7C(v33, v18);
   }
 
   else
   {
     objc_storeStrong(&self->_skinMatteTex, maskTex);
-    skinMatteTex = self->_skinMatteTex;
     FigMetalIncRef();
     objc_storeStrong(&self->_skyMatteTex, skyMaskTex);
-    skyMatteTex = self->_skyMatteTex;
     FigMetalIncRef();
     if (*MEMORY[0x29EDB9270])
     {
-      v39 = objc_msgSend_commandQueue(v18, v36, v37, v38);
-      v43 = objc_msgSend_commandBuffer(v39, v40, v41, v42);
+      v37 = objc_msgSend_commandQueue(v18, v34, v35, v36);
+      v41 = objc_msgSend_commandBuffer(v37, v38, v39, v40);
 
-      objc_msgSend_setLabel_(v43, v44, @"KTRACE_MTLCMDBUF", v45);
-      objc_msgSend_addCompletedHandler_(v43, v46, &unk_2A1CA9380, v47);
-      objc_msgSend_commit(v43, v48, v49, v50);
-      objc_msgSend_addCompletedHandler_(v18, v51, &unk_2A1CA93A0, v52);
+      objc_msgSend_setLabel_(v41, v42, @"KTRACE_MTLCMDBUF", v43);
+      objc_msgSend_addCompletedHandler_(v41, v44, &unk_2A1CA9380, v45);
+      objc_msgSend_commit(v41, v46, v47, v48);
+      objc_msgSend_addCompletedHandler_(v18, v49, &unk_2A1CA93A0, v50);
     }
 
-    objc_msgSend_commit(v18, v36, v37, v38);
+    objc_msgSend_commit(v18, v34, v35, v36);
 
-    v53 = 0;
+    v51 = 0;
   }
 
 LABEL_9:
 
-  return v53;
+  return v51;
 }
 
 - (int)renderWithLumaTex:(id)tex chromaTex:(id)chromaTex gainMapTex:(id)mapTex outputGainMapTex:(id)gainMapTex
@@ -982,15 +980,15 @@ LABEL_8:
   skyMaskTexCopy = skyMaskTex;
   if (!texCopy)
   {
-    sub_29588D528(v107);
+    sub_29588D528(v108);
 LABEL_30:
-    v97 = v107[0];
+    v98 = v108[0];
     goto LABEL_26;
   }
 
   if (!chromaTexCopy)
   {
-    sub_29588D48C(v107);
+    sub_29588D48C(v108);
     goto LABEL_30;
   }
 
@@ -1000,24 +998,24 @@ LABEL_30:
 
   if (!self->_paramsBuf)
   {
-    sub_29588D3F0(v107);
+    sub_29588D3F0(v108);
     goto LABEL_30;
   }
 
-  v105 = objc_msgSend_width(texCopy, v28, v29, v30);
+  v106 = objc_msgSend_width(texCopy, v28, v29, v30);
   v34 = objc_msgSend_height(texCopy, v31, v32, v33);
-  v35.f32[0] = v105;
+  v35.f32[0] = v106;
   v35.f32[1] = v34;
-  v106 = v35;
+  v107 = v35;
   v36.f64[0] = metadata->ROI.origin.x;
   v37 = sub_295862268(v36, metadata->ROI.origin.y);
   v38.f64[0] = metadata->ROI.size.width;
   *&v39 = sub_295862268(v38, metadata->ROI.size.height);
   __asm { FMOV            V1.2S, #1.0 }
 
-  v45 = vdiv_f32(_D1, vdiv_f32(v39, v106));
+  v45 = vdiv_f32(_D1, vdiv_f32(v39, v107));
   v49 = objc_msgSend_contents(self->_paramsBuf, v46, v47, v48);
-  *v49 = vmul_f32(vdiv_f32(vneg_f32(*&v37), v106), v45);
+  *v49 = vmul_f32(vdiv_f32(vneg_f32(*&v37), v107), v45);
   v49[1] = v45;
   v49[2].i32[0] = LODWORD(metadata->exposureParams.luxLevel);
   v49[2].i8[4] = light;
@@ -1061,24 +1059,24 @@ LABEL_30:
 
   if (!self->_sharedEvent)
   {
-    sub_29588D354(v107);
+    sub_29588D354(v108);
 LABEL_33:
-    v97 = v107[0];
+    v98 = v108[0];
     goto LABEL_26;
   }
 
   objc_storeStrong(&self->_tuningParams, obj);
   if (!self->_tuningParams)
   {
-    sub_29588D2B8(v107);
+    sub_29588D2B8(v108);
     goto LABEL_33;
   }
 
   objc_msgSend_remapSliderValueForRendering(self, v78, v79, v80);
   if (dword_2A18C2398)
   {
+    v110[0] = 0;
     v109 = 0;
-    v108 = 0;
     v82 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1087,7 +1085,7 @@ LABEL_33:
   v83 = objc_msgSend_calculateHistogramStatsWithLumaTex_chromaTex_(self, v81, texCopy, chromaTexCopy);
   if (v83)
   {
-    v97 = v83;
+    v98 = v83;
     sub_29588CFFC();
   }
 
@@ -1096,7 +1094,7 @@ LABEL_33:
     GuideImage = objc_msgSend_createGuideImage_(self, v84, texCopy, v85);
     if (GuideImage)
     {
-      v97 = GuideImage;
+      v98 = GuideImage;
       sub_29588D088();
     }
 
@@ -1105,32 +1103,33 @@ LABEL_33:
       v90 = objc_msgSend_upsampleLightMap(self, v87, v88, v89);
       if (v90)
       {
-        v97 = v90;
+        v98 = v90;
         sub_29588D114();
       }
 
       else if (maskTexCopy && skinMaskTexCopy && skyMaskTexCopy && (v92 = objc_msgSend_processPersonMaskTex_skinMaskTex_skyMaskTex_(self, v91, maskTexCopy, skinMaskTexCopy, skyMaskTexCopy)) != 0)
       {
-        v97 = v92;
+        v98 = v92;
         sub_29588D1A0();
       }
 
       else
       {
         FigMetalDecRef();
-        v97 = objc_msgSend_renderWithLumaTex_chromaTex_gainMapTex_outputGainMapTex_(self, v93, texCopy, chromaTexCopy, mapTexCopy, gainMapTexCopy);
-        if (v97)
+        v94 = objc_msgSend_renderWithLumaTex_chromaTex_gainMapTex_outputGainMapTex_(self, v93, texCopy, chromaTexCopy, mapTexCopy, gainMapTexCopy);
+        v98 = v94;
+        if (v94)
         {
-          sub_29588D22C();
+          sub_29588D22C(v94);
         }
       }
     }
   }
 
 LABEL_26:
-  objc_msgSend_releaseResources(self, v94, v95, v96);
+  objc_msgSend_releaseResources(self, v95, v96, v97);
 
-  return v97;
+  return v98;
 }
 
 @end

@@ -33,12 +33,12 @@
   return v2;
 }
 
-void __58__EKUIAutocompleteOccurrenceTableViewCell_reuseIdentifier__block_invoke()
+void __58__EKUIAutocompleteOccurrenceTableViewCell_reuseIdentifier__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = reuseIdentifier_reuseIdentifier;
-  reuseIdentifier_reuseIdentifier = v1;
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = reuseIdentifier_reuseIdentifier;
+  reuseIdentifier_reuseIdentifier = v2;
 }
 
 - (EKUIAutocompleteOccurrenceTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
@@ -66,50 +66,50 @@ void __58__EKUIAutocompleteOccurrenceTableViewCell_reuseIdentifier__block_invoke
     v4->_colorDotView = v7;
 
     [(UIImageView *)v4->_colorDotView setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView = [(EKUIAutocompleteOccurrenceTableViewCell *)v4 contentView];
-    [contentView addSubview:v4->_colorDotView];
+    v9 = objc_msgSend_contentView(v4);
+    [v9 addSubview:v4->_colorDotView];
 
     createPrimaryLabel = [(EKUIAutocompleteSearchResultBaseCell *)v4 createPrimaryLabel];
     titleTextLabel = v4->_titleTextLabel;
     v4->_titleTextLabel = createPrimaryLabel;
 
-    contentView2 = [(EKUIAutocompleteOccurrenceTableViewCell *)v4 contentView];
-    [contentView2 addSubview:v4->_titleTextLabel];
+    v12 = objc_msgSend_contentView(v4);
+    [v12 addSubview:v4->_titleTextLabel];
 
     createSecondaryLabel = [(EKUIAutocompleteSearchResultBaseCell *)v4 createSecondaryLabel];
     locationTextLabel = v4->_locationTextLabel;
     v4->_locationTextLabel = createSecondaryLabel;
 
-    contentView3 = [(EKUIAutocompleteOccurrenceTableViewCell *)v4 contentView];
-    [contentView3 addSubview:v4->_locationTextLabel];
+    v15 = objc_msgSend_contentView(v4);
+    [v15 addSubview:v4->_locationTextLabel];
 
     createSecondaryLabel2 = [(EKUIAutocompleteSearchResultBaseCell *)v4 createSecondaryLabel];
     timeTextLabelWithThisTimeZone = v4->_timeTextLabelWithThisTimeZone;
     v4->_timeTextLabelWithThisTimeZone = createSecondaryLabel2;
 
-    contentView4 = [(EKUIAutocompleteOccurrenceTableViewCell *)v4 contentView];
-    [contentView4 addSubview:v4->_timeTextLabelWithThisTimeZone];
+    v18 = objc_msgSend_contentView(v4);
+    [v18 addSubview:v4->_timeTextLabelWithThisTimeZone];
 
     createSecondaryLabel3 = [(EKUIAutocompleteSearchResultBaseCell *)v4 createSecondaryLabel];
     timeTextLabelWithResultTimeZone = v4->_timeTextLabelWithResultTimeZone;
     v4->_timeTextLabelWithResultTimeZone = createSecondaryLabel3;
 
-    contentView5 = [(EKUIAutocompleteOccurrenceTableViewCell *)v4 contentView];
-    [contentView5 addSubview:v4->_timeTextLabelWithResultTimeZone];
+    v21 = objc_msgSend_contentView(v4);
+    [v21 addSubview:v4->_timeTextLabelWithResultTimeZone];
 
     createSecondaryLabel4 = [(EKUIAutocompleteSearchResultBaseCell *)v4 createSecondaryLabel];
     inviteesTextLabel = v4->_inviteesTextLabel;
     v4->_inviteesTextLabel = createSecondaryLabel4;
 
-    contentView6 = [(EKUIAutocompleteOccurrenceTableViewCell *)v4 contentView];
-    [contentView6 addSubview:v4->_inviteesTextLabel];
+    v24 = objc_msgSend_contentView(v4);
+    [v24 addSubview:v4->_inviteesTextLabel];
 
     createSecondaryLabel5 = [(EKUIAutocompleteSearchResultBaseCell *)v4 createSecondaryLabel];
     foundInTextLabel = v4->_foundInTextLabel;
     v4->_foundInTextLabel = createSecondaryLabel5;
 
-    contentView7 = [(EKUIAutocompleteOccurrenceTableViewCell *)v4 contentView];
-    [contentView7 addSubview:v4->_foundInTextLabel];
+    v27 = objc_msgSend_contentView(v4);
+    [v27 addSubview:v4->_foundInTextLabel];
 
     v32[0] = v4->_locationTextLabel;
     v32[1] = v4->_timeTextLabelWithThisTimeZone;
@@ -169,8 +169,8 @@ void __58__EKUIAutocompleteOccurrenceTableViewCell_reuseIdentifier__block_invoke
   v45 = *MEMORY[0x1E69E9840];
   if (self->_ekUIAutocompleteOccurrenceTableViewCellConstraints)
   {
-    contentView = [(EKUIAutocompleteOccurrenceTableViewCell *)self contentView];
-    [contentView removeConstraints:self->_ekUIAutocompleteOccurrenceTableViewCellConstraints];
+    v3 = objc_msgSend_contentView(self, a2);
+    [v3 removeConstraints:self->_ekUIAutocompleteOccurrenceTableViewCellConstraints];
 
     ekUIAutocompleteOccurrenceTableViewCellConstraints = self->_ekUIAutocompleteOccurrenceTableViewCellConstraints;
     self->_ekUIAutocompleteOccurrenceTableViewCellConstraints = 0;
@@ -179,15 +179,15 @@ void __58__EKUIAutocompleteOccurrenceTableViewCell_reuseIdentifier__block_invoke
   v5 = objc_opt_new();
   v6 = MEMORY[0x1E696ACD8];
   colorDotView = self->_colorDotView;
-  contentView2 = [(EKUIAutocompleteOccurrenceTableViewCell *)self contentView];
-  v9 = [v6 constraintWithItem:colorDotView attribute:5 relatedBy:0 toItem:contentView2 attribute:5 multiplier:1.0 constant:18.0];
+  v8 = objc_msgSend_contentView(self);
+  v9 = [v6 constraintWithItem:colorDotView attribute:5 relatedBy:0 toItem:v8 attribute:5 multiplier:1.0 constant:18.0];
   [(NSArray *)v5 addObject:v9];
 
   v10 = MEMORY[0x1E696ACD8];
   v11 = self->_colorDotView;
-  contentView3 = [(EKUIAutocompleteOccurrenceTableViewCell *)self contentView];
+  v12 = objc_msgSend_contentView(self);
   [(EKUIAutocompleteSearchResultBaseCell *)self verticalSpacingTopToColorDot];
-  v14 = [v10 constraintWithItem:v11 attribute:3 relatedBy:0 toItem:contentView3 attribute:3 multiplier:1.0 constant:v13];
+  v14 = [v10 constraintWithItem:v11 attribute:3 relatedBy:0 toItem:v12 attribute:3 multiplier:1.0 constant:v13];
   [(NSArray *)v5 addObject:v14];
 
   v15 = MEMORY[0x1E696ACD8];
@@ -206,9 +206,9 @@ void __58__EKUIAutocompleteOccurrenceTableViewCell_reuseIdentifier__block_invoke
 
   v24 = MEMORY[0x1E696ACD8];
   titleTextLabel = self->_titleTextLabel;
-  contentView4 = [(EKUIAutocompleteOccurrenceTableViewCell *)self contentView];
+  v26 = objc_msgSend_contentView(self);
   [(EKUIAutocompleteSearchResultBaseCell *)self verticalSpacingTopToBaselineForTopLabel];
-  v28 = [v24 constraintWithItem:titleTextLabel attribute:11 relatedBy:0 toItem:contentView4 attribute:3 multiplier:1.0 constant:v27];
+  v28 = [v24 constraintWithItem:titleTextLabel attribute:11 relatedBy:0 toItem:v26 attribute:3 multiplier:1.0 constant:v27];
   [(NSArray *)v5 addObject:v28];
 
   [(EKUIAutocompleteOccurrenceTableViewCell *)self _addConstraintsForLabel:self->_titleTextLabel belowView:0 toArray:v5];
@@ -248,8 +248,8 @@ void __58__EKUIAutocompleteOccurrenceTableViewCell_reuseIdentifier__block_invoke
     while (v32);
   }
 
-  contentView5 = [(EKUIAutocompleteOccurrenceTableViewCell *)self contentView];
-  [contentView5 addConstraints:v5];
+  v37 = objc_msgSend_contentView(self);
+  [v37 addConstraints:v5];
 
   v38 = self->_ekUIAutocompleteOccurrenceTableViewCellConstraints;
   self->_ekUIAutocompleteOccurrenceTableViewCellConstraints = v5;
@@ -265,10 +265,10 @@ void __58__EKUIAutocompleteOccurrenceTableViewCell_reuseIdentifier__block_invoke
   [arrayCopy addObject:v10];
 
   v11 = MEMORY[0x1E696ACD8];
-  contentView = [(EKUIAutocompleteOccurrenceTableViewCell *)self contentView];
-  contentView2 = [(EKUIAutocompleteOccurrenceTableViewCell *)self contentView];
-  [contentView2 layoutMargins];
-  v15 = [v11 constraintWithItem:labelCopy attribute:6 relatedBy:0 toItem:contentView attribute:6 multiplier:1.0 constant:-v14];
+  v12 = objc_msgSend_contentView(self);
+  v13 = objc_msgSend_contentView(self);
+  [v13 layoutMargins];
+  v15 = [v11 constraintWithItem:labelCopy attribute:6 relatedBy:0 toItem:v12 attribute:6 multiplier:1.0 constant:-v14];
   [arrayCopy addObject:v15];
 
   if (viewCopy)

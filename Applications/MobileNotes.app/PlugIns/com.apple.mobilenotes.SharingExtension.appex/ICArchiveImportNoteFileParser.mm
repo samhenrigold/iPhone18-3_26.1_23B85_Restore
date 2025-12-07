@@ -10,20 +10,18 @@
 
 - (NSArray)allowedContentTypes
 {
-  v2 = *(self + OBJC_IVAR____TtC38com_apple_mobilenotes_SharingExtension29ICArchiveImportNoteFileParser_allowedContentTypes);
   sub_1000B5450();
 
-  v3.super.isa = sub_1000B5790().super.isa;
+  v2.super.isa = sub_1000B5790().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (BOOL)canHandleFileURL:(id)l
 {
   v4 = sub_1000B4DB0();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v4, v6);
   v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000B4D50();
   selfCopy = self;
@@ -37,8 +35,7 @@
 {
   v6 = sub_1000B4DB0();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v6, v8);
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = _Block_copy(block);
   sub_1000B4D50();
@@ -54,8 +51,7 @@
 {
   v26 = sub_1000B4DB0();
   v12 = *(v26 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v26);
+  __chkstk_darwin(v26, v13);
   v15 = &v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = _Block_copy(block);
   v17 = _Block_copy(noteBlock);

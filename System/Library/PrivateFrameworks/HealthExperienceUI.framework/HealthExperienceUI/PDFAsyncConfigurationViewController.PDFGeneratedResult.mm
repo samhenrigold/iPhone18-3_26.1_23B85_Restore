@@ -25,7 +25,7 @@
 
   else
   {
-    sub_1B9F0ADF8(0, &qword_1EBBEE7C8);
+    sub_1B9F0ADF8(0, &qword_1EBBEE7C8, 0x1E6978038);
   }
 
   return swift_getObjCClassFromMetadata();

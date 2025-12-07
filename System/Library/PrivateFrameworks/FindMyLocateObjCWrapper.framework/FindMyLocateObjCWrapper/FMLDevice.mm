@@ -1,11 +1,38 @@
 @interface FMLDevice
 - (BOOL)isEqual:(id)equal;
+- (FMLDevice)initWithIdentifier:(id)identifier deviceName:(id)name idsDeviceId:(id)id isActive:(BOOL)active isThisDevice:(BOOL)device isCompanion:(BOOL)companion isAutoMeCapable:(BOOL)capable;
 - (id)debugDescription;
 - (id)description;
 - (unint64_t)hash;
 @end
 
 @implementation FMLDevice
+
+- (FMLDevice)initWithIdentifier:(id)identifier deviceName:(id)name idsDeviceId:(id)id isActive:(BOOL)active isThisDevice:(BOOL)device isCompanion:(BOOL)companion isAutoMeCapable:(BOOL)capable
+{
+  companionCopy = companion;
+  deviceCopy = device;
+  activeCopy = active;
+  identifierCopy = identifier;
+  nameCopy = name;
+  idCopy = id;
+  v21.receiver = self;
+  v21.super_class = FMLDevice;
+  v18 = [(FMLDevice *)&v21 init];
+  v19 = v18;
+  if (v18)
+  {
+    [(FMLDevice *)v18 setIdentifier:identifierCopy];
+    [(FMLDevice *)v19 setDeviceName:nameCopy];
+    [(FMLDevice *)v19 setIdsDeviceId:idCopy];
+    [(FMLDevice *)v19 setIsActive:activeCopy];
+    [(FMLDevice *)v19 setIsThisDevice:deviceCopy];
+    [(FMLDevice *)v19 setIsCompanion:companionCopy];
+    [(FMLDevice *)v19 setIsAutoMeCapable:capable];
+  }
+
+  return v19;
+}
 
 - (BOOL)isEqual:(id)equal
 {

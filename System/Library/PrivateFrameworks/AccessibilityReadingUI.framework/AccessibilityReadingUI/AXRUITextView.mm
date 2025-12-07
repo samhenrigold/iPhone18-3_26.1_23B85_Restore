@@ -62,7 +62,7 @@
   [defaultCenter addObserver:selfCopy selector:sel_accessibilityElementDidBecomeFocused_ name:*MEMORY[0x277D76468] object:0];
 
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for AXRUITextView();
+  v7.super_class = type metadata accessor for AXRUITextView(0);
   LOBYTE(defaultCenter) = [(AXRUITextView *)&v7 becomeFirstResponder];
 
   return defaultCenter;
@@ -76,7 +76,7 @@
   [defaultCenter removeObserver:selfCopy name:*MEMORY[0x277D76468] object:0];
 
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for AXRUITextView();
+  v7.super_class = type metadata accessor for AXRUITextView(0);
   LOBYTE(defaultCenter) = [(AXRUITextView *)&v7 resignFirstResponder];
 
   return defaultCenter;
@@ -86,14 +86,13 @@
 {
   v4 = sub_23D8DBE10();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_23D8DBDF0();
   selfCopy = self;
   sub_23D8765DC();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event
@@ -101,7 +100,7 @@
   y = inside.y;
   x = inside.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for AXRUITextView();
+  v8.super_class = type metadata accessor for AXRUITextView(0);
   return [(AXRUITextView *)&v8 pointInside:event withEvent:x, y];
 }
 
@@ -143,14 +142,14 @@
   [defaultCenter removeObserver_];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for AXRUITextView();
+  v6.super_class = type metadata accessor for AXRUITextView(0);
   [(AXRUITextView *)&v6 dealloc];
 }
 
 - (CGRect)frame
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for AXRUITextView();
+  v6.super_class = type metadata accessor for AXRUITextView(0);
   [(AXRUITextView *)&v6 frame];
   result.size.height = v5;
   result.size.width = v4;
@@ -165,7 +164,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8 = type metadata accessor for AXRUITextView();
+  v8 = type metadata accessor for AXRUITextView(0);
   v17.receiver = self;
   v17.super_class = v8;
   selfCopy = self;

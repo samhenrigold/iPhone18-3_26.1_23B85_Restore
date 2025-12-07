@@ -2,6 +2,8 @@
 - (BOOL)isSectionPopulated:(id)populated outIsPlural:(BOOL *)plural;
 - (MCUISpecifierProvider)initWithDelegate:(id)delegate;
 - (MCUISpecifierProviderDelegate)delegate;
+- (id)_specifierForProfile:(id)profile profileInstalled:(BOOL)installed;
+- (id)_specifiersForProfiles:(id)profiles singularHeader:(id)header pluralHeaader:(id)heaader profilesInstalled:(BOOL)installed;
 - (id)specifierWithName:(id)name detail:(Class)detail;
 - (id)specifiersForInstalledProfiles:(id)profiles;
 - (id)specifiersForMDMProfiles:(id)profiles;
@@ -59,6 +61,111 @@
   v4 = objc_opt_class();
   v5 = +[(PSTableCell *)MCUISpecifierCell];
   [viewCopy registerClass:v4 forCellReuseIdentifier:v5];
+}
+
+- (id)_specifierForProfile:(id)profile profileInstalled:(BOOL)installed
+{
+  installedCopy = installed;
+  profileCopy = profile;
+  identifier = [profileCopy identifier];
+  v8 = [(MCUISpecifierProvider *)self specifierWithName:identifier detail:objc_opt_class()];
+
+  friendlyName = [profileCopy friendlyName];
+  [v8 setProperty:friendlyName forKey:*MEMORY[0x277D40170]];
+
+  organization = [profileCopy organization];
+  [v8 setProperty:organization forKey:*MEMORY[0x277D40160]];
+
+  [v8 setProperty:profileCopy forKey:@"MCUIPSItemKey"];
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:installedCopy];
+  [v8 setProperty:v11 forKey:@"MCUIPSInstalledKey"];
+
+  identifier2 = [profileCopy identifier];
+  [v8 setIdentifier:identifier2];
+
+  expiryDate = [profileCopy expiryDate];
+  if (expiryDate)
+  {
+    expiryDate2 = [profileCopy expiryDate];
+    dMCProfilePastExpiration = [expiryDate2 DMCProfilePastExpiration];
+  }
+
+  else
+  {
+    dMCProfilePastExpiration = 0;
+  }
+
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:dMCProfilePastExpiration];
+  [v8 setProperty:v16 forKey:@"MCUIPSExpiredKey"];
+
+  [v8 setControllerLoadAction:sel_loadProfileFromSpecifier_];
+
+  return v8;
+}
+
+- (id)_specifiersForProfiles:(id)profiles singularHeader:(id)header pluralHeaader:(id)heaader profilesInstalled:(BOOL)installed
+{
+  installedCopy = installed;
+  v30 = *MEMORY[0x277D85DE8];
+  profilesCopy = profiles;
+  headerCopy = header;
+  heaaderCopy = heaader;
+  v28 = 0;
+  if ([(MCUISpecifierProvider *)self isSectionPopulated:profilesCopy outIsPlural:&v28])
+  {
+    v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(profilesCopy, "count") + 1}];
+    v23 = headerCopy;
+    if (v28)
+    {
+      v14 = heaaderCopy;
+    }
+
+    else
+    {
+      v14 = headerCopy;
+    }
+
+    v15 = [MEMORY[0x277D3FAD8] groupSpecifierWithName:v14];
+    [v13 addObject:v15];
+
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v16 = profilesCopy;
+    v17 = [v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    if (v17)
+    {
+      v18 = v17;
+      v19 = *v25;
+      do
+      {
+        for (i = 0; i != v18; ++i)
+        {
+          if (*v25 != v19)
+          {
+            objc_enumerationMutation(v16);
+          }
+
+          v21 = [(MCUISpecifierProvider *)self _specifierForProfile:*(*(&v24 + 1) + 8 * i) profileInstalled:installedCopy];
+          [v13 addObject:v21];
+        }
+
+        v18 = [v16 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      }
+
+      while (v18);
+    }
+
+    headerCopy = v23;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 - (id)specifiersForMDMProfiles:(id)profiles

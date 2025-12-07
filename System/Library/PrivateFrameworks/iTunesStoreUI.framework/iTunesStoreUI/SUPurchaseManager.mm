@@ -71,15 +71,21 @@
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -88,15 +94,13 @@
   {
     v23 = 138412290;
     v24 = objc_opt_class();
-    LODWORD(v16) = 12;
-    v15 = &v23;
-    v6 = _os_log_send_and_compose_impl();
-    if (v6)
+    v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "[%@] deallocated", &v23, 12);
+    if (v7)
     {
-      v7 = v6;
-      v8 = [MEMORY[0x1E696AEC0] stringWithCString:v6 encoding:{4, &v23, v16}];
-      free(v7);
-      v15 = v8;
+      v8 = v7;
+      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+      free(v8);
+      v16 = v9;
       SSFileLog();
     }
   }
@@ -111,29 +115,29 @@
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v10 = [(NSMutableArray *)observedDownloadManagers countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v10)
+    v11 = [(NSMutableArray *)observedDownloadManagers countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v19;
+      v12 = v11;
+      v13 = *v19;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v12)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(observedDownloadManagers);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
-          [v14 removeObserver:self];
-          [(SUQueueSessionManager *)self->_queueSessionManager endDownloadManagerSessionForManager:v14];
+          v15 = *(*(&v18 + 1) + 8 * i);
+          [v15 removeObserver:self];
+          [(SUQueueSessionManager *)self->_queueSessionManager endDownloadManagerSessionForManager:v15];
         }
 
-        v11 = [(NSMutableArray *)observedDownloadManagers countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [(NSMutableArray *)observedDownloadManagers countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
 
@@ -408,7 +412,7 @@
 
 - (void)eventMonitor:(id)monitor receivedEventWithName:(id)name userInfo:(id)info
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (![name isEqualToString:*MEMORY[0x1E69D4C30]])
   {
     return;
@@ -418,37 +422,41 @@
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (v9)
   {
-    v60 = 138412290;
-    v61 = objc_opt_class();
-    LODWORD(v58) = 12;
-    v55 = &v60;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v67 = 138412290;
+    v68 = objc_opt_class();
+    v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "[%@] Received purchase succeeded notification", &v67, 12);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v60, v58}];
-      free(v11);
-      v55 = v12;
+      v12 = v11;
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v12);
+      v62 = v13;
       SSFileLog();
     }
   }
 
-  v13 = [info objectForKey:{@"response", v55}];
+  v14 = [info objectForKey:{@"response", v62}];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -456,84 +464,68 @@
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v38 = shouldLog2 | 2;
+      LODWORD(v45) = shouldLog2 | 2;
     }
 
     else
     {
-      v38 = shouldLog2;
+      LODWORD(v45) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_ERROR))
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v38 &= 2u;
+      v45 = v45;
     }
 
-    if (!v38)
+    else
+    {
+      v45 &= 2u;
+    }
+
+    if (!v45)
     {
       return;
     }
 
-    v39 = objc_opt_class();
-    v40 = objc_opt_class();
-    v60 = 138412546;
-    v61 = v39;
-    v62 = 2112;
-    v63 = v40;
-    LODWORD(v58) = 22;
-LABEL_44:
-    v41 = _os_log_send_and_compose_impl();
-    if (v41)
-    {
-      v42 = v41;
-      [MEMORY[0x1E696AEC0] stringWithCString:v41 encoding:{4, &v60, v58}];
-      free(v42);
-      SSFileLog();
-    }
-
-    return;
+    v47 = objc_opt_class();
+    v48 = objc_opt_class();
+    v67 = 138412546;
+    v68 = v47;
+    v69 = 2112;
+    v70 = v48;
+    LODWORD(v65) = 22;
+    v40 = "[%@] Failed to unarchive data: Expected: NSData, Received: %@";
+    goto LABEL_49;
   }
 
-  v59 = 0;
-  v14 = MEMORY[0x1E696ACD0];
-  v15 = MEMORY[0x1E695DFD8];
-  v16 = objc_opt_class();
-  v17 = [v14 unarchivedObjectOfClasses:objc_msgSend(v15 fromData:"setWithObjects:" error:{v16, objc_opt_class(), 0), v13, &v59}];
-  if (v59)
+  v66 = 0;
+  v15 = MEMORY[0x1E696ACD0];
+  v16 = MEMORY[0x1E695DFD8];
+  v17 = objc_opt_class();
+  v18 = [v15 unarchivedObjectOfClasses:objc_msgSend(v16 fromData:"setWithObjects:" error:{v17, objc_opt_class(), 0), v14, &v66}];
+  if (v66)
   {
     mEMORY[0x1E69D4938]3 = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog3 = [mEMORY[0x1E69D4938]3 shouldLog];
-    if ([mEMORY[0x1E69D4938]3 shouldLogToDisk])
+    LODWORD(v21) = [mEMORY[0x1E69D4938]3 shouldLogToDisk] ? shouldLog3 | 2 : shouldLog3;
+    oSLogObject3 = [mEMORY[0x1E69D4938]3 OSLogObject];
+    v21 = os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR) ? v21 : v21 & 2u;
+    if (v21)
     {
-      v20 = shouldLog3 | 2;
-    }
-
-    else
-    {
-      v20 = shouldLog3;
-    }
-
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938]3 OSLogObject], OS_LOG_TYPE_ERROR))
-    {
-      v20 &= 2u;
-    }
-
-    if (v20)
-    {
-      v21 = objc_opt_class();
-      v60 = 138412546;
-      v61 = v21;
-      v62 = 2112;
-      v63 = v59;
-      LODWORD(v58) = 22;
-      v56 = &v60;
-      v22 = _os_log_send_and_compose_impl();
-      if (v22)
+      v23 = objc_opt_class();
+      v67 = 138412546;
+      v68 = v23;
+      v69 = 2112;
+      v70 = v66;
+      LODWORD(v65) = 22;
+      v24 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1C21AF000, oSLogObject3, 16, "[%@] Failed to unarchive data with error: %@", &v67, v65);
+      if (v24)
       {
-        v23 = v22;
-        v24 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v60, v58}];
-        free(v23);
-        v56 = v24;
+        v25 = v24;
+        v26 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:4];
+        free(v25);
+        v63 = v26;
         SSFileLog();
       }
     }
@@ -548,112 +540,129 @@ LABEL_44:
     shouldLog4 = [mEMORY[0x1E69D4938]4 shouldLog];
     if ([mEMORY[0x1E69D4938]4 shouldLogToDisk])
     {
-      v46 = shouldLog4 | 2;
+      v54 = shouldLog4 | 2;
     }
 
     else
     {
-      v46 = shouldLog4;
+      v54 = shouldLog4;
     }
 
-    oSLogObject = [mEMORY[0x1E69D4938]4 OSLogObject];
+    oSLogObject4 = [mEMORY[0x1E69D4938]4 OSLogObject];
+    oSLogObject2 = oSLogObject4;
     if (isKindOfClass)
     {
-      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
       {
-        v48 = v46;
+        v56 = v54;
       }
 
       else
       {
-        v48 = v46 & 2;
+        v56 = v54 & 2;
       }
 
-      if (!v48)
+      if (v56)
       {
+        v57 = objc_opt_class();
+        v67 = 138412546;
+        v68 = v57;
+        v69 = 2112;
+        v70 = 0;
+        LODWORD(v65) = 22;
+        v49 = _os_log_send_and_compose_impl(v56, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "[%@] Ignoring purchase succeeded response because the response is a dictionary. Likely from a code redemption. Response: %@", &v67, v65);
+LABEL_51:
+        if (v49)
+        {
+          v50 = v49;
+          [MEMORY[0x1E696AEC0] stringWithCString:v49 encoding:4];
+          free(v50);
+          SSFileLog();
+        }
+
         return;
       }
 
-      v49 = objc_opt_class();
-      v60 = 138412546;
-      v61 = v49;
-      v62 = 2112;
-      v63 = 0;
-      LODWORD(v58) = 22;
+      return;
+    }
+
+    if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
+    {
+      v45 = v54;
     }
 
     else
     {
-      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
-      {
-        v50 = v46;
-      }
-
-      else
-      {
-        v50 = v46 & 2;
-      }
-
-      if (!v50)
-      {
-        return;
-      }
-
-      v51 = objc_opt_class();
-      v52 = objc_opt_class();
-      v60 = 138412546;
-      v61 = v51;
-      v62 = 2112;
-      v63 = v52;
-      LODWORD(v58) = 22;
+      v45 = v54 & 2;
     }
 
-    goto LABEL_44;
+    if (!v45)
+    {
+      return;
+    }
+
+    v58 = objc_opt_class();
+    v59 = objc_opt_class();
+    v67 = 138412546;
+    v68 = v58;
+    v69 = 2112;
+    v70 = v59;
+    LODWORD(v65) = 22;
+    v40 = "[%@] Someone is posting an incorrect response! Expected: [SSPurchaseResponse | NSDictionary], Received: %@";
+LABEL_49:
+    v41 = v45;
+    v42 = oSLogObject2;
+    goto LABEL_50;
   }
 
   mEMORY[0x1E69D4938]5 = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog5 = [mEMORY[0x1E69D4938]5 shouldLog];
   if ([mEMORY[0x1E69D4938]5 shouldLogToDisk])
   {
-    v27 = shouldLog5 | 2;
+    LODWORD(v29) = shouldLog5 | 2;
   }
 
   else
   {
-    v27 = shouldLog5;
+    LODWORD(v29) = shouldLog5;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]5 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject5 = [mEMORY[0x1E69D4938]5 OSLogObject];
+  if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
   {
-    v27 &= 2u;
+    v29 = v29;
   }
 
-  if (v27)
+  else
   {
-    v28 = objc_opt_class();
-    v60 = 138412546;
-    v61 = v28;
-    v62 = 2112;
-    v63 = v17;
-    LODWORD(v58) = 22;
-    v57 = &v60;
-    v29 = _os_log_send_and_compose_impl();
-    if (v29)
+    v29 &= 2u;
+  }
+
+  if (v29)
+  {
+    v31 = objc_opt_class();
+    v67 = 138412546;
+    v68 = v31;
+    v69 = 2112;
+    v70 = v18;
+    LODWORD(v65) = 22;
+    v32 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &dword_1C21AF000, oSLogObject5, 0, "[%@] We have a response! %@", &v67, v65);
+    if (v32)
     {
-      v30 = v29;
-      v31 = [MEMORY[0x1E696AEC0] stringWithCString:v29 encoding:{4, &v60, v58}];
-      free(v30);
-      v57 = v31;
+      v33 = v32;
+      v34 = [MEMORY[0x1E696AEC0] stringWithCString:v32 encoding:4];
+      free(v33);
+      v64 = v34;
       SSFileLog();
     }
   }
 
-  if (![v17 error])
+  if (![v18 error])
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    [defaultCenter postNotificationName:@"SUPurchaseFinishedNotification" object:{objc_msgSend(v17, "purchase")}];
-    v54 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v17, @"SUPurchaseNotificationKeyPurchaseResponse", 0}];
-    [defaultCenter postNotificationName:@"SUPurchaseRequestDidSucceedNotification" object:self userInfo:v54];
+    [defaultCenter postNotificationName:@"SUPurchaseFinishedNotification" object:{objc_msgSend(v18, "purchase")}];
+    v61 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v18, @"SUPurchaseNotificationKeyPurchaseResponse", 0}];
+    [defaultCenter postNotificationName:@"SUPurchaseRequestDidSucceedNotification" object:self userInfo:v61];
 
     return;
   }
@@ -662,26 +671,37 @@ LABEL_44:
   shouldLog6 = [mEMORY[0x1E69D4938]6 shouldLog];
   if ([mEMORY[0x1E69D4938]6 shouldLogToDisk])
   {
-    v34 = shouldLog6 | 2;
+    LODWORD(v37) = shouldLog6 | 2;
   }
 
   else
   {
-    v34 = shouldLog6;
+    LODWORD(v37) = shouldLog6;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]6 OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject6 = [mEMORY[0x1E69D4938]6 OSLogObject];
+  if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
   {
-    v34 &= 2u;
+    v37 = v37;
   }
 
-  if (v34)
+  else
   {
-    v35 = objc_opt_class();
-    v60 = 138412290;
-    v61 = v35;
-    LODWORD(v58) = 12;
-    goto LABEL_44;
+    v37 &= 2u;
+  }
+
+  if (v37)
+  {
+    v39 = objc_opt_class();
+    v67 = 138412290;
+    v68 = v39;
+    LODWORD(v65) = 12;
+    v40 = "[%@] Purchase request success notification receieved an error";
+    v41 = v37;
+    v42 = oSLogObject6;
+LABEL_50:
+    v49 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &dword_1C21AF000, v42, 16, v40, &v67, v65);
+    goto LABEL_51;
   }
 }
 
@@ -717,15 +737,21 @@ LABEL_44:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_ERROR))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
@@ -736,20 +762,18 @@ LABEL_44:
     v18 = objc_opt_class();
     v19 = 2112;
     errorCopy = error;
-    LODWORD(v16) = 22;
-    v15 = &v17;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "[%@] purchase did fail with error %@", &v17, 22);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v17, v16}];
-      free(v12);
-      v15 = v13;
+      v13 = v12;
+      v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+      free(v13);
+      v16 = v14;
       SSFileLog();
     }
   }
 
-  if ([fail valueForDownloadProperty:{*MEMORY[0x1E69D4BF0], v15}])
+  if ([fail valueForDownloadProperty:{*MEMORY[0x1E69D4BF0], v16}])
   {
     [(SUPurchaseManager *)self removePurchasedItemIdentifier:SSGetUnsignedLongLongFromValue()];
   }
@@ -781,15 +805,21 @@ LABEL_44:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -798,13 +828,12 @@ LABEL_44:
   {
     v10 = 138412290;
     v11 = objc_opt_class();
-    LODWORD(v9) = 12;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "[%@] purchase did succeed", &v10, 12);
+    if (v8)
     {
-      v8 = v7;
-      [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v10, v9}];
-      free(v8);
+      v9 = v8;
+      [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
       SSFileLog();
     }
   }
@@ -818,15 +847,21 @@ LABEL_44:
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
@@ -835,13 +870,12 @@ LABEL_44:
   {
     v10 = 138412290;
     v11 = objc_opt_class();
-    LODWORD(v9) = 12;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "[%@] Purchase did succeed with a response", &v10, 12);
+    if (v8)
     {
-      v8 = v7;
-      [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v10, v9}];
-      free(v8);
+      v9 = v8;
+      [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v9);
       SSFileLog();
     }
   }

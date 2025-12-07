@@ -3,7 +3,7 @@
 
 @implementation CSVisualizer
 
-void __57___CSVisualizer_enumerateReferencesToUnit_inTable_block___block_invoke(void *a1, unsigned int *a2, uint64_t a3)
+void __57___CSVisualizer_enumerateReferencesToUnit_inTable_block___block_invoke(void *a1, const CSStore2::Table *a2, uint64_t a3)
 {
   v5 = 4 * *a2;
   v9[0] = MEMORY[0x1E69E9820];
@@ -25,12 +25,11 @@ void __57___CSVisualizer_enumerateReferencesToUnit_inTable_block___block_invoke(
 void __57___CSVisualizer_enumerateReferencesToUnit_inTable_block___block_invoke_2(uint64_t a1, _DWORD *a2, _BYTE *a3)
 {
   v6 = objc_autoreleasePoolPush();
-  if (*(a1 + 64) != *(a1 + 68) || 4 * *a2 != *(a1 + 72))
+  if (__PAIR64__(4 * *a2, *(a1 + 64)) != *(a1 + 68))
   {
     v7 = [*(a1 + 32) descriptionOfUnit:(4 * *a2) inTable:?];
     if (v7 && [*(a1 + 48) unitDescription:v7 referencesUnit:*(a1 + 72) inTable:*(a1 + 68)])
     {
-      v8 = *(a1 + 64);
       (*(*(a1 + 40) + 16))();
       *a3 = 0;
       **(a1 + 56) = 0;
@@ -435,9 +434,7 @@ void __47___CSVisualizer_breakDownTable_inStore_buffer___block_invoke(uint64_t a
         {
           v21 = *(a1 + 40);
           v22 = (v19 + v17);
-          *(v51 + 4);
           v23 = v19 + v17 < v19;
-          *(v51 + 4);
           v24 = v17 + 1 > v20 || v17 == -1;
           if (v23 || v24)
           {
@@ -585,9 +582,9 @@ void __47___CSVisualizer_breakDownTable_inStore_buffer___block_invoke(uint64_t a
 
 void __61___CSVisualizer_enumerateValuesForTitlesInDescription_block___block_invoke(uint64_t a1, void *a2, NSUInteger a3, NSUInteger a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  *&v16 = a3;
-  *(&v16 + 1) = a4;
+  v18 = *MEMORY[0x1E69E9840];
+  *&v15 = a3;
+  *(&v15 + 1) = a4;
   v7 = a2;
   v8 = v7;
   if (v7)
@@ -609,22 +606,20 @@ void __61___CSVisualizer_enumerateValuesForTitlesInDescription_block___block_inv
       v13 = CSStore2::GetLog(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v20.location = a3;
-        v20.length = a4;
-        v15 = NSStringFromRange(v20);
+        v19.location = a3;
+        v19.length = a4;
+        v14 = NSStringFromRange(v19);
         *buf = 138543362;
-        v18 = v15;
+        v17 = v14;
         _os_log_debug_impl(&dword_1B9D5B000, v13, OS_LOG_TYPE_DEBUG, "Skipping appearance of title in range %{public}@ because it's in a range marked as a related unit", buf, 0xCu);
       }
     }
 
     else
     {
-      std::vector<_NSRange>::push_back[abi:nn200100](*(*(a1 + 40) + 8) + 48, &v16);
+      std::vector<_NSRange>::push_back[abi:nn200100](*(*(a1 + 40) + 8) + 48, &v15);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __61___CSVisualizer_enumerateValuesForTitlesInDescription_block___block_invoke_50(uint64_t a1, void *a2, NSUInteger a3, NSUInteger a4, _BYTE *a5)
@@ -662,9 +657,9 @@ void __61___CSVisualizer_enumerateValuesForTitlesInDescription_block___block_inv
   }
 }
 
-uint64_t __52___CSVisualizer_rangeOfValueForTitle_inDescription___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8)
+void *__52___CSVisualizer_rangeOfValueForTitle_inDescription___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _BYTE *a8)
 {
-  result = [*(a1 + 32) caseInsensitiveCompare:a2];
+  result = [*(a1 + 32) caseInsensitiveCompare:{a2, a4, a5}];
   if (!result)
   {
     v13 = *(*(a1 + 40) + 8);

@@ -5,30 +5,38 @@
 
 uint64_t __PO_LOG_POPrebootDeviceConfiguration_block_invoke()
 {
-  PO_LOG_POPrebootDeviceConfiguration_log = os_log_create("com.apple.AppSSO", "POPrebootDeviceConfiguration");
+  v0 = os_log_create("com.apple.AppSSO", "POPrebootDeviceConfiguration");
+  v1 = PO_LOG_POPrebootDeviceConfiguration_log;
+  PO_LOG_POPrebootDeviceConfiguration_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __PO_LOG_POJWT_block_invoke()
 {
-  PO_LOG_POJWT_log = os_log_create("com.apple.AppSSO", "POJWT");
+  v0 = os_log_create("com.apple.AppSSO", "POJWT");
+  v1 = PO_LOG_POJWT_log;
+  PO_LOG_POJWT_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __PO_LOG_POKeyWrap_block_invoke()
 {
-  PO_LOG_POKeyWrap_log = os_log_create("com.apple.AppSSO", "POKeyWrap");
+  v0 = os_log_create("com.apple.AppSSO", "POKeyWrap");
+  v1 = PO_LOG_POKeyWrap_log;
+  PO_LOG_POKeyWrap_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __PO_LOG_POUserConfiguration_block_invoke()
 {
-  PO_LOG_POUserConfiguration_log = os_log_create("com.apple.AppSSO", "POUserConfiguration");
+  v0 = os_log_create("com.apple.AppSSO", "POUserConfiguration");
+  v1 = PO_LOG_POUserConfiguration_log;
+  PO_LOG_POUserConfiguration_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __PO_LOG_PODeviceConfiguration_block_invoke()

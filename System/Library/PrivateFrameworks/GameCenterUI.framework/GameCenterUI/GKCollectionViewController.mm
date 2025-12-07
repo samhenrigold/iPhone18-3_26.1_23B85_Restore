@@ -959,11 +959,11 @@ void __46__GKCollectionViewController_invalidateSearch__block_invoke(uint64_t a1
   }
 }
 
-void __44__GKCollectionViewController_setNeedsReload__block_invoke()
+void __44__GKCollectionViewController_setNeedsReload__block_invoke(uint64_t a1)
 {
   gk_dispatch_debounce();
-  v0 = dispatch_time(0, 1000000000);
-  dispatch_after(v0, MEMORY[0x277D85CD0], &__block_literal_global_168);
+  v1 = dispatch_time(0, 1000000000);
+  dispatch_after(v1, MEMORY[0x277D85CD0], &__block_literal_global_168);
 }
 
 uint64_t __44__GKCollectionViewController_setNeedsReload__block_invoke_2(uint64_t a1)
@@ -1382,7 +1382,7 @@ LABEL_6:
 LABEL_8:
 }
 
-uint64_t __59__GKCollectionViewController_dataSource_didRemoveSections___block_invoke(uint64_t a1, uint64_t a2)
+void *__59__GKCollectionViewController_dataSource_didRemoveSections___block_invoke(uint64_t a1, void *a2)
 {
   result = [*(a1 + 32) section];
   if (result == a2)
@@ -1713,11 +1713,11 @@ void __69__GKCollectionViewController_dataSource_performBatchUpdate_complete___b
   [v2 performBatchUpdates:v10 completion:v5];
 }
 
-uint64_t __69__GKCollectionViewController_dataSource_performBatchUpdate_complete___block_invoke_5(uint64_t a1)
+uint64_t __69__GKCollectionViewController_dataSource_performBatchUpdate_complete___block_invoke_5(uint64_t a1, uint64_t a2)
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
   if (os_log_type_enabled(*MEMORY[0x277D0C270], OS_LOG_TYPE_DEBUG))
@@ -1725,10 +1725,10 @@ uint64_t __69__GKCollectionViewController_dataSource_performBatchUpdate_complete
     __69__GKCollectionViewController_dataSource_performBatchUpdate_complete___block_invoke_5_cold_1();
   }
 
-  v3 = *(a1 + 48);
-  if (v3)
+  v4 = *(a1 + 48);
+  if (v4)
   {
-    (*(v3 + 16))();
+    (*(v4 + 16))();
   }
 
   return (*(*(a1 + 56) + 16))();
@@ -1900,12 +1900,12 @@ void __69__GKCollectionViewController_footerViewAboveShowMoreViewAtIndexPath___b
 
 - (void)didEnterNoContentState
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v3 = 138412290;
-  v4 = objc_opt_class();
-  v2 = v4;
-  _os_log_debug_impl(&dword_24DE53000, selfCopy, OS_LOG_TYPE_DEBUG, "%@ has no content and did not override me or called super", &v3, 0xCu);
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_debug_impl(&dword_24DE53000, selfCopy, OS_LOG_TYPE_DEBUG, "%@ has no content and did not override me or called super", &v4, 0xCu);
 }
 
 - (void)didEnterErrorState
@@ -2160,7 +2160,7 @@ void __61__GKCollectionViewController_completeWhenReadyToDisplayData___block_inv
       v8 = MEMORY[0x277CCAE60];
       if (layer)
       {
-        [layer sublayerTransform];
+        objc_msgSend_sublayerTransform(layer);
       }
 
       else
@@ -2689,13 +2689,13 @@ LABEL_13:
   }
 }
 
-uint64_t __70__GKCollectionViewController_GKSwipeToEditSupport__swipeToDeleteCell___block_invoke(uint64_t result, int a2)
+id *__70__GKCollectionViewController_GKSwipeToEditSupport__swipeToDeleteCell___block_invoke(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) shutActionPaneAnimated:1];
-    v3 = *(v2 + 40);
+    [result[4] shutActionPaneAnimated:1];
+    v3 = v2[5];
 
     return [v3 prepareForUpdate:6 inDataSource:0];
   }

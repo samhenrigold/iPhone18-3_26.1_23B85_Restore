@@ -91,7 +91,7 @@
 
 - (id)_threadQuery
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E699ADA0];
   threadObjectID = [(_EDThreadPersistence_ThreadMessages *)self threadObjectID];
   threadScope = [threadObjectID threadScope];
@@ -100,11 +100,9 @@
   v6 = [MEMORY[0x1E699ADA0] sortDescriptorForDateAscending:0];
   v7 = objc_alloc(MEMORY[0x1E699AE28]);
   v8 = objc_opt_class();
-  v13[0] = v6;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v6;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v10 = [v7 initWithTargetClass:v8 predicate:v5 sortDescriptors:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -113,7 +111,7 @@
 {
   journaledCopy = journaled;
   existingCopy = existing;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
@@ -121,13 +119,13 @@
     conversationID = [threadObjectID conversationID];
     wrappedMessages = [(_EDThreadPersistence_ThreadMessages *)self wrappedMessages];
     *buf = 134218752;
-    v25 = conversationID;
-    v26 = 1024;
-    v27 = [wrappedMessages count];
-    v28 = 1024;
-    v29 = journaledCopy;
-    v30 = 1024;
-    v31 = existingCopy;
+    v24 = conversationID;
+    v25 = 1024;
+    v26 = [wrappedMessages count];
+    v27 = 1024;
+    v28 = journaledCopy;
+    v29 = 1024;
+    v30 = existingCopy;
     _os_log_debug_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEBUG, "Adding thread %lld with %u messages. Journaled: %{BOOL}d, replace: %{BOOL}d", buf, 0x1Eu);
   }
 
@@ -139,18 +137,18 @@
 
   v9 = v8;
   sqlHelper = [(_EDThreadPersistence_ThreadMessages *)self sqlHelper];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __76___EDThreadPersistence_ThreadMessages_addThreadReplacingExisting_journaled___block_invoke;
-  v22[3] = &unk_1E8258A90;
-  v22[4] = self;
-  v23 = journaledCopy;
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
-  v21[2] = __76___EDThreadPersistence_ThreadMessages_addThreadReplacingExisting_journaled___block_invoke_2;
-  v21[3] = &unk_1E8253788;
+  v21[2] = __76___EDThreadPersistence_ThreadMessages_addThreadReplacingExisting_journaled___block_invoke;
+  v21[3] = &unk_1E8258A90;
   v21[4] = self;
-  v11 = [sqlHelper executeUpdateSQL:v9 bindings:v22 errorHandler:v21];
+  v22 = journaledCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __76___EDThreadPersistence_ThreadMessages_addThreadReplacingExisting_journaled___block_invoke_2;
+  v20[3] = &unk_1E8253788;
+  v20[4] = self;
+  v11 = [sqlHelper executeUpdateSQL:v9 bindings:v21 errorHandler:v20];
 
   if (v11 > 1)
   {
@@ -165,22 +163,21 @@
     [(_EDThreadPersistence_PersistedThread *)v15 addRecipientsForType:2];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11 > 1;
 }
 
 - (void)_collectDebuggingInfo
 {
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_4(self);
-  OUTLINED_FUNCTION_10_2(&dword_1C61EF000, v2, v3, "messages — count: %d", v4, v5, v6, v7, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_4();
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = v0;
+  OUTLINED_FUNCTION_10_2(&dword_1C61EF000, v1, v2, "messages — count: %d", v3, v4, v5, v6, v7);
 }
 
 - (id)updateThreadTableWithJournaled:(BOOL)journaled
 {
   journaledCopy = journaled;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = +[EDThreadPersistence log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -204,56 +201,31 @@
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
   sqlHelper = [(_EDThreadPersistence_ThreadMessages *)self sqlHelper];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke;
-  v27[3] = &unk_1E8258B00;
-  v27[4] = self;
-  v27[5] = conversationID2;
-  v28 = journaledCopy;
-  v10 = [sqlHelper executeUpsertSQL:@"INSERT INTO threads( scope bindings:conversation errorHandler:{date, display_date, read_later_date, count, journaled, has_unflagged, has_attachments, read, flagged, draft, replied, forwarded, redirected, junk_level_set_by_user, junk_level, has_red_flag, has_orange_flag, has_yellow_flag, has_green_flag, has_blue_flag, has_purple_flag, has_gray_flag, is_icloud_cleanup) VALUES( :scope, :conversation_id, :date, :display_date, :read_later_date, (SELECT count(DISTINCT ifnull(message_id, ROWID || '-fake-message-id')) FROM temp_thread_scope_message WHERE conversation_id = :conversation_id), :journaled, :has_unflagged, :has_attachments, :read, :flagged, :draft, :replied, :forwarded, :redirected, :junk_level_set_by_user, :junk_level, :has_Red_flag, :has_Orange_flag, :has_Yellow_flag, :has_Green_flag, :has_Blue_flag, :has_Purple_flag, :has_Gray_flag, :is_icloud_cleanup) ON CONFLICT (scope, conversation) DO UPDATE SET   date = max(date, excluded.date), display_date = max(display_date, excluded.display_date), read_later_date = max(read_later_date, excluded.read_later_date), count = excluded.count, journaled = journaled OR excluded.journaled, has_attachments = has_attachments OR excluded.has_attachments, has_attachments = has_attachments OR excluded.has_attachments, read = read AND excluded.read, flagged = flagged OR excluded.flagged, draft = draft OR excluded.draft, replied = replied OR excluded.replied, forwarded = forwarded OR excluded.forwarded, redirected = redirected OR excluded.redirected, junk_level_set_by_user = junk_level_set_by_user OR excluded.junk_level_set_by_user, junk_level = min(junk_level, excluded.junk_level), has_red_flag = has_red_flag OR excluded.has_red_flag, has_orange_flag = has_orange_flag OR excluded.has_orange_flag, has_yellow_flag = has_yellow_flag OR excluded.has_yellow_flag, has_green_flag = has_green_flag OR excluded.has_green_flag, has_blue_flag = has_blue_flag OR excluded.has_blue_flag, has_purple_flag = has_purple_flag OR excluded.has_purple_flag, has_gray_flag = has_gray_flag OR excluded.has_gray_flag, is_icloud_cleanup = is_icloud_cleanup OR excluded.is_icloud_cleanup WHERE count != excluded.count;", v27, &__block_literal_global_164_0}];
-
-  v31 = v10;
-  if (*(*&buf[8] + 24))
-  {
-    goto LABEL_5;
-  }
-
-  sqlHelper2 = [(_EDThreadPersistence_ThreadMessages *)self sqlHelper];
   v26[0] = MEMORY[0x1E69E9820];
   v26[1] = 3221225472;
-  v26[2] = __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke_168;
-  v26[3] = &unk_1E8250D20;
+  v26[2] = __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke;
+  v26[3] = &unk_1E8258B00;
   v26[4] = self;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke_2_169;
-  v25[3] = &unk_1E8258B28;
-  v25[4] = buf;
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __70___EDThreadPersistence_ThreadMessages_updateThreadTableWithJournaled___block_invoke_170;
-  v24[3] = &unk_1E8250418;
-  v24[4] = buf;
-  [sqlHelper2 executeSelectSQL:@"SELECT ROWID FROM threads WHERE scope = :scope AND conversation = :conversation_id;" bindings:v26 errorHandler:v25 rowHandler:v24];
+  v26[5] = conversationID2;
+  v27 = journaledCopy;
+  v10 = [sqlHelper executeUpsertSQL:@"INSERT INTO threads( scope bindings:conversation errorHandler:{date, display_date, read_later_date, count, journaled, has_unflagged, has_attachments, read, flagged, draft, replied, forwarded, redirected, junk_level_set_by_user, junk_level, has_red_flag, has_orange_flag, has_yellow_flag, has_green_flag, has_blue_flag, has_purple_flag, has_gray_flag, is_icloud_cleanup) VALUES( :scope, :conversation_id, :date, :display_date, :read_later_date, (SELECT count(DISTINCT ifnull(message_id, ROWID || '-fake-message-id')) FROM temp_thread_scope_message WHERE conversation_id = :conversation_id), :journaled, :has_unflagged, :has_attachments, :read, :flagged, :draft, :replied, :forwarded, :redirected, :junk_level_set_by_user, :junk_level, :has_Red_flag, :has_Orange_flag, :has_Yellow_flag, :has_Green_flag, :has_Blue_flag, :has_Purple_flag, :has_Gray_flag, :is_icloud_cleanup) ON CONFLICT (scope, conversation) DO UPDATE SET   date = max(date, excluded.date), display_date = max(display_date, excluded.display_date), read_later_date = max(read_later_date, excluded.read_later_date), count = excluded.count, journaled = journaled OR excluded.journaled, has_attachments = has_attachments OR excluded.has_attachments, has_attachments = has_attachments OR excluded.has_attachments, read = read AND excluded.read, flagged = flagged OR excluded.flagged, draft = draft OR excluded.draft, replied = replied OR excluded.replied, forwarded = forwarded OR excluded.forwarded, redirected = redirected OR excluded.redirected, junk_level_set_by_user = junk_level_set_by_user OR excluded.junk_level_set_by_user, junk_level = min(junk_level, excluded.junk_level), has_red_flag = has_red_flag OR excluded.has_red_flag, has_orange_flag = has_orange_flag OR excluded.has_orange_flag, has_yellow_flag = has_yellow_flag OR excluded.has_yellow_flag, has_green_flag = has_green_flag OR excluded.has_green_flag, has_blue_flag = has_blue_flag OR excluded.has_blue_flag, has_purple_flag = has_purple_flag OR excluded.has_purple_flag, has_gray_flag = has_gray_flag OR excluded.has_gray_flag, is_icloud_cleanup = is_icloud_cleanup OR excluded.is_icloud_cleanup WHERE count != excluded.count;", v26, &__block_literal_global_164_0}];
 
-  if (*(*&buf[8] + 24))
+  if (*(*&buf[8] + 24) || (-[_EDThreadPersistence_ThreadMessages sqlHelper](self, "sqlHelper"), v11 = v30 = v10;
   {
-LABEL_5:
     v12 = [_EDThreadPersistence_PersistedThread alloc];
     v13 = [(_EDThreadPersistence_PersistedThread *)v12 initWithMessages:self threadDatabaseID:*(*&buf[8] + 24)];
     updateNewestReadAndDisplayMessage = [(_EDThreadPersistence_PersistedThread *)v13 updateNewestReadAndDisplayMessage];
     v15 = *MEMORY[0x1E699A888];
-    v29[0] = *MEMORY[0x1E699A880];
-    v29[1] = v15;
+    v28[0] = *MEMORY[0x1E699A880];
+    v28[1] = v15;
     v16 = *MEMORY[0x1E699A898];
-    v29[2] = *MEMORY[0x1E699A8A0];
-    v29[3] = v16;
+    v28[2] = *MEMORY[0x1E699A8A0];
+    v28[3] = v16;
     v17 = *MEMORY[0x1E699A8E0];
-    v29[4] = *MEMORY[0x1E699A8E8];
-    v29[5] = v17;
-    v29[6] = *MEMORY[0x1E699A878];
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:7];
+    v28[4] = *MEMORY[0x1E699A8E8];
+    v28[5] = v17;
+    v28[6] = *MEMORY[0x1E699A878];
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:7];
     [updateNewestReadAndDisplayMessage addObjectsFromArray:v18];
 
     if ([(_EDThreadPersistence_PersistedThread *)v13 addMailboxes])
@@ -283,7 +255,6 @@ LABEL_5:
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x1E69E9840];
 
   return updateNewestReadAndDisplayMessage;
 }
@@ -357,28 +328,28 @@ LABEL_5:
 
 - (id)_iterateNewestUnreadWrappedMessagesInWrappedMessages:(id)messages iteratorBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   blockCopy = block;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = messagesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         message = [v11 message];
         flags = [message flags];
         read = [flags read];
@@ -392,7 +363,7 @@ LABEL_5:
         blockCopy[2](blockCopy, v11);
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -403,8 +374,6 @@ LABEL_5:
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -3,16 +3,16 @@
 
 @implementation SFUserMediaPermissionController
 
-void __54___SFUserMediaPermissionController_savePendingChanges__block_invoke(uint64_t a1)
+void __54___SFUserMediaPermissionController_savePendingChanges__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXUserMediaCapture();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXUserMediaCapture(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __54___SFUserMediaPermissionController_savePendingChanges__block_invoke_cold_1(v2);
+    __54___SFUserMediaPermissionController_savePendingChanges__block_invoke_cold_1(v3);
   }
 
-  v3 = [MEMORY[0x1E69DC668] sharedApplication];
-  [v3 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
+  v4 = [MEMORY[0x1E69DC668] sharedApplication];
+  [v4 endBackgroundTask:*(*(*(a1 + 32) + 8) + 24)];
 }
 
 void __54___SFUserMediaPermissionController_savePendingChanges__block_invoke_2(uint64_t a1)

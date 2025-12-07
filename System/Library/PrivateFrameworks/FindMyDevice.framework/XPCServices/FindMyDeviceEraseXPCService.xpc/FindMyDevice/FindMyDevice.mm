@@ -1,13 +1,13 @@
-id sub_100000E18()
+id sub_100000E18(uint64_t a1)
 {
   if (qword_10000C618 != -1)
   {
     sub_10000256C();
   }
 
-  v1 = qword_10000C620;
+  v2 = qword_10000C620;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000E5C(id a1)
@@ -17,16 +17,16 @@ void sub_100000E5C(id a1)
   _objc_release_x1();
 }
 
-id sub_100000EA0()
+id sub_100000EA0(uint64_t a1)
 {
   if (qword_10000C628 != -1)
   {
     sub_100002580();
   }
 
-  v1 = qword_10000C630;
+  v2 = qword_10000C630;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000EE4(id a1)
@@ -36,16 +36,16 @@ void sub_100000EE4(id a1)
   _objc_release_x1();
 }
 
-id sub_100000F28()
+id sub_100000F28(uint64_t a1)
 {
   if (qword_10000C638 != -1)
   {
     sub_100002594();
   }
 
-  v1 = qword_10000C640;
+  v2 = qword_10000C640;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000F6C(id a1)
@@ -55,16 +55,16 @@ void sub_100000F6C(id a1)
   _objc_release_x1();
 }
 
-id sub_100000FB0()
+id sub_100000FB0(uint64_t a1)
 {
   if (qword_10000C648 != -1)
   {
     sub_1000025A8();
   }
 
-  v1 = qword_10000C650;
+  v2 = qword_10000C650;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000FF4(id a1)
@@ -74,16 +74,16 @@ void sub_100000FF4(id a1)
   _objc_release_x1();
 }
 
-id sub_100001038()
+id sub_100001038(uint64_t a1)
 {
   if (qword_10000C658 != -1)
   {
     sub_1000025BC();
   }
 
-  v1 = qword_10000C660;
+  v2 = qword_10000C660;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000107C(id a1)
@@ -93,16 +93,16 @@ void sub_10000107C(id a1)
   _objc_release_x1();
 }
 
-id sub_1000010C0()
+id sub_1000010C0(uint64_t a1)
 {
   if (qword_10000C668 != -1)
   {
     sub_1000025D0();
   }
 
-  v1 = qword_10000C670;
+  v2 = qword_10000C670;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001104(id a1)
@@ -112,16 +112,16 @@ void sub_100001104(id a1)
   _objc_release_x1();
 }
 
-id sub_100001148()
+id sub_100001148(uint64_t a1)
 {
   if (qword_10000C678 != -1)
   {
     sub_1000025E4();
   }
 
-  v1 = qword_10000C680;
+  v2 = qword_10000C680;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000118C(id a1)
@@ -131,16 +131,16 @@ void sub_10000118C(id a1)
   _objc_release_x1();
 }
 
-id sub_1000011D0()
+id sub_1000011D0(uint64_t a1)
 {
   if (qword_10000C688 != -1)
   {
     sub_1000025F8();
   }
 
-  v1 = qword_10000C690;
+  v2 = qword_10000C690;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001214(id a1)
@@ -150,16 +150,16 @@ void sub_100001214(id a1)
   _objc_release_x1();
 }
 
-id sub_100001258()
+id sub_100001258(uint64_t a1)
 {
   if (qword_10000C698 != -1)
   {
     sub_10000260C();
   }
 
-  v1 = qword_10000C6A0;
+  v2 = qword_10000C6A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000129C(id a1)
@@ -169,16 +169,16 @@ void sub_10000129C(id a1)
   _objc_release_x1();
 }
 
-id sub_1000012E0()
+id sub_1000012E0(uint64_t a1)
 {
   if (qword_10000C6A8 != -1)
   {
     sub_100002620();
   }
 
-  v1 = qword_10000C6B0;
+  v2 = qword_10000C6B0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001324(id a1)
@@ -188,16 +188,16 @@ void sub_100001324(id a1)
   _objc_release_x1();
 }
 
-id sub_100001368()
+id sub_100001368(uint64_t a1)
 {
   if (qword_10000C6B8 != -1)
   {
     sub_100002634();
   }
 
-  v1 = qword_10000C6C0;
+  v2 = qword_10000C6C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000013AC(id a1)
@@ -207,16 +207,16 @@ void sub_1000013AC(id a1)
   _objc_release_x1();
 }
 
-id sub_1000013F0()
+id sub_1000013F0(uint64_t a1)
 {
   if (qword_10000C6C8 != -1)
   {
     sub_100002648();
   }
 
-  v1 = qword_10000C6D0;
+  v2 = qword_10000C6D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001434(id a1)
@@ -226,16 +226,16 @@ void sub_100001434(id a1)
   _objc_release_x1();
 }
 
-id sub_100001478()
+id sub_100001478(uint64_t a1)
 {
   if (qword_10000C6D8 != -1)
   {
     sub_10000265C();
   }
 
-  v1 = qword_10000C6E0;
+  v2 = qword_10000C6E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000014BC(id a1)
@@ -245,16 +245,16 @@ void sub_1000014BC(id a1)
   _objc_release_x1();
 }
 
-id sub_100001500()
+id sub_100001500(uint64_t a1)
 {
   if (qword_10000C6E8 != -1)
   {
     sub_100002670();
   }
 
-  v1 = qword_10000C6F0;
+  v2 = qword_10000C6F0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001544(id a1)
@@ -264,16 +264,16 @@ void sub_100001544(id a1)
   _objc_release_x1();
 }
 
-id sub_100001588()
+id sub_100001588(uint64_t a1)
 {
   if (qword_10000C6F8 != -1)
   {
     sub_100002684();
   }
 
-  v1 = qword_10000C700;
+  v2 = qword_10000C700;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000015CC(id a1)
@@ -283,16 +283,16 @@ void sub_1000015CC(id a1)
   _objc_release_x1();
 }
 
-id sub_100001610()
+id sub_100001610(uint64_t a1)
 {
   if (qword_10000C708 != -1)
   {
     sub_100002698();
   }
 
-  v1 = qword_10000C710;
+  v2 = qword_10000C710;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001654(id a1)
@@ -302,16 +302,16 @@ void sub_100001654(id a1)
   _objc_release_x1();
 }
 
-id sub_100001698()
+id sub_100001698(uint64_t a1)
 {
   if (qword_10000C718 != -1)
   {
     sub_1000026AC();
   }
 
-  v1 = qword_10000C720;
+  v2 = qword_10000C720;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000016DC(id a1)
@@ -359,7 +359,7 @@ void sub_100001F38(id a1)
 
   else
   {
-    v4 = sub_100000E18();
+    v4 = sub_100000E18(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_100002704(v4);
@@ -370,7 +370,7 @@ void sub_100001F38(id a1)
 void sub_100001FF8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100000E18();
+  v4 = sub_100000E18(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -382,7 +382,7 @@ void sub_100001FF8(uint64_t a1, void *a2)
   if (*(a1 + 32))
   {
     v6 = v5;
-    v7 = sub_100000E18();
+    v7 = sub_100000E18(v5);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (v6)
     {
@@ -425,29 +425,29 @@ void sub_1000023FC(uint64_t a1)
   v2 = +[FMXPCTransactionManager sharedInstance];
   [v2 beginTransaction:@"com.apple.icloud.findmydevice.eraseXPC.resetApplePay"];
 
-  v3 = sub_100000E18();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100000E18(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Beginning resetApplePayWithDiagnosticReason", v9, 2u);
+    LOWORD(v11[0]) = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Beginning resetApplePayWithDiagnosticReason", v11, 2u);
   }
 
-  v4 = +[PKPassLibrary sharedInstance];
-  v5 = [v4 resetApplePayWithDiagnosticReason:@"iCloud FMiP - Remote Erase"];
+  v5 = +[PKPassLibrary sharedInstance];
+  v6 = [v5 resetApplePayWithDiagnosticReason:@"iCloud FMiP - Remote Erase"];
 
-  v6 = sub_100000E18();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100000E18(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Reset Apple Pay cards was a success? - %i", v9, 8u);
+    v11[0] = 67109120;
+    v11[1] = v6;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Reset Apple Pay cards was a success? - %i", v11, 8u);
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v9 = *(a1 + 32);
+  if (v9)
   {
-    (*(v7 + 16))();
-    v8 = +[FMXPCTransactionManager sharedInstance];
-    [v8 endTransaction:@"com.apple.icloud.findmydevice.eraseXPC.resetApplePay"];
+    (*(v9 + 16))();
+    v10 = +[FMXPCTransactionManager sharedInstance];
+    [v10 endTransaction:@"com.apple.icloud.findmydevice.eraseXPC.resetApplePay"];
   }
 }

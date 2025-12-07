@@ -8,7 +8,7 @@
 
 + (Class)layerClass
 {
-  sub_100009F78(0, &qword_10118B1C8);
+  sub_100009F78(0, &qword_10118B1C8, CAGradientLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -40,7 +40,7 @@
 
   v8 = *(&self->super.super.super.isa + OBJC_IVAR____TtCC5Music17PlayerTimeControlP33_49F0BC05FDBB8FE791FA6BF39E9583189LiveTrack__backgroundColor);
   *(&self->super.super.super.isa + OBJC_IVAR____TtCC5Music17PlayerTimeControlP33_49F0BC05FDBB8FE791FA6BF39E9583189LiveTrack__backgroundColor) = colorCopy;
-  sub_100009F78(0, &qword_101180C98);
+  sub_100009F78(0, &qword_101180C98, UIColor_ptr);
   colorCopy2 = color;
   v10 = colorCopy;
   if ((static NSObject.== infix(_:_:)() & 1) == 0)

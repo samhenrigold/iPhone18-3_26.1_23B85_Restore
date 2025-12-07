@@ -1,4 +1,5 @@
 @interface NSDictionary(WFAdditions)
+- (WFTemperature)wf_temperatureWithCelsiusKeyPath:()WFAdditions fahrenheitKeyPath:;
 - (double)wf_doubleForKeyPath:()WFAdditions;
 - (float)wf_floatForKeyPath:()WFAdditions;
 - (id)wf_URLForKeyPath:()WFAdditions;
@@ -8,7 +9,6 @@
 - (id)wf_numberForKeyPath:()WFAdditions;
 - (id)wf_objectOfKind:()WFAdditions forKeyPath:;
 - (id)wf_stringForKeyPath:()WFAdditions;
-- (id)wf_temperatureWithCelsiusKeyPath:()WFAdditions fahrenheitKeyPath:;
 - (uint64_t)wf_integerForKeyPath:()WFAdditions;
 @end
 
@@ -128,7 +128,7 @@ LABEL_17:
   return v5;
 }
 
-- (id)wf_temperatureWithCelsiusKeyPath:()WFAdditions fahrenheitKeyPath:
+- (WFTemperature)wf_temperatureWithCelsiusKeyPath:()WFAdditions fahrenheitKeyPath:
 {
   v6 = a4;
   v7 = a3;

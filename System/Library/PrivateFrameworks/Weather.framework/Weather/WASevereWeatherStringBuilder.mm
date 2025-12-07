@@ -3,6 +3,7 @@
 + (id)_capitalizeFirstWordOfString:(id)string;
 + (id)_displayDescriptionForEvent:(id)event useSentenceCase:(BOOL)case isFirstEvent:(BOOL)firstEvent;
 + (id)attributedImportantHeadlineForEvents:(id)events;
++ (id)atttributedDescriptionForEvents:(id)events includeLearnMore:(BOOL)more useSentenceCase:(BOOL)case;
 + (id)atttributedHeadlineForEvents:(id)events;
 + (id)descriptionForEvents:(id)events includeLearnMore:(BOOL)more useSentenceCase:(BOOL)case;
 + (id)headlineForEvents:(id)events shouldUppercase:(BOOL)uppercase;
@@ -14,29 +15,29 @@
 + (id)headlineForEvents:(id)events shouldUppercase:(BOOL)uppercase
 {
   uppercaseCopy = uppercase;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v7 = eventsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v29;
+    v10 = *v28;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v28 + 1) + 8 * i);
+        v12 = *(*(&v27 + 1) + 8 * i);
         eventDescription = [v12 eventDescription];
 
         if (eventDescription)
@@ -54,7 +55,7 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v9);
@@ -74,9 +75,7 @@
   v23 = [v21 bundleForClass:objc_opt_class()];
   v24 = [v23 localizedStringForKey:v22 value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
 
-  v25 = [v20 stringWithFormat:v24, v17 - 1, firstObject, v28];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = [v20 stringWithFormat:v24, v17 - 1, firstObject, v27];
 
   return v25;
 }
@@ -84,31 +83,31 @@
 + (id)descriptionForEvents:(id)events includeLearnMore:(BOOL)more useSentenceCase:(BOOL)case
 {
   caseCopy = case;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
   array = [MEMORY[0x277CBEB18] array];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v9 = eventsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v10)
   {
     v11 = v10;
     source = 0;
-    v13 = *v45;
+    v13 = *v44;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v45 != v13)
+        if (*v44 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v44 + 1) + 8 * i);
+        v15 = *(*(&v43 + 1) + 8 * i);
         eventDescription = [v15 eventDescription];
         if (eventDescription && ([orderedSet containsObject:eventDescription] & 1) == 0)
         {
@@ -122,7 +121,7 @@
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v11);
@@ -155,7 +154,7 @@
     else
     {
       v31 = [v30 localizedStringForKey:@"SEVERE_WEATHER_DESCRIPTION_TWO_EVENTS_WITHOUT_SOURCE_WITH_DESCRIPTIONS" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
-      [v29 stringWithFormat:v31, firstObject2, areaName, v42];
+      [v29 stringWithFormat:v31, firstObject2, areaName, v41];
     }
     v38 = ;
 
@@ -182,7 +181,7 @@
       else
       {
         v26 = [v24 localizedStringForKey:@"SEVERE_WEATHER_DESCRIPTION_ONE_EVENT_WITH_SOURCE_WITH_DESCRIPTION_WITHOUT_AREA_NAME" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
-        [v23 stringWithFormat:v26, source, v22, v42];
+        [v23 stringWithFormat:v26, source, v22, v41];
       }
     }
 
@@ -191,7 +190,7 @@
       v37 = MEMORY[0x277CCACA8];
       v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v26 = [v25 localizedStringForKey:@"SEVERE_WEATHER_DESCRIPTION_ONE_EVENT_WITHOUT_SOURCE_WITH_DESCRIPTION_WITHOUT_AREA_NAME" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
-      [v37 stringWithFormat:v26, v22, v41, v42];
+      [v37 stringWithFormat:v26, v22, v40, v41];
     }
     v38 = ;
   }
@@ -215,7 +214,7 @@
       else
       {
         v22 = [v34 localizedStringForKey:@"Severe weather alerts: %2$@ and %1$li other alert/alerts." value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
-        [v33 localizedStringWithFormat:v22, v19, firstObject2, v42];
+        [v33 localizedStringWithFormat:v22, v19, firstObject2, v41];
       }
       v38 = ;
       goto LABEL_45;
@@ -243,7 +242,7 @@
       else
       {
         v25 = [v36 localizedStringForKey:@"SEVERE_WEATHER_DESCRIPTION_ONE_EVENT_WITHOUT_SOURCE_WITHOUT_DESCRIPTION_WITH_AREA_NAME" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
-        [v35 stringWithFormat:v25, areaName, v41];
+        [v35 stringWithFormat:v25, areaName, v40];
       }
     }
 
@@ -256,15 +255,13 @@
     else
     {
       v25 = [v36 localizedStringForKey:@"There are %li severe weather alert/alerts." value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
-      [v35 localizedStringWithFormat:v25, v17, v41];
+      [v35 localizedStringWithFormat:v25, v17, v40];
     }
     v38 = ;
   }
 
 LABEL_45:
 LABEL_46:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -303,26 +300,26 @@ LABEL_46:
 
 + (BOOL)_hasImportantEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   eventCopy = event;
-  v4 = [eventCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [eventCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(eventCopy);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [v7 description];
 
         if (v8)
@@ -332,7 +329,7 @@ LABEL_46:
         }
       }
 
-      v4 = [eventCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [eventCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -344,7 +341,6 @@ LABEL_46:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -370,6 +366,61 @@ LABEL_11:
   }
 
   return v9;
+}
+
++ (id)atttributedDescriptionForEvents:(id)events includeLearnMore:(BOOL)more useSentenceCase:(BOOL)case
+{
+  moreCopy = more;
+  v6 = [self descriptionForEvents:events includeLearnMore:more useSentenceCase:case];
+  if (v6)
+  {
+    v7 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v6];
+    if (moreCopy)
+    {
+      v8 = [MEMORY[0x277D755D0] configurationWithTextStyle:*MEMORY[0x277D769D0] scale:1];
+      v9 = [MEMORY[0x277D755B8] systemImageNamed:@"chevron.forward" withConfiguration:v8];
+      v10 = [MEMORY[0x277D74270] textAttachmentWithImage:v9];
+      v12 = IsUIRTL(v10, v11);
+      v13 = objc_alloc(MEMORY[0x277CCA898]);
+      v14 = v13;
+      if (v12)
+      {
+        v15 = [v13 initWithString:@"\n"];
+        [v7 appendAttributedString:v15];
+
+        v16 = [MEMORY[0x277CCA898] attributedStringWithAttachment:v10];
+        [v7 appendAttributedString:v16];
+
+        v17 = objc_alloc(MEMORY[0x277CCA898]);
+        v18 = MEMORY[0x277CCACA8];
+        v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v20 = [v19 localizedStringForKey:@"SEVERE_WEATHER_DESCRIPTION_LEARN_MORE" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+        v21 = [v18 stringWithFormat:@" %@", v20];
+        v22 = [v17 initWithString:v21];
+        [v7 appendAttributedString:v22];
+      }
+
+      else
+      {
+        v23 = MEMORY[0x277CCACA8];
+        v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v25 = [v24 localizedStringForKey:@"SEVERE_WEATHER_DESCRIPTION_LEARN_MORE" value:&stru_2882270E8 table:@"WeatherFrameworkLocalizableStrings"];
+        v26 = [v23 stringWithFormat:@" %@ ", v25];
+        v27 = [v14 initWithString:v26];
+        [v7 appendAttributedString:v27];
+
+        v19 = [MEMORY[0x277CCA898] attributedStringWithAttachment:v10];
+        [v7 appendAttributedString:v19];
+      }
+    }
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
 }
 
 + (id)_displayDescriptionForEvent:(id)event useSentenceCase:(BOOL)case isFirstEvent:(BOOL)firstEvent

@@ -123,22 +123,23 @@ void sub_3694(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_483C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_483C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-id BKLibraryFrameworkBundle()
+id BKLibraryFrameworkBundle(uint64_t a1)
 {
   if (qword_EFC58 != -1)
   {
     sub_8D314();
   }
 
-  v1 = qword_EFC50;
+  v2 = qword_EFC50;
 
-  return v1;
+  return v2;
 }
 
 void sub_641C(id a1)
@@ -435,9 +436,10 @@ id sub_7E04(uint64_t a1)
   return [qword_EFC60 _sortAndInitializeDataSources:*(a1 + 32)];
 }
 
-void sub_8390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id obj, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_8390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id obj, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  _Block_object_dispose(&a25, 8);
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
   objc_sync_exit(obj);
   _Unwind_Resume(a1);
 }
@@ -457,22 +459,21 @@ void sub_83F8(uint64_t a1, void *a2)
   v5 = BKLibraryLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v12 = 138412546;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "MRP: mrp = %@ (%@)", &v12, 0x16u);
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v11 = 138412546;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "MRP: mrp = %@ (%@)", &v11, 0x16u);
   }
 
   if (v3)
   {
-    v9 = [*(*(*(a1 + 48) + 8) + 40) laterDate:v3];
-    v10 = *(*(a1 + 48) + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
+    v8 = [*(*(*(a1 + 48) + 8) + 40) laterDate:v3];
+    v9 = *(*(a1 + 48) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
   }
 
   objc_sync_exit(v4);
@@ -643,6 +644,13 @@ void sub_A4F8(uint64_t a1, void *a2)
   kdebug_trace();
 }
 
+void sub_AFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_B04C(uint64_t result)
 {
   *(*(*(result + 32) + 8) + 24) = (byte_EFC70 & 1) == 0;
@@ -655,11 +663,10 @@ id sub_B418(uint64_t a1)
   v2 = [*(a1 + 32) updatesScheduleQueue];
   dispatch_suspend(v2);
 
-  v3 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
-  v4 = *(a1 + 40);
+  v3 = *(a1 + 40);
 
-  return [v4 finishedWithOperations];
+  return [v3 finishedWithOperations];
 }
 
 void sub_B474(uint64_t a1)
@@ -2161,51 +2168,50 @@ void sub_126F4(uint64_t a1)
 
 void sub_12804(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = [NSPredicate predicateWithFormat:@"dateFinished == NULL"];
-  v5 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() predicateFor_All_Finished_LibraryAssets];
-  v23[0] = v7;
-  v23[1] = v4;
-  v8 = [NSArray arrayWithObjects:v23 count:2];
-  v9 = [NSCompoundPredicate andPredicateWithSubpredicates:v8];
-  [v5 setPredicate:v9];
+  v2 = a2;
+  v3 = [NSPredicate predicateWithFormat:@"dateFinished == NULL"];
+  v4 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
+  v5 = [objc_opt_class() predicateFor_All_Finished_LibraryAssets];
+  v21[0] = v5;
+  v21[1] = v3;
+  v6 = [NSArray arrayWithObjects:v21 count:2];
+  v7 = [NSCompoundPredicate andPredicateWithSubpredicates:v6];
+  [v4 setPredicate:v7];
 
-  [v5 setReturnsObjectsAsFaults:0];
-  [v5 setFetchBatchSize:32];
-  v21 = 0;
-  v10 = [v3 executeFetchRequest:v5 error:&v21];
-  v11 = v21;
+  [v4 setReturnsObjectsAsFaults:0];
+  [v4 setFetchBatchSize:32];
+  v19 = 0;
+  v8 = [v2 executeFetchRequest:v4 error:&v19];
+  v9 = v19;
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v17 objects:v22 count:16];
-  if (v13)
+  v10 = v8;
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v18;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v16 = 0;
+      v14 = 0;
       do
       {
-        if (*v18 != v15)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        [*(*(&v17 + 1) + 8 * v16) cleanupDateFinished];
-        v16 = v16 + 1;
+        [*(*(&v15 + 1) + 8 * v14) cleanupDateFinished];
+        v14 = v14 + 1;
       }
 
-      while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      while (v12 != v14);
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 }
 
@@ -2241,9 +2247,9 @@ void sub_12C70(uint64_t a1)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v12 = 134217984;
-    v13 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%p: updatesScheduleQueue activated after Library Reload", &v12, 0xCu);
+    v13 = 134217984;
+    v14 = v3;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%p: updatesScheduleQueue activated after Library Reload", &v13, 0xCu);
   }
 
   v4 = [*(a1 + 32) updatesScheduleQueue];
@@ -2254,25 +2260,25 @@ void sub_12C70(uint64_t a1)
 
   if (v6)
   {
-    v7 = [*(a1 + 32) delegate];
-    [v7 libraryDidReload:*(a1 + 32)];
+    v8 = [*(a1 + 32) delegate];
+    [v8 libraryDidReload:*(a1 + 32)];
   }
 
-  v8 = BKLibraryPriceTrackingLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = BKLibraryPriceTrackingLog(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Library reload completed, scheduling price tracking update", &v12, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Library reload completed, scheduling price tracking update", &v13, 2u);
   }
 
-  v9 = [*(a1 + 32) priceTracker];
-  [v9 setNeedsConfigurationUpdate];
+  v10 = [*(a1 + 32) priceTracker];
+  [v10 setNeedsConfigurationUpdate];
 
-  v10 = objc_retainBlock(*(a1 + 40));
-  v11 = v10;
-  if (v10)
+  v11 = objc_retainBlock(*(a1 + 40));
+  v12 = v11;
+  if (v11)
   {
-    (*(v10 + 2))(v10);
+    (*(v11 + 2))(v11);
   }
 }
 
@@ -2441,9 +2447,9 @@ void sub_1372C(uint64_t a1, void *a2)
   (*(*(a1 + 48) + 16))();
 }
 
-void sub_13A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_13A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2828,7 +2834,7 @@ void sub_14AA4(uint64_t a1, void *a2, void *a3)
     v14 = BKLibraryLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      sub_8DEB4(a1);
+      sub_8DEB4();
     }
   }
 
@@ -2926,10 +2932,10 @@ void sub_14E3C(uint64_t a1, void *a2, void *a3)
   dispatch_group_leave(*(a1 + 56));
 }
 
-void sub_15018()
+void sub_15018(uint64_t a1, uint64_t a2)
 {
-  v0 = BKLibraryLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = BKLibraryLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_8DF24();
   }
@@ -2956,7 +2962,7 @@ void sub_15074(uint64_t a1)
     v5 = BKLibraryLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_8DFEC(a1, (a1 + 64));
+      sub_8DFEC();
     }
   }
 }
@@ -3653,6 +3659,13 @@ void sub_18834(uint64_t a1)
   }
 }
 
+void sub_18B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
+{
+  va_start(va, a37);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_18BC8(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -3963,7 +3976,7 @@ void sub_1A800(uint64_t a1, void *a2)
   v4 = BKLibraryLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    sub_8E1E4(a1);
+    sub_8E1E4();
   }
 
   v5 = [*(a1 + 48) identifier];
@@ -4368,8 +4381,8 @@ id sub_1B3B0(uint64_t a1)
 
 void sub_1B5E8(id *a1, void *a2)
 {
-  v51 = a2;
-  v53 = +[NSMutableSet set];
+  v50 = a2;
+  v52 = +[NSMutableSet set];
   v3 = BKLibraryLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -4377,32 +4390,32 @@ void sub_1B5E8(id *a1, void *a2)
   }
 
   v4 = [a1[4] valueForKey:@"assetID"];
-  v50 = [v4 bu_arrayByRemovingNSNulls];
+  v49 = [v4 bu_arrayByRemovingNSNulls];
 
   v5 = [a1[4] valueForKey:@"temporaryAssetID"];
-  v49 = [v5 bu_arrayByRemovingNSNulls];
+  v48 = [v5 bu_arrayByRemovingNSNulls];
 
   v6 = +[NSMutableDictionary dictionary];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   v7 = a1[4];
-  v8 = [v7 countByEnumeratingWithState:&v73 objects:v79 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v72 objects:v78 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v74;
+    v10 = *v73;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v74 != v10)
+        if (*v73 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v73 + 1) + 8 * i);
+        v12 = *(*(&v72 + 1) + 8 * i);
         v13 = [v12 assetID];
         if (v13)
         {
@@ -4425,7 +4438,7 @@ void sub_1B5E8(id *a1, void *a2)
         [v15 addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v73 objects:v79 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v72 objects:v78 count:16];
     }
 
     while (v9);
@@ -4433,22 +4446,22 @@ void sub_1B5E8(id *a1, void *a2)
 
   v16 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
   [v16 setReturnsObjectsAsFaults:0];
-  v17 = v50;
-  v18 = [a1[5] predicateForAssetIDsTaggedLibraryAssets:v50];
-  v19 = v49;
-  v46 = [BKLibraryManager predicateForTemporaryAssetIDsTaggedLibraryAssets:v49];
-  v47 = v18;
-  v78[0] = v18;
-  v78[1] = v46;
-  v20 = [NSArray arrayWithObjects:v78 count:2];
+  v17 = v49;
+  v18 = [a1[5] predicateForAssetIDsTaggedLibraryAssets:v49];
+  v19 = v48;
+  v45 = [BKLibraryManager predicateForTemporaryAssetIDsTaggedLibraryAssets:v48];
+  v46 = v18;
+  v77[0] = v18;
+  v77[1] = v45;
+  v20 = [NSArray arrayWithObjects:v77 count:2];
   v21 = [NSCompoundPredicate orPredicateWithSubpredicates:v20];
   [v16 setPredicate:v21];
 
-  v72 = 0;
-  v22 = v51;
-  v23 = [v51 executeFetchRequest:v16 error:&v72];
-  v48 = v72;
-  v45 = v23;
+  v71 = 0;
+  v22 = v50;
+  v23 = [v50 executeFetchRequest:v16 error:&v71];
+  v47 = v71;
+  v44 = v23;
   if (v23)
   {
     if (![v23 count])
@@ -4456,89 +4469,88 @@ void sub_1B5E8(id *a1, void *a2)
       goto LABEL_39;
     }
 
-    v24 = a1[6];
     if (objc_opt_respondsToSelector())
     {
-      v55 = [a1[6] propagateDataProperties];
+      v54 = [a1[6] propagateDataProperties];
     }
 
     else
     {
-      v55 = 0;
+      v54 = 0;
     }
 
-    v52 = [NSMutableArray array:v16];
+    v51 = [NSMutableArray array:v16];
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
     obj = v23;
-    v26 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
-    if (v26)
+    v25 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
+    if (v25)
     {
-      v27 = v26;
-      v28 = *v69;
+      v26 = v25;
+      v27 = *v68;
       do
       {
-        for (j = 0; j != v27; j = j + 1)
+        for (j = 0; j != v26; j = j + 1)
         {
-          if (*v69 != v28)
+          if (*v68 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v68 + 1) + 8 * j);
-          if ([v30 isValid])
+          v29 = *(*(&v67 + 1) + 8 * j);
+          if ([v29 isValid])
           {
-            v31 = [v30 assetID];
-            v32 = [v30 temporaryAssetID];
-            v33 = a1[5];
-            v34 = [v30 dataSourceIdentifier];
-            v35 = [v33 dataSourceWithIdentifier:v34];
+            v30 = [v29 assetID];
+            v31 = [v29 temporaryAssetID];
+            v32 = a1[5];
+            v33 = [v29 dataSourceIdentifier];
+            v34 = [v32 dataSourceWithIdentifier:v33];
 
-            v36 = [a1[6] rank];
-            if (v36 == [v35 rank] || ((v37 = objc_msgSend(a1[6], "rank"), v37 > objc_msgSend(v35, "rank")) ? (v38 = v55 == 0) : (v38 = 1), !v38))
+            v35 = [a1[6] rank];
+            if (v35 == [v34 rank] || ((v36 = objc_msgSend(a1[6], "rank"), v36 > objc_msgSend(v34, "rank")) ? (v37 = v54 == 0) : (v37 = 1), !v37))
             {
-              v39 = a1[5];
-              v57[0] = _NSConcreteStackBlock;
-              v57[1] = 3221225472;
-              v57[2] = sub_1BC80;
-              v57[3] = &unk_D5FA8;
-              v40 = v31;
-              v41 = a1[5];
+              v38 = a1[5];
+              v56[0] = _NSConcreteStackBlock;
+              v56[1] = 3221225472;
+              v56[2] = sub_1BC80;
+              v56[3] = &unk_D5FA8;
+              v39 = v30;
+              v40 = a1[5];
+              v57 = v39;
               v58 = v40;
-              v59 = v41;
-              v60 = v32;
-              v61 = v6;
-              v62 = a1[6];
-              v63 = v35;
-              v67 = v55;
-              v64 = v30;
+              v59 = v31;
+              v60 = v6;
+              v61 = a1[6];
+              v62 = v34;
+              v66 = v54;
+              v63 = v29;
+              v64 = v51;
               v65 = v52;
-              v66 = v53;
-              [v39 dq_sync:v57];
+              [v38 dq_sync:v56];
             }
           }
         }
 
-        v27 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
+        v26 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
 
-    v25 = v52;
-    v22 = v51;
-    [a1[5] _removePossibleDupes:v52 inMoc:v51];
-    v19 = v49;
-    v17 = v50;
-    v16 = v44;
+    v24 = v51;
+    v22 = v50;
+    [a1[5] _removePossibleDupes:v51 inMoc:v50];
+    v19 = v48;
+    v17 = v49;
+    v16 = v43;
   }
 
   else
   {
-    v25 = BKLibraryLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = BKLibraryLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_8E37C();
     }
@@ -4547,16 +4559,16 @@ void sub_1B5E8(id *a1, void *a2)
 LABEL_39:
   if ([v22 hasChanges])
   {
-    v42 = [a1[5] collectionController];
-    v43 = [v42 gatherChangedAssetsCollectionsWithLibraryMoc:v22];
-    v56 = 0;
-    [v22 save:&v56];
-    [v42 processGatheredChangedAssetsCollections:v43];
+    v41 = [a1[5] collectionController];
+    v42 = [v41 gatherChangedAssetsCollectionsWithLibraryMoc:v22];
+    v55 = 0;
+    [v22 save:&v55];
+    [v41 processGatheredChangedAssetsCollections:v42];
   }
 
-  if ([v53 count])
+  if ([v52 count])
   {
-    [a1[5] _resetSeriesIDs:v53];
+    [a1[5] _resetSeriesIDs:v52];
   }
 
   [a1[5] _notifyLibraryOperationDone:2 assetIDs:v17];
@@ -5846,9 +5858,9 @@ LABEL_311:
   return v256;
 }
 
-void sub_1E5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1E5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5922,9 +5934,9 @@ id sub_1EC14(uint64_t a1)
   return [v2 wq_dq_integrateClaimedAssetsReason:1 context:v3];
 }
 
-void sub_1F83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1F83C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5939,16 +5951,16 @@ void sub_1F854(uint64_t a1, uint64_t a2)
   *(v5 + 40) = v4;
 }
 
-void sub_1FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1FC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5978,16 +5990,16 @@ void sub_1FC94(void *a1)
   objc_storeStrong((*(a1[7] + 8) + 40), v9);
 }
 
-void sub_1FFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1FFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6148,9 +6160,9 @@ uint64_t sub_238C4(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_23980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6425,28 +6437,26 @@ id sub_24ABC(uint64_t a1, void *a2)
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v19 = 0u;
     v7 = [*(a1 + 32) dataSources];
-    v13 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v13 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
 LABEL_8:
       v16 = 0;
       while (1)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v7);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * v16);
-        v18 = BUProtocolCast();
-        v11 = [v18 plistEntryAsDictionaryFromAssetID:0 path:*(a1 + 40) needsCoordination:*(a1 + 48)];
+        v17 = BUProtocolCast();
+        v11 = [v17 plistEntryAsDictionaryFromAssetID:0 path:*(a1 + 40) needsCoordination:*(a1 + 48)];
 
         if (v11)
         {
@@ -6455,7 +6465,7 @@ LABEL_8:
 
         if (v14 == ++v16)
         {
-          v14 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v14 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v14)
           {
             goto LABEL_8;
@@ -6492,9 +6502,9 @@ void sub_24CA8(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 48));
 }
 
-void sub_25108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6508,9 +6518,9 @@ void sub_25124(uint64_t a1, uint64_t a2)
   *(v4 + 40) = v3;
 }
 
-void sub_2533C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2533C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6618,9 +6628,9 @@ void sub_27CA8(uint64_t a1)
   _Block_object_dispose(&v17, 8);
 }
 
-void sub_27E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_27E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6667,9 +6677,9 @@ id sub_281C4(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_29170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6745,9 +6755,9 @@ void sub_2B074(uint64_t a1, void *a2)
   }
 }
 
-void sub_2F69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2F69C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6979,70 +6989,69 @@ void sub_30470(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
-  v23 = a1;
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() predicateForUnownedStoreLibraryAssets];
-  [v4 setPredicate:v6];
+  v22 = a1;
+  v5 = [objc_opt_class() predicateForUnownedStoreLibraryAssets];
+  [v4 setPredicate:v5];
 
-  v31[0] = @"assetID";
-  v31[1] = @"contentType";
-  v31[2] = @"dataSourceIdentifier";
-  v7 = [NSArray arrayWithObjects:v31 count:3];
-  [v4 setPropertiesToFetch:v7];
+  v30[0] = @"assetID";
+  v30[1] = @"contentType";
+  v30[2] = @"dataSourceIdentifier";
+  v6 = [NSArray arrayWithObjects:v30 count:3];
+  [v4 setPropertiesToFetch:v6];
 
   [v4 setReturnsDistinctResults:1];
-  v29 = 0;
-  v24 = v3;
-  v8 = [v3 executeFetchRequest:v4 error:&v29];
-  v9 = v29;
+  v28 = 0;
+  v23 = v3;
+  v7 = [v3 executeFetchRequest:v4 error:&v28];
+  v8 = v28;
+  v9 = +[NSMutableArray array];
   v10 = +[NSMutableArray array];
-  v11 = +[NSMutableArray array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v12 = v8;
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v13)
+  v11 = v7;
+  v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v12)
   {
-    v14 = v13;
-    v15 = *v26;
+    v13 = v12;
+    v14 = *v25;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v13; i = i + 1)
       {
-        if (*v26 != v15)
+        if (*v25 != v14)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v25 + 1) + 8 * i);
-        v18 = [v17 isAudiobook];
-        v19 = [v17 assetID];
-        if (v18)
+        v16 = *(*(&v24 + 1) + 8 * i);
+        v17 = [v16 isAudiobook];
+        v18 = [v16 assetID];
+        if (v17)
         {
-          v20 = v11;
+          v19 = v10;
         }
 
         else
         {
-          v20 = v10;
+          v19 = v9;
         }
 
-        [v20 addObject:v19];
+        [v19 addObject:v18];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
-    while (v14);
+    while (v13);
   }
 
-  v21 = objc_retainBlock(*(v23 + 40));
-  v22 = v21;
-  if (v21)
+  v20 = objc_retainBlock(*(v22 + 40));
+  v21 = v20;
+  if (v20)
   {
-    (*(v21 + 2))(v21, v10, v11, v9);
+    (*(v20 + 2))(v20, v9, v10, v8);
   }
 }
 
@@ -7051,56 +7060,55 @@ void sub_30770(uint64_t a1, void *a2)
   v3 = a2;
   v4 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
   [v4 setReturnsObjectsAsFaults:0];
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() predicateForAllUnownedLibraryAssets];
-  [v4 setPredicate:v6];
+  v5 = [objc_opt_class() predicateForAllUnownedLibraryAssets];
+  [v4 setPredicate:v5];
 
-  v26 = 0;
-  v21 = v3;
-  v7 = [v3 executeFetchRequest:v4 error:&v26];
-  v8 = v26;
-  v9 = +[NSMutableArray array];
+  v25 = 0;
+  v20 = v3;
+  v6 = [v3 executeFetchRequest:v4 error:&v25];
+  v7 = v25;
+  v8 = +[NSMutableArray array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
-  if (v11)
+  v9 = v6;
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v23;
+    v11 = v10;
+    v12 = *v22;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v11; i = i + 1)
       {
-        if (*v23 != v13)
+        if (*v22 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v16 = [v15 assetID];
+        v14 = *(*(&v21 + 1) + 8 * i);
+        v15 = [v14 assetID];
 
-        if (v16)
+        if (v15)
         {
-          v17 = [v15 assetID];
-          v18 = [v17 copy];
-          [v9 addObject:v18];
+          v16 = [v14 assetID];
+          v17 = [v16 copy];
+          [v8 addObject:v17];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
-  v19 = objc_retainBlock(*(a1 + 40));
-  v20 = v19;
-  if (v19)
+  v18 = objc_retainBlock(*(a1 + 40));
+  v19 = v18;
+  if (v18)
   {
-    (*(v19 + 2))(v19, v9, v8);
+    (*(v18 + 2))(v18, v8, v7);
   }
 }
 
@@ -7183,10 +7191,11 @@ LABEL_9:
 LABEL_13:
 }
 
-void sub_31FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_31FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
+  va_start(va, a41);
   _Block_object_dispose(&a36, 8);
-  _Block_object_dispose(&a42, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7244,9 +7253,8 @@ void sub_32138(uint64_t a1)
       goto LABEL_8;
     }
 
-    v3 = *(*(*(a1 + 40) + 8) + 40);
-    v4 = v2[2];
-    v6 = v2;
+    v3 = v2[2];
+    v4 = v2;
   }
 
   else
@@ -7257,19 +7265,18 @@ void sub_32138(uint64_t a1)
       goto LABEL_8;
     }
 
-    v5 = *(*(*(a1 + 48) + 8) + 40);
-    v4 = v2[2];
-    v6 = v2;
+    v3 = v2[2];
+    v4 = v2;
   }
 
-  v4();
-  v2 = v6;
+  v3();
+  v2 = v4;
 LABEL_8:
 }
 
-void sub_3254C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_3254C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7345,7 +7352,7 @@ void sub_327B8(uint64_t a1, char a2, void *a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_8F464(a1);
+      sub_8F464();
     }
   }
 
@@ -7757,82 +7764,81 @@ void sub_344A8(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() _recentlyEngagedPredicate];
-  v39[0] = v6;
-  v7 = [NSPredicate predicateWithFormat:@"%K == YES", @"isFinished"];
-  v39[1] = v7;
-  v8 = [NSArray arrayWithObjects:v39 count:2];
-  v9 = [NSCompoundPredicate andPredicateWithSubpredicates:v8];
-  [v4 setPredicate:v9];
+  v5 = [objc_opt_class() _recentlyEngagedPredicate];
+  v38[0] = v5;
+  v6 = [NSPredicate predicateWithFormat:@"%K == YES", @"isFinished"];
+  v38[1] = v6;
+  v7 = [NSArray arrayWithObjects:v38 count:2];
+  v8 = [NSCompoundPredicate andPredicateWithSubpredicates:v7];
+  [v4 setPredicate:v8];
 
   if ([*(a1 + 40) length])
   {
-    v10 = BCBookPromotionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v9 = BCBookPromotionLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = *(a1 + 40);
+      v10 = *(a1 + 40);
       *buf = 138412290;
-      v38 = v11;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Excluding %@ from cleanup of finished recent books.", buf, 0xCu);
+      v37 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Excluding %@ from cleanup of finished recent books.", buf, 0xCu);
     }
 
-    v12 = [v4 predicate];
-    v36[0] = v12;
-    v13 = [NSPredicate predicateWithFormat:@"%K != %@", @"assetID", *(a1 + 40)];
-    v36[1] = v13;
-    v14 = [NSArray arrayWithObjects:v36 count:2];
-    v15 = [NSCompoundPredicate andPredicateWithSubpredicates:v14];
-    [v4 setPredicate:v15];
+    v11 = [v4 predicate];
+    v35[0] = v11;
+    v12 = [NSPredicate predicateWithFormat:@"%K != %@", @"assetID", *(a1 + 40)];
+    v35[1] = v12;
+    v13 = [NSArray arrayWithObjects:v35 count:2];
+    v14 = [NSCompoundPredicate andPredicateWithSubpredicates:v13];
+    [v4 setPredicate:v14];
   }
 
-  v34 = 0;
-  v29 = v3;
-  v16 = [v3 executeFetchRequest:v4 error:&v34];
-  v17 = v34;
-  v18 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v16 count]);
+  v33 = 0;
+  v28 = v3;
+  v15 = [v3 executeFetchRequest:v4 error:&v33];
+  v16 = v33;
+  v17 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v15 count]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v19 = v16;
-  v20 = [v19 countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v20)
+  v18 = v15;
+  v19 = [v18 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v19)
   {
-    v21 = v20;
-    v22 = *v31;
+    v20 = v19;
+    v21 = *v30;
     do
     {
-      for (i = 0; i != v21; i = i + 1)
+      for (i = 0; i != v20; i = i + 1)
       {
-        if (*v31 != v22)
+        if (*v30 != v21)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v30 + 1) + 8 * i);
-        [v24 setIsTrackedAsRecent:0];
-        v25 = [v24 assetID];
+        v23 = *(*(&v29 + 1) + 8 * i);
+        [v23 setIsTrackedAsRecent:0];
+        v24 = [v23 assetID];
 
-        if (v25)
+        if (v24)
         {
-          v26 = [v24 assetID];
-          [v18 addObject:v26];
+          v25 = [v23 assetID];
+          [v17 addObject:v25];
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
-  [v29 saveLibrary];
-  v27 = objc_retainBlock(*(a1 + 48));
-  v28 = v27;
-  if (v27)
+  [v28 saveLibrary];
+  v26 = objc_retainBlock(*(a1 + 48));
+  v27 = v26;
+  if (v26)
   {
-    (*(v27 + 2))(v27, v18, v17);
+    (*(v26 + 2))(v26, v17, v16);
   }
 }
 
@@ -7840,65 +7846,64 @@ void sub_348E8(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() _continueReadingPredicate];
-  v32[0] = v6;
-  v7 = [NSPredicate predicateWithFormat:@"%K == YES", @"isFinished"];
-  v32[1] = v7;
-  v8 = [NSPredicate predicateWithFormat:@"%K < %@", @"dateFinished", *(a1 + 40)];
-  v32[2] = v8;
-  v9 = [NSPredicate predicateWithFormat:@"%K < %@", @"lastOpenDate", *(a1 + 40)];
-  v32[3] = v9;
-  v10 = [NSArray arrayWithObjects:v32 count:4];
-  v11 = [NSCompoundPredicate andPredicateWithSubpredicates:v10];
-  [v4 setPredicate:v11];
+  v5 = [objc_opt_class() _continueReadingPredicate];
+  v31[0] = v5;
+  v6 = [NSPredicate predicateWithFormat:@"%K == YES", @"isFinished"];
+  v31[1] = v6;
+  v7 = [NSPredicate predicateWithFormat:@"%K < %@", @"dateFinished", *(a1 + 40)];
+  v31[2] = v7;
+  v8 = [NSPredicate predicateWithFormat:@"%K < %@", @"lastOpenDate", *(a1 + 40)];
+  v31[3] = v8;
+  v9 = [NSArray arrayWithObjects:v31 count:4];
+  v10 = [NSCompoundPredicate andPredicateWithSubpredicates:v9];
+  [v4 setPredicate:v10];
 
-  v30 = 0;
-  v25 = v3;
-  v12 = [v3 executeFetchRequest:v4 error:&v30];
-  v13 = v30;
-  v14 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v12 count]);
+  v29 = 0;
+  v24 = v3;
+  v11 = [v3 executeFetchRequest:v4 error:&v29];
+  v12 = v29;
+  v13 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v11 count]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v15 = v12;
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v16)
+  v14 = v11;
+  v15 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v15)
   {
-    v17 = v16;
-    v18 = *v27;
+    v16 = v15;
+    v17 = *v26;
     do
     {
-      for (i = 0; i != v17; i = i + 1)
+      for (i = 0; i != v16; i = i + 1)
       {
-        if (*v27 != v18)
+        if (*v26 != v17)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v14);
         }
 
-        v20 = *(*(&v26 + 1) + 8 * i);
-        [v20 setIsTrackedAsRecent:0];
-        v21 = [v20 assetID];
+        v19 = *(*(&v25 + 1) + 8 * i);
+        [v19 setIsTrackedAsRecent:0];
+        v20 = [v19 assetID];
 
-        if (v21)
+        if (v20)
         {
-          v22 = [v20 assetID];
-          [v14 addObject:v22];
+          v21 = [v19 assetID];
+          [v13 addObject:v21];
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v17);
+    while (v16);
   }
 
-  v23 = objc_retainBlock(*(a1 + 48));
-  v24 = v23;
-  if (v23)
+  v22 = objc_retainBlock(*(a1 + 48));
+  v23 = v22;
+  if (v22)
   {
-    (*(v23 + 2))(v23, v14, v13);
+    (*(v22 + 2))(v22, v13, v12);
   }
 }
 
@@ -7972,77 +7977,76 @@ void sub_35334(uint64_t a1, uint64_t a2)
 
 void sub_35668(uint64_t a1, uint64_t a2)
 {
-  v3 = (a1 + 40);
-  v4 = [*(a1 + 32) libraryAssetWithAssetID:*(a1 + 40) inManagedObjectContext:a2];
-  if (!v4)
+  v3 = [*(a1 + 32) libraryAssetWithAssetID:*(a1 + 40) inManagedObjectContext:a2];
+  if (!v3)
   {
-    v14 = BKLibraryLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = BKLibraryLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_8F718(v3);
+      sub_8F718();
     }
 
-    v21 = NSLocalizedDescriptionKey;
-    v22 = @"Invalid asset identifier.";
-    v12 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v13 = 1;
+    v20 = NSLocalizedDescriptionKey;
+    v21 = @"Invalid asset identifier.";
+    v11 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v12 = 1;
     goto LABEL_17;
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
-  v5 = [*(a1 + 32) dataSources];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
-  if (!v6)
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v4 = [*(a1 + 32) dataSources];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (!v5)
   {
 LABEL_11:
 
-    v11 = BKLibraryLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = BKLibraryLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_8F6DC();
     }
 
-    v23 = NSLocalizedDescriptionKey;
-    v24 = @"No data sources handled the pending update.";
-    v12 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v13 = 2;
+    v22 = NSLocalizedDescriptionKey;
+    v23 = @"No data sources handled the pending update.";
+    v11 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v12 = 2;
 LABEL_17:
-    v5 = [NSError errorWithDomain:@"BKLibraryErrorDomain" code:v13 userInfo:v12];
+    v4 = [NSError errorWithDomain:@"BKLibraryErrorDomain" code:v12 userInfo:v11];
 
-    v15 = objc_retainBlock(*(a1 + 48));
-    v16 = v15;
-    if (v15)
+    v14 = objc_retainBlock(*(a1 + 48));
+    v15 = v14;
+    if (v14)
     {
-      (*(v15 + 2))(v15, 0, v5);
+      (*(v14 + 2))(v14, 0, v4);
     }
 
     goto LABEL_20;
   }
 
-  v7 = v6;
-  v8 = *v18;
+  v6 = v5;
+  v7 = *v17;
 LABEL_4:
-  v9 = 0;
+  v8 = 0;
   while (1)
   {
-    if (*v18 != v8)
+    if (*v17 != v7)
     {
-      objc_enumerationMutation(v5);
+      objc_enumerationMutation(v4);
     }
 
-    v10 = *(*(&v17 + 1) + 8 * v9);
-    if (objc_opt_respondsToSelector() & 1) != 0 && ([v10 applyPendingUpdateForAsset:v4 completion:*(a1 + 48)])
+    v9 = *(*(&v16 + 1) + 8 * v8);
+    if (objc_opt_respondsToSelector() & 1) != 0 && ([v9 applyPendingUpdateForAsset:v3 completion:*(a1 + 48)])
     {
       break;
     }
 
-    if (v7 == ++v9)
+    if (v6 == ++v8)
     {
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
-      if (v7)
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      if (v6)
       {
         goto LABEL_4;
       }
@@ -8057,19 +8061,18 @@ LABEL_20:
 void sub_359C4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v9 = [NSFetchRequest fetchRequestWithEntityName:@"BKLibraryAsset"];
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() ephemeralSamplesPredicate];
-  [v9 setPredicate:v5];
+  v8 = [NSFetchRequest fetchRequestWithEntityName:@"BKLibraryAsset"];
+  v4 = [objc_opt_class() ephemeralSamplesPredicate];
+  [v8 setPredicate:v4];
 
-  v6 = [v3 executeFetchRequest:v9 error:0];
+  v5 = [v3 executeFetchRequest:v8 error:0];
 
-  if ([v6 count])
+  if ([v5 count])
   {
-    v7 = [*(a1 + 32) dataSourceConformingToProtocol:&OBJC_PROTOCOL___BKManagesEphemeralAssets];
-    v8 = BUProtocolCast();
+    v6 = [*(a1 + 32) dataSourceConformingToProtocol:&OBJC_PROTOCOL___BKManagesEphemeralAssets];
+    v7 = BUProtocolCast();
 
-    [v8 ephemeralAssetsRedundant:v6];
+    [v7 ephemeralAssetsRedundant:v5];
   }
 }
 
@@ -8207,45 +8210,44 @@ void sub_37484(uint64_t a1, void *a2)
   v3 = a2;
   v4 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
   [v4 setResultType:2];
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() predicateForNonEphemeralSamplesLibraryAssets];
-  [v4 setPredicate:v6];
+  v5 = [objc_opt_class() predicateForNonEphemeralSamplesLibraryAssets];
+  [v4 setPredicate:v5];
 
-  v22 = @"assetID";
-  v7 = [NSArray arrayWithObjects:&v22 count:1];
-  [v4 setPropertiesToFetch:v7];
+  v21 = @"assetID";
+  v6 = [NSArray arrayWithObjects:&v21 count:1];
+  [v4 setPropertiesToFetch:v6];
 
   [v4 setReturnsDistinctResults:1];
-  v17 = 0;
-  v8 = [v3 executeFetchRequest:v4 error:&v17];
+  v16 = 0;
+  v7 = [v3 executeFetchRequest:v4 error:&v16];
 
-  v9 = v17;
-  v10 = [v8 valueForKey:@"assetID"];
-  v11 = [v10 bu_arrayByRemovingNSNulls];
+  v8 = v16;
+  v9 = [v7 valueForKey:@"assetID"];
+  v10 = [v9 bu_arrayByRemovingNSNulls];
 
-  if (!v11 || v9)
+  if (!v10 || v8)
   {
-    v12 = BKLibraryLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = BKLibraryLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_8FAC0(v9);
+      sub_8FAC0(v8);
     }
   }
 
-  v13 = BKLibraryLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v12 = BKLibraryLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [v11 count];
+    v13 = [v10 count];
     *buf = 134349314;
-    v19 = v14;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Bootstrap Samples collection: Going to add %{public}lu books to Samples and Downloaded collection. assetIDs: %@", buf, 0x16u);
+    v18 = v13;
+    v19 = 2112;
+    v20 = v10;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Bootstrap Samples collection: Going to add %{public}lu books to Samples and Downloaded collection. assetIDs: %@", buf, 0x16u);
   }
 
-  v15 = [*(a1 + 32) collectionManager];
-  v16 = [NSSet setWithArray:v11];
-  [v15 resetCollectionsForAssetIDs:v16 completion:&stru_D65E8];
+  v14 = [*(a1 + 32) collectionManager];
+  v15 = [NSSet setWithArray:v10];
+  [v14 resetCollectionsForAssetIDs:v15 completion:&stru_D65E8];
 
   [*(a1 + 32) setMetadataObject:&__kCFBooleanTrue forKey:@"BKLibraryHasBootstrappedSamplesCollection"];
   [*(a1 + 32) saveMetaData];
@@ -8336,9 +8338,9 @@ void sub_37AE8(uint64_t a1)
   }
 }
 
-void sub_37D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_37D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

@@ -6,7 +6,7 @@
 void ___UIApplicationProcessIsUIKitester_block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1EA992DBD = [v0 isEqualToString:@"com.apple.UIKitester"];
+  byte_1EA992DBD = objc_msgSend_isEqualToString_(v0);
 }
 
 @end

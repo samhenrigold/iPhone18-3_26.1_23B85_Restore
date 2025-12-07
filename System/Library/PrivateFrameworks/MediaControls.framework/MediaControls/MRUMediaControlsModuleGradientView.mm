@@ -42,7 +42,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for MediaControlsModuleGradientView();
+  v5.super_class = type metadata accessor for MediaControlsModuleGradientView(self, a2);
   v2 = v5.receiver;
   [(MRUMediaControlsModuleGradientView *)&v5 layoutSubviews];
   v3 = objc_opt_self();

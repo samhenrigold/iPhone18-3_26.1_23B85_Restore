@@ -8,6 +8,7 @@
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptorForPersonality:(id)personality;
+- (id)initIncludingIntents:(BOOL)intents relevanceBacked:(BOOL)backed;
 - (id)succinctDescription;
 - (void)_lock_addNewDescriptorsFromDescriptors:(id)descriptors;
 - (void)_lock_notifyObserversDescriptorsDidChange;
@@ -20,6 +21,19 @@
 @end
 
 @implementation CHSWidgetDescriptorProvider
+
+- (id)initIncludingIntents:(BOOL)intents relevanceBacked:(BOOL)backed
+{
+  backedCopy = backed;
+  intentsCopy = intents;
+  v7 = +[CHSChronoServicesConnection sharedInstance];
+  v8 = [[CHSWidgetDescriptorsPredicate alloc] initIncludingRelevanceBacked:backedCopy];
+  v9 = [[CHSWidgetExtensionProviderOptions alloc] initWithWidgetsPredicate:v8 controlsPredicate:0 includeIntents:intentsCopy];
+  v10 = [[CHSWidgetExtensionProvider alloc] initWithOptions:v9];
+  v11 = [(CHSWidgetDescriptorProvider *)self initWithConnection:v7 extensionProvider:v10 providerOptions:v9];
+
+  return v11;
+}
 
 - (CHSWidgetDescriptorProvider)initWithConnection:(id)connection extensionProvider:(id)provider
 {
@@ -215,7 +229,7 @@ LABEL_5:
   os_unfair_lock_unlock(&self->_lock);
 }
 
-uint64_t __43__CHSWidgetDescriptorProvider_addObserver___block_invoke(uint64_t a1)
+void *__43__CHSWidgetDescriptorProvider_addObserver___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 40) addObject:*(a1 + 40)];
   v3 = *(a1 + 32);
@@ -343,7 +357,7 @@ void __69__CHSWidgetDescriptorProvider_descriptionBuilderWithMultilinePrefix___b
   os_unfair_lock_unlock(&self->_lock);
 }
 
-uint64_t __71__CHSWidgetDescriptorProvider_extensionsDidChangeForExtensionProvider___block_invoke(uint64_t a1)
+void *__71__CHSWidgetDescriptorProvider_extensionsDidChangeForExtensionProvider___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEqualToDictionary:*(*(a1 + 40) + 32)];
   if ((result & 1) == 0)
@@ -426,34 +440,35 @@ void __98__CHSWidgetDescriptorProvider__lock_reloadContentAsynchronouslyForConta
   v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = CHSLogChronoServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CHSLogChronoServices(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
+      v9 = *(a1 + 32);
+      v10 = *(a1 + 40);
       *buf = 134218498;
-      v17 = v8;
+      v17 = v9;
       v18 = 2112;
-      v19 = v9;
+      v19 = v10;
       v20 = 2112;
-      v21 = v6;
-      _os_log_impl(&dword_195EB2000, v7, OS_LOG_TYPE_DEFAULT, "<CHSWidgetDescriptorProvider:%p> Cache descriptors for container identifier: %@ returned error: %@", buf, 0x20u);
+      v21 = v7;
+      _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "<CHSWidgetDescriptorProvider:%p> Cache descriptors for container identifier: %@ returned error: %@", buf, 0x20u);
     }
   }
 
   if (!v5)
   {
-    v10 = 0;
+    v11 = 0;
 LABEL_12:
     (*(*(a1 + 48) + 16))(*(a1 + 48), 0);
     goto LABEL_13;
   }
 
-  v10 = [v5 descriptorsByExtensionIdentifier];
+  v11 = [v5 descriptorsByExtensionIdentifier];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v12 = WeakRetained;
+  v13 = WeakRetained;
   if (WeakRetained)
   {
     v14[0] = MEMORY[0x1E69E9820];
@@ -461,22 +476,20 @@ LABEL_12:
     v14[2] = __98__CHSWidgetDescriptorProvider__lock_reloadContentAsynchronouslyForContainerIdentifier_completion___block_invoke_14;
     v14[3] = &unk_1E7453000;
     v14[4] = WeakRetained;
-    v15 = v10;
-    os_unfair_lock_assert_not_owner(v12 + 4);
-    os_unfair_lock_lock(v12 + 4);
+    v15 = v11;
+    os_unfair_lock_assert_not_owner(v13 + 4);
+    os_unfair_lock_lock(v13 + 4);
     __98__CHSWidgetDescriptorProvider__lock_reloadContentAsynchronouslyForContainerIdentifier_completion___block_invoke_14(v14);
-    os_unfair_lock_unlock(v12 + 4);
+    os_unfair_lock_unlock(v13 + 4);
   }
 
-  if (!v10 || ![v10 count])
+  if (!v11 || ![v11 count])
   {
     goto LABEL_12;
   }
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), v10);
+  (*(*(a1 + 48) + 16))(*(a1 + 48), v11);
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_addNewDescriptorsFromDescriptors:(id)descriptors
@@ -495,47 +508,45 @@ LABEL_13:
   v6 = v5;
   v17 = v6;
   v18 = &v19;
-  [descriptorsCopy enumerateKeysAndObjectsUsingBlock:&v13];
+  v7 = [descriptorsCopy enumerateKeysAndObjectsUsingBlock:&v13];
   if (*(v20 + 24) == 1)
   {
     objc_storeStrong(&self->_lock_descriptorsByExtensionIdentifier, v5);
-    [(CHSWidgetDescriptorProvider *)self _lock_notifyObserversDescriptorsDidChange:v13];
-    v7 = CHSLogChronoServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CHSLogChronoServices([(CHSWidgetDescriptorProvider *)self _lock_notifyObserversDescriptorsDidChange:v13]);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [v6 count];
+      v9 = [v6 count];
       *buf = 134218498;
       selfCopy2 = self;
       v25 = 2112;
       v26 = descriptorsCopy;
       v27 = 2048;
-      v28 = v8;
-      v9 = "<CHSWidgetDescriptorProvider:%p> Added descriptors: %@ for extension count: %lu";
-      v10 = v7;
-      v11 = 32;
+      v28 = v9;
+      v10 = "<CHSWidgetDescriptorProvider:%p> Added descriptors: %@ for extension count: %lu";
+      v11 = v8;
+      v12 = 32;
 LABEL_6:
-      _os_log_impl(&dword_195EB2000, v10, OS_LOG_TYPE_DEFAULT, v9, buf, v11);
+      _os_log_impl(&dword_195EB2000, v11, OS_LOG_TYPE_DEFAULT, v10, buf, v12);
     }
   }
 
   else
   {
-    v7 = CHSLogChronoServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CHSLogChronoServices(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
       selfCopy2 = self;
       v25 = 2112;
       v26 = descriptorsCopy;
-      v9 = "<CHSWidgetDescriptorProvider:%p> No descriptor update needed. Already discovered descriptors: %@";
-      v10 = v7;
-      v11 = 22;
+      v10 = "<CHSWidgetDescriptorProvider:%p> No descriptor update needed. Already discovered descriptors: %@";
+      v11 = v8;
+      v12 = 22;
       goto LABEL_6;
     }
   }
 
   _Block_object_dispose(&v19, 8);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __70__CHSWidgetDescriptorProvider__lock_addNewDescriptorsFromDescriptors___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -553,49 +564,47 @@ void __70__CHSWidgetDescriptorProvider__lock_addNewDescriptorsFromDescriptors___
 
 - (void)_lock_notifyObserversDescriptorsDidChange
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = [(NSMutableSet *)self->_lock_observers copy];
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          v9[0] = MEMORY[0x1E69E9820];
-          v9[1] = 3221225472;
-          v9[2] = __72__CHSWidgetDescriptorProvider__lock_notifyObserversDescriptorsDidChange__block_invoke;
-          v9[3] = &unk_1E7453000;
-          v9[4] = v7;
-          v9[5] = self;
-          dispatch_async(__calloutQueue, v9);
+          v8[0] = MEMORY[0x1E69E9820];
+          v8[1] = 3221225472;
+          v8[2] = __72__CHSWidgetDescriptorProvider__lock_notifyObserversDescriptorsDidChange__block_invoke;
+          v8[3] = &unk_1E7453000;
+          v8[4] = v7;
+          v8[5] = self;
+          dispatch_async(__calloutQueue, v8);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

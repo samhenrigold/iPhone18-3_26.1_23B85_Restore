@@ -62,7 +62,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_64F4();
+  sub_64F4(selfCopy, v2);
 }
 
 - (void)rightBarButtonTapped
@@ -91,8 +91,7 @@
 {
   v6 = sub_ED48();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v6, v8);
   v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_ED18();
   viewCopy = view;
@@ -134,8 +133,7 @@
 {
   v6 = sub_ED48();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v6, v8);
   v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_ED18();
   viewCopy = view;

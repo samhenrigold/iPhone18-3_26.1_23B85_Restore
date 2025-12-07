@@ -95,24 +95,11 @@ LABEL_10:
     return v8;
   }
 
-  if ([smartcardCopy code] != -5)
+  if ([smartcardCopy code] != -5 || -[SecCTKKey wasAuthenticationContextProvidedBySecCaller](self, "wasAuthenticationContextProvidedBySecCaller") && (-[SecCTKKey tokenObject](self, "tokenObject"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "session"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "LAContext"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isCredentialSet:", -3), v11, v10, v9, (v12 & 1) != 0))
   {
-    goto LABEL_9;
-  }
-
-  if ([(SecCTKKey *)self wasAuthenticationContextProvidedBySecCaller])
-  {
-    tokenObject = [(SecCTKKey *)self tokenObject];
-    session = [tokenObject session];
-    lAContext = [session LAContext];
-    v12 = [lAContext isCredentialSet:-3];
-
-    if (v12)
-    {
 LABEL_9:
-      v8 = 0;
-      goto LABEL_10;
-    }
+    v8 = 0;
+    goto LABEL_10;
   }
 
   userInfo = [smartcardCopy userInfo];
@@ -283,16 +270,16 @@ LABEL_21:
 
 - (BOOL)ensureTokenObject:(id *)object
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   tokenObject = [(SecCTKKey *)self tokenObject];
 
   if (tokenObject)
   {
     LOBYTE(object) = 1;
-    goto LABEL_12;
+    return object;
   }
 
-  if (CryptoTokenKitLibraryCore())
+  if (CryptoTokenKitLibraryCore(0))
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     keychainAttributes = [(SecCTKKey *)self keychainAttributes];
@@ -329,18 +316,18 @@ LABEL_21:
       v20 = [keychainAttributes4 objectForKeyedSubscript:@"u_CredRef"];
       if (v20)
       {
-        v30 = LocalAuthenticationLibraryCore();
+        v29 = LocalAuthenticationLibraryCore(0);
 
-        if (!v30)
+        if (!v29)
         {
           v20 = 0;
           goto LABEL_9;
         }
 
-        v31 = objc_alloc(getLAContextClass());
+        v30 = objc_alloc(getLAContextClass());
         keychainAttributes5 = [(SecCTKKey *)self keychainAttributes];
-        v32 = [keychainAttributes5 objectForKeyedSubscript:@"u_CredRef"];
-        v20 = [v31 initWithExternalizedContext:v32];
+        v31 = [keychainAttributes5 objectForKeyedSubscript:@"u_CredRef"];
+        v20 = [v30 initWithExternalizedContext:v31];
       }
     }
 
@@ -352,23 +339,21 @@ LABEL_9:
     self->_tokenObject = v23;
 
     LOBYTE(object) = self->_tokenObject != 0;
-    goto LABEL_12;
+    return object;
   }
 
   if (object)
   {
     v25 = MEMORY[0x1E696ABC0];
     v26 = *MEMORY[0x1E696A768];
-    v33 = *MEMORY[0x1E696A278];
-    v34[0] = @"CryptoTokenKit is not available";
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = *MEMORY[0x1E696A278];
+    v33[0] = @"CryptoTokenKit is not available";
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     *object = [v25 errorWithDomain:v26 code:-4 userInfo:v27];
 
     LOBYTE(object) = 0;
   }
 
-LABEL_12:
-  v28 = *MEMORY[0x1E69E9840];
   return object;
 }
 
@@ -408,11 +393,11 @@ LABEL_12:
 
 - (SecCTKKey)initWithAttributes:(id)attributes error:(id *)error
 {
-  v93[1] = *MEMORY[0x1E69E9840];
+  v92[1] = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
-  v89.receiver = self;
-  v89.super_class = SecCTKKey;
-  v7 = [(SecCTKKey *)&v89 init];
+  v88.receiver = self;
+  v88.super_class = SecCTKKey;
+  v7 = [(SecCTKKey *)&v88 init];
   v8 = v7;
   if (!v7)
   {
@@ -458,7 +443,7 @@ LABEL_9:
       goto LABEL_28;
     }
 
-    if (CryptoTokenKitLibraryCore())
+    if (CryptoTokenKitLibraryCore(0))
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       if (SecCTKIsQueryForSystemKeychain(attributesCopy))
@@ -485,7 +470,7 @@ LABEL_9:
       else
       {
         v31 = [attributesCopy objectForKeyedSubscript:@"u_CredRef"];
-        if (v31 && (v32 = v31, v33 = LocalAuthenticationLibraryCore(), v32, v33))
+        if (v31 && (v32 = v31, v33 = LocalAuthenticationLibraryCore(0), v32, v33))
         {
           v34 = objc_alloc(getLAContextClass());
           v35 = [attributesCopy objectForKeyedSubscript:@"u_CredRef"];
@@ -498,9 +483,9 @@ LABEL_9:
         }
       }
 
-      v88 = 0;
-      v15 = [objc_alloc(getTKClientTokenSessionClass()) initWithToken:v22 LAContext:v24 parameters:v19 error:&v88];
-      v30 = v88;
+      v87 = 0;
+      v15 = [objc_alloc(getTKClientTokenSessionClass()) initWithToken:v22 LAContext:v24 parameters:v19 error:&v87];
+      v30 = v87;
 
       if (v15)
       {
@@ -510,14 +495,14 @@ LABEL_9:
       if (v30)
       {
         domain = [v30 domain];
-        v76 = getTKErrorDomain();
-        if ([domain isEqual:v76])
+        v75 = getTKErrorDomain();
+        if ([domain isEqual:v75])
         {
           code = [v30 code];
           getTKTokenNotFoundAndRegistered();
-          v79 = v78;
+          v78 = v77;
 
-          if (code == v79)
+          if (code == v78)
           {
             v8->_isRegisteredSmartcard = 1;
 LABEL_27:
@@ -592,7 +577,7 @@ LABEL_62:
 
         if (error)
         {
-          v80 = v30;
+          v79 = v30;
           *error = v30;
         }
 
@@ -618,9 +603,9 @@ LABEL_20:
 
       v25 = MEMORY[0x1E696ABC0];
       v26 = *MEMORY[0x1E696A768];
-      v92 = *MEMORY[0x1E696A278];
-      v93[0] = @"CryptoTokenKit is not available";
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v93 forKeys:&v92 count:1];
+      v91 = *MEMORY[0x1E696A278];
+      v92[0] = @"CryptoTokenKit is not available";
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:&v91 count:1];
       *error = [v25 errorWithDomain:v26 code:-4 userInfo:v27];
     }
 
@@ -661,42 +646,42 @@ LABEL_41:
       goto LABEL_59;
     }
 
-    v81 = attributesCopy;
-    v83 = v8;
+    v80 = attributesCopy;
+    v82 = v8;
     [v60 setObject:v62 forKeyedSubscript:@"accc"];
     v61 = v62;
   }
 
   else
   {
-    v81 = attributesCopy;
-    v83 = v8;
+    v80 = attributesCopy;
+    v82 = v8;
   }
 
-  [v60 removeObjectForKey:{@"toid", v81}];
+  [v60 removeObjectForKey:{@"toid", v80}];
   [v60 removeObjectForKey:@"u_TokenSession"];
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
   v85 = 0u;
-  v90[0] = @"type";
-  v90[1] = @"kcls";
-  v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:2];
-  v64 = [v63 countByEnumeratingWithState:&v84 objects:v91 count:16];
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v89[0] = @"type";
+  v89[1] = @"kcls";
+  v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
+  v64 = [v63 countByEnumeratingWithState:&v83 objects:v90 count:16];
   if (v64)
   {
     v65 = v64;
-    v66 = *v85;
+    v66 = *v84;
     do
     {
       for (i = 0; i != v65; ++i)
       {
-        if (*v85 != v66)
+        if (*v84 != v66)
         {
           objc_enumerationMutation(v63);
         }
 
-        v68 = *(*(&v84 + 1) + 8 * i);
+        v68 = *(*(&v83 + 1) + 8 * i);
         v69 = [v60 objectForKeyedSubscript:v68];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -706,7 +691,7 @@ LABEL_41:
         }
       }
 
-      v65 = [v63 countByEnumeratingWithState:&v84 objects:v91 count:16];
+      v65 = [v63 countByEnumeratingWithState:&v83 objects:v90 count:16];
     }
 
     while (v65);
@@ -715,16 +700,15 @@ LABEL_41:
   [v60 setObject:@"keys" forKeyedSubscript:@"class"];
   [v60 setObject:@"1" forKeyedSubscript:@"kcls"];
   v71 = [v60 copy];
-  v8 = v83;
-  keychainAttributes = v83->_keychainAttributes;
-  v83->_keychainAttributes = v71;
+  v8 = v82;
+  keychainAttributes = v82->_keychainAttributes;
+  v82->_keychainAttributes = v71;
 
-  attributesCopy = v82;
+  attributesCopy = v81;
 LABEL_58:
   v62 = v8;
 LABEL_59:
 
-  v73 = *MEMORY[0x1E69E9840];
   return v62;
 }
 

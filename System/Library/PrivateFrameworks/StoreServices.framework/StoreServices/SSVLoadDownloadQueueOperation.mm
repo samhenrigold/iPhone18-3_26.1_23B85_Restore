@@ -260,37 +260,41 @@ LABEL_12:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v17) = 138412290;
-  *(&v17 + 4) = objc_opt_class();
-  v8 = *(&v17 + 4);
-  LODWORD(v16) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v16 = 138412290;
+  v17 = objc_opt_class();
+  v8 = v17;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "[%@]: importing keybag sync data", &v16, 12);
 
   if (v9)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v17, v16, v17}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, oSLogObject);
-LABEL_11:
+LABEL_12:
   }
 
   SSVFairPlayContextIdentifier();
@@ -469,15 +473,15 @@ LABEL_11:
 
 - (void)main
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   uRLBagKey = [(SSURLRequestProperties *)self->_requestProperties URLBagKey];
   v4 = [SSURLBagContext contextWithBagType:0];
   requestURL = [(SSVLoadDownloadQueueOperation *)self requestURL];
   if (!requestURL)
   {
-    v46 = 0;
-    requestURL = [(SSVLoadDownloadQueueOperation *)self resolveBagURLForKey:uRLBagKey bagContext:v4 error:&v46];
-    v28 = v46;
+    v44 = 0;
+    requestURL = [(SSVLoadDownloadQueueOperation *)self resolveBagURLForKey:uRLBagKey bagContext:v4 error:&v44];
+    v28 = v44;
     if (v28)
     {
       v27 = v28;
@@ -507,32 +511,31 @@ LABEL_11:
       if (v32)
       {
         v33 = objc_opt_class();
-        v47 = 138412546;
-        v48 = v33;
-        v49 = 2112;
-        v50 = v27;
+        v45 = 138412546;
+        v46 = v33;
+        v47 = 2112;
+        v48 = v27;
         v34 = v33;
-        LODWORD(v43) = 22;
-        v35 = _os_log_send_and_compose_impl();
+        v35 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Could not load URL bag: %@", &v45, 22);
 
         if (!v35)
         {
-LABEL_31:
+LABEL_32:
 
           [(SSVOperation *)self setError:v27];
-          goto LABEL_32;
+          goto LABEL_33;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:{4, &v47, v43}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:4];
         free(v35);
         SSFileLog(v29, @"%@", v36, v37, v38, v39, v40, v41, oSLogObject);
       }
 
-      goto LABEL_31;
+      goto LABEL_32;
     }
   }
 
-  v45 = uRLBagKey;
+  v43 = uRLBagKey;
   v6 = objc_alloc(MEMORY[0x1E695DF70]);
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:0];
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:0];
@@ -546,7 +549,7 @@ LABEL_31:
     {
       if (([(SSVLoadDownloadQueueOperation *)self isCancelled]& 1) != 0)
       {
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
       v11 = [(NSMutableArray *)self->_rangesToLoad objectAtIndex:0];
@@ -554,7 +557,7 @@ LABEL_31:
       if (![(SSVLoadDownloadQueueOperation *)self _loadDownloadsFromStart:v11 toEnd:v12 url:requestURL])
       {
         [(NSMutableArray *)self->_rangesToLoad removeAllObjects];
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
       v13 = requestURL;
@@ -564,69 +567,73 @@ LABEL_31:
         v14 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v14 shouldLog];
+      LODWORD(v15) = [v14 shouldLog];
       if ([v14 shouldLogToDisk])
       {
-        shouldLog2 |= 2u;
+        LODWORD(v15) = v15 | 2;
       }
 
       oSLogObject2 = [v14 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
       {
-        shouldLog2 &= 2u;
+        v15 = v15;
       }
 
-      if (!shouldLog2)
+      else
       {
-        goto LABEL_14;
+        v15 &= 2u;
+      }
+
+      if (!v15)
+      {
+        goto LABEL_15;
       }
 
       v17 = objc_opt_class();
       accountIdentifier = self->_accountIdentifier;
-      v47 = 138413058;
-      v48 = v17;
+      v45 = 138413058;
+      v46 = v17;
+      v47 = 2112;
+      v48 = accountIdentifier;
       v49 = 2112;
-      v50 = accountIdentifier;
+      v50 = v11;
       v51 = 2112;
-      v52 = v11;
-      v53 = 2112;
-      v54 = v12;
+      v52 = v12;
       v19 = v17;
-      LODWORD(v44) = 42;
-      v42 = &v47;
-      v20 = _os_log_send_and_compose_impl();
+      LODWORD(v42) = 42;
+      v20 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "%@: Finished loading download queue (%@, %@, %@)", &v45, v42);
 
       if (v20)
       {
         break;
       }
 
-LABEL_15:
+LABEL_16:
 
       [(NSMutableArray *)self->_rangesToLoad removeObjectsInRange:0, 2];
       [(SSVOperation *)self setSuccess:[(NSMutableArray *)self->_rangesToLoad count]== 0];
       requestURL = v13;
-LABEL_17:
+LABEL_18:
 
       if ([(NSMutableArray *)self->_rangesToLoad count]<= 1)
       {
-        goto LABEL_18;
+        goto LABEL_19;
       }
     }
 
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v47, v44}];
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
     free(v20);
     SSFileLog(v14, @"%@", v21, v22, v23, v24, v25, v26, oSLogObject2);
-LABEL_14:
+LABEL_15:
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
-LABEL_18:
+LABEL_19:
   v27 = self->_rangesToLoad;
   self->_rangesToLoad = 0;
-  uRLBagKey = v45;
-LABEL_32:
+  uRLBagKey = v43;
+LABEL_33:
 }
 
 - (id)_account
@@ -672,7 +679,7 @@ LABEL_32:
 
 - (BOOL)_loadDownloadsFromStart:(id)start toEnd:(id)end url:(id)url
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   startCopy = start;
   endCopy = end;
   urlCopy = url;
@@ -704,23 +711,21 @@ LABEL_32:
     v14 = objc_opt_class();
     v15 = v14;
     requestIdentifier = [(SSVLoadDownloadQueueOperation *)self requestIdentifier];
-    *v78 = 138413314;
-    *&v78[4] = v14;
-    *&v78[12] = 2112;
-    *&v78[14] = requestIdentifier;
-    *&v78[22] = 2112;
-    v79 = startCopy;
-    *v80 = 2112;
-    *&v80[2] = endCopy;
-    *&v80[10] = 2048;
-    *&v80[12] = [(SSVLoadDownloadQueueOperation *)self reason];
-    LODWORD(v53) = 52;
-    v52 = v78;
-    v17 = _os_log_send_and_compose_impl();
+    *v77 = 138413314;
+    *&v77[4] = v14;
+    *&v77[12] = 2112;
+    *&v77[14] = requestIdentifier;
+    *&v77[22] = 2112;
+    v78 = startCopy;
+    *v79 = 2112;
+    *&v79[2] = endCopy;
+    *&v79[10] = 2048;
+    *&v79[12] = [(SSVLoadDownloadQueueOperation *)self reason];
+    v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "[%@]: Loading download queue (%@, %@, %@) with reason: %ld", v77, 52);
 
     if (v17)
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, v78, v53}];
+      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
       free(v17);
       SSFileLog(v10, @"%@", v19, v20, v21, v22, v23, v24, v18);
     }
@@ -730,38 +735,38 @@ LABEL_32:
   {
   }
 
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
-  v73 = 0;
-  *v78 = 0;
-  *&v78[8] = v78;
-  *&v78[16] = 0x3032000000;
-  v79 = __Block_byref_object_copy__85;
-  *v80 = __Block_byref_object_dispose__85;
-  *&v80[8] = 0;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x3032000000;
-  v67 = __Block_byref_object_copy__85;
-  v68 = __Block_byref_object_dispose__85;
   v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 0;
+  *v77 = 0;
+  *&v77[8] = v77;
+  *&v77[16] = 0x3032000000;
+  v78 = __Block_byref_object_copy__85;
+  *v79 = __Block_byref_object_dispose__85;
+  *&v79[8] = 0;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = __Block_byref_object_copy__85;
+  v67 = __Block_byref_object_dispose__85;
+  v68 = 0;
   objc_initWeak(&location, self);
   v25 = [(SSVLoadDownloadQueueOperation *)self _newURLOperationWithStartIdentifier:startCopy endIdentifier:endCopy url:urlCopy];
-  v56[0] = MEMORY[0x1E69E9820];
-  v56[1] = 3221225472;
-  v56[2] = __67__SSVLoadDownloadQueueOperation__loadDownloadsFromStart_toEnd_url___block_invoke;
-  v56[3] = &unk_1E84B3AF0;
-  v56[4] = self;
-  v54 = startCopy;
-  v57 = v54;
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __67__SSVLoadDownloadQueueOperation__loadDownloadsFromStart_toEnd_url___block_invoke;
+  v55[3] = &unk_1E84B3AF0;
+  v55[4] = self;
+  v53 = startCopy;
+  v56 = v53;
   v26 = endCopy;
-  v58 = v26;
-  v59 = &v70;
-  objc_copyWeak(&v62, &location);
-  v60 = &v64;
-  v61 = v78;
-  [v25 setOutputBlock:v56];
+  v57 = v26;
+  v58 = &v69;
+  objc_copyWeak(&v61, &location);
+  v59 = &v63;
+  v60 = v77;
+  [v25 setOutputBlock:v55];
   [(SSVOperation *)self runChildOperation:v25];
   uRLResponse = [v25 URLResponse];
   v28 = uRLResponse;
@@ -815,13 +820,13 @@ LABEL_27:
     {
       v40 = objc_opt_class();
       v41 = self->_storeCorrelationID;
-      v74 = 138412546;
-      v75 = v40;
-      v76 = 2114;
-      v77 = v41;
+      v73 = 138412546;
+      v74 = v40;
+      v75 = 2114;
+      v76 = v41;
       v42 = v40;
-      LODWORD(v53) = 22;
-      v43 = _os_log_send_and_compose_impl();
+      LODWORD(v52) = 22;
+      v43 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &dword_1D48BA000, v37, 0, "[%@]: storeCorrelationID: %{public}@", &v73, v52, v53);
 
       if (!v43)
       {
@@ -830,7 +835,7 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v37 = [MEMORY[0x1E696AEC0] stringWithCString:v43 encoding:{4, &v74, v53, v54}];
+      v37 = [MEMORY[0x1E696AEC0] stringWithCString:v43 encoding:4];
       free(v43);
       SSFileLog(v33, @"%@", v44, v45, v46, v47, v48, v49, v37);
     }
@@ -839,38 +844,38 @@ LABEL_26:
   }
 
 LABEL_28:
-  if (v71[3])
+  if (v70[3])
   {
-    [(SSVLoadDownloadQueueOperation *)self _handleResponse:v65[5]];
+    [(SSVLoadDownloadQueueOperation *)self _handleResponse:v64[5]];
   }
 
   else
   {
-    [(SSVOperation *)self setError:*(*&v78[8] + 40)];
+    [(SSVOperation *)self setError:*(*&v77[8] + 40)];
   }
 
-  v50 = *(v71 + 24);
+  v50 = *(v70 + 24);
 
-  objc_destroyWeak(&v62);
+  objc_destroyWeak(&v61);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v64, 8);
+  _Block_object_dispose(&v63, 8);
 
-  _Block_object_dispose(v78, 8);
-  _Block_object_dispose(&v70, 8);
+  _Block_object_dispose(v77, 8);
+  _Block_object_dispose(&v69, 8);
 
   return v50 & 1;
 }
 
 void __67__SSVLoadDownloadQueueOperation__loadDownloadsFromStart_toEnd_url___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
     *(*(*(a1 + 56) + 8) + 24) = 0;
     objc_storeStrong((*(*(a1 + 72) + 8) + 40), a3);
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
   v7 = +[SSLogConfig sharedWriteToDiskConfig];
@@ -897,16 +902,21 @@ void __67__SSVLoadDownloadQueueOperation__loadDownloadsFromStart_toEnd_url___blo
     v14 = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = v14 | 2;
+      LODWORD(v15) = v14 | 2;
     }
 
     else
     {
-      v15 = v14;
+      LODWORD(v15) = v14;
     }
 
     v16 = [v13 OSLogObject];
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
@@ -916,34 +926,33 @@ void __67__SSVLoadDownloadQueueOperation__loadDownloadsFromStart_toEnd_url___blo
       v17 = objc_opt_class();
       v18 = *(a1 + 40);
       v19 = *(a1 + 48);
-      *v40 = 138413058;
-      *&v40[4] = v17;
-      *&v40[12] = 2112;
-      *&v40[14] = v12;
-      *&v40[22] = 2112;
-      v41 = v18;
-      LOWORD(v42) = 2112;
-      *(&v42 + 2) = v19;
+      v39 = 138413058;
+      v40 = v17;
+      v41 = 2112;
+      v42 = v12;
+      v43 = 2112;
+      v44 = v18;
+      v45 = 2112;
+      v46 = v19;
       v20 = v17;
-      LODWORD(v39) = 42;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, v16, 0, "[%@]: Download queue response (key = %@ startID = %@ endID = %@)", &v39, 42);
 
       if (!v21)
       {
-LABEL_17:
+LABEL_18:
 
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-      v16 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:{4, v40, v39, *v40, *&v40[16], v41, v42}];
+      v16 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog(v13, @"%@", v22, v23, v24, v25, v26, v27, v16);
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
-LABEL_18:
+LABEL_19:
   *(*(*(a1 + 56) + 8) + 24) = 1;
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   if (WeakRetained)
@@ -973,7 +982,7 @@ LABEL_18:
     [v37 setStoreCorrelationID:v38];
   }
 
-LABEL_26:
+LABEL_27:
 }
 
 - (id)_newURLOperationWithStartIdentifier:(id)identifier endIdentifier:(id)endIdentifier url:(id)url

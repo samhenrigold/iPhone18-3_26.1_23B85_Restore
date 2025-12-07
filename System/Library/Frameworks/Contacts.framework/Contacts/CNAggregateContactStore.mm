@@ -366,7 +366,7 @@ void __63__CNAggregateContactStore__allStoreResultsWithError_withBlock___block_i
   obj = *(v2 + 40);
   v3 = (*(*(a1 + 40) + 16))();
   objc_storeStrong((v2 + 40), obj);
-  if (CNIsErrorWithCode(*(*(*(a1 + 48) + 8) + 40), 400))
+  if (CNIsErrorWithCode(*(*(*(a1 + 48) + 8) + 40), 0x190))
   {
     v4 = *(*(a1 + 48) + 8);
     v5 = *(v4 + 40);
@@ -974,7 +974,7 @@ id __48__CNAggregateContactStore_meContactIdentifiers___block_invoke(uint64_t a1
     v6 = [v5 meContactIdentifiers:&v14];
     v7 = v14;
     v8 = v7;
-    if (v7 && (CNIsErrorWithCode(v7, 200) & 1) == 0)
+    if (v7 && (CNIsErrorWithCode(v7, 0xC8) & 1) == 0)
     {
       v12 = [MEMORY[0x1E69966C0] eitherWithRight:v8];
     }

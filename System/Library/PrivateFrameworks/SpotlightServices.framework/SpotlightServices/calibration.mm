@@ -221,8 +221,8 @@
 
   if (v12)
   {
-    v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v12, "count")}];
-    if ([v12 count] >= 1)
+    v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v12)];
+    if (objc_msgSend_count(v12) >= 1)
     {
       v21 = optionsCopy;
       v22 = inputsCopy;
@@ -239,7 +239,7 @@
         ++v14;
       }
 
-      while (v14 < [v12 count]);
+      while (v14 < objc_msgSend_count(v12));
       optionsCopy = v21;
       inputsCopy = v22;
     }

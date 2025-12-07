@@ -18,9 +18,10 @@
 
 uint64_t __35__CADNullAppProtectionGuard_shared__block_invoke()
 {
-  shared_guard_54 = objc_alloc_init(CADNullAppProtectionGuard);
+  v0 = objc_alloc_init(CADNullAppProtectionGuard);
+  shared_guard_54 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 @end

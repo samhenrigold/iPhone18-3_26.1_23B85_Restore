@@ -38,34 +38,34 @@
 - (HMIFaceClassification)initWithPersonUUID:(id)d sourceUUID:(id)iD sessionEntityUUID:(id)uID confidence:(double)confidence familiarity:(int64_t)familiarity
 {
   uIDCopy = uID;
-  v14 = [(HMIFaceClassification *)self initWithPersonUUID:d sourceUUID:iD confidence:0 fromTorsoClassification:familiarity familiarity:confidence];
-  v15 = v14;
-  if (v14)
+  v10 = [HMIFaceClassification initWithPersonUUID:"initWithPersonUUID:sourceUUID:confidence:fromTorsoClassification:familiarity:" sourceUUID:? confidence:? fromTorsoClassification:? familiarity:?];
+  v11 = v10;
+  if (v10)
   {
-    objc_storeStrong(&v14->_sessionEntityUUID, uID);
+    objc_storeStrong(&v10->_sessionEntityUUID, uID);
   }
 
-  return v15;
+  return v11;
 }
 
 - (HMIFaceClassification)initWithUUID:(id)d sourceUUID:(id)iD sessionEntityUUID:(id)uID faceCrop:(id)crop faceprint:(id)faceprint confidence:(double)confidence familiarity:(int64_t)familiarity
 {
   cropCopy = crop;
   faceprintCopy = faceprint;
-  v19 = [(HMIFaceClassification *)self initWithPersonUUID:d sourceUUID:iD sessionEntityUUID:uID confidence:familiarity familiarity:confidence];
-  v20 = v19;
-  if (v19)
+  v14 = [HMIFaceClassification initWithPersonUUID:"initWithPersonUUID:sourceUUID:sessionEntityUUID:confidence:familiarity:" sourceUUID:? sessionEntityUUID:? confidence:? familiarity:?];
+  v15 = v14;
+  if (v14)
   {
-    objc_storeStrong(&v19->_faceCrop, crop);
-    objc_storeStrong(&v20->_faceprint, faceprint);
+    objc_storeStrong(&v14->_faceCrop, crop);
+    objc_storeStrong(&v15->_faceprint, faceprint);
   }
 
-  return v20;
+  return v15;
 }
 
 - (HMIFaceClassification)initWithUUID:(id)d sourceUUID:(id)iD sessionEntityUUID:(id)uID faceCrop:(id)crop faceprint:(id)faceprint confidence:(double)confidence fromTorsoClassification:(BOOL)classification familiarity:(int64_t)self0
 {
-  result = [(HMIFaceClassification *)self initWithUUID:d sourceUUID:iD sessionEntityUUID:uID faceCrop:crop faceprint:faceprint confidence:familiarity familiarity:confidence];
+  result = [HMIFaceClassification initWithUUID:"initWithUUID:sourceUUID:sessionEntityUUID:faceCrop:faceprint:confidence:familiarity:" sourceUUID:? sessionEntityUUID:? faceCrop:? faceprint:? confidence:? familiarity:?];
   if (result)
   {
     result->_fromTorsoClassification = classification;
@@ -76,104 +76,71 @@
 
 - (HMIFaceClassification)initWithUUID:(id)d name:(id)name personsModelIdentifier:(id)identifier faceBoundingBox:(CGRect)box
 {
-  height = box.size.height;
-  width = box.size.width;
-  y = box.origin.y;
-  x = box.origin.x;
-  v11 = MEMORY[0x277CCAD78];
+  v7 = MEMORY[0x277CCAD78];
   dCopy = d;
-  uUID = [v11 UUID];
-  height = [(HMIFaceClassification *)self initWithUUID:dCopy sourceUUID:uUID faceBoundingBox:x, y, width, height];
+  uUID = [v7 UUID];
+  v10 = [HMIFaceClassification initWithUUID:"initWithUUID:sourceUUID:faceBoundingBox:" sourceUUID:? faceBoundingBox:?];
 
-  return height;
+  return v10;
 }
 
 - (HMIFaceClassification)initWithUUID:(id)d sourceUUID:(id)iD faceBoundingBox:(CGRect)box
 {
-  height = box.size.height;
-  width = box.size.width;
-  y = box.origin.y;
-  x = box.origin.x;
   iDCopy = iD;
   dCopy = d;
-  v13 = [HMIFaceCrop alloc];
+  v9 = [HMIFaceCrop alloc];
   uUID = [MEMORY[0x277CCAD78] UUID];
   data = [MEMORY[0x277CBEA90] data];
   date = [MEMORY[0x277CBEAA8] date];
-  v17 = [(HMIFaceCrop *)v13 initWithUUID:uUID dataRepresentation:data dateCreated:date faceBoundingBox:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v13 = [HMIFaceCrop initWithUUID:v9 dataRepresentation:"initWithUUID:dataRepresentation:dateCreated:faceBoundingBox:" dateCreated:? faceBoundingBox:?];
 
-  v18 = [HMIFaceprint alloc];
+  v14 = [HMIFaceprint alloc];
   uUID2 = [MEMORY[0x277CCAD78] UUID];
   data2 = [MEMORY[0x277CBEA90] data];
   uUID3 = [MEMORY[0x277CCAD78] UUID];
-  uUID4 = [(HMIFaceCrop *)v17 UUID];
-  v23 = [(HMIFaceprint *)v18 initWithUUID:uUID2 data:data2 modelUUID:uUID3 faceCropUUID:uUID4];
+  uUID4 = [(HMIFaceCrop *)v13 UUID];
+  v19 = [HMIFaceprint initWithUUID:v14 data:"initWithUUID:data:modelUUID:faceCropUUID:" modelUUID:? faceCropUUID:?];
 
   uUID5 = [MEMORY[0x277CCAD78] UUID];
-  v25 = [(HMIFaceClassification *)self initWithUUID:dCopy sourceUUID:iDCopy sessionEntityUUID:uUID5 faceBoundingBox:v17 facecrop:v23 faceprint:x confidence:y, width, height, 0.0];
+  v21 = [HMIFaceClassification initWithUUID:"initWithUUID:sourceUUID:sessionEntityUUID:faceBoundingBox:facecrop:faceprint:confidence:" sourceUUID:? sessionEntityUUID:? faceBoundingBox:? facecrop:? faceprint:? confidence:?];
 
-  return v25;
+  return v21;
 }
 
 - (id)attributeDescriptions
 {
-  v34[8] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   personUUID = [(HMIFaceClassification *)self personUUID];
-  v32 = [v3 initWithName:@"Person UUID" value:personUUID];
-  v34[0] = v32;
+  v25 = [v3 initWithName:? value:?];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   sourceUUID = [(HMIFaceClassification *)self sourceUUID];
-  v30 = [v4 initWithName:@"Source UUID" value:sourceUUID];
-  v34[1] = v30;
+  v23 = [v4 initWithName:? value:?];
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   sessionEntityUUID = [(HMIFaceClassification *)self sessionEntityUUID];
-  v28 = [v5 initWithName:@"Session Entity UUID" value:sessionEntityUUID];
-  v34[2] = v28;
+  v21 = [v5 initWithName:? value:?];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   v7 = MEMORY[0x277CCABB0];
   [(HMIFaceClassification *)self confidence];
-  v27 = [v7 numberWithDouble:?];
-  v26 = [v6 initWithName:@"Confidence" value:v27];
-  v34[3] = v26;
+  v20 = [v7 numberWithDouble:?];
+  v19 = [v6 initWithName:? value:?];
   v8 = objc_alloc(MEMORY[0x277D0F778]);
-  familiarity = [(HMIFaceClassification *)self familiarity];
-  v10 = @"Known";
-  if (!familiarity)
-  {
-    v10 = @"Unknown";
-  }
-
-  if (familiarity == 1)
-  {
-    v11 = @"Uncertain";
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v12 = [v8 initWithName:@"Familiarity" value:v11];
-  v34[4] = v12;
-  v13 = objc_alloc(MEMORY[0x277D0F778]);
+  [(HMIFaceClassification *)self familiarity];
+  v27 = [v8 initWithName:? value:?];
+  v9 = objc_alloc(MEMORY[0x277D0F778]);
   faceCrop = [(HMIFaceClassification *)self faceCrop];
   uUID = [faceCrop UUID];
-  v16 = [v13 initWithName:@"FaceCrop UUID" value:uUID];
-  v34[5] = v16;
-  v17 = objc_alloc(MEMORY[0x277D0F778]);
+  v28 = [v9 initWithName:? value:?];
+  v12 = objc_alloc(MEMORY[0x277D0F778]);
   faceprint = [(HMIFaceClassification *)self faceprint];
   uUID2 = [faceprint UUID];
-  v20 = [v17 initWithName:@"Faceprint UUID" value:uUID2];
-  v34[6] = v20;
-  v21 = objc_alloc(MEMORY[0x277D0F778]);
+  v29 = [v12 initWithName:? value:?];
+  v15 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMIFaceClassification *)self fromTorsoClassification];
-  v22 = HMFBooleanToString();
-  v23 = [v21 initWithName:@"FromTorsoClassification" value:v22];
-  v34[7] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:8];
+  v16 = HMFBooleanToString();
+  v30 = [v15 initWithName:? value:?];
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v24;
+  return v17;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -259,42 +226,48 @@
 - (HMIFaceClassification)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFC.pu"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFC.su"];
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFC.seu"];
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFC.fc"];
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMIFC.fp"];
-  [coderCopy decodeDoubleForKey:@"HMIFC.c"];
-  v11 = v10;
-  v12 = [coderCopy decodeBoolForKey:@"HMIFC.ftc"];
-  v13 = [coderCopy decodeIntegerForKey:@"HMIFC.f"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v6 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v8 = [coderCopy decodeObjectOfClass:? forKey:?];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [coderCopy decodeDoubleForKey:?];
+  [coderCopy decodeBoolForKey:?];
+  v10 = [coderCopy decodeIntegerForKey:?];
 
-  v14 = [(HMIFaceClassification *)self initWithUUID:v5 sourceUUID:v6 sessionEntityUUID:v7 faceCrop:v8 faceprint:v9 confidence:v12 fromTorsoClassification:v11 familiarity:v13];
-  return v14;
+  v11 = [HMIFaceClassification initWithUUID:"initWithUUID:sourceUUID:sessionEntityUUID:faceCrop:faceprint:confidence:fromTorsoClassification:familiarity:" sourceUUID:v10 sessionEntityUUID:? faceCrop:? faceprint:? confidence:? fromTorsoClassification:? familiarity:?];
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
   personUUID = [(HMIFaceClassification *)self personUUID];
-  [coderCopy encodeObject:personUUID forKey:@"HMIFC.pu"];
+  [coderCopy encodeObject:? forKey:?];
 
   sourceUUID = [(HMIFaceClassification *)self sourceUUID];
-  [coderCopy encodeObject:sourceUUID forKey:@"HMIFC.su"];
+  [coderCopy encodeObject:? forKey:?];
 
   sessionEntityUUID = [(HMIFaceClassification *)self sessionEntityUUID];
-  [coderCopy encodeObject:sessionEntityUUID forKey:@"HMIFC.seu"];
+  [coderCopy encodeObject:? forKey:?];
 
   faceCrop = [(HMIFaceClassification *)self faceCrop];
-  [coderCopy encodeObject:faceCrop forKey:@"HMIFC.fc"];
+  [coderCopy encodeObject:? forKey:?];
 
   faceprint = [(HMIFaceClassification *)self faceprint];
-  [coderCopy encodeObject:faceprint forKey:@"HMIFC.fp"];
+  [coderCopy encodeObject:? forKey:?];
 
   [(HMIFaceClassification *)self confidence];
-  [coderCopy encodeDouble:@"HMIFC.c" forKey:?];
-  [coderCopy encodeBool:-[HMIFaceClassification fromTorsoClassification](self forKey:{"fromTorsoClassification"), @"HMIFC.ftc"}];
-  [coderCopy encodeInteger:-[HMIFaceClassification familiarity](self forKey:{"familiarity"), @"HMIFC.f"}];
+  [coderCopy encodeDouble:? forKey:?];
+  [(HMIFaceClassification *)self fromTorsoClassification];
+  [coderCopy encodeBool:? forKey:?];
+  [(HMIFaceClassification *)self familiarity];
+  [coderCopy encodeInteger:? forKey:?];
 }
 
 - (CGRect)faceBoundingBox

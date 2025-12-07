@@ -42,7 +42,7 @@
     else
     {
       v5 = [WebNodeHighlight alloc];
-      [self->_inspectedWebView page];
+      objc_msgSend_page(self->_inspectedWebView);
       v8 = *(v7 + 88);
       v6 = [(WebNodeHighlight *)v5 initWithTargetView:inspectedWebView inspectorController:&v8];
       self->_currentHighlight = v6;

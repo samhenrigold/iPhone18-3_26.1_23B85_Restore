@@ -15,7 +15,7 @@
 
 - (int)status
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   calls = [(TUCallGroup *)self calls];
   firstObject = [calls firstObject];
   status = [firstObject status];
@@ -25,33 +25,33 @@
 
   if (v7 >= 2)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     calls3 = [(TUCallGroup *)self calls];
-    v9 = [calls3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [calls3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(calls3);
           }
 
-          if ([*(*(&v15 + 1) + 8 * i) status] == 1)
+          if ([*(*(&v14 + 1) + 8 * i) status] == 1)
           {
             status = 1;
             goto LABEL_12;
           }
         }
 
-        v10 = [calls3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [calls3 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v10)
         {
           continue;
@@ -64,7 +64,6 @@
 LABEL_12:
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return status;
 }
 
@@ -80,7 +79,7 @@ LABEL_12:
 
 - (NSString)displayName
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   calls = [(TUCallGroup *)self calls];
   v5 = [calls count];
 
@@ -106,27 +105,27 @@ LABEL_12:
 
     else
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       calls3 = [(TUCallGroup *)self calls];
-      v12 = [calls3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [calls3 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v12)
       {
         v13 = v12;
         displayName = 0;
-        v14 = *v26;
+        v14 = *v25;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v26 != v14)
+            if (*v25 != v14)
             {
               objc_enumerationMutation(calls3);
             }
 
-            displayFirstName = [*(*(&v25 + 1) + 8 * i) displayFirstName];
+            displayFirstName = [*(*(&v24 + 1) + 8 * i) displayFirstName];
             v17 = displayFirstName;
             if (displayName)
             {
@@ -144,7 +143,7 @@ LABEL_12:
             }
           }
 
-          v13 = [calls3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v13 = [calls3 countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v13);
@@ -156,8 +155,6 @@ LABEL_12:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return displayName;
 }
@@ -185,18 +182,17 @@ LABEL_12:
 
 - (TUCallGroup)initWithCall:(id)call
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   callCopy = call;
   if (!callCopy)
   {
     [(TUCallGroup *)a2 initWithCall:?];
   }
 
-  v10[0] = callCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = callCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v7 = [(TUCallGroup *)self initWithCalls:v6];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

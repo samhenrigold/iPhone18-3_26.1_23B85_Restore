@@ -106,7 +106,7 @@
 
 - (void)setPageNumber:(id)number
 {
-  -[THMultiLineLabel setText:](self->_pageNumberLabel, "setText:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"page %@" value:&stru_471858 table:0], number));
+  -[THMultiLineLabel setText:](self->_pageNumberLabel, "setText:", +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(self a2)], number));
 
   [(THNoteCardContentLayer *)self setNeedsLayout];
 }
@@ -607,8 +607,8 @@
   [(THMultiLineLabel *)self->_flipLabel setFont:[TSUFont systemFontOfSize:25.0]];
   [(THMultiLineLabel *)self->_flipLabel setTextColor:THNoteCardFooterFlipCardColor([(THNoteCardContentLayer *)self darkMode])];
   [(THNoteCardLayoutContext *)self->_layoutContext textScale];
-  [(THMultiLineLabel *)self->_flipLabel setScale:?];
-  -[THMultiLineLabel setText:](self->_flipLabel, "setText:", [THBundle() localizedStringForKey:@"Flip Card" value:&stru_471858 table:0]);
+  v4 = [(THMultiLineLabel *)self->_flipLabel setScale:?];
+  -[THMultiLineLabel setText:](self->_flipLabel, "setText:", [THBundle(v4 v5)]);
   TSUScreenScale();
   [(THMultiLineLabel *)self->_flipLabel setContentsScale:?];
   [(THNoteCardContentLayer *)self addSublayer:self->_flipLabel];

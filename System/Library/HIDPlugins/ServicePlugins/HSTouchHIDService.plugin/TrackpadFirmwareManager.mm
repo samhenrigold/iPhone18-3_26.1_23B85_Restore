@@ -264,32 +264,32 @@
 
   if (!v6)
   {
-    v7 = IOCFSerialize(properties, 1uLL);
-    if (v7)
+    v8 = IOCFSerialize(properties, 1uLL);
+    if (v8)
     {
       buf[0] = -1;
-      v8 = objc_opt_new();
-      [v8 appendBytes:buf length:1];
-      [v8 appendData:v7];
-      v9 = mach_absolute_time();
-      v10 = v8;
-      LODWORD(v13) = 0;
-      v11 = +[HIDEvent vendorDefinedEvent:usagePage:usage:version:data:length:options:](HIDEvent, "vendorDefinedEvent:usagePage:usage:version:data:length:options:", v9, 65308, 256, 1, [v8 bytes], objc_msgSend(v8, "length"), v13);
-      [(TrackpadFirmwareManager *)self _dispatchHIDEvent:v11];
+      v9 = objc_opt_new();
+      [v9 appendBytes:buf length:1];
+      [v9 appendData:v8];
+      v10 = mach_absolute_time();
+      v11 = v9;
+      LODWORD(v14) = 0;
+      v12 = +[HIDEvent vendorDefinedEvent:usagePage:usage:version:data:length:options:](HIDEvent, "vendorDefinedEvent:usagePage:usage:version:data:length:options:", v10, 65308, 256, 1, [v9 bytes], objc_msgSend(v9, "length"), v14);
+      [(TrackpadFirmwareManager *)self _dispatchHIDEvent:v12];
     }
 
     else
     {
-      v12 = MTLoggingPlugin();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = MTLoggingPlugin(0, v7);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v16 = "[Error] ";
-        v17 = 2080;
-        v18 = "";
-        v19 = 2080;
-        v20 = "[TrackpadFirmwareManager _sendRegistryPropertiesContinuousRecording]";
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Error serializing registry properties dictionary", buf, 0x20u);
+        v17 = "[Error] ";
+        v18 = 2080;
+        v19 = "";
+        v20 = 2080;
+        v21 = "[TrackpadFirmwareManager _sendRegistryPropertiesContinuousRecording]";
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Error serializing registry properties dictionary", buf, 0x20u);
       }
     }
   }
@@ -319,24 +319,24 @@
   usCopy = us;
   if (![(TrackpadFirmwareManager *)self mtDeviceRef])
   {
-    v8 = +[NSAssertionHandler currentHandler];
-    v9 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::MTScanRate]"];
-    [v8 handleFailureInFunction:v9 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v10 = +[NSAssertionHandler currentHandler];
+    v11 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::MTScanRate]"];
+    [v10 handleFailureInFunction:v11 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
   v5 = MTDeviceSetReport();
   if (!v5)
   {
     [(TrackpadFirmwareManager *)self mtDeviceRef];
-    MTDeviceGetDeviceID();
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    DeviceID = MTDeviceGetDeviceID();
+    v8 = MTLoggingPlugin(DeviceID, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      v11 = usCopy;
-      v12 = 2048;
-      v13 = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Successfully changed the device report rate to %u (deviceID 0x%llX)", buf, 0x12u);
+      v13 = usCopy;
+      v14 = 2048;
+      v15 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Successfully changed the device report rate to %u (deviceID 0x%llX)", buf, 0x12u);
     }
 
     [(TrackpadFirmwareManager *)self _dispatchReportIntervalChangedEvent:usCopy];
@@ -347,51 +347,51 @@
 
 - (void)_dispatchReportIntervalChangedEvent:(unsigned __int16)event
 {
-  v22 = @"ReportInterval";
+  v24 = @"ReportInterval";
   v4 = [NSNumber numberWithUnsignedShort:event];
-  v23 = v4;
-  v5 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v25 = v4;
+  v5 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
 
-  v6 = _mthid_serializePropertiesEvent();
-  if (v6)
+  v7 = _mthid_serializePropertiesEvent();
+  if (v7)
   {
-    v7 = mach_absolute_time();
-    v8 = v6;
-    LODWORD(v11) = 0;
-    v9 = +[HIDEvent vendorDefinedEvent:usagePage:usage:version:data:length:options:](HIDEvent, "vendorDefinedEvent:usagePage:usage:version:data:length:options:", v7, 65280, 91, 1, [v6 bytes], objc_msgSend(v6, "length"), v11);
-    v10 = MTLoggingPlugin();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v8 = mach_absolute_time();
+    v9 = v7;
+    LODWORD(v13) = 0;
+    v10 = +[HIDEvent vendorDefinedEvent:usagePage:usage:version:data:length:options:](HIDEvent, "vendorDefinedEvent:usagePage:usage:version:data:length:options:", v8, 65280, 91, 1, [v7 bytes], objc_msgSend(v7, "length"), v13);
+    v12 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136316162;
-      v13 = "[Debug] ";
-      v14 = 2080;
-      v15 = "";
+      v15 = "[Debug] ";
       v16 = 2080;
-      v17 = "[TrackpadFirmwareManager _dispatchReportIntervalChangedEvent:]";
-      v18 = 2048;
+      v17 = "";
+      v18 = 2080;
+      v19 = "[TrackpadFirmwareManager _dispatchReportIntervalChangedEvent:]";
+      v20 = 2048;
       mtDeviceId = [(TrackpadFirmwareManager *)self mtDeviceId];
-      v20 = 2112;
-      v21 = v5;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [0x%llX] Dispatching properties event %@", buf, 0x34u);
+      v22 = 2112;
+      v23 = v5;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [0x%llX] Dispatching properties event %@", buf, 0x34u);
     }
 
-    [(TrackpadFirmwareManager *)self _dispatchHIDEvent:v9];
+    [(TrackpadFirmwareManager *)self _dispatchHIDEvent:v10];
   }
 
   else
   {
-    v9 = MTLoggingPlugin();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = MTLoggingPlugin(0, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v13 = "[Error] ";
-      v14 = 2080;
-      v15 = "";
+      v15 = "[Error] ";
       v16 = 2080;
-      v17 = "[TrackpadFirmwareManager _dispatchReportIntervalChangedEvent:]";
-      v18 = 2048;
+      v17 = "";
+      v18 = 2080;
+      v19 = "[TrackpadFirmwareManager _dispatchReportIntervalChangedEvent:]";
+      v20 = 2048;
       mtDeviceId = [(TrackpadFirmwareManager *)self mtDeviceId];
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Failed to serialize report rate update properties dictionary", buf, 0x2Au);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Failed to serialize report rate update properties dictionary", buf, 0x2Au);
     }
   }
 }
@@ -445,26 +445,26 @@
   modeCopy = mode;
   if (![(TrackpadFirmwareManager *)self mtDeviceRef])
   {
-    v10 = +[NSAssertionHandler currentHandler];
-    v11 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::MouseButtonConfig]"];
-    [v10 handleFailureInFunction:v11 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v12 = +[NSAssertionHandler currentHandler];
+    v13 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::MouseButtonConfig]"];
+    [v12 handleFailureInFunction:v13 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
   v7 = MTDeviceSetReport();
   if (!v7)
   {
     [(TrackpadFirmwareManager *)self mtDeviceRef];
-    MTDeviceGetDeviceID();
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    DeviceID = MTDeviceGetDeviceID();
+    v10 = MTLoggingPlugin(DeviceID, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      v13 = modeCopy;
-      v14 = 1024;
-      v15 = divisionCopy;
-      v16 = 2048;
-      v17 = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Successfully updated mouse button config: mode=%u division=%u (deviceID 0x%llX)", buf, 0x18u);
+      v15 = modeCopy;
+      v16 = 1024;
+      v17 = divisionCopy;
+      v18 = 2048;
+      v19 = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Successfully updated mouse button config: mode=%u division=%u (deviceID 0x%llX)", buf, 0x18u);
     }
   }
 
@@ -476,29 +476,29 @@
   eventCopy = event;
   if (eventCopy)
   {
-    v4 = objc_opt_new();
-    std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v4 + 1, &eventCopy);
-    v6.receiver = self;
-    v6.super_class = TrackpadFirmwareManager;
-    [(HSStage *)&v6 handleConsume:v4];
+    v5 = objc_opt_new();
+    std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v5 + 1, &eventCopy);
+    v7.receiver = self;
+    v7.super_class = TrackpadFirmwareManager;
+    [(HSStage *)&v7 handleConsume:v5];
 
-    v5 = eventCopy;
+    v6 = eventCopy;
   }
 
   else
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = MTLoggingPlugin(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v9 = "[Error] ";
-      v10 = 2080;
-      v11 = "";
-      v12 = 2080;
-      v13 = "[TrackpadFirmwareManager _dispatchHIDEvent:]";
-      v14 = 2048;
+      v10 = "[Error] ";
+      v11 = 2080;
+      v12 = "";
+      v13 = 2080;
+      v14 = "[TrackpadFirmwareManager _dispatchHIDEvent:]";
+      v15 = 2048;
       mtDeviceId = [(TrackpadFirmwareManager *)self mtDeviceId];
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Unable to dispatch nil HID event", buf, 0x2Au);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Unable to dispatch nil HID event", buf, 0x2Au);
     }
   }
 }
@@ -546,28 +546,29 @@
 {
   [(TrackpadFirmwareManager *)self mtDeviceRef];
   CriticalErrors = MTDeviceGetCriticalErrors();
+  v5 = CriticalErrors;
   if (CriticalErrors)
   {
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = MTLoggingPlugin(CriticalErrors, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v8 = "[Error] ";
-      v9 = 2080;
-      v10 = "";
+      v10 = "[Error] ";
       v11 = 2080;
-      v12 = "[TrackpadFirmwareManager criticalErrors]";
-      v13 = 2048;
+      v12 = "";
+      v13 = 2080;
+      v14 = "[TrackpadFirmwareManager criticalErrors]";
+      v15 = 2048;
       mtDeviceId = [(TrackpadFirmwareManager *)self mtDeviceId];
-      v15 = 1024;
-      v16 = CriticalErrors;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Failed to fetch critical errors with error: 0x%08x", buf, 0x30u);
+      v17 = 1024;
+      v18 = v5;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s [0x%llX] Failed to fetch critical errors with error: 0x%08x", buf, 0x30u);
     }
   }
 
-  v5 = [[NSNumber alloc] initWithInt:0];
+  v7 = [[NSNumber alloc] initWithInt:0];
 
-  return v5;
+  return v7;
 }
 
 - (NSString)transport

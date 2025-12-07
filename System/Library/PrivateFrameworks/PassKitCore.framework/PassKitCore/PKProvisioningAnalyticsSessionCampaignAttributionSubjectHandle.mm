@@ -31,9 +31,9 @@ LABEL_7:
         goto LABEL_8;
       }
 
-      v7 = [(__CFString *)environment isEqualToString:@"partner_app.payment_sheet"];
+      isEqualToString = objc_msgSend_isEqualToString_(environment);
 
-      if (!v7)
+      if (!isEqualToString)
       {
         v6 = 0;
         goto LABEL_7;
@@ -64,7 +64,7 @@ LABEL_8:
 
     else if (environment)
     {
-      v9 = [(__CFString *)environment isEqualToString:@"partner_app.payment_sheet"]? 4 : 0;
+      v9 = objc_msgSend_isEqualToString_(environment) ? 4 : 0;
     }
 
     else

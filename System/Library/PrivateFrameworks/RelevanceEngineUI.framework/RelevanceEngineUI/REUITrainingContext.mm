@@ -39,7 +39,7 @@
 
 - (void)selectElementWithIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -67,38 +67,36 @@
       [(RETrainingContext *)self trainWithElement:identifierCopy isPositiveEvent:1 interaction:@"tap"];
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v11 = v5;
-    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v18;
+      v14 = *v17;
       do
       {
         v15 = 0;
         do
         {
-          if (*v18 != v14)
+          if (*v17 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(RETrainingContext *)self trainWithElement:*(*(&v17 + 1) + 8 * v15++) isPositiveEvent:0 interaction:@"tap", v17];
+          [(RETrainingContext *)self trainWithElement:*(*(&v16 + 1) + 8 * v15++) isPositiveEvent:0 interaction:@"tap", v16];
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v13);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)elementWithIdentifierDidDisplay:(id)display
@@ -181,46 +179,45 @@
 
 - (void)resetContext
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allKeys = [(NSMutableDictionary *)self->_becameVisibleDates allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(REUITrainingContext *)self elementWithIdentifierDidEndDisplay:*(*(&v11 + 1) + 8 * v7++)];
+        [(REUITrainingContext *)self elementWithIdentifierDidEndDisplay:*(*(&v10 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   visibilityDurations = self->_visibilityDurations;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __35__REUITrainingContext_resetContext__block_invoke;
-  v10[3] = &unk_279AF64D8;
-  v10[4] = self;
-  [(NSMutableDictionary *)visibilityDurations enumerateKeysAndObjectsUsingBlock:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __35__REUITrainingContext_resetContext__block_invoke;
+  v9[3] = &unk_279AF64D8;
+  v9[4] = self;
+  [(NSMutableDictionary *)visibilityDurations enumerateKeysAndObjectsUsingBlock:v9];
   [(NSMutableDictionary *)self->_visibilityDurations removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __35__REUITrainingContext_resetContext__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -321,7 +318,7 @@ void __35__REUITrainingContext_resetContext__block_invoke(uint64_t a1, void *a2,
 
 - (BOOL)performSimulationCommand:(id)command withOptions:(id)options
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   optionsCopy = options;
   if ([commandCopy isEqualToString:@"tap"])
@@ -359,63 +356,63 @@ void __35__REUITrainingContext_resetContext__block_invoke(uint64_t a1, void *a2,
       v16 = [v10 subarrayWithRange:{v13, v14}];
       [v15 addObjectsFromArray:v16];
 
-      v35 = v10;
+      v34 = v10;
       v17 = [v10 subarrayWithRange:{0, v13}];
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
       v18 = v15;
-      v19 = [v18 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v40 objects:v45 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v42;
+        v21 = *v41;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v42 != v21)
+            if (*v41 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v41 + 1) + 8 * i);
+            v23 = *(*(&v40 + 1) + 8 * i);
             [(REUITrainingContext *)self minimumPositiveDwellTime];
             [(REUITrainingContext *)self _trainDwellForElement:v23 withInterval:v24 * 1.1];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v41 objects:v46 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v40 objects:v45 count:16];
         }
 
         while (v20);
       }
 
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
       v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
       v25 = v17;
-      v26 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v38;
+        v28 = *v37;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v38 != v28)
+            if (*v37 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v37 + 1) + 8 * j);
+            v30 = *(*(&v36 + 1) + 8 * j);
             [(REUITrainingContext *)self maximumNegativeDwellTime];
             [(REUITrainingContext *)self _trainDwellForElement:v30 withInterval:v31 * 0.9];
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
         }
 
         while (v27);
@@ -438,7 +435,7 @@ void __35__REUITrainingContext_resetContext__block_invoke(uint64_t a1, void *a2,
     if (v8)
     {
       date = [MEMORY[0x277CBEAA8] date];
-      v36 = v8;
+      v35 = v8;
       REEnumerateTrainingStateForDate();
 
       [(RETrainingContext *)self setAttribute:0 forKey:*MEMORY[0x277D44538]];
@@ -446,7 +443,6 @@ void __35__REUITrainingContext_resetContext__block_invoke(uint64_t a1, void *a2,
   }
 
 LABEL_28:
-  v33 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

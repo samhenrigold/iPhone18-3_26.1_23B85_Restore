@@ -68,12 +68,11 @@
   v6 = v5;
   v7 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x68);
   selfCopy = self;
-  v9 = v7(v12);
-  v11 = v10[1];
+  v9 = v7(v11);
   *v10 = v4;
   v10[1] = v6;
 
-  v9(v12, 0);
+  v9(v11, 0);
 }
 
 - (int64_t)axis
@@ -140,10 +139,11 @@
 
 - (void)setDistributionBoundsContent:(BOOL)content
 {
+  contentCopy = content;
   v4 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x68);
   selfCopy = self;
   v6 = v4(v7);
-  sub_1C5724738(content);
+  sub_1C5724738(contentCopy);
   v6(v7, 0);
 }
 
@@ -218,10 +218,11 @@
 
 - (void)setAlignmentBoundsContent:(BOOL)content
 {
+  contentCopy = content;
   v4 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x68);
   selfCopy = self;
   v6 = v4(v7);
-  sub_1C5724854(content);
+  sub_1C5724854(contentCopy);
   v6(v7, 0);
 }
 
@@ -431,10 +432,10 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_1C5762E58(item);
+  v7 = sub_1C5762E58(item, v6);
   swift_unknownObjectRelease();
 
-  return v6;
+  return v7;
 }
 
 - (void)setAlignment:(int64_t)alignment forArrangedLayoutItem:(id)item
@@ -457,18 +458,18 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6 = sub_1C5763570(item);
-  v7 = *&v6;
+  v7 = sub_1C5763570(item, v6);
+  v8 = *&v7;
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (void)setAlignmentFittingSizePriority:(float)priority forArrangedLayoutItem:(id)item
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C57636B0(item, priority);
+  sub_1C57636B0(item, selfCopy, priority);
   swift_unknownObjectRelease();
 }
 

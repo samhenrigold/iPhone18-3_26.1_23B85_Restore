@@ -42,29 +42,29 @@
 
 - (id)getPostData
 {
-  v14[0] = @"serial_number";
+  v15[0] = @"serial_number";
   serialNumber = [(MSDCheckInRequest *)self serialNumber];
-  v15[0] = serialNumber;
-  v14[1] = @"os_version";
+  v16[0] = serialNumber;
+  v15[1] = @"os_version";
   osVersion = [(MSDCheckInRequest *)self osVersion];
-  v15[1] = osVersion;
-  v14[2] = @"language";
+  v16[1] = osVersion;
+  v15[2] = @"language";
   language = [(MSDCheckInRequest *)self language];
-  v15[2] = language;
-  v14[3] = @"country";
+  v16[2] = language;
+  v15[3] = @"country";
   countryCode = [(MSDCheckInRequest *)self countryCode];
-  v15[3] = countryCode;
-  v14[4] = @"has_factory_content";
+  v16[3] = countryCode;
+  v15[4] = @"has_factory_content";
   v7 = [NSNumber numberWithBool:[(MSDCheckInRequest *)self hasFactoryContent]];
-  v15[4] = v7;
-  v8 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:5];
+  v16[4] = v7;
+  v8 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:5];
 
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100063A54(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Request dictionary to check_in: %{public}@", &v12, 0xCu);
+    v13 = 138543362;
+    v14 = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Request dictionary to check_in: %{public}@", &v13, 0xCu);
   }
 
   convertToNSData = [v8 convertToNSData];
@@ -84,66 +84,68 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v20.receiver = self;
-  v20.super_class = MSDCheckInRequest;
-  v8 = [(MSDServerRequest *)&v20 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v22.receiver = self;
+  v22.super_class = MSDCheckInRequest;
+  v8 = [(MSDServerRequest *)&v22 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (error)
   {
-    v13 = 0;
+    v14 = 0;
     v10 = 0;
     v11 = errorCopy;
   }
 
   else
   {
-    v19 = errorCopy;
-    v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v19];
-    v11 = v19;
+    v21 = errorCopy;
+    v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v21];
+    v11 = v21;
 
     if (v10)
     {
       v12 = [v10 objectForKey:@"eligible"];
-      if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      v13 = v12;
+      if (v12 && (objc_opt_class(), v12 = objc_opt_isKindOfClass(), (v12 & 1) != 0))
       {
-        [v8 setEligible:{objc_msgSend(v12, "BOOLValue")}];
-        v13 = [v10 objectForKey:@"show_ui"];
+        [v8 setEligible:{objc_msgSend(v13, "BOOLValue")}];
+        v14 = [v10 objectForKey:@"show_ui"];
 
-        if (v13)
+        if (v14)
         {
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass)
           {
-            [v8 setShowUI:{objc_msgSend(v13, "BOOLValue")}];
+            [v8 setShowUI:{objc_msgSend(v14, "BOOLValue")}];
             goto LABEL_8;
           }
         }
 
-        v15 = sub_100063A54();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = sub_100063A54(isKindOfClass);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_1000D78C4(self);
         }
 
-        v12 = v13;
+        v13 = v14;
       }
 
       else
       {
-        v15 = sub_100063A54();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v17 = sub_100063A54(v12);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_1000D78C4(self);
         }
       }
 
-      v13 = v12;
+      v14 = v13;
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
   }
 
@@ -151,12 +153,12 @@
 
   if (!error2)
   {
-    v18 = v11;
-    sub_1000C1390(&v18, 3727744512, @"Unexpected server response.");
-    v17 = v18;
+    v20 = v11;
+    sub_1000C1390(&v20, 3727744512, @"Unexpected server response.");
+    v19 = v20;
 
-    [v8 setError:v17];
-    v11 = v17;
+    [v8 setError:v19];
+    v11 = v19;
   }
 
 LABEL_8:

@@ -23,11 +23,12 @@
 {
   length = range.length;
   location = range.location;
-  sub_10076FF9C();
+  v9 = sub_10076FF9C();
+  v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  sub_10068F54C(fieldCopy, location, length);
-  LOBYTE(length) = v11;
+  sub_10068F54C(fieldCopy, location, length, v9, v11, v14);
+  LOBYTE(length) = v15;
 
   return length & 1;
 }
@@ -37,12 +38,12 @@
   v4 = sub_10075D7BC();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075D79C();
   if (*(&self->super.isa + OBJC_IVAR____TtC20ProductPageExtension22HttpTemplateController_hasRequiredParameters) == 1)
   {
     selfCopy = self;
-    sub_10068F228();
+    sub_10068F228(v9);
   }
 
   (*(v5 + 8))(v7, v4);

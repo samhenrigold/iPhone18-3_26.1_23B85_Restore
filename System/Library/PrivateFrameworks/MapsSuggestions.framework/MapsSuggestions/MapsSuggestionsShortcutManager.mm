@@ -2925,7 +2925,7 @@ void __75__MapsSuggestionsShortcutManager_proposeAdditionalShortcutsOfType_handl
             }
 
             v17 = [v13 geoMapItem];
-            v18 = MapsSuggestionsMapItemShortAddress();
+            v18 = MapsSuggestionsMapItemShortAddress(v17);
 
             if (v18)
             {
@@ -3042,7 +3042,7 @@ LABEL_29:
           else
           {
             v22 = [v15 geoMapItem];
-            v17 = MapsSuggestionsMapItemShortAddress();
+            v17 = MapsSuggestionsMapItemShortAddress(v22);
 
             if (v17 && [v11 containsObject:v17])
             {
@@ -3196,7 +3196,7 @@ LABEL_69:
         else
         {
           v44 = [v37 geoMapItem];
-          v39 = MapsSuggestionsMapItemShortAddress();
+          v39 = MapsSuggestionsMapItemShortAddress(v44);
 
           if (v39 && [v33 containsObject:v39])
           {
@@ -3539,9 +3539,10 @@ void __56__MapsSuggestionsShortcutManager_readMeCardWithHandler___block_invoke_2
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", v4, v5, v6, v7, v8);
   }
 }
 
@@ -3549,9 +3550,10 @@ void __56__MapsSuggestionsShortcutManager_readMeCardWithHandler___block_invoke_2
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", v4, v5, v6, v7, v8);
   }
 }
 
@@ -3559,9 +3561,10 @@ void __56__MapsSuggestionsShortcutManager_readMeCardWithHandler___block_invoke_2
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", v4, v5, v6, v7, v8);
   }
 }
 

@@ -32,7 +32,7 @@
 
 - (id)FSEventsUUID
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = FSEventsCopyUUIDForDevice([(CacheDeleteVolume *)self dev]);
   if (!v3)
   {
@@ -40,9 +40,9 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       mountPoint = [(CacheDeleteVolume *)self mountPoint];
-      v14 = 136315138;
+      v13 = 136315138;
       uTF8String = [mountPoint UTF8String];
-      _os_log_error_impl(&dword_1BA7F1000, v6, OS_LOG_TYPE_ERROR, "Unable to get FSEvents UUID for %s", &v14, 0xCu);
+      _os_log_error_impl(&dword_1BA7F1000, v6, OS_LOG_TYPE_ERROR, "Unable to get FSEvents UUID for %s", &v13, 0xCu);
     }
 
     goto LABEL_11;
@@ -55,9 +55,9 @@
     v11 = CDGetLogHandle("client");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
+      v13 = 138412290;
       uTF8String = v4;
-      _os_log_error_impl(&dword_1BA7F1000, v11, OS_LOG_TYPE_ERROR, "CFUUIDCreateString failed for: %@", &v14, 0xCu);
+      _os_log_error_impl(&dword_1BA7F1000, v11, OS_LOG_TYPE_ERROR, "CFUUIDCreateString failed for: %@", &v13, 0xCu);
     }
 
     CFRelease(v4);
@@ -73,17 +73,15 @@ LABEL_11:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     mountPoint2 = [(CacheDeleteVolume *)self mountPoint];
-    v14 = 138412546;
+    v13 = 138412546;
     uTF8String = v6;
-    v16 = 2112;
-    v17 = mountPoint2;
-    _os_log_impl(&dword_1BA7F1000, v7, OS_LOG_TYPE_DEFAULT, "CacheDeleteVolume FSEventsUUID: %@ for %@", &v14, 0x16u);
+    v15 = 2112;
+    v16 = mountPoint2;
+    _os_log_impl(&dword_1BA7F1000, v7, OS_LOG_TYPE_DEFAULT, "CacheDeleteVolume FSEventsUUID: %@ for %@", &v13, 0x16u);
   }
 
   v9 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v6];
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -186,7 +184,7 @@ LABEL_12:
 
 - (unint64_t)effective_size
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([(CacheDeleteVolume *)self validate])
   {
     v3 = [(CacheDeleteVolume *)self size];
@@ -199,21 +197,21 @@ LABEL_12:
     {
       if (v3 <= v4)
       {
-        v15 = CDGetLogHandle("client");
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v14 = CDGetLogHandle("client");
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v16 = humanReadableNumber(v4);
+          v15 = humanReadableNumber(v4);
           mountPoint = self->_mountPoint;
-          v18 = humanReadableNumber(v3);
-          v19 = 134218754;
-          v20 = v4;
-          v21 = 2112;
-          v22 = v16;
-          v23 = 2112;
-          v24 = mountPoint;
-          v25 = 2112;
-          v26 = v18;
-          _os_log_error_impl(&dword_1BA7F1000, v15, OS_LOG_TYPE_ERROR, "CacheDeleteVolume effective_size: systemVolume used amount is greater than this volume's size. System used amount: %llu (%@), this volume: %@ : %@", &v19, 0x2Au);
+          v17 = humanReadableNumber(v3);
+          v18 = 134218754;
+          v19 = v4;
+          v20 = 2112;
+          v21 = v15;
+          v22 = 2112;
+          v23 = mountPoint;
+          v24 = 2112;
+          v25 = v17;
+          _os_log_error_impl(&dword_1BA7F1000, v14, OS_LOG_TYPE_ERROR, "CacheDeleteVolume effective_size: systemVolume used amount is greater than this volume's size. System used amount: %llu (%@), this volume: %@ : %@", &v18, 0x2Au);
         }
 
         effective_size_volume_effective_size = 0;
@@ -228,13 +226,13 @@ LABEL_12:
           mountPoint2 = [(CacheDeleteVolume *)self mountPoint];
           v11 = humanReadableNumber(v3);
           v12 = humanReadableNumber(effective_size_volume_effective_size);
-          v19 = 138412802;
-          v20 = mountPoint2;
-          v21 = 2112;
-          v22 = v11;
-          v23 = 2112;
-          v24 = v12;
-          _os_log_impl(&dword_1BA7F1000, v9, OS_LOG_TYPE_DEFAULT, "CacheDeleteVolume effective_size: %@ container size: %@, effective size: %@", &v19, 0x20u);
+          v18 = 138412802;
+          v19 = mountPoint2;
+          v20 = 2112;
+          v21 = v11;
+          v22 = 2112;
+          v23 = v12;
+          _os_log_impl(&dword_1BA7F1000, v9, OS_LOG_TYPE_DEFAULT, "CacheDeleteVolume effective_size: %@ container size: %@, effective size: %@", &v18, 0x20u);
         }
       }
     }
@@ -245,9 +243,7 @@ LABEL_12:
     }
   }
 
-  result = effective_size_volume_effective_size;
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return effective_size_volume_effective_size;
 }
 
 - (CacheDeleteVolume)initWithVolume:(id)volume
@@ -296,7 +292,7 @@ LABEL_12:
 
 - (unint64_t)amountPurged
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (![(CacheDeleteVolume *)self validate])
   {
     goto LABEL_6;
@@ -308,11 +304,11 @@ LABEL_12:
   v5 = CDGetLogHandle("client");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 134218240;
+    v9 = 134218240;
     initialFreespace = [(CacheDeleteVolume *)self initialFreespace];
-    v12 = 2048;
-    v13 = v4;
-    _os_log_debug_impl(&dword_1BA7F1000, v5, OS_LOG_TYPE_DEBUG, "begin_freespace: %llu, cur_freespace: %llu", &v10, 0x16u);
+    v11 = 2048;
+    v12 = v4;
+    _os_log_debug_impl(&dword_1BA7F1000, v5, OS_LOG_TYPE_DEBUG, "begin_freespace: %llu, cur_freespace: %llu", &v9, 0x16u);
   }
 
   if (v4 > [(CacheDeleteVolume *)self initialFreespace])
@@ -329,18 +325,17 @@ LABEL_6:
   v7 = CDGetLogHandle("client");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 134217984;
+    v9 = 134217984;
     initialFreespace = v6;
-    _os_log_debug_impl(&dword_1BA7F1000, v7, OS_LOG_TYPE_DEBUG, "result: %llu", &v10, 0xCu);
+    _os_log_debug_impl(&dword_1BA7F1000, v7, OS_LOG_TYPE_DEBUG, "result: %llu", &v9, 0xCu);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)freespaceIsStale:(unint64_t)stale
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   freespace = [(CacheDeleteVolume *)self freespace];
   if (freespace <= stale)
   {
@@ -376,36 +371,35 @@ LABEL_6:
   v10 = CDGetLogHandle("client");
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 134218496;
-    v16 = v8;
-    v17 = 2048;
-    v18 = v9;
-    v19 = 2048;
-    v20 = v6;
-    _os_log_debug_impl(&dword_1BA7F1000, v10, OS_LOG_TYPE_DEBUG, "freespaceIsStale ceiling: %llu, freespace_diff_threshold: %llu, freespace_diff: %llu", &v15, 0x20u);
+    v14 = 134218496;
+    v15 = v8;
+    v16 = 2048;
+    v17 = v9;
+    v18 = 2048;
+    v19 = v6;
+    _os_log_debug_impl(&dword_1BA7F1000, v10, OS_LOG_TYPE_DEBUG, "freespaceIsStale ceiling: %llu, freespace_diff_threshold: %llu, freespace_diff: %llu", &v14, 0x20u);
   }
 
   v11 = CDGetLogHandle("client");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v14 = "NO";
+    v13 = "NO";
     if (v6 >= v9)
     {
-      v14 = "YES";
+      v13 = "YES";
     }
 
-    v15 = 136315138;
-    v16 = v14;
-    _os_log_debug_impl(&dword_1BA7F1000, v11, OS_LOG_TYPE_DEBUG, "freespaceIsStale: %s", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = v13;
+    _os_log_debug_impl(&dword_1BA7F1000, v11, OS_LOG_TYPE_DEBUG, "freespaceIsStale: %s", &v14, 0xCu);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6 >= v9;
 }
 
 - (BOOL)amountIsRational:(id)rational freespace:(unint64_t)freespace effective_size:(unint64_t)effective_size used:(unint64_t)used size:(unint64_t)size
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   rationalCopy = rational;
   if ([rationalCopy unsignedLongLongValue] + freespace >= effective_size || objc_msgSend(rationalCopy, "unsignedLongLongValue") >= used)
   {
@@ -414,39 +408,39 @@ LABEL_6:
     {
       mountPoint = [(CacheDeleteVolume *)self mountPoint];
       unsignedLongLongValue = [rationalCopy unsignedLongLongValue];
-      v18 = humanReadableNumber([rationalCopy unsignedLongLongValue]);
-      v24 = humanReadableNumber(freespace);
-      v23 = [rationalCopy unsignedLongLongValue] + freespace;
-      v19 = humanReadableNumber([rationalCopy unsignedLongLongValue] + freespace);
-      v22 = humanReadableNumber(effective_size);
-      v21 = humanReadableNumber(size);
-      v20 = humanReadableNumber(used);
+      v17 = humanReadableNumber([rationalCopy unsignedLongLongValue]);
+      v23 = humanReadableNumber(freespace);
+      v22 = [rationalCopy unsignedLongLongValue] + freespace;
+      v18 = humanReadableNumber([rationalCopy unsignedLongLongValue] + freespace);
+      v21 = humanReadableNumber(effective_size);
+      v20 = humanReadableNumber(size);
+      v19 = humanReadableNumber(used);
       *buf = 138415362;
-      v27 = mountPoint;
-      v28 = 2048;
-      v29 = unsignedLongLongValue;
-      v30 = 2112;
-      v31 = v18;
-      v32 = 2048;
+      v26 = mountPoint;
+      v27 = 2048;
+      v28 = unsignedLongLongValue;
+      v29 = 2112;
+      v30 = v17;
+      v31 = 2048;
       freespaceCopy = freespace;
-      v34 = 2112;
-      v35 = v24;
-      v36 = 2048;
-      v37 = v23;
-      v38 = 2112;
-      v39 = v19;
-      v40 = 2048;
+      v33 = 2112;
+      v34 = v23;
+      v35 = 2048;
+      v36 = v22;
+      v37 = 2112;
+      v38 = v18;
+      v39 = 2048;
       effective_sizeCopy = effective_size;
-      v42 = 2112;
-      v43 = v22;
-      v44 = 2048;
+      v41 = 2112;
+      v42 = v21;
+      v43 = 2048;
       sizeCopy = size;
-      v46 = 2112;
-      v47 = v21;
-      v48 = 2048;
+      v45 = 2112;
+      v46 = v20;
+      v47 = 2048;
       usedCopy = used;
-      v50 = 2112;
-      v51 = v20;
+      v49 = 2112;
+      v50 = v19;
       _os_log_error_impl(&dword_1BA7F1000, v14, OS_LOG_TYPE_ERROR, "Volume: %@ : Irrational amount: %llu (%@), plus freespace %llu (%@) = %llu (%@) > self.effective_size: %llu (%@), real size: %llu, (%@), amount used: %llu (%@)", buf, 0x84u);
     }
 
@@ -458,18 +452,17 @@ LABEL_6:
     v13 = 1;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (CacheDeleteVolume)initWithPath:(id)path
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v22.receiver = self;
-  v22.super_class = CacheDeleteVolume;
-  v23 = 0;
-  v5 = [(CacheDeleteVolume *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = CacheDeleteVolume;
+  v22 = 0;
+  v5 = [(CacheDeleteVolume *)&v21 init];
   if (!v5)
   {
 LABEL_17:
@@ -480,7 +473,7 @@ LABEL_17:
 
   if (pathCopy)
   {
-    memset(v25, 0, sizeof(v25));
+    memset(v24, 0, sizeof(v24));
     v6 = mapVolume(pathCopy, 0);
     v7 = _validateVolume();
     mountPoint = v5->_mountPoint;
@@ -488,29 +481,29 @@ LABEL_17:
 
     if (v5->_mountPoint)
     {
-      if (v23)
+      if (v22)
       {
         v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
         fsType = v5->_fsType;
         v5->_fsType = v9;
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v25];
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v24];
       bsdName = v5->_bsdName;
       v5->_bsdName = v11;
 
       uTF8String = [(NSString *)v5->_mountPoint UTF8String];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v27 = 0x3032000000;
-      v28 = __Block_byref_object_copy__3;
-      v29 = __Block_byref_object_dispose__3;
-      v30 = 0;
+      v26 = 0x3032000000;
+      v27 = __Block_byref_object_copy__3;
+      v28 = __Block_byref_object_dispose__3;
+      v29 = 0;
       if (qword_1ED76A0A8 != -1)
       {
-        v21 = uTF8String;
+        v20 = uTF8String;
         dispatch_once(&qword_1ED76A0A8, &__block_literal_global_5);
-        uTF8String = v21;
+        uTF8String = v20;
       }
 
       block[0] = MEMORY[0x1E69E9820];
@@ -542,9 +535,9 @@ LABEL_17:
       v5 = 0;
     }
 
-    if (v23)
+    if (v22)
     {
-      free(v23);
+      free(v22);
     }
 
     goto LABEL_17;
@@ -560,7 +553,6 @@ LABEL_17:
   v17 = 0;
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -596,30 +588,30 @@ LABEL_18:
 
 + (CacheDeleteVolume)volumeWithUUID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v4 = getLocalVolumes();
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
 LABEL_4:
       v8 = 0;
       while (1)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [CacheDeleteVolume volumeWithMountpoint:*(*(&v16 + 1) + 8 * v8), v16];
+        v9 = [CacheDeleteVolume volumeWithMountpoint:*(*(&v15 + 1) + 8 * v8), v15];
         v10 = v9;
         if (v9)
         {
@@ -635,7 +627,7 @@ LABEL_4:
 
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v6)
           {
             goto LABEL_4;
@@ -657,8 +649,6 @@ LABEL_11:
   {
     v10 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -732,9 +722,9 @@ void __31__CacheDeleteVolume_rootVolume__block_invoke(uint64_t a1)
 
 - (BOOL)containsPath:(id)path
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v5 = volRootFromPath([pathCopy UTF8String], v19);
+  v5 = volRootFromPath([pathCopy UTF8String], v18);
   if (v5)
   {
     v6 = v5;
@@ -749,25 +739,24 @@ void __31__CacheDeleteVolume_rootVolume__block_invoke(uint64_t a1)
     if (os_log_type_enabled(mountPoint, OS_LOG_TYPE_ERROR))
     {
       uTF8String = [pathCopy UTF8String];
-      v13 = __error();
-      v14 = strerror(*v13);
-      v15 = 136315394;
-      v16 = uTF8String;
-      v17 = 2080;
-      v18 = v14;
-      _os_log_error_impl(&dword_1BA7F1000, mountPoint, OS_LOG_TYPE_ERROR, "Unable to get mount point for %s : %s", &v15, 0x16u);
+      v12 = __error();
+      v13 = strerror(*v12);
+      v14 = 136315394;
+      v15 = uTF8String;
+      v16 = 2080;
+      v17 = v13;
+      _os_log_error_impl(&dword_1BA7F1000, mountPoint, OS_LOG_TYPE_ERROR, "Unable to get mount point for %s : %s", &v14, 0x16u);
     }
 
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)mayContainPurgeableAmount:(id)amount forService:(id)service
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   amountCopy = amount;
   serviceCopy = service;
   v8 = [(CacheDeleteVolume *)self size];
@@ -777,14 +766,14 @@ void __31__CacheDeleteVolume_rootVolume__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 67110146;
-      v16 = 0;
-      v17 = 2112;
-      v18 = amountCopy;
-      v19 = 2048;
-      v20 = v8;
-      v21 = 2112;
-      v22 = serviceCopy;
-      v23 = 2112;
+      v15 = 0;
+      v16 = 2112;
+      v17 = amountCopy;
+      v18 = 2048;
+      v19 = v8;
+      v20 = 2112;
+      v21 = serviceCopy;
+      v22 = 2112;
       selfCopy = self;
       _os_log_error_impl(&dword_1BA7F1000, v9, OS_LOG_TYPE_ERROR, "Received implausible purgeable amount. Returning: (%d) passed: (%@), volume max: (%llu), service ID: (%@), volume: (%@)", buf, 0x30u);
     }
@@ -805,7 +794,6 @@ void __31__CacheDeleteVolume_rootVolume__block_invoke(uint64_t a1)
     v11 = 1;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

@@ -21,19 +21,16 @@
 
 - (NUNIFileConverter)fileConverter
 {
-  v3 = OBJC_IVAR____TtC12NanoUniverse22AegirCloudCoverService_fileConverter;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setFileConverter:(id)converter
 {
   v5 = OBJC_IVAR____TtC12NanoUniverse22AegirCloudCoverService_fileConverter;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = converter;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -57,57 +54,53 @@
 {
   v3 = sub_25B716250();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR____TtC12NanoUniverse22AegirCloudCoverService_directory;
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR____TtC12NanoUniverse22AegirCloudCoverService_directory;
   swift_beginAccess();
-  (*(v4 + 16))(v7, self + v8, v3);
-  v9 = sub_25B7161F0();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 16))(v6, self + v7, v3);
+  v8 = sub_25B7161F0();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 - (void)setDirectory:(id)directory
 {
   v4 = sub_25B716250();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v16[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v7);
-  v11 = &v16[-v10];
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v15[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v6);
+  v10 = &v15[-v9];
   sub_25B716220();
-  v12 = OBJC_IVAR____TtC12NanoUniverse22AegirCloudCoverService_directory;
+  v11 = OBJC_IVAR____TtC12NanoUniverse22AegirCloudCoverService_directory;
   swift_beginAccess();
-  (*(v5 + 16))(v9, self + v12, v4);
+  (*(v5 + 16))(v8, self + v11, v4);
   swift_beginAccess();
-  v13 = *(v5 + 24);
+  v12 = *(v5 + 24);
   selfCopy = self;
-  v13(self + v12, v11, v4);
+  v12(self + v11, v10, v4);
   swift_endAccess();
-  sub_25B702CE0();
+  sub_25B702CE0(v8);
 
-  v15 = *(v5 + 8);
-  v15(v9, v4);
-  v15(v11, v4);
+  v14 = *(v5 + 8);
+  v14(v8, v4);
+  v14(v10, v4);
 }
 
 - (_TtC12NanoUniverse22AegirCloudCoverService)initWithImageScale:(float)scale
 {
-  static AegirCloudCoverService.Configuration.prodEnvironment.getter(v13);
-  v10[0] = v13[0];
-  v10[1] = v13[1];
-  v11 = v14;
-  v12 = v15;
-  v5 = objc_allocWithZone(type metadata accessor for AegirCloudCoverService());
-  v6 = AegirCloudCoverService.init(configuration:imageScale:)(v10, scale);
+  static AegirCloudCoverService.Configuration.prodEnvironment.getter(v10);
+  v7[0] = v10[0];
+  v7[1] = v10[1];
+  v8 = v11;
+  v9 = v12;
+  v4 = objc_allocWithZone(type metadata accessor for AegirCloudCoverService(0));
+  v5 = AegirCloudCoverService.init(configuration:imageScale:)(v7, scale);
   swift_getObjectType();
-  v7 = *((*MEMORY[0x277D85000] & *self) + 0x30);
-  v8 = *((*MEMORY[0x277D85000] & *self) + 0x34);
   swift_deallocPartialClassInstance();
-  return v6;
+  return v5;
 }
 
 - (void)retrieveCloudTextureURLsWithNotifyOn:(id)on completionHandler:(id)handler

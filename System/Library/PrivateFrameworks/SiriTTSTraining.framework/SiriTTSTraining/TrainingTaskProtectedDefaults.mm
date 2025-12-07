@@ -16,7 +16,7 @@
     queue = v2->_queue;
     v2->_queue = v4;
 
-    v6 = sub_100014E7C();
+    v6 = sub_100014E7C(TrainingTaskProtectedDefaults);
     v7 = [NSMutableDictionary dictionaryWithContentsOfURL:v6];
     v8 = v7;
     if (v7)

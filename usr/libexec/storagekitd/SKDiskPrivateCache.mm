@@ -84,23 +84,22 @@
       while (1)
       {
         v17 = v16;
-        v18 = word_10003F440[v15];
         rawIOContent3 = [(SKDiskPrivateCache *)self rawIOContent];
         v16 = MKTypeToHuman();
 
         if (v16)
         {
           rawIOContent4 = [(SKDiskPrivateCache *)self rawIOContent];
-          v21 = [v16 isEqualToString:rawIOContent4];
+          v20 = [v16 isEqualToString:rawIOContent4];
 
-          if (!v21)
+          if (!v20)
           {
             break;
           }
         }
 
-        v15 += 2;
-        if (v15 == 8)
+        v15 += 4;
+        if (v15 == 16)
         {
           if (v16)
           {
@@ -113,9 +112,9 @@
 
 LABEL_25:
       rawIOContent5 = [(SKDiskPrivateCache *)self rawIOContent];
-      v24 = [v16 isEqualToString:rawIOContent5];
+      v23 = [v16 isEqualToString:rawIOContent5];
 
-      if (!v24)
+      if (!v23)
       {
         goto LABEL_29;
       }
@@ -140,9 +139,9 @@ LABEL_25:
 
 LABEL_28:
   rawIOContent7 = [(SKDiskPrivateCache *)self rawIOContent];
-  v26 = [&off_10004BE98 objectForKey:rawIOContent7];
+  v25 = [&off_10004BE98 objectForKey:rawIOContent7];
 
-  v16 = v26;
+  v16 = v25;
 LABEL_29:
   if (sub_1000101BC(v16))
   {

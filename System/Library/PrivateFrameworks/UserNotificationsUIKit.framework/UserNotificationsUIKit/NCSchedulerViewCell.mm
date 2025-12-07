@@ -16,7 +16,7 @@
 
 + (double)preferredHeightForText:(id)text width:(double)width
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   textCopy = text;
   _font = [self _font];
   [self _widthForHour:0];
@@ -28,9 +28,9 @@
   }
 
   v11 = fmax(width - v10 + -8.0 + -38.0, 0.0);
-  v25 = *MEMORY[0x277D740A8];
-  v26[0] = _font;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v27 = *MEMORY[0x277D740A8];
+  v28[0] = _font;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   _drawingContext = [objc_opt_class() _drawingContext];
   [textCopy boundingRectWithSize:1 options:v12 attributes:_drawingContext context:{v11, 0.0}];
   v15 = v14;
@@ -38,17 +38,17 @@
   v19 = v18;
   v21 = v20;
 
-  v27.origin.x = v15;
-  v27.origin.y = v17;
-  v27.size.width = v19;
-  v27.size.height = v21;
-  CGRectGetHeight(v27);
+  v29.origin.x = v15;
+  v29.origin.y = v17;
+  v29.size.width = v19;
+  v29.size.height = v21;
+  CGRectGetHeight(v29);
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(v22, v23);
   UICeilToScale();
-  v23 = v22;
+  v25 = v24;
 
-  return v23;
+  return v25;
 }
 
 - (void)configureWithSymbolName:(id)name symbolColor:(id)color title:(id)title timeOfDay:(id)day delegate:(id)delegate top:(BOOL)top bottom:(BOOL)bottom

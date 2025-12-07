@@ -42,7 +42,7 @@
 
 void __57__FLPreferencesFollowUpItemListViewController__viewModel__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -53,9 +53,9 @@ void __57__FLPreferencesFollowUpItemListViewController__viewModel__block_invoke(
     v5 = _FLLogSystem();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      v10 = v4;
-      _os_log_impl(&dword_245383000, v5, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: reloading specifiers due to change, specifiers count: %ld", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = v4;
+      _os_log_impl(&dword_245383000, v5, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: reloading specifiers due to change, specifiers count: %ld", &v8, 0xCu);
     }
 
     if (v2[183])
@@ -73,8 +73,8 @@ void __57__FLPreferencesFollowUpItemListViewController__viewModel__block_invoke(
       v7 = _FLLogSystem();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v9) = 0;
-        _os_log_impl(&dword_245383000, v7, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: dismissing, zero specifiers and no action handler", &v9, 2u);
+        LOWORD(v8) = 0;
+        _os_log_impl(&dword_245383000, v7, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: dismissing, zero specifiers and no action handler", &v8, 2u);
       }
 
       [v2 _dismissFlowWithError:0];
@@ -85,8 +85,6 @@ void __57__FLPreferencesFollowUpItemListViewController__viewModel__block_invoke(
       [v2 reloadSpecifiers];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpecifier:(id)specifier
@@ -126,17 +124,15 @@ void __57__FLPreferencesFollowUpItemListViewController__viewModel__block_invoke(
 
 - (void)handleURL:(id)l
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v4 = _FLLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = lCopy;
-    _os_log_impl(&dword_245383000, v4, OS_LOG_TYPE_DEFAULT, "Processing preference URL: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = lCopy;
+    _os_log_impl(&dword_245383000, v4, OS_LOG_TYPE_DEFAULT, "Processing preference URL: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)followUpItemSpecifiers
@@ -167,13 +163,13 @@ void __69__FLPreferencesFollowUpItemListViewController_followUpItemSpecifiers__b
 
 - (void)actionTapped:(id)tapped
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
   v5 = _FLLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = tappedCopy;
+    v12 = tappedCopy;
     _os_log_impl(&dword_245383000, v5, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: action tapped, %@, handling it", buf, 0xCu);
   }
 
@@ -185,21 +181,19 @@ void __69__FLPreferencesFollowUpItemListViewController_followUpItemSpecifiers__b
 
     [(FLSpecifierTapHandler *)self->_actionHandler setDelegate:self];
     v8 = self->_actionHandler;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __60__FLPreferencesFollowUpItemListViewController_actionTapped___block_invoke;
-    v10[3] = &unk_278E35C88;
-    v10[4] = self;
-    v11 = tappedCopy;
-    [(FLSpecifierTapHandler *)v8 actionTapped:v11 eventSource:4 withCompletionHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __60__FLPreferencesFollowUpItemListViewController_actionTapped___block_invoke;
+    v9[3] = &unk_278E35C88;
+    v9[4] = self;
+    v10 = tappedCopy;
+    [(FLSpecifierTapHandler *)v8 actionTapped:v10 eventSource:4 withCompletionHandler:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __60__FLPreferencesFollowUpItemListViewController_actionTapped___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _FLLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -210,9 +204,9 @@ void __60__FLPreferencesFollowUpItemListViewController_actionTapped___block_invo
       v7 = @"SUCCESS";
     }
 
-    v14 = 138412290;
-    v15 = v7;
-    _os_log_impl(&dword_245383000, v6, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: action handler success? %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v7;
+    _os_log_impl(&dword_245383000, v6, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: action handler success? %@", &v13, 0xCu);
   }
 
   if ((a2 & 1) == 0)
@@ -227,8 +221,6 @@ void __60__FLPreferencesFollowUpItemListViewController_actionTapped___block_invo
   v11 = *(a1 + 32);
   v12 = *(v11 + 1464);
   *(v11 + 1464) = 0;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startPresentingForHandler:(id)handler withRemoteController:(id)controller customPresentationStyle:(BOOL)style
@@ -261,7 +253,7 @@ void __60__FLPreferencesFollowUpItemListViewController_actionTapped___block_invo
 
 - (void)_showRadarPromptForItem:(id)item action:(id)action
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   actionCopy = action;
   currentEnvironment = [MEMORY[0x277CFE4F0] currentEnvironment];
@@ -269,24 +261,22 @@ void __60__FLPreferencesFollowUpItemListViewController_actionTapped___block_invo
 
   if (isInternal)
   {
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __78__FLPreferencesFollowUpItemListViewController__showRadarPromptForItem_action___block_invoke;
-    v16[3] = &unk_278E35ED0;
-    v17 = actionCopy;
-    v18 = itemCopy;
-    v10 = [FLAlertControllerAction actionWithTitle:@"Tap-To-Radar" style:1 handler:v16];
-    v19[0] = v10;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __78__FLPreferencesFollowUpItemListViewController__showRadarPromptForItem_action___block_invoke;
+    v15[3] = &unk_278E35ED0;
+    v16 = actionCopy;
+    v17 = itemCopy;
+    v10 = [FLAlertControllerAction actionWithTitle:@"Tap-To-Radar" style:1 handler:v15];
+    v18[0] = v10;
     v11 = [FLAlertControllerAction actionWithTitle:@"Dismiss" style:0 handler:0];
-    v19[1] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[1] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
 
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Follow Up Error [INTERNAL]"];
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Did you notice an error? If so, file a radar."];
     [FLAlertControllerHelper presentAlertWithTitle:v13 message:v14 actions:v12 presentingController:self];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __78__FLPreferencesFollowUpItemListViewController__showRadarPromptForItem_action___block_invoke(uint64_t a1)
@@ -302,7 +292,7 @@ void __78__FLPreferencesFollowUpItemListViewController__showRadarPromptForItem_a
 
 - (void)_dismissFlowWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   followUpItemSpecifiers = [(FLPreferencesFollowUpItemListViewController *)self followUpItemSpecifiers];
   v6 = [followUpItemSpecifiers count];
@@ -310,11 +300,11 @@ void __78__FLPreferencesFollowUpItemListViewController__showRadarPromptForItem_a
   v7 = _FLLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = errorCopy;
-    v11 = 2048;
-    v12 = v6;
-    _os_log_impl(&dword_245383000, v7, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: Checking dismiss flow with error %@, specifiers count: %ld", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = errorCopy;
+    v10 = 2048;
+    v11 = v6;
+    _os_log_impl(&dword_245383000, v7, OS_LOG_TYPE_DEFAULT, "FLPreferencesFollowUpItemListViewController: Checking dismiss flow with error %@, specifiers count: %ld", &v8, 0x16u);
   }
 
   if (v6)
@@ -326,8 +316,6 @@ void __78__FLPreferencesFollowUpItemListViewController__showRadarPromptForItem_a
   {
     [(FLPreferencesFollowUpItemListViewController *)self popRecursivelyToRootController];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

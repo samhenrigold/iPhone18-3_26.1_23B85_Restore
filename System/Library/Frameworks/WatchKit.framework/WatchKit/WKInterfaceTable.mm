@@ -24,7 +24,7 @@
 
 - (void)_getRowControllers:(id)controllers rowControllerProperties:(id)properties forRowTypes:(id)types
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   controllersCopy = controllers;
   propertiesCopy = properties;
   typesCopy = types;
@@ -42,15 +42,15 @@
     integerValue = [v11 integerValue];
   }
 
-  v31 = [typesCopy count];
-  if (v31 >= 1)
+  v30 = [typesCopy count];
+  if (v30 >= 1)
   {
     v13 = 0;
     *&v12 = 136446978;
-    v27 = v12;
+    v26 = v12;
     do
     {
-      v14 = [typesCopy objectAtIndexedSubscript:{v13, v27}];
+      v14 = [typesCopy objectAtIndexedSubscript:{v13, v26}];
       rowDescriptions3 = [(WKInterfaceTable *)self rowDescriptions];
       v16 = [rowDescriptions3 objectForKeyedSubscript:v14];
       v17 = [v16 objectForKeyedSubscript:@"controllerClass"];
@@ -70,17 +70,17 @@
 
       else if (v17)
       {
-        v24 = wk_default_log();
+        v24 = wk_default_log(0);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          *buf = v27;
-          v34 = "[WKInterfaceTable _getRowControllers:rowControllerProperties:forRowTypes:]";
-          v35 = 1024;
-          v36 = 65;
-          v37 = 2114;
-          v38 = v17;
-          v39 = 2048;
-          v40 = v13;
+          *buf = v26;
+          v33 = "[WKInterfaceTable _getRowControllers:rowControllerProperties:forRowTypes:]";
+          v34 = 1024;
+          v35 = 65;
+          v36 = 2114;
+          v37 = v17;
+          v38 = 2048;
+          v39 = v13;
           _os_log_error_impl(&dword_23B338000, v24, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error - unable to instantiate row controller class %{public}@ for row %ld", buf, 0x26u);
         }
       }
@@ -94,28 +94,26 @@
       ++v13;
     }
 
-    while (v31 != v13);
+    while (v30 != v13);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNumberOfRows:(int64_t)rows withRowType:(id)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   typeCopy = type;
-  v7 = wk_default_log();
+  v7 = wk_default_log(typeCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136446978;
-    v13 = "[WKInterfaceTable setNumberOfRows:withRowType:]";
-    v14 = 1024;
-    v15 = 74;
-    v16 = 2048;
+    v11 = 136446978;
+    v12 = "[WKInterfaceTable setNumberOfRows:withRowType:]";
+    v13 = 1024;
+    v14 = 74;
+    v15 = 2048;
     rowsCopy = rows;
-    v18 = 2114;
-    v19 = typeCopy;
-    _os_log_impl(&dword_23B338000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: numberOfRows=%ld rowType=%{public}@", &v12, 0x26u);
+    v17 = 2114;
+    v18 = typeCopy;
+    _os_log_impl(&dword_23B338000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: numberOfRows=%ld rowType=%{public}@", &v11, 0x26u);
   }
 
   v8 = [typeCopy copy];
@@ -132,26 +130,24 @@
   }
 
   [(WKInterfaceTable *)self setRowTypes:array];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRowTypes:(id)types
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   typesCopy = types;
-  v5 = wk_default_log();
+  v5 = wk_default_log(typesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446978;
-    v11 = "[WKInterfaceTable setRowTypes:]";
-    v12 = 1024;
-    v13 = 85;
-    v14 = 2048;
-    v15 = [typesCopy count];
-    v16 = 2114;
-    v17 = typesCopy;
-    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: %lu rowTypes: %{public}@", &v10, 0x26u);
+    v9 = 136446978;
+    v10 = "[WKInterfaceTable setRowTypes:]";
+    v11 = 1024;
+    v12 = 85;
+    v13 = 2048;
+    v14 = [typesCopy count];
+    v15 = 2114;
+    v16 = typesCopy;
+    _os_log_impl(&dword_23B338000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: %lu rowTypes: %{public}@", &v9, 0x26u);
   }
 
   v6 = [typesCopy copy];
@@ -162,8 +158,6 @@
   [(WKInterfaceTable *)self _getRowControllers:array rowControllerProperties:array2 forRowTypes:typesCopy];
   [(WKInterfaceTable *)self setRowControllers:array];
   [(WKInterfaceTable *)self setRowControllerProperties:array2];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)numberOfRows
@@ -178,7 +172,7 @@
 {
   if (index < 0 || (-[WKInterfaceTable rowControllers](self, "rowControllers"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], v5, v6 <= index))
   {
-    v11 = wk_default_log();
+    v11 = wk_default_log(self);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(WKInterfaceTable *)self rowControllerAtIndex:index, v11];
@@ -211,20 +205,20 @@
 
 - (void)insertRowsAtIndexes:(id)indexes withRowType:(id)type
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   indexesCopy = indexes;
   typeCopy = type;
-  v8 = wk_default_log();
+  v8 = wk_default_log(typeCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v25 = "[WKInterfaceTable insertRowsAtIndexes:withRowType:]";
-    v26 = 1024;
-    v27 = 123;
-    v28 = 2114;
-    v29 = indexesCopy;
-    v30 = 2114;
-    v31 = typeCopy;
+    v24 = "[WKInterfaceTable insertRowsAtIndexes:withRowType:]";
+    v25 = 1024;
+    v26 = 123;
+    v27 = 2114;
+    v28 = indexesCopy;
+    v29 = 2114;
+    v30 = typeCopy;
     _os_log_impl(&dword_23B338000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s:%d: rows=%{public}@ rowType=%{public}@", buf, 0x26u);
   }
 
@@ -243,8 +237,8 @@
 
   v11 = [array copy];
   v12 = [indexesCopy copy];
-  v23[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   [(WKInterfaceObject *)self _sendValueChanged:v13 forProperty:@".insert"];
 
   array2 = [MEMORY[0x277CBEB18] array];
@@ -279,8 +273,6 @@
   }
 
   [(WKInterfaceTable *)self resequenceRowControllerPropertyIndexes];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeRowsAtIndexes:(id)indexes
@@ -329,54 +321,54 @@ BOOL __40__WKInterfaceTable_removeRowsAtIndexes___block_invoke(uint64_t a1, unin
 
 - (void)resequenceRowControllerPropertyIndexes
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   rowControllerProperties = [(WKInterfaceTable *)self rowControllerProperties];
-  v3 = [rowControllerProperties countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v3 = [rowControllerProperties countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(rowControllerProperties);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * v7);
+        v8 = *(*(&v18 + 1) + 8 * v7);
+        v14 = 0u;
         v15 = 0u;
         v16 = 0u;
         v17 = 0u;
-        v18 = 0u;
         v9 = v8;
-        v10 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v16;
+          v12 = *v15;
           do
           {
             v13 = 0;
             do
             {
-              if (*v16 != v12)
+              if (*v15 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              [*(*(&v15 + 1) + 8 * v13++) setRowIndex:v5];
+              [*(*(&v14 + 1) + 8 * v13++) setRowIndex:v5];
             }
 
             while (v11 != v13);
-            v11 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
           }
 
           while (v11);
@@ -387,22 +379,20 @@ BOOL __40__WKInterfaceTable_removeRowsAtIndexes___block_invoke(uint64_t a1, unin
       }
 
       while (v7 != v4);
-      v4 = [rowControllerProperties countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v4 = [rowControllerProperties countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performSegueForRow:(int64_t)row
 {
   NSLog(&cfstr_Wkinterfacetab_4.isa, a2, row);
-  v3 = wk_default_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = wk_default_log(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    [WKInterfaceTable performSegueForRow:v3];
+    [WKInterfaceTable performSegueForRow:v4];
   }
 }
 
@@ -421,30 +411,27 @@ BOOL __40__WKInterfaceTable_removeRowsAtIndexes___block_invoke(uint64_t a1, unin
 
 - (void)rowControllerAtIndex:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = [a1 rowControllers];
-  v7 = 136446978;
-  v8 = "[WKInterfaceTable rowControllerAtIndex:]";
-  v9 = 1024;
-  v10 = 116;
-  v11 = 2048;
-  v12 = a2;
-  v13 = 2048;
-  v14 = [v5 count];
-  _os_log_error_impl(&dword_23B338000, a3, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error - attempt to ask for row %ld. Valid range is 0..%ld", &v7, 0x26u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136446978;
+  v7 = "[WKInterfaceTable rowControllerAtIndex:]";
+  v8 = 1024;
+  v9 = 116;
+  v10 = 2048;
+  v11 = a2;
+  v12 = 2048;
+  v13 = [v5 count];
+  _os_log_error_impl(&dword_23B338000, a3, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error - attempt to ask for row %ld. Valid range is 0..%ld", &v6, 0x26u);
 }
 
 - (void)performSegueForRow:(os_log_t)log .cold.1(os_log_t log)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136446466;
-  v3 = "[WKInterfaceTable performSegueForRow:]";
-  v4 = 1024;
-  v5 = 196;
-  _os_log_error_impl(&dword_23B338000, log, OS_LOG_TYPE_ERROR, "%{public}s:%d: WKInterfaceTable performSegueForRow: has no effect in a WatchKit extension that runs on iPhone.", &v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136446466;
+  v2 = "[WKInterfaceTable performSegueForRow:]";
+  v3 = 1024;
+  v4 = 196;
+  _os_log_error_impl(&dword_23B338000, log, OS_LOG_TYPE_ERROR, "%{public}s:%d: WKInterfaceTable performSegueForRow: has no effect in a WatchKit extension that runs on iPhone.", &v1, 0x12u);
 }
 
 @end

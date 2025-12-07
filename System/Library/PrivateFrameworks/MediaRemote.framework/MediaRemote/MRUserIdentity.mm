@@ -47,7 +47,7 @@
   completionCopy = completion;
   dCopy = d;
   v7 = MRGetSharedService();
-  v8 = MRGroupSessionSubsystemGetNotificationQueue();
+  v8 = MRGroupSessionSubsystemGetNotificationQueue(v7);
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __50__MRUserIdentity_fetchIdentityForDSID_completion___block_invoke;

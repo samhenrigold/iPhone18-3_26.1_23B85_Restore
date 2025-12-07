@@ -16,11 +16,11 @@
   if (v6)
   {
     v7 = [shapeCopy copy];
-    shape = v6->_shape;
-    v6->_shape = v7;
+    v8 = *(v6 + 2);
+    *(v6 + 2) = v7;
 
     v26 = v4;
-    *v6->_data = v4;
+    *(v6 + 1) = v4;
     __src = 0;
     v33 = 0;
     v34 = 0;
@@ -109,13 +109,13 @@
 
     v24 = v26;
     v35 = v26;
-    if (&v6->_imageData != &__src)
+    if (v6 + 24 != &__src)
     {
-      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v6->_imageData.shape.__begin_, __src, v33, (v33 - __src) >> 3);
+      std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v6 + 3, __src, v33, (v33 - __src) >> 3);
       v24 = v35;
     }
 
-    v6[1].super.isa = v24;
+    *(v6 + 6) = v24;
     if (__src)
     {
       v33 = __src;

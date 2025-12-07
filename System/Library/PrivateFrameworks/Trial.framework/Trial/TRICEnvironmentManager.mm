@@ -39,42 +39,41 @@
 
 + (int)resetDaemonProcess
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   if (geteuid())
   {
     [TRICPrinter printNewlineAndLogErrorWithFormat:@"Warning: Running reset without root access. Please ensure you are running reset as root."];
   }
 
   [TRICCommandRunner runCommand:@"/bin/launchctl" withArgs:&unk_28436FAB0];
-  if (!getuid())
+  if (getuid())
   {
-    v7[0] = @"unload";
-    v7[1] = @"/System/Library/LaunchDaemons/com.apple.triald.plist";
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+    result = [TRICCommandRunner runCommand:@"/usr/bin/killall" withArgs:&unk_28436FAC8];
+    if (!result)
+    {
+      return result;
+    }
+
+    v3 = __error();
+    [TRICPrinter printNewlineAndLogErrorWithFormat:@"Error killing triald. Error: %s", strerror(*v3)];
+  }
+
+  else
+  {
+    v6[0] = @"unload";
+    v6[1] = @"/System/Library/LaunchDaemons/com.apple.triald.plist";
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
     v5 = [TRICCommandRunner runCommand:@"/bin/launchctl" withArgs:v4];
 
     if (!v5)
     {
-      result = 0;
-      goto LABEL_9;
+      return 0;
     }
 
     [TRICPrinter printNewlineAndLogErrorWithFormat:@"Error unloading triald at %@", @"/System/Library/LaunchDaemons/com.apple.triald.plist"];
-    goto LABEL_8;
   }
 
-  result = [TRICCommandRunner runCommand:@"/usr/bin/killall" withArgs:&unk_28436FAC8];
-  if (result)
-  {
-    v3 = __error();
-    [TRICPrinter printNewlineAndLogErrorWithFormat:@"Error killing triald. Error: %s", strerror(*v3)];
-LABEL_8:
-    result = 1;
-  }
-
-LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 + (int)checkDeviceUnlocked
@@ -91,16 +90,16 @@ LABEL_9:
 
 + (int64_t)currentEnv
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"read";
-  v12[1] = @"com.apple.triald";
-  v12[2] = @"com.apple.triald.ck.serverEnvironment";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"read";
+  v11[1] = @"com.apple.triald";
+  v11[2] = @"com.apple.triald.ck.serverEnvironment";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+  v9 = 0;
   v10 = 0;
-  v11 = 0;
-  v3 = [TRICCommandRunner runCommandAsTrialDaemonUserName:@"/usr/bin/defaults" withArgs:v2 output:&v11 error:&v10];
-  v4 = v11;
-  v5 = v10;
+  v3 = [TRICCommandRunner runCommandAsTrialDaemonUserName:@"/usr/bin/defaults" withArgs:v2 output:&v10 error:&v9];
+  v4 = v10;
+  v5 = v9;
 
   if (v3)
   {
@@ -110,10 +109,10 @@ LABEL_9:
 
   if ([v4 length])
   {
-    v9 = 0;
-    if ([TRIMisc convertFromString:v4 usingBase:10 toI64:&v9])
+    v8 = 0;
+    if ([TRIMisc convertFromString:v4 usingBase:10 toI64:&v8])
     {
-      v6 = v9;
+      v6 = v8;
     }
 
     else
@@ -132,7 +131,6 @@ LABEL_9:
     [TRICPrinter printNewlineAndLogErrorWithFormat:@"Unable to read defaults. Error: %@", 0];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

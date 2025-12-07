@@ -25,8 +25,10 @@
 - (void)update5GHzHostAPState:(BOOL)state;
 - (void)updateCarPlaySessionState:(BOOL)state reason:(int)reason;
 - (void)updateCatsState:(unsigned __int8)state bitmap:(unint64_t)bitmap;
+- (void)updateCatsStateWrapper:(unsigned __int8)wrapper bitmap:(unint64_t)bitmap scanGrantDuration:(unsigned int)duration;
 - (void)updateContentionFreeWiFiInfoToRC2:(unsigned int)c2 count:(unsigned int)count;
 - (void)updatePowerState:(BOOL)state;
+- (void)updateTxPowerCapForHead:(unsigned int)head forBody:(unsigned int)body;
 - (void)updateWeightAvgLQM:(unsigned int)m txRate:(unsigned int)rate;
 - (void)updateWiFiState:(int)state channel:(unsigned int)channel centerFreq:(unsigned int)freq bandwidth:(unsigned int)bandwidth hostAp:(BOOL)ap;
 @end
@@ -485,6 +487,19 @@ LABEL_75:
   dispatch_async([+[WCM_Server singleton](WCM_Server "singleton")], v4);
 }
 
+- (void)updateCatsStateWrapper:(unsigned __int8)wrapper bitmap:(unint64_t)bitmap scanGrantDuration:(unsigned int)duration
+{
+  v5 = *&duration;
+  wrapperCopy = wrapper;
+  v9 = [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  if (v9)
+  {
+    [v9 setLeScanGrantDuration:v5];
+
+    [(WCM_WiFiController *)self updateCatsState:wrapperCopy bitmap:bitmap];
+  }
+}
+
 - (void)handleWiFiLinkDown:(int)down
 {
   block[0] = _NSConcreteStackBlock;
@@ -528,6 +543,14 @@ LABEL_75:
   rateCopy = rate;
   mCopy = m;
   dispatch_async([+[WCM_Server singleton](WCM_Server "singleton")], block);
+}
+
+- (void)updateTxPowerCapForHead:(unsigned int)head forBody:(unsigned int)body
+{
+  v4 = *&body;
+  [(WCM_WiFiController *)self setHeadTxPowerCapdBm:*&head];
+
+  [(WCM_WiFiController *)self setBodyTxPowerCapdBm:v4];
 }
 
 - (void)handleDisconnection:(id)disconnection

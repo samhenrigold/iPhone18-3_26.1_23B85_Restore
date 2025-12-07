@@ -244,231 +244,8 @@
 - (_CPProcessableFeedback)codable
 {
   feedback = self->_feedback;
-  if (feedback)
+  if (feedback || (feedback = self->_searchViewAppearFeedback) != 0 || (feedback = self->_searchViewDisappearFeedback) != 0 || (feedback = self->_rankingFeedback) != 0 || (feedback = self->_sectionRankingFeedback) != 0 || (feedback = self->_resultRankingFeedback) != 0 || (feedback = self->_resultFeedback) != 0 || (feedback = self->_resultEngagementFeedback) != 0 || (feedback = self->_visibleResultsFeedback) != 0 || (feedback = self->_cardSectionFeedback) != 0 || (feedback = self->_mapsCardSectionEngagementFeedback) != 0 || (feedback = self->_storeCardSectionEngagementFeedback) != 0 || (feedback = self->_startSearchFeedback) != 0 || (feedback = self->_endSearchFeedback) != 0 || (feedback = self->_startNetworkSearchFeedback) != 0 || (feedback = self->_endNetworkSearchFeedback) != 0 || (feedback = self->_startLocalSearchFeedback) != 0 || (feedback = self->_endLocalSearchFeedback) != 0 || (feedback = self->_errorFeedback) != 0 || (feedback = self->_customFeedback) != 0 || (feedback = self->_suggestionEngagementFeedback) != 0 || (feedback = self->_cardViewDisappearFeedback) != 0 || (feedback = self->_visibleSuggestionsFeedback) != 0 || (feedback = self->_resultsReceivedAfterTimeoutFeedback) != 0 || (feedback = self->_lateSectionsAppendedFeedback) != 0 || (feedback = self->_clearInputFeedback) != 0 || (feedback = self->_sectionEngagementFeedback) != 0 || (feedback = self->_visibleSectionHeaderFeedback) != 0 || (feedback = self->_didGoToSiteFeedback) != 0 || (feedback = self->_didGoToSearchFeedback) != 0 || (feedback = self->_sessionMissingResultsFeedback) != 0 || (feedback = self->_sessionMissingSuggestionsFeedback) != 0 || (feedback = self->_resultGradingFeedback) != 0 || (feedback = self->_lookupHintRelevancyFeedback) != 0 || (feedback = self->_connectionInvalidatedFeedback) != 0 || (feedback = self->_cardSectionEngagementFeedback) != 0 || (feedback = self->_sessionEndFeedback) != 0 || (feedback = self->_cardViewAppearFeedback) != 0 || (feedback = self->_skipSearchFeedback) != 0 || (feedback = self->_cacheHitFeedback) != 0 || (feedback = self->_cbaEngagementFeedback) != 0 || (feedback = self->_clientTimingFeedback) != 0 || (feedback = self->_commandEngagementFeedback) != 0 || (feedback = self->_dynamicButtonVisibilityFeedback) != 0 || (feedback = self->_experimentTriggeredFeedback) != 0)
   {
-    goto LABEL_38;
-  }
-
-  feedback = self->_searchViewAppearFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_searchViewDisappearFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_rankingFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_sectionRankingFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_resultRankingFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_resultFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_resultEngagementFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_visibleResultsFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_cardSectionFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_mapsCardSectionEngagementFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_storeCardSectionEngagementFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_startSearchFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_endSearchFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_startNetworkSearchFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_endNetworkSearchFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_startLocalSearchFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_endLocalSearchFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_errorFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_customFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_suggestionEngagementFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_cardViewDisappearFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_visibleSuggestionsFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_resultsReceivedAfterTimeoutFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_lateSectionsAppendedFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_clearInputFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_sectionEngagementFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_visibleSectionHeaderFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_didGoToSiteFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_didGoToSearchFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_sessionMissingResultsFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_sessionMissingSuggestionsFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_resultGradingFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_lookupHintRelevancyFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_connectionInvalidatedFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_cardSectionEngagementFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_sessionEndFeedback;
-  if (feedback)
-  {
-    goto LABEL_38;
-  }
-
-  feedback = self->_cardViewAppearFeedback;
-  if (feedback || (feedback = self->_skipSearchFeedback) != 0 || (feedback = self->_cacheHitFeedback) != 0 || (feedback = self->_cbaEngagementFeedback) != 0 || (feedback = self->_clientTimingFeedback) != 0 || (feedback = self->_commandEngagementFeedback) != 0 || (feedback = self->_dynamicButtonVisibilityFeedback) != 0 || (feedback = self->_experimentTriggeredFeedback) != 0)
-  {
-LABEL_38:
     v4 = feedback;
   }
 
@@ -2714,7 +2491,6 @@ LABEL_228:
 
   if ([(_CPFeedbackPayload *)self queryId])
   {
-    queryId = self->_queryId;
     PBDataWriterWriteUint64Field();
   }
 
@@ -3928,43 +3704,41 @@ LABEL_228:
 
 - (void)updateResults:(id)results withId:(unint64_t)id
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = [resultsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [resultsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(resultsCopy);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setQueryId:id];
+        [*(*(&v10 + 1) + 8 * v9++) setQueryId:id];
       }
 
       while (v7 != v9);
-      v7 = [resultsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [resultsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateQueryId:(unint64_t)id
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   [(_CPFeedbackPayload *)self setQueryId:?];
   startLocalSearchFeedback = [(_CPFeedbackPayload *)self startLocalSearchFeedback];
   [startLocalSearchFeedback setQueryId:id];
@@ -3989,49 +3763,49 @@ LABEL_228:
   startSearchFeedback = [(_CPFeedbackPayload *)self startSearchFeedback];
   [startSearchFeedback setQueryId:id];
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   rankingFeedback = [(_CPFeedbackPayload *)self rankingFeedback];
   sections = [rankingFeedback sections];
 
   obj = sections;
-  v16 = [sections countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v16 = [sections countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v16)
   {
     v17 = v16;
-    v37 = *v43;
+    v36 = *v42;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v43 != v37)
+        if (*v42 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v42 + 1) + 8 * i);
+        v19 = *(*(&v41 + 1) + 8 * i);
+        v37 = 0u;
         v38 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v41 = 0u;
         results = [v19 results];
-        v21 = [results countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v21 = [results countByEnumeratingWithState:&v37 objects:v45 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v39;
+          v23 = *v38;
           do
           {
             for (j = 0; j != v22; ++j)
             {
-              if (*v39 != v23)
+              if (*v38 != v23)
               {
                 objc_enumerationMutation(results);
               }
 
-              v25 = *(*(&v38 + 1) + 8 * j);
+              v25 = *(*(&v37 + 1) + 8 * j);
               result3 = [v25 result];
               [result3 setQueryId:id];
 
@@ -4042,14 +3816,14 @@ LABEL_228:
               [(_CPFeedbackPayload *)self updateResults:duplicateResults withId:id];
             }
 
-            v22 = [results countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v22 = [results countByEnumeratingWithState:&v37 objects:v45 count:16];
           }
 
           while (v22);
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v17 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v17);
@@ -4066,8 +3840,6 @@ LABEL_228:
   resultsReceivedAfterTimeoutFeedback = [(_CPFeedbackPayload *)self resultsReceivedAfterTimeoutFeedback];
   results4 = [resultsReceivedAfterTimeoutFeedback results];
   [(_CPFeedbackPayload *)self updateResults:results4 withId:id];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 @end

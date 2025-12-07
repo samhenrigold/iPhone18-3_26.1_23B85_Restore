@@ -54,12 +54,12 @@ void __62__PMMPredictionNotification_initWithPredictionUpdateListener___block_in
 
 + (void)postPredictionUpdate:(id)update consumer:(unint64_t)consumer
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v11 = @"consumer";
+  v10 = @"consumer";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:consumer];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v7 mutableCopy];
 
   if (updateCopy)
@@ -69,8 +69,6 @@ void __62__PMMPredictionNotification_initWithPredictionUpdateListener___block_in
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"com.apple.proactive.ProactiveMagicalMoments.PMMPredictionNotification.updatePredictions" object:0 userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

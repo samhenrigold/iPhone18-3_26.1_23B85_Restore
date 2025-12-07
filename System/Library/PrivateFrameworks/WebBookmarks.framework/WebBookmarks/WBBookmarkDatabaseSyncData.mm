@@ -17,27 +17,24 @@
 
 + (WBBookmarkDatabaseSyncData)databaseSyncDataWithContentsOfData:(id)data
 {
-  v10 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks(dataCopy, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [(WBBookmarkDatabaseSyncData *)v4 databaseSyncDataWithContentsOfData:dataCopy];
+    [(WBBookmarkDatabaseSyncData *)v5 databaseSyncDataWithContentsOfData:dataCopy];
   }
 
-  v5 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:0];
-  [v5 setClass:objc_opt_class() forClassName:@"CloudBookmarkDatabaseSyncData"];
-  v6 = [v5 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCA308]];
-  [v5 finishDecoding];
-  v7 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v6 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:0];
+  [v6 setClass:objc_opt_class() forClassName:@"CloudBookmarkDatabaseSyncData"];
+  v7 = [v6 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCA308]];
+  finishDecoding = [v6 finishDecoding];
+  v10 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks(finishDecoding, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [WBBookmarkDatabaseSyncData databaseSyncDataWithContentsOfData:v7];
+    [WBBookmarkDatabaseSyncData databaseSyncDataWithContentsOfData:v10];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v7;
 }
 
 + (id)databaseSyncDataInDatabase:(void *)database databaseAccessor:(id)accessor
@@ -85,10 +82,10 @@
 {
   accessorCopy = accessor;
   encodedDatabaseSyncData = [(WBBookmarkDatabaseSyncData *)self encodedDatabaseSyncData];
-  v8 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks(encodedDatabaseSyncData, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [WBBookmarkDatabaseSyncData writeToDatabase:v8 databaseAccessor:encodedDatabaseSyncData];
+    [WBBookmarkDatabaseSyncData writeToDatabase:v9 databaseAccessor:encodedDatabaseSyncData];
   }
 
   [accessorCopy setSyncData:encodedDatabaseSyncData database:database];
@@ -121,7 +118,7 @@
   idsOfRecordZonesToRefresh = self->_idsOfRecordZonesToRefresh;
   self->_idsOfRecordZonesToRefresh = v9;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v9, idsOfRecordZonesToRefresh);
 }
 
 - (WBBookmarkDatabaseSyncData)initWithCoder:(id)coder
@@ -335,12 +332,10 @@
 
 + (void)databaseSyncDataWithContentsOfData:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  [a2 length];
-  OUTLINED_FUNCTION_0_5(&dword_272C20000, v4, v5, "Trying to create WBBookmarkDatabaseSyncData from data of size %lu", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [a2 length];
+  OUTLINED_FUNCTION_0_5(&dword_272C20000, v4, v5, "Trying to create WBBookmarkDatabaseSyncData from data of size %lu", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 + (void)databaseSyncDataWithContentsOfData:(os_log_t)log .cold.2(void *a1, uint8_t *buf, os_log_t log)
@@ -352,12 +347,10 @@
 
 - (void)writeToDatabase:(void *)a1 databaseAccessor:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  [a2 length];
-  OUTLINED_FUNCTION_0_5(&dword_272C20000, v4, v5, "Writing sync data of size %lu to database", v6, v7, v8, v9, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = [a2 length];
+  OUTLINED_FUNCTION_0_5(&dword_272C20000, v4, v5, "Writing sync data of size %lu to database", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

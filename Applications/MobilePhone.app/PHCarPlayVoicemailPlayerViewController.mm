@@ -433,13 +433,13 @@
   v4 = +[PHVoicemailPlayerController sharedPlayerController];
   [v4 pause];
 
-  v5 = PHDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = PHDefaultLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     representedVoicemail = [(PHCarPlayVoicemailPlayerViewController *)self representedVoicemail];
-    v41 = 138412290;
-    v42 = representedVoicemail;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Call back button tapped in CarPlay for voicemail %@", &v41, 0xCu);
+    v44 = 138412290;
+    v45 = representedVoicemail;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Call back button tapped in CarPlay for voicemail %@", &v44, 0xCu);
   }
 
   representedVoicemail2 = [(PHCarPlayVoicemailPlayerViewController *)self representedVoicemail];
@@ -447,9 +447,9 @@
 
   representedVoicemail3 = [(PHCarPlayVoicemailPlayerViewController *)self representedVoicemail];
   callbackDestinationID = [representedVoicemail3 callbackDestinationID];
-  v11 = [callbackDestinationID length];
+  v12 = [callbackDestinationID length];
 
-  if (v11)
+  if (v12)
   {
     representedVoicemail4 = [(PHCarPlayVoicemailPlayerViewController *)self representedVoicemail];
     callbackDestinationID2 = [representedVoicemail4 callbackDestinationID];
@@ -457,27 +457,26 @@
     senderDestinationID = callbackDestinationID2;
   }
 
-  v14 = +[(PHApplicationServices *)MPApplicationServices];
-  callProviderManager = [v14 callProviderManager];
+  v15 = +[(PHApplicationServices *)MPApplicationServices];
+  callProviderManager = [v15 callProviderManager];
 
   telephonyProvider = [callProviderManager telephonyProvider];
   if (telephonyProvider)
   {
-    v17 = [[TUDialRequest alloc] initWithProvider:telephonyProvider];
-    v18 = [[TUHandle alloc] initWithType:2 value:senderDestinationID];
-    [v17 setHandle:v18];
+    v18 = [[TUDialRequest alloc] initWithProvider:telephonyProvider];
+    v19 = [[TUHandle alloc] initWithType:2 value:senderDestinationID];
+    [v18 setHandle:v19];
 
-    [v17 setOriginatingUIType:48];
-    v19 = PHDefaultLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = PHDefaultLog([v18 setOriginatingUIType:48]);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = 138412802;
-      v42 = v17;
-      v43 = 2112;
-      v44 = senderDestinationID;
-      v45 = 2112;
-      v46 = telephonyProvider;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Created a dial request %@ to callback from voicemail in CarPlay to destinationID %@ with telephonyCallProvider %@", &v41, 0x20u);
+      v44 = 138412802;
+      v45 = v18;
+      v46 = 2112;
+      v47 = senderDestinationID;
+      v48 = 2112;
+      v49 = telephonyProvider;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Created a dial request %@ to callback from voicemail in CarPlay to destinationID %@ with telephonyCallProvider %@", &v44, 0x20u);
     }
 
     representedVoicemail5 = [(PHCarPlayVoicemailPlayerViewController *)self representedVoicemail];
@@ -487,27 +486,28 @@
       goto LABEL_19;
     }
 
-    v22 = receiverDestinationID;
+    v23 = receiverDestinationID;
     representedVoicemail6 = [(PHCarPlayVoicemailPlayerViewController *)self representedVoicemail];
     receiverDestinationID2 = [representedVoicemail6 receiverDestinationID];
-    v25 = [receiverDestinationID2 length];
+    v26 = [receiverDestinationID2 length];
 
-    if (!v25)
+    if (!v26)
     {
 LABEL_20:
-      if ([v17 isValid])
+      isValid = [v18 isValid];
+      if (isValid)
       {
-        v39 = +[UIApplication sharedApplication];
-        v40 = [v17 URL];
-        [v39 openURL:v40 withCompletionHandler:0];
+        v42 = +[UIApplication sharedApplication];
+        v43 = [v18 URL];
+        [v42 openURL:v43 withCompletionHandler:0];
       }
 
       else
       {
-        v39 = PHDefaultLog();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v42 = PHDefaultLog(isValid);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          [(PHCarPlayVoicemailPlayerViewController *)senderDestinationID callBackButtonTapped:v17, v39];
+          [(PHCarPlayVoicemailPlayerViewController *)senderDestinationID callBackButtonTapped:v18, v42];
         }
       }
 
@@ -520,38 +520,38 @@ LABEL_20:
 
     representedVoicemail8 = [(PHCarPlayVoicemailPlayerViewController *)self representedVoicemail];
     receiverISOCountryCode = [representedVoicemail8 receiverISOCountryCode];
-    v30 = [representedVoicemail5 canonicalHandleForISOCountryCode:receiverISOCountryCode];
+    v31 = [representedVoicemail5 canonicalHandleForISOCountryCode:receiverISOCountryCode];
 
-    v31 = [telephonyProvider senderIdentityForHandle:v30];
-    accountUUID = [v31 accountUUID];
-    [v17 setLocalSenderIdentityAccountUUID:accountUUID];
+    v32 = [telephonyProvider senderIdentityForHandle:v31];
+    accountUUID = [v32 accountUUID];
+    [v18 setLocalSenderIdentityAccountUUID:accountUUID];
 
-    localSenderIdentityAccountUUID = [v17 localSenderIdentityAccountUUID];
+    localSenderIdentityAccountUUID = [v18 localSenderIdentityAccountUUID];
 
-    v34 = PHDefaultLog();
-    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+    v36 = PHDefaultLog(v35);
+    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
     if (localSenderIdentityAccountUUID)
     {
-      if (v35)
+      if (v37)
       {
-        localSenderIdentityAccountUUID2 = [v17 localSenderIdentityAccountUUID];
-        v41 = 138412290;
-        v42 = localSenderIdentityAccountUUID2;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "To ensure the correct line is used, setting the dial request's local sender identity UUID to: %@", &v41, 0xCu);
+        localSenderIdentityAccountUUID2 = [v18 localSenderIdentityAccountUUID];
+        v44 = 138412290;
+        v45 = localSenderIdentityAccountUUID2;
+        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "To ensure the correct line is used, setting the dial request's local sender identity UUID to: %@", &v44, 0xCu);
 LABEL_17:
       }
     }
 
-    else if (v35)
+    else if (v37)
     {
       localSenderIdentityAccountUUID2 = [(PHCarPlayVoicemailPlayerViewController *)self representedVoicemail];
       receiverDestinationID4 = [localSenderIdentityAccountUUID2 receiverDestinationID];
       prioritizedSenderIdentities = [telephonyProvider prioritizedSenderIdentities];
-      v41 = 138412546;
-      v42 = receiverDestinationID4;
-      v43 = 2112;
-      v44 = prioritizedSenderIdentities;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "None of the prioritized sender identities matched the voicemail's receiver destination ID: %@. Prioritized sender identities are: %@", &v41, 0x16u);
+      v44 = 138412546;
+      v45 = receiverDestinationID4;
+      v46 = 2112;
+      v47 = prioritizedSenderIdentities;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "None of the prioritized sender identities matched the voicemail's receiver destination ID: %@. Prioritized sender identities are: %@", &v44, 0x16u);
 
       goto LABEL_17;
     }
@@ -560,10 +560,10 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v17 = PHDefaultLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = PHDefaultLog(0);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    [PHCarPlayVoicemailPlayerViewController callBackButtonTapped:v17];
+    [PHCarPlayVoicemailPlayerViewController callBackButtonTapped:v18];
   }
 
 LABEL_25:
@@ -575,7 +575,7 @@ LABEL_25:
   v4 = v3;
   if (v3)
   {
-    [v3 currentTime];
+    objc_msgSend_currentTime(v3);
   }
 
   else
@@ -599,7 +599,7 @@ LABEL_25:
 - (void)hardwareControlEventNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
@@ -869,7 +869,7 @@ id __49__PHCarPlayVoicemailPlayerViewController__update__block_invoke_3(uint64_t
 - (void)_handleApplicationDidEnterBackgroundNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412546;

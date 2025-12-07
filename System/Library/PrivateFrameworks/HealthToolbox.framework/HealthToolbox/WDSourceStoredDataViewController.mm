@@ -170,37 +170,28 @@ void __55__WDSourceStoredDataViewController_deleteAllSourceData__block_invoke(ui
 
 - (void)sourceIsInstalled
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v4 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "%@ sourceIsInstalled: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "%@ sourceIsInstalled: %@", v7, v8, v9, v10);
 }
 
 void __48__WDSourceStoredDataViewController_deleteSource__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 source];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "Source %@ not deleted: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "Source %@ not deleted: %@", v7, v8, v9, v10);
 }
 
 void __55__WDSourceStoredDataViewController_deleteAllSourceData__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = NSStringFromSelector(v2);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "%@ deleteAllSamplesWithTypes: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "%@ deleteAllSamplesWithTypes: %@", v7, v8, v9, v10);
 }
 
 @end

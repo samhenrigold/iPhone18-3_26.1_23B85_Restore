@@ -116,11 +116,10 @@ void __38__EMMessageSnippetHintZoneBuilder_log__block_invoke(uint64_t a1)
 
 + (void)snippetHintZoneFromString:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "[Snippet Hints] Unsupported snippet hint zone: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "[Snippet Hints] Unsupported snippet hint zone: %@", &v2, 0xCu);
 }
 
 @end

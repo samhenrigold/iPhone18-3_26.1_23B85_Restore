@@ -8,17 +8,18 @@
 
 - (void)layoutSubviews
 {
-  v5.receiver = self;
-  v5.super_class = _s18PaletteContentViewCMa();
-  v2 = v5.receiver;
-  [(NavigationBarPalettePresenter.PaletteContentView *)&v5 layoutSubviews];
+  v6.receiver = self;
+  v6.super_class = _s18PaletteContentViewCMa();
+  v2 = v6.receiver;
+  [(NavigationBarPalettePresenter.PaletteContentView *)&v6 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtCC22SubscribePageExtension29NavigationBarPalettePresenter18PaletteContentView_didLayoutSubviews];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtCC22SubscribePageExtension29NavigationBarPalettePresenter18PaletteContentView_didLayoutSubviews + 8];
 
-    v3(v4);
+    v3(v5);
 
-    sub_1000164A8(v3);
+    sub_1000164A8(v3, v4);
   }
 
   else

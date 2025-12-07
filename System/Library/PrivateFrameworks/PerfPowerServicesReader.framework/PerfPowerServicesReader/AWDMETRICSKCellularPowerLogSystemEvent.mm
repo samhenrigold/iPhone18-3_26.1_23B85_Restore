@@ -3,6 +3,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)modeAsString:(int)string;
+- (id)prevModeAsString:(int)string;
+- (id)prevRatAsString:(int)string;
+- (id)ratAsString:(int)string;
 - (int)StringAsMode:(id)mode;
 - (int)StringAsPrevMode:(id)mode;
 - (int)StringAsPrevRat:(id)rat;
@@ -82,6 +86,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)modeAsString:(int)string
+{
+  if (string >= 0xE)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10578[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsMode:(id)mode
@@ -193,6 +212,21 @@
   *&self->_has = *&self->_has & 0xDF | v3;
 }
 
+- (id)ratAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A105E8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRat:(id)rat
 {
   ratCopy = rat;
@@ -255,6 +289,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)prevModeAsString:(int)string
+{
+  if (string >= 0xE)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10578[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevMode:(id)mode
@@ -364,6 +413,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)prevRatAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A105E8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevRat:(id)rat
@@ -599,7 +663,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -619,7 +682,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -634,7 +696,6 @@ LABEL_4:
   }
 
 LABEL_15:
-  oosPlmnSearchTimerActive = self->_oosPlmnSearchTimerActive;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -649,7 +710,6 @@ LABEL_5:
   }
 
 LABEL_16:
-  mode = self->_mode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -664,7 +724,6 @@ LABEL_6:
   }
 
 LABEL_17:
-  rat = self->_rat;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -679,7 +738,6 @@ LABEL_7:
   }
 
 LABEL_18:
-  prevMode = self->_prevMode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -694,12 +752,10 @@ LABEL_8:
   }
 
 LABEL_19:
-  prevRat = self->_prevRat;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_9:
-    prevStateDurationMs = self->_prevStateDurationMs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -975,7 +1031,7 @@ LABEL_9:
     }
 
 LABEL_44:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_45;
   }
 
@@ -984,7 +1040,6 @@ LABEL_44:
     goto LABEL_44;
   }
 
-  v5 = *(equalCopy + 40);
   if (self->_oosPlmnSearchTimerActive)
   {
     if ((*(equalCopy + 40) & 1) == 0)
@@ -1051,7 +1106,7 @@ LABEL_14:
     goto LABEL_44;
   }
 
-  v6 = (*(equalCopy + 44) & 0x10) == 0;
+  v5 = (*(equalCopy + 44) & 0x10) == 0;
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 44) & 0x10) == 0 || self->_prevStateDurationMs != *(equalCopy + 7))
@@ -1059,12 +1114,12 @@ LABEL_14:
       goto LABEL_44;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_45:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

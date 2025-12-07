@@ -20,7 +20,7 @@
   selfCopy = self;
   sub_48FD64(x, y, width, height);
 
-  sub_BD88(&qword_9564D0);
+  sub_BD88(&qword_9564D0, &qword_79F398);
   v8.super.isa = sub_769450().super.isa;
 
   return v8.super.isa;

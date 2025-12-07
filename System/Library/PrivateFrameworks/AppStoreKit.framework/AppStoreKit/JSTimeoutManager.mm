@@ -8,7 +8,7 @@
 - (id)makePromise:(id)promise :(id)a4
 {
   sub_1E1AF5DFC();
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   v6 = a4;
   selfCopy = self;
   v8 = sub_1E1AF6D4C();

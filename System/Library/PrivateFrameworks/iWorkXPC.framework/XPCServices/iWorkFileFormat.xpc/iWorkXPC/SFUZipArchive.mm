@@ -1,6 +1,8 @@
 @interface SFUZipArchive
 + (BOOL)isZipArchiveAtPath:(id)path;
 - (BOOL)decompressAtPath:(id)path wasEmpty:(BOOL *)empty;
+- (SFUZipArchive)initWithData:(id)data collapseCommonRootDirectory:(BOOL)directory ignoreCase:(BOOL)case;
+- (SFUZipArchive)initWithPath:(id)path collapseCommonRootDirectory:(BOOL)directory ignoreCase:(BOOL)case;
 - (SFUZipEndOfCentralDirectory)readEndOfCentralDirectoryFromInputStream:(SEL)stream;
 - (SFUZipEndOfCentralDirectory)readZip64EndOfCentralDirectoryFromInputStream:(SEL)stream eocdOffset:(id)offset;
 - (SFUZipEndOfCentralDirectory)readZip64EndOfCentralDirectoryFromInputStream:(SEL)stream offset:(id)offset;
@@ -8,6 +10,7 @@
 - (id)commonRootDirectoryIgnoringCase:(BOOL)case;
 - (id)entryWithName:(id)name dataLength:(int64_t)length;
 - (id)readFilenameFromBuffer:(const char *)buffer size:(unint64_t)size;
+- (void)collapseCommonRootDirectoryIgnoreCase:(BOOL)case;
 - (void)dealloc;
 - (void)readEntries;
 - (void)readExtraFieldFromBuffer:(const char *)buffer size:(unint64_t)size entry:(id)entry;
@@ -24,6 +27,44 @@
   [inputStream close];
 
   return v6;
+}
+
+- (SFUZipArchive)initWithPath:(id)path collapseCommonRootDirectory:(BOOL)directory ignoreCase:(BOOL)case
+{
+  caseCopy = case;
+  directoryCopy = directory;
+  v8 = [(SFUZipArchive *)self init];
+  if (v8)
+  {
+    v8->mEntries = objc_alloc_init(NSMutableDictionary);
+    v8->mDataRepresentation = [[SFUZipArchiveFileDataRepresentation alloc] initWithPath:path];
+    [(SFUZipArchive *)v8 readEntries];
+    if (directoryCopy)
+    {
+      [(SFUZipArchive *)v8 collapseCommonRootDirectoryIgnoreCase:caseCopy];
+    }
+  }
+
+  return v8;
+}
+
+- (SFUZipArchive)initWithData:(id)data collapseCommonRootDirectory:(BOOL)directory ignoreCase:(BOOL)case
+{
+  caseCopy = case;
+  directoryCopy = directory;
+  v8 = [(SFUZipArchive *)self init];
+  if (v8)
+  {
+    v8->mEntries = objc_alloc_init(NSMutableDictionary);
+    v8->mDataRepresentation = [[SFUZipArchiveMemoryDataRepresentation alloc] initWithData:data];
+    [(SFUZipArchive *)v8 readEntries];
+    if (directoryCopy)
+    {
+      [(SFUZipArchive *)v8 collapseCommonRootDirectoryIgnoreCase:caseCopy];
+    }
+  }
+
+  return v8;
 }
 
 - (void)dealloc
@@ -249,8 +290,45 @@ LABEL_17:
 {
   context = objc_autoreleasePoolPush();
   [[SFUZipRecordInputStream alloc] initWithDataRepresentation:self->mDataRepresentation];
-  [(SFUZipArchive *)self readEndOfCentralDirectoryFromInputStream:?];
+  objc_msgSend_readEndOfCentralDirectoryFromInputStream_(self);
   objc_autoreleasePoolPop(context);
+}
+
+- (void)collapseCommonRootDirectoryIgnoreCase:(BOOL)case
+{
+  caseCopy = case;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [(SFUZipArchive *)self commonRootDirectoryIgnoringCase:caseCopy];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = [[NSMutableDictionary alloc] initWithCapacity:{-[NSMutableDictionary count](self->mEntries, "count")}];
+    v9 = [v7 length];
+    allEntryNames = [(SFUZipArchive *)self allEntryNames];
+    v11 = [allEntryNames count];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = 0;
+      v14 = v9 + 1;
+      do
+      {
+        v15 = [allEntryNames objectAtIndex:v13];
+        if ([v15 length] != v14 && (objc_msgSend(v15, "hasPrefix:", @"__MACOSX") & 1) == 0)
+        {
+          -[NSMutableDictionary setObject:forKey:](v8, "setObject:forKey:", -[NSMutableDictionary objectForKey:](self->mEntries, "objectForKey:", v15), [v15 substringFromIndex:v14]);
+        }
+
+        ++v13;
+      }
+
+      while (v12 != v13);
+    }
+
+    self->mEntries = v8;
+  }
+
+  objc_autoreleasePoolPop(v5);
 }
 
 - (SFUZipEndOfCentralDirectory)readEndOfCentralDirectoryFromInputStream:(SEL)stream
@@ -280,7 +358,7 @@ LABEL_17:
   retstr->var2 = var1_high;
   if (var0_high == 0xFFFF || var1_low == -1 || var1_high == -1)
   {
-    return [(SFUZipArchive *)self readZip64EndOfCentralDirectoryFromInputStream:a4 eocdOffset:v14];
+    return objc_msgSend_readZip64EndOfCentralDirectoryFromInputStream_eocdOffset_(self);
   }
 
   return result;

@@ -12,14 +12,12 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Enable";
-  v7[1] = @"EnableRollback";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = @"Enable";
+  v6[1] = @"EnableRollback";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

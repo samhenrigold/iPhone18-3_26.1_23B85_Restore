@@ -10,7 +10,7 @@ void __63___EFMergingObservable_subscribeObserver_toObservables_unless___block_i
   [v1 finishWithResult:?];
 }
 
-uint64_t __63___EFMergingObservable_subscribeObserver_toObservables_unless___block_invoke_4(uint64_t a1)
+void *__63___EFMergingObservable_subscribeObserver_toObservables_unless___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)

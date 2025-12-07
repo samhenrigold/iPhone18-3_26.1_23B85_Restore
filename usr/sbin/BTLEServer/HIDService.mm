@@ -2,8 +2,11 @@
 - (BOOL)allInputReportsReady;
 - (BOOL)isPowerManagementBasedOnDisplayState;
 - (HIDService)initWithManager:(id)manager peripheral:(id)peripheral service:(id)service;
+- (id)characteristicForReportID:(unsigned int)d reportType:(int)type;
 - (id)hidDeviceProperties;
 - (id)reportTypeToString:(int)string;
+- (int)readReportData:(id *)data reportID:(unsigned __int8)d reportType:(int)type error:(id *)error;
+- (int)writeReportData:(id)data reportID:(unsigned __int8)d reportType:(int)type withResponse:(BOOL)response error:(id *)error;
 - (void)authDidSucceedNotification:(id)notification;
 - (void)createHIDDeviceIfEverythingReady;
 - (void)createReportInfo:(id)info;
@@ -12,6 +15,7 @@
 - (void)destroyHIDDevice;
 - (void)enterSuspendModeIfNeeded:(int64_t)needed;
 - (void)exitSuspendModeIfNeeded;
+- (void)handlePowerManagementNotification:(unsigned int)notification notificationID:(int64_t)d;
 - (void)hidDeviceDesiredConnectionParametersDidChange;
 - (void)notifyDidStartIfEverythingReady;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
@@ -21,6 +25,7 @@
 - (void)peripheral:(id)peripheral didUpdateValueForDescriptor:(id)descriptor error:(id)error;
 - (void)peripheral:(id)peripheral didWriteValueForCharacteristic:(id)characteristic error:(id)error;
 - (void)registerForPowerManagementEvents;
+- (void)screenStateChanged:(BOOL)changed;
 - (void)signalCommandCondition:(id)condition error:(id)error;
 - (void)start;
 - (void)stop;
@@ -1064,6 +1069,204 @@ LABEL_22:
   [manager clientService:self desiresConnectionParameters:desiredConnectionParameters];
 }
 
+- (int)readReportData:(id *)data reportID:(unsigned __int8)d reportType:(int)type error:(id *)error
+{
+  v7 = *&type;
+  dCopy = d;
+  v11 = -536870212;
+  v12 = [(HIDService *)self characteristicForReportID:d reportType:*&type];
+  if (v12)
+  {
+    v13 = [(NSMapTable *)self->_reportInfoMap objectForKey:v12];
+    v14 = v13;
+    if (v13)
+    {
+      commandCondition = [v13 commandCondition];
+      [commandCondition lock];
+
+      if ([v14 isValid])
+      {
+        v16 = qword_1000DDBC8;
+        if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+        {
+          v24 = v16;
+          v25 = [(HIDService *)self reportTypeToString:v7];
+          v26 = 138412546;
+          v27 = v25;
+          v28 = 1024;
+          v29 = dCopy;
+          _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "Getting %@ report for ID #%u", &v26, 0x12u);
+        }
+
+        [v14 setCommandPending:1];
+        peripheral = [(ClientService *)self peripheral];
+        [peripheral readValueForCharacteristic:v12];
+
+        commandCondition2 = [v14 commandCondition];
+        v19 = [NSDate dateWithTimeIntervalSinceNow:30.0];
+        v20 = [commandCondition2 waitUntilDate:v19];
+
+        if (v20)
+        {
+          commandError = [v14 commandError];
+
+          if (commandError)
+          {
+            if (error)
+            {
+              *error = [v14 commandError];
+            }
+          }
+
+          else
+          {
+            [v14 commandValue];
+            *data = v11 = 0;
+          }
+        }
+
+        else
+        {
+          [v14 setCommandPending:0];
+          v11 = -536870186;
+        }
+      }
+
+      commandCondition3 = [v14 commandCondition];
+      [commandCondition3 unlock];
+    }
+
+    else
+    {
+      v11 = -536870160;
+    }
+  }
+
+  else
+  {
+    v11 = -536870160;
+  }
+
+  return v11;
+}
+
+- (int)writeReportData:(id)data reportID:(unsigned __int8)d reportType:(int)type withResponse:(BOOL)response error:(id *)error
+{
+  responseCopy = response;
+  v9 = *&type;
+  dCopy = d;
+  v12 = -536870212;
+  dataCopy = data;
+  v14 = [(HIDService *)self characteristicForReportID:dCopy reportType:v9];
+  if (v14)
+  {
+    v15 = [(NSMapTable *)self->_reportInfoMap objectForKey:v14];
+    v16 = v15;
+    if (!v15)
+    {
+      v12 = -536870160;
+LABEL_17:
+
+      goto LABEL_18;
+    }
+
+    commandCondition = [v15 commandCondition];
+    [commandCondition lock];
+
+    if (![v16 isValid])
+    {
+      goto LABEL_16;
+    }
+
+    v18 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
+    {
+      v24 = v18;
+      v25 = [(HIDService *)self reportTypeToString:v9];
+      v29 = 138412802;
+      v30 = v25;
+      v31 = 1024;
+      v32 = dCopy;
+      v33 = 2112;
+      v34 = dataCopy;
+      _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "Setting %@ report for ID #%u: %@", &v29, 0x1Cu);
+
+      if (responseCopy)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    else if (responseCopy)
+    {
+LABEL_6:
+      [v16 setCommandPending:2];
+      peripheral = [(ClientService *)self peripheral];
+      [peripheral writeValue:dataCopy forCharacteristic:v14 type:0];
+
+      commandCondition2 = [v16 commandCondition];
+      v21 = [NSDate dateWithTimeIntervalSinceNow:30.0];
+      v22 = [commandCondition2 waitUntilDate:v21];
+
+      if (v22)
+      {
+        commandError = [v16 commandError];
+
+        if (commandError)
+        {
+          if (error)
+          {
+            *error = [v16 commandError];
+          }
+
+          goto LABEL_16;
+        }
+
+        goto LABEL_15;
+      }
+
+      [v16 setCommandPending:0];
+      v12 = -536870186;
+LABEL_16:
+      commandCondition3 = [v16 commandCondition];
+      [commandCondition3 unlock];
+
+      goto LABEL_17;
+    }
+
+    peripheral2 = [(ClientService *)self peripheral];
+    [peripheral2 writeValue:dataCopy forCharacteristic:v14 type:1];
+
+LABEL_15:
+    v12 = 0;
+    goto LABEL_16;
+  }
+
+  v12 = -536870160;
+LABEL_18:
+
+  return v12;
+}
+
+- (void)handlePowerManagementNotification:(unsigned int)notification notificationID:(int64_t)d
+{
+  HIDWORD(v5) = notification + 536870288;
+  LODWORD(v5) = notification + 536870288;
+  v4 = v5 >> 4;
+  if (v4 > 1)
+  {
+    if (v4 == 2 || v4 == 9)
+    {
+      [(HIDService *)self exitSuspendModeIfNeeded];
+    }
+  }
+
+  else if (v4 <= 1)
+  {
+    [(HIDService *)self enterSuspendModeIfNeeded:d];
+  }
+}
+
 - (void)enterSuspendModeIfNeeded:(int64_t)needed
 {
   if ([(HIDService *)self pmIsSuspended])
@@ -1116,6 +1319,26 @@ LABEL_22:
   [peripheral writeValue:v4 forCharacteristic:hidControlPointCharacteristic type:1];
 }
 
+- (void)screenStateChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v5 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = "suspend (screen off)";
+    if (changedCopy)
+    {
+      v6 = "exit suspend (screen on)";
+    }
+
+    v7 = 136446210;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Screen state changed, sending HID control point command %{public}s", &v7, 0xCu);
+  }
+
+  [(HIDService *)self writeControlPointCommand:changedCopy];
+}
+
 - (void)authDidSucceedNotification:(id)notification
 {
   notificationCopy = notification;
@@ -1150,6 +1373,43 @@ LABEL_22:
   v3 = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
   return v3;
+}
+
+- (id)characteristicForReportID:(unsigned int)d reportType:(int)type
+{
+  v4 = *&type;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_100042AF8;
+  reportInfoMap = self->_reportInfoMap;
+  v20 = sub_100042B08;
+  v21 = 0;
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100042B10;
+  v13[3] = &unk_1000BE060;
+  dCopy = d;
+  typeCopy = type;
+  v13[4] = &v16;
+  [(NSMapTable *)reportInfoMap enumerateKeysAndObjectsUsingBlock:v13];
+  v8 = v17[5];
+  if (!v8)
+  {
+    v9 = qword_1000DDBC8;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = [(HIDService *)self reportTypeToString:v4];
+      sub_10007699C(v10, buf, d, v9);
+    }
+
+    v8 = v17[5];
+  }
+
+  v11 = v8;
+  _Block_object_dispose(&v16, 8);
+
+  return v11;
 }
 
 - (id)reportTypeToString:(int)string

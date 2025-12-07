@@ -38,7 +38,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(DADisableableObject *)self isDisabled]&& ![(DADClientDelegate *)self finished])
   {
@@ -48,12 +48,12 @@
     v7 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v5, v7))
     {
-      *v27 = 138412546;
-      *&v27[4] = objc_opt_class();
-      *&v27[12] = 2112;
-      *&v27[14] = errorCopy;
-      v8 = *&v27[4];
-      _os_log_impl(&dword_248524000, v5, v7, "[%@] finished with error %@", v27, 0x16u);
+      *v26 = 138412546;
+      *&v26[4] = objc_opt_class();
+      *&v26[12] = 2112;
+      *&v26[14] = errorCopy;
+      v8 = *&v26[4];
+      _os_log_impl(&dword_248524000, v5, v7, "[%@] finished with error %@", v26, 0x16u);
     }
 
     if (self->_searchID)
@@ -82,17 +82,17 @@ LABEL_16:
           }
 
           v15 = DALoggingwithCategory();
-          v23 = *(v6 + 3);
-          if (os_log_type_enabled(v15, v23))
+          v22 = *(v6 + 3);
+          if (os_log_type_enabled(v15, v22))
           {
-            v24 = objc_opt_class();
-            v25 = v24;
+            v23 = objc_opt_class();
+            v24 = v23;
             accountID2 = [(DADClientDelegate *)self accountID];
-            *v27 = 138412546;
-            *&v27[4] = v24;
-            *&v27[12] = 2114;
-            *&v27[14] = accountID2;
-            _os_log_impl(&dword_248524000, v15, v23, "[%@] finished, but could not find an account with the ID %{public}@", v27, 0x16u);
+            *v26 = 138412546;
+            *&v26[4] = v23;
+            *&v26[12] = 2114;
+            *&v26[14] = accountID2;
+            _os_log_impl(&dword_248524000, v15, v22, "[%@] finished, but could not find an account with the ID %{public}@", v26, 0x16u);
           }
 
 LABEL_15:
@@ -106,7 +106,7 @@ LABEL_15:
       }
     }
 
-    v14 = [(DADClientDelegate *)self client:*v27];
+    v14 = [(DADClientDelegate *)self client:*v26];
     rawConnection = [v14 rawConnection];
 
     if (!rawConnection)
@@ -135,13 +135,11 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performRequest
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (![(DADisableableObject *)self isDisabled])
   {
     v3 = +[DADAgentManager sharedManager];
@@ -162,17 +160,15 @@ LABEL_17:
       if (os_log_type_enabled(v8, v9))
       {
         accountID2 = [(DADClientDelegate *)self accountID];
-        v13 = 138543362;
-        v14 = accountID2;
-        _os_log_impl(&dword_248524000, v8, v9, "Could not get an account with the ID [%{public}@]", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = accountID2;
+        _os_log_impl(&dword_248524000, v8, v9, "Could not get an account with the ID [%{public}@]", &v12, 0xCu);
       }
 
       v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:55 userInfo:0];
       [(DADClientCalendarDirectorySearchResponseDelegate *)self finishWithError:v11];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)calendarDirectorySearchReturnedResults:(id)results
@@ -207,29 +203,29 @@ LABEL_17:
 
 - (id)_convertSearchQueryResults:(id)results
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = resultsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         v11 = objc_alloc_init(MEMORY[0x277D03938]);
         displayName = [v10 displayName];
         [v11 setDisplayName:displayName];
@@ -249,7 +245,7 @@ LABEL_17:
         [v4 addObject:v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
@@ -260,8 +256,6 @@ LABEL_17:
   {
     [v17 setObject:v4 forKey:*MEMORY[0x277D038D8]];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

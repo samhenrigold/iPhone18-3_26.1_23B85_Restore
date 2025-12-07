@@ -9,7 +9,7 @@
 - (void)recommendedGenresWith:(id)with
 {
   ObjectType = swift_getObjectType();
-  v6 = sub_1001F1160(&qword_100AD67D0);
+  v6 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v6 - 8);
   v8 = &v13 - v7;
   v9 = sub_1007A2744();
@@ -28,7 +28,7 @@
 - (void)recommendedGenreCollectionsFor:(id)for :(id)a4
 {
   ObjectType = swift_getObjectType();
-  v8 = sub_1001F1160(&qword_100AD67D0);
+  v8 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v8 - 8);
   v10 = &v16 - v9;
   v11 = sub_1007A2744();

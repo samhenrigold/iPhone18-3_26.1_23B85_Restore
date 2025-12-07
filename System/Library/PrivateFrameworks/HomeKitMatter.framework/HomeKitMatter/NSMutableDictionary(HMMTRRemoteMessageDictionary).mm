@@ -19,10 +19,10 @@
 {
   if (a3)
   {
-    return [self setObject:a3 forKeyedSubscript:@"params"];
+    return [result setObject:a3 forKeyedSubscript:@"params"];
   }
 
-  return self;
+  return result;
 }
 
 - (void)setCHIPSubscribeParams:()HMMTRRemoteMessageDictionary

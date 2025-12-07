@@ -98,7 +98,7 @@
 
 - (void)startMirroringToOutputDevice:(id)device completion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   completionCopy = completion;
   v8 = objc_alloc(MEMORY[0x1E69B0AE0]);
@@ -117,11 +117,11 @@
       deviceID2 = [deviceCopy deviceID];
       v16 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(deviceCopy, "deviceType")}];
       *buf = 138478339;
-      v38 = name;
-      v39 = 2114;
-      v40 = deviceID2;
-      v41 = 2114;
-      v42 = v16;
+      v39 = name;
+      v40 = 2114;
+      v41 = deviceID2;
+      v42 = 2114;
+      v43 = v16;
       _os_signpost_emit_with_name_impl(&dword_1A20FC000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v13, "MirroringActivation", "START OPERATION DETAILS || outputDevice - deviceName:%{private}@, deviceID:%{public}@, deviceType:%{public}@", buf, 0x20u);
     }
 
@@ -130,62 +130,62 @@
 
     if (v18)
     {
-      v19 = _MPAVLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = _MPAVLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = objc_opt_class();
+        v21 = objc_opt_class();
         deviceID3 = [deviceCopy deviceID];
         *buf = 138543618;
-        v38 = v20;
-        v39 = 2114;
-        v40 = deviceID3;
-        _os_log_impl(&dword_1A20FC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ start mirroring to device %{public}@", buf, 0x16u);
+        v39 = v21;
+        v40 = 2114;
+        v41 = deviceID3;
+        _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ start mirroring to device %{public}@", buf, 0x16u);
       }
 
-      v22 = _MCSLogCategoryMirroring();
+      v23 = _MCSLogCategoryMirroring();
       operationID2 = [v9 operationID];
-      v24 = [operationID2 hash];
+      v25 = [operationID2 hash];
 
-      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
         name2 = [deviceCopy name];
         deviceID4 = [deviceCopy deviceID];
-        v25 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(deviceCopy, "deviceType")}];
-        v26 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(deviceCopy, "deviceSubType")}];
+        v26 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(deviceCopy, "deviceType")}];
+        v27 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(deviceCopy, "deviceSubType")}];
         *buf = 138478595;
-        v38 = name2;
-        v39 = 2114;
-        v40 = deviceID4;
-        v41 = 2114;
-        v42 = v25;
-        v43 = 2114;
-        v44 = v26;
-        _os_signpost_emit_with_name_impl(&dword_1A20FC000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v24, "MirroringActivation", "START OPERATION DETAILS || startedMirroringToOutputDevice - deviceName:%{private}@, deviceID:%{public}@, deviceType:%{public}@, deviceSubType:%{public}@", buf, 0x2Au);
+        v39 = name2;
+        v40 = 2114;
+        v41 = deviceID4;
+        v42 = 2114;
+        v43 = v26;
+        v44 = 2114;
+        v45 = v27;
+        _os_signpost_emit_with_name_impl(&dword_1A20FC000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v25, "MirroringActivation", "START OPERATION DETAILS || startedMirroringToOutputDevice - deviceName:%{private}@, deviceID:%{public}@, deviceType:%{public}@, deviceSubType:%{public}@", buf, 0x2Au);
       }
 
       objc_initWeak(buf, self);
-      v27 = MEMORY[0x1E69E96A0];
-      objc_copyWeak(&v36, buf);
-      v33 = deviceCopy;
-      v35 = completionCopy;
-      v34 = v9;
+      v28 = MEMORY[0x1E69E96A0];
+      objc_copyWeak(&v37, buf);
+      v34 = deviceCopy;
+      v36 = completionCopy;
+      v35 = v9;
       MRMediaRemoteRegisterPairingHandler();
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v37);
       objc_destroyWeak(buf);
     }
 
     else
     {
       [(MRUMirroringController *)self mirrorToOutputDevice:deviceCopy completion:completionCopy];
-      v28 = _MCSLogCategoryMirroring();
+      v29 = _MCSLogCategoryMirroring();
       operationID3 = [v9 operationID];
-      v30 = [operationID3 hash];
+      v31 = [operationID3 hash];
 
-      if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1A20FC000, v28, OS_SIGNPOST_INTERVAL_END, v30, "MirroringActivation", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1A20FC000, v29, OS_SIGNPOST_INTERVAL_END, v31, "MirroringActivation", "", buf, 2u);
       }
     }
   }
@@ -267,7 +267,7 @@ void __58__MRUMirroringController_mirrorToOutputDevice_completion___block_invoke
   completionCopy = completion;
   v5 = objc_alloc(MEMORY[0x1E69B0AE0]);
   v6 = [v5 initWithSurface:*MEMORY[0x1E69B08F8] initiator:*MEMORY[0x1E69B0968] reason:0];
-  v7 = _MPAVLog();
+  v7 = _MPAVLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = objc_opt_class();
@@ -339,7 +339,7 @@ void __54__MRUMirroringController_stopMirroringWithCompletion___block_invoke(uin
   v22 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   completionCopy = completion;
-  v8 = _MPAVLog();
+  v8 = _MPAVLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_opt_class();
@@ -388,7 +388,7 @@ void __61__MRUMirroringController_selectAudioOutputDevice_completion___block_inv
 - (void)startDetailedDiscovery
 {
   v20 = *MEMORY[0x1E69E9840];
-  v3 = _MPAVLog();
+  v3 = _MPAVLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 138543362;
@@ -427,7 +427,7 @@ void __61__MRUMirroringController_selectAudioOutputDevice_completion___block_inv
 - (void)stopDetailedDiscovery
 {
   v10 = *MEMORY[0x1E69E9840];
-  v3 = _MPAVLog();
+  v3 = _MPAVLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543362;
@@ -452,7 +452,7 @@ void __61__MRUMirroringController_selectAudioOutputDevice_completion___block_inv
 
 - (void)pairingHandlerNotification:(id)notification
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69B1298]];
@@ -461,35 +461,35 @@ void __61__MRUMirroringController_selectAudioOutputDevice_completion___block_inv
   v8 = [userInfo2 objectForKeyedSubscript:@"inputType"];
   integerValue = [v8 integerValue];
 
-  v10 = _MPAVLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _MPAVLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = objc_opt_class();
+    v12 = objc_opt_class();
     busyIdentifiers = self->_busyIdentifiers;
     *buf = 138544130;
-    v23 = v11;
-    v24 = 2114;
-    v25 = v6;
-    v26 = 2048;
-    v27 = integerValue;
-    v28 = 2114;
-    v29 = busyIdentifiers;
-    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received pairing request for %{public}@ | inputType: %li | requests: %{public}@", buf, 0x2Au);
+    v24 = v12;
+    v25 = 2114;
+    v26 = v6;
+    v27 = 2048;
+    v28 = integerValue;
+    v29 = 2114;
+    v30 = busyIdentifiers;
+    _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ received pairing request for %{public}@ | inputType: %li | requests: %{public}@", buf, 0x2Au);
   }
 
-  v13 = _MCSLogCategoryMirroring();
-  v14 = os_signpost_id_generate(v13);
+  v14 = _MCSLogCategoryMirroring();
+  v15 = os_signpost_id_generate(v14);
 
-  v15 = _MCSLogCategoryMirroring();
-  v16 = v15;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v16 = _MCSLogCategoryMirroring();
+  v17 = v16;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     userInfo3 = [notificationCopy userInfo];
     *buf = 138543618;
-    v23 = v6;
-    v24 = 2112;
-    v25 = userInfo3;
-    _os_signpost_emit_with_name_impl(&dword_1A20FC000, v16, OS_SIGNPOST_EVENT, v14, "PairingHandlerNotificationRequest", "EVENT DETAILS || requestedDeviceId:%{public}@, notificationUserInfo:%@", buf, 0x16u);
+    v24 = v6;
+    v25 = 2112;
+    v26 = userInfo3;
+    _os_signpost_emit_with_name_impl(&dword_1A20FC000, v17, OS_SIGNPOST_EVENT, v15, "PairingHandlerNotificationRequest", "EVENT DETAILS || requestedDeviceId:%{public}@, notificationUserInfo:%@", buf, 0x16u);
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -497,9 +497,9 @@ void __61__MRUMirroringController_selectAudioOutputDevice_completion___block_inv
   block[2] = __53__MRUMirroringController_pairingHandlerNotification___block_invoke;
   block[3] = &unk_1E7663EC0;
   block[4] = self;
-  v20 = v6;
-  v21 = integerValue != 1;
-  v18 = v6;
+  v21 = v6;
+  v22 = integerValue != 1;
+  v19 = v6;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
@@ -563,7 +563,7 @@ LABEL_6:
 
 - (void)updateSelectedOutputDevice
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   outputDevice = [(MRUOutputContextController *)self->_outputContextController outputDevice];
   if (self->_tetheredDisplayPortModeEnabled)
   {
@@ -589,43 +589,44 @@ LABEL_6:
   }
 
   p_selectedOutputDevice = &self->_selectedOutputDevice;
-  if (([v4 isEqual:self->_selectedOutputDevice] & 1) == 0)
+  v8 = [v4 isEqual:self->_selectedOutputDevice];
+  if ((v8 & 1) == 0)
   {
-    v8 = _MPAVLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _MPAVLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_opt_class();
+      v10 = objc_opt_class();
       deviceID = [v4 deviceID];
       deviceID2 = [(AVOutputDevice *)self->_selectedOutputDevice deviceID];
-      v21 = 138543874;
-      v22 = v9;
-      v23 = 2114;
-      v24 = deviceID;
-      v25 = 2114;
-      v26 = deviceID2;
-      _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ update selected output device: %{public}@ | previous: %{public}@", &v21, 0x20u);
+      v22 = 138543874;
+      v23 = v10;
+      v24 = 2114;
+      v25 = deviceID;
+      v26 = 2114;
+      v27 = deviceID2;
+      _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ update selected output device: %{public}@ | previous: %{public}@", &v22, 0x20u);
     }
 
-    v12 = _MCSLogCategoryMirroring();
-    v13 = os_signpost_id_generate(v12);
+    v13 = _MCSLogCategoryMirroring();
+    v14 = os_signpost_id_generate(v13);
 
-    v14 = _MCSLogCategoryMirroring();
-    v15 = v14;
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    v15 = _MCSLogCategoryMirroring();
+    v16 = v15;
+    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
       deviceName = [v4 deviceName];
       deviceID3 = [v4 deviceID];
       deviceName2 = [(AVOutputDevice *)*p_selectedOutputDevice deviceName];
       deviceID4 = [(AVOutputDevice *)*p_selectedOutputDevice deviceID];
-      v21 = 138478595;
-      v22 = deviceName;
-      v23 = 2114;
-      v24 = deviceID3;
-      v25 = 2113;
-      v26 = deviceName2;
-      v27 = 2114;
-      v28 = deviceID4;
-      _os_signpost_emit_with_name_impl(&dword_1A20FC000, v15, OS_SIGNPOST_EVENT, v13, "UpdatedSelectedOutputDevice", "EVENT DETAILS || currentOutputDevice - deviceName:%{private}@, deviceID:%{public}@, previouslySelectedOutputDevice - deviceName:%{private}@, deviceID:%{public}@", &v21, 0x2Au);
+      v22 = 138478595;
+      v23 = deviceName;
+      v24 = 2114;
+      v25 = deviceID3;
+      v26 = 2113;
+      v27 = deviceName2;
+      v28 = 2114;
+      v29 = deviceID4;
+      _os_signpost_emit_with_name_impl(&dword_1A20FC000, v16, OS_SIGNPOST_EVENT, v14, "UpdatedSelectedOutputDevice", "EVENT DETAILS || currentOutputDevice - deviceName:%{private}@, deviceID:%{public}@, previouslySelectedOutputDevice - deviceName:%{private}@, deviceID:%{public}@", &v22, 0x2Au);
     }
 
     objc_storeStrong(&self->_selectedOutputDevice, v4);
@@ -636,45 +637,46 @@ LABEL_6:
 
 - (void)updateSelectedAudioOutputDevice
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   outputDevice = [(MRUOutputContextController *)self->_audioContextController outputDevice];
-  if (([outputDevice isEqual:self->_selectedAudioOutputDevice] & 1) == 0)
+  v4 = [outputDevice isEqual:self->_selectedAudioOutputDevice];
+  if ((v4 & 1) == 0)
   {
-    v4 = _MPAVLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _MPAVLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
+      v6 = objc_opt_class();
       deviceID = [outputDevice deviceID];
       deviceID2 = [(AVOutputDevice *)self->_selectedAudioOutputDevice deviceID];
-      v17 = 138543874;
-      v18 = v5;
-      v19 = 2114;
-      v20 = deviceID;
-      v21 = 2114;
-      v22 = deviceID2;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ update selected audio output device: %{public}@ | previous: %{public}@", &v17, 0x20u);
+      v18 = 138543874;
+      v19 = v6;
+      v20 = 2114;
+      v21 = deviceID;
+      v22 = 2114;
+      v23 = deviceID2;
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ update selected audio output device: %{public}@ | previous: %{public}@", &v18, 0x20u);
     }
 
-    v8 = _MCSLogCategoryMirroring();
-    v9 = os_signpost_id_generate(v8);
+    v9 = _MCSLogCategoryMirroring();
+    v10 = os_signpost_id_generate(v9);
 
-    v10 = _MCSLogCategoryMirroring();
-    v11 = v10;
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v11 = _MCSLogCategoryMirroring();
+    v12 = v11;
+    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
       deviceName = [outputDevice deviceName];
       deviceID3 = [outputDevice deviceID];
       deviceName2 = [(AVOutputDevice *)self->_selectedAudioOutputDevice deviceName];
       deviceID4 = [(AVOutputDevice *)self->_selectedOutputDevice deviceID];
-      v17 = 138478595;
-      v18 = deviceName;
-      v19 = 2114;
-      v20 = deviceID3;
-      v21 = 2113;
-      v22 = deviceName2;
-      v23 = 2114;
-      v24 = deviceID4;
-      _os_signpost_emit_with_name_impl(&dword_1A20FC000, v11, OS_SIGNPOST_EVENT, v9, "UpdatedSelectedOutputDevice", "EVENT DETAILS || currentAudioOutputDevice - deviceName:%{private}@, deviceID:%{public}@, previouslySelectedAudioOutputDevice - deviceName:%{private}@, deviceID:%{public}@", &v17, 0x2Au);
+      v18 = 138478595;
+      v19 = deviceName;
+      v20 = 2114;
+      v21 = deviceID3;
+      v22 = 2113;
+      v23 = deviceName2;
+      v24 = 2114;
+      v25 = deviceID4;
+      _os_signpost_emit_with_name_impl(&dword_1A20FC000, v12, OS_SIGNPOST_EVENT, v10, "UpdatedSelectedOutputDevice", "EVENT DETAILS || currentAudioOutputDevice - deviceName:%{private}@, deviceID:%{public}@, previouslySelectedAudioOutputDevice - deviceName:%{private}@, deviceID:%{public}@", &v18, 0x2Au);
     }
 
     objc_storeStrong(&self->_selectedAudioOutputDevice, outputDevice);
@@ -688,30 +690,30 @@ LABEL_6:
 
 - (void)updateAvailableOutputDevices
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E6958800] = [MEMORY[0x1E6958800] sharedLocalDevice];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
   availableOutputDevices = [(MRUDiscoverySessionController *)self->_outputDeviceDiscoverySessionController availableOutputDevices];
-  v7 = [availableOutputDevices countByEnumeratingWithState:&v29 objects:v45 count:16];
+  v7 = [availableOutputDevices countByEnumeratingWithState:&v30 objects:v46 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v31;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(availableOutputDevices);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v30 + 1) + 8 * i);
         if (([v11 isEqual:mEMORY[0x1E6958800]] & 1) != 0 || (objc_msgSend(v11, "deviceID"), v12 = objc_claimAutoreleasedReturnValue(), v12, v13 = array, !v12))
         {
           v13 = array2;
@@ -720,7 +722,7 @@ LABEL_6:
         [v13 addObject:v11];
       }
 
-      v8 = [availableOutputDevices countByEnumeratingWithState:&v29 objects:v45 count:16];
+      v8 = [availableOutputDevices countByEnumeratingWithState:&v30 objects:v46 count:16];
     }
 
     while (v8);
@@ -730,43 +732,43 @@ LABEL_6:
   availableOutputDevices = self->_availableOutputDevices;
   self->_availableOutputDevices = v14;
 
-  v16 = _MPAVLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = _MPAVLog(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = objc_opt_class();
+    v18 = objc_opt_class();
     *buf = 138543618;
-    v34 = v17;
-    v35 = 2114;
-    v36 = array;
-    _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ update output devices: %{public}@", buf, 0x16u);
+    v35 = v18;
+    v36 = 2114;
+    v37 = array;
+    _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ update output devices: %{public}@", buf, 0x16u);
   }
 
-  v18 = _MCSLogCategoryMirroring();
+  v19 = _MCSLogCategoryMirroring();
   detailedDiscoveryOperation = [(MRUMirroringController *)self detailedDiscoveryOperation];
   operationID = [detailedDiscoveryOperation operationID];
-  v21 = [operationID hash];
+  v22 = [operationID hash];
 
-  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    v28 = [array count];
-    v22 = [array valueForKey:@"deviceID"];
-    v23 = [array valueForKey:@"deviceName"];
-    v27 = [array2 count];
-    v24 = [array2 valueForKey:@"deviceID"];
-    v25 = [array2 valueForKey:@"deviceName"];
+    v29 = [array count];
+    v23 = [array valueForKey:@"deviceID"];
+    v24 = [array valueForKey:@"deviceName"];
+    v28 = [array2 count];
+    v25 = [array2 valueForKey:@"deviceID"];
+    v26 = [array2 valueForKey:@"deviceName"];
     *buf = 134219267;
-    v34 = v28;
-    v35 = 2114;
-    v36 = v22;
-    v37 = 2113;
-    v38 = v23;
-    v39 = 2048;
-    v40 = v27;
-    v41 = 2114;
-    v42 = v24;
-    v43 = 2113;
-    v44 = v25;
-    _os_signpost_emit_with_name_impl(&dword_1A20FC000, v18, OS_SIGNPOST_EVENT, v21, "UpdateAvailableOutputDevices", "OPERATION EVENT DETAILS || filteredAvailableOutputDevices - count:%lu, deviceIDs:%{public}@, deviceName:%{private}@, unfilteredAvailableOutputDevices - count:%lu, deviceIDs:%{public}@, deviceName:%{private}@", buf, 0x3Eu);
+    v35 = v29;
+    v36 = 2114;
+    v37 = v23;
+    v38 = 2113;
+    v39 = v24;
+    v40 = 2048;
+    v41 = v28;
+    v42 = 2114;
+    v43 = v25;
+    v44 = 2113;
+    v45 = v26;
+    _os_signpost_emit_with_name_impl(&dword_1A20FC000, v19, OS_SIGNPOST_EVENT, v22, "UpdateAvailableOutputDevices", "OPERATION EVENT DETAILS || filteredAvailableOutputDevices - count:%lu, deviceIDs:%{public}@, deviceName:%{private}@, unfilteredAvailableOutputDevices - count:%lu, deviceIDs:%{public}@, deviceName:%{private}@", buf, 0x3Eu);
   }
 
   delegate = [(MRUMirroringController *)self delegate];
@@ -778,30 +780,30 @@ LABEL_6:
 
 - (void)updateAvailableAudioOutputDevices
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
   availableOutputDevices = [(MRUDiscoverySessionController *)self->_audioDiscoverySessionController availableOutputDevices];
-  v6 = [availableOutputDevices countByEnumeratingWithState:&v33 objects:v49 count:16];
-  v32 = array2;
+  v6 = [availableOutputDevices countByEnumeratingWithState:&v34 objects:v50 count:16];
+  v33 = array2;
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v35;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(availableOutputDevices);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * i);
+        v10 = *(*(&v34 + 1) + 8 * i);
         deviceID = [v10 deviceID];
         if (!deviceID)
         {
@@ -821,7 +823,7 @@ LABEL_6:
 
         v14 = array;
         v16 = deviceType == 4;
-        array2 = v32;
+        array2 = v33;
         if (!v16)
         {
 LABEL_12:
@@ -832,7 +834,7 @@ LABEL_13:
         [v14 addObject:v10];
       }
 
-      v7 = [availableOutputDevices countByEnumeratingWithState:&v33 objects:v49 count:16];
+      v7 = [availableOutputDevices countByEnumeratingWithState:&v34 objects:v50 count:16];
     }
 
     while (v7);
@@ -842,44 +844,44 @@ LABEL_13:
   availableAudioOutputDevices = self->_availableAudioOutputDevices;
   self->_availableAudioOutputDevices = v17;
 
-  v19 = _MPAVLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = _MPAVLog(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = objc_opt_class();
+    v21 = objc_opt_class();
     *buf = 138543618;
-    v38 = v20;
-    v39 = 2114;
-    v40 = array;
-    _os_log_impl(&dword_1A20FC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ update audio output devices: %{public}@", buf, 0x16u);
+    v39 = v21;
+    v40 = 2114;
+    v41 = array;
+    _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ update audio output devices: %{public}@", buf, 0x16u);
   }
 
-  v21 = _MCSLogCategoryMirroring();
+  v22 = _MCSLogCategoryMirroring();
   detailedDiscoveryOperation = [(MRUMirroringController *)self detailedDiscoveryOperation];
   operationID = [detailedDiscoveryOperation operationID];
-  v24 = [operationID hash];
+  v25 = [operationID hash];
 
-  if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
-    v25 = [array count];
-    v26 = [array valueForKey:@"deviceID"];
-    v27 = [array valueForKey:@"deviceName"];
-    v28 = [v32 count];
-    v29 = [v32 valueForKey:@"deviceID"];
-    v30 = [v32 valueForKey:@"deviceName"];
+    v26 = [array count];
+    v27 = [array valueForKey:@"deviceID"];
+    v28 = [array valueForKey:@"deviceName"];
+    v29 = [v33 count];
+    v30 = [v33 valueForKey:@"deviceID"];
+    v31 = [v33 valueForKey:@"deviceName"];
     *buf = 134219267;
-    v38 = v25;
-    array2 = v32;
-    v39 = 2114;
-    v40 = v26;
-    v41 = 2113;
-    v42 = v27;
-    v43 = 2048;
-    v44 = v28;
-    v45 = 2114;
-    v46 = v29;
-    v47 = 2113;
-    v48 = v30;
-    _os_signpost_emit_with_name_impl(&dword_1A20FC000, v21, OS_SIGNPOST_EVENT, v24, "UpdateAvailableAudioOutputDevices", "OPERATION EVENT DETAILS || availableAudioOutputDevices - count:%lu, deviceIDs:%{public}@, deviceName:%{private}@, unfilteredAvailableOutputDevices - count:%lu, deviceIDs:%{public}@, deviceName:%{private}@", buf, 0x3Eu);
+    v39 = v26;
+    array2 = v33;
+    v40 = 2114;
+    v41 = v27;
+    v42 = 2113;
+    v43 = v28;
+    v44 = 2048;
+    v45 = v29;
+    v46 = 2114;
+    v47 = v30;
+    v48 = 2113;
+    v49 = v31;
+    _os_signpost_emit_with_name_impl(&dword_1A20FC000, v22, OS_SIGNPOST_EVENT, v25, "UpdateAvailableAudioOutputDevices", "OPERATION EVENT DETAILS || availableAudioOutputDevices - count:%lu, deviceIDs:%{public}@, deviceName:%{private}@, unfilteredAvailableOutputDevices - count:%lu, deviceIDs:%{public}@, deviceName:%{private}@", buf, 0x3Eu);
   }
 
   delegate = [(MRUMirroringController *)self delegate];

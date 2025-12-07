@@ -153,10 +153,10 @@
 
 - (double)_radius
 {
-  [(RCEditingProgressIndicator *)self diameter];
-  v3 = v2 * 0.5;
+  diameter = [(RCEditingProgressIndicator *)self diameter];
+  v5 = v4 * 0.5;
 
-  return RCRoundCoord(v3);
+  return RCRoundCoord(diameter, v3, v5);
 }
 
 - (CGSize)intrinsicContentSize

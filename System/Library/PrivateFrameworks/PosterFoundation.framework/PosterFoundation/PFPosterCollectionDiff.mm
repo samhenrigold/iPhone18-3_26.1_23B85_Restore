@@ -9,101 +9,101 @@
 + (BOOL)diffCollection:(id)collection toCollection:(id)toCollection outAddedPosters:(id *)posters outRemovedPosters:(id *)removedPosters outUpdatedPosters:(id *)updatedPosters
 {
   postersCopy = posters;
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   toCollectionCopy = toCollection;
   posters = [collection posters];
-  v50 = toCollectionCopy;
+  v49 = toCollectionCopy;
   posters2 = [toCollectionCopy posters];
   v11 = objc_opt_new();
   v12 = objc_opt_new();
   strongToStrongObjectsMapTable = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   v13 = posters2;
-  v14 = [v13 countByEnumeratingWithState:&v69 objects:v75 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v68 objects:v74 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v70;
+    v16 = *v69;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v70 != v16)
+        if (*v69 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v69 + 1) + 8 * i);
+        v18 = *(*(&v68 + 1) + 8 * i);
         if (([posters containsObject:{v18, postersCopy}] & 1) == 0)
         {
           [v11 addObject:v18];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v69 objects:v75 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v68 objects:v74 count:16];
     }
 
     while (v15);
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v19 = posters;
-  v20 = [v19 countByEnumeratingWithState:&v65 objects:v74 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v64 objects:v73 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v66;
+    v22 = *v65;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v66 != v22)
+        if (*v65 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v65 + 1) + 8 * j);
+        v24 = *(*(&v64 + 1) + 8 * j);
         if (([v13 containsObject:{v24, postersCopy}] & 1) == 0)
         {
           [v12 addObject:v24];
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v65 objects:v74 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v64 objects:v73 count:16];
     }
 
     while (v21);
   }
 
-  v51 = v12;
-  v52 = v11;
+  v50 = v12;
+  v51 = v11;
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   obj = v13;
-  v25 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
+  v25 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v62;
+    v27 = *v61;
     do
     {
       for (k = 0; k != v26; ++k)
       {
-        if (*v62 != v27)
+        if (*v61 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v61 + 1) + 8 * k);
+        v29 = *(*(&v60 + 1) + 8 * k);
         _path = [v29 _path];
         isServerPosterPath = [_path isServerPosterPath];
         descriptorIdentifier = [v29 descriptorIdentifier];
@@ -114,28 +114,28 @@
           serverIdentity = [_path2 serverIdentity];
           posterUUID = [serverIdentity posterUUID];
 
-          v57[0] = MEMORY[0x1E69E9820];
-          v57[1] = 3221225472;
-          v57[2] = __106__PFPosterCollectionDiff_diffCollection_toCollection_outAddedPosters_outRemovedPosters_outUpdatedPosters___block_invoke;
-          v57[3] = &unk_1E81895F0;
-          v58 = _path;
-          v59 = v33;
-          v60 = posterUUID;
+          v56[0] = MEMORY[0x1E69E9820];
+          v56[1] = 3221225472;
+          v56[2] = __106__PFPosterCollectionDiff_diffCollection_toCollection_outAddedPosters_outRemovedPosters_outUpdatedPosters___block_invoke;
+          v56[3] = &unk_1E81895F0;
+          v57 = _path;
+          v58 = v33;
+          v59 = posterUUID;
           v37 = posterUUID;
           v38 = v33;
-          v39 = [v19 bs_firstObjectPassingTest:v57];
+          v39 = [v19 bs_firstObjectPassingTest:v56];
         }
 
         else
         {
-          v55[0] = MEMORY[0x1E69E9820];
-          v55[1] = 3221225472;
-          v55[2] = __106__PFPosterCollectionDiff_diffCollection_toCollection_outAddedPosters_outRemovedPosters_outUpdatedPosters___block_invoke_2;
-          v55[3] = &unk_1E8189618;
-          v56 = descriptorIdentifier;
+          v54[0] = MEMORY[0x1E69E9820];
+          v54[1] = 3221225472;
+          v54[2] = __106__PFPosterCollectionDiff_diffCollection_toCollection_outAddedPosters_outRemovedPosters_outUpdatedPosters___block_invoke_2;
+          v54[3] = &unk_1E8189618;
+          v55 = descriptorIdentifier;
           v40 = descriptorIdentifier;
-          v39 = [v19 bs_firstObjectPassingTest:v55];
-          v37 = v56;
+          v39 = [v19 bs_firstObjectPassingTest:v54];
+          v37 = v55;
         }
 
         if (v39)
@@ -148,15 +148,15 @@
           else if (([v39 isEqual:v29] & 1) == 0)
           {
             [strongToStrongObjectsMapTable setObject:v29 forKey:v39];
-            [v52 removeObject:v29];
-            [v52 removeObject:v39];
             [v51 removeObject:v29];
             [v51 removeObject:v39];
+            [v50 removeObject:v29];
+            [v50 removeObject:v39];
           }
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
+      v26 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
     }
 
     while (v26);
@@ -164,14 +164,14 @@
 
   if (postersCopy)
   {
-    v42 = v52;
-    *postersCopy = v52;
+    v42 = v51;
+    *postersCopy = v51;
   }
 
   if (removedPosters)
   {
-    v43 = v51;
-    *removedPosters = v51;
+    v43 = v50;
+    *removedPosters = v50;
   }
 
   if (updatedPosters)
@@ -179,9 +179,8 @@
     *updatedPosters = strongToStrongObjectsMapTable;
   }
 
-  v44 = ![v52 count] && !objc_msgSend(v51, "count") && objc_msgSend(strongToStrongObjectsMapTable, "count") == 0;
+  v44 = ![v51 count] && !objc_msgSend(v50, "count") && objc_msgSend(strongToStrongObjectsMapTable, "count") == 0;
 
-  v45 = *MEMORY[0x1E69E9840];
   return v44;
 }
 

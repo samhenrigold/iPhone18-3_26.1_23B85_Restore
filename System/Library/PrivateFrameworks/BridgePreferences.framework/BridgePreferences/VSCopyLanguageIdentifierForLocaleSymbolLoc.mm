@@ -29,7 +29,7 @@ void *__get_VSCopyLanguageIdentifierForLocaleSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);

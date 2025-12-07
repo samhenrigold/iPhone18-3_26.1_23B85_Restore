@@ -222,7 +222,6 @@
   objc_storeStrong(&v73, 0);
   objc_storeStrong(&v75, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v78 & 1;
 }
 
@@ -354,7 +353,6 @@ BOOL __77__AKBaseFollowupManager_synchronizeFollowUpsWithServerPayload_altDSID_e
 
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_alignedInsertionCandidates:(id)candidates withExistingItems:(id)items
@@ -418,7 +416,6 @@ BOOL __77__AKBaseFollowupManager_synchronizeFollowUpsWithServerPayload_altDSID_e
   objc_storeStrong(&dictionary, 0);
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -619,7 +616,6 @@ void __71__AKBaseFollowupManager__alignedInsertionCandidates_withExistingItems__
 
   objc_storeStrong(v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

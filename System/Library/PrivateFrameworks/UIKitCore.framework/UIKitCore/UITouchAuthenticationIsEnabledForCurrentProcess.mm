@@ -37,20 +37,20 @@ LABEL_5:
   v2 = v1;
   if ([MEMORY[0x1E69DECA0] shouldAuthenticateServiceBundleId:v5])
   {
-    v3 = 1;
+    isEqualToString = 1;
   }
 
   else if (v2)
   {
-    v3 = [v5 isEqualToString:v2];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
   }
 
   else
   {
-    v3 = 0;
+    isEqualToString = 0;
   }
 
-  _MergedGlobals_1192 = v3;
+  _MergedGlobals_1192 = isEqualToString;
 }
 
 @end

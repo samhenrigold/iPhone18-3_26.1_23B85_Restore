@@ -25,7 +25,7 @@
       goto LABEL_7;
     }
 
-    [(HMPBHomeReference *)homeReference mergeFrom:?];
+    homeReference = [(HMPBHomeReference *)homeReference mergeFrom:?];
   }
 
   else
@@ -35,17 +35,18 @@
       goto LABEL_7;
     }
 
-    [(HMPBAccessoryReference *)self setHomeReference:?];
+    homeReference = [(HMPBAccessoryReference *)self setHomeReference:?];
   }
 
   fromCopy = v7;
 LABEL_7:
   if (fromCopy[2])
   {
-    [(HMPBAccessoryReference *)self setUniqueIdentifier:?];
+    homeReference = [(HMPBAccessoryReference *)self setUniqueIdentifier:?];
+    fromCopy = v7;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](homeReference, fromCopy);
 }
 
 - (BOOL)isEqual:(id)equal

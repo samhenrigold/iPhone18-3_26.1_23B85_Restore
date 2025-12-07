@@ -3,6 +3,7 @@
 + (CGSize)maximumImageSize;
 + (id)convertImage:(id)image showsImageFullHeight:(BOOL)height;
 - (CPListImageRowItemCardElement)initWithCoder:(id)coder;
+- (CPListImageRowItemCardElement)initWithImage:(id)image showsImageFullHeight:(BOOL)height title:(id)title subtitle:(id)subtitle tintColor:(id)color;
 - (void)encodeWithCoder:(id)coder;
 - (void)setSubtitle:(id)subtitle;
 - (void)setTintColor:(id)color;
@@ -43,6 +44,40 @@
   result.height = v3;
   result.width = v2;
   return result;
+}
+
+- (CPListImageRowItemCardElement)initWithImage:(id)image showsImageFullHeight:(BOOL)height title:(id)title subtitle:(id)subtitle tintColor:(id)color
+{
+  heightCopy = height;
+  titleCopy = title;
+  subtitleCopy = subtitle;
+  colorCopy = color;
+  imageCopy = image;
+  v16 = objc_opt_class();
+  v17 = [imageCopy copy];
+
+  v18 = [v16 convertImage:v17 showsImageFullHeight:heightCopy];
+  v27.receiver = self;
+  v27.super_class = CPListImageRowItemCardElement;
+  v19 = [(CPListImageRowItemElement *)&v27 initWithImageSet:v18];
+
+  if (v19)
+  {
+    v20 = [titleCopy copy];
+    title = v19->_title;
+    v19->_title = v20;
+
+    v22 = [subtitleCopy copy];
+    subtitle = v19->_subtitle;
+    v19->_subtitle = v22;
+
+    v19->_showsImageFullHeight = heightCopy;
+    v24 = [colorCopy copy];
+    tintColor = v19->_tintColor;
+    v19->_tintColor = v24;
+  }
+
+  return v19;
 }
 
 + (id)convertImage:(id)image showsImageFullHeight:(BOOL)height

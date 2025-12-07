@@ -59,35 +59,35 @@
 + (id)tabIdentifierForURL:(id)l
 {
   actionString = [l actionString];
-  if ([actionString isEqualToString:@"audiobooks"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"audiobooks";
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"books"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_4;
   }
 
-  if ([actionString isEqualToString:@"movies"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"movies";
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"music"] & 1) != 0 || (objc_msgSend(actionString, "isEqualToString:", @"music-videos"))
+  if (objc_msgSend_isEqualToString_(actionString) & 1) != 0 || (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"music";
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"podcasts"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_4;
   }
 
-  if ([actionString isEqualToString:@"ringtones"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     currentDevice = [MEMORY[0x277D75418] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
@@ -105,29 +105,29 @@
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"software"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
 LABEL_4:
     v4 = @"featured";
     goto LABEL_10;
   }
 
-  if ([actionString isEqualToString:@"tv-shows"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"tv";
   }
 
-  else if ([actionString isEqualToString:@"updates"])
+  else if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"updates";
   }
 
-  else if ([actionString isEqualToString:@"purchased"])
+  else if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"purchased";
   }
 
-  else if ([actionString isEqualToString:@"manage"])
+  else if (objc_msgSend_isEqualToString_(actionString))
   {
     v4 = @"managed";
   }
@@ -147,70 +147,70 @@ LABEL_10:
   lCopy = l;
   actionString = [lCopy actionString];
   v5 = [objc_opt_class() tabIdentifierForURL:lCopy];
-  if ([actionString isEqualToString:@"accessory-lookup"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_2;
   }
 
-  if ([actionString isEqualToString:@"account"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SKUIURLResolver *)self _showAccountViewControllerWithURL:lCopy];
     goto LABEL_11;
   }
 
-  if ([actionString isEqualToString:@"addpassbookpass"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SKUIURLResolver *)self _addPassbookPassWithURL:lCopy];
     goto LABEL_11;
   }
 
-  if ([actionString isEqualToString:@"donate"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SKUIURLResolver *)self _showDonationViewControllerWithURL:lCopy];
     goto LABEL_11;
   }
 
-  if ([actionString isEqualToString:@"gift"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SKUIURLResolver *)self _showGiftViewControllerWithURL:lCopy];
     goto LABEL_11;
   }
 
-  if ([actionString isEqualToString:@"library-link"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_2;
   }
 
-  if ([actionString isEqualToString:*MEMORY[0x277D6A598]])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SKUIURLResolver *)self _handleSafariScriptDataUpdate:lCopy];
     goto LABEL_11;
   }
 
-  if ([actionString isEqualToString:@"lookup"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SKUIURLResolver *)self _performLookupWithURL:lCopy];
     goto LABEL_11;
   }
 
-  if ([actionString isEqualToString:@"redeem"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SKUIURLResolver *)self _showRedeemViewControllerWithURL:lCopy];
     goto LABEL_11;
   }
 
-  if ([actionString isEqualToString:@"search"])
+  if (objc_msgSend_isEqualToString_(actionString))
   {
     [(SKUIURLResolver *)self _showSearchWithURL:lCopy];
     goto LABEL_11;
   }
 
-  if ([actionString isEqualToString:@"bagurl"] || objc_msgSend(actionString, "isEqualToString:", @"newsstand") || objc_msgSend(actionString, "isEqualToString:", @"passbook"))
+  if (objc_msgSend_isEqualToString_(actionString) || objc_msgSend_isEqualToString_(actionString) || objc_msgSend_isEqualToString_(actionString))
   {
     goto LABEL_2;
   }
 
-  if (![actionString isEqualToString:@"ringtones"])
+  if (!objc_msgSend_isEqualToString_(actionString))
   {
     if (![v5 length])
     {

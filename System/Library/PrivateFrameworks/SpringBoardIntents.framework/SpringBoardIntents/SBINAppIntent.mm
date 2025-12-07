@@ -12,13 +12,13 @@
   contextCopy = context;
   if (!identifierCopy)
   {
-    [SBINAppIntent initWithIdentifier:a2 systemContext:?];
+    [SBINAppIntent initWithIdentifier:a2 systemContext:self];
   }
 
   v10 = contextCopy;
   if (!contextCopy)
   {
-    [SBINAppIntent initWithIdentifier:a2 systemContext:?];
+    [SBINAppIntent initWithIdentifier:a2 systemContext:self];
   }
 
   v14.receiver = self;
@@ -46,7 +46,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v12 = 1;
+    v8 = 1;
   }
 
   else
@@ -57,70 +57,66 @@
     if (isKindOfClass)
     {
       v7 = equalCopy;
-      identifier = self->_identifier;
-      v9 = v7->_identifier;
       if (BSEqualStrings())
       {
-        systemContext = self->_systemContext;
-        v11 = v7->_systemContext;
-        v12 = BSEqualObjects();
+        v8 = BSEqualObjects();
       }
 
       else
       {
-        v12 = 0;
+        v8 = 0;
       }
     }
 
     else
     {
-      v12 = 0;
+      v8 = 0;
     }
   }
 
-  return v12;
+  return v8;
 }
 
-- (void)initWithIdentifier:(const char *)a1 systemContext:.cold.1(const char *a1)
+- (void)initWithIdentifier:(const char *)a1 systemContext:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemContext != ((void*)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemContext != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"SBINAppIntent.m";
-    v9 = 1024;
-    v10 = 20;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBINAppIntent.m";
+    v10 = 1024;
+    v11 = 20;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_26B9E8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithIdentifier:(const char *)a1 systemContext:.cold.2(const char *a1)
+- (void)initWithIdentifier:(const char *)a1 systemContext:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != ((void*)0)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"SBINAppIntent.m";
-    v9 = 1024;
-    v10 = 19;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBINAppIntent.m";
+    v10 = 1024;
+    v11 = 19;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_26B9E8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

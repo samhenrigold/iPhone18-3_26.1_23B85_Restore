@@ -1,6 +1,7 @@
 @interface DDRemoteActionHostContext
 + (id)_allowedItemPayloadClasses;
 - (id)protocolService;
+- (void)enableUserInteraction:(BOOL)interaction;
 - (void)prepareViewControllerWithContext:(id)context completionHandler:(id)handler;
 @end
 
@@ -63,15 +64,20 @@ void __80__DDRemoteActionHostContext_prepareViewControllerWithContext_completion
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
+- (void)enableUserInteraction:(BOOL)interaction
+{
+  interactionCopy = interaction;
+  protocolService = [(DDRemoteActionHostContext *)self protocolService];
+  [protocolService enableUserInteraction:interactionCopy];
+}
+
 void __44__DDRemoteActionHostContext_protocolService__block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error calling service - %@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error calling service - %@", &v2, 0xCu);
 }
 
 @end

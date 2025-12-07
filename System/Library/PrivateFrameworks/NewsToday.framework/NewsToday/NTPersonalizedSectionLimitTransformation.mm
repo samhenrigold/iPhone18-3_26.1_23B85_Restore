@@ -139,50 +139,38 @@ void __63__NTPersonalizedSectionLimitTransformation_transformFeedItems___block_i
 
 - (void)initWithMandatoryArticleIDs:personalizedArticleIDs:limit:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "mandatoryArticleIDs"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "mandatoryArticleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithMandatoryArticleIDs:personalizedArticleIDs:limit:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "personalizedArticleIDs"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "personalizedArticleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)initWithMandatoryArticleIDs:personalizedArticleIDs:limit:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "![mandatoryArticleIDs intersectsOrderedSet:personalizedArticleIDs]"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "![mandatoryArticleIDs intersectsOrderedSet:personalizedArticleIDs]", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)transformFeedItems:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "feedItems"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "feedItems", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

@@ -29,22 +29,21 @@
 
 - (id)firstViewController
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v3 = [[TSDeviceInfoViewController alloc] initWithOptions:self->_options];
-  v4 = _TSLogDomain();
+  v4 = _TSLogDomain(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = objc_opt_class();
-    v9 = 2080;
-    v10 = "[TSIdentityShareFlow firstViewController]";
-    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "first view controller : %@ @%s", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = objc_opt_class();
+    v8 = 2080;
+    v9 = "[TSIdentityShareFlow firstViewController]";
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "first view controller : %@ @%s", &v6, 0x16u);
   }
 
   [(TSDeviceInfoViewController *)v3 setDelegate:self];
   [(TSSIMSetupFlow *)self setTopViewController:v3];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -124,45 +123,43 @@ void __32__TSIdentityShareFlow_showAlert__block_invoke(CFStringRef *a1)
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __32__TSIdentityShareFlow_showAlert__block_invoke_2(uint64_t a1)
+void __32__TSIdentityShareFlow_showAlert__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = (a1 + 40);
+  v2 = (a1 + 40);
   if (*(a1 + 40))
   {
-    v2 = _TSLogDomain();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _TSLogDomain(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __32__TSIdentityShareFlow_showAlert__block_invoke_2_cold_1(v1, v2);
+      __32__TSIdentityShareFlow_showAlert__block_invoke_2_cold_1(v2, v3);
     }
   }
 
   else if (!*(a1 + 32))
   {
-    v4 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/NFC_LINK"];
-    v3 = [MEMORY[0x277CC1E80] defaultWorkspace];
-    [v3 openSensitiveURL:v4 withOptions:0];
+    v5 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/NFC_LINK"];
+    v4 = [MEMORY[0x277CC1E80] defaultWorkspace];
+    [v4 openSensitiveURL:v5 withOptions:0];
   }
 }
 
 - (void)appBackgrounded
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSIdentityShareFlow appBackgrounded]";
-  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] TSIdentityShareFlow appBackgrounded @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSIdentityShareFlow appBackgrounded]";
+  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] TSIdentityShareFlow appBackgrounded @%s", &v1, 0xCu);
 }
 
 void __32__TSIdentityShareFlow_showAlert__block_invoke_2_cold_1(int *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109378;
-  v4[1] = v2;
-  v5 = 2080;
-  v6 = "+[TSIdentityShareFlow showAlert]_block_invoke_2";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]present notification failed:%d @%s", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = v2;
+  v4 = 2080;
+  v5 = "+[TSIdentityShareFlow showAlert]_block_invoke_2";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]present notification failed:%d @%s", v3, 0x12u);
 }
 
 @end

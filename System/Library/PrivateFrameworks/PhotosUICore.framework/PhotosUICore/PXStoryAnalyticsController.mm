@@ -158,7 +158,7 @@ LABEL_14:
   v23 = timeline;
   if (timeline)
   {
-    [timeline timeRange];
+    objc_msgSend_timeRange(timeline);
   }
 
   else
@@ -208,7 +208,7 @@ LABEL_14:
     v42 = 0;
     if (timeline2)
     {
-      [timeline2 timeRange];
+      objc_msgSend_timeRange(timeline2);
     }
 
     else
@@ -675,7 +675,7 @@ LABEL_7:
     v18 = timeline;
     if (timeline)
     {
-      [timeline timeRange];
+      objc_msgSend_timeRange(timeline);
     }
 
     else

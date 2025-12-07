@@ -6,7 +6,7 @@
 
 - (void)logPredictionQueryFeedback:(id)feedback endHistogram:(id)histogram withStorage:(id)storage
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   feedbackCopy = feedback;
   histogramCopy = histogram;
   storageCopy = storage;
@@ -38,33 +38,18 @@ LABEL_3:
   }
 
 LABEL_4:
-  if ([v11 count])
+  if ([v11 count] && (+[_DKDeviceActivityLevelFeedbackMetadataKey predictionQueryResults](_DKDeviceActivityLevelFeedbackMetadataKey, "predictionQueryResults"), v16 = objc_claimAutoreleasedReturnValue(), v25 = v16, v26[0] = v11, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v26, &v25, 1), v17 = objc_claimAutoreleasedReturnValue(), v16, v17) || (v17 = 0, (-[__CFString isEqualToString:](v13, "isEqualToString:", &stru_1F05B9908) & 1) == 0))
   {
-    v16 = +[_DKDeviceActivityLevelFeedbackMetadataKey predictionQueryResults];
-    v26 = v16;
-    v27[0] = v11;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-
-    if (v17)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v17 = 0;
-  if (([(__CFString *)v13 isEqualToString:&stru_1F05B9908]& 1) == 0)
-  {
-LABEL_18:
     v18 = +[_DKSystemEventStreams deviceActivityLevelFeedbackStream];
     v19 = [_DKEvent eventWithStream:v18 source:0 startDate:date endDate:date identifierStringValue:v13 metadata:v17];
 
     if (v19)
     {
-      v25 = v19;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-      v24 = 0;
-      [storageCopy saveObjects:v20 error:&v24];
-      v21 = v24;
+      v24 = v19;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+      v23 = 0;
+      [storageCopy saveObjects:v20 error:&v23];
+      v21 = v23;
 
       if (v21)
       {
@@ -76,17 +61,14 @@ LABEL_18:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logPredictionQueryFeedback:(uint64_t)a1 endHistogram:(NSObject *)a2 withStorage:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Encountered error while saving event to knowledgeStore for _DKPredictionQueryFeedback: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Encountered error while saving event to knowledgeStore for _DKPredictionQueryFeedback: %@", &v2, 0xCu);
 }
 
 @end

@@ -105,26 +105,25 @@
   [nowDate timeIntervalSince1970];
   v9 = v8 - timestamp;
 
-  [self timeIntervalAllowedForAction:type];
-  v11 = v9 < 0.0;
+  v10 = [self timeIntervalAllowedForAction:type];
+  v12 = v9 < 0.0;
   if (v9 >= 0.0)
   {
-    v20 = v10;
-    if (v9 <= v10)
+    v21 = v11;
+    if (v9 <= v11)
     {
-      v11 = 1;
-      goto LABEL_9;
+      return 1;
     }
 
-    v12 = MessageProtectionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = MessageProtectionLog(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v32 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:timestamp];
       v23 = [v32 description];
       v24 = MEMORY[0x277CBEAA8];
       nowDate2 = [self nowDate];
       [nowDate2 timeIntervalSince1970];
-      v27 = [v24 dateWithTimeIntervalSince1970:v26 - v20];
+      v27 = [v24 dateWithTimeIntervalSince1970:v26 - v21];
       v28 = [v27 description];
       nowDate3 = [self nowDate];
       v30 = [nowDate3 description];
@@ -137,22 +136,20 @@
       v38 = v30;
       v39 = 2112;
       v40 = v31;
-      _os_log_error_impl(&dword_22B404000, v12, OS_LOG_TYPE_ERROR, "The encryption prekey is older (%@) than the last allowed date (%@) for %@ at %@.", buf, 0x2Au);
+      _os_log_error_impl(&dword_22B404000, v13, OS_LOG_TYPE_ERROR, "The encryption prekey is older (%@) than the last allowed date (%@) for %@ at %@.", buf, 0x2Au);
     }
   }
 
   else
   {
-    v12 = MessageProtectionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = MessageProtectionLog(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [(NGMTimeBasedEvaluations *)v12 validateFetchedPrekeyTimestamp:v13 forEvaluationType:v14, v15, v16, v17, v18, v19];
+      [(NGMTimeBasedEvaluations *)v13 validateFetchedPrekeyTimestamp:v14 forEvaluationType:v15, v16, v17, v18, v19, v20];
     }
   }
 
-LABEL_9:
-  v21 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 + (BOOL)shouldRekeyIfLastRekeyFrom:(id)from
@@ -168,64 +165,64 @@ LABEL_9:
 
     if (v9 < 0.0)
     {
-      v10 = MessageProtectionLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v11 = MessageProtectionLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v20 = 0;
-        v11 = "A KEM rekeying happened with a date logged in the future.";
-        v12 = &v20;
+        v21 = 0;
+        v12 = "A KEM rekeying happened with a date logged in the future.";
+        v13 = &v21;
 LABEL_13:
-        _os_log_impl(&dword_22B404000, v10, OS_LOG_TYPE_INFO, v11, v12, 2u);
+        _os_log_impl(&dword_22B404000, v11, OS_LOG_TYPE_INFO, v12, v13, 2u);
         goto LABEL_14;
       }
 
       goto LABEL_14;
     }
 
-    v10 = MessageProtectionLog();
-    v16 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
+    v11 = MessageProtectionLog(v10);
+    v17 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
     if (v9 <= 604800.0)
     {
-      if (v16)
+      if (v17)
       {
-        v18 = 0;
-        v11 = "We have rekeyed less than a week ago.";
-        v12 = &v18;
+        v19 = 0;
+        v12 = "We have rekeyed less than a week ago.";
+        v13 = &v19;
         goto LABEL_13;
       }
 
 LABEL_14:
-      v13 = 0;
+      v14 = 0;
       goto LABEL_15;
     }
 
-    if (!v16)
+    if (!v17)
     {
-      v13 = 1;
+      v14 = 1;
       goto LABEL_15;
     }
 
     *buf = 0;
-    v14 = "A week or more has passed since our last KEM rekeying, should rekey again.";
-    v13 = 1;
-    v15 = buf;
+    v15 = "A week or more has passed since our last KEM rekeying, should rekey again.";
+    v14 = 1;
+    v16 = buf;
     goto LABEL_10;
   }
 
-  v10 = MessageProtectionLog();
-  v13 = 1;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = MessageProtectionLog(0);
+  v14 = 1;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v21 = 0;
-    v14 = "Rekeying since we don't have a last rekey date.";
-    v15 = &v21;
+    v22 = 0;
+    v15 = "Rekeying since we don't have a last rekey date.";
+    v16 = &v22;
 LABEL_10:
-    _os_log_impl(&dword_22B404000, v10, OS_LOG_TYPE_INFO, v14, v15, 2u);
+    _os_log_impl(&dword_22B404000, v11, OS_LOG_TYPE_INFO, v15, v16, 2u);
   }
 
 LABEL_15:
 
-  return v13;
+  return v14;
 }
 
 + (BOOL)prekeyCanBeDeleted:(id)deleted
@@ -239,16 +236,16 @@ LABEL_15:
   [publicPrekey timestamp];
   v10 = v7 - v9;
 
-  v11 = v10 >= 0.0;
+  v12 = v10 >= 0.0;
   if (v10 < 0.0)
   {
-    v12 = MessageProtectionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = MessageProtectionLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       LOWORD(v18) = 0;
-      v13 = "The encryption prekey appears to have been signed with a date in the future.                    The time was probably rolled back on the phone.";
-      v14 = v12;
-      v15 = 2;
+      v14 = "The encryption prekey appears to have been signed with a date in the future.                    The time was probably rolled back on the phone.";
+      v15 = v13;
+      v16 = 2;
       goto LABEL_7;
     }
   }
@@ -257,26 +254,25 @@ LABEL_15:
   {
     if (v10 <= 10368000.0)
     {
-      v11 = 0;
+      v12 = 0;
       goto LABEL_10;
     }
 
-    v12 = MessageProtectionLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = MessageProtectionLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v18 = 138412290;
       v19 = deletedCopy;
-      v13 = "Removing prekey %@ since it's safe to delete it now (expired).";
-      v14 = v12;
-      v15 = 12;
+      v14 = "Removing prekey %@ since it's safe to delete it now (expired).";
+      v15 = v13;
+      v16 = 12;
 LABEL_7:
-      _os_log_impl(&dword_22B404000, v14, OS_LOG_TYPE_INFO, v13, &v18, v15);
+      _os_log_impl(&dword_22B404000, v15, OS_LOG_TYPE_INFO, v14, &v18, v16);
     }
   }
 
 LABEL_10:
-  v16 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 + (BOOL)prekeyShouldBeRolled:(id)rolled
@@ -292,10 +288,10 @@ LABEL_10:
 
   if (v10 < 0.0)
   {
-    v11 = MessageProtectionLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = MessageProtectionLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [(NGMTimeBasedEvaluations *)v11 prekeyShouldBeRolled:v12, v13, v14, v15, v16, v17, v18];
+      [(NGMTimeBasedEvaluations *)v12 prekeyShouldBeRolled:v13, v14, v15, v16, v17, v18, v19];
     }
 
 LABEL_7:
@@ -305,10 +301,10 @@ LABEL_7:
 
   if (v10 > 604800.0)
   {
-    v11 = MessageProtectionLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = MessageProtectionLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [(NGMTimeBasedEvaluations *)v11 prekeyShouldBeRolled:v19, v20, v21, v22, v23, v24, v25];
+      [(NGMTimeBasedEvaluations *)v12 prekeyShouldBeRolled:v20, v21, v22, v23, v24, v25, v26];
     }
 
     goto LABEL_7;

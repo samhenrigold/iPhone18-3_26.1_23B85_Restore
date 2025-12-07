@@ -60,7 +60,7 @@
 
 void __42__HMDHAPAccessoryTask__updatedCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -88,16 +88,14 @@ void __42__HMDHAPAccessoryTask__updatedCompletion___block_invoke(uint64_t a1, vo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for fallback task completion handler", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for fallback task completion handler", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     (*(*(a1 + 32) + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCharacteristicResponses:(id)responses isRemote:(BOOL)remote
@@ -134,7 +132,7 @@ void __59__HMDHAPAccessoryTask_addCharacteristicResponses_isRemote___block_invok
 
 - (void)finishTaskWithCharacteristicResponses:(id)responses completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   completionCopy = completion;
   context = [(HMDHAPAccessoryTask *)self context];
@@ -150,13 +148,13 @@ void __59__HMDHAPAccessoryTask_addCharacteristicResponses_isRemote___block_invok
       v13 = HMFGetLogIdentifier();
       context2 = [(HMDHAPAccessoryTask *)selfCopy context];
       requestMessage = [context2 requestMessage];
-      v18 = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = selfCopy;
-      v22 = 2112;
-      v23 = requestMessage;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] associated context is already completed: %@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = v13;
+      v19 = 2112;
+      v20 = selfCopy;
+      v21 = 2112;
+      v22 = requestMessage;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] associated context is already completed: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -177,13 +175,11 @@ void __59__HMDHAPAccessoryTask_addCharacteristicResponses_isRemote___block_invok
       [(HMDHAPAccessoryTask *)self sendCharacteristicNotificationsForCompletedTask:characteristicResponses completion:completionCopy];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCharacteristicNotificationsForCompletedTask:(id)task completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   completionCopy = completion;
   [taskCopy na_each:&__block_literal_global_149_276851];
@@ -194,9 +190,9 @@ void __59__HMDHAPAccessoryTask_addCharacteristicResponses_isRemote___block_invok
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v37 = v10;
-    v38 = 2112;
-    v39 = selfCopy;
+    v36 = v10;
+    v37 = 2112;
+    v38 = selfCopy;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@[%@] Sending characteristic notifications for completed task", buf, 0x16u);
   }
 
@@ -217,27 +213,25 @@ void __59__HMDHAPAccessoryTask_addCharacteristicResponses_isRemote___block_invok
   context4 = [(HMDHAPAccessoryTask *)selfCopy context];
   requestMessageIdentifier = [context4 requestMessageIdentifier];
   supportsMultiPartResponse = [(HMDHAPAccessoryTask *)selfCopy supportsMultiPartResponse];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_completion___block_invoke_2;
-  v29[3] = &unk_2786893C0;
-  objc_copyWeak(&v35, buf);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_completion___block_invoke_2;
+  v28[3] = &unk_2786893C0;
+  objc_copyWeak(&v34, buf);
   v22 = requestMessage;
-  v30 = v22;
+  v29 = v22;
   v23 = v18;
-  v31 = v23;
+  v30 = v23;
   v24 = workQueue;
-  v32 = v24;
+  v31 = v24;
   v25 = completionCopy;
-  v34 = v25;
+  v33 = v25;
   v26 = taskCopy;
-  v33 = v26;
-  [home _notifyChangedCharacteristics:v26 identifier:requestMessageIdentifier multiPartResponse:supportsMultiPartResponse moreMessagesInMultipart:0 requestMessage:v22 withCompletionHandler:v29];
+  v32 = v26;
+  [home _notifyChangedCharacteristics:v26 identifier:requestMessageIdentifier multiPartResponse:supportsMultiPartResponse moreMessagesInMultipart:0 requestMessage:v22 withCompletionHandler:v28];
 
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v34);
   objc_destroyWeak(buf);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -280,10 +274,10 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
 
 - (void)_sendCharacteristicNotificationsForTaskInProgress:(id)progress completion:(id)completion
 {
-  v79[3] = *MEMORY[0x277D85DE8];
+  v78[3] = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   completionCopy = completion;
-  v61 = progressCopy;
+  v60 = progressCopy;
   v9 = [progressCopy na_filter:&__block_literal_global_135_276858];
   if ([v9 count])
   {
@@ -308,20 +302,20 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
       }
 
       supportsMultiPartResponse = [(HMDHAPAccessoryTask *)self supportsMultiPartResponse];
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress_completion___block_invoke_5;
-      v62[3] = &unk_278689358;
-      v63 = workQueue;
-      v65 = completionCopy;
-      v64 = v9;
-      [home _handleSendingNotificationsForRequest:requestMessage requestIdentifier:uUIDString supportsMultiPartResponse:supportsMultiPartResponse characteristicUpdates:v15 completion:v62];
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress_completion___block_invoke_5;
+      v61[3] = &unk_278689358;
+      v62 = workQueue;
+      v64 = completionCopy;
+      v63 = v9;
+      [home _handleSendingNotificationsForRequest:requestMessage requestIdentifier:uUIDString supportsMultiPartResponse:supportsMultiPartResponse characteristicUpdates:v15 completion:v61];
       v19 = v16;
       if (!v16)
       {
       }
 
-      v20 = v63;
+      v20 = v62;
     }
 
     else
@@ -332,12 +326,12 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
 
       responseCharacteristics = [(HMDCharacteristicResponseNotificationContext *)v23 responseCharacteristics];
       allObjects = [responseCharacteristics allObjects];
-      v59 = v23;
+      v58 = v23;
       notificationPayloadByAccessoryUUID = [(HMDCharacteristicResponseNotificationContext *)v23 notificationPayloadByAccessoryUUID];
       v27 = [home _splitCharacteristicChanges:allObjects changedAccessories:notificationPayloadByAccessoryUUID];
 
       proxyConnection = [requestMessage proxyConnection];
-      v58 = v27;
+      v57 = v27;
       if ([proxyConnection isEntitledForSPIAccess])
       {
         [v27 characteristicUpdatesForEntitledClients];
@@ -355,16 +349,16 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
         v29 = v28;
       }
 
-      v79[0] = v29;
+      v78[0] = v29;
       v30 = *MEMORY[0x277CD0640];
-      v78[0] = @"kModifiedCharacteristicsForAccessoryKey";
-      v78[1] = v30;
+      v77[0] = @"kModifiedCharacteristicsForAccessoryKey";
+      v77[1] = v30;
       uuid = [home uuid];
       uUIDString2 = [uuid UUIDString];
-      v78[2] = @"kMultiPartResponseKey";
-      v79[1] = uUIDString2;
-      v79[2] = MEMORY[0x277CBEC38];
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:3];
+      v77[2] = @"kMultiPartResponseKey";
+      v78[1] = uUIDString2;
+      v78[2] = MEMORY[0x277CBEC38];
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:3];
 
       v34 = objc_alloc(MEMORY[0x277D0F820]);
       uuid2 = [home uuid];
@@ -382,8 +376,8 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
         v39 = 17;
       }
 
-      v55 = v36;
-      v56 = v33;
+      v54 = v36;
+      v55 = v33;
       v40 = [v37 initWithName:@"kMultipleCharacteristicValuesUpdatedNotificationKey" qualityOfService:v39 destination:v36 payload:v33];
       identifier3 = [requestMessage identifier];
       [v40 setIdentifier:identifier3];
@@ -395,26 +389,26 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
       if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         HMFGetLogIdentifier();
-        v45 = v53 = v42;
+        v45 = v52 = v42;
         v46 = completionCopy;
         v47 = v20;
         v48 = [v9 count];
         [requestMessage shortDescription];
-        v49 = v54 = home;
+        v49 = v53 = home;
         *buf = 138544130;
-        v71 = v45;
-        v72 = 2112;
-        v73 = selfCopy;
-        v74 = 2048;
-        v75 = v48;
+        v70 = v45;
+        v71 = 2112;
+        v72 = selfCopy;
+        v73 = 2048;
+        v74 = v48;
         v20 = v47;
         completionCopy = v46;
-        v76 = 2112;
-        v77 = v49;
+        v75 = 2112;
+        v76 = v49;
         _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_DEFAULT, "%{public}@[%@] Sending the multi-part responses[%ld] to local client: %@", buf, 0x2Au);
 
-        home = v54;
-        v42 = v53;
+        home = v53;
+        v42 = v52;
       }
 
       objc_autoreleasePoolPop(v42);
@@ -422,17 +416,17 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
       if ([proxyConnection canSendMessage:v40])
       {
         [home handleReportingSessionResponseMessage:v40];
-        v50 = [v40 copy];
-        v66[0] = MEMORY[0x277D85DD0];
-        v66[1] = 3221225472;
-        v66[2] = __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress_completion___block_invoke_2;
-        v66[3] = &unk_278689358;
-        v67 = workQueue;
-        v69 = completionCopy;
-        v68 = v9;
-        [proxyConnection sendMessage:v50 completionHandler:v66];
+        v50 = objc_msgSend_copy(v40);
+        v65[0] = MEMORY[0x277D85DD0];
+        v65[1] = 3221225472;
+        v65[2] = __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress_completion___block_invoke_2;
+        v65[3] = &unk_278689358;
+        v66 = workQueue;
+        v68 = completionCopy;
+        v67 = v9;
+        [proxyConnection sendMessage:v50 completionHandler:v65];
 
-        v51 = v67;
+        v51 = v66;
       }
 
       else
@@ -441,9 +435,9 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
         (*(completionCopy + 2))(completionCopy, 0, v9, v51);
       }
 
-      v19 = v58;
+      v19 = v57;
 
-      v15 = v59;
+      v15 = v58;
     }
   }
 
@@ -451,8 +445,6 @@ void __82__HMDHAPAccessoryTask_sendCharacteristicNotificationsForCompletedTask_c
   {
     (*(completionCopy + 2))(completionCopy, 0, v9, 0);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -536,7 +528,7 @@ BOOL __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress
 
 - (void)sendCharacteristicNotificationsForTaskInProgress:(id)progress completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   completionCopy = completion;
   v8 = [progressCopy na_filter:&__block_literal_global_131_276870];
@@ -547,11 +539,11 @@ BOOL __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v21 = v12;
-    v22 = 2112;
-    v23 = selfCopy;
-    v24 = 2048;
-    v25 = [v8 count];
+    v20 = v12;
+    v21 = 2112;
+    v22 = selfCopy;
+    v23 = 2048;
+    v24 = [v8 count];
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@[%@] Sending characteristic notifications (%ld) for task in progress.", buf, 0x20u);
   }
 
@@ -569,8 +561,8 @@ BOOL __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress
     block[2] = __83__HMDHAPAccessoryTask_sendCharacteristicNotificationsForTaskInProgress_completion___block_invoke_132;
     block[3] = &unk_278689F98;
     block[4] = selfCopy;
-    v18 = v8;
-    v19 = completionCopy;
+    v17 = v8;
+    v18 = completionCopy;
     dispatch_group_notify(v13, workQueue, block);
   }
 
@@ -578,8 +570,6 @@ BOOL __84__HMDHAPAccessoryTask__sendCharacteristicNotificationsForTaskInProgress
   {
     (*(completionCopy + 2))(completionCopy, 0, v8, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __83__HMDHAPAccessoryTask_sendCharacteristicNotificationsForTaskInProgress_completion___block_invoke(uint64_t a1, void *a2)
@@ -602,7 +592,7 @@ BOOL __83__HMDHAPAccessoryTask_sendCharacteristicNotificationsForTaskInProgress_
 
 - (void)_updateCharacteristicsWithResponses:(id)responses accessoryRequests:(id)requests completedGroup:(id)group
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   requestsCopy = requests;
   groupCopy = group;
@@ -613,22 +603,22 @@ BOOL __83__HMDHAPAccessoryTask_sendCharacteristicNotificationsForTaskInProgress_
     if (!v12)
     {
       strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-      v19 = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __92__HMDHAPAccessoryTask__updateCharacteristicsWithResponses_accessoryRequests_completedGroup___block_invoke;
-      v22 = &unk_2786892F0;
+      v18 = MEMORY[0x277D85DD0];
+      v19 = 3221225472;
+      v20 = __92__HMDHAPAccessoryTask__updateCharacteristicsWithResponses_accessoryRequests_completedGroup___block_invoke;
+      v21 = &unk_2786892F0;
       v12 = strongToStrongObjectsMapTable;
-      v23 = v12;
-      [responsesCopy na_each:&v19];
+      v22 = v12;
+      [responsesCopy na_each:&v18];
     }
 
-    v14 = [HMDCharacteristicResponse characteristicsUpdateDictionaryFromResponses:responsesCopy, v19, v20, v21, v22];
+    v14 = [HMDCharacteristicResponse characteristicsUpdateDictionaryFromResponses:responsesCopy, v18, v19, v20, v21];
     context = [(HMDHAPAccessoryTask *)self context];
     home = [context home];
 
-    v24 = @"kModifiedCharacteristicsForAccessoryKey";
-    v25[0] = v14;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = @"kModifiedCharacteristicsForAccessoryKey";
+    v24[0] = v14;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     [home _addResponseTuplesFromDictionary:v17 accessoryRequestMapTable:v12 responseTuples:0 completedGroup:groupCopy logEvents:0];
 
     objc_autoreleasePoolPop(v11);
@@ -638,8 +628,6 @@ BOOL __83__HMDHAPAccessoryTask_sendCharacteristicNotificationsForTaskInProgress_
   {
     dispatch_group_leave(groupCopy);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __92__HMDHAPAccessoryTask__updateCharacteristicsWithResponses_accessoryRequests_completedGroup___block_invoke(uint64_t a1, void *a2)

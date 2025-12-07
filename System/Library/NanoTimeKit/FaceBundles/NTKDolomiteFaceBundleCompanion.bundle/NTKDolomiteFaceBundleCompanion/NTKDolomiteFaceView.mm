@@ -11,6 +11,7 @@
 - (void)_cleanupAfterEditing;
 - (void)_loadActiveViews;
 - (void)_prepareForEditing;
+- (void)_prepareForStatusChange:(BOOL)change;
 - (void)_setNumeral:(unint64_t)numeral;
 - (void)_setStatusBarIconShadowNeeded:(BOOL)needed;
 - (void)_setStyle:(unint64_t)style;
@@ -181,6 +182,15 @@ LABEL_12:
       }
     }
   }
+}
+
+- (void)_prepareForStatusChange:(BOOL)change
+{
+  changeCopy = change;
+  contentActiveView = self->_contentActiveView;
+  v5 = [(NTKDolomiteFaceView *)self dataMode]== &dword_0 + 1;
+
+  [(NTKDolomiteContentView *)contentActiveView setAdjustsForStatusBarIcon:changeCopy animated:v5];
 }
 
 - (void)_setStatusBarIconShadowNeeded:(BOOL)needed

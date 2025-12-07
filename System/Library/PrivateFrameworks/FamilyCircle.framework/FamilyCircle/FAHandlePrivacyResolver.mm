@@ -10,15 +10,16 @@
 {
   v2 = objc_alloc_init(FAFetchFamilyCircleRequest);
   [(FAFetchFamilyCircleRequest *)v2 setCachePolicy:0];
-  v7 = 0;
-  v3 = [(FAFetchFamilyCircleRequest *)v2 fetchFamilyCircleWithError:&v7];
-  v4 = v7;
+  v8 = 0;
+  v3 = [(FAFetchFamilyCircleRequest *)v2 fetchFamilyCircleWithError:&v8];
+  v4 = v8;
+  v5 = v4;
   if (v4)
   {
-    v5 = _FALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _FALogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      +[(FAHandlePrivacyResolver *)v4];
+      +[(FAHandlePrivacyResolver *)v5];
     }
   }
 
@@ -90,15 +91,15 @@
                 appleID2 = [v20 appleID];
                 [v4 addObject:appleID2];
 
-                v23 = _FALogSystem();
-                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+                v24 = _FALogSystem(v23);
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
                 {
                   appleID3 = [v20 appleID];
                   *buf = 138412546;
                   v34 = v18;
                   v35 = 2112;
                   v36 = appleID3;
-                  _os_log_impl(&dword_1B70B0000, v23, OS_LOG_TYPE_DEFAULT, "Replaced %@ with %@ in invitee list", buf, 0x16u);
+                  _os_log_impl(&dword_1B70B0000, v24, OS_LOG_TYPE_DEFAULT, "Replaced %@ with %@ in invitee list", buf, 0x16u);
                 }
               }
             }
@@ -115,18 +116,15 @@
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (void)getFamilyCircle
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "FAFetchFamilyCircleRequest failed %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_ERROR, "FAFetchFamilyCircleRequest failed %@", &v2, 0xCu);
 }
 
 @end

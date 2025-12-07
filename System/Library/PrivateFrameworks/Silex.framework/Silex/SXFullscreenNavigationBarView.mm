@@ -205,7 +205,7 @@ uint64_t __53__SXFullscreenNavigationBarView_updateFrameAnimated___block_invoke(
   self->_button = v3;
 
   button = [(SXFullscreenNavigationBarView *)self button];
-  v6 = SXBundle();
+  v6 = SXBundle(button);
   v7 = [v6 localizedStringForKey:@"Done" value:&stru_1F532F6C0 table:0];
   [button setTitle:v7 forState:0];
 

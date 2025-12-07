@@ -252,7 +252,7 @@
   }
 
 LABEL_8:
-  v46 = objc_msgSend_firstObject(self->_tokenRows, v28, v29, v30, v31, v32, *v83);
+  v46 = objc_msgSend_firstObject(self->_tokenRows, v28, v29, v30, v31, v32, *v83, *&v83[8]);
   v52 = objc_msgSend_firstObject(v46, v47, v48, v49, v50, v51);
   if (v52)
   {
@@ -327,7 +327,7 @@ LABEL_15:
   }
 
 LABEL_8:
-  v46 = objc_msgSend_firstObject(self->_tokenRows, v28, v29, v30, v31, v32, *v83);
+  v46 = objc_msgSend_firstObject(self->_tokenRows, v28, v29, v30, v31, v32, *v83, *&v83[8]);
   v52 = objc_msgSend_firstObject(v46, v47, v48, v49, v50, v51);
   if (v52)
   {

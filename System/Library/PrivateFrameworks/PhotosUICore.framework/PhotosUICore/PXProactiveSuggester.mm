@@ -74,11 +74,11 @@
           if ([proactiveCriterion length])
           {
             assetLocalIdentifier = [v16 assetLocalIdentifier];
-            startTime = [v16 startTime];
+            v19 = objc_msgSend_startTime(v16);
             endTime = [v16 endTime];
             if ([assetLocalIdentifier length])
             {
-              v21 = startTime == 0;
+              v21 = v19 == 0;
             }
 
             else
@@ -102,7 +102,7 @@
               v23 = MEMORY[0x1E696AEC0];
               [endTime timeIntervalSinceReferenceDate];
               v25 = [v23 stringWithFormat:@"%@_%.f", assetLocalIdentifier, v24];
-              v26 = [clientCopy createSuggestionWithAppBundleIdentifier:@"com.apple.mobileslideshow" widgetBundleIdentifier:@"com.apple.mobileslideshow.PhotosReliveWidget" widgetKind:@"com.apple.mobileslideshow.PhotosReliveWidget" criterion:proactiveCriterion applicableLayouts:v33 suggestionIdentifier:v25 startDate:startTime endDate:endTime intent:0 metadata:0];
+              v26 = [clientCopy createSuggestionWithAppBundleIdentifier:@"com.apple.mobileslideshow" widgetBundleIdentifier:@"com.apple.mobileslideshow.PhotosReliveWidget" widgetKind:@"com.apple.mobileslideshow.PhotosReliveWidget" criterion:proactiveCriterion applicableLayouts:v33 suggestionIdentifier:v25 startDate:v19 endDate:endTime intent:0 metadata:0];
               v27 = v26;
               if (v26)
               {

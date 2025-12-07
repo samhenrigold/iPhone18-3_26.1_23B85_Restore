@@ -5,6 +5,7 @@
 - (NSXPCConnection)dataResetWorkerConnection;
 - (OS_dispatch_queue)queue;
 - (void)_obliterateDeviceWithMode:(int64_t)mode;
+- (void)doObliterateWithType:(__CFString *)type showingProgress:(BOOL)progress options:(id)options;
 - (void)finishResetOfMode:(int64_t)mode withError:(id)error;
 - (void)resetConnection;
 - (void)resetDataWithRequest:(id)request completion:(id)completion;
@@ -246,6 +247,26 @@ LABEL_10:
   }
 
   [(DDRManager *)self doObliterateWithType:v5 showingProgress:1 options:v8];
+}
+
+- (void)doObliterateWithType:(__CFString *)type showingProgress:(BOOL)progress options:(id)options
+{
+  progressCopy = progress;
+  optionsCopy = options;
+  v8 = [[NSMutableDictionary alloc] initWithDictionary:optionsCopy];
+
+  [v8 setObject:type forKeyedSubscript:kObliterationTypeKey];
+  v9 = [NSNumber numberWithBool:progressCopy];
+  [v8 setObject:v9 forKeyedSubscript:kDisplayProgressBarKey];
+
+  v10 = sub_100002D58(2uLL);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Making call to MobileObliterate", v11, 2u);
+  }
+
+  Mobile_Obliterate();
 }
 
 - (void)resetWithMode:(int64_t)mode didUpdateWithProgress:(double)progress

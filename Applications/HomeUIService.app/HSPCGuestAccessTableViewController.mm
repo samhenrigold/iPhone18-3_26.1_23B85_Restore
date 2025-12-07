@@ -7,6 +7,7 @@
 - (void)_updateCellInTableView:(id)view atIndexPath:(id)path;
 - (void)setupCell:(id)cell forItem:(id)item indexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)updateCell:(id)cell forItem:(id)item indexPath:(id)path animated:(BOOL)animated;
 - (void)viewDidLoad;
 @end
 
@@ -236,6 +237,97 @@
 
     [v14 setAxesPreservingSuperviewLayoutMargins:2];
     [cellCopy setContentConfiguration:v14];
+  }
+}
+
+- (void)updateCell:(id)cell forItem:(id)item indexPath:(id)path animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  cellCopy = cell;
+  itemCopy = item;
+  pathCopy = path;
+  v28.receiver = self;
+  v28.super_class = HSPCGuestAccessTableViewController;
+  [(HSPCGuestAccessTableViewController *)&v28 updateCell:cellCopy forItem:itemCopy indexPath:pathCopy animated:animatedCopy];
+  objc_opt_class();
+  v13 = cellCopy;
+  if (objc_opt_isKindOfClass())
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = v14;
+
+  objc_opt_class();
+  v16 = itemCopy;
+  if (objc_opt_isKindOfClass())
+  {
+    v17 = v16;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v18 = v17;
+
+  if (v18)
+  {
+    v19 = v15 == 0;
+  }
+
+  else
+  {
+    v19 = 1;
+  }
+
+  if (v19)
+  {
+    indexPathsForSelectedRows = HFLogForCategory();
+    if (os_log_type_enabled(indexPathsForSelectedRows, OS_LOG_TYPE_ERROR))
+    {
+      v20 = [objc_opt_class() description];
+      *buf = 138413058;
+      v30 = v20;
+      v31 = 2080;
+      v32 = "[HSPCGuestAccessTableViewController updateCell:forItem:indexPath:animated:]";
+      v33 = 2112;
+      v34 = v13;
+      v35 = 2112;
+      v36 = v16;
+      _os_log_error_impl(&_mh_execute_header, indexPathsForSelectedRows, OS_LOG_TYPE_ERROR, "(%@:%s) cell %@ should be UITableViewCell, and item %@ should be HFPinCodeItem", buf, 0x2Au);
+    }
+  }
+
+  else
+  {
+    tableView = [(HSPCGuestAccessTableViewController *)self tableView];
+    indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
+
+    if ([indexPathsForSelectedRows containsObject:pathCopy])
+    {
+      v24 = @"checkmark.circle.fill";
+    }
+
+    else
+    {
+      v24 = @"circle";
+    }
+
+    v25 = [UIImage systemImageNamed:v24];
+    v26 = [[UIImageView alloc] initWithImage:v25];
+
+    [v15 setAccessoryView:v26];
+    v27 = +[UIColor clearColor];
+    [v15 setBackgroundColor:v27];
+
+    [v15 setSelectionStyle:0];
   }
 }
 

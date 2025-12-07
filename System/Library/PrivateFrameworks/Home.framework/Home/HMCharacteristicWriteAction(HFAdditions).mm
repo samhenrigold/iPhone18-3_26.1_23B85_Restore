@@ -21,8 +21,8 @@
 {
   v1 = MEMORY[0x277CBEB98];
   characteristic = [self characteristic];
-  service = [characteristic service];
-  v4 = [v1 na_setWithSafeObject:service];
+  v3 = objc_msgSend_service(characteristic);
+  v4 = [v1 na_setWithSafeObject:v3];
 
   return v4;
 }

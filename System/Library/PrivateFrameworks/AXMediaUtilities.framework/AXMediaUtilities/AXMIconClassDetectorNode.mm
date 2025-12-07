@@ -7,6 +7,7 @@
 - (unint64_t)minSupportedFormatVersion;
 - (void)_initializeClassLabels;
 - (void)evaluate:(id)evaluate metrics:(id)metrics;
+- (void)mlModelClasses;
 @end
 
 @implementation AXMIconClassDetectorNode
@@ -285,6 +286,27 @@
   v6 = [v4 localizedStringForKey:v5 value:&stru_1F23EA908 table:@"Accessibility"];
 
   return v6;
+}
+
+- (void)mlModelClasses
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "Could not find ml model classes, returning default: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)evaluate:(uint64_t)a3 metrics:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "Error icon vision prediction: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)evaluate:(uint64_t)a3 metrics:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "Could not create cv pixel buffer: %ld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

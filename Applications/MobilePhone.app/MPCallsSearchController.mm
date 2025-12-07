@@ -147,7 +147,7 @@
 
 - (void)searchWith:(NSString *)with searchTokens:(NSArray *)tokens completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(completion);
@@ -213,15 +213,16 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = CallsSearchController.tableView(_:cellForRowAt:)(viewCopy, v9);
+  CallsSearchController.tableView(_:cellForRowAt:)(viewCopy, v9);
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -243,15 +244,16 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = CallsSearchController.tableView(_:trailingSwipeActionsConfigurationForRowAt:)(viewCopy, v9);
+  CallsSearchController.tableView(_:trailingSwipeActionsConfigurationForRowAt:)(viewCopy, v9);
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)highlightMatchedTextIn:(id)in
@@ -277,14 +279,15 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   withCopy = with;
   selfCopy = self;
-  v12 = CallsSearchController.configure(cardController:presentationResultForIndex:)(withCopy, v9);
+  CallsSearchController.configure(cardController:presentationResultForIndex:)(withCopy, v9);
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
-  return v12;
+  return v13;
 }
 
 - (id)viewForDetails

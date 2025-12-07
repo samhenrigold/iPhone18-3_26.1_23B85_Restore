@@ -388,11 +388,10 @@ LABEL_31:
 
 - (void)object
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_24912E000, a2, OS_LOG_TYPE_FAULT, "Missing parameters of region trigger: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24912E000, a2, OS_LOG_TYPE_FAULT, "Missing parameters of region trigger: %@", &v2, 0xCu);
 }
 
 @end

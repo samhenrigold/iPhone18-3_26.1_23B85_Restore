@@ -151,7 +151,7 @@
   selfCopy = self;
   DBDockController.traitOverridableObjects.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE911D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE911D8, qword_24839E5B0);
   v3 = sub_248383B00();
 
   return v3;

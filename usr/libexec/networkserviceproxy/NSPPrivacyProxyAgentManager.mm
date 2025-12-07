@@ -51,15 +51,22 @@
 - (void)proxiedContentAgentUnregistered:(id)unregistered;
 - (void)removeExpiredTokens;
 - (void)reportActivityForApp:(id)app path:(id)path;
+- (void)reportEpoch:(unsigned __int16)epoch;
+- (void)reportObliviousPathError:(int)error interface:(id)interface obliviousPath:(id)path;
+- (void)reportProxiedContentPathError:(int)error interface:(id)interface proxiedContentPath:(id)path registration:(id)registration;
+- (void)reportProxyError:(int)error interface:(id)interface proxyPath:(id)path;
 - (void)reportProxySuccessOnInterface:(id)interface proxyPath:(id)path;
 - (void)reportTokenFetchFailure:(id)failure statusCode:(int64_t)code;
 - (void)requestAccessTokenWithCompletionHandler:(id)handler;
 - (void)resetProxyErrors;
+- (void)sendRTCReportForPrivacyProxyToggleState:(BOOL)state;
 - (void)sendRTCReportForServiceOutage:(id)outage;
+- (void)sendRTCReportWithFailureType:(int64_t)type errorCode:(int)code url:(id)url ingressProxy:(id)proxy egressProxy:(id)egressProxy tokenServer:(id)server;
 - (void)setProxiedContentMapDoHBootstrapEnabled:(BOOL)enabled;
 - (void)setUserEventAgentProberParameters;
 - (void)setUserEventAgentTokenFetchParameters;
 - (void)setupMasqueProxyWith:(id)with;
+- (void)setupWithPath:(id)path subscriber:(BOOL)subscriber unlimited:(BOOL)unlimited geohashSharingEnabled:(BOOL)enabled geohashOverride:(id)override configEpoch:(id)epoch linkQuality:(int)quality;
 - (void)singleHopAgentRegistered:(id)registered;
 - (void)singleHopAgentUnregistered:(id)unregistered;
 - (void)switchProxy:(id)proxy;
@@ -71,6 +78,8 @@
 - (void)tokenRateLimited:(id)limited untilDate:(double)date;
 - (void)tokensEmpty;
 - (void)updateConfigEpoch:(id)epoch;
+- (void)updateDNSFilteringHint:(BOOL)hint;
+- (void)updateGeohashSharingPreference:(BOOL)preference geohashOverride:(id)override;
 - (void)updateProxyInfo:(id)info resolverInfo:(id)resolverInfo proxyPathList:(id)list fallbackProxyPathList:(id)pathList obliviousConfigs:(id)configs proxiedContentMaps:(id)maps;
 - (void)updateUserEventAgentData;
 - (void)useDefaultNetworkInterface:(BOOL)interface;
@@ -1482,8 +1491,8 @@ LABEL_93:
     proxyTokenInfoArray = v8->_proxyTokenInfoArray;
     v8->_proxyTokenInfoArray = v56;
 
-    v8->_proxyPathRestoreIntervalSec = sub_1000201D4();
-    v58 = sub_100020C40();
+    v8->_proxyPathRestoreIntervalSec = sub_1000201D4(NSPPrivacyProxyAgentManager);
+    v58 = sub_100020C40(NSPPrivacyProxyAgentManager);
     v33 = v58;
     if (!v58)
     {
@@ -1826,13 +1835,13 @@ LABEL_107:
       }
 
       v8 = v24;
-      v24->_proxyPathRestoreIntervalSec = sub_1000201D4();
+      v24->_proxyPathRestoreIntervalSec = sub_1000201D4(NSPPrivacyProxyAgentManager);
       v33 = v103;
       v11 = v104;
       v34 = v102;
       if (v24->_candidatePreferredQUICProxyPaths)
       {
-        v35 = sub_100020C40();
+        v35 = sub_100020C40(NSPPrivacyProxyAgentManager);
         v36 = v35;
         if (v35)
         {
@@ -1981,6 +1990,258 @@ LABEL_107:
 LABEL_121:
 
   return v68;
+}
+
+- (void)setupWithPath:(id)path subscriber:(BOOL)subscriber unlimited:(BOOL)unlimited geohashSharingEnabled:(BOOL)enabled geohashOverride:(id)override configEpoch:(id)epoch linkQuality:(int)quality
+{
+  enabledCopy = enabled;
+  subscriberCopy = subscriber;
+  unlimitedCopy = unlimited;
+  pathCopy = path;
+  overrideCopy = override;
+  epochCopy = epoch;
+  tokenIssuanceRestrictedUntilDate = [(NSPPrivacyProxyAgentManager *)self tokenIssuanceRestrictedUntilDate];
+
+  if (tokenIssuanceRestrictedUntilDate)
+  {
+    tokenIssuanceRestrictedUntilDate2 = [(NSPPrivacyProxyAgentManager *)self tokenIssuanceRestrictedUntilDate];
+    [tokenIssuanceRestrictedUntilDate2 timeIntervalSinceNow];
+    v19 = v18;
+
+    if (v19 <= 0.0)
+    {
+      handler = 0;
+      p_handler = &handler;
+      v69 = 0x3032000000;
+      v70 = sub_100001F14;
+      v71 = sub_100005818;
+      v72 = os_transaction_create();
+      sub_10001B680(self, 0);
+      v20 = NPGetInternalQueue();
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_100022198;
+      block[3] = &unk_100109450;
+      block[4] = self;
+      block[5] = &handler;
+      dispatch_async(v20, block);
+
+      _Block_object_dispose(&handler, 8);
+    }
+
+    else
+    {
+      sub_100021FF0(self, v19);
+    }
+  }
+
+  [(NSPPrivacyProxyAgentManager *)self handleUnlimitedChange:unlimitedCopy];
+  if (self)
+  {
+    proxyPathRestoreTimer = self->_proxyPathRestoreTimer;
+    if (proxyPathRestoreTimer)
+    {
+      dispatch_source_cancel(proxyPathRestoreTimer);
+      v22 = self->_proxyPathRestoreTimer;
+      self->_proxyPathRestoreTimer = 0;
+    }
+
+    proxyPathRestoreIntervalSec = self->_proxyPathRestoreIntervalSec;
+    v24 = NPGetInternalQueue();
+    v25 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v24);
+    v26 = self->_proxyPathRestoreTimer;
+    self->_proxyPathRestoreTimer = v25;
+
+    v27 = self->_proxyPathRestoreTimer;
+    if (v27)
+    {
+      if (proxyPathRestoreIntervalSec)
+      {
+        v28 = 1000000000 * proxyPathRestoreIntervalSec;
+      }
+
+      else
+      {
+        v28 = 1800000000000;
+      }
+
+      v29 = v27;
+      v30 = dispatch_time(0x8000000000000000, v28);
+      dispatch_source_set_timer(v29, v30, v28, 0);
+
+      objc_initWeak(&location, self);
+      v31 = self->_proxyPathRestoreTimer;
+      handler = _NSConcreteStackBlock;
+      p_handler = 3221225472;
+      v69 = sub_1000259C4;
+      v70 = &unk_100109538;
+      v32 = v31;
+      objc_copyWeak(&v71, &location);
+      dispatch_source_set_event_handler(v32, &handler);
+
+      dispatch_resume(self->_proxyPathRestoreTimer);
+      objc_destroyWeak(&v71);
+      objc_destroyWeak(&location);
+    }
+
+    proxyTokenInfoArray = self->_proxyTokenInfoArray;
+  }
+
+  else
+  {
+    proxyTokenInfoArray = 0;
+  }
+
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v34 = [(NSMutableArray *)proxyTokenInfoArray copy];
+  v35 = [v34 countByEnumeratingWithState:&v62 objects:v76 count:16];
+  if (v35)
+  {
+    v36 = *v63;
+    do
+    {
+      for (i = 0; i != v35; i = i + 1)
+      {
+        if (*v63 != v36)
+        {
+          objc_enumerationMutation(v34);
+        }
+
+        v38 = *(*(&v62 + 1) + 8 * i);
+        if (v38)
+        {
+          objc_storeWeak((v38 + 16), self);
+        }
+
+        sub_1000053B8(v38);
+      }
+
+      v35 = [v34 countByEnumeratingWithState:&v62 objects:v76 count:16];
+    }
+
+    while (v35);
+  }
+
+  if (self)
+  {
+    sub_10001B858(self->_proxyPathProber);
+    sub_10001B858(self->_directPathProber);
+    [(NSPFallbackProxyPath *)self->_fallbackProxyPath resetSingleHopProxyAgent];
+    [(NSPFallbackProxyPath *)self->_fallbackProxyPath resetMultiHopProxyAgent];
+    [(NSPQuicProxyPath *)self->_quicProxyPath resetSingleHopProxyAgent];
+    quicProxyPath = self->_quicProxyPath;
+  }
+
+  else
+  {
+    sub_10001B858(0);
+    [0 resetSingleHopProxyAgent];
+    [0 resetMultiHopProxyAgent];
+    [0 resetSingleHopProxyAgent];
+    quicProxyPath = 0;
+  }
+
+  [(NSPQuicProxyPath *)quicProxyPath resetMultiHopProxyAgent];
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  if (self)
+  {
+    preferredQUICProxyPaths = self->_preferredQUICProxyPaths;
+  }
+
+  else
+  {
+    preferredQUICProxyPaths = 0;
+  }
+
+  v41 = preferredQUICProxyPaths;
+  v42 = [(NSMutableDictionary *)v41 countByEnumeratingWithState:&v58 objects:v75 count:16];
+  if (v42)
+  {
+    v43 = *v59;
+    do
+    {
+      v44 = 0;
+      do
+      {
+        if (*v59 != v43)
+        {
+          objc_enumerationMutation(v41);
+        }
+
+        if (self)
+        {
+          v45 = self->_preferredQUICProxyPaths;
+        }
+
+        else
+        {
+          v45 = 0;
+        }
+
+        v46 = [(NSMutableDictionary *)v45 objectForKeyedSubscript:*(*(&v58 + 1) + 8 * v44)];
+        [v46 resetMultiHopProxyAgent];
+
+        v44 = v44 + 1;
+      }
+
+      while (v42 != v44);
+      v47 = [(NSMutableDictionary *)v41 countByEnumeratingWithState:&v58 objects:v75 count:16];
+      v42 = v47;
+    }
+
+    while (v47);
+  }
+
+  [(NSPPrivacyProxyAgentManager *)self handlePathChange:pathCopy];
+  [(NSPPrivacyProxyAgentManager *)self handleTierChange:subscriberCopy];
+  [(NSPPrivacyProxyAgentManager *)self updateGeohashSharingPreference:enabledCopy geohashOverride:overrideCopy];
+  [(NSPPrivacyProxyAgentManager *)self updateConfigEpoch:epochCopy];
+  [(NSPPrivacyProxyAgentManager *)self handleLinkQualityChange:quality];
+  if (self)
+  {
+    if (self->_candidateQuicProxyPath)
+    {
+      sub_100022200(&self->super.isa, 0);
+    }
+
+    if (self->_candidateFallbackProxyPath)
+    {
+      sub_100022D8C(&self->super.isa, 0);
+    }
+  }
+
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v48 = v34;
+  v49 = [v48 countByEnumeratingWithState:&v54 objects:v74 count:16];
+  if (v49)
+  {
+    v50 = *v55;
+    do
+    {
+      for (j = 0; j != v49; j = j + 1)
+      {
+        if (*v55 != v50)
+        {
+          objc_enumerationMutation(v48);
+        }
+
+        sub_100008198(*(*(&v54 + 1) + 8 * j));
+      }
+
+      v49 = [v48 countByEnumeratingWithState:&v54 objects:v74 count:16];
+    }
+
+    while (v49);
+  }
 }
 
 - (void)handlePathChange:(id)change
@@ -3940,6 +4201,7 @@ LABEL_254:
   overridePreferredProxy = [(NSPPrivacyProxyAgentManager *)self overridePreferredProxy];
   v5 = [proxyCopy isEqualToString:overridePreferredProxy];
 
+  v7 = proxyCopy;
   if ((v5 & 1) == 0)
   {
     sub_100006664(self, proxyCopy);
@@ -3949,30 +4211,31 @@ LABEL_254:
     sub_10001FD78(self, 0);
     if (self)
     {
-      v6 = self->_proxyArray;
-      v7 = self->_resolverArray;
-      v8 = self->_proxyPathList;
-      v9 = self->_fallbackProxyPathList;
-      v10 = self->_obliviousConfigs;
+      v8 = self->_proxyArray;
+      v9 = self->_resolverArray;
+      v10 = self->_proxyPathList;
+      v11 = self->_fallbackProxyPathList;
+      v12 = self->_obliviousConfigs;
       proxiedContentMaps = self->_proxiedContentMaps;
     }
 
     else
     {
+      v12 = 0;
       v10 = 0;
       v8 = 0;
-      v6 = 0;
-      v7 = 0;
       v9 = 0;
+      v11 = 0;
       proxiedContentMaps = 0;
     }
 
-    [(NSPPrivacyProxyAgentManager *)self updateProxyInfo:v6 resolverInfo:v7 proxyPathList:v8 fallbackProxyPathList:v9 obliviousConfigs:v10 proxiedContentMaps:proxiedContentMaps];
+    [(NSPPrivacyProxyAgentManager *)self updateProxyInfo:v8 resolverInfo:v9 proxyPathList:v10 fallbackProxyPathList:v11 obliviousConfigs:v12 proxiedContentMaps:proxiedContentMaps];
 
     sub_100026CD4(self);
+    v7 = proxyCopy;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v6, v7);
 }
 
 - (void)overridePreferredObliviousProxy:(id)proxy
@@ -4124,6 +4387,103 @@ LABEL_7:
   }
 }
 
+- (void)updateGeohashSharingPreference:(BOOL)preference geohashOverride:(id)override
+{
+  preferenceCopy = preference;
+  overrideCopy = override;
+  if (!self)
+  {
+    if (preferenceCopy)
+    {
+      goto LABEL_20;
+    }
+
+    goto LABEL_3;
+  }
+
+  if (self->_geohashSharingEnabled == preferenceCopy)
+  {
+LABEL_3:
+    geohashOverride = [(NSPPrivacyProxyAgentManager *)self geohashOverride];
+    v8 = [geohashOverride isEqualToString:overrideCopy];
+
+    if (v8)
+    {
+      goto LABEL_18;
+    }
+
+    if (self)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_20:
+    [(NSPPrivacyProxyAgentManager *)self setGeohashOverride:overrideCopy];
+    [0 updateGeohashSharing:preferenceCopy];
+    [0 updateGeohashSharing:preferenceCopy];
+    preferredQUICProxyPaths = 0;
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    goto LABEL_6;
+  }
+
+LABEL_5:
+  self->_geohashSharingEnabled = preferenceCopy;
+  [(NSPPrivacyProxyAgentManager *)self setGeohashOverride:overrideCopy];
+  [(NSPProxyPath *)self->_fallbackProxyPath updateGeohashSharing:preferenceCopy];
+  [(NSPProxyPath *)self->_quicProxyPath updateGeohashSharing:preferenceCopy];
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  preferredQUICProxyPaths = self->_preferredQUICProxyPaths;
+LABEL_6:
+  v10 = preferredQUICProxyPaths;
+  v11 = [(NSMutableDictionary *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v19;
+    do
+    {
+      v14 = 0;
+      do
+      {
+        if (*v19 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        if (self)
+        {
+          v15 = self->_preferredQUICProxyPaths;
+        }
+
+        else
+        {
+          v15 = 0;
+        }
+
+        v16 = [(NSMutableDictionary *)v15 objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v14), v18];
+        [v16 updateGeohashSharing:preferenceCopy];
+
+        v14 = v14 + 1;
+      }
+
+      while (v12 != v14);
+      v17 = [(NSMutableDictionary *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = v17;
+    }
+
+    while (v17);
+  }
+
+  [(NSPPrivacyProxyAgentManager *)self updateUserEventAgentData];
+LABEL_18:
+}
+
 - (void)updateConfigEpoch:(id)epoch
 {
   epochCopy = epoch;
@@ -4206,6 +4566,83 @@ LABEL_7:
       }
 
       while (v15);
+    }
+
+    [(NSPPrivacyProxyAgentManager *)self updateUserEventAgentData];
+  }
+}
+
+- (void)updateDNSFilteringHint:(BOOL)hint
+{
+  hintCopy = hint;
+  if ([(NSPPrivacyProxyAgentManager *)self dnsFilteringHintEnabled]!= hint)
+  {
+    [(NSPPrivacyProxyAgentManager *)self setDnsFilteringHintEnabled:hintCopy];
+    if (self)
+    {
+      [(NSPFallbackProxyPath *)self->_fallbackProxyPath resetMultiHopProxyAgent];
+      quicProxyPath = self->_quicProxyPath;
+    }
+
+    else
+    {
+      [0 resetMultiHopProxyAgent];
+      quicProxyPath = 0;
+    }
+
+    [(NSPQuicProxyPath *)quicProxyPath resetMultiHopProxyAgent];
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    if (self)
+    {
+      preferredQUICProxyPaths = self->_preferredQUICProxyPaths;
+    }
+
+    else
+    {
+      preferredQUICProxyPaths = 0;
+    }
+
+    v7 = preferredQUICProxyPaths;
+    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v16;
+      do
+      {
+        v11 = 0;
+        do
+        {
+          if (*v16 != v10)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          if (self)
+          {
+            v12 = self->_preferredQUICProxyPaths;
+          }
+
+          else
+          {
+            v12 = 0;
+          }
+
+          v13 = [(NSMutableDictionary *)v12 objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v11), v15];
+          [v13 resetMultiHopProxyAgent];
+
+          v11 = v11 + 1;
+        }
+
+        while (v9 != v11);
+        v14 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = v14;
+      }
+
+      while (v14);
     }
 
     [(NSPPrivacyProxyAgentManager *)self updateUserEventAgentData];
@@ -5010,6 +5447,450 @@ LABEL_46:
   return [(NSPPrivacyProxyAgentManager *)self isMultiHopRegistered];
 }
 
+- (void)sendRTCReportWithFailureType:(int64_t)type errorCode:(int)code url:(id)url ingressProxy:(id)proxy egressProxy:(id)egressProxy tokenServer:(id)server
+{
+  v11 = *&code;
+  serverCopy = server;
+  egressProxyCopy = egressProxy;
+  proxyCopy = proxy;
+  urlCopy = url;
+  v18 = nplog_obj();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    typeCopy3 = type;
+    v72 = 1024;
+    LODWORD(v73) = v11;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Received RTC report request for type: %ld, errorcode: %d", buf, 0x12u);
+  }
+
+  v19 = urlCopy;
+  v20 = proxyCopy;
+  v21 = egressProxyCopy;
+  selfCopy = self;
+  v68 = serverCopy;
+  if (!self)
+  {
+    v22 = 0;
+    v49 = v68;
+    goto LABEL_98;
+  }
+
+  v22 = objc_alloc_init(NSMutableDictionary);
+  [v22 setObject:@"Mosaic" forKeyedSubscript:@"eventType"];
+  [v22 setObject:@"counter" forKeyedSubscript:@"type"];
+  [v22 setObject:&off_100113CF0 forKeyedSubscript:@"value"];
+  if (type > 1002)
+  {
+    if (type == 1003)
+    {
+      [v22 setObject:@"privacy_proxy_token_fetch_failure" forKeyedSubscript:@"name"];
+      v24 = [NSNumber numberWithInt:v11];
+      [v22 setObject:v24 forKeyedSubscript:@"label_privacy-proxy-report-reason-code"];
+      v25 = 1;
+      goto LABEL_71;
+    }
+
+    if (type != 1004)
+    {
+      if (type == 1007)
+      {
+        v23 = @"privacy_proxy_ohttp_failure";
+        goto LABEL_18;
+      }
+
+      goto LABEL_15;
+    }
+
+    v23 = @"privacy_proxy_configuration_fetch_failure";
+  }
+
+  else
+  {
+    if (type == 1000)
+    {
+      v23 = @"privacy_proxy_quic_proxy_failure";
+      goto LABEL_18;
+    }
+
+    if (type != 1001)
+    {
+      if (type == 1002)
+      {
+        v23 = @"privacy_proxy_odoh_failure";
+        goto LABEL_18;
+      }
+
+LABEL_15:
+      v23 = @"privacy_proxy_unknown_failure";
+      goto LABEL_18;
+    }
+
+    v23 = @"privacy_proxy_fallback_proxy_failure";
+  }
+
+LABEL_18:
+  [v22 setObject:v23 forKeyedSubscript:@"name"];
+  if (v11 <= 1105)
+  {
+    if (v11 > 93)
+    {
+      if (v11 <= 1100)
+      {
+        if (v11 == 94)
+        {
+          v26 = 3012;
+          goto LABEL_65;
+        }
+
+        if (v11 == 1100)
+        {
+          v26 = 3006;
+          goto LABEL_65;
+        }
+      }
+
+      else
+      {
+        switch(v11)
+        {
+          case 0x44D:
+            v26 = 3005;
+            goto LABEL_65;
+          case 0x450:
+            v26 = 3007;
+            goto LABEL_65;
+          case 0x451:
+            v26 = 3008;
+            goto LABEL_65;
+        }
+      }
+    }
+
+    else if (v11 <= 63)
+    {
+      if (v11 == 60)
+      {
+        v26 = 3001;
+        goto LABEL_65;
+      }
+
+      if (v11 == 61)
+      {
+        v26 = 3004;
+        goto LABEL_65;
+      }
+    }
+
+    else
+    {
+      switch(v11)
+      {
+        case '@':
+          v26 = 3003;
+          goto LABEL_65;
+        case 'A':
+          v26 = 3002;
+          goto LABEL_65;
+        case 'P':
+          v26 = 3011;
+          goto LABEL_65;
+      }
+    }
+
+LABEL_64:
+    v26 = v11;
+    goto LABEL_65;
+  }
+
+  if (v11 <= 1204)
+  {
+    if (v11 <= 1199)
+    {
+      if (v11 == 1106)
+      {
+        v26 = 3015;
+        goto LABEL_65;
+      }
+
+      if (v11 == 1107)
+      {
+        v26 = 3017;
+        goto LABEL_65;
+      }
+    }
+
+    else
+    {
+      switch(v11)
+      {
+        case 0x4B0:
+          v26 = 3009;
+          goto LABEL_65;
+        case 0x4B1:
+          v26 = 3013;
+          goto LABEL_65;
+        case 0x4B4:
+          v26 = 3010;
+          goto LABEL_65;
+      }
+    }
+
+    goto LABEL_64;
+  }
+
+  if (v11 > 1206)
+  {
+    switch(v11)
+    {
+      case 0x4B7:
+        v26 = 3018;
+        goto LABEL_65;
+      case 0x515:
+        v26 = 3019;
+        goto LABEL_65;
+      case 0x516:
+        v26 = 3020;
+        goto LABEL_65;
+    }
+
+    goto LABEL_64;
+  }
+
+  if (v11 == 1205)
+  {
+    v26 = 3014;
+  }
+
+  else
+  {
+    v26 = 3016;
+  }
+
+LABEL_65:
+  v27 = [NSNumber numberWithInteger:v26];
+  [v22 setObject:v27 forKeyedSubscript:@"label_privacy-proxy-report-reason-code"];
+
+  if ((v26 - 3001) >= 0x14)
+  {
+    v28 = strerror(v26);
+    if (v28)
+    {
+      v24 = [NSString stringWithCString:v28 encoding:4];
+    }
+
+    else
+    {
+      v24 = @"unknown";
+    }
+  }
+
+  else
+  {
+    v24 = *(&off_100109A78 + v26 - 3001);
+  }
+
+  [v22 setObject:v24 forKeyedSubscript:@"label_privacy-proxy-report-reason-description"];
+  v25 = 0;
+LABEL_71:
+
+  v29 = +[NSDate date];
+  [v29 timeIntervalSince1970];
+  v31 = v30 * 1000.0;
+
+  v32 = [NSNumber numberWithDouble:v31];
+  [v22 setObject:v32 forKeyedSubscript:@"label_privacy-proxy-report-time"];
+
+  if (type == 1000 && v20)
+  {
+    proxyURL = [v20[3] proxyURL];
+    v34 = [NSURL URLWithString:proxyURL];
+    v35 = sub_10003074C(v34);
+
+    [v22 setObject:v35 forKeyedSubscript:@"label_privacy-proxy-ingress-proxy"];
+  }
+
+  if (type == 1000 && v21)
+  {
+    proxyURL2 = [v21[3] proxyURL];
+    v37 = [NSURL URLWithString:proxyURL2];
+    v38 = sub_10003074C(v37);
+
+    [v22 setObject:v38 forKeyedSubscript:@"label_privacy-proxy-egress-proxy"];
+    v39 = v19 != 0;
+  }
+
+  else
+  {
+    v40 = type == 1001;
+    if (type == 1001 && v20)
+    {
+      tcpProxyFqdn = [v20[3] tcpProxyFqdn];
+      v42 = [NSURL URLWithString:tcpProxyFqdn];
+      v43 = sub_10003074C(v42);
+
+      [v22 setObject:v43 forKeyedSubscript:@"label_privacy-proxy-ingress-proxy"];
+      v40 = 1;
+    }
+
+    if (v21 && v40)
+    {
+      tcpProxyFqdn2 = [v21[3] tcpProxyFqdn];
+      v45 = [NSURL URLWithString:tcpProxyFqdn2];
+      v46 = sub_10003074C(v45);
+
+      [v22 setObject:v46 forKeyedSubscript:@"label_privacy-proxy-egress-proxy"];
+    }
+
+    v39 = v19 != 0;
+    if (type == 1002 && v19)
+    {
+      v47 = [NSURL URLWithString:v19];
+      v48 = sub_10003074C(v47);
+
+      [v22 setObject:v48 forKeyedSubscript:@"label_privacy-proxy-odoh-resolver"];
+      v39 = 1;
+    }
+
+    else if (type == 1007)
+    {
+      v49 = v68;
+      if (v19)
+      {
+        [v22 setObject:v19 forKeyedSubscript:@"label_privacy-proxy-ohttp-relay"];
+        v39 = 1;
+      }
+
+      goto LABEL_87;
+    }
+  }
+
+  v49 = v68;
+LABEL_87:
+  if ((v25 & v39) == 1)
+  {
+    v50 = [NSURL URLWithString:v19];
+    v51 = sub_10003074C(v50);
+
+    [v22 setObject:v51 forKeyedSubscript:@"label_privacy-proxy-token-fetch-failure-proxy"];
+    v49 = v68;
+    if (v68)
+    {
+      v52 = [NSURL URLWithString:v68];
+      host = [v52 host];
+
+      if (host)
+      {
+        v49 = sub_10003074C(v52);
+      }
+
+      [v22 setObject:v49 forKeyedSubscript:@"label_privacy-proxy-token-fetch-server"];
+    }
+  }
+
+  tierString = [(NSPPrivacyProxyAgentManager *)selfCopy tierString];
+  if (tierString)
+  {
+    [v22 setObject:tierString forKeyedSubscript:@"label_privacy-proxy-tier-type"];
+  }
+
+  v55 = +[NSPPrivacyProxyLocationMonitor sharedMonitor];
+  currentCountryPlusTimezone = [v55 currentCountryPlusTimezone];
+
+  if (currentCountryPlusTimezone)
+  {
+    [v22 setObject:currentCountryPlusTimezone forKeyedSubscript:@"label_privacy-proxy-report-region"];
+  }
+
+LABEL_98:
+  if (v22)
+  {
+    v76[0] = kRTCReportingSessionInfoClientType;
+    v76[1] = kRTCReportingSessionInfoClientVersion;
+    v77[0] = &off_100113D08;
+    v77[1] = &off_100113CF0;
+    v76[2] = kRTCReportingSessionInfoSessionID;
+    v76[3] = kRTCReportingSessionInfoBatchEvent;
+    v77[2] = &off_100113D20;
+    v77[3] = &__kCFBooleanFalse;
+    v76[4] = kRTCReportingSessionInfoContainsRealtimeEvents;
+    v77[4] = &__kCFBooleanTrue;
+    v57 = [NSDictionary dictionaryWithObjects:v77 forKeys:v76 count:5];
+    if (selfCopy)
+    {
+      if ((type - 1000) >= 8)
+      {
+        v58 = @"privacy-proxy-unknown-failure";
+      }
+
+      else
+      {
+        v58 = *(&off_100109B18 + type - 1000);
+      }
+
+      v59 = v58;
+      if (selfCopy->_subscriber)
+      {
+        v60 = @"network-service-proxy-subscriber";
+      }
+
+      else
+      {
+        v60 = @"network-service-proxy-free";
+      }
+    }
+
+    else
+    {
+      v59 = 0;
+      v60 = @"network-service-proxy-free";
+    }
+
+    v61 = v60;
+    v74[0] = kRTCReportingUserInfoClientName;
+    v74[1] = kRTCReportingUserInfoServiceName;
+    v75[0] = v61;
+    v75[1] = v59;
+    v62 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:2];
+    v69 = 0;
+    v63 = [RTCReporting sendOneMessageWithSessionInfo:v57 userInfo:v62 category:type type:0 payload:v22 error:&v69];
+    v64 = v69;
+    v65 = nplog_obj();
+    v66 = v65;
+    if (v63)
+    {
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        typeCopy3 = v22;
+        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "sent RTC report %@", buf, 0xCu);
+      }
+    }
+
+    else if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218242;
+      typeCopy3 = type;
+      v72 = 2112;
+      v73 = v64;
+      _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "failed to send RTC report type: %ld error: %@", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v57 = nplog_obj();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218240;
+      typeCopy3 = type;
+      v72 = 1024;
+      LODWORD(v73) = v11;
+      _os_log_error_impl(&_mh_execute_header, v57, OS_LOG_TYPE_ERROR, "failed to create RTC report payload for type [%ld], error code [%d]", buf, 0x12u);
+    }
+  }
+}
+
 - (void)sendRTCReportForServiceOutage:(id)outage
 {
   outageCopy = outage;
@@ -5390,6 +6271,73 @@ LABEL_92:
   }
 
   return v12;
+}
+
+- (void)sendRTCReportForPrivacyProxyToggleState:(BOOL)state
+{
+  stateCopy = state;
+  v5 = nplog_obj();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    LODWORD(v20) = stateCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received RTC report request for toggle state: %u", buf, 8u);
+  }
+
+  if (self && (v6 = objc_alloc_init(NSMutableDictionary), [v6 setObject:@"Mosaic" forKeyedSubscript:@"eventType"], objc_msgSend(v6, "setObject:forKeyedSubscript:", @"counter", @"type"), objc_msgSend(v6, "setObject:forKeyedSubscript:", &off_100113CF0, @"value"), objc_msgSend(v6, "setObject:forKeyedSubscript:", @"privacy_proxy_toggle_state", @"name"), +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", stateCopy), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "setObject:forKeyedSubscript:", v7, @"label_privacy-proxy-toggle-state"), v7, +[NSDate date](NSDate, "date"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "timeIntervalSince1970"), v10 = v9 * 1000.0, v8, +[NSNumber numberWithDouble:](NSNumber, "numberWithDouble:", v10), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "setObject:forKeyedSubscript:", v11, @"label_privacy-proxy-report-time"), v11, v6))
+  {
+    v25[0] = kRTCReportingSessionInfoClientType;
+    v25[1] = kRTCReportingSessionInfoClientVersion;
+    v26[0] = &off_100113D08;
+    v26[1] = &off_100113CF0;
+    v25[2] = kRTCReportingSessionInfoSessionID;
+    v25[3] = kRTCReportingSessionInfoBatchEvent;
+    v26[2] = &off_100113D20;
+    v26[3] = &__kCFBooleanFalse;
+    v25[4] = kRTCReportingSessionInfoContainsRealtimeEvents;
+    v26[4] = &__kCFBooleanTrue;
+    v12 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:5];
+    v23[0] = kRTCReportingUserInfoClientName;
+    v23[1] = kRTCReportingUserInfoServiceName;
+    v24[0] = @"network-service-proxy";
+    v24[1] = @"privacy-proxy-toggle";
+    v13 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v18 = 0;
+    v14 = [RTCReporting sendOneMessageWithSessionInfo:v12 userInfo:v13 category:1006 type:0 payload:v6 error:&v18];
+    v15 = v18;
+    v16 = nplog_obj();
+    v17 = v16;
+    if (v14)
+    {
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v20 = v6;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "sent privacy proxy toggle report %@", buf, 0xCu);
+      }
+    }
+
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134218242;
+      v20 = 1006;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "failed to send RTC report type: %ld error: %@", buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v12 = nplog_obj();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "failed to create RTC report payload for toggle state", buf, 2u);
+    }
+
+    v6 = 0;
+  }
 }
 
 - (BOOL)isSingleHopProxyAgentRegistered
@@ -6201,6 +7149,3063 @@ LABEL_13:
   }
 
   return self;
+}
+
+- (void)reportObliviousPathError:(int)error interface:(id)interface obliviousPath:(id)path
+{
+  v6 = *&error;
+  interfaceCopy = interface;
+  pathCopy = path;
+  v9 = pathCopy;
+  if (v6)
+  {
+    proxyInfo = [pathCopy proxyInfo];
+    v11 = proxyInfo;
+    if (proxyInfo)
+    {
+      v12 = *(proxyInfo + 24);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    proxyURL = [v12 proxyURL];
+    v14 = [NSURL URLWithString:proxyURL];
+
+    v15 = objc_alloc_init(NSURLComponents);
+    scheme = [v14 scheme];
+    [v15 setScheme:scheme];
+
+    host = [v14 host];
+    [v15 setHost:host];
+
+    port = [v14 port];
+    [v15 setPort:port];
+
+    obliviousTarget = [v9 obliviousTarget];
+    proxyURLPath = [obliviousTarget proxyURLPath];
+    [v15 setPath:proxyURLPath];
+
+    v21 = [v15 URL];
+    absoluteString = [v21 absoluteString];
+    [(NSPPrivacyProxyAgentManager *)self sendRTCReportWithFailureType:1007 errorCode:v6 url:absoluteString ingressProxy:0 egressProxy:0 tokenServer:0];
+
+    if (v6 <= 60)
+    {
+      if ((v6 + 65568) <= 0x1E)
+      {
+        if (((1 << (v6 + 32)) & 0x4004C000) != 0)
+        {
+          statistics = [v9 statistics];
+          if (statistics)
+          {
+            ++statistics[9];
+          }
+
+          goto LABEL_47;
+        }
+
+        if (v6 == -65568)
+        {
+          statistics = [v9 statistics];
+          if (statistics)
+          {
+            ++statistics[8];
+          }
+
+          goto LABEL_47;
+        }
+      }
+
+      if (v6 == 60)
+      {
+        statistics = [v9 statistics];
+        if (statistics)
+        {
+          ++statistics[3];
+        }
+
+        goto LABEL_47;
+      }
+    }
+
+    else if (v6 <= 1105)
+    {
+      if (v6 == 61)
+      {
+        statistics = [v9 statistics];
+        if (statistics)
+        {
+          ++statistics[4];
+        }
+
+        goto LABEL_47;
+      }
+
+      if (v6 == 80 || v6 == 1104)
+      {
+        statistics2 = [v9 statistics];
+        if (statistics2)
+        {
+          ++statistics2[7];
+        }
+
+        statistics3 = [v9 statistics];
+        if (statistics3)
+        {
+          v27 = statistics3[7];
+
+          if (v27 >= 2)
+          {
+            if (self)
+            {
+              v28 = self->_path;
+              interface = [(NWPath *)v28 interface];
+              objc_storeStrong(&self->_proberInterface, interface);
+
+              proberInterface = self->_proberInterface;
+            }
+
+            else
+            {
+              [0 interface];
+
+              proberInterface = 0;
+            }
+
+            sub_10003326C(self, proberInterface, 6);
+          }
+        }
+
+        goto LABEL_48;
+      }
+    }
+
+    else if (v6 > 1301)
+    {
+      if (v6 == 1302)
+      {
+        statistics = [v9 statistics];
+        if (statistics)
+        {
+          ++statistics[15];
+        }
+
+        goto LABEL_47;
+      }
+
+      if (v6 == 1304)
+      {
+        v31 = nplog_obj();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(buf) = 0;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Received notification that OHTTP configuration is invalid, refetching configuration", &buf, 2u);
+        }
+
+        *&buf = 0;
+        *(&buf + 1) = &buf;
+        v55 = 0x3032000000;
+        v56 = sub_100001F14;
+        v57 = sub_100005818;
+        v58 = os_transaction_create();
+        v32 = NPGetInternalQueue();
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_100034060;
+        block[3] = &unk_100109450;
+        block[4] = self;
+        block[5] = &buf;
+        dispatch_async(v32, block);
+
+        _Block_object_dispose(&buf, 8);
+        goto LABEL_48;
+      }
+    }
+
+    else
+    {
+      if (v6 == 1106)
+      {
+        statistics = [v9 statistics];
+        if (statistics)
+        {
+          ++statistics[10];
+        }
+
+        goto LABEL_47;
+      }
+
+      if (v6 == 1301)
+      {
+        statistics = [v9 statistics];
+        if (statistics)
+        {
+          ++statistics[14];
+        }
+
+LABEL_47:
+
+LABEL_48:
+        goto LABEL_49;
+      }
+    }
+
+    statistics = [v9 statistics];
+    if (statistics)
+    {
+      ++statistics[7];
+    }
+
+    goto LABEL_47;
+  }
+
+  statistics4 = [pathCopy statistics];
+  if (statistics4)
+  {
+    ++statistics4[2];
+  }
+
+LABEL_49:
+  if ([v9 shouldBePenalized])
+  {
+    v33 = v9;
+    v34 = v33;
+    if (self)
+    {
+      if (v33)
+      {
+        v35 = [(NSArray *)self->_proxyArray count];
+        if (v35)
+        {
+          v36 = 0;
+          v37 = 0;
+          while (1)
+          {
+            v38 = [(NSArray *)self->_proxyArray objectAtIndex:v36];
+            proxyURL2 = [v38 proxyURL];
+            proxyInfo2 = [v34 proxyInfo];
+            v41 = proxyInfo2;
+            v42 = proxyInfo2 ? *(proxyInfo2 + 24) : 0;
+            proxyURL3 = [v42 proxyURL];
+            v44 = [proxyURL2 isEqualToString:proxyURL3];
+
+            if (v44)
+            {
+              break;
+            }
+
+            v36 = (v37 + 1);
+            v37 = v36;
+            if (v35 <= v36)
+            {
+              goto LABEL_65;
+            }
+          }
+
+          v45 = nplog_obj();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          {
+            shortName = [v34 shortName];
+            LODWORD(buf) = 138412290;
+            *(&buf + 4) = shortName;
+            _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Penalizing oblivious path %@", &buf, 0xCu);
+          }
+
+          penalizedObliviousProxyIndices = self->_penalizedObliviousProxyIndices;
+          if (!penalizedObliviousProxyIndices)
+          {
+            v48 = objc_alloc_init(NSMutableArray);
+            v49 = self->_penalizedObliviousProxyIndices;
+            self->_penalizedObliviousProxyIndices = v48;
+
+            penalizedObliviousProxyIndices = self->_penalizedObliviousProxyIndices;
+          }
+
+          v50 = penalizedObliviousProxyIndices;
+          v51 = [NSNumber numberWithUnsignedInt:v37];
+          [(NSMutableArray *)v50 addObject:v51];
+
+          sub_100029374(&self->super.isa);
+        }
+      }
+    }
+
+LABEL_65:
+  }
+}
+
+- (void)reportProxiedContentPathError:(int)error interface:(id)interface proxiedContentPath:(id)path registration:(id)registration
+{
+  v8 = *&error;
+  interfaceCopy = interface;
+  pathCopy = path;
+  registrationCopy = registration;
+  if (v8)
+  {
+    quicRegistration = [pathCopy quicRegistration];
+
+    if (quicRegistration == registrationCopy)
+    {
+      v14 = 1000;
+    }
+
+    else
+    {
+      fallbackRegistration = [pathCopy fallbackRegistration];
+
+      if (fallbackRegistration != registrationCopy)
+      {
+        goto LABEL_7;
+      }
+
+      v14 = 1001;
+    }
+
+    ingressProxy = [pathCopy ingressProxy];
+    egressProxy = [pathCopy egressProxy];
+    [(NSPPrivacyProxyAgentManager *)self sendRTCReportWithFailureType:v14 errorCode:v8 url:0 ingressProxy:ingressProxy egressProxy:egressProxy tokenServer:0];
+  }
+
+LABEL_7:
+}
+
+- (void)reportProxyError:(int)error interface:(id)interface proxyPath:(id)path
+{
+  v9 = *&error;
+  interfaceCopy = interface;
+  pathCopy = path;
+  v13 = pathCopy;
+  if (self)
+  {
+    if (self->_quicProxyPath != pathCopy)
+    {
+      if (self->_fallbackProxyPath == pathCopy)
+      {
+        path = self->_toggleStats;
+        fallbackPathStatistics = [path fallbackPathStatistics];
+
+        v24 = 1001;
+        goto LABEL_26;
+      }
+
+      if (![(NSPPrivacyProxyAgentManager *)self networkDiscoveredProxyPresentInAgentManager])
+      {
+        fallbackPathStatistics = 0;
+        v24 = 0;
+        goto LABEL_26;
+      }
+
+      v6 = v9;
+      v543 = 0u;
+      v544 = 0u;
+      v541 = 0u;
+      v542 = 0u;
+      networkSpecificQUICProxyPaths = self->_networkSpecificQUICProxyPaths;
+      goto LABEL_6;
+    }
+
+    toggleStats = self->_toggleStats;
+LABEL_20:
+    path = toggleStats;
+    fallbackPathStatistics = [path primaryPathStatistics];
+
+    v24 = 1000;
+    goto LABEL_26;
+  }
+
+  v6 = v9;
+  path = pathCopy;
+  if (!pathCopy)
+  {
+    toggleStats = 0;
+    v13 = 0;
+    goto LABEL_20;
+  }
+
+  if ([0 networkDiscoveredProxyPresentInAgentManager])
+  {
+    networkSpecificQUICProxyPaths = 0;
+    v543 = 0u;
+    v544 = 0u;
+    v541 = 0u;
+    v542 = 0u;
+LABEL_6:
+    v15 = networkSpecificQUICProxyPaths;
+    v16 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v541 objects:v549 count:16];
+    if (v16)
+    {
+      path = v16;
+      v17 = *v542;
+      do
+      {
+        v18 = 0;
+        do
+        {
+          if (*v542 != v17)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          if (self)
+          {
+            v19 = self->_networkSpecificQUICProxyPaths;
+          }
+
+          else
+          {
+            v19 = 0;
+          }
+
+          v20 = [(NSMutableDictionary *)v19 objectForKey:*(*(&v541 + 1) + 8 * v18)];
+          v5 = v20;
+          if (v20 == v13)
+          {
+            fallbackPathStatistics = [v20 networkMultiHopAgentStatistics];
+
+            goto LABEL_24;
+          }
+
+          v18 = v18 + 1;
+        }
+
+        while (path != v18);
+        v21 = [(NSMutableDictionary *)v15 countByEnumeratingWithState:&v541 objects:v549 count:16];
+        path = v21;
+      }
+
+      while (v21);
+    }
+
+    fallbackPathStatistics = 0;
+LABEL_24:
+
+    v24 = 0;
+    goto LABEL_25;
+  }
+
+  fallbackPathStatistics = 0;
+  v24 = 0;
+LABEL_25:
+  v9 = v6;
+LABEL_26:
+  if (v9 > 1199)
+  {
+    if ((v9 - 1200) > 7)
+    {
+      goto LABEL_86;
+    }
+
+    v39 = 1 << (v9 + 80);
+    if ((v39 & 0x51) != 0)
+    {
+      goto LABEL_60;
+    }
+
+    if ((v39 & 0xA2) == 0)
+    {
+LABEL_86:
+      if (v9 == 1301)
+      {
+        if (!fallbackPathStatistics)
+        {
+          goto LABEL_357;
+        }
+
+        v86 = 14;
+      }
+
+      else
+      {
+        if (v9 != 1302)
+        {
+          goto LABEL_168;
+        }
+
+        if (!fallbackPathStatistics)
+        {
+          goto LABEL_357;
+        }
+
+        v86 = 15;
+      }
+
+LABEL_356:
+      ++fallbackPathStatistics[v86].super.isa;
+      goto LABEL_357;
+    }
+
+    v40 = v13;
+    v41 = interfaceCopy;
+    if (self)
+    {
+      if (self->_quicProxyPath == v40)
+      {
+        v121 = self->_lastQuicProxySwitchedDate;
+        if (!v121 || (v122 = v121, +[NSDate now](NSDate, "now"), v123 = objc_claimAutoreleasedReturnValue(), [v123 timeIntervalSinceDate:self->_lastQuicProxySwitchedDate], v125 = v124, v123, v122, v125 > 30.0))
+        {
+          networkMultiHopAgentStatistics = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+          if (!networkMultiHopAgentStatistics)
+          {
+            goto LABEL_232;
+          }
+
+          v127 = networkMultiHopAgentStatistics[12];
+
+          if (v127 < 6)
+          {
+            goto LABEL_232;
+          }
+
+          v511 = v24;
+          v128 = nplog_obj();
+          if (os_log_type_enabled(v128, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v128, OS_LOG_TYPE_INFO, "Quic proxy multihop path is reporting origin proxy error", buf, 2u);
+          }
+
+          v129 = self->_quicProxyPath;
+          egressProxy = [(NSPProxyPath *)v129 egressProxy];
+          v131 = sub_100024954(&self->super.isa, egressProxy, self->_proxyPathCustomEnumerator);
+
+          if (v131)
+          {
+            egressProxy2 = [(NSPProxyPath *)self->_quicProxyPath egressProxy];
+            [(NSPPrivacyProxyAgentManager *)self switchProxy:egressProxy2];
+
+            networkMultiHopAgentStatistics2 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+            if (networkMultiHopAgentStatistics2)
+            {
+              networkMultiHopAgentStatistics2[12] = 0;
+            }
+
+            quicProxyPath = self->_quicProxyPath;
+LABEL_133:
+            networkSingleHopAgentStatistics = [quicProxyPath networkSingleHopAgentStatistics];
+            v24 = v511;
+            if (!networkSingleHopAgentStatistics)
+            {
+LABEL_135:
+
+              goto LABEL_232;
+            }
+
+LABEL_134:
+            networkSingleHopAgentStatistics[12] = 0;
+            goto LABEL_135;
+          }
+
+          probingReason = self->_probingReason;
+          v24 = v511;
+          if (probingReason == 1)
+          {
+            goto LABEL_232;
+          }
+
+          if (!probingReason)
+          {
+            sub_100033448(&self->super.isa, @"ProxyPrimaryOriginError");
+            sub_1000336DC(self, 1);
+            networkMultiHopAgentStatistics3 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+            if (networkMultiHopAgentStatistics3)
+            {
+              networkMultiHopAgentStatistics3[12] = 0;
+            }
+
+            fallbackProxyPath = self->_quicProxyPath;
+LABEL_311:
+            networkSingleHopAgentStatistics = [fallbackProxyPath networkSingleHopAgentStatistics];
+            if (!networkSingleHopAgentStatistics)
+            {
+              goto LABEL_135;
+            }
+
+            goto LABEL_134;
+          }
+
+          v294 = self->_quicProxyPath;
+LABEL_407:
+          [v294 resetError];
+          goto LABEL_232;
+        }
+
+        v211 = nplog_obj();
+        if (os_log_type_enabled(v211, OS_LOG_TYPE_INFO))
+        {
+          v517 = v24;
+          v212 = self->_lastQuicProxySwitchedDate;
+          v213 = [NSDateFormatter localizedStringFromDate:v212 dateStyle:1 timeStyle:2];
+          *buf = 138412290;
+          v553 = v213;
+          v214 = "ignoring origin quic proxy error, last quic proxy switched date %@";
+LABEL_230:
+          _os_log_impl(&_mh_execute_header, v211, OS_LOG_TYPE_INFO, v214, buf, 0xCu);
+
+          v24 = v517;
+        }
+
+LABEL_231:
+
+        goto LABEL_232;
+      }
+
+      if (self->_fallbackProxyPath == v40)
+      {
+        v42 = self->_lastFallbackProxySwitchedDate;
+        if (!v42 || (v43 = v42, +[NSDate now](NSDate, "now"), v44 = objc_claimAutoreleasedReturnValue(), [v44 timeIntervalSinceDate:self->_lastFallbackProxySwitchedDate], v46 = v45, v44, v43, v46 > 30.0))
+        {
+          networkMultiHopAgentStatistics4 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+          if (!networkMultiHopAgentStatistics4)
+          {
+            goto LABEL_232;
+          }
+
+          v48 = networkMultiHopAgentStatistics4[12];
+
+          if (v48 < 6)
+          {
+            goto LABEL_232;
+          }
+
+          v511 = v24;
+          v49 = nplog_obj();
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "Fallback proxy multihop path is reporting origin proxy error", buf, 2u);
+          }
+
+          v50 = self->_fallbackProxyPath;
+          egressProxy3 = [(NSPProxyPath *)v50 egressProxy];
+          v52 = sub_100024954(&self->super.isa, egressProxy3, self->_fallbackProxyPathCustomEnumerator);
+
+          if (v52)
+          {
+            egressProxy4 = [(NSPProxyPath *)self->_fallbackProxyPath egressProxy];
+            [(NSPPrivacyProxyAgentManager *)self switchProxy:egressProxy4];
+
+            networkMultiHopAgentStatistics5 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+            if (networkMultiHopAgentStatistics5)
+            {
+              networkMultiHopAgentStatistics5[12] = 0;
+            }
+
+            quicProxyPath = self->_fallbackProxyPath;
+            goto LABEL_133;
+          }
+
+          v282 = self->_probingReason;
+          v24 = v511;
+          if (v282 == 1)
+          {
+            goto LABEL_232;
+          }
+
+          if (!v282)
+          {
+            sub_100033448(&self->super.isa, @"ProxyFallbackOriginError");
+            sub_1000336DC(self, 1);
+            networkMultiHopAgentStatistics6 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+            if (networkMultiHopAgentStatistics6)
+            {
+              networkMultiHopAgentStatistics6[12] = 0;
+            }
+
+            fallbackProxyPath = self->_fallbackProxyPath;
+            goto LABEL_311;
+          }
+
+          v294 = self->_fallbackProxyPath;
+          goto LABEL_407;
+        }
+
+        v211 = nplog_obj();
+        if (os_log_type_enabled(v211, OS_LOG_TYPE_INFO))
+        {
+          v517 = v24;
+          v212 = self->_lastFallbackProxySwitchedDate;
+          v213 = [NSDateFormatter localizedStringFromDate:v212 dateStyle:1 timeStyle:2];
+          *buf = 138412290;
+          v553 = v213;
+          v214 = "ignoring origin fallback proxy error, last fallback proxy switched date %@";
+          goto LABEL_230;
+        }
+
+        goto LABEL_231;
+      }
+    }
+
+LABEL_232:
+
+    if (!fallbackPathStatistics)
+    {
+      goto LABEL_357;
+    }
+
+    v86 = 12;
+    goto LABEL_356;
+  }
+
+  if (v9 > 1099)
+  {
+    if ((v9 - 1100) > 7)
+    {
+      goto LABEL_168;
+    }
+
+    if (((1 << (v9 - 76)) & 0x33) != 0)
+    {
+LABEL_60:
+      v56 = v13;
+      v57 = interfaceCopy;
+      if (self)
+      {
+        if (self->_quicProxyPath == v56)
+        {
+          v72 = self->_lastQuicProxySwitchedDate;
+          if (!v72 || (v73 = v72, +[NSDate now](NSDate, "now"), v74 = objc_claimAutoreleasedReturnValue(), [v74 timeIntervalSinceDate:self->_lastQuicProxySwitchedDate], v76 = v75, v74, v73, v76 > 30.0))
+          {
+            networkMultiHopAgentStatistics7 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+            if (!networkMultiHopAgentStatistics7)
+            {
+              goto LABEL_194;
+            }
+
+            v78 = networkMultiHopAgentStatistics7[11];
+
+            if (v78 < 3)
+            {
+              goto LABEL_194;
+            }
+
+            v512 = v24;
+            v79 = nplog_obj();
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_INFO, "Quic proxy multihop path is reporting egress proxy error", buf, 2u);
+            }
+
+            v80 = self->_quicProxyPath;
+            egressProxy5 = [(NSPProxyPath *)v80 egressProxy];
+            v82 = sub_100024954(&self->super.isa, egressProxy5, self->_proxyPathCustomEnumerator);
+
+            if (v82)
+            {
+              egressProxy6 = [(NSPProxyPath *)self->_quicProxyPath egressProxy];
+              [(NSPPrivacyProxyAgentManager *)self switchProxy:egressProxy6];
+
+              networkMultiHopAgentStatistics8 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+              if (networkMultiHopAgentStatistics8)
+              {
+                networkMultiHopAgentStatistics8[11] = 0;
+              }
+
+              v71 = self->_quicProxyPath;
+LABEL_83:
+              networkSingleHopAgentStatistics2 = [v71 networkSingleHopAgentStatistics];
+              v24 = v512;
+              if (!networkSingleHopAgentStatistics2)
+              {
+LABEL_85:
+
+                goto LABEL_194;
+              }
+
+LABEL_84:
+              networkSingleHopAgentStatistics2[11] = 0;
+              goto LABEL_85;
+            }
+
+            v196 = self->_probingReason;
+            v24 = v512;
+            if (v196 == 1)
+            {
+              goto LABEL_194;
+            }
+
+            if (!v196)
+            {
+              sub_100033448(&self->super.isa, @"ProxyPrimaryEgressError");
+              sub_1000336DC(self, 1);
+              networkMultiHopAgentStatistics9 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+              if (networkMultiHopAgentStatistics9)
+              {
+                networkMultiHopAgentStatistics9[11] = 0;
+              }
+
+              v198 = self->_quicProxyPath;
+LABEL_224:
+              networkSingleHopAgentStatistics2 = [v198 networkSingleHopAgentStatistics];
+              if (!networkSingleHopAgentStatistics2)
+              {
+                goto LABEL_85;
+              }
+
+              goto LABEL_84;
+            }
+
+            v251 = self->_quicProxyPath;
+LABEL_317:
+            [v251 resetError];
+            goto LABEL_194;
+          }
+
+          v184 = nplog_obj();
+          if (os_log_type_enabled(v184, OS_LOG_TYPE_INFO))
+          {
+            v515 = v24;
+            v185 = self->_lastQuicProxySwitchedDate;
+            v186 = [NSDateFormatter localizedStringFromDate:v185 dateStyle:1 timeStyle:2];
+            *buf = 138412290;
+            v553 = v186;
+            v187 = "ignoring egress quic proxy error, last quic proxy switched date %@";
+LABEL_192:
+            _os_log_impl(&_mh_execute_header, v184, OS_LOG_TYPE_INFO, v187, buf, 0xCu);
+
+            v24 = v515;
+          }
+
+LABEL_193:
+
+          goto LABEL_194;
+        }
+
+        if (self->_fallbackProxyPath == v56)
+        {
+          v58 = self->_lastFallbackProxySwitchedDate;
+          if (!v58 || (v59 = v58, +[NSDate now](NSDate, "now"), v60 = objc_claimAutoreleasedReturnValue(), [v60 timeIntervalSinceDate:self->_lastFallbackProxySwitchedDate], v62 = v61, v60, v59, v62 > 30.0))
+          {
+            networkMultiHopAgentStatistics10 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+            if (!networkMultiHopAgentStatistics10)
+            {
+              goto LABEL_194;
+            }
+
+            v64 = networkMultiHopAgentStatistics10[11];
+
+            if (v64 < 3)
+            {
+              goto LABEL_194;
+            }
+
+            v512 = v24;
+            v65 = nplog_obj();
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_INFO, "Fallback proxy multihop path is reporting egress proxy error", buf, 2u);
+            }
+
+            v66 = self->_fallbackProxyPath;
+            egressProxy7 = [(NSPProxyPath *)v66 egressProxy];
+            v68 = sub_100024954(&self->super.isa, egressProxy7, self->_fallbackProxyPathCustomEnumerator);
+
+            if (v68)
+            {
+              egressProxy8 = [(NSPProxyPath *)self->_fallbackProxyPath egressProxy];
+              [(NSPPrivacyProxyAgentManager *)self switchProxy:egressProxy8];
+
+              networkMultiHopAgentStatistics11 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+              if (networkMultiHopAgentStatistics11)
+              {
+                networkMultiHopAgentStatistics11[11] = 0;
+              }
+
+              v71 = self->_fallbackProxyPath;
+              goto LABEL_83;
+            }
+
+            v215 = self->_probingReason;
+            v24 = v512;
+            if (v215 == 1)
+            {
+              goto LABEL_194;
+            }
+
+            if (!v215)
+            {
+              sub_100033448(&self->super.isa, @"ProxyFallbackEgressError");
+              sub_1000336DC(self, 1);
+              networkMultiHopAgentStatistics12 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+              if (networkMultiHopAgentStatistics12)
+              {
+                networkMultiHopAgentStatistics12[11] = 0;
+              }
+
+              v198 = self->_fallbackProxyPath;
+              goto LABEL_224;
+            }
+
+            v251 = self->_fallbackProxyPath;
+            goto LABEL_317;
+          }
+
+          v184 = nplog_obj();
+          if (os_log_type_enabled(v184, OS_LOG_TYPE_INFO))
+          {
+            v515 = v24;
+            v185 = self->_lastFallbackProxySwitchedDate;
+            v186 = [NSDateFormatter localizedStringFromDate:v185 dateStyle:1 timeStyle:2];
+            *buf = 138412290;
+            v553 = v186;
+            v187 = "ignoring egress fallback proxy error, last fallback proxy switched date %@";
+            goto LABEL_192;
+          }
+
+          goto LABEL_193;
+        }
+      }
+
+LABEL_194:
+
+      if (!fallbackPathStatistics)
+      {
+        goto LABEL_357;
+      }
+
+      v86 = 11;
+      goto LABEL_356;
+    }
+
+    if (v9 != 1106)
+    {
+      if (v9 != 1107)
+      {
+        goto LABEL_168;
+      }
+
+      v87 = v13;
+      v88 = interfaceCopy;
+      if (!self)
+      {
+LABEL_332:
+
+        if (fallbackPathStatistics)
+        {
+          v86 = 13;
+          goto LABEL_356;
+        }
+
+        goto LABEL_357;
+      }
+
+      if (self->_quicProxyPath == v87)
+      {
+        v199 = self->_lastQuicProxySwitchedDate;
+        if (!v199 || (v200 = v199, +[NSDate now](NSDate, "now"), v201 = objc_claimAutoreleasedReturnValue(), [v201 timeIntervalSinceDate:self->_lastQuicProxySwitchedDate], v203 = v202, v201, v200, v203 > 30.0))
+        {
+          v489 = v88;
+          v94 = v24;
+          v204 = self->_quicProxyPath;
+          egressProxy9 = [(NSPProxyPath *)v204 egressProxy];
+          v206 = sub_100024954(&self->super.isa, egressProxy9, self->_proxyPathCustomEnumerator);
+
+          v207 = self->_quicProxyPath;
+          if (v206)
+          {
+            egressProxy10 = [(NSPProxyPath *)v207 egressProxy];
+            [(NSPPrivacyProxyAgentManager *)self switchProxy:egressProxy10];
+
+            networkMultiHopAgentStatistics13 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+            if (networkMultiHopAgentStatistics13)
+            {
+              networkMultiHopAgentStatistics13[13] = 0;
+            }
+
+            v101 = self->_quicProxyPath;
+            goto LABEL_214;
+          }
+
+          networkMultiHopAgentStatistics14 = [(NSPProxyPath *)v207 networkMultiHopAgentStatistics];
+          v24 = v94;
+          v88 = v489;
+          if (!networkMultiHopAgentStatistics14)
+          {
+            goto LABEL_332;
+          }
+
+          v275 = networkMultiHopAgentStatistics14[13];
+
+          if (v275 < 3)
+          {
+            goto LABEL_332;
+          }
+
+          v276 = self->_probingReason;
+          if (v276 == 1)
+          {
+            goto LABEL_332;
+          }
+
+          if (!v276)
+          {
+            sub_100033448(&self->super.isa, @"ProxyPrimaryEgressUnavailableError");
+            sub_1000336DC(self, 1);
+            networkMultiHopAgentStatistics15 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+            if (networkMultiHopAgentStatistics15)
+            {
+              networkMultiHopAgentStatistics15[13] = 0;
+            }
+
+            v278 = self->_quicProxyPath;
+            goto LABEL_325;
+          }
+
+          v352 = self->_quicProxyPath;
+LABEL_509:
+          [v352 resetError];
+          goto LABEL_332;
+        }
+
+        v284 = nplog_obj();
+        if (os_log_type_enabled(v284, OS_LOG_TYPE_INFO))
+        {
+          v493 = v88;
+          v285 = v24;
+          v286 = self->_lastQuicProxySwitchedDate;
+          v287 = [NSDateFormatter localizedStringFromDate:v286 dateStyle:1 timeStyle:2];
+          *buf = 138412290;
+          v553 = v287;
+          v288 = "ignoring unavailable quic proxy error, last quic proxy switched date %@";
+LABEL_330:
+          _os_log_impl(&_mh_execute_header, v284, OS_LOG_TYPE_INFO, v288, buf, 0xCu);
+
+          v24 = v285;
+          v88 = v493;
+        }
+      }
+
+      else
+      {
+        if (self->_fallbackProxyPath != v87)
+        {
+          goto LABEL_332;
+        }
+
+        v89 = self->_lastFallbackProxySwitchedDate;
+        if (!v89 || (v90 = v89, +[NSDate now](NSDate, "now"), v91 = objc_claimAutoreleasedReturnValue(), [v91 timeIntervalSinceDate:self->_lastFallbackProxySwitchedDate], v93 = v92, v91, v90, v93 > 30.0))
+        {
+          v489 = v88;
+          v94 = v24;
+          v95 = self->_fallbackProxyPath;
+          egressProxy11 = [(NSPProxyPath *)v95 egressProxy];
+          v97 = sub_100024954(&self->super.isa, egressProxy11, self->_fallbackProxyPathCustomEnumerator);
+
+          v98 = self->_fallbackProxyPath;
+          if (v97)
+          {
+            egressProxy12 = [(NSPProxyPath *)v98 egressProxy];
+            [(NSPPrivacyProxyAgentManager *)self switchProxy:egressProxy12];
+
+            networkMultiHopAgentStatistics16 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+            if (networkMultiHopAgentStatistics16)
+            {
+              networkMultiHopAgentStatistics16[13] = 0;
+            }
+
+            v101 = self->_fallbackProxyPath;
+LABEL_214:
+            networkSingleHopAgentStatistics3 = [v101 networkSingleHopAgentStatistics];
+            v24 = v94;
+            if (networkSingleHopAgentStatistics3)
+            {
+              networkSingleHopAgentStatistics3[13] = 0;
+            }
+
+            v88 = v489;
+            goto LABEL_332;
+          }
+
+          networkMultiHopAgentStatistics17 = [(NSPProxyPath *)v98 networkMultiHopAgentStatistics];
+          v24 = v94;
+          v88 = v489;
+          if (!networkMultiHopAgentStatistics17)
+          {
+            goto LABEL_332;
+          }
+
+          v290 = networkMultiHopAgentStatistics17[13];
+
+          if (v290 < 3)
+          {
+            goto LABEL_332;
+          }
+
+          v291 = self->_probingReason;
+          if (v291 == 1)
+          {
+            goto LABEL_332;
+          }
+
+          if (!v291)
+          {
+            sub_100033448(&self->super.isa, @"ProxyFallbackEgressUnavailableError");
+            sub_1000336DC(self, 1);
+            networkMultiHopAgentStatistics18 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+            if (networkMultiHopAgentStatistics18)
+            {
+              networkMultiHopAgentStatistics18[13] = 0;
+            }
+
+            v278 = self->_fallbackProxyPath;
+LABEL_325:
+            networkSingleHopAgentStatistics4 = [v278 networkSingleHopAgentStatistics];
+            if (networkSingleHopAgentStatistics4)
+            {
+              networkSingleHopAgentStatistics4[13] = 0;
+            }
+
+            goto LABEL_332;
+          }
+
+          v352 = self->_fallbackProxyPath;
+          goto LABEL_509;
+        }
+
+        v284 = nplog_obj();
+        if (os_log_type_enabled(v284, OS_LOG_TYPE_INFO))
+        {
+          v493 = v88;
+          v285 = v24;
+          v286 = self->_lastFallbackProxySwitchedDate;
+          v287 = [NSDateFormatter localizedStringFromDate:v286 dateStyle:1 timeStyle:2];
+          *buf = 138412290;
+          v553 = v287;
+          v288 = "ignoring unavailable fallback proxy error, last fallback proxy switched date %@";
+          goto LABEL_330;
+        }
+      }
+
+      goto LABEL_332;
+    }
+
+    v135 = v13;
+    v136 = interfaceCopy;
+    if (self)
+    {
+      if ([(NWPath *)self->_path status]== 1)
+      {
+        v491 = v135;
+        v503 = v9;
+        v539 = v13;
+        v137 = self->_quicProxyPath;
+        networkMultiHopAgentStatistics19 = [(NSPProxyPath *)v137 networkMultiHopAgentStatistics];
+        v139 = networkMultiHopAgentStatistics19;
+        v533 = interfaceCopy;
+        if (networkMultiHopAgentStatistics19)
+        {
+          v140 = *(networkMultiHopAgentStatistics19 + 80);
+        }
+
+        else
+        {
+          v140 = 0;
+        }
+
+        v481 = v136;
+        v141 = self->_quicProxyPath;
+        networkSingleHopAgentStatistics5 = [(NSPProxyPath *)v141 networkSingleHopAgentStatistics];
+        v143 = networkSingleHopAgentStatistics5;
+        v144 = v24;
+        v145 = fallbackPathStatistics;
+        if (networkSingleHopAgentStatistics5)
+        {
+          v146 = *(networkSingleHopAgentStatistics5 + 80);
+        }
+
+        else
+        {
+          v146 = 0;
+        }
+
+        v147 = v146 + v140;
+        v148 = self->_fallbackProxyPath;
+        networkMultiHopAgentStatistics20 = [(NSPProxyPath *)v148 networkMultiHopAgentStatistics];
+        v150 = networkMultiHopAgentStatistics20;
+        if (networkMultiHopAgentStatistics20)
+        {
+          v151 = *(networkMultiHopAgentStatistics20 + 80);
+        }
+
+        else
+        {
+          v151 = 0;
+        }
+
+        v152 = v147 + v151;
+        networkSingleHopAgentStatistics6 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+        if (networkSingleHopAgentStatistics6)
+        {
+          v154 = networkSingleHopAgentStatistics6[10];
+        }
+
+        else
+        {
+          v154 = 0;
+        }
+
+        v155 = v152 + v154;
+
+        v156 = v155 >= 3;
+        interfaceCopy = v533;
+        v13 = v539;
+        fallbackPathStatistics = v145;
+        v9 = v503;
+        v24 = v144;
+        v136 = v481;
+        v135 = v491;
+        if (!v156)
+        {
+          goto LABEL_200;
+        }
+
+        v157 = self->_probingReason;
+        if (v157 == 1)
+        {
+          goto LABEL_200;
+        }
+
+        if (!v157)
+        {
+          sub_100033448(&self->super.isa, @"ProxyCertError");
+          sub_1000336DC(self, 1);
+          networkMultiHopAgentStatistics21 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+          if (networkMultiHopAgentStatistics21)
+          {
+            networkMultiHopAgentStatistics21[10] = 0;
+          }
+
+          networkSingleHopAgentStatistics7 = [(NSPProxyPath *)self->_quicProxyPath networkSingleHopAgentStatistics];
+          if (networkSingleHopAgentStatistics7)
+          {
+            networkSingleHopAgentStatistics7[10] = 0;
+          }
+
+          networkMultiHopAgentStatistics22 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+          if (networkMultiHopAgentStatistics22)
+          {
+            networkMultiHopAgentStatistics22[10] = 0;
+          }
+
+          networkSingleHopAgentStatistics8 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+          if (networkSingleHopAgentStatistics8)
+          {
+            networkSingleHopAgentStatistics8[10] = 0;
+          }
+
+          goto LABEL_200;
+        }
+      }
+
+      else
+      {
+        v194 = nplog_obj();
+        if (os_log_type_enabled(v194, OS_LOG_TYPE_DEFAULT))
+        {
+          status = [(NWPath *)self->_path status];
+          *buf = 134217984;
+          v553 = status;
+          _os_log_impl(&_mh_execute_header, v194, OS_LOG_TYPE_DEFAULT, "ignoring connection cert error, path status %ld", buf, 0xCu);
+        }
+      }
+
+      [(NSPProxyPath *)self->_quicProxyPath resetError];
+      [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+    }
+
+LABEL_200:
+
+    if (!fallbackPathStatistics)
+    {
+      goto LABEL_357;
+    }
+
+    v86 = 10;
+    goto LABEL_356;
+  }
+
+  v538 = v13;
+  if ((v9 + 65568) > 0x1E)
+  {
+    goto LABEL_116;
+  }
+
+  if (((1 << (v9 + 32)) & 0x4004C000) != 0)
+  {
+    v25 = v13;
+    v26 = interfaceCopy;
+    if (!self)
+    {
+      goto LABEL_40;
+    }
+
+    v27 = self->_path;
+    v530 = interfaceCopy;
+    if ([(NWPath *)v27 status]!= 1)
+    {
+      goto LABEL_35;
+    }
+
+    v28 = self->_lastPathUnsatisfiedDate;
+    if (v28)
+    {
+      v13 = +[NSDate now];
+      interfaceCopy = self->_lastPathUnsatisfiedDate;
+      [v13 timeIntervalSinceDate:interfaceCopy];
+      if (v29 <= 5.0)
+      {
+
+        interfaceCopy = v530;
+        v13 = v538;
+LABEL_35:
+
+LABEL_36:
+        v30 = nplog_obj();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        {
+          v488 = self->_path;
+          status2 = [(NWPath *)v488 status];
+          interfaceName = [(NSDate *)v26 interfaceName];
+          v32 = self->_path;
+          interface = [(NWPath *)v32 interface];
+          [interface interfaceName];
+          v34 = v510 = v26;
+          v502 = v25;
+          v35 = self->_lastPathUnsatisfiedDate;
+          [NSDateFormatter localizedStringFromDate:v35 dateStyle:1 timeStyle:2];
+          v36 = v523 = fallbackPathStatistics;
+          v37 = self->_lastPrimaryInterfaceChangedDate;
+          v38 = [NSDateFormatter localizedStringFromDate:v37 dateStyle:1 timeStyle:2];
+          *buf = 134219010;
+          v553 = status2;
+          v554 = 2112;
+          v555 = interfaceName;
+          v556 = 2112;
+          v557 = v34;
+          v558 = 2112;
+          v559 = v36;
+          v560 = 2112;
+          v561 = v38;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "ignoring dns blocked error, path status %ld reporting interface %@ primary interface %@ last path unsatisfied date %@, last interface change date %@", buf, 0x34u);
+
+          v13 = v538;
+          v25 = v502;
+
+          v26 = v510;
+          interfaceCopy = v530;
+
+          fallbackPathStatistics = v523;
+        }
+
+LABEL_39:
+        [(NSPProxyPath *)self->_quicProxyPath resetError];
+        [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+        goto LABEL_40;
+      }
+    }
+
+    v516 = v26;
+    v526 = fallbackPathStatistics;
+    v188 = self->_lastPrimaryInterfaceChangedDate;
+    if (v188)
+    {
+      fallbackPathStatistics = +[NSDate now];
+      v26 = self->_lastPrimaryInterfaceChangedDate;
+      [(NSDate *)fallbackPathStatistics timeIntervalSinceDate:v26];
+      if (v189 <= 5.0)
+      {
+        v193 = 0;
+        goto LABEL_248;
+      }
+
+      if (!v516)
+      {
+        v193 = 1;
+        goto LABEL_248;
+      }
+
+      v190 = v516;
+    }
+
+    else
+    {
+      v190 = v26;
+      if (!v26)
+      {
+        if (v28)
+        {
+        }
+
+        v26 = 0;
+        goto LABEL_251;
+      }
+    }
+
+    v505 = v25;
+    interfaceIndex = [(NSDate *)v190 interfaceIndex];
+    interface2 = [(NWPath *)self->_path interface];
+    v193 = interfaceIndex == [interface2 interfaceIndex];
+
+    if (!v188)
+    {
+      v25 = v505;
+      if (!v28)
+      {
+LABEL_250:
+
+        interfaceCopy = v530;
+        v13 = v538;
+        v26 = v516;
+        fallbackPathStatistics = v526;
+        if (!v193)
+        {
+          goto LABEL_36;
+        }
+
+LABEL_251:
+        v223 = self->_quicProxyPath;
+        networkMultiHopAgentStatistics23 = [(NSPProxyPath *)v223 networkMultiHopAgentStatistics];
+        v225 = networkMultiHopAgentStatistics23;
+        if (networkMultiHopAgentStatistics23)
+        {
+          v226 = *(networkMultiHopAgentStatistics23 + 72);
+        }
+
+        else
+        {
+          v226 = 0;
+        }
+
+        v227 = self->_quicProxyPath;
+        networkSingleHopAgentStatistics9 = [(NSPProxyPath *)v227 networkSingleHopAgentStatistics];
+        v229 = networkSingleHopAgentStatistics9;
+        if (networkSingleHopAgentStatistics9)
+        {
+          v230 = networkSingleHopAgentStatistics9[9];
+        }
+
+        else
+        {
+          v230 = 0;
+        }
+
+        if ((v230 + v226) < 3)
+        {
+
+          interfaceCopy = v530;
+          v13 = v538;
+        }
+
+        else
+        {
+          v231 = self->_fallbackProxyPath;
+          if (v231)
+          {
+            v232 = v231;
+            v233 = v25;
+            v234 = self->_fallbackProxyPath;
+            networkMultiHopAgentStatistics24 = [(NSPProxyPath *)v234 networkMultiHopAgentStatistics];
+            v236 = networkMultiHopAgentStatistics24;
+            if (networkMultiHopAgentStatistics24)
+            {
+              v237 = *(networkMultiHopAgentStatistics24 + 72);
+            }
+
+            else
+            {
+              v237 = 0;
+            }
+
+            networkSingleHopAgentStatistics10 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+            if (networkSingleHopAgentStatistics10)
+            {
+              v239 = networkSingleHopAgentStatistics10[9];
+            }
+
+            else
+            {
+              v239 = 0;
+            }
+
+            v240 = v239 + v237;
+
+            v241 = v240 > 2;
+            interfaceCopy = v530;
+            v13 = v538;
+            v25 = v233;
+            v26 = v516;
+            fallbackPathStatistics = v526;
+            if (!v241)
+            {
+              goto LABEL_40;
+            }
+          }
+
+          else
+          {
+
+            interfaceCopy = v530;
+            v13 = v538;
+          }
+
+          v252 = self->_probingReason;
+          if (v252 != 2)
+          {
+            if (!v252)
+            {
+              sub_100033448(&self->super.isa, @"ProxyConnectionDNSError");
+              v253 = self->_quicProxyPath;
+              networkMultiHopAgentStatistics25 = [(NSPProxyPath *)v253 networkMultiHopAgentStatistics];
+              v255 = networkMultiHopAgentStatistics25;
+              if (networkMultiHopAgentStatistics25)
+              {
+                v256 = *(networkMultiHopAgentStatistics25 + 16);
+              }
+
+              else
+              {
+                v256 = 0;
+              }
+
+              v257 = self->_quicProxyPath;
+              networkSingleHopAgentStatistics11 = [(NSPProxyPath *)v257 networkSingleHopAgentStatistics];
+              v259 = networkSingleHopAgentStatistics11;
+              v506 = v25;
+              if (networkSingleHopAgentStatistics11)
+              {
+                v260 = *(networkSingleHopAgentStatistics11 + 16);
+              }
+
+              else
+              {
+                v260 = 0;
+              }
+
+              v261 = v260 + v256;
+              v262 = self->_fallbackProxyPath;
+              networkMultiHopAgentStatistics26 = [(NSPProxyPath *)v262 networkMultiHopAgentStatistics];
+              v264 = networkMultiHopAgentStatistics26;
+              if (networkMultiHopAgentStatistics26)
+              {
+                v265 = *(networkMultiHopAgentStatistics26 + 16);
+              }
+
+              else
+              {
+                v265 = 0;
+              }
+
+              v266 = v261 + v265;
+              networkSingleHopAgentStatistics12 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+              if (networkSingleHopAgentStatistics12)
+              {
+                v268 = networkSingleHopAgentStatistics12[2];
+              }
+
+              else
+              {
+                v268 = 0;
+              }
+
+              if (v266 + v268)
+              {
+                v269 = 1;
+              }
+
+              else
+              {
+                v269 = 2;
+              }
+
+              sub_1000336DC(self, v269);
+              networkMultiHopAgentStatistics27 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+              if (networkMultiHopAgentStatistics27)
+              {
+                networkMultiHopAgentStatistics27[9] = 0;
+              }
+
+              networkSingleHopAgentStatistics13 = [(NSPProxyPath *)self->_quicProxyPath networkSingleHopAgentStatistics];
+              v13 = v538;
+              v26 = v516;
+              fallbackPathStatistics = v526;
+              v25 = v506;
+              if (networkSingleHopAgentStatistics13)
+              {
+                networkSingleHopAgentStatistics13[9] = 0;
+              }
+
+              networkMultiHopAgentStatistics28 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+              if (networkMultiHopAgentStatistics28)
+              {
+                networkMultiHopAgentStatistics28[9] = 0;
+              }
+
+              networkSingleHopAgentStatistics14 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+              if (networkSingleHopAgentStatistics14)
+              {
+                networkSingleHopAgentStatistics14[9] = 0;
+              }
+
+              goto LABEL_40;
+            }
+
+            goto LABEL_39;
+          }
+        }
+
+LABEL_40:
+
+        if (fallbackPathStatistics)
+        {
+          ++fallbackPathStatistics[9].super.isa;
+        }
+
+        goto LABEL_358;
+      }
+
+LABEL_249:
+
+      goto LABEL_250;
+    }
+
+    v25 = v505;
+LABEL_248:
+
+    if (!v28)
+    {
+      goto LABEL_250;
+    }
+
+    goto LABEL_249;
+  }
+
+  if (v9 != -65568)
+  {
+LABEL_116:
+    if (v9 != 60)
+    {
+      if (v9 == 61)
+      {
+        v114 = v13;
+        v115 = interfaceCopy;
+        if (!self)
+        {
+          goto LABEL_270;
+        }
+
+        v116 = self->_path;
+        v532 = interfaceCopy;
+        v480 = v114;
+        if ([(NWPath *)v116 status]== 1)
+        {
+          v117 = self->_lastPathUnsatisfiedDate;
+          if (!v117)
+          {
+            v120 = v115;
+LABEL_243:
+            v220 = self->_lastPrimaryInterfaceChangedDate;
+            v518 = v24;
+            if (v220)
+            {
+              path = +[NSDate now];
+              v9 = self->_lastPrimaryInterfaceChangedDate;
+              [path timeIntervalSinceDate:v9];
+              if (v221 <= 30.0)
+              {
+                v281 = 0;
+                goto LABEL_372;
+              }
+
+              if (!v120)
+              {
+                v281 = 1;
+                goto LABEL_372;
+              }
+
+              v222 = v120;
+            }
+
+            else
+            {
+              v222 = v120;
+              if (!v120)
+              {
+                v115 = 0;
+                if (v117)
+                {
+                }
+
+                interfaceCopy = v532;
+                v9 = v9;
+                goto LABEL_375;
+              }
+            }
+
+            v120 = v222;
+            interfaceIndex2 = [(NSDate *)v222 interfaceIndex];
+            interface3 = [(NWPath *)self->_path interface];
+            v281 = interfaceIndex2 == [interface3 interfaceIndex];
+
+            if (!v220)
+            {
+              v24 = v518;
+              if (!v117)
+              {
+LABEL_374:
+
+                interfaceCopy = v532;
+                v9 = 61;
+                v115 = v120;
+                if (v281)
+                {
+LABEL_375:
+                  v325 = self->_fallbackProxyPath;
+                  networkMultiHopAgentStatistics29 = [(NSPProxyPath *)v325 networkMultiHopAgentStatistics];
+                  v327 = networkMultiHopAgentStatistics29;
+                  v13 = v538;
+                  if (networkMultiHopAgentStatistics29)
+                  {
+                    v328 = *(networkMultiHopAgentStatistics29 + 32);
+                  }
+
+                  else
+                  {
+                    v328 = 0;
+                  }
+
+                  networkSingleHopAgentStatistics15 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+                  if (networkSingleHopAgentStatistics15)
+                  {
+                    v330 = networkSingleHopAgentStatistics15[4];
+                  }
+
+                  else
+                  {
+                    v330 = 0;
+                  }
+
+                  v331 = v330 + v328;
+
+                  if (v331 < 3)
+                  {
+                    v24 = v518;
+                    v114 = v480;
+                    if ([(NSPPrivacyProxyAgentManager *)self networkDiscoveredProxyPresentInAgentManager])
+                    {
+                      v474 = v115;
+                      v529 = fallbackPathStatistics;
+                      v547 = 0u;
+                      v548 = 0u;
+                      v545 = 0u;
+                      v546 = 0u;
+                      v335 = self->_networkSpecificQUICProxyPaths;
+                      v336 = [(NSMutableDictionary *)v335 countByEnumeratingWithState:&v545 objects:buf count:16];
+                      if (v336)
+                      {
+                        v337 = v336;
+                        v338 = *v546;
+                        selfCopy = self;
+                        do
+                        {
+                          v339 = 0;
+                          do
+                          {
+                            if (*v546 != v338)
+                            {
+                              objc_enumerationMutation(v335);
+                            }
+
+                            v340 = [(NSMutableDictionary *)self->_networkSpecificQUICProxyPaths objectForKey:*(*(&v545 + 1) + 8 * v339)];
+                            v341 = v340;
+                            if (v340 == v114)
+                            {
+                              networkMultiHopAgentStatistics30 = [v340 networkMultiHopAgentStatistics];
+                              if (networkMultiHopAgentStatistics30)
+                              {
+                                v343 = networkMultiHopAgentStatistics30[4];
+
+                                if (v343 >= 3)
+                                {
+                                  v344 = nplog_obj();
+                                  if (os_log_type_enabled(v344, OS_LOG_TYPE_INFO))
+                                  {
+                                    v345 = v114;
+                                    ingressProxy = [v341 ingressProxy];
+                                    v347 = ingressProxy;
+                                    if (ingressProxy)
+                                    {
+                                      v348 = *(ingressProxy + 24);
+                                    }
+
+                                    else
+                                    {
+                                      v348 = 0;
+                                    }
+
+                                    v349 = v348;
+                                    vendor = [v349 vendor];
+                                    *v550 = 138412290;
+                                    v551 = vendor;
+                                    _os_log_impl(&_mh_execute_header, v344, OS_LOG_TYPE_INFO, "Network discovered proxy: %@ exceeded the connection refused count, removing registration", v550, 0xCu);
+
+                                    v9 = 61;
+                                    v24 = v518;
+                                    v114 = v345;
+                                    self = selfCopy;
+                                  }
+
+                                  [(NSPPrivacyProxyAgentManager *)self tearDownNetworkDiscoveredProxy];
+                                }
+                              }
+                            }
+
+                            v339 = v339 + 1;
+                          }
+
+                          while (v337 != v339);
+                          v351 = [(NSMutableDictionary *)v335 countByEnumeratingWithState:&v545 objects:buf count:16];
+                          v337 = v351;
+                        }
+
+                        while (v351);
+                      }
+
+                      interfaceCopy = v532;
+                      v13 = v538;
+                      fallbackPathStatistics = v529;
+                      v115 = v474;
+                    }
+                  }
+
+                  else
+                  {
+                    v332 = self->_probingReason;
+                    v24 = v518;
+                    v114 = v480;
+                    if (v332 != 1)
+                    {
+                      if (v332)
+                      {
+                        [(NSPProxyPath *)self->_quicProxyPath resetError];
+                        [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+                      }
+
+                      else
+                      {
+                        sub_100033448(&self->super.isa, @"ProxyConnectionRefused");
+                        sub_1000336DC(self, 1);
+                        networkMultiHopAgentStatistics31 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+                        if (networkMultiHopAgentStatistics31)
+                        {
+                          networkMultiHopAgentStatistics31[4] = 0;
+                        }
+
+                        networkSingleHopAgentStatistics16 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+                        if (networkSingleHopAgentStatistics16)
+                        {
+                          networkSingleHopAgentStatistics16[4] = 0;
+                        }
+                      }
+                    }
+                  }
+
+                  goto LABEL_270;
+                }
+
+LABEL_267:
+                v242 = nplog_obj();
+                if (os_log_type_enabled(v242, OS_LOG_TYPE_DEFAULT))
+                {
+                  v492 = self->_path;
+                  status3 = [(NWPath *)v492 status];
+                  interfaceName2 = [(NSDate *)v115 interfaceName];
+                  v465 = self->_path;
+                  [(NWPath *)v465 interface];
+                  v244 = v527 = fallbackPathStatistics;
+                  interfaceName3 = [v244 interfaceName];
+                  v246 = v24;
+                  v247 = self->_lastPathUnsatisfiedDate;
+                  [NSDateFormatter localizedStringFromDate:v247 dateStyle:1 timeStyle:2];
+                  v248 = v471 = v115;
+                  v249 = self->_lastPrimaryInterfaceChangedDate;
+                  v250 = [NSDateFormatter localizedStringFromDate:v249 dateStyle:1 timeStyle:2];
+                  *buf = 134219010;
+                  v553 = status3;
+                  v554 = 2112;
+                  v555 = interfaceName2;
+                  v556 = 2112;
+                  v557 = interfaceName3;
+                  v558 = 2112;
+                  v559 = v248;
+                  v560 = 2112;
+                  v561 = v250;
+                  _os_log_impl(&_mh_execute_header, v242, OS_LOG_TYPE_DEFAULT, "ignoring connection refused error, path status %ld reporting interface %@ primary interface %@ last path unsatisfied date %@, last interface change date %@", buf, 0x34u);
+
+                  v24 = v246;
+                  fallbackPathStatistics = v527;
+                  interfaceCopy = v532;
+
+                  v115 = v471;
+                }
+
+                [(NSPProxyPath *)self->_quicProxyPath resetError];
+                [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+                v13 = v538;
+                v9 = 61;
+                v114 = v480;
+LABEL_270:
+
+                if (fallbackPathStatistics)
+                {
+                  v86 = 4;
+                  goto LABEL_356;
+                }
+
+LABEL_357:
+                ingressProxy2 = [v13 ingressProxy];
+                egressProxy13 = [v13 egressProxy];
+                [(NSPPrivacyProxyAgentManager *)self sendRTCReportWithFailureType:v24 errorCode:v9 url:0 ingressProxy:ingressProxy2 egressProxy:egressProxy13 tokenServer:0];
+
+                goto LABEL_358;
+              }
+
+LABEL_373:
+
+              goto LABEL_374;
+            }
+
+            v24 = v518;
+LABEL_372:
+
+            if (!v117)
+            {
+              goto LABEL_374;
+            }
+
+            goto LABEL_373;
+          }
+
+          path = +[NSDate now];
+          v118 = self->_lastPathUnsatisfiedDate;
+          [path timeIntervalSinceDate:v118];
+          if (v119 > 30.0)
+          {
+            v468 = v118;
+            pathCopy2 = path;
+            v120 = v115;
+            goto LABEL_243;
+          }
+
+          interfaceCopy = v532;
+        }
+
+        goto LABEL_267;
+      }
+
+LABEL_168:
+      v170 = v13;
+      v171 = interfaceCopy;
+      if (!self)
+      {
+LABEL_179:
+
+        if (!fallbackPathStatistics)
+        {
+          goto LABEL_357;
+        }
+
+        v86 = 7;
+        goto LABEL_356;
+      }
+
+      v540 = v13;
+      v172 = self->_path;
+      v525 = fallbackPathStatistics;
+      if ([(NWPath *)v172 status]!= 1)
+      {
+        goto LABEL_175;
+      }
+
+      linkQuality = self->_linkQuality;
+      if (linkQuality == 10 || linkQuality == 20)
+      {
+        goto LABEL_175;
+      }
+
+      v535 = interfaceCopy;
+      v174 = self->_lastPathUnsatisfiedDate;
+      if (v174)
+      {
+        v6 = +[NSDate now];
+        v7 = self->_lastPathUnsatisfiedDate;
+        [v6 timeIntervalSinceDate:v7];
+        if (v175 <= 30.0)
+        {
+
+          interfaceCopy = v535;
+LABEL_175:
+
+LABEL_176:
+          v176 = nplog_obj();
+          if (os_log_type_enabled(v176, OS_LOG_TYPE_DEFAULT))
+          {
+            v470 = self->_path;
+            status4 = [(NWPath *)v470 status];
+            v177 = [NPUtilities stringFromLinkQualityValue:self->_linkQuality];
+            interfaceName4 = [(NSDate *)v171 interfaceName];
+            v464 = self->_path;
+            [(NWPath *)v464 interface];
+            v178 = v504 = v9;
+            [v178 interfaceName];
+            v179 = v483 = v171;
+            v180 = self->_lastPathUnsatisfiedDate;
+            [NSDateFormatter localizedStringFromDate:v180 dateStyle:1 timeStyle:2];
+            v181 = v536 = interfaceCopy;
+            v182 = self->_lastPrimaryInterfaceChangedDate;
+            [NSDateFormatter localizedStringFromDate:v182 dateStyle:1 timeStyle:2];
+            v183 = v514 = v24;
+            *buf = 134219266;
+            v553 = status4;
+            v554 = 2112;
+            v555 = v177;
+            v556 = 2112;
+            v557 = interfaceName4;
+            v558 = 2112;
+            v559 = v179;
+            v560 = 2112;
+            v561 = v181;
+            v562 = 2112;
+            v563 = v183;
+            _os_log_impl(&_mh_execute_header, v176, OS_LOG_TYPE_DEFAULT, "ignoring connection error, path status %ld link quality %@ reporting interface %@ primary interface %@ last path unsatisfied date %@, last interface change date %@", buf, 0x3Eu);
+
+            v171 = v483;
+            v9 = v504;
+
+            v24 = v514;
+            interfaceCopy = v536;
+          }
+
+          [(NSPProxyPath *)self->_quicProxyPath resetError];
+          [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+          v13 = v540;
+          fallbackPathStatistics = v525;
+          goto LABEL_179;
+        }
+      }
+
+      v472 = v7;
+      v484 = v171;
+      v508 = v9;
+      v301 = self->_lastPrimaryInterfaceChangedDate;
+      if (v301)
+      {
+        v7 = +[NSDate now];
+        v9 = self->_lastPrimaryInterfaceChangedDate;
+        [(NSDate *)v7 timeIntervalSinceDate:v9];
+        if (v302 <= 30.0)
+        {
+          v324 = 0;
+          goto LABEL_486;
+        }
+
+        if (!v484)
+        {
+          v324 = 1;
+          goto LABEL_486;
+        }
+
+        v303 = v484;
+      }
+
+      else
+      {
+        v303 = v484;
+        if (!v484)
+        {
+          if (v174)
+          {
+          }
+
+          goto LABEL_489;
+        }
+      }
+
+      v467 = v6;
+      v497 = v170;
+      v522 = v24;
+      interfaceIndex3 = [(NSDate *)v303 interfaceIndex];
+      interface4 = [(NWPath *)self->_path interface];
+      interfaceIndex4 = [interface4 interfaceIndex];
+      v324 = interfaceIndex3 == interfaceIndex4;
+
+      if (!v301)
+      {
+        if (v174)
+        {
+        }
+
+        v353 = interfaceIndex3 == interfaceIndex4;
+        interfaceCopy = v535;
+        v9 = v508;
+        v24 = v522;
+        v171 = v484;
+        v170 = v497;
+        if (!v353)
+        {
+          goto LABEL_176;
+        }
+
+        goto LABEL_489;
+      }
+
+      v24 = v522;
+      v170 = v497;
+      v6 = v467;
+LABEL_486:
+
+      if (v174)
+      {
+      }
+
+      interfaceCopy = v535;
+      v9 = v508;
+      v171 = v484;
+      if (!v324)
+      {
+        goto LABEL_176;
+      }
+
+LABEL_489:
+      v390 = self->_fallbackProxyPath;
+      networkMultiHopAgentStatistics32 = [(NSPProxyPath *)v390 networkMultiHopAgentStatistics];
+      v392 = networkMultiHopAgentStatistics32;
+      if (networkMultiHopAgentStatistics32)
+      {
+        v393 = *(networkMultiHopAgentStatistics32 + 56);
+      }
+
+      else
+      {
+        v393 = 0;
+      }
+
+      v394 = self->_fallbackProxyPath;
+      networkSingleHopAgentStatistics17 = [(NSPProxyPath *)v394 networkSingleHopAgentStatistics];
+      v396 = networkSingleHopAgentStatistics17;
+      if (networkSingleHopAgentStatistics17)
+      {
+        v397 = networkSingleHopAgentStatistics17[7];
+      }
+
+      else
+      {
+        v397 = 0;
+      }
+
+      fallbackPathStatistics = v525;
+      if ((v397 + v393) > 9)
+      {
+      }
+
+      else
+      {
+        v398 = self->_fallbackProxyPath;
+        if (v398)
+        {
+
+          goto LABEL_541;
+        }
+
+        v500 = v170;
+        v429 = v24;
+        v430 = self->_quicProxyPath;
+        networkMultiHopAgentStatistics33 = [(NSPProxyPath *)v430 networkMultiHopAgentStatistics];
+        v432 = networkMultiHopAgentStatistics33;
+        if (networkMultiHopAgentStatistics33)
+        {
+          v433 = *(networkMultiHopAgentStatistics33 + 56);
+        }
+
+        else
+        {
+          v433 = 0;
+        }
+
+        networkSingleHopAgentStatistics18 = [(NSPProxyPath *)self->_quicProxyPath networkSingleHopAgentStatistics];
+        if (networkSingleHopAgentStatistics18)
+        {
+          v435 = networkSingleHopAgentStatistics18[7];
+        }
+
+        else
+        {
+          v435 = 0;
+        }
+
+        v436 = v435 + v433;
+
+        v241 = v436 > 9;
+        v24 = v429;
+        v170 = v500;
+        if (!v241)
+        {
+LABEL_541:
+          interfaceCopy = v535;
+          v13 = v540;
+          v9 = v508;
+          v171 = v484;
+          if ([(NSPPrivacyProxyAgentManager *)self networkDiscoveredProxyPresentInAgentManager])
+          {
+            v547 = 0u;
+            v548 = 0u;
+            v545 = 0u;
+            v546 = 0u;
+            v437 = self->_networkSpecificQUICProxyPaths;
+            v438 = [(NSMutableDictionary *)v437 countByEnumeratingWithState:&v545 objects:buf count:16];
+            if (v438)
+            {
+              v439 = v438;
+              v440 = *v546;
+              v476 = v437;
+              v501 = v170;
+              do
+              {
+                v441 = 0;
+                do
+                {
+                  if (*v546 != v440)
+                  {
+                    objc_enumerationMutation(v437);
+                  }
+
+                  v442 = [(NSMutableDictionary *)self->_networkSpecificQUICProxyPaths objectForKey:*(*(&v545 + 1) + 8 * v441)];
+                  v443 = v442;
+                  if (v442 == v170)
+                  {
+                    networkMultiHopAgentStatistics34 = [v442 networkMultiHopAgentStatistics];
+                    if (networkMultiHopAgentStatistics34)
+                    {
+                      v445 = networkMultiHopAgentStatistics34[7];
+
+                      if (v445 >= 0xA)
+                      {
+                        v446 = nplog_obj();
+                        if (os_log_type_enabled(v446, OS_LOG_TYPE_INFO))
+                        {
+                          ingressProxy3 = [v443 ingressProxy];
+                          v448 = ingressProxy3;
+                          v449 = v24;
+                          if (ingressProxy3)
+                          {
+                            v450 = *(ingressProxy3 + 24);
+                          }
+
+                          else
+                          {
+                            v450 = 0;
+                          }
+
+                          v451 = v450;
+                          vendor2 = [v451 vendor];
+                          *v550 = 138412290;
+                          v551 = vendor2;
+                          _os_log_impl(&_mh_execute_header, v446, OS_LOG_TYPE_INFO, "Network discovered proxy: %@ exceeded the connection error count, removing registration", v550, 0xCu);
+
+                          v24 = v449;
+                          v170 = v501;
+                          v437 = v476;
+                        }
+
+                        [(NSPPrivacyProxyAgentManager *)self tearDownNetworkDiscoveredProxy];
+                      }
+                    }
+                  }
+
+                  v441 = v441 + 1;
+                }
+
+                while (v439 != v441);
+                v453 = [(NSMutableDictionary *)v437 countByEnumeratingWithState:&v545 objects:buf count:16];
+                v439 = v453;
+              }
+
+              while (v453);
+            }
+
+            interfaceCopy = v535;
+            v13 = v540;
+            fallbackPathStatistics = v525;
+            v9 = v508;
+            v171 = v484;
+          }
+
+          goto LABEL_179;
+        }
+      }
+
+      v399 = self->_probingReason;
+      interfaceCopy = v535;
+      v13 = v540;
+      v9 = v508;
+      v171 = v484;
+      if (v399 != 1)
+      {
+        if (v399)
+        {
+          [(NSPProxyPath *)self->_quicProxyPath resetError];
+          [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+        }
+
+        else
+        {
+          sub_100033448(&self->super.isa, @"ProxyError");
+          sub_1000336DC(self, 1);
+          networkMultiHopAgentStatistics35 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+          if (networkMultiHopAgentStatistics35)
+          {
+            networkMultiHopAgentStatistics35[7] = 0;
+          }
+
+          networkSingleHopAgentStatistics19 = [(NSPProxyPath *)self->_quicProxyPath networkSingleHopAgentStatistics];
+          if (networkSingleHopAgentStatistics19)
+          {
+            networkSingleHopAgentStatistics19[7] = 0;
+          }
+
+          networkMultiHopAgentStatistics36 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+          if (networkMultiHopAgentStatistics36)
+          {
+            networkMultiHopAgentStatistics36[7] = 0;
+          }
+
+          networkSingleHopAgentStatistics20 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+          if (networkSingleHopAgentStatistics20)
+          {
+            networkSingleHopAgentStatistics20[7] = 0;
+          }
+        }
+      }
+
+      goto LABEL_179;
+    }
+
+    v162 = v13;
+    v163 = interfaceCopy;
+    if (!self)
+    {
+      goto LABEL_354;
+    }
+
+    v164 = self->_path;
+    v524 = fallbackPathStatistics;
+    if ([(NWPath *)v164 status]== 1)
+    {
+      v165 = self->_linkQuality;
+      if (v165 != 10 && v165 != 20)
+      {
+        v534 = interfaceCopy;
+        v166 = self->_lastPathUnsatisfiedDate;
+        v482 = v163;
+        if (!v166)
+        {
+          goto LABEL_335;
+        }
+
+        v167 = +[NSDate now];
+        v168 = self->_lastPathUnsatisfiedDate;
+        [(NSDate *)v167 timeIntervalSinceDate:v168];
+        if (v169 > 30.0)
+        {
+          v462 = v168;
+          v468 = v167;
+LABEL_335:
+          v295 = self->_lastPrimaryInterfaceChangedDate;
+          if (v295)
+          {
+            v163 = +[NSDate now];
+            v9 = self->_lastPrimaryInterfaceChangedDate;
+            [(NSDate *)v163 timeIntervalSinceDate:v9];
+            if (v296 <= 30.0)
+            {
+              v317 = 0;
+              goto LABEL_463;
+            }
+
+            if (!v482)
+            {
+              v317 = 1;
+              goto LABEL_463;
+            }
+
+            v297 = v482;
+          }
+
+          else
+          {
+            v297 = v163;
+            if (!v163)
+            {
+              if (v166)
+              {
+              }
+
+              goto LABEL_466;
+            }
+          }
+
+          v496 = v162;
+          v521 = v24;
+          interfaceIndex5 = [(NSDate *)v297 interfaceIndex];
+          interface5 = [(NWPath *)self->_path interface];
+          interfaceIndex6 = [interface5 interfaceIndex];
+          v317 = interfaceIndex5 == interfaceIndex6;
+
+          if (!v295)
+          {
+            v162 = v496;
+            if (v166)
+            {
+            }
+
+            v353 = interfaceIndex5 == interfaceIndex6;
+            interfaceCopy = v534;
+            v9 = 60;
+            v24 = v521;
+            v163 = v482;
+            if (v353)
+            {
+              goto LABEL_466;
+            }
+
+            goto LABEL_351;
+          }
+
+          v24 = v521;
+          v162 = v496;
+LABEL_463:
+
+          if (v166)
+          {
+          }
+
+          interfaceCopy = v534;
+          v9 = 60;
+          v163 = v482;
+          if (v317)
+          {
+LABEL_466:
+            v376 = self->_fallbackProxyPath;
+            networkMultiHopAgentStatistics37 = [(NSPProxyPath *)v376 networkMultiHopAgentStatistics];
+            v378 = networkMultiHopAgentStatistics37;
+            if (networkMultiHopAgentStatistics37)
+            {
+              v379 = *(networkMultiHopAgentStatistics37 + 24);
+            }
+
+            else
+            {
+              v379 = 0;
+            }
+
+            v380 = self->_fallbackProxyPath;
+            networkSingleHopAgentStatistics21 = [(NSPProxyPath *)v380 networkSingleHopAgentStatistics];
+            v382 = networkSingleHopAgentStatistics21;
+            if (networkSingleHopAgentStatistics21)
+            {
+              v383 = networkSingleHopAgentStatistics21[3];
+            }
+
+            else
+            {
+              v383 = 0;
+            }
+
+            fallbackPathStatistics = v524;
+            if ((v383 + v379) > 9)
+            {
+            }
+
+            else
+            {
+              v384 = self->_fallbackProxyPath;
+              if (v384)
+              {
+
+                goto LABEL_517;
+              }
+
+              v498 = v162;
+              v404 = v24;
+              v405 = self->_quicProxyPath;
+              networkMultiHopAgentStatistics38 = [(NSPProxyPath *)v405 networkMultiHopAgentStatistics];
+              v407 = networkMultiHopAgentStatistics38;
+              if (networkMultiHopAgentStatistics38)
+              {
+                v408 = *(networkMultiHopAgentStatistics38 + 24);
+              }
+
+              else
+              {
+                v408 = 0;
+              }
+
+              networkSingleHopAgentStatistics22 = [(NSPProxyPath *)self->_quicProxyPath networkSingleHopAgentStatistics];
+              if (networkSingleHopAgentStatistics22)
+              {
+                v410 = networkSingleHopAgentStatistics22[3];
+              }
+
+              else
+              {
+                v410 = 0;
+              }
+
+              v411 = v410 + v408;
+
+              v241 = v411 > 9;
+              v24 = v404;
+              v162 = v498;
+              if (!v241)
+              {
+LABEL_517:
+                interfaceCopy = v534;
+                v13 = v538;
+                v9 = 60;
+                v163 = v482;
+                if ([(NSPPrivacyProxyAgentManager *)self networkDiscoveredProxyPresentInAgentManager])
+                {
+                  v547 = 0u;
+                  v548 = 0u;
+                  v545 = 0u;
+                  v546 = 0u;
+                  v412 = self->_networkSpecificQUICProxyPaths;
+                  v413 = [(NSMutableDictionary *)v412 countByEnumeratingWithState:&v545 objects:buf count:16];
+                  if (v413)
+                  {
+                    v414 = v413;
+                    v415 = *v546;
+                    v499 = v162;
+                    v475 = v412;
+                    do
+                    {
+                      v416 = 0;
+                      do
+                      {
+                        if (*v546 != v415)
+                        {
+                          objc_enumerationMutation(v412);
+                        }
+
+                        v417 = [(NSMutableDictionary *)self->_networkSpecificQUICProxyPaths objectForKey:*(*(&v545 + 1) + 8 * v416)];
+                        v418 = v417;
+                        if (v417 == v162)
+                        {
+                          networkMultiHopAgentStatistics39 = [v417 networkMultiHopAgentStatistics];
+                          if (networkMultiHopAgentStatistics39)
+                          {
+                            v420 = networkMultiHopAgentStatistics39[3];
+
+                            if (v420 >= 0xA)
+                            {
+                              v421 = nplog_obj();
+                              if (os_log_type_enabled(v421, OS_LOG_TYPE_INFO))
+                              {
+                                ingressProxy4 = [v418 ingressProxy];
+                                v423 = ingressProxy4;
+                                v424 = v24;
+                                if (ingressProxy4)
+                                {
+                                  v425 = *(ingressProxy4 + 24);
+                                }
+
+                                else
+                                {
+                                  v425 = 0;
+                                }
+
+                                v426 = v425;
+                                vendor3 = [v426 vendor];
+                                *v550 = 138412290;
+                                v551 = vendor3;
+                                _os_log_impl(&_mh_execute_header, v421, OS_LOG_TYPE_INFO, "Network discovered proxy: %@ exceeded the timeout count, removing registration", v550, 0xCu);
+
+                                v24 = v424;
+                                v162 = v499;
+                                v412 = v475;
+                              }
+
+                              [(NSPPrivacyProxyAgentManager *)self tearDownNetworkDiscoveredProxy];
+                            }
+                          }
+                        }
+
+                        v416 = v416 + 1;
+                      }
+
+                      while (v414 != v416);
+                      v428 = [(NSMutableDictionary *)v412 countByEnumeratingWithState:&v545 objects:buf count:16];
+                      v414 = v428;
+                    }
+
+                    while (v428);
+                  }
+
+                  interfaceCopy = v534;
+                  v13 = v538;
+                  fallbackPathStatistics = v524;
+                  v9 = 60;
+                  v163 = v482;
+                }
+
+                goto LABEL_354;
+              }
+            }
+
+            v385 = self->_probingReason;
+            interfaceCopy = v534;
+            v13 = v538;
+            v9 = 60;
+            v163 = v482;
+            if (v385 != 1)
+            {
+              if (v385)
+              {
+                [(NSPProxyPath *)self->_quicProxyPath resetError];
+                [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+              }
+
+              else
+              {
+                sub_100033448(&self->super.isa, @"ProxyConnectionTimeout");
+                sub_1000336DC(self, 1);
+                networkMultiHopAgentStatistics40 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+                if (networkMultiHopAgentStatistics40)
+                {
+                  networkMultiHopAgentStatistics40[3] = 0;
+                }
+
+                networkSingleHopAgentStatistics23 = [(NSPProxyPath *)self->_quicProxyPath networkSingleHopAgentStatistics];
+                if (networkSingleHopAgentStatistics23)
+                {
+                  networkSingleHopAgentStatistics23[3] = 0;
+                }
+
+                networkMultiHopAgentStatistics41 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+                if (networkMultiHopAgentStatistics41)
+                {
+                  networkMultiHopAgentStatistics41[3] = 0;
+                }
+
+                networkSingleHopAgentStatistics24 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+                if (networkSingleHopAgentStatistics24)
+                {
+                  networkSingleHopAgentStatistics24[3] = 0;
+                }
+              }
+            }
+
+LABEL_354:
+
+            if (fallbackPathStatistics)
+            {
+              v86 = 3;
+              goto LABEL_356;
+            }
+
+            goto LABEL_357;
+          }
+
+LABEL_351:
+          v304 = nplog_obj();
+          if (os_log_type_enabled(v304, OS_LOG_TYPE_DEFAULT))
+          {
+            v473 = self->_path;
+            status5 = [(NWPath *)v473 status];
+            v305 = [NPUtilities stringFromLinkQualityValue:self->_linkQuality];
+            interfaceName5 = [(NSDate *)v163 interfaceName];
+            v466 = self->_path;
+            [(NWPath *)v466 interface];
+            v306 = v509 = v9;
+            [v306 interfaceName];
+            v307 = v485 = v163;
+            v495 = v162;
+            v308 = self->_lastPathUnsatisfiedDate;
+            [NSDateFormatter localizedStringFromDate:v308 dateStyle:1 timeStyle:2];
+            v309 = v537 = interfaceCopy;
+            v310 = self->_lastPrimaryInterfaceChangedDate;
+            [NSDateFormatter localizedStringFromDate:v310 dateStyle:1 timeStyle:2];
+            v311 = v520 = v24;
+            *buf = 134219266;
+            v553 = status5;
+            v554 = 2112;
+            v555 = v305;
+            v556 = 2112;
+            v557 = interfaceName5;
+            v558 = 2112;
+            v559 = v307;
+            v560 = 2112;
+            v561 = v309;
+            v562 = 2112;
+            v563 = v311;
+            _os_log_impl(&_mh_execute_header, v304, OS_LOG_TYPE_DEFAULT, "ignoring connection timeout error, path status %ld link quality %@ reporting interface %@ primary interface %@ last path unsatisfied date %@, last interface change date %@", buf, 0x3Eu);
+
+            v162 = v495;
+            v163 = v485;
+
+            v9 = v509;
+            v24 = v520;
+
+            interfaceCopy = v537;
+          }
+
+          [(NSPProxyPath *)self->_quicProxyPath resetError];
+          [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+          v13 = v538;
+          fallbackPathStatistics = v524;
+          goto LABEL_354;
+        }
+
+        interfaceCopy = v534;
+      }
+    }
+
+    goto LABEL_351;
+  }
+
+  v102 = v13;
+  v103 = interfaceCopy;
+  if (!self)
+  {
+    goto LABEL_114;
+  }
+
+  v104 = self->_path;
+  if ([(NWPath *)v104 status]!= 1)
+  {
+    goto LABEL_109;
+  }
+
+  v105 = self->_linkQuality;
+  if (v105 == 10 || v105 == 20)
+  {
+    goto LABEL_109;
+  }
+
+  v531 = interfaceCopy;
+  v106 = self->_lastPathUnsatisfiedDate;
+  if (v106)
+  {
+    v5 = +[NSDate now];
+    interfaceCopy = self->_lastPathUnsatisfiedDate;
+    [v5 timeIntervalSinceDate:interfaceCopy];
+    if (v107 <= 30.0)
+    {
+
+      interfaceCopy = v531;
+LABEL_109:
+
+LABEL_110:
+      v108 = nplog_obj();
+      if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+      {
+        v490 = self->_path;
+        status6 = [(NWPath *)v490 status];
+        v458 = [NPUtilities stringFromLinkQualityValue:self->_linkQuality];
+        interfaceName6 = [(NSDate *)v103 interfaceName];
+        v479 = self->_path;
+        interface6 = [(NWPath *)v479 interface];
+        interfaceName7 = [interface6 interfaceName];
+        v513 = v102;
+        v110 = self->_lastPathUnsatisfiedDate;
+        v454 = [NSDateFormatter localizedStringFromDate:v110 dateStyle:1 timeStyle:2];
+        v111 = interfaceCopy;
+        v112 = self->_lastPrimaryInterfaceChangedDate;
+        v113 = [NSDateFormatter localizedStringFromDate:v112 dateStyle:1 timeStyle:2];
+        *buf = 134219266;
+        v553 = status6;
+        v554 = 2112;
+        v555 = v458;
+        v556 = 2112;
+        v557 = interfaceName6;
+        v558 = 2112;
+        v559 = interfaceName7;
+        v560 = 2112;
+        v561 = v454;
+        v562 = 2112;
+        v563 = v113;
+        _os_log_impl(&_mh_execute_header, v108, OS_LOG_TYPE_DEFAULT, "ignoring DNS timeout error, path status %ld link quality %@ reporting interface %@ primary interface %@ last path unsatisfied date %@, last interface change date %@", buf, 0x3Eu);
+
+        interfaceCopy = v111;
+        v13 = v538;
+
+        v102 = v513;
+      }
+
+LABEL_113:
+      [(NSPProxyPath *)self->_quicProxyPath resetError];
+      [(NSPProxyPath *)self->_fallbackProxyPath resetError];
+      goto LABEL_114;
+    }
+  }
+
+  v528 = fallbackPathStatistics;
+  v298 = self->_lastPrimaryInterfaceChangedDate;
+  v507 = v103;
+  v519 = v102;
+  if (v298)
+  {
+    path = +[NSDate now];
+    fallbackPathStatistics = self->_lastPrimaryInterfaceChangedDate;
+    [path timeIntervalSinceDate:fallbackPathStatistics];
+    if (v299 <= 30.0)
+    {
+      v494 = v5;
+      v300 = 0;
+      goto LABEL_410;
+    }
+
+    if (!v103)
+    {
+      v494 = v5;
+      v300 = 1;
+      goto LABEL_410;
+    }
+  }
+
+  else if (!v103)
+  {
+    if (v106)
+    {
+    }
+
+    interfaceCopy = v531;
+    v13 = v538;
+    goto LABEL_438;
+  }
+
+  v486 = interfaceCopy;
+  v494 = v5;
+  interfaceIndex7 = [(NSDate *)v103 interfaceIndex];
+  interface7 = [(NWPath *)self->_path interface];
+  interfaceIndex8 = [interface7 interfaceIndex];
+  v300 = interfaceIndex7 == interfaceIndex8;
+
+  if (!v298)
+  {
+    if (v106)
+    {
+    }
+
+    v353 = interfaceIndex7 == interfaceIndex8;
+    interfaceCopy = v531;
+    v13 = v538;
+    v102 = v519;
+    fallbackPathStatistics = v528;
+    v103 = v507;
+    if (!v353)
+    {
+      goto LABEL_110;
+    }
+
+    goto LABEL_438;
+  }
+
+  v103 = v507;
+  v102 = v519;
+  interfaceCopy = v486;
+LABEL_410:
+
+  if (v106)
+  {
+  }
+
+  interfaceCopy = v531;
+  v13 = v538;
+  fallbackPathStatistics = v528;
+  if (!v300)
+  {
+    goto LABEL_110;
+  }
+
+LABEL_438:
+  v354 = self->_quicProxyPath;
+  networkMultiHopAgentStatistics42 = [(NSPProxyPath *)v354 networkMultiHopAgentStatistics];
+  v356 = networkMultiHopAgentStatistics42;
+  if (networkMultiHopAgentStatistics42)
+  {
+    v357 = *(networkMultiHopAgentStatistics42 + 64);
+  }
+
+  else
+  {
+    v357 = 0;
+  }
+
+  v358 = self->_quicProxyPath;
+  networkSingleHopAgentStatistics25 = [(NSPProxyPath *)v358 networkSingleHopAgentStatistics];
+  v360 = networkSingleHopAgentStatistics25;
+  if (networkSingleHopAgentStatistics25)
+  {
+    v361 = *(networkSingleHopAgentStatistics25 + 64);
+  }
+
+  else
+  {
+    v361 = 0;
+  }
+
+  v362 = v361 + v357;
+  v363 = self->_fallbackProxyPath;
+  networkMultiHopAgentStatistics43 = [(NSPProxyPath *)v363 networkMultiHopAgentStatistics];
+  v365 = networkMultiHopAgentStatistics43;
+  if (networkMultiHopAgentStatistics43)
+  {
+    v366 = *(networkMultiHopAgentStatistics43 + 64);
+  }
+
+  else
+  {
+    v366 = 0;
+  }
+
+  v367 = v362 + v366;
+  networkSingleHopAgentStatistics26 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+  if (networkSingleHopAgentStatistics26)
+  {
+    v369 = networkSingleHopAgentStatistics26[8];
+  }
+
+  else
+  {
+    v369 = 0;
+  }
+
+  v370 = v367 + v369;
+
+  v156 = v370 >= 3;
+  v102 = v519;
+  fallbackPathStatistics = v528;
+  v103 = v507;
+  if (v156)
+  {
+    v371 = self->_probingReason;
+    if (v371 != 1)
+    {
+      if (!v371)
+      {
+        sub_100033448(&self->super.isa, @"ProxyConnectionDNSTimeout");
+        sub_1000336DC(self, 1);
+        networkMultiHopAgentStatistics44 = [(NSPProxyPath *)self->_quicProxyPath networkMultiHopAgentStatistics];
+        if (networkMultiHopAgentStatistics44)
+        {
+          networkMultiHopAgentStatistics44[8] = 0;
+        }
+
+        networkSingleHopAgentStatistics27 = [(NSPProxyPath *)self->_quicProxyPath networkSingleHopAgentStatistics];
+        if (networkSingleHopAgentStatistics27)
+        {
+          networkSingleHopAgentStatistics27[8] = 0;
+        }
+
+        networkMultiHopAgentStatistics45 = [(NSPProxyPath *)self->_fallbackProxyPath networkMultiHopAgentStatistics];
+        if (networkMultiHopAgentStatistics45)
+        {
+          networkMultiHopAgentStatistics45[8] = 0;
+        }
+
+        networkSingleHopAgentStatistics28 = [(NSPProxyPath *)self->_fallbackProxyPath networkSingleHopAgentStatistics];
+        if (networkSingleHopAgentStatistics28)
+        {
+          networkSingleHopAgentStatistics28[8] = 0;
+        }
+
+        goto LABEL_114;
+      }
+
+      goto LABEL_113;
+    }
+  }
+
+LABEL_114:
+
+  if (fallbackPathStatistics)
+  {
+    ++fallbackPathStatistics[8].super.isa;
+  }
+
+LABEL_358:
+  [(NSPPrivacyProxyAgentManager *)self updateUserEventAgentData];
+}
+
+- (void)reportEpoch:(unsigned __int16)epoch
+{
+  epochCopy = epoch;
+  if (self)
+  {
+    unsignedShortValue = [(NSNumber *)self->_configEpoch unsignedShortValue];
+    reportedEpoch = self->_reportedEpoch;
+  }
+
+  else
+  {
+    unsignedShortValue = [0 unsignedShortValue];
+    reportedEpoch = 0;
+  }
+
+  unsignedShortValue2 = [(NSNumber *)reportedEpoch unsignedShortValue];
+  if (unsignedShortValue < epochCopy && unsignedShortValue2 < epochCopy)
+  {
+    v9 = nplog_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      if (self)
+      {
+        v10 = self->_configEpoch;
+        v11 = self->_reportedEpoch;
+        v12 = v10;
+      }
+
+      else
+      {
+        v10 = 0;
+        v12 = 0;
+        v11 = 0;
+      }
+
+      *buf = 67109634;
+      *&buf[4] = epochCopy;
+      *v17 = 2112;
+      *&v17[2] = v10;
+      *&v17[10] = 2112;
+      *&v17[12] = v11;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "New epoch (%u) is larger than config epoch (%@) and previous reported epoch (%@), triggering config fetch", buf, 0x1Cu);
+    }
+
+    v13 = [NSNumber numberWithUnsignedShort:epochCopy];
+    sub_10001FE58(self, v13);
+
+    *buf = 0;
+    *v17 = buf;
+    *&v17[8] = 0x3032000000;
+    *&v17[16] = sub_100001F14;
+    v18 = sub_100005818;
+    v19 = os_transaction_create();
+    v14 = NPGetInternalQueue();
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100037540;
+    v15[3] = &unk_100109450;
+    v15[4] = self;
+    v15[5] = buf;
+    dispatch_async(v14, v15);
+
+    [(NSPPrivacyProxyAgentManager *)self updateUserEventAgentData];
+    _Block_object_dispose(buf, 8);
+  }
 }
 
 - (void)reportActivityForApp:(id)app path:(id)path

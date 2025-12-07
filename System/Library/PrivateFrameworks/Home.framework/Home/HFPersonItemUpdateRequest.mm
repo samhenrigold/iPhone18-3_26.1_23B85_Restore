@@ -26,10 +26,10 @@
 
 - (id)updateWithOptions:(id)options
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  home = [(HFPersonItemUpdateRequest *)self home];
-  personManagerSettings = [home personManagerSettings];
+  v5 = objc_msgSend_home(self);
+  personManagerSettings = [v5 personManagerSettings];
   isFaceClassificationEnabled = [personManagerSettings isFaceClassificationEnabled];
 
   if (isFaceClassificationEnabled)
@@ -74,45 +74,43 @@
       person4 = [(HFPersonItemUpdateRequest *)self person];
       uUID2 = [person4 UUID];
       v28 = [personManager2 hf_faceCropsForPersonWithIdentifier:uUID2];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __47__HFPersonItemUpdateRequest_updateWithOptions___block_invoke;
-      v35[3] = &unk_277DF43F0;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __47__HFPersonItemUpdateRequest_updateWithOptions___block_invoke;
+      v34[3] = &unk_277DF43F0;
       v29 = dictionary;
-      v36 = v29;
+      v35 = v29;
       v19 = v19;
-      v37 = v19;
+      v36 = v19;
       selfCopy = self;
-      v30 = [v28 flatMap:v35];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __47__HFPersonItemUpdateRequest_updateWithOptions___block_invoke_105;
-      v33[3] = &unk_277DF2D30;
-      v33[4] = self;
+      v30 = [v28 flatMap:v34];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __47__HFPersonItemUpdateRequest_updateWithOptions___block_invoke_105;
+      v32[3] = &unk_277DF2D30;
+      v32[4] = self;
       dictionary = v29;
-      v34 = dictionary;
-      v24 = [v30 recover:v33];
+      v33 = dictionary;
+      v24 = [v30 recover:v32];
     }
   }
 
   else
   {
     v25 = MEMORY[0x277D2C900];
-    v39 = @"hidden";
-    v40[0] = MEMORY[0x277CBEC38];
-    dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v38 = @"hidden";
+    v39[0] = MEMORY[0x277CBEC38];
+    dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v19 = [HFItemUpdateOutcome outcomeWithResults:dictionary];
     v24 = [v25 futureWithResult:v19];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 id __47__HFPersonItemUpdateRequest_updateWithOptions___block_invoke(id *a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
   v4 = a2;
   v5 = [v3 setWithArray:v4];
@@ -134,43 +132,39 @@ id __47__HFPersonItemUpdateRequest_updateWithOptions___block_invoke(id *a1, void
   v12 = HFLogForCategory(0x13uLL);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v18 = [a1[6] person];
-    v19 = 138412546;
-    v20 = v18;
-    v21 = 2112;
-    v22 = v7;
-    _os_log_debug_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEBUG, "Person %@ using face crop %@", &v19, 0x16u);
+    v17 = [a1[6] person];
+    v18 = 138412546;
+    v19 = v17;
+    v20 = 2112;
+    v21 = v7;
+    _os_log_debug_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEBUG, "Person %@ using face crop %@", &v18, 0x16u);
   }
 
   v13 = MEMORY[0x277D2C900];
   v14 = [HFItemUpdateOutcome outcomeWithResults:a1[4]];
   v15 = [v13 futureWithResult:v14];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 id __47__HFPersonItemUpdateRequest_updateWithOptions___block_invoke_105(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x13uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v11 = 138412546;
-    v12 = v10;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%@: Face crop update failed with error %@. Recovering and hiding face crop result.", &v11, 0x16u);
+    v9 = *(a1 + 32);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%@: Face crop update failed with error %@. Recovering and hiding face crop result.", &v10, 0x16u);
   }
 
   v5 = MEMORY[0x277D2C900];
   v6 = [HFItemUpdateOutcome outcomeWithResults:*(a1 + 40)];
   v7 = [v5 futureWithResult:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

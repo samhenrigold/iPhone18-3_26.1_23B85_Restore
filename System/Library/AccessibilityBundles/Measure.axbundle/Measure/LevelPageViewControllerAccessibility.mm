@@ -6,6 +6,8 @@
 - (void)_axAnnounceDegreesIfNeeded:(double)needed;
 - (void)_updateOffsetLabel:(double)label;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation LevelPageViewControllerAccessibility
@@ -68,6 +70,22 @@
   v3.super_class = LevelPageViewControllerAccessibility;
   [(LevelPageViewControllerAccessibility *)&v3 viewDidLoad];
   [(LevelPageViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = LevelPageViewControllerAccessibility;
+  [(LevelPageViewControllerAccessibility *)&v3 viewWillAppear:appear];
+  [*MEMORY[0x29EDC8008] _accessibilitySetApplicationOrientation:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = LevelPageViewControllerAccessibility;
+  [(LevelPageViewControllerAccessibility *)&v3 viewWillDisappear:disappear];
+  [*MEMORY[0x29EDC8008] _accessibilitySetApplicationOrientation:0];
 }
 
 - (void)_updateOffsetLabel:(double)label

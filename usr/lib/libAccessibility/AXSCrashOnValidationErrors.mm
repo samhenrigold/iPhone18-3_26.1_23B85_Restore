@@ -3,7 +3,7 @@
 
 @implementation AXSCrashOnValidationErrors
 
-uint64_t ___AXSCrashOnValidationErrors_block_invoke()
+void *___AXSCrashOnValidationErrors_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

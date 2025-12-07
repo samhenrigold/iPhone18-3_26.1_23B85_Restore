@@ -331,9 +331,7 @@ LABEL_18:
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

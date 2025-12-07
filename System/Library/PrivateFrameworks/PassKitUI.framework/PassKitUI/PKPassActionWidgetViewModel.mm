@@ -78,27 +78,28 @@
 
 - (PKPaymentPassActionWidgetViewDelegate)delegate
 {
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
   sub_1BD75FBB0();
   selfCopy = self;
   sub_1BE04B594();
-
-  v4 = OBJC_IVAR___PKPassActionWidgetViewModel__delegate;
+  KeyPath, v5, v6, v7, v8, v9, v10, v11;
+  v12 = OBJC_IVAR___PKPassActionWidgetViewModel__delegate;
   swift_beginAccess();
-  v5 = *(&selfCopy->super.isa + v4);
+  v13 = *(&selfCopy->super.isa + v12);
   swift_unknownObjectRetain();
 
-  return v5;
+  return v13;
 }
 
 - (void)setDelegate:(id)delegate
 {
-  swift_getKeyPath();
+  KeyPath = swift_getKeyPath();
   sub_1BD75FBB0();
   swift_unknownObjectRetain();
   selfCopy = self;
   sub_1BE04B584();
 
+  KeyPath, v6, v7, v8, v9, v10, v11, v12;
   swift_unknownObjectRelease();
 }
 
@@ -111,7 +112,7 @@
   sub_1BE04B5C4();
   *(&self->super.isa + OBJC_IVAR___PKPassActionWidgetViewModel_viewStyle) = style;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for PassActionWidgetViewModel();
+  v6.super_class = type metadata accessor for PassActionWidgetViewModel(0);
   return [(PKPassActionWidgetViewModel *)&v6 init];
 }
 
@@ -121,7 +122,7 @@
   v3 = sub_1BD76115C();
 
   v4 = *(v3 + 2);
-
+  v3, v5, v6, v7, v8, v9, v10, v11;
   return v4 != 0;
 }
 

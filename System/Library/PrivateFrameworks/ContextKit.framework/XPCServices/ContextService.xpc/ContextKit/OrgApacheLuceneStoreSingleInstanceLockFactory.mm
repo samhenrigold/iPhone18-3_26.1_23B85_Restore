@@ -32,7 +32,7 @@
 
 - (OrgApacheLuceneStoreSingleInstanceLockFactory)init
 {
-  OrgApacheLuceneStoreLockFactory_init(self, a2);
+  OrgApacheLuceneStoreLockFactory_init();
   v3 = new_JavaUtilHashSet_init();
   JreStrongAssignAndConsume(&self->locks_, v3);
   return self;

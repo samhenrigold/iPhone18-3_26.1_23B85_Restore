@@ -10,7 +10,7 @@
 
 - (void)_didDismissPaymentAuthorizationController:(id)controller
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedPurchaseConfig];
   if (!mEMORY[0x1E698C968])
@@ -39,9 +39,9 @@
     v11 = ;
     v12 = AMSHashIfNeeded();
     *buf = 138543618;
-    v15 = v11;
-    v16 = 2114;
-    v17 = v12;
+    v14 = v11;
+    v15 = 2114;
+    v16 = v12;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@controller: %{public}@", buf, 0x16u);
     if (v7)
     {
@@ -49,8 +49,6 @@
       v11 = a2;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)paymentAuthorizationControllerDidFinish:(id)finish
@@ -62,7 +60,7 @@
 
 - (id)presentationSceneIdentifierForPaymentAuthorizationController:(id)controller
 {
-  v115 = *MEMORY[0x1E69E9840];
+  v114 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   v6 = 0x1E698C000uLL;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedPurchaseConfig];
@@ -92,9 +90,9 @@
     v13 = ;
     v14 = AMSHashIfNeeded();
     *buf = 138543618;
-    v108 = v13;
-    v109 = 2114;
-    v110 = v14;
+    v107 = v13;
+    v108 = 2114;
+    v109 = v14;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@controller: %{public}@", buf, 0x16u);
     if (v9)
     {
@@ -108,7 +106,7 @@
   purchaseInfo = [(AMSPaymentSheetTask *)self purchaseInfo];
   delegate = [purchaseInfo delegate];
 
-  v102 = delegate;
+  v101 = delegate;
   if (!delegate)
   {
     mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedPurchaseConfig];
@@ -140,7 +138,7 @@
     }
     v30 = ;
     *buf = 138543362;
-    v108 = v30;
+    v107 = v30;
     _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@Delegate is nil", buf, 0xCu);
     if (v27)
     {
@@ -166,7 +164,7 @@
       goto LABEL_49;
     }
 
-    v101 = controllerCopy;
+    v100 = controllerCopy;
     v31 = AMSLogKey();
     v32 = MEMORY[0x1E696AEC0];
     v33 = objc_opt_class();
@@ -186,11 +184,11 @@
     purchaseInfo = AMSHashIfNeeded();
     delegate = NSStringFromProtocol(&unk_1F3997F38);
     *buf = 138543874;
-    v108 = v35;
-    v109 = 2114;
-    v110 = purchaseInfo;
-    v111 = 2114;
-    v112 = delegate;
+    v107 = v35;
+    v108 = 2114;
+    v109 = purchaseInfo;
+    v110 = 2114;
+    v111 = delegate;
     _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@Delegate %{public}@ does not conform to %{public}@, cannot return window.", buf, 0x20u);
     if (v31)
     {
@@ -212,7 +210,7 @@
     oSLogObject3 = [mEMORY[0x1E698C968]3 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v100 = controllerCopy;
+      v99 = controllerCopy;
       v20 = AMSLogKey();
       v21 = MEMORY[0x1E696AEC0];
       v22 = objc_opt_class();
@@ -229,14 +227,14 @@
         [v21 stringWithFormat:@"%@: %@ ", v22, v23];
       }
       v24 = ;
-      v73 = AMSHashIfNeeded();
-      v74 = NSStringFromSelector(sel_purchase_handleSceneIdentifierRequest_error_);
+      v72 = AMSHashIfNeeded();
+      v73 = NSStringFromSelector(sel_purchase_handleSceneIdentifierRequest_error_);
       *buf = 138543874;
-      v108 = v24;
-      v109 = 2114;
-      v110 = v73;
-      v111 = 2114;
-      v112 = v74;
+      v107 = v24;
+      v108 = 2114;
+      v109 = v72;
+      v110 = 2114;
+      v111 = v73;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@Calling into delegate: %{public}@, selector: %{public}@", buf, 0x20u);
       if (v20)
       {
@@ -244,18 +242,18 @@
         v24 = v17;
       }
 
-      controllerCopy = v100;
+      controllerCopy = v99;
       v6 = 0x1E698C000uLL;
     }
 
     purchaseInfo = [(AMSPaymentSheetTask *)self purchaseInfo];
     delegate = [purchaseInfo purchase];
-    v75 = +[AMSUISceneIdentifierRequest sceneIdentifierRequest];
-    v106 = 0;
-    v54 = [v102 purchase:delegate handleSceneIdentifierRequest:v75 error:&v106];
-    v76 = v106;
+    v74 = +[AMSUISceneIdentifierRequest sceneIdentifierRequest];
+    v105 = 0;
+    v54 = [v101 purchase:delegate handleSceneIdentifierRequest:v74 error:&v105];
+    v75 = v105;
 
-    if (!v76)
+    if (!v75)
     {
 LABEL_117:
 
@@ -279,35 +277,35 @@ LABEL_117:
       goto LABEL_115;
     }
 
-    v79 = controllerCopy;
-    v80 = AMSLogKey();
-    v81 = MEMORY[0x1E696AEC0];
-    v82 = objc_opt_class();
-    v83 = v82;
-    if (v80)
+    v78 = controllerCopy;
+    v79 = AMSLogKey();
+    v80 = MEMORY[0x1E696AEC0];
+    v81 = objc_opt_class();
+    v82 = v81;
+    if (v79)
     {
       purchaseInfo = AMSLogKey();
-      [v81 stringWithFormat:@"%@: [%@] ", v83, purchaseInfo];
+      [v80 stringWithFormat:@"%@: [%@] ", v82, purchaseInfo];
     }
 
     else
     {
-      [v81 stringWithFormat:@"%@: ", v82];
+      [v80 stringWithFormat:@"%@: ", v81];
     }
-    v84 = ;
+    v83 = ;
     delegate = AMSLogableError();
     *buf = 138543618;
-    v108 = v84;
-    v109 = 2114;
-    v110 = delegate;
+    v107 = v83;
+    v108 = 2114;
+    v109 = delegate;
     _os_log_impl(&dword_1BB036000, oSLogObject4, OS_LOG_TYPE_ERROR, "%{public}@Sync scene identifier request failed with error: %{public}@", buf, 0x16u);
-    if (v80)
+    if (v79)
     {
 
-      v84 = purchaseInfo;
+      v83 = purchaseInfo;
     }
 
-    controllerCopy = v79;
+    controllerCopy = v78;
 LABEL_114:
     v6 = 0x1E698C000;
 LABEL_115:
@@ -329,7 +327,7 @@ LABEL_116:
     oSLogObject5 = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
     {
-      v99 = controllerCopy;
+      v98 = controllerCopy;
       v38 = AMSLogKey();
       v39 = MEMORY[0x1E696AEC0];
       v40 = objc_opt_class();
@@ -346,14 +344,14 @@ LABEL_116:
         [v39 stringWithFormat:@"%@: %@ ", v40, v41];
       }
       v42 = ;
-      v85 = AMSHashIfNeeded();
-      v86 = NSStringFromSelector(sel_purchase_handleSceneIdentifierRequest_completion_);
+      v84 = AMSHashIfNeeded();
+      v85 = NSStringFromSelector(sel_purchase_handleSceneIdentifierRequest_completion_);
       *buf = 138543874;
-      v108 = v42;
-      v109 = 2114;
-      v110 = v85;
-      v111 = 2114;
-      v112 = v86;
+      v107 = v42;
+      v108 = 2114;
+      v109 = v84;
+      v110 = 2114;
+      v111 = v85;
       _os_log_impl(&dword_1BB036000, oSLogObject5, OS_LOG_TYPE_DEFAULT, "%{public}@Calling into delegate: %{public}@, selector: %{public}@", buf, 0x20u);
       if (v38)
       {
@@ -361,20 +359,20 @@ LABEL_116:
         v42 = v17;
       }
 
-      controllerCopy = v99;
+      controllerCopy = v98;
       v6 = 0x1E698C000uLL;
     }
 
-    v76 = objc_alloc_init(MEMORY[0x1E698CAD0]);
+    v75 = objc_alloc_init(MEMORY[0x1E698CAD0]);
     purchaseInfo = [(AMSPaymentSheetTask *)self purchaseInfo];
     delegate = [purchaseInfo purchase];
-    v87 = +[AMSUISceneIdentifierRequest sceneIdentifierRequest];
-    completionHandlerAdapter = [v76 completionHandlerAdapter];
-    [v102 purchase:delegate handleSceneIdentifierRequest:v87 completion:completionHandlerAdapter];
+    v86 = +[AMSUISceneIdentifierRequest sceneIdentifierRequest];
+    completionHandlerAdapter = [v75 completionHandlerAdapter];
+    [v101 purchase:delegate handleSceneIdentifierRequest:v86 completion:completionHandlerAdapter];
 
-    v105 = 0;
-    v54 = [v76 resultWithError:&v105];
-    mEMORY[0x1E698C968]4 = v105;
+    v104 = 0;
+    v54 = [v75 resultWithError:&v104];
+    mEMORY[0x1E698C968]4 = v104;
     if (!mEMORY[0x1E698C968]4)
     {
       goto LABEL_116;
@@ -386,38 +384,38 @@ LABEL_116:
       oSLogObject4 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v78OSLogObject = [oSLogObject4 OSLogObject];
-    if (os_log_type_enabled(v78OSLogObject, OS_LOG_TYPE_ERROR))
+    v77OSLogObject = [oSLogObject4 OSLogObject];
+    if (os_log_type_enabled(v77OSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v90 = controllerCopy;
-      v91 = AMSLogKey();
-      v92 = MEMORY[0x1E696AEC0];
-      v93 = objc_opt_class();
-      v94 = v93;
-      if (v91)
+      v89 = controllerCopy;
+      v90 = AMSLogKey();
+      v91 = MEMORY[0x1E696AEC0];
+      v92 = objc_opt_class();
+      v93 = v92;
+      if (v90)
       {
-        v99 = AMSLogKey();
-        [v92 stringWithFormat:@"%@: [%@] ", v94, v99];
+        v98 = AMSLogKey();
+        [v91 stringWithFormat:@"%@: [%@] ", v93, v98];
       }
 
       else
       {
-        [v92 stringWithFormat:@"%@: ", v93];
+        [v91 stringWithFormat:@"%@: ", v92];
       }
       purchaseInfo = ;
       delegate = AMSLogableError();
       *buf = 138543618;
-      v108 = purchaseInfo;
-      v109 = 2114;
-      v110 = delegate;
-      _os_log_impl(&dword_1BB036000, v78OSLogObject, OS_LOG_TYPE_ERROR, "%{public}@Scene identifier request failed with error: %{public}@", buf, 0x16u);
-      if (v91)
+      v107 = purchaseInfo;
+      v108 = 2114;
+      v109 = delegate;
+      _os_log_impl(&dword_1BB036000, v77OSLogObject, OS_LOG_TYPE_ERROR, "%{public}@Scene identifier request failed with error: %{public}@", buf, 0x16u);
+      if (v90)
       {
 
-        purchaseInfo = v99;
+        purchaseInfo = v98;
       }
 
-      controllerCopy = v90;
+      controllerCopy = v89;
     }
 
     goto LABEL_114;
@@ -431,7 +429,7 @@ LABEL_116:
   oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
   if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
   {
-    v101 = controllerCopy;
+    v100 = controllerCopy;
     v43 = AMSLogKey();
     v44 = MEMORY[0x1E696AEC0];
     delegate = objc_opt_class();
@@ -439,37 +437,37 @@ LABEL_116:
     if (v43)
     {
       v46 = AMSLogKey();
-      v97 = NSStringFromSelector(a2);
-      v98 = v46;
-      [v44 stringWithFormat:@"%@: [%@] %@ ", delegate, v46, v97];
+      v96 = NSStringFromSelector(a2);
+      v97 = v46;
+      [v44 stringWithFormat:@"%@: [%@] %@ ", delegate, v46, v96];
     }
 
     else
     {
-      v98 = NSStringFromSelector(a2);
-      [v44 stringWithFormat:@"%@: %@ ", delegate, v98];
+      v97 = NSStringFromSelector(a2);
+      [v44 stringWithFormat:@"%@: %@ ", delegate, v97];
     }
     v47 = ;
-    v95 = AMSHashIfNeeded();
-    v96 = NSStringFromSelector(sel_purchase_handleSceneIdentifierRequest_completion_);
+    v94 = AMSHashIfNeeded();
+    v95 = NSStringFromSelector(sel_purchase_handleSceneIdentifierRequest_completion_);
     purchaseInfo = NSStringFromSelector(sel_purchase_handleSceneIdentifierRequest_error_);
     *buf = 138544130;
-    v108 = v47;
-    v109 = 2114;
-    v110 = v95;
-    v111 = 2114;
-    v112 = v96;
-    v113 = 2114;
-    v114 = purchaseInfo;
+    v107 = v47;
+    v108 = 2114;
+    v109 = v94;
+    v110 = 2114;
+    v111 = v95;
+    v112 = 2114;
+    v113 = purchaseInfo;
     _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@Delegate %{public}@ does not implement %{public}@ or %{public}@, cannot return window.", buf, 0x2Au);
     if (v45)
     {
 
-      v47 = v97;
+      v47 = v96;
     }
 
 LABEL_47:
-    controllerCopy = v101;
+    controllerCopy = v100;
 LABEL_48:
     v6 = 0x1E698C000uLL;
   }
@@ -503,7 +501,7 @@ LABEL_50:
     }
     v53 = ;
     *buf = 138543362;
-    v108 = v53;
+    v107 = v53;
     _os_log_impl(&dword_1BB036000, oSLogObject6, OS_LOG_TYPE_DEFAULT, "%{public}@Falling back to superclass", buf, 0xCu);
     if (v50)
     {
@@ -514,9 +512,9 @@ LABEL_50:
     v6 = 0x1E698C000uLL;
   }
 
-  v104.receiver = self;
-  v104.super_class = AMSUIPaymentSheetTask;
-  v54 = [(AMSPaymentSheetTask *)&v104 presentationSceneIdentifierForPaymentAuthorizationController:controllerCopy];
+  v103.receiver = self;
+  v103.super_class = AMSUIPaymentSheetTask;
+  v54 = [(AMSPaymentSheetTask *)&v103 presentationSceneIdentifierForPaymentAuthorizationController:controllerCopy];
   sharedPurchaseConfig2 = [*(v6 + 2408) sharedPurchaseConfig];
   if (!sharedPurchaseConfig2)
   {
@@ -545,9 +543,9 @@ LABEL_50:
     v62 = ;
     delegate = AMSHashIfNeeded();
     *buf = 138543618;
-    v108 = v62;
-    v109 = 2114;
-    v110 = delegate;
+    v107 = v62;
+    v108 = 2114;
+    v109 = delegate;
     _os_log_impl(&dword_1BB036000, oSLogObject7, OS_LOG_TYPE_DEFAULT, "%{public}@Superclass returned scene identifier %{public}@", buf, 0x16u);
     if (v58)
     {
@@ -587,9 +585,9 @@ LABEL_69:
     v69 = ;
     v70 = AMSHashIfNeeded();
     *buf = 138543618;
-    v108 = v69;
-    v109 = 2114;
-    v110 = v70;
+    v107 = v69;
+    v108 = 2114;
+    v109 = v70;
     _os_log_impl(&dword_1BB036000, oSLogObject8, OS_LOG_TYPE_DEFAULT, "%{public}@ returning scene identifier %{public}@", buf, 0x16u);
     if (v65)
     {
@@ -598,14 +596,12 @@ LABEL_69:
     }
   }
 
-  v71 = *MEMORY[0x1E69E9840];
-
   return v54;
 }
 
 - (id)presentationSceneBundleIdentifierForPaymentAuthorizationController:(id)controller
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   v6 = 0x1E698C000uLL;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedPurchaseConfig];
@@ -635,9 +631,9 @@ LABEL_69:
     v13 = ;
     v14 = AMSHashIfNeeded();
     *buf = 138543618;
-    v88 = v13;
-    v89 = 2114;
-    v90 = v14;
+    v87 = v13;
+    v88 = 2114;
+    v89 = v14;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@controller: %{public}@", buf, 0x16u);
     if (v9)
     {
@@ -666,7 +662,7 @@ LABEL_69:
         goto LABEL_37;
       }
 
-      v81 = controllerCopy;
+      v80 = controllerCopy;
       v27 = AMSLogKey();
       v28 = MEMORY[0x1E696AEC0];
       v29 = objc_opt_class();
@@ -686,11 +682,11 @@ LABEL_69:
       v37 = NSStringFromSelector(sel_purchase_handleSceneBundleIdentifierRequest_completion_);
       v38 = AMSHashIfNeeded();
       *buf = 138543874;
-      v88 = v31;
-      v89 = 2114;
-      v90 = v37;
-      v91 = 2114;
-      v92 = v38;
+      v87 = v31;
+      v88 = 2114;
+      v89 = v37;
+      v90 = 2114;
+      v91 = v38;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@Delegate does not implement %{public}@. delegate: %{public}@", buf, 0x20u);
       if (v27)
       {
@@ -698,7 +694,7 @@ LABEL_69:
         v31 = purchaseInfo;
       }
 
-      controllerCopy = v81;
+      controllerCopy = v80;
     }
 
     else
@@ -731,7 +727,7 @@ LABEL_69:
       }
       v36 = ;
       *buf = 138543362;
-      v88 = v36;
+      v87 = v36;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEBUG, "%{public}@Delegate is nil", buf, 0xCu);
       if (v32)
       {
@@ -770,7 +766,7 @@ LABEL_38:
       }
       v45 = ;
       *buf = 138543362;
-      v88 = v45;
+      v87 = v45;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@Falling back to superclass", buf, 0xCu);
       if (v41)
       {
@@ -781,9 +777,9 @@ LABEL_38:
       v6 = 0x1E698C000uLL;
     }
 
-    v85.receiver = self;
-    v85.super_class = AMSUIPaymentSheetTask;
-    v46 = [(AMSPaymentSheetTask *)&v85 presentationSceneBundleIdentifierForPaymentAuthorizationController:controllerCopy];
+    v84.receiver = self;
+    v84.super_class = AMSUIPaymentSheetTask;
+    v46 = [(AMSPaymentSheetTask *)&v84 presentationSceneBundleIdentifierForPaymentAuthorizationController:controllerCopy];
     sharedPurchaseConfig2 = [*(v6 + 2408) sharedPurchaseConfig];
     if (!sharedPurchaseConfig2)
     {
@@ -793,7 +789,7 @@ LABEL_38:
     oSLogObject4 = [sharedPurchaseConfig2 OSLogObject];
     if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
     {
-      v82 = delegate;
+      v81 = delegate;
       v49 = controllerCopy;
       v50 = AMSLogKey();
       v51 = MEMORY[0x1E696AEC0];
@@ -813,9 +809,9 @@ LABEL_38:
       v54 = ;
       v55 = AMSHashIfNeeded();
       *buf = 138543618;
-      v88 = v54;
-      v89 = 2114;
-      v90 = v55;
+      v87 = v54;
+      v88 = 2114;
+      v89 = v55;
       _os_log_impl(&dword_1BB036000, oSLogObject4, OS_LOG_TYPE_DEFAULT, "%{public}@Superclass returned scene bundle identifier %{public}@", buf, 0x16u);
       if (v50)
       {
@@ -825,7 +821,7 @@ LABEL_38:
 
       controllerCopy = v49;
       v6 = 0x1E698C000uLL;
-      delegate = v82;
+      delegate = v81;
     }
 
     goto LABEL_57;
@@ -856,11 +852,11 @@ LABEL_38:
       [v20 stringWithFormat:@"%@: %@ ", v21, v22];
     }
     v23 = ;
-    v66 = AMSHashIfNeeded();
+    v65 = AMSHashIfNeeded();
     *buf = 138543618;
-    v88 = v23;
-    v89 = 2114;
-    v90 = v66;
+    v87 = v23;
+    v88 = 2114;
+    v89 = v65;
     _os_log_impl(&dword_1BB036000, oSLogObject5, OS_LOG_TYPE_DEFAULT, "%{public}@Calling into delegate: %{public}@", buf, 0x16u);
     if (v19)
     {
@@ -871,17 +867,17 @@ LABEL_38:
     v6 = 0x1E698C000uLL;
   }
 
-  v67 = objc_alloc_init(MEMORY[0x1E698CAD0]);
+  v66 = objc_alloc_init(MEMORY[0x1E698CAD0]);
   purchaseInfo = [(AMSPaymentSheetTask *)self purchaseInfo];
   purchase = [purchaseInfo purchase];
-  v69 = +[AMSUISceneBundleIdentifierRequest bundleIdentifierRequest];
-  completionHandlerAdapter = [v67 completionHandlerAdapter];
-  [delegate purchase:purchase handleSceneBundleIdentifierRequest:v69 completion:completionHandlerAdapter];
+  v68 = +[AMSUISceneBundleIdentifierRequest bundleIdentifierRequest];
+  completionHandlerAdapter = [v66 completionHandlerAdapter];
+  [delegate purchase:purchase handleSceneBundleIdentifierRequest:v68 completion:completionHandlerAdapter];
 
-  v86 = 0;
-  v46 = [v67 resultWithError:&v86];
-  v71 = v86;
-  if (v71)
+  v85 = 0;
+  v46 = [v66 resultWithError:&v85];
+  v70 = v85;
+  if (v70)
   {
     mEMORY[0x1E698C968]5 = [MEMORY[0x1E698C968] sharedConfig];
     if (!mEMORY[0x1E698C968]5)
@@ -892,37 +888,37 @@ LABEL_38:
     oSLogObject6 = [mEMORY[0x1E698C968]5 OSLogObject];
     if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_ERROR))
     {
-      v83 = delegate;
-      v74 = controllerCopy;
-      v75 = AMSLogKey();
-      v76 = MEMORY[0x1E696AEC0];
-      v77 = objc_opt_class();
-      v78 = v77;
-      if (v75)
+      v82 = delegate;
+      v73 = controllerCopy;
+      v74 = AMSLogKey();
+      v75 = MEMORY[0x1E696AEC0];
+      v76 = objc_opt_class();
+      v77 = v76;
+      if (v74)
       {
-        v80 = AMSLogKey();
-        [v76 stringWithFormat:@"%@: [%@] ", v78, v80];
+        v79 = AMSLogKey();
+        [v75 stringWithFormat:@"%@: [%@] ", v77, v79];
       }
 
       else
       {
-        [v76 stringWithFormat:@"%@: ", v77];
+        [v75 stringWithFormat:@"%@: ", v76];
       }
       purchaseInfo = ;
-      v79 = AMSLogableError();
+      v78 = AMSLogableError();
       *buf = 138543618;
-      v88 = purchaseInfo;
-      v89 = 2114;
-      v90 = v79;
+      v87 = purchaseInfo;
+      v88 = 2114;
+      v89 = v78;
       _os_log_impl(&dword_1BB036000, oSLogObject6, OS_LOG_TYPE_ERROR, "%{public}@Scene identifier request failed with error: %{public}@", buf, 0x16u);
-      if (v75)
+      if (v74)
       {
 
-        purchaseInfo = v80;
+        purchaseInfo = v79;
       }
 
-      controllerCopy = v74;
-      delegate = v83;
+      controllerCopy = v73;
+      delegate = v82;
     }
 
     v6 = 0x1E698C000;
@@ -961,9 +957,9 @@ LABEL_57:
     v62 = ;
     v63 = AMSHashIfNeeded();
     *buf = 138543618;
-    v88 = v62;
-    v89 = 2114;
-    v90 = v63;
+    v87 = v62;
+    v88 = 2114;
+    v89 = v63;
     _os_log_impl(&dword_1BB036000, oSLogObject7, OS_LOG_TYPE_DEFAULT, "%{public}@ returning scene bundle identifier %{public}@", buf, 0x16u);
     if (v58)
     {
@@ -972,14 +968,12 @@ LABEL_57:
     }
   }
 
-  v64 = *MEMORY[0x1E69E9840];
-
   return v46;
 }
 
 - (id)presentationWindowForPaymentAuthorizationController:(id)controller
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   v7 = 0x1E698C000uLL;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedPurchaseConfig];
@@ -1010,9 +1004,9 @@ LABEL_57:
     v14 = controllerCopy;
     v15 = AMSHashIfNeeded();
     *buf = 138543618;
-    v97 = v4;
-    v98 = 2114;
-    v99 = v15;
+    v96 = v4;
+    v97 = 2114;
+    v98 = v15;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@controller: %{public}@", buf, 0x16u);
     if (v10)
     {
@@ -1061,9 +1055,9 @@ LABEL_57:
         presentingWindow3 = [(AMSPaymentSheetTask *)self presentingWindow];
         v64 = AMSHashIfNeeded();
         *buf = 138543618;
-        v97 = v26;
-        v98 = 2114;
-        v99 = v64;
+        v96 = v26;
+        v97 = 2114;
+        v98 = v64;
         _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@Using self.presentingWindow: %{public}@", buf, 0x16u);
 
         if (v22)
@@ -1092,7 +1086,7 @@ LABEL_57:
     oSLogObject3 = [mEMORY[0x1E698C968]3 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v90 = controllerCopy;
+      v89 = controllerCopy;
       v41 = AMSLogKey();
       v42 = MEMORY[0x1E696AEC0];
       v43 = objc_opt_class();
@@ -1110,7 +1104,7 @@ LABEL_57:
       }
       v45 = ;
       *buf = 138543362;
-      v97 = v45;
+      v96 = v45;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@Delegate is nil", buf, 0xCu);
       if (v41)
       {
@@ -1137,7 +1131,7 @@ LABEL_53:
     oSLogObject3 = [mEMORY[0x1E698C968]3 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v91 = controllerCopy;
+      v90 = controllerCopy;
       v46 = AMSLogKey();
       v47 = MEMORY[0x1E696AEC0];
       v48 = objc_opt_class();
@@ -1156,9 +1150,9 @@ LABEL_53:
       v50 = ;
       v70 = AMSHashIfNeeded();
       *buf = 138543618;
-      v97 = v50;
-      v98 = 2114;
-      v99 = v70;
+      v96 = v50;
+      v97 = 2114;
+      v98 = v70;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@Delegate %{public}@ does not conforms to protocol AMSUIPurchaseDelegate, cannot return window.", buf, 0x16u);
       if (v46)
       {
@@ -1167,7 +1161,7 @@ LABEL_53:
       }
 
       presentingWindow4 = 0;
-      controllerCopy = v91;
+      controllerCopy = v90;
       goto LABEL_69;
     }
 
@@ -1185,9 +1179,9 @@ LABEL_53:
       completionHandlerAdapter = [mEMORY[0x1E698C968]3 completionHandlerAdapter];
       [delegate purchase:purchase handleWindowRequest:v53 completion:completionHandlerAdapter];
 
-      v94 = 0;
-      presentingWindow4 = [mEMORY[0x1E698C968]3 resultWithError:&v94];
-      oSLogObject3 = v94;
+      v93 = 0;
+      presentingWindow4 = [mEMORY[0x1E698C968]3 resultWithError:&v93];
+      oSLogObject3 = v93;
       if (oSLogObject3)
       {
         mEMORY[0x1E698C968]4 = [MEMORY[0x1E698C968] sharedPurchaseConfig];
@@ -1199,41 +1193,41 @@ LABEL_53:
         oSLogObject4 = [mEMORY[0x1E698C968]4 OSLogObject];
         if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
         {
-          v92 = controllerCopy;
+          v91 = controllerCopy;
           v57 = AMSLogKey();
           v58 = MEMORY[0x1E696AEC0];
           v59 = objc_opt_class();
           if (v57)
           {
             AMSLogKey();
-            v85 = v58;
+            v84 = v58;
             v61 = v60 = v57;
-            v86 = NSStringFromSelector(a2);
-            v88 = v61;
-            v84 = v61;
+            v85 = NSStringFromSelector(a2);
+            v87 = v61;
+            v83 = v61;
             v57 = v60;
-            [v85 stringWithFormat:@"%@: [%@] %@ ", v59, v84, v86];
+            [v84 stringWithFormat:@"%@: [%@] %@ ", v59, v83, v85];
           }
 
           else
           {
-            v88 = NSStringFromSelector(a2);
-            [v58 stringWithFormat:@"%@: %@ ", v59, v88];
+            v87 = NSStringFromSelector(a2);
+            [v58 stringWithFormat:@"%@: %@ ", v59, v87];
           }
           v62 = ;
-          v83 = AMSLogableError();
+          v82 = AMSLogableError();
           *buf = 138543618;
-          v97 = v62;
-          v98 = 2114;
-          v99 = v83;
+          v96 = v62;
+          v97 = 2114;
+          v98 = v82;
           _os_log_impl(&dword_1BB036000, oSLogObject4, OS_LOG_TYPE_ERROR, "%{public}@Window request failed with error: %{public}@", buf, 0x16u);
           if (v57)
           {
 
-            v62 = v86;
+            v62 = v85;
           }
 
-          controllerCopy = v92;
+          controllerCopy = v91;
         }
 
         goto LABEL_59;
@@ -1253,7 +1247,7 @@ LABEL_69:
     oSLogObject3 = [mEMORY[0x1E698C968]3 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v90 = controllerCopy;
+      v89 = controllerCopy;
       v65 = AMSLogKey();
       v66 = MEMORY[0x1E696AEC0];
       v67 = objc_opt_class();
@@ -1270,11 +1264,11 @@ LABEL_69:
         [v66 stringWithFormat:@"%@: %@ ", v67, v68];
       }
       v69 = ;
-      v82 = NSStringFromSelector(sel_purchase_handleWindowRequest_completion_);
+      v81 = NSStringFromSelector(sel_purchase_handleWindowRequest_completion_);
       *buf = 138543618;
-      v97 = v69;
-      v98 = 2114;
-      v99 = v82;
+      v96 = v69;
+      v97 = 2114;
+      v98 = v81;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_DEFAULT, "%{public}@Delegate does not implement %{public}@, cannot return window.", buf, 0x16u);
       if (v65)
       {
@@ -1284,7 +1278,7 @@ LABEL_69:
 
 LABEL_58:
       presentingWindow4 = 0;
-      controllerCopy = v90;
+      controllerCopy = v89;
 LABEL_59:
       v7 = 0x1E698C000;
       goto LABEL_69;
@@ -1296,9 +1290,9 @@ LABEL_59:
   purchaseInfo3 = [(AMSPaymentSheetTask *)self purchaseInfo];
   purchase2 = [purchaseInfo3 purchase];
   v31 = +[AMSUIWindowRequest windowRequest];
-  v95 = 0;
-  presentingWindow4 = [delegate purchase:purchase2 handleWindowRequest:v31 error:&v95];
-  mEMORY[0x1E698C968]3 = v95;
+  v94 = 0;
+  presentingWindow4 = [delegate purchase:purchase2 handleWindowRequest:v31 error:&v94];
+  mEMORY[0x1E698C968]3 = v94;
 
   if (mEMORY[0x1E698C968]3)
   {
@@ -1311,37 +1305,37 @@ LABEL_59:
     v34OSLogObject = [oSLogObject3 OSLogObject];
     if (os_log_type_enabled(v34OSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v89 = controllerCopy;
+      v88 = controllerCopy;
       v36 = AMSLogKey();
       v37 = MEMORY[0x1E696AEC0];
       v38 = objc_opt_class();
       if (v36)
       {
         v39 = AMSLogKey();
-        v86 = NSStringFromSelector(a2);
-        v87 = v39;
-        [v37 stringWithFormat:@"%@: [%@] %@ ", v38, v39, v86];
+        v85 = NSStringFromSelector(a2);
+        v86 = v39;
+        [v37 stringWithFormat:@"%@: [%@] %@ ", v38, v39, v85];
       }
 
       else
       {
-        v87 = NSStringFromSelector(a2);
-        [v37 stringWithFormat:@"%@: %@ ", v38, v87];
+        v86 = NSStringFromSelector(a2);
+        [v37 stringWithFormat:@"%@: %@ ", v38, v86];
       }
       v40 = ;
       v71 = AMSLogableError();
       *buf = 138543618;
-      v97 = v40;
-      v98 = 2114;
-      v99 = v71;
+      v96 = v40;
+      v97 = 2114;
+      v98 = v71;
       _os_log_impl(&dword_1BB036000, v34OSLogObject, OS_LOG_TYPE_ERROR, "%{public}@Sync Window request failed with error: %{public}@", buf, 0x16u);
       if (v36)
       {
 
-        v40 = v86;
+        v40 = v85;
       }
 
-      controllerCopy = v89;
+      controllerCopy = v88;
       v7 = 0x1E698C000uLL;
     }
 
@@ -1377,9 +1371,9 @@ LABEL_70:
     v78 = ;
     v79 = AMSHashIfNeeded();
     *buf = 138543618;
-    v97 = v78;
-    v98 = 2114;
-    v99 = v79;
+    v96 = v78;
+    v97 = 2114;
+    v98 = v79;
     _os_log_impl(&dword_1BB036000, oSLogObject5, OS_LOG_TYPE_DEFAULT, "%{public}@ returning window %{public}@", buf, 0x16u);
     if (v74)
     {
@@ -1389,7 +1383,6 @@ LABEL_70:
   }
 
 LABEL_80:
-  v80 = *MEMORY[0x1E69E9840];
 
   return presentingWindow4;
 }

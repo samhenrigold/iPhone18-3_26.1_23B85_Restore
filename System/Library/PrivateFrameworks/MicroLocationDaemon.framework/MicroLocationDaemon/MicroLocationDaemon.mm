@@ -4,8 +4,6 @@ void std::vector<std::string>::reserve(std::vector<std::string> *this, std::vect
   {
     if (__n < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = this->__end_ - this->__begin_;
-      v3.__end_cap_.__value_ = this;
       std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(this, __n);
     }
 
@@ -15,7 +13,7 @@ void std::vector<std::string>::reserve(std::vector<std::string> *this, std::vect
 
 void ULSystemTriggerGenerator::onAppLaunch(ULSystemTriggerGenerator *a1, const void **a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = +[ULDefaultsSingleton shared];
   v5 = [v4 defaultsDictionary];
 
@@ -24,73 +22,73 @@ void ULSystemTriggerGenerator::onAppLaunch(ULSystemTriggerGenerator *a1, const v
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v8 = v7;
-    memset(&v28, 0, sizeof(v28));
-    std::vector<std::string>::reserve(&v28, [v8 count]);
+    memset(&v27, 0, sizeof(v27));
+    std::vector<std::string>::reserve(&v27, [v8 count]);
+    v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    memset(v30, 0, sizeof(v30));
+    memset(v29, 0, sizeof(v29));
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:v30 objects:buf count:16];
+    v10 = [v9 countByEnumeratingWithState:v29 objects:buf count:16];
     if (v10)
     {
-      v11 = **&v30[16];
+      v11 = **&v29[16];
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (**&v30[16] != v11)
+          if (**&v29[16] != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&__p, [*(*&v30[8] + 8 * i) UTF8String]);
-          std::vector<std::string>::push_back[abi:ne200100](&v28, &__p);
+          std::string::basic_string[abi:ne200100]<0>(&__p, [*(*&v29[8] + 8 * i) UTF8String]);
+          std::vector<std::string>::push_back[abi:ne200100](&v27, &__p);
           if (SHIBYTE(__p.__end_cap_.__value_) < 0)
           {
             operator delete(__p.__begin_);
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:v30 objects:buf count:16];
+        v10 = [v9 countByEnumeratingWithState:v29 objects:buf count:16];
       }
 
       while (v10);
     }
 
-    begin = v28.__begin_;
-    v27 = v28;
-    end = v28.__end_;
-    memset(&v28, 0, sizeof(v28));
-    *buf = &v28;
+    begin = v27.__begin_;
+    v26 = v27;
+    end = v27.__end_;
+    memset(&v27, 0, sizeof(v27));
+    *buf = &v27;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
   }
 
   else
   {
-    memset(v30, 0, 24);
+    memset(v29, 0, 24);
     memset(&__p, 0, sizeof(__p));
     std::vector<std::string>::reserve(&__p, 0x12uLL);
     for (j = 0; j != 18; ++j)
     {
       std::string::basic_string[abi:ne200100]<0>(buf, _ZGRN10ULSettings14SettingsTraitsINS_11AppDenyListEE12defaultValueE_[j]);
       std::vector<std::string>::push_back[abi:ne200100](&__p, buf);
-      if (SBYTE3(v37) < 0)
+      if (SBYTE3(v36) < 0)
       {
         operator delete(*buf);
       }
     }
 
-    std::vector<std::string>::__vdeallocate(v30);
-    *v30 = __p;
+    std::vector<std::string>::__vdeallocate(v29);
+    *v29 = __p;
     memset(&__p, 0, sizeof(__p));
     *buf = &__p;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
-    v15 = *v30;
+    v15 = *v29;
     end = (v15 >> 64);
     begin = v15;
-    v27 = *v30;
-    memset(v30, 0, 24);
-    *buf = v30;
+    v26 = *v29;
+    memset(v29, 0, 24);
+    *buf = v29;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
   }
 
@@ -167,12 +165,12 @@ LABEL_35:
 
     *buf = 68289539;
     *&buf[4] = 0;
-    v34 = 2082;
-    v35 = "";
-    v36 = 2081;
-    v37 = v24;
-    v38 = 1026;
-    v39 = v16 == end;
+    v33 = 2082;
+    v34 = "";
+    v35 = 2081;
+    v36 = v24;
+    v37 = 1026;
+    v38 = v16 == end;
     _os_log_impl(&dword_258FE9000, v23, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:onAppLaunch, bundleIdentifier:%{private, location:escape_only}s, is trigger needed:%{public}hhd}", buf, 0x22u);
   }
 
@@ -181,9 +179,8 @@ LABEL_35:
     ULSystemTriggerGenerator::requestRecordingIfPossible(a1, 1, 0);
   }
 
-  *buf = &v27;
+  *buf = &v26;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void sub_258FEC1DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, char *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -298,8 +295,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -376,9 +372,9 @@ void ULScanService::handleDisplayStateEvent(id *this, ULEvent *a2)
   dispatch_async(v7, v9);
 }
 
-uint64_t ___ZN13ULScanService23handleDisplayStateEventEP7ULEvent_block_invoke(uint64_t a1)
+void *___ZN13ULScanService23handleDisplayStateEventEP7ULEvent_block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   result = [*(a1 + 32) displayOnChanged];
   if (result)
@@ -398,23 +394,22 @@ uint64_t ___ZN13ULScanService23handleDisplayStateEventEP7ULEvent_block_invoke(ui
         v6 = @"On";
       }
 
-      v8[0] = 68289282;
-      v8[1] = 0;
-      v9 = 2082;
-      v10 = "";
-      v11 = 2114;
-      v12 = v6;
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ScanService handleDisplayStateEvent, display state: :%{public, location:escape_only}@}", v8, 0x1Cu);
+      v7[0] = 68289282;
+      v7[1] = 0;
+      v8 = 2082;
+      v9 = "";
+      v10 = 2114;
+      v11 = v6;
+      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ScanService handleDisplayStateEvent, display state: :%{public, location:escape_only}@}", v7, 0x1Cu);
     }
 
-    result = ULScanService::applyDisplayStatePolicy(v2, [*(a1 + 32) displayOn]);
+    return ULScanService::applyDisplayStatePolicy(v2, [*(a1 + 32) displayOn]);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -428,21 +423,21 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
 void ULSystemTriggerGenerator::requestRecordingIfPossible(ULSystemTriggerGenerator *this, int a2, int a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = cl::chrono::CFAbsoluteTimeClock::now();
-  v17 = v6;
+  v16 = v6;
   if (*(this + 24))
   {
     if (a2 && ULThrottle::shouldThrottle(this + 32, v6))
@@ -461,10 +456,10 @@ void ULSystemTriggerGenerator::requestRecordingIfPossible(ULSystemTriggerGenerat
         v10 = OS_LOG_TYPE_DEBUG;
 LABEL_12:
         _os_log_impl(&dword_258FE9000, v9, v10, v8, buf, 2u);
-        goto LABEL_26;
+        return;
       }
 
-      goto LABEL_26;
+      return;
     }
 
     v12 = *(**(this + 2) + 16);
@@ -490,7 +485,7 @@ LABEL_18:
           }
 
           *buf = 138412290;
-          v19 = v15;
+          v18 = v15;
           _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "Recording requested, success: %@", buf, 0xCu);
         }
 
@@ -499,7 +494,7 @@ LABEL_18:
           ULSystemTriggerGenerator::resetPeriodicTriggerTimer(this);
         }
 
-        goto LABEL_26;
+        return;
       }
     }
 
@@ -508,7 +503,7 @@ LABEL_18:
       goto LABEL_15;
     }
 
-    ULThrottle::setLastStartedTime(this + 32, &v17);
+    ULThrottle::setLastStartedTime(this + 32, &v16);
     v13 = 1;
     goto LABEL_18;
   }
@@ -527,12 +522,9 @@ LABEL_18:
     v10 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_12;
   }
-
-LABEL_26:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -562,7 +554,7 @@ uint64_t std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::Conn
   return v5;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -572,7 +564,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -585,12 +577,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -598,7 +590,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
 uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocationStateMachine::StateMachineBase *this, CLMicroLocationStateMachine::EventBase *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (!*(this + 1))
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -611,19 +603,19 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
     {
       if (*(a2 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(v44, *(a2 + 1), *(a2 + 2));
+        std::string::__init_copy_ctor_external(v43, *(a2 + 1), *(a2 + 2));
       }
 
       else
       {
-        *v44 = *(a2 + 8);
-        *&v44[16] = *(a2 + 3);
+        *v43 = *(a2 + 8);
+        *&v43[16] = *(a2 + 3);
       }
 
-      v22 = v44;
-      if (v44[23] < 0)
+      v22 = v43;
+      if (v43[23] < 0)
       {
-        v22 = *v44;
+        v22 = *v43;
       }
 
       *buf = 68289283;
@@ -633,9 +625,9 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
       *&buf[18] = 2081;
       *&buf[20] = v22;
       _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:State Machine: Failed to handle event because current state is NULL, Event:%{private, location:escape_only}s}", buf, 0x1Cu);
-      if ((v44[23] & 0x80000000) != 0)
+      if ((v43[23] & 0x80000000) != 0)
       {
-        operator delete(*v44);
+        operator delete(*v43);
       }
     }
 
@@ -649,19 +641,19 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
     {
       if (*(a2 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(v44, *(a2 + 1), *(a2 + 2));
+        std::string::__init_copy_ctor_external(v43, *(a2 + 1), *(a2 + 2));
       }
 
       else
       {
-        *v44 = *(a2 + 8);
-        *&v44[16] = *(a2 + 3);
+        *v43 = *(a2 + 8);
+        *&v43[16] = *(a2 + 3);
       }
 
-      v24 = v44;
-      if (v44[23] < 0)
+      v24 = v43;
+      if (v43[23] < 0)
       {
-        v24 = *v44;
+        v24 = *v43;
       }
 
       *buf = 68289283;
@@ -671,9 +663,9 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
       *&buf[18] = 2081;
       *&buf[20] = v24;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "State Machine: Failed to handle event because current state is NULL", "{msg%{public}.0s:State Machine: Failed to handle event because current state is NULL, Event:%{private, location:escape_only}s}", buf, 0x1Cu);
-      if ((v44[23] & 0x80000000) != 0)
+      if ((v43[23] & 0x80000000) != 0)
       {
-        operator delete(*v44);
+        operator delete(*v43);
       }
     }
 
@@ -690,19 +682,19 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
   {
     if (*(a2 + 31) < 0)
     {
-      std::string::__init_copy_ctor_external(v44, *(a2 + 1), *(a2 + 2));
+      std::string::__init_copy_ctor_external(v43, *(a2 + 1), *(a2 + 2));
     }
 
     else
     {
-      *v44 = *(a2 + 8);
-      *&v44[16] = *(a2 + 3);
+      *v43 = *(a2 + 8);
+      *&v43[16] = *(a2 + 3);
     }
 
-    v6 = v44;
-    if (v44[23] < 0)
+    v6 = v43;
+    if (v43[23] < 0)
     {
-      v6 = *v44;
+      v6 = *v43;
     }
 
     v7 = *(this + 1);
@@ -718,12 +710,12 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
     *&buf[10] = "";
     *&buf[18] = 2081;
     *&buf[20] = v6;
-    v46 = 2081;
-    v47 = v8;
+    v45 = 2081;
+    v46 = v8;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:State Machine: Handling Event, Event:%{private, location:escape_only}s, Current State:%{private, location:escape_only}s}", buf, 0x26u);
-    if ((v44[23] & 0x80000000) != 0)
+    if ((v43[23] & 0x80000000) != 0)
     {
-      operator delete(*v44);
+      operator delete(*v43);
     }
   }
 
@@ -757,19 +749,19 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
     {
       if (*(a2 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(v44, *(a2 + 1), *(a2 + 2));
+        std::string::__init_copy_ctor_external(v43, *(a2 + 1), *(a2 + 2));
       }
 
       else
       {
-        *v44 = *(a2 + 8);
-        *&v44[16] = *(a2 + 3);
+        *v43 = *(a2 + 8);
+        *&v43[16] = *(a2 + 3);
       }
 
-      v25 = v44;
-      if (v44[23] < 0)
+      v25 = v43;
+      if (v43[23] < 0)
       {
-        v25 = *v44;
+        v25 = *v43;
       }
 
       v26 = *(this + 1);
@@ -785,12 +777,12 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
       *&buf[10] = "";
       *&buf[18] = 2081;
       *&buf[20] = v25;
-      v46 = 2081;
-      v47 = v27;
+      v45 = 2081;
+      v46 = v27;
       _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:State Machine: Failed to handle event because it is not a valid event for the current state, Event:%{private, location:escape_only}s, Current State:%{private, location:escape_only}s}", buf, 0x26u);
-      if ((v44[23] & 0x80000000) != 0)
+      if ((v43[23] & 0x80000000) != 0)
       {
-        operator delete(*v44);
+        operator delete(*v43);
       }
     }
 
@@ -804,19 +796,19 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
     {
       if (*(a2 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(v44, *(a2 + 1), *(a2 + 2));
+        std::string::__init_copy_ctor_external(v43, *(a2 + 1), *(a2 + 2));
       }
 
       else
       {
-        *v44 = *(a2 + 8);
-        *&v44[16] = *(a2 + 3);
+        *v43 = *(a2 + 8);
+        *&v43[16] = *(a2 + 3);
       }
 
-      v28 = v44;
-      if (v44[23] < 0)
+      v28 = v43;
+      if (v43[23] < 0)
       {
-        v28 = *v44;
+        v28 = *v43;
       }
 
       v29 = *(this + 1);
@@ -832,19 +824,18 @@ uint64_t CLMicroLocationStateMachine::StateMachineBase::handleEvent(CLMicroLocat
       *&buf[10] = "";
       *&buf[18] = 2081;
       *&buf[20] = v28;
-      v46 = 2081;
-      v47 = v30;
+      v45 = 2081;
+      v46 = v30;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "State Machine: Failed to handle event because it is not a valid event for the current state", "{msg%{public}.0s:State Machine: Failed to handle event because it is not a valid event for the current state, Event:%{private, location:escape_only}s, Current State:%{private, location:escape_only}s}", buf, 0x26u);
-      if ((v44[23] & 0x80000000) != 0)
+      if ((v43[23] & 0x80000000) != 0)
       {
-        operator delete(*v44);
+        operator delete(*v43);
       }
     }
 
 LABEL_97:
 
-    v31 = 0;
-    goto LABEL_118;
+    return 0;
   }
 
   (***(v10 + 56))(buf);
@@ -866,12 +857,12 @@ LABEL_108:
         v36 = *v36;
       }
 
-      *v44 = 68289283;
-      *&v44[8] = 2082;
-      *&v44[10] = "";
-      *&v44[18] = 2081;
-      *&v44[20] = v36;
-      _os_log_impl(&dword_258FE9000, v34, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:State Machine: , New State:%{private, location:escape_only}s}", v44, 0x1Cu);
+      *v43 = 68289283;
+      *&v43[8] = 2082;
+      *&v43[10] = "";
+      *&v43[18] = 2081;
+      *&v43[20] = v36;
+      _os_log_impl(&dword_258FE9000, v34, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:State Machine: , New State:%{private, location:escape_only}s}", v43, 0x1Cu);
     }
 
     goto LABEL_114;
@@ -880,11 +871,11 @@ LABEL_108:
   v11 = *(this + 1);
   if (*(v11 + 31) < 0)
   {
-    std::string::__init_copy_ctor_external(v44, *(v11 + 8), *(v11 + 16));
+    std::string::__init_copy_ctor_external(v43, *(v11 + 8), *(v11 + 16));
     if ((buf[24] & 1) == 0)
     {
       v19 = 0;
-      if ((v44[23] & 0x80) != 0)
+      if ((v43[23] & 0x80) != 0)
       {
         goto LABEL_49;
       }
@@ -896,8 +887,8 @@ LABEL_108:
   else
   {
     v12 = *(v11 + 8);
-    *&v44[16] = *(v11 + 24);
-    *v44 = v12;
+    *&v43[16] = *(v11 + 24);
+    *v43 = v12;
   }
 
   if (buf[23] >= 0)
@@ -910,17 +901,17 @@ LABEL_108:
     v14 = *&buf[8];
   }
 
-  v15 = v44[23];
-  v16 = v44[23];
-  if (v44[23] < 0)
+  v15 = v43[23];
+  v16 = v43[23];
+  if (v43[23] < 0)
   {
-    v15 = *&v44[8];
+    v15 = *&v43[8];
   }
 
   if (v14 != v15)
   {
     v19 = 0;
-    if ((v44[23] & 0x80) == 0)
+    if ((v43[23] & 0x80) == 0)
     {
       goto LABEL_50;
     }
@@ -938,21 +929,21 @@ LABEL_108:
     v17 = *buf;
   }
 
-  if (v44[23] >= 0)
+  if (v43[23] >= 0)
   {
-    v18 = v44;
+    v18 = v43;
   }
 
   else
   {
-    v18 = *v44;
+    v18 = *v43;
   }
 
   v19 = memcmp(v17, v18, v14) == 0;
   if (v16 < 0)
   {
 LABEL_49:
-    operator delete(*v44);
+    operator delete(*v43);
   }
 
 LABEL_50:
@@ -973,7 +964,7 @@ LABEL_50:
       __p = *buf;
     }
 
-    v32 = std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::find<std::string>(this + 16, &__p.__r_.__value_.__l.__data_);
+    v32 = std::__tree<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::__map_value_compare<std::string,std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,CLSqliteDatabaseManager::ConnectionState>>>::find<std::string>(this + 16, &__p);
     if ((this + 24) == v32)
     {
       v33 = 0;
@@ -996,26 +987,26 @@ LABEL_50:
         CLMicroLocationStateMachine::StateMachineBase::setInitialState();
       }
 
-      v39 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v38 = logObject_MicroLocation_Default;
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         if ((buf[24] & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        v40 = buf;
+        v39 = buf;
         if (buf[23] < 0)
         {
-          v40 = *buf;
+          v39 = *buf;
         }
 
-        *v44 = 68289283;
-        *&v44[8] = 2082;
-        *&v44[10] = "";
-        *&v44[18] = 2081;
-        *&v44[20] = v40;
-        _os_log_impl(&dword_258FE9000, v39, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:State Machine: Failed to switch to new state because requested state doesn't exist in the state table, State:%{private, location:escape_only}s}", v44, 0x1Cu);
+        *v43 = 68289283;
+        *&v43[8] = 2082;
+        *&v43[10] = "";
+        *&v43[18] = 2081;
+        *&v43[20] = v39;
+        _os_log_impl(&dword_258FE9000, v38, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:State Machine: Failed to switch to new state because requested state doesn't exist in the state table, State:%{private, location:escape_only}s}", v43, 0x1Cu);
       }
 
       if (onceToken_MicroLocation_Default != -1)
@@ -1023,26 +1014,26 @@ LABEL_50:
         CLMicroLocationStateMachine::StateMachineBase::setInitialState();
       }
 
-      v41 = logObject_MicroLocation_Default;
-      if (os_signpost_enabled(v41))
+      v40 = logObject_MicroLocation_Default;
+      if (os_signpost_enabled(v40))
       {
         if ((buf[24] & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        v42 = buf;
+        v41 = buf;
         if (buf[23] < 0)
         {
-          v42 = *buf;
+          v41 = *buf;
         }
 
-        *v44 = 68289283;
-        *&v44[8] = 2082;
-        *&v44[10] = "";
-        *&v44[18] = 2081;
-        *&v44[20] = v42;
-        _os_signpost_emit_with_name_impl(&dword_258FE9000, v41, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "State Machine: Failed to switch to new state because requested state doesn't exist in the state table", "{msg%{public}.0s:State Machine: Failed to switch to new state because requested state doesn't exist in the state table, State:%{private, location:escape_only}s}", v44, 0x1Cu);
+        *v43 = 68289283;
+        *&v43[8] = 2082;
+        *&v43[10] = "";
+        *&v43[18] = 2081;
+        *&v43[20] = v41;
+        _os_signpost_emit_with_name_impl(&dword_258FE9000, v40, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "State Machine: Failed to switch to new state because requested state doesn't exist in the state table", "{msg%{public}.0s:State Machine: Failed to switch to new state because requested state doesn't exist in the state table, State:%{private, location:escape_only}s}", v43, 0x1Cu);
       }
 
       v31 = 0;
@@ -1073,12 +1064,12 @@ LABEL_50:
       v21 = *buf;
     }
 
-    *v44 = 68289283;
-    *&v44[8] = 2082;
-    *&v44[10] = "";
-    *&v44[18] = 2081;
-    *&v44[20] = v21;
-    _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_INFO, "{msg%{public}.0s:State Machine: No state change requested, State:%{private, location:escape_only}s}", v44, 0x1Cu);
+    *v43 = 68289283;
+    *&v43[8] = 2082;
+    *&v43[10] = "";
+    *&v43[18] = 2081;
+    *&v43[20] = v21;
+    _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_INFO, "{msg%{public}.0s:State Machine: No state change requested, State:%{private, location:escape_only}s}", v43, 0x1Cu);
   }
 
 LABEL_114:
@@ -1089,8 +1080,6 @@ LABEL_115:
     operator delete(*buf);
   }
 
-LABEL_118:
-  v37 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -1104,51 +1093,50 @@ void sub_258FED6F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,CLMiLoLoiManagerLeechedLocationEvent,&CLMicroLocationLoiManager::HandleLeechedLocation>::stateFunction@<X0>(CLMicroLocationStateMachine::EventBase *lpsrc@<X2>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,CLMiLoLoiManagerLeechedLocationEvent,&CLMicroLocationLoiManager::HandleLeechedLocation>::stateFunction(id *a1@<X0>, uint64_t a2@<X1>, CLMicroLocationStateMachine::EventBase *lpsrc@<X2>, uint64_t a4@<X8>)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v5 = (a2 - 16);
+    v6 = (a2 - 16);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   {
-    v8 = *MEMORY[0x277D85DE8];
 
-    return CLMicroLocationLoiManager::HandleLeechedLocation(v5, v7, a3);
+    CLMicroLocationLoiManager::HandleLeechedLocation(v6, a1, a4);
   }
 
   else
   {
-    v31 = lpsrc;
-    v10 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v30 = lpsrc;
+    v7 = _CLLogObjectForCategory_MicroLocation_Default(a1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v11 = *(v5 + 3);
-      if (*(v11 + 31) < 0)
+      v8 = *(v6 + 3);
+      if (*(v8 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(&v33, *(v11 + 8), *(v11 + 16));
+        std::string::__init_copy_ctor_external(&v32, *(v8 + 8), *(v8 + 16));
       }
 
       else
       {
-        v12 = *(v11 + 8);
-        v33.__r_.__value_.__r.__words[2] = *(v11 + 24);
-        *&v33.__r_.__value_.__l.__data_ = v12;
+        v9 = *(v8 + 8);
+        v32.__r_.__value_.__r.__words[2] = *(v8 + 24);
+        *&v32.__r_.__value_.__l.__data_ = v9;
       }
 
-      v13 = SHIBYTE(v33.__r_.__value_.__r.__words[2]);
-      v14 = v33.__r_.__value_.__r.__words[0];
+      v10 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
+      v11 = v32.__r_.__value_.__r.__words[0];
       CLMicroLocationStateMachine::EventBase::getEventName(lpsrc, &__p);
-      v15 = &v33;
-      if (v13 < 0)
+      v12 = &v32;
+      if (v10 < 0)
       {
-        v15 = v14;
+        v12 = v11;
       }
 
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -1162,157 +1150,155 @@ _BYTE *CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManage
       }
 
       *buf = 68290051;
-      v35 = 0;
-      v36 = 2082;
-      v37 = "";
-      v38 = 2081;
-      v39 = v15;
-      v40 = 2081;
-      v41 = p_p;
-      v42 = 2082;
-      v43 = "assert";
-      v44 = 2081;
-      v45 = "derivedEventData != __null";
-      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      v34 = 0;
+      v35 = 2082;
+      v36 = "";
+      v37 = 2081;
+      v38 = v12;
+      v39 = 2081;
+      v40 = p_p;
+      v41 = 2082;
+      v42 = "assert";
+      v43 = 2081;
+      v44 = "derivedEventData != __null";
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v33.__r_.__value_.__l.__data_);
+        operator delete(v32.__r_.__value_.__l.__data_);
       }
     }
 
-    v17 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v17))
+    v15 = _CLLogObjectForCategory_MicroLocation_Default(v14);
+    if (os_signpost_enabled(v15))
     {
-      v18 = *(v5 + 3);
-      if (*(v18 + 31) < 0)
+      v16 = *(v6 + 3);
+      if (*(v16 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(&v33, *(v18 + 8), *(v18 + 16));
+        std::string::__init_copy_ctor_external(&v32, *(v16 + 8), *(v16 + 16));
       }
 
       else
       {
-        v19 = *(v18 + 8);
-        v33.__r_.__value_.__r.__words[2] = *(v18 + 24);
-        *&v33.__r_.__value_.__l.__data_ = v19;
+        v17 = *(v16 + 8);
+        v32.__r_.__value_.__r.__words[2] = *(v16 + 24);
+        *&v32.__r_.__value_.__l.__data_ = v17;
       }
 
-      v20 = SHIBYTE(v33.__r_.__value_.__r.__words[2]);
-      v21 = v33.__r_.__value_.__r.__words[0];
+      v18 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
+      v19 = v32.__r_.__value_.__r.__words[0];
       CLMicroLocationStateMachine::EventBase::getEventName(lpsrc, &__p);
-      v22 = &v33;
-      if (v20 < 0)
+      v20 = &v32;
+      if (v18 < 0)
       {
-        v22 = v21;
+        v20 = v19;
       }
 
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v23 = &__p;
+        v21 = &__p;
       }
 
       else
       {
-        v23 = __p.__r_.__value_.__r.__words[0];
+        v21 = __p.__r_.__value_.__r.__words[0];
       }
 
       *buf = 68290051;
-      v35 = 0;
-      v36 = 2082;
-      v37 = "";
-      v38 = 2081;
-      v39 = v22;
-      v40 = 2081;
-      v41 = v23;
-      v42 = 2082;
-      v43 = "assert";
-      v44 = 2081;
-      v45 = "derivedEventData != __null";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Received unsupported event in state event handler", "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      v34 = 0;
+      v35 = 2082;
+      v36 = "";
+      v37 = 2081;
+      v38 = v20;
+      v39 = 2081;
+      v40 = v21;
+      v41 = 2082;
+      v42 = "assert";
+      v43 = 2081;
+      v44 = "derivedEventData != __null";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Received unsupported event in state event handler", "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v33.__r_.__value_.__l.__data_);
+        operator delete(v32.__r_.__value_.__l.__data_);
       }
     }
 
-    v24 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v23 = _CLLogObjectForCategory_MicroLocation_Default(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v25 = *(v5 + 3);
-      if (*(v25 + 31) < 0)
+      v24 = *(v6 + 3);
+      if (*(v24 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(&v33, *(v25 + 8), *(v25 + 16));
+        std::string::__init_copy_ctor_external(&v32, *(v24 + 8), *(v24 + 16));
       }
 
       else
       {
-        v26 = *(v25 + 8);
-        v33.__r_.__value_.__r.__words[2] = *(v25 + 24);
-        *&v33.__r_.__value_.__l.__data_ = v26;
+        v25 = *(v24 + 8);
+        v32.__r_.__value_.__r.__words[2] = *(v24 + 24);
+        *&v32.__r_.__value_.__l.__data_ = v25;
       }
 
-      v27 = SHIBYTE(v33.__r_.__value_.__r.__words[2]);
-      v28 = v33.__r_.__value_.__r.__words[0];
-      CLMicroLocationStateMachine::EventBase::getEventName(v31, &__p);
-      v29 = &v33;
-      if (v27 < 0)
+      v26 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
+      v27 = v32.__r_.__value_.__r.__words[0];
+      CLMicroLocationStateMachine::EventBase::getEventName(v30, &__p);
+      v28 = &v32;
+      if (v26 < 0)
       {
-        v29 = v28;
+        v28 = v27;
       }
 
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v30 = &__p;
+        v29 = &__p;
       }
 
       else
       {
-        v30 = __p.__r_.__value_.__r.__words[0];
+        v29 = __p.__r_.__value_.__r.__words[0];
       }
 
       *buf = 68290051;
-      v35 = 0;
-      v36 = 2082;
-      v37 = "";
-      v38 = 2081;
-      v39 = v29;
-      v40 = 2081;
-      v41 = v30;
-      v42 = 2082;
-      v43 = "assert";
-      v44 = 2081;
-      v45 = "derivedEventData != __null";
-      _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      v34 = 0;
+      v35 = 2082;
+      v36 = "";
+      v37 = 2081;
+      v38 = v28;
+      v39 = 2081;
+      v40 = v29;
+      v41 = 2082;
+      v42 = "assert";
+      v43 = 2081;
+      v44 = "derivedEventData != __null";
+      _os_log_impl(&dword_258FE9000, v23, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v33.__r_.__value_.__l.__data_);
+        operator delete(v32.__r_.__value_.__l.__data_);
       }
     }
 
-    result = abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/CLMicroLocationStateMachine.h", 58, "stateFunction");
     __break(1u);
   }
-
-  return result;
 }
 
-_BYTE *CLMicroLocationLoiManager::HandleLeechedLocation@<X0>(CLMicroLocationLoiManager *this@<X0>, id *a2@<X1>, uint64_t a3@<X8>)
+void *CLMicroLocationLoiManager::HandleLeechedLocation@<X0>(CLMicroLocationLoiManager *this@<X0>, id *a2@<X1>, uint64_t a3@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     CLMicroLocationLoiManager::VisitEntry();
@@ -1321,10 +1307,10 @@ _BYTE *CLMicroLocationLoiManager::HandleLeechedLocation@<X0>(CLMicroLocationLoiM
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 68289026;
-    *&v15[8] = 2082;
-    *&v15[10] = "";
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:LOI Manager: handle leeched location notification}", v15, 0x12u);
+    *v14 = 68289026;
+    *&v14[8] = 2082;
+    *&v14[10] = "";
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:LOI Manager: handle leeched location notification}", v14, 0x12u);
   }
 
   [a2[4] coordinate];
@@ -1340,11 +1326,11 @@ _BYTE *CLMicroLocationLoiManager::HandleLeechedLocation@<X0>(CLMicroLocationLoiM
     v10 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "LOI Manager, requested LOI for current visit location", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "LOI Manager, requested LOI for current visit location", v14, 2u);
     }
 
-    result = std::string::basic_string[abi:ne200100]<0>(v15, "In the process of entering Home LOI");
+    result = std::string::basic_string[abi:ne200100]<0>(v14, "In the process of entering Home LOI");
   }
 
   else
@@ -1357,10 +1343,10 @@ _BYTE *CLMicroLocationLoiManager::HandleLeechedLocation@<X0>(CLMicroLocationLoiM
     v12 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      *v15 = 68289026;
-      *&v15[8] = 2082;
-      *&v15[10] = "";
-      _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:LOI Manager, Failed To request LOI for current visit location}", v15, 0x12u);
+      *v14 = 68289026;
+      *&v14[8] = 2082;
+      *&v14[10] = "";
+      _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:LOI Manager, Failed To request LOI for current visit location}", v14, 0x12u);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -1371,19 +1357,18 @@ _BYTE *CLMicroLocationLoiManager::HandleLeechedLocation@<X0>(CLMicroLocationLoiM
     v13 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(logObject_MicroLocation_Default))
     {
-      *v15 = 68289026;
-      *&v15[8] = 2082;
-      *&v15[10] = "";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LOI Manager, Failed To request LOI for current visit location", "{msg%{public}.0s:LOI Manager, Failed To request LOI for current visit location}", v15, 0x12u);
+      *v14 = 68289026;
+      *&v14[8] = 2082;
+      *&v14[10] = "";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LOI Manager, Failed To request LOI for current visit location", "{msg%{public}.0s:LOI Manager, Failed To request LOI for current visit location}", v14, 0x12u);
     }
 
-    result = std::string::basic_string[abi:ne200100]<0>(v15, "Not in Active Location State");
+    result = std::string::basic_string[abi:ne200100]<0>(v14, "Not in Active Location State");
   }
 
-  *a3 = *v15;
-  *(a3 + 16) = *&v15[16];
+  *a3 = *v14;
+  *(a3 + 16) = *&v14[16];
   *(a3 + 24) = 1;
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1419,20 +1404,13 @@ BOOL CLMicroLocationLoiManager::refreshRoutineStateAtLocation(CLMicroLocationLoi
 
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULRefreshRoutineStateThrottle"];
     v12 = [v10 objectForKey:v11];
-    if (!v12)
-    {
-      goto LABEL_12;
-    }
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       [v12 doubleValue];
     }
 
     else
     {
-LABEL_12:
       [&unk_286A72FD0 doubleValue];
     }
 
@@ -1543,42 +1521,36 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(const void 
 
 uint64_t ULThrottle::shouldThrottle(uint64_t a1, double a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 8) == 1 && a2 - *a1 < *(a1 + 16))
+  v13 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 8) != 1 || a2 - *a1 >= *(a1 + 16))
   {
-    if (onceToken_MicroLocation_Default != -1)
-    {
-      ULThrottle::shouldThrottle();
-    }
-
-    v4 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = -1.0;
-      if (*(a1 + 8) == 1)
-      {
-        v5 = a2 - *a1;
-      }
-
-      v6 = [MEMORY[0x277CCABB0] numberWithDouble:v5];
-      v7 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 16)];
-      v10 = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Request throttled, time since last allowed timestamp(sec): %@, throttle duration(sec): %@", &v10, 0x16u);
-    }
-
-    result = 1;
+    return 0;
   }
 
-  else
+  if (onceToken_MicroLocation_Default != -1)
   {
-    result = 0;
+    ULThrottle::shouldThrottle();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = -1.0;
+    if (*(a1 + 8) == 1)
+    {
+      v5 = a2 - *a1;
+    }
+
+    v6 = [MEMORY[0x277CCABB0] numberWithDouble:v5];
+    v7 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 16)];
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Request throttled, time since last allowed timestamp(sec): %@, throttle duration(sec): %@", &v9, 0x16u);
+  }
+
+  return 1;
 }
 
 std::string *__cdecl std::string::__assign_external(std::string *this, const std::string::value_type *__s, std::string::size_type __n)
@@ -1671,7 +1643,7 @@ uint64_t non-virtual thunk toULDatabase::isDatabaseValid(ULDatabase *this)
 
 uint64_t ULDatabase::getMigrationStatus(ULDatabase *this, int a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   result = *(this + 58);
   if (result == 1 || a2 != 0)
   {
@@ -1685,7 +1657,7 @@ uint64_t ULDatabase::getMigrationStatus(ULDatabase *this, int a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       ULDatabaseMigrationStatusAsString(*(this + 58), __p);
-      if (v9 >= 0)
+      if (v8 >= 0)
       {
         v6 = __p;
       }
@@ -1696,22 +1668,21 @@ uint64_t ULDatabase::getMigrationStatus(ULDatabase *this, int a2)
       }
 
       *buf = 68289282;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = v6;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = v6;
       _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:migration status, status:%{public, location:escape_only}s}", buf, 0x1Cu);
-      if (v9 < 0)
+      if (v8 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    result = *(this + 58);
+    return *(this + 58);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1742,16 +1713,16 @@ void CLMicroLocationLoiManager::initializeStateAtLocation(CLMicroLocationLoiMana
   *(this + 53) = 0;
 }
 
-void sub_258FEEA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258FEEA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 BOOL CLMicroLocationLoiManager::fetchLocationOfInterest(CLMicroLocationLoiManager *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = *(this + 43);
   if (v1)
   {
@@ -1769,17 +1740,15 @@ BOOL CLMicroLocationLoiManager::fetchLocationOfInterest(CLMicroLocationLoiManage
     v4 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 68289026;
-      v7[1] = 0;
-      v8 = 2082;
-      v9 = "";
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning LOI Bridge not setup.}", v7, 0x12u);
+      v6[0] = 68289026;
+      v6[1] = 0;
+      v7 = 2082;
+      v8 = "";
+      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning LOI Bridge not setup.}", v6, 0x12u);
     }
   }
 
-  result = v1 != 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return v1 != 0;
 }
 
 void CLMicroLocationStateMachine::EventHandlerWrapperWithNoData<CLMicroLocationLoiManager,&CLMicroLocationLoiManager::entryFunctionEnteringHomeLoiState>::stateFunction(uint64_t a1, uint64_t a2)
@@ -1815,7 +1784,7 @@ void CLMiLoLoiManagerLoiVisitExitEvent::~CLMiLoLoiManagerLoiVisitExitEvent(id *t
 
 void CLMicroLocationStateMachine::StateMachineBase::exitCurrentState(CLMicroLocationStateMachine::StateMachineBase *this)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     CLMicroLocationStateMachine::StateBase::StateBase();
@@ -1831,13 +1800,13 @@ void CLMicroLocationStateMachine::StateMachineBase::exitCurrentState(CLMicroLoca
       v4 = *v4;
     }
 
-    v10 = 68289283;
-    v11 = 0;
-    v12 = 2082;
-    v13 = "";
-    v14 = 2081;
-    v15 = v4;
-    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:State Machine: Exiting State, State:%{private, location:escape_only}s}", &v10, 0x1Cu);
+    v9 = 68289283;
+    v10 = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2081;
+    v14 = v4;
+    _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:State Machine: Exiting State, State:%{private, location:escape_only}s}", &v9, 0x1Cu);
   }
 
   v5 = *(*(this + 1) + 72);
@@ -1863,22 +1832,20 @@ void CLMicroLocationStateMachine::StateMachineBase::exitCurrentState(CLMicroLoca
         v8 = *v8;
       }
 
-      v10 = 68289283;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2081;
-      v15 = v8;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:State Machine: State did not have an exit function, State:%{private, location:escape_only}s}", &v10, 0x1Cu);
+      v9 = 68289283;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2081;
+      v14 = v8;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:State Machine: State did not have an exit function, State:%{private, location:escape_only}s}", &v9, 0x1Cu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void CLMicroLocationStateMachine::StateMachineBase::enterNewState(void *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     CLMicroLocationStateMachine::StateBase::StateBase();
@@ -1893,13 +1860,13 @@ void CLMicroLocationStateMachine::StateMachineBase::enterNewState(void *a1, uint
       v5 = *v5;
     }
 
-    v12 = 68289283;
-    v13 = 0;
-    v14 = 2082;
-    v15 = "";
-    v16 = 2081;
-    v17 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:State Machine: Entering new state, New State:%{private, location:escape_only}s}", &v12, 0x1Cu);
+    v11 = 68289283;
+    v12 = 0;
+    v13 = 2082;
+    v14 = "";
+    v15 = 2081;
+    v16 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:State Machine: Entering new state, New State:%{private, location:escape_only}s}", &v11, 0x1Cu);
   }
 
   v6 = a1[1];
@@ -1933,64 +1900,61 @@ void CLMicroLocationStateMachine::StateMachineBase::enterNewState(void *a1, uint
         v10 = *v10;
       }
 
-      v12 = 68289283;
-      v13 = 0;
-      v14 = 2082;
-      v15 = "";
-      v16 = 2081;
-      v17 = v10;
-      _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:State Machine: State did not have an entry function, State:%{private, location:escape_only}s}", &v12, 0x1Cu);
+      v11 = 68289283;
+      v12 = 0;
+      v13 = 2082;
+      v14 = "";
+      v15 = 2081;
+      v16 = v10;
+      _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:State Machine: State did not have an entry function, State:%{private, location:escape_only}s}", &v11, 0x1Cu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,CLMiLoLoiManagerReceivedLoiForLocationEvent,&CLMicroLocationLoiManager::LoiForGivenLocation>::stateFunction(CLMicroLocationStateMachine::EventBase *lpsrc@<X2>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,CLMiLoLoiManagerReceivedLoiForLocationEvent,&CLMicroLocationLoiManager::LoiForGivenLocation>::stateFunction(const CLMiLoLoiManagerReceivedLoiForLocationEvent *a1@<X0>, uint64_t a2@<X1>, CLMicroLocationStateMachine::EventBase *lpsrc@<X2>, uint64_t a4@<X8>)
 {
   v45 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v5 = (a2 - 16);
+    v6 = (a2 - 16);
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   {
-    v8 = *MEMORY[0x277D85DE8];
 
-    CLMicroLocationLoiManager::LoiForGivenLocation(v5, v7, a3);
+    CLMicroLocationLoiManager::LoiForGivenLocation(v6, a1, a4);
   }
 
   else
   {
     v30 = lpsrc;
-    v9 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v7 = _CLLogObjectForCategory_MicroLocation_Default(a1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v10 = *(v5 + 3);
-      if (*(v10 + 31) < 0)
+      v8 = *(v6 + 3);
+      if (*(v8 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(&v32, *(v10 + 8), *(v10 + 16));
+        std::string::__init_copy_ctor_external(&v32, *(v8 + 8), *(v8 + 16));
       }
 
       else
       {
-        v11 = *(v10 + 8);
-        v32.__r_.__value_.__r.__words[2] = *(v10 + 24);
-        *&v32.__r_.__value_.__l.__data_ = v11;
+        v9 = *(v8 + 8);
+        v32.__r_.__value_.__r.__words[2] = *(v8 + 24);
+        *&v32.__r_.__value_.__l.__data_ = v9;
       }
 
-      v12 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
-      v13 = v32.__r_.__value_.__r.__words[0];
+      v10 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
+      v11 = v32.__r_.__value_.__r.__words[0];
       CLMicroLocationStateMachine::EventBase::getEventName(lpsrc, &__p);
-      v14 = &v32;
-      if (v12 < 0)
+      v12 = &v32;
+      if (v10 < 0)
       {
-        v14 = v13;
+        v12 = v11;
       }
 
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -2008,14 +1972,14 @@ void CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,
       v35 = 2082;
       v36 = "";
       v37 = 2081;
-      v38 = v14;
+      v38 = v12;
       v39 = 2081;
       v40 = p_p;
       v41 = 2082;
       v42 = "assert";
       v43 = 2081;
       v44 = "derivedEventData != __null";
-      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -2027,39 +1991,39 @@ void CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,
       }
     }
 
-    v16 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v16))
+    v15 = _CLLogObjectForCategory_MicroLocation_Default(v14);
+    if (os_signpost_enabled(v15))
     {
-      v17 = *(v5 + 3);
-      if (*(v17 + 31) < 0)
+      v16 = *(v6 + 3);
+      if (*(v16 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(&v32, *(v17 + 8), *(v17 + 16));
+        std::string::__init_copy_ctor_external(&v32, *(v16 + 8), *(v16 + 16));
       }
 
       else
       {
-        v18 = *(v17 + 8);
-        v32.__r_.__value_.__r.__words[2] = *(v17 + 24);
-        *&v32.__r_.__value_.__l.__data_ = v18;
+        v17 = *(v16 + 8);
+        v32.__r_.__value_.__r.__words[2] = *(v16 + 24);
+        *&v32.__r_.__value_.__l.__data_ = v17;
       }
 
-      v19 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
-      v20 = v32.__r_.__value_.__r.__words[0];
+      v18 = SHIBYTE(v32.__r_.__value_.__r.__words[2]);
+      v19 = v32.__r_.__value_.__r.__words[0];
       CLMicroLocationStateMachine::EventBase::getEventName(lpsrc, &__p);
-      v21 = &v32;
-      if (v19 < 0)
+      v20 = &v32;
+      if (v18 < 0)
       {
-        v21 = v20;
+        v20 = v19;
       }
 
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v22 = &__p;
+        v21 = &__p;
       }
 
       else
       {
-        v22 = __p.__r_.__value_.__r.__words[0];
+        v21 = __p.__r_.__value_.__r.__words[0];
       }
 
       *buf = 68290051;
@@ -2067,14 +2031,14 @@ void CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,
       v35 = 2082;
       v36 = "";
       v37 = 2081;
-      v38 = v21;
+      v38 = v20;
       v39 = 2081;
-      v40 = v22;
+      v40 = v21;
       v41 = 2082;
       v42 = "assert";
       v43 = 2081;
       v44 = "derivedEventData != __null";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Received unsupported event in state event handler", "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Received unsupported event in state event handler", "{msg%{public}.0s:Received unsupported event in state event handler, State:%{private, location:escape_only}s, Received Event:%{private, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -2086,10 +2050,10 @@ void CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,
       }
     }
 
-    v23 = _CLLogObjectForCategory_MicroLocation_Default();
+    v23 = _CLLogObjectForCategory_MicroLocation_Default(v22);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v24 = *(v5 + 3);
+      v24 = *(v6 + 3);
       if (*(v24 + 31) < 0)
       {
         std::string::__init_copy_ctor_external(&v32, *(v24 + 8), *(v24 + 16));
@@ -2145,12 +2109,12 @@ void CLMicroLocationStateMachine::EventHandlerWrapper<CLMicroLocationLoiManager,
       }
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/CLMicroLocationStateMachine.h", 58, "stateFunction");
     __break(1u);
   }
 }
 
-void CLMicroLocationLoiManager::LoiForGivenLocation(CLMicroLocationLoiManager *this@<X0>, const CLMiLoLoiManagerReceivedLoiForLocationEvent *a2@<X1>, uint64_t a3@<X8>)
+double CLMicroLocationLoiManager::LoiForGivenLocation@<D0>(CLMicroLocationLoiManager *this@<X0>, const CLMiLoLoiManagerReceivedLoiForLocationEvent *a2@<X1>, uint64_t a3@<X8>)
 {
   v64 = *MEMORY[0x277D85DE8];
   if (*(this + 512))
@@ -2190,29 +2154,29 @@ LABEL_31:
             }
 
 LABEL_35:
-            v22 = [*(a2 + 4) loiIdentifier];
-            v23 = [v22 UUIDString];
-            v24 = v23;
-            v25 = [v23 UTF8String];
-            v26 = strlen(v25);
-            *(this + 54) = boost::uuids::string_generator::operator()<char const*>(buf, v25, &v25[v26]);
-            *(this + 55) = v27;
+            v23 = [*(a2 + 4) loiIdentifier];
+            v24 = [v23 UUIDString];
+            v25 = v24;
+            v26 = [v24 UTF8String];
+            v27 = strlen(v26);
+            *(this + 54) = boost::uuids::string_generator::operator()<char const*>(buf, v26, &v26[v27]);
+            *(this + 55) = v28;
 
             if (onceToken_MicroLocation_Default != -1)
             {
               CLMicroLocationLoiManager::VisitEntry();
             }
 
-            v28 = logObject_MicroLocation_Default;
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+            v29 = logObject_MicroLocation_Default;
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
-              v29 = [*(a2 + 4) loiIdentifier];
-              v30 = [v29 description];
-              v31 = v30;
-              v32 = (this + 392);
+              v30 = [*(a2 + 4) loiIdentifier];
+              v31 = [v30 description];
+              v32 = v31;
+              v33 = (this + 392);
               if (*(this + 415) < 0)
               {
-                v32 = *v8;
+                v33 = *v8;
               }
 
               *buf = 68289539;
@@ -2220,14 +2184,14 @@ LABEL_35:
               *&buf[8] = 2082;
               *&buf[10] = "";
               *&buf[18] = 2113;
-              *&buf[20] = v30;
+              *&buf[20] = v31;
               v62 = 2081;
-              v63 = v32;
-              _os_log_impl(&dword_258FE9000, v28, OS_LOG_TYPE_INFO, "{msg%{public}.0s:LOI Manager, Retrieved location of interest, LOI ID:%{private, location:escape_only}@, LOI TYPE:%{private, location:escape_only}s}", buf, 0x26u);
+              v63 = v33;
+              _os_log_impl(&dword_258FE9000, v29, OS_LOG_TYPE_INFO, "{msg%{public}.0s:LOI Manager, Retrieved location of interest, LOI ID:%{private, location:escape_only}@, LOI TYPE:%{private, location:escape_only}s}", buf, 0x26u);
             }
 
-            v33 = *(this + 415);
-            if (v33 < 0)
+            v34 = *(this + 415);
+            if (v34 < 0)
             {
               if (*(this + 50) != 4)
               {
@@ -2237,7 +2201,7 @@ LABEL_35:
               v8 = *v8;
             }
 
-            else if (v33 != 4)
+            else if (v34 != 4)
             {
               goto LABEL_47;
             }
@@ -2276,6 +2240,7 @@ LABEL_35:
                 }
 
 LABEL_57:
+                result = *buf;
                 *a3 = *buf;
                 *(a3 + 16) = *&buf[16];
                 *(a3 + 24) = 1;
@@ -2285,7 +2250,7 @@ LABEL_58:
                   operator delete(__str.__r_.__value_.__l.__data_);
                 }
 
-                goto LABEL_89;
+                return result;
               }
 
               if (onceToken_MicroLocation_Default != -1)
@@ -2302,11 +2267,11 @@ LABEL_52:
                   CLMicroLocationLoiManager::VisitEntry();
                 }
 
-                v38 = logObject_MicroLocation_Default;
+                v39 = logObject_MicroLocation_Default;
                 if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_258FE9000, v38, OS_LOG_TYPE_INFO, "LOI Manager, Returning to Inactive Location State", buf, 2u);
+                  _os_log_impl(&dword_258FE9000, v39, OS_LOG_TYPE_INFO, "LOI Manager, Returning to Inactive Location State", buf, 2u);
                 }
 
                 CLMicroLocationLoiManager::resetLoiVariables(this);
@@ -2315,11 +2280,11 @@ LABEL_52:
               }
 
               *buf = 0;
-              v35 = "LOI Manager, Failed To request related LOIs";
-              v36 = v58;
-              v37 = OS_LOG_TYPE_ERROR;
+              v36 = "LOI Manager, Failed To request related LOIs";
+              v37 = v58;
+              v38 = OS_LOG_TYPE_ERROR;
 LABEL_51:
-              _os_log_impl(&dword_258FE9000, v36, v37, v35, buf, 2u);
+              _os_log_impl(&dword_258FE9000, v37, v38, v36, buf, 2u);
               goto LABEL_52;
             }
 
@@ -2329,16 +2294,16 @@ LABEL_47:
               CLMicroLocationLoiManager::VisitEntry();
             }
 
-            v34 = logObject_MicroLocation_Default;
+            v35 = logObject_MicroLocation_Default;
             if (!os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_INFO))
             {
               goto LABEL_52;
             }
 
             *buf = 0;
-            v35 = "LOI Manager, Not a Home LOI";
-            v36 = v34;
-            v37 = OS_LOG_TYPE_INFO;
+            v36 = "LOI Manager, Not a Home LOI";
+            v37 = v35;
+            v38 = OS_LOG_TYPE_INFO;
             goto LABEL_51;
           }
 
@@ -2410,7 +2375,8 @@ LABEL_22:
       *(this + 55) = v20;
       *(this + 512) = 0;
       memset(buf, 0, 24);
-      CLMicroLocationLoiManager::tryToEnterHomeLoi(this, this + 392, this + 27, buf, &__p);
+      CLMicroLocationLoiManager::tryToEnterHomeLoi(this, &__p, this + 392, this + 27, buf);
+      result = *&__p.__r_.__value_.__l.__data_;
       *a3 = __p;
       *(a3 + 24) = 1;
       if (*buf)
@@ -2446,13 +2412,13 @@ LABEL_22:
       *&__str.__r_.__value_.__l.__data_ = v13;
     }
 
-    v39 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
-    v40 = __str.__r_.__value_.__r.__words[0];
+    v40 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
+    v41 = __str.__r_.__value_.__r.__words[0];
     CLMicroLocationStateMachine::EventBase::getEventName(a2, &__p);
     p_str = &__str;
-    if (v39 < 0)
+    if (v40 < 0)
     {
-      p_str = v40;
+      p_str = v41;
     }
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -2490,39 +2456,39 @@ LABEL_22:
     CLMicroLocationLoiManager::VisitEntry();
   }
 
-  v43 = logObject_MicroLocation_Default;
-  if (os_signpost_enabled(v43))
+  v44 = logObject_MicroLocation_Default;
+  if (os_signpost_enabled(v44))
   {
-    v44 = *(this + 3);
-    if (*(v44 + 31) < 0)
+    v45 = *(this + 3);
+    if (*(v45 + 31) < 0)
     {
-      std::string::__init_copy_ctor_external(&__str, *(v44 + 8), *(v44 + 16));
+      std::string::__init_copy_ctor_external(&__str, *(v45 + 8), *(v45 + 16));
     }
 
     else
     {
-      v45 = *(v44 + 8);
-      __str.__r_.__value_.__r.__words[2] = *(v44 + 24);
-      *&__str.__r_.__value_.__l.__data_ = v45;
+      v46 = *(v45 + 8);
+      __str.__r_.__value_.__r.__words[2] = *(v45 + 24);
+      *&__str.__r_.__value_.__l.__data_ = v46;
     }
 
-    v46 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
-    v47 = __str.__r_.__value_.__r.__words[0];
+    v47 = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
+    v48 = __str.__r_.__value_.__r.__words[0];
     CLMicroLocationStateMachine::EventBase::getEventName(a2, &__p);
-    v48 = &__str;
-    if (v46 < 0)
+    v49 = &__str;
+    if (v47 < 0)
     {
-      v48 = v47;
+      v49 = v48;
     }
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v49 = &__p;
+      v50 = &__p;
     }
 
     else
     {
-      v49 = __p.__r_.__value_.__r.__words[0];
+      v50 = __p.__r_.__value_.__r.__words[0];
     }
 
     *buf = 68289539;
@@ -2530,10 +2496,10 @@ LABEL_22:
     *&buf[8] = 2082;
     *&buf[10] = "";
     *&buf[18] = 2081;
-    *&buf[20] = v48;
+    *&buf[20] = v49;
     v62 = 2081;
-    v63 = v49;
-    _os_signpost_emit_with_name_impl(&dword_258FE9000, v43, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LOI Manager, Got event when not expecting it", "{msg%{public}.0s:LOI Manager, Got event when not expecting it, State:%{private, location:escape_only}s, Event:%{private, location:escape_only}s}", buf, 0x26u);
+    v63 = v50;
+    _os_signpost_emit_with_name_impl(&dword_258FE9000, v44, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LOI Manager, Got event when not expecting it", "{msg%{public}.0s:LOI Manager, Got event when not expecting it, State:%{private, location:escape_only}s, Event:%{private, location:escape_only}s}", buf, 0x26u);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -2545,24 +2511,24 @@ LABEL_22:
     }
   }
 
-  v50 = *(this + 3);
-  if (*(v50 + 31) < 0)
+  v51 = *(this + 3);
+  if (*(v51 + 31) < 0)
   {
-    std::string::__init_copy_ctor_external(buf, *(v50 + 8), *(v50 + 16));
+    std::string::__init_copy_ctor_external(buf, *(v51 + 8), *(v51 + 16));
   }
 
   else
   {
-    v51 = *(v50 + 8);
-    *&buf[16] = *(v50 + 24);
-    *buf = v51;
+    v52 = *(v51 + 8);
+    *&buf[16] = *(v51 + 24);
+    *buf = v52;
   }
 
+  result = *buf;
   *a3 = *buf;
   *(a3 + 16) = *&buf[16];
   *(a3 + 24) = 1;
-LABEL_89:
-  v52 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 void sub_258FEFCA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21)
@@ -2577,7 +2543,7 @@ void sub_258FEFCA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ULSettings::get<ULSettings::OverrideCurrentRTLOIType>(uint64_t a1@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = +[ULDefaultsSingleton shared];
   v3 = [v2 defaultsDictionary];
 
@@ -2585,29 +2551,27 @@ void ULSettings::get<ULSettings::OverrideCurrentRTLOIType>(uint64_t a1@<X8>)
   v5 = [v3 objectForKey:v4];
   if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    ULSettings::convert<NSString * {__strong},std::string>(v5, v9);
-    *a1 = *v9;
-    *(a1 + 16) = *&v9[16];
+    ULSettings::convert<NSString * {__strong},std::string>(v5, v8);
+    *a1 = *v8;
+    *(a1 + 16) = *&v8[16];
   }
 
   else
   {
-    ULSettings::convert<NSString * {__strong},std::string>(&stru_286A60C80, v9);
-    *&v10[7] = *&v9[15];
-    *v10 = *&v9[8];
-    v6 = v9[23];
-    v7 = *&v9[8];
-    *a1 = *v9;
+    ULSettings::convert<NSString * {__strong},std::string>(&stru_286A60C80, v8);
+    *&v9[7] = *&v8[15];
+    *v9 = *&v8[8];
+    v6 = v8[23];
+    v7 = *&v8[8];
+    *a1 = *v8;
     *(a1 + 8) = v7;
-    *(a1 + 15) = *&v10[7];
+    *(a1 + 15) = *&v9[7];
     *(a1 + 23) = v6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = +[ULDefaultsSingleton shared];
   v3 = [v2 defaultsDictionary];
 
@@ -2615,28 +2579,26 @@ void ULSettings::get<ULSettings::OverrideCurrentRTLOIType>(uint64_t a1@<X8>)
   v5 = [v3 objectForKey:v4];
   if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    ULSettings::convert<NSString * {__strong},std::string>(v5, v9);
-    *a1 = *v9;
-    *(a1 + 16) = *&v9[16];
+    ULSettings::convert<NSString * {__strong},std::string>(v5, v8);
+    *a1 = *v8;
+    *(a1 + 16) = *&v8[16];
   }
 
   else
   {
-    ULSettings::convert<NSString * {__strong},std::string>(&stru_286A60C80, v9);
-    *&v10[7] = *&v9[15];
-    *v10 = *&v9[8];
-    v6 = v9[23];
-    v7 = *&v9[8];
-    *a1 = *v9;
+    ULSettings::convert<NSString * {__strong},std::string>(&stru_286A60C80, v8);
+    *&v9[7] = *&v8[15];
+    *v9 = *&v8[8];
+    v6 = v8[23];
+    v7 = *&v8[8];
+    *a1 = *v8;
     *(a1 + 8) = v7;
-    *(a1 + 15) = *&v10[7];
+    *(a1 + 15) = *&v9[7];
     *(a1 + 23) = v6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void ULSettings::convert<NSString * {__strong},std::string>(void *a1@<X0>, _BYTE *a2@<X8>)
+void ULSettings::convert<NSString * {__strong},std::string>(void *a1@<X0>, void *a2@<X8>)
 {
   v6 = a1;
   v3 = [v6 UTF8String];
@@ -2652,13 +2614,13 @@ void ULSettings::convert<NSString * {__strong},std::string>(void *a1@<X0>, _BYTE
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     memmove(a2, v3, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
 }
 
 {
@@ -2686,13 +2648,13 @@ void ULSettings::convert<NSString * {__strong},std::string>(void *a1@<X0>, _BYTE
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     memmove(a2, v3, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
 }
 
 {
@@ -2809,7 +2771,7 @@ std::mersenne_twister_engine<unsigned long long, 64, 312, 156, 31, 1304310990599
 
 void ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(uint64_t a1, uint64_t a2, unint64_t *a3, unint64_t *a4, int a5)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = *a3;
   if (*a3 == *a4)
   {
@@ -2822,13 +2784,13 @@ void ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(uint
   else
   {
     v8 = 0;
-    v32 = 0;
-    v31 = *a1;
+    v31 = 0;
+    v30 = *a1;
     do
     {
       v13 = (a2 + 40 * v7);
-      *a3 = (v7 + 1) % 0xB;
-      if (*(v13 + 7) == a5 && (ULTriggerQueue::isTriggerSuspended(v31, v13) & 1) == 0)
+      *a3 = (v7 + 1) % 0xBuLL;
+      if (*(v13 + 7) == a5 && (ULTriggerQueue::isTriggerSuspended(v30, v13) & 1) == 0)
       {
         v17 = *(a1 + 8);
         v18 = *(v17 + 440);
@@ -2843,7 +2805,7 @@ void ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(uint
           *(v19 + 16) = v21;
         }
 
-        ++v32;
+        ++v31;
       }
 
       else
@@ -2886,7 +2848,7 @@ void ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(uint
       while (v24);
     }
 
-    v9 = v32;
+    v9 = v31;
   }
 
   if (onceToken_MicroLocation_Default != -1)
@@ -2898,19 +2860,17 @@ void ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(uint
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289794;
-    v34 = 0;
-    v35 = 2082;
-    v36 = "";
-    v37 = 2082;
-    v38 = "operator()";
-    v39 = 1026;
-    v40 = v9;
-    v41 = 1026;
-    v42 = v8;
+    v33 = 0;
+    v34 = 2082;
+    v35 = "";
+    v36 = 2082;
+    v37 = "operator()";
+    v38 = 1026;
+    v39 = v9;
+    v40 = 1026;
+    v41 = v8;
     _os_log_impl(&dword_258FE9000, v29, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:sub-queue processing completed, method:%{public, location:escape_only}s, dequeuedCount:%{public}d, invalidCount:%{public}d}", buf, 0x28u);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t virtual thunk toULTriggerEngine::isScanningProfileAvailable(ULTriggerEngine *this, unsigned int a2)
@@ -2925,11 +2885,11 @@ uint64_t virtual thunk toULTriggerEngine::isScanningProfileAvailable(ULTriggerEn
 
 uint64_t ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::handleEvent(uint64_t result, uint64_t *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = (result + 8);
   if (*(result + 8) >= 3uLL)
   {
-    ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::handleEvent((result + 8));
+    ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::handleEvent(result + 8);
   }
 
   if (*a2 >= 6)
@@ -2954,12 +2914,12 @@ LABEL_6:
       v7 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        *v19 = 68289282;
-        *&v19[8] = 2082;
-        *&v19[10] = "";
-        v20 = 2082;
-        v21 = "handleEvent";
-        _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULStateMachine: handling evennt, method:%{public, location:escape_only}s}", v19, 0x1Cu);
+        *v18 = 68289282;
+        *&v18[8] = 2082;
+        *&v18[10] = "";
+        v19 = 2082;
+        v20 = "handleEvent";
+        _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULStateMachine: handling evennt, method:%{public, location:escape_only}s}", v18, 0x1Cu);
       }
 
       (*(*v4 + 32))(v4, *a2, 0);
@@ -2994,22 +2954,22 @@ LABEL_6:
       v15[73] = 0;
       v4[92] = (v14 + 1) % 0xAuLL;
       v4[94] = v13 - 1;
-      *v19 = v16;
-      *&v19[8] = v17;
-      v19[16] = 1;
-      result = ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::handleEvent(v4, v19);
-      if (v19[16])
+      *v18 = v16;
+      *&v18[8] = v17;
+      v18[16] = 1;
+      result = ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::handleEvent(v4, v18);
+      if (v18[16])
       {
-        result = *&v19[8];
-        *&v19[8] = 0;
+        result = *&v18[8];
+        *&v18[8] = 0;
         if (result)
         {
-          result = (*(*result + 8))(result);
+          return (*(*result + 8))(result);
         }
       }
     }
 
-    goto LABEL_32;
+    return result;
   }
 
   result = ULFSMEventQueue<ULTriggerEngineEvent,10ul>::enqueue(result + 576, a2);
@@ -3017,7 +2977,7 @@ LABEL_6:
   {
     if (v4[95])
     {
-      goto LABEL_32;
+      return result;
     }
 
     goto LABEL_6;
@@ -3031,25 +2991,25 @@ LABEL_6:
   v11 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
   {
-    *v19 = 138412290;
-    *&v19[4] = &unk_286A71F58;
-    _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_ERROR, "Event queue has reached the maximum size: %@", v19, 0xCu);
+    *v18 = 138412290;
+    *&v18[4] = &unk_286A71F58;
+    _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_ERROR, "Event queue has reached the maximum size: %@", v18, 0xCu);
   }
 
   v12 = 1;
   do
   {
-    ULFSMEventQueue<ULTriggerEngineEvent,10ul>::operator[]((v4 + 72), v12 - 1, v19);
-    if ((v19[16] & 1) == 0)
+    ULFSMEventQueue<ULTriggerEngineEvent,10ul>::operator[]((v4 + 72), v12 - 1, v18);
+    if ((v18[16] & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    result = (*(*v4 + 32))(v4, *v19, v12);
-    if (v19[16] == 1)
+    result = (*(*v4 + 32))(v4, *v18, v12);
+    if (v18[16] == 1)
     {
-      result = *&v19[8];
-      *&v19[8] = 0;
+      result = *&v18[8];
+      *&v18[8] = 0;
       if (result)
       {
         result = (*(*result + 8))(result);
@@ -3060,8 +3020,6 @@ LABEL_6:
   }
 
   while (v12 != 11);
-LABEL_32:
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3093,7 +3051,7 @@ uint64_t ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngin
 
 void ULTriggerEngineFSM::handleNewTriggerInIdle(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 8);
   if (!v3)
   {
@@ -3114,15 +3072,15 @@ void ULTriggerEngineFSM::handleNewTriggerInIdle(uint64_t a1, uint64_t a2)
     v8 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 68289538;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2082;
-      v21 = "handleNewTriggerInIdle";
-      v22 = 1026;
-      LODWORD(v23) = v7;
-      _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:handleNewTriggerInIdle, method:%{public, location:escape_only}s, hasValidTriggers:%{public}hhd}", &v16, 0x22u);
+      v15 = 68289538;
+      v16 = 0;
+      v17 = 2082;
+      v18 = "";
+      v19 = 2082;
+      v20 = "handleNewTriggerInIdle";
+      v21 = 1026;
+      LODWORD(v22) = v7;
+      _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:handleNewTriggerInIdle, method:%{public, location:escape_only}s, hasValidTriggers:%{public}hhd}", &v15, 0x22u);
     }
 
     if (v7)
@@ -3130,7 +3088,7 @@ void ULTriggerEngineFSM::handleNewTriggerInIdle(uint64_t a1, uint64_t a2)
       (*(**(a1 + 776) + 80))(*(a1 + 776));
     }
 
-    goto LABEL_27;
+    return;
   }
 
   if (v6)
@@ -3144,15 +3102,15 @@ void ULTriggerEngineFSM::handleNewTriggerInIdle(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = (*(**(a2 + 8) + 16))(*(a2 + 8));
-      v16 = 68289538;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2082;
-      v21 = "handleNewTriggerInIdle";
-      v22 = 2050;
-      v23 = v10;
-      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:handleNewTriggerInIdle, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", &v16, 0x26u);
+      v15 = 68289538;
+      v16 = 0;
+      v17 = 2082;
+      v18 = "";
+      v19 = 2082;
+      v20 = "handleNewTriggerInIdle";
+      v21 = 2050;
+      v22 = v10;
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:handleNewTriggerInIdle, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", &v15, 0x26u);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -3164,15 +3122,15 @@ void ULTriggerEngineFSM::handleNewTriggerInIdle(uint64_t a1, uint64_t a2)
     if (os_signpost_enabled(v11))
     {
       v12 = (*(**(a2 + 8) + 16))(*(a2 + 8));
-      v16 = 68289538;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2082;
-      v21 = "handleNewTriggerInIdle";
-      v22 = 2050;
-      v23 = v12;
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleNewTriggerInIdle, unexpected event data", "{msg%{public}.0s:handleNewTriggerInIdle, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", &v16, 0x26u);
+      v15 = 68289538;
+      v16 = 0;
+      v17 = 2082;
+      v18 = "";
+      v19 = 2082;
+      v20 = "handleNewTriggerInIdle";
+      v21 = 2050;
+      v22 = v12;
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleNewTriggerInIdle, unexpected event data", "{msg%{public}.0s:handleNewTriggerInIdle, unexpected event data, method:%{public, location:escape_only}s, data type:%{public}lu}", &v15, 0x26u);
     }
   }
 
@@ -3187,13 +3145,13 @@ LABEL_19:
     v13 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v16 = 68289282;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2082;
-      v21 = "handleNewTriggerInIdle";
-      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:handleNewTriggerInIdle, event data was not specified, method:%{public, location:escape_only}s}", &v16, 0x1Cu);
+      v15 = 68289282;
+      v16 = 0;
+      v17 = 2082;
+      v18 = "";
+      v19 = 2082;
+      v20 = "handleNewTriggerInIdle";
+      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:handleNewTriggerInIdle, event data was not specified, method:%{public, location:escape_only}s}", &v15, 0x1Cu);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -3204,18 +3162,15 @@ LABEL_19:
     v14 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(logObject_MicroLocation_Default))
     {
-      v16 = 68289282;
-      v17 = 0;
-      v18 = 2082;
-      v19 = "";
-      v20 = 2082;
-      v21 = "handleNewTriggerInIdle";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleNewTriggerInIdle, event data was not specified", "{msg%{public}.0s:handleNewTriggerInIdle, event data was not specified, method:%{public, location:escape_only}s}", &v16, 0x1Cu);
+      v15 = 68289282;
+      v16 = 0;
+      v17 = 2082;
+      v18 = "";
+      v19 = 2082;
+      v20 = "handleNewTriggerInIdle";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleNewTriggerInIdle, event data was not specified", "{msg%{public}.0s:handleNewTriggerInIdle, event data was not specified, method:%{public, location:escape_only}s}", &v15, 0x1Cu);
     }
   }
-
-LABEL_27:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULScanningTrigger::description@<X0>(ULScanningTrigger *this@<X0>, _BYTE *a2@<X8>)
@@ -3253,7 +3208,7 @@ uint64_t ULScanningTrigger::description@<X0>(ULScanningTrigger *this@<X0>, _BYTE
   v14 = MEMORY[0x259CA1D90](v13, *(this + 2));
   v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ", ", 2);
   v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "schedulingSettings: ", 20);
-  ULScanTriggerSettings::description((this + 24), __p);
+  ULScanTriggerSettings::description(__p, (this + 24));
   if ((v25 & 0x80u) == 0)
   {
     v17 = __p;
@@ -3344,52 +3299,49 @@ LABEL_30:
   return MEMORY[0x259CA1EE0](&v36);
 }
 
-void sub_258FF1634(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, int a5, __int16 a6, char a7, char a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+void sub_258FF1634(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, int a5, __int16 a6, char a7, char a8, void *__p, void *a10, int a11, __int16 a12, char a13, char a14, char a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  va_start(va, a28);
-  if (a14 < 0)
+  va_start(va, a32);
+  if (SHIBYTE(a18) < 0)
   {
-    operator delete(__p);
+    operator delete(a16);
   }
 
-  std::ostringstream::~ostringstream(&a15, MEMORY[0x277D82828]);
+  std::ostringstream::~ostringstream(&a19, MEMORY[0x277D82828]);
   MEMORY[0x259CA1EE0](va);
   _Unwind_Resume(a1);
 }
 
-void *ULTriggerQueue::removeExpiredTriggers(void *this)
+void ULTriggerQueue::removeExpiredTriggers(ULTriggerQueue *this, uint64_t a2)
 {
-  v1 = this;
-  v2 = this[111];
-  for (i = this[110]; i != v2; v1[110] = i)
+  v3 = *(this + 111);
+  for (i = *(this + 110); i != v3; *(this + 110) = i)
   {
-    this = std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100]((v1 + 114));
-    if (v4 - *&v1[5 * i + 2] <= 28800.0)
+    std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100](this + 912, a2);
+    if (v5 - *(this + 5 * i + 2) <= 28800.0)
     {
       break;
     }
 
-    i = (v1[110] + 1) % 0xBuLL;
+    i = (*(this + 110) + 1) % 0xBuLL;
   }
 
-  v5 = v1[113];
-  for (j = v1[112]; j != v5; v1[112] = j)
+  v6 = *(this + 113);
+  for (j = *(this + 112); j != v6; *(this + 112) = j)
   {
-    this = std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100]((v1 + 114));
-    if (v7 - *&v1[5 * j + 57] <= 28800.0)
+    std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100](this + 912, a2);
+    if (v8 - *(this + 5 * j + 57) <= 28800.0)
     {
       break;
     }
 
-    j = (v1[112] + 1) % 0xBuLL;
+    j = (*(this + 112) + 1) % 0xBuLL;
   }
-
-  return this;
 }
 
 uint64_t ULTriggerQueue::isTriggerSuspended(ULTriggerQueue *this, const ULScanningTrigger *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = std::function<BOOL ()(int)>::operator()(this + 944, *(a2 + 6));
   if (v3)
   {
@@ -3402,19 +3354,18 @@ uint64_t ULTriggerQueue::isTriggerSuspended(ULTriggerQueue *this, const ULScanni
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a2 + 6);
-      v8[0] = 68289538;
-      v8[1] = 0;
-      v9 = 2082;
-      v10 = "";
-      v11 = 2082;
-      v12 = "isTriggerSuspended";
-      v13 = 1026;
-      v14 = v5;
-      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:trigger is suspended, method:%{public, location:escape_only}s, scheduling profile index:%{public}d}", v8, 0x22u);
+      v7[0] = 68289538;
+      v7[1] = 0;
+      v8 = 2082;
+      v9 = "";
+      v10 = 2082;
+      v11 = "isTriggerSuspended";
+      v12 = 1026;
+      v13 = v5;
+      _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:trigger is suspended, method:%{public, location:escape_only}s, scheduling profile index:%{public}d}", v7, 0x22u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -3462,7 +3413,7 @@ uint64_t ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngin
 {
   if (a2 >= 3)
   {
-    ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::enterState();
+    ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::enterState(a2);
   }
 
   v3 = result + 16 * a2;
@@ -3492,7 +3443,7 @@ uint64_t ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngin
 {
   if (a2 >= 3)
   {
-    v8 = ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::exitState();
+    ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngineFSM>::exitState(a2);
   }
 
   else
@@ -3521,11 +3472,11 @@ uint64_t ULStateMachine<ULTriggerEngineState,ULTriggerEngineEvent,ULTriggerEngin
   return result;
 }
 
-void non-virtual thunk toULTriggerEngine::fetchAndDequeueTopPriorityActiveTriggers(ULTriggerEngine *this@<X0>, uint64_t a2@<X8>)
+void non-virtual thunk toULTriggerEngine::fetchAndDequeueTopPriorityActiveTriggers(ULTriggerEngine *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  ULTriggerQueue::removeExpiredTriggers(this + 115);
+  ULTriggerQueue::removeExpiredTriggers((this + 920), a2);
 
-  ULTriggerQueue::dequeueTopPriorityProfilesBatch((this + 920), a2);
+  ULTriggerQueue::dequeueTopPriorityProfilesBatch((this + 920), a3);
 }
 
 void ULTriggerEngineFSM::processSameProfileTopPriorityTriggers(ULTriggerEngineFSM *this)
@@ -3589,23 +3540,23 @@ LABEL_16:
         memset(buf, 0, sizeof(buf));
         ULScanningTrigger::ULScanningTrigger(buf);
         v21 = 0xFFEFFFFFFFFFFFFFLL;
-        v13 = *(this + 840);
-        v14 = *&buf[16];
+        v14 = *(this + 840);
+        v15 = *&buf[16];
         *v3 = *buf;
-        *(this + 50) = v14;
+        *(this + 50) = v15;
         *(this + 51) = *&buf[32];
         *(this + 104) = 0xFFEFFFFFFFFFFFFFLL;
-        if ((v13 & 1) == 0)
+        if ((v14 & 1) == 0)
         {
           *(this + 840) = 1;
         }
 
-        v15 = *(v4 + 1);
+        v16 = *(v4 + 1);
         *v3 = *v4;
-        *(this + 50) = v15;
+        *(this + 50) = v16;
         *(this + 204) = *(v4 + 8);
-        std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100](this + 856);
-        *(this + 104) = v16;
+        std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100](this + 856, v13);
+        *(this + 104) = v17;
         if (((*(**(this + 97) + 32))(*(this + 97), v4) & 1) == 0)
         {
           v2 = 0;
@@ -3618,7 +3569,7 @@ LABEL_22:
       v4 += 5;
       if (v4 == &v18[5 * v19])
       {
-        goto LABEL_23;
+        return;
       }
     }
 
@@ -3644,15 +3595,12 @@ LABEL_22:
     v10 = "{msg%{public}.0s:trigger's scheduling profile is suspended, skip, method:%{public, location:escape_only}s, index:%{public}d}";
     goto LABEL_16;
   }
-
-LABEL_23:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void ULTriggerQueue::dequeueTopPriorityProfilesBatch(ULTriggerQueue *this@<X0>, uint64_t a2@<X8>)
 {
   v4 = 0;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   do
   {
     ULScanningTrigger::ULScanningTrigger((a2 + v4));
@@ -3662,18 +3610,18 @@ void ULTriggerQueue::dequeueTopPriorityProfilesBatch(ULTriggerQueue *this@<X0>, 
   while (v4 != 440);
   v5 = 0;
   *(a2 + 440) = 0;
-  v18 = 0;
+  v17 = 0;
   do
   {
-    ULScanningTrigger::ULScanningTrigger(&v17[v5]);
+    ULScanningTrigger::ULScanningTrigger(&v16[v5]);
     v5 += 40;
   }
 
   while (v5 != 400);
-  v16[0] = this;
-  v16[1] = a2;
-  v16[2] = v17;
-  v16[3] = &v18;
+  v15[0] = this;
+  v15[1] = a2;
+  v15[2] = v16;
+  v15[3] = &v17;
   v6 = *(this + 110);
   v7 = *(this + 111);
   if (v6 == v7)
@@ -3711,14 +3659,14 @@ LABEL_11:
       v12 = *&v11[40 * v9 + 28];
       if (v12 != -1)
       {
-        ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(v16, this + 440, this + 112, this + 113, v12);
+        ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(v15, this + 440, this + 112, this + 113, v12);
       }
     }
   }
 
   else
   {
-    ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(v16, this, this + 110, this + 111, v8);
+    ULTriggerQueue::dequeueTopPriorityProfilesBatch(void)::$_0::operator()(v15, this, this + 110, this + 111, v8);
   }
 
 LABEL_18:
@@ -3732,18 +3680,16 @@ LABEL_18:
   {
     v14 = *(a2 + 440);
     buf = 68289794;
-    v20 = 2082;
-    v21 = "";
-    v22 = 2082;
-    v23 = "dequeueTopPriorityProfilesBatch";
-    v24 = 1026;
-    v25 = v14;
-    v26 = 1026;
-    v27 = v18;
+    v19 = 2082;
+    v20 = "";
+    v21 = 2082;
+    v22 = "dequeueTopPriorityProfilesBatch";
+    v23 = 1026;
+    v24 = v14;
+    v25 = 1026;
+    v26 = v17;
     _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Batch dequeue completed, method:%{public, location:escape_only}s, totalValidTriggers:%{public}d, totalSuspendedOrMismatchedTriggers:%{public}d}", &buf, 0x28u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void ULScanningTrigger::ULScanningTrigger(ULScanningTrigger *this)
@@ -3783,9 +3729,10 @@ uint64_t ULScanService::requestRecordingInternal(uint64_t a1)
   }
 }
 
-BOOL ULTriggerEngine::requestTrigger(void *a1, unsigned int a2, uint64_t a3)
+BOOL ULTriggerEngine::requestTrigger(void *a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v18 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -3794,27 +3741,27 @@ BOOL ULTriggerEngine::requestTrigger(void *a1, unsigned int a2, uint64_t a3)
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 68289538;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "requestTrigger";
-    v17 = 1026;
-    v18 = a2;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:request trigger, method:%{public, location:escape_only}s, profile index:%{public}d}", &v11, 0x22u);
+    v10 = 68289538;
+    v11 = 0;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2082;
+    v15 = "requestTrigger";
+    v16 = 1026;
+    v17 = v4;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:request trigger, method:%{public, location:escape_only}s, profile index:%{public}d}", &v10, 0x22u);
   }
 
-  if (a2 >= 0x14)
+  if (v4 >= 0x14)
   {
     std::__throw_out_of_range[abi:ne200100]("bitset test argument out of range");
   }
 
-  v7 = a1[11] & (1 << a2);
+  v7 = a1[11] & (1 << v4);
   if (v7)
   {
-    ULScanTriggerSettings::ULScanTriggerSettings(&v11, -1, a2, a2 != 0);
-    (*(*a1 + 168))(a1, a3, &v11);
+    ULScanTriggerSettings::ULScanTriggerSettings(&v10, -1, v4, v4 != 0);
+    (*(*a1 + 168))(a1, a3, &v10);
   }
 
   else
@@ -3827,21 +3774,19 @@ BOOL ULTriggerEngine::requestTrigger(void *a1, unsigned int a2, uint64_t a3)
     v8 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 68289538;
-      v12 = 0;
-      v13 = 2082;
-      v14 = "";
-      v15 = 2082;
-      v16 = "requestTrigger";
-      v17 = 1026;
-      v18 = a2;
-      _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:request trigger, requested scanning profile not available, method:%{public, location:escape_only}s, profile index:%{public}d}", &v11, 0x22u);
+      v10 = 68289538;
+      v11 = 0;
+      v12 = 2082;
+      v13 = "";
+      v14 = 2082;
+      v15 = "requestTrigger";
+      v16 = 1026;
+      v17 = v4;
+      _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:request trigger, requested scanning profile not available, method:%{public, location:escape_only}s, profile index:%{public}d}", &v10, 0x22u);
     }
   }
 
-  result = v7 != 0;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 != 0;
 }
 
 uint64_t ULScanTriggerSettings::ULScanTriggerSettings(uint64_t result, int a2, int a3, char a4)
@@ -3863,10 +3808,9 @@ void ULTriggerEngine::createAndHandleScanningTrigger(uint64_t a1, int a2, uint64
   v5 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    ULScanTriggerSettings::description(a3, __p);
+    ULScanTriggerSettings::description(__p, a3);
     v6 = SHIBYTE(__p[2]) >= 0 ? __p : __p[0];
     *buf = 68289794;
-    *&buf[4] = 0;
     *&buf[8] = 2082;
     *&buf[10] = "";
     v22 = 2082;
@@ -3895,7 +3839,7 @@ void ULTriggerEngine::createAndHandleScanningTrigger(uint64_t a1, int a2, uint64
   v14 = ULScanningTriggerBuilder::setSchedulingIndex(v13, *a3);
   v15 = ULScanningTriggerBuilder::setScanningIndex(v14, *(a3 + 4));
   v16 = ULScanningTriggerBuilder::setPriority(v15, *(a3 + 8));
-  ULScanningTriggerBuilder::build(v16, buf);
+  ULScanningTriggerBuilder::build(buf, v16);
   v17 = *(a3 + 4);
   if (v17)
   {
@@ -3941,7 +3885,7 @@ LABEL_19:
   operator new();
 }
 
-uint64_t ULScanTriggerSettings::description@<X0>(ULScanTriggerSettings *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *ULScanTriggerSettings::description@<X0>(uint64_t *__return_ptr a1@<X8>, ULScanTriggerSettings *this@<X0>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v19);
   v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v19, "ULScanTriggerSettings { ", 24);
@@ -3991,7 +3935,7 @@ uint64_t ULScanTriggerSettings::description@<X0>(ULScanTriggerSettings *this@<X0
     if ((v26 & 8) == 0)
     {
       v15 = 0;
-      a2[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_20;
     }
 
@@ -4010,14 +3954,14 @@ uint64_t ULScanTriggerSettings::description@<X0>(ULScanTriggerSettings *this@<X0
     operator new();
   }
 
-  a2[23] = v15;
+  *(a1 + 23) = v15;
   if (v15)
   {
-    memmove(a2, locale, v15);
+    memmove(a1, locale, v15);
   }
 
 LABEL_20:
-  a2[v15] = 0;
+  *(a1 + v15) = 0;
   v19 = *MEMORY[0x277D82828];
   *(&v19 + *(v19 - 24)) = *(MEMORY[0x277D82828] + 24);
   v20 = MEMORY[0x277D82878] + 16;
@@ -4032,11 +3976,11 @@ LABEL_20:
   return MEMORY[0x259CA1EE0](&v27);
 }
 
-void sub_258FF2A30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258FF2A30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
-  MEMORY[0x259CA1EE0](v2 + 112);
+  MEMORY[0x259CA1EE0](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -4168,16 +4112,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -4200,9 +4144,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_258FF2EC4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_258FF2EC4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x259CA1D50](&a10);
+  MEMORY[0x259CA1D50](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -4301,21 +4245,21 @@ void *ULRandomGenerator::instance(ULRandomGenerator *this)
   return &ULRandomGenerator::instance(void)::instance;
 }
 
-uint64_t ULScanningTriggerBuilder::build@<X0>(ULScanningTriggerBuilder *this@<X0>, uint64_t a2@<X8>)
+uint64_t *ULScanningTriggerBuilder::build@<X0>(uint64_t *__return_ptr a1@<X8>, ULScanningTriggerBuilder *this@<X0>)
 {
   v3 = *this;
   v4 = *(this + 4);
   v5 = *(this + 2);
-  result = ULScanTriggerSettings::ULScanTriggerSettings(a2 + 24, *(this + 6), *(this + 7), *(this + 32));
-  *a2 = v3;
-  *(a2 + 8) = v4;
-  *(a2 + 16) = v5;
+  result = ULScanTriggerSettings::ULScanTriggerSettings((a1 + 3), *(this + 6), *(this + 7), *(this + 32));
+  *a1 = v3;
+  *(a1 + 4) = v4;
+  a1[2] = v5;
   return result;
 }
 
 void ULTriggerEngineFSM::printEvent(uint64_t a1, uint64_t a2, int a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2 <= 2)
   {
     switch(a2)
@@ -4329,19 +4273,19 @@ void ULTriggerEngineFSM::printEvent(uint64_t a1, uint64_t a2, int a3)
         v4 = logObject_MicroLocation_Default;
         if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = 68289538;
-          v8 = 0;
-          v9 = 2082;
-          v10 = "";
-          v11 = 2082;
-          v12 = "printEvent";
-          v13 = 1026;
-          v14 = a3;
+          v6 = 68289538;
+          v7 = 0;
+          v8 = 2082;
+          v9 = "";
+          v10 = 2082;
+          v11 = "printEvent";
+          v12 = 1026;
+          v13 = a3;
           v5 = "{msg%{public}.0s:ULTriggerEngineFSM: Event type is NewTrigger , method:%{public, location:escape_only}s, event number:%{public}d}";
           goto LABEL_36;
         }
 
-        goto LABEL_37;
+        return;
       case 1:
         if (onceToken_MicroLocation_Default != -1)
         {
@@ -4351,19 +4295,19 @@ void ULTriggerEngineFSM::printEvent(uint64_t a1, uint64_t a2, int a3)
         v4 = logObject_MicroLocation_Default;
         if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = 68289538;
-          v8 = 0;
-          v9 = 2082;
-          v10 = "";
-          v11 = 2082;
-          v12 = "printEvent";
-          v13 = 1026;
-          v14 = a3;
+          v6 = 68289538;
+          v7 = 0;
+          v8 = 2082;
+          v9 = "";
+          v10 = 2082;
+          v11 = "printEvent";
+          v12 = 1026;
+          v13 = a3;
           v5 = "{msg%{public}.0s:ULTriggerEngineFSM: Event type is PendingTriggersUnsuspended , method:%{public, location:escape_only}s, event number:%{public}d}";
           goto LABEL_36;
         }
 
-        goto LABEL_37;
+        return;
       case 2:
         if (onceToken_MicroLocation_Default != -1)
         {
@@ -4373,21 +4317,21 @@ void ULTriggerEngineFSM::printEvent(uint64_t a1, uint64_t a2, int a3)
         v4 = logObject_MicroLocation_Default;
         if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = 68289538;
-          v8 = 0;
-          v9 = 2082;
-          v10 = "";
-          v11 = 2082;
-          v12 = "printEvent";
-          v13 = 1026;
-          v14 = a3;
+          v6 = 68289538;
+          v7 = 0;
+          v8 = 2082;
+          v9 = "";
+          v10 = 2082;
+          v11 = "printEvent";
+          v12 = 1026;
+          v13 = a3;
           v5 = "{msg%{public}.0s:ULTriggerEngineFSM: Event type is ScanCompleted , method:%{public, location:escape_only}s, event number:%{public}d}";
 LABEL_36:
-          _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, v5, &v7, 0x22u);
-          goto LABEL_37;
+          _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, v5, &v6, 0x22u);
+          return;
         }
 
-        goto LABEL_37;
+        return;
     }
 
 LABEL_24:
@@ -4399,19 +4343,19 @@ LABEL_24:
     v4 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 68289538;
-      v8 = 0;
-      v9 = 2082;
-      v10 = "";
-      v11 = 2082;
-      v12 = "printEvent";
-      v13 = 1026;
-      v14 = a3;
+      v6 = 68289538;
+      v7 = 0;
+      v8 = 2082;
+      v9 = "";
+      v10 = 2082;
+      v11 = "printEvent";
+      v12 = 1026;
+      v13 = a3;
       v5 = "{msg%{public}.0s:ULTriggerEngineFSM: Event type is not valid , method:%{public, location:escape_only}s, event number:%{public}d}";
       goto LABEL_36;
     }
 
-    goto LABEL_37;
+    return;
   }
 
   if (a2 == 3)
@@ -4424,19 +4368,19 @@ LABEL_24:
     v4 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 68289538;
-      v8 = 0;
-      v9 = 2082;
-      v10 = "";
-      v11 = 2082;
-      v12 = "printEvent";
-      v13 = 1026;
-      v14 = a3;
+      v6 = 68289538;
+      v7 = 0;
+      v8 = 2082;
+      v9 = "";
+      v10 = 2082;
+      v11 = "printEvent";
+      v12 = 1026;
+      v13 = a3;
       v5 = "{msg%{public}.0s:ULTriggerEngineFSM: Event type is ScanAborted , method:%{public, location:escape_only}s, event number:%{public}d}";
       goto LABEL_36;
     }
 
-    goto LABEL_37;
+    return;
   }
 
   if (a2 == 4)
@@ -4449,19 +4393,19 @@ LABEL_24:
     v4 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 68289538;
-      v8 = 0;
-      v9 = 2082;
-      v10 = "";
-      v11 = 2082;
-      v12 = "printEvent";
-      v13 = 1026;
-      v14 = a3;
+      v6 = 68289538;
+      v7 = 0;
+      v8 = 2082;
+      v9 = "";
+      v10 = 2082;
+      v11 = "printEvent";
+      v12 = 1026;
+      v13 = a3;
       v5 = "{msg%{public}.0s:ULTriggerEngineFSM: Event type is ValidTriggerAvailable , method:%{public, location:escape_only}s, event number:%{public}d}";
       goto LABEL_36;
     }
 
-    goto LABEL_37;
+    return;
   }
 
   if (a2 != 5)
@@ -4477,25 +4421,22 @@ LABEL_24:
   v4 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 68289538;
-    v8 = 0;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2082;
-    v12 = "printEvent";
-    v13 = 1026;
-    v14 = a3;
+    v6 = 68289538;
+    v7 = 0;
+    v8 = 2082;
+    v9 = "";
+    v10 = 2082;
+    v11 = "printEvent";
+    v12 = 1026;
+    v13 = a3;
     v5 = "{msg%{public}.0s:ULTriggerEngineFSM: Event type is ThrottleCompleted , method:%{public, location:escape_only}s, event number:%{public}d}";
     goto LABEL_36;
   }
-
-LABEL_37:
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULTriggerEngine::enqueueScanningTrigger(ULTriggerEngine *this, const ULScanningTrigger *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -4505,7 +4446,7 @@ uint64_t ULTriggerEngine::enqueueScanningTrigger(ULTriggerEngine *this, const UL
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     ULScanningTrigger::description(a2, __p);
-    if (v9 >= 0)
+    if (v8 >= 0)
     {
       v5 = __p;
     }
@@ -4516,23 +4457,21 @@ uint64_t ULTriggerEngine::enqueueScanningTrigger(ULTriggerEngine *this, const UL
     }
 
     *buf = 68289538;
-    v11 = 0;
-    v12 = 2082;
-    v13 = "";
-    v14 = 2082;
-    v15 = "enqueueScanningTrigger";
-    v16 = 2082;
-    v17 = v5;
+    v10 = 0;
+    v11 = 2082;
+    v12 = "";
+    v13 = 2082;
+    v14 = "enqueueScanningTrigger";
+    v15 = 2082;
+    v16 = v5;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:enqueue a scan trigger, method:%{public, location:escape_only}s, trigger:%{public, location:escape_only}s}", buf, 0x26u);
-    if (v9 < 0)
+    if (v8 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  result = ULTriggerQueue::enqueueScanningTrigger((this + 944), a2);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return ULTriggerQueue::enqueueScanningTrigger((this + 944), a2);
 }
 
 uint64_t ULTriggerQueue::enqueueScanningTrigger(ULTriggerQueue *this, const ULScanningTrigger *a2)
@@ -4578,27 +4517,27 @@ LABEL_6:
   return 1;
 }
 
-uint64_t std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100](uint64_t a1)
+uint64_t std::__function::__value_func<std::chrono::time_point<cl::chrono::CFAbsoluteTimeClock,std::chrono::duration<long double,std::ratio<1l,1l>>> ()(void)>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 24);
-  if (!v2)
+  v3 = *(a1 + 24);
+  if (!v3)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v3 = *(*v2 + 48);
+  v4 = *(*v3 + 48);
 
-  return v3();
+  return v4();
 }
 
-uint64_t non-virtual thunk toULTriggerEngine::hasTopPriorityActiveTriggers(ULTriggerEngine *this)
+uint64_t non-virtual thunk toULTriggerEngine::hasTopPriorityActiveTriggers(ULTriggerEngine *this, uint64_t a2)
 {
-  ULTriggerQueue::removeExpiredTriggers(this + 116);
+  ULTriggerQueue::removeExpiredTriggers((this + 928), a2);
 
   return ULTriggerQueue::hasTopPriorityActiveTriggers((this + 928));
 }
 
-uint64_t std::function<BOOL ()(int)>::operator()(uint64_t a1, int a2)
+uint64_t std::function<BOOL ()(int)>::operator()(uint64_t a1, uint64_t a2)
 {
   v4 = a2;
   v2 = *(a1 + 24);
@@ -4610,7 +4549,7 @@ uint64_t std::function<BOOL ()(int)>::operator()(uint64_t a1, int a2)
   return (*(*v2 + 48))(v2, &v4);
 }
 
-uint64_t ULSchedulingProfileManager::isProfileSuspended(ULSchedulingProfileManager *this, unsigned int a2)
+uint64_t ULSchedulingProfileManager::isProfileSuspended(ULSchedulingProfileManager *this, uint64_t a2)
 {
   if (a2 == -1)
   {
@@ -4624,8 +4563,8 @@ uint64_t ULSchedulingProfileManager::isProfileSuspended(ULSchedulingProfileManag
     return v2 & 1;
   }
 
-  isProfileSuspended = ULSchedulingProfileManager::isProfileSuspended();
-  return std::__function::__func<ULTriggerEngine::ULTriggerEngine(void)::$_1,std::allocator<ULTriggerEngine::ULTriggerEngine(void)::$_1>,BOOL ()(int)>::operator()(isProfileSuspended);
+  ULSchedulingProfileManager::isProfileSuspended(a2);
+  return std::__function::__func<ULTriggerEngine::ULTriggerEngine(void)::$_1,std::allocator<ULTriggerEngine::ULTriggerEngine(void)::$_1>,BOOL ()(int)>::operator()(v4, v5);
 }
 
 uint64_t std::__function::__func<ULTriggerEngine::ULTriggerEngine(void)::$_1,std::allocator<ULTriggerEngine::ULTriggerEngine(void)::$_1>,BOOL ()(int)>::operator()(uint64_t a1, _DWORD *a2)
@@ -4653,11 +4592,11 @@ uint64_t ULTriggerEngine::handleAdditionalTriggers(ULTriggerEngine *this)
   return result;
 }
 
-void sub_258FF3A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_258FF3A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    ULTriggerEngine::handleScanAborted(a10);
+    ULTriggerEngine::handleScanAborted();
   }
 
   _Unwind_Resume(exception_object);
@@ -4665,7 +4604,7 @@ void sub_258FF3A34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL ULFSMEventQueue<ULTriggerEngineEvent,10ul>::enqueue(uint64_t a1, uint64_t *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 176);
   if (v2 >= 0xA)
   {
@@ -4677,13 +4616,13 @@ BOOL ULFSMEventQueue<ULTriggerEngineEvent,10ul>::enqueue(uint64_t a1, uint64_t *
     v10 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v14 = 68289282;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "enqueue";
-      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Event queue overflow, can not enqueue event, method:%{public, location:escape_only}s}", &v14, 0x1Cu);
+      v13 = 68289282;
+      v14 = 0;
+      v15 = 2082;
+      v16 = "";
+      v17 = 2082;
+      v18 = "enqueue";
+      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Event queue overflow, can not enqueue event, method:%{public, location:escape_only}s}", &v13, 0x1Cu);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -4694,13 +4633,13 @@ BOOL ULFSMEventQueue<ULTriggerEngineEvent,10ul>::enqueue(uint64_t a1, uint64_t *
     v11 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(logObject_MicroLocation_Default))
     {
-      v14 = 68289282;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "enqueue";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Event queue overflow, can not enqueue event", "{msg%{public}.0s:Event queue overflow, can not enqueue event, method:%{public, location:escape_only}s}", &v14, 0x1Cu);
+      v13 = 68289282;
+      v14 = 0;
+      v15 = 2082;
+      v16 = "";
+      v17 = 2082;
+      v18 = "enqueue";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Event queue overflow, can not enqueue event", "{msg%{public}.0s:Event queue overflow, can not enqueue event, method:%{public, location:escape_only}s}", &v13, 0x1Cu);
     }
   }
 
@@ -4730,14 +4669,12 @@ BOOL ULFSMEventQueue<ULTriggerEngineEvent,10ul>::enqueue(uint64_t a1, uint64_t *
     *(a1 + 176) = v9 + 1;
   }
 
-  result = v2 < 0xA;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 < 0xA;
 }
 
 void ULTriggerEngineFSM::printState(uint64_t a1, unint64_t a2, unint64_t a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngineFSM::handleNewTriggerInIdle();
@@ -4756,11 +4693,11 @@ void ULTriggerEngineFSM::printState(uint64_t a1, unint64_t a2, unint64_t a3)
       v6 = off_2798D4DE8[a2];
     }
 
-    v7 = v13;
-    std::string::basic_string[abi:ne200100]<0>(v13, v6);
-    if (v14 < 0)
+    v7 = v12;
+    std::string::basic_string[abi:ne200100]<0>(v12, v6);
+    if (v13 < 0)
     {
-      v7 = v13[0];
+      v7 = v12[0];
     }
 
     if (a3 > 2)
@@ -4774,7 +4711,7 @@ void ULTriggerEngineFSM::printState(uint64_t a1, unint64_t a2, unint64_t a3)
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, v8);
-    if (v12 >= 0)
+    if (v11 >= 0)
     {
       v9 = __p;
     }
@@ -4785,28 +4722,26 @@ void ULTriggerEngineFSM::printState(uint64_t a1, unint64_t a2, unint64_t a3)
     }
 
     *buf = 68289794;
-    v16 = 0;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2082;
-    v20 = "printState";
-    v21 = 2082;
-    v22 = v7;
-    v23 = 2082;
-    v24 = v9;
+    v15 = 0;
+    v16 = 2082;
+    v17 = "";
+    v18 = 2082;
+    v19 = "printState";
+    v20 = 2082;
+    v21 = v7;
+    v22 = 2082;
+    v23 = v9;
     _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULStateMachine:, method:%{public, location:escape_only}s, exiting from state:%{public, location:escape_only}s, entering to state :%{public, location:escape_only}s}", buf, 0x30u);
-    if (v12 < 0)
+    if (v11 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v14 < 0)
+    if (v13 < 0)
     {
-      operator delete(v13[0]);
+      operator delete(v12[0]);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_258FF3DF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -4821,7 +4756,7 @@ void sub_258FF3DF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL ULTriggerEngine::requestScan(ULTriggerEngine *this, const ULScanningTrigger *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULTriggerEngine::setDependencies();
@@ -4831,17 +4766,17 @@ BOOL ULTriggerEngine::requestScan(ULTriggerEngine *this, const ULScanningTrigger
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     ULScanningTrigger::description(a2, __p);
-    v5 = v10 >= 0 ? __p : __p[0];
+    v5 = v9 >= 0 ? __p : __p[0];
     *buf = 68289538;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "requestScan";
-    v17 = 2082;
-    v18 = v5;
+    v11 = 0;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2082;
+    v15 = "requestScan";
+    v16 = 2082;
+    v17 = v5;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:request scan with trigger, method:%{public, location:escape_only}s, trigger:%{public, location:escape_only}s}", buf, 0x26u);
-    if (v10 < 0)
+    if (v9 < 0)
     {
       operator delete(__p[0]);
     }
@@ -4854,14 +4789,12 @@ BOOL ULTriggerEngine::requestScan(ULTriggerEngine *this, const ULScanningTrigger
     ULTriggerEngine::handleScanAborted(this);
   }
 
-  result = v6 != -1;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 != -1;
 }
 
 uint64_t ULSensorsManager::initiateScanRequestByTrigger(ULSensorsManager *this, const ULScanningTrigger *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!ULSensorsManager::isExecutionSchemeCompleted(this))
   {
     goto LABEL_9;
@@ -4899,10 +4832,10 @@ LABEL_9:
       v8 = *a2;
       *buf = 68289282;
       *&buf[4] = 0;
-      v22 = 2082;
-      v23 = "";
-      v24 = 2050;
-      v25 = v8;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2050;
+      v24 = v8;
       _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Error: new scan request while current scan still running, Trigger id::%{public}lu}", buf, 0x1Cu);
     }
 
@@ -4917,26 +4850,24 @@ LABEL_9:
       v10 = *a2;
       *buf = 68289282;
       *&buf[4] = 0;
-      v22 = 2082;
-      v23 = "";
-      v24 = 2050;
-      v25 = v10;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2050;
+      v24 = v10;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Error: new scan request while current scan still running", "{msg%{public}.0s:Error: new scan request while current scan still running, Trigger id::%{public}lu}", buf, 0x1Cu);
     }
 
-    goto LABEL_17;
+    return 0xFFFFFFFFLL;
   }
 
-  v13 = *a2;
-  v14 = *(a2 + 1);
+  v12 = *a2;
+  v13 = *(a2 + 1);
   *(this + 476) = *(a2 + 8);
-  *(this + 118) = v14;
-  *(this + 117) = v13;
+  *(this + 118) = v13;
+  *(this + 117) = v12;
   if (!ULSensorsManager::buildExecutionScheme(this, *(a2 + 7)))
   {
-LABEL_17:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_18;
+    return 0xFFFFFFFFLL;
   }
 
   ++*(this + 490);
@@ -4946,24 +4877,24 @@ LABEL_17:
     ULSensorsManager::ULSensorsManager();
   }
 
-  v15 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v14 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     ULScanningTrigger::description(a2, __p);
-    v16 = v20 >= 0 ? __p : __p[0];
-    v17 = *(this + 490);
+    v15 = v19 >= 0 ? __p : __p[0];
+    v16 = *(this + 490);
     *buf = 68289794;
     *&buf[4] = 0;
-    v22 = 2082;
-    v23 = "";
-    v24 = 2082;
-    v25 = "initiateScanRequestByTrigger";
-    v26 = 2082;
-    v27 = v16;
-    v28 = 1026;
-    v29 = v17;
-    _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Got scan request with trigger, method:%{public, location:escape_only}s, trigger:%{public, location:escape_only}s, scanRequestIndex:%{public}d}", buf, 0x2Cu);
-    if (v20 < 0)
+    v21 = 2082;
+    v22 = "";
+    v23 = 2082;
+    v24 = "initiateScanRequestByTrigger";
+    v25 = 2082;
+    v26 = v15;
+    v27 = 1026;
+    v28 = v16;
+    _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Got scan request with trigger, method:%{public, location:escape_only}s, trigger:%{public, location:escape_only}s, scanRequestIndex:%{public}d}", buf, 0x2Cu);
+    if (v19 < 0)
     {
       operator delete(__p[0]);
     }
@@ -4971,24 +4902,21 @@ LABEL_17:
 
   if (*(this + 8 * *(this + 1944) + 1912))
   {
-    v18 = *(this + 7);
+    v17 = *(this + 7);
     *buf = cl::chrono::CFAbsoluteTimeClock::now();
-    (*(*v18 + 32))(v18, buf, a2);
-    if ((ULSensorsManager::executeNextScanIteration(this) & 1) == 0)
+    (*(*v17 + 32))(v17, buf, a2);
+    if (!ULSensorsManager::executeNextScanIteration(this))
     {
       ULSensorsManager::handleScanComplete(this, 1);
     }
   }
 
-  result = *(this + 490);
-LABEL_18:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(this + 490);
 }
 
 BOOL ULSensorsManager::buildExecutionScheme(ULSensorsManager *this, int a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = *(this + 232);
   if (!v3)
   {
@@ -5034,10 +4962,10 @@ LABEL_5:
       *&buf[28] = 2050;
       *&buf[30] = v12;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Scan Profile not valid", "{msg%{public}.0s:Scan Profile not valid, Scan Profile index:%{public}lu, Trigger id:%{public}lu}", buf, 0x26u);
-      result = 0;
+      return 0;
     }
 
-    goto LABEL_24;
+    return result;
   }
 
   v4 = (this + 1912);
@@ -5053,12 +4981,12 @@ LABEL_5:
 
   v13 = v5[3];
   *&buf[32] = v5[2];
-  v26 = v13;
-  v27 = v5[4];
+  v25 = v13;
+  v26 = v5[4];
   v14 = v5[1];
   *buf = *v5;
   *&buf[16] = v14;
-  v28 = 1;
+  v27 = 1;
   *(this + 1944) = 0;
   *(this + 1964) = 0;
   *(this + 239) = 6;
@@ -5069,19 +4997,19 @@ LABEL_5:
   *(this + 1964) = ULScanningProfile::numWiFiScan(buf);
   while (1)
   {
-    if ((v28 & 1) == 0)
+    if ((v27 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    ULScanningProfile::getTechnologyConfig(buf, v16, &v22);
-    if ((v24 & 1) == 0)
+    ULScanningProfile::getTechnologyConfig(buf, v16, &v21);
+    if ((v23 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v15 |= v23 << v16;
-    if (v23 != 1)
+    v15 |= v22 << v16;
+    if (v22 != 1)
     {
       goto LABEL_21;
     }
@@ -5129,14 +5057,12 @@ LABEL_22:
     *(this + 1944) = 1;
   }
 
-LABEL_24:
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL ULSensorsManager::isExecutionSchemeCompleted(ULSensorsManager *this)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsManager::ULSensorsManager();
@@ -5147,14 +5073,14 @@ BOOL ULSensorsManager::isExecutionSchemeCompleted(ULSensorsManager *this)
   {
     v3 = 0;
     v4 = *(this + 1944);
-    v13 = 8;
+    v12 = 8;
     strcpy(__p, "00000000");
     v5 = 7;
     do
     {
       if ((*(this + v4 + 239) >> v3))
       {
-        if (v13 >= 0)
+        if (v12 >= 0)
         {
           v6 = __p;
         }
@@ -5174,37 +5100,35 @@ BOOL ULSensorsManager::isExecutionSchemeCompleted(ULSensorsManager *this)
     while (v3 != 8);
     v7 = v4 != 0;
     v8 = __p;
-    if (v13 < 0)
+    if (v12 < 0)
     {
       v8 = __p[0];
     }
 
     *buf = 68289794;
-    v15 = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 2082;
-    v19 = "isExecutionSchemeCompleted";
-    v20 = 1026;
-    v21 = v7;
-    v22 = 2082;
-    v23 = v8;
+    v14 = 0;
+    v15 = 2082;
+    v16 = "";
+    v17 = 2082;
+    v18 = "isExecutionSchemeCompleted";
+    v19 = 1026;
+    v20 = v7;
+    v21 = 2082;
+    v22 = v8;
     _os_log_impl(&dword_258FE9000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Check execution status, method:%{public, location:escape_only}s, executionIndex:%{public}hhd, current startegy::%{public, location:escape_only}s}", buf, 0x2Cu);
-    if (v13 < 0)
+    if (v12 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   v9 = *(this + 1944);
-  result = v9 == 4 || *(this + 8 * v9 + 1912) == 0;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9 == 4 || *(this + 8 * v9 + 1912) == 0;
 }
 
 void ULScanningProfile::getTechnologyConfig(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a2 > 2)
   {
     if (onceToken_MicroLocation_Default != -1)
@@ -5215,17 +5139,17 @@ void ULScanningProfile::getTechnologyConfig(uint64_t a1@<X0>, unint64_t a2@<X1>,
     v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v10 = 68289794;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "getTechnologyConfig";
-      v16 = 2050;
-      v17 = a2;
-      v18 = 2050;
-      v19 = 3;
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:getTechnologyConfig, method:%{public, location:escape_only}s, get index:%{public}lu, number of scan configs:%{public}lu}", &v10, 0x30u);
+      v9 = 68289794;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "getTechnologyConfig";
+      v15 = 2050;
+      v16 = a2;
+      v17 = 2050;
+      v18 = 3;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:getTechnologyConfig, method:%{public, location:escape_only}s, get index:%{public}lu, number of scan configs:%{public}lu}", &v9, 0x30u);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -5236,17 +5160,17 @@ void ULScanningProfile::getTechnologyConfig(uint64_t a1@<X0>, unint64_t a2@<X1>,
     v8 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(logObject_MicroLocation_Default))
     {
-      v10 = 68289794;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2082;
-      v15 = "getTechnologyConfig";
-      v16 = 2050;
-      v17 = a2;
-      v18 = 2050;
-      v19 = 3;
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "getTechnologyConfig", "{msg%{public}.0s:getTechnologyConfig, method:%{public, location:escape_only}s, get index:%{public}lu, number of scan configs:%{public}lu}", &v10, 0x30u);
+      v9 = 68289794;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2082;
+      v14 = "getTechnologyConfig";
+      v15 = 2050;
+      v16 = a2;
+      v17 = 2050;
+      v18 = 3;
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "getTechnologyConfig", "{msg%{public}.0s:getTechnologyConfig, method:%{public, location:escape_only}s, get index:%{public}lu, number of scan configs:%{public}lu}", &v9, 0x30u);
     }
 
     v6 = 0;
@@ -5262,12 +5186,11 @@ void ULScanningProfile::getTechnologyConfig(uint64_t a1@<X0>, unint64_t a2@<X1>,
   }
 
   *(a3 + 24) = v6;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsDataProvider::onScanStart(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsDataProvider::onBleRssiMeasurement();
@@ -5276,23 +5199,21 @@ uint64_t ULSensorsDataProvider::onScanStart(uint64_t a1, uint64_t a2, uint64_t a
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
   {
-    v9[0] = 68289282;
-    v9[1] = 0;
-    v10 = 2082;
-    v11 = "";
-    v12 = 2082;
-    v13 = "onScanStart";
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Scan Start, method:%{public, location:escape_only}s}", v9, 0x1Cu);
+    v8[0] = 68289282;
+    v8[1] = 0;
+    v9 = 2082;
+    v10 = "";
+    v11 = 2082;
+    v12 = "onScanStart";
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Scan Start, method:%{public, location:escape_only}s}", v8, 0x1Cu);
   }
 
-  result = (*(**(a1 + 56) + 40))(*(a1 + 56), a2, a3);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(**(a1 + 56) + 40))(*(a1 + 56), a2, a3);
 }
 
 void ULSensorsDataHandler::onScanStartTrigger(uint64_t a1, double *a2, ULScanningTrigger *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     _CLLogObjectForCategory_MicroLocation_Default();
@@ -5303,7 +5224,7 @@ void ULSensorsDataHandler::onScanStartTrigger(uint64_t a1, double *a2, ULScannin
   {
     v7 = *a2;
     ULScanningTrigger::description(a3, __p);
-    if (v11 >= 0)
+    if (v10 >= 0)
     {
       v8 = __p;
     }
@@ -5314,17 +5235,17 @@ void ULSensorsDataHandler::onScanStartTrigger(uint64_t a1, double *a2, ULScannin
     }
 
     *buf = 68289794;
-    v13 = 0;
-    v14 = 2082;
-    v15 = "";
-    v16 = 2082;
-    v17 = "onScanStartTrigger";
-    v18 = 2050;
-    v19 = v7;
-    v20 = 2082;
-    v21 = v8;
+    v12 = 0;
+    v13 = 2082;
+    v14 = "";
+    v15 = 2082;
+    v16 = "onScanStartTrigger";
+    v17 = 2050;
+    v18 = v7;
+    v19 = 2082;
+    v20 = v8;
     _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Scan Start, method:%{public, location:escape_only}s, timestamp::%{public}.5f, Trigger::%{public, location:escape_only}s}", buf, 0x30u);
-    if (v11 < 0)
+    if (v10 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5333,14 +5254,13 @@ void ULSensorsDataHandler::onScanStartTrigger(uint64_t a1, double *a2, ULScannin
   *(a1 + 304) = *(a3 + 7);
   ULSensorsDataHandler::State::setScanStartTS(a1 + 280, *a2);
   ULSensorsDataHandler::State::addTriggerToScan((a1 + 280), a3);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSensorsDataHandler::State::setScanStartTS(uint64_t result, double a2)
 {
   if (*(result + 28) == 1)
   {
-    ULSensorsDataHandler::State::setScanStartTS((result + 16));
+    ULSensorsDataHandler::State::setScanStartTS(result + 16);
   }
 
   *(result + 16) = a2;
@@ -5417,9 +5337,9 @@ void ULSensorsDataHandler::State::addTriggerToScan(ULSensorsDataHandler::State *
   *(this + 5) = v8;
 }
 
-uint64_t ULSensorsManager::executeNextScanIteration(ULSensorsManager *this)
+BOOL ULSensorsManager::executeNextScanIteration(ULSensorsManager *this)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = *(this + 232);
   if (v3)
   {
@@ -5438,78 +5358,78 @@ uint64_t ULSensorsManager::executeNextScanIteration(ULSensorsManager *this)
   else
   {
 LABEL_5:
-    v5 = _CLLogObjectForCategory_MicroLocation_Default();
+    v5 = _CLLogObjectForCategory_MicroLocation_Default(this);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       v6 = *(this + 475);
       v7 = *(this + 234);
       buf = 68290051;
-      v44 = 2082;
-      v45 = "";
-      v46 = 2050;
-      v47 = v6;
-      v48 = 2050;
-      v49 = v7;
-      v50 = 2082;
-      v51 = "assert";
-      v52 = 2081;
-      v53 = "scanProfile.has_value()";
+      v45 = 2082;
+      v46 = "";
+      v47 = 2050;
+      v48 = v6;
+      v49 = 2050;
+      v50 = v7;
+      v51 = 2082;
+      v52 = "assert";
+      v53 = 2081;
+      v54 = "scanProfile.has_value()";
       _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Scan Profile not valid, Scan Profile index:%{public}lu, Trigger id:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x3Au);
     }
 
-    v8 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v8))
+    v9 = _CLLogObjectForCategory_MicroLocation_Default(v8);
+    if (os_signpost_enabled(v9))
     {
-      v9 = *(this + 475);
-      v10 = *(this + 234);
+      v10 = *(this + 475);
+      v11 = *(this + 234);
       buf = 68290051;
-      v44 = 2082;
-      v45 = "";
-      v46 = 2050;
-      v47 = v9;
-      v48 = 2050;
-      v49 = v10;
-      v50 = 2082;
-      v51 = "assert";
-      v52 = 2081;
-      v53 = "scanProfile.has_value()";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Scan Profile not valid", "{msg%{public}.0s:Scan Profile not valid, Scan Profile index:%{public}lu, Trigger id:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x3Au);
+      v45 = 2082;
+      v46 = "";
+      v47 = 2050;
+      v48 = v10;
+      v49 = 2050;
+      v50 = v11;
+      v51 = 2082;
+      v52 = "assert";
+      v53 = 2081;
+      v54 = "scanProfile.has_value()";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Scan Profile not valid", "{msg%{public}.0s:Scan Profile not valid, Scan Profile index:%{public}lu, Trigger id:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x3Au);
     }
 
-    v11 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = _CLLogObjectForCategory_MicroLocation_Default(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v12 = *(this + 475);
-      v13 = *(this + 234);
+      v14 = *(this + 475);
+      v15 = *(this + 234);
       buf = 68290051;
-      v44 = 2082;
-      v45 = "";
-      v46 = 2050;
-      v47 = v12;
-      v48 = 2050;
-      v49 = v13;
-      v50 = 2082;
-      v51 = "assert";
-      v52 = 2081;
-      v53 = "scanProfile.has_value()";
-      _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Scan Profile not valid, Scan Profile index:%{public}lu, Trigger id:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x3Au);
+      v45 = 2082;
+      v46 = "";
+      v47 = 2050;
+      v48 = v14;
+      v49 = 2050;
+      v50 = v15;
+      v51 = 2082;
+      v52 = "assert";
+      v53 = 2081;
+      v54 = "scanProfile.has_value()";
+      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Scan Profile not valid, Scan Profile index:%{public}lu, Trigger id:%{public}lu, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x3Au);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/ScanService/ULSensorsManager.mm", 428, "executeNextScanIteration");
     __break(1u);
   }
 
-  v14 = v4[3];
-  v41[2] = v4[2];
-  v41[3] = v14;
-  v41[4] = v4[4];
-  v15 = v4[1];
-  v41[0] = *v4;
-  v41[1] = v15;
-  v42 = 1;
+  v16 = v4[3];
+  v42[2] = v4[2];
+  v42[3] = v16;
+  v42[4] = v4[4];
+  v17 = v4[1];
+  v42[0] = *v4;
+  v42[1] = v17;
+  v43 = 1;
   if (!v1 || (*(this + 1976) & 1) != 0)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   if (onceToken_MicroLocation_Default != -1)
@@ -5517,50 +5437,50 @@ LABEL_5:
     ULSensorsManager::ULSensorsManager();
   }
 
-  v17 = logObject_MicroLocation_Default;
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 0;
-    HIBYTE(v40) = 8;
+    v20 = 0;
+    HIBYTE(v41) = 8;
     strcpy(__p, "00000000");
-    v19 = 7;
+    v21 = 7;
     do
     {
-      if ((v1 >> v18))
+      if ((v1 >> v20))
       {
-        if (v40 >= 0.0)
+        if (v41 >= 0.0)
         {
-          v20 = __p;
+          v22 = __p;
         }
 
         else
         {
-          v20 = __p[0];
+          v22 = __p[0];
         }
 
-        *(v20 + v19) = 49;
+        *(v22 + v21) = 49;
       }
 
-      ++v18;
-      --v19;
+      ++v20;
+      --v21;
     }
 
-    while (v18 != 8);
-    v21 = __p;
-    if (v40 < 0.0)
+    while (v20 != 8);
+    v23 = __p;
+    if (v41 < 0.0)
     {
-      v21 = __p[0];
+      v23 = __p[0];
     }
 
     buf = 68289538;
-    v44 = 2082;
-    v45 = "";
-    v46 = 2082;
-    v47 = "executeNextScanIteration";
-    v48 = 2082;
-    v49 = v21;
-    _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Execute scan strategy, method:%{public, location:escape_only}s, execution bitmap:%{public, location:escape_only}s}", &buf, 0x26u);
-    if (SHIBYTE(v40) < 0)
+    v45 = 2082;
+    v46 = "";
+    v47 = 2082;
+    v48 = "executeNextScanIteration";
+    v49 = 2082;
+    v50 = v23;
+    _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Execute scan strategy, method:%{public, location:escape_only}s, execution bitmap:%{public, location:escape_only}s}", &buf, 0x26u);
+    if (SHIBYTE(v41) < 0)
     {
       operator delete(__p[0]);
     }
@@ -5568,36 +5488,36 @@ LABEL_5:
 
   do
   {
-    v22 = __clz(__rbit32(v1));
+    v24 = __clz(__rbit32(v1));
     if (v1)
     {
-      v23 = v22;
+      v25 = v24;
     }
 
     else
     {
-      v23 = -1;
+      v25 = -1;
     }
 
-    v24 = v23;
-    ULScanningProfile::getTechnologyConfig(v41, v23, __p);
-    if (v23)
+    v26 = v25;
+    ULScanningProfile::getTechnologyConfig(v42, v25, __p);
+    if (v25)
     {
-      if (v23 == 2)
+      if (v25 == 2)
       {
-        v27 = (*(**(this + 10) + 16))(*(this + 10), LODWORD(__p[1]));
-        if (v27)
+        v29 = (*(**(this + 10) + 16))(*(this + 10), LODWORD(__p[1]));
+        if (v29)
         {
-          v28 = 3;
+          v30 = 3;
         }
 
         else
         {
-          v28 = 6;
+          v30 = 6;
         }
 
-        *(this + 2056) = v28;
-        if (!v27)
+        *(this + 2056) = v30;
+        if (!v29)
         {
           goto LABEL_59;
         }
@@ -5605,7 +5525,7 @@ LABEL_5:
 
       else
       {
-        if (v23 != 1)
+        if (v25 != 1)
         {
           goto LABEL_59;
         }
@@ -5616,10 +5536,10 @@ LABEL_5:
           *(this + 2032) = 1;
         }
 
-        v25 = (*(**(this + 9) + 16))(*(this + 9), LODWORD(__p[1]));
-        v26 = v25 ? 3 : 6;
-        *(this + 2032) = v26;
-        if ((v25 & 1) == 0)
+        v27 = (*(**(this + 9) + 16))(*(this + 9), LODWORD(__p[1]));
+        v28 = v27 ? 3 : 6;
+        *(this + 2032) = v28;
+        if ((v27 & 1) == 0)
         {
 LABEL_59:
           if (onceToken_MicroLocation_Default != -1)
@@ -5627,33 +5547,33 @@ LABEL_59:
             ULSensorsManager::addScanningProfile();
           }
 
-          v33 = logObject_MicroLocation_Default;
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v35 = logObject_MicroLocation_Default;
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
-            v34 = "Unknown";
-            if (v24 <= 2)
+            v36 = "Unknown";
+            if (v26 <= 2)
             {
-              v34 = off_2798D4D40[v24];
+              v36 = off_2798D4D40[v26];
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v37, v34);
-            v35 = v37;
-            if (v38 < 0)
+            std::string::basic_string[abi:ne200100]<0>(v38, v36);
+            v37 = v38;
+            if (v39 < 0)
             {
-              v35 = v37[0];
+              v37 = v38[0];
             }
 
             buf = 68289538;
-            v44 = 2082;
-            v45 = "";
-            v46 = 2082;
-            v47 = "executeNextScanIteration";
-            v48 = 2082;
-            v49 = v35;
-            _os_log_impl(&dword_258FE9000, v33, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Got error when trying to initiate scan, method:%{public, location:escape_only}s, sensorType:%{public, location:escape_only}s}", &buf, 0x26u);
-            if (v38 < 0)
+            v45 = 2082;
+            v46 = "";
+            v47 = 2082;
+            v48 = "executeNextScanIteration";
+            v49 = 2082;
+            v50 = v37;
+            _os_log_impl(&dword_258FE9000, v35, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Got error when trying to initiate scan, method:%{public, location:escape_only}s, sensorType:%{public, location:escape_only}s}", &buf, 0x26u);
+            if (v39 < 0)
             {
-              operator delete(v37[0]);
+              operator delete(v38[0]);
             }
           }
 
@@ -5664,19 +5584,19 @@ LABEL_59:
 
     else
     {
-      v31 = (*(**(this + 11) + 16))(*(this + 11), LODWORD(__p[1]));
-      if (v31)
+      v33 = (*(**(this + 11) + 16))(*(this + 11), LODWORD(__p[1]));
+      if (v33)
       {
-        v32 = 3;
+        v34 = 3;
       }
 
       else
       {
-        v32 = 6;
+        v34 = 6;
       }
 
-      *(this + 2008) = v32;
-      if ((v31 & 1) == 0)
+      *(this + 2008) = v34;
+      if ((v33 & 1) == 0)
       {
         goto LABEL_59;
       }
@@ -5687,53 +5607,43 @@ LABEL_59:
       ULSensorsManager::addScanningProfile();
     }
 
-    v29 = logObject_MicroLocation_Default;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      std::string::basic_string[abi:ne200100]<0>(v37, off_2798D4D40[v24]);
-      v30 = v37;
-      if (v38 < 0)
+      std::string::basic_string[abi:ne200100]<0>(v38, off_2798D4D40[v26]);
+      v32 = v38;
+      if (v39 < 0)
       {
-        v30 = v37[0];
+        v32 = v38[0];
       }
 
       buf = 68289538;
-      v44 = 2082;
-      v45 = "";
-      v46 = 2082;
-      v47 = "executeNextScanIteration";
-      v48 = 2082;
-      v49 = v30;
-      _os_log_impl(&dword_258FE9000, v29, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Scan Request sent to sensor, method:%{public, location:escape_only}s, Technology::%{public, location:escape_only}s}", &buf, 0x26u);
-      if (v38 < 0)
+      v45 = 2082;
+      v46 = "";
+      v47 = 2082;
+      v48 = "executeNextScanIteration";
+      v49 = 2082;
+      v50 = v32;
+      _os_log_impl(&dword_258FE9000, v31, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Scan Request sent to sensor, method:%{public, location:escape_only}s, Technology::%{public, location:escape_only}s}", &buf, 0x26u);
+      if (v39 < 0)
       {
-        operator delete(v37[0]);
+        operator delete(v38[0]);
       }
     }
 
-    (*(*this + 104))(this, v24, v40);
+    (*(*this + 104))(this, v26, v41);
 LABEL_69:
     v1 = v1 & (v1 - 1) & 0xFELL;
   }
 
   while (v1);
   ++*(this + 1944);
-  if (*(this + 2008) == 3 || *(this + 2056) == 3 || *(this + 2032) == 3)
-  {
-    result = 1;
-    goto LABEL_74;
-  }
-
-LABEL_14:
-  result = 0;
-LABEL_74:
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(this + 2008) == 3 || *(this + 2056) == 3 || *(this + 2032) == 3;
 }
 
 BOOL ULWiFiRssiBridge::initiateScanRequestByIndex(ULWiFiRssiBridge *this, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(this + 3));
   v4 = *(this + 8);
   if (!v4)
@@ -5765,12 +5675,12 @@ LABEL_8:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = [MEMORY[0x277CCABB0] numberWithInt:a2];
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_ERROR, "WiFi profile with index: %@ doesn't exist.", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_ERROR, "WiFi profile with index: %@ doesn't exist.", &v11, 0xCu);
     }
 
-    goto LABEL_13;
+    return 0;
   }
 
   if (!*(this + 4))
@@ -5783,7 +5693,7 @@ LABEL_8:
   {
     if (**(this + 5) != 1)
     {
-      ULWiFiRssiBridge::startScanner();
+      ULWiFiRssiBridge::startScanner(this, (v5 + 10));
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -5791,16 +5701,15 @@ LABEL_8:
       ULWiFiRssiBridge::createAndStartWifiInterface();
     }
 
-    v10 = logObject_MicroLocation_Default;
+    v9 = logObject_MicroLocation_Default;
     result = os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      LOWORD(v12) = 0;
-      v11 = "wifi-provider, Attempting wifi scan while scan in progress, returning";
+      LOWORD(v11) = 0;
+      v10 = "wifi-provider, Attempting wifi scan while scan in progress, returning";
 LABEL_27:
-      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, v11, &v12, 2u);
-LABEL_13:
-      result = 0;
+      _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, v10, &v11, 2u);
+      return 0;
     }
   }
 
@@ -5811,17 +5720,16 @@ LABEL_13:
       ULWiFiRssiBridge::createAndStartWifiInterface();
     }
 
-    v10 = logObject_MicroLocation_Default;
+    v9 = logObject_MicroLocation_Default;
     result = os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      LOWORD(v12) = 0;
-      v11 = "wifi-provider, Start Scan While wifi is off, returning";
+      LOWORD(v11) = 0;
+      v10 = "wifi-provider, Start Scan While wifi is off, returning";
       goto LABEL_27;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5920,7 +5828,7 @@ void sub_258FF5AA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ULWiFiScanChannel>::__init_with_size[abi:ne200100]<ULWiFiScanChannel*,ULWiFiScanChannel*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULWiFiScanChannel>::__init_with_size[abi:ne200100]<ULWiFiScanChannel*,ULWiFiScanChannel*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5952,7 +5860,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ULWiFiScanChannel>>(u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<ULWiFiScanChannel>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ULWiFiScanChannel>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -5964,7 +5872,7 @@ void std::vector<ULWiFiScanChannel>::__vallocate[abi:ne200100](uint64_t a1, unin
 
 void ULSensorsManager::startScanTimer(uint64_t a1, unint64_t a2, double a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULSensorsManager::ULSensorsManager();
@@ -5984,7 +5892,7 @@ void ULSensorsManager::startScanTimer(uint64_t a1, unint64_t a2, double a3)
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, v7);
-    if (v16 >= 0)
+    if (v15 >= 0)
     {
       v8 = __p;
     }
@@ -5995,33 +5903,31 @@ void ULSensorsManager::startScanTimer(uint64_t a1, unint64_t a2, double a3)
     }
 
     *buf = 68289538;
-    v18 = 0;
-    v19 = 2082;
-    v20 = "";
-    v21 = 2082;
-    v22 = v8;
-    v23 = 2050;
-    v24 = a3;
+    v17 = 0;
+    v18 = 2082;
+    v19 = "";
+    v20 = 2082;
+    v21 = v8;
+    v22 = 2050;
+    v23 = a3;
     _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:ULSensorsManager, startScanTimer, Technology::%{public, location:escape_only}s, Duration::%{public}.5f}", buf, 0x26u);
-    if (v16 < 0)
+    if (v15 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:a3];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = ___ZN16ULSensorsManager14startScanTimerE16ULTechnologyTyped_block_invoke;
-  v14[3] = &__block_descriptor_48_e5_v8__0l;
-  v14[4] = a1;
-  v14[5] = a2;
-  v10 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v9 repeats:MEMORY[0x277CBEC28] block:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = ___ZN16ULSensorsManager14startScanTimerE16ULTechnologyTyped_block_invoke;
+  v13[3] = &__block_descriptor_48_e5_v8__0l;
+  v13[4] = a1;
+  v13[5] = a2;
+  v10 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v9 repeats:MEMORY[0x277CBEC28] block:v13];
   v11 = a1 + 8 * a2;
   v12 = *(v11 + 8);
   *(v11 + 8) = v10;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULThrottle::setLastStartedTime(uint64_t result, uint64_t *a2)
@@ -6038,7 +5944,7 @@ uint64_t ULThrottle::setLastStartedTime(uint64_t result, uint64_t *a2)
 
 void ___ZN27CLMicroLocationMotionBridgeC2ERN23ULMotionBridgeInterface21IMotionBridgeDelegateEPU28objcproto17OS_dispatch_queue8NSObject_block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 48);
   dispatch_assert_queue_V2(*(a1 + 32));
@@ -6054,13 +5960,13 @@ void ___ZN27CLMicroLocationMotionBridgeC2ERN23ULMotionBridgeInterface21IMotionBr
     v6 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 68289282;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2114;
-      v15 = v3;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Received status report for active fence, Status report:%{public, location:escape_only}@}", &v10, 0x1Cu);
+      v9 = 68289282;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2114;
+      v14 = v3;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Received status report for active fence, Status report:%{public, location:escape_only}@}", &v9, 0x1Cu);
     }
 
     CLMicroLocationMotionBridge::stopAllStatusTimersAndStartFenceStatusTimer(v4);
@@ -6076,13 +5982,13 @@ void ___ZN27CLMicroLocationMotionBridgeC2ERN23ULMotionBridgeInterface21IMotionBr
     v7 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v10 = 68289282;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2114;
-      v15 = v3;
-      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Did not receive status report for active fence, Status report:%{public, location:escape_only}@}", &v10, 0x1Cu);
+      v9 = 68289282;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2114;
+      v14 = v3;
+      _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Did not receive status report for active fence, Status report:%{public, location:escape_only}@}", &v9, 0x1Cu);
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -6093,22 +5999,20 @@ void ___ZN27CLMicroLocationMotionBridgeC2ERN23ULMotionBridgeInterface21IMotionBr
     v8 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(logObject_MicroLocation_Default))
     {
-      v10 = 68289282;
-      v11 = 0;
-      v12 = 2082;
-      v13 = "";
-      v14 = 2114;
-      v15 = v3;
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Did not receive status report for active fence", "{msg%{public}.0s:Did not receive status report for active fence, Status report:%{public, location:escape_only}@}", &v10, 0x1Cu);
+      v9 = 68289282;
+      v10 = 0;
+      v11 = 2082;
+      v12 = "";
+      v13 = 2114;
+      v14 = v3;
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Did not receive status report for active fence", "{msg%{public}.0s:Did not receive status report for active fence, Status report:%{public, location:escape_only}@}", &v9, 0x1Cu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void CLMicroLocationMotionBridge::stopAllStatusTimersAndStartFenceStatusTimer(id *this)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   CLMicroLocationMotionBridge::stopAllStatusTimers(this);
   v2 = +[ULDefaultsSingleton shared];
   v3 = [v2 defaultsDictionary];
@@ -6136,25 +6040,23 @@ void CLMicroLocationMotionBridge::stopAllStatusTimersAndStartFenceStatusTimer(id
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289282;
-    v15 = 0;
-    v16 = 2082;
-    v17 = "";
-    v18 = 2050;
-    v19 = v7;
+    v14 = 0;
+    v15 = 2082;
+    v16 = "";
+    v17 = 2050;
+    v18 = v7;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:stopAllStatusTimersAndStartFenceStatusTimer: setting fence status timer to fire in the future, Delay to next fire:%{public}f}", buf, 0x1Cu);
   }
 
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:v7];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = ___ZN27CLMicroLocationMotionBridge43stopAllStatusTimersAndStartFenceStatusTimerEv_block_invoke;
-  v13[3] = &__block_descriptor_40_e5_v8__0l;
-  v13[4] = this;
-  v10 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v9 repeats:MEMORY[0x277CBEC28] block:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = ___ZN27CLMicroLocationMotionBridge43stopAllStatusTimersAndStartFenceStatusTimerEv_block_invoke;
+  v12[3] = &__block_descriptor_40_e5_v8__0l;
+  v12[4] = this;
+  v10 = [ULTimerFactory timerOnPrimaryQueueWithInterval:v9 repeats:MEMORY[0x277CBEC28] block:v12];
   v11 = this[3];
   this[3] = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t CLMicroLocationMotionBridge::stopAllStatusTimers(id *this)
@@ -6242,7 +6144,7 @@ void ULEventLogDO::ULEventLogDO(std::string *this, __int128 *a2, double a3)
   *&this[1].__r_.__value_.__l.__data_ = a3;
 }
 
-uint64_t std::vector<ULEventLogDO>::__init_with_size[abi:ne200100]<ULEventLogDO const*,ULEventLogDO const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULEventLogDO>::__init_with_size[abi:ne200100]<ULEventLogDO const*,ULEventLogDO const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6252,7 +6154,7 @@ uint64_t std::vector<ULEventLogDO>::__init_with_size[abi:ne200100]<ULEventLogDO 
   return result;
 }
 
-void sub_258FF6EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_258FF6EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<ULEventLogDO>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -6269,7 +6171,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ULEventLogDO>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<ULEventLogDO>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ULEventLogDO>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -6333,7 +6235,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
 
 uint64_t ULDBUtils::insertDataObjects<ULEventLogDO,ULEventLogMO>(void *a1, void *a2, uint64_t a3)
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = v5;
   if (*a2 == a2[1])
@@ -6343,26 +6245,25 @@ uint64_t ULDBUtils::insertDataObjects<ULEventLogDO,ULEventLogMO>(void *a1, void 
 
   else
   {
-    v12 = &v11;
-    v13 = 0x2020000000;
-    v14 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
+    v13 = 0;
     v7 = [v5 managedObjectContext];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3321888768;
-    v15[2] = ___ZN9ULDBUtils17insertDataObjectsI12ULEventLogDO12ULEventLogMOEEbP7ULStoreRKNSt3__16vectorIT_NS5_9allocatorIS7_EEEENS5_8functionIFPT0_RKS7_EEE_block_invoke;
-    v15[3] = &unk_286A56190;
-    v18 = a2;
-    std::__function::__value_func<ULEventLogMO * ()(ULEventLogDO const&)>::__value_func[abi:ne200100](v19, a3);
-    v16 = v6;
-    v17 = &v11;
-    [v7 performBlockAndWait:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3321888768;
+    v14[2] = ___ZN9ULDBUtils17insertDataObjectsI12ULEventLogDO12ULEventLogMOEEbP7ULStoreRKNSt3__16vectorIT_NS5_9allocatorIS7_EEEENS5_8functionIFPT0_RKS7_EEE_block_invoke;
+    v14[3] = &unk_286A56190;
+    v17 = a2;
+    std::__function::__value_func<ULEventLogMO * ()(ULEventLogDO const&)>::__value_func[abi:ne200100](v18, a3);
+    v15 = v6;
+    v16 = &v10;
+    [v7 performBlockAndWait:v14];
 
-    v8 = *(v12 + 24);
-    std::__function::__value_func<ULEventLogMO * ()(ULEventLogDO const&)>::~__value_func[abi:ne200100](v19);
-    _Block_object_dispose(&v11, 8);
+    v8 = *(v11 + 24);
+    std::__function::__value_func<ULEventLogMO * ()(ULEventLogDO const&)>::~__value_func[abi:ne200100](v18);
+    _Block_object_dispose(&v10, 8);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
@@ -6399,22 +6300,22 @@ uint64_t std::__function::__value_func<ULEventLogMO * ()(ULEventLogDO const&)>::
   return a1;
 }
 
-void ___ZN9ULDBUtils17insertDataObjectsI12ULEventLogDO12ULEventLogMOEEbP7ULStoreRKNSt3__16vectorIT_NS5_9allocatorIS7_EEEENS5_8functionIFPT0_RKS7_EEE_block_invoke(uint64_t a1)
+void ___ZN9ULDBUtils17insertDataObjectsI12ULEventLogDO12ULEventLogMOEEbP7ULStoreRKNSt3__16vectorIT_NS5_9allocatorIS7_EEEENS5_8functionIFPT0_RKS7_EEE_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 48);
-  v3 = *v2;
-  v4 = v2[1];
-  while (v3 != v4)
+  v22 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 48);
+  v4 = *v3;
+  v5 = v3[1];
+  while (v4 != v5)
   {
-    v5 = *(a1 + 80);
-    if (!v5)
+    v6 = *(a1 + 80);
+    if (!v6)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v6 = (*(*v5 + 48))(v5, v3);
-    if (!v6)
+    v7 = (*(*v6 + 48))(v6, v4);
+    if (!v7)
     {
       if (onceToken_MicroLocation_Default != -1)
       {
@@ -6426,13 +6327,13 @@ void ___ZN9ULDBUtils17insertDataObjectsI12ULEventLogDO12ULEventLogMOEEbP7ULStore
       {
         v10 = objc_opt_class();
         v11 = NSStringFromClass(v10);
-        v17 = 68289283;
-        v18 = 0;
-        v19 = 2082;
-        v20 = "";
-        v21 = 2113;
-        v22 = v11;
-        _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Failed to create MO from DO, MO:%{private, location:escape_only}@}", &v17, 0x1Cu);
+        v16 = 68289283;
+        v17 = 0;
+        v18 = 2082;
+        v19 = "";
+        v20 = 2113;
+        v21 = v11;
+        _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Failed to create MO from DO, MO:%{private, location:escape_only}@}", &v16, 0x1Cu);
       }
 
       if (onceToken_MicroLocation_Default != -1)
@@ -6445,33 +6346,31 @@ void ___ZN9ULDBUtils17insertDataObjectsI12ULEventLogDO12ULEventLogMOEEbP7ULStore
       {
         v13 = objc_opt_class();
         v14 = NSStringFromClass(v13);
-        v17 = 68289283;
-        v18 = 0;
-        v19 = 2082;
-        v20 = "";
-        v21 = 2113;
-        v22 = v14;
-        _os_signpost_emit_with_name_impl(&dword_258FE9000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to create MO from DO", "{msg%{public}.0s:Failed to create MO from DO, MO:%{private, location:escape_only}@}", &v17, 0x1Cu);
+        v16 = 68289283;
+        v17 = 0;
+        v18 = 2082;
+        v19 = "";
+        v20 = 2113;
+        v21 = v14;
+        _os_signpost_emit_with_name_impl(&dword_258FE9000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to create MO from DO", "{msg%{public}.0s:Failed to create MO from DO, MO:%{private, location:escape_only}@}", &v16, 0x1Cu);
       }
 
       v15 = [*(a1 + 32) managedObjectContext];
       [v15 reset];
 
-      v16 = *MEMORY[0x277D85DE8];
       return;
     }
 
-    v3 += 32;
+    v4 += 32;
   }
 
   *(*(*(a1 + 40) + 8) + 24) = [*(a1 + 32) commitChangesToStore];
-  v7 = *(a1 + 32);
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
 
-  [v7 deleteOldestRecordsIfFull];
+  [v8 deleteOldestRecordsIfFull];
 }
 
-void sub_258FF7850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_258FF7850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -6480,7 +6379,7 @@ void sub_258FF7850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ULSystemTriggerGenerator::onScreenUnlocked(ULSystemTriggerGenerator *this)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = cl::chrono::CFAbsoluteTimeClock::now();
   v3 = +[ULDefaultsSingleton shared];
   v4 = [v3 defaultsDictionary];
@@ -6513,15 +6412,15 @@ void ULSystemTriggerGenerator::onScreenUnlocked(ULSystemTriggerGenerator *this)
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
       {
         v11 = *(this + 9);
-        v24 = 68289538;
-        v25 = 0;
-        v26 = 2082;
-        v27 = "";
-        v28 = 2050;
-        *v29 = v2;
-        *&v29[8] = 2050;
-        v30 = v11;
-        _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:onScreenUnlocked, triggerTimestamp is in the past, triggerTimestamp:%{public}.3f, fLastLocalizationRequestTime:%{public}.3f}", &v24, 0x26u);
+        v23 = 68289538;
+        v24 = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2050;
+        *v28 = v2;
+        *&v28[8] = 2050;
+        v29 = v11;
+        _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:onScreenUnlocked, triggerTimestamp is in the past, triggerTimestamp:%{public}.3f, fLastLocalizationRequestTime:%{public}.3f}", &v23, 0x26u);
       }
 
       if (onceToken_MicroLocation_Default != -1)
@@ -6533,15 +6432,15 @@ void ULSystemTriggerGenerator::onScreenUnlocked(ULSystemTriggerGenerator *this)
       if (os_signpost_enabled(logObject_MicroLocation_Default))
       {
         v13 = *(this + 9);
-        v24 = 68289538;
-        v25 = 0;
-        v26 = 2082;
-        v27 = "";
-        v28 = 2050;
-        *v29 = v2;
-        *&v29[8] = 2050;
-        v30 = v13;
-        _os_signpost_emit_with_name_impl(&dword_258FE9000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "onScreenUnlocked, triggerTimestamp is in the past", "{msg%{public}.0s:onScreenUnlocked, triggerTimestamp is in the past, triggerTimestamp:%{public}.3f, fLastLocalizationRequestTime:%{public}.3f}", &v24, 0x26u);
+        v23 = 68289538;
+        v24 = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2050;
+        *v28 = v2;
+        *&v28[8] = 2050;
+        v29 = v13;
+        _os_signpost_emit_with_name_impl(&dword_258FE9000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "onScreenUnlocked, triggerTimestamp is in the past", "{msg%{public}.0s:onScreenUnlocked, triggerTimestamp is in the past, triggerTimestamp:%{public}.3f, fLastLocalizationRequestTime:%{public}.3f}", &v23, 0x26u);
       }
 
       goto LABEL_28;
@@ -6555,29 +6454,29 @@ LABEL_28:
         ULSystemTriggerGenerator::onAppLaunch();
       }
 
-      v21 = logObject_MicroLocation_Default;
+      v20 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = v2 - *(this + 9);
-        v24 = 68289538;
-        v25 = 0;
-        v26 = 2082;
-        v27 = "";
-        v28 = 2050;
-        *v29 = v8;
-        *&v29[8] = 2050;
-        v30 = v22;
-        _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:onScreenUnlocked, requesting localization on screen unlock, Minimum duration since last localization:%{public}f, Time since last_s:%{public}.09f}", &v24, 0x26u);
+        v21 = v2 - *(this + 9);
+        v23 = 68289538;
+        v24 = 0;
+        v25 = 2082;
+        v26 = "";
+        v27 = 2050;
+        *v28 = v8;
+        *&v28[8] = 2050;
+        v29 = v21;
+        _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:onScreenUnlocked, requesting localization on screen unlock, Minimum duration since last localization:%{public}f, Time since last_s:%{public}.09f}", &v23, 0x26u);
       }
 
       if ((*(**(this + 2) + 24))(*(this + 2)))
       {
-        v23 = +[ULHomeSlamAnalytics shared];
-        [v23 logEventScanEventGeneratedAfterDisplayOnAtTimeStamp:cl::chrono::CFAbsoluteTimeClock::now()];
+        v22 = +[ULHomeSlamAnalytics shared];
+        [v22 logEventScanEventGeneratedAfterDisplayOnAtTimeStamp:cl::chrono::CFAbsoluteTimeClock::now()];
       }
 
       *(this + 9) = v2;
-      goto LABEL_22;
+      return;
     }
 
     if (onceToken_MicroLocation_Default != -1)
@@ -6585,17 +6484,17 @@ LABEL_28:
       ULSystemTriggerGenerator::startPeriodicTriggerTimer();
     }
 
-    v19 = logObject_MicroLocation_Default;
+    v18 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_INFO))
     {
-      v20 = v2 - *(this + 9);
-      v24 = 68289282;
-      v25 = 0;
-      v26 = 2082;
-      v27 = "";
-      v28 = 2050;
-      *v29 = v20;
-      _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:onScreenUnlocked, will not localize because too close to last localization, Time since last_s:%{public}.09f}", &v24, 0x1Cu);
+      v19 = v2 - *(this + 9);
+      v23 = 68289282;
+      v24 = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 2050;
+      *v28 = v19;
+      _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_INFO, "{msg%{public}.0s:onScreenUnlocked, will not localize because too close to last localization, Time since last_s:%{public}.09f}", &v23, 0x1Cu);
     }
   }
 
@@ -6612,22 +6511,19 @@ LABEL_28:
       v15 = ULSettings::get<ULSettings::EnableScreenUnlockLocalization>();
       v16 = *(this + 25);
       v17 = *(this + 28);
-      v24 = 68289794;
-      v25 = 0;
-      v26 = 2082;
-      v27 = "";
-      v28 = 1026;
-      *v29 = v15;
-      *&v29[4] = 1026;
-      *&v29[6] = v16;
-      LOWORD(v30) = 1026;
-      *(&v30 + 2) = v17;
-      _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:onScreenUnlocked, localization is not requested on screen unlock, EnableScreenUnlockLocalization:%{public}hhd, allowedLocalization:%{public}hhd, isLowLatency:%{public}hhd}", &v24, 0x24u);
+      v23 = 68289794;
+      v24 = 0;
+      v25 = 2082;
+      v26 = "";
+      v27 = 1026;
+      *v28 = v15;
+      *&v28[4] = 1026;
+      *&v28[6] = v16;
+      LOWORD(v29) = 1026;
+      *(&v29 + 2) = v17;
+      _os_log_impl(&dword_258FE9000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:onScreenUnlocked, localization is not requested on screen unlock, EnableScreenUnlockLocalization:%{public}hhd, allowedLocalization:%{public}hhd, isLowLatency:%{public}hhd}", &v23, 0x24u);
     }
   }
-
-LABEL_22:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ULSettings::get<ULSettings::EnableScreenUnlockLocalization>()
@@ -6697,7 +6593,7 @@ void std::vector<ULEventLogDO>::clear[abi:ne200100](void ***a1)
   a1[1] = v2;
 }
 
-_BYTE *CLMicroLocationLoiManager::convertRTLocationOfInterestTypeToString@<X0>(uint64_t a1@<X1>, _BYTE *a2@<X8>)
+void *CLMicroLocationLoiManager::convertRTLocationOfInterestTypeToString@<X0>(uint64_t a1@<X1>, void *a2@<X8>)
 {
   if (a1 <= 0)
   {
@@ -6747,15 +6643,15 @@ LABEL_12:
   return std::string::basic_string[abi:ne200100]<0>(a2, "none");
 }
 
-uint64_t boost::uuids::string_generator::operator()<char const*>(boost::uuids::string_generator *this, unsigned __int8 *a2, unsigned __int8 *a3)
+uint64_t boost::uuids::string_generator::operator()<char const*>(boost::uuids::string_generator *this, char *a2, char *a3)
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   if (a2 == a3)
   {
     goto LABEL_31;
   }
 
-  v5 = (a2 + 1);
+  v5 = a2 + 1;
   v6 = *a2;
   if (v6 == 123)
   {
@@ -6764,7 +6660,7 @@ uint64_t boost::uuids::string_generator::operator()<char const*>(boost::uuids::s
       goto LABEL_31;
     }
 
-    v5 = (a2 + 2);
+    v5 = a2 + 2;
     v7 = a2[1];
   }
 
@@ -6812,7 +6708,7 @@ uint64_t boost::uuids::string_generator::operator()<char const*>(boost::uuids::s
       v8 = 1;
 LABEL_23:
       value = boost::uuids::string_generator::get_value(this, v7);
-      *(v19 + v9) = value;
+      *(v18 + v9) = value;
       if (v5 == a3)
       {
         goto LABEL_31;
@@ -6820,7 +6716,7 @@ LABEL_23:
 
       v15 = *v5++;
       v7 = v15;
-      *(v19 + v9++) = boost::uuids::string_generator::get_value(this, v15) | (16 * value);
+      *(v18 + v9++) = boost::uuids::string_generator::get_value(this, v15) | (16 * value);
     }
 
     while (!v9);
@@ -6844,9 +6740,7 @@ LABEL_31:
     boost::uuids::string_generator::throw_invalid(this);
   }
 
-  result = v19[0];
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return v18[0];
 }
 
 uint64_t boost::uuids::string_generator::get_value(boost::uuids::string_generator *this, int a2)
@@ -6917,10 +6811,8 @@ uint64_t sub_258FF89B4()
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 16);
   swift_unknownObjectRelease();
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5);
 
   return MEMORY[0x2821FE8E8](v0, v5 + 8, v3 | 7);
 }
@@ -6928,7 +6820,6 @@ uint64_t sub_258FF89B4()
 uint64_t sub_258FF8A98()
 {
   _Block_release(*(v0 + 16));
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -6937,7 +6828,6 @@ uint64_t sub_258FF8ADC()
 {
   _Block_release(*(v0 + 24));
   _Block_release(*(v0 + 32));
-  v1 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -6951,14 +6841,12 @@ uint64_t sub_258FF8B24()
 
 uint64_t sub_258FF8B5C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_258FF8B94()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -6977,16 +6865,13 @@ uint64_t sub_258FF8BDC()
 
 uint64_t sub_258FF8C80()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_258FF8CB8()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -7013,14 +6898,12 @@ uint64_t sub_258FF8D6C()
 
 uint64_t sub_258FF8DB0()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_258FF8E70()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
@@ -7066,9 +6949,6 @@ uint64_t sub_258FF9064()
 
 uint64_t sub_258FF909C()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 104);
 
   return MEMORY[0x2821FE8E8](v0, 120, 15);
 }
@@ -7098,12 +6978,11 @@ uint64_t sub_258FF91D4()
 
 uint64_t sub_258FF920C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t sub_258FF9254(uint64_t result)
+uint64_t sub_258FF9254(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -7239,9 +7118,9 @@ void sub_258FFE354(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_258FFEB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258FFEB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7253,9 +7132,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_258FFEDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258FFEDA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7302,13 +7181,13 @@ void sub_2590018FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_259001A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_259001A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
 
-  objc_destroyWeak((v7 + 32));
-  objc_destroyWeak((v8 - 56));
+  objc_destroyWeak((v12 + 32));
+  objc_destroyWeak((v13 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -7328,20 +7207,17 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_0()
 
 __CFString *ULSleepWakeStateToString(int a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (a1 > 29)
   {
     switch(a1)
     {
       case 30:
-        result = @"FullWake";
-        goto LABEL_19;
+        return @"FullWake";
       case 40:
-        result = @"Restart";
-        goto LABEL_19;
+        return @"Restart";
       case 50:
-        result = @"PowerOff";
-        goto LABEL_19;
+        return @"PowerOff";
     }
   }
 
@@ -7350,14 +7226,11 @@ __CFString *ULSleepWakeStateToString(int a1)
     switch(a1)
     {
       case 0:
-        result = @"Unknown";
-        goto LABEL_19;
+        return @"Unknown";
       case 10:
-        result = @"Sleep";
-        goto LABEL_19;
+        return @"Sleep";
       case 20:
-        result = @"DarkWake";
-        goto LABEL_19;
+        return @"DarkWake";
     }
   }
 
@@ -7369,15 +7242,12 @@ __CFString *ULSleepWakeStateToString(int a1)
   v3 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v5[0] = 67109120;
-    v5[1] = a1;
-    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Unhandled ULSleepWakeState value: %d", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = a1;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Unhandled ULSleepWakeState value: %d", v4, 8u);
   }
 
-  result = @"?";
-LABEL_19:
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return @"?";
 }
 
 void sub_2590021C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -7407,7 +7277,7 @@ void sub_2590033E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO*,ULHomeSlamAnalyticEventDO*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO*,ULHomeSlamAnalyticEventDO*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7429,7 +7299,7 @@ void sub_2590035D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ULHomeSlamAnalyticEventDO>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ULHomeSlamAnalyticEventDO>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7449,7 +7319,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ULHomeSlamAnalyticEve
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<ULHomeSlamAnalyticEventDO::EventTypeEnum>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO::EventTypeEnum const*,ULHomeSlamAnalyticEventDO::EventTypeEnum const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<ULHomeSlamAnalyticEventDO::EventTypeEnum>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO::EventTypeEnum const*,ULHomeSlamAnalyticEventDO::EventTypeEnum const*>(uint64_t *result, __int16 *a2, __int16 *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -7471,7 +7341,7 @@ void sub_2590036CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ULHomeSlamAnalyticEventDO::EventTypeEnum>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<ULHomeSlamAnalyticEventDO::EventTypeEnum>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -7513,12 +7383,12 @@ uint64_t ULSettings::get<ULSettings::LogOdometryAnalyticsEnabled>()
   return v5;
 }
 
-void sub_259003C54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_259003C54(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ULHomeSlamAnalytics;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7555,7 +7425,7 @@ void ___ZL45_CLLogObjectForCategory_MicroLocation_Defaultv_block_invoke_1()
   logObject_MicroLocation_Default = v0;
 }
 
-uint64_t std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO const*,ULHomeSlamAnalyticEventDO const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULHomeSlamAnalyticEventDO>::__init_with_size[abi:ne200100]<ULHomeSlamAnalyticEventDO const*,ULHomeSlamAnalyticEventDO const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7584,7 +7454,7 @@ void sub_2590059A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ULOdometryDO>::__init_with_size[abi:ne200100]<ULOdometryDO*,ULOdometryDO*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULOdometryDO>::__init_with_size[abi:ne200100]<ULOdometryDO*,ULOdometryDO*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7594,14 +7464,14 @@ uint64_t std::vector<ULOdometryDO>::__init_with_size[abi:ne200100]<ULOdometryDO*
   return result;
 }
 
-void sub_25900660C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_25900660C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<ULOdometryDO>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<ULOdometryDO>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ULOdometryDO>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 58))
   {
@@ -7736,7 +7606,8 @@ void ULHomeSlamLocalizationPipeline::ingestValidIOUpdate(ULHomeSlamLocalizationP
 
     v34[0] = 0;
     v40 = 0;
-    updated = ULHomeSlamLocalizationPipeline::updateParticlesState(v9, v34, a2, a3);
+    ULHomeSlamLocalizationPipeline::updateParticlesState(v9, v34, a2, a3);
+    v12 = v11;
     if (v40 == 1)
     {
       *buf = &v39;
@@ -7754,15 +7625,15 @@ void ULHomeSlamLocalizationPipeline::ingestValidIOUpdate(ULHomeSlamLocalizationP
 
     if (BYTE4(a2[8]._deltaPositionX) == 1)
     {
-      v12 = [(ULHomeSlamLocalizationPipeline *)v9 deltaPositionX];
-      [v12 floatValue];
-      v27 = v13;
-      v14 = [(ULHomeSlamLocalizationPipeline *)v9 deltaPositionY];
-      [v14 floatValue];
-      a2[7]._odometrySourceType = vadd_f32(__PAIR64__(v15, v27), a2[7]._odometrySourceType);
+      v13 = [(ULHomeSlamLocalizationPipeline *)v9 deltaPositionX];
+      [v13 floatValue];
+      v27 = v14;
+      v15 = [(ULHomeSlamLocalizationPipeline *)v9 deltaPositionY];
+      [v15 floatValue];
+      a2[7]._odometrySourceType = vadd_f32(__PAIR64__(v16, v27), a2[7]._odometrySourceType);
       *&a2[8].super.isa = *&a2[8].super.isa + 0.0;
 
-      if (LOBYTE(a2[8]._deviceIdentifier) != 1 || (v16 = vcvtq_f64_f32(a2[7]._odometrySourceType), vaddvq_f64(vmulq_f64(v16, v16)) > *(&a2[8].super.isa + 1) * *(&a2[8].super.isa + 1)))
+      if (LOBYTE(a2[8]._deviceIdentifier) != 1 || (v17 = vcvtq_f64_f32(a2[7]._odometrySourceType), vaddvq_f64(vmulq_f64(v17, v17)) > *(&a2[8].super.isa + 1) * *(&a2[8].super.isa + 1)))
       {
         LOBYTE(a2[8]._deviceIdentifier) = 0;
         BYTE4(a2[8]._deltaPositionX) = 2;
@@ -7781,15 +7652,15 @@ LABEL_26:
       deltaPositionX = a2[6]._deltaPositionX;
       *a5 = *p_deltaPositionY;
       *(a5 + 9) = *(p_deltaPositionY + 9);
-      *(a5 + 32) = updated;
-      v20 = (a5 + 40);
+      *(a5 + 32) = v12;
+      v21 = (a5 + 40);
       if (deltaPositionX)
       {
-        *v20 = 0;
+        *v21 = 0;
         *(a5 + 48) = 0;
         *(a5 + 56) = 0;
 LABEL_32:
-        std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>(v20, a2[7].super.isa, a2[7]._deviceIdentifier, 0xCCCCCCCCCCCCCCCDLL * ((a2[7]._deviceIdentifier - a2[7].super.isa) >> 2));
+        std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>(v21, a2[7].super.isa, a2[7]._deviceIdentifier, 0xCCCCCCCCCCCCCCCDLL * ((a2[7]._deviceIdentifier - a2[7].super.isa) >> 2));
         goto LABEL_33;
       }
 
@@ -7802,11 +7673,11 @@ LABEL_32:
       goto LABEL_26;
     }
 
-    v22 = *&a2[6]._statusDate;
+    v23 = *&a2[6]._statusDate;
     *buf = *&a2[6]._deltaPositionY;
-    v31 = v22;
-    v23 = v9;
-    v28 = v23;
+    v31 = v23;
+    v24 = v9;
+    v28 = v24;
     v29 = 1;
     ULHomeSlamLocalizationPipeline::generateBlueDot(&a2[7], a2, buf, &v28, a2[7]._deltaPositionZ, a2[7]._statusDate, &v32);
     odometrySourceType = a2[6]._odometrySourceType;
@@ -7817,15 +7688,15 @@ LABEL_32:
       LOBYTE(a2[6]._odometrySourceType) = 1;
     }
 
-    v25 = a2[6]._deltaPositionX;
+    v26 = a2[6]._deltaPositionX;
     *a5 = *&a2[6]._deltaPositionY;
     *(a5 + 9) = *(&a2[6]._deltaPositionZ + 1);
-    *(a5 + 32) = updated;
+    *(a5 + 32) = v12;
     *(a5 + 40) = 0;
-    v20 = (a5 + 40);
+    v21 = (a5 + 40);
     *(a5 + 48) = 0;
     *(a5 + 56) = 0;
-    if (v25)
+    if (v26)
     {
       goto LABEL_32;
     }
@@ -7838,48 +7709,46 @@ LABEL_32:
       ULHomeSlamLocalizationPipeline::ingestValidIOUpdate();
     }
 
-    v18 = logObject_MicroLocation_Default;
+    v19 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_DEBUG, "#HomeSlam, skipping IO update, awaiting first RF signal", buf, 2u);
+      _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_DEBUG, "#HomeSlam, skipping IO update, awaiting first RF signal", buf, 2u);
     }
 
     deltaPositionX_low = LOBYTE(a2[6]._deltaPositionX);
     *a5 = 0;
     *(a5 + 24) = 0;
     *(a5 + 32) = 1;
-    v20 = (a5 + 40);
+    v21 = (a5 + 40);
     if (deltaPositionX_low != 1)
     {
 LABEL_28:
-      *v20 = 0;
-      v20[1] = 0;
-      v20[2] = 0;
+      *v21 = 0;
+      v21[1] = 0;
+      v21[2] = 0;
       goto LABEL_33;
     }
 
-    *v20 = 0;
+    *v21 = 0;
     *(a5 + 48) = 0;
     *(a5 + 56) = 0;
-    std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>(v20, a2[7].super.isa, a2[7]._deviceIdentifier, 0xCCCCCCCCCCCCCCCDLL * ((a2[7]._deviceIdentifier - a2[7].super.isa) >> 2));
+    std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>(v21, a2[7].super.isa, a2[7]._deviceIdentifier, 0xCCCCCCCCCCCCCCCDLL * ((a2[7]._deviceIdentifier - a2[7].super.isa) >> 2));
   }
 
 LABEL_33:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-id _CLLogObjectForCategory_MicroLocation_Default(void)
+id _CLLogObjectForCategory_MicroLocation_Default(uint64_t a1)
 {
   if (onceToken_MicroLocation_Default != -1)
   {
     ULHomeSlamLocalizationPipeline::ingestValidIOUpdate();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7888,9 +7757,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULEndpointClusteringAlgorithm::pruneClusters();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7899,9 +7768,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7910,9 +7779,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7921,9 +7790,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7932,9 +7801,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULWalkwayGenerator::createWalkways();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7943,9 +7812,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7954,9 +7823,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7965,9 +7834,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7976,9 +7845,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7987,9 +7856,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -7998,9 +7867,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8009,9 +7878,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULRfClusterLocalizer::localize();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8020,9 +7889,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8031,9 +7900,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8042,9 +7911,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     [ULBackupAndRestore exportiCloudBackupWithCancelFunc:];
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8053,9 +7922,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8064,9 +7933,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8075,9 +7944,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     CLSqliteDatabaseManager::CLSqliteDatabaseManager();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8086,9 +7955,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8097,9 +7966,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8108,20 +7977,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
-}
-
-{
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    [ULMapLabelStore insertMapLabelsWithRelatedLabelsObjectIDs:];
-  }
-
-  v1 = logObject_MicroLocation_Default;
-
-  return v1;
+  return v2;
 }
 
 {
@@ -8130,9 +7988,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     [ULOdometryStore insertDataObjects:atLoiUUID:];
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8141,9 +7999,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     +[ULModelMO createFromDO:withServiceMO:loiMO:inManagedObjectContext:];
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8152,9 +8010,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8163,9 +8021,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8174,9 +8032,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8185,9 +8043,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8196,9 +8054,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8207,9 +8065,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULSensorsManager::ULSensorsManager();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8218,9 +8076,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULTriggerEngine::setDependencies();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8229,9 +8087,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULTriggerEngineFSM::handleNewTriggerInIdle();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8240,9 +8098,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8251,20 +8109,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
-}
-
-{
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    ULModelLoader::loadHomeSlamModel();
-  }
-
-  v1 = logObject_MicroLocation_Default;
-
-  return v1;
+  return v2;
 }
 
 {
@@ -8273,9 +8120,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULService::ingestLocalizationResults();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8284,9 +8131,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULServiceManager::runWithConfiguration();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8295,9 +8142,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8306,9 +8153,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8317,20 +8164,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     CLMicroLocationFingerprint::Measurement::fromProtobuf();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
-}
-
-{
-  if (onceToken_MicroLocation_Default != -1)
-  {
-    CLMicroLocationFingerprintDistanceFunction::weightedEuclideanJaccardDistance();
-  }
-
-  v1 = logObject_MicroLocation_Default;
-
-  return v1;
+  return v2;
 }
 
 {
@@ -8339,9 +8175,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     CLMicroLocationLearner::fetchAndFilterUniqueLOIGroups();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8350,9 +8186,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     CLMicroLocationLoiManager::VisitEntry();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8361,9 +8197,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8372,9 +8208,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8383,9 +8219,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8394,9 +8230,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8405,9 +8241,9 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     ULCustomLoiRecordingMonitor::ULCustomLoiRecordingMonitor();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
 {
@@ -8416,34 +8252,48 @@ id _CLLogObjectForCategory_MicroLocation_Default(void)
     _CLLogObjectForCategory_MicroLocation_Default();
   }
 
-  v1 = logObject_MicroLocation_Default;
+  v2 = logObject_MicroLocation_Default;
 
-  return v1;
+  return v2;
 }
 
-uint64_t ULHomeSlamLocalizationPipeline::updateParticlesState(void *a1, uint64_t a2, uint64_t a3, ULHomeSlamModel *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    _CLLogObjectForCategory_MicroLocation_Default_cold_1();
+  }
+
+  v2 = logObject_MicroLocation_Default;
+
+  return v2;
+}
+
+void ULHomeSlamLocalizationPipeline::updateParticlesState(void *a1, uint64_t a2, uint64_t a3, ULHomeSlamModel *a4)
+{
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a1;
+  v8 = v7;
   if (((v7 != 0) ^ *(a2 + 224)))
   {
-    if (*(ULHomeSlamModel::getTrajectoryPointCloud(a4) + 32))
+    ULHomeSlamModel::getTrajectoryPointCloud(a4);
+    if (*(v9 + 32))
     {
-      TrajectoryPointCloud = ULHomeSlamModel::getTrajectoryPointCloud(a4);
-      if ((*(TrajectoryPointCloud + 32) & 1) == 0)
+      ULHomeSlamModel::getTrajectoryPointCloud(a4);
+      v11 = v10;
+      if ((*(v10 + 32) & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
       Rois = ULHomeSlamModel::getRois(a4);
-      if (v7)
+      if (v8)
       {
         __p = 0;
-        *v29 = 0;
-        *&v29[8] = 0;
+        *v30 = 0;
+        *&v30[8] = 0;
         std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>(&__p, *(a3 + 392), *(a3 + 400), 0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 400) - *(a3 + 392)) >> 2));
-        ULHomeSlamLocalizationPipeline::moveParticles(v7, (a3 + 392), *(a3 + 416), a3, *(a3 + 460));
-        ULHomeSlamLocalizationPipeline::computeTrajectoryLikelihood(&__p, (a3 + 392), TrajectoryPointCloud, a3, Rois);
+        ULHomeSlamLocalizationPipeline::moveParticles(v8, (a3 + 392), *(a3 + 416), a3, *(a3 + 460));
+        ULHomeSlamLocalizationPipeline::computeTrajectoryLikelihood(&__p, (a3 + 392), v11, a3, Rois);
         if (ULHomeSlamLocalizationPipeline::didParticlesDiverge((a3 + 392), a3))
         {
           if (onceToken_MicroLocation_Default != -1)
@@ -8451,27 +8301,28 @@ uint64_t ULHomeSlamLocalizationPipeline::updateParticlesState(void *a1, uint64_t
             ULHomeSlamLocalizationPipeline::updateParticlesState();
           }
 
-          v10 = logObject_MicroLocation_Default;
+          v13 = logObject_MicroLocation_Default;
           if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "#HomeSlam, particles diverged!", buf, 2u);
+            _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "#HomeSlam, particles diverged!", buf, 2u);
           }
 
-          ULHomeSlamLocalizationPipeline::resetParticles(a3, a4, v11);
+          ULHomeSlamLocalizationPipeline::resetParticles(a3, a4, v14);
           if (__p)
           {
-            *v29 = __p;
+            *v30 = __p;
             operator delete(__p);
           }
 
-          v12 = 1;
-          goto LABEL_29;
+LABEL_27:
+
+          return;
         }
 
         if (__p)
         {
-          *v29 = __p;
+          *v30 = __p;
           operator delete(__p);
         }
       }
@@ -8486,134 +8337,121 @@ uint64_t ULHomeSlamLocalizationPipeline::updateParticlesState(void *a1, uint64_t
             ULHomeSlamLocalizationPipeline::ingestValidIOUpdate();
           }
 
-          v13 = logObject_MicroLocation_Default;
+          v15 = logObject_MicroLocation_Default;
           if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
           {
             LOWORD(__p) = 0;
-            _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "#HomeSlam, particles diverged!", &__p, 2u);
+            _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_DEFAULT, "#HomeSlam, particles diverged!", &__p, 2u);
           }
 
-          ULHomeSlamLocalizationPipeline::resetParticles(a3, a4, v14);
+          ULHomeSlamLocalizationPipeline::resetParticles(a3, a4, v16);
           if ((*(a2 + 224) & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
           ULHomeSlamLocalizationPipeline::computeFPLikelihood(a2, Rois, (a3 + 392), a3);
-          v12 = 1;
-          goto LABEL_24;
         }
       }
 
-      v12 = 0;
-LABEL_24:
-      if (*(a3 + 456) == 1 && (v15 = vcvtq_f64_f32(*(a3 + 440)), vaddvq_f64(vmulq_f64(v15, v15)) <= *(a3 + 452) * *(a3 + 452)))
-      {
-        v16 = 232;
-      }
-
-      else
+      if (*(a3 + 456) != 1 || (v17 = vcvtq_f64_f32(*(a3 + 440)), vaddvq_f64(vmulq_f64(v17, v17)) > *(a3 + 452) * *(a3 + 452)))
       {
         *(a3 + 456) = 0;
-        v16 = 236;
       }
 
-      v17 = *(a3 + v16);
-      v18 = *(a3 + 468) == 0;
-      v19 = *(a3 + 416);
-      ULHomeSlamLocalizationPipeline::resampleParticles();
+      ULHomeSlamLocalizationPipeline::resampleParticles(a3 + 392);
       ++*(a3 + 416);
-LABEL_29:
-
-      v20 = *MEMORY[0x277D85DE8];
-      return v12;
+      goto LABEL_27;
     }
 
-    v25 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v24 = _CLLogObjectForCategory_MicroLocation_Default(v9);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       __p = 68289539;
-      *v29 = 2082;
-      *&v29[2] = "";
-      *&v29[10] = 2082;
-      *&v29[12] = "assert";
-      v30 = 2081;
-      v31 = "model.getTrajectoryPointCloud().has_value()";
-      _os_log_impl(&dword_258FE9000, v25, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#HomeSlam, localization pipeline got nil trajectory point cloud!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      *v30 = 2082;
+      *&v30[2] = "";
+      *&v30[10] = 2082;
+      *&v30[12] = "assert";
+      v31 = 2081;
+      v32 = "model.getTrajectoryPointCloud().has_value()";
+      _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#HomeSlam, localization pipeline got nil trajectory point cloud!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    v26 = _CLLogObjectForCategory_MicroLocation_Default();
+    v26 = _CLLogObjectForCategory_MicroLocation_Default(v25);
     if (os_signpost_enabled(v26))
     {
       __p = 68289539;
-      *v29 = 2082;
-      *&v29[2] = "";
-      *&v29[10] = 2082;
-      *&v29[12] = "assert";
-      v30 = 2081;
-      v31 = "model.getTrajectoryPointCloud().has_value()";
+      *v30 = 2082;
+      *&v30[2] = "";
+      *&v30[10] = 2082;
+      *&v30[12] = "assert";
+      v31 = 2081;
+      v32 = "model.getTrajectoryPointCloud().has_value()";
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#HomeSlam, localization pipeline got nil trajectory point cloud!", "{msg%{public}.0s:#HomeSlam, localization pipeline got nil trajectory point cloud!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    v24 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v22 = _CLLogObjectForCategory_MicroLocation_Default(v27);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       __p = 68289539;
-      *v29 = 2082;
-      *&v29[2] = "";
-      *&v29[10] = 2082;
-      *&v29[12] = "assert";
-      v30 = 2081;
-      v31 = "model.getTrajectoryPointCloud().has_value()";
-      _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#HomeSlam, localization pipeline got nil trajectory point cloud!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      *v30 = 2082;
+      *&v30[2] = "";
+      *&v30[10] = 2082;
+      *&v30[12] = "assert";
+      v31 = 2081;
+      v32 = "model.getTrajectoryPointCloud().has_value()";
+      _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#HomeSlam, localization pipeline got nil trajectory point cloud!, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
+
+    v23 = 350;
   }
 
   else
   {
-    v22 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v18 = _CLLogObjectForCategory_MicroLocation_Default(v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       __p = 68289539;
-      *v29 = 2082;
-      *&v29[2] = "";
-      *&v29[10] = 2082;
-      *&v29[12] = "assert";
-      v30 = 2081;
-      v31 = "(ioStatus != nullptr) != fingerprint.has_value()";
-      _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#HomeSlam, should only use one signal input at a time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      *v30 = 2082;
+      *&v30[2] = "";
+      *&v30[10] = 2082;
+      *&v30[12] = "assert";
+      v31 = 2081;
+      v32 = "(ioStatus != nullptr) != fingerprint.has_value()";
+      _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#HomeSlam, should only use one signal input at a time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    v23 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v23))
+    v20 = _CLLogObjectForCategory_MicroLocation_Default(v19);
+    if (os_signpost_enabled(v20))
     {
       __p = 68289539;
-      *v29 = 2082;
-      *&v29[2] = "";
-      *&v29[10] = 2082;
-      *&v29[12] = "assert";
-      v30 = 2081;
-      v31 = "(ioStatus != nullptr) != fingerprint.has_value()";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#HomeSlam, should only use one signal input at a time", "{msg%{public}.0s:#HomeSlam, should only use one signal input at a time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      *v30 = 2082;
+      *&v30[2] = "";
+      *&v30[10] = 2082;
+      *&v30[12] = "assert";
+      v31 = 2081;
+      v32 = "(ioStatus != nullptr) != fingerprint.has_value()";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#HomeSlam, should only use one signal input at a time", "{msg%{public}.0s:#HomeSlam, should only use one signal input at a time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
 
-    v24 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v22 = _CLLogObjectForCategory_MicroLocation_Default(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       __p = 68289539;
-      *v29 = 2082;
-      *&v29[2] = "";
-      *&v29[10] = 2082;
-      *&v29[12] = "assert";
-      v30 = 2081;
-      v31 = "(ioStatus != nullptr) != fingerprint.has_value()";
-      _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#HomeSlam, should only use one signal input at a time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+      *v30 = 2082;
+      *&v30[2] = "";
+      *&v30[10] = 2082;
+      *&v30[12] = "assert";
+      v31 = 2081;
+      v32 = "(ioStatus != nullptr) != fingerprint.has_value()";
+      _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#HomeSlam, should only use one signal input at a time, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
     }
+
+    v23 = 349;
   }
 
-  result = abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/HomeSlam/Localizer/ULHomeSlamLocalizationPipeline.mm", v23, "updateParticlesState");
   __break(1u);
-  return result;
 }
 
 uint64_t std::optional<CLMicroLocationFingerprint>::~optional(uint64_t a1)
@@ -8637,9 +8475,9 @@ uint64_t std::optional<CLMicroLocationFingerprint>::~optional(uint64_t a1)
   return a1;
 }
 
-void ULHomeSlamLocalizationPipeline::generateBlueDot(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, char a6@<W5>, uint64_t a7@<X8>)
+void ULHomeSlamLocalizationPipeline::generateBlueDot(const ULPointLocation **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, char a6@<W5>, uint64_t a7@<X8>)
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULHomeSlamLocalizationPipeline::ingestValidIOUpdate();
@@ -8681,24 +8519,24 @@ void ULHomeSlamLocalizationPipeline::generateBlueDot(uint64_t a1@<X0>, uint64_t 
   v22 = v21;
 
   *buf = 0;
+  v89 = 0;
   v90 = 0;
-  v91 = 0;
-  v88[0] = 0;
-  v88[1] = 0;
-  v86[1] = 0;
-  v87 = v88;
-  v85 = v86;
-  v86[0] = 0;
-  v82 = v22;
-  ULHomeSlamLocalizationPipeline::clusterParticles(a1, buf, &v87, &v85, v23);
-  v24 = v87;
-  if (v87 == v88)
+  v87[0] = 0;
+  v87[1] = 0;
+  v85[1] = 0;
+  v86 = v87;
+  v84 = v85;
+  v85[0] = 0;
+  v81 = v22;
+  ULHomeSlamLocalizationPipeline::clusterParticles(a1, buf, &v86, &v84, v23);
+  v24 = v86;
+  if (v86 == v87)
   {
     goto LABEL_80;
   }
 
-  v25 = v87;
-  v26 = v87;
+  v25 = v86;
+  v26 = v86;
   while (1)
   {
     v27 = v26[1];
@@ -8726,7 +8564,7 @@ void ULHomeSlamLocalizationPipeline::generateBlueDot(uint64_t a1@<X0>, uint64_t 
       while (!v29);
     }
 
-    if (v26 == v88)
+    if (v26 == v87)
     {
       break;
     }
@@ -8737,19 +8575,19 @@ void ULHomeSlamLocalizationPipeline::generateBlueDot(uint64_t a1@<X0>, uint64_t 
     }
   }
 
-  if (v25 == v88)
+  if (v25 == v87)
   {
 LABEL_80:
     ULHomeSlamLocalizationPipeline::generateBlueDot(&__p);
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/HomeSlam/Localizer/ULHomeSlamLocalizationPipeline.mm", 468, "generateBlueDot");
     __break(1u);
   }
 
   *a7 = 0;
   *(a7 + 8) = 0;
   *(a7 + 16) = 0;
-  v30 = vcvtms_s32_f32(*(a2 + 216) * (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 2)));
+  v30 = vcvtms_s32_f32(*(a2 + 216) * (0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 2)));
   if (*(a3 + 24))
   {
     v31 = *a3;
@@ -8765,8 +8603,8 @@ LABEL_80:
     [v40 floatValue];
     v42 = v41;
 
-    v43 = v87;
-    if (v87 != v88)
+    v43 = v86;
+    if (v86 != v87)
     {
       v44 = v31 + v36;
       v45 = v32 + v39;
@@ -8801,18 +8639,18 @@ LABEL_36:
         }
 
         v43 = v61;
-        if (v61 == v88)
+        if (v61 == v87)
         {
           goto LABEL_58;
         }
       }
 
       __p.__r_.__value_.__r.__words[0] = (v43 + 4);
-      v49 = *(std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v85, v43 + 4) + 10);
+      v49 = *(std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v84, v43 + 4, &std::piecewise_construct, &__p) + 10);
       __p.__r_.__value_.__r.__words[0] = (v43 + 4);
-      v50 = *(std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v85, v43 + 4) + 11);
+      v50 = *(std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v84, v43 + 4, &std::piecewise_construct, &__p) + 11);
       __p.__r_.__value_.__r.__words[0] = (v43 + 4);
-      v51 = *(std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v85, v43 + 4) + 12);
+      v51 = *(std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v84, v43 + 4, &std::piecewise_construct, &__p) + 12);
       v52 = fmaxf(fabsf(v49 - v44), fmaxf(vabds_f32(v50, v45), vabds_f32(v51, v46)));
       if (v52 <= 1.8447e19)
       {
@@ -8836,12 +8674,12 @@ LABEL_32:
       if (v55 < v48)
       {
         __p.__r_.__value_.__r.__words[0] = (v43 + 4);
-        v56 = std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v85, v43 + 4);
+        v56 = std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v84, v43 + 4, &std::piecewise_construct, &__p);
         v57 = v56[5];
         *(a7 + 8) = *(v56 + 12);
         *a7 = v57;
         __p.__r_.__value_.__r.__words[0] = (v43 + 4);
-        v58 = std::__tree<std::__value_type<unsigned long,int>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,int>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v87, v43 + 4);
+        v58 = std::__tree<std::__value_type<unsigned long,int>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,int>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v86, v43 + 4, &std::piecewise_construct, &__p);
         v59 = 1;
         if (*(v58 + 10) > v30)
         {
@@ -8859,7 +8697,7 @@ LABEL_32:
     goto LABEL_57;
   }
 
-  if (v24 == v88)
+  if (v24 == v87)
   {
 LABEL_57:
     v47 = -1;
@@ -8874,12 +8712,12 @@ LABEL_57:
     if (v63 >= v62)
     {
       __p.__r_.__value_.__r.__words[0] = (v24 + 4);
-      v64 = std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v85, v24 + 4);
+      v64 = std::__tree<std::__value_type<unsigned long,ULPointLocation>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,ULPointLocation>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,ULPointLocation>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v84, v24 + 4, &std::piecewise_construct, &__p);
       v65 = v64[5];
       *(a7 + 8) = *(v64 + 12);
       *a7 = v65;
       __p.__r_.__value_.__r.__words[0] = (v24 + 4);
-      if (*(std::__tree<std::__value_type<unsigned long,int>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,int>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v87, v24 + 4) + 10) <= v30)
+      if (*(std::__tree<std::__value_type<unsigned long,int>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,int>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v86, v24 + 4, &std::piecewise_construct, &__p) + 10) <= v30)
       {
         v66 = 1;
       }
@@ -8921,15 +8759,15 @@ LABEL_57:
     v24 = v68;
   }
 
-  while (v68 != v88);
+  while (v68 != v87);
 LABEL_58:
-  if ((a6 & 1) != 0 && a5[1] == 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 2))
+  if ((a6 & 1) != 0 && a5[1] == 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 2))
   {
     v69 = *buf;
-    if (v90 != *buf)
+    if (v89 != *buf)
     {
       v70 = 0;
-      v71 = (v90 - *buf) >> 3;
+      v71 = (v89 - *buf) >> 3;
       v72 = *a5;
       if (v71 <= 1)
       {
@@ -8966,7 +8804,7 @@ LABEL_58:
   v76 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
   {
-    ULPointLocation::str(a7, &__p);
+    ULPointLocation::str(&__p, a7);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -8983,29 +8821,27 @@ LABEL_58:
       v78 = "Low";
     }
 
-    *v92 = 136315394;
-    v93 = p_p;
-    v94 = 2080;
-    v95 = v78;
-    _os_log_impl(&dword_258FE9000, v76, OS_LOG_TYPE_DEBUG, "#HomeSlam, new blue dot %s, with confidence: %s", v92, 0x16u);
+    *v91 = 136315394;
+    v92 = p_p;
+    v93 = 2080;
+    v94 = v78;
+    _os_log_impl(&dword_258FE9000, v76, OS_LOG_TYPE_DEBUG, "#HomeSlam, new blue dot %s, with confidence: %s", v91, 0x16u);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&v85, v86[0]);
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&v87, v88[0]);
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&v84, v85[0]);
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&v86, v87[0]);
   if (*buf)
   {
-    v90 = *buf;
+    v89 = *buf;
     operator delete(*buf);
   }
-
-  v79 = *MEMORY[0x277D85DE8];
 }
 
-void sub_259007CBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, void *a20, uint64_t a21, char a22, void *a23, uint64_t a24, void *__p, uint64_t a26)
+void sub_259007CBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, void *__p, uint64_t a26)
 {
   std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a19, a20);
   std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&a22, a23);
@@ -9018,10 +8854,10 @@ void sub_259007CBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ULHomeSlamLocalizationPipeline::ingestValidFingerprintUpdate@<X0>(ULHomeSlamLocalizationPipeline *this@<X0>, const CLMicroLocationFingerprint *a2@<X1>, ULHomeSlamLocalizerState *a3@<X2>, const ULHomeSlamModel *a4@<X3>, uint64_t a5@<X8>)
+void ULHomeSlamLocalizationPipeline::ingestValidFingerprintUpdate(ULHomeSlamLocalizationPipeline *this@<X0>, const CLMicroLocationFingerprint *a2@<X1>, ULHomeSlamLocalizerState *a3@<X2>, const ULHomeSlamModel *a4@<X3>, uint64_t a5@<X8>)
 {
   v5 = a4;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     ULHomeSlamLocalizationPipeline::ingestValidIOUpdate();
@@ -9034,23 +8870,23 @@ uint64_t ULHomeSlamLocalizationPipeline::ingestValidFingerprintUpdate@<X0>(ULHom
     _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEBUG, "#HomeSlam, localizing RF update", buf, 2u);
   }
 
-  CLMicroLocationFingerprint::CLMicroLocationFingerprint(v23, this);
-  v29 = 1;
-  result = ULHomeSlamLocalizationPipeline::updateParticlesState(0, v23, a2, a3);
-  v12 = result;
-  if (v29 == 1)
+  CLMicroLocationFingerprint::CLMicroLocationFingerprint(v22, this);
+  v28 = 1;
+  ULHomeSlamLocalizationPipeline::updateParticlesState(0, v22, a2, a3);
+  v12 = v11;
+  if (v28 == 1)
   {
-    *buf = &v28;
+    *buf = &v27;
     std::vector<ULPhotoFeaturesDO>::__destroy_vector::operator()[abi:ne200100](buf);
     if (__p)
     {
-      v27 = __p;
+      v26 = __p;
       operator delete(__p);
     }
 
-    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v25);
     std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v24);
-    result = std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v23);
+    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v23);
+    std::__hash_table<CLMicroLocationFingerprint::Measurement,CLMicroLocationFingerprint::Measurement::HashMeasurement,CLMicroLocationFingerprint::Measurement::PredicateMeasurement,std::allocator<CLMicroLocationFingerprint::Measurement>>::~__hash_table(v22);
   }
 
   if (*(a2 + 468))
@@ -9072,10 +8908,10 @@ LABEL_11:
       *(a5 + 56) = 0;
       if (v13 == 1)
       {
-        result = std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>(a5 + 40, *(a2 + 49), *(a2 + 50), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 50) - *(a2 + 49)) >> 2));
+        std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>((a5 + 40), *(a2 + 49), *(a2 + 50), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 50) - *(a2 + 49)) >> 2));
       }
 
-      goto LABEL_20;
+      return;
     }
   }
 
@@ -9090,13 +8926,13 @@ LABEL_11:
 
   v14 = *(a2 + 376);
   *buf = *(a2 + 360);
-  v20 = v14;
-  v18[0] = 0;
-  v18[8] = 0;
-  ULHomeSlamLocalizationPipeline::generateBlueDot(a2 + 392, a2, buf, v18, *(a2 + 53), *(a2 + 54), &v21);
+  v19 = v14;
+  v17[0] = 0;
+  v17[8] = 0;
+  ULHomeSlamLocalizationPipeline::generateBlueDot(a2 + 49, a2, buf, v17, *(a2 + 53), *(a2 + 54), &v20);
   v15 = *(a2 + 384);
-  *(a2 + 360) = v21;
-  *(a2 + 47) = v22;
+  *(a2 + 360) = v20;
+  *(a2 + 47) = v21;
   if ((v15 & 1) == 0)
   {
     *(a2 + 384) = 1;
@@ -9107,27 +8943,22 @@ LABEL_11:
   *(a5 + 9) = *(a2 + 369);
   *(a5 + 32) = v12;
   *(a5 + 40) = 0;
-  result = a5 + 40;
   *(a5 + 48) = 0;
   *(a5 + 56) = 0;
   if (v16 == 1)
   {
-    result = std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>(result, *(a2 + 49), *(a2 + 50), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 50) - *(a2 + 49)) >> 2));
+    std::vector<ULParticle>::__init_with_size[abi:ne200100]<ULParticle*,ULParticle*>((a5 + 40), *(a2 + 49), *(a2 + 50), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 50) - *(a2 + 49)) >> 2));
   }
-
-LABEL_20:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void sub_259007FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_259007FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::optional<CLMicroLocationFingerprint>::~optional(va);
   _Unwind_Resume(a1);
 }
 
-void ULHomeSlamLocalizationPipeline::computeFPLikelihood(uint64_t *a1, uint64_t *a2, ULHomeSlamLocalizationPipeline **a3, const ULPointLocation *a4)
+void ULHomeSlamLocalizationPipeline::computeFPLikelihood(uint64_t *a1, uint64_t **a2, ULHomeSlamLocalizationPipeline **a3, const ULPointLocation *a4)
 {
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -9158,7 +8989,7 @@ void ULHomeSlamLocalizationPipeline::computeFPLikelihood(uint64_t *a1, uint64_t 
   {
     do
     {
-      ULHomeSlamLocalizationPipeline::computeGeoDistanceFromAllROIs(v10, a2, a4, v18);
+      ULHomeSlamLocalizationPipeline::computeGeoDistanceFromAllROIs(v18, v10, a2, a4);
       *(v10 + 3) = 1065353216;
       if ((ULHomeSlamLocalizationPipeline::shouldSnapParticleToRoom(v18, buf, a4 + v9) & 1) == 0)
       {
@@ -9166,13 +8997,13 @@ void ULHomeSlamLocalizationPipeline::computeFPLikelihood(uint64_t *a1, uint64_t 
         v13 = a2[1];
         while (v12 != v13)
         {
-          v20 = v12 + 24;
-          v17 = *(std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(buf, (v12 + 24)) + 8);
-          v20 = v12 + 24;
-          v16 = *(std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v18, (v12 + 24)) + 8);
+          v20 = (v12 + 3);
+          v17 = *(std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(buf, v12 + 6, &std::piecewise_construct, &v20) + 8);
+          v20 = (v12 + 3);
+          v16 = *(std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v18, v12 + 6, &std::piecewise_construct, &v20) + 8);
           v15 = ULHomeSlamLocalizationPipeline::computeScoreFromFpAndGeoDistance(&v17, &v16, (a4 + v9), v14);
           *(v10 + 3) = *(v10 + 3) * v15;
-          v12 += 32;
+          v12 += 4;
         }
       }
 
@@ -9186,7 +9017,7 @@ void ULHomeSlamLocalizationPipeline::computeFPLikelihood(uint64_t *a1, uint64_t 
   std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(buf, buf[1]);
 }
 
-uint64_t *ULHomeSlamLocalizationPipeline::computeFPDistanceFromAllROIs@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t *ULHomeSlamLocalizationPipeline::computeFPDistanceFromAllROIs@<X0>(uint64_t *result@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   a4[2] = 0;
   a4[1] = 0;
@@ -9199,9 +9030,11 @@ uint64_t *ULHomeSlamLocalizationPipeline::computeFPDistanceFromAllROIs@<X0>(uint
     do
     {
       v9 = ULHomeSlamLocalizationPipeline::computeRFDistanceFromROI(v8, v5, a3);
-      result = std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a4, (v5 + 24));
+      v10 = (v5 + 3);
+      v11 = v10;
+      result = std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a4, v10, &std::piecewise_construct, &v11);
       *(result + 8) = v9;
-      v5 += 32;
+      v5 = (v10 + 2);
     }
 
     while (v5 != v6);
@@ -9210,14 +9043,14 @@ uint64_t *ULHomeSlamLocalizationPipeline::computeFPDistanceFromAllROIs@<X0>(uint
   return result;
 }
 
-uint64_t *ULHomeSlamLocalizationPipeline::computeGeoDistanceFromAllROIs@<X0>(ULHomeSlamLocalizationPipeline *this@<X1>, uint64_t *result@<X0>, const ULPointLocation *a3@<X2>, void *a4@<X8>)
+const ULPointLocation ***ULHomeSlamLocalizationPipeline::computeGeoDistanceFromAllROIs@<X0>(uint64_t *__return_ptr a1@<X8>, ULHomeSlamLocalizationPipeline *this@<X1>, const ULPointLocation ***result@<X0>, const ULPointLocation *a4@<X2>)
 {
-  a4[2] = 0;
-  a4[1] = 0;
-  *a4 = a4 + 1;
+  a1[2] = 0;
+  a1[1] = 0;
+  *a1 = (a1 + 1);
   if (*result != result[1])
   {
-    ULHomeSlamLocalizationPipeline::computeGeoDistanceFromROI(*result, this, a3);
+    ULHomeSlamLocalizationPipeline::computeGeoDistanceFromROI(*result, this, a4);
   }
 
   return result;
@@ -9334,9 +9167,9 @@ LABEL_8:
 
 float ULHomeSlamLocalizationPipeline::computeRFDistanceFromROI(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v13 = 0;
   v14 = 0;
-  v12 = &v13;
+  v15 = 0;
+  v13 = &v14;
   v3 = *a2;
   v4 = a2[1];
   if (*a2 == v4)
@@ -9352,16 +9185,17 @@ float ULHomeSlamLocalizationPipeline::computeRFDistanceFromROI(uint64_t a1, uint
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    if ((*(*v7 + 48))(v7, a1, v3 + 16) != INFINITY)
+    v12 = (*(*v7 + 48))(v7, a1, v3 + 16);
+    if (v12 != INFINITY)
     {
-      std::__tree<float>::__emplace_multi<float const&>();
+      std::__tree<float>::__emplace_multi<float const&>(&v13, &v12);
     }
 
     v3 += 240;
   }
 
   while (v3 != v4);
-  if (!v14)
+  if (!v15)
   {
 LABEL_10:
     v10 = INFINITY;
@@ -9375,20 +9209,24 @@ LABEL_10:
       v8 = 32;
     }
 
-    CLReducerFunction<std::multiset<float>,float>::parametrizedPercentileSorted(&v12, *(a3 + v8));
+    CLReducerFunction<std::multiset<float>,float>::parametrizedPercentileSorted(&v13, *(a3 + v8));
     v10 = v9;
   }
 
-  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&v12, v13);
+  std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::destroy(&v13, v14);
   return v10;
 }
 
-void ULHomeSlamLocalizationPipeline::computeGeoDistanceFromROI(uint64_t a1, ULHomeSlamLocalizationPipeline *this, const ULPointLocation *a3)
+void ULHomeSlamLocalizationPipeline::computeGeoDistanceFromROI(const ULPointLocation **a1, ULHomeSlamLocalizationPipeline *this, const ULPointLocation *a3)
 {
-  if (*(a1 + 8) != *a1)
+  v3 = *a1;
+  if (a1[1] != *a1)
   {
-    ULHomeSlamLocalizationPipeline::geoDistULPoints(this, *a1, a3);
-    std::__tree<float>::__emplace_multi<float const&>();
+    v6[0] = 0;
+    v6[1] = 0;
+    v5 = v6;
+    v4 = ULHomeSlamLocalizationPipeline::geoDistULPoints(this, v3, a3);
+    std::__tree<float>::__emplace_multi<float const&>(&v5, &v4);
   }
 
   ULHomeSlamLocalizationPipeline::computeGeoDistanceFromROI();
@@ -9434,7 +9272,7 @@ uint64_t ULHomeSlamLocalizationPipeline::findBinIndex(double *a1, double **a2)
   }
 }
 
-float **CLReducerFunction<std::multiset<float>,float>::parametrizedPercentileSorted(float **result, double a2)
+uint64_t *CLReducerFunction<std::multiset<float>,float>::parametrizedPercentileSorted(uint64_t *result, double a2)
 {
   v2 = result[2];
   if (!v2)
@@ -9448,97 +9286,87 @@ float **CLReducerFunction<std::multiset<float>,float>::parametrizedPercentileSor
   }
 
   v4 = a2 == 0.0 || v2 == 1;
-  if (v4)
+  if (!v4)
   {
-    v5 = *result;
-LABEL_17:
-    v8 = *(v5 + 7);
-    return result;
-  }
-
-  if (a2 == 1.0)
-  {
-    v7 = result[1];
-    ++result;
-    v6 = v7;
-    if (v7)
+    if (a2 == 1.0)
     {
-      do
+      v6 = result[1];
+      ++result;
+      v5 = v6;
+      if (v6)
       {
-        v5 = v6;
-        v6 = *(v6 + 1);
+        do
+        {
+          v5 = *(v5 + 8);
+        }
+
+        while (v5);
       }
 
-      while (v6);
+      else
+      {
+        do
+        {
+          v4 = *result[2] == result;
+          result = result[2];
+        }
+
+        while (v4);
+      }
     }
 
     else
     {
-      do
+      v7 = (v2 - 1);
+      v8 = v7 * a2;
+      if (v8 < 0.0)
       {
-        v5 = result[2];
-        v4 = *v5 == result;
-        result = v5;
+        v8 = 0.0;
       }
 
-      while (v4);
+      if (v8 <= v7)
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = (v2 - 1);
+      }
+
+      v10 = llround(floor(v9));
+      if (v10 < 0 || v10 > v2 - 2)
+      {
+        CLReducerFunction<std::multiset<float>,float>::parametrizedPercentileSorted();
+      }
+
+      v13 = *result;
+      result = std::__advance[abi:ne200100]<std::__tree_const_iterator<float,std::__tree_node<float,void *> *,long>>(&v13, v10);
+      v11 = v13;
+      v12 = v13[1];
+      if (v12)
+      {
+        do
+        {
+          v12 = *v12;
+        }
+
+        while (v12);
+      }
+
+      else
+      {
+        do
+        {
+          v4 = *v11[2] == v11;
+          v11 = v11[2];
+        }
+
+        while (!v4);
+      }
     }
-
-    goto LABEL_17;
   }
 
-  v9 = (v2 - 1);
-  v10 = v9 * a2;
-  if (v10 < 0.0)
-  {
-    v10 = 0.0;
-  }
-
-  if (v10 <= v9)
-  {
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = (v2 - 1);
-  }
-
-  v12 = floor(v11);
-  v13 = llround(v12);
-  if (v13 < 0 || v13 > v2 - 2)
-  {
-    CLReducerFunction<std::multiset<float>,float>::parametrizedPercentileSorted();
-  }
-
-  v18 = *result;
-  result = std::__advance[abi:ne200100]<std::__tree_const_iterator<float,std::__tree_node<float,void *> *,long>>(&v18, v13);
-  v14 = v18;
-  v15 = *(v18 + 1);
-  if (v15)
-  {
-    do
-    {
-      v16 = v15;
-      v15 = *v15;
-    }
-
-    while (v15);
-  }
-
-  else
-  {
-    do
-    {
-      v16 = *(v14 + 2);
-      v4 = *v16 == v14;
-      v14 = v16;
-    }
-
-    while (!v4);
-  }
-
-  v17 = v18[7] + (v11 - v12) * (v16[7] - v18[7]);
   return result;
 }
 
@@ -9618,7 +9446,7 @@ void ULHomeSlamLocalizationPipeline::moveParticles(void *a1, float **a2, unsigne
     v43 = v14;
     v44 = v13;
     v18 = __sincosf_stret(*&a5);
-    v19 = v15 + 4;
+    v19 = (v15 + 16);
     do
     {
       if ((a5 & 0x100000000) != 0)
@@ -9792,4 +9620,130 @@ void ULHomeSlamLocalizationPipeline::computeTrajectoryLikelihood(void *a1, uint6
 
   __p = buf;
   std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](&__p);
+}
+
+void sub_259008F48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char *__p, char *a13, uint64_t a14, char a15)
+{
+  if (__p)
+  {
+    a13 = __p;
+    operator delete(__p);
+  }
+
+  __p = &a15;
+  std::vector<std::shared_ptr<ULTrajectoryPoint>>::__destroy_vector::operator()[abi:ne200100](&__p);
+  _Unwind_Resume(a1);
+}
+
+void std::vector<ULPointLocation>::reserve(void *a1, unint64_t a2)
+{
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
+  {
+    if (a2 < 0x1555555555555556)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<ULPointLocation>>(a1, a2);
+    }
+
+    std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
+  }
+}
+
+const void **std::vector<std::shared_ptr<ULTrajectoryPoint>>::reserve(const void **result, unint64_t a2)
+{
+  if (a2 > (result[2] - *result) >> 4)
+  {
+    if (!(a2 >> 60))
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<ULTrajectoryPoint>>>(result, a2);
+    }
+
+    std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
+  }
+
+  return result;
+}
+
+float ULHomeSlamLocalizationPipeline::getMovement(float32x2_t *this, const ULPointLocation *a2, const ULPointLocation *a3)
+{
+  v7 = vsub_f32(*&a2->var0, *this);
+  v5 = (atan2f(v7.f32[1], v7.f32[0]) * 180.0) / 3.1416;
+  atan2f(a2->var2 - this[1].f32[0], sqrtf(vaddv_f32(vmul_f32(v7, v7))));
+  return v5;
+}
+
+void ULHomeSlamLocalizationPipeline::getPointsVector(float32x2_t *a1, float32x2_t *a2, uint64_t a3, const void **a4, double a5)
+{
+  v5 = *(a3 + 224);
+  if (v5)
+  {
+    v8 = 0;
+    *&a5 = (v5 - 1);
+    v9 = vdiv_f32(vsub_f32(*a2, *a1), vdup_lane_s32(*&a5, 0));
+    v10 = (a2[1].f32[0] - a1[1].f32[0]) / *&a5;
+    v11 = a4[1];
+    do
+    {
+      v12 = vmla_n_f32(*a1, v9, v8);
+      v13 = a1[1].f32[0] + (v8 * v10);
+      v14 = a4[2];
+      if (v11 >= v14)
+      {
+        v15 = *a4;
+        v16 = v11 - *a4;
+        v17 = 0xAAAAAAAAAAAAAAABLL * (v16 >> 2) + 1;
+        if (v17 > 0x1555555555555555)
+        {
+          std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
+        }
+
+        v18 = 0xAAAAAAAAAAAAAAABLL * ((v14 - v15) >> 2);
+        if (2 * v18 > v17)
+        {
+          v17 = 2 * v18;
+        }
+
+        if (v18 >= 0xAAAAAAAAAAAAAAALL)
+        {
+          v19 = 0x1555555555555555;
+        }
+
+        else
+        {
+          v19 = v17;
+        }
+
+        if (v19)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<ULPointLocation>>(a4, v19);
+        }
+
+        v20 = 4 * (v16 >> 2);
+        *v20 = v12;
+        *(v20 + 8) = v13;
+        v11 = (v20 + 12);
+        v21 = v20 - v16;
+        memcpy((v20 - v16), v15, v16);
+        v22 = *a4;
+        *a4 = v21;
+        a4[1] = v11;
+        a4[2] = 0;
+        if (v22)
+        {
+          operator delete(v22);
+        }
+      }
+
+      else
+      {
+        *v11 = v12;
+        v11[1].f32[0] = v13;
+        v11 = (v11 + 12);
+      }
+
+      a4[1] = v11;
+      ++v8;
+    }
+
+    while (v5 != v8);
+  }
 }

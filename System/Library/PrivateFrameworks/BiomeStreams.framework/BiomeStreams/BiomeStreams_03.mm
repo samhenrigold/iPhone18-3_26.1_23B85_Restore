@@ -1,191 +1,41 @@
-uint64_t sub_18492B478(unint64_t *a1, uint64_t a2)
-{
-  if (a2 == 0x7FFFFFFF)
-  {
-    return OUTLINED_FUNCTION_98(*a1);
-  }
-
-  type metadata accessor for SelectCore();
-  v4 = OUTLINED_FUNCTION_100();
-
-  return __swift_getEnumTagSinglePayload(v4, a2, v5);
-}
-
-void *sub_18492B4F0(void *result, uint64_t a2, int a3)
-{
-  if (a3 == 0x7FFFFFFF)
-  {
-    *result = (a2 - 1);
-  }
-
-  else
-  {
-    type metadata accessor for SelectCore();
-    v4 = OUTLINED_FUNCTION_100();
-
-    return __swift_storeEnumTagSinglePayload(v4, a2, a2, v5);
-  }
-
-  return result;
-}
-
-uint64_t _s12BiomeStreams13StorableValueO04DateD10CodingKeys33_69E06497FCCD36C7847396967BD3AC6FLLOs0F3KeyAAsAGP06stringD0xSgSS_tcfCTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = StorableValue.DataValueCodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result & 1;
-  return result;
-}
-
-uint64_t sub_18492BC58()
-{
-  OUTLINED_FUNCTION_141();
-  if (v1)
-  {
-    return OUTLINED_FUNCTION_98(*(v0 + 8));
-  }
-
-  OUTLINED_FUNCTION_144();
-  type metadata accessor for SQLDataType();
-  OUTLINED_FUNCTION_175();
-  v4 = OUTLINED_FUNCTION_129(v3);
-
-  return __swift_getEnumTagSinglePayload(v4, v5, v6);
-}
-
-void sub_18492BCBC()
-{
-  OUTLINED_FUNCTION_105_0();
-  if (v2)
-  {
-    *(v1 + 8) = (v0 - 1);
-  }
-
-  else
-  {
-    type metadata accessor for SQLDataType();
-    OUTLINED_FUNCTION_174();
-    v4 = OUTLINED_FUNCTION_129(v3);
-
-    __swift_storeEnumTagSinglePayload(v4, v5, v0, v6);
-  }
-}
-
-uint64_t sub_18492BD28()
-{
-  OUTLINED_FUNCTION_141();
-  if (v3)
-  {
-    return OUTLINED_FUNCTION_98(*(v1 + 8));
-  }
-
-  OUTLINED_FUNCTION_144();
-  v5 = type metadata accessor for SQLExpression();
-  OUTLINED_FUNCTION_83(v5);
-  if (*(v6 + 84) == v0)
-  {
-    OUTLINED_FUNCTION_175();
-  }
-
-  else
-  {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    OUTLINED_FUNCTION_83(v8);
-    if (*(v9 + 84) == v0)
-    {
-      v7 = *(v2 + 24);
-    }
-
-    else
-    {
-      type metadata accessor for SQLDataType();
-      v7 = *(v2 + 28);
-    }
-  }
-
-  v10 = OUTLINED_FUNCTION_129(v7);
-
-  return __swift_getEnumTagSinglePayload(v10, v11, v12);
-}
-
-void sub_18492BE18()
-{
-  OUTLINED_FUNCTION_105_0();
-  if (v4)
-  {
-    *(v1 + 8) = (v0 - 1);
-  }
-
-  else
-  {
-    v5 = v3;
-    v6 = v2;
-    v7 = type metadata accessor for SQLExpression();
-    OUTLINED_FUNCTION_83(v7);
-    if (*(v8 + 84) == v6)
-    {
-      OUTLINED_FUNCTION_174();
-    }
-
-    else
-    {
-      v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-      OUTLINED_FUNCTION_83(v10);
-      if (*(v11 + 84) == v6)
-      {
-        v9 = *(v5 + 24);
-      }
-
-      else
-      {
-        type metadata accessor for SQLDataType();
-        v9 = *(v5 + 28);
-      }
-    }
-
-    v12 = OUTLINED_FUNCTION_129(v9);
-
-    __swift_storeEnumTagSinglePayload(v12, v13, v0, v14);
-  }
-}
-
 uint64_t sub_18492BF60(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for StorableValue(0);
-  v5 = OUTLINED_FUNCTION_83(v4);
-  if (*(v6 + 84) == a2)
+  type metadata accessor for StorableValue(0);
+  OUTLINED_FUNCTION_83();
+  if (*(v5 + 84) == a2)
   {
-    v7 = v5;
-    v8 = a1;
+    v6 = v4;
+    v7 = a1;
   }
 
   else
   {
     type metadata accessor for SQLDataType();
     OUTLINED_FUNCTION_175();
-    v8 = a1 + v9;
+    v7 = a1 + v8;
   }
 
-  return __swift_getEnumTagSinglePayload(v8, a2, v7);
+  return __swift_getEnumTagSinglePayload(v7, a2, v6);
 }
 
 uint64_t sub_18492BFF4(uint64_t a1, uint64_t a2, int a3)
 {
-  v6 = type metadata accessor for StorableValue(0);
-  v7 = OUTLINED_FUNCTION_83(v6);
-  if (*(v8 + 84) == a3)
+  type metadata accessor for StorableValue(0);
+  OUTLINED_FUNCTION_83();
+  if (*(v7 + 84) == a3)
   {
-    v9 = v7;
-    v10 = a1;
+    v8 = v6;
+    v9 = a1;
   }
 
   else
   {
     type metadata accessor for SQLDataType();
     OUTLINED_FUNCTION_174();
-    v10 = a1 + v11;
+    v9 = a1 + v10;
   }
 
-  return __swift_storeEnumTagSinglePayload(v10, a2, a2, v9);
+  return __swift_storeEnumTagSinglePayload(v9, a2, a2, v8);
 }
 
 char *_sSp14moveInitialize4from5countySpyxG_SitFSaySS11metadataKey_SS10columnName14BiomeSQLParser11SQLDataTypeO04dataL0tG_Tg5_0(char *result, uint64_t a2, char *a3)
@@ -224,12 +74,11 @@ uint64_t sub_18492C1C8()
 
 uint64_t sub_18492C228()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyValue) -> (@out AnyValue?))?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -238,7 +87,7 @@ uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed AnyVa
   return result;
 }
 
-uint64_t _sxRi_zRi0_zlyST_pSo12BMStreamBaseC7ElementSTRts_XPIsegr_SgWOy_0(uint64_t result)
+uint64_t _sxRi_zRi0_zlyST_pSo12BMStreamBaseC7ElementSTRts_XPIsegr_SgWOy_0(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -250,43 +99,34 @@ uint64_t _sxRi_zRi0_zlyST_pSo12BMStreamBaseC7ElementSTRts_XPIsegr_SgWOy_0(uint64
 uint64_t sub_18492C318(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_97_2();
-  v5 = type metadata accessor for MaterializedView();
-  OUTLINED_FUNCTION_83(v5);
-  if (*(v6 + 84) != a2)
+  type metadata accessor for MaterializedView();
+  OUTLINED_FUNCTION_83();
+  if (*(v5 + 84) != a2)
   {
     return OUTLINED_FUNCTION_99_2(*(a3 + 32));
   }
 
-  v7 = OUTLINED_FUNCTION_105_2();
+  v6 = OUTLINED_FUNCTION_105_2();
 
-  return __swift_getEnumTagSinglePayload(v7, a2, v8);
+  return __swift_getEnumTagSinglePayload(v6, a2, v7);
 }
 
-uint64_t sub_18492C3A8(uint64_t a1, int a2, int a3, uint64_t a4)
+void sub_18492C3A8(uint64_t a1, int a2, int a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_84();
-  v8 = type metadata accessor for MaterializedView();
-  result = OUTLINED_FUNCTION_83(v8);
-  if (*(v10 + 84) == a3)
+  type metadata accessor for MaterializedView();
+  OUTLINED_FUNCTION_83();
+  if (*(v8 + 84) == a3)
   {
-    v11 = OUTLINED_FUNCTION_110_1();
+    v9 = OUTLINED_FUNCTION_110_1();
 
-    return __swift_storeEnumTagSinglePayload(v11, v12, v13, v14);
+    __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
   }
 
   else
   {
     *(v4 + *(a4 + 32)) = (a2 - 1);
   }
-
-  return result;
-}
-
-uint64_t _s14BiomeSQLParser19PgQuery_A_Expr_KindOSYAASY8rawValue03RawH0QzvgTW_0@<X0>(uint64_t *a1@<X8>)
-{
-  result = destructiveProjectEnumData for StorableValue(*v1, *(v1 + 8));
-  *a1 = result;
-  return result;
 }
 
 unint64_t _s14BiomeSQLParser21PgQuery_ClusterOptionO21InternalSwiftProtobuf4EnumAadEP8rawValuexSgSi_tcfCTW_0@<X0>(unint64_t result@<X0>, uint64_t a2@<X8>)
@@ -307,58 +147,39 @@ void *_s14BiomeSQLParser21PgQuery_ClusterOptionOSYAASY8rawValuexSg03RawH0Qz_tcfC
   return result;
 }
 
-uint64_t _s14BiomeSQLParser19PgQuery_ParseResultV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t _s14BiomeSQLParser19PgQuery_ParseResultV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X8>)
 {
-  *a2 = 0;
-  *(a2 + 8) = MEMORY[0x1E69E7CC0];
-  v2 = a2 + *(a1 + 24);
+  *a1 = 0;
+  *(a1 + 8) = MEMORY[0x1E69E7CC0];
   return UnknownStorage.init()();
 }
 
-uint64_t _s14BiomeSQLParser19PgQuery_RangeTblRefV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, _DWORD *a2@<X8>)
+uint64_t _s14BiomeSQLParser14PgQuery_StringV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(void *a1@<X8>)
 {
-  *a2 = 0;
-  v2 = a2 + *(a1 + 20);
+  *a1 = 0;
+  a1[1] = 0xE000000000000000;
   return UnknownStorage.init()();
 }
 
-uint64_t _s14BiomeSQLParser14PgQuery_StringV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t _s14BiomeSQLParser26PgQuery_ConstraintsSetStmtV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0xE000000000000000;
-  v2 = a2 + *(a1 + 20);
+  *a1 = MEMORY[0x1E69E7CC0];
+  *(a1 + 8) = 0;
   return UnknownStorage.init()();
 }
 
-uint64_t _s14BiomeSQLParser15PgQuery_OidListV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t _s14BiomeSQLParser22PgQuery_CreateEnumStmtV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(void *a1@<X8>)
 {
-  *a2 = MEMORY[0x1E69E7CC0];
-  v2 = a2 + *(a1 + 20);
+  v1 = MEMORY[0x1E69E7CC0];
+  *a1 = MEMORY[0x1E69E7CC0];
+  a1[1] = v1;
   return UnknownStorage.init()();
 }
 
-uint64_t _s14BiomeSQLParser26PgQuery_ConstraintsSetStmtV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t _s14BiomeSQLParser19PgQuery_A_ArrayExprV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X8>)
 {
-  *a2 = MEMORY[0x1E69E7CC0];
-  *(a2 + 8) = 0;
-  v2 = a2 + *(a1 + 24);
-  return UnknownStorage.init()();
-}
-
-uint64_t _s14BiomeSQLParser22PgQuery_CreateEnumStmtV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v2 = MEMORY[0x1E69E7CC0];
-  *a2 = MEMORY[0x1E69E7CC0];
-  a2[1] = v2;
-  v3 = a2 + *(a1 + 24);
-  return UnknownStorage.init()();
-}
-
-uint64_t _s14BiomeSQLParser19PgQuery_A_ArrayExprV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = MEMORY[0x1E69E7CC0];
-  *(a2 + 8) = 0;
-  v2 = a2 + *(a1 + 24);
+  *a1 = MEMORY[0x1E69E7CC0];
+  *(a1 + 8) = 0;
   return UnknownStorage.init()();
 }
 
@@ -433,7 +254,7 @@ uint64_t _s14BiomeSQLParser31PgQuery_PartitionRangeDatumKindOwui_0(uint64_t resu
   return result;
 }
 
-uint64_t sub_18492D340(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_18492D340(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1254,7 +1075,7 @@ _BYTE *sub_18492EFDC(_BYTE *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_18492F204(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_18492F204(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1517,7 +1338,7 @@ uint64_t sub_18492FA1C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_18492FB6C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_18492FB6C(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1674,7 +1495,7 @@ uint64_t sub_18492FFC8(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_184930074(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_184930074(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1966,17 +1787,8 @@ uint64_t sub_184930A44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 uint64_t _s14BiomeSQLParser22SQLExpressionBitString33_B787555787B9EFBBEFB0C9C5225A4FB7LLVAA0C4NodeACLLA2aeCLLP010expressionE0SSvgTW_0()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
-}
-
-uint64_t _s14BiomeSQLParser22SQLExpressionBitString33_B787555787B9EFBBEFB0C9C5225A4FB7LLVAA0C4NodeACLLA2aeCLLP3sqlSSyFTW_0()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 4);
-  return specialized SQLExpressionNode.sql()();
 }
 
 uint64_t sub_184932584()
@@ -1987,45 +1799,22 @@ uint64_t sub_184932584()
     v2 = (v0 + 16);
     if (v1 != 2)
     {
-      v3 = 104;
-      v4 = 88;
-      v5 = 80;
-      v6 = 64;
-LABEL_4:
+LABEL_3:
       __swift_destroy_boxed_opaque_existential_1Tm(v2);
-      v7 = *(v0 + v6);
 
-      v8 = *(v0 + v5);
-
-      v9 = *(v0 + v4);
-
-      v10 = *(v0 + v3);
-
-      goto LABEL_5;
+      goto LABEL_4;
     }
 
     __swift_destroy_boxed_opaque_existential_1Tm(v2);
-    v12 = *(v0 + 64);
-
-    v13 = *(v0 + 80);
-
-    v14 = *(v0 + 88);
-
-    v15 = *(v0 + 104);
 
     if (*(v0 + 136))
     {
       v2 = (v0 + 112);
-      v3 = 200;
-      v4 = 184;
-      v5 = 176;
-      v6 = 160;
-      goto LABEL_4;
+      goto LABEL_3;
     }
   }
 
-LABEL_5:
-  v11 = *(v0 + 224);
+LABEL_4:
 
   return MEMORY[0x1EEE6BDD0](v0, 232, 7);
 }
@@ -2045,7 +1834,6 @@ uint64_t sub_18493269C()
   }
 
   __swift_destroy_boxed_opaque_existential_1Tm(v0 + 7);
-  v1 = v0[13];
 
   return MEMORY[0x1EEE6BDD0](v0, 113, 7);
 }
@@ -2161,7 +1949,7 @@ uint64_t sub_184932A28(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_184932AE4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_184932AE4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -2204,21 +1992,21 @@ void *sub_184932B90(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t PgQuery_List.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_List.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_List.decodeMessage<A>(decoder:)();
+  return PgQuery_List.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
         type metadata accessor for PgQuery_Node(0);
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
       }
 
@@ -2229,21 +2017,21 @@ uint64_t PgQuery_List.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_Alias.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_Alias.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_Alias.decodeMessage<A>(decoder:)();
+  return PgQuery_Alias.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 2)
       {
         type metadata accessor for PgQuery_Node(0);
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
       }
 
@@ -2259,16 +2047,16 @@ uint64_t PgQuery_Alias.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_NotifyStmt.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_NotifyStmt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_NotifyStmt.decodeMessage<A>(decoder:)();
+  return PgQuery_NotifyStmt.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -2282,22 +2070,22 @@ uint64_t PgQuery_NotifyStmt.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_DropdbStmt.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_DropdbStmt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_DropdbStmt.decodeMessage<A>(decoder:)();
+  return PgQuery_DropdbStmt.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       switch(result)
       {
         case 3:
           type metadata accessor for PgQuery_Node(0);
-          lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+          lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
           dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
           break;
         case 2:
@@ -2315,16 +2103,16 @@ uint64_t PgQuery_DropdbStmt.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_VacuumStmt.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_VacuumStmt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_VacuumStmt.decodeMessage<A>(decoder:)();
+  return PgQuery_VacuumStmt.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 3)
       {
@@ -2334,7 +2122,7 @@ uint64_t PgQuery_VacuumStmt.decodeMessage<A>(decoder:)()
       else if (result == 2 || result == 1)
       {
         type metadata accessor for PgQuery_Node(0);
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
       }
 
@@ -2345,21 +2133,21 @@ uint64_t PgQuery_VacuumStmt.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_AlterTypeStmt.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_AlterTypeStmt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_AlterTypeStmt.decodeMessage<A>(decoder:)();
+  return PgQuery_AlterTypeStmt.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 2 || result == 1)
       {
         type metadata accessor for PgQuery_Node(0);
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
       }
 
@@ -2370,23 +2158,23 @@ uint64_t PgQuery_AlterTypeStmt.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_CreateEventTrigStmt.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_CreateEventTrigStmt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_CreateEventTrigStmt.decodeMessage<A>(decoder:)();
+  return PgQuery_CreateEventTrigStmt.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result > 2)
       {
         if (result == 3 || result == 4)
         {
           type metadata accessor for PgQuery_Node(0);
-          lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+          lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
           dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
         }
       }
@@ -2403,16 +2191,16 @@ uint64_t PgQuery_CreateEventTrigStmt.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_Integer.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_Integer.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_Integer.decodeMessage<A>(decoder:)();
+  return PgQuery_Integer.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -2426,16 +2214,16 @@ uint64_t PgQuery_Integer.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_DropRoleStmt.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_DropRoleStmt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_DropRoleStmt.decodeMessage<A>(decoder:)();
+  return PgQuery_DropRoleStmt.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 2)
       {
@@ -2445,7 +2233,7 @@ uint64_t PgQuery_DropRoleStmt.decodeMessage<A>(decoder:)()
       else if (result == 1)
       {
         type metadata accessor for PgQuery_Node(0);
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
       }
 
@@ -2456,16 +2244,16 @@ uint64_t PgQuery_DropRoleStmt.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_LockStmt.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_LockStmt.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_LockStmt.decodeMessage<A>(decoder:)();
+  return PgQuery_LockStmt.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       switch(result)
       {
@@ -2477,7 +2265,7 @@ uint64_t PgQuery_LockStmt.decodeMessage<A>(decoder:)()
           break;
         case 1:
           type metadata accessor for PgQuery_Node(0);
-          lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+          lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
           dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
           break;
       }
@@ -2489,16 +2277,16 @@ uint64_t PgQuery_LockStmt.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_Float.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_Float.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_Float.decodeMessage<A>(decoder:)();
+  return PgQuery_Float.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -2512,16 +2300,16 @@ uint64_t PgQuery_Float.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t PgQuery_ColumnRef.decodeMessage<A>(decoder:)()
+uint64_t PgQuery_ColumnRef.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return PgQuery_ColumnRef.decodeMessage<A>(decoder:)();
+  return PgQuery_ColumnRef.decodeMessage<A>(decoder:)(a1, a2, a3);
 }
 
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 2)
       {
@@ -2531,7 +2319,7 @@ uint64_t PgQuery_ColumnRef.decodeMessage<A>(decoder:)()
       else if (result == 1)
       {
         type metadata accessor for PgQuery_Node(0);
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node);
+        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type PgQuery_Node and conformance PgQuery_Node, type metadata accessor for PgQuery_Node, &protocol conformance descriptor for PgQuery_Node);
         dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
       }
 
@@ -2927,10 +2715,10 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_18493B9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_18493B9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, int a43, char a44)
 {
   bm_invoke();
-  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(&a44, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3061,9 +2849,9 @@ LABEL_33:
   return [a2 hasError] ^ 1;
 }
 
-void sub_18493CF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18493CF84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3706,9 +3494,9 @@ LABEL_51:
   return [a2 hasError] ^ 1;
 }
 
-void sub_184944AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_184944AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   objc_end_catch();
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4184,9 +3972,9 @@ LABEL_80:
   return [a2 hasError] ^ 1;
 }
 
-void sub_18494914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18494914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5404,26 +5192,33 @@ LABEL_41:
   return [a2 hasError] ^ 1;
 }
 
+void sub_18495A934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id BMFieldPathFromKeyPath(void *a1, void *a2, void *a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v32 = a3;
+  v31 = a3;
   v6 = [a1 componentsSeparatedByString:@"."];
   v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v6, "count")}];
   v8 = v5;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v9 = v6;
   v10 = v8;
-  v30 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v30)
+  v29 = [v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  if (v29)
   {
-    v31 = *v39;
+    v30 = *v38;
     v10 = v8;
-    v28 = v8;
+    v27 = v8;
     obj = v9;
     while (2)
     {
@@ -5431,7 +5226,7 @@ id BMFieldPathFromKeyPath(void *a1, void *a2, void *a3)
       v12 = v10;
       do
       {
-        if (*v39 != v31)
+        if (*v38 != v30)
         {
           objc_enumerationMutation(obj);
         }
@@ -5441,48 +5236,48 @@ id BMFieldPathFromKeyPath(void *a1, void *a2, void *a3)
           goto LABEL_26;
         }
 
-        v13 = *(*(&v38 + 1) + 8 * v11);
-        v14 = [v32 objectForKeyedSubscript:v12];
+        v13 = *(*(&v37 + 1) + 8 * v11);
+        v14 = [v31 objectForKeyedSubscript:v12];
         if (!v14)
         {
           goto LABEL_26;
         }
 
-        v33 = v12;
+        v32 = v12;
         v15 = v7;
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v16 = v14;
-        v17 = [v16 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (!v17)
         {
 LABEL_24:
 
 LABEL_25:
           v7 = v15;
-          v12 = v33;
+          v12 = v32;
 LABEL_26:
           v9 = obj;
 
           v25 = 0;
-          v8 = v28;
+          v8 = v27;
           goto LABEL_27;
         }
 
         v18 = v17;
-        v19 = *v35;
+        v19 = *v34;
 LABEL_10:
         v20 = 0;
         while (1)
         {
-          if (*v35 != v19)
+          if (*v34 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v34 + 1) + 8 * v20);
+          v21 = *(*(&v33 + 1) + 8 * v20);
           v22 = [v21 name];
           v23 = [v22 isEqualToString:v13];
 
@@ -5493,7 +5288,7 @@ LABEL_10:
 
           if (v18 == ++v20)
           {
-            v18 = [v16 countByEnumeratingWithState:&v34 objects:v42 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v33 objects:v41 count:16];
             if (v18)
             {
               goto LABEL_10;
@@ -5526,11 +5321,11 @@ LABEL_10:
         v12 = v10;
       }
 
-      while (v11 != v30);
+      while (v11 != v29);
       v9 = obj;
-      v8 = v28;
-      v30 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
-      if (v30)
+      v8 = v27;
+      v29 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      if (v29)
       {
         continue;
       }
@@ -5542,8 +5337,6 @@ LABEL_10:
   v25 = v7;
   v12 = v10;
 LABEL_27:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -5655,7 +5448,7 @@ uint64_t biome_each_close(void *a1)
 
 uint64_t biome_each_filter(void *a1, uint64_t a2, uint64_t a3, int a4, sqlite3_value **a5)
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   if (a4 != 3)
   {
     biome_each_filter_cold_1();
@@ -5696,21 +5489,21 @@ LABEL_6:
   v19 = a1[3];
   v20 = a1[4];
   v21 = a1[5];
-  v44 = 0;
+  v43 = 0;
   v22 = v18;
   v23 = v19;
   v24 = v20;
   v25 = BMFieldPathFromKeyPath(v24, v23, v21);
-  v43 = v22;
+  v42 = v22;
   if (v25)
   {
-    v42 = v23;
+    v41 = v23;
     v26 = v22;
     if ([v25 count] == 1)
     {
 LABEL_12:
       v29 = [v25 objectAtIndexedSubscript:{objc_msgSend(v25, "count") - 1}];
-      v33 = +[BMPoirotSchematizerShim searchValuesIn:withFieldNumber:typeRawValue:error:](_TtC12BiomeStreams23BMPoirotSchematizerShim, "searchValuesIn:withFieldNumber:typeRawValue:error:", v26, [v29 number], objc_msgSend(v29, "type"), &v44);
+      v33 = +[BMPoirotSchematizerShim searchValuesIn:withFieldNumber:typeRawValue:error:](_TtC12BiomeStreams23BMPoirotSchematizerShim, "searchValuesIn:withFieldNumber:typeRawValue:error:", v26, [v29 number], objc_msgSend(v29, "type"), &v43);
     }
 
     else
@@ -5722,9 +5515,9 @@ LABEL_12:
         v29 = [v25 objectAtIndexedSubscript:v27];
         v30 = [v29 number];
         v31 = [v29 type];
-        v46[0] = 0;
-        v26 = [_TtC12BiomeStreams23BMPoirotSchematizerShim searchValueIn:v26 withFieldNumber:v30 typeRawValue:v31 error:v46];
-        v32 = v46[0];
+        v45[0] = 0;
+        v26 = [_TtC12BiomeStreams23BMPoirotSchematizerShim searchValueIn:v26 withFieldNumber:v30 typeRawValue:v31 error:v45];
+        v32 = v45[0];
 
         if (v32)
         {
@@ -5738,27 +5531,27 @@ LABEL_12:
       }
 
       v36 = v32;
-      v44 = v32;
+      v43 = v32;
 
       v33 = 0;
     }
 
-    v35 = v42;
+    v35 = v41;
   }
 
   else
   {
     v34 = MEMORY[0x1E696ABC0];
-    v45 = *MEMORY[0x1E696A578];
+    v44 = *MEMORY[0x1E696A578];
     v35 = v23;
     v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Field path is not valid: %@; eventClass: %@", v24, v23];
-    v46[0] = v26;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+    v45[0] = v26;
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
     [v34 errorWithDomain:@"BMSQLDatabaseErrorDomain" code:0 userInfo:v29];
-    v44 = v33 = 0;
+    v43 = v33 = 0;
   }
 
-  v37 = v44;
+  v37 = v43;
   v38 = a1[6];
   a1[6] = v33;
 
@@ -5777,7 +5570,6 @@ LABEL_12:
 
 LABEL_21:
   objc_autoreleasePoolPop(v7);
-  v40 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -6286,9 +6078,9 @@ id get_DKSystemEventStreamsClass()
   return v1;
 }
 
-void sub_184965F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_184965F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6317,9 +6109,16 @@ id get_CDContextQueriesClass()
   return v1;
 }
 
-void sub_184966040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_184966040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_184966864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6348,9 +6147,9 @@ id get_DKEventClass()
   return v1;
 }
 
-void sub_18496694C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18496694C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6379,59 +6178,51 @@ id get_DKDigitalHealthMetadataKeyClass()
   return v1;
 }
 
-void sub_184966A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_184966A2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void CoreDuetLibrary()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = 0;
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = 0;
   if (!CoreDuetLibraryCore_frameworkLibrary)
   {
-    v1[1] = MEMORY[0x1E69E9820];
-    v1[2] = 3221225472;
-    v1[3] = __CoreDuetLibraryCore_block_invoke;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_1E6E52ED0;
-    v3 = 0;
+    v0[1] = MEMORY[0x1E69E9820];
+    v0[2] = 3221225472;
+    v0[3] = __CoreDuetLibraryCore_block_invoke;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_1E6E52ED0;
+    v2 = 0;
     CoreDuetLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!CoreDuetLibraryCore_frameworkLibrary)
   {
-    CoreDuetLibrary_cold_1(v1);
+    CoreDuetLibrary_cold_1(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __CoreDuetLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreDuetLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreDuetContextLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreDuetContextLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7256,16 +7047,16 @@ uint64_t activityTypeWithState(uint64_t result)
   return 0;
 }
 
-void sub_18496F4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18496F4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18496F988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18496F988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7294,20 +7085,17 @@ id get_DKIntentMetadataKeyClass()
   return v1;
 }
 
-void sub_184970120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_184970120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __CoreDuetLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreDuetLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8088,90 +7876,89 @@ id BMEventClassForStreamIdentifier(void *a1)
 
 id BMDSLGetBookmarkForDate(void *a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = MEMORY[0x1E698E8A8];
-  v23 = v5;
+  v22 = v5;
   v8 = [MEMORY[0x1E698E8A0] archivedDataWithDSL:v5];
   v9 = [v7 unarchiveDSLFromData:v8];
 
   [v6 timeIntervalSinceReferenceDate];
   v11 = v10;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v12 = [v9 streamPublishers];
-  v13 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v13)
   {
-    v14 = *v38;
+    v14 = *v37;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v37 + 1) + 8 * i);
+        v16 = *(*(&v36 + 1) + 8 * i);
         v17 = [MEMORY[0x1E696AD98] numberWithDouble:v11];
         [v16 setBookmarkingTime:v17];
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v13);
   }
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__3;
-  v29 = __Block_byref_object_dispose__3;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__3;
+  v34 = __Block_byref_object_dispose__3;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__3;
+  v28 = __Block_byref_object_dispose__3;
+  v29 = 0;
   v18 = [v9 bpsPublisher];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __BMDSLGetBookmarkForDate_block_invoke;
-  v24[3] = &unk_1E6E530C0;
-  v24[4] = &v31;
-  v24[5] = &v25;
-  v19 = [v18 sinkWithBookmark:0 completion:v24 receiveInput:&__block_literal_global_7];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __BMDSLGetBookmarkForDate_block_invoke;
+  v23[3] = &unk_1E6E530C0;
+  v23[4] = &v30;
+  v23[5] = &v24;
+  v19 = [v18 sinkWithBookmark:0 completion:v23 receiveInput:&__block_literal_global_7];
 
   if (a3)
   {
-    *a3 = v26[5];
+    *a3 = v25[5];
   }
 
-  v20 = v32[5];
-  _Block_object_dispose(&v25, 8);
+  v20 = v31[5];
+  _Block_object_dispose(&v24, 8);
 
-  _Block_object_dispose(&v31, 8);
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 
   return v20;
 }
 
-void sub_18497E870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18497E870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8200,7 +7987,7 @@ void __BMDSLGetBookmarkForDate_block_invoke(uint64_t a1, void *a2, void *a3)
 
 id BMDSLGetPublisherForEvent(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -8208,32 +7995,32 @@ id BMDSLGetPublisherForEvent(uint64_t a1, void *a2)
     v5 = [MEMORY[0x1E698E8A0] archivedDataWithDSL:a1];
     v6 = [v4 unarchiveDSLFromData:v5];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = [v6 streamPublishers];
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          v21 = v3;
-          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+          v12 = *(*(&v16 + 1) + 8 * i);
+          v20 = v3;
+          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
           [v12 setBackingEvents:v13];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v9);
@@ -8247,14 +8034,12 @@ id BMDSLGetPublisherForEvent(uint64_t a1, void *a2)
     v14 = [MEMORY[0x1E695E0F0] bpsPublisher];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
-void sub_18497EF7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18497EF7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

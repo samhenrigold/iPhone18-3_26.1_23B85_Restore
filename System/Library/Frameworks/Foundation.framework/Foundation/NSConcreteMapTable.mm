@@ -194,8 +194,8 @@
 - (void)removeAllItems
 {
   ++self->mutations;
-  empty_0(&self->keys, self->capacity);
-  empty_0(&self->values, self->capacity);
+  empty_0(&self->keys.items, self->capacity);
+  empty_0(&self->values.items, self->capacity);
   self->count = 0;
 }
 

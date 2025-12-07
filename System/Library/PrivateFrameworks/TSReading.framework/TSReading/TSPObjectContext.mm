@@ -807,7 +807,7 @@ void __75__TSPObjectContext_addLoadObserver_action_forObjectIdentifier_objectOrN
     v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v2, 0}];
     v21 = *(a1 + 64);
     v22 = v9;
-    std::__hash_table<std::__hash_value_type<long long const,NSMutableArray * {__strong}>,std::__unordered_map_hasher<long long const,std::__hash_value_type<long long const,NSMutableArray * {__strong}>,TSP::IdentifierHash,std::equal_to<long long const>,true>,std::__unordered_map_equal<long long const,std::__hash_value_type<long long const,NSMutableArray * {__strong}>,std::equal_to<long long const>,TSP::IdentifierHash,true>,std::allocator<std::__hash_value_type<long long const,NSMutableArray * {__strong}>>>::__emplace_unique_key_args<long long,std::pair<long long const,NSMutableArray * {__strong}>>((v8 + 160), &v21);
+    std::__hash_table<std::__hash_value_type<long long const,NSMutableArray * {__strong}>,std::__unordered_map_hasher<long long const,std::__hash_value_type<long long const,NSMutableArray * {__strong}>,TSP::IdentifierHash,std::equal_to<long long const>,true>,std::__unordered_map_equal<long long const,std::__hash_value_type<long long const,NSMutableArray * {__strong}>,std::equal_to<long long const>,TSP::IdentifierHash,true>,std::allocator<std::__hash_value_type<long long const,NSMutableArray * {__strong}>>>::__emplace_unique_key_args<long long,std::pair<long long const,NSMutableArray * {__strong}>>((v8 + 160), &v21, &v21);
   }
 
   v10 = *(a1 + 48);

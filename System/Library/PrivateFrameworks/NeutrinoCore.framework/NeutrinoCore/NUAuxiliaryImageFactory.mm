@@ -134,7 +134,7 @@ LABEL_14:
   if ((v32 & 1) != 0 || [stringCopy isEqualToString:*MEMORY[0x1E696D280]])
   {
     pixelBuffer = 0;
-    if (!ImageIOLibraryCore_16784() || !getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc() || (getkCGImageAuxiliaryDataInfoPixelBuffer(), [dictionaryCopy objectForKeyedSubscript:v34], (pixelBuffer = objc_claimAutoreleasedReturnValue()) == 0))
+    if (!ImageIOLibraryCore_16784(0) || !getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc() || (getkCGImageAuxiliaryDataInfoPixelBuffer(), [dictionaryCopy objectForKeyedSubscript:v34], (pixelBuffer = objc_claimAutoreleasedReturnValue()) == 0))
     {
       v68 = v31;
       v10 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E696D220]];

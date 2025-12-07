@@ -49,9 +49,9 @@
 
   v11 = static TVAppExtensionHostViewController.createWithURL(url:completion:)(v8, v9, v10);
   v12 = OUTLINED_FUNCTION_74();
-  sub_1E34AF594(v12);
-  v13 = OUTLINED_FUNCTION_16_0();
-  v14(v13);
+  sub_1E34AF594(v12, v13);
+  v14 = OUTLINED_FUNCTION_16_0();
+  v15(v14);
 
   return v11;
 }

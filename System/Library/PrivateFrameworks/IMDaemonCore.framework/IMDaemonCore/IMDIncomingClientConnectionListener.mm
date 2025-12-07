@@ -19,14 +19,13 @@
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
-  v4 = *(&self->super.isa + OBJC_IVAR___IMDIncomingClientConnectionListener_queue);
   selfCopy = self;
 
   sub_22B7DACB8();
 
-  v6.receiver = selfCopy;
-  v6.super_class = ObjectType;
-  [(IMDIncomingClientConnectionListener *)&v6 dealloc];
+  v5.receiver = selfCopy;
+  v5.super_class = ObjectType;
+  [(IMDIncomingClientConnectionListener *)&v5 dealloc];
 }
 
 - (IMDIncomingClientConnectionListener)init

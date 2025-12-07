@@ -1,8 +1,19 @@
 @interface MotionStateSignal
+- (NSSet)featureNames;
 - (id)featureValueForName:(id)name;
 @end
 
 @implementation MotionStateSignal
+
+- (NSSet)featureNames
+{
+
+  MotionStateSignal.featureNames.getter();
+
+  v2 = sub_1C4F01AA8();
+
+  return v2;
+}
 
 - (id)featureValueForName:(id)name
 {

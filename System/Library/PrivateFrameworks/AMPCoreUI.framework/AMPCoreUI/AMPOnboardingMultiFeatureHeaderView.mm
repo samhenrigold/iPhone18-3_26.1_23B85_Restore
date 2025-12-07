@@ -13,11 +13,11 @@
 
 - (AMPOnboardingMultiFeatureHeaderView)initWithFeatures:(id)features
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
-  v25.receiver = self;
-  v25.super_class = AMPOnboardingMultiFeatureHeaderView;
-  v5 = [(AMPOnboardingMultiFeatureHeaderView *)&v25 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v24.receiver = self;
+  v24.super_class = AMPOnboardingMultiFeatureHeaderView;
+  v5 = [(AMPOnboardingMultiFeatureHeaderView *)&v24 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277D756B8]);
@@ -29,29 +29,29 @@
     [(UILabel *)v5->_titleLabel setTextAlignment:1];
     [(AMPOnboardingMultiFeatureHeaderView *)v5 addSubview:v5->_titleLabel];
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v9 = featuresCopy;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         v13 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * v13);
+          v14 = *(*(&v20 + 1) + 8 * v13);
           v15 = [AMPOnboardingFeatureView alloc];
-          v16 = [(AMPOnboardingFeatureView *)v15 initWithFeature:v14, v21];
+          v16 = [(AMPOnboardingFeatureView *)v15 initWithFeature:v14, v20];
           [v8 addObject:v16];
           [(AMPOnboardingMultiFeatureHeaderView *)v5 addSubview:v16];
 
@@ -59,7 +59,7 @@
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v11);
@@ -73,16 +73,15 @@
     [(AMPOnboardingMultiFeatureHeaderView *)v5 setShowsHorizontalScrollIndicator:0];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)layoutSubviews
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v59.receiver = self;
-  v59.super_class = AMPOnboardingMultiFeatureHeaderView;
-  [(AMPOnboardingMultiFeatureHeaderView *)&v59 layoutSubviews];
+  v60 = *MEMORY[0x277D85DE8];
+  v58.receiver = self;
+  v58.super_class = AMPOnboardingMultiFeatureHeaderView;
+  [(AMPOnboardingMultiFeatureHeaderView *)&v58 layoutSubviews];
   v3 = [MEMORY[0x277D75520] metricsForTextStyle:*MEMORY[0x277D76A00]];
   v4 = [MEMORY[0x277D75520] metricsForTextStyle:*MEMORY[0x277D769C0]];
   if ([(AMPOnboardingMultiFeatureHeaderView *)self isPresentedInFormSheet])
@@ -114,14 +113,14 @@
   *&v11 = v10 + v5 + v11;
   v12 = floorf(*&v11);
   [(AMPOnboardingMultiFeatureHeaderView *)self bounds];
-  Width = CGRectGetWidth(v62);
+  Width = CGRectGetWidth(v61);
   titleLabel = [(AMPOnboardingMultiFeatureHeaderView *)self titleLabel];
   [titleLabel sizeThatFits:{Width, 3.40282347e38}];
   v16 = v15;
   v18 = v17;
 
   [(AMPOnboardingMultiFeatureHeaderView *)self bounds];
-  v19 = CGRectGetMidX(v63) + v16 * -0.5;
+  v19 = CGRectGetMidX(v62) + v16 * -0.5;
   v20 = floorf(v19);
   titleLabel2 = [(AMPOnboardingMultiFeatureHeaderView *)self titleLabel];
   [titleLabel2 _firstBaselineOffsetFromTop];
@@ -144,7 +143,7 @@
 
   titleLabel4 = [(AMPOnboardingMultiFeatureHeaderView *)self titleLabel];
   [titleLabel4 frame];
-  MaxY = CGRectGetMaxY(v64);
+  MaxY = CGRectGetMaxY(v63);
   titleLabel5 = [(AMPOnboardingMultiFeatureHeaderView *)self titleLabel];
   [titleLabel5 _baselineOffsetFromBottom];
   v33 = v32;
@@ -163,29 +162,29 @@
   }
 
   v38 = [MEMORY[0x277D75D18] userInterfaceLayoutDirectionForSemanticContentAttribute:{-[AMPOnboardingMultiFeatureHeaderView semanticContentAttribute](self, "semanticContentAttribute")}];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   featureViews = [(AMPOnboardingMultiFeatureHeaderView *)self featureViews];
-  v40 = [featureViews countByEnumeratingWithState:&v55 objects:v60 count:16];
+  v40 = [featureViews countByEnumeratingWithState:&v54 objects:v59 count:16];
   if (v40)
   {
     v41 = v40;
     v42 = v27 + MaxY - v33;
     v43 = ceilf(v42);
-    v44 = *v56;
+    v44 = *v55;
     do
     {
       for (i = 0; i != v41; ++i)
       {
-        if (*v56 != v44)
+        if (*v55 != v44)
         {
           objc_enumerationMutation(featureViews);
         }
 
         v46 = v43;
-        v47 = *(*(&v55 + 1) + 8 * i);
+        v47 = *(*(&v54 + 1) + 8 * i);
         [v47 sizeThatFits:{Width, 3.40282347e38}];
         v50 = v49;
         v51 = Width - v49;
@@ -196,19 +195,17 @@
 
         [v47 setFrame:{v51, v46, v50, v48}];
         [v47 frame];
-        v52 = CGRectGetMaxY(v65);
+        v52 = CGRectGetMaxY(v64);
         [v47 baselineOffsetFromBottom];
         *&v53 = v36 + v52 - v53;
         v43 = ceilf(*&v53);
       }
 
-      v41 = [featureViews countByEnumeratingWithState:&v55 objects:v60 count:16];
+      v41 = [featureViews countByEnumeratingWithState:&v54 objects:v59 count:16];
     }
 
     while (v41);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)adjustedContentInsetDidChange

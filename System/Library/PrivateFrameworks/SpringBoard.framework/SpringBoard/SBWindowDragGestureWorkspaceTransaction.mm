@@ -22,7 +22,7 @@
   interfaceOrientation = [layoutState interfaceOrientation];
   contentView = [switcherViewController contentView];
   view = [switcherViewController view];
-  v89 = contentView;
+  v90 = contentView;
   [gestureCopy locationInView:contentView];
   v13 = v12;
   v15 = v14;
@@ -34,7 +34,7 @@
     v15 = v17;
   }
 
-  v88 = view;
+  v89 = view;
   [view bounds];
   if (v15 > v18 + -1.0)
   {
@@ -63,7 +63,7 @@
 
   v22 = v21;
 
-  v86 = v22;
+  v87 = v22;
   if (v22)
   {
     initialTouchLeafAppLayout = [v22 initialTouchLeafAppLayout];
@@ -104,8 +104,8 @@
     }
   }
 
-  v87 = v20;
-  v83 = floatingConfiguration;
+  v88 = v20;
+  v84 = floatingConfiguration;
   if (initialTouchLeafAppLayout)
   {
     v28 = [switcherViewController adjustedAppLayoutForLeafAppLayout:initialTouchLeafAppLayout];
@@ -123,7 +123,7 @@
       else
       {
         v35 = v34 == 4;
-        floatingConfiguration = v83;
+        floatingConfiguration = v84;
         switcherViewController = v29;
         if (!v35)
         {
@@ -148,12 +148,12 @@ LABEL_27:
       v38 = v37;
 
       [switcherController frameForFloatingAppLayoutInInterfaceOrientation:interfaceOrientation floatingConfiguration:floatingConfiguration];
-      v99.origin.x = v40 + (v39 - v38) * 0.5;
-      v99.origin.y = 0.0;
-      v99.size.width = v38;
-      v98.x = v13;
-      v98.y = v15;
-      if (CGRectContainsPoint(v99, v98))
+      v100.origin.x = v40 + (v39 - v38) * 0.5;
+      v100.origin.y = 0.0;
+      v100.size.width = v38;
+      v99.x = v13;
+      v99.y = v15;
+      if (CGRectContainsPoint(v100, v99))
       {
         floatingAppLayout = [layoutState floatingAppLayout];
         if (floatingAppLayout)
@@ -181,15 +181,15 @@ LABEL_36:
     [(SBFluidSwitcherGestureWorkspaceTransaction *)self setSelectedAppLayout:initialTouchLeafAppLayout];
     visibleItemContainers = [switcherViewController visibleItemContainers];
     allValues = [visibleItemContainers allValues];
-    v96[0] = MEMORY[0x277D85DD0];
-    v96[1] = 3221225472;
-    v96[2] = __61__SBWindowDragGestureWorkspaceTransaction__beginWithGesture___block_invoke;
-    v96[3] = &unk_2783A8FD0;
+    v97[0] = MEMORY[0x277D85DD0];
+    v97[1] = 3221225472;
+    v97[2] = __61__SBWindowDragGestureWorkspaceTransaction__beginWithGesture___block_invoke;
+    v97[3] = &unk_2783A8FD0;
     v45 = initialTouchLeafAppLayout;
-    v97 = v45;
-    v46 = [allValues bs_firstObjectPassingTest:v96];
+    v98 = v45;
+    v46 = [allValues bs_firstObjectPassingTest:v97];
 
-    v84 = switcherViewController;
+    v85 = switcherViewController;
     v47 = [switcherViewController adjustedAppLayoutForLeafAppLayout:v45];
     v48 = [v45 itemForLayoutRole:1];
     v49 = [v47 layoutRoleForItem:v48];
@@ -202,7 +202,7 @@ LABEL_36:
       self->_draggingFromContinuousExposeStrips = [appLayout containsItem:v48] ^ 1;
 
       p_locationInSelectedDisplayItem = &self->_locationInSelectedDisplayItem;
-      [v46 convertPoint:v89 fromView:{v13, v15}];
+      [v46 convertPoint:v90 fromView:{v13, v15}];
       self->_locationInSelectedDisplayItem.x = v54;
       self->_locationInSelectedDisplayItem.y = v55;
       [switcherController frameForItemWithRole:v49 inMainAppLayout:v47 interfaceOrientation:interfaceOrientation];
@@ -216,9 +216,9 @@ LABEL_36:
 
       if (v62)
       {
-        v95 = 0;
-        v93 = 0u;
+        v96 = 0;
         v94 = 0u;
+        v95 = 0u;
         displayItemLayoutAttributesProvider = [switcherController displayItemLayoutAttributesProvider];
         displayOrdinal = [layoutState displayOrdinal];
         interfaceOrientation2 = [layoutState interfaceOrientation];
@@ -235,33 +235,33 @@ LABEL_36:
 
         else
         {
-          v91[0] = v93;
-          v91[1] = v94;
-          v92 = v95;
-          if (SBDisplayItemSlideOverIsLeftSided(v91))
+          v92[0] = v94;
+          v92[1] = v95;
+          v93 = v96;
+          if (SBDisplayItemSlideOverIsLeftSided(v92))
           {
-            v76 = -v59;
+            v77 = -v59;
           }
 
           else
           {
-            [v89 bounds];
+            [v90 bounds];
           }
 
           y = v15 - v57;
-          p_locationInSelectedDisplayItem->x = v13 - v76;
+          p_locationInSelectedDisplayItem->x = v13 - v77;
           self->_locationInSelectedDisplayItem.y = v15 - v57;
         }
 
         if (y > self->_sizeOfSelectedDisplayItem.height * 0.25)
         {
-          v81 = 8;
+          v82 = 8;
           if (p_locationInSelectedDisplayItem->x < self->_sizeOfSelectedDisplayItem.width * 0.5)
           {
-            v81 = 2;
+            v82 = 2;
           }
 
-          self->_selectedEdge = v81;
+          self->_selectedEdge = v82;
         }
       }
 
@@ -274,13 +274,13 @@ LABEL_36:
     if (!isMedusaEnabled)
     {
 LABEL_64:
-      v90.receiver = self;
-      v90.super_class = SBWindowDragGestureWorkspaceTransaction;
-      v75 = v87;
-      [(SBFluidSwitcherGestureWorkspaceTransaction *)&v90 _beginWithGesture:v87];
+      v91.receiver = self;
+      v91.super_class = SBWindowDragGestureWorkspaceTransaction;
+      v76 = v88;
+      [(SBFluidSwitcherGestureWorkspaceTransaction *)&v91 _beginWithGesture:v88];
 
-      v74 = v88;
-      switcherViewController = v84;
+      v75 = v89;
+      switcherViewController = v85;
       goto LABEL_65;
     }
 
@@ -291,43 +291,43 @@ LABEL_64:
 
     else if ([v47 environment] == 2)
     {
-      [switcherController frameForFloatingAppLayoutInInterfaceOrientation:interfaceOrientation floatingConfiguration:v83];
+      [switcherController frameForFloatingAppLayoutInInterfaceOrientation:interfaceOrientation floatingConfiguration:v84];
     }
 
     else
     {
       if ([v47 environment] != 3)
       {
-        v77 = *MEMORY[0x277CBF3A8];
-        v78 = *(MEMORY[0x277CBF3A8] + 8);
+        v78 = *MEMORY[0x277CBF3A8];
+        v79 = *(MEMORY[0x277CBF3A8] + 8);
         goto LABEL_57;
       }
 
       [switcherController frameForCenterItemWithConfiguration:centerConfiguration interfaceOrientation:interfaceOrientation];
     }
 
-    v77 = v71;
-    v78 = v72;
+    v78 = v71;
+    v79 = v72;
 LABEL_57:
     self->_draggingFromContinuousExposeStrips = 0;
-    [v46 convertPoint:v89 fromView:{v13, v15}];
-    self->_locationInSelectedDisplayItem.x = v79;
-    self->_locationInSelectedDisplayItem.y = v80;
-    self->_sizeOfSelectedDisplayItem.width = v77;
-    self->_sizeOfSelectedDisplayItem.height = v78;
+    [v46 convertPoint:v90 fromView:{v13, v15}];
+    self->_locationInSelectedDisplayItem.x = v80;
+    self->_locationInSelectedDisplayItem.y = v81;
+    self->_sizeOfSelectedDisplayItem.width = v78;
+    self->_sizeOfSelectedDisplayItem.height = v79;
     goto LABEL_64;
   }
 
-  v73 = SBLogSystemGestureAppSwitcher();
-  v74 = v88;
-  if (os_log_type_enabled(v73, OS_LOG_TYPE_FAULT))
+  v74 = SBLogSystemGestureAppSwitcher(v73);
+  v75 = v89;
+  if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
   {
-    [(SBWindowDragGestureWorkspaceTransaction *)self _beginWithGesture:v73, v13, v15];
+    [(SBWindowDragGestureWorkspaceTransaction *)self _beginWithGesture:v74, v13, v15];
   }
 
-  v75 = v87;
-  [v87 setEnabled:0];
-  [v87 setEnabled:1];
+  v76 = v88;
+  [v88 setEnabled:0];
+  [v88 setEnabled:1];
   [(SBSystemGestureWorkspaceTransaction *)self finishWithCompletionType:-1];
 LABEL_65:
 }

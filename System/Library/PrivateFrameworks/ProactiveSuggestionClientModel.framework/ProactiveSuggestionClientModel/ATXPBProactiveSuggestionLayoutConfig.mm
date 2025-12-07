@@ -73,7 +73,6 @@
 {
   if (*&self->_has)
   {
-    applicableLayoutType = self->_applicableLayoutType;
     PBDataWriterWriteInt32Field();
   }
 }

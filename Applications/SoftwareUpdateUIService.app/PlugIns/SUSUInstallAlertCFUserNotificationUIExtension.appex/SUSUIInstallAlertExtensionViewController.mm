@@ -13,6 +13,8 @@
 - (void)reboot;
 - (void)userWantsToDeferInstall:(id)install;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SUSUIInstallAlertExtensionViewController
@@ -257,6 +259,61 @@ LABEL_41:
   v4.receiver = self;
   v4.super_class = SUSUIInstallAlertExtensionViewController;
   [(SUSUIInstallAlertExtensionViewController *)&v4 viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = SUSUILogExtension();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    countdownTimer = self->_countdownTimer;
+    *buf = 138412290;
+    v12 = countdownTimer;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[SUSUIInstallAlertExtensionViewController] View will appear, _countdownTimer:%@", buf, 0xCu);
+  }
+
+  if (!self->_countdownTimer)
+  {
+    if (self->_timeLeftUntilInstall - 1 >= self->_countdownTimeout)
+    {
+      v7 = SUSUILogExtension();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        timeLeftUntilInstall = self->_timeLeftUntilInstall;
+        countdownTimeout = self->_countdownTimeout;
+        *buf = 134218240;
+        v12 = timeLeftUntilInstall;
+        v13 = 2048;
+        v14 = countdownTimeout;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[SUSUIInstallAlertExtensionViewController] Invalid _timeLeftUntilInstall = %lu, set it to %lu", buf, 0x16u);
+      }
+
+      self->_timeLeftUntilInstall = self->_countdownTimeout;
+    }
+
+    [(SUSUIInstallAlertExtensionViewController *)self _startCountdownTimerWithInitialTime:?];
+  }
+
+  v10.receiver = self;
+  v10.super_class = SUSUIInstallAlertExtensionViewController;
+  [(SUSUIInstallAlertExtensionViewController *)&v10 viewWillAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = SUSUILogExtension();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[SUSUIInstallAlertExtensionViewController] View will disappear", buf, 2u);
+  }
+
+  [(SUSUIInstallAlertExtensionViewController *)self invalidate];
+  v6.receiver = self;
+  v6.super_class = SUSUIInstallAlertExtensionViewController;
+  [(SUSUIInstallAlertExtensionViewController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (void)userWantsToDeferInstall:(id)install

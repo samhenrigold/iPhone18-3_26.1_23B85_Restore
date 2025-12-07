@@ -48,7 +48,7 @@
   clustererCopy = clusterer;
   clustersCopy = clusters;
   assetsCopy = assets;
-  v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(clustersCopy, "count")}];
+  v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(clustersCopy)];
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
@@ -120,7 +120,7 @@
   if (([momentCopy isDeleted] & 1) == 0)
   {
     assets = [momentCopy assets];
-    v5 = [assets count];
+    v5 = objc_msgSend_count(assets);
     if (v5 >= 1)
     {
       if ([momentCopy cachedCount] == v5)
@@ -324,7 +324,7 @@ LABEL_33:
       }
     }
 
-    if ([v14 count])
+    if (objc_msgSend_count(v14))
     {
       [v12 addObjectsFromArray:v14];
     }
@@ -376,7 +376,7 @@ LABEL_33:
 
 - (id)_processMomentsCollectionsYearsWithAssets:(id)assets affectedMoments:(id)moments
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   momentsCopy = moments;
   v7 = PLMomentGenerationGetLog();
@@ -394,8 +394,8 @@ LABEL_33:
   v11 = mach_absolute_time();
   v12 = v10;
   v13 = os_signpost_id_generate(v12);
-  v76 = 0;
-  mach_timebase_info(&v76);
+  v78 = 0;
+  mach_timebase_info(&v78);
   v14 = v12;
   v15 = v14;
   v16 = v13 - 1;
@@ -407,40 +407,40 @@ LABEL_33:
 
   spid = v13;
 
-  v61 = mach_absolute_time();
+  v63 = mach_absolute_time();
   v17 = [[PLLibraryClusterer alloc] initWithLocalCreationDateCreator:self->_localCreationDateCreator frequentLocationManager:self->_frequentLocationManager];
   [(PLLibraryClusterer *)v17 setDelegate:self];
   [(PLLibraryClusterer *)v17 processMomentsWithAssets:assetsCopy];
   manager = [(PLAssetCollectionGenerator *)self manager];
   cameraIsActive = [manager cameraIsActive];
 
-  v65 = v8 - 1;
-  v66 = assetsCopy;
-  v59 = v8;
-  v60 = v11;
-  v64 = (cameraIsActive & 1) == 0 && [(PLAssetCollectionGenerator *)self _updateMomentProcessedLocationAndReturnFrequentLocationsDidChange];
+  v67 = v8 - 1;
+  v68 = assetsCopy;
+  v61 = v8;
+  v62 = v11;
+  v66 = (cameraIsActive & 1) == 0 && [(PLAssetCollectionGenerator *)self _updateMomentProcessedLocationAndReturnFrequentLocationsDidChange];
   array = [MEMORY[0x1E695DF70] array];
-  v72 = 0u;
-  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   selfCopy = self;
   momentsFromAssetClusters = [(PLAssetCollectionGenerator *)self momentsFromAssetClusters];
-  v22 = [momentsFromAssetClusters countByEnumeratingWithState:&v72 objects:v85 count:16];
+  v22 = [momentsFromAssetClusters countByEnumeratingWithState:&v74 objects:v87 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v73;
+    v24 = *v75;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v73 != v24)
+        if (*v75 != v24)
         {
           objc_enumerationMutation(momentsFromAssetClusters);
         }
 
-        v26 = *(*(&v72 + 1) + 8 * i);
+        v26 = *(*(&v74 + 1) + 8 * i);
         v27 = objc_autoreleasePoolPush();
         v28 = [(PLLibraryClusterer *)v17 locationBasedMomentClustersForMomentsSortedByDate:v26];
         [array addObjectsFromArray:v28];
@@ -448,15 +448,15 @@ LABEL_33:
         objc_autoreleasePoolPop(v27);
       }
 
-      v23 = [momentsFromAssetClusters countByEnumeratingWithState:&v72 objects:v85 count:16];
+      v23 = [momentsFromAssetClusters countByEnumeratingWithState:&v74 objects:v87 count:16];
     }
 
     while (v23);
   }
 
   v29 = mach_absolute_time();
-  numer = v76.numer;
-  denom = v76.denom;
+  numer = v78.numer;
+  denom = v78.denom;
   v32 = v15;
   v33 = v32;
   if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
@@ -467,42 +467,42 @@ LABEL_33:
 
   if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
-    v34 = (((v29 - v61) * numer) / denom) / 1000000.0;
+    v34 = (((v29 - v63) * numer) / denom) / 1000000.0;
     v35 = MEMORY[0x1E696AEC0];
     v36 = v33;
     v37 = [v35 stringWithFormat:@"processMoments done."];
     *buf = 136315650;
-    v80 = "MomentClustering";
-    v81 = 2112;
-    v82 = v37;
-    v83 = 2048;
-    v84 = v34;
+    v82 = "MomentClustering";
+    v83 = 2112;
+    v84 = v37;
+    v85 = 2048;
+    v86 = v34;
     _os_log_impl(&dword_19BF1F000, v36, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
   }
 
-  v62 = v33;
+  v64 = v33;
   insertedOrUpdatedMoments = [(PLAssetCollectionGenerator *)selfCopy insertedOrUpdatedMoments];
   v39 = [insertedOrUpdatedMoments mutableCopy];
-  v68 = 0u;
-  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v40 = momentsCopy;
-  v41 = [v40 countByEnumeratingWithState:&v68 objects:v78 count:16];
+  v41 = [v40 countByEnumeratingWithState:&v70 objects:v80 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v69;
+    v43 = *v71;
     do
     {
       for (j = 0; j != v42; ++j)
       {
-        if (*v69 != v43)
+        if (*v71 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        v45 = *(*(&v68 + 1) + 8 * j);
+        v45 = *(*(&v70 + 1) + 8 * j);
         if (([insertedOrUpdatedMoments containsObject:v45] & 1) == 0)
         {
           v46 = objc_autoreleasePoolPush();
@@ -512,7 +512,7 @@ LABEL_33:
         }
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v68 objects:v78 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v70 objects:v80 count:16];
     }
 
     while (v42);
@@ -521,35 +521,37 @@ LABEL_33:
   v47 = mach_absolute_time();
   v49 = info.numer;
   v48 = info.denom;
-  v50 = v62;
+  v50 = v64;
   v51 = v50;
-  if (v65 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
+  if (v67 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
   {
-    v52 = [v66 count];
-    v53 = [v39 count];
+    v52 = objc_msgSend_count(v68);
+    v53 = objc_msgSend_count(v39);
     *buf = 134218240;
-    v80 = v52;
-    v81 = 2048;
-    v82 = v53;
-    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v51, OS_SIGNPOST_INTERVAL_END, v59, "MomentCollectionYearClustering", "assets %lu, created moments %lu", buf, 0x16u);
+    v82 = v52;
+    v83 = 2048;
+    v84 = v53;
+    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v51, OS_SIGNPOST_INTERVAL_END, v61, "MomentCollectionYearClustering", "assets %lu, created moments %lu", buf, 0x16u);
   }
 
   v54 = v51;
   if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
   {
-    v55 = [MEMORY[0x1E696AEC0] stringWithFormat:@"assets %lu, created moments %lu", objc_msgSend(v66, "count"), objc_msgSend(v39, "count")];
+    v55 = MEMORY[0x1E696AEC0];
+    v56 = objc_msgSend_count(v68);
+    v57 = [v55 stringWithFormat:@"assets %lu, created moments %lu", v56, objc_msgSend_count(v39)];
     *buf = 136315650;
-    v80 = "MomentCollectionYearClustering";
-    v81 = 2112;
-    v82 = v55;
-    v83 = 2048;
-    v84 = ((((v47 - v60) * v49) / v48) / 1000000.0);
+    v82 = "MomentCollectionYearClustering";
+    v83 = 2112;
+    v84 = v57;
+    v85 = 2048;
+    v86 = ((((v47 - v62) * v49) / v48) / 1000000.0);
     _os_log_impl(&dword_19BF1F000, v54, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
   }
 
-  v56 = [[PLAssetCollectionGenerationResult alloc] initWithInsertedOrUpdatedMoments:v39 frequentLocationsDidChange:v64];
+  v58 = [[PLAssetCollectionGenerationResult alloc] initWithInsertedOrUpdatedMoments:v39 frequentLocationsDidChange:v66];
 
-  return v56;
+  return v58;
 }
 
 - (id)processMomentsWithAssets:(id)assets affectedMoments:(id)moments
@@ -624,7 +626,7 @@ LABEL_33:
   formatterCopy = formatter;
   assets = [clusterCopy assets];
   location = [clusterCopy location];
-  v18 = [assets count];
+  v18 = objc_msgSend_count(assets);
   if (!v18)
   {
     v40 = assetsCopy;
@@ -638,7 +640,7 @@ LABEL_33:
   v118 = dsCopy;
   v19 = objc_alloc_init(MEMORY[0x1E696AB50]);
   v20 = objc_alloc_init(MEMORY[0x1E696AB50]);
-  v112 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(assets, "count")}];
+  v112 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(assets)];
   v128 = 0u;
   v129 = 0u;
   v130 = 0u;
@@ -730,7 +732,7 @@ LABEL_33:
   }
 
   [v112 sortUsingSelector:sel_compare_];
-  v42 = [v112 count];
+  v42 = objc_msgSend_count(v112);
   if (v42)
   {
     v43 = [v112 objectAtIndexedSubscript:v42 >> 1];
@@ -745,7 +747,7 @@ LABEL_33:
 
   v46 = v19;
   v47 = v46;
-  if ([v20 count])
+  if (objc_msgSend_count(v20))
   {
     v47 = v20;
   }
@@ -858,9 +860,9 @@ LABEL_37:
         dateInterval = [v66 dateInterval];
         v70 = [v114 intersectionWithDateInterval:dateInterval];
 
-        [v70 duration];
+        objc_msgSend_duration(v70);
         v72 = v71;
-        [v63 duration];
+        objc_msgSend_duration(v63);
         if (v63)
         {
           v74 = 1;

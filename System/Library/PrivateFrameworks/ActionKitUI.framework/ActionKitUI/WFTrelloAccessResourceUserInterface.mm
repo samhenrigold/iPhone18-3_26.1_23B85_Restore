@@ -111,32 +111,30 @@ void __70__WFTrelloAccessResourceUserInterface_authorizeWithCompletionHandler___
 
 - (id)authorizationURLWithCallbackURL:(id)l
 {
-  v19[6] = *MEMORY[0x277D85DE8];
+  v18[6] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBC0];
   lCopy = l;
   v5 = [v3 URLWithString:@"https://trello.com/1/authorize"];
   v6 = [MEMORY[0x277CCAD18] queryItemWithName:@"callback_method" value:@"fragment"];
-  v19[0] = v6;
+  v18[0] = v6;
   v7 = MEMORY[0x277CCAD18];
   absoluteString = [lCopy absoluteString];
 
   v9 = [v7 queryItemWithName:@"return_url" value:absoluteString];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = [MEMORY[0x277CCAD18] queryItemWithName:@"scope" value:{@"read, write, account"}];
-  v19[2] = v10;
+  v18[2] = v10;
   v11 = [MEMORY[0x277CCAD18] queryItemWithName:@"expiration" value:@"never"];
-  v19[3] = v11;
+  v18[3] = v11;
   v12 = [MEMORY[0x277CCAD18] queryItemWithName:@"name" value:@"Shortcuts"];
-  v19[4] = v12;
+  v18[4] = v12;
   v13 = [MEMORY[0x277CCAD18] queryItemWithName:@"key" value:*MEMORY[0x277CE8940]];
-  v19[5] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:6];
+  v18[5] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:6];
 
   v15 = [MEMORY[0x277CCACE0] componentsWithURL:v5 resolvingAgainstBaseURL:0];
   [v15 setQueryItems:v14];
   v16 = [v15 URL];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

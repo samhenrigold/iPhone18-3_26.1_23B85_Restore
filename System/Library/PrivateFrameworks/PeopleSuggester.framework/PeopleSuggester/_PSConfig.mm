@@ -132,31 +132,28 @@ LABEL_7:
 
 + (void)_loadPlistNamed:(uint64_t)a1 abortOnFailure:.cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_fault_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to stat plist named %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_fault_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to stat plist named %{public}@", &v1, 0xCu);
 }
 
 + (void)_loadPlistNamed:(uint64_t)a1 abortOnFailure:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138543618;
-  v4 = a1;
-  v5 = 2114;
-  v6 = a2;
-  _os_log_fault_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to decode plist named %{public}@: %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138543618;
+  v3 = a1;
+  v4 = 2114;
+  v5 = a2;
+  _os_log_fault_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to decode plist named %{public}@: %{public}@", &v2, 0x16u);
 }
 
 + (void)_loadPlistNamed:(uint64_t)a1 abortOnFailure:.cold.3(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_fault_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unable to generate URL path for plist %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_fault_impl(&dword_1B5ED1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unable to generate URL path for plist %{public}@", &v1, 0xCu);
 }
 
 @end

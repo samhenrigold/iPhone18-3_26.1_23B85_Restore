@@ -158,26 +158,26 @@ id __70__CRKScreenObservationMonitor_instructorIdentifiersByCourseIdentifier__bl
   [enrollmentStatusDidChangeSubscription cancel];
 
   darwinNotificationPublisher = [(CRKScreenObservationMonitor *)self darwinNotificationPublisher];
-  v8 = MEMORY[0x277D85DD0];
-  v9 = 3221225472;
-  v10 = __61__CRKScreenObservationMonitor_beginObservingEnrollmentStatus__block_invoke;
-  v11 = &unk_278DC1870;
-  objc_copyWeak(&v12, &location);
-  v5 = [darwinNotificationPublisher subscribeToNotificationWithName:@"CRKStudentEnrollmentStatusDidChangeNotification" handler:&v8];
-  [(CRKScreenObservationMonitor *)self setEnrollmentStatusDidChangeSubscription:v5, v8, v9, v10, v11];
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __61__CRKScreenObservationMonitor_beginObservingEnrollmentStatus__block_invoke;
+  v12 = &unk_278DC1870;
+  objc_copyWeak(&v13, &location);
+  v5 = [darwinNotificationPublisher subscribeToNotificationWithName:@"CRKStudentEnrollmentStatusDidChangeNotification" handler:&v9];
+  [(CRKScreenObservationMonitor *)self setEnrollmentStatusDidChangeSubscription:v5, v9, v10, v11, v12];
 
   enrollmentStatusDidChangeSubscription2 = [(CRKScreenObservationMonitor *)self enrollmentStatusDidChangeSubscription];
 
   if (!enrollmentStatusDidChangeSubscription2)
   {
-    v7 = _CRKLogGeneral_7();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CRKLogGeneral_7(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(CRKScreenObservationMonitor *)v7 beginObservingEnrollmentStatus];
+      [(CRKScreenObservationMonitor *)v8 beginObservingEnrollmentStatus];
     }
   }
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 }
 
@@ -340,10 +340,10 @@ void __61__CRKScreenObservationMonitor_didEstablishStudentConnection___block_inv
 
     if (error)
     {
-      v7 = _CRKLogGeneral_7();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _CRKLogGeneral_7(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(CRKScreenObservationMonitor *)finishCopy fetchObservingInstructorsByCourseOperationDidFinish:v7];
+        [(CRKScreenObservationMonitor *)finishCopy fetchObservingInstructorsByCourseOperationDidFinish:v8];
       }
     }
 

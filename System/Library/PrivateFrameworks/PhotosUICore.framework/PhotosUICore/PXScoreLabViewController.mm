@@ -687,13 +687,13 @@ id __55__PXScoreLabViewController_valueGetterForScoreKeyPath___block_invoke(uint
   return v3;
 }
 
-uint64_t __32__PXScoreLabViewController_init__block_invoke(uint64_t a1)
+uint64_t __32__PXScoreLabViewController_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PFSceneTaxonomyNodeName();
-  if (v2)
+  v3 = PFSceneTaxonomyNodeName();
+  if (v3)
   {
-    v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:PFSceneTaxonomyNodeExtendedSceneClassId()];
-    [*(a1 + 32) setObject:v3 forKeyedSubscript:v2];
+    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:PFSceneTaxonomyNodeExtendedSceneClassId()];
+    [*(a1 + 32) setObject:v4 forKeyedSubscript:v3];
   }
 
   return 0;

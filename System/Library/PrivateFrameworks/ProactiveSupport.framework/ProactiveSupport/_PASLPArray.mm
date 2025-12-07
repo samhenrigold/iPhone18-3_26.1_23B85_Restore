@@ -26,7 +26,6 @@
 
 - (id)_pas_overrideUnlazyArray
 {
-  reader = self->_reader;
   if (objc_opt_respondsToSelector())
   {
     DeepCopy = [(_PASLPReaderProtocol *)self->_reader unlazyCopyForArrayWithContext:self->_context];

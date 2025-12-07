@@ -2,7 +2,6 @@
 - (NSString)title;
 - (_TtC5Heart37ElectrocardiogramUpdateViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)didCompleteOnboarding;
-- (void)didDismissOnboarding;
 - (void)viewDidLoad;
 @end
 
@@ -43,13 +42,6 @@
 
   bundleCopy = bundle;
   return sub_29D91DDC4(v5, v7, bundle);
-}
-
-- (void)didDismissOnboarding
-{
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC5Heart37ElectrocardiogramUpdateViewController_onboardingManager);
-  *(&self->super.super.super.isa + OBJC_IVAR____TtC5Heart37ElectrocardiogramUpdateViewController_onboardingManager) = 0;
-  MEMORY[0x2A1C71028]();
 }
 
 - (void)didCompleteOnboarding

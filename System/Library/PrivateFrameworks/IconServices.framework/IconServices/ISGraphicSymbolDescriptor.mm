@@ -11,7 +11,7 @@
 {
   recipeCopy = recipe;
   v4 = objc_alloc_init(ISGraphicSymbolDescriptor);
-  v5 = _ISDefaultLog();
+  v5 = _ISDefaultLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(ISGraphicSymbolDescriptor *)recipeCopy descriptorFromGraphicSymbolRecipe:v5];
@@ -19,40 +19,40 @@
 
   if (!recipeCopy)
   {
-    v6 = _ISDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = _ISDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_1A77B8000, v6, OS_LOG_TYPE_INFO, "No graphic variant recipe was provided", v16, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_1A77B8000, v7, OS_LOG_TYPE_INFO, "No graphic variant recipe was provided", v18, 2u);
     }
   }
 
-  v7 = [(ISIconConfigurationMarkupParser *)[ISGraphicIconConfigurationParser alloc] initWithConfigurationDictionary:recipeCopy];
-  aliasedConfigurationDictionary = [(ISGraphicIconConfigurationParser *)v7 aliasedConfigurationDictionary];
+  v8 = [(ISIconConfigurationMarkupParser *)[ISGraphicIconConfigurationParser alloc] initWithConfigurationDictionary:recipeCopy];
+  aliasedConfigurationDictionary = [(ISGraphicIconConfigurationParser *)v8 aliasedConfigurationDictionary];
+  v10 = aliasedConfigurationDictionary;
   if (aliasedConfigurationDictionary)
   {
-    v9 = _ISDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = _ISDefaultLog(aliasedConfigurationDictionary);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       +[ISGraphicSymbolDescriptor descriptorFromGraphicSymbolRecipe:];
     }
 
-    v10 = [(ISIconConfigurationMarkupParser *)[ISGraphicIconConfigurationParser alloc] initWithConfigurationDictionary:aliasedConfigurationDictionary];
-    v7 = v10;
+    v12 = [(ISIconConfigurationMarkupParser *)[ISGraphicIconConfigurationParser alloc] initWithConfigurationDictionary:v10];
+    v8 = v12;
   }
 
-  symbolName = [(ISGraphicIconConfigurationParser *)v7 symbolName];
+  symbolName = [(ISGraphicIconConfigurationParser *)v8 symbolName];
   [(IFGraphicSymbolDescriptor *)v4 setName:symbolName];
 
-  symbolColors = [(ISGraphicIconConfigurationParser *)v7 symbolColors];
+  symbolColors = [(ISGraphicIconConfigurationParser *)v8 symbolColors];
   [(IFGraphicSymbolDescriptor *)v4 setSymbolColors:symbolColors];
 
-  enclosureColors = [(ISGraphicIconConfigurationParser *)v7 enclosureColors];
+  enclosureColors = [(ISGraphicIconConfigurationParser *)v8 enclosureColors];
   [(IFGraphicSymbolDescriptor *)v4 setEnclosureColors:enclosureColors];
 
-  [(IFGraphicSymbolDescriptor *)v4 setRenderingMode:[(ISGraphicIconConfigurationParser *)v7 renderingMode]];
-  v14 = _ISDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _ISDefaultLog([(IFGraphicSymbolDescriptor *)v4 setRenderingMode:[(ISGraphicIconConfigurationParser *)v8 renderingMode]]);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [ISGraphicSymbolDescriptor descriptorFromGraphicSymbolRecipe:v4];
   }
@@ -70,8 +70,7 @@
   enclosureColors = [configurationCopy enclosureColors];
   [(IFGraphicSymbolDescriptor *)v4 setEnclosureColors:enclosureColors];
 
-  -[IFGraphicSymbolDescriptor setRenderingMode:](v4, "setRenderingMode:", [configurationCopy renderingMode]);
-  v7 = _ISDefaultLog();
+  v7 = _ISDefaultLog(-[IFGraphicSymbolDescriptor setRenderingMode:](v4, "setRenderingMode:", [configurationCopy renderingMode]));
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ISGraphicSymbolDescriptor descriptorFromGraphicIconConfiguration:v4];
@@ -164,40 +163,32 @@ LABEL_13:
 
 + (void)descriptorFromGraphicSymbolRecipe:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Attempting to make descriptor for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Attempting to make descriptor for %@", &v2, 0xCu);
 }
 
 + (void)descriptorFromGraphicSymbolRecipe:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_4();
-  v4 = v0;
-  _os_log_debug_impl(&dword_1A77B8000, v1, OS_LOG_TYPE_DEBUG, "Updated recipe found for %@ => %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_debug_impl(&dword_1A77B8000, v1, OS_LOG_TYPE_DEBUG, "Updated recipe found for %@ => %@", v2, 0x16u);
 }
 
 + (void)descriptorFromGraphicSymbolRecipe:(void *)a1 .cold.3(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_5(&dword_1A77B8000, v2, v3, "Created %@ from graphic variant dictionary %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1A77B8000, v2, v3, "Created %@ from graphic variant dictionary %@", v4, v5, v6, v7);
 }
 
 + (void)descriptorFromGraphicIconConfiguration:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 description];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_5(&dword_1A77B8000, v2, v3, "Created %@ from graphic icon configuration %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1A77B8000, v2, v3, "Created %@ from graphic icon configuration %@", v4, v5, v6, v7);
 }
 
 @end

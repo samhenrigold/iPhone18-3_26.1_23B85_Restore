@@ -6,31 +6,31 @@
 
 - (id)sortFeaturizedSuggestions:(id)suggestions withFeatureWeights:(id)weights
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   weightsCopy = weights;
   v7 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v8 = suggestionsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
-        [v13 scoreWithFeatureWeights:{weightsCopy, v23}];
+        v13 = *(*(&v22 + 1) + 8 * i);
+        [v13 scoreWithFeatureWeights:{weightsCopy, v22}];
         v15 = v14;
         v16 = [ATXScoredInfoSuggestion alloc];
         suggestion = [v13 suggestion];
@@ -39,15 +39,13 @@
         [v7 addObject:v19];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
   }
 
   v20 = [v7 sortedArrayUsingComparator:&__block_literal_global_76];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

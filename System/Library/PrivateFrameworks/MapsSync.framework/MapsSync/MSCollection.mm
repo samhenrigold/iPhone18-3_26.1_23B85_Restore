@@ -33,22 +33,22 @@
 - (NSData)image
 {
   selfCopy = self;
-  v3 = sub_1B6294B38();
-  v5 = v4;
+  v4 = sub_1B6294B38(selfCopy, v3);
+  v6 = v5;
 
-  if (v5 >> 60 == 15)
+  if (v6 >> 60 == 15)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = sub_1B63BE904();
-    sub_1B6284F64(v3, v5);
-    v6 = v7;
+    v8 = sub_1B63BE904();
+    sub_1B6284F64(v4, v6);
+    v7 = v8;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)fetchPlaces
@@ -56,7 +56,7 @@
   selfCopy = self;
   sub_1B62902D8();
 
-  type metadata accessor for CollectionItem();
+  type metadata accessor for CollectionItem(0);
   v3 = sub_1B63BEC94();
 
   return v3;
@@ -203,7 +203,6 @@ LABEL_7:
 {
   v3 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__editBlocks;
   swift_beginAccess();
-  v4 = *(&self->super.super.isa + v3);
   *(&self->super.super.isa + v3) = MEMORY[0x1E69E7CC0];
 }
 

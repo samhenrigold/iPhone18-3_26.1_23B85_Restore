@@ -119,40 +119,40 @@ LABEL_12:
   _displayNameWithAbbreviation = [handle _displayNameWithAbbreviation];
 
   v10 = MEMORY[0x1E696AEC0];
-  v11 = CKFrameworkBundle();
-  v12 = [v11 localizedStringForKey:@"SATELLITE_AVAILABILITY_OFF_GRID" value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
-  v13 = [v10 localizedStringWithFormat:v12, _displayNameWithAbbreviation];
+  v12 = CKFrameworkBundle(v11);
+  v13 = [v12 localizedStringForKey:@"SATELLITE_AVAILABILITY_OFF_GRID" value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+  v14 = [v10 localizedStringWithFormat:v13, _displayNameWithAbbreviation];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v16 = @"\u200F";
+    v17 = @"\u200F";
   }
 
   else
   {
-    v16 = @"\u200E";
+    v17 = @"\u200E";
   }
 
-  v17 = [(__CFString *)v16 stringByAppendingString:v13];
+  v18 = [(__CFString *)v17 stringByAppendingString:v14];
 
-  v18 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v17 attributes:0];
-  [(NSAttributedString *)v18 replaceCharactersInRange:0 withString:0, @" "];
-  v19 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-  [v19 setImage:satelliteAvailabilityIndicatorIcon];
-  v20 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v19];
-  [(NSAttributedString *)v18 insertAttributedString:v20 atIndex:0];
+  v19 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v18 attributes:0];
+  [(NSAttributedString *)v19 replaceCharactersInRange:0 withString:0, @" "];
+  v20 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+  [v20 setImage:satelliteAvailabilityIndicatorIcon];
+  v21 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v20];
+  [(NSAttributedString *)v19 insertAttributedString:v21 atIndex:0];
 
-  [(NSAttributedString *)v18 addAttributes:transcriptSatelliteAvailabilityFontAttributes range:0, [(NSAttributedString *)v18 length]];
+  [(NSAttributedString *)v19 addAttributes:transcriptSatelliteAvailabilityFontAttributes range:0, [(NSAttributedString *)v19 length]];
   satelliteAvailabilityTitleLabelAttributedText = self->_satelliteAvailabilityTitleLabelAttributedText;
-  self->_satelliteAvailabilityTitleLabelAttributedText = v18;
-  v22 = v18;
+  self->_satelliteAvailabilityTitleLabelAttributedText = v19;
+  v23 = v19;
 
-  v23 = [(NSAttributedString *)v22 copy];
+  v24 = [(NSAttributedString *)v23 copy];
 
-  return v23;
+  return v24;
 }
 
 - (UIEdgeInsets)contentInsets

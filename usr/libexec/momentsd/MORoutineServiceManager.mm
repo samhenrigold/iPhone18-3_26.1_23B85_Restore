@@ -1362,38 +1362,36 @@ void __52__MORoutineServiceManager__rehydrateVisits_handler___block_invoke_2(uin
 
 void __52__MORoutineServiceManager__rehydrateVisits_handler___block_invoke_3(uint64_t a1)
 {
-  v2 = a1 + 56;
   if (*(*(*(a1 + 56) + 8) + 40))
   {
-    v3 = _mo_log_facility_get_os_log(&MOLogFacilityRoutine);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v2 = _mo_log_facility_get_os_log(&MOLogFacilityRoutine);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __52__MORoutineServiceManager__rehydrateVisits_handler___block_invoke_3_cold_1(v2);
+      __52__MORoutineServiceManager__rehydrateVisits_handler___block_invoke_3_cold_1();
     }
 
-    v4 = [MORehydrationMetrics alloc];
-    v5 = [*(*(*(a1 + 56) + 8) + 40) description];
-    v6 = -[MORehydrationMetrics initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:](v4, "initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:", 1, 4, 0, v5, [*(a1 + 32) count], 3, objc_msgSend(*(a1 + 32), "count"), 0.0);
+    v3 = [MORehydrationMetrics alloc];
+    v4 = [*(*(*(a1 + 56) + 8) + 40) description];
+    v5 = -[MORehydrationMetrics initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:](v3, "initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:", 1, 4, 0, v4, [*(a1 + 32) count], 3, objc_msgSend(*(a1 + 32), "count"), 0.0);
 
-    v11 = 0;
-    [(MORehydrationMetrics *)v6 submitMetricsWithError:&v11];
-    v7 = v11;
-    v8 = *(*(*(a1 + 56) + 8) + 40);
+    v9 = 0;
+    [(MORehydrationMetrics *)v5 submitMetricsWithError:&v9];
+    v6 = v9;
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v6 = [*(a1 + 40) _rehydrateStoreEvents:*(a1 + 32) withVisits:*(*(*(a1 + 64) + 8) + 40) familiarityIndex:*(*(*(a1 + 72) + 8) + 40)];
-    v9 = _mo_log_facility_get_os_log(&MOLogFacilityRoutine);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v5 = [*(a1 + 40) _rehydrateStoreEvents:*(a1 + 32) withVisits:*(*(*(a1 + 64) + 8) + 40) familiarityIndex:*(*(*(a1 + 72) + 8) + 40)];
+    v7 = _mo_log_facility_get_os_log(&MOLogFacilityRoutine);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = [*(a1 + 32) count];
+      v8 = [*(a1 + 32) count];
       *buf = 134218240;
-      v13 = v10;
-      v14 = 2048;
-      v15 = [(MORehydrationMetrics *)v6 count];
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "_rehydrateVisits, input event, %lu, rehydrated events, %lu", buf, 0x16u);
+      v11 = v8;
+      v12 = 2048;
+      v13 = [(MORehydrationMetrics *)v5 count];
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "_rehydrateVisits, input event, %lu, rehydrated events, %lu", buf, 0x16u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -2303,21 +2301,21 @@ void __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStor
     v3 = _mo_log_facility_get_os_log(&MOLogFacilityRoutine);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_242_cold_1(v2);
+      __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_242_cold_1();
     }
 
     v4 = [MORehydrationMetrics alloc];
     v5 = [*(*(*(a1 + 80) + 8) + 40) description];
     v6 = -[MORehydrationMetrics initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:](v4, "initWithCategory:provider:spiSuccess:spiError:failCount:successAfterPreFailCount:totalCount:rehydrationTrigger:", 1, 4, 0, v5, [*(a1 + 32) count], 3, objc_msgSend(*(a1 + 32), "count"), 0.0);
 
-    v30 = 0;
-    [(MORehydrationMetrics *)v6 submitMetricsWithError:&v30];
-    v7 = v30;
+    v29 = 0;
+    [(MORehydrationMetrics *)v6 submitMetricsWithError:&v29];
+    v7 = v29;
     if ([*(*(*(a1 + 80) + 8) + 40) code] == 5 || objc_msgSend(*(*(*v2 + 8) + 40), "code") == 8)
     {
-      v31 = NSLocalizedDescriptionKey;
-      v32 = @"CR: Provider database is unavailable (betweenStartDate)";
-      v8 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v30 = NSLocalizedDescriptionKey;
+      v31 = @"CR: Provider database is unavailable (betweenStartDate)";
+      v8 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       v9 = [NSError errorWithDomain:@"MOErrorDomain" code:1088 userInfo:v8];
 
       (*(*(a1 + 72) + 16))();
@@ -2325,7 +2323,6 @@ void __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStor
 
     else
     {
-      v15 = *(*(*(a1 + 80) + 8) + 40);
       (*(*(a1 + 72) + 16))();
     }
   }
@@ -2335,36 +2332,36 @@ void __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStor
     v6 = objc_opt_new();
     [(MORehydrationMetrics *)v6 addObjectsFromArray:*(*(*(a1 + 88) + 8) + 40)];
     [(MORehydrationMetrics *)v6 addObjectsFromArray:*(*(*(a1 + 96) + 8) + 40)];
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__28;
-    v28 = __Block_byref_object_dispose__28;
-    v29 = objc_opt_new();
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__28;
+    v27 = __Block_byref_object_dispose__28;
+    v28 = objc_opt_new();
     v10 = [*(a1 + 40) _rehydrateStoreEvents:*(a1 + 32) withVisits:v6 familiarityIndex:*(*(*(a1 + 104) + 8) + 40)];
     if ([v10 count])
     {
-      [v25[5] setObject:v10 forKey:@"rehydratedEvents"];
+      [v24[5] setObject:v10 forKey:@"rehydratedEvents"];
     }
 
     v11 = *(*(*(a1 + 104) + 8) + 40);
     v12 = *(a1 + 32);
     v13 = *(a1 + 40);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_247;
-    v16[3] = &unk_10033C7D8;
-    v23 = &v24;
-    v17 = *(a1 + 48);
-    v18 = *(a1 + 56);
-    v19 = *(a1 + 64);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_247;
+    v15[3] = &unk_10033C7D8;
+    v22 = &v23;
+    v16 = *(a1 + 48);
+    v17 = *(a1 + 56);
+    v18 = *(a1 + 64);
     v14 = v10;
-    v20 = v14;
-    v21 = *(a1 + 32);
-    v22 = *(a1 + 72);
-    [v13 _createNewEventsFromVisits:v6 familiarityIndex:v11 withStoredEvents:v12 handler:v16];
+    v19 = v14;
+    v20 = *(a1 + 32);
+    v21 = *(a1 + 72);
+    [v13 _createNewEventsFromVisits:v6 familiarityIndex:v11 withStoredEvents:v12 handler:v15];
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v23, 8);
   }
 }
 
@@ -2385,22 +2382,21 @@ void __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStor
     v8 = [*(a1 + 56) count];
     v9 = [v3 count];
     v10 = [*(a1 + 64) count];
-    v12 = 138413570;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v8;
-    v20 = 2048;
-    v21 = v9;
-    v22 = 2048;
-    v23 = v10;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "start date, %@, adjusted start date, %@, end date, %@, rehydrated visit events count, %lu, new visit events counts, %lu, stored visit events count, %lu", &v12, 0x3Eu);
+    v11 = 138413570;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v8;
+    v19 = 2048;
+    v20 = v9;
+    v21 = 2048;
+    v22 = v10;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "start date, %@, adjusted start date, %@, end date, %@, rehydrated visit events count, %lu, new visit events counts, %lu, stored visit events count, %lu", &v11, 0x3Eu);
   }
 
-  v11 = *(*(*(a1 + 80) + 8) + 40);
   (*(*(a1 + 72) + 16))();
 }
 
@@ -2655,8 +2651,8 @@ LABEL_8:
   if ([v5 count])
   {
     v7 = [[NSSortDescriptor alloc] initWithKey:@"entry" ascending:1];
-    v29 = v7;
-    v8 = [NSArray arrayWithObjects:&v29 count:1];
+    v27 = v7;
+    v8 = [NSArray arrayWithObjects:&v27 count:1];
     v9 = [v5 sortedArrayUsingDescriptors:v8];
 
     v10 = _mo_log_facility_get_os_log(&MOLogFacilityRoutine);
@@ -2665,11 +2661,11 @@ LABEL_8:
       v11 = [v5 count];
       v12 = [v9 firstObject];
       v13 = [v12 entry];
-      v25 = 134218242;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v13;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "fetch oldest visit count, %lu, with date, %@", &v25, 0x16u);
+      v23 = 134218242;
+      v24 = v11;
+      v25 = 2112;
+      v26 = v13;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "fetch oldest visit count, %lu, with date, %@", &v23, 0x16u);
     }
 
     v14 = [v9 firstObject];
@@ -2681,10 +2677,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v22 = +[NSDate now];
-  v23 = *(a1[6] + 8);
-  v24 = *(v23 + 40);
-  *(v23 + 40) = v22;
+  v20 = +[NSDate now];
+  v21 = *(a1[6] + 8);
+  v22 = *(v21 + 40);
+  *(v21 + 40) = v20;
 
 LABEL_9:
   if (a1[4])
@@ -2693,13 +2689,11 @@ LABEL_9:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = *(*(a1[6] + 8) + 40);
-      v25 = 138412290;
-      v26 = v19;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "fetch oldest visit date, %@", &v25, 0xCu);
+      v23 = 138412290;
+      v24 = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "fetch oldest visit date, %@", &v23, 0xCu);
     }
 
-    v20 = *(*(a1[6] + 8) + 40);
-    v21 = *(*(a1[5] + 8) + 40);
     (*(a1[4] + 16))();
   }
 }
@@ -2945,18 +2939,26 @@ void __74__MORoutineServiceManager__fetchVisitsBetweenStartDate_CompletionHandle
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
+void __52__MORoutineServiceManager__rehydrateVisits_handler___block_invoke_3_cold_1()
+{
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "visit fetching for rehydration hit error, %@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 - (void)_rehydrateStoreEvents:(const char *)a1 withVisits:familiarityIndex:.cold.1(const char *a1)
 {
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "%@:no visits fecthed for rehydrating", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "%@:no visits fecthed for rehydrating", v4, v5, v6, v7);
 }
 
 - (void)_rehydrateStoreEvents:(const char *)a1 withVisits:familiarityIndex:.cold.2(const char *a1)
 {
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "%@:no input events for rehydrating", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "%@:no input events for rehydrating", v4, v5, v6, v7);
 }
 
 void __88__MORoutineServiceManager__fetchFamiliarityIndexesLOIForDateInterval_CompletionHandler___block_invoke_198_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
@@ -2973,6 +2975,14 @@ void __88__MORoutineServiceManager__fetchFamiliarityIndexesLOIForDateInterval_Co
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void __89__MORoutineServiceManager__fetchVisitsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_242_cold_1()
+{
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "visit fetching hit error, %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)_createNewEventsFromVisits:familiarityIndex:withStoredEvents:handler:.cold.1()

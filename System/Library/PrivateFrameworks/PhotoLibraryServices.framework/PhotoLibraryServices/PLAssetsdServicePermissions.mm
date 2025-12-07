@@ -72,7 +72,7 @@
     _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEBUG, "Missing entitlements: %@ for client: %@", buf, 0x16u);
   }
 
-  if ([(NSArray *)v10 count])
+  if (objc_msgSend_count(v10))
   {
     v13 = [(PLAssetsdServicePermissions *)self _errorForMissingEntitlements:v10 withContext:v9];
   }

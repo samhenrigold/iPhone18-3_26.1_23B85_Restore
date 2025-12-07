@@ -413,7 +413,7 @@ void __93__WBSBackgroundImageAssetController__sendBackgroundImageThumbnailAssets
 
 - (BOOL)_saveAssetAtURL:(id)l toURL:(id)rL
 {
-  v13[6] = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   MEMORY[0x1CCA512D0](v13, @"com.apple.Safari.SafariSharedUI.WBSBackgroundImageAssetController");

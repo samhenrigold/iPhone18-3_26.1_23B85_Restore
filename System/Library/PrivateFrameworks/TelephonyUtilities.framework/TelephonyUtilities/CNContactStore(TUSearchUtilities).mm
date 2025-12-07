@@ -51,16 +51,17 @@
     v13 = 0;
     v8 = [self unifiedContactWithIdentifier:v6 keysToFetch:v7 error:&v13];
     v9 = v13;
+    v10 = v9;
     if (v9)
     {
-      v10 = TUDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = TUDefaultLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         v15 = v6;
         v16 = 2112;
-        v17 = v9;
-        _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Error trying to fetch backing contact for identifier %@: %@", buf, 0x16u);
+        v17 = v10;
+        _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Error trying to fetch backing contact for identifier %@: %@", buf, 0x16u);
       }
     }
   }
@@ -68,10 +69,8 @@
   else
   {
     v8 = 0;
-    v9 = 0;
+    v10 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -101,7 +100,7 @@
 
 - (id)contactForDestinationId:()TUSearchUtilities keysToFetch:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [TUHandle normalizedHandleWithDestinationID:v6];
@@ -111,40 +110,40 @@
   {
     if ([v6 _appearsToBePhoneNumber])
     {
-      v10 = [MEMORY[0x1E695CF50] phoneNumberWithStringValue:value];
-      if (v10)
+      v11 = [MEMORY[0x1E695CF50] phoneNumberWithStringValue:value];
+      if (v11)
       {
-        v11 = [MEMORY[0x1E695CD58] predicateForContactsMatchingPhoneNumber:v10];
-        v12 = TUDefaultLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v12 = [MEMORY[0x1E695CD58] predicateForContactsMatchingPhoneNumber:v11];
+        v13 = TUDefaultLog(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v28 = v11;
-          _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "Looking up contacts matching predicate %@", buf, 0xCu);
+          v30 = v12;
+          _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "Looking up contacts matching predicate %@", buf, 0xCu);
         }
 
-        v13 = [v7 arrayByAddingObject:*MEMORY[0x1E695C330]];
-        v26 = 0;
-        v14 = [self unifiedContactsMatchingPredicate:v11 keysToFetch:v13 error:&v26];
-        v15 = v26;
+        v14 = [v7 arrayByAddingObject:*MEMORY[0x1E695C330]];
+        v28 = 0;
+        v15 = [self unifiedContactsMatchingPredicate:v12 keysToFetch:v14 error:&v28];
+        v16 = v28;
 
-        if (v14 && [v14 count])
+        if (v15 && (v17 = [v15 count]) != 0)
         {
-          v16 = TUDefaultLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v18 = TUDefaultLog(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v28 = v14;
-            _os_log_impl(&dword_1956FD000, v16, OS_LOG_TYPE_DEFAULT, "Found matching contacts %@, using first object", buf, 0xCu);
+            v30 = v15;
+            _os_log_impl(&dword_1956FD000, v18, OS_LOG_TYPE_DEFAULT, "Found matching contacts %@, using first object", buf, 0xCu);
           }
 
-          firstObject = [v14 firstObject];
+          firstObject = [v15 firstObject];
         }
 
         else
         {
-          v22 = TUDefaultLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+          v25 = TUDefaultLog(v17);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             [CNContactStore(TUSearchUtilities) contactForDestinationId:keysToFetch:];
           }
@@ -155,47 +154,51 @@
         goto LABEL_32;
       }
 
-      v11 = TUDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = TUDefaultLog(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [CNContactStore(TUSearchUtilities) contactForDestinationId:value keysToFetch:v11];
+        [CNContactStore(TUSearchUtilities) contactForDestinationId:value keysToFetch:v12];
       }
 
-      v15 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v10 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:value];
-      v18 = TUDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v11 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:value];
+      v20 = TUDefaultLog(v11);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v10;
-        _os_log_impl(&dword_1956FD000, v18, OS_LOG_TYPE_DEFAULT, "Looking up contacts matching predicate %@", buf, 0xCu);
+        v30 = v11;
+        _os_log_impl(&dword_1956FD000, v20, OS_LOG_TYPE_DEFAULT, "Looking up contacts matching predicate %@", buf, 0xCu);
       }
 
-      v19 = [v7 arrayByAddingObject:*MEMORY[0x1E695C208]];
-      v25 = 0;
-      v11 = [self unifiedContactsMatchingPredicate:v10 keysToFetch:v19 error:&v25];
-      v15 = v25;
+      v21 = [v7 arrayByAddingObject:*MEMORY[0x1E695C208]];
+      v27 = 0;
+      v12 = [self unifiedContactsMatchingPredicate:v11 keysToFetch:v21 error:&v27];
+      v16 = v27;
 
-      if (v11 && [v11 count])
+      if (v12)
       {
-        v20 = TUDefaultLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v22 = [v12 count];
+        if (v22)
         {
-          *buf = 138412290;
-          v28 = v11;
-          _os_log_impl(&dword_1956FD000, v20, OS_LOG_TYPE_DEFAULT, "Found matching contacts %@, using first object", buf, 0xCu);
-        }
+          v23 = TUDefaultLog(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v30 = v12;
+            _os_log_impl(&dword_1956FD000, v23, OS_LOG_TYPE_DEFAULT, "Found matching contacts %@, using first object", buf, 0xCu);
+          }
 
-        firstObject = [v11 firstObject];
-        goto LABEL_32;
+          firstObject = [v12 firstObject];
+          goto LABEL_32;
+        }
       }
 
-      v21 = TUDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v24 = TUDefaultLog(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [CNContactStore(TUSearchUtilities) contactForDestinationId:keysToFetch:];
       }
@@ -207,45 +210,33 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v10 = TUDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = TUDefaultLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [CNContactStore(TUSearchUtilities) contactForDestinationId:v6 keysToFetch:v10];
+    [CNContactStore(TUSearchUtilities) contactForDestinationId:v6 keysToFetch:v11];
   }
 
-  v15 = 0;
+  v16 = 0;
   firstObject = 0;
 LABEL_33:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
 
-- (void)contactForDestinationId:()TUSearchUtilities keysToFetch:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, v0, v1, "No contacts found matching predicate %@ error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)contactForDestinationId:()TUSearchUtilities keysToFetch:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not create a CNPhoneNumber using the normalized destination identifier '%@'.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not create a CNPhoneNumber using the normalized destination identifier '%@'.", &v2, 0xCu);
 }
 
 - (void)contactForDestinationId:()TUSearchUtilities keysToFetch:.cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not normalize destination ID %@ to perform contacts lookup", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Could not normalize destination ID %@ to perform contacts lookup", &v2, 0xCu);
 }
 
 @end

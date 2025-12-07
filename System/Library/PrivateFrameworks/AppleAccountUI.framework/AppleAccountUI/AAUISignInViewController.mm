@@ -478,7 +478,7 @@ LABEL_8:
 
 - (id)authenticationContext
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   delegate = [(AAUISignInViewController *)self delegate];
   if (objc_opt_respondsToSelector())
   {
@@ -495,17 +495,18 @@ LABEL_8:
     [authenticationContext setShouldOfferSecurityUpgrade:0];
     [authenticationContext setShouldUpdatePersistentServiceTokens:1];
     _shouldAnticipatePiggybacking = [(AAUISignInViewController *)self _shouldAnticipatePiggybacking];
-    v6 = _AAUILogSystem();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    if (_shouldAnticipatePiggybacking)
+    v6 = _shouldAnticipatePiggybacking;
+    v7 = _AAUILogSystem(_shouldAnticipatePiggybacking);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (v6)
     {
-      if (v7)
+      if (v8)
       {
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
-        v15 = 138412290;
-        v16 = v9;
-        _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "%@ detected primary iCloud sign in.", &v15, 0xCu);
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
+        v16 = 138412290;
+        v17 = v10;
+        _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "%@ detected primary iCloud sign in.", &v16, 0xCu);
       }
 
       [authenticationContext setAnticipateEscrowAttempt:1];
@@ -515,13 +516,13 @@ LABEL_8:
 
     else
     {
-      if (v7)
+      if (v8)
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "%@ detected non-primary iCloud sign in.", &v15, 0xCu);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
+        v16 = 138412290;
+        v17 = v12;
+        _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "%@ detected non-primary iCloud sign in.", &v16, 0xCu);
       }
     }
   }
@@ -1435,7 +1436,7 @@ LABEL_18:
 - (void)_actionButtonSelected:(id)selected
 {
   selectedCopy = selected;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(selectedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1443,91 +1444,91 @@ LABEL_18:
   }
 
   [(AAUISignInViewController *)self _setEnabled:0];
-  if ([(AAUISignInViewController *)self allowsAccountCreation]|| [(AAUISignInViewController *)self allowSkip])
+  if ([(AAUISignInViewController *)self allowsAccountCreation]|| (v6 = [(AAUISignInViewController *)self allowSkip], (v6 & 1) != 0))
   {
-    v29 = selectedCopy;
+    v30 = selectedCopy;
     [(AAUISignInViewController *)self _resignFirstResponderForAppropriateTextField];
     allowsAccountCreation = [(AAUISignInViewController *)self allowsAccountCreation];
-    v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v8 = v7;
+    v8 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v9 = v8;
     if (allowsAccountCreation)
     {
-      v9 = @"SIGN_IN_HELP_ALERT_TITLE_FORGOT_OR_CREATE";
+      v10 = @"SIGN_IN_HELP_ALERT_TITLE_FORGOT_OR_CREATE";
     }
 
     else
     {
-      v9 = @"SIGN_IN_HELP_ALERT_TITLE_FORGOT_PASSWORD";
+      v10 = @"SIGN_IN_HELP_ALERT_TITLE_FORGOT_PASSWORD";
     }
 
-    v10 = [v7 localizedStringForKey:v9 value:&stru_1F447F790 table:@"Localizable"];
+    v11 = [v8 localizedStringForKey:v10 value:&stru_1F447F790 table:@"Localizable"];
 
-    v11 = [MEMORY[0x1E69DC650] alertWithTitle:v10 message:0];
-    v12 = MEMORY[0x1E69DC648];
-    v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v14 = [v13 localizedStringForKey:@"SIGN_IN_HELP_ALERT_BUTTON_FORGOT" value:&stru_1F447F790 table:@"Localizable"];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __50__AAUISignInViewController__actionButtonSelected___block_invoke;
-    v35[3] = &unk_1E820BFA8;
-    v35[4] = self;
-    v15 = [v12 actionWithTitle:v14 style:0 handler:v35];
-    [v11 addAction:v15];
+    v12 = [MEMORY[0x1E69DC650] alertWithTitle:v11 message:0];
+    v13 = MEMORY[0x1E69DC648];
+    v14 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v15 = [v14 localizedStringForKey:@"SIGN_IN_HELP_ALERT_BUTTON_FORGOT" value:&stru_1F447F790 table:@"Localizable"];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __50__AAUISignInViewController__actionButtonSelected___block_invoke;
+    v36[3] = &unk_1E820BFA8;
+    v36[4] = self;
+    v16 = [v13 actionWithTitle:v15 style:0 handler:v36];
+    [v12 addAction:v16];
 
     if ([(AAUISignInViewController *)self allowsAccountCreation])
     {
-      v16 = MEMORY[0x1E69DC648];
-      v17 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-      v18 = [v17 localizedStringForKey:@"SIGN_IN_HELP_ALERT_BUTTON_CREATE" value:&stru_1F447F790 table:@"Localizable"];
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __50__AAUISignInViewController__actionButtonSelected___block_invoke_2;
-      v34[3] = &unk_1E820BFA8;
-      v34[4] = self;
-      v19 = [v16 actionWithTitle:v18 style:0 handler:v34];
-      [v11 addAction:v19];
+      v17 = MEMORY[0x1E69DC648];
+      v18 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v19 = [v18 localizedStringForKey:@"SIGN_IN_HELP_ALERT_BUTTON_CREATE" value:&stru_1F447F790 table:@"Localizable"];
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __50__AAUISignInViewController__actionButtonSelected___block_invoke_2;
+      v35[3] = &unk_1E820BFA8;
+      v35[4] = self;
+      v20 = [v17 actionWithTitle:v19 style:0 handler:v35];
+      [v12 addAction:v20];
     }
 
     if ([(AAUISignInViewController *)self allowSkip])
     {
-      v20 = MEMORY[0x1E69DC648];
-      v21 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-      v22 = [v21 localizedStringForKey:@"SIGN_IN_HELP_ALERT_BUTTON_LATER" value:&stru_1F447F790 table:@"Localizable"];
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __50__AAUISignInViewController__actionButtonSelected___block_invoke_3;
-      v33[3] = &unk_1E820BFA8;
-      v33[4] = self;
-      v23 = [v20 actionWithTitle:v22 style:0 handler:v33];
-      [v11 addAction:v23];
+      v21 = MEMORY[0x1E69DC648];
+      v22 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v23 = [v22 localizedStringForKey:@"SIGN_IN_HELP_ALERT_BUTTON_LATER" value:&stru_1F447F790 table:@"Localizable"];
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __50__AAUISignInViewController__actionButtonSelected___block_invoke_3;
+      v34[3] = &unk_1E820BFA8;
+      v34[4] = self;
+      v24 = [v21 actionWithTitle:v23 style:0 handler:v34];
+      [v12 addAction:v24];
     }
 
     objc_initWeak(buf, self);
-    v24 = MEMORY[0x1E69DC648];
-    v25 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v26 = [v25 localizedStringForKey:@"SIGN_IN_HELP_ALERT_BUTTON_CANCEL" value:&stru_1F447F790 table:@"Localizable"];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __50__AAUISignInViewController__actionButtonSelected___block_invoke_4;
-    v30[3] = &unk_1E820C0C8;
-    objc_copyWeak(&v31, buf);
-    v27 = [v24 actionWithTitle:v26 style:1 handler:v30];
-    [v11 addAction:v27];
+    v25 = MEMORY[0x1E69DC648];
+    v26 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v27 = [v26 localizedStringForKey:@"SIGN_IN_HELP_ALERT_BUTTON_CANCEL" value:&stru_1F447F790 table:@"Localizable"];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __50__AAUISignInViewController__actionButtonSelected___block_invoke_4;
+    v31[3] = &unk_1E820C0C8;
+    objc_copyWeak(&v32, buf);
+    v28 = [v25 actionWithTitle:v27 style:1 handler:v31];
+    [v12 addAction:v28];
 
-    [(AAUISignInViewController *)self presentViewController:v11 animated:1 completion:0];
-    objc_destroyWeak(&v31);
+    [(AAUISignInViewController *)self presentViewController:v12 animated:1 completion:0];
+    objc_destroyWeak(&v32);
     objc_destroyWeak(buf);
 
-    selectedCopy = v29;
+    selectedCopy = v30;
   }
 
   else
   {
-    v28 = _AAUILogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_1C5355000, v28, OS_LOG_TYPE_DEFAULT, "Not allowed to create account, presenting iForgot...", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v29, OS_LOG_TYPE_DEFAULT, "Not allowed to create account, presenting iForgot...", buf, 2u);
     }
 
     [(AAUISignInViewController *)self _presentForgotAppleIDPane];
@@ -1539,11 +1540,11 @@ void __50__AAUISignInViewController__actionButtonSelected___block_invoke_4(uint6
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _setEnabled:1];
 
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _AAUILogSystem(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "User canceled the action alert.", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "User canceled the action alert.", v4, 2u);
   }
 }
 
@@ -1565,57 +1566,58 @@ void __50__AAUISignInViewController__actionButtonSelected___block_invoke_4(uint6
   authenticationContext = [(AAUISignInViewController *)self authenticationContext];
   [authenticationContext setNeedsCredentialRecovery:0];
   [authenticationContext setNeedsNewAppleID:1];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2050000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2050000000;
   v4 = getBYWarrantyClass_softClass;
-  v17 = getBYWarrantyClass_softClass;
+  v18 = getBYWarrantyClass_softClass;
   if (!getBYWarrantyClass_softClass)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __getBYWarrantyClass_block_invoke;
-    v13[3] = &unk_1E820BE08;
-    v13[4] = &v14;
-    __getBYWarrantyClass_block_invoke(v13);
-    v4 = v15[3];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __getBYWarrantyClass_block_invoke;
+    v14[3] = &unk_1E820BE08;
+    v14[4] = &v15;
+    __getBYWarrantyClass_block_invoke(v14);
+    v4 = v16[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v14, 8);
-  if ([v4 shouldDisplay])
+  _Block_object_dispose(&v15, 8);
+  shouldDisplay = [v4 shouldDisplay];
+  if (shouldDisplay)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(shouldDisplay);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13[0]) = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "Device warranty needed", v13, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Device warranty needed", v14, 2u);
     }
 
     httpHeadersForRemoteUI = [authenticationContext httpHeadersForRemoteUI];
-    v8 = [httpHeadersForRemoteUI mutableCopy];
-    v9 = v8;
-    if (v8)
+    v9 = [httpHeadersForRemoteUI mutableCopy];
+    v10 = v9;
+    if (v9)
     {
-      v10 = v8;
+      v11 = v9;
     }
 
     else
     {
-      v10 = objc_opt_new();
+      v11 = objc_opt_new();
     }
 
-    v11 = v10;
+    v12 = v11;
 
-    [v11 setObject:@"true" forKey:@"X-MMe-Show-Warranty"];
-    [authenticationContext setHttpHeadersForRemoteUI:v11];
+    [v12 setObject:@"true" forKey:@"X-MMe-Show-Warranty"];
+    [authenticationContext setHttpHeadersForRemoteUI:v12];
   }
 
-  v12 = _AAUILogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = _AAUILogSystem(shouldDisplay);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13[0]) = 0;
-    _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "User wants a new Apple ID, presenting AuthKit...", v13, 2u);
+    LOWORD(v14[0]) = 0;
+    _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "User wants a new Apple ID, presenting AuthKit...", v14, 2u);
   }
 
   [(AAUISignInViewController *)self _attemptAuthenticationWithContext:authenticationContext];
@@ -1625,8 +1627,7 @@ void __50__AAUISignInViewController__actionButtonSelected___block_invoke_4(uint6
 {
   authenticationContext = [(AAUISignInViewController *)self authenticationContext];
   [authenticationContext setNeedsCredentialRecovery:1];
-  [authenticationContext setNeedsNewAppleID:0];
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem([authenticationContext setNeedsNewAppleID:0]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -1638,7 +1639,7 @@ void __50__AAUISignInViewController__actionButtonSelected___block_invoke_4(uint6
 
 - (void)_childSignInSelected:(id)selected
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1664,7 +1665,7 @@ void __50__AAUISignInViewController__actionButtonSelected___block_invoke_4(uint6
 
 - (void)_attemptAuthentication
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [(AAUISignInViewController *)self _formatUsernameAsPhoneNumberIfNeeded];
   if (self->_passwordHandler)
   {
@@ -1702,17 +1703,22 @@ void __50__AAUISignInViewController__actionButtonSelected___block_invoke_4(uint6
     [authenticationContext setUsername:v9];
     [authenticationContext _setPassword:text3];
     [authenticationContext _setPasswordDelegate:self];
-    if (+[AAUISignInViewController _isRunningInSettings]&& ![(AAUISignInViewController *)self isChildSetupFlow])
+    isChildSetupFlow = +[AAUISignInViewController _isRunningInSettings];
+    if (isChildSetupFlow)
     {
-      [authenticationContext setAppProvidedContext:*MEMORY[0x1E698DB30]];
+      isChildSetupFlow = [(AAUISignInViewController *)self isChildSetupFlow];
+      if ((isChildSetupFlow & 1) == 0)
+      {
+        isChildSetupFlow = [authenticationContext setAppProvidedContext:*MEMORY[0x1E698DB30]];
+      }
     }
 
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _AAUILogSystem(isChildSetupFlow);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Attempting authentication for username '%{public}@'", &v14, 0xCu);
+      v15 = 138543362;
+      v16 = v9;
+      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Attempting authentication for username '%{public}@'", &v15, 0xCu);
     }
 
     [(AAUISignInViewController *)self _attemptAuthenticationWithContext:authenticationContext];
@@ -1728,34 +1734,34 @@ void __50__AAUISignInViewController__actionButtonSelected___block_invoke_4(uint6
 
   if (v6)
   {
-    v7 = objc_loadWeakRetained(&self->_delegate);
-    [v7 willAuthenticateWithContext:contextCopy];
+    v8 = objc_loadWeakRetained(&self->_delegate);
+    [v8 willAuthenticateWithContext:contextCopy];
   }
 
-  v8 = _AAUILogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _AAUILogSystem(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    [AAUISignInViewController _attemptAuthenticationWithContext:v8];
+    [AAUISignInViewController _attemptAuthenticationWithContext:v9];
   }
 
   [MEMORY[0x1E698B940] verifyAndFixPersonaIfNeeded:self->_originalPersona desiredContext:self->_originalPersonaContext];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__3;
-  v15 = __Block_byref_object_dispose__3;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__3;
+  v16 = __Block_byref_object_dispose__3;
   authenticationController = [(AAUISignInViewController *)self authenticationController];
-  [v12[5] setDelegate:self];
-  v9 = v12[5];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke;
-  v10[3] = &unk_1E820C0F0;
-  v10[4] = self;
-  v10[5] = &v11;
-  [v9 authenticateWithContext:contextCopy completion:v10];
+  [v13[5] setDelegate:self];
+  v10 = v13[5];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke;
+  v11[3] = &unk_1E820C0F0;
+  v11[4] = self;
+  v11[5] = &v12;
+  [v10 authenticateWithContext:contextCopy completion:v11];
   [MEMORY[0x1E698B940] personaConsistencyCheck:self->_originalPersona];
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v12, 8);
 }
 
 void __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1780,16 +1786,16 @@ void __62__AAUISignInViewController__attemptAuthenticationWithContext___block_in
 
 void __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E698DBC0]];
 
   if (v2)
   {
-    v3 = _AAUILogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _AAUILogSystem(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "Server returned continuation data, attempting to repair account...", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "Server returned continuation data, attempting to repair account...", buf, 2u);
     }
 
     [*(a1 + 40) _repairCloudAccountWithAuthenticationResults:*(a1 + 32)];
@@ -1798,44 +1804,44 @@ LABEL_5:
     return;
   }
 
-  v4 = *(a1 + 32);
-  if (!v4)
+  v5 = *(a1 + 32);
+  if (!v5)
   {
-    v11 = _AAUILogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _AAUILogSystem(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke_2_cold_1(a1, v11, v12, v13, v14, v15, v16, v17);
+      __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke_2_cold_1(a1, v12, v13, v14, v15, v16, v17, v18);
     }
 
     goto LABEL_5;
   }
 
-  v5 = [v4 objectForKeyedSubscript:*MEMORY[0x1E698DBF0]];
-  v6 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E698DBC8]];
-  v7 = _AAUILogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v6 = [v5 objectForKeyedSubscript:*MEMORY[0x1E698DBF0]];
+  v7 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E698DBC8]];
+  v8 = _AAUILogSystem(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = @"(*****)";
-    if (!v6)
+    v9 = @"(*****)";
+    if (!v7)
     {
-      v8 = @"(null)";
+      v9 = @"(null)";
     }
 
     *buf = 138543618;
-    v20 = v5;
-    v21 = 2114;
-    v22 = v8;
-    _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Successfully authenticated account for username: %{public}@, password: %{public}@", buf, 0x16u);
+    v21 = v6;
+    v22 = 2114;
+    v23 = v9;
+    _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Successfully authenticated account for username: %{public}@, password: %{public}@", buf, 0x16u);
   }
 
-  v10 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke_228;
-  v18[3] = &unk_1E820B8F0;
-  v18[4] = v9;
-  [v9 _delegate_signInViewControllerDidCompleteWithAuthenticationResults:v10 completionHandler:v18];
+  v11 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke_228;
+  v19[3] = &unk_1E820B8F0;
+  v19[4] = v10;
+  [v10 _delegate_signInViewControllerDidCompleteWithAuthenticationResults:v11 completionHandler:v19];
 }
 
 - (void)_repairCloudAccountWithAuthenticationResults:(id)results
@@ -1854,39 +1860,39 @@ LABEL_5:
   [v8 setValue:v10 forHTTPHeaderField:@"Authorization"];
 
   [v8 ak_addCountryHeader];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__3;
-  v21 = __Block_byref_object_dispose__3;
-  v22 = [[AAUIRemoteUIController alloc] initWithIdentifier:@"com.apple.AppleAccountUI.SignIn"];
-  [v18[5] setDelegate:self];
-  v11 = v18[5];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__3;
+  v22 = __Block_byref_object_dispose__3;
+  v23 = [[AAUIRemoteUIController alloc] initWithIdentifier:@"com.apple.AppleAccountUI.SignIn"];
+  [v19[5] setDelegate:self];
+  v11 = v19[5];
   navigationController = [(AAUISignInViewController *)self navigationController];
   [v11 setNavigationController:navigationController];
 
-  v13 = _AAUILogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _AAUILogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Calling out to server to repair account...", buf, 2u);
+    _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Calling out to server to repair account...", buf, 2u);
   }
 
-  v14 = v18[5];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __73__AAUISignInViewController__repairCloudAccountWithAuthenticationResults___block_invoke;
-  v15[3] = &unk_1E820C118;
-  v15[4] = &v17;
-  [v14 loadRequest:v8 completion:v15];
-  _Block_object_dispose(&v17, 8);
+  v15 = v19[5];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __73__AAUISignInViewController__repairCloudAccountWithAuthenticationResults___block_invoke;
+  v16[3] = &unk_1E820C118;
+  v16[4] = &v18;
+  [v15 loadRequest:v8 completion:v16];
+  _Block_object_dispose(&v18, 8);
 }
 
 void __73__AAUISignInViewController__repairCloudAccountWithAuthenticationResults___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -2432,20 +2438,21 @@ uint64_t __50__AAUISignInViewController_sizeCategoryDidChange___block_invoke(uin
   contextCopy = context;
   completionCopy = completion;
   dispatch_assert_queue_not_V2(MEMORY[0x1E69E96A0]);
-  v15 = _AAUILogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _AAUILogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 0;
-    _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Authentication controller called back with auth results.", v25, 2u);
+    *v27 = 0;
+    _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "Authentication controller called back with auth results.", v27, 2u);
   }
 
   delegate = [(AAUISignInViewController *)self delegate];
-  if (objc_opt_respondsToSelector())
+  v18 = objc_opt_respondsToSelector();
+  if (v18)
   {
-    v17 = _AAUILogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v19 = _AAUILogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      [AAUISignInViewController authenticationController:v17 shouldContinueWithAuthenticationResults:? error:? forContext:? completion:?];
+      [AAUISignInViewController authenticationController:v19 shouldContinueWithAuthenticationResults:? error:? forContext:? completion:?];
     }
 
     [delegate signInViewController:self shouldContinueWithAuthenticationResults:resultsCopy error:errorCopy forContext:contextCopy completion:completionCopy];
@@ -2453,10 +2460,10 @@ uint64_t __50__AAUISignInViewController_sizeCategoryDidChange___block_invoke(uin
 
   else if (errorCopy)
   {
-    v18 = _AAUILogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v20 = _AAUILogSystem(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(AAUISignInViewController *)errorCopy authenticationController:v18 shouldContinueWithAuthenticationResults:v19 error:v20 forContext:v21 completion:v22, v23, v24];
+      [(AAUISignInViewController *)errorCopy authenticationController:v20 shouldContinueWithAuthenticationResults:v21 error:v22 forContext:v23 completion:v24, v25, v26];
     }
 
     completionCopy[2](completionCopy, 0);
@@ -2709,6 +2716,20 @@ LABEL_5:
   v1 = 136315138;
   v2 = "[AAUISignInViewController _attemptAuthenticationWithContext:]";
   _os_log_debug_impl(&dword_1C5355000, log, OS_LOG_TYPE_DEBUG, "Verifying persona in %s", &v1, 0xCu);
+}
+
+void __62__AAUISignInViewController__attemptAuthenticationWithContext___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 48);
+  OUTLINED_FUNCTION_0_2(&dword_1C5355000, a2, a3, "Authentication failed with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)authenticationController:(uint64_t)a3 shouldContinueWithAuthenticationResults:(uint64_t)a4 error:(uint64_t)a5 forContext:(uint64_t)a6 completion:(uint64_t)a7 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1C5355000, a2, a3, "Bailing due to error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

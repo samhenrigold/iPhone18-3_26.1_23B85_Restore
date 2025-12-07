@@ -56,33 +56,32 @@
 - (void)updateContextItemForDateInterval:(NSDateInterval *)interval overlayController:(HKInteractiveChartOverlayViewController *)controller timeScope:(int64_t)scope resolution:(int64_t)resolution completion:(id)completion
 {
   sub_29E66A714(0, &qword_2A1859CD0, MEMORY[0x29EDCA398], MEMORY[0x29EDC9C68]);
-  v14 = *(*(v13 - 8) + 64);
   MEMORY[0x2A1C7C4A8](v13 - 8);
-  v16 = &v25 - v15;
-  v17 = _Block_copy(completion);
-  v18 = swift_allocObject();
-  v18[2] = interval;
-  v18[3] = controller;
-  v18[4] = scope;
-  v18[5] = resolution;
-  v18[6] = v17;
-  v18[7] = self;
-  v19 = sub_29E7544F8();
-  (*(*(v19 - 8) + 56))(v16, 1, 1, v19);
+  v15 = &v24 - v14;
+  v16 = _Block_copy(completion);
+  v17 = swift_allocObject();
+  v17[2] = interval;
+  v17[3] = controller;
+  v17[4] = scope;
+  v17[5] = resolution;
+  v17[6] = v16;
+  v17[7] = self;
+  v18 = sub_29E7544F8();
+  (*(*(v18 - 8) + 56))(v15, 1, 1, v18);
+  v19 = swift_allocObject();
+  v19[2] = 0;
+  v19[3] = 0;
+  v19[4] = &unk_29E7677D8;
+  v19[5] = v17;
   v20 = swift_allocObject();
   v20[2] = 0;
   v20[3] = 0;
-  v20[4] = &unk_29E7677D8;
-  v20[5] = v18;
-  v21 = swift_allocObject();
-  v21[2] = 0;
-  v21[3] = 0;
-  v21[4] = &unk_29E7677E8;
-  v21[5] = v20;
+  v20[4] = &unk_29E7677E8;
+  v20[5] = v19;
   intervalCopy = interval;
   controllerCopy = controller;
   selfCopy = self;
-  sub_29E6680B0(0, 0, v16, &unk_29E7677F8, v21);
+  sub_29E6680B0(0, 0, v15, &unk_29E7677F8, v20);
 }
 
 - (id)contextItemForLastUpdate

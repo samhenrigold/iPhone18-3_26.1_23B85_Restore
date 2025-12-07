@@ -51,7 +51,7 @@
 
 - (BOOL)deleteLimitForActivity:(id)activity
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v5 = [(NSMutableArray *)self->_testingOverride containsObject:activityCopy];
   if (v5)
@@ -60,11 +60,11 @@
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = activityCopy;
+      v9 = 138412290;
+      v10 = activityCopy;
       v7 = "Removing override for %@";
 LABEL_6:
-      _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
+      _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, v7, &v9, 0xCu);
     }
   }
 
@@ -73,20 +73,19 @@ LABEL_6:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = activityCopy;
+      v9 = 138412290;
+      v10 = activityCopy;
       v7 = "Failed to remove override for %@";
       goto LABEL_6;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)setLimitForActivity:(id)activity
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   testingOverride = self->_testingOverride;
   if (!testingOverride)
@@ -102,12 +101,11 @@ LABEL_6:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = activityCopy;
-    _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "Adding %@ to override list", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = activityCopy;
+    _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "Adding %@ to override list", &v10, 0xCu);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -372,7 +370,7 @@ LABEL_33:
 
 - (BOOL)limitedActivity:(id)activity withLimitsResponses:(id)responses
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   responsesCopy = responses;
   if ([(_DASConfigurationLimiter *)self limitsApplyToActivity:activityCopy]&& ((v8 = [_DASLimiterResponse queryActivityDecision:4 fromResponses:responsesCopy], v9 = [_DASLimiterResponse queryActivityDecision:1 fromResponses:responsesCopy], v8) || v9))
@@ -384,11 +382,11 @@ LABEL_33:
       v10 = 0;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412546;
-        v16 = activityCopy;
-        v17 = 2112;
-        v18 = responsesCopy;
-        _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "%@ overrode configuration limit %@", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = activityCopy;
+        v16 = 2112;
+        v17 = responsesCopy;
+        _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "%@ overrode configuration limit %@", &v14, 0x16u);
         v10 = 0;
       }
     }
@@ -405,7 +403,6 @@ LABEL_33:
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

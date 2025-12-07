@@ -134,7 +134,7 @@
 - (void)_transformChangedWithEvent:(id)event
 {
   p_eventTranslation = &self->_eventTranslation;
-  [event translation];
+  objc_msgSend_translation(event, a2);
   p_eventTranslation->x = v4;
   p_eventTranslation->y = v5;
 }

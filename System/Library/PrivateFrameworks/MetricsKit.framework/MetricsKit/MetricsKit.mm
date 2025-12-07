@@ -1,13 +1,13 @@
-id MTMetricsKitOSLog()
+id MTMetricsKitOSLog(uint64_t a1)
 {
   if (MTMetricsKitOSLog_onceToken != -1)
   {
     MTMetricsKitOSLog_cold_1();
   }
 
-  v1 = MTDefaultOSLog;
+  v2 = MTDefaultOSLog;
 
-  return v1;
+  return v2;
 }
 
 void sub_258F4D89C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -38,9 +38,9 @@ void sub_258F4DE54(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_258F4E7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258F4E7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -148,7 +148,7 @@ id MTError(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_
 
 id _MTError(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v5 = MEMORY[0x277CCACA8];
@@ -162,19 +162,17 @@ id _MTError(uint64_t a1, void *a2, uint64_t a3)
   }
 
   v8 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v13 = *MEMORY[0x277CCA450];
-  v14[0] = v7;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13[0] = v7;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [v8 initWithDomain:@"MTError" code:a1 userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 id MTConfigurationError(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v9 = _MTError(a1, a2, &a9);
@@ -193,15 +191,15 @@ LABEL_4:
     if (v13 <= 199)
     {
       atomic_fetch_add_explicit(MTConfigurationError_logCount, 1u, memory_order_relaxed);
-      v12 = MTMetricsKitOSLog();
+      v12 = MTMetricsKitOSLog(v9);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v14 = [v10 code];
         v15 = [v10 localizedDescription];
         *buf = 134218242;
-        v19 = v14;
-        v20 = 2112;
-        v21 = v15;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v15;
         _os_log_impl(&dword_258F4B000, v12, OS_LOG_TYPE_ERROR, "MetricsKit: Error occurred with code %ld: %@", buf, 0x16u);
       }
 
@@ -215,7 +213,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -244,9 +241,9 @@ id MTWrappedError(void *a1, uint64_t a2, void *a3)
   return v11;
 }
 
-void sub_258F68650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_258F68650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -321,9 +318,9 @@ void sub_258F75E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_258F8019C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258F8019C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -367,9 +364,9 @@ void sub_258F84070(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_258F8455C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258F8455C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

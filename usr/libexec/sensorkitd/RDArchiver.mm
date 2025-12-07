@@ -17,15 +17,14 @@
 {
   if (self->_valid)
   {
-    archive = self->_archive;
     archive_write_free();
     close(self->_fd);
   }
 
   objc_setProperty_nonatomic(self, a2, 0, 32);
-  v4.receiver = self;
-  v4.super_class = RDArchiver;
-  [(RDArchiver *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = RDArchiver;
+  [(RDArchiver *)&v3 dealloc];
 }
 
 @end

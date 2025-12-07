@@ -393,7 +393,7 @@ LABEL_7:
 
 - (id)tui_valueForProperty:(id)property
 {
-  if ([property isEqualToString:@"count"])
+  if (objc_msgSend_isEqualToString_(property, a2, @"count"))
   {
     v4 = [NSNumber numberWithUnsignedInteger:self->_count];
   }

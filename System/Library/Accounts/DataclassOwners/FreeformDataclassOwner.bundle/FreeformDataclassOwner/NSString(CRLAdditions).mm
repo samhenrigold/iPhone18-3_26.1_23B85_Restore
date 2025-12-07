@@ -8,7 +8,7 @@
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_0, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_5(&dword_0, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 - (void)crl_stringByUniquingPathInsideDirectory:()CRLAdditions withFormat:.cold.4(void *a1)
@@ -16,7 +16,7 @@
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_4() packedBacktraceString];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_0, v4, v5, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1(&dword_0, v4, v5, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", v6, v7, v8, v9);
 }
 
 - (void)crl_stringByRemovingCharactersInSet:()CRLAdditions options:.cold.2()
@@ -24,7 +24,7 @@
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_0, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_5(&dword_0, v0, v1, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d invalid nil value for '%{public}s'", v2, v3, v4, v5);
 }
 
 + (void)crl_stringWithItemProviderData:()CRLAdditions typeIdentifier:error:.cold.2(uint64_t a1, int a2)

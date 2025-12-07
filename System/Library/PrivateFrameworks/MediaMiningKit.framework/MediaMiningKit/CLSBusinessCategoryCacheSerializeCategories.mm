@@ -3,7 +3,7 @@
 
 @implementation CLSBusinessCategoryCacheSerializeCategories
 
-uint64_t ___CLSBusinessCategoryCacheSerializeCategories_block_invoke(uint64_t a1, uint64_t a2, char a3)
+void *___CLSBusinessCategoryCacheSerializeCategories_block_invoke(uint64_t a1, uint64_t a2, char a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)

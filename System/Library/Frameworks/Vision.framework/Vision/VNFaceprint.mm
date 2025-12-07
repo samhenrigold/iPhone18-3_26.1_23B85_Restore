@@ -541,7 +541,7 @@ LABEL_12:
   }
 
   HIBYTE(v34) = 48;
-  std::vector<unsigned char>::vector[abi:ne200100](__p, bytes);
+  std::vector<unsigned char>::vector[abi:ne200100](__p, bytes, &v34 + 7);
   if (vision::mod::FaceprintAndAttributes::normalizeFacePrintData(data, count, 1, __p[0], v23) == 128)
   {
     *&v30 = confidence;

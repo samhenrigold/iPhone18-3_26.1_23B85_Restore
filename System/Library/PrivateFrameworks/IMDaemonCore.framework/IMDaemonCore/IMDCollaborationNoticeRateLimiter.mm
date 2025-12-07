@@ -32,7 +32,7 @@
 
 - (BOOL)shouldSendNotice:(id)notice
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   noticeCopy = notice;
   if (noticeCopy)
   {
@@ -42,26 +42,25 @@
 
     if (!absoluteString)
     {
-      v11 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_22B7D836C();
       }
 
-      v10 = 0;
+      v9 = 0;
       goto LABEL_33;
     }
 
-    v8 = *MEMORY[0x277D19D90];
     if (IMGetDomainBoolForKeyWithDefaultValue())
     {
       if (IMOSLoggingEnabled())
       {
-        v9 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v8 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "RateLimiter: Overriden by kRateLimiterOverride, approved to send.", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "RateLimiter: Overriden by kRateLimiterOverride, approved to send.", buf, 2u);
         }
       }
     }
@@ -69,67 +68,67 @@
     else
     {
       noticeEventHistory = [(IMDCollaborationNoticeRateLimiter *)self noticeEventHistory];
-      v13 = [noticeEventHistory objectForKey:absoluteString];
+      v12 = [noticeEventHistory objectForKey:absoluteString];
 
-      if (v13)
+      if (v12)
       {
-        v14 = +[IMDCollaborationNoticeTypeGenerator sharedGenerator];
-        v15 = [v14 typeForHighlightEvent:v5];
+        v13 = +[IMDCollaborationNoticeTypeGenerator sharedGenerator];
+        v14 = [v13 typeForHighlightEvent:v5];
 
-        v16 = [MEMORY[0x277CCABB0] numberWithInteger:v15];
-        stringValue = [v16 stringValue];
+        v15 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
+        stringValue = [v15 stringValue];
 
         noticeEventHistory2 = [(IMDCollaborationNoticeRateLimiter *)self noticeEventHistory];
-        v18 = [noticeEventHistory2 objectForKeyedSubscript:absoluteString];
-        v19 = [v18 objectForKeyedSubscript:stringValue];
+        v17 = [noticeEventHistory2 objectForKeyedSubscript:absoluteString];
+        v18 = [v17 objectForKeyedSubscript:stringValue];
 
-        if (v19)
+        if (v18)
         {
           date = [MEMORY[0x277CBEAA8] date];
           currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-          v21 = [currentCalendar components:64 fromDate:v19 toDate:date options:0];
+          v20 = [currentCalendar components:64 fromDate:v18 toDate:date options:0];
 
-          v22 = [(IMDCollaborationNoticeRateLimiter *)self thresholdForNoticeType:v15];
-          minute = [v21 minute];
-          v10 = minute >= v22;
+          v21 = [(IMDCollaborationNoticeRateLimiter *)self thresholdForNoticeType:v14];
+          minute = [v20 minute];
+          v9 = minute >= v21;
           if (IMOSLoggingEnabled())
           {
-            v24 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+            v23 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
-              if (minute < v22)
+              if (minute < v21)
               {
-                v25 = @"NO";
+                v24 = @"NO";
               }
 
               else
               {
-                v25 = @"YES";
+                v24 = @"YES";
               }
 
-              v35 = v21;
-              v26 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v21, "minute", v25)}];
-              [MEMORY[0x277CCABB0] numberWithInteger:v22];
+              v33 = v20;
+              v25 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v20, "minute", v24)}];
+              [MEMORY[0x277CCABB0] numberWithInteger:v21];
               *buf = 138413058;
-              v39 = v33;
+              v37 = v31;
+              v38 = 2112;
+              v39 = stringValue;
               v40 = 2112;
-              v41 = stringValue;
-              v42 = 2112;
-              v43 = v26;
-              v45 = v44 = 2112;
-              v34 = v26;
-              v27 = v45;
-              _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "RateLimiter: result=%@ for noticeType: %@, elapsedMinutes: %@ < threshold: %@", buf, 0x2Au);
+              v41 = v25;
+              v43 = v42 = 2112;
+              v32 = v25;
+              v26 = v43;
+              _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "RateLimiter: result=%@ for noticeType: %@, elapsedMinutes: %@ < threshold: %@", buf, 0x2Au);
 
-              v21 = v35;
+              v20 = v33;
             }
           }
 
-          if (minute < v22)
+          if (minute < v21)
           {
             noticeEventHistory3 = [(IMDCollaborationNoticeRateLimiter *)self noticeEventHistory];
-            v29 = [noticeEventHistory3 objectForKeyedSubscript:absoluteString];
-            [v29 setObject:date forKeyedSubscript:@"lastUpdated"];
+            v28 = [noticeEventHistory3 objectForKeyedSubscript:absoluteString];
+            [v28 setObject:date forKeyedSubscript:@"lastUpdated"];
           }
         }
 
@@ -137,23 +136,23 @@
         {
           if (IMOSLoggingEnabled())
           {
-            v30 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v29 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v39 = stringValue;
-              _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "RateLimiter: noticeType (%@) hasn't been sent before, approved to send.", buf, 0xCu);
+              v37 = stringValue;
+              _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "RateLimiter: noticeType (%@) hasn't been sent before, approved to send.", buf, 0xCu);
             }
           }
 
-          v10 = 1;
+          v9 = 1;
         }
 
         goto LABEL_33;
       }
     }
 
-    v10 = 1;
+    v9 = 1;
 LABEL_33:
 
     goto LABEL_34;
@@ -165,16 +164,15 @@ LABEL_33:
     sub_22B7D83E4();
   }
 
-  v10 = 0;
+  v9 = 0;
 LABEL_34:
 
-  v31 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v9;
 }
 
 - (void)didSendNotice:(id)notice
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   noticeCopy = notice;
   if (noticeCopy)
   {
@@ -196,15 +194,15 @@ LABEL_34:
         v13 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v24 = 136315906;
-          v25 = "[IMDCollaborationNoticeRateLimiter didSendNotice:]";
-          v26 = 2112;
-          v27 = absoluteString;
-          v28 = 2112;
-          v29 = stringValue;
-          v30 = 2112;
-          v31 = date;
-          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "%s url: %@, noticeType: %@ => %@", &v24, 0x2Au);
+          v23 = 136315906;
+          v24 = "[IMDCollaborationNoticeRateLimiter didSendNotice:]";
+          v25 = 2112;
+          v26 = absoluteString;
+          v27 = 2112;
+          v28 = stringValue;
+          v29 = 2112;
+          v30 = date;
+          _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "%s url: %@, noticeType: %@ => %@", &v23, 0x2Au);
         }
       }
 
@@ -248,8 +246,6 @@ LABEL_34:
       sub_22B7D84D4();
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dateLastUpdatedForURL:(id)l
@@ -302,7 +298,7 @@ LABEL_34:
 
 + (id)loadNoticeEventHistory
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v3 = +[IMDCollaborationNoticeRateLimiter peristencePath];
   v4 = [defaultManager fileExistsAtPath:v3];
@@ -322,9 +318,9 @@ LABEL_34:
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v19 = 138412290;
-          v20 = v8;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Loaded noticeEventHistory: %@", &v19, 0xCu);
+          v18 = 138412290;
+          v19 = v8;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Loaded noticeEventHistory: %@", &v18, 0xCu);
         }
       }
 
@@ -338,8 +334,8 @@ LABEL_34:
         v16 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Loaded empty dictionary, creating a new dictionary.", &v19, 2u);
+          LOWORD(v18) = 0;
+          _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Loaded empty dictionary, creating a new dictionary.", &v18, 2u);
         }
       }
 
@@ -356,8 +352,8 @@ LABEL_34:
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Creating rateLimiter persistence.", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Creating rateLimiter persistence.", &v18, 2u);
       }
     }
 
@@ -367,8 +363,6 @@ LABEL_34:
 
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return dictionary2;
 }

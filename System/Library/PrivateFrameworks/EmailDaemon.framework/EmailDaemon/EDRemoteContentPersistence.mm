@@ -87,7 +87,7 @@ void ___ef_log_EDRemoteContentPersistence_block_invoke()
 
 + (id)tablesAndForeignKeysToResolve:(id *)resolve associationsToResolve:(id *)toResolve
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695E0F0];
   if (resolve)
   {
@@ -100,62 +100,56 @@ void ___ef_log_EDRemoteContentPersistence_block_invoke()
   }
 
   v5 = [self _remoteContentLinksTableSchemaWithName:@"remote_content_links"];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 + (id)protectedTablesAndForeignKeysToResolve:(id *)resolve
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   if (resolve)
   {
     *resolve = MEMORY[0x1E695E0F0];
   }
 
   v3 = [self _remoteContentLinksTableSchemaWithName:@"additional_remote_content_links"];
-  v7[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }
 
 + (id)_remoteContentLinksTableSchemaWithName:(id)name
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v3 = objc_alloc(MEMORY[0x1E699B958]);
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"url" collation:1 nullable:0];
-  v19[0] = v4;
+  v18[0] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"requests" nullable:0 defaultValue:&unk_1F45E6940];
-  v19[1] = v5;
+  v18[1] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"last_seen_date" nullable:0];
-  v19[2] = v6;
+  v18[2] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"last_request_date" nullable:0 defaultValue:&unk_1F45E6940];
-  v19[3] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
+  v18[3] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
   v9 = [v3 initWithName:nameCopy rowIDType:1 columns:v8];
 
-  v18 = @"url";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v17 = @"url";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
   [v9 addUniquenessConstraintForColumns:v10 conflictResolution:1];
 
-  v17[0] = @"requests";
-  v17[1] = @"last_request_date";
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = @"requests";
+  v16[1] = @"last_request_date";
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   [v9 addIndexForColumns:v11];
 
-  v16[0] = @"requests";
-  v16[1] = @"last_seen_date";
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = @"requests";
+  v15[1] = @"last_seen_date";
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   [v9 addIndexForColumns:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -233,37 +227,35 @@ void __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___bloc
 
   if (v6)
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
-    v24 = 0;
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
-    v16 = 0;
+    v13[0] = 0;
+    v13[1] = v13;
+    v13[2] = 0x2020000000;
+    v13[3] = 0;
+    v12[0] = 0;
+    v12[1] = v12;
+    v12[2] = 0x2020000000;
+    v12[3] = 0;
+    v11[0] = 0;
+    v11[1] = v11;
+    v11[2] = 0x2020000000;
+    v11[3] = 0;
     v7 = [WeakRetained database];
     v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDRemoteContentPersistence initWithDatabase:useAdditionalTable:]_block_invoke"];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___block_invoke_2;
-    v11[3] = &unk_1E82565D8;
-    v11[4] = &v21;
-    v11[5] = &v17;
-    v12 = *(a1 + 40);
-    v11[6] = &v13;
-    [v7 __performReadWithCaller:v8 usingBlock:v11];
-
-    v9 = v22[3] + v14[3] + v18[3];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___block_invoke_2;
+    v9[3] = &unk_1E82565D8;
+    v9[4] = v13;
+    v9[5] = v12;
     v10 = *(a1 + 40);
+    v9[6] = v11;
+    [v7 __performReadWithCaller:v8 usingBlock:v9];
+
     AnalyticsSendEventLazy();
     v3[2](v3, 1);
-    _Block_object_dispose(&v13, 8);
-    _Block_object_dispose(&v17, 8);
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(v11, 8);
+    _Block_object_dispose(v12, 8);
+    _Block_object_dispose(v13, 8);
   }
 
   else
@@ -333,15 +325,15 @@ void __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___bloc
 
 id __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___block_invoke_5(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v16[0] = @"totalCount";
-  v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
-  v17 = v15;
-  v16[1] = @"requestedCount";
-  v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(*(*(a1 + 32) + 8) + 24)];
-  v16[2] = @"percentRequested";
+  v24 = *MEMORY[0x1E69E9840];
+  v15[0] = @"totalCount";
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
+  v16 = v14;
+  v15[1] = @"requestedCount";
+  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(*(*(a1 + 32) + 8) + 24)];
+  v15[2] = @"percentRequested";
   v2 = *(a1 + 48);
-  v14 = v18;
+  v13 = v17;
   if (v2)
   {
     [MEMORY[0x1E696AD98] numberWithUnsignedInteger:100 * *(*(*(a1 + 32) + 8) + 24) / v2];
@@ -351,12 +343,12 @@ id __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___block_
   {
     [MEMORY[0x1E695DFB0] null];
   }
-  v13 = ;
-  v19 = v13;
-  v16[3] = @"unrequestedCount";
+  v12 = ;
+  v18 = v12;
+  v15[3] = @"unrequestedCount";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 56)];
-  v20 = v3;
-  v16[4] = @"percentUnrequested";
+  v19 = v3;
+  v15[4] = @"percentUnrequested";
   v4 = *(a1 + 48);
   if (v4)
   {
@@ -368,11 +360,11 @@ id __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___block_
     [MEMORY[0x1E695DFB0] null];
   }
   v5 = ;
-  v21 = v5;
-  v16[5] = @"protectedCount";
+  v20 = v5;
+  v15[5] = @"protectedCount";
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(*(*(a1 + 40) + 8) + 24)];
-  v22 = v6;
-  v16[6] = @"percentProtected";
+  v21 = v6;
+  v15[6] = @"percentProtected";
   v7 = *(a1 + 48);
   if (v7)
   {
@@ -384,13 +376,11 @@ id __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___block_
     [MEMORY[0x1E695DFB0] null];
   }
   v8 = ;
-  v23 = v8;
-  v16[7] = @"hasProtectedLinks";
+  v22 = v8;
+  v15[7] = @"hasProtectedLinks";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 64)];
-  v24 = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:v16 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v23 = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:v15 count:8];
 
   return v10;
 }
@@ -473,7 +463,7 @@ id __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___block_
     *p_currentRowCount = v5;
     if (v5 < 0)
     {
-      v6 = _ef_log_EDRemoteContentPersistence();
+      v6 = _ef_log_EDRemoteContentPersistence(self);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [(EDRemoteContentPersistence *)p_currentRowCount _decrementCurrentRowCountBy:v6];
@@ -513,7 +503,7 @@ id __66__EDRemoteContentPersistence_initWithDatabase_useAdditionalTable___block_
     self->_protectedRowCount = v5;
     if (v5 < 0)
     {
-      v6 = _ef_log_EDRemoteContentPersistence();
+      v6 = _ef_log_EDRemoteContentPersistence(self);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [(EDRemoteContentPersistence *)self _decrementProtectedRowCountBy:v6];
@@ -701,7 +691,7 @@ LABEL_7:
 
 - (BOOL)_addRemoteContentLinks:(id)links withDate:(id)date toTable:(id)table withConnection:(id)connection newLinks:(id *)newLinks
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   linksCopy = links;
   dateCopy = date;
   tableCopy = table;
@@ -709,36 +699,36 @@ LABEL_7:
   newLinksCopy = newLinks;
   if (newLinks)
   {
-    v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = linksCopy;
-  v14 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v14 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v14)
   {
-    v15 = *v32;
+    v15 = *v31;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v32 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v31 + 1) + 8 * i);
+        v17 = *(*(&v30 + 1) + 8 * i);
         v18 = objc_alloc(MEMORY[0x1E699B968]);
-        v35 = @"url";
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+        v34 = @"url";
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
         v20 = [v18 initWithTable:tableCopy conflictTarget:v19];
 
         absoluteString = [v17 absoluteString];
@@ -755,11 +745,11 @@ LABEL_7:
 
         if ([connectionCopy lastInsertedDatabaseID])
         {
-          [v29 addObject:v17];
+          [v28 addObject:v17];
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v14 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v14)
       {
         continue;
@@ -772,15 +762,14 @@ LABEL_7:
   v22 = 1;
 LABEL_16:
 
-  v23 = v29;
+  v23 = v28;
   if (newLinksCopy)
   {
-    v24 = v29;
-    v23 = v29;
-    *newLinksCopy = v29;
+    v24 = v28;
+    v23 = v28;
+    *newLinksCopy = v28;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -811,37 +800,37 @@ LABEL_16:
 
 uint64_t __85__EDRemoteContentPersistence_updateRequestCountForRemoteContentLinks_updateLastSeen___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v17 = a2;
-  v18 = objc_alloc_init(MEMORY[0x1E695DF00]);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v23 = *MEMORY[0x1E69E9840];
+  v16 = a2;
+  v17 = objc_alloc_init(MEMORY[0x1E695DF00]);
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
-    v4 = *v20;
+    v4 = *v19;
 LABEL_3:
     v5 = 0;
     while (1)
     {
-      if (*v20 != v4)
+      if (*v19 != v4)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v19 + 1) + 8 * v5);
+      v6 = *(*(&v18 + 1) + 8 * v5);
       v7 = [objc_alloc(MEMORY[0x1E699B960]) initWithTable:@"remote_content_links"];
-      [v7 setObject:v18 forKeyedSubscript:@"last_request_date"];
+      [v7 setObject:v17 forKeyedSubscript:@"last_request_date"];
       v8 = [MEMORY[0x1E699B8C8] column:@"requests"];
       v9 = [v8 plus:&unk_1F45E6958];
       [v7 setObject:v9 forKeyedSubscript:@"requests"];
 
       if (*(a1 + 48) == 1)
       {
-        [v7 setObject:v18 forKeyedSubscript:@"last_seen_date"];
+        [v7 setObject:v17 forKeyedSubscript:@"last_seen_date"];
       }
 
       v10 = [MEMORY[0x1E699B8C8] column:@"url"];
@@ -849,7 +838,7 @@ LABEL_3:
       v12 = [v10 equalTo:v11];
       [v7 setWhereClause:v12];
 
-      *(*(*(a1 + 40) + 8) + 24) = [v17 executeUpdateStatement:v7 error:0];
+      *(*(*(a1 + 40) + 8) + 24) = [v16 executeUpdateStatement:v7 error:0];
       LOBYTE(v11) = *(*(*(a1 + 40) + 8) + 24);
 
       if ((v11 & 1) == 0)
@@ -859,7 +848,7 @@ LABEL_3:
 
       if (v3 == ++v5)
       {
-        v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v3)
         {
           goto LABEL_3;
@@ -871,7 +860,6 @@ LABEL_3:
   }
 
   v13 = *(*(*(a1 + 40) + 8) + 24);
-  v14 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -919,7 +907,7 @@ uint64_t __65__EDRemoteContentPersistence_remoteContentLinksBelowCount_limit___b
 
 void __65__EDRemoteContentPersistence_remoteContentLinksBelowCount_limit___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectAtIndexedSubscript:0];
   v5 = [v4 stringValue];
@@ -932,7 +920,7 @@ void __65__EDRemoteContentPersistence_remoteContentLinksBelowCount_limit___block
 
   else
   {
-    v7 = _ef_log_EDRemoteContentPersistence();
+    v7 = _ef_log_EDRemoteContentPersistence(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = v5;
@@ -946,11 +934,9 @@ void __65__EDRemoteContentPersistence_remoteContentLinksBelowCount_limit___block
         v9 = [MEMORY[0x1E699B858] fullyRedactedStringForString:v8];
       }
 
-      __65__EDRemoteContentPersistence_remoteContentLinksBelowCount_limit___block_invoke_2_cold_1(v8, v9, v11, v7);
+      __65__EDRemoteContentPersistence_remoteContentLinksBelowCount_limit___block_invoke_2_cold_1(v8, v9, v10, v7);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)countOfLinksLastSeenSince:(id)since
@@ -1094,49 +1080,46 @@ uint64_t __73__EDRemoteContentPersistence_pruneAllRemoteContentLinksWithMinimumC
     v8 = [objc_alloc(MEMORY[0x1E699B8E8]) initWithTable:@"remote_content_links" where:v7];
     [v8 orderBy:@"last_seen_date" ascending:1];
     [v8 setLimit:{v4 - (objc_msgSend(*(a1 + 32), "pruneThreshold") >> 1)}];
-    v14 = 0;
-    *(*(*(a1 + 40) + 8) + 24) = [v3 executeDeleteStatement:v8 rowsChanged:&v14];
-    if (*(*(*(a1 + 40) + 8) + 24) == 1 && v14)
+    v11 = 0;
+    *(*(*(a1 + 40) + 8) + 24) = [v3 executeDeleteStatement:v8 rowsChanged:&v11];
+    if (*(*(*(a1 + 40) + 8) + 24) == 1 && v11)
     {
       [*(a1 + 32) _decrementCurrentRowCountBy:?];
-      v9 = [*(a1 + 32) _currentRowCount];
+      [*(a1 + 32) _currentRowCount];
       if ([v3 protectedDatabaseAttached])
       {
         [*(a1 + 32) _refillFromAdditionalTable];
-        v10 = [*(a1 + 32) _currentRowCount] - v9;
+        [*(a1 + 32) _currentRowCount];
       }
 
-      v13 = *(a1 + 32);
       AnalyticsSendEventLazy();
     }
   }
 
-  v11 = *(*(*(a1 + 40) + 8) + 24);
+  v9 = *(*(*(a1 + 40) + 8) + 24);
 
-  return v11;
+  return v9;
 }
 
 id __73__EDRemoteContentPersistence_pruneAllRemoteContentLinksWithMinimumCount___block_invoke_2(uint64_t a1)
 {
-  v11[5] = *MEMORY[0x1E69E9840];
-  v10[0] = @"beforeCount";
+  v10[5] = *MEMORY[0x1E69E9840];
+  v9[0] = @"beforeCount";
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 40)];
-  v11[0] = v2;
-  v10[1] = @"prunedCount";
+  v10[0] = v2;
+  v9[1] = @"prunedCount";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
-  v11[1] = v3;
-  v10[2] = @"refilledCount";
+  v10[1] = v3;
+  v9[2] = @"refilledCount";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 56)];
-  v11[2] = v4;
-  v10[3] = @"hasProtectedLinks";
+  v10[2] = v4;
+  v9[3] = @"hasProtectedLinks";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "useAdditionalTable")}];
-  v11[3] = v5;
-  v10[4] = @"didRefill";
+  v10[3] = v5;
+  v9[4] = @"didRefill";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 64)];
-  v11[4] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[4] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:5];
 
   return v7;
 }
@@ -1384,22 +1367,20 @@ void __43__EDRemoteContentPersistence_test_tearDown__block_invoke(uint64_t a1)
 
 - (void)_decrementCurrentRowCountBy:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Decremented row count past zero to %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Decremented row count past zero to %ld", &v3, 0xCu);
 }
 
 - (void)_decrementProtectedRowCountBy:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 8);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Decremented protected row count past zero to %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Decremented protected row count past zero to %ld", &v3, 0xCu);
 }
 
 void __65__EDRemoteContentPersistence_remoteContentLinksBelowCount_limit___block_invoke_2_cold_1(void *a1, void *a2, uint64_t a3, NSObject *a4)

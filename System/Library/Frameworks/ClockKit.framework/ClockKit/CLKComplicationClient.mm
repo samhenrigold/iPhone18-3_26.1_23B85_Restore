@@ -30,9 +30,9 @@
 - (CLKComplicationClient)initWithConnection:(id)connection
 {
   connectionCopy = connection;
-  v26.receiver = self;
-  v26.super_class = CLKComplicationClient;
-  v6 = [(CLKComplicationClient *)&v26 init];
+  v28.receiver = self;
+  v28.super_class = CLKComplicationClient;
+  v6 = [(CLKComplicationClient *)&v28 init];
   v7 = v6;
   if (v6)
   {
@@ -42,31 +42,31 @@
     v7->_pid = v8;
 
     connection = v7->_connection;
-    v11 = CLKComplicationClientInterface();
-    [(NSXPCConnection *)connection setRemoteObjectInterface:v11];
+    v12 = CLKComplicationClientInterface(v11);
+    [(NSXPCConnection *)connection setRemoteObjectInterface:v12];
 
-    v12 = v7->_connection;
-    v13 = CLKComplicationServerInterface();
-    [(NSXPCConnection *)v12 setExportedInterface:v13];
+    v13 = v7->_connection;
+    v15 = CLKComplicationServerInterface(v14);
+    [(NSXPCConnection *)v13 setExportedInterface:v15];
 
     [(NSXPCConnection *)v7->_connection setExportedObject:v7];
     objc_initWeak(&location, v7);
-    v14 = v7->_connection;
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __44__CLKComplicationClient_initWithConnection___block_invoke;
-    v23 = &unk_278A1E700;
-    objc_copyWeak(&v24, &location);
-    [(NSXPCConnection *)v14 setInvalidationHandler:&v20];
-    v15 = [MEMORY[0x277CCAA50] hashTableWithOptions:{517, v20, v21, v22, v23}];
+    v16 = v7->_connection;
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __44__CLKComplicationClient_initWithConnection___block_invoke;
+    v25 = &unk_278A1E700;
+    objc_copyWeak(&v26, &location);
+    [(NSXPCConnection *)v16 setInvalidationHandler:&v22];
+    v17 = [MEMORY[0x277CCAA50] hashTableWithOptions:{517, v22, v23, v24, v25}];
     invalidationObservers = v7->_invalidationObservers;
-    v7->_invalidationObservers = v15;
+    v7->_invalidationObservers = v17;
 
-    v17 = objc_alloc_init(MEMORY[0x277CCAAF8]);
+    v19 = objc_alloc_init(MEMORY[0x277CCAAF8]);
     invalidationObserversLock = v7->_invalidationObserversLock;
-    v7->_invalidationObserversLock = v17;
+    v7->_invalidationObserversLock = v19;
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
   }
 

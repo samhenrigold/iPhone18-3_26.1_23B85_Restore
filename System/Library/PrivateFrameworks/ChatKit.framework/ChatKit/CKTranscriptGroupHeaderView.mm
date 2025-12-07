@@ -42,8 +42,7 @@
     [(CKTranscriptGroupHeaderView *)v11 addSubview:v17];
     v18 = [objc_alloc(MEMORY[0x1E6996428]) initWithFrame:{v13, v14, v15, v16}];
     [v18 setBackgroundColor:0];
-    [v18 setAutoresizingMask:18];
-    v19 = CKFrameworkBundle();
+    v19 = CKFrameworkBundle([v18 setAutoresizingMask:18]);
     v20 = [v19 localizedStringForKey:@"TO" value:&stru_1F04268F8 table:@"ChatKit"];
     [v18 setLabel:v20];
 

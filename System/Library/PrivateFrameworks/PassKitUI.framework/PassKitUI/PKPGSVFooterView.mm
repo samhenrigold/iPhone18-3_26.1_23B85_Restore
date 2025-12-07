@@ -49,17 +49,23 @@
 
 - (void)layoutSubviews
 {
-  v6.receiver = self;
-  v6.super_class = PKPGSVFooterView;
-  [(PKPGSVFooterView *)&v6 layoutSubviews];
+  v15.receiver = self;
+  v15.super_class = PKPGSVFooterView;
+  [(PKPGSVFooterView *)&v15 layoutSubviews];
   [(PKPGSVFooterView *)self bounds];
   memset(&slice, 0, sizeof(slice));
-  memset(&v4, 0, sizeof(v4));
-  CGRectDivide(v7, &slice, &v4, 64.0, CGRectMinYEdge);
+  memset(&v13, 0, sizeof(v13));
+  CGRectDivide(v16, &slice, &v13, 64.0, CGRectMinYEdge);
   [(PKContinuousButton *)self->_editButton sizeToFit];
   editButton = self->_editButton;
   [(PKContinuousButton *)editButton frame];
-  PKSizeAlignedInRect();
+  v5.n128_u64[0] = v4;
+  v7.n128_u64[0] = v6;
+  v8.n128_u64[0] = *&slice.origin.x;
+  v9.n128_u64[0] = *&slice.origin.y;
+  v10.n128_u64[0] = *&slice.size.width;
+  v11.n128_u64[0] = *&slice.size.height;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v5, v7, v8, v9, v10, v11, v12);
   [(PKContinuousButton *)editButton setFrame:?];
 }
 

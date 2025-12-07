@@ -47,7 +47,7 @@
 
 - (id)_filterForDateInterval:(id)interval
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   if (intervalCopy)
   {
@@ -61,9 +61,9 @@
     startDate = [intervalCopy startDate];
     v11 = [_HKSampleComparisonFilter endDateFilterWithOperatorType:3 date:startDate dataTypes:v7];
 
-    v21[0] = v9;
-    v21[1] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+    v20[0] = v9;
+    v20[1] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
     if (HKProgramSDKAtLeast())
     {
       objectType2 = [(HKQuery *)self objectType];
@@ -86,8 +86,6 @@
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -228,11 +226,9 @@ void __55__HKStatisticsQuery_client_deliverStatistics_forQuery___block_invoke_2(
 {
   if (*(a1 + 32))
   {
-    v3 = *(a1 + 40);
-    v2 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
 
-    v4();
+    v2();
   }
 
   else
@@ -240,22 +236,22 @@ void __55__HKStatisticsQuery_client_deliverStatistics_forQuery___block_invoke_2(
     [*(a1 + 40) applicationSDKVersionToken];
     if (HKProgramSDKTokenAtLeast())
     {
-      v7 = a1 + 40;
-      v5 = *(a1 + 40);
-      v6 = *(v7 + 8);
-      v12 = [MEMORY[0x1E696ABC0] hk_error:11 format:@"No data available for the specified predicate."];
-      (*(v6 + 16))(v6, v5, 0, v12);
+      v5 = a1 + 40;
+      v3 = *(a1 + 40);
+      v4 = *(v5 + 8);
+      v10 = [MEMORY[0x1E696ABC0] hk_error:11 format:@"No data available for the specified predicate."];
+      (*(v4 + 16))(v4, v3, 0, v10);
     }
 
     else
     {
-      v8 = [HKStatistics alloc];
-      v9 = [*(a1 + 40) objectType];
-      v10 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:0.0];
-      v11 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:0.0];
-      v12 = [(HKStatistics *)v8 initWithDataType:v9 startDate:v10 endDate:v11];
+      v6 = [HKStatistics alloc];
+      v7 = [*(a1 + 40) objectType];
+      v8 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:0.0];
+      v9 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:0.0];
+      v10 = [(HKStatistics *)v6 initWithDataType:v7 startDate:v8 endDate:v9];
 
-      (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 40), v12, 0);
+      (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 40), v10, 0);
     }
   }
 }

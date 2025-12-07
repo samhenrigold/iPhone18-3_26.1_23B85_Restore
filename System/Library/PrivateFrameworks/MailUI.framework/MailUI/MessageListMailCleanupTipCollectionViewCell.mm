@@ -54,9 +54,9 @@
   }
 
   MessageListMailCleanupTipCollectionViewCell.configure(forTip:onSetupClick:onDismissClick:onAppear:)(tip, v13, v14, v11, v12, v9, v10);
-  sub_214A6B584(v9);
-  sub_214A6B584(v11);
-  sub_214A6B584(v13);
+  sub_214A6B584(v9, v10);
+  sub_214A6B584(v11, v12);
+  sub_214A6B584(v13, v14);
   MEMORY[0x277D82BD8](self);
   MEMORY[0x277D82BD8](tip);
 }

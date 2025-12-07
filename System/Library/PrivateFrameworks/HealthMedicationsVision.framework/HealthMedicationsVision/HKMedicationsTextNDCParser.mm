@@ -7,39 +7,38 @@
 
 - (HKMedicationsTextNDCParser)init
 {
-  v21[3] = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = HKMedicationsTextNDCParser;
-  v2 = [(HKMedicationsTextNDCParser *)&v20 init];
+  v20[3] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = HKMedicationsTextNDCParser;
+  v2 = [(HKMedicationsTextNDCParser *)&v19 init];
   if (v2)
   {
-    v19 = 0;
-    v3 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\b([0-9]{4})[\\ -]([0-9]{4})[\\ -]([0-9]{2})\\b" options:1 error:&v19];
-    v4 = v19;
-    v21[0] = v3;
-    v18 = v4;
-    v5 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\b([0-9]{5})[\\ -]([0-9]{3})[\\ -]([0-9]{2})\\b" options:1 error:&v18];
-    v6 = v18;
+    v18 = 0;
+    v3 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\b([0-9]{4})[\\ -]([0-9]{4})[\\ -]([0-9]{2})\\b" options:1 error:&v18];
+    v4 = v18;
+    v20[0] = v3;
+    v17 = v4;
+    v5 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\b([0-9]{5})[\\ -]([0-9]{3})[\\ -]([0-9]{2})\\b" options:1 error:&v17];
+    v6 = v17;
 
-    v21[1] = v5;
-    v17 = v6;
-    v7 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\b([0-9]{5})[\\ -]([0-9]{4})[\\ -]([0-9]{1})\\b" options:1 error:&v17];
-    v8 = v17;
+    v20[1] = v5;
+    v16 = v6;
+    v7 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\b([0-9]{5})[\\ -]([0-9]{4})[\\ -]([0-9]{1})\\b" options:1 error:&v16];
+    v8 = v16;
 
-    v21[2] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+    v20[2] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
     NDC10RegularExpressions = v2->_NDC10RegularExpressions;
     v2->_NDC10RegularExpressions = v9;
 
-    v16 = v8;
-    v11 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\b([0-9]{5})[\\ -]([0-9]{4})[\\ -]([0-9]{2})\\b" options:1 error:&v16];
-    v12 = v16;
+    v15 = v8;
+    v11 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\b([0-9]{5})[\\ -]([0-9]{4})[\\ -]([0-9]{2})\\b" options:1 error:&v15];
+    v12 = v15;
 
     NDC11RegularExpression = v2->_NDC11RegularExpression;
     v2->_NDC11RegularExpression = v11;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

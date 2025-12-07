@@ -38,7 +38,7 @@ void __40__ATXMediaApplications__updateMediaApps__block_invoke(uint64_t a1, uint
 {
   if (a3)
   {
-    v5 = __atxlog_handle_default();
+    v5 = __atxlog_handle_default(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __40__ATXMediaApplications__updateMediaApps__block_invoke_cold_1(a3, v5);
@@ -85,7 +85,7 @@ void __40__ATXMediaApplications__updateMediaApps__block_invoke(uint64_t a1, uint
   return v8;
 }
 
-uint64_t __41__ATXMediaApplications_appSupportsMedia___block_invoke(void *a1)
+void *__41__ATXMediaApplications_appSupportsMedia___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -94,11 +94,10 @@ uint64_t __41__ATXMediaApplications_appSupportsMedia___block_invoke(void *a1)
 
 void __40__ATXMediaApplications__updateMediaApps__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unable to fetch media apps with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unable to fetch media apps with error: %@", &v2, 0xCu);
 }
 
 - (void)appSupportsMedia:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

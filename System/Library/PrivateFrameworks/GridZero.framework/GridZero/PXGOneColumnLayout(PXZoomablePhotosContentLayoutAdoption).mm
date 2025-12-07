@@ -1,17 +1,17 @@
 @interface PXGOneColumnLayout(PXZoomablePhotosContentLayoutAdoption)
-- (uint64_t)loadedItemsRect;
+- (void)loadedItemsRect;
 - (void)setNumberOfColumns:()PXZoomablePhotosContentLayoutAdoption;
 @end
 
 @implementation PXGOneColumnLayout(PXZoomablePhotosContentLayoutAdoption)
 
-- (uint64_t)loadedItemsRect
+- (void)loadedItemsRect
 {
-  result = [self loadedItems];
+  loadedItems = [self loadedItems];
   if (v3)
   {
-    v4 = v3 + result - 1;
-    [self frameForItem:result];
+    v4 = v3 + loadedItems - 1;
+    [self frameForItem:loadedItems];
     v6 = v5;
     v8 = v7;
     v10 = v9;
@@ -50,10 +50,8 @@
     v29.size.width = v17;
     v29.size.height = v19;
     CGRectGetMaxY(v29);
-    return PXRectWithEdges();
+    PXRectWithEdges();
   }
-
-  return result;
 }
 
 - (void)setNumberOfColumns:()PXZoomablePhotosContentLayoutAdoption

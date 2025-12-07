@@ -150,7 +150,7 @@ LABEL_13:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [_TVLockupFactory cellMetricsForCollectionElement:elementCopy];
+    objc_msgSend_cellMetricsForCollectionElement_(_TVLockupFactory);
     [(TVCarouselLayout *)v9 setCellPadding:0, 0];
     [(TVCarouselLayout *)v9 setCellSize:0];
   }

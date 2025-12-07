@@ -83,18 +83,18 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if (-[HFAbstractGroupedStatusItem _hasRequiredStatusItems](self, "_hasRequiredStatusItems") && ([optionsCopy objectForKey:HFItemUpdateOptionFastInitialUpdate], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "BOOLValue"), v5, !v6))
   {
     v11 = objc_alloc_init(MEMORY[0x277D2C900]);
     allItems = [(HFAbstractGroupedStatusItem *)self allItems];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invoke;
-    v27[3] = &unk_277DF4310;
-    v28 = optionsCopy;
-    v13 = [allItems na_map:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invoke;
+    v26[3] = &unk_277DF4310;
+    v27 = optionsCopy;
+    v13 = [allItems na_map:v26];
 
     v14 = MEMORY[0x277D2C900];
     allObjects = [v13 allObjects];
@@ -102,104 +102,102 @@
     v17 = [v14 combineAllFutures:allObjects ignoringErrors:1 scheduler:mainThreadScheduler];
 
     objc_initWeak(&location, self);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invoke_2;
-    v23[3] = &unk_277DF4360;
-    objc_copyWeak(&v25, &location);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invoke_2;
+    v22[3] = &unk_277DF4360;
+    objc_copyWeak(&v24, &location);
     v18 = v11;
-    v24 = v18;
-    v19 = [v17 addCompletionBlock:v23];
-    v20 = v24;
+    v23 = v18;
+    v19 = [v17 addCompletionBlock:v22];
+    v20 = v23;
     v8 = v18;
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
 
-    v9 = v28;
+    v9 = v27;
     v10 = v8;
   }
 
   else
   {
     v7 = MEMORY[0x277D2C900];
-    v29 = @"hidden";
-    v30[0] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = @"hidden";
+    v29[0] = MEMORY[0x277CBEC38];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v9 = [HFItemUpdateOutcome outcomeWithResults:v8];
     v10 = [v7 futureWithResult:v9];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 void __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v52[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v8 = [MEMORY[0x277CBEB38] dictionary];
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy__10;
-    v49 = __Block_byref_object_dispose__10;
-    v50 = objc_opt_new();
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = -1;
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
-    v40 = 4;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__10;
-    v35 = __Block_byref_object_dispose__10;
-    v36 = [MEMORY[0x277CBEB58] set];
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__10;
-    v29 = __Block_byref_object_dispose__10;
-    v30 = [MEMORY[0x277CBEB58] set];
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x3032000000;
-    v22 = __Block_byref_object_copy__10;
-    v23 = __Block_byref_object_dispose__10;
-    v24 = [MEMORY[0x277CBEB58] set];
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy__10;
+    v48 = __Block_byref_object_dispose__10;
+    v49 = objc_opt_new();
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
+    v43 = -1;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v39 = 4;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__10;
+    v34 = __Block_byref_object_dispose__10;
+    v35 = [MEMORY[0x277CBEB58] set];
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__10;
+    v28 = __Block_byref_object_dispose__10;
+    v29 = [MEMORY[0x277CBEB58] set];
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3032000000;
+    v21 = __Block_byref_object_copy__10;
+    v22 = __Block_byref_object_dispose__10;
+    v23 = [MEMORY[0x277CBEB58] set];
     v9 = [WeakRetained allItems];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invoke_7;
-    v18[3] = &unk_277DF98E0;
-    v18[4] = WeakRetained;
-    v18[5] = &v45;
-    v18[6] = &v19;
-    v18[7] = &v41;
-    v18[8] = &v37;
-    v18[9] = &v31;
-    v18[10] = &v25;
-    [v9 na_each:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invoke_7;
+    v17[3] = &unk_277DF98E0;
+    v17[4] = WeakRetained;
+    v17[5] = &v44;
+    v17[6] = &v18;
+    v17[7] = &v40;
+    v17[8] = &v36;
+    v17[9] = &v30;
+    v17[10] = &v24;
+    [v9 na_each:v17];
 
-    [WeakRetained setDisplayedItems:v46[5]];
-    [v8 setObject:v26[5] forKeyedSubscript:@"dependentHomeKitObjects"];
-    [v8 setObject:v32[5] forKeyedSubscript:@"dependentServiceTypes"];
-    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v42[3]];
+    [WeakRetained setDisplayedItems:v45[5]];
+    [v8 setObject:v25[5] forKeyedSubscript:@"dependentHomeKitObjects"];
+    [v8 setObject:v31[5] forKeyedSubscript:@"dependentServiceTypes"];
+    v10 = [MEMORY[0x277CCABB0] numberWithInteger:v41[3]];
     [v8 setObject:v10 forKeyedSubscript:@"priority"];
 
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v38[3]];
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v37[3]];
     [v8 setObject:v11 forKeyedSubscript:@"statusItemCategory"];
 
-    [v8 setObject:v20[5] forKeyedSubscript:@"representedHomeKitObjects"];
+    [v8 setObject:v19[5] forKeyedSubscript:@"representedHomeKitObjects"];
     v12 = [objc_opt_class() sortKey];
     [v8 setObject:v12 forKeyedSubscript:@"sortKey"];
 
@@ -207,26 +205,24 @@ void __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invok
     v14 = [HFItemUpdateOutcome outcomeWithResults:v8];
     [v13 finishWithResult:v14];
 
-    _Block_object_dispose(&v19, 8);
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v24, 8);
 
-    _Block_object_dispose(&v31, 8);
-    _Block_object_dispose(&v37, 8);
-    _Block_object_dispose(&v41, 8);
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v44, 8);
   }
 
   else
   {
     v15 = *(a1 + 32);
-    v51 = @"hidden";
-    v52[0] = MEMORY[0x277CBEC38];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+    v50 = @"hidden";
+    v51[0] = MEMORY[0x277CBEC38];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
     v16 = [HFItemUpdateOutcome outcomeWithResults:v8];
     [v15 finishWithResult:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HFAbstractGroupedStatusItem__subclass_updateWithOptions___block_invoke_7(uint64_t a1, void *a2)

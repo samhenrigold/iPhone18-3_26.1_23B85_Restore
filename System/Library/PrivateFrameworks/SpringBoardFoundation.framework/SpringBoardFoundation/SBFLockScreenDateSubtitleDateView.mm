@@ -696,39 +696,40 @@ void __85__SBFLockScreenDateSubtitleDateView_subtitleLabelToLunarDateLabelBaseli
 
 - (CGRect)subtitleLabelFrame
 {
-  v18.receiver = self;
-  v18.super_class = SBFLockScreenDateSubtitleDateView;
-  [(SBFLockScreenDateSubtitleView *)&v18 subtitleLabelFrame];
+  v20.receiver = self;
+  v20.super_class = SBFLockScreenDateSubtitleDateView;
+  [(SBFLockScreenDateSubtitleView *)&v20 subtitleLabelFrame];
   v6 = v5;
   v8 = v7;
   if (self->_alternateDateLabel)
   {
     [(SBFLockScreenDateSubtitleDateView *)self bounds];
-    v10 = (self->_alignmentPercent + 1.0) * (v9 - v6) * 0.5;
-    ShouldRoundFramesForAlignmentPercent = _SBFLockScreenDateViewShouldRoundFramesForAlignmentPercent();
+    v9.n128_u64[0] = *&self->_alignmentPercent;
+    v11 = (v9.n128_f64[0] + 1.0) * (v10 - v6) * 0.5;
+    ShouldRoundFramesForAlignmentPercent = _SBFLockScreenDateViewShouldRoundFramesForAlignmentPercent(v9);
     v4 = 0.0;
     if (ShouldRoundFramesForAlignmentPercent)
     {
-      SBFMainScreenScale();
+      SBFMainScreenScale(ShouldRoundFramesForAlignmentPercent, v13);
       BSRectRoundForScale();
-      v10 = v12;
-      v6 = v13;
-      v8 = v14;
+      v11 = v14;
+      v6 = v15;
+      v8 = v16;
     }
   }
 
   else
   {
-    v10 = v3;
+    v11 = v3;
   }
 
-  v15 = v10;
-  v16 = v6;
-  v17 = v8;
-  result.size.height = v17;
-  result.size.width = v16;
+  v17 = v11;
+  v18 = v6;
+  v19 = v8;
+  result.size.height = v19;
+  result.size.width = v18;
   result.origin.y = v4;
-  result.origin.x = v15;
+  result.origin.x = v17;
   return result;
 }
 
@@ -745,24 +746,26 @@ void __85__SBFLockScreenDateSubtitleDateView_subtitleLabelToLunarDateLabelBaseli
   v11 = v10;
   [(SBFLockScreenDateSubtitleDateView *)self _lunarDateLabelYOffsetFromDateLabel];
   v13 = v12 + v11;
-  if (_SBFLockScreenDateViewShouldRoundFramesForAlignmentPercent())
+  v14.n128_u64[0] = *&self->_alignmentPercent;
+  ShouldRoundFramesForAlignmentPercent = _SBFLockScreenDateViewShouldRoundFramesForAlignmentPercent(v14);
+  if (ShouldRoundFramesForAlignmentPercent)
   {
-    SBFMainScreenScale();
+    SBFMainScreenScale(ShouldRoundFramesForAlignmentPercent, v16);
     BSRectRoundForScale();
-    v9 = v14;
-    v13 = v15;
-    v6 = v16;
-    v8 = v17;
+    v9 = v17;
+    v13 = v18;
+    v6 = v19;
+    v8 = v20;
   }
 
-  v18 = v9;
-  v19 = v13;
-  v20 = v6;
-  v21 = v8;
-  result.size.height = v21;
-  result.size.width = v20;
-  result.origin.y = v19;
-  result.origin.x = v18;
+  v21 = v9;
+  v22 = v13;
+  v23 = v6;
+  v24 = v8;
+  result.size.height = v24;
+  result.size.width = v23;
+  result.origin.y = v22;
+  result.origin.x = v21;
   return result;
 }
 

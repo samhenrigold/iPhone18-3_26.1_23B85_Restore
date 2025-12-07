@@ -57,7 +57,7 @@ void __48__PXLayoutSection_enumerateGeometriesWithBlock___block_invoke(uint64_t 
       v8 = *(a1 + 32);
       if (v6)
       {
-        [v6 geometryAtIndex:v7];
+        objc_msgSend_geometryAtIndex_(v6);
       }
 
       else
@@ -155,7 +155,7 @@ void __48__PXLayoutSection_enumerateGeometriesWithBlock___block_invoke(uint64_t 
           {
             if (v14)
             {
-              [v14 geometryAtIndex:v15];
+              objc_msgSend_geometryAtIndex_(v14);
               v16 = 0;
               v17 = 0;
             }

@@ -64,7 +64,7 @@
 
 - (void)refresh
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v8 - v4;
   v6 = sub_19A7AB394();
@@ -170,7 +170,7 @@
 
 - (id)indexPathForItemAtIndex:(int64_t)index
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110, &unk_19A7B6AF0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v13 - v5;
 
@@ -192,7 +192,7 @@
 
 - (id)indexPathForIdentifier:(id)identifier ofType:(int64_t)type
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCF110, &unk_19A7B6AF0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v17 - v6;
   v8 = sub_19A7AB014();
@@ -249,7 +249,7 @@
 
 - (void)fetchStickersWithCompletion:(id)completion
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   v8 = _Block_copy(completion);
@@ -274,7 +274,7 @@
 
 - (void)imageAtIndexPath:(NSIndexPath *)path completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -301,7 +301,7 @@
 
 - (void)stickerAtIndexPath:(NSIndexPath *)path completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -328,7 +328,7 @@
 
 - (void)deleteItem:(STKImageGlyph *)item completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -355,7 +355,7 @@
 
 - (void)moveItemFromIndex:(int64_t)index toIndex:(int64_t)toIndex completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v17 - v10;
   v12 = _Block_copy(handler);
@@ -382,7 +382,7 @@
 
 - (void)moveItemFromIndexPath:(NSIndexPath *)path toIndexPath:(NSIndexPath *)indexPath completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -411,7 +411,7 @@
 
 - (void)imageForImageGlyph:(STKImageGlyph *)glyph completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -438,7 +438,7 @@
 
 - (void)stickerForImageGlyph:(STKImageGlyph *)glyph completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

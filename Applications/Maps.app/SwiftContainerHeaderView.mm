@@ -31,7 +31,7 @@
 
 - (NSArray)trailingButtons
 {
-  sub_100014C84(0, &qword_101909920);
+  sub_100014C84(0, &qword_101909920, NSNumber_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -40,7 +40,7 @@
 
 - (void)setTrailingButtons:(id)buttons
 {
-  sub_100014C84(0, &qword_101909920);
+  sub_100014C84(0, &qword_101909920, NSNumber_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = *(self + OBJC_IVAR____TtC4Maps24SwiftContainerHeaderView_trailingButtons);
   *(self + OBJC_IVAR____TtC4Maps24SwiftContainerHeaderView_trailingButtons) = v4;
@@ -81,9 +81,9 @@
 - (double)trailingButtonInset
 {
   selfCopy = self;
-  v3 = sub_10051AF64();
+  v4 = sub_10051AF64(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 @end

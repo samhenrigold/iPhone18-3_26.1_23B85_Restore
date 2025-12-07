@@ -90,11 +90,11 @@ void __44__CUIKPasteboardManager_cutEvents_delegate___block_invoke(uint64_t a1, 
   [(CUIKPasteboardManager *)self _validateAction:1 forEvents:v7 delegate:delegate completion:v8];
 }
 
-uint64_t __45__CUIKPasteboardManager_copyEvents_delegate___block_invoke(uint64_t result, int a2)
+id *__45__CUIKPasteboardManager_copyEvents_delegate___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _copyEvents:*(result + 40) toDict:*(*(result + 32) + 32)];
+    return [result[4] _copyEvents:result[5] toDict:*(result[4] + 4)];
   }
 
   return result;
@@ -314,11 +314,11 @@ LABEL_14:
   [(CUIKPasteboardManager *)self _validateAction:2 forEvents:v11 delegate:v10 completion:v12];
 }
 
-uint64_t __63__CUIKPasteboardManager_duplicateEvents_withDateMode_delegate___block_invoke(uint64_t result, int a2)
+id *__63__CUIKPasteboardManager_duplicateEvents_withDateMode_delegate___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _pasteEvents:*(result + 40) atDate:*(*(result + 32) + 48) dateMode:*(result + 56) pasteDelegate:*(result + 48) duplicate:1];
+    return [result[4] _pasteEvents:result[5] atDate:*(result[4] + 6) dateMode:result[7] pasteDelegate:result[6] duplicate:1];
   }
 
   return result;

@@ -222,12 +222,12 @@ void sub_4D84(uint64_t a1, void *a2, id *a3)
   [WeakRetained setProgress:?];
 }
 
-void _addToPath(void *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, double a7, double a8, double a9, double a10)
+void _addToPath(void *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
-  v22 = a1;
-  [v22 addLineToPoint:{_clipToBounds(a2, a3, a4, a5, a6)}];
-  [v22 addLineToPoint:{_clipToBounds(a2, a3, a4, a5, a8)}];
-  [v22 addLineToPoint:{_clipToBounds(a2, a3, a4, a5, a10)}];
+  v17 = a1;
+  [v17 addLineToPoint:{_clipToBounds(a2, a3, a4, a5, a6)}];
+  [v17 addLineToPoint:{_clipToBounds(a2, a3, a4, a5, a8)}];
+  [v17 addLineToPoint:{_clipToBounds(a2, a3, a4, a5, a10)}];
 }
 
 id sub_5BE8(void *a1, void *a2)

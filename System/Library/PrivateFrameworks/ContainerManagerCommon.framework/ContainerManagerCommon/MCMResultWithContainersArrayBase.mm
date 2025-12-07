@@ -1,16 +1,7 @@
 @interface MCMResultWithContainersArrayBase
 - (BOOL)encodeResultOntoReply:(id)reply;
-- (BOOL)includeCreator;
-- (BOOL)includeInfo;
-- (BOOL)includePath;
-- (BOOL)includeUserManagedAssetsRelPath;
-- (BOOL)skipSandboxExtensions;
-- (MCMClientIdentity)clientIdentity;
 - (MCMResultWithContainersArrayBase)initWithContainerPaths:(id)paths containerIdentities:(id)identities includePath:(BOOL)path clientIdentity:(id)identity skipSandboxExtensions:(BOOL)extensions;
 - (MCMResultWithContainersArrayBase)initWithContainers:(id)containers includePath:(BOOL)path includeInfo:(BOOL)info includeUserManagedAssetsRelPath:(BOOL)relPath includeCreator:(BOOL)creator clientIdentity:(id)identity skipSandboxExtensions:(BOOL)extensions;
-- (NSArray)containerIdentities;
-- (NSArray)containerPaths;
-- (NSArray)containers;
 - (id)_tokenForContainerPath:(id)path containerIdentity:(id)identity;
 - (void)_encodeContainerIdentitiesAndPathsOnXPCContainers:(id)containers;
 - (void)_encodeContainersOnXPCContainers:(id)containers;
@@ -18,81 +9,8 @@
 
 @implementation MCMResultWithContainersArrayBase
 
-- (BOOL)skipSandboxExtensions
-{
-  result = self->_skipSandboxExtensions;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMClientIdentity)clientIdentity
-{
-  result = self->_clientIdentity;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includeCreator
-{
-  result = self->_includeCreator;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includeUserManagedAssetsRelPath
-{
-  result = self->_includeUserManagedAssetsRelPath;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includeInfo
-{
-  result = self->_includeInfo;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)includePath
-{
-  result = self->_includePath;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSArray)containers
-{
-  result = self->_containers;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSArray)containerIdentities
-{
-  result = self->_containerIdentities;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSArray)containerPaths
-{
-  result = self->_containerPaths;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (id)_tokenForContainerPath:(id)path containerIdentity:(id)identity
 {
-  v14 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   pathCopy = path;
   v8 = [MCMSandboxExtension alloc];
@@ -111,14 +29,11 @@
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (void)_encodeContainerIdentitiesAndPathsOnXPCContainers:(id)containers
 {
-  v21 = *MEMORY[0x1E69E9840];
   xarray = containers;
   containerIdentities = [(MCMResultWithContainersArrayBase *)self containerIdentities];
 
@@ -160,13 +75,10 @@
       while (v7 < v18);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_encodeContainersOnXPCContainers:(id)containers
 {
-  v19 = *MEMORY[0x1E69E9840];
   xarray = containers;
   containers = [(MCMResultWithContainersArrayBase *)self containers];
 
@@ -204,18 +116,16 @@
       while (v7 < v16);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (MCMResultWithContainersArrayBase)initWithContainers:(id)containers includePath:(BOOL)path includeInfo:(BOOL)info includeUserManagedAssetsRelPath:(BOOL)relPath includeCreator:(BOOL)creator clientIdentity:(id)identity skipSandboxExtensions:(BOOL)extensions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   containersCopy = containers;
   identityCopy = identity;
-  v24.receiver = self;
-  v24.super_class = MCMResultWithContainersArrayBase;
-  v18 = [(MCMResultBase *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = MCMResultWithContainersArrayBase;
+  v18 = [(MCMResultBase *)&v23 init];
   v19 = v18;
   if (v18)
   {
@@ -234,19 +144,18 @@
     v19->_skipSandboxExtensions = extensions;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (MCMResultWithContainersArrayBase)initWithContainerPaths:(id)paths containerIdentities:(id)identities includePath:(BOOL)path clientIdentity:(id)identity skipSandboxExtensions:(BOOL)extensions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   identitiesCopy = identities;
   identityCopy = identity;
-  v21.receiver = self;
-  v21.super_class = MCMResultWithContainersArrayBase;
-  v16 = [(MCMResultBase *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = MCMResultWithContainersArrayBase;
+  v16 = [(MCMResultBase *)&v20 init];
   v17 = v16;
   if (v16)
   {
@@ -263,17 +172,16 @@
     v17->_skipSandboxExtensions = extensions;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (BOOL)encodeResultOntoReply:(id)reply
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v10.receiver = self;
-  v10.super_class = MCMResultWithContainersArrayBase;
-  v5 = [(MCMResultBase *)&v10 encodeResultOntoReply:replyCopy];
+  v9.receiver = self;
+  v9.super_class = MCMResultWithContainersArrayBase;
+  v5 = [(MCMResultBase *)&v9 encodeResultOntoReply:replyCopy];
   if (v5)
   {
     error = [(MCMResultBase *)self error];
@@ -287,7 +195,6 @@
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

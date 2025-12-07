@@ -76,11 +76,11 @@
   }
 }
 
-uint64_t __54__SBCaptureButtonCoachingController_dismissCoachingUI__block_invoke(uint64_t result, int a2)
+id *__54__SBCaptureButtonCoachingController_dismissCoachingUI__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) dismissAnimated:0];
+    return [result[4] dismissAnimated:0];
   }
 
   return result;

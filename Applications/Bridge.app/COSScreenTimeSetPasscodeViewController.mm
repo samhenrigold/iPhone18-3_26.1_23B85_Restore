@@ -55,7 +55,7 @@
 
 - (void)suggestedButtonPressed:(id)pressed
 {
-  v4 = sub_100015C10();
+  v4 = sub_100015C10(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -77,7 +77,7 @@
 {
   memberCopy = member;
   handlerCopy = handler;
-  v7 = sub_100015C10();
+  v7 = sub_100015C10(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     dsid = [memberCopy dsid];
@@ -86,7 +86,7 @@
     *&buf[12] = 2112;
     *&buf[14] = memberCopy;
     *&buf[22] = 2114;
-    v51 = dsid;
+    v47 = dsid;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: familyMember:%@, dsid:%{public}@", buf, 0x20u);
   }
 
@@ -95,13 +95,13 @@
 
   if (v10)
   {
-    v48 = NSLocalizedDescriptionKey;
-    v49 = @"Missing familyMember.dsid";
-    v30 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-    v28 = [NSError errorWithDomain:@"COSScreenTimeSetupErrorDomain" code:1 userInfo:v30];
+    v44 = NSLocalizedDescriptionKey;
+    v45 = @"Missing familyMember.dsid";
+    v23 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v21 = [NSError errorWithDomain:@"COSScreenTimeSetupErrorDomain" code:1 userInfo:v23];
 
-    v20 = sub_100015C10();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v13 = sub_100015C10(v24);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1001880A0();
     }
@@ -109,55 +109,55 @@
     goto LABEL_22;
   }
 
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2050000000;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2050000000;
   v11 = qword_1002BD448;
-  v45 = qword_1002BD448;
+  v41 = qword_1002BD448;
   if (!qword_1002BD448)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_10006D734;
-    v51 = &unk_1002680D0;
-    v52 = &v42;
+    v47 = &unk_1002680D0;
+    v48 = &v38;
     sub_10006D734(buf);
-    v11 = v43[3];
+    v11 = v39[3];
   }
 
   v12 = v11;
-  _Block_object_dispose(&v42, 8);
-  v20 = objc_alloc_init(v11);
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2050000000;
-  v21 = qword_1002BD458;
-  v45 = qword_1002BD458;
+  _Block_object_dispose(&v38, 8);
+  v13 = objc_alloc_init(v11);
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2050000000;
+  v14 = qword_1002BD458;
+  v41 = qword_1002BD458;
   if (!qword_1002BD458)
   {
     *buf = _NSConcreteStackBlock;
     *&buf[8] = 3221225472;
     *&buf[16] = sub_10006D8FC;
-    v51 = &unk_1002680D0;
-    v52 = &v42;
-    sub_10006D8FC(buf, v13, v14, v15, v16, v17, v18, v19, v37[0]);
-    v21 = v43[3];
+    v47 = &unk_1002680D0;
+    v48 = &v38;
+    sub_10006D8FC(buf);
+    v14 = v39[3];
   }
 
-  v22 = v21;
-  _Block_object_dispose(&v42, 8);
-  v23 = [v21 alloc];
+  v15 = v14;
+  _Block_object_dispose(&v38, 8);
+  v16 = [v14 alloc];
   dsid3 = [memberCopy dsid];
-  v25 = [v23 initWithDSID:dsid3];
+  v18 = [v16 initWithDSID:dsid3];
 
-  v41 = 0;
-  v26 = [v20 currentConfigurationForUser:v25 error:&v41];
-  v27 = v41;
-  if (v27)
+  v37 = 0;
+  v19 = [v13 currentConfigurationForUser:v18 error:&v37];
+  v20 = v37;
+  if (v20)
   {
-    v28 = v27;
-    v29 = sub_100015C10();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v21 = v20;
+    v22 = sub_100015C10(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_100187FB0();
     }
@@ -165,31 +165,31 @@
 LABEL_21:
 
 LABEL_22:
-    handlerCopy[2](handlerCopy, v28);
-    v25 = v28;
+    handlerCopy[2](handlerCopy, v21);
+    v18 = v21;
     goto LABEL_23;
   }
 
-  screenTimeState = [v26 screenTimeState];
-  v32 = sub_100015C10();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  screenTimeState = [v19 screenTimeState];
+  v26 = sub_100015C10(screenTimeState);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
     *&buf[4] = "[COSScreenTimeSetPasscodeViewController _collectThenSetScreenTimePasscodeForFamilyMember:withCompletionHandler:]";
     *&buf[12] = 2114;
-    *&buf[14] = v26;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "%s: currentConfiguration:%{public}@", buf, 0x16u);
+    *&buf[14] = v19;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%s: currentConfiguration:%{public}@", buf, 0x16u);
   }
 
   if (screenTimeState != 1)
   {
-    v46 = NSLocalizedDescriptionKey;
-    v47 = @"Screen Time not enabled";
-    v36 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-    v28 = [NSError errorWithDomain:@"COSScreenTimeSetupErrorDomain" code:1 userInfo:v36];
+    v42 = NSLocalizedDescriptionKey;
+    v43 = @"Screen Time not enabled";
+    v31 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v21 = [NSError errorWithDomain:@"COSScreenTimeSetupErrorDomain" code:1 userInfo:v31];
 
-    v29 = sub_100015C10();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v22 = sub_100015C10(v32);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_100188024();
     }
@@ -197,24 +197,24 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  v33 = sub_100015C10();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v28 = sub_100015C10(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
     *&buf[4] = "[COSScreenTimeSetPasscodeViewController _collectThenSetScreenTimePasscodeForFamilyMember:withCompletionHandler:]";
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%s: collecting passcode (async)", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%s: collecting passcode (async)", buf, 0xCu);
   }
 
-  v37[0] = _NSConcreteStackBlock;
-  v37[1] = 3221225472;
-  v37[2] = sub_10006D410;
-  v37[3] = &unk_100269A40;
-  v38 = v26;
-  v39 = v20;
-  v40 = handlerCopy;
-  v34 = v20;
-  v35 = v26;
-  [v34 collectPasscodeFromUserWithCompletionHandler:v37];
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_10006D410;
+  v33[3] = &unk_100269A40;
+  v34 = v19;
+  v35 = v13;
+  v36 = handlerCopy;
+  v29 = v13;
+  v30 = v19;
+  [v29 collectPasscodeFromUserWithCompletionHandler:v33];
 
 LABEL_23:
 }

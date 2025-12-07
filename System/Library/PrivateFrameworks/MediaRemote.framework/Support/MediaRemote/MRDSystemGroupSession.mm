@@ -65,18 +65,16 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(&self->super.isa + OBJC_IVAR___MRDSystemGroupSession_session);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   GroupSession.id.getter();
   UUID.uuidString.getter();
 
-  (*(v4 + 8))(v7, v3);
-  v10 = String._bridgeToObjectiveC()();
+  (*(v4 + 8))(v6, v3);
+  v8 = String._bridgeToObjectiveC()();
 
-  return v10;
+  return v8;
 }
 
 @end

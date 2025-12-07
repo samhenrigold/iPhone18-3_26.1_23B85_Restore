@@ -72,7 +72,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)setAskToJoinModeTapHandler:(id)handler
@@ -97,7 +97,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)setWAPISwitchHandler:(id)handler
@@ -122,7 +122,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)setDataUsageTapHandler:(id)handler
@@ -147,7 +147,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)setIsChinaDevice:(BOOL)device
@@ -214,7 +214,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 @end

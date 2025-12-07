@@ -752,7 +752,7 @@ LABEL_7:
     v16 = _BAAFetchTimeoutFromServerBag;
     if (_BAAFetchTimeoutFromServerBag)
     {
-      [_BAAFetchTimeoutFromServerBag doubleValue];
+      objc_msgSend_doubleValue(_BAAFetchTimeoutFromServerBag);
       v18 = v17;
     }
 

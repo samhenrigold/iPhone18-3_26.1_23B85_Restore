@@ -75,14 +75,14 @@ char *sub_100000D58(unint64_t a1)
   return result;
 }
 
-id sub_100000FC0()
+id sub_100000FC0(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
-char *sub_100001020(char *a1, int64_t a2, char a3)
+char *sub_100001020(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_10000109C(a1, a2, a3, *v3);
   *v3 = result;
@@ -194,7 +194,6 @@ uint64_t sub_1000011AC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

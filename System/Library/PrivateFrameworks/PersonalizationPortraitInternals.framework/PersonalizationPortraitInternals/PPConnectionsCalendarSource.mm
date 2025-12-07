@@ -13,7 +13,7 @@
 - (id)locationItemsWithCriteria:(id)criteria earliest:(id)earliest latest:(id)latest limit:(unint64_t)limit consumer:(unint64_t)consumer explanationSet:(id)set
 {
   consumerCopy = consumer;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   latestCopy = latest;
   setCopy = set;
   if ((consumerCopy & 6) != 0 || [criteria locationField] == 10)
@@ -24,93 +24,93 @@
   else
   {
     [latestCopy timeIntervalSinceNow];
-    v18 = v17;
-    v19 = objc_opt_new();
-    v20 = v19;
+    v17 = v16;
+    v18 = objc_opt_new();
+    v19 = v18;
     if (self)
     {
       localEventStore = self->_localEventStore;
-      v22 = v19;
-      v23 = [v22 dateByAddingTimeInterval:v18];
-      v24 = [(PPLocalEventStore *)localEventStore eventsFromDate:v22 toDate:v23];
+      v21 = v18;
+      v22 = [v21 dateByAddingTimeInterval:v17];
+      v23 = [(PPLocalEventStore *)localEventStore eventsFromDate:v21 toDate:v22];
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
-    if ([v24 count])
+    if ([v23 count])
     {
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
-      v25 = v24;
-      v26 = [v25 countByEnumeratingWithState:&v42 objects:v47 count:16];
-      if (v26)
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v24 = v23;
+      v25 = [v24 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      if (v25)
       {
-        v27 = v26;
-        v28 = 0;
-        v29 = *v43;
+        v26 = v25;
+        v27 = 0;
+        v28 = *v42;
 LABEL_12:
-        v30 = 0;
+        v29 = 0;
         while (1)
         {
-          if (*v43 != v29)
+          if (*v42 != v28)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v24);
           }
 
-          v31 = *(*(&v42 + 1) + 8 * v30);
-          if ([(PPConnectionsCalendarSource *)self isCalendarEventEligibleForLocationPrediction:v31, v42])
+          v30 = *(*(&v41 + 1) + 8 * v29);
+          if ([(PPConnectionsCalendarSource *)self isCalendarEventEligibleForLocationPrediction:v30, v41])
           {
             break;
           }
 
-          ++v30;
-          v28 = 1;
-          if (v27 == v30)
+          ++v29;
+          v27 = 1;
+          if (v26 == v29)
           {
-            v27 = [v25 countByEnumeratingWithState:&v42 objects:v47 count:16];
-            if (v27)
+            v26 = [v24 countByEnumeratingWithState:&v41 objects:v46 count:16];
+            if (v26)
             {
               goto LABEL_12;
             }
 
 LABEL_25:
-            v40 = setCopy;
-            v41 = 30;
+            v39 = setCopy;
+            v40 = 30;
             goto LABEL_22;
           }
         }
 
-        v32 = [objc_opt_class() locationLabelFromEvent:v31];
-        v33 = [objc_opt_class() locationValueFromEvent:v31];
-        v34 = objc_alloc(MEMORY[0x277D3A348]);
-        v35 = [v34 initWithOriginatingBundleID:*MEMORY[0x277D3A5F0]];
-        v36 = [objc_opt_class() locationNameFromEvent:v31];
-        [v35 setName:v36];
+        v31 = [objc_opt_class() locationLabelFromEvent:v30];
+        v32 = [objc_opt_class() locationValueFromEvent:v30];
+        v33 = objc_alloc(MEMORY[0x277D3A348]);
+        v34 = [v33 initWithOriginatingBundleID:*MEMORY[0x277D3A5F0]];
+        v35 = [objc_opt_class() locationNameFromEvent:v30];
+        [v34 setName:v35];
 
-        [v35 setLabel:v32];
-        [v35 setValue:v33];
-        [v35 setShortValue:v33];
-        [v35 setSource:@"calendar"];
-        v37 = MEMORY[0x277CCABB0];
-        v38 = +[PPConnectionsParameters sharedInstance];
-        [v38 calendarEventLocationExpirySeconds];
-        v39 = [v37 numberWithDouble:?];
-        [v35 setLifetime:v39];
+        [v34 setLabel:v31];
+        [v34 setValue:v32];
+        [v34 setShortValue:v32];
+        [v34 setSource:@"calendar"];
+        v36 = MEMORY[0x277CCABB0];
+        v37 = +[PPConnectionsParameters sharedInstance];
+        [v37 calendarEventLocationExpirySeconds];
+        v38 = [v36 numberWithDouble:?];
+        [v34 setLifetime:v38];
 
-        if (v35)
+        if (v34)
         {
-          v46 = v35;
-          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+          v45 = v34;
+          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
 
           goto LABEL_27;
         }
 
-        if (v28)
+        if (v27)
         {
           goto LABEL_25;
         }
@@ -123,17 +123,15 @@ LABEL_25:
 
     else
     {
-      v40 = setCopy;
-      v41 = 29;
+      v39 = setCopy;
+      v40 = 29;
 LABEL_22:
-      [v40 push:v41];
+      [v39 push:v40];
     }
 
     v14 = 0;
 LABEL_27:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

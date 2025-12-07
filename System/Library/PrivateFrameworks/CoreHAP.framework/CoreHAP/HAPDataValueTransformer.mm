@@ -9,13 +9,13 @@
 
 - (id)reverseTransformedValue:(id)value format:(unint64_t)format error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (valueCopy)
   {
-    v35.receiver = self;
-    v35.super_class = HAPDataValueTransformer;
-    v9 = [(HAPValueTransformer *)&v35 reverseTransformedValue:valueCopy format:format error:error];
+    v34.receiver = self;
+    v34.super_class = HAPDataValueTransformer;
+    v9 = [(HAPValueTransformer *)&v34 reverseTransformedValue:valueCopy format:format error:error];
     v10 = [valueCopy isEqual:v9];
 
     if (!v10)
@@ -74,11 +74,11 @@ LABEL_47:
           v31 = HAPCharacteristicFormatToString(format);
           v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "length")}];
           *buf = 138543874;
-          v37 = v30;
-          v38 = 2112;
+          v36 = v30;
+          v37 = 2112;
           formatCopy = v31;
-          v40 = 2112;
-          v41 = v32;
+          v39 = 2112;
+          v40 = v32;
           _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_ERROR, "%{public}@[HAPDataValueTransformer] Invalid format/data length (%@/%@) combination.", buf, 0x20u);
         }
 
@@ -211,8 +211,8 @@ LABEL_53:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v37 = v17;
-    v38 = 2048;
+    v36 = v17;
+    v37 = 2048;
     formatCopy = format;
     _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPDataValueTransformer] Invalid format '%tu', returning value unchanged", buf, 0x16u);
   }
@@ -221,14 +221,12 @@ LABEL_53:
   v18 = valueCopy;
 LABEL_54:
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)transformedValue:(id)value format:(unint64_t)format error:(id *)error
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (!valueCopy)
   {
@@ -243,9 +241,9 @@ LABEL_11:
     goto LABEL_9;
   }
 
-  v37.receiver = self;
-  v37.super_class = HAPDataValueTransformer;
-  v9 = [(HAPValueTransformer *)&v37 transformedValue:valueCopy format:format error:error];
+  v36.receiver = self;
+  v36.super_class = HAPDataValueTransformer;
+  v9 = [(HAPValueTransformer *)&v36 transformedValue:valueCopy format:format error:error];
   v10 = [valueCopy isEqual:v9];
 
   if ((v10 & 1) == 0)
@@ -275,8 +273,8 @@ LABEL_10:
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
       *&buf[4] = v18;
-      v39 = 2112;
-      v40 = v15;
+      v38 = 2112;
+      v39 = v15;
       _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@[HAPDataValueTransformer] %@", buf, 0x16u);
     }
 
@@ -284,9 +282,9 @@ LABEL_10:
     if (error)
     {
       v19 = MEMORY[0x277CCA9B8];
-      v43 = *MEMORY[0x277CCA450];
-      v44[0] = v15;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+      v42 = *MEMORY[0x277CCA450];
+      v43[0] = v15;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
       *error = [v19 errorWithDomain:@"HAPErrorDomain" code:-6717 userInfo:v20];
     }
 
@@ -304,13 +302,13 @@ LABEL_17:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA94E8] == 1 || objc_msgSend(v23, "compare:", &unk_283EA9500) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA94E8] == 1 || objc_msgSend(v22, "compare:", &unk_283EA9500) == -1)
       {
         goto LABEL_63;
       }
 
-      unsignedCharValue = [v23 unsignedCharValue];
+      unsignedCharValue = [v22 unsignedCharValue];
       goto LABEL_46;
     case 2uLL:
       objc_opt_class();
@@ -319,13 +317,13 @@ LABEL_17:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA9518] == 1 || objc_msgSend(v23, "compare:", &unk_283EA9500) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA9518] == 1 || objc_msgSend(v22, "compare:", &unk_283EA9500) == -1)
       {
         goto LABEL_63;
       }
 
-      unsignedShortValue = [v23 unsignedShortValue];
+      unsignedShortValue = [v22 unsignedShortValue];
       goto LABEL_55;
     case 3uLL:
       objc_opt_class();
@@ -334,13 +332,13 @@ LABEL_17:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA9530] == 1 || objc_msgSend(v23, "compare:", &unk_283EA9500) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA9530] == 1 || objc_msgSend(v22, "compare:", &unk_283EA9500) == -1)
       {
         goto LABEL_63;
       }
 
-      unsignedIntValue = [v23 unsignedIntValue];
+      unsignedIntValue = [v22 unsignedIntValue];
       goto LABEL_60;
     case 4uLL:
       objc_opt_class();
@@ -349,13 +347,13 @@ LABEL_17:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA9548] == 1 || objc_msgSend(v23, "compare:", &unk_283EA9500) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA9548] == 1 || objc_msgSend(v22, "compare:", &unk_283EA9500) == -1)
       {
         goto LABEL_63;
       }
 
-      unsignedLongLongValue = [v23 unsignedLongLongValue];
+      unsignedLongLongValue = [v22 unsignedLongLongValue];
       goto LABEL_41;
     case 5uLL:
       objc_opt_class();
@@ -364,17 +362,17 @@ LABEL_17:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA9428] == 1 || objc_msgSend(v23, "compare:", &unk_283EA9440) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA9428] == 1 || objc_msgSend(v22, "compare:", &unk_283EA9440) == -1)
       {
         goto LABEL_63;
       }
 
-      unsignedCharValue = [v23 charValue];
+      unsignedCharValue = [v22 charValue];
 LABEL_46:
       buf[0] = unsignedCharValue;
-      v28 = MEMORY[0x277CBEA90];
-      v29 = 1;
+      v27 = MEMORY[0x277CBEA90];
+      v28 = 1;
       goto LABEL_62;
     case 6uLL:
       objc_opt_class();
@@ -383,17 +381,17 @@ LABEL_46:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA9458] == 1 || objc_msgSend(v23, "compare:", &unk_283EA9470) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA9458] == 1 || objc_msgSend(v22, "compare:", &unk_283EA9470) == -1)
       {
         goto LABEL_63;
       }
 
-      unsignedShortValue = [v23 shortValue];
+      unsignedShortValue = [v22 shortValue];
 LABEL_55:
       *buf = unsignedShortValue;
-      v28 = MEMORY[0x277CBEA90];
-      v29 = 2;
+      v27 = MEMORY[0x277CBEA90];
+      v28 = 2;
       goto LABEL_62;
     case 7uLL:
       objc_opt_class();
@@ -402,13 +400,13 @@ LABEL_55:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA9488] == 1 || objc_msgSend(v23, "compare:", &unk_283EA94A0) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA9488] == 1 || objc_msgSend(v22, "compare:", &unk_283EA94A0) == -1)
       {
         goto LABEL_63;
       }
 
-      unsignedIntValue = [v23 intValue];
+      unsignedIntValue = [v22 intValue];
 LABEL_60:
       *buf = unsignedIntValue;
       goto LABEL_61;
@@ -419,17 +417,17 @@ LABEL_60:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA94B8] == 1 || objc_msgSend(v23, "compare:", &unk_283EA94D0) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA94B8] == 1 || objc_msgSend(v22, "compare:", &unk_283EA94D0) == -1)
       {
         goto LABEL_63;
       }
 
-      unsignedLongLongValue = [v23 longLongValue];
+      unsignedLongLongValue = [v22 longLongValue];
 LABEL_41:
       *buf = unsignedLongLongValue;
-      v28 = MEMORY[0x277CBEA90];
-      v29 = 8;
+      v27 = MEMORY[0x277CBEA90];
+      v28 = 8;
       goto LABEL_62;
     case 9uLL:
       buf[0] = 0;
@@ -454,8 +452,8 @@ LABEL_74:
         goto LABEL_67;
       }
 
-      v23 = valueCopy;
-      if ([v23 compare:&unk_283EA9AE8] == 1 || objc_msgSend(v23, "compare:", &unk_283EA9AF8) == -1)
+      v22 = valueCopy;
+      if ([v22 compare:&unk_283EA9AE8] == 1 || objc_msgSend(v22, "compare:", &unk_283EA9AF8) == -1)
       {
 LABEL_63:
         v12 = 0;
@@ -463,13 +461,13 @@ LABEL_63:
 
       else
       {
-        [v23 floatValue];
-        *buf = v25;
+        [v22 floatValue];
+        *buf = v24;
 LABEL_61:
-        v28 = MEMORY[0x277CBEA90];
-        v29 = 4;
+        v27 = MEMORY[0x277CBEA90];
+        v28 = 4;
 LABEL_62:
-        v12 = [v28 dataWithBytes:buf length:v29];
+        v12 = [v27 dataWithBytes:buf length:v28];
       }
 
       break;
@@ -493,24 +491,24 @@ LABEL_62:
       goto LABEL_67;
     default:
 LABEL_67:
-      v31 = objc_autoreleasePoolPush();
-      v32 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v30 = objc_autoreleasePoolPush();
+      v31 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v33 = HMFGetLogIdentifier();
-        v34 = HAPCharacteristicFormatToString(format);
-        v35 = objc_opt_class();
+        v32 = HMFGetLogIdentifier();
+        v33 = HAPCharacteristicFormatToString(format);
+        v34 = objc_opt_class();
         *buf = 138543874;
-        *&buf[4] = v33;
-        v39 = 2112;
-        v40 = v34;
-        v41 = 2112;
-        v42 = v35;
-        v36 = v35;
-        _os_log_impl(&dword_22AADC000, v32, OS_LOG_TYPE_ERROR, "%{public}@[HAPDataValueTransformer] Invalid format/class (%@/%@) combination.", buf, 0x20u);
+        *&buf[4] = v32;
+        v38 = 2112;
+        v39 = v33;
+        v40 = 2112;
+        v41 = v34;
+        v35 = v34;
+        _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "%{public}@[HAPDataValueTransformer] Invalid format/class (%@/%@) combination.", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v31);
+      objc_autoreleasePoolPop(v30);
       if (!error)
       {
         goto LABEL_17;
@@ -522,8 +520,6 @@ LABEL_67:
   }
 
 LABEL_18:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

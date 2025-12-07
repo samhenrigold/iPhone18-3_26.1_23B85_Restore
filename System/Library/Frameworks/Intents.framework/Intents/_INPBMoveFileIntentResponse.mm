@@ -3,6 +3,7 @@
 - (_INPBMoveFileIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)entityTypesAsString:(int)string;
 - (int)StringAsEntityTypes:(id)types;
 - (unint64_t)hash;
 - (void)addEntityName:(id)name;
@@ -18,7 +19,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   destinationName = [(_INPBMoveFileIntentResponse *)self destinationName];
   dictionaryRepresentation = [destinationName dictionaryRepresentation];
@@ -27,30 +28,30 @@
   if ([(NSArray *)self->_entityNames count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v7 = self->_entityNames;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation2 = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
@@ -104,8 +105,6 @@
     v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[_INPBMoveFileIntentResponse success](self, "success")}];
     [dictionary setObject:v20 forKeyedSubscript:@"success"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -324,7 +323,7 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   toCopy = to;
   destinationName = [(_INPBMoveFileIntentResponse *)self destinationName];
 
@@ -334,30 +333,32 @@ LABEL_23:
     PBDataWriterWriteSubmessage();
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = self->_entityNames;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v16;
     do
     {
-      for (i = 0; i != v9; ++i)
+      v11 = 0;
+      do
       {
-        if (*v21 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v11;
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -365,20 +366,18 @@ LABEL_23:
 
   if (self->_entityTypes.count)
   {
-    v13 = 0;
+    v12 = 0;
     do
     {
-      v14 = self->_entityTypes.list[v13];
       PBDataWriterWriteInt32Field();
-      ++v13;
+      ++v12;
     }
 
-    while (v13 < self->_entityTypes.count);
+    while (v12 < self->_entityTypes.count);
   }
 
   if ([(_INPBMoveFileIntentResponse *)self hasOverwrite])
   {
-    overwrite = self->_overwrite;
     PBDataWriterWriteBOOLField();
   }
 
@@ -392,11 +391,8 @@ LABEL_23:
 
   if ([(_INPBMoveFileIntentResponse *)self hasSuccess])
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHasSuccess:(BOOL)success
@@ -440,6 +436,21 @@ LABEL_23:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)entityTypesAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7282878[string];
   }
 
   return v4;

@@ -181,20 +181,20 @@ void __31__ICCROneOf_initWithICCRCoder___block_invoke(uint64_t a1)
         }
 
         v13 = *(*(&v22 + 1) + 8 * v12);
-        v14 = *(v7 + 52);
-        v15 = *(v7 + 48);
+        v14 = v7[13];
+        v15 = v7[12];
         if (v15 >= v14)
         {
-          if (v14 == *(v7 + 56))
+          if (v14 == v7[14])
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v7 + 40, v14 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v7 + 10, v14 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<CRDT::OneOf_Element>::New();
         }
 
-        v16 = *(v7 + 40);
-        *(v7 + 48) = v15 + 1;
+        v16 = *(v7 + 5);
+        v7[12] = v15 + 1;
         v17 = *(v16 + 8 * v15);
         *(v17 + 32) |= 1u;
         v18 = *(v17 + 40);

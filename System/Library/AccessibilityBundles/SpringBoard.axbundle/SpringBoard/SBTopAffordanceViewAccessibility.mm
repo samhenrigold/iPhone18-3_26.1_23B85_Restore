@@ -89,25 +89,25 @@ double __57___SBTopAffordanceViewAccessibility__axMoveWindowElement__block_invok
   return v6;
 }
 
-id __57___SBTopAffordanceViewAccessibility__axMoveWindowElement__block_invoke_3(uint64_t a1)
+id __57___SBTopAffordanceViewAccessibility__axMoveWindowElement__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v12[2] = *MEMORY[0x29EDCA608];
-  v2 = MEMORY[0x29EDB8058];
-  v3 = accessibilityLocalizedString(@"window.area.description");
-  v4 = [AXSBPositionUtilities areaSizeDescriptionForContainer:*(a1 + 32)];
-  v5 = [v2 customContentWithLabel:v3 value:v4];
+  v13[2] = *MEMORY[0x29EDCA608];
+  v3 = MEMORY[0x29EDB8058];
+  v4 = accessibilityLocalizedString(@"window.area.description");
+  v5 = [AXSBPositionUtilities areaSizeDescriptionForContainer:*(a1 + 32)];
+  v6 = [v3 customContentWithLabel:v4 value:v5];
 
-  v6 = MEMORY[0x29EDB8058];
-  v7 = accessibilityLocalizedString(@"window.position.description");
+  v7 = MEMORY[0x29EDB8058];
+  v8 = accessibilityLocalizedString(@"window.position.description");
   [*(a1 + 32) frame];
-  v8 = [AXSBPositionUtilities positionDescriptionFromTopLeftCornerWithOrigin:?];
-  v9 = [v6 customContentWithLabel:v7 value:v8];
+  v9 = [AXSBPositionUtilities positionDescriptionFromTopLeftCornerWithOrigin:?];
+  v10 = [v7 customContentWithLabel:v8 value:v9];
 
-  v12[0] = v5;
-  v12[1] = v9;
-  v10 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:2];
+  v13[0] = v6;
+  v13[1] = v10;
+  v11 = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:2];
 
-  return v10;
+  return v11;
 }
 
 @end

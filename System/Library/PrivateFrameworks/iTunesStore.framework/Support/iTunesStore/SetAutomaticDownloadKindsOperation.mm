@@ -155,15 +155,21 @@
     shouldLog = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
@@ -172,20 +178,18 @@
     {
       v11 = 138412290;
       v12 = objc_opt_class();
-      LODWORD(v10) = 12;
-      v9 = &v11;
-      v6 = _os_log_send_and_compose_impl();
-      if (v6)
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Skipping since kinds are no longer dirty", &v11, 12);
+      if (v7)
       {
-        v7 = v6;
-        v8 = [NSString stringWithCString:v6 encoding:4, &v11, v10];
-        free(v7);
-        v9 = v8;
+        v8 = v7;
+        v9 = [NSString stringWithCString:v7 encoding:4];
+        free(v8);
+        v10 = v9;
         SSFileLog();
       }
     }
 
-    [(SetAutomaticDownloadKindsOperation *)self setSuccess:1, v9];
+    [(SetAutomaticDownloadKindsOperation *)self setSuccess:1, v10];
   }
 
   else
@@ -220,38 +224,42 @@
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v10 = objc_opt_class();
+      v11 = objc_opt_class();
       downloadKinds = self->_downloadKinds;
       v18 = 138412802;
-      v19 = v10;
+      v19 = v11;
       v20 = 2112;
       v21 = downloadKinds;
       v22 = 2112;
       v23 = v3;
-      LODWORD(v17) = 32;
-      v16 = &v18;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Filtered download kinds: %@ => %@", &v18, 32);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v18, v17];
-        free(v13);
-        v16 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v17 = v15;
         SSFileLog();
       }
     }
@@ -307,105 +315,115 @@
   shouldLog = [v13 shouldLog];
   if ([v13 shouldLogToDisk])
   {
-    v15 = shouldLog | 2;
+    LODWORD(v15) = shouldLog | 2;
   }
 
   else
   {
-    v15 = shouldLog;
+    LODWORD(v15) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v13 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
 
   if (v15)
   {
-    v31 = 138412546;
-    v32 = objc_opt_class();
-    v33 = 2112;
+    v33 = 138412546;
+    v34 = objc_opt_class();
+    v35 = 2112;
     kindsCopy = kinds;
-    LODWORD(v29) = 22;
-    v28 = &v31;
-    v16 = _os_log_send_and_compose_impl();
-    if (v16)
+    v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Setting automatic download kinds: %@", &v33, 22);
+    if (v17)
     {
-      v17 = v16;
-      v18 = [NSString stringWithCString:v16 encoding:4, &v31, v29];
-      free(v17);
-      v28 = v18;
+      v18 = v17;
+      v19 = [NSString stringWithCString:v17 encoding:4];
+      free(v18);
+      v30 = v19;
       SSFileLog();
     }
   }
 
-  v30 = 0;
-  if ([(SetAutomaticDownloadKindsOperation *)self runSubOperation:v7 returningError:&v30, v28])
+  v32 = 0;
+  if ([(SetAutomaticDownloadKindsOperation *)self runSubOperation:v7 returningError:&v32, v30])
   {
-    v19 = [-[DaemonProtocolDataProvider output](v9 "output")];
-    if ((objc_opt_respondsToSelector() & 1) != 0 && ![v19 intValue])
+    v20 = [-[DaemonProtocolDataProvider output](v9 "output")];
+    if ((objc_opt_respondsToSelector() & 1) != 0 && ![v20 intValue])
     {
-      v26 = 1;
+      v28 = 1;
     }
 
     else
     {
-      v20 = +[SSLogConfig sharedDaemonConfig];
-      if (!v20)
+      v21 = +[SSLogConfig sharedDaemonConfig];
+      if (!v21)
       {
-        v20 = +[SSLogConfig sharedConfig];
+        v21 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v20 shouldLog];
-      if ([v20 shouldLogToDisk])
+      shouldLog2 = [v21 shouldLog];
+      if ([v21 shouldLogToDisk])
       {
-        v22 = shouldLog2 | 2;
+        LODWORD(v23) = shouldLog2 | 2;
       }
 
       else
       {
-        v22 = shouldLog2;
+        LODWORD(v23) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v20 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v21 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v22 &= 2u;
+        v23 = v23;
       }
 
-      if (v22)
+      else
       {
-        v23 = objc_opt_class();
-        v31 = 138412546;
-        v32 = v23;
-        v33 = 2112;
-        kindsCopy = v19;
-        LODWORD(v29) = 22;
-        v24 = _os_log_send_and_compose_impl();
-        if (v24)
+        v23 &= 2u;
+      }
+
+      if (v23)
+      {
+        v25 = objc_opt_class();
+        v33 = 138412546;
+        v34 = v25;
+        v35 = 2112;
+        kindsCopy = v20;
+        LODWORD(v31) = 22;
+        v26 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Received invalid status: %@", &v33, v31);
+        if (v26)
         {
-          v25 = v24;
-          [NSString stringWithCString:v24 encoding:4, &v31, v29];
-          free(v25);
+          v27 = v26;
+          [NSString stringWithCString:v26 encoding:4];
+          free(v27);
           SSFileLog();
         }
       }
 
-      v26 = 0;
-      v30 = ISError();
+      v28 = 0;
+      v32 = ISError();
     }
   }
 
   else
   {
-    v26 = 0;
+    v28 = 0;
   }
 
   if (error)
   {
-    *error = v30;
+    *error = v32;
   }
 
-  return v26;
+  return v28;
 }
 
 - (void)_run
@@ -435,35 +453,39 @@
       shouldLog = [v8 shouldLog];
       if ([v8 shouldLogToDisk])
       {
-        v10 = shouldLog | 2;
+        LODWORD(v10) = shouldLog | 2;
       }
 
       else
       {
-        v10 = shouldLog;
+        LODWORD(v10) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [v8 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = v10;
+      }
+
+      else
       {
         v10 &= 2u;
       }
 
       if (v10)
       {
-        v11 = objc_opt_class();
+        v12 = objc_opt_class();
         v18 = 138412546;
-        v19 = v11;
+        v19 = v12;
         v20 = 2112;
         v21 = v17;
-        LODWORD(v16) = 22;
-        v15 = &v18;
-        v12 = _os_log_send_and_compose_impl();
-        if (v12)
+        v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Rolling back automatic download kinds after fatal error: %@", &v18, 22);
+        if (v13)
         {
-          v13 = v12;
-          v14 = [NSString stringWithCString:v12 encoding:4, &v18, v16];
-          free(v13);
-          v15 = v14;
+          v14 = v13;
+          v15 = [NSString stringWithCString:v13 encoding:4];
+          free(v14);
+          v16 = v15;
           SSFileLog();
         }
       }

@@ -38,7 +38,7 @@
 
 - (id)loadGraphsFromFileNamed:(uint64_t)named
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA8D8];
   v3 = a2;
   v4 = [v2 bundleForClass:objc_opt_class()];
@@ -47,9 +47,9 @@
   v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5];
   if (v6)
   {
-    v19 = 0;
-    v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:4 error:&v19];
-    v8 = v19;
+    v18 = 0;
+    v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:4 error:&v18];
+    v8 = v18;
     if (v7)
     {
       v9 = v7;
@@ -61,14 +61,14 @@
       v11 = *MEMORY[0x277CCC2B8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_ERROR))
       {
-        v16 = v11;
-        v17 = objc_opt_class();
+        v15 = v11;
+        v16 = objc_opt_class();
         *buf = 138543618;
-        v21 = v17;
-        v22 = 2114;
-        v23 = v5;
-        v18 = v17;
-        _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] Could not serialize from JSON data at file path: %{public}@", buf, 0x16u);
+        v20 = v16;
+        v21 = 2114;
+        v22 = v5;
+        v17 = v16;
+        _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Could not serialize from JSON data at file path: %{public}@", buf, 0x16u);
       }
 
       v9 = MEMORY[0x277CBEBF8];
@@ -81,19 +81,17 @@
     v10 = *MEMORY[0x277CCC2B8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_ERROR))
     {
-      v14 = v10;
+      v13 = v10;
       *buf = 138543618;
-      v21 = objc_opt_class();
-      v22 = 2114;
-      v23 = v5;
-      v15 = v21;
-      _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "[%{public}@] Could not get data from file path: %{public}@", buf, 0x16u);
+      v20 = objc_opt_class();
+      v21 = 2114;
+      v22 = v5;
+      v14 = v20;
+      _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] Could not get data from file path: %{public}@", buf, 0x16u);
     }
 
     v9 = MEMORY[0x277CBEBF8];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -139,12 +137,12 @@
 
 - (void)generateObjectsForDemoPerson:(id)person fromTime:(double)time toTime:(double)toTime currentDate:(id)date objectCollection:(id)collection
 {
-  v231[1] = *MEMORY[0x277D85DE8];
+  v229[1] = *MEMORY[0x277D85DE8];
   personCopy = person;
   collectionCopy = collection;
-  v218.receiver = self;
-  v218.super_class = HDDemoDataSleepSampleGenerator;
-  [(HDDemoDataBaseSampleGenerator *)&v218 generateObjectsForDemoPerson:personCopy fromTime:date toTime:collectionCopy currentDate:toTime objectCollection:toTime];
+  v216.receiver = self;
+  v216.super_class = HDDemoDataSleepSampleGenerator;
+  [(HDDemoDataBaseSampleGenerator *)&v216 generateObjectsForDemoPerson:personCopy fromTime:date toTime:collectionCopy currentDate:toTime objectCollection:toTime];
   if (self->_nextSleepDurationSampleTime > toTime)
   {
     goto LABEL_61;
@@ -155,10 +153,10 @@
   demoDataGenerator = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
   firstSampleDate = [demoDataGenerator firstSampleDate];
 
-  v202 = personCopy;
-  v203 = v13;
-  v200 = firstSampleDate;
-  v201 = collectionCopy;
+  v200 = personCopy;
+  v201 = v13;
+  v198 = firstSampleDate;
+  v199 = collectionCopy;
   selfCopy = self;
   if (self->_nextSleepDurationSampleTime == 0.0)
   {
@@ -168,96 +166,95 @@
 
     v20 = MEMORY[0x277CCD800];
     v21 = [MEMORY[0x277CCD830] dataTypeWithCode:197];
-    v206 = v19;
+    v204 = v19;
     v22 = [v20 quantitySampleWithType:v21 quantity:v19 startDate:firstSampleDate endDate:firstSampleDate];
 
-    v204 = v22;
+    v202 = v22;
     [v13 addObject:v22];
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     hk_weekendDays = [currentCalendar hk_weekendDays];
 
-    v216 = 0u;
-    v217 = 0u;
     v214 = 0u;
     v215 = 0u;
-    v24 = *MEMORY[0x277CCCDD0];
-    v25 = HKSleepScheduleWeekdayArrayFromWeekdays();
-    v26 = [v25 countByEnumeratingWithState:&v214 objects:v223 count:16];
-    v209 = v14;
-    if (v26)
+    v212 = 0u;
+    v213 = 0u;
+    v24 = HKSleepScheduleWeekdayArrayFromWeekdays();
+    v25 = [v24 countByEnumeratingWithState:&v212 objects:v221 count:16];
+    v207 = v14;
+    if (v25)
     {
-      v27 = v26;
+      v26 = v25;
+      v27 = 0;
       v28 = 0;
-      v29 = 0;
-      v30 = *v215;
+      v29 = *v213;
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v215 != v30)
+          if (*v213 != v29)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v24);
           }
 
-          unsignedIntegerValue = [*(*(&v214 + 1) + 8 * i) unsignedIntegerValue];
-          v33 = [MEMORY[0x277CCABB0] numberWithInteger:NSWeekdayComponentFromHKSleepScheduleWeekday()];
-          v34 = [hk_weekendDays containsObject:v33];
+          unsignedIntegerValue = [*(*(&v212 + 1) + 8 * i) unsignedIntegerValue];
+          v32 = [MEMORY[0x277CCABB0] numberWithInteger:NSWeekdayComponentFromHKSleepScheduleWeekday()];
+          v33 = [hk_weekendDays containsObject:v32];
 
-          if (v34)
+          if (v33)
           {
-            v35 = unsignedIntegerValue;
+            v34 = unsignedIntegerValue;
           }
 
           else
+          {
+            v34 = 0;
+          }
+
+          v27 |= v34;
+          if (v33)
           {
             v35 = 0;
           }
 
-          v28 |= v35;
-          if (v34)
-          {
-            v36 = 0;
-          }
-
           else
           {
-            v36 = unsignedIntegerValue;
+            v35 = unsignedIntegerValue;
           }
 
-          v29 |= v36;
+          v28 |= v35;
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v214 objects:v223 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v212 objects:v221 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
 
     else
     {
+      v27 = 0;
       v28 = 0;
-      v29 = 0;
     }
 
-    personCopy = v202;
-    weekdaySleepParameters = [v202 weekdaySleepParameters];
-    v38 = MEMORY[0x277CCD9E8];
-    v39 = [MEMORY[0x277CBEAB8] hk_componentsWithHour:objc_msgSend(weekdaySleepParameters minute:{"wakeUpTimeGoalHour"), 0}];
-    v40 = [MEMORY[0x277CBEAB8] hk_componentsWithHour:objc_msgSend(weekdaySleepParameters minute:{"bedtimeGoalHour"), 0}];
-    v41 = [v38 sleepScheduleWithDate:firstSampleDate weekdays:v29 wakeTimeComponents:v39 bedTimeComponents:v40 overrideDayIndex:0 device:0 metadata:0];
-    [v203 addObject:v41];
+    personCopy = v200;
+    weekdaySleepParameters = [v200 weekdaySleepParameters];
+    v37 = MEMORY[0x277CCD9E8];
+    v38 = [MEMORY[0x277CBEAB8] hk_componentsWithHour:objc_msgSend(weekdaySleepParameters minute:{"wakeUpTimeGoalHour"), 0}];
+    v39 = [MEMORY[0x277CBEAB8] hk_componentsWithHour:objc_msgSend(weekdaySleepParameters minute:{"bedtimeGoalHour"), 0}];
+    v40 = [v37 sleepScheduleWithDate:firstSampleDate weekdays:v28 wakeTimeComponents:v38 bedTimeComponents:v39 overrideDayIndex:0 device:0 metadata:0];
+    [v201 addObject:v40];
 
-    weekendSleepParameters = [v202 weekendSleepParameters];
+    weekendSleepParameters = [v200 weekendSleepParameters];
 
-    v43 = MEMORY[0x277CCD9E8];
-    v44 = [MEMORY[0x277CBEAB8] hk_componentsWithHour:objc_msgSend(weekendSleepParameters minute:{"wakeUpTimeGoalHour"), 0}];
-    v45 = [MEMORY[0x277CBEAB8] hk_componentsWithHour:objc_msgSend(weekendSleepParameters minute:{"bedtimeGoalHour"), 0}];
-    v46 = [v43 sleepScheduleWithDate:firstSampleDate weekdays:v28 wakeTimeComponents:v44 bedTimeComponents:v45 overrideDayIndex:0 device:0 metadata:0];
-    [v203 addObject:v46];
+    v42 = MEMORY[0x277CCD9E8];
+    v43 = [MEMORY[0x277CBEAB8] hk_componentsWithHour:objc_msgSend(weekendSleepParameters minute:{"wakeUpTimeGoalHour"), 0}];
+    v44 = [MEMORY[0x277CBEAB8] hk_componentsWithHour:objc_msgSend(weekendSleepParameters minute:{"bedtimeGoalHour"), 0}];
+    v45 = [v42 sleepScheduleWithDate:firstSampleDate weekdays:v27 wakeTimeComponents:v43 bedTimeComponents:v44 overrideDayIndex:0 device:0 metadata:0];
+    [v201 addObject:v45];
 
-    collectionCopy = v201;
+    collectionCopy = v199;
     self = selfCopy;
-    v14 = v209;
+    v14 = v207;
   }
 
   if (qword_27D86C0E8 != -1)
@@ -268,9 +265,9 @@
   toTimeCopy = toTime;
   demoDataGenerator2 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
   currentCalendar2 = [MEMORY[0x277CBEA80] currentCalendar];
-  v50 = [demoDataGenerator2 isDemoDataTimeInWeekend:currentCalendar2 calendar:toTime];
+  v49 = [demoDataGenerator2 isDemoDataTimeInWeekend:currentCalendar2 calendar:toTime];
 
-  if (v50)
+  if (v49)
   {
     [personCopy weekendSleepParameters];
   }
@@ -279,40 +276,40 @@
   {
     [personCopy weekdaySleepParameters];
   }
-  v51 = ;
-  [v51 wakeUpTime];
-  v53 = v52;
+  v50 = ;
+  [v50 wakeUpTime];
+  v52 = v51;
   [personCopy wakeUpTimeNoiseStdDev];
-  [(HDDemoDataSleepSampleGenerator *)self computeSleepTimeFromCurrentTime:toTime mean:v53 stdDev:v54];
-  self->_nextSleepDurationSampleTime = toTimeCopy + 1.0 + v55;
-  [v51 wakeUpTime];
-  v57 = v56;
+  [(HDDemoDataSleepSampleGenerator *)self computeSleepTimeFromCurrentTime:toTime mean:v52 stdDev:v53];
+  self->_nextSleepDurationSampleTime = toTimeCopy + 1.0 + v54;
+  [v50 wakeUpTime];
+  v56 = v55;
   [personCopy wakeUpTimeNoiseStdDev];
-  [(HDDemoDataSleepSampleGenerator *)self computeSleepTimeFromCurrentTime:toTime mean:v57 stdDev:v58];
-  v60 = v59;
-  [v51 bedtime];
-  v62 = v61;
-  [v51 wakeUpTime];
-  if (v62 <= v63)
+  [(HDDemoDataSleepSampleGenerator *)self computeSleepTimeFromCurrentTime:toTime mean:v56 stdDev:v57];
+  v59 = v58;
+  [v50 bedtime];
+  v61 = v60;
+  [v50 wakeUpTime];
+  if (v61 <= v62)
   {
-    v64 = 0.0;
+    v63 = 0.0;
   }
 
   else
   {
-    v64 = 1.0;
+    v63 = 1.0;
   }
 
-  v199 = v51;
-  [v51 bedtime];
-  v66 = v65;
+  v197 = v50;
+  [v50 bedtime];
+  v65 = v64;
   [personCopy bedtimeNoiseStdDev];
-  [(HDDemoDataSleepSampleGenerator *)self computeSleepTimeFromCurrentTime:toTime - v64 mean:v66 stdDev:v67];
-  v69 = v68;
+  [(HDDemoDataSleepSampleGenerator *)self computeSleepTimeFromCurrentTime:toTime - v63 mean:v65 stdDev:v66];
+  v68 = v67;
   [firstSampleDate timeIntervalSinceReferenceDate];
-  v71 = v70 + (v69 - v64 + toTimeCopy) * 86400.0;
+  v70 = v69 + (v68 - v63 + toTimeCopy) * 86400.0;
   [firstSampleDate timeIntervalSinceReferenceDate];
-  v73 = v72 + (v60 + toTimeCopy) * 86400.0;
+  v72 = v71 + (v59 + toTimeCopy) * 86400.0;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   features = [mEMORY[0x277CCDD30] features];
   timeInBedTracking = [features timeInBedTracking];
@@ -322,21 +319,21 @@
     demoDataGenerator3 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
     statisticsSampleGenerator = [demoDataGenerator3 statisticsSampleGenerator];
     [personCopy inBedTimeStdDev];
-    [statisticsSampleGenerator computeNoiseFromTime:toTime stdDev:v79];
-    v81 = v80 * 86400.0;
+    [statisticsSampleGenerator computeNoiseFromTime:toTime stdDev:v78];
+    v80 = v79 * 86400.0;
 
     demoDataGenerator4 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
     statisticsSampleGenerator2 = [demoDataGenerator4 statisticsSampleGenerator];
     [personCopy inBedTimeStdDev];
-    [statisticsSampleGenerator2 computeNoiseFromTime:toTime stdDev:v84];
-    v86 = v85 * 86400.0;
+    [statisticsSampleGenerator2 computeNoiseFromTime:toTime stdDev:v83];
+    v85 = v84 * 86400.0;
 
-    v87 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v71 - fabs(v81)];
-    v88 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v73 + fabs(v86 * 0.5)];
-    if ([v87 hk_isAfterDate:v88])
+    v86 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v70 - fabs(v80)];
+    v87 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v72 + fabs(v85 * 0.5)];
+    if ([v86 hk_isAfterDate:v87])
     {
       _HKInitializeLogging();
-      v89 = *MEMORY[0x277CCC2B8];
+      v88 = *MEMORY[0x277CCC2B8];
       if (!os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_ERROR))
       {
 LABEL_33:
@@ -344,101 +341,101 @@ LABEL_33:
         goto LABEL_34;
       }
 
-      v210 = v14;
-      v90 = collectionCopy;
-      v91 = personCopy;
-      v92 = v89;
-      v93 = objc_opt_class();
+      v208 = v14;
+      v89 = collectionCopy;
+      v90 = personCopy;
+      v91 = v88;
+      v92 = objc_opt_class();
       *buf = 138543874;
-      v225 = v93;
+      v223 = v92;
+      v224 = 2114;
+      v225 = v86;
       v226 = 2114;
       v227 = v87;
-      v228 = 2114;
-      v229 = v88;
-      v94 = v93;
-      _os_log_error_impl(&dword_228986000, v92, OS_LOG_TYPE_ERROR, "[%{public}@] In Bed: Bedtime date cannot be after wake up date! %{public}@ - %{public}@", buf, 0x20u);
+      v93 = v92;
+      _os_log_error_impl(&dword_228986000, v91, OS_LOG_TYPE_ERROR, "[%{public}@] In Bed: Bedtime date cannot be after wake up date! %{public}@ - %{public}@", buf, 0x20u);
 
-      personCopy = v91;
-      collectionCopy = v90;
-      v14 = v210;
+      personCopy = v90;
+      collectionCopy = v89;
+      v14 = v208;
     }
 
     else
     {
-      v92 = [MEMORY[0x277CCD0B0] categorySampleWithType:_MergedGlobals_14 value:0 startDate:v87 endDate:v88 metadata:0];
-      [v203 addObject:v92];
+      v91 = [MEMORY[0x277CCD0B0] categorySampleWithType:_MergedGlobals_14 value:0 startDate:v86 endDate:v87 metadata:0];
+      [v201 addObject:v91];
     }
 
     goto LABEL_33;
   }
 
 LABEL_34:
-  v95 = [(HDDemoDataSleepSampleGenerator *)self randomGraphFromArray:?];
-  v96 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v71];
-  v97 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v73];
-  v197 = v96;
-  v198 = v95;
-  v98 = [(HDDemoDataSleepSampleGenerator *)self createSleepSamplesFromSleepGraph:v95 sleepCategoryType:_MergedGlobals_14 startDate:v96 endDate:v97];
-  [v14 addObjectsFromArray:v98];
+  v94 = [(HDDemoDataSleepSampleGenerator *)self randomGraphFromArray:?];
+  v95 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v70];
+  v96 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v72];
+  v195 = v95;
+  v196 = v94;
+  v97 = [(HDDemoDataSleepSampleGenerator *)self createSleepSamplesFromSleepGraph:v94 sleepCategoryType:_MergedGlobals_14 startDate:v95 endDate:v96];
+  [v14 addObjectsFromArray:v97];
 
-  v99 = v14;
-  v100 = collectionCopy;
-  v101 = personCopy;
-  v207 = v99;
-  if ([v99 count])
+  v98 = v14;
+  v99 = collectionCopy;
+  v100 = personCopy;
+  v205 = v98;
+  if ([v98 count])
   {
-    v194 = v100;
-    v195 = v97;
+    v192 = v99;
+    v193 = v96;
     toTimeCopy2 = toTime;
-    v213 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
-    v102 = objc_alloc(MEMORY[0x277CCA970]);
-    firstObject = [v99 firstObject];
+    v211 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
+    v101 = objc_alloc(MEMORY[0x277CCA970]);
+    firstObject = [v98 firstObject];
     startDate = [firstObject startDate];
-    lastObject = [v99 lastObject];
+    lastObject = [v98 lastObject];
     endDate = [lastObject endDate];
-    v107 = [v102 initWithStartDate:startDate endDate:endDate];
+    v106 = [v101 initWithStartDate:startDate endDate:endDate];
 
-    startDate2 = [v107 startDate];
-    v211 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v230 = *MEMORY[0x277CCE030];
-    v231[0] = &unk_283CB08D0;
-    v208 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v231 forKeys:&v230 count:1];
-    endDate2 = [v107 endDate];
+    startDate2 = [v106 startDate];
+    v209 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v228 = *MEMORY[0x277CCE030];
+    v229[0] = &unk_283CB08D0;
+    v206 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v229 forKeys:&v228 count:1];
+    endDate2 = [v106 endDate];
     LODWORD(firstObject) = [startDate2 hk_isBeforeDate:endDate2];
 
     if (firstObject)
     {
       do
       {
-        v221 = 0u;
-        v222 = 0u;
         v219 = 0u;
         v220 = 0u;
-        v110 = v99;
-        v111 = [v110 countByEnumeratingWithState:&v219 objects:buf count:16];
-        if (v111)
+        v217 = 0u;
+        v218 = 0u;
+        v109 = v98;
+        v110 = [v109 countByEnumeratingWithState:&v217 objects:buf count:16];
+        if (v110)
         {
-          v112 = v111;
-          v113 = *v220;
+          v111 = v110;
+          v112 = *v218;
           do
           {
-            for (j = 0; j != v112; ++j)
+            for (j = 0; j != v111; ++j)
             {
-              if (*v220 != v113)
+              if (*v218 != v112)
               {
-                objc_enumerationMutation(v110);
+                objc_enumerationMutation(v109);
               }
 
-              v115 = *(*(&v219 + 1) + 8 * j);
-              startDate3 = [v115 startDate];
+              v114 = *(*(&v217 + 1) + 8 * j);
+              startDate3 = [v114 startDate];
               if ([startDate2 hk_isAfterDate:startDate3])
               {
-                endDate3 = [v115 endDate];
-                v118 = [startDate2 hk_isBeforeDate:endDate3];
+                endDate3 = [v114 endDate];
+                v117 = [startDate2 hk_isBeforeDate:endDate3];
 
-                if (v118)
+                if (v117)
                 {
-                  v119 = 1;
+                  v118 = 1;
                   goto LABEL_48;
                 }
               }
@@ -448,68 +445,68 @@ LABEL_34:
               }
             }
 
-            v112 = [v110 countByEnumeratingWithState:&v219 objects:buf count:16];
+            v111 = [v109 countByEnumeratingWithState:&v217 objects:buf count:16];
           }
 
-          while (v112);
-          v119 = 0;
+          while (v111);
+          v118 = 0;
 LABEL_48:
           self = selfCopy;
-          v99 = v207;
+          v98 = v205;
         }
 
         else
         {
-          v119 = 0;
+          v118 = 0;
         }
 
         [startDate2 timeIntervalSinceReferenceDate];
-        v121 = v120 * 0.0000115740741;
+        v120 = v119 * 0.0000115740741;
         demoDataGenerator5 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
         statisticsSampleGenerator3 = [demoDataGenerator5 statisticsSampleGenerator];
-        [v101 heartRateSampleNoiseStdDev];
-        [statisticsSampleGenerator3 computeNoiseFromTime:v121 stdDev:v124];
-        v126 = v125;
+        [v100 heartRateSampleNoiseStdDev];
+        [statisticsSampleGenerator3 computeNoiseFromTime:v120 stdDev:v123];
+        v125 = v124;
 
         [startDate2 timeIntervalSinceReferenceDate];
-        v128 = v127;
-        startDate4 = [v107 startDate];
+        v127 = v126;
+        startDate4 = [v106 startDate];
         [startDate4 timeIntervalSinceReferenceDate];
-        v131 = v130;
-        [v107 duration];
-        v133 = v132;
+        v130 = v129;
+        [v106 duration];
+        v132 = v131;
 
-        if (v119)
+        if (v118)
         {
-          v134 = v126 * 0.5 + [v101 restingHeartRate] * ((v128 - v131) / v133 * -0.1 + 1.0);
+          v133 = v125 * 0.5 + [v100 restingHeartRate] * ((v127 - v130) / v132 * -0.1 + 1.0);
         }
 
         else
         {
-          v134 = v126 + [v101 restingHeartRate];
+          v133 = v125 + [v100 restingHeartRate];
         }
 
-        v135 = MEMORY[0x277CCD800];
-        v136 = MEMORY[0x277CCD7E8];
+        v134 = MEMORY[0x277CCD800];
+        v135 = MEMORY[0x277CCD7E8];
         _countPerMinuteUnit = [MEMORY[0x277CCDAB0] _countPerMinuteUnit];
-        v138 = [v136 quantityWithUnit:_countPerMinuteUnit doubleValue:v134];
-        v139 = [v135 quantitySampleWithType:v213 quantity:v138 startDate:startDate2 endDate:startDate2 metadata:v208];
-        [v211 addObject:v139];
+        v137 = [v135 quantityWithUnit:_countPerMinuteUnit doubleValue:v133];
+        v138 = [v134 quantitySampleWithType:v211 quantity:v137 startDate:startDate2 endDate:startDate2 metadata:v206];
+        [v209 addObject:v138];
 
         demoDataGenerator6 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
         statisticsSampleGenerator4 = [demoDataGenerator6 statisticsSampleGenerator];
-        [v101 heartRateSampleFrequency];
-        v143 = v142;
-        [v101 heartRateSampleFrequencyStdDev];
-        [statisticsSampleGenerator4 computeStatisticalTimeFromCurrentTime:v121 mean:v143 stdDev:v144 * 0.5];
-        v146 = v145;
+        [v100 heartRateSampleFrequency];
+        v142 = v141;
+        [v100 heartRateSampleFrequencyStdDev];
+        [statisticsSampleGenerator4 computeStatisticalTimeFromCurrentTime:v120 mean:v142 stdDev:v143 * 0.5];
+        v145 = v144;
 
-        v147 = [startDate2 dateByAddingTimeInterval:v146 * 86400.0];
+        v146 = [startDate2 dateByAddingTimeInterval:v145 * 86400.0];
 
-        endDate4 = [v107 endDate];
-        LOBYTE(_countPerMinuteUnit) = [v147 hk_isBeforeDate:endDate4];
+        endDate4 = [v106 endDate];
+        LOBYTE(_countPerMinuteUnit) = [v146 hk_isBeforeDate:endDate4];
 
-        startDate2 = v147;
+        startDate2 = v146;
       }
 
       while ((_countPerMinuteUnit & 1) != 0);
@@ -517,91 +514,91 @@ LABEL_48:
 
     else
     {
-      v147 = startDate2;
+      v146 = startDate2;
     }
 
-    v100 = v194;
-    [v194 addObjectsFromWatch:v211];
+    v99 = v192;
+    [v192 addObjectsFromWatch:v209];
 
     toTime = toTimeCopy2;
-    v97 = v195;
+    v96 = v193;
   }
 
-  v149 = v101;
-  v150 = v100;
-  v151 = v97;
-  v152 = v197;
+  v148 = v100;
+  v149 = v99;
+  v150 = v96;
+  v151 = v195;
   demoDataGenerator7 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
-  v154 = [demoDataGenerator7 currentDateFromCurrentTime:toTime];
+  v153 = [demoDataGenerator7 currentDateFromCurrentTime:toTime];
 
-  birthDateComponents = [v149 birthDateComponents];
-  v156 = HDDemoData_ageBetweenNSDateComponentsAndDate(birthDateComponents, v154);
+  birthDateComponents = [v148 birthDateComponents];
+  v155 = HDDemoData_ageBetweenNSDateComponentsAndDate(birthDateComponents, v153);
 
-  v157 = 1.0;
-  if ([v149 biologicalSex] == 1 && v156 >= 12)
+  v156 = 1.0;
+  if ([v148 biologicalSex] == 1 && v155 >= 12)
   {
     demoDataGenerator8 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
     reproductiveHealthSampleGenerator = [demoDataGenerator8 reproductiveHealthSampleGenerator];
-    v160 = [reproductiveHealthSampleGenerator cycleDayIndexAtTime:v149 demoPerson:toTime];
+    v159 = [reproductiveHealthSampleGenerator cycleDayIndexAtTime:v148 demoPerson:toTime];
 
     demoDataGenerator9 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
     reproductiveHealthSampleGenerator2 = [demoDataGenerator9 reproductiveHealthSampleGenerator];
     _basalBodyTempMultiplier = [reproductiveHealthSampleGenerator2 _basalBodyTempMultiplier];
-    v164 = [_basalBodyTempMultiplier objectAtIndexedSubscript:v160];
-    [v164 doubleValue];
-    v157 = v165;
+    v163 = [_basalBodyTempMultiplier objectAtIndexedSubscript:v159];
+    [v163 doubleValue];
+    v156 = v164;
   }
 
-  [v149 baseCorrectedWristSkinTemperatureInCelsius];
-  v167 = v157 * v166;
+  [v148 baseCorrectedWristSkinTemperatureInCelsius];
+  v166 = v156 * v165;
   demoDataGenerator10 = [(HDDemoDataBaseSampleGenerator *)self demoDataGenerator];
   statisticsSampleGenerator5 = [demoDataGenerator10 statisticsSampleGenerator];
-  [v149 dayToDayCorrectedWristSkinTemperatureNoiseStdDevInCelsius];
-  [statisticsSampleGenerator5 randomSampleFromNormalDistributionWithMean:0.0 stdDev:v170];
-  v172 = v171;
+  [v148 dayToDayCorrectedWristSkinTemperatureNoiseStdDevInCelsius];
+  [statisticsSampleGenerator5 randomSampleFromNormalDistributionWithMean:0.0 stdDev:v169];
+  v171 = v170;
 
-  v173 = MEMORY[0x277CCD7E8];
+  v172 = MEMORY[0x277CCD7E8];
   degreeCelsiusUnit = [MEMORY[0x277CCDAB0] degreeCelsiusUnit];
-  v175 = [v173 quantityWithUnit:degreeCelsiusUnit doubleValue:((v167 + v172) * 100.0) / 100.0];
+  v174 = [v172 quantityWithUnit:degreeCelsiusUnit doubleValue:((v166 + v171) * 100.0) / 100.0];
 
-  v176 = MEMORY[0x277CCD800];
-  v177 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC938]];
-  v178 = [v176 quantitySampleWithType:v177 quantity:v175 startDate:v152 endDate:v151];
+  v175 = MEMORY[0x277CCD800];
+  v176 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC938]];
+  v177 = [v175 quantitySampleWithType:v176 quantity:v174 startDate:v151 endDate:v150];
 
-  [v150 addObjectFromWatch:v178];
-  v179 = MEMORY[0x277CCD830];
-  v180 = *MEMORY[0x277CCC930];
+  [v149 addObjectFromWatch:v177];
+  v178 = MEMORY[0x277CCD830];
+  v179 = *MEMORY[0x277CCC930];
+  v180 = v149;
   v181 = v150;
   v182 = v151;
-  v183 = v152;
-  v184 = [v179 quantityTypeForIdentifier:v180];
-  v185 = [(HDDemoDataSleepSampleGenerator *)self randomGraphFromArray:?];
-  v186 = [v185 objectAtIndex:{arc4random() % objc_msgSend(v185, "count")}];
-  [v186 doubleValue];
-  v188 = v187;
+  v183 = [v178 quantityTypeForIdentifier:v179];
+  v184 = [(HDDemoDataSleepSampleGenerator *)self randomGraphFromArray:?];
+  v185 = [v184 objectAtIndex:{arc4random() % objc_msgSend(v184, "count")}];
+  [v185 doubleValue];
+  v187 = v186;
 
-  v189 = MEMORY[0x277CCD7E8];
+  v188 = MEMORY[0x277CCD7E8];
   countUnit = [MEMORY[0x277CCDAB0] countUnit];
-  v191 = [v189 quantityWithUnit:countUnit doubleValue:v188];
+  v190 = [v188 quantityWithUnit:countUnit doubleValue:v187];
 
-  v192 = [MEMORY[0x277CCD800] quantitySampleWithType:v184 quantity:v191 startDate:v183 endDate:v182];
+  v191 = [MEMORY[0x277CCD800] quantitySampleWithType:v183 quantity:v190 startDate:v182 endDate:v181];
 
-  [v181 addObjectFromWatch:v192];
-  [v181 addObjectsFromPhone:v203];
-  [v181 addObjectsFromWatch:v207];
+  [v180 addObjectFromWatch:v191];
+  [v180 addObjectsFromPhone:v201];
+  [v180 addObjectsFromWatch:v205];
 
-  collectionCopy = v201;
-  personCopy = v202;
+  collectionCopy = v199;
+  personCopy = v200;
 LABEL_61:
-
-  v193 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __108__HDDemoDataSleepSampleGenerator_generateObjectsForDemoPerson_fromTime_toTime_currentDate_objectCollection___block_invoke()
 {
-  _MergedGlobals_14 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
+  v0 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCBAB8]];
+  v1 = _MergedGlobals_14;
+  _MergedGlobals_14 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)randomGraphFromArray:(unint64_t)array
@@ -734,7 +731,7 @@ uint64_t __108__HDDemoDataSleepSampleGenerator_generateObjectsForDemoPerson_from
 
 - (id)createSleepSamplesFromSleepGraph:(id)graph sleepCategoryType:(id)type startDate:(id)date endDate:(id)endDate
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   typeCopy = type;
   dateCopy = date;
@@ -744,55 +741,55 @@ uint64_t __108__HDDemoDataSleepSampleGenerator_generateObjectsForDemoPerson_from
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v51 = 0x3032000000;
-    v52 = __Block_byref_object_copy__33;
-    v53 = __Block_byref_object_dispose__33;
-    v54 = [dateCopy copy];
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x3032000000;
-    v47 = __Block_byref_object_copy__33;
-    v48 = __Block_byref_object_dispose__33;
-    v49 = [dateCopy copy];
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = __Block_byref_object_copy__33;
-    v42 = __Block_byref_object_dispose__33;
+    v50 = 0x3032000000;
+    v51 = __Block_byref_object_copy__33;
+    v52 = __Block_byref_object_dispose__33;
+    v53 = objc_msgSend_copy(dateCopy);
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x3032000000;
+    v46 = __Block_byref_object_copy__33;
+    v47 = __Block_byref_object_dispose__33;
+    v48 = objc_msgSend_copy(dateCopy);
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x3032000000;
+    v40 = __Block_byref_object_copy__33;
+    v41 = __Block_byref_object_dispose__33;
     firstObject = [graphCopy firstObject];
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __103__HDDemoDataSleepSampleGenerator_createSleepSamplesFromSleepGraph_sleepCategoryType_startDate_endDate___block_invoke;
-    v31 = &unk_278618430;
-    v35 = &v38;
-    v36 = &v44;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __103__HDDemoDataSleepSampleGenerator_createSleepSamplesFromSleepGraph_sleepCategoryType_startDate_endDate___block_invoke;
+    v30 = &unk_278618430;
+    v34 = &v37;
+    v35 = &v43;
     v16 = endDateCopy;
-    v32 = v16;
+    v31 = v16;
     v17 = v15;
-    v33 = v17;
+    v32 = v17;
     v18 = typeCopy;
-    v34 = v18;
+    v33 = v18;
     p_buf = &buf;
-    [graphCopy enumerateObjectsUsingBlock:&v28];
-    if ([v39[5] integerValue] != 2)
+    [graphCopy enumerateObjectsUsingBlock:&v27];
+    if ([v38[5] integerValue] != 2)
     {
       v19 = MEMORY[0x277CCD0B0];
-      integerValue = [v39[5] integerValue];
+      integerValue = [v38[5] integerValue];
       v21 = *(*(&buf + 1) + 40);
       if (([v16 hk_isAfterDate:v21] & 1) == 0)
       {
-        v16 = v45[5];
+        v16 = v44[5];
       }
 
       v22 = [v19 categorySampleWithType:v18 value:integerValue startDate:v21 endDate:v16];
       [v17 addObject:v22];
     }
 
-    v23 = v34;
+    v23 = v33;
     v14 = v17;
 
-    _Block_object_dispose(&v38, 8);
-    _Block_object_dispose(&v44, 8);
+    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v43, 8);
 
     _Block_object_dispose(&buf, 8);
   }
@@ -803,17 +800,15 @@ uint64_t __108__HDDemoDataSleepSampleGenerator_generateObjectsForDemoPerson_from
     v13 = *MEMORY[0x277CCC2B8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2B8], OS_LOG_TYPE_ERROR))
     {
-      v26 = v13;
+      v25 = v13;
       LODWORD(buf) = 138543362;
       *(&buf + 4) = objc_opt_class();
-      v27 = *(&buf + 4);
-      _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to make sleep samples with invalid input, returning empty", &buf, 0xCu);
+      v26 = *(&buf + 4);
+      _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "[%{public}@] Asked to make sleep samples with invalid input, returning empty", &buf, 0xCu);
     }
 
     v14 = MEMORY[0x277CBEBF8];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -840,7 +835,7 @@ void __103__HDDemoDataSleepSampleGenerator_createSleepSamplesFromSleepGraph_slee
     v11 = [MEMORY[0x277CCD0B0] categorySampleWithType:a1[6] value:objc_msgSend(*(*(a1[7] + 8) + 40) startDate:"integerValue") endDate:{*(*(a1[9] + 8) + 40), *(*(a1[8] + 8) + 40)}];
     [v10 addObject:v11];
 
-    v12 = [*(*(a1[8] + 8) + 40) copy];
+    v12 = objc_msgSend_copy(*(*(a1[8] + 8) + 40));
     v13 = *(a1[9] + 8);
     v14 = *(v13 + 40);
     *(v13 + 40) = v12;

@@ -42,11 +42,10 @@
     {
       if ([eventBody conformsToProtocol:&unk_1F5A51B48])
       {
-        [context addContext:v7];
-        v8 = __atxlog_handle_blending_ecosystem();
+        v8 = __atxlog_handle_blending_ecosystem([context addContext:v7]);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          [ATXUIFeedbackBiomeCorrelateHandler receivePriorEvent:];
+          [ATXUIFeedbackBiomeCorrelateHandler receivePriorEvent:?];
         }
 
 LABEL_13:
@@ -57,8 +56,7 @@ LABEL_13:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [context addBlendingModelUICacheUpdate:v7];
-        v8 = __atxlog_handle_blending_ecosystem();
+        v8 = __atxlog_handle_blending_ecosystem([context addBlendingModelUICacheUpdate:v7]);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           [(ATXUIFeedbackBiomeCorrelateHandler *)self receivePriorEvent:v7];
@@ -70,8 +68,7 @@ LABEL_13:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [context addClientModelCacheUpdate:v7];
-        v8 = __atxlog_handle_blending_ecosystem();
+        v8 = __atxlog_handle_blending_ecosystem([context addClientModelCacheUpdate:v7]);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           [(ATXUIFeedbackBiomeCorrelateHandler *)self receivePriorEvent:v7];
@@ -92,10 +89,10 @@ LABEL_14:
 
 - (void)receiveCurrentEvent:(id)event
 {
-  v3 = __atxlog_handle_blending_ecosystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = __atxlog_handle_blending_ecosystem(self);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [ATXUIFeedbackBiomeCorrelateHandler receiveCurrentEvent:];
+    [ATXUIFeedbackBiomeCorrelateHandler receiveCurrentEvent:?];
   }
 }
 
@@ -121,11 +118,12 @@ LABEL_14:
   v92 = context;
   v12 = [context blendingModelUICacheUpdateForUUID:blendingUICacheUpdateUUID2];
 
-  if ([v10 count] && v12)
+  v13 = [v10 count];
+  if (v13 && v12)
   {
     v91 = v12;
     v89 = v6Context;
-    v13 = objc_opt_new();
+    v14 = objc_opt_new();
     context = objc_autoreleasePoolPush();
     v146 = 0u;
     v147 = 0u;
@@ -133,56 +131,56 @@ LABEL_14:
     v149 = 0u;
     v88 = v10;
     obj = v10;
-    v14 = [obj countByEnumeratingWithState:&v146 objects:v159 count:16];
-    if (v14)
+    v15 = [obj countByEnumeratingWithState:&v146 objects:v159 count:16];
+    if (v15)
     {
-      v15 = v14;
+      v16 = v15;
       v108 = *v147;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
           if (*v147 != v108)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v146 + 1) + 8 * i);
+          v18 = *(*(&v146 + 1) + 8 * i);
           v142 = 0u;
           v143 = 0u;
           v144 = 0u;
           v145 = 0u;
-          suggestions = [v17 suggestions];
-          v19 = [suggestions countByEnumeratingWithState:&v142 objects:v158 count:16];
-          if (v19)
+          suggestions = [v18 suggestions];
+          v20 = [suggestions countByEnumeratingWithState:&v142 objects:v158 count:16];
+          if (v20)
           {
-            v20 = v19;
-            v21 = *v143;
+            v21 = v20;
+            v22 = *v143;
             do
             {
-              for (j = 0; j != v20; ++j)
+              for (j = 0; j != v21; ++j)
               {
-                if (*v143 != v21)
+                if (*v143 != v22)
                 {
                   objc_enumerationMutation(suggestions);
                 }
 
-                v23 = *(*(&v142 + 1) + 8 * j);
-                uuid = [v23 uuid];
-                [v13 setObject:v23 forKeyedSubscript:uuid];
+                v24 = *(*(&v142 + 1) + 8 * j);
+                uuid = [v24 uuid];
+                [v14 setObject:v24 forKeyedSubscript:uuid];
               }
 
-              v20 = [suggestions countByEnumeratingWithState:&v142 objects:v158 count:16];
+              v21 = [suggestions countByEnumeratingWithState:&v142 objects:v158 count:16];
             }
 
-            while (v20);
+            while (v21);
           }
         }
 
-        v15 = [obj countByEnumeratingWithState:&v146 objects:v159 count:16];
+        v16 = [obj countByEnumeratingWithState:&v146 objects:v159 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
     objc_autoreleasePoolPop(context);
@@ -191,31 +189,31 @@ LABEL_14:
     v138 = 0u;
     v139 = 0u;
     engagedUUIDs = [v94 engagedUUIDs];
-    v26 = [engagedUUIDs countByEnumeratingWithState:&v138 objects:v157 count:16];
-    if (v26)
+    v27 = [engagedUUIDs countByEnumeratingWithState:&v138 objects:v157 count:16];
+    if (v27)
     {
-      v27 = v26;
-      v28 = *v139;
+      v28 = v27;
+      v29 = *v139;
       do
       {
-        for (k = 0; k != v27; ++k)
+        for (k = 0; k != v28; ++k)
         {
-          if (*v139 != v28)
+          if (*v139 != v29)
           {
             objc_enumerationMutation(engagedUUIDs);
           }
 
-          v30 = [v13 objectForKeyedSubscript:*(*(&v138 + 1) + 8 * k)];
-          if (v30)
+          v31 = [v14 objectForKeyedSubscript:*(*(&v138 + 1) + 8 * k)];
+          if (v31)
           {
-            [v100 addObject:v30];
+            [v100 addObject:v31];
           }
         }
 
-        v27 = [engagedUUIDs countByEnumeratingWithState:&v138 objects:v157 count:16];
+        v28 = [engagedUUIDs countByEnumeratingWithState:&v138 objects:v157 count:16];
       }
 
-      while (v27);
+      while (v28);
     }
 
     v136 = 0u;
@@ -223,31 +221,31 @@ LABEL_14:
     v134 = 0u;
     v135 = 0u;
     shownUUIDs = [v94 shownUUIDs];
-    v32 = [shownUUIDs countByEnumeratingWithState:&v134 objects:v156 count:16];
-    if (v32)
+    v33 = [shownUUIDs countByEnumeratingWithState:&v134 objects:v156 count:16];
+    if (v33)
     {
-      v33 = v32;
-      v34 = *v135;
+      v34 = v33;
+      v35 = *v135;
       do
       {
-        for (m = 0; m != v33; ++m)
+        for (m = 0; m != v34; ++m)
         {
-          if (*v135 != v34)
+          if (*v135 != v35)
           {
             objc_enumerationMutation(shownUUIDs);
           }
 
-          v36 = [v13 objectForKeyedSubscript:*(*(&v134 + 1) + 8 * m)];
-          if (v36)
+          v37 = [v14 objectForKeyedSubscript:*(*(&v134 + 1) + 8 * m)];
+          if (v37)
           {
-            [v101 addObject:v36];
+            [v101 addObject:v37];
           }
         }
 
-        v33 = [shownUUIDs countByEnumeratingWithState:&v134 objects:v156 count:16];
+        v34 = [shownUUIDs countByEnumeratingWithState:&v134 objects:v156 count:16];
       }
 
-      while (v33);
+      while (v34);
     }
 
     v132 = 0u;
@@ -255,31 +253,31 @@ LABEL_14:
     v130 = 0u;
     v131 = 0u;
     rejectedUUIDs = [v94 rejectedUUIDs];
-    v38 = [rejectedUUIDs countByEnumeratingWithState:&v130 objects:v155 count:16];
-    if (v38)
+    v39 = [rejectedUUIDs countByEnumeratingWithState:&v130 objects:v155 count:16];
+    if (v39)
     {
-      v39 = v38;
-      v40 = *v131;
+      v40 = v39;
+      v41 = *v131;
       do
       {
-        for (n = 0; n != v39; ++n)
+        for (n = 0; n != v40; ++n)
         {
-          if (*v131 != v40)
+          if (*v131 != v41)
           {
             objc_enumerationMutation(rejectedUUIDs);
           }
 
-          v42 = [v13 objectForKeyedSubscript:*(*(&v130 + 1) + 8 * n)];
-          if (v42)
+          v43 = [v14 objectForKeyedSubscript:*(*(&v130 + 1) + 8 * n)];
+          if (v43)
           {
-            [v99 addObject:v42];
+            [v99 addObject:v43];
           }
         }
 
-        v39 = [rejectedUUIDs countByEnumeratingWithState:&v130 objects:v155 count:16];
+        v40 = [rejectedUUIDs countByEnumeratingWithState:&v130 objects:v155 count:16];
       }
 
-      while (v39);
+      while (v40);
     }
 
     v128 = 0u;
@@ -293,7 +291,7 @@ LABEL_14:
       v95 = *v127;
       do
       {
-        v43 = 0;
+        v44 = 0;
         do
         {
           if (*v127 != v95)
@@ -301,150 +299,150 @@ LABEL_14:
             objc_enumerationMutation(v90);
           }
 
-          v103 = v43;
-          v44 = *(*(&v126 + 1) + 8 * v43);
+          v103 = v44;
+          v45 = *(*(&v126 + 1) + 8 * v44);
           v102 = objc_autoreleasePoolPush();
           contexta = objc_opt_new();
-          v45 = objc_opt_new();
-          obja = objc_opt_new();
           v46 = objc_opt_new();
+          obja = objc_opt_new();
+          v47 = objc_opt_new();
           v122 = 0u;
           v123 = 0u;
           v124 = 0u;
           v125 = 0u;
-          v98 = v44;
-          suggestions2 = [v44 suggestions];
-          v48 = [suggestions2 countByEnumeratingWithState:&v122 objects:v153 count:16];
-          if (v48)
+          v98 = v45;
+          suggestions2 = [v45 suggestions];
+          v49 = [suggestions2 countByEnumeratingWithState:&v122 objects:v153 count:16];
+          if (v49)
           {
-            v49 = v48;
-            v50 = *v123;
+            v50 = v49;
+            v51 = *v123;
             do
             {
-              for (ii = 0; ii != v49; ++ii)
+              for (ii = 0; ii != v50; ++ii)
               {
-                if (*v123 != v50)
+                if (*v123 != v51)
                 {
                   objc_enumerationMutation(suggestions2);
                 }
 
-                v52 = *(*(&v122 + 1) + 8 * ii);
-                v53 = [(ATXUIFeedbackBiomeCorrelateHandler *)self boxedExecutableHashForProactiveSuggestion:v52];
-                [v46 setObject:v52 forKey:v53];
+                v53 = *(*(&v122 + 1) + 8 * ii);
+                v54 = [(ATXUIFeedbackBiomeCorrelateHandler *)self boxedExecutableHashForProactiveSuggestion:v53];
+                [v47 setObject:v53 forKey:v54];
               }
 
-              v49 = [suggestions2 countByEnumeratingWithState:&v122 objects:v153 count:16];
+              v50 = [suggestions2 countByEnumeratingWithState:&v122 objects:v153 count:16];
             }
 
-            while (v49);
+            while (v50);
           }
 
-          v109 = v45;
+          v109 = v46;
 
           v120 = 0u;
           v121 = 0u;
           v118 = 0u;
           v119 = 0u;
-          v54 = v101;
-          v55 = [v54 countByEnumeratingWithState:&v118 objects:v152 count:16];
-          if (v55)
+          v55 = v101;
+          v56 = [v55 countByEnumeratingWithState:&v118 objects:v152 count:16];
+          if (v56)
           {
-            v56 = v55;
-            v57 = *v119;
+            v57 = v56;
+            v58 = *v119;
             do
             {
-              for (jj = 0; jj != v56; ++jj)
+              for (jj = 0; jj != v57; ++jj)
               {
-                if (*v119 != v57)
+                if (*v119 != v58)
                 {
-                  objc_enumerationMutation(v54);
+                  objc_enumerationMutation(v55);
                 }
 
-                v59 = *(*(&v118 + 1) + 8 * jj);
-                v60 = [(ATXUIFeedbackBiomeCorrelateHandler *)self boxedExecutableHashForProactiveSuggestion:v59];
-                v61 = [v46 objectForKey:v60];
-                if (v61 && [(ATXUIFeedbackBiomeCorrelateHandler *)self _proactiveSuggestionsContainEqualExecutablesWithSuggestion1:v59 suggestion2:v61])
+                v60 = *(*(&v118 + 1) + 8 * jj);
+                v61 = [(ATXUIFeedbackBiomeCorrelateHandler *)self boxedExecutableHashForProactiveSuggestion:v60];
+                v62 = [v47 objectForKey:v61];
+                if (v62 && [(ATXUIFeedbackBiomeCorrelateHandler *)self _proactiveSuggestionsContainEqualExecutablesWithSuggestion1:v60 suggestion2:v62])
                 {
-                  [contexta addObject:v61];
+                  [contexta addObject:v62];
                 }
               }
 
-              v56 = [v54 countByEnumeratingWithState:&v118 objects:v152 count:16];
+              v57 = [v55 countByEnumeratingWithState:&v118 objects:v152 count:16];
             }
 
-            while (v56);
+            while (v57);
           }
 
           v116 = 0u;
           v117 = 0u;
           v114 = 0u;
           v115 = 0u;
-          v62 = v100;
-          v63 = [v62 countByEnumeratingWithState:&v114 objects:v151 count:16];
-          if (v63)
+          v63 = v100;
+          v64 = [v63 countByEnumeratingWithState:&v114 objects:v151 count:16];
+          if (v64)
           {
-            v64 = v63;
-            v65 = *v115;
+            v65 = v64;
+            v66 = *v115;
             do
             {
-              for (kk = 0; kk != v64; ++kk)
+              for (kk = 0; kk != v65; ++kk)
               {
-                if (*v115 != v65)
+                if (*v115 != v66)
                 {
-                  objc_enumerationMutation(v62);
+                  objc_enumerationMutation(v63);
                 }
 
-                v67 = *(*(&v114 + 1) + 8 * kk);
-                v68 = [(ATXUIFeedbackBiomeCorrelateHandler *)self boxedExecutableHashForProactiveSuggestion:v67];
-                v69 = [v46 objectForKey:v68];
-                if (v69 && [(ATXUIFeedbackBiomeCorrelateHandler *)self _proactiveSuggestionsContainEqualExecutablesWithSuggestion1:v67 suggestion2:v69])
+                v68 = *(*(&v114 + 1) + 8 * kk);
+                v69 = [(ATXUIFeedbackBiomeCorrelateHandler *)self boxedExecutableHashForProactiveSuggestion:v68];
+                v70 = [v47 objectForKey:v69];
+                if (v70 && [(ATXUIFeedbackBiomeCorrelateHandler *)self _proactiveSuggestionsContainEqualExecutablesWithSuggestion1:v68 suggestion2:v70])
                 {
-                  [v109 addObject:v69];
+                  [v109 addObject:v70];
                 }
               }
 
-              v64 = [v62 countByEnumeratingWithState:&v114 objects:v151 count:16];
+              v65 = [v63 countByEnumeratingWithState:&v114 objects:v151 count:16];
             }
 
-            while (v64);
+            while (v65);
           }
 
           v112 = 0u;
           v113 = 0u;
           v110 = 0u;
           v111 = 0u;
-          v70 = v99;
-          v71 = [v70 countByEnumeratingWithState:&v110 objects:v150 count:16];
-          if (v71)
+          v71 = v99;
+          v72 = [v71 countByEnumeratingWithState:&v110 objects:v150 count:16];
+          if (v72)
           {
-            v72 = v71;
-            v73 = *v111;
+            v73 = v72;
+            v74 = *v111;
             do
             {
-              for (mm = 0; mm != v72; ++mm)
+              for (mm = 0; mm != v73; ++mm)
               {
-                if (*v111 != v73)
+                if (*v111 != v74)
                 {
-                  objc_enumerationMutation(v70);
+                  objc_enumerationMutation(v71);
                 }
 
-                v75 = *(*(&v110 + 1) + 8 * mm);
-                v76 = [(ATXUIFeedbackBiomeCorrelateHandler *)self boxedExecutableHashForProactiveSuggestion:v75];
-                v77 = [v46 objectForKey:v76];
-                if (v77 && [(ATXUIFeedbackBiomeCorrelateHandler *)self _proactiveSuggestionsContainEqualExecutablesWithSuggestion1:v75 suggestion2:v77])
+                v76 = *(*(&v110 + 1) + 8 * mm);
+                v77 = [(ATXUIFeedbackBiomeCorrelateHandler *)self boxedExecutableHashForProactiveSuggestion:v76];
+                v78 = [v47 objectForKey:v77];
+                if (v78 && [(ATXUIFeedbackBiomeCorrelateHandler *)self _proactiveSuggestionsContainEqualExecutablesWithSuggestion1:v76 suggestion2:v78])
                 {
-                  [obja addObject:v77];
+                  [obja addObject:v78];
                 }
               }
 
-              v72 = [v70 countByEnumeratingWithState:&v110 objects:v150 count:16];
+              v73 = [v71 countByEnumeratingWithState:&v110 objects:v150 count:16];
             }
 
-            while (v72);
+            while (v73);
           }
 
-          v79 = obja;
-          v78 = v109;
+          v80 = obja;
+          v79 = v109;
           if ([contexta count])
           {
             v97 = [ATXProactiveSuggestionUIFeedbackResult alloc];
@@ -453,15 +451,15 @@ LABEL_14:
             array3 = [obja array];
             consumerSubType = [v94 consumerSubType];
             context2 = [v92 context];
-            v79 = obja;
-            v85 = [(ATXProactiveSuggestionUIFeedbackResult *)v97 initWithShownSuggestions:array engagedSuggestions:array2 rejectedSuggestions:array3 session:v94 consumerSubType:consumerSubType clientCacheUpdate:v98 uiCacheUpdate:v91 context:context2];
+            v80 = obja;
+            v86 = [(ATXProactiveSuggestionUIFeedbackResult *)v97 initWithShownSuggestions:array engagedSuggestions:array2 rejectedSuggestions:array3 session:v94 consumerSubType:consumerSubType clientCacheUpdate:v98 uiCacheUpdate:v91 context:context2];
 
-            v78 = v109;
-            [v93 addObject:v85];
+            v79 = v109;
+            [v93 addObject:v86];
           }
 
           objc_autoreleasePoolPop(v102);
-          v43 = v103 + 1;
+          v44 = v103 + 1;
         }
 
         while (v103 + 1 != v96);
@@ -478,14 +476,12 @@ LABEL_14:
 
   else
   {
-    v13 = __atxlog_handle_blending_ecosystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = __atxlog_handle_blending_ecosystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [(ATXUIFeedbackBiomeCorrelateHandler *)self correlateWithCurrentEvent:v94, v13];
+      [(ATXUIFeedbackBiomeCorrelateHandler *)self correlateWithCurrentEvent:v94, v14];
     }
   }
-
-  v86 = *MEMORY[0x1E69E9840];
 
   return v93;
 }
@@ -512,62 +508,48 @@ LABEL_14:
 
 - (void)receivePriorEvent:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = [a2 clientModelId];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_1_6();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)receivePriorEvent:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = [a2 uuid];
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_1_6();
   _os_log_debug_impl(v6, v7, v8, v9, v10, 0x16u);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-- (void)receivePriorEvent:.cold.3()
+- (void)receivePriorEvent:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_6();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-- (void)receiveCurrentEvent:.cold.1()
+- (void)receiveCurrentEvent:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_6();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)correlateWithCurrentEvent:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [MEMORY[0x1E698B028] stringForConsumerSubtype:{objc_msgSend(a2, "consumerSubType")}];
   OUTLINED_FUNCTION_0_8();
-  _os_log_fault_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_FAULT, "%@ - could not find any client caches for session with consumerSubType: %@", v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_FAULT, "%@ - could not find any client caches for session with consumerSubType: %@", v8, 0x16u);
 }
 
 @end

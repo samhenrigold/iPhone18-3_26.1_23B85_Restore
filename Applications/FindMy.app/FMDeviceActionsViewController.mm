@@ -14,7 +14,7 @@
 - (void)viewDidLoad
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for FMDeviceActionsViewController();
+  v4.super_class = type metadata accessor for FMDeviceActionsViewController(0);
   v2 = v4.receiver;
   viewDidLoad = [(FMDeviceActionsViewController *)&v4 viewDidLoad];
   (*((swift_isaMask & *v2) + 0x160))(viewDidLoad);
@@ -31,7 +31,7 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1003BFEC0(disappear);
+  sub_1003BFEC0(disappear, selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

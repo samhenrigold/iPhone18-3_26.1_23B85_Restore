@@ -1,5 +1,10 @@
 @interface TISKMetricDefinition
 + (double)pointsToMM:(double)m;
++ (id)_makeMetric:(id)metric type:(int)type;
++ (id)_makeMetric:(id)metric type:(int)type metricDef:(id *)def;
++ (id)_makeMetric:(id)metric type:(int)type metricDef:(id *)def isPointMetric:(BOOL)pointMetric;
++ (id)_makeMetric:(id)metric type:(int)type metricDef:(id *)def size:(unint64_t)size;
++ (id)_makeMetric:(id)metric type:(int)type metricDef:(id *)def size:(unint64_t)size isPointMetric:(BOOL)pointMetric;
 + (id)metricDefinitions;
 - (id)init:(id)init type:(int)type metricDef:(id *)def size:(unint64_t)size isPointMetric:(BOOL)metric;
 @end
@@ -1737,8 +1742,8 @@ void __41__TISKMetricDefinition_metricDefinitions__block_invoke()
   if (!v168)
   {
 LABEL_257:
-    dlerror();
-    abort_report_np();
+    v182 = dlerror();
+    abort_report_np("%s", v182);
   }
 
   objc_storeStrong(&kTISKtotalConfusedEmoji, *v168);
@@ -1915,8 +1920,53 @@ LABEL_257:
   v180 = [MEMORY[0x277CBEA60] arrayWithObjects:v262 count:85];
   v181 = metricDefinitions_defs;
   metricDefinitions_defs = v180;
+}
 
-  v182 = *MEMORY[0x277D85DE8];
++ (id)_makeMetric:(id)metric type:(int)type
+{
+  v4 = *&type;
+  metricCopy = metric;
+  v6 = [[TISKMetricDefinition alloc] init:metricCopy type:v4 metricDef:0 size:0 isPointMetric:0];
+
+  return v6;
+}
+
++ (id)_makeMetric:(id)metric type:(int)type metricDef:(id *)def isPointMetric:(BOOL)pointMetric
+{
+  pointMetricCopy = pointMetric;
+  v8 = *&type;
+  metricCopy = metric;
+  v10 = [[TISKMetricDefinition alloc] init:metricCopy type:v8 metricDef:def size:0 isPointMetric:pointMetricCopy];
+
+  return v10;
+}
+
++ (id)_makeMetric:(id)metric type:(int)type metricDef:(id *)def
+{
+  v6 = *&type;
+  metricCopy = metric;
+  v8 = [[TISKMetricDefinition alloc] init:metricCopy type:v6 metricDef:def size:0 isPointMetric:0];
+
+  return v8;
+}
+
++ (id)_makeMetric:(id)metric type:(int)type metricDef:(id *)def size:(unint64_t)size
+{
+  v8 = *&type;
+  metricCopy = metric;
+  v10 = [[TISKMetricDefinition alloc] init:metricCopy type:v8 metricDef:def size:size isPointMetric:0];
+
+  return v10;
+}
+
++ (id)_makeMetric:(id)metric type:(int)type metricDef:(id *)def size:(unint64_t)size isPointMetric:(BOOL)pointMetric
+{
+  pointMetricCopy = pointMetric;
+  v10 = *&type;
+  metricCopy = metric;
+  v12 = [[TISKMetricDefinition alloc] init:metricCopy type:v10 metricDef:def size:size isPointMetric:pointMetricCopy];
+
+  return v12;
 }
 
 + (double)pointsToMM:(double)m

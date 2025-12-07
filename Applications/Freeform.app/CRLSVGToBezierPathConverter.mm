@@ -41,21 +41,21 @@
       goto LABEL_13;
     }
 
-    v20 = CGPathCreateWithRect(self->mViewBox, 0);
-    v16 = [CRLBezierPath bezierPathWithCGPath:v20];
-    CGPathRelease(v20);
-    v24[0] = self->mFileBezierPath;
-    v24[1] = v16;
-    v21 = [NSArray arrayWithObjects:v24 count:2];
-    v22 = [CRLBezierPath intersectBezierPaths:v21];
+    v21 = CGPathCreateWithRect(self->mViewBox, 0);
+    v17 = [CRLBezierPath bezierPathWithCGPath:v21];
+    CGPathRelease(v21);
+    v25[0] = self->mFileBezierPath;
+    v25[1] = v17;
+    v22 = [NSArray arrayWithObjects:v25 count:2];
+    v23 = [CRLBezierPath intersectBezierPaths:v22];
 
-    v23 = self->mFileBezierPath;
-    self->mFileBezierPath = v22;
+    v24 = self->mFileBezierPath;
+    self->mFileBezierPath = v23;
   }
 
   else
   {
-    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v12 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_1013907B4();
@@ -71,26 +71,26 @@
       sub_101390854();
     }
 
-    v12 = off_1019EDA68;
+    v13 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10138DF74(v12);
+      sub_10138DF74(v13, v12);
     }
 
-    v13 = [NSString stringWithUTF8String:"[CRLSVGToBezierPathConverter bezierPathFromSVGData:]"];
-    v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m"];
-    [CRLAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:62 isFatal:0 description:"Unable to Parse SVG File"];
+    v14 = [NSString stringWithUTF8String:"[CRLSVGToBezierPathConverter bezierPathFromSVGData:]"];
+    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m"];
+    [CRLAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:62 isFatal:0 description:"Unable to Parse SVG File"];
 
-    v15 = objc_alloc_init(CRLBezierPath);
-    v16 = self->mFileBezierPath;
-    self->mFileBezierPath = v15;
+    v16 = objc_alloc_init(CRLBezierPath);
+    v17 = self->mFileBezierPath;
+    self->mFileBezierPath = v16;
   }
 
 LABEL_13:
-  v17 = self->mFileBezierPath;
-  v18 = v17;
+  v18 = self->mFileBezierPath;
+  v19 = v18;
 
-  return v17;
+  return v18;
 }
 
 - (void)parser:(id)parser didStartElement:(id)element namespaceURI:(id)i qualifiedName:(id)name attributes:(id)attributes
@@ -445,7 +445,7 @@ LABEL_82:
         if (v78)
         {
           v79 = [attributesCopy objectForKeyedSubscript:@"transform"];
-          [CRLSVGToBezierPathConverter transformFromSVGTransformAttributeString:v79];
+          objc_msgSend_transformFromSVGTransformAttributeString_(CRLSVGToBezierPathConverter);
           v80 = *&buf.c;
           *&self->mGroupedAffineTransform.a = *&buf.a;
           *&self->mGroupedAffineTransform.c = v80;
@@ -723,7 +723,7 @@ LABEL_108:
         {
           memset(&t2, 0, sizeof(t2));
           v98 = [attributesCopy objectForKeyedSubscript:@"transform"];
-          [CRLSVGToBezierPathConverter transformFromSVGTransformAttributeString:v98];
+          objc_msgSend_transformFromSVGTransformAttributeString_(CRLSVGToBezierPathConverter);
 
           t1 = buf;
           v184 = t2;
@@ -864,13 +864,13 @@ LABEL_121:
   endCopy = end;
   stringCopy = string;
   Mutable = CGPathCreateMutable();
-  v56 = CGPointZero;
+  v57 = CGPointZero;
   *y = CGPointZero;
-  v53 = stringCopy;
+  v54 = stringCopy;
   v6 = [NSScanner scannerWithString:stringCopy];
-  v72 = *asc_101466690;
-  v73 = 2883717;
-  v7 = [NSString stringWithCharacters:&v72 length:6];
+  v73 = *asc_101466690;
+  v74 = 2883717;
+  v7 = [NSString stringWithCharacters:&v73 length:6];
   v8 = [NSCharacterSet characterSetWithCharactersInString:v7];
   [v6 setCharactersToBeSkipped:v8];
 
@@ -882,46 +882,46 @@ LABEL_121:
     goto LABEL_3;
   }
 
-  v17 = 0;
+  v18 = 0;
   v10 = 0;
-  v18 = CGPointZero.y;
-  v54 = v18;
+  v19 = CGPointZero.y;
+  v55 = v19;
   x = CGPointZero.x;
-  v19 = CGPointZero.x;
-  v20 = v18;
+  v20 = CGPointZero.x;
+  v21 = v19;
   while (1)
   {
-    v21 = v10;
-    v22 = +[NSCharacterSet letterCharacterSet];
-    v63 = v10;
-    v23 = [v6 scanCharactersFromSet:v22 intoString:&v63];
-    v10 = v63;
+    v22 = v10;
+    v23 = +[NSCharacterSet letterCharacterSet];
+    v64 = v10;
+    v24 = [v6 scanCharactersFromSet:v23 intoString:&v64];
+    v10 = v64;
 
-    if (v23)
+    if (v24)
     {
       [v6 setScanLocation:{objc_msgSend(v6, "scanLocation") - objc_msgSend(v10, "length") + 1}];
     }
 
     v11 = [v10 characterAtIndex:0];
-    v24 = v18;
-    v25 = CGPointZero.x;
+    v25 = v19;
+    v26 = CGPointZero.x;
     if (!CGPathIsEmpty(Mutable))
     {
       CurrentPoint = CGPathGetCurrentPoint(Mutable);
-      v25 = CurrentPoint.x;
-      v24 = CurrentPoint.y;
+      v26 = CurrentPoint.x;
+      v25 = CurrentPoint.y;
     }
 
-    v27 = +[NSCharacterSet lowercaseLetterCharacterSet];
-    v28 = [v27 characterIsMember:v11];
+    v28 = +[NSCharacterSet lowercaseLetterCharacterSet];
+    v29 = [v28 characterIsMember:v11];
 
-    v29 = v18;
-    v30 = CGPointZero.x;
-    if (v28)
+    v30 = v19;
+    v31 = CGPointZero.x;
+    if (v29)
     {
-      v31 = CGPathGetCurrentPoint(Mutable);
-      v30 = v31.x;
-      v29 = v31.y;
+      v32 = CGPathGetCurrentPoint(Mutable);
+      v31 = v32.x;
+      v30 = v32.y;
     }
 
     if (v11 > 96)
@@ -945,47 +945,47 @@ LABEL_121:
 LABEL_36:
             if ([v6 crl_scanCGFloat:y])
             {
-              v32 = [v6 crl_scanCGFloat:&y[1]];
+              v33 = [v6 crl_scanCGFloat:&y[1]];
             }
 
             else
             {
-              v32 = 0;
+              v33 = 0;
             }
 
-            v41 = sub_1000717B4(Mutable);
-            v42 = y[0];
-            if (v41 < 1)
+            v42 = sub_1000717B4(Mutable);
+            v43 = y[0];
+            if (v42 < 1)
             {
-              v43 = y[1];
+              v44 = y[1];
             }
 
             else
             {
-              v42 = v30 + y[0];
-              v43 = v29 + y[1];
+              v43 = v31 + y[0];
+              v44 = v30 + y[1];
             }
 
-            CGPathMoveToPoint(Mutable, 0, v42, v43);
+            CGPathMoveToPoint(Mutable, 0, v43, v44);
             if ([v6 crl_scanCGFloat:y])
             {
               do
               {
-                v32 = [v6 crl_scanCGFloat:&y[1]];
-                if (v28)
+                v33 = [v6 crl_scanCGFloat:&y[1]];
+                if (v29)
                 {
-                  v44 = CGPathGetCurrentPoint(Mutable);
-                  v30 = v44.x;
-                  v29 = v44.y;
+                  v45 = CGPathGetCurrentPoint(Mutable);
+                  v31 = v45.x;
+                  v30 = v45.y;
                 }
 
-                CGPathAddLineToPoint(Mutable, 0, v30 + y[0], v29 + y[1]);
+                CGPathAddLineToPoint(Mutable, 0, v31 + y[0], v30 + y[1]);
               }
 
               while (([v6 crl_scanCGFloat:y] & 1) != 0);
             }
 
-            v9 = v32 ^ 1;
+            v9 = v33 ^ 1;
             goto LABEL_119;
           }
 
@@ -1000,30 +1000,30 @@ LABEL_81:
             v9 = 1;
           }
 
-          if (v28)
+          if (v29)
           {
-            if (y[0] == CGPointZero.x && y[1] == v18)
+            if (y[0] == CGPointZero.x && y[1] == v19)
             {
               goto LABEL_119;
             }
           }
 
-          else if (y[0] == v25 && y[1] == v24)
+          else if (y[0] == v26 && y[1] == v25)
           {
             goto LABEL_119;
           }
 
-          v35 = v30 + y[0];
-          v33 = v29 + y[1];
-          v34 = Mutable;
+          v36 = v31 + y[0];
+          v34 = v30 + y[1];
+          v35 = Mutable;
           goto LABEL_107;
         }
 
 LABEL_84:
         v9 = [v6 crl_scanCGFloat:y] ^ 1;
-        v35 = v30 + y[0];
-        v34 = Mutable;
-        v33 = v24;
+        v36 = v31 + y[0];
+        v35 = Mutable;
+        v34 = v25;
         goto LABEL_107;
       }
 
@@ -1075,15 +1075,15 @@ LABEL_47:
 
 LABEL_83:
     v9 = [v6 crl_scanCGFloat:&y[1]] ^ 1;
-    v33 = v29 + y[1];
-    v34 = Mutable;
-    v35 = v25;
+    v34 = v30 + y[1];
+    v35 = Mutable;
+    v36 = v26;
 LABEL_107:
-    CGPathAddLineToPoint(v34, 0, v35, v33);
+    CGPathAddLineToPoint(v35, 0, v36, v34);
 LABEL_119:
     if (([v6 isAtEnd] & 1) == 0)
     {
-      v17 = v11;
+      v18 = v11;
       if (!v9)
       {
         continue;
@@ -1119,15 +1119,15 @@ LABEL_119:
     {
 LABEL_70:
       *buf = 0;
+      v59.x = 0.0;
       v58.x = 0.0;
-      v57.x = 0.0;
-      v61 = 0;
       v62 = 0;
-      v59 = 0.0;
+      v63 = 0;
       v60 = 0.0;
-      if ([v6 crl_scanCGFloat:buf] && objc_msgSend(v6, "crl_scanCGFloat:", &v58) && objc_msgSend(v6, "crl_scanCGFloat:", &v57) && objc_msgSend(v6, "scanInteger:", &v62) && objc_msgSend(v6, "scanInteger:", &v61) && objc_msgSend(v6, "crl_scanCGFloat:", &v60))
+      v61 = 0.0;
+      if ([v6 crl_scanCGFloat:buf] && objc_msgSend(v6, "crl_scanCGFloat:", &v59) && objc_msgSend(v6, "crl_scanCGFloat:", &v58) && objc_msgSend(v6, "scanInteger:", &v63) && objc_msgSend(v6, "scanInteger:", &v62) && objc_msgSend(v6, "crl_scanCGFloat:", &v61))
       {
-        v9 = [v6 crl_scanCGFloat:&v59] ^ 1;
+        v9 = [v6 crl_scanCGFloat:&v60] ^ 1;
       }
 
       else
@@ -1135,15 +1135,15 @@ LABEL_70:
         v9 = 1;
       }
 
-      v59 = v29 + v59;
       v60 = v30 + v60;
-      v36 = sub_10018EE34(v62 != 0, v61 != 0, v25, v24, *buf, v58.x, v57.x, v60, v59);
-      v37 = sub_1000717B4(v36);
-      v38 = sub_10018F158(Mutable, v36, 1, v37);
-      CGPathRelease(v36);
+      v61 = v31 + v61;
+      v37 = sub_10018EE34(v63 != 0, v62 != 0, v26, v25, *buf, v59.x, v58.x, v61, v60);
+      v38 = sub_1000717B4(v37);
+      v39 = sub_10018F158(Mutable, v37, 1, v38);
+      CGPathRelease(v37);
       CGPathRelease(Mutable);
-      Mutable = CGPathCreateMutableCopy(v38);
-      CGPathRelease(v38);
+      Mutable = CGPathCreateMutableCopy(v39);
+      CGPathRelease(v39);
       goto LABEL_119;
     }
 
@@ -1153,12 +1153,12 @@ LABEL_70:
     }
 
 LABEL_53:
-    *buf = v56;
-    v57 = v56;
-    v58 = v56;
-    if ([v6 crl_scanCGFloat:buf] && objc_msgSend(v6, "crl_scanCGFloat:", &buf[8]) && objc_msgSend(v6, "crl_scanCGFloat:", &v58) && objc_msgSend(v6, "crl_scanCGFloat:", &v58.y) && objc_msgSend(v6, "crl_scanCGFloat:", &v57))
+    *buf = v57;
+    v58 = v57;
+    v59 = v57;
+    if ([v6 crl_scanCGFloat:buf] && objc_msgSend(v6, "crl_scanCGFloat:", &buf[8]) && objc_msgSend(v6, "crl_scanCGFloat:", &v59) && objc_msgSend(v6, "crl_scanCGFloat:", &v59.y) && objc_msgSend(v6, "crl_scanCGFloat:", &v58))
     {
-      v9 = [v6 crl_scanCGFloat:&v57.y] ^ 1;
+      v9 = [v6 crl_scanCGFloat:&v58.y] ^ 1;
     }
 
     else
@@ -1166,18 +1166,18 @@ LABEL_53:
       v9 = 1;
     }
 
-    *buf = v30 + *buf;
-    *&buf[8] = v29 + *&buf[8];
-    v58.x = v30 + v58.x;
-    v58.y = v29 + v58.y;
-    v57.x = v30 + v57.x;
-    v57.y = v29 + v57.y;
-    CGPathAddCurveToPoint(Mutable, 0, *buf, *&buf[8], v58.x, v58.y, v57.x, v57.y);
-    v39 = v58.y;
-    v40 = v58.x;
+    *buf = v31 + *buf;
+    *&buf[8] = v30 + *&buf[8];
+    v59.x = v31 + v59.x;
+    v59.y = v30 + v59.y;
+    v58.x = v31 + v58.x;
+    v58.y = v30 + v58.y;
+    CGPathAddCurveToPoint(Mutable, 0, *buf, *&buf[8], v59.x, v59.y, v58.x, v58.y);
+    v41 = v59.x;
+    v40 = v59.y;
 LABEL_98:
-    v54 = v39;
-    x = v40;
+    v55 = v40;
+    x = v41;
     goto LABEL_119;
   }
 
@@ -1186,16 +1186,16 @@ LABEL_98:
     if (v11 == 116)
     {
 LABEL_85:
-      if (v17 - 81 <= 0x23 && ((1 << (v17 - 81)) & 0x900000009) != 0)
+      if (v18 - 81 <= 0x23 && ((1 << (v18 - 81)) & 0x900000009) != 0)
       {
-        v19 = v25 + v25 - v19;
-        v20 = v24 + v24 - v20;
+        v20 = v26 + v26 - v20;
+        v21 = v25 + v25 - v21;
       }
 
       else
       {
-        v19 = v25;
-        v20 = v24;
+        v20 = v26;
+        v21 = v25;
       }
 
       *buf = 0;
@@ -1210,9 +1210,9 @@ LABEL_85:
         v9 = 1;
       }
 
-      *buf = v30 + *buf;
-      *&buf[8] = v29 + *&buf[8];
-      CGPathAddQuadCurveToPoint(Mutable, 0, v19, v20, *buf, *&buf[8]);
+      *buf = v31 + *buf;
+      *&buf[8] = v30 + *&buf[8];
+      CGPathAddQuadCurveToPoint(Mutable, 0, v20, v21, *buf, *&buf[8]);
       goto LABEL_119;
     }
 
@@ -1232,11 +1232,11 @@ LABEL_85:
   if (v11 == 113)
   {
 LABEL_77:
-    *buf = v56;
-    v58 = v56;
-    if ([v6 crl_scanCGFloat:buf] && objc_msgSend(v6, "crl_scanCGFloat:", &buf[8]) && objc_msgSend(v6, "crl_scanCGFloat:", &v58))
+    *buf = v57;
+    v59 = v57;
+    if ([v6 crl_scanCGFloat:buf] && objc_msgSend(v6, "crl_scanCGFloat:", &buf[8]) && objc_msgSend(v6, "crl_scanCGFloat:", &v59))
     {
-      v9 = [v6 crl_scanCGFloat:&v58.y] ^ 1;
+      v9 = [v6 crl_scanCGFloat:&v59.y] ^ 1;
     }
 
     else
@@ -1244,30 +1244,30 @@ LABEL_77:
       v9 = 1;
     }
 
-    *buf = v30 + *buf;
-    *&buf[8] = v29 + *&buf[8];
-    v58.x = v30 + v58.x;
-    v58.y = v29 + v58.y;
-    CGPathAddQuadCurveToPoint(Mutable, 0, *buf, *&buf[8], v58.x, v58.y);
-    v19 = *buf;
-    v20 = *&buf[8];
+    *buf = v31 + *buf;
+    *&buf[8] = v30 + *&buf[8];
+    v59.x = v31 + v59.x;
+    v59.y = v30 + v59.y;
+    CGPathAddQuadCurveToPoint(Mutable, 0, *buf, *&buf[8], v59.x, v59.y);
+    v20 = *buf;
+    v21 = *&buf[8];
     goto LABEL_119;
   }
 
   if (v11 == 115)
   {
 LABEL_64:
-    if ((((v17 - 67) >> 4) | ((v17 - 67) << 12)) < 4u)
+    if ((((v18 - 67) >> 4) | ((v18 - 67) << 12)) < 4u)
     {
-      v25 = v25 + v25 - x;
-      v24 = v24 + v24 - v54;
+      v26 = v26 + v26 - x;
+      v25 = v25 + v25 - v55;
     }
 
-    *buf = v56;
-    v58 = v56;
-    if ([v6 crl_scanCGFloat:buf] && objc_msgSend(v6, "crl_scanCGFloat:", &buf[8]) && objc_msgSend(v6, "crl_scanCGFloat:", &v58))
+    *buf = v57;
+    v59 = v57;
+    if ([v6 crl_scanCGFloat:buf] && objc_msgSend(v6, "crl_scanCGFloat:", &buf[8]) && objc_msgSend(v6, "crl_scanCGFloat:", &v59))
     {
-      v9 = [v6 crl_scanCGFloat:&v58.y] ^ 1;
+      v9 = [v6 crl_scanCGFloat:&v59.y] ^ 1;
     }
 
     else
@@ -1275,37 +1275,37 @@ LABEL_64:
       v9 = 1;
     }
 
-    *buf = v30 + *buf;
-    *&buf[8] = v29 + *&buf[8];
-    v58.x = v30 + v58.x;
-    v58.y = v29 + v58.y;
-    CGPathAddCurveToPoint(Mutable, 0, v25, v24, *buf, *&buf[8], v58.x, v58.y);
-    v40 = *buf;
-    v39 = *&buf[8];
+    *buf = v31 + *buf;
+    *&buf[8] = v30 + *&buf[8];
+    v59.x = v31 + v59.x;
+    v59.y = v30 + v59.y;
+    CGPathAddCurveToPoint(Mutable, 0, v26, v25, *buf, *&buf[8], v59.x, v59.y);
+    v41 = *buf;
+    v40 = *&buf[8];
     goto LABEL_98;
   }
 
 LABEL_123:
-  v45 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+  v46 = +[CRLAssertionHandler _atomicIncrementAssertCount];
   if (qword_101AD5A10 != -1)
   {
     sub_101390E30();
   }
 
-  v46 = off_1019EDA68;
+  v47 = off_1019EDA68;
   if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
   {
     *buf = 67110146;
-    *&buf[4] = v45;
+    *&buf[4] = v46;
     *&buf[8] = 2082;
     *&buf[10] = "+[CRLSVGToBezierPathConverter newPathFromSVGPathString:shouldClosePathAtEnd:]";
-    v66 = 2082;
-    v67 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m";
-    v68 = 1024;
-    v69 = 570;
-    v70 = 2112;
-    v71 = v10;
-    _os_log_error_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot process path of type %@", buf, 0x2Cu);
+    v67 = 2082;
+    v68 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m";
+    v69 = 1024;
+    v70 = 570;
+    v71 = 2112;
+    v72 = v10;
+    _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Cannot process path of type %@", buf, 0x2Cu);
   }
 
   if (qword_101AD5A10 != -1)
@@ -1313,21 +1313,21 @@ LABEL_123:
     sub_101390E58();
   }
 
-  v47 = off_1019EDA68;
+  v48 = off_1019EDA68;
   if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
   {
-    v50 = v47;
-    v51 = +[CRLAssertionHandler packedBacktraceString];
+    v51 = v48;
+    v52 = +[CRLAssertionHandler packedBacktraceString];
     *buf = 67109378;
-    *&buf[4] = v45;
+    *&buf[4] = v46;
     *&buf[8] = 2114;
-    *&buf[10] = v51;
-    _os_log_error_impl(&_mh_execute_header, v50, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+    *&buf[10] = v52;
+    _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
   }
 
-  v48 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLSVGToBezierPathConverter newPathFromSVGPathString:shouldClosePathAtEnd:]");
-  v49 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m"];
-  [CRLAssertionHandler handleFailureInFunction:v48 file:v49 lineNumber:570 isFatal:0 description:"Cannot process path of type %@", v10];
+  v49 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLSVGToBezierPathConverter newPathFromSVGPathString:shouldClosePathAtEnd:]");
+  v50 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m"];
+  [CRLAssertionHandler handleFailureInFunction:v49 file:v50 lineNumber:570 isFatal:0 description:"Cannot process path of type %@", v10];
 
   [v6 isAtEnd];
   v9 = 1;
@@ -1342,7 +1342,7 @@ LABEL_3:
 
   if (v9)
   {
-    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v13 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_101390E80();
@@ -1358,15 +1358,15 @@ LABEL_3:
       sub_101390F44();
     }
 
-    v13 = off_1019EDA68;
+    v14 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10138DF74(v13);
+      sub_10138DF74(v14, v13);
     }
 
-    v14 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLSVGToBezierPathConverter newPathFromSVGPathString:shouldClosePathAtEnd:]");
-    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m"];
-    [CRLAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:590 isFatal:0 description:"Bailing on operation %c", v11];
+    v15 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLSVGToBezierPathConverter newPathFromSVGPathString:shouldClosePathAtEnd:]");
+    v16 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m"];
+    [CRLAssertionHandler handleFailureInFunction:v15 file:v16 lineNumber:590 isFatal:0 description:"Bailing on operation %c", v11];
   }
 
   return Mutable;
@@ -1376,22 +1376,22 @@ LABEL_3:
 {
   stringCopy = string;
   Mutable = CGPathCreateMutable();
-  v12 = CGPointZero;
+  v13 = CGPointZero;
   v5 = [NSScanner scannerWithString:stringCopy];
-  v13 = *asc_101466690;
-  v14 = 2883717;
-  v6 = [NSString stringWithCharacters:&v13 length:6];
+  v14 = *asc_101466690;
+  v15 = 2883717;
+  v6 = [NSString stringWithCharacters:&v14 length:6];
   v7 = [NSCharacterSet characterSetWithCharactersInString:v6];
   [v5 setCharactersToBeSkipped:v7];
 
-  if ([v5 crl_scanCGFloat:&v12] && (objc_msgSend(v5, "crl_scanCGFloat:", &v12.y) & 1) != 0)
+  if ([v5 crl_scanCGFloat:&v13] && (objc_msgSend(v5, "crl_scanCGFloat:", &v13.y) & 1) != 0)
   {
-    CGPathMoveToPoint(Mutable, 0, v12.x, v12.y);
+    CGPathMoveToPoint(Mutable, 0, v13.x, v13.y);
     if (([v5 isAtEnd] & 1) == 0)
     {
-      while ([v5 crl_scanCGFloat:&v12] && (objc_msgSend(v5, "crl_scanCGFloat:", &v12.y) & 1) != 0)
+      while ([v5 crl_scanCGFloat:&v13] && (objc_msgSend(v5, "crl_scanCGFloat:", &v13.y) & 1) != 0)
       {
-        CGPathAddLineToPoint(Mutable, 0, v12.x, v12.y);
+        CGPathAddLineToPoint(Mutable, 0, v13.x, v13.y);
         if ([v5 isAtEnd])
         {
           goto LABEL_18;
@@ -1407,7 +1407,7 @@ LABEL_18:
 
   else
   {
-    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v8 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_101390F6C();
@@ -1423,15 +1423,15 @@ LABEL_18:
       sub_101391020();
     }
 
-    v8 = off_1019EDA68;
+    v9 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10138DF74(v8);
+      sub_10138DF74(v9, v8);
     }
 
-    v9 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLSVGToBezierPathConverter newPathFromSVGPolylineString:]");
-    v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m"];
-    [CRLAssertionHandler handleFailureInFunction:v9 file:v10 lineNumber:607 isFatal:0 description:"No value for initial polyline point!"];
+    v10 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLSVGToBezierPathConverter newPathFromSVGPolylineString:]");
+    v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLSVGToBezierPathConverter.m"];
+    [CRLAssertionHandler handleFailureInFunction:v10 file:v11 lineNumber:607 isFatal:0 description:"No value for initial polyline point!"];
   }
 
   return Mutable;

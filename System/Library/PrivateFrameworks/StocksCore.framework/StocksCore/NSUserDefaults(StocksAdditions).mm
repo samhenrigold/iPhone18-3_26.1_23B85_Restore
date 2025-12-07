@@ -6,14 +6,12 @@
 
 + (id)sc_userDefaultsWithSuiteName:()StocksAdditions backupDisabled:
 {
-  v3 = MEMORY[0x1E695E000];
-  v4 = a3;
-  v5 = [[v3 alloc] initWithSuiteName:v4];
-  v6 = *MEMORY[0x1E695E8B8];
-  v7 = *MEMORY[0x1E695E898];
+  v4 = MEMORY[0x1E695E000];
+  v5 = a3;
+  v6 = [[v4 alloc] initWithSuiteName:v5];
   _CFPreferencesSetBackupDisabled();
 
-  return v5;
+  return v6;
 }
 
 @end

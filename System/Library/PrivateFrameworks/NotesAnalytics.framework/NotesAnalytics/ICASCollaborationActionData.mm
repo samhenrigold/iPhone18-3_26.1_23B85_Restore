@@ -26,8 +26,8 @@
 
 - (id)toDict
 {
-  v16[3] = *MEMORY[0x277D85DE8];
-  v15[0] = @"collaborationActionType";
+  v15[3] = *MEMORY[0x277D85DE8];
+  v14[0] = @"collaborationActionType";
   collaborationActionType = [(ICASCollaborationActionData *)self collaborationActionType];
   if (collaborationActionType)
   {
@@ -40,8 +40,8 @@
   }
 
   v5 = collaborationActionType2;
-  v16[0] = collaborationActionType2;
-  v15[1] = @"collaborationInviteStep";
+  v15[0] = collaborationActionType2;
+  v14[1] = @"collaborationInviteStep";
   collaborationInviteStep = [(ICASCollaborationActionData *)self collaborationInviteStep];
   if (collaborationInviteStep)
   {
@@ -54,8 +54,8 @@
   }
 
   v8 = collaborationInviteStep2;
-  v16[1] = collaborationInviteStep2;
-  v15[2] = @"collaborationMethod";
+  v15[1] = collaborationInviteStep2;
+  v14[2] = @"collaborationMethod";
   collaborationMethod = [(ICASCollaborationActionData *)self collaborationMethod];
   if (collaborationMethod)
   {
@@ -68,10 +68,8 @@
   }
 
   v11 = collaborationMethod2;
-  v16[2] = collaborationMethod2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = collaborationMethod2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   return v12;
 }

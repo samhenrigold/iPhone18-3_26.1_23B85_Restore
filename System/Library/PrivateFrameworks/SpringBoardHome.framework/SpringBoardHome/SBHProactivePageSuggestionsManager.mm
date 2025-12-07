@@ -282,7 +282,9 @@ LABEL_13:
 
         v46 = SBHStackLayoutSizeToIconGridSizeClass([v72 stackLayoutSize]);
         [(SBIcon *)v36 setGridSizeClass:v46];
-        v47 = SBIconCoordinateMake([v72 coordinateColumn] + 1, objc_msgSend(v72, "coordinateRow") + 1);
+        [v72 coordinateColumn];
+        [v72 coordinateRow];
+        SBIconCoordinateMake();
         addEmptyList = v69;
         v49 = [v69 insertIcon:v36 atCoordinate:v47 gridCellInfoOptions:v48 mutationOptions:{0, 0}];
 
@@ -403,38 +405,38 @@ void __88__SBHProactivePageSuggestionsManager__addSuggestedPageWithPageType_focu
 - (void)_addLeafIcons:(id)icons toList:(id)list iconModel:(id)model rootFolder:(id)folder snapshot:(BOOL)snapshot
 {
   snapshotCopy = snapshot;
-  v79 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   iconsCopy = icons;
   listCopy = list;
   modelCopy = model;
   folderCopy = folder;
-  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
   obj = iconsCopy;
-  v14 = [iconsCopy countByEnumeratingWithState:&v69 objects:v78 count:16];
+  v14 = [iconsCopy countByEnumeratingWithState:&v70 objects:v79 count:16];
   if (v14)
   {
     v15 = v14;
-    v60 = *v70;
+    v61 = *v71;
     do
     {
       v16 = 0;
-      v61 = v15;
+      v62 = v15;
       do
       {
-        if (*v70 != v60)
+        if (*v71 != v61)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v69 + 1) + 8 * v16);
+        v17 = *(*(&v70 + 1) + 8 * v16);
         v18 = SBLogFocusModes();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v74 = v17;
+          v75 = v17;
           _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_DEFAULT, "Icon: %{public}@", buf, 0xCu);
         }
 
@@ -469,7 +471,7 @@ void __88__SBHProactivePageSuggestionsManager__addSuggestedPageWithPageType_focu
         }
 
         objc_opt_class();
-        v63 = v16;
+        v64 = v16;
         if (objc_opt_isKindOfClass())
         {
           v25 = objc_opt_class();
@@ -497,27 +499,27 @@ void __88__SBHProactivePageSuggestionsManager__addSuggestedPageWithPageType_focu
 
           name = [v28 name];
           v29 = [[SBFolder alloc] initWithDisplayName:name maxListCount:9 maxIconCountInLists:9];
-          v57 = v28;
+          v58 = v28;
           folderPages = [v28 folderPages];
-          v65 = 0u;
           v66 = 0u;
           v67 = 0u;
           v68 = 0u;
-          v31 = [folderPages countByEnumeratingWithState:&v65 objects:v77 count:16];
+          v69 = 0u;
+          v31 = [folderPages countByEnumeratingWithState:&v66 objects:v78 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v66;
+            v33 = *v67;
             do
             {
               for (i = 0; i != v32; ++i)
               {
-                if (*v66 != v33)
+                if (*v67 != v33)
                 {
                   objc_enumerationMutation(folderPages);
                 }
 
-                v35 = *(*(&v65 + 1) + 8 * i);
+                v35 = *(*(&v66 + 1) + 8 * i);
                 v36 = SBLogFocusModes();
                 if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
                 {
@@ -530,7 +532,7 @@ void __88__SBHProactivePageSuggestionsManager__addSuggestedPageWithPageType_focu
                 [(SBHProactivePageSuggestionsManager *)self _addLeafIcons:contents toList:firstList iconModel:modelCopy rootFolder:folderCopy snapshot:snapshotCopy];
               }
 
-              v32 = [folderPages countByEnumeratingWithState:&v65 objects:v77 count:16];
+              v32 = [folderPages countByEnumeratingWithState:&v66 objects:v78 count:16];
             }
 
             while (v32);
@@ -539,8 +541,8 @@ void __88__SBHProactivePageSuggestionsManager__addSuggestedPageWithPageType_focu
           v39 = [[SBFolderIcon alloc] initWithFolder:v29];
           v40 = [listCopy addIcon:v39];
 
-          v15 = v61;
-          v16 = v63;
+          v15 = v62;
+          v16 = v64;
           v17 = log;
         }
 
@@ -563,36 +565,40 @@ void __88__SBHProactivePageSuggestionsManager__addSuggestedPageWithPageType_focu
 
           v49 = [MEMORY[0x1E69DCAB8] imageWithCGImage:{-[NSObject icon](v17, "icon")}];
           [v44 setIconImage:v49 isPrecomposed:0];
-          if (!snapshotCopy && ([v44 createOnDisk] & 1) == 0)
+          if (!snapshotCopy)
           {
-            v50 = SBLogIcon();
-            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+            createOnDisk = [v44 createOnDisk];
+            if ((createOnDisk & 1) == 0)
             {
-              v51 = objc_opt_class();
-              NSStringFromClass(v51);
-              v52 = loga = v50;
-              *buf = 138412546;
-              v74 = v52;
-              v75 = 2112;
-              v76 = v44;
-              _os_log_impl(&dword_1BEB18000, loga, OS_LOG_TYPE_DEFAULT, "[%@] Failed to save web clip %@", buf, 0x16u);
+              v51 = SBLogIcon(createOnDisk);
+              if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+              {
+                v52 = objc_opt_class();
+                NSStringFromClass(v52);
+                v53 = loga = v51;
+                *buf = 138412546;
+                v75 = v53;
+                v76 = 2112;
+                v77 = v44;
+                _os_log_impl(&dword_1BEB18000, loga, OS_LOG_TYPE_DEFAULT, "[%@] Failed to save web clip %@", buf, 0x16u);
 
-              v50 = loga;
+                v51 = loga;
+              }
             }
           }
 
-          v53 = [modelCopy addBookmarkIconForWebClip:v44];
-          v54 = [listCopy addIcon:v53];
+          v54 = [modelCopy addBookmarkIconForWebClip:v44];
+          v55 = [listCopy addIcon:v54];
 
-          v16 = v63;
-          v15 = v61;
+          v16 = v64;
+          v15 = v62;
         }
 
         ++v16;
       }
 
       while (v16 != v15);
-      v15 = [obj countByEnumeratingWithState:&v69 objects:v78 count:16];
+      v15 = [obj countByEnumeratingWithState:&v70 objects:v79 count:16];
     }
 
     while (v15);

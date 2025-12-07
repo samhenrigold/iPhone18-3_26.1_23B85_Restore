@@ -4,9 +4,12 @@
 - (id)encodedDictionary;
 - (void)_encodeObject:(id)object forKey:(id)key;
 - (void)_encodeProtocolObject:(id)object forKey:(id)key;
+- (void)encodeBool:(BOOL)bool forKey:(id)key;
 - (void)encodeDouble:(double)double forKey:(id)key;
 - (void)encodeFloat:(float)float forKey:(id)key;
+- (void)encodeInt32:(int)int32 forKey:(id)key;
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key;
+- (void)encodeInt:(int)int forKey:(id)key;
 - (void)encodeInteger:(int64_t)integer forKey:(id)key;
 - (void)encodeObject:(id)object forKey:(id)key;
 @end
@@ -39,11 +42,38 @@
   [lastObject setObject:objectCopy forKeyedSubscript:keyCopy];
 }
 
+- (void)encodeBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:boolCopy];
+  [(MTStorageWriter *)self _encodeObject:v8 forKey:keyCopy];
+}
+
 - (void)encodeInteger:(int64_t)integer forKey:(id)key
 {
   v6 = MEMORY[0x1E696AD98];
   keyCopy = key;
   v8 = [v6 numberWithInteger:integer];
+  [(MTStorageWriter *)self _encodeObject:v8 forKey:keyCopy];
+}
+
+- (void)encodeInt:(int)int forKey:(id)key
+{
+  v4 = *&int;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
+  [(MTStorageWriter *)self _encodeObject:v8 forKey:keyCopy];
+}
+
+- (void)encodeInt32:(int)int32 forKey:(id)key
+{
+  v4 = *&int32;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithInt:v4];
   [(MTStorageWriter *)self _encodeObject:v8 forKey:keyCopy];
 }
 
@@ -74,35 +104,35 @@
 
 - (void)encodeObject:(id)object forKey:(id)key
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v35 = objectCopy;
+    v34 = objectCopy;
     v8 = objectCopy;
     array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v41;
+      v13 = *v40;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v41 != v13)
+          if (*v40 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v40 + 1) + 8 * i);
+          v15 = *(*(&v39 + 1) + 8 * i);
           _serializingProtocol = [(MTStorageWriter *)self _serializingProtocol];
           v17 = [v15 conformsToProtocol:_serializingProtocol];
 
@@ -118,7 +148,7 @@
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v12);
@@ -127,40 +157,40 @@
     selfCopy2 = self;
     v20 = array;
 LABEL_25:
-    [(MTStorageWriter *)selfCopy2 _encodeObject:v20 forKey:keyCopy, v34];
+    [(MTStorageWriter *)selfCopy2 _encodeObject:v20 forKey:keyCopy, v33];
 
-    objectCopy = v35;
+    objectCopy = v34;
     goto LABEL_26;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = keyCopy;
-    v35 = objectCopy;
+    v33 = keyCopy;
+    v34 = objectCopy;
     v21 = objectCopy;
     array = [MEMORY[0x1E695DF90] dictionary];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v10 = v21;
-    v22 = [v10 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v22 = [v10 countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v37;
+      v24 = *v36;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v37 != v24)
+          if (*v36 != v24)
           {
             objc_enumerationMutation(v10);
           }
 
-          v26 = *(*(&v36 + 1) + 8 * j);
-          v27 = [v10 objectForKeyedSubscript:{v26, v34}];
+          v26 = *(*(&v35 + 1) + 8 * j);
+          v27 = [v10 objectForKeyedSubscript:{v26, v33}];
           _serializingProtocol2 = [(MTStorageWriter *)self _serializingProtocol];
           v29 = [v27 conformsToProtocol:_serializingProtocol2];
 
@@ -176,7 +206,7 @@ LABEL_25:
           }
         }
 
-        v23 = [v10 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v23 = [v10 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v23);
@@ -184,14 +214,14 @@ LABEL_25:
 
     selfCopy2 = self;
     v20 = array;
-    keyCopy = v34;
+    keyCopy = v33;
     goto LABEL_25;
   }
 
   _serializingProtocol3 = [(MTStorageWriter *)self _serializingProtocol];
-  v33 = [objectCopy conformsToProtocol:_serializingProtocol3];
+  v32 = [objectCopy conformsToProtocol:_serializingProtocol3];
 
-  if (v33)
+  if (v32)
   {
     [(MTStorageWriter *)self _encodeProtocolObject:objectCopy forKey:keyCopy];
   }
@@ -202,8 +232,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_encodeProtocolObject:(id)object forKey:(id)key

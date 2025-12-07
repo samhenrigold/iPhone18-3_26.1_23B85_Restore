@@ -1,4 +1,5 @@
 @interface MTL4ToolsComputeCommandEncoder
+- (BOOL)encodeEndDoWhile:(unint64_t)while comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (BOOL)encodeEndIf;
 - (BOOL)encodeEndWhile;
 - (BOOL)writeGenericBVHStructureOfAccelerationStructure:(id)structure into:(id)into;
@@ -27,12 +28,16 @@
 - (void)dispatchThreadgroupsWithIndirectBuffer:(unint64_t)buffer threadsPerThreadgroup:(id *)threadgroup;
 - (void)dispatchThreads:(id *)threads threadsPerThreadgroup:(id *)threadgroup;
 - (void)dispatchThreadsWithIndirectBuffer:(unint64_t)buffer;
+- (void)enableNullBufferBinds:(BOOL)binds;
 - (void)encodeStartDoWhile;
 - (void)encodeStartElse;
+- (void)encodeStartIf:(unint64_t)if comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
+- (void)encodeStartWhile:(unint64_t)while comparison:(unint64_t)comparison referenceValue:(unsigned int)value;
 - (void)endVirtualSubstream;
 - (void)executeCommandsInBuffer:(id)buffer indirectBuffer:(unint64_t)indirectBuffer;
 - (void)executeCommandsInBuffer:(id)buffer withRange:(_NSRange)range;
 - (void)fillBuffer:(id)buffer range:(_NSRange)range pattern4:(unsigned int)pattern4;
+- (void)fillBuffer:(id)buffer range:(_NSRange)range value:(unsigned __int8)value;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region bytes:(const void *)bytes length:(unint64_t)length;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color pixelFormat:(unint64_t)format;
@@ -53,9 +58,13 @@
 - (void)setArgumentTable:(id)table;
 - (void)setComputePipelineState:(id)state;
 - (void)setImageblockWidth:(unint64_t)width height:(unint64_t)height;
+- (void)setSubstream:(unsigned int)substream;
 - (void)setThreadgroupDistributionMode:(int64_t)mode;
+- (void)setThreadgroupDistributionModeWithClusterGroupIndex:(unsigned int)index;
 - (void)setThreadgroupMemoryLength:(unint64_t)length atIndex:(unint64_t)index;
 - (void)setToolsDispatchBufferSPI:(unint64_t)i atIndex:(unint64_t)index;
+- (void)signalProgress:(unsigned int)progress;
+- (void)waitForProgress:(unsigned int)progress;
 - (void)waitForVirtualSubstream:(unint64_t)substream;
 - (void)writeAccelerationStructureSerializationData:(id)data toBuffer:(MTL4BufferRange)buffer;
 - (void)writeAccelerationStructureTraversalDepth:(id)depth toBuffer:(MTL4BufferRange)buffer;
@@ -236,6 +245,17 @@
   [baseObject generateMipmapsForTexture:baseObject2];
 }
 
+- (void)fillBuffer:(id)buffer range:(_NSRange)range value:(unsigned __int8)value
+{
+  valueCopy = value;
+  length = range.length;
+  location = range.location;
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject fillBuffer:baseObject2 range:location value:{length, valueCopy}];
+}
+
 - (void)optimizeContentsForGPUAccess:(id)access
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -375,6 +395,38 @@
   [baseObject setToolsDispatchBufferSPI:i atIndex:index];
 }
 
+- (void)enableNullBufferBinds:(BOOL)binds
+{
+  bindsCopy = binds;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject enableNullBufferBinds:bindsCopy];
+}
+
+- (void)setSubstream:(unsigned int)substream
+{
+  v3 = *&substream;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setSubstream:v3];
+}
+
+- (void)waitForProgress:(unsigned int)progress
+{
+  v3 = *&progress;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject waitForProgress:v3];
+}
+
+- (void)signalProgress:(unsigned int)progress
+{
+  v3 = *&progress;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject signalProgress:v3];
+}
+
 - (void)beginVirtualSubstream
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -417,11 +469,35 @@
   [baseObject encodeStartDoWhile];
 }
 
+- (BOOL)encodeEndDoWhile:(unint64_t)while comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v5 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject encodeEndDoWhile:while comparison:comparison referenceValue:v5];
+}
+
+- (void)encodeStartWhile:(unint64_t)while comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v5 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject encodeStartWhile:while comparison:comparison referenceValue:v5];
+}
+
 - (BOOL)encodeEndWhile
 {
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject encodeEndWhile];
+}
+
+- (void)encodeStartIf:(unint64_t)if comparison:(unint64_t)comparison referenceValue:(unsigned int)value
+{
+  v5 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject encodeStartIf:if comparison:comparison referenceValue:v5];
 }
 
 - (void)encodeStartElse
@@ -443,6 +519,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setThreadgroupDistributionMode:mode];
+}
+
+- (void)setThreadgroupDistributionModeWithClusterGroupIndex:(unsigned int)index
+{
+  v3 = *&index;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setThreadgroupDistributionModeWithClusterGroupIndex:v3];
 }
 
 - (void)invalidateCompressedTexture:(id)texture

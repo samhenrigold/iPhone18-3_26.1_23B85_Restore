@@ -27,7 +27,7 @@
   self->_packageURL = v5;
 
   std::string::basic_string[abi:ne200100]<0>(__p, [lCopy fileSystemRepresentation]);
-  MPL::ModelPackage::ModelPackage();
+  MPL::ModelPackage::ModelPackage(v9, __p, 0, 1);
 }
 
 - (MIOPackagedFileModel)initWithModel:(id)model
@@ -47,7 +47,7 @@
 
 - (BOOL)writeToURL:(id)l error:(id *)error
 {
-  __p[29] = *MEMORY[0x1E69E9840];
+  v27[13] = *MEMORY[0x1E69E9840];
   lCopy = l;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   packageURL = [(MIOPackagedFileModel *)self packageURL];
@@ -55,12 +55,12 @@
 
   path2 = [lCopy path];
   LOBYTE(packageURL) = [defaultManager copyItemAtPath:path toPath:? error:?];
-  v20 = 0;
+  v19 = 0;
   if (packageURL)
   {
     v6 = path2;
-    std::string::basic_string[abi:ne200100]<0>(__p, [path2 UTF8String]);
-    MPL::ModelPackage::ModelPackage();
+    std::string::basic_string[abi:ne200100]<0>(&__p, [path2 UTF8String]);
+    MPL::ModelPackage::ModelPackage(v27, &__p, 1, 0);
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -68,24 +68,23 @@
     v7 = path;
     uTF8String = [path UTF8String];
     v9 = path2;
-    -[MIOPackagedFileModel writeToURL:error:].cold.1(uTF8String, [path2 UTF8String], __p);
+    -[MIOPackagedFileModel writeToURL:error:].cold.1(uTF8String, [path2 UTF8String], &__p);
   }
 
   if (error)
   {
     v10 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
+    v24 = *MEMORY[0x1E696A578];
     v11 = MEMORY[0x1E696AEC0];
     v12 = path;
     uTF8String2 = [path UTF8String];
     v14 = path2;
-    v18 = [v11 stringWithFormat:@"Failed to copy model from %s to %s", uTF8String2, objc_msgSend(path2, "UTF8String")];
-    v26 = v18;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v17 = [v11 stringWithFormat:@"Failed to copy model from %s to %s", uTF8String2, objc_msgSend(path2, "UTF8String")];
+    v25 = v17;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     *error = [v10 errorWithDomain:@"com.apple.mlassetio" code:2 userInfo:?];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -218,26 +217,22 @@
   return v7;
 }
 
-- (void)initWithContentsOfURL:(uint64_t)a1 error:(uint64_t *)a2 .cold.1(uint64_t a1, uint64_t *a2)
+- (void)initWithContentsOfURL:error:.cold.1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(a1, a2);
-  (*(v3 + 16))(v4);
+  OUTLINED_FUNCTION_1();
+  (*(v0 + 16))(v1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-- (void)initWithContentsOfURL:(uint64_t)a1 error:(uint64_t *)a2 .cold.2(uint64_t a1, uint64_t *a2)
+- (void)initWithContentsOfURL:error:.cold.2()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(a1, a2);
-  (*(v3 + 16))(v4);
+  OUTLINED_FUNCTION_1();
+  (*(v0 + 16))(v1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)writeToURL:(uint8_t *)buf error:.cold.1(uint64_t a1, uint64_t a2, uint8_t *buf)
@@ -249,53 +244,43 @@
   _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to copy model from %s to %s", buf, 0x16u);
 }
 
-- (void)writeToURL:(uint64_t)a1 error:(uint64_t *)a2 .cold.2(uint64_t a1, uint64_t *a2)
+- (void)writeToURL:error:.cold.2()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1(a1, a2);
-  (*(v3 + 16))(v4);
+  OUTLINED_FUNCTION_1();
+  (*(v0 + 16))(v1);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)writeToURL:(uint64_t)a1 error:.cold.3(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   (*(*a1 + 16))(a1);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeToURL:error:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeToURL:(uint64_t)a1 error:.cold.5(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   (*(*a1 + 16))(a1);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeToURL:error:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

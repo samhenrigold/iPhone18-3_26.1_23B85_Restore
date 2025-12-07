@@ -12,8 +12,8 @@
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
-- (uint64_t)_appendProemDescriptionSansSelfToFormatter:(uint64_t)result;
 - (void)_appendDebugBodyDescriptionToFormatter:(uint64_t)formatter;
+- (void)_appendProemDescriptionSansSelfToFormatter:(void *)result;
 - (void)_updateWithHIDEvent:(uint64_t)event;
 - (void)appendDescriptionToFormatter:(id)formatter;
 @end
@@ -65,7 +65,7 @@
     if (_UIEventHIDIsDynamicButtonEvent(a2))
     {
       currentHandler = BKSHIDEventGetBaseAttributes();
-      v4 = _UIEventHIDUIWindowForHIDEvent();
+      v4 = _UIEventHIDUIWindowForHIDEvent(a2);
       v5 = *(event + 16);
       *(event + 16) = v4;
 
@@ -145,23 +145,23 @@
   return v5;
 }
 
-- (uint64_t)_appendProemDescriptionSansSelfToFormatter:(uint64_t)result
+- (void)_appendProemDescriptionSansSelfToFormatter:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = _NSStringFromUIPhysicalButton(*(result + 24));
+    v4 = _NSStringFromUIPhysicalButton(result[3]);
     [a2 appendString:v4 withName:@"button"];
 
-    v5 = *(v3 + 32);
+    v5 = v3[4];
     if (v5)
     {
       v6 = _NSStringFromUIPhysicalButtonSource(v5);
       [a2 appendString:v6 withName:@"source"];
     }
 
-    v7 = [a2 appendUnsignedInteger:*(v3 + 64) withName:@"stage"];
-    v8 = *(v3 + 80);
+    v7 = [a2 appendUnsignedInteger:v3[8] withName:@"stage"];
+    v8 = v3[10];
     if (v8 > 4)
     {
       v9 = &stru_1EFB14550;

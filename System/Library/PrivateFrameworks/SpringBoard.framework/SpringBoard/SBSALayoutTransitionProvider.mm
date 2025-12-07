@@ -57,7 +57,7 @@
 
 - (id)preferencesFromContext:(id)context
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = objc_opt_class();
   v7 = contextCopy;
@@ -88,15 +88,15 @@
   if (!v9)
   {
 LABEL_74:
-    v68 = 0;
+    v76 = 0;
     goto LABEL_75;
   }
 
   targetLayoutProvider = self->_targetLayoutProvider;
-  v101 = a2;
+  v110 = a2;
   if (!targetLayoutProvider)
   {
-    v14 = SBLogSystemAperturePreferencesStackElements();
+    v14 = SBLogSystemAperturePreferencesStackElements(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [SBSALayoutTransitionProvider preferencesFromContext:v9];
@@ -133,8 +133,8 @@ LABEL_74:
     v20 = self->_targetLayoutProvider;
     self->_targetLayoutProvider = v19;
 
-    v21 = SBLogSystemAperturePreferencesStackElements();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = SBLogSystemAperturePreferencesStackElements(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [SBSALayoutTransitionProvider preferencesFromContext:];
     }
@@ -142,80 +142,81 @@ LABEL_74:
     _elementLayoutModeSupportingChildProvider = [(SBSALayoutTransitionProvider *)self _elementLayoutModeSupportingChildProvider];
     previousLayoutProvider = self->_previousLayoutProvider;
     self->_previousLayoutProvider = _elementLayoutModeSupportingChildProvider;
-    v24 = _elementLayoutModeSupportingChildProvider;
+    v25 = _elementLayoutModeSupportingChildProvider;
 
     preferences = [v9 preferences];
     self->_awaitingCollision = [preferences isCollisionImminent];
 
-    v26 = SBLogSystemAperturePreferencesStackElements();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v28 = SBLogSystemAperturePreferencesStackElements(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       [SBSALayoutTransitionProvider preferencesFromContext:];
     }
 
-    [(SBSAElementLayoutModeSupporting *)v24 removeFromParentProvider];
+    [(SBSAElementLayoutModeSupporting *)v25 removeFromParentProvider];
     preferences2 = [v9 preferences];
     lastChangingElementLayoutTransition = [preferences2 lastChangingElementLayoutTransition];
-    v29 = [SBSAElementContentProvider disappearanceTransitionElementContentProviderWithParentProvider:self staticLayoutTransition:lastChangingElementLayoutTransition];
+    v31 = [SBSAElementContentProvider disappearanceTransitionElementContentProviderWithParentProvider:self staticLayoutTransition:lastChangingElementLayoutTransition];
 
     targetLayoutProvider = self->_targetLayoutProvider;
-    v11 = v29;
+    v11 = v31;
     v12 = &OBJC_IVAR___SBAlwaysOnTelemetryEmitter__mq_deferredLoggingTimer;
   }
 
   parentProvider = [(SBSAElementLayoutModeSupporting *)targetLayoutProvider parentProvider];
-  v31 = parentProvider != 0;
+  v33 = parentProvider != 0;
 
   if (parentProvider)
   {
-    if (![v9 containsAnyOfSignals:2])
+    v35 = [v9 containsAnyOfSignals:2];
+    if (!v35)
     {
-      v31 = 0;
+      v33 = 0;
       goto LABEL_52;
     }
 
-    _elementLayoutModeSupportingChildProvider2 = SBLogSystemAperturePreferencesStackElements();
+    _elementLayoutModeSupportingChildProvider2 = SBLogSystemAperturePreferencesStackElements(v35);
     if (os_log_type_enabled(_elementLayoutModeSupportingChildProvider2, OS_LOG_TYPE_DEBUG))
     {
       [SBSALayoutTransitionProvider preferencesFromContext:];
     }
 
-    v33 = v11;
+    v37 = v11;
     goto LABEL_50;
   }
 
-  v34 = SBLogSystemAperturePreferencesStackElements();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+  v38 = SBLogSystemAperturePreferencesStackElements(v34);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
   {
     [SBSALayoutTransitionProvider preferencesFromContext:];
   }
 
-  v99 = parentProvider != 0;
-  v35 = self->_awaitingCollision && ([v9 signals] & 1) == 0;
-  self->_awaitingCollision = v35;
+  v108 = parentProvider != 0;
+  v39 = self->_awaitingCollision && ([v9 signals] & 1) == 0;
+  self->_awaitingCollision = v39;
   preferences3 = [v9 preferences];
   elementLayoutTransition = [preferences3 elementLayoutTransition];
   isSingleElementExpansion = [elementLayoutTransition isSingleElementExpansion];
 
   if (!self->_awaitingCollision && ((self->_initialized | isSingleElementExpansion) & 1) != 0)
   {
-    v39 = SBLogSystemAperturePreferencesStackElements();
-    v97 = isSingleElementExpansion;
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v44 = SBLogSystemAperturePreferencesStackElements(v43);
+    v106 = isSingleElementExpansion;
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
       queryIteration = [v9 queryIteration];
-      v89 = NSStringFromBOOL();
-      v90 = NSStringFromBOOL();
-      v91 = NSStringFromBOOL();
+      v98 = NSStringFromBOOL();
+      v99 = NSStringFromBOOL();
+      v100 = NSStringFromBOOL();
       *buf = 134349826;
-      v105 = queryIteration;
-      v106 = 2112;
-      v107 = v89;
-      v108 = 2112;
-      v109 = v90;
-      v110 = 2112;
-      v111 = v91;
-      _os_log_debug_impl(&dword_21ED4E000, v39, OS_LOG_TYPE_DEBUG, "[%{public}lu] awaitingCollision: %@; initialized: %@; isSingleElementExpansion: %@", buf, 0x2Au);
+      v114 = queryIteration;
+      v115 = 2112;
+      v116 = v98;
+      v117 = 2112;
+      v118 = v99;
+      v119 = 2112;
+      v120 = v100;
+      _os_log_debug_impl(&dword_21ED4E000, v44, OS_LOG_TYPE_DEBUG, "[%{public}lu] awaitingCollision: %@; initialized: %@; isSingleElementExpansion: %@", buf, 0x2Au);
     }
 
     [(SBSABasePreferencesProvider *)v11 removeFromParentProvider];
@@ -238,29 +239,30 @@ LABEL_74:
       }
     }
 
-    v95 = childMitosisProvider;
-    [v95 setChildProvider:self->_targetLayoutProvider];
-    v42 = self->_targetLayoutProvider;
+    v104 = childMitosisProvider;
+    [v104 setChildProvider:self->_targetLayoutProvider];
+    v47 = self->_targetLayoutProvider;
     preferences4 = [v9 preferences];
     lastChangingElementLayoutTransition2 = [preferences4 lastChangingElementLayoutTransition];
-    v33 = [SBSAElementContentProvider appearanceTransitionElementContentProviderWithParentProvider:v42 staticLayoutTransition:lastChangingElementLayoutTransition2];
+    v37 = [SBSAElementContentProvider appearanceTransitionElementContentProviderWithParentProvider:v47 staticLayoutTransition:lastChangingElementLayoutTransition2];
 
-    v31 = v99;
-    if (v97)
+    v33 = v108;
+    if (v106)
     {
-      if ([(SBSAElementLayoutModeSupporting *)self->_targetLayoutProvider supportedElementLayoutMode]== 3)
+      supportedElementLayoutMode = [(SBSAElementLayoutModeSupporting *)self->_targetLayoutProvider supportedElementLayoutMode];
+      if (supportedElementLayoutMode == 3)
       {
         elementInteractionResults = [v9 elementInteractionResults];
-        v46 = [elementInteractionResults bs_containsObjectPassingTest:&__block_literal_global_13];
+        v52 = [elementInteractionResults bs_containsObjectPassingTest:&__block_literal_global_13];
 
-        if (v46)
+        if (v52)
         {
-          v47 = [(SBSABasePreferencesProvider *)[SBSAPopTransitionProvider alloc] initWithParentProvider:self];
+          v53 = [(SBSABasePreferencesProvider *)[SBSAPopTransitionProvider alloc] initWithParentProvider:self];
           childPopProvider = self->_childPopProvider;
-          self->_childPopProvider = v47;
+          self->_childPopProvider = v53;
 
-          v49 = SBLogSystemAperturePreferencesStackElements();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+          v56 = SBLogSystemAperturePreferencesStackElements(v55);
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
           {
             [SBSALayoutTransitionProvider preferencesFromContext:];
           }
@@ -268,31 +270,31 @@ LABEL_74:
       }
     }
 
-    v50 = SBLogSystemAperturePreferencesStackElements();
+    v57 = SBLogSystemAperturePreferencesStackElements(supportedElementLayoutMode);
     v12 = &OBJC_IVAR___SBAlwaysOnTelemetryEmitter__mq_deferredLoggingTimer;
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
     {
       queryIteration2 = [v9 queryIteration];
-      v93 = self->_targetLayoutProvider;
+      v102 = self->_targetLayoutProvider;
       *buf = 134350082;
-      v105 = queryIteration2;
-      v106 = 2112;
-      v107 = v33;
-      v108 = 2112;
-      v109 = _elementLayoutModeSupportingChildProvider2;
-      v110 = 2112;
-      v111 = v93;
-      v112 = 2112;
-      v113 = v33;
-      _os_log_debug_impl(&dword_21ED4E000, v50, OS_LOG_TYPE_DEBUG, "[%{public}lu] Removed content provider '%@', removed layout provider '%@', inserted layout provider '%@', added content provider '%@'", buf, 0x34u);
+      v114 = queryIteration2;
+      v115 = 2112;
+      v116 = v37;
+      v117 = 2112;
+      v118 = _elementLayoutModeSupportingChildProvider2;
+      v119 = 2112;
+      v120 = v102;
+      v121 = 2112;
+      v122 = v37;
+      _os_log_debug_impl(&dword_21ED4E000, v57, OS_LOG_TYPE_DEBUG, "[%{public}lu] Removed content provider '%@', removed layout provider '%@', inserted layout provider '%@', added content provider '%@'", buf, 0x34u);
     }
 
 LABEL_50:
-    v11 = v33;
+    v11 = v37;
     goto LABEL_52;
   }
 
-  v31 = 0;
+  v33 = 0;
 LABEL_52:
   if (self->_transitionKind)
   {
@@ -315,15 +317,15 @@ LABEL_52:
 
 LABEL_62:
         self->_transitionKind = 2;
-        v62 = [SBSAMitosisTransitionProvider alloc];
-        v63 = [(SBSALayoutTransitionProvider *)self _adjunctElementIdentificationInContext:v9];
-        v64 = [(SBSASequencedBehaviorProvider *)v62 initWithParticipantIdentifier:v63];
-        v65 = self->_childMitosisProvider;
-        self->_childMitosisProvider = v64;
+        v69 = [SBSAMitosisTransitionProvider alloc];
+        v70 = [(SBSALayoutTransitionProvider *)self _adjunctElementIdentificationInContext:v9];
+        v71 = [(SBSASequencedBehaviorProvider *)v69 initWithParticipantIdentifier:v70];
+        v72 = self->_childMitosisProvider;
+        self->_childMitosisProvider = v71;
 
         [(SBSABasePreferencesProvider *)self setChildProvider:self->_childMitosisProvider];
 LABEL_63:
-        if (!v31)
+        if (!v33)
         {
           goto LABEL_68;
         }
@@ -335,18 +337,18 @@ LABEL_63:
       elementLayoutTransition3 = [preferences7 elementLayoutTransition];
       targetElementContexts2 = [elementLayoutTransition3 targetElementContexts];
       [targetElementContexts2 firstObject];
-      v61 = v100 = preferences6;
-      v96 = [v61 interfaceOrientation] - 3;
+      v68 = v109 = preferences6;
+      v105 = [v68 interfaceOrientation] - 3;
 
       v12 = &OBJC_IVAR___SBAlwaysOnTelemetryEmitter__mq_deferredLoggingTimer;
-      if (v96 < 2)
+      if (v105 < 2)
       {
         goto LABEL_62;
       }
     }
 
     self->_transitionKind = 1;
-    if (!v31)
+    if (!v33)
     {
       goto LABEL_68;
     }
@@ -354,34 +356,34 @@ LABEL_63:
     goto LABEL_64;
   }
 
-  v54 = 3;
+  v61 = 3;
   if (targetElementLayoutMode == 1)
   {
-    v54 = 4;
+    v61 = 4;
   }
 
-  self->_transitionKind = v54;
-  v55 = [(SBSABasePreferencesProvider *)[SBSARecombinationTransitionProvider alloc] initWithParentProvider:self];
-  v56 = self->_childRecombinationProvider;
-  self->_childRecombinationProvider = v55;
+  self->_transitionKind = v61;
+  v62 = [(SBSABasePreferencesProvider *)[SBSARecombinationTransitionProvider alloc] initWithParentProvider:self];
+  v63 = self->_childRecombinationProvider;
+  self->_childRecombinationProvider = v62;
 
-  if (!v31)
+  if (!v33)
   {
 LABEL_68:
     if (self->_transitionKind == 4 && !self->_awaitingCollision)
     {
-      v69 = self->_childRecombinationProvider;
-      if (v69)
+      v77 = self->_childRecombinationProvider;
+      if (v77)
       {
-        [(SBSABasePreferencesProvider *)v69 removeFromParentProvider];
-        v70 = self->_childRecombinationProvider;
+        [(SBSABasePreferencesProvider *)v77 removeFromParentProvider];
+        v78 = self->_childRecombinationProvider;
         self->_childRecombinationProvider = 0;
 
-        v71 = [SBSAMitosisTransitionProvider alloc];
-        v72 = [(SBSALayoutTransitionProvider *)self _adjunctElementIdentificationInContext:v9];
-        v73 = [(SBSASequencedBehaviorProvider *)v71 initWithParticipantIdentifier:v72];
-        v74 = self->_childMitosisProvider;
-        self->_childMitosisProvider = v73;
+        v79 = [SBSAMitosisTransitionProvider alloc];
+        v80 = [(SBSALayoutTransitionProvider *)self _adjunctElementIdentificationInContext:v9];
+        v81 = [(SBSASequencedBehaviorProvider *)v79 initWithParticipantIdentifier:v80];
+        v82 = self->_childMitosisProvider;
+        self->_childMitosisProvider = v81;
 
         [(SBSABasePreferencesProvider *)self setChildProvider:self->_childMitosisProvider];
       }
@@ -393,17 +395,17 @@ LABEL_68:
     if (highlightTransitions)
     {
       preferences8 = [v9 preferences];
-      v103[0] = MEMORY[0x277D85DD0];
-      v103[1] = 3221225472;
-      v103[2] = __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_17;
-      v103[3] = &unk_2783A93E8;
-      v103[4] = self;
-      v103[5] = v101;
-      v78 = [preferences8 copyWithBlock:v103];
-      v79 = [v9 copyByUpdatingPreferences:v78];
+      v112[0] = MEMORY[0x277D85DD0];
+      v112[1] = 3221225472;
+      v112[2] = __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_17;
+      v112[3] = &unk_2783A93E8;
+      v112[4] = self;
+      v112[5] = v110;
+      v86 = [preferences8 copyWithBlock:v112];
+      v87 = [v9 copyByUpdatingPreferences:v86];
 
-      v68 = 0;
-      v9 = v79;
+      v76 = 0;
+      v9 = v87;
       goto LABEL_75;
     }
 
@@ -412,55 +414,55 @@ LABEL_68:
 
 LABEL_64:
   [(SBSALayoutTransitionProvider *)self _removeChildMitosisAndRecombinationProviders];
-  v66 = v11;
-  [(SBSABasePreferencesProvider *)v66 removeFromParentProvider];
+  v73 = v11;
+  [(SBSABasePreferencesProvider *)v73 removeFromParentProvider];
   v11 = [[SBSAElementContentProvider alloc] initWithParentProvider:self->_targetLayoutProvider];
 
-  v67 = SBLogSystemAperturePreferencesStackElements();
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+  v75 = SBLogSystemAperturePreferencesStackElements(v74);
+  if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
   {
     queryIteration3 = [v9 queryIteration];
     *buf = 134349570;
-    v105 = queryIteration3;
-    v106 = 2112;
-    v107 = v66;
-    v108 = 2112;
-    v109 = v11;
-    _os_log_debug_impl(&dword_21ED4E000, v67, OS_LOG_TYPE_DEBUG, "[%{public}lu] Transition complete – removed appearance content provider '%@', added steady state content provider '%@'", buf, 0x20u);
+    v114 = queryIteration3;
+    v115 = 2112;
+    v116 = v73;
+    v117 = 2112;
+    v118 = v11;
+    _os_log_debug_impl(&dword_21ED4E000, v75, OS_LOG_TYPE_DEBUG, "[%{public}lu] Transition complete – removed appearance content provider '%@', added steady state content provider '%@'", buf, 0x20u);
   }
 
-  v68 = 1;
+  v76 = 1;
 LABEL_75:
   *(&self->super.super.isa + v12[963]) = 1;
-  v102.receiver = self;
-  v102.super_class = SBSALayoutTransitionProvider;
-  v80 = [(SBSABasePreferencesProvider *)&v102 preferencesFromContext:v9];
-  v81 = objc_opt_class();
-  v82 = v80;
-  if (v81)
+  v111.receiver = self;
+  v111.super_class = SBSALayoutTransitionProvider;
+  v88 = [(SBSABasePreferencesProvider *)&v111 preferencesFromContext:v9];
+  v89 = objc_opt_class();
+  v90 = v88;
+  if (v89)
   {
     if (objc_opt_isKindOfClass())
     {
-      v83 = v82;
+      v91 = v90;
     }
 
     else
     {
-      v83 = 0;
+      v91 = 0;
     }
   }
 
   else
   {
-    v83 = 0;
+    v91 = 0;
   }
 
-  v84 = v83;
+  v92 = v91;
 
-  if (v68)
+  if (v76)
   {
-    v85 = SBLogSystemAperturePreferencesStackElements();
-    if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
+    v94 = SBLogSystemAperturePreferencesStackElements(v93);
+    if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
     {
       [SBSALayoutTransitionProvider preferencesFromContext:];
     }
@@ -468,7 +470,7 @@ LABEL_75:
     [(SBSALayoutTransitionProvider *)self removeFromParentProvider];
   }
 
-  return v84;
+  return v92;
 }
 
 BOOL __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_10(uint64_t a1, void *a2)
@@ -508,7 +510,7 @@ void __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_17
 
     if (!v7)
     {
-      __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_17_cold_1(a1);
+      __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_17_cold_1(a1, v5);
     }
   }
 
@@ -575,7 +577,7 @@ void __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_2(
 
     if (!v6)
     {
-      __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_2_cold_1(a1);
+      __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_2_cold_1(a1, v4);
     }
   }
 
@@ -706,27 +708,27 @@ LABEL_5:
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_17_cold_1(uint64_t a1)
+void __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_17_cold_1(uint64_t a1, uint64_t a2)
 {
-  v8 = [MEMORY[0x277CCA890] currentHandler];
-  v4 = a1 + 32;
-  v2 = *(a1 + 32);
-  v3 = *(v4 + 8);
-  v5 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  [v8 handleFailureInMethod:v3 object:v2 file:@"SBSALayoutTransitionProvider.m" lineNumber:193 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
+  v9 = [MEMORY[0x277CCA890] currentHandler];
+  v5 = a1 + 32;
+  v3 = *(a1 + 32);
+  v4 = *(v5 + 8);
+  v6 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [v9 handleFailureInMethod:v4 object:v3 file:@"SBSALayoutTransitionProvider.m" lineNumber:193 description:{@"Unexpected class – expected '%@', got '%@'", v6, v8}];
 }
 
-void __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_2_cold_1(uint64_t a1)
+void __55__SBSALayoutTransitionProvider_preferencesFromContext___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v7 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 32);
-  v4 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  [v7 handleFailureInMethod:v2 object:v3 file:@"SBSALayoutTransitionProvider.m" lineNumber:197 description:{@"Unexpected class – expected '%@', got '%@'", v4, v6}];
+  v8 = [MEMORY[0x277CCA890] currentHandler];
+  v3 = *(a1 + 48);
+  v4 = *(a1 + 32);
+  v5 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [v8 handleFailureInMethod:v3 object:v4 file:@"SBSALayoutTransitionProvider.m" lineNumber:197 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
 @end

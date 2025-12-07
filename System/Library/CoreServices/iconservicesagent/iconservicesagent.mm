@@ -469,7 +469,7 @@ void sub_100003FB0(uint64_t a1)
         v10 = _ISDefaultLog();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          sub_100005B78((a1 + 64));
+          sub_100005B78();
         }
       }
 
@@ -556,7 +556,7 @@ LABEL_27:
         v10 = _ISDefaultLog();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          sub_100005B00((a1 + 64));
+          sub_100005B00();
         }
       }
 
@@ -807,20 +807,6 @@ void sub_100005934()
   sub_100004F04();
   sub_100004EF8();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_100005B00(int *a1)
-{
-  v6 = *a1;
-  sub_100004EF8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_100005B78(int *a1)
-{
-  v6 = *a1;
-  sub_100004EF8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_100005BF0(void *a1)

@@ -5,10 +5,15 @@
 - (BKDisplayController)init;
 - (BOOL)contextIDAtCAScreenLocation:(CGPoint)location displayUUID:(id)d options:(id)options securityAnalysis:(id *)analysis results:(id *)results;
 - (BOOL)displayIsBlanked:(id)blanked;
+- (CGPoint)convertCAScreenLocation:(CGPoint)location toContextID:(unsigned int)d displayUUID:(id)iD;
 - (CGPoint)convertReferenceLocation:(CGPoint)location toCAScreenLocationForDisplayUUID:(id)d;
 - (id)addDisplayBlankingObserver:(id)observer;
+- (int64_t)hitTestCategoryForContextID:(unsigned int)d;
+- (unsigned)hostContextIDForEmbeddedContextID:(unsigned int)d displayUUID:(id)iD;
 - (void)applySceneHostSettingsToHostingChain:(id)chain;
+- (void)removeSceneHostSettingsForContextID:(unsigned int)d;
 - (void)setSceneHostSettings:(id)settings;
+- (void)setSceneHostSettings:(id)settings forContextID:(unsigned int)d;
 @end
 
 @implementation BKDisplayController
@@ -35,7 +40,7 @@
   v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  result = [(BKDisplayController *)self geometryForDisplay:orientation];
+  result = objc_msgSend_geometryForDisplay_(self, display, orientation);
   v10 = 0u;
   v12 = v16;
   v11 = v17;
@@ -195,6 +200,43 @@ LABEL_8:
   os_unfair_lock_unlock(&self->_lock);
 }
 
+- (void)removeSceneHostSettingsForContextID:(unsigned int)d
+{
+  v3 = *&d;
+  v5 = BKLogTouchEvents();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    v7[0] = 67109120;
+    v7[1] = v3;
+    _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "removeSceneHostSettingsForContextID:%X", v7, 8u);
+  }
+
+  v6 = [NSNumber numberWithUnsignedInt:v3];
+  os_unfair_lock_lock(&self->_lock);
+  [(NSMutableDictionary *)self->_lock_sceneHostSettingsByContextID removeObjectForKey:v6];
+  os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)setSceneHostSettings:(id)settings forContextID:(unsigned int)d
+{
+  v4 = *&d;
+  settingsCopy = settings;
+  v7 = BKLogTouchEvents();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
+    v9[0] = 67109378;
+    v9[1] = v4;
+    v10 = 2114;
+    v11 = settingsCopy;
+    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "setSceneHostSettingsForContextID:%X %{public}@", v9, 0x12u);
+  }
+
+  v8 = [NSNumber numberWithUnsignedInt:v4];
+  os_unfair_lock_lock(&self->_lock);
+  [(NSMutableDictionary *)self->_lock_sceneHostSettingsByContextID setObject:settingsCopy forKeyedSubscript:v8];
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (void)setSceneHostSettings:(id)settings
 {
   settingsCopy = settings;
@@ -212,6 +254,65 @@ LABEL_8:
   self->_lock_sceneHostSettingsByContextID = v6;
 
   os_unfair_lock_unlock(&self->_lock);
+}
+
+- (int64_t)hitTestCategoryForContextID:(unsigned int)d
+{
+  v3 = *&d;
+  v4 = sub_100008F48();
+  v5 = v4;
+  if (v4)
+  {
+    os_unfair_lock_lock(v4 + 4);
+    v6 = *&v5[6]._os_unfair_lock_opaque;
+    if (v6)
+    {
+      v7 = [NSNumber numberWithUnsignedInt:v3];
+      v8 = [v6 objectForKey:v7];
+      integerValue = [v8 integerValue];
+    }
+
+    else
+    {
+      integerValue = 0;
+    }
+
+    os_unfair_lock_unlock(v5 + 4);
+  }
+
+  else
+  {
+    integerValue = 0;
+  }
+
+  return integerValue;
+}
+
+- (unsigned)hostContextIDForEmbeddedContextID:(unsigned int)d displayUUID:(id)iD
+{
+  v4 = *&d;
+  v5 = [CAWindowServer serverIfRunning:*&d];
+  LODWORD(v4) = [v5 contextIdHostingContextId:v4];
+
+  return v4;
+}
+
+- (CGPoint)convertCAScreenLocation:(CGPoint)location toContextID:(unsigned int)d displayUUID:(id)iD
+{
+  if (self)
+  {
+    v5 = sub_100007CE4(*&d, iD, location.x, location.y);
+  }
+
+  else
+  {
+    v6 = 0.0;
+    v5 = 0.0;
+  }
+
+  result.y = v6;
+  result.x = v5;
+  return result;
 }
 
 - (CGPoint)convertReferenceLocation:(CGPoint)location toCAScreenLocationForDisplayUUID:(id)d
@@ -386,7 +487,7 @@ LABEL_8:
 
     if (v41)
     {
-      [v41 CATransform3DValue];
+      objc_msgSend_CATransform3DValue(v41);
       v42 = v90;
       *&results->var5.m31 = v89;
       *&results->var5.m33 = v42;
@@ -428,7 +529,7 @@ LABEL_8:
 
     if (v50)
     {
-      [v50 CATransform3DValue];
+      objc_msgSend_CATransform3DValue(v50);
       v51 = v90;
       *&results->var6.m31 = v89;
       *&results->var6.m33 = v51;

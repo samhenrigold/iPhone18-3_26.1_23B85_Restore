@@ -129,49 +129,15 @@ LABEL_5:
   return v15;
 }
 
-- (uint64_t)initWithMetalContext:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithMetalContext:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithMetalContext:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)_initShaders
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
-  fig_log_get_emitter();
-  result = FigSignalErrorAtGM();
+  v7 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v7, v1, v9, v10, v11, v12, vars0, vars8);
+  emitter = fig_log_get_emitter();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFEE107, "<<<< FigDepthValueMultiplier >>>>", 0x4E, v1, v4, v5, v8);
   *self = result;
   return result;
-}
-
-- (uint64_t)depthValueInputPixelBuffer:bias:scaleFactor:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)depthValueInputPixelBuffer:bias:scaleFactor:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

@@ -249,36 +249,34 @@ LABEL_32:
 
 - (id)descriptionDictionary
 {
-  v19[7] = *MEMORY[0x277D85DE8];
-  v18[0] = @"EventType";
+  v18[7] = *MEMORY[0x277D85DE8];
+  v17[0] = @"EventType";
   v3 = objc_opt_class();
-  v17 = NSStringFromClass(v3);
-  v19[0] = v17;
-  v18[1] = @"SAMonitoringSessionIdentifier";
+  v16 = NSStringFromClass(v3);
+  v18[0] = v16;
+  v17[1] = @"SAMonitoringSessionIdentifier";
   deviceUUID = [(SAMonitoringSession *)self deviceUUID];
   v4 = [deviceUUID description];
-  v19[1] = v4;
-  v18[2] = @"SAMonitoringSessionState";
+  v18[1] = v4;
+  v17[2] = @"SAMonitoringSessionState";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAMonitoringSession state](self, "state")}];
-  v19[2] = v5;
-  v18[3] = @"SAMonitoringSessionGeofence";
+  v18[2] = v5;
+  v17[3] = @"SAMonitoringSessionGeofence";
   geofence = [(SAMonitoringSession *)self geofence];
   v7 = [geofence description];
-  v19[3] = v7;
-  v18[4] = @"SAMonitoringSessionScenario";
+  v18[3] = v7;
+  v17[4] = @"SAMonitoringSessionScenario";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAMonitoringSession scenario](self, "scenario")}];
-  v19[4] = v8;
-  v18[5] = @"SAMonitoringSessionTrackedTravelingStartDate";
+  v18[4] = v8;
+  v17[5] = @"SAMonitoringSessionTrackedTravelingStartDate";
   trackedTravelingStartDate = [(SAMonitoringSession *)self trackedTravelingStartDate];
   v10 = [trackedTravelingStartDate description];
-  v19[5] = v10;
-  v18[6] = @"SAMonitoringSessionTrackedTravelingStartLocation";
+  v18[5] = v10;
+  v17[6] = @"SAMonitoringSessionTrackedTravelingStartLocation";
   trackedTravelingStartLocation = [(SAMonitoringSession *)self trackedTravelingStartLocation];
   v12 = [trackedTravelingStartLocation description];
-  v19[6] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:7];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v18[6] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:7];
 
   return v13;
 }

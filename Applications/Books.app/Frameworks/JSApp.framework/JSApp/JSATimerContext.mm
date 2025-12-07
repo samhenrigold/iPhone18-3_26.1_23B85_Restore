@@ -72,7 +72,7 @@
 {
   if (self->_managedCallback)
   {
-    v3 = JSALog();
+    v3 = JSALog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       sub_7FBB8(v3);

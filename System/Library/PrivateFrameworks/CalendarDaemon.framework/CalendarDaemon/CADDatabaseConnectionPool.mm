@@ -1,6 +1,10 @@
 @interface CADDatabaseConnectionPool
+- (BOOL)hasDatabaseAtPath:(id)path withDatabaseID:(int)d;
+- (BOOL)performASAPWithConfiguration:(id)configuration databaseID:(int)d block:(id)block;
+- (BOOL)performWithConfiguration:(id)configuration priority:(unint64_t)priority databaseID:(int)d block:(id)block;
 - (CADDatabaseConnectionPool)initWithOptions:(id)options manager:(id)manager;
 - (id)_openDatabases;
+- (id)_poolForPath:(id)path auxDatabaseID:(int)d;
 - (id)_pools;
 - (id)createConnectionForPool:(id)pool;
 - (int)databaseRestoreGeneration;
@@ -9,6 +13,7 @@
 - (void)addClient:(id)client;
 - (void)addCreatedAuxDatabase:(CalDatabase *)database;
 - (void)addDelegate:(id)delegate;
+- (void)databaseChangedExternally:(id)externally auxDatabaseID:(int)d;
 - (void)dealloc;
 - (void)forEachDelegate:(id)delegate;
 - (void)performWithAllDatabasesWithConfiguration:(id)configuration priority:(unint64_t)priority block:(id)block;
@@ -24,7 +29,7 @@
 
 - (id)_pools
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   pools = self->_pools;
   if (!pools)
@@ -34,27 +39,27 @@
     v6 = self->_pools;
     self->_pools = v5;
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = _openDatabases;
-    v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         v10 = 0;
         do
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * v10);
+          v11 = *(*(&v20 + 1) + 8 * v10);
           AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
           v13 = CalDatabaseCopyInitializationConfiguration();
           v14 = [[CADSeparatedDatabasePool alloc] initWithConfig:v13 databaseID:AuxilliaryDatabaseID];
@@ -68,7 +73,7 @@
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v8);
@@ -76,8 +81,6 @@
 
     pools = self->_pools;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return pools;
 }
@@ -128,7 +131,44 @@
   [(CADDatabaseConnectionPool *)&v3 dealloc];
 }
 
-uint64_t __80__CADDatabaseConnectionPool_performWithConfiguration_priority_databaseID_block___block_invoke(uint64_t a1)
+- (BOOL)performWithConfiguration:(id)configuration priority:(unint64_t)priority databaseID:(int)d block:(id)block
+{
+  v7 = *&d;
+  configurationCopy = configuration;
+  blockCopy = block;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
+  if (priority && !dispatch_workloop_is_current())
+  {
+    lowPriorityTasks = self->_lowPriorityTasks;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __80__CADDatabaseConnectionPool_performWithConfiguration_priority_databaseID_block___block_invoke;
+    block[3] = &unk_27851AEE8;
+    v18 = &v20;
+    block[4] = self;
+    v16 = configurationCopy;
+    v19 = v7;
+    v17 = blockCopy;
+    dispatch_async_and_wait(lowPriorityTasks, block);
+
+    v12 = *(v21 + 24);
+  }
+
+  else
+  {
+    v12 = [(CADDatabaseConnectionPool *)self performASAPWithConfiguration:configurationCopy databaseID:v7 block:blockCopy];
+    *(v21 + 24) = v12;
+  }
+
+  _Block_object_dispose(&v20, 8);
+
+  return v12 & 1;
+}
+
+void *__80__CADDatabaseConnectionPool_performWithConfiguration_priority_databaseID_block___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) performASAPWithConfiguration:*(a1 + 40) databaseID:*(a1 + 64) block:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -137,7 +177,7 @@ uint64_t __80__CADDatabaseConnectionPool_performWithConfiguration_priority_datab
 
 - (void)performWithAllDatabasesWithConfiguration:(id)configuration priority:(unint64_t)priority block:(id)block
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   blockCopy = block;
   os_unfair_lock_lock(&self->_lock);
@@ -145,41 +185,41 @@ uint64_t __80__CADDatabaseConnectionPool_performWithConfiguration_priority_datab
   allKeys = [_pools allKeys];
 
   os_unfair_lock_unlock(&self->_lock);
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v12 = allKeys;
-  v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v13)
   {
-    v14 = *v28;
+    v14 = *v27;
 LABEL_3:
     v15 = 0;
     while (1)
     {
-      if (*v28 != v14)
+      if (*v27 != v14)
       {
         objc_enumerationMutation(v12);
       }
 
-      intValue = [*(*(&v27 + 1) + 8 * v15) intValue];
-      v23 = 0;
-      v24 = &v23;
-      v25 = 0x2020000000;
-      v26 = 0;
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __85__CADDatabaseConnectionPool_performWithAllDatabasesWithConfiguration_priority_block___block_invoke;
-      v19[3] = &unk_27851AF10;
+      intValue = [*(*(&v26 + 1) + 8 * v15) intValue];
+      v22 = 0;
+      v23 = &v22;
+      v24 = 0x2020000000;
+      v25 = 0;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __85__CADDatabaseConnectionPool_performWithAllDatabasesWithConfiguration_priority_block___block_invoke;
+      v18[3] = &unk_27851AF10;
       v17 = blockCopy;
-      v22 = intValue;
-      v20 = v17;
-      v21 = &v23;
-      [(CADDatabaseConnectionPool *)self performWithConfiguration:configurationCopy priority:priority databaseID:intValue block:v19];
-      LOBYTE(intValue) = *(v24 + 24);
+      v21 = intValue;
+      v19 = v17;
+      v20 = &v22;
+      [(CADDatabaseConnectionPool *)self performWithConfiguration:configurationCopy priority:priority databaseID:intValue block:v18];
+      LOBYTE(intValue) = *(v23 + 24);
 
-      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v22, 8);
       if (intValue)
       {
         break;
@@ -187,7 +227,7 @@ LABEL_3:
 
       if (v13 == ++v15)
       {
-        v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v13)
         {
           goto LABEL_3;
@@ -197,13 +237,11 @@ LABEL_3:
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCreatedAuxDatabase:(CalDatabase *)database
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   AuxilliaryDatabaseID = CalDatabaseGetAuxilliaryDatabaseID();
   os_unfair_lock_lock(&self->_lock);
   if (self->_pools)
@@ -223,29 +261,29 @@ LABEL_3:
       [(NSMutableDictionary *)v11 setObject:v9 forKeyedSubscript:v12];
     }
 
-    v26 = v6;
+    v24 = v6;
     [(CADSeparatedDatabasePool *)v9 _returnConnectionToPool:v6, v9];
     v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableDictionary count](self->_pools, "count")}];
+    v25 = 0u;
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
     v14 = self->_pools;
-    v15 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v15 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v28;
+      v17 = *v26;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v28 != v17)
+          if (*v26 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * i);
+          v19 = *(*(&v25 + 1) + 8 * i);
           v20 = [(NSMutableDictionary *)self->_pools objectForKeyedSubscript:v19];
           databasePath = [v20 databasePath];
           if (databasePath)
@@ -259,13 +297,13 @@ LABEL_3:
             if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v32 = v19;
+              v30 = v19;
               _os_log_impl(&dword_22430B000, v22, OS_LOG_TYPE_ERROR, "Unexpectedly encountered nil path for database with id %{public}@", buf, 0xCu);
             }
           }
         }
 
-        v16 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v27 objects:v33 count:16];
+        v16 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v25 objects:v31 count:16];
       }
 
       while (v16);
@@ -273,13 +311,10 @@ LABEL_3:
 
     [MEMORY[0x277CF7518] setInterestedDatabasePaths:v13 forContext:self];
     os_unfair_lock_unlock(&self->_lock);
-
-    v23 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v24 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -301,6 +336,122 @@ LABEL_3:
   [(NSHashTable *)self->_delegates removeObject:delegateCopy];
 
   os_unfair_lock_unlock(&self->_lock);
+}
+
+- (id)_poolForPath:(id)path auxDatabaseID:(int)d
+{
+  v4 = *&d;
+  v26 = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  if (v4 == -1)
+  {
+    v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v13 = self->_pools;
+    v14 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v22;
+LABEL_6:
+      v17 = 0;
+      while (1)
+      {
+        if (*v22 != v16)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v12 = [(NSMutableDictionary *)self->_pools objectForKeyedSubscript:*(*(&v21 + 1) + 8 * v17), v21];
+        databasePath = [v12 databasePath];
+        v19 = [pathCopy isEqualToString:databasePath];
+
+        if (v19)
+        {
+          break;
+        }
+
+        if (v15 == ++v17)
+        {
+          v15 = [(NSMutableDictionary *)v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          if (v15)
+          {
+            goto LABEL_6;
+          }
+
+          goto LABEL_12;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_12:
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    pools = self->_pools;
+    v8 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+    v9 = [(NSMutableDictionary *)pools objectForKeyedSubscript:v8];
+
+    databasePath2 = [v9 databasePath];
+    v11 = [pathCopy isEqualToString:databasePath2];
+
+    if (v11)
+    {
+      v12 = v9;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+  }
+
+  return v12;
+}
+
+- (void)databaseChangedExternally:(id)externally auxDatabaseID:(int)d
+{
+  v4 = *&d;
+  externallyCopy = externally;
+  os_unfair_lock_lock(&self->_lock);
+  v7 = [(CADDatabaseConnectionPool *)self _poolForPath:externallyCopy auxDatabaseID:v4];
+
+  if (v7)
+  {
+    [v7 setLastChangeTimestamp:CalMonotonicTime()];
+    databaseID = [v7 databaseID];
+    v9 = *MEMORY[0x277CF7570];
+    connections = [v7 connections];
+    v11 = [connections count];
+
+    v12 = 0;
+    if (databaseID == v9)
+    {
+      self->_needCheckAuxDatabaseSequenceAndRestoreGeneration = 1;
+      if (v11)
+      {
+        [(CADDatabaseConnectionPool *)self _checkGenerationAndAuxDatabaseSequence:&v12];
+      }
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+  if (v12 == 1)
+  {
+    [(CADDatabaseConnectionPool *)self notifyDelegatesGenerationChanged];
+  }
 }
 
 - (void)_checkGenerationAndAuxDatabaseSequence:(BOOL *)sequence
@@ -367,13 +518,13 @@ LABEL_12:
 
 - (id)_openDatabases
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
   {
     initOptions = self->_initOptions;
     *buf = 138412290;
-    *v49 = initOptions;
+    *v47 = initOptions;
     _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_DEBUG, "Creating database with options [%@]", buf, 0xCu);
   }
 
@@ -392,120 +543,117 @@ LABEL_12:
   if (v9)
   {
     v10 = v9;
-    v37 = calendarDataContainerProvider;
-    v38 = v7;
+    v35 = calendarDataContainerProvider;
+    v36 = v7;
     self->_auxDatabaseSequence = CalDatabaseGetAuxDatabaseChangesSequence();
     self->_databaseRestoreGeneration = CalDatabaseGetRestoreGeneration();
     v11 = CalDatabaseCopyAllAuxDatabases();
     v12 = [v11 count];
     v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:v12 + 1];
     [v13 addObject:v10];
-    v45 = 0u;
-    v46 = 0u;
     v43 = 0u;
     v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v14 = v11;
-    v15 = [v14 countByEnumeratingWithState:&v43 objects:v50 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v41 objects:v48 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v44;
+      v17 = *v42;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v44 != v17)
+          if (*v42 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v43 + 1) + 8 * i);
-          [(CADDatabaseInitializationOptions *)self->_initOptions databaseInitOptions:v37];
-          v20 = CalDatabaseCreateWithAuxDatabaseRef();
-          if (v20)
+          [(CADDatabaseInitializationOptions *)self->_initOptions databaseInitOptions:v35];
+          v19 = CalDatabaseCreateWithAuxDatabaseRef();
+          if (v19)
           {
-            v21 = v20;
-            [v13 addObject:v20];
-            CFRelease(v21);
+            v20 = v19;
+            [v13 addObject:v19];
+            CFRelease(v20);
           }
 
           else
           {
-            v22 = CADLogHandle;
+            v21 = CADLogHandle;
             if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
             {
-              v23 = v22;
+              v22 = v21;
               UID = CalAuxDatabaseGetUID();
               databaseDirectory2 = [(CADDatabaseInitializationOptions *)self->_initOptions databaseDirectory];
               *buf = 67109378;
-              *v49 = UID;
-              *&v49[4] = 2112;
-              *&v49[6] = databaseDirectory2;
-              _os_log_impl(&dword_22430B000, v23, OS_LOG_TYPE_ERROR, "Unable to create auxiliary database %i with main database path %@", buf, 0x12u);
+              *v47 = UID;
+              *&v47[4] = 2112;
+              *&v47[6] = databaseDirectory2;
+              _os_log_impl(&dword_22430B000, v22, OS_LOG_TYPE_ERROR, "Unable to create auxiliary database %i with main database path %@", buf, 0x12u);
             }
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v43 objects:v50 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v41 objects:v48 count:16];
       }
 
       while (v16);
     }
 
-    v41 = 0u;
-    v42 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v26 = v13;
-    v27 = [v26 countByEnumeratingWithState:&v39 objects:v47 count:16];
-    if (v27)
+    v37 = 0u;
+    v38 = 0u;
+    v25 = v13;
+    v26 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    if (v26)
     {
-      v28 = v27;
-      v29 = *v40;
+      v27 = v26;
+      v28 = *v38;
       do
       {
-        for (j = 0; j != v28; ++j)
+        for (j = 0; j != v27; ++j)
         {
-          if (*v40 != v29)
+          if (*v38 != v28)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v25);
           }
 
-          [(CADDatabaseConnectionPool *)self setupDatabase:*(*(&v39 + 1) + 8 * j), v37, v38];
+          [(CADDatabaseConnectionPool *)self setupDatabase:*(*(&v37 + 1) + 8 * j), v35, v36];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
-      while (v28);
+      while (v27);
     }
 
     CFRelease(v10);
-    [MEMORY[0x277CF7518] setInterestedDatabases:v26 forContext:self];
+    [MEMORY[0x277CF7518] setInterestedDatabases:v25 forContext:self];
 
-    calendarDataContainerProvider = v37;
-    v7 = v38;
+    calendarDataContainerProvider = v35;
+    v7 = v36;
   }
 
   else
   {
-    v31 = CADLogHandle;
+    v30 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v32 = self->_initOptions;
-      v33 = v31;
-      databaseDirectory3 = [(CADDatabaseInitializationOptions *)v32 databaseDirectory];
+      v31 = self->_initOptions;
+      v32 = v30;
+      databaseDirectory3 = [(CADDatabaseInitializationOptions *)v31 databaseDirectory];
       *buf = 138412290;
-      *v49 = databaseDirectory3;
-      _os_log_impl(&dword_22430B000, v33, OS_LOG_TYPE_ERROR, "Unable to create main database for path %@", buf, 0xCu);
+      *v47 = databaseDirectory3;
+      _os_log_impl(&dword_22430B000, v32, OS_LOG_TYPE_ERROR, "Unable to create main database for path %@", buf, 0xCu);
     }
 
-    v26 = 0;
+    v25 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 - (void)setupDatabase:(CalDatabase *)database
@@ -561,44 +709,153 @@ LABEL_12:
   CalDatabaseSetPropertyModificationLoggingEnabled();
 }
 
+- (BOOL)performASAPWithConfiguration:(id)configuration databaseID:(int)d block:(id)block
+{
+  v6 = *&d;
+  v26 = *MEMORY[0x277D85DE8];
+  configurationCopy = configuration;
+  blockCopy = block;
+  os_unfair_lock_lock(&self->_lock);
+  v10 = *MEMORY[0x277CF7570];
+  if (*MEMORY[0x277CF7570] == v6)
+  {
+    LOBYTE(v25[0]) = 0;
+    [(CADDatabaseConnectionPool *)self _checkGenerationAndAuxDatabaseSequence:v25];
+    if (LOBYTE(v25[0]) == 1)
+    {
+      os_unfair_lock_unlock(&self->_lock);
+      [(CADDatabaseConnectionPool *)self notifyDelegatesGenerationChanged];
+      os_unfair_lock_lock(&self->_lock);
+    }
+  }
+
+  _pools = [(CADDatabaseConnectionPool *)self _pools];
+  v12 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+  v13 = [_pools objectForKeyedSubscript:v12];
+
+  if (!v13)
+  {
+    os_unfair_lock_unlock(&self->_lock);
+    goto LABEL_19;
+  }
+
+  connections = [v13 connections];
+  lastObject = [connections lastObject];
+
+  if (lastObject)
+  {
+    connections2 = [v13 connections];
+    [connections2 removeLastObject];
+  }
+
+  lastChangeTimestamp = [v13 lastChangeTimestamp];
+  os_unfair_lock_unlock(&self->_lock);
+  if (!lastObject)
+  {
+    v23 = [(CADDatabaseConnectionPool *)self createConnectionForPool:v13];
+    if (v23)
+    {
+      lastObject = v23;
+      database = [v23 database];
+      if (!configurationCopy)
+      {
+        goto LABEL_12;
+      }
+
+      goto LABEL_11;
+    }
+
+    v24 = CADLogHandle;
+    if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      v25[0] = 67109120;
+      v25[1] = v6;
+      _os_log_impl(&dword_22430B000, v24, OS_LOG_TYPE_ERROR, "Unable to create database connection for database ID %i", v25, 8u);
+    }
+
+LABEL_19:
+    v21 = 0;
+    goto LABEL_20;
+  }
+
+  database = [lastObject database];
+  if (lastChangeTimestamp > CalDatabaseGetLastCacheInvalidationTimestamp())
+  {
+    CalDatabaseReset();
+  }
+
+  if (!configurationCopy)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_11:
+  [(CADDatabaseConnectionPool *)self prepareDatabase:database forUseWithConfiguration:configurationCopy];
+LABEL_12:
+  blockCopy[2](blockCopy, database);
+  v19 = CalDatabaseCountCachedRecords();
+  LOBYTE(v25[0]) = 0;
+  if (v19 <= 60000)
+  {
+    os_unfair_lock_lock(&self->_lock);
+    [v13 _returnConnectionToPool:lastObject];
+    if (v10 == v6)
+    {
+      [(CADDatabaseConnectionPool *)self _checkGenerationAndAuxDatabaseSequence:v25];
+    }
+
+    os_unfair_lock_unlock(&self->_lock);
+    if (v25[0])
+    {
+      [(CADDatabaseConnectionPool *)self notifyDelegatesGenerationChanged];
+    }
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_manager);
+  [WeakRetained schedulePurge];
+
+  v21 = 1;
+LABEL_20:
+
+  return v21;
+}
+
 - (void)forEachDelegate:(id)delegate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_delegates allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        delegateCopy[2](delegateCopy, *(*(&v12 + 1) + 8 * v10++));
+        delegateCopy[2](delegateCopy, *(*(&v11 + 1) + 8 * v10++));
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addClient:(id)client
@@ -621,24 +878,24 @@ LABEL_12:
 
 - (unint64_t)numberOfClients
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_clients;
-  v3 = [(NSHashTable *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSHashTable *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = v4;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v2);
         }
@@ -648,7 +905,7 @@ LABEL_12:
 
       while (v7);
       v5 += v4;
-      v4 = [(NSHashTable *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSHashTable *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -659,7 +916,6 @@ LABEL_12:
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -677,43 +933,64 @@ LABEL_12:
 
 - (void)purgeConnectionsLastUsedPriorTo:(unint64_t)to stats:(id *)stats
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = self->_pools;
-  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [(NSMutableDictionary *)self->_pools objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v11), v14];
+        v12 = [(NSMutableDictionary *)self->_pools objectForKeyedSubscript:*(*(&v13 + 1) + 8 * v11), v13];
         [v12 purgeConnectionsLastUsedPriorTo:to stats:stats];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x277D85DE8];
+}
+
+- (BOOL)hasDatabaseAtPath:(id)path withDatabaseID:(int)d
+{
+  v4 = *&d;
+  pathCopy = path;
+  os_unfair_lock_lock(&self->_lock);
+  v7 = [(CADDatabaseConnectionPool *)self _poolForPath:pathCopy auxDatabaseID:v4];
+
+  if (v7)
+  {
+    v8 = [v7 databaseID] != -1;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v8;
 }
 
 @end

@@ -17,10 +17,9 @@
   count = self->_count;
   join = self->_join;
   criterion = [(CCDatabaseCommandBuilder *)self criterion];
-  limit = self->_limit;
-  v9 = [CCSQLCommandGenerator selectFromTableWithName:tableName columns:columns count:count join:join criterion:criterion order:self->_order limit:limit offset:self->_offset];
+  v8 = [CCSQLCommandGenerator selectFromTableWithName:tableName columns:columns count:count join:join criterion:criterion order:self->_order limit:self->_limit offset:self->_offset];
 
-  return v9;
+  return v8;
 }
 
 - (CCDatabaseSelectBuilder)initWithTableName:(id)name
@@ -66,18 +65,14 @@
 
 - (void)setCommandOrder:(id)order
 {
-  v4 = [order copy];
-  order = self->_order;
-  self->_order = v4;
+  self->_order = [order copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setColumns:(id)columns
 {
-  v4 = [columns copy];
-  columns = self->_columns;
-  self->_columns = v4;
+  self->_columns = [columns copy];
 
   MEMORY[0x1EEE66BB8]();
 }

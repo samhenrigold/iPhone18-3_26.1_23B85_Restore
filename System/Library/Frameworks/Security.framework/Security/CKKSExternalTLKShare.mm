@@ -13,32 +13,30 @@
 
 - (id)jsonDictionary
 {
-  v17[6] = *MEMORY[0x1E69E9840];
-  v16[0] = @"view";
+  v16[6] = *MEMORY[0x1E69E9840];
+  v15[0] = @"view";
   view = [(CKKSExternalTLKShare *)self view];
-  v17[0] = view;
-  v16[1] = @"tlkUUID";
+  v16[0] = view;
+  v15[1] = @"tlkUUID";
   tlkUUID = [(CKKSExternalTLKShare *)self tlkUUID];
-  v17[1] = tlkUUID;
-  v16[2] = @"receiverPeerID";
+  v16[1] = tlkUUID;
+  v15[2] = @"receiverPeerID";
   receiverPeerID = [(CKKSExternalTLKShare *)self receiverPeerID];
   v5 = [(CKKSExternalTLKShare *)self stringifyPeerID:receiverPeerID];
-  v17[2] = v5;
-  v16[3] = @"senderPeerID";
+  v16[2] = v5;
+  v15[3] = @"senderPeerID";
   senderPeerID = [(CKKSExternalTLKShare *)self senderPeerID];
   v7 = [(CKKSExternalTLKShare *)self stringifyPeerID:senderPeerID];
-  v17[3] = v7;
-  v16[4] = @"wrappedTLK";
+  v16[3] = v7;
+  v15[4] = @"wrappedTLK";
   wrappedTLK = [(CKKSExternalTLKShare *)self wrappedTLK];
   v9 = [wrappedTLK base64EncodedStringWithOptions:0];
-  v17[4] = v9;
-  v16[5] = @"signature";
+  v16[4] = v9;
+  v15[5] = @"signature";
   signature = [(CKKSExternalTLKShare *)self signature];
   v11 = [signature base64EncodedStringWithOptions:0];
-  v17[5] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:6];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v16[5] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:6];
 
   return v12;
 }
@@ -150,7 +148,7 @@
 
 + (id)parseFromJSONDict:(id)dict error:(id *)error
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v7 = [dictCopy objectForKeyedSubscript:@"view"];
   v8 = [dictCopy objectForKeyedSubscript:@"tlkUUID"];
@@ -258,20 +256,18 @@ LABEL_15:
     v22 = MEMORY[0x1E696ABC0];
     errorCopy = error;
     v23 = *MEMORY[0x1E696A768];
-    v29[0] = *MEMORY[0x1E696A578];
-    v29[1] = @"missingkeys";
-    v30[0] = @"Missing some required field";
-    v30[1] = v21;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:{2, errorCopy}];
-    *v28 = [v22 errorWithDomain:v23 code:-50 userInfo:v24];
+    v28[0] = *MEMORY[0x1E696A578];
+    v28[1] = @"missingkeys";
+    v29[0] = @"Missing some required field";
+    v29[1] = v21;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:{2, errorCopy}];
+    *v27 = [v22 errorWithDomain:v23 code:-50 userInfo:v24];
   }
 
 LABEL_16:
 
   v19 = 0;
 LABEL_17:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

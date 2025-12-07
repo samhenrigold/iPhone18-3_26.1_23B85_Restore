@@ -6,6 +6,7 @@
 - (void)performAppPeriodicTasks;
 - (void)performAppTrackingPeriodicTasks;
 - (void)performPersistentStoreHealthCheck;
+- (void)trainModelAndScore:(BOOL)score lastScoreDate:(id)date;
 @end
 
 @implementation ProxyAnalytics
@@ -16,6 +17,53 @@
   v3.receiver = self;
   v3.super_class = ProxyAnalytics;
   [(ProxyAnalytics *)&v3 dealloc];
+}
+
+- (void)trainModelAndScore:(BOOL)score lastScoreDate:(id)date
+{
+  scoreCopy = score;
+  dateCopy = date;
+  v7 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.symptomsd.helper" options:4096];
+  [(ProxyAnalytics *)self setConnection:v7];
+
+  if (self->_connection)
+  {
+    v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_28480F890];
+    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v8];
+
+    objc_initWeak(&location, self);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __51__ProxyAnalytics_trainModelAndScore_lastScoreDate___block_invoke;
+    v14[3] = &unk_27898C3B0;
+    objc_copyWeak(&v15, &location);
+    [(NSXPCConnection *)self->_connection setInterruptionHandler:v14];
+    [(NSXPCConnection *)self->_connection resume];
+    remoteObjectProxy = [(NSXPCConnection *)self->_connection remoteObjectProxy];
+    if (remoteObjectProxy)
+    {
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __51__ProxyAnalytics_trainModelAndScore_lastScoreDate___block_invoke_76;
+      v12[3] = &unk_27898CE90;
+      objc_copyWeak(&v13, &location);
+      [remoteObjectProxy trainModelAndScore:scoreCopy lastScoreDate:dateCopy reply:v12];
+      objc_destroyWeak(&v13);
+    }
+
+    else
+    {
+      v10 = otherLogHandle;
+      if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
+      {
+        *v11 = 0;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "_trainModelAndScore:: remoteObjectProxy returned nil", v11, 2u);
+      }
+    }
+
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&location);
+  }
 }
 
 void __51__ProxyAnalytics_trainModelAndScore_lastScoreDate___block_invoke(uint64_t a1)
@@ -130,7 +178,7 @@ void __41__ProxyAnalytics_performAppPeriodicTasks__block_invoke_2(uint64_t a1, v
 
 - (void)donateBiomeEventForEdgeSelectionWithPrefix:(id)prefix interfaceType:(id)type radioType:(id)radioType radioBand:(id)band latitude:(double)latitude longitude:(double)longitude
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   typeCopy = type;
   radioTypeCopy = radioType;
@@ -140,7 +188,7 @@ void __41__ProxyAnalytics_performAppPeriodicTasks__block_invoke_2(uint64_t a1, v
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = v18;
+    v29 = v18;
     _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "GeoIP: Creating new %@", buf, 0xCu);
   }
 
@@ -155,7 +203,7 @@ void __41__ProxyAnalytics_performAppPeriodicTasks__block_invoke_2(uint64_t a1, v
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = v18;
+      v29 = v18;
       _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "GeoIP: Activating %@", buf, 0xCu);
     }
 
@@ -163,15 +211,15 @@ void __41__ProxyAnalytics_performAppPeriodicTasks__block_invoke_2(uint64_t a1, v
     remoteObjectProxy = [v18 remoteObjectProxy];
     if (remoteObjectProxy)
     {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __114__ProxyAnalytics_donateBiomeEventForEdgeSelectionWithPrefix_interfaceType_radioType_radioBand_latitude_longitude___block_invoke_84;
-      v25[3] = &unk_27898CEB8;
-      objc_copyWeak(&v27, &location);
-      v26 = v18;
-      [remoteObjectProxy donateBiomeEventForEdgeSelectionWithPrefix:prefixCopy interfaceType:typeCopy radioType:radioTypeCopy radioBand:bandCopy latitude:v25 longitude:latitude reply:longitude];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __114__ProxyAnalytics_donateBiomeEventForEdgeSelectionWithPrefix_interfaceType_radioType_radioBand_latitude_longitude___block_invoke_84;
+      v24[3] = &unk_27898CEB8;
+      objc_copyWeak(&v26, &location);
+      v25 = v18;
+      [remoteObjectProxy donateBiomeEventForEdgeSelectionWithPrefix:prefixCopy interfaceType:typeCopy radioType:radioTypeCopy radioBand:bandCopy latitude:v24 longitude:latitude reply:longitude];
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v26);
     }
 
     else
@@ -180,20 +228,18 @@ void __41__ProxyAnalytics_performAppPeriodicTasks__block_invoke_2(uint64_t a1, v
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v30 = v18;
+        v29 = v18;
         _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_ERROR, "GeoIP: donateBiomeEventForEdgeSelectionWithPrefix: remoteObjectProxy returned nil for %@", buf, 0xCu);
       }
     }
 
     objc_destroyWeak(&location);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __114__ProxyAnalytics_donateBiomeEventForEdgeSelectionWithPrefix_interfaceType_radioType_radioBand_latitude_longitude___block_invoke_84(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -211,14 +257,12 @@ void __114__ProxyAnalytics_donateBiomeEventForEdgeSelectionWithPrefix_interfaceT
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v12 = *(a1 + 32);
-    v14 = 138412290;
-    v15 = v12;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "GeoIP: Invalidating %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v12;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "GeoIP: Invalidating %@", &v13, 0xCu);
   }
 
   [*(a1 + 32) invalidate];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performAppTrackingPeriodicTasks
@@ -478,7 +522,7 @@ void __51__ProxyAnalytics_performPersistentStoreHealthCheck__block_invoke(uint64
 
 void __51__ProxyAnalytics_performPersistentStoreHealthCheck__block_invoke_104(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -490,11 +534,11 @@ void __51__ProxyAnalytics_performPersistentStoreHealthCheck__block_invoke_104(ui
     v10 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412546;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "performPersistentStoreHealthCheckWithReply:%@ err:%@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "performPersistentStoreHealthCheckWithReply:%@ err:%@", &v14, 0x16u);
     }
 
     v11 = [v8 delegate];
@@ -508,8 +552,6 @@ void __51__ProxyAnalytics_performPersistentStoreHealthCheck__block_invoke_104(ui
 
     [v9 invalidate];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -11,7 +11,7 @@
 
 + (void)performConferenceLinkRenewalIfNeeded
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -32,7 +32,7 @@
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v35 = v10;
+        v34 = v10;
         _os_log_impl(&dword_22430B000, v11, OS_LOG_TYPE_INFO, "ConferenceRenewal: Found next scheduled run date: %@", buf, 0xCu);
       }
 
@@ -44,13 +44,13 @@
       [v10 timeIntervalSinceReferenceDate];
       if (v16 <= v17)
       {
-        v29 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:31622400.0];
+        v28 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:31622400.0];
         [v10 timeIntervalSinceReferenceDate];
-        v31 = v30;
-        [v29 timeIntervalSinceReferenceDate];
-        v33 = v32;
+        v30 = v29;
+        [v28 timeIntervalSinceReferenceDate];
+        v32 = v31;
 
-        if (v31 <= v33)
+        if (v30 <= v32)
         {
 LABEL_20:
           CFRelease(v5);
@@ -61,7 +61,7 @@ LABEL_20:
             _os_log_impl(&dword_22430B000, v26, OS_LOG_TYPE_INFO, "ConferenceRenewal: Complete.", buf, 2u);
           }
 
-          goto LABEL_25;
+          return;
         }
       }
 
@@ -71,9 +71,9 @@ LABEL_20:
         if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v35 = date;
-          v36 = 2112;
-          v37 = v10;
+          v34 = date;
+          v35 = 2112;
+          v36 = v10;
           _os_log_impl(&dword_22430B000, v18, OS_LOG_TYPE_INFO, "ConferenceRenewal: Current date (%@) is after next scheduled run date (%@). Performing link renewal.", buf, 0x16u);
         }
 
@@ -108,7 +108,7 @@ LABEL_20:
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v35 = v21;
+      v34 = v21;
       _os_log_impl(&dword_22430B000, v25, OS_LOG_TYPE_INFO, "ConferenceRenewal: Setting next scheduled run date to %@", buf, 0xCu);
     }
 
@@ -124,9 +124,6 @@ LABEL_20:
     *buf = 0;
     _os_log_impl(&dword_22430B000, v27, OS_LOG_TYPE_ERROR, "ConferenceRenewal: Database is nil. Cannot check renewal dates. Aborting", buf, 2u);
   }
-
-LABEL_25:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setNextConferenceLinkRenewalDate:(id)date
@@ -180,7 +177,7 @@ LABEL_25:
 
 + (BOOL)_performConferenceURLRenewalWithDatabase:(CalDatabase *)database
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   v5 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -196,62 +193,62 @@ LABEL_25:
     _os_log_impl(&dword_22430B000, v6, OS_LOG_TYPE_INFO, "ConferenceRenewal: Retrieving all active conversation links.", buf, 2u);
   }
 
-  v56 = objc_alloc_init(MEMORY[0x277D6EE98]);
+  v55 = objc_alloc_init(MEMORY[0x277D6EE98]);
   *buf = 0;
-  v78 = buf;
-  v79 = 0x3032000000;
-  v80 = __Block_byref_object_copy__12;
-  v81 = __Block_byref_object_dispose__12;
-  v82 = 0;
+  v77 = buf;
+  v78 = 0x3032000000;
+  v79 = __Block_byref_object_copy__12;
+  v80 = __Block_byref_object_dispose__12;
+  v81 = 0;
   v7 = dispatch_semaphore_create(0);
-  v74[0] = MEMORY[0x277D85DD0];
-  v74[1] = 3221225472;
-  v74[2] = __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_invoke;
-  v74[3] = &unk_27851BAC8;
-  v76 = buf;
+  v73[0] = MEMORY[0x277D85DD0];
+  v73[1] = 3221225472;
+  v73[2] = __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_invoke;
+  v73[3] = &unk_27851BAC8;
+  v75 = buf;
   v8 = v7;
-  v75 = v8;
-  [v56 getActiveLinksWithCreatedOnly:1 completionHandler:v74];
+  v74 = v8;
+  [v55 getActiveLinksWithCreatedOnly:1 completionHandler:v73];
   v9 = dispatch_time(0, 60000000000);
-  v53 = v8;
+  v52 = v8;
   dispatch_semaphore_wait(v8, v9);
-  if (*(v78 + 5))
+  if (*(v77 + 5))
   {
     v10 = CADLogHandle;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v11 = [*(v78 + 5) count];
-      LODWORD(v92) = 134217984;
-      *(&v92 + 4) = v11;
-      _os_log_impl(&dword_22430B000, v10, OS_LOG_TYPE_INFO, "ConferenceRenewal: Found %lu links.", &v92, 0xCu);
+      v11 = [*(v77 + 5) count];
+      LODWORD(v91) = 134217984;
+      *(&v91 + 4) = v11;
+      _os_log_impl(&dword_22430B000, v10, OS_LOG_TYPE_INFO, "ConferenceRenewal: Found %lu links.", &v91, 0xCu);
     }
 
-    v12 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(*(v78 + 5), "count")}];
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
+    v12 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(*(v77 + 5), "count")}];
     v71 = 0u;
-    v13 = *(v78 + 5);
-    v14 = [v13 countByEnumeratingWithState:&v70 objects:v96 count:16];
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v13 = *(v77 + 5);
+    v14 = [v13 countByEnumeratingWithState:&v69 objects:v95 count:16];
     if (v14)
     {
-      v15 = *v71;
+      v15 = *v70;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v71 != v15)
+          if (*v70 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v70 + 1) + 8 * i);
+          v17 = *(*(&v69 + 1) + 8 * i);
           v18 = [v17 URL];
           absoluteString = [v18 absoluteString];
           [v12 setObject:v17 forKey:absoluteString];
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v70 objects:v96 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v69 objects:v95 count:16];
       }
 
       while (v14);
@@ -260,82 +257,82 @@ LABEL_25:
     v20 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v92) = 0;
-      _os_log_impl(&dword_22430B000, v20, OS_LOG_TYPE_INFO, "ConferenceRenewal: Searching for events that contain conference URLs that require renewal.", &v92, 2u);
+      LOWORD(v91) = 0;
+      _os_log_impl(&dword_22430B000, v20, OS_LOG_TYPE_INFO, "ConferenceRenewal: Searching for events that contain conference URLs that require renewal.", &v91, 2u);
     }
 
     baseURLs = [MEMORY[0x277D6EE90] baseURLs];
     v22 = [MEMORY[0x277CBEB58] set];
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
     v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     obj = baseURLs;
-    v23 = [obj countByEnumeratingWithState:&v66 objects:v95 count:16];
+    v23 = [obj countByEnumeratingWithState:&v65 objects:v94 count:16];
     if (v23)
     {
-      v24 = *v67;
+      v24 = *v66;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v67 != v24)
+          if (*v66 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          host = [*(*(&v66 + 1) + 8 * j) host];
+          host = [*(*(&v65 + 1) + 8 * j) host];
           v27 = [self _conferenceURLsToRenewWithDatabase:database URLString:host];
           [v22 addObjectsFromArray:v27];
         }
 
-        v23 = [obj countByEnumeratingWithState:&v66 objects:v95 count:16];
+        v23 = [obj countByEnumeratingWithState:&v65 objects:v94 count:16];
       }
 
       while (v23);
     }
 
     group = dispatch_group_create();
-    *&v92 = 0;
-    *(&v92 + 1) = &v92;
-    v93 = 0x2020000000;
-    v94 = 0;
-    v54 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:31622400.0];
+    *&v91 = 0;
+    *(&v91 + 1) = &v91;
+    v92 = 0x2020000000;
+    v93 = 0;
+    v53 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:31622400.0];
     v28 = CADLogHandle;
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       v29 = [v22 count];
-      *v90 = 134218242;
-      *&v90[4] = v29;
-      *&v90[12] = 2112;
-      *&v90[14] = v54;
-      _os_log_impl(&dword_22430B000, v28, OS_LOG_TYPE_INFO, "ConferenceRenewal: Found a total of %lu conference URLs from events to renew. Setting new expiration date to %@", v90, 0x16u);
+      *v89 = 134218242;
+      *&v89[4] = v29;
+      *&v89[12] = 2112;
+      *&v89[14] = v53;
+      _os_log_impl(&dword_22430B000, v28, OS_LOG_TYPE_INFO, "ConferenceRenewal: Found a total of %lu conference URLs from events to renew. Setting new expiration date to %@", v89, 0x16u);
     }
 
-    *v90 = 0;
-    *&v90[8] = v90;
-    *&v90[16] = 0x2020000000;
-    v91 = 0;
+    *v89 = 0;
+    *&v89[8] = v89;
+    *&v89[16] = 0x2020000000;
+    v90 = 0;
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v65 = 0u;
     v30 = v22;
     v31 = 0;
-    v32 = [v30 countByEnumeratingWithState:&v62 objects:v89 count:16];
+    v32 = [v30 countByEnumeratingWithState:&v61 objects:v88 count:16];
     if (v32)
     {
-      v33 = *v63;
+      v33 = *v62;
       do
       {
         for (k = 0; k != v32; ++k)
         {
-          if (*v63 != v33)
+          if (*v62 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = *(*(&v62 + 1) + 8 * k);
+          v35 = *(*(&v61 + 1) + 8 * k);
           v36 = [v12 objectForKey:*&v35];
           v37 = v36;
           if (!v36)
@@ -346,8 +343,8 @@ LABEL_25:
               goto LABEL_42;
             }
 
-            *v83 = 138412290;
-            v84 = v35;
+            *v82 = 138412290;
+            v83 = v35;
             v40 = v39;
             v41 = "ConferenceRenewal: Skipping URL because it isn't owned by this account: %@";
             goto LABEL_41;
@@ -358,21 +355,21 @@ LABEL_25:
             v38 = CADLogHandle;
             if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
             {
-              *v83 = 138412290;
-              v84 = v35;
-              _os_log_impl(&dword_22430B000, v38, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: Attempting to renew URL: %@", v83, 0xCu);
+              *v82 = 138412290;
+              v83 = v35;
+              _os_log_impl(&dword_22430B000, v38, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: Attempting to renew URL: %@", v82, 0xCu);
             }
 
             dispatch_group_enter(group);
-            v58[0] = MEMORY[0x277D85DD0];
-            v58[1] = 3221225472;
-            v58[2] = __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_invoke_34;
-            v58[3] = &unk_27851BAF0;
-            *&v58[4] = v35;
-            v60 = v90;
-            v61 = &v92;
-            v59 = group;
-            [v56 renewLink:v37 expirationDate:v54 reason:1 completionHandler:v58];
+            v57[0] = MEMORY[0x277D85DD0];
+            v57[1] = 3221225472;
+            v57[2] = __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_invoke_34;
+            v57[3] = &unk_27851BAF0;
+            *&v57[4] = v35;
+            v59 = v89;
+            v60 = &v91;
+            v58 = group;
+            [v55 renewLink:v37 expirationDate:v53 reason:1 completionHandler:v57];
 
             ++v31;
           }
@@ -382,19 +379,19 @@ LABEL_25:
             v42 = CADLogHandle;
             if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
             {
-              *v83 = 138412290;
-              v84 = v35;
+              *v82 = 138412290;
+              v83 = v35;
               v40 = v42;
               v41 = "ConferenceRenewal: Skipping URL because it wasn't locally created: %@";
 LABEL_41:
-              _os_log_impl(&dword_22430B000, v40, OS_LOG_TYPE_DEBUG, v41, v83, 0xCu);
+              _os_log_impl(&dword_22430B000, v40, OS_LOG_TYPE_DEBUG, v41, v82, 0xCu);
             }
           }
 
 LABEL_42:
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v62 objects:v89 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v61 objects:v88 count:16];
       }
 
       while (v32);
@@ -409,17 +406,17 @@ LABEL_42:
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
       v47 = v45;
-      v48 = *(*(&v92 + 1) + 24);
-      *v83 = 134218496;
-      v84 = v47;
-      v85 = 2048;
-      v86 = v48;
-      v87 = 2048;
-      v88 = v31;
-      _os_log_impl(&dword_22430B000, v46, OS_LOG_TYPE_INFO, "ConferenceRenewal: Finished URL renewal in %f seconds. Renewed %lu / %lu links.", v83, 0x20u);
+      v48 = *(*(&v91 + 1) + 24);
+      *v82 = 134218496;
+      v83 = v47;
+      v84 = 2048;
+      v85 = v48;
+      v86 = 2048;
+      v87 = v31;
+      _os_log_impl(&dword_22430B000, v46, OS_LOG_TYPE_INFO, "ConferenceRenewal: Finished URL renewal in %f seconds. Renewed %lu / %lu links.", v82, 0x20u);
     }
 
-    if (v31 < 3 || *(*(&v92 + 1) + 24) || *(*&v90[8] + 24) != v31)
+    if (v31 < 3 || *(*(&v91 + 1) + 24) || *(*&v89[8] + 24) != v31)
     {
       v50 = 1;
     }
@@ -429,16 +426,16 @@ LABEL_42:
       v49 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
       {
-        *v83 = 0;
-        _os_log_impl(&dword_22430B000, v49, OS_LOG_TYPE_ERROR, "ConferenceRenewal: all link renewals failed with seemingly transient errors. Will retry later.", v83, 2u);
+        *v82 = 0;
+        _os_log_impl(&dword_22430B000, v49, OS_LOG_TYPE_ERROR, "ConferenceRenewal: all link renewals failed with seemingly transient errors. Will retry later.", v82, 2u);
       }
 
       v50 = 0;
     }
 
-    _Block_object_dispose(v90, 8);
+    _Block_object_dispose(v89, 8);
 
-    _Block_object_dispose(&v92, 8);
+    _Block_object_dispose(&v91, 8);
   }
 
   else
@@ -447,13 +444,12 @@ LABEL_42:
   }
 
   _Block_object_dispose(buf, 8);
-  v51 = *MEMORY[0x277D85DE8];
   return v50;
 }
 
 void __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -461,9 +457,9 @@ void __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_i
     v8 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_ERROR, "ConferenceRenewal: Failed to retrieve links. error = %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_ERROR, "ConferenceRenewal: Failed to retrieve links. error = %@", &v9, 0xCu);
     }
   }
 
@@ -473,13 +469,11 @@ void __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_i
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_invoke_34(uint64_t a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -488,9 +482,9 @@ void __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_i
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v7 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_22430B000, v6, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: Successfully renewed URL: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v7;
+      _os_log_impl(&dword_22430B000, v6, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: Successfully renewed URL: %@", &v12, 0xCu);
     }
   }
 
@@ -500,11 +494,11 @@ void __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_i
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
       v9 = *(a1 + 32);
-      v13 = 138412546;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_ERROR, "ConferenceRenewal: Unable to renew URL: %@, error = %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_ERROR, "ConferenceRenewal: Unable to renew URL: %@, error = %@", &v12, 0x16u);
     }
 
     v10 = [v5 domain];
@@ -531,13 +525,11 @@ void __63__CADConferenceUtils__performConferenceURLRenewalWithDatabase___block_i
 
 LABEL_12:
   dispatch_group_leave(*(a1 + 40));
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_conferenceURLsToRenewWithDatabase:(CalDatabase *)database URLString:(id)string
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v7 = CADLogHandle;
   if (stringCopy)
@@ -545,7 +537,7 @@ LABEL_12:
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v59 = stringCopy;
+      v58 = stringCopy;
       _os_log_impl(&dword_22430B000, v7, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: Starting search for conference URLs with base host: %@", buf, 0xCu);
     }
 
@@ -562,7 +554,7 @@ LABEL_12:
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v59 = stringCopy;
+        v58 = stringCopy;
         _os_log_impl(&dword_22430B000, v13, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: searching for events containing the base URL %@", buf, 0xCu);
       }
 
@@ -570,21 +562,21 @@ LABEL_12:
       if (v15)
       {
         v16 = v15;
-        v55 = v14;
-        v56 = v8;
+        v54 = v14;
+        v55 = v8;
         Count = CFArrayGetCount(v15);
         v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:Count];
         v19 = CADLogHandle;
         if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v59 = stringCopy;
-          v60 = 2048;
-          v61 = Count;
+          v58 = stringCopy;
+          v59 = 2048;
+          v60 = Count;
           _os_log_impl(&dword_22430B000, v19, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: Search for events containing URL %@ returned %lu results", buf, 0x16u);
         }
 
-        v53 = stringCopy;
+        v52 = stringCopy;
         v20 = MEMORY[0x277CBF128];
         theArray = CFArrayCreateMutable(0, Count, MEMORY[0x277CBF128]);
         Mutable = CFArrayCreateMutable(0, Count, v20);
@@ -637,17 +629,17 @@ LABEL_12:
           v31 = v30;
           v32 = CFArrayGetCount(theArray);
           *buf = 134217984;
-          v59 = v32;
+          v58 = v32;
           _os_log_impl(&dword_22430B000, v31, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: Of those, %lu have recurrences", buf, 0xCu);
         }
 
         v33 = CADLogHandle;
-        v14 = v55;
-        v8 = v56;
+        v14 = v54;
+        v8 = v55;
         if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134217984;
-          v59 = v22;
+          v58 = v22;
           _os_log_impl(&dword_22430B000, v33, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: Also found %lu events in the future", buf, 0xCu);
         }
 
@@ -660,7 +652,7 @@ LABEL_12:
           v36 = HaveOccurrencesAfterDate;
           v37 = CFArrayGetCount(Mutable);
           v38 = CFArrayCreateMutable(0, v37, MEMORY[0x277CBF128]);
-          stringCopy = v54;
+          stringCopy = v53;
           if (CFArrayGetCount(v36) >= 1)
           {
             v39 = 0;
@@ -686,7 +678,7 @@ LABEL_12:
           if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134217984;
-            v59 = v42;
+            v58 = v42;
             _os_log_impl(&dword_22430B000, v43, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: And of those, %lu events with future occurrences.", buf, 0xCu);
           }
 
@@ -709,14 +701,14 @@ LABEL_12:
 
           CFRelease(v36);
           CFRelease(v38);
-          v14 = v55;
-          v8 = v56;
+          v14 = v54;
+          v8 = v55;
         }
 
         else
         {
           v46 = CADLogHandle;
-          stringCopy = v54;
+          stringCopy = v53;
           if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
@@ -735,7 +727,7 @@ LABEL_12:
         if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v59 = stringCopy;
+          v58 = stringCopy;
           _os_log_impl(&dword_22430B000, v29, OS_LOG_TYPE_INFO, "ConferenceRenewal: Search for events containing URL %@ returned nil", buf, 0xCu);
         }
 
@@ -766,9 +758,9 @@ LABEL_12:
         v49 = v48;
         v50 = [v18 count];
         *buf = 134218242;
-        v59 = v50;
-        v60 = 2112;
-        v61 = stringCopy;
+        v58 = v50;
+        v59 = 2112;
+        v60 = stringCopy;
         _os_log_impl(&dword_22430B000, v49, OS_LOG_TYPE_INFO, "ConferenceRenewal: Search completed. Found %lu URLs with host %@", buf, 0x16u);
       }
     }
@@ -776,7 +768,7 @@ LABEL_12:
     else if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v59 = stringCopy;
+      v58 = stringCopy;
       _os_log_impl(&dword_22430B000, v48, OS_LOG_TYPE_ERROR, "ConferenceRenewal. Search completed. Unable to find URLs for with host %@", buf, 0xCu);
     }
   }
@@ -792,14 +784,12 @@ LABEL_12:
     v18 = 0;
   }
 
-  v51 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 + (id)_extractURLStringsFromCalEvent:(void *)event
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = CalCalendarItemCopyDescription();
   if (v3)
   {
@@ -811,35 +801,35 @@ LABEL_12:
 
     if (v8)
     {
-      v33 = v4;
+      v32 = v4;
       v9 = MEMORY[0x277CBEB18];
       conference2 = [v5 conference];
       joinMethods2 = [conference2 joinMethods];
       v12 = [v9 arrayWithCapacity:{objc_msgSend(joinMethods2, "count")}];
 
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
-      v32 = v5;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
+      v31 = v5;
       conference3 = [v5 conference];
       joinMethods3 = [conference3 joinMethods];
 
-      v15 = [joinMethods3 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v15 = [joinMethods3 countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v35;
+        v17 = *v34;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v35 != v17)
+            if (*v34 != v17)
             {
               objc_enumerationMutation(joinMethods3);
             }
 
-            v19 = *(*(&v34 + 1) + 8 * i);
+            v19 = *(*(&v33 + 1) + 8 * i);
             v20 = MEMORY[0x277CF7788];
             v21 = [v19 URL];
             LODWORD(v20) = [v20 isTUConversationLink:v21];
@@ -853,7 +843,7 @@ LABEL_12:
                 v24 = [v19 URL];
                 absoluteString = [v24 absoluteString];
                 *buf = 138412290;
-                v39 = absoluteString;
+                v38 = absoluteString;
                 _os_log_impl(&dword_22430B000, v23, OS_LOG_TYPE_DEBUG, "ConferenceRenewal: adding URL: %@", buf, 0xCu);
               }
 
@@ -863,14 +853,14 @@ LABEL_12:
             }
           }
 
-          v16 = [joinMethods3 countByEnumeratingWithState:&v34 objects:v40 count:16];
+          v16 = [joinMethods3 countByEnumeratingWithState:&v33 objects:v39 count:16];
         }
 
         while (v16);
       }
 
-      v5 = v32;
-      v4 = v33;
+      v5 = v31;
+      v4 = v32;
     }
 
     else
@@ -899,8 +889,6 @@ LABEL_12:
 
     v12 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -112,14 +112,16 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_24E138520(appear);
+  sub_24E138520(appearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_24E138668(appear);
+  sub_24E138668(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -130,20 +132,21 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_24E138984(disappear);
+  sub_24E138984(disappearCopy);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_24E138B00();
+  sub_24E138B00(selfCopy);
 }
 
 - (void)didReceiveMemoryWarning
 {
   selfCopy = self;
-  sub_24E138C38();
+  sub_24E138C38(selfCopy);
 }
 
 - (id)makeLayout

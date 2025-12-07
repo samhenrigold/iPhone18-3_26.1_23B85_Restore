@@ -133,14 +133,12 @@
   has = self->_has;
   if (has)
   {
-    antennaPanelNum = self->_antennaPanelNum;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    minRsrpDbm = self->_minRsrpDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -149,15 +147,14 @@
     PBDataWriterPlaceMark();
     if (self->_rsrps.count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = self->_rsrps.list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < self->_rsrps.count);
+      while (v6 < self->_rsrps.count);
     }
 
     PBDataWriterRecallMark();
@@ -165,7 +162,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    minRsrqDb = self->_minRsrqDb;
     PBDataWriterWriteSint32Field();
   }
 
@@ -175,15 +171,14 @@
     PBDataWriterPlaceMark();
     if (p_rsrqs->count)
     {
-      v12 = 0;
+      v8 = 0;
       do
       {
-        v13 = p_rsrqs->list[v12];
         PBDataWriterWriteUint32Field();
-        ++v12;
+        ++v8;
       }
 
-      while (v12 < p_rsrqs->count);
+      while (v8 < p_rsrqs->count);
     }
 
     PBDataWriterRecallMark();
@@ -280,7 +275,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 68);
   if (*&self->_has)
   {
     if ((*(equalCopy + 68) & 1) == 0 || self->_antennaPanelNum != *(equalCopy + 14))
@@ -314,7 +308,6 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v6 = *(equalCopy + 68);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 68) & 4) == 0 || self->_minRsrqDb != *(equalCopy + 16))

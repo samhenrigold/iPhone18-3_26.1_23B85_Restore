@@ -192,30 +192,30 @@ void __86__HKSampleIteratorQuery_client_deliverSampleObjects_queryCursor_deliver
 
 - (void)queue_validate
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = HKSampleIteratorQuery;
-  [(HKQuery *)&v19 queue_validate];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v20 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = HKSampleIteratorQuery;
+  [(HKQuery *)&v18 queue_validate];
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   queryDescriptors = [(HKSampleIteratorQueryCursor *)self->_queryCursor queryDescriptors];
-  v4 = [queryDescriptors countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v4 = [queryDescriptors countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(queryDescriptors);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         sampleType = [v8 sampleType];
 
         if (!sampleType)
@@ -235,7 +235,7 @@ void __86__HKSampleIteratorQuery_client_deliverSampleObjects_queryCursor_deliver
         }
       }
 
-      v5 = [queryDescriptors countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v5 = [queryDescriptors countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v5);
@@ -245,8 +245,6 @@ void __86__HKSampleIteratorQuery_client_deliverSampleObjects_queryCursor_deliver
   {
     [MEMORY[0x1E695DF30] raise:@"HKQueryValidationFailureException" format:{@"%@ completionHandler cannot be nil", objc_opt_class()}];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_deliverError:(id)error

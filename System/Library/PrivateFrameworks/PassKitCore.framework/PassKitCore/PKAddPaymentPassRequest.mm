@@ -84,7 +84,7 @@
 
   else
   {
-    v5 = [(NSString *)self->_encryptionVersion isEqualToString:@"EV_ECC_v2"]^ 1;
+    v5 = objc_msgSend_isEqualToString_(self->_encryptionVersion) ^ 1;
   }
 
   v4[2](v4, v5, @"ephemeralPublicKey missing");

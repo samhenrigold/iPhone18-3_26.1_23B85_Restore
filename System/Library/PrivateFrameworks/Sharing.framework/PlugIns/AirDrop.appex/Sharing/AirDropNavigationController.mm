@@ -3,6 +3,7 @@
 - (_TtC7AirDrop27AirDropNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass;
 - (_TtC7AirDrop27AirDropNavigationController)initWithNibName:(id)name bundle:(id)bundle;
 - (_TtC7AirDrop27AirDropNavigationController)initWithRootViewController:(id)controller;
+- (void)airDropViewServiceDidFinishTransferWithSuccess:(BOOL)success;
 - (void)airDropViewServiceRequestingSendingAppBundleIdentifierWithCompletionHandler:(id)handler;
 - (void)airDropViewServiceRequestingSharedItemsWithDataRequest:(id)request completionHandler:(id)handler;
 - (void)airDropViewServiceWillStartTransferToRecipient:(id)recipient;
@@ -114,6 +115,18 @@ LABEL_6:
   AirDropNavigationController.airDropViewServiceWillStartTransfer(to:)(recipient);
 }
 
+- (void)airDropViewServiceDidFinishTransferWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  selfCopy = self;
+  v4 = sub_100018D64();
+  if (v4)
+  {
+    [v4 airDropViewServiceDidFinishTransferWithSuccess:successCopy];
+    swift_unknownObjectRelease();
+  }
+}
+
 - (void)airDropViewServiceRequestingSharedItemsWithDataRequest:(id)request completionHandler:(id)handler
 {
   v6 = _Block_copy(handler);
@@ -132,7 +145,7 @@ LABEL_6:
   requestCopy = request;
   selfCopy = self;
   AirDropNavigationController.airDropViewServiceRequestingSharedItems(with:completionHandler:)(request, v6, v7);
-  sub_10001A67C(v6);
+  sub_10001A67C(v6, v7);
 }
 
 - (void)airDropViewServiceRequestingSendingAppBundleIdentifierWithCompletionHandler:(id)handler
@@ -154,7 +167,7 @@ LABEL_6:
 
   selfCopy = self;
   AirDropNavigationController.airDropViewServiceRequestingSendingAppBundleIdentifier(completionHandler:)(v7, v6);
-  sub_10001A67C(v7);
+  sub_10001A67C(v7, v6);
 }
 
 @end

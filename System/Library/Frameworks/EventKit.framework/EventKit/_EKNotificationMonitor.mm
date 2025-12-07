@@ -54,15 +54,14 @@
 
 + (id)requestedDarwinNotifications
 {
-  v7[4] = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E6992E20];
-  v7[0] = @"EKNotificationCountChangedExternallyNotification";
-  v7[1] = v2;
+  v6[0] = @"EKNotificationCountChangedExternallyNotification";
+  v6[1] = v2;
   v3 = *MEMORY[0x1E6992E60];
-  v7[2] = *MEMORY[0x1E6992E58];
-  v7[3] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:4];
-  v5 = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E6992E58];
+  v6[3] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
 
   return v4;
 }
@@ -396,7 +395,7 @@
 
 - (void)_updateTimerFireDate:(id)date
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   dispatch_assert_queue_V2(self->_queue);
   [(_EKNotificationMonitor *)self _killTimer];
@@ -422,9 +421,9 @@
       logHandle2 = [objc_opt_class() logHandle];
       if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138543362;
-        v18 = dateCopy;
-        _os_log_impl(&dword_1A805E000, logHandle2, OS_LOG_TYPE_DEFAULT, "Next expiration fire time will be %{public}@.", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = dateCopy;
+        _os_log_impl(&dword_1A805E000, logHandle2, OS_LOG_TYPE_DEFAULT, "Next expiration fire time will be %{public}@.", &v16, 0xCu);
       }
 
       v10 = [dateCopy copy];
@@ -447,12 +446,10 @@
     date = [objc_opt_class() logHandle];
     if (os_log_type_enabled(date, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_1A805E000, date, OS_LOG_TYPE_DEFAULT, "No expiring notifications. Not setting expiration timer.", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1A805E000, date, OS_LOG_TYPE_DEFAULT, "No expiring notifications. Not setting expiration timer.", &v16, 2u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)effectiveCallbackQueue
@@ -641,7 +638,7 @@
 
 - (id)_fetchEventNotificationReferencesFromEventStore:(id)store earliestExpiringNotification:(id *)notification
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   dispatch_assert_queue_V2(self->_queue);
   logHandle = [objc_opt_class() logHandle];
@@ -676,10 +673,10 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__13;
-  v23 = __Block_byref_object_dispose__13;
-  v24 = 0;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__13;
+  v22 = __Block_byref_object_dispose__13;
+  v23 = 0;
   v13 = +[_EKNotificationMonitor blacklistedNotificationQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -688,16 +685,15 @@
   block[4] = &buf;
   dispatch_sync(v13, block);
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __103___EKNotificationMonitor__fetchEventNotificationReferencesFromEventStore_earliestExpiringNotification___block_invoke_2;
-  v18[3] = &unk_1E77FE8A0;
-  v18[4] = &buf;
-  v14 = [MEMORY[0x1E696AE18] predicateWithBlock:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __103___EKNotificationMonitor__fetchEventNotificationReferencesFromEventStore_earliestExpiringNotification___block_invoke_2;
+  v17[3] = &unk_1E77FE8A0;
+  v17[4] = &buf;
+  v14 = [MEMORY[0x1E696AE18] predicateWithBlock:v17];
   v15 = [v8 filteredArrayUsingPredicate:v14];
 
   _Block_object_dispose(&buf, 8);
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -810,11 +806,10 @@
 
 - (void)_updateTimerFireDate:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Received multiple expiration dates in the past. Will not set expiration timer. Most recent expiration date received was %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Received multiple expiration dates in the past. Will not set expiration timer. Most recent expiration date received was %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -4,9 +4,53 @@
 - (void)addOrUpdateSearchableItems:(id)items bundleID:(id)d completion:(id)completion;
 - (void)addSerializedDocument:(id)document documentType:(int64_t)type completion:(id)completion;
 - (void)foundInEventResultWithSerializedDocument:(id)document documentType:(int64_t)type completion:(id)completion;
+- (void)requestExtractionOfPersonalIDFromDocument:(id)document pid:(int)pid completion:(id)completion;
+- (void)synchronousEventExtractionWithSerializedDocument:(id)document documentType:(int64_t)type pid:(int)pid completion:(id)completion;
 @end
 
 @implementation DUXPCClient
+
+- (void)synchronousEventExtractionWithSerializedDocument:(id)document documentType:(int64_t)type pid:(int)pid completion:(id)completion
+{
+  v7 = *&pid;
+  documentCopy = document;
+  completionCopy = completion;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DocumentUnderstandingClient initiating call to textunderstandingd - synchronousEventExtractionWithSerializedDocument", buf, 2u);
+  }
+
+  clientHelpers = self->_clientHelpers;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_249D20F38;
+  v15[3] = &unk_278FB5728;
+  v13 = completionCopy;
+  v16 = v13;
+  v14 = [(DUXPCClientHelpers *)clientHelpers synchronousRemoteObjectProxyWithErrorHandler:v15];
+  [v14 synchronousEventExtractionWithSerializedDocument:documentCopy documentType:type pid:v7 completion:v13];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DocumentUnderstandingClient completed the call", buf, 2u);
+  }
+}
+
+- (void)requestExtractionOfPersonalIDFromDocument:(id)document pid:(int)pid completion:(id)completion
+{
+  v6 = *&pid;
+  documentCopy = document;
+  completionCopy = completion;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v11 = 0;
+    _os_log_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "DocumentUnderstandingClient initiating call to textunderstandingd - requestExtractionOfPersonalIDFromDocument", v11, 2u);
+  }
+
+  remoteObjectProxy = [(DUXPCClientHelpers *)self->_clientHelpers remoteObjectProxy];
+  [remoteObjectProxy requestExtractionOfPersonalIDFromDocument:documentCopy pid:v6 completion:completionCopy];
+}
 
 - (void)foundInEventResultWithSerializedDocument:(id)document documentType:(int64_t)type completion:(id)completion
 {

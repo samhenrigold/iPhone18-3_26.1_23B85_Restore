@@ -153,7 +153,7 @@ LABEL_7:
   [(PXPhotoKitMergeDuplicatesActionPerformer *)self completeBackgroundTaskWithSuccess:0 error:0];
 }
 
-void __65__PXPhotoKitMergeDuplicatesActionPerformer_performBackgroundTask__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __65__PXPhotoKitMergeDuplicatesActionPerformer_performBackgroundTask__block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   *(a1 + 32);

@@ -90,7 +90,7 @@ uint64_t ApplyFSTSeq(uint64_t a1, uint64_t a2, int a3, int *a4, uint64_t *a5, ui
   return result;
 }
 
-uint64_t mosyntkbwgram_GetFirstEpsTrans(uint64_t a1, int a2, _DWORD *a3, _DWORD *a4, _BYTE *a5, int *a6)
+uint64_t mosyntkbwgram_GetFirstEpsTrans(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, _BYTE *a5, int *a6)
 {
   v8 = 0;
   result = wgram_GetFirstEpsTrans(a1, a2, a3, a4, &v8, a6);
@@ -98,7 +98,7 @@ uint64_t mosyntkbwgram_GetFirstEpsTrans(uint64_t a1, int a2, _DWORD *a3, _DWORD 
   return result;
 }
 
-uint64_t mosyntkbwgram_GetNextEpsTrans(uint64_t a1, int a2, unsigned int *a3, _DWORD *a4, _BYTE *a5, int *a6)
+uint64_t mosyntkbwgram_GetNextEpsTrans(uint64_t a1, uint64_t a2, unsigned int *a3, _DWORD *a4, _BYTE *a5, int *a6)
 {
   v8 = 0;
   result = wgram_GetNextEpsTrans(a1, a2, a3, a4, &v8, a6);
@@ -106,8 +106,10 @@ uint64_t mosyntkbwgram_GetNextEpsTrans(uint64_t a1, int a2, unsigned int *a3, _D
   return result;
 }
 
-uint64_t kbsymtab_LoadData(_WORD *a1, int a2, _WORD *a3, int a4, uint64_t *a5, int a6)
+uint64_t kbsymtab_LoadData(_WORD *a1, uint64_t a2, _WORD *a3, uint64_t a4, uint64_t *a5, int a6)
 {
+  v8 = a4;
+  v10 = a2;
   v66 = *MEMORY[0x277D85DE8];
   v61 = 0;
   inited = InitRsrcFunction(a1, a2, &v61);
@@ -130,35 +132,35 @@ uint64_t kbsymtab_LoadData(_WORD *a1, int a2, _WORD *a3, int a4, uint64_t *a5, i
     return v13;
   }
 
-  Lex = kblex_loadLex(a1, a2, a3, a4, 3u, (v14 + 8584));
+  Lex = kblex_loadLex(a1, v10, a3, v8, 3u, (v14 + 8584));
   if ((Lex & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  Lex = kblex_loadLex(a1, a2, a3, a4, 4u, (*a5 + 8592));
+  Lex = kblex_loadLex(a1, v10, a3, v8, 4u, (*a5 + 8592));
   if ((Lex & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  Lex = kblex_loadLex(a1, a2, a3, a4, 5u, (*a5 + 8600));
+  Lex = kblex_loadLex(a1, v10, a3, v8, 5u, (*a5 + 8600));
   if ((Lex & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  Lex = kblex_loadLex(a1, a2, a3, a4, 6u, (*a5 + 8608));
+  Lex = kblex_loadLex(a1, v10, a3, v8, 6u, (*a5 + 8608));
   if ((Lex & 0x80000000) != 0)
   {
     goto LABEL_31;
   }
 
-  v13 = kblex_loadLex(a1, a2, a3, a4, 7u, (*a5 + 8616));
+  v13 = kblex_loadLex(a1, v10, a3, v8, 7u, (*a5 + 8616));
   if ((v13 & 0x80000000) != 0)
   {
 LABEL_32:
-    freeTabsAsLex(*a5, a1, a2, a3, a4);
+    freeTabsAsLex(*a5, a1, v10, a3, v8);
     heap_Free(*(v61 + 8), *a5);
     *a5 = 0;
     return v13;
@@ -188,7 +190,7 @@ LABEL_32:
   *(*a5 + 8536) = 0;
   if (a6)
   {
-    v60 = a4;
+    v60 = v8;
     for (j = 0; j != 100; ++j)
     {
       LOWORD(__s) = j;
@@ -218,7 +220,7 @@ LABEL_32:
     while (v20 != 1000);
     *(v18 + 8536) = 1;
     v18 = *a5;
-    a4 = v60;
+    v8 = v60;
   }
 
   *(v18 + 12) = kbsymtab_KnownGraphId(v18, "#");
@@ -310,10 +312,10 @@ LABEL_31:
   return v13;
 }
 
-uint64_t freeTabsAsLex(uint64_t result, _WORD *a2, int a3, _WORD *a4, int a5)
+void *freeTabsAsLex(void *result, _WORD *a2, int a3, _WORD *a4, int a5)
 {
   v9 = result;
-  v10 = *(result + 8584);
+  v10 = result[1073];
   if (v10)
   {
     result = kblex_FinishLex(a2, a3, a4, a5, v10);
@@ -364,14 +366,14 @@ uint64_t kbsymtab_UnloadData(_WORD *a1, int a2, _WORD *a3, int a4, uint64_t *a5)
         v13 = *a5;
       }
 
-      v14 = *(v13 + 120);
+      v14 = v13[15];
       if (v14)
       {
         heap_Free(v12, v14);
         v13 = *a5;
       }
 
-      ssftmap_ObjClose(*(v13 + 8544));
+      ssftmap_ObjClose(v13[1068]);
       ssftmap_ObjClose(*(*a5 + 8552));
       ssftmap_ObjClose(*(*a5 + 8560));
       ssftmap_ObjClose(*(*a5 + 8568));
@@ -411,20 +413,22 @@ uint64_t kbsymtab_KnownGraphId(uint64_t a1, unsigned __int8 *a2)
   return v3 & ~(v3 >> 31);
 }
 
-char *kbsymtab_GraphSymString(uint64_t a1, signed int a2, char *__dst, unint64_t a4)
+char *kbsymtab_GraphSymString(uint64_t a1, uint64_t a2, char *__dst, unint64_t a4)
 {
+  v6 = a2;
   *__dst = 0;
   if (!a1 || a4 < 8 || a2 > 999 || !*(a1 + 8536) || (result = cstdlib_strcpy(__dst, (a1 + 8 * a2 + 536)), !*__dst))
   {
 
-    return dictLookupSymStr(a1, 3, a2, __dst, a4);
+    return dictLookupSymStr(a1, 3, v6, __dst, a4);
   }
 
   return result;
 }
 
-uint64_t dictLookupSymStr(void *a1, int a2, unsigned int a3, char *a4, uint64_t a5)
+char *dictLookupSymStr(void *a1, uint64_t a2, unsigned int a3, char *a4, uint64_t a5)
 {
+  v7 = a2;
   v15 = *MEMORY[0x277D85DE8];
   v13 = 58;
   result = LH_itoa(a3, v14, 0xAu);
@@ -433,7 +437,7 @@ uint64_t dictLookupSymStr(void *a1, int a2, unsigned int a3, char *a4, uint64_t 
     v12 = 0;
     *a4 = 0;
     v11 = -1;
-    result = dictLookup(a1, a2, &v13, &v12, &v11);
+    result = dictLookup(a1, v7, &v13, &v12, &v11);
     if (v11)
     {
       v10 = a5 - 1;
@@ -456,7 +460,7 @@ uint64_t kbsymtab_AccId(uint64_t a1, int a2)
   return *(a1 + 4 * v2 + 28);
 }
 
-uint64_t kbsymtab_IntPropValue(void *a1, unsigned int a2, unsigned int a3)
+uint64_t kbsymtab_IntPropValue(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *MEMORY[0x277D85DE8];
   buildSymFeatPropKey(a1, a2, 0, a3, v5);
@@ -522,7 +526,7 @@ char *buildSymFeatPropKey(void *a1, unsigned int a2, __int16 *a3, unsigned int a
   return cstdlib_strncpy(v10 + 1, v18, v11 - 1);
 }
 
-uint64_t dictSingleLookupInt(void *a1, int a2, uint64_t a3)
+uint64_t dictSingleLookupInt(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = 0;
   v5 = -1;
@@ -562,7 +566,7 @@ BOOL kbsymtab_HasIntPropValue(void *a1, unsigned int a2, unsigned int a3, int a4
   return v10 == a4;
 }
 
-void **kbsymtab_GetFirstAccPatVal(void **result, int a2, int a3, uint64_t a4, void *a5)
+uint64_t *kbsymtab_GetFirstAccPatVal(uint64_t *result, int a2, int a3, uint64_t a4, void *a5)
 {
   if (result)
   {
@@ -579,7 +583,7 @@ void **kbsymtab_GetFirstAccPatVal(void **result, int a2, int a3, uint64_t a4, vo
   return result;
 }
 
-void **kbsymtab_GetNextAccPatVal(void **result, void *a2)
+uint64_t *kbsymtab_GetNextAccPatVal(uint64_t *result, void *a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   if (result && a2)
@@ -594,7 +598,7 @@ void **kbsymtab_GetNextAccPatVal(void **result, void *a2)
     v5 = *(v3 + 7) + 1;
     if (v5 < v7)
     {
-      v8 = (*v3)[15];
+      v8 = *(*v3 + 120);
       v6 = v8;
       *(v3 + 7) = v5;
       cstdlib_strncpy(v6, *(v9 + 8 * v5), 0x3E8uLL);
@@ -746,7 +750,7 @@ LABEL_16:
   return result;
 }
 
-void *kbsymtab_DisposeAccPat(void *result, void **a2)
+void *kbsymtab_DisposeAccPat(void *result, uint64_t *a2)
 {
   if (result)
   {
@@ -759,7 +763,7 @@ void *kbsymtab_DisposeAccPat(void *result, void **a2)
         do
         {
           v5 = *v3;
-          kbsymtab_DisposeAccPat(v4, v3 + 1);
+          kbsymtab_DisposeAccPat(v4, (v3 + 8));
           result = heap_Free(*(*v4 + 8), v3);
           v3 = v5;
         }
@@ -773,7 +777,7 @@ void *kbsymtab_DisposeAccPat(void *result, void **a2)
   return result;
 }
 
-void kbsymtab_GetFeatMatchedFirstIntPropVal(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, _DWORD *a6)
+void kbsymtab_GetFeatMatchedFirstIntPropVal(uint64_t result, int a2, uint64_t a3, int a4, uint64_t a5, _DWORD *a6)
 {
   if (a6)
   {
@@ -782,12 +786,12 @@ void kbsymtab_GetFeatMatchedFirstIntPropVal(uint64_t a1, int a2, uint64_t a3, in
 
   if (a5)
   {
-    *a5 = a1;
+    *a5 = result;
     *(a5 + 8) = a2;
     *(a5 + 16) = a3;
     *(a5 + 24) = a4;
     *(a5 + 28) = -1;
-    kbsymtab_GetFeatMatchedNextIntPropVal(a1, a5, a6);
+    kbsymtab_GetFeatMatchedNextIntPropVal(result, a5, a6);
   }
 }
 
@@ -837,7 +841,7 @@ void kbsymtab_GetFeatMatchedNextIntPropVal(uint64_t a1, uint64_t a2, _DWORD *a3)
   }
 }
 
-void *kbsymtab_GetLhPlusPhone(void *result, uint64_t a2, int a3, int *a4, char *a5, int a6, _BYTE *a7)
+char *kbsymtab_GetLhPlusPhone(char *result, uint64_t a2, int a3, int *a4, char *a5, int a6, _BYTE *a7)
 {
   if (a7)
   {
@@ -872,7 +876,7 @@ void *kbsymtab_GetLhPlusPhone(void *result, uint64_t a2, int a3, int *a4, char *
       v14 = result;
       if (!result)
       {
-        result = LhplGetSymbol(v13, v9[16], &v17 + 1, &v17);
+        result = LhplGetSymbol(v13, *(v9 + 16), &v17 + 1, &v17);
         if (result)
         {
           v14 = a6;
@@ -978,7 +982,7 @@ uint64_t getComplexPhoneLen(void *a1, _BYTE *a2)
   }
 }
 
-uint64_t dictLookup(void *a1, int a2, uint64_t a3, void *a4, __int16 *a5)
+uint64_t dictLookup(void *a1, int a2, uint64_t a3, void *a4, unsigned __int16 *a5)
 {
   v30 = *MEMORY[0x277D85DE8];
   v9 = &a1[a2];
@@ -1047,7 +1051,7 @@ LABEL_33:
         break;
       }
 
-      kblexXX_GetEntryPhon(0, v27, __src, 100);
+      kblexXX_GetEntryPhon(0, v27, __src, 0x64u);
       v18 = *a5;
       if (v18 <= 0x3E7)
       {
@@ -1360,8 +1364,9 @@ LABEL_7:
   return 0;
 }
 
-uint64_t mosynt_NormalizeSpaceFields(_BYTE *a1, uint64_t a2, unsigned int a3)
+uint64_t mosynt_NormalizeSpaceFields(_BYTE *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v14 = 0;
   v5 = *a1;
   if (*a1)
@@ -1405,7 +1410,7 @@ uint64_t mosynt_NormalizeSpaceFields(_BYTE *a1, uint64_t a2, unsigned int a3)
         break;
       }
 
-      result = mosynt_TransferStretchedStringSection(a1, &v12, v13, a2, a3, &v14, v13, 32);
+      result = mosynt_TransferStretchedStringSection(a1, &v12, v13, a2, v3, &v14, v13, 32);
       if ((result & 0x80000000) != 0)
       {
         break;
@@ -1423,9 +1428,9 @@ uint64_t mosynt_NormalizeSpaceFields(_BYTE *a1, uint64_t a2, unsigned int a3)
   {
     result = 0;
 LABEL_13:
-    if (v5 >= a3)
+    if (v5 >= v3)
     {
-      v5 = a3 - 1;
+      v5 = v3 - 1;
     }
 
     *(a2 + v5) = 0;
@@ -1856,7 +1861,7 @@ uint64_t mosynt_TraceString(uint64_t a1, char *__s, unsigned int a3)
   return mosyntbase_WString(a1, __s, v7);
 }
 
-uint64_t mosynt_TraceInt(uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t mosynt_TraceInt(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   if (a1)
   {
@@ -1890,7 +1895,7 @@ uint64_t mosynt_TraceInt(uint64_t a1, unsigned int a2, unsigned int a3)
   }
 }
 
-uint64_t mosynt_NumPOSListToPOSList(uint64_t a1, void *a2, _BYTE *a3, uint64_t a4, int a5)
+uint64_t mosynt_NumPOSListToPOSList(uint64_t a1, void *a2, _BYTE *a3, uint64_t a4, uint64_t a5)
 {
   v17 = 0;
   if (*a3)
@@ -1907,7 +1912,7 @@ uint64_t mosynt_NumPOSListToPOSList(uint64_t a1, void *a2, _BYTE *a3, uint64_t a
           break;
         }
 
-        v11 = v12 + 10 * v11 - 48;
+        v11 = (v12 + 10 * v11 - 48);
         ++v10;
       }
 
@@ -2205,7 +2210,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t mosynt_GetReading(uint64_t a1, void **a2, int a3, _DWORD *a4, char *a5, int a6, char *a7, int a8, _DWORD *a9)
+uint64_t mosynt_GetReading(uint64_t a1, void *a2, int a3, _DWORD *a4, char *a5, int a6, char *a7, uint64_t a8, _DWORD *a9)
 {
   v39 = *MEMORY[0x277D85DE8];
   v36 = 0;
@@ -2244,7 +2249,7 @@ uint64_t mosynt_GetReading(uint64_t a1, void **a2, int a3, _DWORD *a4, char *a5,
 
   *a4 = 1;
   v37 = 0;
-  v18 = a6 - 1;
+  v18 = (a6 - 1);
   result = mosyntkbsymtab_AppDecomprConsToString(a1, *a2, *(v17 + 8), a5, v18, &v37);
   if ((result & 0x80000000) == 0)
   {
@@ -2264,7 +2269,7 @@ uint64_t mosynt_GetReading(uint64_t a1, void **a2, int a3, _DWORD *a4, char *a5,
             return result;
           }
 
-          a7[a8 - 1] = 0;
+          a7[(a8 - 1)] = 0;
           v20 = (a2 + 156);
           v21 = a7;
         }
@@ -2437,7 +2442,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t mosynt_LHPlusMapping(uint64_t a1, void *a2, uint64_t a3, char *a4, char *__dst, unsigned int a6)
+uint64_t mosynt_LHPlusMapping(uint64_t a1, char *a2, uint64_t a3, char *a4, char *__dst, uint64_t a6)
 {
   if (a1)
   {
@@ -2467,7 +2472,7 @@ uint64_t mosynt_LHPlusMapping(uint64_t a1, void *a2, uint64_t a3, char *a4, char
   cstdlib_strcpy(__dst, "");
   if (cstdlib_strstr(a4, "[SVOX]") == a4)
   {
-    cstdlib_strncpy(__dst, a4, a6 - 1);
+    cstdlib_strncpy(__dst, a4, (a6 - 1));
     v15 = "[SVOX]";
 LABEL_14:
     mosynt_RemoveInitSubstr(__dst, v15);
@@ -2501,7 +2506,7 @@ LABEL_14:
       result = mosyntwordpho_LHPlusMapping(a1, v12, a2, v16, __dst, a6);
       if ((result & 0x80000000) == 0)
       {
-        __dst[a6 - 1] = 0;
+        __dst[(a6 - 1)] = 0;
         v15 = "{VOC}";
         goto LABEL_14;
       }
@@ -2572,7 +2577,7 @@ LABEL_6:
   return result;
 }
 
-void mosynt_InsertTerminals(uint64_t a1, void **a2, signed int a3, unsigned int a4, char *a5, unsigned int a6, int a7, uint64_t a8, unsigned __int8 *a9)
+void mosynt_InsertTerminals(uint64_t a1, void **a2, uint64_t a3, uint64_t a4, char *a5, int a6, int a7, uint64_t a8, unsigned __int8 *a9)
 {
   v33 = *MEMORY[0x277D85DE8];
   if (a1)
@@ -2694,7 +2699,7 @@ LABEL_20:
       }
     }
 
-    if ((mosyntsentana_InsertTerminalEdge(a1, a2[2], a3, a4, SHIDWORD(v27), v32, v28, a6) & 0x80000000) != 0)
+    if ((mosyntsentana_InsertTerminalEdge(a1, a2[2], a3, a4, HIDWORD(v27), v32, v28, a6) & 0x80000000) != 0)
     {
       return;
     }
@@ -2750,7 +2755,7 @@ void mosynt_ParseSentence(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t mosynt_GetTerminalInfoById(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, char *__dst, int a6)
+uint64_t mosynt_GetTerminalInfoById(uint64_t a1, uint64_t *a2, uint64_t a3, _DWORD *a4, char *__dst, int a6)
 {
   *a4 = 0;
   cstdlib_strcpy(__dst, "");
@@ -2759,7 +2764,7 @@ uint64_t mosynt_GetTerminalInfoById(uint64_t a1, uint64_t a2, uint64_t a3, _DWOR
     return 0;
   }
 
-  result = *(a2 + 24);
+  result = a2[3];
   if (!result)
   {
     return result;
@@ -2775,7 +2780,7 @@ uint64_t mosynt_GetTerminalInfoById(uint64_t a1, uint64_t a2, uint64_t a3, _DWOR
 
   *a4 = 1;
   v15 = 0;
-  v14 = a6 - 1;
+  v14 = (a6 - 1);
   result = mosyntkbsymtab_AppConsFeatToString(a1, *a2, *(v13 + 16), (v13 + 24), __dst, v14, &v15);
   if ((result & 0x80000000) == 0)
   {
@@ -2828,7 +2833,7 @@ uint64_t mosynt_GetTerminalNode(uint64_t result, uint64_t a2, uint64_t *a3)
   return result;
 }
 
-uint64_t mosynt_SyntTreeToString(uint64_t a1, uint64_t a2, char *__dst, uint64_t a4)
+uint64_t mosynt_SyntTreeToString(uint64_t a1, void *a2, char *__dst, uint64_t a4)
 {
   cstdlib_strcpy(__dst, "");
   if (!a2)
@@ -2837,10 +2842,10 @@ uint64_t mosynt_SyntTreeToString(uint64_t a1, uint64_t a2, char *__dst, uint64_t
   }
 
   v9 = 0;
-  return mosynt_SyntTreeToString1(a1, *a2, *(a2 + 24), __dst, a4, &v9);
+  return mosynt_SyntTreeToString1(a1, *a2, a2[3], __dst, a4, &v9);
 }
 
-uint64_t mosynt_SyntTreeToString1(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, int *a6)
+uint64_t mosynt_SyntTreeToString1(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6)
 {
   v29 = *MEMORY[0x277D85DE8];
   if (!a3)
@@ -2849,8 +2854,8 @@ uint64_t mosynt_SyntTreeToString1(uint64_t a1, void *a2, uint64_t a3, uint64_t a
   }
 
   v27 = *a6;
-  v12 = a5 - 1;
-  result = mosyntkbsymtab_AppConsFeatToString(a1, a2, *(a3 + 16), (a3 + 24), a4, a5 - 1, &v27);
+  v12 = (a5 - 1);
+  result = mosyntkbsymtab_AppConsFeatToString(a1, a2, *(a3 + 16), (a3 + 24), a4, v12, &v27);
   if ((result & 0x80000000) != 0)
   {
     return result;
@@ -3024,7 +3029,7 @@ void mosynt_StringToSyntTree(uint64_t a1, void *a2, char *__s, uint64_t *a4)
   }
 }
 
-void mosynt_StringToSyntTree1(uint64_t a1, void *a2, unsigned __int8 *a3, uint64_t a4, signed int *a5, uint64_t *a6, int *a7, _DWORD *a8)
+void mosynt_StringToSyntTree1(uint64_t a1, void *a2, unsigned __int8 *a3, uint64_t a4, int *a5, uint64_t *a6, int *a7, _DWORD *a8)
 {
   v32 = *MEMORY[0x277D85DE8];
   *a6 = 0;
@@ -3144,32 +3149,36 @@ uint64_t mosynt_StartAccentPhrasing(uint64_t a1, uint64_t a2, uint64_t a3, uint6
   return result;
 }
 
-double mosynt_InsertAccPhrTermWord(uint64_t a1, uint64_t a2, unsigned int a3, signed int a4, int a5, char *__s)
+double mosynt_InsertAccPhrTermWord(uint64_t a1, char **a2, uint64_t a3, uint64_t a4, uint64_t a5, char *__s)
 {
+  v7 = a5;
+  v8 = a4;
+  v9 = a3;
   v15 = 0;
   v16 = 0;
   v12 = *a2;
   v13 = cstdlib_strlen(__s);
   if ((mosyntdata_StringToLexPhonList(a1, v12, __s, v13, &v16, &v15) & 0x80000000) == 0)
   {
-    return mosyntdata_InsertSentTermWord(a1, *(a2 + 24), a3, a4, a5, v16);
+    return mosyntdata_InsertSentTermWord(a1, a2[3], v9, v8, v7, v16);
   }
 
   return result;
 }
 
-void mosynt_InsertAccPhrPunct(uint64_t a1, uint64_t a2, unsigned int a3, int a4)
+void mosynt_InsertAccPhrPunct(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v4 = a3;
   v7 = mosyntknowl_OrthPunctType(a1, a4);
   if (v7)
   {
     v8 = *(a2 + 24);
 
-    mosyntdata_InsertSentTermPunct(a1, v8, a3, v7);
+    mosyntdata_InsertSentTermPunct(a1, v8, v4, v7);
   }
 }
 
-void mosynt_DoAccentPhrasing(uint64_t a1, void **a2, char *a3)
+void mosynt_DoAccentPhrasing(uint64_t a1, void *a2, char *a3)
 {
   v7 = 0;
   v8 = 0;
@@ -3204,7 +3213,7 @@ void mosynt_DoAccentPhrasing(uint64_t a1, void **a2, char *a3)
   }
 }
 
-uint64_t mosynt_GetWordProminence(uint64_t a1, uint64_t a2, unsigned int a3, _WORD *a4)
+uint64_t mosynt_GetWordProminence(uint64_t a1, uint64_t a2, uint64_t a3, _WORD *a4)
 {
   *a4 = 0;
   if (a2 && (v5 = *(a2 + 24)) != 0 && (v6 = mosyntdata_SentTermWordData(a1, v5, a3)) != 0 && (v7 = *(v6 + 16), (v7 & 0xFFFC) == 0))
@@ -3221,8 +3230,10 @@ uint64_t mosynt_GetWordProminence(uint64_t a1, uint64_t a2, unsigned int a3, _WO
   return 0;
 }
 
-uint64_t mosynt_GetPhraseInfo(uint64_t a1, uint64_t a2, unsigned int a3, _WORD *a4, char *__dst, int a6)
+uint64_t mosynt_GetPhraseInfo(uint64_t a1, uint64_t a2, uint64_t a3, _WORD *a4, char *__dst, uint64_t a6)
 {
+  v6 = a6;
+  v9 = a3;
   *a4 = 0;
   cstdlib_strcpy(__dst, "");
   if (!a2)
@@ -3236,7 +3247,7 @@ uint64_t mosynt_GetPhraseInfo(uint64_t a1, uint64_t a2, unsigned int a3, _WORD *
     return 0;
   }
 
-  result = mosyntdata_SentTermBoundData(a1, v12, a3);
+  result = mosyntdata_SentTermBoundData(a1, v12, v9);
   if (!result)
   {
     return result;
@@ -3250,11 +3261,11 @@ uint64_t mosynt_GetPhraseInfo(uint64_t a1, uint64_t a2, unsigned int a3, _WORD *
 
   *a4 = v14;
   v15 = mosyntkbaccphr_SimplifiedPhraseType(*(result + 12));
-  result = mosyntkbaccphr_PhraseTypeToString(v15, __dst, a6);
+  result = mosyntkbaccphr_PhraseTypeToString(v15, __dst, v6);
   if ((result & 0x80000000) == 0)
   {
     result = 0;
-    __dst[a6 - 1] = 0;
+    __dst[v6 - 1] = 0;
   }
 
   return result;
@@ -3273,8 +3284,9 @@ uint64_t mosynt_FinishAccentPhrasing(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t mosynt_SentPhono(uint64_t a1, void *a2, uint64_t a3, unsigned __int8 *a4, char *a5, char *a6, int a7)
+uint64_t mosynt_SentPhono(uint64_t a1, char *a2, uint64_t a3, unsigned __int8 *a4, char *a5, unsigned __int8 *a6, uint64_t a7)
 {
+  v7 = a7;
   v47 = 0;
   v48[0] = 0;
   if (!a1)
@@ -3424,10 +3436,10 @@ LABEL_36:
 
                     if ((v16 & 1) != 0 || (result = mosyntbase_WString(a1, "[SLPH] output phono list: ", 0), (result & 0x80000000) == 0) && (result = mosyntdata_WritePhonList(a1, a2, v47), (result & 0x80000000) == 0) && (result = mosyntbase_WLn(a1), (result & 0x80000000) == 0))
                     {
-                      result = mosyntdata_PhonListToString(a1, a2, 1, v47, a6, a7);
+                      result = mosyntdata_PhonListToString(a1, a2, 1, v47, a6, v7);
                       if ((result & 0x80000000) == 0)
                       {
-                        a6[a7 - 1] = 0;
+                        a6[v7 - 1] = 0;
                         v29 = *a6;
                         if (*a6)
                         {
@@ -3505,29 +3517,29 @@ LABEL_56:
 
 uint64_t sgram_CheckIfExists(_WORD *a1, uint64_t a2, _DWORD *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = 0;
-  memset(v18, 0, sizeof(v18));
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v11 = 0;
+  memset(v12, 0, sizeof(v12));
   *a3 = 0;
-  inited = InitRsrcFunction(a1, a2, &v17);
+  inited = InitRsrcFunction(a1, a2, &v11);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  inited = kbaux_BuildBrokerString(v17, "sgram", v18, 0x100uLL);
+  inited = kbaux_BuildBrokerString(v11, "sgram", v12, 0x100uLL);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  v7 = sgram_OpenRiffForReading(a1, a2, v18, &v16);
-  v14 = v7;
+  v7 = sgram_OpenRiffForReading(a1, a2, v12, &v10);
+  v8 = v7;
   if ((v7 & 0x80000000) == 0)
   {
     *a3 = 1;
-    return sgram_CloseRiff(&v16, v7, v8, v9, v10, v11, v12, v13);
+    return sgram_CloseRiff(&v10, v7);
   }
 
   if ((v7 & 0x1FFF) == 0xD || (v7 & 0x1FFF) == 3)
@@ -3535,16 +3547,16 @@ uint64_t sgram_CheckIfExists(_WORD *a1, uint64_t a2, _DWORD *a3)
     return 0;
   }
 
-  return v14;
+  return v8;
 }
 
 uint64_t sgram_LoadData(_WORD *a1, uint64_t a2, uint64_t *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = 0;
-  memset(v19, 0, sizeof(v19));
-  inited = InitRsrcFunction(a1, a2, &v18);
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = 0;
+  memset(v13, 0, sizeof(v13));
+  inited = InitRsrcFunction(a1, a2, &v12);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
@@ -3553,21 +3565,21 @@ uint64_t sgram_LoadData(_WORD *a1, uint64_t a2, uint64_t *a3)
   v7 = 2371887111;
   if (a3)
   {
-    v8 = heap_Calloc(*(v18 + 8), 1, 232);
+    v8 = heap_Calloc(*(v12 + 8), 1, 232);
     *a3 = v8;
     if (!v8)
     {
       return 2371887114;
     }
 
-    inited = kbaux_BuildBrokerString(v18, "sgram", v19, 0x100uLL);
+    inited = kbaux_BuildBrokerString(v12, "sgram", v13, 0x100uLL);
     if ((inited & 0x80000000) == 0)
     {
-      inited = sgram_OpenRiffForReading(a1, a2, v19, &v17);
+      inited = sgram_OpenRiffForReading(a1, a2, v13, &v11);
       if ((inited & 0x80000000) == 0)
       {
-        v9 = sgram_ReadFromRiff(v17, *a3);
-        return sgram_CloseRiff(&v17, v9, v10, v11, v12, v13, v14, v15);
+        v9 = sgram_ReadFromRiff(v11, *a3);
+        return sgram_CloseRiff(&v11, v9);
       }
     }
 
@@ -4083,7 +4095,7 @@ uint64_t mosyntdata_StartPhonList(uint64_t a1, void *a2, void *a3)
   return 0;
 }
 
-uint64_t mosyntdata_AddPhonEle(uint64_t a1, void *a2, uint64_t *a3, int a4, __int16 a5)
+uint64_t mosyntdata_AddPhonEle(uint64_t a1, void *a2, void **a3, int a4, __int16 a5)
 {
   v13 = 0;
   result = mosyntpal_ALLOCATE(a1, &v13, 0x28u);
@@ -4298,18 +4310,20 @@ LABEL_6:
   return result;
 }
 
-uint64_t mosyntdata_WritePhonEle(uint64_t a1, void *a2, uint64_t a3, unsigned int a4, int a5, unsigned __int8 a6, unsigned __int8 a7)
+uint64_t mosyntdata_WritePhonEle(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned __int8 a6, unsigned __int8 a7)
 {
+  v9 = a5;
+  v10 = a4;
   v15 = 0;
   result = mosyntpal_ALLOCATE(a1, &v15, 0x3E8u);
   if ((result & 0x80000000) == 0)
   {
     v16 = 0;
     *v15 = 0;
-    result = AppPhonEleString(a1, a2, v15, 1000, &v16, a3, a4, a5, a6, a7);
+    result = AppPhonEleString(a1, a2, v15, 1000, &v16, a3, v10, v9, a6, a7);
     if ((result & 0x80000000) == 0)
     {
-      result = mosyntbase_WString(a1, v15, 1000);
+      result = mosyntbase_WString(a1, v15, 0x3E8u);
       if ((result & 0x80000000) == 0)
       {
         return mosyntpal_DEALLOCATE(a1, &v15);
@@ -4369,7 +4383,7 @@ uint64_t AppPhonEleString(uint64_t a1, void *a2, uint64_t a3, int a4, int *a5, u
         {
           if (BYTE3(v34[0]) - 48 > 9 || BYTE4(v34[0]) != 125 || BYTE5(v34[0]))
           {
-            return mosyntbase_App(a3, a4, a5, v34, 100, &v31);
+            return mosyntbase_App(a3, a4, a5, v34, 0x64u, &v31);
           }
 
           v26 = BYTE3(v34[0]) + 10 * BYTE2(v34[0]) - 16;
@@ -4379,7 +4393,7 @@ uint64_t AppPhonEleString(uint64_t a1, void *a2, uint64_t a3, int a4, int *a5, u
       }
     }
 
-    return mosyntbase_App(a3, a4, a5, v34, 100, &v31);
+    return mosyntbase_App(a3, a4, a5, v34, 0x64u, &v31);
   }
 
   v19 = *(a6 + 24);
@@ -4389,14 +4403,14 @@ uint64_t AppPhonEleString(uint64_t a1, void *a2, uint64_t a3, int a4, int *a5, u
     {
       if (v19 == 1)
       {
-        v20 = mosyntkbsymtab_SyllSepId(a2);
+        v20 = mosyntkbsymtab_SyllSepId();
         result = mosyntkbsymtab_PhonSymString(a1, a2, v20, v34, 100);
         if ((result & 0x80000000) != 0)
         {
           return result;
         }
 
-        result = mosyntbase_App(a3, a4, a5, v34, 100, &v31);
+        result = mosyntbase_App(a3, a4, a5, v34, 0x64u, &v31);
         if ((result & 0x80000000) != 0)
         {
           return result;
@@ -4479,7 +4493,7 @@ LABEL_60:
           return result;
         }
 
-        result = mosyntbase_App(a3, a4, a5, v34, 100, &v31);
+        result = mosyntbase_App(a3, a4, a5, v34, 0x64u, &v31);
         if ((result & 0x80000000) != 0)
         {
           return result;
@@ -4576,7 +4590,7 @@ LABEL_47:
     result = mosyntpal_IntToString(*(a6 + 28), 0, v34, 100);
     if ((result & 0x80000000) == 0)
     {
-      result = mosyntbase_CApp(a3, a4, a5, v34, 100, &v31);
+      result = mosyntbase_CApp(a3, a4, a5, v34, 0x64u, &v31);
       if ((result & 0x80000000) == 0)
       {
         result = mosyntbase_CApp(a3, a4, a5, "} ", 0, &v31);
@@ -4593,7 +4607,7 @@ LABEL_47:
             result = mosyntbase_CApp(a3, a4, a5, "(", 0, &v31);
             if ((result & 0x80000000) == 0)
             {
-              result = mosyntbase_App(a3, a4, a5, &v32, 10, &v31);
+              result = mosyntbase_App(a3, a4, a5, &v32, 0xAu, &v31);
               if ((result & 0x80000000) == 0)
               {
                 result = mosyntbase_CApp(a3, a4, a5, ") ", 0, &v31);
@@ -4612,7 +4626,7 @@ LABEL_47:
   return result;
 }
 
-uint64_t mosyntdata_WriteFormattedPhonList(uint64_t a1, void *a2, void *a3, unsigned int a4, int a5)
+uint64_t mosyntdata_WriteFormattedPhonList(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   if (!a3)
   {
@@ -4670,7 +4684,7 @@ uint64_t mosyntdata_PhonListToString(uint64_t a1, void *a2, int a3, void *a4, _B
   return result;
 }
 
-uint64_t mosyntdata_StringToLexPhonList(uint64_t a1, void *a2, unsigned __int8 *a3, int a4, void *a5, uint64_t *a6)
+uint64_t mosyntdata_StringToLexPhonList(uint64_t a1, char *a2, unsigned __int8 *a3, uint64_t a4, void *a5, void **a6)
 {
   v14 = 0;
   *a5 = 0;
@@ -4705,7 +4719,7 @@ uint64_t mosyntdata_StringToLexPhonList(uint64_t a1, void *a2, unsigned __int8 *
   return result;
 }
 
-uint64_t mosyntdata_StringToPhonoPhonList(uint64_t a1, void *a2, int a3, unsigned __int8 *a4, int a5, _BYTE *a6, uint64_t a7, void *a8)
+uint64_t mosyntdata_StringToPhonoPhonList(uint64_t a1, char *a2, int a3, unsigned __int8 *a4, uint64_t a5, _BYTE *a6, uint64_t a7, void *a8)
 {
   v33 = 0;
   v32 = 0;
@@ -4722,10 +4736,10 @@ uint64_t mosyntdata_StringToPhonoPhonList(uint64_t a1, void *a2, int a3, unsigne
 
     v13 = v35;
     *(v35 + 20) = 1;
-    *(v13 + 24) = 3;
-    *(v13 + 28) = 0;
-    *(v13 + 32) = 0;
-    *(v13 + 36) = 0;
+    *(v13 + 6) = 3;
+    *(v13 + 14) = 0;
+    *(v13 + 8) = 0;
+    *(v13 + 18) = 0;
   }
 
   else
@@ -4761,10 +4775,10 @@ uint64_t mosyntdata_StringToPhonoPhonList(uint64_t a1, void *a2, int a3, unsigne
         *(v35 + 20) = 1;
         v20 = 2;
 LABEL_28:
-        *(v13 + 24) = v20;
-        *(v13 + 28) = -1;
-        *(v13 + 32) = 0;
-        *(v13 + 36) = 0;
+        *(v13 + 6) = v20;
+        *(v13 + 14) = -1;
+        *(v13 + 8) = 0;
+        *(v13 + 18) = 0;
         goto LABEL_49;
       }
 
@@ -4797,10 +4811,10 @@ LABEL_16:
         LOWORD(v19) = WORD2(v32);
         if (!HIDWORD(v32))
         {
-          if (v17 && *(v17 + 20) && *(v17 + 24) == 3 && !*(v17 + 32))
+          if (v17 && *(v17 + 20) && *(v17 + 6) == 3 && !*(v17 + 8))
           {
             LOWORD(v19) = 0;
-            *(v17 + 32) = 2;
+            *(v17 + 8) = 2;
             if (!v15)
             {
               goto LABEL_43;
@@ -4815,14 +4829,14 @@ LABEL_41:
           {
 LABEL_43:
             v13 = v35;
-            if (v35 && *(v35 + 20) && *(v35 + 24) == 2)
+            if (v35 && *(v35 + 20) && *(v35 + 6) == 2)
             {
               PhraseTypeFromString = 0;
               v15 = 0;
-              *(v35 + 24) = 3;
-              *(v13 + 28) = v19;
+              *(v35 + 6) = 3;
+              *(v13 + 14) = v19;
               v17 = v13;
-              *(v13 + 32) = 0;
+              *(v13 + 8) = 0;
             }
 
             else
@@ -4836,10 +4850,10 @@ LABEL_43:
               v15 = 0;
               v13 = v35;
               *(v35 + 20) = 1;
-              *(v13 + 24) = 3;
-              *(v13 + 28) = v19;
-              *(v13 + 32) = 0;
-              *(v13 + 36) = 0;
+              *(v13 + 6) = 3;
+              *(v13 + 14) = v19;
+              *(v13 + 8) = 0;
+              *(v13 + 18) = 0;
               v17 = v13;
             }
 
@@ -4847,14 +4861,14 @@ LABEL_43:
           }
 
 LABEL_42:
-          *(v15 + 36) = 1;
+          *(v15 + 18) = 1;
           goto LABEL_43;
         }
       }
 
-      if (v17 && *(v17 + 20) && *(v17 + 24) == 3 && !*(v17 + 32))
+      if (v17 && *(v17 + 20) && *(v17 + 6) == 3 && !*(v17 + 8))
       {
-        *(v17 + 32) = 1;
+        *(v17 + 8) = 1;
         if (!v15)
         {
           goto LABEL_43;
@@ -4931,7 +4945,7 @@ LABEL_56:
 
       if (v13 && *(v13 + 20))
       {
-        *(v13 + 36) = v21;
+        *(v13 + 18) = v21;
       }
 
       PhraseTypeFromString = 0;
@@ -4953,7 +4967,7 @@ LABEL_56:
 
       if (v17)
       {
-        *(v17 + 32) = v31;
+        *(v17 + 8) = v31;
       }
     }
 
@@ -5024,7 +5038,7 @@ LABEL_56:
             return PhraseTypeFromString;
           }
 
-          *(v35 + 26) = a4[v14];
+          *(v35 + 13) = a4[v14];
         }
 
         v34 = v14 + 1;
@@ -5051,14 +5065,14 @@ LABEL_49:
 
   if (a3)
   {
-    if (v17 && *(v17 + 20) && *(v17 + 24) == 3 && !*(v17 + 32))
+    if (v17 && *(v17 + 20) && *(v17 + 6) == 3 && !*(v17 + 8))
     {
-      *(v17 + 32) = 2;
+      *(v17 + 8) = 2;
     }
 
     if (v15)
     {
-      *(v15 + 36) = 1;
+      *(v15 + 18) = 1;
     }
 
     PhraseTypeFromString = mosyntdata_AddPhonEle(a1, a8, &v35, 1, 0);
@@ -5066,10 +5080,10 @@ LABEL_49:
     {
       v27 = v35;
       *(v35 + 20) = 1;
-      *(v27 + 24) = 3;
-      *(v27 + 28) = 0;
-      *(v27 + 32) = 0;
-      *(v27 + 36) = 0;
+      *(v27 + 6) = 3;
+      *(v27 + 14) = 0;
+      *(v27 + 8) = 0;
+      *(v27 + 18) = 0;
     }
   }
 
@@ -5403,7 +5417,7 @@ LABEL_19:
           return result;
         }
 
-        result = mosyntbase_CApp(v5, 1000, &v10, v12, 100, &v11);
+        result = mosyntbase_CApp(v5, 1000, &v10, v12, 0x64u, &v11);
         if ((result & 0x80000000) != 0)
         {
           return result;
@@ -5415,7 +5429,7 @@ LABEL_19:
           return result;
         }
 
-        result = mosyntbase_CApp(v5, 1000, &v10, a2 + 36, 100, &v11);
+        result = mosyntbase_CApp(v5, 1000, &v10, a2 + 36, 0x64u, &v11);
         if ((result & 0x80000000) != 0)
         {
           return result;
@@ -5436,7 +5450,7 @@ LABEL_19:
       }
     }
 
-    result = mosyntbase_WString(a1, v5, 1000);
+    result = mosyntbase_WString(a1, v5, 0x3E8u);
     if ((result & 0x80000000) == 0)
     {
       return mosyntpal_DEALLOCATE(a1, &v9);
@@ -5448,7 +5462,7 @@ LABEL_19:
 
 uint64_t mosyntdata_GetNilLexItem(uint64_t a1)
 {
-  result = mosyntkblex_GetNilEntry();
+  result = mosyntkblex_GetNilEntry(a1);
   if ((result & 0x80000000) == 0)
   {
     *(a1 + 24) = 0;
@@ -5566,7 +5580,7 @@ LABEL_11:
   return 0;
 }
 
-uint64_t mosyntdata_PruneLexEleBranch(uint64_t a1, uint64_t *a2)
+uint64_t mosyntdata_PruneLexEleBranch(uint64_t a1, uint64_t **a2)
 {
   result = 0;
   v4 = *a2;
@@ -5592,7 +5606,7 @@ uint64_t mosyntdata_PruneLexEleBranch(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t mosyntdata_LexEleListToPhonList(uint64_t a1, void *a2, unsigned int a3, uint64_t *a4, uint64_t *a5)
+uint64_t mosyntdata_LexEleListToPhonList(uint64_t a1, char *a2, uint64_t a3, uint64_t **a4, uint64_t *a5)
 {
   v5 = a5;
   v27 = *MEMORY[0x277D85DE8];
@@ -5618,7 +5632,7 @@ uint64_t mosyntdata_LexEleListToPhonList(uint64_t a1, void *a2, unsigned int a3,
         return result;
       }
 
-      m2__cp__str("[SVOX]", &v23, 10);
+      m2__cp__str("[SVOX]", &v23, 0xAu);
       result = RemoveInitSubstr(&v23, v26, 5000);
       if ((result & 0x80000000) != 0)
       {
@@ -5763,14 +5777,14 @@ uint64_t RemoveInitSubstr(uint64_t a1, uint64_t a2, int a3)
   result = mosyntbase_FindSubstring(a1, 10, a2, a3, 0, &v9);
   if ((result & 0x80000000) == 0 && !v9)
   {
-    v7 = mosyntbase_Length(a1, 10);
+    v7 = mosyntbase_Length(a1, 0xAu);
     return mosyntbase_RemoveSubstring(0, v7, a2, a3, &v8);
   }
 
   return result;
 }
 
-uint64_t mosyntdata_GetAddPhon(uint64_t a1, uint64_t a2, int a3, __int16 *a4, int a5, void *a6, uint64_t *a7)
+uint64_t mosyntdata_GetAddPhon(uint64_t a1, uint64_t a2, uint64_t a3, __int16 *a4, uint64_t a5, void *a6, void **a7)
 {
   v14 = 0;
   v12[0] = 0;
@@ -5796,8 +5810,9 @@ uint64_t mosyntdata_GetAddPhon(uint64_t a1, uint64_t a2, int a3, __int16 *a4, in
   return result;
 }
 
-uint64_t mosyntdata_LexEleListToPhonString(uint64_t a1, void *a2, unsigned int a3, void *a4, uint64_t a5, int a6)
+uint64_t mosyntdata_LexEleListToPhonString(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
   v25 = *MEMORY[0x277D85DE8];
   memset(v24, 0, 512);
   memset(v23, 0, sizeof(v23));
@@ -5810,7 +5825,7 @@ uint64_t mosyntdata_LexEleListToPhonString(uint64_t a1, void *a2, unsigned int a
   result = mosyntkbsymtab_DecompressCons(a1, a2, a3, &v19, v22);
   if ((result & 0x80000000) == 0)
   {
-    result = AppAddPhonString(a1, a2, v19, v22, 1, a5, a6, &v18);
+    result = AppAddPhonString(a1, a2, v19, v22, 1, a5, v6, &v18);
     if ((result & 0x80000000) == 0)
     {
       if (a4)
@@ -5834,7 +5849,7 @@ uint64_t mosyntdata_LexEleListToPhonString(uint64_t a1, void *a2, unsigned int a
             break;
           }
 
-          result = AppAddPhonString(a1, a2, SHIDWORD(v19), v23, 1, a5, a6, &v18);
+          result = AppAddPhonString(a1, a2, HIDWORD(v19), v23, 1, a5, v6, &v18);
           if ((result & 0x80000000) != 0)
           {
             break;
@@ -5846,20 +5861,20 @@ uint64_t mosyntdata_LexEleListToPhonString(uint64_t a1, void *a2, unsigned int a
             break;
           }
 
-          m2__cp__str("[SVOX]", &v20, 10);
+          m2__cp__str("[SVOX]", &v20, 0xAu);
           result = RemoveInitSubstr(&v20, v24, 1000);
           if ((result & 0x80000000) != 0)
           {
             break;
           }
 
-          result = mosyntbase_App(a5, a6, &v18, v24, 1000, &v17);
+          result = mosyntbase_App(a5, v6, &v18, v24, 0x3E8u, &v17);
           if ((result & 0x80000000) != 0)
           {
             break;
           }
 
-          result = AppAddPhonString(a1, a2, SHIDWORD(v19), v23, 0, a5, a6, &v18);
+          result = AppAddPhonString(a1, a2, HIDWORD(v19), v23, 0, a5, v6, &v18);
           if ((result & 0x80000000) != 0)
           {
             break;
@@ -5878,14 +5893,14 @@ uint64_t mosyntdata_LexEleListToPhonString(uint64_t a1, void *a2, unsigned int a
             }
 
             while (v12);
-            return AppAddPhonString(a1, a2, v19, v22, 0, a5, a6, &v18);
+            return AppAddPhonString(a1, a2, v19, v22, 0, a5, v6, &v18);
           }
         }
       }
 
       else
       {
-        return AppAddPhonString(a1, a2, v19, v22, 0, a5, a6, &v18);
+        return AppAddPhonString(a1, a2, v19, v22, 0, a5, v6, &v18);
       }
     }
   }
@@ -5893,7 +5908,7 @@ uint64_t mosyntdata_LexEleListToPhonString(uint64_t a1, void *a2, unsigned int a
   return result;
 }
 
-uint64_t AppAddPhonString(uint64_t a1, void *a2, int a3, __int16 *a4, int a5, uint64_t a6, int a7, int *a8)
+uint64_t AppAddPhonString(uint64_t a1, void *a2, uint64_t a3, __int16 *a4, uint64_t a5, uint64_t a6, int a7, int *a8)
 {
   v20 = *MEMORY[0x277D85DE8];
   v16[1] = 0;
@@ -5916,7 +5931,7 @@ uint64_t AppAddPhonString(uint64_t a1, void *a2, int a3, __int16 *a4, int a5, ui
       break;
     }
 
-    result = mosyntbase_App(a6, a7, a8, v18, 100, &v14);
+    result = mosyntbase_App(a6, a7, a8, v18, 0x64u, &v14);
     if ((result & 0x80000000) != 0)
     {
       break;
@@ -6036,7 +6051,7 @@ double mosyntdata_NewTermInfo(uint64_t a1, uint64_t a2, uint64_t *a3)
   return result;
 }
 
-uint64_t mosyntdata_DisposeTermInfo(uint64_t a1, uint64_t *a2)
+uint64_t mosyntdata_DisposeTermInfo(uint64_t a1, uint64_t **a2)
 {
   if (!*a2)
   {
@@ -6220,7 +6235,7 @@ LABEL_7:
   }
 }
 
-uint64_t DisposeSyntTreeList(uint64_t a1, void **a2)
+uint64_t DisposeSyntTreeList(uint64_t a1, uint64_t *a2)
 {
   v3 = *a2;
   if (*a2)
@@ -6228,7 +6243,7 @@ uint64_t DisposeSyntTreeList(uint64_t a1, void **a2)
     v9 = 0;
     while (1)
     {
-      result = DisposeSyntTreeList(a1, v3 + 1);
+      result = DisposeSyntTreeList(a1, (v3 + 8));
       if ((result & 0x80000000) != 0)
       {
         break;
@@ -6236,8 +6251,8 @@ uint64_t DisposeSyntTreeList(uint64_t a1, void **a2)
 
       v9 = v3;
       v6 = *v3;
-      v8 = v3[8];
-      v7 = v3 + 8;
+      v8 = *(v3 + 64);
+      v7 = (v3 + 64);
       if (v8)
       {
         result = mosyntdata_DisposeTermInfo(a1, v7);
@@ -6284,14 +6299,22 @@ void mosyntdata_CopySyntTree(uint64_t a1, _OWORD **a2)
       v6 = *(v5 + 8);
       v7 = v5[3];
       v8 = v5[1];
-      v4[2] = v5[2];
-      v4[3] = v7;
-      v4[1] = v8;
-      *(v4 + 8) = v6;
-      v9 = mosyntdata_CopyTermInfo(a1, *(*a2 + 8), v4 + 8);
-      if ((v10 & 0x80000000) == 0 && (mosyntdata_CopySyntTree(a1, v12, v9) & 0x80000000) == 0 && (mosyntdata_CopySyntTree(a1, v12 + 8, v11) & 0x80000000) == 0)
+      *(v4 + 2) = v5[2];
+      *(v4 + 3) = v7;
+      *(v4 + 1) = v8;
+      v4[8] = v6;
+      mosyntdata_CopyTermInfo(a1, *(*a2 + 8), v4 + 8);
+      if ((v9 & 0x80000000) == 0)
       {
-        *a2 = v12;
+        mosyntdata_CopySyntTree(a1, v12);
+        if ((v10 & 0x80000000) == 0)
+        {
+          mosyntdata_CopySyntTree(a1, v12 + 1);
+          if ((v11 & 0x80000000) == 0)
+          {
+            *a2 = v12;
+          }
+        }
       }
     }
   }
@@ -6317,7 +6340,7 @@ LABEL_7:
       result = mosyntkbsymtab_AppDecomprConsToString(a1, a2, *(a4 + 8), v13, 100, &v12);
       if ((result & 0x80000000) == 0)
       {
-        result = mosyntbase_WString(a1, v13, 100);
+        result = mosyntbase_WString(a1, v13, 0x64u);
         if ((result & 0x80000000) == 0)
         {
           result = mosyntbase_WString(a1, "  ", 0);
@@ -6332,7 +6355,7 @@ LABEL_7:
                 result = mosyntbase_WLn(a1);
                 if ((result & 0x80000000) == 0)
                 {
-                  return WriteLexConsList(a1, a2, a3, *(a4 + 16), a5 + 2);
+                  return WriteLexConsList(a1, a2, a3, *(a4 + 16), (a5 + 2));
                 }
               }
             }
@@ -6363,7 +6386,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t WriteLexConsList(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t WriteLexConsList(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v15 = *MEMORY[0x277D85DE8];
   if (!a4)
@@ -6371,21 +6394,22 @@ uint64_t WriteLexConsList(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a
     return 0;
   }
 
+  v5 = a5;
   v7 = a3;
-  result = WriteLexConsList(a1, a2, a3, *a4);
+  result = WriteLexConsList(a1, a2, a3, *a4, a5);
   if ((result & 0x80000000) == 0)
   {
     result = mosyntknowl_WriteTraceHeader(a1, v7);
     if ((result & 0x80000000) == 0)
     {
-      if (a5 < 1)
+      if (v5 < 1)
       {
 LABEL_7:
         v11 = 0;
         memset(v12, 0, sizeof(v12));
         memset(v13, 0, sizeof(v13));
         v14 = 0;
-        if (*(a4 + 32) && mosyntkblex_IsValidEntry(a4 + 8))
+        if (*(a4 + 32) && mosyntkblex_IsValidEntry((a4 + 8)))
         {
           result = mosyntkbsymtab_DecompressCons(a1, a2, *(a4 + 32), &v11, v12);
           if ((result & 0x80000000) != 0)
@@ -6405,13 +6429,13 @@ LABEL_7:
             return result;
           }
 
-          result = mosyntkblex_GetEntryGraph(a1, a4 + 8, v13, 200);
+          result = mosyntkblex_GetEntryGraph(a1, (a4 + 8), v13, 200);
           if ((result & 0x80000000) != 0)
           {
             return result;
           }
 
-          result = mosyntbase_WString(a1, v13, 200);
+          result = mosyntbase_WString(a1, v13, 0xC8u);
           if ((result & 0x80000000) != 0)
           {
             return result;
@@ -6423,13 +6447,13 @@ LABEL_7:
             return result;
           }
 
-          result = mosyntkblex_GetEntryPhon(a1, a4 + 8, v13, 200);
+          result = mosyntkblex_GetEntryPhon(a1, (a4 + 8), v13, 200);
           if ((result & 0x80000000) != 0)
           {
             return result;
           }
 
-          result = mosyntbase_WString(a1, v13, 200);
+          result = mosyntbase_WString(a1, v13, 0xC8u);
           if ((result & 0x80000000) != 0)
           {
             return result;
@@ -6441,7 +6465,7 @@ LABEL_7:
             return result;
           }
 
-          result = mosyntkblex_GetEntryCost(a1, a4 + 8, &v11 + 4);
+          result = mosyntkblex_GetEntryCost(a1, a4 + 8, &v11 + 1);
           if ((result & 0x80000000) != 0)
           {
             return result;
@@ -6480,7 +6504,7 @@ LABEL_7:
           break;
         }
 
-        if (!--a5)
+        if (!--v5)
         {
           goto LABEL_7;
         }
@@ -6491,7 +6515,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t WriteTree1(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, int a5)
+uint64_t WriteTree1(uint64_t a1, void *a2, uint64_t a3, __int16 *a4, int a5)
 {
   if (!a4)
   {
@@ -6522,7 +6546,7 @@ uint64_t WriteTree1(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, int a5)
       while (--v11);
     }
 
-    result = mosyntkbsymtab_WriteConsAndFeat(a1, a2, *(v6 + 8), v6 + 12);
+    result = mosyntkbsymtab_WriteConsAndFeat(a1, a2, v6[8], v6 + 12);
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -6560,10 +6584,10 @@ uint64_t WriteTree1(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, int a5)
         return result;
       }
 
-      v12 = v6[8];
+      v12 = *(v6 + 8);
       if (v12)
       {
-        result = WriteTermInfo(a1, a2, a3, v12, a5 + 2);
+        result = WriteTermInfo(a1, a2, a3, v12, (a5 + 2));
         if ((result & 0x80000000) != 0)
         {
           return result;
@@ -6586,7 +6610,7 @@ uint64_t WriteTree1(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, int a5)
       }
     }
 
-    result = WriteTree1(a1, a2, a3, v6[1], (a5 + 2));
+    result = WriteTree1(a1, a2, a3, *(v6 + 1), a5 + 2);
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -6616,7 +6640,7 @@ uint64_t mosyntdata_EncodeSymbolicValue(uint64_t a1, int a2, int a3, _DWORD *a4)
   return 0;
 }
 
-uint64_t mosyntdata_DecodeSymbolicValue(uint64_t a1, int a2, _DWORD *a3, BOOL *a4, BOOL *a5)
+uint64_t mosyntdata_DecodeSymbolicValue(uint64_t a1, unsigned int a2, _DWORD *a3, BOOL *a4, BOOL *a5)
 {
   *a5 = a2 < -2147481646;
   if (a2 < -2147481646)
@@ -6678,7 +6702,7 @@ LABEL_8:
   v7 = 0;
   while (1)
   {
-    result = mosyntdata_PruneLexEleBranch(a1, v5 + 2);
+    result = mosyntdata_PruneLexEleBranch(a1, (v5 + 16));
     if ((result & 0x80000000) != 0)
     {
       return result;
@@ -6699,7 +6723,7 @@ LABEL_8:
   }
 }
 
-uint64_t mosyntdata_AddOutItem(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4)
+uint64_t mosyntdata_AddOutItem(uint64_t a1, void *a2, void **a3, uint64_t a4)
 {
   v32 = 0;
   result = mosyntpal_ALLOCATE(a1, &v32, 0x28u);
@@ -6862,7 +6886,7 @@ LABEL_29:
   }
 }
 
-uint64_t GetFirstAddPhon(uint64_t a1, uint64_t a2, int a3, int a4, __int16 *a5, _WORD *a6, uint64_t a7, _DWORD *a8)
+uint64_t GetFirstAddPhon(uint64_t a1, uint64_t a2, int a3, uint64_t a4, __int16 *a5, _WORD *a6, uint64_t a7, _DWORD *a8)
 {
   v8 = *a5;
   *a6 = *a5;
@@ -6880,63 +6904,63 @@ uint64_t GetFirstAddPhon(uint64_t a1, uint64_t a2, int a3, int a4, __int16 *a5, 
   return mosyntkbsymtab_GetFeatMatchedFirstIntPropVal(a1, a2, a4, a6, a3 == 0, a7, a8);
 }
 
-uint64_t mosyntdata_GenWordPhono(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, uint64_t a5, __int16 a6, void *a7, uint64_t *a8)
+uint64_t mosyntdata_GenWordPhono(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, void *a5, __int16 a6, void *a7, void **a8)
 {
   *a7 = 0;
   *a8 = 0;
   if (a3)
   {
     v11 = a3;
-    v14 = 0;
+    v13 = 0;
     while (1)
     {
       if (*(v11 + 20))
       {
-        v15 = mosyntbase_WriteDevelMessage(a1, "*** boundary detected in word phoneme list\\n", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+        v14 = mosyntbase_WriteDevelMessage(a1, "*** boundary detected in word phoneme list\\n", 0, "", 0, "", 0, "", 0, 0);
         goto LABEL_5;
       }
 
-      v16 = *(v11 + 12);
-      if (mosyntkbsymtab_SyllSepId(a2) == v16)
+      v15 = *(v11 + 12);
+      if (mosyntkbsymtab_SyllSepId() == v15)
       {
-        v14 = mosyntdata_AddPhonEle(a1, a7, a8, 1, 0);
-        if ((v14 & 0x80000000) != 0)
+        v13 = mosyntdata_AddPhonEle(a1, a7, a8, 1, 0);
+        if ((v13 & 0x80000000) != 0)
         {
-          return v14;
+          return v13;
         }
 
-        v17 = *a8;
-        *(v17 + 20) = 1;
-        *(v17 + 24) = 1;
-        *(v17 + 28) = -1;
-        *(v17 + 32) = 0;
-        *(v17 + 36) = 0;
+        v16 = *a8;
+        *(v16 + 20) = 1;
+        *(v16 + 6) = 1;
+        *(v16 + 14) = -1;
+        *(v16 + 8) = 0;
+        *(v16 + 18) = 0;
         a5 = *a8;
         goto LABEL_18;
       }
 
-      v18 = *(v11 + 12);
-      if (mosyntkbsymtab_PrimAccId(a2) == v18)
+      v17 = *(v11 + 12);
+      if (mosyntkbsymtab_PrimAccId() == v17)
       {
         if (a5)
         {
-          v19 = a4;
+          v18 = a4;
 LABEL_17:
-          *(a5 + 36) = v19;
+          *(a5 + 18) = v18;
         }
       }
 
       else
       {
-        v20 = *(v11 + 12);
-        if (mosyntkbsymtab_SecAccId(a2) != v20)
+        v19 = *(v11 + 12);
+        if (mosyntkbsymtab_SecAccId() != v19)
         {
-          v15 = mosyntdata_AddPhonEle(a1, a7, a8, 1, *(v11 + 12));
+          v14 = mosyntdata_AddPhonEle(a1, a7, a8, 1, *(v11 + 12));
 LABEL_5:
-          v14 = v15;
-          if ((v15 & 0x80000000) != 0)
+          v13 = v14;
+          if ((v14 & 0x80000000) != 0)
           {
-            return v14;
+            return v13;
           }
 
           goto LABEL_18;
@@ -6944,7 +6968,7 @@ LABEL_5:
 
         if (a4 >= 1 && a5)
         {
-          v19 = a6;
+          v18 = a6;
           goto LABEL_17;
         }
       }
@@ -6953,7 +6977,7 @@ LABEL_18:
       v11 = *v11;
       if (!v11)
       {
-        return v14;
+        return v13;
       }
     }
   }
@@ -7074,7 +7098,7 @@ double mosyntdata_AssertBoundPosData(uint64_t a1, uint64_t a2, unsigned int a3)
   return result;
 }
 
-double mosyntdata_InsertSentTermWord(uint64_t a1, uint64_t a2, unsigned int a3, signed int a4, int a5, uint64_t a6)
+double mosyntdata_InsertSentTermWord(uint64_t a1, uint64_t a2, signed int a3, unsigned int a4, int a5, uint64_t a6)
 {
   if (a2)
   {
@@ -7388,7 +7412,7 @@ uint64_t mosyntdata_GenPhonoRepr(uint64_t a1, uint64_t a2, uint64_t a3, void *a4
         v14 = 0;
         v7 = v19;
         *(v19 + 20) = 1;
-        *(v7 + 24) = 2;
+        *(v7 + 6) = 2;
         LOWORD(v13) = -1;
       }
 
@@ -7403,12 +7427,12 @@ uint64_t mosyntdata_GenPhonoRepr(uint64_t a1, uint64_t a2, uint64_t a3, void *a4
 
         v7 = v19;
         *(v19 + 20) = 1;
-        *(v7 + 24) = 3;
+        *(v7 + 6) = 3;
       }
 
-      *(v7 + 28) = v13;
-      *(v7 + 32) = v14;
-      *(v7 + 36) = 0;
+      *(v7 + 14) = v13;
+      *(v7 + 8) = v14;
+      *(v7 + 18) = 0;
     }
 
     if (v12)
@@ -7451,7 +7475,7 @@ uint64_t mosyntdata_GenPhonoRepr(uint64_t a1, uint64_t a2, uint64_t a3, void *a4
   return result;
 }
 
-void mosyntdata_SyntTreeToSentTermData(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void mosyntdata_SyntTreeToSentTermData(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
 {
   if (a3)
   {
@@ -7467,15 +7491,15 @@ void mosyntdata_SyntTreeToSentTermData(uint64_t a1, void *a2, uint64_t a3, uint6
       v9 = *(v8 + 32);
       if (v9)
       {
-        v17 = 0;
         v18 = 0;
-        if ((mosyntdata_StringToLexPhonList(a1, a2, v9, 100000000, &v18, &v17) & 0x80000000) != 0)
+        v19 = 0;
+        if ((mosyntdata_StringToLexPhonList(a1, a2, v9, 100000000, &v19, &v18) & 0x80000000) != 0)
         {
           return;
         }
 
         v8 = *(a3 + 64);
-        v10 = v18;
+        v10 = v19;
       }
 
       else
@@ -7505,7 +7529,8 @@ void mosyntdata_SyntTreeToSentTermData(uint64_t a1, void *a2, uint64_t a3, uint6
 LABEL_13:
       for (i = *(a3 + 8); i; i = *i)
       {
-        if ((mosyntdata_SyntTreeToSentTermData(v7, a2, i, a4) & 0x80000000) != 0)
+        mosyntdata_SyntTreeToSentTermData(v7, a2, i, a4);
+        if (v17 < 0)
         {
           break;
         }
@@ -7530,14 +7555,14 @@ uint64_t WriteLexEleList(uint64_t a1, void *a2)
     result = mosyntkblex_GetEntryPhon(a1, a2 + 1, v5, 200);
     if ((result & 0x80000000) == 0)
     {
-      return mosyntbase_WString(a1, v5, 200);
+      return mosyntbase_WString(a1, v5, 0xC8u);
     }
   }
 
   return result;
 }
 
-uint64_t WriteTermInfo(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t WriteTermInfo(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = a5;
   if (*a4)
@@ -7569,7 +7594,7 @@ LABEL_9:
       {
         do
         {
-          result = mosyntbase_Wr(a1, *(*(a4 + 16) + v10));
+          result = mosyntbase_Wr();
           if ((result & 0x80000000) != 0)
           {
             return result;
@@ -7601,7 +7626,7 @@ LABEL_9:
       {
         do
         {
-          result = mosyntbase_Wr(a1, *(*(a4 + 32) + v12));
+          result = mosyntbase_Wr();
           if ((result & 0x80000000) != 0)
           {
             return result;
@@ -7662,14 +7687,14 @@ uint64_t kblexXX_StartLookup(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t kblexXX_LookupChar(unsigned __int8 a1, int *a2, _BYTE *a3)
+uint64_t kblexXX_LookupChar(unsigned __int8 a1, void *a2, _BYTE *a3)
 {
   v5 = a1;
   v6 = *a2;
   if (!*(*a2 + 260))
   {
-    v10 = *(a2 + 1);
-    v11 = a2[4];
+    v10 = a2[1];
+    v11 = *(a2 + 4);
     *a3 = 0;
     if (*(v10 + v11))
     {
@@ -7679,7 +7704,7 @@ uint64_t kblexXX_LookupChar(unsigned __int8 a1, int *a2, _BYTE *a3)
         v12 = v11 + 1;
 LABEL_8:
         result = 0;
-        a2[4] = v12;
+        *(a2 + 4) = v12;
         return result;
       }
     }
@@ -7708,7 +7733,7 @@ LABEL_8:
         {
           v12 = 1;
           *a3 = 1;
-          *(a2 + 1) = v19;
+          a2[1] = v19;
           goto LABEL_8;
         }
       }
@@ -7719,8 +7744,8 @@ LABEL_8:
 
   v27 = 0;
   v22 = 0;
-  v7 = a2[4];
-  result = DecomprNode(v6, a2[2], &v28, &v27, &v22, &v26);
+  v7 = *(a2 + 4);
+  result = DecomprNode(v6, *(a2 + 2), &v28, &v27, &v22, &v26);
   *a3 = 0;
   if (*(&v22 + v7))
   {
@@ -7771,23 +7796,23 @@ LABEL_8:
       result = DecomprNode(*a2, v13, &v25, &v24, &v21, &v23);
     }
 
-    a2[2] = v13;
+    *(a2 + 2) = v13;
     v9 = 1;
 LABEL_24:
-    a2[4] = v9;
+    *(a2 + 4) = v9;
   }
 
   return result;
 }
 
-uint64_t kblexXX_GetFirstEntry(_DWORD *a1, _BYTE *a2, uint64_t a3)
+uint64_t kblexXX_GetFirstEntry(uint64_t *a1, _BYTE *a2, uint64_t a3)
 {
   v5 = *a1;
   if (*(*a1 + 260))
   {
     v12 = 0;
-    v6 = a1[2];
-    v7 = a1[4];
+    v6 = *(a1 + 2);
+    v7 = *(a1 + 4);
     DecomprNode(v5, v6, &v14, &v13, &v12, &v12 + 1);
     if (v6 && !*(&v12 + v7) && (v10 = HIDWORD(v12)) != 0 && *(*(v5 + 272) + SHIDWORD(v12)))
     {
@@ -7807,8 +7832,8 @@ uint64_t kblexXX_GetFirstEntry(_DWORD *a1, _BYTE *a2, uint64_t a3)
 
   else
   {
-    v8 = *(a1 + 1);
-    if (v8 && !*(v8 + a1[4]) && *(v8 + 32))
+    v8 = a1[1];
+    if (v8 && !*(v8 + *(a1 + 4)) && *(v8 + 32))
     {
       *a2 = 1;
       *(a3 + 16) = v8;
@@ -7829,7 +7854,7 @@ uint64_t kblexXX_GetFirstEntry(_DWORD *a1, _BYTE *a2, uint64_t a3)
   return 0;
 }
 
-uint64_t kblexXX_GetNextEntry(BOOL *a1, int *a2)
+uint64_t kblexXX_GetNextEntry(BOOL *a1, uint64_t **a2)
 {
   v3 = *a2;
   if (!*a2)
@@ -7839,7 +7864,7 @@ uint64_t kblexXX_GetNextEntry(BOOL *a1, int *a2)
 
   if (*(v3 + 260))
   {
-    v5 = a2[2];
+    v5 = *(a2 + 2);
     if (!v5)
     {
       goto LABEL_12;
@@ -7850,16 +7875,16 @@ uint64_t kblexXX_GetNextEntry(BOOL *a1, int *a2)
     {
       v12 = 0;
       v11 = 0;
-      v5 = DecomprEntry1(v3, v5, (*(v6 + a2[3]) >> 5) & 1, &v12 + 1, &v12, &v11);
+      v5 = DecomprEntry1(v3, v5, (*(v6 + *(a2 + 3)) >> 5) & 1, &v12 + 1, &v12, &v11);
       v7 = v11;
-      a2[2] = v11;
+      *(a2 + 2) = v11;
       if (!v7)
       {
         goto LABEL_10;
       }
 
       v3 = *a2;
-      if (!*(*(*a2 + 272) + v7))
+      if (!*((*a2)[34] + v7))
       {
         goto LABEL_10;
       }
@@ -7872,7 +7897,7 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v8 = *(a2 + 1);
+  v8 = a2[1];
   if (!v8)
   {
     goto LABEL_11;
@@ -7880,7 +7905,7 @@ LABEL_11:
 
   v5 = 0;
   v9 = *v8;
-  *(a2 + 1) = v9;
+  a2[1] = v9;
   if (!v9)
   {
 LABEL_10:
@@ -7957,7 +7982,7 @@ uint64_t kblexXX_GetEntryGraph(uint64_t a1, uint64_t *a2, _BYTE *a3, int a4)
     if (a2[1])
     {
       v21 = a2[2];
-      for (i = a4 - 1; v21; v21 = *(v21 + 1))
+      for (i = a4 - 1; v21; v21 = *(v21 + 8))
       {
         if (v21 == *(v4 + 264))
         {
@@ -7985,7 +8010,7 @@ uint64_t kblexXX_GetEntryGraph(uint64_t a1, uint64_t *a2, _BYTE *a3, int a4)
           i -= v28;
           do
           {
-            *v30-- = v21[(v27-- - 2)];
+            *v30-- = *(v21 + (v27-- - 2));
           }
 
           while (v27 > 1);
@@ -8128,7 +8153,7 @@ LABEL_39:
   return result;
 }
 
-uint64_t kblexXX_GetEntryPhon(uint64_t a1, uint64_t *a2, _BYTE *a3, int a4)
+uint64_t kblexXX_GetEntryPhon(uint64_t a1, uint64_t *a2, _BYTE *a3, unsigned int a4)
 {
   *a3 = 0;
   v4 = *a2;
@@ -8187,7 +8212,7 @@ uint64_t kblexXX_GetEntryPhon(uint64_t a1, uint64_t *a2, _BYTE *a3, int a4)
 
         if ((*(v4 + 280) & 0x80000000) == 0)
         {
-          return mosyntbase_WriteDevelMessage(a1, "***** extern phon string lexica not supported", 0, "", 0, "", 0, "", 0, 0, 0, 0);
+          return mosyntbase_WriteDevelMessage(a1, "***** extern phon string lexica not supported", 0, "", 0, "", 0, "", 0, 0);
         }
 
         v21 = 0;
@@ -8253,8 +8278,9 @@ uint64_t kblexXX_GetEntryCost(uint64_t a1, uint64_t a2, int *a3)
   return result;
 }
 
-uint64_t kblexXX_GetEntryCostAndConsList(uint64_t a1, uint64_t a2, int *a3, _BYTE *a4, int a5)
+uint64_t kblexXX_GetEntryCostAndConsList(uint64_t a1, uint64_t a2, int *a3, _BYTE *a4, uint64_t a5)
 {
+  v5 = a5;
   v10 = 0;
   v7 = *a2;
   if (*a2)
@@ -8281,7 +8307,7 @@ uint64_t kblexXX_GetEntryCostAndConsList(uint64_t a1, uint64_t a2, int *a3, _BYT
     }
   }
 
-  return mosyntpal_IntToString(v7, 0, a4, a5);
+  return mosyntpal_IntToString(v7, 0, a4, v5);
 }
 
 BOOL kblexXX_IdenticalEntries(_DWORD *a1, uint64_t a2)
@@ -8535,7 +8561,7 @@ uint64_t DecomprNum(uint64_t result, int *a2, int *a3)
   return result;
 }
 
-uint64_t mosyntwordpho_LHPlusMapping(uint64_t a1, int a2, void *a3, int *a4, unsigned __int8 *a5, int a6)
+uint64_t mosyntwordpho_LHPlusMapping(uint64_t a1, int a2, char *a3, int *a4, unsigned __int8 *a5, uint64_t a6)
 {
   v25 = *MEMORY[0x277D85DE8];
   if (*a4 < 2)
@@ -8558,7 +8584,7 @@ uint64_t mosyntwordpho_LHPlusMapping(uint64_t a1, int a2, void *a3, int *a4, uns
       result = mosynttrans_InitTransDesc(a1, a2, a3, &v22);
       if ((result & 0x80000000) == 0)
       {
-        m2__cp__str("lhplus mapping", v23, 100);
+        m2__cp__str("lhplus mapping", v23, 0x64u);
         v13[0] = 1;
         v13[1] = v11;
         v14 = 0u;
@@ -8566,7 +8592,7 @@ uint64_t mosyntwordpho_LHPlusMapping(uint64_t a1, int a2, void *a3, int *a4, uns
         v16 = 0u;
         v17 = 0u;
         v18 = 0;
-        result = mosynttrans_SeqTransducePhonList(a1, v22, 3u, v21, &v20, v13, 0, -1, 0xFFFFFFFF, v23, 100);
+        result = mosynttrans_SeqTransducePhonList(a1, v22, 3u, v21, &v20, v13, 0, -1, 0xFFFFFFFF, v23, 0x64u);
         if ((result & 0x80000000) == 0)
         {
           result = mosynttrans_FinishTransDesc(a1, &v22);
@@ -8598,7 +8624,7 @@ uint64_t mosyntwordpho_LHPlusMapping(uint64_t a1, int a2, void *a3, int *a4, uns
   return result;
 }
 
-uint64_t mosyntwordpho_ReadingToPhonString(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5, int a6)
+uint64_t mosyntwordpho_ReadingToPhonString(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5, uint64_t a6)
 {
   if (a4)
   {
@@ -8609,7 +8635,7 @@ uint64_t mosyntwordpho_ReadingToPhonString(uint64_t a1, uint64_t a2, void *a3, u
   return 0;
 }
 
-uint64_t mosyntwordpho_TreatSingleReadingString(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned __int8 *a6, int a7)
+uint64_t mosyntwordpho_TreatSingleReadingString(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7)
 {
   v31[2] = *MEMORY[0x277D85DE8];
   v23 = 0;
@@ -8651,7 +8677,7 @@ uint64_t mosyntwordpho_TreatSingleReadingString(uint64_t a1, int a2, uint64_t a3
         result = mosynttrans_InitTransDesc(a1, *v15, *(v15 + 8), &v29);
         if ((result & 0x80000000) == 0)
         {
-          m2__cp__str("morphophonemic rules", v30, 30);
+          m2__cp__str("morphophonemic rules", v30, 0x1Eu);
           v20 = *(v15 + 16) - 1;
           v21 = *(v15 + 64);
           v24[2] = *(v15 + 48);
@@ -8661,7 +8687,7 @@ uint64_t mosyntwordpho_TreatSingleReadingString(uint64_t a1, int a2, uint64_t a3
           v22 = *(v15 + 32);
           v24[0] = *(v15 + 16);
           v24[1] = v22;
-          result = mosynttrans_SeqTransducePhonList(a1, v29, 3u, v28, &v26, v24, 0, v20, 0xFFFFFFFF, v30, 30);
+          result = mosynttrans_SeqTransducePhonList(a1, v29, 3u, v28, &v26, v24, 0, v20, 0xFFFFFFFF, v30, 0x1Eu);
           if ((result & 0x80000000) == 0)
           {
             result = mosynttrans_FinishTransDesc(a1, &v29);
@@ -8690,7 +8716,7 @@ uint64_t mosyntwordpho_TreatSingleReadingString(uint64_t a1, int a2, uint64_t a3
   return result;
 }
 
-uint64_t mosyntwordpho_TraceReading(uint64_t a1, int a2, void *a3, uint64_t a4, unsigned __int8 *a5, int a6)
+uint64_t mosyntwordpho_TraceReading(uint64_t a1, int a2, void *a3, uint64_t a4, unsigned __int8 *a5, unsigned int a6)
 {
   v14 = *MEMORY[0x277D85DE8];
   if (a2 < 2)
@@ -8706,7 +8732,7 @@ uint64_t mosyntwordpho_TraceReading(uint64_t a1, int a2, void *a3, uint64_t a4, 
     result = mosyntkbsymtab_ConsToString(a1, a3, *(a4 + 8), v12, 200);
     if ((result & 0x80000000) == 0)
     {
-      return mosyntbase_WriteMessage(a1, "getting internal phon list for word cons %s: %s\\n", 0, v12, 200, a5, a6, "", 0);
+      return mosyntbase_WriteMessage(a1, "getting internal phon list for word cons %s: %s\\n", 0, v12, 0xC8u, a5, a6, "", 0);
     }
   }
 
@@ -8774,7 +8800,7 @@ uint64_t TreatReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, void
     return inited;
   }
 
-  m2__cp__str("morphophonemic rules", v22, 30);
+  m2__cp__str("morphophonemic rules", v22, 0x1Eu);
   v11 = *(a2 + 16) - 1;
   v12 = *(a2 + 64);
   v26 = *(a2 + 48);
@@ -8784,7 +8810,7 @@ uint64_t TreatReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, void
   v13 = *(a2 + 32);
   v24 = *(a2 + 16);
   v25 = v13;
-  inited = mosynttrans_SeqTransducePhonList(a1, v18, 3u, v19, a4, &v24, 0, v11, 0xFFFFFFFF, v22, 30);
+  inited = mosynttrans_SeqTransducePhonList(a1, v18, 3u, v19, a4, &v24, 0, v11, 0xFFFFFFFF, v22, 0x1Eu);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
@@ -8804,7 +8830,7 @@ uint64_t TreatReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, void
       return inited;
     }
 
-    m2__cp__str("internal", v20, 30);
+    m2__cp__str("internal", v20, 0x1Eu);
     v14 = *(a3 + 8);
     v15 = *a4;
     v36 = 0;
@@ -8826,7 +8852,7 @@ uint64_t TreatReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, void
       return inited;
     }
 
-    inited = mosyntbase_WriteMessage(a1, "getting %s phon list for word cons %s: ", 0, v20, 30, &v24, 200, "", 0);
+    inited = mosyntbase_WriteMessage(a1, "getting %s phon list for word cons %s: ", 0, v20, 0x1Eu, &v24, 0xC8u, "", 0);
     if ((inited & 0x80000000) != 0)
     {
       return inited;
@@ -8854,7 +8880,7 @@ uint64_t TreatReading(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, void
   return v16;
 }
 
-void mosyntwordpho_TreatTree(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t **a7)
+void mosyntwordpho_TreatTree(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __int16 **a7)
 {
   v23 = 0;
   v24 = 0;
@@ -8912,54 +8938,54 @@ LABEL_13:
 
 void TreatTreeAppend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void **a6, uint64_t *a7, uint64_t *a8, uint64_t a9)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v37 = 0;
+  v43 = *MEMORY[0x277D85DE8];
+  v38 = 0;
   if (a4)
   {
     PhonEle = 0;
-    v35 = 0;
     v36 = 0;
-    v33 = 0;
+    v37 = 0;
     v34 = 0;
-    v40[0] = 0;
-    v40[1] = 0;
-    v41 = 0;
-    if (*a2 < 2 || (mosyntknowl_WriteTraceHeader(a1, 3u) & 0x80000000) == 0 && (m2__cp__str("treating tree", v40, 20), (TraceConsProcessing(a1, a2, *(a4 + 16), v40) & 0x80000000) == 0))
+    v35 = 0;
+    v41[0] = 0;
+    v41[1] = 0;
+    v42 = 0;
+    if (*a2 < 2 || (mosyntknowl_WriteTraceHeader(a1, 3u) & 0x80000000) == 0 && (m2__cp__str("treating tree", v41, 0x14u), (TraceConsProcessing(a1, a2, *(a4 + 16), v41) & 0x80000000) == 0))
     {
       if (*(a4 + 60))
       {
         PhonEle = 0;
-        v39 = 0;
+        v40 = 0;
         v17 = *(a4 + 64);
         if (!v17 || !*v17)
         {
           goto LABEL_20;
         }
 
-        if ((TreatReading(a1, a2, *v17, &v39, &PhonEle) & 0x80000000) != 0)
+        if ((TreatReading(a1, a2, *v17, &v40, &PhonEle) & 0x80000000) != 0)
         {
           return;
         }
 
-        if (v39)
+        if (v40)
         {
-          mosyntdata_NewSyntNode(a1, *(a4 + 16), (a4 + 24), &v37);
+          mosyntdata_NewSyntNode(a1, *(a4 + 16), (a4 + 24), &v38);
           if ((v18 & 0x80000000) == 0)
           {
-            v20 = v37;
+            v20 = v38;
             v19 = PhonEle;
-            *(v37 + 52) = *(a4 + 52);
+            *(v38 + 52) = *(a4 + 52);
             *(v20 + 60) = 1;
             *a9 = v20;
             v21 = *a7;
-            v33 = *a8;
-            v34 = v21;
-            if ((mosyntdata_AppendPhonList(a1, &v34, &v33, v39, v19) & 0x80000000) == 0)
+            v34 = *a8;
+            v35 = v21;
+            if ((mosyntdata_AppendPhonList(a1, &v35, &v34, v40, v19) & 0x80000000) == 0)
             {
               v22 = mosyntdata_SentTermWordData(a1, a3, *(a4 + 52));
               if (v22)
               {
-                *(v22 + 8) = v34;
+                *(v22 + 8) = v35;
               }
 
               if ((mosyntdata_StartPhonList(a1, a7, a8) & 0x80000000) == 0)
@@ -8970,7 +8996,7 @@ void TreatTreeAppend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a
                   v23 = a5;
                 }
 
-                *v23 = v37;
+                *v23 = v38;
                 *a6 = *a9;
               }
             }
@@ -8982,19 +9008,19 @@ void TreatTreeAppend(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a
 LABEL_20:
           if (*a2 >= 2 && (mosyntknowl_WriteTraceHeader(a1, 3u) & 0x80000000) == 0)
           {
-            m2__cp__str("ignoring word", v40, 20);
-            TraceConsProcessing(a1, a2, *(a4 + 16), v40);
+            m2__cp__str("ignoring word", v41, 0x14u);
+            TraceConsProcessing(a1, a2, *(a4 + 16), v41);
           }
         }
       }
 
-      else if ((mosyntdata_GetAddPhon(a1, *(a2 + 8), *(a4 + 16), (a4 + 24), 1, &v34, &v33) & 0x80000000) == 0 && (mosyntdata_AppendPhonList(a1, a7, a8, v34, v33) & 0x80000000) == 0)
+      else if ((mosyntdata_GetAddPhon(a1, *(a2 + 8), *(a4 + 16), (a4 + 24), 1, &v35, &v34) & 0x80000000) == 0 && (mosyntdata_AppendPhonList(a1, a7, a8, v35, v34) & 0x80000000) == 0)
       {
-        v37 = 0;
+        v38 = 0;
         v24 = (a4 + 8);
         if (*(a4 + 8))
         {
-          if ((mosyntdata_StartNodeList(a1, &v36, &v35) & 0x80000000) != 0)
+          if ((mosyntdata_StartNodeList(a1, &v37, &v36) & 0x80000000) != 0)
           {
             return;
           }
@@ -9007,61 +9033,62 @@ LABEL_20:
               break;
             }
 
-            if ((TreatTreeAppend(a1, a2, a3, v24, &v36, &v35, a7, a8, a9) & 0x80000000) != 0)
+            TreatTreeAppend(a1, a2, a3, v24, &v37, &v36, a7, a8, a9);
+            if (v25 < 0)
             {
               return;
             }
           }
 
-          v27 = *a6;
+          v28 = *a6;
           if (*a6)
           {
             while (1)
             {
-              v27 = *v27;
-              if (!v27)
+              v28 = *v28;
+              if (!v28)
               {
                 break;
               }
 
-              *a6 = v27;
+              *a6 = v28;
             }
           }
 
-          if (v36)
+          if (v37)
           {
-            mosyntdata_NewSyntNode(a1, *(a4 + 16), (a4 + 24), &v37);
-            if (v28 < 0)
+            mosyntdata_NewSyntNode(a1, *(a4 + 16), (a4 + 24), &v38);
+            if (v29 < 0)
             {
               return;
             }
 
-            v30 = v36;
-            v29 = v37;
-            *(v37 + 52) = *(a4 + 52);
-            v29[1] = v30;
+            v31 = v37;
+            v30 = v38;
+            *(v38 + 52) = *(a4 + 52);
+            v30[1] = v31;
           }
         }
 
         else if (*a9)
         {
-          v25 = mosyntdata_SentTermWordData(a1, a3, *(*a9 + 52));
-          if (v25)
+          v26 = mosyntdata_SentTermWordData(a1, a3, *(*a9 + 52));
+          if (v26)
           {
-            v26 = (v25 + 8);
-            PhonEle = mosyntdata_LastPhonEle(a1, *(v25 + 8));
-            if ((mosyntdata_AppendPhonList(a1, v26, &PhonEle, *a7, *a8) & 0x80000000) != 0 || (mosyntdata_StartPhonList(a1, a7, a8) & 0x80000000) != 0)
+            v27 = (v26 + 8);
+            PhonEle = mosyntdata_LastPhonEle(a1, *(v26 + 8));
+            if ((mosyntdata_AppendPhonList(a1, v27, &PhonEle, *a7, *a8) & 0x80000000) != 0 || (mosyntdata_StartPhonList(a1, a7, a8) & 0x80000000) != 0)
             {
               return;
             }
           }
         }
 
-        if ((mosyntdata_GetAddPhon(a1, *(a2 + 8), *(a4 + 16), (a4 + 24), 0, &v34, &v33) & 0x80000000) == 0 && (mosyntdata_AppendPhonList(a1, a7, a8, v34, v33) & 0x80000000) == 0)
+        if ((mosyntdata_GetAddPhon(a1, *(a2 + 8), *(a4 + 16), (a4 + 24), 0, &v35, &v34) & 0x80000000) == 0 && (mosyntdata_AppendPhonList(a1, a7, a8, v35, v34) & 0x80000000) == 0)
         {
-          if (!*a9 || (v31 = mosyntdata_SentTermWordData(a1, a3, *(*a9 + 52))) == 0 || (v32 = (v31 + 8), PhonEle = mosyntdata_LastPhonEle(a1, *(v31 + 8)), (mosyntdata_AppendPhonList(a1, v32, &PhonEle, v34, v33) & 0x80000000) == 0) && (mosyntdata_StartPhonList(a1, a7, a8) & 0x80000000) == 0)
+          if (!*a9 || (v32 = mosyntdata_SentTermWordData(a1, a3, *(*a9 + 52))) == 0 || (v33 = (v32 + 8), PhonEle = mosyntdata_LastPhonEle(a1, *(v32 + 8)), (mosyntdata_AppendPhonList(a1, v33, &PhonEle, v35, v34) & 0x80000000) == 0) && (mosyntdata_StartPhonList(a1, a7, a8) & 0x80000000) == 0)
           {
-            mosyntdata_AppendNode(a1, a5, a6, 1, v37);
+            mosyntdata_AppendNode(a1, a5, a6, 1, v38);
           }
         }
       }
@@ -9069,7 +9096,7 @@ LABEL_20:
   }
 }
 
-uint64_t TraceConsProcessing(uint64_t a1, uint64_t a2, unsigned int a3, unsigned __int8 *a4)
+uint64_t TraceConsProcessing(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4)
 {
   v9 = *MEMORY[0x277D85DE8];
   v8 = 0;
@@ -9077,7 +9104,7 @@ uint64_t TraceConsProcessing(uint64_t a1, uint64_t a2, unsigned int a3, unsigned
   result = mosyntkbsymtab_ConsToString(a1, *(a2 + 8), a3, v7, 200);
   if ((result & 0x80000000) == 0)
   {
-    return mosyntbase_WriteMessage(a1, "%s cons %s\\n", 0, a4, 20, v7, 200, "", 0);
+    return mosyntbase_WriteMessage(a1, "%s cons %s\\n", 0, a4, 0x14u, v7, 0xC8u, "", 0);
   }
 
   return result;
@@ -9366,34 +9393,34 @@ uint64_t mosyntpal_StringToCard(uint64_t a1, uint64_t a2, unsigned int *a3, BOOL
 
 uint64_t mosyntpal_WriteChar(uint64_t a1, int a2)
 {
-  v10 = 0;
+  v7 = 0;
   if (!a1)
   {
     return 0;
   }
 
-  inited = InitRsrcFunction(*a1, *(a1 + 8), &v10);
+  inited = InitRsrcFunction(*a1, *(a1 + 8), &v7);
   if ((inited & 0x80000000) == 0)
   {
     if (a2 == 10)
     {
       *(a1 + 16 + *(a1 + 1020)) = 0;
-      log_OutText(*(v10 + 32), "FE_MOSYNT", 0, 0, "%s", v4, v5, v6, a1 + 16);
+      log_OutText(*(v7 + 32), "FE_MOSYNT", 0, 0, "%s", (a1 + 16));
       *(a1 + 1020) = 0;
     }
 
     else
     {
-      v8 = *(a1 + 1020);
-      if (v8 == 1000)
+      v5 = *(a1 + 1020);
+      if (v5 == 1000)
       {
         *(a1 + 1016) = 0;
-        log_OutText(*(v10 + 32), "FE_MOSYNT", 0, 0, "%s", v4, v5, v6, a1 + 16);
-        v8 = 0;
+        log_OutText(*(v7 + 32), "FE_MOSYNT", 0, 0, "%s", (a1 + 16));
+        v5 = 0;
         *(a1 + 1020) = 0;
       }
 
-      *(a1 + v8 + 16) = a2;
+      *(a1 + v5 + 16) = a2;
       ++*(a1 + 1020);
     }
   }
@@ -9401,7 +9428,7 @@ uint64_t mosyntpal_WriteChar(uint64_t a1, int a2)
   return inited;
 }
 
-uint64_t mosyntpal_WriteString(uint64_t a1, char *a2, int a3)
+uint64_t mosyntpal_WriteString(uint64_t a1, char *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -9445,39 +9472,40 @@ uint64_t mosyntpal_WriteCard(uint64_t a1, unsigned int a2)
   return 0;
 }
 
-uint64_t wgram_CheckIfExists(_WORD *a1, uint64_t a2, _WORD *a3, int a4, _DWORD *a5)
+uint64_t wgram_CheckIfExists(_WORD *a1, uint64_t a2, _WORD *a3, uint64_t a4, _DWORD *a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v23 = 0;
-  v24 = 0;
-  memset(v25, 0, sizeof(v25));
-  v22 = 0;
+  v6 = a4;
+  v20 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = 0;
+  memset(v19, 0, sizeof(v19));
+  v16 = 0;
   *a5 = 0;
-  inited = InitRsrcFunction(a1, a2, &v24);
+  inited = InitRsrcFunction(a1, a2, &v18);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  inited = InitRsrcFunction(a3, a4, &v23);
+  inited = InitRsrcFunction(a3, v6, &v17);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  inited = kbaux_BuildBrokerString(v24, "wgram", v25, 0x100uLL);
+  inited = kbaux_BuildBrokerString(v18, "wgram", v19, 0x100uLL);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  RsrcHandleForThisApi = getRsrcHandleForThisApi(v24, a1, a2, a3);
-  v13 = wgram_OpenRiffForReading(RsrcHandleForThisApi, v12, v25, &v22);
-  v20 = v13;
+  RsrcHandleForThisApi = getRsrcHandleForThisApi(v18, a1, a2, a3);
+  v13 = wgram_OpenRiffForReading(RsrcHandleForThisApi, v12, v19, &v16);
+  v14 = v13;
   if ((v13 & 0x80000000) == 0)
   {
     *a5 = 1;
-    return wgram_CloseRiff(&v22, v13, v14, v15, v16, v17, v18, v19);
+    return wgram_CloseRiff(&v16, v13);
   }
 
   if ((v13 & 0x1FFF) == 0xD || (v13 & 0x1FFF) == 3)
@@ -9485,7 +9513,7 @@ uint64_t wgram_CheckIfExists(_WORD *a1, uint64_t a2, _WORD *a3, int a4, _DWORD *
     return 0;
   }
 
-  return v20;
+  return v14;
 }
 
 uint64_t getRsrcHandleForThisApi(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -9501,19 +9529,19 @@ uint64_t getRsrcHandleForThisApi(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
 
 uint64_t wgram_LoadData(_WORD *a1, uint64_t a2, _WORD *a3, int a4, void *a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24 = 0;
-  v25 = 0;
-  memset(v26, 0, sizeof(v26));
-  v22 = 0;
-  v23 = 0;
-  inited = InitRsrcFunction(a1, a2, &v25);
+  v21 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v19 = 0;
+  memset(v20, 0, sizeof(v20));
+  v16 = 0;
+  v17 = 0;
+  inited = InitRsrcFunction(a1, a2, &v19);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  inited = InitRsrcFunction(a3, a4, &v24);
+  inited = InitRsrcFunction(a3, a4, &v18);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
@@ -9524,31 +9552,31 @@ uint64_t wgram_LoadData(_WORD *a1, uint64_t a2, _WORD *a3, int a4, void *a5)
     return 2371887111;
   }
 
-  inited = kbaux_BuildBrokerString(v25, "wgram", v26, 0x100uLL);
+  inited = kbaux_BuildBrokerString(v19, "wgram", v20, 0x100uLL);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  RsrcHandleForThisApi = getRsrcHandleForThisApi(v25, a1, a2, a3);
-  inited = wgram_OpenRiffForReading(RsrcHandleForThisApi, v12, v26, &v23);
+  RsrcHandleForThisApi = getRsrcHandleForThisApi(v19, a1, a2, a3);
+  inited = wgram_OpenRiffForReading(RsrcHandleForThisApi, v12, v20, &v17);
   if ((inited & 0x80000000) != 0)
   {
     return inited;
   }
 
-  ObjcForThisApi = getObjcForThisApi(v25, v24);
-  AddRefCountedObject = objc_GetAddRefCountedObject(ObjcForThisApi, v26, wgram_loc_ObjcLoadData, wgram_loc_ObjcUnloadData, v23, &v22);
+  ObjcForThisApi = getObjcForThisApi(v19, v18);
+  AddRefCountedObject = objc_GetAddRefCountedObject(ObjcForThisApi, v20, wgram_loc_ObjcLoadData, wgram_loc_ObjcUnloadData, v17, &v16);
   if ((AddRefCountedObject & 0x80000000) == 0)
   {
-    *a5 = *(v22 + 32);
-    return wgram_CloseRiff(&v23, AddRefCountedObject, v15, v16, v17, v18, v19, v20);
+    *a5 = *(v16 + 32);
+    return wgram_CloseRiff(&v17, AddRefCountedObject);
   }
 
   return AddRefCountedObject;
 }
 
-uint64_t wgram_loc_ObjcLoadData(_WORD *a1, int a2, const char *a3, uint64_t a4, uint64_t a5)
+uint64_t wgram_loc_ObjcLoadData(_WORD *a1, uint64_t a2, const char *a3, uint64_t a4, uint64_t a5)
 {
   v7 = wgram_ReadFromRiff(a1, a2, a5, (a4 + 32));
   if ((v7 & 0x80000000) == 0)

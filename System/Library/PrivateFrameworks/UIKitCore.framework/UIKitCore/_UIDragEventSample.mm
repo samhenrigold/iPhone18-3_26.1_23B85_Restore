@@ -14,7 +14,7 @@
   v34[16] = *MEMORY[0x1E69E9840];
   objc_opt_class();
   v4 = objc_opt_new();
-  v5 = _UIEventHIDUIWindowForHIDEvent();
+  v5 = _UIEventHIDUIWindowForHIDEvent(event);
   objc_storeStrong((v4 + 24), v5);
   v6 = BKSHIDEventGetBaseAttributes();
   *(v4 + 16) = [v6 contextID];

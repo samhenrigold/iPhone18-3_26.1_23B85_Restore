@@ -1,7 +1,9 @@
 @interface CCSetStoreUpdateServiceExported
 - (BOOL)_setupAdminConnection;
+- (BOOL)_setupDonateConnectionWithItemType:(unsigned __int16)type;
 - (CCSetStoreUpdateServiceExported)initWithQueue:(id)queue process:(id)process connection:(id)connection writeAccess:(id)access donateConnectionFactory:(id)factory;
 - (id)useCase;
+- (void)beginSetDonationWithItemType:(unsigned __int16)type encodedDescriptors:(id)descriptors sourceVersion:(unint64_t)version sourceValidity:(id)validity options:(unsigned __int16)options completion:(id)completion;
 - (void)performMaintenanceOnAllSets:(id)sets completion:(id)completion;
 - (void)removeAllSets:(id)sets completion:(id)completion;
 - (void)useCase;
@@ -65,6 +67,69 @@
   return v18;
 }
 
+- (BOOL)_setupDonateConnectionWithItemType:(unsigned __int16)type
+{
+  typeCopy = type;
+  v5 = MEMORY[0x1E698E970];
+  process = self->_process;
+  useCase = [(CCSetStoreUpdateServiceExported *)self useCase];
+  v8 = [v5 policyForProcess:process connectionFlags:0 useCase:useCase];
+
+  v9 = CCTypeIdentifierRegistryBridge();
+  v10 = [v9 setIdentifierForItemType:typeCopy];
+
+  if (!v10)
+  {
+    v14 = __biome_log_for_category();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [CCSetStoreUpdateServiceExported _setupDonateConnectionWithItemType:v8];
+    }
+
+    goto LABEL_10;
+  }
+
+  if (([v8 allowsAccessToSetStoreUpdateServiceForSet:v10] & 1) == 0)
+  {
+    v15 = __biome_log_for_category();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [CCSetStoreUpdateServiceExported _setupDonateConnectionWithItemType:v8];
+    }
+
+LABEL_10:
+    v13 = 0;
+    goto LABEL_11;
+  }
+
+  v11 = [(CCDonateConnectionFactory *)self->_donateConnectionFactory makeXPCConnection:self->_connection];
+  donateConnection = self->_donateConnection;
+  self->_donateConnection = v11;
+
+  v13 = 1;
+LABEL_11:
+
+  return v13;
+}
+
+- (void)beginSetDonationWithItemType:(unsigned __int16)type encodedDescriptors:(id)descriptors sourceVersion:(unint64_t)version sourceValidity:(id)validity options:(unsigned __int16)options completion:(id)completion
+{
+  optionsCopy = options;
+  typeCopy = type;
+  descriptorsCopy = descriptors;
+  validityCopy = validity;
+  completionCopy = completion;
+  if ([(CCSetStoreUpdateServiceExported *)self _setupDonateConnectionWithItemType:typeCopy])
+  {
+    [(CCDonateConnection *)self->_donateConnection beginSetDonationWithItemType:typeCopy encodedDescriptors:descriptorsCopy sourceVersion:version sourceValidity:validityCopy options:optionsCopy completion:completionCopy];
+  }
+
+  else
+  {
+    (*(completionCopy + 2))(completionCopy, 5, 0, 0);
+  }
+}
+
 - (BOOL)_setupAdminConnection
 {
   v3 = MEMORY[0x1E698E970];
@@ -124,34 +189,27 @@
 
 - (void)useCase
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *self;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_fault_impl(&dword_1DA444000, log, OS_LOG_TYPE_FAULT, "CCSetDonationServerExported - Ignoring use-case change from %@ to %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_fault_impl(&dword_1DA444000, log, OS_LOG_TYPE_FAULT, "CCSetDonationServerExported - Ignoring use-case change from %@ to %@", &v4, 0x16u);
 }
 
 - (void)_setupDonateConnectionWithItemType:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 descriptionOfProcessAndUseCase];
+  v6 = [a1 descriptionOfProcessAndUseCase];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupDonateConnectionWithItemType:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 descriptionOfProcessAndUseCase];
+  v6 = [a1 descriptionOfProcessAndUseCase];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

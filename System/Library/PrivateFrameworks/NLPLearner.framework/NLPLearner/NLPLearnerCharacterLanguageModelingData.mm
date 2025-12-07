@@ -53,37 +53,37 @@
 
 - (BOOL)loadFromCoreDuet:(id)duet limitSamplesTo:(unint64_t)to
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   duetCopy = duet;
   tokenConverter = self->_tokenConverter;
-  v27 = duetCopy;
+  v26 = duetCopy;
   if (tokenConverter)
   {
     v7 = sLogCharLM;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      -[NLPLearnerTextData loadFromCoreDuet:limitSamplesTo:].cold.1(buf, [v27 count], v7);
+      -[NLPLearnerTextData loadFromCoreDuet:limitSamplesTo:].cold.1(buf, [v26 count], v7);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    obj = v27;
-    v8 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    obj = v26;
+    v8 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v8)
     {
-      v9 = *v37;
+      v9 = *v36;
 LABEL_6:
       v10 = 0;
       while (1)
       {
-        if (*v37 != v9)
+        if (*v36 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v36 + 1) + 8 * v10);
+        v11 = *(*(&v35 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         if (to && [(NLPLearnerTextData *)self numSamples]>= to)
         {
@@ -98,36 +98,36 @@ LABEL_6:
 
           if (v15)
           {
-            v30 = 0;
-            v31 = &v30;
-            v32 = 0x3032000000;
-            v33 = __Block_byref_object_copy__51;
-            v34 = __Block_byref_object_dispose__52;
+            v29 = 0;
+            v30 = &v29;
+            v31 = 0x3032000000;
+            v32 = __Block_byref_object_copy__51;
+            v33 = __Block_byref_object_dispose__52;
             v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[CVNLPTokenIDConverter bosTokenID](self->_tokenConverter, "bosTokenID")}];
-            v40 = v16;
-            v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
-            v35 = [v17 mutableCopy];
+            v39 = v16;
+            v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+            v34 = [v17 mutableCopy];
 
             v18 = self->_tokenConverter;
-            v29[0] = MEMORY[0x277D85DD0];
-            v29[1] = 3221225472;
-            v29[2] = __75__NLPLearnerCharacterLanguageModelingData_loadFromCoreDuet_limitSamplesTo___block_invoke;
-            v29[3] = &unk_279928BA0;
-            v29[4] = self;
-            v29[5] = &v30;
-            [(CVNLPTokenIDConverter *)v18 enumerateTokenIDsForText:v15 withBlock:v29];
-            v19 = [v31[5] count];
+            v28[0] = MEMORY[0x277D85DD0];
+            v28[1] = 3221225472;
+            v28[2] = __75__NLPLearnerCharacterLanguageModelingData_loadFromCoreDuet_limitSamplesTo___block_invoke;
+            v28[3] = &unk_279928BA0;
+            v28[4] = self;
+            v28[5] = &v29;
+            [(CVNLPTokenIDConverter *)v18 enumerateTokenIDsForText:v15 withBlock:v28];
+            v19 = [v30[5] count];
             if (v19 < [(NLPLearnerTextData *)self maxSequenceLength])
             {
-              v20 = v31[5];
+              v20 = v30[5];
               v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[CVNLPTokenIDConverter eosTokenID](self->_tokenConverter, "eosTokenID")}];
               [v20 addObject:v21];
 
               sentences = [(NLPLearnerTextData *)self sentences];
-              [sentences addObject:v31[5]];
+              [sentences addObject:v30[5]];
             }
 
-            _Block_object_dispose(&v30, 8);
+            _Block_object_dispose(&v29, 8);
 
             v23 = 0;
           }
@@ -149,7 +149,7 @@ LABEL_6:
 
         if (v8 == ++v10)
         {
-          v8 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v8 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
           if (v8)
           {
             goto LABEL_6;
@@ -161,7 +161,6 @@ LABEL_6:
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return tokenConverter != 0;
 }
 
@@ -184,11 +183,10 @@ void __75__NLPLearnerCharacterLanguageModelingData_loadFromCoreDuet_limitSamples
 
 - (void)addResource:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25AE22000, a2, OS_LOG_TYPE_ERROR, "Failed to load character tokenization resources from '%@'", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25AE22000, a2, OS_LOG_TYPE_ERROR, "Failed to load character tokenization resources from '%@'", &v2, 0xCu);
 }
 
 @end

@@ -20,7 +20,7 @@
 
 void __65__PGParallelProgress_progressBlockForParallelOperationWithIndex___block_invoke(uint64_t a1, double a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 8));
   v4 = [*(*(a1 + 32) + 24) count];
   if (*(a1 + 40) >= v4)
@@ -31,12 +31,12 @@ void __65__PGParallelProgress_progressBlockForParallelOperationWithIndex___block
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = *(a1 + 40);
-      v12 = 134218240;
-      v13 = v11;
-      v14 = 2048;
-      v15 = v7;
-      _os_log_fault_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_FAULT, "Parallel progress index(%lu) out of bounds(%lu)", &v12, 0x16u);
+      v10 = *(a1 + 40);
+      v11 = 134218240;
+      v12 = v10;
+      v13 = 2048;
+      v14 = v7;
+      _os_log_fault_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_FAULT, "Parallel progress index(%lu) out of bounds(%lu)", &v11, 0x16u);
     }
   }
 
@@ -50,7 +50,6 @@ void __65__PGParallelProgress_progressBlockForParallelOperationWithIndex___block
 
   (*(*(*(a1 + 32) + 16) + 16))(a2);
   os_unfair_lock_unlock((*(a1 + 32) + 8));
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (PGParallelProgress)initWithParallelOperationCount:(unint64_t)count progressBlock:(id)block

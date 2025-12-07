@@ -34,41 +34,40 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20]();
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   getActiveDevice = [(PDRRegistry_Impl *)selfCopy getActiveDevice];
   if (getActiveDevice)
   {
-    v10 = getActiveDevice;
+    v9 = getActiveDevice;
     pairingID = [getActiveDevice pairingID];
 
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v12.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-    (*(v4 + 8))(v7, v3);
+    v11.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+    (*(v4 + 8))(v6, v3);
   }
 
   else
   {
 
-    v12.super.isa = 0;
+    v11.super.isa = 0;
   }
 
-  return v12.super.isa;
+  return v11.super.isa;
 }
 
 - (id)getActiveDevice
 {
   selfCopy = self;
-  active = Registry_Impl.getActivePairedDeviceIncludingAltAccount()(6);
+  v3 = Registry_Impl.getActivePairedDeviceIncludingAltAccount()(6);
 
-  return active;
+  return v3;
 }
 
 - (id)getDevicesExcluding:(unint64_t)excluding
 {
-  specialized Registry_Impl.getDevicesExcluding(_:)(excluding);
+  specialized Registry_Impl.getDevicesExcluding(_:)(excluding, a2);
   type metadata accessor for PDRDevice();
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -144,11 +143,10 @@
 
 - (void)addDelegate:(id)delegate
 {
-  v4 = *(&self->super.super.isa + OBJC_IVAR___PDRRegistry_Impl_delegates);
   swift_unknownObjectRetain();
   selfCopy = self;
 
-  specialized WeakCollection.append(_:)();
+  specialized WeakCollection.append(_:)(delegate);
 
   swift_unknownObjectRelease();
 }
@@ -201,17 +199,17 @@
 - (id)getActivePairedDeviceIncludingAltAccount
 {
   selfCopy = self;
-  active = Registry_Impl.getActivePairedDeviceIncludingAltAccount()(7);
+  v3 = Registry_Impl.getActivePairedDeviceIncludingAltAccount()(7);
 
-  return active;
+  return v3;
 }
 
 - (id)getActivePairedDeviceExcludingAltAccount
 {
   selfCopy = self;
-  active = Registry_Impl.getActivePairedDeviceIncludingAltAccount()(39);
+  v3 = Registry_Impl.getActivePairedDeviceIncludingAltAccount()(39);
 
-  return active;
+  return v3;
 }
 
 - (BOOL)isPaired
@@ -289,13 +287,12 @@
 {
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = one-time initialization token for instance;
+  v9 = one-time initialization token for instance;
   deviceCopy = device;
-  if (v10 != -1)
+  if (v9 != -1)
   {
     swift_once();
   }
@@ -303,20 +300,20 @@
   pairingID = [deviceCopy pairingID];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v13 = RegistryCrux.unpair(pairingID:options:)();
+  v12 = RegistryCrux.unpair(pairingID:options:)();
 
-  (*(v6 + 8))(v9, v5);
-  if (v13)
+  (*(v6 + 8))(v8, v5);
+  if (v12)
   {
-    v14 = _convertErrorToNSError(_:)();
+    v13 = _convertErrorToNSError(_:)();
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)failsafeUnpairWithOptions:(id)options
@@ -369,19 +366,18 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   if (one-time initialization token for instance != -1)
   {
     swift_once();
   }
 
-  v8 = RegistryCrux.migrationCount(pairingID:)();
+  v7 = RegistryCrux.migrationCount(pairingID:)();
 
-  (*(v4 + 8))(v7, v3);
-  return v8;
+  (*(v4 + 8))(v6, v3);
+  return v7;
 }
 
 - (void)waitForPairingExtendedMetadataForAdvertisedName:(id)name completion:(id)completion

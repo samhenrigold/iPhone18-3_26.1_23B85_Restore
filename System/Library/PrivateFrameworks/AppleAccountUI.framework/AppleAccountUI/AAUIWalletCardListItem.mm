@@ -15,172 +15,187 @@
 - (NSString)uniqueIdentifier
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, v3);
   AAUIWalletCardListItem.uniqueIdentifier.getter();
-  v8 = v3;
+  v9 = v4;
   MEMORY[0x1E69E5920](self);
-  if (v8)
+  if (v9)
   {
-    v5 = sub_1C5596554();
+    v6 = sub_1C5596554();
 
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setUniqueIdentifier:(id)identifier
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](identifier);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](identifier, v3);
+  MEMORY[0x1E69E5928](self, v4);
   if (identifier)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](identifier);
-    v6 = v4;
+    v6 = sub_1C5596574();
     v7 = v5;
+    MEMORY[0x1E69E5920](identifier);
+    v8 = v6;
+    v9 = v7;
   }
 
   else
   {
-    v6 = 0;
-    v7 = 0;
+    v8 = 0;
+    v9 = 0;
   }
 
-  AAUIWalletCardListItem.uniqueIdentifier.setter(v6, v7);
+  AAUIWalletCardListItem.uniqueIdentifier.setter(v8, v9);
   MEMORY[0x1E69E5920](self);
 }
 
 - (UIImage)icon
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](self);
-  v5 = AAUIWalletCardListItem.icon.getter();
+  MEMORY[0x1E69E5928](self, v3);
+  v6 = AAUIWalletCardListItem.icon.getter();
   MEMORY[0x1E69E5920](self);
 
-  return v5;
+  return v6;
 }
 
 - (void)setIcon:(id)icon
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](icon);
-  MEMORY[0x1E69E5928](self);
-  AAUIWalletCardListItem.icon.setter(icon);
+  MEMORY[0x1E69E5928](icon, v4);
+  MEMORY[0x1E69E5928](self, v5);
+  AAUIWalletCardListItem.icon.setter(icon, v6);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)title
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, v3);
   AAUIWalletCardListItem.title.getter();
-  v8 = v3;
+  v9 = v4;
   MEMORY[0x1E69E5920](self);
-  if (v8)
+  if (v9)
   {
-    v5 = sub_1C5596554();
+    v6 = sub_1C5596554();
 
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setTitle:(id)title
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](title);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](title, v3);
+  MEMORY[0x1E69E5928](self, v4);
   if (title)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](title);
-    v6 = v4;
+    v6 = sub_1C5596574();
     v7 = v5;
+    MEMORY[0x1E69E5920](title);
+    v8 = v6;
+    v9 = v7;
   }
 
   else
   {
-    v6 = 0;
-    v7 = 0;
+    v8 = 0;
+    v9 = 0;
   }
 
-  AAUIWalletCardListItem.title.setter(v6, v7);
+  AAUIWalletCardListItem.title.setter(v8, v9);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)subtitle
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, v3);
   AAUIWalletCardListItem.subtitle.getter();
-  v8 = v3;
+  v9 = v4;
   MEMORY[0x1E69E5920](self);
-  if (v8)
+  if (v9)
   {
-    v5 = sub_1C5596554();
+    v6 = sub_1C5596554();
 
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setSubtitle:(id)subtitle
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](subtitle);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](subtitle, v3);
+  MEMORY[0x1E69E5928](self, v4);
   if (subtitle)
   {
-    v4 = sub_1C5596574();
-    v5 = v3;
-    MEMORY[0x1E69E5920](subtitle);
-    v6 = v4;
+    v6 = sub_1C5596574();
     v7 = v5;
+    MEMORY[0x1E69E5920](subtitle);
+    v8 = v6;
+    v9 = v7;
   }
 
   else
   {
-    v6 = 0;
-    v7 = 0;
+    v8 = 0;
+    v9 = 0;
   }
 
-  AAUIWalletCardListItem.subtitle.setter(v6, v7);
+  AAUIWalletCardListItem.subtitle.setter(v8, v9);
   MEMORY[0x1E69E5920](self);
 }
 
 - (AAUIWalletCardListItem)initWithTitle:(id)title subtitle:(id)subtitle icon:(id)icon uniqueIdentifier:(id)identifier
 {
   swift_getObjectType();
-  MEMORY[0x1E69E5928](title);
-  MEMORY[0x1E69E5928](subtitle);
-  MEMORY[0x1E69E5928](icon);
-  MEMORY[0x1E69E5928](identifier);
+  MEMORY[0x1E69E5928](title, v6);
+  MEMORY[0x1E69E5928](subtitle, v7);
+  MEMORY[0x1E69E5928](icon, v8);
+  MEMORY[0x1E69E5928](identifier, v9);
   if (title)
   {
-    v18 = sub_1C5596574();
-    v19 = v6;
+    v22 = sub_1C5596574();
+    v23 = v10;
     MEMORY[0x1E69E5920](title);
+    v24 = v22;
+    v25 = v23;
+  }
+
+  else
+  {
+    v24 = 0;
+    v25 = 0;
+  }
+
+  if (subtitle)
+  {
+    v18 = sub_1C5596574();
+    v19 = v11;
+    MEMORY[0x1E69E5920](subtitle);
     v20 = v18;
     v21 = v19;
   }
@@ -191,11 +206,11 @@
     v21 = 0;
   }
 
-  if (subtitle)
+  if (identifier)
   {
     v14 = sub_1C5596574();
-    v15 = v7;
-    MEMORY[0x1E69E5920](subtitle);
+    v15 = v12;
+    MEMORY[0x1E69E5920](identifier);
     v16 = v14;
     v17 = v15;
   }
@@ -206,22 +221,7 @@
     v17 = 0;
   }
 
-  if (identifier)
-  {
-    v10 = sub_1C5596574();
-    v11 = v8;
-    MEMORY[0x1E69E5920](identifier);
-    v12 = v10;
-    v13 = v11;
-  }
-
-  else
-  {
-    v12 = 0;
-    v13 = 0;
-  }
-
-  return AAUIWalletCardListItem.init(title:subtitle:icon:uniqueIdentifier:)(v20, v21, v16, v17, icon, v12, v13);
+  return AAUIWalletCardListItem.init(title:subtitle:icon:uniqueIdentifier:)(v24, v25, v20, v21, icon, v16, v17);
 }
 
 @end

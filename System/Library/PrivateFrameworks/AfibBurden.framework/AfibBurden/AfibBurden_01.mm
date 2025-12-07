@@ -1,90 +1,3 @@
-float stats::std(stats *this, const float *a2, int a3)
-{
-  if (a2 <= 0)
-  {
-    stats::std();
-  }
-
-  if (!this)
-  {
-    stats::std();
-  }
-
-  return sqrtf(stats::variance(this, a2, a3));
-}
-
-float stats::rmssd(stats *this, const float *a2)
-{
-  if (a2 <= 0)
-  {
-    stats::rmssd();
-  }
-
-  if (!this)
-  {
-    stats::rmssd();
-  }
-
-  __C = 0.0;
-  __B = 0;
-  v7 = 0;
-  v3 = (a2 - 1);
-  v8 = 0;
-  std::vector<float>::resize(&__B, v3);
-  MEMORY[0x23EF16340](&this->cp_time[1], 1, this, 1, __B, 1, v3);
-  vDSP_dotpr(__B, 1, __B, 1, &__C, v3);
-  v4 = sqrtf(__C / v3);
-  __C = v4;
-  if (__B)
-  {
-    v7 = __B;
-    operator delete(__B);
-  }
-
-  return v4;
-}
-
-void sub_23E850CFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-float stats::madsd(stats *this, const float *a2)
-{
-  if (a2 <= 0)
-  {
-    stats::madsd();
-  }
-
-  if (!this)
-  {
-    stats::madsd();
-  }
-
-  v9 = 0.0;
-  __C = 0;
-  v7 = 0;
-  v3 = (a2 - 1);
-  v8 = 0;
-  std::vector<float>::resize(&__C, v3);
-  MEMORY[0x23EF16340](&this->cp_time[1], 1, this, 1, __C, 1, v3);
-  vDSP_vabs(__C, 1, __C, 1, v3);
-  vDSP_meanv_wrapper(__C, 1, &v9, v3);
-  v4 = v9;
-  if (__C)
-  {
-    v7 = __C;
-    operator delete(__C);
-  }
-
-  return v4;
-}
-
 void sub_23E850DDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
 {
   if (__p)
@@ -306,23 +219,20 @@ float stats::min(stats *this, const float *a2)
   return v3;
 }
 
-void *std::vector<float>::reserve(void *result, unint64_t a2)
+void std::vector<float>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 2)
+  if (a2 > (a1[2] - *a1) >> 2)
   {
     if (!(a2 >> 62))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void stats::median_vdsp(stats *this, vDSP_Length *a2, unint64_t *a3)
+void stats::median_vdsp(stats *this, vDSP_Length *a2, unint64_t *a3, int a4)
 {
   if (a3 <= 0)
   {
@@ -364,26 +274,7 @@ void stats::percentile(stats *this, vDSP_Length *__I, vDSP_Length __N, float a4)
     stats::percentile();
   }
 
-  v7 = __N;
   vDSP_vsorti(this->cp_time, __I, 0, __N, 1);
-  v8 = v7 / 100.0 * a4 + -0.5;
-  if (v8 <= 0.0)
-  {
-    v10 = *__I;
-  }
-
-  else
-  {
-    if ((v7 - 1) > v8)
-    {
-      v9 = (v8 - v8) * *&this->cp_time[__I[v8 + 1]] + (1.0 - (v8 - v8)) * *&this->cp_time[__I[v8]];
-      return;
-    }
-
-    v10 = __I[v7 - 1];
-  }
-
-  v11 = this->cp_time[v10];
 }
 
 float stats::auc(stats *this, const float *a2, float a3)
@@ -494,7 +385,7 @@ void stats::kurt(stats *this, const float *a2)
   }
 }
 
-stats *stats::linear_interp(stats *this, const float *a2, float *a3, int a4, int16x4_t a5)
+stats *stats::linear_interp(stats *this, const float *a2, float *a3, unsigned int a4, int16x4_t a5)
 {
   if (a4 >= 1)
   {
@@ -1173,11 +1064,11 @@ _DWORD *std::__copy_impl::operator()[abi:ne200100]<float const*,float const*,std
   return v5;
 }
 
-void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(float *a1, float *a2, float *a3, float a4)
+void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(float *result, float *a2, float *a3, float a4)
 {
   while (a3 != a2)
   {
-    v4 = a3 - a1;
+    v4 = a3 - result;
     if (v4 < 2)
     {
       break;
@@ -1185,11 +1076,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 == 3)
     {
-      v37 = a1[1];
+      v37 = result[1];
       v38 = *(a3 - 1);
       if (v37 < v38)
       {
-        v39 = *(a1 + 1);
+        v39 = *(result + 1);
       }
 
       else
@@ -1203,46 +1094,46 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       }
 
       *(a3 - 1) = v37;
-      *(a1 + 1) = v39;
+      *(result + 1) = v39;
       v40 = *(a3 - 1);
-      if (v40 < *a1)
+      if (v40 < *result)
       {
         v41 = *(a3 - 1);
       }
 
       else
       {
-        v41 = *a1;
+        v41 = *result;
       }
 
-      if (v40 < *a1)
+      if (v40 < *result)
       {
-        v40 = *a1;
+        v40 = *result;
       }
 
       *(a3 - 1) = v40;
-      v42 = a1[1];
+      v42 = result[1];
       if (v41 < v42)
       {
-        v41 = a1[1];
+        v41 = result[1];
       }
 
       else
       {
-        *a1 = v42;
+        *result = v42;
       }
 
-      a1[1] = v41;
+      result[1] = v41;
       return;
     }
 
     if (v4 == 2)
     {
       v43 = *(a3 - 1);
-      v44 = *a1;
-      if (v43 < *a1)
+      v44 = *result;
+      if (v43 < *result)
       {
-        *a1 = v43;
+        *result = v43;
         *(a3 - 1) = v44;
       }
 
@@ -1251,11 +1142,11 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
 
     if (v4 <= 7)
     {
-      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(a1, a3, a4);
+      std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__wrap_iter<float *>>(result, a3, a4);
       return;
     }
 
-    v5 = &a1[(a3 - a1) >> 3];
+    v5 = &result[(a3 - result) >> 3];
     v6 = a3 - 1;
     v7 = *(a3 - 1);
     v8 = *v5;
@@ -1282,20 +1173,20 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     *v6 = v10;
     *v5 = v9;
     v11 = *v6;
-    v12 = *a1;
-    if (*v6 < *a1)
+    v12 = *result;
+    if (*v6 < *result)
     {
       v13 = *v6;
     }
 
     else
     {
-      v13 = *a1;
+      v13 = *result;
     }
 
-    if (*v6 < *a1)
+    if (*v6 < *result)
     {
-      v14 = *a1;
+      v14 = *result;
     }
 
     else
@@ -1308,7 +1199,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     v16 = *v5;
     if (v13 >= *v5)
     {
-      *a1 = v15;
+      *result = v15;
       v16 = v13;
     }
 
@@ -1324,15 +1215,15 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
       v17 = 1;
     }
 
-    a4 = *a1;
-    if (*a1 >= v16)
+    a4 = *result;
+    if (*result >= v16)
     {
       v18 = a3 - 1;
-      while (--v18 != a1)
+      while (--v18 != result)
       {
         if (*v18 < v16)
         {
-          *a1 = *v18;
+          *result = *v18;
           *v18 = a4;
           if (v17)
           {
@@ -1348,7 +1239,7 @@ void std::__nth_element[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
         }
       }
 
-      v28 = a1 + 1;
+      v28 = result + 1;
       if (a4 >= *v6)
       {
         while (v28 != v6)
@@ -1375,7 +1266,7 @@ LABEL_65:
 
       while (1)
       {
-        v32 = *a1;
+        v32 = *result;
         do
         {
           v33 = *v28++;
@@ -1400,7 +1291,7 @@ LABEL_65:
         *v6 = a4;
       }
 
-      a1 = v28 - 1;
+      result = v28 - 1;
       if (v34 > a2)
       {
         return;
@@ -1411,15 +1302,15 @@ LABEL_65:
     {
       v18 = a3 - 1;
 LABEL_33:
-      v19 = a1 + 1;
-      if (a1 + 1 >= v18)
+      v19 = result + 1;
+      if (result + 1 >= v18)
       {
-        v23 = a1 + 1;
+        v23 = result + 1;
       }
 
       else
       {
-        v20 = a1 + 1;
+        v20 = result + 1;
         while (1)
         {
           v21 = *v5;
@@ -1505,7 +1396,7 @@ LABEL_33:
 LABEL_49:
       if (v23 <= a2)
       {
-        a1 = v23 + 1;
+        result = v23 + 1;
       }
 
       else
@@ -1553,17 +1444,17 @@ float std::__selection_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<voi
   return result;
 }
 
-void *std::vector<float const*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float const*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<float const*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<float const*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23E85237C(_Unwind_Exception *exception_object)
@@ -1578,7 +1469,7 @@ void sub_23E85237C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1638,7 +1529,7 @@ uint64_t remove_nanD(void *a1, uint64_t a2, float a3)
   return v3;
 }
 
-void vDSP_maxv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
+void vDSP_maxv_wrapper(float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(4 * a4, 0x100004052888210uLL);
   if (v8)
@@ -1674,7 +1565,7 @@ void vDSP_maxv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
   }
 }
 
-void vDSP_maxvD_wrapper(const double *a1, vDSP_Stride a2, double *a3, uint64_t a4)
+void vDSP_maxvD_wrapper(double *a1, vDSP_Stride a2, double *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(8 * a4, 0x100004000313F17uLL);
   if (v8)
@@ -1710,7 +1601,7 @@ void vDSP_maxvD_wrapper(const double *a1, vDSP_Stride a2, double *a3, uint64_t a
   }
 }
 
-void vDSP_minv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
+void vDSP_minv_wrapper(float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(4 * a4, 0x100004052888210uLL);
   if (v8)
@@ -1746,7 +1637,7 @@ void vDSP_minv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
   }
 }
 
-void vDSP_minvD_wrapper(const double *a1, vDSP_Stride a2, double *a3, uint64_t a4)
+void vDSP_minvD_wrapper(double *a1, vDSP_Stride a2, double *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(8 * a4, 0x100004000313F17uLL);
   if (v8)
@@ -1782,7 +1673,7 @@ void vDSP_minvD_wrapper(const double *a1, vDSP_Stride a2, double *a3, uint64_t a
   }
 }
 
-void vDSP_maxvi_wrapper(const float *a1, vDSP_Stride a2, float *a3, vDSP_Length *a4, uint64_t a5)
+void vDSP_maxvi_wrapper(float *a1, vDSP_Stride a2, float *a3, vDSP_Length *a4, uint64_t a5)
 {
   v10 = malloc_type_malloc(4 * a5, 0x100004052888210uLL);
   if (v10)
@@ -1818,7 +1709,7 @@ void vDSP_maxvi_wrapper(const float *a1, vDSP_Stride a2, float *a3, vDSP_Length 
   }
 }
 
-void vDSP_maxviD_wrapper(const double *a1, vDSP_Stride a2, double *a3, vDSP_Length *a4, uint64_t a5)
+void vDSP_maxviD_wrapper(double *a1, vDSP_Stride a2, double *a3, vDSP_Length *a4, uint64_t a5)
 {
   v10 = malloc_type_malloc(8 * a5, 0x100004000313F17uLL);
   if (v10)
@@ -1854,7 +1745,7 @@ void vDSP_maxviD_wrapper(const double *a1, vDSP_Stride a2, double *a3, vDSP_Leng
   }
 }
 
-void vDSP_minvi_wrapper(const float *a1, vDSP_Stride a2, float *a3, vDSP_Length *a4, uint64_t a5)
+void vDSP_minvi_wrapper(float *a1, vDSP_Stride a2, float *a3, vDSP_Length *a4, uint64_t a5)
 {
   v10 = malloc_type_malloc(4 * a5, 0x100004052888210uLL);
   if (v10)
@@ -1890,7 +1781,7 @@ void vDSP_minvi_wrapper(const float *a1, vDSP_Stride a2, float *a3, vDSP_Length 
   }
 }
 
-void vDSP_minviD_wrapper(const double *a1, vDSP_Stride a2, double *a3, vDSP_Length *a4, uint64_t a5)
+void vDSP_minviD_wrapper(double *a1, vDSP_Stride a2, double *a3, vDSP_Length *a4, uint64_t a5)
 {
   v10 = malloc_type_malloc(8 * a5, 0x100004000313F17uLL);
   if (v10)
@@ -1926,7 +1817,7 @@ void vDSP_minviD_wrapper(const double *a1, vDSP_Stride a2, double *a3, vDSP_Leng
   }
 }
 
-void vDSP_meanv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
+void vDSP_meanv_wrapper(float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(4 * a4, 0x100004052888210uLL);
   if (v8)
@@ -1962,7 +1853,7 @@ void vDSP_meanv_wrapper(const float *a1, vDSP_Stride a2, float *a3, uint64_t a4)
   }
 }
 
-void vDSP_meanvD_wrapper(const double *a1, vDSP_Stride a2, double *a3, uint64_t a4)
+void vDSP_meanvD_wrapper(double *a1, vDSP_Stride a2, double *a3, uint64_t a4)
 {
   v8 = malloc_type_malloc(8 * a4, 0x100004000313F17uLL);
   if (v8)
@@ -4502,15 +4393,15 @@ int64x2_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,void ar
       v12 = a2;
       do
       {
-        v13 = v12->i64[0];
-        if (*(**a4 + (v12->i64[0] << 32 >> 30)) < *(**a4 + (a1->i64[0] << 32 >> 30)))
+        v13 = *v12;
+        if (*(**a4 + (*v12 << 32 >> 30)) < *(**a4 + (a1->i64[0] << 32 >> 30)))
         {
-          v12->i64[0] = a1->i64[0];
+          *v12 = a1->i64[0];
           a1->i64[0] = v13;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,void argsort<float>(float const*,unsigned long *,unsigned long)::{lambda(int,int)#1} &,unsigned long *>(a1, a4, v8, a1->i64);
         }
 
-        v12 = (v12 + 8);
+        ++v12;
       }
 
       while (v12 != a3);
@@ -4518,7 +4409,7 @@ int64x2_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,void ar
 
     if (v8 >= 2)
     {
-      v14 = (a2 - 8);
+      v14 = &a2[-1].i64[1];
       do
       {
         v15 = a1->i64[0];
@@ -4530,12 +4421,12 @@ int64x2_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,void ar
 
         else
         {
-          v16->i64[0] = v14->i64[0];
-          v14->i64[0] = v15;
+          v16->i64[0] = *v14;
+          *v14 = v15;
           std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,void argsort<float>(float const*,unsigned long *,unsigned long)::{lambda(int,int)#1} &,unsigned long *>(a1, &v16->i64[1], a4, (&v16->u64[1] - a1) >> 3);
         }
 
-        v14 = (v14 - 8);
+        --v14;
       }
 
       while (v8-- > 2);
@@ -4632,7 +4523,7 @@ int64x2_t *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,void args
       }
     }
 
-    *v5 = result->i64[0];
+    v5->i64[0] = result->i64[0];
   }
 
   while (v3 <= (a3 - 2) / 2);
@@ -5689,15 +5580,15 @@ int64x2_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,void ar
       v12 = a2;
       do
       {
-        v13 = v12->i64[0];
-        if (*(**a4 + (v12->i64[0] << 32 >> 29)) < *(**a4 + (a1->i64[0] << 32 >> 29)))
+        v13 = *v12;
+        if (*(**a4 + (*v12 << 32 >> 29)) < *(**a4 + (a1->i64[0] << 32 >> 29)))
         {
-          v12->i64[0] = a1->i64[0];
+          *v12 = a1->i64[0];
           a1->i64[0] = v13;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,void argsort<double>(double const*,unsigned long *,unsigned long)::{lambda(int,int)#1} &,unsigned long *>(a1, a4, v8, a1->i64);
         }
 
-        v12 = (v12 + 8);
+        ++v12;
       }
 
       while (v12 != a3);
@@ -5705,7 +5596,7 @@ int64x2_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,void ar
 
     if (v8 >= 2)
     {
-      v14 = (a2 - 8);
+      v14 = &a2[-1].i64[1];
       do
       {
         v15 = a1->i64[0];
@@ -5717,12 +5608,12 @@ int64x2_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,void ar
 
         else
         {
-          v16->i64[0] = v14->i64[0];
-          v14->i64[0] = v15;
+          v16->i64[0] = *v14;
+          *v14 = v15;
           std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,void argsort<double>(double const*,unsigned long *,unsigned long)::{lambda(int,int)#1} &,unsigned long *>(a1, &v16->i64[1], a4, (&v16->u64[1] - a1) >> 3);
         }
 
-        v14 = (v14 - 8);
+        --v14;
       }
 
       while (v8-- > 2);
@@ -5819,7 +5710,7 @@ int64x2_t *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,void args
       }
     }
 
-    *v5 = result->i64[0];
+    v5->i64[0] = result->i64[0];
   }
 
   while (v3 <= (a3 - 2) / 2);
@@ -5863,7 +5754,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,void argsort<double
   return result;
 }
 
-uint64_t hws_get_log()
+uint64_t hws_get_log(uint64_t a1, uint64_t a2)
 {
   if (hws_get_log_onceToken != -1)
   {
@@ -5882,26 +5773,25 @@ os_log_t __hws_get_log_block_invoke()
 
 Tellurium::tellurium_classifier_t *Tellurium::tellurium_classifier_t::tellurium_classifier_t(Tellurium::tellurium_classifier_t *this, int a2, int a3, char a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   *this = a2;
   *(this + 1) = a3;
   *(this + 8) = a4;
   *(this + 2) = 0;
   *(this + 3) = 0;
   *(this + 4) = 0;
-  Tellurium::PredictorWrapper_t::PredictorWrapper_t((this + 64));
-  log = hws_get_log();
+  v5 = Tellurium::PredictorWrapper_t::PredictorWrapper_t(this + 8);
+  log = hws_get_log(v5, v6);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "0.0.6";
-    _os_log_impl(&dword_23E83E000, log, OS_LOG_TYPE_DEFAULT, "Tellurium Alg Version: %s", &v13, 0xCu);
+    v14 = 136315138;
+    v15 = "0.0.6";
+    _os_log_impl(&dword_23E83E000, log, OS_LOG_TYPE_DEFAULT, "Tellurium Alg Version: %s", &v14, 0xCu);
   }
 
   __asm { FMOV            V0.2D, #-1.0 }
 
   *(this + 3) = _Q0;
-  v11 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -5918,38 +5808,31 @@ void sub_23E85647C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-double Tellurium::tellurium_classifier_t::get_core_analytics(Tellurium::tellurium_classifier_t *this)
-{
-  result = *(this + 6);
-  v2 = *(this + 7);
-  return result;
-}
-
-void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1, uint64_t a2)
+void Tellurium::tellurium_classifier_t::tellurium_classifier_process(void *a1, uint64_t a2)
 {
   v3 = a1;
-  v68 = *MEMORY[0x277D85DE8];
-  v5 = a1 + 16;
-  v4 = *(a1 + 16);
+  v69 = *MEMORY[0x277D85DE8];
+  v5 = a1 + 2;
+  v4 = a1[2];
   if (v4)
   {
-    *(v3 + 24) = v4;
+    *(v3 + 3) = v4;
     operator delete(v4);
     *v5 = 0;
-    *(v5 + 8) = 0;
-    *(v5 + 16) = 0;
+    v5[1] = 0;
+    v5[2] = 0;
   }
 
   *v5 = 0;
-  *(v5 + 8) = 0;
-  *(v5 + 24) = 0;
-  *(v5 + 16) = 0;
+  v5[1] = 0;
+  *(v5 + 12) = 0;
+  v5[2] = 0;
   __p = 0;
-  v64 = 0;
   v65 = 0;
+  v66 = 0;
   v6 = *a2;
-  v57 = *(a2 + 8);
-  if (*a2 == v57)
+  v58 = *(a2 + 8);
+  if (*a2 == v58)
   {
     v49 = 0;
     v48 = 0;
@@ -5957,17 +5840,17 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
 
   else
   {
-    v55 = v5;
-    v56 = v3;
+    v56 = v5;
+    v57 = v3;
     do
     {
       __src = 0;
-      v61 = 0;
       v62 = 0;
-      v59 = 0;
+      v63 = 0;
+      v60 = 0;
       v8 = *v6;
       v7 = v6[1];
-      v58 = v6;
+      v59 = v6;
       if (*v6 != v7)
       {
         v9 = 0;
@@ -5977,7 +5860,7 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
           v11 = *(v8 + 8);
           while (v10 != v11)
           {
-            if (v9 >= v62)
+            if (v9 >= v63)
             {
               v12 = __src;
               v13 = v9 - __src;
@@ -5988,8 +5871,8 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
                 std::vector<float>::__throw_length_error[abi:ne200100]();
               }
 
-              v16 = v62 - __src;
-              if ((v62 - __src) >> 2 > v15)
+              v16 = v63 - __src;
+              if ((v63 - __src) >> 2 > v15)
               {
                 v15 = v16 >> 2;
               }
@@ -6017,8 +5900,8 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
               memcpy(v20, v12, v13);
               v21 = __src;
               __src = v20;
-              v61 = v9;
-              v62 = 0;
+              v62 = v9;
+              v63 = 0;
               if (v21)
               {
                 operator delete(v21);
@@ -6031,11 +5914,11 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
               v9 += 8;
             }
 
-            v61 = v9;
+            v62 = v9;
             ++v10;
           }
 
-          if (v9 >= v62)
+          if (v9 >= v63)
           {
             v22 = __src;
             v23 = v9 - __src;
@@ -6046,8 +5929,8 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
               std::vector<float>::__throw_length_error[abi:ne200100]();
             }
 
-            v26 = v62 - __src;
-            if ((v62 - __src) >> 2 > v25)
+            v26 = v63 - __src;
+            if ((v63 - __src) >> 2 > v25)
             {
               v25 = v26 >> 2;
             }
@@ -6075,8 +5958,8 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
             memcpy(v30, v22, v23);
             v31 = __src;
             __src = v30;
-            v61 = v9;
-            v62 = 0;
+            v62 = v9;
+            v63 = 0;
             if (v31)
             {
               operator delete(v31);
@@ -6089,32 +5972,32 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
             v9 += 8;
           }
 
-          v61 = v9;
+          v62 = v9;
           v8 += 24;
         }
 
         while (v8 != v7);
       }
 
-      v3 = v56;
-      v32 = Tellurium::PredictorWrapper_t::predict((v56 + 64), &__src, &__p, &v59, v56 + 8);
-      if ((v59 & 1) == 0)
+      v3 = v57;
+      v32 = Tellurium::PredictorWrapper_t::predict(v57 + 8, &__src, &__p, &v60, (v57 + 1));
+      if ((v60 & 1) == 0)
       {
         v33 = v32;
-        uuid_copy(dst, v58 + 32);
-        v67 = v33;
-        v34 = *(v56 + 24);
-        v35 = *(v56 + 32);
+        uuid_copy(dst, v59 + 32);
+        v68 = v33;
+        v34 = *(v57 + 3);
+        v35 = *(v57 + 4);
         if (v34 >= v35)
         {
-          v38 = 0xF0F0F0F0F0F0F0F1 * (v34 - *v55);
+          v38 = 0xF0F0F0F0F0F0F0F1 * (v34 - *v56);
           v39 = v38 + 1;
           if (v38 + 1 >= 0xF0F0F0F0F0F0F10)
           {
             std::vector<float>::__throw_length_error[abi:ne200100]();
           }
 
-          v40 = 0xF0F0F0F0F0F0F0F1 * (v35 - *v55);
+          v40 = 0xF0F0F0F0F0F0F0F1 * (v35 - *v56);
           if (2 * v40 > v39)
           {
             v39 = 2 * v40;
@@ -6132,22 +6015,22 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
 
           if (v41)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<Tellurium::tacho_classification_t>>(v55, v41);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<Tellurium::tacho_classification_t>>(v56, v41);
           }
 
           v42 = 17 * v38;
           v43 = *dst;
-          *(v42 + 16) = v67;
+          *(v42 + 16) = v68;
           *v42 = v43;
           v37 = 17 * v38 + 17;
-          v44 = *(v56 + 16);
-          v45 = *(v56 + 24) - v44;
+          v44 = *(v57 + 2);
+          v45 = *(v57 + 3) - v44;
           v46 = v42 - v45;
           memcpy((v42 - v45), v44, v45);
-          v47 = *(v56 + 16);
-          *(v56 + 16) = v46;
-          *(v56 + 24) = v37;
-          *(v56 + 32) = 0;
+          v47 = *(v57 + 2);
+          *(v57 + 2) = v46;
+          *(v57 + 3) = v37;
+          v57[4] = 0.0;
           if (v47)
           {
             operator delete(v47);
@@ -6157,57 +6040,55 @@ void Tellurium::tellurium_classifier_t::tellurium_classifier_process(uint64_t a1
         else
         {
           v36 = *dst;
-          *(v34 + 16) = v67;
+          *(v34 + 16) = v68;
           *v34 = v36;
           v37 = v34 + 17;
         }
 
-        *(v56 + 24) = v37;
+        *(v57 + 3) = v37;
       }
 
       if (__src)
       {
-        v61 = __src;
+        v62 = __src;
         operator delete(__src);
       }
 
-      v6 = v58 + 6;
+      v6 = v59 + 6;
     }
 
-    while (v58 + 6 != v57);
+    while (v59 + 6 != v58);
     v48 = __p;
-    v49 = v64;
+    v49 = v65;
   }
 
   v50 = stats::mean(v48, ((v49 - v48) >> 2));
-  v51 = stats::variance(__p, ((v64 - __p) >> 2), 1);
-  log = hws_get_log();
-  v53 = sqrtf(v51);
+  v51 = stats::variance(__p, ((v65 - __p) >> 2), 1);
+  log = hws_get_log(v52, v53);
+  v55 = sqrtf(v51);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
   {
-    Tellurium::tellurium_classifier_t::tellurium_classifier_process(log, v50, v53);
+    Tellurium::tellurium_classifier_t::tellurium_classifier_process(log, v50, v55);
   }
 
   if ((LODWORD(v50) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
   {
-    *(v3 + 48) = v50;
+    v3[6] = v50;
   }
 
-  if ((LODWORD(v53) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
+  if ((LODWORD(v55) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
   {
-    *(v3 + 56) = v53;
+    v3[7] = v55;
   }
 
   if (__p)
   {
-    v64 = __p;
+    v65 = __p;
     operator delete(__p);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t Tellurium::tellurium_classifier_t::tellurium_get_outputs@<X0>(Tellurium::tellurium_classifier_t *this@<X0>, uint64_t a2@<X8>)
+uint64_t *Tellurium::tellurium_classifier_t::tellurium_get_outputs@<X0>(uint64_t *__return_ptr a1@<X8>, Tellurium::tellurium_classifier_t *this@<X0>)
 {
   v4 = *(this + 2);
   v5 = *(this + 3);
@@ -6248,15 +6129,15 @@ LABEL_6:
     *(this + 41) = v7 < v12;
   }
 
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  result = std::vector<Tellurium::tacho_classification_t>::__init_with_size[abi:ne200100]<Tellurium::tacho_classification_t*,Tellurium::tacho_classification_t*>(a2, v4, v5, 0xF0F0F0F0F0F0F0F1 * (v5 - v4));
-  *(a2 + 24) = *(this + 20);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  result = std::vector<Tellurium::tacho_classification_t>::__init_with_size[abi:ne200100]<Tellurium::tacho_classification_t*,Tellurium::tacho_classification_t*>(a1, v4, v5, 0xF0F0F0F0F0F0F0F1 * (v5 - v4));
+  *(a1 + 12) = *(this + 20);
   return result;
 }
 
-uint64_t std::vector<Tellurium::tacho_classification_t>::__init_with_size[abi:ne200100]<Tellurium::tacho_classification_t*,Tellurium::tacho_classification_t*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Tellurium::tacho_classification_t>::__init_with_size[abi:ne200100]<Tellurium::tacho_classification_t*,Tellurium::tacho_classification_t*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6278,7 +6159,7 @@ void sub_23E856A90(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<Tellurium::tacho_classification_t>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Tellurium::tacho_classification_t>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xF0F0F0F0F0F0F10)
   {
@@ -6553,13 +6434,12 @@ void stats::median_filt()
 
 void Tellurium::tellurium_classifier_t::tellurium_classifier_process(os_log_t log, float a2, float a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a2;
-  v6 = 2048;
-  v7 = a3;
-  _os_log_debug_impl(&dword_23E83E000, log, OS_LOG_TYPE_DEBUG, "AfibMean:%f AfibStd:%f ", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a2;
+  v5 = 2048;
+  v6 = a3;
+  _os_log_debug_impl(&dword_23E83E000, log, OS_LOG_TYPE_DEBUG, "AfibMean:%f AfibStd:%f ", &v3, 0x16u);
 }
 
 void nlohmann::detail::serializer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::dump()

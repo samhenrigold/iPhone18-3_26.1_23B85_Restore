@@ -9,23 +9,21 @@
 
 - (NSString)sysdiagnose
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC13transparencyd22KTNetworkTimeoutBucket_queue);
   selfCopy = self;
   OS_dispatch_queue.sync<A>(execute:)();
 
-  v4 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v3;
 }
 
 - (id)networkTimeoutOperation
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC13transparencyd22KTNetworkTimeoutBucket_queue);
   selfCopy = self;
   sub_100095820(&qword_100385420, &qword_1002D7C10);
   OS_dispatch_queue.sync<A>(execute:)();
 
-  return v5;
+  return v4;
 }
 
 - (id)onQueueNetworkTimeoutOperation

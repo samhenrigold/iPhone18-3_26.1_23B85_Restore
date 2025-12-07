@@ -183,8 +183,8 @@
   if (v14)
   {
     [(SBFloatingDockViewController *)v14 setIconDelegate:managerCopy];
-    iconImageCache = [managerCopy iconImageCache];
-    [(SBFloatingDockViewController *)v14 setIconImageCache:iconImageCache];
+    v15 = objc_msgSend_iconImageCache(managerCopy);
+    [(SBFloatingDockViewController *)v14 setIconImageCache:v15];
 
     folderIconImageCache = [managerCopy folderIconImageCache];
     [(SBFloatingDockViewController *)v14 setFolderIconImageCache:folderIconImageCache];
@@ -268,8 +268,8 @@
     listView = [suggestionsViewController listView];
     [(SBFloatingDockView *)v4 setRecentIconListView:listView];
     [suggestionsViewController didMoveToParentViewController:self];
-    iconImageCache = [(SBFloatingDockViewController *)self iconImageCache];
-    [listView setIconImageCache:iconImageCache];
+    v7 = objc_msgSend_iconImageCache(self);
+    [listView setIconImageCache:v7];
 
     folderIconImageCache = [(SBFloatingDockViewController *)self folderIconImageCache];
     [listView setFolderIconImageCache:folderIconImageCache];
@@ -282,7 +282,7 @@
   [view2 setAutoresizingMask:18];
 
   view3 = [(SBFolderPresentingViewController *)v9 view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   [view3 setFrame:?];
 
   [(SBFloatingDockViewController *)self bs_addChildViewController:v9];
@@ -290,7 +290,7 @@
   [view sendSubviewToBack:view4];
 
   v13 = [SBHTouchPassThroughView alloc];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v14 = [(SBHTouchPassThroughView *)v13 initWithFrame:?];
   [(SBHTouchPassThroughView *)v14 setAutoresizingMask:18];
   [(SBFloatingDockViewController *)self setScalingView:v14];
@@ -336,7 +336,7 @@
   v25.super_class = SBFloatingDockViewController;
   [(SBFloatingDockViewController *)&v25 viewDidLayoutSubviews];
   view = [(SBFloatingDockViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -391,9 +391,9 @@
 - (id)userIconListView
 {
   dockView = [(SBFloatingDockViewController *)self dockView];
-  userIconListView = [dockView userIconListView];
+  v3 = objc_msgSend_userIconListView(dockView);
 
-  return userIconListView;
+  return v3;
 }
 
 - (id)utilitiesIconListView
@@ -424,8 +424,8 @@
     userIconLocation = [(SBFloatingDockViewController *)self userIconLocation];
     [(SBIconView *)v8 setLocation:userIconLocation animated:0];
 
-    iconImageCache = [(SBFloatingDockViewController *)self iconImageCache];
-    [(SBIconView *)v8 setIconImageCache:iconImageCache];
+    v10 = objc_msgSend_iconImageCache(self);
+    [(SBIconView *)v8 setIconImageCache:v10];
 
     folderIconImageCache = [(SBFloatingDockViewController *)self folderIconImageCache];
     [(SBIconView *)v8 setFolderIconImageCache:folderIconImageCache];
@@ -611,8 +611,8 @@ uint64_t __50__SBFloatingDockViewController_libraryPodIconView__block_invoke(uin
         listView = [(SBFloatingDockSuggestionsViewProviding *)v11 listView];
         [dockView setRecentIconListView:listView];
         [(SBFloatingDockSuggestionsViewProviding *)v11 didMoveToParentViewController:self];
-        iconImageCache = [(SBFloatingDockViewController *)self iconImageCache];
-        [listView setIconImageCache:iconImageCache];
+        v9 = objc_msgSend_iconImageCache(self);
+        [listView setIconImageCache:v9];
 
         folderIconImageCache = [(SBFloatingDockViewController *)self folderIconImageCache];
         [listView setFolderIconImageCache:folderIconImageCache];
@@ -697,7 +697,7 @@ uint64_t __50__SBFloatingDockViewController_libraryPodIconView__block_invoke(uin
 - (double)translationFromFullyPresentedFrame
 {
   view = [(SBFloatingDockViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -729,14 +729,14 @@ uint64_t __50__SBFloatingDockViewController_libraryPodIconView__block_invoke(uin
 - (void)enumerateVisibleIconViewsUsingBlock:(id)block
 {
   blockCopy = block;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
+  v5 = objc_msgSend_userIconListView(self);
   v11[0] = MEMORY[0x1E69E9820];
   v11[1] = 3221225472;
   v11[2] = __68__SBFloatingDockViewController_enumerateVisibleIconViewsUsingBlock___block_invoke;
   v11[3] = &unk_1E8089310;
   v6 = blockCopy;
   v12 = v6;
-  [userIconListView enumerateIconViewsUsingBlock:v11];
+  [v5 enumerateIconViewsUsingBlock:v11];
 
   utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
   v9[0] = MEMORY[0x1E69E9820];
@@ -751,8 +751,8 @@ uint64_t __50__SBFloatingDockViewController_libraryPodIconView__block_invoke(uin
 - (void)enumerateIconListViewsUsingBlock:(id)block
 {
   blockCopy = block;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  blockCopy[2](blockCopy, userIconListView);
+  v4 = objc_msgSend_userIconListView(self);
+  blockCopy[2](blockCopy, v4);
 
   utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
   blockCopy[2](blockCopy, utilitiesIconListView);
@@ -1122,15 +1122,15 @@ uint64_t __50__SBFloatingDockViewController_libraryPodIconView__block_invoke(uin
 - (void)layoutUserControlledIconListsWithAnimationType:(int64_t)type forceRelayout:(BOOL)relayout
 {
   relayoutCopy = relayout;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  v12 = userIconListView;
+  v7 = objc_msgSend_userIconListView(self, a2);
+  v12 = v7;
   if (relayoutCopy)
   {
-    [userIconListView setIconsNeedLayout];
-    userIconListView = v12;
+    [v7 setIconsNeedLayout];
+    v7 = v12;
   }
 
-  [userIconListView layoutIconsIfNeededWithAnimationType:type options:0];
+  [v7 layoutIconsIfNeededWithAnimationType:type options:0];
   utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
   v9 = utilitiesIconListView;
   if (relayoutCopy)
@@ -1152,8 +1152,8 @@ uint64_t __50__SBFloatingDockViewController_libraryPodIconView__block_invoke(uin
 - (void)enumerateIconListsUsingBlock:(id)block
 {
   blockCopy = block;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  blockCopy[2](blockCopy, userIconListView);
+  v7 = objc_msgSend_userIconListView(self);
+  blockCopy[2](blockCopy, v7);
   recentIconListView = [(SBFloatingDockViewController *)self recentIconListView];
   blockCopy[2](blockCopy, recentIconListView);
   utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
@@ -1183,8 +1183,8 @@ uint64_t __50__SBFloatingDockViewController_libraryPodIconView__block_invoke(uin
 - (BOOL)isDisplayingIconView:(id)view
 {
   viewCopy = view;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  if ([userIconListView isDisplayingIconView:viewCopy])
+  v5 = objc_msgSend_userIconListView(self);
+  if ([v5 isDisplayingIconView:viewCopy])
   {
     v6 = 1;
   }
@@ -1218,11 +1218,11 @@ uint64_t __50__SBFloatingDockViewController_libraryPodIconView__block_invoke(uin
 
   if (v9)
   {
-    userIconListView = [(SBFloatingDockViewController *)self userIconListView];
+    utilitiesIconListView = objc_msgSend_userIconListView(self);
 LABEL_5:
-    listView = userIconListView;
+    listView = utilitiesIconListView;
 LABEL_6:
-    v14 = [userIconListView isDisplayingIconView:viewCopy];
+    v14 = [utilitiesIconListView isDisplayingIconView:viewCopy];
     goto LABEL_7;
   }
 
@@ -1231,7 +1231,7 @@ LABEL_6:
 
   if (v12)
   {
-    userIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
+    utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
     goto LABEL_5;
   }
 
@@ -1243,7 +1243,7 @@ LABEL_6:
     suggestionsViewController = [(SBFloatingDockViewController *)self suggestionsViewController];
     listView = [suggestionsViewController listView];
 
-    userIconListView = listView;
+    utilitiesIconListView = listView;
     goto LABEL_6;
   }
 
@@ -1319,8 +1319,8 @@ uint64_t __70__SBFloatingDockViewController_enumerateDisplayedIconViewsUsingBloc
 {
   iconCopy = icon;
   blockCopy = block;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  v8 = [userIconListView displayedIconViewForIcon:iconCopy];
+  v7 = objc_msgSend_userIconListView(self);
+  v8 = [v7 displayedIconViewForIcon:iconCopy];
 
   if (v8)
   {
@@ -1439,16 +1439,16 @@ LABEL_11:
 
   if (v12)
   {
-    userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-    model = [userIconListView model];
+    v13 = objc_msgSend_userIconListView(self);
+    model = [v13 model];
     v15 = [model directlyContainsIcon:iconCopy];
 
     if (v15)
     {
-      userIconListView2 = [(SBFloatingDockViewController *)self userIconListView];
+      utilitiesIconListView2 = objc_msgSend_userIconListView(self);
 LABEL_10:
-      suggestionsViewController = userIconListView2;
-      v10 = [userIconListView2 displayedIconViewForIcon:iconCopy];
+      suggestionsViewController = utilitiesIconListView2;
+      v10 = [utilitiesIconListView2 displayedIconViewForIcon:iconCopy];
       goto LABEL_11;
     }
   }
@@ -1466,7 +1466,7 @@ LABEL_10:
 
       if (v21)
       {
-        userIconListView2 = [(SBFloatingDockViewController *)self utilitiesIconListView];
+        utilitiesIconListView2 = [(SBFloatingDockViewController *)self utilitiesIconListView];
         goto LABEL_10;
       }
     }
@@ -1552,8 +1552,8 @@ LABEL_11:
 - (id)firstIconViewForIcon:(id)icon options:(unint64_t)options
 {
   iconCopy = icon;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  v8 = [userIconListView displayedIconViewForIcon:iconCopy];
+  v7 = objc_msgSend_userIconListView(self);
+  v8 = [v7 displayedIconViewForIcon:iconCopy];
 
   if (!v8)
   {
@@ -1596,7 +1596,7 @@ LABEL_11:
 
     if (v12)
     {
-      userIconListView = [(SBFloatingDockViewController *)self userIconListView];
+      utilitiesIconListView = objc_msgSend_userIconListView(self);
     }
 
     else
@@ -1610,11 +1610,11 @@ LABEL_11:
         goto LABEL_10;
       }
 
-      userIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
+      utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
     }
 
-    suggestionsViewController = userIconListView;
-    model = [userIconListView model];
+    suggestionsViewController = utilitiesIconListView;
+    model = [utilitiesIconListView model];
     v10 = [model directlyContainsIcon:iconCopy];
   }
 
@@ -1787,8 +1787,8 @@ LABEL_11:
 
     [(SBIconListView *)v8 setIconViewConfigurationOptions:2];
     [(SBIconListView *)v8 setDragDelegate:self];
-    iconImageCache = [(SBFloatingDockViewController *)self iconImageCache];
-    [(SBIconListView *)v8 setIconImageCache:iconImageCache];
+    v9 = objc_msgSend_iconImageCache(self);
+    [(SBIconListView *)v8 setIconImageCache:v9];
 
     folderIconImageCache = [(SBFloatingDockViewController *)self folderIconImageCache];
     [(SBIconListView *)v8 setFolderIconImageCache:folderIconImageCache];
@@ -1817,8 +1817,8 @@ LABEL_11:
 
       [(SBIconListView *)v8 setIconViewConfigurationOptions:2];
       [(SBIconListView *)v8 setDragDelegate:self];
-      iconImageCache = [(SBFloatingDockViewController *)self iconImageCache];
-      [(SBIconListView *)v8 setIconImageCache:iconImageCache];
+      v9 = objc_msgSend_iconImageCache(self);
+      [(SBIconListView *)v8 setIconImageCache:v9];
 
       folderIconImageCache = [(SBFloatingDockViewController *)self folderIconImageCache];
       [(SBIconListView *)v8 setFolderIconImageCache:folderIconImageCache];
@@ -1890,8 +1890,8 @@ LABEL_11:
 - (BOOL)_shouldOpenFolderIcon:(id)icon
 {
   iconCopy = icon;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  model = [userIconListView model];
+  v5 = objc_msgSend_userIconListView(self);
+  model = [v5 model];
   if ([model directlyContainsIcon:iconCopy])
   {
     v7 = 1;
@@ -1918,8 +1918,8 @@ LABEL_11:
     self->_resizeRunLoopObserver = 0;
   }
 
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  [userIconListView layoutIconsIfNeededWithAnimationType:0 options:0];
+  v6 = objc_msgSend_userIconListView(self, a2);
+  [v6 layoutIconsIfNeededWithAnimationType:0 options:0];
   utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
   [utilitiesIconListView layoutIconsIfNeededWithAnimationType:0 options:0];
   [(SBFloatingDockViewController *)self _updateLibraryPodDockAccessoryViewDisplayed];
@@ -2193,9 +2193,9 @@ void __84__SBFloatingDockViewController__coalesceRequestsToResizeDockForChangedN
 
     dockView = [(SBFloatingDockViewController *)self dockView];
     [dockView setEditing:isEditing animated:animatedCopy];
-    userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-    [userIconListView setEditing:v6];
-    [userIconListView updateEditingStateAnimated:animatedCopy];
+    v8 = objc_msgSend_userIconListView(self);
+    [v8 setEditing:v6];
+    [v8 updateEditingStateAnimated:animatedCopy];
     recentIconListView = [dockView recentIconListView];
     [recentIconListView setEditing:v6];
     [recentIconListView updateEditingStateAnimated:animatedCopy];
@@ -2247,9 +2247,9 @@ void __84__SBFloatingDockViewController__coalesceRequestsToResizeDockForChangedN
 
 - (void)_sizeCategoryDidChange:(id)change
 {
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  [userIconListView removeAllIconViews];
-  [userIconListView layoutIconsNow];
+  v5 = objc_msgSend_userIconListView(self, a2, change);
+  [v5 removeAllIconViews];
+  [v5 layoutIconsNow];
   utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
   [utilitiesIconListView removeAllIconViews];
   [utilitiesIconListView layoutIconsNow];
@@ -2298,9 +2298,9 @@ uint64_t __98__SBFloatingDockViewController_coronaAnimationController_willAnimat
 {
   viewCopy = view;
   sessionCopy = session;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
+  v8 = objc_msgSend_userIconListView(self);
 
-  if (userIconListView == viewCopy || ([(SBFloatingDockViewController *)self utilitiesIconListView], v9 = objc_claimAutoreleasedReturnValue(), v9, v9 == viewCopy))
+  if (v8 == viewCopy || ([(SBFloatingDockViewController *)self utilitiesIconListView], v9 = objc_claimAutoreleasedReturnValue(), v9, v9 == viewCopy))
   {
     iconDragManager = [(SBFloatingDockViewController *)self iconDragManager];
     v10 = [iconDragManager canHandleIconDropSession:sessionCopy inIconListView:viewCopy];
@@ -2363,9 +2363,9 @@ LABEL_10:
   v40[1] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   enterCopy = enter;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
+  v8 = objc_msgSend_userIconListView(self);
 
-  if (userIconListView == viewCopy)
+  if (v8 == viewCopy)
   {
     iconDragManager = [(SBFloatingDockViewController *)self iconDragManager];
     [iconDragManager iconDropSessionDidEnter:enterCopy inIconListView:viewCopy];
@@ -2473,9 +2473,9 @@ LABEL_10:
 {
   viewCopy = view;
   updateCopy = update;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
+  v8 = objc_msgSend_userIconListView(self);
 
-  if (userIconListView == viewCopy || ([(SBFloatingDockViewController *)self utilitiesIconListView], v9 = objc_claimAutoreleasedReturnValue(), v9, v9 == viewCopy))
+  if (v8 == viewCopy || ([(SBFloatingDockViewController *)self utilitiesIconListView], v9 = objc_claimAutoreleasedReturnValue(), v9, v9 == viewCopy))
   {
     iconDragManager = [(SBFloatingDockViewController *)self iconDragManager];
     v10 = [iconDragManager iconDropSessionDidUpdate:updateCopy inIconListView:viewCopy];
@@ -2514,9 +2514,9 @@ LABEL_10:
   v37[1] = *MEMORY[0x1E69E9840];
   viewCopy = view;
   exitCopy = exit;
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
+  v8 = objc_msgSend_userIconListView(self);
 
-  if (userIconListView == viewCopy)
+  if (v8 == viewCopy)
   {
     iconDragManager = [(SBFloatingDockViewController *)self iconDragManager];
     [iconDragManager iconDropSessionDidExit:exitCopy fromIconListView:viewCopy];
@@ -2767,7 +2767,7 @@ LABEL_10:
   v9 = v8;
   v11 = v10;
   v13 = v12;
-  [iconCopy bounds];
+  objc_msgSend_bounds(iconCopy);
   v15 = v9 + v14;
   v17 = v7 + v16;
   v19 = v18 - (v9 + v13);
@@ -3238,99 +3238,104 @@ void __74__SBFloatingDockViewController_dismissPresentedFolderAnimated_completio
   iconCopy = icon;
   locationCopy = location;
   completionCopy = completion;
-  if (iconCopy && [(SBFloatingDockViewController *)self _shouldOpenFolderIcon:iconCopy])
+  v13 = completionCopy;
+  if (iconCopy)
   {
-    userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-    v14 = [userIconListView displayedIconViewForIcon:iconCopy];
-    if (v14)
+    completionCopy = [(SBFloatingDockViewController *)self _shouldOpenFolderIcon:iconCopy];
+    if (completionCopy)
     {
-      v15 = v14;
-    }
-
-    else
-    {
-      utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
-      v15 = [utilitiesIconListView displayedIconViewForIcon:iconCopy];
-
-      if (!v15)
+      v14 = objc_msgSend_userIconListView(self);
+      v15 = [v14 displayedIconViewForIcon:iconCopy];
+      if (v15)
       {
-        v31 = SBLogCommon();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-        {
-          [SBFloatingDockViewController _presentFolderForIcon:location:animated:completion:];
-        }
-
-        if (completionCopy)
-        {
-          completionCopy[2](completionCopy, 0);
-        }
-
-        goto LABEL_16;
-      }
-    }
-
-    v32 = animatedCopy;
-    v33 = userIconListView;
-    folder = [iconCopy folder];
-    v19 = [(SBFloatingDockViewController *)self controllerClassForFolder:folder];
-    v20 = objc_alloc_init([(objc_class *)v19 configurationClass]);
-    [v20 setFolder:folder];
-    listLayoutProvider = [(SBFloatingDockViewController *)self listLayoutProvider];
-    [v20 setListLayoutProvider:listLayoutProvider];
-
-    [v20 setOrientation:{-[SBFloatingDockViewController interfaceOrientation](self, "interfaceOrientation")}];
-    [v20 setIconViewProvider:self];
-    folderIconImageCache = [(SBFloatingDockViewController *)self folderIconImageCache];
-    [v20 setFolderIconImageCache:folderIconImageCache];
-
-    legibilitySettings = [(SBFloatingDockViewController *)self legibilitySettings];
-    [v20 setLegibilitySettings:legibilitySettings];
-
-    [v20 setFolderDelegate:self];
-    [v20 setOriginatingIconLocation:locationCopy];
-    [v20 setAddsFocusGuidesForWrapping:{-[SBFloatingDockViewController allowsFocus](self, "allowsFocus")}];
-    v24 = objc_opt_self();
-    isKindOfClass = objc_opt_isKindOfClass();
-
-    if (isKindOfClass)
-    {
-      v26 = v20;
-      _platterEffectForPresentedFolder = [(SBFloatingDockViewController *)self _platterEffectForPresentedFolder];
-      if (_platterEffectForPresentedFolder == 1)
-      {
-        v28 = 3;
+        v16 = v15;
       }
 
       else
       {
-        v28 = _platterEffectForPresentedFolder;
+        utilitiesIconListView = [(SBFloatingDockViewController *)self utilitiesIconListView];
+        v16 = [utilitiesIconListView displayedIconViewForIcon:iconCopy];
+
+        if (!v16)
+        {
+          v33 = SBLogCommon(v19);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          {
+            [SBFloatingDockViewController _presentFolderForIcon:location:animated:completion:];
+          }
+
+          if (v13)
+          {
+            v13[2](v13, 0);
+          }
+
+          goto LABEL_16;
+        }
       }
 
-      [v26 setBackgroundEffect:v28];
-    }
+      v34 = animatedCopy;
+      v35 = v14;
+      folder = [iconCopy folder];
+      v21 = [(SBFloatingDockViewController *)self controllerClassForFolder:folder];
+      v22 = objc_alloc_init([(objc_class *)v21 configurationClass]);
+      [v22 setFolder:folder];
+      listLayoutProvider = [(SBFloatingDockViewController *)self listLayoutProvider];
+      [v22 setListLayoutProvider:listLayoutProvider];
 
-    v29 = [[v19 alloc] initWithConfiguration:v20];
-    [v29 setFolderIconView:v15];
-    [v29 setEditing:-[SBFloatingDockViewController isEditing](self animated:{"isEditing"), 0}];
-    folderPresentingViewController = [(SBFloatingDockViewController *)self folderPresentingViewController];
-    [folderPresentingViewController setBackgroundEffect:{-[SBFloatingDockViewController _backgroundEffectForPresentedFolder](self, "_backgroundEffectForPresentedFolder")}];
-    [folderPresentingViewController presentFolderController:v29 animated:v32 completion:completionCopy];
+      [v22 setOrientation:{-[SBFloatingDockViewController interfaceOrientation](self, "interfaceOrientation")}];
+      [v22 setIconViewProvider:self];
+      folderIconImageCache = [(SBFloatingDockViewController *)self folderIconImageCache];
+      [v22 setFolderIconImageCache:folderIconImageCache];
 
-    userIconListView = v33;
+      legibilitySettings = [(SBFloatingDockViewController *)self legibilitySettings];
+      [v22 setLegibilitySettings:legibilitySettings];
+
+      [v22 setFolderDelegate:self];
+      [v22 setOriginatingIconLocation:locationCopy];
+      [v22 setAddsFocusGuidesForWrapping:{-[SBFloatingDockViewController allowsFocus](self, "allowsFocus")}];
+      v26 = objc_opt_self();
+      isKindOfClass = objc_opt_isKindOfClass();
+
+      if (isKindOfClass)
+      {
+        v28 = v22;
+        _platterEffectForPresentedFolder = [(SBFloatingDockViewController *)self _platterEffectForPresentedFolder];
+        if (_platterEffectForPresentedFolder == 1)
+        {
+          v30 = 3;
+        }
+
+        else
+        {
+          v30 = _platterEffectForPresentedFolder;
+        }
+
+        [v28 setBackgroundEffect:v30];
+      }
+
+      v31 = [[v21 alloc] initWithConfiguration:v22];
+      [v31 setFolderIconView:v16];
+      [v31 setEditing:-[SBFloatingDockViewController isEditing](self animated:{"isEditing"), 0}];
+      folderPresentingViewController = [(SBFloatingDockViewController *)self folderPresentingViewController];
+      [folderPresentingViewController setBackgroundEffect:{-[SBFloatingDockViewController _backgroundEffectForPresentedFolder](self, "_backgroundEffectForPresentedFolder")}];
+      [folderPresentingViewController presentFolderController:v31 animated:v34 completion:v13];
+
+      v14 = v35;
 LABEL_16:
 
-    goto LABEL_17;
+      goto LABEL_17;
+    }
   }
 
-  v16 = SBLogCommon();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = SBLogCommon(completionCopy);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     [SBFloatingDockViewController _presentFolderForIcon:location:animated:completion:];
   }
 
-  if (completionCopy)
+  if (v13)
   {
-    completionCopy[2](completionCopy, 0);
+    v13[2](v13, 0);
   }
 
 LABEL_17:
@@ -3353,57 +3358,61 @@ LABEL_17:
   folder = [folderCopy folder];
   icon = [folder icon];
 
-  if (icon && [(SBScaleIconZoomAnimator *)SBFolderIconZoomAnimator validateAnimationContainer:self targetIcon:icon])
+  if (icon)
   {
-    v16 = 0;
-    if (presentingCopy)
+    v16 = [(SBScaleIconZoomAnimator *)SBFolderIconZoomAnimator validateAnimationContainer:self targetIcon:icon];
+    if (v16)
     {
-      goto LABEL_11;
-    }
+      v17 = 0;
+      if (presentingCopy)
+      {
+        goto LABEL_11;
+      }
 
 LABEL_10:
-    if ([(SBFloatingDockViewController *)self _isInAppToAppTransition])
-    {
-      goto LABEL_12;
+      if ([(SBFloatingDockViewController *)self _isInAppToAppTransition])
+      {
+        goto LABEL_12;
+      }
+
+      goto LABEL_11;
     }
-
-    goto LABEL_11;
   }
 
-  v17 = SBLogCommon();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = SBLogCommon(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    [SBFloatingDockViewController folderPresentationController:icon animationControllerForTransitionWithFolder:v17 presenting:? animated:?];
+    [SBFloatingDockViewController folderPresentationController:icon animationControllerForTransitionWithFolder:v18 presenting:? animated:?];
   }
 
-  v16 = 1;
+  v17 = 1;
   if (!presentingCopy)
   {
     goto LABEL_10;
   }
 
 LABEL_11:
-  if ((v16 | UIAccessibilityIsReduceMotionEnabled()) != 1)
+  if ((v17 | UIAccessibilityIsReduceMotionEnabled()) != 1)
   {
-    v20 = [[SBFolderIconZoomAnimator alloc] initWithAnimationContainer:self innerFolderController:folderCopy folderIcon:icon];
-    [(SBFolderIconZoomAnimator *)v20 setIsAnimatingInFloatingDock:1];
+    v21 = [[SBFolderIconZoomAnimator alloc] initWithAnimationContainer:self innerFolderController:folderCopy folderIcon:icon];
+    [(SBFolderIconZoomAnimator *)v21 setIsAnimatingInFloatingDock:1];
     goto LABEL_14;
   }
 
 LABEL_12:
-  v18 = [SBIconFadeAnimator alloc];
+  v19 = [SBIconFadeAnimator alloc];
   contentView = [folderCopy contentView];
-  v20 = [(SBIconFadeAnimator *)v18 initWithAnimationContainer:self crossfadeView:contentView];
+  v21 = [(SBIconFadeAnimator *)v19 initWithAnimationContainer:self crossfadeView:contentView];
 
-  [(SBFolderIconZoomAnimator *)v20 setFadesReferenceView:0];
+  [(SBFolderIconZoomAnimator *)v21 setFadesReferenceView:0];
 LABEL_14:
-  v13 = [[SBHomeScreenIconTransitionAnimator alloc] initWithIconAnimator:v20 childViewController:folderCopy operation:presentingCopy ^ 1];
+  v13 = [[SBHomeScreenIconTransitionAnimator alloc] initWithIconAnimator:v21 childViewController:folderCopy operation:presentingCopy ^ 1];
   [(SBFloatingDockViewController *)self setCurrentFolderAnimator:v13];
   iconDelegate = [(SBFloatingDockViewController *)self iconDelegate];
   if (objc_opt_respondsToSelector())
   {
-    v22 = [iconDelegate iconTransitionAnimatorDelegateForFloatingDockViewController:self];
-    [(SBHomeScreenIconTransitionAnimator *)v13 setDelegate:v22];
+    v23 = [iconDelegate iconTransitionAnimatorDelegateForFloatingDockViewController:self];
+    [(SBHomeScreenIconTransitionAnimator *)v13 setDelegate:v23];
   }
 
   delegate = [(SBFloatingDockViewController *)self delegate];
@@ -3502,7 +3511,7 @@ void __130__SBFloatingDockViewController_folderPresentationController_willPerfor
   [*(a1 + 40) setCurrentFolderAnimator:0];
 }
 
-uint64_t __130__SBFloatingDockViewController_folderPresentationController_willPerformTransitionWithFolder_presenting_withTransitionCoordinator___block_invoke_3(uint64_t a1, void *a2)
+void *__130__SBFloatingDockViewController_folderPresentationController_willPerformTransitionWithFolder_presenting_withTransitionCoordinator___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 isInteractive];
   if ((result & 1) == 0)
@@ -3809,13 +3818,13 @@ uint64_t __130__SBFloatingDockViewController_folderPresentationController_willPe
 
 - (void)_addMaxNumberOfIconsAllowedToDockOutlet
 {
-  userIconListView = [(SBFloatingDockViewController *)self userIconListView];
-  layoutProvider = [userIconListView layoutProvider];
+  v3 = objc_msgSend_userIconListView(self, a2);
+  layoutProvider = [v3 layoutProvider];
   v5 = [layoutProvider layoutForIconLocation:@"SBIconLocationFloatingDock"];
   v6 = SBHIconListLayoutMaximumIconCount(v5);
 
-  userIconListView2 = [(SBFloatingDockViewController *)self userIconListView];
-  v8 = v6 - [userIconListView2 numberOfDisplayedIconViews];
+  v7 = objc_msgSend_userIconListView(self);
+  v8 = v6 - [v7 numberOfDisplayedIconViews];
 
   [(SBFloatingDockViewController *)self _addIconsIntoFloatingDock:v8];
 }

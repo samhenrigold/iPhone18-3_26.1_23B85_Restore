@@ -23,30 +23,13 @@
   v15.receiver = self;
   v15.super_class = HMCharacteristicThresholdRangeEvent;
   v5 = [(HMEvent *)&v15 initWithCoder:coderCopy];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kCharacteristicThresholdRangeEventThresholdRangeMin"];
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kCharacteristicThresholdRangeEventThresholdRangeMax"];
-  v8 = [[HMNumberRange alloc] initWithMinValue:v6 maxValue:v7];
-  thresholdRange = v5->_thresholdRange;
-  v5->_thresholdRange = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"characteristic"];
-  characteristic = v5->_characteristic;
-  v5->_characteristic = v10;
-
-  v12 = v5->_characteristic;
-  if (!v12)
+  if (v5 && ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kCharacteristicThresholdRangeEventThresholdRangeMin"], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"kCharacteristicThresholdRangeEventThresholdRangeMax"), v7 = objc_claimAutoreleasedReturnValue(), v8 = -[HMNumberRange initWithMinValue:maxValue:]([HMNumberRange alloc], "initWithMinValue:maxValue:", v6, v7), thresholdRange = v5->_thresholdRange, v5->_thresholdRange = v8, thresholdRange, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"characteristic"), v10 = objc_claimAutoreleasedReturnValue(), characteristic = v5->_characteristic, v5->_characteristic = v10, characteristic, v12 = v5->_characteristic, v7, v6, !v12))
   {
     v13 = 0;
   }
 
   else
   {
-LABEL_3:
     v13 = v5;
   }
 
@@ -65,7 +48,7 @@ LABEL_3:
 
 + (id)createWithDictionary:(id)dictionary home:(id)home
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   homeCopy = home;
   v8 = [dictionaryCopy hmf_UUIDForKey:@"kAccessoryUUID"];
@@ -92,17 +75,17 @@ LABEL_3:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = HMFGetLogIdentifier();
-        v28 = 138544386;
-        v29 = v25;
-        v30 = 2112;
-        v31 = objc_opt_class();
-        v32 = 2112;
-        v33 = v8;
-        v34 = 2112;
-        v35 = v9;
-        v36 = 2112;
-        v37 = v11;
-        _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, failed to resolve characteristic %@/%@/%@", &v28, 0x34u);
+        v27 = 138544386;
+        v28 = v25;
+        v29 = 2112;
+        v30 = objc_opt_class();
+        v31 = 2112;
+        v32 = v8;
+        v33 = 2112;
+        v34 = v9;
+        v35 = 2112;
+        v36 = v11;
+        _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, failed to resolve characteristic %@/%@/%@", &v27, 0x34u);
       }
 
       objc_autoreleasePoolPop(v22);
@@ -118,18 +101,16 @@ LABEL_3:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = HMFGetLogIdentifier();
-      v28 = 138543618;
-      v29 = v21;
-      v30 = 2112;
-      v31 = objc_opt_class();
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, missing accessory/service/characteristic ids", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v21;
+      v29 = 2112;
+      v30 = objc_opt_class();
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, missing accessory/service/characteristic ids", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     v17 = 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -184,29 +165,29 @@ LABEL_3:
 
 - (void)updateThresholdRange:(id)range completionHandler:(id)handler
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   handlerCopy = handler;
   context = [(HMEvent *)self context];
   if (!handlerCopy)
   {
-    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristicThresholdRangeEvent updateThresholdRange:completionHandler:]", @"completion"];
-    v30 = objc_autoreleasePoolPush();
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristicThresholdRangeEvent updateThresholdRange:completionHandler:]", @"completion"];
+    v29 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v32 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v31 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v33 = HMFGetLogIdentifier();
+      v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v33;
-      v37 = 2112;
-      v38 = v29;
-      _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v35 = v32;
+      v36 = 2112;
+      v37 = v28;
+      _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v30);
-    v34 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v29 userInfo:0];
-    objc_exception_throw(v34);
+    objc_autoreleasePoolPop(v29);
+    v33 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v28 userInfo:0];
+    objc_exception_throw(v33);
   }
 
   v9 = context;
@@ -219,9 +200,9 @@ LABEL_3:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v20;
-      v37 = 2080;
-      v38 = "[HMCharacteristicThresholdRangeEvent updateThresholdRange:completionHandler:]";
+      v35 = v20;
+      v36 = 2080;
+      v37 = "[HMCharacteristicThresholdRangeEvent updateThresholdRange:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -253,9 +234,9 @@ LABEL_12:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v15;
-      v37 = 2112;
-      v38 = rangeCopy;
+      v35 = v15;
+      v36 = 2112;
+      v37 = rangeCopy;
       _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Threshold range is already %@", buf, 0x16u);
     }
 
@@ -282,11 +263,10 @@ LABEL_12:
     [dictionary setObject:maxValue2 forKeyedSubscript:@"kCharacteristicThresholdRangeEventThresholdRangeMax"];
   }
 
-  v28 = [dictionary copy];
-  [(HMEvent *)self _updateEventWithPayload:v28 completionHandler:handlerCopy];
+  v27 = [dictionary copy];
+  [(HMEvent *)self _updateEventWithPayload:v27 completionHandler:handlerCopy];
 
 LABEL_13:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_serializeForAdd
@@ -408,15 +388,15 @@ LABEL_13:
 
 - (HMCharacteristicThresholdRangeEvent)initWithCharacteristic:(HMCharacteristic *)characteristic thresholdRange:(HMNumberRange *)thresholdRange
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v6 = characteristic;
   v7 = thresholdRange;
   if (!v6)
   {
-    v16 = MEMORY[0x1E695DF30];
-    v17 = *MEMORY[0x1E695D940];
-    v18 = MEMORY[0x1E696ABC0];
-    v19 = 3;
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D940];
+    v17 = MEMORY[0x1E696ABC0];
+    v18 = 3;
     goto LABEL_6;
   }
 
@@ -426,25 +406,24 @@ LABEL_13:
 
   if ((v10 & 1) == 0)
   {
-    v16 = MEMORY[0x1E695DF30];
-    v17 = *MEMORY[0x1E695D940];
-    v18 = MEMORY[0x1E696ABC0];
-    v19 = 7;
+    v15 = MEMORY[0x1E695DF30];
+    v16 = *MEMORY[0x1E695D940];
+    v17 = MEMORY[0x1E696ABC0];
+    v18 = 7;
 LABEL_6:
-    v20 = [v18 hmStringFromErrorCode:v19];
-    v21 = [v16 exceptionWithName:v17 reason:v20 userInfo:0];
-    v22 = v21;
+    v19 = [v17 hmStringFromErrorCode:v18];
+    v20 = [v15 exceptionWithName:v16 reason:v19 userInfo:0];
+    v21 = v20;
 
-    objc_exception_throw(v21);
+    objc_exception_throw(v20);
   }
 
-  v23 = @"kEventUUIDKey";
+  v22 = @"kEventUUIDKey";
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  v24[0] = uUID;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v23[0] = uUID;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   v13 = [(HMCharacteristicThresholdRangeEvent *)self initWithDict:v12 characteristic:v6 thresholdRange:v8];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

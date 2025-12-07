@@ -89,9 +89,9 @@
 
   else if (entryType == 1)
   {
-    entity = [(PLCloudFeedEntry *)self entity];
-    v10 = +[PLCloudFeedAssetsEntry entity];
-    cloudIsMyAsset = [entity isKindOfEntity:v10];
+    v9 = objc_msgSend_entity(self);
+    v10 = objc_msgSend_entity(PLCloudFeedAssetsEntry);
+    cloudIsMyAsset = [v9 isKindOfEntity:v10];
 
     if (cloudIsMyAsset)
     {
@@ -104,15 +104,15 @@ LABEL_24:
 
   else if (entryType == 2)
   {
-    entity2 = [(PLCloudFeedEntry *)self entity];
-    v6 = +[PLCloudFeedCommentsEntry entity];
-    cloudIsMyAsset = [entity2 isKindOfEntity:v6];
+    v5 = objc_msgSend_entity(self);
+    v6 = objc_msgSend_entity(PLCloudFeedCommentsEntry);
+    cloudIsMyAsset = [v5 isKindOfEntity:v6];
 
     if (cloudIsMyAsset)
     {
       selfCopy = self;
       entryComments = [(PLCloudFeedEntry *)selfCopy entryComments];
-      if ([entryComments count])
+      if (objc_msgSend_count(entryComments))
       {
         [(PLCloudFeedEntry *)selfCopy entryComments];
       }
@@ -573,20 +573,20 @@ LABEL_23:
         predicate = [v24 predicate];
         v26 = v24;
         v27 = predicate;
-        entity = [v26 entity];
+        v58 = objc_msgSend_entity(v26);
         v28 = [PLCloudFeedEntry _recentEntriesInLibrary:"_recentEntriesInLibrary:forEntity:usingPredicate:earliestDate:latestDate:limit:sortDescriptors:" forEntity:libraryCopy usingPredicate:descriptorsCopy earliestDate:? latestDate:? limit:? sortDescriptors:?];
         v29 = v28;
         if (v28)
         {
           v57 = v28;
-          v30 = [v28 count];
+          v30 = objc_msgSend_count(v28);
           v29 = v57;
           if (v30)
           {
             if (filterCopy == 4)
             {
               v54 = v27;
-              v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v57, "count")}];
+              v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v57)];
               v60 = 0u;
               v61 = 0u;
               v62 = 0u;
@@ -657,7 +657,7 @@ LABEL_23:
     while (v56);
   }
 
-  if ([v22 count] >= 2)
+  if (objc_msgSend_count(v22) >= 2)
   {
     v41 = descriptorsCopy;
     if (!v41)
@@ -666,7 +666,7 @@ LABEL_23:
     }
 
     [v21 sortUsingDescriptors:v41];
-    if (limit && [v21 count] > limit)
+    if (limit && objc_msgSend_count(v21) > limit)
     {
       v42 = [v21 subarrayWithRange:{0, limit}];
       v43 = [v42 mutableCopy];
@@ -815,7 +815,7 @@ LABEL_12:
 {
   v19 = *MEMORY[0x1E69E9840];
   typesCopy = types;
-  v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(typesCopy, "count")}];
+  v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(typesCopy)];
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
@@ -856,7 +856,7 @@ LABEL_12:
   indexCopy = index;
   v22 = *MEMORY[0x1E69E9840];
   typesCopy = types;
-  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(typesCopy, "count")}];
+  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(typesCopy)];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;

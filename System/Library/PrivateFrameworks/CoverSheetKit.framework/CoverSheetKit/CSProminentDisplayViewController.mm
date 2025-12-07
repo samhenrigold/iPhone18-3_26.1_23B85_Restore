@@ -361,7 +361,7 @@ void __47__CSProminentDisplayViewController_viewDidLoad__block_invoke(uint64_t a
   v4 = v3;
   if (WeakRetained && v3)
   {
-    v5 = CSLogCommon();
+    v5 = CSLogCommon(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __47__CSProminentDisplayViewController_viewDidLoad__block_invoke_cold_1(WeakRetained, v5);
@@ -381,7 +381,7 @@ void __47__CSProminentDisplayViewController_viewDidLoad__block_invoke_24(uint64_
   v4 = v3;
   if (WeakRetained && v3)
   {
-    v5 = CSLogCommon();
+    v5 = CSLogCommon(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __47__CSProminentDisplayViewController_viewDidLoad__block_invoke_24_cold_1(WeakRetained, v5);
@@ -704,7 +704,7 @@ void __47__CSProminentDisplayViewController_viewDidLoad__block_invoke_24(uint64_
 {
   changesCopy = changes;
   v9 = *MEMORY[0x1E69E9840];
-  v5 = CSLogCommon();
+  v5 = CSLogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
@@ -972,7 +972,7 @@ void __47__CSProminentDisplayViewController_viewDidLoad__block_invoke_24(uint64_
   }
 }
 
-uint64_t __65__CSProminentDisplayViewController_setShowsCompactTime_animated___block_invoke(uint64_t a1)
+void *__65__CSProminentDisplayViewController_setShowsCompactTime_animated___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setAnchorPoint:{0.5, 0.0}];
   v41 = 0u;
@@ -981,7 +981,7 @@ uint64_t __65__CSProminentDisplayViewController_setShowsCompactTime_animated___b
   v2 = *(a1 + 32);
   if (v2)
   {
-    [v2 transform];
+    objc_msgSend_transform(v2);
     v2 = *(a1 + 32);
   }
 
@@ -1051,16 +1051,16 @@ void __65__CSProminentDisplayViewController_setShowsCompactTime_animated___block
   dispatch_group_leave(*(a1 + 32));
 }
 
-uint64_t __65__CSProminentDisplayViewController_setShowsCompactTime_animated___block_invoke_3(uint64_t result)
+id *__65__CSProminentDisplayViewController_setShowsCompactTime_animated___block_invoke_3(id *result)
 {
-  if (*(*(*(result + 48) + 8) + 24) == 1)
+  if (*(*(result[6] + 1) + 24) == 1)
   {
     v1 = result;
-    v2 = *(result + 32);
-    if ((*(v2 + 1008) & 1) == 0)
+    v2 = result[4];
+    if ((v2[126] & 1) == 0)
     {
-      result = [*(result + 40) setAdaptiveTextHeight:*(v2 + 1072)];
-      v2 = *(v1 + 32);
+      result = [result[5] setAdaptiveTextHeight:v2[134]];
+      v2 = v1[4];
     }
 
     *(v2 + 1010) = 0;
@@ -1748,23 +1748,23 @@ LABEL_11:
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v4 = [standardUserDefaults BOOLForKey:@"SBDisallowGlassTime"];
 
-  v5 = CSLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = CSLogCommon(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(CSProminentDisplayViewController *)v4 _allowsGlassAppearance];
   }
 
-  v6 = _os_feature_enabled_impl();
-  if (v6)
+  v7 = _os_feature_enabled_impl();
+  if (v7)
   {
-    v6 = _os_feature_enabled_impl();
-    if (v6)
+    v7 = _os_feature_enabled_impl();
+    if (v7)
     {
-      LOBYTE(v6) = [(CSProminentDisplayViewController *)self _sensitiveUIEnabled]& (v4 ^ 1);
+      LOBYTE(v7) = [(CSProminentDisplayViewController *)self _sensitiveUIEnabled]& (v4 ^ 1);
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)_effectiveTitleTextColorForStyle:(id)style
@@ -2229,11 +2229,11 @@ void __74__CSProminentDisplayViewController__createOrDestroyTimeElementIfNecessa
   [v1 setAlpha:0.0];
 }
 
-uint64_t __74__CSProminentDisplayViewController__createOrDestroyTimeElementIfNecessary__block_invoke_3(uint64_t result, int a2)
+id *__74__CSProminentDisplayViewController__createOrDestroyTimeElementIfNecessary__block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setTimeView:0];
+    return [result[4] setTimeView:0];
   }
 
   return result;
@@ -2397,7 +2397,7 @@ LABEL_8:
   v8 = v7;
   if (v6 && v7)
   {
-    v9 = CSLogCommon();
+    v9 = CSLogCommon(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(CSProminentDisplayViewController *)v9 _createOrDestroyComplicationRowElementIfNecessary];
@@ -2513,11 +2513,11 @@ void __85__CSProminentDisplayViewController__createOrDestroyComplicationRowEleme
   [v1 setAlpha:0.0];
 }
 
-uint64_t __85__CSProminentDisplayViewController__createOrDestroyComplicationRowElementIfNecessary__block_invoke_3(uint64_t result, int a2)
+id *__85__CSProminentDisplayViewController__createOrDestroyComplicationRowElementIfNecessary__block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setComplicationRowView:0];
+    return [result[4] setComplicationRowView:0];
   }
 
   return result;
@@ -2543,11 +2543,11 @@ void __85__CSProminentDisplayViewController__createOrDestroyComplicationRowEleme
   [v1 setAlpha:0.0];
 }
 
-uint64_t __85__CSProminentDisplayViewController__createOrDestroyComplicationRowElementIfNecessary__block_invoke_6(uint64_t result, int a2)
+id *__85__CSProminentDisplayViewController__createOrDestroyComplicationRowElementIfNecessary__block_invoke_6(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setComplicationBottomRowView:0];
+    return [result[4] setComplicationBottomRowView:0];
   }
 
   return result;
@@ -2586,7 +2586,7 @@ uint64_t __85__CSProminentDisplayViewController__createOrDestroyComplicationRowE
   v4 = objc_opt_class();
   if (v4)
   {
-    [v4 legibilityColorMatrix];
+    objc_msgSend_legibilityColorMatrix(v4);
   }
 
   else

@@ -5,7 +5,7 @@
 - (id)makeExpandedOptionsLayoutWithContext:(id *)context;
 - (id)makeExpandedToolsLayoutWithContext:(void *)context drawingTools:(void *)tools selectedToolIndex:(void *)index visibleToolsCount:(void *)count delegate:;
 - (id)makeExpandedUndoRedoLayoutWithContext:(int)context isLTR:;
-- (uint64_t)makeInitialLayoutWithToolPicker:(void *)picker undoManager:(void *)manager paletteViewStartAngleProvider:(int)provider isLTR:;
+- (id)makeInitialLayoutWithToolPicker:(void *)picker undoManager:(void *)manager paletteViewStartAngleProvider:(int)provider isLTR:;
 - (void)makeExpandedEraserToolLayoutWithContext:(void *)context;
 - (void)makeExpandedInkingToolLayoutWithContext:(void *)context;
 @end
@@ -31,7 +31,7 @@
   return self;
 }
 
-- (uint64_t)makeInitialLayoutWithToolPicker:(void *)picker undoManager:(void *)manager paletteViewStartAngleProvider:(int)provider isLTR:
+- (id)makeInitialLayoutWithToolPicker:(void *)picker undoManager:(void *)manager paletteViewStartAngleProvider:(int)provider isLTR:
 {
   v60 = *MEMORY[0x1E69E9840];
   v9 = a2;
@@ -390,7 +390,7 @@ void __94__PKSqueezePaletteViewLayoutFactory_makeExpandedColorsLayoutWithContext
     v4 = v3;
     if (v3)
     {
-      v5 = *(v3 + 3);
+      v5 = v3[3];
     }
 
     else

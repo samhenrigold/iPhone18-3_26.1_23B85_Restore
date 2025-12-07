@@ -73,7 +73,7 @@ LABEL_3:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v7 = 1;
+    isEqual = 1;
   }
 
   else
@@ -82,25 +82,24 @@ LABEL_3:
     if (objc_opt_isKindOfClass())
     {
       context = self->_context;
-      v6 = equalCopy->_context;
       if (self->_equalityType == 1)
       {
-        v7 = [context isEqual:v6];
+        isEqual = objc_msgSend_isEqual_(context);
       }
 
       else
       {
-        v7 = context == v6;
+        isEqual = context == equalCopy->_context;
       }
     }
 
     else
     {
-      v7 = 0;
+      isEqual = 0;
     }
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (id)succinctDescription

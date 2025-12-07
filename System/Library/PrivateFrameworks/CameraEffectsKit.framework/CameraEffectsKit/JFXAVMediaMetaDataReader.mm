@@ -51,7 +51,7 @@
       v8 = nextMetadataItem2;
       if (nextMetadataItem2)
       {
-        [nextMetadataItem2 time];
+        objc_msgSend_time(nextMetadataItem2);
       }
 
       else
@@ -175,7 +175,7 @@ LABEL_15:
     if (currentMetadataItem2)
     {
       v9 = currentMetadataItem2;
-      [currentMetadataItem2 time];
+      objc_msgSend_time(currentMetadataItem2);
       currentMetadataItem2 = v9;
     }
 
@@ -236,7 +236,7 @@ LABEL_15:
     v10 = JFXLog_DebugMediaDataReader();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [(JFXAVMediaDataReader *)self currentReadingRange];
+      objc_msgSend_currentReadingRange(self);
       time = v23;
       Seconds = CMTimeGetSeconds(&time);
       LODWORD(time.value) = 138412546;
@@ -260,7 +260,7 @@ LABEL_15:
     [(JFXAVMediaMetaDataReader *)self setNextMetadataItem:firstObject2];
 
     nextMetadataItem = [(JFXAVMediaMetaDataReader *)self nextMetadataItem];
-    [nextMetadataItem time];
+    objc_msgSend_time(nextMetadataItem);
   }
 
   assetReader3 = [(JFXAVMediaDataReader *)self assetReader];

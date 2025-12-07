@@ -63,11 +63,11 @@ LABEL_4:
 
 - (_SFAuthenticatedCiphertext)initWithCoder:(id)coder
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = _SFAuthenticatedCiphertext;
-  v5 = [(_SFCiphertext *)&v21 initWithCoder:coderCopy];
+  v20.receiver = self;
+  v20.super_class = _SFAuthenticatedCiphertext;
+  v5 = [(_SFCiphertext *)&v20 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_alloc_init(SFAuthenticatedCiphertext_Ivars);
@@ -88,17 +88,16 @@ LABEL_4:
     if (!v14[1] || !v14[2])
     {
       v15 = MEMORY[0x277CCA9B8];
-      v22 = *MEMORY[0x277CCA450];
+      v21 = *MEMORY[0x277CCA450];
       v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to deserialize object of type %@", objc_opt_class()];
-      v23[0] = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v22[0] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v18 = [v15 errorWithDomain:@"SFCryptoServicesErrorDomain" code:8 userInfo:v17];
 
       [coderCopy failWithError:v18];
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

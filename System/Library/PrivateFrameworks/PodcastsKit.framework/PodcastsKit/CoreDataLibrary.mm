@@ -17,7 +17,6 @@
 
 - (void)setSubscriptionController:(id)controller
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC11PodcastsKit15CoreDataLibrary____lazy_storage___subscriptionController);
   *(&self->super.isa + OBJC_IVAR____TtC11PodcastsKit15CoreDataLibrary____lazy_storage___subscriptionController) = controller;
   swift_unknownObjectRetain();
 

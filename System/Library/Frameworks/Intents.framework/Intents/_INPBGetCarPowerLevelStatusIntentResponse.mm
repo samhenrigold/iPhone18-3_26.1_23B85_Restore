@@ -1,6 +1,7 @@
 @interface _INPBGetCarPowerLevelStatusIntentResponse
 - (BOOL)isEqual:(id)equal;
 - (_INPBGetCarPowerLevelStatusIntentResponse)initWithCoder:(id)coder;
+- (id)activeConnectorAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsActiveConnector:(id)connector;
@@ -698,7 +699,6 @@ LABEL_91:
   toCopy = to;
   if ([(_INPBGetCarPowerLevelStatusIntentResponse *)self hasActiveConnector])
   {
-    activeConnector = self->_activeConnector;
     PBDataWriterWriteInt32Field();
   }
 
@@ -706,7 +706,6 @@ LABEL_91:
 
   if (carIdentifier)
   {
-    carIdentifier = self->_carIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -720,7 +719,6 @@ LABEL_91:
 
   if ([(_INPBGetCarPowerLevelStatusIntentResponse *)self hasCharging])
   {
-    charging = self->_charging;
     PBDataWriterWriteBOOLField();
   }
 
@@ -830,13 +828,13 @@ LABEL_91:
 
   minutesToFull = [(_INPBGetCarPowerLevelStatusIntentResponse *)self minutesToFull];
 
-  v37 = toCopy;
+  v34 = toCopy;
   if (minutesToFull)
   {
     minutesToFull2 = [(_INPBGetCarPowerLevelStatusIntentResponse *)self minutesToFull];
     PBDataWriterWriteSubmessage();
 
-    v37 = toCopy;
+    v34 = toCopy;
   }
 }
 
@@ -920,6 +918,21 @@ LABEL_91:
   else
   {
     v4 = 2;
+  }
+
+  return v4;
+}
+
+- (id)activeConnectorAsString:(int)string
+{
+  if ((string - 2) >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727ED88[string - 2];
   }
 
   return v4;

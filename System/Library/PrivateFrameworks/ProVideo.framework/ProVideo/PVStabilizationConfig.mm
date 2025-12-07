@@ -24,19 +24,19 @@
 
 - (PVStabilizationConfig)initWithHomography:(double)homography cleanAperture:(double)aperture cropRect:(double)rect fillMode:(double)mode
 {
-  v30.receiver = self;
-  v30.super_class = PVStabilizationConfig;
-  v24 = [(PVStabilizationConfig *)&v30 init];
-  v25 = v24;
-  if (v24)
+  v26.receiver = self;
+  v26.super_class = PVStabilizationConfig;
+  v20 = [(PVStabilizationConfig *)&v26 init:a2];
+  v21 = v20;
+  if (v20)
   {
-    [(PVStabilizationConfig *)v24 setHomography:a2, homography, aperture];
-    [(PVStabilizationConfig *)v25 setCleanAperture:rect, mode, a7, a8];
-    [(PVStabilizationConfig *)v25 setCropRect:a12, a13, a14, a15];
-    [(PVStabilizationConfig *)v25 setFillMode:a10];
+    [(PVStabilizationConfig *)v20 setHomography:a2, homography, aperture];
+    [(PVStabilizationConfig *)v21 setCleanAperture:rect, mode, a7, a8];
+    [(PVStabilizationConfig *)v21 setCropRect:a12, a13, a14, a15];
+    [(PVStabilizationConfig *)v21 setFillMode:a10];
   }
 
-  return v25;
+  return v21;
 }
 
 - (CGRect)normalizedCleanAperture

@@ -21,8 +21,7 @@
 
   *__error() = v7;
   v10 = [frame debugDescription];
-  uTF8String2 = [v10 UTF8String];
-  _SASetCrashLogMessage(368, "SACallTreeTruncatedLeafCallstacks using wrong creator for %s", v12, v13, v14, v15, v16, v17, uTF8String2);
+  _SASetCrashLogMessage(368, "SACallTreeTruncatedLeafCallstacks using wrong creator for %s", [v10 UTF8String]);
 
   result = _os_crash();
   __break(1u);

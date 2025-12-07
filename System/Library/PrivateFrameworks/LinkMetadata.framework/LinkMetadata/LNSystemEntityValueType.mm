@@ -27,35 +27,35 @@
 
 void __49__LNSystemEntityValueType_objectClassesForCoding__block_invoke()
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v0 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{objc_opt_class(), 0}];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = +[LNSystemEntityValueType supportedValueTypes];
   v2 = [v1 allValues];
 
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [v0 addObject:{objc_msgSend(*(*(&v10 + 1) + 8 * v6++), "objectClassSubclass")}];
+        [v0 addObject:{objc_msgSend(*(*(&v9 + 1) + 8 * v6++), "objectClassSubclass")}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -64,13 +64,11 @@ void __49__LNSystemEntityValueType_objectClassesForCoding__block_invoke()
   v7 = [v0 copy];
   v8 = objectClassesForCoding_objectClassesForCoding_3981;
   objectClassesForCoding_objectClassesForCoding_3981 = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (Class)objectClassSubclass
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"[.-]" options:0 error:0];
   identifier = [(LNEntityValueType *)self identifier];
@@ -78,9 +76,9 @@ void __49__LNSystemEntityValueType_objectClassesForCoding__block_invoke()
   v7 = [v4 stringByReplacingMatchesInString:identifier options:0 range:0 withTemplate:{objc_msgSend(identifier2, "length"), @"_"}];
 
   v8 = NSStringFromClass(v3);
-  v18[0] = v8;
-  v18[1] = v7;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = v8;
+  v17[1] = v7;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
 
   v10 = [v9 componentsJoinedByString:@"_"];
   v11 = NSClassFromString(v10);
@@ -109,8 +107,6 @@ void __49__LNSystemEntityValueType_objectClassesForCoding__block_invoke()
   }
 
   v15 = v12;
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

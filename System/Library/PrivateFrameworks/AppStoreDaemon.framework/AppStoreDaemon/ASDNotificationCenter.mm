@@ -87,9 +87,11 @@
 
 uint64_t __38__ASDNotificationCenter_defaultCenter__block_invoke()
 {
-  _MergedGlobals_50 = objc_alloc_init(ASDNotificationCenter);
+  v0 = objc_alloc_init(ASDNotificationCenter);
+  v1 = _MergedGlobals_50;
+  _MergedGlobals_50 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (ASDNotificationCenterDialogObserver)dialogObserver
@@ -300,56 +302,54 @@ void __68__ASDNotificationCenter_deliverEngagementRequest_withResultHandler___bl
 
 - (void)deliverNotifications:(id)notifications
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v14 = objc_opt_class();
-    v15 = 2112;
-    v16 = notificationsCopy;
-    v6 = v14;
+    v13 = objc_opt_class();
+    v14 = 2112;
+    v15 = notificationsCopy;
+    v6 = v13;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_INFO, "[%@]: Received notifications: %@", buf, 0x16u);
   }
 
   dispatchQueue = self->_dispatchQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __46__ASDNotificationCenter_deliverNotifications___block_invoke;
-  v10[3] = &unk_1E7CDB868;
-  v11 = notificationsCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __46__ASDNotificationCenter_deliverNotifications___block_invoke;
+  v9[3] = &unk_1E7CDB868;
+  v10 = notificationsCopy;
   selfCopy = self;
   v8 = notificationsCopy;
-  dispatch_async(dispatchQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(dispatchQueue, v9);
 }
 
 void __46__ASDNotificationCenter_deliverNotifications___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = [v8 name];
         v10 = [v2 objectForKeyedSubscript:v9];
         v11 = v10;
@@ -365,20 +365,18 @@ void __46__ASDNotificationCenter_deliverNotifications___block_invoke(uint64_t a1
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __46__ASDNotificationCenter_deliverNotifications___block_invoke_2;
-  v14[3] = &unk_1E7CDD608;
-  v14[4] = *(a1 + 40);
-  [v2 enumerateKeysAndObjectsUsingBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __46__ASDNotificationCenter_deliverNotifications___block_invoke_2;
+  v13[3] = &unk_1E7CDD608;
+  v13[4] = *(a1 + 40);
+  [v2 enumerateKeysAndObjectsUsingBlock:v13];
 }
 
 void __46__ASDNotificationCenter_deliverNotifications___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -417,75 +415,71 @@ void __46__ASDNotificationCenter_deliverNotifications___block_invoke_2(uint64_t 
 
 void __46__ASDNotificationCenter_deliverNotifications___block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        [v7 notificationCenter:*(a1 + 40) receivedNotifications:{*(a1 + 48), v10}];
+        [v7 notificationCenter:*(a1 + 40) receivedNotifications:{*(a1 + 48), v9}];
         objc_autoreleasePoolPop(v8);
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deliverProgress:(id)progress
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   progressCopy = progress;
   v5 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v13 = objc_opt_class();
-    v14 = 2112;
-    v15 = progressCopy;
-    v6 = v13;
+    v12 = objc_opt_class();
+    v13 = 2112;
+    v14 = progressCopy;
+    v6 = v12;
     _os_log_impl(&dword_1B8220000, v5, OS_LOG_TYPE_INFO, "[%@]: Received progress: %@", buf, 0x16u);
   }
 
   dispatchQueue = self->_dispatchQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __41__ASDNotificationCenter_deliverProgress___block_invoke;
-  v10[3] = &unk_1E7CDB868;
-  v10[4] = self;
-  v11 = progressCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __41__ASDNotificationCenter_deliverProgress___block_invoke;
+  v9[3] = &unk_1E7CDB868;
+  v9[4] = self;
+  v10 = progressCopy;
   v8 = progressCopy;
-  dispatch_async(dispatchQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(dispatchQueue, v9);
 }
 
 void __41__ASDNotificationCenter_deliverProgress___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (!v1)
@@ -494,30 +488,30 @@ void __41__ASDNotificationCenter_deliverProgress___block_invoke(uint64_t a1)
   }
 
   os_unfair_lock_lock((v1 + 32));
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v26 = v2;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v25 = v2;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v32 objects:v44 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v31 objects:v43 count:16];
   if (!v4)
   {
     goto LABEL_21;
   }
 
   v5 = v4;
-  v6 = *v33;
+  v6 = *v32;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v33 != v6)
+      if (*v32 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v8 = *(*(&v32 + 1) + 8 * i);
+      v8 = *(*(&v31 + 1) + 8 * i);
       v9 = [v8 bundleID];
       if (v9)
       {
@@ -535,11 +529,11 @@ void __41__ASDNotificationCenter_deliverProgress___block_invoke(uint64_t a1)
               {
                 v14 = objc_opt_class();
                 *buf = 138543874;
-                v37 = v14;
-                v38 = 2114;
-                v39 = v9;
-                v40 = 2048;
-                v41 = v11;
+                v36 = v14;
+                v37 = 2114;
+                v38 = v9;
+                v39 = 2048;
+                v40 = v11;
                 v15 = v14;
                 _os_log_impl(&dword_1B8220000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@] Completed progress reporting progress at: %.2f", buf, 0x20u);
               }
@@ -570,13 +564,13 @@ void __41__ASDNotificationCenter_deliverProgress___block_invoke(uint64_t a1)
           v18 = v17;
           v19 = [v8 completedUnitCount];
           *buf = 138544130;
-          v37 = v17;
-          v38 = 2114;
-          v39 = v9;
-          v40 = 2048;
-          v41 = v12;
-          v42 = 2048;
-          v43 = v19;
+          v36 = v17;
+          v37 = 2114;
+          v38 = v9;
+          v39 = 2048;
+          v40 = v12;
+          v41 = 2048;
+          v42 = v19;
           _os_log_impl(&dword_1B8220000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@] Starting progress reporting at: %.2f complete: %lld", buf, 0x2Au);
         }
 
@@ -586,14 +580,14 @@ void __41__ASDNotificationCenter_deliverProgress___block_invoke(uint64_t a1)
 LABEL_19:
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v32 objects:v44 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v31 objects:v43 count:16];
   }
 
   while (v5);
 LABEL_21:
 
   os_unfair_lock_unlock((v1 + 32));
-  v2 = v26;
+  v2 = v25;
 LABEL_22:
 
   v20 = *(a1 + 32);
@@ -616,53 +610,49 @@ LABEL_22:
   block[1] = 3221225472;
   block[2] = __41__ASDNotificationCenter_deliverProgress___block_invoke_2;
   block[3] = &unk_1E7CDBA20;
-  v29 = v21;
-  v30 = v22;
-  v31 = *(a1 + 40);
+  v28 = v21;
+  v29 = v22;
+  v30 = *(a1 + 40);
   v24 = v21;
   dispatch_async(v23, block);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __41__ASDNotificationCenter_deliverProgress___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        [v7 notificationCenter:*(a1 + 40) receivedProgress:{*(a1 + 48), v10}];
+        [v7 notificationCenter:*(a1 + 40) receivedProgress:{*(a1 + 48), v9}];
         objc_autoreleasePoolPop(v8);
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deliverViewPresentationRequest:(id)request resultHandler:(id)handler

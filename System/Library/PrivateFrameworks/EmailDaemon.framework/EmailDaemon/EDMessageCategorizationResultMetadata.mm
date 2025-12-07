@@ -77,8 +77,8 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
 
 - (id)_dictionaryRepresentation
 {
-  v63[14] = *MEMORY[0x1E69E9840];
-  v62[0] = @"score";
+  v62[14] = *MEMORY[0x1E69E9840];
+  v61[0] = @"score";
   v3 = MEMORY[0x1E696AD98];
   [(EDMessageCategorizationResultMetadata *)self score];
   null = [v3 numberWithDouble:?];
@@ -88,93 +88,93 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v47 = null;
-  v63[0] = null;
-  v62[1] = @"senderScore";
+  v46 = null;
+  v62[0] = null;
+  v61[1] = @"senderScore";
   v6 = MEMORY[0x1E696AD98];
   [(EDMessageCategorizationResultMetadata *)self senderScore];
   null2 = [v6 numberWithDouble:?];
-  v51 = null2;
+  v50 = null2;
   if (!null2)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v46 = null2;
-  v63[1] = null2;
-  v62[2] = @"tsScore";
+  v45 = null2;
+  v62[1] = null2;
+  v61[2] = @"tsScore";
   v8 = MEMORY[0x1E696AD98];
   [(EDMessageCategorizationResultMetadata *)self tsScore];
   null3 = [v8 numberWithDouble:?];
-  v49 = null3;
+  v48 = null3;
   if (!null3)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v45 = null3;
-  v63[2] = null3;
-  v62[3] = @"reasonCodes";
+  v44 = null3;
+  v62[2] = null3;
+  v61[3] = @"reasonCodes";
   reasonCodes = [(EDMessageCategorizationResultMetadata *)self reasonCodes];
-  v50 = reasonCodes;
+  v49 = reasonCodes;
   if (!reasonCodes)
   {
     reasonCodes = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44 = reasonCodes;
-  v63[3] = reasonCodes;
-  v62[4] = @"modelVersion";
+  v43 = reasonCodes;
+  v62[3] = reasonCodes;
+  v61[4] = @"modelVersion";
   modelVersion = [(EDMessageCategorizationResultMetadata *)self modelVersion];
-  v52 = modelVersion;
+  v51 = modelVersion;
   if (!modelVersion)
   {
     modelVersion = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43 = modelVersion;
-  v63[4] = modelVersion;
-  v62[5] = @"senderModelVersion";
+  v42 = modelVersion;
+  v62[4] = modelVersion;
+  v61[5] = @"senderModelVersion";
   senderModelVersion = [(EDMessageCategorizationResultMetadata *)self senderModelVersion];
-  v53 = senderModelVersion;
+  v52 = senderModelVersion;
   if (!senderModelVersion)
   {
     senderModelVersion = [MEMORY[0x1E695DFB0] null];
   }
 
-  v42 = senderModelVersion;
-  v63[5] = senderModelVersion;
-  v62[6] = @"tsModelVersion";
+  v41 = senderModelVersion;
+  v62[5] = senderModelVersion;
+  v61[6] = @"tsModelVersion";
   tsModelVersion = [(EDMessageCategorizationResultMetadata *)self tsModelVersion];
-  v54 = tsModelVersion;
+  v53 = tsModelVersion;
   if (!tsModelVersion)
   {
     tsModelVersion = [MEMORY[0x1E695DFB0] null];
   }
 
-  v41 = tsModelVersion;
-  v63[6] = tsModelVersion;
-  v62[7] = @"finalRuleVersion";
+  v40 = tsModelVersion;
+  v62[6] = tsModelVersion;
+  v61[7] = @"finalRuleVersion";
   finalRuleVersion = [(EDMessageCategorizationResultMetadata *)self finalRuleVersion];
-  v55 = finalRuleVersion;
+  v54 = finalRuleVersion;
   if (!finalRuleVersion)
   {
     finalRuleVersion = [MEMORY[0x1E695DFB0] null];
   }
 
-  v40 = finalRuleVersion;
-  v63[7] = finalRuleVersion;
-  v62[8] = @"experimentID";
+  v39 = finalRuleVersion;
+  v62[7] = finalRuleVersion;
+  v61[8] = @"experimentID";
   experimentID = [(EDMessageCategorizationResultMetadata *)self experimentID];
-  v56 = experimentID;
+  v55 = experimentID;
   if (!experimentID)
   {
     experimentID = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39 = experimentID;
-  v63[8] = experimentID;
-  v62[9] = @"experimentDeploymentID";
+  v38 = experimentID;
+  v62[8] = experimentID;
+  v61[9] = @"experimentDeploymentID";
   experimentDeploymentID = [(EDMessageCategorizationResultMetadata *)self experimentDeploymentID];
   null4 = experimentDeploymentID;
   if (!experimentDeploymentID)
@@ -182,9 +182,9 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = null4;
-  v63[9] = null4;
-  v62[10] = @"experimentTreatmentID";
+  v37 = null4;
+  v62[9] = null4;
+  v61[10] = @"experimentTreatmentID";
   experimentTreatmentID = [(EDMessageCategorizationResultMetadata *)self experimentTreatmentID];
   null5 = experimentTreatmentID;
   if (!experimentTreatmentID)
@@ -192,9 +192,9 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = null5;
-  v63[10] = null5;
-  v62[11] = @"rolloutID";
+  v36 = null5;
+  v62[10] = null5;
+  v61[11] = @"rolloutID";
   rolloutID = [(EDMessageCategorizationResultMetadata *)self rolloutID];
   null6 = rolloutID;
   if (!rolloutID)
@@ -202,8 +202,8 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v63[11] = null6;
-  v62[12] = @"rolloutDeploymentID";
+  v62[11] = null6;
+  v61[12] = @"rolloutDeploymentID";
   rolloutDeploymentID = [(EDMessageCategorizationResultMetadata *)self rolloutDeploymentID];
   null7 = rolloutDeploymentID;
   if (!rolloutDeploymentID)
@@ -211,8 +211,8 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v63[12] = null7;
-  v62[13] = @"rolloutFactorPackID";
+  v62[12] = null7;
+  v61[13] = @"rolloutFactorPackID";
   rolloutFactorPackID = [(EDMessageCategorizationResultMetadata *)self rolloutFactorPackID];
   null8 = rolloutFactorPackID;
   if (!rolloutFactorPackID)
@@ -220,8 +220,8 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v63[13] = null8;
-  v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:14];
+  v62[13] = null8;
+  v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:14];
   if (!rolloutFactorPackID)
   {
   }
@@ -239,10 +239,6 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
   }
 
   if (!experimentDeploymentID)
-  {
-  }
-
-  if (!v56)
   {
   }
 
@@ -262,7 +258,7 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
   {
   }
 
-  if (!v50)
+  if (!v51)
   {
   }
 
@@ -270,7 +266,11 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
   {
   }
 
-  if (!v51)
+  if (!v48)
+  {
+  }
+
+  if (!v50)
   {
   }
 
@@ -279,25 +279,25 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
-  v27 = v48;
-  v28 = [v27 countByEnumeratingWithState:&v57 objects:v61 count:16];
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v27 = v47;
+  v28 = [v27 countByEnumeratingWithState:&v56 objects:v60 count:16];
   if (v28)
   {
-    v29 = *v58;
+    v29 = *v57;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v58 != v29)
+        if (*v57 != v29)
         {
           objc_enumerationMutation(v27);
         }
 
-        v31 = *(*(&v57 + 1) + 8 * i);
+        v31 = *(*(&v56 + 1) + 8 * i);
         v32 = [v27 objectForKey:v31];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -314,13 +314,11 @@ void __44__EDMessageCategorizationResultMetadata_log__block_invoke(uint64_t a1)
         }
       }
 
-      v28 = [v27 countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v56 objects:v60 count:16];
     }
 
     while (v28);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

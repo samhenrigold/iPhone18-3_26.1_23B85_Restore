@@ -123,21 +123,8 @@ LABEL_7:
     launchReason = [activityCopy launchReason];
     v12 = [launchReason isEqualToString:_DASLaunchReasonBackgroundRemoteNotification];
 
-    if (!v12)
+    if (!v12 || (v13 = activityCopy, objc_sync_enter(v13), [v13 policyResponseMetadata], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "objectForKeyedSubscript:", @"Application Policy"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "reason"), v15, v14, objc_sync_exit(v13), v13, (v16 & 2) == 0))
     {
-      goto LABEL_9;
-    }
-
-    v13 = activityCopy;
-    objc_sync_enter(v13);
-    policyResponseMetadata = [v13 policyResponseMetadata];
-    v15 = [policyResponseMetadata objectForKeyedSubscript:@"Application Policy"];
-    reason = [v15 reason];
-
-    objc_sync_exit(v13);
-    if ((reason & 2) == 0)
-    {
-LABEL_9:
       budgeted = [activityCopy budgeted];
       goto LABEL_11;
     }
@@ -419,7 +406,7 @@ LABEL_8:
   {
     v5 = [_DASSystemBudgetManager identifierWithActivity:activityCopy];
     v6 = [_DASSystemBudgetManager involvedProcessesForActivity:activityCopy withIdentifier:v5];
-    if ([v6 count])
+    if (objc_msgSend_count(v6))
     {
       v7 = [(_DASEnergyUsageTracker *)self nameStringForActivity:activityCopy];
       if (v7)
@@ -695,7 +682,7 @@ LABEL_23:
     }
   }
 
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v8 = v4;
 LABEL_9:
@@ -703,13 +690,13 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v8 = v6;
     goto LABEL_9;
   }
 
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v19 = v4;
     v9 = +[NSMutableArray array];

@@ -24,7 +24,7 @@
   v11 = [(HDStandardTaskServer *)&v15 initWithUUID:d configuration:configurationCopy client:client delegate:delegate];
   if (v11)
   {
-    v12 = [configurationCopy copy];
+    v12 = objc_msgSend_copy(configurationCopy);
     configuration = v11->_configuration;
     v11->_configuration = v12;
   }
@@ -127,21 +127,19 @@
 
 void __122__HDSharingRecipientAuthorizationStoreServer_sharingAuthorizationManager_didAddSharingAuthorizations_recipientIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogSharing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of added authorizations: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of added authorizations: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sharingAuthorizationManager:(id)manager didRemoveSharingAuthorizations:(id)authorizations recipientIdentifier:(id)identifier
@@ -158,26 +156,24 @@ void __122__HDSharingRecipientAuthorizationStoreServer_sharingAuthorizationManag
 
 void __125__HDSharingRecipientAuthorizationStoreServer_sharingAuthorizationManager_didRemoveSharingAuthorizations_recipientIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogSharing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of removed authorizations: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of removed authorizations: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sharingAuthorizationManager:(id)manager didRevokeRecipientWithIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
@@ -185,47 +181,42 @@ void __125__HDSharingRecipientAuthorizationStoreServer_sharingAuthorizationManag
   {
     *buf = 138543618;
     selfCopy = self;
-    v12 = 2114;
-    v13 = identifierCopy;
+    v11 = 2114;
+    v12 = identifierCopy;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Revoking Recipient with Identifier: %{public}@", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __107__HDSharingRecipientAuthorizationStoreServer_sharingAuthorizationManager_didRevokeRecipientWithIdentifier___block_invoke;
-  v9[3] = &unk_2786138D0;
-  v9[4] = self;
-  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __107__HDSharingRecipientAuthorizationStoreServer_sharingAuthorizationManager_didRevokeRecipientWithIdentifier___block_invoke;
+  v8[3] = &unk_2786138D0;
+  v8[4] = self;
+  v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v8];
   [v7 clientRemote_wasRevoked];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __107__HDSharingRecipientAuthorizationStoreServer_sharingAuthorizationManager_didRevokeRecipientWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogSharing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v6;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of revoked authorizations: %{public}@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to notify client of revoked authorizations: %{public}@", &v6, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

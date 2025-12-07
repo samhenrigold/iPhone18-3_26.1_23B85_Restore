@@ -79,34 +79,32 @@ void __63__WRMClientInterface_registerClient_queue_notificationHandler___block_i
 
     objc_initWeak(&location, *(a1 + 32));
     v7 = *(*(a1 + 32) + 8);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __63__WRMClientInterface_registerClient_queue_notificationHandler___block_invoke_2;
-    v15[3] = &unk_279ED6110;
-    objc_copyWeak(&v16, &location);
-    xpc_connection_set_event_handler(v7, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __63__WRMClientInterface_registerClient_queue_notificationHandler___block_invoke_2;
+    v14[3] = &unk_279ED6110;
+    objc_copyWeak(&v15, &location);
+    xpc_connection_set_event_handler(v7, v14);
     xpc_connection_resume(*(*(a1 + 32) + 8));
     keys[0] = "kWCMRegisterProcess_ProcessId";
     v8 = xpc_uint64_create(*(a1 + 48));
     values = v8;
     v9 = xpc_dictionary_create(keys, &values, 1uLL);
-    *v19 = xmmword_279ED6130;
+    *v18 = xmmword_279ED6130;
     v10 = xpc_uint64_create(1uLL);
-    v18[0] = v10;
+    v17[0] = v10;
     v11 = v9;
-    v18[1] = v11;
-    v12 = xpc_dictionary_create(v19, v18, 2uLL);
+    v17[1] = v11;
+    v12 = xpc_dictionary_create(v18, v17, 2uLL);
     xpc_connection_send_message(*(*(a1 + 32) + 8), v12);
 
     for (i = 1; i != -1; --i)
     {
     }
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __63__WRMClientInterface_registerClient_queue_notificationHandler___block_invoke_2(uint64_t a1, void *a2)

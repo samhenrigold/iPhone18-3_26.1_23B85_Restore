@@ -15,11 +15,10 @@
 
 - (BOOL)isNetworkPathAvailable
 {
-  evaluator = self->_evaluator;
-  v3 = nw_path_evaluator_copy_path();
-  v4 = nw_path_get_status(v3) != nw_path_status_unsatisfied;
+  v2 = nw_path_evaluator_copy_path();
+  v3 = nw_path_get_status(v2) != nw_path_status_unsatisfied;
 
-  return v4;
+  return v3;
 }
 
 - (_DASNetworkMonitorEvaluationGroup)initWithEndpoint:(id)endpoint parameters:(id)parameters activity:(id)activity callback:(id)callback onQueue:(id)queue
@@ -29,9 +28,9 @@
   activityCopy = activity;
   callbackCopy = callback;
   queueCopy = queue;
-  v34.receiver = self;
-  v34.super_class = _DASNetworkMonitorEvaluationGroup;
-  v18 = [(_DASNetworkMonitorEvaluationGroup *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = _DASNetworkMonitorEvaluationGroup;
+  v18 = [(_DASNetworkMonitorEvaluationGroup *)&v33 init];
   v19 = v18;
   if (!v18)
   {
@@ -54,27 +53,26 @@
   log = v19->_log;
   v19->_log = v26;
 
-  v28 = v19->_evaluator;
-  v33 = callbackCopy;
-  v29 = v19;
+  v32 = callbackCopy;
+  v28 = v19;
   if (nw_path_evaluator_set_update_handler())
   {
 
 LABEL_4:
-    v30 = v19;
+    v29 = v19;
     goto LABEL_8;
   }
 
-  v31 = v19->_log;
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v30 = v19->_log;
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    sub_10012CBF8(v31, v29);
+    sub_10012CBF8(v30, v28);
   }
 
-  v30 = 0;
+  v29 = 0;
 LABEL_8:
 
-  return v30;
+  return v29;
 }
 
 - (void)startMonitoringForActivity:(id)activity
@@ -92,10 +90,9 @@ LABEL_8:
   v5 = self->_activities;
   objc_sync_enter(v5);
   [(NSMutableSet *)self->_activities removeObject:activityCopy];
-  v6 = [(NSMutableSet *)self->_activities count];
+  v6 = objc_msgSend_count(self->_activities);
   if (!v6)
   {
-    evaluator = self->_evaluator;
     nw_path_evaluator_cancel();
   }
 

@@ -22,18 +22,17 @@
 
 - (void)handleDarwinNotificationNamed:(id)named
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   namedCopy = named;
-  v5 = LogCategory_CBPeripheralManagement();
+  v5 = LogCategory_CBPeripheralManagement(namedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = namedCopy;
-    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: handleDarwinNotificationNamed %{public}@: ", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = namedCopy;
+    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: handleDarwinNotificationNamed %{public}@: ", &v6, 0xCu);
   }
 
   [(SPCBPeripheralManager *)self fetch];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (SPCBPeripheralManager)init
@@ -141,7 +140,7 @@ void __29__SPCBPeripheralManager_init__block_invoke(uint64_t a1)
 
 void __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = _os_feature_enabled_impl();
   v3 = *(a1 + 32);
   if (v2)
@@ -154,30 +153,30 @@ void __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorId
       block[1] = 3221225472;
       block[2] = __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_14;
       block[3] = &unk_279B59398;
-      v29 = *(a1 + 64);
-      v28 = v4;
+      v28 = *(a1 + 64);
+      v27 = v4;
       dispatch_async(v5, block);
 
-      v6 = v29;
+      v6 = v28;
     }
 
     else
     {
       v6 = [[SPCBPeripheralManagerSessionKey alloc] initWithUserIdentifier:*(a1 + 40) bundleIdentifier:*(a1 + 48)];
-      v8 = LogCategory_CBPeripheralManagement();
+      v8 = LogCategory_CBPeripheralManagement(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = [(SPCBPeripheralManagerSessionKey *)v6 userIdentifier];
         v10 = [(SPCBPeripheralManagerSessionKey *)v6 bundleId];
         v11 = [*(a1 + 32) descriptionForVendorIdentifierList:*(a1 + 56)];
         *buf = 141558786;
-        v33 = 1752392040;
-        v34 = 2112;
-        v35 = v9;
-        v36 = 2114;
-        v37 = v10;
-        v38 = 2114;
-        v39 = v11;
+        v32 = 1752392040;
+        v33 = 2112;
+        v34 = v9;
+        v35 = 2114;
+        v36 = v10;
+        v37 = 2114;
+        v38 = v11;
         _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: Created session for <%{mask.hash}@:%{public}@>: %{public}@", buf, 0x2Au);
       }
 
@@ -186,12 +185,12 @@ void __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorId
       [v13 setObject:v12 forKeyedSubscript:v6];
 
       v14 = [*(a1 + 32) callbackQueue];
-      v22 = MEMORY[0x277D85DD0];
-      v23 = 3221225472;
-      v24 = __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_16;
-      v25 = &unk_279B58EF8;
-      v26 = *(a1 + 64);
-      dispatch_async(v14, &v22);
+      v21 = MEMORY[0x277D85DD0];
+      v22 = 3221225472;
+      v23 = __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_16;
+      v24 = &unk_279B58EF8;
+      v25 = *(a1 + 64);
+      dispatch_async(v14, &v21);
 
       [*(a1 + 32) fetch];
       if (*MEMORY[0x277CBE0D0])
@@ -212,22 +211,20 @@ void __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorId
   else
   {
     v7 = [v3 callbackQueue];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_2;
-    v30[3] = &unk_279B58EF8;
-    v31 = *(a1 + 64);
-    dispatch_async(v7, v30);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_2;
+    v29[3] = &unk_279B58EF8;
+    v30 = *(a1 + 64);
+    dispatch_async(v7, v29);
 
-    v4 = v31;
+    v4 = v30;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = LogCategory_CBPeripheralManagement();
+  v2 = LogCategory_CBPeripheralManagement(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_2_cold_1();
@@ -283,7 +280,7 @@ void __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completio
     else
     {
       v6 = [[SPCBPeripheralManagerSessionKey alloc] initWithUserIdentifier:*(a1 + 40) bundleIdentifier:*(a1 + 48)];
-      v8 = LogCategory_CBPeripheralManagement();
+      v8 = LogCategory_CBPeripheralManagement(v6);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = [(SPCBPeripheralManagerSessionKey *)v6 userIdentifier];
@@ -315,32 +312,32 @@ void __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completio
 
         if (v15)
         {
-          v16 = [*(a1 + 32) callbackQueue];
+          v17 = [*(a1 + 32) callbackQueue];
           v21[0] = MEMORY[0x277D85DD0];
           v21[1] = 3221225472;
           v21[2] = __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completion___block_invoke_19;
           v21[3] = &unk_279B58AE8;
           v21[4] = *(a1 + 32);
-          dispatch_async(v16, v21);
+          dispatch_async(v17, v21);
         }
 
         else
         {
-          v16 = LogCategory_CBPeripheralManagement();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = LogCategory_CBPeripheralManagement(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completion___block_invoke_cold_1();
           }
         }
       }
 
-      v17 = [*(a1 + 32) callbackQueue];
+      v18 = [*(a1 + 32) callbackQueue];
       v19[0] = MEMORY[0x277D85DD0];
       v19[1] = 3221225472;
       v19[2] = __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completion___block_invoke_20;
       v19[3] = &unk_279B58EF8;
       v20 = *(a1 + 56);
-      dispatch_async(v17, v19);
+      dispatch_async(v18, v19);
     }
   }
 
@@ -356,13 +353,11 @@ void __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completio
 
     v4 = v26;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = LogCategory_CBPeripheralManagement();
+  v2 = LogCategory_CBPeripheralManagement(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_2_cold_1();
@@ -396,13 +391,13 @@ void __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completio
 
 void __63__SPCBPeripheralManager_enableSystemWakesForUpdate_completion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_CBPeripheralManagement();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_CBPeripheralManagement(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     *buf = 67109120;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: enableSystemWakesForUpdate: %d", buf, 8u);
   }
 
@@ -412,10 +407,8 @@ void __63__SPCBPeripheralManager_enableSystemWakesForUpdate_completion___block_i
   block[1] = 3221225472;
   block[2] = __63__SPCBPeripheralManager_enableSystemWakesForUpdate_completion___block_invoke_21;
   block[3] = &unk_279B58EF8;
-  v7 = *(a1 + 40);
+  v6 = *(a1 + 40);
   dispatch_async(v4, block);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)successfulConnectionForPeripheral:(id)peripheral leMAC:(id)c ltk:(id)ltk completion:(id)completion
@@ -443,7 +436,7 @@ void __63__SPCBPeripheralManager_enableSystemWakesForUpdate_completion___block_i
 
 void __80__SPCBPeripheralManager_successfulConnectionForPeripheral_leMAC_ltk_completion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_CBPeripheralManagement();
+  v2 = LogCategory_CBPeripheralManagement(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -510,7 +503,7 @@ void __80__SPCBPeripheralManager_successfulConnectionForPeripheral_leMAC_ltk_com
 
 void __80__SPCBPeripheralManager_successfulConnectionForPeripheral_leMAC_ltk_completion___block_invoke_22(uint64_t a1)
 {
-  v2 = LogCategory_CBPeripheralManagement();
+  v2 = LogCategory_CBPeripheralManagement(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __96__SPCBPeripheralManager_startSessionForUserIdentifier_bundleId_vendorIdentifierList_completion___block_invoke_2_cold_1();
@@ -538,27 +531,25 @@ void __80__SPCBPeripheralManager_successfulConnectionForPeripheral_leMAC_ltk_com
 
 - (void)pairingAgent:(id)agent peerDidCompletePairing:(id)pairing
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pairingCopy = pairing;
-  v6 = LogCategory_CBPeripheralManagement();
+  v6 = LogCategory_CBPeripheralManagement(pairingCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = pairingCopy;
+    v12 = pairingCopy;
     _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: pairingAgent:peerDidCompletePairing %{public}@", buf, 0xCu);
   }
 
   cbQueue = [(SPCBPeripheralManager *)self cbQueue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __61__SPCBPeripheralManager_pairingAgent_peerDidCompletePairing___block_invoke;
-  v10[3] = &unk_279B58C78;
-  v10[4] = self;
-  v11 = pairingCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __61__SPCBPeripheralManager_pairingAgent_peerDidCompletePairing___block_invoke;
+  v9[3] = &unk_279B58C78;
+  v9[4] = self;
+  v10 = pairingCopy;
   v8 = pairingCopy;
-  dispatch_async(cbQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(cbQueue, v9);
 }
 
 void __61__SPCBPeripheralManager_pairingAgent_peerDidCompletePairing___block_invoke(uint64_t a1)
@@ -588,17 +579,17 @@ void __61__SPCBPeripheralManager_pairingAgent_peerDidCompletePairing___block_inv
 
 void __61__SPCBPeripheralManager_pairingAgent_peerDidCompletePairing___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LogCategory_CBPeripheralManagement();
+  v4 = LogCategory_CBPeripheralManagement(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
     if (v5)
     {
-      v8 = 138543362;
-      v9 = v3;
-      _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: pairLowEnergyAccessory did complete with error %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v3;
+      _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: pairLowEnergyAccessory did complete with error %{public}@", &v7, 0xCu);
     }
   }
 
@@ -606,41 +597,37 @@ void __61__SPCBPeripheralManager_pairingAgent_peerDidCompletePairing___block_inv
   {
     if (v5)
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: pairLowEnergyAccessory completed successfully!", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: pairLowEnergyAccessory completed successfully!", &v7, 2u);
     }
 
     v4 = [*(a1 + 32) pendingPairingIdentifiers];
     v6 = [*(a1 + 40) identifier];
     [v4 removeObject:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pairingAgent:(id)agent peerDidUnpair:(id)unpair
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   unpairCopy = unpair;
-  v6 = LogCategory_CBPeripheralManagement();
+  v6 = LogCategory_CBPeripheralManagement(unpairCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = unpairCopy;
+    v12 = unpairCopy;
     _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: pairingAgent:peerDidUnpair %{public}@", buf, 0xCu);
   }
 
   cbQueue = [(SPCBPeripheralManager *)self cbQueue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __52__SPCBPeripheralManager_pairingAgent_peerDidUnpair___block_invoke;
-  v10[3] = &unk_279B58C78;
-  v10[4] = self;
-  v11 = unpairCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __52__SPCBPeripheralManager_pairingAgent_peerDidUnpair___block_invoke;
+  v9[3] = &unk_279B58C78;
+  v9[4] = self;
+  v10 = unpairCopy;
   v8 = unpairCopy;
-  dispatch_async(cbQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(cbQueue, v9);
 }
 
 void __52__SPCBPeripheralManager_pairingAgent_peerDidUnpair___block_invoke(uint64_t a1)
@@ -652,65 +639,60 @@ void __52__SPCBPeripheralManager_pairingAgent_peerDidUnpair___block_invoke(uint6
 
 void __52__SPCBPeripheralManager_pairingAgent_peerDidUnpair___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = LogCategory_CBPeripheralManagement();
+  v3 = LogCategory_CBPeripheralManagement(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
     if (v4)
     {
-      v9 = 138543362;
-      v10 = v2;
+      v8 = 138543362;
+      v9 = v2;
       v5 = "SPCBPeripheralManager: unpairLowEnergyAccessory did complete with error %{public}@";
       v6 = v3;
       v7 = 12;
 LABEL_6:
-      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, v5, &v9, v7);
+      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, v5, &v8, v7);
     }
   }
 
   else if (v4)
   {
-    LOWORD(v9) = 0;
+    LOWORD(v8) = 0;
     v5 = "SPCBPeripheralManager: unpairLowEnergyAccessory completed successfully!";
     v6 = v3;
     v7 = 2;
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)interruptionHandler:(id)handler
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v4 = LogCategory_CBPeripheralManagement();
+  v4 = LogCategory_CBPeripheralManagement(handlerCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = handlerCopy;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: interruptionHandler %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = handlerCopy;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: interruptionHandler %{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidationHandler:(id)handler
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_CBPeripheralManagement();
+  v5 = LogCategory_CBPeripheralManagement(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = handlerCopy;
-    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: invalidationHandler %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = handlerCopy;
+    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: invalidationHandler %{public}@", &v6, 0xCu);
   }
 
   [(SPCBPeripheralManager *)self setSession:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (SPCBPeripheralManagementXPCProtocol)proxy
@@ -748,27 +730,25 @@ void __30__SPCBPeripheralManager_proxy__block_invoke(uint64_t a1)
     v5 = [v3 initWithServiceDescription:v4];
     [*(a1 + 32) setSession:v5];
 
-    v6 = LogCategory_CBPeripheralManagement();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = LogCategory_CBPeripheralManagement(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 32) serviceDescription];
-      v8 = [v7 machService];
+      v8 = [*(a1 + 32) serviceDescription];
+      v9 = [v8 machService];
       v15 = 138543362;
-      v16 = v8;
-      _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: Establishing XPC connection to %{public}@", &v15, 0xCu);
+      v16 = v9;
+      _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: Establishing XPC connection to %{public}@", &v15, 0xCu);
     }
 
-    v9 = [*(a1 + 32) session];
-    [v9 resume];
+    v10 = [*(a1 + 32) session];
+    [v10 resume];
   }
 
-  v10 = [*(a1 + 32) session];
-  v11 = [v10 proxy];
-  v12 = *(*(a1 + 40) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v11;
-
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = [*(a1 + 32) session];
+  v12 = [v11 proxy];
+  v13 = *(*(a1 + 40) + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = v12;
 }
 
 + (id)remoteInterface
@@ -827,46 +807,42 @@ uint64_t __40__SPCBPeripheralManager_remoteInterface__block_invoke()
 
 uint64_t __47__SPCBPeripheralManager_timerFiredForActivity___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_CBPeripheralManagement();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_CBPeripheralManagement(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) name];
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: timerFired: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: timerFired: %{public}@", &v5, 0xCu);
   }
 
   [*(a1 + 40) fetch];
   [*(a1 + 40) setForceUpdateCriteria:1];
-  result = [*(a1 + 32) updateCriteria];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) updateCriteria];
 }
 
 - (void)fetch
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
-  v4 = LogCategory_CBPeripheralManagement();
+  v4 = LogCategory_CBPeripheralManagement(date);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = date;
+    v10 = date;
     _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: fetch (fetchBase: %@)", buf, 0xCu);
   }
 
   queueSynchronizer = [(SPCBPeripheralManager *)self queueSynchronizer];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __30__SPCBPeripheralManager_fetch__block_invoke;
-  v8[3] = &unk_279B58C78;
-  v8[4] = self;
-  v9 = date;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __30__SPCBPeripheralManager_fetch__block_invoke;
+  v7[3] = &unk_279B58C78;
+  v7[4] = self;
+  v8 = date;
   v6 = date;
-  [queueSynchronizer conditionalSync:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [queueSynchronizer conditionalSync:v7];
 }
 
 void __30__SPCBPeripheralManager_fetch__block_invoke(uint64_t a1)
@@ -919,104 +895,107 @@ void __30__SPCBPeripheralManager_fetch__block_invoke_3(uint64_t a1)
 
 void __30__SPCBPeripheralManager_fetch__block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v8 = v7;
-  v9 = *(a1 + 40);
-  v10 = LogCategory_CBPeripheralManagement();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v7 = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v9 = v8;
+  v10 = *(a1 + 40);
+  v11 = LogCategory_CBPeripheralManagement(v7);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v36 = (v8 - v9) * 1000.0;
-    _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: fetch duration: %.02f ms", buf, 0xCu);
+    v38 = (v9 - v10) * 1000.0;
+    _os_log_impl(&dword_2643D0000, v11, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: fetch duration: %.02f ms", buf, 0xCu);
   }
 
   if (v6)
   {
-    v11 = LogCategory_CBPeripheralManagement();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = LogCategory_CBPeripheralManagement(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __30__SPCBPeripheralManager_fetch__block_invoke_4_cold_1(v6, v11);
+      __30__SPCBPeripheralManager_fetch__block_invoke_4_cold_1(v6, v13);
     }
   }
 
   else if (v5)
   {
-    v13 = [*(a1 + 32) peripheralsUpdatedCallback];
+    v14 = [*(a1 + 32) peripheralsUpdatedCallback];
 
-    v14 = LogCategory_CBPeripheralManagement();
-    v15 = v14;
-    if (v13)
+    v16 = LogCategory_CBPeripheralManagement(v15);
+    v17 = v16;
+    if (v14)
     {
-      v26 = a1;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v28 = a1;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = [v5 peripherals];
-        v17 = COERCE_DOUBLE([v16 count]);
+        v18 = [v5 peripherals];
+        v19 = COERCE_DOUBLE([v18 count]);
         *buf = 134217984;
-        v36 = v17;
-        _os_log_impl(&dword_2643D0000, v15, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: peripheral count: %lu", buf, 0xCu);
+        v38 = v19;
+        _os_log_impl(&dword_2643D0000, v17, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: peripheral count: %lu", buf, 0xCu);
       }
 
+      v34 = 0u;
+      v35 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v30 = 0u;
-      v31 = 0u;
-      v27 = v5;
-      v18 = [v5 peripherals];
-      v19 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
-      if (v19)
+      v29 = v5;
+      v20 = [v5 peripherals];
+      v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      if (v21)
       {
-        v20 = v19;
-        v21 = *v31;
+        v22 = v21;
+        v23 = *v33;
         do
         {
-          for (i = 0; i != v20; ++i)
+          v24 = 0;
+          do
           {
-            if (*v31 != v21)
+            if (*v33 != v23)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v20);
             }
 
-            v23 = *(*(&v30 + 1) + 8 * i);
-            v24 = LogCategory_CBPeripheralManagement();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v25 = *(*(&v32 + 1) + 8 * v24);
+            v26 = LogCategory_CBPeripheralManagement(v21);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v36 = v23;
-              _os_log_impl(&dword_2643D0000, v24, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: peripheral: %@", buf, 0xCu);
+              v38 = v25;
+              _os_log_impl(&dword_2643D0000, v26, OS_LOG_TYPE_DEFAULT, "SPCBPeripheralManager: peripheral: %@", buf, 0xCu);
             }
+
+            ++v24;
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          while (v22 != v24);
+          v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+          v22 = v21;
         }
 
-        while (v20);
+        while (v21);
       }
 
-      v25 = [*(v26 + 32) callbackQueue];
+      v27 = [*(v28 + 32) callbackQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __30__SPCBPeripheralManager_fetch__block_invoke_99;
       block[3] = &unk_279B58C78;
-      block[4] = *(v26 + 32);
-      v5 = v27;
-      v29 = v27;
-      dispatch_async(v25, block);
+      block[4] = *(v28 + 32);
+      v5 = v29;
+      v31 = v29;
+      dispatch_async(v27, block);
     }
 
     else
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __74__SPCBPeripheralManager_stopSessionForUserIdentifier_bundleId_completion___block_invoke_cold_1();
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __30__SPCBPeripheralManager_fetch__block_invoke_99(uint64_t a1)
@@ -1051,40 +1030,37 @@ void __30__SPCBPeripheralManager_fetch__block_invoke_99(uint64_t a1)
 
 void __42__SPCBPeripheralManager__enforceRateLimit__block_invoke(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) tokenBucket];
   v3 = [v2 operationAllowed];
 
   if ((v3 & 1) == 0)
   {
-    v14[0] = @"delay";
+    v13[0] = @"delay";
     v4 = MEMORY[0x277CCABB0];
     v5 = [*(a1 + 32) tokenBucket];
     [v5 timeIntervalUntilOperationAllowed];
     v6 = [v4 numberWithDouble:?];
-    v14[1] = @"stats";
-    v15[0] = v6;
+    v13[1] = @"stats";
+    v14[0] = v6;
     v7 = [*(a1 + 32) tokenBucket];
     v8 = [v7 dumpStatistics];
-    v15[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v14[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
     v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.spowner.SPCBPeripheralErrorDomain" code:2 userInfo:v9];
     v11 = *(*(a1 + 40) + 8);
     v12 = *(v11 + 40);
     *(v11 + 40) = v10;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __30__SPCBPeripheralManager_fetch__block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "SPCBPeripheralManager: fetch error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "SPCBPeripheralManager: fetch error: %@", &v2, 0xCu);
 }
 
 @end

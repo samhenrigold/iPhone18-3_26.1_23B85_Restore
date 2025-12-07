@@ -134,7 +134,7 @@
       v14 = 0.0;
       if (firstObject)
       {
-        [firstObject graphSeriesPointTransform];
+        objc_msgSend_graphSeriesPointTransform(firstObject, 0.0, 0.0, 0.0);
         v14 = v21;
         v13 = v22;
         v12 = v23;

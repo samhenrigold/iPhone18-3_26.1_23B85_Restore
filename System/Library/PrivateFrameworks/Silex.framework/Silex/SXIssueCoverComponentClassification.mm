@@ -6,7 +6,7 @@
 
 - (id)accessibilityContextualLabel
 {
-  v2 = SXBundle();
+  v2 = SXBundle(self);
   v3 = [v2 localizedStringForKey:@"Issue Cover" value:&stru_1F532F6C0 table:0];
 
   return v3;

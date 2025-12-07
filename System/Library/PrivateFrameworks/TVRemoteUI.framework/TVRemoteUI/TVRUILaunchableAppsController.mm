@@ -94,19 +94,20 @@
 void __55__TVRUILaunchableAppsController_launchAppWithBundleID___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRUIDockLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRUIDockLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __55__TVRUILaunchableAppsController_launchAppWithBundleID___block_invoke_cold_1(a1, v3, v4);
+      __55__TVRUILaunchableAppsController_launchAppWithBundleID___block_invoke_cold_1(a1, v4, v5);
     }
   }
 
   else
   {
-    v5 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v5 postNotificationName:@"TVRUILaunchableAppsControllerAppInfosDidLaunchAppNotification" object:0];
+    v6 = [MEMORY[0x277CCAB98] defaultCenter];
+    [v6 postNotificationName:@"TVRUILaunchableAppsControllerAppInfosDidLaunchAppNotification" object:0];
   }
 }
 

@@ -9,7 +9,7 @@
 
 - (HMRemovedUserInfo)removedUserInfo
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   removedUserInfoData = [(HMDRemovedUserAccessCodeModel *)self removedUserInfoData];
 
   if (removedUserInfoData)
@@ -17,9 +17,9 @@
     v4 = MEMORY[0x277CCAAC8];
     v5 = objc_opt_class();
     removedUserInfoData2 = [(HMDRemovedUserAccessCodeModel *)self removedUserInfoData];
-    v21 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:removedUserInfoData2 error:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:removedUserInfoData2 error:&v20];
+    v8 = v20;
 
     if (v7)
     {
@@ -36,11 +36,11 @@
         v17 = HMFGetLogIdentifier();
         removedUserInfoData3 = [(HMDRemovedUserAccessCodeModel *)selfCopy removedUserInfoData];
         *buf = 138543874;
-        v23 = v17;
-        v24 = 2112;
-        v25 = removedUserInfoData3;
-        v26 = 2112;
-        v27 = v8;
+        v22 = v17;
+        v23 = 2112;
+        v24 = removedUserInfoData3;
+        v25 = 2112;
+        v26 = v8;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive removedUserInfoData: %@, with error: %@", buf, 0x20u);
       }
 
@@ -57,15 +57,13 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v13;
+      v22 = v13;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@removedUserInfoData was nil, this should never happen", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v7 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -83,7 +81,7 @@
     v13 = encodeRootObject();
     [(HMDRemovedUserAccessCodeModel *)v12 setRemovedUserInfoData:v13];
 
-    v14 = [codeCopy copy];
+    v14 = objc_msgSend_copy(codeCopy);
     [(HMDRemovedUserAccessCodeModel *)v12 setAccessCode:v14];
   }
 
@@ -121,18 +119,16 @@
 
 void __43__HMDRemovedUserAccessCodeModel_properties__block_invoke()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"removedUserInfoData";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"removedUserInfoData";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v5[1] = @"accessCode";
-  v6[0] = v0;
+  v4[1] = @"accessCode";
+  v5[0] = v0;
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class() logging:3];
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
   v3 = properties__properties_192738;
   properties__properties_192738 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

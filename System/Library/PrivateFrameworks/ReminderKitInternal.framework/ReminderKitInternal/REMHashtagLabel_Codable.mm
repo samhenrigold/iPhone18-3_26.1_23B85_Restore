@@ -14,10 +14,10 @@
 
 - (REMHashtagLabel_Codable)initWithName:(id)name canonicalName:(id)canonicalName firstOccurrenceCreationDate:(id)date recencyDate:(id)recencyDate uuidForChangeTracking:(id)tracking
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14800);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DB14800, &unk_230316810);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v26 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DB15AA0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DB15AA0, &unk_23031A950);
   v14 = MEMORY[0x28223BE20](v13 - 8);
   v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v14);

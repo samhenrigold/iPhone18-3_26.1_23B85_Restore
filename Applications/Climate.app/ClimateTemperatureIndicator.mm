@@ -14,7 +14,7 @@
 - (BOOL)isEnabled
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ClimateTemperatureIndicator();
+  v3.super_class = type metadata accessor for ClimateTemperatureIndicator(0);
   return [(ClimateTemperatureIndicator *)&v3 isEnabled];
 }
 
@@ -24,7 +24,7 @@
   {
     enabledCopy = enabled;
     v4.receiver = self;
-    v4.super_class = type metadata accessor for ClimateTemperatureIndicator();
+    v4.super_class = type metadata accessor for ClimateTemperatureIndicator(0);
     [(ClimateTemperatureIndicator *)&v4 setEnabled:enabledCopy];
   }
 }
@@ -38,11 +38,11 @@
 
 - (void)temperatureService:(id)service didUpdateTargetTemperature:(id)temperature
 {
-  v6 = sub_1000040E8(&unk_100114790);
+  v6 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v12 - v8;
-  sub_10000827C(0, &qword_100114AB0);
+  sub_10000827C(0, &qword_100114AB0, NSUnitTemperature_ptr);
   static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
   serviceCopy = service;
   selfCopy = self;
@@ -54,38 +54,38 @@
 - (void)temperatureService:(id)service didUpdateOn:(BOOL)on
 {
   selfCopy = self;
-  sub_1000B0F6C();
+  sub_1000B0F6C(v4);
 }
 
 - (void)temperatureService:(id)service didUpdateCurrentTemperature:(id)temperature
 {
-  v6 = sub_1000040E8(&unk_1001153F0);
+  v6 = sub_1000040E8(&unk_1001153F0, qword_1000D5C40);
   __chkstk_darwin(v6 - 8);
-  v8 = &v12 - v7;
+  v8 = &v13 - v7;
   if (temperature)
   {
-    sub_10000827C(0, &qword_100114AB0);
+    sub_10000827C(0, &qword_100114AB0, NSUnitTemperature_ptr);
     static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = sub_1000040E8(&unk_100114790);
+    v9 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
     (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v10 = sub_1000040E8(&unk_100114790);
+    v10 = sub_1000040E8(&unk_100114790, &qword_1000D6820);
     (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
   selfCopy = self;
-  sub_1000B0F6C();
+  sub_1000B0F6C(v12);
 
-  sub_100008904(v8, &unk_1001153F0);
+  sub_100008904(v8, &unk_1001153F0, qword_1000D5C40);
 }
 
 - (void)dimensionManager:(id)manager didUpdateTemperatureUnit:(id)unit
 {
   selfCopy = self;
-  sub_1000B0F6C();
+  sub_1000B0F6C(v4);
   sub_1000B0684();
 }
 

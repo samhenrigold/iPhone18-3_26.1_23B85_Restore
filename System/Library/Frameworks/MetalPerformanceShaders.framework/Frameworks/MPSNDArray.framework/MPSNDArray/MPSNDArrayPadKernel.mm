@@ -55,18 +55,18 @@
 
 - (id)destinationArrayDescriptorForSourceArrays:(id)arrays sourceState:(id)state
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = [arrays objectAtIndexedSubscript:{0, state}];
   v7 = *(v6 + *MEMORY[0x277CD73F0]);
   v8 = [arrays objectAtIndexedSubscript:0];
   v9 = (v8 + *MEMORY[0x277CD7410]);
-  v19 = v9[2];
-  v20 = v9[3];
-  v17 = *v9;
-  v18 = v9[1];
+  v18 = v9[2];
+  v19 = v9[3];
+  v16 = *v9;
+  v17 = v9[1];
   v10 = [arrays objectAtIndexedSubscript:0];
   v11 = *MEMORY[0x277CD73D8];
-  memset(v23, 0, sizeof(v23));
+  memset(v22, 0, sizeof(v22));
   if (v7)
   {
     v12 = 0;
@@ -74,12 +74,12 @@
     v14 = &self->_paddingSize.paddingSize[0][1];
     do
     {
-      v21 = v13;
-      v22[0] = v17;
-      v22[1] = v18;
-      v22[2] = v19;
-      v22[3] = v20;
-      *(v23 + v12) = *v14 + *(v14 - 1) + *(v22 + (*(&v21 | v12 & 0xF) & 0xF));
+      v20 = v13;
+      v21[0] = v16;
+      v21[1] = v17;
+      v21[2] = v18;
+      v21[3] = v19;
+      *(v22 + v12) = *v14 + *(v14 - 1) + *(v21 + (*(&v20 | v12 & 0xF) & 0xF));
       ++v12;
       v14 += 2;
     }
@@ -87,9 +87,7 @@
     while (v7 != v12);
   }
 
-  result = [MEMORY[0x277CD7268] descriptorWithDataType:objc_msgSend(objc_msgSend(arrays dimensionCount:"objectAtIndexedSubscript:" dimensionSizes:{0), "dataType"), v7, v23}];
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CD7268] descriptorWithDataType:objc_msgSend(objc_msgSend(arrays dimensionCount:"objectAtIndexedSubscript:" dimensionSizes:{0), "dataType"), v7, v22}];
 }
 
 - (double)dimensionsToBeRetained
@@ -351,10 +349,9 @@ LABEL_34:
 
 - (__n64)dimensionsNotToBeBroadcast
 {
-  v1 = self + 86;
   if (self[86])
   {
-    v2 = 0;
+    v1 = 0;
     if (self[88])
     {
       goto LABEL_3;
@@ -363,212 +360,109 @@ LABEL_34:
 
   else
   {
-    v2 = self[87] == 0;
+    v1 = self[87] == 0;
     if (self[88])
     {
 LABEL_3:
-      v3 = 0;
+      v2 = 0;
       if (self[90])
       {
         goto LABEL_4;
       }
 
-      goto LABEL_20;
+      goto LABEL_12;
     }
   }
 
-  v3 = self[89] == 0;
+  v2 = self[89] == 0;
   if (self[90])
   {
 LABEL_4:
-    v4 = 0;
+    v3 = 0;
     if (self[92])
     {
       goto LABEL_5;
     }
 
-    goto LABEL_21;
+    goto LABEL_13;
   }
 
-LABEL_20:
-  v4 = self[91] == 0;
+LABEL_12:
+  v3 = self[91] == 0;
   if (self[92])
   {
 LABEL_5:
-    v5 = 0;
+    v4 = 0;
     if (self[94])
     {
       goto LABEL_6;
     }
 
-    goto LABEL_22;
+    goto LABEL_14;
   }
 
-LABEL_21:
-  v5 = self[93] == 0;
+LABEL_13:
+  v4 = self[93] == 0;
   if (self[94])
   {
 LABEL_6:
-    v6 = 0;
+    v5 = 0;
     if (self[96])
     {
       goto LABEL_7;
     }
 
-    goto LABEL_23;
+    goto LABEL_15;
   }
 
-LABEL_22:
-  v6 = self[95] == 0;
+LABEL_14:
+  v5 = self[95] == 0;
   if (self[96])
   {
 LABEL_7:
-    v7 = 0;
+    v6 = 0;
     if (self[98])
     {
       goto LABEL_8;
     }
 
-    goto LABEL_24;
-  }
-
-LABEL_23:
-  v7 = self[97] == 0;
-  if (self[98])
-  {
-LABEL_8:
-    v8 = 0;
+LABEL_16:
+    v7 = self[99] == 0;
     if (self[100])
     {
       goto LABEL_9;
     }
 
-    goto LABEL_25;
+LABEL_17:
+    v8 = self[101] == 0;
+    goto LABEL_18;
   }
 
-LABEL_24:
-  v8 = self[99] == 0;
-  if (self[100])
-  {
-LABEL_9:
-    v9 = 0;
-    if (self[102])
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_26;
-  }
-
-LABEL_25:
-  v9 = self[101] == 0;
-  if (self[102])
-  {
-LABEL_10:
-    if (self[104])
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_27;
-  }
-
-LABEL_26:
-  v10 = self[103] == 0;
-  if (self[104])
-  {
-LABEL_11:
-    if (self[106])
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_28;
-  }
-
-LABEL_27:
-  v11 = self[105] == 0;
-  if (v1[20])
-  {
-LABEL_12:
-    if (v1[22])
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_29;
-  }
-
-LABEL_28:
-  v12 = v1[21] == 0;
-  if (v1[22])
-  {
-LABEL_13:
-    if (v1[24])
-    {
-      goto LABEL_14;
-    }
-
-    goto LABEL_30;
-  }
-
-LABEL_29:
-  v13 = v1[23] == 0;
-  if (v1[24])
-  {
-LABEL_14:
-    if (v1[26])
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_31;
-  }
-
-LABEL_30:
-  v14 = v1[25] == 0;
-  if (v1[26])
-  {
 LABEL_15:
-    if (v1[28])
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_32;
-  }
-
-LABEL_31:
-  v15 = v1[27] == 0;
-  if (v1[28])
+  v6 = self[97] == 0;
+  if (!self[98])
   {
-LABEL_16:
-    if (v1[30])
-    {
-      goto LABEL_34;
-    }
-
-    goto LABEL_33;
+    goto LABEL_16;
   }
 
-LABEL_32:
-  v16 = v1[29] == 0;
-  if (v1[30])
+LABEL_8:
+  v7 = 0;
+  if (!self[100])
   {
-    goto LABEL_34;
+    goto LABEL_17;
   }
 
-LABEL_33:
-  v17 = v1[31] == 0;
-LABEL_34:
-  result.n64_u8[0] = v2;
-  result.n64_u8[1] = v3;
-  result.n64_u8[2] = v4;
-  result.n64_u8[3] = v5;
-  result.n64_u8[4] = v6;
-  result.n64_u8[5] = v7;
-  result.n64_u8[6] = v8;
-  result.n64_u8[7] = v9;
+LABEL_9:
+  v8 = 0;
+LABEL_18:
+  result.n64_u8[0] = v1;
+  result.n64_u8[1] = v2;
+  result.n64_u8[2] = v3;
+  result.n64_u8[3] = v4;
+  result.n64_u8[4] = v5;
+  result.n64_u8[5] = v6;
+  result.n64_u8[6] = v7;
+  result.n64_u8[7] = v8;
   return result;
 }
 

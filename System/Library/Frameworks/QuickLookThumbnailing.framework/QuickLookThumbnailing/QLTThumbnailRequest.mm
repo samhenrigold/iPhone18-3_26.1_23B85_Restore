@@ -1,4 +1,8 @@
 @interface QLTThumbnailRequest
++ (id)thumbnailRequestForFileAtURL:(id)l size:(CGSize)size minimumSize:(double)minimumSize scale:(double)scale iconMode:(BOOL)mode;
++ (id)thumbnailRequestForFileAtURL:(id)l size:(CGSize)size minimumSize:(double)minimumSize scale:(double)scale iconMode:(BOOL)mode error:(id *)error;
++ (id)thumbnailRequestForFileAtURL:(id)l size:(CGSize)size scale:(double)scale iconMode:(BOOL)mode;
++ (id)thumbnailRequestForFileAtURL:(id)l size:(CGSize)size scale:(double)scale iconMode:(BOOL)mode error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (CGSize)size;
 - (NSString)contentType;
@@ -209,13 +213,7 @@ LABEL_19:
 
       scale = self->_scale;
       [(QLTThumbnailRequest *)v5 scale];
-      if (scale != v14)
-      {
-        goto LABEL_17;
-      }
-
-      iconMode = self->_iconMode;
-      if (iconMode == [(QLTThumbnailRequest *)v5 iconMode]&& (badgeType = self->_badgeType, badgeType == [(QLTThumbnailRequest *)v5 badgeType]) && (minimumDimension = self->_minimumDimension, [(QLTThumbnailRequest *)v5 minimumDimension], minimumDimension == v18) && (requestedTypes = self->_requestedTypes, requestedTypes == [(QLTThumbnailRequest *)v5 requestedTypes]) && (flavor = self->_flavor, flavor == [(QLTThumbnailRequest *)v5 flavor]))
+      if (scale == v14 && (iconMode = self->_iconMode, iconMode == [(QLTThumbnailRequest *)v5 iconMode]) && (badgeType = self->_badgeType, badgeType == [(QLTThumbnailRequest *)v5 badgeType]) && (minimumDimension = self->_minimumDimension, [(QLTThumbnailRequest *)v5 minimumDimension], minimumDimension == v18) && (requestedTypes = self->_requestedTypes, requestedTypes == [(QLTThumbnailRequest *)v5 requestedTypes]) && (flavor = self->_flavor, flavor == [(QLTThumbnailRequest *)v5 flavor]))
       {
         wantsBaseline = self->_wantsBaseline;
         v11 = wantsBaseline == [(QLTThumbnailRequest *)v5 wantsBaseline];
@@ -284,6 +282,50 @@ LABEL_20:
   {
     return 0;
   }
+}
+
++ (id)thumbnailRequestForFileAtURL:(id)l size:(CGSize)size scale:(double)scale iconMode:(BOOL)mode
+{
+  modeCopy = mode;
+  height = size.height;
+  width = size.width;
+  lCopy = l;
+  scale = [[QLTFileThumbnailRequest alloc] initWithFileAtURL:lCopy size:modeCopy minimumDimension:0 scale:width iconMode:height error:0.0, scale];
+
+  return scale;
+}
+
++ (id)thumbnailRequestForFileAtURL:(id)l size:(CGSize)size scale:(double)scale iconMode:(BOOL)mode error:(id *)error
+{
+  modeCopy = mode;
+  height = size.height;
+  width = size.width;
+  lCopy = l;
+  scale = [[QLTFileThumbnailRequest alloc] initWithFileAtURL:lCopy size:modeCopy minimumDimension:error scale:width iconMode:height error:0.0, scale];
+
+  return scale;
+}
+
++ (id)thumbnailRequestForFileAtURL:(id)l size:(CGSize)size minimumSize:(double)minimumSize scale:(double)scale iconMode:(BOOL)mode
+{
+  modeCopy = mode;
+  height = size.height;
+  width = size.width;
+  lCopy = l;
+  scale = [[QLTFileThumbnailRequest alloc] initWithFileAtURL:lCopy size:modeCopy minimumDimension:0 scale:width iconMode:height error:0.0, scale];
+
+  return scale;
+}
+
++ (id)thumbnailRequestForFileAtURL:(id)l size:(CGSize)size minimumSize:(double)minimumSize scale:(double)scale iconMode:(BOOL)mode error:(id *)error
+{
+  modeCopy = mode;
+  height = size.height;
+  width = size.width;
+  lCopy = l;
+  scale = [[QLTFileThumbnailRequest alloc] initWithFileAtURL:lCopy size:modeCopy minimumDimension:error scale:width iconMode:height error:0.0, scale];
+
+  return scale;
 }
 
 - (CGSize)size

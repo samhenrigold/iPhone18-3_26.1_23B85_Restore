@@ -23,7 +23,7 @@
 
 - (void)modeConfigurationService:(id)service didReceiveAvailableModesUpdate:(id)update
 {
-  v5 = __atxlog_handle_modes();
+  v5 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;

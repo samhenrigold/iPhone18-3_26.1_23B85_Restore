@@ -179,7 +179,6 @@ void __69__SUSUISoftwareUpdateClientManager_initWithDelegate_completionQueue___b
 
   [(objc_class *)a1[4].isa setAutoUpdateScheduled:v6 & 1];
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__SUSUISoftwareUpdateClientManager_initWithDelegate_completionQueue___block_invoke_289(NSObject *a1, char a2, id obj, void *a4)
@@ -207,7 +206,6 @@ void __69__SUSUISoftwareUpdateClientManager_initWithDelegate_completionQueue___b
   [(objc_class *)a1[4].isa setRollingBack:v9 & 1 rollback:location];
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__SUSUISoftwareUpdateClientManager_initWithDelegate_completionQueue___block_invoke_291(NSObject *a1, void *a2, void *a3)
@@ -234,7 +232,6 @@ void __69__SUSUISoftwareUpdateClientManager_initWithDelegate_completionQueue___b
   [(objc_class *)a1[4].isa setEligibleRollback:location[0]];
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -454,14 +451,6 @@ void __83__SUSUISoftwareUpdateClientManager_updatesDownloadable_alternateUpdate_
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&v20, 0);
-}
-
-uint64_t __83__SUSUISoftwareUpdateClientManager_updatesDownloadable_alternateUpdate_completion___block_invoke_2(uint64_t a1)
-{
-  v1 = *(a1 + 57);
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 56) & 1);
 }
 
 - (void)startDownloadWithOptions:(id)options completion:(id)completion
@@ -743,11 +732,11 @@ uint64_t __75__SUSUISoftwareUpdateClientManager_currentAutoInstallOperation_comp
 
 void __75__SUSUISoftwareUpdateClientManager_currentAutoInstallOperation_completion___block_invoke_4(uint64_t a1, char a2, id obj)
 {
-  v18 = a1;
-  v17 = a2;
+  v17 = a1;
+  v16 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v15[1] = a1;
+  v14[1] = a1;
   objc_storeWeak((*(a1 + 32) + 48), *(a1 + 40));
   *(*(a1 + 32) + 32) = *(a1 + 40) != 0;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
@@ -755,7 +744,7 @@ void __75__SUSUISoftwareUpdateClientManager_currentAutoInstallOperation_completi
   MEMORY[0x277D82BD8](WeakRetained);
   if (*(a1 + 40))
   {
-    if (v17)
+    if (v16)
     {
       v3 = 1;
     }
@@ -770,24 +759,23 @@ void __75__SUSUISoftwareUpdateClientManager_currentAutoInstallOperation_completi
 
   if (*(a1 + 48))
   {
-    v4 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
   }
 
-  v6 = objc_loadWeakRetained((*(a1 + 32) + 56));
-  v7 = objc_opt_respondsToSelector();
-  MEMORY[0x277D82BD8](v6);
-  if (v7)
+  v5 = objc_loadWeakRetained((*(a1 + 32) + 56));
+  v6 = objc_opt_respondsToSelector();
+  MEMORY[0x277D82BD8](v5);
+  if (v6)
   {
     queue = *(*(a1 + 32) + 16);
-    v10 = MEMORY[0x277D85DD0];
-    v11 = -1073741824;
-    v12 = 0;
-    v13 = __75__SUSUISoftwareUpdateClientManager_currentAutoInstallOperation_completion___block_invoke_5;
-    v14 = &unk_279CB93E8;
-    v15[0] = MEMORY[0x277D82BE0](*(a1 + 32));
-    dispatch_async(queue, &v10);
-    objc_storeStrong(v15, 0);
+    v9 = MEMORY[0x277D85DD0];
+    v10 = -1073741824;
+    v11 = 0;
+    v12 = __75__SUSUISoftwareUpdateClientManager_currentAutoInstallOperation_completion___block_invoke_5;
+    v13 = &unk_279CB93E8;
+    v14[0] = MEMORY[0x277D82BE0](*(a1 + 32));
+    dispatch_async(queue, &v9);
+    objc_storeStrong(v14, 0);
   }
 
   objc_storeStrong(&location, 0);
@@ -1399,7 +1387,6 @@ uint64_t __66__SUSUISoftwareUpdateClientManager__queue_setAutoUpdateScheduled___
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)rollbackUpdateWithOptions:(id)options completion:(id)completion
@@ -1534,8 +1521,6 @@ uint64_t __60__SUSUISoftwareUpdateClientManager_setRollingBack_rollback___block_
     objc_storeStrong(&oslog, 0);
     selfCopy->_rollingBack = backCopy;
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)purgeDownload:(id)download
@@ -2100,7 +2085,6 @@ void __54__SUSUISoftwareUpdateClientManager_getDDMDeclaration___block_invoke_2(v
   [(dispatch_queue_t *)selfCopy setRollingBack:1 rollback:v6];
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client rollbackDidFinish:(id)finish
@@ -2124,7 +2108,6 @@ void __54__SUSUISoftwareUpdateClientManager_getDDMDeclaration___block_invoke_2(v
   [(dispatch_queue_t *)selfCopy setRollingBack:0 rollback:v6];
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client rollbackDidFail:(id)fail withError:(id)error
@@ -2151,7 +2134,6 @@ void __54__SUSUISoftwareUpdateClientManager_getDDMDeclaration___block_invoke_2(v
   objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client inUserInteraction:(id)interaction
@@ -2184,7 +2166,6 @@ void __54__SUSUISoftwareUpdateClientManager_getDDMDeclaration___block_invoke_2(v
 
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client handleUIForDDMDeclaration:(id)declaration
@@ -2217,7 +2198,6 @@ void __54__SUSUISoftwareUpdateClientManager_getDDMDeclaration___block_invoke_2(v
 
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)client:(id)client clearingSpaceForDownload:(id)download clearingSpace:(BOOL)space
@@ -2251,7 +2231,6 @@ void __54__SUSUISoftwareUpdateClientManager_getDDMDeclaration___block_invoke_2(v
 
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)autoInstallOperationWasCancelled:(id)cancelled

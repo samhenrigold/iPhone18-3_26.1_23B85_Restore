@@ -182,97 +182,97 @@ LABEL_8:
   sock = self->_sock;
   v5 = self->_hostName;
   v6 = self->_domainName;
-  v29 = v5;
-  v35 = [NSString stringWithFormat:@"%@.%@.", v5, v6];
-  v33 = self->_aliases;
-  v30 = self->_services;
-  v31 = self->_serviceNames;
-  v32 = self->_serviceTXTs;
+  v22 = v5;
+  v28 = [NSString stringWithFormat:@"%@.%@.", v5, v6];
+  v26 = self->_aliases;
+  v23 = self->_services;
+  v24 = self->_serviceNames;
+  v25 = self->_serviceTXTs;
   if (self->_timerNeedsReset)
   {
     [(RamrodMDNSAnnouncer *)self _resetTimerAndFire:0];
   }
 
-  v60 = 0;
-  if (!getifaddrs(&v60))
+  v53 = 0;
+  if (!getifaddrs(&v53))
   {
     v7 = +[NSMutableArray array];
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v8 = v33;
-    v9 = [(NSCountedSet *)v8 countByEnumeratingWithState:&v56 objects:v61 count:16];
+    v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
+    v8 = v26;
+    v9 = [(NSCountedSet *)v8 countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v9)
     {
-      v10 = *v57;
+      v10 = *v50;
       do
       {
         v11 = 0;
         do
         {
-          if (*v57 != v10)
+          if (*v50 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = [NSString stringWithFormat:@"%@.%@.", *(*(&v56 + 1) + 8 * v11), v6];
+          v12 = [NSString stringWithFormat:@"%@.%@.", *(*(&v49 + 1) + 8 * v11), v6];
           [v7 addObject:v12];
 
           v11 = v11 + 1;
         }
 
         while (v9 != v11);
-        v9 = [(NSCountedSet *)v8 countByEnumeratingWithState:&v56 objects:v61 count:16];
+        v9 = [(NSCountedSet *)v8 countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
       while (v9);
     }
 
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x2020000000;
-    v55 = 0;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2020000000;
     v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
-    v51 = "";
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    v47 = 0;
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x3032000000;
-    v41 = sub_59C88;
-    v42 = sub_59C98;
-    v43 = 0;
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3254779904;
-    v36[2] = sub_59CA0;
-    v36[3] = &unk_1AE358;
-    v36[4] = v7;
-    v36[5] = v35;
-    v36[6] = v30;
-    v36[7] = v31;
-    v36[8] = v29;
-    v36[9] = v32;
-    v36[10] = v6;
-    v36[11] = &v38;
-    v37 = sock;
-    v36[12] = &v44;
-    v36[13] = &v48;
-    v36[14] = &v52;
-    v13 = objc_retainBlock(v36);
-    for (i = v60; i; i = i->ifa_next)
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v44 = "";
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = sub_59C88;
+    v35 = sub_59C98;
+    v36 = 0;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3254779904;
+    v29[2] = sub_59CA0;
+    v29[3] = &unk_1AE358;
+    v29[4] = v7;
+    v29[5] = v28;
+    v29[6] = v23;
+    v29[7] = v24;
+    v29[8] = v22;
+    v29[9] = v25;
+    v29[10] = v6;
+    v29[11] = &v31;
+    v30 = sock;
+    v29[12] = &v37;
+    v29[13] = &v41;
+    v29[14] = &v45;
+    v13 = objc_retainBlock(v29);
+    for (i = v53; i; i = i->ifa_next)
     {
-      if (strcmp(v49[3], i->ifa_name))
+      if (strcmp(v42[3], i->ifa_name))
       {
         (v13[2])(v13);
         ifa_name = i->ifa_name;
-        v49[3] = ifa_name;
-        v16 = v60;
-        if (!v60)
+        v42[3] = ifa_name;
+        v16 = v53;
+        if (!v53)
         {
           goto LABEL_18;
         }
@@ -304,30 +304,30 @@ LABEL_18:
           *v18 = 6;
         }
 
-        *(v45 + 6) = v19;
+        *(v38 + 6) = v19;
         v20 = [[RamrodMDNSEncoder alloc] initWithTTL:l];
-        v21 = v39[5];
-        v39[5] = v20;
+        v21 = v32[5];
+        v32[5] = v20;
       }
 
       if ((i->ifa_flags & 0x8009) == 0x8001)
       {
-        [v39[5] encodeAnyFamily:v35 address:i->ifa_addr];
+        [v32[5] encodeAnyFamily:v28 address:i->ifa_addr];
       }
     }
 
     (v13[2])(v13);
-    if ((v53[3] & 1) == 0)
+    if ((v46[3] & 1) == 0)
     {
-      ramrod_log_msg("mDNS [%-6s]: no usable interfaces found\n", v22, v23, v24, v25, v26, v27, v28, "");
+      ramrod_log_msg("mDNS [%-6s]: no usable interfaces found\n", "");
     }
 
-    freeifaddrs(v60);
+    freeifaddrs(v53);
 
-    _Block_object_dispose(&v38, 8);
-    _Block_object_dispose(&v44, 8);
-    _Block_object_dispose(&v48, 8);
-    _Block_object_dispose(&v52, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v37, 8);
+    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v45, 8);
   }
 }
 

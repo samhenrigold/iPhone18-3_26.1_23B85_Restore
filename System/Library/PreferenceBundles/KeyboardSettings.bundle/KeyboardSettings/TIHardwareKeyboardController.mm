@@ -21,9 +21,12 @@
 - (void)setBrightness:(id)brightness specifier:(id)specifier;
 - (void)setPreferenceControllerValue:(id)value forSpecifier:(id)specifier;
 - (void)setRomanCapsLockPreferenceValue:(id)value forSpecifier:(id)specifier;
+- (void)suspendIdleDimming:(BOOL)dimming;
 - (void)tableView:(id)view willDisplayFooterView:(id)footerView forSection:(int64_t)section;
 - (void)toggledGlobeKey:(id)key specifier:(id)specifier;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TIHardwareKeyboardController
@@ -240,27 +243,26 @@
 - (id)capsLockSwitchSpecifiersFromModes:(id)modes
 {
   v5 = +[NSMutableArray array];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v6 = [modes countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v6 = [modes countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
-    v10 = *v37;
+    v10 = *v36;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(modes);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * i);
         if (UIKeyboardLayoutDefaultTypeForInputModeIsASCIICapable())
         {
           ++v9;
@@ -272,7 +274,7 @@
         }
       }
 
-      v7 = [modes countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v7 = [modes countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v7);
@@ -282,92 +284,92 @@
       HasLanguageSwitchLabel = BKSHIDServicesCapsLockKeyHasLanguageSwitchLabel();
       if ([HardwareKeyboardLanguage length] && ((HasLanguageSwitchLabel & 1) != 0 || objc_msgSend(HardwareKeyboardLanguage, "isEqualToString:", @"Simplified Chinese Keyboard")))
       {
-        v15 = [objc_msgSend(objc_opt_class() "IOHIDKeyboardLanguageToCapsLockKeyLabel")];
+        v14 = [objc_msgSend(objc_opt_class() "IOHIDKeyboardLanguageToCapsLockKeyLabel")];
       }
 
       else
       {
-        v15 = 0;
+        v14 = 0;
       }
 
-      v31 = [PSSpecifier groupSpecifierWithID:@"HWKeyboardCapsLockSwitch"];
+      v30 = [PSSpecifier groupSpecifierWithID:@"HWKeyboardCapsLockSwitch"];
       if (v9 >= 2)
       {
-        v16 = 2;
+        v15 = 2;
       }
 
       else
       {
-        v16 = v9;
+        v15 = v9;
       }
 
-      v17 = [v15 length];
-      v18 = [NSBundle bundleForClass:objc_opt_class()];
-      if (v17)
+      v16 = [v14 length];
+      v17 = [NSBundle bundleForClass:objc_opt_class()];
+      if (v16)
       {
-        v19 = [NSString stringWithFormat:[(NSBundle *)v18 localizedStringForKey:@"LANGUAGE_SWITCH_LATIN_TITLE" value:&stru_49C80 table:@"Keyboard"], v15];
-        v20 = [[NSBundle bundleForClass:?]value:"localizedStringForKey:value:table:" table:[NSString stringWithFormat:@"LANGUAGE_SWITCH_LATIN_DESCRIPTION_%lu", v16], &stru_49C80, @"Keyboard"];
+        v18 = [NSString stringWithFormat:[(NSBundle *)v17 localizedStringForKey:@"LANGUAGE_SWITCH_LATIN_TITLE" value:&stru_49C80 table:@"Keyboard"], v14];
+        v19 = [[NSBundle bundleForClass:?]value:"localizedStringForKey:value:table:" table:[NSString stringWithFormat:@"LANGUAGE_SWITCH_LATIN_DESCRIPTION_%lu", v15], &stru_49C80, @"Keyboard"];
         if (v9 == 1)
         {
           [0 hasPrefix:@"%2$@"];
-          v29 = v15;
-          v30 = TUIKeyboardDisplayNameFromIdentifierForContext();
+          v28 = v14;
+          v29 = TUIKeyboardDisplayNameFromIdentifierForContext();
         }
 
         else
         {
-          v29 = v15;
+          v28 = v14;
         }
 
-        v22 = [NSString stringWithFormat:v20, v29, v30];
+        v21 = [NSString stringWithFormat:v19, v28, v29];
       }
 
       else
       {
-        v19 = [(NSBundle *)v18 localizedStringForKey:@"CAPS_LOCK_LATIN_TITLE" value:&stru_49C80 table:@"Keyboard"];
-        v21 = [[NSBundle bundleForClass:?]value:"localizedStringForKey:value:table:" table:[NSString stringWithFormat:@"CAPS_LOCK_LATIN_DESCRIPTION_%lu", v16], &stru_49C80, @"Keyboard"];
+        v18 = [(NSBundle *)v17 localizedStringForKey:@"CAPS_LOCK_LATIN_TITLE" value:&stru_49C80 table:@"Keyboard"];
+        v20 = [[NSBundle bundleForClass:?]value:"localizedStringForKey:value:table:" table:[NSString stringWithFormat:@"CAPS_LOCK_LATIN_DESCRIPTION_%lu", v15], &stru_49C80, @"Keyboard"];
         if (v9 != 1)
         {
 LABEL_29:
-          [v31 setProperty:v21 forKey:PSFooterTextGroupKey];
-          [v5 addObject:v31];
-          v23 = [(TIHardwareKeyboardController *)self loadSpecifiersFromPlistName:@"Preferences_HWCapsLock" target:self];
+          [v30 setProperty:v20 forKey:PSFooterTextGroupKey];
+          [v5 addObject:v30];
+          v22 = [(TIHardwareKeyboardController *)self loadSpecifiersFromPlistName:@"Preferences_HWCapsLock" target:self];
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
-          v24 = [v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
-          if (v24)
+          v23 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          if (v23)
           {
-            v25 = v24;
-            v26 = *v33;
+            v24 = v23;
+            v25 = *v32;
             do
             {
-              for (j = 0; j != v25; j = j + 1)
+              for (j = 0; j != v24; j = j + 1)
               {
-                if (*v33 != v26)
+                if (*v32 != v25)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v22);
                 }
 
-                [*(*(&v32 + 1) + 8 * j) setName:v19];
+                [*(*(&v31 + 1) + 8 * j) setName:v18];
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
             }
 
-            while (v25);
+            while (v24);
           }
 
-          [v5 addObjectsFromArray:v23];
+          [v5 addObjectsFromArray:v22];
           return v5;
         }
 
         [0 hasPrefix:@"%@"];
-        v22 = [NSString stringWithFormat:v21, TUIKeyboardDisplayNameFromIdentifierForContext(), v30];
+        v21 = [NSString stringWithFormat:v20, TUIKeyboardDisplayNameFromIdentifierForContext(), v29];
       }
 
-      v21 = v22;
+      v20 = v21;
       goto LABEL_29;
     }
   }
@@ -381,6 +383,77 @@ LABEL_29:
   v3.super_class = TIHardwareKeyboardController;
   [(TIHardwareKeyboardController *)&v3 viewDidLoad];
   [(TIHardwareKeyboardController *)self setTitle:[[NSBundle bundleForClass:?]value:"localizedStringForKey:value:table:" table:@"Hardware Keyboard", &stru_49C80, @"Keyboard"]];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = TIHardwareKeyboardController;
+  [(TIHardwareKeyboardController *)&v16 viewWillAppear:appear];
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  specifiers = [(TIHardwareKeyboardController *)self specifiers];
+  v5 = [specifiers countByEnumeratingWithState:&v12 objects:v17 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    v8 = PSTableCellKey;
+    do
+    {
+      for (i = 0; i != v6; i = i + 1)
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(specifiers);
+        }
+
+        v10 = *(*(&v12 + 1) + 8 * i);
+        if (([objc_msgSend(v10 "identifier")] & 1) == 0)
+        {
+          v11 = [v10 propertyForKey:v8];
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            [v11 updateLabels];
+          }
+        }
+
+        if ([objc_msgSend(v10 "identifier")])
+        {
+          [(TIHardwareKeyboardController *)self reloadSpecifier:v10];
+        }
+      }
+
+      v6 = [specifiers countByEnumeratingWithState:&v12 objects:v17 count:16];
+    }
+
+    while (v6);
+  }
+
+  [(TIHardwareKeyboardController *)self suspendIdleDimming:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = TIHardwareKeyboardController;
+  [(TIHardwareKeyboardController *)&v4 viewWillDisappear:disappear];
+  [(TIHardwareKeyboardController *)self suspendIdleDimming:0];
+}
+
+- (void)suspendIdleDimming:(BOOL)dimming
+{
+  dimmingCopy = dimming;
+  if (objc_opt_respondsToSelector())
+  {
+    keyboardBrightnessClient = self->_keyboardBrightnessClient;
+    v6 = kKBIDDefault;
+
+    [(KeyboardBrightnessClient *)keyboardBrightnessClient suspendIdleDimming:dimmingCopy forKeyboard:v6];
+  }
 }
 
 - (id)readPreferenceControllerValue:(id)value
@@ -442,22 +515,21 @@ LABEL_29:
 - (void)setBrightness:(id)brightness specifier:(id)specifier
 {
   v6 = [(TIHardwareKeyboardController *)self isTrackingBrightnessSlider:brightness];
+  v7 = objc_opt_respondsToSelector();
   keyboardBrightnessClient = self->_keyboardBrightnessClient;
-  v8 = objc_opt_respondsToSelector();
-  v9 = self->_keyboardBrightnessClient;
   [brightness floatValue];
-  if (v8)
+  if (v7)
   {
-    v12 = kKBIDDefault;
+    v11 = kKBIDDefault;
 
-    [(KeyboardBrightnessClient *)v9 setBrightness:0 fadeSpeed:v6 ^ 1 commit:v12 forKeyboard:?];
+    [(KeyboardBrightnessClient *)keyboardBrightnessClient setBrightness:0 fadeSpeed:v6 ^ 1 commit:v11 forKeyboard:?];
   }
 
   else
   {
-    v13 = kKBIDDefault;
+    v12 = kKBIDDefault;
 
-    [(KeyboardBrightnessClient *)v9 setBrightness:v13 forKeyboard:v10, v11];
+    [(KeyboardBrightnessClient *)keyboardBrightnessClient setBrightness:v12 forKeyboard:v9, v10];
   }
 }
 

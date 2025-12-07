@@ -902,12 +902,12 @@ LABEL_14:
 
             objc_msgSend_setInfoProvider_(self->mPageController, v12, *(*(&v64 + 1) + 8 * i));
             v18 = objc_msgSend_numPages(self->mPageController, v16, v17);
-            v20 = p_mSheetPageCountArray[1];
-            v19 = p_mSheetPageCountArray[2];
-            if (v20 >= v19)
+            end = p_mSheetPageCountArray->__end_;
+            cap = p_mSheetPageCountArray->__cap_;
+            if (end >= cap)
             {
-              v22 = *p_mSheetPageCountArray;
-              v23 = v20 - *p_mSheetPageCountArray;
+              begin = p_mSheetPageCountArray->__begin_;
+              v23 = end - p_mSheetPageCountArray->__begin_;
               v24 = v23 >> 3;
               v25 = (v23 >> 3) + 1;
               if (v25 >> 61)
@@ -915,7 +915,7 @@ LABEL_14:
                 sub_275F07904();
               }
 
-              v26 = v19 - v22;
+              v26 = cap - begin;
               if (v26 >> 2 > v25)
               {
                 v25 = v26 >> 2;
@@ -935,11 +935,11 @@ LABEL_14:
 
               *(8 * v24) = v18;
               v21 = 8 * v24 + 8;
-              memcpy(0, v22, v23);
-              v29 = *p_mSheetPageCountArray;
-              *p_mSheetPageCountArray = 0;
-              p_mSheetPageCountArray[1] = v21;
-              p_mSheetPageCountArray[2] = 0;
+              memcpy(0, begin, v23);
+              v29 = p_mSheetPageCountArray->__begin_;
+              p_mSheetPageCountArray->__begin_ = 0;
+              p_mSheetPageCountArray->__end_ = v21;
+              p_mSheetPageCountArray->__cap_ = 0;
               if (v29)
               {
                 operator delete(v29);
@@ -948,11 +948,11 @@ LABEL_14:
 
             else
             {
-              *v20 = v18;
-              v21 = (v20 + 1);
+              *end = v18;
+              v21 = (end + 8);
             }
 
-            p_mSheetPageCountArray[1] = v21;
+            p_mSheetPageCountArray->__end_ = v21;
           }
 
           v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v64, v68, 16);
@@ -981,12 +981,12 @@ LABEL_14:
         {
           objc_msgSend_setSheetIndex_pageIndex_addendumPageIndex_(self, v37, v38, 0x7FFFFFFFFFFFFFFFLL, 0x7FFFFFFFFFFFFFFFLL);
           v42 = objc_msgSend__addendumPageCountForCurrentSheet(self, v40, v41) + 1;
-          v44 = p_mSheetPageCountArray[1];
-          v43 = p_mSheetPageCountArray[2];
+          v44 = p_mSheetPageCountArray->__end_;
+          v43 = p_mSheetPageCountArray->__cap_;
           if (v44 >= v43)
           {
-            v46 = *p_mSheetPageCountArray;
-            v47 = v44 - *p_mSheetPageCountArray;
+            v46 = p_mSheetPageCountArray->__begin_;
+            v47 = v44 - p_mSheetPageCountArray->__begin_;
             v48 = v47 >> 3;
             v49 = (v47 >> 3) + 1;
             if (v49 >> 61)
@@ -1018,10 +1018,10 @@ LABEL_14:
             *(8 * v48) = v42;
             v45 = 8 * v48 + 8;
             memcpy(0, v46, v47);
-            v52 = *p_mSheetPageCountArray;
-            *p_mSheetPageCountArray = 0;
-            p_mSheetPageCountArray[1] = v45;
-            p_mSheetPageCountArray[2] = 0;
+            v52 = p_mSheetPageCountArray->__begin_;
+            p_mSheetPageCountArray->__begin_ = 0;
+            p_mSheetPageCountArray->__end_ = v45;
+            p_mSheetPageCountArray->__cap_ = 0;
             if (v52)
             {
               operator delete(v52);
@@ -1031,10 +1031,10 @@ LABEL_14:
           else
           {
             *v44 = v42;
-            v45 = (v44 + 1);
+            v45 = (v44 + 8);
           }
 
-          p_mSheetPageCountArray[1] = v45;
+          p_mSheetPageCountArray->__end_ = v45;
           v38 = v39;
         }
 
@@ -1047,10 +1047,10 @@ LABEL_14:
     }
   }
 
-  v4->__begin_ = 0;
-  v4->__end_ = 0;
-  v4->__cap_ = 0;
-  return sub_275F36048(v4, *p_mSheetPageCountArray, p_mSheetPageCountArray[1], (p_mSheetPageCountArray[1] - *p_mSheetPageCountArray) >> 3);
+  *v4 = 0;
+  v4[1] = 0;
+  v4[2] = 0;
+  return sub_275F36048(v4, p_mSheetPageCountArray->__begin_, p_mSheetPageCountArray->__end_, p_mSheetPageCountArray->__end_ - p_mSheetPageCountArray->__begin_);
 }
 
 - (vector<unsigned)p_pageStartArray

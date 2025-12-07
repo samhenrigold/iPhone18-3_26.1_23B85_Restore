@@ -5508,32 +5508,32 @@ void std::vector<VKTrafficFeature * {__strong},geo::allocator_adapter<VKTrafficF
   *a2 = a2[1];
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<md::FeatureFlag,BOOL>,std::__unordered_map_hasher<md::FeatureFlag,std::__hash_value_type<md::FeatureFlag,BOOL>,std::hash<md::FeatureFlag>,std::equal_to<md::FeatureFlag>,true>,std::__unordered_map_equal<md::FeatureFlag,std::__hash_value_type<md::FeatureFlag,BOOL>,std::equal_to<md::FeatureFlag>,std::hash<md::FeatureFlag>,true>,std::allocator<std::__hash_value_type<md::FeatureFlag,BOOL>>>::__emplace_unique_key_args<md::FeatureFlag,std::piecewise_construct_t const&,std::tuple<md::FeatureFlag&&>,std::tuple<>>(void *a1, unsigned __int8 a2)
+uint64_t **std::__hash_table<std::__hash_value_type<md::FeatureFlag,BOOL>,std::__unordered_map_hasher<md::FeatureFlag,std::__hash_value_type<md::FeatureFlag,BOOL>,std::hash<md::FeatureFlag>,std::equal_to<md::FeatureFlag>,true>,std::__unordered_map_equal<md::FeatureFlag,std::__hash_value_type<md::FeatureFlag,BOOL>,std::equal_to<md::FeatureFlag>,std::hash<md::FeatureFlag>,true>,std::allocator<std::__hash_value_type<md::FeatureFlag,BOOL>>>::__emplace_unique_key_args<md::FeatureFlag,std::piecewise_construct_t const&,std::tuple<md::FeatureFlag&&>,std::tuple<>>(float *a1, unsigned __int8 a2, _BYTE **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % a1[1];
+      v5 = a2 % *(a1 + 1);
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5541,44 +5541,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 16) != a2)
+  if (*(v7 + 16) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void std::__hash_table<std::__hash_value_type<unsigned long,std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::function<void ()(gdc::Registry *,std::span<gdc::Entity,18446744073709551615ul>)>>>>::__rehash<true>(uint64_t a1, size_t __n)
@@ -5918,7 +5918,7 @@ LABEL_52:
   return a2;
 }
 
-void *std::__formatter::__format_integer[abi:nn200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, void **a2, unint64_t a3, unint64_t a4, char *a5, char *a6, _BYTE *a7, unsigned int a8)
+uint64_t *std::__formatter::__format_integer[abi:nn200100]<unsigned long,char *,char,std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>>(unint64_t a1, uint64_t **a2, unint64_t a3, unint64_t a4, char *a5, char *a6, char *a7, unsigned int a8)
 {
   v8 = a5;
   v12 = (a3 >> 3) & 3;
@@ -6248,7 +6248,7 @@ LABEL_14:
     v21 = *v3;
     if (*v3)
     {
-      [v21 maxThreadsPerThreadgroup];
+      objc_msgSend_maxThreadsPerThreadgroup(v21);
       v21 = *v3;
       v22 = vmovn_s64(0);
     }
@@ -6416,7 +6416,7 @@ void geo::read_write_lock::unlock(pthread_rwlock_t *this)
   }
 }
 
-ggl::zone_mallocator *ggl::CommonLibraryMTLData::CommonLibraryMTLData(ggl::zone_mallocator *a1, uint64_t *a2)
+const void **ggl::CommonLibraryMTLData::CommonLibraryMTLData(const void **a1, const void **a2)
 {
   v2 = a2;
   {
@@ -6436,39 +6436,39 @@ ggl::zone_mallocator *ggl::CommonLibraryMTLData::CommonLibraryMTLData(ggl::zone_
   return result;
 }
 
-ggl::zone_mallocator *ggl::MTLShaderLibraryData::MTLShaderLibraryData(ggl::zone_mallocator *a1, int a2, uint64_t *a3, uint64_t a4, char **a5, uint64_t a6)
+const void **ggl::MTLShaderLibraryData::MTLShaderLibraryData(const void **a1, int a2, const void **a3, uint64_t a4, char **a5, uint64_t a6)
 {
   v6 = a6;
   v9 = a1;
   *a1 = &unk_1F2A5CF08;
-  *(a1 + 1) = 0;
+  a1[1] = 0;
   v10 = *a3;
   *a3 = 0;
-  *(a1 + 2) = v10;
-  *(a1 + 3) = 0;
-  v11 = (a1 + 24);
-  *(a1 + 4) = 0;
-  *(a1 + 5) = 0;
+  a1[2] = v10;
+  a1[3] = 0;
+  v11 = a1 + 3;
+  a1[4] = 0;
+  a1[5] = 0;
   if (a6)
   {
-    v65 = a1 + 48;
+    v65 = a1 + 6;
     v12 = ggl::zone_mallocator::instance(a1);
     v13 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<unsigned int>(v12, v6);
-    v14 = *(v9 + 3);
-    v15 = *(v9 + 4) - v14;
+    v14 = v9[3];
+    v15 = v9[4] - v14;
     v16 = &v13[-v15];
     memcpy(&v13[-v15], v14, v15);
-    v17 = *(v9 + 3);
-    *(v9 + 3) = v16;
-    *(v9 + 4) = v13;
-    v18 = *(v9 + 5);
-    *(v9 + 5) = &v13[4 * v6];
+    v17 = v9[3];
+    v9[3] = v16;
+    v9[4] = v13;
+    v18 = v9[5];
+    v9[5] = &v13[4 * v6];
     v63 = v17;
     v64 = v18;
     v61 = v17;
     v62 = v17;
     a1 = std::__split_buffer<unsigned int,geo::allocator_adapter<unsigned int,ggl::zone_mallocator> &>::~__split_buffer(&v61);
-    v19 = *(v9 + 4);
+    v19 = v9[4];
   }
 
   else
@@ -6479,7 +6479,7 @@ ggl::zone_mallocator *ggl::MTLShaderLibraryData::MTLShaderLibraryData(ggl::zone_
   v20 = 0;
   do
   {
-    v21 = *(v9 + 5);
+    v21 = v9[5];
     if (v19 >= v21)
     {
       v22 = *v11;
@@ -6507,13 +6507,13 @@ ggl::zone_mallocator *ggl::MTLShaderLibraryData::MTLShaderLibraryData(ggl::zone_
         v27 = v25;
       }
 
-      v65 = v9 + 48;
+      v65 = v9 + 6;
       if (v27)
       {
         v28 = ggl::zone_mallocator::instance(a1);
         v29 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<unsigned int>(v28, v27);
-        v22 = *(v9 + 3);
-        v23 = *(v9 + 4) - v22;
+        v22 = v9[3];
+        v23 = v9[4] - v22;
       }
 
       else
@@ -6527,11 +6527,11 @@ ggl::zone_mallocator *ggl::MTLShaderLibraryData::MTLShaderLibraryData(ggl::zone_
       *v30 = *(a4 + 4 * v20);
       v19 = v30 + 4;
       memcpy(v32, v22, v23);
-      v33 = *(v9 + 3);
-      *(v9 + 3) = v32;
-      *(v9 + 4) = v19;
-      v34 = *(v9 + 5);
-      *(v9 + 5) = v31;
+      v33 = v9[3];
+      v9[3] = v32;
+      v9[4] = v19;
+      v34 = v9[5];
+      v9[5] = v31;
       v63 = v33;
       v64 = v34;
       v61 = v33;
@@ -6545,41 +6545,41 @@ ggl::zone_mallocator *ggl::MTLShaderLibraryData::MTLShaderLibraryData(ggl::zone_
       v19 += 4;
     }
 
-    *(v9 + 4) = v19;
+    v9[4] = v19;
     ++v20;
   }
 
   while (v6 != v20);
   *v9 = &unk_1F2A5CF28;
-  *(v9 + 7) = 0;
-  v35 = (v9 + 56);
-  *(v9 + 8) = 0;
-  *(v9 + 9) = 0;
+  v9[7] = 0;
+  v35 = v9 + 7;
+  v9[8] = 0;
+  v9[9] = 0;
   *(v9 + 22) = a2;
-  v65 = v9 + 80;
+  v65 = v9 + 10;
   v36 = ggl::zone_mallocator::instance(a1);
   v37 = geo::tracked_allocator<geo::zone_mallocator,geo::allocation_counter>::allocate<std::string>(v36, v6);
-  v38 = *(v9 + 8) - *(v9 + 7);
+  v38 = v9[8] - v9[7];
   v39 = &v37[-v38];
-  memcpy(&v37[-v38], *(v9 + 7), v38);
-  v40 = *(v9 + 7);
-  *(v9 + 7) = v39;
-  v41 = *(v9 + 9);
-  *(v9 + 8) = v37;
-  *(v9 + 9) = &v37[24 * v6];
+  memcpy(&v37[-v38], v9[7], v38);
+  v40 = v9[7];
+  v9[7] = v39;
+  v41 = v9[9];
+  v9[8] = v37;
+  v9[9] = &v37[24 * v6];
   v63 = v40;
   v64 = v41;
   v61 = v40;
   v62 = v40;
   v42 = std::__split_buffer<std::string,geo::allocator_adapter<std::string,ggl::zone_mallocator> &>::~__split_buffer(&v61);
-  v43 = *(v9 + 8);
+  v43 = v9[8];
   do
   {
     v44 = *a5;
-    v45 = *(v9 + 9);
+    v45 = v9[9];
     if (v43 >= v45)
     {
-      v46 = 0xAAAAAAAAAAAAAAABLL * (&v43[-*v35] >> 3);
+      v46 = 0xAAAAAAAAAAAAAAABLL * ((v43 - *v35) >> 3);
       v47 = v46 + 1;
       if (v46 + 1 > 0xAAAAAAAAAAAAAAALL)
       {
@@ -6602,7 +6602,7 @@ ggl::zone_mallocator *ggl::MTLShaderLibraryData::MTLShaderLibraryData(ggl::zone_
         v49 = v47;
       }
 
-      v65 = v9 + 80;
+      v65 = v9 + 10;
       if (v49)
       {
         v50 = ggl::zone_mallocator::instance(v42);
@@ -6618,15 +6618,15 @@ ggl::zone_mallocator *ggl::MTLShaderLibraryData::MTLShaderLibraryData(ggl::zone_
       v53 = &v51[24 * v49];
       std::allocator_traits<std::allocator<std::string>>::construct[abi:nn200100]<std::string,char const*&,void,0>(v52, v44);
       v43 = v52 + 24;
-      v54 = *(v9 + 7);
-      v55 = *(v9 + 8) - v54;
+      v54 = v9[7];
+      v55 = v9[8] - v54;
       v56 = &v52[-v55];
       memcpy(&v52[-v55], v54, v55);
-      v57 = *(v9 + 7);
-      *(v9 + 7) = v56;
-      *(v9 + 8) = v52 + 24;
-      v58 = *(v9 + 9);
-      *(v9 + 9) = v53;
+      v57 = v9[7];
+      v9[7] = v56;
+      v9[8] = v52 + 24;
+      v58 = v9[9];
+      v9[9] = v53;
       v63 = v57;
       v64 = v58;
       v61 = v57;
@@ -6637,10 +6637,10 @@ ggl::zone_mallocator *ggl::MTLShaderLibraryData::MTLShaderLibraryData(ggl::zone_
     else
     {
       v42 = std::allocator_traits<std::allocator<std::string>>::construct[abi:nn200100]<std::string,char const*&,void,0>(v43, *a5);
-      v43 += 24;
+      v43 += 3;
     }
 
-    *(v9 + 8) = v43;
+    v9[8] = v43;
     ++a5;
     --v6;
   }
@@ -6700,7 +6700,7 @@ ggl::zone_mallocator *std::__split_buffer<std::string,geo::allocator_adapter<std
   return a1;
 }
 
-unint64_t std::allocator_traits<std::allocator<std::string>>::construct[abi:nn200100]<std::string,char const*&,void,0>(_BYTE *a1, char *__s)
+unint64_t std::allocator_traits<std::allocator<std::string>>::construct[abi:nn200100]<std::string,char const*&,void,0>(void *a1, char *__s)
 {
   result = strlen(__s);
   if (result >= 0x7FFFFFFFFFFFFFF8)
@@ -6714,17 +6714,17 @@ unint64_t std::allocator_traits<std::allocator<std::string>>::construct[abi:nn20
     operator new();
   }
 
-  a1[23] = result;
+  *(a1 + 23) = result;
   if (result)
   {
     result = memmove(a1, __s, result);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return result;
 }
 
-ggl::MTLBundleShaderLibraryData *ggl::MTLBundleShaderLibraryData::MTLBundleShaderLibraryData(ggl::MTLBundleShaderLibraryData *this, const char *a2, char **a3, const char **a4)
+const void **ggl::MTLBundleShaderLibraryData::MTLBundleShaderLibraryData(const void **this, const char *a2, char **a3, const char **a4)
 {
   v6 = 0;
   ggl::MTLShaderLibraryData::MTLShaderLibraryData(this, 1, &v6, a2, a3, a4);
@@ -6734,7 +6734,7 @@ ggl::MTLBundleShaderLibraryData *ggl::MTLBundleShaderLibraryData::MTLBundleShade
   }
 
   *this = &unk_1F2A5CF48;
-  *(this + 12) = "com.apple.VectorKit";
+  this[12] = "com.apple.VectorKit";
   return this;
 }
 
@@ -9466,9 +9466,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x684A78DCF1B284C1;
-    v2[1] = "md::ls::RenderablesCount]";
-    v2[2] = 24;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::RenderablesCount]";
+    *(v2 + 2) = 24;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -9543,9 +9543,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::UniqueMaterialData>>(void **a1)
   else
   {
     *v2 = 0x3209EBE3B62CF3D3;
-    v2[1] = "md::ls::UniqueMaterialData]";
-    v2[2] = 26;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::UniqueMaterialData]";
+    *(v2 + 2) = 26;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;

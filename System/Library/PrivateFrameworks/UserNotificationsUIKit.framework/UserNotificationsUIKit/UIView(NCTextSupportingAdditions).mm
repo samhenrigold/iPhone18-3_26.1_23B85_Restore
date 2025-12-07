@@ -2,7 +2,7 @@
 - (BOOL)nc_isMenuEnabled;
 - (id)_interactionForClass:()NCTextSupportingAdditions;
 - (uint64_t)canBecomeFirstResponder;
-- (uint64_t)nc_setMenuEnabled:()NCTextSupportingAdditions;
+- (void)nc_setMenuEnabled:()NCTextSupportingAdditions;
 @end
 
 @implementation UIView(NCTextSupportingAdditions)
@@ -30,7 +30,7 @@
   }
 }
 
-- (uint64_t)nc_setMenuEnabled:()NCTextSupportingAdditions
+- (void)nc_setMenuEnabled:()NCTextSupportingAdditions
 {
   result = [self nc_isMenuEnabled];
   if (result != a3)

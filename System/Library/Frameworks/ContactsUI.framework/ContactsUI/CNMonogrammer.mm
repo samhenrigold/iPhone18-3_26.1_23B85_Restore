@@ -783,7 +783,7 @@ LABEL_31:
     v7->_textKnockout = 0;
   }
 
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNMonogrammer.m", 91, 4, @"Please switch to initWithStyle:diameter: when creating ABMonogrammer objects", v3, v4, v5, v6, v15.receiver);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNMonogrammer.m", 91, 4u, @"Please switch to initWithStyle:diameter: when creating ABMonogrammer objects", v3, v4, v5, v6, v15.receiver);
   return v7;
 }
 

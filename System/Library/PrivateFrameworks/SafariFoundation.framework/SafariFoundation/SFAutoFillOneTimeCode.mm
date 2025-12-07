@@ -478,7 +478,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v30 = 1;
+    v6 = 1;
   }
 
   else
@@ -487,90 +487,24 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      if (self->_source != v5->_source)
+      if (self->_source == v5->_source && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual() && WBSIsEqual())
       {
-        goto LABEL_18;
-      }
-
-      totpGenerator = self->_totpGenerator;
-      v7 = v5->_totpGenerator;
-      if (!WBSIsEqual())
-      {
-        goto LABEL_18;
-      }
-
-      detectedCode = self->_detectedCode;
-      v9 = v5->_detectedCode;
-      if (!WBSIsEqual())
-      {
-        goto LABEL_18;
-      }
-
-      machineReadableCode = self->_machineReadableCode;
-      v11 = v5->_machineReadableCode;
-      if (!WBSIsEqual())
-      {
-        goto LABEL_18;
-      }
-
-      displayCode = self->_displayCode;
-      v13 = v5->_displayCode;
-      if (!WBSIsEqual())
-      {
-        goto LABEL_18;
-      }
-
-      GUID = self->_GUID;
-      v15 = v5->_GUID;
-      if (!WBSIsEqual())
-      {
-        goto LABEL_18;
-      }
-
-      handle = self->_handle;
-      v17 = v5->_handle;
-      if (!WBSIsEqual())
-      {
-        goto LABEL_18;
-      }
-
-      timestamp = self->_timestamp;
-      v19 = v5->_timestamp;
-      if (!WBSIsEqual())
-      {
-        goto LABEL_18;
-      }
-
-      user = self->_user;
-      v21 = v5->_user;
-      if (!WBSIsEqual())
-      {
-        goto LABEL_18;
-      }
-
-      sourceApplicationIdentifier = self->_sourceApplicationIdentifier;
-      v23 = v5->_sourceApplicationIdentifier;
-      if (WBSIsEqual() && (sourceAppName = self->_sourceAppName, v25 = v5->_sourceAppName, WBSIsEqual()) && (domain = self->_domain, v27 = v5->_domain, WBSIsEqual()))
-      {
-        embeddedDomain = self->_embeddedDomain;
-        v29 = v5->_embeddedDomain;
-        v30 = WBSIsEqual();
+        v6 = WBSIsEqual();
       }
 
       else
       {
-LABEL_18:
-        v30 = 0;
+        v6 = 0;
       }
     }
 
     else
     {
-      v30 = 0;
+      v6 = 0;
     }
   }
 
-  return v30;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -595,19 +529,19 @@ LABEL_18:
   {
     if (source != 3)
     {
-      v15.receiver = self;
-      v15.super_class = SFAutoFillOneTimeCode;
-      v8 = [(SFAutoFillOneTimeCode *)&v15 description];
+      v14.receiver = self;
+      v14.super_class = SFAutoFillOneTimeCode;
+      v7 = [(SFAutoFillOneTimeCode *)&v14 description];
       goto LABEL_7;
     }
 
-    v9 = MEMORY[0x277CCACA8];
-    v10 = objc_opt_class();
+    v8 = MEMORY[0x277CCACA8];
+    v9 = objc_opt_class();
     v6 = [(SFAutoFillOneTimeCode *)self _stringForSource:self->_source];
     totpGenerator = self->_totpGenerator;
     date = [MEMORY[0x277CBEAA8] date];
-    v13 = [(WBSTOTPGenerator *)totpGenerator codeForDate:date];
-    v8 = [v9 stringWithFormat:@"<%@: %p source=%@; code=<promised>%@; generator=%p; user=%@; domain=%@>", v10, self, v6, v13, self->_totpGenerator, self->_user, self->_domain];;
+    v12 = [(WBSTOTPGenerator *)totpGenerator codeForDate:date];
+    v7 = [v8 stringWithFormat:@"<%@: %p source=%@; code=<promised>%@; generator=%p; user=%@; domain=%@>", v9, self, v6, v12, self->_totpGenerator, self->_user, self->_domain];;
   }
 
   else
@@ -615,13 +549,12 @@ LABEL_18:
     v4 = MEMORY[0x277CCACA8];
     v5 = objc_opt_class();
     v6 = [(SFAutoFillOneTimeCode *)self _stringForSource:self->_source];
-    domain = self->_domain;
-    v8 = [v4 stringWithFormat:@"<%@: %p source=%@; code=%@; machineReadableCode=%@; displayCode=%@; guid=%@; handle=%@; timeStamp=%@; user=%@; domain=%@ embeddedDomain=%@>", v5, self, v6, self->_detectedCode, self->_machineReadableCode, self->_displayCode, self->_GUID, self->_handle, self->_timestamp, self->_user, domain, self->_embeddedDomain];;
+    v7 = [v4 stringWithFormat:@"<%@: %p source=%@; code=%@; machineReadableCode=%@; displayCode=%@; guid=%@; handle=%@; timeStamp=%@; user=%@; domain=%@ embeddedDomain=%@>", v5, self, v6, self->_detectedCode, self->_machineReadableCode, self->_displayCode, self->_GUID, self->_handle, self->_timestamp, self->_user, self->_domain, self->_embeddedDomain];;
   }
 
 LABEL_7:
 
-  return v8;
+  return v7;
 }
 
 - (NSDate)timestamp
@@ -768,7 +701,7 @@ LABEL_22:
 
 - (int64_t)_matchBoundDomainAndEmbeddedDomainWithFrameURLs:(id)ls
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   _domainBoundTopLevelURL = [(SFAutoFillOneTimeCode *)self _domainBoundTopLevelURL];
   _domainBoundEmbeddedURL = [(SFAutoFillOneTimeCode *)self _domainBoundEmbeddedURL];
@@ -777,35 +710,35 @@ LABEL_22:
 
   if (v8)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v9 = lsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v23 = lsCopy;
-      v12 = *v25;
+      v22 = lsCopy;
+      v12 = *v24;
       v13 = 2;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           v16 = [(SFAutoFillOneTimeCode *)self _matchURL:v15 withBoundDomainURL:_domainBoundTopLevelURL strict:0];
           v17 = [(SFAutoFillOneTimeCode *)self _matchURL:v15 withBoundDomainURL:_domainBoundEmbeddedURL strict:0];
           if (!(v16 | v17))
           {
 
             v13 = 0;
-            lsCopy = v23;
+            lsCopy = v22;
             goto LABEL_21;
           }
 
@@ -815,7 +748,7 @@ LABEL_22:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v11)
         {
           continue;
@@ -824,7 +757,7 @@ LABEL_22:
         break;
       }
 
-      lsCopy = v23;
+      lsCopy = v22;
     }
 
     else
@@ -849,13 +782,12 @@ LABEL_22:
 
 LABEL_21:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (int64_t)_matchBoundDomainAndEmbeddedDomainsWithFrameURLs:(id)ls
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   _domainBoundTopLevelURL = [(SFAutoFillOneTimeCode *)self _domainBoundTopLevelURL];
   firstObject = [(NSArray *)self->_embeddedDomains firstObject];
@@ -867,55 +799,55 @@ LABEL_21:
 
   if (v9)
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v10 = lsCopy;
-    v33 = [v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
-    if (v33)
+    v32 = [v10 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    if (v32)
     {
-      v28 = v7;
-      v29 = firstObject;
+      v27 = v7;
+      v28 = firstObject;
       obj = v10;
-      v32 = *v43;
+      v31 = *v42;
       v9 = 2;
-      v30 = lsCopy;
+      v29 = lsCopy;
       while (2)
       {
         v11 = 0;
         do
         {
-          v36 = v9;
-          if (*v43 != v32)
+          v35 = v9;
+          if (*v42 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = v11;
-          v12 = *(*(&v42 + 1) + 8 * v11);
-          v37 = [(SFAutoFillOneTimeCode *)self _matchURL:v12 withBoundDomainURL:_domainBoundTopLevelURL strict:self->_domainStrictMatch, v28, v29];
+          v34 = v11;
+          v12 = *(*(&v41 + 1) + 8 * v11);
+          v36 = [(SFAutoFillOneTimeCode *)self _matchURL:v12 withBoundDomainURL:_domainBoundTopLevelURL strict:self->_domainStrictMatch, v27, v28];
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
           v13 = self->_embeddedDomains;
-          v14 = [(NSArray *)v13 countByEnumeratingWithState:&v38 objects:v46 count:16];
+          v14 = [(NSArray *)v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
           if (v14)
           {
             v15 = v14;
             v16 = 0;
-            v17 = *v39;
+            v17 = *v38;
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v39 != v17)
+                if (*v38 != v17)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v19 = *(*(&v38 + 1) + 8 * i);
+                v19 = *(*(&v37 + 1) + 8 * i);
                 domain2 = [v19 domain];
                 v21 = [(SFAutoFillOneTimeCode *)self _secureURLForDomain:domain2];
                 v22 = -[SFAutoFillOneTimeCode _matchURL:withBoundDomainURL:strict:](self, "_matchURL:withBoundDomainURL:strict:", v12, v21, [v19 strict]);
@@ -926,7 +858,7 @@ LABEL_21:
                 }
               }
 
-              v15 = [(NSArray *)v13 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v15 = [(NSArray *)v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
             }
 
             while (v15);
@@ -937,30 +869,30 @@ LABEL_21:
             v16 = 0;
           }
 
-          if (!(v37 | v16))
+          if (!(v36 | v16))
           {
 
             v9 = 0;
-            firstObject = v29;
-            lsCopy = v30;
-            v7 = v28;
+            firstObject = v28;
+            lsCopy = v29;
+            v7 = v27;
             goto LABEL_31;
           }
 
-          v23 = v16 == 2 || v37 == 2;
-          v9 = v36;
+          v23 = v16 == 2 || v36 == 2;
+          v9 = v35;
           if (!v23)
           {
             v9 = 1;
           }
 
-          v11 = v35 + 1;
+          v11 = v34 + 1;
         }
 
-        while (v35 + 1 != v33);
-        lsCopy = v30;
-        v33 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-        if (v33)
+        while (v34 + 1 != v32);
+        lsCopy = v29;
+        v32 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+        if (v32)
         {
           continue;
         }
@@ -970,8 +902,8 @@ LABEL_21:
 
       v10 = obj;
 
-      v7 = v28;
-      firstObject = v29;
+      v7 = v27;
+      firstObject = v28;
     }
 
     else
@@ -991,7 +923,6 @@ LABEL_21:
 
 LABEL_31:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

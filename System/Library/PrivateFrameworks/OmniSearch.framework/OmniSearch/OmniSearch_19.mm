@@ -1,3318 +1,6740 @@
-uint64_t getEnumTagSinglePayload for PreferredType(unsigned __int8 *a1, unsigned int a2)
+Swift::String __swiftcall PreExtractedBreadcrumb.llmConsumableDescription(locale:)(Swift::String_optional locale)
 {
-  if (!a2)
+  object = locale.value._object;
+  countAndFlagsBits = locale.value._countAndFlagsBits;
+  v4 = type metadata accessor for EditorialDateFormatter(0);
+  v5 = OUTLINED_FUNCTION_114(v4);
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_136_3();
+  v26 = 0;
+  v27 = 0xE000000000000000;
+  MEMORY[0x25F89F5D0](100);
+  v6 = PreExtractedBreadcrumb.Keys.llmPrompt.getter(0);
+  v8 = v7;
+  v9 = PreExtractedBreadcrumb.extractedDatesValues.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  if (v9)
   {
-    v5 = -1;
-    return (v5 + 1);
-  }
-
-  if (a2 >= 0xC7)
-  {
-    if (a2 + 57 >= 0xFFFF00)
+    if (*(v9 + 16))
     {
-      v2 = 4;
+      v24 = v6;
+      v25 = v8;
+      OUTLINED_FUNCTION_48_9();
+      MEMORY[0x25F89F6C0](v6, v8);
+
+      MEMORY[0x28223BE20](v10);
+      v23[2] = countAndFlagsBits;
+      v23[3] = object;
+      v23[4] = v1;
+      v24 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay10Foundation4DateVG_SSs5NeverOTg5(partial apply for specialized closure #1 in LLMFormatter.StringInterpolation.appendInterpolation<A>(_:dates:locale:formatStyle:), v23, v9);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+      OUTLINED_FUNCTION_8_25();
+      lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v11, v12, &_sSaySSGMR, v13);
+      v14 = BidirectionalCollection<>.joined(separator:)();
+      v16 = v15;
+
+      MEMORY[0x25F89F6C0](v14, v16);
+
+      OUTLINED_FUNCTION_177_5();
     }
 
     else
     {
-      v2 = 2;
-    }
-
-    if ((a2 + 57) >> 8 < 0xFF)
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = v2;
-    }
-
-    if (v3 == 4)
-    {
-      v4 = *(a1 + 1);
-      if (!v4)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else
-    {
-      v4 = a1[1];
-      if (!a1[1])
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v5 = (*a1 | (v4 << 8)) - 58;
-    return (v5 + 1);
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 0x3A;
-  v5 = v6 - 58;
-  if (!v7)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *storeEnumTagSinglePayload for PreferredType(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 57 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 57) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xC7)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xC6)
-  {
-    v6 = ((a2 - 199) >> 8) + 1;
-    *result = a2 + 57;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
     }
   }
 
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
+  OUTLINED_FUNCTION_0_47();
+  outlined destroy of EditorialDateFormatter(v1, v17);
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(1);
+  OUTLINED_FUNCTION_45_11();
+  v28.value._rawValue = PreExtractedBreadcrumb.extractedLocationsValues.getter();
+  OUTLINED_FUNCTION_58_7(v28, v36);
 
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(2);
+  OUTLINED_FUNCTION_45_11();
+  v29.value._rawValue = PreExtractedBreadcrumb.extractedPhoneNumbersLabels.getter();
+  OUTLINED_FUNCTION_58_7(v29, v37);
 
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 57;
-        }
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(3);
+  OUTLINED_FUNCTION_45_11();
+  v30.value._rawValue = PreExtractedBreadcrumb.extractedPhoneNumbersCountryCodes.getter();
+  OUTLINED_FUNCTION_58_7(v30, v38);
 
-        break;
-    }
-  }
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(4);
+  OUTLINED_FUNCTION_45_11();
+  v31.value._rawValue = PreExtractedBreadcrumb.extractedAddressesLabels.getter();
+  OUTLINED_FUNCTION_58_7(v31, v39);
 
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(5);
+  OUTLINED_FUNCTION_45_11();
+  v32.value._rawValue = PreExtractedBreadcrumb.extractedFlightsLabels.getter();
+  OUTLINED_FUNCTION_58_7(v32, v40);
+
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(6);
+  OUTLINED_FUNCTION_45_11();
+  v33.value._rawValue = MEMORY[0x25F89C720]();
+  OUTLINED_FUNCTION_58_7(v33, v41);
+
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(7);
+  OUTLINED_FUNCTION_45_11();
+  v34.value._rawValue = MEMORY[0x25F89C7B0]();
+  OUTLINED_FUNCTION_58_7(v34, v42);
+
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(8);
+  OUTLINED_FUNCTION_45_11();
+  v35.value._rawValue = PreExtractedBreadcrumb.extractedCurrenciesValues.getter();
+  OUTLINED_FUNCTION_58_7(v35, v43);
+
+  PreExtractedBreadcrumb.Keys.llmPrompt.getter(9);
+  OUTLINED_FUNCTION_45_11();
+  v18 = PreExtractedBreadcrumb.extractedEmailsLabels.getter();
+  v19._countAndFlagsBits = OUTLINED_FUNCTION_34_11();
+  v44.value._rawValue = v18;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v19, v44);
+
+  LLMFormatter.sanitized.getter();
+  OUTLINED_FUNCTION_89_10();
+  v20 = OUTLINED_FUNCTION_88();
+  result._object = v21;
+  result._countAndFlagsBits = v20;
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for SourceType(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    v5 = -1;
-    return (v5 + 1);
-  }
-
-  if (a2 >= 0xE7)
-  {
-    if (a2 + 25 >= 0xFFFF00)
-    {
-      v2 = 4;
-    }
-
-    else
-    {
-      v2 = 2;
-    }
-
-    if ((a2 + 25) >> 8 < 0xFF)
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = v2;
-    }
-
-    if (v3 == 4)
-    {
-      v4 = *(a1 + 1);
-      if (!v4)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else
-    {
-      v4 = a1[1];
-      if (!a1[1])
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v5 = (*a1 | (v4 << 8)) - 26;
-    return (v5 + 1);
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 0x1A;
-  v5 = v6 - 26;
-  if (!v7)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *storeEnumTagSinglePayload for SourceType(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 25 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 25) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xE7)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xE6)
-  {
-    v6 = ((a2 - 231) >> 8) + 1;
-    *result = a2 + 25;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 25;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ContainsType(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    v5 = -1;
-    return (v5 + 1);
-  }
-
-  if (a2 >= 0xDB)
-  {
-    if (a2 + 37 >= 0xFFFF00)
-    {
-      v2 = 4;
-    }
-
-    else
-    {
-      v2 = 2;
-    }
-
-    if ((a2 + 37) >> 8 < 0xFF)
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = v2;
-    }
-
-    if (v3 == 4)
-    {
-      v4 = *(a1 + 1);
-      if (!v4)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else
-    {
-      v4 = a1[1];
-      if (!a1[1])
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v5 = (*a1 | (v4 << 8)) - 38;
-    return (v5 + 1);
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 0x26;
-  v5 = v6 - 38;
-  if (!v7)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *storeEnumTagSinglePayload for ContainsType(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 37 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 37) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xDB)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xDA)
-  {
-    v6 = ((a2 - 219) >> 8) + 1;
-    *result = a2 + 37;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 37;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ExtractedType(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    v5 = -1;
-    return (v5 + 1);
-  }
-
-  if (a2 >= 0xF4)
-  {
-    if (a2 + 12 >= 0xFFFF00)
-    {
-      v2 = 4;
-    }
-
-    else
-    {
-      v2 = 2;
-    }
-
-    if ((a2 + 12) >> 8 < 0xFF)
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = v2;
-    }
-
-    if (v3 == 4)
-    {
-      v4 = *(a1 + 1);
-      if (!v4)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else
-    {
-      v4 = a1[1];
-      if (!a1[1])
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v5 = (*a1 | (v4 << 8)) - 13;
-    return (v5 + 1);
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 0xD;
-  v5 = v6 - 13;
-  if (!v7)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *storeEnumTagSinglePayload for ExtractedType(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 12 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 12) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xF4)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xF3)
-  {
-    v6 = ((a2 - 244) >> 8) + 1;
-    *result = a2 + 12;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 12;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-_BYTE *storeEnumTagSinglePayload for OrderByTime(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 1 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 1) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xFF)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xFE)
-  {
-    v6 = ((a2 - 255) >> 8) + 1;
-    *result = a2 + 1;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          result = OUTLINED_FUNCTION_112_6(result, a2 + 1);
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-_BYTE *storeEnumTagSinglePayload for SortOrder(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 2 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 2) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xFE)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xFD)
-  {
-    v6 = ((a2 - 254) >> 8) + 1;
-    *result = a2 + 2;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          result = OUTLINED_FUNCTION_112_6(result, a2 + 2);
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for StructuredQueryEntity.CodingKeys(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    v5 = -1;
-    return (v5 + 1);
-  }
-
-  if (a2 >= 0xEF)
-  {
-    if (a2 + 17 >= 0xFFFF00)
-    {
-      v2 = 4;
-    }
-
-    else
-    {
-      v2 = 2;
-    }
-
-    if ((a2 + 17) >> 8 < 0xFF)
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = v2;
-    }
-
-    if (v3 == 4)
-    {
-      v4 = *(a1 + 1);
-      if (!v4)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else
-    {
-      v4 = a1[1];
-      if (!a1[1])
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v5 = (*a1 | (v4 << 8)) - 18;
-    return (v5 + 1);
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 0x12;
-  v5 = v6 - 18;
-  if (!v7)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *storeEnumTagSinglePayload for StructuredQueryEntity.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 17 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 17) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xEF)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xEE)
-  {
-    v6 = ((a2 - 239) >> 8) + 1;
-    *result = a2 + 17;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 17;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t outlined copy of Person?(uint64_t result)
-{
-  if (result)
-  {
-  }
-
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_1_42()
-{
-  __swift_storeEnumTagSinglePayload(v1, 1, 1, v2);
-  __swift_storeEnumTagSinglePayload(v0, 1, 1, v3);
-
-  return DisplayRepresentation.init(title:subtitle:image:)();
-}
-
-uint64_t OUTLINED_FUNCTION_6_15(uint64_t a1)
-{
-  __swift_storeEnumTagSinglePayload(v1, 1, 1, a1);
-
-  return DisplayRepresentation.init(title:subtitle:image:)();
-}
-
-__n128 *OUTLINED_FUNCTION_11_21(__n128 *result, __n128 a2)
-{
-  *(v4 - 88) = result;
-  result[1] = a2;
-  v5 = *(v2 + 56);
-  result->n128_u8[v3] = 0;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_42_11()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_44_14@<X0>(char a1@<W8>)
-{
-  *v1 = a1;
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_49_14()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_50_11()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_51_10()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_62_8()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_63_9@<X0>(char a1@<W8>)
-{
-  *v1 = a1;
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_65_11()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_66_9()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_70_7()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_74_12()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_75_8()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_76_8()
-{
-
-  return DisplayRepresentation.init(title:subtitle:image:)();
-}
-
-uint64_t OUTLINED_FUNCTION_78_10()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_79_9()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_80_8()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_81_11()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_82_11()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_83_10()
-{
-
-  return swift_once();
-}
-
-uint64_t OUTLINED_FUNCTION_91_6()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_106_7()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_108_5()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_110_7()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_112_9()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_117_7()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_119_3()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_122_5@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-void OUTLINED_FUNCTION_125_5()
-{
-  v2 = *(v0 - 120);
-  v3 = *(v0 - 112);
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-uint64_t OUTLINED_FUNCTION_126_7()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_129_7()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_130_6()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_132_7()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_133_6()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_134_5()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_136_6()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_137_2()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_139_5()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-void OUTLINED_FUNCTION_143_5()
-{
-  v2 = *(v0 - 120);
-  v3 = *(v0 - 112);
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-uint64_t OUTLINED_FUNCTION_144_5()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_145_3()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_148_4(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  __swift_storeEnumTagSinglePayload(a1, a2, a3, v3);
-
-  return type metadata accessor for DisplayRepresentation.Image();
-}
-
-__n128 *OUTLINED_FUNCTION_152_3(__n128 *result, __n128 a2)
-{
-  *(v2 - 88) = result;
-  result[1] = a2;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_155_5()
-{
-
-  return KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-}
-
-uint64_t OUTLINED_FUNCTION_162_4@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_169_4()
-{
-
-  return KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-}
-
-uint64_t OUTLINED_FUNCTION_170_4()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_176_4()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_180_3(unint64_t *a1)
-{
-
-  return lazy protocol witness table accessor for type [String] and conformance <A> [A](a1);
-}
-
-uint64_t OUTLINED_FUNCTION_182_4(uint64_t a1)
-{
-  *(v1 + v2) = a1;
-  *(v3 - 80) = *(v3 - 96);
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_190_4@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(*(v1 - 152) + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_191_4()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_193_3(unint64_t *a1)
-{
-
-  return lazy protocol witness table accessor for type [String] and conformance <A> [A](a1);
-}
-
-uint64_t OUTLINED_FUNCTION_197_4()
-{
-
-  return KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-}
-
-uint64_t OUTLINED_FUNCTION_200_3()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_208_2()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_213_2()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_215_0@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_218_2()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_219_2()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_220_2()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_221_2()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_222_1@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_223_2()
-{
-
-  return swift_allocObject();
-}
-
-uint64_t OUTLINED_FUNCTION_224_2()
-{
-  v2 = *(v0 - 88);
-
-  return Dictionary.init(dictionaryLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_225_2()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-void OUTLINED_FUNCTION_231_1()
-{
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-void OUTLINED_FUNCTION_232_0()
-{
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-uint64_t OUTLINED_FUNCTION_237_2()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-void OUTLINED_FUNCTION_238_2()
-{
-  v2 = *(v0 - 120);
-  v3 = *(v0 - 112);
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-uint64_t OUTLINED_FUNCTION_249_2@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_250_2()
-{
-}
-
-void OUTLINED_FUNCTION_269_0()
-{
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-uint64_t OUTLINED_FUNCTION_270_0()
-{
-
-  return KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-}
-
-uint64_t OUTLINED_FUNCTION_273_0()
-{
-}
-
-uint64_t OUTLINED_FUNCTION_274_0()
-{
-
-  return KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-}
-
-uint64_t OUTLINED_FUNCTION_275_0()
-{
-
-  return type metadata accessor for LocationQueryEntity(0);
-}
-
-uint64_t OUTLINED_FUNCTION_276_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_278_0(unsigned __int8 *a1)
-{
-  v2 = *a1;
-
-  return type metadata accessor for StructuredQueryEntity(0);
-}
-
-uint64_t OUTLINED_FUNCTION_279()
-{
-}
-
-uint64_t OUTLINED_FUNCTION_280_0@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_281()
-{
-  v2 = *(v0 - 168);
-}
-
-uint64_t OUTLINED_FUNCTION_282(unint64_t *a1)
-{
-
-  return lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(a1, v1, v2);
-}
-
-void OUTLINED_FUNCTION_292()
-{
-  v2 = *(v0 - 184);
-  v1 = *(v0 - 176);
-  v3 = *(v0 - 168);
-}
-
-uint64_t OUTLINED_FUNCTION_320()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_321()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_322()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_323()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_324()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_326()
-{
-  *(v2 - 144) = v1;
-  *(v2 - 136) = v0;
-
-  return Person.debugDescription.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_327@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_328()
-{
-  v2 = *(v0 - 176);
-}
-
-uint64_t OUTLINED_FUNCTION_329(uint64_t a1)
-{
-
-  return specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(a1, v1, 0);
-}
-
-void OUTLINED_FUNCTION_330()
-{
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-uint64_t OUTLINED_FUNCTION_331()
-{
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_332(uint64_t *a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-
-  return type metadata accessor for PersonQueryEntity(0);
-}
-
-uint64_t OUTLINED_FUNCTION_333()
-{
-
-  return outlined consume of Person?(v0);
-}
-
-id CardDisplayable.card.getter(uint64_t a1, uint64_t a2)
-{
-  type metadata accessor for SFCard();
-  v4 = (*(a2 + 32))(a1, a2);
-  return SFCard.init(data:)(v4, v5);
-}
-
-void CardDisplayable.card.setter(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = a1;
-  if (a1)
-  {
-    a1 = SFCard.data.getter();
-  }
-
-  else
-  {
-    v5 = 0xF000000000000000;
-  }
-
-  (*(a3 + 40))(a1, v5, a2, a3);
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance IdCardEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  type metadata accessor for SFCard();
-  v4 = *(v2 + 24);
-  v3 = *(v2 + 32);
-  v5 = OUTLINED_FUNCTION_37_5();
-  outlined copy of Data?(v5, v6);
-  v7 = OUTLINED_FUNCTION_37_5();
-  *v1 = SFCard.init(data:)(v7, v8);
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance IdCardEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 24), *(v9 + 32));
-    *(v9 + 24) = v2;
-    *(v9 + 32) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 24), *(v10 + 32));
-    *(v10 + 24) = v2;
-    *(v10 + 32) = v3;
-  }
-}
-
-uint64_t CardDisplayable.card.modify(id *a1, uint64_t a2, uint64_t a3)
-{
-  a1[2] = a3;
-  a1[3] = v3;
-  a1[1] = a2;
-  *a1 = CardDisplayable.card.getter(a2, a3);
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void CardDisplayable.card.modify(uint64_t *a1, char a2)
-{
-  v2 = a1[2];
-  v3 = a1[3];
-  v4 = *a1;
-  v5 = a1[1];
-  if (a2)
-  {
-    v6 = v4;
-    CardDisplayable.card.setter(v4, v5, v2);
-  }
-
-  else
-  {
-    CardDisplayable.card.setter(*a1, v5, v2);
-  }
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance PersonalCardEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 176);
-  v3 = *(v2 + 184);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance PersonalCardEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 176), *(v9 + 184));
-    *(v9 + 176) = v2;
-    *(v9 + 184) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 176), *(v10 + 184));
-    *(v10 + 176) = v2;
-    *(v10 + 184) = v3;
-  }
-}
-
-uint64_t CardDisplayable.displayRepresentation.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v49 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
-  v6 = OUTLINED_FUNCTION_114(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v47 = &v46 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-  v11 = OUTLINED_FUNCTION_114(v10);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v46 = &v46 - v14;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
-  v16 = OUTLINED_FUNCTION_114(v15);
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v46 - v19;
-  v21 = type metadata accessor for String.LocalizationValue.StringInterpolation();
-  v22 = OUTLINED_FUNCTION_114(v21);
-  v24 = *(v23 + 64);
-  MEMORY[0x28223BE20](v22);
-  v25 = type metadata accessor for LocalizedStringResource();
-  v26 = *(v25 - 8);
-  v27 = *(v26 + 64);
-  v28 = MEMORY[0x28223BE20](v25);
-  v48 = &v46 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v28);
-  v31 = &v46 - v30;
-  String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v32._countAndFlagsBits = 0;
-  v32._object = 0xE000000000000000;
-  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v32);
-  v33._countAndFlagsBits = (*(a2 + 24))(a1, a2);
-  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v33);
-
-  v34._countAndFlagsBits = 0;
-  v34._object = 0xE000000000000000;
-  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v34);
-  LocalizedStringResource.init(stringInterpolation:)();
-  v35 = (*(*(*(a2 + 16) + 8) + 8))(a1);
-  if (v35)
-  {
-    v36 = v35;
-    SFCard.snippetPluginModel.getter(v20);
-
-    v37 = type metadata accessor for RGPluginModel();
-    if (__swift_getEnumTagSinglePayload(v20, 1, v37) == 1)
-    {
-      outlined destroy of RGPluginModel?(v20);
-    }
-
-    else
-    {
-      lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
-      SnippetPluginModel.data.getter();
-      v39 = v38;
-      (*(*(v37 - 8) + 8))(v20, v37);
-      if (v39 >> 60 != 15)
-      {
-        v44 = OUTLINED_FUNCTION_7_22();
-        v45(v44);
-        static RGPluginModel.bundleName.getter();
-        DisplayRepresentation.init(title:snippetPluginModelData:bundleIdentifier:)();
-        return (*(v26 + 8))(v31, v25);
-      }
-    }
-  }
-
-  v40 = OUTLINED_FUNCTION_7_22();
-  v41(v40);
-  __swift_storeEnumTagSinglePayload(v46, 1, 1, v25);
-  v42 = type metadata accessor for DisplayRepresentation.Image();
-  __swift_storeEnumTagSinglePayload(v47, 1, 1, v42);
-  DisplayRepresentation.init(title:subtitle:image:)();
-  return (*(v26 + 8))(v31, v25);
-}
-
-id protocol witness for CardRepresentable.card.getter in conformance PersonalCardEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = OUTLINED_FUNCTION_8_22(a1, a2, a3, a4, a5, a6, a7, a8, v11);
-  memcpy(v8, v9, 0xC0uLL);
-  return specialized CardDisplayable.card.getter();
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance BusinessCardEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 80);
-  v3 = *(v2 + 88);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance BusinessCardEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 80), *(v9 + 88));
-    *(v9 + 80) = v2;
-    *(v9 + 88) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 80), *(v10 + 88));
-    *(v10 + 80) = v2;
-    *(v10 + 88) = v3;
-  }
-}
-
-id protocol witness for CardRepresentable.card.getter in conformance BusinessCardEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = OUTLINED_FUNCTION_8_22(a1, a2, a3, a4, a5, a6, a7, a8, v11);
-  memcpy(v8, v9, 0x60uLL);
-  return specialized CardDisplayable.card.getter();
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance EventEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  type metadata accessor for SFCard();
-  v4 = *(v2 + 72);
-  v3 = *(v2 + 80);
-  v5 = OUTLINED_FUNCTION_37_5();
-  outlined copy of Data?(v5, v6);
-  v7 = OUTLINED_FUNCTION_37_5();
-  *v1 = SFCard.init(data:)(v7, v8);
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance EventEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 72), *(v9 + 80));
-    *(v9 + 72) = v2;
-    *(v9 + 80) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 72), *(v10 + 80));
-    *(v10 + 72) = v2;
-    *(v10 + 80) = v3;
-  }
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance FlightReservationEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 200);
-  v3 = *(v2 + 208);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance FlightReservationEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 200), *(v9 + 208));
-    *(v9 + 200) = v2;
-    *(v9 + 208) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 200), *(v10 + 208));
-    *(v10 + 200) = v2;
-    *(v10 + 208) = v3;
-  }
-}
-
-id protocol witness for CardRepresentable.card.getter in conformance FlightReservationEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = OUTLINED_FUNCTION_9_23(a1, a2, a3, a4, a5, a6, a7, a8, v11, v12);
-  memcpy(v8, v9, 0xD8uLL);
-  return specialized CardDisplayable.card.getter();
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance HotelReservationEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 112);
-  v3 = *(v2 + 120);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-uint64_t protocol witness for CardRepresentable.card.getter in conformance HotelReservationEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = OUTLINED_FUNCTION_8_22(a1, a2, a3, a4, a5, a6, a7, a8, v12);
-  v10 = memcpy(v8, v9, 0x80uLL);
-  return specialized CardDisplayable.card.getter(v10);
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance RestaurantReservationEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 112);
-  v3 = *(v2 + 120);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance HotelReservationEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 112), *(v9 + 120));
-    *(v9 + 112) = v2;
-    *(v9 + 120) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 112), *(v10 + 120));
-    *(v10 + 112) = v2;
-    *(v10 + 120) = v3;
-  }
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance TicketedTransportationEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 96);
-  v3 = *(v2 + 104);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance TicketedTransportationEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 96), *(v9 + 104));
-    *(v9 + 96) = v2;
-    *(v9 + 104) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 96), *(v10 + 104));
-    *(v10 + 96) = v2;
-    *(v10 + 104) = v3;
-  }
-}
-
-id protocol witness for CardRepresentable.card.getter in conformance TicketedTransportationEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = OUTLINED_FUNCTION_8_22(a1, a2, a3, a4, a5, a6, a7, a8, v11);
-  memcpy(v8, v9, 0x70uLL);
-  return specialized CardDisplayable.card.getter();
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance VehicleReservationEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 136);
-  v3 = *(v2 + 144);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance VehicleReservationEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 136), *(v9 + 144));
-    *(v9 + 136) = v2;
-    *(v9 + 144) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 136), *(v10 + 144));
-    *(v10 + 136) = v2;
-    *(v10 + 144) = v3;
-  }
-}
-
-id protocol witness for CardRepresentable.card.getter in conformance VehicleReservationEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = OUTLINED_FUNCTION_9_23(a1, a2, a3, a4, a5, a6, a7, a8, v11, v12);
-  memcpy(v8, v9, 0x98uLL);
-  return specialized CardDisplayable.card.getter();
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance TicketedShowEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 120);
-  v3 = *(v2 + 128);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-uint64_t protocol witness for CardRepresentable.card.getter in conformance TicketedShowEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = OUTLINED_FUNCTION_9_23(a1, a2, a3, a4, a5, a6, a7, a8, v12, v13);
-  v10 = memcpy(v8, v9, 0x88uLL);
-  return specialized CardDisplayable.card.getter(v10);
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance ShippingOrderEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 224);
-  v3 = *(v2 + 232);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance ShippingOrderEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 224), *(v9 + 232));
-    *(v9 + 224) = v2;
-    *(v9 + 232) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 224), *(v10 + 232));
-    *(v10 + 224) = v2;
-    *(v10 + 232) = v3;
-  }
-}
-
-id protocol witness for CardRepresentable.card.getter in conformance ShippingOrderEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = OUTLINED_FUNCTION_8_22(a1, a2, a3, a4, a5, a6, a7, a8, v11);
-  memcpy(v8, v9, 0xF0uLL);
-  return specialized CardDisplayable.card.getter();
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance GenericEventEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 120);
-  v3 = *(v2 + 128);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance TicketedShowEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 120), *(v9 + 128));
-    *(v9 + 120) = v2;
-    *(v9 + 128) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 120), *(v10 + 128));
-    *(v10 + 120) = v2;
-    *(v10 + 128) = v3;
-  }
-}
-
-uint64_t protocol witness for CardSetable.card.modify in conformance MediaEntity(uint64_t a1)
-{
-  OUTLINED_FUNCTION_3_30(a1);
-  v4 = *(v2 + 32);
-  v3 = *(v2 + 40);
-  type metadata accessor for SFCard();
-  *v1 = OUTLINED_FUNCTION_0_43();
-  return OUTLINED_FUNCTION_58_2();
-}
-
-void protocol witness for CardSetable.card.modify in conformance MediaEntity(uint64_t a1)
-{
-  v5 = OUTLINED_FUNCTION_6_6(a1);
-  if (v6)
-  {
-    v11 = v5;
-    if (v5)
-    {
-      v7 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v9 = *(v1 + 8);
-    outlined consume of Data?(*(v9 + 32), *(v9 + 40));
-    *(v9 + 32) = v2;
-    *(v9 + 40) = v3;
-  }
-
-  else
-  {
-    if (v5)
-    {
-      v8 = v5;
-      OUTLINED_FUNCTION_188_1();
-      OUTLINED_FUNCTION_187_1();
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_103_4();
-    }
-
-    v10 = *(v1 + 8);
-    outlined consume of Data?(*(v10 + 32), *(v10 + 40));
-    *(v10 + 32) = v2;
-    *(v10 + 40) = v3;
-  }
-}
-
-id protocol witness for CardRepresentable.card.getter in conformance MediaEntity()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  return specialized CardDisplayable.card.getter();
-}
-
-uint64_t outlined destroy of RGPluginModel?(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
-  (*(*(v2 - 8) + 8))(a1, v2);
+uint64_t outlined destroy of EditorialDateFormatter(uint64_t a1, void (*a2)(void))
+{
+  a2(0);
+  OUTLINED_FUNCTION_17();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
-id key path getter for CardDisplayable.card : <A>A@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
+Swift::String __swiftcall Party.llmConsumableDescription(locale:)(Swift::String_optional locale)
 {
-  result = CardDisplayable.card.getter(*(a1 + a2 - 16), *(a1 + a2 - 8));
-  *a3 = result;
-  return result;
-}
-
-void key path setter for CardDisplayable.card : <A>A(id *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4 = *(a3 + a4 - 16);
-  v5 = *(a3 + a4 - 8);
-  v6 = *a1;
-  v7 = *a1;
-  CardDisplayable.card.setter(v6, v4, v5);
-}
-
-id OUTLINED_FUNCTION_0_43()
-{
-  outlined copy of Data?(v1, v0);
-
-  return SFCard.init(data:)(v1, v0);
-}
-
-uint64_t SearchCATContext.init()@<X0>(uint64_t a1@<X8>)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
-  OUTLINED_FUNCTION_114(v2);
-  v4 = *(v3 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v5);
-  v7 = &v25 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-  OUTLINED_FUNCTION_114(v8);
-  v10 = *(v9 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v11);
-  v13 = &v25 - v12;
-  v14 = type metadata accessor for LocalizedStringResource();
-  v15 = OUTLINED_FUNCTION_17(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_36();
-  LocalizedStringResource.init(stringLiteral:)();
-  __swift_storeEnumTagSinglePayload(v13, 1, 1, v14);
-  v18 = type metadata accessor for DisplayRepresentation.Image();
-  __swift_storeEnumTagSinglePayload(v7, 1, 1, v18);
-  DisplayRepresentation.init(title:subtitle:image:)();
-  v19 = type metadata accessor for SearchCATContext();
-  v20 = v19[5];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_8_23();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v20) = EntityProperty<>.init(title:)();
-  v21 = v19[6];
-  OUTLINED_FUNCTION_7_23();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v21) = EntityProperty<>.init(title:)();
-  v22 = v19[7];
-  OUTLINED_FUNCTION_6_16();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v22) = EntityProperty<>.init(title:)();
-  v23 = v19[8];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySbSgGMd, &_s10AppIntents14EntityPropertyCySbSgGMR);
-  LocalizedStringResource.init(stringLiteral:)();
-  result = EntityProperty<>.init(title:)();
-  *(a1 + v23) = result;
-  return result;
-}
-
-uint64_t type metadata accessor for SearchCATContext()
-{
-  result = type metadata singleton initialization cache for SearchCATContext;
-  if (!type metadata singleton initialization cache for SearchCATContext)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t SearchCATContext.deviceClass.setter()
-{
-  v0 = OUTLINED_FUNCTION_14_16();
-  OUTLINED_FUNCTION_17_9(v0);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t SearchCATContext.deviceIsLocked.setter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_216_2(v0);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t SearchCATContext.interfaceIdiom.setter()
-{
-  v0 = OUTLINED_FUNCTION_14_16();
-  OUTLINED_FUNCTION_11_9(v0);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t IntentSystemContext.AssistantContext.InteractionMode.asString.getter()
-{
-  v1 = type metadata accessor for IntentSystemContext.AssistantContext.InteractionMode();
-  v2 = OUTLINED_FUNCTION_14(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_36();
-  (*(v4 + 16))(v8 - v7, v0, v1);
-  v9 = *(v4 + 88);
-  v10 = OUTLINED_FUNCTION_107();
-  v12 = v11(v10);
-  if (v12 == *MEMORY[0x277CBA0B8])
-  {
-    return 0x4679616C70736964;
-  }
-
-  if (v12 == *MEMORY[0x277CBA0A8])
-  {
-    return 0x4F79616C70736964;
-  }
-
-  if (v12 == *MEMORY[0x277CBA0C0])
-  {
-    return 0x6C6E4F6563696F76;
-  }
-
-  if (v12 == *MEMORY[0x277CBA0B0])
-  {
-    return 0x726F466563696F76;
-  }
-
-  v14 = *(v4 + 8);
-  v15 = OUTLINED_FUNCTION_107();
-  v16(v15);
-  return 0;
-}
-
-uint64_t SearchCATContext.interactionMode.setter()
-{
-  v0 = OUTLINED_FUNCTION_14_16();
-  OUTLINED_FUNCTION_10_9(v0);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t static SearchCATContext.overrideCATContext()@<X0>(uint64_t a1@<X8>)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B10CATContextVSgMd, &_s10OmniSearch0B10CATContextVSgMR);
-  OUTLINED_FUNCTION_114(v2);
-  v4 = *(v3 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v5);
-  v7 = &v13 - v6;
-  type metadata accessor for SearchCATContext();
-  v8 = OUTLINED_FUNCTION_11_1();
-  __swift_storeEnumTagSinglePayload(v8, v9, 1, v10);
-  result = AFIsInternalInstall();
-  if (result)
-  {
-    type metadata accessor for NSUserDefaults();
-    result = static NSUserDefaults.searchCATContextOverride.getter();
-    if (v12)
-    {
-      static SearchCATContext.loadFromJson(_:)(v7);
-
-      outlined destroy of IntentApplication?(a1, &_s10OmniSearch0B10CATContextVSgMd, &_s10OmniSearch0B10CATContextVSgMR);
-      return outlined init with take of SearchCATContext?(v7, a1);
-    }
-  }
-
-  return result;
-}
-
-uint64_t SearchCATContext.interfaceIdiom.getter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_11_9(v0);
-  EntityProperty.wrappedValue.getter();
-  return v2;
-}
-
-uint64_t static SearchCATContext.loadFromJson(_:)@<X0>(uint64_t a1@<X8>)
-{
-  v60 = *MEMORY[0x277D85DE8];
-  v2 = type metadata accessor for SearchCATContext();
-  v3 = OUTLINED_FUNCTION_17(v2);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_36();
-  v8 = v7 - v6;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B10CATContextVSgMd, &_s10OmniSearch0B10CATContextVSgMR);
+  OUTLINED_FUNCTION_155();
+  v251 = v5;
+  v252 = v6;
+  v8 = v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   OUTLINED_FUNCTION_114(v9);
-  v11 = *(v10 + 64);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_49_3();
+  v238 = v11;
+  v12 = OUTLINED_FUNCTION_78_0();
+  v13 = type metadata accessor for EditorialDateFormatter.DateInput(v12);
+  v14 = OUTLINED_FUNCTION_27_14(v13, &v250);
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v15);
+  v231 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v228 = v16;
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_109();
+  v20 = v18 - v19;
+  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_28_2(v22);
+  v23 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v245 = v24;
+  MEMORY[0x28223BE20](v25);
+  OUTLINED_FUNCTION_39_0();
+  v234 = v26;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_39_14(v28, v29, v30, v31, v32, v33, v34, v35, v215);
+  MEMORY[0x28223BE20](v36);
+  OUTLINED_FUNCTION_21_17(v37, v38, v39, v40, v41, v42, v43, v44, v216);
+  MEMORY[0x28223BE20](v45);
+  v46 = OUTLINED_FUNCTION_157_4();
+  v47 = type metadata accessor for EditorialDateFormatter(v46);
+  v48 = OUTLINED_FUNCTION_114(v47);
+  MEMORY[0x28223BE20](v48);
+  OUTLINED_FUNCTION_39_0();
+  v244 = v49;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v50);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_168_4(v51);
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v53 = OUTLINED_FUNCTION_114(v52);
+  MEMORY[0x28223BE20](v53);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_191_1();
+  MEMORY[0x28223BE20](v54);
+  OUTLINED_FUNCTION_25_16(v55, v56, v57, v58, v59, v60, v61, v62, v217);
+  MEMORY[0x28223BE20](v63);
+  OUTLINED_FUNCTION_47_13();
+  MEMORY[0x28223BE20](v64);
+  OUTLINED_FUNCTION_7_4();
+  v243 = v65;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v66);
+  OUTLINED_FUNCTION_133_3();
+  MEMORY[0x28223BE20](v67);
+  OUTLINED_FUNCTION_73_9();
+  MEMORY[0x28223BE20](v68);
+  OUTLINED_FUNCTION_272_0();
+  MEMORY[0x28223BE20](v69);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_229_3(v70);
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](114);
+  OUTLINED_FUNCTION_119_4();
+  MEMORY[0x25F89F6C0](0x6564207974726150, 0xEE003A736C696174);
+  v71 = Appointment.eventName.getter();
+  if (v72)
+  {
+    v73 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v71 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v71, v72, v73);
+  OUTLINED_FUNCTION_125_6();
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_284_0(v74, v75, v76);
+  outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v77 = Appointment.eventSubType.getter();
+  if (v78)
+  {
+    v79 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v77 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v80 = OUTLINED_FUNCTION_54_14(v77, v78, v79);
+  OUTLINED_FUNCTION_273_1(v80 | 0x62750000);
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_284_0(v81, v82, v83);
+  outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v84 = Appointment.startLocationName.getter();
+  if (v85)
+  {
+    v86 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v84 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v87 = OUTLINED_FUNCTION_10_22(v84, v85, v86);
+  OUTLINED_FUNCTION_196_4(v87, v88, v89);
+  outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v90 = Appointment.startLocationAddress.getter();
+  if (v91)
+  {
+    v92 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v90 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v90, v91, v92);
+  OUTLINED_FUNCTION_77_9();
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_120_6(v93, v94, v95);
+  outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v96 = Party.status.getter();
+  if (v97)
+  {
+    v98 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v96 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v99 = OUTLINED_FUNCTION_17_22(v96, v97, v98);
+  OUTLINED_FUNCTION_112_10(v99, v100, v101);
+  outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v102 = Party.updateStatus.getter();
+  v227 = v8;
+  v235 = v4;
+  v222 = v3;
+  if (v103)
+  {
+    v104 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v102 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v105 = OUTLINED_FUNCTION_4_29(v102, v103, v104);
+  OUTLINED_FUNCTION_180_4(v105, v106, v107);
+  outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  Party.startDate.getter();
+  v108 = Appointment.timeIsUnknown.getter();
+  v219 = Party.startDateTimeZone.getter();
+  v110 = v109;
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  v111 = v1;
+  outlined init with copy of SpotlightRankingItem?(v239, v1, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_166(v1, 1, v23);
+  v221 = v20;
+  v224 = v2;
+  if (v124)
+  {
+    v112 = v245;
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v241, v113);
+    outlined destroy of IntentApplication?(v239, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v114 = v111;
+    v115 = v23;
+    v116 = v244;
+  }
+
+  else
+  {
+    v117 = v23;
+    v118 = *(v245 + 32);
+    v118(v4, v1, v117);
+    OUTLINED_FUNCTION_63_11();
+    OUTLINED_FUNCTION_220_3();
+    v119 = *(v245 + 16);
+    v120 = OUTLINED_FUNCTION_235_3();
+    (v119)(v120);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v121, v122, v123, v117);
+    outlined init with copy of SpotlightRankingItem?(v232, v222, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_71_10(v222);
+    if (v124)
+    {
+
+      OUTLINED_FUNCTION_47_11();
+      outlined destroy of IntentApplication?(v125, v126, v127);
+      v128 = OUTLINED_FUNCTION_87_8();
+      outlined destroy of IntentApplication?(v128, v129, v130);
+      v131 = v245;
+      v132 = v117;
+    }
+
+    else
+    {
+      HIDWORD(v218) = v108 ^ 1;
+      v118(v223, v222, v117);
+      if (v108)
+      {
+
+        v133 = OUTLINED_FUNCTION_161_2();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v133, v134, v135, v136, v137, v138, v139, v140, v218, v219, v220, v221, v117, v223, v2, v225, v227, v228, v229, v231);
+      }
+
+      else
+      {
+        v141 = OUTLINED_FUNCTION_161_2();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v141, v142, v143, v219, v110, v144, v145, v146, v218, v219, v220, v221, v117, v223, v2, v225, v227, v228, v229, v231);
+      }
+
+      OUTLINED_FUNCTION_251_1();
+      v132 = v222;
+      v119();
+      OUTLINED_FUNCTION_52_13(&v249);
+      v147 = (v229 + *(v225 + 28));
+      *v147 = v108;
+      v147[1] = v245 + 32;
+      v247 = MEMORY[0x277D837D0];
+      v248 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v148, v149, MEMORY[0x277CC9420]);
+      OUTLINED_FUNCTION_212_2();
+
+      OUTLINED_FUNCTION_29_5();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v229, v150);
+      OUTLINED_FUNCTION_148_5();
+      v151 = OUTLINED_FUNCTION_121_0();
+      v152(v151);
+      v131 = v245;
+      OUTLINED_FUNCTION_184_3();
+      v153(v232, v222);
+      outlined destroy of IntentApplication?(v232, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    v112 = v131;
+    OUTLINED_FUNCTION_184_3();
+    v154(v235, v132);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v241, v155);
+    v116 = v244;
+    v115 = v132;
+    v114 = v239;
+  }
+
+  outlined destroy of IntentApplication?(v114, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  Party.endDate.getter();
+  v156 = Appointment.timeIsUnknown.getter();
+  v242 = Party.startDateTimeZone.getter();
+  v158 = v157;
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v243, v236, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_71_10(v236);
+  if (v124)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v116, v159);
+    outlined destroy of IntentApplication?(v243, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v160 = v236;
+  }
+
+  else
+  {
+    v161 = *(v112 + 32);
+    v162 = OUTLINED_FUNCTION_28_12();
+    v161(v162);
+    OUTLINED_FUNCTION_64_8();
+    OUTLINED_FUNCTION_124_9();
+    MEMORY[0x25F89F6C0]();
+    v163 = *(v112 + 16);
+    v164 = v115;
+    v163(v233, v237, v115);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v165, v166, v167, v115);
+    outlined init with copy of SpotlightRankingItem?(v233, v224, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_71_10(v224);
+    if (v168)
+    {
+
+      v169 = OUTLINED_FUNCTION_87_8();
+      outlined destroy of IntentApplication?(v169, v170, v171);
+      OUTLINED_FUNCTION_47_11();
+      outlined destroy of IntentApplication?(v172, v173, v174);
+      v175 = v245;
+    }
+
+    else
+    {
+      v240 = v156 ^ 1;
+      (v161)(v234, v224, v115);
+      if (v156)
+      {
+
+        v176 = OUTLINED_FUNCTION_151_2();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v176, v177, v178, v179, v180, v181, v182, v183, v218, v219, v220, v221, v222, v223, v224, v225, v227, v228, v229, v231);
+      }
+
+      else
+      {
+        v184 = OUTLINED_FUNCTION_151_2();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v184, v185, v186, v242, v158, v187, v188, v189, v218, v219, v220, v221, v222, v223, v224, v225, v227, v228, v229, v231);
+      }
+
+      v175 = v245;
+      v163(v230 + *(v226 + 24), v234, v115);
+      OUTLINED_FUNCTION_271_0(v240);
+      v190 = (v230 + *(v226 + 28));
+      *v190 = v115;
+      v190[1] = v112 + 32;
+      v164 = v115;
+      v247 = MEMORY[0x277D837D0];
+      v248 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v191, v192, MEMORY[0x277CC9420]);
+
+      OUTLINED_FUNCTION_29_5();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v230, v193);
+      OUTLINED_FUNCTION_4_4();
+      v194 = OUTLINED_FUNCTION_121_0();
+      v195(v194);
+      OUTLINED_FUNCTION_172_4();
+      v196(v234, v115);
+      outlined destroy of IntentApplication?(v233, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    (*(v175 + 8))(v237, v164);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v244, v197);
+    v160 = v243;
+  }
+
+  outlined destroy of IntentApplication?(v160, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  Party.eventUrl.getter();
+  type metadata accessor for URL();
+  v198 = OUTLINED_FUNCTION_176_5();
+  OUTLINED_FUNCTION_9_5(v198);
+  if (v124)
+  {
+    outlined destroy of IntentApplication?(v238, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    OUTLINED_FUNCTION_78_12();
+  }
+
+  else
+  {
+    v199 = URL.absoluteString.getter();
+    v247 = MEMORY[0x277D837D0];
+    OUTLINED_FUNCTION_252_3(v199, v200, MEMORY[0x277D83838]);
+    OUTLINED_FUNCTION_51();
+    v201 = OUTLINED_FUNCTION_52_1();
+    v202(v201);
+  }
+
+  OUTLINED_FUNCTION_125_6();
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v203, v204, v205, 0);
+  outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v206 = Appointment.eventSourceLLMConsumableDescription.getter();
+  if (v207)
+  {
+    v208 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v206 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v209 = OUTLINED_FUNCTION_16_20(v206, v207, v208);
+  OUTLINED_FUNCTION_112_10(v209, v210, v211);
+  outlined destroy of IntentApplication?(v246, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v213;
+  result._countAndFlagsBits = v212;
+  return result;
+}
+
+Swift::String __swiftcall FlightReservation.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v5 = type metadata accessor for DateComponents();
+  OUTLINED_FUNCTION_14();
+  v184 = v6;
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_39_0();
+  v180 = v8;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_14_2();
+  v11 = v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v13 = OUTLINED_FUNCTION_114(v12);
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_39_0();
+  v182 = v14;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_74_14();
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_75_10();
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_272_0();
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_95_3();
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v20 = OUTLINED_FUNCTION_114(v19);
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_67_12();
+  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_123_8();
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](307);
+  v187 = v185[0];
+  v188 = v185[1];
+  OUTLINED_FUNCTION_208_3();
+  MEMORY[0x25F89F6C0]();
+  v22 = ShippingOrder.eventType.getter();
+  if (v23)
+  {
+    v24 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v22 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v22, v23, v24);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v25, v26, v27, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  FlightReservation.flightCheckInUrl.getter();
+  v28 = type metadata accessor for URL();
+  OUTLINED_FUNCTION_166(v3, 1, v28);
+  if (v29)
+  {
+    outlined destroy of IntentApplication?(v3, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    OUTLINED_FUNCTION_78_12();
+  }
+
+  else
+  {
+    v186 = v28;
+    OUTLINED_FUNCTION_18_16();
+    v32 = _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v30, v31, MEMORY[0x277CC9290]);
+    OUTLINED_FUNCTION_280_1(v32);
+    OUTLINED_FUNCTION_51();
+    (*(v33 + 32))();
+  }
+
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0x6E696B6365686320, 0xED00003A6C725520, v185, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_230_2();
+  FlightReservation.flightBookingInfoUrl.getter();
+  v34 = OUTLINED_FUNCTION_141_3();
+  OUTLINED_FUNCTION_166(v34, v35, v28);
+  if (v29)
+  {
+    outlined destroy of IntentApplication?(v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    OUTLINED_FUNCTION_78_12();
+  }
+
+  else
+  {
+    v186 = v28;
+    OUTLINED_FUNCTION_18_16();
+    v38 = _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v36, v37, MEMORY[0x277CC9290]);
+    OUTLINED_FUNCTION_280_1(v38);
+    OUTLINED_FUNCTION_51();
+    (*(v39 + 32))();
+  }
+
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0xD000000000000012, v40, v41, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v42 = FlightReservation.flightCarrier.getter();
+  if (v43)
+  {
+    v44 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v42 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v42, v43, v44);
+  OUTLINED_FUNCTION_120_6(0x7265697272616320, v45, v185);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v46 = FlightReservation.flightCarrierCode.getter();
+  if (v47)
+  {
+    v48 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v46 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v46, v47, v48);
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0x7265697272616320, 0xEE003A65646F6320, v185, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v49 = FlightReservation.flightDesignator.getter();
+  if (v50)
+  {
+    v51 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v49 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v49, v50, v51);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0xD000000000000014, v52, v53, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v54 = FlightReservation.flightDepartureAirportAddress.getter();
+  if (v55)
+  {
+    v56 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v54 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v54, v55, v56);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v57, v58, v59, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v60 = FlightReservation.flightDepartureAirportCode.getter();
+  if (v61)
+  {
+    v62 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v60 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v60, v61, v62);
+  OUTLINED_FUNCTION_41_11();
+  OUTLINED_FUNCTION_197_5(24, v63, v64);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v65 = FlightReservation.flightDepartureAirportCountry.getter();
+  if (v66)
+  {
+    v67 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v65 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v65, v66, v67);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v68, v69, v70, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v71 = FlightReservation.flightDepartureAirportLocality.getter();
+  if (v72)
+  {
+    v73 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v71 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v71, v72, v73);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v74, v75, v76, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v77 = FlightReservation.flightDepartureAirportName.getter();
+  if (v78)
+  {
+    v79 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v77 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v77, v78, v79);
+  OUTLINED_FUNCTION_41_11();
+  OUTLINED_FUNCTION_197_5(24, v80, v81);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v82 = FlightReservation.flightDepartureAirportRegion.getter();
+  if (v83)
+  {
+    v84 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v82 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v82, v83, v84);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v85, v86, v87, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v88 = FlightReservation.flightDepartureTerminal.getter();
+  if (v89)
+  {
+    v90 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v88 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v88, v89, v90);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0xD000000000000014, v91, v92, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  FlightReservation.flightDepartureDateComponents.getter();
+  v93 = OUTLINED_FUNCTION_86_10();
+  __swift_storeEnumTagSinglePayload(v93, v94, v95, v5);
+  v96 = HotelReservation.timeIsUnknown.getter();
+  outlined init with copy of SpotlightRankingItem?(v2, v1, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  OUTLINED_FUNCTION_9_5(v1);
+  if (v29)
+  {
+    outlined destroy of IntentApplication?(v2, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    v2 = v1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_142_3();
+    v97();
+    OUTLINED_FUNCTION_208_3();
+    MEMORY[0x25F89F6C0]();
+    (*(v184 + 16))(v183, v11, v5);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v98, v99, v100, v5);
+    OUTLINED_FUNCTION_201_4();
+    outlined destroy of IntentApplication?(v183, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    OUTLINED_FUNCTION_177_5();
+    (*(v184 + 8))(v11, v5);
+  }
+
+  v101 = v181;
+  outlined destroy of IntentApplication?(v2, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v102 = FlightReservation.flightArrivalAirportAddress.getter();
+  if (v103)
+  {
+    v104 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v102 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v102, v103, v104);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v105, v106, v107, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v108 = FlightReservation.flightArrivalAirportCode.getter();
+  if (v109)
+  {
+    v110 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v108 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v108, v109, v110);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0xD000000000000016, v111, v112, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v113 = FlightReservation.flightArrivalAirportCountry.getter();
+  if (v114)
+  {
+    v115 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v113 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v113, v114, v115);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v116, v117, v118, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v119 = FlightReservation.flightArrivalAirportLocality.getter();
+  if (v120)
+  {
+    v121 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v119 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v119, v120, v121);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v122, v123, v124, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v125 = FlightReservation.flightArrivalAirportName.getter();
+  if (v126)
+  {
+    v127 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v125 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v125, v126, v127);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0xD000000000000016, v128, v129, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v130 = FlightReservation.flightArrivalAirportRegion.getter();
+  if (v131)
+  {
+    v132 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v130 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v130, v131, v132);
+  OUTLINED_FUNCTION_41_11();
+  OUTLINED_FUNCTION_197_5(24, v133, v134);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v135 = FlightReservation.flightArrivalTerminal.getter();
+  if (v136)
+  {
+    v137 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v135 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v135, v136, v137);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0xD000000000000012, v138, v139, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  FlightReservation.flightArrivalDateComponents.getter();
+  OUTLINED_FUNCTION_44_0();
+  __swift_storeEnumTagSinglePayload(v140, v141, v142, v5);
+  HotelReservation.timeIsUnknown.getter();
+  outlined init with copy of SpotlightRankingItem?(v181, v182, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  OUTLINED_FUNCTION_9_5(v182);
+  if (v29)
+  {
+    outlined destroy of IntentApplication?(v181, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    v101 = v182;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_266_1();
+    OUTLINED_FUNCTION_47_11();
+    v143();
+    MEMORY[0x25F89F6C0](0x6C61766972726120, 0xEF203A656D697420);
+    (*(v96 + 16))(v183, v180, v5);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v144, v145, v146, v5);
+    OUTLINED_FUNCTION_201_4();
+    outlined destroy of IntentApplication?(v183, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    OUTLINED_FUNCTION_177_5();
+    v147 = OUTLINED_FUNCTION_21_7();
+    v148(v147);
+  }
+
+  outlined destroy of IntentApplication?(v101, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v149 = FlightReservation.flightConfirmationNumber.getter();
+  if (v150)
+  {
+    v151 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v149 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v149, v150, v151);
+  OUTLINED_FUNCTION_41_11();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v152, v153, v154, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v155 = FlightReservation.flightPassengerNames.getter();
+  v156._countAndFlagsBits = 0xD000000000000011;
+  v156._object = 0x800000025DBF3DB0;
+  v189.value._rawValue = v155;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v156, v189);
+
+  v157 = FlightReservation.flightPassengerSeatNumbers.getter();
+  v158._object = 0x800000025DBF3DD0;
+  v158._countAndFlagsBits = 0xD000000000000018;
+  v190.value._rawValue = v157;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v158, v190);
+
+  v159 = FlightReservation.flightStatus.getter();
+  if (v160)
+  {
+    v161 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v159 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v162 = OUTLINED_FUNCTION_17_22(v159, v160, v161);
+  OUTLINED_FUNCTION_179_5(v162, v163, v164);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  updated = FlightReservation.flightUpdateStatus.getter();
+  if (v166)
+  {
+    v167 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    updated = OUTLINED_FUNCTION_7_24();
+  }
+
+  v168 = OUTLINED_FUNCTION_4_29(updated, v166, v167);
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v168, v169, v170, 0);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v171 = Appointment.eventSubType.getter();
+  if (v172)
+  {
+    v173 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v171 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v174 = OUTLINED_FUNCTION_16_20(v171, v172, v173);
+  OUTLINED_FUNCTION_179_5(v174, v175, v176);
+  outlined destroy of IntentApplication?(v185, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_250_3();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v178;
+  result._countAndFlagsBits = v177;
+  return result;
+}
+
+Swift::String __swiftcall HotelReservation.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v106[1] = v6;
+  v106[2] = v7;
+  OUTLINED_FUNCTION_264_2();
+  v8 = type metadata accessor for DateComponents();
+  OUTLINED_FUNCTION_14();
+  v107 = v9;
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_39_0();
+  v106[0] = v11;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v12);
+  v14 = v106 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v16 = OUTLINED_FUNCTION_114(v15);
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_109();
+  v19 = v17 - v18;
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_133_3();
+  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_49_15();
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_73_8();
+  MEMORY[0x28223BE20](v23);
+  OUTLINED_FUNCTION_95_3();
+  OUTLINED_FUNCTION_152_4();
+  MEMORY[0x25F89F5D0](136);
+  OUTLINED_FUNCTION_274_1();
+  OUTLINED_FUNCTION_208_3();
+  MEMORY[0x25F89F6C0]();
+  v108 = v1;
+  v24 = HotelReservation.hotelReservationForName.getter();
+  if (v25)
+  {
+    v26 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v24 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v24, v25, v26);
+  OUTLINED_FUNCTION_218_3(0x6C65746F6820);
+  OUTLINED_FUNCTION_149_6();
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v27, v28, v29, 0);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  HotelReservation.hotelCheckinDateComponents.getter();
+  HotelReservation.timeIsUnknown.getter();
+  v30 = OUTLINED_FUNCTION_30_5();
+  outlined init with copy of SpotlightRankingItem?(v30, v31, v32, v33);
+  OUTLINED_FUNCTION_9_5(v2);
+  if (v34)
+  {
+    outlined destroy of IntentApplication?(v3, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  }
+
+  else
+  {
+    v35 = v107;
+    OUTLINED_FUNCTION_29_5();
+    v36();
+    OUTLINED_FUNCTION_98_2();
+    v37 = OUTLINED_FUNCTION_153_2();
+    MEMORY[0x25F89F6C0](v37);
+    (*(v35 + 16))(v5, v14, v8);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v38, v39, v40, v8);
+    OUTLINED_FUNCTION_201_4();
+    outlined destroy of IntentApplication?(v5, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    OUTLINED_FUNCTION_177_5();
+    (*(v35 + 8))(v14, v8);
+  }
+
+  v41 = OUTLINED_FUNCTION_30_5();
+  outlined destroy of IntentApplication?(v41, v42, &_s10Foundation14DateComponentsVSgMR);
+  HotelReservation.hotelCheckoutDateComponents.getter();
+  HotelReservation.timeIsUnknown.getter();
+  v43 = OUTLINED_FUNCTION_32_3();
+  outlined init with copy of SpotlightRankingItem?(v43, v44, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  OUTLINED_FUNCTION_9_5(v19);
+  if (v34)
+  {
+    outlined destroy of IntentApplication?(v4, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    v4 = v19;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_266_1();
+    OUTLINED_FUNCTION_206_3();
+    v45();
+    OUTLINED_FUNCTION_98_2();
+    v46 = OUTLINED_FUNCTION_153_2();
+    MEMORY[0x25F89F6C0](v46);
+    v47 = OUTLINED_FUNCTION_51_4();
+    v48(v47);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v49, v50, v51, v8);
+    OUTLINED_FUNCTION_201_4();
+    outlined destroy of IntentApplication?(v5, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    OUTLINED_FUNCTION_177_5();
+    v52 = OUTLINED_FUNCTION_21_7();
+    v53(v52);
+  }
+
+  outlined destroy of IntentApplication?(v4, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v54 = HotelReservation.durationInDays.getter();
+  if (v55)
+  {
+    v54 = OUTLINED_FUNCTION_22_16();
+    v109[1] = 0;
+    v109[2] = 0;
+  }
+
+  else
+  {
+    v56 = MEMORY[0x277D83BF8];
+    v57 = MEMORY[0x277D83B88];
+  }
+
+  v109[0] = v54;
+  v109[3] = v57;
+  v109[4] = v56;
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v58, v59, v60, 0);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v61 = HotelReservation.hotelReservationForAddress.getter();
+  if (v62)
+  {
+    v63 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v61 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v61, v62, v63);
+  OUTLINED_FUNCTION_77_9();
+  OUTLINED_FUNCTION_94_7();
+  OUTLINED_FUNCTION_120_6(v64, v65, v66);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v67 = HotelReservation.hotelReservationForTelephone.getter();
+  if (v68)
+  {
+    v69 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v67 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v67, v68, v69);
+  OUTLINED_FUNCTION_214_2();
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v70, v71, v72, 0);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v73 = HotelReservation.hotelUnderName.getter();
+  if (v74)
+  {
+    v75 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v73 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v73, v74, v75);
+  OUTLINED_FUNCTION_218_3(0x7265646E7520);
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v76, v77, v78, 0);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v79 = HotelReservation.hotelModifyReservationUrl.getter();
+  if (v80)
+  {
+    v81 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v79 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v79, v80, v81);
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v82, v83, v84, 0);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v85 = HotelReservation.hotelStatus.getter();
+  if (v86)
+  {
+    v87 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v85 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v85, v86, v87);
+  OUTLINED_FUNCTION_34_19();
+  OUTLINED_FUNCTION_94_7();
+  OUTLINED_FUNCTION_179_5(v88, v89, v90);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  updated = HotelReservation.hotelUpdateStatus.getter();
+  if (v92)
+  {
+    v93 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    updated = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(updated, v92, v93);
+  OUTLINED_FUNCTION_5_27();
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v94, v95, v96, 0);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v97 = Appointment.eventSubType.getter();
+  if (v98)
+  {
+    v99 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v97 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v97, v98, v99);
+  OUTLINED_FUNCTION_33_16();
+  OUTLINED_FUNCTION_94_7();
+  OUTLINED_FUNCTION_179_5(v100, v101, v102);
+  outlined destroy of IntentApplication?(v109, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_250_3();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v104;
+  result._countAndFlagsBits = v103;
+  return result;
+}
+
+Swift::String __swiftcall RestaurantReservation.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v4 = type metadata accessor for DateComponents();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_36();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v7 = OUTLINED_FUNCTION_114(v6);
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_51_12();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_131_0();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_216_3();
+  OUTLINED_FUNCTION_152_4();
+  MEMORY[0x25F89F5D0](121);
+  OUTLINED_FUNCTION_274_1();
+  OUTLINED_FUNCTION_208_3();
+  MEMORY[0x25F89F6C0]();
+  v10 = RestaurantReservation.restaurantReservationForName.getter();
+  if (v11)
+  {
+    v12 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v10 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v10, v11, v12);
+  OUTLINED_FUNCTION_98_2();
+  OUTLINED_FUNCTION_94_7();
+  OUTLINED_FUNCTION_197_5(18, v13, v14);
+  outlined destroy of IntentApplication?(v70, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v15 = HotelReservation.hotelUnderName.getter();
+  if (v16)
+  {
+    v17 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v15 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v15, v16, v17);
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v18, 0xEC0000003A656D61, v19, 0);
+  outlined destroy of IntentApplication?(v70, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v20 = RestaurantReservation.restaurantPartySize.getter();
+  if (v21)
+  {
+    v22 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v20 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v20, v21, v22);
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v23, v24, v25, 0);
+  outlined destroy of IntentApplication?(v70, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  RestaurantReservation.restaurantStartDateComponents.getter();
+  HotelReservation.timeIsUnknown.getter();
+  v26 = OUTLINED_FUNCTION_32_3();
+  outlined init with copy of SpotlightRankingItem?(v26, v27, v28, v29);
+  OUTLINED_FUNCTION_9_5(v3);
+  if (v30)
+  {
+    outlined destroy of IntentApplication?(v1, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    v1 = v3;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_206_3();
+    v31();
+    MEMORY[0x25F89F6C0](0x203A656D697420, 0xE700000000000000);
+    OUTLINED_FUNCTION_29_5();
+    v32();
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v33, v34, v35, v4);
+    OUTLINED_FUNCTION_51_4();
+    LLMFormatter.StringInterpolation.appendInterpolation(date:locale:timeIsUnknown:timeZone:)();
+    outlined destroy of IntentApplication?(v2, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    OUTLINED_FUNCTION_177_5();
+    v36 = OUTLINED_FUNCTION_116_1();
+    v37(v36);
+  }
+
+  outlined destroy of IntentApplication?(v1, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v38 = RestaurantReservation.restaurantReservationForAddress.getter();
+  if (v39)
+  {
+    v40 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v38 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v38, v39, v40);
+  OUTLINED_FUNCTION_77_9();
+  OUTLINED_FUNCTION_94_7();
+  OUTLINED_FUNCTION_120_6(v41, v42, v43);
+  outlined destroy of IntentApplication?(v70, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v44 = RestaurantReservation.restaurantReservationForTelephone.getter();
+  if (v45)
+  {
+    v46 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v44 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v44, v45, v46);
+  OUTLINED_FUNCTION_214_2();
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v47, 0xE700000000000000, v48, 0);
+  outlined destroy of IntentApplication?(v70, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v49 = RestaurantReservation.restaurantStatus.getter();
+  if (v50)
+  {
+    v51 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v49 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v49, v50, v51);
+  OUTLINED_FUNCTION_34_19();
+  OUTLINED_FUNCTION_94_7();
+  OUTLINED_FUNCTION_179_5(v52, v53, v54);
+  outlined destroy of IntentApplication?(v70, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  updated = RestaurantReservation.restaurantUpdateStatus.getter();
+  if (v56)
+  {
+    v57 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    updated = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(updated, v56, v57);
+  OUTLINED_FUNCTION_5_27();
+  OUTLINED_FUNCTION_94_7();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v58, v59, v60, 0);
+  outlined destroy of IntentApplication?(v70, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v61 = Appointment.eventSubType.getter();
+  if (v62)
+  {
+    v63 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v61 = OUTLINED_FUNCTION_20_13();
+  }
+
+  OUTLINED_FUNCTION_121_7(v61, v62, v63);
+  OUTLINED_FUNCTION_33_16();
+  OUTLINED_FUNCTION_94_7();
+  OUTLINED_FUNCTION_179_5(v64, v65, v66);
+  outlined destroy of IntentApplication?(v70, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_250_3();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v68;
+  result._countAndFlagsBits = v67;
+  return result;
+}
+
+Swift::String __swiftcall RentalCarReservation.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v277 = v5;
+  v278 = v6;
+  OUTLINED_FUNCTION_269_1(v7);
+  v8 = OUTLINED_FUNCTION_264_2();
+  v9 = type metadata accessor for EditorialDateFormatter.DateInput(v8);
+  v10 = OUTLINED_FUNCTION_27_14(v9, &v276);
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v11);
+  type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v262 = v12;
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_51_12();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_123_8();
+  v271 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v16 = v15;
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_38_18(v19, v20, v21, v22, v23, v24, v25, v26, v247);
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_46_15();
+  MEMORY[0x28223BE20](v28);
+  OUTLINED_FUNCTION_14_2();
+  v29 = OUTLINED_FUNCTION_78_0();
+  v30 = type metadata accessor for EditorialDateFormatter(v29);
+  v31 = OUTLINED_FUNCTION_114(v30);
+  MEMORY[0x28223BE20](v31);
+  OUTLINED_FUNCTION_39_0();
+  v270 = v32;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v33);
+  OUTLINED_FUNCTION_59_10(v34, v35, v36, v37, v38, v39, v40, v41, v248);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v43 = OUTLINED_FUNCTION_114(v42);
+  MEMORY[0x28223BE20](v43);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v44);
+  OUTLINED_FUNCTION_62_10();
+  MEMORY[0x28223BE20](v45);
+  OUTLINED_FUNCTION_39_14(v46, v47, v48, v49, v50, v51, v52, v53, v249);
+  MEMORY[0x28223BE20](v54);
+  OUTLINED_FUNCTION_61_13();
+  MEMORY[0x28223BE20](v55);
+  OUTLINED_FUNCTION_21_17(v56, v57, v58, v59, v60, v61, v62, v63, v250);
+  MEMORY[0x28223BE20](v64);
+  OUTLINED_FUNCTION_25_16(v65, v66, v67, v68, v69, v70, v71, v72, v251);
+  MEMORY[0x28223BE20](v73);
+  OUTLINED_FUNCTION_73_8();
+  MEMORY[0x28223BE20](v74);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_168_4(v75);
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](163);
+  OUTLINED_FUNCTION_119_4();
+  OUTLINED_FUNCTION_141_4();
+  MEMORY[0x25F89F6C0]();
+  Appointment.startLocationName.getter();
+  if (!v76)
+  {
+    OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_185_3();
+  OUTLINED_FUNCTION_81_12(v77, v78, v79);
+  OUTLINED_FUNCTION_40_16();
+  OUTLINED_FUNCTION_197_5(17, v80, v81);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v82 = RentalCarReservation.customerNames.getter();
+  if (v82)
+  {
+    v272[0] = v82;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+    OUTLINED_FUNCTION_8_25();
+    lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v83, v84, &_sSaySSGMR, v85);
+    OUTLINED_FUNCTION_17_18();
+    v86 = BidirectionalCollection<>.joined(separator:)();
+    v88 = v87;
+
+    v89 = MEMORY[0x277D83838];
+    v90 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v86 = 0;
+    v88 = 0;
+    OUTLINED_FUNCTION_24_17();
+  }
+
+  v272[0] = v86;
+  v272[1] = v88;
+  v273 = v90;
+  v274 = v89;
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_242_2(v91, 14962, v92);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v93 = TicketedShow.startLocationAddress.getter();
+  if (v94)
+  {
+    v95 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v93 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v93, v94, v95);
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v96, 0xE500000000000000, v97, 0);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v98 = RentalCarReservation.startLocationName.getter();
+  if (v99)
+  {
+    v100 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v98 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_35_18(v98, v99, v100);
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v101, v102, v103, 0);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v104 = RentalCarReservation.startLocationAddress.getter();
+  if (v105)
+  {
+    v106 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v104 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_10_22(v104, v105, v106);
+  OUTLINED_FUNCTION_120_6(0x7373657264646120, v107, v108);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v109 = RentalCarReservation.endLocationName.getter();
+  if (v110)
+  {
+    v111 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v109 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v109, v110, v111);
+  OUTLINED_FUNCTION_66_11(0x3A746120646E6520);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v112 = RentalCarReservation.endLocationAddress.getter();
+  if (v113)
+  {
+    v114 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v112 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_10_22(v112, v113, v114);
+  OUTLINED_FUNCTION_120_6(0x7373657264646120, v115, v116);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v117 = RentalCarReservation.totalCost.getter();
+  if (v118)
+  {
+    v119 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v117 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v117, v118, v119);
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_249_3(v120, v121, v122);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v123 = RentalCarReservation.status.getter();
+  if (v124)
+  {
+    v125 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v123 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v126 = OUTLINED_FUNCTION_17_22(v123, v124, v125);
+  OUTLINED_FUNCTION_112_10(v126, v127, v128);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v129 = RentalCarReservation.updateStatus.getter();
+  if (v130)
+  {
+    v131 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v129 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v132 = OUTLINED_FUNCTION_4_29(v129, v130, v131);
+  OUTLINED_FUNCTION_180_4(v132, v133, v134);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v135 = v1;
+  RentalCarReservation.startDate.getter();
+  v136 = Appointment.timeIsUnknown.getter();
+  v137 = RentalCarReservation.startDateTimeZone.getter();
+  v139 = v138;
+  OUTLINED_FUNCTION_241_3();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v268, v2, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_70_9(v2);
+  if (v149)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v1, v140);
+    outlined destroy of IntentApplication?(v268, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v141 = v270;
+  }
+
+  else
+  {
+    v254 = v137;
+    v142 = OUTLINED_FUNCTION_166_4();
+    (v16)(v142);
+    OUTLINED_FUNCTION_55_11();
+    v264 = v3;
+    v143 = OUTLINED_FUNCTION_103_9();
+    v2(v143);
+    v144 = OUTLINED_FUNCTION_86_10();
+    v147 = __swift_storeEnumTagSinglePayload(v144, v145, v146, v268);
+    OUTLINED_FUNCTION_195_5(v147, v148, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_9_5(v137);
+    if (v149)
+    {
+
+      v135 = &_s10Foundation4DateVSgMd;
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v150, v151, v152);
+      v153 = OUTLINED_FUNCTION_106_8();
+      outlined destroy of IntentApplication?(v153, v154, v155);
+      v16 = v3;
+    }
+
+    else
+    {
+      v156 = OUTLINED_FUNCTION_108_6();
+      (v16)(v156, v137);
+      if (v136)
+      {
+
+        v157 = OUTLINED_FUNCTION_31_19();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v157, v158, v159, v160, v161, v162, v163, v164, v252, v253, v137, v255, v256, v257, v258, v259, v260, v261, v262, v263);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_31_19();
+        OUTLINED_FUNCTION_228_3();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v165, v166, v167, v168, v139, v169, v170, v171, v252, v253, v137, v255, v256, v257, v258, v259, v260, v261, v262, v263);
+      }
+
+      v172 = OUTLINED_FUNCTION_169_5();
+      v2(v172);
+      OUTLINED_FUNCTION_52_13(&v275);
+      OUTLINED_FUNCTION_219_3();
+      v273 = MEMORY[0x277D837D0];
+      v274 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v173, v174, MEMORY[0x277CC9420]);
+      OUTLINED_FUNCTION_283();
+      v135 = (v139 + v16);
+      OUTLINED_FUNCTION_53_1();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v139, v175);
+      v176 = OUTLINED_FUNCTION_130_7();
+      v177(v176);
+      v178 = OUTLINED_FUNCTION_223_3();
+      v179(v178);
+      outlined destroy of IntentApplication?(v265, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    v180 = OUTLINED_FUNCTION_267_0();
+    v181(v180);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v269, v182);
+    v141 = v270;
+  }
+
+  OUTLINED_FUNCTION_189_4();
+  outlined destroy of IntentApplication?(v183, v184, v185);
+  OUTLINED_FUNCTION_115_7();
+  OUTLINED_FUNCTION_230_2();
+  RentalCarReservation.endDate.getter();
+  v186 = Appointment.timeIsUnknown.getter();
+  v187 = RentalCarReservation.startDateTimeZone.getter();
+  v189 = v188;
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  OUTLINED_FUNCTION_245_3();
+  OUTLINED_FUNCTION_70_9(v135);
+  if (v149)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v141, v190);
+    outlined destroy of IntentApplication?(v4, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v191 = v135;
+  }
+
+  else
+  {
+    v192 = v16;
+    v193 = *(v16 + 32);
+    v194 = OUTLINED_FUNCTION_28_12();
+    v193(v194);
+    OUTLINED_FUNCTION_64_8();
+    OUTLINED_FUNCTION_124_9();
+    MEMORY[0x25F89F6C0]();
+    v195 = *(v192 + 16);
+    v196 = OUTLINED_FUNCTION_164_3();
+    v195(v196);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v197, v198, v199, v271);
+    OUTLINED_FUNCTION_190_5();
+    outlined init with copy of SpotlightRankingItem?(v200, v201, v202, v203);
+    v204 = OUTLINED_FUNCTION_141_3();
+    OUTLINED_FUNCTION_166(v204, v205, v271);
+    if (v206)
+    {
+
+      v207 = OUTLINED_FUNCTION_106_8();
+      outlined destroy of IntentApplication?(v207, v208, v209);
+      OUTLINED_FUNCTION_117_8();
+    }
+
+    else
+    {
+      v213 = OUTLINED_FUNCTION_238_3();
+      v193(v213);
+      if (v186)
+      {
+
+        OUTLINED_FUNCTION_69_9();
+        v214 = OUTLINED_FUNCTION_65_13();
+        v193 = *(v215 - 256);
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v214, v193, 1, v216, v217, v218, v219, v220, v252, v253, v254, v255, v256, v257, v258, v259, v260, v261, v262, v263);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_69_9();
+        OUTLINED_FUNCTION_224_3();
+        OUTLINED_FUNCTION_109_9();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v221, v222, v223, v187, v189, v224, v225, v226, v252, v253, v254, v255, v256, v257, v258, v259, v260, v261, v262, v263);
+        v189 = v186;
+      }
+
+      OUTLINED_FUNCTION_162_5();
+      v228 = OUTLINED_FUNCTION_256_3(v227);
+      v195(v228);
+      OUTLINED_FUNCTION_129_8(v192 & 1);
+      *v229 = v189;
+      v229[1] = v193;
+      v273 = MEMORY[0x277D837D0];
+      v274 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v230, v231, MEMORY[0x277CC9420]);
+
+      OUTLINED_FUNCTION_213_3();
+      OUTLINED_FUNCTION_53_1();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v186, v232);
+      v233 = OUTLINED_FUNCTION_107_6();
+      v234(v233);
+      v192 = v264;
+      v235 = OUTLINED_FUNCTION_155_6();
+      v236(v235);
+      outlined destroy of IntentApplication?(v266, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v211 = &_ss23CustomStringConvertible_pSgMd;
+      v212 = &_ss23CustomStringConvertible_pSgMR;
+      v210 = v272;
+    }
+
+    outlined destroy of IntentApplication?(v210, v211, v212);
+    OUTLINED_FUNCTION_92_7();
+    (*(v192 + 8))(v267, v271);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v270, v237);
+    v191 = v4;
+  }
+
+  outlined destroy of IntentApplication?(v191, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_115_7();
+  v238 = Appointment.eventSourceLLMConsumableDescription.getter();
+  if (v239)
+  {
+    v240 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v238 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v241 = OUTLINED_FUNCTION_16_20(v238, v239, v240);
+  OUTLINED_FUNCTION_112_10(v241, v242, v243);
+  outlined destroy of IntentApplication?(v272, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v245;
+  result._countAndFlagsBits = v244;
+  return result;
+}
+
+Swift::String __swiftcall TicketedTransportation.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v291 = v4;
+  v292 = v5;
+  OUTLINED_FUNCTION_269_1(v6);
+  v7 = OUTLINED_FUNCTION_264_2();
+  v8 = type metadata accessor for EditorialDateFormatter.DateInput(v7);
+  v9 = OUTLINED_FUNCTION_27_14(v8, v290);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v10);
+  type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v273 = v11;
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_51_12();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_123_8();
+  v283 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v15 = v14;
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_38_18(v18, v19, v20, v21, v22, v23, v24, v25, v258);
+  MEMORY[0x28223BE20](v26);
+  OUTLINED_FUNCTION_46_15();
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_14_2();
+  v28 = OUTLINED_FUNCTION_78_0();
+  v29 = type metadata accessor for EditorialDateFormatter(v28);
+  v30 = OUTLINED_FUNCTION_114(v29);
+  MEMORY[0x28223BE20](v30);
+  OUTLINED_FUNCTION_39_0();
+  v282 = v31;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v32);
+  OUTLINED_FUNCTION_59_10(v33, v34, v35, v36, v37, v38, v39, v40, v259);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v42 = OUTLINED_FUNCTION_114(v41);
+  MEMORY[0x28223BE20](v42);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v43);
+  OUTLINED_FUNCTION_62_10();
+  MEMORY[0x28223BE20](v44);
+  OUTLINED_FUNCTION_39_14(v45, v46, v47, v48, v49, v50, v51, v52, v260);
+  MEMORY[0x28223BE20](v53);
+  OUTLINED_FUNCTION_61_13();
+  MEMORY[0x28223BE20](v54);
+  OUTLINED_FUNCTION_21_17(v55, v56, v57, v58, v59, v60, v61, v62, v261);
+  MEMORY[0x28223BE20](v63);
+  OUTLINED_FUNCTION_25_16(v64, v65, v66, v67, v68, v69, v70, v71, v262);
+  MEMORY[0x28223BE20](v72);
+  OUTLINED_FUNCTION_73_8();
+  MEMORY[0x28223BE20](v73);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_168_4(v74);
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](163);
+  OUTLINED_FUNCTION_119_4();
+  OUTLINED_FUNCTION_141_4();
+  MEMORY[0x25F89F6C0]();
+  Appointment.eventSubType.getter();
+  if (!v75)
+  {
+    OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_185_3();
+  v79 = OUTLINED_FUNCTION_54_14(v76, v77, v78);
+  OUTLINED_FUNCTION_273_1(v79 | 0x62750000);
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v80, 0xEB00000000203A65, v81, 0);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v82 = TicketedTransportation.customerNames.getter();
+  if (v82)
+  {
+    v284 = v82;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+    OUTLINED_FUNCTION_8_25();
+    lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v83, v84, &_sSaySSGMR, v85);
+    OUTLINED_FUNCTION_17_18();
+    v86 = BidirectionalCollection<>.joined(separator:)();
+    v88 = v87;
+
+    v89 = MEMORY[0x277D83838];
+    v90 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v86 = 0;
+    v88 = 0;
+    OUTLINED_FUNCTION_24_17();
+  }
+
+  v284 = v86;
+  v285 = v88;
+  v287 = v90;
+  v288 = v89;
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_242_2(v91, 14962, v92);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v93 = TicketedTransportation.startLocationName.getter();
+  if (v94)
+  {
+    v95 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v93 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_35_18(v93, v94, v95);
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v96, v97, v98, 0);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v99 = TicketedTransportation.startLocationAddress.getter();
+  if (v100)
+  {
+    v101 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v99 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_10_22(v99, v100, v101);
+  OUTLINED_FUNCTION_120_6(0x7373657264646120, v102, v103);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v104 = TicketedShow.startLocationName.getter();
+  if (v105)
+  {
+    v106 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v104 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v104, v105, v106);
+  OUTLINED_FUNCTION_66_11(0x3A746120646E6520);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v107 = TicketedShow.startLocationAddress.getter();
+  if (v108)
+  {
+    v109 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v107 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_10_22(v107, v108, v109);
+  OUTLINED_FUNCTION_120_6(0x7373657264646120, v110, v111);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v112 = TicketedShow.seatNumbers.getter();
+  v113 = v112;
+  if (v112)
+  {
+    v114 = OUTLINED_FUNCTION_158();
+    v116 = __swift_instantiateConcreteTypeFromMangledNameV2(v114, v115);
+    OUTLINED_FUNCTION_56_10();
+    OUTLINED_FUNCTION_189_4();
+    v112 = lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v117, v118, v119, v120);
+  }
+
+  else
+  {
+    v116 = 0;
+    v285 = 0;
+    v286 = 0;
+  }
+
+  v284 = v113;
+  v287 = v116;
+  v288 = v112;
+  OUTLINED_FUNCTION_126_8(0x207461657320);
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v121, v122, v123, 0);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v124 = TicketedShow.durationInSeconds.getter();
+  if (v125)
+  {
+    v124 = OUTLINED_FUNCTION_22_16();
+    v285 = 0;
+    v286 = 0;
+  }
+
+  else
+  {
+    v126 = MEMORY[0x277D83A60];
+  }
+
+  OUTLINED_FUNCTION_237_3(v124, v126);
+  OUTLINED_FUNCTION_40_16();
+  OUTLINED_FUNCTION_197_5(21, v127, v128);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v129 = TicketedTransportation.status.getter();
+  if (v130)
+  {
+    v131 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v129 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v132 = OUTLINED_FUNCTION_17_22(v129, v130, v131);
+  OUTLINED_FUNCTION_112_10(v132, v133, v134);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v135 = v1;
+  v136 = TicketedTransportation.updateStatus.getter();
+  if (v137)
+  {
+    v138 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v136 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v139 = OUTLINED_FUNCTION_4_29(v136, v137, v138);
+  OUTLINED_FUNCTION_180_4(v139, v140, v141);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_260_2();
+  TicketedTransportation.startDate.getter();
+  v142 = Appointment.timeIsUnknown.getter();
+  v143 = TicketedTransportation.startDateTimeZone.getter();
+  v145 = v144;
+  OUTLINED_FUNCTION_241_3();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  v146 = OUTLINED_FUNCTION_121_0();
+  outlined init with copy of SpotlightRankingItem?(v146, v147, v148, v149);
+  OUTLINED_FUNCTION_70_9(v2);
+  if (v159)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v1, v150);
+    outlined destroy of IntentApplication?(v279, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v151 = v282;
+  }
+
+  else
+  {
+    v265 = v143;
+    v152 = OUTLINED_FUNCTION_166_4();
+    (v15)(v152);
+    OUTLINED_FUNCTION_55_11();
+    v275 = v143;
+    v153 = OUTLINED_FUNCTION_103_9();
+    v2(v153);
+    v154 = OUTLINED_FUNCTION_86_10();
+    v157 = __swift_storeEnumTagSinglePayload(v154, v155, v156, 0xEB00000000203A65);
+    OUTLINED_FUNCTION_195_5(v157, v158, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_9_5(v279);
+    if (v159)
+    {
+
+      v135 = &_s10Foundation4DateVSgMd;
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v160, v161, v162);
+      v163 = OUTLINED_FUNCTION_106_8();
+      outlined destroy of IntentApplication?(v163, v164, v165);
+      v15 = v143;
+    }
+
+    else
+    {
+      v166 = OUTLINED_FUNCTION_108_6();
+      (v15)(v166, v279, 0xEB00000000203A65);
+      if (v142)
+      {
+
+        v167 = OUTLINED_FUNCTION_31_19();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v167, v168, v169, v170, v171, v172, v173, v174, v263, v264, v143, v266, v267, v268, v269, v270, v271, v272, v273, v274);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_31_19();
+        OUTLINED_FUNCTION_228_3();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v175, v176, v177, v178, v145, v179, v180, v181, v263, v264, v143, v266, v267, v268, v269, v270, v271, v272, v273, v274);
+      }
+
+      v182 = OUTLINED_FUNCTION_169_5();
+      v2(v182);
+      OUTLINED_FUNCTION_52_13(&v289);
+      OUTLINED_FUNCTION_219_3();
+      v287 = MEMORY[0x277D837D0];
+      v288 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v183, v184, MEMORY[0x277CC9420]);
+      OUTLINED_FUNCTION_283();
+      v135 = (v145 + v15);
+      OUTLINED_FUNCTION_53_1();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v145, v185);
+      v186 = OUTLINED_FUNCTION_130_7();
+      v187(v186);
+      v188 = OUTLINED_FUNCTION_223_3();
+      v189(v188);
+      outlined destroy of IntentApplication?(v276, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    v190 = OUTLINED_FUNCTION_267_0();
+    v191(v190);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v280, v192);
+    v151 = v282;
+  }
+
+  OUTLINED_FUNCTION_189_4();
+  outlined destroy of IntentApplication?(v193, v194, v195);
+  OUTLINED_FUNCTION_230_2();
+  TicketedTransportation.endDate.getter();
+  v196 = Appointment.timeIsUnknown.getter();
+  v281 = TicketedTransportation.startDateTimeZone.getter();
+  v198 = v197;
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  OUTLINED_FUNCTION_245_3();
+  OUTLINED_FUNCTION_70_9(v135);
+  if (v159)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v151, v199);
+    outlined destroy of IntentApplication?(v3, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v200 = v135;
+  }
+
+  else
+  {
+    v201 = v15;
+    v204 = *(v15 + 32);
+    v202 = v15 + 32;
+    v203 = v204;
+    v205 = OUTLINED_FUNCTION_28_12();
+    v204(v205);
+    OUTLINED_FUNCTION_64_8();
+    OUTLINED_FUNCTION_200_4();
+    MEMORY[0x25F89F6C0]();
+    v206 = *(v201 + 16);
+    v207 = OUTLINED_FUNCTION_164_3();
+    v206(v207);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v208, v209, v210, v283);
+    OUTLINED_FUNCTION_190_5();
+    outlined init with copy of SpotlightRankingItem?(v211, v212, v213, v214);
+    v215 = OUTLINED_FUNCTION_141_3();
+    OUTLINED_FUNCTION_166(v215, v216, v283);
+    if (v217)
+    {
+
+      v218 = OUTLINED_FUNCTION_106_8();
+      outlined destroy of IntentApplication?(v218, v219, v220);
+      OUTLINED_FUNCTION_117_8();
+    }
+
+    else
+    {
+      v224 = OUTLINED_FUNCTION_238_3();
+      v203(v224);
+      if (v196)
+      {
+
+        OUTLINED_FUNCTION_69_9();
+        v225 = OUTLINED_FUNCTION_65_13();
+        v202 = *(v226 - 256);
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v225, v202, 1, v227, v228, v229, v230, v231, v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273, v274);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_69_9();
+        OUTLINED_FUNCTION_224_3();
+        OUTLINED_FUNCTION_109_9();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v232, v233, v234, v281, v198, v235, v236, v237, v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273, v274);
+        v198 = v196;
+      }
+
+      OUTLINED_FUNCTION_162_5();
+      v239 = OUTLINED_FUNCTION_256_3(v238);
+      v206(v239);
+      OUTLINED_FUNCTION_129_8(v201 & 1);
+      *v240 = v198;
+      v240[1] = v202;
+      v287 = MEMORY[0x277D837D0];
+      v288 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v241, v242, MEMORY[0x277CC9420]);
+
+      OUTLINED_FUNCTION_213_3();
+      OUTLINED_FUNCTION_53_1();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v196, v243);
+      v244 = OUTLINED_FUNCTION_107_6();
+      v245(v244);
+      v201 = v275;
+      v246 = OUTLINED_FUNCTION_155_6();
+      v247(v246);
+      outlined destroy of IntentApplication?(v277, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v222 = &_ss23CustomStringConvertible_pSgMd;
+      v223 = &_ss23CustomStringConvertible_pSgMR;
+      v221 = &v284;
+    }
+
+    outlined destroy of IntentApplication?(v221, v222, v223);
+    OUTLINED_FUNCTION_92_7();
+    (*(v201 + 8))(v278, v283);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v282, v248);
+    v200 = v3;
+  }
+
+  outlined destroy of IntentApplication?(v200, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_115_7();
+  v249 = Appointment.eventSourceLLMConsumableDescription.getter();
+  if (v250)
+  {
+    v251 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v249 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v252 = OUTLINED_FUNCTION_16_20(v249, v250, v251);
+  OUTLINED_FUNCTION_112_10(v252, v253, v254);
+  outlined destroy of IntentApplication?(&v284, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v256;
+  result._countAndFlagsBits = v255;
+  return result;
+}
+
+Swift::String __swiftcall TicketedShow.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v294 = v6;
+  v295 = v7;
+  v8 = v1;
+  v10 = v9;
+  v269 = v11;
+  v12 = type metadata accessor for EditorialDateFormatter.DateInput(0);
+  v13 = OUTLINED_FUNCTION_27_14(v12, v293);
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v14);
+  v274 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v272 = v15;
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_109();
+  v19 = v17 - v18;
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_28_2(v21);
+  type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v286 = v22;
+  v287 = v23;
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_39_0();
+  v278 = v24;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v25);
+  OUTLINED_FUNCTION_39_14(v26, v27, v28, v29, v30, v31, v32, v33, v262);
+  MEMORY[0x28223BE20](v34);
+  OUTLINED_FUNCTION_25_16(v35, v36, v37, v38, v39, v40, v41, v42, v262);
+  MEMORY[0x28223BE20](v43);
+  OUTLINED_FUNCTION_14_2();
+  v279 = v44;
+  v45 = OUTLINED_FUNCTION_78_0();
+  v46 = type metadata accessor for EditorialDateFormatter(v45);
+  v47 = OUTLINED_FUNCTION_114(v46);
+  MEMORY[0x28223BE20](v47);
+  OUTLINED_FUNCTION_39_0();
+  v285 = v48;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v49);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_229_3(v50);
+  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v52 = OUTLINED_FUNCTION_114(v51);
+  MEMORY[0x28223BE20](v52);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_67_12();
+  MEMORY[0x28223BE20](v53);
+  OUTLINED_FUNCTION_131_0();
+  MEMORY[0x28223BE20](v54);
+  OUTLINED_FUNCTION_75_10();
+  MEMORY[0x28223BE20](v55);
+  OUTLINED_FUNCTION_133_3();
+  MEMORY[0x28223BE20](v56);
+  OUTLINED_FUNCTION_7_4();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v57);
+  OUTLINED_FUNCTION_73_9();
+  MEMORY[0x28223BE20](v58);
+  OUTLINED_FUNCTION_49_15();
+  MEMORY[0x28223BE20](v59);
+  OUTLINED_FUNCTION_14_2();
+  v282 = v60;
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_114(v61);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v62);
+  v64 = &v262 - v63;
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](172);
+  OUTLINED_FUNCTION_119_4();
+  OUTLINED_FUNCTION_141_4();
+  MEMORY[0x25F89F6C0]();
+  v65 = Appointment.eventName.getter();
+  if (v66)
+  {
+    v67 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v65 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v65, v66, v67);
+  OUTLINED_FUNCTION_40_16();
+  OUTLINED_FUNCTION_197_5(17, v68, v69);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v70 = Appointment.eventSubType.getter();
+  if (v71)
+  {
+    v72 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v70 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v267 = v5;
+  v277 = v4;
+  v270 = v19;
+  v271 = v10;
+  v73 = OUTLINED_FUNCTION_54_14(v70, v71, v72);
+  OUTLINED_FUNCTION_273_1(v73 | 0x62750000);
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_284_0(v74, v75, v76);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v77 = TicketedShow.customerNames.getter();
+  if (v77)
+  {
+    v288 = v77;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+    OUTLINED_FUNCTION_8_25();
+    lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v78, v79, &_sSaySSGMR, v80);
+    OUTLINED_FUNCTION_17_18();
+    v81 = BidirectionalCollection<>.joined(separator:)();
+    v83 = v82;
+
+    v84 = MEMORY[0x277D83838];
+    v85 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v81 = 0;
+    v83 = 0;
+    OUTLINED_FUNCTION_24_17();
+  }
+
+  v86 = v284;
+  v288 = v81;
+  v289 = v83;
+  v291 = v85;
+  v292 = v84;
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_242_2(v87, 14962, v88);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v89 = TicketedShow.startLocationName.getter();
+  if (v90)
+  {
+    v91 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v89 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v92 = OUTLINED_FUNCTION_10_22(v89, v90, v91);
+  OUTLINED_FUNCTION_196_4(v92, v93, v94);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v95 = TicketedShow.startLocationAddress.getter();
+  if (v96)
+  {
+    v97 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v95 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v95, v96, v97);
+  OUTLINED_FUNCTION_77_9();
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_120_6(v98, v99, v100);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v101 = TicketedShow.seatNumbers.getter();
+  v102 = v101;
+  if (v101)
+  {
+    v103 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+    OUTLINED_FUNCTION_56_10();
+    v101 = lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v104, &_sSaySSGMd, &_sSaySSGMR, v105);
+  }
+
+  else
+  {
+    v103 = 0;
+    v289 = 0;
+    v290 = 0;
+  }
+
+  v106 = v287;
+  v288 = v102;
+  v291 = v103;
+  v292 = v101;
+  OUTLINED_FUNCTION_126_8(0x207461657320);
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v107, v108, v109, 0);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v110 = TicketedShow.durationInSeconds.getter();
+  v111 = v286;
+  if (v112)
+  {
+    v110 = OUTLINED_FUNCTION_22_16();
+    v289 = 0;
+    v290 = 0;
+  }
+
+  else
+  {
+    v113 = MEMORY[0x277D83A60];
+  }
+
+  v114 = v282;
+  OUTLINED_FUNCTION_237_3(v110, v113);
+  OUTLINED_FUNCTION_53_12();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v115, v116, v117, 0);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v118 = TicketedShow.totalCost.getter();
+  if (v119)
+  {
+    v120 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v118 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v118, v119, v120);
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_249_3(v121, v122, v123);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v124 = TicketedShow.ticketType.getter();
+  if (v125)
+  {
+    v126 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v124 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v124, v125, v126);
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v127, v128, v129, 0);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  TicketedShow.ticketUrl.getter();
+  v130 = type metadata accessor for URL();
+  v131 = OUTLINED_FUNCTION_159_2();
+  OUTLINED_FUNCTION_166(v131, v132, v130);
+  if (v167)
+  {
+    outlined destroy of IntentApplication?(v64, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    OUTLINED_FUNCTION_78_12();
+  }
+
+  else
+  {
+    v291 = v130;
+    OUTLINED_FUNCTION_18_16();
+    v135 = _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v133, v134, MEMORY[0x277CC9290]);
+    OUTLINED_FUNCTION_280_1(v135);
+    OUTLINED_FUNCTION_51();
+    (*(v136 + 32))();
+  }
+
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_249_3(v137, v138, v139);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v140 = TicketedShow.status.getter();
+  if (v141)
+  {
+    v142 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v140 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v143 = OUTLINED_FUNCTION_17_22(v140, v141, v142);
+  OUTLINED_FUNCTION_112_10(v143, v144, v145);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v146 = TicketedShow.updateStatus.getter();
+  if (v147)
+  {
+    v148 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v146 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v149 = OUTLINED_FUNCTION_4_29(v146, v147, v148);
+  OUTLINED_FUNCTION_180_4(v149, v150, v151);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_260_2();
+  TicketedShow.startDate.getter();
+  v152 = Appointment.timeIsUnknown.getter();
+  v264 = TicketedShow.startDateTimeZone.getter();
+  v154 = v153;
+  v155 = v283;
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v114, v3, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_9_5(v3);
+  v280 = v2;
+  if (v167)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v155, v156);
+    outlined destroy of IntentApplication?(v114, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  }
+
+  else
+  {
+    v157 = v106;
+    v160 = *(v106 + 32);
+    v159 = v106 + 32;
+    v158 = v160;
+    v160(v279, v3, v111);
+    OUTLINED_FUNCTION_55_11();
+    v161 = *(v157 + 16);
+    v162 = v275;
+    OUTLINED_FUNCTION_142_3();
+    v161();
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v163, v164, v165, v111);
+    v166 = v266;
+    outlined init with copy of SpotlightRankingItem?(v162, v266, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_9_5(v166);
+    if (v167)
+    {
+
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v168, v169, v170);
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v171, v172, v173);
+      v106 = v287;
+    }
+
+    else
+    {
+      HIDWORD(v263) = v152 ^ 1;
+      v158(v276, v166, v111);
+      if (v152)
+      {
+
+        OUTLINED_FUNCTION_30_14();
+        OUTLINED_FUNCTION_133_7();
+        OUTLINED_FUNCTION_262_2();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v174, v175, v176, v177, v178, v179, v180, v181, v262, v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_30_14();
+        OUTLINED_FUNCTION_133_7();
+        OUTLINED_FUNCTION_262_2();
+        OUTLINED_FUNCTION_228_3();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v182, v183, v184, v185, v154, v186, v187, v188, v262, v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273);
+      }
+
+      v189 = v268;
+      v190 = v273;
+      (v161)(v273 + *(v268 + 24), v276, v111);
+      OUTLINED_FUNCTION_271_0(SBYTE4(v263));
+      v191 = (v190 + *(v189 + 28));
+      *v191 = v166;
+      v191[1] = v159;
+      v291 = MEMORY[0x277D837D0];
+      v292 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v192, v193, MEMORY[0x277CC9420]);
+
+      OUTLINED_FUNCTION_53_1();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v190, v194);
+      v195 = OUTLINED_FUNCTION_130_7();
+      v196(v195);
+      v111 = v286;
+      v106 = v287;
+      OUTLINED_FUNCTION_204_5();
+      v197(v276, v111);
+      outlined destroy of IntentApplication?(v275, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    v198 = OUTLINED_FUNCTION_155_6();
+    v199(v198);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v283, v200);
+    v2 = v280;
+    v86 = v284;
+  }
+
+  OUTLINED_FUNCTION_189_4();
+  outlined destroy of IntentApplication?(v201, v202, v203);
+  TicketedShow.endDate.getter();
+  v204 = Appointment.timeIsUnknown.getter();
+  v284 = TicketedShow.startDateTimeZone.getter();
+  v206 = v205;
+  OUTLINED_FUNCTION_241_3();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v2, v86, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_9_5(v86);
+  if (v167)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v8, v207);
+    outlined destroy of IntentApplication?(v2, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v208 = v86;
+  }
+
+  else
+  {
+    v209 = v106;
+    v210 = *(v106 + 32);
+    v211 = v281;
+    OUTLINED_FUNCTION_29_5();
+    v210();
+    OUTLINED_FUNCTION_64_8();
+    OUTLINED_FUNCTION_124_9();
+    MEMORY[0x25F89F6C0]();
+    v212 = *(v209 + 16);
+    v213 = v277;
+    v212(v277, v211, v111);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v214, v215, v216, v111);
+    OUTLINED_FUNCTION_190_5();
+    outlined init with copy of SpotlightRankingItem?(v217, v218, v219, v220);
+    OUTLINED_FUNCTION_9_5(v211);
+    if (v221)
+    {
+
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v222, v223, v224);
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v225, v226, v227);
+      v228 = v287;
+    }
+
+    else
+    {
+      LODWORD(v283) = v204 ^ 1;
+      (v210)(v278, v211, v111);
+      if (v204)
+      {
+
+        OUTLINED_FUNCTION_133_7();
+        OUTLINED_FUNCTION_57_10();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v229, v230, v231, v232, v233, v234, v235, v236, v262, v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_191_5();
+        OUTLINED_FUNCTION_57_10();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v237, v238, v239, v284, v206, v240, v241, v242, v262, v263, v264, v265, v266, v267, v268, v269, v270, v271, v272, v273);
+        v206 = v111;
+      }
+
+      v111 = v286;
+      v228 = v287;
+      OUTLINED_FUNCTION_162_5();
+      v244 = *(v243 - 256);
+      v212(&v244[v213], v278, v111);
+      *v244 = v283 & 1;
+      v244[1] = 1;
+      v245 = &v244[*(v211 + 28)];
+      *v245 = v206;
+      v245[1] = v210;
+      v291 = MEMORY[0x277D837D0];
+      v292 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v246, v247, MEMORY[0x277CC9420]);
+      OUTLINED_FUNCTION_283();
+      OUTLINED_FUNCTION_227_1();
+      v248 = v274;
+      OUTLINED_FUNCTION_53_1();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v244, v249);
+      OUTLINED_FUNCTION_4_4();
+      v250(v212, v248);
+      OUTLINED_FUNCTION_172_4();
+      v251(v278, v111);
+      outlined destroy of IntentApplication?(v277, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    (*(v228 + 8))(v281, v111);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v285, v252);
+    v208 = v280;
+  }
+
+  outlined destroy of IntentApplication?(v208, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v253 = Appointment.eventSourceLLMConsumableDescription.getter();
+  if (v254)
+  {
+    v255 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v253 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v256 = OUTLINED_FUNCTION_16_20(v253, v254, v255);
+  OUTLINED_FUNCTION_112_10(v256, v257, v258);
+  outlined destroy of IntentApplication?(&v288, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v260;
+  result._countAndFlagsBits = v259;
+  return result;
+}
+
+Swift::String __swiftcall Appointment.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v272 = v8;
+  v273 = v9;
+  v11 = v10;
+  v249 = v12;
+  v13 = OUTLINED_FUNCTION_264_2();
+  v14 = type metadata accessor for EditorialDateFormatter.DateInput(v13);
+  v15 = OUTLINED_FUNCTION_27_14(v14, v271);
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_2_3();
+  v252 = v16;
+  OUTLINED_FUNCTION_78_0();
+  v253 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v251 = v17;
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_51_12();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_123_8();
+  v261 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v266 = v20;
+  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_38_18(v23, v24, v25, v26, v27, v28, v29, v30, v234);
+  MEMORY[0x28223BE20](v31);
+  OUTLINED_FUNCTION_46_15();
+  MEMORY[0x28223BE20](v32);
+  OUTLINED_FUNCTION_14_2();
+  v257 = v33;
+  v34 = OUTLINED_FUNCTION_78_0();
+  v35 = type metadata accessor for EditorialDateFormatter(v34);
+  v36 = OUTLINED_FUNCTION_114(v35);
+  MEMORY[0x28223BE20](v36);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_133_3();
+  MEMORY[0x28223BE20](v37);
+  OUTLINED_FUNCTION_72_8(v38, v39, v40, v41, v42, v43, v44, v45, v235);
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v47 = OUTLINED_FUNCTION_114(v46);
+  MEMORY[0x28223BE20](v47);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v48);
+  OUTLINED_FUNCTION_62_10();
+  MEMORY[0x28223BE20](v49);
+  OUTLINED_FUNCTION_7_4();
+  v258 = v50;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v51);
+  OUTLINED_FUNCTION_61_13();
+  MEMORY[0x28223BE20](v52);
+  OUTLINED_FUNCTION_21_17(v53, v54, v55, v56, v57, v58, v59, v60, v236);
+  MEMORY[0x28223BE20](v61);
+  OUTLINED_FUNCTION_25_16(v62, v63, v64, v65, v66, v67, v68, v69, v237);
+  MEMORY[0x28223BE20](v70);
+  OUTLINED_FUNCTION_73_8();
+  MEMORY[0x28223BE20](v71);
+  OUTLINED_FUNCTION_59_10(v72, v73, v74, v75, v76, v77, v78, v79, v238);
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](130);
+  OUTLINED_FUNCTION_119_4();
+  OUTLINED_FUNCTION_98_2();
+  MEMORY[0x25F89F6C0](0xD000000000000014);
+  v80 = Appointment.eventName.getter();
+  if (v81)
+  {
+    v82 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v80 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v80, v81, v82);
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_249_3(v83, v84, v85);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v86 = Appointment.startLocationName.getter();
+  if (v87)
+  {
+    v88 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v86 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v89 = OUTLINED_FUNCTION_10_22(v86, v87, v88);
+  OUTLINED_FUNCTION_196_4(v89, v90, v91);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v92 = Appointment.startLocationAddress.getter();
+  if (v93)
+  {
+    v94 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v92 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v92, v93, v94);
+  OUTLINED_FUNCTION_77_9();
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_120_6(v95, v96, v97);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v98 = Appointment.startLocationTelephone.getter();
+  if (v99)
+  {
+    v100 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v98 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v98, v99, v100);
+  OUTLINED_FUNCTION_214_2();
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v101, 0xE700000000000000, v102, 0);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v103 = Appointment.durationInSeconds.getter();
+  if (v104)
+  {
+    v103 = OUTLINED_FUNCTION_22_16();
+    v267[1] = 0;
+    v267[2] = 0;
+  }
+
+  else
+  {
+    v105 = MEMORY[0x277D83A60];
+  }
+
+  OUTLINED_FUNCTION_237_3(v103, v105);
+  OUTLINED_FUNCTION_53_12();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v106, v107, v108, 0);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v109 = Appointment.totalCost.getter();
+  if (v110)
+  {
+    v111 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v109 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v109, v110, v111);
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_249_3(v112, v113, v114);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v115 = Appointment.status.getter();
+  if (v116)
+  {
+    v117 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v115 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v118 = OUTLINED_FUNCTION_17_22(v115, v116, v117);
+  OUTLINED_FUNCTION_112_10(v118, v119, v120);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v121 = Appointment.updateStatus.getter();
+  v250 = v11;
+  v243 = v5;
+  v256 = v2;
+  v242 = v6;
+  if (v122)
+  {
+    v123 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v121 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v124 = OUTLINED_FUNCTION_4_29(v121, v122, v123);
+  OUTLINED_FUNCTION_180_4(v124, v125, v126);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_260_2();
+  Appointment.startDate.getter();
+  v127 = Appointment.timeIsUnknown.getter();
+  v128 = Appointment.startDateTimeZone.getter();
+  v130 = v129;
+  OUTLINED_FUNCTION_282_0();
+  v131 = OUTLINED_FUNCTION_121_0();
+  outlined init with copy of SpotlightRankingItem?(v131, v132, v133, v134);
+  v135 = v261;
+  OUTLINED_FUNCTION_166(v3, 1, v261);
+  v259 = v4;
+  if (v145)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v1, v136);
+    outlined destroy of IntentApplication?(v262, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v137 = v266;
+  }
+
+  else
+  {
+    v241 = v128;
+    v138 = *(v266 + 32);
+    OUTLINED_FUNCTION_29_5();
+    v138();
+    OUTLINED_FUNCTION_55_11();
+    v139 = OUTLINED_FUNCTION_103_9();
+    v3(v139);
+    v140 = OUTLINED_FUNCTION_86_10();
+    v143 = __swift_storeEnumTagSinglePayload(v140, v141, v142, v261);
+    OUTLINED_FUNCTION_195_5(v143, v144, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_9_5(v257);
+    if (v145)
+    {
+
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v146, v147, v148);
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v149, v150, v151);
+      v137 = v266;
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_108_6();
+      OUTLINED_FUNCTION_142_3();
+      v138();
+      if (v127)
+      {
+
+        OUTLINED_FUNCTION_133_7();
+        OUTLINED_FUNCTION_68_10();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v152, v153, v154, v155, v156, v157, v158, v159, v239, v240, v128, v242, v243, v244, v245, v246, v248, v249, v250, v251);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_133_7();
+        OUTLINED_FUNCTION_68_10();
+        OUTLINED_FUNCTION_228_3();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v160, v161, v162, v163, v130, v164, v165, v166, v239, v240, v128, v242, v243, v244, v245, v246, v248, v249, v250, v251);
+      }
+
+      OUTLINED_FUNCTION_198_3();
+      v135 = v261;
+      (v3)(v252 + *(v266 + 56), v255, v261);
+      OUTLINED_FUNCTION_52_13(&v270);
+      OUTLINED_FUNCTION_219_3();
+      v268 = MEMORY[0x277D837D0];
+      v269 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v167, v168, MEMORY[0x277CC9420]);
+      OUTLINED_FUNCTION_283();
+      v137 = v253;
+      OUTLINED_FUNCTION_53_1();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v252, v169);
+      OUTLINED_FUNCTION_148_5();
+      v170 = OUTLINED_FUNCTION_30_5();
+      v171(v170);
+      OUTLINED_FUNCTION_266_1();
+      (*(v172 + 8))(v255, v261);
+      outlined destroy of IntentApplication?(v254, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    v173 = OUTLINED_FUNCTION_155_6();
+    v174(v173);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v264, v175);
+    v4 = v259;
+  }
+
+  OUTLINED_FUNCTION_189_4();
+  outlined destroy of IntentApplication?(v176, v177, v178);
+  OUTLINED_FUNCTION_230_2();
+  Appointment.endDate.getter();
+  v179 = Appointment.timeIsUnknown.getter();
+  v265 = Appointment.startDateTimeZone.getter();
+  v181 = v180;
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v7, v258, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_9_5(v258);
+  if (v145)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v4, v182);
+    outlined destroy of IntentApplication?(v7, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v183 = v258;
+  }
+
+  else
+  {
+    v184 = *(v137 + 32);
+    OUTLINED_FUNCTION_47_11();
+    v184();
+    OUTLINED_FUNCTION_64_8();
+    OUTLINED_FUNCTION_124_9();
+    MEMORY[0x25F89F6C0]();
+    v185 = OUTLINED_FUNCTION_164_3();
+    v263 = v186;
+    (v186)(v185);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v187, v188, v189, v135);
+    OUTLINED_FUNCTION_190_5();
+    outlined init with copy of SpotlightRankingItem?(v190, v191, v192, v193);
+    v194 = OUTLINED_FUNCTION_141_3();
+    OUTLINED_FUNCTION_166(v194, v195, v135);
+    if (v196)
+    {
+
+      v197 = OUTLINED_FUNCTION_106_8();
+      outlined destroy of IntentApplication?(v197, v198, v199);
+      OUTLINED_FUNCTION_117_8();
+      outlined destroy of IntentApplication?(v200, v201, v202);
+      v203 = v137;
+    }
+
+    else
+    {
+      (v184)(v246, v260, v135);
+      if (v179)
+      {
+
+        OUTLINED_FUNCTION_69_9();
+        OUTLINED_FUNCTION_133_7();
+        OUTLINED_FUNCTION_265_2();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v204, v205, v206, v207, v208, v209, v210, v211, v239, v240, v241, v242, v243, v244, v245, v246, v248, v249, v250, v251);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_69_9();
+        OUTLINED_FUNCTION_224_3();
+        OUTLINED_FUNCTION_265_2();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v212, v213, v214, v265, v181, v215, v216, v217, v239, v240, v241, v242, v243, v244, v245, v246, v248, v249, v250, v251);
+        v181 = v179;
+      }
+
+      OUTLINED_FUNCTION_198_3();
+      v263(v252 + *(v260 + 24), v247, v135);
+      OUTLINED_FUNCTION_129_8((v179 ^ 1) & 1);
+      *v218 = v181;
+      v218[1] = v137 + 32;
+      v268 = MEMORY[0x277D837D0];
+      v269 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v219, v220, MEMORY[0x277CC9420]);
+
+      OUTLINED_FUNCTION_213_3();
+      OUTLINED_FUNCTION_53_1();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v252, v221);
+      v222 = OUTLINED_FUNCTION_107_6();
+      v223(v222);
+      v203 = v266;
+      (*(v266 + 8))(v247, v135);
+      outlined destroy of IntentApplication?(v256, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    (*(v203 + 8))(v260, v135);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v259, v224);
+    v183 = v7;
+  }
+
+  outlined destroy of IntentApplication?(v183, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v225 = Appointment.eventSourceLLMConsumableDescription.getter();
+  if (v226)
+  {
+    v227 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v225 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v228 = OUTLINED_FUNCTION_16_20(v225, v226, v227);
+  OUTLINED_FUNCTION_112_10(v228, v229, v230);
+  outlined destroy of IntentApplication?(v267, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v232;
+  result._countAndFlagsBits = v231;
+  return result;
+}
+
+Swift::String __swiftcall Trip.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v239 = v7;
+  v240 = v8;
+  v9 = v1;
+  v219 = v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_114(v11);
   OUTLINED_FUNCTION_77_0();
   MEMORY[0x28223BE20](v12);
-  v14 = &v55 - v13;
-  v15 = type metadata accessor for String.Encoding();
-  v16 = OUTLINED_FUNCTION_14(v15);
-  v18 = v17;
-  v20 = *(v19 + 64);
+  OUTLINED_FUNCTION_49_3();
+  v229 = v13;
+  v14 = OUTLINED_FUNCTION_78_0();
+  v15 = type metadata accessor for EditorialDateFormatter.DateInput(v14);
+  v16 = OUTLINED_FUNCTION_27_14(v15, &v238);
   MEMORY[0x28223BE20](v16);
-  OUTLINED_FUNCTION_36();
-  v23 = v22 - v21;
-  v24 = OUTLINED_FUNCTION_11_1();
-  __swift_storeEnumTagSinglePayload(v24, v25, 1, v2);
-  static String.Encoding.utf8.getter();
-  v26 = String.data(using:allowLossyConversion:)();
-  v28 = v27;
-  (*(v18 + 8))(v23, v15);
-  if (v28 >> 60 == 15)
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v17);
+  type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v220 = v18;
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_191_1();
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_28_2(v21);
+  v22 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v24 = v23;
+  MEMORY[0x28223BE20](v25);
+  OUTLINED_FUNCTION_39_0();
+  v225 = v26;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_74_14();
+  MEMORY[0x28223BE20](v28);
+  OUTLINED_FUNCTION_46_15();
+  MEMORY[0x28223BE20](v29);
+  OUTLINED_FUNCTION_14_2();
+  v226 = v30;
+  v31 = OUTLINED_FUNCTION_78_0();
+  v32 = type metadata accessor for EditorialDateFormatter(v31);
+  v33 = OUTLINED_FUNCTION_114(v32);
+  MEMORY[0x28223BE20](v33);
+  OUTLINED_FUNCTION_39_0();
+  v232 = v34;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v35);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_168_4(v36);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v38 = OUTLINED_FUNCTION_114(v37);
+  MEMORY[0x28223BE20](v38);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v39);
+  OUTLINED_FUNCTION_131_0();
+  MEMORY[0x28223BE20](v40);
+  OUTLINED_FUNCTION_39_14(v41, v42, v43, v44, v45, v46, v47, v48, v207);
+  MEMORY[0x28223BE20](v49);
+  OUTLINED_FUNCTION_49_15();
+  MEMORY[0x28223BE20](v50);
+  OUTLINED_FUNCTION_21_17(v51, v52, v53, v54, v55, v56, v57, v58, v208);
+  MEMORY[0x28223BE20](v59);
+  OUTLINED_FUNCTION_25_16(v60, v61, v62, v63, v64, v65, v66, v67, v209);
+  MEMORY[0x28223BE20](v68);
+  OUTLINED_FUNCTION_133_3();
+  MEMORY[0x28223BE20](v69);
+  OUTLINED_FUNCTION_156_4();
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](93);
+  OUTLINED_FUNCTION_119_4();
+  MEMORY[0x25F89F6C0](0x7465642070697254, 0xED00003A736C6961);
+  v70 = Appointment.eventName.getter();
+  if (v71)
   {
-    v29 = Dictionary.init(dictionaryLiteral:)();
-    goto LABEL_8;
-  }
-
-  v30 = objc_opt_self();
-  isa = Data._bridgeToObjectiveC()().super.isa;
-  *&v58 = 0;
-  v32 = [v30 JSONObjectWithData:isa options:0 error:&v58];
-
-  if (v32)
-  {
-    v33 = v58;
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, &_sSDySSypGMR);
-    if (OUTLINED_FUNCTION_3_31())
-    {
-      outlined consume of Data?(v26, v28);
-      v29 = v56;
-      goto LABEL_8;
-    }
+    v72 = MEMORY[0x277D83838];
   }
 
   else
   {
-    v34 = v58;
-    v35 = _convertNSErrorToError(_:)();
-
-    swift_willThrow();
+    v70 = OUTLINED_FUNCTION_7_24();
   }
 
-  v29 = Dictionary.init(dictionaryLiteral:)();
-  outlined consume of Data?(v26, v28);
-LABEL_8:
-  OUTLINED_FUNCTION_8_23();
-  specialized Dictionary.subscript.getter(v29, &v58);
-  if (v59)
+  OUTLINED_FUNCTION_81_12(v70, v71, v72);
+  OUTLINED_FUNCTION_125_6();
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_284_0(v73, v74, v75);
+  outlined destroy of IntentApplication?(v234, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v76 = Trip.status.getter();
+  if (v77)
   {
-    if ((OUTLINED_FUNCTION_3_31() & 1) == 0)
-    {
-LABEL_19:
-
-      goto LABEL_20;
-    }
-
-    v37 = v56;
-    v36 = v57;
-    OUTLINED_FUNCTION_7_23();
-    specialized Dictionary.subscript.getter(v29, &v58);
-    if (v59)
-    {
-      if ((OUTLINED_FUNCTION_3_31() & 1) == 0)
-      {
-LABEL_18:
-
-        goto LABEL_19;
-      }
-
-      v39 = v56;
-      v38 = v57;
-      OUTLINED_FUNCTION_6_16();
-      specialized Dictionary.subscript.getter(v29, &v58);
-
-      if (v59)
-      {
-        if (OUTLINED_FUNCTION_3_31())
-        {
-          v41 = v56;
-          v40 = v57;
-          SearchCATContext.init()(v14);
-          __swift_storeEnumTagSinglePayload(v14, 0, 1, v2);
-          v42 = OUTLINED_FUNCTION_107();
-          outlined assign with take of SearchCATContext?(v42, v43);
-          v44 = OUTLINED_FUNCTION_11_1();
-          if (__swift_getEnumTagSinglePayload(v44, v45, v2))
-          {
-          }
-
-          else
-          {
-            outlined init with copy of SearchCATContext(a1, v8);
-            v48 = *(v8 + v2[5]);
-            *&v58 = v37;
-            *(&v58 + 1) = v36;
-            EntityProperty.wrappedValue.setter();
-            outlined destroy of SearchCATContext(v8);
-          }
-
-          v49 = OUTLINED_FUNCTION_11_1();
-          if (__swift_getEnumTagSinglePayload(v49, v50, v2))
-          {
-          }
-
-          else
-          {
-            outlined init with copy of SearchCATContext(a1, v8);
-            v51 = *(v8 + v2[7]);
-            *&v58 = v41;
-            *(&v58 + 1) = v40;
-            EntityProperty.wrappedValue.setter();
-            outlined destroy of SearchCATContext(v8);
-          }
-
-          v52 = OUTLINED_FUNCTION_11_1();
-          if (!__swift_getEnumTagSinglePayload(v52, v53, v2))
-          {
-            outlined init with copy of SearchCATContext(a1, v8);
-            v54 = *(v8 + v2[6]);
-            *&v58 = v39;
-            *(&v58 + 1) = v38;
-            EntityProperty.wrappedValue.setter();
-            result = outlined destroy of SearchCATContext(v8);
-            goto LABEL_20;
-          }
-
-          goto LABEL_19;
-        }
-
-        goto LABEL_18;
-      }
-    }
+    v78 = MEMORY[0x277D83838];
   }
 
-  result = outlined destroy of IntentApplication?(&v58, &_sypSgMd, &_sypSgMR);
-LABEL_20:
-  v47 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t outlined init with take of SearchCATContext?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B10CATContextVSgMd, &_s10OmniSearch0B10CATContextVSgMR);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t String.asDictionary.getter()
-{
-  v25[4] = *MEMORY[0x277D85DE8];
-  v0 = type metadata accessor for String.Encoding();
-  v1 = OUTLINED_FUNCTION_14(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v1);
-  OUTLINED_FUNCTION_36();
-  v8 = v7 - v6;
-  static String.Encoding.utf8.getter();
-  String.data(using:allowLossyConversion:)();
-  v10 = v9;
-  (*(v3 + 8))(v8, v0);
-  if (v10 >> 60 != 15)
+  else
   {
-    v12 = objc_opt_self();
-    OUTLINED_FUNCTION_107();
-    isa = Data._bridgeToObjectiveC()().super.isa;
-    v25[0] = 0;
-    v14 = [v12 JSONObjectWithData:isa options:0 error:v25];
+    v76 = OUTLINED_FUNCTION_7_24();
+  }
 
-    if (v14)
+  v79 = OUTLINED_FUNCTION_17_22(v76, v77, v78);
+  OUTLINED_FUNCTION_112_10(v79, v80, v81);
+  outlined destroy of IntentApplication?(v234, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v82 = Trip.updateStatus.getter();
+  v231 = v4;
+  v214 = v2;
+  v224 = v5;
+  if (v83)
+  {
+    v84 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v82 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v85 = OUTLINED_FUNCTION_4_29(v82, v83, v84);
+  OUTLINED_FUNCTION_180_4(v85, v86, v87);
+  outlined destroy of IntentApplication?(v234, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_230_2();
+  Trip.startDate.getter();
+  v88 = Appointment.timeIsUnknown.getter();
+  v89 = Trip.startDateTimeZone.getter();
+  v91 = v90;
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  v92 = OUTLINED_FUNCTION_140_4();
+  outlined init with copy of SpotlightRankingItem?(v92, v93, v94, v95);
+  OUTLINED_FUNCTION_50_12(v3);
+  v233 = v24;
+  if (v103)
+  {
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v230, v96);
+    outlined destroy of IntentApplication?(v6, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  }
+
+  else
+  {
+    v212 = v89;
+    v213 = v1;
+    v97 = v24 + 32;
+    v98 = *(v24 + 32);
+    v98(v226, v3, v22);
+    OUTLINED_FUNCTION_63_11();
+    OUTLINED_FUNCTION_220_3();
+    v99 = *(v24 + 16);
+    v99(v222, v226, v22);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v100, v101, v102, v22);
+    outlined init with copy of SpotlightRankingItem?(v222, v215, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_50_12(v215);
+    if (v103)
     {
-      v15 = v25[0];
-      _bridgeAnyObjectToAny(_:)();
-      swift_unknownObjectRelease();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, &_sSDySSypGMR);
-      if (swift_dynamicCast())
-      {
-        v16 = OUTLINED_FUNCTION_107();
-        outlined consume of Data?(v16, v17);
-        v11 = v24;
-        goto LABEL_8;
-      }
+
+      OUTLINED_FUNCTION_47_11();
+      outlined destroy of IntentApplication?(v104, v105, v106);
+      OUTLINED_FUNCTION_47_11();
+      outlined destroy of IntentApplication?(v107, v108, v109);
     }
 
     else
     {
-      v18 = v25[0];
-      v19 = _convertNSErrorToError(_:)();
+      v110 = OUTLINED_FUNCTION_108_6();
+      v98(v110, v215, v22);
+      if (v88)
+      {
 
-      swift_willThrow();
+        OUTLINED_FUNCTION_191_5();
+        OUTLINED_FUNCTION_158_4();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v111, v112, v113, v114, v115, v116, v117, v118, v210, v211, v212, v1, v214, v215, v216, v217, v218, v219, v220, v221);
+      }
+
+      else
+      {
+        v119 = v219;
+        OUTLINED_FUNCTION_158_4();
+        OUTLINED_FUNCTION_228_3();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v120, v121, v122, v123, v91, v124, v125, v126, v210, v211, v212, v1, v214, v215, v216, v217, v218, v219, v220, v221);
+        v91 = v119;
+      }
+
+      v9 = v213;
+      v99(v221 + *(v218 + 24), v223, v22);
+      OUTLINED_FUNCTION_52_13(&v237);
+      v127 = (v221 + *(v218 + 28));
+      *v127 = v91;
+      v127[1] = v97;
+      v235 = MEMORY[0x277D837D0];
+      v236 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v128, v129, MEMORY[0x277CC9420]);
+      OUTLINED_FUNCTION_212_2();
+
+      OUTLINED_FUNCTION_224_3();
+      OUTLINED_FUNCTION_29_5();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v221, v130);
+      OUTLINED_FUNCTION_148_5();
+      v131 = OUTLINED_FUNCTION_30_5();
+      v132(v131);
+      OUTLINED_FUNCTION_270_1();
+      v133(v223, v22);
+      outlined destroy of IntentApplication?(v222, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v234, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
     }
 
-    v11 = Dictionary.init(dictionaryLiteral:)();
-    v20 = OUTLINED_FUNCTION_107();
-    outlined consume of Data?(v20, v21);
-    goto LABEL_8;
+    OUTLINED_FUNCTION_92_7();
+    OUTLINED_FUNCTION_270_1();
+    v134(v226, v22);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v230, v135);
   }
 
-  v11 = Dictionary.init(dictionaryLiteral:)();
-LABEL_8:
-  v22 = *MEMORY[0x277D85DE8];
-  return v11;
-}
-
-uint64_t outlined assign with take of SearchCATContext?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B10CATContextVSgMd, &_s10OmniSearch0B10CATContextVSgMR);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined init with copy of SearchCATContext(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for SearchCATContext();
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined destroy of SearchCATContext(uint64_t a1)
-{
-  v2 = type metadata accessor for SearchCATContext();
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t SearchCATContext.typeDisplayRepresentation.unsafeMutableAddressor()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  v136 = OUTLINED_FUNCTION_140_4();
+  outlined destroy of IntentApplication?(v136, v137, &_s10Foundation4DateVSgMR);
+  Trip.endDate.getter();
+  v138 = Appointment.timeIsUnknown.getter();
+  v139 = Trip.startDateTimeZone.getter();
+  v141 = v140;
+  OUTLINED_FUNCTION_282_0();
+  outlined init with copy of SpotlightRankingItem?(v231, v227, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_50_12(v227);
+  if (v103)
   {
-    OUTLINED_FUNCTION_0_44();
+
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v9, v142);
+    outlined destroy of IntentApplication?(v231, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v143 = v227;
   }
 
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-
-  return __swift_project_value_buffer(v0, static SearchCATContext.typeDisplayRepresentation);
-}
-
-uint64_t static SearchCATContext.typeDisplayRepresentation.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  else
   {
-    OUTLINED_FUNCTION_0_44();
+    v144 = *(v233 + 32);
+    OUTLINED_FUNCTION_53_1();
+    v144();
+    OUTLINED_FUNCTION_64_8();
+    OUTLINED_FUNCTION_124_9();
+    MEMORY[0x25F89F6C0]();
+    v145 = *(v233 + 16);
+    v145(v224, v228, v22);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v146, v147, v148, v22);
+    OUTLINED_FUNCTION_190_5();
+    outlined init with copy of SpotlightRankingItem?(v149, v150, v151, v152);
+    OUTLINED_FUNCTION_50_12(v228);
+    if (v153)
+    {
+
+      OUTLINED_FUNCTION_47_11();
+      outlined destroy of IntentApplication?(v154, v155, v156);
+      OUTLINED_FUNCTION_47_11();
+      outlined destroy of IntentApplication?(v157, v158, v159);
+      v160 = v233;
+    }
+
+    else
+    {
+      (v144)(v225, v228, v22);
+      if (v138)
+      {
+
+        OUTLINED_FUNCTION_69_9();
+        OUTLINED_FUNCTION_191_5();
+        OUTLINED_FUNCTION_158_4();
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v161, v162, v163, v164, v165, v166, v167, v168, v210, v211, v212, v213, v214, v215, v216, v217, v218, v219, v220, v221);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_69_9();
+        OUTLINED_FUNCTION_227_1();
+        OUTLINED_FUNCTION_158_4();
+        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v169, v170, v171, v139, v141, v172, v173, v174, v210, v211, v212, v213, v214, v215, v216, v217, v218, v219, v220, v221);
+        v141 = v233 + 32;
+      }
+
+      OUTLINED_FUNCTION_162_5();
+      v176 = *(v175 - 256);
+      v145(&v176[v224], v225, v22);
+      *v176 = (v138 ^ 1) & 1;
+      v176[1] = 1;
+      v177 = &v176[*(v228 + 28)];
+      *v177 = v141;
+      v177[1] = v138;
+      v235 = MEMORY[0x277D837D0];
+      v236 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v178, v179, MEMORY[0x277CC9420]);
+      OUTLINED_FUNCTION_212_2();
+
+      OUTLINED_FUNCTION_29_5();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v176, v180);
+      v181 = OUTLINED_FUNCTION_107_6();
+      v182(v181);
+      v160 = v233;
+      OUTLINED_FUNCTION_270_1();
+      v183(v225, v22);
+      outlined destroy of IntentApplication?(v224, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v234, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    (*(v160 + 8))(v228, v22);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v232, v184);
+    v143 = v231;
   }
 
-  v2 = type metadata accessor for TypeDisplayRepresentation();
-  v3 = __swift_project_value_buffer(v2, static SearchCATContext.typeDisplayRepresentation);
-  swift_beginAccess();
-  return (*(*(v2 - 8) + 16))(a1, v3, v2);
-}
-
-uint64_t static SearchCATContext.typeDisplayRepresentation.setter(uint64_t a1)
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  outlined destroy of IntentApplication?(v143, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v185 = Trip.durationInSeconds.getter();
+  if (v186)
   {
-    OUTLINED_FUNCTION_0_44();
+    v185 = OUTLINED_FUNCTION_22_16();
+    v234[1] = 0;
+    v234[2] = 0;
   }
 
-  v2 = type metadata accessor for TypeDisplayRepresentation();
-  v3 = __swift_project_value_buffer(v2, static SearchCATContext.typeDisplayRepresentation);
-  swift_beginAccess();
-  v4 = *(v2 - 8);
-  (*(v4 + 24))(v3, a1, v2);
-  swift_endAccess();
-  return (*(v4 + 8))(a1, v2);
-}
-
-uint64_t (*static SearchCATContext.typeDisplayRepresentation.modify())()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  else
   {
-    OUTLINED_FUNCTION_0_44();
+    v187 = MEMORY[0x277D83A60];
   }
 
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  __swift_project_value_buffer(v0, static SearchCATContext.typeDisplayRepresentation);
-  swift_beginAccess();
-  return static FlightSnippet.Status.allCases.modify;
-}
-
-uint64_t key path getter for static SearchCATContext.typeDisplayRepresentation : SearchCATContext.Type@<X0>(uint64_t a1@<X8>)
-{
-  v2 = SearchCATContext.typeDisplayRepresentation.unsafeMutableAddressor();
-  swift_beginAccess();
-  v3 = type metadata accessor for TypeDisplayRepresentation();
-  return (*(*(v3 - 8) + 16))(a1, v2, v3);
-}
-
-uint64_t key path setter for static SearchCATContext.typeDisplayRepresentation : SearchCATContext.Type(uint64_t a1)
-{
-  v2 = SearchCATContext.typeDisplayRepresentation.unsafeMutableAddressor();
-  swift_beginAccess();
-  v3 = type metadata accessor for TypeDisplayRepresentation();
-  (*(*(v3 - 8) + 24))(v2, a1, v3);
-  return swift_endAccess();
-}
-
-uint64_t SearchCATContext.displayRepresentation.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = type metadata accessor for DisplayRepresentation();
-  v4 = OUTLINED_FUNCTION_17(v3);
-  v6 = *(v5 + 16);
-
-  return v6(a1, v1, v4);
-}
-
-uint64_t SearchCATContext.deviceClass.getter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_17_9(v0);
-  EntityProperty.wrappedValue.getter();
-  return v2;
-}
-
-uint64_t (*SearchCATContext.deviceClass.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_10_21(v2);
-  OUTLINED_FUNCTION_17_9(v3);
-  *(v0 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.encodedMemoryCreationQUPerformanceMetrics.modify;
-}
-
-uint64_t SearchCATContext.$deviceClass.getter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_17_9(v0);
-  return EntityProperty.projectedValue.getter();
-}
-
-uint64_t (*SearchCATContext.interfaceIdiom.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_10_21(v2);
-  OUTLINED_FUNCTION_11_9(v3);
-  *(v0 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATContext.$interfaceIdiom.getter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_11_9(v0);
-  return EntityProperty.projectedValue.getter();
-}
-
-uint64_t SearchCATContext.interactionMode.getter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_10_9(v0);
-  EntityProperty.wrappedValue.getter();
-  return v2;
-}
-
-uint64_t key path setter for SearchCATContext.deviceClass : SearchCATContext(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
-{
-  v6 = *a1;
-  v7 = a1[1];
-
-  return a5(v6, v7);
-}
-
-uint64_t (*SearchCATContext.interactionMode.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_10_21(v2);
-  OUTLINED_FUNCTION_10_9(v3);
-  *(v0 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATContext.$interactionMode.getter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_10_9(v0);
-  return EntityProperty.projectedValue.getter();
-}
-
-uint64_t SearchCATContext.deviceIsLocked.getter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_216_2(v0);
-  EntityProperty.wrappedValue.getter();
-  return v2;
-}
-
-uint64_t (*SearchCATContext.deviceIsLocked.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_10_21(v2);
-  OUTLINED_FUNCTION_216_2(v3);
-  *(v0 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATContext.$deviceIsLocked.getter()
-{
-  v0 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_216_2(v0);
-  return EntityProperty.projectedValue.getter();
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance SearchCATContext(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type SearchCATContext and conformance SearchCATContext(&lazy protocol witness table cache variable for type SearchCATContext and conformance SearchCATContext, type metadata accessor for SearchCATContext);
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance SearchCATContext()
-{
-  lazy protocol witness table accessor for type SearchCATContext and conformance SearchCATContext(&lazy protocol witness table cache variable for type SearchCATContext and conformance SearchCATContext, type metadata accessor for SearchCATContext);
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static TypeDisplayRepresentable.typeDisplayRepresentation.getter in conformance SearchCATContext@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  OUTLINED_FUNCTION_237_3(v185, v187);
+  OUTLINED_FUNCTION_40_16();
+  OUTLINED_FUNCTION_197_5(21, v188, v189);
+  outlined destroy of IntentApplication?(v234, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_260_2();
+  Trip.eventUrl.getter();
+  type metadata accessor for URL();
+  v190 = OUTLINED_FUNCTION_176_5();
+  OUTLINED_FUNCTION_9_5(v190);
+  if (v103)
   {
-    swift_once();
+    outlined destroy of IntentApplication?(v229, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    OUTLINED_FUNCTION_78_12();
   }
 
-  v2 = type metadata accessor for TypeDisplayRepresentation();
-  v3 = __swift_project_value_buffer(v2, static SearchCATContext.typeDisplayRepresentation);
-  swift_beginAccess();
-  return (*(*(v2 - 8) + 16))(a1, v3, v2);
+  else
+  {
+    v191 = URL.absoluteString.getter();
+    v235 = MEMORY[0x277D837D0];
+    OUTLINED_FUNCTION_252_3(v191, v192, MEMORY[0x277D83838]);
+    OUTLINED_FUNCTION_51();
+    v193 = OUTLINED_FUNCTION_52_1();
+    v194(v193);
+  }
+
+  OUTLINED_FUNCTION_125_6();
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v195, v196, v197, 0);
+  outlined destroy of IntentApplication?(v234, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v198 = Appointment.eventSourceLLMConsumableDescription.getter();
+  if (v199)
+  {
+    v200 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v198 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v201 = OUTLINED_FUNCTION_16_20(v198, v199, v200);
+  OUTLINED_FUNCTION_112_10(v201, v202, v203);
+  outlined destroy of IntentApplication?(v234, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v205;
+  result._countAndFlagsBits = v204;
+  return result;
 }
 
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance SearchCATContext(uint64_t a1)
+Swift::String __swiftcall CalendarEvent.llmConsumableDescription(locale:)(Swift::String_optional locale)
 {
-  v2 = lazy protocol witness table accessor for type SearchCATContext and conformance SearchCATContext(&lazy protocol witness table cache variable for type SearchCATContext and conformance SearchCATContext, type metadata accessor for SearchCATContext);
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for InstanceDisplayRepresentable.displayRepresentation.getter in conformance SearchCATContext@<X0>(uint64_t a1@<X8>)
-{
-  v3 = type metadata accessor for DisplayRepresentation();
-  v4 = *(*(v3 - 8) + 16);
-
-  return v4(a1, v1, v3);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance SearchCATContext(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type SearchCATContext and conformance SearchCATContext(&lazy protocol witness table cache variable for type SearchCATContext and conformance SearchCATContext, type metadata accessor for SearchCATContext);
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t SearchCATContext.dictionaryDescription.getter()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
+  OUTLINED_FUNCTION_155();
+  v161 = v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
+  OUTLINED_FUNCTION_114(v7);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_49_3();
+  v10 = OUTLINED_FUNCTION_28_2(v9);
+  v11 = type metadata accessor for EditorialDateFormatter.DateInput(v10);
+  v12 = OUTLINED_FUNCTION_27_14(v11, v176);
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v13);
+  v165 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v162 = v14;
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v16);
+  v17 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v19 = v18;
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_7_4();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_7_4();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v23);
+  OUTLINED_FUNCTION_14_2();
+  v25 = OUTLINED_FUNCTION_28_2(v24);
+  v26 = type metadata accessor for EditorialDateFormatter(v25);
+  v27 = OUTLINED_FUNCTION_114(v26);
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v28);
+  OUTLINED_FUNCTION_14_2();
+  v172 = v29;
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v31 = OUTLINED_FUNCTION_114(v30);
+  MEMORY[0x28223BE20](v31);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v32);
+  OUTLINED_FUNCTION_73_8();
+  MEMORY[0x28223BE20](v33);
+  OUTLINED_FUNCTION_62_10();
+  MEMORY[0x28223BE20](v34);
+  OUTLINED_FUNCTION_7_4();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v35);
+  OUTLINED_FUNCTION_49_15();
+  MEMORY[0x28223BE20](v36);
+  OUTLINED_FUNCTION_7_4();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v37);
+  OUTLINED_FUNCTION_191_1();
+  MEMORY[0x28223BE20](v38);
+  OUTLINED_FUNCTION_156_4();
+  *&v173 = 0;
+  *(&v173 + 1) = 0xE000000000000000;
+  MEMORY[0x25F89F5D0](103);
+  v177 = v173;
+  OUTLINED_FUNCTION_98_2();
+  v39 = OUTLINED_FUNCTION_153_2();
+  MEMORY[0x25F89F6C0](v39);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
   inited = swift_initStackObject();
-  *(inited + 16) = xmmword_25DBC8930;
-  *(inited + 32) = 0x6C43656369766564;
-  *(inited + 40) = 0xEB00000000737361;
-  v3 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_17_9(v3);
-  EntityProperty.wrappedValue.getter();
-  v4 = v15;
-  v5 = v16;
-  v6 = MEMORY[0x277D837D0];
-  if (!v16)
+  *(inited + 16) = xmmword_25DBC9D00;
+  v41 = WalletPass.title.getter();
+  if (v42)
   {
-    v4 = 0;
+    v43 = MEMORY[0x277D83838];
+    v44 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v41 = OUTLINED_FUNCTION_22_16();
+    *(inited + 48) = 0;
+  }
+
+  *(inited + 32) = v41;
+  *(inited + 40) = v42;
+  *(inited + 56) = v44;
+  *(inited + 64) = v43;
+  v45 = WalletPass.description.getter();
+  if (v46)
+  {
+    v47 = MEMORY[0x277D83838];
+    v48 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v45 = OUTLINED_FUNCTION_22_16();
+    *(inited + 88) = 0;
+  }
+
+  *(inited + 72) = v45;
+  *(inited + 80) = v46;
+  *(inited + 96) = v48;
+  *(inited + 104) = v47;
+  v49._countAndFlagsBits = 0;
+  v49._object = 0xE000000000000000;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:ifAll:)(v49, inited);
+  swift_setDeallocating();
+  specialized _ContiguousArrayStorage.__deallocating_deinit();
+  OUTLINED_FUNCTION_115_7();
+  v50 = CalendarEvent.locationName.getter();
+  if (v51)
+  {
+    v52 = MEMORY[0x277D83838];
+    v53 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v50 = OUTLINED_FUNCTION_22_16();
+    *&v174 = 0;
+  }
+
+  *&v173 = v50;
+  *(&v173 + 1) = v51;
+  *(&v174 + 1) = v53;
+  v175 = v52;
+  OUTLINED_FUNCTION_180_4(0xD000000000000015, 0x800000025DBF3FE0, &v173);
+  outlined destroy of IntentApplication?(&v173, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  CalendarEvent.startDate.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v5, v3, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_50_12(v3);
+  v156 = v2;
+  if (v63)
+  {
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v172, v54);
+    outlined destroy of IntentApplication?(v5, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v5 = v3;
+    v55 = v19;
+  }
+
+  else
+  {
+    v153 = v1;
+    v56 = v19 + 32;
+    v57 = *(v19 + 32);
+    v58 = OUTLINED_FUNCTION_212();
+    (v57)(v58);
+    OUTLINED_FUNCTION_149_6();
+    MEMORY[0x25F89F6C0]();
+    v59 = *(v19 + 16);
+    v59();
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v60, v61, v62, v17);
+    outlined init with copy of SpotlightRankingItem?(v166, v4, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_50_12(v4);
+    if (v63)
+    {
+      OUTLINED_FUNCTION_33_13();
+      outlined destroy of IntentApplication?(v64, v65, v66);
+      OUTLINED_FUNCTION_33_13();
+      outlined destroy of IntentApplication?(v67, v68, v69);
+      v55 = v19;
+    }
+
+    else
+    {
+      v149 = v19;
+      v70 = v17;
+      v71 = v154;
+      v57();
+      OUTLINED_FUNCTION_199_5();
+      OUTLINED_FUNCTION_68_10();
+      static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v72, v73, v74, 0, 0, v75, v76, v77, v148, v149, v1, v154, v155, v2, v157, v159, v161, v162, v163, v165);
+      v78 = v71;
+      v17 = v70;
+      (v59)(v163 + *(v157 + 24), v78, v70);
+      *v163 = 257;
+      v79 = (v163 + *(v157 + 28));
+      *v79 = v56;
+      v79[1] = v57;
+      *(&v174 + 1) = MEMORY[0x277D837D0];
+      v175 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v80, v81, MEMORY[0x277CC9420]);
+
+      OUTLINED_FUNCTION_191_5();
+      Date.formatted<A>(_:)();
+      LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v163, v82);
+      OUTLINED_FUNCTION_148_5();
+      v83 = OUTLINED_FUNCTION_212();
+      v84(v83);
+      v55 = v150;
+      OUTLINED_FUNCTION_184_3();
+      v85(v154, v70);
+      outlined destroy of IntentApplication?(v166, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(&v173, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    v1 = v153;
+    OUTLINED_FUNCTION_92_7();
+    OUTLINED_FUNCTION_184_3();
+    v86(v167, v17);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v172, v87);
+  }
+
+  v88 = v171;
+  outlined destroy of IntentApplication?(v5, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_115_7();
+  OUTLINED_FUNCTION_198_3();
+  CalendarEvent.endDate.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  v89 = OUTLINED_FUNCTION_181_4();
+  outlined init with copy of SpotlightRankingItem?(v89, v90, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_50_12(v1);
+  if (v63)
+  {
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v171, v91);
+    outlined destroy of IntentApplication?(v5, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v5 = v1;
+  }
+
+  else
+  {
+    v92 = v55 + 32;
+    v93 = *(v55 + 32);
+    v94 = OUTLINED_FUNCTION_52_1();
+    (v93)(v94);
+    MEMORY[0x25F89F6C0](0x2073646E65207449, 0xEB00000000207461);
+    v95 = *(v55 + 16);
+    v96 = v156;
+    v97 = OUTLINED_FUNCTION_34_11();
+    v95(v97);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v98, v99, v100, v17);
+    OUTLINED_FUNCTION_251_1();
+    outlined init with copy of SpotlightRankingItem?(v101, v102, v103, v104);
+    OUTLINED_FUNCTION_50_12(v17);
+    if (v105)
+    {
+      OUTLINED_FUNCTION_33_13();
+      outlined destroy of IntentApplication?(v106, v107, v108);
+      OUTLINED_FUNCTION_33_13();
+    }
+
+    else
+    {
+      v151 = v55;
+      v109 = v159;
+      v93();
+      v110 = OUTLINED_FUNCTION_199_5();
+      v112 = *(v111 - 256);
+      OUTLINED_FUNCTION_113_9(v110, v112, v113, v114, v115, v116, v117, v118, v148, v151, v153, v154, v155, v156, v157, v159, v161, v162, v163, v165);
+      v119 = v109;
+      v55 = v152;
+      (v95)(v164 + *(v158 + 24), v119, v17);
+      *v164 = 257;
+      v5 = v170;
+      v120 = (v164 + *(v158 + 28));
+      *v120 = v92;
+      v120[1] = v112;
+      *(&v174 + 1) = MEMORY[0x277D837D0];
+      v175 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v121, v122, MEMORY[0x277CC9420]);
+      v88 = v171;
+
+      OUTLINED_FUNCTION_224_3();
+      Date.formatted<A>(_:)();
+      LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v164, v123);
+      OUTLINED_FUNCTION_4_4();
+      v124 = OUTLINED_FUNCTION_30_5();
+      v125(v124);
+      OUTLINED_FUNCTION_184_3();
+      v126(v160, v17);
+      outlined destroy of IntentApplication?(v96, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v127 = &_ss23CustomStringConvertible_pSgMd;
+      v128 = &_ss23CustomStringConvertible_pSgMR;
+      v129 = &v173;
+    }
+
+    outlined destroy of IntentApplication?(v129, v127, v128);
+    OUTLINED_FUNCTION_92_7();
+    (*(v55 + 8))(v168, v17);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v88, v130);
+  }
+
+  outlined destroy of IntentApplication?(v5, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_115_7();
+  v131 = CalendarEvent.organizerNames.getter();
+  v132._countAndFlagsBits = 0x6572632073277449;
+  v132._object = 0xEF79622064657461;
+  v178.value._rawValue = v131;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v132, v178);
+
+  OUTLINED_FUNCTION_48_9();
+  v133 = CalendarEvent.participantNames.getter();
+  v134._countAndFlagsBits = 0x6E65697069636552;
+  v134._object = 0xEE00657261207374;
+  v179.value._rawValue = v133;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v134, v179);
+
+  OUTLINED_FUNCTION_48_9();
+  v135 = CalendarEvent.notes.getter();
+  if (v136)
+  {
+    v137 = MEMORY[0x277D83838];
+    v138 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v135 = OUTLINED_FUNCTION_22_16();
+    *&v174 = 0;
+  }
+
+  *&v173 = v135;
+  *(&v173 + 1) = v136;
+  *(&v174 + 1) = v138;
+  v175 = v137;
+  OUTLINED_FUNCTION_149_6();
+  OUTLINED_FUNCTION_180_4(v139, v140, &v173);
+  outlined destroy of IntentApplication?(&v173, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  CalendarEvent.dataDetectorResults.getter();
+  v141 = type metadata accessor for DataDetectorResults();
+  OUTLINED_FUNCTION_71_10(v169);
+  if (v63)
+  {
+    outlined destroy of IntentApplication?(v169, &_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
+    v173 = 0u;
+    v174 = 0u;
+    v175 = 0;
+  }
+
+  else
+  {
+    v142 = DataDetectorResults.description.getter();
+    *(&v174 + 1) = MEMORY[0x277D837D0];
+    v175 = MEMORY[0x277D83838];
+    *&v173 = v142;
+    *(&v173 + 1) = v143;
+    OUTLINED_FUNCTION_51();
+    (*(v144 + 8))(v169, v141);
+  }
+
+  OUTLINED_FUNCTION_180_4(0xD000000000000017, 0x800000025DBF3AF0, &v173);
+  outlined destroy of IntentApplication?(&v173, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v146;
+  result._countAndFlagsBits = v145;
+  return result;
+}
+
+Swift::String __swiftcall MobileSMSDocument.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v2 = v1;
+  v4 = v3;
+  v61 = type metadata accessor for MobileSMSDocument();
+  OUTLINED_FUNCTION_14();
+  v6 = v5;
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_2_3();
+  v60 = v8;
+  v9 = *(MobileSMSDocument.chatMessages.getter() + 16);
+
+  if (v9)
+  {
+    v10 = MobileSMSDocument.chatMessages.getter();
+    v11 = *(v10 + 16);
+    v62 = v4;
+    v63 = v2;
+    if (v11)
+    {
+      v64 = MEMORY[0x277D84F90];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
+      v12 = v64;
+      v14 = *(v6 + 16);
+      v13 = v6 + 16;
+      v59 = v14;
+      v15 = v10 + ((*(v13 + 64) + 32) & ~*(v13 + 64));
+      v58 = *(v13 + 56);
+      v16 = (v13 - 8);
+      do
+      {
+        OUTLINED_FUNCTION_183_3();
+        v59();
+        v17.value._countAndFlagsBits = OUTLINED_FUNCTION_116_1();
+        v18 = MobileSMSDocument.llmConsumableDescription(locale:)(v17);
+        (*v16)(v60, v61);
+        v64 = v12;
+        v20 = *(v12 + 16);
+        v19 = *(v12 + 24);
+        if (v20 >= v19 >> 1)
+        {
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1);
+          v12 = v64;
+        }
+
+        *(v12 + 16) = v20 + 1;
+        *(v12 + 16 * v20 + 32) = v18;
+        v15 += v58;
+        --v11;
+      }
+
+      while (v11);
+      OUTLINED_FUNCTION_63_1();
+    }
+
+    else
+    {
+
+      v12 = MEMORY[0x277D84F90];
+    }
+
+    v25 = 0;
+    v26 = *(v12 + 16);
+    v27 = MEMORY[0x277D84F90];
+LABEL_11:
+    v28 = (v12 + 40 + 16 * v25);
+    while (v26 != v25)
+    {
+      if (v25 >= *(v12 + 16))
+      {
+        __break(1u);
+        goto LABEL_33;
+      }
+
+      ++v25;
+      v30 = *(v28 - 1);
+      v29 = *v28;
+      v28 += 2;
+      v31 = HIBYTE(v29) & 0xF;
+      if ((v29 & 0x2000000000000000) == 0)
+      {
+        v31 = v30 & 0xFFFFFFFFFFFFLL;
+      }
+
+      if (v31)
+      {
+
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+        v64 = v27;
+        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        {
+          isUniquelyReferenced_nonNull_native = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v27 + 16) + 1, 1);
+          v27 = v64;
+        }
+
+        v33 = *(v27 + 16);
+        v32 = *(v27 + 24);
+        if (v33 >= v32 >> 1)
+        {
+          isUniquelyReferenced_nonNull_native = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
+          v27 = v64;
+        }
+
+        *(v27 + 16) = v33 + 1;
+        v34 = v27 + 16 * v33;
+        *(v34 + 32) = v30;
+        *(v34 + 40) = v29;
+        goto LABEL_11;
+      }
+    }
+
+    v64 = 0;
+    v65 = 0xE000000000000000;
+    MEMORY[0x25F89F5D0](25);
+    OUTLINED_FUNCTION_119_4();
+    MEMORY[0x25F89F6C0](0x67617373656D2041, 0xEF20746168632065);
+    v35 = MobileSMSDocument.displayChatName.getter();
+    v66 = MEMORY[0x277D837D0];
+    v67 = MEMORY[0x277D83838];
+    v64 = v35;
+    v65 = v36;
+    OUTLINED_FUNCTION_178_5();
+    outlined destroy of IntentApplication?(&v64, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    OUTLINED_FUNCTION_192_5();
+    v38 = v37;
+    v40 = v39;
+
+    v64 = 0;
+    v65 = 0xE000000000000000;
+    MEMORY[0x25F89F5D0](10);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
+    inited = swift_initStackObject();
+    *(inited + 16) = xmmword_25DBC8180;
+    *(inited + 32) = MobileSMSDocument.messageDocumentTemplate(locale:)(v62, v63);
+    *(inited + 40) = v42;
+    v43 = MEMORY[0x277D84F90];
+    v45 = *(inited + 32);
+    v44._rawValue = *(inited + 40);
+    v46 = (v44._rawValue >> 56) & 0xF;
+    if ((v44._rawValue & 0x2000000000000000) == 0)
+    {
+      v46 = v45 & 0xFFFFFFFFFFFFLL;
+    }
+
+    if (v46)
+    {
+
+      v47 = swift_isUniquelyReferenced_nonNull_native();
+      v68 = v43;
+      if ((v47 & 1) == 0)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v43 + 16) + 1, 1);
+        v43 = v68;
+      }
+
+      v49 = *(v43 + 16);
+      v48 = *(v43 + 24);
+      if (v49 >= v48 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v48 > 1), v49 + 1, 1);
+        v43 = v68;
+      }
+
+      *(v43 + 16) = v49 + 1;
+      v50 = (v43 + 16 * v49);
+      v50[4]._rawValue = v45;
+      v50[5]._rawValue = v44._rawValue;
+    }
+
+    swift_setDeallocating();
+    specialized _ContiguousArrayStorage.__deallocating_deinit();
+    specialized _arrayForceCast<A, B>(_:)(v43);
+    OUTLINED_FUNCTION_211_3();
+
+    v51._countAndFlagsBits = 58;
+    v51._object = 0xE100000000000000;
+    LLMFormatter.StringInterpolation.appendInterpolation(_:startNewLinesIf:)(v51, v44);
+
+    LLMFormatter.sanitized.getter();
+    OUTLINED_FUNCTION_114_7();
+
+    v64 = v38;
+    v65 = v40;
+
+    v52 = OUTLINED_FUNCTION_34_11();
+    MEMORY[0x25F89F6C0](v52);
+
+    v54 = v64;
+    v53 = v65;
+    v64 = 0;
+    v65 = 0xE000000000000000;
+    MEMORY[0x25F89F5D0](10);
+    specialized _arrayForceCast<A, B>(_:)(v27);
+    OUTLINED_FUNCTION_240_2();
+
+    v55._countAndFlagsBits = 58;
+    v55._object = 0xE100000000000000;
+    LLMFormatter.StringInterpolation.appendInterpolation(_:startNewLinesIf:)(v55, v44);
+
+    LLMFormatter.sanitized.getter();
+    OUTLINED_FUNCTION_114_7();
+
+    v64 = v54;
+    v65 = v53;
+
+    v56 = OUTLINED_FUNCTION_34_11();
+    MEMORY[0x25F89F6C0](v56);
+  }
+
+  else
+  {
+    v23 = OUTLINED_FUNCTION_116_1();
+    MobileSMSDocument.messageDocumentTemplate(locale:)(v23, v24);
+  }
+
+  OUTLINED_FUNCTION_148();
+LABEL_33:
+  result._object = v22;
+  result._countAndFlagsBits = isUniquelyReferenced_nonNull_native;
+  return result;
+}
+
+uint64_t MobileSMSDocument.displayChatName.getter()
+{
+  v0 = MobileSMSDocument.chatName.getter();
+  if (v1)
+  {
+    return v0;
+  }
+
+  v3 = *(MobileSMSDocument.chatParticipants.getter() + 16);
+
+  v4 = v3 - 1;
+  v5 = 0xE500000000000000;
+  v6 = 0x676E6F6D61;
+  if (!v3)
+  {
+    v6 = 0;
     v5 = 0xE000000000000000;
   }
 
-  *(inited + 48) = v4;
-  *(inited + 56) = v5;
-  *(inited + 72) = v6;
-  strcpy((inited + 80), "interfaceIdiom");
-  *(inited + 95) = -18;
-  v7 = *(v0 + v3[6]);
-  EntityProperty.wrappedValue.getter();
-  v8 = v15;
-  v9 = v16;
-  if (!v16)
+  if (v4 >= 2)
   {
-    v8 = 0;
-    v9 = 0xE000000000000000;
+    v7 = v6;
   }
 
-  *(inited + 96) = v8;
-  *(inited + 104) = v9;
-  *(inited + 120) = v6;
-  *(inited + 128) = 0x7463617265746E69;
-  *(inited + 136) = 0xEF65646F4D6E6F69;
-  v10 = *(v1 + v3[7]);
-  EntityProperty.wrappedValue.getter();
-  v11 = v15;
-  v12 = v16;
-  if (!v16)
+  else
   {
-    v11 = 0;
-    v12 = 0xE000000000000000;
+    v7 = 0x6E656577746562;
   }
 
-  *(inited + 144) = v11;
-  *(inited + 152) = v12;
-  *(inited + 168) = v6;
-  strcpy((inited + 176), "deviceIsLocked");
-  *(inited + 191) = -18;
-  v13 = *(v1 + v3[8]);
-  EntityProperty.wrappedValue.getter();
-  *(inited + 216) = MEMORY[0x277D839B0];
-  *(inited + 192) = v15 & 1;
-  return Dictionary.init(dictionaryLiteral:)();
+  if (v4 >= 2)
+  {
+    v8 = v5;
+  }
+
+  else
+  {
+    v8 = 0xE700000000000000;
+  }
+
+  v9 = *(MobileSMSDocument.chatParticipants.getter() + 16);
+
+  v10 = MobileSMSDocument.chatParticipants.getter();
+  v11 = v10;
+  if (v9 == 1)
+  {
+    v15 = v10;
+    specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of MobileSMSDocument.displayChatName.getter);
+    v11 = v15;
+  }
+
+  MEMORY[0x25F89F5D0](10);
+  if (v11[2])
+  {
+    MEMORY[0x25F89F6C0](32, 0xE100000000000000);
+    MEMORY[0x25F89F6C0](v7, v8);
+
+    v16.value._rawValue = v11;
+    v16.is_nil = 3;
+    v12._countAndFlagsBits = 0xE000000000000000;
+    LLMFormatter.StringInterpolation.appendInterpolation(names:countToShow:suffix:)(v16, 0, v12);
+  }
+
+  else
+  {
+  }
+
+  LLMFormatter.sanitized.getter();
+  v2 = v13;
+
+  return v2;
 }
 
-uint64_t SearchCATContext.description.getter()
+uint64_t MobileSMSDocument.messageDocumentTemplate(locale:)(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
-  _StringGuts.grow(_:)(86);
-  MEMORY[0x25F89F6C0](0xD000000000000021, 0x800000025DBF3880);
-  v2 = type metadata accessor for SearchCATContext();
-  v3 = *(v0 + v2[5]);
-  v4 = EntityProperty.wrappedValue.getter();
-  v12 = OUTLINED_FUNCTION_67_5(v4, v5, v6, v7, v8, v9, v10, v11, v41, v44);
-  if (v14)
+  v157 = a1;
+  v153 = type metadata accessor for Photo();
+  v144 = *(v153 - 8);
+  MEMORY[0x28223BE20](v153);
+  v152 = &v138 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_15OmniSearchTypes5PhotoV7elementtSgMd, &_sSi6offset_15OmniSearchTypes5PhotoV7elementtSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v154 = &v138 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v155 = &v138 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes22PreExtractedBreadcrumbVSgMd, &_s15OmniSearchTypes22PreExtractedBreadcrumbVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v151 = &v138 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes22PreExtractedSharedLinkVSgMd, &_s15OmniSearchTypes22PreExtractedSharedLinkVSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v150 = &v138 - v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19PreExtractedContactVSgMd, &_s15OmniSearchTypes19PreExtractedContactVSgMR);
+  MEMORY[0x28223BE20](v12 - 8);
+  v149 = &v138 - v13;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16PreExtractedCardVSgMd, &_s15OmniSearchTypes16PreExtractedCardVSgMR);
+  MEMORY[0x28223BE20](v14 - 8);
+  v148 = &v138 - v15;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes26PartialExtractedAttributesVSgMd, &_s15OmniSearchTypes26PartialExtractedAttributesVSgMR);
+  MEMORY[0x28223BE20](v16 - 8);
+  v147 = &v138 - v17;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
+  MEMORY[0x28223BE20](v18 - 8);
+  v146 = &v138 - v19;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v20 - 8);
+  v145 = &v138 - v21;
+  v140 = type metadata accessor for EditorialDateFormatter.DateInput(0);
+  MEMORY[0x28223BE20](v140);
+  v141 = (&v138 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v143 = type metadata accessor for Date.FormatStyle();
+  v142 = *(v143 - 8);
+  MEMORY[0x28223BE20](v143);
+  v139 = &v138 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = type metadata accessor for Date();
+  v25 = *(v24 - 8);
+  MEMORY[0x28223BE20](v24);
+  v27 = &v138 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = type metadata accessor for EditorialDateFormatter(0);
+  MEMORY[0x28223BE20](v28 - 8);
+  v30 = &v138 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  MEMORY[0x28223BE20](v31 - 8);
+  v33 = &v138 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = MEMORY[0x28223BE20](v34);
+  v37 = &v138 - v36;
+  *&v161 = 0;
+  *(&v161 + 1) = 0xE000000000000000;
+  MEMORY[0x25F89F5D0](107, v35);
+  v164 = v161;
+  MobileSMSDocument.date.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v37, v33, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v33, 1, v24);
+  v39 = a2;
+  v156 = a2;
+  v40 = v157;
+  if (EnumTagSinglePayload == 1)
   {
-    v15 = 0xE000000000000000;
+    outlined destroy of EditorialDateFormatter(v30, type metadata accessor for EditorialDateFormatter);
+    outlined destroy of IntentApplication?(v37, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v41 = v33;
+    v42 = &_s10Foundation4DateVSgMd;
+    v43 = &_s10Foundation4DateVSgMR;
   }
 
   else
   {
-    v15 = v13;
+    v44 = v25;
+    v45 = *(v25 + 32);
+    v138 = v30;
+    v46 = v27;
+    v45(v27, v33, v24);
+    v47 = v139;
+    static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v40, v39, 1, 0, 0, v48, v49, v50, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149);
+    v51 = v140;
+    v52 = *(v25 + 16);
+    v53 = v141;
+    v52(v141 + *(v140 + 24), v46, v24);
+    *v53 = 257;
+    v54 = (v53 + *(v51 + 28));
+    *v54 = v40;
+    v54[1] = v39;
+    *(&v162 + 1) = MEMORY[0x277D837D0];
+    v163 = MEMORY[0x277D83838];
+    _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(&lazy protocol witness table cache variable for type Date.FormatStyle and conformance Date.FormatStyle, MEMORY[0x277CC9428], MEMORY[0x277CC9420]);
+
+    v55 = v143;
+    Date.formatted<A>(_:)();
+    LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+    outlined destroy of EditorialDateFormatter(v53, type metadata accessor for EditorialDateFormatter.DateInput);
+    (*(v142 + 8))(v47, v55);
+    (*(v44 + 8))(v46, v24);
+    outlined destroy of EditorialDateFormatter(v138, type metadata accessor for EditorialDateFormatter);
+    outlined destroy of IntentApplication?(v37, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v42 = &_ss23CustomStringConvertible_pSgMd;
+    v43 = &_ss23CustomStringConvertible_pSgMR;
+    v41 = &v161;
   }
 
-  MEMORY[0x25F89F6C0](v12, v15);
-
-  MEMORY[0x25F89F6C0](0xD000000000000016, 0x800000025DBF38B0);
-  v16 = *(v1 + v2[6]);
-  v17 = EntityProperty.wrappedValue.getter();
-  v25 = OUTLINED_FUNCTION_67_5(v17, v18, v19, v20, v21, v22, v23, v24, v42, v45);
-  if (v14)
+  outlined destroy of IntentApplication?(v41, v42, v43);
+  v56 = EmailDocument.authorNames.getter();
+  v57 = MobileSMSDocument.isFromMe.getter();
+  v59 = v150;
+  v58 = v151;
+  v60 = v145;
+  if (*(v56 + 16))
   {
-    v27 = 0xE000000000000000;
+    v61 = v57;
+    MEMORY[0x25F89F6C0](2105388, 0xE300000000000000);
+    v165.value._rawValue = static LLMFormatter.formatMessageSenderNames(names:isFromMe:)(v56, v61 & 1);
+    v165.is_nil = 3;
+    v62._countAndFlagsBits = 0xE000000000000000;
+    LLMFormatter.StringInterpolation.appendInterpolation(names:countToShow:suffix:)(v165, 0, v62);
+  }
+
+  v63 = NoteDocument.folderName.getter();
+  v65 = v156;
+  if (v64)
+  {
+    v66 = MEMORY[0x277D83838];
+    v67 = MEMORY[0x277D837D0];
   }
 
   else
   {
-    v27 = v26;
+    v63 = 0;
+    v67 = 0;
+    v66 = 0;
+    *&v162 = 0;
   }
 
-  MEMORY[0x25F89F6C0](v25, v27);
-
-  MEMORY[0x25F89F6C0](0xD000000000000017, 0x800000025DBF38D0);
-  v28 = *(v1 + v2[7]);
-  v29 = EntityProperty.wrappedValue.getter();
-  v37 = OUTLINED_FUNCTION_67_5(v29, v30, v31, v32, v33, v34, v35, v36, v43, v46);
-  if (v14)
+  v68 = v146;
+  *&v161 = v63;
+  *(&v161 + 1) = v64;
+  *(&v162 + 1) = v67;
+  v163 = v66;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(58, 0xE100000000000000, &v161, 0);
+  outlined destroy of IntentApplication?(&v161, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](32, 0xE100000000000000);
+  MobileSMSDocument.contentURL.getter();
+  v69 = type metadata accessor for URL();
+  if (__swift_getEnumTagSinglePayload(v60, 1, v69) == 1)
   {
-    v39 = 0xE000000000000000;
+    outlined destroy of IntentApplication?(v60, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v161 = 0u;
+    v162 = 0u;
+    v163 = 0;
   }
 
   else
   {
-    v39 = v38;
+    *(&v162 + 1) = v69;
+    v163 = _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    boxed_opaque_existential_1Tm = __swift_allocate_boxed_opaque_existential_1Tm(&v161);
+    (*(*(v69 - 8) + 32))(boxed_opaque_existential_1Tm, v60, v69);
   }
 
-  MEMORY[0x25F89F6C0](v37, v39);
-
-  MEMORY[0x25F89F6C0](32010, 0xE200000000000000);
-  return 0;
-}
-
-void type metadata completion function for SearchCATContext()
-{
-  type metadata accessor for DisplayRepresentation();
-  if (v0 <= 0x3F)
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0x55746E65746E6F43, 0xEB000000003A4C52, &v161, 0);
+  outlined destroy of IntentApplication?(&v161, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](32, 0xE100000000000000);
+  MobileSMSDocument.dataDetectorResults.getter();
+  v71 = type metadata accessor for DataDetectorResults();
+  if (__swift_getEnumTagSinglePayload(v68, 1, v71) == 1)
   {
-    type metadata accessor for EntityProperty<String?>();
-    if (v1 <= 0x3F)
+    outlined destroy of IntentApplication?(v68, &_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
+    v161 = 0u;
+    v162 = 0u;
+    v163 = 0;
+  }
+
+  else
+  {
+    v72 = DataDetectorResults.description.getter();
+    *(&v162 + 1) = MEMORY[0x277D837D0];
+    v163 = MEMORY[0x277D83838];
+    *&v161 = v72;
+    *(&v161 + 1) = v73;
+    (*(*(v71 - 8) + 8))(v68, v71);
+  }
+
+  v74 = v157;
+  v75 = v155;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0xD000000000000016, 0x800000025DBF44C0, &v161, 0);
+  outlined destroy of IntentApplication?(&v161, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](32, 0xE100000000000000);
+  v76 = v147;
+  MobileSMSDocument.partialExtractedAttributes.getter();
+  v77 = type metadata accessor for PartialExtractedAttributes();
+  if (__swift_getEnumTagSinglePayload(v76, 1, v77) == 1)
+  {
+    outlined destroy of IntentApplication?(v76, &_s15OmniSearchTypes26PartialExtractedAttributesVSgMd, &_s15OmniSearchTypes26PartialExtractedAttributesVSgMR);
+    v78 = 0;
+    v79 = 0;
+    v80 = 0;
+    v81 = 0;
+    *&v162 = 0;
+  }
+
+  else
+  {
+    specialized PartialExtractedAttributesSearchItem.llmConsumableDescription(locale:)();
+    v82 = v76;
+    v78 = v83;
+    v79 = v84;
+    (*(*(v77 - 8) + 8))(v82, v77);
+    v81 = MEMORY[0x277D83838];
+    v80 = MEMORY[0x277D837D0];
+  }
+
+  *&v161 = v78;
+  *(&v161 + 1) = v79;
+  *(&v162 + 1) = v80;
+  v163 = v81;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0, 0xE000000000000000, &v161, 0);
+  outlined destroy of IntentApplication?(&v161, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](32, 0xE100000000000000);
+  v85 = v148;
+  MobileSMSDocument.preExtractedCard.getter();
+  v86 = type metadata accessor for PreExtractedCard();
+  if (__swift_getEnumTagSinglePayload(v85, 1, v86) == 1)
+  {
+    outlined destroy of IntentApplication?(v85, &_s15OmniSearchTypes16PreExtractedCardVSgMd, &_s15OmniSearchTypes16PreExtractedCardVSgMR);
+    countAndFlagsBits = 0;
+    object = 0;
+    v89 = 0;
+    v90 = 0;
+    *&v162 = 0;
+  }
+
+  else
+  {
+    v91.value._countAndFlagsBits = v74;
+    v91.value._object = v65;
+    v92 = PreExtractedCard.llmConsumableDescription(locale:)(v91);
+    v93 = v85;
+    countAndFlagsBits = v92._countAndFlagsBits;
+    object = v92._object;
+    (*(*(v86 - 8) + 8))(v93, v86);
+    v90 = MEMORY[0x277D83838];
+    v89 = MEMORY[0x277D837D0];
+  }
+
+  *&v161 = countAndFlagsBits;
+  *(&v161 + 1) = object;
+  *(&v162 + 1) = v89;
+  v163 = v90;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0, 0xE000000000000000, &v161, 0);
+  outlined destroy of IntentApplication?(&v161, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](32, 0xE100000000000000);
+  v94 = v149;
+  MobileSMSDocument.preExtractedContact.getter();
+  v95 = type metadata accessor for PreExtractedContact();
+  if (__swift_getEnumTagSinglePayload(v94, 1, v95) == 1)
+  {
+    outlined destroy of IntentApplication?(v94, &_s15OmniSearchTypes19PreExtractedContactVSgMd, &_s15OmniSearchTypes19PreExtractedContactVSgMR);
+    v96 = 0;
+    v97 = 0;
+    v98 = 0;
+    v99 = 0;
+    *&v162 = 0;
+  }
+
+  else
+  {
+    v100.value._countAndFlagsBits = v74;
+    v100.value._object = v65;
+    v101 = PreExtractedContact.llmConsumableDescription(locale:)(v100);
+    v102 = v94;
+    v96 = v101._countAndFlagsBits;
+    v97 = v101._object;
+    (*(*(v95 - 8) + 8))(v102, v95);
+    v99 = MEMORY[0x277D83838];
+    v98 = MEMORY[0x277D837D0];
+  }
+
+  *&v161 = v96;
+  *(&v161 + 1) = v97;
+  *(&v162 + 1) = v98;
+  v163 = v99;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0, 0xE000000000000000, &v161, 0);
+  outlined destroy of IntentApplication?(&v161, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](32, 0xE100000000000000);
+  MobileSMSDocument.preExtractedSharedLink.getter();
+  v103 = type metadata accessor for PreExtractedSharedLink();
+  if (__swift_getEnumTagSinglePayload(v59, 1, v103) == 1)
+  {
+    outlined destroy of IntentApplication?(v59, &_s15OmniSearchTypes22PreExtractedSharedLinkVSgMd, &_s15OmniSearchTypes22PreExtractedSharedLinkVSgMR);
+    v104 = 0;
+    v105 = 0;
+    v106 = 0;
+    v107 = 0;
+    *&v162 = 0;
+  }
+
+  else
+  {
+    v108.value._countAndFlagsBits = v74;
+    v108.value._object = v65;
+    v109 = PreExtractedSharedLink.llmConsumableDescription(locale:)(v108);
+    v104 = v109._countAndFlagsBits;
+    v105 = v109._object;
+    (*(*(v103 - 8) + 8))(v59, v103);
+    v107 = MEMORY[0x277D83838];
+    v106 = MEMORY[0x277D837D0];
+  }
+
+  *&v161 = v104;
+  *(&v161 + 1) = v105;
+  *(&v162 + 1) = v106;
+  v163 = v107;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0, 0xE000000000000000, &v161, 0);
+  outlined destroy of IntentApplication?(&v161, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](32, 0xE100000000000000);
+  MobileSMSDocument.preExtractedBreadcrumb.getter();
+  v110 = type metadata accessor for PreExtractedBreadcrumb();
+  if (__swift_getEnumTagSinglePayload(v58, 1, v110) == 1)
+  {
+    outlined destroy of IntentApplication?(v58, &_s15OmniSearchTypes22PreExtractedBreadcrumbVSgMd, &_s15OmniSearchTypes22PreExtractedBreadcrumbVSgMR);
+    v111 = 0;
+    v112 = 0;
+    v113 = 0;
+    v114 = 0;
+    *&v162 = 0;
+  }
+
+  else
+  {
+    v115.value._countAndFlagsBits = v74;
+    v115.value._object = v65;
+    v116 = PreExtractedBreadcrumb.llmConsumableDescription(locale:)(v115);
+    v111 = v116._countAndFlagsBits;
+    v112 = v116._object;
+    (*(*(v110 - 8) + 8))(v58, v110);
+    v114 = MEMORY[0x277D83838];
+    v113 = MEMORY[0x277D837D0];
+  }
+
+  *&v161 = v111;
+  *(&v161 + 1) = v112;
+  *(&v162 + 1) = v113;
+  v163 = v114;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0, 0xE000000000000000, &v161, 0);
+  outlined destroy of IntentApplication?(&v161, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  LLMFormatter.sanitized.getter();
+  v118 = v117;
+  v120 = v119;
+
+  *&v164 = v118;
+  *(&v164 + 1) = v120;
+  v121 = *(MobileSMSDocument.photoAttachments.getter() + 16);
+
+  if (v121)
+  {
+    *&v161 = 0;
+    *(&v161 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(36);
+
+    *&v161 = 0xD000000000000011;
+    *(&v161 + 1) = 0x800000025DBF44E0;
+    v122 = *(MobileSMSDocument.photoAttachments.getter() + 16);
+
+    v159 = v122;
+    v123 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x25F89F6C0](v123);
+
+    MEMORY[0x25F89F6C0](0xD000000000000011, 0x800000025DBF4500);
+    MEMORY[0x25F89F6C0](v161, *(&v161 + 1));
+
+    v124 = MobileSMSDocument.photoAttachments.getter();
+    v125 = (v144 + 32);
+    v126 = (v144 + 8);
+    *&v162 = 0;
+    v161 = v124;
+    v128 = v152;
+    for (i = v153; ; (*v126)(v128, i))
     {
-      type metadata accessor for EntityProperty<Bool?>();
-      if (v2 <= 0x3F)
+      v129 = v154;
+      specialized EnumeratedSequence.Iterator.next()(v154);
+      outlined init with take of SearchResultItem?(v129, v75, &_sSi6offset_15OmniSearchTypes5PhotoV7elementtSgMd, &_sSi6offset_15OmniSearchTypes5PhotoV7elementtSgMR);
+      v130 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_15OmniSearchTypes5PhotoV7elementtMd, &_sSi6offset_15OmniSearchTypes5PhotoV7elementtMR);
+      if (__swift_getEnumTagSinglePayload(v75, 1, v130) == 1)
       {
-        swift_cvw_initStructMetadataWithLayoutString();
+        break;
       }
+
+      v131 = *v75;
+      (*v125)(v128, &v75[*(v130 + 48)], i);
+      v158 = v131;
+      v159 = dispatch thunk of CustomStringConvertible.description.getter();
+      v160 = v132;
+      MEMORY[0x25F89F6C0](8250, 0xE200000000000000);
+      v134 = v159;
+      v133 = v160;
+      v135.value._countAndFlagsBits = v157;
+      v135.value._object = v65;
+      v136 = Photo.llmConsumableDescription(locale:)(v135);
+      v159 = v134;
+      v160 = v133;
+      v75 = v155;
+
+      MEMORY[0x25F89F6C0](v136._countAndFlagsBits, v136._object);
+
+      v65 = v156;
+
+      MEMORY[0x25F89F6C0](v159, v160);
     }
+
+    return v164;
   }
+
+  return v118;
 }
 
-void type metadata accessor for EntityProperty<Bool?>()
+Swift::String __swiftcall Photo.llmConsumableDescription(locale:)(Swift::String_optional locale)
 {
-  if (!lazy cache variable for type metadata for EntityProperty<Bool?>)
+  OUTLINED_FUNCTION_155();
+  v152 = v3;
+  v153 = v4;
+  v6 = v5;
+  v8 = v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes22PreExtractedBreadcrumbVSgMd, &_s15OmniSearchTypes22PreExtractedBreadcrumbVSgMR);
+  OUTLINED_FUNCTION_114(v9);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_49_3();
+  v143 = v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes22PreExtractedSharedLinkVSgMd, &_s15OmniSearchTypes22PreExtractedSharedLinkVSgMR);
+  OUTLINED_FUNCTION_114(v12);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_49_3();
+  v141 = v14;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19PreExtractedContactVSgMd, &_s15OmniSearchTypes19PreExtractedContactVSgMR);
+  OUTLINED_FUNCTION_114(v15);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_49_3();
+  v140 = v17;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes16PreExtractedCardVSgMd, &_s15OmniSearchTypes16PreExtractedCardVSgMR);
+  OUTLINED_FUNCTION_114(v18);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_49_3();
+  v139 = v20;
+  v21 = OUTLINED_FUNCTION_78_0();
+  v22 = type metadata accessor for EditorialDateFormatter.DateInput(v21);
+  v23 = OUTLINED_FUNCTION_27_14(v22, v150);
+  MEMORY[0x28223BE20](v23);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v24);
+  v130 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v127 = v25;
+  MEMORY[0x28223BE20](v26);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_28_2(v27);
+  v145 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v131 = v28;
+  MEMORY[0x28223BE20](v29);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v30);
+  OUTLINED_FUNCTION_14_2();
+  v138 = v31;
+  v32 = OUTLINED_FUNCTION_78_0();
+  v33 = type metadata accessor for EditorialDateFormatter(v32);
+  v34 = OUTLINED_FUNCTION_114(v33);
+  MEMORY[0x28223BE20](v34);
+  OUTLINED_FUNCTION_36();
+  v37 = v36 - v35;
+  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v39 = OUTLINED_FUNCTION_114(v38);
+  MEMORY[0x28223BE20](v39);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v40);
+  OUTLINED_FUNCTION_7_4();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v41);
+  OUTLINED_FUNCTION_62_10();
+  MEMORY[0x28223BE20](v42);
+  OUTLINED_FUNCTION_156_4();
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](135);
+  OUTLINED_FUNCTION_119_4();
+  MEMORY[0x25F89F6C0](0x6C616E6F73726550, 0xEF206F746F687020);
+  v43 = WalletPass.title.getter();
+  if (v44)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSbSgMd, &_sSbSgMR);
-    lazy protocol witness table accessor for type String? and conformance <A> A?(&lazy protocol witness table cache variable for type Bool? and conformance <A> A?, &_sSbSgMd, &_sSbSgMR, lazy protocol witness table accessor for type Bool and conformance Bool);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v45 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v43 = OUTLINED_FUNCTION_7_24();
+  }
+
+  v46 = MEMORY[0x277D837D0];
+  v47 = MEMORY[0x277D83838];
+  OUTLINED_FUNCTION_81_12(v43, v44, v45);
+  OUTLINED_FUNCTION_178_5();
+  outlined destroy of IntentApplication?(v149, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  v48 = Photo.ocrString.getter();
+  v144 = v6;
+  v142 = v8;
+  if (v49)
+  {
+    *(&v147 + 1) = v46;
+    v148 = v47;
+    *&v146 = v48;
+    *(&v146 + 1) = v49;
+    outlined init with take of ResponseOverrideMatcherProtocol(&v146, v149);
+  }
+
+  else
+  {
+    v148 = 0;
+    v146 = 0u;
+    v147 = 0u;
+    v50 = Photo.snippet.getter();
+    if (v51)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<Bool?>);
+      v52 = MEMORY[0x277D83838];
+    }
+
+    else
+    {
+      v50 = OUTLINED_FUNCTION_7_24();
+    }
+
+    OUTLINED_FUNCTION_81_12(v50, v51, v52);
+    if (*(&v147 + 1))
+    {
+      outlined destroy of IntentApplication?(&v146, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
     }
   }
+
+  OUTLINED_FUNCTION_53_12();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v53, v54, v55, 0);
+  outlined destroy of IntentApplication?(v149, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  OUTLINED_FUNCTION_257_3();
+  v56 = MEMORY[0x25F89D0F0]();
+  v57._object = (v46 | 0x8000000000000000);
+  v57._countAndFlagsBits = 0xD000000000000013;
+  v154.value._rawValue = v56;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v57, v154);
+
+  OUTLINED_FUNCTION_48_9();
+  OUTLINED_FUNCTION_257_3();
+  Photo.peopleNames.getter();
+  OUTLINED_FUNCTION_243_2(0xD00000000000001CLL, v58, v155);
+
+  OUTLINED_FUNCTION_48_9();
+  OUTLINED_FUNCTION_257_3();
+  Photo.businessNames.getter();
+  OUTLINED_FUNCTION_243_2(0xD000000000000017, v59, v156);
+
+  OUTLINED_FUNCTION_48_9();
+  OUTLINED_FUNCTION_257_3();
+  MEMORY[0x25F89D070]();
+  OUTLINED_FUNCTION_243_2(0xD000000000000021, v60, v157);
+
+  OUTLINED_FUNCTION_48_9();
+  Photo.date.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  v61 = OUTLINED_FUNCTION_181_4();
+  outlined init with copy of SpotlightRankingItem?(v61, v62, v63, v64);
+  v65 = OUTLINED_FUNCTION_93_6();
+  OUTLINED_FUNCTION_166(v65, v66, v145);
+  if (v76)
+  {
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v37, v67);
+    outlined destroy of IntentApplication?(v2, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v2 = v1;
+    v68 = v143;
+  }
+
+  else
+  {
+    v124 = v37;
+    v69 = v131;
+    v70 = *(v131 + 32);
+    (v70)(v138, v1, v145);
+    OUTLINED_FUNCTION_141_4();
+    MEMORY[0x25F89F6C0]();
+    v71 = *(v131 + 16);
+    v72 = OUTLINED_FUNCTION_226_1(&v151);
+    v71(v72, v138, v145);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v73, v74, v75, v145);
+    outlined init with copy of SpotlightRankingItem?(0xD000000000000013, v132, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_166(v132, 1, v145);
+    if (v76)
+    {
+      v77 = OUTLINED_FUNCTION_87_8();
+      outlined destroy of IntentApplication?(v77, v78, v79);
+      OUTLINED_FUNCTION_47_11();
+      outlined destroy of IntentApplication?(v80, v81, v82);
+    }
+
+    else
+    {
+      v83 = v134;
+      v70();
+      v133 = v2;
+      v2 = v142;
+      OUTLINED_FUNCTION_113_9(v142, v144, v84, v85, v86, v87, v88, v89, v37, v125, v127, v128, v130, v131, v133, v134, v136, v137, v138, v139);
+      v71(v129 + *(v126 + 24), v83, v145);
+      *v129 = 257;
+      v90 = (v129 + *(v126 + 28));
+      *v90 = v142;
+      v90[1] = v144;
+      v149[3] = MEMORY[0x277D837D0];
+      v149[4] = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v91, v92, MEMORY[0x277CC9420]);
+
+      OUTLINED_FUNCTION_133_7();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      OUTLINED_FUNCTION_198_3();
+      outlined destroy of EditorialDateFormatter(v93, v94);
+      OUTLINED_FUNCTION_4_4();
+      v95 = OUTLINED_FUNCTION_52_1();
+      v96(v95);
+      OUTLINED_FUNCTION_172_4();
+      v97(v135, v145);
+      v98 = OUTLINED_FUNCTION_63_1();
+      outlined destroy of IntentApplication?(v98, v99, v100);
+      outlined destroy of IntentApplication?(v149, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    v68 = v143;
+    OUTLINED_FUNCTION_92_7();
+    (*(v69 + 8))(v138, v145);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v124, v101);
+  }
+
+  outlined destroy of IntentApplication?(v2, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_115_7();
+  Photo.preExtractedCard.getter();
+  type metadata accessor for PreExtractedCard();
+  OUTLINED_FUNCTION_9_5(v139);
+  if (v76)
+  {
+    outlined destroy of IntentApplication?(v139, &_s15OmniSearchTypes16PreExtractedCardVSgMd, &_s15OmniSearchTypes16PreExtractedCardVSgMR);
+    OUTLINED_FUNCTION_12_23();
+  }
+
+  else
+  {
+    v102.value._countAndFlagsBits = OUTLINED_FUNCTION_118_0();
+    PreExtractedCard.llmConsumableDescription(locale:)(v102);
+    OUTLINED_FUNCTION_6_18();
+    v103 = OUTLINED_FUNCTION_181_4();
+    v104(v103);
+    v105 = MEMORY[0x277D83838];
+  }
+
+  OUTLINED_FUNCTION_19_17(v105);
+  outlined destroy of IntentApplication?(v149, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  Photo.preExtractedContact.getter();
+  type metadata accessor for PreExtractedContact();
+  v106 = OUTLINED_FUNCTION_239_1();
+  OUTLINED_FUNCTION_9_5(v106);
+  if (v76)
+  {
+    outlined destroy of IntentApplication?(v140, &_s15OmniSearchTypes19PreExtractedContactVSgMd, &_s15OmniSearchTypes19PreExtractedContactVSgMR);
+    OUTLINED_FUNCTION_12_23();
+  }
+
+  else
+  {
+    v107.value._countAndFlagsBits = OUTLINED_FUNCTION_118_0();
+    PreExtractedContact.llmConsumableDescription(locale:)(v107);
+    OUTLINED_FUNCTION_6_18();
+    v108 = OUTLINED_FUNCTION_159_4();
+    v109(v108);
+    v110 = MEMORY[0x277D83838];
+  }
+
+  OUTLINED_FUNCTION_19_17(v110);
+  outlined destroy of IntentApplication?(v149, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  Photo.preExtractedSharedLink.getter();
+  type metadata accessor for PreExtractedSharedLink();
+  v111 = OUTLINED_FUNCTION_212_2();
+  OUTLINED_FUNCTION_9_5(v111);
+  if (v76)
+  {
+    outlined destroy of IntentApplication?(v141, &_s15OmniSearchTypes22PreExtractedSharedLinkVSgMd, &_s15OmniSearchTypes22PreExtractedSharedLinkVSgMR);
+    OUTLINED_FUNCTION_12_23();
+  }
+
+  else
+  {
+    v112.value._countAndFlagsBits = OUTLINED_FUNCTION_118_0();
+    PreExtractedSharedLink.llmConsumableDescription(locale:)(v112);
+    OUTLINED_FUNCTION_6_18();
+    v113 = OUTLINED_FUNCTION_21_7();
+    v114(v113);
+    v115 = MEMORY[0x277D83838];
+  }
+
+  OUTLINED_FUNCTION_19_17(v115);
+  outlined destroy of IntentApplication?(v149, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  Photo.preExtractedBreadcrumb.getter();
+  type metadata accessor for PreExtractedBreadcrumb();
+  v116 = OUTLINED_FUNCTION_176_5();
+  OUTLINED_FUNCTION_9_5(v116);
+  if (v76)
+  {
+    outlined destroy of IntentApplication?(v68, &_s15OmniSearchTypes22PreExtractedBreadcrumbVSgMd, &_s15OmniSearchTypes22PreExtractedBreadcrumbVSgMR);
+    OUTLINED_FUNCTION_12_23();
+  }
+
+  else
+  {
+    v117.value._countAndFlagsBits = OUTLINED_FUNCTION_118_0();
+    PreExtractedBreadcrumb.llmConsumableDescription(locale:)(v117);
+    OUTLINED_FUNCTION_6_18();
+    v118 = OUTLINED_FUNCTION_52_1();
+    v119(v118);
+    v120 = MEMORY[0x277D83838];
+  }
+
+  OUTLINED_FUNCTION_19_17(v120);
+  outlined destroy of IntentApplication?(v149, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v122;
+  result._countAndFlagsBits = v121;
+  return result;
 }
 
-uint64_t lazy protocol witness table accessor for type String? and conformance <A> A?(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
+Swift::String __swiftcall WalletTransaction.llmConsumableDescription(locale:)(Swift::String_optional locale)
 {
-  result = *a1;
-  if (!result)
+  MEMORY[0x25F89F5D0](113, locale.value._object);
+  v39 = 0;
+  v40 = 0xE000000000000000;
+  MEMORY[0x25F89F6C0](0xD000000000000020, 0x800000025DBF40E0);
+  v1 = WalletPass.title.getter();
+  if (v2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
-    a4();
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
+    v3 = MEMORY[0x277D83838];
+    v4 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v1 = OUTLINED_FUNCTION_22_16();
+    v36 = 0;
+  }
+
+  v34 = v1;
+  v35 = v2;
+  v37 = v4;
+  v38 = v3;
+  OUTLINED_FUNCTION_147_5(v1, v2, &v34);
+  outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  v5 = WalletPass.description.getter();
+  if (v6)
+  {
+    v7 = MEMORY[0x277D83838];
+    v8 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v5 = OUTLINED_FUNCTION_22_16();
+    v36 = 0;
+  }
+
+  v34 = v5;
+  v35 = v6;
+  v37 = v8;
+  v38 = v7;
+  OUTLINED_FUNCTION_147_5(v5, v6, &v34);
+  outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMd, &_ss23_ContiguousArrayStorageCys23CustomStringConvertible_pSgGMR);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_25DBC8400;
+  v10 = WalletTransaction.city.getter();
+  if (v11)
+  {
+    v12 = MEMORY[0x277D83838];
+    v13 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v10 = OUTLINED_FUNCTION_22_16();
+    *(inited + 48) = 0;
+  }
+
+  *(inited + 32) = v10;
+  *(inited + 40) = v11;
+  *(inited + 56) = v13;
+  *(inited + 64) = v12;
+  v14 = WalletTransaction.stateOrProvince.getter();
+  if (v15)
+  {
+    v16 = MEMORY[0x277D83838];
+    v17 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v14 = OUTLINED_FUNCTION_22_16();
+    *(inited + 88) = 0;
+  }
+
+  *(inited + 72) = v14;
+  *(inited + 80) = v15;
+  *(inited + 96) = v17;
+  *(inited + 104) = v16;
+  v18 = WalletTransaction.country.getter();
+  if (v19)
+  {
+    v20 = MEMORY[0x277D83838];
+    v21 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v18 = OUTLINED_FUNCTION_22_16();
+    *(inited + 128) = 0;
+  }
+
+  *(inited + 112) = v18;
+  *(inited + 120) = v19;
+  *(inited + 136) = v21;
+  *(inited + 144) = v20;
+  v22._countAndFlagsBits = 0x61636F6C20656854;
+  v22._object = 0xEF7369206E6F6974;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:ifAll:)(v22, inited);
+  swift_setDeallocating();
+  specialized _ContiguousArrayStorage.__deallocating_deinit();
+  OUTLINED_FUNCTION_98_2();
+  MEMORY[0x25F89F6C0](0xD00000000000001BLL);
+  v23 = WalletTransaction.amount.getter();
+  if (v24)
+  {
+    v23 = OUTLINED_FUNCTION_22_16();
+    v35 = 0;
+    v36 = 0;
+  }
+
+  else
+  {
+    v25 = MEMORY[0x277D83A60];
+    v26 = MEMORY[0x277D839F8];
+  }
+
+  v34 = v23;
+  v37 = v26;
+  v38 = v25;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+  outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  v27 = WalletTransaction.currencyCode.getter();
+  if (v28)
+  {
+    v29 = MEMORY[0x277D83838];
+    v30 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v27 = OUTLINED_FUNCTION_22_16();
+    v36 = 0;
+  }
+
+  v34 = v27;
+  v35 = v28;
+  v37 = v30;
+  v38 = v29;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+  outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_177_5();
+  LLMFormatter.sanitized.getter();
+  OUTLINED_FUNCTION_89_10();
+  v31 = OUTLINED_FUNCTION_88();
+  result._object = v32;
+  result._countAndFlagsBits = v31;
+  return result;
+}
+
+Swift::String __swiftcall WalletPass.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  v18[0] = 0;
+  v18[1] = 0xE000000000000000;
+  MEMORY[0x25F89F5D0](78, locale.value._object);
+  OUTLINED_FUNCTION_175_4();
+  MEMORY[0x25F89F6C0](0xD000000000000023, 0x800000025DBF4130);
+  WalletPass.title.getter();
+  if (!v1)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v19 = 0;
+  }
+
+  OUTLINED_FUNCTION_135_7();
+  OUTLINED_FUNCTION_174_3();
+  OUTLINED_FUNCTION_147_5(v2, v3, v4);
+  outlined destroy of IntentApplication?(v18, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_128_5();
+  WalletPass.description.getter();
+  if (!v5)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v19 = 0;
+  }
+
+  OUTLINED_FUNCTION_135_7();
+  OUTLINED_FUNCTION_174_3();
+  OUTLINED_FUNCTION_147_5(v6, v7, v8);
+  outlined destroy of IntentApplication?(v18, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_128_5();
+  WalletPass.creator.getter();
+  if (!v9)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v19 = 0;
+  }
+
+  OUTLINED_FUNCTION_135_7();
+  OUTLINED_FUNCTION_174_3();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v10, v11, v12, 0);
+  outlined destroy of IntentApplication?(v18, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_128_5();
+  v13 = WalletPass.extraData.getter();
+  v14._object = 0x800000025DBF4160;
+  v14._countAndFlagsBits = 0xD000000000000017;
+  v20.value._rawValue = v13;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:dictionary:)(v14, v20);
+
+  OUTLINED_FUNCTION_222_2();
+  OUTLINED_FUNCTION_89_10();
+  v15 = OUTLINED_FUNCTION_88();
+  result._object = v16;
+  result._countAndFlagsBits = v15;
+  return result;
+}
+
+Swift::String __swiftcall NoteDocument.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_76_10();
+  MEMORY[0x25F89F5D0](48);
+  OUTLINED_FUNCTION_175_4();
+  OUTLINED_FUNCTION_221_3();
+  WalletPass.title.getter();
+  if (!v1)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v13 = 0;
+  }
+
+  OUTLINED_FUNCTION_127_9();
+  outlined destroy of IntentApplication?(v12, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_247_3();
+  WalletPass.description.getter();
+  if (!v2)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v13 = 0;
+  }
+
+  OUTLINED_FUNCTION_135_7();
+  OUTLINED_FUNCTION_98_2();
+  OUTLINED_FUNCTION_174_3();
+  OUTLINED_FUNCTION_197_5(17, v3, v4);
+  outlined destroy of IntentApplication?(v12, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_128_5();
+  NoteDocument.folderName.getter();
+  if (!v5)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v13 = 0;
+  }
+
+  OUTLINED_FUNCTION_135_7();
+  OUTLINED_FUNCTION_174_3();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v6, v7, v8, 0);
+  outlined destroy of IntentApplication?(v12, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_222_2();
+  OUTLINED_FUNCTION_89_10();
+  v9 = OUTLINED_FUNCTION_88();
+  result._object = v10;
+  result._countAndFlagsBits = v9;
+  return result;
+}
+
+Swift::String __swiftcall Reminder.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v151 = v7;
+  v149 = v8;
+  v9 = type metadata accessor for EditorialDateFormatter.DateInput(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_136_3();
+  v152 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v150 = v11;
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_39_0();
+  v146 = v13;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_157_4();
+  v15 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v158 = v16;
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_39_0();
+  v148 = v18;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_38_18(v20, v21, v22, v23, v24, v25, v26, v27, v140);
+  MEMORY[0x28223BE20](v28);
+  OUTLINED_FUNCTION_216_3();
+  v29 = type metadata accessor for EditorialDateFormatter(0);
+  v30 = OUTLINED_FUNCTION_114(v29);
+  MEMORY[0x28223BE20](v30);
+  OUTLINED_FUNCTION_39_0();
+  v157 = v31;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v32);
+  OUTLINED_FUNCTION_123_8();
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v34 = OUTLINED_FUNCTION_114(v33);
+  MEMORY[0x28223BE20](v34);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v35);
+  OUTLINED_FUNCTION_73_9();
+  MEMORY[0x28223BE20](v36);
+  OUTLINED_FUNCTION_74_14();
+  MEMORY[0x28223BE20](v37);
+  OUTLINED_FUNCTION_7_4();
+  v159 = v38;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v39);
+  OUTLINED_FUNCTION_191_1();
+  MEMORY[0x28223BE20](v40);
+  v42 = &v140 - v41;
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](96);
+  OUTLINED_FUNCTION_119_4();
+  OUTLINED_FUNCTION_98_2();
+  MEMORY[0x25F89F6C0](0xD000000000000016);
+  v156 = v1;
+  Reminder.creationDate.getter();
+  v153 = v6;
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v42, v3, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v43 = OUTLINED_FUNCTION_159_2();
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v43, v44, v15);
+  v46 = MEMORY[0x277D837D0];
+  v144 = v2;
+  v143 = v9;
+  if (EnumTagSinglePayload == 1)
+  {
+    v47 = v158;
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v153, v48);
+    OUTLINED_FUNCTION_33_13();
+    outlined destroy of IntentApplication?(v49, v50, v51);
+    OUTLINED_FUNCTION_33_13();
+  }
+
+  else
+  {
+    v55 = v4;
+    v56 = v2;
+    v57 = v158;
+    v58 = *(v158 + 32);
+    v142 = v55;
+    v58(v55, v3, v15);
+    v59 = v149;
+    v141 = v5;
+    v60 = v15;
+    v61 = v151;
+    OUTLINED_FUNCTION_113_9(v149, v151, v62, v63, v64, v65, v66, v67, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151);
+    (*(v57 + 16))(v56 + *(v9 + 24), v55, v60);
+    OUTLINED_FUNCTION_255_2();
+    *v68 = v59;
+    v68[1] = v61;
+    v161 = v46;
+    v162 = MEMORY[0x277D83838];
+    OUTLINED_FUNCTION_2_30();
+    _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v69, v70, MEMORY[0x277CC9420]);
+    v15 = v60;
+
+    OUTLINED_FUNCTION_227_1();
+    Date.formatted<A>(_:)();
+    OUTLINED_FUNCTION_178_5();
+    OUTLINED_FUNCTION_1_45();
+    outlined destroy of EditorialDateFormatter(v56, v71);
+    v72 = OUTLINED_FUNCTION_158();
+    v73(v72);
+    v47 = v57;
+    (*(v57 + 8))(v142, v60);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v153, v74);
+    outlined destroy of IntentApplication?(v42, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v53 = &_ss23CustomStringConvertible_pSgMd;
+    v54 = &_ss23CustomStringConvertible_pSgMR;
+    v52 = v160;
+  }
+
+  outlined destroy of IntentApplication?(v52, v53, v54);
+  MEMORY[0x25F89F6C0](0x3A656C746954202ELL, 0xE900000000000020);
+  v75 = WalletPass.title.getter();
+  v77 = v157;
+  v78 = v159;
+  if (v76)
+  {
+    v79 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v75 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v75, v76, v79);
+  OUTLINED_FUNCTION_178_5();
+  outlined destroy of IntentApplication?(v160, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](8238, 0xE200000000000000);
+  Reminder.dueDate.getter();
+  IsAll = Reminder.dueDateIsAllDay.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  v81 = v154;
+  outlined init with copy of SpotlightRankingItem?(v78, v154, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_9_5(v81);
+  if (v94)
+  {
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v77, v82);
+    outlined destroy of IntentApplication?(v78, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v83 = v81;
+  }
+
+  else
+  {
+    v84 = *(v47 + 32);
+    v85 = OUTLINED_FUNCTION_87_8();
+    (v84)(v85);
+    MEMORY[0x25F89F6C0](0x203A6E6F20657544, 0xE900000000000020);
+    v86 = *(v47 + 16);
+    v86();
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v87, v88, v89, v15);
+    OUTLINED_FUNCTION_251_1();
+    outlined init with copy of SpotlightRankingItem?(v90, v91, v92, v93);
+    OUTLINED_FUNCTION_9_5(v47);
+    if (v94)
+    {
+      OUTLINED_FUNCTION_33_13();
+      outlined destroy of IntentApplication?(v95, v96, v97);
+      OUTLINED_FUNCTION_33_13();
+      outlined destroy of IntentApplication?(v98, v99, v100);
+      v101 = v158;
+    }
+
+    else
+    {
+      LODWORD(v154) = IsAll ^ 1;
+      OUTLINED_FUNCTION_206_3();
+      v84();
+      v108 = v149;
+      if (IsAll)
+      {
+        v109 = v151;
+        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v149, v151, 1, v103, v104, v105, v106, v107, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151);
+      }
+
+      else
+      {
+        v109 = v151;
+        OUTLINED_FUNCTION_113_9(v149, v151, v102, v103, v104, v105, v106, v107, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151);
+      }
+
+      v110 = v144;
+      v111 = v143;
+      v112 = MEMORY[0x277D83838];
+      (v86)(&v144[*(v143 + 24)], v148, v15);
+      *v110 = v154 & 1;
+      v110[1] = 1;
+      v113 = &v110[*(v111 + 28)];
+      *v113 = v108;
+      v113[1] = v109;
+      v161 = MEMORY[0x277D837D0];
+      v162 = v112;
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v114, v115, MEMORY[0x277CC9420]);
+
+      v116 = v146;
+      v117 = v152;
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v110, v118);
+      (*(v150 + 8))(v116, v117);
+      v101 = v158;
+      (*(v158 + 8))(v148, v15);
+      outlined destroy of IntentApplication?(v147, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v160, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+      v77 = v157;
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    (*(v101 + 8))(v155, v15);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v77, v119);
+    v83 = v159;
+  }
+
+  outlined destroy of IntentApplication?(v83, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_115_7();
+  v120 = WalletPass.description.getter();
+  if (v121)
+  {
+    v122 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v120 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v120, v121, v122);
+  OUTLINED_FUNCTION_80_9();
+  OUTLINED_FUNCTION_242_2(v123, 8250, v124);
+  outlined destroy of IntentApplication?(v160, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  v125 = Reminder.namedLocation.getter();
+  if (v126)
+  {
+    v127 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v125 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v125, v126, v127);
+  OUTLINED_FUNCTION_149_6();
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v128, v129, v130, 0);
+  outlined destroy of IntentApplication?(v160, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  v131 = Reminder.physicalAddress.getter();
+  if (v132)
+  {
+    v133 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v131 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v131, v132, v133);
+  OUTLINED_FUNCTION_80_9();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v134, v135, v136, 0);
+  outlined destroy of IntentApplication?(v160, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v138;
+  result._countAndFlagsBits = v137;
+  return result;
+}
+
+Swift::String __swiftcall PhoneHistory.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v5 = v1;
+  v92 = v6;
+  v93 = v7;
+  v90 = type metadata accessor for EditorialDateFormatter.DateInput(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_2_3();
+  v96 = v9;
+  OUTLINED_FUNCTION_78_0();
+  v98 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v94 = v10;
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_2_3();
+  v100 = v12;
+  OUTLINED_FUNCTION_78_0();
+  v13 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v104 = v14;
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_39_0();
+  v89 = v16;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_72_8(v18, v19, v20, v21, v22, v23, v24, v25, v84);
+  v26 = type metadata accessor for EditorialDateFormatter(0);
+  v27 = OUTLINED_FUNCTION_114(v26);
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_36();
+  v30 = v29 - v28;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v32 = OUTLINED_FUNCTION_114(v31);
+  MEMORY[0x28223BE20](v32);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_51_12();
+  MEMORY[0x28223BE20](v33);
+  OUTLINED_FUNCTION_61_13();
+  MEMORY[0x28223BE20](v34);
+  OUTLINED_FUNCTION_7_4();
+  v102 = v35;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v36);
+  OUTLINED_FUNCTION_95_3();
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](50);
+  OUTLINED_FUNCTION_119_4();
+  OUTLINED_FUNCTION_141_4();
+  v37 = MEMORY[0x25F89F6C0]();
+  v38 = MEMORY[0x25F89AD10](v37);
+  if (v38)
+  {
+    v105[0] = v38;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+    OUTLINED_FUNCTION_8_25();
+    lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v39, v40, &_sSaySSGMR, v41);
+    OUTLINED_FUNCTION_17_18();
+    v42 = BidirectionalCollection<>.joined(separator:)();
+    v44 = v43;
+
+    v45 = MEMORY[0x277D83838];
+    v46 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v42 = 0;
+    v44 = 0;
+    OUTLINED_FUNCTION_24_17();
+  }
+
+  v105[0] = v42;
+  v105[1] = v44;
+  v106 = v46;
+  v107 = v45;
+  OUTLINED_FUNCTION_178_5();
+  outlined destroy of IntentApplication?(v105, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  PhoneHistory.callDate.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v2, v102, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_9_5(v102);
+  if (v53)
+  {
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v30, v47);
+    outlined destroy of IntentApplication?(v2, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v2 = v102;
+  }
+
+  else
+  {
+    v88 = v5;
+    v48 = *(v104 + 32);
+    OUTLINED_FUNCTION_47_11();
+    v48();
+    OUTLINED_FUNCTION_193_4();
+    v49 = *(v104 + 16);
+    (v49)(v4, v103, v13);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v50, v51, v52, v13);
+    outlined init with copy of SpotlightRankingItem?(v4, v3, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_9_5(v3);
+    if (v53)
+    {
+      OUTLINED_FUNCTION_33_13();
+      outlined destroy of IntentApplication?(v54, v55, v56);
+      OUTLINED_FUNCTION_33_13();
+    }
+
+    else
+    {
+      (v48)(v89, v3, v13);
+      v57 = v92;
+      v86 = v4;
+      v58 = v93;
+      OUTLINED_FUNCTION_113_9(v92, v93, v59, v60, v61, v62, v63, v64, v85, v86, v88, v89, v90, v92, v93, v94, v96, v98, v100, v102);
+      OUTLINED_FUNCTION_206_3();
+      v49();
+      OUTLINED_FUNCTION_254_1();
+      v65 = (v97 + *(v91 + 28));
+      *v65 = v57;
+      v65[1] = v58;
+      v106 = MEMORY[0x277D837D0];
+      v107 = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v66, v67, MEMORY[0x277CC9420]);
+
+      OUTLINED_FUNCTION_251_3();
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v97, v68);
+      (*(v95 + 8))(v101, v99);
+      v69 = OUTLINED_FUNCTION_159_4();
+      v70(v69);
+      outlined destroy of IntentApplication?(v87, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v71 = &_ss23CustomStringConvertible_pSgMd;
+      v72 = &_ss23CustomStringConvertible_pSgMR;
+      v73 = v105;
+    }
+
+    outlined destroy of IntentApplication?(v73, v71, v72);
+    OUTLINED_FUNCTION_92_7();
+    (*(v104 + 8))(v103, v13);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v30, v74);
+  }
+
+  outlined destroy of IntentApplication?(v2, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_115_7();
+  v75 = PhoneHistory.callType.getter();
+  if (v76)
+  {
+    v77 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v75 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v75, v76, v77);
+  OUTLINED_FUNCTION_40_16();
+  v78 = OUTLINED_FUNCTION_153_2();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v78, v79, v80, 0);
+  outlined destroy of IntentApplication?(v105, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v82;
+  result._countAndFlagsBits = v81;
+  return result;
+}
+
+Swift::String __swiftcall VoicemailTranscript.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v91 = v5;
+  v92 = v6;
+  v90 = type metadata accessor for EditorialDateFormatter.DateInput(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_2_3();
+  v94 = v8;
+  OUTLINED_FUNCTION_78_0();
+  v9 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v93 = v10;
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_2_3();
+  v95 = v12;
+  OUTLINED_FUNCTION_78_0();
+  v13 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v15 = v14;
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_39_0();
+  v89 = v17;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_14_2();
+  v96 = v19;
+  v20 = OUTLINED_FUNCTION_78_0();
+  v21 = type metadata accessor for EditorialDateFormatter(v20);
+  v22 = OUTLINED_FUNCTION_114(v21);
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_136_3();
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v24 = OUTLINED_FUNCTION_114(v23);
+  MEMORY[0x28223BE20](v24);
+  OUTLINED_FUNCTION_109();
+  v27 = v25 - v26;
+  MEMORY[0x28223BE20](v28);
+  OUTLINED_FUNCTION_49_15();
+  MEMORY[0x28223BE20](v29);
+  OUTLINED_FUNCTION_61_13();
+  MEMORY[0x28223BE20](v30);
+  v32 = &v83 - v31;
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](60);
+  OUTLINED_FUNCTION_119_4();
+  OUTLINED_FUNCTION_141_4();
+  MEMORY[0x25F89F6C0]();
+  v33 = WalletPass.description.getter();
+  if (v34)
+  {
+    v35 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v33 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v33, v34, v35);
+  OUTLINED_FUNCTION_178_5();
+  outlined destroy of IntentApplication?(v97, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  VoicemailTranscript.date.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  outlined init with copy of SpotlightRankingItem?(v32, v4, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_9_5(v4);
+  if (v46)
+  {
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v2, v36);
+    outlined destroy of IntentApplication?(v32, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v32 = v4;
+  }
+
+  else
+  {
+    v86 = v9;
+    v87 = v2;
+    v88 = v1;
+    v37 = *(v15 + 32);
+    (v37)(v96, v4, v13);
+    OUTLINED_FUNCTION_193_4();
+    v38 = *(v15 + 16);
+    OUTLINED_FUNCTION_142_3();
+    v38();
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v39, v40, v41, v13);
+    v42 = OUTLINED_FUNCTION_158();
+    outlined init with copy of SpotlightRankingItem?(v42, v43, v44, v45);
+    OUTLINED_FUNCTION_9_5(v27);
+    if (v46)
+    {
+      v47 = OUTLINED_FUNCTION_188_5();
+      outlined destroy of IntentApplication?(v47, v48, &_s10Foundation4DateVSgMR);
+      v72 = v27;
+      v70 = &_s10Foundation4DateVSgMd;
+      v71 = &_s10Foundation4DateVSgMR;
+    }
+
+    else
+    {
+      v85 = v3;
+      v49 = v89;
+      OUTLINED_FUNCTION_206_3();
+      v37();
+      v51 = v91;
+      v50 = v92;
+      v52 = OUTLINED_FUNCTION_235_3();
+      OUTLINED_FUNCTION_113_9(v52, v53, v54, v55, v56, v57, v58, v59, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94);
+      v84 = v15;
+      v60 = v90;
+      v61 = v94;
+      (v38)(v94 + *(v90 + 24), v49, v13);
+      *v61 = 257;
+      v62 = (v61 + *(v60 + 28));
+      *v62 = v51;
+      v62[1] = v50;
+      v97[3] = MEMORY[0x277D837D0];
+      v97[4] = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v63, v64, MEMORY[0x277CC9420]);
+
+      v65 = v95;
+      v66 = v86;
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v61, v67);
+      (*(v93 + 8))(v65, v66);
+      v15 = v84;
+      v68 = OUTLINED_FUNCTION_233_3();
+      v69(v68);
+      outlined destroy of IntentApplication?(v85, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v70 = &_ss23CustomStringConvertible_pSgMd;
+      v71 = &_ss23CustomStringConvertible_pSgMR;
+      v72 = v97;
+    }
+
+    outlined destroy of IntentApplication?(v72, v70, v71);
+    v73 = v87;
+    OUTLINED_FUNCTION_92_7();
+    (*(v15 + 8))(v96, v13);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v73, v74);
+  }
+
+  outlined destroy of IntentApplication?(v32, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_115_7();
+  v75 = WalletPass.title.getter();
+  if (v76)
+  {
+    v77 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v75 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v75, v76, v77);
+  OUTLINED_FUNCTION_40_16();
+  OUTLINED_FUNCTION_197_5(21, v78, v79);
+  outlined destroy of IntentApplication?(v97, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v81;
+  result._countAndFlagsBits = v80;
+  return result;
+}
+
+Swift::String __swiftcall JournalEntry.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_76_10();
+  MEMORY[0x25F89F5D0](50);
+  OUTLINED_FUNCTION_175_4();
+  OUTLINED_FUNCTION_98_2();
+  MEMORY[0x25F89F6C0](0xD000000000000027);
+  WalletPass.title.getter();
+  if (!v1)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v6 = 0;
+  }
+
+  OUTLINED_FUNCTION_127_9();
+  outlined destroy of IntentApplication?(v5, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_177_5();
+  OUTLINED_FUNCTION_222_2();
+  OUTLINED_FUNCTION_89_10();
+  v2 = OUTLINED_FUNCTION_88();
+  result._object = v3;
+  result._countAndFlagsBits = v2;
+  return result;
+}
+
+Swift::String __swiftcall VoiceMemo.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_155();
+  v82 = v5;
+  v83 = v6;
+  v80 = type metadata accessor for EditorialDateFormatter.DateInput(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_2_3();
+  v85 = v8;
+  OUTLINED_FUNCTION_78_0();
+  v9 = type metadata accessor for Date.FormatStyle();
+  OUTLINED_FUNCTION_14();
+  v84 = v10;
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_2_3();
+  v87 = v12;
+  OUTLINED_FUNCTION_78_0();
+  v13 = type metadata accessor for Date();
+  OUTLINED_FUNCTION_14();
+  v15 = v14;
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_39_0();
+  v79 = v17;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_72_8(v19, v20, v21, v22, v23, v24, v25, v26, v73);
+  v27 = type metadata accessor for EditorialDateFormatter(0);
+  v28 = OUTLINED_FUNCTION_114(v27);
+  MEMORY[0x28223BE20](v28);
+  OUTLINED_FUNCTION_2_3();
+  v89 = v29;
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v31 = OUTLINED_FUNCTION_114(v30);
+  MEMORY[0x28223BE20](v31);
+  OUTLINED_FUNCTION_109();
+  OUTLINED_FUNCTION_51_12();
+  MEMORY[0x28223BE20](v32);
+  OUTLINED_FUNCTION_73_8();
+  MEMORY[0x28223BE20](v33);
+  OUTLINED_FUNCTION_131_0();
+  MEMORY[0x28223BE20](v34);
+  OUTLINED_FUNCTION_216_3();
+  OUTLINED_FUNCTION_44_16();
+  MEMORY[0x25F89F5D0](42);
+  OUTLINED_FUNCTION_119_4();
+  OUTLINED_FUNCTION_98_2();
+  MEMORY[0x25F89F6C0](0xD000000000000015);
+  v35 = WalletPass.title.getter();
+  if (v36)
+  {
+    v37 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v35 = OUTLINED_FUNCTION_7_24();
+  }
+
+  OUTLINED_FUNCTION_81_12(v35, v36, v37);
+  OUTLINED_FUNCTION_178_5();
+  outlined destroy of IntentApplication?(v90, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_48_9();
+  VoiceMemo.creationDate.getter();
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+  v38 = OUTLINED_FUNCTION_32_3();
+  outlined init with copy of SpotlightRankingItem?(v38, v39, v40, v41);
+  OUTLINED_FUNCTION_71_10(v4);
+  if (v48)
+  {
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v89, v42);
+    outlined destroy of IntentApplication?(v2, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v2 = v4;
+  }
+
+  else
+  {
+    v76 = v9;
+    v43 = *(v15 + 32);
+    (v43)(v88, v4, v13);
+    OUTLINED_FUNCTION_193_4();
+    v77 = v15;
+    v44 = *(v15 + 16);
+    v44(v1, v88, v13);
+    OUTLINED_FUNCTION_44_0();
+    __swift_storeEnumTagSinglePayload(v45, v46, v47, v13);
+    outlined init with copy of SpotlightRankingItem?(v1, v3, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    OUTLINED_FUNCTION_71_10(v3);
+    if (v48)
+    {
+      outlined destroy of IntentApplication?(v1, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      v49 = OUTLINED_FUNCTION_188_5();
+      outlined destroy of IntentApplication?(v49, v50, &_s10Foundation4DateVSgMR);
+    }
+
+    else
+    {
+      v74 = v1;
+      v51 = v79;
+      v43();
+      v53 = v82;
+      v52 = v83;
+      v54 = OUTLINED_FUNCTION_233_3();
+      OUTLINED_FUNCTION_113_9(v54, v55, v56, v57, v58, v59, v60, v61, v74, v76, v77, v79, v80, v82, v83, v84, v85, v87, v88, v89);
+      v44(v86 + *(v81 + 24), v51, v13);
+      OUTLINED_FUNCTION_253_2();
+      *v62 = v53;
+      v62[1] = v52;
+      v90[3] = MEMORY[0x277D837D0];
+      v90[4] = MEMORY[0x277D83838];
+      OUTLINED_FUNCTION_2_30();
+      _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v63, v64, MEMORY[0x277CC9420]);
+
+      Date.formatted<A>(_:)();
+      OUTLINED_FUNCTION_178_5();
+      OUTLINED_FUNCTION_1_45();
+      outlined destroy of EditorialDateFormatter(v86, v65);
+      v66 = OUTLINED_FUNCTION_52_1();
+      v67(v66);
+      v15 = v78;
+      OUTLINED_FUNCTION_270_1();
+      v68(v51, v13);
+      outlined destroy of IntentApplication?(v75, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+      outlined destroy of IntentApplication?(v90, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    }
+
+    OUTLINED_FUNCTION_92_7();
+    (*(v15 + 8))(v88, v13);
+    OUTLINED_FUNCTION_0_47();
+    outlined destroy of EditorialDateFormatter(v89, v69);
+  }
+
+  outlined destroy of IntentApplication?(v2, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_192_5();
+  OUTLINED_FUNCTION_89_10();
+  OUTLINED_FUNCTION_37_12();
+  OUTLINED_FUNCTION_148();
+  result._object = v71;
+  result._countAndFlagsBits = v70;
+  return result;
+}
+
+Swift::String __swiftcall Safari.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  v1 = 1835365481;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  v5 = v26 - v4;
+  Safari.contentType.getter();
+  v6 = MEMORY[0x277D837D0];
+  if (v7 && (v8._countAndFlagsBits = 0xD000000000000011, v8._object = 0x800000025DBF42B0, v9 = String.hasPrefix(_:)(v8), , v9) && (v10 = Safari.contentType.getter(), v11))
+  {
+    *&v27 = v10;
+    *(&v27 + 1) = v11;
+    *&v30 = 0xD000000000000011;
+    *(&v30 + 1) = 0x800000025DBF42B0;
+    v26[0] = 0;
+    v26[1] = 0xE000000000000000;
+    lazy protocol witness table accessor for type String and conformance String();
+    v1 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = 0xE400000000000000;
+  }
+
+  *&v27 = 0;
+  *(&v27 + 1) = 0xE000000000000000;
+  MEMORY[0x25F89F5D0](46);
+  v30 = v27;
+  MEMORY[0x25F89F6C0](0x6972616661532041, 0xE900000000000020);
+  *(&v28 + 1) = v6;
+  v29 = MEMORY[0x277D83838];
+  *&v27 = v1;
+  *(&v27 + 1) = v13;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+  outlined destroy of IntentApplication?(&v27, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](0x20726F6620, 0xE500000000000000);
+  v14 = WalletPass.title.getter();
+  if (v15)
+  {
+    v16 = MEMORY[0x277D83838];
+    v17 = MEMORY[0x277D837D0];
+  }
+
+  else
+  {
+    v14 = OUTLINED_FUNCTION_22_16();
+    *&v28 = 0;
+  }
+
+  *&v27 = v14;
+  *(&v27 + 1) = v15;
+  *(&v28 + 1) = v17;
+  v29 = v16;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+  outlined destroy of IntentApplication?(&v27, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](8238, 0xE200000000000000);
+  Safari.websiteUrl.getter();
+  v18 = type metadata accessor for URL();
+  OUTLINED_FUNCTION_166(v5, 1, v18);
+  if (v19)
+  {
+    outlined destroy of IntentApplication?(v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0;
+  }
+
+  else
+  {
+    *(&v28 + 1) = v18;
+    OUTLINED_FUNCTION_18_16();
+    v29 = _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(v20, v21, MEMORY[0x277CC9290]);
+    __swift_allocate_boxed_opaque_existential_1Tm(&v27);
+    OUTLINED_FUNCTION_51();
+    OUTLINED_FUNCTION_33_13();
+    v22();
+  }
+
+  OUTLINED_FUNCTION_242_2(0x204C525520656854, 29545, &v27);
+  outlined destroy of IntentApplication?(&v27, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  LLMFormatter.sanitized.getter();
+  OUTLINED_FUNCTION_89_10();
+  v23 = OUTLINED_FUNCTION_88();
+  result._object = v24;
+  result._countAndFlagsBits = v23;
+  return result;
+}
+
+Swift::String __swiftcall ShippingOrder.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_36_2();
+  *&v65 = 0;
+  *(&v65 + 1) = 0xE000000000000000;
+  MEMORY[0x25F89F5D0](125);
+  v68 = v65;
+  MEMORY[0x25F89F6C0](0xD000000000000017, 0x800000025DBF42D0);
+  v4 = Appointment.eventType.getter();
+  if (v5)
+  {
+    v6 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v4 = OUTLINED_FUNCTION_22_16();
+    *&v66 = 0;
+  }
+
+  OUTLINED_FUNCTION_182_5(v4, v5, v6);
+  v7 = OUTLINED_FUNCTION_125_6();
+  OUTLINED_FUNCTION_218_3(v7);
+  OUTLINED_FUNCTION_149_6();
+  OUTLINED_FUNCTION_144_6(v8, v9);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v10 = ShippingOrder.merchantName.getter();
+  if (v11)
+  {
+    v12 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v10 = OUTLINED_FUNCTION_22_16();
+    *&v66 = 0;
+  }
+
+  OUTLINED_FUNCTION_182_5(v10, v11, v12);
+  OUTLINED_FUNCTION_144_6(0x6E61686372656D20, 0xEE00656D616E2074);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](10, 0xE100000000000000);
+  v13 = ShippingOrder.orderCost.getter();
+  if (v14)
+  {
+    v13 = OUTLINED_FUNCTION_22_16();
+    *(&v65 + 1) = 0;
+    *&v66 = 0;
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277D83A60];
+    v16 = MEMORY[0x277D839F8];
+  }
+
+  *&v65 = v13;
+  *(&v66 + 1) = v16;
+  v67 = v15;
+  OUTLINED_FUNCTION_144_6(0x7420726564726F20, 0xEC0000006C61746FLL);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  MEMORY[0x25F89F6C0](10, 0xE100000000000000);
+  v17 = TicketedShow.startLocationName.getter();
+  if (v18)
+  {
+    v19 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v17 = OUTLINED_FUNCTION_22_16();
+    *&v66 = 0;
+  }
+
+  OUTLINED_FUNCTION_182_5(v17, v18, v19);
+  OUTLINED_FUNCTION_104_8();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v20, v21, v22, 0);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v23 = ShippingOrder.carrierName.getter();
+  if (v24)
+  {
+    v25 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v23 = OUTLINED_FUNCTION_22_16();
+    *&v66 = 0;
+  }
+
+  OUTLINED_FUNCTION_182_5(v23, v24, v25);
+  OUTLINED_FUNCTION_242_2(0x7265697272616320, 8250, &v65);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v26 = ShippingOrder.trackingNumber.getter();
+  if (v27)
+  {
+    v28 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v26 = OUTLINED_FUNCTION_22_16();
+    *&v66 = 0;
+  }
+
+  OUTLINED_FUNCTION_182_5(v26, v27, v28);
+  OUTLINED_FUNCTION_98_2();
+  v29 = OUTLINED_FUNCTION_153_2();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v29, v30, v31, 0);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  ShippingOrder.estimatedDeliveryEndDate.getter();
+  v32 = type metadata accessor for Date();
+  v33 = OUTLINED_FUNCTION_93_6();
+  OUTLINED_FUNCTION_166(v33, v34, v32);
+  if (v35)
+  {
+    outlined destroy of IntentApplication?(v1, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    v65 = 0u;
+    v66 = 0u;
+    v67 = 0;
+  }
+
+  else
+  {
+    *(&v66 + 1) = v32;
+    v67 = _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
+    __swift_allocate_boxed_opaque_existential_1Tm(&v65);
+    OUTLINED_FUNCTION_51();
+    (*(v36 + 32))();
+  }
+
+  OUTLINED_FUNCTION_104_8();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v37, v38, v39, 0);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v40 = ShippingOrder.recipientNames.getter();
+  v41 = v40;
+  if (v40)
+  {
+    v42 = OUTLINED_FUNCTION_121_0();
+    v44 = __swift_instantiateConcreteTypeFromMangledNameV2(v42, v43);
+    OUTLINED_FUNCTION_56_10();
+    v40 = lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v45, &_sSaySSGMd, &_sSaySSGMR, v46);
+  }
+
+  else
+  {
+    v44 = 0;
+    *(&v65 + 1) = 0;
+    *&v66 = 0;
+  }
+
+  *&v65 = v41;
+  *(&v66 + 1) = v44;
+  v67 = v40;
+  OUTLINED_FUNCTION_98_2();
+  v47 = OUTLINED_FUNCTION_153_2();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v47, v48, v49, 0);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v50 = ShippingOrder.recipientLocationName.getter();
+  if (v51)
+  {
+    v52 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v50 = OUTLINED_FUNCTION_22_16();
+    *&v66 = 0;
+  }
+
+  OUTLINED_FUNCTION_182_5(v50, v51, v52);
+  OUTLINED_FUNCTION_104_8();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v53, v54, v55, 0);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  v56 = ShippingOrder.recipientAddress.getter();
+  if (v57)
+  {
+    v58 = MEMORY[0x277D83838];
+  }
+
+  else
+  {
+    v56 = OUTLINED_FUNCTION_22_16();
+    *&v66 = 0;
+  }
+
+  OUTLINED_FUNCTION_182_5(v56, v57, v58);
+  OUTLINED_FUNCTION_104_8();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v59, v60, v61, 0);
+  outlined destroy of IntentApplication?(&v65, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  LLMFormatter.sanitized.getter();
+  OUTLINED_FUNCTION_89_10();
+  v62 = OUTLINED_FUNCTION_88();
+  result._object = v63;
+  result._countAndFlagsBits = v62;
+  return result;
+}
+
+Swift::String __swiftcall FileDocument.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_76_10();
+  MEMORY[0x25F89F5D0](85);
+  OUTLINED_FUNCTION_175_4();
+  OUTLINED_FUNCTION_221_3();
+  v1 = FileDocument.item.getter();
+  v2 = [v1 attributeSet];
+
+  outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.title.getter(v2);
+  if (!v3)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v36 = 0;
+  }
+
+  OUTLINED_FUNCTION_127_9();
+  outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_98_2();
+  v4 = OUTLINED_FUNCTION_153_2();
+  MEMORY[0x25F89F6C0](v4);
+  v5 = FileDocument.item.getter();
+  v6 = [v5 attributeSet];
+
+  outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.filename.getter(v6, &selRef_filename);
+  if (!v7)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v36 = 0;
+  }
+
+  OUTLINED_FUNCTION_127_9();
+  outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_247_3();
+  v8 = FileDocument.item.getter();
+  v9 = [v8 attributeSet];
+
+  outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.filename.getter(v9, &selRef_kind);
+  if (!v10)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v36 = 0;
+  }
+
+  OUTLINED_FUNCTION_135_7();
+  OUTLINED_FUNCTION_174_3();
+  LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v11, v12, v13, 0);
+  outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_128_5();
+  v14 = FileDocument.item.getter();
+  v15 = [v14 attributeSet];
+
+  v16 = outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.keywords.getter(v15);
+  if (v16)
+  {
+    v17 = v16;
+  }
+
+  else
+  {
+    v17 = MEMORY[0x277D84F90];
+  }
+
+  if (*(v17 + 16))
+  {
+    v18 = MEMORY[0x277D837D0];
+    v19 = MEMORY[0x277D83838];
+    v34 = 0x6261207369207449;
+    v35 = 0xEB0000000074756FLL;
+    OUTLINED_FUNCTION_48_9();
+    MEMORY[0x25F89F6C0](v34, v35);
+
+    v34 = v17;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+    OUTLINED_FUNCTION_8_25();
+    lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(v20, v21, &_sSaySSGMR, v22);
+    v23 = BidirectionalCollection<>.joined(separator:)();
+    v37 = v18;
+    v38 = v19;
+    v34 = v23;
+    v35 = v24;
+    OUTLINED_FUNCTION_210_2();
+    outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+    OUTLINED_FUNCTION_177_5();
+  }
+
+  OUTLINED_FUNCTION_128_5();
+  v25 = FileDocument.item.getter();
+  v26 = [v25 attributeSet];
+
+  outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.filename.getter(v26, &selRef_textContent);
+  if (!v27)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v36 = 0;
+  }
+
+  OUTLINED_FUNCTION_135_7();
+  OUTLINED_FUNCTION_174_3();
+  OUTLINED_FUNCTION_179_5(v28, v29, v30);
+  outlined destroy of IntentApplication?(&v34, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_222_2();
+  OUTLINED_FUNCTION_89_10();
+  v31 = OUTLINED_FUNCTION_88();
+  result._object = v32;
+  result._countAndFlagsBits = v31;
+  return result;
+}
+
+Swift::String __swiftcall Contact.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  v17[0] = 0;
+  v17[1] = 0xE000000000000000;
+  MEMORY[0x25F89F5D0](91, locale.value._object);
+  OUTLINED_FUNCTION_175_4();
+  MEMORY[0x25F89F6C0](0xD000000000000019, 0x800000025DBF43F0);
+  Contact.name.getter();
+  if (!v1)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v18 = 0;
+  }
+
+  OUTLINED_FUNCTION_127_9();
+  outlined destroy of IntentApplication?(v17, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_247_3();
+  v2 = MEMORY[0x25F89D1F0]();
+  v3._countAndFlagsBits = OUTLINED_FUNCTION_126_8(0x20656E6F6850);
+  v19.value._rawValue = v2;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v3, v19);
+
+  OUTLINED_FUNCTION_128_5();
+  v4 = MEMORY[0x25F89D200]();
+  v5._countAndFlagsBits = OUTLINED_FUNCTION_153_2();
+  v20.value._rawValue = v4;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v5, v20);
+
+  OUTLINED_FUNCTION_128_5();
+  v6 = MEMORY[0x25F89D210]();
+  v7._countAndFlagsBits = 0xD000000000000011;
+  v7._object = 0x800000025DBF4430;
+  v21.value._rawValue = v6;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v7, v21);
+
+  OUTLINED_FUNCTION_128_5();
+  v8 = Contact.dates.getter();
+  v9._countAndFlagsBits = 0x3A7365746144;
+  v9._object = 0xE600000000000000;
+  v22.value._rawValue = v8;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(v9, v22);
+
+  OUTLINED_FUNCTION_128_5();
+  Contact.birthday.getter();
+  if (!v10)
+  {
+    OUTLINED_FUNCTION_22_16();
+    v18 = 0;
+  }
+
+  OUTLINED_FUNCTION_135_7();
+  OUTLINED_FUNCTION_174_3();
+  OUTLINED_FUNCTION_120_6(v11, v12, v13);
+  outlined destroy of IntentApplication?(v17, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
+  OUTLINED_FUNCTION_222_2();
+  OUTLINED_FUNCTION_89_10();
+  v14 = OUTLINED_FUNCTION_88();
+  result._object = v15;
+  result._countAndFlagsBits = v14;
+  return result;
+}
+
+Swift::String __swiftcall AppEntityItem.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+
+  MEMORY[0x25F89F5D0](61);
+  OUTLINED_FUNCTION_175_4();
+  OUTLINED_FUNCTION_98_2();
+  MEMORY[0x25F89F6C0](0xD00000000000001CLL);
+  v1 = OUTLINED_FUNCTION_210_2();
+  OUTLINED_FUNCTION_163_4(v1, v2);
+  OUTLINED_FUNCTION_273_1(0x646E6120u);
+  OUTLINED_FUNCTION_149_6();
+  MEMORY[0x25F89F6C0]();
+  v3 = OUTLINED_FUNCTION_210_2();
+  OUTLINED_FUNCTION_163_4(v3, v4);
+  OUTLINED_FUNCTION_222_2();
+  OUTLINED_FUNCTION_89_10();
+  v5 = OUTLINED_FUNCTION_88();
+  result._object = v6;
+  result._countAndFlagsBits = v5;
+  return result;
+}
+
+Swift::String __swiftcall Answer.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_76_10();
+  MEMORY[0x25F89F5D0](47);
+  OUTLINED_FUNCTION_175_4();
+  MEMORY[0x25F89F6C0](0x6577736E61206E41, 0xEB00000000203A72);
+
+  v1 = OUTLINED_FUNCTION_210_2();
+  OUTLINED_FUNCTION_163_4(v1, v2);
+  OUTLINED_FUNCTION_98_2();
+  v3 = OUTLINED_FUNCTION_153_2();
+  MEMORY[0x25F89F6C0](v3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
+  lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(&lazy protocol witness table cache variable for type [String : String] and conformance [A : B], &_sSDyS2SGMd, &_sSDyS2SGMR, MEMORY[0x277D83538]);
+
+  v4 = OUTLINED_FUNCTION_210_2();
+  OUTLINED_FUNCTION_163_4(v4, v5);
+  OUTLINED_FUNCTION_222_2();
+  OUTLINED_FUNCTION_89_10();
+  v6 = OUTLINED_FUNCTION_88();
+  result._object = v7;
+  result._countAndFlagsBits = v6;
+  return result;
+}
+
+Swift::String __swiftcall OnScreen.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  v1 = MEMORY[0x282197AE8](locale.value._countAndFlagsBits, locale.value._object);
+  result._object = v2;
+  result._countAndFlagsBits = v1;
+  return result;
+}
+
+Swift::String __swiftcall GenericSpotlightItem.llmConsumableDescription(locale:)(Swift::String_optional locale)
+{
+  OUTLINED_FUNCTION_76_10();
+  MEMORY[0x25F89F5D0](75);
+  OUTLINED_FUNCTION_175_4();
+  OUTLINED_FUNCTION_98_2();
+  MEMORY[0x25F89F6C0](0xD000000000000028);
+  GenericSpotlightItem.bundleId.getter();
+  v1 = OUTLINED_FUNCTION_210_2();
+  OUTLINED_FUNCTION_163_4(v1, v2);
+  MEMORY[0x25F89F6C0](0x696E7520646E6120, 0xEF20444920657571);
+  GenericSpotlightItem.id.getter();
+  v3 = OUTLINED_FUNCTION_210_2();
+  OUTLINED_FUNCTION_163_4(v3, v4);
+  OUTLINED_FUNCTION_222_2();
+  OUTLINED_FUNCTION_89_10();
+  v5 = OUTLINED_FUNCTION_88();
+  result._object = v6;
+  result._countAndFlagsBits = v5;
+  return result;
+}
+
+uint64_t outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.keywords.getter(void *a1)
+{
+  v2 = [a1 keywords];
+
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+  return v3;
+}
+
+uint64_t outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.filename.getter(void *a1, SEL *a2)
+{
+  v3 = [a1 *a2];
+
+  if (v3)
+  {
+    static String._unconditionallyBridgeFromObjectiveC(_:)();
+  }
+
+  return OUTLINED_FUNCTION_88();
+}
+
+uint64_t specialized closure #1 in LLMFormatter.StringInterpolation.appendInterpolation<A>(_:dates:locale:formatStyle:)@<X0>(uint64_t *a1@<X8>)
+{
+  result = specialized closure #1 in LLMFormatter.StringInterpolation.appendInterpolation<A>(_:dates:locale:formatStyle:)();
+  if (!v1)
+  {
+    *a1 = result;
+    a1[1] = v4;
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SearchCATContext and conformance SearchCATContext(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s10Foundation4DateV11FormatStyleVAeadAWlTm_1(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3325,1988 +6747,2499 @@ uint64_t lazy protocol witness table accessor for type SearchCATContext and conf
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_0_44()
+uint64_t specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
-
-  return swift_once();
+  v13 = a4;
+  v14 = a5;
+  boxed_opaque_existential_1Tm = __swift_allocate_boxed_opaque_existential_1Tm(&v12);
+  (*(*(a4 - 8) + 32))(boxed_opaque_existential_1Tm, a2, a4);
+  v10 = *a3;
+  *(v10 + 16) = a1 + 1;
+  return outlined init with take of ResponseOverrideMatcherProtocol(&v12, v10 + 40 * a1 + 32);
 }
 
-uint64_t OUTLINED_FUNCTION_3_31()
+uint64_t outlined init with take of EditorialDateFormatter(uint64_t a1, uint64_t a2)
 {
-
-  return swift_dynamicCast();
+  v4 = type metadata accessor for EditorialDateFormatter(0);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
 }
 
-uint64_t OUTLINED_FUNCTION_10_21(uint64_t a1)
+uint64_t OUTLINED_FUNCTION_3_34@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  *v1 = a1;
-
-  return type metadata accessor for SearchCATContext();
+  *(v5 - 144) = a1;
+  *(v5 - 136) = a2;
+  *(v5 - 120) = v3;
+  *(v5 - 112) = a3;
+  return v4;
 }
 
-uint64_t OUTLINED_FUNCTION_14_16()
+uint64_t OUTLINED_FUNCTION_4_29@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-
-  return type metadata accessor for SearchCATContext();
+  *(v4 - 144) = a1;
+  *(v4 - 136) = a2;
+  *(v4 - 120) = v3;
+  *(v4 - 112) = a3;
+  return 0x2065746164707520;
 }
 
-uint64_t SearchCATEntity.init()@<X0>(uint64_t a1@<X8>)
+uint64_t OUTLINED_FUNCTION_7_24()
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
-  OUTLINED_FUNCTION_114(v2);
-  v4 = *(v3 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v5);
-  v7 = v34 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-  OUTLINED_FUNCTION_114(v8);
-  v10 = *(v9 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v11);
-  v13 = v34 - v12;
-  v14 = type metadata accessor for LocalizedStringResource();
-  v15 = OUTLINED_FUNCTION_17(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  __swift_storeEnumTagSinglePayload(v13, 1, 1, v14);
-  v18 = type metadata accessor for DisplayRepresentation.Image();
-  __swift_storeEnumTagSinglePayload(v7, 1, 1, v18);
-  DisplayRepresentation.init(title:subtitle:image:)();
-  v19 = type metadata accessor for SearchCATEntity();
-  v20 = v19[5];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v20) = OUTLINED_FUNCTION_80_4();
-  v21 = v19[6];
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v21) = EntityProperty<>.init(title:)();
-  v22 = v19[7];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation4DateVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation4DateVSgGMR);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v22) = EntityProperty<>.init(title:)();
-  v23 = v19[8];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v23) = EntityProperty<>.init(title:)();
-  v24 = v19[9];
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v24) = OUTLINED_FUNCTION_80_4();
-  v25 = v19[10];
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v25) = EntityProperty<>.init(title:)();
-  v26 = v19[11];
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v26) = EntityProperty<>.init(title:)();
-  v27 = v19[12];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v27) = EntityProperty<>.init(title:)();
-  v28 = v19[13];
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v28) = OUTLINED_FUNCTION_80_4();
-  v29 = v19[14];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySbGMd, &_s10AppIntents14EntityPropertyCySbGMR);
-  OUTLINED_FUNCTION_9_24();
-  *(a1 + v29) = EntityProperty<>.init(title:)();
-  v30 = v19[15];
-  OUTLINED_FUNCTION_9_24();
-  *(a1 + v30) = OUTLINED_FUNCTION_80_4();
-  v31 = v19[16];
-  LocalizedStringResource.init(stringLiteral:)();
-  *(a1 + v31) = EntityProperty<>.init(title:)();
-  v32 = v19[17];
-  OUTLINED_FUNCTION_9_24();
-  *(a1 + v32) = EntityProperty<>.init(title:)();
-  v34[0] = 0;
-  v34[1] = 0xE000000000000000;
-  EntityProperty.wrappedValue.setter();
-  LOBYTE(v34[0]) = 0;
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t type metadata accessor for SearchCATEntity()
-{
-  result = type metadata singleton initialization cache for SearchCATEntity;
-  if (!type metadata singleton initialization cache for SearchCATEntity)
-  {
-    return swift_getSingletonMetadata();
-  }
-
+  result = 0;
+  *(v0 - 128) = 0;
   return result;
 }
 
-uint64_t SearchCATEntity.contentCreationDate.setter(uint64_t a1)
+uint64_t OUTLINED_FUNCTION_10_22@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  v8 = &v11 - v7;
-  v9 = *(v1 + *(type metadata accessor for SearchCATEntity() + 28));
-  outlined init with copy of Date?(a1, v8);
-  EntityProperty.wrappedValue.setter();
-  return outlined destroy of IntentApplication?(a1, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  *(v4 - 144) = result;
+  *(v4 - 136) = a2;
+  *(v4 - 120) = v3;
+  *(v4 - 112) = a3;
+  return result;
 }
 
-uint64_t outlined init with copy of Date?(uint64_t a1, uint64_t a2)
+uint64_t OUTLINED_FUNCTION_16_20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  *(v4 - 144) = a1;
+  *(v4 - 136) = a2;
+  *(v4 - 120) = v3;
+  *(v4 - 112) = a3;
+  return 0x20656372756F5320;
+}
+
+uint64_t OUTLINED_FUNCTION_17_22@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(v4 - 144) = a1;
+  *(v4 - 136) = a2;
+  *(v4 - 120) = v3;
+  *(v4 - 112) = a3;
+  return 0x3A73757461747320;
+}
+
+uint64_t OUTLINED_FUNCTION_19_17@<X0>(uint64_t a1@<X8>)
+{
+  *(v4 - 144) = v2;
+  *(v4 - 136) = v3;
+  *(v4 - 120) = v1;
+  *(v4 - 112) = a1;
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0, 0xE000000000000000, v4 - 144, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_20_13()
+{
+  result = 0;
+  *(v0 - 120) = 0;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_23_18@<X0>(uint64_t a1@<X8>)
+{
+  *(v2 - 112) = v1;
+  *(v2 - 104) = a1;
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0, 0xE000000000000000, v2 - 136, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_35_18@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(v4 - 144) = a1;
+  *(v4 - 136) = a2;
+  *(v4 - 120) = v3;
+  *(v4 - 112) = a3;
+  return 1635021600;
+}
+
+uint64_t OUTLINED_FUNCTION_54_14@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(v4 - 144) = a1;
+  *(v4 - 136) = a2;
+  *(v4 - 120) = v3;
+  *(v4 - 112) = a3;
+  return 29472;
+}
+
+void OUTLINED_FUNCTION_55_11()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+void OUTLINED_FUNCTION_58_7(Swift::OpaquePointer_optional names, Swift::OpaquePointer_optional a2)
+{
+  rawValue = names.value._rawValue;
+  v6 = v2;
+  v7 = v3;
+  a2.value._rawValue = rawValue;
+
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(*&v6, a2);
+}
+
+uint64_t OUTLINED_FUNCTION_66_11(uint64_t a1)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, 0xE800000000000000, v1 - 144, 0);
+}
+
+double OUTLINED_FUNCTION_78_12()
+{
+  result = 0.0;
+  *(v0 - 144) = 0u;
+  *(v0 - 128) = 0u;
+  *(v0 - 112) = 0;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_81_12@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(v4 - 144) = result;
+  *(v4 - 136) = a2;
+  *(v4 - 120) = v3;
+  *(v4 - 112) = a3;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_89_10()
+{
+}
+
+void OUTLINED_FUNCTION_92_7()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+uint64_t OUTLINED_FUNCTION_112_10(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, 0xE800000000000000, a3, 0);
+}
+
+void OUTLINED_FUNCTION_113_9(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+
+  static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(a1, a2, 1, 0, 0, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
+}
+
+void OUTLINED_FUNCTION_115_7()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+void OUTLINED_FUNCTION_119_4()
+{
+  v1 = *(v0 - 136);
+  *(v0 - 104) = *(v0 - 144);
+  *(v0 - 96) = v1;
+}
+
+uint64_t OUTLINED_FUNCTION_120_6(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, 0xE90000000000003ALL, a3, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_121_7@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(v4 - 136) = result;
+  *(v4 - 128) = a2;
+  *(v4 - 112) = v3;
+  *(v4 - 104) = a3;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_127_9()
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+}
+
+void OUTLINED_FUNCTION_128_5()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+void OUTLINED_FUNCTION_143_6()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+uint64_t OUTLINED_FUNCTION_144_6(uint64_t a1, uint64_t a2)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, a2, v2 - 112, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_147_5(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(1931965513, 0xE400000000000000, a3, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_163_4(uint64_t a1, uint64_t a2, ...)
+{
+  va_start(va, a2);
+
+  return outlined destroy of IntentApplication?(va, v2, v3);
+}
+
+void OUTLINED_FUNCTION_177_5()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+uint64_t OUTLINED_FUNCTION_178_5()
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_179_5(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, 0xE800000000000000, a3, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_180_4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, a2, a3, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_182_5@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(v4 - 112) = result;
+  *(v4 - 104) = a2;
+  *(v4 - 88) = v3;
+  *(v4 - 80) = a3;
+  return result;
+}
+
+void OUTLINED_FUNCTION_185_3()
+{
+  *(v4 - 328) = v3;
+  *(v4 - 224) = v0;
+  *(v4 - 320) = v2;
+  *(v4 - 280) = v1;
+}
+
+void OUTLINED_FUNCTION_192_5()
+{
+
+  LLMFormatter.sanitized.getter();
+}
+
+void OUTLINED_FUNCTION_193_4()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+void OUTLINED_FUNCTION_194_4(void *a1, uint64_t a2, uint64_t a3, const char *a4)
+{
+
+  _os_log_impl(a1, v4, v5, a4, v6, 2u);
+}
+
+uint64_t OUTLINED_FUNCTION_195_5(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v7 = *(v5 - 312);
+
+  return outlined init with copy of SpotlightRankingItem?(v4, v7, a3, a4);
+}
+
+uint64_t OUTLINED_FUNCTION_196_4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(980705568, 0xE400000000000000, a3, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_197_5(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = a1 & 0xFFFFFFFFFFFFLL | 0xD000000000000000;
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(v4, a2, a3, 0);
+}
+
+void OUTLINED_FUNCTION_201_4()
+{
+
+  LLMFormatter.StringInterpolation.appendInterpolation(date:locale:timeIsUnknown:timeZone:)();
+}
+
+uint64_t OUTLINED_FUNCTION_210_2()
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:)();
+}
+
+void OUTLINED_FUNCTION_219_3()
+{
+  v4 = (v1 + *(v3 + 28));
+  *v4 = v0;
+  v4[1] = v2;
+}
+
+void OUTLINED_FUNCTION_220_3()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+void OUTLINED_FUNCTION_221_3()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+void OUTLINED_FUNCTION_222_2()
+{
+
+  LLMFormatter.sanitized.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_237_3@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+{
+  *(v3 - 144) = result;
+  *(v3 - 120) = v2;
+  *(v3 - 112) = a2;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_242_2(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = a2 & 0xFFFFFFFFFFFFLL | 0xEA00000000000000;
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, v4, a3, 0);
+}
+
+void OUTLINED_FUNCTION_243_2(uint64_t a1, uint64_t a2, Swift::OpaquePointer_optional a3)
+{
+  a3.value._rawValue = v3;
+
+  v6 = v4 | 0x8000000000000000;
+  LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(*&a1, a3);
+}
+
+void OUTLINED_FUNCTION_244_2()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+uint64_t OUTLINED_FUNCTION_245_3()
+{
+  v5 = *(v3 - 200);
+
+  return outlined init with copy of SpotlightRankingItem?(v2, v5, v0, v1);
+}
+
+void OUTLINED_FUNCTION_247_3()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+uint64_t OUTLINED_FUNCTION_248_2(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(0x3A79646F42, 0xE500000000000000, a3, 0);
+}
+
+uint64_t OUTLINED_FUNCTION_249_3(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, 0xE600000000000000, a3, 0);
+}
+
+void OUTLINED_FUNCTION_250_3()
+{
+
+  LLMFormatter.sanitized.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_252_3@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(v3 - 112) = a3;
+  *(v3 - 144) = result;
+  *(v3 - 136) = a2;
+  return result;
+}
+
+void OUTLINED_FUNCTION_274_1()
+{
+  v1 = *(v0 - 128);
+  *(v0 - 96) = *(v0 - 136);
+  *(v0 - 88) = v1;
+}
+
+void OUTLINED_FUNCTION_277_0()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+void OUTLINED_FUNCTION_278_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+  v22 = *(v20 - 200);
+  v23 = *(v20 - 192);
+
+  static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v22, v23, 0, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
+}
+
+uint64_t *OUTLINED_FUNCTION_280_1(uint64_t a1)
+{
+  *(v1 - 112) = a1;
+
+  return __swift_allocate_boxed_opaque_existential_1Tm((v1 - 144));
+}
+
+void OUTLINED_FUNCTION_282_0()
+{
+
+  specialized default argument 4 of LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)();
+}
+
+uint64_t OUTLINED_FUNCTION_283()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_284_0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(a1, v3, a3, 0);
+}
+
+uint64_t CalendarManager.fetchEventsAndHydrate(calendarResults:)(uint64_t a1, void *a2)
+{
+  v176 = a2;
+  v163 = type metadata accessor for SpotlightRankingItem();
+  OUTLINED_FUNCTION_14();
+  v175 = v4;
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_15_4(v6);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+  v8 = OUTLINED_FUNCTION_114(v7);
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_15_4(&v150 - v10);
+  v160 = type metadata accessor for SearchResultItem(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_2_3();
+  OUTLINED_FUNCTION_15_4(v12);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes19DataDetectorResultsVSgMd, &_s15OmniSearchTypes19DataDetectorResultsVSgMR);
+  v14 = OUTLINED_FUNCTION_114(v13);
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_15_4(&v150 - v15);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v17 = OUTLINED_FUNCTION_114(v16);
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v18);
+  v181 = &v150 - v19;
+  v177 = type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_14();
+  v190 = v20;
+  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v22);
+  v180 = &v150 - v23;
+  MEMORY[0x28223BE20](v24);
+  v182 = &v150 - v25;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
+  v27 = OUTLINED_FUNCTION_114(v26);
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v28);
+  v30 = &v150 - v29;
+  v31 = type metadata accessor for CalendarEvent();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v32);
+  OUTLINED_FUNCTION_39_0();
+  v179 = v33;
+  MEMORY[0x28223BE20](v34);
+  v178 = &v150 - v35;
+  v37 = MEMORY[0x28223BE20](v36);
+  v39 = &v150 - v38;
+  v40 = 0;
+  v41 = *(a1 + 16);
+  v188 = (v42 + 32);
+  v174 = v42;
+  v185 = " attachments(s). ";
+  v186 = (v42 + 8);
+  v37.n128_u64[0] = 136315138;
+  v184 = v37;
+  v183 = MEMORY[0x277D84F90];
+  v189 = a1;
+  v187 = v41;
+  while (v41 != v40)
+  {
+    if (v40 >= v41)
+    {
+      __break(1u);
+LABEL_66:
+      __break(1u);
+LABEL_67:
+      __break(1u);
+LABEL_68:
+      __break(1u);
+LABEL_69:
+      OUTLINED_FUNCTION_0_5();
+      swift_once();
+LABEL_47:
+      v124 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v124, static Logging.answerSynthesis);
+      v125 = Logger.logObject.getter();
+      v126 = static os_log_type_t.error.getter();
+      if (OUTLINED_FUNCTION_105_6(v126))
+      {
+LABEL_56:
+        OUTLINED_FUNCTION_51_0();
+        v131 = OUTLINED_FUNCTION_10_23();
+        *(v2 + 4) = OUTLINED_FUNCTION_1_46(v131);
+        OUTLINED_FUNCTION_110_4();
+        _os_log_impl(v132, v133, v134, v135, v136, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v40);
+        OUTLINED_FUNCTION_42_0();
+        OUTLINED_FUNCTION_42_0();
+      }
+
+LABEL_57:
+
+      goto LABEL_58;
+    }
+
+    v43 = v40 + 1;
+    if (__OFADD__(v40, 1))
+    {
+      goto LABEL_66;
+    }
+
+    SearchResultItem.associatedValue.getter(&v191);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+    if (!swift_dynamicCast())
+    {
+      OUTLINED_FUNCTION_92();
+      __swift_storeEnumTagSinglePayload(v121, v122, v123, v31);
+
+      outlined destroy of IntentApplication?(v30, &_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
+      if (one-time initialization token for answerSynthesis == -1)
+      {
+        goto LABEL_47;
+      }
+
+      goto LABEL_69;
+    }
+
+    __swift_storeEnumTagSinglePayload(v30, 0, 1, v31);
+    (*v188)(v39, v30, v31);
+    v44 = CalendarEvent.itemAppEntityInstanceId.getter();
+    if (v45)
+    {
+      v46 = v44;
+      v47 = v45;
+      v48 = HIBYTE(v45) & 0xF;
+      if ((v45 & 0x2000000000000000) == 0)
+      {
+        v48 = v44 & 0xFFFFFFFFFFFFLL;
+      }
+
+      if (!v48)
+      {
+
+        goto LABEL_11;
+      }
+
+      v55 = v183;
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0);
+        v55 = v62;
+      }
+
+      v57 = *(v55 + 16);
+      v56 = *(v55 + 24);
+      v183 = v55;
+      v2 = (v57 + 1);
+      if (v57 >= v56 >> 1)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v56 > 1);
+        v183 = v63;
+      }
+
+      v58 = OUTLINED_FUNCTION_16_21();
+      v59(v58);
+      v60 = v183;
+      *(v183 + 16) = v2;
+      v61 = v60 + 16 * v57;
+      *(v61 + 32) = v46;
+      *(v61 + 40) = v47;
+      v40 = v43;
+      a1 = v189;
+      v41 = v187;
+    }
+
+    else
+    {
+LABEL_11:
+      if (one-time initialization token for answerSynthesis != -1)
+      {
+        OUTLINED_FUNCTION_0_5();
+        swift_once();
+      }
+
+      v49 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v49, static Logging.answerSynthesis);
+      v50 = Logger.logObject.getter();
+      v2 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v50, v2))
+      {
+        v51 = OUTLINED_FUNCTION_51_0();
+        v52 = swift_slowAlloc();
+        v191 = v52;
+        *v51 = v184.n128_u32[0];
+        *(v51 + 4) = OUTLINED_FUNCTION_2_31();
+        _os_log_impl(&dword_25D85C000, v50, v2, "%s CalendarEvent has no itemAppEntityInstanceId. Skip.", v51, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v52);
+        OUTLINED_FUNCTION_42_0();
+        OUTLINED_FUNCTION_42_0();
+      }
+
+      v53 = OUTLINED_FUNCTION_16_21();
+      v54(v53);
+      a1 = v189;
+      v41 = v187;
+      ++v40;
+    }
+  }
+
+  v40 = v183;
+  if (!*(v183 + 16))
+  {
+
+    if (one-time initialization token for answerSynthesis != -1)
+    {
+      OUTLINED_FUNCTION_0_5();
+      swift_once();
+    }
+
+    v127 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v127, static Logging.answerSynthesis);
+    v125 = Logger.logObject.getter();
+    v128 = static os_log_type_t.error.getter();
+    if (OUTLINED_FUNCTION_105_6(v128))
+    {
+      goto LABEL_56;
+    }
+
+    goto LABEL_57;
+  }
+
+  if (one-time initialization token for answerSynthesis != -1)
+  {
+    OUTLINED_FUNCTION_0_5();
+    swift_once();
+  }
+
+  v64 = type metadata accessor for Logger();
+  v65 = __swift_project_value_buffer(v64, static Logging.answerSynthesis);
+
+  v66 = Logger.logObject.getter();
+  v2 = static os_log_type_t.debug.getter();
+  v67 = os_log_type_enabled(v66, v2);
+  v68 = v182;
+  if (v67)
+  {
+    v69 = swift_slowAlloc();
+    v191 = swift_slowAlloc();
+    *v69 = 136315394;
+    *(v69 + 4) = OUTLINED_FUNCTION_2_31();
+    *(v69 + 12) = 2080;
+    MEMORY[0x25F89F8A0](v183, MEMORY[0x277D837D0]);
+    v70 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+    *(v69 + 14) = v70;
+    a1 = v189;
+    _os_log_impl(&dword_25D85C000, v66, v2, "%s Searching EKEventStore using identifiers=%s", v69, 0x16u);
+    swift_arrayDestroy();
+    OUTLINED_FUNCTION_42_0();
+    v40 = v183;
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  v71 = v177;
+  v72 = outlined bridged method (mbnb) of @objc EKEventStore.events(withIdentifiers:)(v40, v176);
+  if (!v72)
+  {
+    v125 = Logger.logObject.getter();
+    v129 = static os_log_type_t.error.getter();
+    if (OUTLINED_FUNCTION_105_6(v129))
+    {
+      goto LABEL_56;
+    }
+
+    goto LABEL_57;
+  }
+
+  v40 = v72;
+  v150 = v65;
+  v73 = Logger.logObject.getter();
+  v74 = static os_log_type_t.info.getter();
+  if (OUTLINED_FUNCTION_105_6(v74))
+  {
+    swift_slowAlloc();
+    v75 = OUTLINED_FUNCTION_10_23();
+    v191 = v75;
+    *v2 = 136315394;
+    *(v2 + 4) = OUTLINED_FUNCTION_2_31();
+    *(v2 + 6) = 2048;
+    *(v2 + 14) = specialized Array.count.getter();
+    OUTLINED_FUNCTION_110_4();
+    _os_log_impl(v76, v77, v78, v79, v80, 0x16u);
+    __swift_destroy_boxed_opaque_existential_1Tm(v75);
+    OUTLINED_FUNCTION_42_0();
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  v81 = v164;
+  if (specialized Array.count.getter() != v41)
+  {
+
+    v125 = Logger.logObject.getter();
+    v130 = static os_log_type_t.error.getter();
+    if (OUTLINED_FUNCTION_105_6(v130))
+    {
+      goto LABEL_56;
+    }
+
+    goto LABEL_57;
+  }
+
+  v156 = specialized Array.count.getter();
+  v82 = 0;
+  v155 = v40 & 0xC000000000000001;
+  v154 = v40 & 0xFFFFFFFFFFFFFF8;
+  v152 = (v174 + 16);
+  v151 = (v175 + 32);
+  v183 = MEMORY[0x277D84F90];
+  for (i = v40; ; v40 = i)
+  {
+    if (v156 == v82)
+    {
+
+      return v183;
+    }
+
+    if (v155)
+    {
+      v83 = MEMORY[0x25F89FFD0](v82, v40);
+    }
+
+    else
+    {
+      if (v82 >= *(v154 + 16))
+      {
+        goto LABEL_68;
+      }
+
+      v83 = *(v40 + 8 * v82 + 32);
+    }
+
+    if (v41 == v82)
+    {
+      goto LABEL_67;
+    }
+
+    v84 = v68;
+    v85 = v83;
+    v86 = (*(v190 + 80) + 32) & ~*(v190 + 80);
+    v87 = *(v190 + 72);
+    _s10OmniSearch0B6ResultVWOcTm_3(a1 + v86 + v87 * v82, v84, type metadata accessor for SearchResult);
+    SearchResultItem.associatedValue.getter(&v191);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+    if (!swift_dynamicCast())
+    {
+      break;
+    }
+
+    v175 = v87;
+    v176 = v86;
+    v177 = v82;
+    __swift_storeEnumTagSinglePayload(v81, 0, 1, v31);
+    (*v188)(v178, v81, v31);
+    v174 = WalletPass.id.getter();
+    v173 = v88;
+    v172 = WalletPass.title.getter();
+    v171 = v89;
+    v170 = WalletPass.description.getter();
+    v169 = v90;
+    CalendarEvent.startDate.getter();
+    CalendarEvent.endDate.getter();
+    v165 = v85;
+    v168 = outlined bridged method (ob) of @objc EKCalendarItem.location.getter(v165);
+    v167 = v91;
+    v166 = CalendarEvent.organizerNames.getter();
+    CalendarEvent.participantNames.getter();
+    v92 = v159;
+    CalendarEvent.notes.getter();
+    CalendarEvent.itemAppEntityInstanceId.getter();
+    type metadata accessor for DataDetectorResults();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v93, v94, v95, v96);
+    v97 = v182;
+    v98 = v179;
+    CalendarEvent.init(id:title:contentDescription:startDate:endDate:locationName:organizerNames:participantNames:notes:itemAppEntityInstanceId:dataDetectorResults:)();
+    (*v152)(v92, v98, v31);
+    swift_storeEnumTagMultiPayload();
+    LODWORD(v174) = v97[v71[8]];
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+    v99 = CodableNSSecureCoding.wrappedValue.getter();
+    v100 = v161;
+    OUTLINED_FUNCTION_92();
+    v101 = v163;
+    __swift_storeEnumTagSinglePayload(v102, v103, v104, v163);
+    v105 = v158;
+    *(v158 + v71[7]) = MEMORY[0x277D84F90];
+    v106 = (v105 + v71[10]);
+    *v106 = 0;
+    v106[1] = 0;
+    _s10OmniSearch0B6ResultVWOcTm_3(v92, v105, type metadata accessor for SearchResultItem);
+    type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for CSSearchableItem, 0x277CC34B0);
+    lazy protocol witness table accessor for type CSSearchableItem and conformance NSObject();
+    v107 = v99;
+    v108 = v100;
+    v109 = v107;
+    v110 = v162;
+    CodableNSSecureCoding.init(wrappedValue:)();
+    outlined init with copy of SpotlightRankingItem?(v108, v110);
+    if (__swift_getEnumTagSinglePayload(v110, 1, v101) == 1)
+    {
+      outlined destroy of IntentApplication?(v110, &_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+      OUTLINED_FUNCTION_13_12();
+      OUTLINED_FUNCTION_13_12();
+      OUTLINED_FUNCTION_13_12();
+      OUTLINED_FUNCTION_13_12();
+      OUTLINED_FUNCTION_13_12();
+      LOBYTE(v191) = 1;
+      SpotlightRankingItem.init(retrievalType:bundleId:likelihood:topicality:pommesL1Score:pommesAdjustedL1Score:pommesCalibratedL1Score:embeddingSimilarity:keywordMatchScore:freshness:)();
+
+      outlined destroy of IntentApplication?(v108, &_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+      OUTLINED_FUNCTION_5_28();
+    }
+
+    else
+    {
+
+      outlined destroy of IntentApplication?(v108, &_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+      OUTLINED_FUNCTION_5_28();
+      v111 = *v151;
+      v112 = v157;
+      (*v151)(v157, v110, v101);
+      v111(v105 + v71[5], v112, v101);
+    }
+
+    *(v105 + v71[8]) = v174;
+    *(v105 + v71[9]) = 1;
+    outlined init with take of SearchResult(v105, v180);
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    a1 = v189;
+    v41 = v187;
+    v68 = v182;
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v183 + 16) + 1, 1, v183);
+      v183 = v119;
+    }
+
+    v81 = v164;
+    v114 = v165;
+    v116 = *(v183 + 16);
+    v115 = *(v183 + 24);
+    if (v116 >= v115 >> 1)
+    {
+      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v115 > 1, v116 + 1, 1, v183);
+      v183 = v120;
+    }
+
+    v2 = *v186;
+    (*v186)(v179, v31);
+    (v2)(v178, v31);
+    OUTLINED_FUNCTION_4_30();
+    _s10OmniSearch0B6ResultVWOhTm_4(v68, v117);
+    v118 = v183;
+    *(v183 + 16) = v116 + 1;
+    outlined init with take of SearchResult(v180, v176 + v118 + v116 * v175);
+    v82 = v177 + 1;
+  }
+
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v138, v139, v140, v31);
+
+  outlined destroy of IntentApplication?(v81, &_s15OmniSearchTypes13CalendarEventVSgMd, &_s15OmniSearchTypes13CalendarEventVSgMR);
+  v141 = Logger.logObject.getter();
+  v142 = static os_log_type_t.error.getter();
+  if (OUTLINED_FUNCTION_105_6(v142))
+  {
+    OUTLINED_FUNCTION_51_0();
+    v143 = OUTLINED_FUNCTION_10_23();
+    *(v86 + 4) = OUTLINED_FUNCTION_1_46(v143);
+    OUTLINED_FUNCTION_110_4();
+    _os_log_impl(v144, v145, v146, v147, v148, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v40);
+    OUTLINED_FUNCTION_42_0();
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  else
+  {
+  }
+
+  OUTLINED_FUNCTION_4_30();
+  _s10OmniSearch0B6ResultVWOhTm_4(v84, v149);
+LABEL_58:
+
+  return a1;
+}
+
+uint64_t outlined bridged method (mbnb) of @objc EKEventStore.events(withIdentifiers:)(uint64_t a1, void *a2)
+{
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  v4 = [a2 eventsWithIdentifiers_];
+
+  if (!v4)
+  {
+    return 0;
+  }
+
+  type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for EKEvent, 0x277CC5A28);
+  v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+  return v5;
+}
+
+uint64_t outlined bridged method (ob) of @objc EKCalendarItem.location.getter(void *a1)
+{
+  v2 = [a1 location];
+
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+
+  return v3;
+}
+
+uint64_t outlined init with copy of SpotlightRankingItem?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t SearchCATEntity.sentFrom.getter()
+uint64_t _s10OmniSearch0B6ResultVWOhTm_4(uint64_t a1, void (*a2)(void))
 {
-  v1 = *(v0 + *(type metadata accessor for SearchCATEntity() + 32));
-  EntityProperty.wrappedValue.getter();
+  a2(0);
+  OUTLINED_FUNCTION_17();
+  (*(v3 + 8))(a1);
+  return a1;
+}
+
+uint64_t OUTLINED_FUNCTION_1_46(uint64_t a1)
+{
+  *(v2 - 128) = a1;
+  *v1 = *(v2 - 192);
+
+  return getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+}
+
+uint64_t OUTLINED_FUNCTION_2_31()
+{
+
+  return getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+}
+
+uint64_t OUTLINED_FUNCTION_5_28()
+{
+
+  return _s10OmniSearch0B6ResultVWOhTm_4(v0, type metadata accessor for SearchResultItem);
+}
+
+uint64_t OUTLINED_FUNCTION_10_23()
+{
+
+  return swift_slowAlloc();
+}
+
+id @nonobjc CNContactStore.unifiedContact(withIdentifier:keysToFetch:)()
+{
+  v7[1] = *MEMORY[0x277D85DE8];
+  v1 = MEMORY[0x25F89F4C0]();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15CNKeyDescriptor_pMd, &_sSo15CNKeyDescriptor_pMR);
+  isa = Array._bridgeToObjectiveC()().super.isa;
+  v7[0] = 0;
+  v3 = [v0 unifiedContactWithIdentifier:v1 keysToFetch:isa error:v7];
+
+  if (v3)
+  {
+    v4 = v7[0];
+  }
+
+  else
+  {
+    v5 = v7[0];
+    _convertNSErrorToError(_:)();
+
+    swift_willThrow();
+  }
+
   return v3;
 }
 
-uint64_t SearchCATEntity.typeDisplayRepresentation.unsafeMutableAddressor()
+id one-time initialization function for addressFormatter()
 {
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  result = [objc_allocWithZone(MEMORY[0x277CBDB80]) init];
+  static ContactContentManager.addressFormatter = result;
+  return result;
+}
+
+{
+  result = [objc_allocWithZone(MEMORY[0x277CBDB80]) init];
+  static ContactStoreHelper.addressFormatter = result;
+  return result;
+}
+
+id one-time initialization function for dateFormatter()
+{
+  result = [objc_allocWithZone(MEMORY[0x277CFBDE8]) init];
+  static ContactContentManager.dateFormatter = result;
+  return result;
+}
+
+{
+  result = [objc_allocWithZone(MEMORY[0x277CFBDE8]) init];
+  static ContactStoreHelper.dateFormatter = result;
+  return result;
+}
+
+void *ContactContentManager.__allocating_init(contactStore:)(void *a1)
+{
+  swift_allocObject();
+  v2 = a1[4];
+  __swift_mutable_project_boxed_opaque_existential_1(a1, a1[3]);
+  OUTLINED_FUNCTION_17_23();
+  MEMORY[0x28223BE20](v3);
+  v5 = OUTLINED_FUNCTION_12_24(v4, v12);
+  v6(v5);
+  OUTLINED_FUNCTION_47_11();
+  v10 = specialized ContactContentManager.init(contactStore:)(v7, v8, v9, v2);
+  __swift_destroy_boxed_opaque_existential_1Tm(a1);
+  return v10;
+}
+
+void *ContactContentManager.init(contactStore:)(void *a1)
+{
+  v2 = a1[4];
+  __swift_mutable_project_boxed_opaque_existential_1(a1, a1[3]);
+  OUTLINED_FUNCTION_17_23();
+  MEMORY[0x28223BE20](v3);
+  v5 = OUTLINED_FUNCTION_12_24(v4, v12);
+  v6(v5);
+  OUTLINED_FUNCTION_47_11();
+  v10 = specialized ContactContentManager.init(contactStore:)(v7, v8, v9, v2);
+  __swift_destroy_boxed_opaque_existential_1Tm(a1);
+  return v10;
+}
+
+uint64_t ContactContentManager.extractLabel(from:)(uint64_t a1, uint64_t a2)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_Sst_GSgMd, &_s17_StringProcessing5RegexV5MatchVySs_Sst_GSgMR);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  v5 = v24 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexV5MatchVySs_Sst_GMd, &_s17_StringProcessing5RegexV5MatchVySs_Sst_GMR);
+  OUTLINED_FUNCTION_14();
+  v8 = v7;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v11 = v24 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17_StringProcessing5RegexVySs_SstGMd, &_s17_StringProcessing5RegexVySs_SstGMR);
+  OUTLINED_FUNCTION_14();
+  v14 = v13;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v15);
+  v17 = v24 - v16;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSs_SstMd, &_sSs_SstMR);
+  Regex.init(_regexString:version:)();
+  Regex.firstMatch(in:)();
+  if (__swift_getEnumTagSinglePayload(v5, 1, v6) == 1)
   {
-    OUTLINED_FUNCTION_0_45();
+    outlined destroy of IntentApplication?(v5, &_s17_StringProcessing5RegexV5MatchVySs_Sst_GSgMd, &_s17_StringProcessing5RegexV5MatchVySs_Sst_GSgMR);
+    if (one-time initialization token for answerSynthesis != -1)
+    {
+      OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
+    }
+
+    v18 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v18, static Logging.answerSynthesis);
+    v19 = Logger.logObject.getter();
+    v20 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v19, v20))
+    {
+      v21 = swift_slowAlloc();
+      *v21 = 0;
+      _os_log_impl(&dword_25D85C000, v19, v20, "Failed to extract label with regex", v21, 2u);
+      OUTLINED_FUNCTION_42_0();
+    }
+
+    (*(v14 + 8))(v17, v12);
+    return 0;
   }
 
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-
-  return __swift_project_value_buffer(v0, static SearchCATEntity.typeDisplayRepresentation);
-}
-
-uint64_t static SearchCATEntity.typeDisplayRepresentation.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  else
   {
-    OUTLINED_FUNCTION_0_45();
+    (*(v8 + 32))(v11, v5, v6);
+    swift_getKeyPath();
+    Regex.Match.subscript.getter();
+
+    v22 = MEMORY[0x25F89F5B0](v24[1], v24[2], v24[3], v24[4]);
+
+    (*(v8 + 8))(v11, v6);
+    (*(v14 + 8))(v17, v12);
   }
 
-  v2 = type metadata accessor for TypeDisplayRepresentation();
-  v3 = __swift_project_value_buffer(v2, static SearchCATEntity.typeDisplayRepresentation);
-  swift_beginAccess();
-  return (*(*(v2 - 8) + 16))(a1, v3, v2);
+  return v22;
 }
 
-uint64_t static SearchCATEntity.typeDisplayRepresentation.setter(uint64_t a1)
+uint64_t ContactContentManager.fetchContactContent(contactsResult:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  v240 = a2;
+  v218 = *v2;
+  v236 = type metadata accessor for SpotlightRankingItem();
+  OUTLINED_FUNCTION_14();
+  v227 = v4;
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_15_4(v7);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+  v9 = OUTLINED_FUNCTION_114(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_15_4(v13);
+  v235 = type metadata accessor for SearchResultItem(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_14_2();
+  v234 = v16;
+  v17 = type metadata accessor for DateComponents();
+  OUTLINED_FUNCTION_14();
+  v222 = v18;
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_15_4(&v215 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v22 = OUTLINED_FUNCTION_114(v21);
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v23);
+  OUTLINED_FUNCTION_14_2();
+  OUTLINED_FUNCTION_15_4(v24);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes7ContactVSgMd, &_s15OmniSearchTypes7ContactVSgMR);
+  OUTLINED_FUNCTION_114(v25);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v26);
+  v246 = &v215 - v27;
+  type metadata accessor for Contact();
+  OUTLINED_FUNCTION_14();
+  v243 = v29;
+  v244 = v28;
+  MEMORY[0x28223BE20](v28);
+  OUTLINED_FUNCTION_39_0();
+  v233 = v30;
+  MEMORY[0x28223BE20](v31);
+  v33 = &v215 - v32;
+  v34 = type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v35);
+  OUTLINED_FUNCTION_39_0();
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v36);
+  OUTLINED_FUNCTION_4_3();
+  MEMORY[0x28223BE20](v37);
+  v39 = &v215 - v38;
+  v245 = type metadata accessor for OSSignpostID();
+  OUTLINED_FUNCTION_14();
+  v41 = v40;
+  MEMORY[0x28223BE20](v42);
+  v44 = &v215 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v45);
+  v47 = &v215 - v46;
+  if (one-time initialization token for searchSignposter != -1)
   {
-    OUTLINED_FUNCTION_0_45();
+    goto LABEL_116;
   }
 
-  v2 = type metadata accessor for TypeDisplayRepresentation();
-  __swift_project_value_buffer(v2, static SearchCATEntity.typeDisplayRepresentation);
-  swift_beginAccess();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 24);
-  OUTLINED_FUNCTION_33_13();
-  v5();
-  swift_endAccess();
-  return (*(v3 + 8))(a1, v2);
-}
-
-uint64_t (*static SearchCATEntity.typeDisplayRepresentation.modify())()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  while (1)
   {
-    OUTLINED_FUNCTION_0_45();
+    v48 = type metadata accessor for OSSignposter();
+    __swift_project_value_buffer(v48, static Logging.searchSignposter);
+    OSSignposter.logHandle.getter();
+    OSSignpostID.init(log:)();
+    v49 = OUTLINED_FUNCTION_6_19();
+    _s10OmniSearch0B6ResultVWOcTm_3(v49, v39, v50);
+    v51 = OSSignposter.logHandle.getter();
+    LODWORD(v237) = static os_signpost_type_t.begin.getter();
+    v52 = OS_os_log.signpostsEnabled.getter();
+    v241 = a1;
+    v242 = v34;
+    v239 = v33;
+    v223 = v17;
+    if (v52)
+    {
+      v53 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v247 = v54;
+      *v53 = 136315138;
+      SearchResultItem.associatedValue.getter(&v248);
+      v55 = v250;
+      v56 = v251;
+      __swift_project_boxed_opaque_existential_1(&v248, v250);
+      (*(v56 + 32))(v55, v56);
+      OUTLINED_FUNCTION_9_25();
+      __swift_destroy_boxed_opaque_existential_1Tm(&v248);
+      v57 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+      *(v53 + 4) = v57;
+      v58 = OSSignpostID.rawValue.getter();
+      _os_signpost_emit_with_name_impl(&dword_25D85C000, v51, v237, v58, "ContactContentManager.fetchContactContent", "Fetching contact information for %s", v53, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v54);
+      OUTLINED_FUNCTION_42_0();
+      OUTLINED_FUNCTION_42_0();
+    }
+
+    else
+    {
+
+      OUTLINED_FUNCTION_9_25();
+    }
+
+    v59 = v245;
+    (*(v41 + 16))(v44, v47, v245);
+    type metadata accessor for OSSignpostIntervalState();
+    swift_allocObject();
+    v60 = OSSignpostIntervalState.init(id:isOpen:)();
+    (*(v41 + 8))(v47, v59);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+    v17 = swift_allocObject();
+    *(v17 + 16) = xmmword_25DBDEBD0;
+    v61 = *MEMORY[0x277CBD098];
+    v62 = *MEMORY[0x277CBCFC0];
+    *(v17 + 32) = *MEMORY[0x277CBD098];
+    *(v17 + 40) = v62;
+    v63 = *MEMORY[0x277CBD0C8];
+    v64 = *MEMORY[0x277CBCFB0];
+    *(v17 + 48) = *MEMORY[0x277CBD0C8];
+    *(v17 + 56) = v64;
+    v65 = *MEMORY[0x277CBCF90];
+    *(v17 + 64) = *MEMORY[0x277CBCF90];
+    v66 = v61;
+    v67 = v62;
+    v68 = v63;
+    v69 = v64;
+    v70 = v65;
+    SearchResultItem.associatedValue.getter(&v248);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B4Item_pMd, &_s10OmniSearch0B4Item_pMR);
+    v71 = v246;
+    v41 = v244;
+    if (!swift_dynamicCast())
+    {
+
+      OUTLINED_FUNCTION_92();
+      __swift_storeEnumTagSinglePayload(v74, v75, v76, v41);
+      outlined destroy of IntentApplication?(v71, &_s15OmniSearchTypes7ContactVSgMd, &_s15OmniSearchTypes7ContactVSgMR);
+      v77 = OUTLINED_FUNCTION_6_19();
+      _s10OmniSearch0B6ResultVWOcTm_3(v77, v240, v78);
+      goto LABEL_107;
+    }
+
+    __swift_storeEnumTagSinglePayload(v71, 0, 1, v41);
+    a1 = v239;
+    (*(v243 + 32))(v239, v71, v41);
+    v47 = v238[6];
+    __swift_project_boxed_opaque_existential_1(v238 + 2, v238[5]);
+    v72 = Contact.id.getter();
+    v33 = 0;
+    v73 = (*(v47 + 1))(v72);
+    v237 = v60;
+    v231 = v17;
+    v220 = 0;
+    v79 = v73;
+
+    v238 = v79;
+    v39 = [v79 phoneNumbers];
+    v232 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo14CNLabeledValueCMd, &_sSo14CNLabeledValueCMR);
+    v44 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+    v80 = specialized Array.count.getter();
+    if (!v80)
+    {
+      break;
+    }
+
+    v34 = v80;
+    v247 = MEMORY[0x277D84F90];
+    OUTLINED_FUNCTION_13_13(v80);
+    if (v34 < 0)
+    {
+      __break(1u);
+LABEL_118:
+      __break(1u);
+LABEL_119:
+      __break(1u);
+LABEL_120:
+      result = (*(v17 + 8))(v47, v60);
+      __break(1u);
+      return result;
+    }
+
+    v60 = 0;
+    v33 = v247;
+    v245 = v44 & 0xFFFFFFFFFFFFFF8;
+    v246 = (v44 & 0xC000000000000001);
+    while (1)
+    {
+      v17 = v60 + 1;
+      if (__OFADD__(v60, 1))
+      {
+        break;
+      }
+
+      if (v246)
+      {
+        v81 = MEMORY[0x25F89FFD0](v60, v44);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_25_17();
+        if (v60 >= v82)
+        {
+          goto LABEL_113;
+        }
+
+        v81 = *(v44 + 8 * v60 + 32);
+      }
+
+      v47 = v81;
+      v83 = [v81 label];
+      if (v83)
+      {
+        v84 = v83;
+        v85 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v87 = v86;
+      }
+
+      else
+      {
+        v85 = 0;
+        v87 = 0xE000000000000000;
+      }
+
+      v88 = ContactContentManager.extractLabel(from:)(v85, v87);
+      v90 = v89;
+
+      if (v90)
+      {
+        v248 = v88;
+        v249 = v90;
+        OUTLINED_FUNCTION_14_18();
+        v91 = [v47 value];
+        v92 = [v91 stringValue];
+
+        v39 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v94 = v93;
+
+        MEMORY[0x25F89F6C0](v39, v94);
+
+        a1 = v248;
+        v41 = v249;
+      }
+
+      else
+      {
+        v39 = [v47 value];
+        v95 = [v39 stringValue];
+
+        a1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v41 = v96;
+      }
+
+      OUTLINED_FUNCTION_21_18();
+      if (v98)
+      {
+        v100 = OUTLINED_FUNCTION_88_8(v97);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v100, v39, 1);
+        v33 = v247;
+      }
+
+      *(v33 + 16) = v39;
+      v99 = (v33 + 16 * v47);
+      v99[4] = a1;
+      v99[5] = v41;
+      ++v60;
+      if (v17 == v34)
+      {
+        v230 = v33;
+
+        goto LABEL_27;
+      }
+    }
+
+LABEL_110:
+    __break(1u);
+LABEL_111:
+    __break(1u);
+LABEL_112:
+    __break(1u);
+LABEL_113:
+    __break(1u);
+LABEL_114:
+    __break(1u);
+LABEL_115:
+    __break(1u);
+LABEL_116:
+    swift_once();
   }
 
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  __swift_project_value_buffer(v0, static SearchCATEntity.typeDisplayRepresentation);
-  swift_beginAccess();
-  return static FlightSnippet.Status.allCases.modify;
+  v230 = MEMORY[0x277D84F90];
+LABEL_27:
+  v34 = OUTLINED_FUNCTION_18_17([v238 emailAddresses]);
+
+  v101 = specialized Array.count.getter();
+  v102 = MEMORY[0x277D84F90];
+  if (v101)
+  {
+    v60 = v101;
+    v247 = MEMORY[0x277D84F90];
+    OUTLINED_FUNCTION_13_13(v101);
+    if ((v60 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_118;
+    }
+
+    a1 = 0;
+    v33 = v247;
+    OUTLINED_FUNCTION_15_20();
+    do
+    {
+      v44 = a1 + 1;
+      if (__OFADD__(a1, 1))
+      {
+        goto LABEL_111;
+      }
+
+      if (v246)
+      {
+        v103 = MEMORY[0x25F89FFD0](a1, v34);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_25_17();
+        if (a1 >= v104)
+        {
+          goto LABEL_114;
+        }
+
+        v103 = *(v34 + 8 * a1 + 32);
+      }
+
+      v47 = v103;
+      v105 = [v103 label];
+      if (v105)
+      {
+        v106 = v105;
+        v107 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v109 = v108;
+      }
+
+      else
+      {
+        v107 = 0;
+        v109 = 0xE000000000000000;
+      }
+
+      v110 = ContactContentManager.extractLabel(from:)(v107, v109);
+      v112 = v111;
+
+      if (v112)
+      {
+        v248 = v110;
+        v249 = v112;
+        OUTLINED_FUNCTION_14_18();
+        v39 = [v47 value];
+        v113 = [v39 description];
+        v114 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v116 = v115;
+
+        MEMORY[0x25F89F6C0](v114, v116);
+
+        v41 = v248;
+        v17 = v249;
+      }
+
+      else
+      {
+        v39 = [v47 value];
+        v117 = [v39 description];
+        v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v17 = v118;
+      }
+
+      OUTLINED_FUNCTION_21_18();
+      if (v98)
+      {
+        v121 = OUTLINED_FUNCTION_88_8(v119);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v121, v39, 1);
+        v33 = v247;
+      }
+
+      *(v33 + 16) = v39;
+      v120 = (v33 + 16 * v47);
+      v120[4] = v41;
+      v120[5] = v17;
+      ++a1;
+    }
+
+    while (v44 != v60);
+    v229 = v33;
+
+    v102 = MEMORY[0x277D84F90];
+  }
+
+  else
+  {
+
+    v229 = MEMORY[0x277D84F90];
+  }
+
+  v34 = OUTLINED_FUNCTION_18_17([v238 postalAddresses]);
+
+  v122 = specialized Array.count.getter();
+  if (v122)
+  {
+    v33 = v122;
+    v247 = v102;
+    OUTLINED_FUNCTION_13_13(v122);
+    if ((v33 & 0x8000000000000000) != 0)
+    {
+      goto LABEL_119;
+    }
+
+    v17 = 0;
+    a1 = v247;
+    OUTLINED_FUNCTION_15_20();
+    do
+    {
+      v44 = v17 + 1;
+      if (__OFADD__(v17, 1))
+      {
+        goto LABEL_112;
+      }
+
+      if (v246)
+      {
+        v123 = MEMORY[0x25F89FFD0](v17, v34);
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_25_17();
+        if (v17 >= v124)
+        {
+          goto LABEL_115;
+        }
+
+        v123 = *(v34 + 8 * v17 + 32);
+      }
+
+      v125 = v123;
+      v126 = [v123 label];
+      if (v126)
+      {
+        v127 = v126;
+        v128 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v130 = v129;
+      }
+
+      else
+      {
+        v128 = 0;
+        v130 = 0xE000000000000000;
+      }
+
+      v131 = ContactContentManager.extractLabel(from:)(v128, v130);
+      v133 = v132;
+
+      if (v133)
+      {
+        v248 = v131;
+        v249 = v133;
+        OUTLINED_FUNCTION_14_18();
+        if (one-time initialization token for addressFormatter != -1)
+        {
+          OUTLINED_FUNCTION_8_26();
+          swift_once();
+        }
+
+        v134 = static ContactContentManager.addressFormatter;
+        v135 = [v125 value];
+        v136 = [v134 stringFromPostalAddress_];
+
+        v137 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v139 = v138;
+
+        MEMORY[0x25F89F6C0](v137, v139);
+
+        v41 = v248;
+        v39 = v249;
+      }
+
+      else
+      {
+        if (one-time initialization token for addressFormatter != -1)
+        {
+          OUTLINED_FUNCTION_8_26();
+          swift_once();
+        }
+
+        v140 = static ContactContentManager.addressFormatter;
+        v141 = [v125 value];
+        v142 = [v140 stringFromPostalAddress_];
+
+        v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v39 = v143;
+      }
+
+      v247 = a1;
+      v145 = *(a1 + 16);
+      v144 = *(a1 + 24);
+      v47 = (v145 + 1);
+      if (v145 >= v144 >> 1)
+      {
+        v147 = OUTLINED_FUNCTION_88_8(v144);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v147, v145 + 1, 1);
+        a1 = v247;
+      }
+
+      *(a1 + 16) = v47;
+      v146 = a1 + 16 * v145;
+      *(v146 + 32) = v41;
+      *(v146 + 40) = v39;
+      ++v17;
+    }
+
+    while (v44 != v33);
+  }
+
+  else
+  {
+
+    a1 = MEMORY[0x277D84F90];
+  }
+
+  v34 = OUTLINED_FUNCTION_18_17([v238 dates]);
+
+  v17 = specialized Array.count.getter();
+  v148 = 0;
+  OUTLINED_FUNCTION_15_20();
+  v232 = MEMORY[0x277D84F90];
+  while (v17 != v148)
+  {
+    if (v246)
+    {
+      v150 = MEMORY[0x25F89FFD0](v148, v34);
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_25_17();
+      if (v148 >= v149)
+      {
+        goto LABEL_109;
+      }
+
+      v150 = *(v34 + 8 * v148 + 32);
+    }
+
+    v47 = v150;
+    v44 = v148 + 1;
+    if (__OFADD__(v148, 1))
+    {
+      __break(1u);
+LABEL_109:
+      __break(1u);
+      goto LABEL_110;
+    }
+
+    v151 = [v150 label];
+    if (v151)
+    {
+      v152 = v151;
+      v153 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v39 = v154;
+    }
+
+    else
+    {
+      v153 = 0;
+      v39 = 0xE000000000000000;
+    }
+
+    v41 = ContactContentManager.extractLabel(from:)(v153, v39);
+    v156 = v155;
+
+    if (v156)
+    {
+      if (one-time initialization token for dateFormatter != -1)
+      {
+        swift_once();
+      }
+
+      v157 = static ContactContentManager.dateFormatter;
+      v33 = [v47 value];
+      v39 = [v157 stringFromDateComponents_];
+
+      if (!v39)
+      {
+
+        goto LABEL_84;
+      }
+
+      v216 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v159 = v158;
+
+      v248 = v41;
+      v249 = v156;
+      OUTLINED_FUNCTION_14_18();
+      MEMORY[0x25F89F6C0](v216, v159);
+
+      v160 = v248;
+      v33 = v249;
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0);
+        v232 = v164;
+      }
+
+      v47 = *(v232 + 16);
+      v161 = *(v232 + 24);
+      v39 = v47 + 1;
+      if (v47 >= v161 >> 1)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v161 > 1);
+        v232 = v165;
+      }
+
+      v162 = v232;
+      *(v232 + 16) = v39;
+      v163 = v162 + 16 * v47;
+      *(v163 + 32) = v160;
+      *(v163 + 40) = v33;
+      v148 = v44;
+    }
+
+    else
+    {
+
+LABEL_84:
+      ++v148;
+    }
+  }
+
+  if (one-time initialization token for answerSynthesis != -1)
+  {
+    OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
+  }
+
+  v166 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v166, static Logging.answerSynthesis);
+  v167 = Logger.logObject.getter();
+  v168 = static os_log_type_t.info.getter();
+  v169 = os_log_type_enabled(v167, v168);
+  v60 = v223;
+  v17 = v222;
+  if (v169)
+  {
+    v170 = swift_slowAlloc();
+    v171 = swift_slowAlloc();
+    v248 = v171;
+    *v170 = 136315138;
+    *(v170 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+    _os_log_impl(&dword_25D85C000, v167, v168, "%s Finished fetching missing contact attributes directly from CNContactStore", v170, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v171);
+    OUTLINED_FUNCTION_42_0();
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  v172 = v234;
+  v173 = v228;
+  v174 = Contact.id.getter();
+  v245 = v175;
+  v246 = v174;
+  Contact.name.getter();
+  v176 = [v238 birthday];
+  v177 = v233;
+  if (v176)
+  {
+    v178 = v176;
+    static DateComponents._unconditionallyBridgeFromObjectiveC(_:)();
+
+    v179 = 0;
+  }
+
+  else
+  {
+    v179 = 1;
+  }
+
+  v180 = v243;
+  __swift_storeEnumTagSinglePayload(v173, v179, 1, v60);
+  v181 = v221;
+  outlined init with copy of Date?(v173, v221, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  OUTLINED_FUNCTION_28_16(v181);
+  if (v182)
+  {
+    outlined destroy of IntentApplication?(v173, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+    goto LABEL_103;
+  }
+
+  v47 = v217;
+  (*(v17 + 32))(v217, v181, v60);
+  v183 = v220;
+  closure #5 in ContactContentManager.fetchContactContent(contactsResult:)(&v248);
+  if (v183)
+  {
+    goto LABEL_120;
+  }
+
+  (*(v17 + 8))(v47, v60);
+  outlined destroy of IntentApplication?(v228, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v172 = v234;
+LABEL_103:
+  v184 = MEMORY[0x277D84F90];
+  Contact.init(id:name:phoneNumbers:emailAddresses:physicalAddresses:dates:birthday:)();
+  (*(v180 + 16))(v172, v177, v244);
+  swift_storeEnumTagMultiPayload();
+  v185 = v242;
+  LODWORD(v246) = *(v241 + v242[8]);
+  v186 = v180;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+  v187 = CodableNSSecureCoding.wrappedValue.getter();
+  v188 = v226;
+  OUTLINED_FUNCTION_92();
+  v189 = v236;
+  __swift_storeEnumTagSinglePayload(v190, v191, v192, v236);
+  v193 = v224;
+  *(v224 + v185[7]) = v184;
+  OUTLINED_FUNCTION_7_25((v193 + v185[10]));
+  _s10OmniSearch0B6ResultVWOcTm_3(v172, v193, v194);
+  type metadata accessor for CSSearchableItem();
+  lazy protocol witness table accessor for type CSSearchableItem and conformance NSObject();
+  v195 = v187;
+  v196 = v188;
+  OUTLINED_FUNCTION_47_11();
+  CodableNSSecureCoding.init(wrappedValue:)();
+  v197 = v188;
+  v198 = v225;
+  outlined init with copy of Date?(v197, v225, &_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+  OUTLINED_FUNCTION_28_16(v198);
+  if (v182)
+  {
+    OUTLINED_FUNCTION_47_11();
+    outlined destroy of IntentApplication?(v199, v200, v201);
+    OUTLINED_FUNCTION_5_29();
+    OUTLINED_FUNCTION_19_18();
+
+    OUTLINED_FUNCTION_47_11();
+    outlined destroy of IntentApplication?(v202, v203, v204);
+    OUTLINED_FUNCTION_0_48();
+    _s10OmniSearch0B6ResultVWOhTm_4(v234, v205);
+    v206 = *(v186 + 8);
+    v207 = v244;
+    v206(v233, v244);
+    v206(v239, v207);
+  }
+
+  else
+  {
+
+    outlined destroy of IntentApplication?(v196, &_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+    OUTLINED_FUNCTION_0_48();
+    _s10OmniSearch0B6ResultVWOhTm_4(v234, v208);
+    v209 = *(v186 + 8);
+    v210 = v244;
+    v209(v233, v244);
+    v209(v239, v210);
+    v211 = *(v227 + 32);
+    v212 = v219;
+    v211(v219, v198, v189);
+    v211(v193 + v185[5], v212, v189);
+  }
+
+  v213 = v240;
+  v60 = v237;
+  *(v193 + v185[8]) = v246;
+  *(v193 + v185[9]) = 1;
+  outlined init with take of SearchResult(v193, v213);
+LABEL_107:
+  $defer #1 () in ContactContentManager.fetchContactContent(contactsResult:)(v60);
 }
 
-uint64_t key path getter for static SearchCATEntity.typeDisplayRepresentation : SearchCATEntity.Type@<X0>(uint64_t a1@<X8>)
+uint64_t $defer #1 () in ContactContentManager.fetchContactContent(contactsResult:)(uint64_t a1)
 {
-  v2 = SearchCATEntity.typeDisplayRepresentation.unsafeMutableAddressor();
-  swift_beginAccess();
-  v3 = type metadata accessor for TypeDisplayRepresentation();
-  return (*(*(v3 - 8) + 16))(a1, v2, v3);
-}
-
-uint64_t key path setter for static SearchCATEntity.typeDisplayRepresentation : SearchCATEntity.Type(uint64_t a1)
-{
-  v2 = SearchCATEntity.typeDisplayRepresentation.unsafeMutableAddressor();
-  swift_beginAccess();
-  v3 = type metadata accessor for TypeDisplayRepresentation();
-  (*(*(v3 - 8) + 24))(v2, a1, v3);
-  return swift_endAccess();
-}
-
-uint64_t SearchCATEntity.displayRepresentation.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = type metadata accessor for DisplayRepresentation();
-  v4 = OUTLINED_FUNCTION_17(v3);
-  v6 = *(v5 + 16);
-
-  return v6(a1, v1, v4);
-}
-
-uint64_t SearchCATEntity.documentSource.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 20));
-  return v2;
-}
-
-uint64_t (*SearchCATEntity.documentSource.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 20));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.title.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 24));
-  return v2;
-}
-
-uint64_t (*SearchCATEntity.title.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 24));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for SearchCATEntity.contentCreationDate : SearchCATEntity(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v7 - v4;
-  outlined init with copy of Date?(a1, &v7 - v4);
-  return SearchCATEntity.contentCreationDate.setter(v5);
-}
-
-uint64_t (*SearchCATEntity.contentCreationDate.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 28));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for SearchCATEntity.sentFrom : SearchCATEntity(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return SearchCATEntity.sentFrom.setter();
-}
-
-uint64_t (*SearchCATEntity.sentFrom.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 32));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.answer.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 36));
-  return v2;
-}
-
-uint64_t (*SearchCATEntity.answer.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 36));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.fullSearchEntityDescription.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 40));
-  return v2;
-}
-
-uint64_t (*SearchCATEntity.fullSearchEntityDescription.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 40));
-  return MemoryCreationQUResult.encodedMemoryCreationQUPerformanceMetrics.modify;
-}
-
-uint64_t SearchCATEntity.supportSearchEntityDescription.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 44));
-  return v2;
-}
-
-uint64_t (*SearchCATEntity.supportSearchEntityDescription.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 44));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.resultSourceDialogDisplayName.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 48));
-  return v2;
-}
-
-uint64_t key path setter for SearchCATEntity.resultSourceDialogDisplayName : SearchCATEntity(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return SearchCATEntity.resultSourceDialogDisplayName.setter();
-}
-
-uint64_t (*SearchCATEntity.resultSourceDialogDisplayName.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 48));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.fullContent.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 52));
-  return v2;
-}
-
-uint64_t (*SearchCATEntity.fullContent.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 52));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.messageIsFromMe.getter()
-{
-  v1 = *(v0 + *(type metadata accessor for SearchCATEntity() + 56));
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*SearchCATEntity.messageIsFromMe.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 56));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.flightDestination.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 60));
-  return v2;
-}
-
-uint64_t (*SearchCATEntity.flightDestination.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 60));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.senderHandle.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 64));
-  return v2;
-}
-
-uint64_t (*SearchCATEntity.senderHandle.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 64));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t SearchCATEntity.resultType.getter()
-{
-  v0 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_17_19(*(v0 + 68));
-  return v2;
-}
-
-uint64_t key path setter for SearchCATEntity.documentSource : SearchCATEntity(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
-{
-  v6 = *a1;
-  v7 = a1[1];
-
-  return a5(v6, v7);
-}
-
-uint64_t (*SearchCATEntity.resultType.modify())()
-{
-  v1 = OUTLINED_FUNCTION_4_12();
-  v2 = __swift_coroFrameAllocStub(v1);
-  v3 = OUTLINED_FUNCTION_3_32(v2);
-  *(v0 + 32) = OUTLINED_FUNCTION_63_7(*(v3 + 68));
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance SearchCATEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type SearchCATEntity and conformance SearchCATEntity, type metadata accessor for SearchCATEntity);
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance SearchCATEntity()
-{
-  lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type SearchCATEntity and conformance SearchCATEntity, type metadata accessor for SearchCATEntity);
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static TypeDisplayRepresentable.typeDisplayRepresentation.getter in conformance SearchCATEntity@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
+  v1 = type metadata accessor for OSSignpostError();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for OSSignpostID();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (one-time initialization token for searchSignposter != -1)
   {
     swift_once();
   }
 
-  v2 = type metadata accessor for TypeDisplayRepresentation();
-  v3 = __swift_project_value_buffer(v2, static SearchCATEntity.typeDisplayRepresentation);
-  swift_beginAccess();
-  return (*(*(v2 - 8) + 16))(a1, v3, v2);
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance SearchCATEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type SearchCATEntity and conformance SearchCATEntity, type metadata accessor for SearchCATEntity);
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance SearchCATEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type SearchCATEntity and conformance SearchCATEntity, type metadata accessor for SearchCATEntity);
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t static SearchCATEntity.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for Date();
-  v96 = *(v4 - 8);
-  v5 = *(v96 + 64);
-  MEMORY[0x28223BE20](v4);
-  v94 = &v92[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
-  OUTLINED_FUNCTION_17(v7);
-  v9 = *(v8 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v10);
-  v12 = &v92[-v11];
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v14 = OUTLINED_FUNCTION_114(v13);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x28223BE20](v14);
-  v95 = &v92[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v19 = MEMORY[0x28223BE20](v17);
-  v21 = &v92[-v20];
-  MEMORY[0x28223BE20](v19);
-  v23 = &v92[-v22];
-  v24 = type metadata accessor for SearchCATEntity();
-  v25 = *(v24 + 20);
-  v99 = a1;
-  v26 = *(a1 + v25);
-  EntityProperty.wrappedValue.getter();
-  v27 = v101;
-  v97 = a2;
-  v98 = v24;
-  OUTLINED_FUNCTION_15_18(*(v24 + 20));
-  v28 = v101;
-  if (v27)
+  v9 = type metadata accessor for OSSignposter();
+  __swift_project_value_buffer(v9, static Logging.searchSignposter);
+  v10 = OSSignposter.logHandle.getter();
+  OSSignpostIntervalState.signpostID.getter();
+  v11 = static os_signpost_type_t.end.getter();
+  if (OS_os_log.signpostsEnabled.getter())
   {
-    if (!v101)
-    {
-      goto LABEL_120;
-    }
 
-    OUTLINED_FUNCTION_11_22();
-    v29 = v29 && v27 == v28;
-    if (v29)
-    {
+    checkForErrorAndConsumeState(state:)();
 
-      v31 = v99;
+    if ((*(v2 + 88))(v4, v1) == *MEMORY[0x277D85B00])
+    {
+      v12 = "[Error] Interval already ended";
     }
 
     else
     {
-      v30 = OUTLINED_FUNCTION_23_16();
-
-      v31 = v99;
-      if ((v30 & 1) == 0)
-      {
-        goto LABEL_121;
-      }
+      (*(v2 + 8))(v4, v1);
+      v12 = "";
     }
+
+    v13 = swift_slowAlloc();
+    *v13 = 0;
+    v14 = OSSignpostID.rawValue.getter();
+    _os_signpost_emit_with_name_impl(&dword_25D85C000, v10, v11, v14, "fetchContactContent.fetchContactContent", v12, v13, 2u);
+    MEMORY[0x25F8A1050](v13, -1, -1);
+  }
+
+  return (*(v6 + 8))(v8, v5);
+}
+
+void closure #5 in ContactContentManager.fetchContactContent(contactsResult:)(uint64_t *a1@<X8>)
+{
+  if (one-time initialization token for dateFormatter != -1)
+  {
+    swift_once();
+  }
+
+  v2 = static ContactContentManager.dateFormatter;
+  isa = DateComponents._bridgeToObjectiveC()().super.isa;
+  v4 = [v2 stringFromDateComponents_];
+
+  if (v4)
+  {
+    v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = v6;
+
+    *a1 = v5;
+    a1[1] = v7;
   }
 
   else
   {
-    v31 = v99;
-    if (v101)
-    {
-      goto LABEL_120;
-    }
-  }
-
-  v32 = v98;
-  OUTLINED_FUNCTION_15_18(v98[6]);
-  v33 = v101;
-  OUTLINED_FUNCTION_12_22(v32[6]);
-  v34 = v101;
-  if (v33)
-  {
-    if (!v101)
-    {
-      goto LABEL_120;
-    }
-
-    v35 = v4;
-    OUTLINED_FUNCTION_11_22();
-    if (v29 && v33 == v34)
-    {
-    }
-
-    else
-    {
-      v37 = OUTLINED_FUNCTION_23_16();
-
-      if ((v37 & 1) == 0)
-      {
-        goto LABEL_121;
-      }
-    }
-  }
-
-  else
-  {
-    v35 = v4;
-    if (v101)
-    {
-      goto LABEL_120;
-    }
-  }
-
-  v38 = v98;
-  v39 = *(v31 + v98[7]);
-  EntityProperty.wrappedValue.getter();
-  v40 = v97;
-  v41 = *(v97 + v38[7]);
-  EntityProperty.wrappedValue.getter();
-  v42 = *(v7 + 48);
-  outlined init with copy of Date?(v23, v12);
-  outlined init with copy of Date?(v21, &v12[v42]);
-  OUTLINED_FUNCTION_26_13(v12);
-  if (v29)
-  {
-    OUTLINED_FUNCTION_33_13();
-    outlined destroy of IntentApplication?(v43, v44, v45);
-    OUTLINED_FUNCTION_33_13();
-    outlined destroy of IntentApplication?(v46, v47, v48);
-    OUTLINED_FUNCTION_26_13(&v12[v42]);
-    if (v29)
-    {
-      outlined destroy of IntentApplication?(v12, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-      goto LABEL_33;
-    }
-
-LABEL_31:
-    outlined destroy of IntentApplication?(v12, &_s10Foundation4DateVSg_ADtMd, &_s10Foundation4DateVSg_ADtMR);
-    goto LABEL_121;
-  }
-
-  v49 = v95;
-  outlined init with copy of Date?(v12, v95);
-  OUTLINED_FUNCTION_26_13(&v12[v42]);
-  if (v50)
-  {
-    OUTLINED_FUNCTION_33_13();
-    outlined destroy of IntentApplication?(v51, v52, v53);
-    OUTLINED_FUNCTION_33_13();
-    outlined destroy of IntentApplication?(v54, v55, v56);
-    (*(v96 + 8))(v49, v35);
-    goto LABEL_31;
-  }
-
-  v57 = v96;
-  v58 = &v12[v42];
-  v59 = v94;
-  (*(v96 + 32))(v94, v58, v35);
-  lazy protocol witness table accessor for type Date and conformance Date(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
-  v93 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v60 = *(v57 + 8);
-  v60(v59, v35);
-  outlined destroy of IntentApplication?(v21, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  outlined destroy of IntentApplication?(v23, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v60(v49, v35);
-  v40 = v97;
-  outlined destroy of IntentApplication?(v12, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  if ((v93 & 1) == 0)
-  {
-    goto LABEL_121;
-  }
-
-LABEL_33:
-  v61 = v98;
-  OUTLINED_FUNCTION_15_18(v98[8]);
-  v62 = v100;
-  v63 = *(v40 + v61[8]);
-  EntityProperty.wrappedValue.getter();
-  v64 = v100;
-  if (v62)
-  {
-    if (!v100)
-    {
-      goto LABEL_120;
-    }
-
-    v65 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1gq5(v62, v100);
-
-    if ((v65 & 1) == 0)
-    {
-      goto LABEL_121;
-    }
-  }
-
-  else if (v100)
-  {
-    goto LABEL_120;
-  }
-
-  OUTLINED_FUNCTION_15_18(v61[9]);
-  v66 = v101;
-  OUTLINED_FUNCTION_18_15(v61[9]);
-  v67 = v101;
-  if (v66)
-  {
-    if (!v101)
-    {
-      goto LABEL_109;
-    }
-
-    OUTLINED_FUNCTION_11_22();
-    if (v29 && v66 == v67)
-    {
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_2_28();
-      OUTLINED_FUNCTION_273_0();
-
-      if ((v64 & 1) == 0)
-      {
-        goto LABEL_121;
-      }
-    }
-  }
-
-  else if (v101)
-  {
-    goto LABEL_120;
-  }
-
-  OUTLINED_FUNCTION_15_18(v61[17]);
-  v69 = v101;
-  OUTLINED_FUNCTION_12_22(v61[17]);
-  v67 = v101;
-  if (v69)
-  {
-    if (!v101)
-    {
-      goto LABEL_109;
-    }
-
-    OUTLINED_FUNCTION_11_22();
-    if (v29 && v69 == v67)
-    {
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_2_28();
-      OUTLINED_FUNCTION_273_0();
-
-      if ((v64 & 1) == 0)
-      {
-        goto LABEL_121;
-      }
-    }
-  }
-
-  else if (v101)
-  {
-    goto LABEL_120;
-  }
-
-  OUTLINED_FUNCTION_15_18(v61[10]);
-  v71 = v101;
-  OUTLINED_FUNCTION_12_22(v61[10]);
-  v67 = v101;
-  if (v71)
-  {
-    if (!v101)
-    {
-      goto LABEL_109;
-    }
-
-    OUTLINED_FUNCTION_11_22();
-    if (v29 && v71 == v67)
-    {
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_2_28();
-      OUTLINED_FUNCTION_273_0();
-
-      if ((v64 & 1) == 0)
-      {
-        goto LABEL_121;
-      }
-    }
-  }
-
-  else if (v101)
-  {
-    goto LABEL_120;
-  }
-
-  OUTLINED_FUNCTION_15_18(v61[11]);
-  v73 = v101;
-  OUTLINED_FUNCTION_12_22(v61[11]);
-  v67 = v101;
-  if (v73)
-  {
-    if (!v101)
-    {
-      goto LABEL_109;
-    }
-
-    OUTLINED_FUNCTION_11_22();
-    if (v29 && v73 == v67)
-    {
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_2_28();
-      OUTLINED_FUNCTION_273_0();
-
-      if ((v64 & 1) == 0)
-      {
-        goto LABEL_121;
-      }
-    }
-  }
-
-  else if (v101)
-  {
-    goto LABEL_120;
-  }
-
-  OUTLINED_FUNCTION_15_18(v61[12]);
-  v76 = v100;
-  v75 = v101;
-  v77 = *(v97 + v61[12]);
-  EntityProperty.wrappedValue.getter();
-  v78 = v101;
-  if (v76 == v100 && v75 == v101)
-  {
-  }
-
-  else
-  {
-    v80 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if ((v80 & 1) == 0)
-    {
-      goto LABEL_121;
-    }
-  }
-
-  OUTLINED_FUNCTION_15_18(v61[13]);
-  v81 = v101;
-  OUTLINED_FUNCTION_18_15(v61[13]);
-  v67 = v101;
-  if (v81)
-  {
-    if (!v101)
-    {
-      goto LABEL_109;
-    }
-
-    OUTLINED_FUNCTION_11_22();
-    if (v29 && v81 == v67)
-    {
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_2_28();
-      OUTLINED_FUNCTION_273_0();
-
-      if ((v78 & 1) == 0)
-      {
-        goto LABEL_121;
-      }
-    }
-  }
-
-  else if (v101)
-  {
-    goto LABEL_120;
-  }
-
-  OUTLINED_FUNCTION_15_18(v61[14]);
-  v83 = v100;
-  v84 = *(v97 + v61[14]);
-  EntityProperty.wrappedValue.getter();
-  if (v83 != v100)
-  {
-LABEL_121:
-    LOBYTE(v67) = 0;
-    return v67 & 1;
-  }
-
-  OUTLINED_FUNCTION_15_18(v61[15]);
-  v85 = v101;
-  OUTLINED_FUNCTION_18_15(v61[15]);
-  v67 = v101;
-  if (!v85)
-  {
-    if (!v101)
-    {
-      goto LABEL_113;
-    }
-
-LABEL_120:
-
-    goto LABEL_121;
-  }
-
-  if (v101)
-  {
-    OUTLINED_FUNCTION_11_22();
-    if (v29 && v85 == v67)
-    {
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_2_28();
-      OUTLINED_FUNCTION_273_0();
-
-      if ((v84 & 1) == 0)
-      {
-        goto LABEL_121;
-      }
-    }
-
-LABEL_113:
-    v87 = v98;
-    OUTLINED_FUNCTION_18_15(v98[16]);
-    v88 = v100;
-    v89 = v101;
-    OUTLINED_FUNCTION_12_22(v87[16]);
-    if (v89)
-    {
-      if (v101)
-      {
-        if (v88 != v100 || v89 != v101)
-        {
-          LOBYTE(v67) = OUTLINED_FUNCTION_23_16();
-
-          goto LABEL_109;
-        }
-
-LABEL_126:
-        LOBYTE(v67) = 1;
-        return v67 & 1;
-      }
-    }
-
-    else if (!v101)
-    {
-      goto LABEL_126;
-    }
-
-    goto LABEL_120;
-  }
-
-LABEL_109:
-
-  return v67 & 1;
-}
-
-uint64_t SearchCATEntity.dictionaryDescription.getter()
-{
-  v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  OUTLINED_FUNCTION_114(v2);
-  v4 = *(v3 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v5);
-  v7 = v42 - v6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_25DBD9E40;
-  strcpy((inited + 32), "documentSource");
-  *(inited + 47) = -18;
-  v9 = type metadata accessor for SearchCATEntity();
-  v10 = *(v0 + v9[5]);
-  EntityProperty.wrappedValue.getter();
-  v11 = MEMORY[0x277D837D0];
-  OUTLINED_FUNCTION_1_43();
-  if (v14)
-  {
-    v13 = 0xE000000000000000;
-  }
-
-  *(inited + 48) = v12;
-  *(inited + 56) = v13;
-  *(inited + 72) = v11;
-  *(inited + 80) = 0x656C746974;
-  *(inited + 88) = 0xE500000000000000;
-  EntityProperty.wrappedValue.getter();
-  OUTLINED_FUNCTION_1_43();
-  if (v14)
-  {
-    v16 = 0xE000000000000000;
-  }
-
-  *(inited + 96) = v15;
-  *(inited + 104) = v16;
-  OUTLINED_FUNCTION_44_6();
-  *(inited + 120) = v11;
-  *(inited + 128) = 0xD000000000000013;
-  *(inited + 136) = v17;
-  v18 = *(v1 + v9[7]);
-  EntityProperty.wrappedValue.getter();
-  v19 = type metadata accessor for Date();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v19) == 1)
-  {
-    outlined destroy of IntentApplication?(v7, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-    *(inited + 168) = v11;
-    *(inited + 144) = 0;
-    *(inited + 152) = 0xE000000000000000;
-  }
-
-  else
-  {
-    v43 = v19;
-    boxed_opaque_existential_1Tm = __swift_allocate_boxed_opaque_existential_1Tm(v42);
-    (*(*(v19 - 8) + 32))(boxed_opaque_existential_1Tm, v7, v19);
-    outlined init with take of Any(v42, (inited + 144));
-  }
-
-  *(inited + 176) = 0x6D6F7246746E6573;
-  *(inited + 184) = 0xE800000000000000;
-  OUTLINED_FUNCTION_16_19(v9[8]);
-  v21 = v42[0];
-  if (v42[0])
-  {
-    v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    v42[0] = v21;
-    outlined init with take of Any(v42, (inited + 192));
-  }
-
-  else
-  {
-    *(inited + 216) = v11;
-    *(inited + 192) = 0;
-    *(inited + 200) = 0xE000000000000000;
-  }
-
-  *(inited + 224) = 0x726577736E61;
-  *(inited + 232) = 0xE600000000000000;
-  OUTLINED_FUNCTION_16_19(v9[9]);
-  OUTLINED_FUNCTION_1_43();
-  if (v14)
-  {
-    v23 = 0xE000000000000000;
-  }
-
-  *(inited + 240) = v22;
-  *(inited + 248) = v23;
-  OUTLINED_FUNCTION_44_6();
-  *(inited + 264) = v11;
-  *(inited + 272) = 0xD00000000000001BLL;
-  *(inited + 280) = v24;
-  OUTLINED_FUNCTION_16_19(v9[10]);
-  OUTLINED_FUNCTION_1_43();
-  if (v14)
-  {
-    v26 = 0xE000000000000000;
-  }
-
-  *(inited + 288) = v25;
-  *(inited + 296) = v26;
-  OUTLINED_FUNCTION_44_6();
-  *(inited + 312) = v11;
-  *(inited + 320) = 0xD00000000000001ELL;
-  *(inited + 328) = v27;
-  OUTLINED_FUNCTION_16_19(v9[11]);
-  OUTLINED_FUNCTION_1_43();
-  if (v14)
-  {
-    v29 = 0xE000000000000000;
-  }
-
-  *(inited + 336) = v28;
-  *(inited + 344) = v29;
-  OUTLINED_FUNCTION_44_6();
-  *(inited + 360) = v11;
-  *(inited + 368) = 0xD00000000000001DLL;
-  *(inited + 376) = v30;
-  OUTLINED_FUNCTION_16_19(v9[12]);
-  v31 = v42[1];
-  *(inited + 384) = v42[0];
-  *(inited + 392) = v31;
-  *(inited + 408) = v11;
-  *(inited + 416) = 0x746E6F436C6C7566;
-  *(inited + 424) = 0xEB00000000746E65;
-  OUTLINED_FUNCTION_16_19(v9[13]);
-  OUTLINED_FUNCTION_1_43();
-  if (v14)
-  {
-    v33 = 0xE000000000000000;
-  }
-
-  *(inited + 432) = v32;
-  *(inited + 440) = v33;
-  *(inited + 456) = v11;
-  *(inited + 464) = 0x496567617373656DLL;
-  *(inited + 472) = 0xEF654D6D6F724673;
-  OUTLINED_FUNCTION_16_19(v9[14]);
-  v34 = MEMORY[0x277D839B0];
-  *(inited + 480) = v42[0];
-  *(inited + 504) = v34;
-  *(inited + 512) = 0xD000000000000011;
-  *(inited + 520) = 0x800000025DBF3A70;
-  OUTLINED_FUNCTION_16_19(v9[15]);
-  v36 = v42[1];
-  v35 = v42[0];
-  *(inited + 552) = v11;
-  if (!v36)
-  {
-    v35 = 0;
-    v36 = 0xE000000000000000;
-  }
-
-  *(inited + 528) = v35;
-  *(inited + 536) = v36;
-  strcpy((inited + 560), "senderHandle");
-  *(inited + 573) = 0;
-  *(inited + 574) = -5120;
-  OUTLINED_FUNCTION_16_19(v9[16]);
-  v38 = v42[1];
-  v37 = v42[0];
-  *(inited + 600) = v11;
-  if (!v38)
-  {
-    v37 = 0;
-    v38 = 0xE000000000000000;
-  }
-
-  *(inited + 576) = v37;
-  *(inited + 584) = v38;
-  *(inited + 608) = 0x7954746C75736572;
-  *(inited + 616) = 0xEA00000000006570;
-  OUTLINED_FUNCTION_16_19(v9[17]);
-  v40 = v42[1];
-  v39 = v42[0];
-  *(inited + 648) = v11;
-  if (!v40)
-  {
-    v39 = 0;
-    v40 = 0xE000000000000000;
-  }
-
-  *(inited + 624) = v39;
-  *(inited + 632) = v40;
-  return Dictionary.init(dictionaryLiteral:)();
-}
-
-uint64_t dispatch thunk of SearchCATEntityConvertible.asCATEntity.getter(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v7 = *(a3 + 8);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of AnswerSynthesisControllerProtocol.synthesize(query:requestedProperties:searchResults:onScreenText:context:clientId:answerSynthesisResultForMetrics:);
-
-  return v11(a1, a2, a3);
-}
-
-uint64_t type metadata completion function for SearchCATEntity()
-{
-  v0 = type metadata accessor for DisplayRepresentation();
-  if (v1 <= 0x3F)
-  {
-    type metadata accessor for EntityProperty<String?>();
-    v0 = v2;
-    if (v3 <= 0x3F)
-    {
-      type metadata accessor for EntityProperty<Date?>(319, &lazy cache variable for type metadata for EntityProperty<Date?>, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR, lazy protocol witness table accessor for type Date? and conformance <A> A?);
-      if (v5 > 0x3F)
-      {
-        return v4;
-      }
-
-      type metadata accessor for EntityProperty<Date?>(319, &lazy cache variable for type metadata for EntityProperty<[String]?>, &_sSaySSGSgMd, &_sSaySSGSgMR, lazy protocol witness table accessor for type [String]? and conformance <A> A?);
-      if (v6 > 0x3F)
-      {
-        return v4;
-      }
-
-      type metadata accessor for EntityProperty<String>(319, &lazy cache variable for type metadata for EntityProperty<String>, lazy protocol witness table accessor for type String and conformance String);
-      if (v7 > 0x3F)
-      {
-        return v4;
-      }
-
-      type metadata accessor for EntityProperty<String>(319, &lazy cache variable for type metadata for EntityProperty<Bool>, lazy protocol witness table accessor for type Bool and conformance Bool);
-      if (v8 > 0x3F)
-      {
-        return v4;
-      }
-
-      else
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-        return 0;
-      }
-    }
-  }
-
-  return v0;
-}
-
-void type metadata accessor for EntityProperty<Date?>(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t *a4, void (*a5)(void))
-{
-  if (!*a2)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a3, a4);
-    a5();
-    v7 = type metadata accessor for EntityProperty();
-    if (!v8)
-    {
-      atomic_store(v7, a2);
-    }
+    __break(1u);
   }
 }
 
-uint64_t OUTLINED_FUNCTION_0_45()
+uint64_t ContactContentManager.fetchContactsContent(contactsResults:)(uint64_t a1)
 {
-
-  return swift_once();
-}
-
-uint64_t OUTLINED_FUNCTION_2_28()
-{
-
-  return _stringCompareWithSmolCheck(_:_:expecting:)();
-}
-
-uint64_t OUTLINED_FUNCTION_3_32(uint64_t a1)
-{
-  *v1 = a1;
-
-  return type metadata accessor for SearchCATEntity();
-}
-
-uint64_t OUTLINED_FUNCTION_4_28@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_5_24()
-{
-
-  return type metadata accessor for SearchCATEntity();
-}
-
-uint64_t OUTLINED_FUNCTION_9_24()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_12_22@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(*(v1 - 120) + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_15_18@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_16_19@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_17_19@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_18_15@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *(v1 + a1);
-
-  return EntityProperty.wrappedValue.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_23_16()
-{
-
-  return _stringCompareWithSmolCheck(_:_:expecting:)();
-}
-
-uint64_t DialogContext.init(interactionMode:interfaceIdiom:assistantLocale:isQuestionQuery:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char a5@<W4>, uint64_t a6@<X8>)
-{
-  outlined init with take of SearchResultItem?(a1, a6, &_s10AppIntents19IntentSystemContextV09AssistantE0V15InteractionModeOSgMd, &_s10AppIntents19IntentSystemContextV09AssistantE0V15InteractionModeOSgMR);
-  v11 = type metadata accessor for DialogContext();
-  result = outlined init with take of SearchResultItem?(a2, a6 + v11[5], &_s10AppIntents19IntentSystemContextV14InterfaceIdiomOSgMd, &_s10AppIntents19IntentSystemContextV14InterfaceIdiomOSgMR);
-  v13 = (a6 + v11[6]);
-  *v13 = a3;
-  v13[1] = a4;
-  *(a6 + v11[7]) = a5;
-  return result;
-}
-
-uint64_t type metadata accessor for DialogContext()
-{
-  result = type metadata singleton initialization cache for DialogContext;
-  if (!type metadata singleton initialization cache for DialogContext)
+  v2 = type metadata accessor for SearchResult(0);
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2 - 8);
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v8 = &v17 - v7;
+  v9 = *(a1 + 16);
+  v10 = MEMORY[0x277D84F90];
+  if (v9)
   {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t DialogContext.assistantLocale.getter()
-{
-  v1 = (v0 + *(type metadata accessor for DialogContext() + 24));
-  v2 = *v1;
-  v3 = v1[1];
-
-  return OUTLINED_FUNCTION_94();
-}
-
-uint64_t CatDialogGenerator.dialog(catId:templateDirectoryURL:parameters:)()
-{
-  OUTLINED_FUNCTION_48();
-  v1[10] = v2;
-  v1[11] = v3;
-  v1[8] = v4;
-  v1[9] = v5;
-  v1[7] = v6;
-  v7 = type metadata accessor for CATOption();
-  v1[12] = v7;
-  OUTLINED_FUNCTION_21(v7);
-  v1[13] = v8;
-  v10 = *(v9 + 64);
-  v11 = OUTLINED_FUNCTION_199();
-  v12 = *v0;
-  v1[14] = v11;
-  v1[15] = v12;
-  v13 = OUTLINED_FUNCTION_29();
-
-  return MEMORY[0x2822009F8](v13, v14, v15);
-}
-
-{
-  v1 = *(v0 + 112);
-  type metadata accessor for CATResponse();
-  *(v0 + 32) = 0u;
-  *(v0 + 48) = 0;
-  *(v0 + 16) = 0u;
-  static CATOption.defaultMode.getter();
-  v2 = *(MEMORY[0x277D55C20] + 4);
-  v3 = swift_task_alloc();
-  *(v0 + 128) = v3;
-  *v3 = v0;
-  v3[1] = CatDialogGenerator.dialog(catId:templateDirectoryURL:parameters:);
-  v5 = *(v0 + 112);
-  v4 = *(v0 + 120);
-  v7 = *(v0 + 80);
-  v6 = *(v0 + 88);
-  v8 = *(v0 + 64);
-  v9 = *(v0 + 72);
-
-  return MEMORY[0x2821B7E50](v7, v8, v9, v6, v4, v0 + 16, v5);
-}
-
-{
-  OUTLINED_FUNCTION_52();
-  v3 = v2;
-  v4 = v2[16];
-  v5 = v2[14];
-  v6 = v2[13];
-  v7 = v2[12];
-  v8 = *v1;
-  OUTLINED_FUNCTION_11();
-  *v9 = v8;
-  v3[17] = v10;
-  v3[18] = v0;
-
-  (*(v6 + 8))(v5, v7);
-  outlined destroy of IntentApplication?((v3 + 2), &_s16SiriDialogEngine11CatCallable_pSgMd, &_s16SiriDialogEngine11CatCallable_pSgMR);
-  if (v0)
-  {
-    v11 = CatDialogGenerator.dialog(catId:templateDirectoryURL:parameters:);
-  }
-
-  else
-  {
-    v11 = CatDialogGenerator.dialog(catId:templateDirectoryURL:parameters:);
-  }
-
-  return MEMORY[0x2822009F8](v11, 0, 0);
-}
-
-{
-  v1 = [*(v0 + 136) dialog];
-  type metadata accessor for PatternExecutionDialog();
-  v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  if (specialized Array.count.getter(v2))
-  {
-    specialized Array._checkSubscript(_:wasNativeTypeChecked:)(0, (v2 & 0xC000000000000001) == 0, v2);
-    if ((v2 & 0xC000000000000001) != 0)
-    {
-      v3 = MEMORY[0x25F89FFD0](0, v2);
-    }
-
-    else
-    {
-      v3 = *(v2 + 32);
-    }
-
-    v4 = v3;
-    v13 = *(v0 + 56);
-    v14 = *(v0 + 136);
-
-    v5 = [v4 fullPrint];
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-    v6 = [v4 fullSpeak];
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-    v7 = [v4 supportingPrint];
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-    v8 = [v4 supportingSpeak];
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-    SearchToolDialog.init(fullPrint:fullSpeak:supportingPrint:supportingSpeak:)();
-  }
-
-  else
-  {
-    v9 = *(v0 + 56);
-
-    OUTLINED_FUNCTION_28_1();
-    OUTLINED_FUNCTION_19_16();
-    v4 = *(v0 + 136);
-  }
-
-  v10 = *(v0 + 112);
-
-  OUTLINED_FUNCTION_127();
-
-  return v11();
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  v1 = *(v0 + 112);
-
-  OUTLINED_FUNCTION_127();
-  v3 = *(v0 + 144);
-
-  return v2();
-}
-
-unint64_t type metadata accessor for PatternExecutionDialog()
-{
-  result = lazy cache variable for type metadata for PatternExecutionDialog;
-  if (!lazy cache variable for type metadata for PatternExecutionDialog)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &lazy cache variable for type metadata for PatternExecutionDialog);
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for CatDialogGenerating.dialog(catId:templateDirectoryURL:parameters:) in conformance CatDialogGenerator()
-{
-  v1 = swift_task_alloc();
-  *(v0 + 16) = v1;
-  *v1 = v0;
-  v1[1] = partial apply for closure #2 in AnswerResolver.resolve(extractedResults:options:);
-
-  return CatDialogGenerator.dialog(catId:templateDirectoryURL:parameters:)();
-}
-
-uint64_t one-time initialization function for templateDirectoryURL()
-{
-  v0 = type metadata accessor for URL();
-  __swift_allocate_value_buffer(v0, static DialogBuilder.templateDirectoryURL);
-  __swift_project_value_buffer(v0, static DialogBuilder.templateDirectoryURL);
-  return closure #1 in variable initialization expression of static DialogBuilder.templateDirectoryURL();
-}
-
-uint64_t closure #1 in variable initialization expression of static DialogBuilder.templateDirectoryURL()
-{
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v1 = *(*(v0 - 8) + 64);
-  MEMORY[0x28223BE20](v0 - 8);
-  v3 = &v19 - v2;
-  v4 = type metadata accessor for URL();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v19 - v10;
-  type metadata accessor for DialogBuilder();
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v13 = [objc_opt_self() bundleForClass_];
-  v14 = [v13 resourceURL];
-  if (v14)
-  {
-    v15 = v14;
-    static URL._unconditionallyBridgeFromObjectiveC(_:)();
-
-    v16 = *(v5 + 32);
-    v16(v3, v9, v4);
-    __swift_storeEnumTagSinglePayload(v3, 0, 1, v4);
-    v16(v11, v3, v4);
-  }
-
-  else
-  {
-    __swift_storeEnumTagSinglePayload(v3, 1, 1, v4);
-    v17 = [v13 bundleURL];
-    static URL._unconditionallyBridgeFromObjectiveC(_:)();
-
-    if (__swift_getEnumTagSinglePayload(v3, 1, v4) != 1)
-    {
-      outlined destroy of IntentApplication?(v3, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    }
-  }
-
-  URL.appendingPathComponent(_:)();
-
-  return (*(v5 + 8))(v11, v4);
-}
-
-uint64_t DialogBuilder.templateDirectoryURL.unsafeMutableAddressor()
-{
-  if (one-time initialization token for templateDirectoryURL != -1)
-  {
-    OUTLINED_FUNCTION_0_46();
-  }
-
-  v0 = type metadata accessor for URL();
-
-  return __swift_project_value_buffer(v0, static DialogBuilder.templateDirectoryURL);
-}
-
-uint64_t static DialogBuilder.templateDirectoryURL.getter@<X0>(uint64_t a1@<X8>)
-{
-  if (one-time initialization token for templateDirectoryURL != -1)
-  {
-    OUTLINED_FUNCTION_0_46();
-  }
-
-  v2 = type metadata accessor for URL();
-  v3 = __swift_project_value_buffer(v2, static DialogBuilder.templateDirectoryURL);
-  v4 = *(*(v2 - 8) + 16);
-
-  return v4(a1, v3, v2);
-}
-
-uint64_t DialogBuilder.__allocating_init(catDialogGenerator:)(__int128 *a1)
-{
-  v2 = swift_allocObject();
-  outlined init with take of ResponseOverrideMatcherProtocol(a1, v2 + 16);
-  return v2;
-}
-
-uint64_t DialogBuilder.dialog(dialogData:)(uint64_t a1, uint64_t a2)
-{
-  *(v3 + 16) = a1;
-  *(v3 + 24) = v2;
-  v4 = *(a2 + 16);
-  *(v3 + 32) = *a2;
-  *(v3 + 48) = v4;
-  *(v3 + 72) = *(a2 + 32);
-  v5 = OUTLINED_FUNCTION_29();
-  return MEMORY[0x2822009F8](v5, v6, v7);
-}
-
-uint64_t DialogBuilder.dialog(dialogData:)()
-{
-  v1 = *(v0 + 40);
-  if (*(v0 + 72))
-  {
-    v2 = *(v0 + 48);
-    v3 = *(v0 + 24);
-    v4 = v3[5];
-    v5 = v3[6];
-    __swift_project_boxed_opaque_existential_1(v3 + 2, v4);
-    if (one-time initialization token for templateDirectoryURL != -1)
-    {
-      OUTLINED_FUNCTION_0_46();
-    }
-
-    v6 = type metadata accessor for URL();
-    v7 = __swift_project_value_buffer(v6, static DialogBuilder.templateDirectoryURL);
-    OUTLINED_FUNCTION_17_20(v5);
-    v21 = (v8 + *v8);
-    v10 = *(v9 + 4);
-    v11 = swift_task_alloc();
-    *(v0 + 64) = v11;
-    *v11 = v0;
-    v11[1] = DialogBuilder.dialog(dialogData:);
-    v12 = *(v0 + 32);
-    v13 = *(v0 + 16);
-
-    return v21(v13, v12, v1, v7, v2, v4, v5);
-  }
-
-  else
-  {
-    v16 = *(v0 + 48);
-    v15 = *(v0 + 56);
-    v17 = *(v0 + 32);
-    v18 = *(v0 + 16);
-    v19 = *(v0 + 40);
-
-    OUTLINED_FUNCTION_19_16();
-    OUTLINED_FUNCTION_127();
-
-    return v20();
-  }
-}
-
-{
-  OUTLINED_FUNCTION_48();
-  OUTLINED_FUNCTION_52();
-  v2 = *(v1 + 64);
-  v3 = *v0;
-  OUTLINED_FUNCTION_11();
-  *v4 = v3;
-
-  OUTLINED_FUNCTION_127();
-
-  return v5();
-}
-
-uint64_t DialogBuilder.buildDialog(for:context:)()
-{
-  OUTLINED_FUNCTION_48();
-  v1[74] = v0;
-  v1[73] = v2;
-  v1[72] = v3;
-  v1[71] = v4;
-  v5 = type metadata accessor for SearchCATEntity();
-  OUTLINED_FUNCTION_21(v5);
-  v1[75] = v6;
-  v8 = *(v7 + 64);
-  v1[76] = OUTLINED_FUNCTION_199();
-  v9 = type metadata accessor for SearchGlobalEntity(0);
-  v1[77] = v9;
-  OUTLINED_FUNCTION_114(v9);
-  v11 = *(v10 + 64);
-  v1[78] = OUTLINED_FUNCTION_199();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B12GlobalEntityVSgMd, &_s10OmniSearch0B12GlobalEntityVSgMR);
-  OUTLINED_FUNCTION_114(v12);
-  v14 = *(v13 + 64);
-  v1[79] = OUTLINED_FUNCTION_199();
-  v15 = type metadata accessor for SearchEntity.Builder(0);
-  v1[80] = v15;
-  OUTLINED_FUNCTION_114(v15);
-  v17 = *(v16 + 64) + 15;
-  v1[81] = swift_task_alloc();
-  v1[82] = swift_task_alloc();
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
-  OUTLINED_FUNCTION_114(v18);
-  v20 = *(v19 + 64) + 15;
-  v1[83] = swift_task_alloc();
-  v1[84] = swift_task_alloc();
-  v1[85] = swift_task_alloc();
-  v1[86] = swift_task_alloc();
-  v1[87] = swift_task_alloc();
-  v21 = type metadata accessor for SearchEntity(0);
-  v1[88] = v21;
-  OUTLINED_FUNCTION_21(v21);
-  v1[89] = v22;
-  v24 = *(v23 + 64);
-  v1[90] = OUTLINED_FUNCTION_199();
-  v25 = type metadata accessor for SearchCATContext();
-  OUTLINED_FUNCTION_114(v25);
-  v27 = *(v26 + 64);
-  v1[91] = OUTLINED_FUNCTION_199();
-  v28 = type metadata accessor for SearchResult(0);
-  v1[92] = v28;
-  OUTLINED_FUNCTION_21(v28);
-  v1[93] = v29;
-  v31 = *(v30 + 64) + 15;
-  v1[94] = swift_task_alloc();
-  v1[95] = swift_task_alloc();
-  v1[96] = swift_task_alloc();
-  v1[97] = swift_task_alloc();
-  v32 = type metadata accessor for DialogContext();
-  v1[98] = v32;
-  OUTLINED_FUNCTION_114(v32);
-  v34 = *(v33 + 64);
-  v1[99] = OUTLINED_FUNCTION_199();
-  v35 = type metadata accessor for AssistantSystemContext(0);
-  v1[100] = v35;
-  OUTLINED_FUNCTION_114(v35);
-  v37 = *(v36 + 64);
-  v1[101] = OUTLINED_FUNCTION_199();
-  v38 = OUTLINED_FUNCTION_29();
-
-  return MEMORY[0x2822009F8](v38, v39, v40);
-}
-
-{
-  v1 = *(v0 + 808);
-  v2 = *(v0 + 800);
-  v3 = *(v0 + 792);
-  v4 = *(v0 + 784);
-  v5 = *(v0 + 576);
-  outlined init with copy of DialogContext(*(v0 + 584), v3, type metadata accessor for DialogContext);
-  v6 = OUTLINED_FUNCTION_94();
-  outlined init with take of SearchResultItem?(v6, v7, v8, v9);
-  outlined init with take of SearchResultItem?(v3 + *(v4 + 20), v1 + v2[5], &_s10AppIntents19IntentSystemContextV14InterfaceIdiomOSgMd, &_s10AppIntents19IntentSystemContextV14InterfaceIdiomOSgMR);
-  *(v1 + v2[6]) = *(v3 + *(v4 + 24));
-  v10 = (v1 + v2[7]);
-  *v10 = 0;
-  v10[1] = 0;
-  *(v1 + v2[8]) = 0;
-  v11 = *(v5 + 16);
-  if (v11)
-  {
-    v12 = *(v0 + 744);
-    v127 = *(v0 + 736);
-    v128 = *(v0 + 712);
-    v13 = *(v0 + 680);
-    v130 = *(v0 + 640);
-    v125 = *(v0 + 624);
-    v14 = *(v0 + 576) + ((*(v12 + 80) + 32) & ~*(v12 + 80));
-    _s10OmniSearch18GenericEventEntityVSgWOi0_((v0 + 240));
-    v15 = v14;
-    v129 = *(v12 + 72);
-    v131 = MEMORY[0x277D84F90];
-    v126 = v13;
+    v18 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v9, 0);
+    v10 = v18;
+    v11 = (*(v3 + 80) + 32) & ~*(v3 + 80);
+    v12 = a1 + v11;
+    v13 = *(v3 + 72);
     do
     {
-      v134 = v15;
-      v135 = v11;
-      v16 = *(v0 + 776);
-      v17 = *(v0 + 768);
-      v18 = *(v0 + 760);
-      v19 = *(v0 + 752);
-      v20 = *(v0 + 736);
-      v132 = *(v0 + 664);
-      v133 = *(v0 + 704);
-      v21 = *(v0 + 656);
-      v22 = *(v0 + 648);
-      v23 = *(v0 + 616);
-      outlined init with copy of DialogContext(v15, v16, type metadata accessor for SearchResult);
-      outlined init with copy of DialogContext(v16, v17, type metadata accessor for SearchResult);
-      outlined init with copy of DialogContext(v17, v18, type metadata accessor for SearchResult);
-      outlined init with copy of DialogContext(v18, v19, type metadata accessor for SearchResult);
-      type metadata accessor for SearchEntityVisualContext();
-      v24 = swift_allocObject();
-      *(v0 + 400) = &type metadata for EntityCardBuilder;
-      *(v0 + 408) = &protocol witness table for EntityCardBuilder;
-      outlined init with take of ResponseOverrideMatcherProtocol((v0 + 376), v24 + 16);
-      OUTLINED_FUNCTION_28_1();
-      swift_beginAccess();
-      outlined init with copy of ChatMessageRecord(v24 + 16, v0 + 416);
-      v25 = *(v0 + 448);
-      __swift_project_boxed_opaque_existential_1((v0 + 416), *(v0 + 440));
-      v26 = *(v25 + 24);
-      OUTLINED_FUNCTION_28_1();
-      v28 = v27();
-      *v21 = 0;
-      v21[1] = 0;
-      v29 = v130[5];
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v30, v31, v32, v20);
-      v33 = v130[6];
-      type metadata accessor for SearchResultType();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v34, v35, v36, v37);
-      v38 = v130[7];
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v39, v40, v41, v23);
-      v42 = v130[8];
-      type metadata accessor for SearchSpotlightEntity(0);
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v43, v44, v45, v46);
-      memcpy(v21 + v130[9], (v0 + 240), 0x88uLL);
-      v47 = v130[10];
-      type metadata accessor for SearchAppEntity(0);
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v48, v49, v50, v51);
-      v52 = v130[11];
-      v53 = type metadata accessor for IntentFile();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v54, v55, v56, v53);
-      v57 = (v21 + v130[12]);
-      *v57 = 0;
-      v57[1] = 0;
-      v58 = v130[13];
-      type metadata accessor for EventEntity();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v59, v60, v61, v62);
-      v63 = v130[14];
-      type metadata accessor for IdCardEntity();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v64, v65, v66, v67);
-      v68 = (v21 + v130[15]);
-      v68[1] = 0u;
-      v68[2] = 0u;
-      *v68 = 0u;
-      v69 = v130[16];
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v70, v71, v72, v53);
-      *(v21 + v130[17]) = 5;
-      v73 = (v21 + v130[18]);
-      *v73 = 0;
-      v73[1] = 0;
-      OUTLINED_FUNCTION_28_1();
-      closure #1 in SearchEntity.init(result:context:searchString:derivedType:)();
-      outlined init with copy of DialogContext(v21, v22, type metadata accessor for SearchEntity.Builder);
-      SearchEntity.init(builder:)();
-      outlined destroy of SearchEntity.Builder(v21, type metadata accessor for SearchEntity.Builder);
-      if (__swift_getEnumTagSinglePayload(v132, 1, v133))
+      _s10OmniSearch0B6ResultVWOcTm_3(v12, v5, type metadata accessor for SearchResult);
+      ContactContentManager.fetchContactContent(contactsResult:)(v5, v8);
+      _s10OmniSearch0B6ResultVWOhTm_4(v5, type metadata accessor for SearchResult);
+      v18 = v10;
+      v15 = *(v10 + 16);
+      v14 = *(v10 + 24);
+      if (v15 >= v14 >> 1)
       {
-        v74 = outlined destroy of IntentApplication?(*(v0 + 664), &_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
-        v75 = 1;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v14 > 1, v15 + 1, 1);
+        v10 = v18;
       }
 
-      else
-      {
-        v74 = outlined init with take of SearchEntity(*(v0 + 664), *(v0 + 672));
-        v75 = 0;
-      }
-
-      v76 = *(v0 + 704);
-      v77 = *(v0 + 672);
-      if (OUTLINED_FUNCTION_6_17(v74, v75))
-      {
-        v78 = *(v0 + 776);
-        v79 = *(v0 + 768);
-        v80 = *(v0 + 760);
-        v81 = *(v0 + 752);
-        v82 = *(v0 + 704);
-        v83 = *(v0 + 680);
-        v84 = *(v0 + 672);
-
-        outlined destroy of SearchEntity.Builder(v80, type metadata accessor for SearchResult);
-        outlined destroy of SearchEntity.Builder(v79, type metadata accessor for SearchResult);
-        outlined destroy of SearchEntity.Builder(v78, type metadata accessor for SearchResult);
-        outlined destroy of IntentApplication?(v84, &_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
-        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 416));
-        outlined destroy of SearchEntity.Builder(v81, type metadata accessor for SearchResult);
-        OUTLINED_FUNCTION_92();
-        __swift_storeEnumTagSinglePayload(v85, v86, v87, v82);
-      }
-
-      else
-      {
-        v88 = *(v0 + 752);
-        v89 = *(v0 + 632);
-        v90 = *(v0 + 616);
-        outlined init with take of SearchEntity(*(v0 + 672), *(v0 + 680));
-        v91 = (v88 + *(v127 + 40));
-        v92 = v91[1];
-        v93 = *(v126 + 128);
-        *(v0 + 520) = *v91;
-        *(v0 + 528) = v92;
-
-        EntityProperty.wrappedValue.setter();
-        v94 = *(v126 + 32);
-        EntityProperty.wrappedValue.getter();
-        EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v89, 1, v90);
-        v96 = *(v0 + 776);
-        v97 = *(v0 + 768);
-        v98 = *(v0 + 760);
-        v99 = *(v0 + 632);
-        if (EnumTagSinglePayload)
-        {
-
-          outlined destroy of SearchEntity.Builder(v98, type metadata accessor for SearchResult);
-          outlined destroy of SearchEntity.Builder(v97, type metadata accessor for SearchResult);
-          outlined destroy of SearchEntity.Builder(v96, type metadata accessor for SearchResult);
-          outlined destroy of IntentApplication?(v99, &_s10OmniSearch0B12GlobalEntityVSgMd, &_s10OmniSearch0B12GlobalEntityVSgMR);
-        }
-
-        else
-        {
-          v100 = *(v0 + 624);
-          outlined init with copy of DialogContext(*(v0 + 632), v100, type metadata accessor for SearchGlobalEntity);
-          outlined destroy of IntentApplication?(v99, &_s10OmniSearch0B12GlobalEntityVSgMd, &_s10OmniSearch0B12GlobalEntityVSgMR);
-          v101 = *(v126 + 128);
-          EntityProperty.wrappedValue.getter();
-          v102 = *(v0 + 544);
-          v103 = *(v125 + 488);
-          *(v0 + 552) = *(v0 + 536);
-          *(v0 + 560) = v102;
-          EntityProperty.wrappedValue.setter();
-
-          outlined destroy of SearchEntity.Builder(v98, type metadata accessor for SearchResult);
-          outlined destroy of SearchEntity.Builder(v97, type metadata accessor for SearchResult);
-          v104 = OUTLINED_FUNCTION_94();
-          outlined destroy of SearchEntity.Builder(v104, v105);
-          outlined destroy of SearchEntity.Builder(v100, type metadata accessor for SearchGlobalEntity);
-        }
-
-        v106 = *(v0 + 752);
-        v107 = *(v0 + 704);
-        v108 = *(v0 + 680);
-        __swift_destroy_boxed_opaque_existential_1Tm((v0 + 416));
-        __swift_storeEnumTagSinglePayload(v108, 0, 1, v107);
-        outlined destroy of SearchEntity.Builder(v106, type metadata accessor for SearchResult);
-      }
-
-      v109 = *(v0 + 680);
-      if (__swift_getEnumTagSinglePayload(v109, 1, *(v0 + 704)))
-      {
-        v110 = outlined destroy of IntentApplication?(v109, &_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
-        v111 = 1;
-      }
-
-      else
-      {
-        v110 = outlined init with take of SearchEntity(v109, *(v0 + 688));
-        v111 = 0;
-      }
-
-      v112 = *(v0 + 704);
-      v113 = *(v0 + 688);
-      if (OUTLINED_FUNCTION_6_17(v110, v111))
-      {
-        v114 = outlined destroy of IntentApplication?(*(v0 + 688), &_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
-        v115 = 1;
-      }
-
-      else
-      {
-        v114 = outlined init with take of SearchEntity(*(v0 + 688), *(v0 + 696));
-        v115 = 0;
-      }
-
-      v116 = *(v0 + 704);
-      v117 = *(v0 + 696);
-      if (OUTLINED_FUNCTION_6_17(v114, v115) == 1)
-      {
-        outlined destroy of IntentApplication?(*(v0 + 696), &_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
-      }
-
-      else
-      {
-        outlined init with take of SearchEntity(*(v0 + 696), *(v0 + 720));
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v131 + 16) + 1, 1, v131);
-          v131 = v121;
-        }
-
-        v119 = *(v131 + 16);
-        v118 = *(v131 + 24);
-        if (v119 >= v118 >> 1)
-        {
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v118 > 1, v119 + 1, 1, v131);
-          v131 = v122;
-        }
-
-        v120 = *(v0 + 720);
-        *(v131 + 16) = v119 + 1;
-        outlined init with take of SearchEntity(v120, v131 + ((*(v128 + 80) + 32) & ~*(v128 + 80)) + *(v128 + 72) * v119);
-      }
-
-      v15 = v134 + v129;
-      v11 = v135 - 1;
+      *(v10 + 16) = v15 + 1;
+      outlined init with take of SearchResult(v8, v10 + v11 + v15 * v13);
+      v12 += v13;
+      --v9;
     }
 
-    while (v135 != 1);
+    while (v9);
+  }
+
+  return v10;
+}
+
+uint64_t ContactContentManager.__deallocating_deinit()
+{
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+
+  return swift_deallocClassInstance();
+}
+
+void *specialized ContactContentManager.init(contactStore:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  a2[5] = a3;
+  a2[6] = a4;
+  boxed_opaque_existential_1Tm = __swift_allocate_boxed_opaque_existential_1Tm(a2 + 2);
+  (*(*(a3 - 8) + 32))(boxed_opaque_existential_1Tm, a1, a3);
+  return a2;
+}
+
+void OUTLINED_FUNCTION_5_29()
+{
+  *(v1 - 128) = v0;
+  *(v1 - 128) = v0;
+  *(v1 - 128) = v0;
+  *(v1 - 128) = v0;
+  *(v1 - 128) = v0;
+  *(v1 - 128) = v0;
+  *(v1 - 128) = v0;
+  *(v1 - 128) = v0;
+}
+
+uint64_t OUTLINED_FUNCTION_9_25()
+{
+
+  return _s10OmniSearch0B6ResultVWOhTm_4(v0, type metadata accessor for SearchResult);
+}
+
+void *OUTLINED_FUNCTION_13_13(uint64_t a1)
+{
+
+  return specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, a1 & ~(a1 >> 63), 0);
+}
+
+void OUTLINED_FUNCTION_14_18()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+uint64_t OUTLINED_FUNCTION_18_17(uint64_t a1)
+{
+
+  return static Array._unconditionallyBridgeFromObjectiveC(_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_19_18()
+{
+
+  return SpotlightRankingItem.init(retrievalType:bundleId:likelihood:topicality:pommesL1Score:pommesAdjustedL1Score:pommesCalibratedL1Score:embeddingSimilarity:keywordMatchScore:freshness:)();
+}
+
+uint64_t one-time initialization function for bodyFetchTimeout(uint64_t a1)
+{
+  result = AFIsInternalInstall();
+  v2 = 2.0;
+  if (result)
+  {
+    v2 = 30.0;
+  }
+
+  static EmailContentManager.bodyFetchTimeout = *&v2;
+  return result;
+}
+
+uint64_t *EmailContentManager.bodyFetchTimeout.unsafeMutableAddressor()
+{
+  if (one-time initialization token for bodyFetchTimeout != -1)
+  {
+    OUTLINED_FUNCTION_12_25(&one-time initialization token for bodyFetchTimeout);
+  }
+
+  return &static EmailContentManager.bodyFetchTimeout;
+}
+
+double static EmailContentManager.bodyFetchTimeout.getter()
+{
+  if (one-time initialization token for bodyFetchTimeout != -1)
+  {
+    OUTLINED_FUNCTION_12_25(&one-time initialization token for bodyFetchTimeout);
+  }
+
+  return *&static EmailContentManager.bodyFetchTimeout;
+}
+
+id one-time initialization function for contentRequestOptions()
+{
+  v0 = objc_allocWithZone(MEMORY[0x277D06D60]);
+  result = @nonobjc EMContentRequestOptions.init(builder:)(closure #1 in variable initialization expression of static EmailContentManager.contentRequestOptions, 0);
+  static EmailContentManager.contentRequestOptions = result;
+  return result;
+}
+
+id closure #1 in variable initialization expression of static EmailContentManager.contentRequestOptions(void *a1)
+{
+  [a1 setRequestedRepresentation_];
+  [a1 setIncludeSuggestionItems_];
+
+  return [a1 setNetworkUsage_];
+}
+
+uint64_t *EmailContentManager.contentRequestOptions.unsafeMutableAddressor()
+{
+  if (one-time initialization token for contentRequestOptions != -1)
+  {
+    OUTLINED_FUNCTION_11_24(&one-time initialization token for contentRequestOptions);
+  }
+
+  return &static EmailContentManager.contentRequestOptions;
+}
+
+id static EmailContentManager.contentRequestOptions.getter()
+{
+  if (one-time initialization token for contentRequestOptions != -1)
+  {
+    OUTLINED_FUNCTION_11_24(&one-time initialization token for contentRequestOptions);
+  }
+
+  v1 = static EmailContentManager.contentRequestOptions;
+
+  return v1;
+}
+
+void EmailContentManager.init()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+  OUTLINED_FUNCTION_155();
+  a19 = v21;
+  a20 = v22;
+  v23 = type metadata accessor for OSSignpostID();
+  OUTLINED_FUNCTION_14();
+  v25 = v24;
+  MEMORY[0x28223BE20](v26);
+  OUTLINED_FUNCTION_109();
+  v29 = v27 - v28;
+  MEMORY[0x28223BE20](v30);
+  v32 = &a9 - v31;
+  if (one-time initialization token for searchSignposter != -1)
+  {
+    OUTLINED_FUNCTION_22(&one-time initialization token for searchSignposter);
+  }
+
+  v33 = type metadata accessor for OSSignposter();
+  OUTLINED_FUNCTION_200(v33, static Logging.searchSignposter);
+  OSSignposter.logHandle.getter();
+  OSSignpostID.init(log:)();
+  v34 = OSSignposter.logHandle.getter();
+  v35 = static os_signpost_type_t.begin.getter();
+  if (OS_os_log.signpostsEnabled.getter())
+  {
+    v36 = OUTLINED_FUNCTION_172();
+    *v36 = 0;
+    v37 = OSSignpostID.rawValue.getter();
+    _os_signpost_emit_with_name_impl(&dword_25D85C000, v34, v35, v37, "EmailContentManager.init", "", v36, 2u);
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  (*(v25 + 16))(v29, v32, v23);
+  v38 = type metadata accessor for OSSignpostIntervalState();
+  OUTLINED_FUNCTION_170(v38);
+  OSSignpostIntervalState.init(id:isOpen:)();
+  (*(v25 + 8))(v32, v23);
+  *(v20 + 16) = [objc_allocWithZone(MEMORY[0x277D06D78]) init];
+  if (one-time initialization token for answerSynthesis != -1)
+  {
+    OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
+  }
+
+  v39 = type metadata accessor for Logger();
+  OUTLINED_FUNCTION_200(v39, static Logging.answerSynthesis);
+  v40 = Logger.logObject.getter();
+  static os_log_type_t.info.getter();
+  OUTLINED_FUNCTION_77_4();
+  if (os_log_type_enabled(v40, v41))
+  {
+    v42 = OUTLINED_FUNCTION_172();
+    *v42 = 0;
+    _os_log_impl(&dword_25D85C000, v40, v23, "EmailContentManager: EMDaemonInterface initialized", v42, 2u);
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  $defer #1 () in EmailContentManager.init()();
+
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t EmailContentManager.hydrateEmailResults(_:)()
+{
+  OUTLINED_FUNCTION_48();
+  v1[2] = v2;
+  v1[3] = v0;
+  v1[4] = *v0;
+  v3 = type metadata accessor for SearchResultItem(0);
+  v1[5] = v3;
+  OUTLINED_FUNCTION_114(v3);
+  v1[6] = OUTLINED_FUNCTION_199();
+  v4 = type metadata accessor for EmailDocument();
+  v1[7] = v4;
+  OUTLINED_FUNCTION_21(v4);
+  v1[8] = v5;
+  v1[9] = OUTLINED_FUNCTION_199();
+  v6 = type metadata accessor for SearchResult(0);
+  v1[10] = v6;
+  OUTLINED_FUNCTION_21(v6);
+  v1[11] = v7;
+  v1[12] = OUTLINED_FUNCTION_160();
+  v1[13] = swift_task_alloc();
+  v1[14] = swift_task_alloc();
+  v8 = type metadata accessor for OSSignpostID();
+  v1[15] = v8;
+  OUTLINED_FUNCTION_21(v8);
+  v1[16] = v9;
+  v1[17] = OUTLINED_FUNCTION_160();
+  v1[18] = swift_task_alloc();
+  v10 = OUTLINED_FUNCTION_29();
+
+  return MEMORY[0x2822009F8](v10);
+}
+
+{
+  if (one-time initialization token for searchSignposter != -1)
+  {
+    OUTLINED_FUNCTION_22(&one-time initialization token for searchSignposter);
+  }
+
+  v1 = type metadata accessor for OSSignposter();
+  OUTLINED_FUNCTION_200(v1, static Logging.searchSignposter);
+  OSSignposter.logHandle.getter();
+  OSSignpostID.init(log:)();
+  v2 = OSSignposter.logHandle.getter();
+  static os_signpost_type_t.begin.getter();
+  if (OS_os_log.signpostsEnabled.getter())
+  {
+    *OUTLINED_FUNCTION_172() = 0;
+    OSSignpostID.rawValue.getter();
+    OUTLINED_FUNCTION_41_12();
+    _os_signpost_emit_with_name_impl(v3, v4, v5, v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  v10 = OUTLINED_FUNCTION_30_16();
+  v11(v10);
+  v12 = type metadata accessor for OSSignpostIntervalState();
+  OUTLINED_FUNCTION_170(v12);
+  v0[19] = OUTLINED_FUNCTION_38_6();
+  v13 = OUTLINED_FUNCTION_54_0();
+  v14(v13);
+  if (one-time initialization token for answerSynthesis != -1)
+  {
+    OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
+  }
+
+  v15 = type metadata accessor for Logger();
+  v16 = __swift_project_value_buffer(v15, static Logging.answerSynthesis);
+
+  v17 = Logger.logObject.getter();
+  v18 = static os_log_type_t.info.getter();
+  v19 = OUTLINED_FUNCTION_16_11(v18);
+  v20 = v0[2];
+  if (v19)
+  {
+    OUTLINED_FUNCTION_28_3();
+    v21 = swift_slowAlloc();
+    *v21 = 134217984;
+    *(v21 + 4) = *(v20 + 16);
+
+    OUTLINED_FUNCTION_49_16(&dword_25D85C000, v22, v16, "EmailContentManager: Gathering full email documents for %ld email items");
+    OUTLINED_FUNCTION_42_0();
   }
 
   else
   {
-    v131 = MEMORY[0x277D84F90];
   }
 
-  *(v0 + 816) = v131;
-  v123 = swift_task_alloc();
-  *(v0 + 824) = v123;
-  *v123 = v0;
-  v123[1] = DialogBuilder.buildDialog(for:context:);
+  v23 = 0;
+  v24 = v0[11];
+  v25 = *(v0[2] + 16);
+  v69 = (v0[8] + 32);
+  v68 = MEMORY[0x277D84F90];
+  while (v25 != v23)
+  {
+    v26 = v0[14];
+    v27 = v0[6];
+    v28 = (*(v24 + 80) + 32) & ~*(v24 + 80);
+    v29 = *(v24 + 72);
+    OUTLINED_FUNCTION_0_49();
+    _s10OmniSearch0B6ResultVWOcTm_6(v30, v26, v31);
+    OUTLINED_FUNCTION_5_30();
+    _s10OmniSearch0B6ResultVWOcTm_6(v26, v27, v32);
+    OUTLINED_FUNCTION_54_0();
+    if (swift_getEnumCaseMultiPayload())
+    {
+      OUTLINED_FUNCTION_3_35();
+      _s10OmniSearch0B10ResultItemOWOhTm_5(v33, v34);
+      goto LABEL_16;
+    }
+
+    (*v69)(v0[9], v0[6], v0[7]);
+    v35 = EmailDocument.hydratable.getter();
+    v36 = OUTLINED_FUNCTION_54_0();
+    v37(v36);
+    if (v35 != 2 && (v35 & 1) != 0)
+    {
+      outlined init with take of SearchResult(v0[14], v0[12]);
+      v40 = v68;
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v68 + 16) + 1, 1);
+        v40 = v68;
+      }
+
+      v42 = *(v40 + 16);
+      v41 = *(v40 + 24);
+      if (v42 >= v41 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v41 > 1, v42 + 1, 1);
+        v40 = v68;
+      }
+
+      ++v23;
+      v43 = v0[12];
+      *(v40 + 16) = v42 + 1;
+      v68 = v40;
+      outlined init with take of SearchResult(v43, v40 + v28 + v42 * v29);
+    }
+
+    else
+    {
+LABEL_16:
+      OUTLINED_FUNCTION_27_15();
+      _s10OmniSearch0B10ResultItemOWOhTm_5(v38, v39);
+      ++v23;
+    }
+  }
+
+  v44 = *(v68 + 16);
+  if (v44)
+  {
+    v45 = v68 + ((*(v24 + 80) + 32) & ~*(v24 + 80));
+    v46 = MEMORY[0x277D84F90];
+    v47 = *(v24 + 72);
+    do
+    {
+      v48 = v0[13];
+      OUTLINED_FUNCTION_0_49();
+      _s10OmniSearch0B6ResultVWOcTm_6(v45, v48, v49);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+      v50 = CodableNSSecureCoding.wrappedValue.getter();
+      v51 = [v50 uniqueIdentifier];
+
+      v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v54 = v53;
+
+      OUTLINED_FUNCTION_27_15();
+      _s10OmniSearch0B10ResultItemOWOhTm_5(v48, v55);
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0);
+        v46 = v59;
+      }
+
+      v57 = *(v46 + 16);
+      v56 = *(v46 + 24);
+      if (v57 >= v56 >> 1)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v56 > 1);
+        v46 = v60;
+      }
+
+      *(v46 + 16) = v57 + 1;
+      v58 = v46 + 16 * v57;
+      *(v58 + 32) = v52;
+      *(v58 + 40) = v54;
+      v45 += v47;
+      --v44;
+    }
+
+    while (v44);
+  }
+
+  v61 = v0[3];
+  v62 = v0[4];
+  EmailContentManager.messages(for:)();
+  v64 = v63;
+
+  v65 = swift_allocObject();
+  v0[20] = v65;
+  v65[2] = v64;
+  v65[3] = v61;
+  v65[4] = v62;
+
+  v66 = swift_task_alloc();
+  v0[21] = v66;
+  *v66 = v0;
+  v66[1] = EmailContentManager.hydrateEmailResults(_:);
 
   return specialized Array.oms_mapWithTaskGroup<A>(ignoreOrder:itemTransform:)();
 }
@@ -5314,4527 +9247,753 @@ uint64_t DialogBuilder.buildDialog(for:context:)()
 {
   OUTLINED_FUNCTION_48();
   OUTLINED_FUNCTION_52();
-  v2 = v1;
-  v3 = *(v1 + 824);
-  v9 = *v0;
-  *(v2 + 832) = v4;
-
-  v5 = OUTLINED_FUNCTION_29();
-
-  return MEMORY[0x2822009F8](v5, v6, v7);
-}
-
-{
-  v1 = *(v0 + 832);
-  v2 = *(v0 + 816);
-  v3 = *(v0 + 808);
-  v4 = *(v0 + 728);
-  Array<A>.isHomogenousResults.getter();
-  v6 = v5;
-  AssistantSystemContext.asCATContext.getter();
-  Array<A>.isEffectivelyEmptySearchResult.getter(v2, v7, v8, v9, v10, v11, v12, v13, v43, v44, v45, v47, v48, v49, v50, v51, v52, v53, v54, v0);
-  LOBYTE(v3) = v14;
-
-  if (v3)
-  {
-    v15 = *(v0 + 832);
-
-    v16 = Dictionary.init(dictionaryLiteral:)();
-    v17 = "tion in time for display.";
-    v18 = 0xD000000000000017;
-  }
-
-  else
-  {
-    v19 = *(v0 + 832);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_25DBC8930;
-    *(inited + 32) = 0xD000000000000011;
-    *(inited + 40) = 0x800000025DBF2DB0;
-    v21 = *(v19 + 16);
-    v22 = *(v0 + 832);
-    if (v21)
-    {
-      v23 = *(v0 + 600);
-      v46 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21, 0);
-      v24 = v46;
-      v25 = v22 + ((*(v23 + 80) + 32) & ~*(v23 + 80));
-      v26 = *(v23 + 72);
-      do
-      {
-        v27 = *(v0 + 608);
-        outlined init with copy of DialogContext(v25, v27, type metadata accessor for SearchCATEntity);
-        v28 = SearchCATEntity.dictionaryDescription.getter();
-        outlined destroy of SearchEntity.Builder(v27, type metadata accessor for SearchCATEntity);
-        v30 = *(v46 + 16);
-        v29 = *(v46 + 24);
-        if (v30 >= v29 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v29 > 1, v30 + 1, 1);
-        }
-
-        *(v46 + 16) = v30 + 1;
-        *(v46 + 8 * v30 + 32) = v28;
-        v25 += v26;
-        --v21;
-      }
-
-      while (v21);
-      v31 = *(v0 + 832);
-    }
-
-    else
-    {
-      v32 = *(v0 + 832);
-
-      v24 = MEMORY[0x277D84F90];
-    }
-
-    v33 = *(v0 + 784);
-    v34 = *(v0 + 728);
-    v35 = *(v0 + 584);
-    v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSypGGMd, &_sSaySDySSypGGMR);
-    *(inited + 48) = v24;
-    *(inited + 72) = v36;
-    *(inited + 80) = 0x6974736575517369;
-    *(inited + 88) = 0xEF79726575516E6FLL;
-    v37 = MEMORY[0x277D839B0];
-    *(inited + 96) = *(v35 + *(v33 + 28)) & 1;
-    *(inited + 120) = v37;
-    *(inited + 128) = 0xD000000000000013;
-    *(inited + 136) = 0x800000025DBF2E50;
-    *(inited + 144) = v6 & 1;
-    *(inited + 168) = v37;
-    *(inited + 176) = 0xD000000000000010;
-    *(inited + 184) = 0x800000025DBF2E70;
-    v38 = SearchCATContext.dictionaryDescription.getter();
-    *(inited + 216) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, &_sSDySSypGMR);
-    *(inited + 192) = v38;
-    v16 = Dictionary.init(dictionaryLiteral:)();
-    v17 = "isHomogenousSources";
-    v18 = 0xD000000000000015;
-  }
-
-  *(v0 + 456) = v18;
-  *(v0 + 464) = v17 | 0x8000000000000000;
-  *(v0 + 472) = v16;
-  *(v0 + 480) = 0;
-  *(v0 + 488) = 1;
-  v39 = swift_task_alloc();
-  *(v0 + 840) = v39;
-  *v39 = v0;
-  v39[1] = DialogBuilder.buildDialog(for:context:);
-  v40 = *(v0 + 592);
-  v41 = *(v0 + 568);
-
-  return DialogBuilder.dialog(dialogData:)(v41, v0 + 456);
-}
-
-{
-  v2 = *v1;
-  v3 = *v1;
+  OUTLINED_FUNCTION_47();
+  *v2 = v1;
+  v3 = *v0;
   OUTLINED_FUNCTION_11();
   *v4 = v3;
-  v5 = v2[105];
-  *v4 = *v1;
-  v3[106] = v0;
+  *(v6 + 176) = v5;
 
-  v6 = v3[57];
-  v7 = v2[58];
-  v8 = v2[59];
-  v9 = v2[60];
-  v10 = *(v3 + 488);
-  outlined consume of SearchToolDialogData();
-  if (v0)
-  {
-    v11 = DialogBuilder.buildDialog(for:context:);
-  }
+  v7 = OUTLINED_FUNCTION_29();
 
-  else
-  {
-    v11 = DialogBuilder.buildDialog(for:context:);
-  }
-
-  return MEMORY[0x2822009F8](v11, 0, 0);
+  return MEMORY[0x2822009F8](v7);
 }
 
 {
-  OUTLINED_FUNCTION_1_44();
-  OUTLINED_FUNCTION_5_25();
+  OUTLINED_FUNCTION_75();
+  $defer #1 () in EmailContentManager.init()();
 
-  OUTLINED_FUNCTION_127();
+  v1 = *(v0 + 8);
+  v2 = *(v0 + 176);
 
-  return v0();
+  return v1(v2);
 }
 
+uint64_t closure #3 in EmailContentManager.hydrateEmailResults(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_1_44();
-  OUTLINED_FUNCTION_5_25();
+  v4[10] = a3;
+  v4[11] = a4;
+  v4[8] = a1;
+  v4[9] = a2;
+  v5 = type metadata accessor for SearchResult(0);
+  v4[12] = v5;
+  v6 = *(v5 - 8);
+  v4[13] = v6;
+  v4[14] = *(v6 + 64);
+  v4[15] = swift_task_alloc();
 
-  OUTLINED_FUNCTION_127();
-  v2 = *(v0 + 848);
-
-  return v1();
+  return MEMORY[0x2822009F8](closure #3 in EmailContentManager.hydrateEmailResults(_:));
 }
 
-__n128 AssistantSystemContext.init(dialogContext:)@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t closure #3 in EmailContentManager.hydrateEmailResults(_:)()
 {
-  outlined init with take of SearchResultItem?(a1, a2, &_s10AppIntents19IntentSystemContextV09AssistantE0V15InteractionModeOSgMd, &_s10AppIntents19IntentSystemContextV09AssistantE0V15InteractionModeOSgMR);
-  v4 = type metadata accessor for DialogContext();
-  v5 = *(v4 + 20);
-  v6 = type metadata accessor for AssistantSystemContext(0);
-  outlined init with take of SearchResultItem?(a1 + v5, a2 + v6[5], &_s10AppIntents19IntentSystemContextV14InterfaceIdiomOSgMd, &_s10AppIntents19IntentSystemContextV14InterfaceIdiomOSgMR);
-  result = *(a1 + *(v4 + 24));
-  *(a2 + v6[6]) = result;
-  v8 = (a2 + v6[7]);
-  *v8 = 0;
-  v8[1] = 0;
-  *(a2 + v6[8]) = 0;
-  return result;
-}
-
-uint64_t DialogBuilder.__deallocating_deinit()
-{
-  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t outlined consume of SearchToolDialogData()
-{
-}
-
-uint64_t outlined init with take of SearchEntity(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for SearchEntity(0);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined init with copy of DialogContext(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v4 = a3(0);
-  OUTLINED_FUNCTION_17(v4);
-  v6 = *(v5 + 16);
-  v7 = OUTLINED_FUNCTION_94();
-  v8(v7);
-  return a2;
-}
-
-uint64_t outlined destroy of SearchEntity.Builder(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  OUTLINED_FUNCTION_17(v3);
-  (*(v4 + 8))(a1);
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for DialogBuilderError(uint64_t a1, int a2)
-{
-  if (a2)
-  {
-    if (a2 < 0 && *(a1 + 16))
-    {
-      LODWORD(v2) = *a1 + 0x7FFFFFFF;
-    }
-
-    else
-    {
-      v2 = *(a1 + 8);
-      if (v2 >= 0xFFFFFFFF)
-      {
-        LODWORD(v2) = -1;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for DialogBuilderError(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *result = a2 & 0x7FFFFFFF;
-    *(result + 8) = 0;
-    if (a3 < 0)
-    {
-      *(result + 16) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *(result + 8) = (a2 - 1);
-      return result;
-    }
-
-    *(result + 16) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for SearchToolDialogData(uint64_t a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 >= 0xFF && *(a1 + 33))
-    {
-      v2 = *a1 + 254;
-    }
-
-    else
-    {
-      v3 = *(a1 + 32);
-      if (v3 <= 1)
-      {
-        v2 = -1;
-      }
-
-      else
-      {
-        v2 = v3 ^ 0xFF;
-      }
-    }
-  }
-
-  else
-  {
-    v2 = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for SearchToolDialogData(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 16) = 0;
-    *(result + 24) = 0;
-    *(result + 32) = 0;
-    *result = a2 - 255;
-    *(result + 8) = 0;
-    if (a3 >= 0xFF)
-    {
-      *(result + 33) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 33) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 32) = -a2;
-    }
-  }
-
-  return result;
-}
-
-void type metadata completion function for DialogContext()
-{
-  type metadata accessor for IntentSystemContext.AssistantContext.InteractionMode?(319, &lazy cache variable for type metadata for IntentSystemContext.AssistantContext.InteractionMode?, MEMORY[0x277CBA0C8]);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for IntentSystemContext.AssistantContext.InteractionMode?(319, &lazy cache variable for type metadata for IntentSystemContext.InterfaceIdiom?, MEMORY[0x277CBA120]);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?);
-        if (v3 <= 0x3F)
-        {
-          swift_cvw_initStructMetadataWithLayoutString();
-        }
-      }
-    }
-  }
-}
-
-void type metadata accessor for IntentSystemContext.AssistantContext.InteractionMode?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
-{
-  if (!*a2)
-  {
-    a3(255);
-    v4 = type metadata accessor for Optional();
-    if (!v5)
-    {
-      atomic_store(v4, a2);
-    }
-  }
-}
-
-uint64_t dispatch thunk of CatDialogGenerating.dialog(catId:templateDirectoryURL:parameters:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  OUTLINED_FUNCTION_17_20(a7);
-  v20 = (v15 + *v15);
-  v17 = *(v16 + 4);
-  v18 = swift_task_alloc();
-  *(v7 + 16) = v18;
-  *v18 = v7;
-  v18[1] = partial apply for closure #2 in AnswerResolver.resolve(extractedResults:options:);
-
-  return v20(a1, a2, a3, a4, a5, a6, a7);
-}
-
-uint64_t getEnumTagSinglePayload for CatDialogGenerator(uint64_t *a1, int a2)
-{
-  if (a2)
-  {
-    if (a2 < 0 && *(a1 + 8))
-    {
-      LODWORD(v2) = *a1 + 0x7FFFFFFF;
-    }
-
-    else
-    {
-      v2 = *a1;
-      if (*a1 >= 0xFFFFFFFF)
-      {
-        LODWORD(v2) = -1;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for CatDialogGenerator(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 8) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *result = (a2 - 1);
-      return result;
-    }
-
-    *(result + 8) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_0_46()
-{
-
-  return swift_once();
-}
-
-uint64_t OUTLINED_FUNCTION_1_44()
-{
-  v2 = v0[101];
-  v3 = v0[99];
-  v4 = v0[97];
-  v5 = v0[96];
-  v6 = v0[95];
-  v7 = v0[94];
-  v8 = v0[90];
-  v9 = v0[87];
-  v13 = v0[86];
-  v14 = v0[85];
-  v15 = v0[84];
-  v16 = v0[83];
-  v17 = v0[82];
-  v18 = v0[81];
-  v10 = v0[79];
-  v19 = v0[78];
-  v20 = v0[76];
-  v11 = v0[91];
-
-  return outlined destroy of SearchEntity.Builder(v11, type metadata accessor for SearchCATContext);
-}
-
-uint64_t OUTLINED_FUNCTION_5_25()
-{
-
-  return outlined destroy of SearchEntity.Builder(v0, type metadata accessor for AssistantSystemContext);
-}
-
-uint64_t OUTLINED_FUNCTION_6_17(uint64_t a1, uint64_t a2)
-{
-  __swift_storeEnumTagSinglePayload(v2, a2, 1, v3);
-
-  return __swift_getEnumTagSinglePayload(v2, 1, v3);
-}
-
-uint64_t OUTLINED_FUNCTION_19_16()
-{
-
-  return SearchToolDialog.init(fullPrint:fullSpeak:supportingPrint:supportingSpeak:)();
-}
-
-void static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v21;
-  a20 = v22;
-  v24 = v23;
-  v26 = v25;
-  v239 = v27;
-  v217 = v28;
-  v237 = v29;
-  v235 = type metadata accessor for Date.FormatStyle.Symbol.TimeZone.Width();
-  v30 = OUTLINED_FUNCTION_14(v235);
-  v233 = v31;
-  v33 = *(v32 + 64);
-  MEMORY[0x28223BE20](v30);
-  OUTLINED_FUNCTION_2_3();
-  v231 = v34;
-  OUTLINED_FUNCTION_78_0();
-  v236 = type metadata accessor for Date.FormatStyle.Symbol.TimeZone();
-  v35 = OUTLINED_FUNCTION_14(v236);
-  v234 = v36;
-  v38 = *(v37 + 64);
-  MEMORY[0x28223BE20](v35);
-  OUTLINED_FUNCTION_2_3();
-  v232 = v39;
-  OUTLINED_FUNCTION_78_0();
-  v40 = type metadata accessor for Date.FormatStyle.Symbol.Minute();
-  v41 = OUTLINED_FUNCTION_14(v40);
-  v229 = v42;
-  v230 = v41;
-  v44 = *(v43 + 64);
-  MEMORY[0x28223BE20](v41);
-  OUTLINED_FUNCTION_2_3();
-  v228 = v45;
-  OUTLINED_FUNCTION_78_0();
-  v226 = type metadata accessor for Date.FormatStyle.Symbol.Hour.AMPMStyle();
-  v46 = OUTLINED_FUNCTION_14(v226);
-  v224 = v47;
-  v49 = *(v48 + 64);
-  MEMORY[0x28223BE20](v46);
-  OUTLINED_FUNCTION_2_3();
-  v223[1] = v50;
-  OUTLINED_FUNCTION_78_0();
-  v227 = type metadata accessor for Date.FormatStyle.Symbol.Hour();
-  v51 = OUTLINED_FUNCTION_14(v227);
-  v225 = v52;
-  v54 = *(v53 + 64);
-  MEMORY[0x28223BE20](v51);
-  OUTLINED_FUNCTION_2_3();
-  v223[2] = v55;
-  OUTLINED_FUNCTION_78_0();
-  v223[0] = type metadata accessor for Date.FormatStyle.Symbol.Year();
-  v56 = OUTLINED_FUNCTION_14(v223[0]);
-  v222 = v57;
-  v59 = *(v58 + 64);
-  MEMORY[0x28223BE20](v56);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v60);
-  v221 = type metadata accessor for Date.FormatStyle.Symbol.Month();
-  v61 = OUTLINED_FUNCTION_14(v221);
-  v220 = v62;
-  v64 = *(v63 + 64);
-  MEMORY[0x28223BE20](v61);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v65);
-  v66 = type metadata accessor for Date.FormatStyle.Symbol.Day();
-  v67 = OUTLINED_FUNCTION_14(v66);
-  v69 = v68;
-  v71 = *(v70 + 64);
-  MEMORY[0x28223BE20](v67);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_4();
-  v216 = type metadata accessor for Date.FormatStyle.Symbol.Weekday();
-  v72 = OUTLINED_FUNCTION_14(v216);
-  v215[18] = v73;
-  v75 = *(v74 + 64);
-  MEMORY[0x28223BE20](v72);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v76);
-  v77 = type metadata accessor for FormatStyleCapitalizationContext();
-  v78 = OUTLINED_FUNCTION_114(v77);
-  v80 = *(v79 + 64);
-  MEMORY[0x28223BE20](v78);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v81);
-  v82 = type metadata accessor for Calendar();
-  v83 = OUTLINED_FUNCTION_114(v82);
-  v85 = *(v84 + 64);
-  MEMORY[0x28223BE20](v83);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v86);
-  v87 = type metadata accessor for Locale();
-  v88 = OUTLINED_FUNCTION_114(v87);
-  v90 = *(v89 + 64);
-  MEMORY[0x28223BE20](v88);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v91);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v92);
-  v93 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV11FormatStyleV04TimeD0VSgMd, &_s10Foundation4DateV11FormatStyleV04TimeD0VSgMR);
-  v94 = OUTLINED_FUNCTION_114(v93);
-  v96 = *(v95 + 64);
-  MEMORY[0x28223BE20](v94);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v97);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v98);
-  v99 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV11FormatStyleV0bD0VSgMd, &_s10Foundation4DateV11FormatStyleV0bD0VSgMR);
-  v100 = OUTLINED_FUNCTION_114(v99);
-  v102 = *(v101 + 64);
-  MEMORY[0x28223BE20](v100);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v103);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v104);
-  v105 = type metadata accessor for Date.FormatStyle();
-  v106 = OUTLINED_FUNCTION_14(v105);
-  v108 = v107;
-  v110 = *(v109 + 64);
-  MEMORY[0x28223BE20](v106);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v111);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v112);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v113);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v114);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v115);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v116);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v117);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v118);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v119);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v120);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v121);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v122);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v123);
-  v124 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  OUTLINED_FUNCTION_114(v124);
-  v126 = *(v125 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v127);
-  v129 = v215 - v128;
-  v240 = type metadata accessor for TimeZone();
-  v130 = OUTLINED_FUNCTION_14(v240);
-  v238 = v131;
-  v133 = *(v132 + 64);
-  MEMORY[0x28223BE20](v130);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v134);
-  OUTLINED_FUNCTION_14_2();
-  v241 = v135;
-  static TimeZone.current.getter();
-  if (v24)
-  {
-    TimeZone.init(identifier:)();
-    v136 = v240;
-    OUTLINED_FUNCTION_166(v129, 1, v240);
-    if (v137)
-    {
-      outlined destroy of IntentApplication?(v129, &_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-    }
-
-    else
-    {
-      v138 = v69;
-      v139 = v66;
-      v140 = v238;
-      v141 = v108;
-      v142 = v26;
-      v143 = v105;
-      v144 = v20;
-      v145 = v241;
-      (*(v238 + 8))(v241, v136);
-      v146 = v140;
-      v66 = v139;
-      v69 = v138;
-      v147 = v145;
-      v20 = v144;
-      v105 = v143;
-      v26 = v142;
-      v108 = v141;
-      (*(v146 + 32))(v147, v129, v136);
-    }
-  }
-
-  type metadata accessor for Date.FormatStyle.DateStyle();
-  v219 = v69;
-  v218 = v66;
-  if (v26)
-  {
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v148, v149, v150, v151);
-    type metadata accessor for Date.FormatStyle.TimeStyle();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v152, v153, v154, v155);
-    v215[0] = v20;
-    if (!v239)
-    {
-      type metadata accessor for NSUserDefaults();
-      static NSUserDefaults.fallbackLocale.getter();
-    }
-
-    OUTLINED_FUNCTION_70_8(&v231);
-    Locale.init(identifier:)();
-    v164 = v238;
-    v165 = OUTLINED_FUNCTION_68_9(v238);
-    v166 = v240;
-    v167(v165, v241, v240);
-    OUTLINED_FUNCTION_66_10(&a11);
-    static Calendar.autoupdatingCurrent.getter();
-    OUTLINED_FUNCTION_64_7(&a12);
-    MEMORY[0x25F899230]();
-    v168 = Date.FormatStyle.init(date:time:locale:calendar:timeZone:capitalizationContext:)();
-    v169 = v215[17];
-    MEMORY[0x25F899530](v168);
-    OUTLINED_FUNCTION_70_8(v223);
-    Date.FormatStyle.weekday(_:)();
-    OUTLINED_FUNCTION_4_4(&v237);
-    v170(v169, v216);
-    v171 = *(v108 + 8);
-    v172 = OUTLINED_FUNCTION_51_11();
-    v173 = v171(v172);
-    v174 = v215[0];
-    MEMORY[0x25F899430](v173);
-    v175 = v215[3];
-    Date.FormatStyle.day(_:)();
-    OUTLINED_FUNCTION_4_4(&a13);
-    v176(v174, v218);
-    v177 = v26;
-    v178 = v166;
-    (v171)(v177, v105);
-    OUTLINED_FUNCTION_30_14(&a14);
-    MEMORY[0x25F8994E0]();
-    OUTLINED_FUNCTION_28_15(&v225);
-    Date.FormatStyle.month(_:)();
-    v179 = OUTLINED_FUNCTION_17_21(&a15);
-    v180(v179, v221);
-    v181 = v175;
-    v182 = v164;
-    (v171)(v181, v105);
-    OUTLINED_FUNCTION_30_14(&a17);
-    static Date.FormatStyle.Symbol.Year.defaultDigits.getter();
-    OUTLINED_FUNCTION_76_9(&v228);
-    Date.FormatStyle.year(_:)();
-    v183 = OUTLINED_FUNCTION_17_21(&a18);
-    v184(v183, v223[0]);
-    v185 = OUTLINED_FUNCTION_51_11();
-    v171(v185);
-    static Date.FormatStyle.Symbol.Hour.AMPMStyle.abbreviated.getter();
-    static Date.FormatStyle.Symbol.Hour.defaultDigits(amPM:)();
-    v186 = OUTLINED_FUNCTION_75_9();
-    v187(v186);
-    OUTLINED_FUNCTION_28_15(&v229);
-    Date.FormatStyle.hour(_:)();
-    v188 = OUTLINED_FUNCTION_25_15();
-    v189(v188, v227);
-    v190 = (v171)(v164, v105);
-    MEMORY[0x25F899510](v190);
-    v191 = &v234;
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v156, v157, v158, v159);
-    type metadata accessor for Date.FormatStyle.TimeStyle();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v160, v161, v162, v163);
-    if (!v239)
-    {
-      type metadata accessor for NSUserDefaults();
-      static NSUserDefaults.fallbackLocale.getter();
-    }
-
-    v192 = v240;
-    v182 = v238;
-
-    OUTLINED_FUNCTION_70_8(&v232);
-    OUTLINED_FUNCTION_37_5();
-    Locale.init(identifier:)();
-    v193 = OUTLINED_FUNCTION_68_9(v182);
-    v194(v193, v241, v192);
-    OUTLINED_FUNCTION_66_10(&a11);
-    static Calendar.autoupdatingCurrent.getter();
-    OUTLINED_FUNCTION_76_9(&a12);
-    MEMORY[0x25F899230]();
-    OUTLINED_FUNCTION_30_14(&v224);
-    v178 = v192;
-    v195 = Date.FormatStyle.init(date:time:locale:calendar:timeZone:capitalizationContext:)();
-    MEMORY[0x25F899430](v195);
-    OUTLINED_FUNCTION_64_7(&v226);
-    Date.FormatStyle.day(_:)();
-    v196 = v219 + 8;
-    (*(v219 + 8))(v20, v218);
-    v171 = *(v108 + 8);
-    (v171)(v192, v105);
-    OUTLINED_FUNCTION_30_14(&a14);
-    MEMORY[0x25F8994E0]();
-    OUTLINED_FUNCTION_28_15(&v227);
-    Date.FormatStyle.month(_:)();
-    v197 = OUTLINED_FUNCTION_17_21(&a15);
-    v198(v197, v221);
-    (v171)(v20, v105);
-    OUTLINED_FUNCTION_30_14(&a17);
-    static Date.FormatStyle.Symbol.Year.defaultDigits.getter();
-    OUTLINED_FUNCTION_76_9(&v230);
-    Date.FormatStyle.year(_:)();
-    v199 = OUTLINED_FUNCTION_17_21(&a18);
-    v200(v199, v223[0]);
-    v201 = OUTLINED_FUNCTION_51_11();
-    v171(v201);
-    static Date.FormatStyle.Symbol.Hour.AMPMStyle.abbreviated.getter();
-    static Date.FormatStyle.Symbol.Hour.defaultDigits(amPM:)();
-    v202 = OUTLINED_FUNCTION_75_9();
-    v203(v202);
-    OUTLINED_FUNCTION_28_15(&v233);
-    Date.FormatStyle.hour(_:)();
-    v204 = OUTLINED_FUNCTION_25_15();
-    v205(v204, v227);
-    v206 = (v171)(v196, v105);
-    MEMORY[0x25F899510](v206);
-    v191 = &v235;
-  }
-
-  OUTLINED_FUNCTION_64_7(v191);
-  Date.FormatStyle.minute(_:)();
-  v207 = OUTLINED_FUNCTION_25_15();
-  v208(v207);
-  v209 = OUTLINED_FUNCTION_51_11();
-  v171(v209);
-  v210 = v233;
-  v211 = v231;
-  v212 = v235;
-  (*(v233 + 104))(v231, *MEMORY[0x277CC9400], v235);
-  static Date.FormatStyle.Symbol.TimeZone.specificName(_:)();
-  (*(v210 + 8))(v211, v212);
-  Date.FormatStyle.timeZone(_:)();
-  v213 = OUTLINED_FUNCTION_129_5();
-  v214(v213, v236);
-  (v171)(v20, v105);
-  (*(v182 + 8))(v241, v178);
-  OUTLINED_FUNCTION_148();
-}
-
-void LLMFormatter.sanitized.getter()
-{
-  OUTLINED_FUNCTION_155();
-  OUTLINED_FUNCTION_65_12();
-  v21 = type metadata accessor for CharacterSet();
-  v1 = OUTLINED_FUNCTION_14(v21);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20](v1);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_15_4(v4);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10OmniSearch13TextSanitizer33_3BE4AA3428794E5481C5DF6D00897BA3LLVGMd, &_ss23_ContiguousArrayStorageCy10OmniSearch13TextSanitizer33_3BE4AA3428794E5481C5DF6D00897BA3LLVGMR);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_25DBC8930;
-  *(inited + 32) = v0;
-  *(inited + 40) = 0xA800000000000000;
-  *(inited + 48) = 32;
-  *(inited + 56) = 0xE100000000000000;
-  *(inited + 64) = 1024;
-  type metadata accessor for NSUserDefaults();
-  v6 = static NSUserDefaults.llmPromptLineBreak.getter();
-  v8 = v7;
-  *(inited + 72) = 4091452;
-  *(inited + 80) = 0xE300000000000000;
-  *(inited + 88) = v6;
-  *(inited + 96) = v7;
-  *(inited + 104) = 2;
-  v9 = static NSUserDefaults.llmPromptLineBreak.getter();
-  v11 = v10;
-  *(inited + 112) = 10;
-  *(inited + 120) = 0xE100000000000000;
-  *(inited + 128) = v9;
-  *(inited + 136) = v10;
-  *(inited + 144) = 2;
-  static NSUserDefaults.llmPromptLineBreak.getter();
-  OUTLINED_FUNCTION_65_12();
-  *(inited + 152) = 28252;
-  *(inited + 160) = 0xE200000000000000;
-  v20 = v12;
-  *(inited + 168) = v12;
-  *(inited + 176) = v13;
-  v19 = v13;
-  *(inited + 184) = 2;
-  if (_stringCompareWithSmolCheck(_:_:expecting:)())
-  {
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_14_17();
-    lazy protocol witness table accessor for type String and conformance String();
-    OUTLINED_FUNCTION_11_23();
-    OUTLINED_FUNCTION_21_16();
-    OUTLINED_FUNCTION_74_13();
-  }
-
-  v14 = v6 == 4091452 && v8 == 0xE300000000000000;
-  if (!v14 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_14_17();
-    lazy protocol witness table accessor for type String and conformance String();
-    OUTLINED_FUNCTION_11_23();
-    OUTLINED_FUNCTION_21_16();
-    OUTLINED_FUNCTION_74_13();
-  }
-
-  v15 = v9 == 10 && v11 == 0xE100000000000000;
-  if (!v15 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_14_17();
-    lazy protocol witness table accessor for type String and conformance String();
-    OUTLINED_FUNCTION_11_23();
-    OUTLINED_FUNCTION_21_16();
-    OUTLINED_FUNCTION_74_13();
-  }
-
-  v16 = v20 == 28252 && v19 == 0xE200000000000000;
-  if (!v16 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    OUTLINED_FUNCTION_14_17();
-    lazy protocol witness table accessor for type String and conformance String();
-    OUTLINED_FUNCTION_11_23();
-    OUTLINED_FUNCTION_21_16();
-    OUTLINED_FUNCTION_74_13();
-  }
-
-  swift_setDeallocating();
-  specialized _ContiguousArrayStorage.__deallocating_deinit();
-  OUTLINED_FUNCTION_14_17();
-  OUTLINED_FUNCTION_30_14(&v22);
-  static CharacterSet.whitespaces.getter();
-  lazy protocol witness table accessor for type String and conformance String();
-  StringProtocol.trimmingCharacters(in:)();
-  v17 = OUTLINED_FUNCTION_17_21(&v23);
-  v18(v17, v21);
-
-  OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_148();
-}
-
-OmniSearch::LLMFormatter::StringInterpolation __swiftcall LLMFormatter.StringInterpolation.init(literalCapacity:interpolationCount:)(Swift::Int literalCapacity, Swift::Int interpolationCount)
-{
-  v2 = 10 * interpolationCount;
-  if ((interpolationCount * 10) >> 64 != (10 * interpolationCount) >> 63)
-  {
-    __break(1u);
-    goto LABEL_5;
-  }
-
-  v3 = __OFADD__(literalCapacity, v2);
-  literalCapacity += v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+  v1 = CodableNSSecureCoding.wrappedValue.getter();
+  v2 = [v1 attributeSet];
+
+  v3 = [v2 attributeForKey_];
   if (v3)
   {
-LABEL_5:
-    __break(1u);
-    goto LABEL_6;
-  }
-
-  MEMORY[0x25F89F5D0](literalCapacity);
-  literalCapacity = 0;
-  interpolationCount = 0xE000000000000000;
-LABEL_6:
-  result.resolvedOutput._object = interpolationCount;
-  result.resolvedOutput._countAndFlagsBits = literalCapacity;
-  return result;
-}
-
-uint64_t LLMFormatter.StringInterpolation.appendInterpolation(_:)()
-{
-  outlined init with copy of EagerResolutionService?();
-  if (!v13)
-  {
-    return outlined destroy of IntentApplication?(&v12, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-  }
-
-  outlined init with take of ResponseOverrideMatcherProtocol(&v12, v14);
-  __swift_project_boxed_opaque_existential_1(v14, v15);
-  v0 = dispatch thunk of CustomStringConvertible.description.getter();
-  v2 = v1;
-
-  v3 = HIBYTE(v2) & 0xF;
-  if ((v2 & 0x2000000000000000) == 0)
-  {
-    v3 = v0 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v3)
-  {
-    __swift_project_boxed_opaque_existential_1(v14, v15);
-    OUTLINED_FUNCTION_19_14();
-    v5 = *(v4 + 64);
-    MEMORY[0x28223BE20](v6);
-    OUTLINED_FUNCTION_36();
-    (*(v9 + 16))(v8 - v7);
-    OUTLINED_FUNCTION_37_5();
-    v10 = String.init<A>(describing:)();
-    MEMORY[0x25F89F6C0](v10);
-  }
-
-  return __swift_destroy_boxed_opaque_existential_1Tm(v14);
-}
-
-void EditorialDateFormatter.init(now:calendar:featureFlagService:)()
-{
-  OUTLINED_FUNCTION_155();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v8 = type metadata accessor for Calendar.Component();
-  v9 = OUTLINED_FUNCTION_14(v8);
-  v11 = v10;
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_36();
-  v16 = v15 - v14;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v18 = OUTLINED_FUNCTION_114(v17);
-  v20 = *(v19 + 64);
-  MEMORY[0x28223BE20](v18);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v21);
-  OUTLINED_FUNCTION_46_14();
-  v22 = type metadata accessor for Date();
-  OUTLINED_FUNCTION_135(v22);
-  v47 = v23;
-  (*(v23 + 16))(v7, v5, v22);
-  v24 = type metadata accessor for EditorialDateFormatter(0);
-  v25 = *(v24 + 28);
-  v26 = type metadata accessor for Calendar();
-  OUTLINED_FUNCTION_135(v26);
-  v43 = v28;
-  v44 = v27;
-  (*(v28 + 16))(v7 + v25, v3);
-  v46 = v24;
-  *(v7 + *(v24 + 32)) = (*(*v1 + 80))(16) & 1;
-  v29 = *MEMORY[0x277CC9968];
-  v30 = *(v11 + 104);
-  v30(v16, v29, v8);
-  v45 = v3;
-  Calendar.date(byAdding:value:to:wrappingComponents:)();
-  v31 = *(v11 + 8);
-  v32 = v8;
-  v31(v16, v8);
-  v33 = OUTLINED_FUNCTION_93_0();
-  OUTLINED_FUNCTION_166(v33, v34, v22);
-  if (v35)
-  {
-    __break(1u);
+    _bridgeAnyObjectToAny(_:)();
+    swift_unknownObjectRelease();
   }
 
   else
   {
-    v36 = *(v47 + 32);
-    v37 = OUTLINED_FUNCTION_71_9(*(v46 + 20));
-    v36(v37);
-    v30(v16, v29, v32);
-    Calendar.date(byAdding:value:to:wrappingComponents:)();
-    v31(v16, v32);
-    v38 = OUTLINED_FUNCTION_93_0();
-    OUTLINED_FUNCTION_166(v38, v39, v22);
-    if (!v35)
+    v44 = 0u;
+    v45 = 0u;
+  }
+
+  *(v0 + 16) = v44;
+  *(v0 + 32) = v45;
+  if (!*(v0 + 40))
+  {
+    outlined destroy of EagerResolutionService?(v0 + 16, &_sypSgMd, &_sypSgMR);
+    goto LABEL_13;
+  }
+
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+LABEL_13:
+    if (one-time initialization token for answerSynthesis != -1)
     {
-
-      (*(v43 + 8))(v45, v44);
-      v40 = OUTLINED_FUNCTION_41_10();
-      v41(v40, v22);
-      v42 = OUTLINED_FUNCTION_71_9(*(v46 + 24));
-      v36(v42);
-      OUTLINED_FUNCTION_148();
-      return;
-    }
-  }
-
-  __break(1u);
-}
-
-uint64_t EditorialDateFormatter.DateInput.init(includesTime:includesWeekday:date:locale:)@<X0>(char a1@<W0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, _BYTE *a6@<X8>)
-{
-  *a6 = a1;
-  a6[1] = a2;
-  v10 = type metadata accessor for EditorialDateFormatter.DateInput(0);
-  v11 = *(v10 + 24);
-  v12 = type metadata accessor for Date();
-  OUTLINED_FUNCTION_17(v12);
-  result = (*(v13 + 32))(&a6[v11], a3);
-  v15 = &a6[*(v10 + 28)];
-  *v15 = a4;
-  v15[1] = a5;
-  return result;
-}
-
-uint64_t LLMFormatter.StringInterpolation.resolvedOutput.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = v2[1];
-
-  *v2 = a1;
-  v2[1] = a2;
-  return result;
-}
-
-uint64_t LLMFormatter.StringInterpolation.appendInterpolation(_:if:skipLastDot:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
-{
-  outlined init with copy of EagerResolutionService?();
-  if (!v28)
-  {
-    return outlined destroy of IntentApplication?(&v27, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-  }
-
-  outlined init with take of ResponseOverrideMatcherProtocol(&v27, v29);
-  __swift_project_boxed_opaque_existential_1(v29, v30);
-  OUTLINED_FUNCTION_63_0();
-  v7 = dispatch thunk of CustomStringConvertible.description.getter();
-  v9 = v8;
-
-  v10 = HIBYTE(v9) & 0xF;
-  if ((v9 & 0x2000000000000000) == 0)
-  {
-    v10 = v7 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (v10)
-  {
-    __swift_project_boxed_opaque_existential_1(v29, v30);
-    OUTLINED_FUNCTION_19_14();
-    v12 = *(v11 + 64);
-    MEMORY[0x28223BE20](v13);
-    OUTLINED_FUNCTION_36();
-    (*(v16 + 16))(v15 - v14);
-    String.init<A>(describing:)();
-    *&v27 = a1;
-    *(&v27 + 1) = a2;
-
-    OUTLINED_FUNCTION_48_9();
-    v17 = OUTLINED_FUNCTION_63_0();
-    MEMORY[0x25F89F6C0](v17);
-    OUTLINED_FUNCTION_57_9();
-
-    v18 = OUTLINED_FUNCTION_63_0();
-    v20 = specialized BidirectionalCollection.last.getter(v18, v19);
-    v22 = v21;
-
-    if (!v22)
-    {
-      goto LABEL_11;
+      OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
     }
 
-    if (v20 == 46 && v22 == 0xE100000000000000)
+    v23 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_200(v23, static Logging.answerSynthesis);
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.error.getter();
+    if (OUTLINED_FUNCTION_16_11(v25))
     {
+      *OUTLINED_FUNCTION_172() = 0;
+      OUTLINED_FUNCTION_25_6();
+      _os_log_impl(v26, v27, v28, v29, v30, 2u);
+      OUTLINED_FUNCTION_2_8();
     }
 
-    else
-    {
-      OUTLINED_FUNCTION_37_5();
-      v24 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v32 = *(v0 + 64);
+    v31 = *(v0 + 72);
 
-      if ((v24 & 1) == 0)
-      {
-LABEL_11:
-        if ((a4 & 1) == 0)
-        {
-          v25 = OUTLINED_FUNCTION_40_15();
-          MEMORY[0x25F89F6C0](v25);
-        }
-      }
-    }
+    OUTLINED_FUNCTION_0_49();
+    v34 = v31;
+    v35 = v32;
+    goto LABEL_18;
   }
 
-  return __swift_destroy_boxed_opaque_existential_1Tm(v29);
-}
-
-Swift::Void __swiftcall LLMFormatter.StringInterpolation.appendInterpolation(_:separator:)(Swift::OpaquePointer _, Swift::String separator)
-{
-  OUTLINED_FUNCTION_155();
-  v3 = *(v2 + 16);
-  v4 = MEMORY[0x277D84F90];
-  if (v3)
+  v4 = *(v0 + 56);
+  *(v0 + 128) = *(v0 + 48);
+  *(v0 + 136) = v4;
+  OUTLINED_FUNCTION_119();
+  v5 = specialized Dictionary.subscript.getter();
+  *(v0 + 144) = v5;
+  if (v5)
   {
-    v5 = MEMORY[0x277D84F90];
-    v6 = v2 + 32;
-    do
+    v6 = v5;
+    if (one-time initialization token for bodyFetchTimeout != -1)
     {
-      outlined init with copy of EagerResolutionService?();
-      v31[0] = v34;
-      v31[1] = v35;
-      v32 = v36;
-      if (*(&v35 + 1))
-      {
-        outlined init with take of ResponseOverrideMatcherProtocol(v31, v33);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v9 = *(v5 + 16);
-          OUTLINED_FUNCTION_44();
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v5 = v10;
-        }
-
-        v8 = *(v5 + 16);
-        v7 = *(v5 + 24);
-        if (v8 >= v7 >> 1)
-        {
-          OUTLINED_FUNCTION_26_3(v7);
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v5 = v11;
-        }
-
-        *(v5 + 16) = v8 + 1;
-        outlined init with take of ResponseOverrideMatcherProtocol(v33, v5 + 40 * v8 + 32);
-      }
-
-      else
-      {
-        outlined destroy of IntentApplication?(v31, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-      }
-
-      v6 += 40;
-      --v3;
+      OUTLINED_FUNCTION_12_25(&one-time initialization token for bodyFetchTimeout);
     }
 
-    while (v3);
-  }
+    v8 = *(v0 + 112);
+    v7 = *(v0 + 120);
+    v9 = *(v0 + 104);
+    v10 = *(v0 + 88);
+    v11 = static EmailContentManager.bodyFetchTimeout;
+    OUTLINED_FUNCTION_0_49();
+    _s10OmniSearch0B6ResultVWOcTm_6(v12, v7, v13);
+    v14 = (*(v9 + 80) + 16) & ~*(v9 + 80);
+    v15 = (v8 + v14 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v16 = swift_allocObject();
+    *(v0 + 152) = v16;
+    outlined init with take of SearchResult(v7, v16 + v14);
+    *(v16 + v15) = v10;
+    *(v16 + ((v15 + 15) & 0xFFFFFFFFFFFFFFF8)) = v6;
 
-  else
-  {
-    v5 = MEMORY[0x277D84F90];
-  }
+    v17 = v6;
+    swift_task_alloc();
+    OUTLINED_FUNCTION_53();
+    *(v0 + 160) = v18;
+    *v18 = v19;
+    v18[1] = closure #3 in EmailContentManager.hydrateEmailResults(_:);
+    v20 = *(v0 + 96);
+    v21 = *(v0 + 64);
+    v22.n128_u64[0] = v11;
 
-  v12 = *(v5 + 16);
-  if (v12)
-  {
-    *&v33[0] = v4;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
-    v13 = *&v33[0];
-    v14 = v5 + 32;
-    do
-    {
-      outlined init with copy of ChatMessageRecord(v14, &v34);
-      __swift_project_boxed_opaque_existential_1(&v34, *(&v35 + 1));
-      OUTLINED_FUNCTION_19_14();
-      v16 = *(v15 + 64);
-      MEMORY[0x28223BE20](v17);
-      OUTLINED_FUNCTION_36();
-      (*(v20 + 16))(v19 - v18);
-      v21 = String.init<A>(describing:)();
-      v23 = v22;
-      __swift_destroy_boxed_opaque_existential_1Tm(&v34);
-      *&v33[0] = v13;
-      v25 = *(v13 + 16);
-      v24 = *(v13 + 24);
-      if (v25 >= v24 >> 1)
-      {
-        v27 = OUTLINED_FUNCTION_26_3(v24);
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v27, v25 + 1, 1);
-        v13 = *&v33[0];
-      }
-
-      *(v13 + 16) = v25 + 1;
-      v26 = v13 + 16 * v25;
-      *(v26 + 32) = v21;
-      *(v26 + 40) = v23;
-      v14 += 40;
-      --v12;
-    }
-
-    while (v12);
-
-    *&v34 = v13;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    lazy protocol witness table accessor for type [String] and conformance [A]();
-    v28 = BidirectionalCollection<>.joined(separator:)();
-    v30 = v29;
-
-    MEMORY[0x25F89F6C0](v28, v30);
-  }
-
-  OUTLINED_FUNCTION_148();
-}
-
-Swift::Void __swiftcall LLMFormatter.StringInterpolation.appendInterpolation(_:ifAll:)(Swift::String _, Swift::OpaquePointer ifAll)
-{
-  v23 = _;
-  v3 = *(ifAll._rawValue + 2);
-  if (v3)
-  {
-    v4 = MEMORY[0x277D84F90];
-    v5 = ifAll._rawValue + 32;
-    do
-    {
-      v6 = OUTLINED_FUNCTION_77_8();
-      OUTLINED_FUNCTION_42_12(v6, v7, v8, v9, v10, v11, v12, v13, v23._countAndFlagsBits, v23._object, v24, *(&v24 + 1), v25, v26, v27, v28, v29, *(&v29 + 1), v30, v31, v32, v33._countAndFlagsBits, v33._object, v34);
-      if (v14)
-      {
-        outlined init with take of ResponseOverrideMatcherProtocol(&v24, &v29);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v17 = *(v4 + 16);
-          OUTLINED_FUNCTION_44();
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v4 = v18;
-        }
-
-        v16 = *(v4 + 16);
-        v15 = *(v4 + 24);
-        if (v16 >= v15 >> 1)
-        {
-          OUTLINED_FUNCTION_26_3(v15);
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v4 = v19;
-        }
-
-        *(v4 + 16) = v16 + 1;
-        outlined init with take of ResponseOverrideMatcherProtocol(&v29, v4 + 40 * v16 + 32);
-      }
-
-      else
-      {
-        outlined destroy of IntentApplication?(&v24, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-      }
-
-      v5 += 40;
-      --v3;
-    }
-
-    while (v3);
-  }
-
-  else
-  {
-    v4 = MEMORY[0x277D84F90];
-  }
-
-  v20 = *(v4 + 16);
-
-  if (v20)
-  {
-    v33 = v23;
-
-    OUTLINED_FUNCTION_48_9();
-    OUTLINED_FUNCTION_57_9();
-
-    v21._countAndFlagsBits = 8236;
-    v21._object = 0xE200000000000000;
-    LLMFormatter.StringInterpolation.appendInterpolation(_:separator:)(ifAll, v21);
-    v22 = OUTLINED_FUNCTION_40_15();
-    MEMORY[0x25F89F6C0](v22);
-  }
-}
-
-Swift::Void __swiftcall LLMFormatter.StringInterpolation.appendInterpolation(_:startNewLinesIf:)(Swift::String _, Swift::OpaquePointer startNewLinesIf)
-{
-  countAndFlagsBits = _._countAndFlagsBits;
-  object = _._object;
-  v4 = *(startNewLinesIf._rawValue + 2);
-  if (v4)
-  {
-    v5 = MEMORY[0x277D84F90];
-    v6 = startNewLinesIf._rawValue + 32;
-    do
-    {
-      v7 = OUTLINED_FUNCTION_77_8();
-      OUTLINED_FUNCTION_42_12(v7, v8, v9, v10, v11, v12, v13, v14, countAndFlagsBits, v28, v29, *(&v29 + 1), v30, v31, v32, v33, v34, *(&v34 + 1), v35, v36, v37, v38, v39, v40);
-      if (v15)
-      {
-        outlined init with take of ResponseOverrideMatcherProtocol(&v29, &v34);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v18 = *(v5 + 16);
-          OUTLINED_FUNCTION_44();
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v5 = v19;
-        }
-
-        v17 = *(v5 + 16);
-        v16 = *(v5 + 24);
-        if (v17 >= v16 >> 1)
-        {
-          OUTLINED_FUNCTION_26_3(v16);
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v5 = v20;
-        }
-
-        *(v5 + 16) = v17 + 1;
-        outlined init with take of ResponseOverrideMatcherProtocol(&v34, v5 + 40 * v17 + 32);
-      }
-
-      else
-      {
-        outlined destroy of IntentApplication?(&v29, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-      }
-
-      v6 += 40;
-      --v4;
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-    v5 = MEMORY[0x277D84F90];
-  }
-
-  v21 = *(v5 + 16);
-
-  if (v21)
-  {
-    v38 = countAndFlagsBits;
-    v39 = object;
-    type metadata accessor for NSUserDefaults();
-
-    v22 = static NSUserDefaults.llmPromptLineBreak.getter();
-    MEMORY[0x25F89F6C0](v22);
-
-    MEMORY[0x25F89F6C0](v38, v39);
-
-    v23 = static NSUserDefaults.llmPromptLineBreak.getter();
-    v25 = v24;
-    v26._countAndFlagsBits = v23;
-    v26._object = v25;
-    LLMFormatter.StringInterpolation.appendInterpolation(_:separator:)(startNewLinesIf, v26);
-  }
-}
-
-Swift::Void __swiftcall LLMFormatter.StringInterpolation.appendInterpolation(_:names:)(Swift::String _, Swift::OpaquePointer_optional names)
-{
-  if (names.value._rawValue)
-  {
-    rawValue = names.value._rawValue;
-    if (*(names.value._rawValue + 2))
-    {
-      v4[1] = _._object;
-
-      OUTLINED_FUNCTION_48_9();
-      OUTLINED_FUNCTION_57_9();
-
-      v4[0] = rawValue;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-      lazy protocol witness table accessor for type [String] and conformance [A]();
-      OUTLINED_FUNCTION_56_9();
-      OUTLINED_FUNCTION_79_10();
-      outlined destroy of IntentApplication?(v4, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-      v3 = OUTLINED_FUNCTION_40_15();
-      MEMORY[0x25F89F6C0](v3);
-    }
-  }
-}
-
-Swift::Void __swiftcall LLMFormatter.StringInterpolation.appendInterpolation(names:)(Swift::OpaquePointer_optional names)
-{
-  if (names.value._rawValue)
-  {
-    if (*(names.value._rawValue + 2))
-    {
-      rawValue = names.value._rawValue;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-      lazy protocol witness table accessor for type [String] and conformance [A]();
-      OUTLINED_FUNCTION_56_9();
-      OUTLINED_FUNCTION_79_10();
-      outlined destroy of IntentApplication?(&rawValue, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-    }
-  }
-}
-
-Swift::Void __swiftcall LLMFormatter.StringInterpolation.appendInterpolation(_:names:isFromMe:countToShow:suffix:skipValue:)(Swift::String _, Swift::OpaquePointer_optional names, Swift::Bool isFromMe, Swift::Int countToShow, Swift::String suffix, Swift::Bool skipValue)
-{
-  if ((suffix._object & 1) == 0 && (rawValue = names.value._rawValue) != 0 && *(names.value._rawValue + 2))
-  {
-    countAndFlagsBits = suffix._countAndFlagsBits;
-    is_nil = names.is_nil;
-
-    OUTLINED_FUNCTION_48_9();
-    MEMORY[0x25F89F6C0](_._countAndFlagsBits, _._object);
-
-    v14.value._rawValue = static LLMFormatter.formatMessageSenderNames(names:isFromMe:)(rawValue, is_nil);
-    v14.is_nil = isFromMe;
-    v11._countAndFlagsBits = countAndFlagsBits;
-    LLMFormatter.StringInterpolation.appendInterpolation(names:countToShow:suffix:)(v14, countToShow, v11);
-    OUTLINED_FUNCTION_78_11();
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_78_11();
-  }
-}
-
-uint64_t static LLMFormatter.formatMessageSenderNames(names:isFromMe:)(uint64_t a1, char a2)
-{
-  v2 = a1;
-  if (a2)
-  {
-    v3 = *(a1 + 16);
-    if (v3)
-    {
-      v13 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
-      v4 = (v2 + 40);
-      v2 = v13;
-      do
-      {
-        v5 = *(v4 - 1);
-        v6 = *v4;
-
-        v7 = OUTLINED_FUNCTION_121_0();
-        MEMORY[0x25F89F6C0](v7);
-        MEMORY[0x25F89F6C0](41, 0xE100000000000000);
-
-        v9 = *(v13 + 16);
-        v8 = *(v13 + 24);
-        if (v9 >= v8 >> 1)
-        {
-          v11 = OUTLINED_FUNCTION_26_3(v8);
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v11, v9 + 1, 1);
-        }
-
-        *(v13 + 16) = v9 + 1;
-        v10 = v13 + 16 * v9;
-        *(v10 + 32) = 673211757;
-        *(v10 + 40) = 0xE400000000000000;
-        v4 += 2;
-        --v3;
-      }
-
-      while (v3);
-    }
-
-    else
-    {
-      return MEMORY[0x277D84F90];
-    }
-  }
-
-  else
-  {
-  }
-
-  return v2;
-}
-
-void LLMFormatter.StringInterpolation.appendInterpolation<A>(date:locale:includesTime:includesWeekday:formatStyle:timeZone:useDefaultTimeZone:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
-{
-  OUTLINED_FUNCTION_155();
-  v107 = v21;
-  v108 = v23;
-  v100 = v24;
-  v101 = v25;
-  v110 = __PAIR64__(v27, v26);
-  v109 = v28;
-  v106 = type metadata accessor for EditorialDateFormatter.DateInput(0);
-  v29 = OUTLINED_FUNCTION_17(v106);
-  v31 = *(v30 + 64);
-  MEMORY[0x28223BE20](v29);
-  OUTLINED_FUNCTION_36();
-  v34 = (v33 - v32);
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  OUTLINED_FUNCTION_114(v35);
-  v37 = *(v36 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v38);
-  v102 = &v99 - v39;
-  OUTLINED_FUNCTION_78_0();
-  v103 = type metadata accessor for TimeZone();
-  v40 = OUTLINED_FUNCTION_14(v103);
-  v99 = v41;
-  v43 = *(v42 + 64);
-  MEMORY[0x28223BE20](v40);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_78_0();
-  v44 = type metadata accessor for Date.FormatStyle();
-  v45 = OUTLINED_FUNCTION_14(v44);
-  v104 = v46;
-  v105 = v45;
-  v48 = *(v47 + 64);
-  MEMORY[0x28223BE20](v45);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_4();
-  v49 = &_s10Foundation4DateVSgMd;
-  v50 = &_s10Foundation4DateVSgMR;
-  v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  OUTLINED_FUNCTION_114(v51);
-  v53 = *(v52 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v54);
-  v56 = &v99 - v55;
-  v57 = type metadata accessor for Date();
-  v58 = OUTLINED_FUNCTION_14(v57);
-  v60 = v59;
-  v62 = *(v61 + 64);
-  MEMORY[0x28223BE20](v58);
-  OUTLINED_FUNCTION_36();
-  v65 = v64 - v63;
-  outlined init with copy of EagerResolutionService?();
-  OUTLINED_FUNCTION_166(v56, 1, v57);
-  if (v66)
-  {
-    v67 = &_s10Foundation4DateVSgMd;
-    v68 = &_s10Foundation4DateVSgMR;
-    v69 = v56;
-LABEL_15:
-    outlined destroy of IntentApplication?(v69, v67, v68);
-    OUTLINED_FUNCTION_148();
-    return;
-  }
-
-  (*(v60 + 32))(v65, v56, v57);
-  v70 = v110;
-  if (v110)
-  {
-    v71 = OUTLINED_FUNCTION_44_15();
-    static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v71, v72, v73, v100, v101, v74, v75, v76, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110);
-    if ((a21 & 1) == 0)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    v77 = OUTLINED_FUNCTION_44_15();
-    static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v77, v78, v79, v80, v81, v82, v83, v84, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110);
-    if ((a21 & 1) == 0)
-    {
-LABEL_14:
-      v93 = v106;
-      (*(v60 + 16))(&v34[*(v106 + 24)], v65, v57);
-      *v34 = v70 & 1;
-      v34[1] = BYTE4(v110) & 1;
-      v94 = &v34[*(v93 + 28)];
-      *v94 = v50;
-      v94[1] = v49;
-      v111[3] = MEMORY[0x277D837D0];
-      v111[4] = MEMORY[0x277D83838];
-      OUTLINED_FUNCTION_5_26();
-      _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v95, v96);
-
-      v97 = v105;
-      Date.formatted<A>(_:)();
-      LLMFormatter.StringInterpolation.appendInterpolation(_:)();
-      OUTLINED_FUNCTION_3_33();
-      outlined destroy of EditorialDateFormatter.DateInput(v34, v98);
-      (*(v104 + 8))(v22, v97);
-      (*(v60 + 8))(v65, v57);
-      v67 = &_ss23CustomStringConvertible_pSgMd;
-      v68 = &_ss23CustomStringConvertible_pSgMR;
-      v69 = v111;
-      goto LABEL_15;
-    }
+    return MEMORY[0x2821C8618](v21, &async function pointer to partial apply for closure #1 in closure #3 in EmailContentManager.hydrateEmailResults(_:), v16, v20, v22);
   }
 
   if (one-time initialization token for answerSynthesis != -1)
   {
-    OUTLINED_FUNCTION_7_1();
+    OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
   }
 
-  v85 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v85, static Logging.answerSynthesis);
-  v86 = Logger.logObject.getter();
-  v87 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v86, v87))
+  v37 = type metadata accessor for Logger();
+  OUTLINED_FUNCTION_200(v37, static Logging.answerSynthesis);
+
+  v38 = Logger.logObject.getter();
+  v39 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(v38, v39))
   {
-    v88 = swift_slowAlloc();
-    *v88 = 0;
-    _os_log_impl(&dword_25D85C000, v86, v87, "LLMFormatter using default timeZone GMT", v88, 2u);
-    v50 = v108;
+    v40 = swift_slowAlloc();
+    swift_slowAlloc();
+    *v40 = 136315395;
+    OUTLINED_FUNCTION_119();
+    v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+    *(v40 + 4) = v41;
+    *(v40 + 12) = 2085;
+    type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for EMMessage, 0x277D06DB8);
+    Dictionary.description.getter();
+    v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+    *(v40 + 14) = v42;
+    _os_log_impl(&dword_25D85C000, v38, v39, "EmailContentManager: No mail message from id: %s from messages %{sensitive}s", v40, 0x16u);
+    swift_arrayDestroy();
+    OUTLINED_FUNCTION_42_0();
     OUTLINED_FUNCTION_42_0();
   }
 
-  v89 = v102;
-  TimeZone.init(secondsFromGMT:)();
-  OUTLINED_FUNCTION_166(v89, 1, v103);
-  v70 = v110;
-  if (!v66)
+  else
   {
-    v90 = *(v99 + 32);
-    v91 = OUTLINED_FUNCTION_51_11();
-    v92(v91);
-    Date.FormatStyle.timeZone.setter();
-    v49 = v109;
-    goto LABEL_14;
   }
 
-  __break(1u);
+  OUTLINED_FUNCTION_0_49();
+LABEL_18:
+  _s10OmniSearch0B6ResultVWOcTm_6(v34, v35, v33);
+
+  OUTLINED_FUNCTION_127();
+
+  return v36();
 }
 
-void static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
-  OUTLINED_FUNCTION_155();
-  a19 = v23;
-  a20 = v24;
-  v146 = v25;
-  v150 = v26;
-  v145[7] = v27;
-  v160 = v28;
-  v29 = type metadata accessor for Date.FormatStyle.Symbol.Year();
-  v30 = OUTLINED_FUNCTION_14(v29);
-  v161 = v31;
-  v162 = v30;
-  v33 = *(v32 + 64);
-  MEMORY[0x28223BE20](v30);
-  OUTLINED_FUNCTION_2_3();
-  v159 = v34;
-  OUTLINED_FUNCTION_78_0();
-  v35 = type metadata accessor for Date.FormatStyle.Symbol.Month();
-  v36 = OUTLINED_FUNCTION_14(v35);
-  v157 = v37;
-  v158 = v36;
-  v39 = *(v38 + 64);
-  MEMORY[0x28223BE20](v36);
-  OUTLINED_FUNCTION_2_3();
-  v156 = v40;
-  OUTLINED_FUNCTION_78_0();
-  v41 = type metadata accessor for Date.FormatStyle.Symbol.Day();
-  v42 = OUTLINED_FUNCTION_14(v41);
-  v154 = v43;
-  v155 = v42;
-  v45 = *(v44 + 64);
-  MEMORY[0x28223BE20](v42);
-  OUTLINED_FUNCTION_2_3();
-  v153 = v46;
-  OUTLINED_FUNCTION_78_0();
-  v47 = type metadata accessor for Date.FormatStyle.Symbol.Weekday();
-  v48 = OUTLINED_FUNCTION_14(v47);
-  v145[5] = v49;
-  v145[6] = v48;
-  v51 = *(v50 + 64);
-  MEMORY[0x28223BE20](v48);
-  OUTLINED_FUNCTION_2_3();
-  v145[4] = v52;
-  OUTLINED_FUNCTION_78_0();
-  v53 = type metadata accessor for FormatStyleCapitalizationContext();
-  v54 = OUTLINED_FUNCTION_114(v53);
-  v56 = *(v55 + 64);
-  MEMORY[0x28223BE20](v54);
-  OUTLINED_FUNCTION_2_3();
-  v149 = v57;
-  OUTLINED_FUNCTION_78_0();
-  v58 = type metadata accessor for TimeZone();
-  v59 = OUTLINED_FUNCTION_114(v58);
-  v61 = *(v60 + 64);
-  MEMORY[0x28223BE20](v59);
-  OUTLINED_FUNCTION_2_3();
-  v148 = v62;
-  OUTLINED_FUNCTION_78_0();
-  v63 = type metadata accessor for Calendar();
-  v64 = OUTLINED_FUNCTION_114(v63);
-  v66 = *(v65 + 64);
-  MEMORY[0x28223BE20](v64);
-  OUTLINED_FUNCTION_2_3();
-  v147 = v67;
-  OUTLINED_FUNCTION_78_0();
-  v68 = type metadata accessor for Locale();
-  v69 = OUTLINED_FUNCTION_114(v68);
-  v71 = *(v70 + 64);
-  MEMORY[0x28223BE20](v69);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v72);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v73);
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV11FormatStyleV04TimeD0VSgMd, &_s10Foundation4DateV11FormatStyleV04TimeD0VSgMR);
-  v75 = OUTLINED_FUNCTION_114(v74);
-  v77 = *(v76 + 64);
-  MEMORY[0x28223BE20](v75);
-  OUTLINED_FUNCTION_109();
-  MEMORY[0x28223BE20](v78);
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV11FormatStyleV0bD0VSgMd, &_s10Foundation4DateV11FormatStyleV0bD0VSgMR);
-  v80 = OUTLINED_FUNCTION_114(v79);
-  v82 = *(v81 + 64);
-  MEMORY[0x28223BE20](v80);
-  OUTLINED_FUNCTION_109();
-  MEMORY[0x28223BE20](v83);
-  v84 = type metadata accessor for Date.FormatStyle();
-  v85 = OUTLINED_FUNCTION_14(v84);
-  v151 = v86;
-  v152 = v85;
-  v88 = *(v87 + 64);
-  MEMORY[0x28223BE20](v85);
-  OUTLINED_FUNCTION_109();
-  v91 = v89 - v90;
-  MEMORY[0x28223BE20](v92);
-  OUTLINED_FUNCTION_32_20();
-  MEMORY[0x28223BE20](v93);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v94);
-  OUTLINED_FUNCTION_73_8();
-  v96 = MEMORY[0x28223BE20](v95);
-  v98 = v145 - v97;
-  v99 = MEMORY[0x28223BE20](v96);
-  v101 = v145 - v100;
-  MEMORY[0x28223BE20](v99);
-  OUTLINED_FUNCTION_62_9();
-  type metadata accessor for Date.FormatStyle.DateStyle();
-  if (v146)
-  {
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v102, v103, v104, v105);
-    type metadata accessor for Date.FormatStyle.TimeStyle();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v106, v107, v108, v109);
-    if (!v150)
-    {
-      type metadata accessor for NSUserDefaults();
-      static NSUserDefaults.fallbackLocale.getter();
-    }
+  OUTLINED_FUNCTION_48();
+  OUTLINED_FUNCTION_52();
+  v3 = v2;
+  OUTLINED_FUNCTION_47();
+  *v4 = v3;
+  v5 = *v1;
+  OUTLINED_FUNCTION_11();
+  *v6 = v5;
+  *(v3 + 168) = v0;
 
-    Locale.init(identifier:)();
-    static Calendar.autoupdatingCurrent.getter();
-    v118 = static TimeZone.autoupdatingCurrent.getter();
-    MEMORY[0x25F899230](v118);
-    v119 = Date.FormatStyle.init(date:time:locale:calendar:timeZone:capitalizationContext:)();
-    MEMORY[0x25F899530](v119);
-    Date.FormatStyle.weekday(_:)();
-    v120 = OUTLINED_FUNCTION_41_10();
-    v121(v120);
-    v122 = *(v151 + 8);
-    v123 = v22;
-    v124 = v152;
-    v125 = v122(v123, v152);
-    MEMORY[0x25F899430](v125);
-    Date.FormatStyle.day(_:)();
-    v126 = OUTLINED_FUNCTION_129_5();
-    v127(v126);
-    v128 = v122(v98, v124);
-    MEMORY[0x25F8994E0](v128);
-    Date.FormatStyle.month(_:)();
-    v129 = OUTLINED_FUNCTION_129_5();
-    v130(v129);
-    v122(v101, v124);
-    static Date.FormatStyle.Symbol.Year.defaultDigits.getter();
-    Date.FormatStyle.year(_:)();
-    v131 = OUTLINED_FUNCTION_129_5();
-    v132(v131);
-    v122(v21, v124);
+  if (!v0)
+  {
+  }
+
+  OUTLINED_FUNCTION_69();
+
+  return MEMORY[0x2822009F8](v7);
+}
+
+{
+  OUTLINED_FUNCTION_48();
+
+  OUTLINED_FUNCTION_127();
+
+  return v1();
+}
+
+{
+  OUTLINED_FUNCTION_159();
+
+  if (one-time initialization token for answerSynthesis != -1)
+  {
+    OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
+  }
+
+  v1 = type metadata accessor for Logger();
+  OUTLINED_FUNCTION_200(v1, static Logging.answerSynthesis);
+
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.error.getter();
+
+  v4 = os_log_type_enabled(v2, v3);
+  v5 = *(v0 + 168);
+  v6 = *(v0 + 144);
+  if (v4)
+  {
+    OUTLINED_FUNCTION_28_3();
+    v7 = swift_slowAlloc();
+    v14 = OUTLINED_FUNCTION_49_0();
+    *v7 = 136315138;
+    v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+    *(v7 + 4) = v8;
+    _os_log_impl(&dword_25D85C000, v2, v3, "EmailContentManager: Timeout when fetching email body for %s", v7, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v14);
+    OUTLINED_FUNCTION_42_0();
+    OUTLINED_FUNCTION_42_0();
   }
 
   else
   {
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v110, v111, v112, v113);
-    type metadata accessor for Date.FormatStyle.TimeStyle();
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v114, v115, v116, v117);
-    if (!v150)
-    {
-      type metadata accessor for NSUserDefaults();
-      static NSUserDefaults.fallbackLocale.getter();
-    }
-
-    OUTLINED_FUNCTION_76_9(&a18);
-    OUTLINED_FUNCTION_37_5();
-    Locale.init(identifier:)();
-    static Calendar.autoupdatingCurrent.getter();
-    v133 = static TimeZone.autoupdatingCurrent.getter();
-    MEMORY[0x25F899230](v133);
-    v134 = Date.FormatStyle.init(date:time:locale:calendar:timeZone:capitalizationContext:)();
-    MEMORY[0x25F899430](v134);
-    Date.FormatStyle.day(_:)();
-    v135 = OUTLINED_FUNCTION_25_15();
-    v136(v135);
-    v137 = v152;
-    v138 = *(v151 + 8);
-    v139 = v138(v91, v152);
-    MEMORY[0x25F8994E0](v139);
-    v140 = v145[1];
-    Date.FormatStyle.month(_:)();
-    v141 = OUTLINED_FUNCTION_129_5();
-    v142(v141);
-    v138(v20, v137);
-    static Date.FormatStyle.Symbol.Year.defaultDigits.getter();
-    Date.FormatStyle.year(_:)();
-    v143 = OUTLINED_FUNCTION_41_10();
-    v144(v143);
-    v138(v140, v137);
   }
 
-  OUTLINED_FUNCTION_148();
+  OUTLINED_FUNCTION_0_49();
+  _s10OmniSearch0B6ResultVWOcTm_6(v9, v10, v11);
+
+  OUTLINED_FUNCTION_127();
+
+  return v12();
 }
 
-void LLMFormatter.StringInterpolation.appendInterpolation<A>(_:dates:locale:formatStyle:)()
+uint64_t closure #1 in closure #3 in EmailContentManager.hydrateEmailResults(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_155();
+  v4[4] = a3;
+  v4[5] = a4;
+  v4[2] = a1;
+  v4[3] = a2;
+  v5 = type metadata accessor for SpotlightRankingItem();
+  v4[6] = v5;
+  v4[7] = *(v5 - 8);
+  v4[8] = swift_task_alloc();
+  v4[9] = type metadata accessor for SearchResult(0);
+  v4[10] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+  v4[11] = swift_task_alloc();
+  v4[12] = swift_task_alloc();
+  v4[13] = type metadata accessor for SearchResultItem(0);
+  v4[14] = swift_task_alloc();
+  v4[15] = swift_task_alloc();
+  v6 = type metadata accessor for EmailDocument();
+  v4[16] = v6;
+  v4[17] = *(v6 - 8);
+  v4[18] = swift_task_alloc();
+  v4[19] = swift_task_alloc();
+  v4[20] = swift_task_alloc();
+  v4[21] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](closure #1 in closure #3 in EmailContentManager.hydrateEmailResults(_:));
+}
+
+uint64_t closure #1 in closure #3 in EmailContentManager.hydrateEmailResults(_:)()
+{
+  v1 = v0[15];
+  OUTLINED_FUNCTION_5_30();
+  _s10OmniSearch0B6ResultVWOcTm_6(v2, v1, v3);
+  if (swift_getEnumCaseMultiPayload())
+  {
+    OUTLINED_FUNCTION_3_35();
+    _s10OmniSearch0B10ResultItemOWOhTm_5(v4, v5);
+    OUTLINED_FUNCTION_0_49();
+    _s10OmniSearch0B6ResultVWOcTm_6(v6, v7, v8);
+    OUTLINED_FUNCTION_22_17();
+
+    OUTLINED_FUNCTION_106();
+
+    return v9();
+  }
+
+  else
+  {
+    (*(v0[17] + 32))(v0[21], v0[15], v0[16]);
+    if (one-time initialization token for answerSynthesis != -1)
+    {
+      OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
+    }
+
+    v11 = v0[16];
+    v12 = v0[17];
+    v13 = type metadata accessor for Logger();
+    v0[22] = __swift_project_value_buffer(v13, static Logging.answerSynthesis);
+    v14 = *(v12 + 16);
+    v0[23] = v14;
+    v0[24] = (v12 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v15 = OUTLINED_FUNCTION_94();
+    v14(v15);
+    v16 = Logger.logObject.getter();
+    v17 = static os_log_type_t.info.getter();
+    v18 = OUTLINED_FUNCTION_16_11(v17);
+    v19 = v0[20];
+    if (v18)
+    {
+      v20 = v0[19];
+      v22 = v0[16];
+      v21 = v0[17];
+      OUTLINED_FUNCTION_28_3();
+      swift_slowAlloc();
+      v34 = OUTLINED_FUNCTION_10_23();
+      *v11 = 136642819;
+      (v14)(v20, v19, v22);
+      String.init<A>(describing:)();
+      v23 = *(v21 + 8);
+      v23(v19, v22);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+      *(v11 + 4) = v24;
+      OUTLINED_FUNCTION_25_6();
+      _os_log_impl(v25, v26, v27, v28, v29, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v34);
+      OUTLINED_FUNCTION_42_0();
+      OUTLINED_FUNCTION_2_8();
+    }
+
+    else
+    {
+      v30 = v0[16];
+      v31 = v0[17];
+
+      v23 = *(v31 + 8);
+      v23(v19, v30);
+    }
+
+    v0[25] = v23;
+    swift_task_alloc();
+    OUTLINED_FUNCTION_53();
+    v0[26] = v32;
+    *v32 = v33;
+    v32[1] = closure #1 in closure #3 in EmailContentManager.hydrateEmailResults(_:);
+
+    return EmailContentManager.createEmailDoc(message:spotlightResult:)();
+  }
+}
+
+{
+  OUTLINED_FUNCTION_48();
+  OUTLINED_FUNCTION_52();
+  OUTLINED_FUNCTION_47();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_11();
+  *v5 = v4;
+  *(v6 + 216) = v0;
+
+  OUTLINED_FUNCTION_69();
+
+  return MEMORY[0x2822009F8](v7);
+}
+
+{
+  v1 = *(v0 + 112);
+  v2 = *(v0 + 88);
+  v3 = *(v0 + 96);
+  v5 = *(v0 + 72);
+  v4 = *(v0 + 80);
+  v6 = *(v0 + 48);
+  v7 = *(v0 + 24);
+  (*(v0 + 184))(v1, *(v0 + 144), *(v0 + 128));
+  swift_storeEnumTagMultiPayload();
+  v40 = *(v7 + v5[8]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+  v8 = CodableNSSecureCoding.wrappedValue.getter();
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v9, v10, v11, v6);
+  *(v4 + v5[7]) = MEMORY[0x277D84F90];
+  v12 = (v4 + v5[10]);
+  *v12 = 0;
+  v12[1] = 0;
+  OUTLINED_FUNCTION_5_30();
+  _s10OmniSearch0B6ResultVWOcTm_6(v1, v4, v13);
+  v41 = v5;
+  type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for CSSearchableItem, 0x277CC34B0);
+  lazy protocol witness table accessor for type CSSearchableItem and conformance NSObject();
+  v14 = v8;
+  OUTLINED_FUNCTION_189_4();
+  CodableNSSecureCoding.init(wrappedValue:)();
+  _s10Foundation4DateVSgWOcTm_0(v3, v2, &_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v2, 1, v6);
+  v16 = *(v0 + 200);
+  v38 = *(v0 + 144);
+  v39 = *(v0 + 168);
+  v17 = *(v0 + 128);
+  v18 = *(v0 + 112);
+  v19 = *(v0 + 88);
+  v37 = *(v0 + 96);
+  if (EnumTagSinglePayload == 1)
+  {
+    OUTLINED_FUNCTION_189_4();
+    outlined destroy of EagerResolutionService?(v20, v21, v22);
+    SpotlightRankingItem.init(retrievalType:bundleId:likelihood:topicality:pommesL1Score:pommesAdjustedL1Score:pommesCalibratedL1Score:embeddingSimilarity:keywordMatchScore:freshness:)();
+
+    OUTLINED_FUNCTION_189_4();
+    outlined destroy of EagerResolutionService?(v23, v24, v25);
+    OUTLINED_FUNCTION_3_35();
+    _s10OmniSearch0B10ResultItemOWOhTm_5(v18, v26);
+    v16(v38, v17);
+    v16(v39, v17);
+  }
+
+  else
+  {
+    v27 = *(v0 + 56);
+    v28 = *(v0 + 64);
+    v29 = *(v0 + 48);
+
+    outlined destroy of EagerResolutionService?(v37, &_s15OmniSearchTypes20SpotlightRankingItemVSgMd, &_s15OmniSearchTypes20SpotlightRankingItemVSgMR);
+    OUTLINED_FUNCTION_3_35();
+    _s10OmniSearch0B10ResultItemOWOhTm_5(v18, v30);
+    v16(v38, v17);
+    v16(v39, v17);
+    v31 = *(v27 + 32);
+    (v31)(v28, v19, v29);
+    OUTLINED_FUNCTION_189_4();
+    v31();
+  }
+
+  v33 = *(v0 + 72);
+  v32 = *(v0 + 80);
+  v34 = *(v0 + 16);
+  *(v32 + v41[8]) = v40;
+  *(v32 + *(v33 + 36)) = 1;
+  outlined init with take of SearchResult(v32, v34);
+  OUTLINED_FUNCTION_22_17();
+
+  OUTLINED_FUNCTION_106();
+
+  return v35();
+}
+
+{
+  OUTLINED_FUNCTION_159();
+  v1 = *(v0 + 216);
+  (*(v0 + 200))(*(v0 + 168), *(v0 + 128));
+  v2 = v1;
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.error.getter();
+
+  v5 = os_log_type_enabled(v3, v4);
+  v6 = *(v0 + 216);
+  if (v5)
+  {
+    OUTLINED_FUNCTION_28_3();
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    *v7 = 138412290;
+    v9 = v6;
+    v10 = _swift_stdlib_bridgeErrorToNSError();
+    *(v7 + 4) = v10;
+    *v8 = v10;
+    OUTLINED_FUNCTION_49_16(&dword_25D85C000, v11, v4, "EmailContentManager: Failed to convert email to EmailDoc %@");
+    outlined destroy of EagerResolutionService?(v8, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    OUTLINED_FUNCTION_42_0();
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  else
+  {
+  }
+
+  OUTLINED_FUNCTION_0_49();
+  _s10OmniSearch0B6ResultVWOcTm_6(v12, v13, v14);
+  OUTLINED_FUNCTION_22_17();
+
+  OUTLINED_FUNCTION_106();
+
+  return v15();
+}
+
+uint64_t EmailContentManager.mailURLFromId(_:networkUsage:)()
+{
+  OUTLINED_FUNCTION_48();
+  v1[7] = v2;
+  v1[8] = v0;
+  v1[5] = v3;
+  v1[6] = v4;
+  v5 = type metadata accessor for URL();
+  v1[9] = v5;
+  OUTLINED_FUNCTION_21(v5);
+  v1[10] = v6;
+  v1[11] = OUTLINED_FUNCTION_199();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_114(v7);
+  v1[12] = OUTLINED_FUNCTION_160();
+  v1[13] = swift_task_alloc();
+  v8 = OUTLINED_FUNCTION_29();
+
+  return MEMORY[0x2822009F8](v8);
+}
+
+{
+  OUTLINED_FUNCTION_48();
+  OUTLINED_FUNCTION_52();
+  v1 = *v0;
+  OUTLINED_FUNCTION_11();
+  *v2 = v1;
+
+  v3 = OUTLINED_FUNCTION_29();
+
+  return MEMORY[0x2822009F8](v3);
+}
+
+{
+  OUTLINED_FUNCTION_75();
+  v1 = *(v0 + 32);
+  if (!v1)
+  {
+
+LABEL_8:
+    v11 = 0;
+    v12 = 0;
+    goto LABEL_10;
+  }
+
+  v2 = [*(v0 + 32) publicMessageURL];
   if (v2)
   {
-    v8 = v2;
-    if (*(v2 + 16))
-    {
-      v9 = v7;
-      v10 = v6;
-      v11 = v5;
-      v12 = v4;
-      v13 = v3;
-      v17 = v0;
-      v18 = v1;
+    v3 = v2;
+    static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-      OUTLINED_FUNCTION_48_9();
-      MEMORY[0x25F89F6C0](v17, v18);
-
-      MEMORY[0x28223BE20](v14);
-      v16[2] = v10;
-      v16[3] = v9;
-      v16[4] = v13;
-      v16[5] = v12;
-      v16[6] = v11;
-      v17 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay10Foundation4DateVG_SSs5NeverOTg5(partial apply for closure #1 in LLMFormatter.StringInterpolation.appendInterpolation<A>(_:dates:locale:formatStyle:), v16, v8);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-      lazy protocol witness table accessor for type [String] and conformance [A]();
-      BidirectionalCollection<>.joined(separator:)();
-
-      OUTLINED_FUNCTION_57_9();
-
-      v15 = OUTLINED_FUNCTION_40_15();
-      MEMORY[0x25F89F6C0](v15);
-    }
-  }
-
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t closure #1 in LLMFormatter.StringInterpolation.appendInterpolation<A>(_:dates:locale:formatStyle:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v18[1] = a6;
-  v9 = type metadata accessor for EditorialDateFormatter.DateInput(0);
-  v10 = v9 - 8;
-  v11 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *(v10 + 32);
-  v15 = type metadata accessor for Date();
-  (*(*(v15 - 8) + 16))(&v13[v14], a1, v15);
-  *v13 = 257;
-  v16 = &v13[*(v10 + 36)];
-  *v16 = a2;
-  *(v16 + 1) = a3;
-
-  dispatch thunk of FormatStyle.format(_:)();
-  return outlined destroy of EditorialDateFormatter.DateInput(v13, type metadata accessor for EditorialDateFormatter.DateInput);
-}
-
-void LLMFormatter.StringInterpolation.appendInterpolation(date:locale:timeIsUnknown:timeZone:)()
-{
-  OUTLINED_FUNCTION_155();
-  v109 = v3;
-  v110 = v4;
-  HIDWORD(v106) = v5;
-  v107 = v6;
-  v108 = v7;
-  v9 = v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  v11 = OUTLINED_FUNCTION_114(v10);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  OUTLINED_FUNCTION_39_0();
-  v105 = v14;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_62_9();
-  v111 = type metadata accessor for TimeZone();
-  v16 = OUTLINED_FUNCTION_14(v111);
-  v103 = v17;
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v16);
-  OUTLINED_FUNCTION_39_0();
-  v100 = v20;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v21);
-  OUTLINED_FUNCTION_7_4();
-  v102 = v22;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v23);
-  OUTLINED_FUNCTION_14_2();
-  v101 = v24;
-  OUTLINED_FUNCTION_78_0();
-  v25 = type metadata accessor for Date.FormatStyle();
-  v26 = OUTLINED_FUNCTION_14(v25);
-  v113 = v27;
-  v114 = v26;
-  v29 = *(v28 + 64);
-  MEMORY[0x28223BE20](v26);
-  OUTLINED_FUNCTION_2_3();
-  v112 = v30;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v32 = OUTLINED_FUNCTION_114(v31);
-  v34 = *(v33 + 64);
-  MEMORY[0x28223BE20](v32);
-  OUTLINED_FUNCTION_109();
-  v37 = v35 - v36;
-  MEMORY[0x28223BE20](v38);
-  OUTLINED_FUNCTION_46_14();
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  OUTLINED_FUNCTION_114(v39);
-  v41 = *(v40 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v42);
-  v44 = &v98 - v43;
-  v45 = type metadata accessor for Date();
-  v46 = OUTLINED_FUNCTION_14(v45);
-  v115 = v47;
-  v49 = *(v48 + 64);
-  MEMORY[0x28223BE20](v46);
-  OUTLINED_FUNCTION_2_3();
-  v51 = v50;
-  v104 = v9;
-  outlined init with copy of EagerResolutionService?();
-  v52 = type metadata accessor for DateComponents();
-  v53 = OUTLINED_FUNCTION_93_0();
-  OUTLINED_FUNCTION_166(v53, v54, v52);
-  if (v59)
-  {
-    outlined destroy of IntentApplication?(v2, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v55, v56, v57, v45);
-  }
-
-  else
-  {
-    v99 = v0;
-    DateComponents.date.getter();
-    v58 = *(*(v52 - 8) + 8);
-    v58(v2, v52);
-    OUTLINED_FUNCTION_166(v44, 1, v45);
-    if (!v59)
-    {
-      v98 = v58;
-      v63 = v51;
-      (*(v115 + 32))(v51, v44, v45);
-      if ((v106 & 0x100000000) != 0)
-      {
-        v64 = OUTLINED_FUNCTION_67_11();
-        static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v64, v65, v66, v67, v68, v69, v70, v71, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109);
-        v72 = v111;
-        if (!v110)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      else
-      {
-        v73 = OUTLINED_FUNCTION_67_11();
-        v74 = v110;
-        static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v73, v75, v76, v109, v110, v77, v78, v79, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109);
-        v72 = v111;
-        if (!v74)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      TimeZone.init(identifier:)();
-      OUTLINED_FUNCTION_166(v1, 1, v72);
-      if (!v59)
-      {
-        v85 = v103;
-        v86 = v101;
-        (*(v103 + 32))(v101, v1, v72);
-        v87 = OUTLINED_FUNCTION_54_13();
-        v88(v87);
-        Date.FormatStyle.timeZone.setter();
-        (*(v85 + 8))(v86, v72);
-LABEL_20:
-        v116[3] = MEMORY[0x277D837D0];
-        v116[4] = MEMORY[0x277D83838];
-        OUTLINED_FUNCTION_5_26();
-        _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v93, v94);
-        v95 = v114;
-        Date.formatted<A>(_:)();
-        LLMFormatter.StringInterpolation.appendInterpolation(_:)();
-        v96 = OUTLINED_FUNCTION_129_5();
-        v97(v96, v95);
-        (*(v115 + 8))(v63, v45);
-        v60 = &_ss23CustomStringConvertible_pSgMd;
-        v61 = &_ss23CustomStringConvertible_pSgMR;
-        v62 = v116;
-        goto LABEL_21;
-      }
-
-      outlined destroy of IntentApplication?(v1, &_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-LABEL_14:
-      outlined init with copy of EagerResolutionService?();
-      OUTLINED_FUNCTION_166(v37, 1, v52);
-      if (v59)
-      {
-        outlined destroy of IntentApplication?(v37, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-        v83 = v105;
-        OUTLINED_FUNCTION_92();
-        __swift_storeEnumTagSinglePayload(v80, v81, v82, v72);
-      }
-
-      else
-      {
-        v83 = v105;
-        DateComponents.timeZone.getter();
-        v98(v37, v52);
-        OUTLINED_FUNCTION_166(v83, 1, v72);
-        if (!v84)
-        {
-          v89 = v103;
-          v90 = v100;
-          (*(v103 + 32))(v100, v83, v72);
-          v91 = OUTLINED_FUNCTION_54_13();
-          v92(v91);
-          Date.FormatStyle.timeZone.setter();
-          (*(v89 + 8))(v90, v72);
-          goto LABEL_20;
-        }
-      }
-
-      outlined destroy of IntentApplication?(v83, &_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-      goto LABEL_20;
-    }
-  }
-
-  v60 = &_s10Foundation4DateVSgMd;
-  v61 = &_s10Foundation4DateVSgMR;
-  v62 = v44;
-LABEL_21:
-  outlined destroy of IntentApplication?(v62, v60, v61);
-  OUTLINED_FUNCTION_148();
-}
-
-void LLMFormatter.StringInterpolation.appendInterpolation(_:date:locale:timeIsUnknown:timeZone:)()
-{
-  OUTLINED_FUNCTION_155();
-  v3 = v2;
-  v5 = v4;
-  v6 = OUTLINED_FUNCTION_63_0();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(v6, v7);
-  v9 = OUTLINED_FUNCTION_114(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_109();
-  v14 = v12 - v13;
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_46_14();
-  v16 = type metadata accessor for DateComponents();
-  v17 = OUTLINED_FUNCTION_14(v16);
-  v19 = v18;
-  v21 = *(v20 + 64);
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_4();
-  outlined init with copy of EagerResolutionService?();
-  v22 = OUTLINED_FUNCTION_93_0();
-  OUTLINED_FUNCTION_166(v22, v23, v16);
-  if (v24)
-  {
-    outlined destroy of IntentApplication?(v0, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  }
-
-  else
-  {
-    (*(v19 + 32))(v1, v0, v16);
-
-    OUTLINED_FUNCTION_48_9();
-    MEMORY[0x25F89F6C0](v5, v3);
-
-    (*(v19 + 16))(v14, v1, v16);
-    __swift_storeEnumTagSinglePayload(v14, 0, 1, v16);
-    LLMFormatter.StringInterpolation.appendInterpolation(date:locale:timeIsUnknown:timeZone:)();
-    outlined destroy of IntentApplication?(v14, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-    v25 = OUTLINED_FUNCTION_40_15();
-    MEMORY[0x25F89F6C0](v25);
-    (*(v19 + 8))(v1, v16);
-  }
-
-  OUTLINED_FUNCTION_148();
-}
-
-Swift::Void __swiftcall LLMFormatter.StringInterpolation.appendInterpolation(_:dictionary:)(Swift::String _, Swift::OpaquePointer_optional dictionary)
-{
-  if (dictionary.value._rawValue)
-  {
-    rawValue = dictionary.value._rawValue;
-    object = _._object;
-
-    OUTLINED_FUNCTION_48_9();
-    OUTLINED_FUNCTION_57_9();
-
-    v28 = specialized _copyCollectionToContiguousArray<A>(_:)(rawValue);
-    specialized MutableCollection<>.sort(by:)(&v28);
-    v3 = 0;
-    v4 = v28;
-    v5 = *(v28 + 16);
-    v6 = v28 + 56;
-    v7 = MEMORY[0x277D84F90];
-LABEL_3:
-    for (i = (v6 + 32 * v3); ; i += 4)
-    {
-      if (v5 == v3)
-      {
-
-        v32 = v7;
-        type metadata accessor for NSUserDefaults();
-        v28 = static NSUserDefaults.llmPromptLineBreak.getter();
-        object = v22;
-        v23 = static NSUserDefaults.llmPromptLineBreak.getter();
-        MEMORY[0x25F89F6C0](v23);
-
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-        lazy protocol witness table accessor for type [String] and conformance [A]();
-        OUTLINED_FUNCTION_121_0();
-        v24 = BidirectionalCollection<>.joined(separator:)();
-        v26 = v25;
-
-        v30 = MEMORY[0x277D837D0];
-        v31 = MEMORY[0x277D83838];
-        v28 = v24;
-        object = v26;
-        LLMFormatter.StringInterpolation.appendInterpolation(_:)();
-        outlined destroy of IntentApplication?(&v28, &_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-        v27 = OUTLINED_FUNCTION_40_15();
-        MEMORY[0x25F89F6C0](v27);
-        return;
-      }
-
-      if (v3 >= *(v4 + 16))
-      {
-        break;
-      }
-
-      v9 = *(i - 2);
-      v10 = HIBYTE(v9) & 0xF;
-      if ((v9 & 0x2000000000000000) == 0)
-      {
-        v10 = *(i - 3) & 0xFFFFFFFFFFFFLL;
-      }
-
-      if (v10)
-      {
-        v12 = *(i - 1);
-        v11 = *i;
-        v13 = HIBYTE(*i) & 0xF;
-        if ((*i & 0x2000000000000000) == 0)
-        {
-          v13 = v12 & 0xFFFFFFFFFFFFLL;
-        }
-
-        if (v13)
-        {
-          v28 = *(i - 3);
-          object = v9;
-          swift_bridgeObjectRetain_n();
-
-          MEMORY[0x25F89F6C0](58, 0xE100000000000000);
-          MEMORY[0x25F89F6C0](v12, v11);
-
-          v14 = v28;
-          v15 = object;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v19 = v7[2];
-            OUTLINED_FUNCTION_44();
-            specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-            v7 = v20;
-          }
-
-          v17 = v7[2];
-          v16 = v7[3];
-          if (v17 >= v16 >> 1)
-          {
-            OUTLINED_FUNCTION_26_3(v16);
-            specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-            v7 = v21;
-          }
-
-          ++v3;
-          v7[2] = v17 + 1;
-          v18 = &v7[2 * v17];
-          v18[4] = v14;
-          v18[5] = v15;
-          goto LABEL_3;
-        }
-      }
-
-      ++v3;
-    }
-
-    __break(1u);
-
-    __break(1u);
-  }
-}
-
-uint64_t protocol witness for StringInterpolationProtocol.init(literalCapacity:interpolationCount:) in conformance LLMFormatter.StringInterpolation@<X0>(Swift::Int a1@<X0>, Swift::Int a2@<X1>, OmniSearch::LLMFormatter::StringInterpolation *a3@<X8>)
-{
-  v5 = LLMFormatter.StringInterpolation.init(literalCapacity:interpolationCount:)(a1, a2);
-  result = v5.resolvedOutput._countAndFlagsBits;
-  *a3 = v5;
-  return result;
-}
-
-uint64_t LLMFormatter.description.getter()
-{
-  OUTLINED_FUNCTION_134();
-
-  return v0;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LLMFormatter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return v1;
-}
-
-uint64_t EditorialDateFormatter.DateInput.date.getter()
-{
-  return EditorialDateFormatter.DateInput.date.getter();
-}
-
-{
-  v0 = OUTLINED_FUNCTION_113();
-  v2 = *(v1(v0) + 24);
-  v3 = type metadata accessor for Date();
-  OUTLINED_FUNCTION_17(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_47_12();
-
-  return v7(v6);
-}
-
-uint64_t EditorialDateFormatter.DateInput.locale.getter()
-{
-  v1 = (v0 + *(type metadata accessor for EditorialDateFormatter.DateInput(0) + 28));
-  v2 = *v1;
-  v3 = v1[1];
-
-  return OUTLINED_FUNCTION_94();
-}
-
-OmniSearch::EditorialDateFormatter::ComponentOptions __swiftcall EditorialDateFormatter.ComponentOptions.init(minute:hour:weekday:year:)(Swift::Bool minute, Swift::Bool hour, Swift::Bool weekday, Swift::Bool year)
-{
-  if (year)
-  {
-    v4 = 0x1000000;
-  }
-
-  else
-  {
     v4 = 0;
   }
 
-  if (weekday)
-  {
-    v5 = 0x10000;
-  }
-
   else
-  {
-    v5 = 0;
-  }
-
-  if (hour)
-  {
-    v6 = 256;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  return (v6 & 0xFFFFFFFE | minute | v5 | v4);
-}
-
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance EditorialDateFormatter.ComponentOptions(unsigned __int8 *a1, unsigned __int8 *a2)
-{
-  v2 = *a1;
-  if (a1[3])
-  {
-    v3 = 0x1000000;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  if (a1[2])
-  {
-    v4 = 0x10000;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (a1[1])
-  {
-    v5 = 256;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6 = v5 | v2;
-  v7 = v4 | v3;
-  if (a2[3])
-  {
-    v8 = 0x1000000;
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (a2[2])
-  {
-    v9 = 0x10000;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  if (a2[1])
-  {
-    v10 = 256;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  return static EditorialDateFormatter.ComponentOptions.== infix(_:_:)(v6 | v7, v10 | *a2 | v9 | v8);
-}
-
-uint64_t EditorialDateFormatter.now.getter()
-{
-  OUTLINED_FUNCTION_113();
-  v0 = type metadata accessor for Date();
-  OUTLINED_FUNCTION_17(v0);
-  v2 = *(v1 + 16);
-  v3 = OUTLINED_FUNCTION_94();
-
-  return v4(v3);
-}
-
-uint64_t EditorialDateFormatter.yesterday.getter()
-{
-  v0 = OUTLINED_FUNCTION_113();
-  v1 = *(type metadata accessor for EditorialDateFormatter(v0) + 20);
-  v2 = type metadata accessor for Date();
-  OUTLINED_FUNCTION_17(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_47_12();
-
-  return v6(v5);
-}
-
-uint64_t EditorialDateFormatter.calendar.getter()
-{
-  v0 = OUTLINED_FUNCTION_113();
-  v1 = *(type metadata accessor for EditorialDateFormatter(v0) + 28);
-  v2 = type metadata accessor for Calendar();
-  OUTLINED_FUNCTION_17(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_47_12();
-
-  return v6(v5);
-}
-
-void EditorialDateFormatter.format(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v24;
-  a20 = v25;
-  v26 = v21;
-  v28 = v27;
-  v29 = type metadata accessor for Date.FormatStyle.Symbol.Minute();
-  v30 = OUTLINED_FUNCTION_14(v29);
-  v242 = v31;
-  v243 = v30;
-  v33 = *(v32 + 64);
-  MEMORY[0x28223BE20](v30);
-  OUTLINED_FUNCTION_2_3();
-  v241 = v34;
-  OUTLINED_FUNCTION_78_0();
-  v218 = type metadata accessor for Date.FormatStyle.Symbol.Hour.AMPMStyle();
-  v35 = OUTLINED_FUNCTION_14(v218);
-  v217 = v36;
-  v38 = *(v37 + 64);
-  MEMORY[0x28223BE20](v35);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v39);
-  v40 = type metadata accessor for Date.FormatStyle.Symbol.Hour();
-  v41 = OUTLINED_FUNCTION_14(v40);
-  v239 = v42;
-  v240 = v41;
-  v44 = *(v43 + 64);
-  MEMORY[0x28223BE20](v41);
-  OUTLINED_FUNCTION_2_3();
-  v238 = v45;
-  OUTLINED_FUNCTION_78_0();
-  v46 = type metadata accessor for Date.FormatStyle.Symbol.Year();
-  v47 = OUTLINED_FUNCTION_14(v46);
-  v236 = v48;
-  v237 = v47;
-  v50 = *(v49 + 64);
-  MEMORY[0x28223BE20](v47);
-  OUTLINED_FUNCTION_2_3();
-  v235 = v51;
-  OUTLINED_FUNCTION_78_0();
-  v52 = type metadata accessor for Date.FormatStyle.Symbol.Month();
-  v53 = OUTLINED_FUNCTION_14(v52);
-  v233 = v54;
-  v234 = v53;
-  v56 = *(v55 + 64);
-  MEMORY[0x28223BE20](v53);
-  OUTLINED_FUNCTION_2_3();
-  v232 = v57;
-  OUTLINED_FUNCTION_78_0();
-  v231 = type metadata accessor for Date.FormatStyle.Symbol.Day();
-  v58 = OUTLINED_FUNCTION_14(v231);
-  v230 = v59;
-  v61 = *(v60 + 64);
-  MEMORY[0x28223BE20](v58);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v62);
-  v228 = type metadata accessor for Date.FormatStyle.Symbol.Weekday();
-  v63 = OUTLINED_FUNCTION_14(v228);
-  v227 = v64;
-  v66 = *(v65 + 64);
-  MEMORY[0x28223BE20](v63);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v67);
-  v68 = type metadata accessor for FormatStyleCapitalizationContext();
-  v69 = OUTLINED_FUNCTION_114(v68);
-  v71 = *(v70 + 64);
-  MEMORY[0x28223BE20](v69);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v72);
-  v73 = type metadata accessor for TimeZone();
-  v74 = OUTLINED_FUNCTION_114(v73);
-  v76 = *(v75 + 64);
-  MEMORY[0x28223BE20](v74);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v77);
-  v78 = type metadata accessor for Calendar();
-  v79 = OUTLINED_FUNCTION_114(v78);
-  v81 = *(v80 + 64);
-  MEMORY[0x28223BE20](v79);
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_28_2(v82);
-  v83 = type metadata accessor for Locale();
-  v84 = OUTLINED_FUNCTION_114(v83);
-  v86 = *(v85 + 64);
-  MEMORY[0x28223BE20](v84);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_4();
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV11FormatStyleV04TimeD0VSgMd, &_s10Foundation4DateV11FormatStyleV04TimeD0VSgMR);
-  OUTLINED_FUNCTION_114(v87);
-  v89 = *(v88 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v90);
-  OUTLINED_FUNCTION_15_4(&v214 - v91);
-  v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV11FormatStyleV0bD0VSgMd, &_s10Foundation4DateV11FormatStyleV0bD0VSgMR);
-  OUTLINED_FUNCTION_114(v92);
-  v94 = *(v93 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v95);
-  OUTLINED_FUNCTION_28_2(&v214 - v96);
-  v97 = type metadata accessor for Date.FormatStyle();
-  v98 = OUTLINED_FUNCTION_14(v97);
-  v246 = v99;
-  v247 = v98;
-  v101 = *(v100 + 64);
-  MEMORY[0x28223BE20](v98);
-  OUTLINED_FUNCTION_109();
-  v104 = v102 - v103;
-  MEMORY[0x28223BE20](v105);
-  OUTLINED_FUNCTION_73_8();
-  MEMORY[0x28223BE20](v106);
-  OUTLINED_FUNCTION_32_20();
-  MEMORY[0x28223BE20](v107);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v108);
-  OUTLINED_FUNCTION_7_4();
-  v244 = v109;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v110);
-  OUTLINED_FUNCTION_7_4();
-  OUTLINED_FUNCTION_4_3();
-  v112 = MEMORY[0x28223BE20](v111);
-  v114 = &v214 - v113;
-  MEMORY[0x28223BE20](v112);
-  OUTLINED_FUNCTION_14_2();
-  v116 = OUTLINED_FUNCTION_28_2(v115);
-  v117 = type metadata accessor for EditorialDateFormatter.DateInput(v116);
-  v118 = OUTLINED_FUNCTION_17(v117);
-  v120 = *(v119 + 64);
-  MEMORY[0x28223BE20](v118);
-  OUTLINED_FUNCTION_109();
-  v123 = v121 - v122;
-  v125 = MEMORY[0x28223BE20](v124);
-  v127 = &v214 - v126;
-  v249 = v125;
-  v250 = v28;
-  v128 = &v28[*(v125 + 28)];
-  v129 = v128[1];
-  v226 = v114;
-  if (v129)
-  {
-    v245 = *v128;
-    v248 = v129;
-  }
-
-  else
-  {
-    type metadata accessor for NSUserDefaults();
-    v245 = static NSUserDefaults.fallbackLocale.getter();
-    v248 = v130;
-  }
-
-  v131 = *(v26 + *(type metadata accessor for EditorialDateFormatter(0) + 32));
-  v132 = one-time initialization token for answerSynthesis;
-
-  if (v131 == 1)
-  {
-    if (v132 != -1)
-    {
-      OUTLINED_FUNCTION_7_1();
-    }
-
-    v133 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v133, static Logging.answerSynthesis);
-    OUTLINED_FUNCTION_23_17();
-    outlined init with copy of EditorialDateFormatter.DateInput();
-    v134 = Logger.logObject.getter();
-    v135 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v134, v135))
-    {
-      v136 = swift_slowAlloc();
-      v137 = swift_slowAlloc();
-      v215 = v23;
-      v138 = v137;
-      v251 = v137;
-      *v136 = 136315138;
-      v139 = *(v249 + 24);
-      type metadata accessor for Date();
-      OUTLINED_FUNCTION_2_29();
-      _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v140, v141);
-      dispatch thunk of CustomStringConvertible.description.getter();
-      OUTLINED_FUNCTION_3_33();
-      outlined destroy of EditorialDateFormatter.DateInput(v127, v142);
-      v143 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-
-      *(v136 + 4) = v143;
-      _os_log_impl(&dword_25D85C000, v134, v135, "OmniSearch/editorialDates FF enabled. Return editorial date formatted string for %s.", v136, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v138);
-      v23 = v215;
-      OUTLINED_FUNCTION_42_0();
-      OUTLINED_FUNCTION_42_0();
-    }
-
-    else
-    {
-
-      OUTLINED_FUNCTION_3_33();
-      outlined destroy of EditorialDateFormatter.DateInput(v127, v154);
-    }
-
-    EditorialDateFormatter.components(for:)();
-    if (HIDWORD(v155))
-    {
-
-      v174 = [objc_allocWithZone(MEMORY[0x277CCA968]) init];
-      [v174 setDateStyle_];
-      [v174 setTimeStyle_];
-      [v174 setDoesRelativeDateFormatting_];
-      [v174 setFormattingContext_];
-      v175 = &v250[*(v249 + 24)];
-      isa = Date._bridgeToObjectiveC()().super.isa;
-      v177 = [v174 stringFromDate_];
-
-      static String._unconditionallyBridgeFromObjectiveC(_:)();
-    }
-
-    else
-    {
-      v156 = v155;
-      type metadata accessor for Date.FormatStyle.DateStyle();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v157, v158, v159, v160);
-      type metadata accessor for Date.FormatStyle.TimeStyle();
-      OUTLINED_FUNCTION_92();
-      __swift_storeEnumTagSinglePayload(v161, v162, v163, v164);
-      Locale.init(identifier:)();
-      OUTLINED_FUNCTION_70_8(&v252);
-      static Calendar.autoupdatingCurrent.getter();
-      OUTLINED_FUNCTION_30_14(&v253);
-      static TimeZone.autoupdatingCurrent.getter();
-      OUTLINED_FUNCTION_66_10(&a9);
-      MEMORY[0x25F899230]();
-      Date.FormatStyle.init(date:time:locale:calendar:timeZone:capitalizationContext:)();
-      OUTLINED_FUNCTION_30_14(&a12);
-      if ((v156 & 0x10000) != 0)
-      {
-        MEMORY[0x25F899530]();
-      }
-
-      else
-      {
-        MEMORY[0x25F899540]();
-      }
-
-      v188 = v246;
-      v189 = v238;
-      v190 = v235;
-      Date.FormatStyle.weekday(_:)();
-      v191 = OUTLINED_FUNCTION_17_21(&a13);
-      v192(v191, v228);
-      v193 = *(v188 + 8);
-      v194 = v22;
-      v195 = v247;
-      v196 = v193(v194, v247);
-      v197 = v229;
-      MEMORY[0x25F899430](v196);
-      OUTLINED_FUNCTION_64_7(&v251);
-      Date.FormatStyle.day(_:)();
-      OUTLINED_FUNCTION_4_4(&a17);
-      v198(v197, v231);
-      v199 = v193(v20, v195);
-      MEMORY[0x25F8994E0](v199);
-      Date.FormatStyle.month(_:)();
-      v200 = OUTLINED_FUNCTION_41_10();
-      v201(v200);
-      v202 = v193(v23, v195);
-      if ((v156 & 0x1000000) != 0)
-      {
-        static Date.FormatStyle.Symbol.Year.extended(minimumLength:)();
-      }
-
-      else
-      {
-        MEMORY[0x25F8994B0](v202);
-      }
-
-      v203 = v225;
-      v204 = v244;
-      Date.FormatStyle.year(_:)();
-      (*(v236 + 8))(v190, v237);
-      v193(v204, v195);
-      if ((v156 & 0x100) != 0)
-      {
-        OUTLINED_FUNCTION_66_10(&v246);
-        static Date.FormatStyle.Symbol.Hour.AMPMStyle.abbreviated.getter();
-        static Date.FormatStyle.Symbol.Hour.defaultDigits(amPM:)();
-        OUTLINED_FUNCTION_4_4(&v247);
-        v205(v204, v218);
-      }
-
-      else
-      {
-        static Date.FormatStyle.Symbol.Hour.omitted.getter();
-      }
-
-      v206 = v226;
-      Date.FormatStyle.hour(_:)();
-      (*(v239 + 8))(v189, v240);
-      v207 = v193(v203, v195);
-      if (v156)
-      {
-        MEMORY[0x25F899510](v207);
-      }
-
-      else
-      {
-        MEMORY[0x25F899500](v207);
-      }
-
-      Date.FormatStyle.minute(_:)();
-      v208 = OUTLINED_FUNCTION_41_10();
-      v209(v208);
-      v193(v206, v195);
-      v210 = *(v249 + 24);
-      OUTLINED_FUNCTION_5_26();
-      _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v211, v212);
-      OUTLINED_FUNCTION_121_0();
-      Date.formatted<A>(_:)();
-      v213 = OUTLINED_FUNCTION_121_0();
-      (v193)(v213);
-    }
-  }
-
-  else
-  {
-    if (v132 != -1)
-    {
-      OUTLINED_FUNCTION_7_1();
-    }
-
-    v144 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v144, static Logging.answerSynthesis);
-    OUTLINED_FUNCTION_23_17();
-    outlined init with copy of EditorialDateFormatter.DateInput();
-    v145 = Logger.logObject.getter();
-    v146 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v145, v146))
-    {
-      v147 = swift_slowAlloc();
-      v148 = swift_slowAlloc();
-      v251 = v148;
-      *v147 = 136315138;
-      v149 = *(v249 + 24);
-      type metadata accessor for Date();
-      OUTLINED_FUNCTION_2_29();
-      _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v150, v151);
-      dispatch thunk of CustomStringConvertible.description.getter();
-      OUTLINED_FUNCTION_3_33();
-      outlined destroy of EditorialDateFormatter.DateInput(v123, v152);
-      v153 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-
-      *(v147 + 4) = v153;
-      _os_log_impl(&dword_25D85C000, v145, v146, "OmniSearch/editorialDates FF disabled. Return original date formatted string for %s.", v147, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v148);
-      OUTLINED_FUNCTION_42_0();
-      OUTLINED_FUNCTION_42_0();
-    }
-
-    else
-    {
-
-      OUTLINED_FUNCTION_3_33();
-      outlined destroy of EditorialDateFormatter.DateInput(v123, v165);
-    }
-
-    v166 = v247;
-    v167 = (v246 + 8);
-    if (*v250 == 1)
-    {
-      v168 = OUTLINED_FUNCTION_39_13();
-      static LLMFormatter.dateTimeFormatter(locale:includeWeekday:timeZone:)(v168, v169, v170, 0, 0, v171, v172, v173, v214, v215, v216, v217, v218, v219, v220, v221, v222, v223, v224, v225);
-    }
-
-    else
-    {
-      v178 = OUTLINED_FUNCTION_39_13();
-      static LLMFormatter.dateOnlyFormatter(locale:includeWeekday:)(v178, v179, v180, v181, v182, v183, v184, v185, v214, v215, v216, v217, v218, v219, v220, v221, v222, v223, v224, v225);
-    }
-
-    OUTLINED_FUNCTION_5_26();
-    _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v186, v187);
-    Date.formatted<A>(_:)();
-    (*v167)(v104, v166);
-  }
-
-  OUTLINED_FUNCTION_148();
-}
-
-void EditorialDateFormatter.components(for:)()
-{
-  OUTLINED_FUNCTION_155();
-  v1 = v0;
-  v2 = type metadata accessor for Calendar.Component();
-  v3 = OUTLINED_FUNCTION_14(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_36();
-  v10 = v9 - v8;
-  v11 = *(type metadata accessor for EditorialDateFormatter.DateInput(0) + 24);
-  EditorialDateFormatter.isThisWeek(_:)();
-  v12 = *(type metadata accessor for EditorialDateFormatter(0) + 28);
-  v14 = *(v5 + 104);
-  v14(v10, *MEMORY[0x277CC9988], v2);
-  Calendar.isDate(_:equalTo:toGranularity:)();
-  v13 = *(v5 + 8);
-  v13(v10, v2);
-  if (*v1 == 1)
-  {
-    v14(v10, *MEMORY[0x277CC99A0], v2);
-    Calendar.component(_:from:)();
-    v13(v10, v2);
-  }
-
-  EditorialDateFormatter.isYesterdayTodayOrTomorrow(_:)(&v1[v11]);
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t EditorialDateFormatter.isThisWeek(_:)()
-{
-  v0 = type metadata accessor for Calendar.Component();
-  v1 = *(v0 - 8);
-  v2 = v1[8];
-  MEMORY[0x28223BE20](v0);
-  v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = *(type metadata accessor for EditorialDateFormatter(0) + 28);
-  v6 = v1[13];
-  v6(v4, *MEMORY[0x277CC9940], v0);
-  v7 = Calendar.isDate(_:equalTo:toGranularity:)();
-  v8 = v1[1];
-  v8(v4, v0);
-  if (v7)
-  {
-    v6(v4, *MEMORY[0x277CC9988], v0);
-    v9 = Calendar.isDate(_:equalTo:toGranularity:)();
-    v8(v4, v0);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  return v9 & 1;
-}
-
-uint64_t EditorialDateFormatter.isYesterdayTodayOrTomorrow(_:)(uint64_t a1)
-{
-  v2 = type metadata accessor for Calendar.Component();
-  v3 = *(v2 - 8);
-  v4 = v3[8];
-  MEMORY[0x28223BE20](v2);
-  v6 = v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for EditorialDateFormatter(0);
-  v8 = v7[7];
-  v9 = *MEMORY[0x277CC9968];
-  v10 = v3[13];
-  v10(v6, v9, v2);
-  v16[0] = v8;
-  v16[1] = a1;
-  LOBYTE(v8) = Calendar.isDate(_:equalTo:toGranularity:)();
-  v11 = v3[1];
-  v11(v6, v2);
-  if (v8 & 1) != 0 || (v12 = v7[5], v10(v6, v9, v2), LOBYTE(v12) = Calendar.isDate(_:equalTo:toGranularity:)(), v11(v6, v2), (v12))
-  {
-    v13 = 1;
-  }
-
-  else
-  {
-    v14 = v7[6];
-    v10(v6, v9, v2);
-    v13 = Calendar.isDate(_:equalTo:toGranularity:)();
-    v11(v6, v2);
-  }
-
-  return v13 & 1;
-}
-
-uint64_t static EditorialDateFormatter.== infix(_:_:)()
-{
-  OUTLINED_FUNCTION_134();
-  if (static Date.== infix(_:_:)() & 1) != 0 && (v2 = type metadata accessor for EditorialDateFormatter(0), v3 = v2[5], (static Date.== infix(_:_:)()) && (v4 = v2[6], (static Date.== infix(_:_:)()) && (MEMORY[0x25F899820](v1 + v2[7], v0 + v2[7]))
-  {
-    v5 = *(v1 + v2[8]) ^ *(v0 + v2[8]) ^ 1;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  return v5 & 1;
-}
-
-uint64_t EditorialDateFormatter.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v3 = a1 == 7827310 && a2 == 0xE300000000000000;
-  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else
-  {
-    v6 = a1 == 0x6164726574736579 && a2 == 0xE900000000000079;
-    if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-    {
-
-      return 1;
-    }
-
-    else
-    {
-      v7 = a1 == 0x776F72726F6D6F74 && a2 == 0xE800000000000000;
-      if (v7 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-      {
-
-        return 2;
-      }
-
-      else
-      {
-        v8 = a1 == 0x7261646E656C6163 && a2 == 0xE800000000000000;
-        if (v8 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-        {
-
-          return 3;
-        }
-
-        else if (a1 == 0xD000000000000016 && 0x800000025DBF3AD0 == a2)
-        {
-
-          return 4;
-        }
-
-        else
-        {
-          v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-          if (v10)
-          {
-            return 4;
-          }
-
-          else
-          {
-            return 5;
-          }
-        }
-      }
-    }
-  }
-}
-
-unint64_t EditorialDateFormatter.CodingKeys.stringValue.getter(char a1)
-{
-  result = 7827310;
-  switch(a1)
-  {
-    case 1:
-      result = 0x6164726574736579;
-      break;
-    case 2:
-      result = 0x776F72726F6D6F74;
-      break;
-    case 3:
-      result = 0x7261646E656C6163;
-      break;
-    case 4:
-      result = 0xD000000000000016;
-      break;
-    default:
-      return result;
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance EditorialDateFormatter.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = EditorialDateFormatter.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance EditorialDateFormatter.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance EditorialDateFormatter.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t EditorialDateFormatter.encode(to:)(void *a1)
-{
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10OmniSearch22EditorialDateFormatterV10CodingKeys33_3BE4AA3428794E5481C5DF6D00897BA3LLOGMd, &_ss22KeyedEncodingContainerVy10OmniSearch22EditorialDateFormatterV10CodingKeys33_3BE4AA3428794E5481C5DF6D00897BA3LLOGMR);
-  OUTLINED_FUNCTION_14(v5);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v10);
-  v12 = &v24 - v11;
-  v13 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v29 = 0;
-  type metadata accessor for Date();
-  OUTLINED_FUNCTION_2_29();
-  _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v14, v15);
-  OUTLINED_FUNCTION_29_11();
-  if (!v2)
-  {
-    v16 = type metadata accessor for EditorialDateFormatter(0);
-    v17 = v16[5];
-    v28 = 1;
-    OUTLINED_FUNCTION_29_11();
-    v18 = v16[6];
-    v27 = 2;
-    OUTLINED_FUNCTION_29_11();
-    v19 = v16[7];
-    v26 = 3;
-    type metadata accessor for Calendar();
-    OUTLINED_FUNCTION_13_11();
-    _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v20, v21);
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v22 = *(v3 + v16[8]);
-    v25 = 4;
-    KeyedEncodingContainer.encode(_:forKey:)();
-  }
-
-  return (*(v7 + 8))(v12, v5);
-}
-
-void EditorialDateFormatter.hash(into:)()
-{
-  v1 = v0;
-  type metadata accessor for Date();
-  OUTLINED_FUNCTION_2_29();
-  _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v2, v3);
-  OUTLINED_FUNCTION_55_10();
-  v4 = type metadata accessor for EditorialDateFormatter(0);
-  v5 = v0 + v4[5];
-  OUTLINED_FUNCTION_55_10();
-  v6 = v1 + v4[6];
-  OUTLINED_FUNCTION_55_10();
-  v7 = v4[7];
-  type metadata accessor for Calendar();
-  OUTLINED_FUNCTION_13_11();
-  _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v8, v9);
-  dispatch thunk of Hashable.hash(into:)();
-  Hasher._combine(_:)(*(v1 + v4[8]));
-}
-
-Swift::Int EditorialDateFormatter.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  EditorialDateFormatter.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t EditorialDateFormatter.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v56 = a2;
-  v63 = type metadata accessor for Calendar();
-  v4 = OUTLINED_FUNCTION_14(v63);
-  v58 = v5;
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_2_3();
-  v57 = v8;
-  OUTLINED_FUNCTION_78_0();
-  v61 = type metadata accessor for Date();
-  v9 = OUTLINED_FUNCTION_14(v61);
-  v59 = v10;
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_109();
-  v15 = v13 - v14;
-  MEMORY[0x28223BE20](v16);
-  OUTLINED_FUNCTION_32_20();
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_14_2();
-  v60 = v18;
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10OmniSearch22EditorialDateFormatterV10CodingKeys33_3BE4AA3428794E5481C5DF6D00897BA3LLOGMd, &_ss22KeyedDecodingContainerVy10OmniSearch22EditorialDateFormatterV10CodingKeys33_3BE4AA3428794E5481C5DF6D00897BA3LLOGMR);
-  OUTLINED_FUNCTION_14(v64);
-  v62 = v19;
-  v21 = *(v20 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v22);
-  v24 = &v53 - v23;
-  v25 = type metadata accessor for EditorialDateFormatter(0);
-  v26 = OUTLINED_FUNCTION_17(v25);
-  v28 = *(v27 + 64);
-  MEMORY[0x28223BE20](v26);
-  OUTLINED_FUNCTION_36();
-  v31 = v30 - v29;
-  v32 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys();
-  v65 = v24;
-  v33 = v66;
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v33)
-  {
-    return __swift_destroy_boxed_opaque_existential_1Tm(a1);
-  }
-
-  v34 = v2;
-  v53 = v15;
-  v54 = v25;
-  v55 = v31;
-  v66 = a1;
-  v35 = v63;
-  v71 = 0;
-  OUTLINED_FUNCTION_2_29();
-  _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v36, v37);
-  v39 = v60;
-  v38 = v61;
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v60 = *(v59 + 32);
-  v60(v55, v39, v38);
-  v70 = 1;
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v60(v55 + v54[5], v34, v38);
-  v69 = 2;
-  v40 = v53;
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v41 = v58;
-  v60(v55 + v54[6], v40, v38);
-  v68 = 3;
-  OUTLINED_FUNCTION_13_11();
-  _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(v42, v43);
-  v44 = v57;
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v41 + 32))(v55 + v54[7], v44, v35);
-  v67 = 4;
-  v45 = KeyedDecodingContainer.decode(_:forKey:)();
-  v46 = v66;
-  v47 = v45;
-  v48 = OUTLINED_FUNCTION_61_12();
-  v49(v48);
-  *(v55 + v54[8]) = v47 & 1;
-  outlined init with copy of EditorialDateFormatter.DateInput();
-  __swift_destroy_boxed_opaque_existential_1Tm(v46);
-  v50 = OUTLINED_FUNCTION_37_5();
-  return outlined destroy of EditorialDateFormatter.DateInput(v50, v51);
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EditorialDateFormatter()
-{
-  Hasher.init(_seed:)();
-  EditorialDateFormatter.hash(into:)();
-  return Hasher._finalize()();
-}
-
-void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(void **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
-{
-  v5 = v4;
-  v96 = MEMORY[0x277D84F90];
-  v6 = a3[1];
-  if (v6 >= 1)
-  {
-    v7 = 0;
-    v8 = MEMORY[0x277D84F90];
-    while (1)
-    {
-      v9 = v7;
-      v10 = v7 + 1;
-      if (v7 + 1 < v6)
-      {
-        v11 = (*a3 + 32 * v10);
-        v12 = (*a3 + 32 * v7);
-        if (*v11 == *v12 && v11[1] == v12[1])
-        {
-          v14 = 0;
-        }
-
-        else
-        {
-          v14 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        }
-
-        v10 = v9 + 2;
-        v15 = v12 + 9;
-        while (v10 < v6)
-        {
-          if (*(v15 - 1) == *(v15 - 5) && *v15 == *(v15 - 4))
-          {
-            if (v14)
-            {
-              goto LABEL_21;
-            }
-          }
-
-          else if ((v14 ^ _stringCompareWithSmolCheck(_:_:expecting:)()))
-          {
-            break;
-          }
-
-          ++v10;
-          v15 += 4;
-        }
-
-        if ((v14 & 1) == 0)
-        {
-          goto LABEL_28;
-        }
-
-LABEL_21:
-        if (v10 < v9)
-        {
-          goto LABEL_121;
-        }
-
-        if (v9 < v10)
-        {
-          v17 = 32 * v10 - 16;
-          v18 = 32 * v9 + 24;
-          v19 = v10;
-          v20 = v9;
-          do
-          {
-            if (v20 != --v19)
-            {
-              v21 = *a3;
-              if (!*a3)
-              {
-                goto LABEL_126;
-              }
-
-              v22 = (v21 + v18);
-              v23 = (v21 + v17);
-              v24 = *(v22 - 3);
-              v25 = *(v22 - 1);
-              v26 = *v22;
-              v27 = *v23;
-              *(v22 - 3) = *(v23 - 1);
-              *(v22 - 1) = v27;
-              *(v23 - 1) = v24;
-              *v23 = v25;
-              *(v23 + 1) = v26;
-            }
-
-            ++v20;
-            v17 -= 32;
-            v18 += 32;
-          }
-
-          while (v20 < v19);
-        }
-      }
-
-LABEL_28:
-      v28 = a3[1];
-      if (v10 < v28)
-      {
-        if (__OFSUB__(v10, v9))
-        {
-          goto LABEL_120;
-        }
-
-        if (v10 - v9 < a4)
-        {
-          if (__OFADD__(v9, a4))
-          {
-            goto LABEL_122;
-          }
-
-          if (v9 + a4 >= v28)
-          {
-            v29 = a3[1];
-          }
-
-          else
-          {
-            v29 = v9 + a4;
-          }
-
-          if (v29 < v9)
-          {
-LABEL_123:
-            __break(1u);
-LABEL_124:
-            __break(1u);
-LABEL_125:
-            __break(1u);
-LABEL_126:
-            __break(1u);
-LABEL_127:
-            __break(1u);
-LABEL_128:
-            __break(1u);
-            return;
-          }
-
-          if (v10 != v29)
-          {
-            v30 = *a3;
-            v31 = *a3 + 32 * v10 - 32;
-            v93 = v9;
-            v32 = v9 - v10;
-            do
-            {
-              v33 = v10;
-              v34 = (v30 + 32 * v10);
-              v35 = *v34;
-              v36 = v34[1];
-              v37 = v32;
-              v38 = v31;
-              do
-              {
-                v39 = v35 == *v38 && v36 == *(v38 + 8);
-                if (v39 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-                {
-                  break;
-                }
-
-                if (!v30)
-                {
-                  goto LABEL_124;
-                }
-
-                v35 = *(v38 + 32);
-                v36 = *(v38 + 40);
-                v40 = *(v38 + 48);
-                v41 = *(v38 + 56);
-                v42 = *(v38 + 16);
-                *(v38 + 32) = *v38;
-                *(v38 + 48) = v42;
-                *v38 = v35;
-                *(v38 + 8) = v36;
-                *(v38 + 16) = v40;
-                *(v38 + 24) = v41;
-                v38 -= 32;
-              }
-
-              while (!__CFADD__(v37++, 1));
-              v10 = v33 + 1;
-              v31 += 32;
-              --v32;
-            }
-
-            while (v33 + 1 != v29);
-            v10 = v29;
-            v9 = v93;
-          }
-        }
-      }
-
-      if (v10 < v9)
-      {
-        goto LABEL_119;
-      }
-
-      v92 = v10;
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v87 = v8[2];
-        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v8 = v88;
-      }
-
-      v44 = v8[2];
-      v45 = v44 + 1;
-      if (v44 >= v8[3] >> 1)
-      {
-        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v8 = v89;
-      }
-
-      v8[2] = v45;
-      v46 = v8 + 4;
-      v47 = &v8[2 * v44 + 4];
-      *v47 = v9;
-      v47[1] = v92;
-      v94 = *a1;
-      if (!*a1)
-      {
-        goto LABEL_127;
-      }
-
-      if (v44)
-      {
-        while (1)
-        {
-          v48 = v45 - 1;
-          v49 = &v46[2 * v45 - 2];
-          v50 = &v8[2 * v45];
-          if (v45 >= 4)
-          {
-            break;
-          }
-
-          if (v45 == 3)
-          {
-            v51 = v8[4];
-            v52 = v8[5];
-            v61 = __OFSUB__(v52, v51);
-            v53 = v52 - v51;
-            v54 = v61;
-LABEL_69:
-            if (v54)
-            {
-              goto LABEL_109;
-            }
-
-            v66 = *v50;
-            v65 = v50[1];
-            v67 = __OFSUB__(v65, v66);
-            v68 = v65 - v66;
-            v69 = v67;
-            if (v67)
-            {
-              goto LABEL_112;
-            }
-
-            v70 = v49[1];
-            v71 = v70 - *v49;
-            if (__OFSUB__(v70, *v49))
-            {
-              goto LABEL_115;
-            }
-
-            if (__OFADD__(v68, v71))
-            {
-              goto LABEL_117;
-            }
-
-            if (v68 + v71 >= v53)
-            {
-              if (v53 < v71)
-              {
-                v48 = v45 - 2;
-              }
-
-              goto LABEL_91;
-            }
-
-            goto LABEL_84;
-          }
-
-          if (v45 < 2)
-          {
-            goto LABEL_111;
-          }
-
-          v73 = *v50;
-          v72 = v50[1];
-          v61 = __OFSUB__(v72, v73);
-          v68 = v72 - v73;
-          v69 = v61;
-LABEL_84:
-          if (v69)
-          {
-            goto LABEL_114;
-          }
-
-          v75 = *v49;
-          v74 = v49[1];
-          v61 = __OFSUB__(v74, v75);
-          v76 = v74 - v75;
-          if (v61)
-          {
-            goto LABEL_116;
-          }
-
-          if (v76 < v68)
-          {
-            goto LABEL_98;
-          }
-
-LABEL_91:
-          if (v48 - 1 >= v45)
-          {
-            __break(1u);
-LABEL_104:
-            __break(1u);
-LABEL_105:
-            __break(1u);
-LABEL_106:
-            __break(1u);
-LABEL_107:
-            __break(1u);
-LABEL_108:
-            __break(1u);
-LABEL_109:
-            __break(1u);
-LABEL_110:
-            __break(1u);
-LABEL_111:
-            __break(1u);
-LABEL_112:
-            __break(1u);
-LABEL_113:
-            __break(1u);
-LABEL_114:
-            __break(1u);
-LABEL_115:
-            __break(1u);
-LABEL_116:
-            __break(1u);
-LABEL_117:
-            __break(1u);
-LABEL_118:
-            __break(1u);
-LABEL_119:
-            __break(1u);
-LABEL_120:
-            __break(1u);
-LABEL_121:
-            __break(1u);
-LABEL_122:
-            __break(1u);
-            goto LABEL_123;
-          }
-
-          if (!*a3)
-          {
-            goto LABEL_125;
-          }
-
-          v80 = &v46[2 * v48 - 2];
-          v81 = *v80;
-          v82 = &v46[2 * v48];
-          v83 = v82[1];
-          specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 32 * *v80), (*a3 + 32 * *v82), (*a3 + 32 * v83), v94);
-          if (v5)
-          {
-            goto LABEL_102;
-          }
-
-          if (v83 < v81)
-          {
-            goto LABEL_104;
-          }
-
-          v84 = v8;
-          v85 = v8[2];
-          if (v48 > v85)
-          {
-            goto LABEL_105;
-          }
-
-          *v80 = v81;
-          v80[1] = v83;
-          if (v48 >= v85)
-          {
-            goto LABEL_106;
-          }
-
-          v45 = v85 - 1;
-          memmove(&v46[2 * v48], v82 + 2, 16 * (v85 - 1 - v48));
-          v84[2] = v85 - 1;
-          v86 = v85 > 2;
-          v8 = v84;
-          v5 = 0;
-          if (!v86)
-          {
-            goto LABEL_98;
-          }
-        }
-
-        v55 = &v46[2 * v45];
-        v56 = *(v55 - 8);
-        v57 = *(v55 - 7);
-        v61 = __OFSUB__(v57, v56);
-        v58 = v57 - v56;
-        if (v61)
-        {
-          goto LABEL_107;
-        }
-
-        v60 = *(v55 - 6);
-        v59 = *(v55 - 5);
-        v61 = __OFSUB__(v59, v60);
-        v53 = v59 - v60;
-        v54 = v61;
-        if (v61)
-        {
-          goto LABEL_108;
-        }
-
-        v62 = v50[1];
-        v63 = v62 - *v50;
-        if (__OFSUB__(v62, *v50))
-        {
-          goto LABEL_110;
-        }
-
-        v61 = __OFADD__(v53, v63);
-        v64 = v53 + v63;
-        if (v61)
-        {
-          goto LABEL_113;
-        }
-
-        if (v64 >= v58)
-        {
-          v78 = *v49;
-          v77 = v49[1];
-          v61 = __OFSUB__(v77, v78);
-          v79 = v77 - v78;
-          if (v61)
-          {
-            goto LABEL_118;
-          }
-
-          if (v53 < v79)
-          {
-            v48 = v45 - 2;
-          }
-
-          goto LABEL_91;
-        }
-
-        goto LABEL_69;
-      }
-
-LABEL_98:
-      v6 = a3[1];
-      v7 = v92;
-      if (v92 >= v6)
-      {
-        v96 = v8;
-        break;
-      }
-    }
-  }
-
-  if (!*a1)
-  {
-    goto LABEL_128;
-  }
-
-  specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(&v96, *a1, a3);
-LABEL_102:
-}
-
-uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(uint64_t *a1, void *a2, void *a3)
-{
-  v4 = a1;
-  v5 = *a1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if ((result & 1) == 0)
-  {
-LABEL_14:
-    result = specialized _ArrayBuffer._consumeAndCreateNew()(v5);
-    v5 = result;
-  }
-
-  v14 = v4;
-  *v4 = v5;
-  v7 = (v5 + 16);
-  for (i = *(v5 + 16); ; *v7 = i)
-  {
-    v4 = (i - 2);
-    if (i < 2)
-    {
-LABEL_10:
-      *v14 = v5;
-      return 1;
-    }
-
-    if (!*a3)
-    {
-      break;
-    }
-
-    v9 = (v5 + 16 * i);
-    v10 = *v9;
-    v11 = &v7[2 * i];
-    v12 = v11[1];
-    specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 32 * *v9), (*a3 + 32 * *v11), (*a3 + 32 * v12), a2);
-    if (v3)
-    {
-      goto LABEL_10;
-    }
-
-    if (v12 < v10)
-    {
-      __break(1u);
-LABEL_12:
-      __break(1u);
-LABEL_13:
-      __break(1u);
-      goto LABEL_14;
-    }
-
-    if (v4 >= *v7)
-    {
-      goto LABEL_12;
-    }
-
-    *v9 = v10;
-    v9[1] = v12;
-    v13 = *v7 - i;
-    if (*v7 < i)
-    {
-      goto LABEL_13;
-    }
-
-    i = *v7 - 1;
-    result = memmove(v11, v11 + 2, 16 * v13);
-  }
-
-  *v14 = v5;
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(_OWORD *a1, void *a2, _OWORD *a3, void *a4)
-{
-  v5 = a3;
-  v6 = a2;
-  v7 = a1;
-  v8 = (a2 - a1) / 32;
-  v9 = (a3 - a2) / 32;
-  if (v8 < v9)
-  {
-    specialized UnsafeMutablePointer.moveInitialize(from:count:)(a1);
-    v10 = &a4[4 * v8];
-    while (1)
-    {
-      if (a4 >= v10 || v6 >= v5)
-      {
-        v6 = v7;
-        goto LABEL_36;
-      }
-
-      v12 = *v6 == *a4 && v6[1] == a4[1];
-      if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-      {
-        break;
-      }
-
-      v13 = v6;
-      v12 = v7 == v6;
-      v6 += 4;
-      if (!v12)
-      {
-        goto LABEL_16;
-      }
-
-LABEL_17:
-      v7 += 2;
-    }
-
-    v13 = a4;
-    v12 = v7 == a4;
-    a4 += 4;
-    if (v12)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_16:
-    v14 = v13[1];
-    *v7 = *v13;
-    v7[1] = v14;
-    goto LABEL_17;
-  }
-
-  specialized UnsafeMutablePointer.moveInitialize(from:count:)(a2);
-  v10 = &a4[4 * v9];
-LABEL_19:
-  v15 = v6 - 4;
-  for (v5 -= 2; v10 > a4 && v6 > v7; v5 -= 2)
-  {
-    v17 = *(v10 - 4) == *(v6 - 4) && *(v10 - 3) == *(v6 - 3);
-    if (!v17 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-    {
-      v12 = v5 + 2 == v6;
-      v6 -= 4;
-      if (!v12)
-      {
-        v19 = v15[1];
-        *v5 = *v15;
-        v5[1] = v19;
-        v6 = v15;
-      }
-
-      goto LABEL_19;
-    }
-
-    if (v10 != (v5 + 2))
-    {
-      v18 = *(v10 - 1);
-      *v5 = *(v10 - 2);
-      v5[1] = v18;
-    }
-
-    v10 -= 4;
-  }
-
-LABEL_36:
-  v20 = (v10 - a4) / 32;
-  if (v6 != a4 || v6 >= &a4[4 * v20])
-  {
-    memmove(v6, a4, 32 * v20);
-  }
-
-  return 1;
-}
-
-uint64_t _s10Foundation4DateV11FormatStyleVAeadAWlTm_0(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys;
-  if (!lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys;
-  if (!lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys;
-  if (!lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys;
-  if (!lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type EditorialDateFormatter.CodingKeys and conformance EditorialDateFormatter.CodingKeys);
-  }
-
-  return result;
-}
-
-uint64_t outlined init with copy of EditorialDateFormatter.DateInput()
-{
-  OUTLINED_FUNCTION_134();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_17(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_94();
-  v6(v5);
-  return v0;
-}
-
-uint64_t outlined destroy of EditorialDateFormatter.DateInput(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  OUTLINED_FUNCTION_17(v3);
-  (*(v4 + 8))(a1);
-  return a1;
-}
-
-unint64_t lazy protocol witness table accessor for type LLMFormatter and conformance LLMFormatter()
-{
-  result = lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter;
-  if (!lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter;
-  if (!lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter;
-  if (!lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LLMFormatter and conformance LLMFormatter);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type LLMFormatter.StringInterpolation and conformance LLMFormatter.StringInterpolation()
-{
-  result = lazy protocol witness table cache variable for type LLMFormatter.StringInterpolation and conformance LLMFormatter.StringInterpolation;
-  if (!lazy protocol witness table cache variable for type LLMFormatter.StringInterpolation and conformance LLMFormatter.StringInterpolation)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type LLMFormatter.StringInterpolation and conformance LLMFormatter.StringInterpolation);
-  }
-
-  return result;
-}
-
-uint64_t type metadata completion function for EditorialDateFormatter()
-{
-  result = type metadata accessor for Date();
-  if (v1 <= 0x3F)
-  {
-    result = type metadata accessor for Calendar();
-    if (v2 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-void type metadata completion function for EditorialDateFormatter.DateInput()
-{
-  type metadata accessor for Date();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for String?();
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-    }
-  }
-}
-
-uint64_t getEnumTagSinglePayload for EditorialDateFormatter.ComponentOptions(unsigned __int8 *a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 >= 0xFF && a1[4])
-    {
-      v2 = *a1 + 254;
-    }
-
-    else
-    {
-      v3 = *a1;
-      v4 = v3 >= 2;
-      v2 = (v3 + 2147483646) & 0x7FFFFFFF;
-      if (!v4)
-      {
-        v2 = -1;
-      }
-    }
-  }
-
-  else
-  {
-    v2 = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for EditorialDateFormatter.ComponentOptions(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 4) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 4) = 0;
-    }
-
-    if (a2)
-    {
-      *result = a2 + 1;
-    }
-  }
-
-  return result;
-}
-
-_BYTE *storeEnumTagSinglePayload for EditorialDateFormatter.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 4 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 4) >> 8 < 0xFF)
   {
     v4 = 1;
   }
 
-  else
+  v6 = *(v0 + 96);
+  v5 = *(v0 + 104);
+  v7 = *(v0 + 72);
+  __swift_storeEnumTagSinglePayload(v6, v4, 1, v7);
+  outlined init with take of URL?(v6, v5);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v5, 1, v7);
+  v9 = *(v0 + 104);
+  v10 = *(v0 + 112);
+  if (EnumTagSinglePayload)
   {
-    v4 = v3;
+
+    outlined destroy of EagerResolutionService?(v9, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    goto LABEL_8;
   }
 
-  if (a3 >= 0xFC)
-  {
-    v5 = v4;
-  }
+  (*(*(v0 + 80) + 16))(*(v0 + 88), *(v0 + 104), *(v0 + 72));
+  outlined destroy of EagerResolutionService?(v9, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v13 = URL.absoluteString.getter();
+  v15 = v14;
+  v16 = OUTLINED_FUNCTION_54_0();
+  v17(v16);
+  *(v0 + 16) = v13;
+  *(v0 + 24) = v15;
+  lazy protocol witness table accessor for type String and conformance String();
+  v11 = StringProtocol.removingPercentEncoding.getter();
+  v12 = v18;
 
-  else
-  {
-    v5 = 0;
-  }
+LABEL_10:
 
-  if (a2 > 0xFB)
-  {
-    v6 = ((a2 - 252) >> 8) + 1;
-    *result = a2 + 4;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
+  OUTLINED_FUNCTION_32_5();
 
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 4;
-        }
-
-        break;
-    }
-  }
-
-  return result;
+  return v19(v11, v12);
 }
 
-__n128 __swift_memcpy40_8(uint64_t a1, uint64_t a2)
+uint64_t EmailContentManager.mailURLFromId(_:networkUsage:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
-  result = *a2;
-  v3 = *(a2 + 16);
-  *(a1 + 32) = *(a2 + 32);
-  *a1 = result;
-  *(a1 + 16) = v3;
-  return result;
+  OUTLINED_FUNCTION_78();
+  v21 = v20[7];
+  v22 = [*(v20[8] + 16) messageRepository];
+  v23 = OUTLINED_FUNCTION_94();
+  v24 = MEMORY[0x25F89F4C0](v23);
+  v25 = [v22 messageForSearchableItemIdentifier_];
+
+  v26 = [v25 result];
+  v20[14] = v26;
+
+  v27 = swift_task_alloc();
+  v20[15] = v27;
+  *(v27 + 16) = v26;
+  *(v27 + 24) = v21;
+  v28 = swift_task_alloc();
+  v20[16] = v28;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo23EMContentRepresentationCSgMd, &_sSo23EMContentRepresentationCSgMR);
+  *v28 = v20;
+  v28[1] = EmailContentManager.mailURLFromId(_:networkUsage:);
+  OUTLINED_FUNCTION_69();
+
+  return MEMORY[0x2822007B8](v29, v30, v31, 0xD00000000000001ELL, v32, v33, v27, v34, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
 }
 
-uint64_t getEnumTagSinglePayload for TextSanitizer(uint64_t a1, int a2)
+void closure #1 in EmailContentManager.mailURLFromId(_:networkUsage:)(uint64_t a1, void *a2, uint64_t a3)
 {
-  if (a2)
-  {
-    if (a2 < 0 && *(a1 + 40))
-    {
-      LODWORD(v2) = *a1 + 0x7FFFFFFF;
-    }
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo23EMContentRepresentationCSgs5NeverOGMd, &_sScCySo23EMContentRepresentationCSgs5NeverOGMR);
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = aBlock - v8;
+  v10 = [objc_opt_self() optionsWithRequestedRepresentationType:*MEMORY[0x277D06BA0] networkUsage:a3 includeSuggestions:2];
+  (*(v7 + 16))(v9, a1, v6);
+  v11 = (*(v7 + 80) + 16) & ~*(v7 + 80);
+  v12 = swift_allocObject();
+  (*(v7 + 32))(v12 + v11, v9, v6);
+  aBlock[4] = partial apply for closure #1 in closure #1 in EmailContentManager.mailURLFromId(_:networkUsage:);
+  aBlock[5] = v12;
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed EMContentRepresentation?, @guaranteed Error?) -> ();
+  aBlock[3] = &block_descriptor_27;
+  v13 = _Block_copy(aBlock);
 
-    else
-    {
-      v2 = *(a1 + 8);
-      if (v2 >= 0xFFFFFFFF)
-      {
-        LODWORD(v2) = -1;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
+  v14 = [a2 requestRepresentationWithOptions:v10 completionHandler:v13];
+  _Block_release(v13);
 }
 
-uint64_t storeEnumTagSinglePayload for TextSanitizer(uint64_t result, int a2, int a3)
+uint64_t closure #1 in closure #1 in EmailContentManager.mailURLFromId(_:networkUsage:)(void *a1)
 {
-  if (a2 < 0)
-  {
-    *(result + 8) = 0u;
-    *(result + 24) = 0u;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 40) = 1;
-    }
-  }
+  v1 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySo23EMContentRepresentationCSgs5NeverOGMd, &_sScCySo23EMContentRepresentationCSgs5NeverOGMR);
+  return CheckedContinuation.resume(returning:)();
+}
 
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
+void thunk for @escaping @callee_guaranteed (@guaranteed EMContentRepresentation?, @guaranteed Error?) -> ()(uint64_t a1, void *a2, void *a3)
+{
+  v5 = *(a1 + 32);
 
-LABEL_8:
-      *(result + 8) = (a2 - 1);
-      return result;
+  v7 = a2;
+  v6 = a3;
+  v5(a2, a3);
+}
+
+uint64_t EmailContentManager.mailIDForMailURL(_:)()
+{
+  OUTLINED_FUNCTION_48();
+  v1[3] = v2;
+  v1[4] = v0;
+  v1[2] = v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_114(v4);
+  v1[5] = OUTLINED_FUNCTION_199();
+  v5 = type metadata accessor for URL();
+  v1[6] = v5;
+  OUTLINED_FUNCTION_21(v5);
+  v1[7] = v6;
+  v1[8] = OUTLINED_FUNCTION_199();
+  v7 = OUTLINED_FUNCTION_29();
+
+  return MEMORY[0x2822009F8](v7);
+}
+
+{
+  OUTLINED_FUNCTION_159();
+  v1 = v0[5];
+  v2 = v0[6];
+  URL.init(string:)();
+  if (__swift_getEnumTagSinglePayload(v1, 1, v2) == 1)
+  {
+    outlined destroy of EagerResolutionService?(v0[5], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    if (one-time initialization token for answerSynthesis != -1)
+    {
+      OUTLINED_FUNCTION_7_1(&one-time initialization token for answerSynthesis);
     }
 
-    *(result + 40) = 0;
-    if (a2)
+    v3 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_200(v3, static Logging.answerSynthesis);
+
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.error.getter();
+
+    if (os_log_type_enabled(v4, v5))
     {
-      goto LABEL_8;
+      OUTLINED_FUNCTION_28_3();
+      v6 = swift_slowAlloc();
+      v29 = OUTLINED_FUNCTION_49_0();
+      *v6 = 136315138;
+      *(v6 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+      _os_log_impl(&dword_25D85C000, v4, v5, "Can't convert to URL: %s", v6, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v29);
+      OUTLINED_FUNCTION_42_0();
+      OUTLINED_FUNCTION_42_0();
     }
-  }
 
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_21_16()
-{
-
-  return StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-}
-
-uint64_t OUTLINED_FUNCTION_29_11()
-{
-
-  return KeyedEncodingContainer.encode<A>(_:forKey:)();
-}
-
-uint64_t OUTLINED_FUNCTION_39_13()
-{
-  v1 = *(*(v0 - 120) + 24);
-  v2 = *(*(v0 - 112) + 1);
-  result = *(v0 - 152);
-  v4 = *(v0 - 128);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_44_15()
-{
-  v1 = *(v0 - 132) & 1;
-  v2 = *(v0 - 144);
-  return *(v0 - 152);
-}
-
-void OUTLINED_FUNCTION_48_9()
-{
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-uint64_t OUTLINED_FUNCTION_55_10()
-{
-
-  return dispatch thunk of Hashable.hash(into:)();
-}
-
-uint64_t OUTLINED_FUNCTION_56_9()
-{
-
-  return BidirectionalCollection<>.joined(separator:)();
-}
-
-void OUTLINED_FUNCTION_57_9()
-{
-
-  JUMPOUT(0x25F89F6C0);
-}
-
-uint64_t OUTLINED_FUNCTION_61_12()
-{
-  v2 = *(v0 + 8);
-  v4 = *(v1 - 104);
-  return *(v1 - 96);
-}
-
-uint64_t OUTLINED_FUNCTION_67_11()
-{
-  v1 = *(v0 - 160);
-  result = *(v0 - 200);
-  v3 = *(v0 - 192);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_75_9()
-{
-  v2 = *(*(v1 - 232) + 8);
-  result = v0;
-  v4 = *(v1 - 216);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_77_8()
-{
-
-  return outlined init with copy of EagerResolutionService?();
-}
-
-uint64_t OUTLINED_FUNCTION_79_10()
-{
-
-  return LLMFormatter.StringInterpolation.appendInterpolation(_:)();
-}
-
-Swift::String __swiftcall SearchResultItem.llmConsumableDescription(locale:)(Swift::String_optional locale)
-{
-  object = locale.value._object;
-  countAndFlagsBits = locale.value._countAndFlagsBits;
-  SearchResultItem.associatedValue.getter(v8);
-  v3 = v9;
-  v4 = v10;
-  __swift_project_boxed_opaque_existential_1(v8, v9);
-  (*(v4 + 56))(countAndFlagsBits, object, v3, v4);
-  __swift_destroy_boxed_opaque_existential_1Tm(v8);
-  v5 = OUTLINED_FUNCTION_94();
-  result._object = v6;
-  result._countAndFlagsBits = v5;
-  return result;
-}
-
-uint64_t specialized EnumeratedSequence.Iterator.next()@<X0>(uint64_t a1@<X8>)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_15OmniSearchTypes5PhotoV7elementtMd, &_sSi6offset_15OmniSearchTypes5PhotoV7elementtMR);
-  v4 = *(*(v3 - 8) + 64);
-  result = MEMORY[0x28223BE20](v3);
-  v7 = &v17 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v10 = *(*v1 + 16);
-  if (v9 == v10)
-  {
-
-    return __swift_storeEnumTagSinglePayload(a1, 1, 1, v3);
+    v7 = 0;
   }
 
   else
   {
-    if (v9 >= v10)
+    v8 = v0[4];
+    (*(v0[7] + 32))(v0[8], v0[5], v0[6]);
+    v9 = *(v8 + 16);
+    v10 = [v9 messageRepository];
+    URL._bridgeToObjectiveC()(v11);
+    v13 = v12;
+    v14 = [v10 messageObjectIDForURL_];
+
+    v15 = [v14 result];
+    v16 = [v9 messageRepository];
+    v17 = [v16 messageForObjectID_];
+
+    v18 = [v17 result];
+    v19 = [v18 searchableMessageID];
+    v7 = v19;
+    if (v19)
     {
-      __break(1u);
+      v20 = [v19 stringValue];
+
+      v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v22 = v21;
+
+      v23 = OUTLINED_FUNCTION_54_0();
+      v24(v23);
+      goto LABEL_11;
     }
 
-    else
-    {
-      v11 = type metadata accessor for Photo();
-      v12 = *(v11 - 8);
-      v13 = *(v12 + 16);
-      v14 = v8 + ((*(v12 + 80) + 32) & ~*(v12 + 80)) + *(v12 + 72) * v9;
-      v1[1] = v9 + 1;
-      v15 = *(v3 + 48);
-      v16 = v1[2];
-      *v7 = v16;
-      result = v13(&v7[v15], v14, v11);
-      if (!__OFADD__(v16, 1))
-      {
-        v1[2] = v16 + 1;
-        outlined init with take of SearchResultItem?(v7, a1, &_sSi6offset_15OmniSearchTypes5PhotoV7elementtMd, &_sSi6offset_15OmniSearchTypes5PhotoV7elementtMR);
-        return __swift_storeEnumTagSinglePayload(a1, 0, 1, v3);
-      }
-    }
-
-    __break(1u);
+    v25 = OUTLINED_FUNCTION_54_0();
+    v26(v25);
   }
 
-  return result;
-}
+  v22 = 0;
+LABEL_11:
 
-uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  v2 = MEMORY[0x277D84F90];
-  if (v1)
-  {
-    v14 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v2 = v14;
-    v4 = (a1 + 40);
-    do
-    {
-      v9 = *(v4 - 1);
-      v10 = *v4;
+  OUTLINED_FUNCTION_32_5();
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pSgMd, &_ss23CustomStringConvertible_pSgMR);
-      swift_dynamicCast();
-      v6 = *(v14 + 16);
-      v5 = *(v14 + 24);
-      if (v6 >= v5 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v5 > 1, v6 + 1, 1);
-      }
-
-      *(v14 + 16) = v6 + 1;
-      v7 = v14 + 40 * v6;
-      *(v7 + 64) = v13;
-      *(v7 + 32) = v11;
-      *(v7 + 48) = v12;
-      v4 += 2;
-      --v1;
-    }
-
-    while (v1);
-  }
-
-  return v2;
-}
-
-{
-  v1 = *(a1 + 16);
-  v2 = MEMORY[0x277D84F90];
-  if (v1)
-  {
-    v17 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v4 = (a1 + 56);
-    v2 = v17;
-    do
-    {
-      v9 = *(v4 - 3);
-      v10 = *(v4 - 2);
-      v11 = *(v4 - 1);
-      v12 = *v4;
-
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_SStMd, &_sSS_SStMR);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS8bundleId_SS03docB0tMd, &_sSS8bundleId_SS03docB0tMR);
-      swift_dynamicCast();
-      v6 = *(v17 + 16);
-      v5 = *(v17 + 24);
-      if (v6 >= v5 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), v6 + 1, 1);
-      }
-
-      *(v17 + 16) = v6 + 1;
-      v7 = (v17 + 32 * v6);
-      v7[4] = v13;
-      v7[5] = v14;
-      v7[6] = v15;
-      v7[7] = v16;
-      v4 += 4;
-      --v1;
-    }
-
-    while (v1);
-  }
-
-  return v2;
+  return v27(v7, v22);
 }

@@ -57,14 +57,14 @@
 
   if (v7 && (_CPLSilentLogging & 1) == 0)
   {
-    v8 = sub_100003B84();
-    if (sub_100003424(v8))
+    v9 = sub_100003B84(v8);
+    if (sub_100003424(v9))
     {
       recordType = [v6 recordType];
       recordID = [v6 recordID];
       cplFullDescription = [recordID cplFullDescription];
       sub_100013990();
-      _os_log_impl(v11, v12, v13, v14, v15, 0x16u);
+      _os_log_impl(v12, v13, v14, v15, v16, 0x16u);
     }
   }
 
@@ -76,30 +76,31 @@
   recordCopy = record;
   dCopy = d;
   v9 = [recordCopy cpl_destinationRecordIDInPrivateScopeWithCurrentUserRecordID:self->_userRecordID proposedDestinationRecordID:dCopy];
-  if (([v9 isEqual:dCopy] & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+  v10 = [v9 isEqual:dCopy];
+  if ((v10 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_100003B84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100003B84(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       recordID = [recordCopy recordID];
       cplFullDescription = [recordID cplFullDescription];
       cplFullDescription2 = [v9 cplFullDescription];
       cplFullDescription3 = [dCopy cplFullDescription];
-      v19 = 138412802;
-      v20 = cplFullDescription;
-      v21 = 2112;
-      v22 = cplFullDescription2;
-      v23 = 2112;
-      v24 = cplFullDescription3;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Moving %@ to %@ instead of %@", &v19, 0x20u);
+      v20 = 138412802;
+      v21 = cplFullDescription;
+      v22 = 2112;
+      v23 = cplFullDescription2;
+      v24 = 2112;
+      v25 = cplFullDescription3;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Moving %@ to %@ instead of %@", &v20, 0x20u);
     }
   }
 
-  v15 = [CKRecord alloc];
+  v16 = [CKRecord alloc];
   recordType = [recordCopy recordType];
-  v17 = [v15 initWithRecordType:recordType recordID:v9];
+  v18 = [v16 initWithRecordType:recordType recordID:v9];
 
-  return v17;
+  return v18;
 }
 
 @end

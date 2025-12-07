@@ -47,7 +47,7 @@
 
 - (BOOL)removeSync
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_syncs count])
   {
     v3 = objc_autoreleasePoolPush();
@@ -57,13 +57,13 @@
       v5 = HMFGetLogIdentifier();
       identifier = [(HMDWatchSyncState *)self identifier];
       v7 = [(NSMutableArray *)self->_syncs objectAtIndex:0];
-      v11 = 138543874;
-      v12 = v5;
-      v13 = 2112;
-      v14 = identifier;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@%@ Removing sync option %@, marking sync complete", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = v5;
+      v12 = 2112;
+      v13 = identifier;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@%@ Removing sync option %@, marking sync complete", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -72,35 +72,33 @@
     [pairedSync syncComplete];
   }
 
-  result = [(NSMutableArray *)self->_syncs count]!= 0;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(NSMutableArray *)self->_syncs count]!= 0;
 }
 
 - (void)addNewSync:(id)sync
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   syncCopy = sync;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   pairedSync2 = self->_syncs;
-  v6 = [(NSMutableArray *)pairedSync2 countByEnumeratingWithState:&v36 objects:v46 count:16];
+  v6 = [(NSMutableArray *)pairedSync2 countByEnumeratingWithState:&v35 objects:v45 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v37;
+    v8 = *v36;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v37 != v8)
+        if (*v36 != v8)
         {
           objc_enumerationMutation(pairedSync2);
         }
 
-        v10 = *(*(&v36 + 1) + 8 * i);
+        v10 = *(*(&v35 + 1) + 8 * i);
         if (([v10 inProgress] & 1) == 0)
         {
           v17 = +[HMDWatchSyncState isNewBetter:present:](HMDWatchSyncState, "isNewBetter:present:", [syncCopy syncOption], objc_msgSend(v10, "syncOption"));
@@ -125,11 +123,11 @@
 
               v33 = v23;
               *buf = 138543874;
-              v41 = v21;
-              v42 = 2112;
-              v43 = v10;
-              v44 = 2112;
-              v45 = v33;
+              v40 = v21;
+              v41 = 2112;
+              v42 = v10;
+              v43 = 2112;
+              v44 = v33;
               _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Upgrading %@ with %@", buf, 0x20u);
             }
 
@@ -155,11 +153,11 @@
 
               v34 = v26;
               *buf = 138543874;
-              v41 = v24;
-              v42 = 2112;
-              v43 = v10;
-              v44 = 2112;
-              v45 = v34;
+              v40 = v24;
+              v41 = 2112;
+              v42 = v10;
+              v43 = 2112;
+              v44 = v34;
               _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Not upgrading %@ with %@", buf, 0x20u);
             }
 
@@ -170,7 +168,7 @@
         }
       }
 
-      v7 = [(NSMutableArray *)pairedSync2 countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v7 = [(NSMutableArray *)pairedSync2 countByEnumeratingWithState:&v35 objects:v45 count:16];
       if (v7)
       {
         continue;
@@ -199,11 +197,11 @@
 
     v27 = v16;
     *buf = 138543874;
-    v41 = v13;
-    v42 = 2112;
-    v43 = identifier;
-    v44 = 2112;
-    v45 = v27;
+    v40 = v13;
+    v41 = 2112;
+    v42 = identifier;
+    v43 = 2112;
+    v44 = v27;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@%@ Adding the sync option: %@", buf, 0x20u);
   }
 
@@ -220,9 +218,9 @@
       v31 = HMFGetLogIdentifier();
       identifier2 = [(HMDWatchSyncState *)self identifier];
       *buf = 138543618;
-      v41 = v31;
-      v42 = 2112;
-      v43 = identifier2;
+      v40 = v31;
+      v41 = 2112;
+      v42 = identifier2;
       _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@%@ Need to sync to watch", buf, 0x16u);
     }
 
@@ -231,8 +229,6 @@
     [(NSMutableArray *)pairedSync2 needToSync];
 LABEL_31:
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)identifier
@@ -264,7 +260,7 @@ LABEL_31:
   v8 = [(HMDWatchSyncState *)&v14 init];
   if (v8)
   {
-    v9 = [idCopy copy];
+    v9 = objc_msgSend_copy(idCopy);
     deviceId = v8->_deviceId;
     v8->_deviceId = v9;
 

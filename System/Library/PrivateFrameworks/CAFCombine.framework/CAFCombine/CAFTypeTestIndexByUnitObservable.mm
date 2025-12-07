@@ -25,22 +25,23 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFTypeTestIndexByUnitObservable.typeTestIndexByUnitService(_:didUpdateDistanceUnitRawValue:)();
+  CAFTypeTestIndexByUnitObservable.typeTestIndexByUnitService(_:didUpdateDistanceUnitRawValue:)(selfCopy, value);
 }
 
 - (void)typeTestIndexByUnitService:(id)service didUpdateTestInt32:(int)int32
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFTypeTestIndexByUnitObservable.typeTestIndexByUnitService(_:didUpdateTestInt32:)();
+  CAFTypeTestIndexByUnitObservable.typeTestIndexByUnitService(_:didUpdateTestInt32:)(selfCopy, int32);
 }
 
 - (void)typeTestIndexByUnitService:(id)service didUpdateName:(id)name
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFTypeTestIndexByUnitObservable.typeTestIndexByUnitService(_:didUpdateName:)();
+  CAFTypeTestIndexByUnitObservable.typeTestIndexByUnitService(_:didUpdateName:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

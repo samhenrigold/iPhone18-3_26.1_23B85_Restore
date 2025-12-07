@@ -3,97 +3,79 @@
 
 @implementation _GCAppClientProxy(GCPhotoVideoXPCProxyService)
 
-- (void)onVideoRecordingStopWithURL:()GCPhotoVideoXPCProxyService reply:.cold.1()
+- (void)onVideoRecordingStopWithURL:()GCPhotoVideoXPCProxyService reply:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.1()
+- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.2()
+- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.3()
+- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.4()
+- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.4(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
     _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.5()
+- (void)generateURLFor:()GCPhotoVideoXPCProxyService withReply:.cold.5(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getGCLogger(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_8();
     OUTLINED_FUNCTION_1_0();
     _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-- (void)takeScreenshotWithReply:()GCPhotoVideoXPCProxyService .cold.1()
+- (void)takeScreenshotWithReply:()GCPhotoVideoXPCProxyService .cold.1(uint64_t a1)
 {
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 

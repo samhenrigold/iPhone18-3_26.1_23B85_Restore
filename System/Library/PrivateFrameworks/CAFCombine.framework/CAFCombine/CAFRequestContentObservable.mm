@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFRequestContentObservable.requestContentService(_:didUpdateOn:)();
+  CAFRequestContentObservable.requestContentService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)requestContentService:(id)service didUpdateUserDismissible:(BOOL)dismissible
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFRequestContentObservable.requestContentService(_:didUpdateUserDismissible:)();
+  CAFRequestContentObservable.requestContentService(_:didUpdateUserDismissible:)(selfCopy, dismissible);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

@@ -1,8 +1,14 @@
 @interface ADUserTargetingProperties
 - (BOOL)isEqual:(id)equal;
+- (id)accountStatesAsString:(int)string;
+- (id)accountTypesAsString:(int)string;
+- (id)connectionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)deviceModesAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)overrideTypeAsString:(int)string;
+- (id)runStateAsString:(int)string;
 - (int)StringAsAccountStates:(id)states;
 - (int)StringAsAccountTypes:(id)types;
 - (int)StringAsConnectionType:(id)type;
@@ -90,6 +96,21 @@
   *&self->_has = *&self->_has & 0xFEFF | v3;
 }
 
+- (id)runStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C554F8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRunState:(id)state
 {
   stateCopy = state;
@@ -165,6 +186,21 @@
   return p_deviceModes->list[index];
 }
 
+- (id)deviceModesAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C55510[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDeviceModes:(id)modes
 {
   modesCopy = modes;
@@ -205,6 +241,21 @@
   }
 
   return p_accountTypes->list[index];
+}
+
+- (id)accountTypesAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C55528[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAccountTypes:(id)types
@@ -394,6 +445,21 @@
   *&self->_has = *&self->_has & 0xFFF7 | v3;
 }
 
+- (id)connectionTypeAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C55568[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsConnectionType:(id)type
 {
   typeCopy = type;
@@ -476,6 +542,21 @@
   return p_accountStates->list[index];
 }
 
+- (id)accountStatesAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C555C0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsAccountStates:(id)states
 {
   statesCopy = states;
@@ -530,6 +611,26 @@
   *&self->_has = *&self->_has & 0xFF7F | v3;
 }
 
+- (id)overrideTypeAsString:(int)string
+{
+  if (string == 11000)
+  {
+    v4 = @"NoOverride";
+  }
+
+  else if (string == 11001)
+  {
+    v4 = @"ODMLData";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsOverrideType:(id)type
 {
   typeCopy = type;
@@ -564,7 +665,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -755,30 +856,30 @@ LABEL_46:
   if ([(NSMutableArray *)self->_targetings count])
   {
     v31 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_targetings, "count")}];
+    v69 = 0u;
     v70 = 0u;
     v71 = 0u;
     v72 = 0u;
-    v73 = 0u;
     v32 = self->_targetings;
-    v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v70 objects:v74 count:16];
+    v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v69 objects:v73 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v71;
+      v35 = *v70;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v71 != v35)
+          if (*v70 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          dictionaryRepresentation = [*(*(&v70 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v69 + 1) + 8 * i) dictionaryRepresentation];
           [v31 addObject:dictionaryRepresentation];
         }
 
-        v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v70 objects:v74 count:16];
+        v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v69 objects:v73 count:16];
       }
 
       while (v34);
@@ -962,17 +1063,15 @@ LABEL_46:
 
   v67 = dictionary;
 
-  v68 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    clientClockTime = self->_clientClockTime;
     PBDataWriterWriteDoubleField();
   }
 
@@ -989,14 +1088,12 @@ LABEL_46:
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    timezone = self->_timezone;
     PBDataWriterWriteFloatField();
     has = self->_has;
   }
 
   if ((has & 0x100) != 0)
   {
-    runState = self->_runState;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1020,77 +1117,72 @@ LABEL_46:
     PBDataWriterWriteStringField();
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v9 = self->_userKeyboards;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v43 objects:v48 count:16];
-  if (v10)
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v6 = self->_userKeyboards;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v44;
+    v8 = v7;
+    v9 = *v26;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v44 != v12)
+        if (*v26 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v43 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    appsRank = self->_appsRank;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_deviceModes.count)
   {
-    v16 = 0;
+    v11 = 0;
     do
     {
-      v17 = self->_deviceModes.list[v16];
       PBDataWriterWriteInt32Field();
-      ++v16;
+      ++v11;
     }
 
-    while (v16 < self->_deviceModes.count);
+    while (v11 < self->_deviceModes.count);
   }
 
   if (self->_accountTypes.count)
   {
-    v18 = 0;
+    v12 = 0;
     do
     {
-      v19 = self->_accountTypes.list[v18];
       PBDataWriterWriteInt32Field();
-      ++v18;
+      ++v12;
     }
 
-    while (v18 < self->_accountTypes.count);
+    while (v12 < self->_accountTypes.count);
   }
 
-  v20 = self->_has;
-  if ((v20 & 0x20) != 0)
+  v13 = self->_has;
+  if ((v13 & 0x20) != 0)
   {
-    latitude = self->_latitude;
     PBDataWriterWriteFloatField();
-    v20 = self->_has;
-    if ((v20 & 0x40) == 0)
+    v13 = self->_has;
+    if ((v13 & 0x40) == 0)
     {
 LABEL_36:
-      if ((v20 & 0x10) == 0)
+      if ((v13 & 0x10) == 0)
       {
         goto LABEL_38;
       }
@@ -1099,17 +1191,15 @@ LABEL_36:
     }
   }
 
-  else if ((v20 & 0x40) == 0)
+  else if ((v13 & 0x40) == 0)
   {
     goto LABEL_36;
   }
 
-  longitude = self->_longitude;
   PBDataWriterWriteFloatField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_37:
-    horizontalAccuracy = self->_horizontalAccuracy;
     PBDataWriterWriteFloatField();
   }
 
@@ -1119,38 +1209,36 @@ LABEL_38:
     PBDataWriterWriteStringField();
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v22 = self->_targetings;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v39 objects:v47 count:16];
-  if (v23)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v14 = self->_targetings;
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  if (v15)
   {
-    v24 = v23;
-    v25 = *v40;
+    v16 = v15;
+    v17 = *v22;
     do
     {
-      for (j = 0; j != v24; ++j)
+      for (j = 0; j != v16; ++j)
       {
-        if (*v40 != v25)
+        if (*v22 != v17)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v14);
         }
 
-        v27 = *(*(&v39 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
-    while (v24);
+    while (v16);
   }
 
   if ((*&self->_has & 0x800) != 0)
   {
-    limitAdTracking = self->_limitAdTracking;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1196,7 +1284,6 @@ LABEL_38:
 
   if ((*&self->_has & 2) != 0)
   {
-    advertisingIdentifierMonthResetCount = self->_advertisingIdentifierMonthResetCount;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1225,17 +1312,15 @@ LABEL_38:
     PBDataWriterWriteStringField();
   }
 
-  v30 = self->_has;
-  if ((v30 & 0x400) != 0)
+  v19 = self->_has;
+  if ((v19 & 0x400) != 0)
   {
-    isOnInternationalDataRoaming = self->_isOnInternationalDataRoaming;
     PBDataWriterWriteBOOLField();
-    v30 = self->_has;
+    v19 = self->_has;
   }
 
-  if ((v30 & 8) != 0)
+  if ((v19 & 8) != 0)
   {
-    connectionType = self->_connectionType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1246,24 +1331,20 @@ LABEL_38:
 
   if (self->_accountStates.count)
   {
-    v33 = 0;
+    v20 = 0;
     do
     {
-      v34 = self->_accountStates.list[v33];
       PBDataWriterWriteInt32Field();
-      ++v33;
+      ++v20;
     }
 
-    while (v33 < self->_accountStates.count);
+    while (v20 < self->_accountStates.count);
   }
 
   if ((*&self->_has & 0x80) != 0)
   {
-    overrideType = self->_overrideType;
     PBDataWriterWriteInt32Field();
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -1557,7 +1638,7 @@ LABEL_37:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -1604,30 +1685,30 @@ LABEL_37:
   v19 = *(v6 + 240);
   *(v6 + 240) = v18;
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v20 = self->_userKeyboards;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v70 objects:v75 count:16];
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v69 objects:v74 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v71;
+    v23 = *v70;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v71 != v23)
+        if (*v70 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [*(*(&v70 + 1) + 8 * i) copyWithZone:zone];
+        v25 = [*(*(&v69 + 1) + 8 * i) copyWithZone:zone];
         [v6 addUserKeyboard:v25];
       }
 
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v70 objects:v75 count:16];
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v69 objects:v74 count:16];
     }
 
     while (v22);
@@ -1678,30 +1759,30 @@ LABEL_20:
   v28 = *(v6 + 224);
   *(v6 + 224) = v27;
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v29 = self->_targetings;
-  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v66 objects:v74 count:16];
+  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v65 objects:v73 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v67;
+    v32 = *v66;
     do
     {
       for (j = 0; j != v31; ++j)
       {
-        if (*v67 != v32)
+        if (*v66 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = [*(*(&v66 + 1) + 8 * j) copyWithZone:{zone, v66}];
+        v34 = [*(*(&v65 + 1) + 8 * j) copyWithZone:{zone, v65}];
         [v6 addTargeting:v34];
       }
 
-      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v66 objects:v74 count:16];
+      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v65 objects:v73 count:16];
     }
 
     while (v31);
@@ -1713,7 +1794,7 @@ LABEL_20:
     *(v6 + 348) |= 0x800u;
   }
 
-  v35 = [(NSString *)self->_toroIDString copyWithZone:zone, v66];
+  v35 = [(NSString *)self->_toroIDString copyWithZone:zone, v65];
   v36 = *(v6 + 328);
   *(v6 + 328) = v35;
 
@@ -1796,7 +1877,6 @@ LABEL_20:
     *(v6 + 348) |= 0x80u;
   }
 
-  v64 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1837,7 +1917,6 @@ LABEL_20:
     }
   }
 
-  v8 = *(equalCopy + 174);
   if ((*&self->_has & 0x200) != 0)
   {
     if ((*(equalCopy + 174) & 0x200) == 0 || self->_timezone != *(equalCopy + 80))
@@ -1906,16 +1985,16 @@ LABEL_20:
     }
   }
 
-  v14 = *(equalCopy + 174);
+  v13 = *(equalCopy + 174);
   if ((*&self->_has & 4) != 0)
   {
-    if ((v14 & 4) == 0 || self->_appsRank != *(equalCopy + 32))
+    if ((v13 & 4) == 0 || self->_appsRank != *(equalCopy + 32))
     {
       goto LABEL_79;
     }
   }
 
-  else if ((v14 & 4) != 0)
+  else if ((v13 & 4) != 0)
   {
     goto LABEL_79;
   }
@@ -1926,42 +2005,42 @@ LABEL_20:
   }
 
   has = self->_has;
-  v16 = *(equalCopy + 174);
+  v15 = *(equalCopy + 174);
   if ((has & 0x20) != 0)
   {
-    if ((v16 & 0x20) == 0 || self->_latitude != *(equalCopy + 58))
+    if ((v15 & 0x20) == 0 || self->_latitude != *(equalCopy + 58))
     {
       goto LABEL_79;
     }
   }
 
-  else if ((v16 & 0x20) != 0)
+  else if ((v15 & 0x20) != 0)
   {
     goto LABEL_79;
   }
 
   if ((has & 0x40) != 0)
   {
-    if ((v16 & 0x40) == 0 || self->_longitude != *(equalCopy + 64))
+    if ((v15 & 0x40) == 0 || self->_longitude != *(equalCopy + 64))
     {
       goto LABEL_79;
     }
   }
 
-  else if ((v16 & 0x40) != 0)
+  else if ((v15 & 0x40) != 0)
   {
     goto LABEL_79;
   }
 
   if ((has & 0x10) != 0)
   {
-    if ((v16 & 0x10) == 0 || self->_horizontalAccuracy != *(equalCopy + 50))
+    if ((v15 & 0x10) == 0 || self->_horizontalAccuracy != *(equalCopy + 50))
     {
       goto LABEL_79;
     }
   }
 
-  else if ((v16 & 0x10) != 0)
+  else if ((v15 & 0x10) != 0)
   {
     goto LABEL_79;
   }
@@ -1981,7 +2060,6 @@ LABEL_20:
     }
   }
 
-  v19 = *(equalCopy + 174);
   if ((*&self->_has & 0x800) != 0)
   {
     if ((*(equalCopy + 174) & 0x800) == 0)
@@ -1989,7 +2067,6 @@ LABEL_20:
       goto LABEL_79;
     }
 
-    v31 = *(equalCopy + 345);
     if (self->_limitAdTracking)
     {
       if ((*(equalCopy + 345) & 1) == 0)
@@ -2078,16 +2155,16 @@ LABEL_20:
     }
   }
 
-  v28 = *(equalCopy + 174);
+  v26 = *(equalCopy + 174);
   if ((*&self->_has & 2) != 0)
   {
-    if ((v28 & 2) == 0 || self->_advertisingIdentifierMonthResetCount != *(equalCopy + 24))
+    if ((v26 & 2) == 0 || self->_advertisingIdentifierMonthResetCount != *(equalCopy + 24))
     {
       goto LABEL_79;
     }
   }
 
-  else if ((v28 & 2) != 0)
+  else if ((v26 & 2) != 0)
   {
     goto LABEL_79;
   }
@@ -2134,16 +2211,15 @@ LABEL_20:
     }
   }
 
-  v37 = self->_has;
-  v38 = *(equalCopy + 174);
-  if ((v37 & 0x400) != 0)
+  v34 = self->_has;
+  v35 = *(equalCopy + 174);
+  if ((v34 & 0x400) != 0)
   {
     if ((*(equalCopy + 174) & 0x400) == 0)
     {
       goto LABEL_79;
     }
 
-    v39 = *(equalCopy + 344);
     if (self->_isOnInternationalDataRoaming)
     {
       if ((*(equalCopy + 344) & 1) == 0)
@@ -2163,15 +2239,15 @@ LABEL_20:
     goto LABEL_79;
   }
 
-  if ((v37 & 8) != 0)
+  if ((v34 & 8) != 0)
   {
-    if ((v38 & 8) == 0 || self->_connectionType != *(equalCopy + 38))
+    if ((v35 & 8) == 0 || self->_connectionType != *(equalCopy + 38))
     {
       goto LABEL_79;
     }
   }
 
-  else if ((v38 & 8) != 0)
+  else if ((v35 & 8) != 0)
   {
     goto LABEL_79;
   }
@@ -2179,25 +2255,25 @@ LABEL_20:
   storeFrontLanguageLocaleIdentifier = self->_storeFrontLanguageLocaleIdentifier;
   if ((!(storeFrontLanguageLocaleIdentifier | *(equalCopy + 37)) || [(NSString *)storeFrontLanguageLocaleIdentifier isEqual:?]) && PBRepeatedInt32IsEqual())
   {
-    v41 = *(equalCopy + 174);
+    v37 = *(equalCopy + 174);
     if ((*&self->_has & 0x80) == 0)
     {
-      v29 = (v41 & 0x80) == 0;
+      v27 = (v37 & 0x80) == 0;
       goto LABEL_80;
     }
 
-    if ((v41 & 0x80) != 0 && self->_overrideType == *(equalCopy + 68))
+    if ((v37 & 0x80) != 0 && self->_overrideType == *(equalCopy + 68))
     {
-      v29 = 1;
+      v27 = 1;
       goto LABEL_80;
     }
   }
 
 LABEL_79:
-  v29 = 0;
+  v27 = 0;
 LABEL_80:
 
-  return v29;
+  return v27;
 }
 
 - (unint64_t)hash
@@ -2484,7 +2560,7 @@ LABEL_60:
 
 - (void)mergeFrom:(id)from
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (*(fromCopy + 174))
@@ -2537,29 +2613,29 @@ LABEL_60:
     [(ADUserTargetingProperties *)self setLocaleIdentifier:?];
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v7 = *(v5 + 42);
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v34;
+    v10 = *v33;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(ADUserTargetingProperties *)self addUserKeyboard:*(*(&v33 + 1) + 8 * i)];
+        [(ADUserTargetingProperties *)self addUserKeyboard:*(*(&v32 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v9);
@@ -2629,29 +2705,29 @@ LABEL_38:
     [(ADUserTargetingProperties *)self setIsoCountryCode:?];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v19 = *(v5 + 39);
-  v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v30;
+    v22 = *v29;
     do
     {
       for (m = 0; m != v21; ++m)
       {
-        if (*v30 != v22)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(ADUserTargetingProperties *)self addTargeting:*(*(&v29 + 1) + 8 * m), v29];
+        [(ADUserTargetingProperties *)self addTargeting:*(*(&v28 + 1) + 8 * m), v28];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v21);
@@ -2768,8 +2844,6 @@ LABEL_38:
     self->_overrideType = *(v5 + 68);
     *&self->_has |= 0x80u;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

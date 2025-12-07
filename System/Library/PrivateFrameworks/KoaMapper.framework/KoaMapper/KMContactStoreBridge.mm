@@ -7,34 +7,31 @@
 - (KMContactStoreBridge)initWithContactStore:(id)store historyLog:(id)log;
 - (KMContactStoreBridge)initWithDirectory:(id)directory;
 - (id)_fetchContactsWithIdentifiers:(id)identifiers error:(id *)error;
-- (void)resetDeltaState;
 @end
 
 @implementation KMContactStoreBridge
 
 - (BOOL)_checkAuthorization
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBDAB8] authorizationStatusForEntityType:0];
   if (v2 != 3)
   {
     v3 = KMLogContextCore;
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315138;
-      v7 = "[KMContactStoreBridge _checkAuthorization]";
-      _os_log_error_impl(&dword_2559DF000, v3, OS_LOG_TYPE_ERROR, "%s Not Authorized to access contacts using CNContactStore.", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[KMContactStoreBridge _checkAuthorization]";
+      _os_log_error_impl(&dword_2559DF000, v3, OS_LOG_TYPE_ERROR, "%s Not Authorized to access contacts using CNContactStore.", &v5, 0xCu);
     }
   }
 
-  result = v2 == 3;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 == 3;
 }
 
 - (BOOL)enumerateDeltaItemsWithError:(id *)error addOrUpdateBlock:(id)block removeBlock:(id)removeBlock
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   removeBlockCopy = removeBlock;
   if (![(KMContactStoreBridge *)self _checkAuthorization])
@@ -46,9 +43,9 @@
   v9 = objc_alloc_init(MEMORY[0x277CBDA50]);
   [v9 setStartingToken:self->_historyToken];
   contactStore = self->_contactStore;
-  v65 = 0;
-  v11 = [(CNContactStore *)contactStore enumeratorForChangeHistoryFetchRequest:v9 error:&v65];
-  v12 = v65;
+  v64 = 0;
+  v11 = [(CNContactStore *)contactStore enumeratorForChangeHistoryFetchRequest:v9 error:&v64];
+  v12 = v64;
   if (v11)
   {
     v13 = v12 == 0;
@@ -66,9 +63,9 @@
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v67 = "[KMContactStoreBridge enumerateDeltaItemsWithError:addOrUpdateBlock:removeBlock:]";
-      v68 = 2112;
-      v69 = v14;
+      v66 = "[KMContactStoreBridge enumerateDeltaItemsWithError:addOrUpdateBlock:removeBlock:]";
+      v67 = 2112;
+      v68 = v14;
       _os_log_error_impl(&dword_2559DF000, v15, OS_LOG_TYPE_ERROR, "%s Unable to fetch contact change history with error: %@", buf, 0x16u);
     }
 
@@ -78,13 +75,13 @@
     goto LABEL_65;
   }
 
-  v51 = v9;
+  v50 = v9;
   v18 = objc_alloc_init(KMDeltaContactCollector);
-  v58 = v11;
+  v57 = v11;
   value = [v11 value];
   nextObject = [value nextObject];
 
-  v57 = 0;
+  v56 = 0;
   do
   {
     v21 = 0;
@@ -99,7 +96,7 @@
         if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v67 = "[KMContactStoreBridge enumerateDeltaItemsWithError:addOrUpdateBlock:removeBlock:]";
+          v66 = "[KMContactStoreBridge enumerateDeltaItemsWithError:addOrUpdateBlock:removeBlock:]";
           _os_log_impl(&dword_2559DF000, v44, OS_LOG_TYPE_INFO, "%s Received drop everything change history event. Reset is required.", buf, 0xCu);
         }
 
@@ -126,8 +123,8 @@ LABEL_58:
           objc_autoreleasePoolPop(v23);
           v17 = 0;
 LABEL_59:
-          v11 = v58;
-          v9 = v51;
+          v11 = v57;
+          v9 = v50;
           goto LABEL_64;
         }
 
@@ -150,9 +147,9 @@ LABEL_59:
 
 LABEL_36:
           *buf = 136315394;
-          v67 = "[KMContactStoreBridge enumerateDeltaItemsWithError:addOrUpdateBlock:removeBlock:]";
-          v68 = 2112;
-          v69 = v22;
+          v66 = "[KMContactStoreBridge enumerateDeltaItemsWithError:addOrUpdateBlock:removeBlock:]";
+          v67 = 2112;
+          v68 = v22;
           _os_log_error_impl(&dword_2559DF000, v26, OS_LOG_TYPE_ERROR, "%s Skipping change history event: %@ missing contact identifier.", buf, 0x16u);
           goto LABEL_26;
         }
@@ -167,7 +164,7 @@ LABEL_36:
 
 LABEL_26:
       [(KMDeltaContactCollector *)v18 reset];
-      value2 = [v58 value];
+      value2 = [v57 value];
       nextObject = [value2 nextObject];
 
       v28 = [v21 count];
@@ -186,10 +183,10 @@ LABEL_26:
       }
     }
 
-    v64 = v57;
+    v63 = v56;
     selfCopy = self;
-    v31 = [(KMContactStoreBridge *)self _fetchContactsWithIdentifiers:v21 error:&v64];
-    v32 = v64;
+    v31 = [(KMContactStoreBridge *)self _fetchContactsWithIdentifiers:v21 error:&v63];
+    v32 = v63;
 
     if (!v31)
     {
@@ -199,58 +196,58 @@ LABEL_26:
       goto LABEL_62;
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     obj = v31;
-    v54 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
-    if (v54)
+    v53 = [obj countByEnumeratingWithState:&v59 objects:v71 count:16];
+    if (v53)
     {
-      v50 = removeBlockCopy;
-      v55 = blockCopy;
-      v53 = *v61;
+      v49 = removeBlockCopy;
+      v54 = blockCopy;
+      v52 = *v60;
       v33 = v32;
       while (2)
       {
-        for (i = 0; i != v54; ++i)
+        for (i = 0; i != v53; ++i)
         {
-          if (*v61 != v53)
+          if (*v60 != v52)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = *(*(&v60 + 1) + 8 * i);
+          v35 = *(*(&v59 + 1) + 8 * i);
           v36 = objc_autoreleasePoolPush();
           itemMapper = selfCopy->_itemMapper;
           mapperAdditionalFields = selfCopy->_mapperAdditionalFields;
-          v59 = v33;
-          v39 = [(KVItemMapper *)itemMapper mapObject:v35 additionalFields:mapperAdditionalFields error:&v59];
-          v57 = v59;
+          v58 = v33;
+          v39 = [(KVItemMapper *)itemMapper mapObject:v35 additionalFields:mapperAdditionalFields error:&v58];
+          v56 = v58;
 
           if ([v39 count] != 1)
           {
             v43 = KMLogContextCore;
-            removeBlockCopy = v50;
+            removeBlockCopy = v49;
             if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315650;
-              v67 = "[KMContactStoreBridge enumerateDeltaItemsWithError:addOrUpdateBlock:removeBlock:]";
-              v68 = 2112;
-              v69 = v39;
-              v70 = 2112;
-              v71 = v57;
+              v66 = "[KMContactStoreBridge enumerateDeltaItemsWithError:addOrUpdateBlock:removeBlock:]";
+              v67 = 2112;
+              v68 = v39;
+              v69 = 2112;
+              v70 = v56;
               _os_log_error_impl(&dword_2559DF000, v43, OS_LOG_TYPE_ERROR, "%s Unexepected items: %@ error: %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(v36);
             v42 = 1;
-            blockCopy = v55;
+            blockCopy = v54;
             goto LABEL_52;
           }
 
           firstObject = [v39 firstObject];
-          v41 = v55[2](v55, firstObject);
+          v41 = v54[2](v54, firstObject);
 
           objc_autoreleasePoolPop(v36);
           if (!v41)
@@ -259,19 +256,19 @@ LABEL_26:
             objc_autoreleasePoolPop(v23);
             v17 = 0;
             v22 = nextObject;
-            blockCopy = v55;
-            removeBlockCopy = v50;
-            v9 = v51;
-            v11 = v58;
+            blockCopy = v54;
+            removeBlockCopy = v49;
+            v9 = v50;
+            v11 = v57;
             goto LABEL_64;
           }
 
-          v33 = v57;
+          v33 = v56;
         }
 
-        v33 = v57;
-        v54 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
-        if (v54)
+        v33 = v56;
+        v53 = [obj countByEnumeratingWithState:&v59 objects:v71 count:16];
+        if (v53)
         {
           continue;
         }
@@ -280,14 +277,14 @@ LABEL_26:
       }
 
       v42 = 0;
-      blockCopy = v55;
-      removeBlockCopy = v50;
+      blockCopy = v54;
+      removeBlockCopy = v49;
     }
 
     else
     {
       v42 = 0;
-      v57 = v32;
+      v56 = v32;
     }
 
 LABEL_52:
@@ -298,11 +295,11 @@ LABEL_52:
 
   while (nextObject && (v42 & 1) == 0);
   v21 = 0;
-  v45 = v57;
+  v45 = v56;
   if (v42)
   {
 LABEL_62:
-    v57 = v45;
+    v56 = v45;
     KVSetError();
     v17 = 0;
     v22 = nextObject;
@@ -310,9 +307,9 @@ LABEL_62:
   }
 
 LABEL_63:
-  v11 = v58;
-  v9 = v51;
-  currentHistoryToken = [v58 currentHistoryToken];
+  v11 = v57;
+  v9 = v50;
+  currentHistoryToken = [v57 currentHistoryToken];
   historyToken = self->_historyToken;
   self->_historyToken = currentHistoryToken;
 
@@ -320,24 +317,23 @@ LABEL_63:
   v22 = nextObject;
 LABEL_64:
 
-  v16 = v57;
+  v16 = v56;
 LABEL_65:
 
 LABEL_66:
-  v48 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (id)_fetchContactsWithIdentifiers:(id)identifiers error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v6 = [MEMORY[0x277CBDA58] predicateForContactsWithIdentifiers:identifiersCopy];
   contactStore = self->_contactStore;
   _contactFetchKeys = [objc_opt_class() _contactFetchKeys];
-  v18 = 0;
-  v9 = [(CNContactStore *)contactStore unifiedContactsMatchingPredicate:v6 keysToFetch:_contactFetchKeys error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v9 = [(CNContactStore *)contactStore unifiedContactsMatchingPredicate:v6 keysToFetch:_contactFetchKeys error:&v17];
+  v10 = v17;
 
   if (v9)
   {
@@ -349,31 +345,22 @@ LABEL_66:
     v12 = KMLogContextCore;
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v15 = MEMORY[0x277CCABB0];
-      v16 = v12;
-      v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(identifiersCopy, "count")}];
+      v14 = MEMORY[0x277CCABB0];
+      v15 = v12;
+      v16 = [v14 numberWithUnsignedInteger:{objc_msgSend(identifiersCopy, "count")}];
       *buf = 136315650;
-      v20 = "[KMContactStoreBridge _fetchContactsWithIdentifiers:error:]";
-      v21 = 2112;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v10;
-      _os_log_error_impl(&dword_2559DF000, v16, OS_LOG_TYPE_ERROR, "%s Unable to fetch contacts from identifiers in batch (%@) error: %@", buf, 0x20u);
+      v19 = "[KMContactStoreBridge _fetchContactsWithIdentifiers:error:]";
+      v20 = 2112;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v10;
+      _os_log_error_impl(&dword_2559DF000, v15, OS_LOG_TYPE_ERROR, "%s Unable to fetch contacts from identifiers in batch (%@) error: %@", buf, 0x20u);
     }
 
     KVSetError();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
-}
-
-- (void)resetDeltaState
-{
-  historyToken = self->_historyToken;
-  self->_historyToken = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (BOOL)wasLastDonationAccepted
@@ -394,55 +381,54 @@ LABEL_66:
     _contactFetchKeys = [objc_opt_class() _contactFetchKeys];
     v8 = [v6 initWithKeysToFetch:_contactFetchKeys];
 
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2020000000;
-    v28 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
+    v18[0] = 0;
+    v18[1] = v18;
+    v18[2] = 0x3032000000;
+    v18[3] = __Block_byref_object_copy__1422;
+    v18[4] = __Block_byref_object_dispose__1423;
     v19 = 0;
-    v20 = &v19;
-    v21 = 0x3032000000;
-    v22 = __Block_byref_object_copy__1422;
-    v23 = __Block_byref_object_dispose__1423;
-    v24 = 0;
     contactStore = self->_contactStore;
-    v17 = &v25;
+    v16 = &v20;
     obj = 0;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __59__KMContactStoreBridge_enumerateItemsWithError_usingBlock___block_invoke;
-    v14[3] = &unk_279805C80;
-    v14[4] = self;
-    v16 = &v19;
-    v15 = blockCopy;
-    v10 = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v8 error:&obj usingBlock:v14];
-    objc_storeStrong(&v24, obj);
-    if (v10 && *(v26 + 24) != 1)
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __59__KMContactStoreBridge_enumerateItemsWithError_usingBlock___block_invoke;
+    v13[3] = &unk_279805C80;
+    v13[4] = self;
+    v15 = v18;
+    v14 = blockCopy;
+    v10 = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v8 error:&obj usingBlock:v13];
+    objc_storeStrong(&v19, obj);
+    if (v10 && *(v21 + 24) != 1)
     {
-      v12 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v11 = v20[5];
       KVSetError();
-      v12 = 0;
+      v11 = 0;
     }
 
-    _Block_object_dispose(&v19, 8);
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(v18, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 void __59__KMContactStoreBridge_enumerateItemsWithError_usingBlock___block_invoke(void *a1, uint64_t a2, _BYTE *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a1[4];
   v6 = *(v5 + 16);
   v7 = *(v5 + 40);
@@ -467,13 +453,13 @@ void __59__KMContactStoreBridge_enumerateItemsWithError_usingBlock___block_invok
     v12 = KMLogContextCore;
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(*(a1[6] + 8) + 40);
+      v13 = *(*(a1[6] + 8) + 40);
       *buf = 136315650;
-      v17 = "[KMContactStoreBridge enumerateItemsWithError:usingBlock:]_block_invoke";
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v14;
+      v16 = "[KMContactStoreBridge enumerateItemsWithError:usingBlock:]_block_invoke";
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v13;
       _os_log_error_impl(&dword_2559DF000, v12, OS_LOG_TYPE_ERROR, "%s Unexepected items: %@ error: %@", buf, 0x20u);
     }
   }
@@ -481,18 +467,16 @@ void __59__KMContactStoreBridge_enumerateItemsWithError_usingBlock___block_invok
   *(*(a1[7] + 8) + 24) = 1;
   *a3 = 1;
 LABEL_7:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (KMContactStoreBridge)initWithContactStore:(id)store historyLog:(id)log
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   logCopy = log;
-  v23.receiver = self;
-  v23.super_class = KMContactStoreBridge;
-  v9 = [(KMContactStoreBridge *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = KMContactStoreBridge;
+  v9 = [(KMContactStoreBridge *)&v22 init];
   v10 = v9;
   if (!v9)
   {
@@ -506,7 +490,7 @@ LABEL_7:
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = "[KMContactStoreBridge initWithContactStore:historyLog:]";
+      v24 = "[KMContactStoreBridge initWithContactStore:historyLog:]";
       v18 = "%s nil history log.";
 LABEL_11:
       _os_log_error_impl(&dword_2559DF000, v17, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
@@ -524,7 +508,7 @@ LABEL_15:
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v25 = "[KMContactStoreBridge initWithContactStore:historyLog:]";
+      v24 = "[KMContactStoreBridge initWithContactStore:historyLog:]";
       v18 = "%s nil contactStore.";
       goto LABEL_11;
     }
@@ -532,9 +516,9 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v22 = 0;
-  v11 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v22];
-  v12 = v22;
+  v21 = 0;
+  v11 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v21];
+  v12 = v21;
   itemMapper = v10->_itemMapper;
   v10->_itemMapper = v11;
 
@@ -544,9 +528,9 @@ LABEL_15:
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[KMContactStoreBridge initWithContactStore:historyLog:]";
-      v26 = 2112;
-      v27 = v12;
+      v24 = "[KMContactStoreBridge initWithContactStore:historyLog:]";
+      v25 = 2112;
+      v26 = v12;
       _os_log_error_impl(&dword_2559DF000, v19, OS_LOG_TYPE_ERROR, "%s %@", buf, 0x16u);
     }
 
@@ -562,7 +546,6 @@ LABEL_6:
   v16 = v10;
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -580,40 +563,39 @@ LABEL_16:
 
 + (id)_contactFetchKeys
 {
-  v15[21] = *MEMORY[0x277D85DE8];
+  v14[21] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CBD000];
-  v15[0] = *MEMORY[0x277CBD068];
-  v15[1] = v2;
+  v14[0] = *MEMORY[0x277CBD068];
+  v14[1] = v2;
   v3 = *MEMORY[0x277CBCFF8];
-  v15[2] = *MEMORY[0x277CBD058];
-  v15[3] = v3;
+  v14[2] = *MEMORY[0x277CBD058];
+  v14[3] = v3;
   v4 = *MEMORY[0x277CBD070];
-  v15[4] = *MEMORY[0x277CBD0E0];
-  v15[5] = v4;
+  v14[4] = *MEMORY[0x277CBD0E0];
+  v14[5] = v4;
   v5 = *MEMORY[0x277CBD090];
-  v15[6] = *MEMORY[0x277CBD078];
-  v15[7] = v5;
+  v14[6] = *MEMORY[0x277CBD078];
+  v14[7] = v5;
   v6 = *MEMORY[0x277CBD040];
-  v15[8] = *MEMORY[0x277CBCFB8];
-  v15[9] = v6;
+  v14[8] = *MEMORY[0x277CBCFB8];
+  v14[9] = v6;
   v7 = *MEMORY[0x277CBCFC0];
-  v15[10] = *MEMORY[0x277CBD098];
-  v15[11] = v7;
+  v14[10] = *MEMORY[0x277CBD098];
+  v14[11] = v7;
   v8 = *MEMORY[0x277CBD168];
-  v15[12] = *MEMORY[0x277CBD0C8];
-  v15[13] = v8;
+  v14[12] = *MEMORY[0x277CBD0C8];
+  v14[13] = v8;
   v9 = *MEMORY[0x277CBD038];
-  v15[14] = *MEMORY[0x277CBD138];
-  v15[15] = v9;
+  v14[14] = *MEMORY[0x277CBD138];
+  v14[15] = v9;
   v10 = *MEMORY[0x277CBD0B0];
-  v15[16] = *MEMORY[0x277CBD120];
-  v15[17] = v10;
+  v14[16] = *MEMORY[0x277CBD120];
+  v14[17] = v10;
   v11 = *MEMORY[0x277CBD0A8];
-  v15[18] = *MEMORY[0x277CBD0B8];
-  v15[19] = v11;
-  v15[20] = *MEMORY[0x277CBD0C0];
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:21];
-  v13 = *MEMORY[0x277D85DE8];
+  v14[18] = *MEMORY[0x277CBD0B8];
+  v14[19] = v11;
+  v14[20] = *MEMORY[0x277CBD0C0];
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:21];
 
   return v12;
 }

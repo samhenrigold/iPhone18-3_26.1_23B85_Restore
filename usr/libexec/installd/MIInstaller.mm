@@ -18,6 +18,7 @@
 - (id)_manifestPathForBase:(id)base withIdentifier:(id)identifier patchType:(unsigned __int8 *)type error:(id *)error;
 - (id)_patchUpdateInstallableForBundle:(id)bundle manifestPath:(id)path existingBundleContainer:(id)container patchType:(unsigned __int8)type error:(id *)error;
 - (void)_fireCallbackWithStatus:(id)status;
+- (void)_fireCallbackWithStatus:(id)status percentComplete:(unsigned int)complete;
 - (void)_logOperationCompletionWithStartTime:(unint64_t)time distributorID:(id)d;
 - (void)_writeLockIdentifiers:(id)identifiers;
 - (void)dealloc;
@@ -95,6 +96,14 @@
   v17 = [objc_alloc(objc_opt_class()) initWithURL:lCopy identity:identityCopy domain:domain options:optionsCopy operationType:type forClient:clientCopy];
 
   return v17;
+}
+
+- (void)_fireCallbackWithStatus:(id)status percentComplete:(unsigned int)complete
+{
+  v4 = *&complete;
+  statusCopy = status;
+  client = [(MIInstaller *)self client];
+  [client sendProgressWithStatus:statusCopy percentComplete:v4];
 }
 
 - (void)_fireCallbackWithStatus:(id)status
@@ -1593,54 +1602,53 @@ LABEL_27:
     selfCopy = self;
     errorCopy = error;
     [options provisioningProfileInstallFailureIsFatal];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v26 = provisioningProfiles;
+    v25 = provisioningProfiles;
     v7 = provisioningProfiles;
-    v8 = [v7 countByEnumeratingWithState:&v27 objects:v33 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v27;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v27 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v13 = MIInstallProfileWithData();
+            v12 = MIInstallProfileWithData();
             if (MIIsFatalMISProfileInstallationError())
             {
-              v15 = MIInstallerErrorDomain;
-              v31[0] = @"LegacyErrorString";
-              v31[1] = MILibMISErrorNumberKey;
-              v32[0] = @"ApplicationVerificationFailed";
-              v16 = [NSNumber numberWithInt:v13];
-              v32[1] = v16;
-              v17 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
+              v14 = MIInstallerErrorDomain;
+              v30[0] = @"LegacyErrorString";
+              v30[1] = MILibMISErrorNumberKey;
+              v31[0] = @"ApplicationVerificationFailed";
+              v15 = [NSNumber numberWithInt:v12];
+              v31[1] = v15;
+              v16 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:2];
               installURL = [(MIInstaller *)selfCopy installURL];
-              v23 = MIErrorStringForMISError();
-              v20 = sub_100010734("[MIInstaller _installProvisioningProfilesFromUserOptionsWithError:]", 1028, v15, 13, 0, v17, @"Failed to install local provisioning profile from user options for %@ : 0x%08x (%@)", v19, installURL);
+              v22 = MIErrorStringForMISError();
+              v19 = sub_100010734("[MIInstaller _installProvisioningProfilesFromUserOptionsWithError:]", 1028, v14, 13, 0, v16, @"Failed to install local provisioning profile from user options for %@ : 0x%08x (%@)", v18, installURL);
 
               if (errorCopy)
               {
-                v21 = v20;
-                v14 = 0;
-                *errorCopy = v20;
+                v20 = v19;
+                v13 = 0;
+                *errorCopy = v19;
               }
 
               else
               {
-                v14 = 0;
+                v13 = 0;
               }
 
               goto LABEL_20;
@@ -1653,7 +1661,7 @@ LABEL_27:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v27 objects:v33 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
         if (v9)
         {
           continue;
@@ -1663,19 +1671,19 @@ LABEL_27:
       }
     }
 
-    v20 = 0;
-    v14 = 1;
+    v19 = 0;
+    v13 = 1;
 LABEL_20:
-    provisioningProfiles = v26;
+    provisioningProfiles = v25;
   }
 
   else
   {
-    v20 = 0;
-    v14 = 1;
+    v19 = 0;
+    v13 = 1;
   }
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)_installProvisioningProfilesAtStagingRootWithError:(id *)error
@@ -1743,25 +1751,25 @@ LABEL_9:
 {
   symlinkCopy = symlink;
   installableCopy = installable;
-  v113 = 0;
-  v114 = &v113;
-  v115 = 0x3032000000;
-  v116 = sub_100023B80;
-  v117 = sub_100023B90;
-  v118 = 0;
+  v114 = 0;
+  v115 = &v114;
+  v116 = 0x3032000000;
+  v117 = sub_100023B80;
+  v118 = sub_100023B90;
+  v119 = 0;
   installOperationType = [(MIInstaller *)self installOperationType];
-  v112[0] = _NSConcreteStackBlock;
-  v112[1] = 3221225472;
-  v112[2] = sub_100026A44;
-  v112[3] = &unk_100091440;
-  v112[4] = self;
-  [installableCopy setProgressBlock:v112];
+  v113[0] = _NSConcreteStackBlock;
+  v113[1] = 3221225472;
+  v113[2] = sub_100026A44;
+  v113[3] = &unk_100091440;
+  v113[4] = self;
+  [installableCopy setProgressBlock:v113];
   if (installOperationType == 1)
   {
     if (!qword_1000A9720 || *(qword_1000A9720 + 44) > 4)
     {
 LABEL_7:
-      v90 = installableCopy;
+      v91 = installableCopy;
       MOLogWrite();
     }
   }
@@ -1902,15 +1910,15 @@ LABEL_26:
 
   v15 = 0;
 LABEL_39:
-  _MILogTransactionStep(v15, 1, 1, identifier, personaUniqueString, 0, v11, v12, v91);
+  _MILogTransactionStep(v15, 1, 1, identifier, personaUniqueString, 0, v11, v12, v92);
   v34 = mach_absolute_time();
   if (symlinkCopy)
   {
     v35 = +[MIFileManager defaultManager];
     bundle6 = [installableCopy bundle];
     bundleURL = [bundle6 bundleURL];
-    v38 = v114;
-    obj = v114[5];
+    v38 = v115;
+    obj = v115[5];
     v39 = [v35 validateSymlinksInURLDoNotEscapeURL:bundleURL error:&obj];
     objc_storeStrong(v38 + 5, obj);
 
@@ -1942,10 +1950,10 @@ LABEL_39:
     _os_signpost_emit_with_name_impl(&_mh_execute_header, v43, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "PreflightAndPatch", "Start preflighting and patching", buf, 2u);
   }
 
-  v44 = v114 + 5;
-  v110 = v114[5];
-  v45 = [installableCopy performPreflightWithError:&v110];
-  objc_storeStrong(v44, v110);
+  v44 = v115 + 5;
+  v111 = v115[5];
+  v45 = [installableCopy performPreflightWithError:&v111];
+  objc_storeStrong(v44, v111);
   if (v45)
   {
     [(MIInstaller *)self setPreflightAndPatchTime:(mach_absolute_time() - v34) * qword_1000A9728 / HIDWORD(qword_1000A9728)];
@@ -2004,10 +2012,10 @@ LABEL_39:
       _os_signpost_emit_with_name_impl(&_mh_execute_header, v51, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Verification", "Start code sign verification", buf, 2u);
     }
 
-    v52 = v114 + 5;
-    v109 = v114[5];
-    v53 = [installableCopy performVerificationWithError:&v109];
-    objc_storeStrong(v52, v109);
+    v52 = v115 + 5;
+    v110 = v115[5];
+    v53 = [installableCopy performVerificationWithError:&v110];
+    objc_storeStrong(v52, v110);
     if (v53)
     {
       [(MIInstaller *)self setVerificationTime:(mach_absolute_time() - v49) * qword_1000A9728 / HIDWORD(qword_1000A9728)];
@@ -2053,10 +2061,10 @@ LABEL_39:
     if (v55 != 14)
     {
       v58 = objc_autoreleasePoolPush();
-      v59 = v114 + 5;
-      v108 = v114[5];
-      v60 = [installableCopy performInstallationWithError:&v108];
-      objc_storeStrong(v59, v108);
+      v59 = v115 + 5;
+      v109 = v115[5];
+      v60 = [installableCopy performInstallationWithError:&v109];
+      objc_storeStrong(v59, v109);
       if (v60)
       {
         v61 = 0;
@@ -2077,10 +2085,10 @@ LABEL_39:
       if (v61 != 14)
       {
         v62 = objc_autoreleasePoolPush();
-        v63 = v114 + 5;
-        v107 = v114[5];
-        v64 = [installableCopy postFlightInstallationWithError:&v107];
-        objc_storeStrong(v63, v107);
+        v63 = v115 + 5;
+        v108 = v115[5];
+        v64 = [installableCopy postFlightInstallationWithError:&v108];
+        objc_storeStrong(v63, v108);
         if (v64)
         {
           v65 = 0;
@@ -2101,12 +2109,12 @@ LABEL_39:
         if (v65 != 14)
         {
           v66 = objc_autoreleasePoolPush();
-          v67 = v114 + 5;
+          v67 = v115 + 5;
           if (installOperationType == 1)
           {
-            v106 = v114[5];
-            v68 = [installableCopy stageBackgroundUpdateWithError:&v106];
-            objc_storeStrong(v67, v106);
+            v107 = v115[5];
+            v68 = [installableCopy stageBackgroundUpdateWithError:&v107];
+            objc_storeStrong(v67, v107);
             stagedUpdateMetadata = self->_stagedUpdateMetadata;
             self->_stagedUpdateMetadata = v68;
 
@@ -2134,10 +2142,10 @@ LABEL_108:
                 }
 
                 v74 = objc_autoreleasePoolPush();
-                v75 = v114;
-                v104 = v114[5];
-                v48 = [installableCopy launchServicesBundleRecordsWithError:&v104];
-                objc_storeStrong(v75 + 5, v104);
+                v75 = v115;
+                v105 = v115[5];
+                v48 = [installableCopy launchServicesBundleRecordsWithError:&v105];
+                objc_storeStrong(v75 + 5, v105);
                 if (v48)
                 {
                   v76 = 0;
@@ -2147,7 +2155,7 @@ LABEL_108:
                 {
                   if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
                   {
-                    path = v114[5];
+                    path = v115[5];
                     MOLogWrite();
                   }
 
@@ -2173,30 +2181,30 @@ LABEL_108:
                 client = [(MIInstaller *)self client];
                 [client releaseTerminationAssertion];
 
-                [(MIInstaller *)self setTerminationAssertionReleased:1];
+                v80 = [(MIInstaller *)self setTerminationAssertionReleased:1];
                 *buf = 0;
-                v101 = buf;
-                v102 = 0x2020000000;
-                v103 = 0;
-                v80 = sub_10000998C();
+                v102 = buf;
+                v103 = 0x2020000000;
+                v104 = 0;
+                v81 = sub_10000998C(v80);
                 block[0] = _NSConcreteStackBlock;
                 block[1] = 3221225472;
                 block[2] = sub_100026A54;
                 block[3] = &unk_100091468;
-                v81 = installableCopy;
-                v97 = v81;
-                v98 = &v113;
-                v99 = buf;
-                dispatch_sync(v80, block);
+                v82 = installableCopy;
+                v98 = v82;
+                v99 = &v114;
+                v100 = buf;
+                dispatch_sync(v81, block);
 
-                if (v101[24])
+                if (v102[24])
                 {
 
                   _Block_object_dispose(buf, 8);
                   goto LABEL_121;
                 }
 
-                recordPromise = [v81 recordPromise];
+                recordPromise = [v82 recordPromise];
                 recordPromise = self->_recordPromise;
                 self->_recordPromise = recordPromise;
 
@@ -2205,28 +2213,28 @@ LABEL_108:
 
               if ([v48 count])
               {
-                v86 = v48;
+                v87 = v48;
               }
 
               else
               {
-                v86 = &__NSArray0__struct;
+                v87 = &__NSArray0__struct;
               }
 
               receipt = self->_receipt;
-              self->_receipt = v86;
+              self->_receipt = v87;
 
-              v82 = 1;
-              _MILogTransactionStep(v15, 2, 1, identifier, personaUniqueString, 0, v88, v89, path);
+              v83 = 1;
+              _MILogTransactionStep(v15, 2, 1, identifier, personaUniqueString, 0, v89, v90, path);
               goto LABEL_126;
             }
           }
 
           else
           {
-            v105 = v114[5];
-            v73 = [installableCopy finalizeInstallationWithError:&v105];
-            objc_storeStrong(v67, v105);
+            v106 = v115[5];
+            v73 = [installableCopy finalizeInstallationWithError:&v106];
+            objc_storeStrong(v67, v106);
             if (v73)
             {
               v72 = 0;
@@ -2252,16 +2260,16 @@ LABEL_121:
     _MILogTransactionStep(v15, 2, 0, identifier, personaUniqueString, 0, v40, v41, path);
   }
 
-  v82 = 0;
+  v83 = 0;
   if (error)
   {
-    *error = v114[5];
+    *error = v115[5];
   }
 
 LABEL_126:
 
-  _Block_object_dispose(&v113, 8);
-  return v82 & 1;
+  _Block_object_dispose(&v114, 8);
+  return v83 & 1;
 }
 
 - (void)_logOperationCompletionWithStartTime:(unint64_t)time distributorID:(id)d
@@ -2728,7 +2736,7 @@ LABEL_63:
     v56 = &v55;
     v57 = 0x2020000000;
     v58 = 0;
-    v25 = sub_10000998C();
+    v25 = sub_10000998C(context);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100027C74;

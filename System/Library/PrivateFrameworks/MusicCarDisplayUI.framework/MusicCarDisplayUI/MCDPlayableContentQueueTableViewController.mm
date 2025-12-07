@@ -22,12 +22,12 @@
 
 - (void)viewDidLoad
 {
-  v6.receiver = self;
-  v6.super_class = MCDPlayableContentQueueTableViewController;
-  [(MCDPlayableContentQueueTableViewController *)&v6 viewDidLoad];
-  v3 = MCDCarDisplayBundle();
-  v4 = [v3 localizedStringForKey:@"PLAYBACK_QUEUE_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-  [(MCDPlayableContentQueueTableViewController *)self setTitle:v4];
+  v7.receiver = self;
+  v7.super_class = MCDPlayableContentQueueTableViewController;
+  viewDidLoad = [(MCDPlayableContentQueueTableViewController *)&v7 viewDidLoad];
+  v4 = MCDCarDisplayBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"PLAYBACK_QUEUE_TITLE" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+  [(MCDPlayableContentQueueTableViewController *)self setTitle:v5];
 
   tableView = [(MCDPlayableContentQueueTableViewController *)self tableView];
   [(_MCDNowPlayingContentManager *)self->_contentManager setTableView:tableView];

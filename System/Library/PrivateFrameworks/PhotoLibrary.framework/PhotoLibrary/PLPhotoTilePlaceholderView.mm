@@ -61,7 +61,7 @@
   }
 }
 
-uint64_t __59__PLPhotoTilePlaceholderView_showLoadingIndicatorWhenReady__block_invoke_2(uint64_t a1)
+void *__59__PLPhotoTilePlaceholderView_showLoadingIndicatorWhenReady__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   *(*(a1 + 32) + 432) = v3;

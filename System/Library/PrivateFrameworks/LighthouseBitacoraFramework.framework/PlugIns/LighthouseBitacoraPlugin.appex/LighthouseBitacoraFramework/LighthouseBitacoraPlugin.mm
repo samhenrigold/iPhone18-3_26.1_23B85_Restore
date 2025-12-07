@@ -9,19 +9,20 @@
 
 - (LighthouseBitacoraPlugin)init
 {
-  v6.receiver = self;
-  v6.super_class = LighthouseBitacoraPlugin;
-  v2 = [(LighthouseBitacoraPlugin *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = LighthouseBitacoraPlugin;
+  v2 = [(LighthouseBitacoraPlugin *)&v8 init];
+  v4 = v2;
   if (v2)
   {
-    LBPluginLoggingUtilsInit();
-    v3 = trialIds;
+    LBPluginLoggingUtilsInit(v2, v3);
+    v5 = trialIds;
     trialIds = 0;
 
-    v4 = v2;
+    v6 = v4;
   }
 
-  return v2;
+  return v4;
 }
 
 - (id)getPathForKey:(id)key IsDirectory:(BOOL)directory FromTrialClient:(id)client WithError:(id *)error

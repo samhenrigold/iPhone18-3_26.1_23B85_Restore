@@ -37,6 +37,7 @@
 - (void)setExternalID:(id)d;
 - (void)setExtraMetadata:(id)metadata;
 - (void)setInterstitials:(id)interstitials;
+- (void)setIsExplicit:(BOOL)explicit;
 - (void)setRatingBadge:(id)badge;
 - (void)setResumeTime:(id)time;
 - (void)setSubtitle:(id)subtitle;
@@ -668,6 +669,18 @@ void __35__IKAppMediaItemBridge_ratingBadge__block_invoke(uint64_t a1, uint64_t 
   *(v5 + 40) = v4;
 }
 
+- (void)setIsExplicit:(BOOL)explicit
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:explicit];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __38__IKAppMediaItemBridge_setIsExplicit___block_invoke;
+  v6[3] = &unk_27979BAB8;
+  v7 = v4;
+  v5 = v4;
+  [(IKAppMediaItemBridge *)self _evaluateDelegateBlockSync:v6];
+}
+
 void __38__IKAppMediaItemBridge_setIsExplicit___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = [a3 appMediaItem];
@@ -968,7 +981,7 @@ void __54__IKAppMediaItemBridge_prepareForLoadingWithCallback___block_invoke(uin
 
 void __54__IKAppMediaItemBridge_prepareForLoadingWithCallback___block_invoke_3(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = MEMORY[0x277CD4658];
@@ -979,12 +992,10 @@ void __54__IKAppMediaItemBridge_prepareForLoadingWithCallback___block_invoke_3(u
   {
     v8 = objc_loadWeakRetained(WeakRetained + 5);
     v9 = MEMORY[0x259C21BA0](*(a1 + 32));
-    v13[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v11 = [v8 invokeMethod:@"prepareForLoadingWithCompletion" withArguments:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadCertificateDataForURL:(id)l withCallback:(id)callback

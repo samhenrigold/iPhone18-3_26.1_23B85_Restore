@@ -5,7 +5,7 @@
 
 CFTypeRef __fpic_CopyCurrentEvent_block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 32) + 8) + 24) = fpic_GetCurrentlyPlayingEvent();
+  *(*(*(a1 + 32) + 8) + 24) = fpic_GetCurrentlyPlayingEvent(*(a1 + 40));
   result = *(*(*(a1 + 32) + 8) + 24);
   if (result)
   {

@@ -124,7 +124,7 @@ void __74__SBHardwareButtonBezelEffectsCoordinator_observePortalSourceWithHandle
   {
 
 LABEL_4:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_5;
   }
 
@@ -135,11 +135,11 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v10 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v10))
+  v11 = SBLogTelemetrySignposts(v8);
+  if (os_signpost_enabled(v11))
   {
     LOWORD(buf[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v10, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_CAPTURE_PRELUDE_HINT_AND_LAYOUT", &unk_21F8B82DE, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_CAPTURE_PRELUDE_HINT_AND_LAYOUT", &unk_21F8B82DE, buf, 2u);
   }
 
   kdebug_trace();
@@ -152,14 +152,14 @@ LABEL_4:
   }
 
   self->_lastRequestedLaunchOrigin = button;
-  v11 = [_SBCaptureButtonLaunchAnimationPreludeToken alloc];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __80__SBHardwareButtonBezelEffectsCoordinator_animateLaunchZoomUpPreludeFromButton___block_invoke_17;
-  v17[3] = &unk_2783A8C68;
-  objc_copyWeak(&v18, buf);
-  v8 = [(_SBCaptureButtonLaunchAnimationPreludeToken *)v11 initWithPreludeAnimating:self invalidationBlock:v17];
-  objc_storeWeak(&self->_animatingPreludeToken, v8);
+  v12 = [_SBCaptureButtonLaunchAnimationPreludeToken alloc];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __80__SBHardwareButtonBezelEffectsCoordinator_animateLaunchZoomUpPreludeFromButton___block_invoke_17;
+  v18[3] = &unk_2783A8C68;
+  objc_copyWeak(&v19, buf);
+  v9 = [(_SBCaptureButtonLaunchAnimationPreludeToken *)v12 initWithPreludeAnimating:self invalidationBlock:v18];
+  objc_storeWeak(&self->_animatingPreludeToken, v9);
   [(SBHardwareButtonBezelEffectsCoordinator *)self _presentOrDismissLaunchAnimationWindowIfNecessary];
   [(SBCaptureButtonDropletLaunchViewController *)self->_dropletLaunchViewController animateDropletFromButtonWithMilestones:0];
   [(SBHardwareButtonBezelEffectsCoordinator *)self _setShockwaveState:1 completion:0];
@@ -178,20 +178,20 @@ LABEL_4:
     [(SUIAShockwaveViewController *)self->_shockwaveViewController setPreferredLightType:1];
   }
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(buf);
 LABEL_5:
 
-  return v8;
+  return v9;
 }
 
-uint64_t __80__SBHardwareButtonBezelEffectsCoordinator_animateLaunchZoomUpPreludeFromButton___block_invoke()
+uint64_t __80__SBHardwareButtonBezelEffectsCoordinator_animateLaunchZoomUpPreludeFromButton___block_invoke(uint64_t a1)
 {
-  v0 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v0))
+  v1 = SBLogTelemetrySignposts(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v2 = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_CAPTURE_PRELUDE_HINT_AND_LAYOUT", &unk_21F8B82DE, v2, 2u);
+    *v3 = 0;
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_CAPTURE_PRELUDE_HINT_AND_LAYOUT", &unk_21F8B82DE, v3, 2u);
   }
 
   return kdebug_trace();
@@ -314,11 +314,11 @@ void __79__SBHardwareButtonBezelEffectsCoordinator_commandeerDropletAnimationWit
 
     if (v10)
     {
-      v11 = SBLogTelemetrySignposts();
-      if (os_signpost_enabled(v11))
+      v12 = SBLogTelemetrySignposts(v11);
+      if (os_signpost_enabled(v12))
       {
-        *v14 = 0;
-        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v11, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_CAPTURE_PRELUDE_EXPAND_AND_LAYOUT", &unk_21F8B82DE, v14, 2u);
+        *v15 = 0;
+        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_CAPTURE_PRELUDE_EXPAND_AND_LAYOUT", &unk_21F8B82DE, v15, 2u);
       }
 
       kdebug_trace();
@@ -326,15 +326,15 @@ void __79__SBHardwareButtonBezelEffectsCoordinator_commandeerDropletAnimationWit
       state = [(SUIAShockwaveViewController *)self->_shockwaveViewController state];
       if (shockwaveCopy)
       {
-        v13 = 2;
+        v14 = 2;
       }
 
       else
       {
-        v13 = 4;
+        v14 = 4;
       }
 
-      [(SBHardwareButtonBezelEffectsCoordinator *)self _setShockwaveState:v13 completion:0];
+      [(SBHardwareButtonBezelEffectsCoordinator *)self _setShockwaveState:v14 completion:0];
       if ([(SBCaptureButtonDropletLaunchViewController *)self->_dropletLaunchViewController expandHintingDropletByAddingComponents:components]|| state != [(SUIAShockwaveViewController *)self->_shockwaveViewController state])
       {
         [(SBHardwareButtonBezelEffectsCoordinator *)self _presentOrDismissLaunchAnimationWindowIfNecessary];
@@ -343,13 +343,13 @@ void __79__SBHardwareButtonBezelEffectsCoordinator_commandeerDropletAnimationWit
   }
 }
 
-uint64_t __105__SBHardwareButtonBezelEffectsCoordinator_preludeToken_expandHintingDropletByAddingComponents_shockwave___block_invoke()
+uint64_t __105__SBHardwareButtonBezelEffectsCoordinator_preludeToken_expandHintingDropletByAddingComponents_shockwave___block_invoke(uint64_t a1)
 {
-  v0 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v0))
+  v1 = SBLogTelemetrySignposts(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v2 = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_CAPTURE_PRELUDE_EXPAND_AND_LAYOUT", &unk_21F8B82DE, v2, 2u);
+    *v3 = 0;
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_CAPTURE_PRELUDE_EXPAND_AND_LAYOUT", &unk_21F8B82DE, v3, 2u);
   }
 
   return kdebug_trace();
@@ -533,7 +533,7 @@ void __56__SBHardwareButtonBezelEffectsCoordinator_cancelPrelude__block_invoke_2
 
     else
     {
-      v10 = SBLogButtonHintingUI();
+      v10 = SBLogButtonHintingUI(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [SBHardwareButtonBezelEffectsCoordinator updateHintContentVisibility:v10 forButton:? animationSettings:?];

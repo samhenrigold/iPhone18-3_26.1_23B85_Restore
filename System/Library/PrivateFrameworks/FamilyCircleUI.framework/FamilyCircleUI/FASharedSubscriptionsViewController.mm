@@ -6,7 +6,9 @@
 - (void)_startSpinnerInCellLoadingRemoteUI:(id)i;
 - (void)_stopSpinnerInCellLoadingRemoteUI;
 - (void)didSelectSpecifier:(id)specifier;
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FASharedSubscriptionsViewController
@@ -41,6 +43,15 @@
   [navigationItem setLeftBarButtonItem:0];
   [navigationItem setRightBarButtonItem:0];
   [navigationItem setTitle:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = FASharedSubscriptionsViewController;
+  [(FASharedSubscriptionsViewController *)&v4 viewWillAppear:appear];
+  [(FASharedSubscriptionSpecifierProvider *)self->_sharedSubscriptionSpecifierProvider setSelectionHandler:self];
+  [(FASharedSubscriptionsViewController *)self reloadSpecifiers];
 }
 
 - (id)specifiers
@@ -103,25 +114,25 @@
 
 void __85__FASharedSubscriptionsViewController__performEventWithContext_specifier_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(a1 + 32) eventType];
     v8 = @"NO";
-    v13 = 138412802;
-    v14 = v7;
-    v15 = 2112;
+    v12 = 138412802;
+    v13 = v7;
+    v14 = 2112;
     if (a2)
     {
       v8 = @"YES";
     }
 
-    v16 = v8;
-    v17 = 2112;
-    v18 = v5;
-    _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Event type %@ - completed with success: %@, error: %@", &v13, 0x20u);
+    v15 = v8;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Event type %@ - completed with success: %@, error: %@", &v12, 0x20u);
   }
 
   v9 = *(*(a1 + 56) + 8);
@@ -134,8 +145,6 @@ void __85__FASharedSubscriptionsViewController__performEventWithContext_specifie
   {
     (*(v11 + 16))(v11, a2, v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startSpinnerInCellLoadingRemoteUI:(id)i
@@ -164,6 +173,19 @@ void __85__FASharedSubscriptionsViewController__performEventWithContext_specifie
   }
 }
 
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  providerCopy = provider;
+  specifiersCopy = specifiers;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    subscriptionSpecifiers = [providerCopy subscriptionSpecifiers];
+    [(FASharedSubscriptionsViewController *)self replaceContiguousSpecifiers:specifiersCopy withSpecifiers:subscriptionSpecifiers animated:animatedCopy];
+  }
+}
+
 - (void)didSelectSpecifier:(id)specifier
 {
   specifierCopy = specifier;
@@ -185,7 +207,7 @@ void __85__FASharedSubscriptionsViewController__performEventWithContext_specifie
 
     else
     {
-      v8 = _FALogSystem();
+      v8 = _FALogSystem(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *v9 = 0;

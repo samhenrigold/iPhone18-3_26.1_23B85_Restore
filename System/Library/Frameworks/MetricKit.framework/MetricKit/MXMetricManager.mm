@@ -167,31 +167,29 @@ void __33__MXMetricManager_addSubscriber___block_invoke(uint64_t a1)
 
     if (v5)
     {
-      v7 = *(a1 + 40);
       if (objc_opt_respondsToSelector())
       {
-        v8 = [*(a1 + 32) pastPayloads];
-        v9 = [v8 count];
+        v7 = [*(a1 + 32) pastPayloads];
+        v8 = [v7 count];
 
-        if (v9)
+        if (v8)
         {
-          v10 = *(a1 + 40);
-          v11 = [*(a1 + 32) pastPayloads];
-          [v10 didReceiveMetricPayloads:v11];
+          v9 = *(a1 + 40);
+          v10 = [*(a1 + 32) pastPayloads];
+          [v9 didReceiveMetricPayloads:v10];
         }
       }
 
-      v12 = *(a1 + 40);
       if (objc_opt_respondsToSelector())
       {
-        v13 = [*(a1 + 32) pastDiagnosticPayloads];
-        v14 = [v13 count];
+        v11 = [*(a1 + 32) pastDiagnosticPayloads];
+        v12 = [v11 count];
 
-        if (v14)
+        if (v12)
         {
-          v15 = *(a1 + 40);
-          v17 = [*(a1 + 32) pastDiagnosticPayloads];
-          [v15 didReceiveDiagnosticPayloads:v17];
+          v13 = *(a1 + 40);
+          v15 = [*(a1 + 32) pastDiagnosticPayloads];
+          [v13 didReceiveDiagnosticPayloads:v15];
         }
       }
     }
@@ -199,9 +197,9 @@ void __33__MXMetricManager_addSubscriber___block_invoke(uint64_t a1)
     else
     {
       [*(a1 + 32) _checkAndDeliverDiagnosticReports];
-      v16 = *(a1 + 32);
+      v14 = *(a1 + 32);
 
-      [v16 _checkAndDeliverMetricReports];
+      [v14 _checkAndDeliverMetricReports];
     }
   }
 }
@@ -505,72 +503,72 @@ LABEL_7:
 
 - (id)mergeDiagnosticsAtLocation:(id)location
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v61 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v61 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v72 = 0;
-  v65 = defaultManager;
-  v66 = locationCopy;
-  v9 = [defaultManager contentsOfDirectoryAtPath:locationCopy error:&v72];
-  v10 = v72;
-  v63 = v7;
+  v60 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v71 = 0;
+  v64 = defaultManager;
+  v65 = locationCopy;
+  v9 = [defaultManager contentsOfDirectoryAtPath:locationCopy error:&v71];
+  v10 = v71;
+  v62 = v7;
   if (v10)
   {
     v11 = v10;
     obj = [(MXMetricManager *)self managerLogHandle:v10];
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
-      [(MXMetricManager *)v66 mergeDiagnosticsAtLocation:v11, obj];
+      [(MXMetricManager *)v65 mergeDiagnosticsAtLocation:v11, obj];
     }
 
     goto LABEL_4;
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   obj = v9;
-  v15 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16, 0, v9];
+  v15 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16, 0, v9];
   if (!v15)
   {
 LABEL_4:
     v12 = 0;
     v13 = 0;
-    v14 = v62;
+    v14 = v61;
     goto LABEL_37;
   }
 
   v16 = v15;
   selfCopy = self;
-  v59 = v8;
-  v60 = v6;
+  v58 = v8;
+  v59 = v6;
   v12 = 0;
   v13 = 0;
-  v17 = *v69;
+  v17 = *v68;
   do
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v69 != v17)
+      if (*v68 != v17)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v68 + 1) + 8 * i);
-      v20 = [v66 stringByAppendingPathComponent:v19];
-      v21 = [v65 contentsAtPath:v20];
+      v19 = *(*(&v67 + 1) + 8 * i);
+      v20 = [v65 stringByAppendingPathComponent:v19];
+      v21 = [v64 contentsAtPath:v20];
 
       v22 = MEMORY[0x277CCAAC8];
       v23 = objc_opt_class();
-      v67 = 0;
-      v24 = [v22 unarchivedObjectOfClass:v23 fromData:v21 error:&v67];
-      v25 = v67;
+      v66 = 0;
+      v24 = [v22 unarchivedObjectOfClass:v23 fromData:v21 error:&v66];
+      v25 = v66;
       v26 = v25;
       if (v24)
       {
@@ -593,9 +591,9 @@ LABEL_4:
         if (os_log_type_enabled(managerLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v74 = v19;
-          v75 = 2112;
-          v76 = v26;
+          v73 = v19;
+          v74 = 2112;
+          v75 = v26;
           _os_log_error_impl(&dword_239E37000, managerLogHandle, OS_LOG_TYPE_ERROR, "Error while reading Diagnostic Report :%@ with error: %@", buf, 0x16u);
         }
 
@@ -607,7 +605,7 @@ LABEL_4:
       if (hangDiagnostics)
       {
         hangDiagnostics2 = [v24 hangDiagnostics];
-        [v60 addObjectsFromArray:hangDiagnostics2];
+        [v59 addObjectsFromArray:hangDiagnostics2];
       }
 
       cpuExceptionDiagnostics = [v24 cpuExceptionDiagnostics];
@@ -615,7 +613,7 @@ LABEL_4:
       if (cpuExceptionDiagnostics)
       {
         cpuExceptionDiagnostics2 = [v24 cpuExceptionDiagnostics];
-        [v62 addObjectsFromArray:cpuExceptionDiagnostics2];
+        [v61 addObjectsFromArray:cpuExceptionDiagnostics2];
       }
 
       diskWriteExceptionDiagnostics = [v24 diskWriteExceptionDiagnostics];
@@ -623,7 +621,7 @@ LABEL_4:
       if (diskWriteExceptionDiagnostics)
       {
         diskWriteExceptionDiagnostics2 = [v24 diskWriteExceptionDiagnostics];
-        [v63 addObjectsFromArray:diskWriteExceptionDiagnostics2];
+        [v62 addObjectsFromArray:diskWriteExceptionDiagnostics2];
       }
 
       crashDiagnostics = [v24 crashDiagnostics];
@@ -631,7 +629,7 @@ LABEL_4:
       if (crashDiagnostics)
       {
         crashDiagnostics2 = [v24 crashDiagnostics];
-        [v59 addObjectsFromArray:crashDiagnostics2];
+        [v58 addObjectsFromArray:crashDiagnostics2];
       }
 
       appLaunchDiagnostics = [v24 appLaunchDiagnostics];
@@ -639,7 +637,7 @@ LABEL_4:
       if (appLaunchDiagnostics)
       {
         appLaunchDiagnostics2 = [v24 appLaunchDiagnostics];
-        [v61 addObjectsFromArray:appLaunchDiagnostics2];
+        [v60 addObjectsFromArray:appLaunchDiagnostics2];
       }
 
       timeStampBegin = [v24 timeStampBegin];
@@ -672,14 +670,14 @@ LABEL_32:
 LABEL_34:
     }
 
-    v16 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
+    v16 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
   }
 
   while (v16);
-  v8 = v59;
-  v6 = v60;
-  v14 = v62;
-  v7 = v63;
+  v8 = v58;
+  v6 = v59;
+  v14 = v61;
+  v7 = v62;
 LABEL_37:
 
   v44 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -708,9 +706,9 @@ LABEL_37:
   }
 
   v49 = v8;
-  if ([v61 count])
+  if ([v60 count])
   {
-    v50 = [MEMORY[0x277CBEA60] arrayWithArray:v61];
+    v50 = [MEMORY[0x277CBEA60] arrayWithArray:v60];
     [v44 setObject:v50 forKey:@"appLaunchDiagnostics"];
   }
 
@@ -718,14 +716,12 @@ LABEL_37:
   v52 = [v44 copy];
   v53 = [(MXDiagnosticPayload *)v51 initWithTimeStampBegin:v13 withTimeStampEnd:v12 withDiagnostics:v52];
 
-  v54 = *MEMORY[0x277D85DE8];
-
   return v53;
 }
 
 - (void)deliverMetricPayload:(id)payload
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if ([payloadCopy count])
   {
@@ -733,7 +729,7 @@ LABEL_37:
     if (os_log_type_enabled(managerLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = payloadCopy;
+      v13 = payloadCopy;
       _os_log_impl(&dword_239E37000, managerLogHandle, OS_LOG_TYPE_DEFAULT, "Delivering metric reports: %@", buf, 0xCu);
     }
 
@@ -746,42 +742,40 @@ LABEL_37:
     [(MXMetricManager *)self setPastPayloads:v8];
 
     iVarQueue = self->_iVarQueue;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __40__MXMetricManager_deliverMetricPayload___block_invoke;
-    v11[3] = &unk_278B3EDE8;
-    v11[4] = self;
-    v12 = payloadCopy;
-    dispatch_async(iVarQueue, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __40__MXMetricManager_deliverMetricPayload___block_invoke;
+    v10[3] = &unk_278B3EDE8;
+    v10[4] = self;
+    v11 = payloadCopy;
+    dispatch_async(iVarQueue, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __40__MXMetricManager_deliverMetricPayload___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) subscribers];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 didReceiveMetricPayloads:*(a1 + 40)];
@@ -791,18 +785,16 @@ void __40__MXMetricManager_deliverMetricPayload___block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverDiagnosticPayload:(id)payload
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if ([payloadCopy count])
   {
@@ -810,7 +802,7 @@ void __40__MXMetricManager_deliverMetricPayload___block_invoke(uint64_t a1)
     if (os_log_type_enabled(managerLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = payloadCopy;
+      v13 = payloadCopy;
       _os_log_impl(&dword_239E37000, managerLogHandle, OS_LOG_TYPE_DEFAULT, "Delivering diagnostic reports: %@", buf, 0xCu);
     }
 
@@ -823,42 +815,40 @@ void __40__MXMetricManager_deliverMetricPayload___block_invoke(uint64_t a1)
     [(MXMetricManager *)self setPastDiagnosticPayloads:v8];
 
     iVarQueue = self->_iVarQueue;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __44__MXMetricManager_deliverDiagnosticPayload___block_invoke;
-    v11[3] = &unk_278B3EDE8;
-    v11[4] = self;
-    v12 = payloadCopy;
-    dispatch_async(iVarQueue, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __44__MXMetricManager_deliverDiagnosticPayload___block_invoke;
+    v10[3] = &unk_278B3EDE8;
+    v10[4] = self;
+    v11 = payloadCopy;
+    dispatch_async(iVarQueue, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __44__MXMetricManager_deliverDiagnosticPayload___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) subscribers];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 didReceiveDiagnosticPayloads:*(a1 + 40)];
@@ -868,24 +858,21 @@ void __44__MXMetricManager_deliverDiagnosticPayload___block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeDiagnosticsAtLocation:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_239E37000, log, OS_LOG_TYPE_ERROR, "Failed to retrieve contents of directory %@ data on disk: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_239E37000, log, OS_LOG_TYPE_ERROR, "Failed to retrieve contents of directory %@ data on disk: %@", &v3, 0x16u);
 }
 
 @end

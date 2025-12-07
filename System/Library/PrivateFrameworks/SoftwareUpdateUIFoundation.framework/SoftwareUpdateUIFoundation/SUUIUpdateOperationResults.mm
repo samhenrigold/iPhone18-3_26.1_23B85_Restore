@@ -45,7 +45,6 @@
   v9[0] = v6;
   v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   MEMORY[0x277D82BD8](v6);
-  *MEMORY[0x277D85DE8];
 
   return v7;
 }

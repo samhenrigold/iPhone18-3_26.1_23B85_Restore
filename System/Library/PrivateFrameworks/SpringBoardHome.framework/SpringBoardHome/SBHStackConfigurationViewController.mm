@@ -190,9 +190,9 @@
 
 - (void)loadView
 {
-  v35.receiver = self;
-  v35.super_class = SBHStackConfigurationViewController;
-  [(SBHStackConfigurationViewController *)&v35 loadView];
+  v36.receiver = self;
+  v36.super_class = SBHStackConfigurationViewController;
+  [(SBHStackConfigurationViewController *)&v36 loadView];
   v3 = [SBHStackConfigurationView alloc];
   view = [(SBHStackConfigurationViewController *)self view];
   [view frame];
@@ -205,80 +205,81 @@
   widgetSettings = self->_widgetSettings;
   if (stackConfigurationBlursBackground)
   {
-    if ([(SBHWidgetSettings *)widgetSettings stackConfigurationUsesFolderBlur])
+    stackConfigurationUsesFolderBlur = [(SBHWidgetSettings *)widgetSettings stackConfigurationUsesFolderBlur];
+    if (stackConfigurationUsesFolderBlur)
     {
       currentDevice = [MEMORY[0x1E69DC938] currentDevice];
       sbf_animatedBlurRadiusGraphicsQuality = [currentDevice sbf_animatedBlurRadiusGraphicsQuality];
 
-      v11 = @"folderExpandedBackgroundHomeSimplified";
+      v12 = @"folderExpandedBackgroundHomeSimplified";
       if (sbf_animatedBlurRadiusGraphicsQuality == 100)
       {
-        v11 = @"folderExpandedBackgroundHome";
+        v12 = @"folderExpandedBackgroundHome";
       }
 
-      v12 = MEMORY[0x1E69AE158];
-      v13 = v11;
-      v14 = SBHBundle();
-      v15 = [v12 materialViewWithRecipeNamed:v13 inBundle:v14 options:0 initialWeighting:0 scaleAdjustment:1.0];
+      v13 = MEMORY[0x1E69AE158];
+      v14 = v12;
+      v15 = SBHBundle(v14);
+      v16 = [v13 materialViewWithRecipeNamed:v14 inBundle:v15 options:0 initialWeighting:0 scaleAdjustment:1.0];
     }
 
     else
     {
-      v18 = MEMORY[0x1E69AE158];
-      v14 = SBHBundle();
-      v15 = [v18 materialViewWithRecipeNamed:@"stackConfigurationBackground" inBundle:v14 options:0 initialWeighting:0 scaleAdjustment:1.0];
+      v19 = MEMORY[0x1E69AE158];
+      v15 = SBHBundle(stackConfigurationUsesFolderBlur);
+      v16 = [v19 materialViewWithRecipeNamed:@"stackConfigurationBackground" inBundle:v15 options:0 initialWeighting:0 scaleAdjustment:1.0];
     }
 
-    [view2 bounds];
-    [v15 setFrame:?];
-    [v15 setAutoresizingMask:18];
-    v19 = SBHHomeScreenMaterialViewBackdropScaleAdjustmentHandlerForCurrentDevice();
-    [v15 setBackdropScaleAdjustment:v19];
+    objc_msgSend_bounds(view2);
+    [v16 setFrame:?];
+    [v16 setAutoresizingMask:18];
+    v20 = SBHHomeScreenMaterialViewBackdropScaleAdjustmentHandlerForCurrentDevice();
+    [v16 setBackdropScaleAdjustment:v20];
 
-    [v15 setGroupNameBase:@"Widget-Stack-Configuration"];
-    [view2 addSubview:v15];
+    [v16 setGroupNameBase:@"Widget-Stack-Configuration"];
+    [view2 addSubview:v16];
     backgroundMaterialView = self->_backgroundMaterialView;
-    self->_backgroundMaterialView = v15;
-    v21 = v15;
+    self->_backgroundMaterialView = v16;
+    v22 = v16;
 
     [(SBHWidgetSettings *)self->_widgetSettings stackConfigurationDimmingAlpha];
-    v17 = v22;
+    v18 = v23;
   }
 
   else
   {
     [(SBHWidgetSettings *)widgetSettings stackConfigurationNoBlurDimmingAlpha];
-    v17 = v16;
+    v18 = v17;
   }
 
-  v23 = [SBHStackConfigurationBackgroundDimmingView alloc];
-  [view2 bounds];
-  v24 = [(SBHStackConfigurationBackgroundDimmingView *)v23 initWithFrame:?];
-  [(SBHStackConfigurationBackgroundDimmingView *)v24 setAutoresizingMask:18];
-  v25 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:v17];
-  [(SBHStackConfigurationBackgroundDimmingView *)v24 setBackgroundColor:v25];
+  v24 = [SBHStackConfigurationBackgroundDimmingView alloc];
+  objc_msgSend_bounds(view2);
+  v25 = [(SBHStackConfigurationBackgroundDimmingView *)v24 initWithFrame:?];
+  [(SBHStackConfigurationBackgroundDimmingView *)v25 setAutoresizingMask:18];
+  v26 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:v18];
+  [(SBHStackConfigurationBackgroundDimmingView *)v25 setBackgroundColor:v26];
 
-  [view2 addSubview:v24];
+  [view2 addSubview:v25];
   backgroundDimmingView = self->_backgroundDimmingView;
-  self->_backgroundDimmingView = v24;
-  v27 = v24;
+  self->_backgroundDimmingView = v25;
+  v28 = v25;
 
-  v28 = [SBHTouchPassThroughView alloc];
-  [view2 bounds];
-  v29 = [(SBHTouchPassThroughView *)v28 initWithFrame:?];
-  [(UIView *)v29 setAutoresizingMask:18];
-  [view2 addSubview:v29];
-  [(UIView *)v29 sbh_createGlassGroup];
+  v29 = [SBHTouchPassThroughView alloc];
+  objc_msgSend_bounds(view2);
+  v30 = [(SBHTouchPassThroughView *)v29 initWithFrame:?];
+  [(UIView *)v30 setAutoresizingMask:18];
+  [view2 addSubview:v30];
+  [(UIView *)v30 sbh_createGlassGroup];
   scalingView = self->_scalingView;
-  self->_scalingView = v29;
-  v31 = v29;
+  self->_scalingView = v30;
+  v32 = v30;
 
-  v32 = [SBHTouchPassThroughView alloc];
-  [(UIView *)v31 bounds];
-  v33 = [(SBHTouchPassThroughView *)v32 initWithFrame:?];
-  [(UIView *)v31 addSubview:v33];
+  v33 = [SBHTouchPassThroughView alloc];
+  objc_msgSend_bounds(v32);
+  v34 = [(SBHTouchPassThroughView *)v33 initWithFrame:?];
+  [(UIView *)v32 addSubview:v34];
   contentView = self->_contentView;
-  self->_contentView = v33;
+  self->_contentView = v34;
 }
 
 - (void)viewDidLoad
@@ -425,31 +426,27 @@
   if ([icon iconDataSourceCount])
   {
     [(BSUIScrollView *)self->_scrollView contentOffset];
-    v4 = [(SBHStackConfigurationViewController *)self _widgetIndexForContentOffset:?];
-    iconDataSourceCount = [icon iconDataSourceCount];
-    if (iconDataSourceCount - 1 < v4)
-    {
-      v4 = iconDataSourceCount - 1;
-    }
-
+    [(SBHStackConfigurationViewController *)self _widgetIndexForContentOffset:?];
+    [icon iconDataSourceCount];
     iconDataSources = [icon iconDataSources];
-    v7 = [iconDataSources objectAtIndex:v4];
+    v5 = objc_msgSend_objectAtIndex_(iconDataSources);
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  return v7;
+  return v5;
 }
 
 - (id)animationCoordinator
 {
-  if (([(SBHStackConfigurationViewController *)self isViewLoaded]& 1) == 0)
+  isViewLoaded = [(SBHStackConfigurationViewController *)self isViewLoaded];
+  if ((isViewLoaded & 1) == 0)
   {
-    v4 = SBLogIcon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogIcon(isViewLoaded);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(SBHStackConfigurationViewController *)self animationCoordinator];
     }
@@ -571,7 +568,7 @@ uint64_t __79__SBHStackConfigurationViewController_scrollIconToVisible_animated_
   if (self->_titledButtonsAlpha != alpha)
   {
     self->_titledButtonsAlpha = alpha;
-    v5 = SBLogIcon();
+    v5 = SBLogIcon(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 134349056;
@@ -853,71 +850,71 @@ void __74__SBHStackConfigurationViewController_visiblyActiveDataSourceSnapshotVi
 
 - (void)_setupBackgroundInContainer:(id)container
 {
-  v45[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
   containerCopy = container;
   traitCollection = [(SBHStackConfigurationViewController *)self traitCollection];
   v6 = [traitCollection userInterfaceStyle] == 1;
 
-  v7 = SBHBundle();
+  v8 = SBHBundle(v7);
   systemBlueColor = [MEMORY[0x1E69DC888] systemBlueColor];
-  v9 = self->_configuration;
+  v10 = self->_configuration;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __67__SBHStackConfigurationViewController__setupBackgroundInContainer___block_invoke;
   aBlock[3] = &unk_1E808C7C8;
-  v39 = v9;
-  v40 = v7;
-  v43 = v6;
-  v41 = systemBlueColor;
+  v40 = v10;
+  v41 = v8;
+  v44 = v6;
+  v42 = systemBlueColor;
   selfCopy = self;
-  v37 = systemBlueColor;
-  v36 = v7;
-  v35 = v9;
-  v34 = _Block_copy(aBlock);
-  v10 = v34[2](v34, 1);
-  v11 = v34[2](v34, 0);
+  v38 = systemBlueColor;
+  v37 = v8;
+  v36 = v10;
+  v35 = _Block_copy(aBlock);
+  v11 = v35[2](v35, 1);
+  v12 = v35[2](v35, 0);
   smartRotateButtonViewController = self->_smartRotateButtonViewController;
-  self->_smartRotateButtonViewController = v10;
-  v33 = v10;
+  self->_smartRotateButtonViewController = v11;
+  v34 = v11;
 
   suggestionsButtonViewController = self->_suggestionsButtonViewController;
-  self->_suggestionsButtonViewController = v11;
-  v32 = v11;
+  self->_suggestionsButtonViewController = v12;
+  v33 = v12;
 
   [(SBHStackConfigurationViewController *)self _updateButtonSubtitleForSmartRotate:1 animated:0];
   [(SBHStackConfigurationViewController *)self _updateButtonSubtitleForSmartRotate:0 animated:0];
-  v31 = [[SBHStackConfigurationBackgroundViewController alloc] initWithNibName:0 bundle:0];
-  [(SBHStackConfigurationViewController *)self bs_addChildViewController:v31 withSuperview:containerCopy];
-  v45[0] = v33;
-  v45[1] = v32;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
-  [(SBHStackConfigurationBackgroundViewController *)v31 setFooterButtons:v14];
+  v32 = [[SBHStackConfigurationBackgroundViewController alloc] initWithNibName:0 bundle:0];
+  [(SBHStackConfigurationViewController *)self bs_addChildViewController:v32 withSuperview:containerCopy];
+  v46[0] = v34;
+  v46[1] = v33;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+  [(SBHStackConfigurationBackgroundViewController *)v32 setFooterButtons:v15];
 
-  view = [(SBHStackConfigurationBackgroundViewController *)v31 view];
+  view = [(SBHStackConfigurationBackgroundViewController *)v32 view];
   [view setTranslatesAutoresizingMaskIntoConstraints:0];
-  v25 = MEMORY[0x1E696ACD8];
+  v26 = MEMORY[0x1E696ACD8];
   topAnchor = [view topAnchor];
   topAnchor2 = [containerCopy topAnchor];
-  v28 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v44[0] = v28;
+  v29 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v45[0] = v29;
   bottomAnchor = [view bottomAnchor];
   bottomAnchor2 = [containerCopy bottomAnchor];
-  v16 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v44[1] = v16;
+  v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v45[1] = v17;
   leadingAnchor = [view leadingAnchor];
   leadingAnchor2 = [containerCopy leadingAnchor];
-  v19 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v44[2] = v19;
+  v20 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v45[2] = v20;
   trailingAnchor = [view trailingAnchor];
   trailingAnchor2 = [containerCopy trailingAnchor];
 
-  v22 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v44[3] = v22;
-  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:4];
-  [v25 activateConstraints:v23];
+  v23 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v45[3] = v23;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:4];
+  [v26 activateConstraints:v24];
 
   backgroundViewController = self->_backgroundViewController;
-  self->_backgroundViewController = v31;
+  self->_backgroundViewController = v32;
 }
 
 id __67__SBHStackConfigurationViewController__setupBackgroundInContainer___block_invoke(uint64_t a1, int a2)
@@ -997,8 +994,7 @@ id __67__SBHStackConfigurationViewController__setupBackgroundInContainer___block
   v19 = [v18 button];
   [v19 addTarget:*(a1 + 56) action:v12 forControlEvents:64];
 
-  [v18 setGlyphState:@"State 1"];
-  v20 = SBHBundle();
+  v20 = SBHBundle([v18 setGlyphState:@"State 1"]);
   v21 = [v20 localizedStringForKey:v7 value:&stru_1F3D472A8 table:@"SpringBoardHome"];
   [v18 setTitle:v21];
 
@@ -1104,7 +1100,7 @@ id __67__SBHStackConfigurationViewController__setupBackgroundInContainer___block
   v4 = MEMORY[0x1E698E808];
   containerCopy = container;
   v6 = [v4 alloc];
-  [containerCopy bounds];
+  objc_msgSend_bounds(containerCopy);
   v7 = [v6 initWithFrame:?];
   [(BSUIScrollView *)v7 setContentInsetAdjustmentBehavior:2];
   [(BSUIScrollView *)v7 setDecelerationRate:*MEMORY[0x1E69DE3A0]];
@@ -1150,7 +1146,7 @@ id __67__SBHStackConfigurationViewController__setupBackgroundInContainer___block
   dataSources = [(SBHStackConfiguration *)self->_configuration dataSources];
   location = [(SBIconView *)self->_stackIconView location];
   v8 = [(SBIconListLayoutProvider *)self->_listLayoutProvider layoutForIconLocation:location];
-  [v8 iconImageInfoForGridSizeClass:gridSizeClass];
+  objc_msgSend_iconImageInfoForGridSizeClass_(v8);
   v10 = v9;
   v12 = v11;
   v14 = v13;
@@ -1621,7 +1617,7 @@ LABEL_14:
 - (void)_updateLayoutForEditButtons
 {
   view = [(SBHStackConfigurationViewController *)self view];
-  [(UIView *)view bounds];
+  objc_msgSend_bounds(view);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -1668,16 +1664,17 @@ LABEL_14:
 
 - (void)iconTapped:(id)tapped
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   tappedCopy = tapped;
-  if ([tappedCopy supportsConfigurationCard])
+  supportsConfigurationCard = [tappedCopy supportsConfigurationCard];
+  if (supportsConfigurationCard)
   {
-    v4 = SBLogIcon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogIcon(supportsConfigurationCard);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = tappedCopy;
-      _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEFAULT, "Starting configuration of icon within stack configuration due to tap: %@", &v5, 0xCu);
+      v6 = 138412290;
+      v7 = tappedCopy;
+      _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "Starting configuration of icon within stack configuration due to tap: %@", &v6, 0xCu);
     }
 
     [tappedCopy presentConfigurationCard];
@@ -1692,40 +1689,40 @@ LABEL_14:
 
   v6 = MEMORY[0x1E69DC650];
   v7 = MEMORY[0x1E696AEC0];
-  v8 = SBHBundle();
-  v9 = [v8 localizedStringForKey:@"REMOVE_WIDGET_TITLE_REMOVE_WITH_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v28 = displayName;
-  v10 = [v7 stringWithFormat:v9, displayName];
-  v11 = MEMORY[0x1E696AEC0];
-  v12 = SBHBundle();
-  v13 = [v12 localizedStringForKey:@"REMOVE_WIDGET_BODY_REMOVE_DATA" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v14 = [v11 stringWithFormat:v13, displayName];
-  v15 = [v6 alertControllerWithTitle:v10 message:v14 preferredStyle:1];
+  v9 = SBHBundle(v8);
+  v10 = [v9 localizedStringForKey:@"REMOVE_WIDGET_TITLE_REMOVE_WITH_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v29 = displayName;
+  v11 = [v7 stringWithFormat:v10, displayName];
+  v12 = MEMORY[0x1E696AEC0];
+  v13 = SBHBundle(v11);
+  v14 = [v13 localizedStringForKey:@"REMOVE_WIDGET_BODY_REMOVE_DATA" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v15 = [v12 stringWithFormat:v14, displayName];
+  v16 = [v6 alertControllerWithTitle:v11 message:v15 preferredStyle:1];
 
-  v16 = self->_iconListView;
-  v17 = MEMORY[0x1E69DC648];
-  v18 = SBHBundle();
-  v19 = [v18 localizedStringForKey:@"REMOVE_WIDGET_BUTTON_REMOVE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __58__SBHStackConfigurationViewController_iconCloseBoxTapped___block_invoke;
-  v29[3] = &unk_1E808C840;
-  v30 = tappedCopy;
-  v31 = v16;
+  v17 = self->_iconListView;
+  v18 = MEMORY[0x1E69DC648];
+  v19 = SBHBundle(v17);
+  v20 = [v19 localizedStringForKey:@"REMOVE_WIDGET_BUTTON_REMOVE" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __58__SBHStackConfigurationViewController_iconCloseBoxTapped___block_invoke;
+  v30[3] = &unk_1E808C840;
+  v31 = tappedCopy;
+  v32 = v17;
   selfCopy = self;
-  v20 = v16;
-  v21 = tappedCopy;
-  v22 = [v17 actionWithTitle:v19 style:2 handler:v29];
+  v21 = v17;
+  v22 = tappedCopy;
+  v23 = [v18 actionWithTitle:v20 style:2 handler:v30];
 
-  [v15 addAction:v22];
-  v23 = MEMORY[0x1E69DC648];
-  icon2 = [v21 icon];
+  [v16 addAction:v23];
+  v24 = MEMORY[0x1E69DC648];
+  icon2 = [v22 icon];
   uninstallAlertCancelTitle = [icon2 uninstallAlertCancelTitle];
-  v26 = [v23 actionWithTitle:uninstallAlertCancelTitle style:1 handler:0];
+  v27 = [v24 actionWithTitle:uninstallAlertCancelTitle style:1 handler:0];
 
-  [v15 addAction:v26];
-  [v15 setPreferredAction:v22];
-  [(SBHStackConfigurationViewController *)self presentViewController:v15 animated:1 completion:0];
+  [v16 addAction:v27];
+  [v16 setPreferredAction:v23];
+  [(SBHStackConfigurationViewController *)self presentViewController:v16 animated:1 completion:0];
 }
 
 void __58__SBHStackConfigurationViewController_iconCloseBoxTapped___block_invoke(uint64_t a1)
@@ -2273,7 +2270,7 @@ LABEL_12:
 - (unint64_t)_widgetIndexForContentOffset:(CGPoint)offset
 {
   y = offset.y;
-  [(SBHStackConfigurationApertureView *)self->_apertureView bounds];
+  objc_msgSend_bounds(self->_apertureView, a2, offset.x);
   v6 = v5 * 0.5;
   [(SBIconListView *)self->_iconListView iconSpacing];
   v8 = v7;
@@ -2469,7 +2466,7 @@ LABEL_12:
 void __84__SBHStackConfigurationViewController__updateButtonSubtitleForSmartRotate_animated___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = SBHBundle();
+  v3 = SBHBundle(a1);
   v6 = v3;
   if (*(a1 + 40))
   {
@@ -2760,30 +2757,30 @@ id __61__SBHStackConfigurationViewController__didToggleSuggestions___block_invok
 
 - (void)_didTapAddWidgetButton:(id)button
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dataSources = [(SBHStackConfiguration *)self->_configuration dataSources];
   v5 = [dataSources count];
   maximumWidgetsInAStack = [(SBHWidgetSettings *)self->_widgetSettings maximumWidgetsInAStack];
 
-  delegate = SBLogIcon();
-  v8 = os_log_type_enabled(delegate, OS_LOG_TYPE_INFO);
+  delegate = SBLogIcon(v7);
+  v9 = os_log_type_enabled(delegate, OS_LOG_TYPE_INFO);
   if (v5 >= maximumWidgetsInAStack)
   {
-    if (v8)
+    if (v9)
     {
-      v9 = 138412290;
+      v10 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_1BEB18000, delegate, OS_LOG_TYPE_INFO, "'%@' ignoring tap to present Add Widget Sheet", &v9, 0xCu);
+      _os_log_impl(&dword_1BEB18000, delegate, OS_LOG_TYPE_INFO, "'%@' ignoring tap to present Add Widget Sheet", &v10, 0xCu);
     }
   }
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      v9 = 138412290;
+      v10 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_1BEB18000, delegate, OS_LOG_TYPE_INFO, "'%@' requesting presentation of Add Widget Sheet", &v9, 0xCu);
+      _os_log_impl(&dword_1BEB18000, delegate, OS_LOG_TYPE_INFO, "'%@' requesting presentation of Add Widget Sheet", &v10, 0xCu);
     }
 
     delegate = [(SBHStackConfigurationViewController *)self delegate];
@@ -2793,19 +2790,24 @@ id __61__SBHStackConfigurationViewController__didToggleSuggestions___block_invok
 
 - (void)_didTapDoneButton:(id)button
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   delegate = [(SBHStackConfigurationViewController *)self delegate];
-  if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
+  v5 = delegate;
+  if (delegate)
   {
-    [delegate stackConfigurationViewControllerDoneButtonTapped:self];
+    delegate = objc_opt_respondsToSelector();
+    if (delegate)
+    {
+      delegate = [v5 stackConfigurationViewControllerDoneButtonTapped:self];
+    }
   }
 
-  v5 = SBLogIcon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = SBLogIcon(delegate);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
+    v7 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "'%@' requesting dismissal; Done button tapped", &v6, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "'%@' requesting dismissal; Done button tapped", &v7, 0xCu);
   }
 
   [(SBHStackConfigurationViewController *)self _requestDismissal];
@@ -2813,7 +2815,7 @@ id __61__SBHStackConfigurationViewController__didToggleSuggestions___block_invok
 
 - (void)_didTapBackgroundView:(id)view
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   view = [viewCopy view];
   [viewCopy locationInView:view];
@@ -2829,38 +2831,38 @@ id __61__SBHStackConfigurationViewController__didToggleSuggestions___block_invok
   addButton = [(SBHStackConfigurationViewController *)self addButton];
   [v10 bs_safeAddObject:addButton];
 
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v14 = v10;
-  v15 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v23;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v22 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v21 + 1) + 8 * i);
-        [v19 bounds];
+        v19 = *(*(&v22 + 1) + 8 * i);
+        objc_msgSend_bounds(v19, v22);
         [v19 convertRect:view toView:?];
-        v29.x = v7;
-        v29.y = v9;
-        if (CGRectContainsPoint(v30, v29))
+        v30.x = v7;
+        v30.y = v9;
+        if (CGRectContainsPoint(v31, v30))
         {
 
           goto LABEL_13;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v22 objects:v28 count:16];
       if (v16)
       {
         continue;
@@ -2870,12 +2872,12 @@ id __61__SBHStackConfigurationViewController__didToggleSuggestions___block_invok
     }
   }
 
-  v20 = SBLogIcon();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v21 = SBLogIcon(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_INFO, "'%@' requesting dismissal due to tap gesture", buf, 0xCu);
+    _os_log_impl(&dword_1BEB18000, v21, OS_LOG_TYPE_INFO, "'%@' requesting dismissal due to tap gesture", buf, 0xCu);
   }
 
   [(SBHStackConfigurationViewController *)self _requestDismissal];
@@ -2939,7 +2941,7 @@ LABEL_13:
 {
   if (self->_closeConfigurationTimer)
   {
-    v3 = SBLogIcon();
+    v3 = SBLogIcon(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [(SBHStackConfigurationViewController *)v3 _cancelCloseConfigurationTimer];
@@ -2954,7 +2956,7 @@ LABEL_13:
 - (void)_closeConfigurationTimerFired
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = SBLogIcon();
+  v3 = SBLogIcon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138412290;
@@ -3038,7 +3040,7 @@ LABEL_13:
   [dragCopy locationInView:viewCopy];
   v11 = v10;
   v13 = v12;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v17.x = v11;
   v17.y = v13;
   if (CGRectContainsPoint(v18, v17))
@@ -3065,7 +3067,7 @@ LABEL_13:
     [dragCopy locationInView:viewCopy];
     v8 = v7;
     v10 = v9;
-    [viewCopy bounds];
+    objc_msgSend_bounds(viewCopy);
     v13.x = v8;
     v13.y = v10;
     if (CGRectContainsPoint(v14, v13))

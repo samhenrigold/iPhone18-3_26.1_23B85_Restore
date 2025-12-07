@@ -19,11 +19,10 @@
 
 - (void)dealloc
 {
-  state = self->_state;
   os_state_remove_handler();
-  v4.receiver = self;
-  v4.super_class = _GCHIDEventSubjectAuditor;
-  [(_GCHIDEventSubjectAuditor *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = _GCHIDEventSubjectAuditor;
+  [(_GCHIDEventSubjectAuditor *)&v3 dealloc];
 }
 
 - (id)initWithSubject:(void *)subject
@@ -110,14 +109,13 @@
   {
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:IOHIDEventGetSenderID()];
     os_unfair_lock_lock((received + 16));
-    v2 = [*(received + 24) objectForKey:v6];
+    v3 = [*(received + 24) objectForKey:v6];
     os_unfair_lock_unlock((received + 16));
-    if (v2)
+    if (v3)
     {
-      v3 = v2[1];
       OUTLINED_FUNCTION_0_11();
-      v2[1] = v5 + 1;
-      v2[v4 + 3] = IOHIDEventGetTimeStamp();
+      v3[1] = v5 + 1;
+      v3[v4 + 3] = IOHIDEventGetTimeStamp();
     }
   }
 }
@@ -126,13 +124,13 @@
 {
   if (published)
   {
-    v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:IOHIDEventGetSenderID()];
+    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:IOHIDEventGetSenderID()];
     os_unfair_lock_lock((published + 16));
-    v2 = [*(published + 24) objectForKey:v3];
+    v3 = [*(published + 24) objectForKey:v4];
     os_unfair_lock_unlock((published + 16));
-    if (v2)
+    if (v3)
     {
-      ++v2[2];
+      ++v3[2];
     }
   }
 }

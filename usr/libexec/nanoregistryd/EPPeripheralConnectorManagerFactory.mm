@@ -41,7 +41,7 @@
   if (v5)
   {
     v6 = v5;
-    v7 = sub_1000A98C0();
+    v7 = sub_1000A98C0(v5);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
     if (!v8)
@@ -49,42 +49,41 @@
       goto LABEL_10;
     }
 
-    v9 = sub_1000A98C0();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000A98C0(v9);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
 
     uUIDString = [uuidCopy UUIDString];
-    v15 = 134218242;
-    v16 = v6;
-    v17 = 2112;
-    v18 = uUIDString;
-    v11 = "EPPeripheralConnectorManagerFactory: Reusing existing EPPeripheralConnectorManager %p to manage BT peripheral %@";
+    v17 = 134218242;
+    v18 = v6;
+    v19 = 2112;
+    v20 = uUIDString;
+    v12 = "EPPeripheralConnectorManagerFactory: Reusing existing EPPeripheralConnectorManager %p to manage BT peripheral %@";
     goto LABEL_8;
   }
 
   v6 = [[EPPeripheralConnectorManager alloc] initWithUuid:uuidCopy];
-  [(NSMapTable *)self->_connectorManagers setObject:v6 forKey:uuidCopy];
-  v12 = sub_1000A98C0();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v13 = sub_1000A98C0([(NSMapTable *)self->_connectorManagers setObject:v6 forKey:uuidCopy]);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-  if (!v13)
+  if (!v14)
   {
     goto LABEL_10;
   }
 
-  v9 = sub_1000A98C0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_1000A98C0(v15);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [uuidCopy UUIDString];
-    v15 = 134218242;
-    v16 = v6;
-    v17 = 2112;
-    v18 = uUIDString;
-    v11 = "EPPeripheralConnectorManagerFactory: Created new EPPeripheralConnectorManager %p to manage BT peripheral %@";
+    v17 = 134218242;
+    v18 = v6;
+    v19 = 2112;
+    v20 = uUIDString;
+    v12 = "EPPeripheralConnectorManagerFactory: Created new EPPeripheralConnectorManager %p to manage BT peripheral %@";
 LABEL_8:
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v11, &v15, 0x16u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v12, &v17, 0x16u);
   }
 
 LABEL_9:

@@ -10,26 +10,26 @@
 
 - (id)awaitIOCycle:(unsigned int *)cycle
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   v5 = *impl;
   if (*impl && (*(v5 + 72) & 1) == 0 && (v6 = *(v5 + 8)) != 0 && *v6 && ([*v6 isInManualRenderingMode] & 1) == 0)
   {
-    v11 = impl[49];
-    if (!v11)
+    v10 = impl[49];
+    if (!v10)
     {
       operator new();
     }
 
-    *&v13[0] = impl[49];
-    v12 = (*(*v11 + 16))(v11);
-    BYTE8(v13[0]) = v12;
+    *&v12[0] = impl[49];
+    v11 = (*(*v10 + 16))(v10);
+    BYTE8(v12[0]) = v11;
     *(impl + 400) = 1;
-    v7 = (*(*v11 + 64))(v11, 5000000000);
+    v7 = (*(*v10 + 64))(v10, 5000000000);
     *(impl + 400) = 0;
-    if (v12)
+    if (v11)
     {
-      (*(*v11 + 24))(v11);
+      (*(*v10 + 24))(v10);
     }
   }
 
@@ -46,18 +46,12 @@
 
   if (v7)
   {
-    result = 0;
+    return 0;
   }
 
-  else
-  {
-    memset(v13, 0, sizeof(v13));
-    caulk::concurrent::atomic_value<AudioTimeStamp,2,6>::load(v13, impl + 16);
-    result = [AVAudioTime timeWithAudioTimeStamp:v13 sampleRate:*(impl + 1)];
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  memset(v12, 0, sizeof(v12));
+  caulk::concurrent::atomic_value<AudioTimeStamp,2,6>::load(v12, impl + 16);
+  return [AVAudioTime timeWithAudioTimeStamp:v12 sampleRate:*(impl + 1)];
 }
 
 - (AVAudioTime)currentTime

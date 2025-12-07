@@ -90,7 +90,7 @@
 
   else
   {
-    v15 = -12782;
+    v15 = 4294954514;
     if (!error)
     {
       return v17;
@@ -134,7 +134,7 @@
   v12 = *(*(CMBaseObjectGetVTable() + 16) + 16);
   if (!v12)
   {
-    v13 = -12782;
+    v13 = 4294954514;
     goto LABEL_8;
   }
 

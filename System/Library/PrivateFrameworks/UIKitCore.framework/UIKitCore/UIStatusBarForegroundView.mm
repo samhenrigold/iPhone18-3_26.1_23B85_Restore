@@ -207,7 +207,7 @@
 {
   animatedCopy = animated;
   dataCopy = data;
-  if (actions || ![(UIStatusBarComposedData *)self->_currentData isEqual:dataCopy])
+  if (actions || (objc_msgSend_isEqual_(self->_currentData) & 1) == 0)
   {
     objc_storeStrong(&self->_currentData, data);
     [(UIStatusBarForegroundView *)self startIgnoringData];
@@ -588,7 +588,7 @@ void __63__UIStatusBarForegroundView_setStatusBarData_actions_animated___block_i
   _Block_object_dispose(&v19, 8);
 }
 
-uint64_t __71__UIStatusBarForegroundView_reflowItemViewsCrossfadingCenter_duration___block_invoke(void *a1)
+void *__71__UIStatusBarForegroundView_reflowItemViewsCrossfadingCenter_duration___block_invoke(void *a1)
 {
   v2 = 464;
   v3 = 3;

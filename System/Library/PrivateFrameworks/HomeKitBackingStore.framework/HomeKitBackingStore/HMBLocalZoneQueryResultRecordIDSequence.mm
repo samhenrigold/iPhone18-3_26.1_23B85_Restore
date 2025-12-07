@@ -125,9 +125,9 @@ LABEL_7:
 
 - (id)nextObject
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   *&v2 = 138543874;
-  v41 = v2;
+  v40 = v2;
   while (1)
   {
     error = [(HMBSQLQueryIterator *)self error];
@@ -181,46 +181,46 @@ LABEL_28:
         }
 
         maximumRowsPerQuery = [(HMBSQLQueryIterator *)selfCopy maximumRowsPerQuery];
-        v59 = 0;
-        v60 = &v59;
-        v61 = 0x3032000000;
-        v62 = __Block_byref_object_copy__5204;
-        v63 = __Block_byref_object_dispose__5205;
-        v64 = [MEMORY[0x277CBEB18] arrayWithCapacity:maximumRowsPerQuery];
-        v53 = 0;
-        v54 = &v53;
-        v55 = 0x3032000000;
-        v56 = __Block_byref_object_copy__5204;
-        v57 = __Block_byref_object_dispose__5205;
         v58 = 0;
-        v49 = 0;
-        v50 = &v49;
-        v51 = 0x2020000000;
+        v59 = &v58;
+        v60 = 0x3032000000;
+        v61 = __Block_byref_object_copy__5204;
+        v62 = __Block_byref_object_dispose__5205;
+        v63 = [MEMORY[0x277CBEB18] arrayWithCapacity:maximumRowsPerQuery];
         v52 = 0;
+        v53 = &v52;
+        v54 = 0x3032000000;
+        v55 = __Block_byref_object_copy__5204;
+        v56 = __Block_byref_object_dispose__5205;
+        v57 = 0;
+        v48 = 0;
+        v49 = &v48;
+        v50 = 0x2020000000;
+        v51 = 0;
         statement = [(HMBSQLQueryIterator *)selfCopy statement];
         context = [statement context];
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = ____fetchNextBatch_block_invoke_5207;
-        v44[3] = &unk_2786E1770;
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = ____fetchNextBatch_block_invoke_5207;
+        v43[3] = &unk_2786E1770;
         v17 = selfCopy;
-        v45 = v17;
-        v46 = &v53;
-        v47 = &v49;
-        v48 = &v59;
-        v18 = [context sqlBlockWithActivity:0 block:v44];
+        v44 = v17;
+        v45 = &v52;
+        v46 = &v48;
+        v47 = &v58;
+        v18 = [context sqlBlockWithActivity:0 block:v43];
 
-        v19 = v60[5];
+        v19 = v59[5];
         if (v19)
         {
-          if ((v50[3] & 1) != 0 || [v19 count])
+          if ((v49[3] & 1) != 0 || [v19 count])
           {
             currentSequenceAsData3 = [(HMBLocalZoneQueryResultRecordIDSequence *)v17 currentSequenceAsData];
             v21 = currentSequenceAsData3 == 0;
 
             if (!v21)
             {
-              [(HMBLocalZoneQueryResultRecordIDSequence *)v17 setCurrentSequenceAsData:v54[5]];
+              [(HMBLocalZoneQueryResultRecordIDSequence *)v17 setCurrentSequenceAsData:v53[5]];
             }
 
             cachedResults5 = [(HMBSQLQueryIterator *)v17 cachedResults];
@@ -228,13 +228,13 @@ LABEL_28:
 
             if (v23)
             {
-              [(HMBSQLQueryIterator *)v17 setCachedResults:v60[5]];
+              [(HMBSQLQueryIterator *)v17 setCachedResults:v59[5]];
             }
 
             else
             {
               cachedResults6 = [(HMBSQLQueryIterator *)v17 cachedResults];
-              [cachedResults6 addObjectsFromArray:v60[5]];
+              [cachedResults6 addObjectsFromArray:v59[5]];
             }
 
             v30 = 1;
@@ -253,12 +253,12 @@ LABEL_28:
           {
             v28 = HMFGetLogIdentifier();
             currentSequence = [(HMBSQLQueryIterator *)v26 currentSequence];
-            *buf = v41;
-            v66 = v28;
-            v67 = 2112;
-            v68 = currentSequence;
-            v69 = 2112;
-            v70 = v18;
+            *buf = v40;
+            v65 = v28;
+            v66 = 2112;
+            v67 = currentSequence;
+            v68 = 2112;
+            v69 = v18;
             _os_log_impl(&dword_22AD27000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch additional items into query enumeration %@: %@", buf, 0x20u);
           }
 
@@ -271,10 +271,10 @@ LABEL_28:
         v30 = 0;
 LABEL_24:
 
-        _Block_object_dispose(&v49, 8);
-        _Block_object_dispose(&v53, 8);
+        _Block_object_dispose(&v48, 8);
+        _Block_object_dispose(&v52, 8);
 
-        _Block_object_dispose(&v59, 8);
+        _Block_object_dispose(&v58, 8);
         if ((v30 & 1) == 0)
         {
           goto LABEL_28;
@@ -303,9 +303,9 @@ LABEL_36:
     cachedResults8 = [(HMBSQLQueryIterator *)self cachedResults];
     hmf_dequeue = [cachedResults8 hmf_dequeue];
 
-    v43 = 0;
-    v36 = [(HMBLocalZoneQueryResultRecordIDSequence *)self fetchRow:hmf_dequeue error:&v43];
-    v37 = v43;
+    v42 = 0;
+    v36 = [(HMBLocalZoneQueryResultRecordIDSequence *)self fetchRow:hmf_dequeue error:&v42];
+    v37 = v42;
     v38 = v37;
     if (!v36)
     {
@@ -327,7 +327,6 @@ LABEL_36:
 LABEL_38:
   v36 = 0;
 LABEL_39:
-  v39 = *MEMORY[0x277D85DE8];
 
   return v36;
 }

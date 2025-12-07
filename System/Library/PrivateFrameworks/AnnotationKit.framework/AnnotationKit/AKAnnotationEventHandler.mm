@@ -259,7 +259,7 @@
   {
     v11 = *MEMORY[0x277CBF348];
     v13 = *(MEMORY[0x277CBF348] + 8);
-    AKLog(@"%s: Expected event or recognizer.");
+    AKLog();
   }
 
   v16 = v11;

@@ -33,15 +33,15 @@
 - (BlastDoorGeneralAttachmentInfo)unspecified
 {
   memcpy(__dst, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, sizeof(__dst));
-  memcpy(v15, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, 0x139uLL);
-  if (sub_214321D58(v15))
+  memcpy(v14, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, 0x139uLL);
+  if (sub_214321D58(v14))
   {
     v3 = 0;
   }
 
   else
   {
-    v4 = sub_213FBF550(v15);
+    v4 = sub_213FBF550(v14);
     v5 = *v4;
     v6 = v4[1];
     v7 = type metadata accessor for _ObjCGeneralAttachmentInfoWrapper();
@@ -49,12 +49,12 @@
     v9 = &v8[OBJC_IVAR___BlastDoorGeneralAttachmentInfo_generalAttachmentInfo];
     *v9 = v5;
     *(v9 + 1) = v6;
-    memcpy(v13, __dst, 0x139uLL);
-    v10 = *(sub_213FBF550(v13) + 8);
-    v12.receiver = v8;
-    v12.super_class = v7;
+    memcpy(v12, __dst, 0x139uLL);
+    sub_213FBF550(v12);
+    v11.receiver = v8;
+    v11.super_class = v7;
 
-    v3 = [(BlastDoorFileTransferAttributeAttachmentSubtypeWrapper *)&v12 init];
+    v3 = [(BlastDoorFileTransferAttributeAttachmentSubtypeWrapper *)&v11 init];
   }
 
   return v3;
@@ -115,81 +115,77 @@
 - (BlastDoorLivePhotoAttachmentInfo)livePhoto
 {
   memcpy(__dst, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, sizeof(__dst));
-  memcpy(v19, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, 0x139uLL);
-  if (sub_214321D58(v19) == 3)
+  memcpy(v16, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, 0x139uLL);
+  if (sub_214321D58(v16) == 3)
   {
-    v3 = sub_213FBF550(v19);
+    v3 = sub_213FBF550(v16);
     v4 = *(v3 + 16);
     v5 = *(v3 + 24);
     v6 = *(v3 + 32);
     v7 = type metadata accessor for _ObjCLivePhotoAttachmentInfoWrapper();
-    v15 = *v3;
+    v12 = *v3;
     v8 = objc_allocWithZone(v7);
     v9 = &v8[OBJC_IVAR___BlastDoorLivePhotoAttachmentInfo_livePhotoAttachmentInfo];
-    *v9 = v15;
+    *v9 = v12;
     *(v9 + 2) = v4;
     *(v9 + 3) = v5;
     v9[32] = v6;
-    memcpy(v17, __dst, 0x139uLL);
-    v10 = sub_213FBF550(v17);
-    v11 = *(v10 + 8);
-    v12 = *(v10 + 24);
-    v16.receiver = v8;
-    v16.super_class = v7;
+    memcpy(v14, __dst, 0x139uLL);
+    sub_213FBF550(v14);
+    v13.receiver = v8;
+    v13.super_class = v7;
 
-    v13 = [(BlastDoorFileTransferAttributeAttachmentSubtypeWrapper *)&v16 init];
+    v10 = [(BlastDoorFileTransferAttributeAttachmentSubtypeWrapper *)&v13 init];
   }
 
   else
   {
-    v13 = 0;
+    v10 = 0;
   }
 
-  return v13;
+  return v10;
 }
 
 - (BlastDoorAudioMessageAttachmentInfo)audioMessage
 {
   memcpy(__dst, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, sizeof(__dst));
-  memcpy(v23, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, 0x139uLL);
-  if (sub_214321D58(v23) == 4)
+  memcpy(v21, self + OBJC_IVAR___BlastDoorFileTransferAttributeAttachmentSubtypeWrapper_fileTransferAttribute_AttachmentSubtype, 0x139uLL);
+  if (sub_214321D58(v21) == 4)
   {
-    v3 = sub_213FBF550(v23);
+    v3 = sub_213FBF550(v21);
     v4 = *(v3 + 16);
     v5 = *(v3 + 24);
     v6 = *(v3 + 32);
     v7 = *(v3 + 40);
     v8 = *(v3 + 48);
     v9 = type metadata accessor for _ObjCAudioMessageAttachmentInfoWrapper();
-    v19 = *v3;
+    v17 = *v3;
     v10 = objc_allocWithZone(v9);
     v11 = &v10[OBJC_IVAR___BlastDoorAudioMessageAttachmentInfo_audioMessageAttachmentInfo];
-    *v11 = v19;
+    *v11 = v17;
     *(v11 + 2) = v4;
     *(v11 + 3) = v5;
     v11[32] = v6;
     *(v11 + 5) = v7;
     *(v11 + 6) = v8;
-    memcpy(v21, __dst, 0x139uLL);
-    v12 = sub_213FBF550(v21);
-    v13 = v12[1];
-    v14 = v12[2];
-    v15 = v12[3];
-    v16 = v12[6];
+    memcpy(v19, __dst, 0x139uLL);
+    v12 = sub_213FBF550(v19);
+    v13 = *(v12 + 16);
+    v14 = *(v12 + 24);
 
-    sub_213FDC9D0(v14, v15);
-    v20.receiver = v10;
-    v20.super_class = v9;
+    sub_213FDC9D0(v13, v14);
+    v18.receiver = v10;
+    v18.super_class = v9;
 
-    v17 = [(BlastDoorFileTransferAttributeAttachmentSubtypeWrapper *)&v20 init];
+    v15 = [(BlastDoorFileTransferAttributeAttachmentSubtypeWrapper *)&v18 init];
   }
 
   else
   {
-    v17 = 0;
+    v15 = 0;
   }
 
-  return v17;
+  return v15;
 }
 
 - (BlastDoorFileTransferAttributeAttachmentSubtypeWrapper)init

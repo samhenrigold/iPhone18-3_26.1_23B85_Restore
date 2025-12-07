@@ -1,6 +1,7 @@
 @interface BDSNBPinningManager
 - (BDSNBPinningManager)init;
 - (id)updateReadingNowWithCompletion:(id)completion;
+- (id)updateWantToReadAndReadingNowWithJaliscoUpdateSuccessful:(BOOL)successful completion:(id)completion;
 - (id)updateWantToReadWithCompletion:(id)completion;
 - (void)audiobookStoreEnabledWithCompletion:(id)completion;
 - (void)fetchMostRecentAudiobookWithCompletion:(id)completion;
@@ -29,6 +30,16 @@
   completionCopy = completion;
   serviceProxy = [(BDSNBPinningManager *)self serviceProxy];
   [serviceProxy fetchMostRecentAudiobookWithCompletion:completionCopy];
+}
+
+- (id)updateWantToReadAndReadingNowWithJaliscoUpdateSuccessful:(BOOL)successful completion:(id)completion
+{
+  successfulCopy = successful;
+  completionCopy = completion;
+  serviceProxy = [(BDSNBPinningManager *)self serviceProxy];
+  v8 = [serviceProxy updateWantToReadAndReadingNowWithJaliscoUpdateSuccessful:successfulCopy completion:completionCopy];
+
+  return v8;
 }
 
 - (id)updateWantToReadWithCompletion:(id)completion

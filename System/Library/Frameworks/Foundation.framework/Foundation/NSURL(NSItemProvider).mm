@@ -12,7 +12,7 @@
 + (uint64_t)readableTypeIdentifiersForItemProvider
 {
   v1[1] = *MEMORY[0x1E69E9840];
-  v1[0] = _MergedGlobals_89[0]();
+  v1[0] = _MergedGlobals_89();
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v1 count:1];
 }
 
@@ -49,7 +49,7 @@
 {
   v42 = *MEMORY[0x1E69E9840];
   v35 = 0;
-  v8 = _MergedGlobals_89[0]();
+  v8 = _MergedGlobals_89();
   if (off_1ED4398B8(a4, v8))
   {
     v36 = 0;
@@ -64,10 +64,10 @@
     {
       if ([v13 count] >= 2 && (objc_msgSend(v13, "objectAtIndexedSubscript:", 0), _NSIsNSString()) && (objc_msgSend(v13, "objectAtIndexedSubscript:", 1), _NSIsNSString()))
       {
-        v14 = [objc_msgSend(v13 objectAtIndexedSubscript:{1), "isEqualToString:", &stru_1EEEFDF90}];
+        isEqualToString = objc_msgSend_isEqualToString_([v13 objectAtIndexedSubscript:1]);
         v15 = objc_alloc(MEMORY[0x1E695DFF8]);
         v16 = [v13 objectAtIndexedSubscript:0];
-        if (v14)
+        if (isEqualToString)
         {
           v17 = [v15 initWithString:v16];
         }
@@ -170,7 +170,7 @@ LABEL_31:
 + (uint64_t)writableTypeIdentifiersForItemProvider
 {
   v1[1] = *MEMORY[0x1E69E9840];
-  v1[0] = _MergedGlobals_89[0]();
+  v1[0] = _MergedGlobals_89();
   return [MEMORY[0x1E695DEC8] arrayWithObjects:v1 count:1];
 }
 
@@ -179,16 +179,17 @@ LABEL_31:
   array = [MEMORY[0x1E695DF70] array];
   if ([self isFileURL])
   {
-    [array addObject:off_1ED4398B0[0]()];
+    [array addObject:off_1ED4398B0()];
   }
 
-  [array addObject:_MergedGlobals_89[0]()];
+  [array addObject:_MergedGlobals_89()];
   return array;
 }
 
 - (uint64_t)loadDataWithTypeIdentifier:()NSItemProvider forItemProviderCompletionHandler:
 {
-  if (([a3 isEqualToString:off_1ED4398B0[0]()] & 1) != 0 || objc_msgSend(a3, "isEqualToString:", _MergedGlobals_89[0]()))
+  off_1ED4398B0();
+  if ((objc_msgSend_isEqualToString_(a3) & 1) != 0 || (_MergedGlobals_89(), objc_msgSend_isEqualToString_(a3)))
   {
     _URLArchive = [self _URLArchive];
   }

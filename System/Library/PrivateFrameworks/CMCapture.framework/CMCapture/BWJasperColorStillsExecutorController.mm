@@ -3,11 +3,11 @@
 - (BOOL)_sourceDimensionsAreTargetDimensions;
 - (BOOL)finishProcessingCurrentInputNow;
 - (BWJasperColorStillsExecutorController)initWithConfiguration:(id)configuration;
+- (id)_execute;
+- (id)_serviceNextRequest;
+- (id)_updateStateIfNeeded;
 - (int)enqueueInputForProcessing:(id)processing delegate:(id)delegate;
-- (uint64_t)_execute;
-- (uint64_t)_serviceNextRequest;
 - (uint64_t)_setupJasperColorStillsExecutor;
-- (uint64_t)_updateStateIfNeeded;
 - (void)cancelProcessing;
 - (void)dealloc;
 @end
@@ -85,7 +85,7 @@
   [(NSMutableArray *)self->_requestQueue removeAllObjects];
   [(BWJasperColorStillsExecutorRequest *)self->_currentRequest setErr:4294950490];
 
-  [(BWJasperColorStillsExecutorController *)self _serviceNextRequest];
+  [(BWJasperColorStillsExecutorController *)&self->super.super.isa _serviceNextRequest];
 }
 
 - (uint64_t)_setupJasperColorStillsExecutor
@@ -95,62 +95,63 @@
     return 0;
   }
 
-  v2 = [objc_msgSend(OUTLINED_FUNCTION_6_31() "outputDepthFormat")];
-  if (!FigCapturePixelFormatIsDepthData(v2))
+  v3 = [objc_msgSend(OUTLINED_FUNCTION_6_31() "outputDepthFormat")];
+  if (!FigCapturePixelFormatIsDepthData(v3))
   {
-    v10 = 4294954516;
+    v11 = 4294954516;
 LABEL_9:
 
     *(self + 88) = 0;
-    return v10;
+    return v11;
   }
 
-  v3 = [objc_alloc(getADJasperColorStillsExecutorClass()) init];
-  *(self + 88) = v3;
-  if (!v3)
+  v4 = [objc_alloc(getADJasperColorStillsExecutorClass()) init];
+  *(self + 88) = v4;
+  if (!v4)
   {
-    FigDebugAssert3();
-    v10 = 4294954510;
+    v13 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v13, v1, v14, v15, v16, v17, v18, v19);
+    v11 = 4294954510;
     goto LABEL_9;
   }
 
   *(self + 96) = 3;
   if ([(BWJasperColorStillsExecutorController *)self _sourceDimensionsAreTargetDimensions])
   {
-    v4 = [objc_msgSend(OUTLINED_FUNCTION_6_31() "inputColorFormat")];
     v5 = [objc_msgSend(OUTLINED_FUNCTION_6_31() "inputColorFormat")];
+    v6 = [objc_msgSend(OUTLINED_FUNCTION_6_31() "inputColorFormat")];
     *(self + 192) = 0;
     *(self + 200) = 0;
-    *(self + 208) = v4;
+    *(self + 208) = v5;
   }
 
   else
   {
-    v6 = [objc_msgSend(OUTLINED_FUNCTION_6_31() "inputColorFormat")];
+    v7 = [objc_msgSend(OUTLINED_FUNCTION_6_31() "inputColorFormat")];
     [objc_msgSend(OUTLINED_FUNCTION_6_31() "inputColorFormat")];
     standardFormatDimensions = [OUTLINED_FUNCTION_6_31() standardFormatDimensions];
-    *(self + 192) = FigCaptureMetadataUtilitiesDenormalizedRectWithinBoundingDimensionsCenteredOnPoint(v6, standardFormatDimensions, 0.5);
-    *(self + 200) = v8;
-    *(self + 208) = v9;
+    *(self + 192) = FigCaptureMetadataUtilitiesDenormalizedRectWithinBoundingDimensionsCenteredOnPoint(v7, standardFormatDimensions, 0.5);
+    *(self + 200) = v9;
+    *(self + 208) = v10;
   }
 
-  *(self + 216) = v5;
-  v10 = [*(self + 88) prepareForEngineType:*(self + 96) inputROI:{*(self + 192), *(self + 200), *(self + 208), *(self + 216)}];
-  if (v10)
+  *(self + 216) = v6;
+  v11 = [*(self + 88) prepareForEngineType:*(self + 96) inputROI:{*(self + 192), *(self + 200), *(self + 208), *(self + 216)}];
+  if (v11)
   {
     goto LABEL_9;
   }
 
-  return v10;
+  return v11;
 }
 
-- (uint64_t)_updateStateIfNeeded
+- (id)_updateStateIfNeeded
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 112);
-    currentState = [*(result + 72) currentState];
+    v2 = result[14];
+    currentState = [result[9] currentState];
     if (v2)
     {
       if (currentState == 2)
@@ -174,10 +175,10 @@ LABEL_9:
       v4 = 1;
     }
 
-    result = [*(v1 + 72) currentState];
+    result = [v1[9] currentState];
     if (v4 != result)
     {
-      v5 = *(v1 + 72);
+      v5 = v1[9];
 
       return [v5 transitionToState:v4];
     }
@@ -213,24 +214,24 @@ LABEL_9:
   return v4;
 }
 
-- (uint64_t)_serviceNextRequest
+- (id)_serviceNextRequest
 {
   if (result)
   {
     v1 = result;
-    delegate = [*(result + 112) delegate];
-    input = [*(v1 + 112) input];
-    v4 = [*(v1 + 112) err];
+    delegate = [result[14] delegate];
+    input = [v1[14] input];
+    v4 = [v1[14] err];
 
-    *(v1 + 112) = 0;
+    v1[14] = 0;
     [delegate processorController:v1 didFinishProcessingInput:input err:v4];
 
-    firstObject = [*(v1 + 104) firstObject];
-    *(v1 + 112) = firstObject;
+    firstObject = [v1[13] firstObject];
+    v1[14] = firstObject;
     if (firstObject)
     {
-      [*(v1 + 104) removeObjectAtIndex:0];
-      [objc_msgSend(*(v1 + 112) "input")];
+      [v1[13] removeObjectAtIndex:0];
+      [objc_msgSend(v1[14] "input")];
     }
 
     return [(BWJasperColorStillsExecutorController *)v1 _updateStateIfNeeded];
@@ -239,7 +240,7 @@ LABEL_9:
   return result;
 }
 
-- (uint64_t)_execute
+- (id)_execute
 {
   if (!result)
   {
@@ -247,10 +248,10 @@ LABEL_9:
   }
 
   v1 = result;
-  v58 = 0;
-  v59 = 0;
-  v57 = 0;
-  v2 = [objc_msgSend(*(result + 112) "input")];
+  v61 = 0;
+  v62 = 0;
+  v60 = 0;
+  v2 = [objc_msgSend(result[14] "input")];
   v3 = OUTLINED_FUNCTION_1_48();
   if (!v2)
   {
@@ -263,8 +264,8 @@ LABEL_9:
     {
       if (dword_1EB58DEA0)
       {
-        v56 = 0;
-        v55 = 0;
+        v59 = 0;
+        v58 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         OUTLINED_FUNCTION_2_4();
@@ -285,30 +286,30 @@ LABEL_9:
     {
       v10 = -[BWJasperColorStillsExecutorInput jasperPointCloudsForColorBuffer]([v3 input]);
       v11 = [v10 count];
-      v3 = *(v1 + 112);
+      v3 = v1[14];
       if (v11)
       {
         key = v4;
-        v59 = [objc_msgSend(v3 "delegate")];
-        if (v59)
+        v62 = [objc_msgSend(v3 "delegate")];
+        if (v62)
         {
-          v52 = 0u;
+          v55 = 0u;
+          v56 = 0u;
           v53 = 0u;
-          v50 = 0u;
-          v51 = 0u;
-          FigCaptureCreateJasperToColorCameraTransformForJasperSensorConfiguration(v8, &v50);
+          v54 = 0u;
+          FigCaptureCreateJasperToColorCameraTransformForJasperSensorConfiguration(v8, &v53);
           [OUTLINED_FUNCTION_1_48() setErr:?];
           if (![OUTLINED_FUNCTION_1_48() err])
           {
             horizontalSensorBinningFactor = [OUTLINED_FUNCTION_5_37() horizontalSensorBinningFactor];
             verticalSensorBinningFactor = [OUTLINED_FUNCTION_5_37() verticalSensorBinningFactor];
-            FigCaptureCreateColorCameraCalibrationForColorSampleBuffer(v2, v7, horizontalSensorBinningFactor, verticalSensorBinningFactor, &v58);
+            FigCaptureCreateColorCameraCalibrationForColorSampleBuffer(v2, v7, horizontalSensorBinningFactor, verticalSensorBinningFactor, &v61);
             [OUTLINED_FUNCTION_1_48() setErr:?];
             if (![OUTLINED_FUNCTION_1_48() err])
             {
-              if (v58)
+              if (v61)
               {
-                FigCaptureCreateDepthMetadataForColorCameraCalibration(v58, 1, &v57);
+                FigCaptureCreateDepthMetadataForColorCameraCalibration(v61, 1, &v60);
                 [OUTLINED_FUNCTION_1_48() setErr:?];
                 if (![OUTLINED_FUNCTION_1_48() err])
                 {
@@ -324,22 +325,22 @@ LABEL_9:
                   v18 = [objc_msgSend(OUTLINED_FUNCTION_5_37() "inputColorFormat")];
                   [objc_msgSend(OUTLINED_FUNCTION_5_37() "inputColorFormat")];
                   v19 = v17[1];
-                  v54.origin = *v17;
-                  v54.size = v19;
+                  v57.origin = *v17;
+                  v57.size = v19;
                   if (FigCFDictionaryGetCGRectIfPresent())
                   {
-                    y = v54.origin.y;
-                    x = v54.origin.x;
-                    height = v54.size.height;
-                    width = v54.size.width;
+                    y = v57.origin.y;
+                    x = v57.origin.x;
+                    height = v57.size.height;
+                    width = v57.size.width;
                   }
 
                   else
                   {
-                    v54.origin = 0uLL;
+                    v57.origin = 0uLL;
                     __asm { FMOV            V0.2D, #1.0 }
 
-                    v54.size = _Q0;
+                    v57.size = _Q0;
                     y = 0.0;
                     height = 1.0;
                     width = 1.0;
@@ -347,37 +348,40 @@ LABEL_9:
                   }
 
                   MidX = CGRectGetMidX(*&x);
-                  CGRectGetMidY(v54);
+                  CGRectGetMidY(v57);
                   standardFormatDimensions = [OUTLINED_FUNCTION_5_37() standardFormatDimensions];
-                  v60.origin.x = FigCaptureMetadataUtilitiesDenormalizedRectWithinBoundingDimensionsCenteredOnPoint(v18, standardFormatDimensions, MidX);
-                  v31 = v60.origin.x;
-                  v32 = v60.origin.y;
-                  v33 = v60.size.width;
-                  v34 = v60.size.height;
+                  v63.origin.x = FigCaptureMetadataUtilitiesDenormalizedRectWithinBoundingDimensionsCenteredOnPoint(v18, standardFormatDimensions, MidX);
+                  v31 = v63.origin.x;
+                  v32 = v63.origin.y;
+                  v33 = v63.size.width;
+                  v34 = v63.size.height;
                   v16 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
                   v15 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
-                  if (CGRectEqualToRect(v60, *(v1 + 192)) || (*(v1 + 192) = v31, *(v1 + 200) = v32, *(v1 + 208) = v33, *(v1 + 216) = v34, [*(v1 + 88) prepareForEngineType:*(v1 + 96) inputROI:{v31, v32, v33, v34}], objc_msgSend(OUTLINED_FUNCTION_1_48(), "setErr:"), !objc_msgSend(OUTLINED_FUNCTION_1_48(), "err")))
+                  if (CGRectEqualToRect(v63, *(v1 + 6)) || (*(v1 + 24) = v31, *(v1 + 25) = v32, *(v1 + 26) = v33, *(v1 + 27) = v34, [v1[11] prepareForEngineType:v1[12] inputROI:{v31, v32, v33, v34}], objc_msgSend(OUTLINED_FUNCTION_1_48(), "setErr:"), !objc_msgSend(OUTLINED_FUNCTION_1_48(), "err")))
                   {
 LABEL_18:
-                    [*(v1 + v15[662]) executeWithColor:ImageBuffer pointCloudArray:v10 pointCloud2ColorTransform:v58 colorCameraCalibration:&v59 outDepthMap:{*&v50, *&v51, *&v52, *&v53}];
+                    [*(v1 + v15[662]) executeWithColor:ImageBuffer pointCloudArray:v10 pointCloud2ColorTransform:v61 colorCameraCalibration:&v62 outDepthMap:{*&v53, *&v54, *&v55, *&v56}];
                     [OUTLINED_FUNCTION_1_48() setErr:?];
                     if (![OUTLINED_FUNCTION_1_48() err])
                     {
                       v35 = *off_1E798D2B8;
-                      CMSetAttachment(v59, *off_1E798D2B8, v57, 1u);
-                      CMSetAttachment(v2, v35, v57, 1u);
-                      BWSampleBufferSetAttachedMediaFromPixelBuffer(v2, @"Depth", v59, (v1 + 120), 0, 0, 1);
+                      CMSetAttachment(v62, *off_1E798D2B8, v60, 1u);
+                      CMSetAttachment(v2, v35, v60, 1u);
+                      BWSampleBufferSetAttachedMediaFromPixelBuffer(v2, @"Depth", v62, v1 + 15, 0, 0, 1);
                       if (![(BWJasperColorStillsExecutorController *)v1 _sourceDimensionsAreTargetDimensions])
                       {
                         AttachedMedia = BWSampleBufferGetAttachedMedia(v2, @"Depth");
                         v37 = CMGetAttachment(AttachedMedia, key, 0);
                         v38 = CVPixelBufferGetWidth(ImageBuffer);
                         v39 = v38 | (CVPixelBufferGetHeight(ImageBuffer) << 32);
-                        v40 = (v1 + v16[661]);
-                        v41 = v59;
-                        v42 = CVPixelBufferGetWidth(v59);
+                        v40 = v1 + v16[661];
+                        v41 = v62;
+                        v42 = CVPixelBufferGetWidth(v62);
                         v43 = CVPixelBufferGetHeight(v41);
-                        FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v37, v39, v42 | (v43 << 32), *v40, v40[1], v40[2], v40[3], v17->x, v17->y, v17[1].x, v17[1].y);
+                        v44.n128_u64[0] = *v40;
+                        v45.n128_u64[0] = *(v40 + 1);
+                        v46.n128_u64[0] = *(v40 + 2);
+                        FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v37, v39, v42 | (v43 << 32), v44, v45, v46, *(v40 + 3), v17->x, v17->y, v17[1].x, v17[1].y);
                       }
                     }
                   }
@@ -390,25 +394,25 @@ LABEL_18:
         }
 
         v3 = OUTLINED_FUNCTION_1_48();
-        v47 = 4294954510;
+        v50 = 4294954510;
         goto LABEL_29;
       }
     }
 
 LABEL_25:
-    v47 = 4294954516;
+    v50 = 4294954516;
 LABEL_29:
-    [v3 setErr:v47];
+    [v3 setErr:v50];
   }
 
 LABEL_21:
   delegate = [OUTLINED_FUNCTION_1_48() delegate];
-  v45 = [objc_msgSend(OUTLINED_FUNCTION_1_48() "input")];
+  v48 = [objc_msgSend(OUTLINED_FUNCTION_1_48() "input")];
   input = [OUTLINED_FUNCTION_1_48() input];
-  [delegate processorController:v1 didFinishProcessingSampleBuffer:v2 type:v45 processorInput:input err:{objc_msgSend(OUTLINED_FUNCTION_1_48(), "err")}];
-  if (v59)
+  [delegate processorController:v1 didFinishProcessingSampleBuffer:v2 type:v48 processorInput:input err:{objc_msgSend(OUTLINED_FUNCTION_1_48(), "err")}];
+  if (v62)
   {
-    CFRelease(v59);
+    CFRelease(v62);
   }
 
   return [(BWJasperColorStillsExecutorController *)v1 _updateStateIfNeeded];

@@ -7,7 +7,7 @@
 
 - (id)replayAction
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   action = [(ECLocalActionReplayer *)self action];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -22,52 +22,52 @@
   remoteIDs = [action2 remoteIDs];
   messages = [action2 messages];
   v7 = objc_opt_new();
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v8 = remoteIDs;
-  v9 = [v8 countByEnumeratingWithState:&v39 objects:v50 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v38 objects:v49 count:16];
   if (v9)
   {
-    v10 = *v40;
+    v10 = *v39;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v40 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v7 addIndex:{objc_msgSend(*(*(&v39 + 1) + 8 * i), "integerValue")}];
+        [v7 addIndex:{objc_msgSend(*(*(&v38 + 1) + 8 * i), "integerValue")}];
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v39 objects:v50 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v38 objects:v49 count:16];
     }
 
     while (v9);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v12 = messages;
-  v13 = [v12 countByEnumeratingWithState:&v35 objects:v49 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v34 objects:v48 count:16];
   if (v13)
   {
-    v14 = *v36;
+    v14 = *v35;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v36 != v14)
+        if (*v35 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        remoteID = [*(*(&v35 + 1) + 8 * j) remoteID];
+        remoteID = [*(*(&v34 + 1) + 8 * j) remoteID];
         integerValue = [remoteID integerValue];
 
         if (integerValue)
@@ -76,7 +76,7 @@
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v35 objects:v49 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v34 objects:v48 count:16];
     }
 
     while (v13);
@@ -101,16 +101,16 @@
     v23 = [v7 count];
     v24 = @"didn't work";
     *buf = 138543874;
-    v44 = action3;
+    v43 = action3;
     if (v20)
     {
       v24 = @"worked";
     }
 
-    v45 = 2048;
-    v46 = v23;
-    v47 = 2112;
-    v48 = v24;
+    v44 = 2048;
+    v45 = v23;
+    v46 = 2112;
+    v47 = v24;
     _os_log_impl(&dword_22D092000, v21, OS_LOG_TYPE_DEFAULT, "Replaying flag action %{public}@ for %lu uids %@", buf, 0x20u);
   }
 
@@ -136,8 +136,6 @@
       v25 = 0;
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

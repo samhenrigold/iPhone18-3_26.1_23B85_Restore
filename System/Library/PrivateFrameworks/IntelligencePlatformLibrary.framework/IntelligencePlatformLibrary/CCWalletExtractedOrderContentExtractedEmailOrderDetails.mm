@@ -248,11 +248,11 @@ LABEL_21:
       {
         if (v23 == 3)
         {
-          v39 = [CCWalletExtractedOrderContentExtractedEmailShippingDetails alloc];
+          v38 = [CCWalletExtractedOrderContentExtractedEmailShippingDetails alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v47 = 0;
-          v26 = [(CCItemMessage *)v39 initWithData:v25 error:&v47];
-          v10 = v47;
+          v45 = 0;
+          v26 = [(CCItemMessage *)v38 initWithData:v25 error:&v45];
+          v10 = v45;
           v27 = 40;
           goto LABEL_39;
         }
@@ -313,9 +313,9 @@ LABEL_45:
       {
         if (v23 == 1)
         {
-          v37 = CCPBReaderReadStringNoCopy();
+          v36 = CCPBReaderReadStringNoCopy();
           orderNumber = self->_orderNumber;
-          self->_orderNumber = v37;
+          self->_orderNumber = v36;
 
           goto LABEL_37;
         }
@@ -324,12 +324,12 @@ LABEL_45:
         {
           v24 = [CCWalletPaymentsCommerceOrderEmailMerchant alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v48 = 0;
-          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v48];
-          v10 = v48;
+          v46 = 0;
+          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v46];
+          v10 = v46;
           v27 = 32;
 LABEL_39:
-          v40 = *(&self->super.super.isa + v27);
+          v39 = *(&self->super.super.isa + v27);
           *(&self->super.super.isa + v27) = v26;
 
           goto LABEL_40;
@@ -340,7 +340,6 @@ LABEL_39:
       {
         v35 = objc_opt_class();
         v25 = NSStringFromClass(v35);
-        v36 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 LABEL_40:
 
@@ -365,23 +364,22 @@ LABEL_48:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v45 = 1;
+    v43 = 1;
     goto LABEL_52;
   }
 
 LABEL_49:
-  v41 = objc_opt_class();
-  v42 = NSStringFromClass(v41);
-  v43 = *&v6[*v9];
-  v44 = CCInvalidBufferErrorForMessage();
+  v40 = objc_opt_class();
+  v41 = NSStringFromClass(v40);
+  v42 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_50:
-  v45 = 0;
+  v43 = 0;
 LABEL_52:
 
-  return v45;
+  return v43;
 }
 
 - (CCWalletExtractedOrderContentExtractedEmailOrderDetails)initWithOrderNumber:(id)number merchant:(id)merchant shippingDetails:(id)details orderContentType:(unsigned int)type error:(id *)error

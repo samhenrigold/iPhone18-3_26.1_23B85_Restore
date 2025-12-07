@@ -69,42 +69,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_username)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_displayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_token)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_refreshToken)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    identityType = self->_identityType;
     PBDataWriterWriteUint32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_accountIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -225,7 +224,6 @@
     }
   }
 
-  v9 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_identityType != *(equalCopy + 6))
@@ -237,24 +235,24 @@
   else if (*(equalCopy + 56))
   {
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
   accountIdentifier = self->_accountIdentifier;
   if (accountIdentifier | *(equalCopy + 1))
   {
-    v11 = [(NSString *)accountIdentifier isEqual:?];
+    v10 = [(NSString *)accountIdentifier isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_18:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

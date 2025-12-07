@@ -93,7 +93,7 @@
   return v3;
 }
 
-uint64_t __61__AVPlaybackCoordinationMedium_connectedPlaybackCoordinators__block_invoke(uint64_t a1)
+void *__61__AVPlaybackCoordinationMedium_connectedPlaybackCoordinators__block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(*(a1 + 32) + 8), "count")}];
@@ -117,7 +117,8 @@ uint64_t __61__AVPlaybackCoordinationMedium_connectedPlaybackCoordinators__block
           objc_enumerationMutation(v2);
         }
 
-        [*(*(*(a1 + 40) + 8) + 40) addObject:{objc_msgSend(*(*(&v7 + 1) + 8 * v6++), "playbackCoordinator")}];
+        [*(*(*(a1 + 40) + 8) + 40) addObject:{objc_msgSend(*(*(&v7 + 1) + 8 * v6), "playbackCoordinator")}];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -152,7 +153,7 @@ uint64_t __61__AVPlaybackCoordinationMedium_connectedPlaybackCoordinators__block
   return v3;
 }
 
-uint64_t __45__AVPlaybackCoordinationMedium__participants__block_invoke(uint64_t a1)
+void *__45__AVPlaybackCoordinationMedium__participants__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -204,7 +205,7 @@ uint64_t __45__AVPlaybackCoordinationMedium__participants__block_invoke(uint64_t
   return v3;
 }
 
-uint64_t __57__AVPlaybackCoordinationMedium__participantStatesAsArray__block_invoke(uint64_t a1)
+void *__57__AVPlaybackCoordinationMedium__participantStatesAsArray__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 16) "allValues")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -257,7 +258,7 @@ uint64_t __57__AVPlaybackCoordinationMedium__participantStatesAsArray__block_inv
   return v3;
 }
 
-uint64_t __62__AVPlaybackCoordinationMedium__transportControlStatesAsArray__block_invoke(uint64_t a1)
+void *__62__AVPlaybackCoordinationMedium__transportControlStatesAsArray__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 24) "allValues")];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -286,7 +287,7 @@ uint64_t __62__AVPlaybackCoordinationMedium__transportControlStatesAsArray__bloc
   return v4;
 }
 
-uint64_t __72__AVPlaybackCoordinationMedium__transportControlStateForItemIdentifier___block_invoke(void *a1)
+void *__72__AVPlaybackCoordinationMedium__transportControlStateForItemIdentifier___block_invoke(void *a1)
 {
   result = [objc_msgSend(*(a1[4] + 24) objectForKeyedSubscript:{a1[5]), "copy"}];
   *(*(a1[6] + 8) + 40) = result;
@@ -340,7 +341,7 @@ void __75__AVPlaybackCoordinationMedium__updateTransportControlState_forIdentifi
   dispatch_sync(stateQueue, block);
 }
 
-uint64_t __67__AVPlaybackCoordinationMedium__removeUnusedTransportControlStates__block_invoke(uint64_t a1)
+void *__67__AVPlaybackCoordinationMedium__removeUnusedTransportControlStates__block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 24) allKeys];
@@ -376,7 +377,7 @@ uint64_t __67__AVPlaybackCoordinationMedium__removeUnusedTransportControlStates_
           [*(*(v9 + 32) + 24) removeObjectForKey:v8];
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -390,7 +391,7 @@ uint64_t __67__AVPlaybackCoordinationMedium__removeUnusedTransportControlStates_
   return result;
 }
 
-uint64_t __67__AVPlaybackCoordinationMedium__removeUnusedTransportControlStates__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__67__AVPlaybackCoordinationMedium__removeUnusedTransportControlStates__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [objc_msgSend(a2 objectForKeyedSubscript:{@"CurrentIdentifier", "isEqualToString:", *(a1 + 32)}];
   *a4 = result;
@@ -663,7 +664,7 @@ id __78__AVPlaybackCoordinationMedium__mediumParticipantForCoordinator_orIdentif
   return v4;
 }
 
-uint64_t __75__AVPlaybackCoordinationMedium_localParticipantUUIDForPlaybackCoordinator___block_invoke(void *a1)
+void *__75__AVPlaybackCoordinationMedium_localParticipantUUIDForPlaybackCoordinator___block_invoke(void *a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -692,7 +693,7 @@ uint64_t __75__AVPlaybackCoordinationMedium_localParticipantUUIDForPlaybackCoord
           *(*(a1[6] + 8) + 40) = [v7 participantIdentifier];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -887,62 +888,62 @@ uint64_t __119__AVPlaybackCoordinationMedium_playbackCoordinator_reloadTransport
   return v5 & 1;
 }
 
-uint64_t __71__AVPlaybackCoordinationMedium__updateLowestInUseDefaultItemIdentifier__block_invoke(uint64_t a1)
+void *__71__AVPlaybackCoordinationMedium__updateLowestInUseDefaultItemIdentifier__block_invoke(uint64_t a1)
 {
   v2 = [@"II-" length];
   v3 = [*(*(a1 + 32) + 16) allValues];
   result = [v3 count];
-  if (result && (OUTLINED_FUNCTION_0(), (result = OUTLINED_FUNCTION_2(v5, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31, v33, v35, v37, v39, v41, v43)) != 0))
+  if (result && (v5 = OUTLINED_FUNCTION_0(), (result = OUTLINED_FUNCTION_2(v6, v7, v8, v9, v10, v11, v12, v13, v28, v30, v32, v34, v36, v38, v40, v42, v5)) != 0))
   {
-    v13 = result;
-    v14 = *v32;
-    v15 = -1;
+    v14 = result;
+    v15 = *v33;
+    v16 = -1;
     do
     {
-      v16 = 0;
+      v17 = 0;
       do
       {
-        if (*v32 != v14)
+        if (*v33 != v15)
         {
           objc_enumerationMutation(v3);
         }
 
-        v17 = [*(v30 + 8 * v16) objectForKeyedSubscript:@"CurrentIdentifier"];
-        v18 = [v17 hasPrefix:@"II-"];
-        if (v18)
+        v18 = [*(v31 + 8 * v17) objectForKeyedSubscript:@"CurrentIdentifier"];
+        v19 = [v18 hasPrefix:@"II-"];
+        if (v19)
         {
-          v18 = [v17 length];
-          if (v18 > v2)
+          v19 = [v18 length];
+          if (v19 > v2)
           {
-            v18 = [objc_msgSend(v17 substringFromIndex:{v2), "integerValue"}];
-            if (v18 >= v15)
+            v19 = [objc_msgSend(v18 substringFromIndex:{v2), "integerValue"}];
+            if (v19 >= v16)
             {
-              v26 = v15;
+              v27 = v16;
             }
 
             else
             {
-              v26 = v18;
+              v27 = v19;
             }
 
-            if (v15 >= 0)
+            if (v16 >= 0)
             {
-              v15 = v26;
+              v16 = v27;
             }
 
             else
             {
-              v15 = v18;
+              v16 = v19;
             }
           }
         }
 
-        ++v16;
+        v17 = v17 + 1;
       }
 
-      while (v13 != v16);
-      result = OUTLINED_FUNCTION_2(v18, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44);
-      v13 = result;
+      while (v14 != v17);
+      result = OUTLINED_FUNCTION_2(v19, v20, v21, v22, v23, v24, v25, v26, v29, v31, v33, v35, v37, v39, v41, v43);
+      v14 = result;
     }
 
     while (result);
@@ -950,10 +951,10 @@ uint64_t __71__AVPlaybackCoordinationMedium__updateLowestInUseDefaultItemIdentif
 
   else
   {
-    v15 = -1;
+    v16 = -1;
   }
 
-  *(*(a1 + 32) + 40) = v15 & ~(v15 >> 63);
+  *(*(a1 + 32) + 40) = v16 & ~(v16 >> 63);
   return result;
 }
 

@@ -53,102 +53,99 @@
       newArray = [(ComAppleContextkitUtilKeylessMapBase *)self->_impl newArray];
       pthread_mutex_unlock(&self->_lock);
       v13 = newArray[2];
-      v14 = (&v11->bytes_->super.size_ + 1);
-      offset = v11->offset_;
-      length = v11->length_;
-      v17 = _PASMurmur3_x64_128();
+      v14 = _PASMurmur3_x64_128();
       if (v13 >= 1)
       {
-        newArray[3] = v17;
+        newArray[3] = v14;
         if (v13 != 1)
         {
-          v20 = HIDWORD(v17);
-          newArray[4] = HIDWORD(v17);
+          v17 = HIDWORD(v14);
+          newArray[4] = HIDWORD(v14);
           if (v13 >= 3)
           {
-            newArray[5] = v18;
+            newArray[5] = v15;
             if (v13 != 3)
             {
-              newArray[6] = v19;
+              newArray[6] = v16;
               if (v13 >= 5)
               {
-                v21 = 0;
-                v22 = 0;
-                v23 = (v13 - 5) >> 1;
-                v24 = vdupq_n_s64(v23);
-                v25 = (v23 & 0x7FFFFFFFFFFFFFFCLL) + 4;
-                v26 = 8 * HIDWORD(v17);
-                v27 = newArray + 9;
+                v18 = 0;
+                v19 = 0;
+                v20 = (v13 - 5) >> 1;
+                v21 = vdupq_n_s64(v20);
+                v22 = (v20 & 0x7FFFFFFFFFFFFFFCLL) + 4;
+                v23 = 8 * HIDWORD(v14);
+                v24 = newArray + 9;
                 do
                 {
-                  v28 = vdupq_n_s64(v22);
-                  v29 = vmovn_s64(vcgeq_u64(v24, vorrq_s8(v28, xmmword_100315B40)));
-                  if (vuzp1_s16(v29, 2).u8[0])
+                  v25 = vdupq_n_s64(v19);
+                  v26 = vmovn_s64(vcgeq_u64(v21, vorrq_s8(v25, xmmword_100315B40)));
+                  if (vuzp1_s16(v26, 2).u8[0])
                   {
-                    v30 = 715827883 * ((v21 + 4) * (v21 + 4) - 1) * (v21 + 4);
-                    *(v27 - 2) = 4 * v20 + v17 + HIDWORD(v30) + (v30 >> 63);
+                    v27 = 715827883 * ((v18 + 4) * (v18 + 4) - 1) * (v18 + 4);
+                    *(v24 - 2) = 4 * v17 + v14 + HIDWORD(v27) + (v27 >> 63);
                   }
 
-                  if (vuzp1_s16(v29, 2).i8[2])
+                  if (vuzp1_s16(v26, 2).i8[2])
                   {
-                    v31 = 715827883 * ((v21 + 6) * (v21 + 6) - 1) * (v21 + 6);
-                    *v27 = 6 * v20 + v17 + HIDWORD(v31) + (v31 >> 63);
+                    v28 = 715827883 * ((v18 + 6) * (v18 + 6) - 1) * (v18 + 6);
+                    *v24 = 6 * v17 + v14 + HIDWORD(v28) + (v28 >> 63);
                   }
 
-                  if (vuzp1_s16(2, vmovn_s64(vcgeq_u64(v24, vorrq_s8(v28, xmmword_100315B30)))).i32[1])
+                  if (vuzp1_s16(2, vmovn_s64(vcgeq_u64(v21, vorrq_s8(v25, xmmword_100315B30)))).i32[1])
                   {
-                    v32 = 715827883 * ((v21 + 8) * (v21 + 8) - 1) * (v21 + 8);
-                    v27[2] = v26 + v17 + HIDWORD(v32) + (v32 >> 63);
-                    v33 = 715827883 * ((v21 + 10) * (v21 + 10) - 1) * (v21 + 10);
-                    v27[4] = 10 * v20 + v17 + HIDWORD(v33) + (v33 >> 63);
+                    v29 = 715827883 * ((v18 + 8) * (v18 + 8) - 1) * (v18 + 8);
+                    v24[2] = v23 + v14 + HIDWORD(v29) + (v29 >> 63);
+                    v30 = 715827883 * ((v18 + 10) * (v18 + 10) - 1) * (v18 + 10);
+                    v24[4] = 10 * v17 + v14 + HIDWORD(v30) + (v30 >> 63);
                   }
 
-                  v22 += 4;
-                  v21 += 8;
-                  LODWORD(v17) = v17 + v26;
-                  v27 += 8;
+                  v19 += 4;
+                  v18 += 8;
+                  LODWORD(v14) = v14 + v23;
+                  v24 += 8;
                 }
 
-                while (v25 != v22);
+                while (v22 != v19);
                 if (v13 >= 6)
                 {
-                  v34 = 0;
-                  v35 = 0;
-                  v36 = (v13 - 6) >> 1;
-                  v37 = vdupq_n_s64(v36);
-                  v38 = (v36 & 0x7FFFFFFFFFFFFFFCLL) + 4;
-                  v39 = newArray + 10;
+                  v31 = 0;
+                  v32 = 0;
+                  v33 = (v13 - 6) >> 1;
+                  v34 = vdupq_n_s64(v33);
+                  v35 = (v33 & 0x7FFFFFFFFFFFFFFCLL) + 4;
+                  v36 = newArray + 10;
                   do
                   {
-                    v40 = vdupq_n_s64(v35);
-                    v41 = vmovn_s64(vcgeq_u64(v37, vorrq_s8(v40, xmmword_100315B40)));
-                    if (vuzp1_s16(v41, 2).u8[0])
+                    v37 = vdupq_n_s64(v32);
+                    v38 = vmovn_s64(vcgeq_u64(v34, vorrq_s8(v37, xmmword_100315B40)));
+                    if (vuzp1_s16(v38, 2).u8[0])
                     {
-                      v42 = 715827883 * ((v34 + 5) * (v34 + 5) - 1) * (v34 + 5);
-                      *(v39 - 2) = 5 * v19 + v18 + HIDWORD(v42) + (v42 >> 63);
+                      v39 = 715827883 * ((v31 + 5) * (v31 + 5) - 1) * (v31 + 5);
+                      *(v36 - 2) = 5 * v16 + v15 + HIDWORD(v39) + (v39 >> 63);
                     }
 
-                    if (vuzp1_s16(v41, 2).i8[2])
+                    if (vuzp1_s16(v38, 2).i8[2])
                     {
-                      v43 = 715827883 * ((v34 + 7) * (v34 + 7) - 1) * (v34 + 7);
-                      *v39 = 7 * v19 + v18 + HIDWORD(v43) + (v43 >> 63);
+                      v40 = 715827883 * ((v31 + 7) * (v31 + 7) - 1) * (v31 + 7);
+                      *v36 = 7 * v16 + v15 + HIDWORD(v40) + (v40 >> 63);
                     }
 
-                    if (vuzp1_s16(2, vmovn_s64(vcgeq_u64(v37, vorrq_s8(v40, xmmword_100315B30)))).i32[1])
+                    if (vuzp1_s16(2, vmovn_s64(vcgeq_u64(v34, vorrq_s8(v37, xmmword_100315B30)))).i32[1])
                     {
-                      v44 = 715827883 * ((v34 + 9) * (v34 + 9) - 1) * (v34 + 9);
-                      v39[2] = 9 * v19 + v18 + HIDWORD(v44) + (v44 >> 63);
-                      v45 = 715827883 * ((v34 + 11) * (v34 + 11) - 1) * (v34 + 11);
-                      v39[4] = 11 * v19 + v18 + HIDWORD(v45) + (v45 >> 63);
+                      v41 = 715827883 * ((v31 + 9) * (v31 + 9) - 1) * (v31 + 9);
+                      v36[2] = 9 * v16 + v15 + HIDWORD(v41) + (v41 >> 63);
+                      v42 = 715827883 * ((v31 + 11) * (v31 + 11) - 1) * (v31 + 11);
+                      v36[4] = 11 * v16 + v15 + HIDWORD(v42) + (v42 >> 63);
                     }
 
-                    v35 += 4;
-                    v34 += 8;
-                    v18 += 8 * v19;
-                    v39 += 8;
+                    v32 += 4;
+                    v31 += 8;
+                    v15 += 8 * v16;
+                    v36 += 8;
                   }
 
-                  while (v38 != v35);
+                  while (v35 != v32);
                 }
               }
             }
@@ -157,81 +154,81 @@
       }
 
       pthread_mutex_lock(&self->_lock);
-      v46 = [(ComAppleContextkitUtilKeylessMapBase *)self->_impl getWithHashesWithIntArray:newArray];
+      v43 = [(ComAppleContextkitUtilKeylessMapBase *)self->_impl getWithHashesWithIntArray:newArray];
       pthread_mutex_unlock(&self->_lock);
-      v47 = [v46 size];
-      if (v47)
+      v44 = [v43 size];
+      if (v44)
       {
         if (!setCopy)
         {
-          setCopy = [[NSMutableSet alloc] initWithCapacity:v47];
+          setCopy = [[NSMutableSet alloc] initWithCapacity:v44];
         }
 
-        v57 = newArray;
-        v58 = v11;
+        v54 = newArray;
+        v55 = v11;
         if (out)
         {
           *out = 0;
         }
 
-        v61 = 0u;
-        v62 = 0u;
+        v58 = 0u;
         v59 = 0u;
-        v60 = 0u;
-        v56 = v46;
-        v48 = v46;
-        v49 = [v48 countByEnumeratingWithState:&v59 objects:v63 count:16];
-        if (v49)
+        v56 = 0u;
+        v57 = 0u;
+        v53 = v43;
+        v45 = v43;
+        v46 = [v45 countByEnumeratingWithState:&v56 objects:v60 count:16];
+        if (v46)
         {
-          v50 = v49;
-          v51 = *v60;
+          v47 = v46;
+          v48 = *v57;
           do
           {
-            for (i = 0; i != v50; i = i + 1)
+            for (i = 0; i != v47; i = i + 1)
             {
-              if (*v60 != v51)
+              if (*v57 != v48)
               {
-                objc_enumerationMutation(v48);
+                objc_enumerationMutation(v45);
               }
 
-              v53 = *(*(&v59 + 1) + 8 * i);
-              if (out && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v53 integerValue] == 16)
+              v50 = *(*(&v56 + 1) + 8 * i);
+              if (out && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v50 integerValue] == 16)
               {
                 *out = 1;
               }
 
               else
               {
-                [setCopy addObject:v53];
+                [setCopy addObject:v50];
               }
             }
 
-            v50 = [v48 countByEnumeratingWithState:&v59 objects:v63 count:16];
+            v47 = [v45 countByEnumeratingWithState:&v56 objects:v60 count:16];
           }
 
-          while (v50);
+          while (v47);
         }
 
-        newArray = v57;
-        v11 = v58;
-        v46 = v56;
+        newArray = v54;
+        v11 = v55;
+        v43 = v53;
       }
 
-      v54 = setCopy;
+      v51 = setCopy;
     }
 
     else
     {
-      v54 = setCopy;
+      v51 = setCopy;
     }
   }
 
   else
   {
-    v54 = setCopy;
+    v51 = setCopy;
   }
 
-  return v54;
+  return v51;
 }
 
 - (void)dealloc

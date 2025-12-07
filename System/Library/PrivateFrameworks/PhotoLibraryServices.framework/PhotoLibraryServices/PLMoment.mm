@@ -74,7 +74,7 @@
   if (_fetchEmptyThemePlaceholderNode)
   {
     _edgesToEmptyThemePlaceholder = [(PLMoment *)self _edgesToEmptyThemePlaceholder];
-    v5 = [_edgesToEmptyThemePlaceholder count] != 0;
+    v5 = objc_msgSend_count(_edgesToEmptyThemePlaceholder) != 0;
   }
 
   else
@@ -92,7 +92,7 @@
   v3 = _fetchThemeAssignmentEdges;
   if (_fetchThemeAssignmentEdges)
   {
-    v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(_fetchThemeAssignmentEdges, "count")}];
+    v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(_fetchThemeAssignmentEdges)];
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
@@ -427,7 +427,7 @@ uint64_t __62__PLMoment_PLMomentThemeAdditions___fetchThemeAssignmentEdges__bloc
   if (setCopy)
   {
     _fetchOrCreateEmptyThemePlaceholderNode = [(PLMoment *)self _fetchOrCreateEmptyThemePlaceholderNode];
-    if ([v11 count])
+    if (objc_msgSend_count(v11))
     {
       firstObject = [v11 firstObject];
     }
@@ -445,7 +445,7 @@ uint64_t __62__PLMoment_PLMomentThemeAdditions___fetchThemeAssignmentEdges__bloc
     [v20 setIntegerValue:uemVersion];
   }
 
-  else if ([_edgesToEmptyThemePlaceholder count])
+  else if (objc_msgSend_count(_edgesToEmptyThemePlaceholder))
   {
     v23 = 0u;
     v24 = 0u;
@@ -792,12 +792,12 @@ LABEL_17:
             }
 
             v25 = *(*(&v54 + 1) + 8 * i);
-            entity = [v25 entity];
-            name = [entity name];
+            v26 = objc_msgSend_entity(v25);
+            name = [v26 name];
             v28 = +[PLManagedAsset entityName];
-            v29 = [name isEqualToString:v28];
+            isEqualToString = objc_msgSend_isEqualToString_(name);
 
-            if (v29)
+            if (isEqualToString)
             {
               v30 = v25;
               uuid = [v30 uuid];
@@ -998,7 +998,7 @@ void __135__PLMoment_SearchIndexing__enumerateAssetUUIDsForSearchIndexingWithMom
   v12 = PLBackendGetLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v13 = [v9 count];
+    v13 = objc_msgSend_count(v9);
     shortObjectIDURI = [(PLManagedObject *)self shortObjectIDURI];
     *buf = 134218242;
     v18 = v13;
@@ -1336,7 +1336,7 @@ LABEL_3:
   v29 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   highlightContainerChanges = [changeCopy highlightContainerChanges];
-  v8 = [highlightContainerChanges count];
+  v8 = objc_msgSend_count(highlightContainerChanges);
 
   if (v8)
   {
@@ -1570,7 +1570,7 @@ LABEL_30:
   v18[1] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     v7 = +[PLGraphEdge fetchRequest];
     dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K != nil AND %K IN %@", @"sourceAsset", @"targetPerson", dsCopy];

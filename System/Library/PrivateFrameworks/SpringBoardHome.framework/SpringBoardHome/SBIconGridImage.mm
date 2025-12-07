@@ -22,7 +22,7 @@
   imageCopy = image;
   poolCopy = pool;
   blockCopy = block;
-  [layoutCopy iconImageInfo];
+  objc_msgSend_iconImageInfo(layoutCopy);
   v20 = v19;
   v21 = SBHIconListLayoutMaximumIconCount(layoutCopy);
   [self sizeForLayout:layoutCopy];
@@ -94,7 +94,7 @@
   return v32;
 }
 
-uint64_t __126__SBIconGridImage_gridImageForLayout_imageAppearance_previousGridImage_previousGridCellIndexToUpdate_pool_cellImageDrawBlock___block_invoke(uint64_t a1)
+void *__126__SBIconGridImage_gridImageForLayout_imageAppearance_previousGridImage_previousGridCellIndexToUpdate_pool_cellImageDrawBlock___block_invoke(uint64_t a1)
 {
   CurrentContext = UIGraphicsGetCurrentContext();
   CGContextSetInterpolationQuality(CurrentContext, kCGInterpolationHigh);

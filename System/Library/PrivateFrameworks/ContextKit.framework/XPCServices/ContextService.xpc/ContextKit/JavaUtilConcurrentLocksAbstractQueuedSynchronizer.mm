@@ -2,6 +2,7 @@
 + (void)initialize;
 - (BOOL)apparentlyFirstQueuedIsExclusive;
 - (BOOL)compareAndSetHeadWithJavaUtilConcurrentLocksAbstractQueuedSynchronizer_Node:(id)node;
+- (BOOL)compareAndSetStateWithInt:(int)int withInt:(int)withInt;
 - (BOOL)compareAndSetTailWithJavaUtilConcurrentLocksAbstractQueuedSynchronizer_Node:(id)node withJavaUtilConcurrentLocksAbstractQueuedSynchronizer_Node:(id)synchronizer_Node;
 - (BOOL)findNodeFromTailWithJavaUtilConcurrentLocksAbstractQueuedSynchronizer_Node:(id)node;
 - (BOOL)hasQueuedPredecessors;
@@ -9,6 +10,9 @@
 - (BOOL)hasWaitersWithJavaUtilConcurrentLocksAbstractQueuedSynchronizer_ConditionObject:(id)object;
 - (BOOL)isQueuedWithJavaLangThread:(id)thread;
 - (BOOL)parkAndCheckInterrupt;
+- (BOOL)releaseSharedWithInt:(int)int;
+- (BOOL)tryAcquireNanosWithInt:(int)int withLong:(int64_t)long;
+- (BOOL)tryAcquireSharedNanosWithInt:(int)int withLong:(int64_t)long;
 - (NSString)description;
 - (id)getExclusiveQueuedThreads;
 - (id)getFirstQueuedThread;
@@ -19,16 +23,142 @@
 - (int)getWaitQueueLengthWithJavaUtilConcurrentLocksAbstractQueuedSynchronizer_ConditionObject:(id)object;
 - (unint64_t)fullGetFirstQueuedThread;
 - (void)__javaClone;
+- (void)acquireInterruptiblyWithInt:(int)int;
+- (void)acquireSharedInterruptiblyWithInt:(int)int;
+- (void)acquireSharedWithInt:(int)int;
+- (void)acquireWithInt:(int)int;
 - (void)dealloc;
 @end
 
 @implementation JavaUtilConcurrentLocksAbstractQueuedSynchronizer
 
+- (BOOL)compareAndSetStateWithInt:(int)int withInt:(int)withInt
+{
+  v5 = *&int;
+  v7 = qword_100555250;
+  if (!qword_100555250)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v8 = *&withInt;
+  v9 = qword_100555258;
+
+  return [v7 compareAndSwapIntWithId:self withLong:v9 withInt:v5 withInt:v8];
+}
+
 - (BOOL)parkAndCheckInterrupt
 {
-  JavaUtilConcurrentLocksLockSupport_parkWithId_(self);
+  v2 = JavaUtilConcurrentLocksLockSupport_parkWithId_(self, a2);
 
-  return JavaLangThread_interrupted();
+  return JavaLangThread_interrupted(v2, v3);
+}
+
+- (void)acquireWithInt:(int)int
+{
+  v3 = *&int;
+  if (![(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self tryAcquireWithInt:?])
+  {
+    if ((atomic_load_explicit(JavaUtilConcurrentLocksAbstractQueuedSynchronizer_Node__initialized, memory_order_acquire) & 1) == 0)
+    {
+      sub_10022DE84();
+    }
+
+    v5 = sub_10022B1AC(self, JavaUtilConcurrentLocksAbstractQueuedSynchronizer_Node_EXCLUSIVE_);
+    v6 = sub_10022B7A0(self, v5, v3);
+    if (v6)
+    {
+
+      JavaUtilConcurrentLocksAbstractQueuedSynchronizer_selfInterrupt(v6, v7);
+    }
+  }
+}
+
+- (void)acquireInterruptiblyWithInt:(int)int
+{
+  v3 = *&int;
+  if (JavaLangThread_interrupted(self, a2))
+  {
+    v5 = new_JavaLangInterruptedException_init();
+    objc_exception_throw(v5);
+  }
+
+  if (![(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self tryAcquireWithInt:v3])
+  {
+
+    sub_10022B89C(self, v3);
+  }
+}
+
+- (BOOL)tryAcquireNanosWithInt:(int)int withLong:(int64_t)long
+{
+  v5 = *&int;
+  if (JavaLangThread_interrupted(self, a2))
+  {
+    v8 = new_JavaLangInterruptedException_init();
+    objc_exception_throw(v8);
+  }
+
+  if ([(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self tryAcquireWithInt:v5])
+  {
+    return 1;
+  }
+
+  return sub_10022B9C4(self, v5, long);
+}
+
+- (void)acquireSharedWithInt:(int)int
+{
+  v3 = *&int;
+  if ([(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self tryAcquireSharedWithInt:?]< 0)
+  {
+
+    sub_10022BB58(self, v3);
+  }
+}
+
+- (void)acquireSharedInterruptiblyWithInt:(int)int
+{
+  v3 = *&int;
+  if (JavaLangThread_interrupted(self, a2))
+  {
+    v5 = new_JavaLangInterruptedException_init();
+    objc_exception_throw(v5);
+  }
+
+  if ([(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self tryAcquireSharedWithInt:v3]< 0)
+  {
+
+    sub_10022BC94(self, v3);
+  }
+}
+
+- (BOOL)tryAcquireSharedNanosWithInt:(int)int withLong:(int64_t)long
+{
+  v5 = *&int;
+  if (JavaLangThread_interrupted(self, a2))
+  {
+    v8 = new_JavaLangInterruptedException_init();
+    objc_exception_throw(v8);
+  }
+
+  if (([(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self tryAcquireSharedWithInt:v5]& 0x80000000) == 0)
+  {
+    return 1;
+  }
+
+  return sub_10022BDD0(self, v5, long);
+}
+
+- (BOOL)releaseSharedWithInt:(int)int
+{
+  v4 = [(JavaUtilConcurrentLocksAbstractQueuedSynchronizer *)self tryReleaseSharedWithInt:*&int];
+  if (v4)
+  {
+    sub_10022B394(self);
+  }
+
+  return v4;
 }
 
 - (BOOL)hasQueuedThreads
@@ -164,7 +294,7 @@
   }
 
   v6 = atomic_load((v5 + 32));
-  return JavaLangThread_currentThread() != v6;
+  return JavaLangThread_currentThread(self, a2) != v6;
 }
 
 - (int)getQueueLength
@@ -364,9 +494,10 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
-    Unsafe = SunMiscUnsafe_getUnsafe();
+    Unsafe = SunMiscUnsafe_getUnsafe(v3, v4);
     JreStrongAssign(&qword_100555250, Unsafe);
     if (!qword_100555250)
     {

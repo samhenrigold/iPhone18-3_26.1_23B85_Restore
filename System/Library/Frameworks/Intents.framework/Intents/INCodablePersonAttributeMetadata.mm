@@ -80,12 +80,12 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = INCodablePersonAttributeMetadata;
-  v4 = [(INCodableAttributeMetadata *)&v13 dictionaryRepresentationWithLocalizer:localizer];
+  v14[1] = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = INCodablePersonAttributeMetadata;
+  v4 = [(INCodableAttributeMetadata *)&v12 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionTypeKey = [(INCodablePersonAttributeMetadata *)self __INCodableDescriptionTypeKey];
-  v14 = __INCodableDescriptionTypeKey;
+  v13 = __INCodableDescriptionTypeKey;
   type = [(INCodablePersonAttributeMetadata *)self type];
   if ((type - 1) > 3)
   {
@@ -97,13 +97,11 @@
     v7 = off_1E7283368[type - 1];
   }
 
-  v15[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v9 = [v4 if_dictionaryByAddingEntriesFromDictionary:v8];
 
   if_dictionaryWithNonEmptyValues = [v9 if_dictionaryWithNonEmptyValues];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

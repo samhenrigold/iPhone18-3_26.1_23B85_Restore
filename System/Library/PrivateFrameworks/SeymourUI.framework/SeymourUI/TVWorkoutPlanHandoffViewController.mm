@@ -19,13 +19,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20C0D9A1C();
+  sub_20C0D9A1C(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_20C0D9DA4(appear);
+  sub_20C0D9DA4(appearCopy);
 }
 
 - (_TtC9SeymourUI34TVWorkoutPlanHandoffViewController)initWithNibName:(id)name bundle:(id)bundle

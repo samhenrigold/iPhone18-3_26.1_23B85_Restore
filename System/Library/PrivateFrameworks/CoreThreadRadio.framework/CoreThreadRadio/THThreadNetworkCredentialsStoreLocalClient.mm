@@ -30,8 +30,11 @@
 - (void)retrieveActiveDataSetRecordWithUniqueIdentifierWithKeychainAccessGroup:(id)group completion:(id)completion;
 - (void)retrieveAllActiveDataSetRecordsForNetwork:(id)network completion:(id)completion;
 - (void)retrieveAllActiveDataSetRecordsWithCompletion:(id)completion;
+- (void)retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:(id)group activeFlag:(BOOL)flag compleiton:(id)compleiton;
+- (void)retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:(id)group activeFlag:(BOOL)flag completion:(id)completion;
 - (void)retrieveAllRecordsForNetwork:(id)network completion:(id)completion;
 - (void)retrieveAllRecordsWithCompletion:(id)completion;
+- (void)retrieveListOfPreferredNetworksInternallyWithCompletion:(id)completion ipV4NwSignature:(id)signature ipv6NwSignature:(id)nwSignature wifiSSID:(id)d showCurrentEntry:(BOOL)entry completion:(id)a8;
 - (void)retrieveOrGeneratePreferredNetworkInternallyWithCompletion:(id)completion;
 - (void)retrievePreferredNetworkInternallyWithCompletion:(id)completion;
 - (void)retrievePreferredNetworkOfAnyDSFormatWithCompletion:(id)completion;
@@ -40,6 +43,9 @@
 - (void)retrieveRecordWithUniqueIdentifier:(id)identifier completion:(id)completion;
 - (void)retrieveThirdPartyInfo:(id)info;
 - (void)storeCachedAODasPreferredNetwork:(id)network completion:(id)completion;
+- (void)storeCredentials:(id)credentials waitForSync:(BOOL)sync forNetwork:(id)network completion:(id)completion;
+- (void)storeThreadNetworkCredentialActiveDataSet:(id)set network:(id)network credentials:(id)credentials credentialsDataSet:(id)dataSet waitForSync:(BOOL)sync completion:(id)completion;
+- (void)storeThreadNetworkCredentialActiveDataSet:(id)set network:(id)network credentialsDataSet:(id)dataSet waitForSync:(BOOL)sync completion:(id)completion;
 - (void)updatePreferredNetworkInternallyWithCompletion:(id)completion;
 - (void)updatePreferredNetworkWithNewDataset:(id)dataset network:(id)network credentialsDataSet:(id)set completion:(id)completion;
 - (void)validateAODInternally:(id)internally completion:(id)completion;
@@ -261,6 +267,43 @@ void __80__THThreadNetworkCredentialsStoreLocalClient_deleteRecordForNetwork_com
 {
   v2 = [NSError storeError:4 description:@"Failed to delete record unable to calculate UUID"];;
   (*(*(a1 + 32) + 16))();
+}
+
+- (void)storeCredentials:(id)credentials waitForSync:(BOOL)sync forNetwork:(id)network completion:(id)completion
+{
+  syncCopy = sync;
+  credentialsCopy = credentials;
+  networkCopy = network;
+  completionCopy = completion;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    v14 = [THThreadNetworkCredentialsStoreRecord alloc];
+    keychainAccessGroup = [(THThreadNetworkCredentialsStoreLocalClient *)self keychainAccessGroup];
+    v16 = [v14 initWithNetwork:networkCopy credentials:credentialsCopy uniqueIdentifier:0 keychainAccessGroup:keychainAccessGroup creationDate:0 lastModificationDate:0];
+
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = __97__THThreadNetworkCredentialsStoreLocalClient_storeCredentials_waitForSync_forNetwork_completion___block_invoke_2;
+    v19[3] = &unk_1004C5900;
+    v20 = completionCopy;
+    v17 = completionCopy;
+    [backingStore storeRecord:v16 waitForSync:syncCopy completion:v19];
+  }
+
+  else
+  {
+    v18 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __97__THThreadNetworkCredentialsStoreLocalClient_storeCredentials_waitForSync_forNetwork_completion___block_invoke;
+    block[3] = &unk_1004C5798;
+    v22 = completionCopy;
+    v16 = completionCopy;
+    dispatch_async(v18, block);
+
+    v17 = v22;
+  }
 }
 
 void __97__THThreadNetworkCredentialsStoreLocalClient_storeCredentials_waitForSync_forNetwork_completion___block_invoke(uint64_t a1)
@@ -678,6 +721,38 @@ void __105__THThreadNetworkCredentialsStoreLocalClient_retrieveActiveDataSetReco
   (*(*(a1 + 32) + 16))();
 }
 
+- (void)retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:(id)group activeFlag:(BOOL)flag completion:(id)completion
+{
+  flagCopy = flag;
+  groupCopy = group;
+  completionCopy = completion;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = __136__THThreadNetworkCredentialsStoreLocalClient_retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup_activeFlag_completion___block_invoke_2;
+    v15[3] = &unk_1004C5B98;
+    v11 = &v16;
+    v16 = completionCopy;
+    v12 = completionCopy;
+    [backingStore retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:groupCopy activeFlag:flagCopy compleiton:v15];
+  }
+
+  else
+  {
+    v13 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __136__THThreadNetworkCredentialsStoreLocalClient_retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup_activeFlag_completion___block_invoke;
+    block[3] = &unk_1004C5798;
+    v11 = &v18;
+    v18 = completionCopy;
+    v14 = completionCopy;
+    dispatch_async(v13, block);
+  }
+}
+
 void __136__THThreadNetworkCredentialsStoreLocalClient_retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup_activeFlag_completion___block_invoke(uint64_t a1)
 {
   v2 = [NSError storeError:1 description:@"Failed to retrieve records Backing store is nil"];;
@@ -689,6 +764,38 @@ void __136__THThreadNetworkCredentialsStoreLocalClient_retrieveAllActiveDataSetR
   v5 = a3;
   v6 = scrubRecords(a2);
   (*(*(a1 + 32) + 16))();
+}
+
+- (void)retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:(id)group activeFlag:(BOOL)flag compleiton:(id)compleiton
+{
+  flagCopy = flag;
+  groupCopy = group;
+  compleitonCopy = compleiton;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = __136__THThreadNetworkCredentialsStoreLocalClient_retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup_activeFlag_compleiton___block_invoke_2;
+    v15[3] = &unk_1004C5B98;
+    v11 = &v16;
+    v16 = compleitonCopy;
+    v12 = compleitonCopy;
+    [backingStore retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup:groupCopy activeFlag:flagCopy compleiton:v15];
+  }
+
+  else
+  {
+    v13 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __136__THThreadNetworkCredentialsStoreLocalClient_retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup_activeFlag_compleiton___block_invoke;
+    block[3] = &unk_1004C5798;
+    v11 = &v18;
+    v18 = compleitonCopy;
+    v14 = compleitonCopy;
+    dispatch_async(v13, block);
+  }
 }
 
 void __136__THThreadNetworkCredentialsStoreLocalClient_retrieveAllActiveDataSetRecordsWithFlagForClientKeychainAccessGroup_activeFlag_compleiton___block_invoke(uint64_t a1)
@@ -1298,6 +1405,67 @@ void __90__THThreadNetworkCredentialsStoreLocalClient_storeCachedAODasPreferredN
   (*(*(a1 + 32) + 16))();
 }
 
+- (void)storeThreadNetworkCredentialActiveDataSet:(id)set network:(id)network credentialsDataSet:(id)dataSet waitForSync:(BOOL)sync completion:(id)completion
+{
+  syncCopy = sync;
+  setCopy = set;
+  networkCopy = network;
+  dataSetCopy = dataSet;
+  completionCopy = completion;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    dataSetArray = [dataSetCopy dataSetArray];
+    v18 = [(THThreadNetworkCredentialsStoreLocalClient *)self parseThreadNetworkActiveDataSet:dataSetArray];
+
+    if (v18)
+    {
+      v19 = [THThreadNetworkCredentialsActiveDataSetRecord alloc];
+      keychainAccessGroup = [(THThreadNetworkCredentialsStoreLocalClient *)self keychainAccessGroup];
+      v21 = [v19 initWithBorderAgent:setCopy credentialsDataSet:dataSetCopy network:networkCopy credentials:v18 uniqueIdentifier:0 keychainAccessGroup:keychainAccessGroup creationDate:0 lastModificationDate:0];
+
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = __138__THThreadNetworkCredentialsStoreLocalClient_storeThreadNetworkCredentialActiveDataSet_network_credentialsDataSet_waitForSync_completion___block_invoke_2;
+      v25[3] = &unk_1004C5900;
+      v26 = completionCopy;
+      [backingStore storeThreadCredentialActiveDataSetRecord:v21 waitForSync:syncCopy completion:v25];
+    }
+
+    else
+    {
+      v23 = THCredentialsServerLogHandleForCategory(1);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        [THThreadNetworkCredentialsStoreLocalClient storeThreadNetworkCredentialActiveDataSet:network:credentialsDataSet:waitForSync:completion:];
+      }
+
+      v24 = dispatch_get_global_queue(0, 0);
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = __138__THThreadNetworkCredentialsStoreLocalClient_storeThreadNetworkCredentialActiveDataSet_network_credentialsDataSet_waitForSync_completion___block_invoke_44;
+      v27[3] = &unk_1004C5798;
+      v28 = completionCopy;
+      dispatch_async(v24, v27);
+
+      v21 = v28;
+    }
+  }
+
+  else
+  {
+    v22 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __138__THThreadNetworkCredentialsStoreLocalClient_storeThreadNetworkCredentialActiveDataSet_network_credentialsDataSet_waitForSync_completion___block_invoke;
+    block[3] = &unk_1004C5798;
+    v30 = completionCopy;
+    dispatch_async(v22, block);
+
+    v18 = v30;
+  }
+}
+
 void __138__THThreadNetworkCredentialsStoreLocalClient_storeThreadNetworkCredentialActiveDataSet_network_credentialsDataSet_waitForSync_completion___block_invoke(uint64_t a1)
 {
   v2 = [NSError storeError:1 description:@"Failed to store record Backing store is nil"];;
@@ -1380,6 +1548,45 @@ void __121__THThreadNetworkCredentialsStoreLocalClient_updatePreferredNetworkWit
 {
   v2 = [NSError storeError:29 description:@"Failed to store record Invalid Dataset"];;
   (*(*(a1 + 32) + 16))();
+}
+
+- (void)storeThreadNetworkCredentialActiveDataSet:(id)set network:(id)network credentials:(id)credentials credentialsDataSet:(id)dataSet waitForSync:(BOOL)sync completion:(id)completion
+{
+  syncCopy = sync;
+  setCopy = set;
+  networkCopy = network;
+  credentialsCopy = credentials;
+  dataSetCopy = dataSet;
+  completionCopy = completion;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (backingStore)
+  {
+    v20 = [THThreadNetworkCredentialsActiveDataSetRecord alloc];
+    keychainAccessGroup = [(THThreadNetworkCredentialsStoreLocalClient *)self keychainAccessGroup];
+    v22 = [v20 initWithBorderAgent:setCopy credentialsDataSet:dataSetCopy network:networkCopy credentials:credentialsCopy uniqueIdentifier:0 keychainAccessGroup:keychainAccessGroup creationDate:0 lastModificationDate:0];
+
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = __150__THThreadNetworkCredentialsStoreLocalClient_storeThreadNetworkCredentialActiveDataSet_network_credentials_credentialsDataSet_waitForSync_completion___block_invoke_2;
+    v25[3] = &unk_1004C5900;
+    v26 = completionCopy;
+    v23 = completionCopy;
+    [backingStore storeThreadCredentialActiveDataSetRecord:v22 waitForSync:syncCopy completion:v25];
+  }
+
+  else
+  {
+    v24 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __150__THThreadNetworkCredentialsStoreLocalClient_storeThreadNetworkCredentialActiveDataSet_network_credentials_credentialsDataSet_waitForSync_completion___block_invoke;
+    block[3] = &unk_1004C5798;
+    v28 = completionCopy;
+    v22 = completionCopy;
+    dispatch_async(v24, block);
+
+    v23 = v28;
+  }
 }
 
 void __150__THThreadNetworkCredentialsStoreLocalClient_storeThreadNetworkCredentialActiveDataSet_network_credentials_credentialsDataSet_waitForSync_completion___block_invoke(uint64_t a1)
@@ -1725,37 +1932,7 @@ void __108__THThreadNetworkCredentialsStoreLocalClient_checkIsPreferredNetworkFo
 {
   v5 = a2;
   v6 = v5;
-  if (!v5)
-  {
-    goto LABEL_8;
-  }
-
-  if (a3)
-  {
-    goto LABEL_8;
-  }
-
-  v7 = [v5 credentialsDataSet];
-  if (!v7)
-  {
-    goto LABEL_8;
-  }
-
-  v8 = v7;
-  v9 = [v6 credentialsDataSet];
-  v10 = [v9 dataSetArray];
-
-  if (!v10)
-  {
-    goto LABEL_8;
-  }
-
-  v11 = *(a1 + 32);
-  v12 = [v6 credentialsDataSet];
-  v13 = [v12 dataSetArray];
-  LODWORD(v11) = [v11 isEqualToData:v13];
-
-  if (v11)
+  if (v5 && !a3 && ([v5 credentialsDataSet], (v7 = objc_claimAutoreleasedReturnValue()) != 0) && (v8 = v7, objc_msgSend(v6, "credentialsDataSet"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "dataSetArray"), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, v10) && (v11 = *(a1 + 32), objc_msgSend(v6, "credentialsDataSet"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "dataSetArray"), v13 = objc_claimAutoreleasedReturnValue(), LODWORD(v11) = objc_msgSend(v11, "isEqualToData:", v13), v13, v12, v11))
   {
     v14 = THCredentialsServerLogHandleForCategory(1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
@@ -1770,7 +1947,6 @@ void __108__THThreadNetworkCredentialsStoreLocalClient_checkIsPreferredNetworkFo
 
   else
   {
-LABEL_8:
     v14 = THCredentialsServerLogHandleForCategory(1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
@@ -1872,6 +2048,35 @@ void __79__THThreadNetworkCredentialsStoreLocalClient_validateAODInternally_comp
 {
   v2 = [NSError storeError:18 description:@"Failed to run mdns check Backing store is nil"];;
   (*(*(a1 + 32) + 16))();
+}
+
+- (void)retrieveListOfPreferredNetworksInternallyWithCompletion:(id)completion ipV4NwSignature:(id)signature ipv6NwSignature:(id)nwSignature wifiSSID:(id)d showCurrentEntry:(BOOL)entry completion:(id)a8
+{
+  entryCopy = entry;
+  completionCopy = completion;
+  signatureCopy = signature;
+  nwSignatureCopy = nwSignature;
+  dCopy = d;
+  v18 = a8;
+  backingStore = [(THThreadNetworkCredentialsStoreLocalClient *)self backingStore];
+  if (!backingStore)
+  {
+    v20 = dispatch_get_global_queue(0, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __171__THThreadNetworkCredentialsStoreLocalClient_retrieveListOfPreferredNetworksInternallyWithCompletion_ipV4NwSignature_ipv6NwSignature_wifiSSID_showCurrentEntry_completion___block_invoke;
+    block[3] = &unk_1004C5798;
+    v25 = v18;
+    dispatch_async(v20, block);
+  }
+
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = __171__THThreadNetworkCredentialsStoreLocalClient_retrieveListOfPreferredNetworksInternallyWithCompletion_ipV4NwSignature_ipv6NwSignature_wifiSSID_showCurrentEntry_completion___block_invoke_2;
+  v22[3] = &unk_1004C5B98;
+  v23 = v18;
+  v21 = v18;
+  [backingStore retrieveListOfPreferredNetworksInternallyWithCompletion:completionCopy ipV4NwSignature:signatureCopy ipv6NwSignature:nwSignatureCopy wifiSSID:dCopy showCurrentEntry:entryCopy completion:v22];
 }
 
 void __171__THThreadNetworkCredentialsStoreLocalClient_retrieveListOfPreferredNetworksInternallyWithCompletion_ipV4NwSignature_ipv6NwSignature_wifiSSID_showCurrentEntry_completion___block_invoke(uint64_t a1)
@@ -2910,7 +3115,7 @@ LABEL_86:
         v18 = THCredentialsServerLogHandleForCategory(1);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          [THThreadNetworkCredentialsStoreLocalClient parseDataSetFromTLVs:? data_len:?];
+          [THThreadNetworkCredentialsStoreLocalClient parseDataSetFromTLVs:data_len:];
         }
 
         goto LABEL_126;
@@ -3550,7 +3755,7 @@ LABEL_86:
           v20 = THCredentialsServerLogHandleForCategory(1);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            [THThreadNetworkCredentialsStoreLocalClient parseCredsFromTLVs:? data_len:?];
+            [THThreadNetworkCredentialsStoreLocalClient parseCredsFromTLVs:data_len:];
           }
 
           goto LABEL_118;
@@ -4046,12 +4251,11 @@ void __108__THThreadNetworkCredentialsStoreLocalClient_checkIsPreferredNetworkFo
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-- (void)parseDataSetFromTLVs:(unsigned __int8 *)a1 data_len:.cold.14(unsigned __int8 *a1)
+- (void)parseDataSetFromTLVs:data_len:.cold.14()
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)parseDataSetFromTLVs:data_len:.cold.15()
@@ -4180,12 +4384,11 @@ void __108__THThreadNetworkCredentialsStoreLocalClient_checkIsPreferredNetworkFo
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-- (void)parseCredsFromTLVs:(unsigned __int8 *)a1 data_len:.cold.14(unsigned __int8 *a1)
+- (void)parseCredsFromTLVs:data_len:.cold.14()
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)parseCredsFromTLVs:data_len:.cold.15()

@@ -104,41 +104,38 @@
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = -[NSArray objectAtIndex:](-[SRSampleViewController sampleDataEntries](self, "sampleDataEntries", view), "objectAtIndex:", [path section]);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = *MEMORY[0x277D85DE8];
     selfCopy2 = self;
-    v9 = v6;
-    v10 = 0;
+    v8 = v6;
+    v9 = 0;
 LABEL_3:
 
-    return [(SRSampleViewController *)selfCopy2 prepareEndRowWithText:v9 detailText:v10];
+    return [(SRSampleViewController *)selfCopy2 prepareEndRowWithText:v8 detailText:v9];
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v12 = [-[SRSampleViewController sortedKeysForDictionary:](self sortedKeysForDictionary:{v6), "objectAtIndex:", objc_msgSend(path, "row")}];
-    v13 = [v6 objectForKeyedSubscript:v12];
+    v11 = [-[SRSampleViewController sortedKeysForDictionary:](self sortedKeysForDictionary:{v6), "objectAtIndex:", objc_msgSend(path, "row")}];
+    v12 = [v6 objectForKeyedSubscript:v11];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = *MEMORY[0x277D85DE8];
       selfCopy2 = self;
+      v8 = v11;
       v9 = v12;
-      v10 = v13;
       goto LABEL_3;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
-      v19 = *MEMORY[0x277D85DE8];
 
-      return [(SRSampleViewController *)self prepareExtendedRowWithText:v12];
+      return [(SRSampleViewController *)self prepareExtendedRowWithText:v11];
     }
 
     goto LABEL_19;
@@ -148,29 +145,26 @@ LABEL_3:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_19:
-    v20 = objc_opt_new();
-    v21 = *MEMORY[0x277D85DE8];
+    v16 = objc_opt_new();
 
-    return v20;
+    return v16;
   }
 
-  v15 = [MEMORY[0x277CCACA8] srui_localizedStringForCode:5];
-  v22 = 0;
-  v16 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v15 validFormatSpecifiers:@"%ld" error:&v22, objc_msgSend(path, "section")];
-  if (!v16)
+  v13 = [MEMORY[0x277CCACA8] srui_localizedStringForCode:5];
+  v17 = 0;
+  v14 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v13 validFormatSpecifiers:@"%ld" error:&v17, objc_msgSend(path, "section")];
+  if (!v14)
   {
-    v17 = SRLogSampleViewController;
+    v15 = SRLogSampleViewController;
     if (os_log_type_enabled(SRLogSampleViewController, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v24 = v22;
-      _os_log_fault_impl(&dword_265602000, v17, OS_LOG_TYPE_FAULT, "Failed to localize string because %{public}@", buf, 0xCu);
+      v19 = v17;
+      _os_log_fault_impl(&dword_265602000, v15, OS_LOG_TYPE_FAULT, "Failed to localize string because %{public}@", buf, 0xCu);
     }
   }
 
-  result = [(SRSampleViewController *)self prepareExtendedRowWithText:v16];
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(SRSampleViewController *)self prepareExtendedRowWithText:v14];
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -253,34 +247,34 @@ LABEL_19:
 
 + (id)sampleViewControllerForAuthGroup:(id)group
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
   [v4 setTitle:{objc_msgSend(MEMORY[0x277CCACA8], "srui_localizedStringForCode:", 8)}];
   [v4 setAuthGroup:group];
-  v21 = v4;
+  v20 = v4;
   [v4 setSampleDataEntries:{objc_msgSend(group, "localizedSampleData")}];
   v5 = [MEMORY[0x277CDC638] sensorDescriptionsForAuthorizationService:{objc_msgSend(group, "authorizationService")}];
   string = [MEMORY[0x277CCAB68] string];
   v7 = [MEMORY[0x277CBEB58] set];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v8 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
+        v12 = *(*(&v21 + 1) + 8 * i);
         if (([v7 containsObject:{objc_msgSend(v12, "name")}] & 1) == 0)
         {
           localizedAdditionalSampleDataNote = [v12 localizedAdditionalSampleDataNote];
@@ -293,7 +287,7 @@ LABEL_19:
         }
       }
 
-      v9 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v9);
@@ -318,9 +312,8 @@ LABEL_19:
     v18 = &stru_2876FBDF0;
   }
 
-  [v21 setNote:{objc_msgSend(v15, "stringWithFormat:", @"%@%@%@", v16, v18, v14)}];
-  v19 = *MEMORY[0x277D85DE8];
-  return v21;
+  [v20 setNote:{objc_msgSend(v15, "stringWithFormat:", @"%@%@%@", v16, v18, v14)}];
+  return v20;
 }
 
 @end

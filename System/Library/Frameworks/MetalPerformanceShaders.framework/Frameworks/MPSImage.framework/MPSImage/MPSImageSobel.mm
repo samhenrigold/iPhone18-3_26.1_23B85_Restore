@@ -29,12 +29,10 @@
 
 - (MPSImageSobel)initWithDevice:(id)device
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7 = 0x3F1645A23E991687;
-  v8 = 1038710997;
-  result = objc_msgSend_initWithDevice_linearGrayColorTransform_(self, a2, device, &v7, v3, v4);
   v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v4 = 0x3F1645A23E991687;
+  v5 = 1038710997;
+  return objc_msgSend_initWithDevice_linearGrayColorTransform_(self, a2, device, &v4);
 }
 
 - (MPSImageSobel)initWithDevice:(id)device linearGrayColorTransform:(const float *)transform
@@ -73,47 +71,47 @@
 {
   selfCopy = self;
   *(&self->super.super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v20.receiver = self;
-  v20.super_class = MPSImageSobel;
-  [(MPSUnaryImageKernel *)&v20 encodeWithCoder:?];
+  v11.receiver = self;
+  v11.super_class = MPSImageSobel;
+  [(MPSUnaryImageKernel *)&v11 encodeWithCoder:?];
   selfCopy = (selfCopy + 208);
   LODWORD(v5) = selfCopy->super.super.super.isa;
-  objc_msgSend_encodeFloat_forKey_(coder, v6, @"MPSImageSobel.transformR", v7, v8, v9, v5);
-  LODWORD(v10) = HIDWORD(selfCopy->super.super.super.isa);
-  objc_msgSend_encodeFloat_forKey_(coder, v11, @"MPSImageSobel.transformG", v12, v13, v14, v10);
-  LODWORD(v15) = selfCopy->super.super._options;
-  objc_msgSend_encodeFloat_forKey_(coder, v16, @"MPSImageSobel.transformB", v17, v18, v19, v15);
+  objc_msgSend_encodeFloat_forKey_(coder, v6, @"MPSImageSobel.transformR", v5);
+  LODWORD(v7) = HIDWORD(selfCopy->super.super.super.isa);
+  objc_msgSend_encodeFloat_forKey_(coder, v8, @"MPSImageSobel.transformG", v7);
+  LODWORD(v9) = selfCopy->super.super._options;
+  objc_msgSend_encodeFloat_forKey_(coder, v10, @"MPSImageSobel.transformB", v9);
 }
 
 - (MPSImageSobel)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v24.receiver = self;
-  v24.super_class = MPSImageSobel;
-  v5 = [(MPSUnaryImageKernel *)&v24 initWithCoder:aDecoder device:device];
-  v10 = v5;
+  v15.receiver = self;
+  v15.super_class = MPSImageSobel;
+  v5 = [(MPSUnaryImageKernel *)&v15 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (!v5)
   {
-    return v10;
+    return v7;
   }
 
   if (*(&v5->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
   {
-    objc_msgSend_decodeFloatForKey_(aDecoder, v6, @"MPSImageSobel.transformR", v7, v8, v9);
-    v10->_colVec[0] = v11;
-    objc_msgSend_decodeFloatForKey_(aDecoder, v12, @"MPSImageSobel.transformG", v13, v14, v15);
-    v10->_colVec[1] = v16;
-    objc_msgSend_decodeFloatForKey_(aDecoder, v17, @"MPSImageSobel.transformB", v18, v19, v20);
-    v10->_colVec[2] = v21;
-    v10->super._checkFlags |= 2u;
-    v10->super._encode = sub_23994F288;
-    v10->super._encodeData = v10;
-    return v10;
+    objc_msgSend_decodeFloatForKey_(aDecoder, v6, @"MPSImageSobel.transformR");
+    v7->_colVec[0] = v8;
+    objc_msgSend_decodeFloatForKey_(aDecoder, v9, @"MPSImageSobel.transformG");
+    v7->_colVec[1] = v10;
+    objc_msgSend_decodeFloatForKey_(aDecoder, v11, @"MPSImageSobel.transformB");
+    v7->_colVec[2] = v12;
+    v7->super._checkFlags |= 2u;
+    v7->super._encode = sub_23994F288;
+    v7->super._encodeData = v7;
+    return v7;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v23 = objc_opt_class();
-    NSStringFromClass(v23);
+    v14 = objc_opt_class();
+    NSStringFromClass(v14);
     MTLReportFailure();
   }
 

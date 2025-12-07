@@ -27,6 +27,7 @@
 - (void)_handleDidRecognizedSpeechPackageForEagerRecognitionCandidate:(id)candidate requestId:(id)id rcId:(unint64_t)rcId metadata:(id)metadata;
 - (void)_handleShouldAcceptEagerResultWithRequestId:(id)id rcId:(unint64_t)rcId duration:(double)duration shouldAccept:(BOOL)accept featuresToLog:(id)log;
 - (void)_handleStopDeliverLocalSpeechRecognitionWithStopUresProcessing:(BOOL)processing;
+- (void)_handleStopSpeechRecognitionTaskIfNeeded:(BOOL)needed;
 - (void)_invalidateLocalSpeechRecognizer;
 - (void)_markTimeToFirstWordMetric;
 - (void)_preheatWithLanguage:(id)language preheatSource:(unint64_t)source;
@@ -41,6 +42,7 @@
 - (void)_setupRecognizerStateForMagusAsrNode;
 - (void)_startDeliverLocalSpeechRecognitionResultsWithRequestId:(id)id;
 - (void)_startLocalSpeechRecognizerIfNeeded;
+- (void)_stopPreviousRecognitionTaskIfNeededWithNewRequestId:(id)id stopUresProcessing:(BOOL)processing;
 - (void)attSiriAudioSrcNodeDidStartRecording:(id)recording successfully:(BOOL)successfully error:(id)error;
 - (void)attSiriAudioSrcNodeDidStop:(id)stop;
 - (void)attSiriAudioSrcNodeLPCMRecordBufferAvailable:(id)available audioChunk:(id)chunk;
@@ -1132,6 +1134,97 @@ LABEL_13:
   objc_destroyWeak(&location);
 }
 
+- (void)_handleStopSpeechRecognitionTaskIfNeeded:(BOOL)needed
+{
+  if (!self->_shouldProcessAudio && !needed)
+  {
+    return;
+  }
+
+  self->_shouldProcessAudio = 0;
+  [(CSAttSiriAsrNode *)self _scheduleRecordingTransactionReleaseTimer];
+  localSpeechRecognizerTaskString = self->_localSpeechRecognizerTaskString;
+  if (localSpeechRecognizerTaskString)
+  {
+    v5 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    {
+      *v16 = 136315394;
+      *&v16[4] = "[CSAttSiriAsrNode _handleStopSpeechRecognitionTaskIfNeeded:]";
+      *&v16[12] = 2112;
+      *&v16[14] = localSpeechRecognizerTaskString;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s Stopping task %@", v16, 0x16u);
+    }
+
+    [(CoreEmbeddedSpeechRecognizerProvider *)self->_interactiveLocalSpeechRecognizer finishAudio];
+    [(CSPlainAudioFileWriter *)self->_audioFileWriter endAudio];
+  }
+
+  localSpeechRecognizerState = self->_localSpeechRecognizerState;
+  if (localSpeechRecognizerState != 1)
+  {
+    v8 = self->_localSpeechRecognizerTaskString;
+    if (v8 && self->_interactiveLocalSpeechRecognizer)
+    {
+      if (localSpeechRecognizerState != 3)
+      {
+LABEL_20:
+        recordContext = self->_recordContext;
+        self->_recordContext = 0;
+
+        self->_endpointStartTimeInSec = 0.0;
+        self->_audioSampleCountToSkip = 0;
+        [(CSAttSiriAsrNode *)self _clearAudioProcessWaitingBufferIfNeeded];
+        return;
+      }
+
+      v9 = CSLogContextFacilityCoreSpeech;
+      if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+      {
+        *v16 = 136315138;
+        *&v16[4] = "[CSAttSiriAsrNode _handleStopSpeechRecognitionTaskIfNeeded:]";
+        v10 = "%s Complete task now since local SR is disabled";
+        v11 = v9;
+        v12 = 12;
+LABEL_18:
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v10, v16, v12);
+      }
+    }
+
+    else
+    {
+      v13 = CSLogContextFacilityCoreSpeech;
+      if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+      {
+        interactiveLocalSpeechRecognizer = self->_interactiveLocalSpeechRecognizer;
+        *v16 = 136315650;
+        *&v16[4] = "[CSAttSiriAsrNode _handleStopSpeechRecognitionTaskIfNeeded:]";
+        *&v16[12] = 2114;
+        *&v16[14] = v8;
+        *&v16[22] = 2050;
+        v17 = interactiveLocalSpeechRecognizer;
+        v10 = "%s Complete task now since taskString(%{public}@) or localSR(%{public}p) is nil";
+        v11 = v13;
+        v12 = 32;
+        goto LABEL_18;
+      }
+    }
+
+    [(CSAttSiriAsrNode *)self _setLocalSpeechRecognizerState:0, *v16, *&v16[8], v17];
+    goto LABEL_20;
+  }
+
+  v7 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+  {
+    *v16 = 136315138;
+    *&v16[4] = "[CSAttSiriAsrNode _handleStopSpeechRecognitionTaskIfNeeded:]";
+    _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s Request dispatcher didn't ask to start until end", v16, 0xCu);
+  }
+
+  [(CSAttSiriAsrNode *)self _setLocalSpeechRecognizerState:4];
+}
+
 - (void)_processAudioChunk:(id)chunk withReadyTimestamp:(id)timestamp
 {
   chunkCopy = chunk;
@@ -1179,9 +1272,9 @@ LABEL_13:
     [(CSAttSiriAsrNode *)self _stateToString:localSpeechRecognizerState];
     v6 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     *buf = 136315394;
-    v146 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
-    v147 = 2114;
-    v148 = v6;
+    v145 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
+    v146 = 2114;
+    v147 = v6;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s current state = %{public}@", buf, 0x16u);
   }
 
@@ -1236,23 +1329,23 @@ LABEL_13:
       dictationUIInteractionId = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings dictationUIInteractionId];
       shouldStoreAudioOnDevice = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings shouldStoreAudioOnDevice];
       overrideModelPath = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings overrideModelPath];
-      v126 = CSShouldCensorSpeech();
-      v131 = [(CSAttSiriAsrNode *)self _fetchInputOriginWithRecordContext:self->_recordContext];
+      v125 = CSShouldCensorSpeech();
+      v130 = [(CSAttSiriAsrNode *)self _fetchInputOriginWithRecordContext:self->_recordContext];
       deliverEagerPackage = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings deliverEagerPackage];
       v25 = self->_language;
       uILanguage = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings UILanguage];
       localSpeechRecognizerTaskString = self->_localSpeechRecognizerTaskString;
       asrLocale = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings asrLocale];
-      v130 = [(CSAttSiriAsrNode *)self _fetchRecognizerLanguageWithSiriLanguage:v25 UILanguage:uILanguage taskString:localSpeechRecognizerTaskString asrLocale:asrLocale];
+      v129 = [(CSAttSiriAsrNode *)self _fetchRecognizerLanguageWithSiriLanguage:v25 UILanguage:uILanguage taskString:localSpeechRecognizerTaskString asrLocale:asrLocale];
 
       if (overrideModelPath)
       {
-        v129 = [NSURL fileURLWithPath:overrideModelPath isDirectory:1];
+        v128 = [NSURL fileURLWithPath:overrideModelPath isDirectory:1];
       }
 
       else
       {
-        v129 = 0;
+        v128 = 0;
       }
 
       v29 = 0.0;
@@ -1266,7 +1359,7 @@ LABEL_13:
       }
 
       [(CSAttSiriAsrNode *)self _resetLocalSpeechRecognizerParameters];
-      v127 = overrideModelPath;
+      v126 = overrideModelPath;
       if (dictationUIInteractionId)
       {
         applicationName = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings applicationName];
@@ -1277,9 +1370,9 @@ LABEL_13:
         applicationName = @"com.apple.siri.assistant";
       }
 
-      v120 = [CESRSpeechParameters alloc];
+      v119 = [CESRSpeechParameters alloc];
       requestId = self->_requestId;
-      v122 = self->_localSpeechRecognizerTaskString;
+      v121 = self->_localSpeechRecognizerTaskString;
       recognitionOverrides = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings recognitionOverrides];
       detectUtterances = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings detectUtterances];
       secureOfflineOnly = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings secureOfflineOnly];
@@ -1298,22 +1391,22 @@ LABEL_13:
       postfixText = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings postfixText];
       selectedText = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings selectedText];
       powerContext = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings powerContext];
-      LOBYTE(v112) = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings shouldGenerateVoiceCommandCandidates];
-      BYTE4(v111) = enableVoiceCommands;
-      BYTE3(v111) = enableAutoPunctuation;
-      BYTE2(v111) = enableEmojiRecognition;
-      BYTE1(v111) = disableEndpointer;
-      LOBYTE(v111) = deliverEagerPackage;
-      LOBYTE(v110) = 0;
-      HIBYTE(v109) = shouldHandleCapitalization;
-      BYTE6(v109) = continuousListening;
-      BYTE5(v109) = shouldStoreAudioOnDevice;
-      BYTE4(v109) = secureOfflineOnly;
-      BYTE3(v109) = isVoiceTriggered;
-      BYTE2(v109) = v126;
-      BYTE1(v109) = detectUtterances;
+      LOBYTE(v111) = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings shouldGenerateVoiceCommandCandidates];
+      BYTE4(v110) = enableVoiceCommands;
+      BYTE3(v110) = enableAutoPunctuation;
+      BYTE2(v110) = enableEmojiRecognition;
+      BYTE1(v110) = disableEndpointer;
+      LOBYTE(v110) = deliverEagerPackage;
       LOBYTE(v109) = 0;
-      v125 = [v120 initWithLanguage:v130 requestIdentifier:requestId dictationUIInteractionIdentifier:dictationUIInteractionId task:v122 loggingContext:0 applicationName:applicationName profile:v34 overrides:endpointStartTimeInSec modelOverrideURL:v29 originalAudioFileURL:0 codec:recognitionOverrides narrowband:v129 detectUtterances:0 censorSpeech:0 farField:v109 secureOfflineOnly:v110 shouldStoreAudioOnDevice:v131 continuousListening:location shouldHandleCapitalization:jitGrammar isSpeechAPIRequest:v111 maximumRecognitionDuration:sharedUserInfos2 endpointStart:prefixText inputOrigin:postfixText location:selectedText jitGrammar:powerContext deliverEagerPackage:v112 disableDeliveringAsrFeatures:? enableEmojiRecognition:? enableAutoPunctuation:? enableVoiceCommands:? sharedUserInfos:? prefixText:? postfixText:? selectedText:? powerContext:? recognitionStart:? shouldGenerateVoiceCommandCandidates:?];
+      HIBYTE(v108) = shouldHandleCapitalization;
+      BYTE6(v108) = continuousListening;
+      BYTE5(v108) = shouldStoreAudioOnDevice;
+      BYTE4(v108) = secureOfflineOnly;
+      BYTE3(v108) = isVoiceTriggered;
+      BYTE2(v108) = v125;
+      BYTE1(v108) = detectUtterances;
+      LOBYTE(v108) = 0;
+      v124 = [v119 initWithLanguage:v129 requestIdentifier:requestId dictationUIInteractionIdentifier:dictationUIInteractionId task:v121 loggingContext:0 applicationName:applicationName profile:v34 overrides:endpointStartTimeInSec modelOverrideURL:v29 originalAudioFileURL:0 codec:recognitionOverrides narrowband:v128 detectUtterances:0 censorSpeech:0 farField:v108 secureOfflineOnly:v109 shouldStoreAudioOnDevice:v130 continuousListening:location shouldHandleCapitalization:jitGrammar isSpeechAPIRequest:v110 maximumRecognitionDuration:sharedUserInfos2 endpointStart:prefixText inputOrigin:postfixText location:selectedText jitGrammar:powerContext deliverEagerPackage:v111 disableDeliveringAsrFeatures:? enableEmojiRecognition:? enableAutoPunctuation:? enableVoiceCommands:? sharedUserInfos:? prefixText:? postfixText:? selectedText:? powerContext:? recognitionStart:? shouldGenerateVoiceCommandCandidates:?];
 
       v44 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
@@ -1322,7 +1415,7 @@ LABEL_13:
         speechRecognitionSettings = self->_speechRecognitionSettings;
         v47 = v44;
         location2 = [(LBLocalSpeechRecognitionSettings *)speechRecognitionSettings location];
-        if (v126)
+        if (v125)
         {
           v49 = @"YES";
         }
@@ -1335,7 +1428,7 @@ LABEL_13:
         jitGrammar2 = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings jitGrammar];
         enableVoiceCommands2 = [(LBLocalSpeechRecognitionSettings *)self->_speechRecognitionSettings enableVoiceCommands];
         *buf = 136316930;
-        v146 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
+        v145 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
         if (enableVoiceCommands2)
         {
           v52 = @"YES";
@@ -1346,20 +1439,20 @@ LABEL_13:
           v52 = @"NO";
         }
 
-        v147 = 2114;
-        v148 = *&v45;
-        v149 = 2050;
-        v150 = *&endpointStartTimeInSec;
-        v151 = 2114;
-        v152 = v131;
-        v153 = 2112;
-        v154 = location2;
-        v155 = 2114;
-        v156 = v49;
-        v157 = 2112;
-        v158 = jitGrammar2;
-        v159 = 2114;
-        v160 = v52;
+        v146 = 2114;
+        v147 = *&v45;
+        v148 = 2050;
+        v149 = *&endpointStartTimeInSec;
+        v150 = 2114;
+        v151 = v130;
+        v152 = 2112;
+        v153 = location2;
+        v154 = 2114;
+        v155 = v49;
+        v156 = 2112;
+        v157 = jitGrammar2;
+        v158 = 2114;
+        v159 = v52;
         _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%s Calling local speech recognition with settings : task(%{public}@), endpointStart(%{public}.3f), inputOrigin(%{public}@), location(%@), shouldCensorSpeech(%{public}@), jitGrammar(%@), enableVoiceCommands(%{public}@)", buf, 0x52u);
       }
 
@@ -1371,19 +1464,19 @@ LABEL_13:
         [v53 UUIDString];
         v56 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         *buf = 136315394;
-        v146 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
-        v147 = 2112;
-        v148 = v56;
+        v145 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
+        v146 = 2112;
+        v147 = v56;
         _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%s Setting ASR UUID : %@", buf, 0x16u);
       }
 
-      v142[0] = _NSConcreteStackBlock;
-      v142[1] = 3221225472;
-      v142[2] = sub_1000D5364;
-      v142[3] = &unk_100250E78;
+      v141[0] = _NSConcreteStackBlock;
+      v141[1] = 3221225472;
+      v141[2] = sub_1000D5364;
+      v141[3] = &unk_100250E78;
       v57 = v53;
-      v143 = v57;
-      v58 = [v125 mutatedCopyWithMutator:v142];
+      v142 = v57;
+      v58 = [v124 mutatedCopyWithMutator:v141];
       if (self->_voiceTriggerFireMachTime)
       {
         v59 = mach_absolute_time();
@@ -1402,11 +1495,11 @@ LABEL_13:
           {
             voiceTriggerFireMachTime = self->_voiceTriggerFireMachTime;
             *buf = 134349570;
-            v146 = voiceTriggerFireMachTime;
-            v147 = 2080;
-            v148 = COERCE_DOUBLE("SiriX");
-            v149 = 2080;
-            v150 = "enableTelemetry=YES";
+            v145 = voiceTriggerFireMachTime;
+            v146 = 2080;
+            v147 = COERCE_DOUBLE("SiriX");
+            v148 = 2080;
+            v149 = "enableTelemetry=YES";
             _os_signpost_emit_with_name_impl(&_mh_execute_header, v62, OS_SIGNPOST_INTERVAL_BEGIN, v60, "ondevice_VoiceTriggerEndToASRStartLatency", "%{public, signpost.description:begin_time}llu, %s %s", buf, 0x20u);
           }
 
@@ -1414,40 +1507,39 @@ LABEL_13:
           if (os_signpost_enabled(v64))
           {
             *buf = 134349570;
-            v146 = v59;
-            v147 = 2080;
-            v148 = COERCE_DOUBLE("SiriX");
-            v149 = 2080;
-            v150 = "enableTelemetry=YES";
+            v145 = v59;
+            v146 = 2080;
+            v147 = COERCE_DOUBLE("SiriX");
+            v148 = 2080;
+            v149 = "enableTelemetry=YES";
             _os_signpost_emit_with_name_impl(&_mh_execute_header, v64, OS_SIGNPOST_INTERVAL_END, v60, "ondevice_VoiceTriggerEndToASRStartLatency", "%{public, signpost.description:end_time}llu, %s %s", buf, 0x20u);
           }
         }
 
-        v65 = self->_voiceTriggerFireMachTime;
         CSMachAbsoluteTimeGetTimeInterval();
-        v67 = v66;
-        v68 = CSLogContextFacilityCoreSpeech;
+        v66 = v65;
+        v67 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
-          v69 = v67 * 1000.0;
+          v68 = v66 * 1000.0;
           *buf = 136315394;
-          v146 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
-          v147 = 2050;
-          v148 = v69;
-          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "%s Voice trigger end to ASR Start Latency: %{public}.2f ms", buf, 0x16u);
+          v145 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
+          v146 = 2050;
+          v147 = v68;
+          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "%s Voice trigger end to ASR Start Latency: %{public}.2f ms", buf, 0x16u);
         }
       }
 
       self->_voiceTriggerFireMachTime = 0;
       *&self->_onDeviceDictationSampled = 0;
-      if (!+[CSUtils isOnDeviceASRAudioLoggingEnabled](CSUtils, "isOnDeviceASRAudioLoggingEnabled") || ([v58 task], v70 = objc_claimAutoreleasedReturnValue(), v71 = +[CESRUtilities isSamplingSupportedForTask:](CESRUtilities, "isSamplingSupportedForTask:", v70), v70, !v71))
+      if (!+[CSUtils isOnDeviceASRAudioLoggingEnabled](CSUtils, "isOnDeviceASRAudioLoggingEnabled") || ([v58 task], v69 = objc_claimAutoreleasedReturnValue(), v70 = +[CESRUtilities isSamplingSupportedForTask:](CESRUtilities, "isSamplingSupportedForTask:", v69), v69, !v70))
       {
-        v74 = CSLogContextFacilityCoreSpeech;
+        v73 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v146 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
-          _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "%s Request is ineligible for sampling. Disabling audio logging.", buf, 0xCu);
+          v145 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
+          _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "%s Request is ineligible for sampling. Disabling audio logging.", buf, 0xCu);
         }
 
         audioLogging = self->_audioLogging;
@@ -1458,25 +1550,25 @@ LABEL_13:
       task = [v58 task];
       if ([task isEqualToString:CoreEmbeddedSpeechRecognizerTaskDictation])
       {
-        v73 = 1;
+        v72 = 1;
       }
 
       else
       {
         task2 = [v58 task];
-        v73 = [task2 isEqualToString:CoreEmbeddedSpeechRecognizerTaskWebSearch];
+        v72 = [task2 isEqualToString:CoreEmbeddedSpeechRecognizerTaskWebSearch];
       }
 
-      v77 = [CSSpeechRecognitionSelfHelper alloc];
+      v76 = [CSSpeechRecognitionSelfHelper alloc];
       task3 = [v58 task];
-      v79 = [(CSSpeechRecognitionSelfHelper *)v77 initWithAsrId:v57 taskName:task3 isSamplingForDictation:v73];
+      v78 = [(CSSpeechRecognitionSelfHelper *)v76 initWithAsrId:v57 taskName:task3 isSamplingForDictation:v72];
       asrSelfHelper = self->_asrSelfHelper;
-      self->_asrSelfHelper = v79;
+      self->_asrSelfHelper = v78;
 
-      if (v73)
+      if (v72)
       {
-        v81 = +[CESRDictationOnDeviceSampling sharedManager];
-        self->_onDeviceDictationSampled = [v81 isRequestSelectedForSamplingFromConfigForLanguage:self->_language];
+        v80 = +[CESRDictationOnDeviceSampling sharedManager];
+        self->_onDeviceDictationSampled = [v80 isRequestSelectedForSamplingFromConfigForLanguage:self->_language];
       }
 
       else
@@ -1487,24 +1579,24 @@ LABEL_13:
 LABEL_55:
           if (self->_onDeviceAssistantSampled)
           {
-            v83 = [CSUncompressedAudioLogging alloc];
-            v84 = self->_requestId;
+            v82 = [CSUncompressedAudioLogging alloc];
+            v83 = self->_requestId;
             uUIDString = [v57 UUIDString];
-            v86 = self->_language;
+            v85 = self->_language;
             task4 = [v58 task];
-            v88 = [v83 initWithRequestId:v84 asrId:uUIDString languageCode:v86 task:task4];
+            v87 = [v82 initWithRequestId:v83 asrId:uUIDString languageCode:v85 task:task4];
           }
 
           else
           {
             if (!self->_onDeviceDictationSampled)
             {
-              v93 = CSLogContextFacilityCoreSpeech;
+              v92 = CSLogContextFacilityCoreSpeech;
               if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v146 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
-                _os_log_impl(&_mh_execute_header, v93, OS_LOG_TYPE_DEFAULT, "%s Request was not selected for sampling. Disabling audio logging.", buf, 0xCu);
+                v145 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
+                _os_log_impl(&_mh_execute_header, v92, OS_LOG_TYPE_DEFAULT, "%s Request was not selected for sampling. Disabling audio logging.", buf, 0xCu);
               }
 
               uUIDString = self->_audioLogging;
@@ -1512,85 +1604,85 @@ LABEL_55:
               goto LABEL_63;
             }
 
-            v89 = [CSUncompressedAudioLogging alloc];
-            v90 = self->_requestId;
+            v88 = [CSUncompressedAudioLogging alloc];
+            v89 = self->_requestId;
             uUIDString = [v57 UUIDString];
-            v91 = self->_language;
+            v90 = self->_language;
             task4 = [v58 task];
-            v88 = [v89 initWithRequestId:v90 asrId:uUIDString dictationInteractionId:dictationUIInteractionId languageCode:v91 task:task4 isSamplingForDictation:1];
+            v87 = [v88 initWithRequestId:v89 asrId:uUIDString dictationInteractionId:dictationUIInteractionId languageCode:v90 task:task4 isSamplingForDictation:1];
           }
 
-          v92 = self->_audioLogging;
-          self->_audioLogging = v88;
+          v91 = self->_audioLogging;
+          self->_audioLogging = v87;
 
 LABEL_63:
-          v94 = self->_asrSelfHelper;
-          v95 = self->_requestId;
-          v96 = self->_audioLogging;
-          v139[0] = _NSConcreteStackBlock;
-          v139[1] = 3221225472;
-          v139[2] = sub_1000D5370;
-          v139[3] = &unk_100253C70;
-          v140 = v94;
-          v141 = v95;
-          v97 = v95;
-          audioLogging = v94;
-          [(CSUncompressedAudioLogging *)v96 prepareLogging:v139];
-
-LABEL_64:
-          v98 = applicationName;
-
-          _interactiveLocalSpeechRecognizer = [(CSAttSiriAsrNode *)self _interactiveLocalSpeechRecognizer];
+          v93 = self->_asrSelfHelper;
+          v94 = self->_requestId;
+          v95 = self->_audioLogging;
           v138[0] = _NSConcreteStackBlock;
           v138[1] = 3221225472;
-          v138[2] = sub_1000D538C;
-          v138[3] = &unk_100250EA0;
-          v138[4] = self;
-          [_interactiveLocalSpeechRecognizer startSpeechRecognitionWithParameters:v58 didStartHandlerWithInfo:v138];
+          v138[2] = sub_1000D5370;
+          v138[3] = &unk_100253C70;
+          v139 = v93;
+          v140 = v94;
+          v96 = v94;
+          audioLogging = v93;
+          [(CSUncompressedAudioLogging *)v95 prepareLogging:v138];
+
+LABEL_64:
+          v97 = applicationName;
+
+          _interactiveLocalSpeechRecognizer = [(CSAttSiriAsrNode *)self _interactiveLocalSpeechRecognizer];
+          v137[0] = _NSConcreteStackBlock;
+          v137[1] = 3221225472;
+          v137[2] = sub_1000D538C;
+          v137[3] = &unk_100250EA0;
+          v137[4] = self;
+          [_interactiveLocalSpeechRecognizer startSpeechRecognitionWithParameters:v58 didStartHandlerWithInfo:v137];
 
           fetchAudioChunksFromBuffer = [(CSAudioProcessWaitingBuffer *)self->_audioWaitingBuffer fetchAudioChunksFromBuffer];
-          v101 = fetchAudioChunksFromBuffer;
+          v100 = fetchAudioChunksFromBuffer;
           if (fetchAudioChunksFromBuffer)
           {
-            v136 = 0u;
-            v137 = 0u;
-            v134 = 0u;
             v135 = 0u;
-            v102 = [fetchAudioChunksFromBuffer countByEnumeratingWithState:&v134 objects:v144 count:16];
-            if (v102)
+            v136 = 0u;
+            v133 = 0u;
+            v134 = 0u;
+            v101 = [fetchAudioChunksFromBuffer countByEnumeratingWithState:&v133 objects:v143 count:16];
+            if (v101)
             {
-              v103 = v102;
-              v104 = *v135;
+              v102 = v101;
+              v103 = *v134;
               do
               {
-                for (i = 0; i != v103; i = i + 1)
+                for (i = 0; i != v102; i = i + 1)
                 {
-                  if (*v135 != v104)
+                  if (*v134 != v103)
                   {
-                    objc_enumerationMutation(v101);
+                    objc_enumerationMutation(v100);
                   }
 
-                  v106 = *(*(&v134 + 1) + 8 * i);
-                  audioChunk = [v106 audioChunk];
-                  bufferedTimestamp = [v106 bufferedTimestamp];
+                  v105 = *(*(&v133 + 1) + 8 * i);
+                  audioChunk = [v105 audioChunk];
+                  bufferedTimestamp = [v105 bufferedTimestamp];
                   [(CSAttSiriAsrNode *)self _processAudioChunk:audioChunk withReadyTimestamp:bufferedTimestamp];
                 }
 
-                v103 = [v101 countByEnumeratingWithState:&v134 objects:v144 count:16];
+                v102 = [v100 countByEnumeratingWithState:&v133 objects:v143 count:16];
               }
 
-              while (v103);
+              while (v102);
             }
 
             [(CSAttSiriAsrNode *)self _clearAudioProcessWaitingBufferIfNeeded];
-            v98 = applicationName;
+            v97 = applicationName;
           }
 
           return;
         }
 
-        v81 = +[CESRAssistantOnDeviceSampling sharedManager];
-        self->_onDeviceAssistantSampled = [v81 isRequestSelectedForSamplingForTask:self->_localSpeechRecognizerTaskString];
+        v80 = +[CESRAssistantOnDeviceSampling sharedManager];
+        self->_onDeviceAssistantSampled = [v80 isRequestSelectedForSamplingForTask:self->_localSpeechRecognizerTaskString];
       }
 
       goto LABEL_55;
@@ -1599,13 +1691,13 @@ LABEL_64:
     v23 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v82 = self->_localSpeechRecognizerTaskString;
+      v81 = self->_localSpeechRecognizerTaskString;
       *buf = 136315650;
-      v146 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
-      v147 = 2114;
-      v148 = *&v15;
-      v149 = 2114;
-      v150 = v82;
+      v145 = "[CSAttSiriAsrNode _startLocalSpeechRecognizerIfNeeded]";
+      v146 = 2114;
+      v147 = *&v15;
+      v148 = 2114;
+      v149 = v81;
       _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%s Local speech recognizer can't started : locale(%{public}@), taskName(%{public}@)", buf, 0x20u);
     }
 
@@ -1655,6 +1747,32 @@ LABEL_64:
 LABEL_6:
 
   return v6;
+}
+
+- (void)_stopPreviousRecognitionTaskIfNeededWithNewRequestId:(id)id stopUresProcessing:(BOOL)processing
+{
+  processingCopy = processing;
+  idCopy = id;
+  requestId = self->_requestId;
+  if (requestId && ![(NSString *)requestId isEqualToString:idCopy])
+  {
+    v8 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = self->_requestId;
+      v10 = 136315906;
+      v11 = "[CSAttSiriAsrNode _stopPreviousRecognitionTaskIfNeededWithNewRequestId:stopUresProcessing:]";
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2112;
+      v15 = idCopy;
+      v16 = 1024;
+      v17 = processingCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s cached requestId : %@, newRequestId : %@, stopUresProcessing : %d", &v10, 0x26u);
+    }
+
+    [(CSAttSiriAsrNode *)self _handleStopDeliverLocalSpeechRecognitionWithStopUresProcessing:processingCopy];
+  }
 }
 
 - (void)prepareToStartSpeechRequestWithStartStreamOption:(id)option audioRecordContext:(id)context voiceTriggerInfo:(id)info

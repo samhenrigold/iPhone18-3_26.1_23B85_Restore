@@ -1,8 +1,35 @@
 @interface HMMTRWiFiScanResult
 - (HMMTRWiFiScanResult)initWithMTRNetworkCommissioningClusterWiFiInterfaceScanResult:(id)result;
+- (HMMTRWiFiScanResult)initWithSSID:(id)d rssi:(id)rssi security:(unsigned __int8)security band:(unsigned __int8)band;
 @end
 
 @implementation HMMTRWiFiScanResult
+
+- (HMMTRWiFiScanResult)initWithSSID:(id)d rssi:(id)rssi security:(unsigned __int8)security band:(unsigned __int8)band
+{
+  bandCopy = band;
+  securityCopy = security;
+  dCopy = d;
+  rssiCopy = rssi;
+  v20.receiver = self;
+  v20.super_class = HMMTRWiFiScanResult;
+  v13 = [(HMMTRWiFiScanResult *)&v20 init];
+  v14 = v13;
+  if (v13)
+  {
+    objc_storeStrong(&v13->_ssid, d);
+    objc_storeStrong(&v14->_rssi, rssi);
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:securityCopy];
+    security = v14->_security;
+    v14->_security = v15;
+
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:bandCopy];
+    band = v14->_band;
+    v14->_band = v17;
+  }
+
+  return v14;
+}
 
 - (HMMTRWiFiScanResult)initWithMTRNetworkCommissioningClusterWiFiInterfaceScanResult:(id)result
 {

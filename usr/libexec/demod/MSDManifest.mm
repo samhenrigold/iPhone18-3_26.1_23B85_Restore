@@ -142,7 +142,7 @@ LABEL_13:
 - (BOOL)addFilesUsingSourceManifest:(id)manifest
 {
   manifestCopy = manifest;
-  v31 = +[NSFileManager defaultManager];
+  v32 = +[NSFileManager defaultManager];
   rootPath = [(MSDManifest *)self rootPath];
   if (rootPath)
   {
@@ -157,34 +157,34 @@ LABEL_13:
 
       if (v11)
       {
-        v34 = 0u;
         v35 = 0u;
-        v32 = 0u;
+        v36 = 0u;
         v33 = 0u;
+        v34 = 0u;
         obj = [manifestCopy dict];
-        v12 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v12 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v12)
         {
           v13 = v12;
-          v27 = manifestCopy;
-          v30 = *v33;
-          v28 = 1;
+          v28 = manifestCopy;
+          v31 = *v34;
+          v29 = 1;
           do
           {
             v14 = 0;
             do
             {
-              if (*v33 != v30)
+              if (*v34 != v31)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v15 = *(*(&v32 + 1) + 8 * v14);
+              v15 = *(*(&v33 + 1) + 8 * v14);
               v16 = objc_autoreleasePoolPush();
               rootPath5 = [(MSDManifest *)self rootPath];
               v18 = [rootPath5 stringByAppendingPathComponent:v15];
 
-              if ([v31 fileExistsAtPath:v18])
+              if ([v32 fileExistsAtPath:v18])
               {
                 v19 = [MSDFileMetadata fileMetadatatWithPath:v18];
                 if (v19)
@@ -195,14 +195,14 @@ LABEL_13:
 
                   if (v22)
                   {
-                    v23 = sub_100063A54();
-                    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+                    v24 = sub_100063A54(v23);
+                    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 136315394;
-                      v37 = "[MSDManifest addFilesUsingSourceManifest:]";
-                      v38 = 2114;
-                      v39 = v18;
-                      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%s: %{public}@ is a symlink. Skipping.", buf, 0x16u);
+                      v38 = "[MSDManifest addFilesUsingSourceManifest:]";
+                      v39 = 2114;
+                      v40 = v18;
+                      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s: %{public}@ is a symlink. Skipping.", buf, 0x16u);
                     }
                   }
 
@@ -214,17 +214,17 @@ LABEL_13:
 
                 else
                 {
-                  v20 = sub_100063A54();
+                  v20 = sub_100063A54(0);
                   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136315394;
-                    v37 = "[MSDManifest addFilesUsingSourceManifest:]";
-                    v38 = 2114;
-                    v39 = v18;
+                    v38 = "[MSDManifest addFilesUsingSourceManifest:]";
+                    v39 = 2114;
+                    v40 = v18;
                     _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%s: Failed to get metadata for file: %{public}@. Skipping.", buf, 0x16u);
                   }
 
-                  v28 = 0;
+                  v29 = 0;
                 }
               }
 
@@ -233,18 +233,18 @@ LABEL_13:
             }
 
             while (v13 != v14);
-            v24 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
-            v13 = v24;
+            v25 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+            v13 = v25;
           }
 
-          while (v24);
-          manifestCopy = v27;
-          v25 = v28;
+          while (v25);
+          manifestCopy = v28;
+          v26 = v29;
         }
 
         else
         {
-          v25 = 1;
+          v26 = 1;
         }
 
         goto LABEL_29;
@@ -256,16 +256,16 @@ LABEL_13:
     }
   }
 
-  obj = sub_100063A54();
+  obj = sub_100063A54(rootPath);
   if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
   {
     sub_1000D6178(obj);
   }
 
-  v25 = 0;
+  v26 = 0;
 LABEL_29:
 
-  return v25 & 1;
+  return v26 & 1;
 }
 
 - (BOOL)addFilesFromPath:(id)path relativeTo:(id)to skip:(id)skip superSet:(id)set
@@ -336,293 +336,299 @@ LABEL_13:
   skipCopy = skip;
   setCopy = set;
   handlerCopy = handler;
+  v17 = handlerCopy;
   if (self->_rootPath)
   {
-    v17 = sub_100063A54();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = sub_100063A54(handlerCopy);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000D61FC(v17);
+      sub_1000D61FC(v18);
     }
 
-    v18 = 0;
+    v19 = 0;
     goto LABEL_54;
   }
 
   selfCopy = self;
-  v59 = toCopy;
+  v66 = toCopy;
   p_rootPath = &self->_rootPath;
   objc_storeStrong(&self->_rootPath, to);
-  v19 = +[NSFileManager defaultManager];
-  v65 = dataCopy;
-  v20 = [NSURL fileURLWithPath:dataCopy];
-  v21 = [NSArray arrayWithObjects:NSURLIsRegularFileKey, NSURLIsSymbolicLinkKey, 0];
-  v22 = [v19 enumeratorAtURL:v20 includingPropertiesForKeys:v21 options:0 errorHandler:&stru_10016B0D0];
+  v20 = +[NSFileManager defaultManager];
+  v72 = dataCopy;
+  v21 = [NSURL fileURLWithPath:dataCopy];
+  v22 = [NSArray arrayWithObjects:NSURLIsRegularFileKey, NSURLIsSymbolicLinkKey, 0];
+  v23 = [v20 enumeratorAtURL:v21 includingPropertiesForKeys:v22 options:0 errorHandler:&stru_10016B0D0];
 
-  v69 = v22;
-  nextObject = [v22 nextObject];
-  v24 = 0;
+  v76 = v23;
+  nextObject = [v23 nextObject];
   v25 = 0;
   v26 = 0;
   v27 = 0;
-  v64 = 0;
-  v68 = 0;
-  v28 = nextObject == 0;
-  v66 = setCopy;
-  v63 = handlerCopy;
+  v28 = 0;
+  v71 = 0;
+  v75 = 0;
+  v29 = nextObject == 0;
+  v73 = setCopy;
+  v70 = v17;
   while (1)
   {
     while (1)
     {
-      v29 = skipCopy;
-      v30 = v26;
-      v31 = v25;
-      v32 = v24;
+      v30 = skipCopy;
+      v31 = v27;
+      v32 = v26;
+      v33 = v25;
       context = objc_autoreleasePoolPush();
-      v17 = nextObject;
-      if (v28)
+      v18 = nextObject;
+      if (v29)
       {
-        v17 = [NSURL fileURLWithPath:v65];
-        v68 = 1;
+        v18 = [NSURL fileURLWithPath:v72];
+        v75 = 1;
       }
 
-      v75 = 0;
-      v76 = 0;
-      v33 = [v17 getResourceValue:&v76 forKey:NSURLIsRegularFileKey error:&v75];
-      v25 = v76;
+      v82 = 0;
+      v83 = 0;
+      v34 = [v18 getResourceValue:&v83 forKey:NSURLIsRegularFileKey error:&v82];
+      v26 = v83;
 
-      v34 = v75;
-      if ((v33 & 1) == 0)
+      v35 = v82;
+      if ((v34 & 1) == 0)
       {
-        v51 = sub_100063A54();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v58 = sub_100063A54(v36);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
         {
-          path = [v17 path];
+          path = [v18 path];
           *buf = 138543618;
-          v80 = NSURLIsRegularFileKey;
-          v81 = 2114;
-          v82 = path;
-          _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Could not get resource for key %{public}@ for %{public}@", buf, 0x16u);
+          v87 = NSURLIsRegularFileKey;
+          v88 = 2114;
+          v89 = path;
+          _os_log_error_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Could not get resource for key %{public}@ for %{public}@", buf, 0x16u);
         }
 
-        v61 = 0;
+        v68 = 0;
         goto LABEL_42;
       }
 
-      v73 = 0;
-      v74 = 0;
-      v35 = [v17 getResourceValue:&v74 forKey:NSURLIsDirectoryKey error:&v73];
-      v24 = v74;
+      v80 = 0;
+      v81 = 0;
+      v37 = [v18 getResourceValue:&v81 forKey:NSURLIsDirectoryKey error:&v80];
+      v25 = v81;
 
-      v36 = v73;
-      if ((v35 & 1) == 0)
+      v38 = v80;
+      if ((v37 & 1) == 0)
       {
-        v53 = sub_100063A54();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+        v60 = sub_100063A54(v39);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
-          path2 = [v17 path];
+          path2 = [v18 path];
           *buf = 138543618;
-          v80 = NSURLIsDirectoryKey;
-          v81 = 2114;
-          v82 = path2;
-          _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Could not get resource for key %{public}@ for %{public}@", buf, 0x16u);
+          v87 = NSURLIsDirectoryKey;
+          v88 = 2114;
+          v89 = path2;
+          _os_log_error_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, "Could not get resource for key %{public}@ for %{public}@", buf, 0x16u);
 
-          v61 = 0;
-          v34 = v36;
-          v51 = v53;
+          v68 = 0;
+          v35 = v38;
+          v58 = v60;
           goto LABEL_41;
         }
 
-        v61 = 0;
-        v34 = v36;
-        v32 = v24;
-        v51 = v53;
+        v68 = 0;
+        v35 = v38;
+        v33 = v25;
+        v58 = v60;
 LABEL_42:
 
-        v27 = v34;
-        v26 = v30;
-        v24 = v32;
-        skipCopy = v29;
-        setCopy = v66;
-        handlerCopy = v63;
-        v50 = v61;
+        v28 = v35;
+        v27 = v31;
+        v25 = v33;
+        skipCopy = v30;
+        setCopy = v73;
+        v17 = v70;
+        v56 = v68;
         goto LABEL_34;
       }
 
-      v72 = 0;
-      v71 = 0;
-      v37 = [v17 getResourceValue:&v72 forKey:NSURLIsSymbolicLinkKey error:&v71];
-      v26 = v72;
+      v79 = 0;
+      v78 = 0;
+      v40 = [v18 getResourceValue:&v79 forKey:NSURLIsSymbolicLinkKey error:&v78];
+      v27 = v79;
 
-      v27 = v71;
-      setCopy = v66;
-      if ((v37 & 1) == 0)
+      v28 = v78;
+      setCopy = v73;
+      if ((v40 & 1) == 0)
       {
-        v51 = sub_100063A54();
-        if (!os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+        v58 = sub_100063A54(v41);
+        if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_39;
         }
 
-        path3 = [v17 path];
+        path3 = [v18 path];
         *buf = 138543618;
-        v80 = NSURLIsSymbolicLinkKey;
-        v81 = 2114;
-        v82 = path3;
-        _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "Could not get resource for key %{public}@ for %{public}@", buf, 0x16u);
+        v87 = NSURLIsSymbolicLinkKey;
+        v88 = 2114;
+        v89 = path3;
+        _os_log_error_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Could not get resource for key %{public}@ for %{public}@", buf, 0x16u);
         goto LABEL_38;
       }
 
-      skipCopy = v29;
-      if (!v29 || ([v17 path], v38 = objc_claimAutoreleasedReturnValue(), v39 = [(MSDManifest *)selfCopy folder:v29 contains:v38], v38, !v39))
+      skipCopy = v30;
+      if (!v30 || ([v18 path], v42 = objc_claimAutoreleasedReturnValue(), v43 = [(MSDManifest *)selfCopy folder:v30 contains:v42], v42, !v43))
       {
-        if (!v66)
+        if (!v73)
         {
           break;
         }
 
-        path4 = [v17 path];
-        v41 = [(MSDManifest *)selfCopy path:path4 inSuperSet:v66];
+        path4 = [v18 path];
+        v45 = [(MSDManifest *)selfCopy path:path4 inSuperSet:v73];
 
-        if (v41)
+        if (v45)
         {
           break;
         }
       }
 
-      if ([v24 BOOLValue])
+      if ([v25 BOOLValue])
       {
-        [v69 skipDescendants];
+        [v76 skipDescendants];
       }
 
       objc_autoreleasePoolPop(context);
-      nextObject = [v69 nextObject];
+      nextObject = [v76 nextObject];
 
-      v28 = nextObject == 0;
-      if (((nextObject == 0) & v68) != 0)
+      v29 = nextObject == 0;
+      if (((nextObject == 0) & v75) != 0)
       {
 
-        v18 = 1;
-        v17 = v69;
-        dataCopy = v65;
-        toCopy = v59;
-        handlerCopy = v63;
+        v19 = 1;
+        v18 = v76;
+        dataCopy = v72;
+        toCopy = v66;
+        v17 = v70;
         goto LABEL_54;
       }
     }
 
-    if (([v25 BOOLValue] & 1) == 0 && (objc_msgSend(v24, "BOOLValue") & 1) == 0 && !objc_msgSend(v26, "BOOLValue"))
+    if (([v26 BOOLValue] & 1) == 0 && (objc_msgSend(v25, "BOOLValue") & 1) == 0)
     {
-      v51 = sub_100063A54();
-      if (!os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      bOOLValue = [v27 BOOLValue];
+      if (!bOOLValue)
       {
+        v58 = sub_100063A54(bOOLValue);
+        if (!os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+        {
 LABEL_39:
-        v61 = 0;
-        goto LABEL_40;
-      }
+          v68 = 0;
+          goto LABEL_40;
+        }
 
-      path3 = [v17 path];
-      *buf = 138543362;
-      v80 = path3;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "%{public}@ is special file. Leave it along", buf, 0xCu);
+        path3 = [v18 path];
+        *buf = 138543362;
+        v87 = path3;
+        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "%{public}@ is special file. Leave it along", buf, 0xCu);
 LABEL_38:
 
-      goto LABEL_39;
+        goto LABEL_39;
+      }
     }
 
-    path5 = [v17 path];
-    v43 = [path5 rangeOfString:*p_rootPath];
-    v60 = v44;
+    path5 = [v18 path];
+    v48 = [path5 rangeOfString:*p_rootPath];
+    v67 = v49;
 
-    if (v43)
+    if (v48)
     {
-      if (v43 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v48 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v45 = 0;
+        v50 = 0;
         goto LABEL_28;
       }
 
-      path6 = [v17 path];
-      v47 = [path6 substringFromIndex:&v43[v60]];
-      v45 = [v47 stringByReplacingOccurrencesOfString:*p_rootPath withString:&stru_10016D9D8];
+      path6 = [v18 path];
+      v52 = [path6 substringFromIndex:&v48[v67]];
+      v50 = [v52 stringByReplacingOccurrencesOfString:*p_rootPath withString:&stru_10016D9D8];
 
       path7 = path6;
     }
 
     else
     {
-      path7 = [v17 path];
-      v45 = [path7 stringByReplacingOccurrencesOfString:*p_rootPath withString:&stru_10016D9D8];
+      path7 = [v18 path];
+      v50 = [path7 stringByReplacingOccurrencesOfString:*p_rootPath withString:&stru_10016D9D8];
     }
 
 LABEL_28:
-    if ([(__CFString *)v45 length])
+    if ([(__CFString *)v50 length])
     {
-      v61 = v45;
+      v68 = v50;
     }
 
     else
     {
 
-      v61 = @"/";
+      v68 = @"/";
     }
 
-    path8 = [v17 path];
-    v49 = [MSDFileMetadata fileMetadatatWithPath:path8];
+    path8 = [v18 path];
+    v54 = [MSDFileMetadata fileMetadatatWithPath:path8];
 
-    if (!v49)
+    if (!v54)
     {
-      v51 = sub_100063A54();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v58 = sub_100063A54(v55);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
       {
-        sub_1000D62D8(v77, v17, &v78, v51);
+        sub_1000D62D8(v84, v18, &v85, v58);
       }
 
-      v64 = 0;
+      v71 = 0;
 LABEL_40:
-      v34 = v27;
-      v30 = v26;
+      v35 = v28;
+      v31 = v27;
 LABEL_41:
-      v32 = v24;
+      v33 = v25;
       goto LABEL_42;
     }
 
-    handlerCopy = v63;
-    v50 = v61;
-    if ((v63[2](v63, v49, v61) & 1) == 0)
+    v17 = v70;
+    v56 = v68;
+    v57 = v70[2](v70, v54, v68);
+    if ((v57 & 1) == 0)
     {
       break;
     }
 
-    v64 = v49;
+    v71 = v54;
 LABEL_34:
 
     objc_autoreleasePoolPop(context);
-    nextObject = [v69 nextObject];
+    nextObject = [v76 nextObject];
 
-    v28 = nextObject == 0;
-    if (((nextObject == 0) & v68) != 0)
+    v29 = nextObject == 0;
+    if (((nextObject == 0) & v75) != 0)
     {
 
-      v18 = 1;
-      v17 = v69;
+      v19 = 1;
+      v18 = v76;
       goto LABEL_55;
     }
   }
 
-  v57 = sub_100063A54();
-  if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+  v64 = sub_100063A54(v57);
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
   {
-    sub_1000D6240(v17, v57);
+    sub_1000D6240(v18, v64);
   }
 
   objc_autoreleasePoolPop(context);
-  v18 = 0;
+  v19 = 0;
 LABEL_55:
-  dataCopy = v65;
-  toCopy = v59;
+  dataCopy = v72;
+  toCopy = v66;
 LABEL_54:
 
-  return v18;
+  return v19;
 }
 
 - (NSSet)pathSet

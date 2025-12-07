@@ -8,11 +8,11 @@
 - (void)photoLibraryDidChangeOnMainQueue:(id)queue
 {
   sub_1A524CC54();
-  v7[2] = self;
-  v7[3] = queue;
+  v8[2] = self;
+  v8[3] = queue;
   queueCopy = queue;
   selfCopy = self;
-  sub_1A3E556F4(sub_1A3E56540, v7, "PhotosUICore/PhotosPreviewHeaderSlideshowContentViewModel.swift", 63);
+  sub_1A3E556F4(sub_1A3E56540, v8, "PhotosUICore/PhotosPreviewHeaderSlideshowContentViewModel.swift", 63, 2, 161, v7);
 }
 
 - (_TtCC12PhotosUICore44PhotosPreviewHeaderSlideshowContentViewModelP33_99098B549280FFA973086ECF0A01D3B35Proxy)init

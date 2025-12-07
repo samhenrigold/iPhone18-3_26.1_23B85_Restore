@@ -24,7 +24,7 @@ void __84___MNLocationSimulationState_SearchingForParkingBeforeArrival__findPark
 
 void __84___MNLocationSimulationState_SearchingForParkingBeforeArrival__findParkingLocation___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 40) + 8) + 40);
   if (v2)
   {
@@ -37,13 +37,13 @@ void __84___MNLocationSimulationState_SearchingForParkingBeforeArrival__findPark
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [*(*(*(a1 + 40) + 8) + 40) internalRoadName];
-      v12 = 138412802;
-      v13 = v9;
-      v14 = 2048;
-      v15 = v6;
-      v16 = 2048;
-      v17 = v5;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "Using %@ for parking (%f, %f)", &v12, 0x20u);
+      v11 = 138412802;
+      v12 = v9;
+      v13 = 2048;
+      v14 = v6;
+      v15 = 2048;
+      v16 = v5;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "Using %@ for parking (%f, %f)", &v11, 0x20u);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -54,14 +54,12 @@ void __84___MNLocationSimulationState_SearchingForParkingBeforeArrival__findPark
     v10 = MNGetMNNavigationSimulationLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Unable to find road for parking.", &v12, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "Unable to find road for parking.", &v11, 2u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __93___MNLocationSimulationState_SearchingForParkingBeforeArrival__findRouteToParkingDestination__block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -156,7 +154,7 @@ uint64_t __70___MNLocationSimulationState_SearchingForOffRoute__nextOffRouteTarg
 
 void __79___MNLocationSimulationState_SearchingForOffRoute__findRouteToOffRouteLocation__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = MNGetMNNavigationSimulationLog();
@@ -167,15 +165,14 @@ void __79___MNLocationSimulationState_SearchingForOffRoute__findRouteToOffRouteL
     v10 = v9;
     v11 = [v5 latLng];
     [v11 lng];
-    v14 = 134218240;
-    v15 = v10;
-    v16 = 2048;
-    v17 = v12;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "Looking for route to off route location: %f, %f", &v14, 0x16u);
+    v13 = 134218240;
+    v14 = v10;
+    v15 = 2048;
+    v16 = v12;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "Looking for route to off route location: %f, %f", &v13, 0x16u);
   }
 
   [*(a1 + 32) _findRouteToOffRouteLocation:v5 stepFinishedHandler:v6];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __79___MNLocationSimulationState_SearchingForOffRoute__findRouteToOffRouteLocation__block_invoke_264(uint64_t a1, void *a2)

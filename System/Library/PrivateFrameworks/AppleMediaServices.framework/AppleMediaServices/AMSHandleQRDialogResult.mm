@@ -59,7 +59,7 @@
   [present addFinishBlock:v19];
 }
 
-void __78__AMSHandleQRDialogResult_handleQRDialogPresentationForRequest_result_logKey___block_invoke(uint64_t a1, void *a2, void *a3)
+void __78__AMSHandleQRDialogResult_handleQRDialogPresentationForRequest_result_logKey___block_invoke(void *a1, void *a2, void *a3)
 {
   v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -77,7 +77,7 @@ void __78__AMSHandleQRDialogResult_handleQRDialogPresentationForRequest_result_l
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = objc_opt_class();
-      v11 = *(a1 + 32);
+      v11 = a1[4];
       v18 = 138543874;
       v19 = v10;
       v20 = 2114;
@@ -104,7 +104,7 @@ LABEL_10:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v16 = objc_opt_class();
-      v17 = *(a1 + 32);
+      v17 = a1[4];
       v18 = 138543874;
       v19 = v16;
       v20 = 2114;
@@ -119,9 +119,9 @@ LABEL_10:
     }
   }
 
-  if (*(a1 + 40) && +[AMSHandleQRDialogResult _isDismissQRDialogEnabled])
+  if (a1[5] && +[AMSHandleQRDialogResult _isDismissQRDialogEnabled])
   {
-    [AMSHandleQRDialogResult _removeQRDialogDismissalObserverForIdentifier:*(a1 + 40)];
+    [AMSHandleQRDialogResult _removeQRDialogDismissalObserverForIdentifier:a1[5]];
   }
 }
 

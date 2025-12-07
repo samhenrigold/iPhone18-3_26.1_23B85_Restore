@@ -37,12 +37,13 @@
 
 + (BOOL)isSupported
 {
-  sub_10001A3E8();
+  v2 = sub_10001A3E8(self, a2);
+  v4 = sub_10071C8FC(v2, v3);
   result = 0;
-  if (sub_10071C8FC())
+  if (v4)
   {
-    sub_10001A3E8();
-    if (!sub_10003FFF8())
+    v6 = sub_10001A3E8(v4, v5);
+    if (!sub_10003FFF8(v6, v7))
     {
       return 1;
     }

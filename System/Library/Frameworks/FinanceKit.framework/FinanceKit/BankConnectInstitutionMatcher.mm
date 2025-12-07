@@ -13,7 +13,7 @@
   v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280, &unk_1B7808CA0);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v24 - v11;
   v13 = _Block_copy(completion);
@@ -47,7 +47,7 @@
 
 - (void)institutionForPrimaryAccountIdentifier:(NSString *)identifier withCompletion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280, &unk_1B7808CA0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);

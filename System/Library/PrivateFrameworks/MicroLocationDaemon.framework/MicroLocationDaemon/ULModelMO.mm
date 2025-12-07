@@ -7,7 +7,7 @@
 
 + (id)createFromDO:(const void *)o withServiceMO:(id)mO loiMO:(id)loiMO inManagedObjectContext:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   mOCopy = mO;
   loiMOCopy = loiMO;
   v11 = [[ULModelMO alloc] initWithContext:context];
@@ -18,208 +18,214 @@
   [(ULModelMO *)v11 setModelUUID:uUIDString];
 
   [(ULModelMO *)v11 setGenerationTimestamp:*(o + 2)];
-  [(ULModelMO *)v11 setModelType:*(o + 6)];
-  v14 = o + 32;
-  v15 = *(o + 60);
-  v16 = *(o + 6);
-  if (v15 == 2)
+  v14 = [(ULModelMO *)v11 setModelType:*(o + 6)];
+  v15 = o + 32;
+  v16 = *(o + 60);
+  v17 = *(o + 6);
+  if (v16 == 2)
   {
-    if (v16 == 5)
+    if (v17 == 5)
     {
-      (*(*v14 + 72))(v14);
+      (*(*v15 + 72))(v15);
       operator new[]();
     }
 
-    v20 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v24 = _CLLogObjectForCategory_MicroLocation_Default(v14);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::VMK";
-      _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::VMK";
+      _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v21 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v21))
+    v26 = _CLLogObjectForCategory_MicroLocation_Default(v25);
+    if (os_signpost_enabled(v26))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::VMK";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Mismatch between milo model and modelType", "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::VMK";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Mismatch between milo model and modelType", "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v19 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v22 = _CLLogObjectForCategory_MicroLocation_Default(v27);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::VMK";
-      _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::VMK";
+      _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
+
+    v23 = 39;
   }
 
-  else if (v15)
+  else if (v16)
   {
-    if (v16 == 4)
+    if (v17 == 4)
     {
-      if (v15 == 1)
+      if (v16 == 1)
       {
-        (*(*v14 + 72))(v14);
+        (*(*v15 + 72))(v15);
         operator new[]();
       }
 
       std::__throw_bad_variant_access[abi:ne200100]();
     }
 
-    v22 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v28 = _CLLogObjectForCategory_MicroLocation_Default(v14);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::HOME_SLAM";
-      _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Mismatch between homeSlam model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::HOME_SLAM";
+      _os_log_impl(&dword_258FE9000, v28, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Mismatch between homeSlam model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v24 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v24))
+    v31 = _CLLogObjectForCategory_MicroLocation_Default(v30);
+    if (os_signpost_enabled(v31))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::HOME_SLAM";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Mismatch between homeSlam model and modelType", "{msg%{public}.0s:Mismatch between homeSlam model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::HOME_SLAM";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Mismatch between homeSlam model and modelType", "{msg%{public}.0s:Mismatch between homeSlam model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v19 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v22 = _CLLogObjectForCategory_MicroLocation_Default(v32);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::HOME_SLAM";
-      _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Mismatch between homeSlam model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType == CLMicroLocationProto::ModelType::HOME_SLAM";
+      _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Mismatch between homeSlam model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
+
+    v23 = 45;
   }
 
   else
   {
-    if (v16 != 4)
+    if (v17 != 4)
     {
-      (*(*v14 + 72))(v14);
+      (*(*v15 + 72))(v15);
       operator new[]();
     }
 
-    v17 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = _CLLogObjectForCategory_MicroLocation_Default(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType != CLMicroLocationProto::ModelType::HOME_SLAM";
-      _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType != CLMicroLocationProto::ModelType::HOME_SLAM";
+      _os_log_impl(&dword_258FE9000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v18 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_signpost_enabled(v18))
+    v20 = _CLLogObjectForCategory_MicroLocation_Default(v19);
+    if (os_signpost_enabled(v20))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType != CLMicroLocationProto::ModelType::HOME_SLAM";
-      _os_signpost_emit_with_name_impl(&dword_258FE9000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Mismatch between milo model and modelType", "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType != CLMicroLocationProto::ModelType::HOME_SLAM";
+      _os_signpost_emit_with_name_impl(&dword_258FE9000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Mismatch between milo model and modelType", "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v19 = _CLLogObjectForCategory_MicroLocation_Default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v22 = _CLLogObjectForCategory_MicroLocation_Default(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v27 = 0;
-      v28 = 2082;
-      v29 = "";
-      v30 = 2082;
-      v31 = "assert";
-      v32 = 2081;
-      v33 = "modelEntry.fModelType != CLMicroLocationProto::ModelType::HOME_SLAM";
-      _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v35 = 0;
+      v36 = 2082;
+      v37 = "";
+      v38 = 2082;
+      v39 = "assert";
+      v40 = 2081;
+      v41 = "modelEntry.fModelType != CLMicroLocationProto::ModelType::HOME_SLAM";
+      _os_log_impl(&dword_258FE9000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Mismatch between milo model and modelType, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
+
+    v23 = 33;
   }
 
-  result = abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/MicroLocationLogic/Persistence/ManagedObjects/ULModelMO+CoreDataClass.mm", v23, "+[ULModelMO createFromDO:withServiceMO:loiMO:inManagedObjectContext:]");
   __break(1u);
   return result;
 }
 
 - (optional<ULModelDO>)convertToDO
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   modelUUID = [(ULModelMO *)self modelUUID];
   v6 = modelUUID;
   if (modelUUID)
   {
-    [modelUUID boostUUID];
+    objc_msgSend_boostUUID(modelUUID);
   }
 
   else
   {
+    v64 = 0;
+    v65 = 0;
     v66 = 0;
-    v67 = 0;
-    v68 = 0;
   }
 
-  if (v68)
+  if (v66)
   {
     v7 = [(ULModelMO *)self loi];
     loiId = [v7 loiId];
     v9 = loiId;
     if (loiId)
     {
-      [loiId boostUUID];
+      objc_msgSend_boostUUID(loiId);
     }
 
     else
     {
+      v61 = 0;
+      v62 = 0;
       v63 = 0;
-      v64 = 0;
-      v65 = 0;
     }
 
-    if ((v65 & 1) == 0)
+    if ((v63 & 1) == 0)
     {
       if (onceToken_MicroLocation_Default != -1)
       {
@@ -233,18 +239,18 @@
         _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_ERROR, "convertToDO: model's loiId has no value", buf, 2u);
       }
 
-      v63 = 0;
-      v64 = 0;
-      if ((v65 & 1) == 0)
+      v61 = 0;
+      v62 = 0;
+      if ((v63 & 1) == 0)
       {
-        v65 = 1;
+        v63 = 1;
       }
     }
 
     [(ULModelMO *)self generationTimestamp];
     v14 = v13;
-    LOBYTE(v48[0]) = 0;
-    v50 = 0;
+    LOBYTE(v47[0]) = 0;
+    v49 = 0;
     service = [(ULModelMO *)self service];
     clientId = [service clientId];
     v17 = [clientId length] == 0;
@@ -256,17 +262,17 @@
       v20 = clientId2;
       if (clientId2)
       {
-        [clientId2 stdString];
+        objc_msgSend_stdString(clientId2);
       }
 
       else
       {
         *buf = 0u;
-        v52 = 0u;
+        v51 = 0u;
       }
 
-      std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v48, buf);
-      if (BYTE8(v52) == 1 && SBYTE7(v52) < 0)
+      std::__optional_storage_base<std::string,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<std::string,false>>(v47, buf);
+      if (BYTE8(v51) == 1 && SBYTE7(v51) < 0)
       {
         operator delete(*buf);
       }
@@ -289,9 +295,9 @@
       v26 = serviceUUID2;
       if (serviceUUID2)
       {
-        [serviceUUID2 boostUUID];
+        objc_msgSend_boostUUID(serviceUUID2);
         v27 = buf[0];
-        v28 = v52;
+        v28 = v51;
       }
 
       else
@@ -299,16 +305,16 @@
         v28 = 0;
         v27 = 0;
         memset(buf, 0, sizeof(buf));
-        LOBYTE(v52) = 0;
+        LOBYTE(v51) = 0;
       }
 
-      v62[0] = *&buf[1];
-      *(v62 + 7) = *&buf[8];
+      v60[0] = *&buf[1];
+      *(v60 + 7) = *&buf[8];
     }
 
-    memset(v60, 0, sizeof(v60));
-    v29 = CLMicroLocationProto::Model::Model(v60);
-    v61 = 0;
+    memset(v58, 0, sizeof(v58));
+    v29 = CLMicroLocationProto::Model::Model(v58);
+    v59 = 0;
     if ([(ULModelMO *)self modelType]== 4)
     {
       model = [(ULModelMO *)self model];
@@ -320,49 +326,49 @@
 
       if (bytes)
       {
-        ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>::ULProtoMessageWrapper(&v57, buf);
-        std::__variant_detail::__assignment<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__assign_alt[abi:ne200100]<1ul,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>>(v60, v60, &v57);
-        CLMicroLocationProto::HomeSlamModel::~HomeSlamModel(&v57);
+        ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>::ULProtoMessageWrapper(&v56, buf);
+        std::__variant_detail::__assignment<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__assign_alt[abi:ne200100]<1ul,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>>(v58, v58, &v56);
+        CLMicroLocationProto::HomeSlamModel::~HomeSlamModel(&v56);
         CLMicroLocationProto::HomeSlamModel::~HomeSlamModel(buf);
 LABEL_42:
-        if ((v68 & 1) == 0)
+        if ((v66 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        v42 = v66;
-        v43 = v67;
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v46, v48);
-        v57 = v27;
-        *v58 = v62[0];
-        *&v58[7] = *(v62 + 7);
-        v59 = v28;
-        if ((v65 & 1) == 0)
+        v42 = v64;
+        v43 = v65;
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v45, v47);
+        LOBYTE(v56) = v27;
+        *(&v56 + 1) = v60[0];
+        *(&v56 + 1) = *(v60 + 7);
+        v57 = v28;
+        if ((v63 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
 
-        ULModelDO::ULModelDO(buf, v42, v43, v60, &v46, &v57, v63, v64, v14);
+        ULModelDO::ULModelDO(buf, v42, v43, v58, &v45, &v56, v61, v62, v14);
         std::__optional_destruct_base<ULModelDO,false>::__optional_destruct_base[abi:ne200100]<ULModelDO>(retstr, buf);
-        if (v56 == 1 && v55 < 0)
+        if (v55 == 1 && v54 < 0)
         {
           operator delete(__p);
         }
 
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v53);
-        if (v47 == 1 && SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v52);
+        if (v46 == 1 && SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v46.__r_.__value_.__l.__data_);
+          operator delete(v45.__r_.__value_.__l.__data_);
         }
 
 LABEL_58:
-        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v60);
-        if (v50 == 1 && v49 < 0)
+        result = std::__variant_detail::__dtor<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v58);
+        if (v49 == 1 && v48 < 0)
         {
-          operator delete(v48[0]);
+          operator delete(v47[0]);
         }
 
-        goto LABEL_61;
+        return result;
       }
 
       CLMicroLocationProto::HomeSlamModel::~HomeSlamModel(buf);
@@ -380,9 +386,9 @@ LABEL_58:
 
       if (bytes2)
       {
-        ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>::ULProtoMessageWrapper(&v57, buf);
-        std::__variant_detail::__assignment<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__assign_alt[abi:ne200100]<2ul,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>(v60, v60, &v57);
-        CLMicroLocationProto::VMKModel::~VMKModel(&v57);
+        ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>::ULProtoMessageWrapper(&v56, buf);
+        std::__variant_detail::__assignment<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__assign_alt[abi:ne200100]<2ul,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>(v58, v58, &v56);
+        CLMicroLocationProto::VMKModel::~VMKModel(&v56);
         CLMicroLocationProto::VMKModel::~VMKModel(buf);
         goto LABEL_42;
       }
@@ -401,9 +407,9 @@ LABEL_58:
 
       if (bytes3)
       {
-        ULProtoMessageWrapper<CLMicroLocationProto::Model>::ULProtoMessageWrapper(&v57, buf);
-        std::__variant_detail::__assignment<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__assign_alt[abi:ne200100]<0ul,ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::Model>>(v60, v60, &v57);
-        CLMicroLocationProto::Model::~Model(&v57);
+        ULProtoMessageWrapper<CLMicroLocationProto::Model>::ULProtoMessageWrapper(&v56, buf);
+        std::__variant_detail::__assignment<std::__variant_detail::__traits<ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::HomeSlamModel>,ULProtoMessageWrapper<CLMicroLocationProto::VMKModel>>>::__assign_alt[abi:ne200100]<0ul,ULProtoMessageWrapper<CLMicroLocationProto::Model>,ULProtoMessageWrapper<CLMicroLocationProto::Model>>(v58, v58, &v56);
+        CLMicroLocationProto::Model::~Model(&v56);
         CLMicroLocationProto::Model::~Model(buf);
         goto LABEL_42;
       }
@@ -443,8 +449,6 @@ LABEL_58:
 
   retstr->var0.var0 = 0;
   *(&retstr[1].var0.var4 + 96) = 0;
-LABEL_61:
-  v45 = *MEMORY[0x277D85DE8];
   return result;
 }
 

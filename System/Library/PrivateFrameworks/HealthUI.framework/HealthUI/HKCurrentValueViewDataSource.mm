@@ -133,58 +133,58 @@
   v8 = 0;
   if (actualVisibleRange && primarySeries)
   {
-    v9 = [primarySeries resolutionForTimeScope:objc_msgSend(viewCopy traitResolution:{"xAxisDateZoom"), objc_msgSend(viewCopy, "resolutionFromTraitCollectionAttributes")}];
-    v27 = 0uLL;
-    v28 = 0;
+    [primarySeries resolutionForTimeScope:objc_msgSend(viewCopy traitResolution:{"xAxisDateZoom"), objc_msgSend(viewCopy, "resolutionFromTraitCollectionAttributes")}];
+    v24 = 0uLL;
+    v25 = 0;
     dataSource = [primarySeries dataSource];
     minValue = [actualVisibleRange minValue];
-    xAxisDateZoom = [viewCopy xAxisDateZoom];
+    [viewCopy xAxisDateZoom];
     if (dataSource)
     {
-      [dataSource blockPathForX:minValue zoom:xAxisDateZoom resolution:v9];
+      objc_msgSend_blockPathForX_zoom_resolution_(dataSource);
     }
 
     else
     {
-      v27 = 0uLL;
-      v28 = 0;
+      v24 = 0uLL;
+      v25 = 0;
     }
 
-    v25 = 0uLL;
-    v26 = 0;
+    v22 = 0uLL;
+    v23 = 0;
     dataSource2 = [primarySeries dataSource];
     maxValue = [actualVisibleRange maxValue];
-    xAxisDateZoom2 = [viewCopy xAxisDateZoom];
+    [viewCopy xAxisDateZoom];
     if (dataSource2)
     {
-      [dataSource2 blockPathForX:maxValue zoom:xAxisDateZoom2 resolution:v9];
+      objc_msgSend_blockPathForX_zoom_resolution_(dataSource2);
     }
 
     else
     {
-      v25 = 0uLL;
-      v26 = 0;
+      v22 = 0uLL;
+      v23 = 0;
     }
 
-    v16 = v27;
-    v17 = v25;
-    if (v27 > v25)
+    v13 = v24;
+    v14 = v22;
+    if (v24 > v22)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"HKCurrentValueViewDataSource.m" lineNumber:101 description:@"Visible block start should not be greater than visible block end"];
 
-      v16 = v27;
-      v17 = v25;
+      v13 = v24;
+      v14 = v22;
     }
 
-    *&v27 = v16 - 1;
-    *&v25 = v17 + 1;
+    *&v24 = v13 - 1;
+    *&v22 = v14 + 1;
     dataSource3 = [primarySeries dataSource];
-    v23 = v27;
-    v24 = v28;
+    v20 = v24;
     v21 = v25;
-    v22 = v26;
-    v8 = [dataSource3 hasPendingQueriesBetweenStartPath:&v23 endPath:&v21];
+    v18 = v22;
+    v19 = v23;
+    v8 = [dataSource3 hasPendingQueriesBetweenStartPath:&v20 endPath:&v18];
   }
 
   return v8;

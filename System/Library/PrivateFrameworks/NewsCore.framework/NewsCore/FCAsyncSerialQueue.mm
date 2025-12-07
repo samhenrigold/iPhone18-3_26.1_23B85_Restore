@@ -5,6 +5,7 @@
 - (void)enqueueBlock:(id)block;
 - (void)enqueueBlockForMainThread:(id)thread;
 - (void)enqueueOperation:(id)operation;
+- (void)setSuspended:(BOOL)suspended;
 - (void)withQualityOfService:(int64_t)service enqueueBlock:(id)block;
 - (void)withQualityOfService:(int64_t)service enqueueBlockForMainThread:(id)thread;
 @end
@@ -36,7 +37,7 @@
 
 - (void)enqueueBlock:(id)block
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (blockCopy)
   {
@@ -53,23 +54,22 @@
 
     serialOperationQueue = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
     *buf = 136315906;
-    v8 = "[FCAsyncSerialQueue enqueueBlock:]";
-    v9 = 2080;
-    v10 = "FCAsyncSerialQueue.m";
-    v11 = 1024;
-    v12 = 51;
-    v13 = 2114;
-    v14 = serialOperationQueue;
+    v7 = "[FCAsyncSerialQueue enqueueBlock:]";
+    v8 = 2080;
+    v9 = "FCAsyncSerialQueue.m";
+    v10 = 1024;
+    v11 = 51;
+    v12 = 2114;
+    v13 = serialOperationQueue;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)withQualityOfService:(int64_t)service enqueueBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (blockCopy)
   {
@@ -81,51 +81,47 @@ LABEL_5:
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
     *buf = 136315906;
-    v12 = "[FCAsyncSerialQueue withQualityOfService:enqueueBlock:]";
-    v13 = 2080;
-    v14 = "FCAsyncSerialQueue.m";
-    v15 = 1024;
-    v16 = 61;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCAsyncSerialQueue withQualityOfService:enqueueBlock:]";
+    v12 = 2080;
+    v13 = "FCAsyncSerialQueue.m";
+    v14 = 1024;
+    v15 = 61;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enqueueBlockForMainThread:(id)thread
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   threadCopy = thread;
   v5 = threadCopy;
   if (threadCopy)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __48__FCAsyncSerialQueue_enqueueBlockForMainThread___block_invoke;
-    v8[3] = &unk_1E7C3A148;
-    v9 = threadCopy;
-    [(FCAsyncSerialQueue *)self enqueueBlock:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __48__FCAsyncSerialQueue_enqueueBlockForMainThread___block_invoke;
+    v7[3] = &unk_1E7C3A148;
+    v8 = threadCopy;
+    [(FCAsyncSerialQueue *)self enqueueBlock:v7];
   }
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
     *buf = 136315906;
-    v11 = "[FCAsyncSerialQueue enqueueBlockForMainThread:]";
-    v12 = 2080;
-    v13 = "FCAsyncSerialQueue.m";
-    v14 = 1024;
-    v15 = 74;
-    v16 = 2114;
-    v17 = v7;
+    v10 = "[FCAsyncSerialQueue enqueueBlockForMainThread:]";
+    v11 = 2080;
+    v12 = "FCAsyncSerialQueue.m";
+    v13 = 1024;
+    v14 = 74;
+    v15 = 2114;
+    v16 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __48__FCAsyncSerialQueue_enqueueBlockForMainThread___block_invoke(uint64_t a1, void *a2)
@@ -143,7 +139,7 @@ void __48__FCAsyncSerialQueue_enqueueBlockForMainThread___block_invoke(uint64_t 
 
 - (void)withQualityOfService:(int64_t)service enqueueBlockForMainThread:(id)thread
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   threadCopy = thread;
   if (threadCopy)
   {
@@ -155,19 +151,17 @@ void __48__FCAsyncSerialQueue_enqueueBlockForMainThread___block_invoke(uint64_t 
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "block != nil"];
     *buf = 136315906;
-    v12 = "[FCAsyncSerialQueue withQualityOfService:enqueueBlockForMainThread:]";
-    v13 = 2080;
-    v14 = "FCAsyncSerialQueue.m";
-    v15 = 1024;
-    v16 = 88;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCAsyncSerialQueue withQualityOfService:enqueueBlockForMainThread:]";
+    v12 = 2080;
+    v13 = "FCAsyncSerialQueue.m";
+    v14 = 1024;
+    v15 = 88;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enqueueOperation:(id)operation
@@ -181,6 +175,13 @@ void __48__FCAsyncSerialQueue_enqueueBlockForMainThread___block_invoke(uint64_t 
 {
   serialOperationQueue = [(FCAsyncSerialQueue *)self serialOperationQueue];
   [serialOperationQueue cancelAllOperations];
+}
+
+- (void)setSuspended:(BOOL)suspended
+{
+  suspendedCopy = suspended;
+  serialOperationQueue = [(FCAsyncSerialQueue *)self serialOperationQueue];
+  [serialOperationQueue setSuspended:suspendedCopy];
 }
 
 - (BOOL)suspended

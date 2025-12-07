@@ -231,7 +231,7 @@
 
 + (id)hk_preferredRoundedFontForTextStyle:()HKAdditions additionalSymbolicTraits:
 {
-  v5 = [self hk_preferredRoundedFontForTextStyle:?];
+  v5 = [self hk_preferredRoundedFontForTextStyle:a3];
   v6 = [v5 hk_fontByAddingSymbolicTraits:a4];
 
   return v6;

@@ -23,7 +23,7 @@
 
 - (void)updatePrimaryListeningMode
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   primaryOutputDeviceRoute = [(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController primaryOutputDeviceRoute];
   logicalLeaderOutputDevice = [primaryOutputDeviceRoute logicalLeaderOutputDevice];
 
@@ -49,56 +49,58 @@
   }
 
   v10 = [(NSArray *)self->_availablePrimaryListeningModes isEqualToArray:v8];
-  if (!v10)
+  v11 = v10;
+  if ((v10 & 1) == 0)
   {
-    v11 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = MCLogCategoryVolume(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
+      v13 = objc_opt_class();
       availablePrimaryListeningModes = self->_availablePrimaryListeningModes;
-      v19 = 138544130;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v8;
+      v21 = 138544130;
+      v22 = v13;
       v23 = 2114;
-      v24 = availablePrimaryListeningModes;
+      v24 = v8;
       v25 = 2114;
-      v26 = logicalLeaderOutputDevice;
-      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ update available primary bluetooth to listening mode: %{public}@ | %{public}@ | device: %{public}@", &v19, 0x2Au);
+      v26 = availablePrimaryListeningModes;
+      v27 = 2114;
+      v28 = logicalLeaderOutputDevice;
+      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ update available primary bluetooth to listening mode: %{public}@ | %{public}@ | device: %{public}@", &v21, 0x2Au);
     }
 
     objc_storeStrong(&self->_availablePrimaryListeningModes, v8);
   }
 
-  v14 = [(NSString *)self->_primaryListeningMode isEqualToString:currentBluetoothListeningMode];
-  if (!v14)
+  v15 = [(NSString *)self->_primaryListeningMode isEqualToString:currentBluetoothListeningMode];
+  v16 = v15;
+  if ((v15 & 1) == 0)
   {
-    v15 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = MCLogCategoryVolume(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
+      v18 = objc_opt_class();
       primaryListeningMode = self->_primaryListeningMode;
-      v19 = 138544130;
-      v20 = v16;
-      v21 = 2114;
-      v22 = currentBluetoothListeningMode;
+      v21 = 138544130;
+      v22 = v18;
       v23 = 2114;
-      v24 = primaryListeningMode;
+      v24 = currentBluetoothListeningMode;
       v25 = 2114;
-      v26 = logicalLeaderOutputDevice;
-      _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ update primary bluetooth to listening mode: %{public}@ | %{public}@ | device: %{public}@", &v19, 0x2Au);
+      v26 = primaryListeningMode;
+      v27 = 2114;
+      v28 = logicalLeaderOutputDevice;
+      _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ update primary bluetooth to listening mode: %{public}@ | %{public}@ | device: %{public}@", &v21, 0x2Au);
     }
 
     objc_storeStrong(&self->_primaryListeningMode, currentBluetoothListeningMode);
   }
 
   delegate = [(MRUListeningModeController *)self delegate];
-  if (!v10 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v11 & 1) == 0 && (objc_opt_respondsToSelector())
   {
     [delegate listeningModeController:self didChangeAvailablePrimaryListeningMode:v8];
   }
 
-  if (!v14 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v16 & 1) == 0 && (objc_opt_respondsToSelector())
   {
     [delegate listeningModeController:self didChangePrimaryListeningMode:currentBluetoothListeningMode];
   }
@@ -106,7 +108,7 @@
 
 - (void)updateSecondaryListeningMode
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   secondaryOutputDeviceRoute = [(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController secondaryOutputDeviceRoute];
   logicalLeaderOutputDevice = [secondaryOutputDeviceRoute logicalLeaderOutputDevice];
 
@@ -132,56 +134,58 @@
   }
 
   v10 = [(NSArray *)self->_availableSecondaryListeningModes isEqualToArray:v8];
-  if (!v10)
+  v11 = v10;
+  if ((v10 & 1) == 0)
   {
-    v11 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = MCLogCategoryVolume(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
+      v13 = objc_opt_class();
       availableSecondaryListeningModes = self->_availableSecondaryListeningModes;
-      v19 = 138544130;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v8;
+      v21 = 138544130;
+      v22 = v13;
       v23 = 2114;
-      v24 = availableSecondaryListeningModes;
+      v24 = v8;
       v25 = 2114;
-      v26 = logicalLeaderOutputDevice;
-      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ update available secondary bluetooth to listening mode: %{public}@ | %{public}@ | device: %{public}@", &v19, 0x2Au);
+      v26 = availableSecondaryListeningModes;
+      v27 = 2114;
+      v28 = logicalLeaderOutputDevice;
+      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ update available secondary bluetooth to listening mode: %{public}@ | %{public}@ | device: %{public}@", &v21, 0x2Au);
     }
 
     objc_storeStrong(&self->_availableSecondaryListeningModes, v8);
   }
 
-  v14 = [(NSString *)self->_secondaryListeningMode isEqualToString:currentBluetoothListeningMode];
-  if (!v14)
+  v15 = [(NSString *)self->_secondaryListeningMode isEqualToString:currentBluetoothListeningMode];
+  v16 = v15;
+  if ((v15 & 1) == 0)
   {
-    v15 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = MCLogCategoryVolume(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
+      v18 = objc_opt_class();
       secondaryListeningMode = self->_secondaryListeningMode;
-      v19 = 138544130;
-      v20 = v16;
-      v21 = 2114;
-      v22 = currentBluetoothListeningMode;
+      v21 = 138544130;
+      v22 = v18;
       v23 = 2114;
-      v24 = secondaryListeningMode;
+      v24 = currentBluetoothListeningMode;
       v25 = 2114;
-      v26 = logicalLeaderOutputDevice;
-      _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ update secondary bluetooth to listening mode: %{public}@ | %{public}@ | device: %{public}@", &v19, 0x2Au);
+      v26 = secondaryListeningMode;
+      v27 = 2114;
+      v28 = logicalLeaderOutputDevice;
+      _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ update secondary bluetooth to listening mode: %{public}@ | %{public}@ | device: %{public}@", &v21, 0x2Au);
     }
 
     objc_storeStrong(&self->_secondaryListeningMode, currentBluetoothListeningMode);
   }
 
   delegate = [(MRUListeningModeController *)self delegate];
-  if (!v10 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v11 & 1) == 0 && (objc_opt_respondsToSelector())
   {
     [delegate listeningModeController:self didChangeAvailableSecondaryListeningModes:v8];
   }
 
-  if (!v14 && (objc_opt_respondsToSelector() & 1) != 0)
+  if (v16 & 1) == 0 && (objc_opt_respondsToSelector())
   {
     [delegate listeningModeController:self didChangeSecondaryListeningMode:currentBluetoothListeningMode];
   }
@@ -265,7 +269,7 @@
   listeningModeCopy = listeningMode;
   completionCopy = completion;
   logicalLeaderOutputDevice = [routeCopy logicalLeaderOutputDevice];
-  v15 = MCLogCategoryVolume();
+  v15 = MCLogCategoryVolume(logicalLeaderOutputDevice);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
@@ -303,58 +307,49 @@
 
 void __101__MRUListeningModeController_setListeningMode_forOutputDeviceRoute_previousListeningMode_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 userInfo];
   v5 = [v4 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
 
-  if ([v5 code] == -11910)
+  v6 = [v5 code];
+  if (v6 == -11910)
   {
     v6 = [*(a1 + 32) listeningModeErrorMessageForOutputDevice:*(a1 + 40)];
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = MCLogCategoryVolume();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = MCLogCategoryVolume(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = objc_opt_class();
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
+    v9 = objc_opt_class();
+    v10 = *(a1 + 48);
+    v11 = *(a1 + 56);
+    v12 = *(a1 + 64);
     *buf = 138544386;
-    v20 = v8;
-    v21 = 2114;
-    v22 = v9;
-    v23 = 2114;
-    v24 = v10;
-    v25 = 2114;
-    v26 = v11;
-    v27 = 2112;
-    v28 = v5;
-    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ set bluetooth to listening mode completed: %{public}@ | %{public}@ | device: %{public}@ | error: %@", buf, 0x34u);
+    v21 = v9;
+    v22 = 2114;
+    v23 = v10;
+    v24 = 2114;
+    v25 = v11;
+    v26 = 2114;
+    v27 = v12;
+    v28 = 2112;
+    v29 = v5;
+    _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ set bluetooth to listening mode completed: %{public}@ | %{public}@ | device: %{public}@ | error: %@", buf, 0x34u);
   }
 
-  (*(*(a1 + 72) + 16))(*(a1 + 72), v3 == 0, v6);
-  v12 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:3];
-  v13 = v12;
+  (*(*(a1 + 72) + 16))(*(a1 + 72), v3 == 0, v7);
+  v13 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:3];
+  v14 = v13;
   if (*(a1 + 56))
   {
-    v14 = *(a1 + 56);
-  }
-
-  else
-  {
-    v14 = @"nil";
-  }
-
-  [v12 setObject:v14 forKeyedSubscript:*MEMORY[0x1E69B0B98]];
-  if (*(a1 + 48))
-  {
-    v15 = *(a1 + 48);
+    v15 = *(a1 + 56);
   }
 
   else
@@ -362,12 +357,23 @@ void __101__MRUListeningModeController_setListeningMode_forOutputDeviceRoute_pre
     v15 = @"nil";
   }
 
-  [v13 setObject:v15 forKeyedSubscript:*MEMORY[0x1E69B0B88]];
-  v16 = +[MRUSystemOutputDeviceRouteController outputContextDescription];
-  [v13 setObject:v16 forKeyedSubscript:*MEMORY[0x1E69B0B90]];
+  [v13 setObject:v15 forKeyedSubscript:*MEMORY[0x1E69B0B98]];
+  if (*(a1 + 48))
+  {
+    v16 = *(a1 + 48);
+  }
 
-  v18 = v13;
-  v17 = v13;
+  else
+  {
+    v16 = @"nil";
+  }
+
+  [v14 setObject:v16 forKeyedSubscript:*MEMORY[0x1E69B0B88]];
+  v17 = +[MRUSystemOutputDeviceRouteController outputContextDescription];
+  [v14 setObject:v17 forKeyedSubscript:*MEMORY[0x1E69B0B90]];
+
+  v19 = v14;
+  v18 = v14;
   MRAnalyticsSendEvent();
 }
 

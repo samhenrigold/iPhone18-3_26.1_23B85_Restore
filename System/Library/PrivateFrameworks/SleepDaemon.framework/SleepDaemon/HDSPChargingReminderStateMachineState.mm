@@ -8,7 +8,7 @@
 
 - (void)updateState
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   if ([(HDSPChargingReminderStateMachineState *)self isChargingReminderDisabled])
   {
@@ -20,10 +20,10 @@
     v5 = HKSPLogForCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 138543362;
-      *&v9[4] = objc_opt_class();
-      v6 = *&v9[4];
-      _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] in monitoring window", v9, 0xCu);
+      *v8 = 138543362;
+      *&v8[4] = objc_opt_class();
+      v6 = *&v8[4];
+      _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] in monitoring window", v8, 0xCu);
     }
 
     disabledState = [stateMachine monitoringState];
@@ -35,14 +35,12 @@
   }
 
   v7 = disabledState;
-  [stateMachine enterState:{disabledState, *v9}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [stateMachine enterState:{disabledState, *v8, *&v8[8]}];
 }
 
 - (BOOL)isChargingReminderDisabled
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   infoProvider = [stateMachine infoProvider];
   sleepScheduleModel = [infoProvider sleepScheduleModel];
@@ -55,9 +53,9 @@
       v8 = HKSPLogForCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        v15 = objc_opt_class();
-        v9 = v15;
+        v13 = 138543362;
+        v14 = objc_opt_class();
+        v9 = v14;
         v10 = "[%{public}@] wind down time is greater than monitor window";
         goto LABEL_9;
       }
@@ -74,12 +72,12 @@
       v8 = HKSPLogForCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        v15 = objc_opt_class();
-        v9 = v15;
+        v13 = 138543362;
+        v14 = objc_opt_class();
+        v9 = v14;
         v10 = "[%{public}@] currently charging";
 LABEL_9:
-        _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, v10, &v14, 0xCu);
+        _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, v10, &v13, 0xCu);
       }
     }
 
@@ -92,7 +90,6 @@ LABEL_12:
   v11 = 1;
 LABEL_13:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

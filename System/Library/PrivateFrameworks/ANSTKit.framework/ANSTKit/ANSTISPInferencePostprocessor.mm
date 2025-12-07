@@ -47,7 +47,7 @@
 
 - (BOOL)prewarmBmBuffersForANSTOutputDescriptors:(id)descriptors error:(id *)error
 {
-  v100[1] = *MEMORY[0x277D85DE8];
+  v97[1] = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   v9 = descriptorsCopy;
   if (self->_anstOutputs)
@@ -56,10 +56,10 @@
     {
       v10 = MEMORY[0x277CCA9B8];
       v11 = descriptorsCopy;
-      v99 = *MEMORY[0x277CCA068];
+      v96 = *MEMORY[0x277CCA068];
       v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v8, @"BmBuffer array has already been prewarmed.");
-      v100[0] = v12;
-      v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v100, &v99, 1);
+      v97[0] = v12;
+      v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v97, &v96, 1);
       v9 = v11;
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v10, v15, @"ANSTErrorDomain", 3, v14);
 
@@ -80,54 +80,52 @@ LABEL_42:
   }
 
   errorCopy = error;
-  v90 = v9;
+  v87 = v9;
   v23 = 0;
-  v24 = 0x27884F000uLL;
   selfCopy = self;
   while (1)
   {
-    v25 = objc_msgSend_objectAtIndexedSubscript_(v9, v22, v23);
-    v26 = &self->_anstOutputs[v23];
-    v27 = *(v24 + 1280);
+    v24 = objc_msgSend_objectAtIndexedSubscript_(v9, v22, v23);
+    v25 = &self->_anstOutputs[v23];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = v25;
-      v30 = objc_msgSend_dataType(v12, v28, v29);
-      v33 = objc_msgSend_numberOfDimensions(v12, v31, v32);
-      v36 = v33;
-      v38 = v30 == 104 || v30 == 102;
-      v92 = v33 - 1;
-      v39 = v33 > 1 && v38;
-      if (v38 && v33 >= 3)
+      v12 = v24;
+      v28 = objc_msgSend_dataType(v12, v26, v27);
+      v31 = objc_msgSend_numberOfDimensions(v12, v29, v30);
+      v34 = v31;
+      v36 = v28 == 104 || v28 == 102;
+      v89 = v31 - 1;
+      v37 = v31 > 1 && v36;
+      if (v36 && v31 >= 3)
       {
-        v54 = v33 - 3;
-        v41 = objc_msgSend_lengthOfDimensionAt_(v12, v34, v33 - 3);
-        if (v36 != 3)
+        v52 = v31 - 3;
+        v39 = objc_msgSend_lengthOfDimensionAt_(v12, v32, v31 - 3);
+        if (v34 != 3)
         {
-          v55 = 0;
+          v53 = 0;
           do
           {
-            v39 = v39 && objc_msgSend_lengthOfDimensionAt_(v12, v34, v55++) == 1;
+            v37 = v37 && objc_msgSend_lengthOfDimensionAt_(v12, v32, v53++) == 1;
           }
 
-          while (v54 != v55);
+          while (v52 != v53);
         }
 
-        v9 = v90;
-        if (!v39)
+        v9 = v87;
+        if (!v37)
         {
 LABEL_44:
           if (errorCopy)
           {
-            v62 = MEMORY[0x277CCA9B8];
-            v97 = *MEMORY[0x277CCA068];
-            v63 = MEMORY[0x277CCACA8];
-            v64 = objc_msgSend_name(v12, v34, v35);
-            v66 = objc_msgSend_stringWithFormat_(v63, v65, @"Invalid tensor for descriptor named: %@", v64);
-            v98 = v66;
-            v68 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v67, &v98, &v97, 1);
-            *errorCopy = objc_msgSend_errorWithDomain_code_userInfo_(v62, v69, @"ANSTErrorDomain", 10, v68);
+            v59 = MEMORY[0x277CCA9B8];
+            v94 = *MEMORY[0x277CCA068];
+            v60 = MEMORY[0x277CCACA8];
+            v61 = objc_msgSend_name(v12, v32, v33);
+            v63 = objc_msgSend_stringWithFormat_(v60, v62, @"Invalid tensor for descriptor named: %@", v61);
+            v95 = v63;
+            v65 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v64, &v95, &v94, 1);
+            *errorCopy = objc_msgSend_errorWithDomain_code_userInfo_(v59, v66, @"ANSTErrorDomain", 10, v65);
           }
 
           anstOutputs = selfCopy->_anstOutputs;
@@ -145,29 +143,28 @@ LABEL_57:
 
       else
       {
-        v41 = 1;
-        if (!v39)
+        v39 = 1;
+        if (!v37)
         {
           goto LABEL_44;
         }
       }
 
-      v26->var0 = 0;
-      v26->var1 = objc_msgSend_lengthOfDimensionAt_(v12, v34, v36 - 2) * v41;
-      v26->var2 = objc_msgSend_lengthOfDimensionAt_(v12, v56, v92);
-      v26->var3 = objc_msgSend_strideOfDimensionAt_(v12, v57, v36 - 2);
-      if (v30 == 104)
+      v25->var0 = 0;
+      v25->var1 = objc_msgSend_lengthOfDimensionAt_(v12, v32, v34 - 2) * v39;
+      v25->var2 = objc_msgSend_lengthOfDimensionAt_(v12, v54, v89);
+      v25->var3 = objc_msgSend_strideOfDimensionAt_(v12, v55, v34 - 2);
+      if (v28 == 104)
       {
-        v53 = 7;
+        v51 = 7;
       }
 
       else
       {
-        v53 = 6;
+        v51 = 6;
       }
 
       self = selfCopy;
-      v24 = 0x27884F000;
       goto LABEL_41;
     }
 
@@ -177,50 +174,50 @@ LABEL_57:
       break;
     }
 
-    v12 = v25;
-    v26->var0 = 0;
-    v26->var1 = objc_msgSend_height(v12, v44, v45);
-    v26->var2 = objc_msgSend_width(v12, v46, v47);
-    v26->var3 = 0;
-    v50 = objc_msgSend_pixelFormatType(v12, v48, v49);
-    if (v50 == 1278226488)
+    v12 = v24;
+    v25->var0 = 0;
+    v25->var1 = objc_msgSend_height(v12, v42, v43);
+    v25->var2 = objc_msgSend_width(v12, v44, v45);
+    v25->var3 = 0;
+    v48 = objc_msgSend_pixelFormatType(v12, v46, v47);
+    if (v48 == 1278226488)
     {
-      v53 = 1;
+      v51 = 1;
     }
 
     else
     {
-      if (v50 != 1278226742 && v50 != 1278226536)
+      if (v48 != 1278226742 && v48 != 1278226536)
       {
         if (errorCopy)
         {
-          v80 = MEMORY[0x277CCA9B8];
-          v95 = *MEMORY[0x277CCA068];
-          v81 = MEMORY[0x277CCACA8];
-          v82 = objc_msgSend_name(v12, v51, v52);
-          v84 = objc_msgSend_stringWithFormat_(v81, v83, @"Invalid pixel format for descriptor named: %@", v82);
-          v96 = v84;
-          v86 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v85, &v96, &v95, 1);
-          *errorCopy = objc_msgSend_errorWithDomain_code_userInfo_(v80, v87, @"ANSTErrorDomain", 10, v86);
+          v77 = MEMORY[0x277CCA9B8];
+          v92 = *MEMORY[0x277CCA068];
+          v78 = MEMORY[0x277CCACA8];
+          v79 = objc_msgSend_name(v12, v49, v50);
+          v81 = objc_msgSend_stringWithFormat_(v78, v80, @"Invalid pixel format for descriptor named: %@", v79);
+          v93 = v81;
+          v83 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v82, &v93, &v92, 1);
+          *errorCopy = objc_msgSend_errorWithDomain_code_userInfo_(v77, v84, @"ANSTErrorDomain", 10, v83);
         }
 
-        v88 = self->_anstOutputs;
-        if (v88)
+        v85 = self->_anstOutputs;
+        if (v85)
         {
-          free(v88);
+          free(v85);
           self->_anstOutputs = 0;
         }
 
         goto LABEL_57;
       }
 
-      v53 = 7;
+      v51 = 7;
     }
 
 LABEL_41:
-    v26->var4 = v53;
+    v25->var4 = v51;
 
-    if (objc_msgSend_count(v9, v58, v59) <= ++v23)
+    if (objc_msgSend_count(v9, v56, v57) <= ++v23)
     {
       goto LABEL_42;
     }
@@ -228,69 +225,66 @@ LABEL_41:
 
   if (errorCopy)
   {
-    v71 = MEMORY[0x277CCA9B8];
-    v93 = *MEMORY[0x277CCA068];
-    v72 = MEMORY[0x277CCACA8];
-    v73 = objc_msgSend_name(v25, v42, v43);
-    v75 = objc_msgSend_stringWithFormat_(v72, v74, @"Unexpected descriptor type for descriptor named: %@", v73);
-    v94 = v75;
-    v77 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v76, &v94, &v93, 1);
-    *errorCopy = objc_msgSend_errorWithDomain_code_userInfo_(v71, v78, @"ANSTErrorDomain", 10, v77);
+    v68 = MEMORY[0x277CCA9B8];
+    v90 = *MEMORY[0x277CCA068];
+    v69 = MEMORY[0x277CCACA8];
+    v70 = objc_msgSend_name(v24, v40, v41);
+    v72 = objc_msgSend_stringWithFormat_(v69, v71, @"Unexpected descriptor type for descriptor named: %@", v70);
+    v91 = v72;
+    v74 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v73, &v91, &v90, 1);
+    *errorCopy = objc_msgSend_errorWithDomain_code_userInfo_(v68, v75, @"ANSTErrorDomain", 10, v74);
   }
 
-  v79 = self->_anstOutputs;
-  if (v79)
+  v76 = self->_anstOutputs;
+  if (v76)
   {
-    free(v79);
+    free(v76);
     self->_anstOutputs = 0;
   }
 
-  v12 = v25;
+  v12 = v24;
 LABEL_4:
 
 LABEL_5:
   v16 = 0;
 LABEL_43:
 
-  v60 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)accessANSTOutputsAsBmBuffersWithSkipIndexSet:(id)set usingBlock:(id)block
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v8 = blockCopy;
   if (self->_anstOutputs)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = sub_22E5F47F0;
-    v17[3] = &unk_27884FB08;
-    v17[4] = self;
-    v18 = blockCopy;
-    objc_msgSend__recursiveBatchAccessOfANSTTensorOutputDataCurrentIndex_skipIndexSet_block_(self, v9, 0, set, v17);
-    v10 = v18;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_22E5F47F0;
+    v16[3] = &unk_27884FB08;
+    v16[4] = self;
+    v17 = blockCopy;
+    objc_msgSend__recursiveBatchAccessOfANSTTensorOutputDataCurrentIndex_skipIndexSet_block_(self, v9, 0, set, v16);
+    v10 = v17;
   }
 
   else
   {
     v11 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA068];
+    v18 = *MEMORY[0x277CCA068];
     v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"BmBuffer array has not been prewarmed. Please run [prewarmBmBuffersForANSTOutputDescriptors:error:] first.");
-    v20[0] = v12;
-    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v20, &v19, 1);
+    v19[0] = v12;
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v19, &v18, 1);
     v10 = objc_msgSend_errorWithDomain_code_userInfo_(v11, v15, @"ANSTErrorDomain", 3, v14);
 
     (v8)[2](v8, 0, 0, v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recursiveBatchAccessOfANSTTensorOutputDataCurrentIndex:(unint64_t)index skipIndexSet:(id)set block:(id)block
 {
-  v84[1] = *MEMORY[0x277D85DE8];
+  v85[1] = *MEMORY[0x277D85DE8];
   setCopy = set;
   blockCopy = block;
   if (objc_msgSend_count(self->_anstOutputDescriptors, v10, v11) <= index)
@@ -315,32 +309,33 @@ LABEL_43:
 
       if (v19)
       {
-        v75 = 0;
-        v76 = &v75;
-        v77 = 0x2020000000;
-        v78 = 0;
-        v70[0] = MEMORY[0x277D85DD0];
-        v70[1] = 3221225472;
-        v70[2] = sub_22E5F4E34;
-        v70[3] = &unk_27884FB30;
-        v70[4] = self;
+        v76 = 0;
+        v77 = &v76;
+        v78 = 0x2020000000;
+        v79 = 0;
+        v71[0] = MEMORY[0x277D85DD0];
+        v71[1] = 3221225472;
+        v71[2] = sub_22E5F4E34;
+        v71[3] = &unk_27884FB30;
+        v71[4] = self;
         indexCopy = index;
-        v71 = setCopy;
+        v72 = setCopy;
         v22 = blockCopy;
-        v72 = v22;
-        v73 = &v75;
-        v69 = 0;
-        objc_msgSend_performDataAccessWithOptions_usingBlock_error_(v19, v23, 0, v70, &v69);
-        v24 = v69;
+        v73 = v22;
+        v74 = &v76;
+        v70 = 0;
+        objc_msgSend_performDataAccessWithOptions_usingBlock_error_(v19, v23, 0, v71, &v70);
+        v24 = v70;
+        v25 = v24;
         self->_anstOutputs[index].var0 = 0;
         if (v24)
         {
-          if (*(v76 + 24) == 1)
+          if (*(v77 + 24) == 1)
           {
-            v25 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+            v26 = _ANSTLoggingGetOSLogForCategoryANSTKit(v24);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
             {
-              sub_22E659498(v24, v25);
+              sub_22E659498(v25, v26);
             }
           }
 
@@ -350,83 +345,82 @@ LABEL_43:
           }
         }
 
-        _Block_object_dispose(&v75, 8);
+        _Block_object_dispose(&v76, 8);
       }
 
       else
       {
-        v52 = MEMORY[0x277CCA9B8];
-        v83 = *MEMORY[0x277CCA068];
-        v53 = MEMORY[0x277CCACA8];
-        v54 = objc_msgSend_name(v14, v20, v21);
-        v56 = objc_msgSend_stringWithFormat_(v53, v55, @"Tensor data not bound for descriptor named: %@", v54);
-        v84[0] = v56;
-        v58 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v57, v84, &v83, 1);
-        v24 = objc_msgSend_errorWithDomain_code_userInfo_(v52, v59, @"ANSTErrorDomain", 11, v58);
+        v54 = MEMORY[0x277CCA9B8];
+        v84 = *MEMORY[0x277CCA068];
+        v55 = MEMORY[0x277CCACA8];
+        v56 = objc_msgSend_name(v14, v20, v21);
+        v58 = objc_msgSend_stringWithFormat_(v55, v57, @"Tensor data not bound for descriptor named: %@", v56);
+        v85[0] = v58;
+        v60 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v59, v85, &v84, 1);
+        v25 = objc_msgSend_errorWithDomain_code_userInfo_(v54, v61, @"ANSTErrorDomain", 11, v60);
 
-        (blockCopy)[2](blockCopy, v24);
+        (blockCopy)[2](blockCopy, v25);
       }
     }
 
     else
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v28 = objc_msgSend_name(v14, v26, v27);
-        v30 = objc_msgSend_inputPixelBufferForDescriptorNamed_(self, v29, v28);
+        v30 = objc_msgSend_name(v14, v28, v29);
+        v32 = objc_msgSend_inputPixelBufferForDescriptorNamed_(self, v31, v30);
 
-        if (v30)
+        if (v32)
         {
-          v33 = objc_msgSend_pixelBuffer(v30, v31, v32);
-          CVPixelBufferLockBaseAddress(v33, 1uLL);
-          v36 = objc_msgSend_pixelBuffer(v30, v34, v35);
-          self->_anstOutputs[index].var0 = CVPixelBufferGetBaseAddress(v36);
-          objc_msgSend__recursiveBatchAccessOfANSTTensorOutputDataCurrentIndex_skipIndexSet_block_(self, v37, index + 1, setCopy, blockCopy);
+          v35 = objc_msgSend_pixelBuffer(v32, v33, v34);
+          CVPixelBufferLockBaseAddress(v35, 1uLL);
+          v38 = objc_msgSend_pixelBuffer(v32, v36, v37);
+          self->_anstOutputs[index].var0 = CVPixelBufferGetBaseAddress(v38);
+          objc_msgSend__recursiveBatchAccessOfANSTTensorOutputDataCurrentIndex_skipIndexSet_block_(self, v39, index + 1, setCopy, blockCopy);
           self->_anstOutputs[index].var0 = 0;
-          v40 = objc_msgSend_pixelBuffer(v30, v38, v39);
-          CVPixelBufferUnlockBaseAddress(v40, 1uLL);
-          v24 = 0;
+          v42 = objc_msgSend_pixelBuffer(v32, v40, v41);
+          CVPixelBufferUnlockBaseAddress(v42, 1uLL);
+          v25 = 0;
         }
 
         else
         {
-          v60 = MEMORY[0x277CCA9B8];
-          v81 = *MEMORY[0x277CCA068];
-          v61 = MEMORY[0x277CCACA8];
-          v62 = objc_msgSend_name(v14, v31, v32);
-          v64 = objc_msgSend_stringWithFormat_(v61, v63, @"Pixel buffer data not bound for descriptor named: %@", v62);
-          v82 = v64;
-          v66 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v65, &v82, &v81, 1);
-          v24 = objc_msgSend_errorWithDomain_code_userInfo_(v60, v67, @"ANSTErrorDomain", 13, v66);
+          v62 = MEMORY[0x277CCA9B8];
+          v82 = *MEMORY[0x277CCA068];
+          v63 = MEMORY[0x277CCACA8];
+          v64 = objc_msgSend_name(v14, v33, v34);
+          v66 = objc_msgSend_stringWithFormat_(v63, v65, @"Pixel buffer data not bound for descriptor named: %@", v64);
+          v83 = v66;
+          v68 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v67, &v83, &v82, 1);
+          v25 = objc_msgSend_errorWithDomain_code_userInfo_(v62, v69, @"ANSTErrorDomain", 13, v68);
 
-          (blockCopy)[2](blockCopy, v24);
+          (blockCopy)[2](blockCopy, v25);
         }
       }
 
       else
       {
-        v41 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v43 = _ANSTLoggingGetOSLogForCategoryANSTKit(isKindOfClass);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          sub_22E659420(v14, v41);
+          sub_22E659420(v14, v43);
         }
 
-        v42 = MEMORY[0x277CCA9B8];
-        v79 = *MEMORY[0x277CCA068];
-        v43 = MEMORY[0x277CCACA8];
-        v46 = objc_msgSend_name(v14, v44, v45);
-        v48 = objc_msgSend_stringWithFormat_(v43, v47, @"Unexpected type (neither tensor nor pixel buffer) for descriptor named: %@", v46);
-        v80 = v48;
-        v50 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v49, &v80, &v79, 1);
-        v24 = objc_msgSend_errorWithDomain_code_userInfo_(v42, v51, @"ANSTErrorDomain", 10, v50);
+        v44 = MEMORY[0x277CCA9B8];
+        v80 = *MEMORY[0x277CCA068];
+        v45 = MEMORY[0x277CCACA8];
+        v48 = objc_msgSend_name(v14, v46, v47);
+        v50 = objc_msgSend_stringWithFormat_(v45, v49, @"Unexpected type (neither tensor nor pixel buffer) for descriptor named: %@", v48);
+        v81 = v50;
+        v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v51, &v81, &v80, 1);
+        v25 = objc_msgSend_errorWithDomain_code_userInfo_(v44, v53, @"ANSTErrorDomain", 10, v52);
 
-        (blockCopy)[2](blockCopy, v24);
+        (blockCopy)[2](blockCopy, v25);
       }
     }
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

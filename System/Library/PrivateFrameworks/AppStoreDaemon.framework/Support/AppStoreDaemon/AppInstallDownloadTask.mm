@@ -56,7 +56,7 @@
 
     else
     {
-      v19 = sub_100305C4C();
+      v19 = sub_100305C4C(EventServiceHost);
       v20 = sub_10023E644(*(&self->_installID + 2), @"bundle_id");
       sub_100307BB8(v19, v20);
 

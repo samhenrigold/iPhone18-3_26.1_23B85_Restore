@@ -95,7 +95,6 @@ LABEL_3:
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_label != *(equalCopy + 2))
@@ -107,7 +106,7 @@ LABEL_3:
   else if (*(equalCopy + 24))
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -127,17 +126,17 @@ LABEL_14:
   stringLabel = self->_stringLabel;
   if (stringLabel | *(equalCopy + 2))
   {
-    v7 = [(NSString *)stringLabel isEqual:?];
+    v6 = [(NSString *)stringLabel isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -194,26 +193,24 @@ LABEL_15:
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    label = self->_label;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    probability = self->_probability;
     PBDataWriterWriteFloatField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_stringLabel)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

@@ -92,7 +92,7 @@
 
 - (unsigned)preCommit:(const void *)commit count:(unint64_t)count error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v8 = objc_autoreleasePoolPush();
   if (count)
   {
@@ -103,30 +103,30 @@
       mlCommandEncoders = [commit[v9] mlCommandEncoders];
       if ([mlCommandEncoders count])
       {
-        v20 = 0u;
-        v21 = 0u;
-        v18 = 0u;
         v19 = 0u;
-        v12 = [mlCommandEncoders countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v20 = 0u;
+        v17 = 0u;
+        v18 = 0u;
+        v12 = [mlCommandEncoders countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v19;
+          v14 = *v18;
           do
           {
             v15 = 0;
             do
             {
-              if (*v19 != v14)
+              if (*v18 != v14)
               {
                 objc_enumerationMutation(mlCommandEncoders);
               }
 
-              [*(*(&v18 + 1) + 8 * v15++) encodeToCommandQueue:self];
+              [*(*(&v17 + 1) + 8 * v15++) encodeToCommandQueue:self];
             }
 
             while (v13 != v15);
-            v13 = [mlCommandEncoders countByEnumeratingWithState:&v18 objects:v22 count:16];
+            v13 = [mlCommandEncoders countByEnumeratingWithState:&v17 objects:v21 count:16];
           }
 
           while (v13);
@@ -140,21 +140,20 @@
   }
 
   objc_autoreleasePoolPop(v8);
-  v16 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)preCommit:(const void *)commit count:(unint64_t)count options:(id)options
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v9 = objc_autoreleasePoolPush();
   v10 = v9;
   if (count)
   {
     optionsCopy = options;
-    v27 = v9;
+    v26 = v9;
     v11 = 0;
-    v28 = 0;
+    v27 = 0;
     v12 = 0;
     v13 = 0;
     do
@@ -163,28 +162,28 @@
       mlCommandEncoders = [v14 mlCommandEncoders];
       if ([mlCommandEncoders count])
       {
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
-        v16 = [mlCommandEncoders countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v16 = [mlCommandEncoders countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v31;
+          v18 = *v30;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v31 != v18)
+              if (*v30 != v18)
               {
                 objc_enumerationMutation(mlCommandEncoders);
               }
 
-              [*(*(&v30 + 1) + 8 * i) encodeToCommandQueue:self];
+              [*(*(&v29 + 1) + 8 * i) encodeToCommandQueue:self];
             }
 
-            v17 = [mlCommandEncoders countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v17 = [mlCommandEncoders countByEnumeratingWithState:&v29 objects:v33 count:16];
           }
 
           while (v17);
@@ -204,7 +203,7 @@
         -[_MTL4CommandBufferRetainData setPrivateDataOffset:](v20, "setPrivateDataOffset:", [v14 privateDataOffset]);
         [v12 addObject:v20];
 
-        v28 = 1;
+        v27 = 1;
       }
 
       v11 = ++v13;
@@ -213,8 +212,8 @@
     while (v13 < count);
     v21 = commit[count - 1];
     options = optionsCopy;
-    v10 = v27;
-    LOBYTE(count) = v28;
+    v10 = v26;
+    LOBYTE(count) = v27;
   }
 
   else
@@ -227,12 +226,12 @@
   self->_lastCommittedCommandBufferGeneration = [(MTL4CommandBuffer *)v21 currentGeneration];
   if (count)
   {
-    v22 = v29;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __45___MTL4CommandQueue_preCommit_count_options___block_invoke;
-    v29[3] = &unk_1E6EEA858;
-    v29[4] = v12;
+    v22 = v28;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __45___MTL4CommandQueue_preCommit_count_options___block_invoke;
+    v28[3] = &unk_1E6EEA858;
+    v28[4] = v12;
   }
 
   else
@@ -258,17 +257,15 @@
 
 LABEL_22:
   objc_autoreleasePoolPop(v10);
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (void)preCommit:count:options:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v1 = 136315138;
-  v2 = "[_MTL4CommandQueue preCommit:count:options:]";
-  _os_log_error_impl(&dword_185B8E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s Failed to allocate Commit Feedback object", &v1, 0xCu);
-  v0 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v0 = 136315138;
+  v1 = "[_MTL4CommandQueue preCommit:count:options:]";
+  _os_log_error_impl(&dword_185B8E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s Failed to allocate Commit Feedback object", &v0, 0xCu);
 }
 
 @end

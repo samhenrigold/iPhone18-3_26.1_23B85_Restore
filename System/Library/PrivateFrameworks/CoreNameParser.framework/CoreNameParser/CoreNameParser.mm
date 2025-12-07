@@ -1,6 +1,6 @@
-void sub_245F82180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_245F82180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -43,7 +43,7 @@ id charSetWithEndpoints(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
 __CFString *_NPCollapseWhitespaceAndStrip(void *a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 length];
   if (!v2)
@@ -66,7 +66,7 @@ LABEL_36:
   }
 
   MEMORY[0x28223BE20]();
-  v5 = &v35 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v5, v4);
 LABEL_5:
   v6 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
@@ -76,22 +76,22 @@ LABEL_5:
   {
     memset(buffer, 0, sizeof(buffer));
     Length = CFStringGetLength(v7);
-    v38 = v8;
-    v41 = 0;
-    v42 = Length;
+    v37 = v8;
+    v40 = 0;
+    v41 = Length;
     CharactersPtr = CFStringGetCharactersPtr(v8);
     CStringPtr = 0;
-    v39 = CharactersPtr;
+    v38 = CharactersPtr;
     if (!CharactersPtr)
     {
       CStringPtr = CFStringGetCStringPtr(v8, 0x600u);
     }
 
-    v35 = v8;
-    v36 = v3;
+    v34 = v8;
+    v35 = v3;
+    v42 = 0;
     v43 = 0;
-    v44 = 0;
-    v40 = CStringPtr;
+    v39 = CStringPtr;
     if (Length >= 1)
     {
       v12 = 0;
@@ -112,51 +112,51 @@ LABEL_5:
           v18 = v13;
         }
 
-        v19 = v42;
-        if (v42 <= v13)
+        v19 = v41;
+        if (v41 <= v13)
         {
           v21 = 0;
         }
 
         else
         {
-          if (v39)
+          if (v38)
           {
-            v20 = &v39[v41];
+            v20 = &v38[v40];
           }
 
           else
           {
-            if (v40)
+            if (v39)
             {
-              v21 = v40[v41 + v13];
+              v21 = v39[v40 + v13];
               goto LABEL_18;
             }
 
-            v23 = v43;
-            if (v44 <= v13 || v43 > v13)
+            v23 = v42;
+            if (v43 <= v13 || v42 > v13)
             {
               v25 = -v18;
               v26 = v18 + v12;
               v27 = v17 - v18;
               v28 = v13 + v25;
               v29 = v28 + 64;
-              if (v28 + 64 >= v42)
+              if (v28 + 64 >= v41)
               {
-                v29 = v42;
+                v29 = v41;
               }
 
-              v43 = v28;
-              v44 = v29;
-              if (v42 >= v27)
+              v42 = v28;
+              v43 = v29;
+              if (v41 >= v27)
               {
                 v19 = v27;
               }
 
-              v47.location = v28 + v41;
-              v47.length = v19 + v26;
-              CFStringGetCharacters(v38, v47, buffer);
-              v23 = v43;
+              v46.location = v28 + v40;
+              v46.length = v19 + v26;
+              CFStringGetCharacters(v37, v46, buffer);
+              v23 = v42;
             }
 
             v20 = buffer - v23;
@@ -166,7 +166,7 @@ LABEL_5:
         }
 
 LABEL_18:
-        v22 = [v6 characterIsMember:{v21, v35, v36}];
+        v22 = [v6 characterIsMember:{v21, v34, v35}];
         if (v22)
         {
           if ((v16 & 1) == 0)
@@ -195,8 +195,8 @@ LABEL_18:
     v15 = 0;
     v14 = 0;
 LABEL_39:
-    v3 = v36;
-    v8 = v35;
+    v3 = v35;
+    v8 = v34;
   }
 
   else
@@ -232,7 +232,6 @@ LABEL_39:
   v30 = v8;
 
 LABEL_49:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -270,43 +269,43 @@ LABEL_7:
 
 id _NPRemoveEmojis(void *a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy_;
-  v28 = __Block_byref_object_dispose_;
-  v29 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = 0;
   [v1 length];
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = ___NPRemoveEmojis_block_invoke;
-  v22 = &unk_278E98068;
-  v23 = &v24;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = ___NPRemoveEmojis_block_invoke;
+  v21 = &unk_278E98068;
+  v22 = &v23;
   CEMEnumerateEmojiTokensInStringWithBlock();
-  if (v25[5])
+  if (v24[5])
   {
     v2 = [v1 mutableCopy];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v3 = [v25[5] reverseObjectEnumerator];
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v30 count:16];
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v3 = [v24[5] reverseObjectEnumerator];
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v29 count:16];
     if (v4)
     {
-      v5 = *v16;
+      v5 = *v15;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v16 != v5)
+          if (*v15 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v15 + 1) + 8 * i);
+          v7 = *(*(&v14 + 1) + 8 * i);
           v8 = objc_autoreleasePoolPush();
           v9 = [v7 rangeValue];
           v11 = v10;
@@ -318,7 +317,7 @@ id _NPRemoveEmojis(void *a1)
           objc_autoreleasePoolPop(v8);
         }
 
-        v4 = [v3 countByEnumeratingWithState:&v15 objects:v30 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v14 objects:v29 count:16];
       }
 
       while (v4);
@@ -332,16 +331,14 @@ id _NPRemoveEmojis(void *a1)
     v12 = v1;
   }
 
-  _Block_object_dispose(&v24, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 
   return v12;
 }
 
-void sub_245F85200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_245F85200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

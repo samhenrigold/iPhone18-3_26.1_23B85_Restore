@@ -34,80 +34,80 @@
 
 - (BOOL)run:(id *)run
 {
-  v66 = *MEMORY[0x1E69E9840];
-  v5 = VCPSignPostLog();
+  v68 = *MEMORY[0x1E69E9840];
+  v5 = VCPSignPostLog(self);
   v6 = os_signpost_id_generate(v5);
 
-  v7 = VCPSignPostLog();
-  v8 = v7;
-  v9 = v6 - 1;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = VCPSignPostLog(v7);
+  v9 = v8;
+  v10 = v6 - 1;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     signpostPayload = self->_signpostPayload;
     *buf = 138412290;
-    v60 = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MADMultiModalPrewarmingTask_Run", "%@", buf, 0xCu);
+    v62 = signpostPayload;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "MADMultiModalPrewarmingTask_Run", "%@", buf, 0xCu);
   }
 
+  v55 = 0u;
+  v56 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v11 = self->_requests;
-  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v51 objects:v65 count:16];
-  if (v12)
+  v12 = self->_requests;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v53 objects:v67 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v52;
-    obj = v11;
-    v47 = v6;
+    v14 = v13;
+    v15 = *v54;
+    obj = v12;
+    v49 = v6;
     runCopy = run;
-    v46 = v6 - 1;
+    v48 = v6 - 1;
 LABEL_6:
-    v15 = 0;
+    v16 = 0;
     while (1)
     {
-      if (*v52 != v14)
+      if (*v54 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v51 + 1) + 8 * v15);
+      v17 = *(*(&v53 + 1) + 8 * v16);
       if ([(VCPMABaseTask *)self isCanceled])
       {
         break;
       }
 
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v60 = v18;
+        v62 = v19;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Prewarming %@", buf, 0xCu);
       }
 
-      if (![v16 isMemberOfClass:objc_opt_class()])
+      if (![v17 isMemberOfClass:objc_opt_class()])
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v60 = v18;
+          v62 = v19;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ does not support prewarming", buf, 0xCu);
         }
 
         completionHandler = obj;
         if (runCopy)
         {
-          v33 = MEMORY[0x1E696ABC0];
-          v34 = *MEMORY[0x1E696A768];
-          v55 = *MEMORY[0x1E696A578];
-          v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ does not support prewarming", v18];
-          v56 = v30;
-          v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-          v36 = [v33 errorWithDomain:v34 code:-50 userInfo:v35];
-          v37 = *runCopy;
-          *runCopy = v36;
+          v35 = MEMORY[0x1E696ABC0];
+          v36 = *MEMORY[0x1E696A768];
+          v57 = *MEMORY[0x1E696A578];
+          v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ does not support prewarming", v19];
+          v58 = v32;
+          v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+          v38 = [v35 errorWithDomain:v36 code:-50 userInfo:v37];
+          v39 = *runCopy;
+          *runCopy = v38;
 
 LABEL_31:
         }
@@ -115,53 +115,53 @@ LABEL_31:
 LABEL_38:
 
 LABEL_39:
-        v27 = 0;
+        v29 = 0;
         goto LABEL_40;
       }
 
-      v19 = objc_autoreleasePoolPush();
-      v20 = v16;
-      v50 = 0;
-      v21 = [MADPersonalizedEmbeddingTask prewarmRequest:v20 error:&v50];
-      v22 = v50;
-      if (!v21)
+      v20 = objc_autoreleasePoolPush();
+      v21 = v17;
+      v52 = 0;
+      v22 = [MADPersonalizedEmbeddingTask prewarmRequest:v21 error:&v52];
+      v23 = v52;
+      if (!v22)
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v38 = [v22 description];
+          v40 = [v23 description];
           *buf = 138412546;
-          v60 = v18;
-          v61 = 2112;
-          v62 = v38;
+          v62 = v19;
+          v63 = 2112;
+          v64 = v40;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to prewarm %@ (%@)", buf, 0x16u);
         }
 
         completionHandler = obj;
         if (runCopy)
         {
-          v39 = MEMORY[0x1E696ABC0];
-          v40 = *MEMORY[0x1E696A768];
-          v57 = *MEMORY[0x1E696A578];
-          v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to prewarm %@", v18];
-          v58 = v41;
-          v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-          v43 = [v39 errorWithDomain:v40 code:-50 userInfo:v42];
-          v44 = *runCopy;
-          *runCopy = v43;
+          v41 = MEMORY[0x1E696ABC0];
+          v42 = *MEMORY[0x1E696A768];
+          v59 = *MEMORY[0x1E696A578];
+          v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to prewarm %@", v19];
+          v60 = v43;
+          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+          v45 = [v41 errorWithDomain:v42 code:-50 userInfo:v44];
+          v46 = *runCopy;
+          *runCopy = v45;
         }
 
-        objc_autoreleasePoolPop(v19);
+        objc_autoreleasePoolPop(v20);
         goto LABEL_38;
       }
 
-      objc_autoreleasePoolPop(v19);
-      if (v13 == ++v15)
+      objc_autoreleasePoolPop(v20);
+      if (v14 == ++v16)
       {
-        v11 = obj;
-        v13 = [(NSArray *)obj countByEnumeratingWithState:&v51 objects:v65 count:16];
-        v9 = v46;
-        v6 = v47;
-        if (v13)
+        v12 = obj;
+        v14 = [(NSArray *)obj countByEnumeratingWithState:&v53 objects:v67 count:16];
+        v10 = v48;
+        v6 = v49;
+        if (v14)
         {
           goto LABEL_6;
         }
@@ -179,15 +179,15 @@ LABEL_39:
     completionHandler = obj;
     if (runCopy)
     {
-      v28 = MEMORY[0x1E696ABC0];
-      v29 = *MEMORY[0x1E696A768];
-      v63 = *MEMORY[0x1E696A578];
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
-      v64 = v18;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
-      v31 = [v28 errorWithDomain:v29 code:-128 userInfo:v30];
-      v32 = *runCopy;
-      *runCopy = v31;
+      v30 = MEMORY[0x1E696ABC0];
+      v31 = *MEMORY[0x1E696A768];
+      v65 = *MEMORY[0x1E696A578];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
+      v66 = v19;
+      v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+      v33 = [v30 errorWithDomain:v31 code:-128 userInfo:v32];
+      v34 = *runCopy;
+      *runCopy = v33;
 
       goto LABEL_31;
     }
@@ -197,22 +197,22 @@ LABEL_39:
 
 LABEL_17:
 
-  v23 = VCPSignPostLog();
-  v24 = v23;
-  if (v9 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+  v25 = VCPSignPostLog(v24);
+  v26 = v25;
+  if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
-    v25 = self->_signpostPayload;
+    v27 = self->_signpostPayload;
     *buf = 138412290;
-    v60 = v25;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v6, "MADMultiModalPrewarmingTask_Run", "%@", buf, 0xCu);
+    v62 = v27;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_END, v6, "MADMultiModalPrewarmingTask_Run", "%@", buf, 0xCu);
   }
 
   completionHandler = [(VCPMABaseTask *)self completionHandler];
   completionHandler[2](completionHandler, 0, 0);
-  v27 = 1;
+  v29 = 1;
 LABEL_40:
 
-  return v27;
+  return v29;
 }
 
 @end

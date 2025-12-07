@@ -247,37 +247,18 @@ LABEL_77:
     }
 
     v83 = [v28 count];
-    if (!v28)
+    if (!v28 || (v84 = v83, v142 = v83, v83 == 1) && ([v28 objectAtIndex:0], v85 = objc_claimAutoreleasedReturnValue(), v86 = objc_msgSend(v85, "integerValue"), v87 = endCopy, v88 = objc_msgSend(v136, "day"), v85, v89 = v86 == v88, v84 = 1, endCopy = v87, v89))
     {
-      goto LABEL_91;
-    }
-
-    v84 = v83;
-    v142 = v83;
-    if (v83 == 1)
-    {
-      v85 = [v28 objectAtIndex:0];
-      integerValue = [v85 integerValue];
-      v87 = endCopy;
-      v88 = [v136 day];
-
-      v89 = integerValue == v88;
-      v84 = 1;
-      endCopy = v87;
-      if (v89)
+      v30 = MEMORY[0x1E696AEC0];
+      intervalCopy10 = interval;
+      if (interval == 1)
       {
-LABEL_91:
-        v30 = MEMORY[0x1E696AEC0];
-        intervalCopy10 = interval;
-        if (interval == 1)
-        {
-          v32 = @"Event will occur every month.";
-          goto LABEL_93;
-        }
-
-        v58 = @"Event will occur every %lu months.";
-        goto LABEL_133;
+        v32 = @"Event will occur every month.";
+        goto LABEL_93;
       }
+
+      v58 = @"Event will occur every %lu months.";
+      goto LABEL_133;
     }
 
     v123 = endCopy;
@@ -426,8 +407,8 @@ LABEL_20:
   if ([yearCopy count] == 1)
   {
     frequency = [yearCopy objectAtIndex:0];
-    integerValue2 = [frequency integerValue];
-    v37 = integerValue2 == [v136 month];
+    integerValue = [frequency integerValue];
+    v37 = integerValue == [v136 month];
   }
 
   else
@@ -1321,7 +1302,7 @@ LABEL_10:
 
 + (int64_t)daysTypeForDayArray:(id)array
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = [arrayCopy count];
   switch(v4)
@@ -1345,36 +1326,36 @@ LABEL_10:
       v13 = 1;
       while (1)
       {
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v14 = arrayCopy;
-        v15 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (!v15)
         {
           goto LABEL_30;
         }
 
         v16 = v15;
-        v17 = *v30;
+        v17 = *v29;
 LABEL_20:
         v18 = 0;
         while (1)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          if ([*(*(&v29 + 1) + 8 * v18) dayOfTheWeek] == v13)
+          if ([*(*(&v28 + 1) + 8 * v18) dayOfTheWeek] == v13)
           {
             break;
           }
 
           if (v16 == ++v18)
           {
-            v16 = [v14 countByEnumeratingWithState:&v29 objects:v34 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v28 objects:v33 count:16];
             if (v16)
             {
               goto LABEL_20;
@@ -1396,36 +1377,36 @@ LABEL_20:
       v6 = 2;
       while (1)
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         v7 = arrayCopy;
-        v8 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (!v8)
         {
           break;
         }
 
         v9 = v8;
-        v10 = *v26;
+        v10 = *v25;
 LABEL_7:
         v11 = 0;
         while (1)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          if ([*(*(&v25 + 1) + 8 * v11) dayOfTheWeek] == v6)
+          if ([*(*(&v24 + 1) + 8 * v11) dayOfTheWeek] == v6)
           {
             break;
           }
 
           if (v9 == ++v11)
           {
-            v9 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
             if (v9)
             {
               goto LABEL_7;
@@ -1450,7 +1431,6 @@ LABEL_30:
   v5 = 0;
 LABEL_37:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1474,7 +1454,7 @@ LABEL_37:
 
 + (id)shortNaturalLanguageDescriptionForFrequency:(int64_t)frequency interval:(int64_t)interval daysOfTheWeek:(id)week daysOfTheMonth:(id)month monthsOfTheYear:(id)year setPositions:(id)positions date:(id)date timeZone:(id)self0 lowercase:(BOOL)self1
 {
-  v248[1] = *MEMORY[0x1E69E9840];
+  v247[1] = *MEMORY[0x1E69E9840];
   weekCopy = week;
   monthCopy = month;
   yearCopy = year;
@@ -1484,9 +1464,9 @@ LABEL_37:
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
   selfCopy = self;
   v20 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v238 = [v20 localizedStringForKey:@" value:and %@" table:{&stru_1F0D67F00, 0}];
-  v237 = [v20 localizedStringForKey:@" and %@" value:&stru_1F0D67F00 table:0];
-  v232 = [v20 localizedStringForKey:@"Monthly" value:&stru_1F0D67F00 table:0];
+  v237 = [v20 localizedStringForKey:@" value:and %@" table:{&stru_1F0D67F00, 0}];
+  v236 = [v20 localizedStringForKey:@" and %@" value:&stru_1F0D67F00 table:0];
+  v231 = [v20 localizedStringForKey:@"Monthly" value:&stru_1F0D67F00 table:0];
   v21 = [v20 localizedStringForKey:@"Custom Repeat" value:&stru_1F0D67F00 table:0];
   if (shortNaturalLanguageDescriptionForFrequency_interval_daysOfTheWeek_daysOfTheMonth_monthsOfTheYear_setPositions_date_timeZone_lowercase__onceToken != -1)
   {
@@ -1530,7 +1510,7 @@ LABEL_37:
 
     v29 = v21;
     v30 = yearCopy;
-    v228 = v29;
+    v227 = v29;
     v31 = weekCopy;
     v32 = [v31 count];
     if (!v32 || (v33 = v32, v34 = v32 - 1, v32 == 1) && recurrenceDateMatchesAnyDaySpecifiedInByDayList(v31, dateCopy, zoneCopy))
@@ -1543,7 +1523,7 @@ LABEL_37:
         if (!lowercase)
         {
           v61 = positionsCopy;
-          v21 = v228;
+          v21 = v227;
           goto LABEL_117;
         }
 
@@ -1565,7 +1545,7 @@ LABEL_37:
       }
 
       v61 = positionsCopy;
-      v21 = v228;
+      v21 = v227;
 LABEL_116:
 
       intervalCopy3 = v36;
@@ -1576,9 +1556,9 @@ LABEL_117:
     }
 
     intervalCopy2 = interval;
-    v221 = v30;
-    v226 = v20;
-    v218 = weekCopy;
+    v220 = v30;
+    v225 = v20;
+    v217 = weekCopy;
     intervalCopy3 = objc_alloc_init(MEMORY[0x1E696AD60]);
     v55 = 0;
     v56 = 0;
@@ -1594,12 +1574,12 @@ LABEL_117:
         {
           if (v33 < 3)
           {
-            [intervalCopy3 appendFormat:v237, v59];
+            [intervalCopy3 appendFormat:v236, v59];
           }
 
           else
           {
-            [intervalCopy3 appendFormat:v238, v59];
+            [intervalCopy3 appendFormat:v237, v59];
           }
         }
 
@@ -1630,18 +1610,18 @@ LABEL_117:
     while (v33 != v55);
     if (intervalCopy2 == 1 && !v57 && v56 == 5)
     {
-      v20 = v226;
-      v36 = [v226 localizedStringForKey:@"Weekdays" value:&stru_1F0D67F00 table:0];
+      v20 = v225;
+      v36 = [v225 localizedStringForKey:@"Weekdays" value:&stru_1F0D67F00 table:0];
       v61 = positionsCopy;
-      v62 = v228;
+      v62 = v227;
       if (lowercase)
       {
 LABEL_59:
         v63 = [v36 lowercaseStringWithLocale:currentLocale];
 LABEL_113:
         v97 = v63;
-        weekCopy = v218;
-        yearCopy = v221;
+        weekCopy = v217;
+        yearCopy = v220;
         goto LABEL_114;
       }
     }
@@ -1649,24 +1629,24 @@ LABEL_113:
     else
     {
       v61 = positionsCopy;
-      v62 = v228;
+      v62 = v227;
       if (intervalCopy2 != 1 || v57 != 2 || v56)
       {
-        v20 = v226;
+        v20 = v225;
         if (intervalCopy2 == 1)
         {
-          v117 = [v226 localizedStringForKey:@"Every week on %@" value:&stru_1F0D67F00 table:0];
-          [MEMORY[0x1E696AEC0] localizedStringWithFormat:v117, intervalCopy3, v196];
+          v117 = [v225 localizedStringForKey:@"Every week on %@" value:&stru_1F0D67F00 table:0];
+          [MEMORY[0x1E696AEC0] localizedStringWithFormat:v117, intervalCopy3, v195];
         }
 
         else
         {
-          v117 = [v226 localizedStringForKey:@"Every %u weeks on %@" value:&stru_1F0D67F00 table:@"PluralLocalizable"];
+          v117 = [v225 localizedStringForKey:@"Every %u weeks on %@" value:&stru_1F0D67F00 table:@"PluralLocalizable"];
           [MEMORY[0x1E696AEC0] localizedStringWithFormat:v117, intervalCopy2, intervalCopy3];
         }
         v36 = ;
-        weekCopy = v218;
-        yearCopy = v221;
+        weekCopy = v217;
+        yearCopy = v220;
 
         if (!lowercase)
         {
@@ -1682,8 +1662,8 @@ LABEL_115:
         goto LABEL_116;
       }
 
-      v20 = v226;
-      v36 = [v226 localizedStringForKey:@"Weekends" value:&stru_1F0D67F00 table:0];
+      v20 = v225;
+      v36 = [v225 localizedStringForKey:@"Weekends" value:&stru_1F0D67F00 table:0];
       if (lowercase)
       {
         goto LABEL_59;
@@ -1742,64 +1722,64 @@ LABEL_31:
     }
 
     v47 = weekCopy;
-    v211 = v47;
+    v210 = v47;
     if ([v47 count])
     {
       v48 = [v47 objectAtIndex:0];
-      v239 = [selfCopy _stringForByDayOfWeek:v48 setPositions:positionsCopy];
+      v238 = [selfCopy _stringForByDayOfWeek:v48 setPositions:positionsCopy];
     }
 
     else
     {
-      v239 = 0;
+      v238 = 0;
     }
 
-    v230 = v21;
+    v229 = v21;
     v69 = yearCopy;
     if (![v69 count])
     {
       currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
       [currentCalendar setTimeZone:zoneCopy];
-      v216 = v69;
+      v215 = v69;
       v71 = MEMORY[0x1E696AD98];
       v72 = [currentCalendar components:8 fromDate:dateCopy];
       v73 = [v71 numberWithInteger:{objc_msgSend(v72, "month")}];
-      v248[0] = v73;
-      v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v248 count:1];
+      v247[0] = v73;
+      v74 = [MEMORY[0x1E695DEC8] arrayWithObjects:v247 count:1];
 
       v69 = v74;
       lowercaseCopy6 = lowercase;
     }
 
-    v217 = v69;
-    if (v239 || [v69 count] > 1 || (recurrenceMonthMatchesAnyMonthSpecifiedInByMonthList(v69, dateCopy, zoneCopy) & 1) == 0)
+    v216 = v69;
+    if (v238 || [v69 count] > 1 || (recurrenceMonthMatchesAnyMonthSpecifiedInByMonthList(v69, dateCopy, zoneCopy) & 1) == 0)
     {
       v75 = [v69 count];
+      v242 = 0u;
       v243 = 0u;
       v244 = 0u;
       v245 = 0u;
-      v246 = 0u;
       v76 = v69;
-      v77 = [v76 countByEnumeratingWithState:&v243 objects:v247 count:16];
+      v77 = [v76 countByEnumeratingWithState:&v242 objects:v246 count:16];
       if (v77)
       {
         v78 = v77;
         intervalCopy4 = interval;
-        v207 = zoneCopy;
-        v219 = weekCopy;
-        v222 = yearCopy;
+        v206 = zoneCopy;
+        v218 = weekCopy;
+        v221 = yearCopy;
         v79 = 0;
-        v80 = *v244;
+        v80 = *v243;
         do
         {
           for (i = 0; i != v78; ++i)
           {
-            if (*v244 != v80)
+            if (*v243 != v80)
             {
               objc_enumerationMutation(v76);
             }
 
-            v82 = [selfCopy _stringForMonthNumber:{objc_msgSend(*(*(&v243 + 1) + 8 * i), "intValue")}];
+            v82 = [selfCopy _stringForMonthNumber:{objc_msgSend(*(*(&v242 + 1) + 8 * i), "intValue")}];
             v83 = v82;
             if (v79)
             {
@@ -1807,12 +1787,12 @@ LABEL_31:
               {
                 if ([v76 count] == 2)
                 {
-                  [v79 appendFormat:v237, v83];
+                  [v79 appendFormat:v236, v83];
                 }
 
                 else
                 {
-                  [v79 appendFormat:v238, v83];
+                  [v79 appendFormat:v237, v83];
                 }
               }
 
@@ -1826,7 +1806,7 @@ LABEL_31:
             {
               v84 = objc_alloc_init(MEMORY[0x1E696AD60]);
               v79 = v84;
-              if (!v239)
+              if (!v238)
               {
                 [v84 appendString:v83];
               }
@@ -1834,17 +1814,17 @@ LABEL_31:
           }
 
           v75 -= v78;
-          v78 = [v76 countByEnumeratingWithState:&v243 objects:v247 count:16];
+          v78 = [v76 countByEnumeratingWithState:&v242 objects:v246 count:16];
         }
 
         while (v78);
 
-        if (v79 && !v239)
+        if (v79 && !v238)
         {
           interval = intervalCopy4;
-          weekCopy = v219;
-          yearCopy = v222;
-          v21 = v230;
+          weekCopy = v218;
+          yearCopy = v221;
+          v21 = v229;
           if (intervalCopy4 < 2)
           {
             v98 = [v20 localizedStringForKey:@"Every year in %@" value:&stru_1F0D67F00 table:0];
@@ -1856,7 +1836,7 @@ LABEL_31:
               v88 = [v98 lowercaseStringWithLocale:currentLocale];
             }
 
-            [v99 localizedStringWithFormat:v88, v79, v196];
+            [v99 localizedStringWithFormat:v88, v79, v195];
           }
 
           else
@@ -1884,11 +1864,11 @@ LABEL_31:
           goto LABEL_308;
         }
 
-        weekCopy = v219;
-        yearCopy = v222;
-        v21 = v230;
+        weekCopy = v218;
+        yearCopy = v221;
+        v21 = v229;
         interval = intervalCopy4;
-        if (!v239 || !v79)
+        if (!v238 || !v79)
         {
           goto LABEL_312;
         }
@@ -1897,21 +1877,21 @@ LABEL_31:
         v86 = [selfCopy _localizedOfMonthStringForMonth:v89];
 
         v90 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:v86, v79];
-        v242 = v90;
-        if ([v211 count] == 7)
+        v241 = v90;
+        if ([v210 count] == 7)
         {
           if (![positionsCopy count])
           {
             goto LABEL_201;
           }
 
-          v91 = v230;
+          v91 = v229;
           v92 = [positionsCopy objectAtIndex:0];
           intValue = [v92 intValue];
 
           if (intValue != 1)
           {
-            v21 = v230;
+            v21 = v229;
             if (intValue == -1)
             {
               if (intervalCopy4 >= 2)
@@ -1920,17 +1900,17 @@ LABEL_31:
 LABEL_198:
                 v142 = [v20 localizedStringForKey:v94 value:&stru_1F0D67F00 table:0];
                 v143 = MEMORY[0x1E696AEC0];
-                v206 = v142;
+                v205 = v142;
                 if (lowercaseCopy6)
                 {
                   v142 = [v142 lowercaseStringWithLocale:currentLocale];
                 }
 
-                v195 = intervalCopy4;
-                v196 = v242;
+                v194 = intervalCopy4;
+                v195 = v241;
 LABEL_298:
                 v182 = v143;
-                v204 = v142;
+                v203 = v142;
                 v183 = v142;
                 goto LABEL_304;
               }
@@ -1948,21 +1928,21 @@ LABEL_298:
 LABEL_275:
             v175 = [v20 localizedStringForKey:v159 value:&stru_1F0D67F00 table:0];
             v176 = MEMORY[0x1E696AEC0];
-            v206 = v175;
+            v205 = v175;
             v21 = v91;
             if (lowercaseCopy6)
             {
               v175 = [v175 lowercaseStringWithLocale:currentLocale];
             }
 
-            v195 = intervalCopy4;
-            v196 = v242;
+            v194 = intervalCopy4;
+            v195 = v241;
 LABEL_303:
             v182 = v176;
-            v204 = v175;
+            v203 = v175;
             v183 = v175;
 LABEL_304:
-            intervalCopy3 = [v182 localizedStringWithFormat:v183, v195, v196];
+            intervalCopy3 = [v182 localizedStringWithFormat:v183, v194, v195];
             v102 = 0;
             if (!lowercaseCopy6)
             {
@@ -1979,20 +1959,20 @@ LABEL_305:
           v169 = @"Every year on the first day %@";
         }
 
-        else if ([v211 isEqualToArray:shortNaturalLanguageDescriptionForFrequency_interval_daysOfTheWeek_daysOfTheMonth_monthsOfTheYear_setPositions_date_timeZone_lowercase____WeekdaysByDayArray])
+        else if ([v210 isEqualToArray:shortNaturalLanguageDescriptionForFrequency_interval_daysOfTheWeek_daysOfTheMonth_monthsOfTheYear_setPositions_date_timeZone_lowercase____WeekdaysByDayArray])
         {
           if (![positionsCopy count])
           {
             goto LABEL_201;
           }
 
-          v91 = v230;
+          v91 = v229;
           v118 = [positionsCopy objectAtIndex:0];
           intValue2 = [v118 intValue];
 
           if (intValue2 != 1)
           {
-            v21 = v230;
+            v21 = v229;
             if (intValue2 == -1)
             {
               if (intervalCopy4 >= 2)
@@ -2005,13 +1985,13 @@ LABEL_305:
 LABEL_295:
               v142 = [v20 localizedStringForKey:v168 value:&stru_1F0D67F00 table:0];
               v143 = MEMORY[0x1E696AEC0];
-              v206 = v142;
+              v205 = v142;
               if (lowercaseCopy6)
               {
                 v142 = [v142 lowercaseStringWithLocale:currentLocale];
               }
 
-              v195 = v242;
+              v194 = v241;
               goto LABEL_298;
             }
 
@@ -2019,20 +1999,20 @@ LABEL_201:
             v102 = 0;
             intervalCopy3 = 0;
 LABEL_307:
-            v101 = v242;
+            v101 = v241;
 LABEL_308:
 
 LABEL_309:
             if (intervalCopy3)
             {
-              zoneCopy = v207;
+              zoneCopy = v206;
 LABEL_322:
 
               v24 = positionsCopy;
               goto LABEL_323;
             }
 
-            zoneCopy = v207;
+            zoneCopy = v206;
             if (!v102)
             {
               intervalCopy3 = v21;
@@ -2059,7 +2039,7 @@ LABEL_312:
 
             else
             {
-              v225 = yearCopy;
+              v224 = yearCopy;
               v184 = zoneCopy;
               v185 = [v20 localizedStringForKey:@"Every %u years" value:&stru_1F0D67F00 table:0];
               v186 = v185;
@@ -2076,8 +2056,8 @@ LABEL_312:
               }
 
               zoneCopy = v184;
-              v21 = v230;
-              yearCopy = v225;
+              v21 = v229;
+              yearCopy = v224;
             }
 
             goto LABEL_322;
@@ -2094,20 +2074,20 @@ LABEL_312:
 
         else
         {
-          if (![v211 isEqualToArray:shortNaturalLanguageDescriptionForFrequency_interval_daysOfTheWeek_daysOfTheMonth_monthsOfTheYear_setPositions_date_timeZone_lowercase____WeekendsByDayArray])
+          if (![v210 isEqualToArray:shortNaturalLanguageDescriptionForFrequency_interval_daysOfTheWeek_daysOfTheMonth_monthsOfTheYear_setPositions_date_timeZone_lowercase____WeekendsByDayArray])
           {
             if (intervalCopy4 < 2)
             {
               v166 = [v20 localizedStringForKey:@"Every year on the %@ %@" value:&stru_1F0D67F00 table:0];
               v167 = MEMORY[0x1E696AEC0];
-              v206 = v166;
+              v205 = v166;
               if (lowercaseCopy6)
               {
                 v166 = [v166 lowercaseStringWithLocale:currentLocale];
               }
 
-              v204 = v166;
-              intervalCopy3 = [v167 localizedStringWithFormat:v166, v239, v90];
+              v203 = v166;
+              intervalCopy3 = [v167 localizedStringWithFormat:v166, v238, v90];
               v102 = 1;
               if (!lowercaseCopy6)
               {
@@ -2119,14 +2099,14 @@ LABEL_312:
             {
               v155 = [v20 localizedStringForKey:@"Every %u years on the %@ %@" value:&stru_1F0D67F00 table:0];
               v156 = MEMORY[0x1E696AEC0];
-              v206 = v155;
+              v205 = v155;
               if (lowercaseCopy6)
               {
                 v155 = [v155 lowercaseStringWithLocale:currentLocale];
               }
 
-              v204 = v155;
-              intervalCopy3 = [v156 localizedStringWithFormat:v155, intervalCopy4, v239, v90];
+              v203 = v155;
+              intervalCopy3 = [v156 localizedStringWithFormat:v155, intervalCopy4, v238, v90];
               v102 = 1;
               if (!lowercaseCopy6)
               {
@@ -2142,13 +2122,13 @@ LABEL_312:
             goto LABEL_201;
           }
 
-          v91 = v230;
+          v91 = v229;
           v140 = [positionsCopy objectAtIndex:0];
           intValue3 = [v140 intValue];
 
           if (intValue3 != 1)
           {
-            v21 = v230;
+            v21 = v229;
             if (intValue3 == -1)
             {
               if (intervalCopy4 >= 2)
@@ -2175,20 +2155,20 @@ LABEL_312:
 
         v175 = [v20 localizedStringForKey:v169 value:&stru_1F0D67F00 table:0];
         v176 = MEMORY[0x1E696AEC0];
-        v206 = v175;
+        v205 = v175;
         v21 = v91;
         if (lowercaseCopy6)
         {
           v175 = [v175 lowercaseStringWithLocale:currentLocale];
         }
 
-        v195 = v242;
+        v194 = v241;
         goto LABEL_303;
       }
     }
 
     v79 = 0;
-    v21 = v230;
+    v21 = v229;
     goto LABEL_312;
   }
 
@@ -2196,13 +2176,13 @@ LABEL_312:
   v38 = [v37 count];
   if ([yearCopy count])
   {
-    LOBYTE(v197) = lowercase;
+    LOBYTE(v196) = lowercase;
     v24 = positionsCopy;
-    intervalCopy3 = [selfCopy shortNaturalLanguageDescriptionForFrequency:3 interval:interval daysOfTheWeek:v37 daysOfTheMonth:monthCopy monthsOfTheYear:yearCopy setPositions:positionsCopy date:dateCopy timeZone:zoneCopy lowercase:v197];
+    intervalCopy3 = [selfCopy shortNaturalLanguageDescriptionForFrequency:3 interval:interval daysOfTheWeek:v37 daysOfTheMonth:monthCopy monthsOfTheYear:yearCopy setPositions:positionsCopy date:dateCopy timeZone:zoneCopy lowercase:v196];
     goto LABEL_19;
   }
 
-  v212 = v37;
+  v211 = v37;
   if (v38)
   {
     if (v38 == 7)
@@ -2213,15 +2193,15 @@ LABEL_312:
         goto LABEL_160;
       }
 
-      v229 = v21;
+      v228 = v21;
       v64 = [positionsCopy objectAtIndex:0];
       intValue4 = [v64 intValue];
 
       if (intValue4 != 1)
       {
         v66 = intValue4 == -1;
-        v21 = v229;
-        v37 = v212;
+        v21 = v228;
+        v37 = v211;
         if (!v66)
         {
           goto LABEL_160;
@@ -2275,15 +2255,15 @@ LABEL_265:
         goto LABEL_160;
       }
 
-      v229 = v21;
+      v228 = v21;
       v115 = [positionsCopy objectAtIndex:0];
       intValue5 = [v115 intValue];
 
       if (intValue5 != 1)
       {
         v66 = intValue5 == -1;
-        v21 = v229;
-        v37 = v212;
+        v21 = v228;
+        v37 = v211;
         if (!v66)
         {
           goto LABEL_160;
@@ -2318,15 +2298,15 @@ LABEL_265:
         goto LABEL_160;
       }
 
-      v229 = v21;
+      v228 = v21;
       v120 = [positionsCopy objectAtIndex:0];
       intValue6 = [v120 intValue];
 
       if (intValue6 != 1)
       {
         v66 = intValue6 == -1;
-        v21 = v229;
-        v37 = v212;
+        v21 = v228;
+        v37 = v211;
         if (!v66)
         {
           goto LABEL_160;
@@ -2358,7 +2338,7 @@ LABEL_291:
 
         v39 = 0;
 LABEL_292:
-        v37 = v212;
+        v37 = v211;
         if (!intervalCopy3)
         {
           goto LABEL_20;
@@ -2389,11 +2369,11 @@ LABEL_287:
       }
 
       intervalCopy3 = v181;
-      v21 = v229;
+      v21 = v228;
       goto LABEL_291;
     }
 
-    v229 = v21;
+    v228 = v21;
     v144 = [v37 objectAtIndex:0];
     v145 = [selfCopy _stringForByDayOfWeek:v144 setPositions:positionsCopy];
 
@@ -2404,11 +2384,11 @@ LABEL_251:
 
       v39 = 1;
 LABEL_270:
-      v21 = v229;
+      v21 = v228;
       goto LABEL_292;
     }
 
-    v209 = zoneCopy;
+    v208 = zoneCopy;
     if (interval < 2)
     {
       v164 = [v20 localizedStringForKey:@"Every month on the %@" value:&stru_1F0D67F00 table:0];
@@ -2446,39 +2426,39 @@ LABEL_270:
     }
 
 LABEL_250:
-    zoneCopy = v209;
+    zoneCopy = v208;
     v24 = positionsCopy;
     goto LABEL_251;
   }
 
   intervalCopy5 = interval;
-  v220 = monthCopy;
-  v103 = [v220 count];
-  v231 = v21;
+  v219 = monthCopy;
+  v103 = [v219 count];
+  v230 = v21;
   if ([positionsCopy count])
   {
     v104 = [positionsCopy objectAtIndex:0];
     intValue7 = [v104 intValue];
 
     v66 = intValue7 == -1;
-    v21 = v231;
+    v21 = v230;
     if (v66)
     {
-      if (recurrenceDateMatchesAnyDaySpecifiedInByMonthDayList(v220, dateCopy, zoneCopy))
+      if (recurrenceDateMatchesAnyDaySpecifiedInByMonthDayList(v219, dateCopy, zoneCopy))
       {
         interval = intervalCopy5;
         if (intervalCopy5 < 2)
         {
           v24 = positionsCopy;
-          v37 = v212;
+          v37 = v211;
           if (lowercase)
           {
-            v170 = [v232 lowercaseStringWithLocale:currentLocale];
+            v170 = [v231 lowercaseStringWithLocale:currentLocale];
           }
 
           else
           {
-            v170 = v232;
+            v170 = v231;
           }
 
           intervalCopy3 = v170;
@@ -2502,7 +2482,7 @@ LABEL_250:
 
         zoneCopy = v150;
         v24 = positionsCopy;
-        v21 = v231;
+        v21 = v230;
       }
 
       else
@@ -2513,12 +2493,12 @@ LABEL_250:
       }
 
 LABEL_243:
-      v37 = v212;
+      v37 = v211;
       goto LABEL_244;
     }
   }
 
-  if (!v103 || v103 == 1 && (recurrenceDateMatchesAnyDaySpecifiedInByMonthDayList(v220, dateCopy, zoneCopy) & 1) != 0)
+  if (!v103 || v103 == 1 && (recurrenceDateMatchesAnyDaySpecifiedInByMonthDayList(v219, dateCopy, zoneCopy) & 1) != 0)
   {
     v106 = v21;
     currentCalendar2 = [MEMORY[0x1E695DEE8] currentCalendar];
@@ -2539,7 +2519,7 @@ LABEL_242:
       goto LABEL_243;
     }
 
-    v223 = yearCopy;
+    v222 = yearCopy;
     interval = intervalCopy5;
     if (intervalCopy5 < 2)
     {
@@ -2581,20 +2561,20 @@ LABEL_242:
 
 LABEL_241:
     zoneCopy = v108;
-    v21 = v231;
-    yearCopy = v223;
+    v21 = v230;
+    yearCopy = v222;
     goto LABEL_242;
   }
 
-  v240 = 0;
+  v239 = 0;
   v122 = 0;
-  v205 = v103;
-  v208 = zoneCopy;
-  v224 = yearCopy;
-  v227 = v20;
+  v204 = v103;
+  v207 = zoneCopy;
+  v223 = yearCopy;
+  v226 = v20;
   do
   {
-    v123 = [v220 objectAtIndex:v122];
+    v123 = [v219 objectAtIndex:v122];
     intValue8 = [v123 intValue];
 
     if (intValue8 < 1)
@@ -2602,17 +2582,17 @@ LABEL_241:
       goto LABEL_184;
     }
 
-    if (!v240)
+    if (!v239)
     {
       v130 = yearCopy;
       v131 = weekCopy;
       v132 = objc_alloc_init(MEMORY[0x1E696AD60]);
       v126 = [selfCopy _dayOfMonthAsString:intValue8];
-      v240 = v132;
+      v239 = v132;
       v133 = v132;
       weekCopy = v131;
       yearCopy = v130;
-      v103 = v205;
+      v103 = v204;
       [v133 appendString:v126];
 LABEL_182:
 
@@ -2628,8 +2608,8 @@ LABEL_182:
         v127 = [v125 localizedStringForKey:@"Recurrence rule last item format for a list with two terms.  The last part of a list: X and Y. Here %@ is 'Y'" value:@" and %@" table:0];
         v128 = 0;
         v129 = 1;
-        v200 = v127;
-        v198 = v126;
+        v199 = v127;
+        v197 = v126;
       }
 
       else
@@ -2637,11 +2617,11 @@ LABEL_182:
         v127 = [v125 localizedStringForKey:@"Recurrence rule last item format for a list with three or more items.  The last part of a list: X value:Y table:{and Z. Here %@ is 'Z'", @", and %@", 0}];
         v129 = 0;
         v128 = 1;
-        v201 = v127;
-        v199 = v126;
+        v200 = v127;
+        v198 = v126;
       }
 
-      v126 = v203;
+      v126 = v202;
     }
 
     else
@@ -2649,41 +2629,41 @@ LABEL_182:
       v127 = [v125 localizedStringForKey:@" value:%@" table:{&stru_1F0D67F00, 0}];
       v128 = 0;
       v129 = 0;
-      v202 = v127;
+      v201 = v127;
     }
 
     v134 = [selfCopy _dayOfMonthAsString:intValue8];
-    [v240 appendFormat:v127, v134];
+    [v239 appendFormat:v127, v134];
 
     if (v128)
     {
     }
 
-    v103 = v205;
+    v103 = v204;
     if (v129)
     {
     }
 
-    yearCopy = v224;
-    v20 = v227;
-    v21 = v231;
-    if (v122 + 1 < v205)
+    yearCopy = v223;
+    v20 = v226;
+    v21 = v230;
+    if (v122 + 1 < v204)
     {
 
-      v203 = v126;
-      zoneCopy = v208;
+      v202 = v126;
+      zoneCopy = v207;
       goto LABEL_182;
     }
 
-    v203 = v126;
-    zoneCopy = v208;
+    v202 = v126;
+    zoneCopy = v207;
 LABEL_184:
     ++v122;
   }
 
   while (v103 != v122);
-  v37 = v212;
-  if (v240)
+  v37 = v211;
+  if (v239)
   {
     v135 = zoneCopy;
     interval = intervalCopy5;
@@ -2699,7 +2679,7 @@ LABEL_184:
         v139 = [v136 lowercaseStringWithLocale:currentLocale];
       }
 
-      intervalCopy3 = [v138 localizedStringWithFormat:v139, intervalCopy5, v240];
+      intervalCopy3 = [v138 localizedStringWithFormat:v139, intervalCopy5, v239];
       if (!lowercase)
       {
         goto LABEL_228;
@@ -2719,7 +2699,7 @@ LABEL_227:
       v139 = [v157 lowercaseStringWithLocale:currentLocale];
     }
 
-    intervalCopy3 = [v158 localizedStringWithFormat:v139, v240];
+    intervalCopy3 = [v158 localizedStringWithFormat:v139, v239];
     if (lowercase)
     {
       goto LABEL_227;
@@ -2728,8 +2708,8 @@ LABEL_227:
 LABEL_228:
 
     zoneCopy = v135;
-    v21 = v231;
-    v37 = v212;
+    v21 = v230;
+    v37 = v211;
   }
 
   else
@@ -2751,7 +2731,7 @@ LABEL_20:
     {
       if (interval >= 2)
       {
-        v210 = v37;
+        v209 = v37;
         intervalCopy6 = interval;
         v41 = v21;
         v42 = zoneCopy;
@@ -2772,20 +2752,20 @@ LABEL_20:
         zoneCopy = v42;
         v24 = positionsCopy;
         v21 = v41;
-        v37 = v210;
+        v37 = v209;
         goto LABEL_162;
       }
 
       if (lowercaseCopy6)
       {
-        v53 = v232;
+        v53 = v231;
 LABEL_38:
         v54 = [v53 lowercaseStringWithLocale:currentLocale];
       }
 
       else
       {
-        v54 = v232;
+        v54 = v231;
       }
 
 LABEL_161:
@@ -2803,7 +2783,6 @@ LABEL_162:
 LABEL_323:
   v192 = intervalCopy3;
 
-  v193 = *MEMORY[0x1E69E9840];
   return intervalCopy3;
 }
 
@@ -2863,23 +2842,21 @@ void __165__REMRecurrenceRuleFormatter_shortNaturalLanguageDescriptionForFrequen
 
 + (id)_byDayOfWeekOrdinalStrings
 {
-  v12[6] = *MEMORY[0x1E69E9840];
+  v11[6] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v3 = [v2 localizedStringForKey:@"last" value:&stru_1F0D67F00 table:0];
-  v12[0] = v3;
+  v11[0] = v3;
   v4 = [v2 localizedStringForKey:@"first" value:&stru_1F0D67F00 table:0];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = [v2 localizedStringForKey:@"second" value:&stru_1F0D67F00 table:0];
-  v12[2] = v5;
+  v11[2] = v5;
   v6 = [v2 localizedStringForKey:@"third" value:&stru_1F0D67F00 table:0];
-  v12[3] = v6;
+  v11[3] = v6;
   v7 = [v2 localizedStringForKey:@"fourth" value:&stru_1F0D67F00 table:0];
-  v12[4] = v7;
+  v11[4] = v7;
   v8 = [v2 localizedStringForKey:@"fifth" value:&stru_1F0D67F00 table:0];
-  v12[5] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:6];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[5] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
 
   return v9;
 }

@@ -5,6 +5,7 @@
 + (id)carPlayCapabilitiesCache;
 + (id)fetchCarCapabilitiesWithIdentifier:(id)identifier;
 + (void)_resetCapabilitiesGlobalDomain;
++ (void)capabilitiesIdentifier;
 + (void)invalidateCarPlayCapabilitiesCache;
 + (void)setCapabilitiesIdentifier:(id)identifier;
 + (void)setCapabilitiesVersion:(id)version;
@@ -42,8 +43,8 @@
 
   objc_sync_exit(selfCopy);
 
-  v4 = CarGeneralLogging();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = CarGeneralLogging(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     +[CRCarPlayCapabilities capabilitiesIdentifier];
   }
@@ -97,7 +98,7 @@
 
 - (id)description
 {
-  v3 = CRIsTestContext();
+  v3 = CRIsTestContext(self, a2);
   v4 = MEMORY[0x1E696AEC0];
   v5 = objc_opt_class();
   version = self->_version;
@@ -156,17 +157,18 @@
   v6 = sCRCarPlayCapabilitiesIdentifier;
   if (identifierCopy)
   {
-    if (([sCRCarPlayCapabilitiesIdentifier isEqualToString:identifierCopy] & 1) == 0)
+    v7 = [sCRCarPlayCapabilitiesIdentifier isEqualToString:identifierCopy];
+    if ((v7 & 1) == 0)
     {
-      v7 = CarGeneralLogging();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = CarGeneralLogging(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         +[CRCarPlayCapabilities setCapabilitiesIdentifier:];
       }
 
-      v8 = [identifierCopy copy];
-      v9 = sCRCarPlayCapabilitiesIdentifier;
-      sCRCarPlayCapabilitiesIdentifier = v8;
+      v9 = [identifierCopy copy];
+      v10 = sCRCarPlayCapabilitiesIdentifier;
+      sCRCarPlayCapabilitiesIdentifier = v9;
     }
   }
 
@@ -509,7 +511,8 @@ void __44__CRCarPlayCapabilities_capabilitiesVersion__block_invoke()
 + (id)fetchCarCapabilitiesWithIdentifier:(id)identifier
 {
   v4 = [self _newCapabilitiesFromGlobalDomainWithIdentifier:identifier];
-  if (([v4 persisted] & 1) == 0)
+  persisted = [v4 persisted];
+  if ((persisted & 1) == 0)
   {
     carPlayCapabilitiesCache = [self carPlayCapabilitiesCache];
 
@@ -521,8 +524,8 @@ void __44__CRCarPlayCapabilities_capabilitiesVersion__block_invoke()
     }
   }
 
-  v7 = CarGeneralLogging();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = CarGeneralLogging(persisted);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     +[CRCarPlayCapabilities fetchCarCapabilitiesWithIdentifier:];
   }
@@ -539,7 +542,7 @@ void __44__CRCarPlayCapabilities_capabilitiesVersion__block_invoke()
   CFPreferencesSynchronize(*MEMORY[0x1E695E890], *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
   v7 = CFPreferencesCopyValue(@"CarCapabilities", v4, v5, v6);
   v8 = [v7 objectForKey:identifierCopy];
-  v9 = CarGeneralLogging();
+  v9 = CarGeneralLogging(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (v8)
   {
@@ -589,7 +592,7 @@ void __44__CRCarPlayCapabilities_capabilitiesVersion__block_invoke()
 
 + (void)waitForCarCapabilitiesValuesWithReply:(id)reply
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v5 = +[CRCarPlayCapabilities capabilitiesIdentifier];
   if ([v5 isEqualToString:@"CarCapabilitiesDefaultIdentifier"])
@@ -607,14 +610,14 @@ void __44__CRCarPlayCapabilities_capabilitiesVersion__block_invoke()
     version = [v7 version];
     if (version && ([v7 version], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "integerValue"), v11 = objc_msgSend(@"5", "integerValue"), v9, version, v10 > v11))
     {
-      v12 = CarGeneralLogging();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = CarGeneralLogging(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
         *&buf[4] = "+[CRCarPlayCapabilities waitForCarCapabilitiesValuesWithReply:]";
         *&buf[12] = 2112;
         *&buf[14] = v7;
-        _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "%s: CarCapabilities available for current session: %@", buf, 0x16u);
+        _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_DEFAULT, "%s: CarCapabilities available for current session: %@", buf, 0x16u);
       }
 
       if (!replyCopy)
@@ -629,39 +632,39 @@ void __44__CRCarPlayCapabilities_capabilitiesVersion__block_invoke()
     else
     {
       date = [MEMORY[0x1E695DF00] date];
-      v14 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F48038E8];
-      v15 = MEMORY[0x1E695DFD8];
-      v16 = objc_opt_class();
+      v15 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F48038E8];
+      v16 = MEMORY[0x1E695DFD8];
       v17 = objc_opt_class();
-      v23 = objc_opt_class();
-      v18 = [v15 setWithObjects:{v16, v17, v23, objc_opt_class(), 0}];
-      [v14 setClasses:v18 forSelector:sel_requestCarCapabilitiesStatus_withReply_ argumentIndex:0 ofReply:1];
+      v18 = objc_opt_class();
+      v24 = objc_opt_class();
+      v19 = [v16 setWithObjects:{v17, v18, v24, objc_opt_class(), 0}];
+      [v15 setClasses:v19 forSelector:sel_requestCarCapabilitiesStatus_withReply_ argumentIndex:0 ofReply:1];
 
-      v19 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.carkit.app.service" options:4096];
-      [v19 setRemoteObjectInterface:v14];
-      [v19 resume];
-      v20 = [v19 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_156];
-      v35 = @"CRCarPlayCapabilitiesIdentifierKey";
-      v36[0] = v5;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+      v20 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.carkit.app.service" options:4096];
+      [v20 setRemoteObjectInterface:v15];
+      [v20 resume];
+      v21 = [v20 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_156];
+      v36 = @"CRCarPlayCapabilitiesIdentifierKey";
+      v37[0] = v5;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v32 = __Block_byref_object_copy__7;
-      v33 = __Block_byref_object_dispose__7;
-      v34 = 0;
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_invoke_157;
-      v25[3] = &unk_1E82FD510;
-      v29 = buf;
+      v33 = __Block_byref_object_copy__7;
+      v34 = __Block_byref_object_dispose__7;
+      v35 = 0;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_invoke_157;
+      v26[3] = &unk_1E82FD510;
+      v30 = buf;
       selfCopy = self;
-      v28 = replyCopy;
+      v29 = replyCopy;
       dictionaryRepresentation = date;
-      v26 = dictionaryRepresentation;
-      v22 = v19;
-      v27 = v22;
-      [v20 requestCarCapabilitiesStatus:v21 withReply:v25];
+      v27 = dictionaryRepresentation;
+      v23 = v20;
+      v28 = v23;
+      [v21 requestCarCapabilitiesStatus:v22 withReply:v26];
 
       _Block_object_dispose(buf, 8);
     }
@@ -673,7 +676,7 @@ LABEL_13:
 void __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CarGeneralLogging();
+  v3 = CarGeneralLogging(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_invoke_cold_1(v2, v3);
@@ -682,9 +685,9 @@ void __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_i
 
 void __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_invoke_157(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_invoke_157_cold_1();
@@ -693,40 +696,40 @@ void __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_i
   objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
   if (*(*(*(a1 + 56) + 8) + 40))
   {
-    [*(a1 + 64) setCarPlayCapabilitiesCache:?];
+    v6 = [*(a1 + 64) setCarPlayCapabilitiesCache:?];
   }
 
-  v6 = *(a1 + 48);
-  if (v6)
+  v7 = *(a1 + 48);
+  if (v7)
   {
-    v7 = [*(*(*(a1 + 56) + 8) + 40) dictionaryRepresentation];
-    (*(v6 + 16))(v6, v7, 0);
+    v8 = [*(*(*(a1 + 56) + 8) + 40) dictionaryRepresentation];
+    (*(v7 + 16))(v7, v8, 0);
   }
 
-  v8 = CarGeneralLogging();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = CarGeneralLogging(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     if (*(*(*(a1 + 56) + 8) + 40))
     {
-      v9 = @"Found";
+      v10 = @"Found";
     }
 
     else
     {
-      v9 = @"Did not find";
+      v10 = @"Did not find";
     }
 
     [*(a1 + 32) timeIntervalSinceNow];
-    v11 = *(*(*(a1 + 56) + 8) + 40);
-    v12 = 136315906;
-    v13 = "+[CRCarPlayCapabilities waitForCarCapabilitiesValuesWithReply:]_block_invoke";
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2048;
-    v17 = fabs(v10);
-    v18 = 2112;
-    v19 = v11;
-    _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@ capabilities values after waiting %f s: %@", &v12, 0x2Au);
+    v12 = *(*(*(a1 + 56) + 8) + 40);
+    v13 = 136315906;
+    v14 = "+[CRCarPlayCapabilities waitForCarCapabilitiesValuesWithReply:]_block_invoke";
+    v15 = 2112;
+    v16 = v10;
+    v17 = 2048;
+    v18 = fabs(v11);
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "%s: %@ capabilities values after waiting %f s: %@", &v13, 0x2Au);
   }
 
   [*(a1 + 40) invalidate];
@@ -770,6 +773,20 @@ void __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_i
   return v3;
 }
 
++ (void)capabilitiesIdentifier
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_3_2(&dword_1C81FC000, v0, v1, "%s: returning capabilities identifier %@", v2, v3, v4, v5, v6);
+}
+
++ (void)setCapabilitiesIdentifier:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_3_2(&dword_1C81FC000, v0, v1, "%s: setting capabilities identifier %@", v2, v3, v4, v5, v6);
+}
+
 + (void)fetchCarCapabilitiesWithIdentifier:.cold.1()
 {
   v5 = [MEMORY[0x1E696AD98] numberWithInt:getpid()];
@@ -800,6 +817,13 @@ void __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_i
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&dword_1C81FC000, a2, OS_LOG_TYPE_ERROR, "CRCarPlayAppService error: %@", &v2, 0xCu);
+}
+
+void __63__CRCarPlayCapabilities_waitForCarCapabilitiesValuesWithReply___block_invoke_157_cold_1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_4();
+  OUTLINED_FUNCTION_3_2(&dword_1C81FC000, v0, v1, "%s: requestCarCapabilitiesStatus service did reply. capabilities = %@", v2, v3, v4, v5, v6);
 }
 
 @end

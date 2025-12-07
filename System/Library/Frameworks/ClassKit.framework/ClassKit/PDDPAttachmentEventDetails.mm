@@ -1,5 +1,7 @@
 @interface PDDPAttachmentEventDetails
 - (BOOL)isEqual:(id)equal;
+- (id)attachmentTypeAsString:(int)string;
+- (id)contextTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -27,6 +29,21 @@
   {
     return 0;
   }
+}
+
+- (id)attachmentTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100202A70 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsAttachmentType:(id)type
@@ -106,6 +123,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)contextTypeAsString:(int)string
+{
+  if ((string + 1) >= 0x13)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100202AB0 + (string + 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsContextType:(id)type
@@ -300,51 +332,49 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_classId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_handoutId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_attachmentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    attachmentType = self->_attachmentType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    contextType = self->_contextType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_eventRecipientId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_appIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -472,7 +502,6 @@
     }
   }
 
-  v8 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_attachmentType != *(equalCopy + 6))
@@ -484,7 +513,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_22:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_23;
   }
 
@@ -510,17 +539,17 @@ LABEL_22:
   appIdentifier = self->_appIdentifier;
   if (appIdentifier | *(equalCopy + 1))
   {
-    v11 = [(NSString *)appIdentifier isEqual:?];
+    v10 = [(NSString *)appIdentifier isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_23:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

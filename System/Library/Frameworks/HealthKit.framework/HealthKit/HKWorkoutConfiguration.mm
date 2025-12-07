@@ -32,7 +32,7 @@
 
 - (BOOL)validateIgnoringDeviceSupport:(BOOL)support error:(id *)error
 {
-  if ((_HKWorkoutActivityTypeIsValid(self->_activityType) & 1) == 0)
+  if (!_HKWorkoutActivityTypeIsValid(self->_activityType))
   {
     [MEMORY[0x1E696ABC0] hk_assignError:error code:3 format:{@"Invalid workout activity type %ld", self->_activityType}];
     return 0;
@@ -384,24 +384,22 @@ LABEL_23:
 
 - (id)_dictionaryRepresentation
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
   [v3 encodeObject:self forKey:@"HKWorkoutConfigurationKey"];
   encodedData = [v3 encodedData];
-  v9 = @"HKWorkoutConfigurationNSDataKey";
+  v8 = @"HKWorkoutConfigurationNSDataKey";
   data = encodedData;
   if (!encodedData)
   {
     data = [MEMORY[0x1E695DEF0] data];
   }
 
-  v10[0] = data;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = data;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   if (!encodedData)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

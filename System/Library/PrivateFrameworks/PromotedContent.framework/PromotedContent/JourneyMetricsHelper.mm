@@ -92,7 +92,7 @@
   v9 = sub_1C1AB2B4C(Strong, type, container, 0, 0);
   swift_unknownObjectRelease();
   v10 = sub_1C1AB35FC();
-  sub_1C1AB3CFC(1400, v9, v10);
+  sub_1C1AB3CFC(1400, v9, v10, 0);
 }
 
 - (void)addUnfilledReason:(int64_t)reason
@@ -103,8 +103,9 @@
 
 - (void)userReturnedFromInteractionWithIsVoiceOverEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  sub_1C1AB86CC(enabled, 0);
+  sub_1C1AB86CC(enabledCopy, 0);
 }
 
 - (BOOL)hasBeenOnScreen
@@ -152,19 +153,16 @@
 
 - (APMetricPrimitiveCreating)primitiveCreator
 {
-  v3 = OBJC_IVAR____TtC15PromotedContent20JourneyMetricsHelper_primitiveCreator;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setPrimitiveCreator:(id)creator
 {
   v5 = OBJC_IVAR____TtC15PromotedContent20JourneyMetricsHelper_primitiveCreator;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = creator;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -222,49 +220,47 @@
 - (NSDate)impressionStartDate
 {
   v3 = sub_1C1AC1F08(&qword_1EBF07F50, &qword_1C1B9A590);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR____TtC15PromotedContent20JourneyMetricsHelper_impressionStartDate;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR____TtC15PromotedContent20JourneyMetricsHelper_impressionStartDate;
   swift_beginAccess();
-  sub_1C1ABB0C4(self + v7, v6);
-  v8 = sub_1C1B94588();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1C1ABB0C4(self + v6, v5);
+  v7 = sub_1C1B94588();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1C1B94538();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1C1B94538();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setImpressionStartDate:(id)date
 {
   v5 = sub_1C1AC1F08(&qword_1EBF07F50, &qword_1C1B9A590);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (date)
   {
     sub_1C1B94558();
-    v9 = sub_1C1B94588();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1C1B94588();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1C1B94588();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1C1B94588();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR____TtC15PromotedContent20JourneyMetricsHelper_impressionStartDate;
+  v10 = OBJC_IVAR____TtC15PromotedContent20JourneyMetricsHelper_impressionStartDate;
   swift_beginAccess();
   selfCopy = self;
-  sub_1C1AABE90(v8, self + v11);
+  sub_1C1AABE90(v7, self + v10);
   swift_endAccess();
 }
 
@@ -325,7 +321,7 @@
   sub_1C1B7D0A4();
   sub_1C1B7EF7C(9102);
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for JourneyMetricsHelper();
+  v3.super_class = type metadata accessor for JourneyMetricsHelper(0);
   [(JourneyMetricsHelper *)&v3 dealloc];
 }
 
@@ -377,7 +373,7 @@
   v10 = sub_1C1AB2B4C(Strong, type, container, 0, 0);
   swift_unknownObjectRelease();
   v11 = sub_1C1AB35FC();
-  sub_1C1AB3CFC(1400, v10, v11);
+  sub_1C1AB3CFC(1400, v10, v11, 0);
 }
 
 - (void)replacedWithHelper:(id)helper
@@ -442,15 +438,14 @@
   collapsedCopy = collapsed;
   v10 = sub_1C1B94588();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v16[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v13 = &v15[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1C1B94558();
   selfCopy = self;
-  v16[12] = 1;
-  sub_1C1B7FF1C(percent, v14, 0x100000000, collapsedCopy, duration);
+  v15[12] = 1;
+  sub_1C1B7FF1C(percent, v13, 0x100000000, collapsedCopy, duration);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)visibleWithPercent:(int64_t)percent starting:(id)starting duration:(double)duration scrollVelocity:(float)velocity collapsed:(BOOL)collapsed
@@ -458,15 +453,14 @@
   collapsedCopy = collapsed;
   v12 = sub_1C1B94588();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
   MEMORY[0x1EEE9AC00](v12);
-  v16 = &v18[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v15 = &v17[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1C1B94558();
   selfCopy = self;
-  v18[12] = 0;
-  sub_1C1B7FF1C(percent, v16, LODWORD(velocity), collapsedCopy, duration);
+  v17[12] = 0;
+  sub_1C1B7FF1C(percent, v15, LODWORD(velocity), collapsedCopy, duration);
 
-  (*(v13 + 8))(v16, v12);
+  (*(v13 + 8))(v15, v12);
 }
 
 - (void)offScreenWithCollapsed:(BOOL)collapsed
@@ -506,8 +500,9 @@
 
 - (void)userReturnedFromInteractionWithIsVoiceOverEnabled:(BOOL)enabled ignoreVisibilityState:(BOOL)state
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  sub_1C1AB86CC(enabled, state);
+  sub_1C1AB86CC(enabledCopy, state);
 }
 
 - (void)adMarkerInteracted

@@ -38,7 +38,7 @@
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUWiFiScanner _scanWiFiProcessResult:]", 0x32u, "### No BSSID for scan result\n", v5, v6, v7, v8, v44);
+      LogPrintF(ucat, "[CUWiFiScanner _scanWiFiProcessResult:]", 50, "### No BSSID for scan result\n", v5, v6, v7, v8, v44);
     }
 
 LABEL_52:
@@ -173,7 +173,7 @@ LABEL_46:
       if (v35->var0 != -1)
       {
 LABEL_34:
-        LogPrintF(v35, "[CUWiFiScanner _scanWiFiProcessResult:]", 0x1Eu, "WiFi scan changed: %@, %#{flags}\n", v30, v31, v32, v33, v11);
+        LogPrintF(v35, "[CUWiFiScanner _scanWiFiProcessResult:]", 30, "WiFi scan changed: %@, %#{flags}\n", v30, v31, v32, v33, v11);
         goto LABEL_44;
       }
 
@@ -208,7 +208,7 @@ LABEL_44:
       v36 = self->_ucat;
     }
 
-    LogPrintF(v36, "[CUWiFiScanner _scanWiFiProcessResult:]", 0x1Eu, "WiFi scan found: %@\n", v30, v31, v32, v33, v11);
+    LogPrintF(v36, "[CUWiFiScanner _scanWiFiProcessResult:]", 30, "WiFi scan found: %@\n", v30, v31, v32, v33, v11);
   }
 
 LABEL_39:
@@ -234,6 +234,7 @@ LABEL_47:
 
 - (void)_scanWiFiFinished:(id)finished status:(int)status
 {
+  v4 = *&status;
   v61[1] = *MEMORY[0x1E69E9840];
   finishedCopy = finished;
   ucat = self->_ucat;
@@ -243,7 +244,7 @@ LABEL_47:
     {
 LABEL_3:
       v8 = [finishedCopy count];
-      LogPrintF(ucat, "[CUWiFiScanner _scanWiFiFinished:status:]", 0x1Eu, "WiFi scan finish: %ld results, status %#m\n", v9, v10, v11, v12, v8);
+      LogPrintF(ucat, "[CUWiFiScanner _scanWiFiFinished:status:]", 30, "WiFi scan finish: %ld results, status %#m\n", v9, v10, v11, v12, v8);
       goto LABEL_5;
     }
 
@@ -266,16 +267,16 @@ LABEL_5:
     goto LABEL_39;
   }
 
-  if (status)
+  if (v4)
   {
     errorHandler = self->_errorHandler;
     if (errorHandler)
     {
       v14 = MEMORY[0x1E696ABC0];
       v15 = *MEMORY[0x1E696A768];
-      statusCopy = status;
+      v16 = v4;
       v60 = *MEMORY[0x1E696A578];
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, status, 0, 0)}];
+      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, v4, 0, 0)}];
       v18 = v17;
       v19 = @"?";
       if (v17)
@@ -285,7 +286,7 @@ LABEL_5:
 
       v61[0] = v19;
       v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
-      v21 = [v14 errorWithDomain:v15 code:statusCopy userInfo:v20];
+      v21 = [v14 errorWithDomain:v15 code:v16 userInfo:v20];
       errorHandler[2](errorHandler, v21);
     }
   }
@@ -355,7 +356,7 @@ LABEL_5:
             {
               v38 = self->_ucat;
 LABEL_28:
-              LogPrintF(v38, "[CUWiFiScanner _scanWiFiFinished:status:]", 0x1Eu, "WiFi scan lost: %@\n", v34, v35, v36, v37, v33);
+              LogPrintF(v38, "[CUWiFiScanner _scanWiFiFinished:status:]", 30, "WiFi scan lost: %@\n", v34, v35, v36, v37, v33);
             }
           }
 
@@ -447,7 +448,7 @@ void __42__CUWiFiScanner__scanWiFiFinished_status___block_invoke(uint64_t a1, ui
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUWiFiScanner _scanWiFiStart]", 0x1Eu, "WiFi scan start\n", v4, v5, v6, v7, v23[0]);
+    LogPrintF(ucat, "[CUWiFiScanner _scanWiFiStart]", 30, "WiFi scan start\n", v4, v5, v6, v7, v23[0]);
   }
 
 LABEL_11:
@@ -495,7 +496,7 @@ LABEL_11:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __23__CUWiFiScanner_resume__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__23__CUWiFiScanner_resume__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = *(a1 + 32);
   v10 = *(v9 + 48);
@@ -513,14 +514,14 @@ uint64_t __23__CUWiFiScanner_resume__block_invoke(uint64_t a1, uint64_t a2, uint
       v10 = *(v9 + 48);
     }
 
-    LogPrintF(v10, "[CUWiFiScanner resume]_block_invoke", 0x1Eu, "Resume\n", a5, a6, a7, a8, v13);
+    LogPrintF(v10, "[CUWiFiScanner resume]_block_invoke", 30, "Resume\n", a5, a6, a7, a8, v13);
     v9 = *(a1 + 32);
   }
 
 LABEL_5:
   *(v9 + 40) = 0;
   result = *(a1 + 32);
-  if (*(result + 8) == 1 && (*(result + 26) & 1) == 0 && !*(result + 32))
+  if (*(result + 8) == 1 && (*(result + 26) & 1) == 0 && !*(result + 4))
   {
 
     return [result _scanWiFiStart];
@@ -549,7 +550,7 @@ void __24__CUWiFiScanner_suspend__block_invoke(uint64_t a1, uint64_t a2, uint64_
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUWiFiScanner suspend]_block_invoke", 0x1Eu, "Suspend\n", a5, a6, a7, a8, v16);
+      LogPrintF(v10, "[CUWiFiScanner suspend]_block_invoke", 30, "Suspend\n", a5, a6, a7, a8, v16);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -605,7 +606,7 @@ LABEL_5:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUWiFiScanner _invalidated]", 0x1Eu, "Invalidated\n", v4, v5, v6, v7, v10);
+      LogPrintF(ucat, "[CUWiFiScanner _invalidated]", 30, "Invalidated\n", v4, v5, v6, v7, v10);
     }
   }
 }
@@ -621,9 +622,9 @@ LABEL_5:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __27__CUWiFiScanner_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__27__CUWiFiScanner_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 24))
   {
     return result;
@@ -631,7 +632,7 @@ uint64_t __27__CUWiFiScanner_invalidate__block_invoke(uint64_t result, uint64_t 
 
   v11 = result;
   *(v10 + 24) = 1;
-  v12 = *(result + 32);
+  v12 = result[4];
   if ((*(v12 + 25) & 1) == 0)
   {
     v13 = *(v12 + 48);
@@ -640,7 +641,7 @@ uint64_t __27__CUWiFiScanner_invalidate__block_invoke(uint64_t result, uint64_t 
       if (*v13 == -1)
       {
         v14 = _LogCategory_Initialize(*(v12 + 48), 0x1Eu);
-        v12 = *(v11 + 32);
+        v12 = v11[4];
         if (!v14)
         {
           goto LABEL_7;
@@ -649,8 +650,8 @@ uint64_t __27__CUWiFiScanner_invalidate__block_invoke(uint64_t result, uint64_t 
         v13 = *(v12 + 48);
       }
 
-      LogPrintF(v13, "[CUWiFiScanner invalidate]_block_invoke", 0x1Eu, "Invalidating\n", a5, a6, a7, a8, v8);
-      v12 = *(v11 + 32);
+      LogPrintF(v13, "[CUWiFiScanner invalidate]_block_invoke", 30, "Invalidating\n", a5, a6, a7, a8, v8);
+      v12 = v11[4];
     }
   }
 
@@ -660,11 +661,11 @@ LABEL_7:
   {
     v16 = v15;
     dispatch_source_cancel(v16);
-    v17 = *(v11 + 32);
+    v17 = v11[4];
     v18 = *(v17 + 32);
     *(v17 + 32) = 0;
 
-    v12 = *(v11 + 32);
+    v12 = v11[4];
   }
 
   return [v12 _invalidated];
@@ -690,7 +691,7 @@ uint64_t __25__CUWiFiScanner_activate__block_invoke(uint64_t a1, uint64_t a2, ui
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUWiFiScanner activate]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v14);
+      LogPrintF(v10, "[CUWiFiScanner activate]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v14);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -756,7 +757,7 @@ LABEL_5:
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    FatalErrorF("Dealloc without invalidate", a2, v2, v3, v4, v5, v6, v7, v10.receiver);
+    FatalErrorF("Dealloc without invalidate", a2);
   }
 
   [(CUWiFiScanner *)self _cleanup];
@@ -767,9 +768,9 @@ LABEL_5:
     self->_ucat = 0;
   }
 
-  v10.receiver = self;
-  v10.super_class = CUWiFiScanner;
-  [(CUWiFiScanner *)&v10 dealloc];
+  v4.receiver = self;
+  v4.super_class = CUWiFiScanner;
+  [(CUWiFiScanner *)&v4 dealloc];
 }
 
 - (CUWiFiScanner)init

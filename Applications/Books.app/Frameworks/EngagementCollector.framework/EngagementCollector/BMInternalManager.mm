@@ -39,44 +39,40 @@
 - (void)submitEvent:(id)event
 {
   v4 = sub_2294(&qword_42590, &unk_32ED0);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v15 - v6;
-  v8 = *(&self->super.isa + OBJC_IVAR___BMInternalManager_collector);
+  v6 = &v12 - v5;
   swift_beginAccess();
-  v9 = *(v8 + 32);
   selfCopy = self;
 
-  v12 = sub_E3E0(v11);
-  v13 = sub_31480();
-  (*(*(v13 - 8) + 56))(v7, 1, 1, v13);
-  v14 = swift_allocObject();
-  *(v14 + 16) = 0;
-  *(v14 + 24) = 0;
-  *(v14 + 32) = v12;
-  *(v14 + 40) = xmmword_32EC0;
-  *(v14 + 56) = sub_F33C;
-  *(v14 + 64) = 0;
-  sub_10C5C(0, 0, v7, &unk_33008, v14);
+  v9 = sub_E3E0(v8);
+  v10 = sub_31480();
+  (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
+  v11 = swift_allocObject();
+  *(v11 + 16) = 0;
+  *(v11 + 24) = 0;
+  *(v11 + 32) = v9;
+  *(v11 + 40) = xmmword_32EC0;
+  *(v11 + 56) = sub_F33C;
+  *(v11 + 64) = 0;
+  sub_10C5C(0, 0, v6, &unk_33008, v11);
 }
 
 - (void)onDidReceiveAppDidBackground:(id)background
 {
   v4 = sub_31060();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_31050();
-  v9 = *(&self->super.isa + OBJC_IVAR___BMInternalManager_configuration);
-  if (v9 && *(v9 + OBJC_IVAR___BMInternalManagerConfiguration_shouldPurgeOutdatedData) == 1)
+  v8 = *(&self->super.isa + OBJC_IVAR___BMInternalManager_configuration);
+  if (v8 && *(v8 + OBJC_IVAR___BMInternalManagerConfiguration_shouldPurgeOutdatedData) == 1)
   {
     selfCopy = self;
-    v11 = v9;
+    v10 = v8;
     sub_EE58();
   }
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (BMInternalManager)init

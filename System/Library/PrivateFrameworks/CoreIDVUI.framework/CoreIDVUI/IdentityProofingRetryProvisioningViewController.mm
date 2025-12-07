@@ -21,16 +21,18 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for IdentityProofingRetryProvisioningViewController();
-  v2 = v5.receiver;
-  [(IdentityProofingViewController *)&v5 viewDidLayoutSubviews];
-  v3 = *(*&v2[OBJC_IVAR____TtC9CoreIDVUI47IdentityProofingRetryProvisioningViewController_viewConfig] + 144);
-  if (v3)
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for IdentityProofingRetryProvisioningViewController();
+  v2 = v7.receiver;
+  [(IdentityProofingViewController *)&v7 viewDidLayoutSubviews];
+  v3 = *&v2[OBJC_IVAR____TtC9CoreIDVUI47IdentityProofingRetryProvisioningViewController_viewConfig];
+  v4 = *(v3 + 144);
+  if (v4)
   {
+    v5 = *(v3 + 152);
 
-    v3(v4);
-    sub_245771C34(v3);
+    v4(v6);
+    sub_245771C34(v4, v5);
   }
 }
 

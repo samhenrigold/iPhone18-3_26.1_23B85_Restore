@@ -12,11 +12,11 @@
 
 - (id)unarchiveRemovedUserInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v14 = 0;
-  v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:infoCopy error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:infoCopy error:&v13];
+  v6 = v13;
   if (v5)
   {
     v7 = v5;
@@ -31,18 +31,16 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v16 = v11;
-      v17 = 2112;
-      v18 = infoCopy;
-      v19 = 2112;
-      v20 = v6;
+      v15 = v11;
+      v16 = 2112;
+      v17 = infoCopy;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive removedUserInfoData: %@, with error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -146,7 +144,7 @@ LABEL_17:
 
 - (HMRemovedUserInfo)removedUserInfo
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   removedUserInfoData = [(HMDRemovedUserAccessCodeModel *)self removedUserInfoData];
 
   if (removedUserInfoData)
@@ -154,9 +152,9 @@ LABEL_17:
     v4 = MEMORY[0x277CCAAC8];
     v5 = objc_opt_class();
     removedUserInfoData2 = [(HMDRemovedUserAccessCodeModel *)self removedUserInfoData];
-    v21 = 0;
-    v7 = [v4 unarchivedObjectOfClass:v5 fromData:removedUserInfoData2 error:&v21];
-    v8 = v21;
+    v20 = 0;
+    v7 = [v4 unarchivedObjectOfClass:v5 fromData:removedUserInfoData2 error:&v20];
+    v8 = v20;
 
     if (v7)
     {
@@ -173,11 +171,11 @@ LABEL_17:
         v17 = HMFGetLogIdentifier();
         removedUserInfoData3 = [(HMDRemovedUserAccessCodeModel *)selfCopy removedUserInfoData];
         *buf = 138543874;
-        v23 = v17;
-        v24 = 2112;
-        v25 = removedUserInfoData3;
-        v26 = 2112;
-        v27 = v8;
+        v22 = v17;
+        v23 = 2112;
+        v24 = removedUserInfoData3;
+        v25 = 2112;
+        v26 = v8;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive removedUserInfoData: %@, with error: %@", buf, 0x20u);
       }
 
@@ -194,15 +192,13 @@ LABEL_17:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v13;
+      v22 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@removedUserInfoData was nil, this should never happen", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     v7 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -220,7 +216,7 @@ LABEL_17:
     v13 = encodeRootObject();
     [(HMDRemovedUserAccessCodeModel *)v12 setRemovedUserInfoData:v13];
 
-    v14 = [codeCopy copy];
+    v14 = objc_msgSend_copy(codeCopy);
     [(HMDRemovedUserAccessCodeModel *)v12 setAccessCode:v14];
 
     uUID = [MEMORY[0x277CCAD78] UUID];
@@ -261,21 +257,19 @@ LABEL_17:
 
 void __43__HMDRemovedUserAccessCodeModel_properties__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"removedUserInfoData";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"removedUserInfoData";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[0] = v0;
-  v6[1] = @"accessCode";
+  v6[0] = v0;
+  v5[1] = @"accessCode";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class() logging:3];
-  v7[1] = v1;
-  v6[2] = @"hh2ModelID";
+  v6[1] = v1;
+  v5[2] = @"hh2ModelID";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = properties__properties_282526;
   properties__properties_282526 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

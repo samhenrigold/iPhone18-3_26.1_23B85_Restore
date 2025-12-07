@@ -52,12 +52,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  scopeIdentifier = self->_scopeIdentifier;
-  cloudIndex = self->_cloudIndex;
-  v6 = [v3 initWithFormat:@"<%@ %ld/%ld/%ld>", scopeIdentifier, self->_localIndex, cloudIndex, self->_stableIndex];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<%@ %ld/%ld/%ld>", self->_scopeIdentifier, self->_localIndex, self->_cloudIndex, self->_stableIndex];
 
-  return v6;
+  return v2;
 }
 
 - (id)statusDescription
@@ -125,7 +122,7 @@
 
 + (void)formatStatusDictionary:(id)dictionary forScopeWithIdentifier:(id)identifier appendString:(id)string appendTopLevelStatus:(id)status appendLineStatus:(id)lineStatus
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   identifierCopy = identifier;
   stringCopy = string;
@@ -187,7 +184,7 @@
     (*(stringCopy + 2))(stringCopy, @""));
   }
 
-  v78 = v27;
+  v77 = v27;
   v28 = [dictionaryCopy objectForKeyedSubscript:@"busyState"];
   integerValue = [v28 integerValue];
 
@@ -200,7 +197,7 @@
     (*(stringCopy + 2))(stringCopy, @"]");
   }
 
-  v79 = statusCopy;
+  v78 = statusCopy;
   v31 = [dictionaryCopy objectForKeyedSubscript:@"zone"];
   v32 = v31;
   if (v31 && ([v31 isEqualToString:identifierCopy] & 1) == 0)
@@ -208,17 +205,17 @@
     (lineStatusCopy)[2](lineStatusCopy, @"zone", v32);
   }
 
-  v77 = v32;
-  v84[0] = MEMORY[0x1E69E9820];
-  v84[1] = 3221225472;
-  v84[2] = __146__CPLEngineScope_CPLEngineScopeStatusFormatter__formatStatusDictionary_forScopeWithIdentifier_appendString_appendTopLevelStatus_appendLineStatus___block_invoke;
-  v84[3] = &unk_1E861C5E8;
-  v85 = dictionaryCopy;
+  v76 = v32;
+  v83[0] = MEMORY[0x1E69E9820];
+  v83[1] = 3221225472;
+  v83[2] = __146__CPLEngineScope_CPLEngineScopeStatusFormatter__formatStatusDictionary_forScopeWithIdentifier_appendString_appendTopLevelStatus_appendLineStatus___block_invoke;
+  v83[3] = &unk_1E861C5E8;
+  v84 = dictionaryCopy;
   v33 = lineStatusCopy;
-  v34 = v85;
+  v34 = v84;
   v35 = v33;
-  v86 = v33;
-  v36 = MEMORY[0x1E128EBA0](v84);
+  v85 = v33;
+  v36 = MEMORY[0x1E128EBA0](v83);
   (v36)[2](v36, @"disabled date");
   (v36)[2](v36, @"delete date");
   (v36)[2](v36, @"todo");
@@ -272,23 +269,23 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v62 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v62, OS_LOG_TYPE_ERROR, "missing proposed key", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v61, OS_LOG_TYPE_ERROR, "missing proposed key", buf, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v64 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineScope.m"];
-    v65 = @"missing proposed key";
-    v66 = currentHandler;
-    v67 = v37;
-    v68 = v64;
-    v69 = 427;
+    v63 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineScope.m"];
+    v64 = @"missing proposed key";
+    v65 = currentHandler;
+    v66 = v37;
+    v67 = v63;
+    v68 = 427;
 LABEL_53:
-    [v66 handleFailureInMethod:sel_finalStatus object:v67 file:v68 lineNumber:v69 description:v65];
+    [v65 handleFailureInMethod:sel_finalStatus object:v66 file:v67 lineNumber:v68 description:v64];
 
     abort();
   }
@@ -297,21 +294,21 @@ LABEL_53:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v70 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+      v69 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v70, OS_LOG_TYPE_ERROR, "missing last date", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v69, OS_LOG_TYPE_ERROR, "missing last date", buf, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v64 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineScope.m"];
-    v65 = @"missing last date";
-    v66 = currentHandler;
-    v67 = v37;
-    v68 = v64;
-    v69 = 428;
+    v63 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineScope.m"];
+    v64 = @"missing last date";
+    v65 = currentHandler;
+    v66 = v37;
+    v67 = v63;
+    v68 = 428;
     goto LABEL_53;
   }
 
@@ -319,21 +316,21 @@ LABEL_53:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v71 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+      v70 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v71, OS_LOG_TYPE_ERROR, "missing now", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v70, OS_LOG_TYPE_ERROR, "missing now", buf, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v64 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineScope.m"];
-    v65 = @"missing now";
-    v66 = currentHandler;
-    v67 = v37;
-    v68 = v64;
-    v69 = 429;
+    v63 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineScope.m"];
+    v64 = @"missing now";
+    v65 = currentHandler;
+    v66 = v37;
+    v67 = v63;
+    v68 = 429;
     goto LABEL_53;
   }
 
@@ -348,42 +345,42 @@ LABEL_53:
   if (v50)
   {
 LABEL_23:
-    v76 = v50;
+    v75 = v50;
     (v35)[2](v35, v37->_proposedKey, v50);
     goto LABEL_26;
   }
 
 LABEL_25:
-  v76 = 0;
+  v75 = 0;
 LABEL_26:
   v51 = [v34 objectForKeyedSubscript:@"storages"];
   if (v51)
   {
-    v72 = v34;
-    v73 = v37;
-    v74 = stringCopy;
-    v75 = identifierCopy;
+    v71 = v34;
+    v72 = v37;
+    v73 = stringCopy;
+    v74 = identifierCopy;
     v52 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v79 = 0u;
     v80 = 0u;
     v81 = 0u;
     v82 = 0u;
-    v83 = 0u;
     v53 = +[CPLEngineStore storageNames];
-    v54 = [v53 countByEnumeratingWithState:&v80 objects:v88 count:16];
+    v54 = [v53 countByEnumeratingWithState:&v79 objects:v87 count:16];
     if (v54)
     {
       v55 = v54;
-      v56 = *v81;
+      v56 = *v80;
       do
       {
         for (i = 0; i != v55; ++i)
         {
-          if (*v81 != v56)
+          if (*v80 != v56)
           {
             objc_enumerationMutation(v53);
           }
 
-          v58 = *(*(&v80 + 1) + 8 * i);
+          v58 = *(*(&v79 + 1) + 8 * i);
           v59 = [v51 objectForKeyedSubscript:v58];
           v60 = v59;
           if (v59)
@@ -392,20 +389,18 @@ LABEL_26:
           }
         }
 
-        v55 = [v53 countByEnumeratingWithState:&v80 objects:v88 count:16];
+        v55 = [v53 countByEnumeratingWithState:&v79 objects:v87 count:16];
       }
 
       while (v55);
     }
 
     (v35)[2](v35, @"storages", v52);
-    stringCopy = v74;
-    identifierCopy = v75;
-    v34 = v72;
-    v37 = v73;
+    stringCopy = v73;
+    identifierCopy = v74;
+    v34 = v71;
+    v37 = v72;
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 void __146__CPLEngineScope_CPLEngineScopeStatusFormatter__formatStatusDictionary_forScopeWithIdentifier_appendString_appendTopLevelStatus_appendLineStatus___block_invoke(uint64_t a1, void *a2)

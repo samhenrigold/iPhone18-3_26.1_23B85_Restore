@@ -61,7 +61,7 @@ LABEL_8:
     v16 = 2112;
     v17 = referenceCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Inconsistent baseRecordIDs %@ != %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"E ", "Inconsistent baseRecordIDs %@ != %@", v10, referenceCopy);
   }
 
   if (error)

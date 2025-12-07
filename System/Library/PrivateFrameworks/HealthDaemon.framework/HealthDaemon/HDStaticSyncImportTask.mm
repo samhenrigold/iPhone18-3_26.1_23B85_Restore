@@ -22,7 +22,7 @@
 
 - (id)runWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:1000];
   _HKInitializeLogging();
@@ -32,27 +32,26 @@
     if (self)
     {
       v7 = self->super._storeIdentifier;
-      options = self->super._options;
-      v9 = v7;
+      v8 = v7;
     }
 
     else
     {
       v7 = 0;
-      v9 = 0;
+      v8 = 0;
     }
 
-    v10 = v6;
-    v11 = HKStaticSyncOptionsToString();
+    v9 = v6;
+    v10 = HKStaticSyncOptionsToString();
     *buf = 138544130;
     selfCopy = self;
-    v24 = 2080;
-    v25 = "[HDStaticSyncImportTask runWithCompletion:]";
+    v22 = 2080;
+    v23 = "[HDStaticSyncImportTask runWithCompletion:]";
+    v24 = 2114;
+    v25 = v7;
     v26 = 2114;
-    v27 = v7;
-    v28 = 2114;
-    v29 = v11;
-    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: %s: storeIdentifier = %{public}@, options = %{public}@", buf, 0x2Au);
+    v27 = v10;
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_INFO, "%{public}@: %s: storeIdentifier = %{public}@, options = %{public}@", buf, 0x2Au);
   }
 
   if (self)
@@ -70,21 +69,20 @@
   block[2] = __44__HDStaticSyncImportTask_runWithCompletion___block_invoke;
   block[3] = &unk_278616D18;
   block[4] = self;
-  v21 = completionCopy;
-  v13 = v5;
-  v20 = v13;
-  v14 = completionCopy;
+  v19 = completionCopy;
+  v12 = v5;
+  v18 = v12;
+  v13 = completionCopy;
   dispatch_async(queue, block);
-  v15 = v20;
-  v16 = v13;
+  v14 = v18;
+  v15 = v12;
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v12;
 }
 
 void __44__HDStaticSyncImportTask_runWithCompletion___block_invoke(void *a1)
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   v2 = [_HDStaticSyncStore alloc];
   v3 = a1[4];
   if (v3)
@@ -102,21 +100,21 @@ void __44__HDStaticSyncImportTask_runWithCompletion___block_invoke(void *a1)
     WeakRetained = 0;
   }
 
-  v56[0] = 0;
+  v55[0] = 0;
   v5 = v3;
-  v6 = [(_HDStaticSyncStore *)v2 initWithProfile:WeakRetained storeIdentifier:v5 error:v56];
-  v7 = v56[0];
+  v6 = [(_HDStaticSyncStore *)v2 initWithProfile:WeakRetained storeIdentifier:v5 error:v55];
+  v7 = v55[0];
 
   if (v6)
   {
     v8 = a1[4];
     if (!v8 || (*(v8 + 16) & 1) == 0)
     {
-      v55 = v7;
+      v54 = v7;
       v9 = objc_loadWeakRetained(v6 + 2);
-      v10 = [HDSyncAnchorEntity resetSyncAnchorsOfType:3 store:v6 profile:v9 error:&v55];
+      v10 = [HDSyncAnchorEntity resetSyncAnchorsOfType:3 store:v6 profile:v9 error:&v54];
 
-      v11 = v55;
+      v11 = v54;
       if (!v10)
       {
         (*(a1[6] + 16))();
@@ -136,49 +134,49 @@ void __44__HDStaticSyncImportTask_runWithCompletion___block_invoke(void *a1)
     v17 = v13;
     dispatch_assert_queue_V2(*(v8 + 32));
     v18 = objc_alloc_init(MEMORY[0x277CCAA00]);
-    v65 = 0;
-    v19 = [v18 contentsOfDirectoryAtURL:v14 includingPropertiesForKeys:0 options:4 error:&v65];
-    v20 = v65;
+    v64 = 0;
+    v19 = [v18 contentsOfDirectoryAtURL:v14 includingPropertiesForKeys:0 options:4 error:&v64];
+    v20 = v64;
     v21 = v20;
     if (v19)
     {
-      v48 = v20;
-      v49 = v18;
-      v51 = v6;
-      v52 = v16;
-      v50 = v7;
+      v47 = v20;
+      v48 = v18;
+      v50 = v6;
+      v51 = v16;
+      v49 = v7;
       v22 = [v19 hk_filter:&__block_literal_global_50];
 
       if ([v22 count])
       {
-        v46 = v17;
-        v47 = v14;
-        v45 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"path" ascending:1];
-        v73[0] = v45;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
+        v45 = v17;
+        v46 = v14;
+        v44 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"path" ascending:1];
+        v72[0] = v44;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
         v24 = [v22 sortedArrayUsingDescriptors:v23];
 
         v25 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:objc_msgSend(v24 parent:"count") pendingUnitCount:{v16, 1000}];
+        v60 = 0u;
         v61 = 0u;
         v62 = 0u;
         v63 = 0u;
-        v64 = 0u;
         v26 = v24;
-        v54 = [v26 countByEnumeratingWithState:&v61 objects:v72 count:16];
-        if (v54)
+        v53 = [v26 countByEnumeratingWithState:&v60 objects:v71 count:16];
+        if (v53)
         {
-          v27 = *v62;
-          v53 = *v62;
+          v27 = *v61;
+          v52 = *v61;
           while (2)
           {
-            for (i = 0; i != v54; ++i)
+            for (i = 0; i != v53; ++i)
             {
-              if (*v62 != v27)
+              if (*v61 != v27)
               {
                 objc_enumerationMutation(v26);
               }
 
-              v29 = *(*(&v61 + 1) + 8 * i);
+              v29 = *(*(&v60 + 1) + 8 * i);
               _HKInitializeLogging();
               v30 = *MEMORY[0x277CCC328];
               if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
@@ -191,41 +189,41 @@ void __44__HDStaticSyncImportTask_runWithCompletion___block_invoke(void *a1)
                 v36 = v30;
                 v37 = [v29 path];
                 *buf = 138543874;
-                v67 = v8;
-                v68 = 2114;
-                v69 = v33;
+                v66 = v8;
+                v67 = 2114;
+                v68 = v33;
                 v15 = v32;
                 v26 = v31;
-                v70 = 2114;
-                v71 = v37;
+                v69 = 2114;
+                v70 = v37;
                 _os_log_impl(&dword_228986000, v36, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: extract archive %{public}@", buf, 0x20u);
 
                 v25 = v34;
-                v27 = v53;
+                v27 = v52;
               }
 
-              v60 = 0;
-              v56[1] = MEMORY[0x277D85DD0];
-              v56[2] = 3221225472;
-              v56[3] = __100__HDStaticSyncImportTask__queue_importStaticSyncChangesFromDirectory_syncStore_progress_completion___block_invoke_467;
-              v56[4] = &unk_27861A218;
-              v56[5] = v29;
-              v57 = v15;
-              v58 = v8;
-              v59 = v25;
+              v59 = 0;
+              v55[1] = MEMORY[0x277D85DD0];
+              v55[2] = 3221225472;
+              v55[3] = __100__HDStaticSyncImportTask__queue_importStaticSyncChangesFromDirectory_syncStore_progress_completion___block_invoke_467;
+              v55[4] = &unk_27861A218;
+              v55[5] = v29;
+              v56 = v15;
+              v57 = v8;
+              v58 = v25;
               v38 = HKWithAutoreleasePool();
-              v39 = v60;
+              v39 = v59;
               if ((v38 & 1) == 0)
               {
-                v17 = v46;
-                v46[2](v46, 0, v39);
+                v17 = v45;
+                v45[2](v45, 0, v39);
 
                 goto LABEL_26;
               }
             }
 
-            v54 = [v26 countByEnumeratingWithState:&v61 objects:v72 count:16];
-            if (v54)
+            v53 = [v26 countByEnumeratingWithState:&v60 objects:v71 count:16];
+            if (v53)
             {
               continue;
             }
@@ -234,13 +232,13 @@ void __44__HDStaticSyncImportTask_runWithCompletion___block_invoke(void *a1)
           }
         }
 
-        v17 = v46;
-        v46[2](v46, 1, 0);
+        v17 = v45;
+        v45[2](v45, 1, 0);
 LABEL_26:
 
-        v7 = v50;
-        v6 = v51;
-        v14 = v47;
+        v7 = v49;
+        v6 = v50;
+        v14 = v46;
       }
 
       else
@@ -251,13 +249,13 @@ LABEL_26:
         v43 = [v40 hk_errorForInvalidArgument:@"@" class:v41 selector:sel__queue_importStaticSyncChangesFromDirectory_syncStore_progress_completion_ format:{@"%@ contains no data files that can be imported", v42}];
         v17[2](v17, 0, v43);
 
-        v7 = v50;
-        v6 = v51;
+        v7 = v49;
+        v6 = v50;
       }
 
-      v16 = v52;
-      v21 = v48;
-      v18 = v49;
+      v16 = v51;
+      v21 = v47;
+      v18 = v48;
     }
 
     else
@@ -272,8 +270,6 @@ LABEL_26:
   }
 
 LABEL_30:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __100__HDStaticSyncImportTask__queue_importStaticSyncChangesFromDirectory_syncStore_progress_completion___block_invoke(uint64_t a1, void *a2)
@@ -375,7 +371,7 @@ uint64_t __100__HDStaticSyncImportTask__queue_importStaticSyncChangesFromDirecto
 
 void __81__HDStaticSyncImportTask__extractChangeArchive_syncStore_profile_progress_error___block_invoke(void *a1, void *a2, _BYTE *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = a2;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
@@ -401,7 +397,7 @@ void __81__HDStaticSyncImportTask__extractChangeArchive_syncStore_profile_progre
     *&buf[12] = 2114;
     *&buf[14] = v7;
     *&buf[22] = 2114;
-    v35 = v11;
+    v34 = v11;
     _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: ingest file %{public}@", buf, 0x20u);
   }
 
@@ -410,9 +406,9 @@ void __81__HDStaticSyncImportTask__extractChangeArchive_syncStore_profile_progre
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v35 = __Block_byref_object_copy__46;
-  v36 = __Block_byref_object_dispose__46;
-  v37 = 0;
+  v34 = __Block_byref_object_copy__46;
+  v35 = __Block_byref_object_dispose__46;
+  v36 = 0;
   v13 = v12;
   if (HKWithAutoreleasePool())
   {
@@ -440,12 +436,12 @@ void __81__HDStaticSyncImportTask__extractChangeArchive_syncStore_profile_progre
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __73__HDStaticSyncImportTask__applySyncChanges_store_profile_progress_error___block_invoke;
-    v35 = &unk_27861A268;
-    v36 = v22;
-    v37 = v20;
-    v39 = v21;
-    v40 = v24;
-    v38 = v23;
+    v34 = &unk_27861A268;
+    v35 = v22;
+    v36 = v20;
+    v38 = v21;
+    v39 = v24;
+    v37 = v23;
     v25 = v21;
     v26 = v23;
     v27 = v20;
@@ -470,8 +466,6 @@ void __81__HDStaticSyncImportTask__extractChangeArchive_syncStore_profile_progre
     v29 = *(v30 + 40);
     *(v30 + 40) = v31;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __57__HDStaticSyncImportTask__extractChangesFromEntry_error___block_invoke(uint64_t a1, void *a2)
@@ -508,32 +502,32 @@ BOOL __57__HDStaticSyncImportTask__extractChangesFromEntry_error___block_invoke(
 
 uint64_t __73__HDStaticSyncImportTask__applySyncChanges_store_profile_progress_error___block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v29 = [*(a1 + 32) syncEngine];
+  v39 = *MEMORY[0x277D85DE8];
+  v28 = [*(a1 + 32) syncEngine];
   v4 = 1;
-  v28 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:objc_msgSend(*(a1 + 40) parent:"count") pendingUnitCount:{*(a1 + 48), 1}];
+  v27 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:objc_msgSend(*(a1 + 40) parent:"count") pendingUnitCount:{*(a1 + 48), 1}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = *(a1 + 40);
-  v5 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v5)
   {
     v6 = v5;
-    v26 = a2;
+    v25 = a2;
     v7 = 0;
-    v8 = *v32;
+    v8 = *v31;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         ++v7;
         v11 = [*(a1 + 32) syncEngine];
         v12 = [v11 allSyncEntitiesByIdentifier];
@@ -543,9 +537,9 @@ uint64_t __73__HDStaticSyncImportTask__applySyncChanges_store_profile_progress_e
         if (v14)
         {
           v15 = *(a1 + 56);
-          v30 = 0;
-          v16 = [v29 applySyncChange:v10 forStore:v15 error:&v30];
-          v17 = v30;
+          v29 = 0;
+          v16 = [v28 applySyncChange:v10 forStore:v15 error:&v29];
+          v17 = v29;
           if ((v16 & 1) == 0)
           {
             _HKInitializeLogging();
@@ -553,9 +547,9 @@ uint64_t __73__HDStaticSyncImportTask__applySyncChanges_store_profile_progress_e
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v36 = v10;
-              v37 = 2114;
-              v38 = v17;
+              v35 = v10;
+              v36 = 2114;
+              v37 = v17;
               _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "failed to apply request change %{public}@: %{public}@", buf, 0x16u);
             }
 
@@ -563,10 +557,10 @@ uint64_t __73__HDStaticSyncImportTask__applySyncChanges_store_profile_progress_e
             v22 = v21;
             if (v21)
             {
-              if (v26)
+              if (v25)
               {
                 v23 = v21;
-                *v26 = v22;
+                *v25 = v22;
               }
 
               else
@@ -579,7 +573,7 @@ uint64_t __73__HDStaticSyncImportTask__applySyncChanges_store_profile_progress_e
             goto LABEL_21;
           }
 
-          [v28 setCompletedUnitCount:v7];
+          [v27 setCompletedUnitCount:v7];
         }
 
         else
@@ -590,15 +584,15 @@ uint64_t __73__HDStaticSyncImportTask__applySyncChanges_store_profile_progress_e
           {
             v19 = *(a1 + 64);
             *buf = 138543618;
-            v36 = v19;
-            v37 = 2114;
-            v38 = v10;
+            v35 = v19;
+            v36 = 2114;
+            v37 = v10;
             _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: cannot apply change %{public}@ because it is for an unknown (possibly future) sync entity.", buf, 0x16u);
           }
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v6 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v6)
       {
         continue;
@@ -612,7 +606,6 @@ uint64_t __73__HDStaticSyncImportTask__applySyncChanges_store_profile_progress_e
 
 LABEL_21:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

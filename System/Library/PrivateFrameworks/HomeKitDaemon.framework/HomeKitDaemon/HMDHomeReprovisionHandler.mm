@@ -50,7 +50,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   if (self)
   {
@@ -68,7 +68,7 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v8;
+      v18 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Disable reprovision browsing timer fired", buf, 0xCu);
     }
 
@@ -89,11 +89,11 @@
         v13 = HMFGetLogIdentifier();
         disableReprovisionBrowsingTimer = v11->_disableReprovisionBrowsingTimer;
         *buf = 138543874;
-        v19 = v13;
-        v20 = 2048;
-        v21 = disableReprovisionBrowsingTimer;
-        v22 = 2048;
-        v23 = disableReprivsionBrowsingPeriodInMinutes;
+        v18 = v13;
+        v19 = 2048;
+        v20 = disableReprovisionBrowsingTimer;
+        v21 = 2048;
+        v22 = disableReprivsionBrowsingPeriodInMinutes;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Resumed disable reprovision browsing timer %p for %f sec", buf, 0x20u);
       }
 
@@ -116,7 +116,6 @@
 
   v4 = fireCopy;
 LABEL_11:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleReprovionedAccessory:(id)accessory identifier:(id)identifier error:(id)error
@@ -242,7 +241,7 @@ LABEL_11:
 
 - (void)handleFoundAccessoryNeedingReprovisioning:(id)reprovisioning error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   reprovisioningCopy = reprovisioning;
   errorCopy = error;
   if (![reprovisioningCopy accessoryReprovisionState])
@@ -254,11 +253,11 @@ LABEL_11:
     {
       v11 = HMFGetLogIdentifier();
       name = [reprovisioningCopy name];
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = name;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ reprovision state is updated to Required", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = name;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ reprovision state is updated to Required", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -270,8 +269,6 @@ LABEL_11:
 
     [(HMDHomeReprovisionHandler *)&selfCopy->super.super.isa _reportAccessoryNeedingReprovision:reprovisioningCopy error:errorCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportAccessoryNeedingReprovision:(void *)reprovision error:
@@ -310,7 +307,7 @@ LABEL_11:
 
 - (void)_handleReprovisionAccessory:(id)accessory
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (isiOSDevice())
   {
@@ -339,9 +336,9 @@ LABEL_11:
         v35 = HMFGetLogIdentifier();
         messagePayload = [accessoryCopy messagePayload];
         *buf = 138543618;
-        v83 = v35;
-        v84 = 2112;
-        v85 = messagePayload;
+        v82 = v35;
+        v83 = 2112;
+        v84 = messagePayload;
         _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Missing target accessory UUID from message payload: %@", buf, 0x16u);
       }
 
@@ -375,13 +372,13 @@ LABEL_11:
 
     v11 = v10;
 
-    v78 = v11;
+    v77 = v11;
     if (v11)
     {
-      v77 = responseHandler2;
+      v76 = responseHandler2;
       if ([v11 reachableTransports])
       {
-        v76 = home;
+        v75 = home;
         v44 = objc_autoreleasePoolPush();
         selfCopy2 = self;
         v46 = HMFGetOSLogHandle();
@@ -390,9 +387,9 @@ LABEL_11:
           v47 = HMFGetLogIdentifier();
           name = [v9 name];
           *buf = 138543618;
-          v83 = v47;
-          v84 = 2112;
-          v85 = name;
+          v82 = v47;
+          v83 = 2112;
+          v84 = name;
           _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@Reprovision accessory failed since the accessory: %@ is already in the network", buf, 0x16u);
         }
 
@@ -405,16 +402,16 @@ LABEL_11:
           v52 = HMFGetLogIdentifier();
           name2 = [v9 name];
           *buf = 138543618;
-          v83 = v52;
-          v84 = 2112;
-          v85 = name2;
+          v82 = v52;
+          v83 = 2112;
+          v84 = name2;
           _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ reprovision state is updated to NotRequired", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v49);
         [v9 setAccessoryReprovisionState:0];
         uuid = [v9 uuid];
-        [v77 updateGenerationCounterWithReason:@"ReprovisionNotRequired" sourceUUID:uuid shouldNotifyClients:0];
+        [v76 updateGenerationCounterWithReason:@"ReprovisionNotRequired" sourceUUID:uuid shouldNotifyClients:0];
 
         dictionary = [MEMORY[0x277CBEB38] dictionary];
         uuid2 = [v9 uuid];
@@ -437,11 +434,11 @@ LABEL_11:
           msgDispatcher = 0;
         }
 
-        home = v76;
+        home = v75;
         [(HMFMessageDispatcher *)msgDispatcher sendMessage:responseHandler7 completionHandler:0];
         responseHandler3 = [accessoryCopy responseHandler];
 
-        responseHandler2 = v77;
+        responseHandler2 = v76;
         if (responseHandler3)
         {
           v62 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52 description:@"Accessory already in the network" reason:0 suggestion:0 underlyingError:0];
@@ -459,16 +456,16 @@ LABEL_11:
       v16 = v15;
       if (isPaired)
       {
-        v75 = home;
+        v74 = home;
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           v17 = HMFGetLogIdentifier();
           [v9 name];
           v19 = v18 = v13;
           *buf = 138543618;
-          v83 = v17;
-          v84 = 2112;
-          v85 = v19;
+          v82 = v17;
+          v83 = 2112;
+          v84 = v19;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ reprovision state is updated to InProgress", buf, 0x16u);
 
           v13 = v18;
@@ -477,7 +474,7 @@ LABEL_11:
         objc_autoreleasePoolPop(v13);
         [v9 setAccessoryReprovisionState:2];
         uuid3 = [v9 uuid];
-        [v77 updateGenerationCounterWithReason:@"ReprovisionInProgress" sourceUUID:uuid3 shouldNotifyClients:0];
+        [v76 updateGenerationCounterWithReason:@"ReprovisionInProgress" sourceUUID:uuid3 shouldNotifyClients:0];
 
         dictionary = [MEMORY[0x277CBEB38] dictionary];
         uuid4 = [v9 uuid];
@@ -503,43 +500,43 @@ LABEL_11:
           v29 = 0;
         }
 
-        home = v75;
+        home = v74;
         [(HMFMessageDispatcher *)v29 sendMessage:responseHandler7 completionHandler:0];
-        if (([v75 networkRouterSupport] & 8) != 0)
+        if (([v74 networkRouterSupport] & 8) != 0)
         {
-          wiFiUniquePreSharedKey = [v78 wiFiUniquePreSharedKey];
+          wiFiUniquePreSharedKey = [v77 wiFiUniquePreSharedKey];
 
           if (wiFiUniquePreSharedKey)
           {
-            v74 = [HMDAccessoryNetworkCredential alloc];
-            networkRouterUUID = [v78 networkRouterUUID];
-            networkClientIdentifier = [v78 networkClientIdentifier];
-            wiFiUniquePreSharedKey2 = [v78 wiFiUniquePreSharedKey];
-            v71 = [(HMDAccessoryNetworkCredential *)v74 initWithNetworkRouterUUID:networkRouterUUID clientIdentifier:networkClientIdentifier wiFiPSK:wiFiUniquePreSharedKey2];
+            v73 = [HMDAccessoryNetworkCredential alloc];
+            networkRouterUUID = [v77 networkRouterUUID];
+            networkClientIdentifier = [v77 networkClientIdentifier];
+            wiFiUniquePreSharedKey2 = [v77 wiFiUniquePreSharedKey];
+            v71 = [(HMDAccessoryNetworkCredential *)v73 initWithNetworkRouterUUID:networkRouterUUID clientIdentifier:networkClientIdentifier wiFiPSK:wiFiUniquePreSharedKey2];
 
-            home = v75;
-            [(HMDHomeReprovisionHandler *)selfCopy3 _reprovisionAccessory:v78 networkCredential:v71 requestMessage:accessoryCopy];
+            home = v74;
+            [(HMDHomeReprovisionHandler *)selfCopy3 _reprovisionAccessory:v77 networkCredential:v71 requestMessage:accessoryCopy];
           }
 
           else
           {
-            v79[0] = MEMORY[0x277D85DD0];
-            v79[1] = 3221225472;
-            v79[2] = __57__HMDHomeReprovisionHandler__handleReprovisionAccessory___block_invoke;
-            v79[3] = &unk_278679FB0;
-            v79[4] = selfCopy3;
-            v80 = v78;
-            v81 = accessoryCopy;
-            [v75 _createUniquePSKClientConfigurationWithRequestMessage:v81 pairingEvent:0 completion:v79];
+            v78[0] = MEMORY[0x277D85DD0];
+            v78[1] = 3221225472;
+            v78[2] = __57__HMDHomeReprovisionHandler__handleReprovisionAccessory___block_invoke;
+            v78[3] = &unk_278679FB0;
+            v78[4] = selfCopy3;
+            v79 = v77;
+            v80 = accessoryCopy;
+            [v74 _createUniquePSKClientConfigurationWithRequestMessage:v80 pairingEvent:0 completion:v78];
           }
         }
 
         else
         {
-          [(HMDHomeReprovisionHandler *)selfCopy3 _reprovisionAccessory:v78 networkCredential:0 requestMessage:accessoryCopy];
+          [(HMDHomeReprovisionHandler *)selfCopy3 _reprovisionAccessory:v77 networkCredential:0 requestMessage:accessoryCopy];
         }
 
-        responseHandler2 = v77;
+        responseHandler2 = v76;
         goto LABEL_44;
       }
 
@@ -549,9 +546,9 @@ LABEL_11:
         [v9 name];
         v66 = v65 = v13;
         *buf = 138543618;
-        v83 = v64;
-        v84 = 2112;
-        v85 = v66;
+        v82 = v64;
+        v83 = 2112;
+        v84 = v66;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Reprovision accessory failed since the accessory: %@ is not paired", buf, 0x16u);
 
         v13 = v65;
@@ -560,7 +557,7 @@ LABEL_11:
       objc_autoreleasePoolPop(v13);
       responseHandler5 = [accessoryCopy responseHandler];
 
-      responseHandler2 = v77;
+      responseHandler2 = v76;
       if (!responseHandler5)
       {
         goto LABEL_45;
@@ -578,9 +575,9 @@ LABEL_11:
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v83 = v41;
-        v84 = 2112;
-        v85 = responseHandler9;
+        v82 = v41;
+        v83 = 2112;
+        v84 = responseHandler9;
         _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to find accessory with UUID: %@", buf, 0x16u);
       }
 
@@ -616,13 +613,11 @@ LABEL_46:
 
 LABEL_47:
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reprovisionAccessory:(void *)accessory networkCredential:(void *)credential requestMessage:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = a2;
   accessoryCopy = accessory;
   credentialCopy = credential;
@@ -636,9 +631,9 @@ LABEL_47:
       v12 = HMFGetLogIdentifier();
       identifier = [v7 identifier];
       *buf = 138543618;
-      v33 = v12;
-      v34 = 2112;
-      v35 = identifier;
+      v32 = v12;
+      v33 = 2112;
+      v34 = identifier;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Storing reprovison request message identifier for accessory with identifier: %@", buf, 0x16u);
     }
 
@@ -658,21 +653,19 @@ LABEL_47:
     home = [v7 home];
     homeLocationHandler = [home homeLocationHandler];
     isoCountryCode = [homeLocationHandler isoCountryCode];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_requestMessage___block_invoke;
-    v27[3] = &unk_278681F48;
-    objc_copyWeak(&v31, buf);
-    v28 = credentialCopy;
-    v29 = v7;
-    v30 = accessoryCopy;
-    [WeakRetained reprovisionAccessoryWithIdentifier:identifier4 wiFiPSK:wiFiPSK countryCode:isoCountryCode withCompletion:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_requestMessage___block_invoke;
+    v26[3] = &unk_278681F48;
+    objc_copyWeak(&v30, buf);
+    v27 = credentialCopy;
+    v28 = v7;
+    v29 = accessoryCopy;
+    [WeakRetained reprovisionAccessoryWithIdentifier:identifier4 wiFiPSK:wiFiPSK countryCode:isoCountryCode withCompletion:v26];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDHomeReprovisionHandler__handleReprovisionAccessory___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -707,7 +700,7 @@ void __57__HMDHomeReprovisionHandler__handleReprovisionAccessory___block_invoke(
 
 void __57__HMDHomeReprovisionHandler__handleReprovisionAccessory___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -718,35 +711,33 @@ void __57__HMDHomeReprovisionHandler__handleReprovisionAccessory___block_invoke_
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 48);
       v7 = *(a1 + 32);
-      v14 = 138543874;
-      v15 = v5;
+      v12 = 138543874;
+      v13 = v5;
+      v14 = 2112;
+      v15 = v6;
       v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failed to generate WiFi credential for accessory %@ with error: %@", &v14, 0x20u);
+      v17 = v7;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failed to generate WiFi credential for accessory %@ with error: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v2);
     [*(a1 + 56) respondWithError:*(a1 + 32)];
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v12 = *(a1 + 56);
-    v11 = *(a1 + 64);
-    v13 = *MEMORY[0x277D85DE8];
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v11 = *(a1 + 56);
+    v10 = *(a1 + 64);
 
-    [(HMDHomeReprovisionHandler *)v9 _reprovisionAccessory:v10 networkCredential:v11 requestMessage:v12];
+    [(HMDHomeReprovisionHandler *)v8 _reprovisionAccessory:v9 networkCredential:v10 requestMessage:v11];
   }
 }
 
 void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_requestMessage___block_invoke(id *a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   v5 = [a1[4] responseHandler];
@@ -762,11 +753,11 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
       {
         v9 = HMFGetLogIdentifier();
         v10 = [a1[5] identifier];
-        v37 = 138543618;
-        v38 = v9;
-        v39 = 2112;
-        v40 = v10;
-        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to reprovision accessory with identifier: %@", &v37, 0x16u);
+        v36 = 138543618;
+        v37 = v9;
+        v38 = 2112;
+        v39 = v10;
+        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to reprovision accessory with identifier: %@", &v36, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -792,11 +783,11 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
       {
         v18 = HMFGetLogIdentifier();
         v19 = [a1[5] name];
-        v37 = 138543618;
-        v38 = v18;
-        v39 = 2112;
-        v40 = v19;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ reprovision state is updated to NotRequired", &v37, 0x16u);
+        v36 = 138543618;
+        v37 = v18;
+        v38 = 2112;
+        v39 = v19;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ reprovision state is updated to NotRequired", &v36, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -846,13 +837,11 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
     v35 = [a1[4] responseHandler];
     (v35)[2](v35, v3, 0);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRequestSearchForAccessoriesNeedingReprovisioning:(id)reprovisioning
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   reprovisioningCopy = reprovisioning;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -861,7 +850,7 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v38 = v8;
+    v37 = v8;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Received request to start searching for accessories need reprovisioning", buf, 0xCu);
   }
 
@@ -893,11 +882,11 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
         v17 = HMFGetLogIdentifier();
         v18 = v15->_disableReprovisionBrowsingTimer;
         *buf = 138543874;
-        v38 = v17;
-        v39 = 2048;
-        v40 = v18;
-        v41 = 2048;
-        v42 = disableReprivsionBrowsingPeriodInMinutes;
+        v37 = v17;
+        v38 = 2048;
+        v39 = v18;
+        v40 = 2048;
+        v41 = disableReprivsionBrowsingPeriodInMinutes;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Started disable reprovision browsing timer %p for %f sec", buf, 0x20u);
       }
 
@@ -914,7 +903,7 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v38 = v22;
+      v37 = v22;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Request to start searching for accessories need reprovisioning is deferred", buf, 0xCu);
     }
 
@@ -926,42 +915,40 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
   }
 
   [reprovisioningCopy respondWithSuccess];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   home = [(HMDHomeReprovisionHandler *)&selfCopy->super.super.isa home];
   accessories = [home accessories];
-  v25 = [accessories copy];
+  v25 = objc_msgSend_copy(accessories);
 
-  v26 = [v25 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v33;
+    v28 = *v32;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v33 != v28)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v32 + 1) + 8 * i);
+        v30 = *(*(&v31 + 1) + 8 * i);
         if ([v30 accessoryReprovisionState] == 1)
         {
           [(HMDHomeReprovisionHandler *)&selfCopy->super.super.isa _reportAccessoryNeedingReprovision:v30 error:0];
         }
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v27);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -976,7 +963,7 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
 
 - (void)configure:(id)configure queue:(id)queue messageDispatcher:(id)dispatcher
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   queueCopy = queue;
   dispatcherCopy = dispatcher;
@@ -1026,15 +1013,13 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
 
     v24 = selfCopy->_msgDispatcher;
     v25 = *MEMORY[0x277CD2560];
-    v32[0] = v18;
-    v32[1] = v17;
+    v31[0] = v18;
+    v31[1] = v17;
     v26 = MEMORY[0x277CBEA60];
     v27 = v24;
-    v28 = [v26 arrayWithObjects:v32 count:2];
+    v28 = [v26 arrayWithObjects:v31 count:2];
     [(HMFMessageDispatcher *)v27 registerForMessage:v25 receiver:selfCopy policies:v28 selector:sel__handleReprovisionAccessory_];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -1086,10 +1071,9 @@ void __84__HMDHomeReprovisionHandler__reprovisionAccessory_networkCredential_req
 
 void __40__HMDHomeReprovisionHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_131293;
-  logCategory__hmf_once_v2_131293 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_131293;
+  logCategory__hmf_once_v2_131293 = v0;
 }
 
 @end

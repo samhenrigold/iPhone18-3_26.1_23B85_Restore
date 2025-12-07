@@ -1,6 +1,7 @@
 @interface MKFileMigrator
 - (MKFileMigrator)init;
 - (void)import:(id)import filename:(id)filename offset:(unint64_t)offset length:(unint64_t)length total:(unint64_t)total complete:(BOOL)complete;
+- (void)importChunk:(id)chunk filename:(id)filename offset:(unint64_t)offset length:(unint64_t)length total:(unint64_t)total complete:(BOOL)complete;
 @end
 
 @implementation MKFileMigrator
@@ -11,18 +12,7 @@
   v10.super_class = MKFileMigrator;
   v2 = [(MKMigrator *)&v10 init];
   v3 = v2;
-  if (!v2)
-  {
-    goto LABEL_3;
-  }
-
-  [(MKMigrator *)v2 setType:9];
-  v4 = objc_alloc_init(MKFileProvider);
-  fetchRootPath = [(MKFileProvider *)v4 fetchRootPath];
-  root = v3->_root;
-  v3->_root = fetchRootPath;
-
-  if (!v3->_root)
+  if (v2 && ([(MKMigrator *)v2 setType:9], v4 = objc_alloc_init(MKFileProvider), [(MKFileProvider *)v4 fetchRootPath], v5 = objc_claimAutoreleasedReturnValue(), root = v3->_root, v3->_root = v5, root, v4, !v3->_root))
   {
     v8 = +[MKLog log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -35,17 +25,29 @@
 
   else
   {
-LABEL_3:
     v7 = v3;
   }
 
   return v7;
 }
 
+- (void)importChunk:(id)chunk filename:(id)filename offset:(unint64_t)offset length:(unint64_t)length total:(unint64_t)total complete:(BOOL)complete
+{
+  completeCopy = complete;
+  chunkCopy = chunk;
+  filenameCopy = filename;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v16 = objc_autoreleasePoolPush();
+  [(MKFileMigrator *)selfCopy import:chunkCopy filename:filenameCopy offset:offset length:length total:total complete:completeCopy];
+  objc_autoreleasePoolPop(v16);
+  objc_sync_exit(selfCopy);
+}
+
 - (void)import:(id)import filename:(id)filename offset:(unint64_t)offset length:(unint64_t)length total:(unint64_t)total complete:(BOOL)complete
 {
   completeCopy = complete;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   importCopy = import;
   filenameCopy = filename;
   if ([filenameCopy length])
@@ -53,13 +55,13 @@ LABEL_3:
     lengthCopy = length;
     totalCopy = total;
     date = [MEMORY[0x277CBEAA8] date];
-    v40 = self->_root;
-    v16 = [(NSString *)v40 stringByAppendingPathComponent:filenameCopy];
+    v39 = self->_root;
+    v16 = [(NSString *)v39 stringByAppendingPathComponent:filenameCopy];
     stringByDeletingLastPathComponent = [v16 stringByDeletingLastPathComponent];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent] & 1) != 0 || (v45 = 0, objc_msgSend(defaultManager, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", stringByDeletingLastPathComponent, 1, 0, &v45), (v41 = v45) == 0))
+    if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent] & 1) != 0 || (v44 = 0, objc_msgSend(defaultManager, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", stringByDeletingLastPathComponent, 1, 0, &v44), (v40 = v44) == 0))
     {
-      v41 = 0;
+      v40 = 0;
       if (offset)
       {
         goto LABEL_7;
@@ -77,9 +79,9 @@ LABEL_3:
       if (offset)
       {
 LABEL_7:
-        v44 = 0;
-        v19 = [defaultManager attributesOfItemAtPath:v16 error:&v44];
-        v20 = v44;
+        v43 = 0;
+        v19 = [defaultManager attributesOfItemAtPath:v16 error:&v43];
+        v20 = v43;
         if (v20)
         {
           v21 = v20;
@@ -107,7 +109,7 @@ LABEL_7:
           {
             v28 = [importCopy length];
             *buf = 134217984;
-            v47 = v28;
+            v46 = v28;
             _os_log_impl(&dword_2592D2000, v27, OS_LOG_TYPE_INFO, "appended some bytes to a file. bytes=%ld", buf, 0xCu);
           }
 
@@ -198,8 +200,6 @@ LABEL_35:
   }
 
 LABEL_37:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 @end

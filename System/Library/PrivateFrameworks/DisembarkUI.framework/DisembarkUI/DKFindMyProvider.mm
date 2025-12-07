@@ -9,7 +9,7 @@
 
 - (void)preheatFindMyState
 {
-  v2 = _DKLogSystem();
+  v2 = _DKLogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -22,8 +22,8 @@
 
 void __38__DKFindMyProvider_preheatFindMyState__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _DKLogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _DKLogSystem(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"known";
@@ -32,12 +32,10 @@ void __38__DKFindMyProvider_preheatFindMyState__block_invoke(uint64_t a1, uint64
       v4 = @"unknown";
     }
 
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_248D68000, v3, OS_LOG_TYPE_DEFAULT, "Find My state preheated; state is %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_248D68000, v3, OS_LOG_TYPE_DEFAULT, "Find My state preheated; state is %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchFindMyState:(id)state
@@ -124,46 +122,46 @@ uint64_t __37__DKFindMyProvider_fetchFindMyState___block_invoke_2(uint64_t a1)
 
   if (isEnabled)
   {
-    v10 = _DKLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _DKLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_248D68000, v10, OS_LOG_TYPE_DEFAULT, "Prompting to disable Find My...", buf, 2u);
+      _os_log_impl(&dword_248D68000, v11, OS_LOG_TYPE_DEFAULT, "Prompting to disable Find My...", buf, 2u);
     }
 
     defaultStore = [MEMORY[0x277CB8F48] defaultStore];
     aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
 
-    v13 = objc_opt_new();
-    v25 = aa_primaryAppleAccount;
-    [v13 setAccount:aa_primaryAppleAccount];
-    v14 = MEMORY[0x277CCACA8];
-    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v16 = [v15 localizedStringForKey:@"TURN_OFF_FIND_MY_DISCLOSURE" value:&stru_285BC2A70 table:@"Localizable"];
+    v14 = objc_opt_new();
+    v26 = aa_primaryAppleAccount;
+    [v14 setAccount:aa_primaryAppleAccount];
+    v15 = MEMORY[0x277CCACA8];
+    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v17 = [v16 localizedStringForKey:@"TURN_OFF_FIND_MY_DISCLOSURE" value:&stru_285BC2A70 table:@"Localizable"];
     username = [aa_primaryAppleAccount username];
-    v18 = [v14 stringWithFormat:v16, username];
-    [v13 setMessage:v18];
+    v19 = [v15 stringWithFormat:v17, username];
+    [v14 setMessage:v19];
 
-    v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v20 = [v19 localizedStringForKey:@"TURN_OFF_FINDMY" value:&stru_285BC2A70 table:@"Localizable"];
-    [v13 setButtonTitle:v20];
+    v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v21 = [v20 localizedStringForKey:@"TURN_OFF_FINDMY" value:&stru_285BC2A70 table:@"Localizable"];
+    [v14 setButtonTitle:v21];
 
     navigationController = [controllerCopy navigationController];
-    [v13 setPresentingViewController:navigationController];
+    [v14 setPresentingViewController:navigationController];
 
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    [v13 setTelemetryFlowID:uUIDString];
+    [v14 setTelemetryFlowID:uUIDString];
 
-    [v13 setKeepAlertVisible:1];
-    [v13 setIsSpyglassSignOut:0];
-    v24 = MEMORY[0x277CECA28];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __73__DKFindMyProvider_disableFindMyWithPresentingViewController_completion___block_invoke;
-    v26[3] = &unk_278F7DB98;
-    v27 = completionCopy;
-    [v24 showDisableAlertForContext:v13 withCompletion:v26];
+    [v14 setKeepAlertVisible:1];
+    [v14 setIsSpyglassSignOut:0];
+    v25 = MEMORY[0x277CECA28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __73__DKFindMyProvider_disableFindMyWithPresentingViewController_completion___block_invoke;
+    v27[3] = &unk_278F7DB98;
+    v28 = completionCopy;
+    [v25 showDisableAlertForContext:v14 withCompletion:v27];
   }
 
   else
@@ -175,7 +173,7 @@ uint64_t __37__DKFindMyProvider_fetchFindMyState___block_invoke_2(uint64_t a1)
 void __73__DKFindMyProvider_disableFindMyWithPresentingViewController_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _DKLogSystem();
+  v6 = _DKLogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -209,7 +207,7 @@ void __73__DKFindMyProvider_disableFindMyWithPresentingViewController_completion
 
 uint64_t __73__DKFindMyProvider_disableFindMyWithPresentingViewController_completion___block_invoke_27(uint64_t a1, int a2)
 {
-  v4 = _DKLogSystem();
+  v4 = _DKLogSystem(a1);
   v5 = v4;
   if (a2)
   {

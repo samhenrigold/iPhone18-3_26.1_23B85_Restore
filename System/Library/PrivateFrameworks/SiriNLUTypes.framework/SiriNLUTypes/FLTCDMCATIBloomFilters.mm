@@ -42,7 +42,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__38__FLTCDMCATIBloomFilters_flatbuff
 
 - (Offset<CDMCATIBloomFilters>)addObjectToBuffer:(void *)buffer
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   general_bf = [(FLTCDMCATIBloomFilters *)self general_bf];
   v6 = [general_bf addObjectToBuffer:buffer];
 
@@ -58,17 +58,12 @@ apple::aiml::flatbuffers2::DetachedBuffer *__38__FLTCDMCATIBloomFilters_flatbuff
     std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
+  memset(v18, 0, sizeof(v18));
   obj = [(FLTCDMCATIBloomFilters *)self array_bf];
-  v18 = v6;
-  if ([obj countByEnumeratingWithState:&v20 objects:v24 count:16])
+  v16 = v6;
+  if ([obj countByEnumeratingWithState:v18 objects:v19 count:16])
   {
-    *v21;
-    *v21;
-    [**(&v20 + 1) addObjectToBuffer:buffer];
+    [**(&v18[0] + 1) addObjectToBuffer:buffer];
     std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(1uLL);
   }
 
@@ -79,9 +74,9 @@ apple::aiml::flatbuffers2::DetachedBuffer *__38__FLTCDMCATIBloomFilters_flatbuff
   v10 = *(buffer + 8);
   v11 = *(buffer + 12);
   v12 = *(buffer + 10);
-  if (v18)
+  if (v16)
   {
-    v13 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v18);
+    v13 = apple::aiml::flatbuffers2::FlatBufferBuilder::ReferTo(buffer, v16);
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 4, v13, 0);
   }
 
@@ -91,9 +86,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__38__FLTCDMCATIBloomFilters_flatbuff
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 6, v14, 0);
   }
 
-  v15.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v10 - v11 + v12);
-  v16 = *MEMORY[0x1E69E9840];
-  return v15;
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v10 - v11 + v12);
 }
 
 - (void)array_bf_enumerateObjectsUsingBlock:(id)block

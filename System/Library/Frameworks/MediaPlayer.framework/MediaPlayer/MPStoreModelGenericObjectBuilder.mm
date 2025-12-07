@@ -10,10 +10,10 @@
 {
   objectCopy = object;
   identifiers = [objectCopy identifiers];
-  v26[0] = 0;
-  v26[1] = v26;
-  v26[2] = 0x2020000000;
-  v27 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -22,7 +22,7 @@
     v23[2] = __84__MPStoreModelGenericObjectBuilder__modelObjectWithUniqueContainerIDForModelObject___block_invoke;
     v23[3] = &unk_1E76819F0;
     v24 = objectCopy;
-    v25 = v26;
+    v25 = &v26;
     [MPModelObject performWithoutEnforcement:v23];
   }
 
@@ -34,7 +34,7 @@
     v20[2] = __84__MPStoreModelGenericObjectBuilder__modelObjectWithUniqueContainerIDForModelObject___block_invoke_2;
     v20[3] = &unk_1E76819F0;
     v21 = objectCopy;
-    v22 = v26;
+    v22 = &v26;
     [MPModelObject performWithoutEnforcement:v20];
   }
 
@@ -46,7 +46,7 @@
     v17[2] = __84__MPStoreModelGenericObjectBuilder__modelObjectWithUniqueContainerIDForModelObject___block_invoke_3;
     v17[3] = &unk_1E76819F0;
     v18 = objectCopy;
-    v19 = v26;
+    v19 = &v26;
     [MPModelObject performWithoutEnforcement:v17];
   }
 
@@ -58,11 +58,11 @@
     v14[2] = __84__MPStoreModelGenericObjectBuilder__modelObjectWithUniqueContainerIDForModelObject___block_invoke_4;
     v14[3] = &unk_1E76819F0;
     v15 = objectCopy;
-    v16 = v26;
+    v16 = &v26;
     [MPModelObject performWithoutEnforcement:v14];
   }
 
-  v6 = MPContainerUniqueIDPrefix(identifiers);
+  v6 = MPContainerUniqueIDPrefix(identifiers, 8, *(v27 + 24), 3);
   [(NSCountedSet *)self->_baseContentItemIDToOccurrenceCount countForObject:v6];
   v7 = ML3ContainerItemOccurrenceID();
   [(NSCountedSet *)self->_baseContentItemIDToOccurrenceCount addObject:v6];
@@ -75,7 +75,7 @@
   v9 = [identifiers copyWithSource:@"StorePlatform-ContainerUniqueID" block:v12];
   v10 = [objectCopy copyWithIdentifiers:v9 block:&__block_literal_global_71_44788];
 
-  _Block_object_dispose(v26, 8);
+  _Block_object_dispose(&v26, 8);
 
   return v10;
 }

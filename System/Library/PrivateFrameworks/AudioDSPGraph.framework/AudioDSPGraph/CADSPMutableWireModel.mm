@@ -34,30 +34,29 @@
 
 - (void)setAudioStreamConfiguration:(const CADSPAudioStreamConfiguration *)configuration
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (configuration)
   {
     v3 = *&configuration->var0.mBytesPerPacket;
-    v5[0] = *&configuration->var0.mSampleRate;
-    v5[1] = v3;
-    v6 = *&configuration->var0.mBitsPerChannel;
+    v4[0] = *&configuration->var0.mSampleRate;
+    v4[1] = v3;
+    v5 = *&configuration->var0.mBitsPerChannel;
     var1 = configuration->var1;
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>>((&self[1].super._this.source.boxName.__rep_.__l + 1), v5);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v5);
-  v4 = *MEMORY[0x1E69E9840];
+  std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>>((&self[1].super._this.source.boxName.__rep_.__l + 1), v4);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v4);
 }
 
 - (void)setAudioStreamConfigurationName:(id)name
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = nameCopy;
   if (nameCopy)
@@ -75,30 +74,28 @@
       operator new();
     }
 
-    HIBYTE(v11) = v7;
+    HIBYTE(v10) = v7;
     if (v7)
     {
       memmove(&__dst, uTF8String, v7);
     }
 
     *(&__dst + v8) = 0;
-    v12 = __dst;
-    v13 = v11;
-    v11 = 0;
+    v11 = __dst;
+    v12 = v10;
+    v10 = 0;
     __dst = 0uLL;
-    v14 = 2;
-    std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>>((&self[1].super._this.source.boxName.__rep_.__l + 1), &v12);
+    v13 = 2;
+    std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>>((&self[1].super._this.source.boxName.__rep_.__l + 1), &v11);
   }
 
   else
   {
-    v14 = 0;
-    std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>>((&self[1].super._this.source.boxName.__rep_.__l + 1), &v12);
+    v13 = 0;
+    std::__variant_detail::__assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>>::__generic_assign[abi:ne200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>>((&self[1].super._this.source.boxName.__rep_.__l + 1), &v11);
   }
 
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v12);
-
-  v9 = *MEMORY[0x1E69E9840];
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<std::monostate,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::WireConfigurationAlias>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v11);
 }
 
 @end

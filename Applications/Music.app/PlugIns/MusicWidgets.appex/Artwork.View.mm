@@ -34,22 +34,22 @@
 
 - (CGSize)intrinsicContentSize
 {
-  v3 = (self + OBJC_IVAR____TtCV11MusicCoreUI7Artwork4View_typedConfiguration);
+  v3 = self + OBJC_IVAR____TtCV11MusicCoreUI7Artwork4View_typedConfiguration;
   swift_beginAccess();
-  if (*(v3 + 48) == 2 && *(v3 + 64) == 2)
+  if (v3[48] == 2 && v3[64] == 2)
   {
-    v4 = v3[7];
-    v5 = v3[5];
+    v4 = *(v3 + 7);
+    v5 = *(v3 + 5);
     selfCopy = self;
-    v7 = v5;
-    v8 = v4;
+    v7.n128_u64[0] = v5;
+    v8.n128_u64[0] = v4;
   }
 
   else
   {
     selfCopy2 = self;
-    v7 = 0.0;
-    v8 = 0.0;
+    v7.n128_u64[0] = 0;
+    v8.n128_u64[0] = 0;
   }
 
   Artwork.View.fittingImageSize(in:)(v7, v8);
@@ -73,27 +73,29 @@
   if (v7 == 255)
   {
     selfCopy = self;
-    Artwork.View.fittingImageSize(in:)(width, height);
-    v10 = v9;
+    v9.n128_f64[0] = width;
+    v10.n128_f64[0] = height;
+    Artwork.View.fittingImageSize(in:)(v9, v10);
     v12 = v11;
+    v14 = v13;
   }
 
   else
   {
-    v13 = *(v6 + 7);
-    v14 = *(v6 + 5);
-    v15 = v6[64];
+    v15 = *(v6 + 7);
+    v16 = *(v6 + 5);
+    v17 = v6[64];
     selfCopy2 = self;
-    sub_100368034(width, height, v14, v7);
-    v10 = v17;
-    sub_100368034(width, height, v13, v15);
-    v12 = v18;
+    sub_100368034(width, height, v16, v7);
+    v12 = v19;
+    sub_100368034(width, height, v15, v17);
+    v14 = v20;
   }
 
-  v19 = v10;
-  v20 = v12;
-  result.height = v20;
-  result.width = v19;
+  v21 = v12;
+  v22 = v14;
+  result.height = v22;
+  result.width = v21;
   return result;
 }
 

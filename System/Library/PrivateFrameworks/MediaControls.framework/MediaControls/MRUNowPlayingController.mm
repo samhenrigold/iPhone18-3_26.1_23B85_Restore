@@ -212,7 +212,7 @@
 
 - (id)outputDevicesSymbolName
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   route = [(MRUEndpointController *)self->_endpointController route];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -248,63 +248,63 @@
     else
     {
       outputDevices = [endpointObject outputDevices];
-      v23 = endpointObject;
+      v24 = endpointObject;
       if (predictedOutputDevice)
       {
-        v34[0] = predictedOutputDevice;
-        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+        v35[0] = predictedOutputDevice;
+        v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
 
         outputDevices = v9;
       }
 
       v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(outputDevices, "count")}];
-      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
       v11 = outputDevices;
-      v12 = [v11 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v25;
+        v14 = *v26;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v25 != v14)
+            if (*v26 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v24 + 1) + 8 * i);
+            v16 = *(*(&v25 + 1) + 8 * i);
             v17 = objc_alloc(MEMORY[0x1E6970470]);
-            v32 = v16;
-            v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+            v33 = v16;
+            v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
             v19 = [v17 initWithOutputDevices:v18];
             [v10 addObject:v19];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v24 objects:v33 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v25 objects:v34 count:16];
         }
 
         while (v13);
       }
 
-      v20 = MCLogCategoryDefault();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = MCLogCategoryDefault(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = objc_opt_class();
+        v22 = objc_opt_class();
         *buf = 138543618;
-        v29 = v21;
-        v30 = 2114;
-        v31 = v10;
-        _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ imageForRoute routes: %{public}@", buf, 0x16u);
+        v30 = v22;
+        v31 = 2114;
+        v32 = v10;
+        _os_log_impl(&dword_1A20FC000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ imageForRoute routes: %{public}@", buf, 0x16u);
       }
 
       v5 = [MEMORY[0x1E6970490] _symbolNameForRoutes:v10];
 
-      endpointObject = v23;
+      endpointObject = v24;
     }
   }
 
@@ -313,7 +313,7 @@
 
 - (void)imageForRoute:(id)route completion:(id)completion
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   routeCopy = route;
   completionCopy = completion;
   objc_opt_class();
@@ -352,13 +352,13 @@ LABEL_6:
     if (bundleID)
     {
       metadataController = self->_metadataController;
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __52__MRUNowPlayingController_imageForRoute_completion___block_invoke;
-      v36[3] = &unk_1E7664700;
-      v36[4] = self;
-      v37 = completionCopy;
-      [(MRUMetadataController *)metadataController representsLongFormVideoContentWithCompletion:v36];
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __52__MRUNowPlayingController_imageForRoute_completion___block_invoke;
+      v37[3] = &unk_1E7664700;
+      v37[4] = self;
+      v38 = completionCopy;
+      [(MRUMetadataController *)metadataController representsLongFormVideoContentWithCompletion:v37];
 
       goto LABEL_25;
     }
@@ -368,73 +368,73 @@ LABEL_6:
   }
 
   outputDevices = [endpointObject outputDevices];
-  v31 = completionCopy;
-  v30 = predictedOutputDevice;
+  v32 = completionCopy;
+  v31 = predictedOutputDevice;
   if (predictedOutputDevice)
   {
-    v44[0] = predictedOutputDevice;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
+    v45[0] = predictedOutputDevice;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
 
     outputDevices = v14;
   }
 
   v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(outputDevices, "count")}];
-  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
   v16 = outputDevices;
-  v17 = [v16 countByEnumeratingWithState:&v32 objects:v43 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v33 objects:v44 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v33;
+    v19 = *v34;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v33 != v19)
+        if (*v34 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v32 + 1) + 8 * i);
+        v21 = *(*(&v33 + 1) + 8 * i);
         v22 = objc_alloc(MEMORY[0x1E6970470]);
-        v42 = v21;
-        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+        v43 = v21;
+        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
         v24 = [v22 initWithOutputDevices:v23];
         [v15 addObject:v24];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v32 objects:v43 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v33 objects:v44 count:16];
     }
 
     while (v18);
   }
 
-  v25 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v26 = MCLogCategoryDefault(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = objc_opt_class();
+    v27 = objc_opt_class();
     *buf = 138543618;
-    v39 = v26;
-    v40 = 2114;
-    v41 = v15;
-    _os_log_impl(&dword_1A20FC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ imageForRoute routes: %{public}@", buf, 0x16u);
+    v40 = v27;
+    v41 = 2114;
+    v42 = v15;
+    _os_log_impl(&dword_1A20FC000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ imageForRoute routes: %{public}@", buf, 0x16u);
   }
 
-  v27 = [MEMORY[0x1E6970490] _symbolImageForRoutes:v15];
-  completionCopy = v31;
-  v31[2](v31, v27);
+  v28 = [MEMORY[0x1E6970490] _symbolImageForRoutes:v15];
+  completionCopy = v32;
+  v32[2](v32, v28);
 
-  predictedOutputDevice = v30;
+  predictedOutputDevice = v31;
 LABEL_25:
 }
 
 void __52__MRUNowPlayingController_imageForRoute_completion___block_invoke(uint64_t a1, int a2)
 {
   v11 = *MEMORY[0x1E69E9840];
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138543618;
@@ -918,12 +918,12 @@ LABEL_8:
 
 - (void)updateQuickTransportItem
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   nowPlayingInfo = [(MRUMetadataController *)self->_metadataController nowPlayingInfo];
   tvRemoteController = [(MRUNowPlayingController *)self tvRemoteController];
   objc_initWeak(&location, tvRemoteController);
 
-  if (-[MRUEndpointController state](self->_endpointController, "state") == 3 && ([nowPlayingInfo showPlaceholder] & 1) == 0)
+  if (objc_msgSend_state(self->_endpointController) == 3 && ([nowPlayingInfo showPlaceholder] & 1) == 0)
   {
     transportControls = [(MRUMetadataController *)self->_metadataController transportControls];
     centerItem = [transportControls centerItem];
@@ -941,61 +941,61 @@ LABEL_8:
     transportControls = [MRUAsset image:v5];
 
     v7 = [MRUTransportControlItem alloc];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __51__MRUNowPlayingController_updateQuickTransportItem__block_invoke;
-    v20[3] = &unk_1E7663AE8;
-    objc_copyWeak(&v21, &location);
-    centerItem = [(MRUTransportControlItem *)v7 initWithIdentifier:@"tvremote" asset:transportControls mainAction:v20];
-    objc_destroyWeak(&v21);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __51__MRUNowPlayingController_updateQuickTransportItem__block_invoke;
+    v21[3] = &unk_1E7663AE8;
+    objc_copyWeak(&v22, &location);
+    centerItem = [(MRUTransportControlItem *)v7 initWithIdentifier:@"tvremote" asset:transportControls mainAction:v21];
+    objc_destroyWeak(&v22);
   }
 
 LABEL_9:
   objc_storeStrong(&self->_quickControlItem, centerItem);
-  v9 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = MCLogCategoryDefault(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = objc_opt_class();
+    v11 = objc_opt_class();
     *buf = 138543618;
-    v25 = v10;
-    v26 = 2114;
-    v27 = centerItem;
-    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ update quick transport controls: %{public}@", buf, 0x16u);
+    v26 = v11;
+    v27 = 2114;
+    v28 = centerItem;
+    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ update quick transport controls: %{public}@", buf, 0x16u);
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v11 = [(NSHashTable *)self->_observers copy];
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v23 count:16];
-  if (v12)
+  v18 = 0u;
+  v12 = [(NSHashTable *)self->_observers copy];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v24 count:16];
+  if (v13)
   {
-    v13 = *v17;
+    v14 = *v18;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = *(*(&v16 + 1) + 8 * v14);
+        v16 = *(*(&v17 + 1) + 8 * v15);
         if (objc_opt_respondsToSelector())
         {
-          [v15 nowPlayingController:self didChangeQuickControlItem:centerItem];
+          [v16 nowPlayingController:self didChangeQuickControlItem:centerItem];
         }
 
-        ++v14;
+        ++v15;
       }
 
-      while (v12 != v14);
-      v12 = [v11 countByEnumeratingWithState:&v16 objects:v23 count:16];
+      while (v13 != v15);
+      v13 = [v12 countByEnumeratingWithState:&v17 objects:v24 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
   objc_destroyWeak(&location);

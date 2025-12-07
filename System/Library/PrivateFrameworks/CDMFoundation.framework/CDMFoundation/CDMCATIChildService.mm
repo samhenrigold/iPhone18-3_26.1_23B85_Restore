@@ -189,7 +189,7 @@ LABEL_8:
 
 - (id)buildUserParse:(id)parse confidenceScore:(float)score
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   parseCopy = parse;
   usoEntity = self->_usoEntity;
   if (usoEntity && [(NSString *)usoEntity length])
@@ -203,85 +203,83 @@ LABEL_8:
         v10 = [(NSString *)usoEdge length];
         if (v10)
         {
-          SharedUsoVocabManager = siri::ontology::getSharedUsoVocabManager(v10);
-          v13 = *SharedUsoVocabManager;
-          v12 = SharedUsoVocabManager[1];
-          if (v12)
+          v11 = *(siri::ontology::getSharedUsoVocabManager(v10) + 8);
+          if (v11)
           {
-            atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__p, -[NSString UTF8String](self->_usoEntity, "UTF8String"));
           siri::ontology::UsoVocabManager::createCustomEntityName();
-          if (v55 < 0)
+          if (v51 < 0)
           {
             operator delete(__p);
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v52, -[NSString UTF8String](self->_usoVerb, "UTF8String"));
+          std::string::basic_string[abi:ne200100]<0>(&v48, -[NSString UTF8String](self->_usoVerb, "UTF8String"));
           siri::ontology::UsoVocabManager::createCustomVerbName();
-          if (v53 < 0)
+          if (v49 < 0)
           {
-            operator delete(v52);
+            operator delete(v48);
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&v50, -[NSString UTF8String](self->_usoEdge, "UTF8String"));
+          std::string::basic_string[abi:ne200100]<0>(&v46, -[NSString UTF8String](self->_usoEdge, "UTF8String"));
           siri::ontology::UsoVocabManager::createCustomEdgeName();
-          if (v51 < 0)
+          if (v47 < 0)
           {
-            operator delete(v50);
+            operator delete(v46);
           }
 
           buf.__r_.__value_.__r.__words[0] = 0;
           LODWORD(buf.__r_.__value_.__r.__words[1]) = 0;
-          MEMORY[0x1E12976A0](v49, &buf);
+          MEMORY[0x1E12976A0](v45, &buf);
           TaskNode = siri::ontology::UsoGraph::createTaskNode();
           siri::ontology::oname::graph::ontology_init::Argument_task(TaskNode);
           siri::ontology::UsoGraphNode::setSuccessor();
           EntityNode = siri::ontology::UsoGraph::createEntityNode();
           siri::ontology::oname::graph::ontology_init::Argument_target(EntityNode);
           siri::ontology::UsoGraphNode::setSuccessor();
-          memset(&v48, 0, sizeof(v48));
+          memset(&v44, 0, sizeof(v44));
           getIntentLookup = [(CDMCATIChildService *)self getIntentLookup];
-          v17 = [getIntentLookup objectForKey:parseCopy];
+          v15 = [getIntentLookup objectForKey:parseCopy];
 
-          if (v17)
+          if (v15)
           {
-            intentName = [v17 intentName];
-            v19 = intentName == 0;
+            intentName = [v15 intentName];
+            v17 = intentName == 0;
 
-            if (!v19)
+            if (!v17)
             {
-              intentName2 = [v17 intentName];
-              v21 = intentName2;
-              MEMORY[0x1E12979B0](&v48, [intentName2 UTF8String]);
+              intentName2 = [v15 intentName];
+              v19 = intentName2;
+              MEMORY[0x1E12979B0](&v44, [intentName2 UTF8String]);
 
-              if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
               {
-                std::string::__init_copy_ctor_external(&buf, v48.__r_.__value_.__l.__data_, v48.__r_.__value_.__l.__size_);
+                std::string::__init_copy_ctor_external(&buf, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
               }
 
               else
               {
-                buf = v48;
+                buf = v44;
               }
 
-              v57 = 1;
+              v53 = 1;
               siri::ontology::UsoGraph::createStringNode();
-              if (v57 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+              if (v53 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(buf.__r_.__value_.__l.__data_);
               }
 
               siri::ontology::UsoGraphNode::setSuccessor();
-              _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_();
+              _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_(&v43);
             }
           }
 
           std::string::basic_string[abi:ne200100]<0>(&buf, [&stru_1F5800F50 UTF8String]);
-          v57 = 1;
+          v53 = 1;
           siri::ontology::UsoGraph::createStringNode();
-          if (v57 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+          if (v53 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(buf.__r_.__value_.__l.__data_);
           }
@@ -292,135 +290,135 @@ LABEL_8:
 
           if (isPreGuidVersion)
           {
-            v27 = CDMOSLoggerForCategory(0);
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+            v24 = CDMOSLoggerForCategory(0);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
               LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
               *(buf.__r_.__value_.__r.__words + 4) = "[CDMCATIChildService buildUserParse:confidenceScore:]";
-              _os_log_impl(&dword_1DC287000, v27, OS_LOG_TYPE_INFO, "%s No intent GUIDs available in assets to attach to CATIResponse.", &buf, 0xCu);
+              _os_log_impl(&dword_1DC287000, v24, OS_LOG_TYPE_INFO, "%s No intent GUIDs available in assets to attach to CATIResponse.", &buf, 0xCu);
             }
           }
 
           else
           {
-            v29 = parseCopy;
-            std::string::basic_string[abi:ne200100]<0>(v44, [parseCopy UTF8String]);
-            std::string::basic_string[abi:ne200100]<0>(&v41, [@"com.apple.siri.cati" UTF8String]);
+            v26 = parseCopy;
+            std::string::basic_string[abi:ne200100]<0>(v41, [parseCopy UTF8String]);
+            std::string::basic_string[abi:ne200100]<0>(&v38, [@"com.apple.siri.cati" UTF8String]);
             std::string::basic_string[abi:ne200100]<0>(&buf, [*MEMORY[0x1E69D2468] UTF8String]);
-            v57 = 1;
-            v46 = 0;
-            v47 = 0;
+            v53 = 1;
+            LOBYTE(v43) = 0;
+            BYTE4(v43) = 0;
             siri::ontology::UsoEntityNode::addIdentifier();
-            if (v57 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+            if (v53 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(buf.__r_.__value_.__l.__data_);
             }
 
-            if (v43 < 0)
+            if (v40 < 0)
             {
-              operator delete(v41);
+              operator delete(v38);
             }
 
-            if (v45 < 0)
+            if (v42 < 0)
             {
-              operator delete(v44[0]);
+              operator delete(v41[0]);
             }
           }
 
-          if (v17)
+          if (v15)
           {
-            intentName3 = [v17 intentName];
-            v31 = intentName3 == 0;
+            intentName3 = [v15 intentName];
+            v28 = intentName3 == 0;
 
-            if (!v31)
+            if (!v28)
             {
-              intentName4 = [v17 intentName];
-              v33 = intentName4;
-              MEMORY[0x1E12979B0](&v48, [intentName4 UTF8String]);
+              intentName4 = [v15 intentName];
+              v30 = intentName4;
+              MEMORY[0x1E12979B0](&v44, [intentName4 UTF8String]);
 
-              std::string::basic_string[abi:ne200100]<0>(v44, [@"com.apple.siri.cati" UTF8String]);
+              std::string::basic_string[abi:ne200100]<0>(v41, [@"com.apple.siri.cati" UTF8String]);
               std::string::basic_string[abi:ne200100]<0>(&buf, [*MEMORY[0x1E69D2480] UTF8String]);
-              v57 = 1;
-              LOBYTE(v41) = 0;
-              v42 = 0;
+              v53 = 1;
+              LOBYTE(v38) = 0;
+              v39 = 0;
               siri::ontology::UsoEntityNode::addIdentifier();
-              if (v57 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+              if (v53 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(buf.__r_.__value_.__l.__data_);
               }
 
-              if (v45 < 0)
+              if (v42 < 0)
               {
-                operator delete(v44[0]);
+                operator delete(v41[0]);
               }
 
               if (+[CDMFeatureFlags isUsoEntitySpanEnabled])
               {
-                _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_();
+                _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_(v41);
               }
             }
 
-            ensemble = [v17 ensemble];
-            v35 = ensemble == 0;
+            ensemble = [v15 ensemble];
+            v32 = ensemble == 0;
 
-            if (!v35)
+            if (!v32)
             {
-              ensemble2 = [v17 ensemble];
-              v37 = ensemble2;
-              std::string::basic_string[abi:ne200100]<0>(v44, [ensemble2 UTF8String]);
-              std::string::basic_string[abi:ne200100]<0>(&v41, [@"com.apple.siri.cati" UTF8String]);
+              ensemble2 = [v15 ensemble];
+              v34 = ensemble2;
+              std::string::basic_string[abi:ne200100]<0>(v41, [ensemble2 UTF8String]);
+              std::string::basic_string[abi:ne200100]<0>(&v38, [@"com.apple.siri.cati" UTF8String]);
               std::string::basic_string[abi:ne200100]<0>(&buf, [*MEMORY[0x1E69D2460] UTF8String]);
-              v57 = 1;
-              v46 = 0;
-              v47 = 0;
+              v53 = 1;
+              LOBYTE(v43) = 0;
+              BYTE4(v43) = 0;
               siri::ontology::UsoEntityNode::addIdentifier();
-              if (v57 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+              if (v53 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(buf.__r_.__value_.__l.__data_);
               }
 
-              if (v43 < 0)
+              if (v40 < 0)
               {
-                operator delete(v41);
+                operator delete(v38);
               }
 
-              if (v45 < 0)
+              if (v42 < 0)
               {
-                operator delete(v44[0]);
+                operator delete(v41[0]);
               }
 
               if (+[CDMFeatureFlags isUsoEntitySpanEnabled])
               {
-                _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_();
+                _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_(&v38);
               }
             }
           }
 
-          *&v28 = score;
-          v38 = [MEMORY[0x1E696AD98] numberWithFloat:v28];
-          stringValue = [v38 stringValue];
-          v40 = stringValue;
-          std::string::basic_string[abi:ne200100]<0>(v44, [stringValue UTF8String]);
+          *&v25 = score;
+          v35 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
+          stringValue = [v35 stringValue];
+          v37 = stringValue;
+          std::string::basic_string[abi:ne200100]<0>(v41, [stringValue UTF8String]);
 
-          std::string::basic_string[abi:ne200100]<0>(&v41, [@"com.apple.siri.cati" UTF8String]);
+          std::string::basic_string[abi:ne200100]<0>(&v38, [@"com.apple.siri.cati" UTF8String]);
           buf.__r_.__value_.__s.__data_[0] = 0;
-          v57 = 0;
-          v46 = 0;
-          v47 = 0;
+          v53 = 0;
+          LOBYTE(v43) = 0;
+          BYTE4(v43) = 0;
           siri::ontology::UsoEntityNode::addIdentifier();
-          if (v57 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
+          if (v53 == 1 && SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(buf.__r_.__value_.__l.__data_);
           }
 
-          if (v43 < 0)
+          if (v40 < 0)
           {
-            operator delete(v41);
+            operator delete(v38);
           }
 
           if (+[CDMFeatureFlags isUsoEntitySpanEnabled])
           {
-            _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_();
+            _ZNSt3__111make_uniqueB8ne200100IN4siri8ontology13UsoEntitySpanEJELi0EEENS_10unique_ptrIT_NS_14default_deleteIS5_EEEEDpOT0_(&buf);
           }
 
           sirinluexternal::UsoGraph::UsoGraph(&buf);
@@ -429,39 +427,37 @@ LABEL_8:
         }
       }
 
-      v22 = CDMOSLoggerForCategory(0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v20 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
         *(buf.__r_.__value_.__r.__words + 4) = "[CDMCATIChildService buildUserParse:confidenceScore:]";
-        _os_log_error_impl(&dword_1DC287000, v22, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI did not have a valid usoEdge. Please check the manifest to ensure that this value exists", &buf, 0xCu);
+        _os_log_error_impl(&dword_1DC287000, v20, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI did not have a valid usoEdge. Please check the manifest to ensure that this value exists", &buf, 0xCu);
       }
     }
 
     else
     {
-      v22 = CDMOSLoggerForCategory(0);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v20 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
         *(buf.__r_.__value_.__r.__words + 4) = "[CDMCATIChildService buildUserParse:confidenceScore:]";
-        _os_log_error_impl(&dword_1DC287000, v22, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI did not have a valid usoVerb. Please check the manifest to ensure that this value exists", &buf, 0xCu);
+        _os_log_error_impl(&dword_1DC287000, v20, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI did not have a valid usoVerb. Please check the manifest to ensure that this value exists", &buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v22 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v20 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf.__r_.__value_.__l.__data_) = 136315138;
       *(buf.__r_.__value_.__r.__words + 4) = "[CDMCATIChildService buildUserParse:confidenceScore:]";
-      _os_log_error_impl(&dword_1DC287000, v22, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI did not have a valid usoEntity. Please check the manifest to ensure that this value exists", &buf, 0xCu);
+      _os_log_error_impl(&dword_1DC287000, v20, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI did not have a valid usoEntity. Please check the manifest to ensure that this value exists", &buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return 0;
 }
@@ -502,7 +498,7 @@ LABEL_8:
 
 - (vector<float,)getCATIEmbeddingTensor:(CDMCATIChildService *)self
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = a4;
   embeddingDimensionCATI = self->_embeddingDimensionCATI;
   retstr->var1 = 0;
@@ -556,33 +552,32 @@ LABEL_8:
     v17 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315138;
-      v21 = "[CDMCATIChildService getCATIEmbeddingTensor:]";
-      _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: NLv4EmbeddingTensor has numToken with a value of zero, returning empty CATI embeddingTensor.", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[CDMCATIChildService getCATIEmbeddingTensor:]";
+      _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: NLv4EmbeddingTensor has numToken with a value of zero, returning empty CATI embeddingTensor.", &v19, 0xCu);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)runCATIModelInferenceWithWeights:(id)weights
 {
-  v95 = *MEMORY[0x1E69E9840];
-  [(CDMCATIChildService *)self getCATIEmbeddingTensor:weights];
+  v94 = *MEMORY[0x1E69E9840];
+  objc_msgSend_getCATIEmbeddingTensor_(self, a2, weights);
   if (!self->_multiturnEnabled || !self->_multiturnWeightsEnabled)
   {
     v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v73 = 0;
     v74 = 0;
     v75 = 0;
-    v76 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v74, v83, v84, (v84 - v83) >> 2);
-    v4 = [(CDMCATIChildService *)self getInvocationInferenceResults:&v74];
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v73, v82, v83, (v83 - v82) >> 2);
+    v4 = [(CDMCATIChildService *)self getInvocationInferenceResults:&v73];
 
-    if (v74)
+    if (v73)
     {
-      v75 = v74;
-      operator delete(v74);
+      v74 = v73;
+      operator delete(v73);
     }
 
     v16 = [v4 valueForKey:@"confidence_score"];
@@ -601,11 +596,11 @@ LABEL_8:
         v24 = [MEMORY[0x1E696AD98] numberWithFloat:v23];
         stringValue2 = [v24 stringValue];
         *buf = 136315650;
-        v86 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
-        v87 = 2112;
-        v88 = stringValue;
-        v89 = 2112;
-        v90 = stringValue2;
+        v85 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
+        v86 = 2112;
+        v87 = stringValue;
+        v88 = 2112;
+        v89 = stringValue2;
         _os_log_impl(&dword_1DC287000, v19, OS_LOG_TYPE_INFO, "%s Invocation inference score is over the threshold: %@ > %@.", buf, 0x20u);
       }
 
@@ -622,11 +617,11 @@ LABEL_8:
       v32 = [MEMORY[0x1E696AD98] numberWithFloat:v31];
       stringValue4 = [v32 stringValue];
       *buf = 136315650;
-      v86 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
-      v87 = 2112;
-      v88 = stringValue3;
-      v89 = 2112;
-      v90 = stringValue4;
+      v85 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
+      v86 = 2112;
+      v87 = stringValue3;
+      v88 = 2112;
+      v89 = stringValue4;
       _os_log_impl(&dword_1DC287000, v27, OS_LOG_TYPE_INFO, "%s Invocation inference score is under the threshold: %@ < %@.", buf, 0x20u);
     }
 
@@ -634,13 +629,13 @@ LABEL_8:
   }
 
   __p = 0;
+  v80 = 0;
   v81 = 0;
-  v82 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v83, v84, (v84 - v83) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v82, v83, (v83 - v82) >> 2);
   v4 = [(CDMCATIChildService *)self getMultiturnInferenceResults:&__p];
   if (__p)
   {
-    v81 = __p;
+    v80 = __p;
     operator delete(__p);
   }
 
@@ -660,11 +655,11 @@ LABEL_8:
       v13 = [MEMORY[0x1E696AD98] numberWithFloat:v12];
       stringValue6 = [v13 stringValue];
       *buf = 136315650;
-      v86 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
-      v87 = 2112;
-      v88 = stringValue5;
-      v89 = 2112;
-      v90 = stringValue6;
+      v85 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
+      v86 = 2112;
+      v87 = stringValue5;
+      v88 = 2112;
+      v89 = stringValue6;
       _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s Multiturn inference score is over the threshold: %@ > %@.", buf, 0x20u);
     }
 
@@ -676,22 +671,22 @@ LABEL_15:
 
   if (!self->_invocationWeightsEnabled)
   {
-    v52 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+    v51 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
     {
-      *&v53 = v7;
-      v54 = [MEMORY[0x1E696AD98] numberWithFloat:v53];
-      stringValue7 = [v54 stringValue];
-      *&v56 = self->_multiturnConfidenceThreshold;
-      v57 = [MEMORY[0x1E696AD98] numberWithFloat:v56];
-      stringValue8 = [v57 stringValue];
+      *&v52 = v7;
+      v53 = [MEMORY[0x1E696AD98] numberWithFloat:v52];
+      stringValue7 = [v53 stringValue];
+      *&v55 = self->_multiturnConfidenceThreshold;
+      v56 = [MEMORY[0x1E696AD98] numberWithFloat:v55];
+      stringValue8 = [v56 stringValue];
       *buf = 136315650;
-      v86 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
-      v87 = 2112;
-      v88 = stringValue7;
-      v89 = 2112;
-      v90 = stringValue8;
-      _os_log_impl(&dword_1DC287000, v52, OS_LOG_TYPE_INFO, "%s CATI multiturn inference score is under the threshold: %@ < %@. Inference for invocation is not enabled.", buf, 0x20u);
+      v85 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
+      v86 = 2112;
+      v87 = stringValue7;
+      v88 = 2112;
+      v89 = stringValue8;
+      _os_log_impl(&dword_1DC287000, v51, OS_LOG_TYPE_INFO, "%s CATI multiturn inference score is under the threshold: %@ < %@. Inference for invocation is not enabled.", buf, 0x20u);
     }
 
 LABEL_19:
@@ -699,51 +694,51 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v36 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v35 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v76 = 0;
   v77 = 0;
   v78 = 0;
-  v79 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v77, v83, v84, (v84 - v83) >> 2);
-  v37 = [(CDMCATIChildService *)self getInvocationInferenceResults:&v77];
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v76, v82, v83, (v83 - v82) >> 2);
+  v36 = [(CDMCATIChildService *)self getInvocationInferenceResults:&v76];
 
-  if (v77)
+  if (v76)
   {
-    v78 = v77;
-    operator delete(v77);
+    v77 = v76;
+    operator delete(v76);
   }
 
-  v38 = [v37 valueForKey:@"confidence_score"];
-  [v38 floatValue];
-  v40 = v39;
+  v37 = [v36 valueForKey:@"confidence_score"];
+  [v37 floatValue];
+  v39 = v38;
 
-  if (v40 <= self->_confidenceThreshold)
+  if (v39 <= self->_confidenceThreshold)
   {
-    v59 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+    v58 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
     {
-      *&v60 = v7;
-      v71 = [MEMORY[0x1E696AD98] numberWithFloat:v60];
-      stringValue9 = [v71 stringValue];
-      *&v61 = self->_multiturnConfidenceThreshold;
-      v62 = [MEMORY[0x1E696AD98] numberWithFloat:v61];
-      stringValue10 = [v62 stringValue];
-      *&v64 = v40;
-      v65 = [MEMORY[0x1E696AD98] numberWithFloat:v64];
-      stringValue11 = [v65 stringValue];
-      *&v67 = self->_confidenceThreshold;
-      v68 = [MEMORY[0x1E696AD98] numberWithFloat:v67];
-      stringValue12 = [v68 stringValue];
+      *&v59 = v7;
+      v70 = [MEMORY[0x1E696AD98] numberWithFloat:v59];
+      stringValue9 = [v70 stringValue];
+      *&v60 = self->_multiturnConfidenceThreshold;
+      v61 = [MEMORY[0x1E696AD98] numberWithFloat:v60];
+      stringValue10 = [v61 stringValue];
+      *&v63 = v39;
+      v64 = [MEMORY[0x1E696AD98] numberWithFloat:v63];
+      stringValue11 = [v64 stringValue];
+      *&v66 = self->_confidenceThreshold;
+      v67 = [MEMORY[0x1E696AD98] numberWithFloat:v66];
+      stringValue12 = [v67 stringValue];
       *buf = 136316162;
-      v86 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
-      v87 = 2112;
-      v88 = stringValue9;
-      v89 = 2112;
-      v90 = stringValue10;
-      v91 = 2112;
-      v92 = stringValue11;
-      v93 = 2112;
-      v94 = stringValue12;
-      _os_log_impl(&dword_1DC287000, v59, OS_LOG_TYPE_INFO, "%s Multiturn inference score is under the threshold: %@ < %@. CATI invocation inference score is also under the threshold: %@ < %@.", buf, 0x34u);
+      v85 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
+      v86 = 2112;
+      v87 = stringValue9;
+      v88 = 2112;
+      v89 = stringValue10;
+      v90 = 2112;
+      v91 = stringValue11;
+      v92 = 2112;
+      v93 = stringValue12;
+      _os_log_impl(&dword_1DC287000, v58, OS_LOG_TYPE_INFO, "%s Multiturn inference score is under the threshold: %@ < %@. CATI invocation inference score is also under the threshold: %@ < %@.", buf, 0x34u);
     }
 
     v26 = 0;
@@ -751,57 +746,55 @@ LABEL_19:
 
   else
   {
-    v41 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    v40 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
     {
-      *&v42 = v7;
-      v70 = [MEMORY[0x1E696AD98] numberWithFloat:v42];
-      stringValue13 = [v70 stringValue];
-      *&v43 = self->_multiturnConfidenceThreshold;
-      v44 = [MEMORY[0x1E696AD98] numberWithFloat:v43];
-      stringValue14 = [v44 stringValue];
-      *&v46 = v40;
-      v47 = [MEMORY[0x1E696AD98] numberWithFloat:v46];
-      stringValue15 = [v47 stringValue];
-      *&v49 = self->_confidenceThreshold;
-      v50 = [MEMORY[0x1E696AD98] numberWithFloat:v49];
-      stringValue16 = [v50 stringValue];
+      *&v41 = v7;
+      v69 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
+      stringValue13 = [v69 stringValue];
+      *&v42 = self->_multiturnConfidenceThreshold;
+      v43 = [MEMORY[0x1E696AD98] numberWithFloat:v42];
+      stringValue14 = [v43 stringValue];
+      *&v45 = v39;
+      v46 = [MEMORY[0x1E696AD98] numberWithFloat:v45];
+      stringValue15 = [v46 stringValue];
+      *&v48 = self->_confidenceThreshold;
+      v49 = [MEMORY[0x1E696AD98] numberWithFloat:v48];
+      stringValue16 = [v49 stringValue];
       *buf = 136316162;
-      v86 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
-      v87 = 2112;
-      v88 = stringValue13;
-      v89 = 2112;
-      v90 = stringValue14;
-      v91 = 2112;
-      v92 = stringValue15;
-      v93 = 2112;
-      v94 = stringValue16;
-      _os_log_impl(&dword_1DC287000, v41, OS_LOG_TYPE_INFO, "%s Multiturn inference score is under the threshold: %@ < %@. CATI invocation inference score is over the threshold: %@ > %@.", buf, 0x34u);
+      v85 = "[CDMCATIChildService runCATIModelInferenceWithWeights:]";
+      v86 = 2112;
+      v87 = stringValue13;
+      v88 = 2112;
+      v89 = stringValue14;
+      v90 = 2112;
+      v91 = stringValue15;
+      v92 = 2112;
+      v93 = stringValue16;
+      _os_log_impl(&dword_1DC287000, v40, OS_LOG_TYPE_INFO, "%s Multiturn inference score is under the threshold: %@ < %@. CATI invocation inference score is over the threshold: %@ > %@.", buf, 0x34u);
     }
 
-    v26 = v37;
+    v26 = v36;
   }
 
 LABEL_20:
-  if (v83)
+  if (v82)
   {
-    v84 = v83;
-    operator delete(v83);
+    v83 = v82;
+    operator delete(v82);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
 
 - (id)checkExactMatchFromPossibleGuids:(id)guids forUtterance:(id)utterance modelType:(unint64_t)type
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   guidsCopy = guids;
   utteranceCopy = utterance;
   if (![guidsCopy count])
   {
-    v26 = 0;
+    v25 = 0;
     goto LABEL_22;
   }
 
@@ -810,12 +803,12 @@ LABEL_20:
 
   v10 = 0;
   *&v11 = 136315650;
-  v25 = v11;
+  v24 = v11;
   while (1)
   {
     if ([guidsCopy count] <= v10)
     {
-      v26 = 0;
+      v25 = 0;
       goto LABEL_21;
     }
 
@@ -834,36 +827,36 @@ LABEL_17:
   getPosOverridesDirectoryPath = [(CDMCATIChildService *)self getPosOverridesDirectoryPath];
   v15 = [getPosOverridesDirectoryPath stringByAppendingPathComponent:v13];
 
-  v30 = 0;
-  v16 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v15 options:0 error:&v30];
-  v17 = v30;
+  v29 = 0;
+  v16 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v15 options:0 error:&v29];
+  v17 = v29;
   v18 = v17;
   if (!v16 || v17)
   {
     v19 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      *buf = v25;
-      v32 = "[CDMCATIChildService checkExactMatchFromPossibleGuids:forUtterance:modelType:]";
-      v33 = 2112;
-      v34 = v15;
-      v35 = 2112;
-      v36 = v18;
+      *buf = v24;
+      v31 = "[CDMCATIChildService checkExactMatchFromPossibleGuids:forUtterance:modelType:]";
+      v32 = 2112;
+      v33 = v15;
+      v34 = 2112;
+      v35 = v18;
       _os_log_error_impl(&dword_1DC287000, v19, OS_LOG_TYPE_ERROR, "%s [ERR]: Unable to find or process file (%@) due to %@", buf, 0x20u);
     }
   }
 
   else
   {
-    v29 = 0;
-    v19 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v16 options:0 error:&v29];
-    v18 = v29;
+    v28 = 0;
+    v19 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v16 options:0 error:&v28];
+    v18 = v28;
     if (v19)
     {
       v20 = [v19 valueForKey:utteranceCopy];
       if (v20)
       {
-        v26 = [v19 valueForKey:utteranceCopy];
+        v25 = [v19 valueForKey:utteranceCopy];
 
         v21 = 0;
         goto LABEL_16;
@@ -875,12 +868,12 @@ LABEL_17:
       v22 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        *buf = v25;
-        v32 = "[CDMCATIChildService checkExactMatchFromPossibleGuids:forUtterance:modelType:]";
-        v33 = 2112;
-        v34 = v15;
-        v35 = 2112;
-        v36 = v18;
+        *buf = v24;
+        v31 = "[CDMCATIChildService checkExactMatchFromPossibleGuids:forUtterance:modelType:]";
+        v32 = 2112;
+        v33 = v15;
+        v34 = 2112;
+        v35 = v18;
         _os_log_error_impl(&dword_1DC287000, v22, OS_LOG_TYPE_ERROR, "%s [ERR]: Error parsing JSON in file %@: %@", buf, 0x20u);
       }
     }
@@ -897,14 +890,12 @@ LABEL_16:
 LABEL_21:
 LABEL_22:
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v26;
+  return v25;
 }
 
 - (id)checkExactMatch:(id)match
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   matchCopy = match;
   v5 = [matchCopy dataUsingEncoding:4];
   if (!self->_multiturnEnabled || ([(CDMCATIChildService *)self checkExactMatchFromPossibleGuids:self->_multiturnEnabledExactMatchIntents forUtterance:matchCopy modelType:1], (v6 = objc_claimAutoreleasedReturnValue()) == 0))
@@ -922,7 +913,7 @@ LABEL_22:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v36 = "[CDMCATIChildService checkExactMatch:]";
+        v35 = "[CDMCATIChildService checkExactMatch:]";
         _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s Using Flatbuffers BF override system", buf, 0xCu);
       }
 
@@ -935,24 +926,24 @@ LABEL_22:
       }
 
       [(FLTCDMCATIBloomFilters *)self->_fbBloomFilters array_bf];
+      v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
-      v11 = v30 = 0u;
-      v12 = [(NSArray *)v11 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v28 = 0u;
+      v11 = v29 = 0u;
+      v12 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v12)
       {
-        v13 = *v30;
+        v13 = *v29;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v30 != v13)
+            if (*v29 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            v15 = *(*(&v29 + 1) + 8 * i);
+            v15 = *(*(&v28 + 1) + 8 * i);
             if ([(CDMCATIChildService *)self checkFBBloomFilter:v15 contains:v5])
             {
               name = [v15 name];
@@ -960,7 +951,7 @@ LABEL_22:
             }
           }
 
-          v12 = [(NSArray *)v11 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v12 = [(NSArray *)v11 countByEnumeratingWithState:&v28 objects:v33 count:16];
         }
 
         while (v12);
@@ -973,7 +964,7 @@ LABEL_22:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v36 = "[CDMCATIChildService checkExactMatch:]";
+        v35 = "[CDMCATIChildService checkExactMatch:]";
         _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s Using JSON BF override system", buf, 0xCu);
       }
 
@@ -982,33 +973,33 @@ LABEL_22:
         goto LABEL_33;
       }
 
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v11 = self->_positiveOverridesInvocationIndividualBloomFilters;
-      v18 = [(NSArray *)v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v18 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v18)
       {
-        v19 = *v26;
+        v19 = *v25;
         do
         {
           for (j = 0; j != v18; ++j)
           {
-            if (*v26 != v19)
+            if (*v25 != v19)
             {
               objc_enumerationMutation(v11);
             }
 
-            v21 = *(*(&v25 + 1) + 8 * j);
-            if ([v21 containsWithData:{v5, v25}])
+            v21 = *(*(&v24 + 1) + 8 * j);
+            if ([v21 containsWithData:{v5, v24}])
             {
               name2 = [v21 name];
               [v7 addObject:name2];
             }
           }
 
-          v18 = [(NSArray *)v11 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v18 = [(NSArray *)v11 countByEnumeratingWithState:&v24 objects:v32 count:16];
         }
 
         while (v18);
@@ -1016,12 +1007,10 @@ LABEL_22:
     }
 
 LABEL_33:
-    v6 = [(CDMCATIChildService *)self checkExactMatchFromPossibleGuids:v7 forUtterance:matchCopy modelType:0, v25];
+    v6 = [(CDMCATIChildService *)self checkExactMatchFromPossibleGuids:v7 forUtterance:matchCopy modelType:0, v24];
   }
 
 LABEL_34:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1081,28 +1070,28 @@ unint64_t __51__CDMCATIChildService_checkFBBloomFilter_contains___block_invoke(u
 
 - (id)checkExactMatchForUtterances:(id)utterances
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   utterancesCopy = utterances;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     normalisedUtterance = [utterancesCopy normalisedUtterance];
-    v18 = 136315394;
-    v19 = "[CDMCATIChildService checkExactMatchForUtterances:]";
-    v20 = 2112;
-    v21 = normalisedUtterance;
-    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s CATI normalized utterance: %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CDMCATIChildService checkExactMatchForUtterances:]";
+    v19 = 2112;
+    v20 = normalisedUtterance;
+    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s CATI normalized utterance: %@", &v17, 0x16u);
   }
 
   v6 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     originalUtterance = [utterancesCopy originalUtterance];
-    v18 = 136315394;
-    v19 = "[CDMCATIChildService checkExactMatchForUtterances:]";
-    v20 = 2112;
-    v21 = originalUtterance;
-    _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s CATI original utterance: %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[CDMCATIChildService checkExactMatchForUtterances:]";
+    v19 = 2112;
+    v20 = originalUtterance;
+    _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s CATI original utterance: %@", &v17, 0x16u);
   }
 
   if ([utterancesCopy hasOriginalUtterance])
@@ -1137,14 +1126,12 @@ unint64_t __51__CDMCATIChildService_checkFBBloomFilter_contains___block_invoke(u
     v9 = [(CDMCATIChildService *)self checkExactMatch:lowercaseString2];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)handle:(id)handle assetVersion:(int64_t)version
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v7 = os_signpost_id_generate(CDMLogContext);
   v8 = CDMLogContext;
@@ -1155,7 +1142,7 @@ unint64_t __51__CDMCATIChildService_checkFBBloomFilter_contains___block_invoke(u
   {
     getProductAreaName = [(CDMCATIChildService *)self getProductAreaName];
     *buf = 138412290;
-    v59 = getProductAreaName;
+    v58 = getProductAreaName;
     _os_signpost_emit_with_name_impl(&dword_1DC287000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "CATI", "invokeHandle (%@)", buf, 0xCu);
   }
 
@@ -1168,7 +1155,7 @@ unint64_t __51__CDMCATIChildService_checkFBBloomFilter_contains___block_invoke(u
     {
       getProductAreaName2 = [(CDMCATIChildService *)self getProductAreaName];
       *buf = 138412290;
-      v59 = getProductAreaName2;
+      v58 = getProductAreaName2;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "CATI", "buildMultiTurnFeatures (%@)", buf, 0xCu);
     }
 
@@ -1196,7 +1183,7 @@ unint64_t __51__CDMCATIChildService_checkFBBloomFilter_contains___block_invoke(u
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v59 = "[CDMCATIChildService handle:assetVersion:]";
+      v58 = "[CDMCATIChildService handle:assetVersion:]";
       _os_log_impl(&dword_1DC287000, v20, OS_LOG_TYPE_INFO, "%s [WARN]: Multiturn is disabled", buf, 0xCu);
     }
 
@@ -1214,11 +1201,11 @@ unint64_t __51__CDMCATIChildService_checkFBBloomFilter_contains___block_invoke(u
     {
       getProductAreaName3 = [(CDMCATIChildService *)self getProductAreaName];
       *buf = 136315650;
-      v59 = "[CDMCATIChildService handle:assetVersion:]";
-      v60 = 2112;
-      v61 = @"cati";
-      v62 = 2112;
-      v63 = getProductAreaName3;
+      v58 = "[CDMCATIChildService handle:assetVersion:]";
+      v59 = 2112;
+      v60 = @"cati";
+      v61 = 2112;
+      v62 = getProductAreaName3;
       _os_log_debug_impl(&dword_1DC287000, v24, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\n%@: CATI suppressed due to previous non-CATI turn info, return empty hypothesis", buf, 0x20u);
     }
 
@@ -1247,9 +1234,9 @@ LABEL_23:
       {
         getProductAreaName4 = [(CDMCATIChildService *)self getProductAreaName];
         *buf = 136315394;
-        v59 = "[CDMCATIChildService handle:assetVersion:]";
-        v60 = 2112;
-        v61 = getProductAreaName4;
+        v58 = "[CDMCATIChildService handle:assetVersion:]";
+        v59 = 2112;
+        v60 = getProductAreaName4;
         _os_log_debug_impl(&dword_1DC287000, v48, OS_LOG_TYPE_DEBUG, "%s %@: There were no override matches and no weights to run inference on so we are returning an empty response.", buf, 0x16u);
       }
 
@@ -1285,9 +1272,9 @@ LABEL_23:
     {
       getProductAreaName5 = [(CDMCATIChildService *)self getProductAreaName];
       *buf = 136315394;
-      v59 = "[CDMCATIChildService handle:assetVersion:]";
-      v60 = 2112;
-      v61 = getProductAreaName5;
+      v58 = "[CDMCATIChildService handle:assetVersion:]";
+      v59 = 2112;
+      v60 = getProductAreaName5;
       _os_log_debug_impl(&dword_1DC287000, v46, OS_LOG_TYPE_DEBUG, "%s %@: There were no override matches and the inference results were below the threshold, so we are returning an empty response.", buf, 0x16u);
     }
 
@@ -1350,13 +1337,13 @@ LABEL_29:
     {
       getProductAreaName6 = [(CDMCATIChildService *)self getProductAreaName];
       *buf = 136315906;
-      v59 = "[CDMCATIChildService handle:assetVersion:]";
-      v60 = 2112;
-      v61 = @"cati";
-      v62 = 2112;
-      v63 = getProductAreaName6;
-      v64 = 2112;
-      v65 = v40;
+      v58 = "[CDMCATIChildService handle:assetVersion:]";
+      v59 = 2112;
+      v60 = @"cati";
+      v61 = 2112;
+      v62 = getProductAreaName6;
+      v63 = 2112;
+      v64 = v40;
       _os_log_debug_impl(&dword_1DC287000, v41, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\n%@ CATI hypothesis: %@", buf, 0x2Au);
     }
   }
@@ -1365,11 +1352,11 @@ LABEL_29:
   {
     getProductAreaName7 = [(CDMCATIChildService *)self getProductAreaName];
     *buf = 136315650;
-    v59 = "[CDMCATIChildService handle:assetVersion:]";
-    v60 = 2112;
-    v61 = @"cati";
-    v62 = 2112;
-    v63 = getProductAreaName7;
+    v58 = "[CDMCATIChildService handle:assetVersion:]";
+    v59 = 2112;
+    v60 = @"cati";
+    v61 = 2112;
+    v62 = getProductAreaName7;
     _os_log_debug_impl(&dword_1DC287000, v41, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\n%@: no CATI hypothesis", buf, 0x20u);
   }
 
@@ -1382,14 +1369,13 @@ LABEL_29:
   }
 
 LABEL_58:
-  v51 = *MEMORY[0x1E69E9840];
 
   return v40;
 }
 
 - (id)getMultiturnIntentsFromSystemInformed:(id)informed
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   informedCopy = informed;
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   entities = [informedCopy entities];
@@ -1397,41 +1383,30 @@ LABEL_58:
   {
     for (i = 0; [entities count] > i; ++i)
     {
-      v33 = [entities objectAtIndex:?];
-      nodes = [v33 nodes];
+      v32 = [entities objectAtIndex:?];
+      nodes = [v32 nodes];
       if (!nodes || ![nodes count])
       {
         goto LABEL_42;
       }
 
-      v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
       for (j = 0; [nodes count] > j; ++j)
       {
         v5 = [nodes objectAtIndex:j];
-        if ([v5 usoElementId] == self->_usoElementId)
+        if ([v5 usoElementId] == self->_usoElementId || (objc_msgSend(v5, "entityLabel"), v6 = objc_claimAutoreleasedReturnValue(), -[CDMCATIChildService getManifest](self, "getManifest"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "usoEntity"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v6, "isEqualToString:", v8), v8, v7, v6, v9))
         {
-          goto LABEL_11;
-        }
-
-        entityLabel = [v5 entityLabel];
-        getManifest = [(CDMCATIChildService *)self getManifest];
-        usoEntity = [getManifest usoEntity];
-        v9 = [entityLabel isEqualToString:usoEntity];
-
-        if (v9)
-        {
-LABEL_11:
           v10 = [MEMORY[0x1E696AD98] numberWithInt:j];
-          [v42 addObject:v10];
+          [v41 addObject:v10];
         }
       }
 
-      identifiers = [v33 identifiers];
+      identifiers = [v32 identifiers];
       for (k = 0; [identifiers count] > k; ++k)
       {
         v12 = [identifiers objectAtIndex:k];
         value = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v12, "nodeIndex")}];
-        if ([v42 containsObject:value])
+        if ([v41 containsObject:value])
         {
           hasValue = [v12 hasValue];
 
@@ -1449,50 +1424,50 @@ LABEL_19:
 
       if (+[CDMFeatureFlags isUsoEntitySpanEnabled])
       {
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
         v48 = 0u;
-        obj = [v33 spans];
-        v15 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
+        obj = [v32 spans];
+        v15 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
         if (v15)
         {
-          v40 = *v48;
+          v39 = *v47;
           do
           {
-            v41 = v15;
-            for (m = 0; m != v41; ++m)
+            v40 = v15;
+            for (m = 0; m != v40; ++m)
             {
-              if (*v48 != v40)
+              if (*v47 != v39)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v17 = *(*(&v47 + 1) + 8 * m);
+              v17 = *(*(&v46 + 1) + 8 * m);
               v18 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v17, "nodeIndex")}];
-              v19 = [v42 containsObject:v18];
+              v19 = [v41 containsObject:v18];
 
               if (v19)
               {
-                v45 = 0u;
-                v46 = 0u;
-                v43 = 0u;
                 v44 = 0u;
+                v45 = 0u;
+                v42 = 0u;
+                v43 = 0u;
                 properties = [v17 properties];
-                v21 = [properties countByEnumeratingWithState:&v43 objects:v51 count:16];
+                v21 = [properties countByEnumeratingWithState:&v42 objects:v50 count:16];
                 if (v21)
                 {
-                  v22 = *v44;
+                  v22 = *v43;
                   do
                   {
                     for (n = 0; n != v21; ++n)
                     {
-                      if (*v44 != v22)
+                      if (*v43 != v22)
                       {
                         objc_enumerationMutation(properties);
                       }
 
-                      v24 = *(*(&v43 + 1) + 8 * n);
+                      v24 = *(*(&v42 + 1) + 8 * n);
                       if ([v24 hasValueString])
                       {
                         valueString = [v24 valueString];
@@ -1508,7 +1483,7 @@ LABEL_19:
                       }
                     }
 
-                    v21 = [properties countByEnumeratingWithState:&v43 objects:v51 count:16];
+                    v21 = [properties countByEnumeratingWithState:&v42 objects:v50 count:16];
                   }
 
                   while (v21);
@@ -1516,7 +1491,7 @@ LABEL_19:
               }
             }
 
-            v15 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+            v15 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
           }
 
           while (v15);
@@ -1527,14 +1502,12 @@ LABEL_42:
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (id)getMultiturnIntentsFromSystemGaveOptions:(id)options
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   choices = [optionsCopy choices];
@@ -1542,13 +1515,13 @@ LABEL_42:
   {
     for (i = 0; [choices count] > i; ++i)
     {
-      v33 = [choices objectAtIndex:?];
-      if (![v33 hasUserStatedTask])
+      v32 = [choices objectAtIndex:?];
+      if (![v32 hasUserStatedTask])
       {
         goto LABEL_44;
       }
 
-      userStatedTask = [v33 userStatedTask];
+      userStatedTask = [v32 userStatedTask];
       task = [userStatedTask task];
 
       nodes = [task nodes];
@@ -1557,14 +1530,14 @@ LABEL_42:
         goto LABEL_43;
       }
 
-      v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
       for (j = 0; [nodes count] > j; ++j)
       {
         v6 = [nodes objectAtIndex:j];
         if ([v6 usoElementId] == self->_usoElementId || (objc_msgSend(v6, "entityLabel"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", self->_usoEntity), v7, v8))
         {
           v9 = [MEMORY[0x1E696AD98] numberWithInt:j];
-          [v42 addObject:v9];
+          [v41 addObject:v9];
         }
       }
 
@@ -1573,7 +1546,7 @@ LABEL_42:
       {
         v11 = [identifiers objectAtIndex:k];
         value = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v11, "nodeIndex")}];
-        if ([v42 containsObject:value])
+        if ([v41 containsObject:value])
         {
           hasValue = [v11 hasValue];
 
@@ -1591,50 +1564,50 @@ LABEL_20:
 
       if (+[CDMFeatureFlags isUsoEntitySpanEnabled])
       {
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
         v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
         obj = [task spans];
-        v14 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v14 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
         if (v14)
         {
-          v40 = *v48;
+          v39 = *v47;
           do
           {
-            v41 = v14;
-            for (m = 0; m != v41; ++m)
+            v40 = v14;
+            for (m = 0; m != v40; ++m)
             {
-              if (*v48 != v40)
+              if (*v47 != v39)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v16 = *(*(&v47 + 1) + 8 * m);
+              v16 = *(*(&v46 + 1) + 8 * m);
               v17 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v16, "nodeIndex")}];
-              v18 = [v42 containsObject:v17];
+              v18 = [v41 containsObject:v17];
 
               if (v18)
               {
-                v45 = 0u;
-                v46 = 0u;
-                v43 = 0u;
                 v44 = 0u;
+                v45 = 0u;
+                v42 = 0u;
+                v43 = 0u;
                 properties = [v16 properties];
-                v20 = [properties countByEnumeratingWithState:&v43 objects:v51 count:16];
+                v20 = [properties countByEnumeratingWithState:&v42 objects:v50 count:16];
                 if (v20)
                 {
-                  v21 = *v44;
+                  v21 = *v43;
                   do
                   {
                     for (n = 0; n != v20; ++n)
                     {
-                      if (*v44 != v21)
+                      if (*v43 != v21)
                       {
                         objc_enumerationMutation(properties);
                       }
 
-                      v23 = *(*(&v43 + 1) + 8 * n);
+                      v23 = *(*(&v42 + 1) + 8 * n);
                       if ([v23 hasValueString])
                       {
                         valueString = [v23 valueString];
@@ -1650,7 +1623,7 @@ LABEL_20:
                       }
                     }
 
-                    v20 = [properties countByEnumeratingWithState:&v43 objects:v51 count:16];
+                    v20 = [properties countByEnumeratingWithState:&v42 objects:v50 count:16];
                   }
 
                   while (v20);
@@ -1658,7 +1631,7 @@ LABEL_20:
               }
             }
 
-            v14 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+            v14 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
           }
 
           while (v14);
@@ -1670,14 +1643,12 @@ LABEL_44:
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (void)buildMultiturnFeatures:(id)features
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   self->_multiturnEnabled = 0;
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -1736,10 +1707,10 @@ LABEL_11:
     self->_multiturnEnabledExactMatchIntents = allObjects;
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v37 = [defaultManager contentsOfDirectoryAtPath:self->_weightsDirectoryPath error:0];
+    v35 = [defaultManager contentsOfDirectoryAtPath:self->_weightsDirectoryPath error:0];
 
     getManifest2 = [(CDMCATIChildService *)self getManifest];
-    v36 = [getManifest2 getWeightGuidsForModelType:1];
+    v34 = [getManifest2 getWeightGuidsForModelType:1];
 
     v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v26 = os_signpost_id_generate(CDMLogContext);
@@ -1749,38 +1720,35 @@ LABEL_11:
     {
       getProductAreaName = [(CDMCATIChildService *)self getProductAreaName];
       *buf = 138412290;
-      v45 = getProductAreaName;
+      v43 = getProductAreaName;
       _os_signpost_emit_with_name_impl(&dword_1DC287000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v26, "CATI", "processMultiTurnWeightFiles (%@)", buf, 0xCu);
     }
 
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __46__CDMCATIChildService_buildMultiturnFeatures___block_invoke;
-    v39[3] = &unk_1E862EC60;
-    v30 = v37;
-    v40 = v30;
-    v31 = v36;
-    v41 = v31;
-    v42 = v5;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __46__CDMCATIChildService_buildMultiturnFeatures___block_invoke;
+    v37[3] = &unk_1E862EC60;
+    v30 = v35;
+    v38 = v30;
+    v31 = v34;
+    v39 = v31;
+    v40 = v5;
     v32 = v25;
-    v43 = v32;
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __46__CDMCATIChildService_buildMultiturnFeatures___block_invoke_2;
-    v38[3] = &__block_descriptor_40_e5_v8__0l;
-    v38[4] = v26;
-    [v30 enumerateTaskParallelly:v39 blockCompleteAllTask:v38];
+    v41 = v32;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __46__CDMCATIChildService_buildMultiturnFeatures___block_invoke_2;
+    v36[3] = &__block_descriptor_40_e5_v8__0l;
+    v36[4] = v26;
+    [v30 enumerateTaskParallelly:v37 blockCompleteAllTask:v36];
     self->_multiturnWeightsEnabled = 0;
     v33 = [v32 count];
     self->_numMultiturnModels = v33;
     if (v33)
     {
-      v34 = self->_embeddingDimensionCATIPlusOne * v33;
       operator new[]();
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __46__CDMCATIChildService_buildMultiturnFeatures___block_invoke(id *a1)
@@ -1861,56 +1829,56 @@ void __46__CDMCATIChildService_buildMultiturnFeatures___block_invoke_2(uint64_t 
 
 void __76__CDMCATIChildService_buildLegacyBloomFilterAndExactMatchDictForInvocation___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v19 = [*(a1 + 32) objectAtIndex:?];
+  v32 = *MEMORY[0x1E69E9840];
+  v18 = [*(a1 + 32) objectAtIndex:?];
   v2 = [*(a1 + 40) getPosOverridesDirectoryPath];
-  v3 = [v2 stringByAppendingPathComponent:v19];
+  v3 = [v2 stringByAppendingPathComponent:v18];
 
-  v25 = 0;
-  v18 = v3;
-  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v3 options:0 error:&v25];
-  v5 = v25;
+  v24 = 0;
+  v17 = v3;
+  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v3 options:0 error:&v24];
+  v5 = v24;
   if (v4)
   {
-    v24 = v5;
-    v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v24];
-    v16 = v24;
+    v23 = v5;
+    v6 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v4 options:0 error:&v23];
+    v15 = v23;
 
     if (v6)
     {
-      v17 = [v19 componentsSeparatedByString:@"."];
-      v7 = [v17 objectAtIndex:0];
+      v16 = [v18 componentsSeparatedByString:@"."];
+      v7 = [v16 objectAtIndex:0];
       objc_opt_class();
       if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
       {
-        if ([*(a1 + 48) containsObject:{v7, v16}])
+        if ([*(a1 + 48) containsObject:{v7, v15}])
         {
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
           v21 = 0u;
+          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
           v8 = v6;
-          v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
           if (v9)
           {
-            v10 = *v21;
+            v10 = *v20;
             do
             {
               for (i = 0; i != v9; ++i)
               {
-                if (*v21 != v10)
+                if (*v20 != v10)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v12 = *(*(&v20 + 1) + 8 * i);
+                v12 = *(*(&v19 + 1) + 8 * i);
                 [*(*(*(a1 + 56) + 8) + 40) setValue:v7 forKey:v12];
                 v13 = *(*(*(a1 + 64) + 8) + 40);
                 v14 = [v12 dataUsingEncoding:4];
                 [v13 add:v14];
               }
 
-              v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+              v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
             }
 
             while (v9);
@@ -1921,20 +1889,20 @@ void __76__CDMCATIChildService_buildLegacyBloomFilterAndExactMatchDictForInvocat
 
     else
     {
-      v17 = CDMOSLoggerForCategory(0);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v28 = "[CDMCATIChildService buildLegacyBloomFilterAndExactMatchDictForInvocation:]_block_invoke";
-        v29 = 2112;
-        v30 = v19;
-        v31 = 2112;
-        v32 = v16;
-        _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: Error parsing JSON in file %@: %@", buf, 0x20u);
+        v27 = "[CDMCATIChildService buildLegacyBloomFilterAndExactMatchDictForInvocation:]_block_invoke";
+        v28 = 2112;
+        v29 = v18;
+        v30 = 2112;
+        v31 = v15;
+        _os_log_error_impl(&dword_1DC287000, v16, OS_LOG_TYPE_ERROR, "%s [ERR]: Error parsing JSON in file %@: %@", buf, 0x20u);
       }
     }
 
-    v5 = v16;
+    v5 = v15;
   }
 
   else
@@ -1943,26 +1911,24 @@ void __76__CDMCATIChildService_buildLegacyBloomFilterAndExactMatchDictForInvocat
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v28 = "[CDMCATIChildService buildLegacyBloomFilterAndExactMatchDictForInvocation:]_block_invoke";
-      v29 = 2112;
-      v30 = v19;
-      v31 = 2112;
-      v32 = v5;
+      v27 = "[CDMCATIChildService buildLegacyBloomFilterAndExactMatchDictForInvocation:]_block_invoke";
+      v28 = 2112;
+      v29 = v18;
+      v30 = 2112;
+      v31 = v5;
       _os_log_error_impl(&dword_1DC287000, v6, OS_LOG_TYPE_ERROR, "%s [ERR]: Unable to find or process file (%@) due to %@", buf, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getBloomFilterAt:(id)at
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   atCopy = at;
   v5 = [atCopy stringByAppendingPathComponent:@"general.bf"];
-  v22 = 0;
-  v6 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v5 options:0 error:&v22];
-  v7 = v22;
+  v21 = 0;
+  v6 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v5 options:0 error:&v21];
+  v7 = v21;
   if (v7)
   {
     v8 = v7;
@@ -1970,9 +1936,9 @@ void __76__CDMCATIChildService_buildLegacyBloomFilterAndExactMatchDictForInvocat
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "[CDMCATIChildService getBloomFilterAt:]";
-      v25 = 2112;
-      v26 = v8;
+      v23 = "[CDMCATIChildService getBloomFilterAt:]";
+      v24 = 2112;
+      v25 = v8;
       _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI: Error parsing General Bloom Filter: %@", buf, 0x16u);
     }
 
@@ -1982,23 +1948,23 @@ void __76__CDMCATIChildService_buildLegacyBloomFilterAndExactMatchDictForInvocat
   else
   {
     v11 = objc_alloc_init(_TtC13CDMFoundation27BloomFilterObjectiveCHelper);
-    v21 = 0;
-    v9 = [(BloomFilterObjectiveCHelper *)v11 getDecodedBFWithData:v6 error:&v21];
-    v8 = v21;
+    v20 = 0;
+    v9 = [(BloomFilterObjectiveCHelper *)v11 getDecodedBFWithData:v6 error:&v20];
+    v8 = v20;
 
     [atCopy stringByAppendingPathComponent:@"array.bf"];
-    v18 = v20 = 0;
-    v12 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v18 options:0 error:&v20];
-    v13 = v20;
+    v17 = v19 = 0;
+    v12 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v17 options:0 error:&v19];
+    v13 = v19;
     if (v13)
     {
       v14 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v24 = "[CDMCATIChildService getBloomFilterAt:]";
-        v25 = 2112;
-        v26 = v13;
+        v23 = "[CDMCATIChildService getBloomFilterAt:]";
+        v24 = 2112;
+        v25 = v13;
         _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI: Error parsing Array Bloom Filter: %@", buf, 0x16u);
       }
 
@@ -2008,9 +1974,9 @@ void __76__CDMCATIChildService_buildLegacyBloomFilterAndExactMatchDictForInvocat
     else
     {
       v15 = objc_alloc_init(_TtC13CDMFoundation27BloomFilterObjectiveCHelper);
-      v19 = 0;
-      v14 = [(BloomFilterObjectiveCHelper *)v15 getDecodedBFArrayWithData:v12 error:&v19];
-      v13 = v19;
+      v18 = 0;
+      v14 = [(BloomFilterObjectiveCHelper *)v15 getDecodedBFArrayWithData:v12 error:&v18];
+      v13 = v18;
 
       v10 = 0;
       if (v9 && v14)
@@ -2023,7 +1989,6 @@ void __76__CDMCATIChildService_buildLegacyBloomFilterAndExactMatchDictForInvocat
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -2068,18 +2033,18 @@ void __76__CDMCATIChildService_buildLegacyBloomFilterAndExactMatchDictForInvocat
 
 void __83__CDMCATIChildService_constructWeightMatrixForInference_numModels_guids_modelType___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = [*(a1 + 32) objectAtIndex:?];
-  v23 = [v5 componentsSeparatedByString:@"."];
-  v25 = [v23 objectAtIndex:0];
+  v22 = [v5 componentsSeparatedByString:@"."];
+  v24 = [v22 objectAtIndex:0];
   v6 = [*(*(a1 + 40) + 56) stringByAppendingPathComponent:v5];
   v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v6];
-  v26 = 0;
-  v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v26];
-  v24 = v26;
+  v25 = 0;
+  v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v25];
+  v23 = v25;
   if (v8)
   {
-    [*(a1 + 48) replaceObjectAtIndex:a3 withObject:v25];
+    [*(a1 + 48) replaceObjectAtIndex:a3 withObject:v24];
     v9 = [v8 objectAtIndex:0];
     v10 = [v9 count];
     if (v10 != *(*(a1 + 40) + 16))
@@ -2087,16 +2052,16 @@ void __83__CDMCATIChildService_constructWeightMatrixForInference_numModels_guids
       v11 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v21 = [*(a1 + 40) getProductAreaName];
-        v22 = *(*(a1 + 40) + 16);
+        v20 = [*(a1 + 40) getProductAreaName];
+        v21 = *(*(a1 + 40) + 16);
         *buf = 136315906;
-        v28 = "[CDMCATIChildService constructWeightMatrixForInference:numModels:guids:modelType:]_block_invoke";
-        v29 = 2112;
-        v30 = v21;
-        v31 = 1024;
-        *v32 = v22;
-        *&v32[4] = 2112;
-        *&v32[6] = v5;
+        v27 = "[CDMCATIChildService constructWeightMatrixForInference:numModels:guids:modelType:]_block_invoke";
+        v28 = 2112;
+        v29 = v20;
+        v30 = 1024;
+        *v31 = v21;
+        *&v31[4] = 2112;
+        *&v31[6] = v5;
         _os_log_error_impl(&dword_1DC287000, v11, OS_LOG_TYPE_ERROR, "%s [ERR]: %@: Weight vector doesn't have size %d in file %@", buf, 0x26u);
       }
 
@@ -2146,34 +2111,32 @@ LABEL_12:
     {
       v19 = [*(a1 + 40) getProductAreaName];
       *buf = 136315906;
-      v28 = "[CDMCATIChildService constructWeightMatrixForInference:numModels:guids:modelType:]_block_invoke";
-      v29 = 2112;
-      v30 = v19;
-      v31 = 2112;
-      *v32 = v5;
-      *&v32[8] = 2112;
-      *&v32[10] = v24;
+      v27 = "[CDMCATIChildService constructWeightMatrixForInference:numModels:guids:modelType:]_block_invoke";
+      v28 = 2112;
+      v29 = v19;
+      v30 = 2112;
+      *v31 = v5;
+      *&v31[8] = 2112;
+      *&v31[10] = v23;
       _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s %@: Error parsing JSON for CATI Weight Matrix named %@: %@", buf, 0x2Au);
     }
   }
 
 LABEL_17:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)setup:(id)setup assetVersion:(int64_t)version
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v6 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     resourcePath = [(NSBundle *)self->_catiAssetBundle resourcePath];
     *buf = 136315394;
-    v75 = "[CDMCATIChildService setup:assetVersion:]";
-    v76 = 2112;
-    v77 = resourcePath;
+    v72 = "[CDMCATIChildService setup:assetVersion:]";
+    v73 = 2112;
+    v74 = resourcePath;
     _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s Setting up child service at this path:%@", buf, 0x16u);
   }
 
@@ -2194,7 +2157,7 @@ LABEL_17:
   {
     getProductAreaName = [(CDMCATIChildService *)self getProductAreaName];
     *buf = 138412290;
-    v75 = getProductAreaName;
+    v72 = getProductAreaName;
     _os_signpost_emit_with_name_impl(&dword_1DC287000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "CATI", "setupChildService (%@)", buf, 0xCu);
   }
 
@@ -2204,8 +2167,8 @@ LABEL_17:
     dynamicConfig = [setupCopy dynamicConfig];
     embeddingConfigs = [dynamicConfig embeddingConfigs];
 
-    v65 = [embeddingConfigs getEmbeddingConfigForFactor:@"com.apple.siri.nl.cati"];
-    embeddingModelDimension = [v65 embeddingModelDimension];
+    v62 = [embeddingConfigs getEmbeddingConfigForFactor:@"com.apple.siri.nl.cati"];
+    embeddingModelDimension = [v62 embeddingModelDimension];
     self->_embeddingDimensionCATI = [embeddingModelDimension integerValue];
 
     self->_embeddingDimensionCATIPlusOne = self->_embeddingDimensionCATI + 1;
@@ -2220,11 +2183,11 @@ LABEL_17:
     self->_weightsDirectoryPath = v25;
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v68 = [defaultManager contentsOfDirectoryAtPath:self->_weightsDirectoryPath error:0];
+    v65 = [defaultManager contentsOfDirectoryAtPath:self->_weightsDirectoryPath error:0];
 
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
     getPosOverridesDirectoryPath = [(CDMCATIChildService *)self getPosOverridesDirectoryPath];
-    v67 = [defaultManager2 contentsOfDirectoryAtPath:getPosOverridesDirectoryPath error:0];
+    v64 = [defaultManager2 contentsOfDirectoryAtPath:getPosOverridesDirectoryPath error:0];
 
     usoEntity = [(CDMCATIManifest *)self->_catiManifest usoEntity];
     usoEntity = self->_usoEntity;
@@ -2244,135 +2207,131 @@ LABEL_17:
     [(CDMCATIManifest *)self->_catiManifest multiturnConfidenceScoreThreshold];
     self->_multiturnConfidenceThreshold = v37;
     self->_expectedPositiveUtterances = [(CDMCATIManifest *)self->_catiManifest expectedPositiveUtterances];
-    if ([v68 count])
+    if ([v65 count])
     {
       getManifest = [(CDMCATIChildService *)self getManifest];
-      v64 = [getManifest getWeightGuidsForModelType:0];
+      v61 = [getManifest getWeightGuidsForModelType:0];
 
       v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v70[0] = MEMORY[0x1E69E9820];
-      v70[1] = 3221225472;
-      v70[2] = __42__CDMCATIChildService_setup_assetVersion___block_invoke;
-      v70[3] = &unk_1E862EBE8;
-      v71 = v68;
-      v72 = v64;
+      v67[0] = MEMORY[0x1E69E9820];
+      v67[1] = 3221225472;
+      v67[2] = __42__CDMCATIChildService_setup_assetVersion___block_invoke;
+      v67[3] = &unk_1E862EBE8;
+      v68 = v65;
+      v69 = v61;
       v40 = v39;
-      v73 = v40;
-      [v71 enumerateTaskParallelly:v70 blockCompleteAllTask:&__block_literal_global_2039];
-      v41 = [v40 count];
-      self->_numModels = v41;
-      v42 = self->_embeddingDimensionCATIPlusOne * v41;
+      v70 = v40;
+      [v68 enumerateTaskParallelly:v67 blockCompleteAllTask:&__block_literal_global_2039];
+      self->_numModels = [v40 count];
       operator new[]();
     }
 
-    v46 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+    v44 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
       getProductAreaName2 = [(CDMCATIChildService *)self getProductAreaName];
       *buf = 136315394;
-      v75 = "[CDMCATIChildService setup:assetVersion:]";
-      v76 = 2112;
-      v77 = getProductAreaName2;
-      _os_log_debug_impl(&dword_1DC287000, v46, OS_LOG_TYPE_DEBUG, "%s %@: There are no weight files for this product area. CATI will run only on overrides, if available", buf, 0x16u);
+      v72 = "[CDMCATIChildService setup:assetVersion:]";
+      v73 = 2112;
+      v74 = getProductAreaName2;
+      _os_log_debug_impl(&dword_1DC287000, v44, OS_LOG_TYPE_DEBUG, "%s %@: There are no weight files for this product area. CATI will run only on overrides, if available", buf, 0x16u);
     }
 
     self->_invocationOverridesEnabled = 0;
-    if ([v67 count])
+    if ([v64 count])
     {
       resourcePath5 = [(NSBundle *)self->_catiAssetBundle resourcePath];
-      v48 = [resourcePath5 stringByAppendingPathComponent:@"bf_files"];
+      v46 = [resourcePath5 stringByAppendingPathComponent:@"bf_files"];
 
       defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-      v50 = [defaultManager3 contentsOfDirectoryAtPath:v48 error:0];
+      v48 = [defaultManager3 contentsOfDirectoryAtPath:v46 error:0];
 
-      v51 = [v50 count];
-      if (version >= 3104 && v51)
+      v49 = [v48 count];
+      if (version >= 3104 && v49)
       {
-        if (![(CDMCATIChildService *)self getFlatbuffersBFAt:v48]&& ![(CDMCATIChildService *)self getBloomFilterAt:v48])
+        if (![(CDMCATIChildService *)self getFlatbuffersBFAt:v46]&& ![(CDMCATIChildService *)self getBloomFilterAt:v46])
         {
           getProductAreaName3 = [(CDMCATIChildService *)self getProductAreaName];
-          v43 = [getProductAreaName3 stringByAppendingString:{@": Bloom filter setup failed, service is disabled. Check logs for error message"}];
+          v41 = [getProductAreaName3 stringByAppendingString:{@": Bloom filter setup failed, service is disabled. Check logs for error message"}];
 
-          v53 = CDMLogContext;
-          v54 = v53;
-          if (v16 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v53))
+          v51 = CDMLogContext;
+          v52 = v51;
+          if (v16 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v51))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1DC287000, v54, OS_SIGNPOST_INTERVAL_END, v13, "CATI", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1DC287000, v52, OS_SIGNPOST_INTERVAL_END, v13, "CATI", "", buf, 2u);
           }
 
 LABEL_36:
-          v45 = embeddingConfigs;
+          v43 = embeddingConfigs;
           goto LABEL_37;
         }
       }
 
       else
       {
-        v56 = [(CDMCATIChildService *)self buildLegacyBloomFilterAndExactMatchDictForInvocation:v67];
+        v54 = [(CDMCATIChildService *)self buildLegacyBloomFilterAndExactMatchDictForInvocation:v64];
         positiveOverridesInvocationBloomFilterLegacy = self->_positiveOverridesInvocationBloomFilterLegacy;
-        self->_positiveOverridesInvocationBloomFilterLegacy = v56;
+        self->_positiveOverridesInvocationBloomFilterLegacy = v54;
       }
     }
 
     else
     {
-      v48 = CDMOSLoggerForCategory(0);
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+      v46 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         getPosOverridesDirectoryPath2 = [(CDMCATIChildService *)self getPosOverridesDirectoryPath];
         *buf = 136315394;
-        v75 = "[CDMCATIChildService setup:assetVersion:]";
-        v76 = 2112;
-        v77 = getPosOverridesDirectoryPath2;
-        _os_log_impl(&dword_1DC287000, v48, OS_LOG_TYPE_INFO, "%s [WARN]: Not able to find any CATI positive overrides in %@", buf, 0x16u);
+        v72 = "[CDMCATIChildService setup:assetVersion:]";
+        v73 = 2112;
+        v74 = getPosOverridesDirectoryPath2;
+        _os_log_impl(&dword_1DC287000, v46, OS_LOG_TYPE_INFO, "%s [WARN]: Not able to find any CATI positive overrides in %@", buf, 0x16u);
       }
     }
 
     if ([(CDMCATIChildService *)self getInvocationOverridesEnabled])
     {
-      v58 = CDMLogContext;
-      v48 = v58;
-      if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
+      v56 = CDMLogContext;
+      v46 = v56;
+      if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v56))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DC287000, v48, OS_SIGNPOST_INTERVAL_END, v13, "CATI", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1DC287000, v46, OS_SIGNPOST_INTERVAL_END, v13, "CATI", "", buf, 2u);
       }
 
-      v43 = 0;
+      v41 = 0;
     }
 
     else
     {
       getProductAreaName4 = [(CDMCATIChildService *)self getProductAreaName];
-      v43 = [getProductAreaName4 stringByAppendingString:{@": No CATI positive overrides are available, service is disabled."}];
+      v41 = [getProductAreaName4 stringByAppendingString:{@": No CATI positive overrides are available, service is disabled."}];
 
-      v60 = CDMLogContext;
-      v48 = v60;
-      if (v16 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v60))
+      v58 = CDMLogContext;
+      v46 = v58;
+      if (v16 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v58))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DC287000, v48, OS_SIGNPOST_INTERVAL_END, v13, "CATI", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1DC287000, v46, OS_SIGNPOST_INTERVAL_END, v13, "CATI", "", buf, 2u);
       }
     }
 
     goto LABEL_36;
   }
 
-  v43 = [@"CATI manifest not found or invalid at " stringByAppendingString:self->_manifestPath];
-  v44 = CDMLogContext;
-  v45 = v44;
-  if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+  v41 = [@"CATI manifest not found or invalid at " stringByAppendingString:self->_manifestPath];
+  v42 = CDMLogContext;
+  v43 = v42;
+  if (v16 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DC287000, v45, OS_SIGNPOST_INTERVAL_END, v13, "CATI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DC287000, v43, OS_SIGNPOST_INTERVAL_END, v13, "CATI", "", buf, 2u);
   }
 
 LABEL_37:
 
-  v61 = *MEMORY[0x1E69E9840];
-
-  return v43;
+  return v41;
 }
 
 void __42__CDMCATIChildService_setup_assetVersion___block_invoke(id *a1)

@@ -26,7 +26,7 @@
   return v3;
 }
 
-uint64_t __29__PMLLexicon_getTotalEntries__block_invoke(uint64_t a1)
+uint64_t __29__PMLLexicon_getTotalEntries__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = CFBurstTrieGetCount();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -35,7 +35,7 @@ uint64_t __29__PMLLexicon_getTotalEntries__block_invoke(uint64_t a1)
 
 - (unint64_t)getWordIDforToken:(id)token
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   v5 = [(_PASCFBurstTrie *)self->_lexicon payloadForString:tokenCopy];
   if (v5 == -1)
@@ -43,9 +43,9 @@ uint64_t __29__PMLLexicon_getTotalEntries__block_invoke(uint64_t a1)
     v7 = PML_LogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
-      v11 = tokenCopy;
-      _os_log_debug_impl(&dword_260D68000, v7, OS_LOG_TYPE_DEBUG, "Returning 0 for word id since token is not in lexicon: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = tokenCopy;
+      _os_log_debug_impl(&dword_260D68000, v7, OS_LOG_TYPE_DEBUG, "Returning 0 for word id since token is not in lexicon: %@", &v9, 0xCu);
     }
 
     v6 = 0;
@@ -56,13 +56,12 @@ uint64_t __29__PMLLexicon_getTotalEntries__block_invoke(uint64_t a1)
     v6 = v5;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (PMLLexicon)initWithPath:(id)path
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -88,7 +87,7 @@ LABEL_9:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = pathCopy;
+      v21 = pathCopy;
       _os_log_impl(&dword_260D68000, v14, OS_LOG_TYPE_DEFAULT, "Falling back to default system lexicon since lexicon at following path is invalid in existence: %@", buf, 0xCu);
     }
 
@@ -96,9 +95,9 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  v20.receiver = self;
-  v20.super_class = PMLLexicon;
-  v10 = [(PMLLexicon *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = PMLLexicon;
+  v10 = [(PMLLexicon *)&v19 init];
   if (!v10 || (v11 = [objc_alloc(MEMORY[0x277D42558]) initWithPath:pathCopy], lexicon = v10->_lexicon, v10->_lexicon = v11, lexicon, v10->_lexicon))
   {
     v13 = v10;
@@ -108,17 +107,16 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v18 = PML_LogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v17 = PML_LogHandle();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_260D68000, v18, OS_LOG_TYPE_ERROR, "Returning nil for PMLLexicon since unable to initialize lexicon", buf, 2u);
+    _os_log_error_impl(&dword_260D68000, v17, OS_LOG_TYPE_ERROR, "Returning nil for PMLLexicon since unable to initialize lexicon", buf, 2u);
   }
 
   v15 = 0;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -151,57 +149,56 @@ LABEL_13:
 {
   fileCopy = file;
   dictCopy = dict;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v7 = CFBurstTrieCreate();
-  v17[3] = v7;
+  v16[3] = v7;
   if (v7)
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
-    v15 = 0;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __55__PMLLexicon_serializeLexiconToFile_tokenToWordIDDict___block_invoke;
-    v11[3] = &unk_279AC0780;
-    v11[4] = &v12;
-    v11[5] = &v16;
-    [dictCopy enumerateKeysAndObjectsUsingBlock:v11];
-    v8 = v17[3];
-    if (*(v13 + 24) == 1)
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
+    v14 = 0;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __55__PMLLexicon_serializeLexiconToFile_tokenToWordIDDict___block_invoke;
+    v10[3] = &unk_279AC0780;
+    v10[4] = &v11;
+    v10[5] = &v15;
+    [dictCopy enumerateKeysAndObjectsUsingBlock:v10];
+    if (*(v12 + 24) == 1)
     {
       CFBurstTrieRelease();
-      v9 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v9 = CFBurstTrieSerialize() != 0;
-      if (v17[3])
+      v8 = CFBurstTrieSerialize() != 0;
+      if (v16[3])
       {
         CFBurstTrieRelease();
       }
     }
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v11, 8);
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
-  return v9;
+  return v8;
 }
 
 void __55__PMLLexicon_serializeLexiconToFile_tokenToWordIDDict___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v9 = a2;
+  v8 = a2;
   v7 = a3;
   if ([v7 intValue] <= 0)
   {
@@ -211,8 +208,7 @@ void __55__PMLLexicon_serializeLexiconToFile_tokenToWordIDDict___block_invoke(ui
 
   else
   {
-    v8 = *(*(*(a1 + 40) + 8) + 24);
-    [v9 length];
+    [v8 length];
     [v7 unsignedIntegerValue];
     CFBurstTrieAdd();
   }

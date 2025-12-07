@@ -322,12 +322,12 @@ void __70__AXCustomizableMouse__existingMouseForIdentifier_vendorId_productId___
   }
 }
 
-void __70__AXCustomizableMouse__existingMouseForIdentifier_vendorId_productId___block_invoke_2(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void __70__AXCustomizableMouse__existingMouseForIdentifier_vendorId_productId___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a2;
-  if ([v7 vendorId] == a1[5] && objc_msgSend(v7, "productId") == a1[6])
+  if (__PAIR128__([v7 productId], objc_msgSend(v7, "vendorId")) == *(a1 + 40))
   {
-    objc_storeStrong((*(a1[4] + 8) + 40), a2);
+    objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     *a4 = 1;
   }
 }

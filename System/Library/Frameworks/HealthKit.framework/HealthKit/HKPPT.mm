@@ -71,29 +71,29 @@
 
 - (id)_testNameForDriver:(id)driver
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   driverCopy = driver;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_activeTestsByName;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [(NSMutableDictionary *)self->_activeTestsByName objectForKeyedSubscript:v10, v15];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [(NSMutableDictionary *)self->_activeTestsByName objectForKeyedSubscript:v10, v14];
 
         if (v11 == driverCopy)
         {
@@ -102,7 +102,7 @@
         }
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -114,8 +114,6 @@
 
   v12 = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -144,7 +142,7 @@ LABEL_11:
 
 - (void)failedTest:(id)test results:(id)results error:(id)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   errorCopy = error;
   v10 = [(HKPPT *)self _testNameForDriver:test];
@@ -155,10 +153,10 @@ LABEL_11:
     {
       if (!resultsCopy)
       {
-        v15 = @"error";
+        v14 = @"error";
         v13 = [errorCopy description];
-        v16[0] = v13;
-        resultsCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+        v15[0] = v13;
+        resultsCopy = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
         if (resultsCopy)
         {
@@ -187,8 +185,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishedTest:(id)test extraResults:(id)results
@@ -212,71 +208,70 @@ LABEL_9:
 
 - (BOOL)runTest:(id)test options:(id)options
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   testCopy = test;
   optionsCopy = options;
-  v8 = [optionsCopy objectForKey:@"testType"];
-  if (!v8)
+  v9 = [optionsCopy objectForKey:@"testType"];
+  if (!v9)
   {
-    _HKInitializeLogging();
-    v15 = HKLogTesting();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(0, v8);
+    v22 = HKLogTesting(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = testCopy;
-      v16 = "[PPT] Skipping unspecified performance test type for: %@";
+      v29 = 138412290;
+      v30 = testCopy;
+      v23 = "[PPT] Skipping unspecified performance test type for: %@";
 LABEL_9:
-      _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, v16, &v19, 0xCu);
+      _os_log_impl(&dword_19197B000, v22, OS_LOG_TYPE_DEFAULT, v23, &v29, 0xCu);
     }
 
 LABEL_12:
 
-    v14 = 0;
+    v19 = 0;
     goto LABEL_13;
   }
 
-  v9 = [optionsCopy objectForKeyedSubscript:@"enabled"];
-  bOOLValue = [v9 BOOLValue];
+  v10 = [optionsCopy objectForKeyedSubscript:@"enabled"];
+  bOOLValue = [v10 BOOLValue];
 
   if ((bOOLValue & 1) == 0)
   {
-    _HKInitializeLogging();
-    v15 = HKLogTesting();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v12, v13);
+    v22 = HKLogTesting(v24, v25);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = testCopy;
-      v16 = "[PPT] Skipping disabled performance test: %@";
+      v29 = 138412290;
+      v30 = testCopy;
+      v23 = "[PPT] Skipping disabled performance test: %@";
       goto LABEL_9;
     }
 
     goto LABEL_12;
   }
 
-  v11 = +[HKPPTPluginManager sharedPluginManager];
-  v12 = [v11 classForTestType:v8];
+  v14 = +[HKPPTPluginManager sharedPluginManager];
+  v15 = [v14 classForTestType:v9];
 
-  if (!v12)
+  if (!v15)
   {
-    _HKInitializeLogging();
-    v15 = HKLogTesting();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v16, v17);
+    v22 = HKLogTesting(v26, v27);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(HKPPT *)testCopy runTest:v8 options:v15];
+      [(HKPPT *)testCopy runTest:v9 options:v22];
     }
 
     goto LABEL_12;
   }
 
-  v13 = objc_alloc_init(v12);
-  [(NSMutableDictionary *)self->_activeTestsByName setObject:v13 forKeyedSubscript:testCopy];
-  [v13 runTest:testCopy options:optionsCopy controller:self];
+  v18 = objc_alloc_init(v15);
+  [(NSMutableDictionary *)self->_activeTestsByName setObject:v18 forKeyedSubscript:testCopy];
+  [v18 runTest:testCopy options:optionsCopy controller:self];
 
-  v14 = 1;
+  v19 = 1;
 LABEL_13:
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v19;
 }
 
 - (void)_startedTest:(id)test
@@ -295,23 +290,23 @@ LABEL_13:
 
 void __22__HKPPT__startedTest___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 32) + 8);
+    v4 = *(a1 + 40);
+    v5 = *(*(a1 + 32) + 8);
 
-    [v4 startedTest:v3];
+    [v5 startedTest:v4];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v5 = HKLogTesting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v2, v3);
+    v8 = HKLogTesting(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to startedTest.", v6, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to startedTest.", v9, 2u);
     }
   }
 }
@@ -332,23 +327,23 @@ void __22__HKPPT__startedTest___block_invoke(uint64_t a1)
 
 void __23__HKPPT__finishedTest___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 32) + 8);
+    v4 = *(a1 + 40);
+    v5 = *(*(a1 + 32) + 8);
 
-    [v4 finishedTest:v3];
+    [v5 finishedTest:v4];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v5 = HKLogTesting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v2, v3);
+    v8 = HKLogTesting(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to finishedTest.", v6, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to finishedTest.", v9, 2u);
     }
   }
 }
@@ -372,24 +367,24 @@ void __23__HKPPT__finishedTest___block_invoke(uint64_t a1)
 
 void __36__HKPPT__finishedTest_extraResults___block_invoke(void *a1)
 {
-  v2 = *(a1[4] + 8);
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    v3 = a1[5];
-    v4 = *(a1[4] + 8);
-    v5 = a1[6];
+    v4 = a1[5];
+    v5 = *(a1[4] + 8);
+    v6 = a1[6];
 
-    [v4 finishedTest:v3 extraResults:v5];
+    [v5 finishedTest:v4 extraResults:v6];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v6 = HKLogTesting();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v2, v3);
+    v9 = HKLogTesting(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to finishedTest:extraResults:.", v7, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to finishedTest:extraResults:.", v10, 2u);
     }
   }
 }
@@ -410,23 +405,23 @@ void __36__HKPPT__finishedTest_extraResults___block_invoke(void *a1)
 
 void __21__HKPPT__failedTest___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 32) + 8);
+    v4 = *(a1 + 40);
+    v5 = *(*(a1 + 32) + 8);
 
-    [v4 failedTest:v3];
+    [v5 failedTest:v4];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v5 = HKLogTesting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v2, v3);
+    v8 = HKLogTesting(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to failedTest:.", v6, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to failedTest:.", v9, 2u);
     }
   }
 }
@@ -450,37 +445,36 @@ void __21__HKPPT__failedTest___block_invoke(uint64_t a1)
 
 void __33__HKPPT__failedTest_withResults___block_invoke(void *a1)
 {
-  v2 = *(a1[4] + 8);
-  if (objc_opt_respondsToSelector())
+  v2 = objc_opt_respondsToSelector();
+  if (v2)
   {
-    v3 = a1[5];
-    v4 = *(a1[4] + 8);
-    v5 = a1[6];
+    v4 = a1[5];
+    v5 = *(a1[4] + 8);
+    v6 = a1[6];
 
-    [v4 failedTest:v3 withResults:v5];
+    [v5 failedTest:v4 withResults:v6];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v6 = HKLogTesting();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v2, v3);
+    v9 = HKLogTesting(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to failedTest:withResults:.", v7, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[PPT] *** HKPPT application object does not conform to failedTest:withResults:.", v10, 2u);
     }
   }
 }
 
 - (void)runTest:(os_log_t)log options:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Unrecognized performance test: %@ (%@)", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Unrecognized performance test: %@ (%@)", &v3, 0x16u);
 }
 
 @end

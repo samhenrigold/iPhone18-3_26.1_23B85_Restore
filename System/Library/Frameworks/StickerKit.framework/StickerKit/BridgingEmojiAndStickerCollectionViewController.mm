@@ -106,19 +106,19 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_19A65FC50();
+  sub_19A65FC50(selfCopy, v2);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
   selfCopy = self;
-  sub_19A6603B4(appearing);
+  sub_19A6603B4(appearing, selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_19A66051C();
+  sub_19A66051C(selfCopy, v2);
 }
 
 - (_TtC10StickerKit47BridgingEmojiAndStickerCollectionViewController)initWithNibName:(id)name bundle:(id)bundle

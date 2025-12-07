@@ -42,15 +42,15 @@
   {
     tabIdentifier = [(SUUITabBarItem *)self tabIdentifier];
     tabIdentifier2 = [equalCopy tabIdentifier];
-    v6 = [tabIdentifier isEqualToString:tabIdentifier2];
+    isEqualToString = objc_msgSend_isEqualToString_(tabIdentifier);
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

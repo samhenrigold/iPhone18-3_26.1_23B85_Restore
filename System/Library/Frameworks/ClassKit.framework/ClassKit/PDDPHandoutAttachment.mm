@@ -1,8 +1,12 @@
 @interface PDDPHandoutAttachment
 - (BOOL)isEqual:(id)equal;
+- (id)contextTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)permissionTypeAsString:(int)string;
+- (id)shareTypeAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsContextType:(id)type;
 - (int)StringAsPermissionType:(id)type;
 - (int)StringAsShareType:(id)type;
@@ -54,6 +58,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100203A08 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -183,6 +202,21 @@
   *&self->_has = *&self->_has & 0xEF | v3;
 }
 
+- (id)shareTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100203A48 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsShareType:(id)type
 {
   typeCopy = type;
@@ -242,6 +276,21 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)permissionTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100203A68 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsPermissionType:(id)type
 {
   typeCopy = type;
@@ -294,6 +343,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)contextTypeAsString:(int)string
+{
+  if ((string + 1) >= 0x13)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100203A80 + (string + 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsContextType:(id)type
@@ -660,7 +724,6 @@
   toCopy = to;
   if ((*&self->_has & 0x20) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -699,33 +762,32 @@
     PBDataWriterWriteStringField();
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v6 = self->_contextPaths;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v7)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v5 = self->_contextPaths;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v33;
+    v7 = v6;
+    v8 = *v23;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v9)
+        if (*v23 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_objectIdPath)
@@ -736,14 +798,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    displayOrder = self->_displayOrder;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has < 0)
   {
-    isLocked = self->_isLocked;
     PBDataWriterWriteBOOLField();
   }
 
@@ -754,7 +814,6 @@
 
   if ((*&self->_has & 0x10) != 0)
   {
-    shareType = self->_shareType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -763,17 +822,15 @@
     PBDataWriterWriteStringField();
   }
 
-  v16 = self->_has;
-  if ((v16 & 8) != 0)
+  v11 = self->_has;
+  if ((v11 & 8) != 0)
   {
-    permissionType = self->_permissionType;
     PBDataWriterWriteInt32Field();
-    v16 = self->_has;
+    v11 = self->_has;
   }
 
-  if ((v16 & 2) != 0)
+  if ((v11 & 2) != 0)
   {
-    contextType = self->_contextType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -797,47 +854,44 @@
     PBDataWriterWriteStringField();
   }
 
-  v19 = self->_has;
-  if ((v19 & 0x40) != 0)
+  v12 = self->_has;
+  if ((v12 & 0x40) != 0)
   {
-    contextSourceIsCatalog = self->_contextSourceIsCatalog;
     PBDataWriterWriteBOOLField();
-    v19 = self->_has;
+    v12 = self->_has;
   }
 
-  if (v19)
+  if (v12)
   {
-    timeExpectationInSeconds = self->_timeExpectationInSeconds;
     PBDataWriterWriteDoubleField();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v22 = self->_classIds;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (v23)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v13 = self->_classIds;
+  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v14)
   {
-    v24 = v23;
-    v25 = *v29;
+    v15 = v14;
+    v16 = *v19;
     do
     {
-      for (j = 0; j != v24; j = j + 1)
+      for (j = 0; j != v15; ++j)
       {
-        if (*v29 != v25)
+        if (*v19 != v16)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v13);
         }
 
-        v27 = *(*(&v28 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v24);
+    while (v15);
   }
 
   if (self->_dateCreated)
@@ -1204,7 +1258,6 @@
     goto LABEL_83;
   }
 
-  v5 = *(equalCopy + 188);
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 188) & 0x20) == 0 || self->_type != *(equalCopy + 42))
@@ -1297,7 +1350,7 @@
   }
 
   has = self->_has;
-  v16 = *(equalCopy + 188);
+  v15 = *(equalCopy + 188);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 188) & 4) == 0 || self->_displayOrder != *(equalCopy + 28))
@@ -1318,7 +1371,6 @@
       goto LABEL_83;
     }
 
-    v18 = *(equalCopy + 185);
     if (self->_isLocked)
     {
       if ((*(equalCopy + 185) & 1) == 0)
@@ -1347,18 +1399,18 @@
     }
 
     has = self->_has;
-    v16 = *(equalCopy + 188);
+    v15 = *(equalCopy + 188);
   }
 
   if ((has & 0x10) != 0)
   {
-    if ((v16 & 0x10) == 0 || self->_shareType != *(equalCopy + 37))
+    if ((v15 & 0x10) == 0 || self->_shareType != *(equalCopy + 37))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v16 & 0x10) != 0)
+  else if ((v15 & 0x10) != 0)
   {
     goto LABEL_83;
   }
@@ -1372,31 +1424,31 @@
     }
 
     has = self->_has;
-    v16 = *(equalCopy + 188);
+    v15 = *(equalCopy + 188);
   }
 
   if ((has & 8) != 0)
   {
-    if ((v16 & 8) == 0 || self->_permissionType != *(equalCopy + 36))
+    if ((v15 & 8) == 0 || self->_permissionType != *(equalCopy + 36))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v16 & 8) != 0)
+  else if ((v15 & 8) != 0)
   {
     goto LABEL_83;
   }
 
   if ((has & 2) != 0)
   {
-    if ((v16 & 2) == 0 || self->_contextType != *(equalCopy + 22))
+    if ((v15 & 2) == 0 || self->_contextType != *(equalCopy + 22))
     {
       goto LABEL_83;
     }
   }
 
-  else if ((v16 & 2) != 0)
+  else if ((v15 & 2) != 0)
   {
     goto LABEL_83;
   }
@@ -1434,7 +1486,6 @@
     }
   }
 
-  v24 = *(equalCopy + 188);
   if ((*&self->_has & 0x40) == 0)
   {
     if ((*(equalCopy + 188) & 0x40) == 0)
@@ -1443,7 +1494,7 @@
     }
 
 LABEL_83:
-    v28 = 0;
+    v24 = 0;
     goto LABEL_84;
   }
 
@@ -1452,7 +1503,6 @@ LABEL_83:
     goto LABEL_83;
   }
 
-  v25 = *(equalCopy + 184);
   if (self->_contextSourceIsCatalog)
   {
     if ((*(equalCopy + 184) & 1) == 0)
@@ -1489,17 +1539,17 @@ LABEL_69:
   dateCreated = self->_dateCreated;
   if (dateCreated | *(equalCopy + 12))
   {
-    v28 = [(PDDPDate *)dateCreated isEqual:?];
+    v24 = [(PDDPDate *)dateCreated isEqual:?];
   }
 
   else
   {
-    v28 = 1;
+    v24 = 1;
   }
 
 LABEL_84:
 
-  return v28;
+  return v24;
 }
 
 - (unint64_t)hash

@@ -53,6 +53,7 @@
 - (void)dealloc;
 - (void)enableWakeOnWiFi:(BOOL)fi forDelegate:(id)delegate;
 - (void)enableWiFiAutoAssociation:(BOOL)association forDelegate:(id)delegate;
+- (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality;
 - (void)interfaceReachabilityChanged:(id)changed;
 - (void)removeDelegate:(id)delegate;
 @end
@@ -155,7 +156,7 @@
 
 - (void)_adjustWiFiAutoAssociationLocked
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WiFiAutoAssociationDisableTimer = self->_WiFiAutoAssociationDisableTimer;
   if (WiFiAutoAssociationDisableTimer)
   {
@@ -179,9 +180,9 @@
         v9 = "enabling";
       }
 
-      v13 = 136315138;
-      v14 = v9;
-      _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "Interface manager: %s WiFi association on wake", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = v9;
+      _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "Interface manager: %s WiFi association on wake", &v12, 0xCu);
     }
 
     mEMORY[0x277CFB998]2 = [MEMORY[0x277CFB998] sharedInstance];
@@ -196,13 +197,11 @@
       [mEMORY[0x277CFB998]2 addWiFiAutoAssociationClientToken:@"PCAutoAssociateToken"];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_adjustWakeOnWiFiLocked
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   wakeOnWiFiDisableTimer = self->_wakeOnWiFiDisableTimer;
   if (wakeOnWiFiDisableTimer)
   {
@@ -226,9 +225,9 @@
         v9 = "enabling";
       }
 
-      v13 = 136315138;
-      v14 = v9;
-      _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "Interface manager: %s wake-on-WiFi", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = v9;
+      _os_log_impl(&dword_25E3EF000, v8, OS_LOG_TYPE_DEFAULT, "Interface manager: %s wake-on-WiFi", &v12, 0xCu);
     }
 
     mEMORY[0x277CFB998]2 = [MEMORY[0x277CFB998] sharedInstance];
@@ -243,8 +242,6 @@
       [mEMORY[0x277CFB998]2 removeWoWClient:self];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isWWANInterfaceInProlongedHighPowerState
@@ -393,7 +390,7 @@ void __51__PCPersistentInterfaceManager__createCTConnection__block_invoke(uint64
   objc_autoreleasePoolPop(v6);
 }
 
-uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_2(uint64_t a1)
+void *__51__PCPersistentInterfaceManager__createCTConnection__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isEqualToString:*MEMORY[0x277CC37E8]];
   if (result)
@@ -472,6 +469,16 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
   objc_autoreleasePoolPop(v3);
 }
 
+- (void)interfaceLinkQualityChanged:(id)changed previousLinkQuality:(int)quality
+{
+  [(PCPersistentInterfaceManager *)self _updateWWANInterfaceUpState:changed];
+  [(NSRecursiveLock *)self->_lock lock];
+  [(PCPersistentInterfaceManager *)self _scheduleCalloutsForSelector:sel_interfaceManagerInternetReachabilityChanged_];
+  lock = self->_lock;
+
+  [(NSRecursiveLock *)lock unlock];
+}
+
 - (void)interfaceReachabilityChanged:(id)changed
 {
   [(PCPersistentInterfaceManager *)self _updateWWANInterfaceUpState];
@@ -517,7 +524,7 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
 
 - (void)connectionActivationError:(id)error connection:(int)connection error:(int)a5
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(NSRecursiveLock *)self->_lock lock];
   if (!connection && [(PCPersistentInterfaceManager *)self _isCurrentDataSimContextLocked:errorCopy])
@@ -528,9 +535,9 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
     v11 = +[PCLog interfaceManager];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 67109120;
+      v14 = 67109120;
       LODWORD(selfCopy) = a5;
-      _os_log_impl(&dword_25E3EF000, v11, OS_LOG_TYPE_DEFAULT, "Interface manager: received connectionActivationError %u", &v15, 8u);
+      _os_log_impl(&dword_25E3EF000, v11, OS_LOG_TYPE_DEFAULT, "Interface manager: received connectionActivationError %u", &v14, 8u);
     }
 
     v12 = +[PCLog interfaceManager];
@@ -542,11 +549,11 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
         v13 = @"YES";
       }
 
-      v15 = 138543618;
+      v14 = 138543618;
       selfCopy = self;
-      v17 = 2114;
-      v18 = v13;
-      _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Interface manager: setting _isWWANInterfaceActivationPermitted to %{public}@ due to kCTRegistrationCellularDataPlanActivateFailedNotification", &v15, 0x16u);
+      v16 = 2114;
+      v17 = v13;
+      _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Interface manager: setting _isWWANInterfaceActivationPermitted to %{public}@ due to kCTRegistrationCellularDataPlanActivateFailedNotification", &v14, 0x16u);
     }
 
     self->_isWWANInterfaceActivationPermitted = cellularDataPossible;
@@ -554,8 +561,6 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
   }
 
   [(NSRecursiveLock *)self->_lock unlock];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStatus:(id)status dataStatusInfo:(id)info
@@ -594,29 +599,27 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
 
 - (void)_processCurrentDataSimChangedLocked:(id)locked
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   lockedCopy = locked;
   v5 = +[PCLog interfaceManager];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     currentDataSimContext = self->_currentDataSimContext;
-    v10 = 138412546;
-    v11 = currentDataSimContext;
-    v12 = 2112;
-    v13 = lockedCopy;
-    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "Interface manager: updating currentDataSimContext. {old: %@; new: %@}", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = currentDataSimContext;
+    v11 = 2112;
+    v12 = lockedCopy;
+    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "Interface manager: updating currentDataSimContext. {old: %@; new: %@}", &v9, 0x16u);
   }
 
   v7 = [lockedCopy copy];
   v8 = self->_currentDataSimContext;
   self->_currentDataSimContext = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processConnectionStatusLocked:(id)locked
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   lockedCopy = locked;
   state = [lockedCopy state];
   suspended = [lockedCopy suspended];
@@ -632,9 +635,9 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = self->_WWANInterfaceName;
-      v17 = 138412290;
-      v18 = v11;
-      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Interface manager: wwan interface name changed to %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v11;
+      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Interface manager: wwan interface name changed to %@", &v16, 0xCu);
     }
   }
 
@@ -654,9 +657,9 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
         v13 = "false";
       }
 
-      v17 = 136315138;
-      v18 = v13;
-      _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context _isWWANInterfaceDataActive status changed to %s", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = v13;
+      _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context _isWWANInterfaceDataActive status changed to %s", &v16, 0xCu);
     }
   }
 
@@ -676,20 +679,18 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
         v15 = "false";
       }
 
-      v17 = 136315138;
-      v18 = v15;
-      _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context _isWWANInterfaceSuspended status changed to  %s", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = v15;
+      _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context _isWWANInterfaceSuspended status changed to  %s", &v16, 0xCu);
     }
   }
 
   [(PCPersistentInterfaceManager *)self _updateWWANInterfaceUpStateLocked];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processDataStatusLocked:(id)locked
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   lockedCopy = locked;
   indicator = [lockedCopy indicator];
   v6 = indicator < 6;
@@ -717,11 +718,11 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
         v11 = "inactive";
       }
 
-      v23 = 136315394;
-      v24 = v11;
-      v25 = 1024;
+      v22 = 136315394;
+      v23 = v11;
+      v24 = 1024;
       indicator2 = [lockedCopy indicator];
-      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Interface manager: WWAN radio power level notification; high power state changed to %s with data indicator %d", &v23, 0x12u);
+      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Interface manager: WWAN radio power level notification; high power state changed to %s with data indicator %d", &v22, 0x12u);
     }
 
     [(PCPersistentInterfaceManager *)self _scheduleCalloutsForSelector:sel_interfaceManagerWWANInterfaceChangedPowerState_];
@@ -738,9 +739,9 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
         v13 = "true";
       }
 
-      v23 = 136315138;
-      v24 = v13;
-      _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context _ctIsWWANInHomeCountry status changed to %s", &v23, 0xCu);
+      v22 = 136315138;
+      v23 = v13;
+      _os_log_impl(&dword_25E3EF000, v12, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context _ctIsWWANInHomeCountry status changed to %s", &v22, 0xCu);
     }
 
     [(PCPersistentInterfaceManager *)self _updateCTIsWWANInHomeCountry:inHomeCountry isWWANInterfaceDataActive:self->_isWWANInterfaceDataActive];
@@ -753,9 +754,9 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       indicator3 = [lockedCopy indicator];
-      v23 = 67109120;
-      LODWORD(v24) = indicator3;
-      _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context WWANStatusIndicator changed to %u.", &v23, 8u);
+      v22 = 67109120;
+      LODWORD(v23) = indicator3;
+      _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context WWANStatusIndicator changed to %u.", &v22, 8u);
     }
   }
 
@@ -775,9 +776,9 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
         v17 = @"NO";
       }
 
-      v23 = 138543362;
-      v24 = v17;
-      _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context _isWWANInterfaceActivationPermitted to %{public}@ (isWWANInterfaceDataAttached).", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v17;
+      _os_log_impl(&dword_25E3EF000, v16, OS_LOG_TYPE_DEFAULT, "Interface manager: PDP context _isWWANInterfaceActivationPermitted to %{public}@ (isWWANInterfaceDataAttached).", &v22, 0xCu);
     }
   }
 
@@ -797,8 +798,8 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
             v20 = +[PCLog interfaceManager];
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              LOWORD(v23) = 0;
-              _os_log_impl(&dword_25E3EF000, v20, OS_LOG_TYPE_DEFAULT, "Interface manager: data attached but not active; activating context", &v23, 2u);
+              LOWORD(v22) = 0;
+              _os_log_impl(&dword_25E3EF000, v20, OS_LOG_TYPE_DEFAULT, "Interface manager: data attached but not active; activating context", &v22, 2u);
             }
 
             v21 = [(CoreTelephonyClient *)self->_ctClient setPacketContextActiveByServiceType:self->_currentDataSimContext connectionType:0 active:1];
@@ -808,8 +809,6 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isCellularCall:(__CTCall *)call
@@ -825,7 +824,7 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
 
 - (void)_processCallStatusChanged:(id)changed
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = [changedCopy objectForKey:*MEMORY[0x277CC37E0]];
   v6 = v5;
@@ -857,9 +856,9 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
         v10 = "not in";
       }
 
-      v20 = 136315138;
+      v19 = 136315138;
       selfCopy = v10;
-      _os_log_impl(&dword_25E3EF000, v9, OS_LOG_TYPE_DEFAULT, "Interface manager: call status is %s call", &v20, 0xCu);
+      _os_log_impl(&dword_25E3EF000, v9, OS_LOG_TYPE_DEFAULT, "Interface manager: call status is %s call", &v19, 0xCu);
     }
 
     inCallWWANOverrideTimer = self->_inCallWWANOverrideTimer;
@@ -874,13 +873,13 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v15 = self->_inCallWWANOverrideTimer;
-        v20 = 138543874;
+        v19 = 138543874;
         selfCopy = self;
-        v22 = 2048;
-        v23 = 0x402E000000000000;
-        v24 = 2114;
-        v25 = v15;
-        _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Interface manager: overriding WWAN interface while on call for %f seconds: %{public}@", &v20, 0x20u);
+        v21 = 2048;
+        v22 = 0x402E000000000000;
+        v23 = 2114;
+        v24 = v15;
+        _os_log_impl(&dword_25E3EF000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Interface manager: overriding WWAN interface while on call for %f seconds: %{public}@", &v19, 0x20u);
       }
 
       mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
@@ -905,8 +904,6 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
   }
 
   [(NSRecursiveLock *)self->_lock unlock];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_inCallWWANOverrideTimerFired
@@ -921,31 +918,29 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
 
 - (void)_clearInCallWWANOverrideTimerLocked
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_inCallWWANOverrideTimer)
   {
     v3 = +[PCLog interfaceManager];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       inCallWWANOverrideTimer = self->_inCallWWANOverrideTimer;
-      v7 = 138543618;
+      v6 = 138543618;
       selfCopy = self;
-      v9 = 2114;
-      v10 = inCallWWANOverrideTimer;
-      _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Interface manager: Clearing _inCallWWANOverrideTimer: %{public}@", &v7, 0x16u);
+      v8 = 2114;
+      v9 = inCallWWANOverrideTimer;
+      _os_log_impl(&dword_25E3EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Interface manager: Clearing _inCallWWANOverrideTimer: %{public}@", &v6, 0x16u);
     }
 
     [(NSTimer *)self->_inCallWWANOverrideTimer invalidate];
     v5 = self->_inCallWWANOverrideTimer;
     self->_inCallWWANOverrideTimer = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWWANInterfaceUpStateLocked
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   isWWANInterfaceUp = self->_isWWANInterfaceUp;
   if (self->_inCallWWANOverrideTimer && self->_isInCall)
   {
@@ -992,7 +987,7 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
       v9 = @"NO";
     }
 
-    *v15 = 138544386;
+    *v14 = 138544386;
     if ([(PCPersistentInterfaceManager *)self _wantsWWANInterfaceAssertion])
     {
       v10 = @"YES";
@@ -1003,7 +998,7 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
       v10 = @"NO";
     }
 
-    *&v15[4] = self;
+    *&v14[4] = self;
     if (isInterfaceUsable)
     {
       v11 = @"YES";
@@ -1014,29 +1009,28 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
       v11 = @"NO";
     }
 
-    *&v15[12] = 2114;
-    *&v15[14] = v8;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2114;
-    v21 = v11;
-    _os_log_impl(&dword_25E3EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ _updateWWANInterfaceUpState wasUp %{public}@ isUp %{public}@ wantsInterfaceAssertion %{public}@ avoidWWANOnCall %{public}@", v15, 0x34u);
+    *&v14[12] = 2114;
+    *&v14[14] = v8;
+    v15 = 2114;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v10;
+    v19 = 2114;
+    v20 = v11;
+    _os_log_impl(&dword_25E3EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ _updateWWANInterfaceUpState wasUp %{public}@ isUp %{public}@ wantsInterfaceAssertion %{public}@ avoidWWANOnCall %{public}@", v14, 0x34u);
   }
 
   if (isWWANInterfaceUp != self->_isWWANInterfaceUp)
   {
-    if (-[PCPersistentInterfaceManager _wantsWWANInterfaceAssertion](self, "_wantsWWANInterfaceAssertion") || !self->_hasWWANStatusIndicator && isWWANInterfaceUp && (+[PCInterfaceMonitor sharedInstanceForIdentifier:](PCInterfaceMonitor, "sharedInstanceForIdentifier:", 0), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isInternetReachable], v13, v14))
+    if (-[PCPersistentInterfaceManager _wantsWWANInterfaceAssertion](self, "_wantsWWANInterfaceAssertion") || !self->_hasWWANStatusIndicator && isWWANInterfaceUp && (+[PCInterfaceMonitor sharedInstanceForIdentifier:](PCInterfaceMonitor, "sharedInstanceForIdentifier:", 0), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 isInternetReachable], v12, v13))
     {
-      [(PCPersistentInterfaceManager *)self _scheduleCalloutsForSelector:sel_interfaceManagerWWANInterfaceStatusChanged_, *v15];
+      [(PCPersistentInterfaceManager *)self _scheduleCalloutsForSelector:sel_interfaceManagerWWANInterfaceStatusChanged_, *v14, *&v14[8]];
     }
 
-    [(PCPersistentInterfaceManager *)self _scheduleCalloutsForSelector:sel_interfaceManagerInternetReachabilityChanged_, *v15];
+    [(PCPersistentInterfaceManager *)self _scheduleCalloutsForSelector:sel_interfaceManagerInternetReachabilityChanged_, *v14];
   }
 
   [(PCPersistentInterfaceManager *)self _updateWWANInterfaceAssertionsLocked];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWWANInterfaceUpState
@@ -1050,7 +1044,7 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
 
 - (void)_updateCTIsWWANInHomeCountry:(BOOL)country isWWANInterfaceDataActive:(BOOL)active
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _isWWANInHomeCountryLocked = [(PCPersistentInterfaceManager *)self _isWWANInHomeCountryLocked];
   self->_ctIsWWANInHomeCountry = country;
   self->_isWWANInterfaceDataActive = active;
@@ -1067,15 +1061,13 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
         v11 = "true";
       }
 
-      v13 = 136315138;
-      v14 = v11;
-      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Interface manager: isWWANInHomeCountry status changed to %s", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = v11;
+      _os_log_impl(&dword_25E3EF000, v10, OS_LOG_TYPE_DEFAULT, "Interface manager: isWWANInHomeCountry status changed to %s", &v12, 0xCu);
     }
 
     [(PCPersistentInterfaceManager *)self _scheduleCalloutsForSelector:sel_interfaceManagerInHomeCountryStatusChanged_];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_wwanIsPoorLinkQuality
@@ -1096,71 +1088,64 @@ uint64_t __51__PCPersistentInterfaceManager__createCTConnection__block_invoke_27
 
 - (void)_scheduleCalloutsForSelector:(SEL)selector
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = self->_delegatesAndQueues;
-  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [(NSMapTable *)self->_delegatesAndQueues objectForKey:v10];
         queue = [v11 queue];
 
         if (queue)
         {
           queue2 = [v11 queue];
-          v15[0] = MEMORY[0x277D85DD0];
-          v15[1] = 3221225472;
-          v15[2] = __61__PCPersistentInterfaceManager__scheduleCalloutsForSelector___block_invoke;
-          v15[3] = &unk_279A19D70;
-          v15[4] = self;
-          v15[5] = v10;
-          v16 = v11;
+          v14[0] = MEMORY[0x277D85DD0];
+          v14[1] = 3221225472;
+          v14[2] = __61__PCPersistentInterfaceManager__scheduleCalloutsForSelector___block_invoke;
+          v14[3] = &unk_279A19D70;
+          v14[4] = self;
+          v14[5] = v10;
+          v15 = v11;
           selectorCopy = selector;
-          dispatch_async(queue2, v15);
+          dispatch_async(queue2, v14);
         }
       }
 
-      v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PCPersistentInterfaceManager__scheduleCalloutsForSelector___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 8) lock];
   v2 = [*(*(a1 + 32) + 16) objectForKey:*(a1 + 40)];
-  v6 = [v2 queue];
+  v4 = [v2 queue];
 
   v3 = [*(a1 + 48) queue];
 
   [*(*(a1 + 32) + 8) unlock];
-  if (v3 == v6)
+  if (v3 == v4 && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 56);
-    if (objc_opt_respondsToSelector())
-    {
-      [*(a1 + 40) performSelector:*(a1 + 56) withObject:*(a1 + 32)];
-    }
+    [*(a1 + 40) performSelector:*(a1 + 56) withObject:*(a1 + 32)];
   }
 }
 
@@ -1289,18 +1274,17 @@ LABEL_2:
 
 - (void)cutWiFiManagerDeviceAttached:(id)attached
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   attachedCopy = attached;
   v5 = +[PCLog interfaceManager];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = attachedCopy;
-    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "cutWiFiManagerDeviceAttached called: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = attachedCopy;
+    _os_log_impl(&dword_25E3EF000, v5, OS_LOG_TYPE_DEFAULT, "cutWiFiManagerDeviceAttached called: %{public}@", &v6, 0xCu);
   }
 
   [(PCPersistentInterfaceManager *)self _adjustWakeOnWiFi];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_wantsWWANInterfaceAssertion
@@ -1381,7 +1365,7 @@ LABEL_2:
 
 void __68__PCPersistentInterfaceManager__updateWWANInterfaceAssertionsLocked__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -1390,9 +1374,9 @@ void __68__PCPersistentInterfaceManager__updateWWANInterfaceAssertionsLocked__bl
     v6 = +[PCLog interfaceManager];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "Interface manager: reAssert failed, dropping assertion {reAssertError: %@}", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "Interface manager: reAssert failed, dropping assertion {reAssertError: %@}", &v8, 0xCu);
     }
 
     [v5[1] lock];
@@ -1405,8 +1389,6 @@ void __68__PCPersistentInterfaceManager__updateWWANInterfaceAssertionsLocked__bl
 
     [v5[1] unlock];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableWiFiAutoAssociation:(BOOL)association forDelegate:(id)delegate

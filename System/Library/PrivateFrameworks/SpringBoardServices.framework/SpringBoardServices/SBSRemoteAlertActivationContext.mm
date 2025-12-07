@@ -173,11 +173,11 @@
   xpc_dictionary_set_BOOL(xdict, "shouldEmbedOverShieldedApps", self->_shouldEmbedOverShieldedApps);
 }
 
-id __59__SBSRemoteAlertActivationContext_encodeWithXPCDictionary___block_invoke()
+id __59__SBSRemoteAlertActivationContext_encodeWithXPCDictionary___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = BSCreateSerializedBSXPCEncodableObject();
+  v2 = BSCreateSerializedBSXPCEncodableObject();
 
-  return v0;
+  return v2;
 }
 
 - (SBSRemoteAlertActivationContext)initWithCoder:(id)coder
@@ -356,9 +356,10 @@ id __59__SBSRemoteAlertActivationContext_encodeWithXPCDictionary___block_invoke(
   if (legacyAlertOptions != optionsCopy)
   {
     v13 = optionsCopy;
-    if (![(NSDictionary *)legacyAlertOptions isEqualToDictionary:optionsCopy])
+    legacyAlertOptions = [legacyAlertOptions isEqualToDictionary:optionsCopy];
+    if ((legacyAlertOptions & 1) == 0)
     {
-      v6 = [(NSDictionary *)v13 copy];
+      v6 = [v13 copy];
       v7 = self->_legacyAlertOptions;
       self->_legacyAlertOptions = v6;
 
@@ -387,12 +388,12 @@ id __59__SBSRemoteAlertActivationContext_encodeWithXPCDictionary___block_invoke(
           }
         }
 
-        [(SBSRemoteAlertActivationContext *)self setActivatingForSiri:[(NSDictionary *)self->_legacyAlertOptions bs_BOOLForKey:@"ActivateForAssistant"]];
+        legacyAlertOptions = [(SBSRemoteAlertActivationContext *)self setActivatingForSiri:[(NSDictionary *)self->_legacyAlertOptions bs_BOOLForKey:@"ActivateForAssistant"]];
       }
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](legacyAlertOptions);
 }
 
 @end

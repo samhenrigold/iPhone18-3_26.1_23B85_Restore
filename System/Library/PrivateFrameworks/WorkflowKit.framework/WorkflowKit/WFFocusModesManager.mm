@@ -91,39 +91,38 @@ LABEL_6:
 
 + (id)glyphToFilledGlyphMapping
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [&unk_1F4A9B800 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [&unk_1F4A9B800 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(&unk_1F4A9B800);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.fill", v7];
         [v2 setObject:v8 forKey:v7];
       }
 
-      v4 = [&unk_1F4A9B800 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [&unk_1F4A9B800 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
 
   [v2 setObject:@"emoji.face.grinning.inverse" forKey:@"emoji.face.grinning"];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -172,9 +171,9 @@ uint64_t __58__WFFocusModesManager_availableModesForAutomationsDisplay__block_in
   else if (*(a1 + 33) == 1)
   {
     v6 = [v4 activityIdentifier];
-    v7 = [v6 isEqualToString:@"com.apple.sleep.sleep-mode"];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    v5 = v7 ^ 1;
+    v5 = isEqualToString ^ 1;
   }
 
   else

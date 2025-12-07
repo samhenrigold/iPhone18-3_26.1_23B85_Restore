@@ -12,7 +12,9 @@
 - (void)setCurrentNetwork:(id)network;
 - (void)setNetworks:(id)networks;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WFPickerViewController
@@ -93,56 +95,102 @@
   [tableView2 registerNib:v6 forCellReuseIdentifier:@"WFHotspotCell"];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewWillAppear:(BOOL)appear
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v6.receiver = self;
-  v6.super_class = WFPickerViewController;
-  [(WFPickerViewController *)&v6 didReceiveMemoryWarning];
-  v3 = WFLogForCategory(3uLL);
-  v4 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v3 && os_log_type_enabled(v3, v4))
+  v14 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = WFPickerViewController;
+  [(WFPickerViewController *)&v9 viewWillAppear:appear];
+  [(WFPickerViewController *)self refresh];
+  listDelegate = [(WFPickerViewController *)self listDelegate];
+  [listDelegate networkListViewControllerDidAppear:self];
+
+  v5 = WFLogForCategory(3uLL);
+  v6 = OSLogForWFLogLevel(1uLL);
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5 && os_log_type_enabled(v5, v7))
   {
     *buf = 136315394;
-    v8 = "[WFPickerViewController didReceiveMemoryWarning]";
-    v9 = 2112;
+    v11 = "[WFPickerViewController viewWillAppear:]";
+    v12 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_273FB9000, v3, v4, "%s: %@", buf, 0x16u);
+    _os_log_impl(&dword_273FB9000, v5, v7, "%s: %@", buf, 0x16u);
   }
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = WFPickerViewController;
+  [(WFPickerViewController *)&v9 viewDidDisappear:disappear];
+  listDelegate = [(WFPickerViewController *)self listDelegate];
+  [listDelegate networkListViewControllerDidDisappear:self];
+
+  v5 = WFLogForCategory(3uLL);
+  v6 = OSLogForWFLogLevel(1uLL);
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5 && os_log_type_enabled(v5, v7))
+  {
+    *buf = 136315394;
+    v11 = "[WFPickerViewController viewDidDisappear:]";
+    v12 = 2112;
+    selfCopy = self;
+    _os_log_impl(&dword_273FB9000, v5, v7, "%s: %@", buf, 0x16u);
+  }
+}
+
+- (void)didReceiveMemoryWarning
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = WFPickerViewController;
+  [(WFPickerViewController *)&v7 didReceiveMemoryWarning];
+  v3 = WFLogForCategory(3uLL);
+  v4 = OSLogForWFLogLevel(1uLL);
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) && v3 && os_log_type_enabled(v3, v5))
+  {
+    *buf = 136315394;
+    v9 = "[WFPickerViewController didReceiveMemoryWarning]";
+    v10 = 2112;
+    selfCopy = self;
+    _os_log_impl(&dword_273FB9000, v3, v5, "%s: %@", buf, 0x16u);
+  }
 }
 
 - (void)setNetworks:(id)networks
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   v5 = WFLogForCategory(3uLL);
   v6 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v5)
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) && v5)
   {
-    v7 = v5;
-    if (os_log_type_enabled(v7, v6))
+    v9 = v5;
+    if (os_log_type_enabled(v9, v7))
     {
-      v19 = 136315650;
-      v20 = "[WFPickerViewController setNetworks:]";
-      v21 = 2048;
-      v22 = [networksCopy count];
-      v23 = 2112;
-      v24 = networksCopy;
-      _os_log_impl(&dword_273FB9000, v7, v6, "%s: networks (%lu): %@", &v19, 0x20u);
+      v22 = 136315650;
+      v23 = "[WFPickerViewController setNetworks:]";
+      v24 = 2048;
+      v25 = [networksCopy count];
+      v26 = 2112;
+      v27 = networksCopy;
+      _os_log_impl(&dword_273FB9000, v9, v7, "%s: networks (%lu): %@", &v22, 0x20u);
     }
   }
 
   if ([(WFPickerViewController *)self dismissed])
   {
-    v8 = WFLogForCategory(3uLL);
-    v9 = OSLogForWFLogLevel(1uLL);
-    if (WFCurrentLogLevel() && v8 && os_log_type_enabled(v8, v9))
+    v10 = WFLogForCategory(3uLL);
+    v11 = OSLogForWFLogLevel(1uLL);
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) && v10 && os_log_type_enabled(v10, v12))
     {
-      v19 = 136315138;
-      v20 = "[WFPickerViewController setNetworks:]";
-      _os_log_impl(&dword_273FB9000, v8, v9, "%s: disregarding call to set networks, this view controller is no longer visible", &v19, 0xCu);
+      v22 = 136315138;
+      v23 = "[WFPickerViewController setNetworks:]";
+      _os_log_impl(&dword_273FB9000, v10, v12, "%s: disregarding call to set networks, this view controller is no longer visible", &v22, 0xCu);
     }
   }
 
@@ -150,7 +198,7 @@
   {
     if (networksCopy)
     {
-      v10 = [networksCopy mutableCopy];
+      v14 = [networksCopy mutableCopy];
       currentNetwork = [(WFPickerViewController *)self currentNetwork];
       if (currentNetwork)
       {
@@ -159,27 +207,25 @@
         if (!showCurrentNetworkTop)
         {
           currentNetwork2 = [(WFPickerViewController *)self currentNetwork];
-          [(NSArray *)v10 addObject:currentNetwork2];
+          [(NSArray *)v14 addObject:currentNetwork2];
         }
       }
 
-      allObjects = [(NSArray *)v10 allObjects];
-      v15 = WFScanRecordDefaultSortCompartor();
-      v16 = [allObjects sortedArrayUsingComparator:v15];
+      allObjects = [(NSArray *)v14 allObjects];
+      v19 = WFScanRecordDefaultSortCompartor();
+      v20 = [allObjects sortedArrayUsingComparator:v19];
       sortedNetworks = self->_sortedNetworks;
-      self->_sortedNetworks = v16;
+      self->_sortedNetworks = v20;
     }
 
     else
     {
-      v10 = self->_sortedNetworks;
+      v14 = self->_sortedNetworks;
       self->_sortedNetworks = 0;
     }
 
     [(WFPickerViewController *)self refresh];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentNetwork:(id)network
@@ -197,34 +243,31 @@
 
 - (void)refresh
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
     if ([(WFPickerViewController *)self dismissed])
     {
       v3 = WFLogForCategory(3uLL);
       v4 = OSLogForWFLogLevel(1uLL);
-      if (WFCurrentLogLevel() && v3 && os_log_type_enabled(v3, v4))
+      v5 = v4;
+      if (WFCurrentLogLevel(v4, v6) && v3 && os_log_type_enabled(v3, v5))
       {
         *buf = 136315138;
-        v10 = "[WFPickerViewController refresh]";
-        _os_log_impl(&dword_273FB9000, v3, v4, "%s: disregarding call to refresh, this view controller is no longer visible", buf, 0xCu);
+        v9 = "[WFPickerViewController refresh]";
+        _os_log_impl(&dword_273FB9000, v3, v5, "%s: disregarding call to refresh, this view controller is no longer visible", buf, 0xCu);
       }
-
-      v5 = *MEMORY[0x277D85DE8];
     }
 
     else
     {
       tableView = [(WFPickerViewController *)self tableView];
       [tableView reloadData];
-      v7 = *MEMORY[0x277D85DE8];
     }
   }
 
   else
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     [(WFPickerViewController *)self performSelectorOnMainThread:sel_refresh withObject:0 waitUntilDone:0];
   }

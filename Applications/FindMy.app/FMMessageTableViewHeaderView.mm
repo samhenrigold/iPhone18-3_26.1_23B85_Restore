@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100424D20();
+  sub_100424D20(selfCopy);
 }
 
 - (_TtC6FindMy28FMMessageTableViewHeaderView)initWithReuseIdentifier:(id)identifier

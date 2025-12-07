@@ -127,7 +127,7 @@
   return v26;
 }
 
-uint64_t __55__SSLookupResponse_initWithLocationResponseDictionary___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__55__SSLookupResponse_initWithLocationResponseDictionary___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) containsObject:a2];
   if ((result & 1) == 0)
@@ -196,7 +196,7 @@ uint64_t __55__SSLookupResponse_initWithLocationResponseDictionary___block_invok
   return v6;
 }
 
-uint64_t __55__SSLookupResponse_appStoreURLWithReason_initialIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__55__SSLookupResponse_appStoreURLWithReason_initialIndex___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = [objc_msgSend(a2 "ITunesStoreIdentifier")];
   result = [v5 length];
@@ -339,19 +339,19 @@ void __45__SSLookupResponse__enumerateItemsWithBlock___block_invoke_2(uint64_t a
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v12.receiver = self;
-    v12.super_class = SSLookupResponse;
-    v5 = [(SSLookupResponse *)&v12 init];
+    v15.receiver = self;
+    v15.super_class = SSLookupResponse;
+    v5 = [(SSLookupResponse *)&v15 init];
     if (v5)
     {
-      objc_opt_class();
-      v5->_expirationDate = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
-      objc_opt_class();
-      v5->_response = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2");
+      v7 = objc_opt_class();
+      v5->_expirationDate = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
+      v8 = objc_opt_class();
+      v5->_response = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2", v8);
       value = xpc_dictionary_get_value(encoding, "1");
       if (value)
       {
-        v8 = value;
+        v10 = value;
         if (MEMORY[0x1DA6E0380]() == MEMORY[0x1E69E9E50])
         {
           v5->_itemOrder = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -360,16 +360,16 @@ void __45__SSLookupResponse__enumerateItemsWithBlock___block_invoke_2(uint64_t a
           applier[2] = __40__SSLookupResponse_initWithXPCEncoding___block_invoke;
           applier[3] = &unk_1E84AD708;
           applier[4] = v5;
-          xpc_array_apply(v8, applier);
+          xpc_array_apply(v10, applier);
         }
       }
 
-      objc_opt_class();
-      v9 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "3");
-      if (v9)
+      v11 = objc_opt_class();
+      v12 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "3", v11);
+      if (v12)
       {
-        v10 = v9;
-        v5->_metricsPageEvent = [(SSMetricsMutableEvent *)[SSMetricsPageEvent alloc] initWithBodyDictionary:v9];
+        v13 = v12;
+        v5->_metricsPageEvent = [(SSMetricsMutableEvent *)[SSMetricsPageEvent alloc] initWithBodyDictionary:v12];
       }
     }
   }
@@ -385,7 +385,7 @@ void __45__SSLookupResponse__enumerateItemsWithBlock___block_invoke_2(uint64_t a
 
 uint64_t __40__SSLookupResponse_initWithXPCEncoding___block_invoke(uint64_t a1, uint64_t a2, const __CFDictionary *a3)
 {
-  if (MEMORY[0x1DA6E0380](a3) == MEMORY[0x1E69E9F10])
+  if (MEMORY[0x1DA6E0380](a3, a2) == MEMORY[0x1E69E9F10])
   {
     v5 = SSXPCCreateCFObjectFromXPCObject(a3);
     [*(*(a1 + 32) + 16) addObject:v5];

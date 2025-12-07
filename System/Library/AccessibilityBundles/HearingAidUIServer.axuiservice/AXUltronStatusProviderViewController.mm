@@ -185,13 +185,12 @@ uint64_t __65__AXUltronStatusProviderViewController_updateDisplay_confidence___b
   [v2 setText:v3];
 LABEL_6:
   [*(*(a1 + 40) + 992) sizeToFit];
-  v4 = *(a1 + 48);
-  v5 = AXFormatFloatWithPercentage();
-  [*(*(a1 + 40) + 1000) setText:v5];
+  v4 = AXFormatFloatWithPercentage();
+  [*(*(a1 + 40) + 1000) setText:v4];
 
-  v6 = *(*(a1 + 40) + 1000);
+  v5 = *(*(a1 + 40) + 1000);
 
-  return [v6 sizeToFit];
+  return [v5 sizeToFit];
 }
 
 uint64_t __65__AXUltronStatusProviderViewController_updateDisplay_confidence___block_invoke_2(uint64_t a1)

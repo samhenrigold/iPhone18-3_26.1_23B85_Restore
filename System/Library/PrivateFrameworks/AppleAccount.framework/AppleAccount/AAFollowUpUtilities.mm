@@ -7,11 +7,11 @@
 
 + (BOOL)hasValidIDMSAccountForUserInfo:(id)info
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   defaultStore = [MEMORY[0x1E6959A48] defaultStore];
   v5 = [infoCopy objectForKeyedSubscript:AAFollowUpUserInfoAccountIdentifier[0]];
-  v6 = _AALogSystem();
+  v6 = _AALogSystem(v5);
   v7 = v6;
   if (!v5)
   {
@@ -28,16 +28,17 @@
     +[AAFollowUpUtilities hasValidIDMSAccountForUserInfo:];
   }
 
-  v7 = [defaultStore accountWithIdentifier:v5];
-  if (!v7)
+  v8 = [defaultStore accountWithIdentifier:v5];
+  v7 = v8;
+  if (!v8)
   {
 LABEL_32:
-    v30 = 0;
+    v35 = 0;
     goto LABEL_38;
   }
 
-  v8 = _AALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _AALogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     +[AAFollowUpUtilities hasValidIDMSAccountForUserInfo:];
   }
@@ -45,101 +46,101 @@ LABEL_32:
   mEMORY[0x1E698DC80] = [MEMORY[0x1E698DC80] sharedInstance];
   allAuthKitAccounts = [mEMORY[0x1E698DC80] allAuthKitAccounts];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v11 = allAuthKitAccounts;
-  v40 = [v11 countByEnumeratingWithState:&v47 objects:v52 count:16];
-  if (v40)
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v12 = allAuthKitAccounts;
+  v44 = [v12 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  if (v44)
   {
-    v12 = *v48;
-    v37 = defaultStore;
-    v38 = infoCopy;
-    v35 = *v48;
-    v36 = v5;
-    v39 = v11;
+    v13 = *v52;
+    v41 = defaultStore;
+    v42 = infoCopy;
+    v39 = *v52;
+    v40 = v5;
+    v43 = v12;
     while (2)
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v48 != v12)
+        if (*v52 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v14 = *(*(&v47 + 1) + 8 * i);
-        username = [v14 username];
+        v15 = *(*(&v51 + 1) + 8 * i);
+        username = [v15 username];
         username2 = [v7 username];
-        v17 = [username isEqualToString:username2];
+        v18 = [username isEqualToString:username2];
 
-        if (v17)
+        if (v18)
         {
-          v34 = _AALogSystem();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+          v38 = _AALogSystem(v19);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
             +[AAFollowUpUtilities hasValidIDMSAccountForUserInfo:];
           }
 
-          v30 = 1;
+          v35 = 1;
 LABEL_36:
-          v29 = v11;
-          defaultStore = v37;
-          infoCopy = v38;
-          v5 = v36;
+          v34 = v12;
+          defaultStore = v41;
+          infoCopy = v42;
+          v5 = v40;
           goto LABEL_37;
         }
 
         mEMORY[0x1E698DC80]2 = [MEMORY[0x1E698DC80] sharedInstance];
-        v19 = [mEMORY[0x1E698DC80]2 aliasesForAccount:v14];
+        v21 = [mEMORY[0x1E698DC80]2 aliasesForAccount:v15];
 
-        if (v19)
+        if (v21)
         {
-          v20 = _AALogSystem();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+          v23 = _AALogSystem(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
-            [(AAFollowUpUtilities *)&buf hasValidIDMSAccountForUserInfo:v46, v20];
+            [(AAFollowUpUtilities *)&buf hasValidIDMSAccountForUserInfo:v50, v23];
           }
 
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
-          v42 = 0u;
-          v21 = v19;
-          v22 = [v21 countByEnumeratingWithState:&v41 objects:v51 count:16];
-          if (v22)
+          v47 = 0u;
+          v48 = 0u;
+          v45 = 0u;
+          v46 = 0u;
+          v24 = v21;
+          v25 = [v24 countByEnumeratingWithState:&v45 objects:v55 count:16];
+          if (v25)
           {
-            v23 = v22;
-            v24 = *v42;
+            v26 = v25;
+            v27 = *v46;
             while (2)
             {
-              for (j = 0; j != v23; ++j)
+              for (j = 0; j != v26; ++j)
               {
-                if (*v42 != v24)
+                if (*v46 != v27)
                 {
-                  objc_enumerationMutation(v21);
+                  objc_enumerationMutation(v24);
                 }
 
-                v26 = *(*(&v41 + 1) + 8 * j);
+                v29 = *(*(&v45 + 1) + 8 * j);
                 username3 = [v7 username];
-                v28 = [username3 isEqualToString:v26];
+                v31 = [username3 isEqualToString:v29];
 
-                if (v28)
+                if (v31)
                 {
-                  v31 = _AALogSystem();
-                  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+                  v36 = _AALogSystem(v32);
+                  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
                   {
                     +[AAFollowUpUtilities hasValidIDMSAccountForUserInfo:];
                   }
 
-                  v30 = 1;
-                  v11 = v39;
+                  v35 = 1;
+                  v12 = v43;
                   goto LABEL_36;
                 }
               }
 
-              v23 = [v21 countByEnumeratingWithState:&v41 objects:v51 count:16];
-              if (v23)
+              v26 = [v24 countByEnumeratingWithState:&v45 objects:v55 count:16];
+              if (v26)
               {
                 continue;
               }
@@ -148,16 +149,16 @@ LABEL_36:
             }
           }
 
-          v11 = v39;
-          v12 = v35;
+          v12 = v43;
+          v13 = v39;
         }
       }
 
-      defaultStore = v37;
-      infoCopy = v38;
-      v5 = v36;
-      v40 = [v11 countByEnumeratingWithState:&v47 objects:v52 count:16];
-      if (v40)
+      defaultStore = v41;
+      infoCopy = v42;
+      v5 = v40;
+      v44 = [v12 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      if (v44)
       {
         continue;
       }
@@ -166,18 +167,17 @@ LABEL_36:
     }
   }
 
-  v29 = _AALogSystem();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+  v34 = _AALogSystem(v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
   {
-    [(AAFollowUpUtilities *)v7 hasValidIDMSAccountForUserInfo:v29];
+    [(AAFollowUpUtilities *)v7 hasValidIDMSAccountForUserInfo:v34];
   }
 
-  v30 = 0;
+  v35 = 0;
 LABEL_37:
 
 LABEL_38:
-  v32 = *MEMORY[0x1E69E9840];
-  return v30;
+  return v35;
 }
 
 + (id)followUpPostAnalyticsInfoWithContext:(id)context identifier:(id)identifier error:(id)error
@@ -230,22 +230,6 @@ LABEL_38:
   return v20;
 }
 
-+ (void)hasValidIDMSAccountForUserInfo:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, v0, v1, "AAFollowUpUtilities: Follow up has account identifier %@ in userInfo", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)hasValidIDMSAccountForUserInfo:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, v0, v1, "AAFollowUpUtilities: Found account %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)hasValidIDMSAccountForUserInfo:(os_log_t)log .cold.3(uint8_t *buf, _BYTE *a2, os_log_t log)
 {
   *buf = 0;
@@ -253,31 +237,13 @@ LABEL_38:
   _os_log_debug_impl(&dword_1B6F6A000, log, OS_LOG_TYPE_DEBUG, "AAFollowUpUtilities: Checking aliases...", buf, 2u);
 }
 
-+ (void)hasValidIDMSAccountForUserInfo:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, v0, v1, "AAFollowUpUtilities: alias %@ found!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)hasValidIDMSAccountForUserInfo:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, v0, v1, "AAFollowUpUtilities: Found valid IDMS account for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)hasValidIDMSAccountForUserInfo:(void *)a1 .cold.6(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 accountType];
   v4 = [v3 identifier];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_FAULT, "AAFollowUpUtilities: Unable to find valid account for followup with account type %{public}@. Clearing item.", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_FAULT, "AAFollowUpUtilities: Unable to find valid account for followup with account type %{public}@. Clearing item.", v5, 0xCu);
 }
 
 @end

@@ -30,7 +30,7 @@
 
 + (id)domainRestrictionForDictionary:(id)dictionary withError:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (_os_feature_enabled_impl())
   {
@@ -57,10 +57,10 @@ LABEL_15:
 
       v8 = MEMORY[0x277CCA9B8];
       dictionaryCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"RBLessThanConditionDomainRestriction doesn't specify value: %@", dictionaryCopy, *MEMORY[0x277CCA470]];
-      v19 = dictionaryCopy;
+      v18 = dictionaryCopy;
       v10 = MEMORY[0x277CBEAC0];
-      v11 = &v19;
-      v12 = &v18;
+      v11 = &v18;
+      v12 = &v17;
     }
 
     else
@@ -71,12 +71,12 @@ LABEL_15:
       }
 
       v8 = MEMORY[0x277CCA9B8];
-      v20 = *MEMORY[0x277CCA470];
+      v19 = *MEMORY[0x277CCA470];
       dictionaryCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"RBLessThanConditionDomainRestriction doesn't specify condition: %@", dictionaryCopy];
-      v21[0] = dictionaryCopy;
+      v20[0] = dictionaryCopy;
       v10 = MEMORY[0x277CBEAC0];
-      v11 = v21;
-      v12 = &v20;
+      v11 = v20;
+      v12 = &v19;
     }
 
     v13 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
@@ -97,8 +97,6 @@ LABEL_15:
   error = domainRestrictionForDictionary_withError__singleton_316;
 LABEL_16:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return error;
 }
 
@@ -111,25 +109,23 @@ uint64_t __81__RBLessThanConditionDomainRestriction_domainRestrictionForDictiona
 
 - (id)dictionaryRepresentation
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   condition = self->_condition;
-  v7[0] = @"Class";
-  v7[1] = @"Condition";
-  v8[0] = @"LessThanCondition";
-  v8[1] = condition;
-  v7[2] = @"Value";
+  v6[0] = @"Class";
+  v6[1] = @"Condition";
+  v7[0] = @"LessThanCondition";
+  v7[1] = condition;
+  v6[2] = @"Value";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:self->_value];
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
 
 - (BOOL)allowsContext:(id)context withError:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (_os_feature_enabled_impl())
   {
@@ -143,10 +139,10 @@ uint64_t __81__RBLessThanConditionDomainRestriction_domainRestrictionForDictiona
       {
         v10 = MEMORY[0x277CCA9B8];
         v11 = *MEMORY[0x277D47098];
-        v16 = *MEMORY[0x277CCA470];
+        v15 = *MEMORY[0x277CCA470];
         v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"System condition %@ has value %lld, which is not less than %lld", self->_condition, objc_msgSend(v9, "integerValue"), self->_value];
-        v17[0] = v12;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+        v16[0] = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
         *error = [v10 errorWithDomain:v11 code:1 userInfo:v13];
 
         LOBYTE(error) = 0;
@@ -164,7 +160,6 @@ uint64_t __81__RBLessThanConditionDomainRestriction_domainRestrictionForDictiona
     LOBYTE(error) = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -189,10 +184,9 @@ uint64_t __81__RBLessThanConditionDomainRestriction_domainRestrictionForDictiona
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = [objc_opt_class() description];
-  condition = self->_condition;
-  v6 = [v3 initWithFormat:@"<%@| %@:%lld>", v4, condition, self->_value];
+  v5 = [v3 initWithFormat:@"<%@| %@:%lld>", v4, self->_condition, self->_value];
 
-  return v6;
+  return v5;
 }
 
 @end

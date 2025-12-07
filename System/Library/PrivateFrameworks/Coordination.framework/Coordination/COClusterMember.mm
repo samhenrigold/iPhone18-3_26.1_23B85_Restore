@@ -17,37 +17,34 @@
 
 + (id)memberForCurrentDevice
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"legacyIdentifier";
-  v7[0] = &stru_2857AE980;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"legacyIdentifier";
+  v6[0] = &stru_2857AE980;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v3 = [[COClusterMember alloc] initWithType:1 deviceMetadata:v2];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (COClusterMember)initWithHomeKitIdentifier:(id)identifier
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v12.receiver = self;
-  v12.super_class = COClusterMember;
-  v5 = [(COClusterMember *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = COClusterMember;
+  v5 = [(COClusterMember *)&v11 init];
   v6 = v5;
   if (v5)
   {
     v5->_memberType = 3;
-    v13 = @"accessory";
+    v12 = @"accessory";
     uUIDString = [identifierCopy UUIDString];
-    v14[0] = uUIDString;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = uUIDString;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     deviceMetadata = v6->_deviceMetadata;
     v6->_deviceMetadata = v8;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -167,7 +164,7 @@
 
 - (COClusterMember)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"type"];
   v6 = MEMORY[0x277CBEB98];
@@ -176,29 +173,29 @@
   if ([coderCopy containsValueForKey:@"deviceMetadata"])
   {
     [coderCopy decodeObjectOfClasses:v8 forKey:@"deviceMetadata"];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v9 = v27 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v9 = v26 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v22 = v8;
-      v23 = v5;
-      v12 = *v25;
+      v21 = v8;
+      v22 = v5;
+      v12 = *v24;
       v13 = 1;
       do
       {
         v14 = 0;
         do
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = [v9 objectForKey:*(*(&v24 + 1) + 8 * v14)];
+          v15 = [v9 objectForKey:*(*(&v23 + 1) + 8 * v14)];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
@@ -209,13 +206,13 @@
         }
 
         while (v11 != v14);
-        v11 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
       while (v11);
       v16 = v9;
-      v8 = v22;
-      v5 = v23;
+      v8 = v21;
+      v5 = v22;
     }
 
     else
@@ -239,10 +236,10 @@
     v13 = v17 != 0;
     if (v17)
     {
-      v28 = @"legacyIdentifier";
-      v29 = v17;
+      v27 = @"legacyIdentifier";
+      v28 = v17;
       v13 = 1;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     }
 
     else
@@ -261,7 +258,6 @@
 LABEL_22:
   v19 = selfCopy;
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

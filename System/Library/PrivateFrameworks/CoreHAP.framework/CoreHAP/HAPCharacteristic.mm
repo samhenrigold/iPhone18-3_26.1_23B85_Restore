@@ -100,7 +100,7 @@
 
 - (id)validateValue:(id)value outValue:(id *)outValue
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   metadata = [(HAPCharacteristic *)self metadata];
   if (!metadata)
@@ -125,9 +125,9 @@ LABEL_7:
     if (!valueCopy)
     {
       v14 = 0;
-LABEL_66:
+LABEL_65:
 
-      goto LABEL_67;
+      goto LABEL_66;
     }
 
     metadata4 = [(HAPCharacteristic *)self metadata];
@@ -173,329 +173,300 @@ LABEL_66:
       maximumValue = 0;
     }
 
-    if ([format isEqualToString:@"int"] & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"float") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"BOOL") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int64") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint32") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint64"))
+    if (([format isEqualToString:@"int"] & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"float") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"BOOL") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int64") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint32") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint64") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"string") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"date") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"array") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"dict") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"data") & 1) != 0 || objc_msgSend(format, "isEqualToString:", @"tlv8"))
     {
-      v31 = 0x277CCABB0;
-    }
-
-    else if ([format isEqualToString:@"string"])
-    {
-      v31 = 0x277CCACA8;
-    }
-
-    else if ([format isEqualToString:@"date"])
-    {
-      v31 = 0x277CBEAA8;
-    }
-
-    else if ([format isEqualToString:@"array"])
-    {
-      v31 = 0x277CBEA60;
-    }
-
-    else if ([format isEqualToString:@"dict"])
-    {
-      v31 = 0x277D82BB8;
+      v31 = objc_opt_class();
     }
 
     else
     {
-      if (([format isEqualToString:@"data"] & 1) == 0 && !objc_msgSend(format, "isEqualToString:", @"tlv8"))
+      v31 = 0;
+    }
+
+    if (([objc_opt_class() isSubclassOfClass:v31] & 1) == 0)
+    {
+      v38 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:43];
+      v39 = objc_autoreleasePoolPush();
+      v40 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
-        v33 = 0;
-LABEL_29:
-        if (([objc_opt_class() isSubclassOfClass:v33] & 1) == 0)
+        HMFGetLogIdentifier();
+        v87 = format;
+        v41 = maximumValue;
+        v42 = metadata4;
+        v44 = v43 = v30;
+        type = [(HAPCharacteristic *)self type];
+        *buf = 138544130;
+        v92 = v44;
+        v93 = 2112;
+        v94 = type;
+        v95 = 2112;
+        v96 = objc_opt_class();
+        v97 = 2112;
+        objCType = v31;
+        v46 = v96;
+        _os_log_impl(&dword_22AADC000, v40, OS_LOG_TYPE_ERROR, "%{public}@### Failed to validate value for characteristic with type '%@' because the value was of class '%@' but should be '%@'", buf, 0x2Au);
+
+        v30 = v43;
+        metadata4 = v42;
+        maximumValue = v41;
+        format = v87;
+      }
+
+      objc_autoreleasePoolPop(v39);
+      goto LABEL_64;
+    }
+
+    if (!outValue)
+    {
+LABEL_47:
+      if (([format isEqualToString:@"int"] & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"float") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int64") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint32") & 1) != 0 || objc_msgSend(format, "isEqualToString:", @"uint64"))
+      {
+        if (metadata4 && [valueCopy compare:metadata4] == -1)
         {
-          v40 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:43];
-          v41 = objc_autoreleasePoolPush();
-          v42 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-          {
-            HMFGetLogIdentifier();
-            v90 = format;
-            v43 = maximumValue;
-            v44 = metadata4;
-            v46 = v45 = v30;
-            type = [(HAPCharacteristic *)self type];
-            *buf = 138544130;
-            v95 = v46;
-            v96 = 2112;
-            v97 = type;
-            v98 = 2112;
-            v99 = objc_opt_class();
-            v100 = 2112;
-            objCType = v33;
-            v48 = v99;
-            _os_log_impl(&dword_22AADC000, v42, OS_LOG_TYPE_ERROR, "%{public}@### Failed to validate value for characteristic with type '%@' because the value was of class '%@' but should be '%@'", buf, 0x2Au);
-
-            v30 = v45;
-            metadata4 = v44;
-            maximumValue = v43;
-            format = v90;
-          }
-
-          objc_autoreleasePoolPop(v41);
-          goto LABEL_65;
-        }
-
-        if (!outValue)
-        {
-LABEL_48:
-          if (([format isEqualToString:@"int"] & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"float") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int64") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint32") & 1) != 0 || objc_msgSend(format, "isEqualToString:", @"uint64"))
-          {
-            if (metadata4 && [valueCopy compare:metadata4] == -1)
-            {
-              v66 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:44];
-              if (outValue)
-              {
-                *outValue = 0;
-              }
-            }
-
-            else
-            {
-              v66 = 0;
-            }
-
-            if (maximumValue && [valueCopy compare:maximumValue] == 1)
-            {
-              v40 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:45];
-
-              if (outValue)
-              {
-                *outValue = 0;
-              }
-            }
-
-            else
-            {
-              v40 = v66;
-            }
-
-            goto LABEL_65;
-          }
-
-          if ([format isEqualToString:@"BOOL"])
-          {
-            v69 = objc_opt_class();
-            if (([v69 isSubclassOfClass:objc_opt_class()] & 1) == 0)
-            {
-              v70 = v30;
-              if ([v69 isSubclassOfClass:objc_opt_class()])
-              {
-                if ([valueCopy intValue] < 2)
-                {
-                  v40 = 0;
-LABEL_105:
-                  v30 = v70;
-                  goto LABEL_65;
-                }
-
-                v71 = objc_autoreleasePoolPush();
-                v72 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
-                {
-                  v73 = HMFGetLogIdentifier();
-                  v74 = objc_opt_class();
-                  v75 = valueCopy;
-                  v91 = v74;
-                  *buf = 138544130;
-                  v95 = v73;
-                  v96 = 2112;
-                  v97 = valueCopy;
-                  v98 = 2112;
-                  v99 = v74;
-                  v100 = 2080;
-                  objCType = [valueCopy objCType];
-                  _os_log_impl(&dword_22AADC000, v72, OS_LOG_TYPE_ERROR, "%{public}@Value to be validated is expected to be either '0' or '1', instead it was '%@' - class %@  objCType %s", buf, 0x2Au);
-                }
-              }
-
-              else
-              {
-                v71 = objc_autoreleasePoolPush();
-                v83 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
-                {
-                  v84 = HMFGetLogIdentifier();
-                  *buf = 138543874;
-                  v95 = v84;
-                  v96 = 2112;
-                  v97 = valueCopy;
-                  v98 = 2112;
-                  v99 = v69;
-                  _os_log_impl(&dword_22AADC000, v83, OS_LOG_TYPE_ERROR, "%{public}@inValue not a BOOLean value %@ - class %@", buf, 0x20u);
-                }
-              }
-
-              objc_autoreleasePoolPop(v71);
-              v40 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:3];
-              if (outValue)
-              {
-                *outValue = 0;
-              }
-
-              goto LABEL_105;
-            }
-
-LABEL_88:
-            v40 = 0;
-LABEL_65:
-            v14 = v40;
-
-            goto LABEL_66;
-          }
-
-          if (![format isEqualToString:@"string"])
-          {
-            goto LABEL_88;
-          }
-
-          v92 = v30;
-          v76 = valueCopy;
-          v77 = [v76 length];
-          if (v77 <= [maxLength unsignedIntValue])
-          {
-            v85 = [v76 length];
-            if (v85 >= [v30 unsignedIntValue])
-            {
-              v40 = 0;
-LABEL_107:
-
-              v30 = v92;
-              goto LABEL_65;
-            }
-
-            v86 = objc_autoreleasePoolPush();
-            v87 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
-            {
-              v88 = HMFGetLogIdentifier();
-              *buf = 138543874;
-              v95 = v88;
-              v96 = 2048;
-              v97 = [v76 length];
-              v98 = 1024;
-              LODWORD(v99) = [v92 unsignedIntValue];
-              _os_log_impl(&dword_22AADC000, v87, OS_LOG_TYPE_ERROR, "%{public}@inValue string.length: %lu < minLength: %u", buf, 0x1Cu);
-            }
-
-            objc_autoreleasePoolPop(v86);
-            v81 = MEMORY[0x277CCA9B8];
-            v82 = 51;
-          }
-
-          else
-          {
-            v78 = objc_autoreleasePoolPush();
-            v79 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
-            {
-              v80 = HMFGetLogIdentifier();
-              *buf = 138543874;
-              v95 = v80;
-              v96 = 2048;
-              v97 = [v76 length];
-              v98 = 1024;
-              LODWORD(v99) = [maxLength unsignedIntValue];
-              _os_log_impl(&dword_22AADC000, v79, OS_LOG_TYPE_ERROR, "%{public}@inValue string.length: %lu > maxLength: %u", buf, 0x1Cu);
-            }
-
-            objc_autoreleasePoolPop(v78);
-            v81 = MEMORY[0x277CCA9B8];
-            v82 = 46;
-          }
-
-          v40 = [v81 errorWithHMErrorCode:{v82, v92}];
+          v64 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:44];
           if (outValue)
           {
             *outValue = 0;
-          }
-
-          goto LABEL_107;
-        }
-
-        v89 = maximumValue;
-        v34 = metadata4;
-        v35 = v30;
-        metadata10 = [(HAPCharacteristic *)self metadata];
-        constraints6 = [metadata10 constraints];
-        stepValue = [constraints6 stepValue];
-        if (stepValue)
-        {
-          v39 = stepValue;
-          if ([format isEqualToString:@"float"])
-          {
-
-LABEL_39:
-            metadata11 = [(HAPCharacteristic *)self metadata];
-            constraints7 = [metadata11 constraints];
-            stepValue2 = [constraints7 stepValue];
-            [stepValue2 doubleValue];
-            v54 = v53;
-
-            metadata12 = [(HAPCharacteristic *)self metadata];
-            constraints8 = [metadata12 constraints];
-            minimumValue = [constraints8 minimumValue];
-
-            if (minimumValue)
-            {
-              metadata13 = [(HAPCharacteristic *)self metadata];
-              constraints9 = [metadata13 constraints];
-              minimumValue2 = [constraints9 minimumValue];
-              [minimumValue2 doubleValue];
-              v62 = v61;
-            }
-
-            else
-            {
-              v62 = 0.0;
-            }
-
-            [valueCopy doubleValue];
-            v65 = v62 + round((v64 - v62) / v54) * v54;
-            v30 = v35;
-            if ([format isEqualToString:@"int"])
-            {
-              [MEMORY[0x277CCABB0] numberWithInteger:v65];
-            }
-
-            else
-            {
-              [MEMORY[0x277CCABB0] numberWithDouble:v65];
-            }
-
-            v63 = metadata4 = v34;
-            goto LABEL_47;
-          }
-
-          v49 = [format isEqualToString:@"int"];
-
-          if (v49)
-          {
-            goto LABEL_39;
           }
         }
 
         else
         {
+          v64 = 0;
         }
 
-        v63 = valueCopy;
-        v30 = v35;
-        metadata4 = v34;
-LABEL_47:
-        maximumValue = v89;
-        *outValue = v63;
-        goto LABEL_48;
+        if (maximumValue && [valueCopy compare:maximumValue] == 1)
+        {
+          v38 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:45];
+
+          if (outValue)
+          {
+            *outValue = 0;
+          }
+        }
+
+        else
+        {
+          v38 = v64;
+        }
+
+        goto LABEL_64;
       }
 
-      v31 = 0x277CBEA90;
+      if ([format isEqualToString:@"BOOL"])
+      {
+        v66 = objc_opt_class();
+        if (([v66 isSubclassOfClass:objc_opt_class()] & 1) == 0)
+        {
+          v67 = v30;
+          if ([v66 isSubclassOfClass:objc_opt_class()])
+          {
+            if ([valueCopy intValue] < 2)
+            {
+              v38 = 0;
+LABEL_104:
+              v30 = v67;
+              goto LABEL_64;
+            }
+
+            v68 = objc_autoreleasePoolPush();
+            v69 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            {
+              v70 = HMFGetLogIdentifier();
+              v71 = objc_opt_class();
+              v72 = valueCopy;
+              v88 = v71;
+              *buf = 138544130;
+              v92 = v70;
+              v93 = 2112;
+              v94 = valueCopy;
+              v95 = 2112;
+              v96 = v71;
+              v97 = 2080;
+              objCType = [valueCopy objCType];
+              _os_log_impl(&dword_22AADC000, v69, OS_LOG_TYPE_ERROR, "%{public}@Value to be validated is expected to be either '0' or '1', instead it was '%@' - class %@  objCType %s", buf, 0x2Au);
+            }
+          }
+
+          else
+          {
+            v68 = objc_autoreleasePoolPush();
+            v80 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+            {
+              v81 = HMFGetLogIdentifier();
+              *buf = 138543874;
+              v92 = v81;
+              v93 = 2112;
+              v94 = valueCopy;
+              v95 = 2112;
+              v96 = v66;
+              _os_log_impl(&dword_22AADC000, v80, OS_LOG_TYPE_ERROR, "%{public}@inValue not a BOOLean value %@ - class %@", buf, 0x20u);
+            }
+          }
+
+          objc_autoreleasePoolPop(v68);
+          v38 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:3];
+          if (outValue)
+          {
+            *outValue = 0;
+          }
+
+          goto LABEL_104;
+        }
+
+LABEL_87:
+        v38 = 0;
+LABEL_64:
+        v14 = v38;
+
+        goto LABEL_65;
+      }
+
+      if (![format isEqualToString:@"string"])
+      {
+        goto LABEL_87;
+      }
+
+      v89 = v30;
+      v73 = valueCopy;
+      v74 = [v73 length];
+      if (v74 <= [maxLength unsignedIntValue])
+      {
+        v82 = [v73 length];
+        if (v82 >= [v30 unsignedIntValue])
+        {
+          v38 = 0;
+LABEL_106:
+
+          v30 = v89;
+          goto LABEL_64;
+        }
+
+        v83 = objc_autoreleasePoolPush();
+        v84 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+        {
+          v85 = HMFGetLogIdentifier();
+          *buf = 138543874;
+          v92 = v85;
+          v93 = 2048;
+          v94 = [v73 length];
+          v95 = 1024;
+          LODWORD(v96) = [v89 unsignedIntValue];
+          _os_log_impl(&dword_22AADC000, v84, OS_LOG_TYPE_ERROR, "%{public}@inValue string.length: %lu < minLength: %u", buf, 0x1Cu);
+        }
+
+        objc_autoreleasePoolPop(v83);
+        v78 = MEMORY[0x277CCA9B8];
+        v79 = 51;
+      }
+
+      else
+      {
+        v75 = objc_autoreleasePoolPush();
+        v76 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+        {
+          v77 = HMFGetLogIdentifier();
+          *buf = 138543874;
+          v92 = v77;
+          v93 = 2048;
+          v94 = [v73 length];
+          v95 = 1024;
+          LODWORD(v96) = [maxLength unsignedIntValue];
+          _os_log_impl(&dword_22AADC000, v76, OS_LOG_TYPE_ERROR, "%{public}@inValue string.length: %lu > maxLength: %u", buf, 0x1Cu);
+        }
+
+        objc_autoreleasePoolPop(v75);
+        v78 = MEMORY[0x277CCA9B8];
+        v79 = 46;
+      }
+
+      v38 = [v78 errorWithHMErrorCode:{v79, v89}];
+      if (outValue)
+      {
+        *outValue = 0;
+      }
+
+      goto LABEL_106;
     }
 
-    v32 = *v31;
-    v33 = objc_opt_class();
-    goto LABEL_29;
+    v86 = maximumValue;
+    v32 = metadata4;
+    v33 = v30;
+    metadata10 = [(HAPCharacteristic *)self metadata];
+    constraints6 = [metadata10 constraints];
+    stepValue = [constraints6 stepValue];
+    if (stepValue)
+    {
+      v37 = stepValue;
+      if ([format isEqualToString:@"float"])
+      {
+
+LABEL_38:
+        metadata11 = [(HAPCharacteristic *)self metadata];
+        constraints7 = [metadata11 constraints];
+        stepValue2 = [constraints7 stepValue];
+        [stepValue2 doubleValue];
+        v52 = v51;
+
+        metadata12 = [(HAPCharacteristic *)self metadata];
+        constraints8 = [metadata12 constraints];
+        minimumValue = [constraints8 minimumValue];
+
+        if (minimumValue)
+        {
+          metadata13 = [(HAPCharacteristic *)self metadata];
+          constraints9 = [metadata13 constraints];
+          minimumValue2 = [constraints9 minimumValue];
+          [minimumValue2 doubleValue];
+          v60 = v59;
+        }
+
+        else
+        {
+          v60 = 0.0;
+        }
+
+        [valueCopy doubleValue];
+        v63 = v60 + round((v62 - v60) / v52) * v52;
+        v30 = v33;
+        if ([format isEqualToString:@"int"])
+        {
+          [MEMORY[0x277CCABB0] numberWithInteger:v63];
+        }
+
+        else
+        {
+          [MEMORY[0x277CCABB0] numberWithDouble:v63];
+        }
+
+        v61 = metadata4 = v32;
+        goto LABEL_46;
+      }
+
+      v47 = [format isEqualToString:@"int"];
+
+      if (v47)
+      {
+        goto LABEL_38;
+      }
+    }
+
+    else
+    {
+    }
+
+    v61 = valueCopy;
+    v30 = v33;
+    metadata4 = v32;
+LABEL_46:
+    maximumValue = v86;
+    *outValue = v61;
+    goto LABEL_47;
   }
 
   v10 = metadata2;
@@ -520,9 +491,7 @@ LABEL_4:
     v14 = 0;
   }
 
-LABEL_67:
-
-  v67 = *MEMORY[0x277D85DE8];
+LABEL_66:
 
   return v14;
 }
@@ -659,7 +628,7 @@ LABEL_20:
 
 - (BOOL)mergeObject:(id)object
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -687,11 +656,11 @@ LABEL_20:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v21;
-      v26 = 2112;
-      v27 = v6;
-      _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "%{public}@Not merging with characteristic: %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v21;
+      v25 = 2112;
+      v26 = v6;
+      _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "%{public}@Not merging with characteristic: %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -719,11 +688,11 @@ LABEL_13:
   {
     v14 = HMFGetLogIdentifier();
     metadata3 = [v6 metadata];
-    v24 = 138543618;
-    v25 = v14;
-    v26 = 2112;
-    v27 = metadata3;
-    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%{public}@Updated the characteristic metadata: %@", &v24, 0x16u);
+    v23 = 138543618;
+    v24 = v14;
+    v25 = 2112;
+    v26 = metadata3;
+    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%{public}@Updated the characteristic metadata: %@", &v23, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -733,7 +702,6 @@ LABEL_13:
   v17 = 1;
 LABEL_14:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -852,7 +820,7 @@ LABEL_14:
 
 - (id)propertiesDescription
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (([(HAPCharacteristic *)self properties]& 2) != 0)
   {
@@ -908,29 +876,29 @@ LABEL_14:
     v6 = [v3 objectAtIndexedSubscript:0];
     [v3 removeObject:v6];
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v7 = v3;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v4 appendFormat:@", %@", *(*(&v14 + 1) + 8 * i)];
+          [v4 appendFormat:@", %@", *(*(&v13 + 1) + 8 * i)];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -941,8 +909,6 @@ LABEL_14:
   {
     v4 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1037,35 +1003,7 @@ LABEL_14:
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_15;
-    }
-
-    instanceID = [(HAPCharacteristic *)self instanceID];
-    instanceID2 = [(HAPCharacteristic *)v6 instanceID];
-    v9 = numbersAreNotEqualNilSafe(instanceID, instanceID2);
-
-    if (v9)
-    {
-      goto LABEL_15;
-    }
-
-    type = [(HAPCharacteristic *)self type];
-    type2 = [(HAPCharacteristic *)v6 type];
-    if (type | type2)
-    {
-      v12 = type2;
-      v13 = [type isEqualToString:type2];
-
-      if (!v13)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    properties = [(HAPCharacteristic *)self properties];
-    if (properties == [(HAPCharacteristic *)v6 properties])
+    if (v6 && (-[HAPCharacteristic instanceID](self, "instanceID"), v7 = objc_claimAutoreleasedReturnValue(), -[HAPCharacteristic instanceID](v6, "instanceID"), v8 = objc_claimAutoreleasedReturnValue(), v9 = numbersAreNotEqualNilSafe(v7, v8), v8, v7, (v9 & 1) == 0) && ((-[HAPCharacteristic type](self, "type"), v10 = objc_claimAutoreleasedReturnValue(), -[HAPCharacteristic type](v6, "type"), v11 = objc_claimAutoreleasedReturnValue(), !(v10 | v11)) || (v12 = v11, v13 = [v10 isEqualToString:v11], v12, v10, v13)) && (v15 = -[HAPCharacteristic properties](self, "properties"), v15 == -[HAPCharacteristic properties](v6, "properties")))
     {
       service = [(HAPCharacteristic *)self service];
       if (service)
@@ -1094,7 +1032,6 @@ LABEL_14:
 
     else
     {
-LABEL_15:
       v14 = 0;
     }
   }
@@ -1163,7 +1100,7 @@ LABEL_6:
 - (HAPCharacteristic)initWithType:(id)type instanceID:(id)d value:(id)value stateNumber:(id)number properties:(unsigned __int16)properties eventNotificationsEnabled:(BOOL)enabled implicitWriteWithResponse:(BOOL)response metadata:(id)self0
 {
   propertiesCopy = properties;
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dCopy = d;
   valueCopy = value;
@@ -1178,7 +1115,7 @@ LABEL_6:
       {
         log = hap_validatedAndNormalizedUUIDString;
         v20 = +[HAPMetadata getSharedInstance];
-        v73 = v20;
+        v72 = v20;
         if (propertiesCopy)
         {
           if ((propertiesCopy & 0xF) != 0)
@@ -1187,7 +1124,7 @@ LABEL_6:
             v22 = v21;
             if (v21)
             {
-              v70 = v21;
+              v69 = v21;
               unsignedIntegerValue = [v21 unsignedIntegerValue];
               if ((propertiesCopy & 2) == 0 && (unsignedIntegerValue & 2) != 0)
               {
@@ -1198,10 +1135,10 @@ LABEL_6:
                 {
                   v27 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v81 = v27;
-                  v82 = 2112;
+                  v80 = v27;
+                  v81 = 2112;
                   v28 = log;
-                  v83 = log;
+                  v82 = log;
                   v29 = "%{public}@### HomeKit Characteristic '%@' does not support secureRead.";
 LABEL_11:
                   _os_log_impl(&dword_22AADC000, v26, OS_LOG_TYPE_DEFAULT, v29, buf, 0x16u);
@@ -1215,7 +1152,7 @@ LABEL_52:
                 goto LABEL_51;
               }
 
-              v22 = v70;
+              v22 = v69;
               if (unsignedIntegerValue < 0 && (propertiesCopy & 0x80) == 0 && ((propertiesCopy & 4) == 0 || !response))
               {
                 v24 = metadataCopy;
@@ -1225,10 +1162,10 @@ LABEL_52:
                 {
                   v27 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v81 = v27;
-                  v82 = 2114;
+                  v80 = v27;
+                  v81 = 2114;
                   v28 = log;
-                  v83 = log;
+                  v82 = log;
                   v29 = "%{public}@### HomeKit Characteristic '%{public}@' does not support writeResponse.";
                   goto LABEL_11;
                 }
@@ -1240,35 +1177,35 @@ LABEL_51:
             }
 
             v48 = metadataCopy;
-            v74 = v48;
+            v73 = v48;
             if (v48)
             {
               constraints = [v48 constraints];
-              if (constraints || ([v74 manufacturerDescription], (constraints = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v74, "format"), (constraints = objc_claimAutoreleasedReturnValue()) != 0))
+              if (constraints || ([v73 manufacturerDescription], (constraints = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v73, "format"), (constraints = objc_claimAutoreleasedReturnValue()) != 0))
               {
 
-                v48 = v74;
+                v48 = v73;
               }
 
               else
               {
-                units = [v74 units];
+                units = [v73 units];
 
-                v48 = v74;
+                v48 = v73;
                 if (!units)
                 {
                   v24 = metadataCopy;
-                  v64 = objc_autoreleasePoolPush();
-                  v65 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+                  v63 = objc_autoreleasePoolPush();
+                  v64 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
                   {
-                    v66 = HMFGetLogIdentifier();
+                    v65 = HMFGetLogIdentifier();
                     *buf = 138543362;
-                    v81 = v66;
-                    _os_log_impl(&dword_22AADC000, v65, OS_LOG_TYPE_ERROR, "%{public}@### Characteristic metadata is empty", buf, 0xCu);
+                    v80 = v65;
+                    _os_log_impl(&dword_22AADC000, v64, OS_LOG_TYPE_ERROR, "%{public}@### Characteristic metadata is empty", buf, 0xCu);
                   }
 
-                  objc_autoreleasePoolPop(v64);
+                  objc_autoreleasePoolPop(v63);
                   v44 = objc_autoreleasePoolPush();
                   v45 = HMFGetOSLogHandle();
                   if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
@@ -1278,43 +1215,43 @@ LABEL_51:
 
                   v46 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v81 = v46;
-                  v82 = 2112;
-                  v83 = log;
+                  v80 = v46;
+                  v81 = 2112;
+                  v82 = log;
                   v47 = "%{public}@### Unable to initialize characteristic '%@' because of invalid metadata";
                   goto LABEL_29;
                 }
               }
             }
 
-            v79.receiver = self;
-            v79.super_class = HAPCharacteristic;
-            v50 = [(HAPCharacteristic *)&v79 init];
+            v78.receiver = self;
+            v78.super_class = HAPCharacteristic;
+            v50 = [(HAPCharacteristic *)&v78 init];
             if (v50)
             {
-              v69 = metadataCopy;
-              v71 = +[HAPMetadata getSharedInstance];
+              v68 = metadataCopy;
+              v70 = +[HAPMetadata getSharedInstance];
               v51 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:log];
               type = v50->_type;
               v50->_type = v51;
 
-              v53 = [v71 characteristicUTIFromType:log];
+              v53 = [v70 characteristicUTIFromType:log];
               if (v53)
               {
                 context = objc_autoreleasePoolPush();
                 loga = HMFGetOSLogHandle();
                 if (os_log_type_enabled(loga, OS_LOG_TYPE_DEBUG))
                 {
-                  v67 = HMFGetLogIdentifier();
+                  v66 = HMFGetLogIdentifier();
                   v54 = v50->_type;
                   *buf = 138544130;
-                  v81 = v67;
-                  v82 = 2112;
-                  v83 = v54;
-                  v84 = 2112;
-                  v85 = v53;
-                  v86 = 2112;
-                  v87 = dCopy;
+                  v80 = v66;
+                  v81 = 2112;
+                  v82 = v54;
+                  v83 = 2112;
+                  v84 = v53;
+                  v85 = 2112;
+                  v86 = dCopy;
                   _os_log_impl(&dword_22AADC000, loga, OS_LOG_TYPE_DEBUG, "%{public}@%@ ----> %@ [%@]", buf, 0x2Au);
                 }
 
@@ -1332,16 +1269,16 @@ LABEL_51:
               v50->_eventNotificationsEnabled = enabled;
               v50->_implicitWriteWithResponse = response;
               v50->_shouldValidateValueAfterReading = 1;
-              v57 = [HMFObjectCacheHAPCharacteristicMetadata hap_cacheInstanceForMetadata:v74];
+              v57 = [HMFObjectCacheHAPCharacteristicMetadata hap_cacheInstanceForMetadata:v73];
               accessoryMetadata = v50->_accessoryMetadata;
               v50->_accessoryMetadata = v57;
 
-              v59 = [(HAPCharacteristic *)v50 _generateValidMetadata:v74];
+              v59 = [(HAPCharacteristic *)v50 _generateValidMetadata:v73];
               v60 = [HMFObjectCacheHAPCharacteristicMetadata hap_cacheInstanceForMetadata:v59];
               metadata = v50->_metadata;
               v50->_metadata = v60;
 
-              metadataCopy = v69;
+              metadataCopy = v68;
             }
 
             self = v50;
@@ -1356,7 +1293,7 @@ LABEL_51:
           {
             v42 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v81 = v42;
+            v80 = v42;
             v43 = "%{public}@### Characteristic is missing valid properties";
             goto LABEL_25;
           }
@@ -1371,7 +1308,7 @@ LABEL_51:
           {
             v42 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v81 = v42;
+            v80 = v42;
             v43 = "%{public}@### Characteristic has nil properties";
 LABEL_25:
             _os_log_impl(&dword_22AADC000, v41, OS_LOG_TYPE_ERROR, v43, buf, 0xCu);
@@ -1397,9 +1334,9 @@ LABEL_30:
 
         v46 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v81 = v46;
-        v82 = 2112;
-        v83 = v28;
+        v80 = v46;
+        v81 = 2112;
+        v82 = v28;
         v47 = "%{public}@### Unable to initialize characteristic '%@' because of invalid properties";
 LABEL_29:
         _os_log_impl(&dword_22AADC000, v45, OS_LOG_TYPE_ERROR, v47, buf, 0x16u);
@@ -1413,9 +1350,9 @@ LABEL_29:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v81 = v36;
-        v82 = 2112;
-        v83 = hap_validatedAndNormalizedUUIDString;
+        v80 = v36;
+        v81 = 2112;
+        v82 = hap_validatedAndNormalizedUUIDString;
         v37 = "%{public}@### Unable to initialize characteristic '%@' because of invalid instance ID";
         v38 = v35;
         v39 = 22;
@@ -1431,7 +1368,7 @@ LABEL_29:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v81 = v36;
+        v80 = v36;
         v37 = "%{public}@### Unable to initialize characteristic because type name is not a UUID";
         v38 = v35;
         v39 = 12;
@@ -1453,9 +1390,9 @@ LABEL_47:
   {
     v32 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v81 = v32;
-    v82 = 2112;
-    v83 = typeCopy;
+    v80 = v32;
+    v81 = 2112;
+    v82 = typeCopy;
     _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "%{public}@### Unable to initialize characteristic because of invalid characteristic type name: %@", buf, 0x16u);
   }
 
@@ -1463,7 +1400,6 @@ LABEL_47:
   selfCopy = 0;
 LABEL_48:
 
-  v62 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

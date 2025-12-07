@@ -55,7 +55,7 @@
 
 - (_INVocabularyGenerationDocument)initWithContentsOfFile:(id)file
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:fileCopy];
   if (v5)
@@ -69,17 +69,16 @@
     v7 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[_INVocabularyGenerationDocument initWithContentsOfFile:]";
-      v12 = 2112;
-      v13 = fileCopy;
-      _os_log_impl(&dword_18E991000, v7, OS_LOG_TYPE_INFO, "%s No file at %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[_INVocabularyGenerationDocument initWithContentsOfFile:]";
+      v11 = 2112;
+      v12 = fileCopy;
+      _os_log_impl(&dword_18E991000, v7, OS_LOG_TYPE_INFO, "%s No file at %@", &v9, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -151,18 +150,18 @@ LABEL_9:
 
 - (void)_takeValuesFromDictionary:(id)dictionary
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v25 = [dictionaryCopy valueForKey:@"version"];
-  if (([v25 isEqual:&unk_1F02D7ED0] & 1) == 0)
+  v24 = [dictionaryCopy valueForKey:@"version"];
+  if (([v24 isEqual:&unk_1F02D7ED0] & 1) == 0)
   {
     v5 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v35 = "[_INVocabularyGenerationDocument _takeValuesFromDictionary:]";
-      v36 = 2080;
-      v37 = "[_INVocabularyGenerationDocument _takeValuesFromDictionary:]";
+      v34 = "[_INVocabularyGenerationDocument _takeValuesFromDictionary:]";
+      v35 = 2080;
+      v36 = "[_INVocabularyGenerationDocument _takeValuesFromDictionary:]";
       _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s %s dictionary is missing version number", buf, 0x16u);
     }
   }
@@ -182,29 +181,29 @@ LABEL_9:
   v10 = [(_INVocabularyGenerationDocument *)self _stringForSelector:sel_intentSlot from:dictionaryCopy];
   [(_INVocabularyGenerationDocument *)self setIntentSlot:v10];
 
-  v26 = dictionaryCopy;
+  v25 = dictionaryCopy;
   v11 = [(_INVocabularyGenerationDocument *)self _valueForSelector:sel_vocabularyItems ofClass:objc_opt_class() from:dictionaryCopy];
-  v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+  v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v30;
+    v14 = *v29;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * i);
+        v16 = *(*(&v28 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -223,19 +222,18 @@ LABEL_9:
               [(_INVocabularyItem *)v21 _setSiriID:v23];
             }
 
-            [v27 addObject:v21];
+            [v26 addObject:v21];
           }
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v13);
   }
 
-  [(_INVocabularyGenerationDocument *)self setVocabularyItems:v27];
-  v24 = *MEMORY[0x1E69E9840];
+  [(_INVocabularyGenerationDocument *)self setVocabularyItems:v26];
 }
 
 - (id)_dictionaryRepresentation
@@ -294,7 +292,7 @@ LABEL_9:
 
 - (void)setVocabularyItems:(id)items
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   [(_INVocabularyGenerationDocument *)self _clearVocabularyItemCaches];
   v5 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:itemsCopy copyItems:1];
@@ -302,26 +300,26 @@ LABEL_9:
   self->_vocabularyItems = v5;
 
   self->_haveAssignedAllSiriIDs = 1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = self->_vocabularyItems;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        _siriID = [*(*(&v14 + 1) + 8 * i) _siriID];
+        _siriID = [*(*(&v13 + 1) + 8 * i) _siriID];
 
         if (!_siriID)
         {
@@ -330,7 +328,7 @@ LABEL_9:
         }
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v9)
       {
         continue;
@@ -341,8 +339,6 @@ LABEL_9:
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clearVocabularyItemCaches
@@ -356,7 +352,7 @@ LABEL_11:
 
 - (id)diffFromPreviousDocument:(id)document
 {
-  *(&v59[2] + 6) = *MEMORY[0x1E69E9840];
+  *(&v58[2] + 6) = *MEMORY[0x1E69E9840];
   documentCopy = document;
   v5 = documentCopy;
   if (documentCopy)
@@ -388,13 +384,13 @@ LABEL_31:
       intentSlot3 = [v5 intentSlot];
       intentSlot4 = [(_INVocabularyGenerationDocument *)self intentSlot];
       *buf = 136315906;
-      v54 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
-      v55 = 2082;
-      v56 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
-      v57 = 2114;
-      *v58 = intentSlot3;
-      *&v58[8] = 2114;
-      v59[0] = intentSlot4;
+      v53 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
+      v54 = 2082;
+      v55 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
+      v56 = 2114;
+      *v57 = intentSlot3;
+      *&v57[8] = 2114;
+      v58[0] = intentSlot4;
       v43 = "%s %{public}s previous document's slot %{public}@ != ours %{public}@";
     }
 
@@ -410,13 +406,13 @@ LABEL_31:
       intentSlot3 = [v5 appBundleID];
       intentSlot4 = [(_INVocabularyGenerationDocument *)self appBundleID];
       *buf = 136315906;
-      v54 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
-      v55 = 2082;
-      v56 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
-      v57 = 2114;
-      *v58 = intentSlot3;
-      *&v58[8] = 2114;
-      v59[0] = intentSlot4;
+      v53 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
+      v54 = 2082;
+      v55 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
+      v56 = 2114;
+      *v57 = intentSlot3;
+      *&v57[8] = 2114;
+      v58[0] = intentSlot4;
       v43 = "%s %{public}s previous document's appBundleID %{public}@ != ours %{public}@";
     }
 
@@ -442,11 +438,11 @@ LABEL_4:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v54 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
-      v55 = 2080;
-      v56 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
-      v57 = 2112;
-      *v58 = v5;
+      v53 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
+      v54 = 2080;
+      v55 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
+      v56 = 2112;
+      *v57 = v5;
       _os_log_impl(&dword_18E991000, v17, OS_LOG_TYPE_INFO, "%s %s previous document %@ has items that are missing identifiers, so it can not be trusted as a source for remote truth.", buf, 0x20u);
     }
 
@@ -462,15 +458,15 @@ LABEL_4:
       resetOnNextSync = [v5 resetOnNextSync];
       resetOnNextSync2 = [(_INVocabularyGenerationDocument *)self resetOnNextSync];
       *buf = 136316162;
-      v54 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
-      v55 = 2080;
-      v56 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
-      v57 = 1024;
-      *v58 = resetOnNextSync;
-      *&v58[4] = 1024;
-      *&v58[6] = resetOnNextSync2;
-      LOWORD(v59[0]) = 2112;
-      *(v59 + 2) = v5;
+      v53 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
+      v54 = 2080;
+      v55 = "[_INVocabularyGenerationDocument diffFromPreviousDocument:]";
+      v56 = 1024;
+      *v57 = resetOnNextSync;
+      *&v57[4] = 1024;
+      *&v57[6] = resetOnNextSync2;
+      LOWORD(v58[0]) = 2112;
+      *(v58 + 2) = v5;
       _os_log_impl(&dword_18E991000, v19, OS_LOG_TYPE_INFO, "%s %s Reset requested by old=%d current=%d, computing diff as-if from nil. Discarded old %@", buf, 0x2Cu);
     }
 
@@ -498,32 +494,32 @@ LABEL_14:
     }
   }
 
-  v47 = v12;
+  v46 = v12;
   [v5 assignMissingSiriIDsForOptimalDiffFromPreviousDocument:0];
   [(_INVocabularyGenerationDocument *)self assignMissingSiriIDsForOptimalDiffFromPreviousDocument:v5];
   vocabularyItems4 = [(_INVocabularyGenerationDocument *)self vocabularyItems];
   _everyVocabularyItemSiriID = [v5 _everyVocabularyItemSiriID];
   v28 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(vocabularyItems4, "count")}];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   v29 = vocabularyItems4;
-  v30 = [v29 countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v47 objects:v51 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v49;
+    v32 = *v48;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v49 != v32)
+        if (*v48 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v48 + 1) + 8 * i);
+        v34 = *(*(&v47 + 1) + 8 * i);
         _siriID = [v34 _siriID];
         [_everyVocabularyItemSiriID removeObject:_siriID];
 
@@ -536,26 +532,25 @@ LABEL_14:
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v47 objects:v51 count:16];
     }
 
     while (v31);
   }
 
-  v38 = v47;
-  -[_INVocabularyGenerationDiff setCountOfVocabularyItemsAfterApplying:](v47, "setCountOfVocabularyItemsAfterApplying:", [v29 count]);
-  [(_INVocabularyGenerationDiff *)v47 setUpdatedVocabularyItems:v28];
-  [(_INVocabularyGenerationDiff *)v47 setDeletedSiriIDs:_everyVocabularyItemSiriID];
+  v38 = v46;
+  -[_INVocabularyGenerationDiff setCountOfVocabularyItemsAfterApplying:](v46, "setCountOfVocabularyItemsAfterApplying:", [v29 count]);
+  [(_INVocabularyGenerationDiff *)v46 setUpdatedVocabularyItems:v28];
+  [(_INVocabularyGenerationDiff *)v46 setDeletedSiriIDs:_everyVocabularyItemSiriID];
 
 LABEL_32:
-  v45 = *MEMORY[0x1E69E9840];
 
   return v38;
 }
 
 - (void)assignMissingSiriIDsForOptimalDiffFromPreviousDocument:(id)document
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   documentCopy = document;
   if (!self->_haveAssignedAllSiriIDs)
   {
@@ -563,9 +558,9 @@ LABEL_32:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v41 = "[_INVocabularyGenerationDocument assignMissingSiriIDsForOptimalDiffFromPreviousDocument:]";
-      v42 = 2112;
-      v43 = documentCopy;
+      v40 = "[_INVocabularyGenerationDocument assignMissingSiriIDsForOptimalDiffFromPreviousDocument:]";
+      v41 = 2112;
+      v42 = documentCopy;
       _os_log_impl(&dword_18E991000, v5, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
     }
 
@@ -573,26 +568,26 @@ LABEL_32:
     vocabularyItems = [(_INVocabularyGenerationDocument *)self vocabularyItems];
     v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(vocabularyItems, "count")}];
     v8 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(vocabularyItems, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v9 = vocabularyItems;
-    v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v35;
+      v12 = *v34;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v35 != v12)
+          if (*v34 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v34 + 1) + 8 * i);
+          v14 = *(*(&v33 + 1) + 8 * i);
           _siriID = [v14 _siriID];
           if (_siriID)
           {
@@ -609,34 +604,34 @@ LABEL_32:
           [v16 addObject:v17];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v11);
     }
 
-    v28 = v9;
+    v27 = v9;
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v18 = v7;
-    v19 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v31;
+      v21 = *v30;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v31 != v21)
+          if (*v30 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v30 + 1) + 8 * j);
+          v23 = *(*(&v29 + 1) + 8 * j);
           string = [v23 string];
           v25 = [documentCopy _vocabularyItemWithString:string];
 
@@ -657,7 +652,7 @@ LABEL_23:
           [v8 addObject:_siriID2];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v20);
@@ -665,45 +660,43 @@ LABEL_23:
 
     selfCopy->_haveAssignedAllSiriIDs = 1;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_vocabularyItemWithString:(id)string
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (stringCopy)
   {
     itemsByStringCache = self->_itemsByStringCache;
     if (!itemsByStringCache)
     {
-      v22 = stringCopy;
+      v21 = stringCopy;
       vocabularyItems = [(_INVocabularyGenerationDocument *)self vocabularyItems];
       v7 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(vocabularyItems, "count")}];
       v8 = self->_itemsByStringCache;
       self->_itemsByStringCache = v7;
 
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v9 = vocabularyItems;
-      v10 = [v9 countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v22 objects:v32 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v24;
+        v12 = *v23;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v24 != v12)
+            if (*v23 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v23 + 1) + 8 * i);
+            v14 = *(*(&v22 + 1) + 8 * i);
             string = [v14 string];
             if ([string length])
             {
@@ -718,24 +711,24 @@ LABEL_23:
                 v17 = v16;
                 _siriID = [v14 _siriID];
                 *buf = 136315650;
-                v28 = "[_INVocabularyGenerationDocument _vocabularyItemWithString:]";
-                v29 = 2112;
-                v30 = v14;
-                v31 = 2112;
-                v32 = _siriID;
+                v27 = "[_INVocabularyGenerationDocument _vocabularyItemWithString:]";
+                v28 = 2112;
+                v29 = v14;
+                v30 = 2112;
+                v31 = _siriID;
                 _os_log_error_impl(&dword_18E991000, v17, OS_LOG_TYPE_ERROR, "%s found _INVocabularyItem with empty string %@ %@", buf, 0x20u);
               }
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v23 objects:v33 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v22 objects:v32 count:16];
         }
 
         while (v11);
       }
 
       itemsByStringCache = self->_itemsByStringCache;
-      stringCopy = v22;
+      stringCopy = v21;
     }
 
     v19 = [(NSMutableDictionary *)itemsByStringCache objectForKeyedSubscript:stringCopy];
@@ -745,8 +738,6 @@ LABEL_23:
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -788,7 +779,7 @@ LABEL_23:
 
 - (id)_itemsBySiriID
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   itemsBySiriIDCache = self->_itemsBySiriIDCache;
   if (itemsBySiriIDCache)
   {
@@ -803,26 +794,26 @@ LABEL_23:
     v7 = self->_itemsBySiriIDCache;
     self->_itemsBySiriIDCache = v6;
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = vocabularyItems;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           _siriID = [v13 _siriID];
           if (_siriID)
           {
@@ -830,7 +821,7 @@ LABEL_23:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -838,8 +829,6 @@ LABEL_23:
 
     v3 = self->_itemsBySiriIDCache;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

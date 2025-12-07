@@ -55,28 +55,28 @@
 
 - (MPSMatrixRandom)initWithCoder:(id)coder device:(id)device
 {
-  v33.receiver = self;
-  v33.super_class = MPSMatrixRandom;
-  v5 = [(MPSKernel *)&v33 initWithCoder:coder device:device];
-  v12 = v5;
+  v13.receiver = self;
+  v13.super_class = MPSMatrixRandom;
+  v5 = [(MPSKernel *)&v13 initWithCoder:coder device:device];
+  v7 = v5;
   if (!v5)
   {
-    return v12;
+    return v7;
   }
 
   if (*(&v5->super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
   {
-    v5->_destinationDataType = objc_msgSend_decodeInt32ForKey_(coder, v6, @"kMPSMatrixRandomDataTypeKey", v7, v8, v9, v10, v11);
-    v12->_distributionType = objc_msgSend_decodeInt32ForKey_(coder, v13, @"kMPSMatrixRandomDistributionKey", v14, v15, v16, v17, v18);
-    v12->_batchStart = objc_msgSend_decodeInt32ForKey_(coder, v19, @"kMPSMatrixRandomBatchStartKey", v20, v21, v22, v23, v24);
-    v12->_batchSize = objc_msgSend_decodeInt32ForKey_(coder, v25, @"kMPSMatrixRandomBatchSizeKey", v26, v27, v28, v29, v30);
-    return v12;
+    v5->_destinationDataType = objc_msgSend_decodeInt32ForKey_(coder, v6, @"kMPSMatrixRandomDataTypeKey");
+    v7->_distributionType = objc_msgSend_decodeInt32ForKey_(coder, v8, @"kMPSMatrixRandomDistributionKey");
+    v7->_batchStart = objc_msgSend_decodeInt32ForKey_(coder, v9, @"kMPSMatrixRandomBatchStartKey");
+    v7->_batchSize = objc_msgSend_decodeInt32ForKey_(coder, v10, @"kMPSMatrixRandomBatchSizeKey");
+    return v7;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v32 = objc_opt_class();
-    NSStringFromClass(v32);
+    v12 = objc_opt_class();
+    NSStringFromClass(v12);
     MTLReportFailure();
   }
 
@@ -86,13 +86,13 @@
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v25.receiver = self;
-  v25.super_class = MPSMatrixRandom;
-  [(MPSKernel *)&v25 encodeWithCoder:?];
-  objc_msgSend_encodeInt32_forKey_(coder, v5, self->_destinationDataType, @"kMPSMatrixRandomDataTypeKey", v6, v7, v8, v9);
-  objc_msgSend_encodeInt32_forKey_(coder, v10, LODWORD(self->_distributionType), @"kMPSMatrixRandomDistributionKey", v11, v12, v13, v14);
-  objc_msgSend_encodeInt32_forKey_(coder, v15, LODWORD(self->_batchStart), @"kMPSMatrixRandomBatchStartKey", v16, v17, v18, v19);
-  objc_msgSend_encodeInt32_forKey_(coder, v20, LODWORD(self->_batchSize), @"kMPSMatrixRandomBatchSizeKey", v21, v22, v23, v24);
+  v9.receiver = self;
+  v9.super_class = MPSMatrixRandom;
+  [(MPSKernel *)&v9 encodeWithCoder:?];
+  objc_msgSend_encodeInt32_forKey_(coder, v5, self->_destinationDataType, @"kMPSMatrixRandomDataTypeKey");
+  objc_msgSend_encodeInt32_forKey_(coder, v6, LODWORD(self->_distributionType), @"kMPSMatrixRandomDistributionKey");
+  objc_msgSend_encodeInt32_forKey_(coder, v7, LODWORD(self->_batchStart), @"kMPSMatrixRandomBatchStartKey");
+  objc_msgSend_encodeInt32_forKey_(coder, v8, LODWORD(self->_batchSize), @"kMPSMatrixRandomBatchSizeKey");
 }
 
 @end

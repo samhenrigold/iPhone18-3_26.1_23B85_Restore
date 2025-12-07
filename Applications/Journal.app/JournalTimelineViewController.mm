@@ -107,7 +107,7 @@
   sub_10041CD74(0);
   sub_10041B368();
 
-  sub_100004F84(v6, &qword_100AD13D0);
+  sub_100004F84(v6, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)adminLongPressWithSender:(id)sender
@@ -128,7 +128,7 @@
 
   sub_10041C3A8(v6);
 
-  sub_100004F84(v6, &qword_100AD13D0);
+  sub_100004F84(v6, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (BOOL)accessibilityPerformMagicTap
@@ -176,7 +176,7 @@
 
 - (void)presentExport
 {
-  v3 = sub_1000F24EC(&qword_100AD5170);
+  v3 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   v6 = qword_100AD02B0;
@@ -224,7 +224,7 @@
 
   v8 = sub_10041E860(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 
@@ -242,7 +242,7 @@
 
 - (void)shouldDismissOnboarding
 {
-  v3 = sub_1000F24EC(&qword_100AD5170);
+  v3 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();

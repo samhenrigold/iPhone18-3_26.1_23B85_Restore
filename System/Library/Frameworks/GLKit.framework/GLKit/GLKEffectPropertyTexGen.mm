@@ -1,4 +1,5 @@
 @interface GLKEffectPropertyTexGen
+- (GLKEffectPropertyTexGen)initWithMode:(int)mode coord:(int)coord;
 - (void)bind;
 - (void)dealloc;
 - (void)initializeMasks;
@@ -10,6 +11,45 @@
 @end
 
 @implementation GLKEffectPropertyTexGen
+
+- (GLKEffectPropertyTexGen)initWithMode:(int)mode coord:(int)coord
+{
+  v5 = *&mode;
+  v11.receiver = self;
+  v11.super_class = GLKEffectPropertyTexGen;
+  v6 = [(GLKEffectProperty *)&v11 init];
+  v7 = v6;
+  if (v6)
+  {
+    v6->_planeLoc = -1;
+    v6->_modeLoc = -1;
+    v6->_plane = malloc_type_malloc(0x10uLL, 0x100004052888210uLL);
+    [(GLKEffectPropertyTexGen *)v7 setMode:v5];
+    v7->_coord = coord;
+    v7->_planeNameString = 0;
+    v7->_modeNameString = 0;
+    v7->_textureIndex = 0;
+    if (coord == 1)
+    {
+      plane = v7->_plane;
+      plane[3] = 0.0;
+      *(plane + 1) = 1065353216;
+      goto LABEL_6;
+    }
+
+    if (!coord)
+    {
+      v8 = v7->_plane;
+      *v8 = 1.0;
+      *(v8 + 1) = 0;
+      plane = v8 + 1;
+LABEL_6:
+      *plane = 0.0;
+    }
+  }
+
+  return v7;
+}
 
 - (void)setMode:(int)mode
 {
@@ -62,7 +102,7 @@
 
 - (void)setShaderBindings
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   params = 0;
   glGetIntegerv(0x8B8Du, &params);
   snprintf(__str, 0x3FuLL, "textures[%d].texGen[%d].mode", self->_textureIndex, self->_coord);
@@ -72,7 +112,6 @@
   self->_modeLoc = glGetUniformLocation(params, [(GLKEffectPropertyTexGen *)self modeNameString]);
   self->_planeLoc = glGetUniformLocation(params, [(GLKEffectPropertyTexGen *)self planeNameString]);
   [(GLKEffectPropertyTexGen *)self dirtyAllUniforms];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeMasks

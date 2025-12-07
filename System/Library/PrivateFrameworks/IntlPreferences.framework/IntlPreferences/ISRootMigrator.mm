@@ -12,23 +12,23 @@
 
 - (BOOL)performMigration
 {
-  v155 = *MEMORY[0x277D85DE8];
-  v3 = MigrationLogger();
+  v165 = *MEMORY[0x277D85DE8];
+  v3 = MigrationLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     previousVersion = [(ISMigrator *)self previousVersion];
     currentVersion = [(ISMigrator *)self currentVersion];
     *buf = 136316418;
-    v144 = "[ISRootMigrator performMigration]";
-    v145 = 2114;
-    v146 = previousVersion;
-    v147 = 2114;
-    v148 = currentVersion;
-    v149 = 1024;
+    v154 = "[ISRootMigrator performMigration]";
+    v155 = 2114;
+    v156 = previousVersion;
+    v157 = 2114;
+    v158 = currentVersion;
+    v159 = 1024;
     isErase = [(ISRootMigrator *)self isErase];
-    v151 = 1024;
+    v161 = 1024;
     isRestoreFromBackup = [(ISRootMigrator *)self isRestoreFromBackup];
-    v153 = 1024;
+    v163 = 1024;
     newUserAccount = [(ISMigrator *)self newUserAccount];
     _os_log_impl(&dword_22DFB7000, v3, OS_LOG_TYPE_DEFAULT, "%s: previousVersion='%{public}@', currentVersion='%{public}@', isErase=%d, isRestoreFromBackup=%d, isNewUserAccount=%d", buf, 0x32u);
   }
@@ -42,12 +42,12 @@
       v8 = currentVersion2;
       v9 = currentVersion2;
 
-      v10 = MigrationLogger();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = MigrationLogger(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v144 = "[ISRootMigrator performMigration]";
-        _os_log_impl(&dword_22DFB7000, v10, OS_LOG_TYPE_DEFAULT, "%s: failed to retrieve previousVersion. Setting it to currentVersion.", buf, 0xCu);
+        v154 = "[ISRootMigrator performMigration]";
+        _os_log_impl(&dword_22DFB7000, v11, OS_LOG_TYPE_DEFAULT, "%s: failed to retrieve previousVersion. Setting it to currentVersion.", buf, 0xCu);
       }
 
       previousVersion2 = v9;
@@ -66,481 +66,508 @@
     }
 
     platform = [(ISMigrator *)self platform];
-    v108 = previousVersion2;
+    v118 = previousVersion2;
     selfCopy = self;
-    v107 = currentVersion2;
+    v117 = currentVersion2;
     if (platform - 3 < 2)
     {
-      v12 = MEMORY[0x277CBEB58];
-      v140[0] = @"AppleLanguages";
-      v140[1] = @"AppleLocale";
-      v13 = MEMORY[0x277CBEA60];
-      v14 = v140;
-      v16 = 2;
+      v14 = MEMORY[0x277CBEB58];
+      v150[0] = @"AppleLanguages";
+      v150[1] = @"AppleLocale";
+      v15 = MEMORY[0x277CBEA60];
+      v16 = v150;
+      v18 = 2;
     }
 
     else
     {
       if (platform == 2)
       {
-        v12 = MEMORY[0x277CBEB58];
-        v141[0] = @"AppleLanguages";
-        v141[1] = @"AppleLocale";
-        v141[2] = @"PreferredLanguages";
-        v13 = MEMORY[0x277CBEA60];
-        v14 = v141;
+        v14 = MEMORY[0x277CBEB58];
+        v151[0] = @"AppleLanguages";
+        v151[1] = @"AppleLocale";
+        v151[2] = @"PreferredLanguages";
+        v15 = MEMORY[0x277CBEA60];
+        v16 = v151;
       }
 
       else
       {
         if (platform != 1)
         {
-          v18 = 0;
+          v20 = 0;
           goto LABEL_25;
         }
 
-        v12 = MEMORY[0x277CBEB58];
-        v142[0] = @"AppleLanguages";
-        v142[1] = @"AppleLocale";
-        v142[2] = @"AppleUserLanguages";
-        v13 = MEMORY[0x277CBEA60];
-        v14 = v142;
+        v14 = MEMORY[0x277CBEB58];
+        v152[0] = @"AppleLanguages";
+        v152[1] = @"AppleLocale";
+        v152[2] = @"AppleUserLanguages";
+        v15 = MEMORY[0x277CBEA60];
+        v16 = v152;
       }
 
-      v16 = 3;
+      v18 = 3;
     }
 
-    v17 = [v13 arrayWithObjects:v14 count:v16];
-    v18 = [v12 setWithArray:v17];
+    v19 = [v15 arrayWithObjects:v16 count:v18];
+    v20 = [v14 setWithArray:v19];
 
 LABEL_25:
-    v133 = 0u;
-    v134 = 0u;
-    v131 = 0u;
-    v132 = 0u;
-    v19 = v18;
-    v20 = [v19 countByEnumeratingWithState:&v131 objects:v139 count:16];
-    if (v20)
+    v143 = 0u;
+    v144 = 0u;
+    v141 = 0u;
+    v142 = 0u;
+    v21 = v20;
+    v22 = [v21 countByEnumeratingWithState:&v141 objects:v149 count:16];
+    if (v22)
     {
-      v21 = v20;
-      v22 = *v132;
-      v23 = *MEMORY[0x277CBF008];
-      v24 = *MEMORY[0x277CBF040];
-      v25 = *MEMORY[0x277CBF010];
-      v26 = *MEMORY[0x277CBF020];
+      v23 = v22;
+      v24 = *v142;
+      v25 = *MEMORY[0x277CBF008];
+      v26 = *MEMORY[0x277CBF040];
+      v27 = *MEMORY[0x277CBF010];
+      v28 = *MEMORY[0x277CBF020];
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v132 != v22)
+          if (*v142 != v24)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v21);
           }
 
-          v28 = *(*(&v131 + 1) + 8 * i);
-          v29 = CFPreferencesCopyValue(v28, v23, v24, v25);
-          if (v29)
+          v30 = *(*(&v141 + 1) + 8 * i);
+          v31 = CFPreferencesCopyValue(v30, v25, v26, v27);
+          if (v31)
           {
-            [dictionary setObject:v29 forKeyedSubscript:v28];
+            [dictionary setObject:v31 forKeyedSubscript:v30];
           }
 
           if (dictionary2)
           {
-            v30 = CFPreferencesCopyValue(v28, v23, v26, v25);
-            if (v30)
+            v32 = CFPreferencesCopyValue(v30, v25, v28, v27);
+            if (v32)
             {
-              [dictionary2 setObject:v30 forKeyedSubscript:v28];
+              [dictionary2 setObject:v32 forKeyedSubscript:v30];
             }
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v131 objects:v139 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v141 objects:v149 count:16];
       }
 
-      while (v21);
+      while (v23);
     }
 
-    v31 = [(ISRootMigrator *)selfCopy performMigrationForUserPreferences:dictionary systemPreferences:dictionary2];
-    v32 = MigrationLogger();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = [(ISRootMigrator *)selfCopy performMigrationForUserPreferences:dictionary systemPreferences:dictionary2];
+    v34 = MigrationLogger(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v144 = "[ISRootMigrator performMigration]";
-      v145 = 2114;
-      v146 = dictionary;
-      v147 = 2114;
-      v148 = v31;
-      _os_log_impl(&dword_22DFB7000, v32, OS_LOG_TYPE_DEFAULT, "%s: oldPreferences = %{public}@, migratedPreferences = %{public}@", buf, 0x20u);
+      v154 = "[ISRootMigrator performMigration]";
+      v155 = 2114;
+      v156 = dictionary;
+      v157 = 2114;
+      v158 = v33;
+      _os_log_impl(&dword_22DFB7000, v34, OS_LOG_TYPE_DEFAULT, "%s: oldPreferences = %{public}@, migratedPreferences = %{public}@", buf, 0x20u);
     }
 
-    allKeys = [v31 allKeys];
-    [v19 addObjectsFromArray:allKeys];
+    allKeys = [v33 allKeys];
+    [v21 addObjectsFromArray:allKeys];
 
-    v129 = 0u;
-    v130 = 0u;
-    v127 = 0u;
-    v128 = 0u;
-    obj = v19;
-    v34 = [obj countByEnumeratingWithState:&v127 objects:v138 count:16];
-    v115 = v31;
-    if (v34)
+    v139 = 0u;
+    v140 = 0u;
+    v137 = 0u;
+    v138 = 0u;
+    obj = v21;
+    v36 = [obj countByEnumeratingWithState:&v137 objects:v148 count:16];
+    v125 = v33;
+    if (v36)
     {
-      v35 = v34;
-      v36 = *v128;
-      v37 = *MEMORY[0x277CBF008];
-      v114 = *MEMORY[0x277CBF040];
+      v37 = v36;
+      v38 = *v138;
+      v39 = *MEMORY[0x277CBF008];
+      v124 = *MEMORY[0x277CBF040];
       applicationID = *MEMORY[0x277CBF010];
       do
       {
-        for (j = 0; j != v35; ++j)
+        for (j = 0; j != v37; ++j)
         {
-          if (*v128 != v36)
+          if (*v138 != v38)
           {
             objc_enumerationMutation(obj);
           }
 
-          v39 = *(*(&v127 + 1) + 8 * j);
-          v40 = [dictionary objectForKeyedSubscript:v39];
-          v41 = [v31 objectForKeyedSubscript:v39];
-          if (!v40 || ([v40 isEqual:v41] & 1) == 0)
+          v41 = *(*(&v137 + 1) + 8 * j);
+          v42 = [dictionary objectForKeyedSubscript:v41];
+          v43 = [v33 objectForKeyedSubscript:v41];
+          if (!v42 || ([v42 isEqual:v43] & 1) == 0)
           {
-            if ([(__CFString *)v39 isEqualToString:@"AppleLanguages"])
+            if ([(__CFString *)v41 isEqualToString:@"AppleLanguages"])
             {
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) != 0 && [v41 count])
+              if (objc_opt_isKindOfClass())
               {
-                v42 = MigrationLogger();
-                if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+                v44 = [v43 count];
+                if (v44)
                 {
-                  v43 = [v41 componentsJoinedByString:{@", "}];
-                  *buf = 136315394;
-                  v144 = "[ISRootMigrator performMigration]";
-                  v145 = 2114;
-                  v146 = v43;
-                  _os_log_impl(&dword_22DFB7000, v42, OS_LOG_TYPE_DEFAULT, "%s: [NSLocale setPreferredLanguages:@[ %{public}@ ]]", buf, 0x16u);
+                  v45 = MigrationLogger(v44);
+                  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+                  {
+                    v46 = [v43 componentsJoinedByString:{@", "}];
+                    *buf = 136315394;
+                    v154 = "[ISRootMigrator performMigration]";
+                    v155 = 2114;
+                    v156 = v46;
+                    _os_log_impl(&dword_22DFB7000, v45, OS_LOG_TYPE_DEFAULT, "%s: [NSLocale setPreferredLanguages:@[ %{public}@ ]]", buf, 0x16u);
 
-                  v31 = v115;
+                    v33 = v125;
+                  }
+
+                  [MEMORY[0x277CBEAF8] setPreferredLanguages:v43];
                 }
-
-                [MEMORY[0x277CBEAF8] setPreferredLanguages:v41];
-              }
-            }
-
-            else if ([(__CFString *)v39 isEqualToString:@"AppleLocale"])
-            {
-              objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) != 0 && [v41 length])
-              {
-                [MEMORY[0x277CBEAF8] setLocaleOnly:v41];
               }
             }
 
             else
             {
-              v44 = MigrationLogger();
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+              v47 = [(__CFString *)v41 isEqualToString:@"AppleLocale"];
+              if (v47)
               {
-                *buf = 136315650;
-                v144 = "[ISRootMigrator performMigration]";
-                v145 = 2114;
-                v146 = v39;
-                v147 = 2114;
-                v148 = v41;
-                _os_log_impl(&dword_22DFB7000, v44, OS_LOG_TYPE_DEFAULT, "%s: CFPreferencesSetValue(%{public}@ → %{public}@)", buf, 0x20u);
+                objc_opt_class();
+                if ((objc_opt_isKindOfClass() & 1) != 0 && [v43 length])
+                {
+                  [MEMORY[0x277CBEAF8] setLocaleOnly:v43];
+                }
               }
 
-              CFPreferencesSetValue(v39, v41, v37, v114, applicationID);
-              v31 = v115;
+              else
+              {
+                v48 = MigrationLogger(v47);
+                if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+                {
+                  *buf = 136315650;
+                  v154 = "[ISRootMigrator performMigration]";
+                  v155 = 2114;
+                  v156 = v41;
+                  v157 = 2114;
+                  v158 = v43;
+                  _os_log_impl(&dword_22DFB7000, v48, OS_LOG_TYPE_DEFAULT, "%s: CFPreferencesSetValue(%{public}@ → %{public}@)", buf, 0x20u);
+                }
+
+                CFPreferencesSetValue(v41, v43, v39, v124, applicationID);
+                v33 = v125;
+              }
             }
           }
         }
 
-        v35 = [obj countByEnumeratingWithState:&v127 objects:v138 count:16];
+        v37 = [obj countByEnumeratingWithState:&v137 objects:v148 count:16];
       }
 
-      while (v35);
+      while (v37);
     }
 
-    v45 = [v108 compare:@"17A450" options:64];
-    v46 = selfCopy;
-    if ([(ISMigrator *)selfCopy platform]== 2 && (v45 == -1 || [(ISRootMigrator *)selfCopy isRestoreFromBackup]))
+    v49 = [v118 compare:@"17A450" options:64];
+    v50 = selfCopy;
+    platform2 = [(ISMigrator *)selfCopy platform];
+    if (platform2 == 2)
     {
-      v47 = MigrationLogger();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      if (v49 == -1 || (platform2 = [(ISRootMigrator *)selfCopy isRestoreFromBackup], platform2))
       {
-        *buf = 136315138;
-        v144 = "[ISRootMigrator performMigration]";
-        _os_log_impl(&dword_22DFB7000, v47, OS_LOG_TYPE_DEFAULT, "%s: Migrating to enable watch mirroring.", buf, 0xCu);
-      }
+        v52 = MigrationLogger(platform2);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          v154 = "[ISRootMigrator performMigration]";
+          _os_log_impl(&dword_22DFB7000, v52, OS_LOG_TYPE_DEFAULT, "%s: Migrating to enable watch mirroring.", buf, 0xCu);
+        }
 
-      v48 = objc_opt_new();
-      [v48 initializeMirrorSettings];
+        v53 = objc_opt_new();
+        [v53 initializeMirrorSettings];
+      }
     }
 
-    v49 = *MEMORY[0x277CBF040];
-    v50 = *MEMORY[0x277CBF010];
+    v54 = *MEMORY[0x277CBF040];
+    v55 = *MEMORY[0x277CBF010];
     applicationIDa = *MEMORY[0x277CBF008];
-    v51 = CFPreferencesCopyValue(@"AppleLanguagesSchemaVersion", *MEMORY[0x277CBF008], *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
-    unsignedIntegerValue = [v51 unsignedIntegerValue];
+    v56 = CFPreferencesCopyValue(@"AppleLanguagesSchemaVersion", *MEMORY[0x277CBF008], *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
+    unsignedIntegerValue = [v56 unsignedIntegerValue];
 
-    v53 = MigrationLogger();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v59 = MigrationLogger(v58);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v144 = "[ISRootMigrator performMigration]";
-      v145 = 2048;
-      v146 = unsignedIntegerValue;
-      _os_log_impl(&dword_22DFB7000, v53, OS_LOG_TYPE_DEFAULT, "%s: AppleLanguagesSchemaVersion = %lu", buf, 0x16u);
+      v154 = "[ISRootMigrator performMigration]";
+      v155 = 2048;
+      v156 = unsignedIntegerValue;
+      _os_log_impl(&dword_22DFB7000, v59, OS_LOG_TYPE_DEFAULT, "%s: AppleLanguagesSchemaVersion = %lu", buf, 0x16u);
     }
 
-    v54 = CFPreferencesCopyValue(@"AppleLanguages", applicationIDa, v49, v50);
-    v55 = CFPreferencesCopyValue(@"AppleLocale", applicationIDa, v49, v50);
+    v60 = CFPreferencesCopyValue(@"AppleLanguages", applicationIDa, v54, v55);
+    v61 = CFPreferencesCopyValue(@"AppleLocale", applicationIDa, v54, v55);
     dictionary3 = [MEMORY[0x277CBEB38] dictionary];
-    v57 = dictionary3;
-    if (v54)
+    v63 = dictionary3;
+    if (v60)
     {
-      [dictionary3 setObject:v54 forKeyedSubscript:@"AppleLanguages"];
+      [dictionary3 setObject:v60 forKeyedSubscript:@"AppleLanguages"];
     }
 
-    if (v55)
+    if (v61)
     {
-      [v57 setObject:v55 forKeyedSubscript:@"AppleLocale"];
+      [v63 setObject:v61 forKeyedSubscript:@"AppleLocale"];
     }
 
-    v111 = [(ISMigrator *)IP_emptyPreferences_migrator migratorFromSchemaVersion:unsignedIntegerValue];
-    v58 = [v111 performMigrationForPreferences:v57];
-    v59 = [v58 mutableCopy];
+    v121 = [(ISMigrator *)IP_emptyPreferences_migrator migratorFromSchemaVersion:unsignedIntegerValue];
+    v64 = [v121 performMigrationForPreferences:v63];
+    v65 = [v64 mutableCopy];
 
-    v60 = [v59 objectForKeyedSubscript:@"AppleLanguages"];
-    v110 = v59;
-    if (v60 && (v61 = v60, [v59 objectForKeyedSubscript:@"AppleLocale"], v62 = objc_claimAutoreleasedReturnValue(), v62, v61, v62))
+    v66 = [v65 objectForKeyedSubscript:@"AppleLanguages"];
+    v120 = v65;
+    if (v66 && (v67 = v66, [v65 objectForKeyedSubscript:@"AppleLocale"], v68 = objc_claimAutoreleasedReturnValue(), v68, v67, v68))
     {
-      v105 = v55;
-      v106 = v54;
+      v115 = v61;
+      v116 = v60;
       previousVersion3 = [(ISMigrator *)selfCopy previousVersion];
       currentVersion3 = [(ISMigrator *)selfCopy currentVersion];
       [(ISMigrator *)IP_pa_Arab_to_pa_Aran_migrator migratorFromVersion:previousVersion3 toVersion:currentVersion3];
-      v66 = v65 = unsignedIntegerValue;
-      v137[0] = v66;
-      v67 = [(ISMigrator *)IP_HK_MO_yue_Hant_migrator migratorFromSchemaVersion:v65];
-      v137[1] = v67;
-      v68 = [(ISMigrator *)IP_unsupportedVariantsAddedByKeyboards_migrator migratorFromSchemaVersion:v65];
-      v137[2] = v68;
-      v69 = [(ISMigrator *)IP_advancedSettings_migrator migratorFromSchemaVersion:v65];
-      v137[3] = v69;
-      v104 = v65;
-      v70 = [(ISMigrator *)IP_scriptSelection_migrator migratorFromSchemaVersion:v65];
-      v137[4] = v70;
-      v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:5];
+      v72 = v71 = unsignedIntegerValue;
+      v147[0] = v72;
+      v73 = [(ISMigrator *)IP_HK_MO_yue_Hant_migrator migratorFromSchemaVersion:v71];
+      v147[1] = v73;
+      v74 = [(ISMigrator *)IP_unsupportedVariantsAddedByKeyboards_migrator migratorFromSchemaVersion:v71];
+      v147[2] = v74;
+      v75 = [(ISMigrator *)IP_advancedSettings_migrator migratorFromSchemaVersion:v71];
+      v147[3] = v75;
+      v114 = v71;
+      v76 = [(ISMigrator *)IP_scriptSelection_migrator migratorFromSchemaVersion:v71];
+      v147[4] = v76;
+      v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v147 count:5];
 
-      v72 = MigrationLogger();
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+      v79 = MigrationLogger(v78);
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v144 = "[ISRootMigrator performMigration]";
-        v145 = 2114;
-        v146 = v59;
-        _os_log_impl(&dword_22DFB7000, v72, OS_LOG_TYPE_DEFAULT, "%s: Preferences before running preferences migrators: %{public}@", buf, 0x16u);
+        v154 = "[ISRootMigrator performMigration]";
+        v155 = 2114;
+        v156 = v65;
+        _os_log_impl(&dword_22DFB7000, v79, OS_LOG_TYPE_DEFAULT, "%s: Preferences before running preferences migrators: %{public}@", buf, 0x16u);
       }
 
-      v73 = v59;
-      v123 = 0u;
-      v124 = 0u;
-      v125 = 0u;
-      v126 = 0u;
-      v74 = v71;
-      v75 = [v74 countByEnumeratingWithState:&v123 objects:v136 count:16];
-      v76 = v74;
-      if (v75)
+      v80 = v65;
+      v133 = 0u;
+      v134 = 0u;
+      v135 = 0u;
+      v136 = 0u;
+      v81 = v77;
+      v82 = [v81 countByEnumeratingWithState:&v133 objects:v146 count:16];
+      v83 = v81;
+      if (v82)
       {
-        v77 = v75;
-        v78 = *v124;
+        v84 = v82;
+        v85 = *v134;
         do
         {
-          v79 = 0;
-          v80 = v73;
+          v86 = 0;
+          v87 = v80;
           do
           {
-            if (*v124 != v78)
+            if (*v134 != v85)
             {
-              objc_enumerationMutation(v76);
+              objc_enumerationMutation(v83);
             }
 
-            v73 = [*(*(&v123 + 1) + 8 * v79) performMigrationForPreferences:v80];
+            v80 = [*(*(&v133 + 1) + 8 * v86) performMigrationForPreferences:v87];
 
-            v81 = MigrationLogger();
-            if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+            v89 = MigrationLogger(v88);
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
             {
-              v82 = objc_opt_class();
-              v83 = NSStringFromClass(v82);
+              v90 = objc_opt_class();
+              v91 = NSStringFromClass(v90);
               *buf = 136315650;
-              v144 = "[ISRootMigrator performMigration]";
-              v145 = 2114;
-              v146 = v83;
-              v147 = 2114;
-              v148 = v73;
-              _os_log_impl(&dword_22DFB7000, v81, OS_LOG_TYPE_DEFAULT, "%s: Preferences after running <%{public}@>: %{public}@", buf, 0x20u);
+              v154 = "[ISRootMigrator performMigration]";
+              v155 = 2114;
+              v156 = v91;
+              v157 = 2114;
+              v158 = v80;
+              _os_log_impl(&dword_22DFB7000, v89, OS_LOG_TYPE_DEFAULT, "%s: Preferences after running <%{public}@>: %{public}@", buf, 0x20u);
             }
 
-            ++v79;
-            v80 = v73;
+            ++v86;
+            v87 = v80;
           }
 
-          while (v77 != v79);
-          v74 = v76;
-          v77 = [v76 countByEnumeratingWithState:&v123 objects:v136 count:16];
+          while (v84 != v86);
+          v81 = v83;
+          v84 = [v83 countByEnumeratingWithState:&v133 objects:v146 count:16];
         }
 
-        while (v77);
+        while (v84);
       }
 
-      v84 = [v73 objectForKeyedSubscript:@"AppleLanguages"];
+      v92 = [v80 objectForKeyedSubscript:@"AppleLanguages"];
       objc_opt_class();
-      v31 = v115;
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v84 count] && (objc_msgSend(v106, "isEqualToArray:", v84) & 1) == 0)
+      v33 = v125;
+      if (objc_opt_isKindOfClass())
       {
-        v85 = MigrationLogger();
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
+        if ([v92 count])
         {
-          *buf = 136315394;
-          v144 = "[ISRootMigrator performMigration]";
-          v145 = 2114;
-          v146 = v84;
-          _os_log_impl(&dword_22DFB7000, v85, OS_LOG_TYPE_DEFAULT, "%s: AppleLanguages changed to %{public}@. Writing to disk.", buf, 0x16u);
-        }
+          v93 = [v116 isEqualToArray:v92];
+          if ((v93 & 1) == 0)
+          {
+            v94 = MigrationLogger(v93);
+            if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315394;
+              v154 = "[ISRootMigrator performMigration]";
+              v155 = 2114;
+              v156 = v92;
+              _os_log_impl(&dword_22DFB7000, v94, OS_LOG_TYPE_DEFAULT, "%s: AppleLanguages changed to %{public}@. Writing to disk.", buf, 0x16u);
+            }
 
-        [MEMORY[0x277CBEAF8] setPreferredLanguages:v84];
+            [MEMORY[0x277CBEAF8] setPreferredLanguages:v92];
+          }
+        }
       }
 
-      v103 = v84;
-      v86 = [v73 objectForKeyedSubscript:@"AppleLocale"];
+      v113 = v92;
+      v95 = [v80 objectForKeyedSubscript:@"AppleLocale"];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v86 length] && (objc_msgSend(v105, "isEqualToString:", v86) & 1) == 0)
+      if (objc_opt_isKindOfClass())
       {
-        v87 = MigrationLogger();
-        if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+        if ([v95 length])
         {
-          *buf = 136315394;
-          v144 = "[ISRootMigrator performMigration]";
-          v145 = 2114;
-          v146 = v86;
-          _os_log_impl(&dword_22DFB7000, v87, OS_LOG_TYPE_DEFAULT, "%s: AppleLocale changed to %{public}@. Writing to disk.", buf, 0x16u);
-        }
+          v96 = [v115 isEqualToString:v95];
+          if ((v96 & 1) == 0)
+          {
+            v97 = MigrationLogger(v96);
+            if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 136315394;
+              v154 = "[ISRootMigrator performMigration]";
+              v155 = 2114;
+              v156 = v95;
+              _os_log_impl(&dword_22DFB7000, v97, OS_LOG_TYPE_DEFAULT, "%s: AppleLocale changed to %{public}@. Writing to disk.", buf, 0x16u);
+            }
 
-        [MEMORY[0x277CBEAF8] setLocaleOnly:v86];
+            [MEMORY[0x277CBEAF8] setLocaleOnly:v95];
+          }
+        }
       }
 
-      v102 = v86;
-      v121 = 0u;
-      v122 = 0u;
-      v119 = 0u;
-      v120 = 0u;
-      v88 = v73;
-      v89 = [v88 countByEnumeratingWithState:&v119 objects:v135 count:16];
-      if (v89)
+      v112 = v95;
+      v131 = 0u;
+      v132 = 0u;
+      v129 = 0u;
+      v130 = 0u;
+      v98 = v80;
+      v99 = [v98 countByEnumeratingWithState:&v129 objects:v145 count:16];
+      if (v99)
       {
-        v90 = v89;
-        v91 = *v120;
+        v100 = v99;
+        v101 = *v130;
         do
         {
-          for (k = 0; k != v90; ++k)
+          for (k = 0; k != v100; ++k)
           {
-            if (*v120 != v91)
+            if (*v130 != v101)
             {
-              objc_enumerationMutation(v88);
+              objc_enumerationMutation(v98);
             }
 
-            v93 = *(*(&v119 + 1) + 8 * k);
-            if (([(__CFString *)v93 isEqualToString:@"AppleLanguages", v102]& 1) == 0 && ([(__CFString *)v93 isEqualToString:@"AppleLocale"]& 1) == 0)
+            v103 = *(*(&v129 + 1) + 8 * k);
+            if (([(__CFString *)v103 isEqualToString:@"AppleLanguages", v112]& 1) == 0 && ([(__CFString *)v103 isEqualToString:@"AppleLocale"]& 1) == 0)
             {
-              v94 = [v88 objectForKeyedSubscript:v93];
-              v95 = MigrationLogger();
-              if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+              v104 = [v98 objectForKeyedSubscript:v103];
+              v105 = MigrationLogger(v104);
+              if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315650;
-                v144 = "[ISRootMigrator performMigration]";
-                v145 = 2114;
-                v146 = v93;
-                v147 = 2114;
-                v148 = v94;
-                _os_log_impl(&dword_22DFB7000, v95, OS_LOG_TYPE_DEFAULT, "%s: %{public}@ set to %{public}@. Writing to disk.", buf, 0x20u);
+                v154 = "[ISRootMigrator performMigration]";
+                v155 = 2114;
+                v156 = v103;
+                v157 = 2114;
+                v158 = v104;
+                _os_log_impl(&dword_22DFB7000, v105, OS_LOG_TYPE_DEFAULT, "%s: %{public}@ set to %{public}@. Writing to disk.", buf, 0x20u);
               }
 
-              CFPreferencesSetAppValue(v93, v94, applicationIDa);
+              CFPreferencesSetAppValue(v103, v104, applicationIDa);
               CFPreferencesAppSynchronize(applicationIDa);
 
-              v31 = v115;
+              v33 = v125;
             }
           }
 
-          v90 = [v88 countByEnumeratingWithState:&v119 objects:v135 count:16];
+          v100 = [v98 countByEnumeratingWithState:&v129 objects:v145 count:16];
         }
 
-        while (v90);
+        while (v100);
       }
 
-      currentVersion2 = v107;
-      previousVersion2 = v108;
-      v46 = selfCopy;
-      unsignedIntegerValue = v104;
-      v55 = v105;
-      v54 = v106;
-      v96 = v111;
+      currentVersion2 = v117;
+      previousVersion2 = v118;
+      v50 = selfCopy;
+      unsignedIntegerValue = v114;
+      v61 = v115;
+      v60 = v116;
+      v106 = v121;
     }
 
     else
     {
-      v97 = MigrationLogger();
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+      v107 = MigrationLogger(v66);
+      if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v144 = "[ISRootMigrator performMigration]";
-        v145 = 2114;
-        v146 = v54;
-        v147 = 2114;
-        v148 = v55;
-        v76 = v97;
-        _os_log_impl(&dword_22DFB7000, v97, OS_LOG_TYPE_DEFAULT, "%s: AppleLanguages (%{public}@) or AppleLocale (%{public}@) is nil. Skipping preferences migrators.", buf, 0x20u);
+        v154 = "[ISRootMigrator performMigration]";
+        v155 = 2114;
+        v156 = v60;
+        v157 = 2114;
+        v158 = v61;
+        v83 = v107;
+        _os_log_impl(&dword_22DFB7000, v107, OS_LOG_TYPE_DEFAULT, "%s: AppleLanguages (%{public}@) or AppleLocale (%{public}@) is nil. Skipping preferences migrators.", buf, 0x20u);
       }
 
       else
       {
-        v76 = v97;
+        v83 = v107;
       }
 
-      currentVersion2 = v107;
-      v96 = v111;
-      previousVersion2 = v108;
+      currentVersion2 = v117;
+      v106 = v121;
+      previousVersion2 = v118;
     }
 
-    v98 = [(ISMigrator *)IP_advancedSettings_migrator migratorFromSchemaVersion:unsignedIntegerValue];
-    [v98 migrateOtherSystemSettings];
+    v108 = [(ISMigrator *)IP_advancedSettings_migrator migratorFromSchemaVersion:unsignedIntegerValue];
+    [v108 migrateOtherSystemSettings];
 
     if (unsignedIntegerValue == 5400)
     {
-      v99 = MigrationLogger();
-      if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
+      v110 = MigrationLogger(v109);
+      if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v144 = "[ISRootMigrator performMigration]";
-        _os_log_impl(&dword_22DFB7000, v99, OS_LOG_TYPE_DEFAULT, "%s: AppleLanguagesSchemaVersion is up to date.", buf, 0xCu);
+        v154 = "[ISRootMigrator performMigration]";
+        _os_log_impl(&dword_22DFB7000, v110, OS_LOG_TYPE_DEFAULT, "%s: AppleLanguagesSchemaVersion is up to date.", buf, 0xCu);
       }
     }
 
     else
     {
-      [(ISRootMigrator *)v46 updateAppleLanguagesSchemaVersionToCurrent];
+      [(ISRootMigrator *)v50 updateAppleLanguagesSchemaVersionToCurrent];
     }
 
     goto LABEL_122;
   }
 
-  if ([(ISMigrator *)self platform]== 1 || ![(ISRootMigrator *)self isErase])
+  platform3 = [(ISMigrator *)self platform];
+  if (platform3 == 1 || (platform3 = [(ISRootMigrator *)self isErase], !platform3))
   {
-    v15 = MigrationLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = MigrationLogger(platform3);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      [(ISRootMigrator *)v15 performMigration];
+      [(ISRootMigrator *)v17 performMigration];
     }
   }
 
@@ -551,21 +578,20 @@ LABEL_25:
 
 LABEL_122:
 
-  v100 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)updateAppleLanguagesSchemaVersionToCurrent
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = MigrationLogger();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = MigrationLogger(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[ISRootMigrator updateAppleLanguagesSchemaVersionToCurrent]";
-    v9 = 2048;
-    v10 = 5400;
-    _os_log_impl(&dword_22DFB7000, v2, OS_LOG_TYPE_DEFAULT, "%s: Updating AppleLanguagesSchemaVersion to %lu.", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[ISRootMigrator updateAppleLanguagesSchemaVersionToCurrent]";
+    v8 = 2048;
+    v9 = 5400;
+    _os_log_impl(&dword_22DFB7000, v2, OS_LOG_TYPE_DEFAULT, "%s: Updating AppleLanguagesSchemaVersion to %lu.", &v6, 0x16u);
   }
 
   v3 = *MEMORY[0x277CBF008];
@@ -573,268 +599,277 @@ LABEL_122:
   v5 = *MEMORY[0x277CBF010];
   CFPreferencesSetValue(@"AppleLanguagesSchemaVersion", &unk_2841A23F8, *MEMORY[0x277CBF008], *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
   CFPreferencesSynchronize(v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)performMigrationForUserPreferences:(id)preferences systemPreferences:(id)systemPreferences
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   systemPreferencesCopy = systemPreferences;
   previousVersion = [(ISMigrator *)self previousVersion];
   currentVersion = [(ISMigrator *)self currentVersion];
   v10 = [preferencesCopy mutableCopy];
-  if ([(ISMigrator *)self platform]== 1 && [(ISMigrator *)self newUserAccount])
+  if ([(ISMigrator *)self platform]== 1)
   {
-    v11 = MigrationLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    newUserAccount = [(ISMigrator *)self newUserAccount];
+    if (newUserAccount)
     {
-      *buf = 136315650;
-      v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-      v87 = 2114;
-      v88 = previousVersion;
-      v89 = 2114;
-      v90 = currentVersion;
-      _os_log_impl(&dword_22DFB7000, v11, OS_LOG_TYPE_DEFAULT, "%s: (1) previousVersion=%{public}@, currentVersion=%{public}@ → Performing New User Account Migration", buf, 0x20u);
+      v12 = MigrationLogger(newUserAccount);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315650;
+        v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+        v95 = 2114;
+        v96 = previousVersion;
+        v97 = 2114;
+        v98 = currentVersion;
+        _os_log_impl(&dword_22DFB7000, v12, OS_LOG_TYPE_DEFAULT, "%s: (1) previousVersion=%{public}@, currentVersion=%{public}@ → Performing New User Account Migration", buf, 0x20u);
+      }
+
+      v14 = MigrationLogger(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = [systemPreferencesCopy objectForKeyedSubscript:@"AppleLanguages"];
+        v16 = [v15 componentsJoinedByString:{@", "}];
+        *buf = 136315394;
+        v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+        v95 = 2114;
+        v96 = v16;
+        _os_log_impl(&dword_22DFB7000, v14, OS_LOG_TYPE_DEFAULT, "%s: (1) System AppleLanguages= [ %{public}@ ]", buf, 0x16u);
+      }
+
+      v18 = MigrationLogger(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        v19 = [systemPreferencesCopy objectForKeyedSubscript:@"AppleLocale"];
+        *buf = 136315394;
+        v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+        v95 = 2114;
+        v96 = v19;
+        _os_log_impl(&dword_22DFB7000, v18, OS_LOG_TYPE_DEFAULT, "%s: (1) System AppleLocale= %{public}@", buf, 0x16u);
+      }
+
+      v20 = [systemPreferencesCopy objectForKeyedSubscript:@"AppleLanguages"];
+      [v10 setObject:v20 forKeyedSubscript:@"AppleLanguages"];
+
+      firstObject3 = [systemPreferencesCopy objectForKeyedSubscript:@"AppleLocale"];
+      [v10 setObject:firstObject3 forKeyedSubscript:@"AppleLocale"];
+      goto LABEL_69;
     }
-
-    v12 = MigrationLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      v13 = [systemPreferencesCopy objectForKeyedSubscript:@"AppleLanguages"];
-      v14 = [v13 componentsJoinedByString:{@", "}];
-      *buf = 136315394;
-      v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-      v87 = 2114;
-      v88 = v14;
-      _os_log_impl(&dword_22DFB7000, v12, OS_LOG_TYPE_DEFAULT, "%s: (1) System AppleLanguages= [ %{public}@ ]", buf, 0x16u);
-    }
-
-    v15 = MigrationLogger();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = [systemPreferencesCopy objectForKeyedSubscript:@"AppleLocale"];
-      *buf = 136315394;
-      v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-      v87 = 2114;
-      v88 = v16;
-      _os_log_impl(&dword_22DFB7000, v15, OS_LOG_TYPE_DEFAULT, "%s: (1) System AppleLocale= %{public}@", buf, 0x16u);
-    }
-
-    v17 = [systemPreferencesCopy objectForKeyedSubscript:@"AppleLanguages"];
-    [v10 setObject:v17 forKeyedSubscript:@"AppleLanguages"];
-
-    firstObject3 = [systemPreferencesCopy objectForKeyedSubscript:@"AppleLocale"];
-    [v10 setObject:firstObject3 forKeyedSubscript:@"AppleLocale"];
-    goto LABEL_69;
   }
 
-  v19 = [(ISMigrator *)self platform]- 1;
-  if (v19 > 3)
+  platform = [(ISMigrator *)self platform];
+  if ((platform - 1) > 3)
   {
-    v20 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v20 = off_2787A8F00[v19];
+    v23 = off_2787A8F00[platform - 1];
   }
 
-  v21 = MigrationLogger();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v24 = MigrationLogger(platform);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-    v87 = 2114;
-    v88 = previousVersion;
-    v89 = 2114;
-    v90 = currentVersion;
-    v91 = 2114;
-    v92 = v20;
-    _os_log_impl(&dword_22DFB7000, v21, OS_LOG_TYPE_DEFAULT, "%s: (1) previousVersion=%{public}@, currentVersion=%{public}@, upgradeThreshold=%{public}@", buf, 0x2Au);
+    v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+    v95 = 2114;
+    v96 = previousVersion;
+    v97 = 2114;
+    v98 = currentVersion;
+    v99 = 2114;
+    v100 = v23;
+    _os_log_impl(&dword_22DFB7000, v24, OS_LOG_TYPE_DEFAULT, "%s: (1) previousVersion=%{public}@, currentVersion=%{public}@, upgradeThreshold=%{public}@", buf, 0x2Au);
   }
 
-  v79 = currentVersion;
-  if ([previousVersion compare:v20 options:64] == -1 && -[NSObject compare:options:](currentVersion, "compare:options:", v20, 64) != -1)
+  v87 = currentVersion;
+  if ([previousVersion compare:v23 options:64] == -1)
   {
-    v22 = MigrationLogger();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = [currentVersion compare:v23 options:64];
+    if (v25 != -1)
     {
-      *buf = 136315906;
-      v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-      v87 = 2114;
-      v88 = previousVersion;
-      v89 = 2114;
-      v90 = currentVersion;
-      v91 = 2114;
-      v92 = v20;
-      _os_log_impl(&dword_22DFB7000, v22, OS_LOG_TYPE_DEFAULT, "%s: (1) { %{public}@, %{public}@, %{public}@ } qualifies for AppleLanguages migration", buf, 0x2Au);
-    }
-
-    v23 = [v10 objectForKeyedSubscript:@"AppleLanguages"];
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0 || ![v23 count])
-    {
-      v25 = MigrationLogger();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = MigrationLogger(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 136315138;
-        v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-        _os_log_impl(&dword_22DFB7000, v25, OS_LOG_TYPE_DEFAULT, "%s: (1) current AppleLanguages is nil/empty; skipping migration", buf, 0xCu);
+        *buf = 136315906;
+        v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+        v95 = 2114;
+        v96 = previousVersion;
+        v97 = 2114;
+        v98 = currentVersion;
+        v99 = 2114;
+        v100 = v23;
+        _os_log_impl(&dword_22DFB7000, v26, OS_LOG_TYPE_DEFAULT, "%s: (1) { %{public}@, %{public}@, %{public}@ } qualifies for AppleLanguages migration", buf, 0x2Au);
       }
 
-      goto LABEL_33;
-    }
-
-    v24 = previousVersion;
-    v25 = [(ISRootMigrator *)self importPreferredLanguagesForPreferences:v10];
-    v26 = MEMORY[0x277CBEAF8];
-    v27 = [v10 objectForKeyedSubscript:@"AppleLocale"];
-    v28 = [v26 localeWithLocaleIdentifier:v27];
-    v29 = [v28 objectForKey:*MEMORY[0x277CBE690]];
-
-    if (v29)
-    {
-      [(ISRootMigrator *)self appendRegionalVariantsToLanguageIdentifiers:v25 regionCode:v29];
-      v25 = v30 = v25;
-    }
-
-    else
-    {
-      v30 = MigrationLogger();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v27 = [v10 objectForKeyedSubscript:@"AppleLanguages"];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0 || (isKindOfClass = [v27 count]) == 0)
       {
-        *buf = 136315138;
-        v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+        v30 = MigrationLogger(isKindOfClass);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+          _os_log_impl(&dword_22DFB7000, v30, OS_LOG_TYPE_DEFAULT, "%s: (1) current AppleLanguages is nil/empty; skipping migration", buf, 0xCu);
+        }
+
+        goto LABEL_33;
       }
-    }
 
-    previousVersion = v24;
+      v29 = previousVersion;
+      v30 = [(ISRootMigrator *)self importPreferredLanguagesForPreferences:v10];
+      v31 = MEMORY[0x277CBEAF8];
+      v32 = [v10 objectForKeyedSubscript:@"AppleLocale"];
+      v33 = [v31 localeWithLocaleIdentifier:v32];
+      v34 = [v33 objectForKey:*MEMORY[0x277CBE690]];
 
-    [v10 setObject:v25 forKeyedSubscript:@"AppleLanguages"];
-    if ([(ISMigrator *)self platform]== 1)
-    {
-      v31 = @"AppleUserLanguages";
-    }
-
-    else
-    {
-      if ([(ISMigrator *)self platform]!= 2)
+      if (v34)
       {
+        [(ISRootMigrator *)self appendRegionalVariantsToLanguageIdentifiers:v30 regionCode:v34];
+        v30 = v36 = v30;
+      }
+
+      else
+      {
+        v36 = MigrationLogger(v35);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+        }
+      }
+
+      previousVersion = v29;
+
+      [v10 setObject:v30 forKeyedSubscript:@"AppleLanguages"];
+      if ([(ISMigrator *)self platform]== 1)
+      {
+        v37 = @"AppleUserLanguages";
+      }
+
+      else
+      {
+        if ([(ISMigrator *)self platform]!= 2)
+        {
 LABEL_32:
 
-        currentVersion = v79;
+          currentVersion = v87;
 LABEL_33:
 
-        goto LABEL_34;
+          goto LABEL_34;
+        }
+
+        v37 = @"PreferredLanguages";
       }
 
-      v31 = @"PreferredLanguages";
+      [v10 setObject:0 forKeyedSubscript:v37];
+      goto LABEL_32;
     }
-
-    [v10 setObject:0 forKeyedSubscript:v31];
-    goto LABEL_32;
   }
 
 LABEL_34:
-  v32 = [v10 objectForKeyedSubscript:@"AppleLanguages"];
-  if ([v32 count] == 1)
+  v38 = [v10 objectForKeyedSubscript:@"AppleLanguages"];
+  if ([v38 count] == 1)
   {
-    v73 = v10;
-    v75 = previousVersion;
-    v76 = systemPreferencesCopy;
-    v77 = preferencesCopy;
-    v33 = MEMORY[0x277CBEAF8];
-    firstObject = [v32 firstObject];
-    v35 = [v33 localeWithLocaleIdentifier:firstObject];
+    v81 = v10;
+    v83 = previousVersion;
+    v84 = systemPreferencesCopy;
+    v85 = preferencesCopy;
+    v39 = MEMORY[0x277CBEAF8];
+    firstObject = [v38 firstObject];
+    v41 = [v39 localeWithLocaleIdentifier:firstObject];
 
-    languageCode = [v35 languageCode];
-    v74 = v35;
-    countryCode = [v35 countryCode];
+    languageCode = [v41 languageCode];
+    v82 = v41;
+    countryCode = [v41 countryCode];
     baseSystemLanguages = [MEMORY[0x277CBEAF8] baseSystemLanguages];
-    v38 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(baseSystemLanguages, "count")}];
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v39 = baseSystemLanguages;
-    v40 = [v39 countByEnumeratingWithState:&v80 objects:v84 count:16];
-    if (v40)
+    v44 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(baseSystemLanguages, "count")}];
+    v88 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v45 = baseSystemLanguages;
+    v46 = [v45 countByEnumeratingWithState:&v88 objects:v92 count:16];
+    if (v46)
     {
-      v41 = v40;
-      v42 = *v81;
+      v47 = v46;
+      v48 = *v89;
       do
       {
-        for (i = 0; i != v41; ++i)
+        for (i = 0; i != v47; ++i)
         {
-          if (*v81 != v42)
+          if (*v89 != v48)
           {
-            objc_enumerationMutation(v39);
+            objc_enumerationMutation(v45);
           }
 
-          v44 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(*(&v80 + 1) + 8 * i)];
-          languageCode2 = [v44 languageCode];
-          [v38 addObject:languageCode2];
+          v50 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:*(*(&v88 + 1) + 8 * i)];
+          languageCode2 = [v50 languageCode];
+          [v44 addObject:languageCode2];
         }
 
-        v41 = [v39 countByEnumeratingWithState:&v80 objects:v84 count:16];
+        v47 = [v45 countByEnumeratingWithState:&v88 objects:v92 count:16];
       }
 
-      while (v41);
+      while (v47);
     }
 
-    v46 = languageCode;
-    v47 = [languageCode length];
-    v10 = v73;
-    v48 = countryCode;
-    if (v47)
+    v52 = languageCode;
+    v53 = [languageCode length];
+    v10 = v81;
+    v54 = countryCode;
+    if (v53)
     {
-      if (([v38 containsObject:v46] & 1) == 0)
+      if (([v44 containsObject:v52] & 1) == 0)
       {
         if ([countryCode length])
         {
-          v49 = MEMORY[0x277CCA8D8];
+          v55 = MEMORY[0x277CCA8D8];
           baseSystemLanguages2 = [MEMORY[0x277CBEAF8] baseSystemLanguages];
-          v51 = [v49 preferredLocalizationsFromArray:baseSystemLanguages2 forPreferences:v32];
-          firstObject2 = [v51 firstObject];
-          v53 = [firstObject2 isEqualToString:@"en"];
+          v57 = [v55 preferredLocalizationsFromArray:baseSystemLanguages2 forPreferences:v38];
+          firstObject2 = [v57 firstObject];
+          v59 = [firstObject2 isEqualToString:@"en"];
 
-          v48 = countryCode;
-          if (v53)
+          v54 = countryCode;
+          if (v59)
           {
-            v54 = [MEMORY[0x277CBEAF8] languageFromLanguage:@"en" byReplacingRegion:countryCode];
-            if ([v54 length])
+            v60 = [MEMORY[0x277CBEAF8] languageFromLanguage:@"en" byReplacingRegion:countryCode];
+            v61 = [v60 length];
+            if (v61)
             {
-              v55 = MigrationLogger();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+              v62 = MigrationLogger(v61);
+              if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
               {
-                v56 = [v32 componentsJoinedByString:{@", "}];
+                v63 = [v38 componentsJoinedByString:{@", "}];
                 *buf = 136315394;
-                v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-                v87 = 2114;
-                v88 = v56;
-                _os_log_impl(&dword_22DFB7000, v55, OS_LOG_TYPE_DEFAULT, "%s: (2) AppleLanguages = [ %{public}@ ] qualifies for AppleLanguages repair", buf, 0x16u);
+                v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+                v95 = 2114;
+                v96 = v63;
+                _os_log_impl(&dword_22DFB7000, v62, OS_LOG_TYPE_DEFAULT, "%s: (2) AppleLanguages = [ %{public}@ ] qualifies for AppleLanguages repair", buf, 0x16u);
               }
 
-              v57 = [v32 arrayByAddingObject:v54];
-              [v73 setObject:v57 forKeyedSubscript:@"AppleLanguages"];
+              v64 = [v38 arrayByAddingObject:v60];
+              [v81 setObject:v64 forKeyedSubscript:@"AppleLanguages"];
 
-              v58 = MigrationLogger();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+              v66 = MigrationLogger(v65);
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
               {
-                log = v58;
-                v59 = [v32 componentsJoinedByString:{@", "}];
-                v60 = [v73 objectForKeyedSubscript:@"AppleLanguages"];
-                v61 = [v60 componentsJoinedByString:{@", "}];
+                log = v66;
+                v67 = [v38 componentsJoinedByString:{@", "}];
+                v68 = [v81 objectForKeyedSubscript:@"AppleLanguages"];
+                v69 = [v68 componentsJoinedByString:{@", "}];
                 *buf = 136315650;
-                v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-                v87 = 2114;
-                v88 = v59;
-                v89 = 2114;
-                v90 = v61;
+                v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+                v95 = 2114;
+                v96 = v67;
+                v97 = 2114;
+                v98 = v69;
                 _os_log_impl(&dword_22DFB7000, log, OS_LOG_TYPE_DEFAULT, "%s: (2) AppleLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
 
-                v58 = log;
+                v66 = log;
               }
             }
           }
@@ -842,75 +877,75 @@ LABEL_34:
       }
     }
 
-    systemPreferencesCopy = v76;
-    preferencesCopy = v77;
-    previousVersion = v75;
-    currentVersion = v79;
+    systemPreferencesCopy = v84;
+    preferencesCopy = v85;
+    previousVersion = v83;
+    currentVersion = v87;
   }
 
-  v62 = [v10 objectForKeyedSubscript:@"AppleLanguages"];
-  firstObject3 = [v62 firstObject];
+  v70 = [v10 objectForKeyedSubscript:@"AppleLanguages"];
+  firstObject3 = [v70 firstObject];
 
-  v63 = [v10 objectForKeyedSubscript:@"AppleLocale"];
-  if ([firstObject3 length] && objc_msgSend(v63, "length"))
+  v71 = [v10 objectForKeyedSubscript:@"AppleLocale"];
+  v72 = [firstObject3 length];
+  if (v72 && (v72 = [v71 length]) != 0)
   {
-    v64 = MigrationLogger();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+    v73 = MigrationLogger(v72);
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-      v87 = 2114;
-      v88 = v63;
-      _os_log_impl(&dword_22DFB7000, v64, OS_LOG_TYPE_DEFAULT, "%s: (3) AppleLocale = %{public}@", buf, 0x16u);
+      v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+      v95 = 2114;
+      v96 = v71;
+      _os_log_impl(&dword_22DFB7000, v73, OS_LOG_TYPE_DEFAULT, "%s: (3) AppleLocale = %{public}@", buf, 0x16u);
     }
 
-    v65 = [MEMORY[0x277CBEAF8] canonicalLocaleIdentifier:v63 withNewLanguageIdentifier:firstObject3];
-    v66 = [v65 length];
-    v67 = MigrationLogger();
-    v68 = os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT);
-    if (v66)
+    v74 = [MEMORY[0x277CBEAF8] canonicalLocaleIdentifier:v71 withNewLanguageIdentifier:firstObject3];
+    v75 = [v74 length];
+    v76 = MigrationLogger(v75);
+    v77 = os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT);
+    if (v75)
     {
-      if (v68)
+      if (v77)
       {
-        v69 = [v10 objectForKeyedSubscript:@"AppleLocale"];
+        v78 = [v10 objectForKeyedSubscript:@"AppleLocale"];
         *buf = 136315650;
-        v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-        v87 = 2114;
-        v88 = v69;
-        v89 = 2114;
-        v90 = v65;
-        _os_log_impl(&dword_22DFB7000, v67, OS_LOG_TYPE_DEFAULT, "%s: (3) AppleLocale = %{public}@ → %{public}@", buf, 0x20u);
+        v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+        v95 = 2114;
+        v96 = v78;
+        v97 = 2114;
+        v98 = v74;
+        _os_log_impl(&dword_22DFB7000, v76, OS_LOG_TYPE_DEFAULT, "%s: (3) AppleLocale = %{public}@ → %{public}@", buf, 0x20u);
       }
 
-      [v10 setObject:v65 forKeyedSubscript:@"AppleLocale"];
+      [v10 setObject:v74 forKeyedSubscript:@"AppleLocale"];
     }
 
     else
     {
-      if (v68)
+      if (v77)
       {
         *buf = 136315138;
-        v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-        _os_log_impl(&dword_22DFB7000, v67, OS_LOG_TYPE_DEFAULT, "%s: (3) new AppleLocale is nil/empty; skipping migration", buf, 0xCu);
+        v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+        _os_log_impl(&dword_22DFB7000, v76, OS_LOG_TYPE_DEFAULT, "%s: (3) new AppleLocale is nil/empty; skipping migration", buf, 0xCu);
       }
     }
 
-    currentVersion = v79;
+    currentVersion = v87;
   }
 
   else
   {
-    v65 = MigrationLogger();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+    v74 = MigrationLogger(v72);
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v86 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
-      _os_log_impl(&dword_22DFB7000, v65, OS_LOG_TYPE_DEFAULT, "%s: (3) current AppleLanguages or AppleLocale is nil/empty; skipping migration", buf, 0xCu);
+      v94 = "[ISRootMigrator performMigrationForUserPreferences:systemPreferences:]";
+      _os_log_impl(&dword_22DFB7000, v74, OS_LOG_TYPE_DEFAULT, "%s: (3) current AppleLanguages or AppleLocale is nil/empty; skipping migration", buf, 0xCu);
     }
   }
 
 LABEL_69:
-  v70 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1009,21 +1044,21 @@ LABEL_14:
       {
 LABEL_16:
 
-        v28 = MigrationLogger();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = MigrationLogger(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = [obj componentsJoinedByString:{@", "}];
+          v30 = [obj componentsJoinedByString:{@", "}];
           array = [v9 array];
-          v31 = [array componentsJoinedByString:{@", "}];
+          v32 = [array componentsJoinedByString:{@", "}];
           *buf = 136315906;
           v53 = "[ISRootMigrator appendRegionalVariantsToLanguageIdentifiers:regionCode:]";
           v54 = 2114;
           v55 = v7;
           v56 = 2114;
-          v57 = v29;
+          v57 = v30;
           v58 = 2114;
-          v59 = v31;
-          _os_log_impl(&dword_22DFB7000, v28, OS_LOG_TYPE_DEFAULT, "%s: regionCode=%{public}@, preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x2Au);
+          v59 = v32;
+          _os_log_impl(&dword_22DFB7000, v29, OS_LOG_TYPE_DEFAULT, "%s: regionCode=%{public}@, preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x2Au);
 
           v9 = v41;
         }
@@ -1036,64 +1071,63 @@ LABEL_16:
     }
   }
 
-  v33 = MigrationLogger();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v34 = MigrationLogger(0);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = [identifiersCopy componentsJoinedByString:{@", "}];
     v35 = [identifiersCopy componentsJoinedByString:{@", "}];
+    v36 = [identifiersCopy componentsJoinedByString:{@", "}];
     *buf = 136315906;
     v53 = "[ISRootMigrator appendRegionalVariantsToLanguageIdentifiers:regionCode:]";
     v54 = 2114;
     v55 = 0;
     v56 = 2114;
-    v57 = v34;
+    v57 = v35;
     v58 = 2114;
-    v59 = v35;
-    _os_log_impl(&dword_22DFB7000, v33, OS_LOG_TYPE_DEFAULT, "%s: regionCode=%{public}@, preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x2Au);
+    v59 = v36;
+    _os_log_impl(&dword_22DFB7000, v34, OS_LOG_TYPE_DEFAULT, "%s: regionCode=%{public}@, preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x2Au);
   }
 
   array2 = identifiersCopy;
   v7 = 0;
 LABEL_22:
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return array2;
 }
 
 - (id)importPreferredLanguagesForPreferences:(id)preferences
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   previousVersion = [(ISMigrator *)self previousVersion];
   v6 = [preferencesCopy objectForKeyedSubscript:@"AppleLanguages"];
   if ([(ISMigrator *)self platform]== 1)
   {
     v7 = [preferencesCopy objectForKeyedSubscript:@"AppleUserLanguages"];
+    v8 = v7;
     if (v7)
     {
-      v8 = MigrationLogger();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = MigrationLogger(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v28 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
-        _os_log_impl(&dword_22DFB7000, v8, OS_LOG_TYPE_DEFAULT, "%s: Possible upgrade from macOS 10.9", buf, 0xCu);
+        v31 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
+        _os_log_impl(&dword_22DFB7000, v9, OS_LOG_TYPE_DEFAULT, "%s: Possible upgrade from macOS 10.9", buf, 0xCu);
       }
 
-      v9 = @"10.9";
+      v10 = @"10.9";
       if ([previousVersion compare:@"10.9" options:64] != -1 && objc_msgSend(previousVersion, "compare:options:", @"10.10", 64) == -1)
       {
-        v10 = MigrationLogger();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = MigrationLogger(-1);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v28 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
-          _os_log_impl(&dword_22DFB7000, v10, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from macOS 10.9", buf, 0xCu);
+          v31 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
+          _os_log_impl(&dword_22DFB7000, v11, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from macOS 10.9", buf, 0xCu);
         }
 
-        v11 = [(ISRootMigrator *)self importPreferredLanguages_macOS_10_9_forPreferences:preferencesCopy];
+        v12 = [(ISRootMigrator *)self importPreferredLanguages_macOS_10_9_forPreferences:preferencesCopy];
 LABEL_20:
-        v16 = v11;
+        v19 = v12;
 LABEL_29:
 
         goto LABEL_30;
@@ -1102,101 +1136,106 @@ LABEL_29:
 
     else
     {
-      v9 = @"10.9";
+      v10 = @"10.9";
     }
   }
 
   else
   {
-    if ([(ISMigrator *)self platform]!= 2)
+    platform = [(ISMigrator *)self platform];
+    if (platform != 2)
     {
       goto LABEL_23;
     }
 
-    v7 = [preferencesCopy objectForKeyedSubscript:@"PreferredLanguages"];
-    if (v7 || [v6 count] == 1)
+    v14 = [preferencesCopy objectForKeyedSubscript:@"PreferredLanguages"];
+    v8 = v14;
+    if (v14 || (v14 = [v6 count], v14 == 1))
     {
-      v12 = MigrationLogger();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = MigrationLogger(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v28 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
-        _os_log_impl(&dword_22DFB7000, v12, OS_LOG_TYPE_DEFAULT, "%s: Possible upgrade from iOS 8", buf, 0xCu);
+        v31 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
+        _os_log_impl(&dword_22DFB7000, v15, OS_LOG_TYPE_DEFAULT, "%s: Possible upgrade from iOS 8", buf, 0xCu);
       }
 
-      v9 = @"12A";
+      v10 = @"12A";
       if ([previousVersion compare:@"12A" options:64] != -1 && objc_msgSend(previousVersion, "compare:options:", @"13A", 64) == -1)
       {
-        v13 = MigrationLogger();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v16 = MigrationLogger(-1);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = [v6 componentsJoinedByString:{@", "}];
-          v15 = [v6 componentsJoinedByString:{@", "}];
+          v17 = [v6 componentsJoinedByString:{@", "}];
+          v18 = [v6 componentsJoinedByString:{@", "}];
           *buf = 136315650;
-          v28 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
-          v29 = 2114;
-          v30 = v14;
-          v31 = 2114;
-          v32 = v15;
-          _os_log_impl(&dword_22DFB7000, v13, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from iOS 8; preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
+          v31 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
+          v32 = 2114;
+          v33 = v17;
+          v34 = 2114;
+          v35 = v18;
+          _os_log_impl(&dword_22DFB7000, v16, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from iOS 8; preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
         }
 
-        v11 = v6;
+        v12 = v6;
         goto LABEL_20;
       }
     }
 
     else
     {
-      v9 = @"12A";
+      v10 = @"12A";
     }
   }
 
-  if ([previousVersion compare:v9 options:64] == -1 && objc_msgSend(v6, "count"))
+  platform = [previousVersion compare:v10 options:64];
+  if (platform == -1)
   {
-    v20 = [v6 objectAtIndexedSubscript:0];
-    v21 = [IntlUtility normalizedLanguageIDFromString:v20];
-    v26 = v21;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
-
-    v7 = MigrationLogger();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    platform = [v6 count];
+    if (platform)
     {
-      v22 = [v6 componentsJoinedByString:{@", "}];
-      v23 = [v16 componentsJoinedByString:{@", "}];
-      *buf = 136315650;
-      v28 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
-      v29 = 2114;
-      v30 = v22;
-      v31 = 2114;
-      v32 = v23;
-      _os_log_impl(&dword_22DFB7000, v7, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from pre-{ macOS 10.9, iOS 8 }; preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
-    }
+      v23 = [v6 objectAtIndexedSubscript:0];
+      v24 = [IntlUtility normalizedLanguageIDFromString:v23];
+      v29 = v24;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
 
-    goto LABEL_29;
+      v8 = MigrationLogger(v25);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v26 = [v6 componentsJoinedByString:{@", "}];
+        v27 = [v19 componentsJoinedByString:{@", "}];
+        *buf = 136315650;
+        v31 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
+        v32 = 2114;
+        v33 = v26;
+        v34 = 2114;
+        v35 = v27;
+        _os_log_impl(&dword_22DFB7000, v8, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from pre-{ macOS 10.9, iOS 8 }; preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
+      }
+
+      goto LABEL_29;
+    }
   }
 
 LABEL_23:
-  v17 = MigrationLogger();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v20 = MigrationLogger(platform);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [v6 componentsJoinedByString:{@", "}];
-    v19 = [v6 componentsJoinedByString:{@", "}];
+    v21 = [v6 componentsJoinedByString:{@", "}];
+    v22 = [v6 componentsJoinedByString:{@", "}];
     *buf = 136315650;
-    v28 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
-    v29 = 2114;
-    v30 = v18;
-    v31 = 2114;
-    v32 = v19;
-    _os_log_impl(&dword_22DFB7000, v17, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from post-{ macOS 10.9, iOS 8 }; preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
+    v31 = "[ISRootMigrator importPreferredLanguagesForPreferences:]";
+    v32 = 2114;
+    v33 = v21;
+    v34 = 2114;
+    v35 = v22;
+    _os_log_impl(&dword_22DFB7000, v20, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from post-{ macOS 10.9, iOS 8 }; preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
   }
 
-  v16 = v6;
+  v19 = v6;
 LABEL_30:
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v19;
 }
 
 - (id)importPreferredLanguages_macOS_10_9_forPreferences:(id)preferences
@@ -1211,7 +1250,7 @@ LABEL_30:
   if (objc_opt_isKindOfClass())
   {
     unsignedIntegerValue = [v6 unsignedIntegerValue];
-    v8 = MigrationLogger();
+    v8 = MigrationLogger(unsignedIntegerValue);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
@@ -1246,49 +1285,46 @@ LABEL_30:
       v15 = [array objectAtIndexedSubscript:i];
       v16 = [IntlUtility normalizedLanguageIDFromString:v15];
 
-      v17 = MigrationLogger();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = MigrationLogger(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = [array objectAtIndexedSubscript:i];
+        v19 = [array objectAtIndexedSubscript:i];
         *buf = 136315650;
         v27 = "[ISRootMigrator importPreferredLanguages_macOS_10_9_forPreferences:]";
         v28 = 2114;
-        v29 = v18;
+        v29 = v19;
         v30 = 2114;
         v31 = v16;
-        _os_log_impl(&dword_22DFB7000, v17, OS_LOG_TYPE_DEFAULT, "%s: Normalizing %{public}@ → %{public}@", buf, 0x20u);
+        _os_log_impl(&dword_22DFB7000, v18, OS_LOG_TYPE_DEFAULT, "%s: Normalizing %{public}@ → %{public}@", buf, 0x20u);
       }
 
       [array setObject:v16 atIndexedSubscript:i];
     }
   }
 
-  v19 = MigrationLogger();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = MigrationLogger(v12);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = [v24 componentsJoinedByString:{@", "}];
-    v21 = [array componentsJoinedByString:{@", "}];
+    v21 = [v24 componentsJoinedByString:{@", "}];
+    v22 = [array componentsJoinedByString:{@", "}];
     *buf = 136315650;
     v27 = "[ISRootMigrator importPreferredLanguages_macOS_10_9_forPreferences:]";
     v28 = 2114;
-    v29 = v20;
+    v29 = v21;
     v30 = 2114;
-    v31 = v21;
-    _os_log_impl(&dword_22DFB7000, v19, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from macOS 10.9; preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
+    v31 = v22;
+    _os_log_impl(&dword_22DFB7000, v20, OS_LOG_TYPE_DEFAULT, "%s: Upgrade from macOS 10.9; preferredLanguages = [ %{public}@ ] → [ %{public}@ ]", buf, 0x20u);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)performMigration
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ISRootMigrator performMigration]";
-  _os_log_fault_impl(&dword_22DFB7000, log, OS_LOG_TYPE_FAULT, "%s: failed to retrieve currentVersion; bailing...", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ISRootMigrator performMigration]";
+  _os_log_fault_impl(&dword_22DFB7000, log, OS_LOG_TYPE_FAULT, "%s: failed to retrieve currentVersion; bailing...", &v1, 0xCu);
 }
 
 @end

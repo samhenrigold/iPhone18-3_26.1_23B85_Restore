@@ -1,8 +1,16 @@
 @interface MTLLegacySVBlitCommandEncoder
+- (MTLLegacySVBlitCommandEncoder)initWithBlitCommandEncoder:(id)encoder parent:(id)parent descriptor:(id)descriptor encoderID:(unsigned int)d;
 - (void)copyIndirectCommandBuffer:(id)buffer sourceRange:(_NSRange)range destination:(id)destination destinationIndex:(unint64_t)index;
 @end
 
 @implementation MTLLegacySVBlitCommandEncoder
+
+- (MTLLegacySVBlitCommandEncoder)initWithBlitCommandEncoder:(id)encoder parent:(id)parent descriptor:(id)descriptor encoderID:(unsigned int)d
+{
+  v7.receiver = self;
+  v7.super_class = MTLLegacySVBlitCommandEncoder;
+  return [(MTLToolsBlitCommandEncoder *)&v7 initWithBlitCommandEncoder:encoder parent:parent descriptor:descriptor, *&d];
+}
 
 - (void)copyIndirectCommandBuffer:(id)buffer sourceRange:(_NSRange)range destination:(id)destination destinationIndex:(unint64_t)index
 {

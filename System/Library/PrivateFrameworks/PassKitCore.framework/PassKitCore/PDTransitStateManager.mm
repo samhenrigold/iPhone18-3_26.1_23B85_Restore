@@ -469,14 +469,14 @@ LABEL_13:
   stateCopy = state;
   v11 = objc_alloc_init(NSMutableSet);
   [@"0000" pk_decodeHexadecimal];
-  v38[0] = _NSConcreteStackBlock;
-  v38[1] = 3221225472;
-  v38[2] = sub_1000DFB10;
-  v12 = v38[3] = &unk_100844358;
-  v39 = v12;
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v39[2] = sub_1000DFB10;
+  v12 = v39[3] = &unk_100844358;
+  v40 = v12;
   v13 = v11;
-  v40 = v13;
-  v14 = objc_retainBlock(v38);
+  v41 = v13;
+  v14 = objc_retainBlock(v39);
   felicaState = [stateCopy felicaState];
 
   if (felicaState)
@@ -509,7 +509,7 @@ LABEL_13:
       {
         applicationIdentifier = [applicationCopy applicationIdentifier];
         *buf = 138412290;
-        v42 = applicationIdentifier;
+        v43 = applicationIdentifier;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Processing Felica Applet State For Stations: %@", buf, 0xCu);
       }
 
@@ -521,18 +521,18 @@ LABEL_13:
       [v26 setSourceIdentifier:stationCodeProvider];
 
       v29 = objc_alloc_init(off_10091E730());
-      [v29 _setExternalTransitLookupParameters:v26];
-      v30 = [objc_alloc(off_10091E738()) initWithRequest:v29];
-      v32[0] = _NSConcreteStackBlock;
-      v32[1] = 3221225472;
-      v32[2] = sub_1000DFB7C;
-      v32[3] = &unk_100844380;
-      v37 = v23;
-      v33 = applicationCopy;
-      v34 = selfCopy;
-      v35 = identifierCopy;
-      v36 = v13;
-      [v30 startWithCompletionHandler:v32];
+      v30 = [v29 _setExternalTransitLookupParameters:v26];
+      v31 = [objc_alloc(off_10091E738(v30)) initWithRequest:v29];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_1000DFB7C;
+      v33[3] = &unk_100844380;
+      v38 = v23;
+      v34 = applicationCopy;
+      v35 = selfCopy;
+      v36 = identifierCopy;
+      v37 = v13;
+      [v31 startWithCompletionHandler:v33];
     }
 
     else
@@ -575,7 +575,7 @@ LABEL_6:
   }
 
   v13 = PDOSTransactionCreate("PDTransitStateManager");
-  v14 = PDDefaultQueue();
+  v14 = PDDefaultQueue(v13);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000DFF84;

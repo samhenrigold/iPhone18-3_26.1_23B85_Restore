@@ -47,7 +47,7 @@
   v10 = v9;
   if (providerCopy)
   {
-    [providerCopy visibleTextAreaInfo];
+    objc_msgSend_visibleTextAreaInfo(providerCopy);
     v11 = 0.0 * 100.0;
     v85 = 0.0;
     v84 = v85;

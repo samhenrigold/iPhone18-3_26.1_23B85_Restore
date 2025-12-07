@@ -27,9 +27,9 @@
 
 - (LPLinkMetadata)metadata
 {
-  LPLinkMetadataClass_0 = getLPLinkMetadataClass_0();
+  LPLinkMetadataClass_0 = getLPLinkMetadataClass_0(self, a2);
   serializedMetadata = [(SHSheetMetadataUpdateAction *)self serializedMetadata];
-  v5 = [(objc_class *)LPLinkMetadataClass_0 metadataWithDataRepresentationForLocalUseOnly:serializedMetadata];
+  v5 = [LPLinkMetadataClass_0 metadataWithDataRepresentationForLocalUseOnly:serializedMetadata];
 
   return v5;
 }

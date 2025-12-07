@@ -173,12 +173,13 @@
 - (id)overrideOfferIdentifier:(id)identifier
 {
   v4 = sub_1D7D3034C();
+  v6 = v5;
   selfCopy = self;
-  sub_1D7AE2944(v4);
+  sub_1D7AE2944(v4, v6);
 
-  v6 = sub_1D7D3031C();
+  v8 = sub_1D7D3031C();
 
-  return v6;
+  return v8;
 }
 
 - (id)overrideConditionKeys:(id)keys

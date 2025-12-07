@@ -53,47 +53,48 @@
 
 - (NCNotificationDispatcher)initWithAlertingController:(id)controller
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v19.receiver = self;
-  v19.super_class = NCNotificationDispatcher;
-  v6 = [(NCNotificationDispatcher *)&v19 init];
+  v21.receiver = self;
+  v21.super_class = NCNotificationDispatcher;
+  v6 = [(NCNotificationDispatcher *)&v21 init];
+  v8 = v6;
   if (v6)
   {
-    NCRegisterUserNotificationsUILogging();
-    v7 = NCUILogDispatch;
+    NCRegisterUserNotificationsUILogging(v6, v7);
+    v9 = NCUILogDispatch;
     if (os_log_type_enabled(NCUILogDispatch, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = v6;
-      _os_log_impl(&dword_270A33000, v7, OS_LOG_TYPE_DEFAULT, "Initializing notifications dispatcher %{public}@", buf, 0xCu);
+      v23 = v8;
+      _os_log_impl(&dword_270A33000, v9, OS_LOG_TYPE_DEFAULT, "Initializing notifications dispatcher %{public}@", buf, 0xCu);
     }
 
-    v8 = objc_opt_new();
-    destinationsRegistry = v6->_destinationsRegistry;
-    v6->_destinationsRegistry = v8;
-
     v10 = objc_opt_new();
-    sectionSettings = v6->_sectionSettings;
-    v6->_sectionSettings = v10;
+    destinationsRegistry = v8->_destinationsRegistry;
+    v8->_destinationsRegistry = v10;
+
+    v12 = objc_opt_new();
+    sectionSettings = v8->_sectionSettings;
+    v8->_sectionSettings = v12;
 
     weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
-    sourceDelegates = v6->_sourceDelegates;
-    v6->_sourceDelegates = weakObjectsHashTable;
+    sourceDelegates = v8->_sourceDelegates;
+    v8->_sourceDelegates = weakObjectsHashTable;
 
-    v14 = objc_alloc_init(NCLayoutLoopDetector);
-    layoutDetector = v6->_layoutDetector;
-    v6->_layoutDetector = v14;
+    v16 = objc_alloc_init(NCLayoutLoopDetector);
+    layoutDetector = v8->_layoutDetector;
+    v8->_layoutDetector = v16;
 
-    objc_storeStrong(&v6->_alertingController, controller);
-    v16 = objc_alloc_init(NCNotificationAlertQueue);
-    alertQueue = v6->_alertQueue;
-    v6->_alertQueue = v16;
+    objc_storeStrong(&v8->_alertingController, controller);
+    v18 = objc_alloc_init(NCNotificationAlertQueue);
+    alertQueue = v8->_alertQueue;
+    v8->_alertQueue = v18;
 
-    [(NCNotificationAlertQueue *)v6->_alertQueue setDelegate:v6];
+    [(NCNotificationAlertQueue *)v8->_alertQueue setDelegate:v8];
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)postNotificationWithRequest:(id)request
@@ -939,12 +940,12 @@ LABEL_19:
   }
 }
 
-void __125__NCNotificationDispatcher_destination_executeAction_forNotificationRequest_requestAuthentication_withParameters_completion___block_invoke_75(uint64_t a1)
+void __125__NCNotificationDispatcher_destination_executeAction_forNotificationRequest_requestAuthentication_withParameters_completion___block_invoke_75(uint64_t a1, char a2)
 {
-  v1 = *(a1 + 32);
-  if (v1)
+  v2 = *(a1 + 32);
+  if (v2)
   {
-    v2 = v1;
+    v3 = v2;
     BSDispatchMain();
   }
 }
@@ -1736,7 +1737,7 @@ LABEL_17:
   v4 = [a2 notificationIdentifier];
   v5 = [v4 un_logDigest];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_270A33000, v6, v7, "No delegate - can't execute action for %@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1_0(&dword_270A33000, v6, v7, "No delegate - can't execute action for %@", v8, v9, v10, v11);
 }
 
 void __125__NCNotificationDispatcher_destination_executeAction_forNotificationRequest_requestAuthentication_withParameters_completion___block_invoke_cold_1(void **a1, void *a2)
@@ -1745,7 +1746,7 @@ void __125__NCNotificationDispatcher_destination_executeAction_forNotificationRe
   v3 = a2;
   v4 = [v2 identifier];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_270A33000, v5, v6, "Action %{public}@ can't be executed because it has no runner", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_0(&dword_270A33000, v5, v6, "Action %{public}@ can't be executed because it has no runner", v7, v8, v9, v10);
 }
 
 - (void)_performOperationForRequestDestinations:(void *)a1 block:(void *)a2 .cold.1(void *a1, void *a2)
@@ -1753,7 +1754,7 @@ void __125__NCNotificationDispatcher_destination_executeAction_forNotificationRe
   v3 = a1;
   v4 = [a2 requestDestinations];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_270A33000, v5, v6, "No active destinations for request destinations: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_0(&dword_270A33000, v5, v6, "No active destinations for request destinations: %{public}@", v7, v8, v9, v10);
 }
 
 @end

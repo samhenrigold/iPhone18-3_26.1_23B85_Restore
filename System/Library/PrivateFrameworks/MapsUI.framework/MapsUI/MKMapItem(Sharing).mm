@@ -60,13 +60,11 @@
 
 - (id)_mapsui_sharingURL
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E696F418]);
-  v7[0] = self;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[0] = self;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   v4 = [v2 urlForOpeningMapItems:v3 options:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

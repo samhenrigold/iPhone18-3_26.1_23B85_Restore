@@ -40,7 +40,7 @@
     if (v4)
     {
       v5 = v4;
-      v6 = TK_LOG_sepkey_0();
+      v6 = TK_LOG_sepkey_0(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [TKAKSParameters data];
@@ -69,7 +69,7 @@
 
 + (void)_dumpPlist:(id)plist into:(id)into
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   plistCopy = plist;
   intoCopy = into;
   objc_opt_class();
@@ -130,41 +130,41 @@ LABEL_12:
   if (objc_opt_isKindOfClass())
   {
     [intoCopy appendString:@"["];
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v15 = plistCopy;
-    v16 = [(__CFString *)v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
-    if (v16)
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v14 = plistCopy;
+    v15 = [(__CFString *)v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    if (v15)
     {
-      v17 = v16;
-      v18 = *v36;
-      v19 = 1;
+      v16 = v15;
+      v17 = *v35;
+      v18 = 1;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v36 != v18)
+          if (*v35 != v17)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v14);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
-          if ((v19 & 1) == 0)
+          v20 = *(*(&v34 + 1) + 8 * i);
+          if ((v18 & 1) == 0)
           {
             [intoCopy appendString:{@", "}];
           }
 
-          [self _dumpPlist:v21 into:intoCopy];
-          v19 = 0;
+          [self _dumpPlist:v20 into:intoCopy];
+          v18 = 0;
         }
 
-        v17 = [(__CFString *)v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
-        v19 = 0;
+        v16 = [(__CFString *)v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v18 = 0;
       }
 
-      while (v17);
+      while (v16);
     }
 
     v9 = @"]";
@@ -175,71 +175,69 @@ LABEL_12:
   if (objc_opt_isKindOfClass())
   {
     [intoCopy appendString:@"{"];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v30 = plistCopy;
-    v22 = plistCopy;
-    v23 = [(__CFString *)v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
-    if (v23)
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v29 = plistCopy;
+    v21 = plistCopy;
+    v22 = [(__CFString *)v21 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    if (v22)
     {
-      v24 = v23;
-      v25 = 1;
-      v26 = *v32;
+      v23 = v22;
+      v24 = 1;
+      v25 = *v31;
       do
       {
-        v27 = 0;
+        v26 = 0;
         do
         {
-          if (*v32 != v26)
+          if (*v31 != v25)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v21);
           }
 
-          v28 = *(*(&v31 + 1) + 8 * v27);
-          if ((v25 & 1) == 0)
+          v27 = *(*(&v30 + 1) + 8 * v26);
+          if ((v24 & 1) == 0)
           {
             [intoCopy appendString:{@", "}];
           }
 
-          [self _dumpPlist:v28 into:intoCopy];
+          [self _dumpPlist:v27 into:intoCopy];
           [intoCopy appendString:@":"];
           if (_dumpPlist_into__onceToken != -1)
           {
             +[TKAKSParameters _dumpPlist:into:];
           }
 
-          if ([_dumpPlist_into__deniedKeys containsObject:v28])
+          if ([_dumpPlist_into__deniedKeys containsObject:v27])
           {
             [intoCopy appendFormat:@"###"];
           }
 
           else
           {
-            v29 = [(__CFString *)v22 objectForKeyedSubscript:v28];
-            [self _dumpPlist:v29 into:intoCopy];
+            v28 = [(__CFString *)v21 objectForKeyedSubscript:v27];
+            [self _dumpPlist:v28 into:intoCopy];
           }
 
-          v25 = 0;
-          ++v27;
+          v24 = 0;
+          ++v26;
         }
 
-        while (v24 != v27);
-        v24 = [(__CFString *)v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
-        v25 = 0;
+        while (v23 != v26);
+        v23 = [(__CFString *)v21 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v24 = 0;
       }
 
-      while (v24);
+      while (v23);
     }
 
     [intoCopy appendString:@"}"];
-    plistCopy = v30;
+    plistCopy = v29;
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __35__TKAKSParameters__dumpPlist_into___block_invoke()
@@ -306,7 +304,6 @@ void __35__TKAKSParameters__dumpPlist_into___block_invoke()
 
 - (void)setData:(id)data forKey:(unsigned int)key
 {
-  params = self->_params;
   dataCopy = data;
   dataCopy2 = data;
   [dataCopy2 bytes];
@@ -319,7 +316,6 @@ void __35__TKAKSParameters__dumpPlist_into___block_invoke()
 
 - (void)setNumber:(int64_t)number forKey:(unsigned int)key
 {
-  params = self->_params;
   aks_params_set_number();
   encoded = self->_encoded;
   self->_encoded = 0;
@@ -327,10 +323,9 @@ void __35__TKAKSParameters__dumpPlist_into___block_invoke()
 
 - (void)data
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(&dword_1DF413000, v0, OS_LOG_TYPE_ERROR, "failed to get DER-encoded aks_params_t (err=%d)", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF413000, v0, OS_LOG_TYPE_ERROR, "failed to get DER-encoded aks_params_t (err=%d)", v1, 8u);
 }
 
 @end

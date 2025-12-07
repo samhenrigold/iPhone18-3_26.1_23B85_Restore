@@ -99,7 +99,7 @@
   if (result)
   {
 
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result duration];
+    return objc_msgSend_duration(result);
   }
 
   else
@@ -634,7 +634,7 @@ uint64_t __101__AVFigAssetInspectorLoader__mapAssetKeys_toFigAssetPropertySet_fi
 
 - (void)loadValuesAsynchronouslyForKeys:(id)keys keysForCollectionKeys:(id)collectionKeys completionHandler:(id)handler
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   if (dword_1ED5AC2D8)
   {
     valuePtr = 0;
@@ -671,28 +671,28 @@ LABEL_67:
     objc_exception_throw(v49);
   }
 
-  v58 = 0u;
-  v59 = 0u;
+  v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  v15 = [collectionKeys countByEnumeratingWithState:&v56 objects:v61 count:16];
+  v53 = 0u;
+  v54 = 0u;
+  v15 = [collectionKeys countByEnumeratingWithState:&v53 objects:v58 count:16];
   if (!v15)
   {
     goto LABEL_15;
   }
 
   v16 = v15;
-  v17 = *v57;
+  v17 = *v54;
   do
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v57 != v17)
+      if (*v54 != v17)
       {
         objc_enumerationMutation(collectionKeys);
       }
 
-      [collectionKeys objectForKey:{*(*(&v56 + 1) + 8 * i), v50, v52}];
+      [collectionKeys objectForKey:*(*(&v53 + 1) + 8 * i)];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -703,7 +703,7 @@ LABEL_67:
       }
     }
 
-    v16 = [collectionKeys countByEnumeratingWithState:&v56 objects:v61 count:16];
+    v16 = [collectionKeys countByEnumeratingWithState:&v53 objects:v58 count:16];
   }
 
   while (v16);
@@ -733,7 +733,7 @@ LABEL_20:
       [v25 addObjectsFromArray:{objc_msgSend(collectionKeys, "allKeys")}];
     }
 
-    v26 = [MEMORY[0x1E695DFA8] setWithCapacity:{0, v50}];
+    v26 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
     v27 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
     [objc_opt_class() _mapAssetKeys:v25 toFigAssetPropertySet:v26 figAssetTrackPropertySet:v27 callerName:@"-[AVAsset loadValuesAsynchronouslyForKeys:completionHandler:]"];
     if (collectionKeys)
@@ -744,14 +744,14 @@ LABEL_20:
         v29 = v28;
         v30 = dictionaryOfFigAssetTrackPropertiesForTrackKeys(self->_prefersNominalDurations);
         v31 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = __101__AVFigAssetInspectorLoader_loadValuesAsynchronouslyForKeys_keysForCollectionKeys_completionHandler___block_invoke;
-        v55[3] = &unk_1E7464EB8;
-        v55[4] = v30;
-        v55[5] = v27;
-        v55[6] = v31;
-        [v29 enumerateObjectsUsingBlock:v55];
+        v52[0] = MEMORY[0x1E69E9820];
+        v52[1] = 3221225472;
+        v52[2] = __101__AVFigAssetInspectorLoader_loadValuesAsynchronouslyForKeys_keysForCollectionKeys_completionHandler___block_invoke;
+        v52[3] = &unk_1E7464EB8;
+        v52[4] = v30;
+        v52[5] = v27;
+        v52[6] = v31;
+        [v29 enumerateObjectsUsingBlock:v52];
         if ([v31 count])
         {
           NSLog(&cfstr_AvassetLoadval_0.isa, [v31 allObjects]);
@@ -763,7 +763,7 @@ LABEL_20:
     if ([allObjects count])
     {
       valuePtr = 0;
-      v54 = 0;
+      v51 = 0;
       if (dword_1ED5AC2D8)
       {
         v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -774,7 +774,7 @@ LABEL_20:
       v34 = *(*(CMBaseObjectGetVTable() + 16) + 16);
       if (v34)
       {
-        v35 = v34(_figAsset, allObjects, &v54, &valuePtr);
+        v35 = v34(_figAsset, allObjects, &v51, &valuePtr);
       }
 
       else
@@ -789,7 +789,7 @@ LABEL_20:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      if (!v35 && !v54)
+      if (!v35 && !v51)
       {
         v37 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
         if (v37)
@@ -805,7 +805,7 @@ LABEL_20:
     if ([allObjects2 count])
     {
       valuePtr = 0;
-      v54 = 0;
+      v51 = 0;
       if (dword_1ED5AC2D8)
       {
         v40 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -816,7 +816,7 @@ LABEL_20:
       v41 = *(*(CMBaseObjectGetVTable() + 16) + 80);
       if (v41)
       {
-        v42 = v41(_figAsset, 0, allObjects2, &v54, &valuePtr);
+        v42 = v41(_figAsset, 0, allObjects2, &v51, &valuePtr);
       }
 
       else
@@ -831,7 +831,7 @@ LABEL_20:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      if (!v42 && !v54)
+      if (!v42 && !v51)
       {
         v44 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberSInt32Type, &valuePtr);
         if (v44)
@@ -888,11 +888,11 @@ LABEL_22:
 
         if (v24)
         {
-          v62 = 136315394;
-          v63 = "[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]";
-          v64 = 2048;
-          v65 = v20;
-          _os_log_send_and_compose_impl();
+          v59 = 136315394;
+          v60 = "[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]";
+          v61 = 2048;
+          v62 = v20;
+          _os_log_send_and_compose_impl(v24, 0, v63, 128, &dword_196061000, v22, 0, "<<<< AVAssetInspectorLoader >>>> %s: Batch %p: invoking completion handler immediately", &v59, 22);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -968,37 +968,37 @@ uint64_t __101__AVFigAssetInspectorLoader_loadValuesAsynchronouslyForKeys_keysFo
 
 - (void)_ensureAllDependenciesOfKeyAreLoaded:(id)loaded
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([(AVFigAssetInspectorLoader *)self statusOfValueForKey:loaded error:0]<= 1)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
-    v16 = 0;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
+    v14 = 0;
     v5 = objc_alloc_init(MEMORY[0x1E696AB30]);
     v6 = [MEMORY[0x1E695DEC8] arrayWithObject:loaded];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __66__AVFigAssetInspectorLoader__ensureAllDependenciesOfKeyAreLoaded___block_invoke;
-    v12[3] = &unk_1E7460EE0;
-    v12[4] = v5;
-    v12[5] = &v13;
-    [(AVFigAssetInspectorLoader *)self loadValuesAsynchronouslyForKeys:v6 completionHandler:v12];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __66__AVFigAssetInspectorLoader__ensureAllDependenciesOfKeyAreLoaded___block_invoke;
+    v10[3] = &unk_1E7460EE0;
+    v10[4] = v5;
+    v10[5] = &v11;
+    [(AVFigAssetInspectorLoader *)self loadValuesAsynchronouslyForKeys:v6 completionHandler:v10];
     [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:0.0];
     [v5 lock];
-    if ((v14[3] & 1) == 0)
+    if ((v12[3] & 1) == 0)
     {
       v7 = 5.0;
       do
       {
-        [v5 waitUntilDate:{objc_msgSend(MEMORY[0x1E695DF00], "dateWithTimeIntervalSinceNow:", v7, v9, v10)}];
-        if (v14[3])
+        [v5 waitUntilDate:{objc_msgSend(MEMORY[0x1E695DF00], "dateWithTimeIntervalSinceNow:", v7)}];
+        if (v12[3])
         {
           break;
         }
 
-        v11 = 0;
-        [(AVFigAssetInspectorLoader *)self _statusOfValueForKey:loaded error:0 firstNonLoadedDependencyKey:&v11];
+        v9 = 0;
+        [(AVFigAssetInspectorLoader *)self _statusOfValueForKey:loaded error:0 firstNonLoadedDependencyKey:&v9];
         if (dword_1ED5AC2D8)
         {
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1009,12 +1009,12 @@ uint64_t __101__AVFigAssetInspectorLoader_loadValuesAsynchronouslyForKeys_keysFo
         v7 = v7 + v7;
       }
 
-      while ((v14[3] & 1) == 0);
+      while ((v12[3] & 1) == 0);
     }
 
     [v5 unlock];
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v11, 8);
   }
 }
 
@@ -1142,78 +1142,84 @@ uint64_t __66__AVFigAssetInspectorLoader__ensureAllDependenciesOfKeyAreLoaded___
 
 - (void)_invokeCompletionHandlerForLoadingBatches:(id)batches
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v20 = 0u;
-  v21 = 0u;
+  v27 = *MEMORY[0x1E69E9840];
   v22 = 0u;
   v23 = 0u;
-  v3 = [batches countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v24 = 0u;
+  v25 = 0u;
+  v3 = [batches countByEnumeratingWithState:&v22 objects:v26 count:16];
+  p_superclass = AVCMNotificationDispatcherListenerKey.superclass;
+  v5 = AVCMNotificationDispatcherListenerKey.superclass;
   if (v3)
   {
-    v4 = v3;
-    v19 = *v21;
+    v6 = v3;
+    v21 = *v23;
     do
     {
-      v5 = 0;
-      v16 = v4;
+      v7 = 0;
+      v18 = v6;
       do
       {
-        if (*v21 != v19)
+        if (*v23 != v21)
         {
           objc_enumerationMutation(batches);
         }
 
-        v6 = *(*(&v20 + 1) + 8 * v5);
-        v7 = [v6 objectForKey:{@"AVAsynchronousLoadingCompletionHandlerKey", v14, v15}];
-        if (v7)
+        v8 = *(*(&v22 + 1) + 8 * v7);
+        v9 = [v8 objectForKey:@"AVAsynchronousLoadingCompletionHandlerKey"];
+        if (v9)
         {
-          v8 = v7;
-          v9 = [v6 objectForKeyedSubscript:@"AVAsynchronousLoadingPropertyBatchIDKey"];
-          if (v9)
-          {
-            [MEMORY[0x1E696AEC0] stringWithFormat:@", batchID = %ld", objc_msgSend(v9, "longValue")];
-          }
-
-          v11 = [v6 objectForKeyedSubscript:@"AVAsynchronousLoadingTrackPropertyBatchIDKey"];
+          v10 = v9;
+          v11 = [v8 objectForKeyedSubscript:@"AVAsynchronousLoadingPropertyBatchIDKey"];
           if (v11)
           {
-            [MEMORY[0x1E696AEC0] stringWithFormat:@", track batchID = %ld", objc_msgSend(v11, "longValue")];
+            [MEMORY[0x1E696AEC0] stringWithFormat:@", batchID = %ld", objc_msgSend(v11, "longValue")];
           }
 
-          if (dword_1ED5AC2D8)
+          v13 = [v8 objectForKeyedSubscript:@"AVAsynchronousLoadingTrackPropertyBatchIDKey"];
+          if (v13)
           {
+            [MEMORY[0x1E696AEC0] stringWithFormat:@", track batchID = %ld", objc_msgSend(v13, "longValue")];
+          }
+
+          if (*(p_superclass + 182))
+          {
+            v14 = p_superclass;
+            v15 = v5;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
             os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+            v5 = v15;
             fig_log_call_emit_and_clean_up_after_send_and_compose();
-            v4 = v16;
+            p_superclass = v14;
+            v6 = v18;
           }
 
-          dispatch_async(self->_completionHandlerQueue, v8);
+          dispatch_async(self->_completionHandlerQueue, v10);
         }
 
-        else if (dword_1ED5AC2D8)
+        else if (*(p_superclass + 182))
         {
-          v10 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+          v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        ++v5;
+        ++v7;
       }
 
-      while (v4 != v5);
-      v4 = [batches countByEnumeratingWithState:&v20 objects:v24 count:16];
+      while (v6 != v7);
+      v6 = [batches countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
-    while (v4);
+    while (v6);
   }
 
   if (![batches count])
   {
-    if (dword_1ED5AC2D8)
+    if (*(p_superclass + 182))
     {
-      v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }

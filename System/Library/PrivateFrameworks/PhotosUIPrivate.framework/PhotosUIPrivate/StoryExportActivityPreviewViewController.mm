@@ -11,25 +11,27 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1B38A13C8();
+  sub_1B38A13C8(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1B38A18C4(appear, &selRef_viewDidAppear_, 1);
+  sub_1B38A18C4(appearCopy, &selRef_viewDidAppear_, 1);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1B38A18C4(disappear, &selRef_viewDidDisappear_, 0);
+  sub_1B38A18C4(disappearCopy, &selRef_viewDidDisappear_, 0);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1B38A19B4();
+  sub_1B38A19B4(selfCopy);
 }
 
 - (_TtC15PhotosUIPrivate40StoryExportActivityPreviewViewController)initWithNibName:(id)name bundle:(id)bundle

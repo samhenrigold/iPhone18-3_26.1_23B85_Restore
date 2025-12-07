@@ -209,54 +209,8 @@
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      if (objc_opt_isKindOfClass() & 1) == 0 || ((v17 = MEMORY[0x277D82BE0](location[0]), [v17 count]) ? ((v13 = objc_msgSend(v17, "firstObject"), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), MEMORY[0x277D82BD8](v13), (isKindOfClass) || (v11 = objc_msgSend(v17, "firstObject"), objc_opt_class(), v12 = objc_opt_isKindOfClass(), MEMORY[0x277D82BD8](v11), (v12) ? (v20 = -[AMDListFeature initWithValue:]([AMDListFeature alloc], "initWithValue:", v17), v18 = 1) : (v9 = objc_msgSend(v17, "firstObject"), objc_opt_class(), v10 = objc_opt_isKindOfClass(), MEMORY[0x277D82BD8](v9), (v10 & 1) == 0) ? (v18 = 0) : (v20 = -[AMDMultiArrayFeature initWithValue:]([AMDMultiArrayFeature alloc], "initWithValue:", v17), v18 = 1)) : (v4 = [AMDListFeature alloc], v20 = -[AMDListFeature initWithValue:](v4, "initWithValue:", MEMORY[0x277CBEBF8]), v18 = 1), objc_storeStrong(&v17, 0), !v18))
       {
-        goto LABEL_31;
-      }
-
-      v17 = MEMORY[0x277D82BE0](location[0]);
-      if ([v17 count])
-      {
-        firstObject = [v17 firstObject];
-        objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
-        MEMORY[0x277D82BD8](firstObject);
-        if (isKindOfClass & 1) != 0 || (v11 = [v17 firstObject], objc_opt_class(), v12 = objc_opt_isKindOfClass(), MEMORY[0x277D82BD8](v11), (v12))
-        {
-          v20 = [[AMDListFeature alloc] initWithValue:v17];
-          v18 = 1;
-        }
-
-        else
-        {
-          firstObject2 = [v17 firstObject];
-          objc_opt_class();
-          v10 = objc_opt_isKindOfClass();
-          MEMORY[0x277D82BD8](firstObject2);
-          if (v10)
-          {
-            v20 = [[AMDMultiArrayFeature alloc] initWithValue:v17];
-            v18 = 1;
-          }
-
-          else
-          {
-            v18 = 0;
-          }
-        }
-      }
-
-      else
-      {
-        v4 = [AMDListFeature alloc];
-        v20 = [(AMDListFeature *)v4 initWithValue:MEMORY[0x277CBEBF8]];
-        v18 = 1;
-      }
-
-      objc_storeStrong(&v17, 0);
-      if (!v18)
-      {
-LABEL_31:
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -267,7 +221,7 @@ LABEL_31:
         if ([v16 count])
         {
           allValues = [v16 allValues];
-          firstObject3 = [allValues firstObject];
+          firstObject = [allValues firstObject];
           MEMORY[0x277D82BD8](allValues);
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -281,7 +235,7 @@ LABEL_31:
             v18 = 0;
           }
 
-          objc_storeStrong(&firstObject3, 0);
+          objc_storeStrong(&firstObject, 0);
         }
 
         else
@@ -753,23 +707,13 @@ LABEL_21:
     v52 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*bytes++];
     v25 = [v63 objectForKey:v52];
     MEMORY[0x277D82BD8](v25);
-    if (!v25)
-    {
-      goto LABEL_14;
-    }
-
-    v23 = v63;
-    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*v59];
-    [v23 setObject:? forKey:?];
-    MEMORY[0x277D82BD8](v24);
-    if (++v55 == v54)
+    if (v25 && (v23 = v63, v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*v59], objc_msgSend(v23, "setObject:forKey:"), MEMORY[0x277D82BD8](v24), ++v55, v55 == v54))
     {
       v51 = 4;
     }
 
     else
     {
-LABEL_14:
       v51 = 0;
     }
 
@@ -934,7 +878,6 @@ LABEL_52:
   objc_storeStrong(&v64, 0);
   objc_storeStrong(&v65, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)copyInt32Values:(int)values fromArray:(id)array toBuffer:(int *)buffer withDefaultValue:(int)value withRemapDictionary:(id)dictionary andPostRemapOperation:(id)operation
@@ -1023,7 +966,6 @@ LABEL_52:
   objc_storeStrong(&v27, 0);
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)copyFloat32Values:(int)values fromArray:(id)array toBuffer:(float *)buffer withDefaultValue:(float)value withRemapDictionary:(id)dictionary andPostRemapOperation:(id)operation
@@ -1109,7 +1051,6 @@ LABEL_12:
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (void)copyDoubleValues:(int)values fromArray:(id)array toBuffer:(double *)buffer withDefaultValue:(double)value withRemapDictionary:(id)dictionary andPostRemapOperation:(id)operation
@@ -1195,7 +1136,6 @@ LABEL_12:
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

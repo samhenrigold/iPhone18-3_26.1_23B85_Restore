@@ -19,7 +19,7 @@
   modeCopy = mode;
   normalizedIdentifier = [modeCopy normalizedIdentifier];
   normalizedIdentifier2 = [modeCopy normalizedIdentifier];
-  if (![normalizedIdentifier2 isEqualToString:@"ko_KR"])
+  if (!objc_msgSend_isEqualToString_(normalizedIdentifier2))
   {
     goto LABEL_4;
   }

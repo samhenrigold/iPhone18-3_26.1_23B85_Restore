@@ -20,30 +20,31 @@
 
 - (CARCarManager)init
 {
-  v10.receiver = self;
-  v10.super_class = CARCarManager;
-  v2 = [(CARCarManager *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = CARCarManager;
+  v2 = [(CARCarManager *)&v11 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_10001C784();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10001C784(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[Settings] CarManager init", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[Settings] CarManager init", v10, 2u);
     }
 
-    v4 = [[CARObserverHashTable alloc] initWithProtocol:&OBJC_PROTOCOL___CARCarManagerObserver];
-    observers = v2->_observers;
-    v2->_observers = v4;
+    v5 = [[CARObserverHashTable alloc] initWithProtocol:&OBJC_PROTOCOL___CARCarManagerObserver];
+    observers = v3->_observers;
+    v3->_observers = v5;
 
-    v6 = objc_alloc_init(CAFCarManager);
-    carManager = v2->_carManager;
-    v2->_carManager = v6;
+    v7 = objc_alloc_init(CAFCarManager);
+    carManager = v3->_carManager;
+    v3->_carManager = v7;
 
-    [(CAFCarManager *)v2->_carManager registerObserver:v2];
+    [(CAFCarManager *)v3->_carManager registerObserver:v3];
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -80,7 +81,7 @@
 - (void)carManager:(id)manager didUpdateCurrentCar:(id)car
 {
   carCopy = car;
-  v6 = sub_10001C784();
+  v6 = sub_10001C784(carCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
@@ -126,7 +127,7 @@
 
 - (void)accessoryDidUpdate:(id)update receivedAllValues:(BOOL)values
 {
-  v5 = sub_10001C784();
+  v5 = sub_10001C784(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v16 = 0;
@@ -160,7 +161,7 @@
 - (void)pairedDevicesInformationService:(id)service didUpdatePairedDeviceList:(id)list
 {
   serviceCopy = service;
-  v6 = sub_10001C784();
+  v6 = sub_10001C784(serviceCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -217,73 +218,76 @@
 
 - (void)_postInRangeNotificationIfNeeded
 {
-  if ([(CARCarManager *)self stopTrackingInRangeNotification])
+  stopTrackingInRangeNotification = [(CARCarManager *)self stopTrackingInRangeNotification];
+  if (stopTrackingInRangeNotification)
   {
-    pairedDevices = sub_10001C784();
+    pairedDevices = sub_10001C784(stopTrackingInRangeNotification);
     if (os_log_type_enabled(pairedDevices, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v4 = "[Settings] InRange notification is not tracked anymore";
-      v5 = pairedDevices;
-      v6 = 2;
+      v5 = "[Settings] InRange notification is not tracked anymore";
+      v6 = pairedDevices;
+      v7 = 2;
 LABEL_7:
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v4, buf, v6);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v5, buf, v7);
     }
   }
 
   else
   {
-    v7 = +[NSDate date];
+    v8 = +[NSDate date];
     checkInRangeDevicesStartDate = [(CARCarManager *)self checkInRangeDevicesStartDate];
-    [v7 timeIntervalSinceDate:checkInRangeDevicesStartDate];
-    v10 = v9;
+    [v8 timeIntervalSinceDate:checkInRangeDevicesStartDate];
+    v11 = v10;
 
-    if (v10 <= 60.0)
+    if (v11 <= 60.0)
     {
-      v11 = +[CARSettingsAppDelegate sharedDelegate];
-      carManager = [v11 carManager];
+      v12 = +[CARSettingsAppDelegate sharedDelegate];
+      carManager = [v12 carManager];
       currentCar = [carManager currentCar];
       pairedDevices = [currentCar pairedDevices];
 
       if (pairedDevices)
       {
-        v40 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         v41 = 0u;
-        v38 = 0u;
-        v39 = 0u;
-        v33 = pairedDevices;
+        v42 = 0u;
+        v36 = pairedDevices;
         pairedDevicesInformation = [pairedDevices pairedDevicesInformation];
         pairedDeviceList = [pairedDevicesInformation pairedDeviceList];
 
-        v16 = [pairedDeviceList countByEnumeratingWithState:&v38 objects:v47 count:16];
-        if (v16)
+        state = [pairedDeviceList countByEnumeratingWithState:&v41 objects:v50 count:16];
+        if (state)
         {
-          v17 = v16;
-          v18 = *v39;
+          v19 = state;
+          v20 = *v42;
           while (2)
           {
-            for (i = 0; i != v17; i = i + 1)
+            v21 = 0;
+            do
             {
-              if (*v39 != v18)
+              if (*v42 != v20)
               {
                 objc_enumerationMutation(pairedDeviceList);
               }
 
-              v20 = *(*(&v38 + 1) + 8 * i);
-              v21 = sub_10001C784();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+              v22 = *(*(&v41 + 1) + 8 * v21);
+              v23 = sub_10001C784(state);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
               {
-                name = [v20 name];
-                [v20 state];
-                v23 = NSStringFromPairedDeviceState();
+                name = [v22 name];
+                [v22 state];
+                v25 = NSStringFromPairedDeviceState();
                 *buf = 138412546;
-                v44 = *&name;
-                v45 = 2114;
-                v46 = v23;
-                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[Settings] Device: %@=%{public}@", buf, 0x16u);
+                v47 = *&name;
+                v48 = 2114;
+                v49 = v25;
+                _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[Settings] Device: %@=%{public}@", buf, 0x16u);
               }
 
-              if ([v20 state] == 1)
+              state = [v22 state];
+              if (state == 1)
               {
 
                 accountName = [(CARCarManager *)self accountName];
@@ -291,48 +295,48 @@ LABEL_7:
                 {
                   name2 = accountName;
                   [(CARCarManager *)self _postNotification:accountName isFallback:0];
-                  pairedDevices = v33;
+                  pairedDevices = v36;
                 }
 
                 else
                 {
-                  v26 = sub_10001C784();
-                  pairedDevices = v33;
-                  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+                  v29 = sub_10001C784(0);
+                  pairedDevices = v36;
+                  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[Settings] CarManager Unable to retrieve account name, will use device name.", buf, 2u);
+                    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[Settings] CarManager Unable to retrieve account name, will use device name.", buf, 2u);
                   }
 
-                  v36 = 0u;
+                  v39 = 0u;
+                  v40 = 0u;
                   v37 = 0u;
-                  v34 = 0u;
-                  v35 = 0u;
-                  pairedDevicesInformation2 = [v33 pairedDevicesInformation];
+                  v38 = 0u;
+                  pairedDevicesInformation2 = [v36 pairedDevicesInformation];
                   pairedDeviceList2 = [pairedDevicesInformation2 pairedDeviceList];
 
-                  name2 = [pairedDeviceList2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+                  name2 = [pairedDeviceList2 countByEnumeratingWithState:&v37 objects:v45 count:16];
                   if (name2)
                   {
-                    v29 = *v35;
+                    v32 = *v38;
                     while (2)
                     {
-                      for (j = 0; j != name2; j = (j + 1))
+                      for (i = 0; i != name2; i = (i + 1))
                       {
-                        if (*v35 != v29)
+                        if (*v38 != v32)
                         {
                           objc_enumerationMutation(pairedDeviceList2);
                         }
 
-                        v31 = *(*(&v34 + 1) + 8 * j);
-                        if ([v31 state] == 2)
+                        v34 = *(*(&v37 + 1) + 8 * i);
+                        if ([v34 state] == 2)
                         {
-                          name2 = [v31 name];
+                          name2 = [v34 name];
                           goto LABEL_38;
                         }
                       }
 
-                      name2 = [pairedDeviceList2 countByEnumeratingWithState:&v34 objects:v42 count:16];
+                      name2 = [pairedDeviceList2 countByEnumeratingWithState:&v37 objects:v45 count:16];
                       if (name2)
                       {
                         continue;
@@ -342,7 +346,7 @@ LABEL_7:
                     }
 
 LABEL_38:
-                    pairedDevices = v33;
+                    pairedDevices = v36;
                   }
 
                   if ([name2 length])
@@ -352,11 +356,11 @@ LABEL_38:
 
                   else
                   {
-                    v32 = sub_10001C784();
-                    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                    v35 = sub_10001C784(0);
+                    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[Settings] CarManager empty device name not able to present notification.", buf, 2u);
+                      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "[Settings] CarManager empty device name not able to present notification.", buf, 2u);
                     }
                   }
                 }
@@ -364,10 +368,14 @@ LABEL_38:
                 [(CARCarManager *)self setStopTrackingInRangeNotification:1];
                 goto LABEL_45;
               }
+
+              v21 = v21 + 1;
             }
 
-            v17 = [pairedDeviceList countByEnumeratingWithState:&v38 objects:v47 count:16];
-            if (v17)
+            while (v19 != v21);
+            state = [pairedDeviceList countByEnumeratingWithState:&v41 objects:v50 count:16];
+            v19 = state;
+            if (state)
             {
               continue;
             }
@@ -376,19 +384,19 @@ LABEL_38:
           }
         }
 
-        name2 = sub_10001C784();
+        name2 = sub_10001C784(v26);
         if (os_log_type_enabled(name2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, name2, OS_LOG_TYPE_DEFAULT, "[Settings] CarManager no InRange devices available", buf, 2u);
         }
 
-        pairedDevices = v33;
+        pairedDevices = v36;
       }
 
       else
       {
-        name2 = sub_10001C784();
+        name2 = sub_10001C784(v15);
         if (os_log_type_enabled(name2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -401,15 +409,14 @@ LABEL_45:
 
     else
     {
-      [(CARCarManager *)self setStopTrackingInRangeNotification:1];
-      pairedDevices = sub_10001C784();
+      pairedDevices = sub_10001C784([(CARCarManager *)self setStopTrackingInRangeNotification:1]);
       if (os_log_type_enabled(pairedDevices, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349056;
-        v44 = v10;
-        v4 = "[Settings] Stop tracking InRange notification (%{public}f)";
-        v5 = pairedDevices;
-        v6 = 12;
+        v47 = v11;
+        v5 = "[Settings] Stop tracking InRange notification (%{public}f)";
+        v6 = pairedDevices;
+        v7 = 12;
         goto LABEL_7;
       }
     }
@@ -420,7 +427,7 @@ LABEL_45:
 {
   fallbackCopy = fallback;
   notificationCopy = notification;
-  v7 = sub_10001C784();
+  v7 = sub_10001C784(notificationCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

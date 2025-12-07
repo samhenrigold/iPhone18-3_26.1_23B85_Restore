@@ -690,17 +690,8 @@ void __50__PKPGSVTransitionInterstitialView_layoutSubviews__block_invoke(uint64_
     }
   }
 
-  if ([v3 isHidden])
+  if ([v3 isHidden] && (objc_msgSend(v3, "setHidden:", 0), v4))
   {
-    [v3 setHidden:0];
-    if (!v4)
-    {
-      v36 = 0;
-      CATransform3DMakeScale(&v37, v11, v11, 1.0);
-      v22 = 0;
-      goto LABEL_41;
-    }
-
     v14 = 88;
     if (v5 == v3)
     {
@@ -754,43 +745,19 @@ void __50__PKPGSVTransitionInterstitialView_layoutSubviews__block_invoke(uint64_
       v19 = fmin(v19, v18);
     }
 
-    CATransform3DMakeScale(&v37, v19, v19, 1.0);
-    [v3 pkui_setTransform:&v37 animated:0];
-    v36 = 0;
-    CATransform3DMakeScale(&v37, v11, v11, 1.0);
-    goto LABEL_40;
+    CATransform3DMakeScale(&v23, v19, v19, 1.0);
+    objc_msgSend_pkui_setTransform_animated_(v3);
+    v22 = 0;
+    CATransform3DMakeScale(&v23, v11, v11, 1.0);
   }
 
-  v36 = 0;
-  CATransform3DMakeScale(&v37, v11, v11, 1.0);
-  v22 = 0;
-  if (v4)
+  else
   {
-LABEL_40:
-    v22 = *(a1 + 120);
+    v22 = 0;
+    CATransform3DMakeScale(&v23, v11, v11, 1.0);
   }
 
-LABEL_41:
-  [v3 pkui_setTransform:&v37 withAdditiveAnimationFactory:v22 animation:&v36];
-  if (v36)
-  {
-    [v36 setHighFrameRateReason:2162689];
-    LODWORD(v23) = 1117782016;
-    LODWORD(v24) = 1123024896;
-    LODWORD(v25) = 1123024896;
-    [v36 setPreferredFrameRateRange:{v23, v24, v25}];
-    v26 = [(PKPGSVTransitionInterstitialView *)*(a1 + 32) _incrementAnimationCount];
-    v27 = v36;
-    v31 = MEMORY[0x1E69E9820];
-    v32 = 3221225472;
-    v33 = __50__PKPGSVTransitionInterstitialView_layoutSubviews__block_invoke_2;
-    v34 = &unk_1E8010AD8;
-    v35 = v26;
-    v28 = v26;
-    [v27 pkui_setCompletionHandler:&v31];
-    v29 = [v3 layer];
-    v30 = [v29 pkui_addAdditiveAnimation:v36];
-  }
+  objc_msgSend_pkui_setTransform_withAdditiveAnimationFactory_animation_(v3);
 }
 
 - (void)_incrementAnimationCount
@@ -798,7 +765,7 @@ LABEL_41:
   selfCopy = self;
   if (self)
   {
-    ++*(self + 416);
+    ++self[52];
     [(PKPGSVTransitionInterstitialView *)self _updateActive];
     objc_initWeak(&location, selfCopy);
     aBlock[0] = MEMORY[0x1E69E9820];

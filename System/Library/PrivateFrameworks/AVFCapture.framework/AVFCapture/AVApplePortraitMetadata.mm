@@ -21,22 +21,22 @@
   }
 
   v5 = objc_alloc_init(AVApplePortraitMetadataInternal);
-  v6 = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990BB8]), "intValue"}];
-  if (v6 < 1)
+  intValue = [objc_msgSend_objectForKeyedSubscript_(dictionary) intValue];
+  if (intValue < 1)
   {
     goto LABEL_12;
   }
 
-  [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990B68]), "floatValue"}];
+  [objc_msgSend_objectForKeyedSubscript_(dictionary) floatValue];
   [(AVApplePortraitMetadataInternal *)v5 setApertureFocalRatio:?];
-  [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990B88]), "floatValue"}];
+  [objc_msgSend_objectForKeyedSubscript_(dictionary) floatValue];
   [(AVApplePortraitMetadataInternal *)v5 setLuminanceNoiseAmplitude:?];
-  -[AVApplePortraitMetadataInternal setFaceOrientation:](v5, "setFaceOrientation:", [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990B78]), "intValue"}]);
-  -[AVApplePortraitMetadataInternal setFaceObservationsData:](v5, "setFaceObservationsData:", [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990B70]]);
-  v7 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990BA8]];
+  -[AVApplePortraitMetadataInternal setFaceOrientation:](v5, "setFaceOrientation:", [objc_msgSend_objectForKeyedSubscript_(dictionary) intValue]);
+  [(AVApplePortraitMetadataInternal *)v5 setFaceObservationsData:objc_msgSend_objectForKeyedSubscript_(dictionary)];
+  v7 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   v8 = [v7 count] == 2 ? objc_msgSend(MEMORY[0x1E696AC90], "indexSetWithIndexesInRange:", objc_msgSend(objc_msgSend(v7, "objectAtIndexedSubscript:", 0), "unsignedIntegerValue"), objc_msgSend(objc_msgSend(v7, "objectAtIndexedSubscript:", 1), "unsignedIntegerValue")) : 0;
   [(AVApplePortraitMetadataInternal *)v5 setIndexesOfShallowDepthOfFieldObservations:v8];
-  v10 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990B80]];
+  v10 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   __asm { FMOV            V0.2D, #0.5 }
 
   v20.origin = _Q0;
@@ -44,7 +44,7 @@
   v20.size.height = 0.0;
   CGRectMakeWithDictionaryRepresentation(v10, &v20);
   [(AVApplePortraitMetadataInternal *)v5 setFocusRectangle:*&v20.origin, v20.size.width, v20.size.height];
-  if (v6 <= 3)
+  if (intValue <= 3)
   {
 LABEL_12:
     [(AVApplePortraitMetadataInternal *)v5 setMinimumApertureFocalRatio:0.0];
@@ -52,11 +52,11 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990B98]), "floatValue"}];
+  [objc_msgSend_objectForKeyedSubscript_(dictionary) floatValue];
   [(AVApplePortraitMetadataInternal *)v5 setMinimumApertureFocalRatio:?];
-  [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990B90]), "floatValue"}];
+  [objc_msgSend_objectForKeyedSubscript_(dictionary) floatValue];
   [(AVApplePortraitMetadataInternal *)v5 setMaximumApertureFocalRatio:?];
-  if (v6 == 4)
+  if (intValue == 4)
   {
 LABEL_13:
     LODWORD(v16) = 2143289344;
@@ -64,7 +64,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v17 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990BA0]];
+  v17 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (v17)
   {
     [v17 floatValue];
@@ -76,17 +76,17 @@ LABEL_13:
   }
 
   [(AVApplePortraitMetadataInternal *)v5 setPortraitLightingEffectStrength:v18];
-  if (v6 >= 6)
+  if (intValue >= 6)
   {
-    v19 = [objc_msgSend(dictionary objectForKeyedSubscript:{*MEMORY[0x1E6990BB0]), "intValue"}];
+    intValue2 = [objc_msgSend_objectForKeyedSubscript_(dictionary) intValue];
     goto LABEL_15;
   }
 
 LABEL_14:
-  v19 = 0;
+  intValue2 = 0;
 LABEL_15:
-  [(AVApplePortraitMetadataInternal *)v5 setSDOFRenderingVersion:v19];
-  [(AVApplePortraitMetadataInternal *)v5 setVersion:v6];
+  [(AVApplePortraitMetadataInternal *)v5 setSDOFRenderingVersion:intValue2];
+  [(AVApplePortraitMetadataInternal *)v5 setVersion:intValue];
   return [(AVApplePortraitMetadata *)v4 initWithInternal:v5];
 }
 

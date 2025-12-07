@@ -139,11 +139,11 @@ LABEL_16:
 
 - (NSDictionary)JSONObject
 {
-  v19[4] = *MEMORY[0x1E69E9840];
-  v18[0] = @"handle";
+  v18[4] = *MEMORY[0x1E69E9840];
+  v17[0] = @"handle";
   handle = [(KCSharingParticipant *)self handle];
-  v19[0] = handle;
-  v18[1] = @"permissionLevel";
+  v18[0] = handle;
+  v17[1] = @"permissionLevel";
   permissionLevel = [(KCSharingParticipant *)self permissionLevel];
   v5 = @"readOnly";
   if (permissionLevel == 1)
@@ -157,11 +157,11 @@ LABEL_16:
   }
 
   v6 = v5;
-  v19[1] = v6;
-  v18[2] = @"isCurrentUser";
+  v18[1] = v6;
+  v17[2] = @"isCurrentUser";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:{-[KCSharingParticipant isCurrentUser](self, "isCurrentUser")}];
-  v19[2] = v7;
-  v18[3] = @"inviteStatus";
+  v18[2] = v7;
+  v17[3] = @"inviteStatus";
   inviteStatus = [(KCSharingParticipant *)self inviteStatus];
   if ((inviteStatus - 1) > 2)
   {
@@ -173,8 +173,8 @@ LABEL_16:
     v9 = off_1E70D4F38[inviteStatus - 1];
   }
 
-  v19[3] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v18[3] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
   v11 = [v10 mutableCopy];
 
   participantID = [(KCSharingParticipant *)self participantID];
@@ -185,7 +185,6 @@ LABEL_16:
   [v11 setObject:v14 forKeyedSubscript:@"inviteToken"];
 
   v15 = [v11 copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

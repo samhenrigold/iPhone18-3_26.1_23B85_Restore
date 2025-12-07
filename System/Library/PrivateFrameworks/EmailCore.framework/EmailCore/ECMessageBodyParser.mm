@@ -46,30 +46,30 @@ os_log_t ___ef_log_ECMessageBodyParser_block_invoke()
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   elementPool = self->_elementPool;
-  v4 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(elementPool);
         }
 
-        [*(*(&v13 + 1) + 8 * i) setParser:0];
+        [*(*(&v12 + 1) + 8 * i) setParser:0];
       }
 
-      v5 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -93,10 +93,9 @@ os_log_t ___ef_log_ECMessageBodyParser_block_invoke()
     CFRelease(nodesQuoteLevelCache);
   }
 
-  v12.receiver = self;
-  v12.super_class = ECMessageBodyParser;
-  [(ECMessageBodyParser *)&v12 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = ECMessageBodyParser;
+  [(ECMessageBodyParser *)&v11 dealloc];
 }
 
 - (BOOL)shouldProceedParsing
@@ -166,27 +165,27 @@ os_log_t ___ef_log_ECMessageBodyParser_block_invoke()
 
 - (id)getAvailableMessageBodyElement
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   elementPool = self->_elementPool;
-  v4 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v12 != v6)
+      if (*v11 != v6)
       {
         objc_enumerationMutation(elementPool);
       }
 
-      v8 = *(*(&v11 + 1) + 8 * v7);
+      v8 = *(*(&v10 + 1) + 8 * v7);
       if (![v8 isExternallyRetained])
       {
         break;
@@ -194,7 +193,7 @@ LABEL_3:
 
       if (v5 == ++v7)
       {
-        v5 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -206,7 +205,7 @@ LABEL_3:
 
     if (v8)
     {
-      goto LABEL_12;
+      return v8;
     }
   }
 
@@ -215,8 +214,6 @@ LABEL_11:
   [v8 setParser:self];
   [(NSMutableArray *)self->_elementPool addObject:v8];
 
-LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -317,148 +314,143 @@ LABEL_12:
 
 - (void)didFindBodyElement:(id)element
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   foundMessageBodyElementBlock = self->_foundMessageBodyElementBlock;
   if (foundMessageBodyElementBlock)
   {
     foundMessageBodyElementBlock[2](foundMessageBodyElementBlock, element);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   subparsers = self->_subparsers;
-  v7 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(subparsers);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if ([v11 shouldProceedParsing])
         {
           [v11 messageBodyParser:self foundMessageBodyElement:element];
         }
       }
 
-      v8 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willBeginParsing
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(ECMessageBodyParserObject *)self messageBodyParserWillBeginParsing:self];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   subparsers = self->_subparsers;
-  v4 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(subparsers);
         }
 
-        [*(*(&v9 + 1) + 8 * i) messageBodyParserWillBeginParsing:self];
+        [*(*(&v8 + 1) + 8 * i) messageBodyParserWillBeginParsing:self];
       }
 
-      v5 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFinishParsing
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   subparsers = self->_subparsers;
-  v4 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v4 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(subparsers);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         if ([v8 shouldProceedParsing])
         {
           [v8 messageBodyParserDidFinishParsing:self];
         }
       }
 
-      v5 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [(NSMutableArray *)subparsers countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   elementPool = self->_elementPool;
-  v10 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v10 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(elementPool);
         }
 
-        [*(*(&v15 + 1) + 8 * j) setParser:0];
+        [*(*(&v14 + 1) + 8 * j) setParser:0];
       }
 
-      v11 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v11 = [(NSMutableArray *)elementPool countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   [(NSMutableArray *)self->_elementPool removeAllObjects];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFindError:(id)error
@@ -565,11 +557,10 @@ LABEL_12:
 
 - (void)didFindError:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138543362;
-  v5 = [a1 ef_publicDescription];
-  _os_log_error_impl(&dword_22D092000, a2, OS_LOG_TYPE_ERROR, "Did find error: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = [a1 ef_publicDescription];
+  _os_log_error_impl(&dword_22D092000, a2, OS_LOG_TYPE_ERROR, "Did find error: %{public}@", &v3, 0xCu);
 }
 
 @end

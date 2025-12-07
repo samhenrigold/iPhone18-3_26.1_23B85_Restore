@@ -44,7 +44,7 @@
 - (void)cancel
 {
   v12 = *MEMORY[0x277D85DE8];
-  v3 = _CRKLogASM_3();
+  v3 = _CRKLogASM_3(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -82,30 +82,31 @@ void __36__CRKIDSSendMessageOperation_cancel__block_invoke(uint64_t a1)
 
 - (void)main
 {
-  v37 = *MEMORY[0x277D85DE8];
-  if ([MEMORY[0x277CCACC8] isMainThread])
+  v39 = *MEMORY[0x277D85DE8];
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if (isMainThread)
   {
-    v4 = _CRKLogASM_3();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _CRKLogASM_3(isMainThread);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138543618;
-      v30 = v6;
-      v31 = 2048;
+      v32 = v7;
+      v33 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_243550000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Creating listener validate message send success", buf, 0x16u);
+      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Creating listener validate message send success", buf, 0x16u);
     }
 
     objc_initWeak(&location, self);
     iDSLocalPrimitives = [(CRKIDSSendMessageOperation *)self IDSLocalPrimitives];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __34__CRKIDSSendMessageOperation_main__block_invoke;
-    v26[3] = &unk_278DC1230;
-    objc_copyWeak(&v27, &location);
-    v8 = [iDSLocalPrimitives subscribeToMessageSendsWithHandler:v26];
-    [(CRKIDSSendMessageOperation *)self setMessageSendSubscription:v8];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __34__CRKIDSSendMessageOperation_main__block_invoke;
+    v28[3] = &unk_278DC1230;
+    objc_copyWeak(&v29, &location);
+    v9 = [iDSLocalPrimitives subscribeToMessageSendsWithHandler:v28];
+    [(CRKIDSSendMessageOperation *)self setMessageSendSubscription:v9];
 
     messageSendSubscription = [(CRKIDSSendMessageOperation *)self messageSendSubscription];
     [messageSendSubscription resume];
@@ -115,34 +116,34 @@ void __36__CRKIDSSendMessageOperation_cancel__block_invoke(uint64_t a1)
     destinationAddress = [(CRKIDSSendMessageOperation *)self destinationAddress];
     sourceAppleID = [(CRKIDSSendMessageOperation *)self sourceAppleID];
     options = [(CRKIDSSendMessageOperation *)self options];
-    v24 = 0;
-    v25 = 0;
-    v15 = [iDSLocalPrimitives2 sendMessage:message toAddress:destinationAddress fromID:sourceAppleID options:options identifier:&v25 error:&v24];
-    v16 = v25;
-    v17 = v24;
+    v26 = 0;
+    v27 = 0;
+    v16 = [iDSLocalPrimitives2 sendMessage:message toAddress:destinationAddress fromID:sourceAppleID options:options identifier:&v27 error:&v26];
+    v17 = v27;
+    v18 = v26;
 
-    if (v15)
+    if (v16)
     {
-      v18 = _CRKLogASM_3();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = _CRKLogASM_3(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         destinationAddress2 = [(CRKIDSSendMessageOperation *)self destinationAddress];
         *buf = 138544130;
-        v30 = v20;
-        v31 = 2048;
+        v32 = v22;
+        v33 = 2048;
         selfCopy2 = self;
-        v33 = 2114;
-        v34 = destinationAddress2;
         v35 = 2114;
-        v36 = v16;
-        _os_log_impl(&dword_243550000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Sent message to %{public}@ and received identifier %{public}@", buf, 0x2Au);
+        v36 = destinationAddress2;
+        v37 = 2114;
+        v38 = v17;
+        _os_log_impl(&dword_243550000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Sent message to %{public}@ and received identifier %{public}@", buf, 0x2Au);
       }
 
-      [(CRKIDSSendMessageOperation *)self setMessageSendIdentifier:v16];
-      v22 = objc_opt_new();
-      [(CRKIDSSendMessageOperation *)self setInitialSendDate:v22];
+      [(CRKIDSSendMessageOperation *)self setMessageSendIdentifier:v17];
+      v24 = objc_opt_new();
+      [(CRKIDSSendMessageOperation *)self setInitialSendDate:v24];
     }
 
     else
@@ -150,10 +151,10 @@ void __36__CRKIDSSendMessageOperation_cancel__block_invoke(uint64_t a1)
       messageSendSubscription2 = [(CRKIDSSendMessageOperation *)self messageSendSubscription];
       [messageSendSubscription2 cancel];
 
-      [(CRKIDSSendMessageOperation *)self endOperationWithError:v17];
+      [(CRKIDSSendMessageOperation *)self endOperationWithError:v18];
     }
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 
@@ -191,7 +192,7 @@ void __34__CRKIDSSendMessageOperation_main__block_invoke(uint64_t a1, void *a2, 
 
 void __77__CRKIDSSendMessageOperation_didSendMessageWithIdentifier_sendSuccess_error___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isExecuting])
   {
     v2 = [*(a1 + 32) messageSendIdentifier];
@@ -204,49 +205,49 @@ void __77__CRKIDSSendMessageOperation_didSendMessageWithIdentifier_sendSuccess_e
       [v4 timeIntervalSinceDate:v5];
       v7 = v6;
 
-      v8 = _CRKLogASM_3();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _CRKLogASM_3(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = *(a1 + 32);
-        v12 = *(a1 + 40);
-        v13 = [v11 destinationAddress];
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        v12 = *(a1 + 32);
+        v13 = *(a1 + 40);
+        v14 = [v12 destinationAddress];
         if (*(a1 + 56))
         {
-          v14 = @"YES";
+          v15 = @"YES";
         }
 
         else
         {
-          v14 = @"NO";
+          v15 = @"NO";
         }
 
-        v15 = v14;
-        v17 = 138544642;
-        v18 = v10;
-        v19 = 2048;
-        v20 = v11;
-        v21 = 2114;
-        v22 = v12;
-        v23 = 2114;
-        v24 = v13;
-        v25 = 2114;
-        v26 = v15;
-        v27 = 2048;
-        v28 = v7;
-        _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Received message send status for message %{public}@ to %{public}@. Did succeed = %{public}@, duration = %.2f", &v17, 0x3Eu);
+        v16 = v15;
+        v18 = 138544642;
+        v19 = v11;
+        v20 = 2048;
+        v21 = v12;
+        v22 = 2114;
+        v23 = v13;
+        v24 = 2114;
+        v25 = v14;
+        v26 = 2114;
+        v27 = v16;
+        v28 = 2048;
+        v29 = v7;
+        _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ - %p: Received message send status for message %{public}@ to %{public}@. Did succeed = %{public}@, duration = %.2f", &v18, 0x3Eu);
       }
 
-      v16 = *(a1 + 32);
+      v17 = *(a1 + 32);
       if (*(a1 + 56))
       {
-        [v16 endOperationWithResultObject:0];
+        [v17 endOperationWithResultObject:0];
       }
 
       else
       {
-        [v16 endOperationWithError:*(a1 + 48)];
+        [v17 endOperationWithError:*(a1 + 48)];
       }
     }
   }

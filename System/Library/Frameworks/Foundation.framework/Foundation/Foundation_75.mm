@@ -1,33 +1,33 @@
-uint64_t FloatingPointParseStrategy.init<A>(format:lenient:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(void, uint64_t, uint64_t)@<X4>, uint64_t a6@<X8>)
+uint64_t FloatingPointParseStrategy.init<A>(format:lenient:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t (*a5)(void, uint64_t, uint64_t)@<X4>, uint64_t a7@<X8>)
 {
-  v9 = a5(0, a3, a4);
-  (*(*(v9 - 8) + 32))(a6, a1, v9);
-  swift_getWitnessTable();
-  result = type metadata accessor for FloatingPointParseStrategy();
-  *(a6 + *(result + 44)) = a2;
+  v11 = a5(0, a3, a4);
+  (*(*(v11 - 8) + 32))(a7, a1, v11);
+  WitnessTable = swift_getWitnessTable();
+  result = type metadata accessor for FloatingPointParseStrategy(0, v11, WitnessTable, a4);
+  *(a7 + *(result + 44)) = a2;
   return result;
 }
 
-uint64_t static FloatingPointParseStrategy.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t static FloatingPointParseStrategy.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (dispatch thunk of static Equatable.== infix(_:_:)())
   {
-    v4 = type metadata accessor for FloatingPointParseStrategy();
-    v5 = *(a1 + *(v4 + 44)) ^ *(a2 + *(v4 + 44)) ^ 1;
+    v10 = type metadata accessor for FloatingPointParseStrategy(0, a3, a4, a5);
+    v11 = *(a1 + *(v10 + 44)) ^ *(a2 + *(v10 + 44)) ^ 1;
   }
 
   else
   {
-    v5 = 0;
+    v11 = 0;
   }
 
-  return v5 & 1;
+  return v11 & 1;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FloatingPointParseStrategy<A>.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FloatingPointParseStrategy<A>.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  NSDecimal.ParseStrategy.CodingKeys.hash(into:)(v2, *v0);
+  NSDecimal.ParseStrategy.CodingKeys.hash(into:)(v3, *v1);
   return Hasher._finalize()();
 }
 
@@ -59,28 +59,29 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, WitnessTable);
 }
 
-uint64_t FloatingPointParseStrategy.encode(to:)(void *a1, uint64_t a2)
+uint64_t FloatingPointParseStrategy.encode(to:)(void *a1, void *a2)
 {
-  v9[2] = *(a2 + 16);
-  v9[0] = *(a2 + 24);
-  type metadata accessor for FloatingPointParseStrategy.CodingKeys();
+  v11 = a2[2];
+  v3 = a2[4];
+  v10 = a2[3];
+  type metadata accessor for FloatingPointParseStrategy.CodingKeys(255, v11, v10, v3);
   swift_getWitnessTable();
-  v3 = type metadata accessor for KeyedEncodingContainer();
-  v4 = *(v3 - 8);
-  MEMORY[0x1EEE9AC00](v3);
-  v6 = v9 - v5;
+  v4 = type metadata accessor for KeyedEncodingContainer();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v10 - v6;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11 = 0;
-  v7 = v9[3];
+  v14 = 0;
+  v8 = v12;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v7)
+  if (!v8)
   {
-    v10 = 1;
+    v13 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v4 + 8))(v6, v3);
+  return (*(v5 + 8))(v7, v4);
 }
 
 Swift::Int FloatingPointParseStrategy.hashValue.getter(uint64_t a1)
@@ -91,53 +92,53 @@ Swift::Int FloatingPointParseStrategy.hashValue.getter(uint64_t a1)
   return Hasher._finalize()();
 }
 
-uint64_t FloatingPointParseStrategy.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t FloatingPointParseStrategy.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v28 = a4;
-  v30 = *(a2 - 8);
+  v33 = a5;
+  v35 = *(a2 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v33 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for FloatingPointParseStrategy.CodingKeys();
+  v38 = &v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for FloatingPointParseStrategy.CodingKeys(255, v10, v11, v12);
   swift_getWitnessTable();
-  v34 = type metadata accessor for KeyedDecodingContainer();
-  v29 = *(v34 - 8);
-  MEMORY[0x1EEE9AC00](v34);
-  v9 = &v24 - v8;
-  v31 = a2;
-  v32 = a3;
-  v10 = type metadata accessor for FloatingPointParseStrategy();
-  v27 = *(v10 - 8);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v24 - v11;
+  v39 = type metadata accessor for KeyedDecodingContainer();
+  v34 = *(v39 - 8);
+  MEMORY[0x1EEE9AC00](v39);
+  v14 = &v29 - v13;
+  v36 = a2;
+  v37 = a3;
+  v15 = type metadata accessor for FloatingPointParseStrategy(0, a2, a3, a4);
+  v32 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v29 - v16;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v13 = v35;
+  v18 = v40;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v13)
+  if (v18)
   {
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v25 = v10;
-  v26 = v12;
-  v35 = a1;
-  v14 = v29;
-  v15 = v30;
-  v37 = 0;
-  v16 = v33;
-  v17 = v31;
-  v18 = v34;
+  v30 = v15;
+  v31 = v17;
+  v40 = a1;
+  v19 = v34;
+  v20 = v35;
+  v42 = 0;
+  v21 = v38;
+  v22 = v36;
+  v23 = v39;
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v19 = v26;
-  (*(v15 + 32))(v26, v16, v17);
-  v36 = 1;
-  v20 = KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v14 + 8))(v9, v18);
-  v21 = v25;
-  v19[*(v25 + 44)] = v20 & 1;
-  v22 = v27;
-  (*(v27 + 16))(v28, v19, v21);
-  __swift_destroy_boxed_opaque_existential_1(v35);
-  return (*(v22 + 8))(v19, v21);
+  v24 = v31;
+  (*(v20 + 32))(v31, v21, v22);
+  v41 = 1;
+  v25 = KeyedDecodingContainer.decode(_:forKey:)();
+  (*(v19 + 8))(v14, v23);
+  v26 = v30;
+  v24[*(v30 + 44)] = v25 & 1;
+  v27 = v32;
+  (*(v32 + 16))(v33, v24, v26);
+  __swift_destroy_boxed_opaque_existential_1(v40);
+  return (*(v27 + 8))(v24, v26);
 }
 
 Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FloatingPointParseStrategy<A>(uint64_t a1, uint64_t a2)
@@ -203,7 +204,7 @@ uint64_t _s10Foundation24ICULegacyNumberFormatterC9Signature33_ADC49A1B068F5C8BE
   return a2;
 }
 
-uint64_t instantiation function for generic protocol witness table for FloatingPointParseStrategy<A>(void *a1)
+uint64_t instantiation function for generic protocol witness table for FloatingPointParseStrategy<A>(void *a1, uint64_t a2)
 {
   a1[1] = swift_getWitnessTable();
   a1[2] = swift_getWitnessTable();
@@ -212,10 +213,10 @@ uint64_t instantiation function for generic protocol witness table for FloatingP
   return result;
 }
 
-uint64_t type metadata completion function for FloatingPointParseStrategy()
+uint64_t type metadata completion function for FloatingPointParseStrategy(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -233,7 +234,7 @@ uint64_t ICULegacyNumberFormatter.__deallocating_deinit()
 
 uint64_t ICULegacyNumberFormatter.NumberFormatType.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO18CurrencyCodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO18CurrencyCodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO18CurrencyCodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMR);
   v49 = *(v2 - 8);
   v50 = v2;
   MEMORY[0x1EEE9AC00](v2);
@@ -241,7 +242,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.encode(to:)(void *a1)
   v46 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
   MEMORY[0x1EEE9AC00](v46);
   v47 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd, &_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMR);
   v52 = *(v5 - 8);
   v53 = v5;
   MEMORY[0x1EEE9AC00](v5);
@@ -258,7 +259,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.encode(to:)(void *a1)
   v17 = type metadata accessor for ICULegacyNumberFormatter.NumberFormatType(0);
   MEMORY[0x1EEE9AC00](v17);
   v19 = (&v43 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO10CodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO10CodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO10CodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMR);
   v57 = *(v20 - 8);
   v58 = v20;
   MEMORY[0x1EEE9AC00](v20);
@@ -280,7 +281,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.encode(to:)(void *a1)
       v35 = v58;
       v36 = v55;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+      lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection, &protocol conformance descriptor for NumberFormatStyleConfiguration.Collection);
       v37 = v53;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       (*(v52 + 8))(v34, v37);
@@ -294,7 +295,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.encode(to:)(void *a1)
     v24 = v58;
     v25 = v55;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+    lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection, &protocol conformance descriptor for NumberFormatStyleConfiguration.Collection);
     v26 = v53;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     (*(v52 + 8))(v11, v26);
@@ -305,7 +306,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.encode(to:)(void *a1)
 
   if (EnumCaseMultiPayload == 2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMd, &_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMR);
     v29 = v47;
     _s10Foundation32CurrencyFormatStyleConfigurationO10CollectionVWObTm_0(v19, v47, type metadata accessor for CurrencyFormatStyleConfiguration.Collection);
     v63 = 2;
@@ -315,7 +316,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.encode(to:)(void *a1)
     v25 = v55;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
     v62 = 0;
-    lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type CurrencyFormatStyleConfiguration.Collection and conformance CurrencyFormatStyleConfiguration.Collection, type metadata accessor for CurrencyFormatStyleConfiguration.Collection);
+    lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type CurrencyFormatStyleConfiguration.Collection and conformance CurrencyFormatStyleConfiguration.Collection, type metadata accessor for CurrencyFormatStyleConfiguration.Collection, &protocol conformance descriptor for CurrencyFormatStyleConfiguration.Collection);
     v31 = v50;
     v32 = v56;
     KeyedEncodingContainer.encode<A>(_:forKey:)();
@@ -353,221 +354,70 @@ LABEL_11:
   return (*(v57 + 8))(v41, v40);
 }
 
-void ICULegacyNumberFormatter.NumberFormatType.hash(into:)()
+void ICULegacyNumberFormatter.NumberFormatType.hash(into:)(uint64_t a1)
 {
-  v76 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
-  MEMORY[0x1EEE9AC00](v76);
-  v2 = &v74 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = type metadata accessor for FloatingPointRoundingRule();
-  v78 = *(v3 - 8);
-  v79 = v3;
-  MEMORY[0x1EEE9AC00](v3);
-  v77 = &v74 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v75 = &v74 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v74 - v8;
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v74 - v11;
-  v13 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v74 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v74 - v17;
-  v19 = type metadata accessor for ICULegacyNumberFormatter.NumberFormatType(0);
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v74 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  _s10Foundation24ICULegacyNumberFormatterC0C10FormatTypeOWOcTm_0(v0, v21, type metadata accessor for ICULegacyNumberFormatter.NumberFormatType);
+  v77 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
+  MEMORY[0x1EEE9AC00](v77);
+  v3 = &v75 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for FloatingPointRoundingRule();
+  v79 = *(v4 - 8);
+  v80 = v4;
+  MEMORY[0x1EEE9AC00](v4);
+  v78 = &v75 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v76 = &v75 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v75 - v9;
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v75 - v12;
+  v14 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v75 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v19 = &v75 - v18;
+  v20 = type metadata accessor for ICULegacyNumberFormatter.NumberFormatType(0);
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = &v75 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  _s10Foundation24ICULegacyNumberFormatterC0C10FormatTypeOWOcTm_0(v1, v22, type metadata accessor for ICULegacyNumberFormatter.NumberFormatType);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
     if (EnumCaseMultiPayload)
     {
-      _s10Foundation32CurrencyFormatStyleConfigurationO10CollectionVWObTm_0(v21, v15, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+      _s10Foundation32CurrencyFormatStyleConfigurationO10CollectionVWObTm_0(v22, v16, type metadata accessor for NumberFormatStyleConfiguration.Collection);
       MEMORY[0x1865CD060](1);
-      v24 = v78;
-      if (v15[8] == 1)
+      v25 = v79;
+      if (v16[8] == 1)
       {
         Hasher._combine(_:)(0);
       }
 
       else
       {
-        v39 = *v15;
+        v40 = *v16;
         Hasher._combine(_:)(1u);
-        if ((v39 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+        if ((v40 & 0x7FFFFFFFFFFFFFFFLL) != 0)
         {
-          v40 = v39;
+          v41 = v40;
         }
 
         else
         {
-          v40 = 0;
+          v41 = 0;
         }
 
-        MEMORY[0x1865CD090](v40);
+        MEMORY[0x1865CD090](v41);
       }
 
-      v41 = v79;
-      v42 = *(v15 + 2);
-      v80 = *(v15 + 1);
-      v81 = v42;
-      v82[0] = *(v15 + 3);
-      *(v82 + 9) = *(v15 + 57);
+      v42 = v80;
+      v43 = *(v16 + 2);
+      v81 = *(v16 + 1);
+      v82 = v43;
+      v83[0] = *(v16 + 3);
+      *(v83 + 9) = *(v16 + 57);
       specialized Optional<A>.hash(into:)();
-      v43 = v15[73];
-      if (v43 == 2)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](v43 & 1);
-      }
-
-      v48 = *(v15 + 37);
-      v49 = v48 | (v15[76] << 16);
-      if (v48 == 2)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](v49 & 1);
-        MEMORY[0x1865CD060]((v49 >> 8) & 1);
-        MEMORY[0x1865CD060](HIWORD(v49) & 1);
-      }
-
-      v52 = v15[77];
-      if (v52 == 2)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](v52 & 1);
-      }
-
-      outlined init with copy of FloatingPointRoundingRule?(&v15[v13[9]], v9);
-      if ((*(v24 + 48))(v9, 1, v41) == 1)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        v64 = v77;
-        (*(v24 + 32))(v77, v9, v41);
-        Hasher._combine(_:)(1u);
-        dispatch thunk of Hashable.hash(into:)();
-        (*(v24 + 8))(v64, v41);
-      }
-
-      v65 = &v15[v13[10]];
-      v66 = v65[8];
-      if (v66 == 255)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        v67 = *v65;
-        Hasher._combine(_:)(1u);
-        if (v66)
-        {
-          MEMORY[0x1865CD060](1);
-          if ((v67 & 0x7FFFFFFFFFFFFFFFLL) != 0)
-          {
-            v68 = v67;
-          }
-
-          else
-          {
-            v68 = 0;
-          }
-
-          MEMORY[0x1865CD090](v68);
-        }
-
-        else
-        {
-          MEMORY[0x1865CD060](0);
-          MEMORY[0x1865CD060](v67);
-        }
-      }
-
-      v73 = v15[v13[11]];
-      if (v73 == 3)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](v73);
-      }
-
-      v70 = type metadata accessor for NumberFormatStyleConfiguration.Collection;
-      v71 = v15;
-    }
-
-    else
-    {
-      _s10Foundation32CurrencyFormatStyleConfigurationO10CollectionVWObTm_0(v21, v18, type metadata accessor for NumberFormatStyleConfiguration.Collection);
-      MEMORY[0x1865CD060](0);
-      v23 = v78;
-      if (v18[8] == 1)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        v27 = *v18;
-        Hasher._combine(_:)(1u);
-        if ((v27 & 0x7FFFFFFFFFFFFFFFLL) != 0)
-        {
-          v28 = v27;
-        }
-
-        else
-        {
-          v28 = 0;
-        }
-
-        MEMORY[0x1865CD090](v28);
-      }
-
-      v29 = v79;
-      v30 = *(v18 + 2);
-      v80 = *(v18 + 1);
-      v81 = v30;
-      v82[0] = *(v18 + 3);
-      *(v82 + 9) = *(v18 + 57);
-      specialized Optional<A>.hash(into:)();
-      v31 = v18[73];
-      if (v31 == 2)
-      {
-        Hasher._combine(_:)(0);
-      }
-
-      else
-      {
-        Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](v31 & 1);
-      }
-
-      v44 = *(v18 + 37);
-      v45 = v44 | (v18[76] << 16);
+      v44 = v16[73];
       if (v44 == 2)
       {
         Hasher._combine(_:)(0);
@@ -576,13 +426,12 @@ void ICULegacyNumberFormatter.NumberFormatType.hash(into:)()
       else
       {
         Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](v45 & 1);
-        MEMORY[0x1865CD060]((v45 >> 8) & 1);
-        MEMORY[0x1865CD060](HIWORD(v45) & 1);
+        MEMORY[0x1865CD060](v44 & 1);
       }
 
-      v50 = v18[77];
-      if (v50 == 2)
+      v49 = *(v16 + 37);
+      v50 = v49 | (v16[76] << 16);
+      if (v49 == 2)
       {
         Hasher._combine(_:)(0);
       }
@@ -591,59 +440,73 @@ void ICULegacyNumberFormatter.NumberFormatType.hash(into:)()
       {
         Hasher._combine(_:)(1u);
         MEMORY[0x1865CD060](v50 & 1);
+        MEMORY[0x1865CD060]((v50 >> 8) & 1);
+        MEMORY[0x1865CD060](HIWORD(v50) & 1);
       }
 
-      outlined init with copy of FloatingPointRoundingRule?(&v18[v13[9]], v12);
-      if ((*(v23 + 48))(v12, 1, v29) == 1)
+      v53 = v16[77];
+      if (v53 == 2)
       {
         Hasher._combine(_:)(0);
       }
 
       else
       {
-        v54 = v77;
-        (*(v23 + 32))(v77, v12, v29);
+        Hasher._combine(_:)(1u);
+        MEMORY[0x1865CD060](v53 & 1);
+      }
+
+      outlined init with copy of FloatingPointRoundingRule?(&v16[v14[9]], v10);
+      if ((*(v25 + 48))(v10, 1, v42) == 1)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        v65 = v78;
+        (*(v25 + 32))(v78, v10, v42);
         Hasher._combine(_:)(1u);
         dispatch thunk of Hashable.hash(into:)();
-        (*(v23 + 8))(v54, v29);
+        (*(v25 + 8))(v65, v42);
       }
 
-      v55 = &v18[v13[10]];
-      v56 = v55[8];
-      if (v56 == 255)
+      v66 = &v16[v14[10]];
+      v67 = v66[8];
+      if (v67 == 255)
       {
         Hasher._combine(_:)(0);
       }
 
       else
       {
-        v57 = *v55;
+        v68 = *v66;
         Hasher._combine(_:)(1u);
-        if (v56)
+        if (v67)
         {
           MEMORY[0x1865CD060](1);
-          if ((v57 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+          if ((v68 & 0x7FFFFFFFFFFFFFFFLL) != 0)
           {
-            v58 = v57;
+            v69 = v68;
           }
 
           else
           {
-            v58 = 0;
+            v69 = 0;
           }
 
-          MEMORY[0x1865CD090](v58);
+          MEMORY[0x1865CD090](v69);
         }
 
         else
         {
           MEMORY[0x1865CD060](0);
-          MEMORY[0x1865CD060](v57);
+          MEMORY[0x1865CD060](v68);
         }
       }
 
-      v69 = v18[v13[11]];
-      if (v69 == 3)
+      v74 = v16[v14[11]];
+      if (v74 == 3)
       {
         Hasher._combine(_:)(0);
       }
@@ -651,56 +514,194 @@ void ICULegacyNumberFormatter.NumberFormatType.hash(into:)()
       else
       {
         Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](v69);
+        MEMORY[0x1865CD060](v74);
       }
 
-      v70 = type metadata accessor for NumberFormatStyleConfiguration.Collection;
-      v71 = v18;
+      v71 = type metadata accessor for NumberFormatStyleConfiguration.Collection;
+      v72 = v16;
+    }
+
+    else
+    {
+      _s10Foundation32CurrencyFormatStyleConfigurationO10CollectionVWObTm_0(v22, v19, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+      MEMORY[0x1865CD060](0);
+      v24 = v79;
+      if (v19[8] == 1)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        v28 = *v19;
+        Hasher._combine(_:)(1u);
+        if ((v28 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+        {
+          v29 = v28;
+        }
+
+        else
+        {
+          v29 = 0;
+        }
+
+        MEMORY[0x1865CD090](v29);
+      }
+
+      v30 = v80;
+      v31 = *(v19 + 2);
+      v81 = *(v19 + 1);
+      v82 = v31;
+      v83[0] = *(v19 + 3);
+      *(v83 + 9) = *(v19 + 57);
+      specialized Optional<A>.hash(into:)();
+      v32 = v19[73];
+      if (v32 == 2)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        Hasher._combine(_:)(1u);
+        MEMORY[0x1865CD060](v32 & 1);
+      }
+
+      v45 = *(v19 + 37);
+      v46 = v45 | (v19[76] << 16);
+      if (v45 == 2)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        Hasher._combine(_:)(1u);
+        MEMORY[0x1865CD060](v46 & 1);
+        MEMORY[0x1865CD060]((v46 >> 8) & 1);
+        MEMORY[0x1865CD060](HIWORD(v46) & 1);
+      }
+
+      v51 = v19[77];
+      if (v51 == 2)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        Hasher._combine(_:)(1u);
+        MEMORY[0x1865CD060](v51 & 1);
+      }
+
+      outlined init with copy of FloatingPointRoundingRule?(&v19[v14[9]], v13);
+      if ((*(v24 + 48))(v13, 1, v30) == 1)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        v55 = v78;
+        (*(v24 + 32))(v78, v13, v30);
+        Hasher._combine(_:)(1u);
+        dispatch thunk of Hashable.hash(into:)();
+        (*(v24 + 8))(v55, v30);
+      }
+
+      v56 = &v19[v14[10]];
+      v57 = v56[8];
+      if (v57 == 255)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        v58 = *v56;
+        Hasher._combine(_:)(1u);
+        if (v57)
+        {
+          MEMORY[0x1865CD060](1);
+          if ((v58 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+          {
+            v59 = v58;
+          }
+
+          else
+          {
+            v59 = 0;
+          }
+
+          MEMORY[0x1865CD090](v59);
+        }
+
+        else
+        {
+          MEMORY[0x1865CD060](0);
+          MEMORY[0x1865CD060](v58);
+        }
+      }
+
+      v70 = v19[v14[11]];
+      if (v70 == 3)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        Hasher._combine(_:)(1u);
+        MEMORY[0x1865CD060](v70);
+      }
+
+      v71 = type metadata accessor for NumberFormatStyleConfiguration.Collection;
+      v72 = v19;
     }
 
 LABEL_97:
-    outlined destroy of CurrencyFormatStyleConfiguration.Collection(v71, v70);
+    outlined destroy of CurrencyFormatStyleConfiguration.Collection(v72, v71);
     return;
   }
 
   if (EnumCaseMultiPayload == 2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMd);
-    _s10Foundation32CurrencyFormatStyleConfigurationO10CollectionVWObTm_0(v21, v2, type metadata accessor for CurrencyFormatStyleConfiguration.Collection);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMd, &_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMR);
+    _s10Foundation32CurrencyFormatStyleConfigurationO10CollectionVWObTm_0(v22, v3, type metadata accessor for CurrencyFormatStyleConfiguration.Collection);
     MEMORY[0x1865CD060](2);
-    if (v2[8] == 1)
+    if (v3[8] == 1)
     {
       Hasher._combine(_:)(0);
     }
 
     else
     {
-      v32 = *v2;
+      v33 = *v3;
       Hasher._combine(_:)(1u);
-      if ((v32 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+      if ((v33 & 0x7FFFFFFFFFFFFFFFLL) != 0)
       {
-        v33 = v32;
+        v34 = v33;
       }
 
       else
       {
-        v33 = 0;
+        v34 = 0;
       }
 
-      MEMORY[0x1865CD090](v33);
+      MEMORY[0x1865CD090](v34);
     }
 
-    v35 = v78;
-    v34 = v79;
-    v36 = v76;
-    v37 = *(v2 + 2);
-    v80 = *(v2 + 1);
-    v81 = v37;
-    v82[0] = *(v2 + 3);
-    *(v82 + 9) = *(v2 + 57);
+    v36 = v79;
+    v35 = v80;
+    v37 = v77;
+    v38 = *(v3 + 2);
+    v81 = *(v3 + 1);
+    v82 = v38;
+    v83[0] = *(v3 + 3);
+    *(v83 + 9) = *(v3 + 57);
     specialized Optional<A>.hash(into:)();
-    v38 = v2[73];
-    if (v38 == 2)
+    v39 = v3[73];
+    if (v39 == 2)
     {
       Hasher._combine(_:)(0);
     }
@@ -708,27 +709,27 @@ LABEL_97:
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](v38 & 1);
+      MEMORY[0x1865CD060](v39 & 1);
     }
 
-    v46 = *(v2 + 74);
-    if (*(v2 + 74) == 2)
+    v47 = *(v3 + 74);
+    if (*(v3 + 74) == 2)
     {
-      LOBYTE(v47) = 0;
+      LOBYTE(v48) = 0;
     }
 
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](v46 & 1);
-      MEMORY[0x1865CD060]((v46 >> 8) & 1);
-      MEMORY[0x1865CD060](WORD1(v46) & 1);
-      v47 = BYTE3(v46) & 1;
+      MEMORY[0x1865CD060](v47 & 1);
+      MEMORY[0x1865CD060]((v47 >> 8) & 1);
+      MEMORY[0x1865CD060](WORD1(v47) & 1);
+      v48 = BYTE3(v47) & 1;
     }
 
-    Hasher._combine(_:)(v47);
-    v51 = v2[78];
-    if (v51 == 2)
+    Hasher._combine(_:)(v48);
+    v52 = v3[78];
+    if (v52 == 2)
     {
       Hasher._combine(_:)(0);
     }
@@ -736,62 +737,62 @@ LABEL_97:
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](v51 & 1);
+      MEMORY[0x1865CD060](v52 & 1);
     }
 
-    v53 = v75;
-    outlined init with copy of FloatingPointRoundingRule?(&v2[v36[9]], v75);
-    if ((*(v35 + 48))(v53, 1, v34) == 1)
+    v54 = v76;
+    outlined init with copy of FloatingPointRoundingRule?(&v3[v37[9]], v76);
+    if ((*(v36 + 48))(v54, 1, v35) == 1)
     {
       Hasher._combine(_:)(0);
     }
 
     else
     {
-      v59 = v77;
-      (*(v35 + 32))(v77, v53, v34);
+      v60 = v78;
+      (*(v36 + 32))(v78, v54, v35);
       Hasher._combine(_:)(1u);
       dispatch thunk of Hashable.hash(into:)();
-      (*(v35 + 8))(v59, v34);
+      (*(v36 + 8))(v60, v35);
     }
 
-    v60 = &v2[v36[10]];
-    v61 = v60[8];
-    if (v61 == 255)
+    v61 = &v3[v37[10]];
+    v62 = v61[8];
+    if (v62 == 255)
     {
       Hasher._combine(_:)(0);
     }
 
     else
     {
-      v62 = *v60;
+      v63 = *v61;
       Hasher._combine(_:)(1u);
-      if (v61)
+      if (v62)
       {
         MEMORY[0x1865CD060](1);
-        if ((v62 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+        if ((v63 & 0x7FFFFFFFFFFFFFFFLL) != 0)
         {
-          v63 = v62;
+          v64 = v63;
         }
 
         else
         {
-          v63 = 0;
+          v64 = 0;
         }
 
-        MEMORY[0x1865CD090](v63);
+        MEMORY[0x1865CD090](v64);
       }
 
       else
       {
         MEMORY[0x1865CD060](0);
-        MEMORY[0x1865CD060](v62);
+        MEMORY[0x1865CD060](v63);
       }
     }
 
-    MEMORY[0x1865CD060](v2[v36[11]]);
-    v72 = v2[v36[12]];
-    if (v72 == 3)
+    MEMORY[0x1865CD060](v3[v37[11]]);
+    v73 = v3[v37[12]];
+    if (v73 == 3)
     {
       Hasher._combine(_:)(0);
     }
@@ -799,21 +800,21 @@ LABEL_97:
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](v72);
+      MEMORY[0x1865CD060](v73);
     }
 
     String.hash(into:)();
 
-    v70 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection;
-    v71 = v2;
+    v71 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection;
+    v72 = v3;
     goto LABEL_97;
   }
 
-  v25 = *v21;
-  v26 = v21[1];
+  v26 = *v22;
+  v27 = v22[1];
   MEMORY[0x1865CD060](3);
-  MEMORY[0x1865CD060](v25 + 1);
-  if (v26 == 5)
+  MEMORY[0x1865CD060](v26 + 1);
+  if (v27 == 5)
   {
     Hasher._combine(_:)(0);
   }
@@ -821,20 +822,20 @@ LABEL_97:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v26);
+    MEMORY[0x1865CD060](v27);
   }
 }
 
 uint64_t ICULegacyNumberFormatter.NumberFormatType.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v71 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO18CurrencyCodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO18CurrencyCodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO18CurrencyCodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMR);
   v4 = *(v3 - 8);
   v69 = v3;
   v70 = v4;
   MEMORY[0x1EEE9AC00](v3);
   v80 = &v64 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd, &_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMR);
   v7 = *(v6 - 8);
   v73 = v6;
   v74 = v7;
@@ -844,7 +845,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.init(from:)@<X0>(void *a1@<X0
   v78 = &v64 - v10;
   MEMORY[0x1EEE9AC00](v11);
   v77 = &v64 - v12;
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO10CodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMd);
+  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO10CodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation24ICULegacyNumberFormatterC0F10FormatTypeO10CodingKeys33_ADC49A1B068F5C8BE74334B016A6B679LLOGMR);
   v76 = *(v79 - 8);
   MEMORY[0x1EEE9AC00](v79);
   v14 = &v64 - v13;
@@ -896,7 +897,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.init(from:)@<X0>(void *a1@<X0
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
           type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
           LOBYTE(v87) = 0;
-          lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type CurrencyFormatStyleConfiguration.Collection and conformance CurrencyFormatStyleConfiguration.Collection, type metadata accessor for CurrencyFormatStyleConfiguration.Collection);
+          lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type CurrencyFormatStyleConfiguration.Collection and conformance CurrencyFormatStyleConfiguration.Collection, type metadata accessor for CurrencyFormatStyleConfiguration.Collection, &protocol conformance descriptor for CurrencyFormatStyleConfiguration.Collection);
           v46 = v69;
           KeyedDecodingContainer.decode<A>(_:forKey:)();
           LOBYTE(v87) = 1;
@@ -904,7 +905,7 @@ uint64_t ICULegacyNumberFormatter.NumberFormatType.init(from:)@<X0>(void *a1@<X0
           v53 = KeyedDecodingContainer.decode(_:forKey:)();
           v78 = v54;
           v56 = v53;
-          v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMd);
+          v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMd, &_s10Foundation32CurrencyFormatStyleConfigurationO10CollectionV_SS12currencyCodetMR);
           v58 = v46;
           v59 = v14;
           v60 = v81;
@@ -945,7 +946,7 @@ LABEL_14:
         v47 = v31;
         KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
         type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-        lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+        lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection, &protocol conformance descriptor for NumberFormatStyleConfiguration.Collection);
         v41 = v66;
         v48 = v73;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
@@ -960,7 +961,7 @@ LABEL_14:
         lazy protocol witness table accessor for type DefaultAssociatedValueCodingKeys1 and conformance DefaultAssociatedValueCodingKeys1();
         KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
         type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-        lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+        lazy protocol witness table accessor for type ICULegacyNumberFormatter.Signature and conformance ICULegacyNumberFormatter.Signature(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection, &protocol conformance descriptor for NumberFormatStyleConfiguration.Collection);
         v40 = v73;
         KeyedDecodingContainer.decode<A>(_:forKey:)();
         (*(v74 + 8))(v32, v40);
@@ -978,7 +979,7 @@ LABEL_14:
     swift_allocError();
     v43 = v14;
     v45 = v44;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
     *v45 = v35;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
@@ -1016,10 +1017,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance ICULeg
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ICULegacyNumberFormatter.NumberFormatType.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ICULegacyNumberFormatter.NumberFormatType.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized ICULegacyNumberFormatter.NumberFormatType.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized ICULegacyNumberFormatter.NumberFormatType.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -1144,14 +1145,14 @@ LABEL_10:
   return result;
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance ICULegacyNumberFormatter.NumberFormatType(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance ICULegacyNumberFormatter.NumberFormatType(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICULegacyNumberFormatter.NumberFormatType(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICULegacyNumberFormatter.NumberFormatType(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -1160,7 +1161,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICU
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ICULegacyNumberFormatter.Signature(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (static ICULegacyNumberFormatter.NumberFormatType.== infix(_:_:)() & 1) != 0 && ((v6 = *(a3 + 20), v7 = *(a1 + v6), v8 = *(a1 + v6 + 8), v9 = (a2 + v6), v7 == *v9) ? (v10 = v8 == v9[1]) : (v10 = 0), v10 || (_stringCompareWithSmolCheck(_:_:expecting:)()))
+  if (static ICULegacyNumberFormatter.NumberFormatType.== infix(_:_:)(a1, a2) & 1) != 0 && ((v6 = *(a3 + 20), v7 = *(a1 + v6), v8 = *(a1 + v6 + 8), v9 = (a2 + v6), v7 == *v9) ? (v10 = v8 == v9[1]) : (v10 = 0), v10 || (_stringCompareWithSmolCheck(_:_:expecting:)()))
   {
     v11 = *(a1 + *(a3 + 24)) ^ *(a2 + *(a3 + 24)) ^ 1;
   }
@@ -1299,7 +1300,7 @@ unint64_t lazy protocol witness table accessor for type ICULegacyNumberFormatter
 
 uint64_t outlined destroy of (ICULegacyNumberFormatter.NumberFormatType, ICULegacyNumberFormatter.NumberFormatType)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24ICULegacyNumberFormatterC0C10FormatTypeO_AEtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation24ICULegacyNumberFormatterC0C10FormatTypeO_AEtMd, &_s10Foundation24ICULegacyNumberFormatterC0C10FormatTypeO_AEtMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -1338,7 +1339,7 @@ uint64_t specialized static ICULegacyNumberFormatter.formatter(for:locale:lenien
   MEMORY[0x1EEE9AC00](v25);
   *(&v60 - 2) = v14;
   os_unfair_lock_lock((v20 + 24));
-  partial apply for specialized closure #1 in FormatterCache.formatter(for:creator:)(v20 + 16, &v70);
+  partial apply for specialized closure #1 in FormatterCache.formatter(for:creator:)(&v70, v20 + 16);
   os_unfair_lock_unlock((v20 + 24));
   v26 = v24;
   v27 = v70;
@@ -1394,7 +1395,7 @@ uint64_t specialized static ICULegacyNumberFormatter.formatter(for:locale:lenien
 LABEL_16:
     v61 = v34;
     v62 = v33;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation24ICULegacyNumberFormatterC9Signature33_ADC49A1B068F5C8BE74334B016A6B679LLVAEGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation24ICULegacyNumberFormatterC9Signature33_ADC49A1B068F5C8BE74334B016A6B679LLVAEGMd, &_ss18_DictionaryStorageCy10Foundation24ICULegacyNumberFormatterC9Signature33_ADC49A1B068F5C8BE74334B016A6B679LLVAEGMR);
     v42 = static _DictionaryStorage.copy(original:)();
     v39 = v42;
     if (*(v32 + 16))
@@ -1687,7 +1688,7 @@ LABEL_206:
             NSDecimal.asVariableLengthInteger()(v294 | (WORD2(v294) << 32) | (WORD3(v294) << 48), WORD4(v294) | (WORD5(v294) << 16) | (WORD6(v294) << 32) | (HIWORD(v294) << 48), v295 | (HIWORD(v295) << 16));
             v224 = v223;
             v225 = *(v223 + 16);
-            v226._rawValue = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v225);
+            v226 = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v225);
             *&v289 = v226;
             if (v225)
             {
@@ -1696,9 +1697,9 @@ LABEL_206:
 
             v231 = 48;
 LABEL_193:
-            for (i = *(v226._rawValue + 2); i; i = *(v289 + 16))
+            for (i = v226[1].i64[0]; i; i = *(v289 + 16))
             {
-              if (*(v226._rawValue + i + 15))
+              if (v226[1].i16[i + 7])
               {
                 break;
               }
@@ -1708,7 +1709,7 @@ LABEL_193:
                 specialized Array.remove(at:)(*(v289 + 16) - 1);
               }
 
-              v226._rawValue = v289;
+              v226 = v289;
             }
 
             LODWORD(v289) = v263;
@@ -1726,7 +1727,7 @@ LABEL_193:
               goto LABEL_233;
             }
 
-            v234 = *(v226._rawValue + 2);
+            v234 = v226[1].u64[0];
 
             if (HIDWORD(v234))
             {
@@ -1755,16 +1756,16 @@ LABEL_193:
             v229 = *(v224 + 2 * v228);
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v226._rawValue = specialized _ArrayBuffer._consumeAndCreateNew()(v226._rawValue);
+              v226 = specialized _ArrayBuffer._consumeAndCreateNew()(v226);
             }
 
-            if ((v228 - 15) > *(v226._rawValue + 2))
+            if ((v228 - 15) > v226[1].i64[0])
             {
               goto LABEL_217;
             }
 
             v230 = v229 | (v227 << 16);
-            *(v226._rawValue + v228) = v230 / 0xA;
+            v226->i16[v228] = v230 / 0xA;
             v227 = v230 % 0xA;
             if (--v228 == 15)
             {
@@ -1849,7 +1850,7 @@ LABEL_208:
         }
 
         v289 = v275;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd, &_ss18ReversedCollectionVySSGMR);
         lazy protocol witness table accessor for type ReversedCollection<String> and conformance ReversedCollection<A>();
         String.init<A>(_:)();
       }
@@ -1987,7 +1988,7 @@ LABEL_60:
             }
 
             v240 = v74;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
             v98 = static _DictionaryStorage.copy(original:)();
             v80 = v98;
             if (*(v72 + 16))
@@ -2133,7 +2134,7 @@ LABEL_92:
 
         else
         {
-          outlined destroy of TermOfAddress?(&v275, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v275, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           v82 = v287;
           v83 = specialized __RawDictionaryStorage.find<A>(_:)(0xD00000000000001DLL, 0x800000018147EC70);
           if (v84)
@@ -2146,7 +2147,7 @@ LABEL_92:
 
             else
             {
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
               v172 = static _DictionaryStorage.copy(original:)();
               v80 = v172;
               if (*(v82 + 16))
@@ -2254,8 +2255,8 @@ LABEL_152:
         }
 
         AttributedString._AttributeStorage._attributeModified(_:old:new:)(0xD00000000000001DLL, 0x800000018147EC70, &v275, &v280);
-        outlined destroy of TermOfAddress?(&v280, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v275, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v280, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v275, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         goto LABEL_94;
       }
 
@@ -2292,7 +2293,7 @@ LABEL_152:
         break;
       }
 
-      outlined destroy of TermOfAddress?(&v275, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v275, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v31 = specialized __RawDictionaryStorage.find<A>(_:)(0xD00000000000001BLL, 0x800000018147EC90);
       if (v32)
       {
@@ -2304,7 +2305,7 @@ LABEL_152:
 
         else
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v195 = static _DictionaryStorage.copy(original:)();
           v29 = v195;
           v196 = *(v13 + 16);
@@ -2410,8 +2411,8 @@ LABEL_168:
       v276 = 0u;
 LABEL_57:
       AttributedString._AttributeStorage._attributeModified(_:old:new:)(0xD00000000000001BLL, 0x800000018147EC90, &v275, &v280);
-      outlined destroy of TermOfAddress?(&v280, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(&v275, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v280, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(&v275, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v71 = v15 - 2;
       if (v15 - 2) < 9 && ((0x171u >> v71))
       {
@@ -2744,7 +2745,7 @@ LABEL_5:
       if ((v21 & 1) == 0)
       {
         v239 = v22;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
         v46 = static _DictionaryStorage.copy(original:)();
         v29 = v46;
         v47 = *(v13 + 16);
@@ -2903,31 +2904,33 @@ uint64_t ICUNumberFormatterBase.attributedFormatPositions(_:)(uint64_t a1, uint6
 {
   if (BYTE4(a3) > 1u)
   {
-    v6 = *(v3 + 16);
-    v7 = a3;
+    v8 = *(v3 + 16);
+    v9 = a3;
     type metadata accessor for ICUNumberFormatterBase.FormatResult();
-    swift_allocObject();
-    ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v6, a1, a2, v7);
+    v6 = swift_allocObject();
+    ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v8, a1, a2, v9);
   }
 
   else if (BYTE4(a3))
   {
+    v11 = *(v3 + 16);
     type metadata accessor for ICUNumberFormatterBase.FormatResult();
-    swift_allocObject();
-    ICUNumberFormatterBase.FormatResult.init(formatter:value:)();
+    v6 = swift_allocObject();
+    ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v11, *&a1);
   }
 
   else
   {
+    v5 = *(v3 + 16);
     type metadata accessor for ICUNumberFormatterBase.FormatResult();
-    swift_allocObject();
-    ICUNumberFormatterBase.FormatResult.init(formatter:value:)();
+    v6 = swift_allocObject();
+    ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v5, a1);
   }
 
-  v8 = specialized _withResizingUCharBuffer(initialSize:_:)(32);
-  if (v9)
+  v12 = specialized _withResizingUCharBuffer(initialSize:_:)(32, v6);
+  if (v13)
   {
-    v18 = v8;
+    v22 = v12;
     type metadata accessor for ICU.FieldPositer();
     inited = swift_initStackObject();
     result = ufieldpositer_open();
@@ -2935,40 +2938,40 @@ uint64_t ICUNumberFormatterBase.attributedFormatPositions(_:)(uint64_t a1, uint6
     {
       *(inited + 16) = result;
       unumf_resultGetAllFieldPositions();
-      v12 = ufieldpositer_next();
-      if ((v12 & 0x80000000) == 0)
+      v16 = ufieldpositer_next();
+      if ((v16 & 0x80000000) == 0)
       {
-        v13 = v12;
-        v14 = MEMORY[0x1E69E7CC0];
+        v17 = v16;
+        v18 = MEMORY[0x1E69E7CC0];
         do
         {
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v14 + 2) + 1, 1, v14);
+            v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 2) + 1, 1, v18);
           }
 
-          v16 = *(v14 + 2);
-          v15 = *(v14 + 3);
-          if (v16 >= v15 >> 1)
+          v20 = *(v18 + 2);
+          v19 = *(v18 + 3);
+          if (v20 >= v19 >> 1)
           {
-            v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1, v14);
+            v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v18);
           }
 
-          *(v14 + 2) = v16 + 1;
-          v17 = &v14[24 * v16];
-          *(v17 + 8) = v13;
-          *(v17 + 5) = 0;
-          *(v17 + 6) = 0;
-          v13 = ufieldpositer_next();
+          *(v18 + 2) = v20 + 1;
+          v21 = &v18[24 * v20];
+          *(v21 + 8) = v17;
+          *(v21 + 5) = 0;
+          *(v21 + 6) = 0;
+          v17 = ufieldpositer_next();
         }
 
-        while ((v13 & 0x80000000) == 0);
+        while ((v17 & 0x80000000) == 0);
       }
 
       swift_setDeallocating();
       ufieldpositer_close();
 
-      return v18;
+      return v22;
     }
 
     else
@@ -3004,10 +3007,10 @@ LABEL_14:
   v9._rawValue = v18;
   v10 = __NSDecimalString(_:_:)(v9, v20);
   v12 = v11;
-  outlined destroy of TermOfAddress?(v20, &_sypSgMd);
+  outlined destroy of TermOfAddress?(v20, &_sypSgMd, &_sypSgMR);
   if ((v12 & 0x1000000000000000) != 0)
   {
-    v10 = static String._copying(_:)();
+    v10 = static String._copying(_:)(v10, v12);
     v15 = v14;
 
     v12 = v15;
@@ -3055,7 +3058,7 @@ LABEL_10:
   return v4;
 }
 
-uint64_t ICUNumberFormatterBase.FormatResult.init(formatter:value:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t ICUNumberFormatterBase.FormatResult.init(formatter:value:)(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v6 = unumf_openResult();
   if (!v6)
@@ -3067,7 +3070,7 @@ LABEL_13:
   *(v3 + 16) = v6;
   if ((a3 & 0x1000000000000000) != 0)
   {
-    a2 = static String._copying(_:)();
+    a2 = static String._copying(_:)(a2, a3);
     v9 = v8;
 
     if ((v9 & 0x2000000000000000) == 0)
@@ -3121,7 +3124,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance ICUCurr
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ICUCurrencyNumberFormatter.Signature()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ICUCurrencyNumberFormatter.Signature(uint64_t a1)
 {
   String.hash(into:)();
   String.hash(into:)();
@@ -3129,7 +3132,7 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance ICUCurrencyNum
   return String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICUCurrencyNumberFormatter.Signature()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICUCurrencyNumberFormatter.Signature(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3138,7 +3141,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICU
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ICUCurrencyNumberFormatter.Signature(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ICUCurrencyNumberFormatter.Signature(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v4 = a1[3];
@@ -3161,7 +3164,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ICU
   return _stringCompareWithSmolCheck(_:_:expecting:)();
 }
 
-uint64_t ICUByteCountNumberFormatter.attributedFormat(_:unit:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, char a4@<W3>, uint64_t *a5@<X8>)
+uint64_t ICUByteCountNumberFormatter.attributedFormat(_:unit:)@<X0>(unint64_t a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, char a4@<W3>, uint64_t *a5@<X8>)
 {
   v5 = a3;
   v6 = a2;
@@ -3290,7 +3293,7 @@ LABEL_260:
             NSDecimal.asVariableLengthInteger()(v372 | (WORD2(v372) << 32) | (WORD3(v372) << 48), WORD4(v372) | (WORD5(v372) << 16) | (WORD6(v372) << 32) | (HIWORD(v372) << 48), v373 | (HIWORD(v373) << 16));
             v297 = v296;
             v298 = *(v296 + 16);
-            v299._rawValue = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v298);
+            v299 = _sSa9repeating5countSayxGx_SitcfCs6UInt16V_Tt1g5(0, v298);
             *&v367 = v299;
             if (v298)
             {
@@ -3299,9 +3302,9 @@ LABEL_260:
 
             v304 = 48;
 LABEL_247:
-            for (i = *(v299._rawValue + 2); i; i = *(v367 + 16))
+            for (i = v299[1].i64[0]; i; i = *(v367 + 16))
             {
-              if (*(v299._rawValue + i + 15))
+              if (v299[1].i16[i + 7])
               {
                 break;
               }
@@ -3311,7 +3314,7 @@ LABEL_247:
                 specialized Array.remove(at:)(*(v367 + 16) - 1);
               }
 
-              v299._rawValue = v367;
+              v299 = v367;
             }
 
             LODWORD(v367) = v335;
@@ -3329,7 +3332,7 @@ LABEL_247:
               goto LABEL_290;
             }
 
-            v307 = *(v299._rawValue + 2);
+            v307 = v299[1].u64[0];
 
             if (HIDWORD(v307))
             {
@@ -3358,16 +3361,16 @@ LABEL_247:
             v302 = *(v297 + 2 * v301);
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v299._rawValue = specialized _ArrayBuffer._consumeAndCreateNew()(v299._rawValue);
+              v299 = specialized _ArrayBuffer._consumeAndCreateNew()(v299);
             }
 
-            if ((v301 - 15) > *(v299._rawValue + 2))
+            if ((v301 - 15) > v299[1].i64[0])
             {
               goto LABEL_271;
             }
 
             v303 = v302 | (v300 << 16);
-            *(v299._rawValue + v301) = v303 / 0xA;
+            v299->i16[v301] = v303 / 0xA;
             v300 = v303 % 0xA;
             if (--v301 == 15)
             {
@@ -3458,7 +3461,7 @@ LABEL_262:
         }
 
         v367 = v353;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd, &_ss18ReversedCollectionVySSGMR);
         lazy protocol witness table accessor for type ReversedCollection<String> and conformance ReversedCollection<A>();
         String.init<A>(_:)();
       }
@@ -3597,7 +3600,7 @@ LABEL_60:
             }
 
             v311 = v75;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
             v99 = static _DictionaryStorage.copy(original:)();
             v81 = v99;
             if (*(v73 + 16))
@@ -3744,7 +3747,7 @@ LABEL_92:
 
         else
         {
-          outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           v83 = v365;
           v84 = specialized __RawDictionaryStorage.find<A>(_:)(0xD00000000000001DLL, 0x800000018147EC70);
           if (v85)
@@ -3757,7 +3760,7 @@ LABEL_92:
 
             else
             {
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
               v223 = static _DictionaryStorage.copy(original:)();
               v81 = v223;
               if (*(v83 + 16))
@@ -3866,8 +3869,8 @@ LABEL_188:
         }
 
         AttributedString._AttributeStorage._attributeModified(_:old:new:)(0xD00000000000001DLL, 0x800000018147EC70, &v353, &v358);
-        outlined destroy of TermOfAddress?(&v358, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v358, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         goto LABEL_94;
       }
 
@@ -3904,7 +3907,7 @@ LABEL_188:
         break;
       }
 
-      outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v33 = specialized __RawDictionaryStorage.find<A>(_:)(0xD00000000000001BLL, 0x800000018147EC90);
       if (v34)
       {
@@ -3916,7 +3919,7 @@ LABEL_188:
 
         else
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v269 = static _DictionaryStorage.copy(original:)();
           v36 = v269;
           v270 = *(v14 + 16);
@@ -4027,8 +4030,8 @@ LABEL_221:
 
 LABEL_57:
       AttributedString._AttributeStorage._attributeModified(_:old:new:)(0xD00000000000001BLL, 0x800000018147EC90, &v353, &v358);
-      outlined destroy of TermOfAddress?(&v358, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v358, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v72 = v17 - 2;
       if (v17 - 2) < 9 && ((0x171u >> v72))
       {
@@ -4081,7 +4084,7 @@ LABEL_94:
           }
 
           v331 = v124;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v148 = static _DictionaryStorage.copy(original:)();
           v130 = v148;
           if (*(v122 + 16))
@@ -4227,7 +4230,7 @@ LABEL_127:
         goto LABEL_128;
       }
 
-      outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v132 = v365;
       v133 = specialized __RawDictionaryStorage.find<A>(_:)(0xD00000000000001DLL, 0x800000018147CCB0);
       if (v134)
@@ -4240,7 +4243,7 @@ LABEL_127:
 
         else
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v246 = static _DictionaryStorage.copy(original:)();
           v130 = v246;
           if (*(v132 + 16))
@@ -4348,8 +4351,8 @@ LABEL_204:
       v354 = 0u;
 LABEL_128:
       AttributedString._AttributeStorage._attributeModified(_:old:new:)(0xD00000000000001DLL, 0x800000018147CCB0, &v353, &v358);
-      outlined destroy of TermOfAddress?(&v358, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v358, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(&v353, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 LABEL_129:
       v339 = v365;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -4664,7 +4667,7 @@ LABEL_5:
       if ((v23 & 1) == 0)
       {
         v329 = v24;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
         v49 = MEMORY[0x1E69E7CC8];
         v50 = static _DictionaryStorage.copy(original:)();
         v31 = v50;
@@ -4826,14 +4829,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance ICUNumb
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ICUNumberFormatter.Signature()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ICUNumberFormatter.Signature(uint64_t a1)
 {
   String.hash(into:)();
 
   return String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICUNumberFormatter.Signature()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICUNumberFormatter.Signature(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4841,7 +4844,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ICU
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ICUNumberFormatter.Signature(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ICUNumberFormatter.Signature(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v3 = a1[3];
@@ -4907,25 +4910,27 @@ char *specialized static ICUCurrencyNumberFormatter._create(with:)(uint64_t a1)
   v3 = static ICUCurrencyNumberFormatter.cache;
   v2 = qword_1EA7B5100;
   v4 = *(v1 + 16);
-  v46 = *v1;
-  v47 = v4;
-  v48 = *(v1 + 32);
+  v48 = *v1;
+  v49 = v4;
+  v50 = *(v1 + 32);
   MEMORY[0x1EEE9AC00](a1);
   os_unfair_lock_lock((v2 + 24));
-  partial apply for specialized closure #1 in FormatterCache.formatter(for:creator:)(v2 + 16, &v45);
+  partial apply for specialized closure #1 in FormatterCache.formatter(for:creator:)(v2 + 16, &v47);
   os_unfair_lock_unlock((v2 + 24));
-  v5 = v45;
-  if (v45 != 1)
+  v5 = v47;
+  if (v47 != 1)
   {
     return v5;
   }
 
   v6 = specialized static ICUCurrencyNumberFormatter.skeleton(for:)(*v1, *(v1 + 8), *(v1 + 16), *(v1 + 24));
   v8 = v7;
+  v9 = *(v1 + 32);
+  v10 = *(v1 + 40);
   type metadata accessor for ICUCurrencyNumberFormatter();
-  v9 = swift_allocObject();
+  v11 = swift_allocObject();
 
-  v5 = ICUNumberFormatterBase.init(skeleton:localeIdentifier:)(v6, v8);
+  v5 = ICUNumberFormatterBase.init(skeleton:localeIdentifier:)(v6, v8, v9, v10);
   os_unfair_lock_lock((v2 + 24));
   if (v3 >= *(*(v2 + 16) + 16))
   {
@@ -4937,49 +4942,49 @@ char *specialized static ICUCurrencyNumberFormatter._create(with:)(uint64_t a1)
   }
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v45 = *(v2 + 16);
-  v11 = v45;
+  v47 = *(v2 + 16);
+  v13 = v47;
   *(v2 + 16) = 0x8000000000000000;
-  v12 = specialized __RawDictionaryStorage.find<A>(_:)(v1);
-  v14 = *(v11 + 16);
-  v15 = (v13 & 1) == 0;
-  v16 = __OFADD__(v14, v15);
-  v17 = v14 + v15;
-  if (v16)
+  v14 = specialized __RawDictionaryStorage.find<A>(_:)(v1);
+  v16 = *(v13 + 16);
+  v17 = (v15 & 1) == 0;
+  v18 = __OFADD__(v16, v17);
+  v19 = v16 + v17;
+  if (v18)
   {
     __break(1u);
   }
 
   else
   {
-    v9 = v13;
-    if (*(v11 + 24) < v17)
+    v11 = v15;
+    if (*(v13 + 24) < v19)
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v17, isUniquelyReferenced_nonNull_native);
-      v18 = v45;
-      v12 = specialized __RawDictionaryStorage.find<A>(_:)(v1);
-      if ((v9 & 1) == (v19 & 1))
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v19, isUniquelyReferenced_nonNull_native);
+      v20 = v47;
+      v14 = specialized __RawDictionaryStorage.find<A>(_:)(v1);
+      if ((v11 & 1) == (v21 & 1))
       {
         goto LABEL_13;
       }
 
-      v12 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+      v14 = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
       __break(1u);
     }
 
     if (isUniquelyReferenced_nonNull_native)
     {
-      v18 = v11;
+      v20 = v13;
 LABEL_13:
-      if (v9)
+      if (v11)
       {
 LABEL_14:
-        v20 = v12;
+        v22 = v14;
 
-        *(*(v18 + 56) + 8 * v20) = v5;
+        *(*(v20 + 56) + 8 * v22) = v5;
 
 LABEL_33:
-        *(v2 + 16) = v18;
+        *(v2 + 16) = v20;
 
         os_unfair_lock_unlock((v2 + 24));
 
@@ -4988,21 +4993,21 @@ LABEL_33:
       }
 
 LABEL_32:
-      specialized _NativeDictionary._insert(at:key:value:)(v12, v1, v5, v18);
+      specialized _NativeDictionary._insert(at:key:value:)(v14, v1, v5, v20);
       goto LABEL_33;
     }
   }
 
-  v40 = v12;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation26ICUCurrencyNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd);
-  v21 = static _DictionaryStorage.copy(original:)();
-  v18 = v21;
-  if (!*(v11 + 16))
+  v42 = v14;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation26ICUCurrencyNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd, &_ss18_DictionaryStorageCy10Foundation26ICUCurrencyNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMR);
+  v23 = static _DictionaryStorage.copy(original:)();
+  v20 = v23;
+  if (!*(v13 + 16))
   {
 LABEL_31:
 
-    v12 = v40;
-    if (v9)
+    v14 = v42;
+    if (v11)
     {
       goto LABEL_14;
     }
@@ -5010,77 +5015,77 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  result = (v21 + 64);
-  v41 = (v11 + 64);
-  v23 = ((1 << *(v18 + 32)) + 63) >> 6;
-  if (v18 != v11 || result >= &v41[8 * v23])
+  result = (v23 + 64);
+  v43 = (v13 + 64);
+  v25 = ((1 << *(v20 + 32)) + 63) >> 6;
+  if (v20 != v13 || result >= &v43[8 * v25])
   {
-    result = memmove(result, v41, 8 * v23);
+    result = memmove(result, v43, 8 * v25);
   }
 
-  v24 = 0;
-  *(v18 + 16) = *(v11 + 16);
-  v25 = 1 << *(v11 + 32);
-  v26 = -1;
-  if (v25 < 64)
+  v26 = 0;
+  *(v20 + 16) = *(v13 + 16);
+  v27 = 1 << *(v13 + 32);
+  v28 = -1;
+  if (v27 < 64)
   {
-    v26 = ~(-1 << v25);
+    v28 = ~(-1 << v27);
   }
 
-  v27 = v26 & *(v11 + 64);
-  v28 = (v25 + 63) >> 6;
-  v42 = v28;
-  if (v27)
+  v29 = v28 & *(v13 + 64);
+  v30 = (v27 + 63) >> 6;
+  v44 = v30;
+  if (v29)
   {
     do
     {
-      v29 = __clz(__rbit64(v27));
-      v44 = (v27 - 1) & v27;
+      v31 = __clz(__rbit64(v29));
+      v46 = (v29 - 1) & v29;
 LABEL_29:
-      v32 = v29 | (v24 << 6);
-      v33 = (*(v11 + 48) + 48 * v32);
-      v35 = v33[2];
-      v34 = v33[1];
-      v43 = v33[3];
-      v36 = *(*(v11 + 56) + 8 * v32);
-      v37 = v33[4];
-      v38 = v33[5];
-      v39 = (*(v18 + 48) + 48 * v32);
-      *v39 = *v33;
-      v39[1] = v34;
-      v39[2] = v35;
-      v39[3] = v43;
-      v39[4] = v37;
-      v39[5] = v38;
-      *(*(v18 + 56) + 8 * v32) = v36;
+      v34 = v31 | (v26 << 6);
+      v35 = (*(v13 + 48) + 48 * v34);
+      v37 = v35[2];
+      v36 = v35[1];
+      v45 = v35[3];
+      v38 = *(*(v13 + 56) + 8 * v34);
+      v39 = v35[4];
+      v40 = v35[5];
+      v41 = (*(v20 + 48) + 48 * v34);
+      *v41 = *v35;
+      v41[1] = v36;
+      v41[2] = v37;
+      v41[3] = v45;
+      v41[4] = v39;
+      v41[5] = v40;
+      *(*(v20 + 56) + 8 * v34) = v38;
 
-      v28 = v42;
-      v27 = v44;
+      v30 = v44;
+      v29 = v46;
     }
 
-    while (v44);
+    while (v46);
   }
 
-  v30 = v24;
+  v32 = v26;
   while (1)
   {
-    v24 = v30 + 1;
-    if (__OFADD__(v30, 1))
+    v26 = v32 + 1;
+    if (__OFADD__(v32, 1))
     {
       break;
     }
 
-    if (v24 >= v28)
+    if (v26 >= v30)
     {
       goto LABEL_31;
     }
 
-    v31 = *&v41[8 * v24];
-    ++v30;
-    if (v31)
+    v33 = *&v43[8 * v26];
+    ++v32;
+    if (v33)
     {
-      v29 = __clz(__rbit64(v31));
-      v44 = (v31 - 1) & v31;
+      v31 = __clz(__rbit64(v33));
+      v46 = (v33 - 1) & v33;
       goto LABEL_29;
     }
   }
@@ -5129,7 +5134,7 @@ char *specialized static ICUPercentNumberFormatter._create(with:)(uint64_t a1, u
   type metadata accessor for ICUPercentNumberFormatter();
   v13 = swift_allocObject();
 
-  v10 = ICUNumberFormatterBase.init(skeleton:localeIdentifier:)(v11, v12);
+  v10 = ICUNumberFormatterBase.init(skeleton:localeIdentifier:)(v11, v12, a3, a4);
   os_unfair_lock_lock((v8 + 24));
   if (v9 >= *(*(v8 + 16) + 16))
   {
@@ -5198,7 +5203,7 @@ LABEL_34:
   }
 
   v42 = v16;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation25ICUPercentNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation25ICUPercentNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd, &_ss18_DictionaryStorageCy10Foundation25ICUPercentNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMR);
   v25 = static _DictionaryStorage.copy(original:)();
   v22 = v25;
   if (!*(v15 + 16))
@@ -5425,7 +5430,7 @@ LABEL_43:
 
 LABEL_27:
           v49 = v13;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation27ICUByteCountNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation27ICUByteCountNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd, &_ss18_DictionaryStorageCy10Foundation27ICUByteCountNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMR);
           v29 = static _DictionaryStorage.copy(original:)();
           v25 = v29;
           if (*(v17 + 16))
@@ -5668,7 +5673,7 @@ LABEL_43:
 
 LABEL_27:
           v49 = v13;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation29ICUMeasurementNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation29ICUMeasurementNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd, &_ss18_DictionaryStorageCy10Foundation29ICUMeasurementNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMR);
           v29 = static _DictionaryStorage.copy(original:)();
           v25 = v29;
           if (*(v17 + 16))
@@ -5812,23 +5817,23 @@ unint64_t lazy protocol witness table accessor for type ICUByteCountNumberFormat
 
 uint64_t IntegerFormatStyle.Currency.format(_:)(uint64_t a1, uint64_t a2)
 {
-  v105 = a1;
+  v112 = a1;
   v4 = *(a2 + 16);
   v3 = *(a2 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v100 = *(AssociatedTypeWitness - 8);
+  v107 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v99 = &v90 - v5;
-  v106 = v3;
-  v98 = *(*(v3 + 24) + 16);
-  v97 = swift_getAssociatedTypeWitness();
-  MEMORY[0x1EEE9AC00](v97);
-  v96 = &v90 - v6;
-  v108 = *(v4 - 8);
+  v106 = &v97 - v5;
+  v113 = v3;
+  v105 = *(*(v3 + 24) + 16);
+  v104 = swift_getAssociatedTypeWitness();
+  MEMORY[0x1EEE9AC00](v104);
+  v103 = &v97 - v6;
+  v115 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v7);
-  v104 = &v90 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v111 = &v97 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
-  v103 = &v90 - v10;
+  v110 = &v97 - v10;
   v11 = CurrencyFormatStyleConfiguration.Collection.skeleton.getter();
   v13 = v12;
   v15 = v2[2];
@@ -5838,51 +5843,52 @@ uint64_t IntegerFormatStyle.Currency.format(_:)(uint64_t a1, uint64_t a2)
   v18 = *(v16 + 472);
 
   v19 = v18(ObjectType, v16);
-  *&v112 = v11;
-  *(&v112 + 1) = v13;
-  v109 = v13;
-  *&v113 = v15;
-  *(&v113 + 1) = v14;
-  *&v114 = v19;
-  *(&v114 + 1) = v20;
-  v107 = v20;
+  v20 = v19;
+  *&v119 = v11;
+  *(&v119 + 1) = v13;
+  v116 = v13;
+  *&v120 = v15;
+  *(&v120 + 1) = v14;
+  *&v121 = v19;
+  *(&v121 + 1) = v21;
+  v114 = v21;
   if (one-time initialization token for cache != -1)
   {
     v19 = swift_once();
   }
 
-  v22 = static ICUCurrencyNumberFormatter.cache;
-  v21 = qword_1EA7B5100;
-  v111[0] = v112;
-  v111[1] = v113;
-  v111[2] = v114;
+  v23 = static ICUCurrencyNumberFormatter.cache;
+  v22 = qword_1EA7B5100;
+  v118[0] = v119;
+  v118[1] = v120;
+  v118[2] = v121;
   MEMORY[0x1EEE9AC00](v19);
-  *(&v90 - 2) = v111;
-  os_unfair_lock_lock((v21 + 24));
-  _s10Foundation14FormatterCacheV9formatter3for7creatorq_x_q_yKXEtKFq_SgSDyxq_GzYbXEfU_AA017ICUCurrencyNumberB0C9Signature33_1C58B5D80AA37B9371410D3343C91B53LLV_AJSgTG5TA_0(v21 + 16, &v110);
-  v102 = 0;
-  os_unfair_lock_unlock((v21 + 24));
-  v23 = v110;
-  if (v110 != 1)
+  *(&v97 - 2) = v118;
+  os_unfair_lock_lock((v22 + 24));
+  _s10Foundation14FormatterCacheV9formatter3for7creatorq_x_q_yKXEtKFq_SgSDyxq_GzYbXEfU_AA017ICUCurrencyNumberB0C9Signature33_1C58B5D80AA37B9371410D3343C91B53LLV_AJSgTG5TA_0(v22 + 16, &v117);
+  v109 = 0;
+  os_unfair_lock_unlock((v22 + 24));
+  v24 = v117;
+  if (v117 != 1)
   {
 LABEL_34:
 
-    if (!v23)
+    if (!v24)
     {
-      (*(v108 + 16))(v104, v105, v4);
+      (*(v115 + 16))(v111, v112, v4);
       return String.init<A>(_:radix:uppercase:)();
     }
 
-    v109 = v23;
-    v63 = *(v108 + 16);
-    v64 = v103;
-    v65 = v105;
-    v63(v103, v105, v4);
-    v66 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v67 = v104;
-    if ((v66 & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() >= 65)
+    v116 = v24;
+    v65 = *(v115 + 16);
+    v66 = v110;
+    v67 = v112;
+    v65(v110, v112, v4);
+    v68 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v69 = v111;
+    if ((v68 & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() >= 65)
     {
-      *&v111[0] = 0x8000000000000000;
+      *&v118[0] = 0x8000000000000000;
       if (dispatch thunk of static BinaryInteger.isSigned.getter())
       {
         if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
@@ -5895,11 +5901,11 @@ LABEL_48:
 
       else
       {
-        v68 = dispatch thunk of static BinaryInteger.isSigned.getter();
-        v69 = dispatch thunk of BinaryInteger.bitWidth.getter();
-        if ((v68 & 1) == 0)
+        v70 = dispatch thunk of static BinaryInteger.isSigned.getter();
+        v71 = dispatch thunk of BinaryInteger.bitWidth.getter();
+        if ((v70 & 1) == 0)
         {
-          if (v69 >= 64)
+          if (v71 >= 64)
           {
             goto LABEL_49;
           }
@@ -5907,15 +5913,15 @@ LABEL_48:
           goto LABEL_48;
         }
 
-        if (v69 <= 64)
+        if (v71 <= 64)
         {
           swift_getAssociatedConformanceWitness();
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
           dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-          v72 = dispatch thunk of static Comparable.< infix(_:_:)();
-          v71 = *(v108 + 8);
-          v71(v67, v4);
-          if (v72)
+          v74 = dispatch thunk of static Comparable.< infix(_:_:)();
+          v73 = *(v115 + 8);
+          v73(v69, v4);
+          if (v74)
           {
             goto LABEL_53;
           }
@@ -5926,10 +5932,10 @@ LABEL_48:
 
       lazy protocol witness table accessor for type Int64 and conformance Int64();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v70 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v71 = *(v108 + 8);
-      v71(v67, v4);
-      if (v70)
+      v72 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v73 = *(v115 + 8);
+      v73(v69, v4);
+      if (v72)
       {
         goto LABEL_53;
       }
@@ -5939,13 +5945,15 @@ LABEL_49:
     if (dispatch thunk of BinaryInteger.bitWidth.getter() <= 64 && (dispatch thunk of BinaryInteger.bitWidth.getter() != 64 || (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) != 0))
     {
 LABEL_61:
-      dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v108 + 8))(v64, v4);
+      v94 = dispatch thunk of BinaryInteger._lowWord.getter();
+      (*(v115 + 8))(v66, v4);
+      v95 = *(v116 + 16);
       type metadata accessor for ICUNumberFormatterBase.FormatResult();
       swift_initStackObject();
-      v85 = v102;
-      ICUNumberFormatterBase.FormatResult.init(formatter:value:)();
-      if (v85)
+      v96 = v95;
+      v87 = v109;
+      v88 = ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v96, v94);
+      if (v87)
       {
         goto LABEL_62;
       }
@@ -5953,63 +5961,64 @@ LABEL_61:
       goto LABEL_54;
     }
 
-    *&v111[0] = 0x7FFFFFFFFFFFFFFFLL;
-    v73 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v74 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if (v73)
+    *&v118[0] = 0x7FFFFFFFFFFFFFFFLL;
+    v75 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v76 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if (v75)
     {
-      if (v74 > 64)
+      if (v76 > 64)
       {
         goto LABEL_52;
       }
     }
 
-    else if (v74 > 63)
+    else if (v76 > 63)
     {
 LABEL_52:
       lazy protocol witness table accessor for type Int64 and conformance Int64();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v75 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v71 = *(v108 + 8);
-      v71(v67, v4);
-      if ((v75 & 1) == 0)
+      v77 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v73 = *(v115 + 8);
+      v73(v69, v4);
+      if ((v77 & 1) == 0)
       {
         goto LABEL_61;
       }
 
 LABEL_53:
-      v71(v64, v4);
-      v76 = v99;
+      v73(v66, v4);
+      v78 = v106;
       dispatch thunk of BinaryInteger.words.getter();
-      v77 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      v78 = AssociatedTypeWitness;
+      v79 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      v80 = AssociatedTypeWitness;
       AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-      v80 = numericStringRepresentationForBinaryInteger<A>(words:isSigned:)(v76, v77 & 1, v78, *(*(AssociatedConformanceWitness + 8) + 8));
-      v82 = v81;
-      (*(v100 + 8))(v76, v78);
-      v83 = *(v109 + 16);
+      v82 = numericStringRepresentationForBinaryInteger<A>(words:isSigned:)(v78, v79 & 1, v80, *(*(AssociatedConformanceWitness + 8) + 8));
+      v84 = v83;
+      (*(v107 + 8))(v78, v80);
+      v85 = *(v116 + 16);
       type metadata accessor for ICUNumberFormatterBase.FormatResult();
       swift_initStackObject();
-      v84 = v82;
-      v85 = v102;
-      ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v83, v80, v84);
-      if (v85)
+      v86 = v84;
+      v87 = v109;
+      v88 = ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v85, v82, v86);
+      if (v87)
       {
 LABEL_62:
 
 LABEL_63:
-        v63(v67, v65, v4);
+        v65(v69, v67, v4);
         return String.init<A>(_:radix:uppercase:)();
       }
 
 LABEL_54:
+      v89 = v88;
 
-      v86 = specialized _withResizingUCharBuffer(initialSize:_:)(32);
-      v88 = v87;
+      v90 = specialized _withResizingUCharBuffer(initialSize:_:)(32, v89);
+      v92 = v91;
 
-      if (v88)
+      if (v92)
       {
-        return v86;
+        return v90;
       }
 
       goto LABEL_63;
@@ -6019,45 +6028,46 @@ LABEL_54:
     goto LABEL_61;
   }
 
-  v24 = specialized static ICUCurrencyNumberFormatter.skeleton(for:)(v11, v109, v15, v14);
-  v26 = v25;
+  v25 = specialized static ICUCurrencyNumberFormatter.skeleton(for:)(v11, v116, v15, v14);
+  v27 = v26;
   type metadata accessor for ICUCurrencyNumberFormatter();
   swift_allocObject();
+  v28 = v114;
 
-  v27 = ICUNumberFormatterBase.init(skeleton:localeIdentifier:)(v24, v26);
-  os_unfair_lock_lock((v21 + 24));
-  if (v22 >= *(*(v21 + 16) + 16))
+  v29 = ICUNumberFormatterBase.init(skeleton:localeIdentifier:)(v25, v27, v20, v28);
+  os_unfair_lock_lock((v22 + 24));
+  if (v23 >= *(*(v22 + 16) + 16))
   {
   }
 
   else
   {
-    *(v21 + 16) = MEMORY[0x1E69E7CC8];
+    *(v22 + 16) = MEMORY[0x1E69E7CC8];
   }
 
-  v28 = v27;
+  v30 = v29;
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v110 = *(v21 + 16);
-  v30 = v110;
-  *(v21 + 16) = 0x8000000000000000;
-  v32 = specialized __RawDictionaryStorage.find<A>(_:)(&v112);
-  v33 = *(v30 + 16);
-  v34 = (v31 & 1) == 0;
-  v35 = v33 + v34;
-  if (__OFADD__(v33, v34))
+  v117 = *(v22 + 16);
+  v32 = v117;
+  *(v22 + 16) = 0x8000000000000000;
+  v34 = specialized __RawDictionaryStorage.find<A>(_:)(&v119);
+  v35 = *(v32 + 16);
+  v36 = (v33 & 1) == 0;
+  v37 = v35 + v36;
+  if (__OFADD__(v35, v36))
   {
     __break(1u);
     goto LABEL_16;
   }
 
-  LOBYTE(v27) = v31;
-  if (*(v30 + 24) >= v35)
+  LOBYTE(v29) = v33;
+  if (*(v32 + 24) >= v37)
   {
     if (isUniquelyReferenced_nonNull_native)
     {
-      v36 = v30;
-      if (v31)
+      v38 = v32;
+      if (v33)
       {
         goto LABEL_14;
       }
@@ -6066,88 +6076,88 @@ LABEL_54:
     }
 
 LABEL_16:
-    v90 = v32;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation26ICUCurrencyNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd);
-    v40 = static _DictionaryStorage.copy(original:)();
-    v36 = v40;
-    if (*(v30 + 16))
+    v97 = v34;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation26ICUCurrencyNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd, &_ss18_DictionaryStorageCy10Foundation26ICUCurrencyNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMR);
+    v42 = static _DictionaryStorage.copy(original:)();
+    v38 = v42;
+    if (*(v32 + 16))
     {
-      v41 = (v40 + 64);
-      v42 = 1 << *(v36 + 32);
-      v91 = (v30 + 64);
-      v43 = (v42 + 63) >> 6;
-      if (v36 != v30 || v41 >= &v91[8 * v43])
+      v43 = (v42 + 64);
+      v44 = 1 << *(v38 + 32);
+      v98 = (v32 + 64);
+      v45 = (v44 + 63) >> 6;
+      if (v38 != v32 || v43 >= &v98[8 * v45])
       {
-        memmove(v41, v91, 8 * v43);
+        memmove(v43, v98, 8 * v45);
       }
 
-      v44 = 0;
-      *(v36 + 16) = *(v30 + 16);
-      v45 = 1 << *(v30 + 32);
-      v46 = -1;
-      if (v45 < 64)
+      v46 = 0;
+      *(v38 + 16) = *(v32 + 16);
+      v47 = 1 << *(v32 + 32);
+      v48 = -1;
+      if (v47 < 64)
       {
-        v46 = ~(-1 << v45);
+        v48 = ~(-1 << v47);
       }
 
-      v47 = v46 & *(v30 + 64);
-      v48 = (v45 + 63) >> 6;
-      v92 = v48;
-      if (v47)
+      v49 = v48 & *(v32 + 64);
+      v50 = (v47 + 63) >> 6;
+      v99 = v50;
+      if (v49)
       {
         do
         {
-          v49 = __clz(__rbit64(v47));
-          v95 = (v47 - 1) & v47;
+          v51 = __clz(__rbit64(v49));
+          v102 = (v49 - 1) & v49;
 LABEL_29:
-          v52 = v49 | (v44 << 6);
-          v53 = *(v30 + 56);
-          v54 = (*(v30 + 48) + 48 * v52);
-          v55 = *v54;
-          v56 = v54[1];
-          v57 = v54[2];
-          v93 = v54[3];
-          v58 = v93;
-          v59 = *(v53 + 8 * v52);
-          v60 = v54[4];
-          v94 = v54[5];
-          v61 = v94;
-          v62 = (*(v36 + 48) + 48 * v52);
-          *v62 = v55;
-          v62[1] = v56;
-          v62[2] = v57;
-          v62[3] = v58;
-          v62[4] = v60;
-          v62[5] = v61;
-          *(*(v36 + 56) + 8 * v52) = v59;
+          v54 = v51 | (v46 << 6);
+          v55 = *(v32 + 56);
+          v56 = (*(v32 + 48) + 48 * v54);
+          v57 = *v56;
+          v58 = v56[1];
+          v59 = v56[2];
+          v100 = v56[3];
+          v60 = v100;
+          v61 = *(v55 + 8 * v54);
+          v62 = v56[4];
+          v101 = v56[5];
+          v63 = v101;
+          v64 = (*(v38 + 48) + 48 * v54);
+          *v64 = v57;
+          v64[1] = v58;
+          v64[2] = v59;
+          v64[3] = v60;
+          v64[4] = v62;
+          v64[5] = v63;
+          *(*(v38 + 56) + 8 * v54) = v61;
 
-          v48 = v92;
-          v47 = v95;
+          v50 = v99;
+          v49 = v102;
         }
 
-        while (v95);
+        while (v102);
       }
 
-      v50 = v44;
+      v52 = v46;
       while (1)
       {
-        v44 = v50 + 1;
-        if (__OFADD__(v50, 1))
+        v46 = v52 + 1;
+        if (__OFADD__(v52, 1))
         {
           break;
         }
 
-        if (v44 >= v48)
+        if (v46 >= v50)
         {
           goto LABEL_31;
         }
 
-        v51 = *&v91[8 * v44];
-        ++v50;
-        if (v51)
+        v53 = *&v98[8 * v46];
+        ++v52;
+        if (v53)
         {
-          v49 = __clz(__rbit64(v51));
-          v95 = (v51 - 1) & v51;
+          v51 = __clz(__rbit64(v53));
+          v102 = (v53 - 1) & v53;
           goto LABEL_29;
         }
       }
@@ -6158,39 +6168,39 @@ LABEL_29:
 
 LABEL_31:
 
-    v32 = v90;
-    if (v27)
+    v34 = v97;
+    if (v29)
     {
       goto LABEL_14;
     }
 
 LABEL_32:
-    v23 = v28;
-    specialized _NativeDictionary._insert(at:key:value:)(v32, &v112, v28, v36);
+    v24 = v30;
+    specialized _NativeDictionary._insert(at:key:value:)(v34, &v119, v30, v38);
     goto LABEL_33;
   }
 
-  specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v35, isUniquelyReferenced_nonNull_native);
-  v36 = v110;
-  v37 = specialized __RawDictionaryStorage.find<A>(_:)(&v112);
-  if ((v27 & 1) == (v38 & 1))
+  specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v37, isUniquelyReferenced_nonNull_native);
+  v38 = v117;
+  v39 = specialized __RawDictionaryStorage.find<A>(_:)(&v119);
+  if ((v29 & 1) == (v40 & 1))
   {
-    v32 = v37;
-    if ((v27 & 1) == 0)
+    v34 = v39;
+    if ((v29 & 1) == 0)
     {
       goto LABEL_32;
     }
 
 LABEL_14:
-    v39 = v32;
+    v41 = v34;
 
-    v23 = v28;
-    *(*(v36 + 56) + 8 * v39) = v28;
+    v24 = v30;
+    *(*(v38 + 56) + 8 * v41) = v30;
 
 LABEL_33:
-    *(v21 + 16) = v36;
+    *(v22 + 16) = v38;
 
-    os_unfair_lock_unlock((v21 + 24));
+    os_unfair_lock_unlock((v22 + 24));
 
     outlined consume of ICUNumberFormatter??(1);
     goto LABEL_34;
@@ -6204,23 +6214,23 @@ LABEL_66:
 
 uint64_t IntegerFormatStyle.Percent.format(_:)(uint64_t a1, uint64_t a2)
 {
-  v102 = a1;
+  v107 = a1;
   v4 = *(a2 + 16);
   v3 = *(a2 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v97 = *(AssociatedTypeWitness - 8);
+  v102 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v96 = &v86 - v5;
-  v103 = v3;
-  v95 = *(*(v3 + 24) + 16);
-  v94 = swift_getAssociatedTypeWitness();
-  MEMORY[0x1EEE9AC00](v94);
-  v93 = &v86 - v6;
-  v105 = *(v4 - 8);
+  v101 = &v91 - v5;
+  v108 = v3;
+  v100 = *(*(v3 + 24) + 16);
+  v99 = swift_getAssociatedTypeWitness();
+  MEMORY[0x1EEE9AC00](v99);
+  v98 = &v91 - v6;
+  v110 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v7);
-  v101 = &v86 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v106 = &v91 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v9);
-  v100 = &v86 - v10;
+  v105 = &v91 - v10;
   v11 = NumberFormatStyleConfiguration.Collection.skeleton.getter();
   v13 = v12;
   v14 = *(v2 + 8);
@@ -6235,37 +6245,37 @@ uint64_t IntegerFormatStyle.Percent.format(_:)(uint64_t a1, uint64_t a2)
 
   v21 = static ICUPercentNumberFormatter.cache;
   v20 = *algn_1EA7B0228;
-  v110[0] = v11;
-  v110[1] = v13;
-  v110[2] = v17;
-  v110[3] = v19;
+  v115[0] = v11;
+  v115[1] = v13;
+  v115[2] = v17;
+  v115[3] = v19;
   MEMORY[0x1EEE9AC00](v16);
-  *(&v86 - 2) = v110;
+  *(&v91 - 2) = v115;
   os_unfair_lock_lock((v20 + 24));
-  partial apply for specialized closure #1 in FormatterCache.formatter(for:creator:)(v20 + 16, &v108);
-  v99 = 0;
+  partial apply for specialized closure #1 in FormatterCache.formatter(for:creator:)(v20 + 16, &v113);
+  v104 = 0;
   os_unfair_lock_unlock((v20 + 24));
-  v22 = v108;
-  if (v108 != 1)
+  v22 = v113;
+  if (v113 != 1)
   {
 LABEL_36:
 
     if (!v22)
     {
-      (*(v105 + 16))(v101, v102, v4);
+      (*(v110 + 16))(v106, v107, v4);
       return String.init<A>(_:radix:uppercase:)();
     }
 
-    v104 = v22;
-    v59 = *(v105 + 16);
-    v60 = v100;
-    v61 = v102;
-    v59(v100, v102, v4);
+    v109 = v22;
+    v59 = *(v110 + 16);
+    v60 = v105;
+    v61 = v107;
+    v59(v105, v107, v4);
     v62 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v63 = v101;
+    v63 = v106;
     if ((v62 & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() >= 65)
     {
-      v110[0] = 0x8000000000000000;
+      v115[0] = 0x8000000000000000;
       if (dispatch thunk of static BinaryInteger.isSigned.getter())
       {
         if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
@@ -6296,7 +6306,7 @@ LABEL_50:
           dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
           dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
           v68 = dispatch thunk of static Comparable.< infix(_:_:)();
-          v67 = *(v105 + 8);
+          v67 = *(v110 + 8);
           v67(v63, v4);
           if (v68)
           {
@@ -6310,7 +6320,7 @@ LABEL_50:
       lazy protocol witness table accessor for type Int64 and conformance Int64();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
       v66 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v67 = *(v105 + 8);
+      v67 = *(v110 + 8);
       v67(v63, v4);
       if (v66)
       {
@@ -6322,12 +6332,14 @@ LABEL_51:
     if (dispatch thunk of BinaryInteger.bitWidth.getter() <= 64 && (dispatch thunk of BinaryInteger.bitWidth.getter() != 64 || (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) != 0))
     {
 LABEL_63:
-      dispatch thunk of BinaryInteger._lowWord.getter();
-      (*(v105 + 8))(v60, v4);
+      v88 = dispatch thunk of BinaryInteger._lowWord.getter();
+      (*(v110 + 8))(v60, v4);
+      v89 = *(v109 + 16);
       type metadata accessor for ICUNumberFormatterBase.FormatResult();
       swift_initStackObject();
-      v81 = v99;
-      ICUNumberFormatterBase.FormatResult.init(formatter:value:)();
+      v90 = v89;
+      v81 = v104;
+      v82 = ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v90, v88);
       if (v81)
       {
         goto LABEL_64;
@@ -6336,7 +6348,7 @@ LABEL_63:
       goto LABEL_56;
     }
 
-    v110[0] = 0x7FFFFFFFFFFFFFFFLL;
+    v115[0] = 0x7FFFFFFFFFFFFFFFLL;
     v69 = dispatch thunk of static BinaryInteger.isSigned.getter();
     v70 = dispatch thunk of BinaryInteger.bitWidth.getter();
     if (v69)
@@ -6353,7 +6365,7 @@ LABEL_54:
       lazy protocol witness table accessor for type Int64 and conformance Int64();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
       v71 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v67 = *(v105 + 8);
+      v67 = *(v110 + 8);
       v67(v63, v4);
       if ((v71 & 1) == 0)
       {
@@ -6362,20 +6374,20 @@ LABEL_54:
 
 LABEL_55:
       v67(v60, v4);
-      v72 = v96;
+      v72 = v101;
       dispatch thunk of BinaryInteger.words.getter();
       v73 = dispatch thunk of static BinaryInteger.isSigned.getter();
       v74 = AssociatedTypeWitness;
       AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
       v76 = numericStringRepresentationForBinaryInteger<A>(words:isSigned:)(v72, v73 & 1, v74, *(*(AssociatedConformanceWitness + 8) + 8));
       v78 = v77;
-      (*(v97 + 8))(v72, v74);
-      v79 = v104[2];
+      (*(v102 + 8))(v72, v74);
+      v79 = *(v109 + 16);
       type metadata accessor for ICUNumberFormatterBase.FormatResult();
       swift_initStackObject();
       v80 = v78;
-      v81 = v99;
-      ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v79, v76, v80);
+      v81 = v104;
+      v82 = ICUNumberFormatterBase.FormatResult.init(formatter:value:)(v79, v76, v80);
       if (v81)
       {
 LABEL_64:
@@ -6386,13 +6398,14 @@ LABEL_65:
       }
 
 LABEL_56:
+      v83 = v82;
 
-      v82 = specialized _withResizingUCharBuffer(initialSize:_:)(32);
-      v84 = v83;
+      v84 = specialized _withResizingUCharBuffer(initialSize:_:)(32, v83);
+      v86 = v85;
 
-      if (v84)
+      if (v86)
       {
-        return v82;
+        return v84;
       }
 
       goto LABEL_65;
@@ -6402,25 +6415,25 @@ LABEL_56:
     goto LABEL_63;
   }
 
-  v108 = 0x746E6563726570;
-  v109 = 0xE700000000000000;
+  v113 = 0x746E6563726570;
+  v114 = 0xE700000000000000;
   if (String.count.getter() > 0)
   {
-    v106 = 32;
-    v107 = 0xE100000000000000;
+    v111 = 32;
+    v112 = 0xE100000000000000;
     MEMORY[0x1865CB0E0](v11, v13);
-    MEMORY[0x1865CB0E0](v106, v107);
+    MEMORY[0x1865CB0E0](v111, v112);
   }
 
-  v23 = v108;
-  v24 = v109;
+  v23 = v113;
+  v24 = v114;
   type metadata accessor for ICUPercentNumberFormatter();
   swift_allocObject();
 
-  v25 = ICUNumberFormatterBase.init(skeleton:localeIdentifier:)(v23, v24);
+  v25 = ICUNumberFormatterBase.init(skeleton:localeIdentifier:)(v23, v24, v17, v19);
   os_unfair_lock_lock((v20 + 24));
   v26 = *(*(v20 + 16) + 16);
-  v92 = *(v20 + 16);
+  v97 = *(v20 + 16);
   if (v21 < v26)
   {
     *(v20 + 16) = MEMORY[0x1E69E7CC8];
@@ -6430,11 +6443,11 @@ LABEL_56:
   {
   }
 
-  v104 = v25;
+  v109 = v25;
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v108 = *(v20 + 16);
-  v28 = v108;
+  v113 = *(v20 + 16);
+  v28 = v113;
   *(v20 + 16) = 0x8000000000000000;
   v30 = specialized __RawDictionaryStorage.find<A>(_:)(v11, v13, v17, v19);
   v31 = *(v28 + 16);
@@ -6444,15 +6457,15 @@ LABEL_56:
   {
     __break(1u);
 LABEL_18:
-    v86 = v30;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation25ICUPercentNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd);
+    v91 = v30;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation25ICUPercentNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMd, &_ss18_DictionaryStorageCy10Foundation25ICUPercentNumberFormatterC9Signature33_1C58B5D80AA37B9371410D3343C91B53LLVAESgGMR);
     v38 = static _DictionaryStorage.copy(original:)();
     v34 = v38;
     if (!*(v28 + 16))
     {
 LABEL_33:
 
-      v30 = v86;
+      v30 = v91;
       if (v25)
       {
         goto LABEL_16;
@@ -6463,11 +6476,11 @@ LABEL_33:
 
     v39 = (v38 + 64);
     v40 = 1 << *(v34 + 32);
-    v87 = (v28 + 64);
+    v92 = (v28 + 64);
     v41 = (v40 + 63) >> 6;
-    if (v34 != v28 || v39 >= &v87[8 * v41])
+    if (v34 != v28 || v39 >= &v92[8 * v41])
     {
-      memmove(v39, v87, 8 * v41);
+      memmove(v39, v92, 8 * v41);
     }
 
     v42 = 0;
@@ -6481,23 +6494,23 @@ LABEL_33:
 
     v45 = v44 & *(v28 + 64);
     v46 = (v43 + 63) >> 6;
-    v88 = v46;
+    v93 = v46;
     if (v45)
     {
       do
       {
         v47 = __clz(__rbit64(v45));
-        v91 = (v45 - 1) & v45;
+        v96 = (v45 - 1) & v45;
 LABEL_31:
         v50 = v47 | (v42 << 6);
         v51 = *(v28 + 56);
         v52 = (*(v28 + 48) + 32 * v50);
         v53 = *v52;
-        v89 = v52[1];
-        v54 = v89;
+        v94 = v52[1];
+        v54 = v94;
         v55 = v52[2];
-        v90 = v52[3];
-        v56 = v90;
+        v95 = v52[3];
+        v56 = v95;
         v57 = *(v51 + 8 * v50);
         v58 = (*(v34 + 48) + 32 * v50);
         *v58 = v53;
@@ -6506,11 +6519,11 @@ LABEL_31:
         v58[3] = v56;
         *(*(v34 + 56) + 8 * v50) = v57;
 
-        v46 = v88;
-        v45 = v91;
+        v46 = v93;
+        v45 = v96;
       }
 
-      while (v91);
+      while (v96);
     }
 
     v48 = v42;
@@ -6527,12 +6540,12 @@ LABEL_31:
         goto LABEL_33;
       }
 
-      v49 = *&v87[8 * v42];
+      v49 = *&v92[8 * v42];
       ++v48;
       if (v49)
       {
         v47 = __clz(__rbit64(v49));
-        v91 = (v49 - 1) & v49;
+        v96 = (v49 - 1) & v49;
         goto LABEL_31;
       }
     }
@@ -6553,8 +6566,8 @@ LABEL_15:
 LABEL_16:
         v37 = v30;
 
-        v22 = v104;
-        *(*(v34 + 56) + 8 * v37) = v104;
+        v22 = v109;
+        *(*(v34 + 56) + 8 * v37) = v109;
 
 LABEL_35:
         *(v20 + 16) = v34;
@@ -6566,8 +6579,8 @@ LABEL_35:
       }
 
 LABEL_34:
-      v22 = v104;
-      specialized _NativeDictionary._insert(at:key:value:)(v30, v11, v13, v17, v19, v104, v34);
+      v22 = v109;
+      specialized _NativeDictionary._insert(at:key:value:)(v30, v11, v13, v17, v19, v109, v34);
       goto LABEL_35;
     }
 
@@ -6575,7 +6588,7 @@ LABEL_34:
   }
 
   specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v33, isUniquelyReferenced_nonNull_native);
-  v34 = v108;
+  v34 = v113;
   v35 = specialized __RawDictionaryStorage.find<A>(_:)(v11, v13, v17, v19);
   if ((v25 & 1) == (v36 & 1))
   {
@@ -6589,31 +6602,31 @@ LABEL_68:
   return result;
 }
 
-__n128 IntegerFormatStyle.init(locale:)@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
+__n128 IntegerFormatStyle.init(locale:)@<Q0>(__n128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, __n128 *a5@<X8>)
 {
-  v4 = a2 + *(type metadata accessor for IntegerFormatStyle() + 36);
-  *v4 = 0;
-  v4[8] = 1;
-  *(v4 + 2) = 0;
-  *(v4 + 3) = 0;
-  *(v4 + 4) = 0;
-  *(v4 + 5) = 0x1FFFFFFFELL;
-  *(v4 + 7) = 0;
-  *(v4 + 8) = 0;
-  *(v4 + 6) = 0;
-  *(v4 + 18) = 131584;
-  *(v4 + 38) = 512;
-  v5 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-  v6 = v5[9];
-  v7 = type metadata accessor for FloatingPointRoundingRule();
-  v10 = *a1;
-  (*(*(v7 - 8) + 56))(&v4[v6], 1, 1, v7);
-  v8 = &v4[v5[10]];
-  *v8 = 0;
-  v8[8] = -1;
-  v4[v5[11]] = 3;
-  result = v10;
-  *a2 = v10;
+  v7 = a5 + *(type metadata accessor for IntegerFormatStyle(0, a2, a3, a4) + 36);
+  *v7 = 0;
+  v7[8] = 1;
+  *(v7 + 2) = 0;
+  *(v7 + 3) = 0;
+  *(v7 + 4) = 0;
+  *(v7 + 5) = 0x1FFFFFFFELL;
+  *(v7 + 7) = 0;
+  *(v7 + 8) = 0;
+  *(v7 + 6) = 0;
+  *(v7 + 18) = 131584;
+  *(v7 + 38) = 512;
+  v8 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
+  v9 = v8[9];
+  v10 = type metadata accessor for FloatingPointRoundingRule();
+  v13 = *a1;
+  (*(*(v10 - 8) + 56))(&v7[v9], 1, 1, v10);
+  v11 = &v7[v8[10]];
+  *v11 = 0;
+  v11[8] = -1;
+  v7[v8[11]] = 3;
+  result = v13;
+  *a5 = v13;
   return result;
 }
 
@@ -6625,14 +6638,15 @@ __n128 IntegerFormatStyle.locale.setter(__n128 *a1)
   return result;
 }
 
-uint64_t IntegerFormatStyle.attributed.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t IntegerFormatStyle.attributed.getter@<X0>(uint64_t a1@<X0>, uint64_t a3@<X8>)
 {
-  return IntegerFormatStyle.attributed.getter(a1, a2);
+  return IntegerFormatStyle.attributed.getter(a1, a3);
 }
 
 {
-  (*(*(a1 - 8) + 16))(a2, v2, a1);
-  type metadata accessor for IntegerFormatStyle.Attributed.Style();
+  v4 = v3;
+  (*(*(a1 - 8) + 16))(a3, v4, a1);
+  type metadata accessor for IntegerFormatStyle.Attributed.Style(0, *(a1 + 16), *(a1 + 24), v6);
 
   return swift_storeEnumTagMultiPayload();
 }
@@ -6651,99 +6665,99 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, WitnessTable);
 }
 
-uint64_t IntegerFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t IntegerFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v23 = a2;
-  v3 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-  MEMORY[0x1EEE9AC00](v3);
-  v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for IntegerFormatStyle.CodingKeys();
-  WitnessTable = swift_getWitnessTable();
-  v27 = type metadata accessor for KeyedDecodingContainer();
-  v24 = *(v27 - 8);
-  MEMORY[0x1EEE9AC00](v27);
-  v6 = &v22 - v5;
-  v7 = type metadata accessor for IntegerFormatStyle();
-  v22 = *(v7 - 8);
+  v29 = a4;
+  v7 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
   MEMORY[0x1EEE9AC00](v7);
-  v9 = (&v22 - v8);
-  v11 = &v22 + *(v10 + 36) - v8;
-  *v11 = 0;
-  v11[8] = 1;
-  *(v11 + 2) = 0;
-  *(v11 + 3) = 0;
-  *(v11 + 4) = 0;
-  *(v11 + 5) = 0x1FFFFFFFELL;
-  *(v11 + 7) = 0;
-  *(v11 + 8) = 0;
-  *(v11 + 6) = 0;
-  *(v11 + 18) = 131584;
-  *(v11 + 38) = 512;
-  v12 = v3[9];
-  v13 = type metadata accessor for FloatingPointRoundingRule();
-  (*(*(v13 - 8) + 56))(&v11[v12], 1, 1, v13);
-  v14 = &v11[v3[10]];
-  *v14 = 0;
-  v14[8] = -1;
-  v11[v3[11]] = 3;
+  v31 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for IntegerFormatStyle.CodingKeys(255, a2, a3, v9);
+  WitnessTable = swift_getWitnessTable();
+  v33 = type metadata accessor for KeyedDecodingContainer();
+  v30 = *(v33 - 8);
+  MEMORY[0x1EEE9AC00](v33);
+  v11 = &v28 - v10;
+  v13 = type metadata accessor for IntegerFormatStyle(0, a2, a3, v12);
+  v28 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = (&v28 - v14);
+  v17 = &v28 + *(v16 + 36) - v14;
+  *v17 = 0;
+  v17[8] = 1;
+  *(v17 + 2) = 0;
+  *(v17 + 3) = 0;
+  *(v17 + 4) = 0;
+  *(v17 + 5) = 0x1FFFFFFFELL;
+  *(v17 + 7) = 0;
+  *(v17 + 8) = 0;
+  *(v17 + 6) = 0;
+  *(v17 + 18) = 131584;
+  *(v17 + 38) = 512;
+  v18 = v7[9];
+  v19 = type metadata accessor for FloatingPointRoundingRule();
+  (*(*(v19 - 8) + 56))(&v17[v18], 1, 1, v19);
+  v20 = &v17[v7[10]];
+  *v20 = 0;
+  v20[8] = -1;
+  v17[v7[11]] = 3;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v26 = v6;
-  v15 = v29;
+  v32 = v11;
+  v21 = v35;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v15)
+  if (v21)
   {
     __swift_destroy_boxed_opaque_existential_1(a1);
-    return outlined destroy of NumberFormatStyleConfiguration.Collection(v11);
+    return outlined destroy of NumberFormatStyleConfiguration.Collection(v17);
   }
 
   else
   {
-    v29 = v7;
-    v16 = v24;
-    v17 = v25;
-    v31 = 0;
+    v35 = v13;
+    v22 = v30;
+    v23 = v31;
+    v37 = 0;
     lazy protocol witness table accessor for type Locale and conformance Locale();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v18 = v9;
-    *v9 = v30;
-    LOBYTE(v30) = 1;
-    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+    v24 = v15;
+    *v15 = v36;
+    LOBYTE(v36) = 1;
+    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection, &protocol conformance descriptor for NumberFormatStyleConfiguration.Collection);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v16 + 8))(v26, v27);
-    outlined assign with take of NumberFormatStyleConfiguration.Collection(v17, v11);
-    v19 = v22;
-    v20 = v29;
-    (*(v22 + 16))(v23, v18, v29);
+    (*(v22 + 8))(v32, v33);
+    outlined assign with take of NumberFormatStyleConfiguration.Collection(v23, v17);
+    v25 = v28;
+    v26 = v35;
+    (*(v28 + 16))(v29, v24, v35);
     __swift_destroy_boxed_opaque_existential_1(a1);
-    return (*(v19 + 8))(v18, v20);
+    return (*(v25 + 8))(v24, v26);
   }
 }
 
-__n128 IntegerFormatStyle.Percent.init(locale:)@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
+__n128 IntegerFormatStyle.Percent.init(locale:)@<Q0>(__n128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, __n128 *a5@<X8>)
 {
-  v4 = a2 + *(type metadata accessor for IntegerFormatStyle.Percent() + 36);
-  v5 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-  v6 = v5[9];
-  v7 = type metadata accessor for FloatingPointRoundingRule();
-  v10 = *a1;
-  (*(*(v7 - 8) + 56))(&v4[v6], 1, 1, v7);
-  *v4 = 0x3FF0000000000000;
-  v4[8] = 0;
-  *(v4 + 2) = 0;
-  *(v4 + 3) = 0;
-  *(v4 + 4) = 0;
-  *(v4 + 5) = 0x1FFFFFFFELL;
-  *(v4 + 7) = 0;
-  *(v4 + 8) = 0;
-  *(v4 + 6) = 0;
-  *(v4 + 18) = 131584;
-  *(v4 + 38) = 512;
-  v8 = &v4[v5[10]];
-  *v8 = 0;
-  v8[8] = -1;
-  v4[v5[11]] = 3;
-  result = v10;
-  *a2 = v10;
+  v7 = a5 + *(type metadata accessor for IntegerFormatStyle.Percent(0, a2, a3, a4) + 36);
+  v8 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
+  v9 = v8[9];
+  v10 = type metadata accessor for FloatingPointRoundingRule();
+  v13 = *a1;
+  (*(*(v10 - 8) + 56))(&v7[v9], 1, 1, v10);
+  *v7 = 0x3FF0000000000000;
+  v7[8] = 0;
+  *(v7 + 2) = 0;
+  *(v7 + 3) = 0;
+  *(v7 + 4) = 0;
+  *(v7 + 5) = 0x1FFFFFFFELL;
+  *(v7 + 7) = 0;
+  *(v7 + 8) = 0;
+  *(v7 + 6) = 0;
+  *(v7 + 18) = 131584;
+  *(v7 + 38) = 512;
+  v11 = &v7[v8[10]];
+  *v11 = 0;
+  v11[8] = -1;
+  v7[v8[11]] = 3;
+  result = v13;
+  *a5 = v13;
   return result;
 }
 
@@ -6754,7 +6768,7 @@ uint64_t IntegerFormatStyle.rounded(rule:increment:)@<X0>(uint64_t a1@<X0>, uint
   v12 = a5 + *(a4 + 36);
   v13 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
   v14 = *(v13 + 36);
-  outlined destroy of TermOfAddress?(v12 + v14, &_ss25FloatingPointRoundingRuleOSgMd);
+  outlined destroy of TermOfAddress?(v12 + v14, &_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
   v15 = type metadata accessor for FloatingPointRoundingRule();
   v16 = *(v15 - 8);
   (*(v16 + 16))(v12 + v14, a1, v15);
@@ -6789,7 +6803,7 @@ uint64_t static IntegerFormatStyle.== infix(_:_:)(__int128 *a1, __int128 *a2, ui
   return static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(a1 + v12, a2 + v12);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IntegerFormatStyle<A>.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *, void, void, void))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IntegerFormatStyle<A>.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *, void, void, void))
 {
   Hasher.init(_seed:)();
   a4(v8, *v4, *(a2 + 16), *(a2 + 24));
@@ -6810,36 +6824,36 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, WitnessTable);
 }
 
-uint64_t IntegerFormatStyle.encode(to:)(void *a1, uint64_t a2, void (*a3)(uint64_t, uint64_t, void))
+uint64_t IntegerFormatStyle.encode(to:)(void *a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t, void), uint64_t a4)
 {
-  v4 = v3;
-  v7 = *(a2 + 16);
-  v14[1] = a2;
-  a3(255, v7, *(a2 + 24));
+  v5 = v4;
+  v8 = *(a2 + 16);
+  v15[1] = a2;
+  a3(255, v8, *(a2 + 24));
   swift_getWitnessTable();
-  v8 = type metadata accessor for KeyedEncodingContainer();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = v14 - v10;
+  v9 = type metadata accessor for KeyedEncodingContainer();
+  v10 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = v15 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v15 = *v4;
-  v17 = v15;
-  v18 = 0;
+  v16 = *v5;
+  v18 = v16;
+  v19 = 0;
   lazy protocol witness table accessor for type Locale and conformance Locale();
   swift_unknownObjectRetain();
-  v12 = v16;
+  v13 = v17;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   swift_unknownObjectRelease();
-  if (!v12)
+  if (!v13)
   {
-    LOBYTE(v17) = 1;
+    LOBYTE(v18) = 1;
     type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection, &protocol conformance descriptor for NumberFormatStyleConfiguration.Collection);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v9 + 8))(v11, v8);
+  return (*(v10 + 8))(v12, v9);
 }
 
 void IntegerFormatStyle.hash(into:)(Swift::Int a1, uint64_t a2)
@@ -6849,7 +6863,7 @@ void IntegerFormatStyle.hash(into:)(Swift::Int a1, uint64_t a2)
   v4 = *(v73 - 8);
   MEMORY[0x1EEE9AC00](v73);
   v71 = v59 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v59 - v7;
   v9 = *(v2 + 8);
@@ -6986,7 +7000,7 @@ LABEL_24:
         {
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           if (v29)
           {
@@ -7002,7 +7016,7 @@ LABEL_24:
 LABEL_26:
             Hasher._combine(_:)(1u);
             type metadata accessor for CFDictionaryRef(0);
-            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
             _CFObject.hash(into:)();
             if (v63)
             {
@@ -7019,7 +7033,7 @@ LABEL_26:
 LABEL_27:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           if (*(&v63 + 1))
           {
@@ -7036,7 +7050,7 @@ LABEL_35:
 LABEL_28:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           if (v64)
           {
@@ -7053,7 +7067,7 @@ LABEL_36:
 LABEL_29:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           v36 = *(&v64 + 1);
           if (*(&v64 + 1))
@@ -7145,7 +7159,7 @@ LABEL_41:
             }
 
             Hasher._combine(_:)(v43);
-            outlined destroy of TermOfAddress?(&v74, &_s10Foundation17LocalePreferencesVSgMd);
+            outlined destroy of TermOfAddress?(&v74, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
             goto LABEL_54;
           }
 
@@ -7318,7 +7332,7 @@ Swift::Int IntegerFormatStyle.hashValue.getter(uint64_t a1)
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v72 = v59 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v59 - v7;
   Hasher.init(_seed:)();
@@ -7470,14 +7484,14 @@ LABEL_25:
 LABEL_21:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
       if (v18)
       {
 LABEL_22:
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
-        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         _CFObject.hash(into:)();
         goto LABEL_28;
       }
@@ -7491,14 +7505,14 @@ LABEL_28:
         v34 = v66;
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
-        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         _CFObject.hash(into:)();
         if (*(&v64 + 1))
         {
 LABEL_30:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           goto LABEL_33;
         }
@@ -7521,7 +7535,7 @@ LABEL_33:
       {
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
-        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         _CFObject.hash(into:)();
       }
 
@@ -7606,7 +7620,7 @@ LABEL_43:
             }
 
             Hasher._combine(_:)(v42);
-            outlined destroy of TermOfAddress?(&v73, &_s10Foundation17LocalePreferencesVSgMd);
+            outlined destroy of TermOfAddress?(&v73, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
             goto LABEL_56;
           }
 
@@ -7772,71 +7786,71 @@ LABEL_56:
   return Hasher._finalize()();
 }
 
-uint64_t IntegerFormatStyle.Percent.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t IntegerFormatStyle.Percent.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v23 = a2;
-  v3 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-  MEMORY[0x1EEE9AC00](v3);
-  v25 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for IntegerFormatStyle.Percent.CodingKeys();
-  WitnessTable = swift_getWitnessTable();
-  v27 = type metadata accessor for KeyedDecodingContainer();
-  v24 = *(v27 - 8);
-  MEMORY[0x1EEE9AC00](v27);
-  v6 = &v22 - v5;
-  v7 = type metadata accessor for IntegerFormatStyle.Percent();
-  v22 = *(v7 - 8);
+  v29 = a4;
+  v7 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
   MEMORY[0x1EEE9AC00](v7);
-  v9 = (&v22 - v8);
-  v11 = &v22 + *(v10 + 36) - v8;
-  v12 = v3[9];
-  v13 = type metadata accessor for FloatingPointRoundingRule();
-  (*(*(v13 - 8) + 56))(&v11[v12], 1, 1, v13);
-  *v11 = 0x3FF0000000000000;
-  v11[8] = 0;
-  *(v11 + 2) = 0;
-  *(v11 + 3) = 0;
-  *(v11 + 4) = 0;
-  *(v11 + 5) = 0x1FFFFFFFELL;
-  *(v11 + 7) = 0;
-  *(v11 + 8) = 0;
-  *(v11 + 6) = 0;
-  *(v11 + 18) = 131584;
-  *(v11 + 38) = 512;
-  v14 = &v11[v3[10]];
-  *v14 = 0;
-  v14[8] = -1;
-  v11[v3[11]] = 3;
+  v31 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for IntegerFormatStyle.Percent.CodingKeys(255, a2, a3, v9);
+  WitnessTable = swift_getWitnessTable();
+  v33 = type metadata accessor for KeyedDecodingContainer();
+  v30 = *(v33 - 8);
+  MEMORY[0x1EEE9AC00](v33);
+  v11 = &v28 - v10;
+  v13 = type metadata accessor for IntegerFormatStyle.Percent(0, a2, a3, v12);
+  v28 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = (&v28 - v14);
+  v17 = &v28 + *(v16 + 36) - v14;
+  v18 = v7[9];
+  v19 = type metadata accessor for FloatingPointRoundingRule();
+  (*(*(v19 - 8) + 56))(&v17[v18], 1, 1, v19);
+  *v17 = 0x3FF0000000000000;
+  v17[8] = 0;
+  *(v17 + 2) = 0;
+  *(v17 + 3) = 0;
+  *(v17 + 4) = 0;
+  *(v17 + 5) = 0x1FFFFFFFELL;
+  *(v17 + 7) = 0;
+  *(v17 + 8) = 0;
+  *(v17 + 6) = 0;
+  *(v17 + 18) = 131584;
+  *(v17 + 38) = 512;
+  v20 = &v17[v7[10]];
+  *v20 = 0;
+  v20[8] = -1;
+  v17[v7[11]] = 3;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v26 = v6;
-  v15 = v29;
+  v32 = v11;
+  v21 = v35;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v15)
+  if (v21)
   {
     __swift_destroy_boxed_opaque_existential_1(a1);
-    return outlined destroy of NumberFormatStyleConfiguration.Collection(v11);
+    return outlined destroy of NumberFormatStyleConfiguration.Collection(v17);
   }
 
   else
   {
-    v29 = v7;
-    v16 = v24;
-    v17 = v25;
-    v31 = 0;
+    v35 = v13;
+    v22 = v30;
+    v23 = v31;
+    v37 = 0;
     lazy protocol witness table accessor for type Locale and conformance Locale();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v18 = v9;
-    *v9 = v30;
-    LOBYTE(v30) = 1;
-    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection);
+    v24 = v15;
+    *v15 = v36;
+    LOBYTE(v36) = 1;
+    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type NumberFormatStyleConfiguration.Collection and conformance NumberFormatStyleConfiguration.Collection, type metadata accessor for NumberFormatStyleConfiguration.Collection, &protocol conformance descriptor for NumberFormatStyleConfiguration.Collection);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v16 + 8))(v26, v27);
-    outlined assign with take of NumberFormatStyleConfiguration.Collection(v17, v11);
-    v19 = v22;
-    v20 = v29;
-    (*(v22 + 16))(v23, v18, v29);
+    (*(v22 + 8))(v32, v33);
+    outlined assign with take of NumberFormatStyleConfiguration.Collection(v23, v17);
+    v25 = v28;
+    v26 = v35;
+    (*(v28 + 16))(v29, v24, v35);
     __swift_destroy_boxed_opaque_existential_1(a1);
-    return (*(v19 + 8))(v18, v20);
+    return (*(v25 + 8))(v24, v26);
   }
 }
 
@@ -7847,33 +7861,33 @@ uint64_t IntegerFormatStyle.Currency.currencyCode.getter()
   return v1;
 }
 
-uint64_t IntegerFormatStyle.Currency.init(code:locale:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X2>, uint64_t a4@<X8>)
+uint64_t IntegerFormatStyle.Currency.init(code:locale:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
-  *a4 = *a3;
-  *(a4 + 16) = a1;
-  *(a4 + 24) = a2;
-  v4 = a4 + *(type metadata accessor for IntegerFormatStyle.Currency() + 40);
-  v5 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
-  v6 = v5[9];
-  v7 = type metadata accessor for FloatingPointRoundingRule();
-  result = (*(*(v7 - 8) + 56))(v4 + v6, 1, 1, v7);
-  *v4 = 0;
-  *(v4 + 8) = 1;
-  *(v4 + 16) = 0;
-  *(v4 + 24) = 0;
-  *(v4 + 32) = 0;
-  *(v4 + 40) = 0x1FFFFFFFELL;
-  *(v4 + 56) = 0;
-  *(v4 + 64) = 0;
-  *(v4 + 48) = 0;
-  *(v4 + 72) = 512;
-  *(v4 + 74) = 2;
-  *(v4 + 78) = 2;
-  v9 = v4 + v5[10];
-  *v9 = 0;
-  *(v9 + 8) = -1;
-  *(v4 + v5[11]) = 1;
-  *(v4 + v5[12]) = 3;
+  *a6 = *a3;
+  *(a6 + 16) = a1;
+  *(a6 + 24) = a2;
+  v6 = a6 + *(type metadata accessor for IntegerFormatStyle.Currency(0, a4, a5, a4) + 40);
+  v7 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
+  v8 = v7[9];
+  v9 = type metadata accessor for FloatingPointRoundingRule();
+  result = (*(*(v9 - 8) + 56))(v6 + v8, 1, 1, v9);
+  *v6 = 0;
+  *(v6 + 8) = 1;
+  *(v6 + 16) = 0;
+  *(v6 + 24) = 0;
+  *(v6 + 32) = 0;
+  *(v6 + 40) = 0x1FFFFFFFELL;
+  *(v6 + 56) = 0;
+  *(v6 + 64) = 0;
+  *(v6 + 48) = 0;
+  *(v6 + 72) = 512;
+  *(v6 + 74) = 2;
+  *(v6 + 78) = 2;
+  v11 = v6 + v7[10];
+  *v11 = 0;
+  *(v11 + 8) = -1;
+  *(v6 + v7[11]) = 1;
+  *(v6 + v7[12]) = 3;
   return result;
 }
 
@@ -7955,7 +7969,7 @@ uint64_t IntegerFormatStyle.Currency.rounded(rule:increment:)@<X0>(uint64_t a1@<
   v12 = a5 + *(a4 + 40);
   v13 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
   v14 = *(v13 + 36);
-  outlined destroy of TermOfAddress?(v12 + v14, &_ss25FloatingPointRoundingRuleOSgMd);
+  outlined destroy of TermOfAddress?(v12 + v14, &_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
   v15 = type metadata accessor for FloatingPointRoundingRule();
   v16 = *(v15 - 8);
   (*(v16 + 16))(v12 + v14, a1, v15);
@@ -8000,24 +8014,30 @@ uint64_t IntegerFormatStyle.Currency.notation(_:)@<X0>(char *a1@<X0>, uint64_t a
   return result;
 }
 
-uint64_t static IntegerFormatStyle.Currency.== infix(_:_:)(__int128 *a1, __int128 *a2)
+uint64_t static IntegerFormatStyle.Currency.== infix(_:_:)(__int128 *a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *a1;
-  v8 = *a2;
-  v9 = v4;
+  v8 = *a1;
+  v13 = *a2;
+  v14 = v8;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v5 = specialized static Locale.== infix(_:_:)(&v9, &v8);
+  v9 = specialized static Locale.== infix(_:_:)(&v14, &v13);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  if ((v5 & 1) == 0 || (*(a1 + 2) != *(a2 + 2) || *(a1 + 3) != *(a2 + 3)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if ((v9 & 1) == 0)
   {
     return 0;
   }
 
-  v6 = *(type metadata accessor for IntegerFormatStyle.Currency() + 40);
+  v10 = *(a2 + 3);
+  if ((*(a1 + 2) != *(a2 + 2) || *(a1 + 3) != v10) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
 
-  return static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(a1 + v6, a2 + v6);
+  v11 = *(type metadata accessor for IntegerFormatStyle.Currency(0, a3, a4, v10) + 40);
+
+  return static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(a1 + v11, a2 + v11);
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance IntegerFormatStyle<A>.Currency.CodingKeys(uint64_t a1)
@@ -8034,25 +8054,25 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, WitnessTable);
 }
 
-uint64_t IntegerFormatStyle.Currency.encode(to:)(void *a1)
+uint64_t IntegerFormatStyle.Currency.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for IntegerFormatStyle.Currency.CodingKeys();
+  type metadata accessor for IntegerFormatStyle.Currency.CodingKeys(255, *(a2 + 16), *(a2 + 24), a4);
   swift_getWitnessTable();
-  v2 = type metadata accessor for KeyedEncodingContainer();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = &v9 - v4;
+  v5 = type metadata accessor for KeyedEncodingContainer();
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v12 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v6 = v10;
+  v9 = v13;
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v9 = *v6;
-  v12 = v9;
-  v13 = 0;
+  v12 = *v9;
+  v15 = v12;
+  v16 = 0;
   lazy protocol witness table accessor for type Locale and conformance Locale();
   swift_unknownObjectRetain();
-  v7 = v11;
+  v10 = v14;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (v7)
+  if (v10)
   {
     swift_unknownObjectRelease();
   }
@@ -8060,15 +8080,15 @@ uint64_t IntegerFormatStyle.Currency.encode(to:)(void *a1)
   else
   {
     swift_unknownObjectRelease();
-    LOBYTE(v12) = 1;
+    LOBYTE(v15) = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    LOBYTE(v12) = 2;
+    LOBYTE(v15) = 2;
     type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
-    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CurrencyFormatStyleConfiguration.Collection and conformance CurrencyFormatStyleConfiguration.Collection, type metadata accessor for CurrencyFormatStyleConfiguration.Collection);
+    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CurrencyFormatStyleConfiguration.Collection and conformance CurrencyFormatStyleConfiguration.Collection, type metadata accessor for CurrencyFormatStyleConfiguration.Collection, &protocol conformance descriptor for CurrencyFormatStyleConfiguration.Collection);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v3 + 8))(v5, v2);
+  return (*(v6 + 8))(v8, v5);
 }
 
 void IntegerFormatStyle.Currency.hash(into:)(Swift::Int a1, uint64_t a2)
@@ -8079,7 +8099,7 @@ void IntegerFormatStyle.Currency.hash(into:)(Swift::Int a1, uint64_t a2)
   v5 = *(v75 - 8);
   MEMORY[0x1EEE9AC00](v75);
   v73 = v61 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = v61 - v8;
   v10 = *(v2 + 8);
@@ -8216,7 +8236,7 @@ LABEL_24:
         {
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           if (v30)
           {
@@ -8232,7 +8252,7 @@ LABEL_24:
 LABEL_26:
             Hasher._combine(_:)(1u);
             type metadata accessor for CFDictionaryRef(0);
-            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
             _CFObject.hash(into:)();
             if (v65)
             {
@@ -8249,7 +8269,7 @@ LABEL_26:
 LABEL_27:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           if (*(&v65 + 1))
           {
@@ -8266,7 +8286,7 @@ LABEL_35:
 LABEL_28:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           if (v66)
           {
@@ -8283,7 +8303,7 @@ LABEL_36:
 LABEL_29:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           v37 = *(&v66 + 1);
           if (*(&v66 + 1))
@@ -8375,7 +8395,7 @@ LABEL_41:
             }
 
             Hasher._combine(_:)(v44);
-            outlined destroy of TermOfAddress?(&v76, &_s10Foundation17LocalePreferencesVSgMd);
+            outlined destroy of TermOfAddress?(&v76, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
             goto LABEL_54;
           }
 
@@ -8552,7 +8572,7 @@ Swift::Int IntegerFormatStyle.Currency.hashValue.getter(uint64_t a1)
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v72 = v59 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v59 - v7;
   Hasher.init(_seed:)();
@@ -8704,14 +8724,14 @@ LABEL_25:
 LABEL_21:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
       if (v18)
       {
 LABEL_22:
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
-        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         _CFObject.hash(into:)();
         goto LABEL_28;
       }
@@ -8725,14 +8745,14 @@ LABEL_28:
         v34 = v66;
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
-        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         _CFObject.hash(into:)();
         if (*(&v64 + 1))
         {
 LABEL_30:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           goto LABEL_33;
         }
@@ -8755,7 +8775,7 @@ LABEL_33:
       {
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
-        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         _CFObject.hash(into:)();
       }
 
@@ -8840,7 +8860,7 @@ LABEL_43:
             }
 
             Hasher._combine(_:)(v42);
-            outlined destroy of TermOfAddress?(&v73, &_s10Foundation17LocalePreferencesVSgMd);
+            outlined destroy of TermOfAddress?(&v73, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
             goto LABEL_56;
           }
 
@@ -9009,51 +9029,51 @@ LABEL_56:
   return Hasher._finalize()();
 }
 
-uint64_t IntegerFormatStyle.Currency.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t IntegerFormatStyle.Currency.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v19 = a2;
-  v22 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
-  MEMORY[0x1EEE9AC00](v22);
-  v21 = &v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for IntegerFormatStyle.Currency.CodingKeys();
+  v25 = a4;
+  v28 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
+  MEMORY[0x1EEE9AC00](v28);
+  v27 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for IntegerFormatStyle.Currency.CodingKeys(255, a2, a3, v8);
   swift_getWitnessTable();
-  v23 = type metadata accessor for KeyedDecodingContainer();
-  v20 = *(v23 - 8);
-  MEMORY[0x1EEE9AC00](v23);
-  v5 = &v17 - v4;
-  v6 = type metadata accessor for IntegerFormatStyle.Currency();
-  v18 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v17 - v7;
+  v29 = type metadata accessor for KeyedDecodingContainer();
+  v26 = *(v29 - 8);
+  MEMORY[0x1EEE9AC00](v29);
+  v10 = &v23 - v9;
+  v12 = type metadata accessor for IntegerFormatStyle.Currency(0, a2, a3, v11);
+  v24 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v23 - v13;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v9 = v24;
+  v15 = v30;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v9)
+  if (v15)
   {
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v10 = v8;
-  v24 = v6;
-  v11 = v20;
-  v12 = v21;
-  v26 = 0;
+  v16 = v14;
+  v30 = v12;
+  v17 = v26;
+  v18 = v27;
+  v32 = 0;
   lazy protocol witness table accessor for type Locale and conformance Locale();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  *v10 = v25;
-  LOBYTE(v25) = 1;
-  *(v10 + 2) = KeyedDecodingContainer.decode(_:forKey:)();
-  *(v10 + 3) = v13;
-  LOBYTE(v25) = 2;
-  _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CurrencyFormatStyleConfiguration.Collection and conformance CurrencyFormatStyleConfiguration.Collection, type metadata accessor for CurrencyFormatStyleConfiguration.Collection);
+  *v16 = v31;
+  LOBYTE(v31) = 1;
+  *(v16 + 2) = KeyedDecodingContainer.decode(_:forKey:)();
+  *(v16 + 3) = v19;
+  LOBYTE(v31) = 2;
+  _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CurrencyFormatStyleConfiguration.Collection and conformance CurrencyFormatStyleConfiguration.Collection, type metadata accessor for CurrencyFormatStyleConfiguration.Collection, &protocol conformance descriptor for CurrencyFormatStyleConfiguration.Collection);
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v11 + 8))(v5, v23);
-  v14 = v24;
-  outlined init with take of CurrencyFormatStyleConfiguration.Collection(v12, &v10[*(v24 + 40)]);
-  v15 = v18;
-  (*(v18 + 16))(v19, v10, v14);
+  (*(v17 + 8))(v10, v29);
+  v20 = v30;
+  outlined init with take of CurrencyFormatStyleConfiguration.Collection(v18, &v16[*(v30 + 40)]);
+  v21 = v24;
+  (*(v24 + 16))(v25, v16, v20);
   __swift_destroy_boxed_opaque_existential_1(a1);
-  return (*(v15 + 8))(v10, v14);
+  return (*(v21 + 8))(v16, v20);
 }
 
 uint64_t protocol witness for FormatStyle.format(_:) in conformance IntegerFormatStyle<A>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
@@ -9080,231 +9100,232 @@ uint64_t protocol witness for FormatStyle.format(_:) in conformance IntegerForma
   return result;
 }
 
-uint64_t IntegerFormatStyle.parseStrategy.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t IntegerFormatStyle.parseStrategy.getter@<X0>(uint64_t a1@<X0>, uint64_t a3@<X8>)
 {
-  return IntegerFormatStyle.parseStrategy.getter(a1, a2);
+  return IntegerFormatStyle.parseStrategy.getter(a1, a3);
 }
 
 {
-  (*(*(a1 - 8) + 16))(a2, v2, a1);
-  swift_getWitnessTable();
-  result = type metadata accessor for IntegerParseStrategy();
-  *(a2 + *(result + 44)) = 1;
+  v4 = v3;
+  (*(*(a1 - 8) + 16))(a3, v4, a1);
+  WitnessTable = swift_getWitnessTable();
+  result = type metadata accessor for IntegerParseStrategy(0, a1, WitnessTable, *(a1 + 24));
+  *(a3 + *(result + 44)) = 1;
   return result;
 }
 
-uint64_t static FormatStyle.currency<A>(code:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t static FormatStyle.currency<A>(code:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   type metadata accessor for _LocaleAutoupdating();
   inited = swift_initStaticObject();
-  v7 = _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating);
-  *a3 = inited;
-  a3[1] = v7;
-  a3[2] = a1;
-  a3[3] = a2;
-  v8 = a3 + *(type metadata accessor for IntegerFormatStyle.Currency() + 40);
-  v9 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
-  v10 = v9[9];
-  v11 = type metadata accessor for FloatingPointRoundingRule();
-  (*(*(v11 - 8) + 56))(&v8[v10], 1, 1, v11);
-  *v8 = 0;
-  v8[8] = 1;
-  *(v8 + 2) = 0;
-  *(v8 + 3) = 0;
-  *(v8 + 4) = 0;
-  *(v8 + 5) = 0x1FFFFFFFELL;
-  *(v8 + 7) = 0;
-  *(v8 + 8) = 0;
-  *(v8 + 6) = 0;
-  *(v8 + 36) = 512;
-  *(v8 + 74) = 2;
-  v8[78] = 2;
-  v12 = &v8[v9[10]];
-  *v12 = 0;
-  v12[8] = -1;
-  v8[v9[11]] = 1;
-  v8[v9[12]] = 3;
+  v11 = _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating, &protocol conformance descriptor for _LocaleAutoupdating);
+  *a5 = inited;
+  a5[1] = v11;
+  a5[2] = a1;
+  a5[3] = a2;
+  v13 = a5 + *(type metadata accessor for IntegerFormatStyle.Currency(0, a3, a4, v12) + 40);
+  v14 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
+  v15 = v14[9];
+  v16 = type metadata accessor for FloatingPointRoundingRule();
+  (*(*(v16 - 8) + 56))(&v13[v15], 1, 1, v16);
+  *v13 = 0;
+  v13[8] = 1;
+  *(v13 + 2) = 0;
+  *(v13 + 3) = 0;
+  *(v13 + 4) = 0;
+  *(v13 + 5) = 0x1FFFFFFFELL;
+  *(v13 + 7) = 0;
+  *(v13 + 8) = 0;
+  *(v13 + 6) = 0;
+  *(v13 + 36) = 512;
+  *(v13 + 74) = 2;
+  v13[78] = 2;
+  v17 = &v13[v14[10]];
+  *v17 = 0;
+  v17[8] = -1;
+  v13[v14[11]] = 1;
+  v13[v14[12]] = 3;
 }
 
-uint64_t static IntegerFormatStyle.Attributed.Style.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t static IntegerFormatStyle.Attributed.Style.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v63 = a1;
-  *&v64 = a2;
-  v2 = type metadata accessor for IntegerFormatStyle.Currency();
-  v57 = *(v2 - 8);
-  v58 = v2;
-  MEMORY[0x1EEE9AC00](v2);
-  v54 = &v52 - v3;
-  v4 = type metadata accessor for IntegerFormatStyle.Percent();
-  v55 = *(v4 - 8);
-  v56 = v4;
-  MEMORY[0x1EEE9AC00](v4);
-  v53 = &v52 - v5;
-  v6 = type metadata accessor for IntegerFormatStyle();
-  v59 = *(v6 - 8);
+  v70 = a1;
+  *&v71 = a2;
+  v6 = type metadata accessor for IntegerFormatStyle.Currency(0, a3, a4, a4);
+  v64 = *(v6 - 8);
+  v65 = v6;
   MEMORY[0x1EEE9AC00](v6);
-  v8 = &v52 - v7;
-  v9 = type metadata accessor for IntegerFormatStyle.Attributed.Style();
-  v10 = *(v9 - 8);
+  v61 = &v59 - v7;
+  v9 = type metadata accessor for IntegerFormatStyle.Percent(0, a3, a4, v8);
+  v62 = *(v9 - 8);
+  v63 = v9;
   MEMORY[0x1EEE9AC00](v9);
-  v60 = &v52 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v60 = &v59 - v10;
+  v12 = type metadata accessor for IntegerFormatStyle(0, a3, a4, v11);
+  v66 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
-  v14 = (&v52 - v13);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = (&v52 - v16);
+  v14 = &v59 - v13;
+  v16 = type metadata accessor for IntegerFormatStyle.Attributed.Style(0, a3, a4, v15);
+  v17 = *(v16 - 8);
+  MEMORY[0x1EEE9AC00](v16);
+  v67 = &v59 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = (&v59 - v20);
+  MEMORY[0x1EEE9AC00](v22);
+  v24 = (&v59 - v23);
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v62 = *(TupleTypeMetadata2 - 8);
-  v19 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v21 = &v52 - v20;
-  v23 = *(v22 + 48);
-  v61 = v10;
-  v24 = *(v10 + 16);
-  v24(&v52 - v20, v63, v9, v19);
-  (v24)(&v21[v23], v64, v9);
+  v69 = *(TupleTypeMetadata2 - 8);
+  v26 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v28 = &v59 - v27;
+  v30 = *(v29 + 48);
+  v68 = v17;
+  v31 = *(v17 + 16);
+  v31(&v59 - v27, v70, v16, v26);
+  (v31)(&v28[v30], v71, v16);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (!EnumCaseMultiPayload)
   {
-    v36 = v8;
-    v37 = v59;
-    (v24)(v17, v21, v9);
+    v43 = v14;
+    v44 = v66;
+    (v31)(v24, v28, v16);
     if (!swift_getEnumCaseMultiPayload())
     {
-      (*(v37 + 32))(v36, &v21[v23], v6);
-      v48 = *v17;
-      v64 = *v36;
-      v65 = v64;
-      v66 = v48;
+      (*(v44 + 32))(v43, &v28[v30], v12);
+      v55 = *v24;
+      v71 = *v43;
+      v72 = v71;
+      v73 = v55;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v49 = specialized static Locale.== infix(_:_:)(&v66, &v65);
+      v56 = specialized static Locale.== infix(_:_:)(&v73, &v72);
       swift_unknownObjectRelease();
       swift_unknownObjectRelease();
-      if (v49)
+      if (v56)
       {
-        v50 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v17 + *(v6 + 36), v36 + *(v6 + 36));
-        v51 = *(v37 + 8);
-        v51(v36, v6);
-        v34 = v61;
-        if (v50)
+        v57 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v24 + *(v12 + 36), v43 + *(v12 + 36));
+        v58 = *(v44 + 8);
+        v58(v43, v12);
+        v41 = v68;
+        if (v57)
         {
-          v51(v17, v6);
-          v35 = 1;
+          v58(v24, v12);
+          v42 = 1;
           goto LABEL_19;
         }
       }
 
       else
       {
-        v51 = *(v37 + 8);
-        v51(v36, v6);
-        v34 = v61;
+        v58 = *(v44 + 8);
+        v58(v43, v12);
+        v41 = v68;
       }
 
-      v51(v17, v6);
-      v35 = 0;
+      v58(v24, v12);
+      v42 = 0;
       goto LABEL_19;
     }
 
-    (*(v37 + 8))(v17, v6);
+    (*(v44 + 8))(v24, v12);
     goto LABEL_18;
   }
 
   if (EnumCaseMultiPayload == 1)
   {
-    (v24)(v14, v21, v9);
+    (v31)(v21, v28, v16);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v26 = v55;
-      v27 = &v21[v23];
-      v28 = v53;
-      v29 = v56;
-      (*(v55 + 32))(v53, v27, v56);
-      v30 = *v14;
-      v64 = *v28;
-      v65 = v64;
-      v66 = v30;
+      v33 = v62;
+      v34 = &v28[v30];
+      v35 = v60;
+      v36 = v63;
+      (*(v62 + 32))(v60, v34, v63);
+      v37 = *v21;
+      v71 = *v35;
+      v72 = v71;
+      v73 = v37;
       swift_unknownObjectRetain();
       swift_unknownObjectRetain();
-      v31 = specialized static Locale.== infix(_:_:)(&v66, &v65);
+      v38 = specialized static Locale.== infix(_:_:)(&v73, &v72);
       swift_unknownObjectRelease();
       swift_unknownObjectRelease();
-      if (v31)
+      if (v38)
       {
-        v32 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v14 + *(v29 + 36), v28 + *(v29 + 36));
-        v33 = *(v26 + 8);
-        v33(v28, v29);
-        v34 = v61;
-        if (v32)
+        v39 = static NumberFormatStyleConfiguration.Collection.== infix(_:_:)(v21 + *(v36 + 36), &v35[*(v36 + 36)]);
+        v40 = *(v33 + 8);
+        v40(v35, v36);
+        v41 = v68;
+        if (v39)
         {
-          v33(v14, v29);
-          v35 = 1;
+          v40(v21, v36);
+          v42 = 1;
           goto LABEL_19;
         }
       }
 
       else
       {
-        v33 = *(v26 + 8);
-        v33(v28, v29);
-        v34 = v61;
+        v40 = *(v33 + 8);
+        v40(v35, v36);
+        v41 = v68;
       }
 
-      v33(v14, v29);
-      v35 = 0;
+      v40(v21, v36);
+      v42 = 0;
       goto LABEL_19;
     }
 
-    (*(v55 + 8))(v14, v56);
+    (*(v62 + 8))(v21, v63);
 LABEL_18:
-    v35 = 0;
-    v34 = v62;
-    v9 = TupleTypeMetadata2;
+    v42 = 0;
+    v41 = v69;
+    v16 = TupleTypeMetadata2;
     goto LABEL_19;
   }
 
-  v38 = v60;
-  (v24)(v60, v21, v9);
+  v45 = v67;
+  (v31)(v67, v28, v16);
   if (swift_getEnumCaseMultiPayload() != 2)
   {
-    (*(v57 + 8))(v38, v58);
+    (*(v64 + 8))(v45, v65);
     goto LABEL_18;
   }
 
-  v40 = v57;
-  v39 = v58;
-  v41 = &v21[v23];
-  v42 = v54;
-  (*(v57 + 32))(v54, v41, v58);
-  v43 = *v38;
-  v64 = *v42;
-  v65 = v64;
-  v66 = v43;
+  v47 = v64;
+  v46 = v65;
+  v48 = &v28[v30];
+  v49 = v61;
+  (*(v64 + 32))(v61, v48, v65);
+  v50 = *v45;
+  v71 = *v49;
+  v72 = v71;
+  v73 = v50;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v44 = specialized static Locale.== infix(_:_:)(&v66, &v65);
+  v51 = specialized static Locale.== infix(_:_:)(&v73, &v72);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  if (v44 & 1) != 0 && (*(v38 + 2) == *(v42 + 2) && *(v38 + 3) == *(v42 + 3) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(&v38[*(v39 + 40)], &v42[*(v39 + 40)]))
+  if (v51 & 1) != 0 && (*(v45 + 2) == *(v49 + 2) && *(v45 + 3) == *(v49 + 3) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized static CurrencyFormatStyleConfiguration.Collection.== infix(_:_:)(&v45[*(v46 + 40)], &v49[*(v46 + 40)]))
   {
-    v45 = *(v40 + 8);
-    v45(v42, v39);
-    v45(v38, v39);
-    v35 = 1;
-    v34 = v61;
+    v52 = *(v47 + 8);
+    v52(v49, v46);
+    v52(v45, v46);
+    v42 = 1;
+    v41 = v68;
   }
 
   else
   {
-    v47 = *(v40 + 8);
-    v47(v42, v39);
-    v47(v38, v39);
-    v35 = 0;
-    v34 = v61;
+    v54 = *(v47 + 8);
+    v54(v49, v46);
+    v54(v45, v46);
+    v42 = 0;
+    v41 = v68;
   }
 
 LABEL_19:
-  (*(v34 + 8))(v21, v9);
-  return v35;
+  (*(v41 + 8))(v28, v16);
+  return v42;
 }
 
 uint64_t IntegerFormatStyle.Attributed.Style.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
@@ -9359,222 +9380,226 @@ uint64_t IntegerFormatStyle.Attributed.Style.CodingKeys.stringValue.getter(char 
   return 0x79636E6572727563;
 }
 
-uint64_t IntegerFormatStyle.Attributed.Style.encode(to:)(void *a1, uint64_t a2)
+uint64_t IntegerFormatStyle.Attributed.Style.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = type metadata accessor for IntegerFormatStyle.Currency();
-  v43 = *(v4 - 8);
-  v44 = v4;
-  MEMORY[0x1EEE9AC00](v4);
-  v42 = &v32 - v5;
-  v6 = type metadata accessor for IntegerFormatStyle.Percent();
-  v40 = *(v6 - 8);
-  v41 = v6;
-  MEMORY[0x1EEE9AC00](v6);
-  v39 = &v32 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd);
-  v49 = *(v8 - 8);
-  v50 = v8;
+  v6 = *(a2 + 16);
+  v7 = *(a2 + 24);
+  v8 = type metadata accessor for IntegerFormatStyle.Currency(0, v6, v7, a4);
+  v50 = *(v8 - 8);
+  v51 = v8;
   MEMORY[0x1EEE9AC00](v8);
-  v38 = &v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v37 = &v32 - v11;
-  MEMORY[0x1EEE9AC00](v12);
-  v34 = &v32 - v13;
-  v14 = type metadata accessor for IntegerFormatStyle();
-  v35 = *(v14 - 8);
-  v36 = v14;
-  MEMORY[0x1EEE9AC00](v14);
-  v33 = &v32 - v15;
-  v16 = *(a2 - 8);
+  v49 = &v39 - v9;
+  v11 = type metadata accessor for IntegerFormatStyle.Percent(0, v6, v7, v10);
+  v47 = *(v11 - 8);
+  v48 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v46 = &v39 - v12;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd, &_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMR);
+  v56 = *(v13 - 8);
+  v57 = v13;
+  MEMORY[0x1EEE9AC00](v13);
+  v45 = &v39 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v44 = &v39 - v16;
   MEMORY[0x1EEE9AC00](v17);
-  v19 = &v32 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for IntegerFormatStyle.Attributed.Style.CodingKeys();
-  swift_getWitnessTable();
-  v20 = type metadata accessor for KeyedEncodingContainer();
-  v47 = *(v20 - 8);
-  v48 = v20;
+  v41 = &v39 - v18;
+  v20 = type metadata accessor for IntegerFormatStyle(0, v6, v7, v19);
+  v42 = *(v20 - 8);
+  v43 = v20;
   MEMORY[0x1EEE9AC00](v20);
-  v22 = &v32 - v21;
+  v40 = &v39 - v21;
+  v22 = *(a2 - 8);
+  MEMORY[0x1EEE9AC00](v23);
+  v25 = &v39 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for IntegerFormatStyle.Attributed.Style.CodingKeys(255, v6, v7, v26);
+  swift_getWitnessTable();
+  v27 = type metadata accessor for KeyedEncodingContainer();
+  v54 = *(v27 - 8);
+  v55 = v27;
+  MEMORY[0x1EEE9AC00](v27);
+  v29 = &v39 - v28;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v46 = v22;
+  v53 = v29;
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  (*(v16 + 16))(v19, v45, a2);
+  (*(v22 + 16))(v25, v52, a2);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload)
   {
     if (EnumCaseMultiPayload == 1)
     {
-      v25 = v39;
-      v24 = v40;
-      v26 = v41;
-      (*(v40 + 32))(v39, v19, v41);
-      v52 = 1;
+      v32 = v46;
+      v31 = v47;
+      v33 = v48;
+      (*(v47 + 32))(v46, v25, v48);
+      v59 = 1;
       lazy protocol witness table accessor for type DefaultAssociatedValueCodingKeys1 and conformance DefaultAssociatedValueCodingKeys1();
-      v27 = v37;
+      v34 = v44;
     }
 
     else
     {
-      v25 = v42;
-      v24 = v43;
-      v26 = v44;
-      (*(v43 + 32))(v42, v19, v44);
-      v53 = 2;
+      v32 = v49;
+      v31 = v50;
+      v33 = v51;
+      (*(v50 + 32))(v49, v25, v51);
+      v60 = 2;
       lazy protocol witness table accessor for type DefaultAssociatedValueCodingKeys1 and conformance DefaultAssociatedValueCodingKeys1();
-      v27 = v38;
+      v34 = v45;
     }
 
-    v28 = v48;
-    v29 = v46;
+    v35 = v55;
+    v36 = v53;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
   }
 
   else
   {
-    v24 = v35;
-    v26 = v36;
-    v25 = v33;
-    (*(v35 + 32))(v33, v19, v36);
-    v51 = 0;
+    v31 = v42;
+    v33 = v43;
+    v32 = v40;
+    (*(v42 + 32))(v40, v25, v43);
+    v58 = 0;
     lazy protocol witness table accessor for type DefaultAssociatedValueCodingKeys1 and conformance DefaultAssociatedValueCodingKeys1();
-    v27 = v34;
-    v28 = v48;
-    v29 = v46;
+    v34 = v41;
+    v35 = v55;
+    v36 = v53;
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
   }
 
   swift_getWitnessTable();
-  v30 = v50;
+  v37 = v57;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  (*(v49 + 8))(v27, v30);
-  (*(v24 + 8))(v25, v26);
-  return (*(v47 + 8))(v29, v28);
+  (*(v56 + 8))(v34, v37);
+  (*(v31 + 8))(v32, v33);
+  return (*(v54 + 8))(v36, v35);
 }
 
-uint64_t IntegerFormatStyle.Attributed.Style.hash(into:)(Swift::Int a1, uint64_t a2)
+uint64_t IntegerFormatStyle.Attributed.Style.hash(into:)(Swift::Int a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = v2;
-  v212 = type metadata accessor for IntegerFormatStyle.Currency();
-  v216 = *(v212 - 8);
-  MEMORY[0x1EEE9AC00](v212);
-  v214 = &v205 - v6;
-  v217 = type metadata accessor for IntegerFormatStyle.Percent();
-  v215 = *(v217 - 8);
-  MEMORY[0x1EEE9AC00](v217);
-  v8 = &v205 - v7;
-  v9 = type metadata accessor for FloatingPointRoundingRule();
-  v218 = *(v9 - 8);
-  v219 = v9;
-  MEMORY[0x1EEE9AC00](v9);
-  v213 = &v205 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v211 = &v205 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v210 = &v205 - v14;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = (&v205 - v16);
-  v18 = type metadata accessor for IntegerFormatStyle();
-  v19 = *(v18 - 8);
+  v5 = v4;
+  v9 = *(a2 + 16);
+  v8 = *(a2 + 24);
+  v218 = type metadata accessor for IntegerFormatStyle.Currency(0, v9, v8, a4);
+  v222 = *(v218 - 8);
+  MEMORY[0x1EEE9AC00](v218);
+  v220 = &v211 - v10;
+  v223 = type metadata accessor for IntegerFormatStyle.Percent(0, v9, v8, v11);
+  v221 = *(v223 - 8);
+  MEMORY[0x1EEE9AC00](v223);
+  v13 = &v211 - v12;
+  v14 = type metadata accessor for FloatingPointRoundingRule();
+  v224 = *(v14 - 8);
+  v225 = v14;
+  MEMORY[0x1EEE9AC00](v14);
+  v219 = &v211 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss25FloatingPointRoundingRuleOSgMd, &_ss25FloatingPointRoundingRuleOSgMR);
+  MEMORY[0x1EEE9AC00](v16 - 8);
+  v217 = &v211 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v18);
-  v21 = &v205 - v20;
-  v23 = MEMORY[0x1EEE9AC00](v22);
-  v25 = &v205 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v26 + 16))(v25, v3, a2, v23);
+  v216 = &v211 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = (&v211 - v21);
+  v24 = type metadata accessor for IntegerFormatStyle(0, v9, v8, v23);
+  v25 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v27 = &v211 - v26;
+  v29 = MEMORY[0x1EEE9AC00](v28);
+  v31 = &v211 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v32 + 16))(v31, v5, a2, v29);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload)
   {
     if (EnumCaseMultiPayload == 1)
     {
-      v28 = v8;
-      (*(v215 + 32))(v8, v25, v217);
+      v34 = v13;
+      (*(v221 + 32))(v13, v31, v223);
       MEMORY[0x1865CD060](1);
-      v29 = *(v8 + 1);
+      v35 = *(v13 + 1);
       ObjectType = swift_getObjectType();
-      v31 = (*(v29 + 48))(ObjectType, v29);
-      v33 = v218;
-      v32 = v219;
-      if (v31)
+      v37 = (*(v35 + 48))(ObjectType, v35);
+      v39 = v224;
+      v38 = v225;
+      if (v37)
       {
-        v34 = 1;
+        v40 = 1;
 LABEL_11:
-        Hasher._combine(_:)(v34);
+        Hasher._combine(_:)(v40);
         goto LABEL_83;
       }
 
       Hasher._combine(_:)(0);
-      (*(v29 + 64))(ObjectType, v29);
+      (*(v35 + 64))(ObjectType, v35);
       String.hash(into:)();
 
-      (*(v29 + 464))(&v220, ObjectType, v29);
-      v233 = v226;
-      v234[0] = v227[0];
-      *(v234 + 12) = *(v227 + 12);
-      *v230 = v222;
-      *&v230[16] = v223;
-      v231 = v224;
-      v232 = v225;
-      v228 = v220;
-      v229 = v221;
-      if (_s10Foundation17LocalePreferencesVSgWOg(&v228) == 1)
+      (*(v35 + 464))(&v226, ObjectType, v35);
+      v239 = v232;
+      v240[0] = v233[0];
+      *(v240 + 12) = *(v233 + 12);
+      *v236 = v228;
+      *&v236[16] = v229;
+      v237 = v230;
+      v238 = v231;
+      v234 = v226;
+      v235 = v227;
+      if (_s10Foundation17LocalePreferencesVSgWOg(&v234) == 1)
       {
-        v34 = 0;
+        v40 = 0;
         goto LABEL_11;
       }
 
-      v48 = v220;
-      v49 = *(&v220 + 1);
-      v50 = *(&v221 + 1);
-      v206 = v221;
-      v51 = *(&v222 + 1);
-      v207 = v222;
-      *&v208[24] = *(&v223 + 1);
-      *&v208[32] = v224;
-      *&v208[48] = v225;
-      *&v208[64] = v226;
-      *v208 = *(&v227[0] + 1);
-      v209 = *&v227[0];
-      *&v208[8] = v223;
-      v211 = *&v227[1];
-      v212 = BYTE8(v227[1]);
-      v214 = BYTE9(v227[1]);
-      v52 = BYTE10(v227[1]);
-      v53 = BYTE11(v227[1]);
+      v54 = v226;
+      v55 = *(&v226 + 1);
+      v56 = *(&v227 + 1);
+      v212 = v227;
+      v57 = *(&v228 + 1);
+      v213 = v228;
+      *&v214[24] = *(&v229 + 1);
+      *&v214[32] = v230;
+      *&v214[48] = v231;
+      *&v214[64] = v232;
+      *v214 = *(&v233[0] + 1);
+      v215 = *&v233[0];
+      *&v214[8] = v229;
+      v217 = *&v233[1];
+      v218 = BYTE8(v233[1]);
+      v220 = BYTE9(v233[1]);
+      v58 = BYTE10(v233[1]);
+      v59 = BYTE11(v233[1]);
       Hasher._combine(_:)(1u);
-      if (v48 == 2)
+      if (v54 == 2)
       {
-        v54 = 0;
+        v60 = 0;
       }
 
       else
       {
         Hasher._combine(_:)(1u);
-        v54 = v48 & 1;
+        v60 = v54 & 1;
       }
 
-      LODWORD(v216) = v53;
-      Hasher._combine(_:)(v54);
-      if (v49)
+      LODWORD(v222) = v59;
+      Hasher._combine(_:)(v60);
+      if (v55)
       {
         Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](*(v49 + 16));
-        v67 = *(v49 + 16);
-        if (v67)
+        MEMORY[0x1865CD060](*(v55 + 16));
+        v73 = *(v55 + 16);
+        if (v73)
         {
-          v68 = v49 + 40;
+          v74 = v55 + 40;
           do
           {
 
             String.hash(into:)();
 
-            v68 += 16;
-            --v67;
+            v74 += 16;
+            --v73;
           }
 
-          while (v67);
+          while (v73);
         }
 
-        if (v50)
+        if (v56)
         {
           goto LABEL_29;
         }
@@ -9583,7 +9608,7 @@ LABEL_11:
       else
       {
         Hasher._combine(_:)(0);
-        if (v50)
+        if (v56)
         {
 LABEL_29:
           Hasher._combine(_:)(1u);
@@ -9594,11 +9619,11 @@ LABEL_29:
 
       Hasher._combine(_:)(0);
 LABEL_46:
-      v33 = v218;
-      v32 = v219;
-      v73 = *&v208[32];
-      *&v208[16] = v52;
-      if (v51)
+      v39 = v224;
+      v38 = v225;
+      v79 = *&v214[32];
+      *&v214[16] = v58;
+      if (v57)
       {
         Hasher._combine(_:)(1u);
         String.hash(into:)();
@@ -9609,15 +9634,15 @@ LABEL_46:
         Hasher._combine(_:)(0);
       }
 
-      v74 = v211;
-      v75 = *&v208[48];
-      v76 = *&v208[8];
-      if (*&v208[8])
+      v80 = v217;
+      v81 = *&v214[48];
+      v82 = *&v214[8];
+      if (*&v214[8])
       {
         Hasher._combine(_:)(1u);
-        specialized Dictionary<>.hash(into:)(a1, v76, v77, v78, v79, v80, v81, v82);
-        v83 = *&v208[24];
-        if (*&v208[24])
+        specialized Dictionary<>.hash(into:)(a1, v82, v83, v84, v85, v86, v87, v88);
+        v89 = *&v214[24];
+        if (*&v214[24])
         {
           goto LABEL_51;
         }
@@ -9626,13 +9651,13 @@ LABEL_46:
       else
       {
         Hasher._combine(_:)(0);
-        v83 = *&v208[24];
-        if (*&v208[24])
+        v89 = *&v214[24];
+        if (*&v214[24])
         {
 LABEL_51:
           Hasher._combine(_:)(1u);
-          specialized Dictionary<>.hash(into:)(a1, v83, v84, v85, v86, v87, v88, v89);
-          if (v73)
+          specialized Dictionary<>.hash(into:)(a1, v89, v90, v91, v92, v93, v94, v95);
+          if (v79)
           {
             goto LABEL_52;
           }
@@ -9642,14 +9667,14 @@ LABEL_51:
       }
 
       Hasher._combine(_:)(0);
-      if (v73)
+      if (v79)
       {
 LABEL_52:
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
-        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         _CFObject.hash(into:)();
-        if (*&v208[40])
+        if (*&v214[40])
         {
           goto LABEL_53;
         }
@@ -9659,19 +9684,19 @@ LABEL_52:
 
 LABEL_57:
       Hasher._combine(_:)(0);
-      if (*&v208[40])
+      if (*&v214[40])
       {
 LABEL_53:
         Hasher._combine(_:)(1u);
         type metadata accessor for CFDictionaryRef(0);
-        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+        _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
         _CFObject.hash(into:)();
-        if (v75)
+        if (v81)
         {
 LABEL_54:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           goto LABEL_60;
         }
@@ -9679,20 +9704,20 @@ LABEL_54:
 LABEL_59:
         Hasher._combine(_:)(0);
 LABEL_60:
-        v90 = *&v208[16];
-        if (*&v208[56])
+        v96 = *&v214[16];
+        if (*&v214[56])
         {
-          v91 = v214;
+          v97 = v220;
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
-          if (*&v208[64])
+          if (*&v214[64])
           {
 LABEL_62:
             Hasher._combine(_:)(1u);
             type metadata accessor for CFDictionaryRef(0);
-            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
             _CFObject.hash(into:)();
             goto LABEL_65;
           }
@@ -9700,9 +9725,9 @@ LABEL_62:
 
         else
         {
-          v91 = v214;
+          v97 = v220;
           Hasher._combine(_:)(0);
-          if (*&v208[64])
+          if (*&v214[64])
           {
             goto LABEL_62;
           }
@@ -9710,13 +9735,13 @@ LABEL_62:
 
         Hasher._combine(_:)(0);
 LABEL_65:
-        v92 = v91;
-        v93 = v90;
-        v94 = *&v208[72];
-        if (*&v208[72])
+        v98 = v97;
+        v99 = v96;
+        v100 = *&v214[72];
+        if (*&v214[72])
         {
           Hasher._combine(_:)(1u);
-          specialized Dictionary<>.hash(into:)(a1, v94);
+          specialized Dictionary<>.hash(into:)(a1, v100);
         }
 
         else
@@ -9724,14 +9749,14 @@ LABEL_65:
           Hasher._combine(_:)(0);
         }
 
-        v95 = v74;
-        v96 = v209;
-        if (v209)
+        v101 = v80;
+        v102 = v215;
+        if (v215)
         {
           Hasher._combine(_:)(1u);
-          specialized Dictionary<>.hash(into:)(a1, v96);
-          v97 = v212;
-          if (v95)
+          specialized Dictionary<>.hash(into:)(a1, v102);
+          v103 = v218;
+          if (v101)
           {
             goto LABEL_70;
           }
@@ -9740,13 +9765,13 @@ LABEL_65:
         else
         {
           Hasher._combine(_:)(0);
-          v97 = v212;
-          if (v95)
+          v103 = v218;
+          if (v101)
           {
 LABEL_70:
             Hasher._combine(_:)(1u);
             String.hash(into:)();
-            if (v97 == 2)
+            if (v103 == 2)
             {
               goto LABEL_71;
             }
@@ -9756,11 +9781,11 @@ LABEL_70:
         }
 
         Hasher._combine(_:)(0);
-        if (v97 == 2)
+        if (v103 == 2)
         {
 LABEL_71:
           Hasher._combine(_:)(0);
-          if (v92 != 2)
+          if (v98 != 2)
           {
             goto LABEL_72;
           }
@@ -9770,65 +9795,65 @@ LABEL_71:
 
 LABEL_76:
         Hasher._combine(_:)(1u);
-        MEMORY[0x1865CD060](v97 & 1);
-        if (v92 != 2)
+        MEMORY[0x1865CD060](v103 & 1);
+        if (v98 != 2)
         {
 LABEL_72:
           Hasher._combine(_:)(1u);
-          MEMORY[0x1865CD060](v92 & 1);
-          if (v93 != 2)
+          MEMORY[0x1865CD060](v98 & 1);
+          if (v99 != 2)
           {
 LABEL_73:
             Hasher._combine(_:)(1u);
-            v98 = v93 & 1;
+            v104 = v99 & 1;
 LABEL_79:
-            Hasher._combine(_:)(v98);
-            v99 = v216;
-            if (v216 == 2)
+            Hasher._combine(_:)(v104);
+            v105 = v222;
+            if (v222 == 2)
             {
-              v100 = 0;
+              v106 = 0;
             }
 
             else
             {
               Hasher._combine(_:)(1u);
-              v100 = v99 & 1;
+              v106 = v105 & 1;
             }
 
-            Hasher._combine(_:)(v100);
-            outlined destroy of TermOfAddress?(&v220, &_s10Foundation17LocalePreferencesVSgMd);
+            Hasher._combine(_:)(v106);
+            outlined destroy of TermOfAddress?(&v226, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
 LABEL_83:
-            v101 = &v28[*(v217 + 36)];
-            if (v101[8] == 1)
+            v107 = &v34[*(v223 + 36)];
+            if (v107[8] == 1)
             {
               Hasher._combine(_:)(0);
             }
 
             else
             {
-              v102 = *v101;
+              v108 = *v107;
               Hasher._combine(_:)(1u);
-              if ((v102 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+              if ((v108 & 0x7FFFFFFFFFFFFFFFLL) != 0)
               {
-                v103 = v102;
+                v109 = v108;
               }
 
               else
               {
-                v103 = 0;
+                v109 = 0;
               }
 
-              MEMORY[0x1865CD090](v103);
+              MEMORY[0x1865CD090](v109);
             }
 
-            v104 = *(v101 + 2);
-            v228 = *(v101 + 1);
-            v229 = v104;
-            *v230 = *(v101 + 3);
-            *&v230[9] = *(v101 + 57);
+            v110 = *(v107 + 2);
+            v234 = *(v107 + 1);
+            v235 = v110;
+            *v236 = *(v107 + 3);
+            *&v236[9] = *(v107 + 57);
             specialized Optional<A>.hash(into:)();
-            v105 = v101[73];
-            if (v105 == 2)
+            v111 = v107[73];
+            if (v111 == 2)
             {
               Hasher._combine(_:)(0);
             }
@@ -9836,12 +9861,12 @@ LABEL_83:
             else
             {
               Hasher._combine(_:)(1u);
-              MEMORY[0x1865CD060](v105 & 1);
+              MEMORY[0x1865CD060](v111 & 1);
             }
 
-            v106 = *(v101 + 37);
-            v107 = v106 | (v101[76] << 16);
-            if (v106 == 2)
+            v112 = *(v107 + 37);
+            v113 = v112 | (v107[76] << 16);
+            if (v112 == 2)
             {
               Hasher._combine(_:)(0);
             }
@@ -9849,13 +9874,13 @@ LABEL_83:
             else
             {
               Hasher._combine(_:)(1u);
-              MEMORY[0x1865CD060](v107 & 1);
-              MEMORY[0x1865CD060]((v107 >> 8) & 1);
-              MEMORY[0x1865CD060](HIWORD(v107) & 1);
+              MEMORY[0x1865CD060](v113 & 1);
+              MEMORY[0x1865CD060]((v113 >> 8) & 1);
+              MEMORY[0x1865CD060](HIWORD(v113) & 1);
             }
 
-            v108 = v101[77];
-            if (v108 == 2)
+            v114 = v107[77];
+            if (v114 == 2)
             {
               Hasher._combine(_:)(0);
             }
@@ -9863,62 +9888,62 @@ LABEL_83:
             else
             {
               Hasher._combine(_:)(1u);
-              MEMORY[0x1865CD060](v108 & 1);
+              MEMORY[0x1865CD060](v114 & 1);
             }
 
-            v109 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-            v110 = v210;
-            outlined init with copy of FloatingPointRoundingRule?(&v101[v109[9]], v210);
-            if ((*(v33 + 48))(v110, 1, v32) == 1)
+            v115 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
+            v116 = v216;
+            outlined init with copy of FloatingPointRoundingRule?(&v107[v115[9]], v216);
+            if ((*(v39 + 48))(v116, 1, v38) == 1)
             {
               Hasher._combine(_:)(0);
             }
 
             else
             {
-              v111 = v213;
-              (*(v33 + 32))(v213, v110, v32);
+              v117 = v219;
+              (*(v39 + 32))(v219, v116, v38);
               Hasher._combine(_:)(1u);
               dispatch thunk of Hashable.hash(into:)();
-              (*(v33 + 8))(v111, v32);
+              (*(v39 + 8))(v117, v38);
             }
 
-            v112 = &v101[v109[10]];
-            v113 = v112[8];
-            if (v113 == 255)
+            v118 = &v107[v115[10]];
+            v119 = v118[8];
+            if (v119 == 255)
             {
               Hasher._combine(_:)(0);
             }
 
             else
             {
-              v114 = *v112;
+              v120 = *v118;
               Hasher._combine(_:)(1u);
-              if (v113)
+              if (v119)
               {
                 MEMORY[0x1865CD060](1);
-                if ((v114 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                if ((v120 & 0x7FFFFFFFFFFFFFFFLL) != 0)
                 {
-                  v115 = v114;
+                  v121 = v120;
                 }
 
                 else
                 {
-                  v115 = 0;
+                  v121 = 0;
                 }
 
-                MEMORY[0x1865CD090](v115);
+                MEMORY[0x1865CD090](v121);
               }
 
               else
               {
                 MEMORY[0x1865CD060](0);
-                MEMORY[0x1865CD060](v114);
+                MEMORY[0x1865CD060](v120);
               }
             }
 
-            v116 = v101[v109[11]];
-            if (v116 == 3)
+            v122 = v107[v115[11]];
+            if (v122 == 3)
             {
               Hasher._combine(_:)(0);
             }
@@ -9926,20 +9951,20 @@ LABEL_83:
             else
             {
               Hasher._combine(_:)(1u);
-              MEMORY[0x1865CD060](v116);
+              MEMORY[0x1865CD060](v122);
             }
 
-            return (*(v215 + 8))(v28, v217);
+            return (*(v221 + 8))(v34, v223);
           }
 
 LABEL_78:
-          v98 = 0;
+          v104 = 0;
           goto LABEL_79;
         }
 
 LABEL_77:
         Hasher._combine(_:)(0);
-        if (v93 != 2)
+        if (v99 != 2)
         {
           goto LABEL_73;
         }
@@ -9949,7 +9974,7 @@ LABEL_77:
 
 LABEL_58:
       Hasher._combine(_:)(0);
-      if (v75)
+      if (v81)
       {
         goto LABEL_54;
       }
@@ -9957,95 +9982,95 @@ LABEL_58:
       goto LABEL_59;
     }
 
-    v39 = v214;
-    v40 = v212;
-    v216[4](v214, v25, v212);
+    v45 = v220;
+    v46 = v218;
+    v222[4](v220, v31, v218);
     MEMORY[0x1865CD060](2);
-    v41 = *(v39 + 1);
-    v42 = swift_getObjectType();
-    v43 = (*(v41 + 48))(v42, v41);
-    v44 = v218;
-    v45 = v219;
-    if (v43)
+    v47 = *(v45 + 1);
+    v48 = swift_getObjectType();
+    v49 = (*(v47 + 48))(v48, v47);
+    v50 = v224;
+    v51 = v225;
+    if (v49)
     {
-      v46 = 1;
+      v52 = 1;
 LABEL_16:
-      Hasher._combine(_:)(v46);
+      Hasher._combine(_:)(v52);
       goto LABEL_224;
     }
 
     Hasher._combine(_:)(0);
-    (*(v41 + 64))(v42, v41);
+    (*(v47 + 64))(v48, v47);
     String.hash(into:)();
 
-    (*(v41 + 464))(&v220, v42, v41);
-    v233 = v226;
-    v234[0] = v227[0];
-    *(v234 + 12) = *(v227 + 12);
-    *v230 = v222;
-    *&v230[16] = v223;
-    v231 = v224;
-    v232 = v225;
-    v228 = v220;
-    v229 = v221;
-    if (_s10Foundation17LocalePreferencesVSgWOg(&v228) == 1)
+    (*(v47 + 464))(&v226, v48, v47);
+    v239 = v232;
+    v240[0] = v233[0];
+    *(v240 + 12) = *(v233 + 12);
+    *v236 = v228;
+    *&v236[16] = v229;
+    v237 = v230;
+    v238 = v231;
+    v234 = v226;
+    v235 = v227;
+    if (_s10Foundation17LocalePreferencesVSgWOg(&v234) == 1)
     {
-      v46 = 0;
+      v52 = 0;
       goto LABEL_16;
     }
 
-    v61 = v220;
-    v62 = *(&v220 + 1);
-    v63 = *(&v221 + 1);
-    v205 = v221;
-    v64 = *(&v222 + 1);
-    v206 = v222;
-    *v208 = v223;
-    *&v208[16] = v224;
-    *&v208[32] = v225;
-    *&v208[48] = v226;
-    v207 = *(&v227[0] + 1);
-    *&v208[64] = *&v227[0];
-    v209 = *&v227[1];
-    v210 = BYTE8(v227[1]);
-    v215 = BYTE9(v227[1]);
-    LODWORD(v217) = BYTE10(v227[1]);
-    v65 = BYTE11(v227[1]);
+    v67 = v226;
+    v68 = *(&v226 + 1);
+    v69 = *(&v227 + 1);
+    v211 = v227;
+    v70 = *(&v228 + 1);
+    v212 = v228;
+    *v214 = v229;
+    *&v214[16] = v230;
+    *&v214[32] = v231;
+    *&v214[48] = v232;
+    v213 = *(&v233[0] + 1);
+    *&v214[64] = *&v233[0];
+    v215 = *&v233[1];
+    v216 = BYTE8(v233[1]);
+    v221 = BYTE9(v233[1]);
+    LODWORD(v223) = BYTE10(v233[1]);
+    v71 = BYTE11(v233[1]);
     Hasher._combine(_:)(1u);
-    if (v61 == 2)
+    if (v67 == 2)
     {
-      v66 = 0;
+      v72 = 0;
     }
 
     else
     {
       Hasher._combine(_:)(1u);
-      v66 = v61 & 1;
+      v72 = v67 & 1;
     }
 
-    Hasher._combine(_:)(v66);
-    if (v62)
+    Hasher._combine(_:)(v72);
+    if (v68)
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](*(v62 + 16));
-      v71 = *(v62 + 16);
-      if (v71)
+      MEMORY[0x1865CD060](*(v68 + 16));
+      v77 = *(v68 + 16);
+      if (v77)
       {
-        v72 = v62 + 40;
+        v78 = v68 + 40;
         do
         {
 
           String.hash(into:)();
 
-          v72 += 16;
-          --v71;
+          v78 += 16;
+          --v77;
         }
 
-        while (v71);
+        while (v77);
       }
 
-      *&v208[72] = v65;
-      if (v63)
+      *&v214[72] = v71;
+      if (v69)
       {
         goto LABEL_43;
       }
@@ -10054,8 +10079,8 @@ LABEL_16:
     else
     {
       Hasher._combine(_:)(0);
-      *&v208[72] = v65;
-      if (v63)
+      *&v214[72] = v71;
+      if (v69)
       {
 LABEL_43:
         Hasher._combine(_:)(1u);
@@ -10066,9 +10091,9 @@ LABEL_43:
 
     Hasher._combine(_:)(0);
 LABEL_186:
-    v161 = *&v208[56];
-    v162 = *v208;
-    if (v64)
+    v167 = *&v214[56];
+    v168 = *v214;
+    if (v70)
     {
       Hasher._combine(_:)(1u);
       String.hash(into:)();
@@ -10079,16 +10104,16 @@ LABEL_186:
       Hasher._combine(_:)(0);
     }
 
-    v44 = v218;
-    v45 = v219;
-    v40 = v212;
-    v163 = *&v208[16];
-    if (v162)
+    v50 = v224;
+    v51 = v225;
+    v46 = v218;
+    v169 = *&v214[16];
+    if (v168)
     {
       Hasher._combine(_:)(1u);
-      specialized Dictionary<>.hash(into:)(a1, v162, v164, v165, v166, v167, v168, v169);
-      v170 = *&v208[8];
-      if (*&v208[8])
+      specialized Dictionary<>.hash(into:)(a1, v168, v170, v171, v172, v173, v174, v175);
+      v176 = *&v214[8];
+      if (*&v214[8])
       {
         goto LABEL_191;
       }
@@ -10097,18 +10122,18 @@ LABEL_186:
     else
     {
       Hasher._combine(_:)(0);
-      v170 = *&v208[8];
-      if (*&v208[8])
+      v176 = *&v214[8];
+      if (*&v214[8])
       {
 LABEL_191:
         Hasher._combine(_:)(1u);
-        specialized Dictionary<>.hash(into:)(a1, v170, v171, v172, v173, v174, v175, v176);
-        if (v163)
+        specialized Dictionary<>.hash(into:)(a1, v176, v177, v178, v179, v180, v181, v182);
+        if (v169)
         {
 LABEL_192:
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
           goto LABEL_196;
         }
@@ -10116,20 +10141,20 @@ LABEL_192:
 LABEL_195:
         Hasher._combine(_:)(0);
 LABEL_196:
-        v177 = v161;
-        if (*&v208[24])
+        v183 = v167;
+        if (*&v214[24])
         {
-          v178 = v209;
+          v184 = v215;
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
-          if (*&v208[32])
+          if (*&v214[32])
           {
 LABEL_198:
             Hasher._combine(_:)(1u);
             type metadata accessor for CFDictionaryRef(0);
-            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
             _CFObject.hash(into:)();
             goto LABEL_201;
           }
@@ -10137,9 +10162,9 @@ LABEL_198:
 
         else
         {
-          v178 = v209;
+          v184 = v215;
           Hasher._combine(_:)(0);
-          if (*&v208[32])
+          if (*&v214[32])
           {
             goto LABEL_198;
           }
@@ -10147,15 +10172,15 @@ LABEL_198:
 
         Hasher._combine(_:)(0);
 LABEL_201:
-        v179 = v178;
-        v180 = v177;
-        if (*&v208[40])
+        v185 = v184;
+        v186 = v183;
+        if (*&v214[40])
         {
           Hasher._combine(_:)(1u);
           type metadata accessor for CFDictionaryRef(0);
-          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+          _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
           _CFObject.hash(into:)();
-          if (*&v208[48])
+          if (*&v214[48])
           {
             goto LABEL_203;
           }
@@ -10164,15 +10189,15 @@ LABEL_201:
         else
         {
           Hasher._combine(_:)(0);
-          if (*&v208[48])
+          if (*&v214[48])
           {
 LABEL_203:
             Hasher._combine(_:)(1u);
             type metadata accessor for CFDictionaryRef(0);
-            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+            _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
             _CFObject.hash(into:)();
-            v181 = v215;
-            if (v180)
+            v187 = v221;
+            if (v186)
             {
               goto LABEL_204;
             }
@@ -10182,14 +10207,14 @@ LABEL_203:
         }
 
         Hasher._combine(_:)(0);
-        v181 = v215;
-        if (v180)
+        v187 = v221;
+        if (v186)
         {
 LABEL_204:
           Hasher._combine(_:)(1u);
-          specialized Dictionary<>.hash(into:)(a1, v180);
-          v182 = *&v208[64];
-          if (*&v208[64])
+          specialized Dictionary<>.hash(into:)(a1, v186);
+          v188 = *&v214[64];
+          if (*&v214[64])
           {
             goto LABEL_205;
           }
@@ -10199,14 +10224,14 @@ LABEL_204:
 
 LABEL_209:
         Hasher._combine(_:)(0);
-        v182 = *&v208[64];
-        if (*&v208[64])
+        v188 = *&v214[64];
+        if (*&v214[64])
         {
 LABEL_205:
           Hasher._combine(_:)(1u);
-          specialized Dictionary<>.hash(into:)(a1, v182);
-          v183 = v217;
-          if (v179)
+          specialized Dictionary<>.hash(into:)(a1, v188);
+          v189 = v223;
+          if (v185)
           {
 LABEL_206:
             Hasher._combine(_:)(1u);
@@ -10217,8 +10242,8 @@ LABEL_206:
 LABEL_211:
           Hasher._combine(_:)(0);
 LABEL_212:
-          v184 = v210;
-          if (v210 == 2)
+          v190 = v216;
+          if (v216 == 2)
           {
             Hasher._combine(_:)(0);
           }
@@ -10226,66 +10251,66 @@ LABEL_212:
           else
           {
             Hasher._combine(_:)(1u);
-            MEMORY[0x1865CD060](v184 & 1);
+            MEMORY[0x1865CD060](v190 & 1);
           }
 
-          v185 = *&v208[72];
-          if (v181 == 2)
+          v191 = *&v214[72];
+          if (v187 == 2)
           {
             Hasher._combine(_:)(0);
-            if (v183 != 2)
+            if (v189 != 2)
             {
 LABEL_217:
               Hasher._combine(_:)(1u);
-              v186 = v183 & 1;
+              v192 = v189 & 1;
 LABEL_220:
-              Hasher._combine(_:)(v186);
-              if (v185 == 2)
+              Hasher._combine(_:)(v192);
+              if (v191 == 2)
               {
-                v187 = 0;
+                v193 = 0;
               }
 
               else
               {
                 Hasher._combine(_:)(1u);
-                v187 = v185 & 1;
+                v193 = v191 & 1;
               }
 
-              Hasher._combine(_:)(v187);
-              outlined destroy of TermOfAddress?(&v220, &_s10Foundation17LocalePreferencesVSgMd);
+              Hasher._combine(_:)(v193);
+              outlined destroy of TermOfAddress?(&v226, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
 LABEL_224:
               String.hash(into:)();
-              v188 = &v39[*(v40 + 40)];
-              if (v188[8] == 1)
+              v194 = &v45[*(v46 + 40)];
+              if (v194[8] == 1)
               {
                 Hasher._combine(_:)(0);
               }
 
               else
               {
-                v189 = *v188;
+                v195 = *v194;
                 Hasher._combine(_:)(1u);
-                if ((v189 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                if ((v195 & 0x7FFFFFFFFFFFFFFFLL) != 0)
                 {
-                  v190 = v189;
+                  v196 = v195;
                 }
 
                 else
                 {
-                  v190 = 0;
+                  v196 = 0;
                 }
 
-                MEMORY[0x1865CD090](v190);
+                MEMORY[0x1865CD090](v196);
               }
 
-              v191 = *(v188 + 2);
-              v228 = *(v188 + 1);
-              v229 = v191;
-              *v230 = *(v188 + 3);
-              *&v230[9] = *(v188 + 57);
+              v197 = *(v194 + 2);
+              v234 = *(v194 + 1);
+              v235 = v197;
+              *v236 = *(v194 + 3);
+              *&v236[9] = *(v194 + 57);
               specialized Optional<A>.hash(into:)();
-              v192 = v188[73];
-              if (v192 == 2)
+              v198 = v194[73];
+              if (v198 == 2)
               {
                 Hasher._combine(_:)(0);
               }
@@ -10293,27 +10318,27 @@ LABEL_224:
               else
               {
                 Hasher._combine(_:)(1u);
-                MEMORY[0x1865CD060](v192 & 1);
+                MEMORY[0x1865CD060](v198 & 1);
               }
 
-              v193 = *(v188 + 74);
-              if (*(v188 + 74) == 2)
+              v199 = *(v194 + 74);
+              if (*(v194 + 74) == 2)
               {
-                LOBYTE(v194) = 0;
+                LOBYTE(v200) = 0;
               }
 
               else
               {
                 Hasher._combine(_:)(1u);
-                MEMORY[0x1865CD060](v193 & 1);
-                MEMORY[0x1865CD060]((v193 >> 8) & 1);
-                MEMORY[0x1865CD060](WORD1(v193) & 1);
-                v194 = BYTE3(v193) & 1;
+                MEMORY[0x1865CD060](v199 & 1);
+                MEMORY[0x1865CD060]((v199 >> 8) & 1);
+                MEMORY[0x1865CD060](WORD1(v199) & 1);
+                v200 = BYTE3(v199) & 1;
               }
 
-              Hasher._combine(_:)(v194);
-              v195 = v188[78];
-              if (v195 == 2)
+              Hasher._combine(_:)(v200);
+              v201 = v194[78];
+              if (v201 == 2)
               {
                 Hasher._combine(_:)(0);
               }
@@ -10321,64 +10346,64 @@ LABEL_224:
               else
               {
                 Hasher._combine(_:)(1u);
-                MEMORY[0x1865CD060](v195 & 1);
+                MEMORY[0x1865CD060](v201 & 1);
               }
 
-              v196 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
-              v197 = v211;
-              outlined init with copy of FloatingPointRoundingRule?(&v188[v196[9]], v211);
-              v198 = v40;
-              if ((*(v44 + 48))(v197, 1, v45) == 1)
+              v202 = type metadata accessor for CurrencyFormatStyleConfiguration.Collection(0);
+              v203 = v217;
+              outlined init with copy of FloatingPointRoundingRule?(&v194[v202[9]], v217);
+              v204 = v46;
+              if ((*(v50 + 48))(v203, 1, v51) == 1)
               {
                 Hasher._combine(_:)(0);
               }
 
               else
               {
-                v199 = v213;
-                (*(v44 + 32))(v213, v197, v45);
+                v205 = v219;
+                (*(v50 + 32))(v219, v203, v51);
                 Hasher._combine(_:)(1u);
                 dispatch thunk of Hashable.hash(into:)();
-                (*(v44 + 8))(v199, v45);
+                (*(v50 + 8))(v205, v51);
               }
 
-              v200 = &v188[v196[10]];
-              v201 = v200[8];
-              if (v201 == 255)
+              v206 = &v194[v202[10]];
+              v207 = v206[8];
+              if (v207 == 255)
               {
                 Hasher._combine(_:)(0);
               }
 
               else
               {
-                v202 = *v200;
+                v208 = *v206;
                 Hasher._combine(_:)(1u);
-                if (v201)
+                if (v207)
                 {
                   MEMORY[0x1865CD060](1);
-                  if ((v202 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+                  if ((v208 & 0x7FFFFFFFFFFFFFFFLL) != 0)
                   {
-                    v203 = v202;
+                    v209 = v208;
                   }
 
                   else
                   {
-                    v203 = 0;
+                    v209 = 0;
                   }
 
-                  MEMORY[0x1865CD090](v203);
+                  MEMORY[0x1865CD090](v209);
                 }
 
                 else
                 {
                   MEMORY[0x1865CD060](0);
-                  MEMORY[0x1865CD060](v202);
+                  MEMORY[0x1865CD060](v208);
                 }
               }
 
-              MEMORY[0x1865CD060](v188[v196[11]]);
-              v204 = v188[v196[12]];
-              if (v204 == 3)
+              MEMORY[0x1865CD060](v194[v202[11]]);
+              v210 = v194[v202[12]];
+              if (v210 == 3)
               {
                 Hasher._combine(_:)(0);
               }
@@ -10386,31 +10411,31 @@ LABEL_224:
               else
               {
                 Hasher._combine(_:)(1u);
-                MEMORY[0x1865CD060](v204);
+                MEMORY[0x1865CD060](v210);
               }
 
-              return (v216[1])(v214, v198);
+              return (v222[1])(v220, v204);
             }
           }
 
           else
           {
             Hasher._combine(_:)(1u);
-            MEMORY[0x1865CD060](v181 & 1);
-            if (v183 != 2)
+            MEMORY[0x1865CD060](v187 & 1);
+            if (v189 != 2)
             {
               goto LABEL_217;
             }
           }
 
-          v186 = 0;
+          v192 = 0;
           goto LABEL_220;
         }
 
 LABEL_210:
         Hasher._combine(_:)(0);
-        v183 = v217;
-        if (v179)
+        v189 = v223;
+        if (v185)
         {
           goto LABEL_206;
         }
@@ -10420,7 +10445,7 @@ LABEL_210:
     }
 
     Hasher._combine(_:)(0);
-    if (v163)
+    if (v169)
     {
       goto LABEL_192;
     }
@@ -10428,96 +10453,96 @@ LABEL_210:
     goto LABEL_195;
   }
 
-  v216 = v17;
-  v217 = v19;
-  (*(v19 + 32))(v21, v25, v18);
+  v222 = v22;
+  v223 = v25;
+  (*(v25 + 32))(v27, v31, v24);
   MEMORY[0x1865CD060](0);
-  v35 = *(v21 + 1);
-  v36 = swift_getObjectType();
-  if ((*(v35 + 48))(v36, v35))
+  v41 = *(v27 + 1);
+  v42 = swift_getObjectType();
+  if ((*(v41 + 48))(v42, v41))
   {
     Hasher._combine(_:)(1u);
-    v38 = v218;
-    v37 = v219;
+    v44 = v224;
+    v43 = v225;
     goto LABEL_154;
   }
 
   Hasher._combine(_:)(0);
-  (*(v35 + 64))(v36, v35);
+  (*(v41 + 64))(v42, v41);
   String.hash(into:)();
 
-  (*(v35 + 464))(&v220, v36, v35);
-  v233 = v226;
-  v234[0] = v227[0];
-  *(v234 + 12) = *(v227 + 12);
-  *v230 = v222;
-  *&v230[16] = v223;
-  v231 = v224;
-  v232 = v225;
-  v228 = v220;
-  v229 = v221;
-  v47 = _s10Foundation17LocalePreferencesVSgWOg(&v228);
-  v38 = v218;
-  v37 = v219;
-  if (v47 == 1)
+  (*(v41 + 464))(&v226, v42, v41);
+  v239 = v232;
+  v240[0] = v233[0];
+  *(v240 + 12) = *(v233 + 12);
+  *v236 = v228;
+  *&v236[16] = v229;
+  v237 = v230;
+  v238 = v231;
+  v234 = v226;
+  v235 = v227;
+  v53 = _s10Foundation17LocalePreferencesVSgWOg(&v234);
+  v44 = v224;
+  v43 = v225;
+  if (v53 == 1)
   {
     Hasher._combine(_:)(0);
     goto LABEL_154;
   }
 
-  v55 = v220;
-  v56 = *(&v220 + 1);
-  v57 = *(&v221 + 1);
-  v206 = v221;
-  v58 = *(&v222 + 1);
-  v207 = v222;
-  *&v208[8] = v223;
-  *&v208[24] = v224;
-  *&v208[40] = v225;
-  *&v208[56] = v226;
-  *v208 = *(&v227[0] + 1);
-  *&v208[72] = *&v227[0];
-  v210 = *&v227[1];
-  v211 = BYTE8(v227[1]);
-  v212 = BYTE9(v227[1]);
-  LODWORD(v214) = BYTE10(v227[1]);
-  v59 = BYTE11(v227[1]);
+  v61 = v226;
+  v62 = *(&v226 + 1);
+  v63 = *(&v227 + 1);
+  v212 = v227;
+  v64 = *(&v228 + 1);
+  v213 = v228;
+  *&v214[8] = v229;
+  *&v214[24] = v230;
+  *&v214[40] = v231;
+  *&v214[56] = v232;
+  *v214 = *(&v233[0] + 1);
+  *&v214[72] = *&v233[0];
+  v216 = *&v233[1];
+  v217 = BYTE8(v233[1]);
+  v218 = BYTE9(v233[1]);
+  LODWORD(v220) = BYTE10(v233[1]);
+  v65 = BYTE11(v233[1]);
   Hasher._combine(_:)(1u);
-  if (v55 == 2)
+  if (v61 == 2)
   {
-    v60 = 0;
+    v66 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v60 = v55 & 1;
+    v66 = v61 & 1;
   }
 
-  v215 = v18;
-  Hasher._combine(_:)(v60);
-  if (v56)
+  v221 = v24;
+  Hasher._combine(_:)(v66);
+  if (v62)
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](*(v56 + 16));
-    v69 = *(v56 + 16);
-    if (v69)
+    MEMORY[0x1865CD060](*(v62 + 16));
+    v75 = *(v62 + 16);
+    if (v75)
     {
-      v70 = v56 + 40;
+      v76 = v62 + 40;
       do
       {
 
         String.hash(into:)();
 
-        v70 += 16;
-        --v69;
+        v76 += 16;
+        --v75;
       }
 
-      while (v69);
+      while (v75);
     }
 
-    LODWORD(v209) = v59;
-    if (v57)
+    LODWORD(v215) = v65;
+    if (v63)
     {
       goto LABEL_36;
     }
@@ -10526,8 +10551,8 @@ LABEL_210:
   else
   {
     Hasher._combine(_:)(0);
-    LODWORD(v209) = v59;
-    if (v57)
+    LODWORD(v215) = v65;
+    if (v63)
     {
 LABEL_36:
       Hasher._combine(_:)(1u);
@@ -10538,9 +10563,9 @@ LABEL_36:
 
   Hasher._combine(_:)(0);
 LABEL_115:
-  v118 = *&v208[64];
-  v119 = *&v208[8];
-  if (v58)
+  v124 = *&v214[64];
+  v125 = *&v214[8];
+  if (v64)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -10551,22 +10576,22 @@ LABEL_115:
     Hasher._combine(_:)(0);
   }
 
-  v38 = v218;
-  v37 = v219;
-  v18 = v215;
-  if (v119)
+  v44 = v224;
+  v43 = v225;
+  v24 = v221;
+  if (v125)
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(a1, v119, v120, v121, v122, v123, v124, v125);
-    v126 = *&v208[16];
-    if (*&v208[16])
+    specialized Dictionary<>.hash(into:)(a1, v125, v126, v127, v128, v129, v130, v131);
+    v132 = *&v214[16];
+    if (*&v214[16])
     {
       goto LABEL_120;
     }
 
 LABEL_123:
     Hasher._combine(_:)(0);
-    if (*&v208[24])
+    if (*&v214[24])
     {
       goto LABEL_121;
     }
@@ -10575,21 +10600,21 @@ LABEL_123:
   }
 
   Hasher._combine(_:)(0);
-  v126 = *&v208[16];
-  if (!*&v208[16])
+  v132 = *&v214[16];
+  if (!*&v214[16])
   {
     goto LABEL_123;
   }
 
 LABEL_120:
   Hasher._combine(_:)(1u);
-  specialized Dictionary<>.hash(into:)(a1, v126, v127, v128, v129, v130, v131, v132);
-  if (*&v208[24])
+  specialized Dictionary<>.hash(into:)(a1, v132, v133, v134, v135, v136, v137, v138);
+  if (*&v214[24])
   {
 LABEL_121:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     goto LABEL_125;
   }
@@ -10597,20 +10622,20 @@ LABEL_121:
 LABEL_124:
   Hasher._combine(_:)(0);
 LABEL_125:
-  v133 = v118;
-  if (*&v208[32])
+  v139 = v124;
+  if (*&v214[32])
   {
-    v134 = v210;
+    v140 = v216;
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
-    if (*&v208[40])
+    if (*&v214[40])
     {
 LABEL_127:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
       goto LABEL_130;
     }
@@ -10618,9 +10643,9 @@ LABEL_127:
 
   else
   {
-    v134 = v210;
+    v140 = v216;
     Hasher._combine(_:)(0);
-    if (*&v208[40])
+    if (*&v214[40])
     {
       goto LABEL_127;
     }
@@ -10628,14 +10653,14 @@ LABEL_127:
 
   Hasher._combine(_:)(0);
 LABEL_130:
-  v135 = v134;
-  if (*&v208[48])
+  v141 = v140;
+  if (*&v214[48])
   {
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
-    if (*&v208[56])
+    if (*&v214[56])
     {
       goto LABEL_132;
     }
@@ -10644,14 +10669,14 @@ LABEL_130:
   else
   {
     Hasher._combine(_:)(0);
-    if (*&v208[56])
+    if (*&v214[56])
     {
 LABEL_132:
       Hasher._combine(_:)(1u);
       type metadata accessor for CFDictionaryRef(0);
-      _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+      _s10Foundation30NumberFormatStyleConfigurationO10CollectionVAESEAAWlTm_1(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
       _CFObject.hash(into:)();
-      if (v133)
+      if (v139)
       {
         goto LABEL_133;
       }
@@ -10661,21 +10686,21 @@ LABEL_132:
   }
 
   Hasher._combine(_:)(0);
-  if (v133)
+  if (v139)
   {
 LABEL_133:
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(a1, v133);
-    v136 = *&v208[72];
-    if (*&v208[72])
+    specialized Dictionary<>.hash(into:)(a1, v139);
+    v142 = *&v214[72];
+    if (*&v214[72])
     {
       goto LABEL_134;
     }
 
 LABEL_139:
     Hasher._combine(_:)(0);
-    v137 = v214;
-    if (v135)
+    v143 = v220;
+    if (v141)
     {
       goto LABEL_135;
     }
@@ -10687,17 +10712,17 @@ LABEL_140:
 
 LABEL_138:
   Hasher._combine(_:)(0);
-  v136 = *&v208[72];
-  if (!*&v208[72])
+  v142 = *&v214[72];
+  if (!*&v214[72])
   {
     goto LABEL_139;
   }
 
 LABEL_134:
   Hasher._combine(_:)(1u);
-  specialized Dictionary<>.hash(into:)(a1, v136);
-  v137 = v214;
-  if (!v135)
+  specialized Dictionary<>.hash(into:)(a1, v142);
+  v143 = v220;
+  if (!v141)
   {
     goto LABEL_140;
   }
@@ -10706,8 +10731,8 @@ LABEL_135:
   Hasher._combine(_:)(1u);
   String.hash(into:)();
 LABEL_141:
-  v138 = v211;
-  if (v211 == 2)
+  v144 = v217;
+  if (v217 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -10715,11 +10740,11 @@ LABEL_141:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v138 & 1);
+    MEMORY[0x1865CD060](v144 & 1);
   }
 
-  v139 = v212;
-  if (v212 == 2)
+  v145 = v218;
+  if (v218 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -10727,67 +10752,67 @@ LABEL_141:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v139 & 1);
+    MEMORY[0x1865CD060](v145 & 1);
   }
 
-  v140 = v209;
-  if (v137 == 2)
+  v146 = v215;
+  if (v143 == 2)
   {
-    v141 = 0;
+    v147 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v141 = v137 & 1;
+    v147 = v143 & 1;
   }
 
-  Hasher._combine(_:)(v141);
-  if (v140 == 2)
+  Hasher._combine(_:)(v147);
+  if (v146 == 2)
   {
-    v142 = 0;
+    v148 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v142 = v140 & 1;
+    v148 = v146 & 1;
   }
 
-  Hasher._combine(_:)(v142);
-  outlined destroy of TermOfAddress?(&v220, &_s10Foundation17LocalePreferencesVSgMd);
+  Hasher._combine(_:)(v148);
+  outlined destroy of TermOfAddress?(&v226, &_s10Foundation17LocalePreferencesVSgMd, &_s10Foundation17LocalePreferencesVSgMR);
 LABEL_154:
-  v143 = &v21[*(v18 + 36)];
-  if (v143[8] == 1)
+  v149 = &v27[*(v24 + 36)];
+  if (v149[8] == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v144 = *v143;
+    v150 = *v149;
     Hasher._combine(_:)(1u);
-    if ((v144 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+    if ((v150 & 0x7FFFFFFFFFFFFFFFLL) != 0)
     {
-      v145 = v144;
+      v151 = v150;
     }
 
     else
     {
-      v145 = 0;
+      v151 = 0;
     }
 
-    MEMORY[0x1865CD090](v145);
+    MEMORY[0x1865CD090](v151);
   }
 
-  v146 = *(v143 + 2);
-  v228 = *(v143 + 1);
-  v229 = v146;
-  *v230 = *(v143 + 3);
-  *&v230[9] = *(v143 + 57);
+  v152 = *(v149 + 2);
+  v234 = *(v149 + 1);
+  v235 = v152;
+  *v236 = *(v149 + 3);
+  *&v236[9] = *(v149 + 57);
   specialized Optional<A>.hash(into:)();
-  v147 = v143[73];
-  if (v147 == 2)
+  v153 = v149[73];
+  if (v153 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -10795,12 +10820,12 @@ LABEL_154:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v147 & 1);
+    MEMORY[0x1865CD060](v153 & 1);
   }
 
-  v148 = *(v143 + 37);
-  v149 = v148 | (v143[76] << 16);
-  if (v148 == 2)
+  v154 = *(v149 + 37);
+  v155 = v154 | (v149[76] << 16);
+  if (v154 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -10808,13 +10833,13 @@ LABEL_154:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v149 & 1);
-    MEMORY[0x1865CD060]((v149 >> 8) & 1);
-    MEMORY[0x1865CD060](HIWORD(v149) & 1);
+    MEMORY[0x1865CD060](v155 & 1);
+    MEMORY[0x1865CD060]((v155 >> 8) & 1);
+    MEMORY[0x1865CD060](HIWORD(v155) & 1);
   }
 
-  v150 = v143[77];
-  if (v150 == 2)
+  v156 = v149[77];
+  if (v156 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -10822,65 +10847,65 @@ LABEL_154:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v150 & 1);
+    MEMORY[0x1865CD060](v156 & 1);
   }
 
-  v151 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
-  v152 = v216;
-  outlined init with copy of FloatingPointRoundingRule?(&v143[v151[9]], v216);
-  if ((*(v38 + 48))(v152, 1, v37) == 1)
+  v157 = type metadata accessor for NumberFormatStyleConfiguration.Collection(0);
+  v158 = v222;
+  outlined init with copy of FloatingPointRoundingRule?(&v149[v157[9]], v222);
+  if ((*(v44 + 48))(v158, 1, v43) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v153 = v18;
-    v154 = v213;
-    (*(v38 + 32))(v213, v152, v37);
+    v159 = v24;
+    v160 = v219;
+    (*(v44 + 32))(v219, v158, v43);
     Hasher._combine(_:)(1u);
     dispatch thunk of Hashable.hash(into:)();
-    v155 = v154;
-    v18 = v153;
-    (*(v38 + 8))(v155, v37);
+    v161 = v160;
+    v24 = v159;
+    (*(v44 + 8))(v161, v43);
   }
 
-  v156 = &v143[v151[10]];
-  v157 = v156[8];
-  if (v157 == 255)
+  v162 = &v149[v157[10]];
+  v163 = v162[8];
+  if (v163 == 255)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    v158 = *v156;
+    v164 = *v162;
     Hasher._combine(_:)(1u);
-    if (v157)
+    if (v163)
     {
       MEMORY[0x1865CD060](1);
-      if ((v158 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+      if ((v164 & 0x7FFFFFFFFFFFFFFFLL) != 0)
       {
-        v159 = v158;
+        v165 = v164;
       }
 
       else
       {
-        v159 = 0;
+        v165 = 0;
       }
 
-      MEMORY[0x1865CD090](v159);
+      MEMORY[0x1865CD090](v165);
     }
 
     else
     {
       MEMORY[0x1865CD060](0);
-      MEMORY[0x1865CD060](v158);
+      MEMORY[0x1865CD060](v164);
     }
   }
 
-  v160 = v143[v151[11]];
-  if (v160 == 3)
+  v166 = v149[v157[11]];
+  if (v166 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -10888,8 +10913,8 @@ LABEL_154:
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v160);
+    MEMORY[0x1865CD060](v166);
   }
 
-  return (*(v217 + 8))(v21, v18);
+  return (*(v223 + 8))(v27, v24);
 }

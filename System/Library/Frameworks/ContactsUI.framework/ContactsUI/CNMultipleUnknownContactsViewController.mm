@@ -60,14 +60,14 @@
     contact = [controller contact];
     identifier = [contact identifier];
 
-    contacts = [(CNMultipleUnknownContactsViewController *)self contacts];
+    v7 = objc_msgSend_contacts(self);
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
     v14[2] = __88__CNMultipleUnknownContactsViewController_contactViewController_didCompleteWithContact___block_invoke;
     v14[3] = &unk_1E74E7880;
     v8 = identifier;
     v15 = v8;
-    LODWORD(identifier) = [contacts _cn_any:v14];
+    LODWORD(identifier) = [v7 _cn_any:v14];
 
     if (identifier)
     {
@@ -77,8 +77,8 @@
 
     createdContactIdentifiers2 = [(CNMultipleUnknownContactsViewController *)self createdContactIdentifiers];
     v11 = [createdContactIdentifiers2 count];
-    contacts2 = [(CNMultipleUnknownContactsViewController *)self contacts];
-    v13 = [contacts2 count];
+    v12 = objc_msgSend_contacts(self);
+    v13 = [v12 count];
 
     if (v11 == v13)
     {
@@ -101,8 +101,8 @@ uint64_t __88__CNMultipleUnknownContactsViewController_contactViewController_did
   v7 = [view dequeueReusableCellWithIdentifier:@"UITableViewCell" forIndexPath:pathCopy];
   if ([pathCopy section])
   {
-    contacts = [(CNMultipleUnknownContactsViewController *)self contacts];
-    v9 = [contacts objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
+    v8 = objc_msgSend_contacts(self);
+    v9 = [v8 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
 
     formatter = [(CNMultipleUnknownContactsViewController *)self formatter];
     v11 = [formatter stringFromContact:v9];
@@ -120,8 +120,8 @@ uint64_t __88__CNMultipleUnknownContactsViewController_contactViewController_did
     v14 = MEMORY[0x1E696AEC0];
     v15 = CNContactsUIBundle();
     v16 = [v15 localizedStringForKey:@"VCARD_ADD_CONTACT" value:&stru_1F0CE7398 table:@"Localized"];
-    contacts2 = [(CNMultipleUnknownContactsViewController *)self contacts];
-    v18 = [v14 localizedStringWithFormat:v16, objc_msgSend(contacts2, "count")];
+    v17 = objc_msgSend_contacts(self);
+    v18 = [v14 localizedStringWithFormat:v16, objc_msgSend(v17, "count")];
     textLabel3 = [v7 textLabel];
     [textLabel3 setText:v18];
 
@@ -141,8 +141,8 @@ uint64_t __88__CNMultipleUnknownContactsViewController_contactViewController_did
     return 1;
   }
 
-  contacts = [(CNMultipleUnknownContactsViewController *)self contacts];
-  v5 = [contacts count];
+  v4 = objc_msgSend_contacts(self, a2, view);
+  v5 = [v4 count];
 
   return v5;
 }
@@ -153,8 +153,8 @@ uint64_t __88__CNMultipleUnknownContactsViewController_contactViewController_did
   pathCopy = path;
   if ([pathCopy section])
   {
-    contacts = [(CNMultipleUnknownContactsViewController *)self contacts];
-    indexPathForSelectedRow = [contacts objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
+    v7 = objc_msgSend_contacts(self);
+    indexPathForSelectedRow = [v7 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
 
     [(CNMultipleUnknownContactsViewController *)self _presentUnknownContact:indexPathForSelectedRow];
   }
@@ -662,14 +662,14 @@ uint64_t __62__CNMultipleUnknownContactsViewController__createNewContacts___bloc
 
 - (void)_save:(id)_save
 {
-  contacts = [(CNMultipleUnknownContactsViewController *)self contacts];
-  [(CNMultipleUnknownContactsViewController *)self _createNewContacts:contacts];
+  v4 = objc_msgSend_contacts(self, a2, _save);
+  [(CNMultipleUnknownContactsViewController *)self _createNewContacts:v4];
 }
 
 - (void)_showAddAllToContactsConfirmation
 {
   v3 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:0];
-  contacts = [(CNMultipleUnknownContactsViewController *)self contacts];
+  v4 = objc_msgSend_contacts(self);
   v5 = MEMORY[0x1E69DC648];
   v6 = CNContactsUIBundle();
   v7 = [v6 localizedStringForKey:@"VCARD_CANCEL" value:&stru_1F0CE7398 table:@"Localized"];
@@ -684,7 +684,7 @@ uint64_t __62__CNMultipleUnknownContactsViewController__createNewContacts___bloc
   v23[2] = __76__CNMultipleUnknownContactsViewController__showAddAllToContactsConfirmation__block_invoke;
   v23[3] = &unk_1E74E7308;
   v23[4] = self;
-  v12 = contacts;
+  v12 = v4;
   v24 = v12;
   v13 = [v9 actionWithTitle:v11 style:0 handler:v23];
   [v3 addAction:v13];

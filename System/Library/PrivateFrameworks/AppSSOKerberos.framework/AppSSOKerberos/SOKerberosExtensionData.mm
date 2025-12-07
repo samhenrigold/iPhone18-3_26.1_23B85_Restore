@@ -6,11 +6,11 @@
 
 - (SOKerberosExtensionData)initWithDictionary:(id)dictionary
 {
-  v262 = *MEMORY[0x277D85DE8];
+  v261 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v257.receiver = self;
-  v257.super_class = SOKerberosExtensionData;
-  v5 = [(SOKerberosExtensionData *)&v257 init];
+  v256.receiver = self;
+  v256.super_class = SOKerberosExtensionData;
+  v5 = [(SOKerberosExtensionData *)&v256 init];
 
   if (v5)
   {
@@ -322,26 +322,26 @@
       if (objc_opt_isKindOfClass())
       {
         array = [MEMORY[0x277CBEB18] array];
+        v252 = 0u;
         v253 = 0u;
         v254 = 0u;
         v255 = 0u;
-        v256 = 0u;
         v125 = v123;
-        v126 = [v125 countByEnumeratingWithState:&v253 objects:v261 count:16];
+        v126 = [v125 countByEnumeratingWithState:&v252 objects:v260 count:16];
         if (v126)
         {
           v127 = v126;
-          v128 = *v254;
+          v128 = *v253;
           do
           {
             for (i = 0; i != v127; ++i)
             {
-              if (*v254 != v128)
+              if (*v253 != v128)
               {
                 objc_enumerationMutation(v125);
               }
 
-              v130 = *(*(&v253 + 1) + 8 * i);
+              v130 = *(*(&v252 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -349,7 +349,7 @@
               }
             }
 
-            v127 = [v125 countByEnumeratingWithState:&v253 objects:v261 count:16];
+            v127 = [v125 countByEnumeratingWithState:&v252 objects:v260 count:16];
           }
 
           while (v127);
@@ -364,59 +364,59 @@
     v133 = NSStringFromSelector(sel_domainRealmMapping);
     v134 = [dictionaryCopy objectForKeyedSubscript:v133];
 
-    v236 = v134;
+    v235 = v134;
     if (v134)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v231 = v123;
-        v233 = v5;
-        v234 = dictionaryCopy;
+        v230 = v123;
+        v232 = v5;
+        v233 = dictionaryCopy;
         dictionary = [MEMORY[0x277CBEB38] dictionary];
+        v248 = 0u;
         v249 = 0u;
         v250 = 0u;
         v251 = 0u;
-        v252 = 0u;
-        v240 = v134;
-        obj = [v240 allKeys];
-        v135 = [obj countByEnumeratingWithState:&v249 objects:v260 count:16];
+        v239 = v134;
+        obj = [v239 allKeys];
+        v135 = [obj countByEnumeratingWithState:&v248 objects:v259 count:16];
         if (v135)
         {
           v136 = v135;
-          v239 = *v250;
+          v238 = *v249;
           do
           {
             for (j = 0; j != v136; ++j)
             {
-              if (*v250 != v239)
+              if (*v249 != v238)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v138 = *(*(&v249 + 1) + 8 * j);
+              v138 = *(*(&v248 + 1) + 8 * j);
               array2 = [MEMORY[0x277CBEB18] array];
-              v140 = [v240 objectForKeyedSubscript:v138];
+              v140 = [v239 objectForKeyedSubscript:v138];
+              v244 = 0u;
               v245 = 0u;
               v246 = 0u;
               v247 = 0u;
-              v248 = 0u;
               v141 = v140;
-              v142 = [v141 countByEnumeratingWithState:&v245 objects:v259 count:16];
+              v142 = [v141 countByEnumeratingWithState:&v244 objects:v258 count:16];
               if (v142)
               {
                 v143 = v142;
-                v144 = *v246;
+                v144 = *v245;
                 do
                 {
                   for (k = 0; k != v143; ++k)
                   {
-                    if (*v246 != v144)
+                    if (*v245 != v144)
                     {
                       objc_enumerationMutation(v141);
                     }
 
-                    v146 = *(*(&v245 + 1) + 8 * k);
+                    v146 = *(*(&v244 + 1) + 8 * k);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
@@ -424,7 +424,7 @@
                     }
                   }
 
-                  v143 = [v141 countByEnumeratingWithState:&v245 objects:v259 count:16];
+                  v143 = [v141 countByEnumeratingWithState:&v244 objects:v258 count:16];
                 }
 
                 while (v143);
@@ -436,19 +436,19 @@
               }
             }
 
-            v136 = [obj countByEnumeratingWithState:&v249 objects:v260 count:16];
+            v136 = [obj countByEnumeratingWithState:&v248 objects:v259 count:16];
           }
 
           while (v136);
         }
 
         v147 = [dictionary copy];
-        v5 = v233;
-        domainRealmMapping = v233->_domainRealmMapping;
-        v233->_domainRealmMapping = v147;
+        v5 = v232;
+        domainRealmMapping = v232->_domainRealmMapping;
+        v232->_domainRealmMapping = v147;
 
-        dictionaryCopy = v234;
-        v123 = v231;
+        dictionaryCopy = v233;
+        v123 = v230;
       }
     }
 
@@ -597,29 +597,29 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v232 = v123;
-        v235 = dictionaryCopy;
+        v231 = v123;
+        v234 = dictionaryCopy;
         array3 = [MEMORY[0x277CBEB18] array];
+        v240 = 0u;
         v241 = 0u;
         v242 = 0u;
         v243 = 0u;
-        v244 = 0u;
         v187 = v185;
-        v188 = [v187 countByEnumeratingWithState:&v241 objects:v258 count:16];
+        v188 = [v187 countByEnumeratingWithState:&v240 objects:v257 count:16];
         if (v188)
         {
           v189 = v188;
-          v190 = *v242;
+          v190 = *v241;
           do
           {
             for (m = 0; m != v189; ++m)
             {
-              if (*v242 != v190)
+              if (*v241 != v190)
               {
                 objc_enumerationMutation(v187);
               }
 
-              v192 = *(*(&v241 + 1) + 8 * m);
+              v192 = *(*(&v240 + 1) + 8 * m);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -632,7 +632,7 @@
               }
             }
 
-            v189 = [v187 countByEnumeratingWithState:&v241 objects:v258 count:16];
+            v189 = [v187 countByEnumeratingWithState:&v240 objects:v257 count:16];
           }
 
           while (v189);
@@ -642,8 +642,8 @@
         preferredKDCs = v5->_preferredKDCs;
         v5->_preferredKDCs = v194;
 
-        dictionaryCopy = v235;
-        v123 = v232;
+        dictionaryCopy = v234;
+        v123 = v231;
       }
     }
 
@@ -762,7 +762,6 @@
 
   v228 = v5;
 
-  v229 = *MEMORY[0x277D85DE8];
   return v228;
 }
 

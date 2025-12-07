@@ -22,11 +22,10 @@
 
 - (NSSet)denylistDescriptors
 {
-  v2 = *(self + OBJC_IVAR___AAPrivacyValidation_denylistDescriptors);
 
-  v3 = sub_1B6AB97B0();
+  v2 = sub_1B6AB97B0();
 
-  return v3;
+  return v2;
 }
 
 - (id)withEnabled:(BOOL)enabled

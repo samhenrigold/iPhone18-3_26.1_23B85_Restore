@@ -1,6 +1,7 @@
 @interface _INPBVoiceCommandStepInfo
 - (BOOL)isEqual:(id)equal;
 - (_INPBVoiceCommandStepInfo)initWithCoder:(id)coder;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsCategory:(id)category;
@@ -202,24 +203,21 @@ LABEL_17:
 
   if (applicationIdentifier)
   {
-    applicationIdentifier = self->_applicationIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBVoiceCommandStepInfo *)self hasCategory])
   {
-    category = self->_category;
     PBDataWriterWriteInt32Field();
   }
 
   name = [(_INPBVoiceCommandStepInfo *)self name];
 
-  v8 = toCopy;
+  v6 = toCopy;
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
-    v8 = toCopy;
+    v6 = toCopy;
   }
 }
 
@@ -341,6 +339,22 @@ LABEL_17:
   }
 
   return v4;
+}
+
+- (id)categoryAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 0x15 && ((0x1FFDFFu >> v4))
+  {
+    v5 = off_1E72868E0[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
 }
 
 - (void)setCategory:(int)category

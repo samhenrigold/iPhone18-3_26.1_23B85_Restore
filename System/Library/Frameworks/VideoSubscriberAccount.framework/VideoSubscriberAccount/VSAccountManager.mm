@@ -40,34 +40,34 @@
 
 - (void)viewServiceRequestOperation:(id)operation presentViewController:(id)controller
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject(controllerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "VSAccountManagerDelegate";
-    v13 = 2080;
-    v14 = "accountManager:presentViewController:";
+    v13 = "VSAccountManagerDelegate";
+    v14 = 2080;
+    v15 = "accountManager:presentViewController:";
     _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will call [%s %s]", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __70__VSAccountManager_viewServiceRequestOperation_presentViewController___block_invoke;
-  v9[3] = &unk_278B73708;
-  v9[4] = self;
-  v10 = controllerCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __70__VSAccountManager_viewServiceRequestOperation_presentViewController___block_invoke;
+  v10[3] = &unk_278B73708;
+  v10[4] = self;
+  v11 = controllerCopy;
   v7 = controllerCopy;
-  __70__VSAccountManager_viewServiceRequestOperation_presentViewController___block_invoke(v9);
-  v8 = VSDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  __70__VSAccountManager_viewServiceRequestOperation_presentViewController___block_invoke(v10);
+  v9 = VSDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "VSAccountManagerDelegate";
-    v13 = 2080;
-    v14 = "accountManager:presentViewController:";
-    _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Did call [%s %s]", buf, 0x16u);
+    v13 = "VSAccountManagerDelegate";
+    v14 = 2080;
+    v15 = "accountManager:presentViewController:";
+    _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Did call [%s %s]", buf, 0x16u);
   }
 }
 
@@ -79,34 +79,34 @@ void __70__VSAccountManager_viewServiceRequestOperation_presentViewController___
 
 - (void)viewServiceRequestOperation:(id)operation dismissViewController:(id)controller
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v6 = VSDefaultLogObject();
+  v6 = VSDefaultLogObject(controllerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "VSAccountManagerDelegate";
-    v13 = 2080;
-    v14 = "accountManager:dismissViewController:";
+    v13 = "VSAccountManagerDelegate";
+    v14 = 2080;
+    v15 = "accountManager:dismissViewController:";
     _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Will call [%s %s]", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __70__VSAccountManager_viewServiceRequestOperation_dismissViewController___block_invoke;
-  v9[3] = &unk_278B73708;
-  v9[4] = self;
-  v10 = controllerCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __70__VSAccountManager_viewServiceRequestOperation_dismissViewController___block_invoke;
+  v10[3] = &unk_278B73708;
+  v10[4] = self;
+  v11 = controllerCopy;
   v7 = controllerCopy;
-  __70__VSAccountManager_viewServiceRequestOperation_dismissViewController___block_invoke(v9);
-  v8 = VSDefaultLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  __70__VSAccountManager_viewServiceRequestOperation_dismissViewController___block_invoke(v10);
+  v9 = VSDefaultLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "VSAccountManagerDelegate";
-    v13 = 2080;
-    v14 = "accountManager:dismissViewController:";
-    _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Did call [%s %s]", buf, 0x16u);
+    v13 = "VSAccountManagerDelegate";
+    v14 = 2080;
+    v15 = "accountManager:dismissViewController:";
+    _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Did call [%s %s]", buf, 0x16u);
   }
 }
 
@@ -135,14 +135,14 @@ void __70__VSAccountManager_viewServiceRequestOperation_dismissViewController___
 
 - (void)checkAccessStatusWithOptions:(NSDictionary *)options completionHandler:(void *)completionHandler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = options;
   v7 = completionHandler;
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v36 = "[VSAccountManager checkAccessStatusWithOptions:completionHandler:]";
+    v37 = "[VSAccountManager checkAccessStatusWithOptions:completionHandler:]";
     _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
@@ -168,27 +168,27 @@ void __70__VSAccountManager_viewServiceRequestOperation_dismissViewController___
 LABEL_5:
   [(NSDictionary *)v6 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_9];
   securityTask = [(VSAccountManager *)self securityTask];
-  v34 = 0;
-  v10 = VSCheckEntitlementForTask(securityTask, &v34);
-  v11 = v34;
+  v35 = 0;
+  v10 = VSCheckEntitlementForTask(securityTask, &v35);
+  v11 = v35;
 
   if (v10)
   {
     privacyInfoCenter = [(VSAccountManager *)self privacyInfoCenter];
     accountAccessStatus = [privacyInfoCenter accountAccessStatus];
-    v14 = accountAccessStatus;
+    v15 = accountAccessStatus;
     if ((accountAccessStatus - 1) < 3)
     {
       requestCenter = [(VSAccountManager *)self requestCenter];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_90;
-      v28[3] = &unk_278B73B58;
-      v30 = v14;
-      v29 = v7;
-      v16 = [requestCenter enqueueCompletionHandlerBlock:v28];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_90;
+      v29[3] = &unk_278B73B58;
+      v31 = v15;
+      v30 = v7;
+      v17 = [requestCenter enqueueCompletionHandlerBlock:v29];
 
-      v17 = v29;
+      v18 = v30;
 LABEL_15:
 
       goto LABEL_16;
@@ -196,22 +196,22 @@ LABEL_15:
 
     if (!accountAccessStatus)
     {
-      v17 = objc_alloc_init(VSViewServiceRequest);
-      v21 = [(NSDictionary *)v6 objectForKey:@"VSCheckAccessOptionPrompt"];
-      bOOLValue = [v21 BOOLValue];
+      v18 = objc_alloc_init(VSViewServiceRequest);
+      v22 = [(NSDictionary *)v6 objectForKey:@"VSCheckAccessOptionPrompt"];
+      bOOLValue = [v22 BOOLValue];
 
-      [(VSViewServiceRequest *)v17 setAllowsPrivacyUI:bOOLValue];
-      [(VSViewServiceRequest *)v17 setRequiresPrivacyUI:bOOLValue];
+      [(VSViewServiceRequest *)v18 setAllowsPrivacyUI:bOOLValue];
+      [(VSViewServiceRequest *)v18 setRequiresPrivacyUI:bOOLValue];
       linkedOnOrAfterChecker = [(VSAccountManager *)self linkedOnOrAfterChecker];
-      -[VSViewServiceRequest setShouldReturnErrorOnTVProviderFeatureUnsupportedByStorefront:](v17, "setShouldReturnErrorOnTVProviderFeatureUnsupportedByStorefront:", [linkedOnOrAfterChecker shouldPerformBehavior:2]);
+      -[VSViewServiceRequest setShouldReturnErrorOnTVProviderFeatureUnsupportedByStorefront:](v18, "setShouldReturnErrorOnTVProviderFeatureUnsupportedByStorefront:", [linkedOnOrAfterChecker shouldPerformBehavior:2]);
 
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_2;
-      v31[3] = &unk_278B73988;
-      v32 = privacyInfoCenter;
-      v33 = v7;
-      v24 = [(VSAccountManager *)self _enqueueViewServiceRequest:v17 completionHandler:v31];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_2;
+      v32[3] = &unk_278B73988;
+      v33 = privacyInfoCenter;
+      v34 = v7;
+      v25 = [(VSAccountManager *)self _enqueueViewServiceRequest:v18 completionHandler:v32];
 
       goto LABEL_15;
     }
@@ -219,22 +219,22 @@ LABEL_15:
 
   else
   {
-    v18 = VSErrorLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = VSErrorLogObject(v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [VSAccountManager checkAccessStatusWithOptions:v11 completionHandler:v18];
+      [VSAccountManager checkAccessStatusWithOptions:v11 completionHandler:v19];
     }
 
     requestCenter2 = [(VSAccountManager *)self requestCenter];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_91;
-    v25[3] = &unk_278B737F8;
-    v27 = v7;
-    v26 = v11;
-    v20 = [requestCenter2 enqueueCompletionHandlerBlock:v25];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_91;
+    v26[3] = &unk_278B737F8;
+    v28 = v7;
+    v27 = v11;
+    v21 = [requestCenter2 enqueueCompletionHandlerBlock:v26];
 
-    privacyInfoCenter = v27;
+    privacyInfoCenter = v28;
   }
 
 LABEL_16:
@@ -261,31 +261,31 @@ void __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___blo
 
 void __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[VSAccountManager checkAccessStatusWithOptions:completionHandler:]_block_invoke_2";
+    v13 = "[VSAccountManager checkAccessStatusWithOptions:completionHandler:]_block_invoke_2";
     _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_84;
-  v7[3] = &unk_278B73848;
-  v8 = *(a1 + 32);
-  v9 = v3;
-  v10 = *(a1 + 40);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_84;
+  v8[3] = &unk_278B73848;
+  v9 = *(a1 + 32);
+  v10 = v3;
+  v11 = *(a1 + 40);
   v5 = v3;
-  __67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_84(v7);
-  v6 = VSDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = (__67__VSAccountManager_checkAccessStatusWithOptions_completionHandler___block_invoke_84)(v8);
+  v7 = VSDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[VSAccountManager checkAccessStatusWithOptions:completionHandler:]_block_invoke_4";
-    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
+    v13 = "[VSAccountManager checkAccessStatusWithOptions:completionHandler:]_block_invoke_4";
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
   }
 }
 
@@ -420,14 +420,14 @@ void __65__VSAccountManager__enqueueViewServiceRequest_completionHandler___block
 
 - (VSAccountManagerResult)enqueueAccountMetadataRequest:(VSAccountMetadataRequest *)request completionHandler:(void *)completionHandler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = request;
   v7 = completionHandler;
-  v8 = VSDefaultLogObject();
+  v8 = VSDefaultLogObject(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[VSAccountManager enqueueAccountMetadataRequest:completionHandler:]";
+    v27 = "[VSAccountManager enqueueAccountMetadataRequest:completionHandler:]";
     _os_log_impl(&dword_23AB8E000, v8, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
@@ -452,84 +452,84 @@ void __65__VSAccountManager__enqueueViewServiceRequest_completionHandler___block
   [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The completionHandler parameter must not be nil."];
 LABEL_5:
   securityTask = [(VSAccountManager *)self securityTask];
-  v24 = 0;
-  v10 = VSCheckEntitlementForTask(securityTask, &v24);
-  v11 = v24;
+  v25 = 0;
+  v10 = VSCheckEntitlementForTask(securityTask, &v25);
+  v11 = v25;
 
   if (v10)
   {
-    v12 = objc_alloc_init(VSViewServiceRequest);
-    [(VSViewServiceRequest *)v12 setAccountMetadataRequest:v6];
+    v13 = objc_alloc_init(VSViewServiceRequest);
+    [(VSViewServiceRequest *)v13 setAccountMetadataRequest:v6];
     linkedOnOrAfterChecker = [(VSAccountManager *)self linkedOnOrAfterChecker];
-    -[VSViewServiceRequest setShouldInferFeaturedProviders:](v12, "setShouldInferFeaturedProviders:", [linkedOnOrAfterChecker shouldPerformBehavior:1] ^ 1);
+    -[VSViewServiceRequest setShouldInferFeaturedProviders:](v13, "setShouldInferFeaturedProviders:", [linkedOnOrAfterChecker shouldPerformBehavior:1] ^ 1);
 
-    [(VSViewServiceRequest *)v12 setAllowsPrivacyUI:[(VSAccountMetadataRequest *)v6 isInterruptionAllowed]];
-    [(VSViewServiceRequest *)v12 setRequiresPrivacyUI:0];
+    [(VSViewServiceRequest *)v13 setAllowsPrivacyUI:[(VSAccountMetadataRequest *)v6 isInterruptionAllowed]];
+    [(VSViewServiceRequest *)v13 setRequiresPrivacyUI:0];
     delegate = [(VSAccountManager *)self delegate];
-    [(VSViewServiceRequest *)v12 setCanVetoAuthentication:objc_opt_respondsToSelector() & 1];
+    [(VSViewServiceRequest *)v13 setCanVetoAuthentication:objc_opt_respondsToSelector() & 1];
 
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke;
-    v22[3] = &unk_278B73BF8;
-    v23 = v7;
-    v15 = [(VSAccountManager *)self _enqueueViewServiceRequest:v12 completionHandler:v22];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke;
+    v23[3] = &unk_278B73BF8;
+    v24 = v7;
+    v16 = [(VSAccountManager *)self _enqueueViewServiceRequest:v13 completionHandler:v23];
   }
 
   else
   {
-    v16 = VSErrorLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = VSErrorLogObject(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [VSAccountManager enqueueAccountMetadataRequest:v11 completionHandler:v16];
+      [VSAccountManager enqueueAccountMetadataRequest:v11 completionHandler:v17];
     }
 
     requestCenter = [(VSAccountManager *)self requestCenter];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke_101;
-    v19[3] = &unk_278B737F8;
-    v21 = v7;
-    v20 = v11;
-    v15 = [requestCenter enqueueCompletionHandlerBlock:v19];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke_101;
+    v20[3] = &unk_278B737F8;
+    v22 = v7;
+    v21 = v11;
+    v16 = [requestCenter enqueueCompletionHandlerBlock:v20];
 
-    v12 = v21;
+    v13 = v22;
   }
 
-  if (!v15)
+  if (!v16)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The managerResult parameter must not be nil."];
   }
 
-  return v15;
+  return v16;
 }
 
 void __68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[VSAccountManager enqueueAccountMetadataRequest:completionHandler:]_block_invoke";
+    v12 = "[VSAccountManager enqueueAccountMetadataRequest:completionHandler:]_block_invoke";
     _os_log_impl(&dword_23AB8E000, v4, OS_LOG_TYPE_DEFAULT, "Will call completion handler passed to %s", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke_99;
-  v7[3] = &unk_278B73758;
-  v8 = v3;
-  v9 = *(a1 + 32);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke_99;
+  v8[3] = &unk_278B73758;
+  v9 = v3;
+  v10 = *(a1 + 32);
   v5 = v3;
-  __68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke_99(v7);
-  v6 = VSDefaultLogObject();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = (__68__VSAccountManager_enqueueAccountMetadataRequest_completionHandler___block_invoke_99)(v8);
+  v7 = VSDefaultLogObject(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[VSAccountManager enqueueAccountMetadataRequest:completionHandler:]_block_invoke_4";
-    _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
+    v12 = "[VSAccountManager enqueueAccountMetadataRequest:completionHandler:]_block_invoke_4";
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Did call completion handler passed to %s", buf, 0xCu);
   }
 }
 

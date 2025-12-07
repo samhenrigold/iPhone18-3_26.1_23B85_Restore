@@ -26,6 +26,7 @@
 - (void)_loadTimeView;
 - (void)_loadUI;
 - (void)_prepareForEditing;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_setNumerals:(unint64_t)numerals;
 - (void)_unloadDialView;
 - (void)_unloadSnapshotContentViews;
@@ -86,6 +87,16 @@
   v3.super_class = NTKGlobetrotterFaceView;
   [(NTKGlobetrotterFaceView *)&v3 _unloadSnapshotContentViews];
   [(NTKGlobetrotterFaceView *)self _unloadUI];
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKGlobetrotterFaceView;
+  groupCopy = group;
+  [(NTKGlobetrotterFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(NTKGlobetrotterTimeView *)self->_globetrotterTimeView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
 }
 
 - (void)_applyDataMode

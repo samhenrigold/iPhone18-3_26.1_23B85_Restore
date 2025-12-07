@@ -9,33 +9,33 @@
 - (void)presentOrUpdateViewController:(id)controller
 {
   controllerCopy = controller;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = controllerCopy;
+    v19 = controllerCopy;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Asked to present or update view controller: %@", buf, 0xCu);
   }
 
-  v11 = _NSConcreteStackBlock;
-  v12 = 3221225472;
-  v13 = sub_1E74;
-  v14 = &unk_C530;
-  v15 = controllerCopy;
+  v12 = _NSConcreteStackBlock;
+  v13 = 3221225472;
+  v14 = sub_1E74;
+  v15 = &unk_C530;
+  v16 = controllerCopy;
   selfCopy = self;
   v6 = controllerCopy;
-  v7 = objc_retainBlock(&v11);
-  v8 = [(PHSettingsCloudCallingListController *)self presentedViewController:v11];
+  v7 = objc_retainBlock(&v12);
+  v8 = [(PHSettingsCloudCallingListController *)self presentedViewController:v12];
 
   if (v8)
   {
-    v9 = PHDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PHDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       presentedViewController = [(PHSettingsCloudCallingListController *)self presentedViewController];
       *buf = 138412290;
-      v18 = presentedViewController;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "A view controller is already being presented: %@. Dismissing it and presenting the new one", buf, 0xCu);
+      v19 = presentedViewController;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "A view controller is already being presented: %@. Dismissing it and presenting the new one", buf, 0xCu);
     }
 
     [(PHSettingsCloudCallingListController *)self dismissViewControllerAnimated:1 completion:v7];

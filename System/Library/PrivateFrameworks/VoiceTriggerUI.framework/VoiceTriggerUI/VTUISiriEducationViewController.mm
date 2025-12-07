@@ -5,9 +5,31 @@
 - (void)_setupContinueButton;
 - (void)_setupImageContainerViewForTraitCollection:(id)collection;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VTUISiriEducationViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = VTUISiriEducationViewController;
+  [(VTUISiriEducationViewController *)&v6 viewWillAppear:appear];
+  headerView = [(VTUISiriEducationViewController *)self headerView];
+  [headerView setAlpha:0.0];
+
+  contentView = [(VTUISiriEducationViewController *)self contentView];
+  [contentView setAlpha:0.0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VTUISiriEducationViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(VTUISiriEducationViewController *)self _fadeInSubViews];
+}
 
 - (VTUISiriEducationViewController)initWithTitle:(id)title detailText:(id)text style:(id)style delegate:(id)delegate
 {
@@ -44,7 +66,7 @@
 
 - (void)_setupImageContainerViewForTraitCollection:(id)collection
 {
-  v54[4] = *MEMORY[0x277D85DE8];
+  v53[4] = *MEMORY[0x277D85DE8];
   v4 = [(VTUIStyle *)self->_style educationAssetNameForTraitCollection:collection];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = MEMORY[0x277CBEBC0];
@@ -56,35 +78,35 @@
   objc_storeStrong(&self->_player, v10);
   v11 = objc_alloc(MEMORY[0x277CE65E0]);
   v12 = *(MEMORY[0x277CC08C8] + 16);
-  v53[0] = *MEMORY[0x277CC08C8];
-  v53[1] = v12;
-  v53[2] = *(MEMORY[0x277CC08C8] + 32);
-  v13 = [v11 initWithPlayer:v10 templateItem:v9 timeRange:v53];
+  v52[0] = *MEMORY[0x277CC08C8];
+  v52[1] = v12;
+  v52[2] = *(MEMORY[0x277CC08C8] + 32);
+  v13 = [v11 initWithPlayer:v10 templateItem:v9 timeRange:v52];
   playerLooper = self->_playerLooper;
   self->_playerLooper = v13;
 
   playerViewController = self->_playerViewController;
   if (!playerViewController)
   {
-    v50 = v8;
+    v49 = v8;
     v16 = objc_alloc_init(MEMORY[0x277CB85E0]);
     [(AVPlayerViewController *)v16 setShowsPlaybackControls:0];
     [(AVPlayerViewController *)v16 setAllowsPictureInPicturePlayback:0];
     [(AVPlayerViewController *)v16 view];
-    v17 = v49 = v9;
+    v17 = v48 = v9;
     [v17 setTranslatesAutoresizingMaskIntoConstraints:0];
 
     view = [(AVPlayerViewController *)v16 view];
     [MEMORY[0x277D75348] systemBackgroundColor];
-    v19 = v52 = v4;
+    v19 = v51 = v4;
     [view setBackgroundColor:v19];
 
     v20 = self->_playerViewController;
     self->_playerViewController = v16;
-    v45 = v16;
+    v44 = v16;
 
     contentView = [(VTUISiriEducationViewController *)self contentView];
-    view2 = [(AVPlayerViewController *)v45 view];
+    view2 = [(AVPlayerViewController *)v44 view];
     [contentView addSubview:view2];
 
     [(VTUIStyle *)self->_style educationAssetSize];
@@ -92,43 +114,41 @@
     v26 = v25;
     [(VTUIStyle *)self->_style educationAssetTopPadding];
     v28 = v27;
-    v41 = MEMORY[0x277CCAAD0];
+    v40 = MEMORY[0x277CCAAD0];
     view3 = [(AVPlayerViewController *)self->_playerViewController view];
     topAnchor = [view3 topAnchor];
     contentView2 = [(VTUISiriEducationViewController *)self contentView];
     topAnchor2 = [contentView2 topAnchor];
-    v43 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v28];
-    v54[0] = v43;
+    v42 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v28];
+    v53[0] = v42;
     view4 = [(AVPlayerViewController *)self->_playerViewController view];
     centerXAnchor = [view4 centerXAnchor];
     contentView3 = [(VTUISiriEducationViewController *)self contentView];
     centerXAnchor2 = [contentView3 centerXAnchor];
-    v37 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2 constant:0.0];
-    v54[1] = v37;
+    v36 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2 constant:0.0];
+    v53[1] = v36;
     [(AVPlayerViewController *)self->_playerViewController view];
-    v29 = v51 = v5;
+    v29 = v50 = v5;
     heightAnchor = [v29 heightAnchor];
     v31 = [heightAnchor constraintEqualToConstant:v26];
-    v54[2] = v31;
+    v53[2] = v31;
     view5 = [(AVPlayerViewController *)self->_playerViewController view];
     widthAnchor = [view5 widthAnchor];
     v34 = [widthAnchor constraintEqualToConstant:v24];
-    v54[3] = v34;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:4];
-    [v41 activateConstraints:v35];
+    v53[3] = v34;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:4];
+    [v40 activateConstraints:v35];
 
-    v9 = v49;
-    v8 = v50;
+    v9 = v48;
+    v8 = v49;
 
-    v4 = v52;
-    v5 = v51;
+    v4 = v51;
+    v5 = v50;
 
     playerViewController = self->_playerViewController;
   }
 
   [(AVPlayerViewController *)playerViewController setPlayer:self->_player];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traitCollectionDidChange:(id)change

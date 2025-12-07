@@ -1,5 +1,6 @@
 @interface BRLTBrailleStateManager
 - (BOOL)_deleteBrailleCharSilently:(BOOL)silently;
+- (BOOL)_forwardDeleteBrailleCharSilently:(BOOL)silently;
 - (BOOL)_generateBrailleBuffer:(BOOL)buffer;
 - (BOOL)_selectionIsValidForDelete;
 - (BOOL)_selectionIsValidForInsert;
@@ -27,6 +28,7 @@
 - (id)translationDelegate;
 - (unint64_t)brailleLocationForScriptLocation:(unint64_t)location;
 - (unint64_t)scriptLocationForBrailleLocation:(unint64_t)location;
+- (void)_translate:(BOOL)_translate;
 - (void)insertBrailleChar:(id)char modifiers:(id)modifiers;
 - (void)insertBrailleChar:(id)char modifiers:(id)modifiers silently:(BOOL)silently;
 - (void)setBrailleSelection:(_NSRange)selection needsForwardToScreenReader:(BOOL *)reader newScriptLocation:(unint64_t *)location;
@@ -253,10 +255,10 @@ LABEL_34:
 LABEL_35:
 }
 
-void __43__BRLTBrailleStateManager_setScriptString___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void __43__BRLTBrailleStateManager_setScriptString___block_invoke(void *a1, void *a2, _BYTE *a3, _BYTE *a4)
 {
   v7 = a2;
-  if ([*(a1[4] + 256) count] - 1 != a3)
+  if (([*(a1[4] + 256) count] - 1) != a3)
   {
     if (![v7 isEqual:a1[5]])
     {
@@ -469,7 +471,7 @@ LABEL_7:
 - (BOOL)_generateBrailleBuffer:(BOOL)buffer
 {
   bufferCopy = buffer;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   brailleString = [(BRLTBrailleBuffer *)self->_brailleBuffer brailleString];
   v6 = [brailleString length];
   v7 = v6;
@@ -509,7 +511,7 @@ LABEL_7:
     {
 LABEL_16:
       LOBYTE(v14) = 0;
-      goto LABEL_17;
+      return v14;
     }
 
     v9 = 32;
@@ -549,55 +551,55 @@ LABEL_16:
     brailleChars = [string substringWithRange:{self->_activeScriptEditingRegion.location, self->_activeScriptEditingRegion.length}];
 
     WeakRetained = objc_loadWeakRetained(&self->_translationDelegate);
-    v21 = [WeakRetained printBrailleForText:brailleChars language:0 mode:self->_inputTranslationMode textPositionsRange:0x7FFFFFFFFFFFFFFFLL locations:0 textFormattingRanges:{0, 0}];
+    v20 = [WeakRetained printBrailleForText:brailleChars language:0 mode:self->_inputTranslationMode textPositionsRange:0x7FFFFFFFFFFFFFFFLL locations:0 textFormattingRanges:{0, 0}];
 
-    v22 = [[BRLTBrailleString alloc] initWithUnicode:v21];
-    brailleChars2 = [(BRLTBrailleString *)v22 brailleChars];
+    v21 = [[BRLTBrailleString alloc] initWithUnicode:v20];
+    brailleChars2 = [(BRLTBrailleString *)v21 brailleChars];
   }
 
   location = self->_activeBrailleEditingRegion.location;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v24 = brailleChars2;
-  v25 = [v24 countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v25)
+  v23 = brailleChars2;
+  v24 = [v23 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  if (v24)
   {
-    v26 = v25;
+    v25 = v24;
     v14 = 0;
-    v27 = *v37;
+    v26 = *v36;
     do
     {
-      v28 = 0;
-      v29 = v14;
+      v27 = 0;
+      v28 = v14;
       do
       {
-        if (*v37 != v27)
+        if (*v36 != v26)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v23);
         }
 
-        v30 = *(*(&v36 + 1) + 8 * v28);
+        v29 = *(*(&v35 + 1) + 8 * v27);
         v14 = 1;
-        v42.location = location;
-        v42.length = 1;
-        if (!NSIntersectionRange(self[160], v42).length)
+        v41.location = location;
+        v41.length = 1;
+        if (!NSIntersectionRange(self[160], v41).length)
         {
-          [(BRLTBrailleBuffer *)self->_brailleBuffer insertBrailleChar:v30 modifiers:0 inputMode:self->_inputTranslationMode];
-          v14 = v29;
+          [(BRLTBrailleBuffer *)self->_brailleBuffer insertBrailleChar:v29 modifiers:0 inputMode:self->_inputTranslationMode];
+          v14 = v28;
         }
 
         ++location;
-        ++v28;
-        v29 = v14;
+        ++v27;
+        v28 = v14;
       }
 
-      while (v26 != v28);
-      v26 = [v24 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      while (v25 != v27);
+      v25 = [v23 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   else
@@ -606,25 +608,23 @@ LABEL_16:
   }
 
   brailleBuffer = self->_brailleBuffer;
-  v32 = self->_brailleSelection.location - self->_activeBrailleEditingRegion.location;
+  v31 = self->_brailleSelection.location - self->_activeBrailleEditingRegion.location;
   brailleString3 = [(BRLTBrailleBuffer *)brailleBuffer brailleString];
-  v34 = [brailleString3 length];
+  v33 = [brailleString3 length];
 
-  if (v32 >= v34)
+  if (v31 >= v33)
   {
-    v35 = v34;
+    v34 = v33;
   }
 
   else
   {
-    v35 = v32;
+    v34 = v31;
   }
 
-  [(BRLTBrailleBuffer *)brailleBuffer setCursor:v35];
+  [(BRLTBrailleBuffer *)brailleBuffer setCursor:v34];
 
-LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
-  return v14 & 1;
+  return v14;
 }
 
 - (BOOL)deleteBrailleChar
@@ -738,6 +738,28 @@ LABEL_20:
   v3 = [(BRLTBrailleStateManager *)self _forwardDeleteBrailleCharSilently:1];
   [(NSRecursiveLock *)self->_apiLock unlock];
   return v3;
+}
+
+- (BOOL)_forwardDeleteBrailleCharSilently:(BOOL)silently
+{
+  silentlyCopy = silently;
+  if ([(BRLTBrailleStateManager *)self brailleSelection]== 0x7FFFFFFFFFFFFFFFLL)
+  {
+    return 0;
+  }
+
+  brailleSelection = [(BRLTBrailleStateManager *)self brailleSelection];
+  brailleDisplayString = [(BRLTBrailleStateManager *)self brailleDisplayString];
+  v7 = [brailleDisplayString length];
+
+  if (brailleSelection >= v7)
+  {
+    return 0;
+  }
+
+  [(BRLTBrailleStateManager *)self setBrailleSelection:[(BRLTBrailleStateManager *)self brailleSelection]+ 1, 0];
+
+  return [(BRLTBrailleStateManager *)self _deleteBrailleCharSilently:silentlyCopy];
 }
 
 - (void)setBrailleSelection:(_NSRange)selection needsForwardToScreenReader:(BOOL *)reader newScriptLocation:(unint64_t *)location
@@ -992,6 +1014,420 @@ LABEL_15:
   }
 
   [(BRLTBrailleStateManager *)self translate];
+}
+
+- (void)_translate:(BOOL)_translate
+{
+  if (!self->_scriptDirty)
+  {
+    if (!self->_brailleDirty)
+    {
+      goto LABEL_78;
+    }
+
+LABEL_7:
+    if (self->_editable)
+    {
+      p_activeScriptEditingRegion = &self->_activeScriptEditingRegion;
+      if (self->_activeScriptEditingRegion.location == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        self->_activeBrailleEditingRegion = self->_brailleMergeEditingRegion;
+        *p_activeScriptEditingRegion = self->_scriptMergeEditingRegion;
+      }
+
+      cursor = [(BRLTBrailleBuffer *)self->_brailleBuffer cursor];
+      brailleString = [(BRLTBrailleBuffer *)self->_brailleBuffer brailleString];
+      v9 = [brailleString length];
+
+      if (v9)
+      {
+        brailleString2 = [(BRLTBrailleBuffer *)self->_brailleBuffer brailleString];
+        unicode = [brailleString2 unicode];
+
+        if ([unicode length] >= 2 && objc_msgSend(unicode, "characterAtIndex:", objc_msgSend(unicode, "length") - 1) == 10240 && self->_inputTranslationMode != 2)
+        {
+          v136 = [unicode substringWithRange:{0, objc_msgSend(unicode, "length") - 1}];
+
+          v12 = 1;
+          unicode = v136;
+        }
+
+        else
+        {
+          v12 = 0;
+        }
+
+        WeakRetained = objc_loadWeakRetained(&self->_translationDelegate);
+        inputTranslationMode = self->_inputTranslationMode;
+        v141 = 0;
+        v15 = [WeakRetained textForPrintBraille:unicode language:0 mode:inputTranslationMode locations:&v141];
+        v16 = v141;
+
+        if (v12)
+        {
+          v17 = [v16 length];
+          v18 = [v15 stringByAppendingString:@" "];
+
+          if (v17)
+          {
+            v19 = [v16 length] >> 3;
+            bytes = [v16 bytes];
+            if (v19 <= 1)
+            {
+              v21 = 1;
+            }
+
+            else
+            {
+              v21 = v19;
+            }
+
+            v140 = *(bytes + 8 * v21 - 8) + 1;
+            v22 = [MEMORY[0x277CBEA90] dataWithBytes:&v140 length:8];
+            v23 = [v16 mutableCopy];
+
+            [v23 appendData:v22];
+            v16 = v23;
+          }
+
+          else
+          {
+            v140 = 1;
+            v101 = [MEMORY[0x277CBEA90] dataWithBytes:&v140 length:8];
+
+            v16 = v101;
+          }
+        }
+
+        else
+        {
+          v18 = v15;
+        }
+      }
+
+      else
+      {
+        unicode2 = [(BRLTBrailleString *)self->_staticBrailleString unicode];
+        unicode = [unicode2 substringWithRange:{self->_brailleMergeEditingRegion.location, self->_activeBrailleEditingRegion.location - self->_brailleMergeEditingRegion.location}];
+
+        unicode3 = [(BRLTBrailleString *)self->_staticBrailleString unicode];
+        v36 = [unicode3 substringWithRange:?];
+
+        v37 = [unicode stringByAppendingString:v36];
+        self->_activeBrailleEditingRegion = self->_brailleMergeEditingRegion;
+        *p_activeScriptEditingRegion = self->_scriptMergeEditingRegion;
+        v38 = objc_loadWeakRetained(&self->_translationDelegate);
+        outputTranslationMode = self->_outputTranslationMode;
+        v139 = 0;
+        v18 = [v38 textForPrintBraille:v37 language:0 mode:outputTranslationMode locations:&v139];
+        v16 = v139;
+
+        cursor += [unicode length];
+      }
+
+      if (v18)
+      {
+        v102 = v18;
+      }
+
+      else
+      {
+        v102 = &stru_2853FD1A8;
+      }
+
+      string = [(BRLTScriptString *)self->_scriptString string];
+      v104 = [string substringToIndex:self->_activeScriptEditingRegion.location];
+      v105 = v104;
+      if (v104)
+      {
+        v106 = v104;
+      }
+
+      else
+      {
+        v106 = &stru_2853FD1A8;
+      }
+
+      v107 = v106;
+
+      string2 = [(BRLTScriptString *)self->_scriptString string];
+      v109 = [string2 substringFromIndex:self->_activeScriptEditingRegion.length + self->_activeScriptEditingRegion.location];
+      v110 = v109;
+      if (v109)
+      {
+        v111 = v109;
+      }
+
+      else
+      {
+        v111 = &stru_2853FD1A8;
+      }
+
+      v112 = v111;
+
+      location = self->_activeBrailleEditingRegion.location;
+      brailleString3 = [(BRLTBrailleBuffer *)self->_brailleBuffer brailleString];
+      v115 = [brailleString3 length];
+
+      if (location == 0x7FFFFFFFFFFFFFFFLL || (v116 = self->_brailleSelection.location, location > v116) || v115 + location < v116)
+      {
+        v119 = objc_loadWeakRetained(&self->_translationDelegate);
+        brailleDisplayString = [(BRLTBrailleStateManager *)self brailleDisplayString];
+        unicode4 = [brailleDisplayString unicode];
+        v122 = self->_outputTranslationMode;
+        v138 = v16;
+        v123 = [v119 textForPrintBraille:unicode4 language:0 mode:v122 locations:&v138];
+        v124 = v138;
+
+        v118 = -[BRLTBrailleStateManager _textRangeForBrailleRange:textPositions:scriptLength:](self, "_textRangeForBrailleRange:textPositions:scriptLength:", self->_brailleSelection.location, self->_brailleSelection.length, v124, [v123 length]);
+        v16 = v124;
+      }
+
+      else
+      {
+        v117 = [(BRLTBrailleStateManager *)self _textRangeForBrailleRange:cursor textPositions:0 scriptLength:v16, [(__CFString *)v102 length]];
+        v118 = v117 + [(__CFString *)v107 length];
+      }
+
+      v125 = [(__CFString *)v107 stringByAppendingString:v102];
+      v126 = [v125 stringByAppendingString:v112];
+
+      v127 = [[BRLTScriptString alloc] initWithString:v126 selection:v118, 0];
+      scriptString = self->_scriptString;
+      self->_scriptString = v127;
+
+      self->_scriptDirty = 1;
+      if ([(__CFString *)v107 length]<= v118)
+      {
+        v129 = v118 - [(__CFString *)v107 length];
+      }
+
+      else
+      {
+        v129 = 0x7FFFFFFFFFFFFFFFLL;
+      }
+
+      v130 = [[BRLTScriptString alloc] initWithString:v102 selection:v129, 0];
+      v131 = objc_loadWeakRetained(&self->_delegate);
+      v132 = objc_opt_respondsToSelector();
+
+      if (v132)
+      {
+        if ([(NSMutableArray *)self->_runningScriptStringHistory count]>= 6)
+        {
+          [(NSMutableArray *)self->_runningScriptStringHistory removeObjectAtIndex:0];
+        }
+
+        [(NSMutableArray *)self->_runningScriptStringHistory addObject:self->_scriptString];
+        self->_lastScriptStringOutputTime = CFAbsoluteTimeGetCurrent();
+        v133 = objc_loadWeakRetained(&self->_delegate);
+        [v133 replaceScriptStringRange:self->_activeScriptEditingRegion.location withScriptString:self->_activeScriptEditingRegion.length cursorLocation:{v130, v118}];
+      }
+    }
+
+    else
+    {
+      v24 = objc_loadWeakRetained(&self->_delegate);
+      v25 = objc_opt_respondsToSelector();
+
+      if ((v25 & 1) == 0)
+      {
+LABEL_77:
+        v134 = objc_alloc_init(BRLTBrailleBuffer);
+        brailleBuffer = self->_brailleBuffer;
+        self->_brailleBuffer = v134;
+
+        *&self->_brailleDirty = 256;
+        goto LABEL_78;
+      }
+
+      v26 = objc_loadWeakRetained(&self->_translationDelegate);
+      brailleString4 = [(BRLTBrailleBuffer *)self->_brailleBuffer brailleString];
+      unicode5 = [brailleString4 unicode];
+      v16 = [v26 textForPrintBraille:unicode5 language:0 mode:self->_inputTranslationMode locations:0];
+
+      if ([v16 length])
+      {
+        v29 = objc_loadWeakRetained(&self->_delegate);
+        [v29 didInsertScriptString:v16];
+      }
+    }
+
+    goto LABEL_77;
+  }
+
+  if (self->_brailleDirty)
+  {
+    goto LABEL_7;
+  }
+
+  _translateCopy = _translate;
+  if ([(BRLTScriptString *)self->_scriptString selection]== 0x7FFFFFFFFFFFFFFFLL)
+  {
+    self->_scriptForwardEditingRegion = xmmword_241E38B50;
+    self->_scriptBackwardEditingRegion = xmmword_241E38B50;
+    self->_brailleForwardEditingRegion = xmmword_241E38B50;
+    self->_brailleBackwardEditingRegion = xmmword_241E38B50;
+    self->_activeScriptEditingRegion = xmmword_241E38B50;
+    self->_activeBrailleEditingRegion = xmmword_241E38B50;
+    if (self->_editable)
+    {
+      textFormattingRanges = 0;
+    }
+
+    else
+    {
+      textFormattingRanges = [(BRLTScriptString *)self->_scriptString textFormattingRanges];
+    }
+
+    if ([(BRLTScriptString *)self->_scriptString focus]== 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v40 = objc_loadWeakRetained(&self->_translationDelegate);
+      string3 = [(BRLTScriptString *)self->_scriptString string];
+      v42 = [v40 printBrailleForText:string3 language:0 mode:self->_outputTranslationMode textPositionsRange:0x7FFFFFFFFFFFFFFFLL locations:0 textFormattingRanges:{0, textFormattingRanges}];
+    }
+
+    else
+    {
+      string4 = [(BRLTScriptString *)self->_scriptString string];
+      v76 = [string4 length];
+
+      v77 = objc_loadWeakRetained(&self->_translationDelegate);
+      string5 = [(BRLTScriptString *)self->_scriptString string];
+      v79 = self->_outputTranslationMode;
+      v143 = 0;
+      v42 = [v77 printBrailleForText:string5 language:0 mode:v79 textPositionsRange:0 locations:v76 textFormattingRanges:{&v143, textFormattingRanges}];
+      v40 = v143;
+
+      focus = [(BRLTScriptString *)self->_scriptString focus];
+      self->_brailleFocus.location = -[BRLTBrailleStateManager _brailleRangeForTextRange:textPositions:brailleLength:](self, "_brailleRangeForTextRange:textPositions:brailleLength:", focus, v81, v40, [v42 length]);
+      self->_brailleFocus.length = v82;
+    }
+
+    v83 = [[BRLTBrailleString alloc] initWithUnicode:v42];
+    staticBrailleString = self->_staticBrailleString;
+    self->_staticBrailleString = v83;
+  }
+
+  else
+  {
+    string6 = [(BRLTScriptString *)self->_scriptString string];
+    v31 = [string6 length];
+
+    v32 = self->_brailleSelection.location;
+    length = self->_brailleSelection.length;
+    if (self->_editable)
+    {
+      textFormattingRanges = 0;
+    }
+
+    else
+    {
+      textFormattingRanges = [(BRLTScriptString *)self->_scriptString textFormattingRanges];
+    }
+
+    v43 = objc_loadWeakRetained(&self->_translationDelegate);
+    string7 = [(BRLTScriptString *)self->_scriptString string];
+    v45 = self->_outputTranslationMode;
+    v145 = 0;
+    staticBrailleString = [v43 printBrailleForText:string7 language:0 mode:v45 textPositionsRange:0 locations:v31 textFormattingRanges:{&v145, textFormattingRanges}];
+    v42 = v145;
+
+    v47 = [[BRLTBrailleString alloc] initWithUnicode:staticBrailleString];
+    v48 = self->_staticBrailleString;
+    self->_staticBrailleString = v47;
+
+    self->_scriptForwardEditingRegion.location = [(BRLTBrailleStateManager *)self forwardEditingAtomForScriptString:self->_scriptString];
+    self->_scriptForwardEditingRegion.length = v49;
+    self->_scriptBackwardEditingRegion.location = [(BRLTBrailleStateManager *)self backwardEditingAtomForScriptString:self->_scriptString];
+    self->_scriptBackwardEditingRegion.length = v50;
+    self->_scriptMergeEditingRegion.location = [(BRLTBrailleStateManager *)self deleteMergeAtomForScriptString:self->_scriptString];
+    self->_scriptMergeEditingRegion.length = v51;
+    selection = [(BRLTScriptString *)self->_scriptString selection];
+    self->_brailleSelection.location = -[BRLTBrailleStateManager _brailleRangeForTextRange:textPositions:brailleLength:](self, "_brailleRangeForTextRange:textPositions:brailleLength:", selection, v53, v42, [staticBrailleString length]);
+    self->_brailleSelection.length = v54;
+    focus2 = [(BRLTScriptString *)self->_scriptString focus];
+    self->_brailleFocus.location = -[BRLTBrailleStateManager _brailleRangeForTextRange:textPositions:brailleLength:](self, "_brailleRangeForTextRange:textPositions:brailleLength:", focus2, v56, v42, [staticBrailleString length]);
+    self->_brailleFocus.length = v57;
+    self->_brailleForwardEditingRegion.location = -[BRLTBrailleStateManager _brailleRangeForTextRange:textPositions:brailleLength:](self, "_brailleRangeForTextRange:textPositions:brailleLength:", self->_scriptForwardEditingRegion.location, self->_scriptForwardEditingRegion.length, v42, [staticBrailleString length]);
+    self->_brailleForwardEditingRegion.length = v58;
+    self->_brailleBackwardEditingRegion.location = -[BRLTBrailleStateManager _brailleRangeForTextRange:textPositions:brailleLength:](self, "_brailleRangeForTextRange:textPositions:brailleLength:", self->_scriptBackwardEditingRegion.location, self->_scriptBackwardEditingRegion.length, v42, [staticBrailleString length]);
+    self->_brailleBackwardEditingRegion.length = v59;
+    self->_brailleMergeEditingRegion.location = -[BRLTBrailleStateManager _brailleRangeForTextRange:textPositions:brailleLength:](self, "_brailleRangeForTextRange:textPositions:brailleLength:", self->_scriptMergeEditingRegion.location, self->_scriptMergeEditingRegion.length, v42, [staticBrailleString length]);
+    self->_brailleMergeEditingRegion.length = v60;
+    if (_translateCopy)
+    {
+      v61 = self->_brailleSelection.location == v32 && self->_brailleSelection.length == length;
+      v62 = v61;
+      if (v32 != 0x7FFFFFFFFFFFFFFFLL && !v62)
+      {
+        v63 = objc_loadWeakRetained(&self->_translationDelegate);
+        [(BRLTBrailleStateManager *)self brailleDisplayString];
+        v137 = v32;
+        v65 = v64 = length;
+        unicode6 = [v65 unicode];
+        v67 = self->_outputTranslationMode;
+        v144 = 0;
+        v68 = [v63 textForPrintBraille:unicode6 language:0 mode:v67 locations:&v144];
+        v69 = v144;
+
+        v70 = -[BRLTBrailleStateManager _textRangeForBrailleRange:textPositions:scriptLength:](self, "_textRangeForBrailleRange:textPositions:scriptLength:", v137, v64, v69, [v68 length]);
+        v72 = v71;
+        if (v70 == [(BRLTScriptString *)self->_scriptString selection]&& v72 == v73)
+        {
+          v74 = self->_brailleSelection.location;
+          if (v74 < [(BRLTBrailleString *)self->_staticBrailleString length])
+          {
+            self->_brailleSelection.location = v137;
+            self->_brailleSelection.length = v64;
+          }
+        }
+      }
+    }
+  }
+
+  suggestionRange = [(BRLTScriptString *)self->_scriptString suggestionRange];
+  v86 = v85;
+  if (suggestionRange == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    self->_brailleSuggestion.location = 0x7FFFFFFFFFFFFFFFLL;
+    self->_brailleSuggestion.length = v85;
+  }
+
+  else
+  {
+    v87 = suggestionRange;
+    string8 = [(BRLTScriptString *)self->_scriptString string];
+    v89 = [string8 length];
+
+    v90 = objc_loadWeakRetained(&self->_translationDelegate);
+    string9 = [(BRLTScriptString *)self->_scriptString string];
+    v92 = self->_outputTranslationMode;
+    v142 = 0;
+    textFormattingRanges2 = [(BRLTScriptString *)self->_scriptString textFormattingRanges];
+    v94 = [v90 printBrailleForText:string9 language:0 mode:v92 textPositionsRange:0 locations:v89 textFormattingRanges:{&v142, textFormattingRanges2}];
+    v95 = v142;
+
+    self->_brailleSuggestion.location = -[BRLTBrailleStateManager _brailleRangeForTextRange:textPositions:brailleLength:](self, "_brailleRangeForTextRange:textPositions:brailleLength:", v87, v86, v95, [v94 length]);
+    self->_brailleSuggestion.length = v96;
+  }
+
+  self->_scriptDirty = 0;
+  v97 = objc_loadWeakRetained(&self->_delegate);
+  v98 = objc_opt_respondsToSelector();
+
+  if (v98)
+  {
+    v99 = objc_loadWeakRetained(&self->_delegate);
+    brailleDisplayString2 = [(BRLTBrailleStateManager *)self brailleDisplayString];
+    [v99 brailleDisplayStringDidChange:brailleDisplayString2 brailleSelection:self->_brailleSelection.location brailleUIOptions:self->_brailleSelection.length modifiers:{0, 0}];
+  }
+
+LABEL_78:
+  if (self->_scriptDirty || self->_brailleDirty)
+  {
+    [(BRLTBrailleStateManager *)self _translate:1];
+  }
 }
 
 - (id)brailleDisplayString

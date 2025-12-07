@@ -84,7 +84,7 @@
 
 - (void)rePresentSendMenu
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD58460);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD58460, &qword_190DD8260);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v11 - v4;
   v6 = sub_190D518A0();
@@ -121,7 +121,7 @@
 
   selfCopy = self;
   sub_1909803CC(v7, v6);
-  sub_19022123C(v7);
+  sub_19022123C(v7, v6);
 }
 
 - (void)pluginIconUpdatedWithNotification:(id)notification
@@ -165,11 +165,11 @@
 - (NSArray)accessibilityCustomActions
 {
   selfCopy = self;
-  v3 = sub_190983288();
+  v3 = sub_190983288(selfCopy);
 
   if (v3)
   {
-    sub_1902188FC(0, &qword_1EAD58488);
+    sub_1902188FC(0, &qword_1EAD58488, 0x1E69DC5E8);
     v4 = sub_190D57160();
   }
 
@@ -210,7 +210,7 @@
   sub_190D51BC0();
   viewCopy = view;
   selfCopy = self;
-  SendMenuViewController.collectionView(_:didSelectItemAt:)(viewCopy);
+  SendMenuViewController.collectionView(_:didSelectItemAt:)(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

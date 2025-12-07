@@ -92,13 +92,6 @@
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   startDate = self->_startDate;
-  endDate = self->_endDate;
-  percentUnknown = self->_percentUnknown;
-  percentNone = self->_percentNone;
-  percentSlight = self->_percentSlight;
-  percentMild = self->_percentMild;
-  percentModerate = self->_percentModerate;
-  percentStrong = self->_percentStrong;
 
   return MEMORY[0x1EEE66B58](v7, sel_initWithStartDate_endDate_percentUnknown_percentNone_percentSlight_percentMild_percentModerate_percentStrong_, startDate);
 }

@@ -37,7 +37,7 @@
 
 - (void)_handleUpdateValue:(id)value
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   messagePayload = [valueCopy messagePayload];
   v6 = [messagePayload hmf_stringForKey:*MEMORY[0x277CD0F90]];
@@ -57,9 +57,9 @@
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v50 = v30;
-        v51 = 2112;
-        v52 = v6;
+        v49 = v30;
+        v50 = 2112;
+        v51 = v6;
         _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Settings update message target type (%@) is unknown", buf, 0x16u);
       }
 
@@ -82,9 +82,9 @@
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v24;
-      v51 = 2112;
-      v52 = messagePayload;
+      v49 = v24;
+      v50 = 2112;
+      v51 = messagePayload;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@No message controller to update value for message payload: %@", buf, 0x16u);
     }
 
@@ -126,7 +126,7 @@ LABEL_22:
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v50 = v20;
+        v49 = v20;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Only current user may make changes", buf, 0xCu);
       }
 
@@ -151,33 +151,33 @@ LABEL_22:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
           HMFGetLogIdentifier();
-          v38 = v45 = v34;
+          v38 = v44 = v34;
           *buf = 138543362;
-          v50 = v38;
+          v49 = v38;
           _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Received request to update value.", buf, 0xCu);
 
-          v34 = v45;
+          v34 = v44;
         }
 
         objc_autoreleasePoolPop(v34);
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __48__HMDSettingsMessageHandler__handleUpdateValue___block_invoke;
-        v47[3] = &unk_2797359D8;
-        v48 = v9;
-        [v11 updateWithEncodedValue:v31 onSettingKeyPath:v33 completion:v47];
-        v39 = v48;
+        v46[0] = MEMORY[0x277D85DD0];
+        v46[1] = 3221225472;
+        v46[2] = __48__HMDSettingsMessageHandler__handleUpdateValue___block_invoke;
+        v46[3] = &unk_2797359D8;
+        v47 = v9;
+        [v11 updateWithEncodedValue:v31 onSettingKeyPath:v33 completion:v46];
+        v39 = v47;
       }
 
       else
       {
         if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
-          v46 = HMFGetLogIdentifier();
+          v45 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v50 = v46;
-          v51 = 2112;
-          v52 = messagePayload;
+          v49 = v45;
+          v50 = 2112;
+          v51 = messagePayload;
           _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Missing key path from user settings update message payload: %@", buf, 0x16u);
         }
 
@@ -196,9 +196,9 @@ LABEL_22:
       {
         v43 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v50 = v43;
-        v51 = 2112;
-        v52 = messagePayload;
+        v49 = v43;
+        v50 = 2112;
+        v51 = messagePayload;
         _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@Missing updated serialized value from payload: %@", buf, 0x16u);
       }
 
@@ -214,12 +214,11 @@ LABEL_36:
 LABEL_15:
 
 LABEL_37:
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithMessageDispatcher:(id)dispatcher home:(id)home
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   newValue = dispatcher;
   homeCopy = home;
   if (self)
@@ -251,15 +250,13 @@ LABEL_37:
     v15 = [HMDXPCMessagePolicy policyWithEntitlements:5];
     *&buf = v15;
     *(&buf + 1) = objc_getProperty(selfCopy, v16, 32, 1);
-    v24 = v10;
+    v23 = v10;
     v17 = MEMORY[0x277CBEA60];
     v18 = *(&buf + 1);
     v19 = [v17 arrayWithObjects:&buf count:3];
 
     [objc_getProperty(selfCopy v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSettingsMessageHandler)initWithQueue:(id)queue
@@ -291,12 +288,11 @@ LABEL_37:
 
 uint64_t __40__HMDSettingsMessageHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_19578;
-  logCategory__hmf_once_v8_19578 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_19578;
+  logCategory__hmf_once_v8_19578 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

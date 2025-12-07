@@ -58,7 +58,7 @@
     v11 = viewController2;
     if (viewController2)
     {
-      [viewController2 showcaseConfig];
+      objc_msgSend_showcaseConfig(viewController2);
     }
   }
 

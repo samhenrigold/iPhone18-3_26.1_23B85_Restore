@@ -706,30 +706,39 @@ LABEL_7:
 
 - (void)insertInterestAreaPathAtIndex:(unint64_t)index
 {
-  v5 = [(GAXInterestAreaView *)self _interestAreaPathAtIndex:?];
-  if (v5 && ([v5 isEmpty] & 1) == 0)
+  isEmpty = [(GAXInterestAreaView *)self _interestAreaPathAtIndex:?];
+  v6 = isEmpty;
+  if (isEmpty)
   {
-    [(GAXInterestAreaView *)self _insertClippedViewForInterestAreaPathAtIndex:index];
-    [(GAXInterestAreaView *)self setNeedsLayout];
-    buttonBeingDragged = [(GAXInterestAreaView *)self buttonBeingDragged];
-    v7 = buttonBeingDragged;
-    if (buttonBeingDragged)
+    v11 = isEmpty;
+    isEmpty = [isEmpty isEmpty];
+    v6 = v11;
+    if ((isEmpty & 1) == 0)
     {
-      associatedInterestAreaPathIndex = [buttonBeingDragged associatedInterestAreaPathIndex];
-      if (associatedInterestAreaPathIndex >= index)
+      [(GAXInterestAreaView *)self _insertClippedViewForInterestAreaPathAtIndex:index];
+      [(GAXInterestAreaView *)self setNeedsLayout];
+      buttonBeingDragged = [(GAXInterestAreaView *)self buttonBeingDragged];
+      v8 = buttonBeingDragged;
+      if (buttonBeingDragged)
       {
-        [v7 setAssociatedInterestAreaPathIndex:associatedInterestAreaPathIndex + 1];
+        associatedInterestAreaPathIndex = [buttonBeingDragged associatedInterestAreaPathIndex];
+        if (associatedInterestAreaPathIndex >= index)
+        {
+          [v8 setAssociatedInterestAreaPathIndex:associatedInterestAreaPathIndex + 1];
+        }
       }
-    }
 
-    indexOfInterestAreaPathBeingDragged = [(GAXInterestAreaView *)self indexOfInterestAreaPathBeingDragged];
-    if (indexOfInterestAreaPathBeingDragged != 0x7FFFFFFFFFFFFFFFLL && indexOfInterestAreaPathBeingDragged >= index)
-    {
-      [(GAXInterestAreaView *)self setIndexOfInterestAreaPathBeingDragged:indexOfInterestAreaPathBeingDragged + 1];
+      indexOfInterestAreaPathBeingDragged = [(GAXInterestAreaView *)self indexOfInterestAreaPathBeingDragged];
+      if (indexOfInterestAreaPathBeingDragged != 0x7FFFFFFFFFFFFFFFLL && indexOfInterestAreaPathBeingDragged >= index)
+      {
+        [(GAXInterestAreaView *)self setIndexOfInterestAreaPathBeingDragged:indexOfInterestAreaPathBeingDragged + 1];
+      }
+
+      v6 = v11;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(isEmpty, v6);
 }
 
 - (void)reloadFrameOfInterestAreaPathAtIndex:(unint64_t)index

@@ -58,7 +58,7 @@
 
 - (void)p_updateBackgroundLayerContent
 {
-  v3 = [TSUImage imageNamed:@"THKN_control_bg-fill" inBundle:THBundle()];
+  v3 = [TSUImage imageNamed:@"THKN_control_bg-fill" inBundle:THBundle(self, a2)];
   [-[THWTransportControlRep canvas](self "canvas")];
   v5 = v4;
   -[CALayer setContents:](self->_backgroundLayer, "setContents:", [v3 CGImageForContentsScale:?]);
@@ -136,7 +136,8 @@
     v8 = @"_D";
   }
 
-  result = [TSUImage imageNamed:[NSString stringWithFormat:@"%@%@" inBundle:*(&off_45E570 + v7), v8], THBundle()];
+  v9 = [NSString stringWithFormat:@"%@%@", *(&off_45E570 + v7), v8];
+  result = [TSUImage imageNamed:v9 inBundle:THBundle(v9, v10)];
   if (!result)
   {
 LABEL_7:

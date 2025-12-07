@@ -4,6 +4,8 @@
 - (int)alertType;
 - (void)notificationSnoozed;
 - (void)reset;
+- (void)setAlertType:(int)type;
+- (void)setNotificationDisabled:(BOOL)disabled;
 @end
 
 @implementation ESALocalSettings
@@ -14,6 +16,13 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setNotificationDisabled:(BOOL)disabled
+{
+  CFPreferencesSetValue(@"notificationsAllowed", [NSNumber numberWithBool:disabled], @"com.apple.EscrowSecurityAlert", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
+
+  CFPreferencesSynchronize(@"com.apple.EscrowSecurityAlert", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
 }
 
 - (BOOL)shouldAllowSnooze
@@ -61,6 +70,13 @@
   }
 
   return v2;
+}
+
+- (void)setAlertType:(int)type
+{
+  CFPreferencesSetValue(@"notificationType", [NSNumber numberWithUnsignedInt:*&type], @"com.apple.EscrowSecurityAlert", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
+
+  CFPreferencesSynchronize(@"com.apple.EscrowSecurityAlert", kCFPreferencesCurrentUser, kCFPreferencesCurrentHost);
 }
 
 - (void)reset

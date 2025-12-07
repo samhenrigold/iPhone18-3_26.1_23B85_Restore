@@ -12,7 +12,7 @@
   type metadata accessor for ArtworkView();
   *(&self->super.super.super.super.isa + v4) = static ArtworkView.iconArtworkView.getter();
   v5 = OBJC_IVAR____TtC8AppStore31TodayCardChinLockupListIconView_clickAction;
-  v6 = sub_10002849C(&unk_10097B3D0);
+  v6 = sub_10002849C(&unk_10097B3D0, "α\b");
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

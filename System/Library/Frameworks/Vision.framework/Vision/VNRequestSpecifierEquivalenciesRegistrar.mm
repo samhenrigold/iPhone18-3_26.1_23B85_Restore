@@ -130,7 +130,7 @@ LABEL_15:
 
 - (BOOL)registerRequestClass:(Class)class revision:(unint64_t)revision equivalencyToRevision:(unint64_t)toRevision error:(id *)error
 {
-  v10 = VNRequestClassFromClientSubclass(class);
+  v10 = VNRequestClassFromClientSubclass(class, a2);
   v11 = [VNRequestSpecifier specifierForRequestClass:v10 revision:revision error:error];
   if (v11)
   {

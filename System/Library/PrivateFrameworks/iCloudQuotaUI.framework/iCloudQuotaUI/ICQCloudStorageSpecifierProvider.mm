@@ -872,7 +872,7 @@ LABEL_13:
   return v14;
 }
 
-uint64_t __61__ICQCloudStorageSpecifierProvider__handleManagedStorageURL___block_invoke(uint64_t a1, void *a2)
+void *__61__ICQCloudStorageSpecifierProvider__handleManagedStorageURL___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shouldUseNativeManageStorage];
   if (result)

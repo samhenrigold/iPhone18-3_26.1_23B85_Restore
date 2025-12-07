@@ -92,7 +92,7 @@ LABEL_9:
 
 void __64__WFSequentialParameterInputProvider_askForParameterIfAvailable__block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   [*(a1 + 32) setLastResponseContext:v8];
@@ -122,11 +122,11 @@ void __64__WFSequentialParameterInputProvider_askForParameterIfAvailable__block_
       {
         v17 = [*(a1 + 40) key];
         *buf = 136315650;
-        v23 = "[WFSequentialParameterInputProvider askForParameterIfAvailable]_block_invoke";
-        v24 = 2112;
-        v25 = v7;
-        v26 = 2112;
-        v27 = v17;
+        v22 = "[WFSequentialParameterInputProvider askForParameterIfAvailable]_block_invoke";
+        v23 = 2112;
+        v24 = v7;
+        v25 = 2112;
+        v26 = v17;
         _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s Unable to set parameter state: %@ for key: %@ in sequential parameter input provider", buf, 0x20u);
       }
     }
@@ -142,13 +142,11 @@ void __64__WFSequentialParameterInputProvider_askForParameterIfAvailable__block_
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startWithAction:(id)action parameters:(id)parameters defaultStates:(id)states prompts:(id)prompts
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   parametersCopy = parameters;
   statesCopy = states;
@@ -157,12 +155,12 @@ void __64__WFSequentialParameterInputProvider_askForParameterIfAvailable__block_
   [(WFSequentialParameterInputProvider *)self setFakeAction:copyForProcessing];
 
   v14 = MEMORY[0x1E695DFA0];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __87__WFSequentialParameterInputProvider_startWithAction_parameters_defaultStates_prompts___block_invoke;
-  v40[3] = &unk_1E8375410;
-  v40[4] = self;
-  v15 = [parametersCopy if_compactMap:v40];
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __87__WFSequentialParameterInputProvider_startWithAction_parameters_defaultStates_prompts___block_invoke;
+  v39[3] = &unk_1E8375410;
+  v39[4] = self;
+  v15 = [parametersCopy if_compactMap:v39];
   v16 = [v14 orderedSetWithOrderedSet:v15];
   [(WFSequentialParameterInputProvider *)self setQueuedParameters:v16];
 
@@ -174,26 +172,26 @@ void __64__WFSequentialParameterInputProvider_askForParameterIfAvailable__block_
   workflow2 = [actionCopy workflow];
   [fakeAction2 wasAddedToWorkflow:workflow2];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v21 = parametersCopy;
-  v22 = [v21 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v37;
+    v24 = *v36;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v37 != v24)
+        if (*v36 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v36 + 1) + 8 * i);
+        v26 = *(*(&v35 + 1) + 8 * i);
         v27 = [v26 key];
         v28 = [statesCopy objectForKey:v27];
 
@@ -205,7 +203,7 @@ void __64__WFSequentialParameterInputProvider_askForParameterIfAvailable__block_
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v23);
@@ -221,7 +219,6 @@ void __64__WFSequentialParameterInputProvider_askForParameterIfAvailable__block_
   [(WFSequentialParameterInputProvider *)self setPrompts:v33];
 
   [(WFSequentialParameterInputProvider *)self askForParameterIfAvailable];
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 id __87__WFSequentialParameterInputProvider_startWithAction_parameters_defaultStates_prompts___block_invoke(uint64_t a1, void *a2)

@@ -60,7 +60,7 @@
 
     if (keyboardResponderOverrides2)
     {
-      if (v6 == 1 && (([keyboardResponderOverrides lastObject], v8 = objc_claimAutoreleasedReturnValue(), (v9 = v8) == 0) ? (v10 = 0) : (v10 = objc_loadWeakRetained((v8 + 8))), v11 = objc_msgSend(v10, "isEqual:", overrideCopy), v10, v9, v11))
+      if (v6 == 1 && (([keyboardResponderOverrides lastObject], v8 = objc_claimAutoreleasedReturnValue(), (v9 = v8) == 0) ? (v10 = 0) : (v10 = objc_loadWeakRetained((v8 + 8))), v11 = objc_msgSend_isEqual_(v10), v10, v9, v11))
       {
         [(NSMutableArray *)self->_keyboardResponderOverrides removeLastObject];
       }
@@ -88,10 +88,10 @@
             WeakRetained = 0;
           }
 
-          v17 = [WeakRetained isEqual:overrideCopy];
+          isEqual = objc_msgSend_isEqual_(WeakRetained);
 
           v12 = v13 - 1;
-          if (v17)
+          if (isEqual)
           {
             [(NSMutableArray *)self->_keyboardResponderOverrides removeObjectAtIndex:v13 & 0x7FFFFFFF];
             break;

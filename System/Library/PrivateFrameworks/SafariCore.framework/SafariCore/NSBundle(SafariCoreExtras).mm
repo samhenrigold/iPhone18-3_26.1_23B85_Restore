@@ -54,9 +54,9 @@
     +[NSBundle(SafariCoreExtras) safari_safariInjectedBundleURL];
   }
 
-  v1 = safari_safariInjectedBundleURL_bundleURL;
+  v2 = safari_safariInjectedBundleURL_bundleURL;
 
-  return v1;
+  return v2;
 }
 
 - (id)safari_normalizedVersion
@@ -218,15 +218,14 @@
 
 + (uint64_t)safari_isICloudAppWithBundleIdentifier:()SafariCoreExtras
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"com.apple.CloudKit.ShareBear";
-  v9[1] = @"com.apple.bird";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"com.apple.CloudKit.ShareBear";
+  v8[1] = @"com.apple.bird";
   v3 = MEMORY[0x1E695DEC8];
   v4 = a3;
-  v5 = [v3 arrayWithObjects:v9 count:2];
+  v5 = [v3 arrayWithObjects:v8 count:2];
   v6 = [v5 containsObject:v4];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

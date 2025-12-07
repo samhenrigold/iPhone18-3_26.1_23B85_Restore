@@ -126,7 +126,7 @@ LABEL_14:
   v31.size.width = width;
   v31.size.height = height;
   v32 = CGRectStandardize(v31);
-  v29 = sub_2762A1B4C(v27, v28, v32.origin.x, v32.origin.y, v32.size.width, v32.size.height);
+  v29 = sub_2762A1B4C(v27, v32.origin.x, v32.origin.y, v32.size.width, v32.size.height, v28);
   CGPathRelease(v27);
 
   return v29;

@@ -6,7 +6,10 @@
 - (void)searchBarCancelButtonClicked:(id)clicked;
 - (void)searchBarSearchButtonClicked:(id)clicked;
 - (void)searchBarTextDidBeginEditing:(id)editing;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation StorageSettingsUIWrapper
@@ -87,6 +90,42 @@
 
   navigationItem3 = [(StorageSettingsUIWrapper *)self navigationItem];
   [navigationItem3 setStyle:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = StorageSettingsUIWrapper;
+  [(StorageSettingsUIWrapper *)&v5 viewWillAppear:appear];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained startHandlers];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = StorageSettingsUIWrapper;
+  [(StorageSettingsUIWrapper *)&v5 viewDidAppear:appear];
+  searchBar = [(UISearchController *)self->_searchController searchBar];
+  [searchBar setHidden:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = StorageSettingsUIWrapper;
+  [(StorageSettingsUIWrapper *)&v7 viewDidDisappear:disappear];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained stopHandlers];
+
+  if ([(StorageSettingsUIWrapper *)self isMovingFromParentViewController])
+  {
+    lastSearchedText = self->_lastSearchedText;
+    self->_lastSearchedText = 0;
+
+    v6 = objc_loadWeakRetained(&self->_delegate);
+    [v6 searchDidClose];
+  }
 }
 
 - (void)didMoveToParentViewController:(id)controller

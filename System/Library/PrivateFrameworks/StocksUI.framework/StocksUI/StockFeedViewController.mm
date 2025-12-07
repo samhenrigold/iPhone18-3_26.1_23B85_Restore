@@ -25,19 +25,19 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_220640420();
+  sub_220640420(selfCopy, v2);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_220641A7C(appear);
+  sub_220641A7C(appear, selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_220641CD4(appear);
+  sub_220641CD4(appear, selfCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -53,14 +53,14 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_220641F74();
+  sub_220641F74(selfCopy, v2);
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_220642110(change);
+  sub_220642110(change, selfCopy);
 }
 
 - (int64_t)preferredStatusBarStyle

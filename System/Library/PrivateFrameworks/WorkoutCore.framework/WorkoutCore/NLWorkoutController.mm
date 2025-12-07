@@ -306,7 +306,6 @@ void __49__NLWorkoutController__unitPreferencesDidChange___block_invoke(void *a1
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __81__NLWorkoutController_requestLocationAuthorizationIfNeededForWorkout_completion___block_invoke(NSObject *a1, int a2)
@@ -324,7 +323,6 @@ void __81__NLWorkoutController_requestLocationAuthorizationIfNeededForWorkout_co
   }
 
   objc_storeStrong(oslog, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateInUseAssertion
@@ -343,7 +341,6 @@ void __81__NLWorkoutController_requestLocationAuthorizationIfNeededForWorkout_co
   objc_storeStrong(oslog, 0);
   [(CLInUseAssertion *)selfCopy->_inUseAssertion invalidate];
   objc_storeStrong(&selfCopy->_inUseAssertion, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_logWorkoutStartWithConfiguration:(id)configuration workout:(id)workout
@@ -456,7 +453,6 @@ void __81__NLWorkoutController_requestLocationAuthorizationIfNeededForWorkout_co
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_startSessionWithWorkout:(id)workout startSource:(unint64_t)source countdownDeadline:(id)deadline completion:(id)completion
@@ -538,7 +534,6 @@ void __89__NLWorkoutController__startSessionWithWorkout_startSource_countdownDea
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_startMirroredSessionWithLiveWorkoutConfiguration:(id)configuration
@@ -583,113 +578,112 @@ void __89__NLWorkoutController__startSessionWithWorkout_startSource_countdownDea
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverWorkoutWithWorkoutSession:(id)session
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, session);
   workoutConfiguration = [location[0] workoutConfiguration];
   associatedWorkoutBuilder = [location[0] associatedWorkoutBuilder];
-  v76 = 0;
+  v74 = 0;
   workoutConfiguration2 = [location[0] workoutConfiguration];
   fitnessMachineSessionUUID = [workoutConfiguration2 fitnessMachineSessionUUID];
   integerValue = 1;
   metadata = [associatedWorkoutBuilder metadata];
-  v73 = [metadata objectForKeyedSubscript:*MEMORY[0x277CCE158]];
+  v71 = [metadata objectForKeyedSubscript:*MEMORY[0x277CCE158]];
   *&v3 = MEMORY[0x277D82BD8](metadata).n128_u64[0];
-  if (v73)
+  if (v71)
   {
-    integerValue = [v73 integerValue];
+    integerValue = [v71 integerValue];
   }
 
   metadata2 = [associatedWorkoutBuilder metadata];
-  v71 = [WOCoreWorkoutConfiguration deserializeFrom:metadata2];
-  if (v71)
+  v69 = [WOCoreWorkoutConfiguration deserializeFrom:metadata2];
+  if (v69)
   {
-    activityType = [v71 activityType];
-    v60 = 0;
+    activityType = [v69 activityType];
     v58 = 0;
     v56 = 0;
-    v34 = 0;
+    v54 = 0;
+    v32 = 0;
     if ([activityType identifier] == 46)
     {
-      activityType2 = [v71 activityType];
-      v60 = 1;
-      lapLength = [activityType2 lapLength];
+      activityType2 = [v69 activityType];
       v58 = 1;
-      lapLength2 = [workoutConfiguration lapLength];
+      lapLength = [activityType2 lapLength];
       v56 = 1;
-      v34 = lapLength != lapLength2;
+      lapLength2 = [workoutConfiguration lapLength];
+      v54 = 1;
+      v32 = lapLength != lapLength2;
     }
 
-    if (v56)
+    if (v54)
     {
       MEMORY[0x277D82BD8](lapLength2);
     }
 
-    if (v58)
+    if (v56)
     {
       MEMORY[0x277D82BD8](lapLength);
     }
 
-    if (v60)
+    if (v58)
     {
       MEMORY[0x277D82BD8](activityType2);
     }
 
-    *&v11 = MEMORY[0x277D82BD8](activityType).n128_u64[0];
-    if (v34)
+    *&v9 = MEMORY[0x277D82BD8](activityType).n128_u64[0];
+    if (v32)
     {
-      activityType3 = [v71 activityType];
+      activityType3 = [v69 activityType];
       lapLength3 = [workoutConfiguration lapLength];
       meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
       [lapLength3 doubleValueForUnit:?];
-      v29 = [activityType3 activityTypeByAddingLapLength:?];
-      [v71 setActivityType:?];
-      MEMORY[0x277D82BD8](v29);
+      v27 = [activityType3 activityTypeByAddingLapLength:?];
+      [v69 setActivityType:?];
+      MEMORY[0x277D82BD8](v27);
       MEMORY[0x277D82BD8](meterUnit);
       MEMORY[0x277D82BD8](lapLength3);
       MEMORY[0x277D82BD8](activityType3);
     }
 
-    v12 = [[WOCoreLiveWorkoutConfiguration alloc] initWithConfiguration:v71 startSource:10 activityMoveMode:integerValue activityPausedRingsObserver:selfCopy->_activityPausedRingsObserver catalogWorkout:0 isWorkoutBuddyFeatureSupported:[(WOCoreWorkoutVoiceAvailabilityProvider *)selfCopy->_workoutVoiceAvailabilityProvider isFeatureSupported]];
-    v13 = v76;
-    v76 = v12;
-    MEMORY[0x277D82BD8](v13);
-    v55 = 0;
+    v10 = [[WOCoreLiveWorkoutConfiguration alloc] initWithConfiguration:v69 startSource:10 activityMoveMode:integerValue activityPausedRingsObserver:selfCopy->_activityPausedRingsObserver catalogWorkout:0 isWorkoutBuddyFeatureSupported:[(WOCoreWorkoutVoiceAvailabilityProvider *)selfCopy->_workoutVoiceAvailabilityProvider isFeatureSupported]];
+    v11 = v74;
+    v74 = v10;
+    MEMORY[0x277D82BD8](v11);
+    v53 = 0;
     memset(__b, 0, sizeof(__b));
     workoutActivities = [associatedWorkoutBuilder workoutActivities];
-    v28 = [workoutActivities countByEnumeratingWithState:__b objects:v83 count:16];
-    if (v28)
+    v26 = [workoutActivities countByEnumeratingWithState:__b objects:v81 count:16];
+    if (v26)
     {
-      v24 = *__b[2];
-      v25 = 0;
-      v26 = v28;
+      v22 = *__b[2];
+      v23 = 0;
+      v24 = v26;
       while (1)
       {
-        v23 = v25;
-        if (*__b[2] != v24)
+        v21 = v23;
+        if (*__b[2] != v22)
         {
           objc_enumerationMutation(workoutActivities);
         }
 
-        v54 = *(__b[1] + 8 * v25);
-        if (!v55 || (v21 = [v55 startDate], v20 = objc_msgSend(v54, "startDate"), v22 = objc_msgSend(v21, "compare:"), MEMORY[0x277D82BD8](v20), MEMORY[0x277D82BD8](v21), v22 == -1))
+        v52 = *(__b[1] + 8 * v23);
+        if (!v53 || (v19 = [v53 startDate], v18 = objc_msgSend(v52, "startDate"), v20 = objc_msgSend(v19, "compare:"), MEMORY[0x277D82BD8](v18), MEMORY[0x277D82BD8](v19), v20 == -1))
         {
-          objc_storeStrong(&v55, v54);
+          objc_storeStrong(&v53, v52);
         }
 
-        ++v25;
-        if (v23 + 1 >= v26)
+        ++v23;
+        if (v21 + 1 >= v24)
         {
-          v25 = 0;
-          v26 = [workoutActivities countByEnumeratingWithState:__b objects:v83 count:16];
-          if (!v26)
+          v23 = 0;
+          v24 = [workoutActivities countByEnumeratingWithState:__b objects:v81 count:16];
+          if (!v24)
           {
             break;
           }
@@ -698,120 +692,117 @@ void __89__NLWorkoutController__startSessionWithWorkout_startSource_countdownDea
     }
 
     MEMORY[0x277D82BD8](workoutActivities);
-    if (v55)
+    if (v53)
     {
       _HKInitializeLogging();
       oslog = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-      v51 = OS_LOG_TYPE_ERROR;
+      v49 = OS_LOG_TYPE_ERROR;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
-        metadata3 = [v55 metadata];
-        __os_log_helper_16_2_2_8_64_8_64(v82, metadata3, v55);
-        _os_log_error_impl(&dword_20AEA4000, oslog, v51, "Need to restore from the metadata %@ of %@", v82, 0x16u);
+        metadata3 = [v53 metadata];
+        __os_log_helper_16_2_2_8_64_8_64(v80, metadata3, v53);
+        _os_log_error_impl(&dword_20AEA4000, oslog, v49, "Need to restore from the metadata %@ of %@", v80, 0x16u);
         MEMORY[0x277D82BD8](metadata3);
       }
 
       objc_storeStrong(&oslog, 0);
-      v17 = v76;
-      metadata4 = [v55 metadata];
-      [v17 restoreFromWorkoutActivityMetadata:?];
+      v15 = v74;
+      metadata4 = [v53 metadata];
+      [v15 restoreFromWorkoutActivityMetadata:?];
       MEMORY[0x277D82BD8](metadata4);
     }
 
-    objc_storeStrong(&v55, 0);
+    objc_storeStrong(&v53, 0);
   }
 
   else
   {
     _HKInitializeLogging();
-    v70 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+    v68 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
     type = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
-      log = v70;
-      v46 = type;
-      __os_log_helper_16_0_0(v68);
-      _os_log_error_impl(&dword_20AEA4000, log, v46, "No stored workout configuration, need to rebuild from scratch.", v68, 2u);
+      log = v68;
+      v44 = type;
+      __os_log_helper_16_0_0(v66);
+      _os_log_error_impl(&dword_20AEA4000, log, v44, "No stored workout configuration, need to rebuild from scratch.", v66, 2u);
     }
 
-    objc_storeStrong(&v70, 0);
+    objc_storeStrong(&v68, 0);
     activityType4 = [workoutConfiguration activityType];
     IsIndoorLocationType = _IsIndoorLocationType([workoutConfiguration locationType]);
-    v65 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v63 = objc_alloc_init(MEMORY[0x277CBEB38]);
     if ([workoutConfiguration swimmingLocationType])
     {
-      v44 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(workoutConfiguration, "swimmingLocationType")}];
-      v4 = *MEMORY[0x277CCC510];
-      [v65 setObject:? forKeyedSubscript:?];
-      MEMORY[0x277D82BD8](v44);
+      v42 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(workoutConfiguration, "swimmingLocationType")}];
+      [v63 setObject:? forKeyedSubscript:?];
+      MEMORY[0x277D82BD8](v42);
     }
 
     lapLength4 = [workoutConfiguration lapLength];
-    v5 = MEMORY[0x277D82BD8](lapLength4).n128_u64[0];
+    v4 = MEMORY[0x277D82BD8](lapLength4).n128_u64[0];
     if (lapLength4)
     {
       lapLength5 = [workoutConfiguration lapLength];
-      v6 = *MEMORY[0x277CCC4D0];
-      [v65 setObject:? forKeyedSubscript:?];
-      v5 = MEMORY[0x277D82BD8](lapLength5).n128_u64[0];
+      [v63 setObject:? forKeyedSubscript:?];
+      v4 = MEMORY[0x277D82BD8](lapLength5).n128_u64[0];
     }
 
-    v64 = [MEMORY[0x277D0A810] activityTypeWithHKWorkoutActivityTypeIdentifier:activityType4 isIndoor:IsIndoorLocationType metadata:{v65, *&v5}];
-    v63 = 0;
+    v62 = [MEMORY[0x277D0A810] activityTypeWithHKWorkoutActivityTypeIdentifier:activityType4 isIndoor:IsIndoorLocationType metadata:{v63, *&v4}];
+    v61 = 0;
     if ([associatedWorkoutBuilder goalType])
     {
-      v40 = MEMORY[0x277D0A838];
+      v38 = MEMORY[0x277D0A838];
       goalType = [associatedWorkoutBuilder goalType];
       goal = [associatedWorkoutBuilder goal];
-      v7 = [v40 goalWithGoalTypeIdentifier:goalType value:?];
-      v8 = v63;
-      v63 = v7;
-      MEMORY[0x277D82BD8](v8);
+      v5 = [v38 goalWithGoalTypeIdentifier:goalType value:?];
+      v6 = v61;
+      v61 = v5;
+      MEMORY[0x277D82BD8](v6);
       MEMORY[0x277D82BD8](goal);
     }
 
-    v62 = [(WOCoreWorkoutConfigurationOccurrenceStore *)selfCopy->_occurrenceStore goalConfigurationFor:v64 goal:v63];
-    v38 = [WOCoreLiveWorkoutConfiguration alloc];
-    v35 = v62;
-    v36 = integerValue;
+    v60 = [(WOCoreWorkoutConfigurationOccurrenceStore *)selfCopy->_occurrenceStore goalConfigurationFor:v62 goal:v61];
+    v36 = [WOCoreLiveWorkoutConfiguration alloc];
+    v33 = v60;
+    v34 = integerValue;
     activityPausedRingsObserver = selfCopy->_activityPausedRingsObserver;
     [(WOCoreWorkoutVoiceAvailabilityProvider *)selfCopy->_workoutVoiceAvailabilityProvider isFeatureSupported];
-    v9 = [WOCoreLiveWorkoutConfiguration initWithConfiguration:v38 startSource:"initWithConfiguration:startSource:activityMoveMode:activityPausedRingsObserver:catalogWorkout:isWorkoutBuddyFeatureSupported:" activityMoveMode:v35 activityPausedRingsObserver:10 catalogWorkout:v36 isWorkoutBuddyFeatureSupported:activityPausedRingsObserver];
-    v10 = v76;
-    v76 = v9;
-    MEMORY[0x277D82BD8](v10);
+    v7 = [WOCoreLiveWorkoutConfiguration initWithConfiguration:v36 startSource:"initWithConfiguration:startSource:activityMoveMode:activityPausedRingsObserver:catalogWorkout:isWorkoutBuddyFeatureSupported:" activityMoveMode:v33 activityPausedRingsObserver:10 catalogWorkout:v34 isWorkoutBuddyFeatureSupported:activityPausedRingsObserver];
+    v8 = v74;
+    v74 = v7;
+    MEMORY[0x277D82BD8](v8);
+    objc_storeStrong(&v60, 0);
+    objc_storeStrong(&v61, 0);
     objc_storeStrong(&v62, 0);
     objc_storeStrong(&v63, 0);
-    objc_storeStrong(&v64, 0);
-    objc_storeStrong(&v65, 0);
   }
 
-  [v76 setFitnessMachineSessionUUID:fitnessMachineSessionUUID];
-  v50 = [[NLWorkout alloc] initWithWorkoutConfiguration:v76 healthStore:selfCopy->_healthStore formattingManager:selfCopy->_formattingManager session:location[0] locationProvider:selfCopy->_locationProvider];
+  [v74 setFitnessMachineSessionUUID:fitnessMachineSessionUUID];
+  v48 = [[NLWorkout alloc] initWithWorkoutConfiguration:v74 healthStore:selfCopy->_healthStore formattingManager:selfCopy->_formattingManager session:location[0] locationProvider:selfCopy->_locationProvider];
   _HKInitializeLogging();
-  v49 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  v47 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_2_1_8_66(v81, v50);
-    _os_log_impl(&dword_20AEA4000, v49, OS_LOG_TYPE_DEFAULT, "[WorkoutController] Start recovered workout %{public}@ #w0", v81, 0xCu);
+    __os_log_helper_16_2_1_8_66(v79, v48);
+    _os_log_impl(&dword_20AEA4000, v47, OS_LOG_TYPE_DEFAULT, "[WorkoutController] Start recovered workout %{public}@ #w0", v79, 0xCu);
   }
 
-  objc_storeStrong(&v49, 0);
-  v15 = selfCopy;
-  v14 = v50;
-  v16 = +[NLSessionCountdownDeadline defaultDeadline];
-  [NLWorkoutController _startSessionWithWorkout:v15 startSource:"_startSessionWithWorkout:startSource:countdownDeadline:completion:" countdownDeadline:v14 completion:10];
-  MEMORY[0x277D82BD8](v16);
-  objc_storeStrong(&v50, 0);
-  objc_storeStrong(&v71, 0);
+  objc_storeStrong(&v47, 0);
+  v13 = selfCopy;
+  v12 = v48;
+  v14 = +[NLSessionCountdownDeadline defaultDeadline];
+  [NLWorkoutController _startSessionWithWorkout:v13 startSource:"_startSessionWithWorkout:startSource:countdownDeadline:completion:" countdownDeadline:v12 completion:10];
+  MEMORY[0x277D82BD8](v14);
+  objc_storeStrong(&v48, 0);
+  objc_storeStrong(&v69, 0);
   objc_storeStrong(&metadata2, 0);
-  objc_storeStrong(&v73, 0);
+  objc_storeStrong(&v71, 0);
   objc_storeStrong(&fitnessMachineSessionUUID, 0);
-  objc_storeStrong(&v76, 0);
+  objc_storeStrong(&v74, 0);
   objc_storeStrong(&associatedWorkoutBuilder, 0);
   objc_storeStrong(&workoutConfiguration, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __56__NLWorkoutController_recoverWorkoutWithWorkoutSession___block_invoke(void *a1, void *a2)
@@ -892,7 +883,6 @@ void __56__NLWorkoutController_recoverWorkoutWithWorkoutSession___block_invoke(v
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(&allObjects, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)workout:(id)workout pausedReasonsDidUpdate:(unint64_t)update
@@ -998,7 +988,6 @@ void __56__NLWorkoutController_recoverWorkoutWithWorkoutSession___block_invoke(v
   MEMORY[0x277D82BD8](interfaceDelegate);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)workout:(id)workout didEndWithHKWorkout:(id)kWorkout endReason:(unint64_t)reason
@@ -1048,7 +1037,6 @@ void __56__NLWorkoutController_recoverWorkoutWithWorkoutSession___block_invoke(v
   MEMORY[0x277D82BD8](interfaceDelegate);
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)workout:(id)workout didUpdateHKWorkout:(id)kWorkout
@@ -1092,7 +1080,6 @@ void __56__NLWorkoutController_recoverWorkoutWithWorkoutSession___block_invoke(v
   MEMORY[0x277D82BD8](interfaceDelegate);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)didDiscardWorkout:(id)workout
@@ -1174,8 +1161,7 @@ void __56__NLWorkoutController_recoverWorkoutWithWorkoutSession___block_invoke(v
 - (void)startSessionWith:(WOCoreLiveWorkoutConfiguration *)with countdownDeadline:(NLSessionCountdownDeadline *)deadline completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
+  MEMORY[0x28223BE20](v9 - 8, v10);
   v12 = &v21 - v11;
   v13 = _Block_copy(handler);
   v14 = swift_allocObject();

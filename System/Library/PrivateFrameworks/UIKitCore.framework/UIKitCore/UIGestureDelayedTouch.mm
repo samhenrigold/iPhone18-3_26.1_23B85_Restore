@@ -4,7 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)initWithEvent:(void *)event touch:;
 - (int64_t)phaseForDelivery;
-- (uint64_t)saveCurrentTouchState;
+- (void)saveCurrentTouchState;
 @end
 
 @implementation UIGestureDelayedTouch
@@ -21,17 +21,17 @@
   return result;
 }
 
-- (uint64_t)saveCurrentTouchState
+- (void)saveCurrentTouchState
 {
   if (result)
   {
     v1 = result;
     v2 = objc_alloc_init(UITouch);
-    v3 = *(v1 + 40);
-    *(v1 + 40) = v2;
+    v3 = v1[5];
+    v1[5] = v2;
 
-    v4 = *(v1 + 40);
-    v5 = *(v1 + 24);
+    v4 = v1[5];
+    v5 = v1[3];
 
     return [v4 _loadStateFromTouch:v5];
   }

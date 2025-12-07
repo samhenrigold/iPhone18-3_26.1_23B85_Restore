@@ -12,6 +12,7 @@
 - (double)duration;
 - (id)_dictionaryRepresentation;
 - (id)_initWithIntent:(id)intent response:(id)response;
+- (id)_searchableItemIncludingData:(BOOL)data;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionAtIndent:(unint64_t)indent;
 - (id)parameterValueForParameter:(INParameter *)parameter;
@@ -57,18 +58,18 @@
 
 - (id)_dictionaryRepresentation
 {
-  v27[7] = *MEMORY[0x1E69E9840];
+  v26[7] = *MEMORY[0x1E69E9840];
   intent = self->_intent;
-  v25 = intent;
-  v26[0] = @"intent";
+  v24 = intent;
+  v25[0] = @"intent";
   if (!intent)
   {
     intent = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = intent;
-  v27[0] = intent;
-  v26[1] = @"intentResponse";
+  v21 = intent;
+  v26[0] = intent;
+  v25[1] = @"intentResponse";
   intentResponse = self->_intentResponse;
   null = intentResponse;
   if (!intentResponse)
@@ -76,9 +77,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v27[1] = null;
-  v26[2] = @"intentHandlingStatus";
+  v20 = null;
+  v26[1] = null;
+  v25[2] = @"intentHandlingStatus";
   intentHandlingStatus = [(INInteraction *)self intentHandlingStatus];
   v7 = intentHandlingStatus;
   if (intentHandlingStatus <= INIntentHandlingStatusUserConfirmationRequired)
@@ -91,9 +92,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null2;
-  v27[2] = null2;
-  v26[3] = @"direction";
+  v23 = null2;
+  v26[2] = null2;
+  v25[3] = @"direction";
   direction = [(INInteraction *)self direction];
   v10 = direction;
   if (direction <= INInteractionDirectionIncoming)
@@ -106,9 +107,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null3;
-  v27[3] = null3;
-  v26[4] = @"dateInterval";
+  v22 = null3;
+  v26[3] = null3;
+  v25[4] = @"dateInterval";
   dateInterval = self->_dateInterval;
   null4 = dateInterval;
   if (!dateInterval)
@@ -116,8 +117,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[4] = null4;
-  v26[5] = @"identifier";
+  v26[4] = null4;
+  v25[5] = @"identifier";
   identifier = self->_identifier;
   null5 = identifier;
   if (!identifier)
@@ -125,8 +126,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[5] = null5;
-  v26[6] = @"groupIdentifier";
+  v26[5] = null5;
+  v25[6] = @"groupIdentifier";
   groupIdentifier = self->_groupIdentifier;
   null6 = groupIdentifier;
   if (!groupIdentifier)
@@ -134,8 +135,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[6] = null6;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:7];
+  v26[6] = null6;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
   if (groupIdentifier)
   {
     if (identifier)
@@ -179,11 +180,9 @@ LABEL_20:
   {
   }
 
-  if (!v25)
+  if (!v24)
   {
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
@@ -280,6 +279,96 @@ LABEL_8:
   _indexingHash = [intent _indexingHash];
 
   return _indexingHash;
+}
+
+- (id)_searchableItemIncludingData:(BOOL)data
+{
+  dataCopy = data;
+  intent = [(INInteraction *)self intent];
+  if ([intent isGenericIntent] & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    intentResponse = [(INInteraction *)self intentResponse];
+    if (([intentResponse _intentResponseCode] - 5) >= 2)
+    {
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x2050000000;
+      v8 = getCSSearchableItemAttributeSetClass_softClass;
+      v31 = getCSSearchableItemAttributeSetClass_softClass;
+      if (!getCSSearchableItemAttributeSetClass_softClass)
+      {
+        v23 = MEMORY[0x1E69E9820];
+        v24 = 3221225472;
+        v25 = __getCSSearchableItemAttributeSetClass_block_invoke;
+        v26 = &unk_1E72888B8;
+        v27 = &v28;
+        __getCSSearchableItemAttributeSetClass_block_invoke(&v23);
+        v8 = v29[3];
+      }
+
+      v9 = v8;
+      _Block_object_dispose(&v28, 8);
+      v10 = [v8 alloc];
+      identifier = [*MEMORY[0x1E6982E48] identifier];
+      v12 = [v10 initWithItemContentType:identifier];
+
+      if ([intent configureAttributeSet:v12 includingData:dataCopy])
+      {
+        date = [MEMORY[0x1E695DF00] date];
+        [v12 setContentCreationDate:date];
+
+        groupIdentifier = [(INInteraction *)self groupIdentifier];
+        [v12 setIdentifier:groupIdentifier];
+
+        dateInterval = [(INInteraction *)self dateInterval];
+        startDate = [dateInterval startDate];
+        [v12 setStartDate:startDate];
+
+        endDate = [dateInterval endDate];
+        [v12 setEndDate:endDate];
+
+        uniqueIdentifier = [v12 uniqueIdentifier];
+        v19 = objc_msgSend_stringByAppendingString_(@"com.apple.siri.interaction.");
+
+        v28 = 0;
+        v29 = &v28;
+        v30 = 0x2050000000;
+        v20 = getCSSearchableItemClass_softClass;
+        v31 = getCSSearchableItemClass_softClass;
+        if (!getCSSearchableItemClass_softClass)
+        {
+          v23 = MEMORY[0x1E69E9820];
+          v24 = 3221225472;
+          v25 = __getCSSearchableItemClass_block_invoke;
+          v26 = &unk_1E72888B8;
+          v27 = &v28;
+          __getCSSearchableItemClass_block_invoke(&v23);
+          v20 = v29[3];
+        }
+
+        v21 = v20;
+        _Block_object_dispose(&v28, 8);
+        v6 = [[v20 alloc] initWithUniqueIdentifier:v19 domainIdentifier:@"com.apple.siri.interactions" attributeSet:v12];
+      }
+
+      else
+      {
+        v6 = 0;
+      }
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  return v6;
 }
 
 - (id)descriptionAtIndent:(unint64_t)indent
@@ -523,21 +612,21 @@ LABEL_8:
   [v11 setSuspended:0];
 }
 
-uint64_t __52__INInteraction__injectProxiesForImages_completion___block_invoke_2(uint64_t result, uint64_t a2)
+id *__52__INInteraction__injectProxiesForImages_completion___block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _setIntent:a2];
+    return [result[4] _setIntent:a2];
   }
 
   return result;
 }
 
-uint64_t __52__INInteraction__injectProxiesForImages_completion___block_invoke_3(uint64_t result, uint64_t a2)
+id *__52__INInteraction__injectProxiesForImages_completion___block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _setIntentResponse:a2];
+    return [result[4] _setIntentResponse:a2];
   }
 
   return result;
@@ -545,7 +634,7 @@ uint64_t __52__INInteraction__injectProxiesForImages_completion___block_invoke_3
 
 - (void)_donateInteractionWithBundleId:(id)id completion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   idCopy = id;
   completionCopy = completion;
   defaultSearchableIndex = [getCSSearchableIndexClass() defaultSearchableIndex];
@@ -578,17 +667,17 @@ uint64_t __52__INInteraction__injectProxiesForImages_completion___block_invoke_3
     v16 = v15;
     _donatedBySiri = [(INInteraction *)self _donatedBySiri];
     v18 = @"NO";
-    v35 = "[INInteraction _donateInteractionWithBundleId:completion:]";
+    v34 = "[INInteraction _donateInteractionWithBundleId:completion:]";
     *buf = 136315650;
     if (_donatedBySiri)
     {
       v18 = @"YES";
     }
 
-    v36 = 2114;
-    v37 = v18;
-    v38 = 2112;
-    v39 = v9;
+    v35 = 2114;
+    v36 = v18;
+    v37 = 2112;
+    v38 = v9;
     _os_log_impl(&dword_18E991000, v16, OS_LOG_TYPE_INFO, "%s Donating on behalf of Siri: %{public}@ for %@", buf, 0x20u);
   }
 
@@ -596,39 +685,37 @@ uint64_t __52__INInteraction__injectProxiesForImages_completion___block_invoke_3
   [intent3 _intents_preferredScaledImageSize];
   v21 = v20;
   v23 = v22;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __59__INInteraction__donateInteractionWithBundleId_completion___block_invoke;
-  v29[3] = &unk_1E727DFF8;
-  v29[4] = self;
-  v30 = _className;
-  v31 = idCopy;
-  v32 = defaultSearchableIndex;
-  v33 = completionCopy;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __59__INInteraction__donateInteractionWithBundleId_completion___block_invoke;
+  v28[3] = &unk_1E727DFF8;
+  v28[4] = self;
+  v29 = _className;
+  v30 = idCopy;
+  v31 = defaultSearchableIndex;
+  v32 = completionCopy;
   v24 = completionCopy;
   v25 = defaultSearchableIndex;
   v26 = idCopy;
   v27 = _className;
-  INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler(v9, 0x15u, 0, 1, 0, v29, v21, v23);
-
-  v28 = *MEMORY[0x1E69E9840];
+  INImageProxyInjectionUtilitiesInjectProxiesIntoObjectWithContinuationHandler(v9, 0x15u, 0, 1, 0, v28, v21, v23);
 }
 
 void __59__INInteraction__donateInteractionWithBundleId_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = INSiriLogContextIntents;
   if (v6 && os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
   {
-    v15 = *(a1 + 32);
+    v14 = *(a1 + 32);
     *buf = 136315651;
-    v22 = "[INInteraction _donateInteractionWithBundleId:completion:]_block_invoke";
-    v23 = 2117;
-    v24 = v15;
-    v25 = 2114;
-    v26 = v6;
+    v21 = "[INInteraction _donateInteractionWithBundleId:completion:]_block_invoke";
+    v22 = 2117;
+    v23 = v14;
+    v24 = 2114;
+    v25 = v6;
     _os_log_error_impl(&dword_18E991000, v7, OS_LOG_TYPE_ERROR, "%s Error injecting image proxies into %{sensitive}@: %{public}@", buf, 0x20u);
     v7 = INSiriLogContextIntents;
   }
@@ -638,34 +725,32 @@ void __59__INInteraction__donateInteractionWithBundleId_completion___block_invok
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
     *buf = 136315650;
-    v22 = "[INInteraction _donateInteractionWithBundleId:completion:]_block_invoke";
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2114;
-    v26 = v9;
+    v21 = "[INInteraction _donateInteractionWithBundleId:completion:]_block_invoke";
+    v22 = 2112;
+    v23 = v8;
+    v24 = 2114;
+    v25 = v9;
     _os_log_impl(&dword_18E991000, v7, OS_LOG_TYPE_INFO, "%s Adding interaction (%@) to searchable index for %{public}@", buf, 0x20u);
   }
 
   v11 = *(a1 + 48);
   v10 = *(a1 + 56);
   v12 = *MEMORY[0x1E696A388];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __59__INInteraction__donateInteractionWithBundleId_completion___block_invoke_92;
-  v16[3] = &unk_1E727DFD0;
-  v20 = *(a1 + 64);
-  v17 = v5;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 48);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __59__INInteraction__donateInteractionWithBundleId_completion___block_invoke_92;
+  v15[3] = &unk_1E727DFD0;
+  v19 = *(a1 + 64);
+  v16 = v5;
+  v17 = *(a1 + 40);
+  v18 = *(a1 + 48);
   v13 = v5;
-  [v10 addInteraction:v13 bundleID:v11 protectionClass:v12 completionHandler:v16];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v10 addInteraction:v13 bundleID:v11 protectionClass:v12 completionHandler:v15];
 }
 
 void __59__INInteraction__donateInteractionWithBundleId_completion___block_invoke_92(uint64_t a1, void *a2)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 56);
   if (v4)
@@ -673,9 +758,9 @@ void __59__INInteraction__donateInteractionWithBundleId_completion___block_invok
     if (v3)
     {
       v5 = MEMORY[0x1E696ABC0];
-      v23 = *MEMORY[0x1E696AA08];
-      v24[0] = v3;
-      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x1E696AA08];
+      v23[0] = v3;
+      v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v7 = [v5 errorWithDomain:@"IntentsErrorDomain" code:1901 userInfo:v6];
 
       v4 = *(a1 + 56);
@@ -696,15 +781,15 @@ void __59__INInteraction__donateInteractionWithBundleId_completion___block_invok
     {
       v9 = *(a1 + 40);
       v10 = *(a1 + 48);
-      v15 = 136315906;
-      v16 = "[INInteraction _donateInteractionWithBundleId:completion:]_block_invoke";
-      v17 = 2114;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v10;
-      v21 = 2114;
-      v22 = v3;
-      _os_log_error_impl(&dword_18E991000, v8, OS_LOG_TYPE_ERROR, "%s Error donating interaction (%{public}@) for %{public}@: %{public}@", &v15, 0x2Au);
+      v14 = 136315906;
+      v15 = "[INInteraction _donateInteractionWithBundleId:completion:]_block_invoke";
+      v16 = 2114;
+      v17 = v9;
+      v18 = 2114;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v3;
+      _os_log_error_impl(&dword_18E991000, v8, OS_LOG_TYPE_ERROR, "%s Error donating interaction (%{public}@) for %{public}@: %{public}@", &v14, 0x2Au);
     }
   }
 
@@ -720,19 +805,17 @@ void __59__INInteraction__donateInteractionWithBundleId_completion___block_invok
     {
       v12 = *(a1 + 40);
       v13 = *(a1 + 48);
-      v15 = 136315650;
-      v16 = "[INInteraction _donateInteractionWithBundleId:completion:]_block_invoke";
-      v17 = 2114;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v13;
-      _os_log_impl(&dword_18E991000, v11, OS_LOG_TYPE_INFO, "%s Successfully donated interaction (%{public}@) for %{public}@", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "[INInteraction _donateInteractionWithBundleId:completion:]_block_invoke";
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v13;
+      _os_log_impl(&dword_18E991000, v11, OS_LOG_TYPE_INFO, "%s Successfully donated interaction (%{public}@) for %{public}@", &v14, 0x20u);
     }
   }
 
   ADClientAddValueForScalarKey();
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)donateInteractionWithCompletion:(void *)completion
@@ -756,7 +839,7 @@ void __59__INInteraction__donateInteractionWithBundleId_completion___block_invok
 
 void __49__INInteraction_donateInteractionWithCompletion___block_invoke(uint64_t a1)
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) intent];
   v3 = [v2 _type];
 
@@ -778,363 +861,341 @@ void __49__INInteraction_donateInteractionWithCompletion___block_invoke(uint64_t
     v8 = [v6 intent];
     v9 = [v8 _className];
     *buf = 136315650;
-    v111 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-    v112 = 2114;
-    v113 = v5;
-    v114 = 2114;
-    v115 = v9;
+    v110 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+    v111 = 2114;
+    v112 = v5;
+    v113 = 2114;
+    v114 = v9;
     _os_log_impl(&dword_18E991000, v7, OS_LOG_TYPE_INFO, "%s Donate interaction for %{public}@ intent: %{public}@", buf, 0x20u);
   }
 
   v10 = [*(a1 + 32) identifier];
 
-  if (v10)
+  if (!v10)
   {
-    if (v3 == 3)
+    if (!*(a1 + 40))
     {
-      goto LABEL_39;
+      return;
     }
 
-    v11 = [*(a1 + 32) intent];
-    v12 = [v11 _validParameterCombinations];
-    v13 = [v12 count];
-
-    if (v13)
-    {
-      if (v3 == 2)
-      {
-        v14 = [*(a1 + 32) intent];
-        v15 = [v14 _codableDescription];
-        v16 = [v15 isDeprecated];
-
-        if (v16)
-        {
-          v17 = MEMORY[0x1E696AEC0];
-          v18 = *(a1 + 32);
-          v19 = [v18 intent];
-          v20 = [v19 _className];
-          v21 = [v17 stringWithFormat:@"Cannot donate interaction (%{sensitive}@) because intent (%@) has been deprecated", v18, v20];
-
-          v22 = INSiriLogContextIntents;
-          if (!os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
-          {
-            if (!v21)
-            {
-              goto LABEL_39;
-            }
-
-            goto LABEL_37;
-          }
-
-          v87 = *(a1 + 32);
-          v47 = v22;
-          v88 = [v87 intent];
-          v89 = [v88 _className];
-          *buf = 136315394;
-          v111 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-          v112 = 2112;
-          v113 = v89;
-          _os_log_error_impl(&dword_18E991000, v47, OS_LOG_TYPE_ERROR, "%s Cannot donate interaction because intent (%@) has been deprecated", buf, 0x16u);
-        }
-
-        else
-        {
-          v43 = [*(a1 + 32) intent];
-          v44 = [v43 _hasTitle];
-
-          if (v44)
-          {
-            goto LABEL_39;
-          }
-
-          v45 = [*(a1 + 32) intent];
-          v46 = [v45 _nonNilParameters];
-          v47 = [v46 mutableCopy];
-
-          v48 = [*(a1 + 32) intent];
-          v49 = [objc_opt_class() _ignoredParameters];
-          [v47 minusSet:v49];
-
-          if ([v47 count])
-          {
-            v50 = [v47 allObjects];
-            v51 = [v50 componentsJoinedByString:{@", "}];
-          }
-
-          else
-          {
-            v51 = @"(No Parameters)";
-          }
-
-          v52 = MEMORY[0x1E696AEC0];
-          v53 = *(a1 + 32);
-          v54 = [v53 intent];
-          v55 = [v54 _className];
-          v21 = [v52 stringWithFormat:@"Cannot donate interaction because intent title is empty: %{sensitive}@ Please make sure that your intent definition includes the following shortcut type for %@: %@.", v53, v55, v51];
-
-          v56 = INSiriLogContextIntents;
-          if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
-          {
-            v90 = *(a1 + 32);
-            v91 = v56;
-            v92 = [v90 intent];
-            v93 = [v92 _className];
-            *buf = 136315650;
-            v111 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-            v112 = 2114;
-            v113 = v93;
-            v114 = 2112;
-            v115 = v51;
-            _os_log_error_impl(&dword_18E991000, v91, OS_LOG_TYPE_ERROR, "%s Cannot donate interaction (%{public}@) because intent title is empty. Missing parameter combination: %@", buf, 0x20u);
-          }
-        }
-
-        if (v21)
-        {
-LABEL_37:
-          v24 = *(a1 + 40);
-          if (!v24)
-          {
-            goto LABEL_19;
-          }
-
-          v25 = MEMORY[0x1E696ABC0];
-          v104 = *MEMORY[0x1E696A578];
-          v105 = v21;
-          v26 = MEMORY[0x1E695DF20];
-          v27 = &v105;
-          v28 = &v104;
-          goto LABEL_18;
-        }
-      }
-
-LABEL_39:
-      v57 = [*(a1 + 32) intent];
-      v58 = [v57 _intents_launchIdForCurrentPlatform];
-      v101 = 0;
-      INExtractAppInfoFromSiriLaunchId(v58, &v101, 0);
-      v59 = v101;
-
-      v60 = [*(a1 + 32) intent];
-      v61 = [v60 _intentInstanceDescription];
-      v62 = NSStringFromClass([v61 facadeClass]);
-
-      v98[0] = MEMORY[0x1E69E9820];
-      v98[1] = 3221225472;
-      v98[2] = __49__INInteraction_donateInteractionWithCompletion___block_invoke_66;
-      v98[3] = &unk_1E727DFA8;
-      v98[4] = *(a1 + 32);
-      v63 = v59;
-      v99 = v63;
-      v100 = *(a1 + 40);
-      v64 = MEMORY[0x193AD7780](v98);
-      if (INThisProcessIsDonatingBySiri())
-      {
-        goto LABEL_44;
-      }
-
-      if (INThisProcessIsSystemProcess_onceToken != -1)
-      {
-        dispatch_once(&INThisProcessIsSystemProcess_onceToken, &__block_literal_global_48);
-      }
-
-      if ((INThisProcessIsSystemProcess_isSystemProcess & 1) != 0 || INThisProcessHasEntitlement(@"com.apple.private.corespotlight.internal", 0))
-      {
-LABEL_44:
-        v64[2](v64, 1, 1);
-LABEL_45:
-
-        goto LABEL_46;
-      }
-
-      if (v62)
-      {
-        v66 = [MEMORY[0x1E6963618] bundleProxyForCurrentProcess];
-        objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
-        v68 = [v66 bundleType];
-        v69 = [v68 isEqualToString:*MEMORY[0x1E6963590]] & isKindOfClass ^ 1;
-
-        if (isKindOfClass)
-        {
-          v70 = v66;
-          v71 = 1;
-          v72 = [v70 objectForInfoDictionaryKey:*MEMORY[0x1E69C4AF8] ofClass:objc_opt_class() inScope:1];
-          if (([v70 if_isWatchKitAppExtension] & 1) == 0)
-          {
-            v71 = v69;
-            if ([v72 isEqualToString:@"com.apple.intents-service"])
-            {
-              v73 = *(a1 + 40);
-              if (v73)
-              {
-                (*(v73 + 16))(v73, 0);
-              }
-
-              goto LABEL_45;
-            }
-          }
-
-          v69 = v71;
-        }
-
-        CanDonateIntent = INBundleProxyCanDonateIntent(v66, v62);
-        v64[2](v64, CanDonateIntent, v69);
-      }
-
-      else
-      {
-        if (!*(a1 + 40))
-        {
-          goto LABEL_45;
-        }
-
-        v74 = MEMORY[0x1E696AEC0];
-        v75 = [*(a1 + 32) intent];
-        v76 = [v75 _className];
-        v66 = [v74 stringWithFormat:@"Donating intent '%@' is not supported.", v76];
-
-        v77 = INSiriLogContextIntents;
-        if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
-        {
-          v94 = *(a1 + 32);
-          v95 = v77;
-          v96 = [v94 intent];
-          v97 = [v96 _className];
-          *buf = 136315394;
-          v111 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-          v112 = 2114;
-          v113 = v97;
-          _os_log_error_impl(&dword_18E991000, v95, OS_LOG_TYPE_ERROR, "%s Donating %{public}@ is not supported", buf, 0x16u);
-        }
-
-        v78 = *(a1 + 40);
-        v79 = MEMORY[0x1E696ABC0];
-        v102 = *MEMORY[0x1E696A578];
-        v103 = v66;
-        v80 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
-        v81 = [v79 errorWithDomain:@"IntentsErrorDomain" code:1901 userInfo:v80];
-        (*(v78 + 16))(v78, v81);
-      }
-
-      goto LABEL_45;
-    }
-
-    v31 = INSiriLogContextIntents;
-    if (v3 == 1)
-    {
-      if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
-      {
-        v32 = *(a1 + 32);
-        *buf = 136315395;
-        v111 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-        v112 = 2117;
-        v113 = v32;
-        _os_log_impl(&dword_18E991000, v31, OS_LOG_TYPE_INFO, "%s Not donating system intent because it does not have any valid parameter combinations: %{sensitive}@", buf, 0x16u);
-      }
-
-      v33 = *(a1 + 40);
-      if (v33)
-      {
-        (*(v33 + 16))(v33, 0);
-      }
-    }
-
-    else
-    {
-      if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
-      {
-        v83 = *(a1 + 32);
-        v84 = v31;
-        v85 = [v83 intent];
-        v86 = [v85 _className];
-        *buf = 136315394;
-        v111 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-        v112 = 2114;
-        v113 = v86;
-        _os_log_error_impl(&dword_18E991000, v84, OS_LOG_TYPE_ERROR, "%s Cannot donate interaction with %{public}@ that has no valid shortcut types", buf, 0x16u);
-      }
-
-      if (*(a1 + 40))
-      {
-        v21 = [*(a1 + 32) copy];
-        v34 = objc_alloc_init(INIntent);
-        [v21 _setIntent:v34];
-
-        v35 = MEMORY[0x1E696AEC0];
-        v36 = [*(a1 + 32) intent];
-        v37 = [v36 description];
-        v38 = [v35 stringWithFormat:@"Cannot donate interaction with intent that has no valid shortcut types: %@ for intent %@", v21, v37];
-
-        v39 = *(a1 + 40);
-        v40 = MEMORY[0x1E696ABC0];
-        v106 = *MEMORY[0x1E696A578];
-        v107 = v38;
-        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
-        v42 = [v40 errorWithDomain:@"IntentsErrorDomain" code:1901 userInfo:v41];
-        (*(v39 + 16))(v39, v42);
-
-        goto LABEL_19;
-      }
-    }
-  }
-
-  else if (*(a1 + 40))
-  {
     v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot donate interaction with nil identifier: %{sensitive}@", *(a1 + 32)];
     v23 = INSiriLogContextIntents;
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v111 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+      v110 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
       _os_log_error_impl(&dword_18E991000, v23, OS_LOG_TYPE_ERROR, "%s Cannot donate interaction with nil identifier", buf, 0xCu);
     }
 
     v24 = *(a1 + 40);
     v25 = MEMORY[0x1E696ABC0];
-    v108 = *MEMORY[0x1E696A578];
-    v109 = v21;
+    v107 = *MEMORY[0x1E696A578];
+    v108 = v21;
     v26 = MEMORY[0x1E695DF20];
-    v27 = &v109;
-    v28 = &v108;
+    v27 = &v108;
+    v28 = &v107;
 LABEL_18:
     v29 = [v26 dictionaryWithObjects:v27 forKeys:v28 count:1];
     v30 = [v25 errorWithDomain:@"IntentsErrorDomain" code:1901 userInfo:v29];
     (*(v24 + 16))(v24, v30);
 
 LABEL_19:
+    return;
   }
 
-LABEL_46:
-  v65 = *MEMORY[0x1E69E9840];
+  if (v3 == 3)
+  {
+    goto LABEL_39;
+  }
+
+  v11 = [*(a1 + 32) intent];
+  v12 = [v11 _validParameterCombinations];
+  v13 = [v12 count];
+
+  if (v13)
+  {
+    if (v3 == 2)
+    {
+      v14 = [*(a1 + 32) intent];
+      v15 = [v14 _codableDescription];
+      v16 = [v15 isDeprecated];
+
+      if (v16)
+      {
+        v17 = MEMORY[0x1E696AEC0];
+        v18 = *(a1 + 32);
+        v19 = [v18 intent];
+        v20 = [v19 _className];
+        v21 = [v17 stringWithFormat:@"Cannot donate interaction (%{sensitive}@) because intent (%@) has been deprecated", v18, v20];
+
+        v22 = INSiriLogContextIntents;
+        if (!os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
+        {
+          if (!v21)
+          {
+            goto LABEL_39;
+          }
+
+          goto LABEL_37;
+        }
+
+        v86 = *(a1 + 32);
+        v47 = v22;
+        v87 = [v86 intent];
+        v88 = [v87 _className];
+        *buf = 136315394;
+        v110 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+        v111 = 2112;
+        v112 = v88;
+        _os_log_error_impl(&dword_18E991000, v47, OS_LOG_TYPE_ERROR, "%s Cannot donate interaction because intent (%@) has been deprecated", buf, 0x16u);
+      }
+
+      else
+      {
+        v43 = [*(a1 + 32) intent];
+        v44 = [v43 _hasTitle];
+
+        if (v44)
+        {
+          goto LABEL_39;
+        }
+
+        v45 = [*(a1 + 32) intent];
+        v46 = [v45 _nonNilParameters];
+        v47 = [v46 mutableCopy];
+
+        v48 = [*(a1 + 32) intent];
+        v49 = [objc_opt_class() _ignoredParameters];
+        [v47 minusSet:v49];
+
+        if ([v47 count])
+        {
+          v50 = [v47 allObjects];
+          v51 = [v50 componentsJoinedByString:{@", "}];
+        }
+
+        else
+        {
+          v51 = @"(No Parameters)";
+        }
+
+        v52 = MEMORY[0x1E696AEC0];
+        v53 = *(a1 + 32);
+        v54 = [v53 intent];
+        v55 = [v54 _className];
+        v21 = [v52 stringWithFormat:@"Cannot donate interaction because intent title is empty: %{sensitive}@ Please make sure that your intent definition includes the following shortcut type for %@: %@.", v53, v55, v51];
+
+        v56 = INSiriLogContextIntents;
+        if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
+        {
+          v89 = *(a1 + 32);
+          v90 = v56;
+          v91 = [v89 intent];
+          v92 = [v91 _className];
+          *buf = 136315650;
+          v110 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+          v111 = 2114;
+          v112 = v92;
+          v113 = 2112;
+          v114 = v51;
+          _os_log_error_impl(&dword_18E991000, v90, OS_LOG_TYPE_ERROR, "%s Cannot donate interaction (%{public}@) because intent title is empty. Missing parameter combination: %@", buf, 0x20u);
+        }
+      }
+
+      if (v21)
+      {
+LABEL_37:
+        v24 = *(a1 + 40);
+        if (!v24)
+        {
+          goto LABEL_19;
+        }
+
+        v25 = MEMORY[0x1E696ABC0];
+        v103 = *MEMORY[0x1E696A578];
+        v104 = v21;
+        v26 = MEMORY[0x1E695DF20];
+        v27 = &v104;
+        v28 = &v103;
+        goto LABEL_18;
+      }
+    }
+
+LABEL_39:
+    v57 = [*(a1 + 32) intent];
+    v58 = [v57 _intents_launchIdForCurrentPlatform];
+    v100 = 0;
+    INExtractAppInfoFromSiriLaunchId(v58, &v100, 0);
+    v59 = v100;
+
+    v60 = [*(a1 + 32) intent];
+    v61 = [v60 _intentInstanceDescription];
+    v62 = NSStringFromClass([v61 facadeClass]);
+
+    v97[0] = MEMORY[0x1E69E9820];
+    v97[1] = 3221225472;
+    v97[2] = __49__INInteraction_donateInteractionWithCompletion___block_invoke_66;
+    v97[3] = &unk_1E727DFA8;
+    v97[4] = *(a1 + 32);
+    v63 = v59;
+    v98 = v63;
+    v99 = *(a1 + 40);
+    v64 = MEMORY[0x193AD7780](v97);
+    if (INThisProcessIsDonatingBySiri())
+    {
+      goto LABEL_44;
+    }
+
+    if (INThisProcessIsSystemProcess_onceToken != -1)
+    {
+      dispatch_once(&INThisProcessIsSystemProcess_onceToken, &__block_literal_global_48);
+    }
+
+    if ((INThisProcessIsSystemProcess_isSystemProcess & 1) != 0 || INThisProcessHasEntitlement(@"com.apple.private.corespotlight.internal", 0))
+    {
+LABEL_44:
+      v64[2](v64, 1, 1);
+LABEL_45:
+
+      return;
+    }
+
+    if (v62)
+    {
+      v65 = [MEMORY[0x1E6963618] bundleProxyForCurrentProcess];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+      v67 = [v65 bundleType];
+      v68 = [v67 isEqualToString:*MEMORY[0x1E6963590]] & isKindOfClass ^ 1;
+
+      if (isKindOfClass)
+      {
+        v69 = v65;
+        v70 = 1;
+        v71 = [v69 objectForInfoDictionaryKey:*MEMORY[0x1E69C4AF8] ofClass:objc_opt_class() inScope:1];
+        if (([v69 if_isWatchKitAppExtension] & 1) == 0)
+        {
+          v70 = v68;
+          if ([v71 isEqualToString:@"com.apple.intents-service"])
+          {
+            v72 = *(a1 + 40);
+            if (v72)
+            {
+              (*(v72 + 16))(v72, 0);
+            }
+
+            goto LABEL_45;
+          }
+        }
+
+        v68 = v70;
+      }
+
+      CanDonateIntent = INBundleProxyCanDonateIntent(v65, v62);
+      v64[2](v64, CanDonateIntent, v68);
+    }
+
+    else
+    {
+      if (!*(a1 + 40))
+      {
+        goto LABEL_45;
+      }
+
+      v73 = MEMORY[0x1E696AEC0];
+      v74 = [*(a1 + 32) intent];
+      v75 = [v74 _className];
+      v65 = [v73 stringWithFormat:@"Donating intent '%@' is not supported.", v75];
+
+      v76 = INSiriLogContextIntents;
+      if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
+      {
+        v93 = *(a1 + 32);
+        v94 = v76;
+        v95 = [v93 intent];
+        v96 = [v95 _className];
+        *buf = 136315394;
+        v110 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+        v111 = 2114;
+        v112 = v96;
+        _os_log_error_impl(&dword_18E991000, v94, OS_LOG_TYPE_ERROR, "%s Donating %{public}@ is not supported", buf, 0x16u);
+      }
+
+      v77 = *(a1 + 40);
+      v78 = MEMORY[0x1E696ABC0];
+      v101 = *MEMORY[0x1E696A578];
+      v102 = v65;
+      v79 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+      v80 = [v78 errorWithDomain:@"IntentsErrorDomain" code:1901 userInfo:v79];
+      (*(v77 + 16))(v77, v80);
+    }
+
+    goto LABEL_45;
+  }
+
+  v31 = INSiriLogContextIntents;
+  if (v3 == 1)
+  {
+    if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
+    {
+      v32 = *(a1 + 32);
+      *buf = 136315395;
+      v110 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+      v111 = 2117;
+      v112 = v32;
+      _os_log_impl(&dword_18E991000, v31, OS_LOG_TYPE_INFO, "%s Not donating system intent because it does not have any valid parameter combinations: %{sensitive}@", buf, 0x16u);
+    }
+
+    v33 = *(a1 + 40);
+    if (v33)
+    {
+      (*(v33 + 16))(v33, 0);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
+    {
+      v82 = *(a1 + 32);
+      v83 = v31;
+      v84 = [v82 intent];
+      v85 = [v84 _className];
+      *buf = 136315394;
+      v110 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+      v111 = 2114;
+      v112 = v85;
+      _os_log_error_impl(&dword_18E991000, v83, OS_LOG_TYPE_ERROR, "%s Cannot donate interaction with %{public}@ that has no valid shortcut types", buf, 0x16u);
+    }
+
+    if (*(a1 + 40))
+    {
+      v21 = [*(a1 + 32) copy];
+      v34 = objc_alloc_init(INIntent);
+      [v21 _setIntent:v34];
+
+      v35 = MEMORY[0x1E696AEC0];
+      v36 = [*(a1 + 32) intent];
+      v37 = [v36 description];
+      v38 = [v35 stringWithFormat:@"Cannot donate interaction with intent that has no valid shortcut types: %@ for intent %@", v21, v37];
+
+      v39 = *(a1 + 40);
+      v40 = MEMORY[0x1E696ABC0];
+      v105 = *MEMORY[0x1E696A578];
+      v106 = v38;
+      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+      v42 = [v40 errorWithDomain:@"IntentsErrorDomain" code:1901 userInfo:v41];
+      (*(v39 + 16))(v39, v42);
+
+      goto LABEL_19;
+    }
+  }
 }
 
 void __49__INInteraction_donateInteractionWithCompletion___block_invoke_66(uint64_t a1, int a2, int a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  if (a2)
-  {
-    v4 = INSiriLogContextIntents;
-    if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
-    {
-      v5 = *(a1 + 32);
-      v6 = v4;
-      v7 = [v5 intent];
-      v8 = [v7 _className];
-      v9 = *(a1 + 40);
-      *buf = 136315650;
-      v35 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-      v36 = 2114;
-      v37 = v8;
-      v38 = 2114;
-      v39 = v9;
-      _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s Can donate %{public}@ for %{public}@", buf, 0x20u);
-    }
-
-    [*(a1 + 32) _donateInteractionWithBundleId:*(a1 + 40) completion:*(a1 + 48)];
-  }
-
-  else
+  v39 = *MEMORY[0x1E69E9840];
+  if (!a2)
   {
     if (*(a1 + 48))
     {
@@ -1155,25 +1216,25 @@ void __49__INInteraction_donateInteractionWithCompletion___block_invoke_66(uint6
       v18 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(a1 + 32);
-        v26 = v18;
-        v27 = [v25 intent];
-        v28 = [v27 _className];
-        v29 = *(a1 + 40);
+        v24 = *(a1 + 32);
+        v25 = v18;
+        v26 = [v24 intent];
+        v27 = [v26 _className];
+        v28 = *(a1 + 40);
         *buf = 136315650;
-        v35 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-        v36 = 2114;
-        v37 = v28;
-        v38 = 2114;
-        v39 = v29;
-        _os_log_error_impl(&dword_18E991000, v26, OS_LOG_TYPE_ERROR, "%s Can NOT donate %{public}@ for %{public}@", buf, 0x20u);
+        v34 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+        v35 = 2114;
+        v36 = v27;
+        v37 = 2114;
+        v38 = v28;
+        _os_log_error_impl(&dword_18E991000, v25, OS_LOG_TYPE_ERROR, "%s Can NOT donate %{public}@ for %{public}@", buf, 0x20u);
       }
 
       v19 = *(a1 + 48);
       v20 = MEMORY[0x1E696ABC0];
-      v32 = *MEMORY[0x1E696A578];
-      v33 = v17;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v31 = *MEMORY[0x1E696A578];
+      v32 = v17;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
       v22 = [v20 errorWithDomain:@"IntentsErrorDomain" code:1901 userInfo:v21];
       (*(v19 + 16))(v19, v22);
     }
@@ -1183,26 +1244,44 @@ void __49__INInteraction_donateInteractionWithCompletion___block_invoke_66(uint6
       v23 = INSiriLogContextIntents;
       if (!os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_13;
+        return;
       }
 
-      v30 = *(a1 + 32);
+      v29 = *(a1 + 32);
       v17 = v23;
-      v22 = [v30 intent];
+      v22 = [v29 intent];
       v21 = [v22 _className];
-      v31 = *(a1 + 40);
+      v30 = *(a1 + 40);
       *buf = 136315650;
-      v35 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
-      v36 = 2114;
-      v37 = v21;
-      v38 = 2114;
-      v39 = v31;
+      v34 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+      v35 = 2114;
+      v36 = v21;
+      v37 = 2114;
+      v38 = v30;
       _os_log_error_impl(&dword_18E991000, v17, OS_LOG_TYPE_ERROR, "%s Can NOT donate %{public}@ for %{public}@", buf, 0x20u);
     }
+
+    return;
   }
 
-LABEL_13:
-  v24 = *MEMORY[0x1E69E9840];
+  v4 = INSiriLogContextIntents;
+  if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
+  {
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = [v5 intent];
+    v8 = [v7 _className];
+    v9 = *(a1 + 40);
+    *buf = 136315650;
+    v34 = "[INInteraction donateInteractionWithCompletion:]_block_invoke";
+    v35 = 2114;
+    v36 = v8;
+    v37 = 2114;
+    v38 = v9;
+    _os_log_impl(&dword_18E991000, v6, OS_LOG_TYPE_INFO, "%s Can donate %{public}@ for %{public}@", buf, 0x20u);
+  }
+
+  [*(a1 + 32) _donateInteractionWithBundleId:*(a1 + 40) completion:*(a1 + 48)];
 }
 
 - (void)_setDonatedBySiri:(BOOL)siri
@@ -1295,12 +1374,12 @@ LABEL_13:
 
 - (INInteraction)initWithIntent:(INIntent *)intent response:(INIntentResponse *)response
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = intent;
   v7 = response;
-  v17.receiver = self;
-  v17.super_class = INInteraction;
-  v8 = [(INInteraction *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = INInteraction;
+  v8 = [(INInteraction *)&v16 init];
   v9 = v8;
   if (v8)
   {
@@ -1320,15 +1399,14 @@ LABEL_13:
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315395;
-        v19 = "[INInteraction initWithIntent:response:]";
-        v20 = 2117;
-        v21 = v9;
+        v18 = "[INInteraction initWithIntent:response:]";
+        v19 = 2117;
+        v20 = v9;
         _os_log_fault_impl(&dword_18E991000, v14, OS_LOG_TYPE_FAULT, "%s No intent was provided in the interaction: %{sensitive}@", buf, 0x16u);
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1353,26 +1431,24 @@ LABEL_13:
 
 + (void)deleteInteractionsWithGroupIdentifier:(NSString *)groupIdentifier completion:(void *)completion
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = completion;
   v6 = groupIdentifier;
   defaultSearchableIndex = [getCSSearchableIndexClass() defaultSearchableIndex];
-  v13[0] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __66__INInteraction_deleteInteractionsWithGroupIdentifier_completion___block_invoke;
-  v11[3] = &unk_1E7282710;
-  v12 = v5;
+  v12[0] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __66__INInteraction_deleteInteractionsWithGroupIdentifier_completion___block_invoke;
+  v10[3] = &unk_1E7282710;
+  v11 = v5;
   v9 = v5;
-  [defaultSearchableIndex deleteInteractionsWithGroupIdentifiers:v8 completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [defaultSearchableIndex deleteInteractionsWithGroupIdentifiers:v8 completionHandler:v10];
 }
 
 void __66__INInteraction_deleteInteractionsWithGroupIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -1381,9 +1457,9 @@ void __66__INInteraction_deleteInteractionsWithGroupIdentifier_completion___bloc
     if (v3)
     {
       v6 = MEMORY[0x1E696ABC0];
-      v10 = *MEMORY[0x1E696AA08];
-      v11[0] = v3;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x1E696AA08];
+      v10[0] = v3;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       v8 = [v6 errorWithDomain:@"IntentsErrorDomain" code:1904 userInfo:v7];
       (*(v5 + 16))(v5, v8);
     }
@@ -1393,8 +1469,6 @@ void __66__INInteraction_deleteInteractionsWithGroupIdentifier_completion___bloc
       (*(v5 + 16))(v5, 0);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deleteInteractionsWithIdentifiers:(NSArray *)identifiers completion:(void *)completion
@@ -1413,7 +1487,7 @@ void __66__INInteraction_deleteInteractionsWithGroupIdentifier_completion___bloc
 
 void __62__INInteraction_deleteInteractionsWithIdentifiers_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -1422,9 +1496,9 @@ void __62__INInteraction_deleteInteractionsWithIdentifiers_completion___block_in
     if (v3)
     {
       v6 = MEMORY[0x1E696ABC0];
-      v10 = *MEMORY[0x1E696AA08];
-      v11[0] = v3;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x1E696AA08];
+      v10[0] = v3;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       v8 = [v6 errorWithDomain:@"IntentsErrorDomain" code:1903 userInfo:v7];
       (*(v5 + 16))(v5, v8);
     }
@@ -1434,8 +1508,6 @@ void __62__INInteraction_deleteInteractionsWithIdentifiers_completion___block_in
       (*(v5 + 16))(v5, 0);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)deleteAllInteractionsWithCompletion:(void *)completion
@@ -1453,7 +1525,7 @@ void __62__INInteraction_deleteInteractionsWithIdentifiers_completion___block_in
 
 void __53__INInteraction_deleteAllInteractionsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -1462,9 +1534,9 @@ void __53__INInteraction_deleteAllInteractionsWithCompletion___block_invoke(uint
     if (v3)
     {
       v6 = MEMORY[0x1E696ABC0];
-      v10 = *MEMORY[0x1E696AA08];
-      v11[0] = v3;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x1E696AA08];
+      v10[0] = v3;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       v8 = [v6 errorWithDomain:@"IntentsErrorDomain" code:1902 userInfo:v7];
       (*(v5 + 16))(v5, v8);
     }
@@ -1474,8 +1546,6 @@ void __53__INInteraction_deleteAllInteractionsWithCompletion___block_invoke(uint
       (*(v5 + 16))(v5, 0);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_intents_enumerateObjectsOfClass:(Class)class withBlock:(id)block

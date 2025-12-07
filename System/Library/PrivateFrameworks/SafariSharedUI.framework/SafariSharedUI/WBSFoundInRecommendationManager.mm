@@ -21,21 +21,22 @@
     [(WBSFoundInRecommendationManager *)self _createInternalQueueIfNecessary];
     v4 = *MEMORY[0x1E6999328];
     internalQueue = self->_internalQueue;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __72__WBSFoundInRecommendationManager_beginListeningForURLSuggestionChanges__block_invoke;
-    v7[3] = &unk_1E8285568;
-    objc_copyWeak(&v8, &location);
-    if (notify_register_dispatch(v4, p_changeNotificationToken, internalQueue, v7))
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __72__WBSFoundInRecommendationManager_beginListeningForURLSuggestionChanges__block_invoke;
+    v9[3] = &unk_1E8285568;
+    objc_copyWeak(&v10, &location);
+    v6 = notify_register_dispatch(v4, p_changeNotificationToken, internalQueue, v9);
+    if (v6)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(WBSFoundInRecommendationManager *)v6 beginListeningForURLSuggestionChanges];
+        [(WBSFoundInRecommendationManager *)v8 beginListeningForURLSuggestionChanges];
       }
     }
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
   }
 }
@@ -166,18 +167,18 @@ void __82__WBSFoundInRecommendationManager__recentURLRecommendationsWithCompleti
 
 void __82__WBSFoundInRecommendationManager__recentURLRecommendationsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (*(a1 + 32))
   {
     if (v6)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __82__WBSFoundInRecommendationManager__recentURLRecommendationsWithCompletionHandler___block_invoke_2_cold_1(v8, v7);
+        __82__WBSFoundInRecommendationManager__recentURLRecommendationsWithCompletionHandler___block_invoke_2_cold_1(v9, v8);
       }
 
       (*(*(a1 + 32) + 16))();
@@ -185,16 +186,16 @@ void __82__WBSFoundInRecommendationManager__recentURLRecommendationsWithCompleti
 
     else
     {
-      v9 = [WBSFoundInRecommendationManager _linkRecommendationsFromSGSuggestions:v5 contactStoreProvider:&__block_literal_global_16];
-      v10 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v10 = [WBSFoundInRecommendationManager _linkRecommendationsFromSGSuggestions:v5 contactStoreProvider:&__block_literal_global_16];
+      v12 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v11 = v10;
-        v12 = 134218240;
-        v13 = [v9 count];
-        v14 = 2048;
-        v15 = [v5 count];
-        _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Got %ld recommendations out of %ld Found In links retrieved from suggestions service.", &v12, 0x16u);
+        v13 = v12;
+        v14 = 134218240;
+        v15 = [v10 count];
+        v16 = 2048;
+        v17 = [v5 count];
+        _os_log_impl(&dword_1C6968000, v13, OS_LOG_TYPE_INFO, "Got %ld recommendations out of %ld Found In links retrieved from suggestions service.", &v14, 0x16u);
       }
 
       (*(*(a1 + 32) + 16))();
@@ -214,42 +215,42 @@ void __82__WBSFoundInRecommendationManager__recentURLRecommendationsWithCompleti
 
 + (id)_linkRecommendationsFromSGSuggestions:(id)suggestions contactStoreProvider:(id)provider
 {
-  v132 = *MEMORY[0x1E69E9840];
+  v141 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   providerCopy = provider;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v119 = 0u;
-  v120 = 0u;
-  v121 = 0u;
-  v122 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v130 = 0u;
+  v131 = 0u;
   v7 = suggestionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v119 objects:v131 count:16];
-  v96 = providerCopy;
+  v8 = [v7 countByEnumeratingWithState:&v128 objects:v140 count:16];
+  v105 = providerCopy;
   if (!v8)
   {
-    v109 = 0;
-    v101 = 0;
+    v118 = 0;
+    v110 = 0;
     goto LABEL_108;
   }
 
   v9 = v8;
-  v99 = 0;
-  v109 = 0;
-  v101 = 0;
-  v10 = *v120;
+  v108 = 0;
+  v118 = 0;
+  v110 = 0;
+  v10 = *v129;
   v11 = 0x1E8281000uLL;
-  v114 = v7;
+  v123 = v7;
   do
   {
     v12 = 0;
     do
     {
-      if (*v120 != v10)
+      if (*v129 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v119 + 1) + 8 * v12);
+      v13 = *(*(&v128 + 1) + 8 * v12);
       v14 = *(v11 + 2400);
       bundleIdentifier = [v13 bundleIdentifier];
       v16 = [v14 foundInSourceFromBundleIdentifier:bundleIdentifier];
@@ -307,7 +308,7 @@ LABEL_41:
           if (v32 >= v33 + -600.0)
           {
             [v13 documentTimeInterval];
-            LOBYTE(v7) = v32 <= v34 + v51;
+            LOBYTE(v7) = v32 <= v34 + v55;
             goto LABEL_29;
           }
         }
@@ -330,22 +331,22 @@ LABEL_41:
         {
           currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
           [currentCalendar components:96 fromDate:documentDate];
-          v25 = v105 = documentDate;
+          v25 = v114 = documentDate;
 
-          v112 = v25;
+          v121 = v25;
           if ([v25 hour] || objc_msgSend(v25, "minute"))
           {
             [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
             v27 = v26;
-            documentDate = v105;
-            [v105 timeIntervalSinceReferenceDate];
+            documentDate = v114;
+            [v114 timeIntervalSinceReferenceDate];
             LOBYTE(v7) = v27 <= v28 + 3600.0 && v27 >= v28 + -3600.0;
           }
 
           else
           {
             LOBYTE(v7) = 0;
-            documentDate = v105;
+            documentDate = v114;
           }
 
           goto LABEL_29;
@@ -364,229 +365,229 @@ LABEL_30:
         if (!v35)
         {
 LABEL_37:
-          v44 = [v13 url];
-          safari_canonicalURLForStartPage = [v44 safari_canonicalURLForStartPage];
+          v48 = [v13 url];
+          safari_canonicalURLForStartPage = [v48 safari_canonicalURLForStartPage];
 
           host = bestDateForSuggestion(v13);
           bundleIdentifier2 = [v13 bundleIdentifier];
-          v46 = [WBSFoundInRecommendationManager foundInSourceFromBundleIdentifier:bundleIdentifier2];
+          v50 = [WBSFoundInRecommendationManager foundInSourceFromBundleIdentifier:bundleIdentifier2];
 
-          v47 = 0;
-          if (v46 > 1)
+          v51 = 0;
+          if (v50 > 1)
           {
-            if (v46 == 2)
+            if (v50 == 2)
             {
-              v47 = 6;
+              v51 = 6;
             }
 
-            else if (v46 == 3)
+            else if (v50 == 3)
             {
-              v47 = 7;
+              v51 = 7;
             }
 
 LABEL_58:
-            v107 = v47;
-            v102 = [WBSForYouLinkRecommendation alloc];
-            v52 = v13;
-            if ((objc_opt_respondsToSelector() & 1) != 0 && ([v52 documentTitle], v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend(v53, "length"), v53, v54))
+            v116 = v51;
+            v111 = [WBSForYouLinkRecommendation alloc];
+            v56 = v13;
+            if ((objc_opt_respondsToSelector() & 1) != 0 && ([v56 documentTitle], v57 = objc_claimAutoreleasedReturnValue(), v58 = objc_msgSend(v57, "length"), v57, v58))
             {
-              documentTitle = [v52 documentTitle];
+              documentTitle = [v56 documentTitle];
             }
 
             else
             {
-              title = [v52 title];
-              v57 = [title length];
+              title = [v56 title];
+              v61 = [title length];
 
-              if (!v57)
+              if (!v61)
               {
-                v58 = &stru_1F4646D10;
+                v62 = &stru_1F4646D10;
                 goto LABEL_65;
               }
 
-              documentTitle = [v52 title];
+              documentTitle = [v56 title];
             }
 
-            v58 = documentTitle;
+            v62 = documentTitle;
 LABEL_65:
 
-            v59 = [(WBSForYouLinkRecommendation *)v102 initWithTitle:v58 url:safari_canonicalURLForStartPage lastSeenDate:host source:v107 topicSource:0];
-            bundleIdentifier3 = [v52 bundleIdentifier];
-            [(WBSForYouLinkRecommendation *)v59 setBundleIdentifier:bundleIdentifier3];
+            v63 = [(WBSForYouLinkRecommendation *)v111 initWithTitle:v62 url:safari_canonicalURLForStartPage lastSeenDate:host source:v116 topicSource:0];
+            bundleIdentifier3 = [v56 bundleIdentifier];
+            [(WBSForYouLinkRecommendation *)v63 setBundleIdentifier:bundleIdentifier3];
 
             v13 = documentIdentifier;
-            [(WBSForYouLinkRecommendation *)v59 setSourceID:documentIdentifier];
-            if (v46 == 3 || v46 == 2)
+            [(WBSForYouLinkRecommendation *)v63 setSourceID:documentIdentifier];
+            if (v50 == 3 || v50 == 2)
             {
-              v68 = MEMORY[0x1E696AEC0];
-              v69 = _WBSLocalizedString();
-              title2 = [(WBSForYouLinkRecommendation *)v59 title];
-              v71 = [v68 localizedStringWithFormat:v69, title2];
-              [(WBSForYouLinkRecommendation *)v59 setTitle:v71];
+              v72 = MEMORY[0x1E696AEC0];
+              v73 = _WBSLocalizedString();
+              title2 = [(WBSForYouLinkRecommendation *)v63 title];
+              v75 = [v72 localizedStringWithFormat:v73, title2];
+              [(WBSForYouLinkRecommendation *)v63 setTitle:v75];
 
-              v72 = _WBSLocalizedString();
-              [(WBSForYouLinkRecommendation *)v59 setFootnote:v72];
-              v73 = v109;
+              v76 = _WBSLocalizedString();
+              [(WBSForYouLinkRecommendation *)v63 setFootnote:v76];
+              v77 = v118;
             }
 
             else
             {
-              if (v46 != 1)
+              if (v50 != 1)
               {
-                v73 = v109;
-                v7 = v114;
+                v77 = v118;
+                v7 = v123;
                 goto LABEL_77;
               }
 
-              v98 = _WBSLocalizedString();
-              receivedFromHandle = [v52 receivedFromHandle];
+              v107 = _WBSLocalizedString();
+              receivedFromHandle = [v56 receivedFromHandle];
               if ([receivedFromHandle hasPrefix:@"e:"])
               {
-                v62 = [receivedFromHandle substringFromIndex:2];
+                v66 = [receivedFromHandle substringFromIndex:2];
 
-                receivedFromHandle = v62;
+                receivedFromHandle = v66;
               }
 
-              v63 = v101;
-              v64 = receivedFromHandle;
-              if (!v101)
+              v67 = v110;
+              v68 = receivedFromHandle;
+              if (!v110)
               {
-                v65 = v64;
-                v66 = v96[2]();
-                v64 = v65;
-                v63 = v66;
+                v69 = v68;
+                v70 = v105[2]();
+                v68 = v69;
+                v67 = v70;
               }
 
-              v101 = v63;
-              v97 = v59;
-              if (v99)
+              v110 = v67;
+              v106 = v63;
+              if (v108)
               {
-                v67 = v109;
+                v71 = v118;
               }
 
               else
               {
-                v74 = v64;
+                v78 = v68;
                 if ([MEMORY[0x1E695CE18] authorizationStatusForEntityType:0] == 3)
                 {
-                  v118 = 0;
-                  v103 = [v63 _ios_meContactWithKeysToFetch:MEMORY[0x1E695E0F0] error:&v118];
-                  v75 = v118;
+                  v127 = 0;
+                  v112 = [v67 _ios_meContactWithKeysToFetch:MEMORY[0x1E695E0F0] error:&v127];
+                  v79 = v127;
 
-                  if (v75)
+                  if (v79)
                   {
-                    v76 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-                    if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+                    v82 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v80, v81);
+                    if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
                     {
-                      [(WBSFoundInRecommendationManager *)&v129 _linkRecommendationsFromSGSuggestions:v76 contactStoreProvider:v75, &v130];
+                      [(WBSFoundInRecommendationManager *)v138 _linkRecommendationsFromSGSuggestions:v82 contactStoreProvider:v79, &v139];
                     }
 
-                    v63 = v101;
+                    v67 = v110;
                   }
 
-                  v67 = v103;
+                  v71 = v112;
                 }
 
                 else
                 {
-                  v67 = v109;
+                  v71 = v118;
                 }
 
-                v64 = v74;
+                v68 = v78;
               }
 
-              v117 = 0;
-              v108 = v64;
-              v77 = [v63 contactForHandle:v64 error:&v117];
-              v110 = v117;
-              v104 = v67;
-              identifier = [v67 identifier];
-              identifier2 = [v77 identifier];
-              v80 = [identifier isEqualToString:identifier2];
+              v126 = 0;
+              v117 = v68;
+              v83 = [v67 contactForHandle:v68 error:&v126];
+              v119 = v126;
+              v113 = v71;
+              identifier = [v71 identifier];
+              identifier2 = [v83 identifier];
+              v86 = [identifier isEqualToString:identifier2];
 
-              if (v80)
+              if (v86)
               {
-                v81 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-                v7 = v114;
-                if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+                v89 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v87, v88);
+                v7 = v123;
+                if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138478083;
-                  v126 = v108;
-                  v127 = 2113;
-                  v128 = documentIdentifier;
-                  _os_log_debug_impl(&dword_1C6968000, v81, OS_LOG_TYPE_DEBUG, "Skipping suggestion from Me contact with handle: %{private}@ document identifier: %{private}@", buf, 0x16u);
+                  v135 = v117;
+                  v136 = 2113;
+                  v137 = documentIdentifier;
+                  _os_log_debug_impl(&dword_1C6968000, v89, OS_LOG_TYPE_DEBUG, "Skipping suggestion from Me contact with handle: %{private}@ document identifier: %{private}@", buf, 0x16u);
                 }
 
-                v99 = 1;
+                v108 = 1;
                 v13 = documentIdentifier;
-                v73 = v104;
+                v77 = v113;
 LABEL_92:
-                v59 = v97;
+                v63 = v106;
                 goto LABEL_78;
               }
 
-              safari_fullName = [v77 safari_fullName];
-              v83 = v77;
-              v100 = v77;
+              safari_fullName = [v83 safari_fullName];
+              v92 = v83;
+              v109 = v83;
               if ([safari_fullName length])
               {
-                v84 = safari_fullName;
+                v93 = safari_fullName;
               }
 
               else
               {
-                v84 = v108;
-                if (v101)
+                v93 = v117;
+                if (v110)
                 {
-                  v87 = safari_fullName;
-                  v88 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-                  v89 = v88;
-                  v7 = v114;
-                  if (v110)
+                  v96 = safari_fullName;
+                  v97 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(0, v91);
+                  v98 = v97;
+                  v7 = v123;
+                  if (v119)
                   {
-                    v73 = v104;
-                    if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+                    v77 = v113;
+                    if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
                     {
-                      [(WBSFoundInRecommendationManager *)&v123 _linkRecommendationsFromSGSuggestions:v89 contactStoreProvider:v110, &v124];
+                      [(WBSFoundInRecommendationManager *)v132 _linkRecommendationsFromSGSuggestions:v98 contactStoreProvider:v119, &v133];
                     }
                   }
 
                   else
                   {
-                    v73 = v104;
-                    if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
+                    v77 = v113;
+                    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
                     {
-                      [(WBSFoundInRecommendationManager *)&v115 _linkRecommendationsFromSGSuggestions:v116 contactStoreProvider:v89];
+                      [(WBSFoundInRecommendationManager *)&v124 _linkRecommendationsFromSGSuggestions:v125 contactStoreProvider:v98];
                     }
                   }
 
-                  v99 = 1;
+                  v108 = 1;
                   v13 = documentIdentifier;
                   goto LABEL_92;
                 }
               }
 
-              v59 = v97;
-              [(WBSForYouLinkRecommendation *)v97 setContact:v83];
-              v95 = v84;
-              v93 = MEMORY[0x1E696AEC0];
+              v63 = v106;
+              [(WBSForYouLinkRecommendation *)v106 setContact:v92];
+              v104 = v93;
+              v102 = MEMORY[0x1E696AEC0];
               _WBSLocalizedString();
-              v85 = v94 = safari_fullName;
-              v72 = v98;
-              v86 = [v93 localizedStringWithFormat:v85, v98, v84];
-              [(WBSForYouLinkRecommendation *)v97 setFootnote:v86];
+              v94 = v103 = safari_fullName;
+              v76 = v107;
+              v95 = [v102 localizedStringWithFormat:v94, v107, v93];
+              [(WBSForYouLinkRecommendation *)v106 setFootnote:v95];
 
-              v99 = 1;
-              v73 = v104;
+              v108 = 1;
+              v77 = v113;
             }
 
-            v7 = v114;
+            v7 = v123;
             v13 = documentIdentifier;
 LABEL_77:
-            [dictionary setObject:v59 forKeyedSubscript:v13];
+            [dictionary setObject:v63 forKeyedSubscript:v13];
 LABEL_78:
 
-            v109 = v73;
+            v118 = v77;
 LABEL_43:
 
             v11 = 0x1E8281000;
@@ -596,11 +597,11 @@ LABEL_45:
             goto LABEL_46;
           }
 
-          if (v46)
+          if (v50)
           {
-            if (v46 == 1)
+            if (v50 == 1)
             {
-              v47 = 5;
+              v51 = 5;
             }
 
             goto LABEL_58;
@@ -618,71 +619,71 @@ LABEL_45:
         if (v38)
         {
           pathComponents = [host pathComponents];
-          v106 = [pathComponents count];
+          v115 = [pathComponents count];
           pathComponents2 = [safari_canonicalURLForStartPage pathComponents];
-          v41 = [pathComponents2 count];
+          v43 = [pathComponents2 count];
 
-          v42 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-          v43 = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
-          if (v106 > v41)
+          v46 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v44, v45);
+          v47 = os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
+          if (v115 > v43)
           {
-            if (v43)
+            if (v47)
             {
               *buf = 138543362;
-              v126 = documentIdentifier;
-              _os_log_error_impl(&dword_1C6968000, v42, OS_LOG_TYPE_ERROR, "We have a Found In link with a duplicate GUID and host but more path components so we'll replace the existing one: %{public}@", buf, 0xCu);
+              v135 = documentIdentifier;
+              _os_log_error_impl(&dword_1C6968000, v46, OS_LOG_TYPE_ERROR, "We have a Found In link with a duplicate GUID and host but more path components so we'll replace the existing one: %{public}@", buf, 0xCu);
             }
 
             goto LABEL_37;
           }
 
-          if (!v43)
+          if (!v47)
           {
 LABEL_55:
             v13 = documentIdentifier;
 LABEL_42:
-            v7 = v114;
+            v7 = v123;
             goto LABEL_43;
           }
 
           *buf = 138543362;
           v13 = documentIdentifier;
-          v126 = documentIdentifier;
-          v49 = v42;
-          v50 = "Skipping Found In link with a duplicate GUID and host but less path components: %{public}@";
+          v135 = documentIdentifier;
+          v53 = v46;
+          v54 = "Skipping Found In link with a duplicate GUID and host but less path components: %{public}@";
         }
 
         else
         {
-          v48 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-          if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          v52 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v39, v40);
+          if (!os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_55;
           }
 
           *buf = 138543362;
           v13 = documentIdentifier;
-          v126 = documentIdentifier;
-          v49 = v48;
-          v50 = "Skipping Found In link with a duplicate GUID but different URL host: %{public}@";
+          v135 = documentIdentifier;
+          v53 = v52;
+          v54 = "Skipping Found In link with a duplicate GUID but different URL host: %{public}@";
         }
 
-        _os_log_error_impl(&dword_1C6968000, v49, OS_LOG_TYPE_ERROR, v50, buf, 0xCu);
+        _os_log_error_impl(&dword_1C6968000, v53, OS_LOG_TYPE_ERROR, v54, buf, 0xCu);
         goto LABEL_42;
       }
 
-      v7 = v114;
+      v7 = v123;
       v11 = 0x1E8281000;
 LABEL_46:
       ++v12;
     }
 
     while (v9 != v12);
-    v90 = [v7 countByEnumeratingWithState:&v119 objects:v131 count:16];
-    v9 = v90;
+    v99 = [v7 countByEnumeratingWithState:&v128 objects:v140 count:16];
+    v9 = v99;
   }
 
-  while (v90);
+  while (v99);
 LABEL_108:
 
   allValues = [dictionary allValues];

@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
+- (void)hash;
 @end
 
 @implementation SKUIMutableIntegerValue
@@ -69,6 +70,24 @@
   v13 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   [v13 setIntegerValue:self->_integerValue];
   return v13;
+}
+
+- (void)hash
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMutableIntegerValue hash]";
+}
+
+- (void)isEqual:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMutableIntegerValue isEqual:]";
+}
+
+- (void)copyWithZone:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMutableIntegerValue copyWithZone:]";
 }
 
 @end

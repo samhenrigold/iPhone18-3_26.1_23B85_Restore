@@ -36,14 +36,14 @@
 
 + (id)clientDonationsForSession:(id)session
 {
-  sub_21AF097CC();
+  v3 = sub_21AF097CC();
   swift_getObjCClassMetadata();
-  sub_21AEA6B88();
+  sub_21AEA6B88(v3);
 
   type metadata accessor for AMLClientDonations(0);
-  v3 = sub_21AF0987C();
+  v4 = sub_21AF0987C();
 
-  return v3;
+  return v4;
 }
 
 @end

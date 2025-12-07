@@ -2,6 +2,7 @@
 + (CSPower)sharedInstance;
 - (CSPower)init;
 - (void)createPowerAssertion:(id)assertion;
+- (void)powerlogActivity:(double)activity event:(int)event isActive:(BOOL)active;
 - (void)releasePowerAssertion;
 @end
 
@@ -285,6 +286,54 @@ LABEL_29:
     *p_refCount = 0;
   }
 
+  os_unfair_lock_unlock(&self->_lock);
+}
+
+- (void)powerlogActivity:(double)activity event:(int)event isActive:(BOOL)active
+{
+  activeCopy = active;
+  v6 = *&event;
+  os_unfair_lock_lock(&self->_lock);
+  if (qword_1004568B8 != -1)
+  {
+    sub_100352C64();
+  }
+
+  v9 = qword_1004568C0;
+  if (os_log_type_enabled(qword_1004568C0, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 134218496;
+    activityCopy = activity;
+    v21 = 1024;
+    v22 = v6;
+    v23 = 1024;
+    v24 = activeCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "powerlogActivity timestamp,%f,reason,%d,state,%d", buf, 0x18u);
+  }
+
+  v10 = [NSNumber numberWithInt:v6, @"anomalydetectiondPLRecordType"];
+  v18[0] = v10;
+  v17[1] = @"timestamp";
+  v11 = [NSNumber numberWithDouble:activity];
+  v18[1] = v11;
+  v17[2] = @"eventTimeNS";
+  v12 = +[NSDate date];
+  [v12 timeIntervalSince1970];
+  v13 = [NSNumber numberWithDouble:?];
+  v14 = v13;
+  v17[3] = @"status";
+  v15 = @"ended";
+  if (activeCopy)
+  {
+    v15 = @"started";
+  }
+
+  v18[2] = v13;
+  v18[3] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:4];
+
+  [NSString stringWithCString:"AnomalydetectiondPLEvent" encoding:4];
+  PLLogRegisteredEvent();
   os_unfair_lock_unlock(&self->_lock);
 }
 

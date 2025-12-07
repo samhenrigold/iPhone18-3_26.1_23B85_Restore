@@ -303,7 +303,6 @@ void __66__AKAppleIDSigningController_absintheSignatureForData_completion___bloc
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __66__AKAppleIDSigningController_absintheSignatureForData_completion___block_invoke_103(void *a1, void *a2, void *a3)
@@ -346,7 +345,6 @@ void __66__AKAppleIDSigningController_absintheSignatureForData_completion___bloc
   (*(a1[4] + 16))();
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)signaturesForData:(id)data options:(id)options completion:(id)completion
@@ -436,7 +434,6 @@ void __67__AKAppleIDSigningController_signaturesForData_options_completion___blo
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __67__AKAppleIDSigningController_signaturesForData_options_completion___block_invoke_105(void *a1, void *a2, void *a3, void *a4)
@@ -482,7 +479,6 @@ void __67__AKAppleIDSigningController_signaturesForData_options_completion___blo
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)attestationDataForRequest:(id)request completion:(id)completion
@@ -517,7 +513,6 @@ void __67__AKAppleIDSigningController_signaturesForData_options_completion___blo
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __67__AKAppleIDSigningController_attestationDataForRequest_completion___block_invoke(uint64_t *a1, void *a2, void *a3)
@@ -565,7 +560,6 @@ void __67__AKAppleIDSigningController_attestationDataForRequest_completion___blo
   objc_storeStrong(&v6, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)signingHeadersForRequest:(id)request completion:(id)completion
@@ -844,14 +838,12 @@ void __79__AKAppleIDSigningController_Convenience__signingHeadersForRequest_comp
     objc_storeStrong(&v5, 0);
     v2 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 48), "code")}];
     v1 = [v2 stringValue];
-    *(*(a1 + 56) + 40);
     [*(a1 + 40) setObject:? forKeyedSubscript:?];
     MEMORY[0x1E69E5920](v1);
     MEMORY[0x1E69E5920](v2);
   }
 
   dispatch_group_leave(*(a1 + 64));
-  *MEMORY[0x1E69E9840];
 }
 
 void __79__AKAppleIDSigningController_Convenience__signingHeadersForRequest_completion___block_invoke_157(uint64_t a1, void *a2)
@@ -1000,7 +992,6 @@ void __79__AKAppleIDSigningController_Convenience__signingHeadersForRequest_comp
   }
 
   dispatch_group_leave(*(a1 + 72));
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __79__AKAppleIDSigningController_Convenience__signingHeadersForRequest_completion___block_invoke_162(uint64_t a1)
@@ -1019,9 +1010,7 @@ uint64_t __79__AKAppleIDSigningController_Convenience__signingHeadersForRequest_
   v2 = (*(a1 + 40) + 16);
   v3 = [*(a1 + 32) copy];
   (*v2)();
-  result = MEMORY[0x1E69E5920](v3);
-  *MEMORY[0x1E69E9840];
-  return result;
+  return MEMORY[0x1E69E5920](v3);
 }
 
 - (void)signWithBAAHeaders:(id)headers completion:(id)completion
@@ -1053,7 +1042,6 @@ uint64_t __79__AKAppleIDSigningController_Convenience__signingHeadersForRequest_
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -1087,65 +1075,65 @@ void __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion
 
 void __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion___block_invoke_2(uint64_t a1)
 {
-  v94 = *MEMORY[0x1E69E9840];
-  v87[2] = a1;
-  v87[1] = a1;
-  v87[0] = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v93 = *MEMORY[0x1E69E9840];
+  v86[2] = a1;
+  v86[1] = a1;
+  v86[0] = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (*(a1 + 32))
   {
-    [v87[0] addEntriesFromDictionary:*(a1 + 32)];
+    [v86[0] addEntriesFromDictionary:*(a1 + 32)];
   }
 
   else
   {
     location = _AKLogSystem();
-    v85 = OS_LOG_TYPE_ERROR;
+    v84 = OS_LOG_TYPE_ERROR;
     if (os_log_type_enabled(location, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v93, *(a1 + 40));
-      _os_log_error_impl(&dword_193225000, location, v85, "Failed to fetch attestation headers, error: %@", v93, 0xCu);
+      __os_log_helper_16_2_1_8_64(v92, *(a1 + 40));
+      _os_log_error_impl(&dword_193225000, location, v84, "Failed to fetch attestation headers, error: %@", v92, 0xCu);
     }
 
     objc_storeStrong(&location, 0);
-    v38 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 40), "code")}];
-    v84 = [v38 stringValue];
+    v37 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(a1 + 40), "code")}];
+    v83 = [v37 stringValue];
+    MEMORY[0x1E69E5920](v37);
+    v38 = [*(a1 + 40) underlyingErrors];
+    v39 = [v38 count];
     MEMORY[0x1E69E5920](v38);
-    v39 = [*(a1 + 40) underlyingErrors];
-    v40 = [v39 count];
-    MEMORY[0x1E69E5920](v39);
-    if (v40)
+    if (v39)
     {
-      v34 = MEMORY[0x1E696AD98];
-      v37 = [*(a1 + 40) underlyingErrors];
-      v36 = [v37 firstObject];
-      v35 = [v34 numberWithInteger:{objc_msgSend(v36, "code")}];
-      v1 = [v35 stringValue];
-      v2 = v84;
-      v84 = v1;
+      v33 = MEMORY[0x1E696AD98];
+      v36 = [*(a1 + 40) underlyingErrors];
+      v35 = [v36 firstObject];
+      v34 = [v33 numberWithInteger:{objc_msgSend(v35, "code")}];
+      v1 = [v34 stringValue];
+      v2 = v83;
+      v83 = v1;
       MEMORY[0x1E69E5920](v2);
+      MEMORY[0x1E69E5920](v34);
       MEMORY[0x1E69E5920](v35);
       MEMORY[0x1E69E5920](v36);
-      MEMORY[0x1E69E5920](v37);
     }
 
-    [v87[0] setObject:v84 forKeyedSubscript:@"X-Apple-Baa-E"];
-    v83 = [*(a1 + 40) ak_allUnderlyingErrors];
-    v82 = [MEMORY[0x1E695DF70] array];
-    v32 = v83;
-    v76 = MEMORY[0x1E69E9820];
-    v77 = -1073741824;
-    v78 = 0;
-    v79 = __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion___block_invoke_165;
-    v80 = &unk_1E73D6368;
-    v81 = MEMORY[0x1E69E5928](v82);
-    [v32 enumerateObjectsUsingBlock:&v76];
-    v33 = [v82 componentsJoinedByString:@"|"];
-    [v87[0] setObject:? forKeyedSubscript:?];
-    MEMORY[0x1E69E5920](v33);
+    [v86[0] setObject:v83 forKeyedSubscript:@"X-Apple-Baa-E"];
+    v82 = [*(a1 + 40) ak_allUnderlyingErrors];
+    v81 = [MEMORY[0x1E695DF70] array];
+    v31 = v82;
+    v75 = MEMORY[0x1E69E9820];
+    v76 = -1073741824;
+    v77 = 0;
+    v78 = __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion___block_invoke_165;
+    v79 = &unk_1E73D6368;
+    v80 = MEMORY[0x1E69E5928](v81);
+    [v31 enumerateObjectsUsingBlock:&v75];
+    v32 = [v81 componentsJoinedByString:@"|"];
+    [v86[0] setObject:? forKeyedSubscript:?];
+    MEMORY[0x1E69E5920](v32);
+    objc_storeStrong(&v80, 0);
     objc_storeStrong(&v81, 0);
     objc_storeStrong(&v82, 0);
     objc_storeStrong(&v83, 0);
-    objc_storeStrong(&v84, 0);
   }
 
   if (SDeviceIdentityIsSupported())
@@ -1158,171 +1146,172 @@ void __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion
     v3 = @"2";
   }
 
-  [v87[0] setObject:v3 forKeyedSubscript:@"X-Apple-Baa-Avail"];
-  v75 = [*(a1 + 48) HTTPBody];
-  if (v75)
+  [v86[0] setObject:v3 forKeyedSubscript:@"X-Apple-Baa-Avail"];
+  v74 = [*(a1 + 48) HTTPBody];
+  if (v74)
   {
-    v30 = [MEMORY[0x1E695DF00] date];
-    v74 = [v30 ak_serverFriendlyString];
+    v29 = [MEMORY[0x1E695DF00] date];
+    v73 = [v29 ak_serverFriendlyString];
+    MEMORY[0x1E69E5920](v29);
+    v72 = [v74 ak_SHA256Data];
+    v30 = [v72 aaf_toHexString];
+    v71 = [v30 lowercaseString];
     MEMORY[0x1E69E5920](v30);
-    v73 = [v75 ak_SHA256Data];
-    v31 = [v73 aaf_toHexString];
-    v72 = [v31 lowercaseString];
-    MEMORY[0x1E69E5920](v31);
-    v71 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", v72, v74];
-    v70 = [v71 dataUsingEncoding:4];
-    v69 = 0;
+    v70 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", v71, v73];
+    v69 = [v70 dataUsingEncoding:4];
     v68 = 0;
     v67 = 0;
+    v66 = 0;
     if (SDeviceIdentityIsSupported())
     {
-      v66 = v69;
       v65 = v68;
-      v29 = SDeviceIdentityCreateHostSignature(v70, 0, &v66, &v65);
-      objc_storeStrong(&v69, v66);
+      v64 = v67;
+      v28 = SDeviceIdentityCreateHostSignature(v69, 0, &v65, &v64);
       objc_storeStrong(&v68, v65);
-      v4 = v67;
-      v67 = v29;
+      objc_storeStrong(&v67, v64);
+      v4 = v66;
+      v66 = v28;
       MEMORY[0x1E69E5920](v4);
     }
 
     else
     {
-      v64 = _AKLogSystem();
-      v63 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v63 = _AKLogSystem();
+      v62 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
       {
-        v27 = v64;
-        v28 = v63;
-        __os_log_helper_16_0_0(v62);
-        _os_log_error_impl(&dword_193225000, v27, v28, "DeviceIdentity not available", v62, 2u);
+        v26 = v63;
+        v27 = v62;
+        __os_log_helper_16_0_0(v61);
+        _os_log_error_impl(&dword_193225000, v26, v27, "DeviceIdentity not available", v61, 2u);
       }
 
-      objc_storeStrong(&v64, 0);
+      objc_storeStrong(&v63, 0);
       v5 = [MEMORY[0x1E696ABC0] ak_errorWithCode:-7066];
-      v6 = v68;
-      v68 = v5;
+      v6 = v67;
+      v67 = v5;
       MEMORY[0x1E69E5920](v6);
     }
 
-    if (v68)
+    if (v67)
     {
-      v61 = _AKLogSystem();
-      v60 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v60 = _AKLogSystem();
+      v59 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_1_8_64(v92, v68);
-        _os_log_error_impl(&dword_193225000, v61, v60, "Failed to fetch host attestation headers, error: %@", v92, 0xCu);
+        __os_log_helper_16_2_1_8_64(v91, v67);
+        _os_log_error_impl(&dword_193225000, v60, v59, "Failed to fetch host attestation headers, error: %@", v91, 0xCu);
       }
 
-      objc_storeStrong(&v61, 0);
-      v24 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v68, "code")}];
-      v59 = [v24 stringValue];
+      objc_storeStrong(&v60, 0);
+      v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v67, "code")}];
+      v58 = [v23 stringValue];
+      MEMORY[0x1E69E5920](v23);
+      v24 = [v67 underlyingErrors];
+      v25 = [v24 count];
       MEMORY[0x1E69E5920](v24);
-      v25 = [v68 underlyingErrors];
-      v26 = [v25 count];
-      MEMORY[0x1E69E5920](v25);
-      if (v26)
+      if (v25)
       {
-        v20 = MEMORY[0x1E696AD98];
-        v23 = [v68 underlyingErrors];
-        v22 = [v23 firstObject];
-        v21 = [v20 numberWithInteger:{objc_msgSend(v22, "code")}];
-        v7 = [v21 stringValue];
-        v8 = v59;
-        v59 = v7;
+        v19 = MEMORY[0x1E696AD98];
+        v22 = [v67 underlyingErrors];
+        v21 = [v22 firstObject];
+        v20 = [v19 numberWithInteger:{objc_msgSend(v21, "code")}];
+        v7 = [v20 stringValue];
+        v8 = v58;
+        v58 = v7;
         MEMORY[0x1E69E5920](v8);
+        MEMORY[0x1E69E5920](v20);
         MEMORY[0x1E69E5920](v21);
         MEMORY[0x1E69E5920](v22);
-        MEMORY[0x1E69E5920](v23);
       }
 
-      [v87[0] setObject:v59 forKeyedSubscript:@"X-Apple-Host-Baa-E"];
-      objc_storeStrong(&v59, 0);
+      [v86[0] setObject:v58 forKeyedSubscript:@"X-Apple-Host-Baa-E"];
+      objc_storeStrong(&v58, 0);
     }
 
-    if (v67 && v69)
+    if (v66 && v68)
     {
-      v58 = _AKLogSystem();
-      v57 = OS_LOG_TYPE_DEBUG;
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+      v57 = _AKLogSystem();
+      v56 = OS_LOG_TYPE_DEBUG;
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
       {
-        v18 = v58;
-        v19 = v57;
-        __os_log_helper_16_0_0(v56);
-        _os_log_debug_impl(&dword_193225000, v18, v19, "Received signed host data and certificate chain", v56, 2u);
+        v17 = v57;
+        v18 = v56;
+        __os_log_helper_16_0_0(v55);
+        _os_log_debug_impl(&dword_193225000, v17, v18, "Received signed host data and certificate chain", v55, 2u);
       }
 
-      objc_storeStrong(&v58, 0);
-      v55 = 0;
+      objc_storeStrong(&v57, 0);
+      v54 = 0;
       v9 = *(a1 + 56);
-      v53 = 0;
-      v17 = [v9 _parseDERCertificatesFromChain:v69 error:&v53];
-      objc_storeStrong(&v55, v53);
-      v54 = v17;
-      if (!v55)
+      v52 = 0;
+      v16 = [v9 _parseDERCertificatesFromChain:v68 error:&v52];
+      objc_storeStrong(&v54, v52);
+      v53 = v16;
+      if (!v54)
       {
-        v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v51 = objc_alloc_init(MEMORY[0x1E695DF70]);
         for (i = 0; i < 2; ++i)
         {
-          v16 = [v54 objectAtIndexedSubscript:i];
-          v15 = [v16 base64EncodedStringWithOptions:0];
-          [v52 addObject:?];
+          v15 = [v53 objectAtIndexedSubscript:i];
+          v14 = [v15 base64EncodedStringWithOptions:0];
+          [v51 addObject:?];
+          MEMORY[0x1E69E5920](v14);
           MEMORY[0x1E69E5920](v15);
-          MEMORY[0x1E69E5920](v16);
         }
 
         oslog = _AKLogSystem();
-        v49 = OS_LOG_TYPE_DEBUG;
+        v48 = OS_LOG_TYPE_DEBUG;
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_2_1_8_64(v91, v69);
-          _os_log_debug_impl(&dword_193225000, oslog, v49, "hostCertificateChain: %@", v91, 0xCu);
+          __os_log_helper_16_2_1_8_64(v90, v68);
+          _os_log_debug_impl(&dword_193225000, oslog, v48, "hostCertificateChain: %@", v90, 0xCu);
         }
 
         objc_storeStrong(&oslog, 0);
-        v89 = @"certs";
-        v90 = v52;
-        v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-        v47 = 0;
-        v45 = 0;
-        v14 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v48 options:0 error:&v45];
-        objc_storeStrong(&v47, v45);
-        v46 = v14;
-        if (v14)
+        v88 = @"certs";
+        v89 = v51;
+        v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+        v46 = 0;
+        v44 = 0;
+        v13 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v47 options:0 error:&v44];
+        objc_storeStrong(&v46, v44);
+        v45 = v13;
+        if (v13)
         {
-          v44 = [v46 aaf_toCompressedData:517];
-          v43 = [v44 base64EncodedStringWithOptions:?];
-          [v87[0] setObject:v43 forKeyedSubscript:@"X-Apple-Host-Baa"];
-          v13 = [v67 base64EncodedStringWithOptions:0];
-          [v87[0] setObject:? forKeyedSubscript:?];
-          MEMORY[0x1E69E5920](v13);
+          v43 = [v45 aaf_toCompressedData:517];
+          v42 = [v43 base64EncodedStringWithOptions:?];
+          [v86[0] setObject:v42 forKeyedSubscript:@"X-Apple-Host-Baa"];
+          v12 = [v66 base64EncodedStringWithOptions:0];
+          [v86[0] setObject:? forKeyedSubscript:?];
+          MEMORY[0x1E69E5920](v12);
+          objc_storeStrong(&v42, 0);
           objc_storeStrong(&v43, 0);
-          objc_storeStrong(&v44, 0);
         }
 
         else
         {
-          v42 = _AKLogSystem();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+          v41 = _AKLogSystem();
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            __os_log_helper_16_2_1_8_64(v88, v47);
-            _os_log_error_impl(&dword_193225000, v42, OS_LOG_TYPE_ERROR, "Failed to process host certificate chain, error: %@", v88, 0xCu);
+            __os_log_helper_16_2_1_8_64(v87, v46);
+            _os_log_error_impl(&dword_193225000, v41, OS_LOG_TYPE_ERROR, "Failed to process host certificate chain, error: %@", v87, 0xCu);
           }
 
-          objc_storeStrong(&v42, 0);
+          objc_storeStrong(&v41, 0);
         }
 
+        objc_storeStrong(&v45, 0);
         objc_storeStrong(&v46, 0);
         objc_storeStrong(&v47, 0);
-        objc_storeStrong(&v48, 0);
-        objc_storeStrong(&v52, 0);
+        objc_storeStrong(&v51, 0);
       }
 
+      objc_storeStrong(&v53, 0);
       objc_storeStrong(&v54, 0);
-      objc_storeStrong(&v55, 0);
     }
 
+    objc_storeStrong(&v66, 0);
     objc_storeStrong(&v67, 0);
     objc_storeStrong(&v68, 0);
     objc_storeStrong(&v69, 0);
@@ -1330,17 +1319,14 @@ void __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion
     objc_storeStrong(&v71, 0);
     objc_storeStrong(&v72, 0);
     objc_storeStrong(&v73, 0);
-    objc_storeStrong(&v74, 0);
   }
 
-  v11 = (*(a1 + 64) + 16);
-  v12 = [v87[0] copy];
-  v10 = *(a1 + 40);
-  (*v11)();
-  MEMORY[0x1E69E5920](v12);
-  objc_storeStrong(&v75, 0);
-  objc_storeStrong(v87, 0);
-  *MEMORY[0x1E69E9840];
+  v10 = (*(a1 + 64) + 16);
+  v11 = [v86[0] copy];
+  (*v10)();
+  MEMORY[0x1E69E5920](v11);
+  objc_storeStrong(&v74, 0);
+  objc_storeStrong(v86, 0);
 }
 
 void __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion___block_invoke_165(void *a1, void *a2)
@@ -1450,7 +1436,6 @@ void __73__AKAppleIDSigningController_Convenience__signWithBAAHeaders_completion
 LABEL_19:
   objc_storeStrong(&v31, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v10 = v34;
 
   return v10;
@@ -1572,7 +1557,6 @@ void __91__AKAppleIDSigningController_Convenience___additionalAbsintheHeadersFor
   objc_storeStrong(v24, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_additionalAttestationHeadersForRequest:(id)request options:(id)options completion:(id)completion
@@ -1792,7 +1776,6 @@ void __102__AKAppleIDSigningController_Convenience___additionalAttestationHeader
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 id __102__AKAppleIDSigningController_Convenience___additionalAttestationHeadersForRequest_options_completion___block_invoke_2(void *a1, void *a2, void *a3)

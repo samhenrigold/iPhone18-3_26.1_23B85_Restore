@@ -124,7 +124,7 @@ void __43__VUIApplicationViewController_viewDidLoad__block_invoke_2(uint64_t a1)
   v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   controllerCopy = controller;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(controllerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -145,7 +145,7 @@ void __43__VUIApplicationViewController_viewDidLoad__block_invoke_2(uint64_t a1)
 
   else
   {
-    navigationController = VUIDefaultLogObject();
+    navigationController = VUIDefaultLogObject(0);
     if (os_log_type_enabled(navigationController, OS_LOG_TYPE_ERROR))
     {
       [(VUIApplicationViewController *)navigationController appController:v13 didFinishLaunchingWithOptions:v14, v15, v16, v17, v18, v19];
@@ -156,7 +156,7 @@ void __43__VUIApplicationViewController_viewDidLoad__block_invoke_2(uint64_t a1)
 - (void)appController:(id)controller didFailWithError:(id)error
 {
   errorCopy = error;
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [VUIApplicationViewController appController:errorCopy didFailWithError:v5];
@@ -170,19 +170,19 @@ void __43__VUIApplicationViewController_viewDidLoad__block_invoke_2(uint64_t a1)
 
   if (applicationController)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_ERROR))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_ERROR))
     {
-      [(VUIApplicationViewController *)&v6->super _startApplicationControllerWithBootURL:v7, v8, v9, v10, v11, v12, v13];
+      [(VUIApplicationViewController *)&v7->super _startApplicationControllerWithBootURL:v8, v9, v10, v11, v12, v13, v14];
     }
   }
 
   else if (lCopy)
   {
-    v6 = objc_alloc_init(VUITVApplicationControllerContext);
-    [(VUITVApplicationControllerContext *)v6 setJavaScriptApplicationURL:lCopy];
+    v7 = objc_alloc_init(VUITVApplicationControllerContext);
+    [(VUITVApplicationControllerContext *)v7 setJavaScriptApplicationURL:lCopy];
     _launchOptions = [(VUIApplicationViewController *)self _launchOptions];
-    v15 = _launchOptions;
+    v16 = _launchOptions;
     if (_launchOptions)
     {
       dictionary = [_launchOptions mutableCopy];
@@ -193,21 +193,21 @@ void __43__VUIApplicationViewController_viewDidLoad__block_invoke_2(uint64_t a1)
       dictionary = [MEMORY[0x1E695DF90] dictionary];
     }
 
-    v24 = dictionary;
+    v25 = dictionary;
     mEMORY[0x1E69DF700] = [MEMORY[0x1E69DF700] sharedInstance];
     osFeatureFlagsJSON = [mEMORY[0x1E69DF700] osFeatureFlagsJSON];
 
     if ([osFeatureFlagsJSON count])
     {
-      [v24 setObject:osFeatureFlagsJSON forKey:@"featureFlags"];
+      [v25 setObject:osFeatureFlagsJSON forKey:@"featureFlags"];
     }
 
-    v27 = [v24 copy];
-    [(VUITVApplicationControllerContext *)v6 setLaunchOptions:v27];
+    v28 = [v25 copy];
+    [(VUITVApplicationControllerContext *)v7 setLaunchOptions:v28];
 
-    v28 = [objc_alloc(-[VUIApplicationViewController _applicationControllerClass](self "_applicationControllerClass"))];
-    [(VUIApplicationViewController *)self setApplicationController:v28];
-    navigationController = [v28 navigationController];
+    v29 = [objc_alloc(-[VUIApplicationViewController _applicationControllerClass](self "_applicationControllerClass"))];
+    [(VUIApplicationViewController *)self setApplicationController:v29];
+    navigationController = [v29 navigationController];
     [(VUIApplicationViewController *)self setNavigationController:navigationController];
     [(VUIApplicationViewController *)self addChildViewController:navigationController];
     view = [(VUIApplicationViewController *)self view];
@@ -216,15 +216,15 @@ void __43__VUIApplicationViewController_viewDidLoad__block_invoke_2(uint64_t a1)
     [view2 setFrame:?];
     [view addSubview:view2];
     [navigationController didMoveToParentViewController:self];
-    [v28 setKeyTraitEnvironment:view];
+    [v29 setKeyTraitEnvironment:view];
   }
 
   else
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_ERROR))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(&v7->super, OS_LOG_TYPE_ERROR))
     {
-      [(VUIApplicationViewController *)&v6->super _startApplicationControllerWithBootURL:v17, v18, v19, v20, v21, v22, v23];
+      [(VUIApplicationViewController *)&v7->super _startApplicationControllerWithBootURL:v18, v19, v20, v21, v22, v23, v24];
     }
   }
 }

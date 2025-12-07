@@ -550,8 +550,8 @@ LABEL_7:
         [(ASCArtworkView *)lastObject setUserInteractionEnabled:0];
         [(ASCArtworkView *)lastObject setIsAccessibilityElement:1];
         [(ASCArtworkView *)lastObject setAccessibilityTraits:v26];
-        v32 = ASCLocalizedString(@"AX_ARTWORK", v31);
-        [(ASCArtworkView *)lastObject setAccessibilityLabel:v32];
+        v31 = ASCLocalizedString(@"AX_ARTWORK");
+        [(ASCArtworkView *)lastObject setAccessibilityLabel:v31];
 
         imageViews10 = [(ASCMiniProductPageMediaView *)self imageViews];
         [imageViews10 addObject:lastObject];
@@ -560,10 +560,10 @@ LABEL_7:
       }
 
       imageViews11 = [(ASCMiniProductPageMediaView *)self imageViews];
-      v37 = [imageViews11 count];
+      v36 = [imageViews11 count];
     }
 
-    while (v37 != v4);
+    while (v36 != v4);
   }
 }
 

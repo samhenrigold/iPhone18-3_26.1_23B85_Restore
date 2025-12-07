@@ -19,7 +19,7 @@
   v3 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
   v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_21D0D8CF0(0, &qword_280D1B900);
+  sub_21D0D8CF0(0, &qword_280D1B900, 0x277D85C78);
   (*(v3 + 104))(v5, *MEMORY[0x277D851D0], v2);
   v6 = sub_21DBFB15C();
   (*(v3 + 8))(v5, v2);
@@ -29,11 +29,11 @@
 
 - (void)notifyEventFromSaveRequest:(id)request
 {
-  sub_21D0D8CF0(0, &unk_280D0C1E0);
-  sub_21D19F2B8(&qword_27CE59990, &unk_280D0C1E0);
+  sub_21D0D8CF0(0, &unk_280D0C1E0, 0x277CCABB0);
+  sub_21D19F2B8(&qword_27CE59990, &unk_280D0C1E0, 0x277CCABB0);
   v4 = sub_21DBFAAAC();
   selfCopy = self;
-  TTRRemindersListInteractor.notifyEvent(fromSaveRequest:)(v4);
+  TTRRemindersListInteractor.notifyEvent(fromSaveRequest:)(v4, v6);
 }
 
 @end

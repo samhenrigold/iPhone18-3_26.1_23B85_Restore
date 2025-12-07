@@ -30,46 +30,46 @@
   return v3;
 }
 
-uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke()
+uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedHandler_handler;
-  sharedHandler_handler = v0;
+  v2 = objc_opt_new();
+  v3 = sharedHandler_handler;
+  sharedHandler_handler = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (SPCorrectionHandler)init
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = SPCorrectionHandler;
-  v2 = [(SPCorrectionHandler *)&v16 init];
+  v32 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = SPCorrectionHandler;
+  v2 = [(SPCorrectionHandler *)&v15 init];
   if (v2)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    *buffer = 0u;
+    v21 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    *buffer = 0u;
+    v17 = 0u;
     v3 = CFCopyHomeDirectoryURL();
     v4 = CFURLCopyFileSystemPath(v3, kCFURLPOSIXPathStyle);
     MutableCopy = CFStringCreateMutableCopy(0, 0, v4);
     CFStringAppend(MutableCopy, @"/Library/Spotlight/Corrections");
     CFStringGetFileSystemRepresentation(MutableCopy, buffer, 256);
-    memset(&v15, 0, sizeof(v15));
-    if (stat(buffer, &v15))
+    memset(&v14, 0, sizeof(v14));
+    if (stat(buffer, &v14))
     {
       mkdir(buffer, 0x1FFu);
     }
@@ -81,8 +81,8 @@ uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke()
     v9 = [v6 URLWithString:v8];
     [(SPCorrectionHandler *)v2 setVersionInfoLocation:v9];
 
-    v14 = *byte_2846BBE38;
-    [(SPCorrectionHandler *)v2 setCorrectionRefs:CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], &v14)];
+    v13 = *byte_2846BBE38;
+    [(SPCorrectionHandler *)v2 setCorrectionRefs:CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBED60], &v13)];
     v10 = objc_opt_new();
     [(SPCorrectionHandler *)v2 setCorrectionRefsLock:v10];
 
@@ -94,7 +94,6 @@ uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke()
     CFRelease(MutableCopy);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -163,20 +162,19 @@ uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke()
 {
   handleCopy = handle;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_231A35000, v6, OS_LOG_TYPE_INFO, "Processing corrections begin", buf, 2u);
-  }
-
-  [(SPCorrectionHandler *)selfCopy processCorrectionsWithHandle:handleCopy];
-  v7 = logForCSLogCategoryDefault();
+  v6 = objc_sync_enter(selfCopy);
+  v7 = logForCSLogCategoryDefault(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_231A35000, v7, OS_LOG_TYPE_INFO, "Processing corrections complete", v8, 2u);
+    *buf = 0;
+    _os_log_impl(&dword_231A35000, v7, OS_LOG_TYPE_INFO, "Processing corrections begin", buf, 2u);
+  }
+
+  v8 = logForCSLogCategoryDefault([(SPCorrectionHandler *)selfCopy processCorrectionsWithHandle:handleCopy]);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    *v9 = 0;
+    _os_log_impl(&dword_231A35000, v8, OS_LOG_TYPE_INFO, "Processing corrections complete", v9, 2u);
   }
 
   objc_sync_exit(selfCopy);
@@ -184,7 +182,7 @@ uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke()
 
 - (BOOL)sanityCheckFile:(__sFILE *)file
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (file)
   {
     bzero(__ptr, 0x400uLL);
@@ -197,7 +195,7 @@ uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke()
 
     else
     {
-      v4 = logForCSLogCategoryDefault();
+      v4 = logForCSLogCategoryDefault(0);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         [SPCorrectionHandler sanityCheckFile:];
@@ -209,80 +207,78 @@ uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke()
 
   else
   {
-    v6 = logForCSLogCategoryDefault();
+    v6 = logForCSLogCategoryDefault(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [SPCorrectionHandler sanityCheckFile:];
     }
 
-    v5 = 0;
+    return 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)processCorrectionsWithHandle:(id)handle
 {
   handleCopy = handle;
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x2020000000;
-  v42 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
-  v40 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__3;
-  v35 = __Block_byref_object_dispose__3;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v41 = 0;
   v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__3;
-  v29 = __Block_byref_object_dispose__3;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__3;
+  v34 = __Block_byref_object_dispose__3;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__3;
+  v28 = __Block_byref_object_dispose__3;
+  v29 = 0;
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   languageCode = [currentLocale languageCode];
 
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke;
-  v18 = &unk_278937CD8;
-  v21 = &v31;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke;
+  v17 = &unk_278937CD8;
+  v20 = &v30;
   selfCopy = self;
-  v22 = &v37;
-  v23 = &v25;
+  v21 = &v36;
+  v22 = &v24;
   v7 = languageCode;
-  v20 = v7;
-  v24 = v41;
-  v8 = &v15;
+  v19 = v7;
+  v23 = v40;
+  v8 = &v14;
   fileDescriptor = [handleCopy fileDescriptor];
   v10 = fileDescriptor;
   if (fileDescriptor != -1)
   {
-    memset(&v43, 0, sizeof(v43));
-    fstat(fileDescriptor, &v43);
-    st_size = v43.st_size;
-    v12 = mmap(0, v43.st_size, 1, 1, v10, 0);
+    memset(&v42, 0, sizeof(v42));
+    fstat(fileDescriptor, &v42);
+    st_size = v42.st_size;
+    v12 = mmap(0, v42.st_size, 1, 1, v10, 0);
     v13 = v12;
     if (v12 != -1)
     {
       madvise(v12, st_size, 2);
-      (v17)(v8, v13, st_size);
+      (v16)(v8, v13, st_size);
       munmap(v13, st_size);
     }
   }
 
-  if (v38[3])
+  if (v37[3])
   {
-    if (v26[5] && v32[5])
+    if (v25[5] && v31[5])
     {
       [SPCorrectionHandler commitDictionary:"commitDictionary:language:version:" language:? version:?];
-      v14 = v38[3];
     }
 
     SICorrectionDestory();
@@ -290,11 +286,11 @@ uint64_t __36__SPCorrectionHandler_sharedHandler__block_invoke()
 
   [(SPCorrectionHandler *)self revokeUnusedFiles];
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(v41, 8);
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(v40, 8);
 }
 
 void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke()
@@ -303,75 +299,75 @@ void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke()
   v2 = v1;
   v4 = v3;
   v5 = v0;
-  v49[3] = *MEMORY[0x277D85DE8];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_2;
-  v27[3] = &unk_278937C60;
-  v27[4] = *(v0 + 48);
-  v6 = MEMORY[0x2383760E0](v27);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v7 = *(v5 + 56);
-  v24[2] = __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_3;
-  v24[3] = &unk_278937C88;
-  v24[4] = *(v5 + 32);
-  v26 = v7;
-  v22 = *(v5 + 40);
-  v8 = v22;
-  v25 = v22;
-  v9 = MEMORY[0x2383760E0](v24);
+  v48[3] = *MEMORY[0x277D85DE8];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_2;
+  v26[3] = &unk_278937C60;
+  v26[4] = *(v0 + 48);
+  v6 = MEMORY[0x2383760E0](v26);
   v23[0] = MEMORY[0x277D85DD0];
   v23[1] = 3221225472;
-  v23[2] = __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_4;
-  v23[3] = &unk_278937CB0;
-  v23[4] = *(v5 + 56);
-  v10 = MEMORY[0x2383760E0](v23);
+  v7 = *(v5 + 56);
+  v23[2] = __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_3;
+  v23[3] = &unk_278937C88;
+  v23[4] = *(v5 + 32);
+  v25 = v7;
+  v21 = *(v5 + 40);
+  v8 = v21;
+  v24 = v21;
+  v9 = MEMORY[0x2383760E0](v23);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_4;
+  v22[3] = &unk_278937CB0;
+  v22[4] = *(v5 + 56);
+  v10 = MEMORY[0x2383760E0](v22);
   v11 = v6;
   v12 = v9;
   v13 = v10;
-  memset(v49, 0, 24);
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x2020000000;
-  v47 = -1;
-  bzero(v48, 0x6000uLL);
+  memset(v48, 0, 24);
   v45[0] = 0;
   v45[1] = v45;
   v45[2] = 0x2020000000;
-  v45[3] = v48;
+  v46 = -1;
+  bzero(v47, 0x6000uLL);
   v44[0] = 0;
   v44[1] = v44;
   v44[2] = 0x2020000000;
-  v44[3] = 0;
+  v44[3] = v47;
   v43[0] = 0;
   v43[1] = v43;
-  v43[2] = 0x3810000000;
-  v43[3] = &unk_231B07211;
-  v43[5] = 0;
-  v43[6] = 0;
-  v43[4] = 1;
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __si_process_corrections_block_invoke;
-  v29[3] = &unk_278937D00;
-  v33 = v46;
-  v34 = v44;
+  v43[2] = 0x2020000000;
+  v43[3] = 0;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x3810000000;
+  v42[3] = &unk_231B07211;
+  v42[5] = 0;
+  v42[6] = 0;
+  v42[4] = 1;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __si_process_corrections_block_invoke;
+  v28[3] = &unk_278937D00;
+  v32 = v45;
+  v33 = v43;
   v14 = v13;
-  v30 = v14;
-  v35 = v43;
-  v36 = v45;
-  v37 = v49;
-  v38 = "";
-  v39 = "q";
-  v40 = "c";
-  v41 = "version";
-  v42 = "language";
+  v29 = v14;
+  v34 = v42;
+  v35 = v44;
+  v36 = v48;
+  v37 = "";
+  v38 = "q";
+  v39 = "c";
+  v40 = "version";
+  v41 = "language";
   v15 = v12;
-  v31 = v15;
+  v30 = v15;
   v16 = v11;
-  v32 = v16;
-  v17 = MEMORY[0x2383760E0](v29);
+  v31 = v16;
+  v17 = MEMORY[0x2383760E0](v28);
   v18 = v4 + v2;
   do
   {
@@ -381,28 +377,27 @@ void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke()
       break;
     }
 
-    v28 = 0;
+    v27 = 0;
     v20 = json_parse();
-    v4 += v28;
+    v4 += v27;
   }
 
   while ((v20 & 1) != 0);
 
+  _Block_object_dispose(v42, 8);
   _Block_object_dispose(v43, 8);
   _Block_object_dispose(v44, 8);
   _Block_object_dispose(v45, 8);
-  _Block_object_dispose(v46, 8);
 
   *(*(*(v5 + 72) + 8) + 24) = v19 >= v18;
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  memset(v9, 0, sizeof(v9));
-  json_utf8_string(a2, v9, 0x100uLL);
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v9];
+  v9 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, sizeof(v8));
+  json_utf8_string(a2, v8, 0x100uLL);
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
@@ -411,18 +406,16 @@ void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_2(uin
   {
     *a3 = 1;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_3(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 48) + 8) + 40))
   {
-    memset(v15, 0, sizeof(v15));
-    json_utf8_string(a2, v15, 0x100uLL);
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v15];
+    memset(v12, 0, sizeof(v12));
+    json_utf8_string(a2, v12, 0x100uLL);
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
     v6 = *(*(*(a1 + 48) + 8) + 40);
     v7 = [*(a1 + 32) lastCommittedVersions];
     v8 = [v7 valueForKey:v5];
@@ -432,9 +425,7 @@ void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_3(uin
     {
       if ((v9 & 1) == 0 && *(*(*(a1 + 64) + 8) + 40))
       {
-        v10 = *(*(*(a1 + 48) + 8) + 40);
         [*(a1 + 32) commitDictionary:? language:? version:?];
-        v11 = *(*(*(a1 + 56) + 8) + 24);
       }
 
       SICorrectionDestory();
@@ -446,12 +437,12 @@ void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_3(uin
       objc_storeStrong((*(*(a1 + 64) + 8) + 40), v5);
       if ([*(a1 + 40) isEqualToString:*(*(*(a1 + 64) + 8) + 40)])
       {
-        v12 = [*(a1 + 32) correctionRefsLock];
-        [v12 lock];
+        v10 = [*(a1 + 32) correctionRefsLock];
+        [v10 lock];
 
         *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) openCorrectionRef:*(*(*(a1 + 48) + 8) + 40) language:*(*(*(a1 + 64) + 8) + 40) create:1];
-        v13 = [*(a1 + 32) correctionRefsLock];
-        [v13 unlock];
+        v11 = [*(a1 + 32) correctionRefsLock];
+        [v11 unlock];
 
         if (!*(*(*(a1 + 56) + 8) + 24))
         {
@@ -468,25 +459,23 @@ void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_3(uin
   {
     *a3 = 1;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  bzero(v14, 0x400uLL);
+  v13 = *MEMORY[0x277D85DE8];
+  bzero(v12, 0x400uLL);
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     v8 = objc_autoreleasePoolPush();
-    json_utf8_string(a2, v14, 0x400uLL);
-    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
+    json_utf8_string(a2, v12, 0x400uLL);
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
     if ([v9 length])
     {
       for (i = [MEMORY[0x277CBEB18] arrayWithCapacity:a4];
       {
-        json_utf8_string(a3, v14, 0x400uLL);
-        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v14];
+        json_utf8_string(a3, v12, 0x400uLL);
+        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
         if ([v11 length])
         {
           [i addObject:v11];
@@ -497,15 +486,12 @@ void __52__SPCorrectionHandler_processCorrectionsWithHandle___block_invoke_4(uin
 
       if ([i count])
       {
-        v12 = *(*(*(a1 + 32) + 8) + 24);
         SIAddCorrection();
       }
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openCorrectionRef:(id)ref language:(id)language create:(BOOL)create
@@ -525,7 +511,7 @@ LABEL_4:
 
   else
   {
-    v13 = logForCSLogCategoryDefault();
+    v13 = logForCSLogCategoryDefault(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [SPCorrectionHandler openCorrectionRef:language:create:];
@@ -554,60 +540,58 @@ LABEL_4:
 
   if (v8)
   {
-    v9 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = logForCSLogCategoryDefault(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(SPCorrectionHandler *)self readCommittedVersions];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
     v21 = v7;
-    v9 = [v7 componentsSeparatedByString:@"\n"];
+    v10 = [v7 componentsSeparatedByString:@"\n"];
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v11 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
-    if (v11)
+    v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v13 = *v23;
+      v13 = v12;
+      v14 = *v23;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v13)
+          if (*v23 != v14)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
-          if ([v15 length])
+          v16 = *(*(&v22 + 1) + 8 * i);
+          if ([v16 length])
           {
-            v16 = [v15 componentsSeparatedByString:@":"];
-            lastObject = [v16 lastObject];
-            firstObject = [v16 firstObject];
+            v17 = [v16 componentsSeparatedByString:@":"];
+            lastObject = [v17 lastObject];
+            firstObject = [v17 firstObject];
             [v3 setValue:lastObject forKey:firstObject];
           }
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
-    v10 = v3;
+    v11 = v3;
     v7 = v21;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 - (void)writeCommittedVersions:(id)versions
@@ -615,24 +599,24 @@ LABEL_4:
   v4 = MEMORY[0x277CCAB68];
   versionsCopy = versions;
   string = [v4 string];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __46__SPCorrectionHandler_writeCommittedVersions___block_invoke;
-  v13[3] = &unk_278936E60;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __46__SPCorrectionHandler_writeCommittedVersions___block_invoke;
+  v14[3] = &unk_278936E60;
   v7 = string;
-  v14 = v7;
-  [versionsCopy enumerateKeysAndObjectsUsingBlock:v13];
+  v15 = v7;
+  [versionsCopy enumerateKeysAndObjectsUsingBlock:v14];
 
   versionInfoLocation = [(SPCorrectionHandler *)self versionInfoLocation];
   path = [versionInfoLocation path];
-  v12 = 0;
-  [v7 writeToFile:path atomically:1 encoding:1 error:&v12];
-  v10 = v12;
+  v13 = 0;
+  [v7 writeToFile:path atomically:1 encoding:1 error:&v13];
+  v10 = v13;
 
   if (v10)
   {
-    v11 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = logForCSLogCategoryDefault(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SPCorrectionHandler writeCommittedVersions:];
     }
@@ -657,7 +641,7 @@ LABEL_4:
 - (void)revokeUnusedFiles
 {
   selfCopy = self;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   readCommittedVersions = [(SPCorrectionHandler *)self readCommittedVersions];
   correctionRefsLock = [(SPCorrectionHandler *)selfCopy correctionRefsLock];
   [correctionRefsLock lock];
@@ -668,38 +652,38 @@ LABEL_4:
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v6 = [MEMORY[0x277CBEBC0] URLWithString:v4];
   v7 = *MEMORY[0x277CBE8E8];
-  v40 = *MEMORY[0x277CBE8E8];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
-  v31 = defaultManager;
+  v39 = *MEMORY[0x277CBE8E8];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+  v30 = defaultManager;
   v9 = [defaultManager contentsOfDirectoryAtURL:v6 includingPropertiesForKeys:v8 options:0 error:0];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v10 = v9;
-  v33 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v33)
+  v32 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v32)
   {
-    v28 = v4;
-    v29 = v7;
+    v27 = v4;
+    v28 = v7;
     v11 = 0;
-    v32 = *v36;
+    v31 = *v35;
     do
     {
       v12 = 0;
       v13 = v11;
       do
       {
-        if (*v36 != v32)
+        if (*v35 != v31)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * v12);
-        v34 = 0;
-        [v14 getResourceValue:&v34 forKey:v7 error:0];
-        v11 = v34;
+        v14 = *(*(&v34 + 1) + 8 * v12);
+        v33 = 0;
+        [v14 getResourceValue:&v33 forKey:v7 error:0];
+        v11 = v33;
 
         versionInfoLocation = [(SPCorrectionHandler *)selfCopy versionInfoLocation];
         path = [versionInfoLocation path];
@@ -720,17 +704,17 @@ LABEL_4:
 
             if ((v25 & 1) == 0)
             {
-              [v31 removeItemAtURL:v14 error:0];
+              [v30 removeItemAtURL:v14 error:0];
             }
 
             selfCopy = v21;
             v10 = v20;
-            v7 = v29;
+            v7 = v28;
           }
 
           else
           {
-            [v31 removeItemAtURL:v14 error:0];
+            [v30 removeItemAtURL:v14 error:0];
           }
         }
 
@@ -738,13 +722,13 @@ LABEL_4:
         v13 = v11;
       }
 
-      while (v33 != v12);
-      v33 = [v10 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      while (v32 != v12);
+      v32 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
-    while (v33);
+    while (v32);
 
-    v4 = v28;
+    v4 = v27;
   }
 
   CFRelease(v4);
@@ -752,36 +736,16 @@ LABEL_4:
   [(SPCorrectionHandler *)selfCopy setLastCommittedVersions:readCommittedVersions];
   correctionRefsLock2 = [(SPCorrectionHandler *)selfCopy correctionRefsLock];
   [correctionRefsLock2 unlock];
-
-  v27 = *MEMORY[0x277D85DE8];
-}
-
-- (void)openCorrectionRef:language:create:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readCommittedVersions
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   versionInfoLocation = [self versionInfoLocation];
   path = [versionInfoLocation path];
-  v6 = 138412290;
-  v7 = path;
-  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "could not read version info %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)writeCommittedVersions:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = path;
+  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "could not read version info %@", &v5, 0xCu);
 }
 
 @end

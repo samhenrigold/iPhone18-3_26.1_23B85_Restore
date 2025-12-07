@@ -28,6 +28,7 @@
 - (void)timeout;
 - (void)transaction:(id)transaction didProcessResponseData:(id)data;
 - (void)transaction:(id)transaction processDeletedKey:(id)key isDirty:(BOOL *)dirty;
+- (void)transaction:(id)transaction processUpdatedKey:(id)key data:(id)data conflict:(BOOL)conflict isDirty:(BOOL *)dirty;
 - (void)transaction:(id)transaction willProcessResponseData:(id)data;
 @end
 
@@ -77,6 +78,39 @@
   [(SBKSyncRequestHandler *)&v5 transaction:transaction processDeletedKey:key isDirty:dirty];
 }
 
+- (void)transaction:(id)transaction processUpdatedKey:(id)key data:(id)data conflict:(BOOL)conflict isDirty:(BOOL *)dirty
+{
+  conflictCopy = conflict;
+  keyCopy = key;
+  dataCopy = data;
+  v18.receiver = self;
+  v18.super_class = SBKPlaybackPositionSyncRequestHandler;
+  [(SBKSyncRequestHandler *)&v18 transaction:transaction processUpdatedKey:keyCopy data:dataCopy conflict:conflictCopy isDirty:dirty];
+  *dirty = 0;
+  if (![(SBKPlaybackPositionSyncRequestHandler *)self _shouldStop])
+  {
+    v14 = [SBKUniversalPlaybackPositionMetadata metadataWithItemIdentifier:keyCopy keyValueStorePayload:dataCopy];
+    v15 = v14;
+    if (conflictCopy)
+    {
+      if (v14)
+      {
+        [(SBKPlaybackPositionSyncRequestHandler *)self _mergeConflictedItemFromSyncResponse:v14];
+      }
+    }
+
+    else if (v14)
+    {
+      os_unfair_lock_lock(&self->_lock);
+      responseMetadataItemsToCommitToDataSource = self->_responseMetadataItemsToCommitToDataSource;
+      itemIdentifier = [v15 itemIdentifier];
+      [(NSMutableDictionary *)responseMetadataItemsToCommitToDataSource setObject:v15 forKey:itemIdentifier];
+
+      os_unfair_lock_unlock(&self->_lock);
+    }
+  }
+}
+
 - (void)transaction:(id)transaction didProcessResponseData:(id)data
 {
   v4.receiver = self;
@@ -93,7 +127,7 @@
 
 - (BOOL)transactionController:(id)controller transactionDidFail:(id)fail error:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   failCopy = fail;
   errorCopy = error;
   if ([errorCopy isAccountsChangedError])
@@ -102,9 +136,9 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       syncAnchor = [failCopy syncAnchor];
-      v15 = 138412290;
-      v16 = syncAnchor;
-      _os_log_impl(&dword_26BC19000, v9, OS_LOG_TYPE_DEFAULT, "Detected account change.  Getting remote items since version 0 instead of %@\n", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = syncAnchor;
+      _os_log_impl(&dword_26BC19000, v9, OS_LOG_TYPE_DEFAULT, "Detected account change.  Getting remote items since version 0 instead of %@\n", &v14, 0xCu);
     }
 
     dictionary = [MEMORY[0x277CBEAC0] dictionary];
@@ -123,13 +157,12 @@
   v12 = 0;
 LABEL_8:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)_signalKVSTransactionCompletion:(id)completion withError:(id)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   completionCopy = completion;
   currentKVSTransaction = [(SBKPlaybackPositionSyncRequestHandler *)self currentKVSTransaction];
@@ -142,9 +175,9 @@ LABEL_8:
       v10 = os_log_create("com.apple.amp.StoreBookkeeper", "Sync");
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = errorCopy;
-        _os_log_impl(&dword_26BC19000, v10, OS_LOG_TYPE_DEFAULT, "transaction is being canceled.  error = %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = errorCopy;
+        _os_log_impl(&dword_26BC19000, v10, OS_LOG_TYPE_DEFAULT, "transaction is being canceled.  error = %@", &v12, 0xCu);
       }
     }
 
@@ -152,8 +185,6 @@ LABEL_8:
     currentKVSTransaction2 = [(SBKPlaybackPositionSyncRequestHandler *)self currentKVSTransaction];
     [(SBKPlaybackPositionSyncRequestHandler *)self _signalKVSTransactionCompletion:currentKVSTransaction2];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_signalKVSTransactionCompletion:(id)completion
@@ -219,7 +250,7 @@ LABEL_8:
 
 - (void)_mergeMetadataItemsFromSyncResponse
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v3 = [(NSMutableDictionary *)self->_responseMetadataItemsToCommitToDataSource copy];
   metadataItemsToCommitToDataSource = self->_metadataItemsToCommitToDataSource;
@@ -238,19 +269,18 @@ LABEL_8:
     v9 = [(NSDictionary *)self->_metadataItemsToCommitToKVSStorage count];
     allKeys = [(NSDictionary *)self->_metadataItemsToCommitToDataSource allKeys];
     allKeys2 = [(NSDictionary *)self->_metadataItemsToCommitToKVSStorage allKeys];
-    v13 = 134218754;
-    v14 = v8;
-    v15 = 2048;
-    v16 = v9;
-    v17 = 2112;
-    v18 = allKeys;
-    v19 = 2112;
-    v20 = allKeys2;
-    _os_log_impl(&dword_26BC19000, v7, OS_LOG_TYPE_DEFAULT, "Handled items in response, will save %lld items locally and push back %lld conflict resolutions\nkeys to save to local db = %@\nkeys to push to cloud db = %@\n", &v13, 0x2Au);
+    v12 = 134218754;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2112;
+    v17 = allKeys;
+    v18 = 2112;
+    v19 = allKeys2;
+    _os_log_impl(&dword_26BC19000, v7, OS_LOG_TYPE_DEFAULT, "Handled items in response, will save %lld items locally and push back %lld conflict resolutions\nkeys to save to local db = %@\nkeys to push to cloud db = %@\n", &v12, 0x2Au);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_mergeConflictedItemFromSyncResponse:(id)response
@@ -374,7 +404,7 @@ LABEL_5:
   _Block_object_dispose(&v13, 8);
 }
 
-uint64_t __74__SBKPlaybackPositionSyncRequestHandler_synchronizeWithCompletionHandler___block_invoke(uint64_t a1)
+void *__74__SBKPlaybackPositionSyncRequestHandler_synchronizeWithCompletionHandler___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) syncInProgress];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -469,20 +499,20 @@ void __52__SBKPlaybackPositionSyncRequestHandler__shouldStop__block_invoke(uint6
 
 - (BOOL)_synchronize:(id *)_synchronize
 {
-  v72 = *MEMORY[0x277D85DE8];
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2020000000;
-  v67 = 0;
+  v71 = *MEMORY[0x277D85DE8];
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __54__SBKPlaybackPositionSyncRequestHandler__synchronize___block_invoke;
   block[3] = &unk_279D230A0;
   block[4] = self;
-  block[5] = &v64;
+  block[5] = &v63;
   dispatch_sync(queue, block);
-  v6 = *(v65 + 24);
+  v6 = *(v64 + 24);
   v7 = os_log_create("com.apple.amp.StoreBookkeeper", "Sync");
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6 != 1)
@@ -494,12 +524,12 @@ void __52__SBKPlaybackPositionSyncRequestHandler__shouldStop__block_invoke(uint6
     }
 
     dataSource = [(SBKPlaybackPositionSyncRequestHandler *)self dataSource];
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __54__SBKPlaybackPositionSyncRequestHandler__synchronize___block_invoke_22;
-    v62[3] = &unk_279D22D90;
-    v62[4] = self;
-    v11 = [dataSource beginTransactionWithItemsToSyncEnumerationBlock:v62];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __54__SBKPlaybackPositionSyncRequestHandler__synchronize___block_invoke_22;
+    v61[3] = &unk_279D22D90;
+    v61[4] = self;
+    v11 = [dataSource beginTransactionWithItemsToSyncEnumerationBlock:v61];
     [(SBKPlaybackPositionSyncRequestHandler *)self setDataSourceTransactionContext:v11];
 
     dataSourceTransactionContext = [(SBKPlaybackPositionSyncRequestHandler *)self dataSourceTransactionContext];
@@ -529,9 +559,9 @@ LABEL_10:
       v17 = [allKeys count];
       allKeys2 = [v13 allKeys];
       *buf = 134218242;
-      v69 = v17;
-      v70 = 2112;
-      v71 = allKeys2;
+      v68 = v17;
+      v69 = 2112;
+      v70 = allKeys2;
       _os_log_impl(&dword_26BC19000, v15, OS_LOG_TYPE_DEFAULT, "Gathered local %lu items to sync from dataSource: %@", buf, 0x16u);
     }
 
@@ -540,7 +570,7 @@ LABEL_10:
     {
       dataSourceTransactionContext2 = [(SBKPlaybackPositionSyncRequestHandler *)self dataSourceTransactionContext];
       *buf = 138412290;
-      v69 = dataSourceTransactionContext2;
+      v68 = dataSourceTransactionContext2;
       _os_log_impl(&dword_26BC19000, v19, OS_LOG_TYPE_DEFAULT, "dataSource transaction context = %@", buf, 0xCu);
     }
 
@@ -580,7 +610,7 @@ LABEL_39:
         currentKVSTransaction2 = [(SBKPlaybackPositionSyncRequestHandler *)self currentKVSTransaction];
         syncAnchor = [currentKVSTransaction2 syncAnchor];
         *buf = 138412290;
-        v69 = syncAnchor;
+        v68 = syncAnchor;
         _os_log_impl(&dword_26BC19000, v26, OS_LOG_TYPE_DEFAULT, "Performing sync with server using syncAnchor = %@", buf, 0xCu);
       }
 
@@ -606,7 +636,7 @@ LABEL_39:
             metadataItemsToCommitToKVSStorage3 = [(SBKPlaybackPositionSyncRequestHandler *)self metadataItemsToCommitToKVSStorage];
             allKeys4 = [metadataItemsToCommitToKVSStorage3 allKeys];
             *buf = 138412290;
-            v69 = allKeys4;
+            v68 = allKeys4;
             _os_log_impl(&dword_26BC19000, v36, OS_LOG_TYPE_DEFAULT, "Sending merged items to server: %@", buf, 0xCu);
           }
 
@@ -634,24 +664,24 @@ LABEL_39:
 LABEL_53:
             if ([v14 count])
             {
-              v46 = _SBKLogCategoryDefault();
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+              v45 = _SBKLogCategoryDefault();
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_impl(&dword_26BC19000, v46, OS_LOG_TYPE_ERROR, "WARNING: sent resolved conflict to server, but still received conflicts in the response, saving those for next time...", buf, 2u);
+                _os_log_impl(&dword_26BC19000, v45, OS_LOG_TYPE_ERROR, "WARNING: sent resolved conflict to server, but still received conflicts in the response, saving those for next time...", buf, 2u);
               }
             }
 
-            v47 = _SBKLogCategorySync();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+            v46 = _SBKLogCategorySync();
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
             {
               responseDomainVersion = [(SBKSyncRequestHandler *)self responseDomainVersion];
               metadataItemsToCommitToDataSource = [(SBKPlaybackPositionSyncRequestHandler *)self metadataItemsToCommitToDataSource];
               *buf = 138412546;
-              v69 = responseDomainVersion;
-              v70 = 2112;
-              v71 = metadataItemsToCommitToDataSource;
-              _os_log_impl(&dword_26BC19000, v47, OS_LOG_TYPE_DEFAULT, "Committing merged items with domainRevision: %@ to local database: %@", buf, 0x16u);
+              v68 = responseDomainVersion;
+              v69 = 2112;
+              v70 = metadataItemsToCommitToDataSource;
+              _os_log_impl(&dword_26BC19000, v46, OS_LOG_TYPE_DEFAULT, "Committing merged items with domainRevision: %@ to local database: %@", buf, 0x16u);
             }
 
             metadataItemsToCommitToDataSource2 = [(SBKPlaybackPositionSyncRequestHandler *)self metadataItemsToCommitToDataSource];
@@ -660,20 +690,20 @@ LABEL_53:
             dataSource2 = [(SBKPlaybackPositionSyncRequestHandler *)self dataSource];
             dataSourceTransactionContext3 = [(SBKPlaybackPositionSyncRequestHandler *)self dataSourceTransactionContext];
             responseDomainVersion2 = [(SBKSyncRequestHandler *)self responseDomainVersion];
-            v57 = MEMORY[0x277D85DD0];
-            v58 = 3221225472;
-            v59 = __54__SBKPlaybackPositionSyncRequestHandler__synchronize___block_invoke_26;
-            v60 = &unk_279D22DB8;
-            v55 = objectEnumerator;
-            v61 = v55;
-            [dataSource2 commitUniversalPlaybackPositionTransaction:dataSourceTransactionContext3 domainVersion:responseDomainVersion2 metadataEnumerationBlock:&v57];
+            v56 = MEMORY[0x277D85DD0];
+            v57 = 3221225472;
+            v58 = __54__SBKPlaybackPositionSyncRequestHandler__synchronize___block_invoke_26;
+            v59 = &unk_279D22DB8;
+            v54 = objectEnumerator;
+            v60 = v54;
+            [dataSource2 commitUniversalPlaybackPositionTransaction:dataSourceTransactionContext3 domainVersion:responseDomainVersion2 metadataEnumerationBlock:&v56];
 
-            [(SBKPlaybackPositionSyncRequestHandler *)self clearTransactionResponseData:v57];
-            v56 = _SBKLogCategorySync();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+            [(SBKPlaybackPositionSyncRequestHandler *)self clearTransactionResponseData:v56];
+            v55 = _SBKLogCategorySync();
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_26BC19000, v56, OS_LOG_TYPE_DEFAULT, "Finished synchronization", buf, 2u);
+              _os_log_impl(&dword_26BC19000, v55, OS_LOG_TYPE_DEFAULT, "Finished synchronization", buf, 2u);
             }
 
             v30 = 0;
@@ -711,8 +741,7 @@ LABEL_36:
 
   v9 = 1;
 LABEL_40:
-  _Block_object_dispose(&v64, 8);
-  v44 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v63, 8);
   return v9;
 }
 
@@ -726,7 +755,7 @@ uint64_t __54__SBKPlaybackPositionSyncRequestHandler__synchronize___block_invoke
 
 void __54__SBKPlaybackPositionSyncRequestHandler__synchronize___block_invoke_22(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [SBKUniversalPlaybackPositionMetadata metadataWithValuesFromDataSourceItem:a2];
   v4 = [v3 itemIdentifier];
   v5 = [v4 length];
@@ -746,13 +775,11 @@ void __54__SBKPlaybackPositionSyncRequestHandler__synchronize___block_invoke_22(
     v8 = os_log_create("com.apple.amp.StoreBookkeeper", "Default");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_ERROR, "ERROR: will skip syncing item with no sync metadataIdentifier: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_ERROR, "ERROR: will skip syncing item with no sync metadataIdentifier: %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dataSourceCancelTransaction

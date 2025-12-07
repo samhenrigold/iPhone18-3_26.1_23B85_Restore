@@ -33,7 +33,7 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8Freeform33CRLiOSMiniFormatterViewController_stackViewForDisplay);
   selfCopy = self;
   arrangedSubviews = [v2 arrangedSubviews];
-  sub_100006370(0, &qword_1019F6D00);
+  sub_100006370(0, &qword_1019F6D00, UIView_ptr);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   sub_1006410E0(v5);
@@ -88,7 +88,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_100A6C338();
+  sub_100A6C338(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews

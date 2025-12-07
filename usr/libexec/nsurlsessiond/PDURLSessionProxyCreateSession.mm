@@ -250,7 +250,6 @@ LABEL_7:
       goto LABEL_52;
     }
 
-    v8 = *(equalCopy + 29);
     if (self->_supportsRedirects)
     {
       if ((*(equalCopy + 29) & 1) == 0)
@@ -277,7 +276,6 @@ LABEL_7:
       goto LABEL_52;
     }
 
-    v9 = *(equalCopy + 28);
     if (self->_delegateImplementsWillSendRequest)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -304,7 +302,6 @@ LABEL_7:
       goto LABEL_52;
     }
 
-    v10 = *(equalCopy + 25);
     if (self->_delegateImplementsSessionAuthChallenge)
     {
       if ((*(equalCopy + 25) & 1) == 0)
@@ -331,7 +328,6 @@ LABEL_7:
       goto LABEL_52;
     }
 
-    v11 = *(equalCopy + 26);
     if (self->_delegateImplementsTaskAuthChallenge)
     {
       if ((*(equalCopy + 26) & 1) == 0)
@@ -368,7 +364,6 @@ LABEL_52:
     goto LABEL_52;
   }
 
-  v12 = *(equalCopy + 27);
   if (self->_delegateImplementsWillPerformRedirection)
   {
     if ((*(equalCopy + 27) & 1) == 0)
@@ -602,25 +597,24 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_session)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_configuration)
   {
     PBDataWriterWriteDataField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    supportsRedirects = self->_supportsRedirects;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x10) == 0)
     {
@@ -639,9 +633,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  delegateImplementsWillSendRequest = self->_delegateImplementsWillSendRequest;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -655,9 +648,8 @@ LABEL_8:
   }
 
 LABEL_17:
-  delegateImplementsSessionAuthChallenge = self->_delegateImplementsSessionAuthChallenge;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -671,9 +663,8 @@ LABEL_9:
   }
 
 LABEL_18:
-  delegateImplementsTaskAuthChallenge = self->_delegateImplementsTaskAuthChallenge;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -687,15 +678,13 @@ LABEL_10:
   }
 
 LABEL_19:
-  delegateImplementsWillPerformRedirection = self->_delegateImplementsWillPerformRedirection;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_11:
-    delegateImplementsDidReceiveResponse = self->_delegateImplementsDidReceiveResponse;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_12:

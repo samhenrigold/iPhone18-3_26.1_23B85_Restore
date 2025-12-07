@@ -1,6 +1,7 @@
 @interface AUAudioUnitV2Bridge
 + (BOOL)automaticallyNotifiesObserversForKey:(id)key;
 - (AUAudioUnitV2Bridge)initWithAudioUnit:(OpaqueAudioComponentInstance *)unit description:(AudioComponentDescription *)description;
+- (AUAudioUnitV2Bridge)initWithComponentDescription:(AudioComponentDescription *)description options:(unsigned int)options error:(id *)error;
 - (BOOL)_elementCountWritable:(unsigned int)writable;
 - (BOOL)_setElementCount:(unsigned int)count count:(unsigned int)a4 error:(id *)error;
 - (BOOL)allocateRenderResourcesAndReturnError:(id *)error;
@@ -23,6 +24,7 @@
 - (void)_createEventListenerQueue;
 - (void)_invalidateParameterTree:(unsigned int)tree;
 - (void)_notifyParameterChange:(unint64_t)change;
+- (void)_rebuildBusses:(unsigned int)busses;
 - (void)_setValue:(id)value forKey:(id)key error:(id *)error;
 - (void)_valueForProperty:error:;
 - (void)addObserver:(id)observer forKeyPath:(id)path options:(unint64_t)options context:(void *)context;
@@ -87,12 +89,12 @@
   keyCopy = key;
   if ([keyCopy isEqualToString:@"fullStateForDocument"])
   {
-    setStateAndNotify(valueCopy, self);
+    setStateAndNotify(valueCopy, self, 50);
   }
 
   if ([keyCopy isEqualToString:@"fullState"])
   {
-    setStateAndNotify(valueCopy, self);
+    setStateAndNotify(valueCopy, self, 0);
   }
 
   if ([keyCopy isEqualToString:@"currentPreset"])
@@ -153,7 +155,7 @@ LABEL_16:
 
 - (id)_valueForProperty:(id)property error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   if ([*(propertyCopy + 1) isEqualToString:@"_v2fwd_PropertySize"])
   {
@@ -185,13 +187,12 @@ LABEL_16:
   else
   {
     v11 = AUAudioUnitProperties::infoForKey(*(propertyCopy + 1), v9);
-    v12 = *(propertyCopy + 1);
     if (v11)
     {
       if (([*(propertyCopy + 1) isEqualToString:@"fullState"] & 1) != 0 || objc_msgSend(*(propertyCopy + 1), "isEqualToString:", @"fullStateForDocument"))
       {
         [(AUAudioUnitV2Bridge *)self audioUnit:0];
-        v18 = 0;
+        v16 = 0;
         operator new();
       }
 
@@ -204,11 +205,9 @@ LABEL_16:
     }
   }
 
-  v13 = v10;
+  v12 = v10;
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 - (void)_valueForProperty:error:
@@ -253,14 +252,14 @@ LABEL_16:
 {
   documentCopy = document;
   [(AUAudioUnit *)self flushEventSchedule];
-  setStateAndNotify(documentCopy, self);
+  setStateAndNotify(documentCopy, self, 50);
 }
 
 - (void)setFullState:(id)state
 {
   stateCopy = state;
   [(AUAudioUnit *)self flushEventSchedule];
-  setStateAndNotify(stateCopy, self);
+  setStateAndNotify(stateCopy, self, 0);
 }
 
 - (BOOL)providesUserInterface
@@ -406,13 +405,13 @@ LABEL_16:
   [(AUAudioUnitV2Bridge *)&v16 addObserver:observerCopy forKeyPath:pathCopy options:options context:context];
 }
 
-uint64_t __62__AUAudioUnitV2Bridge_addObserver_forKeyPath_options_context___block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__62__AUAudioUnitV2Bridge_addObserver_forKeyPath_options_context___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   if (*(a3 + 16) == -1)
   {
     v4 = result;
-    [*(*(*(result + 32) + 8) + 40) willChangeValueForKey:@"allParameterValues"];
-    v5 = *(*(*(v4 + 32) + 8) + 40);
+    [*(*(result[4] + 8) + 40) willChangeValueForKey:@"allParameterValues"];
+    v5 = *(*(v4[4] + 8) + 40);
 
     return [v5 didChangeValueForKey:@"allParameterValues"];
   }
@@ -470,7 +469,7 @@ uint64_t __62__AUAudioUnitV2Bridge_addObserver_forKeyPath_options_context___bloc
 
 - (id)_createParameterTree
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (self->_audioUnit)
   {
     [(AUAudioUnitV2Bridge *)self _createEventListenerQueue];
@@ -482,22 +481,22 @@ uint64_t __62__AUAudioUnitV2Bridge_addObserver_forKeyPath_options_context___bloc
       inBlock[1] = 3221225472;
       inBlock[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke;
       inBlock[3] = &unk_1E72C18B8;
-      objc_copyWeak(&v24, location);
+      objc_copyWeak(&v23, location);
       AUEventListenerCreateWithDispatchQueue(&self->_parameterListener, 0.0, 0.0, eventListenerQueue, inBlock);
-      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v23);
       objc_destroyWeak(location);
     }
 
     selfCopy = self;
     inUnit = [(AUAudioUnitV2Bridge *)selfCopy audioUnit];
-    v13 = selfCopy;
+    v12 = selfCopy;
 
     audioUnit = self->_audioUnit;
-    v14 = objc_opt_new();
+    v13 = objc_opt_new();
     for (i = 0; i != 8; ++i)
     {
-      v15 = [(AUAudioUnitV2Bridge *)selfCopy _elementCount:i];
-      if (!i || v15)
+      v14 = [(AUAudioUnitV2Bridge *)selfCopy _elementCount:i];
+      if (!i || v14)
       {
         outDataSize = 4;
         if (!AudioUnitGetPropertyInfo(inUnit, 3u, i, 0, &outDataSize, 0) && outDataSize >= 4)
@@ -506,9 +505,9 @@ uint64_t __62__AUAudioUnitV2Bridge_addObserver_forKeyPath_options_context___bloc
           std::vector<unsigned int>::vector[abi:ne200100](outData, v7);
           if (!AudioUnitGetProperty(inUnit, 3u, i, 0, outData[0], &outDataSize))
           {
-            v25 = 0uLL;
-            v26 = 0;
-            v29 = &v25;
+            v24 = 0uLL;
+            v25 = 0;
+            v28 = &v24;
             std::allocator<ParameterTreeBuilder::ClumpableParam>::allocate_at_least[abi:ne200100](v7);
           }
 
@@ -521,39 +520,39 @@ uint64_t __62__AUAudioUnitV2Bridge_addObserver_forKeyPath_options_context___bloc
       }
     }
 
-    v8 = [AUParameterTree createTreeWithChildren:v14];
+    v8 = [AUParameterTree createTreeWithChildren:v13];
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_59;
-    v20[3] = &__block_descriptor_40_e24_v20__0__AUParameter_8f16l;
-    v20[4] = audioUnit;
-    [v8 setImplementorValueObserver:v20];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
-    v19[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_62;
-    v19[3] = &__block_descriptor_40_e21_f16__0__AUParameter_8l;
+    v19[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_59;
+    v19[3] = &__block_descriptor_40_e24_v20__0__AUParameter_8f16l;
     v19[4] = audioUnit;
-    [v8 setImplementorValueProvider:v19];
+    [v8 setImplementorValueObserver:v19];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
-    v18[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_65;
-    v18[3] = &__block_descriptor_40_e36___NSString_24__0__AUParameter_8r_f16l;
+    v18[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_62;
+    v18[3] = &__block_descriptor_40_e21_f16__0__AUParameter_8l;
     v18[4] = audioUnit;
-    [v8 setImplementorStringFromValueCallback:v18];
+    [v8 setImplementorValueProvider:v18];
     v17[0] = MEMORY[0x1E69E9820];
     v17[1] = 3221225472;
-    v17[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_2;
-    v17[3] = &__block_descriptor_40_e34_f24__0__AUParameter_8__NSString_16l;
+    v17[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_65;
+    v17[3] = &__block_descriptor_40_e36___NSString_24__0__AUParameter_8r_f16l;
     v17[4] = audioUnit;
-    [v8 setImplementorValueFromStringCallback:v17];
+    [v8 setImplementorStringFromValueCallback:v17];
     v16[0] = MEMORY[0x1E69E9820];
     v16[1] = 3221225472;
-    v16[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_3;
-    v16[3] = &__block_descriptor_40_e38___NSString_24__0__AUParameterNode_8q16l;
+    v16[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_2;
+    v16[3] = &__block_descriptor_40_e34_f24__0__AUParameter_8__NSString_16l;
     v16[4] = audioUnit;
-    [v8 setImplementorDisplayNameWithLengthCallback:v16];
-    v9 = atomic_load(&v13->_eventsTriggeringParameterTreeInvalidation.__a_.__a_value);
+    [v8 setImplementorValueFromStringCallback:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_3;
+    v15[3] = &__block_descriptor_40_e38___NSString_24__0__AUParameterNode_8q16l;
+    v15[4] = audioUnit;
+    [v8 setImplementorDisplayNameWithLengthCallback:v15];
+    v9 = atomic_load(&v12->_eventsTriggeringParameterTreeInvalidation.__a_.__a_value);
     if (v9 <= 1)
     {
       v10 = 1;
@@ -572,14 +571,12 @@ uint64_t __62__AUAudioUnitV2Bridge_addObserver_forKeyPath_options_context___bloc
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 void __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke(uint64_t a1, void *a2, int *a3, float a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v10 = WeakRetained;
@@ -605,13 +602,13 @@ void __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke(uint64_t a1, v
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v15 = *a3;
-        v17 = 136315650;
-        v18 = "AUAudioUnitV2Bridge.mm";
-        v19 = 1024;
-        v20 = 1286;
-        v21 = 1024;
-        v22 = v15;
-        _os_log_impl(&dword_18F5DF000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d AUEventListener encountered unknown AUEventType: %d", &v17, 0x18u);
+        v16 = 136315650;
+        v17 = "AUAudioUnitV2Bridge.mm";
+        v18 = 1024;
+        v19 = 1286;
+        v20 = 1024;
+        v21 = v15;
+        _os_log_impl(&dword_18F5DF000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d AUEventListener encountered unknown AUEventType: %d", &v16, 0x18u);
       }
     }
 
@@ -640,13 +637,11 @@ void __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke(uint64_t a1, v
   }
 
 LABEL_15:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_59(uint64_t a1, void *a2, AudioUnitParameterValue a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [v5 address];
   v7 = v6;
@@ -672,30 +667,28 @@ void __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_59(uint64_t a1
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136316418;
-      v15 = "AUAudioUnitV2Bridge.mm";
-      v16 = 1024;
-      v17 = 1305;
-      v18 = 1024;
-      v19 = v7;
-      v20 = 1024;
-      v21 = v8;
-      v22 = 1024;
-      v23 = v9;
-      v24 = 1024;
-      v25 = v10;
-      _os_log_impl(&dword_18F5DF000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d AUParameterSet %d (%d/%d): err %d", &v14, 0x2Au);
+      v13 = 136316418;
+      v14 = "AUAudioUnitV2Bridge.mm";
+      v15 = 1024;
+      v16 = 1305;
+      v17 = 1024;
+      v18 = v7;
+      v19 = 1024;
+      v20 = v8;
+      v21 = 1024;
+      v22 = v9;
+      v23 = 1024;
+      v24 = v10;
+      _os_log_impl(&dword_18F5DF000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d AUParameterSet %d (%d/%d): err %d", &v13, 0x2Au);
     }
   }
 
 LABEL_9:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 float __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_62(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   outValue = 0.0;
   v4 = [v3 address];
@@ -723,17 +716,17 @@ float __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_62(uint64_t a
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v16 = "AUAudioUnitV2Bridge.mm";
-      v17 = 1024;
-      v18 = 1315;
-      v19 = 1024;
-      v20 = v5;
-      v21 = 1024;
-      v22 = v6;
-      v23 = 1024;
-      v24 = v7;
-      v25 = 1024;
-      v26 = Parameter;
+      v15 = "AUAudioUnitV2Bridge.mm";
+      v16 = 1024;
+      v17 = 1315;
+      v18 = 1024;
+      v19 = v5;
+      v20 = 1024;
+      v21 = v6;
+      v22 = 1024;
+      v23 = v7;
+      v24 = 1024;
+      v25 = Parameter;
       _os_log_impl(&dword_18F5DF000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d AudioGetParameter %d (%d/%d): err %d", buf, 0x2Au);
     }
   }
@@ -741,7 +734,6 @@ float __43__AUAudioUnitV2Bridge__createParameterTree__block_invoke_62(uint64_t a
 LABEL_9:
   v11 = outValue;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -844,9 +836,7 @@ LABEL_9:
 {
   if (!self->_eventListenerQueue)
   {
-    v3 = dispatch_queue_create("AUAudioUnitV2Bridge.eventListener", 0);
-    eventListenerQueue = self->_eventListenerQueue;
-    self->_eventListenerQueue = v3;
+    self->_eventListenerQueue = dispatch_queue_create("AUAudioUnitV2Bridge.eventListener", 0);
 
     MEMORY[0x1EEE66BB8]();
   }
@@ -1078,7 +1068,7 @@ LABEL_9:
 - (void)invalidateAudioUnit
 {
   selfCopy = self;
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   selfCopy2 = self;
   audioUnit = self->_audioUnit;
   if (audioUnit)
@@ -1120,12 +1110,12 @@ LABEL_9:
   if (selfCopy->_parameterListener)
   {
     parameterTreeRebuildQueue = selfCopy->_parameterTreeRebuildQueue;
-    v17 = &selfCopy2;
+    v16 = &selfCopy2;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = ___ZN10applesauce8dispatch2v19sync_implIZ42__AUAudioUnitV2Bridge_invalidateAudioUnit_E3__6EEvPU28objcproto17OS_dispatch_queue8NSObjectOT_NSt3__117integral_constantIbLb1EEE_block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0l;
-    block[4] = &v17;
+    block[4] = &v16;
     dispatch_sync(parameterTreeRebuildQueue, block);
     selfCopy = selfCopy2;
   }
@@ -1138,27 +1128,26 @@ LABEL_9:
     selfCopy = selfCopy2;
   }
 
-  v16.receiver = selfCopy;
-  v16.super_class = AUAudioUnitV2Bridge;
-  [(AUAudioUnit *)&v16 invalidateAudioUnit];
+  v15.receiver = selfCopy;
+  v15.super_class = AUAudioUnitV2Bridge;
+  [(AUAudioUnit *)&v15 invalidateAudioUnit];
   v13 = selfCopy2;
   if (selfCopy2->_audioUnitIsOwned)
   {
     v14 = selfCopy2->_audioUnit;
     if (v14)
     {
-      v20[0] = &unk_1F03347F0;
-      v20[1] = v14;
-      v20[3] = v20;
-      dispatch_to_main_queue_with_timeout(v20);
-      std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v20);
+      v19[0] = &unk_1F03347F0;
+      v19[1] = v14;
+      v19[3] = v19;
+      dispatch_to_main_queue_with_timeout(v19);
+      std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v19);
       v13 = selfCopy2;
     }
   }
 
   v13->_audioUnit = 0;
   std::unique_ptr<AUAudioUnitV2Bridge_Renderer>::reset[abi:ne200100](&selfCopy2->_renderer, 0);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)invalidateAudioUnit
@@ -1184,6 +1173,103 @@ LABEL_9:
   }
 
   return v6;
+}
+
+- (AUAudioUnitV2Bridge)initWithComponentDescription:(AudioComponentDescription *)description options:(unsigned int)options error:(id *)error
+{
+  v6 = *&options;
+  v17 = *&description->componentType;
+  LODWORD(v18) = description->componentFlagsMask;
+  v16.receiver = self;
+  v16.super_class = AUAudioUnitV2Bridge;
+  v8 = [AUAudioUnit initWithComponentDescription:sel_initWithComponentDescription_options_error_ options:&v17 error:?];
+  if (!v8)
+  {
+    goto LABEL_14;
+  }
+
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  Next = AudioComponentFindNext(0, description);
+  if (!Next || (v10 = (**Next)(Next)) == 0)
+  {
+    v11 = -3000;
+    *(v32 + 6) = -3000;
+    if (!error)
+    {
+LABEL_11:
+      v12 = 0;
+      goto LABEL_12;
+    }
+
+LABEL_10:
+    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v11 userInfo:0];
+    *error = v13;
+
+    goto LABEL_11;
+  }
+
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  *&v17 = MEMORY[0x1E69E9820];
+  *(&v17 + 1) = 3221225472;
+  v18 = ___Z21instantiateV2BridgeAURK25AudioComponentDescriptionjPU15__autoreleasingP7NSError_block_invoke;
+  v19 = &unk_1E72C1120;
+  v20 = &v27;
+  v21 = &v31;
+  v22 = &v23;
+  (*(*v10 + 88))(v10, v6, 1, &v17);
+  if ((v24[3] & 1) == 0)
+  {
+    __assert_rtn("instantiateV2BridgeAU", "AUAudioUnit.mm", 367, "replied");
+  }
+
+  _Block_object_dispose(&v23, 8);
+  if (!*(v32 + 6))
+  {
+    v12 = v28[3];
+    _Block_object_dispose(&v27, 8);
+    goto LABEL_12;
+  }
+
+  _Block_object_dispose(&v27, 8);
+  if (!error)
+  {
+    goto LABEL_11;
+  }
+
+  v11 = *(v32 + 6);
+  if (v11)
+  {
+    goto LABEL_10;
+  }
+
+  v12 = 0;
+  *error = 0;
+LABEL_12:
+  _Block_object_dispose(&v31, 8);
+  v8->_audioUnit = v12;
+  if (!v12)
+  {
+    v14 = 0;
+    goto LABEL_16;
+  }
+
+  v8->_audioUnitIsOwned = 1;
+  [(AUAudioUnitV2Bridge *)v8 init2];
+LABEL_14:
+  v14 = v8;
+LABEL_16:
+
+  return v14;
 }
 
 - (void)init2
@@ -1249,26 +1335,26 @@ LABEL_9:
 
 - (id)_buildNewParameterTree
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0;
   selfCopy = self;
   __p = 0;
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
   parameterTreeRebuildQueue = self->_parameterTreeRebuildQueue;
-  v10[0] = &v14;
-  v10[1] = &selfCopy;
-  v10[2] = &__p;
+  v9[0] = &v13;
+  v9[1] = &selfCopy;
+  v9[2] = &__p;
   *block = MEMORY[0x1E69E9820];
   *&block[8] = 3221225472;
   *&block[16] = ___ZN10applesauce8dispatch2v19sync_implIZ45__AUAudioUnitV2Bridge__buildNewParameterTree_E3__3EEvPU28objcproto17OS_dispatch_queue8NSObjectOT_NSt3__117integral_constantIbLb1EEE_block_invoke;
-  v17 = &__block_descriptor_40_e5_v8__0l;
-  v18 = v10;
+  v16 = &__block_descriptor_40_e5_v8__0l;
+  v17 = v9;
   dispatch_sync(parameterTreeRebuildQueue, block);
-  v3 = v14;
-  if (v14)
+  v3 = v13;
+  if (v13)
   {
-    v14 = 0;
+    v13 = 0;
     goto LABEL_14;
   }
 
@@ -1290,13 +1376,13 @@ LABEL_7:
       *&block[12] = 1024;
       *&block[14] = 654;
       *&block[18] = 1024;
-      *&block[20] = (v12 - __p) >> 3;
+      *&block[20] = (v11 - __p) >> 3;
       _os_log_impl(&dword_18F5DF000, v4, OS_LOG_TYPE_INFO, "%25s:%-5d Suppressed redundant parameter tree rebuilding; %d dirty values", block, 0x18u);
     }
   }
 
   v6 = __p;
-  v7 = v12;
+  v7 = v11;
   while (v6 != v7)
   {
     [(AUAudioUnitV2Bridge *)selfCopy _notifyParameterChange:*v6++];
@@ -1306,11 +1392,9 @@ LABEL_7:
 LABEL_14:
   if (__p)
   {
-    v12 = __p;
+    v11 = __p;
     operator delete(__p);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1367,6 +1451,44 @@ void __46__AUAudioUnitV2Bridge__notifyParameterChange___block_invoke(uint64_t a1
   }
 
   return result;
+}
+
+- (void)_rebuildBusses:(unsigned int)busses
+{
+  v3 = *&busses;
+  if (busses == 1)
+  {
+    v5 = &OBJC_IVAR___AUAudioUnitV2Bridge__inputBusses;
+  }
+
+  else
+  {
+    if (busses != 2)
+    {
+      __assert_rtn("[AUAudioUnitV2Bridge _rebuildBusses:]", "AUAudioUnitV2Bridge.mm", 495, "0");
+    }
+
+    v5 = &OBJC_IVAR___AUAudioUnitV2Bridge__outputBusses;
+  }
+
+  v10 = *(&self->super.super.isa + *v5);
+  v6 = objc_opt_new();
+  v7 = [(AUAudioUnitV2Bridge *)self _elementCount:v3];
+  if (v7)
+  {
+    v8 = 0;
+    do
+    {
+      v9 = [[AUV2BridgeBus alloc] initWithOwner:self au:self->_audioUnit scope:v3 element:v8];
+      [v6 addObject:v9];
+
+      v8 = (v8 + 1);
+    }
+
+    while (v7 != v8);
+  }
+
+  [v10 replaceBusses:v6];
 }
 
 - (BOOL)_setElementCount:(unsigned int)count count:(unsigned int)a4 error:(id *)error

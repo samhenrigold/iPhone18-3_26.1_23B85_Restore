@@ -1,6 +1,7 @@
 @interface CERemoteUIPresenter
 - (CERemoteUIPresenter)initWithAccount:(id)account presenter:(id)presenter;
 - (CERemoteUIPresenterDelegate)delegate;
+- (void)remoteUIFlowManager:(id)manager didCompleteFlowWithSuccess:(BOOL)success error:(id)error;
 - (void)remoteUIFlowManager:(id)manager didDismissWithError:(id)error;
 @end
 
@@ -41,6 +42,15 @@
   }
 
   return v8;
+}
+
+- (void)remoteUIFlowManager:(id)manager didCompleteFlowWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  managerCopy = manager;
+  delegate = [(CERemoteUIPresenter *)self delegate];
+  [delegate remoteUIFlowManager:managerCopy didCompleteFlowWithSuccess:successCopy error:errorCopy];
 }
 
 - (void)remoteUIFlowManager:(id)manager didDismissWithError:(id)error

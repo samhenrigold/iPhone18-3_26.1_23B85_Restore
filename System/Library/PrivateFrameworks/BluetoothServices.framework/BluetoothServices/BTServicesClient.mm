@@ -84,17 +84,21 @@ uint64_t __37__BTServicesClient__ensureXPCStarted__block_invoke_2(uint64_t a1)
 
 - (void)_interrupted
 {
-  if (gLogCategory_BTServicesClient <= 50 && (gLogCategory_BTServicesClient != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_BTServicesClient <= 50)
   {
-    [BTServicesClient _interrupted];
+    if (gLogCategory_BTServicesClient != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(BTServicesClient *)self _interrupted];
+    }
   }
 
-  v3 = MEMORY[0x245CFACE0](self->_interruptionHandler);
-  if (v3)
+  v4 = MEMORY[0x245CFACE0](selfCopy->_interruptionHandler);
+  if (v4)
   {
-    v4 = v3;
-    v3[2]();
-    v3 = v4;
+    v5 = v4;
+    v4[2]();
+    v4 = v5;
   }
 }
 
@@ -109,23 +113,23 @@ uint64_t __37__BTServicesClient__ensureXPCStarted__block_invoke_2(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __30__BTServicesClient_invalidate__block_invoke(uint64_t result)
+void *__30__BTServicesClient_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 8) & 1) == 0)
   {
     v3 = result;
     *(v2 + 8) = 1;
-    if ((*(*(result + 32) + 9) & 1) == 0 && gLogCategory_BTServicesClient <= 30 && (gLogCategory_BTServicesClient != -1 || _LogCategory_Initialize()))
+    if ((*(result[4] + 9) & 1) == 0 && gLogCategory_BTServicesClient <= 30 && (gLogCategory_BTServicesClient != -1 || _LogCategory_Initialize()))
     {
       __30__BTServicesClient_invalidate__block_invoke_cold_1();
     }
 
-    v4 = *(v3 + 32);
+    v4 = v3[4];
     if (v4[2])
     {
       [v4[2] invalidate];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     return [v4 _invalidated];
@@ -138,30 +142,34 @@ uint64_t __30__BTServicesClient_invalidate__block_invoke(uint64_t result)
 {
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_BTServicesClient <= 50 && (gLogCategory_BTServicesClient != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (!self->_invalidateCalled && gLogCategory_BTServicesClient <= 50)
     {
-      [BTServicesClient _invalidated];
+      if (gLogCategory_BTServicesClient != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(BTServicesClient *)self _invalidated];
+      }
     }
 
-    if (!self->_xpcCnx)
+    if (!selfCopy->_xpcCnx)
     {
-      v3 = MEMORY[0x245CFACE0](self->_invalidationHandler, a2);
-      v4 = v3;
-      if (v3)
+      v4 = MEMORY[0x245CFACE0](selfCopy->_invalidationHandler, a2);
+      v5 = v4;
+      if (v4)
       {
-        (*(v3 + 16))(v3);
+        (*(v4 + 16))(v4);
       }
 
-      interruptionHandler = self->_interruptionHandler;
-      self->_interruptionHandler = 0;
+      interruptionHandler = selfCopy->_interruptionHandler;
+      selfCopy->_interruptionHandler = 0;
 
-      invalidationHandler = self->_invalidationHandler;
-      self->_invalidationHandler = 0;
+      invalidationHandler = selfCopy->_invalidationHandler;
+      selfCopy->_invalidationHandler = 0;
 
-      xpcCnx = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      xpcCnx = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
 
-      self->_invalidateDone = 1;
+      selfCopy->_invalidateDone = 1;
       if (gLogCategory_BTServicesClient <= 10 && (gLogCategory_BTServicesClient != -1 || _LogCategory_Initialize()))
       {
         [BTServicesClient _invalidated];

@@ -21,7 +21,7 @@
 {
   v22 = *MEMORY[0x1E69E9840];
   actionCopy = action;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(actionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_opt_class();
@@ -105,21 +105,21 @@ void __65__AAUIMyPendingBeneficiaryActionHandler__checkMessageEligibility__block
   }
 }
 
-uint64_t __65__AAUIMyPendingBeneficiaryActionHandler__checkMessageEligibility__block_invoke_2(uint64_t a1)
+uint64_t __65__AAUIMyPendingBeneficiaryActionHandler__checkMessageEligibility__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = _AAUILogSystem();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2 == 1)
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 40);
+  v4 = _AAUILogSystem(a1);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3 == 1)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "%@ : Recipient has compatible device to recieve access key. Starting message invite flow...", &v10, 0xCu);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "%@ : Recipient has compatible device to recieve access key. Starting message invite flow...", &v11, 0xCu);
     }
 
     return [*(a1 + 32) _startInviteMessageFlow];
@@ -127,13 +127,13 @@ uint64_t __65__AAUIMyPendingBeneficiaryActionHandler__checkMessageEligibility__b
 
   else
   {
-    if (v4)
+    if (v5)
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_impl(&dword_1C5355000, v3, OS_LOG_TYPE_DEFAULT, "%@ : Recipient does not have compatible device to recieve access key. Showing incompatible device alert...", &v10, 0xCu);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "%@ : Recipient does not have compatible device to recieve access key. Showing incompatible device alert...", &v11, 0xCu);
     }
 
     return [*(a1 + 32) _showIncompatibleDeviceAlert];
@@ -152,7 +152,7 @@ uint64_t __65__AAUIMyPendingBeneficiaryActionHandler__checkMessageEligibility__b
 - (void)_showPrintPreview
 {
   v21 = *MEMORY[0x1E69E9840];
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -195,17 +195,18 @@ uint64_t __65__AAUIMyPendingBeneficiaryActionHandler__checkMessageEligibility__b
 
 void __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_invoke(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
+  v9 = v8;
   if (v8)
   {
-    v9 = _AAUILogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Error presenting printInteractionController - %@", buf, 0xCu);
+      v18 = v9;
+      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Error presenting printInteractionController - %@", buf, 0xCu);
     }
 
     block[0] = MEMORY[0x1E69E9820];
@@ -213,33 +214,33 @@ void __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_invoke
     block[2] = __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_invoke_52;
     block[3] = &unk_1E820BEB8;
     block[4] = *(a1 + 32);
-    v15 = v8;
+    v16 = v9;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    v10 = v15;
+    v11 = v16;
     goto LABEL_8;
   }
 
   if (!a3)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_invoke_3;
-    v11[3] = &unk_1E820BEB8;
-    v11[4] = *(a1 + 32);
-    v12 = v7;
-    dispatch_async(MEMORY[0x1E69E96A0], v11);
-    v10 = v12;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_invoke_3;
+    v12[3] = &unk_1E820BEB8;
+    v12[4] = *(a1 + 32);
+    v13 = v7;
+    dispatch_async(MEMORY[0x1E69E96A0], v12);
+    v11 = v13;
 LABEL_8:
 
     goto LABEL_9;
   }
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_invoke_2;
-  v13[3] = &unk_1E820B8F0;
-  v13[4] = *(a1 + 32);
-  dispatch_async(MEMORY[0x1E69E96A0], v13);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_invoke_2;
+  v14[3] = &unk_1E820B8F0;
+  v14[4] = *(a1 + 32);
+  dispatch_async(MEMORY[0x1E69E96A0], v14);
 LABEL_9:
 }
 
@@ -329,7 +330,7 @@ uint64_t __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_in
 {
   v10 = *MEMORY[0x1E69E9840];
   finishCopy = finish;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(finishCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -348,7 +349,7 @@ uint64_t __58__AAUIMyPendingBeneficiaryActionHandler__showPrintPreview__block_in
 {
   v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = objc_opt_class();
@@ -387,14 +388,14 @@ void __73__AAUIMyPendingBeneficiaryActionHandler_inviteMessageWasSent_completion
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __73__AAUIMyPendingBeneficiaryActionHandler_inviteMessageWasSent_completion___block_invoke_2(uint64_t a1)
+uint64_t __73__AAUIMyPendingBeneficiaryActionHandler_inviteMessageWasSent_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = _AALogSystem();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _AALogSystem();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __73__AAUIMyPendingBeneficiaryActionHandler_inviteMessageWasSent_completion___block_invoke_2_cold_1(a1, v2);
+      __73__AAUIMyPendingBeneficiaryActionHandler_inviteMessageWasSent_completion___block_invoke_2_cold_1(a1, v3);
     }
 
     return (*(*(a1 + 48) + 16))();
@@ -402,9 +403,9 @@ uint64_t __73__AAUIMyPendingBeneficiaryActionHandler_inviteMessageWasSent_comple
 
   else
   {
-    v4 = *(*(a1 + 48) + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    return v4();
+    return v5();
   }
 }
 

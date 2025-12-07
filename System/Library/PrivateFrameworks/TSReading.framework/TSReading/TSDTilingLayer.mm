@@ -695,7 +695,7 @@ LABEL_80:
   }
 }
 
-uint64_t __33__TSDTilingLayer_layoutSublayers__block_invoke(uint64_t a1, unint64_t a2, double a3, double a4)
+void *__33__TSDTilingLayer_layoutSublayers__block_invoke(uint64_t a1, unint64_t a2, double a3, double a4)
 {
   v6 = *(a1 + 32);
   v7 = *(a1 + 48);
@@ -704,7 +704,7 @@ uint64_t __33__TSDTilingLayer_layoutSublayers__block_invoke(uint64_t a1, unint64
   v10 = *(v6 + 152);
   if (v10)
   {
-    [v10 tileGeometryRectWithLayer:? atIndex:? mask:?];
+    [v10 tileGeometryRectWithLayer:a3 atIndex:a4 mask:?];
 LABEL_6:
     v13 = v11;
     v14 = v12;
@@ -1318,7 +1318,7 @@ LABEL_34:
   return [p_newCheckerboardImage_s_checkerboardImage newImage];
 }
 
-uint64_t __40__TSDTilingLayer_p_newCheckerboardImage__block_invoke(uint64_t a1)
+void *__40__TSDTilingLayer_p_newCheckerboardImage__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(MEMORY[0x277D6C2D8]) initWithDelegate:*(a1 + 32) createImageSelector:sel_p_newGeneratedCheckerboardImage];
   p_newCheckerboardImage_s_checkerboardImage = result;

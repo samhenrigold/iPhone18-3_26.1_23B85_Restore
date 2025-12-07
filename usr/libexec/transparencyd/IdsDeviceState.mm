@@ -28,27 +28,13 @@
   deviceIdHash = [(IdsDeviceState *)self deviceIdHash];
   v5 = [(TLSMessageClass *)self encodeHashValue:deviceIdHash buffer:v3];
 
-  if (!v5)
-  {
-    goto LABEL_8;
-  }
-
-  clientDataHash = [(IdsDeviceState *)self clientDataHash];
-  v7 = [(TLSMessageClass *)self encodeHashValue:clientDataHash buffer:v3];
-
-  if (!v7)
-  {
-    goto LABEL_8;
-  }
-
-  if ([(TLSMessageClass *)self encodeUint64:[(IdsDeviceState *)self appVersion] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(IdsDeviceState *)self addedMs] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(IdsDeviceState *)self expiryMs] buffer:v3]&& ([(IdsDeviceState *)self extensions], v8 = objc_claimAutoreleasedReturnValue(), v9 = [(TLSMessageClass *)self encodeExtensions:v8 buffer:v3], v8, v9))
+  if (v5 && ([(IdsDeviceState *)self clientDataHash], v6 = objc_claimAutoreleasedReturnValue(), v7 = [(TLSMessageClass *)self encodeHashValue:v6 buffer:v3], v6, v7) && [(TLSMessageClass *)self encodeUint64:[(IdsDeviceState *)self appVersion] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(IdsDeviceState *)self addedMs] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(IdsDeviceState *)self expiryMs] buffer:v3]&& ([(IdsDeviceState *)self extensions], v8 = objc_claimAutoreleasedReturnValue(), v9 = [(TLSMessageClass *)self encodeExtensions:v8 buffer:v3], v8, v9))
   {
     v10 = v3;
   }
 
   else
   {
-LABEL_8:
     v10 = 0;
   }
 
@@ -194,10 +180,9 @@ LABEL_26:
 {
   kt_hexString = [(NSData *)self->_deviceIdHash kt_hexString];
   kt_hexString2 = [(NSData *)self->_clientDataHash kt_hexString];
-  addedMs = self->_addedMs;
-  v6 = [NSString stringWithFormat:@"deviceIdHash:%@ clientDataHash:%@; applicationVersion:%llu; addedMs:%llu; expiryMs:%llu", kt_hexString, kt_hexString2, self->_appVersion, addedMs, self->_expiryMs];;
+  v5 = [NSString stringWithFormat:@"deviceIdHash:%@ clientDataHash:%@; applicationVersion:%llu; addedMs:%llu; expiryMs:%llu", kt_hexString, kt_hexString2, self->_appVersion, self->_addedMs, self->_expiryMs];;
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal

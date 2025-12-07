@@ -10,6 +10,7 @@
 - (void)actionTapped:(id)tapped;
 - (void)dealloc;
 - (void)loadView;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BridgeSettingsViewController
@@ -21,6 +22,30 @@
   [(BridgeSettingsViewController *)&v4 loadView];
   v3 = ASDLocalizedString(@"SETTINGS_TITLE");
   [(BridgeSettingsViewController *)self setTitle:v3];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = BridgeSettingsViewController;
+  [(BridgeSettingsViewController *)&v14 viewWillAppear:appear];
+  v3 = [NSBundle bundleWithIdentifier:@"com.apple.AppStoreDaemon"];
+  bundleURL = [v3 bundleURL];
+
+  if (bundleURL)
+  {
+    v5 = [_NSLocalizedStringResource alloc];
+    v6 = +[NSLocale currentLocale];
+    bundleURL2 = [v3 bundleURL];
+    v8 = [v5 initWithKey:@"SETTINGS_TITLE" table:@"Localizable" locale:v6 bundleURL:bundleURL2];
+
+    v9 = [NSBundle bundleForClass:objc_opt_class()];
+    bundleIdentifier = [v9 bundleIdentifier];
+    bundleIdentifier2 = [v9 bundleIdentifier];
+    v12 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+    v13 = [NSURL URLWithString:v12];
+    [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v8 localizedNavigationComponents:&__NSArray0__struct deepLink:v13];
+  }
 }
 
 - (BridgeSettingsViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -521,7 +546,7 @@ LABEL_41:
 
 - (id)_automaticDownloadsEnabled
 {
-  v2 = sub_13B80();
+  v2 = sub_13B80(WatchSettingsManager);
   v3 = sub_1405C(v2, @"AutoDownloadsEnabled", &__kCFBooleanFalse);
 
   return v3;
@@ -530,13 +555,13 @@ LABEL_41:
 - (void)_automaticDownloadsChanged:(id)changed
 {
   changedCopy = changed;
-  v4 = sub_13B80();
+  v4 = sub_13B80(WatchSettingsManager);
   sub_141DC(v4, changedCopy, @"AutoDownloadsEnabled");
 }
 
 - (id)_automaticUpdatesEnabled
 {
-  v2 = sub_13B80();
+  v2 = sub_13B80(WatchSettingsManager);
   v3 = sub_1405C(v2, @"AutoUpdatesEnabled", &__kCFBooleanTrue);
 
   return v3;
@@ -545,7 +570,7 @@ LABEL_41:
 - (void)_automaticUpdatesChanged:(id)changed
 {
   changedCopy = changed;
-  v4 = sub_13B80();
+  v4 = sub_13B80(WatchSettingsManager);
   sub_141DC(v4, changedCopy, @"AutoUpdatesEnabled");
 }
 

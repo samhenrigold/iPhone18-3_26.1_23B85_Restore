@@ -827,7 +827,7 @@ void __90__MADComputeService_resumeWithRequestID_progressHandler_resultsHandler_
   [v5 cancelWithRequestID:dCopy];
 }
 
-void __41__MADComputeService_cancelWithRequestID___block_invoke()
+void __41__MADComputeService_cancelWithRequestID___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -842,7 +842,7 @@ void __41__MADComputeService_cancelWithRequestID___block_invoke()
   [v2 cancelAllRequests];
 }
 
-void __38__MADComputeService_cancelAllRequests__block_invoke()
+void __38__MADComputeService_cancelAllRequests__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
@@ -1799,42 +1799,42 @@ void __55__MADComputeService_registerProgressHandler_requestID___block_invoke_co
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] ProgressHandler already set for %@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] ProgressHandler already set for %@", v1, v2, v3, v4);
 }
 
 void __55__MADComputeService_registerProgressHandler_requestID___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] No progressHandler defined for %@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] No progressHandler defined for %@", v1, v2, v3, v4);
 }
 
 void __59__MADComputeService_deregisterProgressHandlerForRequestID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] ProgressHandler NOT set for %@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] ProgressHandler NOT set for %@", v1, v2, v3, v4);
 }
 
 void __54__MADComputeService_registerResultsHandler_requestID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] ResultsHandler already set for %@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] ResultsHandler already set for %@", v1, v2, v3, v4);
 }
 
 void __54__MADComputeService_registerResultsHandler_requestID___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] No resultsHandler defined for %@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] No resultsHandler defined for %@", v1, v2, v3, v4);
 }
 
 void __58__MADComputeService_deregisterResultsHandlerForRequestID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] ResultsHandler NOT set for %@", v1, v2, v3, v4, v5);
+  OUTLINED_FUNCTION_0_1(&dword_1C972C000, MEMORY[0x1E69E9C10], v0, "[MADComputeService] ResultsHandler NOT set for %@", v1, v2, v3, v4);
 }
 
 - (void)extensionDataForResultDirectoryURL:error:.cold.1()

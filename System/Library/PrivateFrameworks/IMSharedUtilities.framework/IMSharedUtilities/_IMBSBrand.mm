@@ -40,9 +40,10 @@
 
 - (id)name
 {
-  if (![(_IMBSBrand *)self isVerified])
+  isVerified = [(_IMBSBrand *)self isVerified];
+  if ((isVerified & 1) == 0)
   {
-    return [MEMORY[0x1E696AEC0] localizedStringWithFormat:objc_msgSend(IMSharedUtilitiesFrameworkBundle(), "localizedStringForKey:value:table:", @"MAYBE", &stru_1F1BB91F0, @"IMSharedUtilities", -[BSBrand name](-[IMBrand brand](self, "brand"), "name")];
+    return [MEMORY[0x1E696AEC0] localizedStringWithFormat:objc_msgSend(IMSharedUtilitiesFrameworkBundle(isVerified, v4), "localizedStringForKey:value:table:", @"MAYBE", &stru_1F1BB91F0, @"IMSharedUtilities", -[BSBrand name](-[IMBrand brand](self, "brand"), "name")];
   }
 
   brand = [(IMBrand *)self brand];

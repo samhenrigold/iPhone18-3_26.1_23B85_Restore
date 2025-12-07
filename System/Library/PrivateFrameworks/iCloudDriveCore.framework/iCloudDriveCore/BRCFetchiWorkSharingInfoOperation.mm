@@ -37,30 +37,28 @@
 
 - (void)main
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBC3E0]);
-  v12[0] = self->_recordID;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = self->_recordID;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v5 = [v3 initWithRecordIDs:v4];
 
   v6 = *MEMORY[0x277CBC140];
-  v11[0] = *MEMORY[0x277CBC148];
-  v11[1] = v6;
+  v10[0] = *MEMORY[0x277CBC148];
+  v10[1] = v6;
   v7 = *MEMORY[0x277CBC150];
-  v11[2] = *MEMORY[0x277CBC138];
-  v11[3] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
+  v10[2] = *MEMORY[0x277CBC138];
+  v10[3] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
   [v5 setDesiredKeys:v8];
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __41__BRCFetchiWorkSharingInfoOperation_main__block_invoke;
-  v10[3] = &unk_278500DC8;
-  v10[4] = self;
-  [v5 setFetchRecordsCompletionBlock:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __41__BRCFetchiWorkSharingInfoOperation_main__block_invoke;
+  v9[3] = &unk_278500DC8;
+  v9[4] = self;
+  [v5 setFetchRecordsCompletionBlock:v9];
   [(_BRCOperation *)self addSubOperation:v5];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __41__BRCFetchiWorkSharingInfoOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -104,13 +102,12 @@ LABEL_4:
 
 void __41__BRCFetchiWorkSharingInfoOperation_main__block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 134218242;
-  v7 = [a1 count];
-  v8 = 2112;
-  v9 = a2;
-  _os_log_fault_impl(&dword_223E7A000, a3, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: No error and invalid number of records %lu%@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 134218242;
+  v6 = [a1 count];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_fault_impl(&dword_223E7A000, a3, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: No error and invalid number of records %lu%@", &v5, 0x16u);
 }
 
 @end

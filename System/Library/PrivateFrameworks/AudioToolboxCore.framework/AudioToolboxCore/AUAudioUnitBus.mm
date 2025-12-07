@@ -146,32 +146,32 @@
 
 - (BOOL)setFormat:(AVAudioFormat *)format error:(NSError *)outError
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = format;
   if ([(AVAudioFormat *)v7 commonFormat]== AVAudioPCMFormatFloat32 && (![(AVAudioFormat *)v7 isInterleaved]|| [(AVAudioFormat *)v7 channelCount]<= 1) && [(AVAudioFormat *)v7 channelCount]&& (!self->_maximumChannelCount || [(AVAudioFormat *)v7 channelCount]<= self->_maximumChannelCount))
   {
     supportedChannelCounts = self->_supportedChannelCounts;
     if (supportedChannelCounts)
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
-      v12 = supportedChannelCounts;
-      v13 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v13)
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v11 = supportedChannelCounts;
+      v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (v12)
       {
-        v14 = *v20;
+        v13 = *v19;
         while (2)
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v20 != v14)
+            if (*v19 != v13)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v11);
             }
 
-            unsignedIntegerValue = [*(*(&v19 + 1) + 8 * i) unsignedIntegerValue];
+            unsignedIntegerValue = [*(*(&v18 + 1) + 8 * i) unsignedIntegerValue];
             if (unsignedIntegerValue == [(AVAudioFormat *)v7 channelCount])
             {
 
@@ -179,8 +179,8 @@
             }
           }
 
-          v13 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
-          if (v13)
+          v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          if (v12)
           {
             continue;
           }
@@ -195,8 +195,8 @@
       }
 
 LABEL_21:
-      v17 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-10868 userInfo:0];
-      *outError = v17;
+      v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-10868 userInfo:0];
+      *outError = v16;
 
       goto LABEL_9;
     }
@@ -235,7 +235,6 @@ LABEL_9:
 
 LABEL_10:
 
-  v9 = *MEMORY[0x1E69E9840];
   return outError;
 }
 
@@ -252,33 +251,33 @@ LABEL_10:
 
 - (void)setSupportedChannelCounts:(NSArray *)supportedChannelCounts
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = supportedChannelCounts;
   if (self->_supportedChannelCounts != v5)
   {
     [(AUAudioUnitBus *)self willChangeValueForKey:@"supportedChannelCounts"];
     objc_storeStrong(&self->_supportedChannelCounts, supportedChannelCounts);
     [(AUAudioUnitBus *)self didChangeValueForKey:@"supportedChannelCounts"];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = self->_supportedChannelCounts;
     v7 = 0;
-    v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          unsignedIntegerValue = [*(*(&v14 + 1) + 8 * i) unsignedIntegerValue];
+          unsignedIntegerValue = [*(*(&v13 + 1) + 8 * i) unsignedIntegerValue];
           if (v7 <= unsignedIntegerValue)
           {
             v7 = unsignedIntegerValue;
@@ -290,7 +289,7 @@ LABEL_10:
           }
         }
 
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -303,8 +302,6 @@ LABEL_10:
       self->_format = 0;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

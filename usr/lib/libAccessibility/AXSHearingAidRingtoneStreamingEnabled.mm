@@ -3,7 +3,7 @@
 
 @implementation AXSHearingAidRingtoneStreamingEnabled
 
-uint64_t ___AXSHearingAidRingtoneStreamingEnabled_block_invoke()
+void *___AXSHearingAidRingtoneStreamingEnabled_block_invoke()
 {
   if (kAXSHearingAidRingtoneStreamPreferenceChangedNotification && !_processIsResponsibleForPreferenceObserving())
   {

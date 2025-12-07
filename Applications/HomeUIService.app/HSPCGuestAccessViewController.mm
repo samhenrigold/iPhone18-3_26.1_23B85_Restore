@@ -3,6 +3,7 @@
 - (id)commitConfiguration;
 - (id)hu_preloadContent;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCGuestAccessViewController
@@ -64,6 +65,60 @@
 
   guestsTableVC3 = [(HSPCGuestAccessViewController *)self guestsTableVC];
   [guestsTableVC3 didMoveToParentViewController:self];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v38.receiver = self;
+  v38.super_class = HSPCGuestAccessViewController;
+  [(HSPCGuestAccessViewController *)&v38 viewWillAppear:appear];
+  guestsTableVC = [(HSPCGuestAccessViewController *)self guestsTableVC];
+  tableView = [guestsTableVC tableView];
+  [tableView layoutIfNeeded];
+
+  contentView = [(HSPCGuestAccessViewController *)self contentView];
+  [contentView setNeedsUpdateConstraints];
+
+  contentView2 = [(HSPCGuestAccessViewController *)self contentView];
+  actionButtons = [contentView2 actionButtons];
+  v9 = [actionButtons na_firstObjectPassingTest:&stru_1000C6DC8];
+
+  contentView3 = [(HSPCGuestAccessViewController *)self contentView];
+  mainContentGuide = [contentView3 mainContentGuide];
+
+  guestsTableVC2 = [(HSPCGuestAccessViewController *)self guestsTableVC];
+  view = [guestsTableVC2 view];
+  [view setTranslatesAutoresizingMaskIntoConstraints:0];
+
+  guestsTableVC3 = [(HSPCGuestAccessViewController *)self guestsTableVC];
+  view2 = [guestsTableVC3 view];
+  topAnchor = [view2 topAnchor];
+  v33 = mainContentGuide;
+  topAnchor2 = [mainContentGuide topAnchor];
+  v32 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v39[0] = v32;
+  guestsTableVC4 = [(HSPCGuestAccessViewController *)self guestsTableVC];
+  view3 = [guestsTableVC4 view];
+  bottomAnchor = [view3 bottomAnchor];
+  bottomAnchor2 = [mainContentGuide bottomAnchor];
+  v26 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v39[1] = v26;
+  guestsTableVC5 = [(HSPCGuestAccessViewController *)self guestsTableVC];
+  view4 = [guestsTableVC5 view];
+  leadingAnchor = [view4 leadingAnchor];
+  v16 = v9;
+  v27 = v9;
+  leadingAnchor2 = [v9 leadingAnchor];
+  v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v39[2] = v18;
+  guestsTableVC6 = [(HSPCGuestAccessViewController *)self guestsTableVC];
+  view5 = [guestsTableVC6 view];
+  trailingAnchor = [view5 trailingAnchor];
+  trailingAnchor2 = [v16 trailingAnchor];
+  v23 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v39[3] = v23;
+  v24 = [NSArray arrayWithObjects:v39 count:4];
+  [NSLayoutConstraint activateConstraints:v24];
 }
 
 - (id)hu_preloadContent

@@ -1,26 +1,26 @@
 void sub_100086E5C(uint64_t a1)
 {
   v2 = +[NSMutableArray array];
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v17 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = [v8 error];
 
         if (v9)
@@ -34,25 +34,23 @@ void sub_100086E5C(uint64_t a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
-  v13 = [v2 count];
-  v14 = *(a1 + 48);
-  if (v13)
+  if ([v2 count])
   {
-    v15 = v2;
+    v13 = v2;
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), v15);
+  (*(*(a1 + 48) + 16))(*(a1 + 48), v13);
 }
 
 void sub_100087474(id *a1, int a2, void *a3)
@@ -61,7 +59,7 @@ void sub_100087474(id *a1, int a2, void *a3)
   v5 = [a1[4] processingQueue];
   dispatch_assert_queue_V2(v5);
 
-  v6 = +[REMLog cloudkit];
+  v6 = objc_msgSend_cloudkit(REMLog);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
   if (a2)
   {
@@ -142,10 +140,11 @@ void sub_100087474(id *a1, int a2, void *a3)
   }
 }
 
-void sub_10008779C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10008779C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose((v27 - 176), 8);
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
+  _Block_object_dispose((v26 - 176), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -229,13 +228,12 @@ void sub_100087C94(uint64_t a1)
   v2 = [*(a1 + 32) recordName];
   if ([*(a1 + 40) isEqualToString:v2])
   {
-    v3 = +[REMLog cloudkit];
+    v3 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 88);
-      v5 = CKDatabaseScopeString();
+      v4 = CKDatabaseScopeString();
       *buf = 138543618;
-      v13 = v5;
+      v13 = v4;
       v14 = 2114;
       v15 = v2;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "SYNC[APS] CONTINUE - Found a container with subscription owner user recordID for the CKDatabaseNotification {scope: %{public}@, userRecordName: %{public}@}", buf, 0x16u);
@@ -244,7 +242,7 @@ void sub_100087C94(uint64_t a1)
     v6 = [*(a1 + 48) databaseWithDatabaseScope:*(a1 + 88)];
     if (!v6)
     {
-      sub_100763108();
+      sub_100763108(0, v5);
     }
 
     v7 = *(a1 + 56);
@@ -289,7 +287,7 @@ uint64_t sub_100087EF4(uint64_t a1)
 void sub_1000881DC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   v5 = v4;
   if (v3)
   {
@@ -334,7 +332,7 @@ void sub_1000881DC(uint64_t a1, void *a2)
 void sub_100088360(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   v5 = v4;
   if (v3)
   {
@@ -358,29 +356,28 @@ void sub_100088360(uint64_t a1, void *a2)
   if (*(a1 + 80) == 1)
   {
     v6 = [NSString stringWithFormat:@"%@", *(a1 + 40)];
-    v7 = *(a1 + 48);
-    v8 = [objc_opt_class() errorFromErrors:*(a1 + 32)];
-    [*(a1 + 48) didCompleteCloudSchemaCatchUpSyncWithContextMap:*(a1 + 56) error:v8 syncTypeLabel:@"APS" debugLogLabel:v6];
+    v7 = [objc_opt_class() errorFromErrors:*(a1 + 32)];
+    [*(a1 + 48) didCompleteCloudSchemaCatchUpSyncWithContextMap:*(a1 + 56) error:v7 syncTypeLabel:@"APS" debugLogLabel:v6];
   }
 
-  v9 = *(a1 + 48);
-  v10 = *(a1 + 64);
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100088520;
-  v12[3] = &unk_1008DACE0;
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  v11 = *(a1 + 72);
-  v15 = *(a1 + 48);
-  v16 = v11;
-  [v9 processAllDirtyCloudObjectsWithSyncReason:v10 completionHandler:v12];
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 64);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100088520;
+  v11[3] = &unk_1008DACE0;
+  v12 = *(a1 + 32);
+  v13 = *(a1 + 40);
+  v10 = *(a1 + 72);
+  v14 = *(a1 + 48);
+  v15 = v10;
+  [v8 processAllDirtyCloudObjectsWithSyncReason:v9 completionHandler:v11];
 }
 
 void sub_100088520(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   v5 = v4;
   if (v3)
   {
@@ -397,16 +394,15 @@ void sub_100088520(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(a1 + 40);
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "...SYNC[APS] Handled CloudKit database notification {databaseNotification: %{public}@}", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "...SYNC[APS] Handled CloudKit database notification {databaseNotification: %{public}@}", &v8, 0xCu);
     }
   }
 
   if (*(a1 + 56))
   {
-    v7 = *(a1 + 48);
-    v8 = [objc_opt_class() errorFromErrors:*(a1 + 32)];
+    v7 = [objc_opt_class() errorFromErrors:*(a1 + 32)];
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -414,7 +410,7 @@ void sub_100088520(uint64_t a1, void *a2)
 void sub_10008876C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;
@@ -445,7 +441,7 @@ void sub_100088BE0(uint64_t a1)
   v4 = v2;
   v40 = v4;
   [v3 enumerateKeysAndObjectsUsingBlock:v39];
-  v5 = +[REMLog cloudkit];
+  v5 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -518,7 +514,7 @@ LABEL_15:
 
           else
           {
-            v19 = +[REMLog cloudkit];
+            v19 = objc_msgSend_cloudkit(REMLog);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
             {
               v27 = [v15 database];
@@ -536,7 +532,7 @@ LABEL_15:
             }
 
 LABEL_16:
-            v22 = +[REMLog cloudkit];
+            v22 = objc_msgSend_cloudkit(REMLog);
             if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
             {
               v23 = [v15 ic_loggingDescription];
@@ -650,7 +646,7 @@ void sub_100089320(uint64_t a1)
         v10 = *(*(&v56 + 1) + 8 * v9);
         if ([v10 isFinished] & 1) != 0 || (objc_msgSend(v10, "isExecuting") & 1) != 0 || (objc_msgSend(v10, "isCancelled") & 1) != 0 || (objc_msgSend(*(a1 + 40), "operationQueue"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "operations"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "containsObject:", v10), v12, v11, (v13))
         {
-          v14 = [v8[50] cloudkit];
+          v14 = objc_msgSend_cloudkit(v8[50]);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             v15 = [v10 isFinished];
@@ -700,7 +696,7 @@ void sub_100089320(uint64_t a1)
                   v26 = v25;
                   if ([v10 ic_shouldDependOnCKFetchRecordZoneChangesOperation:v26])
                   {
-                    v27 = [v8[50] cloudkit];
+                    v27 = objc_msgSend_cloudkit(v8[50]);
                     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
                     {
                       v28 = [v26 ic_loggingDescription];
@@ -819,9 +815,8 @@ void sub_1000899C0(uint64_t a1)
   dispatch_async(v2, block);
 }
 
-void sub_100089A78(void *a1)
+void sub_100089A78(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   v3 = [objc_opt_class() errorFromOperations:a1[5]];
   (*(a1[6] + 16))();
 }
@@ -869,40 +864,39 @@ void sub_10008A088(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   v6 = [a2 integerValue];
-  v28 = [*(a1 + 32) databaseWithDatabaseScope:v6];
+  v27 = [*(a1 + 32) databaseWithDatabaseScope:v6];
   v7 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v5, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
+        v13 = *(*(&v29 + 1) + 8 * i);
         v14 = [*(a1 + 40) accountZoneIDsNeedingFetchChanges];
         [v14 ic_removeZoneID:v13 forAccountID:*(a1 + 48)];
 
         if (v6 == 2)
         {
-          v20 = *(a1 + 40);
-          v21 = [objc_opt_class() migrationZoneID];
-          v22 = [v21 isEqual:v13];
+          v20 = [objc_opt_class() migrationZoneID];
+          v21 = [v20 isEqual:v13];
 
-          if (v22)
+          if (v21)
           {
-            v17 = +[REMLog cloudkit];
+            v17 = objc_msgSend_cloudkit(REMLog);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
@@ -926,7 +920,7 @@ LABEL_15:
 
           if (v15)
           {
-            v17 = +[REMLog cloudkit];
+            v17 = objc_msgSend_cloudkit(REMLog);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
@@ -939,43 +933,44 @@ LABEL_15:
           }
         }
 
-        v23 = [*(a1 + 40) accountZoneIDsFetchingChanges];
-        [v23 ic_addZoneID:v13 forAccountID:*(a1 + 48)];
+        v22 = [*(a1 + 40) accountZoneIDsFetchingChanges];
+        [v22 ic_addZoneID:v13 forAccountID:*(a1 + 48)];
 
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v10);
   }
 
-  v24 = *(a1 + 40);
-  v25 = [v7 copy];
-  v26 = [v24 operationToFetchRecordZoneChangesForZoneIDs:v25 database:v28 reason:*(a1 + 56) ignoreServerChangeTokens:*(a1 + 88)];
+  v23 = *(a1 + 40);
+  v24 = [v7 copy];
+  v25 = [v23 operationToFetchRecordZoneChangesForZoneIDs:v24 database:v27 reason:*(a1 + 56) ignoreServerChangeTokens:*(a1 + 88)];
 
-  v27 = [v26 group];
+  v26 = [v25 group];
 
-  if (!v27)
+  if (!v26)
   {
-    [v26 setGroup:*(a1 + 64)];
+    [v25 setGroup:*(a1 + 64)];
     [*(a1 + 64) setQuantity:{objc_msgSend(*(a1 + 64), "quantity") + 1}];
   }
 
-  [*(a1 + 72) addObject:v26];
+  [*(a1 + 72) addObject:v25];
 }
 
-void sub_10008B2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, id a57, char a58)
+void sub_10008B2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, id a57, ...)
 {
-  objc_destroyWeak((v61 + 72));
-  objc_destroyWeak((v60 + 56));
-  objc_destroyWeak((v59 + 64));
+  va_start(va, a57);
+  objc_destroyWeak((v60 + 72));
+  objc_destroyWeak((v59 + 56));
   objc_destroyWeak((v58 + 64));
+  objc_destroyWeak((v57 + 64));
   objc_destroyWeak(&a57);
-  _Block_object_dispose(&a58, 8);
-  _Block_object_dispose((v62 - 160), 8);
-  objc_destroyWeak((v62 - 200));
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v61 - 160), 8);
+  objc_destroyWeak((v61 - 200));
   _Unwind_Resume(a1);
 }
 
@@ -1022,20 +1017,19 @@ void sub_10008B478(uint64_t a1)
 void sub_10008B564(uint64_t a1)
 {
   [*(a1 + 32) _performSortingChildrenObjectsAfterFetchingInBlockOfManagedObjectContext:*(a1 + 40) fetchHasFullyCompleted:0 accountID:*(a1 + 48)];
-  v2 = *(a1 + 32);
   [objc_opt_class() saveAndFaultIfFailWithContext:*(a1 + 40) shouldTakeServerAsTruth:1 logDescription:@"record changed"];
   [*(a1 + 40) reset];
-  v3 = [*(a1 + 32) lastSyncMetrics];
-  [v3 setSaveCount:{objc_msgSend(v3, "saveCount") + 1}];
+  v2 = [*(a1 + 32) lastSyncMetrics];
+  [v2 setSaveCount:{objc_msgSend(v2, "saveCount") + 1}];
 
-  v4 = *(*(*(a1 + 56) + 8) + 24);
-  v5 = [*(a1 + 32) lastSyncMetrics];
-  [v5 setProcessedRecordCount:v4];
+  v3 = *(*(*(a1 + 56) + 8) + 24);
+  v4 = [*(a1 + 32) lastSyncMetrics];
+  [v4 setProcessedRecordCount:v3];
 }
 
 void sub_10008B61C(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v13 = a2;
+  v12 = a2;
   v7 = a3;
   v8 = a4;
   if (*(*(*(a1 + 56) + 8) + 24) == -1.0)
@@ -1048,15 +1042,14 @@ void sub_10008B61C(uint64_t a1, void *a2, void *a3, void *a4)
 
   v10 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  [v10 fetchRecordZoneChangesOperation:WeakRetained recordWasChangedWithRecordID:v13 record:v7 error:v8 context:*(a1 + 40)];
+  [v10 fetchRecordZoneChangesOperation:WeakRetained recordWasChangedWithRecordID:v12 record:v7 error:v8 context:*(a1 + 40)];
 
-  v12 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
 void sub_10008B71C(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   if (*(*(*(a1 + 56) + 8) + 24) == -1.0)
   {
@@ -1068,9 +1061,8 @@ void sub_10008B71C(uint64_t a1, void *a2, void *a3)
 
   v7 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  [v7 fetchRecordZoneChangesOperation:WeakRetained recordWasDeletedWithRecordID:v10 recordType:v5 context:*(a1 + 40)];
+  [v7 fetchRecordZoneChangesOperation:WeakRetained recordWasDeletedWithRecordID:v9 recordType:v5 context:*(a1 + 40)];
 
-  v9 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -1116,11 +1108,10 @@ void sub_10008B938(uint64_t a1)
 id sub_10008B9EC(uint64_t a1)
 {
   [*(a1 + 32) _performSortingChildrenObjectsAfterFetchingInBlockOfManagedObjectContext:*(a1 + 40) fetchHasFullyCompleted:0 accountID:*(a1 + 48)];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = *(a1 + 40);
+  v2 = objc_opt_class();
+  v3 = *(a1 + 40);
 
-  return [v3 saveAndFaultIfFailWithContext:v4 shouldTakeServerAsTruth:1 logDescription:@"zone change token updated"];
+  return [v2 saveAndFaultIfFailWithContext:v3 shouldTakeServerAsTruth:1 logDescription:@"zone change token updated"];
 }
 
 void sub_10008BA44(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
@@ -1160,9 +1151,8 @@ void sub_10008BB80(int8x16_t *a1)
   [v1.i64[0] performBlockAndWait:v2];
 }
 
-id sub_10008BC0C(uint64_t a1)
+id sub_10008BC0C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v4 = *(a1 + 40);
 
@@ -1197,7 +1187,7 @@ void sub_10008BC54(uint64_t a1, void *a2)
   [v9 fetchRecordZoneChangesOperationDidComplete:WeakRetained error:v3];
 
   Current = CFAbsoluteTimeGetCurrent();
-  v12 = +[REMLog cloudkit];
+  v12 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = objc_loadWeakRetained((a1 + 72));
@@ -1235,18 +1225,16 @@ void sub_10008BE78(uint64_t a1)
 id sub_10008BF2C(uint64_t a1)
 {
   [*(a1 + 32) _performSortingChildrenObjectsAfterFetchingInBlockOfManagedObjectContext:*(a1 + 40) fetchHasFullyCompleted:1 accountID:*(a1 + 48)];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = *(a1 + 40);
+  v2 = objc_opt_class();
+  v3 = *(a1 + 40);
 
-  return [v3 saveAndFaultIfFailWithContext:v4 shouldTakeServerAsTruth:1 logDescription:@"fetch record zone changes completion"];
+  return [v2 saveAndFaultIfFailWithContext:v3 shouldTakeServerAsTruth:1 logDescription:@"fetch record zone changes completion"];
 }
 
-void sub_10008C0B0(uint64_t a1)
+void sub_10008C0B0(uint64_t a1, uint64_t a2)
 {
   v3 = a1 + 40;
-  v2 = *(a1 + 40);
-  v4 = *(v3 - 8);
+  v4 = *(a1 + 32);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   [v4 incrementOrClearRetryCountForOperationType:v6 error:*(v3 + 8)];
@@ -1257,7 +1245,7 @@ void sub_10008C0B0(uint64_t a1)
 
   if (![v9 length])
   {
-    v10 = +[REMLog cloudkit];
+    v10 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       sub_100763404();
@@ -1267,7 +1255,7 @@ void sub_10008C0B0(uint64_t a1)
   v11 = *(a1 + 48);
   if (!v11)
   {
-    v17 = +[REMLog cloudkit];
+    v17 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = [*(a1 + 56) ic_loggingDescription];
@@ -1293,7 +1281,7 @@ void sub_10008C0B0(uint64_t a1)
       {
         if (v12 == 21)
         {
-          v13 = +[REMLog cloudkit];
+          v13 = objc_msgSend_cloudkit(REMLog);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             v41 = [*(a1 + 56) ic_loggingDescription];
@@ -1319,7 +1307,7 @@ LABEL_29:
         }
 
 LABEL_26:
-        v30 = +[REMLog cloudkit];
+        v30 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           v43 = [*(a1 + 56) ic_loggingDescription];
@@ -1346,7 +1334,7 @@ LABEL_24:
       goto LABEL_30;
     }
 
-    v26 = +[REMLog cloudkit];
+    v26 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       v39 = [*(a1 + 56) ic_loggingDescription];
@@ -1377,7 +1365,7 @@ LABEL_23:
     goto LABEL_26;
   }
 
-  v20 = +[REMLog cloudkit];
+  v20 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = [*(a1 + 56) ic_loggingDescription];
@@ -1450,7 +1438,7 @@ void sub_10008C818(uint64_t a1)
 
   if (![v5 length])
   {
-    v6 = +[REMLog cloudkit];
+    v6 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_100763498();
@@ -1460,7 +1448,7 @@ void sub_10008C818(uint64_t a1)
   v7 = *(a1 + 48);
   if (!v7)
   {
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [*v2 ic_loggingDescription];
@@ -1480,7 +1468,7 @@ LABEL_17:
   v8 = [v7 code];
   if (v8 == 20 || v8 == 3)
   {
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [*(a1 + 40) ic_loggingDescription];
@@ -1502,7 +1490,7 @@ LABEL_17:
 
   if (v8 == 2)
   {
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [*v2 ic_loggingDescription];
@@ -1523,7 +1511,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v9 = +[REMLog cloudkit];
+  v9 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v24 = [*(a1 + 40) ic_loggingDescription];
@@ -1604,26 +1592,26 @@ void sub_10008D024(id *a1)
   [v3 performBlockAndWait:v8];
 }
 
-void sub_10008D124(uint64_t a1)
+void sub_10008D124(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(a1 + 40) ic_loggingDescription];
-    v5 = [*(a1 + 48) ic_shortLoggingDescription];
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) ic_loggingDescription];
+    v6 = [*(a1 + 48) ic_shortLoggingDescription];
     v10 = 138543874;
-    v11 = v3;
+    v11 = v4;
     v12 = 2114;
-    v13 = v4;
+    v13 = v5;
     v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[fetchRecordZoneChangesOperation:recordWasChangedWithRecordID:record:error:context:] Record changed {accountID: %{public}@, recordID: %{public}@, operation: %{public}@}", &v10, 0x20u);
+    v15 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[fetchRecordZoneChangesOperation:recordWasChangedWithRecordID:record:error:context:] Record changed {accountID: %{public}@, recordID: %{public}@, operation: %{public}@}", &v10, 0x20u);
   }
 
   if (([*(a1 + 56) _isCloudKitAccountAvailableWithManagedObjectContext:*(a1 + 64) requireActive:0] & 1) == 0)
   {
-    v7 = +[REMLog cloudkit];
+    v7 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1007635C0(a1);
@@ -1632,7 +1620,6 @@ void sub_10008D124(uint64_t a1)
     goto LABEL_8;
   }
 
-  v6 = *(a1 + 72);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1671,21 +1658,21 @@ void sub_10008D5D0(uint64_t a1)
   [v2 performBlockAndWait:v3];
 }
 
-void sub_10008D684(uint64_t a1)
+void sub_10008D684(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(a1 + 40) ic_loggingDescription];
-    v5 = [*(a1 + 48) ic_shortLoggingDescription];
-    v6 = 138543874;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Share was deleted in accountID %{public}@: %{public}@ %{public}@", &v6, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) ic_loggingDescription];
+    v6 = [*(a1 + 48) ic_shortLoggingDescription];
+    v7 = 138543874;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Share was deleted in accountID %{public}@: %{public}@ %{public}@", &v7, 0x20u);
   }
 }
 
@@ -1710,89 +1697,89 @@ void sub_10008D774(id *a1)
   [v3 performBlockAndWait:v8];
 }
 
-void sub_10008D874(uint64_t a1)
+void sub_10008D874(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(a1 + 40) ic_loggingDescription];
-    v5 = [*(a1 + 48) ic_shortLoggingDescription];
-    v15 = 138543874;
-    v16 = v3;
-    v17 = 2114;
-    v18 = v4;
-    v19 = 2114;
-    v20 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Record was deleted in accountID %{public}@: %{public}@ %{public}@", &v15, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) ic_loggingDescription];
+    v6 = [*(a1 + 48) ic_shortLoggingDescription];
+    v16 = 138543874;
+    v17 = v4;
+    v18 = 2114;
+    v19 = v5;
+    v20 = 2114;
+    v21 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Record was deleted in accountID %{public}@: %{public}@ %{public}@", &v16, 0x20u);
   }
 
-  v6 = [*(a1 + 56) existingCloudObjectForRecordID:*(a1 + 40) recordType:*(a1 + 64) accountID:*(a1 + 32) context:*(a1 + 72)];
-  if (!v6)
+  v7 = [*(a1 + 56) existingCloudObjectForRecordID:*(a1 + 40) recordType:*(a1 + 64) accountID:*(a1 + 32) context:*(a1 + 72)];
+  if (!v7)
   {
-    v7 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = [*(a1 + 40) ic_loggingDescription];
-      v10 = [*(a1 + 48) ic_shortLoggingDescription];
-      v15 = 138543874;
-      v16 = v8;
-      v17 = 2114;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v10;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Record was deleted but the cloud object no longer exists in our database for fetchRecordZoneChangesOperation:recordWasDeletedWithRecordID:... {accountID: %{public}@, prefetchRecordID: %{public}@, opeartion: %{public}@}", &v15, 0x20u);
+      v9 = *(a1 + 32);
+      v10 = [*(a1 + 40) ic_loggingDescription];
+      v11 = [*(a1 + 48) ic_shortLoggingDescription];
+      v16 = 138543874;
+      v17 = v9;
+      v18 = 2114;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Record was deleted but the cloud object no longer exists in our database for fetchRecordZoneChangesOperation:recordWasDeletedWithRecordID:... {accountID: %{public}@, prefetchRecordID: %{public}@, opeartion: %{public}@}", &v16, 0x20u);
     }
   }
 
-  v11 = [v6 ckZoneOwnerName];
-  if (!v11)
+  v12 = [v7 ckZoneOwnerName];
+  if (!v12)
   {
-    v11 = CKCurrentUserDefaultName;
+    v12 = CKCurrentUserDefaultName;
   }
 
-  v12 = [*(a1 + 40) zoneID];
-  v13 = [v12 ownerName];
-  v14 = [(NSString *)v11 isEqualToString:v13];
+  v13 = [*(a1 + 40) zoneID];
+  v14 = [v13 ownerName];
+  v15 = [(NSString *)v12 isEqualToString:v14];
 
-  if (v14)
+  if (v15)
   {
-    [v6 objectWasDeletedFromCloudByAnotherDevice];
+    [v7 objectWasDeletedFromCloudByAnotherDevice];
   }
 }
 
-void sub_10008DB9C(uint64_t a1)
+void sub_10008DB9C(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(a1 + 32) ic_loggingDescription];
-    v4 = [*(a1 + 40) ic_loggingDescription];
-    v5 = [*(a1 + 48) ic_loggingDescription];
-    v10 = 138543874;
-    v11 = v3;
-    v12 = 2114;
-    v13 = v4;
-    v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Zone change token updated %{public}@ %{public}@ %{public}@", &v10, 0x20u);
+    v4 = [*(a1 + 32) ic_loggingDescription];
+    v5 = [*(a1 + 40) ic_loggingDescription];
+    v6 = [*(a1 + 48) ic_loggingDescription];
+    v11 = 138543874;
+    v12 = v4;
+    v13 = 2114;
+    v14 = v5;
+    v15 = 2114;
+    v16 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Zone change token updated %{public}@ %{public}@ %{public}@", &v11, 0x20u);
   }
 
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(a1 + 56);
-  v9 = [*(a1 + 48) database];
-  [v8 saveServerChangeToken:v6 forRecordZoneID:v7 databaseScope:objc_msgSend(v9 accountID:{"databaseScope"), *(a1 + 64)}];
+  v8 = *(a1 + 32);
+  v7 = *(a1 + 40);
+  v9 = *(a1 + 56);
+  v10 = [*(a1 + 48) database];
+  [v9 saveServerChangeToken:v7 forRecordZoneID:v8 databaseScope:objc_msgSend(v10 accountID:{"databaseScope"), *(a1 + 64)}];
 }
 
-id sub_10008E0E8(uint64_t a1)
+id sub_10008E0E8(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Polling timer fired", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Polling timer fired", v5, 2u);
   }
 
   return [*(a1 + 32) syncWithReason:@"Poll" discretionary:1 completionHandler:0];
@@ -1802,7 +1789,7 @@ void sub_10008E314(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = +[REMLog cloudkit];
+  v7 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_10076378C();
@@ -1825,6 +1812,13 @@ void sub_10008E314(uint64_t a1, void *a2, void *a3)
     v13 = [v6 sharedCloudDatabase];
     [v12 addObject:v13];
   }
+}
+
+void sub_10008E8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
+{
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10008E928(uint64_t a1, void *a2)
@@ -1857,9 +1851,8 @@ void sub_10008E9F4(uint64_t a1)
   dispatch_async(v2, block);
 }
 
-void sub_10008EAA8(void *a1)
+void sub_10008EAA8(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   v3 = [objc_opt_class() errorFromErrors:*(*(a1[6] + 8) + 40)];
   (*(a1[5] + 16))();
 }
@@ -1907,30 +1900,30 @@ void sub_10008F330(uint64_t a1, void *a2, uint64_t a3, void *a4)
   [v6 fetchDatabaseChangesOperation:WeakRetained finishedWithServerChangeToken:v8 accountID:*(a1 + 40) error:v7 completionHandler:*(a1 + 48)];
 }
 
-void sub_10008F4B8(uint64_t a1)
+void sub_10008F4B8(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(a1 + 40) ic_loggingDescription];
-    v5 = [*(a1 + 48) ic_loggingDescription];
-    v9 = 138543874;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
-    v13 = 2114;
-    v14 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Zone changed for account %{public}@, %{public}@ %{public}@", &v9, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) ic_loggingDescription];
+    v6 = [*(a1 + 48) ic_loggingDescription];
+    v10 = 138543874;
+    v11 = v4;
+    v12 = 2114;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Zone changed for account %{public}@, %{public}@ %{public}@", &v10, 0x20u);
   }
 
-  v6 = [*(a1 + 40) zoneName];
-  v7 = [v6 isEqualToString:CKRecordZoneDefaultName];
+  v7 = [*(a1 + 40) zoneName];
+  v8 = [v7 isEqualToString:CKRecordZoneDefaultName];
 
-  if ((v7 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v8 = [*(a1 + 56) accountZoneIDsNeedingFetchChanges];
-    [v8 ic_addZoneID:*(a1 + 40) forAccountID:*(a1 + 32)];
+    v9 = [*(a1 + 56) accountZoneIDsNeedingFetchChanges];
+    [v9 ic_addZoneID:*(a1 + 40) forAccountID:*(a1 + 32)];
 
     [*(a1 + 56) saveZoneFetchState];
   }
@@ -1942,36 +1935,36 @@ void sub_10008F774(uint64_t a1, void *a2)
   v4 = [*(a1 + 32) ownerName];
   v5 = [NSPredicate predicateWithFormat:@"ckZoneOwnerName == %@", v4];
 
-  v31 = v5;
-  v32 = v3;
+  v30 = v5;
+  v31 = v3;
   v6 = [REMCDObject ic_objectsMatchingPredicate:v5 context:v3];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v35;
+    v9 = *v34;
     v10 = REMCRMergeableOrderedSet_ptr;
     do
     {
       v11 = 0;
-      v33 = v8;
+      v32 = v8;
       do
       {
-        if (*v35 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * v11);
+        v12 = *(*(&v33 + 1) + 8 * v11);
         v13 = [v12 recordID];
         v14 = [v13 zoneID];
         v15 = [v14 isEqual:*(a1 + 32)];
 
-        v16 = [v10[50] cloudkit];
+        v16 = objc_msgSend_cloudkit(v10[50]);
         v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
         if (v15)
         {
@@ -1981,11 +1974,11 @@ void sub_10008F774(uint64_t a1, void *a2)
             v19 = *(a1 + 32);
             v20 = *(a1 + 40);
             *buf = 138412802;
-            v39 = v18;
-            v40 = 2114;
-            v41 = v19;
-            v42 = 2114;
-            v43 = v20;
+            v38 = v18;
+            v39 = 2114;
+            v40 = v19;
+            v41 = 2114;
+            v42 = v20;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Deleting shared %@ for zoneID %{public}@, accountID %{public}@", buf, 0x20u);
           }
 
@@ -2006,19 +1999,19 @@ void sub_10008F774(uint64_t a1, void *a2)
             v28 = *(a1 + 32);
             v29 = *(a1 + 40);
             *buf = 138413058;
-            v39 = v21;
-            v40 = 2114;
-            v41 = v27;
-            v42 = 2114;
-            v43 = v28;
-            v44 = 2114;
-            v45 = v29;
+            v38 = v21;
+            v39 = 2114;
+            v40 = v27;
+            v41 = 2114;
+            v42 = v28;
+            v43 = 2114;
+            v44 = v29;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Not deleting shared %@ in wrong zone %{public}@ for zone ID %{public}@, accountID %{public}@", buf, 0x2Au);
 
             v6 = v26;
             v10 = v25;
             v9 = v24;
-            v8 = v33;
+            v8 = v32;
           }
         }
 
@@ -2026,51 +2019,50 @@ void sub_10008F774(uint64_t a1, void *a2)
       }
 
       while (v8 != v11);
-      v8 = [v6 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v33 objects:v45 count:16];
     }
 
     while (v8);
   }
 
-  v30 = *(a1 + 48);
-  [objc_opt_class() saveAndFaultIfFailWithContext:v32 shouldTakeServerAsTruth:1 logDescription:@"deleting shared zone"];
+  [objc_opt_class() saveAndFaultIfFailWithContext:v31 shouldTakeServerAsTruth:1 logDescription:@"deleting shared zone"];
 }
 
-void sub_10008FB88(uint64_t a1)
+void sub_10008FB88(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(a1 + 40) ic_loggingDescription];
-    v5 = [*(a1 + 48) ic_loggingDescription];
-    v20 = 138543874;
-    v21 = v3;
-    v22 = 2114;
-    v23 = v4;
-    v24 = 2114;
-    v25 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Zone was deleted for account %{public}@, %{public}@ %{public}@", &v20, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) ic_loggingDescription];
+    v6 = [*(a1 + 48) ic_loggingDescription];
+    v21 = 138543874;
+    v22 = v4;
+    v23 = 2114;
+    v24 = v5;
+    v25 = 2114;
+    v26 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Zone was deleted for account %{public}@, %{public}@ %{public}@", &v21, 0x20u);
   }
 
-  v6 = [*(a1 + 48) database];
-  if ([v6 databaseScope] == 3)
+  v7 = [*(a1 + 48) database];
+  if ([v7 databaseScope] == 3)
   {
-    v7 = [*(a1 + 40) ownerName];
-    v8 = [v7 isEqualToString:CKCurrentUserDefaultName];
+    v8 = [*(a1 + 40) ownerName];
+    v9 = [v8 isEqualToString:CKCurrentUserDefaultName];
 
-    if (v8)
+    if (v9)
     {
-      v9 = +[REMLog cloudkit];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = objc_msgSend_cloudkit(REMLog);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [*(a1 + 40) ic_loggingDescription];
-        v11 = [*(a1 + 48) ic_loggingDescription];
-        v20 = 138543618;
-        v21 = v10;
-        v22 = 2114;
-        v23 = v11;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Callback for operation in shared database says private zone was deleted %{public}@: %{public}@", &v20, 0x16u);
+        v11 = [*(a1 + 40) ic_loggingDescription];
+        v12 = [*(a1 + 48) ic_loggingDescription];
+        v21 = 138543618;
+        v22 = v11;
+        v23 = 2114;
+        v24 = v12;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Callback for operation in shared database says private zone was deleted %{public}@: %{public}@", &v21, 0x16u);
       }
 
       return;
@@ -2083,13 +2075,13 @@ void sub_10008FB88(uint64_t a1)
 
   if ([*(a1 + 40) ic_isOwnedByCurrentUser])
   {
-    v12 = [*(a1 + 40) zoneName];
-    v13 = [v12 isEqualToString:CKRecordZoneDefaultName];
+    v13 = [*(a1 + 40) zoneName];
+    v14 = [v13 isEqualToString:CKRecordZoneDefaultName];
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
-      v14 = [*(a1 + 56) accountZoneIDsNeedingFetchChanges];
-      [v14 ic_addZoneID:*(a1 + 40) forAccountID:*(a1 + 32)];
+      v15 = [*(a1 + 56) accountZoneIDsNeedingFetchChanges];
+      [v15 ic_addZoneID:*(a1 + 40) forAccountID:*(a1 + 32)];
 
       [*(a1 + 56) saveZoneFetchState];
     }
@@ -2097,144 +2089,144 @@ void sub_10008FB88(uint64_t a1)
 
   else
   {
-    v15 = [*(a1 + 56) cloudContextDelegate];
-    [v15 cloudContext:*(a1 + 56) sharedZoneWasDeleted:*(a1 + 40) accountID:*(a1 + 32)];
+    v16 = [*(a1 + 56) cloudContextDelegate];
+    [v16 cloudContext:*(a1 + 56) sharedZoneWasDeleted:*(a1 + 40) accountID:*(a1 + 32)];
 
     [*(a1 + 56) sharedZoneWasDeleted:*(a1 + 40) accountID:*(a1 + 32)];
-    v16 = [*(a1 + 56) accountZoneIDsNeedingFetchChanges];
-    [v16 ic_removeZoneID:*(a1 + 40) forAccountID:*(a1 + 32)];
+    v17 = [*(a1 + 56) accountZoneIDsNeedingFetchChanges];
+    [v17 ic_removeZoneID:*(a1 + 40) forAccountID:*(a1 + 32)];
 
     [*(a1 + 56) saveZoneFetchState];
-    v17 = *(a1 + 56);
-    v18 = *(a1 + 40);
-    v19 = [*(a1 + 48) database];
-    [v17 deleteServerChangeTokenForRecordZoneID:v18 databaseScope:objc_msgSend(v19 accountID:{"databaseScope"), *(a1 + 32)}];
+    v18 = *(a1 + 56);
+    v19 = *(a1 + 40);
+    v20 = [*(a1 + 48) database];
+    [v18 deleteServerChangeTokenForRecordZoneID:v19 databaseScope:objc_msgSend(v20 accountID:{"databaseScope"), *(a1 + 32)}];
   }
 }
 
-void sub_10008FF3C(uint64_t a1)
+void sub_10008FF3C(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(a1 + 40) ic_loggingDescription];
-    v5 = [*(a1 + 48) ic_loggingDescription];
-    v9 = 138543874;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
-    v13 = 2114;
-    v14 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Database change token updated for account %{public}@, %{public}@ %{public}@", &v9, 0x20u);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) ic_loggingDescription];
+    v6 = [*(a1 + 48) ic_loggingDescription];
+    v10 = 138543874;
+    v11 = v4;
+    v12 = 2114;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Database change token updated for account %{public}@, %{public}@ %{public}@", &v10, 0x20u);
   }
 
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 40);
-  v8 = [*(a1 + 48) database];
-  [v6 saveServerChangeToken:v7 forRecordZoneID:0 databaseScope:objc_msgSend(v8 accountID:{"databaseScope"), *(a1 + 32)}];
+  v7 = *(a1 + 56);
+  v8 = *(a1 + 40);
+  v9 = [*(a1 + 48) database];
+  [v7 saveServerChangeToken:v8 forRecordZoneID:0 databaseScope:objc_msgSend(v9 accountID:{"databaseScope"), *(a1 + 32)}];
 }
 
-void sub_1000901B4(uint64_t a1)
+void sub_1000901B4(uint64_t a1, const char *a2)
 {
-  v2 = (a1 + 32);
+  v3 = a1 + 32;
   if (*(a1 + 32))
   {
-    v3 = *(a1 + 56);
-    if (v3)
+    v4 = *(a1 + 56);
+    if (v4)
     {
-      if ([v3 code] == 21)
+      if ([v4 code] == 21)
       {
-        v4 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+        v5 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          sub_1007639B8(v2, a1);
+          sub_1007639B8(v3, a1);
         }
 
-        v5 = *(a1 + 64);
-        v6 = [*(a1 + 48) database];
-        [v5 deleteServerChangeTokenForChangedZonesInDatabase:v6 accountID:*(a1 + 32)];
+        v6 = *(a1 + 64);
+        v7 = [*(a1 + 48) database];
+        [v6 deleteServerChangeTokenForChangedZonesInDatabase:v7 accountID:*(a1 + 32)];
 LABEL_7:
-        v7 = 1;
+        v8 = 1;
 LABEL_23:
 
 LABEL_24:
-        v17 = [*(a1 + 48) database];
-        [v17 databaseScope];
-        v18 = CKDatabaseScopeString();
+        v18 = [*(a1 + 48) database];
+        [v18 databaseScope];
+        v19 = CKDatabaseScopeString();
 
-        v19 = [*(a1 + 64) retryCountFetchDatabaseChangesOperationTypeForAccountID:*(a1 + 32) dataScopeString:v18];
-        v20 = [*(a1 + 64) retryCountsByOperationType];
-        v21 = [v20 objectForKeyedSubscript:v19];
-        v22 = v21;
-        v23 = &off_100904E78;
-        if (v21)
+        v20 = [*(a1 + 64) retryCountFetchDatabaseChangesOperationTypeForAccountID:*(a1 + 32) dataScopeString:v19];
+        v21 = [*(a1 + 64) retryCountsByOperationType];
+        v22 = [v21 objectForKeyedSubscript:v20];
+        v23 = v22;
+        v24 = &off_100904E78;
+        if (v22)
         {
-          v23 = v21;
+          v24 = v22;
         }
 
-        v24 = v23;
+        v25 = v24;
 
-        v25 = +[ICCloudConfiguration sharedConfiguration];
-        v26 = [v25 fetchDatabaseChangesOperationPerScopePerAccountMaximumRetryCount];
-        v27 = [v24 intValue];
+        v26 = +[ICCloudConfiguration sharedConfiguration];
+        v27 = [v26 fetchDatabaseChangesOperationPerScopePerAccountMaximumRetryCount];
+        v28 = [v25 intValue];
 
-        if (v26 <= v27)
+        if (v27 <= v28)
         {
-          v28 = +[REMLog cloudkit];
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v29 = objc_msgSend_cloudkit(REMLog);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
             sub_100763A4C();
           }
 
-          v7 = 0;
+          v8 = 0;
         }
 
-        v29 = [*(a1 + 64) databaseScopeStringsNeedingRetryFetchChangesByAccountID];
-        v30 = [v29 objectForKeyedSubscript:*(a1 + 32)];
+        v30 = [*(a1 + 64) databaseScopeStringsNeedingRetryFetchChangesByAccountID];
+        v31 = [v30 objectForKeyedSubscript:*(a1 + 32)];
 
-        if (v7)
+        if (v8)
         {
-          if (!v30)
+          if (!v31)
           {
-            v30 = [[NSMutableSet alloc] initWithCapacity:3];
-            v31 = [*(a1 + 64) databaseScopeStringsNeedingRetryFetchChangesByAccountID];
-            [v31 setObject:v30 forKeyedSubscript:*(a1 + 32)];
+            v31 = [[NSMutableSet alloc] initWithCapacity:3];
+            v32 = [*(a1 + 64) databaseScopeStringsNeedingRetryFetchChangesByAccountID];
+            [v32 setObject:v31 forKeyedSubscript:*(a1 + 32)];
           }
 
-          [v30 addObject:v18];
-          [*(a1 + 64) incrementRetryCountForOperationType:v19];
+          [v31 addObject:v19];
+          [*(a1 + 64) incrementRetryCountForOperationType:v20];
           [*(a1 + 64) startRetryTimerIfNecessaryWithError:*(a1 + 56)];
         }
 
         else
         {
-          [v30 removeObject:v18];
-          if (![v30 count])
+          [v31 removeObject:v19];
+          if (![v31 count])
           {
-            v32 = [*(a1 + 64) databaseScopeStringsNeedingRetryFetchChangesByAccountID];
-            [v32 removeObjectForKey:*(a1 + 32)];
+            v33 = [*(a1 + 64) databaseScopeStringsNeedingRetryFetchChangesByAccountID];
+            [v33 removeObjectForKey:*(a1 + 32)];
           }
 
-          [*(a1 + 64) clearRetryCountForOperationType:v19];
+          [*(a1 + 64) clearRetryCountForOperationType:v20];
         }
 
         if (*(a1 + 56))
         {
-          v33 = +[REMLog cloudkit];
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v34 = objc_msgSend_cloudkit(REMLog);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             sub_100763AC8(a1 + 48);
           }
 
-          v34 = [*(a1 + 64) operationQueue];
-          v35 = [v34 iterativelyCancelDependentOperations:*(a1 + 48)];
+          v35 = [*(a1 + 64) operationQueue];
+          v36 = [v35 iterativelyCancelDependentOperations:*(a1 + 48)];
         }
 
-        v36 = *(a1 + 72);
-        if (v36)
+        v37 = *(a1 + 72);
+        if (v37)
         {
-          (*(v36 + 16))(v36, *(a1 + 56));
+          (*(v37 + 16))(v37, *(a1 + 56));
         }
 
         return;
@@ -2242,84 +2234,84 @@ LABEL_24:
 
       if ([*(a1 + 56) code] == 20)
       {
-        v6 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v7 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          sub_100763924(v2, a1);
+          sub_100763924(v3, a1);
         }
       }
 
       else
       {
-        v15 = [*(a1 + 56) code];
-        v6 = +[REMLog cloudkit];
-        v16 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-        if (v15 != 3)
+        v16 = [*(a1 + 56) code];
+        v7 = objc_msgSend_cloudkit(REMLog);
+        v17 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+        if (v16 != 3)
         {
-          if (v16)
+          if (v17)
           {
-            v37 = *(a1 + 32);
-            v38 = [*(a1 + 48) ic_loggingDescription];
-            v39 = *(a1 + 56);
-            v40 = 138543874;
-            v41 = v37;
-            v42 = 2114;
-            v43 = v38;
-            v44 = 2112;
-            v45 = v39;
-            _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Error fetching database changes for account %{public}@, %{public}@: %@", &v40, 0x20u);
+            v38 = *(a1 + 32);
+            v39 = [*(a1 + 48) ic_loggingDescription];
+            v40 = *(a1 + 56);
+            v41 = 138543874;
+            v42 = v38;
+            v43 = 2114;
+            v44 = v39;
+            v45 = 2112;
+            v46 = v40;
+            _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Error fetching database changes for account %{public}@, %{public}@: %@", &v41, 0x20u);
           }
 
           goto LABEL_7;
         }
 
-        if (v16)
+        if (v17)
         {
-          sub_100763890(v2, a1);
+          sub_100763890(v3, a1);
         }
       }
     }
 
     else
     {
-      v10 = +[REMLog cloudkit];
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = objc_msgSend_cloudkit(REMLog, a2);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 32);
-        v12 = [*(a1 + 48) ic_loggingDescription];
-        v40 = 138543618;
-        v41 = v11;
-        v42 = 2114;
-        v43 = v12;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Fetched database changes for account %{public}@, %{public}@", &v40, 0x16u);
+        v12 = *(a1 + 32);
+        v13 = [*(a1 + 48) ic_loggingDescription];
+        v41 = 138543618;
+        v42 = v12;
+        v43 = 2114;
+        v44 = v13;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Fetched database changes for account %{public}@, %{public}@", &v41, 0x16u);
       }
 
-      v13 = *(a1 + 40);
-      if (!v13)
+      v14 = *(a1 + 40);
+      if (!v14)
       {
-        v7 = 0;
+        v8 = 0;
         goto LABEL_24;
       }
 
-      v14 = *(a1 + 64);
-      v6 = [*(a1 + 48) database];
-      [v14 saveServerChangeToken:v13 forChangedZonesInDatabase:v6 accountID:*(a1 + 32)];
+      v15 = *(a1 + 64);
+      v7 = [*(a1 + 48) database];
+      [v15 saveServerChangeToken:v14 forChangedZonesInDatabase:v7 accountID:*(a1 + 32)];
     }
 
-    v7 = 0;
+    v8 = 0;
     goto LABEL_23;
   }
 
-  v8 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_100763B54();
   }
 
-  v9 = *(a1 + 72);
-  if (v9)
+  v10 = *(a1 + 72);
+  if (v10)
   {
-    (*(v9 + 16))(v9, *(a1 + 56));
+    (*(v10 + 16))(v10, *(a1 + 56));
   }
 }
 
@@ -2331,229 +2323,222 @@ void sub_1000908CC(id a1)
 
 void sub_10009091C(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = [objc_opt_class() zoneIDsFromZoneInfos:v6];
+  v9 = a2;
+  v5 = a3;
+  v6 = [objc_opt_class() zoneIDsFromZoneInfos:v5];
 
-  v8 = [v7 mutableCopy];
-  if ([v8 count])
+  v7 = [v6 mutableCopy];
+  if ([v7 count])
   {
-    v9 = [*(a1 + 32) accountZoneIDsNeedingFetchChanges];
-    [v9 setObject:v8 forKeyedSubscript:v10];
+    v8 = [*(a1 + 32) accountZoneIDsNeedingFetchChanges];
+    [v8 setObject:v7 forKeyedSubscript:v9];
   }
 }
 
 void sub_100090BCC(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = [objc_opt_class() zoneInfosFromZoneIDs:v6];
+  v7 = a2;
+  v5 = a3;
+  v6 = [objc_opt_class() zoneInfosFromZoneIDs:v5];
 
-  if ([v7 count])
+  if ([v6 count])
   {
-    [*(a1 + 40) setObject:v7 forKeyedSubscript:v8];
+    [*(a1 + 40) setObject:v6 forKeyedSubscript:v7];
   }
 }
 
 void sub_100090C64(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
-  v5 = *(a1 + 32);
-  v6 = a3;
-  v7 = [objc_opt_class() zoneInfosFromZoneIDs:v6];
+  v10 = a2;
+  v5 = a3;
+  v6 = [objc_opt_class() zoneInfosFromZoneIDs:v5];
 
-  if ([v7 count])
+  if ([v6 count])
   {
-    v8 = [*(a1 + 40) objectForKeyedSubscript:v11];
-    v9 = v8;
-    if (v8)
+    v7 = [*(a1 + 40) objectForKeyedSubscript:v10];
+    v8 = v7;
+    if (v7)
     {
-      v10 = [v8 arrayByAddingObjectsFromArray:v7];
-      [*(a1 + 40) setObject:v10 forKeyedSubscript:v11];
+      v9 = [v7 arrayByAddingObjectsFromArray:v6];
+      [*(a1 + 40) setObject:v9 forKeyedSubscript:v10];
     }
 
     else
     {
-      [*(a1 + 40) setObject:v7 forKeyedSubscript:v11];
+      [*(a1 + 40) setObject:v6 forKeyedSubscript:v10];
     }
   }
 }
 
-id sub_100090DCC(uint64_t a1)
+id sub_100090DCC(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Clearing zone fetch state", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Clearing zone fetch state", v7, 2u);
   }
 
-  v3 = +[NSMutableDictionary dictionary];
-  [*(a1 + 32) setAccountZoneIDsNeedingFetchChanges:v3];
-
   v4 = +[NSMutableDictionary dictionary];
-  [*(a1 + 32) setAccountZoneIDsFetchingChanges:v4];
+  [*(a1 + 32) setAccountZoneIDsNeedingFetchChanges:v4];
+
+  v5 = +[NSMutableDictionary dictionary];
+  [*(a1 + 32) setAccountZoneIDsFetchingChanges:v5];
 
   return [*(a1 + 32) saveZoneFetchState];
 }
 
-void sub_1000915A4(uint64_t a1)
+void sub_1000915A4(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Updating subscriptions", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Updating subscriptions", buf, 2u);
   }
 
   [*(a1 + 32) setNeedsToUpdateSubscriptions:0];
-  v3 = +[NSMutableSet set];
+  v4 = +[NSMutableSet set];
   *buf = 0;
-  v48 = buf;
-  v49 = 0x2020000000;
-  v50 = 0;
+  v49 = buf;
+  v50 = 0x2020000000;
+  v51 = 0;
   if ([*(a1 + 32) hasPassedBuddy] && (objc_msgSend(*(a1 + 32), "isSystemAvailableForSyncing") & 1) != 0)
   {
-    v4 = [*(a1 + 32) appleAccountUtilities];
-    v5 = [v4 unsafeUntilSystemReady_allICloudACAccounts];
+    v5 = objc_msgSend_appleAccountUtilities(*(a1 + 32));
+    v6 = [v5 unsafeUntilSystemReady_allICloudACAccounts];
 
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_100091C68;
-    v46[3] = &unk_1008DB098;
-    v46[4] = buf;
-    [v5 enumerateObjectsUsingBlock:v46];
+    v47[0] = _NSConcreteStackBlock;
+    v47[1] = 3221225472;
+    v47[2] = sub_100091C68;
+    v47[3] = &unk_1008DB098;
+    v47[4] = buf;
+    [v6 enumerateObjectsUsingBlock:v47];
   }
 
   else
   {
-    v5 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      sub_100763C10([*(a1 + 32) hasPassedBuddy], objc_msgSend(*(a1 + 32), "isSystemAvailableForSyncing"), v56, v5);
+      sub_100763C10([*(a1 + 32) hasPassedBuddy], objc_msgSend(*(a1 + 32), "isSystemAvailableForSyncing"), v57, v6);
     }
   }
 
-  v6 = [*(a1 + 32) containersByAccountID];
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_100091CAC;
-  v44[3] = &unk_1008DAF10;
-  v7 = v3;
-  v45 = v7;
-  [v6 enumerateKeysAndObjectsUsingBlock:v44];
+  v7 = [*(a1 + 32) containersByAccountID];
+  v45[0] = _NSConcreteStackBlock;
+  v45[1] = 3221225472;
+  v45[2] = sub_100091CAC;
+  v45[3] = &unk_1008DAF10;
+  v8 = v4;
+  v46 = v8;
+  [v7 enumerateKeysAndObjectsUsingBlock:v45];
 
-  v8 = +[NSMutableArray array];
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v40[2] = sub_100091D3C;
-  v40[3] = &unk_1008DB0C0;
-  v40[4] = *(a1 + 32);
-  v30 = v7;
-  v41 = v30;
-  v29 = v8;
-  v42 = v29;
-  v43 = *(a1 + 40);
-  v9 = objc_retainBlock(v40);
-  v38 = 0u;
+  v9 = +[NSMutableArray array];
+  v41[0] = _NSConcreteStackBlock;
+  v41[1] = 3221225472;
+  v41[2] = sub_100091D3C;
+  v41[3] = &unk_1008DB0C0;
+  v41[4] = *(a1 + 32);
+  v31 = v8;
+  v42 = v31;
+  v30 = v9;
+  v43 = v30;
+  v44 = *(a1 + 40);
+  v10 = objc_retainBlock(v41);
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v10 = [v30 copy];
-  v11 = [v10 countByEnumeratingWithState:&v36 objects:v55 count:16];
-  if (v11)
+  v38 = 0u;
+  v11 = [v31 copy];
+  v12 = [v11 countByEnumeratingWithState:&v37 objects:v56 count:16];
+  if (v12)
   {
-    v32 = *v37;
-    obj = v10;
+    v33 = *v38;
+    obj = v11;
     do
     {
-      v33 = v11;
-      for (i = 0; i != v33; i = i + 1)
+      v34 = v12;
+      for (i = 0; i != v34; i = i + 1)
       {
-        if (*v37 != v32)
+        if (*v38 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
-        v14 = [*(a1 + 32) subscriptionForDatabase:{v13, v29}];
-        v15 = [*(a1 + 32) accountIDForDatabase:v13];
-        if (![v15 length])
+        v14 = *(*(&v37 + 1) + 8 * i);
+        v15 = [*(a1 + 32) subscriptionForDatabase:{v14, v30}];
+        v16 = [*(a1 + 32) accountIDForDatabase:v14];
+        if (![v16 length])
         {
-          v16 = +[REMLog cloudkit];
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v17 = objc_msgSend_cloudkit(REMLog);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
-            v28 = [v13 ic_loggingDescription];
-            *v51 = 138543618;
-            v52 = v28;
-            v53 = 2114;
-            v54 = v15;
-            _os_log_fault_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "accountID is nil or empty in updateSubscriptionsWithCompletionHandler: database %{public}@, accountID: %{public}@", v51, 0x16u);
+            v29 = [v14 ic_loggingDescription];
+            *v52 = 138543618;
+            v53 = v29;
+            v54 = 2114;
+            v55 = v16;
+            _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "accountID is nil or empty in updateSubscriptionsWithCompletionHandler: database %{public}@, accountID: %{public}@", v52, 0x16u);
           }
         }
 
-        if (![v15 length])
+        if ([v16 length] && (objc_msgSend(*(a1 + 32), "subscribedSubscriptionIDsByAccountID"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "objectForKeyedSubscript:", v16), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "subscriptionID"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "containsObject:", v20), v20, v19, v18, v21))
         {
-          goto LABEL_22;
-        }
-
-        v17 = [*(a1 + 32) subscribedSubscriptionIDsByAccountID];
-        v18 = [v17 objectForKeyedSubscript:v15];
-        v19 = [v14 subscriptionID];
-        v20 = [v18 containsObject:v19];
-
-        if (v20)
-        {
-          v21 = +[REMLog cloudkit];
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = objc_msgSend_cloudkit(REMLog);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            [v13 databaseScope];
-            v22 = CKDatabaseScopeString();
-            v23 = [v14 subscriptionID];
-            *v51 = 138543618;
-            v52 = v22;
-            v53 = 2114;
-            v54 = v23;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Not fetching subscriptions for %{public}@, already subscribed to %{public}@", v51, 0x16u);
+            [v14 databaseScope];
+            v23 = CKDatabaseScopeString();
+            v24 = [v15 subscriptionID];
+            *v52 = 138543618;
+            v53 = v23;
+            v54 = 2114;
+            v55 = v24;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Not fetching subscriptions for %{public}@, already subscribed to %{public}@", v52, 0x16u);
           }
 
-          (v9[2])(v9, v13, 0);
+          (v10[2])(v10, v14, 0);
         }
 
         else
         {
-LABEL_22:
-          v24 = +[REMLog cloudkit];
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v25 = objc_msgSend_cloudkit(REMLog);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
-            v25 = [v14 subscriptionID];
-            *v51 = 138543362;
-            v52 = v25;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Not sure if subscribed to %{public}@", v51, 0xCu);
+            v26 = [v15 subscriptionID];
+            *v52 = 138543362;
+            v53 = v26;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Not sure if subscribed to %{public}@", v52, 0xCu);
           }
 
-          v26 = *(a1 + 32);
-          v34[0] = _NSConcreteStackBlock;
-          v34[1] = 3221225472;
-          v34[2] = sub_100091F14;
-          v34[3] = &unk_1008DB0E8;
-          v27 = v9;
-          v34[4] = v13;
-          v35 = v27;
-          [v26 saveSubscriptionsForDatabase:v13 completionHandler:v34];
+          v27 = *(a1 + 32);
+          v35[0] = _NSConcreteStackBlock;
+          v35[1] = 3221225472;
+          v35[2] = sub_100091F14;
+          v35[3] = &unk_1008DB0E8;
+          v28 = v10;
+          v35[4] = v14;
+          v36 = v28;
+          [v27 saveSubscriptionsForDatabase:v14 completionHandler:v35];
         }
       }
 
-      v10 = obj;
-      v11 = [obj countByEnumeratingWithState:&v36 objects:v55 count:16];
+      v11 = obj;
+      v12 = [obj countByEnumeratingWithState:&v37 objects:v56 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
   _Block_object_dispose(buf, 8);
+}
+
+void sub_100091C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
+{
+  va_start(va, a52);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_100091C68(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -2613,13 +2598,12 @@ void sub_100091E50(uint64_t a1)
 
   if (![*(a1 + 32) count])
   {
-    v2 = *(a1 + 64);
-    v4 = [objc_opt_class() errorFromErrors:*(a1 + 56)];
-    [*(a1 + 64) setNeedsToUpdateSubscriptions:v4 != 0];
-    v3 = *(a1 + 72);
-    if (v3)
+    v3 = [objc_opt_class() errorFromErrors:*(a1 + 56)];
+    [*(a1 + 64) setNeedsToUpdateSubscriptions:v3 != 0];
+    v2 = *(a1 + 72);
+    if (v2)
     {
-      (*(v3 + 16))(v3, v4);
+      (*(v2 + 16))(v2, v3);
     }
 
     if (*(a1 + 48))
@@ -2635,7 +2619,7 @@ void sub_100092004(uint64_t a1)
   [*(a1 + 32) configureOperation:v2];
   [v2 setDatabase:*(a1 + 40)];
   objc_initWeak(&location, v2);
-  v3 = +[REMLog cloudkit];
+  v3 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [v2 ic_loggingDescription];
@@ -2710,7 +2694,7 @@ uint64_t sub_10009232C(uint64_t a1)
         }
 
         v8 = *(*(&v22 + 1) + 8 * v7);
-        v9 = +[REMLog cloudkit];
+        v9 = objc_msgSend_cloudkit(REMLog, v21);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v10 = [v8 subscriptionID];
@@ -2732,7 +2716,7 @@ uint64_t sub_10009232C(uint64_t a1)
 
         else
         {
-          v14 = +[REMLog cloudkit];
+          v14 = objc_msgSend_cloudkit(REMLog);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
           {
             v15 = [*(a1 + 56) ic_loggingDescription];
@@ -2755,7 +2739,7 @@ uint64_t sub_10009232C(uint64_t a1)
   }
 
   v16 = *(a1 + 64);
-  v17 = +[REMLog cloudkit];
+  v17 = objc_msgSend_cloudkit(REMLog);
   v18 = v17;
   if (v16)
   {
@@ -2790,26 +2774,16 @@ void sub_100092700(id *a1)
   v5 = [*v2 accountIDForDatabase:*v3];
   if (![v5 length])
   {
-    v6 = +[REMLog cloudkit];
+    v6 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_100763D04();
     }
   }
 
-  if (![v5 length])
+  if ([v5 length] && (objc_msgSend(a1[4], "subscribedSubscriptionIDsByAccountID"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", v5), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "subscriptionID"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "containsObject:", v9), v9, v8, v7, v10))
   {
-    goto LABEL_11;
-  }
-
-  v7 = [a1[4] subscribedSubscriptionIDsByAccountID];
-  v8 = [v7 objectForKeyedSubscript:v5];
-  v9 = [v4 subscriptionID];
-  v10 = [v8 containsObject:v9];
-
-  if (v10)
-  {
-    v11 = +[REMLog cloudkit];
+    v11 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       [*v3 databaseScope];
@@ -2831,7 +2805,6 @@ void sub_100092700(id *a1)
 
   else
   {
-LABEL_11:
     v15 = [CKModifySubscriptionsOperation alloc];
     v34 = v4;
     v16 = [NSArray arrayWithObjects:&v34 count:1];
@@ -2848,7 +2821,7 @@ LABEL_11:
     [v18 setExpectedSendSize:1];
     [v18 setExpectedReceiveSize:1];
     [v17 setGroup:v18];
-    v20 = +[REMLog cloudkit];
+    v20 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = [v4 subscriptionID];
@@ -2911,15 +2884,15 @@ void sub_100092B4C(uint64_t a1, void *a2, uint64_t a3, void *a4)
   dispatch_async(v9, v15);
 }
 
-uint64_t sub_100092C74(uint64_t a1)
+uint64_t sub_100092C74(uint64_t a1, const char *a2)
 {
-  v3 = (a1 + 32);
-  v2 = *(a1 + 32);
-  v4 = +[REMLog cloudkit];
-  v5 = v4;
-  if (v2)
+  v4 = (a1 + 32);
+  v3 = *(a1 + 32);
+  v5 = objc_msgSend_cloudkit(REMLog, a2);
+  v6 = v5;
+  if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100763DA0();
     }
@@ -2927,82 +2900,82 @@ uint64_t sub_100092C74(uint64_t a1)
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v6 = [*(a1 + 40) ic_loggingDescription];
+      v7 = [*(a1 + 40) ic_loggingDescription];
       *buf = 138543362;
-      v26 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Saved subscriptions %{public}@", buf, 0xCu);
+      v27 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Saved subscriptions %{public}@", buf, 0xCu);
     }
 
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v5 = *(a1 + 48);
-    v7 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
-    if (v7)
+    v23 = 0u;
+    v6 = *(a1 + 48);
+    v8 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v20 = v3;
-      v9 = *v22;
+      v9 = v8;
+      v21 = v4;
+      v10 = *v23;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        for (i = 0; i != v9; i = i + 1)
         {
-          if (*v22 != v9)
+          if (*v23 != v10)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
-          v12 = +[REMLog cloudkit];
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+          v12 = *(*(&v22 + 1) + 8 * i);
+          v13 = objc_msgSend_cloudkit(REMLog);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
-            v13 = [v11 subscriptionID];
-            v14 = [*(a1 + 40) ic_loggingDescription];
+            v14 = [v12 subscriptionID];
+            v15 = [*(a1 + 40) ic_loggingDescription];
             *buf = 138543618;
-            v26 = v13;
-            v27 = 2114;
-            v28 = v14;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Saved subscription %{public}@ %{public}@", buf, 0x16u);
+            v27 = v14;
+            v28 = 2114;
+            v29 = v15;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Saved subscription %{public}@ %{public}@", buf, 0x16u);
           }
 
-          v15 = [*(a1 + 56) accountIDForDatabase:*(a1 + 64)];
-          if ([v15 length])
+          v16 = [*(a1 + 56) accountIDForDatabase:*(a1 + 64)];
+          if ([v16 length])
           {
-            v16 = *(a1 + 56);
-            v17 = [v11 subscriptionID];
-            [v16 addSubscribedSubscriptionIDs:v17 accountID:v15];
+            v17 = *(a1 + 56);
+            v18 = [v12 subscriptionID];
+            [v17 addSubscribedSubscriptionIDs:v18 accountID:v16];
           }
 
           else
           {
-            v17 = +[REMLog cloudkit];
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+            v18 = objc_msgSend_cloudkit(REMLog);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
             {
-              v18 = [*(a1 + 64) ic_loggingDescription];
+              v19 = [*(a1 + 64) ic_loggingDescription];
               *buf = 138543618;
-              v26 = v18;
-              v27 = 2114;
-              v28 = v15;
-              _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "accountID is nil or empty in saveSubscriptionsForDatabase modifySubscriptionsCompletionBlock %{public}@, accountID: %{public}@", buf, 0x16u);
+              v27 = v19;
+              v28 = 2114;
+              v29 = v16;
+              _os_log_fault_impl(&_mh_execute_header, v18, OS_LOG_TYPE_FAULT, "accountID is nil or empty in saveSubscriptionsForDatabase modifySubscriptionsCompletionBlock %{public}@, accountID: %{public}@", buf, 0x16u);
             }
           }
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v9 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
-      while (v8);
-      v3 = v20;
+      while (v9);
+      v4 = v21;
     }
   }
 
   result = *(a1 + 72);
   if (result)
   {
-    return (*(result + 16))(result, *v3);
+    return (*(result + 16))(result, *v4);
   }
 
   return result;
@@ -3024,147 +2997,145 @@ void sub_1000935F4(uint64_t a1, void *a2, void *a3)
   [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
 }
 
-void sub_1000938E4(uint64_t a1)
+void sub_1000938E4(uint64_t a1, const char *a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (!*(a1 + 32))
   {
-    sub_100763E34();
+    sub_100763E34(a1, a2);
   }
 
-  v3 = (a1 + 40);
-  if ([*(a1 + 40) isDisabled] & 1) == 0 && (objc_msgSend(*v3, "isDisabledInternal") & 1) == 0 && objc_msgSend(*v3, "supportsCloudKitSyncing") && (objc_msgSend(*v3, "hasPassedBuddy"))
+  v4 = (a1 + 40);
+  if ([*(a1 + 40) isDisabled] & 1) == 0 && (objc_msgSend(*v4, "isDisabledInternal") & 1) == 0 && objc_msgSend(*v4, "supportsCloudKitSyncing") && (objc_msgSend(*v4, "hasPassedBuddy"))
   {
-    v4 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       if ([*(a1 + 40) isInForeground])
       {
-        v5 = @"Foreground";
+        v6 = @"Foreground";
       }
 
       else
       {
-        v5 = @"Background";
+        v6 = @"Background";
       }
 
       if ([*(a1 + 40) isInternetReachable])
       {
-        v6 = @"reachable";
+        v7 = @"reachable";
       }
 
       else
       {
-        v6 = @"not reachable";
+        v7 = @"not reachable";
       }
 
-      v7 = *(a1 + 32);
-      v8 = [NSNumber numberWithInteger:*(a1 + 64)];
+      v8 = *(a1 + 32);
+      v9 = [NSNumber numberWithInteger:*(a1 + 64)];
       *buf = 138544130;
-      v41 = v5;
-      v42 = 2114;
-      v43 = v6;
-      v44 = 2114;
-      v45 = v7;
-      v46 = 2114;
-      v47 = v8;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Updating cloud context state. %{public}@ and internet %{public}@. {syncReason: %{public}@, option: %{public}@}", buf, 0x2Au);
+      v40 = v6;
+      v41 = 2114;
+      v42 = v7;
+      v43 = 2114;
+      v44 = v8;
+      v45 = 2114;
+      v46 = v9;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating cloud context state. %{public}@ and internet %{public}@. {syncReason: %{public}@, option: %{public}@}", buf, 0x2Au);
     }
 
-    v9 = +[DABabysitter sharedBabysitter];
-    v10 = [v9 tokenByRegisteringAccount:*v3 forOperationWithName:@"CloudKitUpdateCloudContextState"];
+    v10 = +[DABabysitter sharedBabysitter];
+    v11 = [v10 tokenByRegisteringAccount:*v4 forOperationWithName:@"CloudKitUpdateCloudContextState"];
 
-    if (!v10)
+    if (!v11)
     {
-      if (!isCloudContextSyncReasonUserInitiated(*v2))
+      if (!isCloudContextSyncReasonUserInitiated(*v3))
       {
-        v16 = [REMError babySatErrorWithOperationName:@"CloudKitUpdateCloudContextState"];
-        v38 = @"identifier";
-        v39 = @"CloudKitUpdateCloudContextState";
-        v23 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-        [_TtC19ReminderKitInternal9Analytics postEventWithName:@"com.apple.remindd.cloudkit.sync.crashDetected" payload:v23 error:v16 performAutoBugCaptureOnError:1];
+        v17 = [REMError babySatErrorWithOperationName:@"CloudKitUpdateCloudContextState"];
+        v37 = @"identifier";
+        v38 = @"CloudKitUpdateCloudContextState";
+        v23 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        [_TtC19ReminderKitInternal9Analytics postEventWithName:@"com.apple.remindd.cloudkit.sync.crashDetected" payload:v23 error:v17 performAutoBugCaptureOnError:1];
 
-        v24 = +[REMLog cloudkit];
+        v24 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
-          sub_100763E98(v2, a1 + 40);
+          sub_100763E98(v3, a1 + 40);
         }
 
         v25 = *(a1 + 56);
         if (v25)
         {
-          (*(v25 + 16))(v25, 0, v16);
+          (*(v25 + 16))(v25, 0, v17);
         }
 
-        v26 = +[REMLog cloudkit];
+        v26 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.updateCloudContextState}", buf, 2u);
         }
 
-        v27 = *(a1 + 48);
-        v28 = objc_opt_self();
+        v27 = objc_opt_self();
         goto LABEL_21;
       }
 
-      v11 = +[REMLog cloudkit];
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = objc_msgSend_cloudkit(REMLog);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_100763F2C(v2, a1 + 40);
+        sub_100763F2C(v3, a1 + 40);
       }
     }
 
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_100093DE8;
-    v34[3] = &unk_1008DB160;
-    v37 = *(a1 + 56);
-    v35 = v10;
-    v36 = *(a1 + 48);
-    v12 = objc_retainBlock(v34);
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100093EB0;
-    v29[3] = &unk_1008DB250;
-    v13 = *(a1 + 32);
-    v30 = *(a1 + 40);
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_100093DE8;
+    v33[3] = &unk_1008DB160;
+    v36 = *(a1 + 56);
+    v34 = v11;
+    v35 = *(a1 + 48);
+    v13 = objc_retainBlock(v33);
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_100093EB0;
+    v28[3] = &unk_1008DB250;
+    v14 = *(a1 + 32);
+    v29 = *(a1 + 40);
+    v30 = v14;
+    v15 = *(a1 + 64);
     v31 = v13;
-    v14 = *(a1 + 64);
-    v32 = v12;
-    v33 = v14;
-    v15 = v12;
-    [v30 updateAccountStatusWithCompletionHandler:v29];
+    v32 = v15;
+    v16 = v13;
+    [v29 updateAccountStatusWithCompletionHandler:v28];
 
-    v16 = v37;
+    v17 = v36;
 LABEL_21:
 
     return;
   }
 
-  v17 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = objc_msgSend_cloudkit(REMLog);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [*v3 readinessLoggingDescription];
+    v19 = [*v4 readinessLoggingDescription];
     *buf = 138543362;
-    v41 = v18;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Not updating cloud context state because it's disabled {%{public}@}", buf, 0xCu);
+    v40 = v19;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Not updating cloud context state because it's disabled {%{public}@}", buf, 0xCu);
   }
 
-  v19 = *(a1 + 56);
-  if (v19)
+  v20 = *(a1 + 56);
+  if (v20)
   {
-    (*(v19 + 16))(v19, 0, 0);
+    (*(v20 + 16))(v20, 0, 0);
   }
 
-  v20 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v21 = objc_msgSend_cloudkit(REMLog);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.updateCloudContextState}", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.updateCloudContextState}", buf, 2u);
   }
 
-  v21 = *(a1 + 48);
   v22 = objc_opt_self();
 }
 
@@ -3177,17 +3148,15 @@ void sub_100093DE8(void *a1, uint64_t a2, void *a3)
     (*(v6 + 16))(v6, a2, v5);
   }
 
-  v7 = a1[4];
-  v8 = objc_opt_self();
-  v9 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = objc_opt_self();
+  v8 = objc_msgSend_cloudkit(REMLog);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.updateCloudContextState}", v12, 2u);
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.updateCloudContextState}", v10, 2u);
   }
 
-  v10 = a1[5];
-  v11 = objc_opt_self();
+  v9 = objc_opt_self();
 }
 
 void sub_100093EB0(uint64_t a1)
@@ -3209,7 +3178,7 @@ void sub_100093F5C(uint64_t a1)
   v2 = (a1 + 32);
   if (([*(a1 + 32) isInForeground] & 1) == 0)
   {
-    v5 = +[REMLog cloudkit];
+    v5 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100763FC0();
@@ -3220,7 +3189,7 @@ void sub_100093F5C(uint64_t a1)
 
   if (([*v2 isInternetReachable] & 1) == 0)
   {
-    v5 = +[REMLog cloudkit];
+    v5 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100763FFC();
@@ -3230,7 +3199,7 @@ void sub_100093F5C(uint64_t a1)
   }
 
   v3 = [*v2 isReadyToSync];
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   v5 = v4;
   if ((v3 & 1) == 0)
   {
@@ -3364,7 +3333,7 @@ void sub_100094334(uint64_t a1)
           v7 = [NSArray arrayWithObjects:v43 count:3];
           if ([v6 didChooseToMigrate] && (objc_msgSend(v6, "didFinishMigration") & 1) == 0 && objc_msgSend(v7, "containsObject:", *(a1 + 48)))
           {
-            v25 = +[REMLog cloudkit];
+            v25 = objc_msgSend_cloudkit(REMLog);
             if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
               sub_1007640C8(v6);
@@ -3435,7 +3404,7 @@ LABEL_17:
 
 LABEL_39:
 
-    v23 = +[REMLog cloudkit];
+    v23 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       v24 = *(*(*(a1 + 64) + 8) + 24);
@@ -3499,36 +3468,35 @@ LABEL_44:
   }
 }
 
-void sub_100094774(uint64_t a1)
+void sub_100094774(uint64_t a1, const char *a2)
 {
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
-    v2 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = objc_msgSend_cloudkit(REMLog, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
-      v4 = [NSNumber numberWithInteger:*(a1 + 64)];
+      v4 = *(a1 + 32);
+      v5 = [NSNumber numberWithInteger:*(a1 + 64)];
       *buf = 138543618;
-      v12 = v3;
+      v12 = v4;
       v13 = 2114;
-      v14 = v4;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "UpdateCloudContextState: Triggering a sync {syncReason: %{public}@, syncOption: %{public}@}", buf, 0x16u);
+      v14 = v5;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "UpdateCloudContextState: Triggering a sync {syncReason: %{public}@, syncOption: %{public}@}", buf, 0x16u);
     }
 
-    v6 = *(a1 + 32);
-    v5 = *(a1 + 40);
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
     v9[0] = _NSConcreteStackBlock;
     v9[1] = 3221225472;
     v9[2] = sub_10009492C;
     v9[3] = &unk_1008DAC68;
-    v9[4] = v6;
+    v9[4] = v7;
     v10 = *(a1 + 48);
-    [v5 syncWithReason:v6 discretionary:0 completionHandler:v9];
+    [v6 syncWithReason:v7 discretionary:0 completionHandler:v9];
   }
 
   else
   {
-    v7 = *(a1 + 48);
     v8 = *(*(a1 + 48) + 16);
 
     v8();
@@ -3538,7 +3506,7 @@ void sub_100094774(uint64_t a1)
 void sub_10009492C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -3555,7 +3523,7 @@ void sub_10009492C(uint64_t a1, void *a2)
 void sub_100094A14(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -3597,34 +3565,34 @@ void sub_100094B64(id *a1, void *a2, void *a3)
   dispatch_async(v7, block);
 }
 
-uint64_t sub_100094C68(uint64_t a1)
+uint64_t sub_100094C68(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = +[REMLog cloudkit];
-  v4 = v3;
-  if (v2)
+  v3 = *(a1 + 32);
+  v4 = objc_msgSend_cloudkit(REMLog, a2);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100764154(a1);
+      sub_100764154();
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 40);
-    v6 = [*(a1 + 48) ic_loggingDescription];
-    v9 = 138543619;
-    v10 = v5;
-    v11 = 2113;
-    v12 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "UpdateCloudContextState: Fetched user record with accountIdentifier: %{public}@: %{private}@", &v9, 0x16u);
+    v6 = *(a1 + 40);
+    v7 = [*(a1 + 48) ic_loggingDescription];
+    v10 = 138543619;
+    v11 = v6;
+    v12 = 2113;
+    v13 = v7;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "UpdateCloudContextState: Fetched user record with accountIdentifier: %{public}@: %{private}@", &v10, 0x16u);
   }
 
   if (*(a1 + 48))
   {
-    v7 = [*(a1 + 56) cloudContextDelegate];
-    [v7 cloudContext:*(a1 + 56) didFetchUserRecord:*(a1 + 48) accountID:*(a1 + 40)];
+    v8 = [*(a1 + 56) cloudContextDelegate];
+    [v8 cloudContext:*(a1 + 56) didFetchUserRecord:*(a1 + 48) accountID:*(a1 + 40)];
   }
 
   return (*(*(a1 + 64) + 16))();
@@ -3650,10 +3618,10 @@ void sub_100094EFC(void *a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = +[REMLog cloudkit];
+    v7 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1007641CC(v6, a1);
+      sub_1007641CC();
     }
   }
 
@@ -3709,16 +3677,16 @@ void sub_1000950CC(uint64_t a1, void *a2, void *a3)
   v6 = a3;
   if (v6)
   {
-    v7 = +[REMLog cloudkit];
+    v7 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100764240(a1);
+      sub_100764240();
     }
   }
 
   if ([v5 isFinished])
   {
-    v8 = +[REMLog cloudkit];
+    v8 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = [v5 ic_loggingDescription];
@@ -3739,7 +3707,7 @@ LABEL_11:
 
   if ([v5 isCancelled])
   {
-    v8 = +[REMLog cloudkit];
+    v8 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = [v5 ic_loggingDescription];
@@ -3810,7 +3778,7 @@ LABEL_27:
       }
     }
 
-    v23 = +[REMLog cloudkit];
+    v23 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       v24 = [v8 ic_loggingDescription];
@@ -3849,7 +3817,7 @@ void sub_100095894(uint64_t a1)
   v6 = v5;
 
   v7 = [v6 unsignedIntegerValue] + 1;
-  v8 = +[REMLog cloudkit];
+  v8 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = *(a1 + 40);
@@ -3867,19 +3835,19 @@ void sub_100095894(uint64_t a1)
   [v11 setObject:v10 forKeyedSubscript:*(a1 + 40)];
 }
 
-void sub_100095AB0(uint64_t a1)
+void sub_100095AB0(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Clearing retry count for %{public}@", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Clearing retry count for %{public}@", &v6, 0xCu);
   }
 
-  v4 = [*(a1 + 40) retryCountsByOperationType];
-  [v4 removeObjectForKey:*(a1 + 32)];
+  v5 = [*(a1 + 40) retryCountsByOperationType];
+  [v5 removeObjectForKey:*(a1 + 32)];
 }
 
 void sub_100095EC8(uint64_t a1)
@@ -3888,7 +3856,7 @@ void sub_100095EC8(uint64_t a1)
   if ([*(a1 + 32) isInternetReachable])
   {
     v3 = [*v2 isReadyToSync];
-    v4 = +[REMLog cloudkit];
+    v4 = objc_msgSend_cloudkit(REMLog);
     v5 = v4;
     if (v3)
     {
@@ -3918,7 +3886,7 @@ void sub_100095EC8(uint64_t a1)
       v11 = fmin(v10 + v10, 933.0);
       if (v11 > v8)
       {
-        v12 = +[REMLog cloudkit];
+        v12 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *v16 = 134217984;
@@ -3955,7 +3923,7 @@ void sub_100095EC8(uint64_t a1)
 
   else
   {
-    v13 = +[REMLog cloudkit];
+    v13 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1007642C0();
@@ -3963,9 +3931,9 @@ void sub_100095EC8(uint64_t a1)
   }
 }
 
-void sub_10009618C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10009618C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3993,7 +3961,7 @@ void sub_1000961FC(uint64_t a1)
   v2 = [*(a1 + 32) retryTimer];
   if (!v2 || (v3 = v2, [*(a1 + 32) retryTimer], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isValid"), v4, v3, (v5 & 1) == 0))
   {
-    v6 = +[REMLog cloudkit];
+    v6 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 40);
@@ -4024,7 +3992,7 @@ void sub_1000964BC(uint64_t a1)
   if ([*(a1 + 32) isInternetReachable])
   {
     v2 = [*v1 isReadyToSync];
-    v3 = +[REMLog cloudkit];
+    v3 = objc_msgSend_cloudkit(REMLog);
     v4 = v3;
     if (v2)
     {
@@ -4037,14 +4005,14 @@ void sub_1000964BC(uint64_t a1)
       objc_initWeak(&location, *v1);
       if ([*v1 needsToUpdateSubscriptions])
       {
-        v5 = +[REMLog cloudkit];
+        v5 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Retrying to update subscriptions", buf, 2u);
         }
 
-        v6 = +[REMLog cloudkit];
+        v6 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -4053,117 +4021,115 @@ void sub_1000964BC(uint64_t a1)
 
         v7 = os_transaction_create();
         v8 = *v1;
-        v43[0] = _NSConcreteStackBlock;
-        v43[1] = 3221225472;
-        v43[2] = sub_100096D04;
-        v43[3] = &unk_1008D9BE8;
-        objc_copyWeak(&v45, &location);
+        v41[0] = _NSConcreteStackBlock;
+        v41[1] = 3221225472;
+        v41[2] = sub_100096D04;
+        v41[3] = &unk_1008D9BE8;
+        objc_copyWeak(&v43, &location);
         v9 = v7;
-        v44 = v9;
-        [v8 updateSubscriptionsWithCompletionHandler:v43];
+        v42 = v9;
+        [v8 updateSubscriptionsWithCompletionHandler:v41];
 
-        objc_destroyWeak(&v45);
+        objc_destroyWeak(&v43);
       }
 
-      v10 = *v1;
-      v11 = objc_opt_class();
-      v12 = [*v1 accountZoneIDsNeedingToBeSaved];
-      LODWORD(v11) = [v11 haveZoneIDsInAccountZoneIDs:v12];
+      v10 = objc_opt_class();
+      v11 = [*v1 accountZoneIDsNeedingToBeSaved];
+      LODWORD(v10) = [v10 haveZoneIDsInAccountZoneIDs:v11];
 
-      if (v11)
+      if (v10)
       {
-        v13 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v12 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Retrying to save record zones", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Retrying to save record zones", buf, 2u);
         }
 
-        v14 = [*v1 containersByAccountID];
-        v42[0] = _NSConcreteStackBlock;
-        v42[1] = 3221225472;
-        v42[2] = sub_100096DBC;
-        v42[3] = &unk_1008DAF10;
-        v42[4] = *v1;
-        [v14 enumerateKeysAndObjectsUsingBlock:v42];
+        v13 = [*v1 containersByAccountID];
+        v40[0] = _NSConcreteStackBlock;
+        v40[1] = 3221225472;
+        v40[2] = sub_100096DBC;
+        v40[3] = &unk_1008DAF10;
+        v40[4] = *v1;
+        [v13 enumerateKeysAndObjectsUsingBlock:v40];
       }
 
-      v15 = [*v1 databaseScopeStringsNeedingRetryFetchChangesByAccountID];
-      v16 = [v15 count] == 0;
+      v14 = [*v1 databaseScopeStringsNeedingRetryFetchChangesByAccountID];
+      v15 = [v14 count] == 0;
 
-      if (!v16)
+      if (!v15)
       {
-        v17 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v16 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = [*v1 databaseScopeStringsNeedingRetryFetchChangesByAccountID];
+          v17 = [*v1 databaseScopeStringsNeedingRetryFetchChangesByAccountID];
           *buf = 138543362;
-          v48 = v18;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Retrying CKFetchDatabaseChangesOperation databaseScopes: %{public}@", buf, 0xCu);
+          v46 = v17;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Retrying CKFetchDatabaseChangesOperation databaseScopes: %{public}@", buf, 0xCu);
         }
 
         [*v1 syncWithReason:@"RetryCKFetchDatabaseChangesOperation" discretionary:0 completionHandler:&stru_1008DB380];
       }
 
-      v19 = *v1;
-      v20 = objc_opt_class();
-      v21 = [*v1 accountZoneIDsNeedingFetchChanges];
-      LODWORD(v20) = [v20 haveZoneIDsInAccountZoneIDs:v21];
+      v18 = objc_opt_class();
+      v19 = [*v1 accountZoneIDsNeedingFetchChanges];
+      LODWORD(v18) = [v18 haveZoneIDsInAccountZoneIDs:v19];
 
-      if (v20)
+      if (v18)
       {
-        v22 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v20 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Retrying to fetch record zone changes", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Retrying to fetch record zone changes", buf, 2u);
         }
 
-        v23 = +[REMLog cloudkit];
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v21 = objc_msgSend_cloudkit(REMLog);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "os_transaction INIT {name: com.apple.remindd.cloudkit.retry.fetchRecordZoneChanges}", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "os_transaction INIT {name: com.apple.remindd.cloudkit.retry.fetchRecordZoneChanges}", buf, 2u);
         }
 
-        v40[0] = _NSConcreteStackBlock;
-        v40[1] = 3221225472;
-        v40[2] = sub_1000970DC;
-        v40[3] = &unk_1008DB3A8;
-        v24 = os_transaction_create();
-        v41 = v24;
-        v25 = objc_retainBlock(v40);
-        v26 = *v1;
-        v27 = +[NSDictionary dictionary];
-        [v26 fetchRecordZoneChangesWithReason:@"RetryAccountZoneIDsNeedingFetchChanges" cloudSchemaCatchUpSyncContextMap:v27 completionHandler:v25];
+        v38[0] = _NSConcreteStackBlock;
+        v38[1] = 3221225472;
+        v38[2] = sub_1000970DC;
+        v38[3] = &unk_1008DB3A8;
+        v22 = os_transaction_create();
+        v39 = v22;
+        v23 = objc_retainBlock(v38);
+        v24 = *v1;
+        v25 = +[NSDictionary dictionary];
+        [v24 fetchRecordZoneChangesWithReason:@"RetryAccountZoneIDsNeedingFetchChanges" cloudSchemaCatchUpSyncContextMap:v25 completionHandler:v23];
       }
 
-      v28 = [*v1 objectIDsToProcess];
-      if ([v28 count])
+      v26 = [*v1 objectIDsToProcess];
+      if ([v26 count])
       {
       }
 
       else
       {
-        v30 = [*v1 objectIDsToRetry];
-        v31 = [v30 count] == 0;
+        v28 = [*v1 objectIDsToRetry];
+        v29 = [v28 count] == 0;
 
-        if (v31)
+        if (v29)
         {
 LABEL_37:
-          v33 = [*v1 containersByAccountID];
-          v34 = [v33 allKeys];
+          v31 = [*v1 containersByAccountID];
+          v32 = [v31 allKeys];
 
-          v35 = [*v1 setUpCloudSchemaCatchUpSyncContextMapWithAccountIDs:v34 syncReason:@"RetryCloudSchemaCatchUpSync"];
-          if ([v35 count])
+          v33 = [*v1 setUpCloudSchemaCatchUpSyncContextMapWithAccountIDs:v32 syncReason:@"RetryCloudSchemaCatchUpSync"];
+          if ([v33 count])
           {
-            v36 = +[REMLog cloudkit];
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v34 = objc_msgSend_cloudkit(REMLog);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
-              v37 = [v35 allKeys];
+              v35 = [v33 allKeys];
               *buf = 138543362;
-              v48 = v37;
-              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "CloudSchemaCatchUpSync: Retrying catch up sync for accounts: %{public}@", buf, 0xCu);
+              v46 = v35;
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "CloudSchemaCatchUpSync: Retrying catch up sync for accounts: %{public}@", buf, 0xCu);
             }
 
             [*v1 syncWithReason:@"RetryCloudSchemaCatchUpSync" discretionary:0 completionHandler:&stru_1008DB3C8];
@@ -4173,11 +4139,11 @@ LABEL_37:
           {
             if ([*v1 needsToMergeLocalObjects])
             {
-              v38 = +[REMLog cloudkit];
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+              v36 = objc_msgSend_cloudkit(REMLog);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "MERGE.LOCAL: Retrying to merge local objects", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "MERGE.LOCAL: Retrying to merge local objects", buf, 2u);
               }
 
               [*v1 syncWithReason:@"RetryMergeLocalObjects" discretionary:0 completionHandler:&stru_1008DB3E8];
@@ -4185,11 +4151,11 @@ LABEL_37:
 
             if ([*v1 needsToUpdateCloudContextOnAccountsDidChange])
             {
-              v39 = +[REMLog cloudkit];
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+              v37 = objc_msgSend_cloudkit(REMLog);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Retry calling UpdateCloudContext after accountsDidChange and RDAccountInitializer completed works.", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Retry calling UpdateCloudContext after accountsDidChange and RDAccountInitializer completed works.", buf, 2u);
               }
 
               [*v1 setNeedsToUpdateCloudContextOnAccountsDidChange:0];
@@ -4202,11 +4168,11 @@ LABEL_37:
         }
       }
 
-      v32 = +[REMLog cloudkit];
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v30 = objc_msgSend_cloudkit(REMLog);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Retrying to process changes", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Retrying to process changes", buf, 2u);
       }
 
       [*v1 processPendingCloudObjectsWithOperationName:ICNSBlockOperationNameProcessObjectsForRetryOperations];
@@ -4221,8 +4187,8 @@ LABEL_37:
 
   else
   {
-    v29 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v27 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10076438C();
     }
@@ -4235,14 +4201,13 @@ id sub_100096D04(uint64_t a1, void *a2)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained incrementOrClearRetryCountForOperationType:@"Subscriptions" error:v3];
 
-  v5 = +[REMLog cloudkit];
+  v5 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.retry.updateSubscription}", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.retry.updateSubscription}", v7, 2u);
   }
 
-  v6 = *(a1 + 32);
   return objc_opt_self();
 }
 
@@ -4252,7 +4217,7 @@ void sub_100096DBC(uint64_t a1, void *a2)
   v4 = [*(a1 + 32) operationToSaveZonesIfNecessaryForAccountID:v3];
   if (v4)
   {
-    v5 = +[REMLog cloudkit];
+    v5 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -4281,23 +4246,22 @@ void sub_100096DBC(uint64_t a1, void *a2)
 id sub_100096F70(void *a1)
 {
   (*(a1[6] + 16))();
-  v2 = +[REMLog cloudkit];
+  v2 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.retry.zoneIDsNeedingToBeSaved[%@]}", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.retry.zoneIDsNeedingToBeSaved[%@]}", &v5, 0xCu);
   }
 
-  v4 = a1[5];
   return objc_opt_self();
 }
 
 void sub_100097040(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = +[REMLog cloudkit];
+  v3 = objc_msgSend_cloudkit(REMLog);
   v4 = v3;
   if (v2)
   {
@@ -4316,30 +4280,29 @@ void sub_100097040(id a1, NSError *a2)
 
 void sub_1000970DC(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v2 = a2;
+  v3 = objc_msgSend_cloudkit(REMLog);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 138412290;
+    v7 = v2;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Completed retry to fetch record zone changes {error: %@}", &v6, 0xCu);
+  }
+
+  v4 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Completed retry to fetch record zone changes {error: %@}", &v8, 0xCu);
+    LOWORD(v6) = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.retry.fetchRecordZoneChanges}", &v6, 2u);
   }
 
-  v5 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v8) = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.retry.fetchRecordZoneChanges}", &v8, 2u);
-  }
-
-  v6 = *(a1 + 32);
-  v7 = objc_opt_self();
+  v5 = objc_opt_self();
 }
 
 void sub_1000971F4(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = +[REMLog cloudkit];
+  v3 = objc_msgSend_cloudkit(REMLog);
   v4 = v3;
   if (v2)
   {
@@ -4359,7 +4322,7 @@ void sub_1000971F4(id a1, NSError *a2)
 void sub_100097290(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = +[REMLog cloudkit];
+  v3 = objc_msgSend_cloudkit(REMLog);
   v4 = v3;
   if (v2)
   {
@@ -4396,76 +4359,76 @@ void sub_1000978F0(uint64_t a1)
 
   else
   {
-    v6 = +[REMLog cloudkit];
+    v6 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = *(a1 + 32);
       *buf = 138543362;
-      v50 = v7;
+      v49 = v7;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "saveServerChangeToken: The cloudKitAccount is nil for accountID %{public}@", buf, 0xCu);
     }
 
     +[NSMutableArray array];
-    v40 = v39 = a1;
+    v39 = v38 = a1;
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v8 = [*(a1 + 48) cloudKitAccountsInContext:*(a1 + 40)];
-    v9 = [v8 countByEnumeratingWithState:&v45 objects:v58 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v44 objects:v57 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v46;
+      v11 = *v45;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v46 != v11)
+          if (*v45 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v45 + 1) + 8 * i);
+          v13 = *(*(&v44 + 1) + 8 * i);
           v1 = [v13 name];
           v14 = [v13 identifier];
           v15 = [v14 UUIDString];
           v16 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"(name: %@, id: %@, inactive: %d)", v1, v15, [v13 inactive]);
-          [v40 addObject:v16];
+          [v39 addObject:v16];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v45 objects:v58 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v44 objects:v57 count:16];
       }
 
       while (v10);
     }
 
-    v17 = [*(v39 + 48) appleAccountUtilities];
-    v38 = [v17 unsafeUntilSystemReady_primaryICloudACAccount];
+    v17 = objc_msgSend_appleAccountUtilities(*(v38 + 48));
+    v37 = [v17 unsafeUntilSystemReady_primaryICloudACAccount];
 
     v18 = +[NSMutableArray array];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v19 = [*(v39 + 48) appleAccountUtilities];
+    v19 = objc_msgSend_appleAccountUtilities(*(v38 + 48));
     v20 = [v19 unsafeUntilSystemReady_allICloudAccountsWithCloudKitEnabled];
 
-    v21 = [v20 countByEnumeratingWithState:&v41 objects:v57 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v40 objects:v56 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v42;
+      v23 = *v41;
       do
       {
         for (j = 0; j != v22; j = j + 1)
         {
-          if (*v42 != v23)
+          if (*v41 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v41 + 1) + 8 * j);
+          v25 = *(*(&v40 + 1) + 8 * j);
           v26 = [v25 accountDescription];
           v27 = [v25 identifier];
           v28 = [v25 aa_accountClass];
@@ -4473,42 +4436,42 @@ void sub_1000978F0(uint64_t a1)
           [v18 addObject:v1];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v41 objects:v57 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v40 objects:v56 count:16];
       }
 
       while (v22);
     }
 
-    v29 = +[REMLog cloudkit];
-    a1 = v39;
+    v29 = objc_msgSend_cloudkit(REMLog);
+    a1 = v38;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
     {
-      v32 = [v40 componentsJoinedByString:{@", "}];
-      if (v38)
+      v31 = [v39 componentsJoinedByString:{@", "}];
+      if (v37)
       {
-        v34 = [v38 accountDescription];
-        v1 = [v38 identifier];
-        v37 = v34;
-        v33 = [NSString stringWithFormat:@"(name: %@, id: %@)", v34, v1];
+        v33 = [v37 accountDescription];
+        v1 = [v37 identifier];
+        v36 = v33;
+        v32 = [NSString stringWithFormat:@"(name: %@, id: %@)", v33, v1];
       }
 
       else
       {
-        v33 = @"nil";
+        v32 = @"nil";
       }
 
-      v35 = [v18 componentsJoinedByString:{@", "}];
-      v36 = [*(v39 + 48) isReadyToSync];
+      v34 = [v18 componentsJoinedByString:{@", "}];
+      v35 = [*(v38 + 48) isReadyToSync];
       *buf = 138413058;
-      v50 = v32;
-      v51 = 2112;
-      v52 = v33;
-      v53 = 2112;
-      v54 = v35;
-      v55 = 1024;
-      v56 = v36;
+      v49 = v31;
+      v50 = 2112;
+      v51 = v32;
+      v52 = 2112;
+      v53 = v34;
+      v54 = 1024;
+      v55 = v35;
       _os_log_fault_impl(&_mh_execute_header, v29, OS_LOG_TYPE_FAULT, "Trying to save server change token without an account {accounts: [%@], primaryACAccount: %@, acAccounts: [%@], isReadyToSync: %d}", buf, 0x26u);
-      if (v38)
+      if (v37)
       {
       }
     }
@@ -4516,62 +4479,58 @@ void sub_1000978F0(uint64_t a1)
     v3 = 0;
   }
 
-  v31 = *(a1 + 48);
   [objc_opt_class() saveAndFaultIfFailWithContext:*(a1 + 40) shouldTakeServerAsTruth:1 logDescription:@"saving server change token"];
 }
 
-void sub_100097FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100097FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100097FE4(void *a1)
 {
-  v2 = a1 + 4;
-  v3 = [REMCDAccount accountWithCKIdentifier:a1[4] context:a1[5]];
-  if (v3)
+  v2 = [REMCDAccount accountWithCKIdentifier:a1[4] context:a1[5]];
+  if (v2)
   {
-    v4 = [REMCKServerChangeToken serverChangeTokenForAccount:v3 zoneID:a1[6] databaseScope:a1[8] context:a1[5]];
-    v5 = [v4 serverChangeToken];
-    v6 = *(a1[7] + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v3 = [REMCKServerChangeToken serverChangeTokenForAccount:v2 zoneID:a1[6] databaseScope:a1[8] context:a1[5]];
+    v4 = [v3 serverChangeToken];
+    v5 = *(a1[7] + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 
   else
   {
-    v8 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_1007646FC(v2);
+      sub_1007646FC();
     }
   }
 }
 
 void sub_1000982A4(uint64_t a1)
 {
-  v2 = (a1 + 32);
-  v3 = [REMCDAccount accountWithCKIdentifier:*(a1 + 32) context:*(a1 + 40)];
-  if (v3)
+  v2 = [REMCDAccount accountWithCKIdentifier:*(a1 + 32) context:*(a1 + 40)];
+  if (v2)
   {
-    v4 = [REMCKServerChangeToken serverChangeTokenForAccount:v3 zoneID:*(a1 + 48) databaseScope:*(a1 + 64) context:*(a1 + 40)];
-    if (v4)
+    v3 = [REMCKServerChangeToken serverChangeTokenForAccount:v2 zoneID:*(a1 + 48) databaseScope:*(a1 + 64) context:*(a1 + 40)];
+    if (v3)
     {
-      [*(a1 + 40) deleteObject:v4];
-      [v3 removeCkServerChangeTokensObject:v4];
-      v5 = *(a1 + 56);
+      [*(a1 + 40) deleteObject:v3];
+      [v2 removeCkServerChangeTokensObject:v3];
       [objc_opt_class() saveAndFaultIfFailWithContext:*(a1 + 40) shouldTakeServerAsTruth:1 logDescription:@"deleting server change token"];
     }
   }
 
   else
   {
-    v6 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100764810(v2);
+      sub_100764810();
     }
   }
 }
@@ -4670,10 +4629,10 @@ void sub_1000988B8(uint64_t a1, uint64_t a2)
 
   else
   {
-    v4 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_1007648B4(a1);
+      sub_1007648B4();
     }
   }
 }
@@ -4681,7 +4640,7 @@ void sub_1000988B8(uint64_t a1, uint64_t a2)
 void sub_10009892C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   v5 = v4;
   if (v3)
   {
@@ -4699,22 +4658,20 @@ void sub_10009892C(uint64_t a1, void *a2)
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Successfully cleaned user record", buf, 2u);
     }
 
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() appZoneID];
-    v15[0] = v7;
-    v8 = *(a1 + 32);
-    v9 = [objc_opt_class() migrationZoneID];
-    v15[1] = v9;
-    v5 = [NSArray arrayWithObjects:v15 count:2];
+    v6 = [objc_opt_class() appZoneID];
+    v13[0] = v6;
+    v7 = [objc_opt_class() migrationZoneID];
+    v13[1] = v7;
+    v5 = [NSArray arrayWithObjects:v13 count:2];
 
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100098AD4;
-    v12[3] = &unk_1008DB4B0;
-    v13 = *(a1 + 48);
-    [v10 deleteRecordZonesWithZoneIDs:v5 accountID:v11 markZonesAsUserPurged:1 completionHandler:v12];
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100098AD4;
+    v10[3] = &unk_1008DB4B0;
+    v11 = *(a1 + 48);
+    [v8 deleteRecordZonesWithZoneIDs:v5 accountID:v9 markZonesAsUserPurged:1 completionHandler:v10];
   }
 }
 
@@ -4748,11 +4705,11 @@ void sub_1000991A8(uint64_t a1)
 
   if (!v3)
   {
-    v4 = +[REMLog cloudkit];
+    v4 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Primary CK account may have just been disabled, force run observePrimaryCloudKitAccountPersonIDSaltChanges to invoke the 'errorHandler' to unset personIDs in non-primary CK accounts", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Primary CK account may have just been disabled, force run observePrimaryCloudKitAccountPersonIDSaltChanges to invoke the 'errorHandler' to unset personIDs in non-primary CK accounts", v8, 2u);
     }
 
     [*(a1 + 32) observePrimaryCloudKitAccountPersonIDSaltChanges];
@@ -4760,7 +4717,7 @@ void sub_1000991A8(uint64_t a1)
 
     if (v5)
     {
-      sub_100764998();
+      sub_100764998(v6, v7);
     }
   }
 }
@@ -4793,7 +4750,7 @@ void sub_10009974C(uint64_t a1, void *a2)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v5 = +[REMLog cloudkit];
+    v5 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -4805,28 +4762,26 @@ void sub_10009974C(uint64_t a1, void *a2)
     [v6 unobserve];
 
     [WeakRetained setAccountInitializerDidCompleteOnAccountsDidChangeObserver:0];
-    v7 = +[REMLog cloudkit];
+    v7 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.accountsDidChange.pending.RDAccountInitializerDidCompleteInitializeAllAccountsObserver}", v10, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.accountsDidChange.pending.RDAccountInitializerDidCompleteInitializeAllAccountsObserver}", v9, 2u);
     }
 
-    v8 = *(a1 + 32);
-    v9 = objc_opt_self();
+    v8 = objc_opt_self();
   }
 }
 
-id sub_10009A0B0(uint64_t a1)
+id sub_10009A0B0(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
+  v2 = objc_msgSend_cloudkit(REMLog, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.sync.aps}", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.remindd.cloudkit.sync.aps}", v4, 2u);
   }
 
-  v3 = *(a1 + 32);
   return objc_opt_self();
 }
 
@@ -4876,7 +4831,7 @@ void sub_10009A134(uint64_t a1)
     v14 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     [_TtC19ReminderKitInternal9Analytics postEventWithName:@"com.apple.remindd.cloudkit.sync.crashDetected" payload:v14 error:v13 performAutoBugCaptureOnError:1];
 
-    v15 = +[REMLog cloudkit];
+    v15 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       sub_100764B84(a1 + 32);
@@ -4891,7 +4846,7 @@ void sub_10009A3EC(uint64_t a1, void *a2)
   v3 = a2;
   if (v3)
   {
-    v4 = +[REMLog cloudkit];
+    v4 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_100764C10();
@@ -4910,42 +4865,42 @@ void sub_10009A3EC(uint64_t a1, void *a2)
     }
 
     v8 = [*(a1 + 40) processingQueue];
-    v15 = _NSConcreteStackBlock;
-    v16 = 3221225472;
-    v17 = sub_10009A604;
-    v18 = &unk_1008D9B98;
+    v14 = _NSConcreteStackBlock;
+    v15 = 3221225472;
+    v16 = sub_10009A604;
+    v17 = &unk_1008D9B98;
     v9 = *(a1 + 48);
-    v19 = *(a1 + 40);
-    v20 = v9;
-    dispatch_async(v8, &v15);
+    v18 = *(a1 + 40);
+    v19 = v9;
+    dispatch_async(v8, &v14);
 
-    v10 = [REMLog cloudkit:v15];
+    v10 = objc_msgSend_cloudkit(REMLog, v14, v15, v16, v17, v18);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = +[NSDate date];
       [v11 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 134217984;
-      v22 = v12;
+      v21 = v12;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SYNC[APS] END {duration: %.4f}", buf, 0xCu);
     }
   }
 
-  v13 = *(a1 + 64);
-  v14 = objc_opt_self();
+  v13 = objc_opt_self();
   (*(*(a1 + 72) + 16))();
 }
 
-void sub_10009AD68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10009AD68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 208), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 208), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10009ADD4(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = +[REMLog cloudkit];
+  v5 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v7 = 0;
@@ -4954,7 +4909,7 @@ void sub_10009ADD4(uint64_t a1, uint64_t a2, void *a3)
 
   if (v4)
   {
-    v6 = +[REMLog cloudkit];
+    v6 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100764D34();
@@ -4967,14 +4922,14 @@ void sub_10009ADD4(uint64_t a1, uint64_t a2, void *a3)
 void sub_10009AE98(uint64_t a1, void *a2)
 {
   v4 = a2;
-  v5 = +[REMLog cloudkit];
+  v5 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
     *buf = 138543618;
-    v28 = v6;
-    v29 = 2112;
-    v30 = v4;
+    v27 = v6;
+    v28 = 2112;
+    v29 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Fetched user record for force-setting migration state in accountID: %{public}@, {record: %@}", buf, 0x16u);
   }
 
@@ -4984,55 +4939,54 @@ void sub_10009AE98(uint64_t a1, void *a2)
   v9 = [NSString stringWithFormat:@"%@/%@", @"Account", v8];
 
   v10 = [CKRecordID alloc];
-  v11 = *(a1 + 40);
-  v12 = [objc_opt_class() appZoneID];
-  v13 = [v10 initWithRecordName:v9 zoneID:v12];
+  v11 = [objc_opt_class() appZoneID];
+  v12 = [v10 initWithRecordName:v9 zoneID:v11];
 
   if (*(a1 + 80) == 1)
   {
-    v14 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v28 = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Force-setting migration state: create an account record for force-setting migration with id: %{public}@", buf, 0xCu);
+      v27 = v12;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Force-setting migration state: create an account record for force-setting migration with id: %{public}@", buf, 0xCu);
     }
 
-    v15 = [[CKRecord alloc] initWithRecordType:@"Account" recordID:v13];
-    v16 = *(*(a1 + 72) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    v14 = [[CKRecord alloc] initWithRecordType:@"Account" recordID:v12];
+    v15 = *(*(a1 + 72) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v14;
 
     dispatch_group_leave(*(a1 + 48));
   }
 
   else
   {
-    v18 = [CKFetchRecordsOperation alloc];
-    v26 = v13;
-    v19 = [NSArray arrayWithObjects:&v26 count:1];
-    v20 = [v18 initWithRecordIDs:v19];
+    v17 = [CKFetchRecordsOperation alloc];
+    v25 = v12;
+    v18 = [NSArray arrayWithObjects:&v25 count:1];
+    v19 = [v17 initWithRecordIDs:v18];
 
-    [*(a1 + 40) configureOperation:v20];
-    v21 = [*(a1 + 56) privateCloudDatabase];
-    [v20 setDatabase:v21];
+    [*(a1 + 40) configureOperation:v19];
+    v20 = [*(a1 + 56) privateCloudDatabase];
+    [v19 setDatabase:v20];
 
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_10009B1BC;
-    v23[3] = &unk_1008DB578;
-    v25 = *(a1 + 72);
-    v24 = *(a1 + 48);
-    [v20 setPerRecordCompletionBlock:v23];
-    v22 = [v20 database];
-    [v22 addOperation:v20];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_10009B1BC;
+    v22[3] = &unk_1008DB578;
+    v24 = *(a1 + 72);
+    v23 = *(a1 + 48);
+    [v19 setPerRecordCompletionBlock:v22];
+    v21 = [v19 database];
+    [v21 addOperation:v19];
   }
 }
 
 void sub_10009B1BC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -5051,7 +5005,7 @@ void sub_10009B1BC(uint64_t a1, void *a2)
 void sub_10009B2A0(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
-  v6 = +[REMLog cloudkit];
+  v6 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     LOWORD(v8) = 0;
@@ -5060,7 +5014,7 @@ void sub_10009B2A0(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
   if (v5)
   {
-    v7 = +[REMLog cloudkit];
+    v7 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138543362;
@@ -5088,7 +5042,7 @@ id sub_10009B460(uint64_t a1)
   result = [*(a1 + 32) uploadSuspended];
   if ((v2 & 1) != result)
   {
-    v4 = +[REMLog cloudkit];
+    v4 = objc_msgSend_cloudkit(REMLog);
     v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     if (v2)
     {
@@ -5116,9 +5070,9 @@ LABEL_10:
   return result;
 }
 
-void sub_10009B618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009B618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5147,7 +5101,7 @@ void sub_10009B6C4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
     v7 = 0;
   }
 
-  v8 = +[REMLog cloudkit];
+  v8 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v6 remObjectID];
@@ -5173,7 +5127,7 @@ void sub_10009BEC4(uint64_t a1)
   if (*(a1 + 32))
   {
     v2 = [*(a1 + 48) retryPerformingCloudSchemaCatchUpSync];
-    v3 = +[REMLog cloudkit];
+    v3 = objc_msgSend_cloudkit(REMLog);
     v4 = v3;
     if (v2)
     {
@@ -5237,7 +5191,7 @@ void sub_10009BEC4(uint64_t a1)
           v13 = *(*(&v26 + 1) + 8 * i);
           v14 = [*(a1 + 48) contextForAccountID:v13 withBatchFetchHelper:{0, v24}];
           v15 = [ICCloudSchemaCompatibilityUtils cloudSchemaCatchUpSyncDidCompleteWithAccountIdentifier:v13 context:v14];
-          v16 = +[REMLog cloudkit];
+          v16 = objc_msgSend_cloudkit(REMLog);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             v17 = *(a1 + 56);
@@ -5285,10 +5239,11 @@ BOOL sub_10009D114(id a1, Class a2, unint64_t a3, BOOL *a4)
   return v5;
 }
 
-void sub_10009DB9C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10009DB9C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 _BYTE *sub_10009DBF8(_BYTE *result, _BYTE *a2)
@@ -5304,13 +5259,6 @@ void sub_10009DC2C(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_debug_impl(a1, v4, OS_LOG_TYPE_DEBUG, a4, v5, 0xCu);
 }
 
-uint64_t *sub_10009DC4C@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
 uint64_t sub_10009DC64(uint64_t result, float a2)
 {
   *v3 = a2;
@@ -5324,17 +5272,11 @@ BOOL sub_10009DC70(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_FAULT);
 }
 
-void sub_10009DCFC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10009DCFC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-uint64_t sub_10009DD18@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 40);
-  return result;
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10009DD30(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -5365,7 +5307,7 @@ void sub_1000A1518(id a1, BOOL a2)
 {
   if (!a2)
   {
-    v2 = +[REMLog cloudkit];
+    v2 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_100765608();
@@ -5380,7 +5322,7 @@ void sub_1000A1648(uint64_t a1, void *a2, void *a3, void *a4)
   v9 = a4;
   if (v9)
   {
-    v10 = +[REMLog cloudkit];
+    v10 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10076563C(v9);
@@ -5398,12 +5340,12 @@ void sub_1000A1648(uint64_t a1, void *a2, void *a3, void *a4)
     v12 = v8;
     if ([v12 statusCode] == 200)
     {
-      v30 = 0;
-      v13 = [NSPropertyListSerialization propertyListWithData:v7 options:0 format:0 error:&v30];
-      v14 = v30;
+      v29 = 0;
+      v13 = [NSPropertyListSerialization propertyListWithData:v7 options:0 format:0 error:&v29];
+      v14 = v29;
       if (v14)
       {
-        v15 = +[REMLog cloudkit];
+        v15 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           sub_100765768(v14);
@@ -5421,51 +5363,50 @@ void sub_1000A1648(uint64_t a1, void *a2, void *a3, void *a4)
         block[3] = &unk_1008D9B98;
         block[4] = *(a1 + 32);
         v19 = v13;
-        v29 = v19;
+        v28 = v19;
         dispatch_async(v18, block);
 
-        v20 = *(a1 + 32);
-        v21 = [objc_opt_class() cachedConfigurationURL];
-        v22 = +[REMLog cloudkit];
-        v23 = v22;
-        if (v21)
+        v20 = [objc_opt_class() cachedConfigurationURL];
+        v21 = objc_msgSend_cloudkit(REMLog);
+        v22 = v21;
+        if (v20)
         {
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v32 = v21;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "ICCloudConfiguration: Updating locally cached configuration {cacheURL: %{public}@}", buf, 0xCu);
+            v31 = v20;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "ICCloudConfiguration: Updating locally cached configuration {cacheURL: %{public}@}", buf, 0xCu);
           }
 
-          v27 = 0;
-          v24 = [v19 writeToURL:v21 error:&v27];
-          v23 = v27;
-          if ((v24 & 1) == 0)
+          v26 = 0;
+          v23 = [v19 writeToURL:v20 error:&v26];
+          v22 = v26;
+          if ((v23 & 1) == 0)
           {
-            v25 = +[REMLog cloudkit];
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v24 = objc_msgSend_cloudkit(REMLog);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               sub_1007657F4();
             }
           }
         }
 
-        else if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           sub_100765868();
         }
 
-        v26 = *(a1 + 40);
-        if (v26)
+        v25 = *(a1 + 40);
+        if (v25)
         {
-          (*(v26 + 16))(v26, 1);
+          (*(v25 + 16))(v25, 1);
         }
       }
     }
 
     else
     {
-      v16 = +[REMLog cloudkit];
+      v16 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_1007656C8(v12);
@@ -5480,24 +5421,23 @@ void sub_1000A1648(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-id sub_1000A19BC(uint64_t a1)
+id sub_1000A19BC(uint64_t a1, const char *a2)
 {
-  v2 = +[REMLog cloudkit];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = objc_msgSend_cloudkit(REMLog, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "ICCloudConfiguration: Received remote configuration", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "ICCloudConfiguration: Received remote configuration", buf, 2u);
   }
 
-  v3 = *(a1 + 32);
   result = [objc_opt_class() isConfigurationValid:*(a1 + 40)];
   if (result)
   {
-    v5 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "ICCloudConfiguration: Applying remote configuration", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "ICCloudConfiguration: Applying remote configuration", v7, 2u);
     }
 
     return [*(a1 + 32) setConfigurationFromDictionary:*(a1 + 40)];
@@ -5521,10 +5461,11 @@ void sub_1000A3854(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1000A3DC8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000A3DC8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_1000A5A88(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
@@ -5807,9 +5748,9 @@ dispatch_workloop_t rd_dispatch_workloop_create(const char *a1)
   return v1;
 }
 
-void sub_1000AD214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AD214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5838,7 +5779,7 @@ id incompatibilityInfoWithEntitiesAndArraysOfPropertyKeys(void *a1, void *a2)
   v5 = [v3 count];
   if (v5 != [v4 count])
   {
-    v6 = +[REMLog cloudkit];
+    v6 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_100767970(v6);
@@ -5883,16 +5824,16 @@ id incompatibilityInfoWithEntitiesAndArraysOfPropertyKeys(void *a1, void *a2)
   return v16;
 }
 
-id cloudKitSchemaVersionIncompatibilityInfoMap()
+id cloudKitSchemaVersionIncompatibilityInfoMap(uint64_t a1)
 {
   if (qword_100952A28 != -1)
   {
     sub_1007679B4();
   }
 
-  v1 = qword_100952A20;
+  v2 = qword_100952A20;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000ADA14(id a1)
@@ -5963,9 +5904,9 @@ void sub_1000ADA14(id a1)
   [qword_100952A20 setObject:v32 forKeyedSubscript:&off_1009050D0];
 }
 
-void sub_1000AE1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000AE1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5982,11 +5923,11 @@ void sub_1000AE200(uint64_t a1)
   }
 }
 
-void sub_1000AE5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000AE5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6007,7 +5948,7 @@ void sub_1000AE640(uint64_t a1, void *a2, void *a3, _BYTE *a4)
     v11 = [v7 objectForKey:*(a1 + 32)];
     if ([v11 count])
     {
-      v12 = +[REMLog cloudkit];
+      v12 = objc_msgSend_cloudkit(REMLog);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = *(a1 + 32);
@@ -6040,9 +5981,9 @@ void sub_1000AE640(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_1000AE8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AE8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6130,9 +6071,9 @@ void sub_1000AF760(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1000AF860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AF860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6142,17 +6083,16 @@ void sub_1000AF878(uint64_t a1)
   v2 = [*(a1 + 32) ckIdentifier];
   if (v2)
   {
-    v3 = *(a1 + 32);
-    v4 = [objc_opt_class() failedToSyncCountsByCKIdentifier];
-    v5 = [v4 objectForKey:v2];
+    v3 = [objc_opt_class() failedToSyncCountsByCKIdentifier];
+    v4 = [v3 objectForKey:v2];
 
-    *(*(*(a1 + 40) + 8) + 24) = [v5 integerValue];
+    *(*(*(a1 + 40) + 8) + 24) = [v4 integerValue];
   }
 
   else
   {
-    v6 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_100767E04();
     }
@@ -6164,26 +6104,25 @@ void sub_1000AF9C4(uint64_t a1)
   v2 = [*(a1 + 32) ckIdentifier];
   if (v2)
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = [objc_opt_class() failedToSyncCountsByCKIdentifier];
-    v6 = v5;
-    if (v4)
+    v3 = *(a1 + 40);
+    v4 = [objc_opt_class() failedToSyncCountsByCKIdentifier];
+    v5 = v4;
+    if (v3)
     {
-      v7 = [NSNumber numberWithInteger:*(a1 + 40)];
-      [v6 setObject:v7 forKey:v2];
+      v6 = [NSNumber numberWithInteger:*(a1 + 40)];
+      [v5 setObject:v6 forKey:v2];
     }
 
     else
     {
-      [v5 removeObjectForKey:v2];
+      [v4 removeObjectForKey:v2];
     }
   }
 
   else
   {
-    v6 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_100767E40();
     }
@@ -6199,9 +6138,9 @@ void sub_1000AFACC(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1000AFBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AFBCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6211,17 +6150,16 @@ void sub_1000AFBE4(uint64_t a1)
   v2 = [*(a1 + 32) ckIdentifier];
   if (v2)
   {
-    v3 = *(a1 + 32);
-    v4 = [objc_opt_class() numberOfPushAttemptsToWaitByCKIdentifier];
-    v5 = [v4 objectForKey:v2];
+    v3 = [objc_opt_class() numberOfPushAttemptsToWaitByCKIdentifier];
+    v4 = [v3 objectForKey:v2];
 
-    *(*(*(a1 + 40) + 8) + 24) = [v5 integerValue];
+    *(*(*(a1 + 40) + 8) + 24) = [v4 integerValue];
   }
 
   else
   {
-    v6 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_100767E90();
     }
@@ -6233,49 +6171,46 @@ void sub_1000AFD30(uint64_t a1)
   v2 = [*(a1 + 32) ckIdentifier];
   if (v2)
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = [objc_opt_class() numberOfPushAttemptsToWaitByCKIdentifier];
-    v6 = v5;
-    if (v4)
+    v3 = *(a1 + 40);
+    v4 = [objc_opt_class() numberOfPushAttemptsToWaitByCKIdentifier];
+    v5 = v4;
+    if (v3)
     {
-      v7 = [NSNumber numberWithInteger:*(a1 + 40)];
-      [v6 setObject:v7 forKey:v2];
+      v6 = [NSNumber numberWithInteger:*(a1 + 40)];
+      [v5 setObject:v6 forKey:v2];
     }
 
     else
     {
-      [v5 removeObjectForKey:v2];
+      [v4 removeObjectForKey:v2];
     }
   }
 
   else
   {
-    v6 = +[REMLog cloudkit];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = objc_msgSend_cloudkit(REMLog);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       sub_100767ECC();
     }
   }
 }
 
-void sub_1000B015C(uint64_t a1)
+void sub_1000B015C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() numberOfPushAttemptsToWaitByCKIdentifier];
+  v2 = [objc_opt_class() numberOfPushAttemptsToWaitByCKIdentifier];
+  [v2 removeAllObjects];
+
+  v3 = [objc_opt_class() failedToSyncCountsByCKIdentifier];
   [v3 removeAllObjects];
 
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() failedToSyncCountsByCKIdentifier];
-  [v5 removeAllObjects];
-
-  v6 = +[NSNotificationCenter defaultCenter];
-  [v6 postNotificationName:@"ICCloudContextUnrecoverableErrorNotification" object:0];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 postNotificationName:@"ICCloudContextUnrecoverableErrorNotification" object:0];
 }
 
-void sub_1000B09A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B09A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6287,9 +6222,9 @@ id sub_1000B09C0(uint64_t a1)
   return result;
 }
 
-void sub_1000B11E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000B11E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6457,7 +6392,7 @@ void sub_1000B3C30(uint64_t a1)
 BOOL sub_1000B41C8(id a1, NSURL *a2, NSError *a3)
 {
   v3 = a3;
-  v4 = +[REMLog cloudkit];
+  v4 = objc_msgSend_cloudkit(REMLog);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_100768EE8();
@@ -6483,16 +6418,15 @@ void sub_1000B57E8(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1000B5918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000B5918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000B5930(uint64_t a1)
+void sub_1000B5930(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = [objc_opt_class() versionsByRecordIDByOperation];
   v6 = [v3 objectForKey:*(a1 + 40)];
 
@@ -6504,9 +6438,8 @@ void sub_1000B5930(uint64_t a1)
   }
 }
 
-void sub_1000B5A9C(uint64_t a1)
+void sub_1000B5A9C(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v6 = [objc_opt_class() versionsByRecordIDByOperation];
   v3 = [v6 objectForKey:*(a1 + 40)];
   if (!v3)
@@ -6523,9 +6456,9 @@ void sub_1000B5A9C(uint64_t a1)
   }
 }
 
-void sub_1000B5C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000B5C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6535,31 +6468,30 @@ void sub_1000B5C5C(uint64_t a1)
   v2 = [*(a1 + 32) recordID];
   if (v2)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v3 = *(a1 + 32);
-    v4 = [objc_opt_class() versionsByRecordIDByOperation];
-    v5 = [v4 objectEnumerator];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v3 = [objc_opt_class() versionsByRecordIDByOperation];
+    v4 = [v3 objectEnumerator];
 
-    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v6)
+    v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v13;
+      v6 = v5;
+      v7 = *v12;
       while (2)
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v6; i = i + 1)
         {
-          if (*v13 != v8)
+          if (*v12 != v7)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v4);
           }
 
-          v10 = [*(*(&v12 + 1) + 8 * i) objectForKeyedSubscript:v2];
-          v11 = v10;
-          if (v10 && [v10 longLongValue] >= *(a1 + 48))
+          v9 = [*(*(&v11 + 1) + 8 * i) objectForKeyedSubscript:v2];
+          v10 = v9;
+          if (v9 && [v9 longLongValue] >= *(a1 + 48))
           {
             *(*(*(a1 + 40) + 8) + 24) = 1;
 
@@ -6567,8 +6499,8 @@ void sub_1000B5C5C(uint64_t a1)
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v7)
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        if (v6)
         {
           continue;
         }
@@ -6698,10 +6630,11 @@ void sub_1000B67C8(uint64_t a1)
   }
 }
 
-void sub_1000B6F40(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000B6F40(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void *blockOperationShortNameFromOperationName(void *a1)
@@ -6763,60 +6696,60 @@ void sub_1000B7040(id a1)
   qword_100952AC0 = v1;
 }
 
-void sub_1000B85D0(uint64_t a1)
+void sub_1000B85D0(uint64_t a1, uint64_t a2)
 {
-  v53[0] = objc_opt_class();
-  v53[1] = objc_opt_class();
-  v53[2] = objc_opt_class();
-  v2 = [NSArray arrayWithObjects:v53 count:3];
-  v34 = +[NSMutableArray array];
-  v42 = 0u;
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v54[2] = objc_opt_class();
+  v3 = [NSArray arrayWithObjects:v54 count:3];
+  v35 = +[NSMutableArray array];
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  obj = v2;
-  v3 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
-  if (v3)
+  v46 = 0u;
+  obj = v3;
+  v4 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+  if (v4)
   {
-    v4 = v3;
-    v5 = *v43;
+    v5 = v4;
+    v6 = *v44;
     while (2)
     {
-      for (i = 0; i != v4; i = i + 1)
+      for (i = 0; i != v5; i = i + 1)
       {
-        if (*v43 != v5)
+        if (*v44 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = [*(*(&v42 + 1) + 8 * i) fetchRequest];
-        [v7 setPropertiesToFetch:&off_100905800];
-        v51 = *(a1 + 32);
-        v8 = [NSArray arrayWithObjects:&v51 count:1];
-        [v7 setAffectedStores:v8];
+        v8 = [*(*(&v43 + 1) + 8 * i) fetchRequest];
+        [v8 setPropertiesToFetch:&off_100905800];
+        v52 = *(a1 + 32);
+        v9 = [NSArray arrayWithObjects:&v52 count:1];
+        [v8 setAffectedStores:v9];
 
-        [v7 setFetchBatchSize:50];
-        v9 = *(a1 + 40);
-        v41 = 0;
-        v10 = [v9 executeFetchRequest:v7 error:&v41];
-        v11 = v41;
-        if (!v10)
+        [v8 setFetchBatchSize:50];
+        v10 = *(a1 + 40);
+        v42 = 0;
+        v11 = [v10 executeFetchRequest:v8 error:&v42];
+        v12 = v42;
+        if (!v11)
         {
-          v31 = +[REMLogStore container];
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v32 = +[REMLogStore container];
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            sub_1007698C4(v11, v31);
+            sub_1007698C4(v12, v32);
           }
 
-          v30 = obj;
+          v31 = obj;
           goto LABEL_31;
         }
 
-        [v34 addObjectsFromArray:v10];
+        [v35 addObjectsFromArray:v11];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
-      if (v4)
+      v5 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+      if (v5)
       {
         continue;
       }
@@ -6825,91 +6758,91 @@ void sub_1000B85D0(uint64_t a1)
     }
   }
 
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v12 = v34;
-  v13 = [v12 countByEnumeratingWithState:&v37 objects:v50 count:16];
-  if (v13)
+  v39 = 0u;
+  v13 = v35;
+  v14 = [v13 countByEnumeratingWithState:&v38 objects:v51 count:16];
+  if (v14)
   {
-    v15 = v13;
-    v16 = 0;
-    v17 = *v38;
-    *&v14 = 138412290;
-    v32 = v14;
+    v16 = v14;
+    v17 = 0;
+    v18 = *v39;
+    *&v15 = 138412290;
+    v33 = v15;
     do
     {
-      v18 = 0;
+      v19 = 0;
       do
       {
-        if (*v38 != v17)
+        if (*v39 != v18)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v37 + 1) + 8 * v18);
-        [*(a1 + 48) setTotalMigratedCount:{objc_msgSend(*(a1 + 48), "totalMigratedCount", v32) + 1}];
-        [*(a1 + 48) migrateTokenResolutionMapInObject:v19];
-        [*(a1 + 48) migrateCRDTsInObject:v19];
-        if (v16 < 0x31)
+        v20 = *(*(&v38 + 1) + 8 * v19);
+        [*(a1 + 48) setTotalMigratedCount:{objc_msgSend(*(a1 + 48), "totalMigratedCount", v33) + 1}];
+        [*(a1 + 48) migrateTokenResolutionMapInObject:v20];
+        [*(a1 + 48) migrateCRDTsInObject:v20];
+        if (v17 < 0x31)
         {
-          ++v16;
+          ++v17;
         }
 
         else
         {
-          v20 = +[REMLogStore container];
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          v21 = +[REMLogStore container];
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v21 = [*(a1 + 40) updatedObjects];
-            v22 = [v21 count];
-            v23 = [*(a1 + 48) totalMigratedCount];
+            v22 = [*(a1 + 40) updatedObjects];
+            v23 = [v22 count];
+            v24 = [*(a1 + 48) totalMigratedCount];
             *buf = 134218240;
-            v47 = v22;
-            v48 = 2048;
-            v49 = v23;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Saving batch {updatedObjectsCount: %ld, totalMigratedCount: %ld}", buf, 0x16u);
+            v48 = v23;
+            v49 = 2048;
+            v50 = v24;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Saving batch {updatedObjectsCount: %ld, totalMigratedCount: %ld}", buf, 0x16u);
           }
 
-          v24 = *(a1 + 40);
-          v36 = 0;
-          v25 = [v24 save:&v36];
-          v26 = v36;
-          if ((v25 & 1) == 0)
+          v25 = *(a1 + 40);
+          v37 = 0;
+          v26 = [v25 save:&v37];
+          v27 = v37;
+          if ((v26 & 1) == 0)
           {
-            v27 = +[REMLogStore container];
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+            v28 = +[REMLogStore container];
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
             {
-              *buf = v32;
-              v47 = v26;
-              _os_log_fault_impl(&_mh_execute_header, v27, OS_LOG_TYPE_FAULT, "Failed to save batch. Migration error {error: %@}", buf, 0xCu);
+              *buf = v33;
+              v48 = v27;
+              _os_log_fault_impl(&_mh_execute_header, v28, OS_LOG_TYPE_FAULT, "Failed to save batch. Migration error {error: %@}", buf, 0xCu);
             }
           }
 
-          v16 = 0;
+          v17 = 0;
         }
 
-        v18 = v18 + 1;
+        v19 = v19 + 1;
       }
 
-      while (v15 != v18);
-      v15 = [v12 countByEnumeratingWithState:&v37 objects:v50 count:16];
+      while (v16 != v19);
+      v16 = [v13 countByEnumeratingWithState:&v38 objects:v51 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
-  v28 = *(a1 + 40);
-  v35 = 0;
-  v29 = [v28 save:&v35];
-  v30 = v35;
-  if ((v29 & 1) == 0)
+  v29 = *(a1 + 40);
+  v36 = 0;
+  v30 = [v29 save:&v36];
+  v31 = v36;
+  if ((v30 & 1) == 0)
   {
-    v7 = +[REMLogStore container];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = +[REMLogStore container];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      sub_10076993C(v30, v7);
+      sub_10076993C(v31, v8);
     }
 
 LABEL_31:
@@ -6923,9 +6856,9 @@ void sub_1000B95CC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_1000B976C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B976C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6948,9 +6881,9 @@ void sub_1000B979C(uint64_t a1, void *a2)
   *(v6 + 40) = v5;
 }
 
-void sub_1000B9918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000B9918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7007,9 +6940,9 @@ void sub_1000B9930(uint64_t a1, void *a2)
   *(v17 + 40) = v16;
 }
 
-void sub_1000B9BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000B9BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7034,9 +6967,9 @@ void sub_1000B9C14(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000B9E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000B9E44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7105,9 +7038,9 @@ void sub_1000B9E5C(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000BA264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000BA264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7180,11 +7113,11 @@ void sub_1000BA5DC(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_1000BA970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000BA970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7227,10 +7160,11 @@ LABEL_6:
   *(v13 + 40) = v12;
 }
 
-void sub_1000BAD24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1000BAD24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a20, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7281,9 +7215,9 @@ LABEL_11:
   *(v13 + 40) = v12;
 }
 
-void sub_1000BB514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000BB514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7291,40 +7225,40 @@ void sub_1000BB514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1000BB52C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v59 = 0u;
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v61 objects:v72 count:16];
+  v4 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
   if (v4)
   {
     v6 = v4;
-    v51 = *v62;
+    v49 = *v60;
     *&v5 = 138412802;
-    v43 = v5;
+    v41 = v5;
     v7 = REMCRMergeableOrderedSet_ptr;
     v8 = &_s19ReminderKitInternal24REMRemindersListDataViewO25ScheduledDateBucketsModelVSeAAMc_ptr;
-    v44 = v3;
-    v45 = a1;
+    v42 = v3;
+    v43 = a1;
     do
     {
       v9 = 0;
-      v46 = v6;
+      v44 = v6;
       do
       {
         v10 = v6;
-        if (*v62 != v51)
+        if (*v60 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v61 + 1) + 8 * v9);
+        v11 = *(*(&v59 + 1) + 8 * v9);
         v12 = objc_autoreleasePoolPush();
         v13 = *(a1 + 40);
-        v60 = 0;
-        v14 = [v13 _fetchCDAuxiliaryChangeInfosWithObjectID:v11 inManagedObjectContext:v3 error:&v60];
-        v15 = v60;
+        v58 = 0;
+        v14 = [v13 _fetchCDAuxiliaryChangeInfosWithObjectID:v11 inManagedObjectContext:v3 error:&v58];
+        v15 = v58;
         if (v15)
         {
           v16 = 1;
@@ -7335,7 +7269,7 @@ void sub_1000BB52C(uint64_t a1, void *a2)
           v16 = v14 == 0;
         }
 
-        v52 = v14;
+        v50 = v14;
         if (v16)
         {
           v17 = v3;
@@ -7349,105 +7283,103 @@ void sub_1000BB52C(uint64_t a1, void *a2)
 
         else
         {
-          v48 = v11;
-          v49 = v12;
-          v50 = v9;
+          v46 = v11;
+          v47 = v12;
+          v48 = v9;
           v21 = [v14 entity];
-          v53 = +[NSMutableDictionary dictionary];
+          v51 = +[NSMutableDictionary dictionary];
+          v54 = 0u;
+          v55 = 0u;
           v56 = 0u;
           v57 = 0u;
-          v58 = 0u;
-          v59 = 0u;
           v22 = v21;
-          v54 = [v21 propertiesByName];
-          v23 = [v54 countByEnumeratingWithState:&v56 objects:v71 count:16];
+          v52 = [v21 propertiesByName];
+          v23 = [v52 countByEnumeratingWithState:&v54 objects:v69 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v57;
+            v25 = *v55;
             do
             {
               for (i = 0; i != v24; i = i + 1)
               {
-                if (*v57 != v25)
+                if (*v55 != v25)
                 {
-                  objc_enumerationMutation(v54);
+                  objc_enumerationMutation(v52);
                 }
 
-                v27 = *(*(&v56 + 1) + 8 * i);
+                v27 = *(*(&v54 + 1) + 8 * i);
                 v28 = [v22 propertiesByName];
                 v29 = [v28 objectForKeyedSubscript:v27];
 
-                v30 = v7[398];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v31 = [v14 valueForKey:v27];
-                  if (v31)
+                  v30 = [v14 valueForKey:v27];
+                  if (v30)
                   {
-                    v32 = v31;
-                    v33 = v8[481];
+                    v31 = v30;
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      [v32 UUIDString];
-                      v34 = v8;
-                      v36 = v35 = v7;
+                      [v31 UUIDString];
+                      v32 = v8;
+                      v34 = v33 = v7;
 
-                      v32 = v36;
-                      v7 = v35;
-                      v8 = v34;
-                      v14 = v52;
+                      v31 = v34;
+                      v7 = v33;
+                      v8 = v32;
+                      v14 = v50;
                     }
 
-                    [v53 setObject:v32 forKey:v27];
+                    [v51 setObject:v31 forKey:v27];
                   }
                 }
               }
 
-              v24 = [v54 countByEnumeratingWithState:&v56 objects:v71 count:16];
+              v24 = [v52 countByEnumeratingWithState:&v54 objects:v69 count:16];
             }
 
             while (v24);
           }
 
-          v55 = 0;
-          v37 = [NSPropertyListSerialization dataWithPropertyList:v53 format:100 options:0 error:&v55];
-          v18 = v55;
-          if (v18 || !v37)
+          v53 = 0;
+          v35 = [NSPropertyListSerialization dataWithPropertyList:v51 format:100 options:0 error:&v53];
+          v18 = v53;
+          if (v18 || !v35)
           {
-            v38 = +[REMLog changeTracking];
-            v6 = v46;
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v36 = +[REMLog changeTracking];
+            v6 = v44;
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
-              v42 = [v18 localizedDescription];
-              *buf = v43;
-              v66 = v48;
+              v40 = [v18 localizedDescription];
+              *buf = v41;
+              v64 = v46;
+              v65 = 2112;
+              v66 = v40;
               v67 = 2112;
-              v68 = v42;
-              v69 = 2112;
-              v70 = v53;
-              _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Could not encode CD object into plist data {objectID: %@, error: %@, dictionary: %@}", buf, 0x20u);
+              v68 = v51;
+              _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Could not encode CD object into plist data {objectID: %@, error: %@, dictionary: %@}", buf, 0x20u);
             }
 
-            v39 = [NSError errorWithREMChangeErrorCode:10 underlyingError:v18];
-            a1 = v45;
-            v40 = *(*(v45 + 56) + 8);
-            v41 = *(v40 + 40);
-            *(v40 + 40) = v39;
+            v37 = [NSError errorWithREMChangeErrorCode:10 underlyingError:v18];
+            a1 = v43;
+            v38 = *(*(v43 + 56) + 8);
+            v39 = *(v38 + 40);
+            *(v38 + 40) = v37;
           }
 
           else
           {
-            a1 = v45;
-            [*(v45 + 48) setObject:v37 forKey:v48];
-            v6 = v46;
+            a1 = v43;
+            [*(v43 + 48) setObject:v35 forKey:v46];
+            v6 = v44;
           }
 
-          v12 = v49;
-          v9 = v50;
+          v12 = v47;
+          v9 = v48;
 
-          v17 = v44;
+          v17 = v42;
         }
 
         objc_autoreleasePoolPop(v12);
@@ -7456,16 +7388,16 @@ void sub_1000BB52C(uint64_t a1, void *a2)
       }
 
       while (v9 != v6);
-      v6 = [obj countByEnumeratingWithState:&v61 objects:v72 count:16];
+      v6 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
     }
 
     while (v6);
   }
 }
 
-void sub_1000BCC74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000BCC74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7473,17 +7405,17 @@ void sub_1000BCC74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1000BCC8C(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
-  v4 = (a1 + 32);
+  v4 = a1 + 32;
   v5 = *(*(a1 + 40) + 8);
   obj = *(v5 + 40);
   v6 = [a2 executeRequest:v3 error:&obj];
   objc_storeStrong((v5 + 40), obj);
-  v7 = *(*(v4[1] + 8) + 40);
+  v7 = *(*(*(v4 + 8) + 8) + 40);
   if (!v7)
   {
     if (!v6)
     {
-      sub_10076A21C(v4);
+      sub_10076A21C();
     }
 
     objc_opt_class();
@@ -7530,9 +7462,9 @@ void sub_1000BCC8C(uint64_t a1, void *a2)
 LABEL_13:
 }
 
-void sub_1000BCF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000BCF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7554,7 +7486,7 @@ void sub_1000BCF3C(uint64_t a1, void *a2)
     v10 = +[REMLog changeTracking];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10076A2C0((a1 + 32), v9);
+      sub_10076A2C0(a1 + 32, v9);
     }
 
     v11 = [NSError errorWithREMChangeErrorCode:8 underlyingError:v9];
@@ -7567,7 +7499,7 @@ void sub_1000BCF3C(uint64_t a1, void *a2)
   {
     if ([v8 count] >= 2)
     {
-      sub_10076A364((a1 + 32));
+      sub_10076A364();
     }
 
     v13 = [v8 firstObject];
@@ -7633,10 +7565,11 @@ id *sub_1000BE318(id *result)
   return result;
 }
 
-void sub_1000BE734(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_1000BE734(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x16u);
+  _os_log_error_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_1000BEFE4(uint64_t a1, void *a2)
@@ -7662,10 +7595,11 @@ void sub_1000BEFE4(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000BF158(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000BF158(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 uint64_t isCloudContextSyncReasonUserInitiated(void *a1)
@@ -7797,9 +7731,9 @@ void sub_1000C0AD0(uint64_t a1)
   [*(a1 + 32) setObject:v9 forKeyedSubscript:@"databaseScope"];
 }
 
-void sub_1000C0EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C0EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7934,16 +7868,12 @@ void sub_1000C14E0(uint64_t a1, void *a2, void *a3)
   dispatch_async(v7, block);
 }
 
-uint64_t sub_1000C15E4(void *a1)
+uint64_t sub_1000C15E4(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[4];
-  v5 = a1[6];
-  v6 = *(a1[8] + 16);
+  (*(*(a1 + 56) + 16))();
+  v2 = *(*(a1 + 64) + 16);
 
-  return v6();
+  return v2();
 }
 
 void sub_1000C2100(uint64_t a1)
@@ -7997,9 +7927,9 @@ void sub_1000C2328(uint64_t a1, void *a2, void *a3)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_1000C25DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000C25DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8765,4 +8695,55 @@ void sub_1000C5FEC(uint64_t a1, void *a2)
 
   v10 = [*(a1 + 40) cloudContext];
   [v10 syncWithReason:@"SyncAfterAcceptShare" discretionary:0 completionHandler:0];
+}
+
+void sub_1000C6234(uint64_t a1)
+{
+  v2 = [*(a1 + 32) share];
+  v3 = [v2 recordID];
+
+  if (!v3)
+  {
+    goto LABEL_5;
+  }
+
+  v4 = *(a1 + 40);
+  v5 = [*(a1 + 32) share];
+  v6 = [v5 recordID];
+  v7 = [v4 objectForKeyedSubscript:v6];
+
+  v8 = +[REMLog cloudkitCollaboration];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = [v7 ic_loggingDescription];
+    WeakRetained = objc_loadWeakRetained((a1 + 72));
+    v11 = [WeakRetained ic_loggingDescription];
+    v17 = 138412546;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Using share from per-share completion block %@: %@", &v17, 0x16u);
+  }
+
+  if (!v7)
+  {
+LABEL_5:
+    v7 = [*(a1 + 32) share];
+    v12 = +[REMLog cloudkitCollaboration];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v13 = [v7 ic_loggingDescription];
+      v14 = objc_loadWeakRetained((a1 + 72));
+      v15 = [v14 ic_loggingDescription];
+      v17 = 138412546;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v15;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Falling back to share from metadata %@: %@", &v17, 0x16u);
+    }
+  }
+
+  v16 = [REMCDObject objectWithRecordID:*(a1 + 48) accountID:*(a1 + 56) context:*(a1 + 64)];
+  [v16 didAcceptShare:v7];
+  [*(a1 + 64) ic_save];
 }

@@ -63,11 +63,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:49 commandID:10 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v15)
   {
     sub_2393C5AAC(v14);
-    sub_2393C5ADC(v14, *(v15 + 1), *(v15 + 3));
+    sub_2393C5ADC(v14, *(v15 + 8), *(v15 + 24));
     v8 = sub_2393C6FD0(v14, 256);
     if (!v8)
     {
@@ -125,13 +125,13 @@ LABEL_6:
   v5 = [MEMORY[0x277CBEA90] dataWithBytes:*struct length:*(struct + 1)];
   [(MTRNetworkCommissioningClusterQueryIdentityResponseParams *)self setIdentity:v5];
 
-  v7 = *(struct + 16);
-  v6 = struct + 16;
-  if (v7 == 1)
+  v8 = *(struct + 16);
+  v7 = struct + 16;
+  if (v8 == 1)
   {
-    v8 = sub_238DE36B8(v6);
-    v9 = [MEMORY[0x277CBEA90] dataWithBytes:*v8 length:v8[1]];
-    [(MTRNetworkCommissioningClusterQueryIdentityResponseParams *)self setPossessionSignature:v9];
+    v9 = sub_238DE36B8(v7, v6);
+    v10 = [MEMORY[0x277CBEA90] dataWithBytes:*v9 length:v9[1]];
+    [(MTRNetworkCommissioningClusterQueryIdentityResponseParams *)self setPossessionSignature:v10];
   }
 
   else
@@ -139,11 +139,11 @@ LABEL_6:
     [(MTRNetworkCommissioningClusterQueryIdentityResponseParams *)self setPossessionSignature:0];
   }
 
-  v10 = 0;
   v11 = 0;
-  result.mFile = v11;
-  result.mError = v10;
-  result.mLine = HIDWORD(v10);
+  v12 = 0;
+  result.mFile = v12;
+  result.mError = v11;
+  result.mLine = HIDWORD(v11);
   return result;
 }
 

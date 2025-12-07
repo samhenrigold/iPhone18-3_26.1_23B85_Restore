@@ -73,19 +73,17 @@
 
 - (id)sendAttachmentAtURL:(id)l forComposedMessageId:(id)id
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = @"type";
-  v13[1] = @"messageId";
-  v14[0] = &unk_286C7BE38;
-  v14[1] = id;
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = @"type";
+  v12[1] = @"messageId";
+  v13[0] = &unk_286C7BE38;
+  v13[1] = id;
   v6 = MEMORY[0x277CBEAC0];
   idCopy = id;
   lCopy = l;
-  v9 = [v6 dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v9 = [v6 dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   v10 = [(NNMKSyncServiceEndpoint *)self sendResourceAtURL:lCopy metadata:v9 priority:200 timeoutCategory:1];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

@@ -1276,7 +1276,7 @@ void __58__SFCapsuleNavigationBar__createTrailingButtonConstraints__block_invoke
   [coordinatorCopy addCompletion:v9];
 }
 
-uint64_t __60__SFCapsuleNavigationBar_willChangeToMinimized_coordinator___block_invoke(uint64_t a1, double a2)
+void *__60__SFCapsuleNavigationBar_willChangeToMinimized_coordinator___block_invoke(uint64_t a1, double a2)
 {
   LOBYTE(a2) = *(a1 + 40);
   result = [*(a1 + 32) _updateButtonAlphaForMinimizedPercent:*&a2];

@@ -3,6 +3,7 @@
 - (CalDAVAddManagedAttachmentsTaskGroup)initWithAccountInfoProvider:(id)provider resourceURL:(id)l attachments:(id)attachments contentTypes:(id)types taskManager:(id)manager;
 - (id)urlWithQuery;
 - (void)_fetchUpdatedContent;
+- (void)_finishWithError:(id)error state:(int)state;
 - (void)_handlePostResponse:(id)response;
 - (void)_sendAttachments;
 - (void)startTaskGroup;
@@ -31,6 +32,30 @@
   }
 
   return v16;
+}
+
+- (void)_finishWithError:(id)error state:(int)state
+{
+  v4 = *&state;
+  v14 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  [(CalDAVAddManagedAttachmentsTaskGroup *)self setState:v4];
+  if (v4 == 6)
+  {
+    mEMORY[0x277CFDC18] = [MEMORY[0x277CFDC18] sharedLogging];
+    v8 = [mEMORY[0x277CFDC18] logHandleForAccountInfoProvider:0];
+    v9 = v8;
+    if (v8 && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_242742000, v9, OS_LOG_TYPE_ERROR, "Finishing %{public}@ early because state machine reached an unexpected state.", &v12, 0xCu);
+    }
+  }
+
+  [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:errorCopy delegateCallbackBlock:0];
 }
 
 - (BOOL)_postedLastAttachment
@@ -234,27 +259,27 @@ LABEL_20:
 
 - (void)_sendAttachments
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   [(CalDAVAddManagedAttachmentsTaskGroup *)self setState:1];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   attachments = [(CalDAVAddManagedAttachmentsTaskGroup *)self attachments];
-  v4 = [attachments countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v4 = [attachments countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v4)
   {
-    v5 = *v34;
+    v5 = *v33;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v34 != v5)
+      if (*v33 != v5)
       {
         objc_enumerationMutation(attachments);
       }
 
-      v7 = *(*(&v33 + 1) + 8 * v6);
+      v7 = *(*(&v32 + 1) + 8 * v6);
       filenamesToServerLocation = [(CalDAVAddManagedAttachmentsTaskGroup *)self filenamesToServerLocation];
       v9 = [filenamesToServerLocation objectForKey:v7];
       v10 = v9 == 0;
@@ -266,7 +291,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [attachments countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v4 = [attachments countByEnumeratingWithState:&v32 objects:v36 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -284,7 +309,7 @@ LABEL_3:
       [(CalDAVAddManagedAttachmentsTaskGroup *)self _finishWithError:0 state:4];
 LABEL_22:
 
-      goto LABEL_23;
+      return;
     }
 
     attachments2 = [(CalDAVAddManagedAttachmentsTaskGroup *)self attachments];
@@ -319,9 +344,9 @@ LABEL_22:
         else
         {
           previousETag = [(CalDAVAddManagedAttachmentsTaskGroup *)self previousETag];
-          v28 = previousETag == 0;
+          v27 = previousETag == 0;
 
-          if (v28)
+          if (v27)
           {
 LABEL_12:
             [(CoreDAVPostOrPutTask *)v17 setForceToServer:1];
@@ -331,17 +356,17 @@ LABEL_21:
             [(CalDAVPostStreamTask *)v17 setAccountInfoProvider:accountInfoProvider];
 
             objc_initWeak(&location, v17);
-            v30[0] = MEMORY[0x277D85DD0];
-            v30[1] = 3221225472;
-            v30[2] = __56__CalDAVAddManagedAttachmentsTaskGroup__sendAttachments__block_invoke;
-            v30[3] = &unk_278D66CC8;
-            v30[4] = self;
-            objc_copyWeak(&v31, &location);
-            [(CalDAVPostStreamTask *)v17 setCompletionBlock:v30];
+            v29[0] = MEMORY[0x277D85DD0];
+            v29[1] = 3221225472;
+            v29[2] = __56__CalDAVAddManagedAttachmentsTaskGroup__sendAttachments__block_invoke;
+            v29[3] = &unk_278D66CC8;
+            v29[4] = self;
+            objc_copyWeak(&v30, &location);
+            [(CalDAVPostStreamTask *)v17 setCompletionBlock:v29];
             taskManager = [(CoreDAVTaskGroup *)self taskManager];
             [taskManager submitQueuedCoreDAVTask:v17];
 
-            objc_destroyWeak(&v31);
+            objc_destroyWeak(&v30);
             objc_destroyWeak(&location);
 
             goto LABEL_22;
@@ -384,8 +409,6 @@ LABEL_20:
 LABEL_9:
 
   [(CalDAVAddManagedAttachmentsTaskGroup *)self _finishWithError:0 state:6];
-LABEL_23:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __56__CalDAVAddManagedAttachmentsTaskGroup__sendAttachments__block_invoke(uint64_t a1)

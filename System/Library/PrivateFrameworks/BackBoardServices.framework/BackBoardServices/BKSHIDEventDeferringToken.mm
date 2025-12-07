@@ -1,6 +1,9 @@
 @interface BKSHIDEventDeferringToken
 + (BKSHIDEventDeferringToken)new;
 + (id)protobufSchema;
++ (id)tokenForIdentifierOfCAContext:(unsigned int)context;
++ (id)tokenForIdentifierOfCGSConnection:(unsigned int)connection;
++ (id)tokenForIdentifierOfCGSWindow:(unsigned int)window;
 + (id)tokenForString:(id)string;
 - (BKSHIDEventDeferringToken)init;
 - (BKSHIDEventDeferringToken)initWithCoder:(id)coder;
@@ -13,43 +16,41 @@
 
 - (id)_init
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   if (v4 != objc_opt_class() && v4 != objc_opt_class() && v4 != objc_opt_class() && v4 != objc_opt_class())
   {
-    v7 = a2;
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot subclass BKSHIDEventDeferringToken"];
+    v6 = a2;
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = NSStringFromSelector(v7);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v8 = NSStringFromSelector(v6);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138544642;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v11;
-      v17 = 2048;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v10;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2114;
-      v20 = @"BKSHIDEventDeferringToken.m";
-      v21 = 1024;
-      v22 = 479;
-      v23 = 2114;
-      v24 = v8;
+      v18 = 2114;
+      v19 = @"BKSHIDEventDeferringToken.m";
+      v20 = 1024;
+      v21 = 479;
+      v22 = 2114;
+      v23 = v7;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v8 UTF8String];
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186346CFCLL);
   }
 
-  v12.receiver = self;
-  v12.super_class = BKSHIDEventDeferringToken;
-  result = [(BKSHIDEventDeferringToken *)&v12 init];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v11.receiver = self;
+  v11.super_class = BKSHIDEventDeferringToken;
+  return [(BKSHIDEventDeferringToken *)&v11 init];
 }
 
 + (id)protobufSchema
@@ -71,29 +72,29 @@
 
 uint64_t __43__BKSHIDEventDeferringToken_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_136 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_139];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_136;
+  protobufSchema_schema_136 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __43__BKSHIDEventDeferringToken_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
-  [v2 setAcceptableConcreteSubclasses:v3];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = objc_opt_class();
+  v5 = objc_opt_class();
+  v6 = objc_opt_class();
+  v7 = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+  [v2 setAcceptableConcreteSubclasses:?];
 }
 
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"subclass me"];
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v7 = NSStringFromSelector(a2);
@@ -122,7 +123,7 @@ void __43__BKSHIDEventDeferringToken_protobufSchema__block_invoke_2(uint64_t a1,
 - (BKSHIDEventDeferringToken)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"subclass me"];
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v7 = NSStringFromSelector(a2);
@@ -152,7 +153,7 @@ void __43__BKSHIDEventDeferringToken_protobufSchema__block_invoke_2(uint64_t a1,
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"subclass me"];
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v7 = NSStringFromSelector(a2);
@@ -178,49 +179,92 @@ void __43__BKSHIDEventDeferringToken_protobufSchema__block_invoke_2(uint64_t a1,
   __break(0);
 }
 
++ (id)tokenForIdentifierOfCGSWindow:(unsigned int)window
+{
+  if (window)
+  {
+    v4 = [[_BKSHIDCGSWindowIDEventDeferringToken alloc] _initWithCGSWindowID:?];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
++ (id)tokenForIdentifierOfCGSConnection:(unsigned int)connection
+{
+  if (connection)
+  {
+    v4 = [[_BKSHIDCGSConnectionIDEventDeferringToken alloc] _initWithCGSConnectionID:?];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
 + (id)tokenForString:(id)string
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (![stringCopy length])
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[string length] > 0"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[string length] > 0"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138544642;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v12;
-      v17 = 2048;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v11;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2114;
-      v20 = @"BKSHIDEventDeferringToken.m";
-      v21 = 1024;
-      v22 = 499;
-      v23 = 2114;
-      v24 = v9;
+      v18 = 2114;
+      v19 = @"BKSHIDEventDeferringToken.m";
+      v20 = 1024;
+      v21 = 499;
+      v22 = 2114;
+      v23 = v8;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18637DBECLL);
   }
 
-  v6 = [[_BKSHIDStringIdentifierEventDeferringToken alloc] _initWithString:stringCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = [[_BKSHIDStringIdentifierEventDeferringToken alloc] _initWithString:?];
 
   return v6;
 }
 
++ (id)tokenForIdentifierOfCAContext:(unsigned int)context
+{
+  if (context)
+  {
+    v4 = [[_BKSHIDCAContextEventDeferringToken alloc] _initWithIdentifier:?];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
 + (BKSHIDEventDeferringToken)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"+new is not allowed on BKSHIDEventDeferringToken"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -249,7 +293,7 @@ void __43__BKSHIDEventDeferringToken_protobufSchema__block_invoke_2(uint64_t a1,
 
 - (BKSHIDEventDeferringToken)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not allowed on BKSHIDEventDeferringToken"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

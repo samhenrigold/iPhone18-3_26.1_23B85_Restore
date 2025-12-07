@@ -45,17 +45,18 @@
 
 - (void)layoutSubviews
 {
-  v8.receiver = self;
-  v8.super_class = PKAddDebitCardHeroView;
-  [(PKAddDebitCardHeroView *)&v8 layoutSubviews];
+  v11.receiver = self;
+  v11.super_class = PKAddDebitCardHeroView;
+  [(PKAddDebitCardHeroView *)&v11 layoutSubviews];
   [(PKAddDebitCardHeroView *)self bounds];
   v4 = v3 * 0.5 + -146.5;
   [(UIImageView *)self->_debitCardView frame];
   [(UIImageView *)self->_debitCardView setFrame:v4];
   [(UIImageView *)self->_passSnapshotView frame];
-  v6 = v5;
-  PKFloatRoundToPixel();
-  [(UIImageView *)self->_passSnapshotView setFrame:v4 + 62.0, v6, 243.0, v7];
+  v6 = v5.n128_f64[0];
+  v9.n128_f64[0] = 243.0 / (v7 / v8);
+  PKFloatRoundToPixel(v9, v5);
+  [(UIImageView *)self->_passSnapshotView setFrame:v4 + 62.0, v6, 243.0, v10];
 }
 
 - (CGSize)sizeThatFits:(CGSize)result

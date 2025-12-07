@@ -101,7 +101,7 @@
 
   sub_10036710C();
 
-  sub_1000073B4(v6, &qword_1006BE7A0);
+  sub_1000073B4(v6, &qword_1006BE7A0, &unk_100535E20);
 }
 
 - (void)textFieldDidEndEditing:(id)editing

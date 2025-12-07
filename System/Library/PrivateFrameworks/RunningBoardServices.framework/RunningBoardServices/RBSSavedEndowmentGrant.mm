@@ -76,10 +76,9 @@ LABEL_15:
 {
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = [objc_opt_class() description];
-  endowmentNamespace = self->_endowmentNamespace;
-  v6 = [v3 initWithFormat:@"<%@| namespace:%@ key:%@>", v4, endowmentNamespace, self->_key];
+  v5 = [v3 initWithFormat:@"<%@| namespace:%@ key:%@>", v4, self->_endowmentNamespace, self->_key];
 
-  return v6;
+  return v5;
 }
 
 - (void)encodeWithRBSXPCCoder:(id)coder

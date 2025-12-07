@@ -32,35 +32,36 @@
   return v2;
 }
 
-void __56__NTKComplicationNoContentImageFileCache_sharedInstance__block_invoke()
+void __56__NTKComplicationNoContentImageFileCache_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedInstance___sharedInstance_7;
-  sharedInstance___sharedInstance_7 = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance___sharedInstance_7;
+  sharedInstance___sharedInstance_7 = v1;
 }
 
 - (NTKComplicationNoContentImageFileCache)init
 {
-  v26.receiver = self;
-  v26.super_class = NTKComplicationNoContentImageFileCache;
-  v2 = [(NTKComplicationNoContentImageFileCache *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = NTKComplicationNoContentImageFileCache;
+  v2 = [(NTKComplicationNoContentImageFileCache *)&v27 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = _PathToComplicationNoContentImageArchive();
-    v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v3 options:1 error:0];
-    if (v4)
+    v4 = _PathToComplicationNoContentImageArchive(v2);
+    v5 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v4 options:1 error:0];
+    if (v5)
     {
-      v5 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v4 error:0];
-      [v5 setDecodingFailurePolicy:0];
-      v6 = MEMORY[0x277CBEB98];
-      v7 = objc_opt_class();
+      v6 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v5 error:0];
+      [v6 setDecodingFailurePolicy:0];
+      v7 = MEMORY[0x277CBEB98];
       v8 = objc_opt_class();
       v9 = objc_opt_class();
-      v10 = [v6 setWithObjects:{v7, v8, v9, objc_opt_class(), 0}];
-      dictionary = [v5 decodeObjectOfClasses:v10 forKey:*MEMORY[0x277CCA308]];
-      v12 = objc_opt_class();
+      v10 = objc_opt_class();
+      v11 = [v7 setWithObjects:{v8, v9, v10, objc_opt_class(), 0}];
+      dictionary = [v6 decodeObjectOfClasses:v11 forKey:*MEMORY[0x277CCA308]];
       v13 = objc_opt_class();
-      NTKValidateDictionary(dictionary, v12, v13);
+      v14 = objc_opt_class();
+      NTKValidateDictionary(dictionary, v13, v14);
     }
 
     else
@@ -68,30 +69,30 @@ void __56__NTKComplicationNoContentImageFileCache_sharedInstance__block_invoke()
       dictionary = [MEMORY[0x277CBEB38] dictionary];
     }
 
-    queue_complicationNoContentImages = v2->_queue_complicationNoContentImages;
-    v2->_queue_complicationNoContentImages = dictionary;
+    queue_complicationNoContentImages = v3->_queue_complicationNoContentImages;
+    v3->_queue_complicationNoContentImages = dictionary;
 
-    v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v16 = dispatch_queue_create("com.apple.NanoTimeKit.NTKComplicationNoContentImageFileCache.access", v15);
-    cacheQueue = v2->_cacheQueue;
-    v2->_cacheQueue = v16;
+    v16 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v17 = dispatch_queue_create("com.apple.NanoTimeKit.NTKComplicationNoContentImageFileCache.access", v16);
+    cacheQueue = v3->_cacheQueue;
+    v3->_cacheQueue = v17;
 
-    v18 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v19 = dispatch_queue_create("com.apple.NanoTimeKit.NTKComplicationNoContentImageFileCache.flush", v18);
-    cacheFlushQueue = v2->_cacheFlushQueue;
-    v2->_cacheFlushQueue = v19;
+    v19 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v20 = dispatch_queue_create("com.apple.NanoTimeKit.NTKComplicationNoContentImageFileCache.flush", v19);
+    cacheFlushQueue = v3->_cacheFlushQueue;
+    v3->_cacheFlushQueue = v20;
 
-    v21 = [[NTKTaskScheduler alloc] initWithQueue:v2->_cacheFlushQueue];
-    taskScheduler = v2->_taskScheduler;
-    v2->_taskScheduler = v21;
+    v22 = [[NTKTaskScheduler alloc] initWithQueue:v3->_cacheFlushQueue];
+    taskScheduler = v3->_taskScheduler;
+    v3->_taskScheduler = v22;
 
-    [(NTKTaskScheduler *)v2->_taskScheduler setWaitingPeriod:30.0];
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"NTKComplicationNoContentImageFileCache-%p", v2];
-    cacheIdentifier = v2->_cacheIdentifier;
-    v2->_cacheIdentifier = v23;
+    [(NTKTaskScheduler *)v3->_taskScheduler setWaitingPeriod:30.0];
+    v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"NTKComplicationNoContentImageFileCache-%p", v3];
+    cacheIdentifier = v3->_cacheIdentifier;
+    v3->_cacheIdentifier = v24;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -506,7 +507,7 @@ void __63__NTKComplicationNoContentImageFileCache__makeMutableCacheCopy__block_i
   if (v3)
   {
     v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v11[5] requiringSecureCoding:1 error:0];
-    v5 = _PathToComplicationNoContentImageArchive();
+    v5 = _PathToComplicationNoContentImageArchive(v4);
     [v4 writeToFile:v5 atomically:1];
 
     v6 = _NTKLoggingObjectForDomain(18, "NTKLoggingDomainComplication");

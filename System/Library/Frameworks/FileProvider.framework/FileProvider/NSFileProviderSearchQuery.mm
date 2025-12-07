@@ -31,23 +31,23 @@
 
 - (NSSet)allowedPathExtensions
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   cachedExtensions = self->_cachedExtensions;
   if (!cachedExtensions)
   {
-    v31 = [MEMORY[0x1E695DFA8] set];
+    v30 = [MEMORY[0x1E695DFA8] set];
     v4 = [MEMORY[0x1E695DFA8] set];
     v5 = MEMORY[0x1E695DFA8];
     selfCopy = self;
     allowedContentTypes = [(NSFileProviderSearchQuery *)self allowedContentTypes];
     v7 = [v5 setWithSet:allowedContentTypes];
 
-    v30 = [MEMORY[0x1E695DFA8] set];
+    v29 = [MEMORY[0x1E695DFA8] set];
     anyObject = [v7 anyObject];
     if (anyObject)
     {
       v9 = anyObject;
-      v29 = *MEMORY[0x1E6982C48];
+      v28 = *MEMORY[0x1E6982C48];
       do
       {
         [v7 removeObject:v9];
@@ -55,32 +55,32 @@
         v10 = [MEMORY[0x1E6982C40] typeWithIdentifier:v9];
         if (v10)
         {
-          [(NSSet *)v30 addObject:v10];
+          [(NSSet *)v29 addObject:v10];
           tags = [v10 tags];
-          v12 = [tags objectForKey:v29];
-          [v31 addObjectsFromArray:v12];
+          v12 = [tags objectForKey:v28];
+          [v30 addObjectsFromArray:v12];
 
-          v35 = 0u;
-          v36 = 0u;
-          v33 = 0u;
           v34 = 0u;
-          v32 = v10;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
+          v31 = v10;
           _childTypes = [v10 _childTypes];
-          v14 = [_childTypes countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v14 = [_childTypes countByEnumeratingWithState:&v32 objects:v36 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v34;
+            v16 = *v33;
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v34 != v16)
+                if (*v33 != v16)
                 {
                   objc_enumerationMutation(_childTypes);
                 }
 
-                v18 = *(*(&v33 + 1) + 8 * i);
+                v18 = *(*(&v32 + 1) + 8 * i);
                 identifier = [v18 identifier];
                 v20 = [v4 containsObject:identifier];
 
@@ -91,13 +91,13 @@
                 }
               }
 
-              v15 = [_childTypes countByEnumeratingWithState:&v33 objects:v37 count:16];
+              v15 = [_childTypes countByEnumeratingWithState:&v32 objects:v36 count:16];
             }
 
             while (v15);
           }
 
-          v10 = v32;
+          v10 = v31;
         }
 
         anyObject2 = [v7 anyObject];
@@ -108,17 +108,15 @@
       while (anyObject2);
     }
 
-    v23 = [v31 copy];
+    v23 = [v30 copy];
     v24 = selfCopy->_cachedExtensions;
     selfCopy->_cachedExtensions = v23;
 
     allowedUTTypes = selfCopy->_allowedUTTypes;
-    selfCopy->_allowedUTTypes = v30;
+    selfCopy->_allowedUTTypes = v29;
 
     cachedExtensions = selfCopy->_cachedExtensions;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return cachedExtensions;
 }
@@ -682,17 +680,15 @@ LABEL_11:
 
 - (void)setSearchString:(id)string
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = fp_current_or_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] Deprecated %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] Deprecated %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUserQueryString:(id)string
@@ -715,17 +711,15 @@ LABEL_11:
 
 - (void)setContent:(id)content
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = fp_current_or_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] Deprecated %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1AAAE1000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] Deprecated %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAllowedContentTypes:(id)types
@@ -865,26 +859,26 @@ uint64_t __58__NSFileProviderSearchQuery_Predicates__filenamePredicate__block_in
 
 - (id)allowedContentTypesPredicate
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   allowedPathExtensions = [(NSFileProviderSearchQuery *)self allowedPathExtensions];
   v5 = self->_allowedUTTypes;
   if ([(NSSet *)v5 count])
   {
     v6 = *MEMORY[0x1E69830B0];
-    v17[0] = *MEMORY[0x1E69830D0];
-    v17[1] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    v16[0] = *MEMORY[0x1E69830D0];
+    v16[1] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     v8 = MEMORY[0x1E696AE18];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __69__NSFileProviderSearchQuery_Predicates__allowedContentTypesPredicate__block_invoke;
-    v13[3] = &unk_1E793DA00;
-    v16 = a2;
-    v13[4] = self;
-    v14 = v5;
-    v15 = v7;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __69__NSFileProviderSearchQuery_Predicates__allowedContentTypesPredicate__block_invoke;
+    v12[3] = &unk_1E793DA00;
+    v15 = a2;
+    v12[4] = self;
+    v13 = v5;
+    v14 = v7;
     v9 = v7;
-    v10 = [v8 predicateWithBlock:v13];
+    v10 = [v8 predicateWithBlock:v12];
   }
 
   else
@@ -892,14 +886,12 @@ uint64_t __58__NSFileProviderSearchQuery_Predicates__filenamePredicate__block_in
     v10 = [MEMORY[0x1E696AE18] predicateWithValue:1];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 uint64_t __69__NSFileProviderSearchQuery_Predicates__allowedContentTypesPredicate__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -912,27 +904,27 @@ uint64_t __69__NSFileProviderSearchQuery_Predicates__allowedContentTypesPredicat
   }
 
   v4 = [v3 contentType];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = *(a1 + 40);
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        [*(a1 + 48) containsObject:{v10, v14}];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        [*(a1 + 48) containsObject:{v10, v13}];
         if ([v4 conformsToType:v10])
         {
           v11 = 1;
@@ -940,7 +932,7 @@ uint64_t __69__NSFileProviderSearchQuery_Predicates__allowedContentTypesPredicat
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -953,7 +945,6 @@ uint64_t __69__NSFileProviderSearchQuery_Predicates__allowedContentTypesPredicat
   v11 = 0;
 LABEL_14:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

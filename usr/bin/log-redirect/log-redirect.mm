@@ -345,19 +345,35 @@ uint64_t sub_10000114C(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
       v7 = malloc_type_malloc(v6, 0x2F48DA65uLL);
       if (!v7)
       {
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
-        v22 = 0u;
+        v22 = 0;
+        v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         *buf = 0u;
         v17 = &_os_log_default;
-        os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-        v18 = __error();
-        strerror(*v18);
-        _os_log_send_and_compose_impl();
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          v18 = 3;
+        }
 
-        v19 = _os_crash_msg();
-        sub_1000017F0(v19);
+        else
+        {
+          v18 = 2;
+        }
+
+        v19 = __error();
+        v20 = strerror(*v19);
+        v23 = 136315650;
+        v24 = "known-constant allocation";
+        v25 = 2048;
+        v26 = v6;
+        v27 = 2080;
+        v28 = v20;
+        _os_log_send_and_compose_impl(v18, &v22, buf, 80, &_mh_execute_header, &_os_log_default, 16, "allocation failed: obj = %s, size = %lu, error = %s", &v23, 32, v21);
+
+        _os_crash_msg();
+        sub_1000017F0();
       }
     }
 
@@ -463,13 +479,13 @@ id sub_10000145C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1000014A4()
+uint64_t sub_1000014A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(v10, v8, v9, 80, a5, a6, 16, a8);
 }
 
-void sub_1000015A0(uint64_t *a1, _OWORD *a2)
+void sub_1000015A0(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -478,14 +494,13 @@ void sub_1000015A0(uint64_t *a1, _OWORD *a2)
   a2[2] = 0u;
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  v4 = *__error();
-  sub_1000014A4();
-  v3 = *a1;
+  v2 = __error();
+  sub_1000014A4(v2, v3, v4, v5, &_mh_execute_header, &_os_log_default, v6, "assertion failure: error -> %{errno}d");
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100001658(uint64_t *a1, _OWORD *a2)
+void sub_100001658(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -494,9 +509,8 @@ void sub_100001658(uint64_t *a1, _OWORD *a2)
   a2[2] = 0u;
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  v4 = *__error();
-  sub_1000014A4();
-  v3 = *a1;
+  v2 = __error();
+  sub_1000014A4(v2, v3, v4, v5, &_mh_execute_header, &_os_log_default, v6, "assertion failure: error -> %{errno}d");
   _os_crash_msg();
   __break(1u);
 }

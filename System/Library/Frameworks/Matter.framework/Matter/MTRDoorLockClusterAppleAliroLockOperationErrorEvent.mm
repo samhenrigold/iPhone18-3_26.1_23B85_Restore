@@ -45,8 +45,8 @@
   userIndex = [(MTRDoorLockClusterAppleAliroLockOperationErrorEvent *)self userIndex];
   [(MTRDoorLockClusterAppleAliroLockOperationErrorEvent *)v4 setUserIndex:userIndex];
 
-  fabricIndex = [(MTRDoorLockClusterAppleAliroLockOperationErrorEvent *)self fabricIndex];
-  [(MTRDoorLockClusterAppleAliroLockOperationErrorEvent *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRDoorLockClusterAppleAliroLockOperationErrorEvent *)v4 setFabricIndex:v8];
 
   credentials = [(MTRDoorLockClusterAppleAliroLockOperationErrorEvent *)self credentials];
   [(MTRDoorLockClusterAppleAliroLockOperationErrorEvent *)v4 setCredentials:credentials];

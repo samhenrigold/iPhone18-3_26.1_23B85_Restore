@@ -66,7 +66,7 @@
 
 - (id)data
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if ([(NSMutableArray *)self->_datas count]== 1)
   {
     v3 = [(NSMutableArray *)self->_datas objectAtIndexedSubscript:0];
@@ -76,28 +76,28 @@
   if ([(MFDataHolder *)self length]<= 0x20000)
   {
     v3 = [MEMORY[0x1E695DF88] dataWithCapacity:{-[MFDataHolder length](self, "length")}];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = self->_datas;
-    v9 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v24 count:16];
+    v9 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v23 count:16];
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v3 appendData:*(*(&v14 + 1) + 8 * i)];
+          [v3 appendData:*(*(&v13 + 1) + 8 * i)];
         }
 
-        v9 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v24 count:16];
+        v9 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v23 count:16];
       }
 
       while (v9);
@@ -117,22 +117,22 @@
     goto LABEL_17;
   }
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 1;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 1;
   MFProtectFileDescriptor(v7, 3);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __20__MFDataHolder_data__block_invoke;
-  v18[3] = &unk_1E8454EE8;
-  v18[4] = &v20;
-  v19 = v8;
-  [(MFDataHolder *)self enumerateByteRangesUsingBlock:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __20__MFDataHolder_data__block_invoke;
+  v17[3] = &unk_1E8454EE8;
+  v17[4] = &v19;
+  v18 = v8;
+  [(MFDataHolder *)self enumerateByteRangesUsingBlock:v17];
   close(v8);
-  if ((v21[3] & 1) == 0)
+  if ((v20[3] & 1) == 0)
   {
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
 LABEL_17:
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"Could not create cache file at %@ (%d).", v6, *__error()}];
     v3 = 0;
@@ -140,7 +140,7 @@ LABEL_17:
   }
 
   v3 = [MFData dataWithContentsOfFile:v6];
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
   if (!v3)
   {
     goto LABEL_17;
@@ -149,7 +149,6 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -164,38 +163,36 @@ ssize_t __20__MFDataHolder_data__block_invoke(uint64_t a1, const void *a2, int a
 
 - (void)enumerateByteRangesUsingBlock:(id)block
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v5 = self->_datas;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) enumerateByteRangesUsingBlock:{blockCopy, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) enumerateByteRangesUsingBlock:{blockCopy, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)numberOfNewlinesNeedingConversion:(BOOL)conversion
@@ -284,9 +281,9 @@ void __54__MFDataHolder_enumerateConvertingNewlinesUsingBlock___block_invoke(uin
   *a4 = *(*(*(a1 + 64) + 8) + 24) ^ 1;
 }
 
-uint64_t __54__MFDataHolder_enumerateConvertingNewlinesUsingBlock___block_invoke_2(uint64_t a1, char *a2, uint64_t a3, unint64_t a4, _BYTE *a5)
+void *__54__MFDataHolder_enumerateConvertingNewlinesUsingBlock___block_invoke_2(uint64_t a1, char *a2, uint64_t a3, unint64_t a4, _BYTE *a5)
 {
-  v8 = *(*(*(a1 + 48) + 8) + 24) + a4;
+  v8 = (*(*(*(a1 + 48) + 8) + 24) + a4);
   result = [*(a1 + 32) length];
   v10 = result;
   v11 = a2;

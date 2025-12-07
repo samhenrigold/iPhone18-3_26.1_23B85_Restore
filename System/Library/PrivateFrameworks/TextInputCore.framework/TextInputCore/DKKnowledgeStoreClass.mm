@@ -14,7 +14,7 @@ void __get_DKKnowledgeStoreClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "_DKKnowledgeStore");
     [(TPSDiscoverabilitySignal *)v2 donateSignalWithCompletion:v3, v4];
   }
 }

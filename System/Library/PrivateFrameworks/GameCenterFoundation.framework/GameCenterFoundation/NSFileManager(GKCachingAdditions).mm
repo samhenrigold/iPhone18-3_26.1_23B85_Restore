@@ -10,7 +10,7 @@
 
 - (ssize_t)_gkReadXattrBytes:()GKCachingAdditions count:withName:path:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v9 = a5;
   v10 = a6;
   fileSystemRepresentation = [v10 fileSystemRepresentation];
@@ -33,15 +33,15 @@
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 138413058;
-      v21 = v9;
-      v22 = 2048;
-      v23 = a4;
-      v24 = 2048;
-      v25 = v14;
-      v26 = 2112;
-      v27 = v10;
-      _os_log_debug_impl(&dword_227904000, v15, OS_LOG_TYPE_DEBUG, "-- Xattr: %@ -- count requested %ld is greater than actual byte count %ld so we're truncating. path = %@", &v20, 0x2Au);
+      v19 = 138413058;
+      v20 = v9;
+      v21 = 2048;
+      v22 = a4;
+      v23 = 2048;
+      v24 = v14;
+      v25 = 2112;
+      v26 = v10;
+      _os_log_debug_impl(&dword_227904000, v15, OS_LOG_TYPE_DEBUG, "-- Xattr: %@ -- count requested %ld is greater than actual byte count %ld so we're truncating. path = %@", &v19, 0x2Au);
     }
   }
 
@@ -55,7 +55,6 @@
     v17 = -1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

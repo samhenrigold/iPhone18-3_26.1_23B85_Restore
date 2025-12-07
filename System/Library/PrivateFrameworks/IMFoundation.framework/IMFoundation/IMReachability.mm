@@ -120,7 +120,7 @@ LABEL_9:
 
 - (IMReachability)initWithLocalSocketAddress:(id)address remoteSocketAddress:(id)socketAddress delegate:(id)delegate
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   socketAddressCopy = socketAddress;
   delegateCopy = delegate;
@@ -163,8 +163,8 @@ LABEL_6:
 
   v14 = objc_alloc(MEMORY[0x1E696AEC0]);
   v16 = objc_msgSend_initWithFormat_(v14, v15, @"%@ -> %@", v11, v13);
-  v32[0] = 528;
-  v32[1] = 0;
+  v31[0] = 528;
+  v31[1] = 0;
   v17 = addressCopy;
   v20 = objc_msgSend_bytes(v17, v18, v19);
   if (v20)
@@ -174,7 +174,7 @@ LABEL_6:
 
   else
   {
-    v21 = v32;
+    v21 = v31;
   }
 
   if (socketAddressCopy)
@@ -196,7 +196,6 @@ LABEL_6:
     CFRelease(v28);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -221,7 +220,7 @@ LABEL_6:
 
 - (void)_handleCallbackForSCNetworkReachability:(__SCNetworkReachability *)reachability
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   *flags = 0xAAAAAAAAAAAAAAAALL;
   if (SCNetworkReachabilityGetFlags(reachability, flags))
   {
@@ -235,10 +234,10 @@ LABEL_6:
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
         *buf = 138412802;
         selfCopy3 = self;
-        v19 = 1024;
-        *v20 = v7;
-        *&v20[4] = 2112;
-        *&v20[6] = WeakRetained;
+        v18 = 1024;
+        *v19 = v7;
+        *&v19[4] = 2112;
+        *&v19[6] = WeakRetained;
         _os_log_impl(&dword_195988000, v6, OS_LOG_TYPE_DEFAULT, "%@: reachability flags did not change %08x  (Delegate: %@)", buf, 0x1Cu);
       }
     }
@@ -253,12 +252,12 @@ LABEL_6:
         v12 = objc_loadWeakRetained(&self->_delegate);
         *buf = 138413058;
         selfCopy3 = self;
-        v19 = 1024;
-        *v20 = v5;
-        *&v20[4] = 1024;
-        *&v20[6] = v11;
-        *&v20[10] = 2112;
-        *&v20[12] = v12;
+        v18 = 1024;
+        *v19 = v5;
+        *&v19[4] = 1024;
+        *&v19[6] = v11;
+        *&v19[10] = 2112;
+        *&v19[12] = v12;
         _os_log_impl(&dword_195988000, v10, OS_LOG_TYPE_DEFAULT, "%@: reachabilityDidChange %08x -> %08x  (Delegate: %@)", buf, 0x22u);
       }
 
@@ -274,34 +273,30 @@ LABEL_6:
     {
       *buf = 138412546;
       selfCopy3 = self;
-      v19 = 2048;
-      *v20 = reachability;
+      v18 = 2048;
+      *v19 = reachability;
       _os_log_impl(&dword_195988000, v9, OS_LOG_TYPE_DEFAULT, "%@: Failed to get flags for reachability: %p", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_forceGetFlagsIfNecessary
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (!self->_gettingFlags && !self->_flags && self->_reachabilityRef)
   {
     self->_gettingFlags = 1;
     v3 = OSLogHandleForIDSCategory("IMReachability");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
+      v5 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "%@: Forcing reachability query", &v6, 0xCu);
+      _os_log_impl(&dword_195988000, v3, OS_LOG_TYPE_DEFAULT, "%@: Forcing reachability query", &v5, 0xCu);
     }
 
     objc_msgSend__handleCallbackForSCNetworkReachability_(self, v4, self->_reachabilityRef);
     self->_gettingFlags = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)flags

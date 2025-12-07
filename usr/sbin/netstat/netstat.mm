@@ -187,7 +187,6 @@ uint64_t get_rti_info(unsigned int a1, _BYTE *a2, uint64_t a3)
         v7 = *a2;
       }
 
-      *a2;
       if (*a2)
       {
         v8 = v7;
@@ -215,25 +214,25 @@ uint64_t get_rti_info(unsigned int a1, _BYTE *a2, uint64_t a3)
 
 void intpr()
 {
-  v140 = 0;
-  v178 = 0u;
-  v179 = 0u;
-  v176 = 0u;
-  v177 = 0u;
+  v136 = 0;
+  v174 = 0u;
+  v175 = 0u;
+  v172 = 0u;
+  v173 = 0u;
   memset(__s1, 0, sizeof(__s1));
   if (interval)
   {
-    *v174 = 0;
-    v173 = 0;
+    *v170 = 0;
+    v169 = 0;
     size[0] = 4;
-    *v188 = xmmword_100023220;
-    LODWORD(v188[2]) = 1;
-    if (sysctl(v188, 5u, &v174[1], size, 0, 0) == 1)
+    *v184 = xmmword_100023220;
+    LODWORD(v184[2]) = 1;
+    if (sysctl(v184, 5u, &v170[1], size, 0, 0) == 1)
     {
       intpr_cold_6();
     }
 
-    size[0] = 180 * v174[1];
+    size[0] = 180 * v170[1];
     v0 = malloc_type_malloc(size[0], 0xC0E3ECACuLL);
     if (!v0)
     {
@@ -241,21 +240,21 @@ void intpr()
     }
 
     v1 = v0;
-    *(&v188[1] + 4) = 3;
-    HIDWORD(v188[2]) = 1;
-    if (sysctl(v188, 6u, v0, size, 0, 0) == -1)
+    *(&v184[1] + 4) = 3;
+    HIDWORD(v184[2]) = 1;
+    if (sysctl(v184, 6u, v0, size, 0, 0) == -1)
     {
       intpr_cold_4();
     }
 
-    memset(&v187, 0, sizeof(v187));
-    v2 = v174[1];
-    v138 = v1;
-    if (v174[1])
+    memset(&v183, 0, sizeof(v183));
+    v2 = v170[1];
+    v134 = v1;
+    if (v170[1])
     {
       v3 = 0;
       v4 = 0;
-      v136 = 0;
+      v132 = 0;
       v5 = interface;
       do
       {
@@ -268,10 +267,10 @@ void intpr()
           }
 
           v4 = v6;
-          v136 = if_nametoindex(interface);
+          v132 = if_nametoindex(interface);
           snprintf(v4 + 8, 0x10uLL, "(%s)", v1);
           v5 = interface;
-          v2 = v174[1];
+          v2 = v170[1];
         }
 
         ++v3;
@@ -283,7 +282,7 @@ void intpr()
 
     else
     {
-      v136 = 0;
+      v132 = 0;
       v4 = 0;
     }
 
@@ -295,20 +294,20 @@ void intpr()
 
     v8 = v7;
     v9 = malloc_type_calloc(1uLL, 0xA8uLL, 0x10200409EAC55A6uLL);
-    v10 = v136;
+    v10 = v132;
     if (!v9)
     {
       intpr_cold_1();
     }
 
     v11 = v9;
-    v187.it_value.tv_sec = interval;
-    v187.it_value.tv_usec = 0;
-    v187.it_interval.tv_sec = interval;
-    v187.it_interval.tv_usec = 0;
+    v183.it_value.tv_sec = interval;
+    v183.it_value.tv_usec = 0;
+    v183.it_interval.tv_sec = interval;
+    v183.it_interval.tv_usec = 0;
     signal(14, catchalarm);
     signalled = 0;
-    setitimer(0, &v187, 0);
+    setitimer(0, &v183, 0);
     v12 = 1;
 LABEL_19:
     if (vflag >= 1)
@@ -367,25 +366,25 @@ LABEL_19:
 
       if (!v4)
       {
-        LODWORD(v141) = 0;
+        LODWORD(v137) = 0;
         size[0] = 4;
-        *(&v188[1] + 4) = 0x100000001;
-        if (sysctl(v188, 5u, &v141, size, 0, 0) == 1)
+        *(&v184[1] + 4) = 0x100000001;
+        if (sysctl(v184, 5u, &v137, size, 0, 0) == 1)
         {
           intpr_cold_6();
         }
 
-        v18 = v174[1];
-        if (v141 <= v174[1])
+        v18 = v170[1];
+        if (v137 <= v170[1])
         {
-          v20 = v138;
+          v20 = v134;
         }
 
         else
         {
-          v174[1] = v141;
-          size[0] = 180 * v141;
-          free(v138);
+          v170[1] = v137;
+          size[0] = 180 * v137;
+          free(v134);
           v19 = malloc_type_malloc(size[0], 0x8B655348uLL);
           if (!v19)
           {
@@ -393,19 +392,19 @@ LABEL_19:
           }
 
           v20 = v19;
-          v18 = v174[1];
+          v18 = v170[1];
         }
 
         size[0] = 180 * v18;
-        *(&v188[1] + 4) = 3;
-        HIDWORD(v188[2]) = 1;
-        if (sysctl(v188, 6u, v20, size, 0, 0) == -1)
+        *(&v184[1] + 4) = 3;
+        HIDWORD(v184[2]) = 1;
+        if (sysctl(v184, 6u, v20, size, 0, 0) == -1)
         {
           intpr_cold_4();
         }
 
-        v138 = v20;
-        size[0] = 712 * v174[1];
+        v134 = v20;
+        size[0] = 712 * v170[1];
         v21 = malloc_type_malloc(size[0], 0xF91634DBuLL);
         if (!v21)
         {
@@ -413,9 +412,9 @@ LABEL_19:
         }
 
         v22 = v21;
-        *(&v188[1] + 4) = 3;
-        HIDWORD(v188[2]) = 5;
-        if (sysctl(v188, 6u, v21, size, 0, 0) == -1)
+        *(&v184[1] + 4) = 3;
+        HIDWORD(v184[2]) = 5;
+        if (sysctl(v184, 6u, v21, size, 0, 0) == -1)
         {
           intpr_cold_2();
         }
@@ -430,12 +429,12 @@ LABEL_19:
         *(v11 + 56) = 0u;
         *(v11 + 40) = 0u;
         *(v11 + 24) = 0u;
-        if (!v174[1])
+        if (!v170[1])
         {
           v51 = 0;
           v52 = 0;
           v50 = 0;
-          v10 = v136;
+          v10 = v132;
           if (v14)
           {
             goto LABEL_83;
@@ -485,7 +484,7 @@ LABEL_83:
           *(v8 + 9) = v60;
           *(v8 + 7) = v58;
           free(v22);
-          v61 = netname6_line + 220;
+          v61 = &unk_100033000;
           if (v14)
           {
             goto LABEL_119;
@@ -507,12 +506,12 @@ LABEL_118:
         v32 = prioflag;
         v33 = 0uLL;
         v34 = 0uLL;
-        v35 = 712 * v174[1];
+        v35 = 712 * v170[1];
         v36 = v20 + 116;
         v37 = 0uLL;
         v38 = 0uLL;
         v39 = 0uLL;
-        v10 = v136;
+        v10 = v132;
         while (2)
         {
           v40 = *(v36 - 40);
@@ -620,16 +619,12 @@ LABEL_68:
         goto LABEL_67;
       }
 
-      v186 = 0;
-      v184 = 0u;
-      memset(v185, 0, sizeof(v185));
-      v182 = 0u;
-      v183 = 0u;
+      v182 = 0;
+      v180 = 0u;
+      memset(v181, 0, sizeof(v181));
+      v178 = 0u;
+      v179 = 0u;
       __str = 0u;
-      v171 = 0u;
-      v172 = 0u;
-      v169 = 0u;
-      v170 = 0u;
       v167 = 0u;
       v168 = 0u;
       v165 = 0u;
@@ -658,18 +653,22 @@ LABEL_68:
       v144 = 0u;
       v141 = 0u;
       v142 = 0u;
+      v139 = 0u;
+      v140 = 0u;
+      v137 = 0u;
+      v138 = 0u;
       size[0] = 180;
-      HIDWORD(v188[1]) = 2;
-      v188[2] = v10 | 0x100000000;
-      if (sysctl(v188, 6u, &__str, size, 0, 0) == -1)
+      HIDWORD(v184[1]) = 2;
+      v184[2] = v10 | 0x100000000;
+      if (sysctl(v184, 6u, &__str, size, 0, 0) == -1)
       {
         err(1, "sysctl IFDATA_GENERAL %d");
       }
 
       size[0] = 712;
-      HIDWORD(v188[1]) = 2;
-      v188[2] = v10 | 0x500000000;
-      if (sysctl(v188, 6u, &v141, size, 0, 0) == -1)
+      HIDWORD(v184[1]) = 2;
+      v184[2] = v10 | 0x500000000;
+      if (sysctl(v184, 6u, &v137, size, 0, 0) == -1)
       {
         err(1, "sysctl IFDATA_SUPPLEMENTAL %d");
       }
@@ -680,39 +679,17 @@ LABEL_68:
       }
 
 LABEL_104:
-      *(v4 + 24) = *(v185 + 12);
-      *(v4 + 9) = *(&v185[3] + 4);
-      *(v4 + 40) = *(&v185[1] + 12);
-      *(v4 + 10) = *(&v185[3] + 12);
-      v65 = v183;
-      *(v4 + 7) = *(&v185[2] + 12);
+      *(v4 + 24) = *(v181 + 12);
+      *(v4 + 9) = *(&v181[3] + 4);
+      *(v4 + 40) = *(&v181[1] + 12);
+      *(v4 + 10) = *(&v181[3] + 12);
+      v65 = v179;
+      *(v4 + 7) = *(&v181[2] + 12);
       *(v4 + 8) = v65;
       if (prioflag > 699)
       {
-        v61 = &netname6_line[220];
+        v61 = &unk_100033000;
         if (prioflag == 700)
-        {
-          v66 = v145;
-          v67 = &v145 + 8;
-          v69 = &v146 + 8;
-          v68 = &v146;
-          goto LABEL_115;
-        }
-
-        if (prioflag == 800)
-        {
-          v66 = v147;
-          v67 = &v147 + 8;
-          v69 = &v148 + 8;
-          v68 = &v148;
-          goto LABEL_115;
-        }
-      }
-
-      else
-      {
-        v61 = netname6_line + 220;
-        if (!prioflag)
         {
           v66 = v141;
           v67 = &v141 + 8;
@@ -721,20 +698,42 @@ LABEL_104:
           goto LABEL_115;
         }
 
-        if (prioflag == 200)
+        if (prioflag == 800)
         {
           v66 = v143;
           v67 = &v143 + 8;
           v69 = &v144 + 8;
           v68 = &v144;
+          goto LABEL_115;
+        }
+      }
+
+      else
+      {
+        v61 = &unk_100033000;
+        if (!prioflag)
+        {
+          v66 = v137;
+          v67 = &v137 + 8;
+          v69 = &v138 + 8;
+          v68 = &v138;
+          goto LABEL_115;
+        }
+
+        if (prioflag == 200)
+        {
+          v66 = v139;
+          v67 = &v139 + 8;
+          v69 = &v140 + 8;
+          v68 = &v140;
 LABEL_115:
           *(v4 + 11) = v66;
           *(v4 + 12) = *v67;
           *(v4 + 13) = *v68;
           *(v4 + 14) = *v69;
 LABEL_116:
-          *(v4 + 120) = v149;
-          *(v4 + 136) = v150;
+          *(v4 + 120) = v145;
+          *(v4 + 136) = v146;
           goto LABEL_117;
         }
       }
@@ -745,7 +744,7 @@ LABEL_116:
       }
 
 LABEL_117:
-      *(v4 + 152) = v152;
+      *(v4 + 152) = v148;
       if ((v14 & 1) == 0)
       {
         goto LABEL_118;
@@ -753,15 +752,15 @@ LABEL_117:
 
 LABEL_119:
       fflush(__stdoutp);
-      v174[0] = 0x2000;
-      sigprocmask(1, v174, &v173);
+      v170[0] = 0x2000;
+      sigprocmask(1, v170, &v169);
       if (!v61[1092])
       {
-        v174[0] = 0;
-        sigsuspend(v174);
+        v170[0] = 0;
+        sigsuspend(v170);
       }
 
-      sigprocmask(3, &v173, 0);
+      sigprocmask(3, &v169, 0);
       v12 = 0;
       v14 = 0;
       v61[1092] = 0;
@@ -771,14 +770,14 @@ LABEL_119:
       }
     }
 
-    printf("%10llu %5llu %10llu ", *(v185 + 12) - *(v4 + 3), *(&v185[1] + 4) - *(v4 + 4), *(&v185[3] + 4) - *(v4 + 9));
+    printf("%10llu %5llu %10llu ", *(v181 + 12) - *(v4 + 3), *(&v181[1] + 4) - *(v4 + 4), *(&v181[3] + 4) - *(v4 + 9));
     v15 = prioflag;
     if (prioflag > 699)
     {
       if (prioflag == 700)
       {
-        v16 = v145;
-        v17 = &v145 + 8;
+        v16 = v141;
+        v17 = &v141 + 8;
       }
 
       else
@@ -788,8 +787,8 @@ LABEL_119:
           goto LABEL_88;
         }
 
-        v16 = v147;
-        v17 = &v147 + 8;
+        v16 = v143;
+        v17 = &v143 + 8;
       }
     }
 
@@ -800,14 +799,14 @@ LABEL_119:
         goto LABEL_88;
       }
 
-      v16 = v143;
-      v17 = &v143 + 8;
+      v16 = v139;
+      v17 = &v139 + 8;
     }
 
     else
     {
-      v16 = v141;
-      v17 = &v141 + 8;
+      v16 = v137;
+      v17 = &v137 + 8;
     }
 
     printf("%10llu %10llu ", v16 - *(v4 + 11), *v17 - *(v4 + 12));
@@ -815,20 +814,20 @@ LABEL_119:
 LABEL_88:
     if ((v15 & 0x80000000) == 0)
     {
-      printf("%10llu %10llu ", v149 - *(v4 + 15), *(&v149 + 1) - *(v4 + 16));
+      printf("%10llu %10llu ", v145 - *(v4 + 15), *(&v145 + 1) - *(v4 + 16));
     }
 
-    printf("%10llu %5llu %10llu %5llu", *(&v185[1] + 12) - *(v4 + 5), *(&v185[2] + 4) - *(v4 + 6), *(&v185[3] + 12) - *(v4 + 10), *(&v185[2] + 12) - *(v4 + 7));
+    printf("%10llu %5llu %10llu %5llu", *(&v181[1] + 12) - *(v4 + 5), *(&v181[2] + 4) - *(v4 + 6), *(&v181[3] + 12) - *(v4 + 10), *(&v181[2] + 12) - *(v4 + 7));
     if (dflag)
     {
-      printf(" %5llu", v183 - *(v4 + 8));
+      printf(" %5llu", v179 - *(v4 + 8));
     }
 
     v62 = prioflag;
     if (prioflag > 699)
     {
-      v63 = &v146 + 8;
-      v64 = &v146;
+      v63 = &v142 + 8;
+      v64 = &v142;
       if (prioflag != 700)
       {
         if (prioflag != 800)
@@ -836,30 +835,30 @@ LABEL_88:
 LABEL_100:
           if ((v62 & 0x80000000) == 0)
           {
-            printf("%10llu %10llu ", v150 - *(v4 + 17), *(&v150 + 1) - *(v4 + 18));
+            printf("%10llu %10llu ", v146 - *(v4 + 17), *(&v146 + 1) - *(v4 + 18));
           }
 
           if (Fflag)
           {
-            printf("%10llu %10llu", v152 - *(v4 + 19), *(&v152 + 1) - *(v4 + 20));
+            printf("%10llu %10llu", v148 - *(v4 + 19), *(&v148 + 1) - *(v4 + 20));
           }
 
           goto LABEL_104;
         }
 
-        v63 = &v148 + 8;
-        v64 = &v148;
+        v63 = &v144 + 8;
+        v64 = &v144;
       }
     }
 
     else
     {
-      v63 = &v142 + 8;
-      v64 = &v142;
+      v63 = &v138 + 8;
+      v64 = &v138;
       if (prioflag)
       {
-        v63 = &v144 + 8;
-        v64 = &v144;
+        v63 = &v140 + 8;
+        v64 = &v140;
         if (prioflag != 200)
         {
           goto LABEL_100;
@@ -874,19 +873,19 @@ LABEL_100:
 
   if (interface)
   {
-    v134 = if_nametoindex(interface);
+    v131 = if_nametoindex(interface);
   }
 
   else
   {
-    v134 = 0;
+    v131 = 0;
   }
 
   *size = xmmword_100023230;
   size[2] = 6;
-  if ((sysctl(size, 6u, 0, &v140, 0, 0) & 0x80000000) == 0)
+  if ((sysctl(size, 6u, 0, &v136, 0, 0) & 0x80000000) == 0)
   {
-    v70 = malloc_type_malloc(v140, 0x5D43A5ACuLL);
+    v70 = malloc_type_malloc(v136, 0x5D43A5ACuLL);
     if (!v70)
     {
       puts("malloc failed");
@@ -894,31 +893,31 @@ LABEL_100:
     }
 
     v71 = v70;
-    if (sysctl(size, 6u, v70, &v140, 0, 0) < 0)
+    if (sysctl(size, 6u, v70, &v136, 0, 0) < 0)
     {
-      v122 = v71;
+      v120 = v71;
     }
 
     else
     {
       print_intpr_header(1);
-      if (v140 >= 1)
+      if (v136 >= 1)
       {
-        v132 = 0;
-        v133 = 0;
-        v130 = 0;
-        v131 = 0;
-        v128 = 0;
         v129 = 0;
-        v123 = 0;
+        v130 = 0;
         v127 = 0;
+        v128 = 0;
         v125 = 0;
+        v126 = 0;
+        v121 = 0;
+        v124 = 0;
+        v123 = 0;
         v72 = v71;
-        v73 = v71 + v140;
+        v73 = v71 + v136;
         while (1)
         {
           v74 = v72;
-          bzero(&v141, 0x2C8uLL);
+          bzero(&v137, 0x2C8uLL);
           v72 = (v72 + *v72);
           v75 = *(v74 + 3);
           if (v75 != 12)
@@ -926,19 +925,19 @@ LABEL_100:
             break;
           }
 
-          if (interface && v134 != v74[6])
+          if (interface && v131 != v74[6])
           {
             goto LABEL_295;
           }
 
-          get_rti_info(*(v74 + 1), v74 + 20, &v176);
+          get_rti_info(*(v74 + 1), v74 + 20, &v172);
           v80 = 0;
           v81 = 0;
-          v137 = 0u;
-          *v139 = 0u;
-          v82 = *(&v178 + 1);
+          v133 = 0u;
+          *v135 = 0u;
+          v82 = *(&v174 + 1);
 LABEL_155:
-          if (strcmp(__s1, &v187))
+          if (strcmp(__s1, &v183))
           {
             if (sflag)
             {
@@ -956,7 +955,7 @@ LABEL_155:
               print_intpr_header(0);
             }
 
-            strncpy(__s1, &v187, 0x20uLL);
+            strncpy(__s1, &v183, 0x20uLL);
           }
 
           if (lflag)
@@ -976,153 +975,153 @@ LABEL_155:
             {
               if (v84 == 18)
               {
-                v124 = v80;
-                v100 = &v82[v82[5] + 8];
-                v101 = v82[6];
+                v122 = v80;
+                v99 = &v82[v82[5] + 8];
+                v100 = v82[6];
                 snprintf(&__str, 0xAuLL, "<Link#%d>", *(v82 + 1));
                 if (lflag)
                 {
-                  v102 = printf("%-39.39s ");
+                  v101 = printf("%-39.39s ");
                 }
 
                 else
                 {
-                  v102 = printf("%-11.11s ");
+                  v101 = printf("%-11.11s ");
                 }
 
-                v95 = v102;
+                v94 = v101;
 LABEL_208:
-                v93 = v81;
-                if (v101 >= 1)
+                v92 = v81;
+                if (v100 >= 1)
                 {
-                  v103 = v101 + 1;
+                  v102 = v100 + 1;
                   do
                   {
-                    v105 = *v100++;
-                    v104 = v105;
-                    if (v103 == 2)
+                    v104 = *v99++;
+                    v103 = v104;
+                    if (v102 == 2)
                     {
-                      v106 = 32;
+                      v105 = 32;
                     }
 
                     else
                     {
-                      v106 = 58;
+                      v105 = 58;
                     }
 
-                    v95 += printf("%02x%c", v104, v106);
-                    --v103;
+                    v94 += printf("%02x%c", v103, v105);
+                    --v102;
                   }
 
-                  while (v103 > 1);
+                  while (v102 > 1);
                 }
 
                 if (lflag)
                 {
-                  v107 = 80;
+                  v106 = 80;
                 }
 
                 else
                 {
-                  v107 = 30;
+                  v106 = 30;
                 }
 
-                v108 = v107 - v95;
-                if (v108 >= 1)
+                v107 = v106 - v94;
+                if (v107 >= 1)
                 {
-                  v109 = v108 + 1;
+                  v108 = v107 + 1;
                   do
                   {
                     putchar(32);
-                    --v109;
+                    --v108;
                   }
 
-                  while (v109 > 1);
+                  while (v108 > 1);
                 }
 
-                printf("%*llu", 8, v131);
+                printf("%*llu", 8, v128);
                 putchar(32);
-                printf("%*llu", 5, v123);
+                printf("%*llu", 5, v121);
                 putchar(32);
                 if (prioflag < 0)
                 {
                   if (!bflag)
                   {
-                    printf("%*llu", 8, v133);
+                    printf("%*llu", 8, v130);
                     putchar(32);
-                    v110 = 0;
+                    v109 = 0;
                     goto LABEL_238;
                   }
 
-                  v94 = 0;
+                  v93 = 0;
 LABEL_231:
-                  printf("%*llu", 10, v129);
+                  printf("%*llu", 10, v126);
                   putchar(32);
                   if ((prioflag & 0x80000000) == 0)
                   {
-                    printf("%*llu", 8, v139[1]);
+                    printf("%*llu", 8, v135[1]);
                     putchar(32);
-                    printf("%*llu", 8, v93);
+                    printf("%*llu", 8, v92);
                     putchar(32);
                   }
 
                   goto LABEL_233;
                 }
 
-                v94 = 0;
+                v93 = 0;
                 goto LABEL_222;
               }
 
               if (v84 != 30)
               {
 LABEL_198:
-                v95 = printf("(%d)", v82[1]);
-                v96 = *v82;
-                v97 = 3;
-                if (v96 < 3)
+                v94 = printf("(%d)", v82[1]);
+                v95 = *v82;
+                v96 = 3;
+                if (v95 < 3)
                 {
-                  v97 = *v82;
+                  v96 = *v82;
                 }
 
-                while (v96 >= 4)
+                while (v95 >= 4)
                 {
-                  v98 = v96 - 1;
-                  if (v82[--v96])
+                  v97 = v95 - 1;
+                  if (v82[--v95])
                   {
-                    v97 = v98 + 1;
+                    v96 = v97 + 1;
                     break;
                   }
                 }
 
-                v124 = v80;
-                v100 = v82 + 2;
-                v101 = v97 - 2;
+                v122 = v80;
+                v99 = v82 + 2;
+                v100 = v96 - 2;
                 goto LABEL_208;
               }
 
               if (lflag)
               {
-                v91 = "%-39.39s ";
+                v90 = "%-39.39s ";
               }
 
               else
               {
-                v91 = "%-11.11s ";
+                v90 = "%-11.11s ";
               }
 
-              v92 = netname6(v82, v177);
-              printf(v91, v92);
+              v91 = netname6(v82, v173);
+              printf(v90, v91);
               if (lflag)
               {
-                v88 = "%-39.39s ";
+                v87 = "%-39.39s ";
               }
 
               else
               {
-                v88 = "%-17.17s ";
+                v87 = "%-17.17s ";
               }
 
-              v89 = inet_ntop(30, v82 + 8, ntop_buf, 0x2Eu);
+              v88 = inet_ntop(30, v82 + 8, ntop_buf, 0x2Eu);
               goto LABEL_192;
             }
 
@@ -1134,35 +1133,34 @@ LABEL_198:
               }
 
               __str = 0uLL;
-              v85 = *v177;
               __memcpy_chk();
               if (lflag)
               {
-                v86 = "%-39.39s ";
+                v85 = "%-39.39s ";
               }
 
               else
               {
-                v86 = "%-13.13s ";
+                v85 = "%-13.13s ";
               }
 
-              v87 = netname(DWORD1(__str) & *(v82 + 1), bswap32(DWORD1(__str)));
-              printf(v86, v87);
+              v86 = netname(DWORD1(__str) & *(v82 + 1), bswap32(DWORD1(__str)));
+              printf(v85, v86);
               if (lflag)
               {
-                v88 = "%-39.39s ";
+                v87 = "%-39.39s ";
               }
 
               else
               {
-                v88 = "%-15.15s ";
+                v87 = "%-15.15s ";
               }
 
-              v89 = routename(*(v82 + 1));
+              v88 = routename(*(v82 + 1));
 LABEL_192:
-              printf(v88, v89);
-              printf("%*llu", 8, v131);
-              v90 = 0;
+              printf(v87, v88);
+              printf("%*llu", 8, v128);
+              v89 = 0;
               goto LABEL_193;
             }
           }
@@ -1188,43 +1186,43 @@ LABEL_192:
           }
 
           printf("%*s", 8, "-");
-          v90 = 1;
+          v89 = 1;
 LABEL_193:
           putchar(32);
           printf("%*s", 5, "-");
           putchar(32);
           if (prioflag < 0)
           {
-            v93 = v81;
-            v94 = 1;
+            v92 = v81;
+            v93 = 1;
             goto LABEL_224;
           }
 
-          if ((v90 & 1) == 0)
+          if ((v89 & 1) == 0)
           {
-            v124 = v80;
-            v93 = v81;
-            v94 = 1;
+            v122 = v80;
+            v92 = v81;
+            v93 = 1;
 LABEL_222:
-            printf("%*llu", 8, v139[0]);
+            printf("%*llu", 8, v135[0]);
             putchar(32);
-            printf("%*llu", 8, v124);
-            v90 = 0;
+            printf("%*llu", 8, v122);
+            v89 = 0;
             goto LABEL_223;
           }
 
-          v93 = v81;
+          v92 = v81;
           printf("%*s", 8, "-");
           putchar(32);
           printf("%*s", 8, "-");
-          v90 = 1;
-          v94 = 1;
+          v89 = 1;
+          v93 = 1;
 LABEL_223:
           putchar(32);
 LABEL_224:
           if (bflag)
           {
-            if (v90)
+            if (v89)
             {
               printf("%*s", 10, "-");
               putchar(32);
@@ -1239,8 +1237,8 @@ LABEL_224:
 LABEL_229:
               printf("%*s", 8, "-");
               putchar(32);
-              v110 = 1;
-              if (v94)
+              v109 = 1;
+              if (v93)
               {
                 goto LABEL_234;
               }
@@ -1251,31 +1249,31 @@ LABEL_229:
             goto LABEL_231;
           }
 
-          if (v90)
+          if (v89)
           {
             goto LABEL_229;
           }
 
 LABEL_233:
-          printf("%*llu", 8, v133);
+          printf("%*llu", 8, v130);
           putchar(32);
-          v110 = 0;
-          if (v94)
+          v109 = 0;
+          if (v93)
           {
 LABEL_234:
             printf("%*s", 5, "-");
-            v111 = 1;
+            v110 = 1;
             goto LABEL_239;
           }
 
 LABEL_238:
-          printf("%*llu", 5, v132);
-          v111 = 0;
+          printf("%*llu", 5, v129);
+          v110 = 0;
 LABEL_239:
           putchar(32);
           if ((prioflag & 0x80000000) == 0)
           {
-            if (v110)
+            if (v109)
             {
               printf("%*s", 8, "-");
               putchar(32);
@@ -1284,7 +1282,7 @@ LABEL_239:
 
             else
             {
-              printf("%*llu", 8, v137);
+              printf("%*llu", 8, v133);
               putchar(32);
               printf("%*llu");
             }
@@ -1294,7 +1292,7 @@ LABEL_239:
 
           if (bflag)
           {
-            if (v110)
+            if (v109)
             {
               printf("%*s", 10, "-");
               putchar(32);
@@ -1310,14 +1308,14 @@ LABEL_239:
 
             else
             {
-              printf("%*llu", 10, v128);
+              printf("%*llu", 10, v125);
               putchar(32);
               if (prioflag < 0)
               {
                 goto LABEL_251;
               }
 
-              printf("%*llu", 8, *(&v137 + 1));
+              printf("%*llu", 8, *(&v133 + 1));
               putchar(32);
               printf("%*llu");
             }
@@ -1326,7 +1324,7 @@ LABEL_239:
           }
 
 LABEL_251:
-          if (v111)
+          if (v110)
           {
             printf("%*s", 5, "-");
             if (tflag)
@@ -1344,11 +1342,11 @@ LABEL_251:
 
           else
           {
-            printf("%*llu", 5, v130);
+            printf("%*llu", 5, v127);
             if (tflag)
             {
               putchar(32);
-              printf("%*d", 3, v127);
+              printf("%*d", 3, v124);
             }
 
             if (dflag)
@@ -1361,7 +1359,7 @@ LABEL_251:
           if (Fflag)
           {
             putchar(32);
-            if (v110)
+            if (v109)
             {
               printf("%*s", 8, "-");
               if (bflag)
@@ -1373,7 +1371,7 @@ LABEL_251:
 
             else
             {
-              printf("%*llu", 8, v125);
+              printf("%*llu", 8, v123);
               if (bflag)
               {
                 putchar(32);
@@ -1385,19 +1383,19 @@ LABEL_251:
           putchar(10);
           if (aflag && v72 < v73)
           {
-            v112 = v82[1];
-            v113 = v72;
+            v111 = v82[1];
+            v112 = v72;
             do
             {
-              v183 = 0u;
-              v184 = 0u;
+              v179 = 0u;
+              v180 = 0u;
               __str = 0u;
-              v182 = 0u;
-              v114 = *v113;
-              v115 = *(v113 + 3);
-              if (v115 != 19)
+              v178 = 0u;
+              v113 = *v112;
+              v114 = *(v112 + 3);
+              if (v114 != 19)
               {
-                if (v115 == 18)
+                if (v114 == 18)
                 {
                   break;
                 }
@@ -1405,49 +1403,48 @@ LABEL_251:
                 goto LABEL_294;
               }
 
-              get_rti_info(*(v113 + 1), v113 + 20, &__str);
-              if (*(*(&v183 + 1) + 1) == v112)
+              get_rti_info(*(v112 + 1), v112 + 20, &__str);
+              if (*(*(&v179 + 1) + 1) == v111)
               {
-                if (v112 == 30)
+                if (v111 == 30)
                 {
-                  memset(v188, 0, 28);
-                  v118 = *(*(&v183 + 1) + 12);
-                  *v188 = **(&v183 + 1);
-                  *(&v188[1] + 4) = v118;
-                  if (LOBYTE(v188[1]) == 255)
+                  memset(v184, 0, 28);
+                  v117 = *(*(&v179 + 1) + 12);
+                  *v184 = **(&v179 + 1);
+                  *(&v184[1] + 4) = v117;
+                  if (LOBYTE(v184[1]) == 255)
                   {
-                    v119 = BYTE1(v188[1]) & 0xF;
-                    if (v119 != 1 && ((BYTE1(v188[1]) & 0xF0) == 0x30 || v119 != 2))
+                    v118 = BYTE1(v184[1]) & 0xF;
+                    if (v118 != 1 && ((BYTE1(v184[1]) & 0xF0) == 0x30 || v118 != 2))
                     {
                       goto LABEL_293;
                     }
                   }
 
-                  else if (LOBYTE(v188[1]) != 254 || (BYTE1(v188[1]) & 0xC0) != 0x80)
+                  else if (LOBYTE(v184[1]) != 254 || (BYTE1(v184[1]) & 0xC0) != 0x80)
                   {
                     goto LABEL_293;
                   }
 
-                  LODWORD(v188[3]) = bswap32(WORD1(v188[1])) >> 16;
-                  WORD1(v188[1]) = 0;
+                  LODWORD(v184[3]) = bswap32(WORD1(v184[1])) >> 16;
+                  WORD1(v184[1]) = 0;
 LABEL_293:
-                  inet_ntop(30, &v188[1], ntop_buf, 0x2Eu);
-                  v120 = *(v113 + 4);
+                  inet_ntop(30, &v184[1], ntop_buf, 0x2Eu);
                   printf("%23s %-19.19s(refs: %d)\n");
                   goto LABEL_294;
                 }
 
-                if (v112 == 18)
+                if (v111 == 18)
                 {
-                  v116 = *(*(&v183 + 1) + 4);
-                  v117 = v116 == 15 || v116 == 6;
-                  if (!v117 || !ether_ntoa((*(&v183 + 1) + *(*(&v183 + 1) + 5) + 8)))
+                  v115 = *(*(&v179 + 1) + 4);
+                  v116 = v115 == 15 || v115 == 6;
+                  if (!v116 || !ether_ntoa((*(&v179 + 1) + *(*(&v179 + 1) + 5) + 8)))
                   {
                     goto LABEL_294;
                   }
                 }
 
-                else if (v112 != 2 || !routename(*(*(&v183 + 1) + 4)))
+                else if (v111 != 2 || !routename(*(*(&v179 + 1) + 4)))
                 {
                   goto LABEL_294;
                 }
@@ -1456,10 +1453,10 @@ LABEL_293:
               }
 
 LABEL_294:
-              v113 = (v113 + v114);
+              v112 = (v112 + v113);
             }
 
-            while (v113 < v73);
+            while (v112 < v73);
           }
 
 LABEL_295:
@@ -1474,16 +1471,15 @@ LABEL_295:
           goto LABEL_295;
         }
 
-        v188[0] = 712;
+        v184[0] = 712;
         if (interface)
         {
-          if (v134 != v74[6])
+          if (v131 != v74[6])
           {
             goto LABEL_295;
           }
         }
 
-        *(v74 + 165);
         __memcpy_chk();
         v76 = *(v74 + 165);
         if (v76 >= 0x1F)
@@ -1491,28 +1487,26 @@ LABEL_295:
           v76 = 31;
         }
 
-        *(&v187.it_interval.tv_sec + v76) = 0;
-        v77 = index(&v187, 0);
+        *(&v183.it_interval.tv_sec + v76) = 0;
+        v77 = index(&v183, 0);
         if ((v74[4] & 1) == 0)
         {
           *v77++ = 42;
         }
 
         *v77 = 0;
-        v132 = *(v74 + 10);
-        v133 = *(v74 + 9);
-        v123 = *(v74 + 8);
-        v128 = *(v74 + 13);
-        v129 = *(v74 + 12);
-        v130 = *(v74 + 11);
-        v131 = *(v74 + 7);
-        v127 = *(v74 + 7);
-        v126 = *(v74 + 6);
-        v135 = *(v74 + 10);
+        v129 = *(v74 + 10);
+        v130 = *(v74 + 9);
+        v121 = *(v74 + 8);
+        v125 = *(v74 + 13);
+        v126 = *(v74 + 12);
+        v127 = *(v74 + 11);
+        v128 = *(v74 + 7);
+        v124 = *(v74 + 7);
         __str = xmmword_100023240;
-        LODWORD(v182) = v74[6];
-        DWORD1(v182) = 5;
-        if (sysctl(&__str, 6u, &v141, v188, 0, 0) == -1)
+        LODWORD(v178) = v74[6];
+        DWORD1(v178) = 5;
+        if (sysctl(&__str, 6u, &v137, v184, 0, 0) == -1)
         {
           intpr_cold_12();
         }
@@ -1521,30 +1515,30 @@ LABEL_295:
         {
           v80 = 0;
           v81 = 0;
-          v137 = 0u;
-          *v139 = 0u;
+          v133 = 0u;
+          *v135 = 0u;
 LABEL_154:
-          v125 = v152;
-          get_rti_info(*(v74 + 1), v74 + 160, &v176);
-          v82 = v178;
+          v123 = v148;
+          get_rti_info(*(v74 + 1), v74 + 160, &v172);
+          v82 = v174;
           goto LABEL_155;
         }
 
-        *v139 = 0u;
+        *v135 = 0u;
         if (prioflag > 699)
         {
           if (prioflag == 700)
           {
-            v78 = v145;
-            v79 = v146;
+            v78 = v141;
+            v79 = v142;
             goto LABEL_152;
           }
 
-          v137 = 0uLL;
+          v133 = 0uLL;
           if (prioflag == 800)
           {
-            v78 = v147;
-            v79 = v148;
+            v78 = v143;
+            v79 = v144;
             goto LABEL_152;
           }
         }
@@ -1553,47 +1547,47 @@ LABEL_154:
         {
           if (!prioflag)
           {
-            v78 = v141;
-            v79 = v142;
+            v78 = v137;
+            v79 = v138;
             goto LABEL_152;
           }
 
-          v137 = 0uLL;
+          v133 = 0uLL;
           if (prioflag == 200)
           {
-            v78 = v143;
-            v79 = v144;
+            v78 = v139;
+            v79 = v140;
 LABEL_152:
-            v137 = v79;
-            *v139 = v78;
+            v133 = v79;
+            *v135 = v78;
           }
         }
 
-        v81 = *(&v149 + 1);
-        v80 = v149;
+        v81 = *(&v145 + 1);
+        v80 = v145;
         goto LABEL_154;
       }
 
 LABEL_296:
       if (sflag)
       {
-        v121 = LOBYTE(__s1[0]) == 0;
+        v119 = LOBYTE(__s1[0]) == 0;
       }
 
       else
       {
-        v121 = 1;
+        v119 = 1;
       }
 
-      if (!v121)
+      if (!v119)
       {
         printprotoifstats(__s1);
       }
 
-      v122 = v71;
+      v120 = v71;
     }
 
-    free(v122);
+    free(v120);
   }
 }
 
@@ -1711,9 +1705,9 @@ void intpr_ri()
   }
 
   size = 0;
-  *v41 = xmmword_100023230;
-  v42 = 6;
-  if ((sysctl(v41, 6u, 0, &size, 0, 0) & 0x80000000) == 0)
+  *v38 = xmmword_100023230;
+  v39 = 6;
+  if ((sysctl(v38, 6u, 0, &size, 0, 0) & 0x80000000) == 0)
   {
     v1 = malloc_type_malloc(size, 0xD268354FuLL);
     if (!v1)
@@ -1724,14 +1718,14 @@ LABEL_85:
     }
 
     v2 = v1;
-    if (sysctl(v41, 6u, v1, &size, 0, 0) < 0)
+    if (sysctl(v38, 6u, v1, &size, 0, 0) < 0)
     {
       v27 = v2;
     }
 
     else
     {
-      v33 = v2;
+      v30 = v2;
       printf("%-6s %-17s %14.14s %-9.9s %4s %4s", "Proto", "Linklayer Address", "Netif", "Expire", "Refs", "Prbs");
       if (xflag)
       {
@@ -1743,8 +1737,8 @@ LABEL_85:
       {
         v3 = v2;
         v4 = v2 + size;
-        v32 = v0;
-        v31 = v2 + size;
+        v29 = v0;
+        v28 = v2 + size;
         while (1)
         {
           v5 = *v3;
@@ -1760,21 +1754,21 @@ LABEL_85:
             goto LABEL_74;
           }
 
-          v45 = 0;
-          v46 = 0;
-          *v44 = 0;
-          v40 = 6;
-          if (sysctlnametomib("net.link.generic.system.llreach_info", v44, &v40) == -1)
+          v42 = 0;
+          v43 = 0;
+          *v41 = 0;
+          v37 = 6;
+          if (sysctlnametomib("net.link.generic.system.llreach_info", v41, &v37) == -1)
           {
             perror("sysctlnametomib");
             goto LABEL_74;
           }
 
-          v36 = v5;
-          v39 = 0;
-          v40 = 6;
-          HIDWORD(v46) = v6;
-          if (sysctl(v44, 6u, 0, &v39, 0, 0) == -1)
+          v33 = v5;
+          v36 = 0;
+          v37 = 6;
+          HIDWORD(v43) = v6;
+          if (sysctl(v41, 6u, 0, &v36, 0, 0) == -1)
           {
             break;
           }
@@ -1782,7 +1776,7 @@ LABEL_85:
           v8 = 0;
           while (1)
           {
-            v9 = malloc_type_malloc(v39, 0x24B5C0F0uLL);
+            v9 = malloc_type_malloc(v36, 0x24B5C0F0uLL);
             if (!v9)
             {
               v12 = "malloc";
@@ -1790,7 +1784,7 @@ LABEL_85:
             }
 
             v10 = v9;
-            if (sysctl(v44, v40, v9, &v39, 0, 0) != -1)
+            if (sysctl(v41, v37, v9, &v36, 0, 0) != -1)
             {
               break;
             }
@@ -1803,36 +1797,36 @@ LABEL_85:
 
             ++v8;
             free(v10);
-            if (sysctl(v44, v40, 0, &v39, 0, 0) == -1)
+            if (sysctl(v41, v37, 0, &v36, 0, 0) == -1)
             {
               goto LABEL_28;
             }
           }
 
-          v38.tv_sec = 0;
-          *&v38.tv_usec = 0;
-          v13 = v39;
-          gettimeofday(&v38, 0);
-          if (!if_indextoname(v6, v43))
+          v35.tv_sec = 0;
+          *&v35.tv_usec = 0;
+          v13 = v36;
+          gettimeofday(&v35, 0);
+          if (!if_indextoname(v6, v40))
           {
-            strcpy(v43, "?");
+            strcpy(v40, "?");
           }
 
           v14 = v13;
           if (v13 >= 0x78)
           {
             v15 = v13 / 0x78;
-            v34 = v13 / 0x78;
-            v35 = v13;
+            v31 = v13 / 0x78;
+            v32 = v13;
             v16 = v10;
             while (1)
             {
               v17 = v16[11];
               v18 = ether_ntoa(v16 + 4);
-              printf("0x%-4x %-17s %14.14s ", v17, v18, v43);
+              printf("0x%-4x %-17s %14.14s ", v17, v18, v40);
               v19 = *(v16 + 1);
-              v20 = v19 - v38.tv_sec;
-              if (v19 > v38.tv_sec)
+              v20 = v19 - v35.tv_sec;
+              if (v19 > v35.tv_sec)
               {
                 break;
               }
@@ -1869,7 +1863,6 @@ LABEL_43:
 
               else
               {
-                v28 = *(v16 + 22);
                 printf(" %7d");
               }
 
@@ -1879,7 +1872,6 @@ LABEL_43:
                 if (v25 != 50 && v25 != 100)
                 {
 LABEL_56:
-                  v29 = *(v16 + 23);
                   printf(" %7d");
                   goto LABEL_58;
                 }
@@ -1908,16 +1900,15 @@ LABEL_65:
                 goto LABEL_65;
               }
 
-              v30 = *(v16 + 24);
               printf(" %7d");
 LABEL_66:
               putchar(10);
               v16 += 60;
               if (!--v15)
               {
-                v14 = v35 - 120 * v34;
-                v0 = v32;
-                v4 = v31;
+                v14 = v32 - 120 * v31;
+                v0 = v29;
+                v4 = v28;
                 goto LABEL_70;
               }
             }
@@ -1958,7 +1949,7 @@ LABEL_70:
 LABEL_72:
           free(v10);
 LABEL_73:
-          v5 = v36;
+          v5 = v33;
 LABEL_74:
           v3 = (v3 + v5);
           if (v3 >= v4)
@@ -1975,7 +1966,7 @@ LABEL_78:
       }
 
 LABEL_80:
-      v27 = v33;
+      v27 = v30;
     }
 
     free(v27);
@@ -1984,17 +1975,17 @@ LABEL_80:
 
 uint64_t aqstatpr()
 {
-  memset(&v34, 0, sizeof(v34));
-  v32 = 0;
+  memset(&v28, 0, sizeof(v28));
+  v26 = 0;
   if ((cq - 10) <= 0xFFFFFFF4)
   {
     return fprintf(__stderrp, "Invalid classq index (range is 0-%d)\n", 9);
   }
 
-  v39 = 0;
-  v37 = 0uLL;
-  v38 = 0uLL;
-  *v33 = 0;
+  v33 = 0;
+  v31 = 0uLL;
+  v32 = 0uLL;
+  *v27 = 0;
   v1 = malloc_type_malloc(0x280uLL, 0x10000408AA6F2A3uLL);
   if (!v1)
   {
@@ -2006,36 +1997,36 @@ uint64_t aqstatpr()
   v2 = socket(2, 2, 0);
   if (v2 < 0)
   {
-    v28 = "Warning: socket(AF_INET)";
+    v22 = "Warning: socket(AF_INET)";
 LABEL_76:
-    perror(v28);
+    perror(v22);
     goto LABEL_77;
   }
 
-  if (getifaddrs(&v32))
+  if (getifaddrs(&v26))
   {
-    v28 = "getifaddrs";
+    v22 = "getifaddrs";
     goto LABEL_76;
   }
 
   v3 = 0;
-  v4 = &netname6_line[220];
-  v31 = v2;
+  v4 = &unk_100033000;
+  v25 = v2;
   while (1)
   {
     if (interval >= 1)
     {
-      v34.it_value.tv_sec = interval;
-      v34.it_value.tv_usec = 0;
-      v34.it_interval.tv_sec = interval;
-      v34.it_interval.tv_usec = 0;
+      v28.it_value.tv_sec = interval;
+      v28.it_value.tv_usec = 0;
+      v28.it_interval.tv_sec = interval;
+      v28.it_interval.tv_usec = 0;
       signal(14, catchalarm);
       v4[1092] = 0;
-      setitimer(0, &v34, 0);
+      setitimer(0, &v28, 0);
     }
 
-    v5 = v32;
-    if (v32)
+    v5 = v26;
+    if (v26)
     {
       break;
     }
@@ -2046,22 +2037,22 @@ LABEL_67:
       goto LABEL_77;
     }
 
-    v33[1] = 0x2000;
-    sigprocmask(1, &v33[1], v33);
+    v27[1] = 0x2000;
+    sigprocmask(1, &v27[1], v27);
     if (!v4[1092])
     {
-      v33[1] = 0;
-      sigsuspend(&v33[1]);
+      v27[1] = 0;
+      sigsuspend(&v27[1]);
     }
 
-    sigprocmask(3, v33, 0);
+    sigprocmask(3, v27, 0);
     v4[1092] = 0;
   }
 
   while (1)
   {
-    v35 = 0u;
-    v36 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     if (interface && strcmp(v5->ifa_name, interface))
     {
       goto LABEL_64;
@@ -2076,15 +2067,14 @@ LABEL_67:
       }
     }
 
-    v7 = v5->ifa_name;
     __strlcpy_chk();
-    if (ioctl(v2, 0xC020698EuLL, &v35))
+    if (ioctl(v2, 0xC020698EuLL, &v29))
     {
       perror("ioctl(SIOCGIFEFLAGS");
       goto LABEL_16;
     }
 
-    if ((v36 & 0x80) != 0)
+    if ((v30 & 0x80) != 0)
     {
       break;
     }
@@ -2099,121 +2089,116 @@ LABEL_64:
     }
   }
 
-  v39 = 0;
-  v37 = 0u;
-  v38 = 0u;
-  v8 = v5->ifa_name;
+  v33 = 0;
+  v31 = 0u;
+  v32 = 0u;
   __strlcpy_chk();
-  *(&v38 + 1) = v1;
-  LODWORD(v39) = 640;
-  DWORD1(v38) = 0;
-  if ((ioctl(v2, 0xC0286993uLL, &v37) & 0x80000000) == 0)
+  *(&v32 + 1) = v1;
+  LODWORD(v33) = 640;
+  DWORD1(v32) = 0;
+  if ((ioctl(v2, 0xC0286993uLL, &v31) & 0x80000000) == 0)
   {
-    v9 = v1[12];
-    if (!v9)
+    v7 = v1[12];
+    if (!v7)
     {
       fwrite("Invalid scheduler type\n", 0x17uLL, 1uLL, __stderrp);
       goto LABEL_77;
     }
 
-    v10 = v1[12];
+    v8 = v1[12];
     if (!interface)
     {
       putchar(10);
-      v10 = v1[12];
+      v8 = v1[12];
     }
 
-    v29 = ifa_name;
-    v30 = v5;
-    if (v10)
+    v23 = ifa_name;
+    v24 = v5;
+    if (v8)
     {
-      if (v10 == 8)
+      if (v8 == 8)
       {
-        v11 = "NEW FQ_CODEL";
+        v9 = "NEW FQ_CODEL";
       }
 
-      else if (v10 == 7)
+      else if (v8 == 7)
       {
-        v11 = "FQ_CODEL";
+        v9 = "FQ_CODEL";
       }
 
       else
       {
-        v11 = "UNKNOWN";
+        v9 = "UNKNOWN";
       }
     }
 
     else
     {
-      v11 = "NONE";
+      v9 = "NONE";
     }
 
-    printf("%s:\n     [ sched: %18s  qlength:  %3d/%3d ]\n", v5->ifa_name, v11, *v1, v1[1]);
+    printf("%s:\n     [ sched: %18s  qlength:  %3d/%3d ]\n", v5->ifa_name, v9, *v1, v1[1]);
     printf("     [ dequeued pkts: %10llu  bytes: %10llu  dropped pkts: %6llu bytes: %6llu ]\n", *(v1 + 2), *(v1 + 3), *(v1 + 4), *(v1 + 5));
-    v12 = 0;
-    v13 = v9 - 7;
+    v10 = 0;
+    v11 = v7 - 7;
 LABEL_32:
-    v14 = 0;
-    LODWORD(v38) = v12;
+    v12 = 0;
+    LODWORD(v32) = v10;
     while (1)
     {
-      if (cq < 0 || cq == v14)
+      if (cq < 0 || cq == v12)
       {
-        DWORD1(v38) = v14;
+        DWORD1(v32) = v12;
         *__error() = 0;
-        if (ioctl(v31, 0xC0286993uLL, &v37) < 0)
+        if (ioctl(v25, 0xC0286993uLL, &v31) < 0)
         {
-          v27 = __error();
-          if (!v12 || *v27 != 6)
+          v21 = __error();
+          if (!v10 || *v21 != 6)
           {
             perror("Warning: ioctl(SIOCGIFQUEUESTATS)");
-            v2 = v31;
+            v2 = v25;
             goto LABEL_77;
           }
 
 LABEL_62:
-          if (++v12 == 16)
+          if (++v10 == 16)
           {
             fflush(__stdoutp);
-            v3 = v29;
-            v5 = v30;
-            v2 = v31;
-            v4 = netname6_line + 220;
+            v3 = v23;
+            v5 = v24;
+            v2 = v25;
+            v4 = &unk_100033000;
             goto LABEL_64;
           }
 
           goto LABEL_32;
         }
 
-        if (v13 <= 1 && (v1[15] || v1[14]))
+        if (v11 <= 1 && (v1[15] || v1[14]))
         {
           puts("=====================================================");
-          v15 = v1[14];
-          v16 = "?";
-          if (v15 <= 9)
+          v13 = v1[14];
+          v14 = "?";
+          if (v13 <= 9)
           {
-            v16 = off_100024298[v15];
+            v14 = off_100024298[v13];
           }
 
-          printf("     [ pri: %s (%d)\tsrv_cl: 0x%x\tquantum: %d\tdrr_max: %d\tqset idx: %hu ]\n", v16, v15, v1[15], v1[16], v1[17], v12);
-          v17 = *(v1 + 19);
-          printf("     [ queued pkts: %llu\tbytes: %llu ]\n", v17, *(v1 + 22));
+          printf("     [ pri: %s (%d)\tsrv_cl: 0x%x\tquantum: %d\tdrr_max: %d\tqset idx: %hu ]\n", v14, v13, v1[15], v1[16], v1[17], v10);
+          printf("     [ queued pkts: %llu\tbytes: %llu ]\n", *(v1 + 19), *(v1 + 22));
           printf("     [ dequeued pkts: %llu\tbytes: %llu ]\n", *(v1 + 20), *(v1 + 21));
-          v18 = *(v1 + 9);
+          v15 = *(v1 + 9);
           nsec_to_str(*(v1 + 10));
-          printf("     [ budget: %lld\ttarget qdelay: %10s\t", v18, nsec_to_str_buf);
+          printf("     [ budget: %lld\ttarget qdelay: %10s\t", v15, nsec_to_str_buf);
           nsec_to_str(*(v1 + 12));
           printf("update interval:%10s ]\n", nsec_to_str_buf);
           printf("     [ flow control: %u\tfeedback: %u\tstalls: %u\tfailed: %u \toverwhelming: %u ]\n", v1[26], v1[27], v1[28], v1[29], v1[140]);
           printf("     [ drop overflow: %llu\tearly: %llu\tmemfail: %u\tduprexmt:%u ]\n", *(v1 + 15), *(v1 + 16), v1[34], v1[49]);
-          v19 = *(v1 + 79);
-          printf("     [ congestion feedback: %llu\t congestion drops: %llu ]\n", v19, *(v1 + 78));
+          printf("     [ congestion feedback: %llu\t congestion drops: %llu ]\n", *(v1 + 79), *(v1 + 78));
           nsec_to_str(*(v1 + 11));
           printf("     [ L4S target qdelay: %10s ]\n", nsec_to_str_buf);
-          v20 = *(v1 + 73);
-          printf("     [ CE marked:%llu\tCE marking failures:%llu\tL4S pkts:%llu   ]\n", *(v1 + 71), v20, *(v1 + 74));
-          v21 = *(v1 + 76);
-          printf("     [ paced pkts:%llu\tpacemaker needed:%llu ]\n", v21, *(v1 + 77));
+          printf("     [ CE marked:%llu\tCE marking failures:%llu\tL4S pkts:%llu   ]\n", *(v1 + 71), *(v1 + 73), *(v1 + 74));
+          printf("     [ paced pkts:%llu\tpacemaker needed:%llu ]\n", *(v1 + 76), *(v1 + 77));
           printf("     [ flows total: %u\tnew: %u\told: %u ]\n", v1[35], v1[36], v1[37]);
           printf("     [ throttle on: %u\toff: %u\tdrop: %u ]\n", v1[46], v1[47], v1[48]);
           printf("     [ compressible pkts: %u compressed pkts: %u]\n", v1[131], v1[132]);
@@ -2232,52 +2217,52 @@ LABEL_62:
       }
 
 LABEL_58:
-      if (++v14 == 10)
+      if (++v12 == 10)
       {
         goto LABEL_62;
       }
     }
 
-    v22 = 0;
-    v23 = (v1 + 54);
+    v16 = 0;
+    v17 = (v1 + 54);
     while (2)
     {
-      v25 = *(v23 - 1);
-      v24 = *v23;
-      nsec_to_str(*(v23 - 3));
-      printf("%x\t%u\t%14s\t", v24, v25, nsec_to_str_buf);
-      v26 = *(v23 - 2);
-      if (v26)
+      v19 = *(v17 - 1);
+      v18 = *v17;
+      nsec_to_str(*(v17 - 3));
+      printf("%x\t%u\t%14s\t", v18, v19, nsec_to_str_buf);
+      v20 = *(v17 - 2);
+      if (v20)
       {
         putchar(79);
-        v26 = *(v23 - 2);
-        if ((v26 & 2) != 0)
+        v20 = *(v17 - 2);
+        if ((v20 & 2) != 0)
         {
           goto LABEL_54;
         }
 
 LABEL_47:
-        if ((v26 & 4) == 0)
+        if ((v20 & 4) == 0)
         {
           goto LABEL_48;
         }
 
 LABEL_55:
         putchar(76);
-        v26 = *(v23 - 2);
-        if ((v26 & 8) != 0)
+        v20 = *(v17 - 2);
+        if ((v20 & 8) != 0)
         {
           goto LABEL_56;
         }
 
 LABEL_49:
-        if ((v26 & 0x10) == 0)
+        if ((v20 & 0x10) == 0)
         {
 LABEL_51:
           putchar(10);
-          ++v22;
-          v23 += 4;
-          if (v22 >= v1[50])
+          ++v16;
+          v17 += 4;
+          if (v16 >= v1[50])
           {
             goto LABEL_58;
           }
@@ -2288,28 +2273,28 @@ LABEL_51:
 
       else
       {
-        if ((v26 & 2) == 0)
+        if ((v20 & 2) == 0)
         {
           goto LABEL_47;
         }
 
 LABEL_54:
         putchar(78);
-        v26 = *(v23 - 2);
-        if ((v26 & 4) != 0)
+        v20 = *(v17 - 2);
+        if ((v20 & 4) != 0)
         {
           goto LABEL_55;
         }
 
 LABEL_48:
-        if ((v26 & 8) == 0)
+        if ((v20 & 8) == 0)
         {
           goto LABEL_49;
         }
 
 LABEL_56:
         putchar(68);
-        if ((*(v23 - 2) & 0x10) == 0)
+        if ((*(v17 - 2) & 0x10) == 0)
         {
           goto LABEL_51;
         }
@@ -2324,7 +2309,7 @@ LABEL_56:
 
   if (*__error() != 6)
   {
-    v28 = "Warning: ioctl(SIOCGIFQUEUESTATS)";
+    v22 = "Warning: ioctl(SIOCGIFQUEUESTATS)";
     goto LABEL_76;
   }
 
@@ -2336,47 +2321,47 @@ LABEL_56:
 
   printf("Queue statistics are not available on %s\n", v5->ifa_name);
 LABEL_77:
-  freeifaddrs(v32);
+  freeifaddrs(v26);
   free(v1);
   return close(v2);
 }
 
 uint64_t rxpollstatpr()
 {
-  memset(v13, 0, 512);
-  v12 = 712;
-  v9 = 0;
-  *v10 = 0;
+  memset(v12, 0, 512);
+  v11 = 712;
+  v8 = 0;
+  *v9 = 0;
   v0 = socket(2, 2, 0);
   if (v0 < 0)
   {
-    v7 = "Warning: socket(AF_INET)";
+    v6 = "Warning: socket(AF_INET)";
     goto LABEL_29;
   }
 
-  if (getifaddrs(&v9))
+  if (getifaddrs(&v8))
   {
-    v7 = "getifaddrs";
+    v6 = "getifaddrs";
     goto LABEL_29;
   }
 
   v1 = 0;
-  memset(&v11, 0, sizeof(v11));
+  memset(&v10, 0, sizeof(v10));
   while (1)
   {
     if (interval >= 1)
     {
-      v11.it_value.tv_sec = interval;
-      v11.it_value.tv_usec = 0;
-      v11.it_interval.tv_sec = interval;
-      v11.it_interval.tv_usec = 0;
+      v10.it_value.tv_sec = interval;
+      v10.it_value.tv_usec = 0;
+      v10.it_interval.tv_sec = interval;
+      v10.it_interval.tv_usec = 0;
       signal(14, catchalarm);
       signalled = 0;
-      setitimer(0, &v11, 0);
+      setitimer(0, &v10, 0);
     }
 
-    v2 = v9;
-    if (v9)
+    v2 = v8;
+    if (v8)
     {
       break;
     }
@@ -2387,22 +2372,22 @@ LABEL_20:
       goto LABEL_30;
     }
 
-    v10[1] = 0x2000;
-    sigprocmask(1, &v10[1], v10);
+    v9[1] = 0x2000;
+    sigprocmask(1, &v9[1], v9);
     if (!signalled)
     {
-      v10[1] = 0;
-      sigsuspend(&v10[1]);
+      v9[1] = 0;
+      sigsuspend(&v9[1]);
     }
 
-    sigprocmask(3, v10, 0);
+    sigprocmask(3, v9, 0);
     signalled = 0;
   }
 
   while (1)
   {
+    v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     if (interface && strcmp(v2->ifa_name, interface))
     {
       goto LABEL_19;
@@ -2417,15 +2402,14 @@ LABEL_20:
       }
     }
 
-    v4 = v2->ifa_name;
     __strlcpy_chk();
-    if (ioctl(v0, 0xC020698EuLL, &v49))
+    if (ioctl(v0, 0xC020698EuLL, &v48))
     {
-      v7 = "ioctl(SIOCGIFEFLAGS";
+      v6 = "ioctl(SIOCGIFEFLAGS";
       goto LABEL_29;
     }
 
-    if (BYTE1(v50))
+    if (BYTE1(v49))
     {
       break;
     }
@@ -2440,52 +2424,52 @@ LABEL_19:
     }
   }
 
-  v5 = if_nametoindex(v2->ifa_name);
-  if (!v5)
+  v4 = if_nametoindex(v2->ifa_name);
+  if (!v4)
   {
     fwrite("Invalid interface name\n", 0x17uLL, 1uLL, __stderrp);
     goto LABEL_30;
   }
 
-  v6 = v5;
-  bzero(v13, 0x2C8uLL);
-  *v51 = xmmword_100023240;
-  v52 = v6;
-  v53 = 5;
-  if (sysctl(v51, 6u, v13, &v12, 0, 0) != -1)
+  v5 = v4;
+  bzero(v12, 0x2C8uLL);
+  *v50 = xmmword_100023240;
+  v51 = v5;
+  v52 = 5;
+  if (sysctl(v50, 6u, v12, &v11, 0, 0) != -1)
   {
     if (!interface)
     {
       putchar(10);
     }
 
-    printf("%-4s [ poll on requests:  %15u  errors: %27u ]\n", v2->ifa_name, v16, v17);
-    printf("     [ poll off requests: %15u  errors: %27u ]\n", v14, v15);
-    printf("     [ polled packets: %18llu  per poll limit: %19u ]\n", v21, v33);
-    printf("     [ polled bytes: %20llu ]\n", v27);
-    printf("     [ poll interval: %14llu nsec ]\n", v34);
-    printf("     [ sampled packets avg/min/max: %12u / %12u / %12u ]\n", v22, v23, v24);
-    printf("     [ sampled bytes avg/min/max:   %12u / %12u / %12u ]\n", v28, v29, v30);
-    printf("     [ sampled wakeups avg:         %12u ]\n", v18);
-    printf("     [ packets lowat/hiwat threshold: %10u / %10u ]\n", v25, v26);
-    printf("     [ bytes lowat/hiwat threshold:   %10u / %10u ]\n", v31, v32);
-    printf("     [ wakeups lowat/hiwat threshold: %10u / %10u ]\n", v19, v20);
-    printf("     [ mit mode: %24U  cfg idx: %26u ]\n", v36, v43);
-    printf("     [ cfg packets lo/hi threshold: %12u / %12u ]\n", v44, v45);
-    printf("     [ cfg bytes lo/hi threshold:   %12u / %12u ]\n", v46, v47);
-    printf("     [ cfg interval: %15u nsec ]\n", v48);
-    printf("     [ mit interval: %15llu nsec ]\n", v35);
-    printf("     [ mit packets avg/min/max:    %12u / %12u / %12u ]\n", v37, v38, v39);
-    printf("     [ mit bytes avg/min/max:      %12u / %12u / %12u ]\n", v40, v41, v42);
+    printf("%-4s [ poll on requests:  %15u  errors: %27u ]\n", v2->ifa_name, v15, v16);
+    printf("     [ poll off requests: %15u  errors: %27u ]\n", v13, v14);
+    printf("     [ polled packets: %18llu  per poll limit: %19u ]\n", v20, v32);
+    printf("     [ polled bytes: %20llu ]\n", v26);
+    printf("     [ poll interval: %14llu nsec ]\n", v33);
+    printf("     [ sampled packets avg/min/max: %12u / %12u / %12u ]\n", v21, v22, v23);
+    printf("     [ sampled bytes avg/min/max:   %12u / %12u / %12u ]\n", v27, v28, v29);
+    printf("     [ sampled wakeups avg:         %12u ]\n", v17);
+    printf("     [ packets lowat/hiwat threshold: %10u / %10u ]\n", v24, v25);
+    printf("     [ bytes lowat/hiwat threshold:   %10u / %10u ]\n", v30, v31);
+    printf("     [ wakeups lowat/hiwat threshold: %10u / %10u ]\n", v18, v19);
+    printf("     [ mit mode: %24U  cfg idx: %26u ]\n", v35, v42);
+    printf("     [ cfg packets lo/hi threshold: %12u / %12u ]\n", v43, v44);
+    printf("     [ cfg bytes lo/hi threshold:   %12u / %12u ]\n", v45, v46);
+    printf("     [ cfg interval: %15u nsec ]\n", v47);
+    printf("     [ mit interval: %15llu nsec ]\n", v34);
+    printf("     [ mit packets avg/min/max:    %12u / %12u / %12u ]\n", v36, v37, v38);
+    printf("     [ mit bytes avg/min/max:      %12u / %12u / %12u ]\n", v39, v40, v41);
     fflush(__stdoutp);
     goto LABEL_18;
   }
 
-  v7 = "sysctl IFDATA_SUPPLEMENTAL";
+  v6 = "sysctl IFDATA_SUPPLEMENTAL";
 LABEL_29:
-  perror(v7);
+  perror(v6);
 LABEL_30:
-  freeifaddrs(v9);
+  freeifaddrs(v8);
   return close(v0);
 }
 
@@ -3363,10 +3347,7 @@ LABEL_11:
         if (v11 < size)
         {
           v12 = 0;
-          v41 = 0;
-          v42 = 0;
-          v43 = 0;
-          v44 = 0;
+          v33 = 0;
           v13 = 0;
           v14 = 0;
           v15 = (v10 + v11);
@@ -3382,7 +3363,6 @@ LABEL_11:
             {
               if (vflag)
               {
-                v35 = v15[1];
                 printf("got %d twice\n");
               }
             }
@@ -3395,36 +3375,32 @@ LABEL_11:
                 switch(v16)
                 {
                   case 8:
-                    v41 = v15;
                     goto LABEL_23;
                   case 16:
                     v14 = v15;
                     goto LABEL_23;
                   case 32:
-                    v42 = v15;
+                    v33 = v15;
                     goto LABEL_23;
                 }
               }
 
               else
               {
-                switch(v16)
+                if (v16 == 1)
                 {
-                  case 1:
-                    v13 = v15;
-                    goto LABEL_23;
-                  case 2:
-                    v44 = v15;
-                    goto LABEL_23;
-                  case 4:
-                    v43 = v15;
-                    goto LABEL_23;
+                  v13 = v15;
+                  goto LABEL_23;
+                }
+
+                if (v16 == 2 || v16 == 4)
+                {
+                  goto LABEL_23;
                 }
               }
 
               if (vflag >= 3)
               {
-                v36 = v15[1];
                 printf("unexpected kind %d\n");
               }
             }
@@ -3476,7 +3452,7 @@ LABEL_62:
                     v20 = 1;
                   }
 
-                  if ((v20 & 1) != 0 || v42[9] >= 2)
+                  if ((v20 & 1) != 0 || v33[9] >= 2)
                   {
                     if (!Lflag)
                     {
@@ -3572,10 +3548,6 @@ LABEL_86:
 
                       else
                       {
-                        *(v14 + 44);
-                        *(v14 + 44);
-                        v39 = *(v44 + 8);
-                        v40 = *(v43 + 8);
                         printf("%-3.3s%-2.2s %6u %6u  ");
                       }
 
@@ -3599,26 +3571,23 @@ LABEL_86:
 LABEL_115:
                           if (Lflag)
                           {
-                            v33 = 1;
+                            v32 = 1;
                           }
 
                           else
                           {
-                            v33 = v6;
+                            v32 = v6;
                           }
 
-                          if ((v33 & 1) == 0)
+                          if ((v32 & 1) == 0)
                           {
-                            v34 = v42[9];
-                            if (v34 < 0xB)
+                            if (v33[9] < 0xBu)
                             {
-                              v38 = tcpstates[v34];
                               printf("%-11s");
                             }
 
                             else
                             {
-                              v37 = v42[9];
                               printf("%-11d");
                             }
                           }
@@ -3628,7 +3597,7 @@ LABEL_115:
                             printf("%-11s", "           ");
                           }
 
-                          print_socket_stats_data(v13, v44, v43, v41);
+                          print_socket_stats_data(v13);
                           putchar(10);
                           v12 = 0;
                           goto LABEL_34;
@@ -3640,16 +3609,15 @@ LABEL_115:
                           goto LABEL_115;
                         }
 
-                        v29 = *(v14 + 8);
-                        v30 = v14 + 15;
-                        v31 = a2;
-                        v32 = 1;
+                        v28 = *(v14 + 8);
+                        v29 = v14 + 15;
+                        v30 = a2;
+                        v31 = 1;
 LABEL_114:
-                        inetprint(v30, v29, v31, v32);
+                        inetprint(v29, v28, v30, v31);
                         goto LABEL_115;
                       }
 
-                      v28 = *(v14 + 44);
                       if ((v14[9] & 0x40) != 0)
                       {
                         if (v14[11])
@@ -3660,10 +3628,10 @@ LABEL_114:
                             goto LABEL_115;
                           }
 
-                          v29 = *(v14 + 8);
-                          v30 = v14 + 15;
-                          v31 = a2;
-                          v32 = 0;
+                          v28 = *(v14 + 8);
+                          v29 = v14 + 15;
+                          v30 = a2;
+                          v31 = 0;
                           goto LABEL_114;
                         }
 
@@ -3694,10 +3662,10 @@ LABEL_114:
                             goto LABEL_115;
                           }
 
-                          v29 = *(v14 + 8);
-                          v32 = *(v14 + 9) != v29;
-                          v30 = v14 + 15;
-                          v31 = a2;
+                          v28 = *(v14 + 8);
+                          v31 = *(v14 + 9) != v28;
+                          v29 = v14 + 15;
+                          v30 = a2;
                           goto LABEL_114;
                         }
 
@@ -3785,11 +3753,6 @@ uint64_t inetprint(in_addr_t *a1, int a2, const char *a3, int a4)
   v9 = (__str - v7);
   if (!a2 || v8)
   {
-    if (v8)
-    {
-      s_name = v8->s_name;
-    }
-
     snprintf(v7, (v9 + 80), "%.15s ");
   }
 
@@ -7934,10 +7897,10 @@ LABEL_354:
   return result;
 }
 
-void ip6_ifstats()
+void ip6_ifstats(uint64_t a1)
 {
-  v0 = socket(30, 2, 0);
-  if (v0 < 0)
+  v1 = socket(30, 2, 0);
+  if (v1 < 0)
   {
 
     perror("Warning: socket(AF_INET6)");
@@ -7945,43 +7908,43 @@ void ip6_ifstats()
 
   else
   {
-    v1 = v0;
+    v2 = v1;
     if (interval)
     {
-      v2 = vflag < 1;
+      v3 = vflag < 1;
     }
 
     else
     {
-      v2 = 1;
+      v3 = 1;
     }
 
-    if (!v2)
+    if (!v3)
     {
       print_time();
     }
 
-    v70 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
-    v62 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v60 = 0u;
+    v64 = 0u;
     v61 = 0u;
-    v58 = 0u;
+    v62 = 0u;
     v59 = 0u;
-    v56 = 0u;
+    v60 = 0u;
     v57 = 0u;
-    v54 = 0u;
+    v58 = 0u;
     v55 = 0u;
+    v56 = 0u;
     __strlcpy_chk();
-    printf("ip6 on %s:\n", &v54);
-    if (ioctl(v1, 0xC1206953uLL, &v54) < 0)
+    printf("ip6 on %s:\n", &v55);
+    if (ioctl(v2, 0xC1206953uLL, &v55) < 0)
     {
       if (vflag >= 1)
       {
@@ -7991,212 +7954,212 @@ void ip6_ifstats()
 
     else
     {
-      v3 = v55;
-      if (v55 || sflag <= 1)
+      v4 = v56;
+      if (v56 || sflag <= 1)
       {
-        v5 = plural(v55);
-        printf("\t%llu total input datagram%s\n", v3, v5);
-        v4 = sflag < 2;
+        v6 = plural(v56);
+        printf("\t%llu total input datagram%s\n", v4, v6);
+        v5 = sflag < 2;
       }
 
       else
       {
-        v4 = 0;
+        v5 = 0;
       }
 
-      v6 = *(&v55 + 1);
-      if (*(&v55 + 1) || v4)
+      v7 = *(&v56 + 1);
+      if (*(&v56 + 1) || v5)
       {
-        v7 = plural(SDWORD2(v55));
-        printf("\t%llu datagram%s with invalid header received\n", v6, v7);
-        v4 = sflag < 2;
+        v8 = plural(SDWORD2(v56));
+        printf("\t%llu datagram%s with invalid header received\n", v7, v8);
+        v5 = sflag < 2;
       }
 
-      v8 = v56;
-      if (v56 || v4)
+      v9 = v57;
+      if (v57 || v5)
       {
-        v9 = plural(v56);
-        printf("\t%llu datagram%s exceeded MTU received\n", v8, v9);
-        v4 = sflag < 2;
+        v10 = plural(v57);
+        printf("\t%llu datagram%s exceeded MTU received\n", v9, v10);
+        v5 = sflag < 2;
       }
 
-      v10 = *(&v56 + 1);
-      if (*(&v56 + 1) || v4)
+      v11 = *(&v57 + 1);
+      if (*(&v57 + 1) || v5)
       {
-        v11 = plural(SDWORD2(v56));
-        printf("\t%llu datagram%s with no route received\n", v10, v11);
-        v4 = sflag < 2;
+        v12 = plural(SDWORD2(v57));
+        printf("\t%llu datagram%s with no route received\n", v11, v12);
+        v5 = sflag < 2;
       }
 
-      v12 = v57;
-      if (v57 || v4)
+      v13 = v58;
+      if (v58 || v5)
       {
-        v13 = plural(v57);
-        printf("\t%llu datagram%s with invalid dst received\n", v12, v13);
-        v4 = sflag < 2;
+        v14 = plural(v58);
+        printf("\t%llu datagram%s with invalid dst received\n", v13, v14);
+        v5 = sflag < 2;
       }
 
-      v14 = *(&v57 + 1);
-      if (*(&v57 + 1) || v4)
+      v15 = *(&v58 + 1);
+      if (*(&v58 + 1) || v5)
       {
-        v15 = plural(SDWORD2(v57));
-        printf("\t%llu datagram%s with unknown proto received\n", v14, v15);
-        v4 = sflag < 2;
+        v16 = plural(SDWORD2(v58));
+        printf("\t%llu datagram%s with unknown proto received\n", v15, v16);
+        v5 = sflag < 2;
       }
 
-      v16 = v58;
-      if (v58 || v4)
+      v17 = v59;
+      if (v59 || v5)
       {
-        v17 = plural(v58);
-        printf("\t%llu truncated datagram%s received\n", v16, v17);
-        v4 = sflag < 2;
+        v18 = plural(v59);
+        printf("\t%llu truncated datagram%s received\n", v17, v18);
+        v5 = sflag < 2;
       }
 
-      v18 = *(&v58 + 1);
-      if (*(&v58 + 1) || v4)
+      v19 = *(&v59 + 1);
+      if (*(&v59 + 1) || v5)
       {
-        v19 = plural(SDWORD2(v58));
-        printf("\t%llu input datagram%s discarded\n", v18, v19);
-        v4 = sflag < 2;
+        v20 = plural(SDWORD2(v59));
+        printf("\t%llu input datagram%s discarded\n", v19, v20);
+        v5 = sflag < 2;
       }
 
-      v20 = v59;
-      if (v59 || v4)
+      v21 = v60;
+      if (v60 || v5)
       {
-        v21 = plural(v59);
-        printf("\t%llu datagram%s delivered to an upper layer protocol\n", v20, v21);
-        v4 = sflag < 2;
+        v22 = plural(v60);
+        printf("\t%llu datagram%s delivered to an upper layer protocol\n", v21, v22);
+        v5 = sflag < 2;
       }
 
-      v22 = *(&v59 + 1);
-      if (*(&v59 + 1) || v4)
+      v23 = *(&v60 + 1);
+      if (*(&v60 + 1) || v5)
       {
-        v23 = plural(SDWORD2(v59));
-        printf("\t%llu datagram%s forwarded to this interface\n", v22, v23);
-        v4 = sflag < 2;
+        v24 = plural(SDWORD2(v60));
+        printf("\t%llu datagram%s forwarded to this interface\n", v23, v24);
+        v5 = sflag < 2;
       }
 
-      v24 = v60;
-      if (v60 || v4)
+      v25 = v61;
+      if (v61 || v5)
       {
-        v25 = plural(v60);
-        printf("\t%llu datagram%s sent from an upper layer protocol\n", v24, v25);
-        v4 = sflag < 2;
+        v26 = plural(v61);
+        printf("\t%llu datagram%s sent from an upper layer protocol\n", v25, v26);
+        v5 = sflag < 2;
       }
 
-      v26 = *(&v60 + 1);
-      if (*(&v60 + 1) || v4)
+      v27 = *(&v61 + 1);
+      if (*(&v61 + 1) || v5)
       {
-        v27 = plural(SDWORD2(v60));
-        printf("\t%llu total discarded output datagram%s\n", v26, v27);
-        v4 = sflag < 2;
+        v28 = plural(SDWORD2(v61));
+        printf("\t%llu total discarded output datagram%s\n", v27, v28);
+        v5 = sflag < 2;
       }
 
-      v28 = v61;
-      if (v61 || v4)
+      v29 = v62;
+      if (v62 || v5)
       {
-        v29 = plural(v61);
-        printf("\t%llu output datagram%s fragmented\n", v28, v29);
-        v4 = sflag < 2;
+        v30 = plural(v62);
+        printf("\t%llu output datagram%s fragmented\n", v29, v30);
+        v5 = sflag < 2;
       }
 
-      v30 = *(&v61 + 1);
-      if (*(&v61 + 1) || v4)
+      v31 = *(&v62 + 1);
+      if (*(&v62 + 1) || v5)
       {
-        v31 = plural(SDWORD2(v61));
-        printf("\t%llu output datagram%s failed on fragment\n", v30, v31);
-        v4 = sflag < 2;
+        v32 = plural(SDWORD2(v62));
+        printf("\t%llu output datagram%s failed on fragment\n", v31, v32);
+        v5 = sflag < 2;
       }
 
-      v32 = v62;
-      if (v62 || v4)
+      v33 = v63;
+      if (v63 || v5)
       {
-        v33 = plural(v62);
-        printf("\t%llu output datagram%s succeeded on fragment\n", v32, v33);
-        v4 = sflag < 2;
+        v34 = plural(v63);
+        printf("\t%llu output datagram%s succeeded on fragment\n", v33, v34);
+        v5 = sflag < 2;
       }
 
-      v34 = *(&v62 + 1);
-      if (*(&v62 + 1) || v4)
+      v35 = *(&v63 + 1);
+      if (*(&v63 + 1) || v5)
       {
-        v35 = plural(SDWORD2(v62));
-        printf("\t%llu incoming datagram%s fragmented\n", v34, v35);
-        v4 = sflag < 2;
+        v36 = plural(SDWORD2(v63));
+        printf("\t%llu incoming datagram%s fragmented\n", v35, v36);
+        v5 = sflag < 2;
       }
 
-      v36 = v63;
-      if (v63 || v4)
+      v37 = v64;
+      if (v64 || v5)
       {
-        v37 = plural(v63);
-        printf("\t%llu datagram%s reassembled\n", v36, v37);
-        v4 = sflag < 2;
+        v38 = plural(v64);
+        printf("\t%llu datagram%s reassembled\n", v37, v38);
+        v5 = sflag < 2;
       }
 
-      v38 = *(&v63 + 1);
-      if (*(&v63 + 1) || v4)
+      v39 = *(&v64 + 1);
+      if (*(&v64 + 1) || v5)
       {
-        v39 = plural(SDWORD2(v63));
-        printf("\t%llu atomic fragments%s received\n", v38, v39);
-        v4 = sflag < 2;
+        v40 = plural(SDWORD2(v64));
+        printf("\t%llu atomic fragments%s received\n", v39, v40);
+        v5 = sflag < 2;
       }
 
-      v40 = v64;
-      if (v64 || v4)
+      v41 = v65;
+      if (v65 || v5)
       {
-        v41 = plural(v64);
-        printf("\t%llu datagram%s failed on reassembling\n", v40, v41);
-        v4 = sflag < 2;
+        v42 = plural(v65);
+        printf("\t%llu datagram%s failed on reassembling\n", v41, v42);
+        v5 = sflag < 2;
       }
 
-      v42 = *(&v64 + 1);
-      if (*(&v64 + 1) || v4)
+      v43 = *(&v65 + 1);
+      if (*(&v65 + 1) || v5)
       {
-        v43 = plural(SDWORD2(v64));
-        printf("\t%llu multicast datagram%s received\n", v42, v43);
-        v4 = sflag < 2;
+        v44 = plural(SDWORD2(v65));
+        printf("\t%llu multicast datagram%s received\n", v43, v44);
+        v5 = sflag < 2;
       }
 
-      v44 = v65;
-      if (v65 || v4)
+      v45 = v66;
+      if (v66 || v5)
       {
-        v45 = plural(v65);
-        printf("\t%llu multicast datagram%s sent\n", v44, v45);
-        v4 = sflag < 2;
+        v46 = plural(v66);
+        printf("\t%llu multicast datagram%s sent\n", v45, v46);
+        v5 = sflag < 2;
       }
 
-      v46 = *(&v65 + 1);
-      if (*(&v65 + 1) || v4)
+      v47 = *(&v66 + 1);
+      if (*(&v66 + 1) || v5)
       {
-        v47 = plural(SDWORD2(v65));
-        printf("\t%llu ICMPv6 packet%s received for unreachable destination\n", v46, v47);
-        v4 = sflag < 2;
+        v48 = plural(SDWORD2(v66));
+        printf("\t%llu ICMPv6 packet%s received for unreachable destination\n", v47, v48);
+        v5 = sflag < 2;
       }
 
-      v48 = v66;
-      if (v66 || v4)
+      v49 = v67;
+      if (v67 || v5)
       {
-        v49 = plural(v66);
-        printf("\t%llu address expiry event%s reported\n", v48, v49);
-        v4 = sflag < 2;
+        v50 = plural(v67);
+        printf("\t%llu address expiry event%s reported\n", v49, v50);
+        v5 = sflag < 2;
       }
 
-      v50 = *(&v66 + 1);
-      if (*(&v66 + 1) || v4)
+      v51 = *(&v67 + 1);
+      if (*(&v67 + 1) || v5)
       {
-        v51 = plural(SDWORD2(v66));
-        printf("\t%llu prefix expiry event%s reported\n", v50, v51);
-        v4 = sflag < 2;
+        v52 = plural(SDWORD2(v67));
+        printf("\t%llu prefix expiry event%s reported\n", v51, v52);
+        v5 = sflag < 2;
       }
 
-      v52 = v67;
-      if (v67 || v4)
+      v53 = v68;
+      if (v68 || v5)
       {
-        v53 = plural(v67);
-        printf("\t%llu default router expiry event%s reported\n", v52, v53);
+        v54 = plural(v68);
+        printf("\t%llu default router expiry event%s reported\n", v53, v54);
       }
     }
 
-    close(v1);
+    close(v2);
   }
 }
 
@@ -8444,10 +8407,10 @@ uint64_t icmp6_stats()
   return result;
 }
 
-void icmp6_ifstats()
+void icmp6_ifstats(uint64_t a1)
 {
-  v0 = socket(30, 2, 0);
-  if (v0 < 0)
+  v1 = socket(30, 2, 0);
+  if (v1 < 0)
   {
 
     perror("Warning: socket(AF_INET6)");
@@ -8455,43 +8418,43 @@ void icmp6_ifstats()
 
   else
   {
-    v1 = v0;
+    v2 = v1;
     if (interval)
     {
-      v2 = vflag < 1;
+      v3 = vflag < 1;
     }
 
     else
     {
-      v2 = 1;
+      v3 = 1;
     }
 
-    if (!v2)
+    if (!v3)
     {
       print_time();
     }
 
-    v88 = 0u;
     v89 = 0u;
-    v86 = 0u;
+    v90 = 0u;
     v87 = 0u;
-    v84 = 0u;
+    v88 = 0u;
     v85 = 0u;
-    v82 = 0u;
+    v86 = 0u;
     v83 = 0u;
-    v80 = 0u;
+    v84 = 0u;
     v81 = 0u;
-    v78 = 0u;
+    v82 = 0u;
     v79 = 0u;
-    v76 = 0u;
+    v80 = 0u;
     v77 = 0u;
-    v74 = 0u;
+    v78 = 0u;
     v75 = 0u;
-    v72 = 0u;
+    v76 = 0u;
     v73 = 0u;
+    v74 = 0u;
     __strlcpy_chk();
-    printf("icmp6 on %s:\n", &v72);
-    if (ioctl(v1, 0xC1206954uLL, &v72) < 0)
+    printf("icmp6 on %s:\n", &v73);
+    if (ioctl(v2, 0xC1206954uLL, &v73) < 0)
     {
       if (vflag >= 1)
       {
@@ -8501,284 +8464,284 @@ void icmp6_ifstats()
 
     else
     {
-      v3 = v73;
-      if (v73 || sflag <= 1)
+      v4 = v74;
+      if (v74 || sflag <= 1)
       {
-        v5 = plural(v73);
-        printf("\t%llu total input message%s\n", v3, v5);
-        v4 = sflag < 2;
+        v6 = plural(v74);
+        printf("\t%llu total input message%s\n", v4, v6);
+        v5 = sflag < 2;
       }
 
       else
       {
-        v4 = 0;
+        v5 = 0;
       }
 
-      v6 = *(&v73 + 1);
-      if (*(&v73 + 1) || v4)
+      v7 = *(&v74 + 1);
+      if (*(&v74 + 1) || v5)
       {
-        v7 = plural(SDWORD2(v73));
-        printf("\t%llu total input error message%s\n", v6, v7);
-        v4 = sflag < 2;
+        v8 = plural(SDWORD2(v74));
+        printf("\t%llu total input error message%s\n", v7, v8);
+        v5 = sflag < 2;
       }
 
-      v8 = v74;
-      if (v74 || v4)
+      v9 = v75;
+      if (v75 || v5)
       {
-        v9 = plural(v74);
-        printf("\t%llu input destination unreachable error%s\n", v8, v9);
-        v4 = sflag < 2;
+        v10 = plural(v75);
+        printf("\t%llu input destination unreachable error%s\n", v9, v10);
+        v5 = sflag < 2;
       }
 
-      v10 = *(&v74 + 1);
-      if (*(&v74 + 1) || v4)
+      v11 = *(&v75 + 1);
+      if (*(&v75 + 1) || v5)
       {
-        v11 = plural(SDWORD2(v74));
-        printf("\t%llu input administratively prohibited error%s\n", v10, v11);
-        v4 = sflag < 2;
+        v12 = plural(SDWORD2(v75));
+        printf("\t%llu input administratively prohibited error%s\n", v11, v12);
+        v5 = sflag < 2;
       }
 
-      v12 = v75;
-      if (v75 || v4)
+      v13 = v76;
+      if (v76 || v5)
       {
-        v13 = plural(v75);
-        printf("\t%llu input time exceeded error%s\n", v12, v13);
-        v4 = sflag < 2;
+        v14 = plural(v76);
+        printf("\t%llu input time exceeded error%s\n", v13, v14);
+        v5 = sflag < 2;
       }
 
-      v14 = *(&v75 + 1);
-      if (*(&v75 + 1) || v4)
+      v15 = *(&v76 + 1);
+      if (*(&v76 + 1) || v5)
       {
-        v15 = plural(SDWORD2(v75));
-        printf("\t%llu input parameter problem error%s\n", v14, v15);
-        v4 = sflag < 2;
+        v16 = plural(SDWORD2(v76));
+        printf("\t%llu input parameter problem error%s\n", v15, v16);
+        v5 = sflag < 2;
       }
 
-      v16 = v76;
-      if (v76 || v4)
+      v17 = v77;
+      if (v77 || v5)
       {
-        v17 = plural(v76);
-        printf("\t%llu input packet too big error%s\n", v16, v17);
-        v4 = sflag < 2;
+        v18 = plural(v77);
+        printf("\t%llu input packet too big error%s\n", v17, v18);
+        v5 = sflag < 2;
       }
 
-      v18 = *(&v76 + 1);
-      if (*(&v76 + 1) || v4)
+      v19 = *(&v77 + 1);
+      if (*(&v77 + 1) || v5)
       {
-        v19 = plural(SDWORD2(v76));
-        printf("\t%llu input echo request%s\n", v18, v19);
-        v4 = sflag < 2;
+        v20 = plural(SDWORD2(v77));
+        printf("\t%llu input echo request%s\n", v19, v20);
+        v5 = sflag < 2;
       }
 
-      v20 = v77;
-      if (v77 || v4)
+      v21 = v78;
+      if (v78 || v5)
       {
-        v21 = plural(v77);
-        printf("\t%llu input echo reply%s\n", v20, v21);
-        v4 = sflag < 2;
+        v22 = plural(v78);
+        printf("\t%llu input echo reply%s\n", v21, v22);
+        v5 = sflag < 2;
       }
 
-      v22 = *(&v77 + 1);
-      if (*(&v77 + 1) || v4)
+      v23 = *(&v78 + 1);
+      if (*(&v78 + 1) || v5)
       {
-        v23 = plural(SDWORD2(v77));
-        printf("\t%llu input router solicitation%s\n", v22, v23);
-        v4 = sflag < 2;
+        v24 = plural(SDWORD2(v78));
+        printf("\t%llu input router solicitation%s\n", v23, v24);
+        v5 = sflag < 2;
       }
 
-      v24 = v78;
-      if (v78 || v4)
+      v25 = v79;
+      if (v79 || v5)
       {
-        v25 = plural(v78);
-        printf("\t%llu input router advertisement%s\n", v24, v25);
-        v4 = sflag < 2;
+        v26 = plural(v79);
+        printf("\t%llu input router advertisement%s\n", v25, v26);
+        v5 = sflag < 2;
       }
 
-      v26 = *(&v78 + 1);
-      if (*(&v78 + 1) || v4)
+      v27 = *(&v79 + 1);
+      if (*(&v79 + 1) || v5)
       {
-        v27 = plural(SDWORD2(v78));
-        printf("\t%llu input neighbor solicitation%s\n", v26, v27);
-        v4 = sflag < 2;
+        v28 = plural(SDWORD2(v79));
+        printf("\t%llu input neighbor solicitation%s\n", v27, v28);
+        v5 = sflag < 2;
       }
 
-      v28 = v79;
-      if (v79 || v4)
+      v29 = v80;
+      if (v80 || v5)
       {
-        v29 = plural(v79);
-        printf("\t%llu input neighbor advertisement%s\n", v28, v29);
-        v4 = sflag < 2;
+        v30 = plural(v80);
+        printf("\t%llu input neighbor advertisement%s\n", v29, v30);
+        v5 = sflag < 2;
       }
 
-      v30 = *(&v79 + 1);
-      if (*(&v79 + 1) || v4)
+      v31 = *(&v80 + 1);
+      if (*(&v80 + 1) || v5)
       {
-        v31 = plural(SDWORD2(v79));
-        printf("\t%llu input redirect%s\n", v30, v31);
-        v4 = sflag < 2;
+        v32 = plural(SDWORD2(v80));
+        printf("\t%llu input redirect%s\n", v31, v32);
+        v5 = sflag < 2;
       }
 
-      v32 = v80;
-      if (v80 || v4)
+      v33 = v81;
+      if (v81 || v5)
       {
-        v33 = plural(v80);
-        printf("\t%llu input MLD query%s\n", v32, v33);
-        v4 = sflag < 2;
+        v34 = plural(v81);
+        printf("\t%llu input MLD query%s\n", v33, v34);
+        v5 = sflag < 2;
       }
 
-      v34 = *(&v80 + 1);
-      if (*(&v80 + 1) || v4)
+      v35 = *(&v81 + 1);
+      if (*(&v81 + 1) || v5)
       {
-        v35 = plural(SDWORD2(v80));
-        printf("\t%llu input MLD report%s\n", v34, v35);
-        v4 = sflag < 2;
+        v36 = plural(SDWORD2(v81));
+        printf("\t%llu input MLD report%s\n", v35, v36);
+        v5 = sflag < 2;
       }
 
-      v36 = v81;
-      if (v81 || v4)
+      v37 = v82;
+      if (v82 || v5)
       {
-        v37 = plural(v81);
-        printf("\t%llu input MLD done%s\n", v36, v37);
-        v4 = sflag < 2;
+        v38 = plural(v82);
+        printf("\t%llu input MLD done%s\n", v37, v38);
+        v5 = sflag < 2;
       }
 
-      v38 = *(&v81 + 1);
-      if (*(&v81 + 1) || v4)
+      v39 = *(&v82 + 1);
+      if (*(&v82 + 1) || v5)
       {
-        v39 = plural(SDWORD2(v81));
-        printf("\t%llu total output message%s\n", v38, v39);
-        v4 = sflag < 2;
+        v40 = plural(SDWORD2(v82));
+        printf("\t%llu total output message%s\n", v39, v40);
+        v5 = sflag < 2;
       }
 
-      v40 = v82;
-      if (v82 || v4)
+      v41 = v83;
+      if (v83 || v5)
       {
-        v41 = plural(v82);
-        printf("\t%llu total output error message%s\n", v40, v41);
-        v4 = sflag < 2;
+        v42 = plural(v83);
+        printf("\t%llu total output error message%s\n", v41, v42);
+        v5 = sflag < 2;
       }
 
-      v42 = *(&v82 + 1);
-      if (*(&v82 + 1) || v4)
+      v43 = *(&v83 + 1);
+      if (*(&v83 + 1) || v5)
       {
-        v43 = plural(SDWORD2(v82));
-        printf("\t%llu output destination unreachable error%s\n", v42, v43);
-        v4 = sflag < 2;
+        v44 = plural(SDWORD2(v83));
+        printf("\t%llu output destination unreachable error%s\n", v43, v44);
+        v5 = sflag < 2;
       }
 
-      v44 = v83;
-      if (v83 || v4)
+      v45 = v84;
+      if (v84 || v5)
       {
-        v45 = plural(v83);
-        printf("\t%llu output administratively prohibited error%s\n", v44, v45);
-        v4 = sflag < 2;
+        v46 = plural(v84);
+        printf("\t%llu output administratively prohibited error%s\n", v45, v46);
+        v5 = sflag < 2;
       }
 
-      v46 = *(&v83 + 1);
-      if (*(&v83 + 1) || v4)
+      v47 = *(&v84 + 1);
+      if (*(&v84 + 1) || v5)
       {
-        v47 = plural(SDWORD2(v83));
-        printf("\t%llu output time exceeded error%s\n", v46, v47);
-        v4 = sflag < 2;
+        v48 = plural(SDWORD2(v84));
+        printf("\t%llu output time exceeded error%s\n", v47, v48);
+        v5 = sflag < 2;
       }
 
-      v48 = v84;
-      if (v84 || v4)
+      v49 = v85;
+      if (v85 || v5)
       {
-        v49 = plural(v84);
-        printf("\t%llu output parameter problem error%s\n", v48, v49);
-        v4 = sflag < 2;
+        v50 = plural(v85);
+        printf("\t%llu output parameter problem error%s\n", v49, v50);
+        v5 = sflag < 2;
       }
 
-      v50 = *(&v84 + 1);
-      if (*(&v84 + 1) || v4)
+      v51 = *(&v85 + 1);
+      if (*(&v85 + 1) || v5)
       {
-        v51 = plural(SDWORD2(v84));
-        printf("\t%llu output packet too big error%s\n", v50, v51);
-        v4 = sflag < 2;
+        v52 = plural(SDWORD2(v85));
+        printf("\t%llu output packet too big error%s\n", v51, v52);
+        v5 = sflag < 2;
       }
 
-      v52 = v85;
-      if (v85 || v4)
+      v53 = v86;
+      if (v86 || v5)
       {
-        v53 = plural(v85);
-        printf("\t%llu output echo request%s\n", v52, v53);
-        v4 = sflag < 2;
+        v54 = plural(v86);
+        printf("\t%llu output echo request%s\n", v53, v54);
+        v5 = sflag < 2;
       }
 
-      v54 = *(&v85 + 1);
-      if (*(&v85 + 1) || v4)
+      v55 = *(&v86 + 1);
+      if (*(&v86 + 1) || v5)
       {
-        v55 = plural(SDWORD2(v85));
-        printf("\t%llu output echo reply%s\n", v54, v55);
-        v4 = sflag < 2;
+        v56 = plural(SDWORD2(v86));
+        printf("\t%llu output echo reply%s\n", v55, v56);
+        v5 = sflag < 2;
       }
 
-      v56 = v86;
-      if (v86 || v4)
+      v57 = v87;
+      if (v87 || v5)
       {
-        v57 = plural(v86);
-        printf("\t%llu output router solicitation%s\n", v56, v57);
-        v4 = sflag < 2;
+        v58 = plural(v87);
+        printf("\t%llu output router solicitation%s\n", v57, v58);
+        v5 = sflag < 2;
       }
 
-      v58 = *(&v86 + 1);
-      if (*(&v86 + 1) || v4)
+      v59 = *(&v87 + 1);
+      if (*(&v87 + 1) || v5)
       {
-        v59 = plural(SDWORD2(v86));
-        printf("\t%llu output router advertisement%s\n", v58, v59);
-        v4 = sflag < 2;
+        v60 = plural(SDWORD2(v87));
+        printf("\t%llu output router advertisement%s\n", v59, v60);
+        v5 = sflag < 2;
       }
 
-      v60 = v87;
-      if (v87 || v4)
+      v61 = v88;
+      if (v88 || v5)
       {
-        v61 = plural(v87);
-        printf("\t%llu output neighbor solicitation%s\n", v60, v61);
-        v4 = sflag < 2;
+        v62 = plural(v88);
+        printf("\t%llu output neighbor solicitation%s\n", v61, v62);
+        v5 = sflag < 2;
       }
 
-      v62 = *(&v87 + 1);
-      if (*(&v87 + 1) || v4)
+      v63 = *(&v88 + 1);
+      if (*(&v88 + 1) || v5)
       {
-        v63 = plural(SDWORD2(v87));
-        printf("\t%llu output neighbor advertisement%s\n", v62, v63);
-        v4 = sflag < 2;
+        v64 = plural(SDWORD2(v88));
+        printf("\t%llu output neighbor advertisement%s\n", v63, v64);
+        v5 = sflag < 2;
       }
 
-      v64 = v88;
-      if (v88 || v4)
+      v65 = v89;
+      if (v89 || v5)
       {
-        v65 = plural(v88);
-        printf("\t%llu output redirect%s\n", v64, v65);
-        v4 = sflag < 2;
+        v66 = plural(v89);
+        printf("\t%llu output redirect%s\n", v65, v66);
+        v5 = sflag < 2;
       }
 
-      v66 = *(&v88 + 1);
-      if (*(&v88 + 1) || v4)
+      v67 = *(&v89 + 1);
+      if (*(&v89 + 1) || v5)
       {
-        v67 = plural(SDWORD2(v88));
-        printf("\t%llu output MLD query%s\n", v66, v67);
-        v4 = sflag < 2;
+        v68 = plural(SDWORD2(v89));
+        printf("\t%llu output MLD query%s\n", v67, v68);
+        v5 = sflag < 2;
       }
 
-      v68 = v89;
-      if (v89 || v4)
+      v69 = v90;
+      if (v90 || v5)
       {
-        v69 = plural(v89);
-        printf("\t%llu output MLD report%s\n", v68, v69);
-        v4 = sflag < 2;
+        v70 = plural(v90);
+        printf("\t%llu output MLD report%s\n", v69, v70);
+        v5 = sflag < 2;
       }
 
-      v70 = *(&v89 + 1);
-      if (*(&v89 + 1) || v4)
+      v71 = *(&v90 + 1);
+      if (*(&v90 + 1) || v5)
       {
-        v71 = plural(SDWORD2(v89));
-        printf("\t%llu output MLD done%s\n", v70, v71);
+        v72 = plural(SDWORD2(v90));
+        printf("\t%llu output MLD done%s\n", v71, v72);
       }
     }
 
-    close(v1);
+    close(v2);
   }
 }
 
@@ -8905,7 +8868,7 @@ void rip6_stats(uint64_t a1, const char *a2)
   }
 }
 
-uint64_t inet6print(_DWORD *a1, int a2, const char *a3, int a4)
+uint64_t inet6print(unsigned int *a1, int a2, const char *a3, int a4)
 {
   if (lflag)
   {
@@ -8968,11 +8931,6 @@ LABEL_18:
   v13 = (__str - v9);
   if (!a2 || v10)
   {
-    if (v10)
-    {
-      s_name = v10->s_name;
-    }
-
     snprintf(v9, (v13 + 80), "%.15s");
   }
 
@@ -8983,28 +8941,28 @@ LABEL_18:
 
   if (Aflag)
   {
-    v15 = 18;
+    v14 = 18;
   }
 
   else
   {
-    v15 = 22;
+    v14 = 22;
   }
 
   if (lflag)
   {
-    v16 = 45;
+    v15 = 45;
   }
 
   else
   {
-    v16 = v15;
+    v15 = v14;
   }
 
-  return printf("%-*.*s ", v16, v16, __str);
+  return printf("%-*.*s ", v15, v15, __str);
 }
 
-void *inet6name(_DWORD *a1)
+char *inet6name(unsigned int *a1)
 {
   v2 = nflag;
   if ((inet6name_first & 1) == 0 && !nflag)
@@ -9050,7 +9008,8 @@ void *inet6name(_DWORD *a1)
   v11 = *a1;
   if ((*a1 || a1[1] || a1[2] || a1[3]) && !v4)
   {
-    *&v13[8] = 0uLL;
+    *&v13[8] = 0;
+    *&v13[16] = 0;
     v14 = 0;
     *v13 = 7708;
     *&v13[8] = *a1;
@@ -9080,7 +9039,7 @@ LABEL_32:
 
 LABEL_34:
   __strlcpy_chk();
-  return &inet6name_line;
+  return inet6name_line;
 }
 
 uint64_t ipsec_stats(int a1, char *__s1)
@@ -9561,14 +9520,12 @@ uint64_t ipsec_hist(uint64_t result, uint64_t a2, uint64_t a3, const char *a4)
           v11 += 2;
           if (v12 == v8)
           {
-            v14 = *(v7 + 8 * v8) - *(a2 + 8 * v8);
             result = printf("\t\t%s: %llu\n");
             goto LABEL_11;
           }
         }
       }
 
-      v13 = *(v7 + 8 * v8) - *(a2 + 8 * v8);
       result = printf("\t\t#%ld: %llu\n");
 LABEL_11:
       v10 = 0;

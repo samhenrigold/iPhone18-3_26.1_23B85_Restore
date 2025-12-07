@@ -1,5 +1,6 @@
 @interface _EXRunningLibXPCServiceExtension
 - (_TtC19ExtensionFoundation32_EXRunningLibXPCServiceExtension)init;
+- (int)_startWithArguments:(const char *)arguments count:(int)count;
 - (void)resume;
 @end
 
@@ -23,6 +24,15 @@
   v6.receiver = self;
   v6.super_class = type metadata accessor for _EXRunningLibXPCServiceExtension();
   return [(_EXRunningExtension *)&v6 init];
+}
+
+- (int)_startWithArguments:(const char *)arguments count:(int)count
+{
+  v4 = *&count;
+  selfCopy = self;
+  LODWORD(v4) = _EXRunningLibXPCServiceExtension._start(withArguments:count:)(arguments, v4);
+
+  return v4;
 }
 
 - (void)resume

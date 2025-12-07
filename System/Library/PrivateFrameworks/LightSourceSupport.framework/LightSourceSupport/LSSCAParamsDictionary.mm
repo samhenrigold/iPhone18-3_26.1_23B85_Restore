@@ -56,17 +56,15 @@
 
 - (id)keyEnumerator
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CDA9F8];
-  v8[0] = *MEMORY[0x277CDA9F0];
-  v8[1] = v2;
+  v7[0] = *MEMORY[0x277CDA9F0];
+  v7[1] = v2;
   v3 = *MEMORY[0x277CDAA00];
-  v8[2] = *MEMORY[0x277CDAA08];
-  v8[3] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
+  v7[2] = *MEMORY[0x277CDAA08];
+  v7[3] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
   objectEnumerator = [v4 objectEnumerator];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return objectEnumerator;
 }

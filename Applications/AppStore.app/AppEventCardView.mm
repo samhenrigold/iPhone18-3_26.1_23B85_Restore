@@ -16,20 +16,22 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = type metadata accessor for AppEventCardLayout(0);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  height = fits.height;
+  width = fits.width;
+  v6 = type metadata accessor for AppEventCardLayout(0);
+  __chkstk_darwin(v6 - 8);
+  v8 = (&v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   selfCopy = self;
-  sub_100629FBC(v6);
-  sub_100770A88(selfCopy, v6);
-  v9 = v8;
+  sub_100629FBC(v8);
+  sub_100770A88(selfCopy, v8, width, height);
   v11 = v10;
+  v13 = v12;
 
-  sub_1001A9220(v6);
-  v12 = v9;
-  v13 = v11;
-  result.height = v13;
-  result.width = v12;
+  sub_1001A9220(v8);
+  v14 = v11;
+  v15 = v13;
+  result.height = v15;
+  result.width = v14;
   return result;
 }
 
@@ -38,11 +40,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore16AppEventCardView_lockupViewTappedAction);
   if (v3)
   {
+    v4 = *&self->shadowView[OBJC_IVAR____TtC8AppStore16AppEventCardView_lockupViewTappedAction];
     selfCopy = self;
-    v5 = sub_10000827C(v3);
-    v3(v5);
+    v6 = sub_10000827C(v3, v4);
+    v3(v6);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v4);
   }
 }
 

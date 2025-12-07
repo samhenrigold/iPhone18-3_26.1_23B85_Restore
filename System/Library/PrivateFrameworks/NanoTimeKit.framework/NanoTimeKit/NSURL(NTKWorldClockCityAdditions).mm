@@ -8,7 +8,7 @@
 + (id)nwcCurrentLocationURLForLatitude:()NTKWorldClockCityAdditions longitude:
 {
   v3 = MEMORY[0x277CCACA8];
-  v4 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+  v4 = [MEMORY[0x277CCABB0] numberWithDouble:self];
   stringValue = [v4 stringValue];
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:a2];
   stringValue2 = [v6 stringValue];

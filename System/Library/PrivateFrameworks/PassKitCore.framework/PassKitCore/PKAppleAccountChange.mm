@@ -43,9 +43,9 @@
 
     else
     {
-      v17 = [v14 isEqualToString:v13];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-      if (v17)
+      if (isEqualToString)
       {
         goto LABEL_12;
       }

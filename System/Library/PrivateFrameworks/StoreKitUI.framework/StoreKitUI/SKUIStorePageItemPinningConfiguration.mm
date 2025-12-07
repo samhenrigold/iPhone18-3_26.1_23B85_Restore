@@ -93,76 +93,26 @@
 
 - (void)invalidatePinningContentInset
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIStorePageItemPinningConfiguration *)v3 invalidatePinningContentInset:v4];
-      }
-    }
-  }
-
-  v11 = *(MEMORY[0x277D768C8] + 16);
-  *&self->_pinningContentInset.top = *MEMORY[0x277D768C8];
-  *&self->_pinningContentInset.bottom = v11;
-  self->_hasValidPinningContentInset = 0;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageItemPinningConfiguration invalidatePinningContentInset]";
 }
 
 - (void)invalidatePinningStyle
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIStorePageItemPinningConfiguration *)v3 invalidatePinningStyle:v4];
-      }
-    }
-  }
-
-  self->_pinningStyle = 0;
-  self->_hasValidPinningStyle = 0;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageItemPinningConfiguration invalidatePinningStyle]";
 }
 
 - (void)invalidatePinningGroup
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIStorePageItemPinningConfiguration *)v3 invalidatePinningGroup:v4];
-      }
-    }
-  }
-
-  self->_pinningGroup = 0;
-  self->_hasValidPinningGroup = 0;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageItemPinningConfiguration invalidatePinningGroup]";
 }
 
 - (void)invalidatePinningTransitionStyle
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIStorePageItemPinningConfiguration *)v3 invalidatePinningTransitionStyle:v4];
-      }
-    }
-  }
-
-  self->_pinningTransitionStyle = 0;
-  self->_hasValidPinningTransitionStyle = 0;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageItemPinningConfiguration invalidatePinningTransitionStyle]";
 }
 
 - (UIEdgeInsets)pinningContentInset
@@ -176,6 +126,30 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)setPinningContentInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageItemPinningConfiguration setPinningContentInset:]";
+}
+
+- (void)setPinningStyle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageItemPinningConfiguration setPinningStyle:]";
+}
+
+- (void)setPinningGroup:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageItemPinningConfiguration setPinningGroup:]";
+}
+
+- (void)setPinningTransitionStyle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStorePageItemPinningConfiguration setPinningTransitionStyle:]";
 }
 
 @end

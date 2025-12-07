@@ -56,11 +56,12 @@
 
 - (id)recordIdentifierForKey:(id)key
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = v4;
 
-  v3.super.isa = sub_100178E68().super.isa;
+  v6.super.isa = sub_100178E68(v3, v5).super.isa;
 
-  return v3.super.isa;
+  return v6.super.isa;
 }
 
 @end

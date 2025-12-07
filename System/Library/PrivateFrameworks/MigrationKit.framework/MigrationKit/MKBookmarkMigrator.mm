@@ -210,34 +210,34 @@ LABEL_15:
 
 - (id)_bookmarkFolderAtTitlePath:(id)path withinBookmarkFolder:(id)folder
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   folderCopy = folder;
   if ([pathCopy count])
   {
     selfCopy = self;
     v8 = [pathCopy objectAtIndexedSubscript:0];
-    v26 = folderCopy;
+    v25 = folderCopy;
     [folderCopy objectForKeyedSubscript:@"Children"];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v9 = v30 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = v29 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v28;
+      v12 = *v27;
 LABEL_4:
       v13 = 0;
       while (1)
       {
-        if (*v28 != v12)
+        if (*v27 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * v13);
+        v14 = *(*(&v26 + 1) + 8 * v13);
         v15 = [v14 objectForKeyedSubscript:@"Title"];
         v16 = [v8 isEqualToString:v15];
 
@@ -248,7 +248,7 @@ LABEL_4:
 
         if (v11 == ++v13)
         {
-          v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
           if (v11)
           {
             goto LABEL_4;
@@ -288,15 +288,13 @@ LABEL_13:
       v18 = v22;
     }
 
-    folderCopy = v26;
+    folderCopy = v25;
   }
 
   else
   {
     v18 = folderCopy;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

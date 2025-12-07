@@ -1,4 +1,5 @@
 @interface UAQhash
++ (id)qhash:(unsigned int)qhash withTime:(int)time;
 - (id)initQhash:(unsigned int)qhash withTime:(int)time;
 @end
 
@@ -18,6 +19,13 @@
   }
 
   return v7;
+}
+
++ (id)qhash:(unsigned int)qhash withTime:(int)time
+{
+  v4 = [[self alloc] initQhash:*&qhash withTime:*&time];
+
+  return v4;
 }
 
 @end

@@ -1,34 +1,33 @@
-uint64_t sub_1368()
+uint64_t sub_1368(uint64_t a1)
 {
-  v2 = 0;
-  v3 = &v2;
-  v4 = 0x2020000000;
-  v0 = qword_14B00;
-  v5 = qword_14B00;
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v1 = qword_14B00;
+  v6 = qword_14B00;
   if (!qword_14B00)
   {
-    v6 = *off_10540;
-    v7 = *off_10550;
-    v8 = 0;
-    v3[3] = _sl_dlopen();
-    qword_14B00 = v3[3];
-    v0 = v3[3];
+    v7 = *off_10540;
+    v8 = *off_10550;
+    v9 = 0;
+    v4[3] = _sl_dlopen();
+    qword_14B00 = v4[3];
+    v1 = v4[3];
   }
 
-  _Block_object_dispose(&v2, 8);
-  return v0;
+  _Block_object_dispose(&v3, 8);
+  return v1;
 }
 
-void sub_147C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_147C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1494(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_14B00 = *(*(*(a1 + 32) + 8) + 24);
@@ -37,11 +36,19 @@ uint64_t sub_1494(uint64_t a1)
 
 uint64_t sub_152C()
 {
-  v0 = sub_1368();
+  v3 = 0;
+  v0 = sub_1368(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -66,9 +73,9 @@ uint64_t sub_1588()
   return v0;
 }
 
-void sub_165C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_165C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -117,9 +124,9 @@ uint64_t sub_16F4()
   return v0;
 }
 
-void sub_17C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_17C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -133,7 +140,7 @@ void *sub_17E0(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1830()
+id sub_1830()
 {
   v0 = sub_16F4();
   if (v0)
@@ -144,8 +151,8 @@ uint64_t sub_1830()
 
   else
   {
-    v2 = sub_8074();
-    return sub_1860(v2);
+    sub_8074();
+    return sub_1860();
   }
 }
 
@@ -173,9 +180,9 @@ id sub_1860()
   return v1;
 }
 
-void sub_1928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -192,8 +199,8 @@ Class sub_1940(uint64_t a1)
 
   else
   {
-    v3 = sub_8098();
-    return sub_1998(v3);
+    sub_8098();
+    return sub_1998();
   }
 
   return result;
@@ -218,9 +225,9 @@ uint64_t sub_1998()
   return v0;
 }
 
-void sub_1A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -251,28 +258,28 @@ AAIDSAuthenticationPlugin *sub_1AD4()
   }
 }
 
-void sub_1ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_1EF4()
+id sub_1EF4(uint64_t a1)
 {
   if (qword_14B40 != -1)
   {
     sub_8130();
   }
 
-  v1 = qword_14B38;
+  v2 = qword_14B38;
 
-  return v1;
+  return v2;
 }
 
 void sub_1F38(uint64_t a1)
 {
-  v2 = sub_1EF4();
+  v2 = sub_1EF4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -287,10 +294,11 @@ void sub_1FB4(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 error];
+  v5 = v4;
   if (!v3)
   {
-    v6 = sub_1EF4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1EF4(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_81AC();
     }
@@ -298,26 +306,25 @@ void sub_1FB4(uint64_t a1, void *a2)
     goto LABEL_7;
   }
 
-  v5 = sub_1EF4();
-  v6 = v5;
-  if (v4)
+  v6 = sub_1EF4(v4);
+  v7 = v6;
+  if (v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_8144();
     }
 
 LABEL_7:
 
-    v7 = *(*(*(a1 + 64) + 8) + 24);
     (*(*(a1 + 56) + 16))();
     goto LABEL_11;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Server auth was successful, not in Gray Mode anymore", buf, 2u);
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Server auth was successful, not in Gray Mode anymore", buf, 2u);
   }
 
   *(*(*(a1 + 64) + 8) + 24) = 0;
@@ -342,16 +349,16 @@ LABEL_11:
 void sub_2160(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = sub_1EF4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1EF4(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_8214();
     }
   }
 
-  v7 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
 }
 
@@ -398,10 +405,11 @@ void sub_2CBC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_1EF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1EF4(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_84D8();
     }
@@ -411,33 +419,35 @@ void sub_2CBC(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v8 = [v5 objectForKeyedSubscript:AKAuthenticationPasswordKey];
-    if (v8)
+    v9 = [v5 objectForKeyedSubscript:AKAuthenticationPasswordKey];
+    v10 = v9;
+    if (v9)
     {
-      v9 = sub_1EF4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_1EF4(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [*(a1 + 40) username];
-        v18 = 138412290;
-        v19 = v10;
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Password-less auth succeeded! Time for login with Apple ID %@...", &v18, 0xCu);
+        v12 = [*(a1 + 40) username];
+        v21 = 138412290;
+        v22 = v12;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Password-less auth succeeded! Time for login with Apple ID %@...", &v21, 0xCu);
       }
 
-      [*(a1 + 32) _beginPETBasedLoginWithAccount:*(a1 + 40) PET:v8 store:*(a1 + 48) completion:*(a1 + 64)];
+      [*(a1 + 32) _beginPETBasedLoginWithAccount:*(a1 + 40) PET:v10 store:*(a1 + 48) completion:*(a1 + 64)];
     }
 
     else
     {
-      v11 = [v5 objectForKeyedSubscript:AKAuthenticationIDMSTokenKey];
-      v12 = [v11 allKeys];
+      v13 = [v5 objectForKeyedSubscript:AKAuthenticationIDMSTokenKey];
+      v14 = [v13 allKeys];
 
-      if ([*(a1 + 56) count] && objc_msgSend(v12, "count") && (+[NSSet setWithArray:](NSSet, "setWithArray:", *(a1 + 56)), v13 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v12), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isSubsetOfSet:", v14), v14, v13, v15))
+      v15 = [*(a1 + 56) count];
+      if (v15 && (v15 = [v14 count]) != 0 && (+[NSSet setWithArray:](NSSet, "setWithArray:", *(a1 + 56)), v16 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v14), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v16, "isSubsetOfSet:", v17), v17, v16, v18))
       {
-        v16 = sub_1EF4();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = sub_1EF4(v15);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v18) = 0;
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Password-less auth returned all the requested tokens!", &v18, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Password-less auth returned all the requested tokens!", &v21, 2u);
         }
 
         (*(*(a1 + 64) + 16))();
@@ -445,8 +455,8 @@ void sub_2CBC(uint64_t a1, void *a2, void *a3)
 
       else
       {
-        v17 = sub_1EF4();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = sub_1EF4(v15);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           sub_8540();
         }
@@ -460,6 +470,7 @@ void sub_2CBC(uint64_t a1, void *a2, void *a3)
 void sub_31C4(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     [*(a1 + 32) _beginPETBasedLoginWithAccount:*(a1 + 40) PET:a2 store:*(a1 + 48) completion:*(a1 + 56)];
@@ -467,8 +478,8 @@ void sub_31C4(uint64_t a1, uint64_t a2, void *a3)
 
   else
   {
-    v6 = sub_1EF4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1EF4(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_8690();
     }
@@ -480,10 +491,11 @@ void sub_31C4(uint64_t a1, uint64_t a2, void *a3)
 void sub_3500(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_1EF4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1EF4(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_86F8();
     }
@@ -493,14 +505,14 @@ void sub_3500(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v7 = [a2 objectForKeyedSubscript:AKAuthenticationPasswordKey];
-    v8 = sub_1EF4();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = [a2 objectForKeyedSubscript:AKAuthenticationPasswordKey];
+    v9 = sub_1EF4(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v9;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Password-based auth succeeded! Time for login with Apple ID %@...", &v10, 0xCu);
+      v10 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Password-based auth succeeded! Time for login with Apple ID %@...", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -536,25 +548,26 @@ void sub_3C28(uint64_t a1, uint64_t a2)
 void sub_3CF0(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1EF4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = sub_1EF4(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       sub_8840();
     }
 
-    v5 = [*(a1 + 32) objectForKeyedSubscript:kACRenewCredentialsServicesKey];
-    v6 = *(a1 + 40);
-    v7 = [*(a1 + 48) username];
-    v8 = [*(a1 + 48) aa_altDSID];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_3E50;
-    v9[3] = &unk_107B8;
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
-    [v6 _convertPasswordToPETForAppleID:v7 altDSID:v8 password:v3 services:v5 completion:v9];
+    v6 = [*(a1 + 32) objectForKeyedSubscript:kACRenewCredentialsServicesKey];
+    v7 = *(a1 + 40);
+    v8 = [*(a1 + 48) username];
+    v9 = [*(a1 + 48) aa_altDSID];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_3E50;
+    v10[3] = &unk_107B8;
+    v11 = *(a1 + 56);
+    v12 = *(a1 + 64);
+    [v7 _convertPasswordToPETForAppleID:v8 altDSID:v9 password:v4 services:v6 completion:v10];
   }
 
   else
@@ -566,13 +579,14 @@ void sub_3CF0(uint64_t a1, void *a2)
 void sub_3E50(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1EF4();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1EF4(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "AAIDSAuthenticationPlugin: Password from companion was successfully exchanged for PET. Logging in...", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "AAIDSAuthenticationPlugin: Password from companion was successfully exchanged for PET. Logging in...", v6, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -588,10 +602,11 @@ void sub_43B0(uint64_t a1, char a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if (*(a1 + 56))
   {
-    v9 = sub_1EF4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = sub_1EF4(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_8930();
     }
@@ -600,18 +615,18 @@ void sub_43B0(uint64_t a1, char a2, void *a3, void *a4)
     CFRelease(*(a1 + 56));
   }
 
-  v10 = *(a1 + 32);
-  objc_sync_enter(v10);
-  v11 = *(*(a1 + 32) + 8);
-  v12 = [*(a1 + 40) identifier];
-  [v11 removeObject:v12];
+  v11 = *(a1 + 32);
+  objc_sync_enter(v11);
+  v12 = *(*(a1 + 32) + 8);
+  v13 = [*(a1 + 40) identifier];
+  [v12 removeObject:v13];
 
   if ((a2 & 1) == 0)
   {
-    v15 = sub_1EF4();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = sub_1EF4(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_896C((a1 + 40));
+      sub_896C();
     }
 
     goto LABEL_17;
@@ -619,8 +634,8 @@ void sub_43B0(uint64_t a1, char a2, void *a3, void *a4)
 
   if (!v7)
   {
-    v15 = sub_1EF4();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = sub_1EF4(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_8A5C();
     }
@@ -630,11 +645,12 @@ void sub_43B0(uint64_t a1, char a2, void *a3, void *a4)
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v14 = sub_1EF4();
-  v15 = v14;
-  if ((isKindOfClass & 1) == 0)
+  v16 = isKindOfClass;
+  v17 = sub_1EF4(isKindOfClass);
+  v18 = v17;
+  if ((v16 & 1) == 0)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_89F4();
     }
@@ -645,19 +661,19 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 40);
-    v18 = 138412290;
-    v19 = v16;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "ACRemoteDeviceProxy successfully provided us with a password for %@", &v18, 0xCu);
+    v19 = *(a1 + 40);
+    v21 = 138412290;
+    v22 = v19;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "ACRemoteDeviceProxy successfully provided us with a password for %@", &v21, 0xCu);
   }
 
-  v17 = v7;
+  v20 = v7;
   (*(*(a1 + 48) + 16))();
 
 LABEL_18:
-  objc_sync_exit(v10);
+  objc_sync_exit(v11);
 }
 
 void sub_4924(uint64_t a1, int a2, void *a3)
@@ -676,39 +692,40 @@ void sub_4924(uint64_t a1, int a2, void *a3)
 
   if ([v5 code] != &stru_158.reloff + 1)
   {
-    if ([v6 code] == &stru_158.flags + 1 || objc_msgSend(v6, "code") == &stru_158.reloff + 3)
+    v8 = [v6 code];
+    if (v8 == &stru_158.flags + 1 || (v8 = [v6 code], v8 == &stru_158.reloff + 3))
     {
-      v8 = sub_1EF4();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_1EF4(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Got a 409/403, the account really is in Gray Mode", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Got a 409/403, the account really is in Gray Mode", v15, 2u);
       }
 
-      v9 = [*(a1 + 32) _frontmostApplicationId];
-      v10 = [v9 isEqualToString:@"com.apple.Preferences"];
+      v10 = [*(a1 + 32) _frontmostApplicationId];
+      v11 = [v10 isEqualToString:@"com.apple.Preferences"];
 
-      if (v10)
+      if (v11)
       {
-        v11 = *(*(a1 + 72) + 16);
+        v13 = *(*(a1 + 72) + 16);
 LABEL_18:
-        v11();
+        v13();
         goto LABEL_19;
       }
 
-      v12 = sub_1EF4();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_1EF4(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_8A98();
       }
     }
 
 LABEL_17:
-    v11 = *(*(a1 + 72) + 16);
+    v13 = *(*(a1 + 72) + 16);
     goto LABEL_18;
   }
 
-  v7 = sub_1EF4();
+  v7 = sub_1EF4(401);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -739,23 +756,23 @@ void sub_4E90(uint64_t a1)
 
   if (v6)
   {
-    v7 = sub_1EF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1EF4(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: will try auth with cached password first...", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "AppleIDAuthenticationPlugin: will try auth with cached password first...", buf, 2u);
     }
 
-    v8 = [*(a1 + 32) _aa_rawPassword];
-    [v2 _setPassword:v8];
+    v9 = [*(a1 + 32) _aa_rawPassword];
+    [v2 _setPassword:v9];
 
     [v2 setAuthenticationType:1];
   }
 
   [v2 _setProxyingForApp:1];
-  v9 = [*(a1 + 48) client];
-  v10 = [v9 name];
-  [v2 _setProxiedAppName:v10];
+  v10 = [*(a1 + 48) client];
+  v11 = [v10 name];
+  [v2 _setProxiedAppName:v11];
 
   if (*(a1 + 56))
   {
@@ -764,9 +781,9 @@ void sub_4E90(uint64_t a1)
 
   else
   {
-    v11 = [*(a1 + 48) client];
-    v12 = [v11 bundleID];
-    [v2 _setProxiedAppBundleID:v12];
+    v12 = [*(a1 + 48) client];
+    v13 = [v12 bundleID];
+    [v2 _setProxiedAppBundleID:v13];
   }
 
   if (*(a1 + 64))
@@ -779,70 +796,71 @@ void sub_4E90(uint64_t a1)
     [v2 setAuthenticationType:1];
   }
 
-  v13 = *(a1 + 32);
-  v36[0] = @"account";
-  v36[1] = @"accountStore";
-  v14 = *(a1 + 48);
-  v37[0] = v13;
-  v37[1] = v14;
-  v15 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
-  [v2 setClientInfo:v15];
+  v14 = *(a1 + 32);
+  v38[0] = @"account";
+  v38[1] = @"accountStore";
+  v15 = *(a1 + 48);
+  v39[0] = v14;
+  v39[1] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
+  [v2 setClientInfo:v16];
 
   if (*(a1 + 112))
   {
-    [v2 setServiceType:?];
+    v17 = [v2 setServiceType:?];
   }
 
   if (*(a1 + 72))
   {
-    v16 = sub_1EF4();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = sub_1EF4(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      sub_8B4C((a1 + 72));
+      sub_8B4C();
     }
 
     [v2 setServiceIdentifiers:*(a1 + 72)];
-    [v2 setShouldUpdatePersistentServiceTokens:1];
+    v17 = [v2 setShouldUpdatePersistentServiceTokens:1];
   }
 
-  v17 = sub_1EF4();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v19 = sub_1EF4(v17);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     sub_8BC4();
   }
 
-  v18 = v6 != 0;
+  v20 = v6 != 0;
 
-  v19 = [*(a1 + 80) _authController];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_52B4;
-  v23[3] = &unk_108A8;
-  v32 = v18;
-  v20 = *(a1 + 32);
-  v21 = *(a1 + 80);
-  v24 = v20;
-  v25 = v21;
-  v26 = *(a1 + 48);
-  v27 = *(a1 + 88);
-  v28 = *(a1 + 96);
-  v31 = *(a1 + 104);
-  v33 = *(a1 + 120);
-  v29 = *(a1 + 64);
-  v30 = v2;
-  v34 = *(a1 + 121);
-  v22 = v2;
-  [v19 authenticateWithContext:v22 completion:v23];
+  v21 = [*(a1 + 80) _authController];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_52B4;
+  v25[3] = &unk_108A8;
+  v34 = v20;
+  v22 = *(a1 + 32);
+  v23 = *(a1 + 80);
+  v26 = v22;
+  v27 = v23;
+  v28 = *(a1 + 48);
+  v29 = *(a1 + 88);
+  v30 = *(a1 + 96);
+  v33 = *(a1 + 104);
+  v35 = *(a1 + 120);
+  v31 = *(a1 + 64);
+  v32 = v2;
+  v36 = *(a1 + 121);
+  v24 = v2;
+  [v21 authenticateWithContext:v24 completion:v25];
 }
 
 void sub_52B4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6 && (*(a1 + 96) & 1) != 0)
   {
-    v7 = sub_1EF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1EF4(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_8C00();
     }
@@ -854,42 +872,42 @@ void sub_52B4(uint64_t a1, void *a2, void *a3)
   else
   {
     objc_initWeak(&location, *(a1 + 40));
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_5570;
-    v23[3] = &unk_10858;
-    objc_copyWeak(&v32, &location);
-    v24 = *(a1 + 56);
-    v33 = *(a1 + 97);
-    v8 = v6;
-    v25 = v8;
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_5570;
+    v24[3] = &unk_10858;
+    objc_copyWeak(&v33, &location);
+    v25 = *(a1 + 56);
+    v34 = *(a1 + 97);
+    v9 = v7;
     v26 = v9;
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v12 = *(a1 + 48);
     v27 = v10;
     v28 = v11;
-    v29 = *(a1 + 72);
-    v30 = *(a1 + 80);
-    v31 = *(a1 + 88);
-    v12 = objc_retainBlock(v23);
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 80);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_5710;
-    v16[3] = &unk_10880;
-    v16[4] = v13;
-    v17 = v5;
-    v18 = v8;
-    v19 = *(a1 + 32);
-    v20 = *(a1 + 48);
-    v22 = *(a1 + 98);
-    v15 = v12;
-    v21 = v15;
-    [v13 _validateAuthenticationResults:v17 error:v18 forContext:v14 completion:v16];
+    v29 = v12;
+    v30 = *(a1 + 72);
+    v31 = *(a1 + 80);
+    v32 = *(a1 + 88);
+    v13 = objc_retainBlock(v24);
+    v14 = *(a1 + 40);
+    v15 = *(a1 + 80);
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_5710;
+    v17[3] = &unk_10880;
+    v17[4] = v14;
+    v18 = v5;
+    v19 = v9;
+    v20 = *(a1 + 32);
+    v21 = *(a1 + 48);
+    v23 = *(a1 + 98);
+    v16 = v13;
+    v22 = v16;
+    [v14 _validateAuthenticationResults:v18 error:v19 forContext:v15 completion:v17];
 
-    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 }
@@ -919,7 +937,7 @@ void sub_5570(uint64_t a1, uint64_t a2, void *a3)
 
   if ([*(a1 + 40) ak_isUnableToPromptError] & 1) != 0 || (objc_msgSend(*(a1 + 40), "ak_isUserCancelError"))
   {
-    v10 = 1;
+    v10 = &dword_0 + 1;
     if (!a2)
     {
       goto LABEL_15;
@@ -937,7 +955,7 @@ void sub_5570(uint64_t a1, uint64_t a2, void *a3)
 
   if ((v10 & v9) != 0)
   {
-    v11 = sub_1EF4();
+    v11 = sub_1EF4(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_8C68(a1, v11, v12, v13, v14, v15, v16, v17);
@@ -1035,36 +1053,36 @@ void sub_5F7C(uint64_t a1)
 void sub_62DC(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_1EF4();
+  v6 = sub_1EF4(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    LODWORD(v14[0]) = a2;
-    WORD2(v14[0]) = 2112;
-    *(v14 + 6) = v5;
+    LODWORD(v15[0]) = a2;
+    WORD2(v15[0]) = 2112;
+    *(v15 + 6) = v5;
     _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "AAIDSAuthenticationPlugin: saving raw password result was %d. Error: %@", buf, 0x12u);
   }
 
   if (*(a1 + 32))
   {
-    v7 = sub_1EF4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1EF4(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 138412290;
-      v14[0] = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "AAIDSAuthenticationPlugin setting raw password for iCloud account %@", buf, 0xCu);
+      v15[0] = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "AAIDSAuthenticationPlugin setting raw password for iCloud account %@", buf, 0xCu);
     }
 
     [*(a1 + 32) _aa_setRawPassword:*(a1 + 40)];
-    v9 = *(a1 + 32);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_6488;
-    v11[3] = &unk_10768;
-    v10 = *(a1 + 48);
-    v12 = *(a1 + 56);
-    [v10 saveVerifiedAccount:v9 withCompletionHandler:v11];
+    v10 = *(a1 + 32);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_6488;
+    v12[3] = &unk_10768;
+    v11 = *(a1 + 48);
+    v13 = *(a1 + 56);
+    [v11 saveVerifiedAccount:v10 withCompletionHandler:v12];
   }
 
   else
@@ -1076,7 +1094,7 @@ void sub_62DC(uint64_t a1, int a2, void *a3)
 void sub_6488(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_1EF4();
+  v6 = sub_1EF4(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109378;
@@ -1153,36 +1171,36 @@ void sub_69B8(uint64_t a1)
 
     if (v5)
     {
-      v6 = sub_1EF4();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = sub_1EF4(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        sub_8CD8(v2, v6);
+        sub_8CD8(v2, v7);
       }
     }
 
     [*(a1 + 32) refresh];
-    v7 = [ACDKeychainManager credentialForAccount:*(a1 + 32) clientID:0];
-    [v7 setPassword:*(a1 + 40)];
-    [*(a1 + 32) setCredential:v7];
+    v8 = [ACDKeychainManager credentialForAccount:*(a1 + 32) clientID:0];
+    [v8 setPassword:*(a1 + 40)];
+    [*(a1 + 32) setCredential:v8];
   }
 
-  if (+[AAIDSAuthenticationPlugin _doesRelyOnCompanionAccounts](AAIDSAuthenticationPlugin, "_doesRelyOnCompanionAccounts") && ([*(a1 + 48) _parametersForIDSAlertFromLoginResponse:*(a1 + 56)], (v8 = objc_claimAutoreleasedReturnValue()) != 0))
+  v9 = +[AAIDSAuthenticationPlugin _doesRelyOnCompanionAccounts];
+  if (v9 && ([*(a1 + 48) _parametersForIDSAlertFromLoginResponse:*(a1 + 56)], (v9 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v9 = v8;
-    v10 = [NSError errorWithDomain:@"com.apple.appleaccount" code:-6 userInfo:v8];
+    v10 = v9;
+    v11 = [NSError errorWithDomain:@"com.apple.appleaccount" code:-6 userInfo:v9];
     (*(*(a1 + 72) + 16))();
   }
 
   else
   {
-    v11 = sub_1EF4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_1EF4(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *v13 = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Completed storing tokens", v13, 2u);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Completed storing tokens", v13, 2u);
     }
 
-    v12 = *(a1 + 64);
     (*(*(a1 + 72) + 16))();
   }
 }
@@ -1220,7 +1238,7 @@ void sub_7B94(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1EF4();
+  v7 = sub_1EF4(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = [*(a1 + 32) identifier];
@@ -1247,17 +1265,17 @@ void sub_7CA0(void *a1, void *a2, uint64_t a3)
 
     if (v8)
     {
-      v9 = sub_1EF4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = sub_1EF4(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v10 = [v5 identifier];
-        v11 = 138412802;
-        v12 = v8;
-        v13 = 2112;
-        v14 = v7;
-        v15 = 2112;
-        v16 = v10;
-        _os_log_debug_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "Setting %@ for key %@ on account with identifier: %@", &v11, 0x20u);
+        v11 = [v5 identifier];
+        v12 = 138412802;
+        v13 = v8;
+        v14 = 2112;
+        v15 = v7;
+        v16 = 2112;
+        v17 = v11;
+        _os_log_debug_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "Setting %@ for key %@ on account with identifier: %@", &v12, 0x20u);
       }
 
       [v5 setAccountProperty:v8 forKey:v7];
@@ -1269,7 +1287,7 @@ void sub_7DE8(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_1EF4();
+  v7 = sub_1EF4(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
@@ -1292,17 +1310,18 @@ void sub_7FC4(id a1)
   _objc_release_x1();
 }
 
-void sub_8028(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_8028(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_8074()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_8098(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return sub_8098();
 }
 
 void sub_80C0()
@@ -1426,13 +1445,6 @@ void sub_8930()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_896C(uint64_t *a1)
-{
-  v5 = *a1;
-  sub_8068();
-  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x16u);
-}
-
 void sub_8A5C()
 {
   sub_805C();
@@ -1454,18 +1466,18 @@ void sub_8AD4()
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
 }
 
-void sub_8B4C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_8050();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_8BC4()
 {
   sub_805C();
   sub_8050();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_8C68(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 48);
+  sub_8028(&dword_0, a2, a3, "Failed to renew credentials, posting renew follow up for account: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_8CD8(id *a1, NSObject *a2)
@@ -1507,104 +1519,138 @@ void sub_8F18()
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
 }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+            v36 =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            IDSAccountPropertiesFromAuthenticationDictionary();
+            v87[0] = _NSConcreteStackBlock;
+            v87[1] = 3221225472;
+            v87[2] = sub_7B94;
+            v87[3] = &unk_10A60;
+            v87[4] = v27;
+            [v36 enumerateKeysAndObjectsUsingBlock:v87];
+            v37 = [NSNumber alloc];
+            v38 = +[NSDate now];
+            [v38 timeIntervalSince1970];
+            v39 = [v37 initWithDouble:?];
+
+            [v27 setAccountProperty:v39 forKey:v71];
+            sub_7CA0(v27, v11, v70);
+            sub_7CA0(v27, v11, v69);
+            sub_7CA0(v27, v11, v68);
+            v40 = [v74 objectForKey:v67];
+            if (v40)
+            {
+              v41 = [v34 credentialForAccount:v27];
+              if (!v41)
               {
-                v44 = [v25 identifier];
-                *buf = 138413059;
-                v90 = v38;
-                v91 = 2112;
-                v92 = v44;
-                v93 = 2048;
-                v94 = v40;
-                v95 = 2117;
-                v96 = v37;
-                _os_log_debug_impl(&dword_0, v42, OS_LOG_TYPE_DEBUG, "Setting credential (%@) on account with identifier (%@). [receiptTime: %f, token: %{sensitive}@]", buf, 0x2Au);
+                v41 = objc_alloc_init(ACAccountCredential);
               }
 
-              v11 = v62;
+              [v41 setToken:v40];
+              [v27 setCredential:v41];
+              [v27 setAuthenticated:1];
+              +[NSDate timeIntervalSinceReferenceDate];
+              v43 = v42;
+              v44 = [NSNumber numberWithDouble:?];
+              [v27 setAccountProperty:v44 forKey:v65];
+
+              v46 = sub_1EF4(v45);
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+              {
+                v48 = [v27 identifier];
+                *buf = 138413059;
+                v94 = v41;
+                v95 = 2112;
+                v96 = v48;
+                v97 = 2048;
+                v98 = v43;
+                v99 = 2117;
+                v100 = v40;
+                _os_log_debug_impl(&dword_0, v46, OS_LOG_TYPE_DEBUG, "Setting credential (%@) on account with identifier (%@). [receiptTime: %f, token: %{sensitive}@]", buf, 0x2Au);
+              }
+
+              v11 = v66;
             }
 
             else
             {
-              v43 = sub_1EF4();
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+              v47 = sub_1EF4(0);
+              if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v90 = v58;
-                _os_log_error_impl(&dword_0, v43, OS_LOG_TYPE_ERROR, "No auth token for service type (%@).", buf, 0xCu);
+                v94 = v62;
+                _os_log_error_impl(&dword_0, v47, OS_LOG_TYPE_ERROR, "No auth token for service type (%@).", buf, 0xCu);
               }
 
-              [v25 setAuthenticated:0];
+              [v27 setAuthenticated:0];
             }
 
-            v10 = v31;
-            v15 = v69;
-            v30 = v74;
+            v10 = v34;
+            v15 = v73;
+            v32 = v78;
           }
         }
 
-        v73 = [obj countByEnumeratingWithState:&v84 objects:v97 count:16];
+        v77 = [obj countByEnumeratingWithState:&v88 objects:v101 count:16];
       }
 
-      while (v73);
+      while (v77);
     }
 
-    v45 = dispatch_group_create();
-    v79 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v46 = v68;
-    v47 = [v46 countByEnumeratingWithState:&v79 objects:v88 count:16];
-    if (v47)
+    v49 = dispatch_group_create();
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    v86 = 0u;
+    v50 = v72;
+    v51 = [v50 countByEnumeratingWithState:&v83 objects:v92 count:16];
+    if (v51)
     {
-      v48 = v47;
-      v49 = *v80;
+      v52 = v51;
+      v53 = *v84;
       do
       {
-        for (j = 0; j != v48; j = j + 1)
+        for (j = 0; j != v52; j = j + 1)
         {
-          if (*v80 != v49)
+          if (*v84 != v53)
           {
-            objc_enumerationMutation(v46);
+            objc_enumerationMutation(v50);
           }
 
-          v51 = *(*(&v79 + 1) + 8 * j);
-          dispatch_group_enter(v45);
-          v77[0] = _NSConcreteStackBlock;
-          v77[1] = 3221225472;
-          v77[2] = sub_7DE8;
-          v77[3] = &unk_10A88;
-          v77[4] = v51;
-          v78 = v45;
-          [v10 saveAccount:v51 pid:0 verify:0 dataclassActions:0 completion:v77];
+          v55 = *(*(&v83 + 1) + 8 * j);
+          dispatch_group_enter(v49);
+          v81[0] = _NSConcreteStackBlock;
+          v81[1] = 3221225472;
+          v81[2] = sub_7DE8;
+          v81[3] = &unk_10A88;
+          v81[4] = v55;
+          v82 = v49;
+          [v10 saveAccount:v55 pid:0 verify:0 dataclassActions:0 completion:v81];
         }
 
-        v48 = [v46 countByEnumeratingWithState:&v79 objects:v88 count:16];
+        v52 = [v50 countByEnumeratingWithState:&v83 objects:v92 count:16];
       }
 
-      while (v48);
+      while (v52);
     }
 
-    v52 = dispatch_get_global_queue(0, 0);
+    v56 = dispatch_get_global_queue(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_7ED0;
     block[3] = &unk_10A38;
-    v12 = v57;
-    v76 = v57;
-    dispatch_group_notify(v45, v52, block);
+    v12 = v61;
+    v80 = v61;
+    dispatch_group_notify(v49, v56, block);
 
-    v9 = v58;
-    v11 = v62;
-    v15 = v69;
-    v16 = v56;
+    v9 = v62;
+    v11 = v66;
+    v15 = v73;
+    v16 = v60;
   }
 
   else
   {
-    v53 = sub_1EF4();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v57 = sub_1EF4(0);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
       sub_8F90();
     }

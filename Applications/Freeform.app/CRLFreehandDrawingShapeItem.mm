@@ -30,7 +30,7 @@
     return 1;
   }
 
-  type metadata accessor for CRLFreehandDrawingShapeItem();
+  type metadata accessor for CRLFreehandDrawingShapeItem(0);
   return swift_dynamicCastClass() == 0;
 }
 
@@ -115,7 +115,7 @@
 
 - (NSUUID)renderGroupID
 {
-  v3 = sub_1005B981C(&qword_1019F6990);
+  v3 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -181,7 +181,7 @@
   v3 = type metadata accessor for CRLShapeItemParentAffinity(0);
   __chkstk_darwin(v3);
   v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_1005B981C(&unk_101A0F400);
+  v6 = sub_1005B981C(&unk_101A0F400, &unk_1014746E0);
   __chkstk_darwin(v6);
   v9 = &v13 - v8;
   v10 = *&self->super.super.super._TtC8Freeform12CRLBoardItem_opaque[OBJC_IVAR____TtC8Freeform16CRLBoardItemBase_itemData];
@@ -189,10 +189,10 @@
   {
     v11 = qword_1019FB140;
     swift_beginAccess();
-    sub_10000BE14(v10 + v11, v9, &unk_101A0F400);
-    sub_1005B981C(&unk_101A0F410);
+    sub_10000BE14(v10 + v11, v9, &unk_101A0F400, &unk_1014746E0);
+    sub_1005B981C(&unk_101A0F410, &unk_10148D730);
     CRRegister.wrappedValue.getter();
-    sub_10000CAAC(v9, &unk_101A0F400);
+    sub_10000CAAC(v9, &unk_101A0F400, &unk_1014746E0);
     v12 = v5[*(v3 + 28) + 8];
     sub_100EB6578(v5, type metadata accessor for CRLShapeItemParentAffinity);
     return v12 != 255;
@@ -232,8 +232,8 @@
 
 + (id)crlaxDescriptionFor:(id)for
 {
-  type metadata accessor for CRLFreehandDrawingShapeItem();
-  sub_100EB64C8(&qword_101A21DC8, type metadata accessor for CRLFreehandDrawingShapeItem);
+  type metadata accessor for CRLFreehandDrawingShapeItem(0);
+  sub_100EB64C8(&qword_101A21DC8, type metadata accessor for CRLFreehandDrawingShapeItem, &protocol conformance descriptor for NSObject);
   v3 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = _swiftEmptyDictionarySingleton;
   sub_100EA8A5C(v3, &v9);

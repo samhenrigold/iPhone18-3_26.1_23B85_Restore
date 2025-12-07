@@ -337,23 +337,16 @@ LABEL_11:
   path = [fileCopy path];
   v7 = [(CKATClient *)self _isMessagesPath:path];
 
-  if (!v7)
+  v12 = 1;
+  if (v7)
   {
-    goto LABEL_5;
-  }
+    path2 = [fileCopy path];
+    v9 = [(CKATClient *)self _isSMSTempDB:path2];
 
-  path2 = [fileCopy path];
-  v9 = [(CKATClient *)self _isSMSTempDB:path2];
-
-  if (v9 & 1) != 0 || ([fileCopy path], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[CKATClient _isABCache:](self, "_isABCache:", v10), v10, (v11))
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-LABEL_5:
-    v12 = 1;
+    if (v9 & 1) != 0 || ([fileCopy path], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[CKATClient _isABCache:](self, "_isABCache:", v10), v10, (v11))
+    {
+      v12 = 0;
+    }
   }
 
   return v12;

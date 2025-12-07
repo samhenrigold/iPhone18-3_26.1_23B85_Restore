@@ -16,7 +16,7 @@
 
 + (id)infoWithConsumer:(id)consumer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   consumerCopy = consumer;
   v5 = objc_alloc_init(self);
   if (objc_opt_respondsToSelector())
@@ -59,40 +59,41 @@
     v6 |= 0x10000uLL;
   }
 
-  if (objc_opt_respondsToSelector())
+  v7 = objc_opt_respondsToSelector();
+  if (v7)
   {
-    v7 = v6 | 0x180;
+    v8 = v6 | 0x180;
   }
 
   else
   {
-    v7 = v6;
+    v8 = v6;
   }
 
-  v8 = SBLogCommon();
-  v9 = v8;
-  if (v7)
+  v9 = SBLogCommon(v7);
+  v10 = v9;
+  if (v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 138543618;
-      v13 = objc_opt_class();
-      v14 = 2048;
-      v15 = v7;
-      v10 = v13;
-      _os_log_impl(&dword_19169D000, v9, OS_LOG_TYPE_INFO, "%{public}@ buttonEventMask is %lx", &v12, 0x16u);
+      v13 = 138543618;
+      v14 = objc_opt_class();
+      v15 = 2048;
+      v16 = v8;
+      v11 = v14;
+      _os_log_impl(&dword_19169D000, v10, OS_LOG_TYPE_INFO, "%{public}@ buttonEventMask is %lx", &v13, 0x16u);
     }
 
     [v5 setConsumer:consumerCopy];
-    [v5 setEventMask:v7];
+    [v5 setEventMask:v8];
     [v5 setValid:1];
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(_SBSHardwareButtonEventConsumerInfo *)consumerCopy infoWithConsumer:v9];
+      [(_SBSHardwareButtonEventConsumerInfo *)consumerCopy infoWithConsumer:v10];
     }
   }
 

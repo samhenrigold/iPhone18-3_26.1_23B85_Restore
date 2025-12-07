@@ -199,9 +199,7 @@
 
   else
   {
-    v4 = [message copy];
-    handleMessage = self->_handleMessage;
-    self->_handleMessage = v4;
+    self->_handleMessage = [message copy];
   }
 
   _objc_release_x1();

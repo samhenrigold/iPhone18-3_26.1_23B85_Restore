@@ -12,7 +12,7 @@
   asJsonLd = [v7 asJsonLd];
 
   objc_autoreleasePoolPop(v6);
-  if ([asJsonLd count])
+  if (objc_msgSend_count(asJsonLd))
   {
     v9 = [MEMORY[0x277CCAAA0] dataWithJSONObject:asJsonLd options:1 error:error];
     if (v9)

@@ -23,26 +23,26 @@
   signpostManager = self->_signpostManager;
   self->_signpostManager = v7;
 
-  v9 = sub_10001C784();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = sub_10001C784(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    sub_10009169C(v9);
+    sub_10009169C(v10);
   }
 
-  v10 = +[NSUserDefaults standardUserDefaults];
-  [v10 removeObjectForKey:@"CARLastPanelKey"];
+  v11 = +[NSUserDefaults standardUserDefaults];
+  [v11 removeObjectForKey:@"CARLastPanelKey"];
 
-  v11 = +[UNUserNotificationCenter currentNotificationCenter];
-  [v11 setDelegate:self];
+  v12 = +[UNUserNotificationCenter currentNotificationCenter];
+  [v12 setDelegate:self];
 
-  v12 = [NSSet alloc];
-  v13 = [UNNotificationCategory categoryWithIdentifier:@"CarPlaySettings" actions:&__NSArray0__struct intentIdentifiers:&__NSArray0__struct options:2];
-  v18 = v13;
-  v14 = [NSArray arrayWithObjects:&v18 count:1];
-  v15 = [v12 initWithArray:v14];
+  v13 = [NSSet alloc];
+  v14 = [UNNotificationCategory categoryWithIdentifier:@"CarPlaySettings" actions:&__NSArray0__struct intentIdentifiers:&__NSArray0__struct options:2];
+  v19 = v14;
+  v15 = [NSArray arrayWithObjects:&v19 count:1];
+  v16 = [v13 initWithArray:v15];
 
-  v16 = +[UNUserNotificationCenter currentNotificationCenter];
-  [v16 setNotificationCategories:v15];
+  v17 = +[UNUserNotificationCenter currentNotificationCenter];
+  [v17 setNotificationCategories:v16];
 
   +[CARSignpostManager emitLaunched];
   return 1;

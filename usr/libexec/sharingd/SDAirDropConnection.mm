@@ -412,7 +412,7 @@
           if (!self->_queueSuspended)
           {
             self->_queueSuspended = 1;
-            v22 = sub_10008F9A4();
+            v22 = sub_10008F9A4(self);
             dispatch_suspend(v22);
 
             sub_10008FD38(self->_properties, self);
@@ -952,8 +952,7 @@ LABEL_11:
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Responding to Discover request with code %ld", buf, 0xCu);
       }
 
-      discoverRequest = self->_discoverRequest;
-      v20 = _CFHTTPServerResponseCreateWithData();
+      v19 = _CFHTTPServerResponseCreateWithData();
       goto LABEL_27;
     }
 
@@ -992,58 +991,57 @@ LABEL_11:
         enableXML = [(SDStatusMonitor *)self->_monitor enableXML];
         if (enableXML)
         {
-          v22 = kCFPropertyListXMLFormat_v1_0;
+          v21 = kCFPropertyListXMLFormat_v1_0;
         }
 
         else
         {
-          v22 = kCFPropertyListBinaryFormat_v1_0;
+          v21 = kCFPropertyListBinaryFormat_v1_0;
         }
 
-        v23 = off_1008D3E78;
+        v22 = off_1008D3E78;
         if (!enableXML)
         {
-          v23 = off_1008D3E70;
+          v22 = off_1008D3E70;
         }
 
-        CFHTTPMessageSetHeaderFieldValue(ResponseMessage, @"Content-Type", *v23);
-        v24 = CFPropertyListCreateData(0, v8, v22, 0, &error);
-        if (!v24)
+        CFHTTPMessageSetHeaderFieldValue(ResponseMessage, @"Content-Type", *v22);
+        v23 = CFPropertyListCreateData(0, v8, v21, 0, &error);
+        if (!v23)
         {
-          v25 = airdrop_log();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v24 = airdrop_log();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            sub_10020D218(&error);
+            sub_10020D218();
           }
 
           CFRelease(error);
         }
 
-        v26 = airdrop_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v25 = airdrop_log();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = "known";
+          v26 = "known";
           if (!aliasCopy)
           {
-            v27 = "unknown";
+            v26 = "unknown";
           }
 
           *buf = 136315138;
-          responseCopy = v27;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Responding to Discover request from %s person", buf, 0xCu);
+          responseCopy = v26;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Responding to Discover request from %s person", buf, 0xCu);
         }
 
-        v28 = self->_discoverRequest;
-        v20 = _CFHTTPServerResponseCreateWithData();
-        if (v24)
+        v19 = _CFHTTPServerResponseCreateWithData();
+        if (v23)
         {
-          CFRelease(v24);
+          CFRelease(v23);
         }
 
 LABEL_27:
         _CFHTTPServerResponseEnqueue();
         CFRelease(self->_discoverRequest);
-        CFRelease(v20);
+        CFRelease(v19);
         CFRelease(ResponseMessage);
         self->_discoverRequest = 0;
         goto LABEL_28;
@@ -1144,68 +1142,64 @@ LABEL_27:
 
 LABEL_28:
 
-  askRequest = self->_askRequest;
   ResponseMessage = _CFHTTPServerRequestCreateResponseMessage();
   if (response == 200)
   {
     *cf = 0;
-    v9 = objc_opt_new();
+    v8 = objc_opt_new();
     disambiguatedModelName = [objc_opt_class() disambiguatedModelName];
-    [v9 setObject:disambiguatedModelName forKeyedSubscript:kSFOperationReceiverModelNameKey];
+    [v8 setObject:disambiguatedModelName forKeyedSubscript:kSFOperationReceiverModelNameKey];
 
     someComputerName = [(SDStatusMonitor *)self->_monitor someComputerName];
-    [v9 setObject:someComputerName forKeyedSubscript:kSFOperationReceiverComputerNameKey];
+    [v8 setObject:someComputerName forKeyedSubscript:kSFOperationReceiverComputerNameKey];
 
     enableXML = [(SDStatusMonitor *)self->_monitor enableXML];
     if (enableXML)
     {
-      v13 = kCFPropertyListXMLFormat_v1_0;
+      v12 = kCFPropertyListXMLFormat_v1_0;
     }
 
     else
     {
-      v13 = kCFPropertyListBinaryFormat_v1_0;
+      v12 = kCFPropertyListBinaryFormat_v1_0;
     }
 
-    v14 = off_1008D3E78;
+    v13 = off_1008D3E78;
     if (!enableXML)
     {
-      v14 = off_1008D3E70;
+      v13 = off_1008D3E70;
     }
 
-    CFHTTPMessageSetHeaderFieldValue(ResponseMessage, @"Content-Type", *v14);
-    Data = CFPropertyListCreateData(0, v9, v13, 0, cf);
+    CFHTTPMessageSetHeaderFieldValue(ResponseMessage, @"Content-Type", *v13);
+    Data = CFPropertyListCreateData(0, v8, v12, 0, cf);
     if (Data)
     {
-      v16 = Data;
-      v17 = self->_askRequest;
-      v18 = _CFHTTPServerResponseCreateWithData();
-      CFRelease(v16);
+      v15 = Data;
+      v16 = _CFHTTPServerResponseCreateWithData();
+      CFRelease(v15);
     }
 
     else
     {
-      v20 = airdrop_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v17 = airdrop_log();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_10020D218(cf);
+        sub_10020D218();
       }
 
       CFRelease(*cf);
-      v21 = self->_askRequest;
-      v18 = _CFHTTPServerResponseCreateWithData();
+      v16 = _CFHTTPServerResponseCreateWithData();
     }
   }
 
   else
   {
-    v19 = self->_askRequest;
-    v18 = _CFHTTPServerResponseCreateWithData();
+    v16 = _CFHTTPServerResponseCreateWithData();
   }
 
   _CFHTTPServerResponseEnqueue();
   CFRelease(self->_askRequest);
-  CFRelease(v18);
+  CFRelease(v16);
   CFRelease(ResponseMessage);
   self->_askRequest = 0;
 }
@@ -1529,17 +1523,17 @@ LABEL_14:
 - (BOOL)senderIsTrusted:(id)trusted
 {
   trustedCopy = trusted;
-  v5 = sub_100091420(self->_clientTrust);
-  if (v5)
+  v6 = sub_100091420(self->_clientTrust, v5);
+  if (v6)
   {
-    v6 = v5;
-    v7 = [(SDStatusMonitor *)self->_monitor verifiedIdentityForAppleID:trustedCopy];
-    if (v7)
+    v7 = v6;
+    v8 = [(SDStatusMonitor *)self->_monitor verifiedIdentityForAppleID:trustedCopy];
+    if (v8)
     {
-      v12 = 0;
-      v8 = sub_1002685E0(v6, v7, &v12);
-      v9 = v12;
-      if (v8)
+      v13 = 0;
+      v9 = sub_1002685E0(v7, v8, &v13);
+      v10 = v13;
+      if (v9)
       {
         [(NSMutableDictionary *)self->_properties setObject:trustedCopy forKeyedSubscript:kSFOperationSenderEmailKey];
         [(NSMutableDictionary *)self->_properties setObject:&__kCFBooleanTrue forKeyedSubscript:kSFOperationVerifiableIdentityKey];
@@ -1547,8 +1541,8 @@ LABEL_14:
 
       else
       {
-        v10 = airdrop_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = airdrop_log();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_10020D4C0();
         }
@@ -1557,30 +1551,30 @@ LABEL_14:
 
     else
     {
-      v9 = airdrop_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = airdrop_log();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10020D530();
       }
 
-      LOBYTE(v8) = 0;
+      LOBYTE(v9) = 0;
     }
 
-    CFRelease(v6);
+    CFRelease(v7);
   }
 
   else
   {
-    v7 = airdrop_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = airdrop_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10020D56C();
     }
 
-    LOBYTE(v8) = 0;
+    LOBYTE(v9) = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)senderIsMe
@@ -1588,7 +1582,7 @@ LABEL_14:
   clientTrust = self->_clientTrust;
   if (clientTrust)
   {
-    v4 = sub_100091420(clientTrust);
+    v4 = sub_100091420(clientTrust, a2);
     if (![(__CFArray *)v4 count])
     {
       v7 = airdrop_log();
@@ -1601,13 +1595,12 @@ LABEL_14:
       goto LABEL_19;
     }
 
-    v12 = 0;
     if (!SFAppleIDVerifyCertificateChainSync())
     {
       v5 = airdrop_log();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        sub_10020D5DC(&v12);
+        sub_10020D5DC();
       }
 
       v6 = 0;
@@ -1618,13 +1611,12 @@ LABEL_14:
 
     v8 = SFAppleIDCommonNameForCertificate();
     v5 = 0;
-    v12 = v8;
     if (v8)
     {
       myAppleIDCommonName = airdrop_log();
       if (os_log_type_enabled(myAppleIDCommonName, OS_LOG_TYPE_ERROR))
       {
-        sub_10020D654(&v12);
+        sub_10020D654();
       }
     }
 
@@ -1719,7 +1711,7 @@ LABEL_19:
     v9 = airdrop_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10020D7CC(&error);
+      sub_10020D7CC();
     }
 
     v10 = error;
@@ -1857,7 +1849,7 @@ LABEL_18:
     v9 = airdrop_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10020D7CC(&error);
+      sub_10020D7CC();
     }
 
     v10 = error;
@@ -2081,49 +2073,45 @@ LABEL_13:
 
         else
         {
-          person = self->_person;
-          v14 = SFNodeCopyIconData();
-          if (!v14)
+          v13 = SFNodeCopyIconData();
+          if (!v13)
           {
-            v14 = sub_1000906C0(0, 0, 0, 0);
-            if (!v14)
+            v13 = sub_1000906C0(0, 0, 0, 0);
+            if (!v13)
             {
               v10 = 0.0;
               goto LABEL_16;
             }
           }
 
-          v9 = v14;
-          [(NSMutableDictionary *)self->_properties setObject:v14 forKeyedSubscript:kSFOperationSenderIconKey];
+          v9 = v13;
+          [(NSMutableDictionary *)self->_properties setObject:v13 forKeyedSubscript:kSFOperationSenderIconKey];
           v10 = 0.0;
         }
 
 LABEL_16:
-        v15 = self->_person;
         Name = SFNodeCopyLastName();
-        v17 = self->_person;
-        v18 = SFNodeCopyFirstName();
-        v19 = self->_person;
-        v20 = SFNodeCopyDisplayName();
+        v15 = SFNodeCopyFirstName();
+        v16 = SFNodeCopyDisplayName();
         [(NSMutableDictionary *)self->_properties setObject:Name forKeyedSubscript:kSFOperationSenderLastNameKey];
-        [(NSMutableDictionary *)self->_properties setObject:v18 forKeyedSubscript:kSFOperationSenderFirstNameKey];
-        [(NSMutableDictionary *)self->_properties setObject:v20 forKeyedSubscript:kSFOperationSenderCompositeNameKey];
+        [(NSMutableDictionary *)self->_properties setObject:v15 forKeyedSubscript:kSFOperationSenderFirstNameKey];
+        [(NSMutableDictionary *)self->_properties setObject:v16 forKeyedSubscript:kSFOperationSenderCompositeNameKey];
         [(NSMutableDictionary *)self->_properties setObject:self->_person forKeyedSubscript:kSFOperationSenderNodeKey];
         [(SDAirDropConnection *)self adjustPropertiesForAutoAcceptSenderIsMe:senderIsMe];
-        v21 = [NSNumber numberWithBool:senderIsMe];
-        [(NSMutableDictionary *)self->_properties setObject:v21 forKeyedSubscript:kSFOperationSenderIsMeKey];
+        v17 = [NSNumber numberWithBool:senderIsMe];
+        [(NSMutableDictionary *)self->_properties setObject:v17 forKeyedSubscript:kSFOperationSenderIsMeKey];
 
         [(SDAirDropConnection *)self adjustPropertiesForPhotosBundles];
-        v22 = sub_1001F0530(v10);
+        v18 = sub_1001F0530(v10);
         queue = self->_queue;
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100209F64;
         block[3] = &unk_1008CDEA0;
         block[4] = self;
-        dispatch_after(v22, queue, block);
-        v24 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:v4];
-        if (![v24 count])
+        dispatch_after(v18, queue, block);
+        v20 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:v4];
+        if (![v20 count])
         {
           [(SDAirDropConnection *)self releaseIdleSleepAssertion];
         }
@@ -2182,11 +2170,10 @@ LABEL_23:
 - (void)processRequest
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  if (WeakRetained && (v4 = self->_connection, WeakRetained, v4))
+  if (WeakRetained && (connection = self->_connection, WeakRetained, connection))
   {
     if (!self->_clientTrust)
     {
-      connection = self->_connection;
       self->_clientTrust = _CFHTTPServerConnectionCopyProperty();
     }
 
@@ -2459,7 +2446,7 @@ LABEL_8:
     v7 = airdrop_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10020DB00(&error);
+      sub_10020DB00();
     }
 
     CFRelease(error);
@@ -2602,7 +2589,7 @@ LABEL_8:
       goto LABEL_7;
     }
 
-    v6 = sub_10020AE08();
+    v6 = sub_10020AE08(request);
     if (CFEqual(v6, @"Upload"))
     {
       v7 = airdrop_log();
@@ -2651,7 +2638,7 @@ LABEL_8:
     v6 = v5;
     if (CFEqual(v5, @"POST"))
     {
-      v7 = sub_10020AE08();
+      v7 = sub_10020AE08(request);
       if (v7)
       {
         v8 = v7;
@@ -2845,38 +2832,38 @@ LABEL_33:
 
   if (WeakRetained)
   {
-    v7 = [(SDAirDropConnection *)self getStatusCode:response];
-    if (v7 == 400)
+    v8 = [(SDAirDropConnection *)self getStatusCode:response];
+    if (v8 == 400)
     {
 
       [(SDAirDropConnection *)self silentlyCancelRequest];
       return;
     }
 
-    v8 = v7;
-    v9 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationErrorKey];
+    v9 = v8;
+    v10 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationErrorKey];
 
-    if (v9)
+    if (v10)
     {
 
       [(SDAirDropConnection *)self notifyClientForEvent:10];
       return;
     }
 
-    v10 = _CFHTTPServerRequestCopyProperty();
-    if (v10)
+    v11 = _CFHTTPServerRequestCopyProperty();
+    if (v11)
     {
-      v11 = v10;
-      if (CFEqual(v10, @"POST"))
+      v12 = v11;
+      if (CFEqual(v11, @"POST"))
       {
-        v12 = sub_10020AE08();
-        if (v12)
+        v13 = sub_10020AE08(request);
+        if (v13)
         {
-          v13 = v12;
-          if (CFEqual(v12, @"Ask"))
+          v14 = v13;
+          if (CFEqual(v13, @"Ask"))
           {
-            v14 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationFilesKey];
-            if ([v14 count])
+            v15 = [(NSMutableDictionary *)self->_properties objectForKeyedSubscript:kSFOperationFilesKey];
+            if ([v15 count])
             {
               self->_startTime = CFAbsoluteTimeGetCurrent();
               [(SDAirDropConnection *)self notifyClientForEvent:5];
@@ -2890,9 +2877,9 @@ LABEL_33:
             }
           }
 
-          else if (CFEqual(v13, @"Upload"))
+          else if (CFEqual(v14, @"Upload"))
           {
-            if (v8 != 100)
+            if (v9 != 100)
             {
               [(SDAirDropConnection *)self notifyClientForEvent:9];
             }
@@ -2900,10 +2887,10 @@ LABEL_33:
 
           else
           {
-            if (!CFEqual(v13, @"Discover"))
+            if (!CFEqual(v14, @"Discover"))
             {
-              v17 = airdrop_log();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v18 = airdrop_log();
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
                 sub_10020DE38();
               }
@@ -2912,12 +2899,12 @@ LABEL_33:
             [(SDAirDropConnection *)self silentlyCancelRequest];
           }
 
-          CFRelease(v13);
+          CFRelease(v14);
           goto LABEL_34;
         }
 
-        v16 = airdrop_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = airdrop_log();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_10020DE74();
         }
@@ -2925,8 +2912,8 @@ LABEL_33:
 
       else
       {
-        v16 = airdrop_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = airdrop_log();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_10020DEB0();
         }
@@ -2934,12 +2921,12 @@ LABEL_33:
 
       [(SDAirDropConnection *)self silentlyCancelRequest];
 LABEL_34:
-      CFRelease(v11);
+      CFRelease(v12);
       return;
     }
 
-    v15 = airdrop_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = airdrop_log();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10020DEEC();
     }
@@ -3030,22 +3017,20 @@ LABEL_34:
 
 - (id)whereFromInfo
 {
-  v3 = objc_opt_new();
-  person = self->_person;
-  v5 = SFNodeCopyDisplayName();
-  v6 = self->_person;
-  v7 = SFNodeCopyComputerName();
-  if (v5)
+  v2 = objc_opt_new();
+  v3 = SFNodeCopyDisplayName();
+  v4 = SFNodeCopyComputerName();
+  if (v3)
   {
-    [v3 addObject:v5];
+    [v2 addObject:v3];
   }
 
-  if (v7 && ([v5 isEqualToString:v7] & 1) == 0)
+  if (v4 && ([v3 isEqualToString:v4] & 1) == 0)
   {
-    [v3 addObject:v7];
+    [v2 addObject:v4];
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)setCombinedFileURLsAndItems:(id)items
@@ -3187,12 +3172,10 @@ LABEL_10:
   }
 
   *buf = unk_1008D4310;
-  v10 = *off_1008D4320;
-  v11 = *&off_1008D4330;
+  v8 = *off_1008D4320;
+  v9 = *off_1008D4330;
   sub_10009000C(self->_connection, self);
-  connection = self->_connection;
   _CFHTTPServerConnectionSetClient();
-  v8 = self->_connection;
   _CFHTTPServerConnectionSetProperty();
 }
 
@@ -3287,7 +3270,6 @@ LABEL_8:
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Invalidated AirDrop connection %p", &v16, 0xCu);
     }
 
-    v12 = self->_connection;
     _CFHTTPServerConnectionInvalidate();
     CFRelease(self->_connection);
     self->_connection = 0;
@@ -3296,7 +3278,7 @@ LABEL_8:
   if (self->_queueSuspended)
   {
     sub_10008FEB8(self);
-    v13 = sub_10008F9A4();
+    v13 = sub_10008F9A4(v12);
     dispatch_resume(v13);
 
     self->_queueSuspended = 0;

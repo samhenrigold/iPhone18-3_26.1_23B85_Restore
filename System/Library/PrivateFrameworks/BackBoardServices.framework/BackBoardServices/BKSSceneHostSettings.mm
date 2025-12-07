@@ -13,40 +13,37 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = formatterCopy;
   selfCopy = self;
   v5 = formatterCopy;
-  [v5 appendProem:0 block:v6];
+  [v5 appendProem:v6 block:{3221225472, __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke, &unk_1E6F47C78}];
 }
 
 void __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) appendString:*(*(a1 + 40) + 8) withName:@"identifier"];
+  [*(a1 + 32) appendString:? withName:?];
   v2 = *(a1 + 32);
   v3 = NSStringFromBKSSceneHostTouchBehavior(*(*(a1 + 40) + 16));
-  [v2 appendString:v3 withName:@"touchBehavior"];
+  [v2 appendString:? withName:?];
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  identifier = self->_identifier;
   coderCopy = coder;
-  [coderCopy encodeObject:identifier forKey:@"ident"];
-  [coderCopy encodeInteger:self->_touchBehavior forKey:@"touchBehavior"];
+  [coderCopy encodeObject:? forKey:?];
+  [coderCopy encodeInteger:? forKey:?];
 }
 
 - (BKSSceneHostSettings)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ident"];
-  v6 = [coderCopy decodeIntegerForKey:@"touchBehavior"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
+  [coderCopy decodeIntegerForKey:?];
 
-  v7 = [(BKSSceneHostSettings *)self initWithIdentifier:v5 touchBehavior:v6];
-  return v7;
+  v6 = [BKSSceneHostSettings initWithIdentifier:"initWithIdentifier:touchBehavior:" touchBehavior:?];
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -81,7 +78,7 @@ void __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke(uint
 
     v9 = v7;
 
-    v8 = v9 && (identifier = self->_identifier, v11 = v9->_identifier, BSEqualObjects()) && self->_touchBehavior == v9->_touchBehavior;
+    v8 = v9 && BSEqualObjects() && self->_touchBehavior == v9->_touchBehavior;
   }
 
   return v8;
@@ -89,36 +86,36 @@ void __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke(uint
 
 - (BKSSceneHostSettings)initWithIdentifier:(id)identifier touchBehavior:(int64_t)behavior
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v8 = MEMORY[0x1E696AEC0];
   v9 = objc_opt_class();
   if (!identifierCopy)
   {
-    v16 = NSStringFromClass(v9);
-    v17 = [v8 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"identifier", v16];
+    v15 = NSStringFromClass(v9);
+    v16 = [v8 stringWithFormat:@"identifier", v15];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v18 = NSStringFromSelector(a2);
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
+      v17 = NSStringFromSelector(a2);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
       *buf = 138544642;
-      v40 = v18;
-      v41 = 2114;
-      v42 = v20;
-      v43 = 2048;
+      v39 = v17;
+      v40 = 2114;
+      v41 = v19;
+      v42 = 2048;
       selfCopy3 = self;
-      v45 = 2114;
-      v46 = @"BKSSceneHostSettings.m";
-      v47 = 1024;
-      v48 = 58;
-      v49 = 2114;
-      v50 = v17;
+      v44 = 2114;
+      v45 = @"BKSSceneHostSettings.m";
+      v46 = 1024;
+      v47 = 58;
+      v48 = 2114;
+      v49 = v16;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v17 UTF8String];
+    [v16 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B77D0);
@@ -126,39 +123,39 @@ void __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke(uint
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v21 = MEMORY[0x1E696AEC0];
+    v20 = MEMORY[0x1E696AEC0];
     classForCoder = [identifierCopy classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v23 = NSStringFromClass(classForCoder);
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
-    v26 = [v21 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v23, v25];
+    v22 = NSStringFromClass(classForCoder);
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
+    v25 = [v20 stringWithFormat:@"identifier", v22, v24];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v27 = NSStringFromSelector(a2);
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
+      v26 = NSStringFromSelector(a2);
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
       *buf = 138544642;
-      v40 = v27;
-      v41 = 2114;
-      v42 = v29;
-      v43 = 2048;
+      v39 = v26;
+      v40 = 2114;
+      v41 = v28;
+      v42 = 2048;
       selfCopy3 = self;
-      v45 = 2114;
-      v46 = @"BKSSceneHostSettings.m";
-      v47 = 1024;
-      v48 = 58;
-      v49 = 2114;
-      v50 = v26;
+      v44 = 2114;
+      v45 = @"BKSSceneHostSettings.m";
+      v46 = 1024;
+      v47 = 58;
+      v48 = 2114;
+      v49 = v25;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v26 UTF8String];
+    [v25 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B7908);
@@ -166,63 +163,63 @@ void __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke(uint
 
   if ((behavior - 3) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"behavior == BKSSceneHostTouchBehaviorInactive || behavior == BKSSceneHostTouchBehaviorForeground"];
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"behavior == BKSSceneHostTouchBehaviorInactive || behavior == BKSSceneHostTouchBehaviorForeground"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v31 = NSStringFromSelector(a2);
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
+      v30 = NSStringFromSelector(a2);
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
       *buf = 138544642;
-      v40 = v31;
-      v41 = 2114;
-      v42 = v33;
-      v43 = 2048;
+      v39 = v30;
+      v40 = 2114;
+      v41 = v32;
+      v42 = 2048;
       selfCopy3 = self;
-      v45 = 2114;
-      v46 = @"BKSSceneHostSettings.m";
-      v47 = 1024;
-      v48 = 59;
-      v49 = 2114;
-      v50 = v30;
+      v44 = 2114;
+      v45 = @"BKSSceneHostSettings.m";
+      v46 = 1024;
+      v47 = 59;
+      v48 = 2114;
+      v49 = v29;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v30 UTF8String];
+    [v29 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B79FCLL);
   }
 
-  v38.receiver = self;
-  v38.super_class = BKSSceneHostSettings;
-  v10 = [(BKSSceneHostSettings *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = BKSSceneHostSettings;
+  v10 = [(BKSSceneHostSettings *)&v37 init];
   if (v10)
   {
     v11 = objc_opt_class();
     if (v11 != objc_opt_class())
     {
-      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSSceneHostSettings cannot be subclassed"];
+      v33 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v35 = NSStringFromSelector(a2);
-        v36 = objc_opt_class();
-        v37 = NSStringFromClass(v36);
+        v34 = NSStringFromSelector(a2);
+        v35 = objc_opt_class();
+        v36 = NSStringFromClass(v35);
         *buf = 138544642;
-        v40 = v35;
-        v41 = 2114;
-        v42 = v37;
-        v43 = 2048;
+        v39 = v34;
+        v40 = 2114;
+        v41 = v36;
+        v42 = 2048;
         selfCopy3 = v10;
-        v45 = 2114;
-        v46 = @"BKSSceneHostSettings.m";
-        v47 = 1024;
-        v48 = 63;
-        v49 = 2114;
-        v50 = v34;
+        v44 = 2114;
+        v45 = @"BKSSceneHostSettings.m";
+        v46 = 1024;
+        v47 = 63;
+        v48 = 2114;
+        v49 = v33;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v34 UTF8String];
+      [v33 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863B7AE4);
@@ -235,13 +232,12 @@ void __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke(uint
     v10->_touchBehavior = behavior;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BKSSceneHostSettings)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"-init is not permitted"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -270,7 +266,7 @@ void __53__BKSSceneHostSettings_appendDescriptionToFormatter___block_invoke(uint
 
 + (BKSSceneHostSettings)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"+new is not permitted"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

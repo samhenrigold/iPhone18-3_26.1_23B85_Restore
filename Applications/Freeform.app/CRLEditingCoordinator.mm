@@ -90,16 +90,16 @@
 
 - (BOOL)isInRealTimeSyncSession
 {
-  v3 = sub_1005B981C(&qword_101A08DF0);
+  v3 = sub_1005B981C(&qword_101A08DF0, &qword_101486FB0);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = *(&self->super.isa + OBJC_IVAR____TtC8Freeform21CRLEditingCoordinator_mainBoard);
   v7 = OBJC_IVAR____TtC8Freeform8CRLBoard_realTimeSessionInfo;
   swift_beginAccess();
-  sub_10000BE14(v6 + v7, v5, &qword_101A08DF0);
+  sub_10000BE14(v6 + v7, v5, &qword_101A08DF0, &qword_101486FB0);
   v8 = type metadata accessor for CRLBoard.RealTimeSessionInfo(0);
   LOBYTE(v6) = (*(*(v8 - 8) + 48))(v5, 1, v8) != 1;
-  sub_10000CAAC(v5, &qword_101A08DF0);
+  sub_10000CAAC(v5, &qword_101A08DF0, &qword_101486FB0);
   return v6;
 }
 
@@ -149,7 +149,7 @@
   swift_unknownObjectRelease();
   sub_10092D5B4(v5);
 
-  sub_100005070(&v7);
+  sub_100005070(v7);
 }
 
 - (id)sourceContextForPasteboardController:(id)controller

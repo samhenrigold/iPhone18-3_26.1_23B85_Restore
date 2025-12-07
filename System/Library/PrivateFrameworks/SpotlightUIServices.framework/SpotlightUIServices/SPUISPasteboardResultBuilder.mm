@@ -31,11 +31,11 @@
 
 - (SPUISPasteboardResultBuilder)initWithResult:(id)result
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v22.receiver = self;
-  v22.super_class = SPUISPasteboardResultBuilder;
-  v5 = [(SPUISResultBuilder *)&v22 initWithResult:resultCopy];
+  v21.receiver = self;
+  v21.super_class = SPUISPasteboardResultBuilder;
+  v5 = [(SPUISResultBuilder *)&v21 initWithResult:resultCopy];
   if (v5)
   {
     v6 = [resultCopy valueForAttribute:*MEMORY[0x277CC2750] withType:objc_opt_class()];
@@ -53,26 +53,26 @@
       [(SPUISPasteboardResultBuilder *)v5 setDateCopied:v8];
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     contentTypeTree = [resultCopy contentTypeTree];
-    v10 = [contentTypeTree countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v10 = [contentTypeTree countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(contentTypeTree);
           }
 
-          v14 = [MEMORY[0x277CE1CB8] typeWithIdentifier:*(*(&v18 + 1) + 8 * i)];
+          v14 = [MEMORY[0x277CE1CB8] typeWithIdentifier:*(*(&v17 + 1) + 8 * i)];
           if (v14)
           {
             v15 = v14;
@@ -82,7 +82,7 @@
           }
         }
 
-        v11 = [contentTypeTree countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v11 = [contentTypeTree countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v11)
         {
           continue;
@@ -95,7 +95,6 @@
 LABEL_15:
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -123,7 +122,7 @@ LABEL_15:
 
 - (id)buildDescriptions
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   pasteboardDescription = [(SPUISPasteboardResultBuilder *)self pasteboardDescription];
   if ([pasteboardDescription length])
@@ -144,21 +143,19 @@ LABEL_15:
     [v3 addObject:v11];
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v12 = MEMORY[0x277D4C598];
     v13 = [v3 componentsJoinedByString:@" · "];
     v14 = [v12 textWithString:v13];
-    v18[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   }
 
   else
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -214,42 +211,38 @@ LABEL_15:
 
 - (id)buildCopyItems
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   buildCopyItem = [(SPUISPasteboardResultBuilder *)self buildCopyItem];
   v3 = buildCopyItem;
   if (buildCopyItem)
   {
-    v7[0] = buildCopyItem;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = buildCopyItem;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)buildButtonItems
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   buildCopyButtonItem = [(SPUISPasteboardResultBuilder *)self buildCopyButtonItem];
   v3 = buildCopyButtonItem;
   if (buildCopyButtonItem)
   {
-    v7[0] = buildCopyButtonItem;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = buildCopyButtonItem;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -275,7 +268,7 @@ LABEL_15:
   [v4 setCommand:buildPasteCommand];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"Paste" value:0 table:0];
-  [v4 setTitle:v6];
+  objc_msgSend_setTitle_(v4);
 
   [v4 setImage:v3];
 
@@ -300,15 +293,15 @@ LABEL_15:
 
 - (id)buildDeleteCommand
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   result = [(SPUISResultBuilder *)self result];
   v3 = [result valueForAttribute:*MEMORY[0x277CC3208] withType:objc_opt_class()];
 
   if (v3)
   {
     v4 = objc_opt_new();
-    v8[0] = v3;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v3;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [v4 setItemIdentifiers:v5];
   }
 
@@ -316,8 +309,6 @@ LABEL_15:
   {
     v4 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -334,7 +325,7 @@ LABEL_15:
     [v4 setCommand:buildDeleteCommand];
     v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v6 = [v5 localizedStringForKey:@"Delete Item" value:0 table:0];
-    [v4 setTitle:v6];
+    objc_msgSend_setTitle_(v4);
 
     [v4 setImage:v3];
   }
@@ -363,7 +354,7 @@ LABEL_15:
   }
 
   buildShareItems = [(SPUISPasteboardResultBuilder *)self buildShareItems];
-  if ([buildShareItems count])
+  if (objc_msgSend_count(buildShareItems))
   {
     v7 = objc_opt_new();
     [v7 setShareItems:buildShareItems];
@@ -378,7 +369,7 @@ LABEL_15:
     [v3 addObject:buildDeleteButtonItem];
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v10 = v3;
   }

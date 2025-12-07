@@ -677,12 +677,11 @@ LABEL_23:
 {
   toCopy = to;
   has = self->_has;
-  v31 = toCopy;
+  v9 = toCopy;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v31;
+    toCopy = v9;
     has = self->_has;
     if ((*&has & 0x4000) == 0)
     {
@@ -701,9 +700,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  psDuration = self->_psDuration;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x8000) == 0)
   {
@@ -717,9 +715,8 @@ LABEL_4:
   }
 
 LABEL_34:
-  totalFachDuration = self->_totalFachDuration;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -733,9 +730,8 @@ LABEL_5:
   }
 
 LABEL_35:
-  lastFachDuration = self->_lastFachDuration;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x2000) == 0)
   {
@@ -749,9 +745,8 @@ LABEL_6:
   }
 
 LABEL_36:
-  mrabDuration = self->_mrabDuration;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x100) == 0)
   {
@@ -765,9 +760,8 @@ LABEL_7:
   }
 
 LABEL_37:
-  lastUlInactiveDur = self->_lastUlInactiveDur;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x40) == 0)
   {
@@ -781,9 +775,8 @@ LABEL_8:
   }
 
 LABEL_38:
-  lastDlInactiveDur = self->_lastDlInactiveDur;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 4) == 0)
   {
@@ -797,9 +790,8 @@ LABEL_9:
   }
 
 LABEL_39:
-  aveUlThroughput = self->_aveUlThroughput;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 2) == 0)
   {
@@ -813,9 +805,8 @@ LABEL_10:
   }
 
 LABEL_40:
-  aveDlThroughput = self->_aveDlThroughput;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -829,9 +820,8 @@ LABEL_11:
   }
 
 LABEL_41:
-  maxUlThroughput = self->_maxUlThroughput;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -845,9 +835,8 @@ LABEL_12:
   }
 
 LABEL_42:
-  maxDlThroughput = self->_maxDlThroughput;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x800) == 0)
   {
@@ -861,9 +850,8 @@ LABEL_13:
   }
 
 LABEL_43:
-  maxUlRbRate = self->_maxUlRbRate;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -877,9 +865,8 @@ LABEL_14:
   }
 
 LABEL_44:
-  maxDlRbRate = self->_maxDlRbRate;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -893,9 +880,8 @@ LABEL_15:
   }
 
 LABEL_45:
-  ulActiveDur = self->_ulActiveDur;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 8) == 0)
   {
@@ -909,9 +895,8 @@ LABEL_16:
   }
 
 LABEL_46:
-  dlActiveDur = self->_dlActiveDur;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   has = self->_has;
   if ((*&has & 0x20000) == 0)
   {
@@ -925,57 +910,52 @@ LABEL_17:
   }
 
 LABEL_47:
-  ulRetxBlockRatePpt = self->_ulRetxBlockRatePpt;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_18:
-    dlBlerPpt = self->_dlBlerPpt;
     PBDataWriterWriteUint32Field();
-    toCopy = v31;
+    toCopy = v9;
   }
 
 LABEL_19:
   if (self->_txPowerHists.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_txPowerHists.list[v7];
       PBDataWriterWriteUint32Field();
-      toCopy = v31;
-      ++v7;
+      toCopy = v9;
+      ++v6;
     }
 
-    while (v7 < self->_txPowerHists.count);
+    while (v6 < self->_txPowerHists.count);
   }
 
   if (self->_rxPowerHists.count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = self->_rxPowerHists.list[v9];
       PBDataWriterWriteUint32Field();
-      toCopy = v31;
-      ++v9;
+      toCopy = v9;
+      ++v7;
     }
 
-    while (v9 < self->_rxPowerHists.count);
+    while (v7 < self->_rxPowerHists.count);
   }
 
-  v11 = self->_has;
-  if ((*&v11 & 0x40000) != 0)
+  v8 = self->_has;
+  if ((*&v8 & 0x40000) != 0)
   {
-    ulTotalBytes = self->_ulTotalBytes;
     PBDataWriterWriteUint32Field();
-    toCopy = v31;
-    v11 = self->_has;
-    if ((*&v11 & 0x20) == 0)
+    toCopy = v9;
+    v8 = self->_has;
+    if ((*&v8 & 0x20) == 0)
     {
 LABEL_27:
-      if ((*&v11 & 0x80000) == 0)
+      if ((*&v8 & 0x80000) == 0)
       {
         goto LABEL_29;
       }
@@ -984,20 +964,18 @@ LABEL_27:
     }
   }
 
-  else if ((*&v11 & 0x20) == 0)
+  else if ((*&v8 & 0x20) == 0)
   {
     goto LABEL_27;
   }
 
-  dlTotalBytes = self->_dlTotalBytes;
   PBDataWriterWriteUint32Field();
-  toCopy = v31;
+  toCopy = v9;
   if ((*&self->_has & 0x80000) != 0)
   {
 LABEL_28:
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v31;
+    toCopy = v9;
   }
 
 LABEL_29:

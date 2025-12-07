@@ -1,4 +1,5 @@
 @interface NEIKEv2SecurityContextAESGCM
+- (id)constructEncryptedPacketFromConstructor:(id)constructor plaintextLength:(unsigned int)length authenticatedHeaders:(id)headers;
 - (id)decryptPayloadData:(id)data authenticatedHeaders:(id)headers;
 - (id)initWithEncryptionProtocol:(void *)protocol outgoingEncryptionKey:(void *)key incomingEncryptionKey:;
 - (void)dealloc;
@@ -8,7 +9,7 @@
 
 - (id)decryptPayloadData:(id)data authenticatedHeaders:(id)headers
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   headersCopy = headers;
   v8 = headersCopy;
@@ -18,10 +19,10 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v33 = "[NEIKEv2SecurityContextAESGCM decryptPayloadData:authenticatedHeaders:]";
-      v22 = "%s called with null payloadData";
+      v32 = "[NEIKEv2SecurityContextAESGCM decryptPayloadData:authenticatedHeaders:]";
+      v21 = "%s called with null payloadData";
 LABEL_18:
-      _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, v22, buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, v21, buf, 0xCu);
     }
 
 LABEL_24:
@@ -35,8 +36,8 @@ LABEL_24:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v33 = "[NEIKEv2SecurityContextAESGCM decryptPayloadData:authenticatedHeaders:]";
-      v22 = "%s called with null authenticatedHeaders";
+      v32 = "[NEIKEv2SecurityContextAESGCM decryptPayloadData:authenticatedHeaders:]";
+      v21 = "%s called with null authenticatedHeaders";
       goto LABEL_18;
     }
 
@@ -53,7 +54,7 @@ LABEL_24:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v33) = v10;
+        LODWORD(v32) = v10;
         _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Cannot decrypt, encrypted data length %u too short", buf, 8u);
       }
 
@@ -74,21 +75,21 @@ LABEL_24:
   v13 = ccgcm_reset();
   if (v13)
   {
-    v23 = v13;
-    v24 = ne_log_obj();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v22 = v13;
+    v23 = ne_log_obj();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      LODWORD(v33) = v23;
-      _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, "ccgcm_reset failed: %d", buf, 8u);
+      LODWORD(v32) = v22;
+      _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, "ccgcm_reset failed: %d", buf, 8u);
     }
 
     goto LABEL_24;
   }
 
-  v35[0] = 0;
+  v34[0] = 0;
   __s = *(&self->super._minimumEncryptedPayloadSize + 1);
-  [dataCopy getBytes:v35 length:8];
+  [dataCopy getBytes:v34 length:8];
   v14 = ccgcm_set_iv();
   memset_s(&__s, 0xCuLL, 0, 0xCuLL);
   if (v14)
@@ -97,10 +98,10 @@ LABEL_24:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      LODWORD(v33) = v14;
-      v25 = "ccgcm_set_iv failed: %d";
+      LODWORD(v32) = v14;
+      v24 = "ccgcm_set_iv failed: %d";
 LABEL_29:
-      _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, v25, buf, 8u);
+      _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, v24, buf, 8u);
     }
 
 LABEL_34:
@@ -113,13 +114,13 @@ LABEL_34:
   v15 = ccgcm_aad();
   if (v15)
   {
-    v26 = v15;
+    v25 = v15;
     v16 = ne_log_obj();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109120;
-      LODWORD(v33) = v26;
-      v25 = "ccgcm_aad failed: %d";
+      LODWORD(v32) = v25;
+      v24 = "ccgcm_aad failed: %d";
       goto LABEL_29;
     }
 
@@ -132,9 +133,9 @@ LABEL_34:
   v17 = ccgcm_update();
   if (v17)
   {
-    v27 = v17;
-    v28 = ne_log_obj();
-    if (!os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v26 = v17;
+    v27 = ne_log_obj();
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
 LABEL_33:
 
@@ -142,11 +143,11 @@ LABEL_33:
     }
 
     *buf = 67109120;
-    LODWORD(v33) = v27;
-    v29 = "ccgcm_update failed: %d";
-    v30 = buf;
+    LODWORD(v32) = v26;
+    v28 = "ccgcm_update failed: %d";
+    v29 = buf;
 LABEL_36:
-    _os_log_fault_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_FAULT, v29, v30, 8u);
+    _os_log_fault_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_FAULT, v28, v29, 8u);
     goto LABEL_33;
   }
 
@@ -155,16 +156,16 @@ LABEL_36:
   memset_s(buf, 0x10uLL, 0, 0x10uLL);
   if (v18)
   {
-    v28 = ne_log_obj();
-    if (!os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v27 = ne_log_obj();
+    if (!os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       goto LABEL_33;
     }
 
-    v31[0] = 67109120;
-    v31[1] = v18;
-    v29 = "ccgcm_finalize failed: %d";
-    v30 = v31;
+    v30[0] = 67109120;
+    v30[1] = v18;
+    v28 = "ccgcm_finalize failed: %d";
+    v29 = v30;
     goto LABEL_36;
   }
 
@@ -172,8 +173,167 @@ LABEL_36:
 LABEL_12:
 
 LABEL_13:
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
+}
+
+- (id)constructEncryptedPacketFromConstructor:(id)constructor plaintextLength:(unsigned int)length authenticatedHeaders:(id)headers
+{
+  v6 = *&length;
+  v35 = *MEMORY[0x1E69E9840];
+  constructorCopy = constructor;
+  headersCopy = headers;
+  v10 = headersCopy;
+  if (!constructorCopy)
+  {
+    v12 = ne_log_obj();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    {
+      *__s = 136315138;
+      *&__s[4] = "[NEIKEv2SecurityContextAESGCM constructEncryptedPacketFromConstructor:plaintextLength:authenticatedHeaders:]";
+      v23 = "%s called with null packetConstructor";
+LABEL_18:
+      _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, v23, __s, 0xCu);
+    }
+
+LABEL_22:
+    v21 = 0;
+    goto LABEL_13;
+  }
+
+  if (!headersCopy)
+  {
+    v12 = ne_log_obj();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    {
+      *__s = 136315138;
+      *&__s[4] = "[NEIKEv2SecurityContextAESGCM constructEncryptedPacketFromConstructor:plaintextLength:authenticatedHeaders:]";
+      v23 = "%s called with null authenticatedHeaders";
+      goto LABEL_18;
+    }
+
+    goto LABEL_22;
+  }
+
+  if (self)
+  {
+    v11 = *self->incomingEncryptionSalt;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = v11;
+  [v12 mutableBytes];
+  ccaes_gcm_encrypt_mode();
+  v13 = [v10 length];
+  v14 = [(NEIKEv2SecurityContext *)self overheadForPlaintextLength:v6];
+  v15 = ccgcm_reset();
+  if (v15)
+  {
+    v24 = v15;
+    v25 = ne_log_obj();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    {
+      *__s = 67109120;
+      *&__s[4] = v24;
+      _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, "ccgcm_reset failed: %d", __s, 8u);
+    }
+
+    goto LABEL_22;
+  }
+
+  *&__s[8] = 0;
+  *__s = 0;
+  v16 = ccgcm_inc_iv();
+  if (v16)
+  {
+    v26 = v16;
+    memset_s(__s, 0xCuLL, 0, 0xCuLL);
+    v17 = ne_log_obj();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    {
+      v32 = 67109120;
+      v33 = v26;
+      _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "ccgcm_inc_iv failed: %d", &v32, 8u);
+    }
+
+    goto LABEL_31;
+  }
+
+  v17 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:v13 + v6 + v14];
+  [v17 appendData:v10];
+  [v17 appendBytes:&__s[4] length:8];
+  memset_s(__s, 0xCuLL, 0, 0xCuLL);
+  if (![(NEIKEv2PacketConstructor *)constructorCopy appendPayloadsToPacket:v17 withLength:v6])
+  {
+LABEL_31:
+    v21 = 0;
+    goto LABEL_12;
+  }
+
+  [v17 increaseLengthBy:17];
+  [v17 bytes];
+  v18 = ccgcm_aad();
+  if (v18)
+  {
+    v27 = v18;
+    v28 = ne_log_obj();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    {
+      v32 = 67109120;
+      v33 = v27;
+      v29 = "ccgcm_aad failed: %d";
+      goto LABEL_33;
+    }
+
+LABEL_30:
+
+    goto LABEL_31;
+  }
+
+  [v17 mutableBytes];
+  v19 = ccgcm_update();
+  if (v19)
+  {
+    v30 = v19;
+    v28 = ne_log_obj();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    {
+      v32 = 67109120;
+      v33 = v30;
+      v29 = "ccgcm_update failed: %d";
+      goto LABEL_33;
+    }
+
+    goto LABEL_30;
+  }
+
+  v20 = ccgcm_finalize();
+  if (v20)
+  {
+    v31 = v20;
+    v28 = ne_log_obj();
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_30;
+    }
+
+    v32 = 67109120;
+    v33 = v31;
+    v29 = "ccgcm_finalize failed: %d";
+LABEL_33:
+    _os_log_fault_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_FAULT, v29, &v32, 8u);
+    goto LABEL_30;
+  }
+
+  v17 = v17;
+  v21 = v17;
+LABEL_12:
+
+LABEL_13:
+  return v21;
 }
 
 - (void)dealloc
@@ -186,7 +346,7 @@ LABEL_13:
 
 - (id)initWithEncryptionProtocol:(void *)protocol outgoingEncryptionKey:(void *)key incomingEncryptionKey:
 {
-  *&v28[5] = *MEMORY[0x1E69E9840];
+  *&v27[5] = *MEMORY[0x1E69E9840];
   v7 = a2;
   protocolCopy = protocol;
   keyCopy = key;
@@ -205,10 +365,10 @@ LABEL_13:
     }
 
     __s = 136315138;
-    *v28 = "[NEIKEv2SecurityContextAESGCM initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:]";
-    v21 = "%s called with null encryptionProtocol";
+    *v27 = "[NEIKEv2SecurityContextAESGCM initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:]";
+    v20 = "%s called with null encryptionProtocol";
 LABEL_22:
-    _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, v21, &__s, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, v20, &__s, 0xCu);
     goto LABEL_26;
   }
 
@@ -221,8 +381,8 @@ LABEL_22:
     }
 
     __s = 136315138;
-    *v28 = "[NEIKEv2SecurityContextAESGCM initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:]";
-    v21 = "%s called with null outgoingEncryptionKey";
+    *v27 = "[NEIKEv2SecurityContextAESGCM initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:]";
+    v20 = "%s called with null outgoingEncryptionKey";
     goto LABEL_22;
   }
 
@@ -235,8 +395,8 @@ LABEL_22:
     }
 
     __s = 136315138;
-    *v28 = "[NEIKEv2SecurityContextAESGCM initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:]";
-    v21 = "%s called with null incomingEncryptionKey";
+    *v27 = "[NEIKEv2SecurityContextAESGCM initWithEncryptionProtocol:outgoingEncryptionKey:incomingEncryptionKey:]";
+    v20 = "%s called with null incomingEncryptionKey";
     goto LABEL_22;
   }
 
@@ -253,7 +413,7 @@ LABEL_22:
         v14 = v13;
         [protocolCopy getBytes:&__s range:{objc_msgSend(protocolCopy, "length") - 4, 4}];
         objc_opt_self();
-        arc4random_buf(v28, 8uLL);
+        arc4random_buf(v27, 8uLL);
         [v14 mutableBytes];
         [protocolCopy length];
         [protocolCopy bytes];
@@ -264,8 +424,8 @@ LABEL_22:
           v18 = ne_log_obj();
           if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
           {
-            LOWORD(v25) = 0;
-            _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "ccgcm_init_with_iv failed", &v25, 2u);
+            LOWORD(v24) = 0;
+            _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "ccgcm_init_with_iv failed", &v24, 2u);
           }
         }
 
@@ -292,22 +452,22 @@ LABEL_14:
               goto LABEL_15;
             }
 
-            v24 = ne_log_obj();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+            v23 = ne_log_obj();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
             {
-              LOWORD(v25) = 0;
-              _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, "ccgcm_init failed", &v25, 2u);
+              LOWORD(v24) = 0;
+              _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, "ccgcm_init failed", &v24, 2u);
             }
           }
 
           else
           {
-            v23 = ne_log_obj();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+            v22 = ne_log_obj();
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
             {
-              v25 = 134217984;
-              v26 = v16;
-              _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%zu] failed", &v25, 0xCu);
+              v24 = 134217984;
+              v25 = v16;
+              _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%zu] failed", &v24, 0xCu);
             }
 
             v18 = 0;
@@ -318,12 +478,12 @@ LABEL_14:
         goto LABEL_13;
       }
 
-      v22 = ne_log_obj();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v21 = ne_log_obj();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
         __s = 134217984;
-        *v28 = v12;
-        _os_log_fault_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%zu] failed", &__s, 0xCu);
+        *v27 = v12;
+        _os_log_fault_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_FAULT, "[NEMutableSensitiveData mutableSensitiveDataPrefilledWithMaxCapacity:%zu] failed", &__s, 0xCu);
       }
 
       v14 = 0;
@@ -337,7 +497,6 @@ LABEL_6:
   selfCopy = 0;
 LABEL_15:
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

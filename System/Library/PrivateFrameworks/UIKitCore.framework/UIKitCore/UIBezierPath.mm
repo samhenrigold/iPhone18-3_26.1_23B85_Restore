@@ -1085,7 +1085,7 @@ LABEL_9:
     continuousCopy3 = continuous;
   }
 
-  _addContinuousCornerToPath(self->_path, a5, continuousCopy3, clockwise, 0, corner.x, corner.y, radius.width, radius.height);
+  _addContinuousCornerToPath(self->_path, a5, continuousCopy3, clockwise, 0, corner, corner.y, radius.width, radius.height);
   self->_immutablePathIsValid = 0;
 }
 
@@ -1716,20 +1716,20 @@ LABEL_21:
   v13 = path.origin.x;
   radiiCopy = radii;
   Mutable = CGPathCreateMutable();
-  v16 = (segments >> 1) & 1;
+  v17 = (segments >> 1) & 1;
   if ((~segments & 0xD) != 0)
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   if ((segments & 0x10) != 0)
   {
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v17 = v16;
+    v18 = v17;
   }
 
   if (_UIInternalPreferencesRevisionOnce != -1)
@@ -1737,14 +1737,14 @@ LABEL_21:
     dispatch_once(&_UIInternalPreferencesRevisionOnce, &__block_literal_global_5_11);
   }
 
-  v18 = _UIInternalPreferencesRevisionVar;
-  v96 = v17;
+  v19 = _UIInternalPreferencesRevisionVar;
+  v97 = v18;
   if (_UIInternalPreferencesRevisionVar < 1)
   {
     goto LABEL_9;
   }
 
-  v67 = _UIInternalPreference_EnableCGPathContinuousRoundedRect;
+  v68 = _UIInternalPreference_EnableCGPathContinuousRoundedRect;
   if (_UIInternalPreferencesRevisionVar == _UIInternalPreference_EnableCGPathContinuousRoundedRect)
   {
     goto LABEL_9;
@@ -1752,169 +1752,169 @@ LABEL_21:
 
   while (1)
   {
-    v68 = v13;
-    if (v18 < v67)
+    v69 = v13;
+    if (v19 < v68)
     {
       break;
     }
 
-    _UIInternalPreferenceSync(v18, &_UIInternalPreference_EnableCGPathContinuousRoundedRect, @"EnableCGPathContinuousRoundedRect", _UIInternalPreferenceUpdateBool);
-    v67 = _UIInternalPreference_EnableCGPathContinuousRoundedRect;
-    v17 = v96;
-    if (v18 == _UIInternalPreference_EnableCGPathContinuousRoundedRect)
+    _UIInternalPreferenceSync(v19, &_UIInternalPreference_EnableCGPathContinuousRoundedRect, @"EnableCGPathContinuousRoundedRect", _UIInternalPreferenceUpdateBool);
+    v68 = _UIInternalPreference_EnableCGPathContinuousRoundedRect;
+    v18 = v97;
+    if (v19 == _UIInternalPreference_EnableCGPathContinuousRoundedRect)
     {
       goto LABEL_9;
     }
   }
 
-  v17 = v96;
+  v18 = v97;
   if (!byte_1ED48B1B4)
   {
     goto LABEL_9;
   }
 
-  v69 = [radiiCopy objectAtIndex:0];
-  [v69 CGSizeValue];
-  v71 = v70;
+  v70 = [radiiCopy objectAtIndex:0];
+  [v70 CGSizeValue];
+  v72 = v71;
 
-  v72 = [radiiCopy objectAtIndex:0];
-  [v72 CGSizeValue];
-  v74 = v73;
+  v73 = [radiiCopy objectAtIndex:0];
+  [v73 CGSizeValue];
+  v75 = v74;
 
-  v75 = v96 ^ 1;
+  v76 = v97 ^ 1;
   if (corners != -1)
   {
-    v75 = 1;
+    v76 = 1;
   }
 
-  if ((v75 & 1) != 0 || v71 != v74)
+  if ((v76 & 1) != 0 || v72 != v75)
   {
 LABEL_9:
-    v19 = v17 ^ 1;
+    v20 = v18 ^ 1;
     if ((segments & 4) != 0)
     {
-      v20 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v20 = v17 ^ 1;
+      v21 = v18 ^ 1;
     }
 
-    v94 = v20;
+    v95 = v21;
     if (segments)
     {
-      v20 = 0;
+      v21 = 0;
     }
 
-    v21 = MEMORY[0x1E695F060];
-    if ((corners & 1) == 0 || v20)
+    v22 = MEMORY[0x1E695F060];
+    if ((corners & 1) == 0 || v21)
     {
-      v24 = *MEMORY[0x1E695F060];
-      v27 = *(MEMORY[0x1E695F060] + 8);
+      v25 = *MEMORY[0x1E695F060];
+      v28 = *(MEMORY[0x1E695F060] + 8);
     }
 
     else
     {
-      v22 = [radiiCopy objectAtIndex:0];
-      [v22 CGSizeValue];
-      v24 = v23 * 1.528665;
-      v25 = [radiiCopy objectAtIndex:0];
-      [v25 CGSizeValue];
-      v27 = v26 * 1.528665;
+      v23 = [radiiCopy objectAtIndex:0];
+      [v23 CGSizeValue];
+      v25 = v24 * 1.528665;
+      v26 = [radiiCopy objectAtIndex:0];
+      [v26 CGSizeValue];
+      v28 = v27 * 1.528665;
     }
 
     if (segments)
-    {
-      v28 = 0;
-    }
-
-    else
-    {
-      v28 = v17 ^ 1;
-    }
-
-    if ((segments & 8) != 0)
     {
       v29 = 0;
     }
 
     else
     {
-      v29 = v28;
-    }
-
-    if ((corners & 2) == 0 || v29)
-    {
-      v106 = *v21;
-      v102 = v21[1];
-    }
-
-    else
-    {
-      v30 = [radiiCopy objectAtIndex:1];
-      [v30 CGSizeValue];
-      v106 = v31 * 1.528665;
-      v32 = [radiiCopy objectAtIndex:1];
-      [v32 CGSizeValue];
-      v102 = v33 * 1.528665;
+      v29 = v18 ^ 1;
     }
 
     if ((segments & 8) != 0)
     {
-      v34 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v34 = v19;
+      v30 = v29;
     }
 
-    if ((segments & 2) != 0)
+    if ((corners & 2) == 0 || v30)
+    {
+      v107 = *v22;
+      v103 = v22[1];
+    }
+
+    else
+    {
+      v31 = [radiiCopy objectAtIndex:1];
+      [v31 CGSizeValue];
+      v107 = v32 * 1.528665;
+      v33 = [radiiCopy objectAtIndex:1];
+      [v33 CGSizeValue];
+      v103 = v34 * 1.528665;
+    }
+
+    if ((segments & 8) != 0)
     {
       v35 = 0;
     }
 
     else
     {
-      v35 = v34;
-    }
-
-    if ((corners & 8) == 0 || v35)
-    {
-      v104 = v21[1];
-      v105 = *v21;
-    }
-
-    else
-    {
-      v36 = [radiiCopy objectAtIndex:3];
-      [v36 CGSizeValue];
-      v105 = v37 * 1.528665;
-      v38 = [radiiCopy objectAtIndex:3];
-      [v38 CGSizeValue];
-      v104 = v39 * 1.528665;
+      v35 = v20;
     }
 
     if ((segments & 2) != 0)
     {
-      v19 = 0;
-    }
-
-    if ((segments & 4) != 0)
-    {
-      v40 = 0;
+      v36 = 0;
     }
 
     else
     {
-      v40 = v19;
+      v36 = v35;
     }
 
-    if ((corners & 4) == 0 || v40)
+    if ((corners & 8) == 0 || v36)
     {
-      v107 = *v21;
-      v103 = v21[1];
+      v105 = v22[1];
+      v106 = *v22;
+    }
+
+    else
+    {
+      v37 = [radiiCopy objectAtIndex:3];
+      [v37 CGSizeValue];
+      v106 = v38 * 1.528665;
+      v39 = [radiiCopy objectAtIndex:3];
+      [v39 CGSizeValue];
+      v105 = v40 * 1.528665;
+    }
+
+    if ((segments & 2) != 0)
+    {
+      v20 = 0;
+    }
+
+    if ((segments & 4) != 0)
+    {
+      v41 = 0;
+    }
+
+    else
+    {
+      v41 = v20;
+    }
+
+    if ((corners & 4) == 0 || v41)
+    {
+      v108 = *v22;
+      v104 = v22[1];
       if (!cornerRadiiCopy)
       {
         goto LABEL_46;
@@ -1923,212 +1923,216 @@ LABEL_9:
 
     else
     {
-      v41 = [radiiCopy objectAtIndex:2];
-      [v41 CGSizeValue];
-      v107 = v42 * 1.528665;
-      v43 = [radiiCopy objectAtIndex:2];
-      [v43 CGSizeValue];
-      v103 = v44 * 1.528665;
+      v42 = [radiiCopy objectAtIndex:2];
+      [v42 CGSizeValue];
+      v108 = v43 * 1.528665;
+      v44 = [radiiCopy objectAtIndex:2];
+      [v44 CGSizeValue];
+      v104 = v45 * 1.528665;
 
       if (!cornerRadiiCopy)
       {
 LABEL_46:
-        v97 = v27;
-        v45 = 0;
+        v98 = v28;
         v46 = 0;
-        v47 = 3;
+        v47 = 0;
         v48 = 3;
         v49 = 3;
         v50 = 3;
+        v51 = 3;
         goto LABEL_58;
       }
     }
 
-    v45 = v24 + v106 >= width;
-    if (v24 + v106 < width)
+    v46 = v25 + v107 >= width;
+    if (v25 + v107 < width)
     {
-      v47 = 3;
       v48 = 3;
-    }
-
-    else
-    {
-      v24 = width * 0.5;
-      v48 = 2;
-      v47 = 1;
-      v106 = width * 0.5;
-    }
-
-    if (v105 + v107 >= width)
-    {
-      v49 = 1;
-      v50 = 2;
-      v105 = width * 0.5;
-      v107 = width * 0.5;
-      v45 = 1;
-    }
-
-    else
-    {
       v49 = 3;
-      v50 = 3;
     }
 
-    v46 = v27 + v103 >= height;
-    if (v27 + v103 >= height)
+    else
     {
-      v27 = height * 0.5;
-      v47 &= 2u;
-      v50 &= 1u;
-      v103 = height * 0.5;
+      v25 = width * 0.5;
+      v49 = 2;
+      v48 = 1;
+      v107 = width * 0.5;
     }
 
-    v97 = v27;
-    if (v102 + v104 >= height)
+    if (v106 + v108 >= width)
     {
-      v48 &= 1u;
-      v49 &= 2u;
+      v50 = 1;
+      v51 = 2;
+      v106 = width * 0.5;
+      v108 = width * 0.5;
       v46 = 1;
-      v102 = height * 0.5;
+    }
+
+    else
+    {
+      v50 = 3;
+      v51 = 3;
+    }
+
+    v47 = v28 + v104 >= height;
+    if (v28 + v104 >= height)
+    {
+      v28 = height * 0.5;
+      v48 &= 2u;
+      v51 &= 1u;
       v104 = height * 0.5;
     }
 
-LABEL_58:
-    v93 = v47;
-    v51 = v48 | v47 | v49 | v50;
-    v52 = x;
-    if (!v51)
+    v98 = v28;
+    if (v103 + v105 >= height)
     {
-      v52 = 0;
+      v49 &= 1u;
+      v50 &= 2u;
+      v47 = 1;
+      v103 = height * 0.5;
+      v105 = height * 0.5;
     }
 
-    v53 = v13 + width;
-    v54 = y + height;
-    v100 = v24;
-    if (v45 && v52)
+LABEL_58:
+    v94 = v48;
+    v52 = v49 | v48 | v50 | v51;
+    v53 = x;
+    if (!v52)
     {
-      xa = v13 + v107 * 0.05;
-      v55 = v13 + v24 * 0.05;
-      v56 = v53 - v105 * 0.05;
-      v53 = v53 - v106 * 0.05;
-      v101 = v55;
-      v57 = y;
+      v53 = 0;
+    }
+
+    v54 = v13 + width;
+    v55 = y + height;
+    v101 = v25;
+    if (v46 && v53)
+    {
+      xa = v13 + v108 * 0.05;
+      v56 = v13 + v25 * 0.05;
+      v57 = v54 - v106 * 0.05;
+      v54 = v54 - v107 * 0.05;
+      v102 = v56;
       v58 = y;
+      v59 = y;
     }
 
     else
     {
-      v101 = v13;
-      if (v46 && v52)
+      v102 = v13;
+      if (v47 && v53)
       {
-        v58 = y + v102 * 0.05;
-        v57 = y + v97 * 0.05;
-        v59 = v54 - v104 * 0.05;
-        v54 = v54 - v103 * 0.05;
+        v59 = y + v103 * 0.05;
+        v58 = y + v98 * 0.05;
+        v60 = v55 - v105 * 0.05;
+        v55 = v55 - v104 * 0.05;
         xa = v13;
-        v56 = v53;
-        if (v28)
+        v57 = v54;
+        if (v29)
         {
 LABEL_69:
-          v60 = *v21;
-          v61 = v21[1];
-          if (v106 != *v21 || v102 != v61)
+          v61 = *v22;
+          v62 = v22[1];
+          if (v107 != *v22 || v103 != v62)
           {
-            if ((v96 & 1) == 0)
+            if ((v97 & 1) == 0)
             {
-              CGPathMoveToPoint(Mutable, 0, v53 - v106, v58);
+              CGPathMoveToPoint(Mutable, 0, v54 - v107, v59);
             }
 
-            _addContinuousCornerToPath(Mutable, 2, v48, 0, v51 == 0, v53, v58, v106, v102);
+            v16.n128_f64[0] = v54;
+            _addContinuousCornerToPath(Mutable, 2, v49, 0, v52 == 0, v16, v59, v107, v103);
           }
 
-          if ((v34 & 1) == 0)
+          if ((v35 & 1) == 0)
           {
-            if ((v96 & 1) == 0)
+            if ((v97 & 1) == 0)
             {
-              CGPathMoveToPoint(Mutable, 0, v53, v102 + v58);
+              CGPathMoveToPoint(Mutable, 0, v54, v103 + v59);
             }
 
-            CGPathAddLineToPoint(Mutable, 0, v56, v59 - v104);
+            CGPathAddLineToPoint(Mutable, 0, v57, v60 - v105);
           }
 
-          if (v105 != v60 || v104 != v61)
+          if (v106 != v61 || v105 != v62)
           {
-            if ((v96 & 1) == 0)
+            if ((v97 & 1) == 0)
             {
-              CGPathMoveToPoint(Mutable, 0, v56 - v105, v59);
+              CGPathMoveToPoint(Mutable, 0, v57 - v106, v60);
             }
 
-            _addContinuousCornerToPath(Mutable, 8, v49, 0, v51 == 0, v56, v59, v105, v104);
+            v16.n128_f64[0] = v57;
+            _addContinuousCornerToPath(Mutable, 8, v50, 0, v52 == 0, v16, v60, v106, v105);
           }
 
-          if ((v19 & 1) == 0)
+          if ((v20 & 1) == 0)
           {
-            if ((v96 & 1) == 0)
+            if ((v97 & 1) == 0)
             {
-              CGPathMoveToPoint(Mutable, 0, v56 - v105, v59);
+              CGPathMoveToPoint(Mutable, 0, v57 - v106, v60);
             }
 
-            CGPathAddLineToPoint(Mutable, 0, v107 + xa, v54);
+            CGPathAddLineToPoint(Mutable, 0, v108 + xa, v55);
           }
 
-          if (v107 != v60 || v103 != v61)
+          if (v108 != v61 || v104 != v62)
           {
-            if ((v96 & 1) == 0)
+            if ((v97 & 1) == 0)
             {
-              CGPathMoveToPoint(Mutable, 0, v107 + xa, v54);
+              CGPathMoveToPoint(Mutable, 0, v108 + xa, v55);
             }
 
-            _addContinuousCornerToPath(Mutable, 4, v50, 0, v51 == 0, xa, v54, v107, v103);
+            v16.n128_f64[0] = xa;
+            _addContinuousCornerToPath(Mutable, 4, v51, 0, v52 == 0, v16, v55, v108, v104);
           }
 
-          if ((v94 & 1) == 0)
+          if ((v95 & 1) == 0)
           {
-            if ((v96 & 1) == 0)
+            if ((v97 & 1) == 0)
             {
-              CGPathMoveToPoint(Mutable, 0, xa, v54 - v103);
+              CGPathMoveToPoint(Mutable, 0, xa, v55 - v104);
             }
 
-            CGPathAddLineToPoint(Mutable, 0, v101, v97 + v57);
+            CGPathAddLineToPoint(Mutable, 0, v102, v98 + v58);
           }
 
-          if (v100 != v60 || v97 != v61)
+          if (v101 != v61 || v98 != v62)
           {
-            if ((v96 & 1) == 0)
+            if ((v97 & 1) == 0)
             {
-              CGPathMoveToPoint(Mutable, 0, v101, v97 + v57);
+              CGPathMoveToPoint(Mutable, 0, v102, v98 + v58);
             }
 
-            _addContinuousCornerToPath(Mutable, 1, v93, 0, v51 == 0, v101, v57, v100, v97);
+            v16.n128_f64[0] = v102;
+            _addContinuousCornerToPath(Mutable, 1, v94, 0, v52 == 0, v16, v58, v101, v98);
           }
 
-          CGPathAddLineToPoint(Mutable, 0, v100 + v101, v57);
-          v62 = [[self alloc] _initWithCGMutablePath:Mutable];
+          CGPathAddLineToPoint(Mutable, 0, v101 + v102, v58);
+          v63 = [[self alloc] _initWithCGMutablePath:Mutable];
           CFRelease(Mutable);
-          *(v62 + 89) = 1;
-          v63 = [radiiCopy objectAtIndex:0];
-          [v63 CGSizeValue];
-          *(v62 + 96) = v64;
+          *(v63 + 89) = 1;
+          v64 = [radiiCopy objectAtIndex:0];
+          [v64 CGSizeValue];
+          *(v63 + 96) = v65;
 
-          *(v62 + 104) = v51 != 0;
-          v65 = corners & 0xF;
+          *(v63 + 104) = v52 != 0;
+          v66 = corners & 0xF;
           goto LABEL_102;
         }
 
 LABEL_68:
-        CGPathMoveToPoint(Mutable, 0, v100 + v101, v57);
-        CGPathAddLineToPoint(Mutable, 0, v53 - v106, v58);
+        CGPathMoveToPoint(Mutable, 0, v101 + v102, v58);
+        CGPathAddLineToPoint(Mutable, 0, v54 - v107, v59);
         goto LABEL_69;
       }
 
-      v57 = y;
       v58 = y;
+      v59 = y;
       xa = v13;
-      v56 = v53;
+      v57 = v54;
     }
 
-    v59 = y + height;
-    if (v28)
+    v60 = y + height;
+    if (v29)
     {
       goto LABEL_69;
     }
@@ -2136,82 +2140,82 @@ LABEL_68:
     goto LABEL_68;
   }
 
-  v76 = [radiiCopy objectAtIndex:1];
-  [v76 CGSizeValue];
-  if (v71 != v77)
+  v77 = [radiiCopy objectAtIndex:1];
+  [v77 CGSizeValue];
+  if (v72 != v78)
   {
 LABEL_128:
 
-    v17 = v96;
+    v18 = v97;
     goto LABEL_9;
   }
 
-  v78 = [radiiCopy objectAtIndex:1];
-  [v78 CGSizeValue];
-  if (v74 != v79)
+  v79 = [radiiCopy objectAtIndex:1];
+  [v79 CGSizeValue];
+  if (v75 != v80)
   {
 LABEL_127:
 
     goto LABEL_128;
   }
 
-  v80 = [radiiCopy objectAtIndex:2];
-  [v80 CGSizeValue];
-  if (v71 != v81)
+  v81 = [radiiCopy objectAtIndex:2];
+  [v81 CGSizeValue];
+  if (v72 != v82)
   {
 LABEL_126:
 
     goto LABEL_127;
   }
 
-  v82 = [radiiCopy objectAtIndex:2];
-  [v82 CGSizeValue];
-  if (v74 != v83)
+  v83 = [radiiCopy objectAtIndex:2];
+  [v83 CGSizeValue];
+  if (v75 != v84)
   {
 LABEL_125:
 
     goto LABEL_126;
   }
 
-  v84 = [radiiCopy objectAtIndex:3];
-  [v84 CGSizeValue];
-  if (v71 != v85)
+  v85 = [radiiCopy objectAtIndex:3];
+  [v85 CGSizeValue];
+  if (v72 != v86)
   {
 
     goto LABEL_125;
   }
 
-  v86 = [radiiCopy objectAtIndex:3];
-  [v86 CGSizeValue];
-  v88 = v87;
+  v87 = [radiiCopy objectAtIndex:3];
+  [v87 CGSizeValue];
+  v89 = v88;
 
-  v89 = v74 == v88;
-  v13 = v68;
-  v17 = v96;
-  if (!v89)
+  v90 = v75 == v89;
+  v13 = v69;
+  v18 = v97;
+  if (!v90)
   {
     goto LABEL_9;
   }
 
-  v90 = width * 0.5;
-  v91 = fmin(v71, fmin(width * 0.5, height * 0.5));
+  v91 = width * 0.5;
+  v92 = fmin(v72, fmin(width * 0.5, height * 0.5));
   CGPathAddContinuousRoundedRect();
-  v62 = [[self alloc] _initWithCGMutablePath:Mutable];
+  v63 = [[self alloc] _initWithCGMutablePath:Mutable];
   CFRelease(Mutable);
-  *(v62 + 89) = 1;
-  *(v62 + 96) = v71;
-  v92 = v91 > v90;
-  if (v91 > height * 0.5)
+  *(v63 + 89) = 1;
+  *(v63 + 96) = v72;
+  v93 = v92 > v91;
+  if (v92 > height * 0.5)
   {
-    v92 = 1;
+    v93 = 1;
   }
 
-  *(v62 + 104) = v92;
-  v65 = 15;
+  *(v63 + 104) = v93;
+  v66 = 15;
 LABEL_102:
-  *(v62 + 112) = v65;
+  *(v63 + 112) = v66;
 
-  return v62;
+  return v63;
 }
 
 - (id)_bezierPathConvertedFromCoordinateSpace:(id)space toCoordinateSpace:(id)coordinateSpace

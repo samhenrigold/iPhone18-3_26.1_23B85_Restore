@@ -143,21 +143,21 @@
 - (void)preload
 {
   Current = CFAbsoluteTimeGetCurrent();
-  objc_initWeak(&location, self);
-  v4 = camSoftLinkQueue();
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __34__CAMCameraRollController_preload__block_invoke;
-  v6[3] = &unk_1E76FA6B0;
-  v6[4] = self;
-  objc_copyWeak(v7, &location);
-  v7[1] = *&Current;
-  dispatch_async(v4, v6);
+  inited = objc_initWeak(&location, self);
+  v5 = camSoftLinkQueue(inited);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __34__CAMCameraRollController_preload__block_invoke;
+  v8[3] = &unk_1E76FA6B0;
+  v8[4] = self;
+  objc_copyWeak(v9, &location);
+  v9[1] = *&Current;
+  dispatch_async(v5, v8);
 
-  v5 = camSoftLinkQueue();
-  dispatch_async(v5, &__block_literal_global_18);
+  v7 = camSoftLinkQueue(v6);
+  dispatch_async(v7, &__block_literal_global_18);
 
-  objc_destroyWeak(v7);
+  objc_destroyWeak(v9);
   objc_destroyWeak(&location);
 }
 
@@ -249,14 +249,14 @@ void __34__CAMCameraRollController_preload__block_invoke_3(uint64_t a1)
   dispatch_async(MEMORY[0x1E69E96A0], v8);
 }
 
-void __34__CAMCameraRollController_preload__block_invoke_4()
+void __34__CAMCameraRollController_preload__block_invoke_4(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E69789A8] sharedPhotoLibrary];
-  v0 = MEMORY[0x1E6991F28];
-  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  [v0 setupWithConfigurationFilename:@"CPAnalyticsConfig-Camera" inBundle:v1];
+  v3 = [MEMORY[0x1E69789A8] sharedPhotoLibrary];
+  v1 = MEMORY[0x1E6991F28];
+  v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  [v1 setupWithConfigurationFilename:@"CPAnalyticsConfig-Camera" inBundle:v2];
 
-  [MEMORY[0x1E6991F28] setupSystemPropertyProvidersForLibrary:v2];
+  [MEMORY[0x1E6991F28] setupSystemPropertyProvidersForLibrary:v3];
   [MEMORY[0x1E69DC668] pu_prepareCPAnalytics];
 }
 
@@ -654,7 +654,7 @@ void __34__CAMCameraRollController_preload__block_invoke_3_226()
 - (void)ppt_awaitPreload:(id)preload
 {
   preloadCopy = preload;
-  v5 = camSoftLinkQueue();
+  v5 = camSoftLinkQueue(preloadCopy);
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __44__CAMCameraRollController_ppt_awaitPreload___block_invoke;
@@ -2189,7 +2189,7 @@ void __62__CAMCameraRollController__setExternalStorageBrowsingSession___block_in
   }
 }
 
-uint64_t __68__CAMCameraRollController__updateExternalStorageThumbnail_withUUID___block_invoke(uint64_t a1)
+void *__68__CAMCameraRollController__updateExternalStorageThumbnail_withUUID___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) set_externalStorageBrowsingSessionLastThumbnailImage:*(a1 + 40)];
@@ -2453,14 +2453,14 @@ uint64_t __68__CAMCameraRollController__updateExternalStorageThumbnail_withUUID_
 {
   [a2 sessionIdentifier];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_1A3640000, v2, v3, "Rejecting persist notification from asset %{public}@ because it does not belong in this session %d", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_1(&dword_1A3640000, v2, v3, "Rejecting persist notification from asset %{public}@ because it does not belong in this session %d", v4, v5, v6, v7);
 }
 
 - (void)processTransientAssetUpdate:(uint64_t)a1 preventingInsertion:(void *)a2 persistenceOptions:.cold.1(uint64_t a1, void *a2)
 {
   [a2 sessionIdentifier];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_1A3640000, v2, v3, "Rejecting update from asset %{public}@ because it does not belong in this session %d", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_1(&dword_1A3640000, v2, v3, "Rejecting update from asset %{public}@ because it does not belong in this session %d", v4, v5, v6, v7);
 }
 
 void __54__CAMCameraRollController_photosDataSource_didChange___block_invoke_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)

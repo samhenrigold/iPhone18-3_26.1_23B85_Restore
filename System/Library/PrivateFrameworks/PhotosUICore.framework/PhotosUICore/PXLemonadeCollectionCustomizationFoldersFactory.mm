@@ -28,10 +28,10 @@
   }
 
   listCopy = list;
-  v8 = sub_1A48C0E04(listCopy, v5, v6);
-  sub_1A3C33378(v5);
+  v9 = sub_1A48C0E04(listCopy, v5, v6, v8);
+  sub_1A3C33378(v5, v6);
 
-  return v8;
+  return v9;
 }
 
 @end

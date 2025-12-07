@@ -81,7 +81,6 @@ LABEL_13:
     goto LABEL_8;
   }
 
-  v9 = *(a1 + 40);
   NSSelectorFromString(*(a1 + 32));
   if (objc_opt_respondsToSelector())
   {

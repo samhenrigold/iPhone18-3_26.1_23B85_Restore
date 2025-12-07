@@ -255,9 +255,9 @@
         goto LABEL_86;
       }
 
-      v26 = [v24 isEqualToString:&stru_1F0F06D80];
+      isEqualToString = objc_msgSend_isEqualToString_(v24);
 
-      if ((v26 & 1) != 0 || !_DateIsInThePastNumberOfDays(toDateCopy, 1, v15, localTimeZone, self->_useLocalDates))
+      if ((isEqualToString & 1) != 0 || !_DateIsInThePastNumberOfDays(toDateCopy, 1, v15, localTimeZone, self->_useLocalDates))
       {
         goto LABEL_86;
       }
@@ -284,7 +284,7 @@
       v114 = v96;
       v115 = buf;
       [&unk_1F0FC0108 enumerateObjectsUsingBlock:v113];
-      if ([*(v117 + 5) count] != 2)
+      if (objc_msgSend_count(*(v117 + 5)) != 2)
       {
         v25 = v96;
 LABEL_117:
@@ -306,7 +306,7 @@ LABEL_118:
       v91 = [v30 lowercaseStringWithLocale:self->_locale];
 
       v88 = [v96 lowercaseStringWithLocale:self->_locale];
-      v83 = [v91 isEqualToString:v94];
+      v83 = objc_msgSend_isEqualToString_(v91);
       if (v83)
       {
         v32 = [v88 rangeOfString:v94 options:8 range:{objc_msgSend(v88, "length") - v85}];
@@ -319,7 +319,7 @@ LABEL_118:
         whitespaceCharacterSet2 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
         v80 = [v81 stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
 
-        if ([v80 isEqualToString:v94])
+        if (objc_msgSend_isEqualToString_(v80))
         {
           v32 = [v88 rangeOfString:v94 options:8 range:{0, v85}];
         }
@@ -356,7 +356,7 @@ LABEL_116:
       whitespaceCharacterSet3 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
       v87 = [v82 stringByTrimmingCharactersInSet:whitespaceCharacterSet3];
 
-      if ([v87 isEqualToString:v98])
+      if (objc_msgSend_isEqualToString_(v87))
       {
         v72 = v98;
         v73 = [v98 length];
@@ -617,7 +617,7 @@ LABEL_88:
   v117 = buf;
   v118 = 0x2020000000;
   v119 = 0;
-  if ([v95 count] == 1 && (objc_msgSend(v95, "anyObject"), v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v49, "isEqualToString:", @"M"), v49, v50))
+  if (objc_msgSend_count(v95) == 1 && ([v95 anyObject], v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend_isEqualToString_(v49), v49, v50))
   {
     [v100 insertString:@"" atIndex:v89 + v86];
     [v100 insertString:@"" atIndex:v89];
@@ -637,7 +637,7 @@ LABEL_88:
   }
 
   v52 = [v100 componentsSeparatedByString:@""];
-  v53 = [v52 count];
+  v53 = objc_msgSend_count(v52);
   v54 = v53 == *(v117 + 3) + 1;
 
   if (v54)
@@ -675,26 +675,26 @@ LABEL_87:
 void __59__PLDateRangeFormatter__stringFromDate_toDate_currentDate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   obj = [*(a1 + 32) componentsSeparatedByString:a2];
-  if ([obj count] == 2)
+  if (objc_msgSend_count(obj) == 2)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), obj);
     *a4 = 1;
   }
 }
 
-uint64_t __59__PLDateRangeFormatter__stringFromDate_toDate_currentDate___block_invoke_74(uint64_t result, uint64_t a2)
+id *__59__PLDateRangeFormatter__stringFromDate_toDate_currentDate___block_invoke_74(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
 }
 
-uint64_t __59__PLDateRangeFormatter__stringFromDate_toDate_currentDate___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *__59__PLDateRangeFormatter__stringFromDate_toDate_currentDate___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = [a2 isEqualToString:@"M"];
+  result = objc_msgSend_isEqualToString_(a2, a2, @"M");
   if (result)
   {
     [*(a1 + 32) insertString:@"" atIndex:a3 + a4];

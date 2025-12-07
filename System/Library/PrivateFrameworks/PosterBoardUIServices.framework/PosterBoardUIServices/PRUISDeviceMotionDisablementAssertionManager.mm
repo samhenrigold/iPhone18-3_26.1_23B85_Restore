@@ -29,9 +29,10 @@
 
 uint64_t __62__PRUISDeviceMotionDisablementAssertionManager_sharedInstance__block_invoke()
 {
-  sharedInstance_shared = objc_alloc_init(PRUISDeviceMotionDisablementAssertionManager);
+  v0 = objc_alloc_init(PRUISDeviceMotionDisablementAssertionManager);
+  sharedInstance_shared = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (PRUISDeviceMotionDisablementAssertionManager)init
@@ -75,35 +76,36 @@ uint64_t __62__PRUISDeviceMotionDisablementAssertionManager_sharedInstance__bloc
 
 void __52__PRUISDeviceMotionDisablementAssertionManager_init__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v5 = [v3 isActive];
-    v6 = PRUISLogMotionEvents();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v6 = v5;
+    v7 = PRUISLogMotionEvents(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      if (v5)
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      if (v6)
       {
-        v9 = @"disabled";
+        v10 = @"disabled";
       }
 
       else
       {
-        v9 = @"enabled";
+        v10 = @"enabled";
       }
 
-      v10 = [WeakRetained[4] reasons];
-      v11 = 138543874;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - Device Motion is %@, assertions taken: %@", &v11, 0x20u);
+      v11 = [WeakRetained[4] reasons];
+      v12 = 138543874;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_1CAE63000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ - Device Motion is %@, assertions taken: %@", &v12, 0x20u);
     }
 
     [WeakRetained _notifyObserversDidChangeDeviceMotionDisableAssertionState:v3];
@@ -392,27 +394,27 @@ void __97__PRUISDeviceMotionDisablementAssertionManager_acquireDeviceMotionDisab
 
 - (id)_queue_acquireDeviceMotionDisablementAssertionForReason:(id)reason
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  BSDispatchQueueAssert();
-  v5 = PRUISLogMotionEvents();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = BSDispatchQueueAssert();
+  v6 = PRUISLogMotionEvents(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     reasons = [(BSCompoundAssertion *)self->_assertionQueue_deviceMotionDisableCompoundAssertion reasons];
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = reasonCopy;
-    v15 = 2112;
-    v16 = reasons;
-    _os_log_impl(&dword_1CAE63000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - Acquiring device motion disable assertion with reason %@, already acquired reasons: %@", &v11, 0x20u);
+    v12 = 138543874;
+    v13 = v8;
+    v14 = 2112;
+    v15 = reasonCopy;
+    v16 = 2112;
+    v17 = reasons;
+    _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - Acquiring device motion disable assertion with reason %@, already acquired reasons: %@", &v12, 0x20u);
   }
 
-  v9 = [(BSCompoundAssertion *)self->_assertionQueue_deviceMotionDisableCompoundAssertion acquireForReason:reasonCopy];
+  v10 = [(BSCompoundAssertion *)self->_assertionQueue_deviceMotionDisableCompoundAssertion acquireForReason:reasonCopy];
 
-  return v9;
+  return v10;
 }
 
 @end

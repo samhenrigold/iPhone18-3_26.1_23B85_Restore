@@ -149,7 +149,7 @@ uint64_t __81__HDUserDomainMedicalCodingStringEntity_stringForPersistentID_trans
 
 uint64_t __121__HDUserDomainMedicalCodingStringEntity_enumerateMedicalCodingStringsWithPredicate_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = MEMORY[0x22AAC6C90](a4, 0);
+  v5 = MEMORY[0x22AAC6C90](a4, 0, a3);
   v6 = (*(*(a1 + 32) + 16))();
 
   return v6;

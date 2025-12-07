@@ -67,11 +67,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:1284 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -129,37 +129,37 @@ LABEL_6:
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*struct];
   [(MTRChannelClusterChangeChannelResponseParams *)self setStatus:v5];
 
-  v7 = *(struct + 8);
-  v6 = struct + 8;
-  if (v7 != 1)
+  v8 = *(struct + 8);
+  v7 = struct + 8;
+  if (v8 != 1)
   {
     [(MTRChannelClusterChangeChannelResponseParams *)self setData:0];
     goto LABEL_5;
   }
 
-  v8 = sub_238DE36B8(v6);
-  v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v8 length:v8[1] encoding:4];
-  [(MTRChannelClusterChangeChannelResponseParams *)self setData:v9];
+  v9 = sub_238DE36B8(v7, v6);
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v9 length:v9[1] encoding:4];
+  [(MTRChannelClusterChangeChannelResponseParams *)self setData:v10];
 
   data = [(MTRChannelClusterChangeChannelResponseParams *)self data];
 
   if (data)
   {
 LABEL_5:
-    v12 = 0;
     v13 = 0;
-    v11 = 0;
+    v14 = 0;
+    v12 = 0;
     goto LABEL_6;
   }
 
-  v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-  v12 = 0x6CAA00000000;
-  v13 = 47;
+  v12 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+  v13 = 0x6CAA00000000;
+  v14 = 47;
 LABEL_6:
-  v14 = v13 | v12;
-  result.mFile = v11;
-  result.mError = v14;
-  result.mLine = HIDWORD(v14);
+  v15 = v14 | v13;
+  result.mFile = v12;
+  result.mError = v15;
+  result.mLine = HIDWORD(v15);
   return result;
 }
 

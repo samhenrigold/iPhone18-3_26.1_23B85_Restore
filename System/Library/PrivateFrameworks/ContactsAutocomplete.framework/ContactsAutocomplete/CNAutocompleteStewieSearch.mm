@@ -37,7 +37,7 @@ void __63__CNAutocompleteStewieSearch_executeRequest_completionHandler___block_i
 
   if (v4 & 1) != 0 || (v7)
   {
-    v10 = CNALoggingContextDebug();
+    v10 = CNALoggingContextDebug(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
@@ -48,85 +48,84 @@ void __63__CNAutocompleteStewieSearch_executeRequest_completionHandler___block_i
 
     v12 = [MEMORY[0x277CBEAA8] date];
     v13 = objc_opt_new();
+    v14 = v13;
     if (v4)
     {
-      v14 = [MEMORY[0x277CFBE10] currentEnvironment];
-      v15 = [v14 stewie];
-      v16 = [v15 emergencyTerms];
+      v15 = [MEMORY[0x277CFBE10] currentEnvironment];
+      v16 = [v15 stewie];
+      v17 = [v16 emergencyTerms];
 
       v43[0] = MEMORY[0x277D85DD0];
       v43[1] = 3221225472;
       v43[2] = __63__CNAutocompleteStewieSearch_executeRequest_completionHandler___block_invoke_3;
       v43[3] = &unk_2781C3FD8;
       v44 = *(a1 + 32);
-      v17 = [v16 _cn_filter:v43];
-      if ([v17 count])
+      v18 = [v17 _cn_filter:v43];
+      if ([v18 count])
       {
-        v18 = [CNAutocompleteResultValue resultValueWithAddress:@"stewie:emergency:112911" addressType:4];
-        v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        [v19 localizedStringForKey:@"EMERGENCY_SERVICES" value:&stru_282787720 table:@"Localized-Stewie"];
-        v20 = v13;
-        v21 = v16;
-        v22 = v12;
-        v24 = v23 = a1;
-        v25 = [(CNAutocompleteResult *)CNAutocompleteStewieResult contactResultWithDisplayName:v24 value:v18 nameComponents:0 identifier:0];
+        v19 = [CNAutocompleteResultValue resultValueWithAddress:@"stewie:emergency:112911" addressType:4];
+        v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        [v20 localizedStringForKey:@"EMERGENCY_SERVICES" value:&stru_282787720 table:@"Localized-Stewie"];
+        v21 = v14;
+        v22 = v17;
+        v23 = v12;
+        v25 = v24 = a1;
+        v26 = [(CNAutocompleteResult *)CNAutocompleteStewieResult contactResultWithDisplayName:v25 value:v19 nameComponents:0 identifier:0];
 
-        a1 = v23;
-        v12 = v22;
-        v16 = v21;
-        v13 = v20;
+        a1 = v24;
+        v12 = v23;
+        v17 = v22;
+        v14 = v21;
 
-        [v25 setSourceType:512];
-        [v20 addObject:v25];
+        [v26 setSourceType:512];
+        [v21 addObject:v26];
       }
     }
 
     if (v7)
     {
-      v26 = [MEMORY[0x277CFBE10] currentEnvironment];
-      v27 = [v26 stewie];
-      v28 = [v27 avocetTerms];
+      v27 = [MEMORY[0x277CFBE10] currentEnvironment];
+      v28 = [v27 stewie];
+      v29 = [v28 avocetTerms];
 
       v38 = MEMORY[0x277D85DD0];
       v39 = 3221225472;
       v40 = __63__CNAutocompleteStewieSearch_executeRequest_completionHandler___block_invoke_2;
       v41 = &unk_2781C3FD8;
       v42 = *(a1 + 32);
-      v29 = [v28 _cn_filter:&v38];
-      if ([v29 count])
+      v30 = [v29 _cn_filter:&v38];
+      if ([v30 count])
       {
-        v30 = [CNAutocompleteResultValue resultValueWithAddress:@"stewie:roadside:0:autocomplete:" addressType:5];
-        v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v32 = [v31 localizedStringForKey:@"ROADSIDE_ASSISTANCE" value:&stru_282787720 table:@"Localized-Avocet"];
-        v33 = [(CNAutocompleteResult *)CNAutocompleteStewieResult contactResultWithDisplayName:v32 value:v30 nameComponents:0 identifier:0];
+        v31 = [CNAutocompleteResultValue resultValueWithAddress:@"stewie:roadside:0:autocomplete:" addressType:5];
+        v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v33 = [v32 localizedStringForKey:@"ROADSIDE_ASSISTANCE" value:&stru_282787720 table:@"Localized-Avocet"];
+        v34 = [(CNAutocompleteResult *)CNAutocompleteStewieResult contactResultWithDisplayName:v33 value:v31 nameComponents:0 identifier:0];
 
-        [v33 setSourceType:512];
-        [v13 addObject:v33];
+        [v34 setSourceType:512];
+        [v14 addObject:v34];
       }
     }
 
-    v34 = CNALoggingContextPerformance();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    v35 = CNALoggingContextPerformance(v13);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
+      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "count")}];
       [v12 timeIntervalSinceNow];
       *buf = 138412546;
-      v46 = v35;
+      v46 = v36;
       v47 = 2048;
-      v48 = v36 * -1000.0;
-      _os_log_impl(&dword_2155FE000, v34, OS_LOG_TYPE_INFO, "Time to fetch %@ Stewie contacts: %.3fms", buf, 0x16u);
+      v48 = v37 * -1000.0;
+      _os_log_impl(&dword_2155FE000, v35, OS_LOG_TYPE_INFO, "Time to fetch %@ Stewie contacts: %.3fms", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
-    v37 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = *(*(a1 + 40) + 16);
-    v9 = *MEMORY[0x277D85DE8];
+    v9 = *(*(a1 + 40) + 16);
 
-    v8();
+    v9();
   }
 }
 

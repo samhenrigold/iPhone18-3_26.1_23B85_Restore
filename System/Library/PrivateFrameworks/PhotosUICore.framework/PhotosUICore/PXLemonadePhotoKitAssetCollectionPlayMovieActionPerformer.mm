@@ -140,7 +140,7 @@ LABEL_3:
     v18 = 0u;
     v19 = 0u;
     v17 = 0u;
-    [self canPerformReasoningOnAssetCollectionReference:referenceCopy];
+    objc_msgSend_canPerformReasoningOnAssetCollectionReference_(self);
     v8 = 0;
     v16[0] = v17;
     v16[1] = v18;

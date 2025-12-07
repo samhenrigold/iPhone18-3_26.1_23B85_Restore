@@ -89,7 +89,7 @@ uint64_t __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke
 
 void __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke_3(id *a1, void *a2)
 {
-  v127 = *MEMORY[0x1E69E9840];
+  v126 = *MEMORY[0x1E69E9840];
   v3 = [a2 eventBody];
   v4 = [v3 itemIdentifier];
   if (v4)
@@ -103,7 +103,7 @@ void __54___PSFeatureCache_refreshDurableCachesWithCandidates___block_invoke_3(i
   }
 
   v6 = [a1[4] objectForKeyedSubscript:v5];
-  v112 = a1;
+  v111 = a1;
   if (v6)
   {
     v7 = [a1[5] objectForKeyedSubscript:v6];
@@ -156,56 +156,56 @@ LABEL_8:
     v16 = [v3 featureValue];
     v17 = [v16 histogramValue];
 
-    v115 = v5;
+    v114 = v5;
     if (v17)
     {
       [v3 featureName];
       v18 = BMMLSEDurableFeatureStorefeatureNameAsString();
       v19 = [_PSHistogramFeatures computeFactorNameForFeature:v18];
-      v20 = [v112[7] objectForKeyedSubscript:v5];
+      v20 = [v111[7] objectForKeyedSubscript:v5];
       v21 = [v20 objectForKeyedSubscript:v19];
 
       if (!v21)
       {
         v22 = objc_opt_new();
-        v23 = [v112[7] objectForKeyedSubscript:v5];
+        v23 = [v111[7] objectForKeyedSubscript:v5];
         [v23 setObject:v22 forKeyedSubscript:v19];
       }
 
-      v24 = [v112[8] objectForKeyedSubscript:v5];
+      v24 = [v111[8] objectForKeyedSubscript:v5];
       v25 = [v24 objectForKeyedSubscript:v19];
 
       if (!v25)
       {
         v26 = objc_opt_new();
-        v27 = [v112[8] objectForKeyedSubscript:v5];
+        v27 = [v111[8] objectForKeyedSubscript:v5];
         [v27 setObject:v26 forKeyedSubscript:v19];
       }
 
-      v28 = [v112[9] objectForKeyedSubscript:v5];
+      v28 = [v111[9] objectForKeyedSubscript:v5];
       v29 = [v28 objectForKeyedSubscript:v19];
 
       if (!v29)
       {
         v30 = objc_opt_new();
-        v31 = [v112[9] objectForKeyedSubscript:v5];
+        v31 = [v111[9] objectForKeyedSubscript:v5];
         [v31 setObject:v30 forKeyedSubscript:v19];
       }
 
-      v32 = [v112[10] objectForKeyedSubscript:v19];
+      v32 = [v111[10] objectForKeyedSubscript:v19];
 
       if (!v32)
       {
         v33 = objc_opt_new();
-        [v112[10] setObject:v33 forKeyedSubscript:v19];
+        [v111[10] setObject:v33 forKeyedSubscript:v19];
       }
 
-      v34 = [v112[11] objectForKeyedSubscript:v19];
+      v34 = [v111[11] objectForKeyedSubscript:v19];
 
       if (!v34)
       {
         v35 = objc_opt_new();
-        [v112[11] setObject:v35 forKeyedSubscript:v19];
+        [v111[11] setObject:v35 forKeyedSubscript:v19];
       }
 
       v36 = [v3 featureValue];
@@ -214,33 +214,33 @@ LABEL_8:
 
       if (v38)
       {
-        v102 = v18;
-        v103 = v3;
-        v123 = 0u;
-        v124 = 0u;
-        v121 = 0u;
+        v101 = v18;
+        v102 = v3;
         v122 = 0u;
-        v101 = v38;
+        v123 = 0u;
+        v120 = 0u;
+        v121 = 0u;
+        v100 = v38;
         obj = v38;
-        v39 = v112;
-        v107 = [obj countByEnumeratingWithState:&v121 objects:v126 count:16];
-        if (v107)
+        v39 = v111;
+        v106 = [obj countByEnumeratingWithState:&v120 objects:v125 count:16];
+        if (v106)
         {
-          v106 = *v122;
+          v105 = *v121;
           do
           {
             v40 = 0;
             do
             {
-              if (*v122 != v106)
+              if (*v121 != v105)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v109 = v40;
-              v41 = *(*(&v121 + 1) + 8 * v40);
+              v108 = v40;
+              v41 = *(*(&v120 + 1) + 8 * v40);
               v42 = [v41 counts];
-              v108 = v41;
+              v107 = v41;
               v43 = [v41 bucketName];
               v44 = [v39[10] objectForKeyedSubscript:v19];
               [v44 addObject:v43];
@@ -255,131 +255,131 @@ LABEL_8:
                 [v48 setObject:v47 forKeyedSubscript:v43];
               }
 
-              v116 = v43;
-              v119 = 0u;
-              v120 = 0u;
-              v117 = 0u;
+              v115 = v43;
               v118 = 0u;
-              v110 = v42;
-              v113 = [v110 countByEnumeratingWithState:&v117 objects:v125 count:16];
-              if (v113)
+              v119 = 0u;
+              v116 = 0u;
+              v117 = 0u;
+              v109 = v42;
+              v112 = [v109 countByEnumeratingWithState:&v116 objects:v124 count:16];
+              if (v112)
               {
-                v111 = *v118;
+                v110 = *v117;
                 do
                 {
                   v49 = 0;
                   do
                   {
-                    if (*v118 != v111)
+                    if (*v117 != v110)
                     {
-                      objc_enumerationMutation(v110);
+                      objc_enumerationMutation(v109);
                     }
 
-                    v50 = *(*(&v117 + 1) + 8 * v49);
+                    v50 = *(*(&v116 + 1) + 8 * v49);
                     [v50 interval];
                     v51 = BMMLSEDurableFeatureStoreFeatureValueHistogramBucketCounttimeIntervalAsString();
-                    v52 = [v112[7] objectForKeyedSubscript:v115];
+                    v52 = [v111[7] objectForKeyedSubscript:v114];
                     v53 = [v52 objectForKeyedSubscript:v19];
                     v54 = [v53 objectForKeyedSubscript:v51];
 
                     if (!v54)
                     {
                       v55 = objc_opt_new();
-                      v56 = [v112[7] objectForKeyedSubscript:v115];
+                      v56 = [v111[7] objectForKeyedSubscript:v114];
                       v57 = [v56 objectForKeyedSubscript:v19];
                       [v57 setObject:v55 forKeyedSubscript:v51];
                     }
 
-                    v58 = [v112[8] objectForKeyedSubscript:v115];
+                    v58 = [v111[8] objectForKeyedSubscript:v114];
                     v59 = [v58 objectForKeyedSubscript:v19];
                     v60 = [v59 objectForKey:v51];
 
                     if (!v60)
                     {
-                      v61 = [v112[8] objectForKeyedSubscript:v115];
+                      v61 = [v111[8] objectForKeyedSubscript:v114];
                       v62 = [v61 objectForKeyedSubscript:v19];
                       [v62 setObject:&unk_1F2D8BA60 forKeyedSubscript:v51];
                     }
 
-                    v114 = v49;
-                    v63 = [v112[11] objectForKeyedSubscript:v19];
-                    v64 = [v63 objectForKeyedSubscript:v116];
+                    v113 = v49;
+                    v63 = [v111[11] objectForKeyedSubscript:v19];
+                    v64 = [v63 objectForKeyedSubscript:v115];
                     v65 = [v64 objectForKeyedSubscript:v51];
 
                     if (!v65)
                     {
-                      v66 = [v112[11] objectForKeyedSubscript:v19];
-                      v67 = [v66 objectForKeyedSubscript:v116];
+                      v66 = [v111[11] objectForKeyedSubscript:v19];
+                      v67 = [v66 objectForKeyedSubscript:v115];
                       [v67 setObject:&unk_1F2D8BA60 forKeyedSubscript:v51];
                     }
 
                     v68 = MEMORY[0x1E696AD98];
-                    v69 = [v112[8] objectForKeyedSubscript:v115];
+                    v69 = [v111[8] objectForKeyedSubscript:v114];
                     v70 = [v69 objectForKeyedSubscript:v19];
                     v71 = [v70 objectForKeyedSubscript:v51];
                     v72 = [v68 numberWithUnsignedInt:{objc_msgSend(v50, "value") + objc_msgSend(v71, "intValue")}];
-                    v73 = [v112[8] objectForKeyedSubscript:v115];
+                    v73 = [v111[8] objectForKeyedSubscript:v114];
                     v74 = [v73 objectForKeyedSubscript:v19];
                     [v74 setObject:v72 forKeyedSubscript:v51];
 
                     v75 = MEMORY[0x1E696AD98];
-                    v76 = [v112[11] objectForKeyedSubscript:v19];
-                    v77 = [v76 objectForKeyedSubscript:v116];
+                    v76 = [v111[11] objectForKeyedSubscript:v19];
+                    v77 = [v76 objectForKeyedSubscript:v115];
                     v78 = [v77 objectForKeyedSubscript:v51];
                     v79 = [v75 numberWithUnsignedInt:{objc_msgSend(v50, "value") + objc_msgSend(v78, "intValue")}];
-                    v80 = [v112[11] objectForKeyedSubscript:v19];
-                    v81 = [v80 objectForKeyedSubscript:v116];
+                    v80 = [v111[11] objectForKeyedSubscript:v19];
+                    v81 = [v80 objectForKeyedSubscript:v115];
                     [v81 setObject:v79 forKeyedSubscript:v51];
 
                     v82 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v50, "value")}];
-                    v83 = [v112[7] objectForKeyedSubscript:v115];
+                    v83 = [v111[7] objectForKeyedSubscript:v114];
                     v84 = [v83 objectForKeyedSubscript:v19];
                     v85 = [v84 objectForKeyedSubscript:v51];
-                    [v85 setObject:v82 forKeyedSubscript:v116];
+                    [v85 setObject:v82 forKeyedSubscript:v115];
 
-                    v49 = v114 + 1;
+                    v49 = v113 + 1;
                   }
 
-                  while (v113 != v114 + 1);
-                  v113 = [v110 countByEnumeratingWithState:&v117 objects:v125 count:16];
+                  while (v112 != v113 + 1);
+                  v112 = [v109 countByEnumeratingWithState:&v116 objects:v124 count:16];
                 }
 
-                while (v113);
+                while (v112);
               }
 
-              v86 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v108, "hasEver")}];
-              v39 = v112;
-              v5 = v115;
-              v87 = [v112[9] objectForKeyedSubscript:v115];
+              v86 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v107, "hasEver")}];
+              v39 = v111;
+              v5 = v114;
+              v87 = [v111[9] objectForKeyedSubscript:v114];
               v88 = [v87 objectForKeyedSubscript:v19];
-              [v88 setObject:v86 forKeyedSubscript:v116];
+              [v88 setObject:v86 forKeyedSubscript:v115];
 
-              v40 = v109 + 1;
+              v40 = v108 + 1;
             }
 
-            while (v109 + 1 != v107);
-            v107 = [obj countByEnumeratingWithState:&v121 objects:v126 count:16];
+            while (v108 + 1 != v106);
+            v106 = [obj countByEnumeratingWithState:&v120 objects:v125 count:16];
           }
 
-          while (v107);
+          while (v106);
         }
 
-        v3 = v103;
-        v38 = v101;
-        v18 = v102;
+        v3 = v102;
+        v38 = v100;
+        v18 = v101;
       }
     }
 
     else if (v6)
     {
-      v89 = [v112[5] objectForKeyedSubscript:v6];
+      v89 = [v111[5] objectForKeyedSubscript:v6];
       if (v89)
       {
         [v3 featureName];
         v90 = BMMLSEDurableFeatureStorefeatureNameAsString();
         v91 = [v3 featureValue];
         v92 = [v91 hasIntValue];
-        v104 = v6;
+        v103 = v6;
         v93 = v3;
         if (v92)
         {
@@ -425,13 +425,11 @@ LABEL_8:
         }
 
         v3 = v93;
-        v5 = v115;
-        v6 = v104;
+        v5 = v114;
+        v6 = v103;
       }
     }
   }
-
-  v100 = *MEMORY[0x1E69E9840];
 }
 
 void __53___PSFeatureCache_replaceEphemeralFeaturesWithCache___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -453,7 +451,7 @@ void __53___PSFeatureCache_replaceEphemeralFeaturesWithCache___block_invoke(uint
 
 void __37___PSFeatureCache_saveToVirtualStore__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -470,32 +468,30 @@ void __37___PSFeatureCache_saveToVirtualStore__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
-    v19 = v5;
+    v18 = v5;
     _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "Fetched device identifier %{private}@", buf, 0xCu);
   }
 
   v7 = +[_PSCandidate selfCandidate];
   v8 = [v3 objectForKeyedSubscript:v7];
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __37___PSFeatureCache_saveToVirtualStore__block_invoke_72;
-  v14[3] = &unk_1E7C26648;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __37___PSFeatureCache_saveToVirtualStore__block_invoke_72;
+  v13[3] = &unk_1E7C26648;
   v9 = v8;
   v10 = *(a1 + 32);
-  v15 = v9;
-  v16 = v10;
+  v14 = v9;
+  v15 = v10;
   v11 = v4;
-  v17 = v11;
-  [v3 enumerateKeysAndObjectsUsingBlock:v14];
+  v16 = v11;
+  [v3 enumerateKeysAndObjectsUsingBlock:v13];
   v12 = +[_PSLogging generalChannel];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1B5ED1000, v12, OS_LOG_TYPE_DEFAULT, "Finished saving to virtual feature store", buf, 2u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __37___PSFeatureCache_saveToVirtualStore__block_invoke_72(void *a1, void *a2, void *a3)
@@ -572,27 +568,10 @@ void __37___PSFeatureCache_saveToVirtualStore__block_invoke_2(uint64_t a1, void 
 
 void __37___PSFeatureCache_saveToVirtualStore__block_invoke_72_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "Sent data to virtual feature store about candidate %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __37___PSFeatureCache_saveToVirtualStore__block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __37___PSFeatureCache_saveToVirtualStore__block_invoke_2_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "Sent data to virtual feature store about candidate %@", &v2, 0xCu);
 }
 
 @end

@@ -10,24 +10,23 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2520418D0();
+  sub_2520418D0(selfCopy);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v6 = sub_252063E34();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_252063E14();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_252043810();
+  v12 = sub_252043810();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section

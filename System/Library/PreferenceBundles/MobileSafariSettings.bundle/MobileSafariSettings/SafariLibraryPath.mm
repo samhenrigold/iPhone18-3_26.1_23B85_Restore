@@ -14,7 +14,7 @@ void __SafariLibraryPath_block_invoke(id a1)
 
   else
   {
-    SafariNonContaineredLibraryPath();
+    SafariNonContaineredLibraryPath(0);
   }
   v2 = ;
   v3 = SafariLibraryPath_path;

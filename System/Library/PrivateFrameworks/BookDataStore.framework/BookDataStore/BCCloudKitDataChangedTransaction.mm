@@ -23,20 +23,20 @@
 
 - (void)performWorkWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   mEMORY[0x1E698F550] = [MEMORY[0x1E698F550] shared];
   verboseLoggingEnabled = [mEMORY[0x1E698F550] verboseLoggingEnabled];
 
   if (verboseLoggingEnabled)
   {
-    v7 = BDSCloudKitDevelopmentLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BDSCloudKitDevelopmentLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       notificationName = [(BCCloudKitDataChangedTransaction *)self notificationName];
       *buf = 138543362;
-      v22 = notificationName;
-      _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "\\Transaction - posting notification %{public}@\\"", buf, 0xCu);
+      v23 = notificationName;
+      _os_log_impl(&dword_1E45E0000, v8, OS_LOG_TYPE_DEFAULT, "\\Transaction - posting notification %{public}@\", buf, 0xCu);
     }
   }
 
@@ -44,33 +44,32 @@
   notificationName2 = [(BCCloudKitDataChangedTransaction *)self notificationName];
   [defaultCenter postNotificationName:notificationName2 object:0];
 
-  if (BDSXPCNotificationsEnabled())
+  v12 = BDSXPCNotificationsEnabled();
+  if (v12)
   {
-    v11 = BDSServiceXPCNotificationLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = BDSServiceXPCNotificationLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       notificationName3 = [(BCCloudKitDataChangedTransaction *)self notificationName];
       *buf = 138543362;
-      v22 = notificationName3;
-      _os_log_impl(&dword_1E45E0000, v11, OS_LOG_TYPE_DEFAULT, "posting BDSServiceNotificationName for %{public}@", buf, 0xCu);
+      v23 = notificationName3;
+      _os_log_impl(&dword_1E45E0000, v13, OS_LOG_TYPE_DEFAULT, "posting BDSServiceNotificationName for %{public}@", buf, 0xCu);
     }
 
     notificationName4 = [(BCCloudKitDataChangedTransaction *)self notificationName];
-    v20 = notificationName4;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v21 = notificationName4;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
 
     defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-    [defaultCenter2 postNotificationName:@"BDSServiceNotificationName" object:0 userInfo:v14];
+    [defaultCenter2 postNotificationName:@"BDSServiceNotificationName" object:0 userInfo:v16];
   }
 
-  v16 = _Block_copy(completionCopy);
-  v17 = v16;
-  if (v16)
+  v18 = _Block_copy(completionCopy);
+  v19 = v18;
+  if (v18)
   {
-    (*(v16 + 2))(v16);
+    (*(v18 + 2))(v18);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -3,9 +3,17 @@
 - (BOOL)force_use_tts_service;
 - (QSSMutableTextToSpeechRequestDebug)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setDisable_cache:(BOOL)disable_cache;
+- (void)setForce_use_tts_service:(BOOL)force_use_tts_service;
 @end
 
 @implementation QSSMutableTextToSpeechRequestDebug
+
+- (void)setDisable_cache:(BOOL)disable_cache
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:disable_cache];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)disable_cache
 {
@@ -13,6 +21,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setForce_use_tts_service:(BOOL)force_use_tts_service
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:force_use_tts_service];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (BOOL)force_use_tts_service

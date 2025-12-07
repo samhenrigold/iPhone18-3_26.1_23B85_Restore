@@ -70,7 +70,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_100F11088();
+  sub_100F11088(changeCopy);
 }
 
 - (void)toolPickerIsRulerActiveDidChange:(id)change
@@ -84,7 +84,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_100F11DA4();
+  sub_100F11DA4(changeCopy);
 }
 
 - (void)updateForToolPickerVisibilityDidChange
@@ -97,7 +97,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_100F12A0C();
+  sub_100F12A0C(changeCopy);
 }
 
 - (void)_toolPicker:(id)picker didChangeColor:(id)color
@@ -112,7 +112,7 @@
 {
   colorCopy = color;
   selfCopy = self;
-  v6 = sub_100F13A30();
+  v6 = sub_100F13A30(colorCopy);
 
   return v6;
 }
@@ -121,7 +121,7 @@
 {
   pickerCopy = picker;
   selfCopy = self;
-  sub_100F14098();
+  sub_100F14098(pickerCopy);
 }
 
 - (id)_colorPickerPopoverPresentationBarButtonItem:(id)item
@@ -145,7 +145,7 @@
   swift_unknownObjectRelease();
   sub_100F14AE4(v5);
 
-  sub_100005070(&v7);
+  sub_100005070(v7);
 }
 
 - (void)didSetDocumentToMode:(id)mode fromMode:(id)fromMode animated:(BOOL)animated

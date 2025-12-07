@@ -26,102 +26,100 @@
 
 void __32__SecXPCHelper_safeErrorClasses__block_invoke()
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DFA8] set];
   v1 = safeErrorClasses_errorClasses;
   safeErrorClasses_errorClasses = v0;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v2 = +[SecXPCHelper safeErrorPrimitiveClasses];
-  v3 = [v2 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v27;
+    v5 = *v26;
     do
     {
       v6 = 0;
       do
       {
-        if (*v27 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [safeErrorClasses_errorClasses addObject:*(*(&v26 + 1) + 8 * v6++)];
+        [safeErrorClasses_errorClasses addObject:*(*(&v25 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v4);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = +[SecXPCHelper safeCKErrorPrimitiveClasses];
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [safeErrorClasses_errorClasses addObject:*(*(&v22 + 1) + 8 * v11++)];
+        [safeErrorClasses_errorClasses addObject:*(*(&v21 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v30 count:16];
     }
 
     while (v9);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = +[SecXPCHelper safeErrorCollectionClasses];
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [safeErrorClasses_errorClasses addObject:*(*(&v18 + 1) + 8 * v16++)];
+        [safeErrorClasses_errorClasses addObject:*(*(&v17 + 1) + 8 * v16++)];
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v29 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (id)safeErrorPrimitiveClasses
@@ -138,21 +136,21 @@ void __32__SecXPCHelper_safeErrorClasses__block_invoke()
 
 Class __41__SecXPCHelper_safeErrorPrimitiveClasses__block_invoke()
 {
-  v5[6] = *MEMORY[0x1E69E9840];
+  v4[6] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DFA8] set];
   v1 = safeErrorPrimitiveClasses_errorClasses;
   safeErrorPrimitiveClasses_errorClasses = v0;
 
   v2 = 0;
-  v5[0] = "NSData";
-  v5[1] = "NSDate";
-  v5[2] = "NSNull";
-  v5[3] = "NSNumber";
-  v5[4] = "NSString";
-  v5[5] = "NSURL";
+  v4[0] = "NSData";
+  v4[1] = "NSDate";
+  v4[2] = "NSNull";
+  v4[3] = "NSNumber";
+  v4[4] = "NSString";
+  v4[5] = "NSURL";
   do
   {
-    result = objc_getClass(v5[v2]);
+    result = objc_getClass(v4[v2]);
     if (result)
     {
       result = [safeErrorPrimitiveClasses_errorClasses addObject:result];
@@ -162,7 +160,6 @@ Class __41__SecXPCHelper_safeErrorPrimitiveClasses__block_invoke()
   }
 
   while (v2 != 6);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -180,21 +177,21 @@ Class __41__SecXPCHelper_safeErrorPrimitiveClasses__block_invoke()
 
 Class __43__SecXPCHelper_safeCKErrorPrimitiveClasses__block_invoke()
 {
-  v5[6] = *MEMORY[0x1E69E9840];
+  v4[6] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DFA8] set];
   v1 = safeCKErrorPrimitiveClasses_errorClasses;
   safeCKErrorPrimitiveClasses_errorClasses = v0;
 
   v2 = 0;
-  v5[0] = "CKArchivedAnchoredPackage";
-  v5[1] = "CKAsset";
-  v5[2] = "CKPackage";
-  v5[3] = "CKRecordID";
-  v5[4] = "CKReference";
-  v5[5] = "CLLocation";
+  v4[0] = "CKArchivedAnchoredPackage";
+  v4[1] = "CKAsset";
+  v4[2] = "CKPackage";
+  v4[3] = "CKRecordID";
+  v4[4] = "CKReference";
+  v4[5] = "CLLocation";
   do
   {
-    result = objc_getClass(v5[v2]);
+    result = objc_getClass(v4[v2]);
     if (result)
     {
       result = [safeCKErrorPrimitiveClasses_errorClasses addObject:result];
@@ -204,7 +201,6 @@ Class __43__SecXPCHelper_safeCKErrorPrimitiveClasses__block_invoke()
   }
 
   while (v2 != 6);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -222,21 +218,21 @@ Class __43__SecXPCHelper_safeCKErrorPrimitiveClasses__block_invoke()
 
 Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
 {
-  v5[6] = *MEMORY[0x1E69E9840];
+  v4[6] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DFA8] set];
   v1 = safeErrorCollectionClasses_errorClasses;
   safeErrorCollectionClasses_errorClasses = v0;
 
   v2 = 0;
-  v5[0] = "NSArray";
-  v5[1] = "NSDictionary";
-  v5[2] = "NSError";
-  v5[3] = "NSOrderedSet";
-  v5[4] = "NSSet";
-  v5[5] = "NSURLError";
+  v4[0] = "NSArray";
+  v4[1] = "NSDictionary";
+  v4[2] = "NSError";
+  v4[3] = "NSOrderedSet";
+  v4[4] = "NSSet";
+  v4[5] = "NSURLError";
   do
   {
-    result = objc_getClass(v5[v2]);
+    result = objc_getClass(v4[v2]);
     if (result)
     {
       result = [safeErrorCollectionClasses_errorClasses addObject:result];
@@ -246,7 +242,6 @@ Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
   }
 
   while (v2 != 6);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -306,84 +301,82 @@ Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
 
 + (id)cleanObjectForXPC:(id)c
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   cCopy = c;
   if (!cCopy)
   {
-    v16 = 0;
+    v14 = 0;
     goto LABEL_53;
   }
 
-  v63 = 0u;
-  v64 = 0u;
+  v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v4 = +[SecXPCHelper safeErrorPrimitiveClasses];
-  v5 = [v4 countByEnumeratingWithState:&v61 objects:v69 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v58 objects:v66 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v62;
+    v7 = *v59;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v62 != v7)
+        if (*v59 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v61 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          v16 = cCopy;
+          v14 = cCopy;
 
           goto LABEL_53;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v61 objects:v69 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v58 objects:v66 count:16];
     }
 
     while (v6);
   }
 
-  v59 = 0u;
-  v60 = 0u;
+  v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   obj = +[SecXPCHelper safeErrorCollectionClasses];
-  v10 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
-  if (!v10)
+  v9 = [obj countByEnumeratingWithState:&v54 objects:v65 count:16];
+  if (!v9)
   {
     goto LABEL_23;
   }
 
-  v11 = v10;
-  v12 = *v58;
+  v10 = v9;
+  v11 = *v55;
   while (2)
   {
-    for (j = 0; j != v11; ++j)
+    for (j = 0; j != v10; ++j)
     {
-      if (*v58 != v12)
+      if (*v55 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v57 + 1) + 8 * j);
       if (objc_opt_isKindOfClass())
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v17 = MEMORY[0x1E696ABC0];
-          v18 = cCopy;
-          domain = [v18 domain];
-          code = [v18 code];
-          userInfo = [v18 userInfo];
+          v15 = MEMORY[0x1E696ABC0];
+          v16 = cCopy;
+          domain = [v16 domain];
+          code = [v16 code];
+          userInfo = [v16 userInfo];
 
-          v22 = [SecXPCHelper cleanDictionaryForXPC:userInfo];
-          v16 = [v17 errorWithDomain:domain code:code userInfo:v22];
+          v20 = [SecXPCHelper cleanDictionaryForXPC:userInfo];
+          v14 = [v15 errorWithDomain:domain code:code userInfo:v20];
         }
 
         else
@@ -391,7 +384,7 @@ Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v16 = [SecXPCHelper cleanDictionaryForXPC:cCopy];
+            v14 = [SecXPCHelper cleanDictionaryForXPC:cCopy];
           }
 
           else
@@ -399,35 +392,35 @@ Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v23 = cCopy;
-              v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v23, "count")}];
+              v21 = cCopy;
+              v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v21, "count")}];
+              v50 = 0u;
+              v51 = 0u;
+              v52 = 0u;
               v53 = 0u;
-              v54 = 0u;
-              v55 = 0u;
-              v56 = 0u;
-              v24 = v23;
-              v25 = [v24 countByEnumeratingWithState:&v53 objects:v67 count:16];
-              if (v25)
+              v22 = v21;
+              v23 = [v22 countByEnumeratingWithState:&v50 objects:v64 count:16];
+              if (v23)
               {
-                v26 = v25;
-                v27 = *v54;
+                v24 = v23;
+                v25 = *v51;
                 do
                 {
-                  for (k = 0; k != v26; ++k)
+                  for (k = 0; k != v24; ++k)
                   {
-                    if (*v54 != v27)
+                    if (*v51 != v25)
                     {
-                      objc_enumerationMutation(v24);
+                      objc_enumerationMutation(v22);
                     }
 
-                    v29 = [SecXPCHelper cleanObjectForXPC:*(*(&v53 + 1) + 8 * k)];
-                    [v16 addObject:v29];
+                    v27 = [SecXPCHelper cleanObjectForXPC:*(*(&v50 + 1) + 8 * k)];
+                    [v14 addObject:v27];
                   }
 
-                  v26 = [v24 countByEnumeratingWithState:&v53 objects:v67 count:16];
+                  v24 = [v22 countByEnumeratingWithState:&v50 objects:v64 count:16];
                 }
 
-                while (v26);
+                while (v24);
               }
             }
 
@@ -436,35 +429,35 @@ Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v30 = cCopy;
-                v16 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v30, "count")}];
+                v28 = cCopy;
+                v14 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v28, "count")}];
+                v46 = 0u;
+                v47 = 0u;
+                v48 = 0u;
                 v49 = 0u;
-                v50 = 0u;
-                v51 = 0u;
-                v52 = 0u;
-                v24 = v30;
-                v31 = [v24 countByEnumeratingWithState:&v49 objects:v66 count:16];
-                if (v31)
+                v22 = v28;
+                v29 = [v22 countByEnumeratingWithState:&v46 objects:v63 count:16];
+                if (v29)
                 {
-                  v32 = v31;
-                  v33 = *v50;
+                  v30 = v29;
+                  v31 = *v47;
                   do
                   {
-                    for (m = 0; m != v32; ++m)
+                    for (m = 0; m != v30; ++m)
                     {
-                      if (*v50 != v33)
+                      if (*v47 != v31)
                       {
-                        objc_enumerationMutation(v24);
+                        objc_enumerationMutation(v22);
                       }
 
-                      v35 = [SecXPCHelper cleanObjectForXPC:*(*(&v49 + 1) + 8 * m)];
-                      [v16 addObject:v35];
+                      v33 = [SecXPCHelper cleanObjectForXPC:*(*(&v46 + 1) + 8 * m)];
+                      [v14 addObject:v33];
                     }
 
-                    v32 = [v24 countByEnumeratingWithState:&v49 objects:v66 count:16];
+                    v30 = [v22 countByEnumeratingWithState:&v46 objects:v63 count:16];
                   }
 
-                  while (v32);
+                  while (v30);
                 }
               }
 
@@ -476,35 +469,35 @@ Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
                   continue;
                 }
 
-                v36 = cCopy;
-                v16 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:{objc_msgSend(v36, "count")}];
+                v34 = cCopy;
+                v14 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:{objc_msgSend(v34, "count")}];
+                v42 = 0u;
+                v43 = 0u;
+                v44 = 0u;
                 v45 = 0u;
-                v46 = 0u;
-                v47 = 0u;
-                v48 = 0u;
-                v24 = v36;
-                v37 = [v24 countByEnumeratingWithState:&v45 objects:v65 count:16];
-                if (v37)
+                v22 = v34;
+                v35 = [v22 countByEnumeratingWithState:&v42 objects:v62 count:16];
+                if (v35)
                 {
-                  v38 = v37;
-                  v39 = *v46;
+                  v36 = v35;
+                  v37 = *v43;
                   do
                   {
-                    for (n = 0; n != v38; ++n)
+                    for (n = 0; n != v36; ++n)
                     {
-                      if (*v46 != v39)
+                      if (*v43 != v37)
                       {
-                        objc_enumerationMutation(v24);
+                        objc_enumerationMutation(v22);
                       }
 
-                      v41 = [SecXPCHelper cleanObjectForXPC:*(*(&v45 + 1) + 8 * n)];
-                      [v16 addObject:v41];
+                      v39 = [SecXPCHelper cleanObjectForXPC:*(*(&v42 + 1) + 8 * n)];
+                      [v14 addObject:v39];
                     }
 
-                    v38 = [v24 countByEnumeratingWithState:&v45 objects:v65 count:16];
+                    v36 = [v22 countByEnumeratingWithState:&v42 objects:v62 count:16];
                   }
 
-                  while (v38);
+                  while (v36);
                 }
               }
             }
@@ -515,8 +508,8 @@ Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
       }
     }
 
-    v11 = [obj countByEnumeratingWithState:&v57 objects:v68 count:16];
-    if (v11)
+    v10 = [obj countByEnumeratingWithState:&v54 objects:v65 count:16];
+    if (v10)
     {
       continue;
     }
@@ -526,42 +519,40 @@ Class __42__SecXPCHelper_safeErrorCollectionClasses__block_invoke()
 
 LABEL_23:
 
-  v15 = objc_opt_class();
-  v16 = NSStringFromClass(v15);
+  v13 = objc_opt_class();
+  v14 = NSStringFromClass(v13);
 LABEL_53:
 
-  v42 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v14;
 }
 
 + (id)cleanDictionaryForXPC:(id)c
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   cCopy = c;
   if (cCopy)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     allKeys = [cCopy allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           v11 = [cCopy objectForKeyedSubscript:v10];
           v12 = [SecXPCHelper cleanObjectForXPC:v11];
 
@@ -572,7 +563,7 @@ LABEL_53:
           }
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -583,8 +574,6 @@ LABEL_53:
   {
     dictionary = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

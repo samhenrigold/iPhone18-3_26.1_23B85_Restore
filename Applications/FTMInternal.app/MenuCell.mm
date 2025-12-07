@@ -2,6 +2,7 @@
 - (BOOL)isSelected;
 - (_TtC11FTMInternal8MenuCell)initWithCoder:(id)coder;
 - (_TtC11FTMInternal8MenuCell)initWithFrame:(CGRect)frame;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation MenuCell
@@ -11,6 +12,16 @@
   v3.receiver = self;
   v3.super_class = type metadata accessor for MenuCell();
   return [(MenuCell *)&v3 isSelected];
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for MenuCell();
+  v4 = v5.receiver;
+  [(MenuCell *)&v5 setSelected:selectedCopy];
+  sub_10023DE98();
 }
 
 - (_TtC11FTMInternal8MenuCell)initWithFrame:(CGRect)frame

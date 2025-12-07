@@ -131,30 +131,30 @@
   return listener == listenerCopy;
 }
 
-void __60__SBCardItemsController_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
+void __60__SBCardItemsController_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __60__SBCardItemsController_listener_shouldAcceptNewConnection___block_invoke_cold_1(v2);
+    __60__SBCardItemsController_listener_shouldAcceptNewConnection___block_invoke_cold_1(v3);
   }
 
-  v3 = *(*(a1 + 32) + 16);
+  v4 = *(*(a1 + 32) + 16);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [v3 removeObject:WeakRetained];
+  [v4 removeObject:WeakRetained];
 }
 
-void __60__SBCardItemsController_listener_shouldAcceptNewConnection___block_invoke_34(uint64_t a1)
+void __60__SBCardItemsController_listener_shouldAcceptNewConnection___block_invoke_34(uint64_t a1, uint64_t a2)
 {
-  v2 = SBLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = SBLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __60__SBCardItemsController_listener_shouldAcceptNewConnection___block_invoke_34_cold_1(v2);
+    __60__SBCardItemsController_listener_shouldAcceptNewConnection___block_invoke_34_cold_1(v3);
   }
 
-  v3 = *(*(a1 + 32) + 16);
+  v4 = *(*(a1 + 32) + 16);
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [v3 removeObject:WeakRetained];
+  [v4 removeObject:WeakRetained];
 }
 
 - (void)setCardItems:(id)items forControllerWithIdentifier:(id)identifier
@@ -538,7 +538,7 @@ uint64_t __80__SBCardItemsController__updateThumbnailForCardItem_withSnapshotter
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __44__SBCardItemsController__updateRestrictions__block_invoke(uint64_t a1)
+void *__44__SBCardItemsController__updateRestrictions__block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
   result = [*(*(a1 + 32) + 32) effectiveBoolValueForSetting:*MEMORY[0x277D25DC0]];

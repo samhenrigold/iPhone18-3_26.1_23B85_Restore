@@ -54,7 +54,7 @@
   v28 = v27;
   v30 = v29;
   v32 = v31;
-  affine::inverse(&v46, v45);
+  affine::inverse(v45, &v46);
   v33 = [CIVector vectorWithX:v45[0] Y:v45[2] Z:v45[1] W:v45[3]];
   v34 = [CIVector vectorWithX:v46.f64[0] Y:v47.f64[0] Z:v46.f64[1] W:v47.f64[1]];
   _kernel = [(CIFourfoldTranslatedTile *)self _kernel];

@@ -218,30 +218,30 @@ void __108__NTKCompanionWidgetComplicationManager_enumerateDescriptorsCompatible
 
 void __108__NTKCompanionWidgetComplicationManager_enumerateDescriptorsCompatibleWithFamilies_locationStyle_withBlock___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15 = a2;
-  v6 = [v15 widgetDescriptor];
+  v16 = a2;
+  v6 = [v16 widgetDescriptor];
   v7 = [v6 containerBundleIdentifier];
 
-  v8 = _NTKHiddenWidgetVendingBundleIdentifiers();
-  v9 = [v15 appName];
-  if (v9)
+  v9 = _NTKHiddenWidgetVendingBundleIdentifiers(v8);
+  v10 = [v16 appName];
+  if (v10)
   {
   }
 
-  else if (([v8 containsObject:v7] & 1) == 0)
+  else if (([v9 containsObject:v7] & 1) == 0)
   {
     goto LABEL_6;
   }
 
-  v10 = [v15 supportedClockKitFamilies];
-  v11 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-  v12 = [v10 containsObject:v11];
+  v11 = [v16 supportedClockKitFamilies];
+  v12 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
+  v13 = [v11 containsObject:v12];
 
-  if (v12)
+  if (v13)
   {
-    v13 = *(a1 + 32);
-    v14 = [v15 widgetDescriptor];
-    (*(v13 + 16))(v13, v14, a4);
+    v14 = *(a1 + 32);
+    v15 = [v16 widgetDescriptor];
+    (*(v14 + 16))(v14, v15, a4);
   }
 
 LABEL_6:
@@ -310,7 +310,7 @@ LABEL_7:
 
 - (BOOL)vendorExistsWithDescriptor:(id)descriptor
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   os_unfair_lock_lock(&self->_lock);
   lock_clientToRecords = self->_lock_clientToRecords;
@@ -318,58 +318,58 @@ LABEL_7:
   v7 = [(NSMutableDictionary *)lock_clientToRecords objectForKeyedSubscript:containerBundleIdentifier];
 
   os_unfair_lock_unlock(&self->_lock);
-  v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
+  v33 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v32;
+    v10 = *v33;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v32 != v10)
+      if (*v33 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v31 + 1) + 8 * v11);
+      v12 = *(*(&v32 + 1) + 8 * v11);
       widgetDescriptor = [v12 widgetDescriptor];
       extensionBundleIdentifier = [widgetDescriptor extensionBundleIdentifier];
       extensionBundleIdentifier2 = [descriptorCopy extensionBundleIdentifier];
       if ([extensionBundleIdentifier isEqualToString:extensionBundleIdentifier2])
       {
-        v28 = v12;
+        v29 = v12;
         widgetDescriptor2 = [v12 widgetDescriptor];
         kind = [widgetDescriptor2 kind];
         [descriptorCopy kind];
         v18 = v9;
         v19 = v10;
         v21 = v20 = descriptorCopy;
-        v30 = [kind isEqualToString:v21];
+        v31 = [kind isEqualToString:v21];
 
         descriptorCopy = v20;
         v10 = v19;
         v9 = v18;
 
-        if (v30)
+        if (v31)
         {
-          widgetDescriptor3 = [v28 widgetDescriptor];
+          widgetDescriptor3 = [v29 widgetDescriptor];
           containerBundleIdentifier2 = [widgetDescriptor3 containerBundleIdentifier];
 
-          v25 = _NTKHiddenWidgetVendingBundleIdentifiers();
-          appName = [v28 appName];
+          v26 = _NTKHiddenWidgetVendingBundleIdentifiers(v25);
+          appName = [v29 appName];
           if (appName)
           {
 
             goto LABEL_16;
           }
 
-          if ([v25 containsObject:containerBundleIdentifier2])
+          if ([v26 containsObject:containerBundleIdentifier2])
           {
 LABEL_16:
             v22 = 1;
@@ -390,7 +390,7 @@ LABEL_16:
 
       if (v9 == ++v11)
       {
-        v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -503,7 +503,7 @@ LABEL_13:
   return v10;
 }
 
-uint64_t __77__NTKCompanionWidgetComplicationManager_isComplicationAvailable_forFamilies___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__77__NTKCompanionWidgetComplicationManager_isComplicationAvailable_forFamilies___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)

@@ -2179,9 +2179,9 @@ LABEL_19:
 {
   contextCopy = context;
   isKindOfClass = 1;
-  if ((_UIInternalPreferenceUsesDefault(&dword_1ED48AF00, @"B519_UniversalFocusMovement", _UIInternalPreferenceUpdateBool) & 1) == 0 && !byte_1ED48AF04)
+  if (!_UIInternalPreferenceUsesDefault(&dword_1ED48AF00, @"B519_UniversalFocusMovement", _UIInternalPreferenceUpdateBool) && !byte_1ED48AF04)
   {
-    if ((_UIInternalPreferenceUsesDefault(&_MergedGlobals_935, @"B519_KeyboardFocusMovement", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48AEFC)
+    if (_UIInternalPreferenceUsesDefault(&_MergedGlobals_935, @"B519_KeyboardFocusMovement", _UIInternalPreferenceUpdateBool) || byte_1ED48AEFC)
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
@@ -2986,7 +2986,7 @@ LABEL_9:
   x = velocity.x;
   v14 = _UIInternalPreferenceUsesDefault(&_UIInternalPreference_FocusEngineUsesAccelerationCurve, @"FocusEngineUsesAccelerationCurve", _UIInternalPreferenceUpdateBool);
   v15 = 1.0;
-  if ((v14 & 1) != 0 || !byte_1EA95E394)
+  if (v14 || !byte_1EA95E394)
   {
     v16 = 1.0;
   }

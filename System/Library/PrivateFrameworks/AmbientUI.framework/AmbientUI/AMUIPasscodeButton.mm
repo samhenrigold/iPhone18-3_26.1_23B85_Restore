@@ -9,10 +9,10 @@
 
 - (AMUIPasscodeButton)initWithFrame:(CGRect)frame
 {
-  v44[1] = *MEMORY[0x277D85DE8];
-  v42.receiver = self;
-  v42.super_class = AMUIPasscodeButton;
-  v3 = [(AMUIPasscodeButton *)&v42 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v43[1] = *MEMORY[0x277D85DE8];
+  v41.receiver = self;
+  v41.super_class = AMUIPasscodeButton;
+  v3 = [(AMUIPasscodeButton *)&v41 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_alloc(MEMORY[0x277D75D18]);
@@ -43,8 +43,8 @@
     v3->_backdropLayer = v14;
 
     v16 = v3->_backdropLayer;
-    v44[0] = v13;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+    v43[0] = v13;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
     [(CABackdropLayer *)v16 setFilters:v17];
 
     [(CABackdropLayer *)v3->_backdropLayer setCornerCurve:v10];
@@ -81,16 +81,15 @@
     centerXAnchor = [(UILabel *)v3->_titleLabel centerXAnchor];
     centerXAnchor2 = [(AMUIPasscodeButton *)v3 centerXAnchor];
     v35 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v43[0] = v35;
+    v42[0] = v35;
     centerYAnchor = [(UILabel *)v3->_titleLabel centerYAnchor];
     centerYAnchor2 = [(AMUIPasscodeButton *)v3 centerYAnchor];
     v38 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v43[1] = v38;
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+    v42[1] = v38;
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
     [v32 activateConstraints:v39];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

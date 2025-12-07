@@ -134,11 +134,10 @@ id __71__HDCloudSyncStoreEntity_rebaseRequiredByDate_intervals_profile_error___b
 
 uint64_t __71__HDCloudSyncStoreEntity_rebaseRequiredByDate_intervals_profile_error___block_invoke_5(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 + (id)storeIdentifiersForOwnerIdentifier:(id)identifier containerIdentifier:(id)containerIdentifier syncIdentity:(id)identity profile:(id)profile error:(id *)error
@@ -251,19 +250,17 @@ id __108__HDCloudSyncStoreEntity_storeIdentifiersForOwnerIdentifier_containerIde
 
 void __108__HDCloudSyncStoreEntity_storeIdentifiersForOwnerIdentifier_containerIdentifier_syncIdentity_profile_error___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = [*(a1 + 48) entity];
-  sqlite3_bind_int64(a2, 3, [v6 persistentID]);
+  v4 = [*(a1 + 48) entity];
+  sqlite3_bind_int64(a2, 3, [v4 persistentID]);
 }
 
-uint64_t __108__HDCloudSyncStoreEntity_storeIdentifiersForOwnerIdentifier_containerIdentifier_syncIdentity_profile_error___block_invoke_4(uint64_t a1)
+uint64_t __108__HDCloudSyncStoreEntity_storeIdentifiersForOwnerIdentifier_containerIdentifier_syncIdentity_profile_error___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v1 = *(*(*(a1 + 32) + 8) + 40);
-  v2 = HDSQLiteColumnWithNameAsUUID();
-  [v1 addObject:v2];
+  v2 = *(*(*(a1 + 32) + 8) + 40);
+  v3 = HDSQLiteColumnWithNameAsUUID();
+  [v2 addObject:v3];
 
   return 1;
 }
@@ -285,10 +282,9 @@ uint64_t __108__HDCloudSyncStoreEntity_storeIdentifiersForOwnerIdentifier_contai
   v3[10] = @"has_gap";
   v3[11] = @"sync_protocol_version";
   v3[12] = @"pending_full_sync";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:13];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:13];
 
-  return v0;
+  return v1;
 }
 
 + (id)persistedStateForStoreUUID:(id)d profile:(id)profile error:(id *)error
@@ -366,7 +362,7 @@ BOOL __67__HDCloudSyncStoreEntity_persistedStateForStoreUUID_profile_error___blo
     v13[5] = 0;
   }
 
-  v9 = [v13[5] copy];
+  v9 = objc_msgSend_copy(v13[5]);
   _Block_object_dispose(&v12, 8);
 
   return v9;
@@ -400,10 +396,10 @@ id __62__HDCloudSyncStoreEntity_persistedStoreUUIDsForProfile_error___block_invo
   return v4;
 }
 
-uint64_t __62__HDCloudSyncStoreEntity_persistedStoreUUIDsForProfile_error___block_invoke_3(uint64_t a1)
+uint64_t __62__HDCloudSyncStoreEntity_persistedStoreUUIDsForProfile_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsUUID();
-  [*(*(*(a1 + 32) + 8) + 40) addObject:v2];
+  v3 = HDSQLiteColumnWithNameAsUUID();
+  [*(*(*(a1 + 32) + 8) + 40) addObject:v3];
 
   return 1;
 }
@@ -428,7 +424,7 @@ uint64_t __62__HDCloudSyncStoreEntity_persistedStoreUUIDsForProfile_error___bloc
 
   if (error)
   {
-    v8 = [v12[5] copy];
+    v8 = objc_msgSend_copy(v12[5]);
   }
 
   else
@@ -468,19 +464,19 @@ id __74__HDCloudSyncStoreEntity_persistedMostRecentLastSyncDateForProfile_error_
   return v3;
 }
 
-uint64_t __74__HDCloudSyncStoreEntity_persistedMostRecentLastSyncDateForProfile_error___block_invoke_3(uint64_t a1)
+uint64_t __74__HDCloudSyncStoreEntity_persistedMostRecentLastSyncDateForProfile_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsDate();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = HDSQLiteColumnWithNameAsDate();
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
   return 0;
 }
 
 + (id)persistedStateForStoreUUID:(id)d database:(id)database error:(id *)error
 {
-  v114[3] = *MEMORY[0x277D85DE8];
+  v113[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   databaseCopy = database;
   if (!dCopy)
@@ -489,68 +485,68 @@ uint64_t __74__HDCloudSyncStoreEntity_persistedMostRecentLastSyncDateForProfile_
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDCloudSyncStoreEntity.m" lineNumber:269 description:{@"Invalid parameter not satisfying: %@", @"storeUUID != nil"}];
   }
 
-  v108 = 0;
-  v109 = &v108;
-  v110 = 0x3032000000;
-  v111 = __Block_byref_object_copy__188;
-  v112 = __Block_byref_object_dispose__188;
-  v113 = 0;
-  v104 = 0;
-  v105 = &v104;
-  v106 = 0x2020000000;
   v107 = 0;
-  v98 = 0;
-  v99 = &v98;
-  v100 = 0x3032000000;
-  v101 = __Block_byref_object_copy__188;
-  v102 = __Block_byref_object_dispose__188;
+  v108 = &v107;
+  v109 = 0x3032000000;
+  v110 = __Block_byref_object_copy__188;
+  v111 = __Block_byref_object_dispose__188;
+  v112 = 0;
   v103 = 0;
-  v92 = 0;
-  v93 = &v92;
-  v94 = 0x3032000000;
-  v95 = __Block_byref_object_copy__188;
-  v96 = __Block_byref_object_dispose__188;
+  v104 = &v103;
+  v105 = 0x2020000000;
+  v106 = 0;
   v97 = 0;
-  v86 = 0;
-  v87 = &v86;
-  v88 = 0x3032000000;
-  v89 = __Block_byref_object_copy__188;
-  v90 = __Block_byref_object_dispose__188;
+  v98 = &v97;
+  v99 = 0x3032000000;
+  v100 = __Block_byref_object_copy__188;
+  v101 = __Block_byref_object_dispose__188;
+  v102 = 0;
   v91 = 0;
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x3032000000;
-  v83 = __Block_byref_object_copy__188;
-  v84 = __Block_byref_object_dispose__188;
+  v92 = &v91;
+  v93 = 0x3032000000;
+  v94 = __Block_byref_object_copy__188;
+  v95 = __Block_byref_object_dispose__188;
+  v96 = 0;
   v85 = 0;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = __Block_byref_object_copy__188;
-  v78 = __Block_byref_object_dispose__188;
+  v86 = &v85;
+  v87 = 0x3032000000;
+  v88 = __Block_byref_object_copy__188;
+  v89 = __Block_byref_object_dispose__188;
+  v90 = 0;
   v79 = 0;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy__188;
-  v72 = __Block_byref_object_dispose__188;
+  v80 = &v79;
+  v81 = 0x3032000000;
+  v82 = __Block_byref_object_copy__188;
+  v83 = __Block_byref_object_dispose__188;
+  v84 = 0;
   v73 = 0;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2020000000;
-  v67 = -1;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2020000000;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = __Block_byref_object_copy__188;
+  v77 = __Block_byref_object_dispose__188;
+  v78 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__188;
+  v71 = __Block_byref_object_dispose__188;
+  v72 = 0;
   v63 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 6;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = -1;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x2020000000;
+  v62 = 0;
   v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 6;
+  v51 = 0;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
   v11 = [HDSyncStoreEntity existingSyncStoreEntityWithUUID:dCopy database:databaseCopy error:error];
   v12 = v11;
   if (!v11)
@@ -561,56 +557,36 @@ uint64_t __74__HDCloudSyncStoreEntity_persistedMostRecentLastSyncDateForProfile_
 
   v13 = MEMORY[0x277D10B18];
   v14 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v11, "persistentID")}];
-  v49 = [v13 predicateWithProperty:@"sync_store" equalToValue:v14];
+  v48 = [v13 predicateWithProperty:@"sync_store" equalToValue:v14];
 
-  v15 = [self queryWithDatabase:databaseCopy predicate:v49];
-  v16 = +[HDCloudSyncStoreEntity _persistedStateProperties];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __68__HDCloudSyncStoreEntity_persistedStateForStoreUUID_database_error___block_invoke;
-  v51[3] = &unk_27862D470;
-  v51[4] = &v108;
-  v51[5] = &v104;
-  v51[6] = &v98;
-  v51[7] = &v92;
-  v51[8] = &v86;
-  v51[9] = &v80;
-  v51[10] = &v74;
-  v51[11] = &v68;
-  v51[12] = &v64;
-  v51[13] = &v60;
-  v51[14] = &v56;
-  v51[15] = &v52;
-  LOBYTE(v13) = [v15 enumerateProperties:v16 error:error enumerationHandler:v51];
+  v15 = [self queryWithDatabase:databaseCopy predicate:v48];
+  v16 = +[(HDCloudSyncStoreEntity *)self];
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __68__HDCloudSyncStoreEntity_persistedStateForStoreUUID_database_error___block_invoke;
+  v50[3] = &unk_27862D470;
+  v50[4] = &v107;
+  v50[5] = &v103;
+  v50[6] = &v97;
+  v50[7] = &v91;
+  v50[8] = &v85;
+  v50[9] = &v79;
+  v50[10] = &v73;
+  v50[11] = &v67;
+  v50[12] = &v63;
+  v50[13] = &v59;
+  v50[14] = &v55;
+  v50[15] = &v51;
+  LOBYTE(v13) = [v15 enumerateProperties:v16 error:error enumerationHandler:v50];
 
   if (v13)
   {
-    if (v109[5])
+    if (v108[5])
     {
       v17 = objc_alloc(MEMORY[0x277CCAAC8]);
-      v18 = [v17 initForReadingFromData:v109[5] error:0];
-      v48 = [v18 decodeObjectOfClass:objc_opt_class() forKey:@"changeToken"];
+      v18 = [v17 initForReadingFromData:v108[5] error:0];
+      v47 = [v18 decodeObjectOfClass:objc_opt_class() forKey:@"changeToken"];
       [v18 finishDecoding];
-    }
-
-    else
-    {
-      v48 = 0;
-    }
-
-    if (v87[5])
-    {
-      v20 = objc_alloc(MEMORY[0x277CCAAC8]);
-      v21 = [v20 initForReadingFromData:v87[5] error:0];
-      v22 = MEMORY[0x277CBEB98];
-      v114[0] = objc_opt_class();
-      v114[1] = objc_opt_class();
-      v114[2] = objc_opt_class();
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:3];
-      v24 = [v22 setWithArray:v23];
-      v47 = [v21 decodeObjectOfClasses:v24 forKey:@"emptyZones"];
-
-      [v21 finishDecoding];
     }
 
     else
@@ -618,10 +594,30 @@ uint64_t __74__HDCloudSyncStoreEntity_persistedMostRecentLastSyncDateForProfile_
       v47 = 0;
     }
 
-    v25 = v65[3];
-    v50 = 0;
-    v26 = [HDSyncIdentityEntity concreteIdentityForPersistentID:v25 database:databaseCopy error:&v50];
-    v27 = v50;
+    if (v86[5])
+    {
+      v20 = objc_alloc(MEMORY[0x277CCAAC8]);
+      v21 = [v20 initForReadingFromData:v86[5] error:0];
+      v22 = MEMORY[0x277CBEB98];
+      v113[0] = objc_opt_class();
+      v113[1] = objc_opt_class();
+      v113[2] = objc_opt_class();
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:3];
+      v24 = [v22 setWithArray:v23];
+      v46 = [v21 decodeObjectOfClasses:v24 forKey:@"emptyZones"];
+
+      [v21 finishDecoding];
+    }
+
+    else
+    {
+      v46 = 0;
+    }
+
+    v25 = v64[3];
+    v49 = 0;
+    v26 = [HDSyncIdentityEntity concreteIdentityForPersistentID:v25 database:databaseCopy error:&v49];
+    v27 = v49;
     v28 = v27;
     if (v27)
     {
@@ -643,39 +639,39 @@ uint64_t __74__HDCloudSyncStoreEntity_persistedMostRecentLastSyncDateForProfile_
 
     else
     {
-      v45 = v15;
-      v46 = v26;
-      v44 = [_HDCloudSyncStorePersistableState alloc];
-      v43 = v105[3];
-      v32 = v99[5];
-      v33 = v93[5];
-      v34 = v81[5];
-      v35 = v75[5];
-      v36 = v69[5];
-      identity = [v46 identity];
-      LODWORD(v42) = *(v57 + 6);
-      v30 = [(_HDCloudSyncStorePersistableState *)v44 initWithServerChangeToken:v48 baselineEpoch:v43 rebaseDeadline:v32 lastSyncDate:v33 emptyZones:v47 lastCheckDate:v34 ownerIdentifier:v35 containerIdentifier:v36 syncIdentity:identity syncProtocolVersion:v42];
+      v44 = v15;
+      v45 = v26;
+      v43 = [_HDCloudSyncStorePersistableState alloc];
+      v42 = v104[3];
+      v32 = v98[5];
+      v33 = v92[5];
+      v34 = v80[5];
+      v35 = v74[5];
+      v36 = v68[5];
+      identity = [v45 identity];
+      LODWORD(v41) = *(v56 + 6);
+      v30 = [(_HDCloudSyncStorePersistableState *)v43 initWithServerChangeToken:v47 baselineEpoch:v42 rebaseDeadline:v32 lastSyncDate:v33 emptyZones:v46 lastCheckDate:v34 ownerIdentifier:v35 containerIdentifier:v36 syncIdentity:identity syncProtocolVersion:v41];
 
-      v15 = v45;
-      v26 = v46;
-      if (*(v61 + 24) == 1)
+      v15 = v44;
+      v26 = v45;
+      if (*(v60 + 24) == 1)
       {
         v38 = [(_HDCloudSyncStorePersistableState *)v30 stateWithGapEncountered:1];
 
-        v15 = v45;
-        v26 = v46;
+        v15 = v44;
+        v26 = v45;
         v30 = v38;
       }
 
-      if (*(v53 + 24) != 1)
+      if (*(v52 + 24) != 1)
       {
         v19 = v30;
         goto LABEL_22;
       }
 
       v19 = [(_HDCloudSyncStorePersistableState *)v30 stateWithPendingFullSync:1];
-      v15 = v45;
-      v26 = v46;
+      v15 = v44;
+      v26 = v45;
     }
 
 LABEL_22:
@@ -686,64 +682,62 @@ LABEL_22:
 LABEL_23:
 
 LABEL_24:
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v60, 8);
-  _Block_object_dispose(&v64, 8);
-  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v67, 8);
 
-  _Block_object_dispose(&v74, 8);
-  _Block_object_dispose(&v80, 8);
+  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v79, 8);
 
-  _Block_object_dispose(&v86, 8);
-  _Block_object_dispose(&v92, 8);
+  _Block_object_dispose(&v85, 8);
+  _Block_object_dispose(&v91, 8);
 
-  _Block_object_dispose(&v98, 8);
-  _Block_object_dispose(&v104, 8);
-  _Block_object_dispose(&v108, 8);
-
-  v39 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v97, 8);
+  _Block_object_dispose(&v103, 8);
+  _Block_object_dispose(&v107, 8);
 
   return v19;
 }
 
-uint64_t __68__HDCloudSyncStoreEntity_persistedStateForStoreUUID_database_error___block_invoke(void *a1)
+uint64_t __68__HDCloudSyncStoreEntity_persistedStateForStoreUUID_database_error___block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsData();
-  v3 = *(a1[4] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = HDSQLiteColumnWithNameAsData();
+  v5 = *(a1[4] + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
   *(*(a1[5] + 8) + 24) = HDSQLiteColumnWithNameAsInt64();
-  v5 = HDSQLiteColumnWithNameAsDate();
-  v6 = *(a1[6] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v7 = HDSQLiteColumnWithNameAsDate();
+  v8 = *(a1[6] + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
-  v8 = HDSQLiteColumnWithNameAsDate();
-  v9 = *(a1[7] + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v10 = HDSQLiteColumnWithNameAsDate();
+  v11 = *(a1[7] + 8);
+  v12 = *(v11 + 40);
+  *(v11 + 40) = v10;
 
-  v11 = HDSQLiteColumnWithNameAsData();
-  v12 = *(a1[8] + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v11;
+  v13 = HDSQLiteColumnWithNameAsData();
+  v14 = *(a1[8] + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v13;
 
-  v14 = HDSQLiteColumnWithNameAsDate();
-  v15 = *(a1[9] + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = v14;
+  v16 = HDSQLiteColumnWithNameAsDate();
+  v17 = *(a1[9] + 8);
+  v18 = *(v17 + 40);
+  *(v17 + 40) = v16;
 
-  v17 = HDSQLiteColumnWithNameAsString();
-  v18 = *(a1[10] + 8);
-  v19 = *(v18 + 40);
-  *(v18 + 40) = v17;
+  v19 = HDSQLiteColumnWithNameAsString();
+  v20 = *(a1[10] + 8);
+  v21 = *(v20 + 40);
+  *(v20 + 40) = v19;
 
-  v20 = HDSQLiteColumnWithNameAsString();
-  v21 = *(a1[11] + 8);
-  v22 = *(v21 + 40);
-  *(v21 + 40) = v20;
+  v22 = HDSQLiteColumnWithNameAsString();
+  v23 = *(a1[11] + 8);
+  v24 = *(v23 + 40);
+  *(v23 + 40) = v22;
 
   *(*(a1[12] + 8) + 24) = HDSQLiteColumnWithNameAsInt64();
   *(*(a1[13] + 8) + 24) = HDSQLiteColumnWithNameAsBoolean();
@@ -820,55 +814,55 @@ uint64_t __84__HDCloudSyncStoreEntity_persistState_storeUUID_shouldReplace_healt
   v8 = v7;
   if (v7)
   {
-    v72 = 0;
-    v73 = &v72;
-    v74 = 0x3032000000;
-    v75 = __Block_byref_object_copy__188;
-    v76 = __Block_byref_object_dispose__188;
-    v77 = 0;
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x3032000000;
-    v69 = __Block_byref_object_copy__188;
-    v70 = __Block_byref_object_dispose__188;
     v71 = 0;
-    v62 = 0;
-    v63 = &v62;
-    v64 = 0x2020000000;
-    v65 = -1;
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
+    v72 = &v71;
+    v73 = 0x3032000000;
+    v74 = __Block_byref_object_copy__188;
+    v75 = __Block_byref_object_dispose__188;
+    v76 = 0;
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x3032000000;
+    v68 = __Block_byref_object_copy__188;
+    v69 = __Block_byref_object_dispose__188;
+    v70 = 0;
     v61 = 0;
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __84__HDCloudSyncStoreEntity_persistState_storeUUID_shouldReplace_healthDatabase_error___block_invoke_2;
-    v57[3] = &__block_descriptor_40_e15___NSString_8__0l;
-    v57[4] = *(a1 + 80);
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __84__HDCloudSyncStoreEntity_persistState_storeUUID_shouldReplace_healthDatabase_error___block_invoke_3;
-    v55[3] = &unk_278614860;
-    v9 = v7;
-    v56 = v9;
+    v62 = &v61;
+    v63 = 0x2020000000;
+    v64 = -1;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v60 = 0;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __84__HDCloudSyncStoreEntity_persistState_storeUUID_shouldReplace_healthDatabase_error___block_invoke_2;
+    v56[3] = &__block_descriptor_40_e15___NSString_8__0l;
+    v56[4] = *(a1 + 80);
     v54[0] = MEMORY[0x277D85DD0];
     v54[1] = 3221225472;
-    v54[2] = __84__HDCloudSyncStoreEntity_persistState_storeUUID_shouldReplace_healthDatabase_error___block_invoke_4;
-    v54[3] = &unk_27862D498;
-    v54[4] = &v72;
-    v54[5] = &v66;
-    v54[6] = &v62;
-    v54[7] = &v58;
-    if (([v6 executeCachedStatementForKey:&HDCloudSyncStoreExcludedSyncIdentitiesKey_block_invoke_6_lookupKey error:a3 SQLGenerator:v57 bindingHandler:v55 enumerationHandler:v54] & 1) == 0)
+    v54[2] = __84__HDCloudSyncStoreEntity_persistState_storeUUID_shouldReplace_healthDatabase_error___block_invoke_3;
+    v54[3] = &unk_278614860;
+    v9 = v7;
+    v55 = v9;
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __84__HDCloudSyncStoreEntity_persistState_storeUUID_shouldReplace_healthDatabase_error___block_invoke_4;
+    v53[3] = &unk_27862D498;
+    v53[4] = &v71;
+    v53[5] = &v65;
+    v53[6] = &v61;
+    v53[7] = &v57;
+    if (([v6 executeCachedStatementForKey:&HDCloudSyncStoreExcludedSyncIdentitiesKey_block_invoke_6_lookupKey error:a3 SQLGenerator:v56 bindingHandler:v54 enumerationHandler:v53] & 1) == 0)
     {
       v18 = 0;
 LABEL_47:
 
-      _Block_object_dispose(&v58, 8);
-      _Block_object_dispose(&v62, 8);
-      _Block_object_dispose(&v66, 8);
+      _Block_object_dispose(&v57, 8);
+      _Block_object_dispose(&v61, 8);
+      _Block_object_dispose(&v65, 8);
 
-      _Block_object_dispose(&v72, 8);
+      _Block_object_dispose(&v71, 8);
       goto LABEL_48;
     }
 
@@ -879,9 +873,9 @@ LABEL_47:
       v11 = [*(a1 + 48) profile];
       v12 = [v11 syncIdentityManager];
       v13 = [*(a1 + 40) syncIdentity];
-      v53 = 0;
-      v45 = [v12 concreteIdentityForIdentity:v13 shouldCreate:1 transaction:v5 error:&v53];
-      v14 = v53;
+      v52 = 0;
+      v44 = [v12 concreteIdentityForIdentity:v13 shouldCreate:1 transaction:v5 error:&v52];
+      v14 = v52;
 
       if (v14)
       {
@@ -901,7 +895,7 @@ LABEL_47:
         goto LABEL_20;
       }
 
-      v22 = v63[3];
+      v22 = v62[3];
       if (v22 == -1)
       {
         *(*(*(a1 + 72) + 8) + 24) = 1;
@@ -909,7 +903,7 @@ LABEL_47:
 
       else
       {
-        v23 = [v45 entity];
+        v23 = [v44 entity];
         v24 = [v23 persistentID];
 
         if (v22 != v24)
@@ -928,33 +922,33 @@ LABEL_46:
 
     else
     {
-      v45 = 0;
+      v44 = 0;
     }
 
-    if (!v73[5])
+    if (!v72[5])
     {
       goto LABEL_31;
     }
 
-    v19 = v67[5];
+    v19 = v66[5];
     v20 = [*(a1 + 40) ownerIdentifier];
     if (v19 != v20)
     {
-      v44 = [*(a1 + 40) ownerIdentifier];
-      if (!v44)
+      v43 = [*(a1 + 40) ownerIdentifier];
+      if (!v43)
       {
         goto LABEL_44;
       }
 
-      v21 = v67[5];
-      v43 = [*(a1 + 40) ownerIdentifier];
-      if (![v21 isEqualToString:v43])
+      v21 = v66[5];
+      v42 = [*(a1 + 40) ownerIdentifier];
+      if (![v21 isEqualToString:v42])
       {
         goto LABEL_43;
       }
     }
 
-    v25 = v73[5];
+    v25 = v72[5];
     v26 = [*(a1 + 40) containerIdentifier];
     v27 = v26;
     if (v25 == v26)
@@ -967,18 +961,18 @@ LABEL_46:
       goto LABEL_31;
     }
 
-    v42 = [*(a1 + 40) containerIdentifier];
-    if (v42)
+    v41 = [*(a1 + 40) containerIdentifier];
+    if (v41)
     {
-      v40 = v73[5];
+      v39 = v72[5];
       v28 = [*(a1 + 40) containerIdentifier];
-      v41 = [v40 isEqualToString:v28];
+      v40 = [v39 isEqualToString:v28];
 
       if (v19 != v20)
       {
       }
 
-      if ((v41 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
         goto LABEL_45;
       }
@@ -989,14 +983,14 @@ LABEL_31:
       aBlock[2] = __84__HDCloudSyncStoreEntity_persistState_storeUUID_shouldReplace_healthDatabase_error___block_invoke_5;
       aBlock[3] = &unk_27862D4C0;
       v29 = v9;
-      v48 = v29;
-      v49 = *(a1 + 56);
-      v50 = *(a1 + 40);
-      v51 = *(a1 + 64);
-      v45 = v45;
-      v52 = v45;
+      v47 = v29;
+      v48 = *(a1 + 56);
+      v49 = *(a1 + 40);
+      v50 = *(a1 + 64);
+      v44 = v44;
+      v51 = v44;
       v30 = _Block_copy(aBlock);
-      if (*(v59 + 24) == 1)
+      if (*(v58 + 24) == 1)
       {
         if ((*(a1 + 88) & 1) == 0 && !*(*(*(a1 + 72) + 8) + 24))
         {
@@ -1005,31 +999,30 @@ LABEL_31:
         }
 
         v31 = [(HDSQLiteEntity *)[HDCloudSyncStoreEntity alloc] initWithPersistentID:[(HDSQLiteEntity *)v29 persistentID]];
-        v32 = *(a1 + 80);
-        v33 = +[HDCloudSyncStoreEntity _persistedStateProperties];
-        v18 = [(HDSQLiteEntity *)v31 updateProperties:v33 database:v6 error:a3 bindingHandler:v30];
+        v32 = +[(HDCloudSyncStoreEntity *)*(a1];
+        v18 = [(HDSQLiteEntity *)v31 updateProperties:v32 database:v6 error:a3 bindingHandler:v30];
       }
 
       else
       {
-        v34 = *(a1 + 80);
-        v35 = *(a1 + 88);
-        v36 = +[HDCloudSyncStoreEntity _persistedStateProperties];
-        v46 = 0;
-        v33 = [v34 insertOrReplaceEntity:v35 database:v6 properties:v36 error:&v46 bindingHandler:v30];
-        v31 = v46;
+        v33 = *(a1 + 80);
+        v34 = *(a1 + 88);
+        v35 = +[(HDCloudSyncStoreEntity *)v33];
+        v45 = 0;
+        v32 = [v33 insertOrReplaceEntity:v34 database:v6 properties:v35 error:&v45 bindingHandler:v30];
+        v31 = v45;
 
-        if (!v33)
+        if (!v32)
         {
           if (([(HDCloudSyncStoreEntity *)v31 hd_isConstraintViolation]& 1) == 0)
           {
-            v38 = v31;
-            v31 = v38;
-            if (v38)
+            v37 = v31;
+            v31 = v37;
+            if (v37)
             {
               if (a3)
               {
-                v39 = v38;
+                v38 = v37;
                 *a3 = v31;
               }
 
@@ -1039,12 +1032,12 @@ LABEL_31:
               }
             }
 
-            v33 = 0;
+            v32 = 0;
             v18 = 0;
             goto LABEL_39;
           }
 
-          v33 = 0;
+          v32 = 0;
         }
 
         v18 = 1;
@@ -1053,7 +1046,7 @@ LABEL_31:
 LABEL_39:
 
 LABEL_40:
-      v16 = v48;
+      v16 = v47;
       goto LABEL_41;
     }
 
@@ -1182,47 +1175,45 @@ uint64_t __73__HDCloudSyncStoreEntity_resetLastSyncDateExcludingStores_profile_e
   return v13;
 }
 
-void __73__HDCloudSyncStoreEntity_resetLastSyncDateExcludingStores_profile_error___block_invoke_3(uint64_t a1)
+void __73__HDCloudSyncStoreEntity_resetLastSyncDateExcludingStores_profile_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
   v15 = *MEMORY[0x277D85DE8];
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
+  v2 = *(a1 + 32);
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v11;
-    v5 = 1;
+    v4 = v3;
+    v5 = *v11;
+    v6 = 1;
     do
     {
-      v6 = 0;
-      v7 = v5;
+      v7 = 0;
+      v8 = v6;
       do
       {
-        if (*v11 != v4)
+        if (*v11 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v5 = v7 + 1;
-        v8 = [*(*(&v10 + 1) + 8 * v6) storeIdentifier];
+        v6 = v8 + 1;
+        v9 = [*(*(&v10 + 1) + 8 * v7) storeIdentifier];
         HDSQLiteBindFoundationValueToStatement();
 
-        ++v6;
         ++v7;
+        ++v8;
       }
 
-      while (v3 != v6);
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v4 != v7);
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v3);
+    while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)storeUUIDInTransaction:(id)transaction error:(id *)error
@@ -1289,7 +1280,7 @@ BOOL __87__HDCloudSyncStoreEntity_cachedExcludedSyncIdentitiesForStoreIdentifier
 
 + (id)cachedExcludedSyncIdentitiesForStoreIdentifier:(id)identifier database:(id)database error:(id *)error
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   databaseCopy = database;
   v11 = databaseCopy;
@@ -1321,34 +1312,34 @@ LABEL_3:
   disambiguatedDatabaseTable = [self disambiguatedDatabaseTable];
   v15 = [v12 stringWithFormat:@"SELECT cs.%@ FROM %@ AS s INNER JOIN %@ AS cs ON s.%@ == cs.%@ WHERE s.%@ == ?", @"cached_excluded_sync_identities", v13, disambiguatedDatabaseTable, *MEMORY[0x277D10A40], @"sync_store", @"uuid"];
 
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__188;
-  v38 = __Block_byref_object_dispose__188;
-  v39 = 0;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __88__HDCloudSyncStoreEntity_cachedExcludedSyncIdentitiesForStoreIdentifier_database_error___block_invoke;
-  v32[3] = &unk_278614860;
-  v16 = identifierCopy;
-  v33 = v16;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__188;
+  v37 = __Block_byref_object_dispose__188;
+  v38 = 0;
   v31[0] = MEMORY[0x277D85DD0];
   v31[1] = 3221225472;
-  v31[2] = __88__HDCloudSyncStoreEntity_cachedExcludedSyncIdentitiesForStoreIdentifier_database_error___block_invoke_2;
-  v31[3] = &unk_278614620;
-  v31[4] = &v34;
-  if (([v11 executeUncachedSQL:v15 error:error bindingHandler:v32 enumerationHandler:v31] & 1) != 0 && v35[5])
+  v31[2] = __88__HDCloudSyncStoreEntity_cachedExcludedSyncIdentitiesForStoreIdentifier_database_error___block_invoke;
+  v31[3] = &unk_278614860;
+  v16 = identifierCopy;
+  v32 = v16;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __88__HDCloudSyncStoreEntity_cachedExcludedSyncIdentitiesForStoreIdentifier_database_error___block_invoke_2;
+  v30[3] = &unk_278614620;
+  v30[4] = &v33;
+  if (([v11 executeUncachedSQL:v15 error:error bindingHandler:v31 enumerationHandler:v30] & 1) != 0 && v34[5])
   {
     v17 = objc_alloc(MEMORY[0x277CCAAC8]);
-    v18 = v35[5];
-    v30 = 0;
-    v19 = [v17 initForReadingFromData:v18 error:&v30];
-    v20 = v30;
+    v18 = v34[5];
+    v29 = 0;
+    v19 = [v17 initForReadingFromData:v18 error:&v29];
+    v20 = v29;
     v21 = MEMORY[0x277CBEB98];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
     v23 = [v21 setWithArray:v22];
     v24 = [v19 decodeObjectOfClasses:v23 forKey:@"excludedSyncIdentities"];
 
@@ -1361,8 +1352,8 @@ LABEL_3:
       {
         *buf = 138543618;
         selfCopy = self;
-        v42 = 2114;
-        v43 = v20;
+        v41 = 2114;
+        v42 = v20;
         _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load cached excluded sync identities with error: %{public}@", buf, 0x16u);
       }
     }
@@ -1373,21 +1364,18 @@ LABEL_3:
     v24 = 0;
   }
 
-  _Block_object_dispose(&v34, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v33, 8);
 
   return v24;
 }
 
 uint64_t __88__HDCloudSyncStoreEntity_cachedExcludedSyncIdentitiesForStoreIdentifier_database_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  v5[1] = 0;
-  [*(a1 + 32) getUUIDBytes:v5];
-  result = sqlite3_bind_blob(a2, 1, v5, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  v4[1] = 0;
+  [*(a1 + 32) getUUIDBytes:v4];
+  return sqlite3_bind_blob(a2, 1, v4, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 uint64_t __88__HDCloudSyncStoreEntity_cachedExcludedSyncIdentitiesForStoreIdentifier_database_error___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -1629,27 +1617,15 @@ LABEL_3:
 
 uint64_t __72__HDCloudSyncStoreEntity_cachedEpochsForStoreIdentifier_database_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  v5[1] = 0;
-  [*(a1 + 32) getUUIDBytes:v5];
-  result = sqlite3_bind_blob(a2, 1, v5, 16, 0xFFFFFFFFFFFFFFFFLL);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  v4[1] = 0;
+  [*(a1 + 32) getUUIDBytes:v4];
+  return sqlite3_bind_blob(a2, 1, v4, 16, 0xFFFFFFFFFFFFFFFFLL);
 }
 
-uint64_t __72__HDCloudSyncStoreEntity_cachedEpochsForStoreIdentifier_database_error___block_invoke_2(uint64_t a1)
+uint64_t __72__HDCloudSyncStoreEntity_cachedEpochsForStoreIdentifier_database_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  if (HDSQLiteColumnWithNameIsNull())
-  {
-    v2 = 0;
-  }
-
-  else
-  {
-    v2 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
-  }
-
   if (HDSQLiteColumnWithNameIsNull())
   {
     v3 = 0;
@@ -1670,10 +1646,20 @@ uint64_t __72__HDCloudSyncStoreEntity_cachedEpochsForStoreIdentifier_database_er
     v4 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
   }
 
-  v5 = [[HDCloudSyncCachedStoreEpochs alloc] initWithActiveEpoch:v2 pendingEpoch:v3 tombstoneEpoch:v4];
-  v6 = *(*(a1 + 32) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  if (HDSQLiteColumnWithNameIsNull())
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
+  }
+
+  v6 = [[HDCloudSyncCachedStoreEpochs alloc] initWithActiveEpoch:v3 pendingEpoch:v4 tombstoneEpoch:v5];
+  v7 = *(*(a1 + 32) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
   return 0;
 }
@@ -1957,11 +1943,10 @@ uint64_t __69__HDCloudSyncStoreEntity_cacheEpochs_storeIdentifier_database_error
 id __78__HDCloudSyncStoreEntity_updateShardStartDate_endDate_type_transaction_error___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", v3, @"shard_start_date", @"shard_end_date", @"shard_type", *MEMORY[0x277D10A40]];
+  v2 = [objc_opt_class() disambiguatedDatabaseTable];
+  v3 = [v1 stringWithFormat:@"UPDATE %@ SET %@ = ?, %@ = ?, %@ = ? WHERE %@ = ?", v2, @"shard_start_date", @"shard_end_date", @"shard_type", *MEMORY[0x277D10A40]];
 
-  return v4;
+  return v3;
 }
 
 uint64_t __78__HDCloudSyncStoreEntity_updateShardStartDate_endDate_type_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -2024,11 +2009,10 @@ uint64_t __78__HDCloudSyncStoreEntity_updateShardStartDate_endDate_type_transact
 id __74__HDCloudSyncStoreEntity_fetchShardPropertiesInTransaction_error_handler___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"SELECT %@, %@, %@ FROM %@ WHERE %@ = ? AND %@ IS NOT NULL", @"shard_type", @"shard_start_date", @"shard_end_date", v3, *MEMORY[0x277D10A40], @"shard_type"];
+  v2 = [objc_opt_class() disambiguatedDatabaseTable];
+  v3 = [v1 stringWithFormat:@"SELECT %@, %@, %@ FROM %@ WHERE %@ = ? AND %@ IS NOT NULL", @"shard_type", @"shard_start_date", @"shard_end_date", v2, *MEMORY[0x277D10A40], @"shard_type"];
 
-  return v4;
+  return v3;
 }
 
 uint64_t __74__HDCloudSyncStoreEntity_fetchShardPropertiesInTransaction_error_handler___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -2072,11 +2056,10 @@ uint64_t __74__HDCloudSyncStoreEntity_fetchShardPropertiesInTransaction_error_ha
 id __63__HDCloudSyncStoreEntity_updateSyncIdentity_transaction_error___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"UPDATE %@ SET %@ = ? WHERE %@ = ?", v3, @"sync_identity", *MEMORY[0x277D10A40]];
+  v2 = [objc_opt_class() disambiguatedDatabaseTable];
+  v3 = [v1 stringWithFormat:@"UPDATE %@ SET %@ = ? WHERE %@ = ?", v2, @"sync_identity", *MEMORY[0x277D10A40]];
 
-  return v4;
+  return v3;
 }
 
 uint64_t __63__HDCloudSyncStoreEntity_updateSyncIdentity_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -2091,13 +2074,11 @@ uint64_t __63__HDCloudSyncStoreEntity_updateSyncIdentity_transaction_error___blo
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"sync_store";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"sync_store";
   v2 = +[(HDHealthEntity *)HDSyncStoreEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

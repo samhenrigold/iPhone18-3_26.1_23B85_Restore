@@ -5,12 +5,24 @@
 - (PHFetchResult)momentFetchResult;
 - (id)assetsForSharingFilter:(unsigned __int16)filter;
 - (id)description;
+- (id)generateSortedSummarizedFeaturesForSharingFilter:(unsigned __int16)filter graph:(id)graph featureSummaryGenerator:(id)generator;
 - (id)initForTestingWithHighlight:(id)highlight;
 - (id)uuidsOfRequiredAssetsForSharingFilter:(unsigned __int16)filter;
 - (void)setHighlightSummarizedFeaturesWithGraph:(id)graph;
 @end
 
 @implementation PGHighlightTailorHighlightInfo
+
+- (id)generateSortedSummarizedFeaturesForSharingFilter:(unsigned __int16)filter graph:(id)graph featureSummaryGenerator:(id)generator
+{
+  filterCopy = filter;
+  highlightNode = self->_highlightNode;
+  generatorCopy = generator;
+  v8 = [PGHighlightEnrichmentUtilities filteredMomentNodesWithHighlightNode:highlightNode forSharingFilter:filterCopy];
+  v9 = [generatorCopy sortedSummarizedFeaturesForMomentNodes:v8];
+
+  return v9;
+}
 
 - (PHFetchResult)momentFetchResult
 {
@@ -91,7 +103,7 @@ LABEL_5:
 
 - (NSArray)childHighlights
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   if (self->_childHighlights || [(PGHighlightModel *)self->_highlight kind]!= 3)
   {
     goto LABEL_5;
@@ -102,10 +114,10 @@ LABEL_5:
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
-  v17[0] = v6;
+  v16[0] = v6;
   v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v17[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   [librarySpecificFetchOptions setSortDescriptors:v8];
 
   v9 = [MEMORY[0x277CD9958] fetchChildDayGroupHighlightsForHighlight:assetCollection options:librarySpecificFetchOptions];
@@ -122,14 +134,13 @@ LABEL_5:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v15 = 138412290;
-    v16 = assetCollection;
-    _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Day Group Highlight does not have any child day highlights: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = assetCollection;
+    _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Day Group Highlight does not have any child day highlights: %@", &v14, 0xCu);
   }
 
   v12 = 0;
 LABEL_6:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -270,7 +281,7 @@ LABEL_9:
 
 - (PGHighlightTailorHighlightInfo)initWithHighlight:(id)highlight graph:(id)graph highlightTailorContext:(id)context
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   highlightCopy = highlight;
   graphCopy = graph;
   contextCopy = context;
@@ -285,7 +296,7 @@ LABEL_9:
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v70 = uuid;
+      v69 = uuid;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Cannot find highlight node for highlightUUID %@", buf, 0xCu);
     }
 
@@ -300,9 +311,9 @@ LABEL_9:
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v70 = obj;
-      v71 = 2112;
-      v72 = uuid;
+      v69 = obj;
+      v70 = 2112;
+      v71 = uuid;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "No Moment nodes connected to highlight node %@ with highlightUUID %@", buf, 0x16u);
     }
 
@@ -311,9 +322,9 @@ LABEL_18:
     goto LABEL_25;
   }
 
-  v67.receiver = self;
-  v67.super_class = PGHighlightTailorHighlightInfo;
-  v18 = [(PGHighlightTailorHighlightInfo *)&v67 init];
+  v66.receiver = self;
+  v66.super_class = PGHighlightTailorHighlightInfo;
+  v18 = [(PGHighlightTailorHighlightInfo *)&v66 init];
   v19 = v18;
   if (v18)
   {
@@ -334,38 +345,38 @@ LABEL_18:
     objc_storeStrong(&v19->_loggingConnection, loggingConnection);
     v25 = obj;
     objc_storeStrong(&v19->_highlightNode, obj);
-    v59 = v21;
+    v58 = v21;
     objc_storeStrong(&v19->_momentNodes, v21);
-    v60 = uuid;
-    v61 = loggingConnection;
+    v59 = uuid;
+    v60 = loggingConnection;
     if ([(PGGraphHighlightNode *)v19->_highlightNode isTrip])
     {
-      v56 = contextCopy;
-      v57 = graphCopy;
-      v58 = highlightCopy;
+      v55 = contextCopy;
+      v56 = graphCopy;
+      v57 = highlightCopy;
       v26 = v19->_highlightNode;
       v27 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v62 = 0u;
       v63 = 0u;
       v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
-      v55 = v26;
+      v54 = v26;
       highlightNodes = [(PGGraphHighlightNode *)v26 highlightNodes];
-      v29 = [highlightNodes countByEnumeratingWithState:&v63 objects:v68 count:16];
+      v29 = [highlightNodes countByEnumeratingWithState:&v62 objects:v67 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v64;
+        v31 = *v63;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v64 != v31)
+            if (*v63 != v31)
             {
               objc_enumerationMutation(highlightNodes);
             }
 
-            v33 = *(*(&v63 + 1) + 8 * i);
+            v33 = *(*(&v62 + 1) + 8 * i);
             eventEnrichmentMomentNodes2 = [v33 eventEnrichmentMomentNodes];
             meaningNodes = [eventEnrichmentMomentNodes2 meaningNodes];
             meaningLabels = [meaningNodes meaningLabels];
@@ -373,7 +384,7 @@ LABEL_18:
             [(NSDictionary *)v27 setObject:meaningLabels forKeyedSubscript:localIdentifier];
           }
 
-          v30 = [highlightNodes countByEnumeratingWithState:&v63 objects:v68 count:16];
+          v30 = [highlightNodes countByEnumeratingWithState:&v62 objects:v67 count:16];
         }
 
         while (v30);
@@ -382,10 +393,10 @@ LABEL_18:
       meaningLabelsByChildHighlightUUID = v19->_meaningLabelsByChildHighlightUUID;
       v19->_meaningLabelsByChildHighlightUUID = v27;
 
-      graphCopy = v57;
-      highlightCopy = v58;
-      meaningLabels = v55;
-      contextCopy = v56;
+      graphCopy = v56;
+      highlightCopy = v57;
+      meaningLabels = v54;
+      contextCopy = v55;
       v25 = obj;
     }
 
@@ -420,9 +431,9 @@ LABEL_18:
     v19->_feeder = v51;
 
     contextCopy = v49;
-    uuid = v60;
-    loggingConnection = v61;
-    temporarySet = v59;
+    uuid = v59;
+    loggingConnection = v60;
+    temporarySet = v58;
   }
 
   self = v19;
@@ -430,7 +441,6 @@ LABEL_18:
   selfCopy = self;
 LABEL_25:
 
-  v53 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

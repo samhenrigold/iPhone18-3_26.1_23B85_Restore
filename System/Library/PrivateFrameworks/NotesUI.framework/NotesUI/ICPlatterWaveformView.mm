@@ -114,8 +114,8 @@
 
 - (void)updateSliceFramesForRecordingTime:(double)time
 {
-  timeWindow = [(ICPlatterWaveformView *)self timeWindow];
-  ICVMTimeRangeMake(timeWindow, v7, time - v6, time);
+  [(ICPlatterWaveformView *)self timeWindow];
+  ICVMTimeRangeMake();
   [(ICPlatterWaveformView *)self setCurrentTimeWindow:?];
 
   [(ICPlatterWaveformView *)self updateSliceFrames];
@@ -334,7 +334,7 @@
 
 - ($F24F406B2B787EFB06265DBA3D28CBD5)_sliceTimeRangeForIndex:(int64_t)index sliceDuration:(double)duration
 {
-  ICVMTimeRangeMake(self, a2, index * duration, index * duration + duration);
+  ICVMTimeRangeMake();
   result.var1 = v5;
   result.var0 = v4;
   return result;

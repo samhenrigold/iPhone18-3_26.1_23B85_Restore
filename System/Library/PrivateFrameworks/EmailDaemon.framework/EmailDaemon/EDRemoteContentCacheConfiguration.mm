@@ -49,9 +49,9 @@ void ___ef_log_EDRemoteContentCacheConfiguration_block_invoke()
     v10 = domain;
     if (domain == *MEMORY[0x1E696A250])
     {
-      v11 = [v8 code] == 516;
+      v12 = [v8 code] == 516;
 
-      if (v11)
+      if (v12)
       {
         goto LABEL_8;
       }
@@ -61,17 +61,15 @@ void ___ef_log_EDRemoteContentCacheConfiguration_block_invoke()
     {
     }
 
-    v12 = _ef_log_EDRemoteContentCacheConfiguration();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _ef_log_EDRemoteContentCacheConfiguration(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       ef_publicDescription = [v8 ef_publicDescription];
-      [(EDRemoteContentCacheConfiguration *)ef_publicDescription _cacheURLWithBaseURL:buf, v12];
+      [(EDRemoteContentCacheConfiguration *)ef_publicDescription _cacheURLWithBaseURL:buf, v13];
     }
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

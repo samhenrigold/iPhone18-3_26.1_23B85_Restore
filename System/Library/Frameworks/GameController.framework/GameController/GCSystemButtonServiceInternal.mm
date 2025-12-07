@@ -5,7 +5,7 @@
 
 void __38___GCSystemButtonServiceInternal_init__block_invoke(uint64_t a1)
 {
-  v2 = _gc_log_system_button();
+  v2 = _gc_log_system_button(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __38___GCSystemButtonServiceInternal_init__block_invoke_cold_1(v2);
@@ -30,7 +30,7 @@ void __38___GCSystemButtonServiceInternal_init__block_invoke(uint64_t a1)
 
 void __38___GCSystemButtonServiceInternal_init__block_invoke_158(uint64_t a1)
 {
-  v2 = _gc_log_system_button();
+  v2 = _gc_log_system_button(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __38___GCSystemButtonServiceInternal_init__block_invoke_158_cold_1(v2);

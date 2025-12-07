@@ -6,10 +6,10 @@
 
 - (FUErrorView)init
 {
-  v15[3] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = FUErrorView;
-  v2 = [(FUErrorView *)&v14 init];
+  v14[3] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = FUErrorView;
+  v2 = [(FUErrorView *)&v13 init];
   if (v2)
   {
     v3 = +[(TLKLabel *)FULabel];
@@ -21,11 +21,11 @@
     LODWORD(v5) = 1128792064;
     [v4 setPriority:v5];
     v6 = [MEMORY[0x277CCAAD0] constraintWithItem:v2 attribute:7 relatedBy:0 toItem:v3 attribute:7 multiplier:1.0 constant:0.0];
-    v15[0] = v6;
+    v14[0] = v6;
     v7 = [MEMORY[0x277CCAAD0] constraintWithItem:v2 attribute:10 relatedBy:0 toItem:v3 attribute:10 multiplier:1.0 constant:0.0];
-    v15[1] = v7;
-    v15[2] = v4;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[1] = v7;
+    v14[2] = v4;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     [(FUErrorView *)v2 addConstraints:v8];
 
     v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -36,7 +36,6 @@
     v11 = v2;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

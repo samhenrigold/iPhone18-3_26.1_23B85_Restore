@@ -77,20 +77,20 @@
 
 - (id)_urlForQuotaKey:(id)key offerID:(id)d notificationID:(id)iD
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   dCopy = d;
   iDCopy = iD;
   v11 = _ICQGetLogSystem();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412802;
-    v26 = keyCopy;
-    v27 = 2112;
-    v28 = dCopy;
-    v29 = 2112;
-    v30 = iDCopy;
-    _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "Creating URL for quota key %@ with offerID %@ with notificationID %@.", &v25, 0x20u);
+    v24 = 138412802;
+    v25 = keyCopy;
+    v26 = 2112;
+    v27 = dCopy;
+    v28 = 2112;
+    v29 = iDCopy;
+    _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "Creating URL for quota key %@ with offerID %@ with notificationID %@.", &v24, 0x20u);
   }
 
   v12 = [(ICQRequestProvider *)self _bagURLForKey:keyCopy withOfferID:dCopy withNotificationID:iDCopy];
@@ -99,13 +99,13 @@
     v13 = _ICQGetLogSystem();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138412802;
-      v26 = keyCopy;
-      v27 = 2112;
-      v28 = dCopy;
-      v29 = 2112;
-      v30 = iDCopy;
-      _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "Failed to create URL string for quota key %@ with offerID %@ with notificationID %@.", &v25, 0x20u);
+      v24 = 138412802;
+      v25 = keyCopy;
+      v26 = 2112;
+      v27 = dCopy;
+      v28 = 2112;
+      v29 = iDCopy;
+      _os_log_impl(&dword_275572000, v13, OS_LOG_TYPE_DEFAULT, "Failed to create URL string for quota key %@ with offerID %@ with notificationID %@.", &v24, 0x20u);
     }
 
     goto LABEL_14;
@@ -117,8 +117,8 @@
     v14 = _ICQGetLogSystem();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "Replacing words in URL string.", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_275572000, v14, OS_LOG_TYPE_DEFAULT, "Replacing words in URL string.", &v24, 2u);
     }
 
     v15 = [ICQRequestProvider _urlReplacementDictionaryForKey:keyCopy withOfferID:dCopy withNotificationID:iDCopy];
@@ -132,13 +132,13 @@
     v17 = _ICQGetLogSystem();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138412802;
-      v26 = keyCopy;
-      v27 = 2112;
-      v28 = dCopy;
-      v29 = 2112;
-      v30 = iDCopy;
-      _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, "Failed to create URL string for quota key %@ with offerID %@ with notificationID %@. Missing offerID!", &v25, 0x20u);
+      v24 = 138412802;
+      v25 = keyCopy;
+      v26 = 2112;
+      v27 = dCopy;
+      v28 = 2112;
+      v29 = iDCopy;
+      _os_log_impl(&dword_275572000, v17, OS_LOG_TYPE_DEFAULT, "Failed to create URL string for quota key %@ with offerID %@ with notificationID %@. Missing offerID!", &v24, 0x20u);
     }
 
 LABEL_14:
@@ -153,13 +153,13 @@ LABEL_14:
   {
     if (v20)
     {
-      v25 = 138412802;
-      v26 = keyCopy;
-      v27 = 2112;
-      v28 = dCopy;
-      v29 = 2112;
-      v30 = iDCopy;
-      _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "Created URL for quota key %@ with offerID %@ with notificationID %@.", &v25, 0x20u);
+      v24 = 138412802;
+      v25 = keyCopy;
+      v26 = 2112;
+      v27 = dCopy;
+      v28 = 2112;
+      v29 = iDCopy;
+      _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "Created URL for quota key %@ with offerID %@ with notificationID %@.", &v24, 0x20u);
     }
 
     v21 = v18;
@@ -170,25 +170,24 @@ LABEL_14:
     if (v20)
     {
       account = self->_account;
-      v25 = 138412802;
-      v26 = v13;
-      v27 = 2112;
-      v28 = keyCopy;
-      v29 = 2112;
-      v30 = account;
-      _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "invalid URL string %@ for quota key %@ account %@", &v25, 0x20u);
+      v24 = 138412802;
+      v25 = v13;
+      v26 = 2112;
+      v27 = keyCopy;
+      v28 = 2112;
+      v29 = account;
+      _os_log_impl(&dword_275572000, v19, OS_LOG_TYPE_DEFAULT, "invalid URL string %@ for quota key %@ account %@", &v24, 0x20u);
     }
   }
 
 LABEL_23:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (void)addBasicHeadersToRequest:(id)request
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   [requestCopy aa_addBasicAuthorizationHeaderWithAccount:self->_account preferUsingPassword:0];
   [requestCopy ak_addClientInfoHeader];
@@ -198,8 +197,8 @@ LABEL_23:
 
   v7 = MEMORY[0x277CBEAF8];
   _deviceLanguage = [MEMORY[0x277CBEAF8] _deviceLanguage];
-  v18[0] = _deviceLanguage;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = _deviceLanguage;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v10 = [v7 minimizedLanguagesFromLanguages:v9];
   v11 = [v10 componentsJoinedByString:{@", "}];
 
@@ -229,36 +228,35 @@ LABEL_23:
   {
     [requestCopy setValue:@"solarium" forHTTPHeaderField:@"X-Apple-iCloudUI-Feature"];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBasicAndCloudBackupHeadersToRequest:(id)request
 {
   requestCopy = request;
   [(ICQRequestProvider *)self addBasicHeadersToRequest:requestCopy];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v5 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
-  v13 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
+  v14 = getBYSetupAssistantNeedsToRunSymbolLoc_ptr;
   if (!getBYSetupAssistantNeedsToRunSymbolLoc_ptr)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke;
-    v9[3] = &unk_27A6517A8;
-    v9[4] = &v10;
-    __getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke(v9);
-    v5 = v11[3];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke;
+    v10[3] = &unk_27A6517A8;
+    v10[4] = &v11;
+    __getBYSetupAssistantNeedsToRunSymbolLoc_block_invoke(v10);
+    v5 = v12[3];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   if (!v5)
   {
-    v8 = +[ICQDaemonOfferConditions isPhotosCloudEnabled];
-    _Block_object_dispose(&v10, 8);
-    _Unwind_Resume(v8);
+    +[ICQDaemonOfferConditions isPhotosCloudEnabled];
+    v9 = v8;
+    _Block_object_dispose(&v11, 8);
+    _Unwind_Resume(v9);
   }
 
   if ((v5() & 1) == 0)
@@ -298,12 +296,12 @@ LABEL_23:
 
 void __41__ICQRequestProvider_getBackupDeviceUUID__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D28A40]);
   v3 = *(*(a1 + 32) + 8);
-  v10 = 0;
-  v4 = [v2 initWithAccount:v3 delegate:0 eventQueue:0 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  v4 = [v2 initWithAccount:v3 delegate:0 eventQueue:0 error:&v9];
+  v5 = v9;
   if (v5)
   {
     v6 = _ICQGetLogSystem();
@@ -323,17 +321,15 @@ void __41__ICQRequestProvider_getBackupDeviceUUID__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = getBackupDeviceUUID_backupDeviceUUID;
+      v11 = getBackupDeviceUUID_backupDeviceUUID;
       _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "MBManager reports backupDeviceUUID as %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_bagURLForKey:(id)key withOfferID:(id)d withNotificationID:(id)iD
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v8 = [(ACAccount *)self->_account propertiesForDataclass:@"com.apple.Dataclass.Quota"];
   if (keyCopy == @"quotaRefreshOfferDetailsURL")
@@ -363,9 +359,9 @@ void __41__ICQRequestProvider_getBackupDeviceUUID__block_invoke(uint64_t a1)
     v13 = v9;
     if (v12)
     {
-      v17 = 138412290;
-      v18 = v9;
-      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "Using new key %@ to get url from account bag.", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "Using new key %@ to get url from account bag.", &v16, 0xCu);
       v13 = v9;
     }
   }
@@ -375,16 +371,14 @@ void __41__ICQRequestProvider_getBackupDeviceUUID__block_invoke(uint64_t a1)
     v13 = keyCopy;
     if (v12)
     {
-      v17 = 138412290;
-      v18 = keyCopy;
-      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "Using old key %@ to get url from account bag.", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = keyCopy;
+      _os_log_impl(&dword_275572000, v11, OS_LOG_TYPE_DEFAULT, "Using old key %@ to get url from account bag.", &v16, 0xCu);
       v13 = keyCopy;
     }
   }
 
   v14 = [v8 objectForKey:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -486,17 +480,15 @@ LABEL_4:
 
 void __60__ICQRequestProvider__keyIsEligibleForURLStringReplacement___block_invoke()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"quotaFetchOffersURL";
-  v5[1] = @"quotaRefreshOfferDetailsURL";
-  v5[2] = @"quotaUpdateOfferURL";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
+  v4[0] = @"quotaFetchOffersURL";
+  v4[1] = @"quotaRefreshOfferDetailsURL";
+  v4[2] = @"quotaUpdateOfferURL";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
   v2 = [v0 setWithArray:v1];
   v3 = _keyIsEligibleForURLStringReplacement__eligibleKeys;
   _keyIsEligibleForURLStringReplacement__eligibleKeys = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_newAccountBagKeyForOldKey:(id)key
@@ -508,42 +500,40 @@ void __60__ICQRequestProvider__keyIsEligibleForURLStringReplacement___block_invo
     +[ICQRequestProvider _newAccountBagKeyForOldKey:];
   }
 
-  v5 = [_newAccountBagKeyForOldKey__newAccountBagKeys objectForKeyedSubscript:keyCopy];
+  v5 = objc_msgSend_objectForKeyedSubscript_(_newAccountBagKeyForOldKey__newAccountBagKeys);
 
   return v5;
 }
 
 void __49__ICQRequestProvider__newAccountBagKeyForOldKey___block_invoke()
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"quotaFetchOffersURL";
-  v3[1] = @"quotaUpdateOfferURL";
-  v4[0] = @"acseGatewayV1Offers";
-  v4[1] = @"acseGatewayV1Action";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
+  v3[2] = *MEMORY[0x277D85DE8];
+  v2[0] = @"quotaFetchOffersURL";
+  v2[1] = @"quotaUpdateOfferURL";
+  v3[0] = @"acseGatewayV1Offers";
+  v3[1] = @"acseGatewayV1Action";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:2];
   v1 = _newAccountBagKeyForOldKey__newAccountBagKeys;
   _newAccountBagKeyForOldKey__newAccountBagKeys = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)attemptSetRequest:(id)request toPostWithJSONDict:(id)dict
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dictCopy = dict;
   [requestCopy setHTTPMethod:@"POST"];
   [requestCopy setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-  v13 = 0;
-  v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictCopy options:1 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictCopy options:1 error:&v12];
+  v8 = v12;
   if (v8)
   {
     v9 = _ICQGetLogSystem();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_275572000, v9, OS_LOG_TYPE_DEFAULT, "Could not convert message body to JSON. Error: %@", buf, 0xCu);
     }
 
@@ -559,13 +549,12 @@ void __49__ICQRequestProvider__newAccountBagKeyForOldKey___block_invoke()
     [requestCopy setHTTPBody:v7];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8 == 0;
 }
 
 + (void)addEntriesToPostDictionary:(id)dictionary forStub:(id)stub
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   stubCopy = stub;
   v7 = stubCopy;
@@ -629,40 +618,40 @@ LABEL_4:
   }
 
 LABEL_14:
-  v27 = offerResetPayload;
-  v28 = offerId;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
+  v26 = offerResetPayload;
+  v27 = offerId;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v15 = offerResetPayload;
-  v16 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v29 + 1) + 8 * i);
-        v21 = [v15 objectForKeyedSubscript:{v20, v27, v28, v29}];
+        v20 = *(*(&v28 + 1) + 8 * i);
+        v21 = objc_msgSend_objectForKeyedSubscript_(v15, v26, v27, v28);
         [dictionaryCopy setObject:v21 forKey:v20];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v17);
   }
 
-  offerResetPayload = v27;
-  offerId = v28;
+  offerResetPayload = v26;
+  offerId = v27;
 LABEL_22:
   if (isPhotosCloudEnabled)
   {
@@ -674,7 +663,7 @@ LABEL_22:
     v22 = @"false";
   }
 
-  [dictionaryCopy setObject:v22 forKey:{@"iCPLEnabled", v27, v28}];
+  [dictionaryCopy setObject:v22 forKey:{@"iCPLEnabled", v26, v27}];
   if (isPhotosOptimizeEnabled)
   {
     v23 = @"true";
@@ -693,8 +682,6 @@ LABEL_22:
   {
     [dictionaryCopy setObject:allDaysSinceLastShown forKey:@"appLaunch"];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_stringTimeOfLastBackup
@@ -740,20 +727,18 @@ LABEL_22:
 
 void __41__ICQRequestProvider_getBackupDeviceUUID__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(&dword_275572000, v0, OS_LOG_TYPE_ERROR, "%s unable to init MBManager with error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_275572000, v0, OS_LOG_TYPE_ERROR, "%s unable to init MBManager with error: %@", v1, 0x16u);
 }
 
 - (void)_stringTimeOfLastBackup
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ICQRequestProvider _stringTimeOfLastBackup]";
-  _os_log_debug_impl(&dword_275572000, log, OS_LOG_TYPE_DEBUG, "Account is nil, return nil for %s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ICQRequestProvider _stringTimeOfLastBackup]";
+  _os_log_debug_impl(&dword_275572000, log, OS_LOG_TYPE_DEBUG, "Account is nil, return nil for %s", &v1, 0xCu);
 }
 
 @end

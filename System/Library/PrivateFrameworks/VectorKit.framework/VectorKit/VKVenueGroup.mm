@@ -53,37 +53,37 @@
 - (void)updateTextures:(unsigned __int8)textures textureManager:(void *)manager
 {
   texturesCopy = textures;
-  v21.receiver = self;
-  v21.super_class = VKVenueGroup;
+  v20.receiver = self;
+  v20.super_class = VKVenueGroup;
   [VKPolygonGroup updateTextures:sel_updateTextures_textureManager_ textureManager:?];
   LOWORD(__p.__r_.__value_.__l.__data_) = 0;
-  v7 = [(VKPolygonalItemGroup *)self styleQueries:&__p];
-  v8 = **v7;
-  v9 = (*v7)[1];
-  if (v9)
+  v6 = [(VKPolygonalItemGroup *)self styleQueries:&__p];
+  v7 = **v6;
+  v8 = (*v6)[1];
+  if (v8)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  gss::QueryableLocker<gss::PropertyID>::QueryableLocker(&v17, v8, v9);
-  if (v9)
+  gss::QueryableLocker<gss::PropertyID>::QueryableLocker(&v16, v7, v8);
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v9);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v8);
   }
 
-  if (v20 == 1)
+  if (v19 == 1)
   {
     if (texturesCopy >= 0x17)
     {
-      v10 = 23;
+      v9 = 23;
     }
 
     else
     {
-      v10 = texturesCopy;
+      v9 = texturesCopy;
     }
 
-    gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&__p, v17[3], 0x152u, v10, 2);
+    gss::RenderStyle<gss::PropertyID>::valueForKeyAtZ<std::string>(&__p, v16[3], 0x152u, v9, 2);
     size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
@@ -92,17 +92,17 @@
 
     if (size)
     {
-      [(VKPolygonGroup *)self _textureForName:&__p textureManager:manager];
-      v12 = v15;
+      objc_msgSend__textureForName_textureManager_(self);
+      v11 = v14;
     }
 
     else
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     cntrl = self->_wallTexture.__cntrl_;
-    self->_wallTexture = v12;
+    self->_wallTexture = v11;
     if (cntrl)
     {
       std::__shared_weak_count::__release_shared[abi:nn200100](cntrl);
@@ -116,28 +116,28 @@
 
   else
   {
-    v13 = self->_wallTexture.__cntrl_;
+    v12 = self->_wallTexture.__cntrl_;
     self->_wallTexture.__ptr_ = 0;
     self->_wallTexture.__cntrl_ = 0;
-    if (v13)
+    if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:nn200100](v13);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v12);
     }
   }
 
-  if (v20 == 1)
+  if (v19 == 1)
   {
-    (*(*v17 + 56))(v17);
-  }
-
-  if (v19)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
+    (*(*v16 + 56))(v16);
   }
 
   if (v18)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v18);
+  }
+
+  if (v17)
+  {
+    std::__shared_weak_count::__release_shared[abi:nn200100](v17);
   }
 }
 
@@ -150,7 +150,7 @@
   v17.super_class = VKVenueGroup;
   [VKPolygonGroup addStrokeForSection:sel_addStrokeForSection_paddedCount_key_attributes_styles_cullingMask_accessor_ paddedCount:section key:*&count attributes:accessor styles:a9 cullingMask:? accessor:?];
   v19 = &attributesCopy;
-  v15 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(&self->_venueWalls.__table_.__bucket_list_.__ptr_, var0, var1);
+  v15 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(&self->_venueWalls.__table_.__bucket_list_.__ptr_, var0, var1, &v19);
   v16 = v15 + 4;
   if (v15[5] != v15[4])
   {
@@ -840,7 +840,7 @@
 
 - (void)prepareToGenerateWallStrokesForSection:(const void *)section styles:(const void *)styles edges:(const void *)edges
 {
-  [(VKVenueGroup *)self bufferSizingForStrokesOnSection:section styles:styles edges:edges];
+  objc_msgSend_bufferSizingForStrokesOnSection_styles_edges_(self, a2, section, styles, edges);
   end = self->_venueWallHorizontalStrokeMeshInfo.var0.__val_._vertexAndIndexCounts.__end_;
   *(end - 4) = *(end - 4);
   *(end - 1) = *(end - 1);
@@ -1187,7 +1187,8 @@ LABEL_66:
 
 - (const)generateEdgeListForPolygonSection:(const void *)section key:(const void *)key
 {
-  v5 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(&self->_venueWalls.__table_.__bucket_list_.__ptr_, *key, *(key + 1));
+  keyCopy = key;
+  v5 = std::__hash_table<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::__unordered_map_hasher<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::hash<std::pair<void const*,unsigned long>>,std::equal_to<std::pair<void const*,unsigned long>>,true>,std::__unordered_map_equal<std::pair<void const*,unsigned long>,std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>,std::equal_to<std::pair<void const*,unsigned long>>,std::hash<std::pair<void const*,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<void const*,unsigned long>,std::vector<md::Edge>>>>::__emplace_unique_key_args<std::pair<void const*,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<void const*,unsigned long> const&>,std::tuple<>>(&self->_venueWalls.__table_.__bucket_list_.__ptr_, *key, *(key + 1), &keyCopy);
   std::vector<md::Edge>::reserve(v5 + 4, *(section + 11));
   v6 = *(section + 11);
   if (v6)

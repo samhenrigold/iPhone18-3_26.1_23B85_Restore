@@ -1236,7 +1236,7 @@ LABEL_28:
     }
 
 LABEL_27:
-    [(THPaginatedPageController *)self p_stubHintAtRelativePageIndex:index];
+    objc_msgSend_p_stubHintAtRelativePageIndex_(self);
     goto LABEL_28;
   }
 
@@ -1336,7 +1336,7 @@ LABEL_10:
   {
     if (selfCopy)
     {
-      [(THPaginatedPageController *)selfCopy p_stubHintAtRelativePageIndex:index];
+      objc_msgSend_p_stubHintAtRelativePageIndex_(selfCopy);
     }
 
     else
@@ -1385,13 +1385,15 @@ LABEL_21:
     [+[TSUAssertionHandler currentHandler](TSUAssertionHandler "currentHandler")];
   }
 
-  [objc_msgSend(cache "info")];
+  v5 = [objc_msgSend(cache "info")];
   if (self->_pageLayoutCache.__tree_.__size_ >= 0x10)
   {
     [(THPaginatedPageController *)self p_clearOffscreenLayouts];
   }
 
-  sub_40924();
+  v6[0] = v5;
+  v6[1] = cache;
+  sub_40924(&self->_pageLayoutCache, v6);
 }
 
 - (void)p_removeOrphanedLayoutsFromCache
@@ -2772,7 +2774,7 @@ LABEL_3:
         p_layoutManager = [(THPaginatedPageController *)self p_layoutManager];
         if (v6)
         {
-          [v6 hintsForBodyIndex:bodyIndexInPageLayout];
+          objc_msgSend_hintsForBodyIndex_(v6);
         }
 
         else

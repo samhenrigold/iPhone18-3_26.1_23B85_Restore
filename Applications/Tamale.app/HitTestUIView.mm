@@ -15,28 +15,29 @@
     v7 = *(&self->super.super.super.isa + OBJC_IVAR____TtC6TamaleP33_31636EDB02EC328D3D92B71E399B2D0913HitTestUIView_isPointInside);
     if (v7)
     {
+      v8 = *&self->shouldPassthroughUserInput[OBJC_IVAR____TtC6TamaleP33_31636EDB02EC328D3D92B71E399B2D0913HitTestUIView_isPointInside];
       eventCopy = event;
       selfCopy = self;
-      v10 = sub_100005630(v7);
-      v11 = v7(v10, x, y);
+      v11 = sub_100005630(v7, v8);
+      v12 = v7(v11, x, y);
 
-      sub_100005640(v7);
+      sub_100005640(v7, v8);
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v14.receiver = self;
-    v14.super_class = type metadata accessor for HitTestUIView();
-    v11 = [(HitTestUIView *)&v14 pointInside:event withEvent:x, y];
+    v15.receiver = self;
+    v15.super_class = type metadata accessor for HitTestUIView();
+    v12 = [(HitTestUIView *)&v15 pointInside:event withEvent:x, y];
   }
 
-  return v11 & 1;
+  return v12 & 1;
 }
 
 - (_TtC6TamaleP33_31636EDB02EC328D3D92B71E399B2D0913HitTestUIView)initWithFrame:(CGRect)frame

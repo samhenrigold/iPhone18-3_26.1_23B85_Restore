@@ -210,7 +210,7 @@ void __82__BPSDrivableSink_BMBookmark__initWithReceiveBookmarkedCompletion_shoul
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    [BPSSink receiveCompletion:];
+    [BPSSink receiveCompletion:selfCopy];
   }
 
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -276,7 +276,7 @@ void __82__BPSDrivableSink_BMBookmark__initWithReceiveBookmarkedCompletion_shoul
     v5 = __biome_log_for_category();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [BPSSink cancel];
+      [(BPSSink *)selfCopy cancel];
     }
 
     os_unfair_lock_lock(&selfCopy->_lock);
@@ -400,53 +400,50 @@ void __82__BPSDrivableSink_BMBookmark__initWithReceiveBookmarkedCompletion_shoul
 
 - (void)_cancelPublisher:(id)publisher
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   publisherCopy = publisher;
   if (objc_opt_respondsToSelector())
   {
     [publisherCopy performSelector:sel_cancel];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   upstreamPublishers = [publisherCopy upstreamPublishers];
-  v6 = [upstreamPublishers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [upstreamPublishers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(upstreamPublishers);
         }
 
-        [(BPSDrivableSink *)self _cancelPublisher:*(*(&v11 + 1) + 8 * v9++)];
+        [(BPSDrivableSink *)self _cancelPublisher:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [upstreamPublishers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [upstreamPublishers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __82__BPSDrivableSink_BMBookmark__initWithReceiveBookmarkedCompletion_shouldContinue___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "Creating bookmark:\n%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C871B000, a2, OS_LOG_TYPE_DEBUG, "Creating bookmark:\n%@", &v2, 0xCu);
 }
 
 @end

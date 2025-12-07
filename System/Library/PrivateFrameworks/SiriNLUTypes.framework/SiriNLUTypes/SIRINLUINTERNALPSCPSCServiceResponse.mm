@@ -106,7 +106,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    pommesProbability = self->_pommesProbability;
     PBDataWriterWriteFloatField();
   }
 }

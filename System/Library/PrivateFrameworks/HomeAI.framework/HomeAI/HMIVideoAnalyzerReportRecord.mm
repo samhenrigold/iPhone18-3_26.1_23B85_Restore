@@ -29,29 +29,29 @@
 
 - (HMIVideoAnalyzerReportRecord)initWithKey:(id)key detectionScores:(id)scores frameResultIndex:(unint64_t)index
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   scoresCopy = scores;
-  v19.receiver = self;
-  v19.super_class = HMIVideoAnalyzerReportRecord;
-  v11 = [(HMIVideoAnalyzerReportRecord *)&v19 init];
-  v12 = v11;
-  if (v11)
+  v18.receiver = self;
+  v18.super_class = HMIVideoAnalyzerReportRecord;
+  v10 = [(HMIVideoAnalyzerReportRecord *)&v18 init];
+  v11 = v10;
+  if (v10)
   {
-    objc_storeStrong(&v11->_key, key);
-    v12->_count = [scoresCopy count];
-    v13 = [scoresCopy valueForKeyPath:@"@max.floatValue"];
-    [v13 floatValue];
-    v12->_score = v14;
+    objc_storeStrong(&v10->_key, key);
+    v11->_count = [scoresCopy count];
+    v12 = [scoresCopy valueForKeyPath:?];
+    [v12 floatValue];
+    v11->_score = v13;
 
-    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:index];
-    v20[0] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-    frameResultIndices = v12->_frameResultIndices;
-    v12->_frameResultIndices = v16;
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+    v19 = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    frameResultIndices = v11->_frameResultIndices;
+    v11->_frameResultIndices = v15;
   }
 
-  return v12;
+  return v11;
 }
 
 - (HMIVideoAnalyzerReportRecord)initWithKey:(id)key trackingScores:(id)scores frameResultIndices:(id)indices
@@ -67,7 +67,7 @@
   {
     objc_storeStrong(&v12->_key, key);
     v13->_count = [scoresCopy count];
-    v14 = [scoresCopy valueForKeyPath:@"@max.floatValue"];
+    v14 = [scoresCopy valueForKeyPath:?];
     [v14 floatValue];
     v13->_score = v15;
 

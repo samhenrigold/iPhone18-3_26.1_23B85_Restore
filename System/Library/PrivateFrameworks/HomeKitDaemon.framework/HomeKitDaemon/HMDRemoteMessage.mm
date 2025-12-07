@@ -10,10 +10,12 @@
 - (id)copyWithDestination:(id)destination;
 - (id)descriptionWithPointer:(BOOL)pointer;
 - (void)setAttributedMessageName:(id)name;
+- (void)setDisallowsIDSRacing:(BOOL)racing;
 - (void)setInternalResponseHandler:(id)handler;
 - (void)setResponseHandler:(id)handler;
 - (void)setResponseRestriction:(unint64_t)restriction;
 - (void)setRestriction:(unint64_t)restriction;
+- (void)setSecure:(BOOL)secure;
 - (void)setSenderContext:(id)context;
 - (void)setToID:(id)d;
 - (void)setType:(int64_t)type;
@@ -43,6 +45,19 @@
 
   [(HMDRemoteMessage *)v13 setDisallowsIDSRacing:[(HMDRemoteMessage *)self disallowsIDSRacing]];
   return v13;
+}
+
+- (void)setDisallowsIDSRacing:(BOOL)racing
+{
+  racingCopy = racing;
+  userInfo = [(HMDRemoteMessage *)self userInfo];
+  v8 = [userInfo mutableCopy];
+
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:racingCopy];
+  [v8 setObject:v6 forKeyedSubscript:@"HMD.remoteDisallowsIDSRacing"];
+
+  internal = [(HMDRemoteMessage *)self internal];
+  [internal setUserInfo:v8];
 }
 
 - (NSString)collapseID
@@ -85,7 +100,7 @@
 
     [v8 setObject:nameCopy forKeyedSubscript:@"HMD.attributedMessageName"];
     internal = [(HMDRemoteMessage *)self internal];
-    v7 = [v8 copy];
+    v7 = objc_msgSend_copy(v8);
     [internal setUserInfo:v7];
   }
 }
@@ -108,7 +123,7 @@
   [v9 setObject:v6 forKeyedSubscript:@"HMD.remoteTransportResponseRestriction"];
 
   internal = [(HMDRemoteMessage *)self internal];
-  v8 = [v9 copy];
+  v8 = objc_msgSend_copy(v9);
   [internal setUserInfo:v8];
 }
 
@@ -121,7 +136,7 @@
   [v9 setObject:v6 forKeyedSubscript:@"HMD.remoteTransportRestriction"];
 
   internal = [(HMDRemoteMessage *)self internal];
-  v8 = [v9 copy];
+  v8 = objc_msgSend_copy(v9);
   [internal setUserInfo:v8];
 }
 
@@ -158,6 +173,20 @@
       [(HMDRemoteMessage *)self setTransactionIdentifier:uUID];
     }
   }
+}
+
+- (void)setSecure:(BOOL)secure
+{
+  secureCopy = secure;
+  userInfo = [(HMDRemoteMessage *)self userInfo];
+  v9 = [userInfo mutableCopy];
+
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:secureCopy];
+  [v9 setObject:v6 forKeyedSubscript:@"HMD.remoteSecure"];
+
+  internal = [(HMDRemoteMessage *)self internal];
+  v8 = objc_msgSend_copy(v9);
+  [internal setUserInfo:v8];
 }
 
 - (id)descriptionWithPointer:(BOOL)pointer
@@ -226,7 +255,7 @@
 
 - (HMDRemoteMessage)initWithName:(id)name qualityOfService:(int64_t)service destination:(id)destination payload:(id)payload headers:(id)headers type:(int64_t)type timeout:(double)timeout secure:(BOOL)self0 restriction:(unint64_t)self1 sendOptions:(unint64_t)self2 collapseID:(id)self3
 {
-  v42[3] = *MEMORY[0x277D85DE8];
+  v41[3] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   destinationCopy = destination;
   payloadCopy = payload;
@@ -243,39 +272,39 @@
     v25 = 8 * v24 + 9;
   }
 
-  v42[0] = MEMORY[0x277CBEC38];
-  v41[0] = @"HMD.remote";
-  v41[1] = @"HMD.remoteSecure";
+  v41[0] = MEMORY[0x277CBEC38];
+  v40[0] = @"HMD.remote";
+  v40[1] = @"HMD.remoteSecure";
   v26 = [MEMORY[0x277CCABB0] numberWithBool:{secure, type}];
-  v42[1] = v26;
-  v41[2] = @"HMD.remoteTransportRestriction";
+  v41[1] = v26;
+  v40[2] = @"HMD.remoteTransportRestriction";
   v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:restriction];
-  v42[2] = v27;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
+  v41[2] = v27;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
 
   if (dCopy)
   {
     v29 = [v28 mutableCopy];
     [v29 setObject:dCopy forKeyedSubscript:@"HMD.remoteCollapseID"];
-    v30 = [v29 copy];
+    v30 = objc_msgSend_copy(v29);
 
     v28 = v30;
   }
 
-  v40.receiver = self;
-  v40.super_class = HMDRemoteMessage;
-  v31 = [(HMDRemoteMessage *)&v40 initWithName:nameCopy qualityOfService:v25 destination:destinationCopy userInfo:v28 headers:headersCopy payload:payloadCopy];
+  v39.receiver = self;
+  v39.super_class = HMDRemoteMessage;
+  v31 = [(HMDRemoteMessage *)&v39 initWithName:nameCopy qualityOfService:v25 destination:destinationCopy userInfo:v28 headers:headersCopy payload:payloadCopy];
   v32 = v31;
   if (v31)
   {
-    v31->_type = v39;
+    v31->_type = v38;
     if (timeout > 0.0)
     {
       internal = [(HMDRemoteMessage *)v31 internal];
       [internal setTimeout:timeout];
     }
 
-    if (!v39)
+    if (!v38)
     {
       uUID = [MEMORY[0x277CCAD78] UUID];
       transactionIdentifier = v32->_transactionIdentifier;
@@ -285,7 +314,6 @@
     v32->_sendOptions = options;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v32;
 }
 

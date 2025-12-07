@@ -98,33 +98,33 @@
 - (NSString)resourceType
 {
   sub_1000035AC();
-  objc_opt_class();
-  sub_10000A574();
+  v2 = objc_opt_class();
+  sub_10000A574(v2);
   return 0;
 }
 
 - (int64_t)interactionType
 {
   sub_1000035AC();
-  objc_opt_class();
-  sub_10000A574();
+  v2 = objc_opt_class();
+  sub_10000A574(v2);
   return 0;
 }
 
 - (void)createURLRequestWithCompletion:(id)completion
 {
   sub_1000035AC();
-  v4 = v3;
-  objc_opt_class();
-  sub_10000A574();
-  (*(v4 + 2))(v4, 0, 0);
+  v5 = v3;
+  v4 = objc_opt_class();
+  sub_10000A574(v4);
+  (*(v5 + 2))(v5, 0, 0);
 }
 
 - (id)errorForRequest:(id)request response:(id)response data:(id)data
 {
   sub_1000035AC();
-  objc_opt_class();
-  sub_10000A574();
+  v5 = objc_opt_class();
+  sub_10000A574(v5);
   return 0;
 }
 

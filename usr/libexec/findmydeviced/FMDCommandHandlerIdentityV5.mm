@@ -37,14 +37,14 @@
   block[2] = sub_10017E630;
   block[3] = &unk_1002CD478;
   block[4] = self;
-  v18 = v12;
+  v19 = v12;
   v14 = v12;
   dispatch_after(v13, &_dispatch_main_q, block);
-  v15 = sub_100002880();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100002880(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    *v16 = 0;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Scheduled identityV5", v16, 2u);
+    *v17 = 0;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Scheduled identityV5", v17, 2u);
   }
 
   [(FMDCommandHandler *)self didHandleCommandWithAckData:0];
@@ -57,29 +57,30 @@
   v6 = [commandParams objectForKeyedSubscript:@"ackURL"];
 
   provider = [(FMDCommandHandler *)self provider];
+  v8 = provider;
   if (v6)
   {
-    v8 = [NSURL URLWithString:v6];
-    v9 = [FMDRequestAckIdentity alloc];
+    v9 = [NSURL URLWithString:v6];
+    v10 = [FMDRequestAckIdentity alloc];
     commandParams2 = [(FMDCommandHandler *)self commandParams];
-    v11 = [(FMDRequestAckIdentity *)v9 initWithProvider:provider identityCommand:commandParams2 commandFailureReason:0 ackURL:v8];
+    v12 = [(FMDRequestAckIdentity *)v10 initWithProvider:v8 identityCommand:commandParams2 commandFailureReason:0 ackURL:v9];
 
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10017E840;
-    v13[3] = &unk_1002CD1D0;
-    v14 = completionCopy;
-    [(FMDRequest *)v11 setCompletionHandler:v13];
-    [provider enqueueRequest:v11];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10017E840;
+    v14[3] = &unk_1002CD1D0;
+    v15 = completionCopy;
+    [(FMDRequest *)v12 setCompletionHandler:v14];
+    [v8 enqueueRequest:v12];
   }
 
   else
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(provider);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not acking the identity command because there is no ack URL", v12, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not acking the identity command because there is no ack URL", v13, 2u);
     }
   }
 }

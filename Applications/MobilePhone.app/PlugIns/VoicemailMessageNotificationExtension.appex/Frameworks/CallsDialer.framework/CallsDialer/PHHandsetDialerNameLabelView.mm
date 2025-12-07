@@ -2,6 +2,7 @@
 - (CGSize)intrinsicContentSize;
 - (PHHandsetDialerNameLabelView)initWithFrame:(CGRect)frame;
 - (void)setFontSize:(double)size;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)showName:(id)name label:(id)label animated:(BOOL)animated;
 @end
 
@@ -71,6 +72,16 @@
   result.height = v3;
   result.width = v2;
   return result;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v6.receiver = self;
+  v6.super_class = PHHandsetDialerNameLabelView;
+  [(PHHandsetDialerNameLabelView *)&v6 setHighlighted:highlighted];
+  textColor = [(PHHandsetDialerNameLabelView *)self textColor];
+  nameAndLabelLabel = [(PHHandsetDialerNameLabelView *)self nameAndLabelLabel];
+  [nameAndLabelLabel setTextColor:textColor];
 }
 
 - (void)showName:(id)name label:(id)label animated:(BOOL)animated

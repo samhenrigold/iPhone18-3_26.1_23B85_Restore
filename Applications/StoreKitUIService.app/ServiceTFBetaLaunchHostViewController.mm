@@ -9,9 +9,30 @@
 - (void)handleButtonActions:(id)actions;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ServiceTFBetaLaunchHostViewController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = ServiceTFBetaLaunchHostViewController;
+  [(ServiceTFBetaLaunchHostViewController *)&v7 viewDidAppear:appear];
+  activeConfiguration = [(ServiceTFBetaLaunchHostViewController *)self activeConfiguration];
+
+  if (activeConfiguration)
+  {
+    activeConfiguration2 = [(ServiceTFBetaLaunchHostViewController *)self activeConfiguration];
+    bundleIdentifier = [activeConfiguration2 bundleIdentifier];
+    [(ServiceTFBetaLaunchHostViewController *)self _presentLaunchViewControllerForIdentifier:bundleIdentifier];
+  }
+
+  else
+  {
+    [(ServiceTFBetaLaunchHostViewController *)self _dismissViewService];
+  }
+}
 
 - (unint64_t)supportedInterfaceOrientations
 {

@@ -1,5 +1,6 @@
-uint64_t sub_8D0(_UNKNOWN **a1, unsigned int a2, int a3, int *a4, unsigned int a5, CFStringRef *a6, size_t a7, int *a8, char *__dst)
+uint64_t sub_8D0(_UNKNOWN **a1, unsigned int a2, int a3, int *a4, uint64_t a5, CFStringRef *a6, size_t a7, int *a8, char *__dst)
 {
+  v12 = a5;
   if (qword_14218 != -1)
   {
     sub_A654();
@@ -29,8 +30,8 @@ uint64_t sub_8D0(_UNKNOWN **a1, unsigned int a2, int a3, int *a4, unsigned int a
     }
 
     v20 = 560947818;
-    v21 = qword_14220;
-    if (os_log_type_enabled(qword_14220, OS_LOG_TYPE_INFO))
+    v21 = qword_14220[0];
+    if (os_log_type_enabled(qword_14220[0], OS_LOG_TYPE_INFO))
     {
       LOWORD(v32) = 0;
       v22 = "bad driver reference";
@@ -52,8 +53,8 @@ LABEL_10:
       }
 
       v20 = 1852797029;
-      v21 = qword_14220;
-      if (os_log_type_enabled(qword_14220, OS_LOG_TYPE_INFO))
+      v21 = qword_14220[0];
+      if (os_log_type_enabled(qword_14220[0], OS_LOG_TYPE_INFO))
       {
         LOWORD(v32) = 0;
         v22 = "nowhere to store result size";
@@ -71,8 +72,8 @@ LABEL_10:
       }
 
       v20 = 1852797029;
-      v21 = qword_14220;
-      if (os_log_type_enabled(qword_14220, OS_LOG_TYPE_INFO))
+      v21 = qword_14220[0];
+      if (os_log_type_enabled(qword_14220[0], OS_LOG_TYPE_INFO))
       {
         LOWORD(v32) = 0;
         v22 = "nowhere to store result";
@@ -92,7 +93,7 @@ LABEL_10:
 
       if (a2 == 1)
       {
-        v25 = sub_9414(a4, a5, a6, a7, a8, __dst);
+        v25 = sub_9414(a4, v12, a6, a7, a8, __dst);
 LABEL_46:
         v20 = v25;
         goto LABEL_11;
@@ -291,8 +292,8 @@ LABEL_85:
   }
 
   v20 = 1852797029;
-  v21 = qword_14220;
-  if (os_log_type_enabled(qword_14220, OS_LOG_TYPE_INFO))
+  v21 = qword_14220[0];
+  if (os_log_type_enabled(qword_14220[0], OS_LOG_TYPE_INFO))
   {
     LOWORD(v32) = 0;
     v22 = "no address";
@@ -998,17 +999,17 @@ uint64_t sub_1C34(uint64_t a1)
   }
 
   BasebandVoice_getTimesyncOverride();
-  v2 = v12;
-  v12 = 0uLL;
+  v2 = v9;
+  v9 = 0uLL;
   v3 = *(a1 + 152);
   *(a1 + 144) = v2;
   if (v3)
   {
     sub_9F5C(v3);
-    v3 = *(&v12 + 1);
-    if (*(&v12 + 1))
+    v3 = *(&v9 + 1);
+    if (*(&v9 + 1))
     {
-      sub_9F5C(*(&v12 + 1));
+      sub_9F5C(*(&v9 + 1));
     }
 
     if (*(a1 + 144))
@@ -1022,20 +1023,19 @@ uint64_t sub_1C34(uint64_t a1)
     goto LABEL_12;
   }
 
-  waipc::timesync::BasebandConfig::getDefault(&v12, v3);
-  v17 = *(a1 + 112);
-  v4 = *(a1 + 120);
+  waipc::timesync::BasebandConfig::getDefault(v3);
+  v14 = *(a1 + 112);
   waipc::timesync::BasebandService::create();
-  v5 = v11;
-  v11 = 0uLL;
-  v6 = *(a1 + 152);
-  *(a1 + 144) = v5;
-  if (v6)
+  v4 = v8;
+  v8 = 0uLL;
+  v5 = *(a1 + 152);
+  *(a1 + 144) = v4;
+  if (v5)
   {
-    sub_9F5C(v6);
-    if (*(&v11 + 1))
+    sub_9F5C(v5);
+    if (*(&v8 + 1))
     {
-      sub_9F5C(*(&v11 + 1));
+      sub_9F5C(*(&v8 + 1));
     }
 
     if (*(a1 + 144))
@@ -1046,44 +1046,42 @@ uint64_t sub_1C34(uint64_t a1)
     return 0;
   }
 
-  if (!v5)
+  if (!v4)
   {
     return 0;
   }
 
 LABEL_12:
-  *&v12 = 0;
-  *(&v12 + 1) = &v12;
-  v13 = 0x3802000000;
-  v14 = sub_25CC;
-  v15 = sub_25E8;
-  sub_A3CC(&v11, a1);
-  v7 = *(&v11 + 1);
-  v16 = v11;
-  if (*(&v11 + 1))
+  *&v9 = 0;
+  *(&v9 + 1) = &v9;
+  v10 = 0x3802000000;
+  v11 = sub_25CC;
+  v12 = sub_25E8;
+  sub_A3CC(&v8, a1);
+  v6 = *(&v8 + 1);
+  v13 = v8;
+  if (*(&v8 + 1))
   {
-    atomic_fetch_add_explicit((*(&v11 + 1) + 16), 1uLL, memory_order_relaxed);
-    sub_9F5C(v7);
+    atomic_fetch_add_explicit((*(&v8 + 1) + 16), 1uLL, memory_order_relaxed);
+    sub_9F5C(v6);
   }
 
-  v8 = *(a1 + 144);
   waipc::timesync::BasebandService::addConnectionObserver();
-  sub_28CC((a1 + 160), &v11);
-  sub_9EDC(&v11);
-  v9 = *(a1 + 144);
+  sub_28CC((a1 + 160), &v8);
+  sub_9EDC(&v8);
   waipc::timesync::BasebandService::addTimesyncObserver();
-  sub_28CC((a1 + 168), &v11);
-  sub_9EDC(&v11);
-  _Block_object_dispose(&v12, 8);
-  if (*(&v16 + 1))
+  sub_28CC((a1 + 168), &v8);
+  sub_9EDC(&v8);
+  _Block_object_dispose(&v9, 8);
+  if (*(&v13 + 1))
   {
-    std::__shared_weak_count::__release_weak(*(&v16 + 1));
+    std::__shared_weak_count::__release_weak(*(&v13 + 1));
   }
 
   return 1;
 }
 
-void sub_1E68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, const void *a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29)
+void sub_1E68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, std::__shared_weak_count *a29)
 {
   sub_9EDC(&a21);
   _Block_object_dispose(&a23, 8);
@@ -1101,46 +1099,37 @@ uint64_t sub_1EA4(uint64_t a1)
   os_unfair_lock_assert_owner((a1 + 140));
   v2 = *(a1 + 144);
   mach_continuous_time();
-  v3 = *(v2 + 128) / *(v2 + 136);
   waipc::timesync::KalmanEstimator::fixed();
-  *(a1 + 248) = v13;
-  *(a1 + 264) = v14;
-  *(a1 + 280) = v15;
-  *(a1 + 296) = v16;
-  *(a1 + 200) = v10;
-  *(a1 + 216) = v11;
-  *(a1 + 232) = v12;
-  v4 = *(a1 + 248);
-  v5 = *(a1 + 280);
+  *(a1 + 248) = v12;
+  *(a1 + 264) = v13;
+  *(a1 + 280) = v14;
+  *(a1 + 296) = v15;
+  *(a1 + 200) = v9;
+  *(a1 + 216) = v10;
+  *(a1 + 232) = v11;
+  v3 = *(a1 + 248);
+  v4 = *(a1 + 280);
   *(a1 + 384) = *(a1 + 264);
-  *(a1 + 400) = v5;
-  *(a1 + 416) = v16;
-  v6 = *(a1 + 216);
+  *(a1 + 400) = v4;
+  *(a1 + 416) = v15;
+  v5 = *(a1 + 216);
   *(a1 + 320) = *(a1 + 200);
-  *(a1 + 336) = v6;
+  *(a1 + 336) = v5;
   *(a1 + 352) = *(a1 + 232);
-  *(a1 + 368) = v4;
-  *&v6 = *(a1 + 56);
-  v7 = *(v2 + 136);
-  v8 = *(a1 + 48) * 1000000000.0 / v7 * 0.5;
+  *(a1 + 368) = v3;
+  *&v5 = *(a1 + 56);
+  v6 = *(v2 + 136);
+  v7 = *(a1 + 48) * 1000000000.0 / v6 * 0.5;
   *(a1 + 304) = 0;
   *(a1 + 424) = 0;
-  *(a1 + 832) = v8 * v8;
-  *(a1 + 840) = (*&v6 * 1000000000.0 / v7);
+  *(a1 + 832) = v7 * v7;
+  *(a1 + 840) = (*&v5 * 1000000000.0 / v6);
   return 1;
 }
 
-void sub_1F9C(uint64_t a1)
+void sub_1F9C(const os_unfair_lock *a1)
 {
-  os_unfair_lock_assert_owner((a1 + 136));
-  v2 = *(a1 + 24);
-  v4 = *(a1 + 68);
-  v3 = *(a1 + 64);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 88);
-  v7 = *(a1 + 104);
-  v8 = *(a1 + 112);
-  v9 = *(*(a1 + 144) + 128);
+  os_unfair_lock_assert_owner(a1 + 34);
   waipc::PCIeAudioLink::computeBufferLength();
   sub_A494();
 }
@@ -1164,6 +1153,38 @@ void sub_21F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 void sub_2268(uint64_t a1)
 {
   os_unfair_lock_assert_owner((a1 + 136));
+  v5[0] = 0;
+  v5[1] = v5;
+  v5[2] = 0x3802000000;
+  v5[3] = sub_25CC;
+  v5[4] = sub_25E8;
+  sub_A3CC(&v3, a1);
+  v2 = v4;
+  v5[5] = v3;
+  v5[6] = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit(&v4->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    sub_9F5C(v2);
+  }
+
+  operator new();
+}
+
+void sub_23BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
+{
+  _Block_object_dispose(&a18, 8);
+  if (a24)
+  {
+    std::__shared_weak_count::__release_weak(a24);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_2404(uint64_t a1)
+{
+  os_unfair_lock_assert_owner((a1 + 136));
   v6[0] = 0;
   v6[1] = v6;
   v6[2] = 0x3802000000;
@@ -1179,45 +1200,10 @@ void sub_2268(uint64_t a1)
     sub_9F5C(v2);
   }
 
-  v3 = *(a1 + 128);
-  operator new();
-}
-
-void sub_23BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24)
-{
-  _Block_object_dispose(&a18, 8);
-  if (a24)
+  v3 = *(a1 + 144);
+  if (*(v3 + 416))
   {
-    std::__shared_weak_count::__release_weak(a24);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_2404(uint64_t a1)
-{
-  os_unfair_lock_assert_owner((a1 + 136));
-  v8[0] = 0;
-  v8[1] = v8;
-  v8[2] = 0x3802000000;
-  v8[3] = sub_25CC;
-  v8[4] = sub_25E8;
-  sub_A3CC(&v6, a1);
-  v2 = v7;
-  v8[5] = v6;
-  v8[6] = v7;
-  if (v7)
-  {
-    atomic_fetch_add_explicit(&v7->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    sub_9F5C(v2);
-  }
-
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 128);
-  v5 = *(a1 + 144);
-  if (*(v5 + 416))
-  {
-    dispatch_retain(*(v5 + 416));
+    dispatch_retain(*(v3 + 416));
   }
 
   operator new();
@@ -1245,12 +1231,12 @@ void sub_25E8(uint64_t a1)
   }
 }
 
-void sub_25F8(uint64_t a1, int a2, const __CFString *a3)
+void sub_25F8(std::__shared_weak_count *result, int a2, const __CFString *a3)
 {
-  v3 = *(*(a1 + 32) + 8);
+  v3 = *(result[1].__shared_owners_ + 8);
   if (*(v3 + 48))
   {
-    v6 = *(a1 + 40);
+    shared_weak_owners = result[1].__shared_weak_owners_;
     v7 = std::__shared_weak_count::lock(*(v3 + 48));
     if (v7)
     {
@@ -1272,17 +1258,17 @@ void sub_25F8(uint64_t a1, int a2, const __CFString *a3)
           _os_signpost_emit_with_name_impl(&dword_0, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AudioSession_ConnectCB", "connected %{BOOL}d, reason %@", v11, 0x12u);
         }
 
-        os_unfair_lock_lock((v6 + 136));
+        os_unfair_lock_lock((shared_weak_owners + 136));
         if (a2)
         {
-          *(v6 + 184) = 0;
+          *(shared_weak_owners + 184) = 0;
         }
 
         else
         {
-          *(v6 + 304) = 0;
-          sub_27E4((v6 + 432), v6 + 192);
-          if ((*(v6 + 184) & 1) == 0)
+          *(shared_weak_owners + 304) = 0;
+          sub_27E4((shared_weak_owners + 432), shared_weak_owners + 192);
+          if ((*(shared_weak_owners + 184) & 1) == 0)
           {
             if (qword_14218 != -1)
             {
@@ -1296,12 +1282,12 @@ void sub_25F8(uint64_t a1, int a2, const __CFString *a3)
               _os_signpost_emit_with_name_impl(&dword_0, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AudioSession_ErrorTimerStart", "", v11, 2u);
             }
 
-            *(v6 + 184) = 1;
-            waipc::util::GroupErrorTimer::start(*(v6 + 176), a3);
+            *(shared_weak_owners + 184) = 1;
+            waipc::util::GroupErrorTimer::start(*(shared_weak_owners + 176), a3);
           }
         }
 
-        os_unfair_lock_unlock((v6 + 136));
+        os_unfair_lock_unlock((shared_weak_owners + 136));
       }
 
       sub_9F5C(v8);
@@ -1316,7 +1302,7 @@ void sub_27E4(os_unfair_lock_t lock, uint64_t a2)
     os_unfair_lock_lock(lock);
   }
 
-  v4 = sub_A45C(lock);
+  v4 = sub_A45C(lock, a2);
   v5 = *(a2 + 8);
   v6 = *(a2 + 24);
   *(v4 + 40) = *(a2 + 40);
@@ -1353,7 +1339,7 @@ void sub_28B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void (***sub_28CC(void (***a1)(void), const void **a2))(void)
+void (***sub_28CC(void (***a1)(void), void (***a2)(void)))(void)
 {
   v4 = *a1;
   if (v4)
@@ -1380,12 +1366,12 @@ void (***sub_28CC(void (***a1)(void), const void **a2))(void)
   return a1;
 }
 
-void sub_2938(uint64_t a1, uint64_t a2, int a3)
+void sub_2938(std::__shared_weak_count *result, uint64_t a2, int a3)
 {
-  v3 = *(*(a1 + 32) + 8);
+  v3 = *(result[1].__shared_owners_ + 8);
   if (*(v3 + 48))
   {
-    v6 = *(a1 + 40);
+    shared_weak_owners = result[1].__shared_weak_owners_;
     v7 = std::__shared_weak_count::lock(*(v3 + 48));
     if (v7)
     {
@@ -1412,7 +1398,7 @@ void sub_2938(uint64_t a1, uint64_t a2, int a3)
           }
         }
 
-        os_unfair_lock_lock((v6 + 136));
+        os_unfair_lock_lock((shared_weak_owners + 136));
         if (a3)
         {
           v11 = 1;
@@ -1420,14 +1406,14 @@ void sub_2938(uint64_t a1, uint64_t a2, int a3)
 
         else
         {
-          v11 = *(v6 + 304);
+          v11 = *(shared_weak_owners + 304);
         }
 
         v12 = v11 & 1;
-        memmove((v6 + 200), (a2 + 8), 0x68uLL);
-        *(v6 + 304) = v12;
-        sub_27E4((v6 + 432), v6 + 192);
-        os_unfair_lock_unlock((v6 + 136));
+        memmove((shared_weak_owners + 200), (a2 + 8), 0x68uLL);
+        *(shared_weak_owners + 304) = v12;
+        sub_27E4((shared_weak_owners + 432), shared_weak_owners + 192);
+        os_unfair_lock_unlock((shared_weak_owners + 136));
       }
 
       sub_9F5C(v8);
@@ -1486,7 +1472,7 @@ void sub_2BBC(uint64_t a1, const __CFString *a2)
       v8 = v7;
       if (*(v3 + 40))
       {
-        os_unfair_lock_lock((v6 + 136));
+        os_unfair_lock_lock(v6 + 34);
         if (qword_14218 != -1)
         {
           sub_A654();
@@ -1504,25 +1490,24 @@ void sub_2BBC(uint64_t a1, const __CFString *a2)
           a2 = @"unknown error";
         }
 
-        v10 = *(v6 + 128);
-        v11 = _CTServerConnectionCreateOnTargetQueue();
-        *buf = v11;
-        if (v11)
+        v10 = _CTServerConnectionCreateOnTargetQueue();
+        *buf = v10;
+        if (v10)
         {
           if (qword_14218 != -1)
           {
             sub_A668();
           }
 
-          v12 = qword_14228;
+          v11 = qword_14228;
           if (os_signpost_enabled(qword_14228))
           {
-            *v15 = 0;
-            _os_signpost_emit_with_name_impl(&dword_0, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AudioSession_ResetModem", "", v15, 2u);
+            *v14 = 0;
+            _os_signpost_emit_with_name_impl(&dword_0, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AudioSession_ResetModem", "", v14, 2u);
           }
 
           MutableCopy = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, @"PCIe audio error: ");
-          *v15 = MutableCopy;
+          *v14 = MutableCopy;
           CFStringAppend(MutableCopy, a2);
           _CTServerConnectionResetModemWithCrashLogs();
           if (MutableCopy)
@@ -1530,7 +1515,7 @@ void sub_2BBC(uint64_t a1, const __CFString *a2)
             CFRelease(MutableCopy);
           }
 
-          CFRelease(v11);
+          CFRelease(v10);
         }
 
         else
@@ -1540,15 +1525,15 @@ void sub_2BBC(uint64_t a1, const __CFString *a2)
             sub_A668();
           }
 
-          v14 = qword_14220[0];
+          v13 = qword_14220[0];
           if (os_log_type_enabled(qword_14220[0], OS_LOG_TYPE_INFO))
           {
-            *v15 = 0;
-            _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "failed to open CTServer connection", v15, 2u);
+            *v14 = 0;
+            _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "failed to open CTServer connection", v14, 2u);
           }
         }
 
-        os_unfair_lock_unlock((v6 + 136));
+        os_unfair_lock_unlock(v6 + 34);
       }
 
       sub_9F5C(v8);
@@ -1556,12 +1541,12 @@ void sub_2BBC(uint64_t a1, const __CFString *a2)
   }
 }
 
-void sub_2DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_A5EC(va);
-  os_unfair_lock_unlock(v4 + 34);
-  sub_9F5C(v3);
+  os_unfair_lock_unlock(v6 + 34);
+  sub_9F5C(v5);
   _Unwind_Resume(a1);
 }
 
@@ -1685,24 +1670,18 @@ void sub_30F4(uint64_t a1@<X0>, void *a2@<X8>)
   os_unfair_lock_lock((a1 + 140));
   v4 = mach_continuous_time();
   sub_3238(a1, v4);
-  v9 = 0;
-  v10 = 0;
-  v11 = 0;
-  waipc::PCIeAudioLink::getZeroTimestamp(&v9, *(a1 + 856), v4);
-  LOWORD(v5) = *(a1 + 64);
-  v6 = v5 / *(a1 + 24) * 1000000000.0 / *(*(a1 + 144) + 136) + v10;
+  waipc::PCIeAudioLink::getZeroTimestamp(*(a1 + 856), v4);
   waipc::timesync::KalmanEstimator::hostToDevice();
   waipc::timesync::KalmanEstimator::deviceToHostVariance();
-  if (*(a1 + 424) != 1 || v7 >= *(a1 + 832))
+  if (*(a1 + 424) != 1 || v5 >= *(a1 + 832))
   {
     sub_2E2C(a1, v4);
   }
 
   mach_get_times();
-  *a2 = v9;
-  v8 = v11;
-  a2[1] = v10;
-  a2[2] = v8;
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   os_unfair_lock_unlock((a1 + 140));
 }
 
@@ -2603,7 +2582,7 @@ LABEL_17:
   return v5;
 }
 
-uint64_t sub_4E58(_UNKNOWN **a1, int a2, uint64_t a3, void (**a4)(void, void))
+uint64_t sub_4E58(_UNKNOWN **a1, int a2, uint64_t a3, uint64_t (**a4)(void, void))
 {
   if (qword_14218 != -1)
   {
@@ -2720,7 +2699,7 @@ LABEL_29:
   return v9;
 }
 
-uint64_t sub_5184(_UNKNOWN **a1, int a2, uint64_t a3, void (**a4)(void, void))
+uint64_t sub_5184(_UNKNOWN **a1, int a2, uint64_t a3, uint64_t (**a4)(void, void))
 {
   if (qword_14218 != -1)
   {
@@ -5514,10 +5493,11 @@ LABEL_20:
   byte_14248 = 0;
 }
 
-void sub_93A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, const void *a12)
+void sub_93A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  __cxa_free_exception(v12);
-  sub_93E0(&a12);
+  va_start(va, a11);
+  __cxa_free_exception(v11);
+  sub_93E0(va);
   _Unwind_Resume(a1);
 }
 
@@ -5855,54 +5835,53 @@ void sub_9BF0(uint64_t a1)
     v4 = v3;
     if (os_signpost_enabled(v2))
     {
-      LOWORD(v15[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_0, v2, OS_SIGNPOST_EVENT, v4, "DeviceConfigurationChange", "request", v15, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_0, v2, OS_SIGNPOST_EVENT, v4, "DeviceConfigurationChange", "request", v14, 2u);
     }
   }
 
-  v5 = *(a1 + 32);
-  v6 = (*(off_14000[0] + &stru_20))();
-  if (v6)
+  v5 = (*(off_14000[0] + &stru_20))();
+  if (v5)
   {
-    v7 = v6;
+    v6 = v5;
     if (qword_14218 != -1)
     {
       sub_A668();
     }
 
-    v8 = qword_14238;
-    v9 = os_signpost_id_make_with_pointer(qword_14238, *(a1 + 32));
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v7 = qword_14238;
+    v8 = os_signpost_id_make_with_pointer(qword_14238, *(a1 + 32));
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v10 = v9;
-      if (os_signpost_enabled(v8))
+      v9 = v8;
+      if (os_signpost_enabled(v7))
       {
-        v15[0] = 67109120;
-        v15[1] = v7;
-        _os_signpost_emit_with_name_impl(&dword_0, v8, OS_SIGNPOST_EVENT, v10, "DeviceConfigurationChange", "failed %{waipc:4cc}u", v15, 8u);
+        v14[0] = 67109120;
+        v14[1] = v6;
+        _os_signpost_emit_with_name_impl(&dword_0, v7, OS_SIGNPOST_EVENT, v9, "DeviceConfigurationChange", "failed %{waipc:4cc}u", v14, 8u);
       }
     }
 
-    v11 = *(a1 + 32);
-    v11[2](v11, 0);
+    v10 = *(a1 + 32);
+    v10[2](v10, 0);
     if (qword_14218 != -1)
     {
       sub_A668();
     }
 
-    v12 = qword_14238;
-    v13 = os_signpost_id_make_with_pointer(qword_14238, *(a1 + 32));
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v11 = qword_14238;
+    v12 = os_signpost_id_make_with_pointer(qword_14238, *(a1 + 32));
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v14 = v13;
-      if (os_signpost_enabled(v12))
+      v13 = v12;
+      if (os_signpost_enabled(v11))
       {
-        LOWORD(v15[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_0, v12, OS_SIGNPOST_INTERVAL_END, v14, "DeviceConfigurationChange", "done", v15, 2u);
+        LOWORD(v14[0]) = 0;
+        _os_signpost_emit_with_name_impl(&dword_0, v11, OS_SIGNPOST_INTERVAL_END, v13, "DeviceConfigurationChange", "done", v14, 2u);
       }
     }
 
-    _Block_release(v11);
+    _Block_release(v10);
   }
 }
 
@@ -5913,7 +5892,7 @@ void sub_9E08(os_unfair_lock_t lock, __int128 *a2)
     os_unfair_lock_lock(lock);
   }
 
-  v4 = sub_9EA4(lock);
+  v4 = sub_9EA4(lock, a2);
   v5 = *a2;
   v6 = a2[1];
   *(v4 + 32) = *(a2 + 4);
@@ -5942,27 +5921,27 @@ void sub_9E88(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-unint64_t sub_9EA4(uint64_t a1)
+unint64_t sub_9EA4(uint64_t a1, uint64_t a2)
 {
-  v1 = 0;
-  v2 = a1 + 136;
+  v2 = 0;
+  v3 = a1 + 136;
   do
   {
-    result = atomic_exchange((v2 + 8 * v1), 0);
+    result = atomic_exchange((v3 + 8 * v2), 0);
     if (result)
     {
-      v4 = 1;
+      v5 = 1;
     }
 
     else
     {
-      v4 = v1 >= 2;
+      v5 = v2 >= 2;
     }
 
-    ++v1;
+    ++v2;
   }
 
-  while (!v4);
+  while (!v5);
   if (!result)
   {
     sub_A884();
@@ -5971,7 +5950,7 @@ unint64_t sub_9EA4(uint64_t a1)
   return result;
 }
 
-const void **sub_9EDC(const void **a1)
+void (***sub_9EDC(void (***a1)(void)))(void)
 {
   v2 = *a1;
   if (v2)
@@ -6014,9 +5993,9 @@ void sub_9FC8(void *a1, uint64_t a2)
   operator new();
 }
 
-void sub_A058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_A058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_A0F4(va);
   _Unwind_Resume(a1);
 }
@@ -6214,27 +6193,27 @@ void sub_A410()
   exception = __cxa_allocate_exception(8uLL);
 }
 
-unint64_t sub_A45C(uint64_t a1)
+unint64_t sub_A45C(uint64_t a1, uint64_t a2)
 {
-  v1 = 0;
-  v2 = a1 + 376;
+  v2 = 0;
+  v3 = a1 + 376;
   do
   {
-    result = atomic_exchange((v2 + 8 * v1), 0);
+    result = atomic_exchange((v3 + 8 * v2), 0);
     if (result)
     {
-      v4 = 1;
+      v5 = 1;
     }
 
     else
     {
-      v4 = v1 >= 2;
+      v5 = v2 >= 2;
     }
 
-    ++v1;
+    ++v2;
   }
 
-  while (!v4);
+  while (!v5);
   if (!result)
   {
     sub_A884();
@@ -6243,12 +6222,11 @@ unint64_t sub_A45C(uint64_t a1)
   return result;
 }
 
-void *sub_A508(void *a1, uint64_t *a2)
+void *sub_A508(void *a1, void *a2, uint64_t a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = off_10620;
-  v3 = *a2;
   waipc::MappableBuffer::MappableBuffer();
   return a1;
 }

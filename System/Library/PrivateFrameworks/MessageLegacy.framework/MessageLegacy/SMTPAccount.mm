@@ -6,6 +6,7 @@
 - (Class)connectionClass;
 - (Class)deliveryClass;
 - (__CFString)connectionServiceType;
+- (id)_defaultSettingsWithPort:(unsigned int)port useSSL:(BOOL)l directSSL:(BOOL)sL;
 - (id)authenticatedConnection:(BOOL)connection;
 - (id)connectionSettingsForAuthentication:(BOOL)authentication secure:(id)secure insecure:(id)insecure;
 - (id)customAuthenticationErrorStringForError:(id)error authScheme:(id)scheme;
@@ -81,6 +82,18 @@
   }
 
   return result;
+}
+
+- (id)_defaultSettingsWithPort:(unsigned int)port useSSL:(BOOL)l directSSL:(BOOL)sL
+{
+  sLCopy = sL;
+  lCopy = l;
+  v7 = *&port;
+  defaultConnectionSettings = [(MFAccount *)self defaultConnectionSettings];
+  [defaultConnectionSettings setPortNumber:v7];
+  [defaultConnectionSettings setUsesSSL:lCopy];
+  [defaultConnectionSettings setTryDirectSSL:sLCopy];
+  return defaultConnectionSettings;
 }
 
 - (id)connectionSettingsForAuthentication:(BOOL)authentication secure:(id)secure insecure:(id)insecure
@@ -217,7 +230,7 @@
 
 - (id)errorForResponse:(id)response
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   status = [response status];
   if ((status - 530) > 8 || ((1 << (status - 18)) & 0x111) == 0)
   {
@@ -231,11 +244,9 @@
     v7 = @"Check the SSL setting for the outgoing server “%@”.";
   }
 
-  v10 = @"UserFriendlyErrorDescription";
-  v11[0] = [MEMORY[0x277CCACA8] stringWithFormat:MFLookupLocalizedString(v6, v7, @"Delayed", -[DeliveryAccount displayHostname](self, "displayHostname")];
-  result = +[MFError errorWithDomain:code:localizedDescription:title:userInfo:](MFError, "errorWithDomain:code:localizedDescription:title:userInfo:", @"MFMessageErrorDomain", 1032, v11[0], MFLookupLocalizedString(@"FAILED_SEND_TITLE", @"Cannot Send Mail", @"Delayed"), [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1]);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  v9 = @"UserFriendlyErrorDescription";
+  v10[0] = [MEMORY[0x277CCACA8] stringWithFormat:MFLookupLocalizedString(v6, v7, @"Delayed", -[DeliveryAccount displayHostname](self, "displayHostname")];
+  return +[MFError errorWithDomain:code:localizedDescription:title:userInfo:](MFError, "errorWithDomain:code:localizedDescription:title:userInfo:", @"MFMessageErrorDomain", 1032, v10[0], MFLookupLocalizedString(@"FAILED_SEND_TITLE", @"Cannot Send Mail", @"Delayed"), [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1]);
 }
 
 - (void)setSupportsOutboxCopy:(BOOL)copy

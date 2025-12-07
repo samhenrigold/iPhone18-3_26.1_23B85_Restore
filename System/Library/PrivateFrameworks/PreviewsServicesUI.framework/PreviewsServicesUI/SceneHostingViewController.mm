@@ -2,6 +2,7 @@
 - (BOOL)canBecomeFirstResponder;
 - (_TtC18PreviewsServicesUI26SceneHostingViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 @end
@@ -32,6 +33,24 @@
 {
   selfCopy = self;
   SceneHostingViewController.viewDidLayoutSubviews()();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(SceneHostingViewController *)&v7 viewDidAppear:appearCopy];
+  v5 = OBJC_IVAR____TtC18PreviewsServicesUI26SceneHostingViewController_isUserActivePreview;
+  swift_beginAccess();
+  if (*(v4 + v5) == 1)
+  {
+    traitCollection = [v4 traitCollection];
+    [traitCollection activeAppearance];
+
+    v4 = traitCollection;
+  }
 }
 
 - (BOOL)canBecomeFirstResponder

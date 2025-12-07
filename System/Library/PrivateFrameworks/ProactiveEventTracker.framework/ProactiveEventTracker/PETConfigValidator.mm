@@ -8,7 +8,7 @@
 
 + (BOOL)_messageConfigIsValid:(id)valid
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   v4 = [validCopy objectForKeyedSubscript:@"device_sampling"];
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -19,7 +19,7 @@
       _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of device sampling!", buf, 2u);
     }
 
-    v30 = 0;
+    v28 = 0;
   }
 
   else
@@ -33,7 +33,7 @@
         _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of seed device sampling!", buf, 2u);
       }
 
-      v30 = 0;
+      v28 = 0;
     }
 
     else
@@ -47,7 +47,7 @@
           _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of message sampling!", buf, 2u);
         }
 
-        v30 = 0;
+        v28 = 0;
       }
 
       else
@@ -61,7 +61,7 @@
             _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of sig figs!", buf, 2u);
           }
 
-          v30 = 0;
+          v28 = 0;
         }
 
         else
@@ -75,7 +75,7 @@
               _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of aggregated!", buf, 2u);
             }
 
-            v30 = 0;
+            v28 = 0;
           }
 
           else
@@ -89,34 +89,33 @@
                 _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of field whitelist!", buf, 2u);
               }
 
-              v30 = 0;
+              v28 = 0;
             }
 
             else
             {
-              v35 = v8;
-              v36 = v7;
-              v37 = v9;
+              v32 = v8;
+              v33 = v7;
+              v34 = v9;
+              v43 = 0u;
+              v44 = 0u;
+              v45 = 0u;
               v46 = 0u;
-              v47 = 0u;
-              v48 = 0u;
-              v49 = 0u;
               v10 = v9;
-              v11 = [v10 countByEnumeratingWithState:&v46 objects:v53 count:16];
+              v11 = [v10 countByEnumeratingWithState:&v43 objects:v50 count:16];
               if (v11)
               {
                 v12 = v11;
-                v13 = *v47;
+                v13 = *v44;
                 while (2)
                 {
                   for (i = 0; i != v12; ++i)
                   {
-                    if (*v47 != v13)
+                    if (*v44 != v13)
                     {
                       objc_enumerationMutation(v10);
                     }
 
-                    v15 = *(*(&v46 + 1) + 8 * i);
                     objc_opt_class();
                     if ((objc_opt_isKindOfClass() & 1) == 0)
                     {
@@ -126,13 +125,13 @@
                         _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of field in field whitelist!", buf, 2u);
                       }
 
-                      v30 = 0;
-                      v16 = v10;
+                      v28 = 0;
+                      v15 = v10;
                       goto LABEL_62;
                     }
                   }
 
-                  v12 = [v10 countByEnumeratingWithState:&v46 objects:v53 count:16];
+                  v12 = [v10 countByEnumeratingWithState:&v43 objects:v50 count:16];
                   if (v12)
                   {
                     continue;
@@ -142,8 +141,8 @@
                 }
               }
 
-              v16 = [validCopy objectForKeyedSubscript:@"hist_buckets"];
-              if (v16 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+              v15 = [validCopy objectForKeyedSubscript:@"hist_buckets"];
+              if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
               {
                 if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                 {
@@ -151,36 +150,35 @@
                   _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of histogram buckets!", buf, 2u);
                 }
 
-                v30 = 0;
+                v28 = 0;
 LABEL_62:
-                v8 = v35;
-                v7 = v36;
+                v8 = v32;
+                v7 = v33;
               }
 
               else
               {
-                v33 = v6;
+                v30 = v6;
+                v39 = 0u;
+                v40 = 0u;
+                v41 = 0u;
                 v42 = 0u;
-                v43 = 0u;
-                v44 = 0u;
-                v45 = 0u;
-                v16 = v16;
-                v17 = [v16 countByEnumeratingWithState:&v42 objects:v52 count:16];
-                if (v17)
+                v15 = v15;
+                v16 = [v15 countByEnumeratingWithState:&v39 objects:v49 count:16];
+                if (v16)
                 {
-                  v18 = v17;
-                  v19 = *v43;
+                  v17 = v16;
+                  v18 = *v40;
                   while (2)
                   {
-                    v20 = v16;
-                    for (j = 0; j != v18; ++j)
+                    v19 = v15;
+                    for (j = 0; j != v17; ++j)
                     {
-                      if (*v43 != v19)
+                      if (*v40 != v18)
                       {
-                        objc_enumerationMutation(v20);
+                        objc_enumerationMutation(v19);
                       }
 
-                      v22 = *(*(&v42 + 1) + 8 * j);
                       objc_opt_class();
                       if ((objc_opt_isKindOfClass() & 1) == 0)
                       {
@@ -190,16 +188,16 @@ LABEL_62:
                           _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of bucket in histogram buckets!", buf, 2u);
                         }
 
-                        v30 = 0;
-                        v16 = v20;
-                        v23 = v20;
+                        v28 = 0;
+                        v15 = v19;
+                        v21 = v19;
                         goto LABEL_69;
                       }
                     }
 
-                    v16 = v20;
-                    v18 = [v20 countByEnumeratingWithState:&v42 objects:v52 count:16];
-                    if (v18)
+                    v15 = v19;
+                    v17 = [v19 countByEnumeratingWithState:&v39 objects:v49 count:16];
+                    if (v17)
                     {
                       continue;
                     }
@@ -208,8 +206,8 @@ LABEL_62:
                   }
                 }
 
-                v23 = [validCopy objectForKeyedSubscript:@"nested_fields"];
-                if (v23 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+                v21 = [validCopy objectForKeyedSubscript:@"nested_fields"];
+                if (v21 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                 {
                   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                   {
@@ -217,37 +215,37 @@ LABEL_62:
                     _os_log_error_impl(&dword_1DF726000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "unexpected type of nested fields!", buf, 2u);
                   }
 
-                  v30 = 0;
+                  v28 = 0;
 LABEL_69:
-                  v8 = v35;
-                  v7 = v36;
-                  v6 = v33;
+                  v8 = v32;
+                  v7 = v33;
+                  v6 = v30;
                 }
 
                 else
                 {
+                  v35 = 0u;
+                  v36 = 0u;
+                  v37 = 0u;
                   v38 = 0u;
-                  v39 = 0u;
-                  v40 = 0u;
-                  v41 = 0u;
-                  obj = v23;
-                  v24 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
-                  if (v24)
+                  obj = v21;
+                  v22 = [obj countByEnumeratingWithState:&v35 objects:v48 count:16];
+                  if (v22)
                   {
-                    v25 = v24;
-                    v26 = *v39;
-                    v6 = v33;
+                    v23 = v22;
+                    v24 = *v36;
+                    v6 = v30;
                     while (2)
                     {
-                      for (k = 0; k != v25; ++k)
+                      for (k = 0; k != v23; ++k)
                       {
-                        if (*v39 != v26)
+                        if (*v36 != v24)
                         {
                           objc_enumerationMutation(obj);
                         }
 
-                        v28 = *(*(&v38 + 1) + 8 * k);
-                        if (![v28 integerValue])
+                        v26 = *(*(&v35 + 1) + 8 * k);
+                        if (![v26 integerValue])
                         {
                           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                           {
@@ -258,8 +256,8 @@ LABEL_69:
                           goto LABEL_82;
                         }
 
-                        v29 = [obj objectForKeyedSubscript:v28];
-                        if (v29)
+                        v27 = [obj objectForKeyedSubscript:v26];
+                        if (v27)
                         {
                           objc_opt_class();
                           if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -271,15 +269,15 @@ LABEL_69:
                             }
 
 LABEL_82:
-                            v30 = 0;
+                            v28 = 0;
                             goto LABEL_83;
                           }
                         }
                       }
 
-                      v25 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
-                      v30 = 1;
-                      if (v25)
+                      v23 = [obj countByEnumeratingWithState:&v35 objects:v48 count:16];
+                      v28 = 1;
+                      if (v23)
                       {
                         continue;
                       }
@@ -290,19 +288,19 @@ LABEL_82:
 
                   else
                   {
-                    v30 = 1;
-                    v6 = v33;
+                    v28 = 1;
+                    v6 = v30;
                   }
 
 LABEL_83:
-                  v23 = obj;
+                  v21 = obj;
 
-                  v8 = v35;
-                  v7 = v36;
+                  v8 = v32;
+                  v7 = v33;
                 }
               }
 
-              v9 = v37;
+              v9 = v34;
             }
           }
         }
@@ -310,13 +308,12 @@ LABEL_83:
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v30;
+  return v28;
 }
 
 + (BOOL)_groupConfigIsValid:(id)valid
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   v4 = [validCopy objectForKeyedSubscript:@"device_sampling"];
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -416,34 +413,34 @@ LABEL_83:
 
               else
               {
-                v22 = v9;
-                v23 = v8;
-                v26 = 0u;
-                v27 = 0u;
-                v24 = 0u;
+                v21 = v9;
+                v22 = v8;
                 v25 = 0u;
-                v21 = v10;
+                v26 = 0u;
+                v23 = 0u;
+                v24 = 0u;
+                v20 = v10;
                 allValues = [v10 allValues];
-                v12 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
+                v12 = [allValues countByEnumeratingWithState:&v23 objects:v28 count:16];
                 if (v12)
                 {
                   v13 = v12;
-                  v14 = *v25;
-                  v20 = v7;
+                  v14 = *v24;
+                  v19 = v7;
                   while (2)
                   {
                     for (i = 0; i != v13; ++i)
                     {
-                      if (*v25 != v14)
+                      if (*v24 != v14)
                       {
                         objc_enumerationMutation(allValues);
                       }
 
-                      v16 = *(*(&v24 + 1) + 8 * i);
+                      v16 = *(*(&v23 + 1) + 8 * i);
                       objc_opt_class();
                       if ((objc_opt_isKindOfClass() & 1) == 0)
                       {
-                        v7 = v20;
+                        v7 = v19;
                         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                         {
                           *buf = 0;
@@ -457,14 +454,14 @@ LABEL_83:
                       if (![objc_opt_class() _messageConfigIsValid:v16])
                       {
                         v17 = 0;
-                        v7 = v20;
+                        v7 = v19;
                         goto LABEL_51;
                       }
                     }
 
-                    v13 = [allValues countByEnumeratingWithState:&v24 objects:v29 count:16];
+                    v13 = [allValues countByEnumeratingWithState:&v23 objects:v28 count:16];
                     v17 = 1;
-                    v7 = v20;
+                    v7 = v19;
                     if (v13)
                     {
                       continue;
@@ -481,9 +478,9 @@ LABEL_83:
 
 LABEL_51:
 
-                v9 = v22;
-                v8 = v23;
-                v10 = v21;
+                v9 = v21;
+                v8 = v22;
+                v10 = v20;
               }
             }
           }
@@ -492,13 +489,12 @@ LABEL_51:
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 + (BOOL)configIsValid:(id)valid
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   v4 = [validCopy objectForKeyedSubscript:@"version"];
   objc_opt_class();
@@ -539,26 +535,26 @@ LABEL_24:
   }
 
   v8 = [validCopy objectForKeyedSubscript:@"message_groups"];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allValues = [v8 allValues];
-  v10 = [allValues countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -579,7 +575,7 @@ LABEL_20:
         }
       }
 
-      v11 = [allValues countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v19 objects:v24 count:16];
       v15 = 1;
       if (v11)
       {
@@ -598,7 +594,6 @@ LABEL_20:
 LABEL_21:
 
 LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

@@ -20,14 +20,13 @@
 {
   sub_2225D83D0(0, &qword_280D9F278, 0x277CEC328);
   v5 = sub_22261B2B0();
-  v6 = *&self->taskScheduler[OBJC_IVAR____TtCV8AppState19ASDDeviceAppFetcherP33_20A96B0C17EB75E205905EBE25F52A5B16QueryObservation_taskScheduler + 16];
   __swift_project_boxed_opaque_existential_1((&self->super.isa + OBJC_IVAR____TtCV8AppState19ASDDeviceAppFetcherP33_20A96B0C17EB75E205905EBE25F52A5B16QueryObservation_taskScheduler), *&self->taskScheduler[OBJC_IVAR____TtCV8AppState19ASDDeviceAppFetcherP33_20A96B0C17EB75E205905EBE25F52A5B16QueryObservation_taskScheduler + 8]);
-  v8 = *(&self->super.isa + OBJC_IVAR____TtCV8AppState19ASDDeviceAppFetcherP33_20A96B0C17EB75E205905EBE25F52A5B16QueryObservation_observer);
-  v7 = *&self->appQuery[OBJC_IVAR____TtCV8AppState19ASDDeviceAppFetcherP33_20A96B0C17EB75E205905EBE25F52A5B16QueryObservation_observer];
-  v9 = swift_allocObject();
-  v9[2] = v8;
-  v9[3] = v7;
-  v9[4] = v5;
+  v7 = *(&self->super.isa + OBJC_IVAR____TtCV8AppState19ASDDeviceAppFetcherP33_20A96B0C17EB75E205905EBE25F52A5B16QueryObservation_observer);
+  v6 = *&self->appQuery[OBJC_IVAR____TtCV8AppState19ASDDeviceAppFetcherP33_20A96B0C17EB75E205905EBE25F52A5B16QueryObservation_observer];
+  v8 = swift_allocObject();
+  v8[2] = v7;
+  v8[3] = v6;
+  v8[4] = v5;
   selfCopy = self;
 
   sub_22261AF60();

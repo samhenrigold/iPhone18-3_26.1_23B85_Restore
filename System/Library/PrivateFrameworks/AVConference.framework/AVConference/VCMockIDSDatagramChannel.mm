@@ -77,7 +77,7 @@
           if (VCAllocatorFirstCome_Create(*MEMORY[0x1E695E480], "com.apple.AVConference.VCMockIDSDatagramChannel.MOCKDatagramChannelPacketAllocator", &self->_datagramPacketAllocator))
           {
             [VCMockIDSDatagramChannel setupMockIDSDatagramChannelRequiresOptions:sourcePort:];
-            return v13;
+            return v15;
           }
 
           else
@@ -92,15 +92,16 @@
             self->_doNotDropNackOrRetransmitted = [VCDefaults BOOLeanValueForKey:@"enableMockDatagramChannelDoNotDropNack" defaultValue:0];
             self->_isSourceParticipantIDOnFanOutPacketsEnabled = [VCDefaults BOOLeanValueForKey:@"mockDatagramChannelAddSourceParticipantIDOnFanOutPackets" defaultValue:0];
             self->_isWrongParticipantIDOnFanOutPacketsEnabled = [VCDefaults BOOLeanValueForKey:@"mockDatagramChannelAddWrongParticipantIDOnFanOutPackets" defaultValue:0];
-            self->_isECNEnabled = VCDefaults_GetBoolValueForKey(@"ecnEnabled", 0);
-            self->_isShortMKIEnabled = VCFeatureFlagManager_UseShortMKI();
+            BoolValueForKey = VCDefaults_GetBoolValueForKey(@"ecnEnabled", 0);
+            self->_isECNEnabled = BoolValueForKey;
+            self->_isShortMKIEnabled = VCFeatureFlagManager_UseShortMKI(BoolValueForKey, v12);
             self->_isTestNetworkRouterEnabled = VCDefaults_GetBoolValueForKey(@"enableTestNetworkRouter", 0);
             self->_isTwoWayFaceTimeTestUsingSocketsEnabled = VCDefaults_GetBoolValueForKey(@"twoWayFaceTimeTestUsingSocketsEnabled", 0);
             bzero(self->_packetBuffer, 0x2EE000uLL);
-            if (self->_isTwoWayFaceTimeTestUsingSocketsEnabled && (v11 = VCRealTimeThread_Initialize(20, VCMockIDSDatagramChannelReceiveThread, self, "com.apple.avconference.mockdatagramchannel.recvproc", 3), (self->_packetReceiveThread = v11) == 0))
+            if (self->_isTwoWayFaceTimeTestUsingSocketsEnabled && (v13 = VCRealTimeThread_Initialize(20, VCMockIDSDatagramChannelReceiveThread, self, "com.apple.avconference.mockdatagramchannel.recvproc", 3), (self->_packetReceiveThread = v13) == 0))
             {
               [VCMockIDSDatagramChannel setupMockIDSDatagramChannelRequiresOptions:sourcePort:];
-              return v14;
+              return v16;
             }
 
             else
@@ -113,28 +114,28 @@
         else
         {
           [VCMockIDSDatagramChannel setupMockIDSDatagramChannelRequiresOptions:sourcePort:];
-          return v15;
+          return v17;
         }
       }
 
       else
       {
         [VCMockIDSDatagramChannel setupMockIDSDatagramChannelRequiresOptions:sourcePort:];
-        return v16;
+        return v18;
       }
     }
 
     else
     {
       [VCMockIDSDatagramChannel setupMockIDSDatagramChannelRequiresOptions:sourcePort:];
-      return v17;
+      return v19;
     }
   }
 
   else
   {
     [VCMockIDSDatagramChannel setupMockIDSDatagramChannelRequiresOptions:sourcePort:];
-    return v18;
+    return v20;
   }
 }
 
@@ -639,8 +640,9 @@ LABEL_19:
 
 - (BOOL)shouldReadPacket:(_VCMockIDSDatagramChannelPacket *)packet
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if ([(VCMockIDSDatagramChannel *)self isControlChannelDatagram:?])
+  v25 = *MEMORY[0x1E69E9840];
+  v5 = [(VCMockIDSDatagramChannel *)self isControlChannelDatagram:?];
+  if (v5)
   {
     return 1;
   }
@@ -657,48 +659,48 @@ LABEL_19:
 
   if (packet->var4.var7)
   {
-    v16 = 1;
+    v18 = 1;
     if ((packet->var4.var0 & 0x40) != 0)
     {
       self->_datagramOptionsCached.statsID = packet->var4.var7;
       self->_datagramOptionsCached.statsPayload.totalServerPacketSent = self->numPacketSent;
       self->_datagramOptionsCached.statsPayload.totalServerPacketReceived = self->numPacketReceived;
-      self->_datagramOptionsCached.statsPayload.serverTimestamp = (micro() * 1000.0);
+      self->_datagramOptionsCached.statsPayload.serverTimestamp = (micro(v5, v6) * 1000.0);
       self->_isServerStatsCached = 1;
       packet->var4.var7 = 0;
       packet->var4.var0 &= ~0x40u;
       packet->var4.var8.var4 = 0;
       *&packet->var4.var8.var0 = 0;
-      v16 = 0;
+      v18 = 0;
     }
   }
 
   else
   {
 LABEL_8:
-    v16 = 1;
+    v18 = 1;
   }
 
   pthread_mutex_lock(&self->_streamSubscriptionLock);
   idsUPlusOneMode = [(VCMockIDSDataChannelLinkContext *)self->_linkContext idsUPlusOneMode];
-  v6 = [(VCMockIDSDatagramChannel *)self newArrayOfStreamIdsForPacket:packet];
-  if (-[NSDictionary count](self->_subscribedStreamsByParticipantID, "count") && [v6 count])
+  v8 = [(VCMockIDSDatagramChannel *)self newArrayOfStreamIdsForPacket:packet];
+  if (-[NSDictionary count](self->_subscribedStreamsByParticipantID, "count") && [v8 count])
   {
+    v23 = 0u;
+    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
     obj = self->_subscribedStreamsByParticipantID;
-    v7 = [(NSDictionary *)obj countByEnumeratingWithState:&v19 objects:v18 count:16];
-    if (v7)
+    v9 = [(NSDictionary *)obj countByEnumeratingWithState:&v21 objects:v20 count:16];
+    if (v9)
     {
-      v8 = v7;
-      v9 = *v20;
+      v10 = v9;
+      v11 = *v22;
       while (2)
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v9)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(obj);
           }
@@ -709,23 +711,23 @@ LABEL_8:
             goto LABEL_25;
           }
 
-          v11 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:{-[NSDictionary objectForKeyedSubscript:](self->_subscribedStreamsByParticipantID, "objectForKeyedSubscript:", *(*(&v19 + 1) + 8 * i))}];
-          [v11 intersectSet:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithArray:", v6)}];
-          v12 = [v11 count];
-          idsUPlusOneMode = v12 != 0;
-          if (v12 && (v16 & self->_isServerStatsCached) == 1 && packet->var3)
+          v13 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:{-[NSDictionary objectForKeyedSubscript:](self->_subscribedStreamsByParticipantID, "objectForKeyedSubscript:", *(*(&v21 + 1) + 8 * i))}];
+          [v13 intersectSet:{objc_msgSend(MEMORY[0x1E695DFD8], "setWithArray:", v8)}];
+          v14 = [v13 count];
+          idsUPlusOneMode = v14 != 0;
+          if (v14 && (v18 & self->_isServerStatsCached) == 1 && packet->var3)
           {
             packet->var4.var0 |= 0x40u;
             packet->var4.var7 = self->_datagramOptionsCached.statsID;
-            v13 = *&self->_datagramOptionsCached.statsPayload.serverTimestamp;
+            v15 = *&self->_datagramOptionsCached.statsPayload.serverTimestamp;
             packet->var4.var8.var4 = self->_datagramOptionsCached.statsPayload.uplinkBandwidth;
-            *&packet->var4.var8.var0 = v13;
+            *&packet->var4.var8.var0 = v15;
             self->_isServerStatsCached = 0;
           }
         }
 
-        v8 = [(NSDictionary *)obj countByEnumeratingWithState:&v19 objects:v18 count:16];
-        if (v8)
+        v10 = [(NSDictionary *)obj countByEnumeratingWithState:&v21 objects:v20 count:16];
+        if (v10)
         {
           continue;
         }
@@ -738,7 +740,7 @@ LABEL_8:
   else
   {
     [(VCMockIDSDatagramChannel *)idsUPlusOneMode shouldReadPacket:?];
-    idsUPlusOneMode = v17;
+    idsUPlusOneMode = v19;
   }
 
 LABEL_25:

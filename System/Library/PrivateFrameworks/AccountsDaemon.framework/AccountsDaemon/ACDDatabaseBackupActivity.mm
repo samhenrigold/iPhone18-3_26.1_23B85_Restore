@@ -71,7 +71,7 @@ void __71__ACDDatabaseBackupActivity__registerActivityIfNeededSchedulingBackup__
   v2 = *(a1 + 32);
   if (v2[8] == 1)
   {
-    v3 = _ACDLogSystem();
+    v3 = _ACDLogSystem(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __71__ACDDatabaseBackupActivity__registerActivityIfNeededSchedulingBackup___block_invoke_cold_1(v3);
@@ -91,26 +91,25 @@ void __71__ACDDatabaseBackupActivity__registerActivityIfNeededSchedulingBackup__
 - (void)_registerActivitySchedulingBackup:(BOOL)backup
 {
   backupCopy = backup;
-  v14 = *MEMORY[0x277D85DE8];
-  v5 = _ACDLogSystem();
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = _ACDLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v11 = "com.apple.accounts.databasebackup.activity";
-    v12 = 1024;
-    v13 = backupCopy;
+    v10 = "com.apple.accounts.databasebackup.activity";
+    v11 = 1024;
+    v12 = backupCopy;
     _os_log_impl(&dword_221D2F000, v5, OS_LOG_TYPE_DEFAULT, "Registering activity %s (scheduling backup: %d)", buf, 0x12u);
   }
 
   v6 = *MEMORY[0x277D86238];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke;
-  v8[3] = &unk_27848D038;
-  v9 = backupCopy;
-  v8[4] = self;
-  xpc_activity_register("com.apple.accounts.databasebackup.activity", v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke;
+  v7[3] = &unk_27848D038;
+  v8 = backupCopy;
+  v7[4] = self;
+  xpc_activity_register("com.apple.accounts.databasebackup.activity", v6, v7);
 }
 
 void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke(uint64_t a1, void *a2)
@@ -119,25 +118,26 @@ void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_i
   state = xpc_activity_get_state(v3);
   if (state == 2)
   {
-    if (xpc_activity_set_state(v3, 4))
+    v10 = xpc_activity_set_state(v3, 4);
+    if (v10)
     {
-      v9 = os_transaction_create();
-      v10 = *(a1 + 32);
-      v11 = *(v10 + 24);
+      v11 = os_transaction_create();
+      v12 = *(a1 + 32);
+      v13 = *(v12 + 24);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke_2;
       block[3] = &unk_27848C0B8;
-      block[4] = v10;
-      v13 = v3;
-      v14 = v9;
-      v6 = v9;
-      dispatch_async(v11, block);
+      block[4] = v12;
+      v15 = v3;
+      v16 = v11;
+      v6 = v11;
+      dispatch_async(v13, block);
     }
 
     else
     {
-      v6 = _ACDLogSystem();
+      v6 = _ACDLogSystem(v10);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke_cold_1(v6);
@@ -149,7 +149,7 @@ void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_i
 
   if (!state)
   {
-    v5 = _ACDLogSystem();
+    v5 = _ACDLogSystem(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -160,16 +160,17 @@ void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_i
     {
       v6 = xpc_activity_copy_criteria(v3);
       v7 = [*(a1 + 32) activityCriteria];
-      if (!v6 || !xpc_equal(v6, v7))
+      v8 = v7;
+      if (!v6 || (v7 = xpc_equal(v6, v7), (v7 & 1) == 0))
       {
-        v8 = _ACDLogSystem();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = _ACDLogSystem(v7);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_221D2F000, v8, OS_LOG_TYPE_DEFAULT, "Setting accounts database backup activity criteria", buf, 2u);
+          _os_log_impl(&dword_221D2F000, v9, OS_LOG_TYPE_DEFAULT, "Setting accounts database backup activity criteria", buf, 2u);
         }
 
-        xpc_activity_set_criteria(v3, v7);
+        xpc_activity_set_criteria(v3, v8);
       }
 
 LABEL_16:
@@ -180,7 +181,7 @@ LABEL_16:
 void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke_2(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v2 = _ACDLogSystem();
+  v2 = _ACDLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -192,28 +193,26 @@ void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_i
   v4 = [v3 performBackupReturningError:&v10];
   v5 = v10;
 
-  v6 = _ACDLogSystem();
-  v7 = v6;
+  v7 = _ACDLogSystem(v6);
+  v8 = v7;
   if (v4)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) database];
+      v9 = [*(a1 + 32) database];
       *buf = 138477827;
-      v12 = v8;
-      _os_log_impl(&dword_221D2F000, v7, OS_LOG_TYPE_DEFAULT, "Successfully backed up database: %{private}@", buf, 0xCu);
+      v12 = v9;
+      _os_log_impl(&dword_221D2F000, v8, OS_LOG_TYPE_DEFAULT, "Successfully backed up database: %{private}@", buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke_2_cold_1(v5, v7);
+    __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke_2_cold_1(v5, v8);
   }
 
   xpc_activity_set_state(*(a1 + 40), 5);
   *(*(a1 + 32) + 8) = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleBackupIfNonexistent
@@ -226,10 +225,10 @@ void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_i
 
   if (v7)
   {
-    v8 = _ACDLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _ACDLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      [(ACDDatabaseBackupActivity *)v8 scheduleBackupIfNonexistent];
+      [(ACDDatabaseBackupActivity *)v9 scheduleBackupIfNonexistent];
     }
   }
 
@@ -242,11 +241,10 @@ void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_i
 
 void __63__ACDDatabaseBackupActivity__registerActivitySchedulingBackup___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to backup database, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to backup database, error: %@", &v2, 0xCu);
 }
 
 @end

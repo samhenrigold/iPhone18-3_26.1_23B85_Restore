@@ -49,107 +49,107 @@
   v10 = v9;
   if (v9)
   {
-    v39 = 0.0;
-    v40 = 0;
-    v38 = 0.0;
-    [v9 getIntValue:&v40 fromParm:1 atFxTime:info->var0.var1];
-    [v10 getIntValue:&v40 + 4 fromParm:2 atFxTime:info->var0.var1];
-    [v10 getFloatValue:&v38 fromParm:3 atFxTime:info->var0.var1];
-    [v10 getFloatValue:&v39 fromParm:4 atFxTime:info->var0.var1];
-    if (HIDWORD(v40) >= 6)
+    v32 = 0.0;
+    v33 = 0;
+    v31 = 0.0;
+    [v9 getIntValue:&v33 fromParm:1 atFxTime:info->var0.var1];
+    [v10 getIntValue:&v33 + 4 fromParm:2 atFxTime:info->var0.var1];
+    [v10 getFloatValue:&v31 fromParm:3 atFxTime:info->var0.var1];
+    [v10 getFloatValue:&v32 fromParm:4 atFxTime:info->var0.var1];
+    if (HIDWORD(v33) >= 6)
     {
-      PCPrint("File %s, line %d should not have been reached:\n\t", v11, v12, v13, v14, v15, v16, v17, "/Library/Caches/com.apple.xbs/Sources/FiltersiOS/Filters/PAELumaKey.mm");
+      PCPrint("File %s, line %d should not have been reached:\n\t", "/Library/Caches/com.apple.xbs/Sources/FiltersiOS/Filters/PAELumaKey.mm", 192);
       pcAbortImpl();
     }
 
-    v18 = flt_260343FD4[HIDWORD(v40)];
-    v19 = flt_260343FEC[HIDWORD(v40)];
-    v20 = flt_260344004[HIDWORD(v40)];
-    v21 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
-    if (v21 && [input imageType] == 3)
+    v11 = flt_260343FD4[HIDWORD(v33)];
+    v12 = flt_260343FEC[HIDWORD(v33)];
+    v13 = flt_260344004[HIDWORD(v33)];
+    v14 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
+    if (v14 && [input imageType] == 3)
     {
-      v22 = HGObject::operator new(0x1A0uLL);
-      HgcLumaKey::HgcLumaKey(v22);
-      v37 = v22;
-      v24 = v38;
-      v23 = v39;
-      if (v40 >= 2)
+      v15 = HGObject::operator new(0x1A0uLL);
+      HgcLumaKey::HgcLumaKey(v15);
+      v30 = v15;
+      v17 = v31;
+      v16 = v32;
+      if (v33 >= 2)
       {
-        v25 = 0.25;
+        v18 = 0.25;
       }
 
       else
       {
-        v25 = 0.5;
+        v18 = 0.5;
       }
 
-      (*(*v22 + 96))(v22, 0, v18, v19, v20, 0.0);
-      v29.n128_u32[0] = 1.0;
-      if (v40 == 1)
+      (*(*v15 + 96))(v15, 0, v11, v12, v13, 0.0);
+      v22.n128_u32[0] = 1.0;
+      if (v33 == 1)
       {
-        v26.n128_f32[0] = 1.0;
+        v19.n128_f32[0] = 1.0;
       }
 
       else
       {
-        v26.n128_f32[0] = 0.0;
+        v19.n128_f32[0] = 0.0;
       }
 
-      if (v40)
+      if (v33)
       {
-        v27.n128_f32[0] = 0.0;
+        v20.n128_f32[0] = 0.0;
       }
 
       else
       {
-        v27.n128_f32[0] = 1.0;
+        v20.n128_f32[0] = 1.0;
       }
 
-      if (v40 == 2)
+      if (v33 == 2)
       {
-        v28.n128_f32[0] = 1.0;
+        v21.n128_f32[0] = 1.0;
       }
 
       else
       {
-        v28.n128_f32[0] = 0.0;
+        v21.n128_f32[0] = 0.0;
       }
 
-      if (v40 != 3)
+      if (v33 != 3)
       {
-        v29.n128_f32[0] = 0.0;
+        v22.n128_f32[0] = 0.0;
       }
 
-      (*(*v22 + 96))(v22, 1, v26, v27, v28, v29);
-      v30 = v24 * v25 + v25;
-      v31 = v23 * (v25 - vabdd_f64(v25, v30));
-      v32 = v30 - v31;
-      v33 = v30 + v31;
-      *&v30 = v32;
-      *&v33 = v33;
-      (*(*v22 + 96))(v22, 2, *&v30, *&v33, 0.0, 0.0);
+      (*(*v15 + 96))(v15, 1, v19, v20, v21, v22);
+      v23 = v17 * v18 + v18;
+      v24 = v16 * (v18 - vabdd_f64(v18, v23));
+      v25 = v23 - v24;
+      v26 = v23 + v24;
+      *&v23 = v25;
+      *&v26 = v26;
+      (*(*v15 + 96))(v15, 2, *&v23, *&v26, 0.0, 0.0);
       if (input)
       {
-        [input heliumRef];
-        v34 = v36;
+        objc_msgSend_heliumRef(input);
+        v27 = v29;
       }
 
       else
       {
-        v34 = 0;
-        v36 = 0;
+        v27 = 0;
+        v29 = 0;
       }
 
-      (*(*v22 + 120))(v22, 0, v34);
-      if (v36)
+      (*(*v15 + 120))(v15, 0, v27);
+      if (v29)
       {
-        (*(*v36 + 24))(v36);
+        (*(*v29 + 24))(v29);
       }
 
-      [output setHeliumRef:&v37];
-      if (v37)
+      [output setHeliumRef:&v30];
+      if (v30)
       {
-        (*(*v37 + 24))(v37);
+        (*(*v30 + 24))(v30);
       }
     }
   }

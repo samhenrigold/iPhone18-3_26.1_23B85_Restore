@@ -8,9 +8,9 @@
 - (id)_af_messageIdentifierValue
 {
   scheme = [self scheme];
-  v3 = [scheme isEqualToString:@"siri-message-internal"];
+  isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-  if (v3)
+  if (isEqualToString)
   {
     resourceSpecifier = [self resourceSpecifier];
     stringByRemovingPercentEncoding = [resourceSpecifier stringByRemovingPercentEncoding];

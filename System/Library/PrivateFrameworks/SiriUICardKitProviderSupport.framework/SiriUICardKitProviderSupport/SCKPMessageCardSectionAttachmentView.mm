@@ -289,8 +289,8 @@ void __63__SCKPMessageCardSectionAttachmentView__loadLinkWith_metadata___block_i
   lCopy = l;
   v5 = [[v3 alloc] initWithURL:lCopy options:0];
 
-  [v5 duration];
-  [v5 duration];
+  objc_msgSend_duration(v5);
+  objc_msgSend_duration(v5);
   v6 = [MEMORY[0x277D75740] timeStringForSeconds:v9 / v8 forceFullWidthComponents:0 isElapsed:1];
 
   return v6;
@@ -298,19 +298,17 @@ void __63__SCKPMessageCardSectionAttachmentView__loadLinkWith_metadata___block_i
 
 - (void)_handleTap:(id)tap
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SCKPMessageCardSectionAttachmentView _handleTap:]";
-    _os_log_impl(&dword_26950D000, v4, OS_LOG_TYPE_DEFAULT, "%s #messages: Tap on attachment - punching out", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SCKPMessageCardSectionAttachmentView _handleTap:]";
+    _os_log_impl(&dword_26950D000, v4, OS_LOG_TYPE_DEFAULT, "%s #messages: Tap on attachment - punching out", &v6, 0xCu);
   }
 
   delegate = [(SCKPMessageCardSectionAttachmentView *)self delegate];
   [delegate userDidTapAttachmentView:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -462,48 +460,43 @@ void __63__SCKPMessageCardSectionAttachmentView__loadLinkWith_metadata___block_i
 
 - (void)_loadLinkWith:(void *)a1 metadata:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localizedDescription];
-  v6 = 136315394;
-  v7 = "[SCKPMessageCardSectionAttachmentView _loadLinkWith:metadata:]";
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_26950D000, v3, OS_LOG_TYPE_ERROR, "%s #messages: error converting metadata to LPLinkMetadata:%@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136315394;
+  v6 = "[SCKPMessageCardSectionAttachmentView _loadLinkWith:metadata:]";
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_26950D000, v3, OS_LOG_TYPE_ERROR, "%s #messages: error converting metadata to LPLinkMetadata:%@", &v5, 0x16u);
 }
 
 void __63__SCKPMessageCardSectionAttachmentView__loadLinkWith_metadata___block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 136315394;
-  v5 = "[SCKPMessageCardSectionAttachmentView _loadLinkWith:metadata:]_block_invoke_2";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_26950D000, a2, OS_LOG_TYPE_ERROR, "%s #messages Metadata fetch failed with error: %@ creating new metadata", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[SCKPMessageCardSectionAttachmentView _loadLinkWith:metadata:]_block_invoke_2";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_26950D000, a2, OS_LOG_TYPE_ERROR, "%s #messages Metadata fetch failed with error: %@ creating new metadata", &v3, 0x16u);
 }
 
 - (void)_thumbnailImageForVideoURL:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_26950D000, log, OS_LOG_TYPE_ERROR, "error: %@ creating thumbnail from movie url: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_26950D000, log, OS_LOG_TYPE_ERROR, "error: %@ creating thumbnail from movie url: %@", &v3, 0x16u);
 }
 
 - (void)sizeThatFits:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SCKPMessageCardSectionAttachmentView sizeThatFits:]";
-  _os_log_error_impl(&dword_26950D000, log, OS_LOG_TYPE_ERROR, "%s Calling size that fits before setting a valid URL", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SCKPMessageCardSectionAttachmentView sizeThatFits:]";
+  _os_log_error_impl(&dword_26950D000, log, OS_LOG_TYPE_ERROR, "%s Calling size that fits before setting a valid URL", &v1, 0xCu);
 }
 
 @end

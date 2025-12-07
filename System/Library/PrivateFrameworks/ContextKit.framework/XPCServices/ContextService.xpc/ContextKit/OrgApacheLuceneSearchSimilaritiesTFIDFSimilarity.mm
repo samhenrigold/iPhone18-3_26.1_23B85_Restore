@@ -18,9 +18,9 @@
   -[OrgApacheLuceneSearchSimilaritiesTFIDFSimilarity idfWithLong:withLong:](self, "idfWithLong:withLong:", v6, [statistics maxDoc]);
   v8 = v7;
   v16 = JreStrcat("$J$JC", v9, v10, v11, v12, v13, v14, v15, @"idf(docFreq=");
-  v17 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchExplanation_class_()];
+  v18 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchExplanation_class_(v16, v17)];
 
-  return OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withOrgApacheLuceneSearchExplanationArray_(v16, v17, v8);
+  return OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withOrgApacheLuceneSearchExplanationArray_(v8, v16, v18);
 }
 
 - (id)idfExplainWithOrgApacheLuceneSearchCollectionStatistics:(id)statistics withOrgApacheLuceneSearchTermStatisticsArray:(id)array
@@ -55,8 +55,8 @@
       -[OrgApacheLuceneSearchSimilaritiesTFIDFSimilarity idfWithLong:withLong:](self, "idfWithLong:withLong:", [v12 docFreq], maxDoc);
       v14 = v13;
       v22 = JreStrcat("$J$JC", v15, v16, v17, v18, v19, v20, v21, @"idf(docFreq=");
-      v23 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchExplanation_class_()];
-      [(JavaUtilArrayList *)v8 addWithId:OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withOrgApacheLuceneSearchExplanationArray_(v22, v23, v14)];
+      v24 = [IOSObjectArray arrayWithLength:0 type:OrgApacheLuceneSearchExplanation_class_(v22, v23)];
+      [(JavaUtilArrayList *)v8 addWithId:OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withOrgApacheLuceneSearchExplanationArray_(v14, v22, v24)];
       v11 = v11 + v14;
       if (v9 >= v10)
       {
@@ -70,7 +70,7 @@ LABEL_9:
 
 LABEL_6:
 
-  return OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withJavaUtilCollection_(@"idf(), sum of:", v8, v11);
+  return OrgApacheLuceneSearchExplanation_matchWithFloat_withNSString_withJavaUtilCollection_(v11, @"idf(), sum of:", v8);
 }
 
 - (int64_t)computeNormWithOrgApacheLuceneIndexFieldInvertState:(id)state

@@ -41,7 +41,7 @@
 
 void __65__FCPersonalizationWhitelist_initWithPBPersonalizationWhitelist___block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) defaultTags];
   v5 = v4;
@@ -83,39 +83,37 @@ void __65__FCPersonalizationWhitelist_initWithPBPersonalizationWhitelist___block
     {
       v15 = MEMORY[0x1E696ACB0];
       v16 = [v14 dataUsingEncoding:4];
-      v28 = 0;
-      v17 = [v15 JSONObjectWithData:v16 options:4 error:&v28];
-      v18 = v28;
+      v27 = 0;
+      v17 = [v15 JSONObjectWithData:v16 options:4 error:&v27];
+      v18 = v27;
 
       if (v18 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected nil value for '%s'", "error"];
+        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"expected nil value for '%s'", "error"];
         *buf = 136315906;
-        v30 = "[FCPersonalizationWhitelist initWithPBPersonalizationWhitelist:]_block_invoke";
-        v31 = 2080;
-        v32 = "FCPersonalizationWhitelist.m";
-        v33 = 1024;
-        v34 = 73;
-        v35 = 2114;
-        v36 = v24;
+        v29 = "[FCPersonalizationWhitelist initWithPBPersonalizationWhitelist:]_block_invoke";
+        v30 = 2080;
+        v31 = "FCPersonalizationWhitelist.m";
+        v32 = 1024;
+        v33 = 73;
+        v34 = 2114;
+        v35 = v23;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
       v19 = MEMORY[0x1E695DF20];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __65__FCPersonalizationWhitelist_initWithPBPersonalizationWhitelist___block_invoke_16;
-      v25[3] = &unk_1E7C37D00;
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __65__FCPersonalizationWhitelist_initWithPBPersonalizationWhitelist___block_invoke_16;
+      v24[3] = &unk_1E7C37D00;
       v20 = v3;
-      v26 = v20;
-      v27 = v17;
+      v25 = v20;
+      v26 = v17;
       v21 = v17;
-      v22 = [v19 fc_dictionary:v25];
+      v22 = [v19 fc_dictionary:v24];
       [v20 setObject:v22 forKeyedSubscript:@"optionalTags"];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FCPersonalizationWhitelist_initWithPBPersonalizationWhitelist___block_invoke_16(uint64_t a1, void *a2)

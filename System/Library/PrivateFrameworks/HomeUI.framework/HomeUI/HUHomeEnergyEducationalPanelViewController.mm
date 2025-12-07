@@ -11,7 +11,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for HomeEnergyEducationalPanelViewController();
+  v3.super_class = type metadata accessor for HomeEnergyEducationalPanelViewController(0);
   v2 = v3.receiver;
   [(HUHomeEnergyEducationalPanelViewController *)&v3 viewDidLoad];
   sub_20CFAF0B8();
@@ -21,10 +21,10 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C8207C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C8207C0, &qword_20D5BC800);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v12 - v6;
-  v8 = type metadata accessor for HomeEnergyEducationalPanelViewController();
+  v8 = type metadata accessor for HomeEnergyEducationalPanelViewController(0);
   v13.receiver = self;
   v13.super_class = v8;
   selfCopy = self;
@@ -67,7 +67,7 @@
   }
 
   v15.receiver = self;
-  v15.super_class = type metadata accessor for HomeEnergyEducationalPanelViewController();
+  v15.super_class = type metadata accessor for HomeEnergyEducationalPanelViewController(0);
   v13 = [(HUHomeEnergyEducationalPanelViewController *)&v15 initWithNibName:v9 bundle:bundle];
 
   return v13;
@@ -79,7 +79,7 @@
   v6 = sub_20D5637A8();
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v10.receiver = self;
-  v10.super_class = type metadata accessor for HomeEnergyEducationalPanelViewController();
+  v10.super_class = type metadata accessor for HomeEnergyEducationalPanelViewController(0);
   coderCopy = coder;
   v8 = [(HUHomeEnergyEducationalPanelViewController *)&v10 initWithCoder:coderCopy];
 

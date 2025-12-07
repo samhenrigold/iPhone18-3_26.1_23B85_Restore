@@ -16,9 +16,11 @@
     v3 = qword_1001FE9F0;
     qword_1001FE9F0 = v2;
 
-    qword_1001FE9F8 = dispatch_queue_create("vot-preference-storage-queue", 0);
+    v4 = dispatch_queue_create("vot-preference-storage-queue", 0);
+    v5 = qword_1001FE9F8;
+    qword_1001FE9F8 = v4;
 
-    _objc_release_x1();
+    _objc_release_x1(v4, v5);
   }
 }
 

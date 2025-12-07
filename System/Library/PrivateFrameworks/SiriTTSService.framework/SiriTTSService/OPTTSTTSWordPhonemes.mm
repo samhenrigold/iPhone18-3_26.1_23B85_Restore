@@ -41,55 +41,55 @@ apple::aiml::flatbuffers2::DetachedBuffer *__36__OPTTSTTSWordPhonemes_flatbuffDa
 
 - (Offset<siri::speech::schema_fb::TTSWordPhonemes>)addObjectToBuffer:(void *)buffer
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v25 = 0;
   v26 = 0;
   v27 = 0;
-  v28 = 0;
   phonemes = [(OPTTSTTSWordPhonemes *)self phonemes];
-  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::reserve(&v26, [phonemes count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::reserve(&v25, [phonemes count]);
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   phonemes2 = [(OPTTSTTSWordPhonemes *)self phonemes];
-  v7 = [phonemes2 countByEnumeratingWithState:&v22 objects:v29 count:16];
+  v7 = [phonemes2 countByEnumeratingWithState:&v21 objects:v28 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(phonemes2);
         }
 
-        uTF8String = [*(*(&v22 + 1) + 8 * i) UTF8String];
+        uTF8String = [*(*(&v21 + 1) + 8 * i) UTF8String];
         v11 = strlen(uTF8String);
         String = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String, v11);
-        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::push_back[abi:ne200100](&v26, &String);
+        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::TextToSpeechRequest_::ContextInfoEntry>>::push_back[abi:ne200100](&v25, &String);
       }
 
-      v7 = [phonemes2 countByEnumeratingWithState:&v22 objects:v29 count:16];
+      v7 = [phonemes2 countByEnumeratingWithState:&v21 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  v12 = v26;
-  if (v27 == v26)
+  v12 = v25;
+  if (v26 == v25)
   {
     v13 = &apple::aiml::flatbuffers2::data<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>,std::allocator<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>>(std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>> const&)::t;
   }
 
   else
   {
-    v13 = v26;
+    v13 = v25;
   }
 
-  v14 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v13, (v27 - v26) >> 2);
+  v14 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v13, (v26 - v25) >> 2);
   apple::aiml::flatbuffers2::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v15 = *(buffer + 5);
@@ -102,7 +102,6 @@ apple::aiml::flatbuffers2::DetachedBuffer *__36__OPTTSTTSWordPhonemes_flatbuffDa
     operator delete(v12);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

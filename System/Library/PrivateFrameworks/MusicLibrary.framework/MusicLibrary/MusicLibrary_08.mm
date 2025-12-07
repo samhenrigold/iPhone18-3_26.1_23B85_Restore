@@ -1192,7 +1192,7 @@ void sub_22D4830AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ML3ITunesSyncContainerImportItem::getImportItemArrayValue(id *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void ML3ITunesSyncContainerImportItem::getImportItemArrayValue(id *this@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
 {
   v9 = *MEMORY[0x277D85DE8];
   *a3 = 0;
@@ -1299,9 +1299,9 @@ void ML3ITunesSyncContainerTrackItemImportItem::getStringValue(uint64_t a1@<X1>,
   *(a2 + 32) = 0;
   if ((a1 - 234881028) > 6 || ((1 << (a1 - 4)) & 0x43) == 0)
   {
-    v6 = [MEMORY[0x277CCA890] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"virtual ML3ImportStringValue ML3ITunesSyncContainerTrackItemImportItem::getStringValue(MLImportPropertyKey) const"];
-    [v6 handleFailureInFunction:v5 file:@"ML3ITunesSyncImportItem.mm" lineNumber:969 description:{@"ML3ITunesSyncContainerTrackItemImportItem::getStringValue called with unknown property key %x", a1}];
+    v5 = [MEMORY[0x277CCA890] currentHandler];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"virtual ML3ImportStringValue ML3ITunesSyncContainerTrackItemImportItem::getStringValue(MLImportPropertyKey) const"];
+    [v5 handleFailureInFunction:v4 file:@"ML3ITunesSyncImportItem.mm" lineNumber:969 description:{@"ML3ITunesSyncContainerTrackItemImportItem::getStringValue called with unknown property key %x", a1}];
   }
 }
 
@@ -4896,15 +4896,15 @@ float MLScaledVolumeNormalizationFromITValue(unsigned int a1)
   return floor(log10(v1) * 20.0 + 0.5);
 }
 
-void MLChapterDataSetASCIIValue(uint64_t a1, void *a2)
+void MLChapterDataSetASCIIValue(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v2 = a2;
-    [(__CFString *)v2 length];
+    v4 = a2;
+    [(__CFString *)v4 length];
     bzero(buffer, 0x800uLL);
-    CString = CFStringGetCString(v2, buffer, 2047, 0x600u);
+    CString = CFStringGetCString(v4, buffer, 2047, 0x600u);
 
     if (CString)
     {
@@ -4913,15 +4913,15 @@ void MLChapterDataSetASCIIValue(uint64_t a1, void *a2)
   }
 }
 
-void MLChapterDataSetUTF16Value(uint64_t a1, void *a2)
+void MLChapterDataSetUTF16Value(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v2 = a2;
-    [(__CFString *)v2 length];
-    memset(v4, 0, sizeof(v4));
-    CString = CFStringGetCString(v2, v4, 510, 0x10000100u);
+    v4 = a2;
+    [(__CFString *)v4 length];
+    memset(v6, 0, sizeof(v6));
+    CString = CFStringGetCString(v4, v6, 510, 0x10000100u);
 
     if (CString)
     {
@@ -5268,6 +5268,13 @@ LABEL_15:
 LABEL_19:
 
   return v12;
+}
+
+void sub_22D48CE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, ...)
+{
+  va_start(va, a49);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__11056(uint64_t result, uint64_t a2)
@@ -7687,14 +7694,14 @@ LABEL_29:
   return v10 & 1;
 }
 
-void sub_22D498128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22D498128(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -8514,9 +8521,9 @@ uint64_t ML3MigrationColumnExistsInTable(void *a1, void *a2, void *a3)
   return v11;
 }
 
-void sub_22D499A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22D499A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8598,9 +8605,9 @@ uint64_t ML3MigrationRemoveLocationsForItemsMissingAssets(void *a1)
   return v3;
 }
 
-void sub_22D499E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22D499E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8897,7 +8904,7 @@ void ML3MigrationUpdateAllBestArtworkTokens(void *a1)
   }
 }
 
-void sub_22D49AC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_22D49AC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
 {
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
@@ -9040,9 +9047,9 @@ LABEL_23:
 LABEL_25:
 }
 
-void sub_22D49B184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22D49B184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

@@ -1,60 +1,60 @@
-void *PadHostService::PadHostServiceAlgsDevice::PadHostServiceAlgsDevice(uint64_t a1, char a2, int a3, char a4, const char *a5)
+void *PadHostService::PadHostServiceAlgsDevice::PadHostServiceAlgsDevice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   result = AlgsDevice::AlgsDevice(a1, a2, "PadHostServiceDefaultPersonality", a3, a4, a5, 1);
   *result = &unk_2876EE850;
   return result;
 }
 
-AlgWorkNode *TouchService::InterpolationStep::InterpolationStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+AlgWorkNode *TouchService::InterpolationStep::InterpolationStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9)
 {
-  AlgWorkNode::AlgWorkNode(a1);
-  *v16 = &unk_2876EE8B0;
-  *(v16 + 10) = a2;
-  *(v16 + 11) = a3;
-  *(v16 + 12) = a4;
-  *(v16 + 13) = a5;
-  *(v16 + 14) = a6;
-  *(v16 + 15) = a7;
-  *(v16 + 16) = a8;
-  *(v16 + 19) = 0;
-  *(v16 + 20) = 0;
-  *(v16 + 18) = 0;
-  TouchService::InterpolationStep::runNodeRegistrations(v16);
+  AlgWorkNode::AlgWorkNode(a1, 0xAD07F5970BDB4DA9);
+  *v17 = &unk_2876EE8B0;
+  *(v17 + 10) = a2;
+  *(v17 + 11) = a3;
+  *(v17 + 12) = a4;
+  *(v17 + 13) = a5;
+  *(v17 + 14) = a6;
+  *(v17 + 15) = a7;
+  *(v17 + 16) = a8;
+  *(v17 + 19) = 0;
+  *(v17 + 20) = 0;
+  *(v17 + 18) = 0;
+  TouchService::InterpolationStep::runNodeRegistrations(v17);
   *(a1 + 17) = operator new(8 * *(*(a1 + 14) + 40));
   if (*(*(a1 + 14) + 40))
   {
-    v17 = 0;
+    v18 = 0;
     do
     {
-      v18 = operator new(0x58uLL);
-      v19 = 0;
-      *v18 = *(a1 + 13) + 28;
+      v19 = operator new(0x58uLL);
+      v20 = 0;
+      *v19 = *(a1 + 13) + 28;
       do
       {
-        v20 = &v18[v19];
-        v20[16] = 0;
-        *(v20 + 5) = 0;
-        *(v20 + 6) = 0;
-        *(v20 + 4) = 0;
-        v19 += 6;
+        v21 = &v19[v20];
+        v21[16] = 0;
+        *(v21 + 5) = 0;
+        *(v21 + 6) = 0;
+        *(v21 + 4) = 0;
+        v20 += 6;
       }
 
-      while (v19 != 18);
-      v18[2] = 0;
-      *(v18 + 16) = 0;
-      *(v18 + 40) = 0;
-      *(v18 + 64) = 0;
-      *(*(a1 + 17) + 8 * v17++) = v18;
+      while (v20 != 18);
+      v19[2] = 0;
+      *(v19 + 16) = 0;
+      *(v19 + 40) = 0;
+      *(v19 + 64) = 0;
+      *(*(a1 + 17) + 8 * v18++) = v19;
     }
 
-    while (v17 < *(*(a1 + 14) + 40));
+    while (v18 < *(*(a1 + 14) + 40));
   }
 
   return a1;
 }
 
 {
-  return TouchService::InterpolationStep::InterpolationStep(a1, a2, a3, a4, a5, a6, a7, a8);
+  return TouchService::InterpolationStep::InterpolationStep(a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
 
 void *TouchService::InterpolationStep::runNodeRegistrations(TouchService::InterpolationStep *this)
@@ -155,7 +155,7 @@ void TouchService::InterpolationStep::~InterpolationStep(TouchService::Interpola
 
 uint64_t TouchService::InterpolationStep::run(TouchService::InterpolationStep *this)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v2 = *(this + 13);
   if (*(v2 + 28) == 1)
   {
@@ -191,7 +191,7 @@ uint64_t TouchService::InterpolationStep::run(TouchService::InterpolationStep *t
         v15 = *v14;
         if (!*v14 || v15 >= *(*(this + 14) + 40))
         {
-          break;
+          return 1;
         }
 
         PathWithId = TouchService::PlainPathCollection::getPathWithId(*(this + 15), v15);
@@ -219,13 +219,13 @@ uint64_t TouchService::InterpolationStep::run(TouchService::InterpolationStep *t
 
         else
         {
-          v37 = 0;
+          v36 = 0;
           v22 = 25400.0 / *(*(this + 12) + 28);
           TouchService::PathInterpolator::update(v21, **(this + 10), v14);
-          if (TouchService::PathInterpolator::interpolateAt(v21, **(this + 11), &v37 + 1, &v37, v22))
+          if (TouchService::PathInterpolator::interpolateAt(v21, **(this + 11), &v36 + 1, &v36, v22))
           {
-            *(v18 + 4) = HIDWORD(v37);
-            *(v18 + 8) = v37;
+            *(v18 + 4) = HIDWORD(v36);
+            *(v18 + 8) = v36;
             *v18 = *v14;
             v23 = SALoggingGeneral();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
@@ -238,19 +238,19 @@ uint64_t TouchService::InterpolationStep::run(TouchService::InterpolationStep *t
               v29 = *(v18 + 4);
               v30 = *(v18 + 8);
               *buf = 67110657;
-              v39 = v24;
-              v40 = 1024;
-              v41 = v25;
-              v42 = 1024;
-              v43 = v26;
-              v44 = 2053;
-              v45 = v27;
-              v46 = 2053;
-              v47 = v28;
-              v48 = 2053;
-              v49 = v29;
-              v50 = 2053;
-              v51 = v30;
+              v38 = v24;
+              v39 = 1024;
+              v40 = v25;
+              v41 = 1024;
+              v42 = v26;
+              v43 = 2053;
+              v44 = v27;
+              v45 = 2053;
+              v46 = v28;
+              v47 = 2053;
+              v48 = v29;
+              v49 = 2053;
+              v50 = v30;
               _os_log_debug_impl(&dword_2653C2000, v23, OS_LOG_TYPE_DEBUG, "InterpolationStep:  P%d -> F%d stage=%d path=(%{sensitive}.3f,%{sensitive}.3f) interp=(%{sensitive}.3f,%{sensitive}.3f)\n", buf, 0x3Cu);
             }
           }
@@ -269,8 +269,6 @@ uint64_t TouchService::InterpolationStep::run(TouchService::InterpolationStep *t
           goto LABEL_21;
         }
       }
-
-      result = 1;
     }
 
     else
@@ -309,10 +307,9 @@ LABEL_21:
   else
   {
     TouchService::TouchServiceEventCollection::setNumEvents(*(this + 16), 0);
-    result = 0;
+    return 0;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -346,7 +343,7 @@ uint64_t TouchService::PathInterpolator::update(uint64_t result, unint64_t a2, u
 
 BOOL TouchService::PathInterpolator::interpolateAt(TouchService::PathInterpolator *this, uint64_t a2, float *a3, float *a4, float a5)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v6 = *(this + 2);
   if (v6 < 2)
   {
@@ -356,7 +353,7 @@ BOOL TouchService::PathInterpolator::interpolateAt(TouchService::PathInterpolato
       TouchService::PathInterpolator::interpolateAt(a2, v12);
     }
 
-    goto LABEL_18;
+    return v6 > 1;
   }
 
   if (*(this + 16) == 1 && *(this + 40) == 1)
@@ -397,31 +394,31 @@ LABEL_13:
       v23 = *(this + 2);
       v24 = *a3;
       v25 = *a4;
-      v41 = 67110913;
-      *v42 = v23;
-      *&v42[4] = 1024;
-      *&v42[6] = v15;
-      LOWORD(v43) = 1024;
-      *(&v43 + 2) = v11 & 1;
-      HIWORD(v43) = 1024;
-      *v44 = v17;
-      *&v44[4] = 2048;
-      *&v44[6] = a5;
-      *&v44[14] = 2048;
-      *&v44[16] = a2;
-      v45 = 2053;
-      v46 = v24;
-      v47 = 2053;
-      v48 = v25;
+      v40 = 67110913;
+      *v41 = v23;
+      *&v41[4] = 1024;
+      *&v41[6] = v15;
+      LOWORD(v42) = 1024;
+      *(&v42 + 2) = v11 & 1;
+      HIWORD(v42) = 1024;
+      *v43 = v17;
+      *&v43[4] = 2048;
+      *&v43[6] = a5;
+      *&v43[14] = 2048;
+      *&v43[16] = a2;
+      v44 = 2053;
+      v45 = v24;
+      v46 = 2053;
+      v47 = v25;
       v26 = "InterpolationStep:  Linear Interpolation Occurred(_count=%d, is_stationary=%d, is_2nd_touching=%d, is_frame_dropped=%d, quantum=%.3f) at t=%llu: output=(%{sensitive}.3f,%{sensitive}.3f)\n";
       v27 = v22;
       v28 = 66;
 LABEL_20:
-      _os_log_debug_impl(&dword_2653C2000, v27, OS_LOG_TYPE_DEBUG, v26, &v41, v28);
-      goto LABEL_18;
+      _os_log_debug_impl(&dword_2653C2000, v27, OS_LOG_TYPE_DEBUG, v26, &v40, v28);
+      return v6 > 1;
     }
 
-    goto LABEL_18;
+    return v6 > 1;
   }
 
   v32 = (a2 - v30);
@@ -432,40 +429,36 @@ LABEL_20:
   v36 = SALoggingGeneral();
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
-    v39 = *a3;
-    v40 = *a4;
-    v41 = 134218753;
-    *v42 = a5;
-    *&v42[8] = 2048;
-    v43 = a2;
-    *v44 = 2053;
-    *&v44[2] = v39;
-    *&v44[10] = 2053;
-    *&v44[12] = v40;
+    v38 = *a3;
+    v39 = *a4;
+    v40 = 134218753;
+    *v41 = a5;
+    *&v41[8] = 2048;
+    v42 = a2;
+    *v43 = 2053;
+    *&v43[2] = v38;
+    *&v43[10] = 2053;
+    *&v43[12] = v39;
     v26 = "InterpolationStep:  2nd-order Polynomial Interpolation Occurred(quantum=%.3f) at t=%llu: output=(%{sensitive}.3f,%{sensitive}.3f)\n";
     v27 = v36;
     v28 = 42;
     goto LABEL_20;
   }
 
-LABEL_18:
-  result = v6 > 1;
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 > 1;
 }
 
 void TouchService::PathInterpolator::interpolateAt(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2653C2000, a2, OS_LOG_TYPE_DEBUG, "InterpolationStep:  Interpolation Didn't Occur at t=%llu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2653C2000, a2, OS_LOG_TYPE_DEBUG, "InterpolationStep:  Interpolation Didn't Occur at t=%llu", &v2, 0xCu);
 }
 
 void PalmRejection::UpdatePalmRejectionFeaturesStep::UpdatePalmRejectionFeaturesStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  AlgWorkNode::AlgWorkNode(a1);
+  AlgWorkNode::AlgWorkNode(a1, 0x242ECBB73C5A3D10);
   *v7 = &unk_2876EE900;
   v7[10] = a2;
   v7[11] = a3;
@@ -486,98 +479,99 @@ uint64_t PalmRejection::UpdatePalmRejectionFeaturesStep::run(PalmRejection::Upda
   *(v2 + 892) = *(v4 + 8008);
   v5 = *(this + 10);
   *(*(this + 12) + 904) = *(*(this + 11) + 8056);
-  v28[0] = PalmRejUtil::getDist2WeightParams((v5 + 72), a2);
-  v28[1] = v6;
-  v7 = *(this + 12);
-  if (*(v7 + 568) >= *(*(this + 10) + 52) || *(v7 + 1784) == 1 && *(v7 + 901) != 1)
+  Dist2WeightParams = PalmRejUtil::getDist2WeightParams((v5 + 72), a2);
+  v28[0] = Dist2WeightParams;
+  v28[1] = v7;
+  v8 = *(this + 12);
+  if (*(v8 + 568) >= *(*(this + 10) + 52) || *(v8 + 1784) == 1 && *(v8 + 901) != 1)
   {
-    v9 = *(v7 + 1148);
-    if (v9 < 1)
+    v10 = *(v8 + 1148);
+    if (v10 < 1)
     {
 LABEL_18:
-      v8 = 0;
+      v9 = 0;
       goto LABEL_19;
     }
 
-    v10 = (v7 + 1068);
+    v11 = (v8 + 1068);
     do
     {
-      *v10 = 1065353216;
-      *(v10 - 20) = 0;
-      ++v10;
-      --v9;
+      *v11 = 1065353216;
+      *(v11 - 20) = 0;
+      ++v11;
+      --v10;
     }
 
-    while (v9);
+    while (v10);
   }
 
   else
   {
     PalmRejection::UpdatePalmRejectionFeaturesStep::getB222Poses2Cos(this, v28, &v27);
-    v7 = *(this + 12);
-    v8 = *(v7 + 1148) > 0;
-    if (*(v7 + 1148) <= 0)
+    v8 = *(this + 12);
+    v9 = *(v8 + 1148) > 0;
+    if (*(v8 + 1148) <= 0)
     {
       goto LABEL_19;
     }
   }
 
-  LOWORD(v11) = 0;
+  LOWORD(v12) = 0;
   do
   {
-    PalmRejection::UpdatePalmRejectionFeaturesStep::updatePathHistory(this, *(this + 11) + 400 * *(*(this + 11) + 2 * v11 + 8252), v11, *(v7 + 568));
-    v11 = (v11 + 1);
-    v7 = *(this + 12);
-    v12 = *(v7 + 1148);
+    Dist2WeightParams = PalmRejection::UpdatePalmRejectionFeaturesStep::updatePathHistory(this, *(this + 11) + 400 * *(*(this + 11) + 2 * v12 + 8252), v12, *(v8 + 568));
+    v12 = (v12 + 1);
+    v8 = *(this + 12);
+    v13 = *(v8 + 1148);
   }
 
-  while (v11 < v12);
-  if (v12 < 1)
+  while (v12 < v13);
+  if (v13 < 1)
   {
     goto LABEL_18;
   }
 
-  v8 = 0;
-  v13 = 0;
-  v14 = *(this + 11);
-  v15 = v14 + 8252;
+  v9 = 0;
+  v14 = 0;
+  v15 = *(this + 11);
+  v16 = v15 + 8252;
   do
   {
-    if (*(v14 + 400 * *(v15 + 2 * v13) + 160) >= 3u)
+    if (*(v15 + 400 * *(v16 + 2 * v14) + 160) >= 3u)
     {
-      *(v14 + 8292 + 2 * v8) = *(v15 + 2 * v13);
-      *(v14 + 8332 + 2 * v8++) = v13;
-      LOWORD(v12) = *(v7 + 1148);
+      *(v15 + 8292 + 2 * v9) = *(v16 + 2 * v14);
+      *(v15 + 8332 + 2 * v9++) = v14;
+      LOWORD(v13) = *(v8 + 1148);
     }
 
-    ++v13;
+    ++v14;
   }
 
-  while (v13 < v12);
+  while (v14 < v13);
 LABEL_19:
-  *(v7 + 1150) = v8;
-  if (*(v7 + 1785) == 1)
+  *(v8 + 1150) = v9;
+  if (*(v8 + 1785) == 1)
   {
-    v16 = v27;
+    Dist2WeightParams = v27;
     v17 = *(this + 11);
 LABEL_21:
-    *(v17 + 8424) = v16;
+    *(v17 + 8424) = Dist2WeightParams;
     PalmRejection::UpdatePalmRejectionFeaturesStep::updateTouchHistoryFeatures(this);
     goto LABEL_25;
   }
 
   v18 = *(*(this + 10) + 40);
-  if (*(v7 + 564) < v18)
+  if (*(v8 + 564) < v18)
   {
     v17 = *(this + 11);
-    v16 = v27;
+    Dist2WeightParams = v27;
     if ((*(v17 + 8424) * v27) >= 0.0)
     {
       goto LABEL_21;
     }
   }
 
-  PalmRejection::UpdatePalmRejectionFeaturesStep::resetTouchHistoryFeatures(this, *(v7 + 568) - v18);
+  PalmRejection::UpdatePalmRejectionFeaturesStep::resetTouchHistoryFeatures(this, *(v8 + 568) - v18, Dist2WeightParams);
 LABEL_25:
   PalmRejection::UpdatePalmRejectionFeaturesStep::populateClassificationFrameFeatures(this);
   if (*(*(this + 12) + 1150) >= 1)
@@ -773,23 +767,23 @@ uint64_t PalmRejection::UpdatePalmRejectionFeaturesStep::updateTouchHistoryFeatu
   return this;
 }
 
-uint64_t PalmRejection::UpdatePalmRejectionFeaturesStep::resetTouchHistoryFeatures(PalmRejection::UpdatePalmRejectionFeaturesStep *this, int a2)
+uint64_t PalmRejection::UpdatePalmRejectionFeaturesStep::resetTouchHistoryFeatures(PalmRejection::UpdatePalmRejectionFeaturesStep *this, int a2, float a3)
 {
-  v4 = SALoggingGeneral();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = SALoggingGeneral();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    PalmRejection::UpdatePalmRejectionFeaturesStep::resetTouchHistoryFeatures(v4);
+    PalmRejection::UpdatePalmRejectionFeaturesStep::resetTouchHistoryFeatures(v5);
   }
 
-  v5 = *(this + 11);
-  v6 = expf(a2 * -0.001);
-  *(v5 + 8400) = 0;
-  *(v5 + 8384) = 0u;
-  *(v5 + 8404) = v6;
-  *(v5 + 8408) = 0;
-  *(v5 + 8420) = -1;
-  *(v5 + 8416) = -65536;
-  *(v5 + 8424) = 0;
+  v6 = *(this + 11);
+  v7 = expf(a2 * -0.001);
+  *(v6 + 8400) = 0;
+  *(v6 + 8384) = 0u;
+  *(v6 + 8404) = v7;
+  *(v6 + 8408) = 0;
+  *(v6 + 8420) = -1;
+  *(v6 + 8416) = -65536;
+  *(v6 + 8424) = 0;
   return PalmRejection::UpdatePalmRejectionFeaturesStep::updateTouchHistoryFeatures(this);
 }
 
@@ -925,7 +919,7 @@ LABEL_20:
 
 float PalmRejection::UpdatePalmRejectionFeaturesStep::calculatePathProbability(void *a1, uint64_t a2, unsigned int a3)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   v4 = a1[12];
   v6 = (a2 + 68);
   v5 = *(a2 + 68);
@@ -948,251 +942,249 @@ float PalmRejection::UpdatePalmRejectionFeaturesStep::calculatePathProbability(v
   }
 
   v17 = *(v4 + 1148);
-  v18 = *(v4 + 1784);
   if (v17 == 1)
   {
     if (*(v4 + 1784))
     {
-      v19 = 88;
+      v18 = 88;
       goto LABEL_22;
     }
 
-    v20 = *(v4 + 901) == 0;
-    v19 = 168;
-    v21 = 88;
+    v19 = *(v4 + 901) == 0;
+    v18 = 168;
+    v20 = 88;
   }
 
   else
   {
     if (*(v4 + 1784))
     {
-      v19 = 248;
+      v18 = 248;
       goto LABEL_22;
     }
 
-    v20 = *(v4 + 901) == 0;
-    v19 = 328;
-    v21 = 248;
+    v19 = *(v4 + 901) == 0;
+    v18 = 328;
+    v20 = 248;
   }
 
-  if (!v20)
+  if (!v19)
   {
-    v19 = v21;
+    v18 = v20;
   }
 
 LABEL_22:
-  v22 = a1[10] + v19;
-  v71 = 1065353216;
-  v72 = *(a2 + 332);
-  v23 = v72;
-  v73 = v8 - v72;
-  v24 = (v4 + 4 * a3);
-  v25 = v24[203];
-  v74 = v8;
-  v75 = v25;
-  v52 = v24[183];
-  v76 = v52;
-  v26 = 1.0;
-  v27 = *(a2 + 340) / (v25 + 1.0);
+  v21 = a1[10] + v18;
+  v69 = 1065353216;
+  v70 = *(a2 + 332);
+  v22 = v70;
+  v71 = v8 - v70;
+  v23 = (v4 + 4 * a3);
+  v24 = v23[203];
+  v72 = v8;
+  v73 = v24;
+  v50 = v23[183];
+  v74 = v50;
+  v25 = 1.0;
+  v26 = *(a2 + 340) / (v24 + 1.0);
   if (v5 <= 1)
   {
-    v28 = 0.0;
+    v27 = 0.0;
   }
 
   else
   {
-    v28 = 1.0;
+    v27 = 1.0;
   }
 
-  v55 = v24[163] / (*(a2 + 80) + 1.0);
-  v56 = v27 * v28;
-  v78 = v7;
-  v79 = v27 * v28;
-  v80 = v55;
-  v29 = fminf(v11, 3000.0);
+  v53 = v23[163] / (*(a2 + 80) + 1.0);
+  v54 = v26 * v27;
+  v76 = v7;
+  v77 = v26 * v27;
+  v78 = v53;
+  v28 = fminf(v11, 3000.0);
   if (v11 >= -1000.0)
   {
-    v30 = 0.0;
+    v29 = 0.0;
   }
 
   else
   {
-    v30 = 1.0;
+    v29 = 1.0;
   }
 
-  v53 = v7 * v30;
-  v54 = v29;
-  v81 = v29;
-  v82 = v7 * v30;
-  v83 = v12;
-  v84 = v14;
-  v31 = *(a2 + 12);
-  v85 = *(a2 + 204);
-  v86 = v31;
-  v61 = v13;
-  v62 = v85;
-  if (v31 >= v85)
+  v51 = v7 * v29;
+  v52 = v28;
+  v79 = v28;
+  v80 = v7 * v29;
+  v81 = v12;
+  v82 = v14;
+  v30 = *(a2 + 12);
+  v83 = *(a2 + 204);
+  v84 = v30;
+  v59 = v13;
+  v60 = v83;
+  if (v30 >= v83)
   {
-    v32 = 0.0;
+    v31 = 0.0;
   }
 
   else
   {
-    v32 = 1.0;
+    v31 = 1.0;
   }
 
-  v87 = v32;
-  v88 = v13;
-  v60 = v14;
+  v85 = v31;
+  v86 = v13;
+  v58 = v14;
   if (v17 == 1)
   {
-    v33 = v11 > -1000.0;
+    v32 = v11 > -1000.0;
     if (v5 > 0xF)
     {
-      v33 = 1;
+      v32 = 1;
     }
 
-    v34 = *(a2 + 180) * v33;
-    v35 = 1.0;
+    v33 = *(a2 + 180) * v32;
+    v34 = 1.0;
     if (v5 <= 0xF)
     {
-      v35 = 0.0;
+      v34 = 0.0;
     }
 
-    v36 = *(a2 + 360);
-    v77 = *(a2 + 180) * v33;
-    v59 = v36 * v35;
-    v89 = v36 * v35;
-    v90 = 0.0;
-    v37 = 0.0;
+    v35 = *(a2 + 360);
+    v75 = *(a2 + 180) * v32;
+    v57 = v35 * v34;
+    v87 = v35 * v34;
+    v88 = 0.0;
+    v36 = 0.0;
   }
 
   else
   {
-    v34 = *(a2 + 180);
-    v77 = v34;
+    v33 = *(a2 + 180);
+    v75 = v33;
     if (v17 <= 2 && (v5 < 0x10 || *(a1[11] + 8416) >= 10))
     {
       if (*(v4 + 1196) <= 0.2)
       {
-        v26 = 0.0;
+        v25 = 0.0;
       }
 
       else
       {
-        v26 = 1.0;
+        v25 = 1.0;
       }
     }
 
-    v59 = v26 * *(a2 + 360);
-    v89 = v59;
-    v90 = logf(v17);
-    v37 = v90;
+    v57 = v25 * *(a2 + 360);
+    v87 = v57;
+    v88 = logf(v17);
+    v36 = v88;
   }
 
-  v58 = v37;
-  v38 = 0;
-  v39 = 0.0;
+  v56 = v36;
+  v37 = 0;
+  v38 = 0.0;
   do
   {
-    v40 = vmulq_f32(*(&v71 + v38), *(v22 + v38));
-    v39 = (((v39 + v40.f32[0]) + v40.f32[1]) + v40.f32[2]) + v40.f32[3];
-    v38 += 16;
+    v39 = vmulq_f32(*(&v69 + v37), *(v21 + v37));
+    v38 = (((v38 + v39.f32[0]) + v39.f32[1]) + v39.f32[2]) + v39.f32[3];
+    v37 += 16;
   }
 
-  while (v38 != 80);
-  v57 = 1.0 / (expf(v39) + 1.0);
-  v41 = logf((v57 + 0.00001) / 1.0);
+  while (v37 != 80);
+  v55 = 1.0 / (expf(v38) + 1.0);
+  v40 = logf((v55 + 0.00001) / 1.0);
+  v41 = SALoggingGeneral();
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+  {
+    PalmRejection::UpdatePalmRejectionFeaturesStep::calculatePathProbability(a2, v6, v41);
+  }
+
   v42 = SALoggingGeneral();
   if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
   {
-    PalmRejection::UpdatePalmRejectionFeaturesStep::calculatePathProbability(a2, v6, v42);
+    *buf = 134218752;
+    v62 = 1.0;
+    v63 = 2048;
+    v64 = v22;
+    v65 = 2048;
+    v66 = (v8 - v22);
+    v67 = 2048;
+    v68 = v8;
+    _os_log_debug_impl(&dword_2653C2000, v42, OS_LOG_TYPE_DEBUG, "  0 -  3 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
   }
 
   v43 = SALoggingGeneral();
   if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
-    v64 = 1.0;
+    v62 = v24;
+    v63 = 2048;
+    v64 = v50;
     v65 = 2048;
-    v66 = v23;
+    v66 = v33;
     v67 = 2048;
-    v68 = (v8 - v23);
-    v69 = 2048;
-    v70 = v8;
-    _os_log_debug_impl(&dword_2653C2000, v43, OS_LOG_TYPE_DEBUG, "  0 -  3 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
+    v68 = v7;
+    _os_log_debug_impl(&dword_2653C2000, v43, OS_LOG_TYPE_DEBUG, "  4 -  7 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
   }
 
   v44 = SALoggingGeneral();
   if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
-    v64 = v25;
+    v62 = v54;
+    v63 = 2048;
+    v64 = v53;
     v65 = 2048;
     v66 = v52;
     v67 = 2048;
-    v68 = v34;
-    v69 = 2048;
-    v70 = v7;
-    _os_log_debug_impl(&dword_2653C2000, v44, OS_LOG_TYPE_DEBUG, "  4 -  7 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
+    v68 = v51;
+    _os_log_debug_impl(&dword_2653C2000, v44, OS_LOG_TYPE_DEBUG, "  8 - 11 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
   }
 
   v45 = SALoggingGeneral();
   if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218752;
-    v64 = v56;
+    v62 = v12;
+    v63 = 2048;
+    v64 = v58;
     v65 = 2048;
-    v66 = v55;
+    v66 = v60;
     v67 = 2048;
-    v68 = v54;
-    v69 = 2048;
-    v70 = v53;
-    _os_log_debug_impl(&dword_2653C2000, v45, OS_LOG_TYPE_DEBUG, "  8 - 11 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
+    v68 = v30;
+    _os_log_debug_impl(&dword_2653C2000, v45, OS_LOG_TYPE_DEBUG, " 12 - 15 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
   }
 
   v46 = SALoggingGeneral();
   if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
+    v49 = 0.0;
     *buf = 134218752;
-    v64 = v12;
+    if (v30 < v60)
+    {
+      v49 = 1.0;
+    }
+
+    v62 = v49;
+    v63 = 2048;
+    v64 = v59;
     v65 = 2048;
-    v66 = v60;
+    v66 = v57;
     v67 = 2048;
-    v68 = v62;
-    v69 = 2048;
-    v70 = v31;
-    _os_log_debug_impl(&dword_2653C2000, v46, OS_LOG_TYPE_DEBUG, " 12 - 15 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
+    v68 = v56;
+    _os_log_debug_impl(&dword_2653C2000, v46, OS_LOG_TYPE_DEBUG, " 16 - 19 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
   }
 
   v47 = SALoggingGeneral();
   if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
   {
-    v51 = 0.0;
-    *buf = 134218752;
-    if (v31 < v62)
-    {
-      v51 = 1.0;
-    }
-
-    v64 = v51;
-    v65 = 2048;
-    v66 = v61;
-    v67 = 2048;
-    v68 = v59;
-    v69 = 2048;
-    v70 = v58;
-    _os_log_debug_impl(&dword_2653C2000, v47, OS_LOG_TYPE_DEBUG, " 16 - 19 : %12.5e %12.5e %12.5e %12.5e", buf, 0x2Au);
+    PalmRejection::UpdatePalmRejectionFeaturesStep::calculatePathProbability(v47, v55, v40);
   }
 
-  v48 = SALoggingGeneral();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
-  {
-    PalmRejection::UpdatePalmRejectionFeaturesStep::calculatePathProbability(v48, v57, v41);
-  }
-
-  v49 = *MEMORY[0x277D85DE8];
-  return v41;
+  return v40;
 }
 
 void PalmRejection::UpdatePalmRejectionFeaturesStep::~UpdatePalmRejectionFeaturesStep(PalmRejection::UpdatePalmRejectionFeaturesStep *this)
@@ -1204,33 +1196,31 @@ void PalmRejection::UpdatePalmRejectionFeaturesStep::~UpdatePalmRejectionFeature
 
 void PalmRejection::UpdatePalmRejectionFeaturesStep::calculatePathProbability(uint64_t a1, int *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 56);
   v4 = *a2;
-  v6[0] = 67109376;
-  v6[1] = v3;
-  v7 = 1024;
-  v8 = v4;
-  _os_log_debug_impl(&dword_2653C2000, log, OS_LOG_TYPE_DEBUG, "\nUpdatePalmRejectionFeature %1d : %3d", v6, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = 67109376;
+  v5[1] = v3;
+  v6 = 1024;
+  v7 = v4;
+  _os_log_debug_impl(&dword_2653C2000, log, OS_LOG_TYPE_DEBUG, "\nUpdatePalmRejectionFeature %1d : %3d", v5, 0xEu);
 }
 
 void PalmRejection::UpdatePalmRejectionFeaturesStep::calculatePathProbability(os_log_t log, float a2, float a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a2;
-  v6 = 2048;
-  v7 = a3;
-  _os_log_debug_impl(&dword_2653C2000, log, OS_LOG_TYPE_DEBUG, " prob/log  : %12.7f %12.7f\n", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a2;
+  v5 = 2048;
+  v6 = a3;
+  _os_log_debug_impl(&dword_2653C2000, log, OS_LOG_TYPE_DEBUG, " prob/log  : %12.7f %12.7f\n", &v3, 0x16u);
 }
 
-AlgWorkNode *TouchService::HysteresisFilterStep::HysteresisFilterStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+AlgWorkNode *TouchService::HysteresisFilterStep::HysteresisFilterStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  AlgWorkNode::AlgWorkNode(a1);
-  *v12 = &unk_2876EE950;
-  PlainDataNode<TouchService::HysteresisFilterParams>::PlainDataNode((v12 + 10), 0x1BE28DBAFB9D43C2, 0, 0);
+  AlgWorkNode::AlgWorkNode(a1, 0xBDBBCCE214ECF11ALL);
+  *v13 = &unk_2876EE950;
+  PlainDataNode<TouchService::HysteresisFilterParams>::PlainDataNode((v13 + 10), 0x1BE28DBAFB9D43C2, 0, 0);
   *(a1 + 24) = a2;
   *(a1 + 25) = a3;
   *(a1 + 26) = a4;
@@ -1240,33 +1230,33 @@ AlgWorkNode *TouchService::HysteresisFilterStep::HysteresisFilterStep(AlgWorkNod
   *(a1 + 29) = operator new(8 * *(*(a1 + 27) + 40));
   if (*(*(a1 + 27) + 40))
   {
-    v13 = 0;
-    v14 = a1 + 108;
+    v14 = 0;
+    v15 = a1 + 108;
     do
     {
-      v15 = operator new(0x90uLL);
-      *v15 = 0;
-      v15[1] = 0;
-      v15[2] = v14;
-      *(v15 + 6) = 0;
-      v15[4] = v14;
-      *(v15 + 40) = 0;
-      v15[6] = 0;
-      v15[7] = 0;
-      *(v15 + 16) = 0;
-      *(v15 + 72) = 0;
-      *(v15 + 24) = 0;
-      v15[10] = 0;
-      v15[11] = 0;
-      *(v15 + 104) = 0;
-      v15[14] = 0;
-      v15[15] = 0;
-      *(v15 + 32) = 0;
-      *(v15 + 68) = 0;
-      *(*(a1 + 29) + 8 * v13++) = v15;
+      v16 = operator new(0x90uLL);
+      *v16 = 0;
+      v16[1] = 0;
+      v16[2] = v15;
+      *(v16 + 6) = 0;
+      v16[4] = v15;
+      *(v16 + 40) = 0;
+      v16[6] = 0;
+      v16[7] = 0;
+      *(v16 + 16) = 0;
+      *(v16 + 72) = 0;
+      *(v16 + 24) = 0;
+      v16[10] = 0;
+      v16[11] = 0;
+      *(v16 + 104) = 0;
+      v16[14] = 0;
+      v16[15] = 0;
+      *(v16 + 32) = 0;
+      *(v16 + 68) = 0;
+      *(*(a1 + 29) + 8 * v14++) = v16;
     }
 
-    while (v13 < *(*(a1 + 27) + 40));
+    while (v14 < *(*(a1 + 27) + 40));
   }
 
   return a1;
@@ -1360,7 +1350,7 @@ uint64_t TouchService::HysteresisFilterStep::run(TouchService::HysteresisFilterS
 
 void TouchService::HysteresisFilter::update(uint64_t a1, unint64_t a2, float *a3, _BYTE *a4, uint64_t a5, float a6)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   v8 = *(a3 + 1);
   v9 = v8 - 3 < 2;
   v10 = v8 >= 3;
@@ -1378,9 +1368,9 @@ void TouchService::HysteresisFilter::update(uint64_t a1, unint64_t a2, float *a3
     goto LABEL_12;
   }
 
-  v20 = *(a1 + 137);
+  v19 = *(a1 + 137);
   *(a1 + 136) = v9;
-  if (v20)
+  if (v19)
   {
 LABEL_7:
     v17 = *(a3 + 1);
@@ -1390,213 +1380,210 @@ LABEL_7:
     *(a1 + 40) = 0;
     *(a1 + 72) = 0;
     *(a1 + 24) = 0;
-    v18 = *MEMORY[0x277D85DE8];
-    v19 = a1 + 24;
+    v18 = a1 + 24;
 
-    InstabilityFilter::update(v19, a2, a3, 0);
+    InstabilityFilter::update(v18, a2, a3, 0);
     return;
   }
 
   v16 = 0;
 LABEL_12:
-  v21 = (a1 + 24);
+  v20 = (a1 + 24);
   InstabilityFilter::update(a1 + 24, a2, a3, v16 & 1);
-  v22 = *(a1 + 16);
-  v23 = *(v22 + 60);
+  v21 = *(a1 + 16);
+  v22 = *(v21 + 60);
   if (*a4 == 1)
   {
-    v23 = *(v22 + 60);
-    if (*(v22 + 68) == 1)
+    v22 = *(v21 + 60);
+    if (*(v21 + 68) == 1)
     {
-      v23 = *(v22 + 60);
-      if ((a3[2] - *(a5 + 12)) < *(v22 + 72))
+      v22 = *(v21 + 60);
+      if ((a3[2] - *(a5 + 12)) < *(v21 + 72))
       {
-        v23 = *(v22 + 76);
+        v22 = *(v21 + 76);
       }
     }
   }
 
-  v24 = *(a1 + 24);
-  v25 = *(v22 + 60) * v24;
-  v26 = v23 * v24;
-  v27 = *a1;
-  v28 = *(a1 + 4);
-  v29 = a3[1];
-  v30 = a3[2];
-  v31 = v25 + *a1;
-  if ((v29 - *a1) <= v25)
+  v23 = *(a1 + 24);
+  v24 = *(v21 + 60) * v23;
+  v25 = v22 * v23;
+  v26 = *a1;
+  v27 = *(a1 + 4);
+  v28 = a3[1];
+  v29 = a3[2];
+  v30 = v24 + *a1;
+  if ((v28 - *a1) <= v24)
   {
-    v31 = a3[1];
+    v30 = a3[1];
   }
 
-  if ((*a1 - v29) > v25)
+  if ((*a1 - v28) > v24)
+  {
+    v31 = v26 - v24;
+  }
+
+  else
+  {
+    v31 = v30;
+  }
+
+  *a1 = v31;
+  if ((v27 - v29) <= v25)
+  {
+    v32 = v29;
+    if ((v29 - v27) > v25)
+    {
+      v32 = v25 + v27;
+    }
+  }
+
+  else
   {
     v32 = v27 - v25;
   }
 
-  else
+  *(a1 + 4) = v32;
+  v33 = *(v21 + 64);
+  v34 = v28 - v31;
+  v35 = v28 + v33;
+  if ((v31 - v28) <= v33)
   {
-    v32 = v31;
+    v35 = v31;
   }
 
-  *a1 = v32;
-  if ((v28 - v30) <= v26)
+  v36 = v28 - v33;
+  if (v34 > v33)
   {
-    v33 = v30;
-    if ((v30 - v28) > v26)
-    {
-      v33 = v26 + v28;
-    }
-  }
-
-  else
-  {
-    v33 = v28 - v26;
-  }
-
-  *(a1 + 4) = v33;
-  v34 = *(v22 + 64);
-  v35 = v29 - v32;
-  v36 = v29 + v34;
-  if ((v32 - v29) <= v34)
-  {
-    v36 = v32;
-  }
-
-  v37 = v29 - v34;
-  if (v35 > v34)
-  {
-    v38 = v37;
+    v37 = v36;
   }
 
   else
   {
-    v38 = v36;
+    v37 = v35;
   }
 
-  v39 = v30 - v33;
-  v40 = v30 + v34;
-  if ((v33 - v30) <= v34)
+  v38 = v29 - v32;
+  v39 = v29 + v33;
+  if ((v32 - v29) <= v33)
   {
-    v40 = v33;
+    v39 = v32;
   }
 
-  v41 = v30 - v34;
-  if (v39 > v34)
+  v40 = v29 - v33;
+  if (v38 > v33)
   {
-    v42 = v41;
+    v41 = v40;
   }
 
   else
   {
-    v42 = v40;
+    v41 = v39;
   }
 
-  v43 = -a6;
+  v42 = -a6;
   if (a6 >= 0.0)
   {
-    v43 = a6;
+    v42 = a6;
   }
 
-  if (v32 >= v38 || (v38 - v32) >= v43)
+  if (v31 >= v37 || (v37 - v31) >= v42)
   {
-    if ((v32 - v38) >= v43 || v32 <= v38)
+    if ((v31 - v37) >= v42 || v31 <= v37)
     {
-      v44 = v38;
+      v43 = v37;
     }
 
     else
     {
-      v44 = v32 - v43;
+      v43 = v31 - v42;
     }
   }
 
   else
   {
-    v44 = v43 + v32;
+    v43 = v42 + v31;
   }
 
-  if (v33 >= v42 || (v42 - v33) >= v43)
+  if (v32 >= v41 || (v41 - v32) >= v42)
   {
-    v47 = (v33 - v42) >= v43 || v33 <= v42;
-    v48 = v33 - v43;
-    if (v47)
+    v46 = (v32 - v41) >= v42 || v32 <= v41;
+    v47 = v32 - v42;
+    if (v46)
     {
-      v46 = v42;
+      v45 = v41;
     }
 
     else
     {
-      v46 = v48;
+      v45 = v47;
     }
   }
 
   else
   {
-    v46 = v43 + v33;
+    v45 = v42 + v32;
   }
 
-  v49 = v33 != v46 || v32 != v44;
-  v50 = *(a1 + 137) | v49;
-  *(a1 + 137) = v50;
-  *a1 = v44;
-  *(a1 + 4) = v46;
-  if (v50)
+  v48 = v32 != v45 || v31 != v43;
+  v49 = *(a1 + 137) | v48;
+  *(a1 + 137) = v49;
+  *a1 = v43;
+  *(a1 + 4) = v45;
+  if (v49)
   {
-    v51 = v44 != *(a1 + 8) || v46 != *(a1 + 12);
+    v50 = v43 != *(a1 + 8) || v45 != *(a1 + 12);
     *(a1 + 8) = *a1;
   }
 
   else
   {
-    v51 = 0;
+    v50 = 0;
   }
 
-  v52 = SALoggingGeneral();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+  v51 = SALoggingGeneral();
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
   {
-    v54 = *a3;
-    v55 = *(a3 + 2);
-    v56 = *(a3 + 1);
-    v57 = *v21;
-    v58 = a3[1];
-    v59 = a3[2];
-    v60[0] = 67112961;
-    v60[1] = v54;
+    v52 = *a3;
+    v53 = *(a3 + 2);
+    v54 = *(a3 + 1);
+    v55 = *v20;
+    v56 = a3[1];
+    v57 = a3[2];
+    v58[0] = 67112961;
+    v58[1] = v52;
+    v59 = 1024;
+    v60 = v53;
     v61 = 1024;
-    v62 = v55;
+    v62 = v54;
     v63 = 1024;
-    v64 = v56;
+    v64 = v48;
     v65 = 1024;
-    v66 = v49;
-    v67 = 1024;
-    v68 = v51;
+    v66 = v50;
+    v67 = 2048;
+    v68 = v55;
     v69 = 2048;
-    v70 = v57;
+    v70 = v24;
     v71 = 2048;
     v72 = v25;
-    v73 = 2048;
-    v74 = v26;
+    v73 = 2053;
+    v74 = v56;
     v75 = 2053;
-    v76 = v58;
+    v76 = v57;
     v77 = 2053;
-    v78 = v59;
+    v78 = v26;
     v79 = 2053;
     v80 = v27;
     v81 = 2053;
-    v82 = v28;
+    v82 = v31;
     v83 = 2053;
     v84 = v32;
     v85 = 2053;
-    v86 = v33;
+    v86 = v43;
     v87 = 2053;
-    v88 = v44;
-    v89 = 2053;
-    v90 = v46;
-    _os_log_debug_impl(&dword_2653C2000, v52, OS_LOG_TYPE_DEBUG, "HysteresisFilterStep:  P%d -> F%d stage=%d slid=%d moved=%d instability=%0.3f(x:%.0f, y:%.0f) input=(%{sensitive}.0f,%{sensitive}.0f) old=(%{sensitive}.0f,%{sensitive}.0f) hide=(%{sensitive}.0f,%{sensitive}.0f) new=(%{sensitive}.0f,%{sensitive}.0f)\n", v60, 0x8Eu);
+    v88 = v45;
+    _os_log_debug_impl(&dword_2653C2000, v51, OS_LOG_TYPE_DEBUG, "HysteresisFilterStep:  P%d -> F%d stage=%d slid=%d moved=%d instability=%0.3f(x:%.0f, y:%.0f) input=(%{sensitive}.0f,%{sensitive}.0f) old=(%{sensitive}.0f,%{sensitive}.0f) hide=(%{sensitive}.0f,%{sensitive}.0f) new=(%{sensitive}.0f,%{sensitive}.0f)\n", v58, 0x8Eu);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 void InstabilityFilter::update(uint64_t a1, unint64_t a2, uint64_t a3, int a4)
@@ -1885,7 +1872,7 @@ __n128 PlainDataNode<TouchService::HysteresisFilterParams>::injectBuffer(uint64_
 
 void PalmRejection::ClusterWithGaussianMixtureModelStep::ClusterWithGaussianMixtureModelStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  AlgWorkNode::AlgWorkNode(a1);
+  AlgWorkNode::AlgWorkNode(a1, 0xCE8DA025717AC499);
   *v7 = &unk_2876EE9F0;
   v7[10] = a2;
   v7[11] = a3;
@@ -1943,7 +1930,7 @@ uint64_t PalmRejection::ClusterWithGaussianMixtureModelStep::run(PalmRejection::
 
 void PalmRejection::ClusterWithGaussianMixtureModelStep::GMMPathInitialization(PalmRejection::ClusterWithGaussianMixtureModelStep *a1, float a2, float a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   PalmRejection::ClusterWithGaussianMixtureModelStep::calculatePosCovOfClusteringFeatures(a1);
   PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFeatures(a1, a2, a3);
   PalmRejection::ClusterWithGaussianMixtureModelStep::populateAllPathGMMCovarianceObjects(a1, v6, v7, v8);
@@ -1988,23 +1975,23 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::GMMPathInitialization(P
         v26 = v10[19].f32[1];
         v27 = v10[16].f32[2];
         *buf = 67111168;
-        v30 = v19;
-        v31 = 2048;
-        v32 = v20;
-        v33 = 2048;
-        v34 = v21;
-        v35 = 2048;
-        v36 = v22;
-        v37 = 2048;
-        v38 = v23;
-        v39 = 2048;
-        v40 = v24;
-        v41 = 2048;
-        v42 = v25;
-        v43 = 2048;
-        v44 = v26;
-        v45 = 2048;
-        v46 = v27;
+        v29 = v19;
+        v30 = 2048;
+        v31 = v20;
+        v32 = 2048;
+        v33 = v21;
+        v34 = 2048;
+        v35 = v22;
+        v36 = 2048;
+        v37 = v23;
+        v38 = 2048;
+        v39 = v24;
+        v40 = 2048;
+        v41 = v25;
+        v42 = 2048;
+        v43 = v26;
+        v44 = 2048;
+        v45 = v27;
         _os_log_debug_impl(&dword_2653C2000, v18, OS_LOG_TYPE_DEBUG, "\nClusterWithGaussianMixtureModelStep %1d : cov2x2.covsqd = %f %f %f %f cov1x1.covsqd = %f cov2x2.xbars = %f %f cov1x1.xbar = %f", buf, 0x58u);
       }
 
@@ -2013,8 +2000,6 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::GMMPathInitialization(P
 
     while (*(*(a1 + 12) + 1150) > v9);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 float PalmRejection::ClusterWithGaussianMixtureModelStep::GMMClusterCovInitialization(PalmRejection::ClusterWithGaussianMixtureModelStep *this, unsigned int a2, double a3, int32x4_t a4)
@@ -2081,11 +2066,11 @@ float PalmRejection::ClusterWithGaussianMixtureModelStep::GMMClusterCovInitializ
   return result;
 }
 
-float PalmRejection::ClusterWithGaussianMixtureModelStep::GMMGreedySwap(_BOOL8 this, int a2, double a3, int32x4_t a4)
+float PalmRejection::ClusterWithGaussianMixtureModelStep::GMMGreedySwap(_BOOL8 this, unsigned int a2, double a3, int32x4_t a4)
 {
   v4 = a2;
   v5 = this;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v6 = -1.0;
   v7 = a2;
   if (a2 >= 1)
@@ -2102,17 +2087,17 @@ float PalmRejection::ClusterWithGaussianMixtureModelStep::GMMGreedySwap(_BOOL8 t
       v15 = *(v5 + 88);
       v16 = *(v15 + v12);
       v17 = v15 + 400 * v16;
-      PalmRejection::ClusterWithGaussianMixtureModelStep::swapAndScore(this, v40, &v8[507], v17, *&v13, a4);
-      v18 = v9 - v41;
+      PalmRejection::ClusterWithGaussianMixtureModelStep::swapAndScore(this, v39, &v8[507], v17, *&v13, a4);
+      v18 = v9 - v40;
       v19 = SALoggingGeneral();
       this = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
       if (this)
       {
         v21 = *(v17 + 56);
         *buf = 67109376;
-        v43 = v21;
-        v44 = 2048;
-        v45 = v18;
+        v42 = v21;
+        v43 = 2048;
+        v44 = v18;
         _os_log_debug_impl(&dword_2653C2000, v19, OS_LOG_TYPE_DEBUG, "swapping %d improves by %f\n", buf, 0x12u);
       }
 
@@ -2169,9 +2154,9 @@ float PalmRejection::ClusterWithGaussianMixtureModelStep::GMMGreedySwap(_BOOL8 t
         {
           v30 = *(v28 + 56);
           *buf = 67109376;
-          v43 = v27;
-          v44 = 1024;
-          LODWORD(v45) = v30;
+          v42 = v27;
+          v43 = 1024;
+          LODWORD(v44) = v30;
           _os_log_debug_impl(&dword_2653C2000, v29, OS_LOG_TYPE_DEBUG, "  gmm_clust_id = 0 : c_idx = %1d trk_path_id = %d", buf, 0xEu);
         }
       }
@@ -2194,9 +2179,9 @@ float PalmRejection::ClusterWithGaussianMixtureModelStep::GMMGreedySwap(_BOOL8 t
         {
           v36 = *(v34 + 56);
           *buf = 67109376;
-          v43 = v33;
-          v44 = 1024;
-          LODWORD(v45) = v36;
+          v42 = v33;
+          v43 = 1024;
+          LODWORD(v44) = v36;
           _os_log_debug_impl(&dword_2653C2000, v35, OS_LOG_TYPE_DEBUG, "  gmm_clust_id = 1 : c_idx = %1d trk_path_id = %d", buf, 0xEu);
         }
       }
@@ -2208,39 +2193,36 @@ float PalmRejection::ClusterWithGaussianMixtureModelStep::GMMGreedySwap(_BOOL8 t
     while (v7);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-void PalmRejection::ClusterWithGaussianMixtureModelStep::calculatePosCovOfClusteringFeatures(PalmRejection::ClusterWithGaussianMixtureModelStep *this)
+void PalmRejection::ClusterWithGaussianMixtureModelStep::calculatePosCovOfClusteringFeatures(uint64_t this)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if (*(*(this + 12) + 1150) >= 1)
+  v6 = *MEMORY[0x277D85DE8];
+  if (*(*(this + 96) + 1150) >= 1)
   {
     v2 = 0;
     do
     {
-      PalmRejUtil::getEllipseCovariance((*(this + 11) + 400 * *(*(this + 11) + 2 * v2 + 8292) + 72), v6);
-      v3 = *(this + 12);
+      PalmRejUtil::getEllipseCovariance((*(this + 88) + 400 * *(*(this + 88) + 2 * v2 + 8292) + 72), v5);
+      v3 = *(this + 96);
       v4 = (v3 + 16 * v2);
-      v4[40] = (v6[0] * 10.0) + 1000000.0;
-      v4[41] = v6[1] * 10.0;
-      v4[42] = v6[2] * 10.0;
+      v4[40] = (v5[0] * 10.0) + 1000000.0;
+      v4[41] = v5[1] * 10.0;
+      v4[42] = v5[2] * 10.0;
       ++v2;
       LODWORD(v3) = *(v3 + 1150);
-      v4[43] = (v6[3] * 10.0) + 1000000.0;
+      v4[43] = (v5[3] * 10.0) + 1000000.0;
     }
 
     while (v3 > v2);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFeatures(uint64_t a1, float a2, float a3)
 {
   v5 = a1;
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 88);
   if (*(v6 + 8436) == 1)
   {
@@ -2248,8 +2230,8 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
     v6 = *(v5 + 88);
   }
 
-  v86 = a2;
-  v87 = a3;
+  v85 = a2;
+  v86 = a3;
   v7 = *(v5 + 96);
   v8 = *(v7 + 1150);
   if (v8 <= 0)
@@ -2262,9 +2244,9 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
 
   else
   {
-    v89 = v5;
+    v88 = v5;
     v9 = 0.0;
-    v10 = v93;
+    v10 = v92;
     v11 = *(v7 + 1150);
     v12 = (v6 + 8292);
     v13 = 0.0;
@@ -2296,15 +2278,15 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
     {
       v26 = *(v6 + 2 * v18 + 8292);
       v27 = (v6 + 400 * v26);
-      v93[v18] = v93[v18] / v13;
+      v92[v18] = v92[v18] / v13;
       v28 = sqrtf(((v27[1] - v25) * (v27[1] - v25)) + ((*v27 - v20) * (*v27 - v20)));
       if (*(v6 + 8436) == 1)
       {
         v29 = v20;
         PassiveStylus3rdPartyDetection::updateMaxValues(v26, v7 + 1756, v28, fminf(v27[42], 30000.0));
         v20 = v29;
-        v6 = *(v89 + 88);
-        v7 = *(v89 + 96);
+        v6 = *(v88 + 88);
+        v7 = *(v88 + 96);
       }
 
       if (v28 < v23)
@@ -2328,12 +2310,12 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
     *(v7 + 560) = v24 / v8;
     if (v23 > 50000.0)
     {
-      v5 = v89;
+      v5 = v88;
     }
 
     else
     {
-      v5 = v89;
+      v5 = v88;
       if (v22 <= 160000.0)
       {
         goto LABEL_29;
@@ -2350,8 +2332,8 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
   else
   {
     v31 = (v6 + 400 * v21);
-    v88 = (v25 + v31[1]) * 0.5;
-    v90 = (v20 + *v31) * 0.5;
+    v87 = (v25 + v31[1]) * 0.5;
+    v89 = (v20 + *v31) * 0.5;
     v32 = 8292;
     v33 = v6 + 400 * *(v6 + 2 * (v8 - 1) + 8292);
     v34 = 0.0;
@@ -2367,7 +2349,7 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
 
     v36 = (v35 * 3.0) + 1.0;
     v37 = v8;
-    v38 = v93;
+    v38 = v92;
     v39 = v8;
     v40 = 0.0;
     v41 = 0.0;
@@ -2376,7 +2358,7 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
       v42 = (v6 + 400 * *(v6 + v32));
       v44 = *v42;
       v43 = v42[1];
-      v45 = v36 * (1.0 / (expf(v87 + (v86 * sqrtf(((v43 - v88) * (v43 - v88)) + ((*v42 - v90) * (*v42 - v90))))) + 1.0));
+      v45 = v36 * (1.0 / (expf(v86 + (v85 * sqrtf(((v43 - v87) * (v43 - v87)) + ((*v42 - v89) * (*v42 - v89))))) + 1.0));
       *v38++ = v45;
       v34 = v34 + v45;
       v40 = v40 + (v45 * v44);
@@ -2387,7 +2369,7 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
 
     while (v39);
     v20 = v40 / v34;
-    v46 = v93;
+    v46 = v92;
     v25 = v41 / v34;
     do
     {
@@ -2400,8 +2382,8 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::calculateMetaEllipseFea
   }
 
 LABEL_29:
+  v90 = 0;
   v91 = 0;
-  v92 = 0;
   if (v8 < 1)
   {
     v50 = 0.0;
@@ -2416,7 +2398,7 @@ LABEL_29:
     v48 = (v6 + 8292);
     v49 = (v7 + 172);
     v50 = 0.0;
-    v51 = v93;
+    v51 = v92;
     v52 = 0.0;
     v53 = 0.0;
     v54 = 0.0;
@@ -2429,27 +2411,27 @@ LABEL_29:
       v59 = *v51++;
       v60 = v59;
       v54 = v54 + (v59 * (*(v49 - 3) + (v57 * v57)));
-      *&v91 = v54;
+      *&v90 = v54;
       v53 = v53 + (v59 * (*(v49 - 2) + (v57 * v58)));
-      *(&v91 + 1) = v53;
+      *(&v90 + 1) = v53;
       v52 = v52 + (v59 * (*(v49 - 1) + (v57 * v58)));
-      *&v92 = v52;
+      *&v91 = v52;
       v61 = *v49;
       v49 += 4;
       v50 = v50 + (v60 * (v61 + (v58 * v58)));
-      *(&v92 + 1) = v50;
+      *(&v91 + 1) = v50;
       --v47;
     }
 
     while (v47);
   }
 
-  *&v91 = v54 - (v20 * v20);
-  *(&v91 + 1) = v53 - (v20 * v25);
-  *&v92 = v52 - (v20 * v25);
-  *(&v92 + 1) = v50 - (v25 * v25);
+  *&v90 = v54 - (v20 * v20);
+  *(&v90 + 1) = v53 - (v20 * v25);
+  *&v91 = v52 - (v20 * v25);
+  *(&v91 + 1) = v50 - (v25 * v25);
   v62 = v20;
-  PalmRejUtil::CovarianceToSAEllipseAxes(&v91, v7 + 1200, 6000.0);
+  PalmRejUtil::CovarianceToSAEllipseAxes(&v90, v7 + 1200, 6000.0);
   v63 = PalmRejUtil::calculateSAEllipseFoci(*(v5 + 96) + 1200, v62);
   v67 = *(v5 + 96);
   v68 = *(v67 + 1150);
@@ -2509,7 +2491,6 @@ LABEL_29:
   Mean = PalmRejUtil::getMean((v67 + 1240), v68);
   Var = PalmRejUtil::getVar((*(v5 + 96) + 1240), *(*(v5 + 96) + 1150), *&Mean);
   *(*(v5 + 96) + 1320) = LODWORD(Var);
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PalmRejection::ClusterWithGaussianMixtureModelStep::populateAllPathGMMCovarianceObjects(uint64_t this, double a2, double a3, int32x4_t a4)
@@ -2626,7 +2607,7 @@ float PalmRejection::ClusterWithGaussianMixtureModelStep::updateClusterCovColLog
   return *&a3;
 }
 
-void PalmRejection::ClusterWithGaussianMixtureModelStep::swapAndScore(uint64_t a1, float32x4_t *a2, uint64_t a3, uint64_t a4, double a5, int32x4_t a6)
+float PalmRejection::ClusterWithGaussianMixtureModelStep::swapAndScore(uint64_t a1, float32x4_t *a2, uint64_t a3, uint64_t a4, double a5, int32x4_t a6)
 {
   v27[1] = *MEMORY[0x277D85DE8];
   v26 = a2;
@@ -2685,25 +2666,25 @@ void PalmRejection::ClusterWithGaussianMixtureModelStep::swapAndScore(uint64_t a
   v16[4].i16[0] = *(v25[v7 != 1] + 64) + 1;
   *(v27[v7 - 1] + 64) = *(v17 + 64) - 1;
   *&v18 = PalmRejection::ClusterWithGaussianMixtureModelStep::updateClusterCovColLogDet(a1, v14, a5, a6);
-  PalmRejection::ClusterWithGaussianMixtureModelStep::updateClusterCovColLogDet(v19, v15, v18, v20);
-  v21 = a2[4].i16[0];
-  v22 = a2[8].i16[2];
-  v23 = (v22 + v21);
-  if (v23 >= 3)
+  result = PalmRejection::ClusterWithGaussianMixtureModelStep::updateClusterCovColLogDet(v19, v15, v18, v20);
+  v22 = a2[4].i16[0];
+  v23 = a2[8].i16[2];
+  v24 = (v23 + v22);
+  if (v24 >= 3)
   {
-    a2[8].f32[2] = ((a2[8].f32[0] * v22) + (a2[3].f32[3] * v21)) / (v23 + v23);
+    result = ((a2[8].f32[0] * v23) + (a2[3].f32[3] * v22)) / (v24 + v24);
+    a2[8].f32[2] = result;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 void PalmRejection::ClusterWithGaussianMixtureModelStep::GMMGreedySwap(os_log_t log, float a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_debug_impl(&dword_2653C2000, log, OS_LOG_TYPE_DEBUG, "Clustering after done with swaps: max_diff = %f", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_debug_impl(&dword_2653C2000, log, OS_LOG_TYPE_DEBUG, "Clustering after done with swaps: max_diff = %f", &v2, 0xCu);
 }
 
 void Device0x039AlgsFireflyCalBlobHandler::Device0x039AlgsFireflyCalBlobHandler(AlgDataNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -3003,7 +2984,7 @@ uint64_t Device0x038AlgsFireflyCalBlobHandler::injectBuffer(Device0x038AlgsFiref
 
 void PalmRejection::ParseContactDataStep::ParseContactDataStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  AlgWorkNode::AlgWorkNode(a1);
+  AlgWorkNode::AlgWorkNode(a1, 0xCD85F029DBB04002);
   *v15 = &unk_2876EEAF0;
   v15[10] = a2;
   v15[11] = a3;
@@ -3038,7 +3019,7 @@ uint64_t PalmRejection::ParseContactDataStep::run(PalmRejection::ParseContactDat
 
   PalmRejection::ParseContactDataStep::updatePathTrkFrameInfo(this);
   PalmRejection::ParseContactDataStep::fillPathTrajectories(this);
-  PalmRejection::ParseContactDataStep::updatePathCollectionAndExtrema(this);
+  PalmRejection::ParseContactDataStep::updatePathCollectionAndExtrema(this, v5, v6);
   return 0;
 }
 
@@ -3136,92 +3117,94 @@ void PalmRejection::ParseContactDataStep::fillPathTrajectories(PalmRejection::Pa
   while (v9);
 }
 
-void *PalmRejection::ParseContactDataStep::updatePathCollectionAndExtrema(void *this)
+void *PalmRejection::ParseContactDataStep::updatePathCollectionAndExtrema(void *this, double a2, double a3)
 {
-  v1 = this;
-  v2 = this[12];
-  v3 = *(v2 + 28);
-  if (*(v2 + 28))
+  v3 = this;
+  v4 = this[12];
+  v5 = *(v4 + 28);
+  if (*(v4 + 28))
   {
-    v4 = *(this[13] + 24);
-    v5 = this[15];
-    if (v4 - *(v5 + 8096) <= v3)
+    v6 = *(this[13] + 24);
+    v7 = this[15];
+    if (v6 - *(v7 + 8096) <= v5)
     {
-      v6 = 0;
+      v8 = 0;
     }
 
     else
     {
-      *(v5 + 8096) = v4;
-      v6 = 1;
+      *(v7 + 8096) = v6;
+      v8 = 1;
     }
   }
 
   else
   {
-    v6 = 0;
-    v5 = this[15];
+    v8 = 0;
+    v7 = this[15];
   }
 
-  v7 = 0;
-  *(v5 + 8108) = *(v5 + 8104);
-  *(v5 + 8104) = 0;
-  *(v5 + 8082) = *(v5 + 8080);
-  *(v5 + 8086) = *(v5 + 8084);
-  *(v5 + 8092) = *(v5 + 8090);
-  *(v5 + 8080) = 0;
-  *(v5 + 8084) = 0;
-  *(v5 + 8094) = 0;
-  v8 = 19;
-  *(v5 + 8088) = 0;
+  v9 = 0;
+  *(v7 + 8108) = *(v7 + 8104);
+  *(v7 + 8104) = 0;
+  *(v7 + 8082) = *(v7 + 8080);
+  *(v7 + 8086) = *(v7 + 8084);
+  *(v7 + 8092) = *(v7 + 8090);
+  *(v7 + 8080) = 0;
+  *(v7 + 8084) = 0;
+  *(v7 + 8094) = 0;
+  v10 = 19;
+  *(v7 + 8088) = 0;
   do
   {
-    v9 = *(v1 + 120);
-    v10 = v9 + v7;
-    v11 = *(v9 + v7 + 408);
-    if (v11 <= 0.0)
+    v11 = v3[15];
+    v12 = v11 + v9;
+    v13 = *(v11 + v9 + 408);
+    if (v13 <= 0.0)
     {
-      if (*(v10 + 464) == 1)
+      if (*(v12 + 464) == 1)
       {
-        this = PalmRejection::ParseContactDataStep::concludePathTransitions(v1, v10 + 400);
+        this = PalmRejection::ParseContactDataStep::concludePathTransitions(v3, v12 + 400);
       }
     }
 
     else
     {
-      ++*(v9 + 8080);
-      *(v9 + 8104) = (v11 + *(v9 + 8104));
-      v12 = *(v10 + 468);
-      if (v12 == 1 || *(v9 + v7 + 512) == 1)
+      ++*(v11 + 8080);
+      *&a3 = *(v11 + 8104);
+      *&a2 = v13 + *&a3;
+      *(v11 + 8104) = *&a2;
+      v14 = *(v12 + 468);
+      if (v14 == 1 || *(v11 + v9 + 512) == 1)
       {
-        v13 = v9 + v7;
-        *(v13 + 580) = 1065353216;
-        *(v13 + 572) = 0;
-        *(v9 + v7 + 564) = 0;
-        *(v9 + v7 + 604) = 0;
-        v14 = *(v10 + 400);
-        if (v12 == 1)
+        v15 = v11 + v9;
+        *(v15 + 580) = 1065353216;
+        *(v15 + 572) = 0;
+        *(v11 + v9 + 564) = 0;
+        *(v11 + v9 + 604) = 0;
+        v16 = *(v12 + 400);
+        if (v14 == 1)
         {
-          *(v13 + 620) = v14;
-          *(v13 + 612) = v14;
+          *(v15 + 620) = v16;
+          *(v15 + 612) = v16;
         }
 
-        *(v13 + 636) = v14;
-        *(v13 + 628) = v14;
-        *(v13 + 644) = 0;
+        *(v15 + 636) = v16;
+        *(v15 + 628) = v16;
+        *(v15 + 644) = 0;
       }
 
-      PalmRejection::ParseContactDataStep::updatePathExtrema(v1, v10 + 400, v6);
-      this = PalmRejection::ParseContactDataStep::detectPathTransitions(v1, (v10 + 400));
+      PalmRejection::ParseContactDataStep::updatePathExtrema(v3, v12 + 400, v8, a2, a3);
+      this = PalmRejection::ParseContactDataStep::detectPathTransitions(v3, (v12 + 400));
     }
 
-    v15 = v9 + v7;
-    v16 = *(v9 + v7 + 468);
-    if (v16 == 1)
+    v17 = v11 + v9;
+    v18 = *(v11 + v9 + 468);
+    if (v18 == 1)
     {
-      v17 = *(v1 + 120);
-      ++v17[4047];
-      if (*(v15 + 536) == *(v15 + 528))
+      v19 = v3[15];
+      ++v19[4047];
+      if (*(v17 + 536) == *(v17 + 528))
       {
         goto LABEL_25;
       }
@@ -3229,43 +3212,43 @@ void *PalmRejection::ParseContactDataStep::updatePathCollectionAndExtrema(void *
 
     else
     {
-      if (*(v15 + 464) != 1)
+      if (*(v17 + 464) != 1)
       {
-        if (!v16)
+        if (!v18)
         {
           goto LABEL_26;
         }
 
-        v17 = *(v1 + 120);
-        if (v16 == 2)
+        v19 = v3[15];
+        if (v18 == 2)
         {
-          ++v17[4044];
+          ++v19[4044];
         }
 
 LABEL_25:
-        ++v17[4045];
+        ++v19[4045];
         goto LABEL_26;
       }
 
-      v17 = *(v1 + 120);
-      ++v17[4047];
-      if (v16)
+      v19 = v3[15];
+      ++v19[4047];
+      if (v18)
       {
         goto LABEL_25;
       }
     }
 
 LABEL_26:
-    if (*(v9 + v7 + 560) - 3 <= 1)
+    if (*(v11 + v9 + 560) - 3 <= 1)
     {
-      ++*(*(v1 + 120) + 8084);
+      ++*(v3[15] + 8084);
     }
 
-    v7 += 400;
-    --v8;
+    v9 += 400;
+    --v10;
   }
 
-  while (v8);
+  while (v10);
   return this;
 }
 
@@ -3351,7 +3334,7 @@ LABEL_9:
   return this;
 }
 
-void PalmRejection::ParseContactDataStep::concludePathTrajectory(uint64_t a1, uint64_t a2, int a3)
+void PalmRejection::ParseContactDataStep::concludePathTrajectory(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   *(a2 + 48) = *(a2 + 32);
   *(a2 + 40) = *a2;
@@ -3438,13 +3421,13 @@ uint64_t PalmRejection::ParseContactDataStep::validPathUpdatePrevAndSmooth(uint6
   return result;
 }
 
-uint64_t PalmRejection::ParseContactDataStep::smoothEllipseAxes(uint64_t a1, uint64_t a2, float *a3, double a4)
+uint64_t PalmRejection::ParseContactDataStep::smoothEllipseAxes(uint64_t a1, float *a2, float *a3, double a4)
 {
-  v5 = *(a2 + 16);
+  v5 = a2[4];
   v6 = *(*(a1 + 96) + 8);
   v7 = a3[4];
   v8 = a3[1];
-  v9 = *(a2 + 4);
+  v9 = a2[1];
   v10 = vabds_f32(v8, v9);
   if (v10 <= (v8 * 0.125))
   {
@@ -3461,7 +3444,7 @@ uint64_t PalmRejection::ParseContactDataStep::smoothEllipseAxes(uint64_t a1, uin
   }
 
   v12 = (v8 * (1.0 - v11)) + (v11 * v9);
-  v13 = ((1.0 - v11) * a3[2]) + (v11 * *(a2 + 8));
+  v13 = ((1.0 - v11) * a3[2]) + (v11 * a2[2]);
   a3[1] = v12;
   a3[2] = v13;
   a3[4] = (v7 * (1.0 - v11)) + (v11 * v5);
@@ -3472,7 +3455,7 @@ uint64_t PalmRejection::ParseContactDataStep::smoothEllipseAxes(uint64_t a1, uin
 
   else
   {
-    LODWORD(a4) = *a2;
+    *&a4 = *a2;
     if (v7 > v6 && v11 < 1.0)
     {
       *&a4 = alg_AverageAngles0_180(a4, *a3, 1);
@@ -3483,75 +3466,77 @@ uint64_t PalmRejection::ParseContactDataStep::smoothEllipseAxes(uint64_t a1, uin
   return 0;
 }
 
-void PalmRejection::ParseContactDataStep::updatePathExtrema(uint64_t a1, uint64_t a2, int a3)
+void PalmRejection::ParseContactDataStep::updatePathExtrema(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5)
 {
-  v4 = *(a2 + 208);
-  v5 = *(a2 + 8);
-  if (v4 < v5 || (*(a2 + 112) & 1) != 0)
+  v6 = *(a2 + 208);
+  v7 = *(a2 + 8);
+  if (v6 < v7 || (*(a2 + 112) & 1) != 0)
   {
-    v6 = (v4 >= v5) | *(a2 + 112);
-    *(a2 + 208) = v5;
+    v8 = (v6 >= v7) | *(a2 + 112);
+    *(a2 + 208) = v7;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  PalmRejection::ParseContactDataStep::sustainPeakEllipseAxes(a1, a2 + 72, a3, v6 & 1, a2 + 164, (a2 + 204), *a2, *(a2 + 4), *(a2 + 12));
-  v7 = *a2;
+  LODWORD(a4) = *a2;
+  LODWORD(a5) = *(a2 + 4);
+  PalmRejection::ParseContactDataStep::sustainPeakEllipseAxes(a1, (a2 + 72), a3, v8 & 1, a2 + 164, (a2 + 204), a4, a5, *(a2 + 12));
+  v9 = *a2;
   if (*a2 > *(a2 + 228))
   {
-    *(a2 + 228) = v7;
+    *(a2 + 228) = v9;
   }
 
-  if (v7 < *(a2 + 236))
+  if (v9 < *(a2 + 236))
   {
-    *(a2 + 236) = v7;
+    *(a2 + 236) = v9;
   }
 
-  v8 = *(a2 + 4);
-  if (v8 > *(a2 + 232))
+  v10 = *(a2 + 4);
+  if (v10 > *(a2 + 232))
   {
-    *(a2 + 232) = v8;
+    *(a2 + 232) = v10;
   }
 
-  if (v8 < *(a2 + 240))
+  if (v10 < *(a2 + 240))
   {
-    *(a2 + 240) = v8;
+    *(a2 + 240) = v10;
   }
 
-  v9 = *(a2 + 76);
-  if (v9 <= 6600.0)
+  v11 = *(a2 + 76);
+  if (v11 <= 6600.0)
   {
-    v10 = *(a2 + 244);
+    v12 = *(a2 + 244);
   }
 
   else
   {
-    v10 = (v9 + -6600.0) + *(a2 + 244);
+    v12 = (v11 + -6600.0) + *(a2 + 244);
   }
 
-  v11 = v10 + -100.0;
-  v12 = v10 <= 100.0;
-  v13 = 0.0;
-  if (!v12)
+  v13 = v12 + -100.0;
+  v14 = v12 <= 100.0;
+  v15 = 0.0;
+  if (!v14)
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  *(a2 + 244) = v13;
+  *(a2 + 244) = v15;
 }
 
-uint64_t PalmRejection::ParseContactDataStep::detectPathTransitions(uint64_t a1, void *a2)
+void *PalmRejection::ParseContactDataStep::detectPathTransitions(void *result, void *a2)
 {
   if (*(a2 + 17) == 1)
   {
     *(a2 + 220) = *a2;
-    a2[16] = *(*(a1 + 104) + 24);
-    if (*(*(a1 + 120) + 8082) <= 0)
+    a2[16] = *(result[13] + 24);
+    if (*(result[15] + 8082) <= 0)
     {
-      return PalmRejection::ParseContactDataStep::detectAndSetPathMake(a1, a2);
+      return PalmRejection::ParseContactDataStep::detectAndSetPathMake(result, a2);
     }
   }
 
@@ -3559,16 +3544,16 @@ uint64_t PalmRejection::ParseContactDataStep::detectPathTransitions(uint64_t a1,
   {
     if (a2[17] <= a2[18])
     {
-      return PalmRejection::ParseContactDataStep::detectAndSetPathMake(a1, a2);
+      return PalmRejection::ParseContactDataStep::detectAndSetPathMake(result, a2);
     }
 
-    if (*(a2 + 3) < (*(*(a1 + 96) + 24) * *(*(a1 + 96) + 16) / 256) && *(a2 + 2) < *(a2 + 97))
+    if (*(a2 + 3) < (*(result[12] + 24) * *(result[12] + 16) / 256) && *(a2 + 2) < *(a2 + 97))
     {
-      a2[18] = *(*(a1 + 104) + 24);
+      a2[18] = *(result[13] + 24);
     }
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t PalmRejection::ParseContactDataStep::concludePathTransitions(uint64_t result, uint64_t a2)
@@ -3590,12 +3575,12 @@ uint64_t PalmRejection::ParseContactDataStep::concludePathTransitions(uint64_t r
   return result;
 }
 
-void PalmRejection::ParseContactDataStep::sustainPeakEllipseAxes(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, float *a6, float a7, float a8, float a9)
+void PalmRejection::ParseContactDataStep::sustainPeakEllipseAxes(uint64_t a1, float *a2, int a3, int a4, uint64_t a5, float *a6, double a7, double a8, float a9)
 {
   if (*(a5 + 8) > 0.0 && (*(a5 + 4) > 0.0 ? (_ZF = a4 == 0) : (_ZF = 0), _ZF))
   {
     v15 = *(*(a1 + 96) + 12);
-    if (PalmRejection::PalmRejSurfaceUtil::computeMinDistToEdges(*(a1 + 80), 62, a7, a8) > *(*(a1 + 96) + 32))
+    if (PalmRejection::PalmRejSurfaceUtil::computeMinDistToEdges(*(a1 + 80), 62, *&a7, *&a8) > *(*(a1 + 96) + 32))
     {
       if (a3)
       {
@@ -3605,21 +3590,21 @@ void PalmRejection::ParseContactDataStep::sustainPeakEllipseAxes(uint64_t a1, ui
         *(a5 + 4) = v16;
       }
 
-      v21 = *(a2 + 16);
+      v21 = a2[4];
       v22 = *(a5 + 16);
       if (v21 > v22)
       {
         *(a5 + 16) = ((1.0 - v15) * v22) + (v15 * v21);
       }
 
-      v23 = *(a2 + 8);
+      v23 = a2[2];
       v24 = *(a5 + 8);
       if (v23 > v24)
       {
         *(a5 + 8) = ((1.0 - v15) * v24) + (v15 * v23);
       }
 
-      v25 = *(a2 + 4);
+      v25 = a2[1];
       v26 = *(a5 + 4);
       if (v25 > v26)
       {
@@ -3631,15 +3616,15 @@ void PalmRejection::ParseContactDataStep::sustainPeakEllipseAxes(uint64_t a1, ui
         *a6 = (((1.0 - v15) * *a6) + (v15 * a9));
       }
 
-      LODWORD(v16) = *a2;
+      *&v16 = *a2;
       *a5 = alg_AverageAngles0_180(v16, *a5, 1);
     }
   }
 
   else
   {
-    *(a5 + 16) = *(a2 + 16);
-    *(a5 + 8) = *(a2 + 8);
+    *(a5 + 16) = a2[4];
+    *(a5 + 8) = a2[2];
     *a5 = *a2;
     *a6 = a9;
   }
@@ -3690,7 +3675,7 @@ void PalmRejection::ParseContactDataStep::~ParseContactDataStep(PalmRejection::P
 
 void PalmRejection::CalculateMetaClassifierProbabilitiesStep::CalculateMetaClassifierProbabilitiesStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  AlgWorkNode::AlgWorkNode(a1);
+  AlgWorkNode::AlgWorkNode(a1, 0x282DD3F03B1B7684);
   *v9 = &unk_2876EEB40;
   v9[10] = a2;
   v9[11] = a3;
@@ -3698,9 +3683,9 @@ void PalmRejection::CalculateMetaClassifierProbabilitiesStep::CalculateMetaClass
   v9[13] = a5;
 }
 
-uint64_t PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(_BOOL8 this)
+uint64_t PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(uint64_t this)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v2 = (this + 104);
   v1 = *(this + 104);
   *v1 = 0;
@@ -3708,7 +3693,7 @@ uint64_t PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(_BOOL8 thi
   v3 = *(this + 96);
   if (!*(v3 + 1148))
   {
-    goto LABEL_58;
+    return 0;
   }
 
   v4 = this;
@@ -3734,18 +3719,18 @@ uint64_t PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(_BOOL8 thi
     this = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
     if (this)
     {
-      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run((v3 + 1724), v3);
+      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run();
     }
 
     LOWORD(v8) = *(v3 + 1150);
   }
 
-  v70 = 0;
-  memset(v69, 0, sizeof(v69));
-  v68 = 0u;
-  v66 = 0u;
-  memset(v67, 0, sizeof(v67));
+  v69 = 0;
+  memset(v68, 0, sizeof(v68));
+  v67 = 0u;
   v65 = 0u;
+  memset(v66, 0, sizeof(v66));
+  v64 = 0u;
   if (v8 != 2)
   {
     if (v8 != 1)
@@ -3760,40 +3745,40 @@ uint64_t PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(_BOOL8 thi
 
       v24 = fminf(*(v3 + 1724), 200000.0);
       *(v3 + 1724) = v24;
-      LODWORD(v65) = 1065353216;
+      LODWORD(v64) = 1065353216;
       v25 = *(v5 + 8396);
-      DWORD1(v65) = *(v5 + 8392);
-      *(&v65 + 2) = v25;
-      *(&v65 + 3) = (v25 + 1.0) / (*(&v65 + 1) + 1.0);
-      *&v66 = vrev64_s32(*(v3 + 1152));
+      DWORD1(v64) = *(v5 + 8392);
+      *(&v64 + 2) = v25;
+      *(&v64 + 3) = (v25 + 1.0) / (*(&v64 + 1) + 1.0);
+      *&v65 = vrev64_s32(*(v3 + 1152));
       v26 = *(v3 + 1176);
-      DWORD2(v66) = *(v5 + 8404);
-      HIDWORD(v66) = v26;
+      DWORD2(v65) = *(v5 + 8404);
+      HIDWORD(v65) = v26;
       v27 = *(v3 + 1188);
-      LODWORD(v67[0]) = *(v3 + 1168);
-      DWORD1(v67[0]) = v27;
-      DWORD2(v67[0]) = *(v3 + 1172);
+      LODWORD(v66[0]) = *(v3 + 1168);
+      DWORD1(v66[0]) = v27;
+      DWORD2(v66[0]) = *(v3 + 1172);
       LODWORD(v28) = *(v3 + 1164);
       DWORD1(v28) = *(v3 + 1192);
       *(&v28 + 1) = *(v6 + 188);
-      *(v67 + 12) = v28;
+      *(v66 + 12) = v28;
       *&v28 = *(v7 + 188);
       *&v29 = *(v6 + 176);
       *(&v28 + 1) = *(v6 + 168);
-      *(&v67[1] + 12) = v28;
-      HIDWORD(v67[2]) = *v6;
+      *(&v66[1] + 12) = v28;
+      HIDWORD(v66[2]) = *v6;
       DWORD2(v29) = *(v6 + 84);
       HIDWORD(v29) = *(v7 + 168);
       LODWORD(v28) = *(v7 + 172);
       DWORD1(v28) = *v7;
       *(&v28 + 1) = *(v7 + 176);
-      v67[3] = v29;
-      v68 = v28;
-      LODWORD(v69[0]) = *(v7 + 84);
-      *(v69 + 1) = v24;
-      *(v69 + 8) = *(v3 + 1728);
-      *(&v69[1] + 1) = *(v3 + 1744);
-      v70 = *(v3 + 1752);
+      v66[3] = v29;
+      v67 = v28;
+      LODWORD(v68[0]) = *(v7 + 84);
+      *(v68 + 1) = v24;
+      *(v68 + 8) = *(v3 + 1728);
+      *(&v68[1] + 1) = *(v3 + 1744);
+      v69 = *(v3 + 1752);
       if (*(v3 + 1784))
       {
         v30 = 1;
@@ -3805,7 +3790,7 @@ uint64_t PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(_BOOL8 thi
       }
 
       v44 = *(v4 + 80);
-      PalmRejection::CalculateMetaClassifierProbabilitiesStep::calProbForThreeScenarios(this, v30 & 1, 0x25u, &v65, (v44 + 1056), (v44 + 1204), (v44 + 1352), (v44 + 1500), (v44 + 1648), (v44 + 1796), *(v4 + 104));
+      PalmRejection::CalculateMetaClassifierProbabilitiesStep::calProbForThreeScenarios(this, v30 & 1, 0x25u, &v64, (v44 + 1056), (v44 + 1204), (v44 + 1352), (v44 + 1500), (v44 + 1648), (v44 + 1796), *(v4 + 104));
       v33 = *(v4 + 104);
       v45 = *(v5 + 8404);
       v46 = v33[1].f32[0];
@@ -3824,20 +3809,20 @@ uint64_t PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(_BOOL8 thi
 
     v10 = *(v4 + 88) + 400 * *(*(v4 + 88) + 8292);
     v11 = fminf(*(v10 + 344), *(v10 + 348));
-    LODWORD(v65) = 1065353216;
+    LODWORD(v64) = 1065353216;
     v12 = *(v5 + 8396);
-    DWORD1(v65) = *(v5 + 8392);
-    *(&v65 + 2) = v12;
-    *(&v65 + 3) = (v12 + 1.0) / (*(&v65 + 1) + 1.0);
-    *&v66 = vrev64_s32(*(v3 + 1152));
+    DWORD1(v64) = *(v5 + 8392);
+    *(&v64 + 2) = v12;
+    *(&v64 + 3) = (v12 + 1.0) / (*(&v64 + 1) + 1.0);
+    *&v65 = vrev64_s32(*(v3 + 1152));
     v13 = *(v3 + 1176);
-    DWORD2(v66) = *(v5 + 8404);
-    HIDWORD(v66) = v13;
-    LODWORD(v67[0]) = *(v3 + 1168);
+    DWORD2(v65) = *(v5 + 8404);
+    HIDWORD(v65) = v13;
+    LODWORD(v66[0]) = *(v3 + 1168);
     v14 = *(v3 + 572);
-    DWORD1(v67[0]) = *(v10 + 372);
-    DWORD2(v67[0]) = v14;
-    *(v67 + 3) = fminf(v11 + 1000.0, 0.0) * *(v10 + 172);
+    DWORD1(v66[0]) = *(v10 + 372);
+    DWORD2(v66[0]) = v14;
+    *(v66 + 3) = fminf(v11 + 1000.0, 0.0) * *(v10 + 172);
     if (*(v3 + 1784) == 1)
     {
       v15 = *(v4 + 80);
@@ -3859,7 +3844,7 @@ LABEL_25:
     v41 = 0.0;
     do
     {
-      v42 = vmulq_f32(*(&v65 + v40), *(v31 + v40));
+      v42 = vmulq_f32(*(&v64 + v40), *(v31 + v40));
       v41 = (((v41 + v42.f32[0]) + v42.f32[1]) + v42.f32[2]) + v42.f32[3];
       v40 += 16;
     }
@@ -3881,28 +3866,28 @@ LABEL_25:
 
   v16 = *(v5 + 8404);
   v18 = expf(fmaxf((*(v5 + 8416) - 5), 0.0) * -0.4);
-  LODWORD(v65) = 1065353216;
+  LODWORD(v64) = 1065353216;
   v19 = *(v5 + 8396);
-  DWORD1(v65) = *(v5 + 8392);
-  *(&v65 + 2) = v19;
-  *(&v65 + 3) = (v19 + 1.0) / (*(&v65 + 1) + 1.0);
-  *&v66 = vrev64_s32(*(v3 + 1152));
+  DWORD1(v64) = *(v5 + 8392);
+  *(&v64 + 2) = v19;
+  *(&v64 + 3) = (v19 + 1.0) / (*(&v64 + 1) + 1.0);
+  *&v65 = vrev64_s32(*(v3 + 1152));
   v20 = *(v3 + 1176);
-  *(&v66 + 2) = v16 * v18;
-  HIDWORD(v66) = v20;
+  *(&v65 + 2) = v16 * v18;
+  HIDWORD(v65) = v20;
   v21 = *(v3 + 1188);
-  LODWORD(v67[0]) = *(v3 + 1168);
-  DWORD1(v67[0]) = v21;
+  LODWORD(v66[0]) = *(v3 + 1168);
+  DWORD1(v66[0]) = v21;
   LODWORD(v22) = *(v3 + 1172);
   DWORD1(v22) = *(v3 + 1164);
   *(&v22 + 1) = *(v3 + 1180);
-  *(v67 + 8) = v22;
+  *(v66 + 8) = v22;
   LODWORD(v22) = *(v3 + 1196);
   DWORD1(v22) = *(v3 + 1724);
   *(&v22 + 1) = *(v3 + 1728);
-  *(&v67[1] + 8) = v22;
-  *(&v67[2] + 8) = *(v3 + 1736);
-  DWORD2(v67[3]) = *(v3 + 1752);
+  *(&v66[1] + 8) = v22;
+  *(&v66[2] + 8) = *(v3 + 1736);
+  DWORD2(v66[3]) = *(v3 + 1752);
   if (*(v3 + 1784))
   {
     v23 = 1;
@@ -3914,7 +3899,7 @@ LABEL_25:
   }
 
   v32 = *(v4 + 80);
-  PalmRejection::CalculateMetaClassifierProbabilitiesStep::calProbForThreeScenarios(v17, v23 & 1, 0x17u, &v65, (v32 + 504), (v32 + 596), (v32 + 688), (v32 + 780), (v32 + 872), (v32 + 964), *(v4 + 104));
+  PalmRejection::CalculateMetaClassifierProbabilitiesStep::calProbForThreeScenarios(v17, v23 & 1, 0x17u, &v64, (v32 + 504), (v32 + 596), (v32 + 688), (v32 + 780), (v32 + 872), (v32 + 964), *(v4 + 104));
   v33 = *(v4 + 104);
   v34 = *(v5 + 8404);
   v35 = v33[1].f32[0];
@@ -3935,37 +3920,37 @@ LABEL_33:
     v49 = SALoggingGeneral();
     if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
-      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run((v3 + 1150), v2);
+      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(v3 + 1150, v2);
     }
 
     v50 = SALoggingGeneral();
     if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
-      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v65);
+      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v64);
     }
 
     v51 = SALoggingGeneral();
     if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
     {
-      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v65);
+      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v64);
     }
 
     v52 = SALoggingGeneral();
     if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
     {
-      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v65);
+      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v64);
     }
 
     v53 = SALoggingGeneral();
     if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
     {
-      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v65);
+      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v64);
     }
 
     v54 = SALoggingGeneral();
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
     {
-      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v65);
+      PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(&v64);
     }
 
     if (*(v3 + 1150))
@@ -4015,8 +4000,6 @@ LABEL_33:
     }
   }
 
-LABEL_58:
-  v63 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -4113,139 +4096,81 @@ void PalmRejection::CalculateMetaClassifierProbabilitiesStep::~CalculateMetaClas
   JUMPOUT(0x266758590);
 }
 
-double OUTLINED_FUNCTION_2@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run()
 {
-  *(v2 - 8) = a2;
-  result = **a1;
-  v4 = *(*a1 + 4);
-  v5 = *(*a1 + 8);
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 134219008;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_3();
+  _os_log_debug_impl(&dword_2653C2000, v0, OS_LOG_TYPE_DEBUG, "dmin=%f dmax=%f d01=%f d10=%f dist=%f\n", v1, 0x34u);
+}
+
+double PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(uint64_t a1, float **a2)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = OUTLINED_FUNCTION_4(**a2);
+  v4 = *(v3 + 8);
+  v9[0] = 67109888;
+  v9[1] = v5;
+  v10 = 2048;
+  v11 = v2;
+  v12 = 2048;
+  v13 = v6;
+  v14 = 2048;
+  v15 = v4;
+  _os_log_debug_impl(&dword_2653C2000, v7, OS_LOG_TYPE_DEBUG, "CalculateMetaClassifierProbabilitiesStep : num_paths_clustering  = %d : Log prob for classes = [%f %f %f]\n", v9, 0x26u);
   return result;
 }
 
-void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(float *a1, float *a2)
+void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(float *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = a2[435];
-  v4 = a2[432];
-  v5 = a2[433];
-  v6 = a2[434];
-  v9[0] = 134219008;
+  OUTLINED_FUNCTION_4(*a1);
+  OUTLINED_FUNCTION_6();
+  OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_2653C2000, v7, OS_LOG_TYPE_DEBUG, "dmin=%f dmax=%f d01=%f d10=%f dist=%f\n", v9, 0x34u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(__int16 *a1, float **a2)
-{
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *(*a2 + 1);
-  v4 = OUTLINED_FUNCTION_4(**a2);
-  v6 = *(v5 + 8);
-  v11[0] = 67109888;
-  v11[1] = v7;
-  v12 = 2048;
-  v13 = v4;
-  v14 = 2048;
-  v15 = v8;
-  v16 = 2048;
-  v17 = v6;
-  _os_log_debug_impl(&dword_2653C2000, v9, OS_LOG_TYPE_DEBUG, "CalculateMetaClassifierProbabilitiesStep : num_paths_clustering  = %d : Log prob for classes = [%f %f %f]\n", v11, 0x26u);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_5();
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x52u);
 }
 
 void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 4);
-  OUTLINED_FUNCTION_4(*a1);
-  v3 = *(v2 + 8);
-  v4 = *(v2 + 12);
-  OUTLINED_FUNCTION_6();
-  v6 = *(v5 + 16);
-  v7 = *(v5 + 20);
-  OUTLINED_FUNCTION_7();
-  v9 = *(v8 + 24);
-  v10 = *(v8 + 28);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v11, v12, v13, v14, v15, 0x52u);
-  v16 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 36);
   OUTLINED_FUNCTION_4(*(a1 + 32));
-  v3 = *(v2 + 40);
-  v4 = *(v2 + 44);
   OUTLINED_FUNCTION_6();
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
   OUTLINED_FUNCTION_7();
-  v9 = *(v8 + 56);
-  v10 = *(v8 + 60);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v11, v12, v13, v14, v15, 0x52u);
-  v16 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x52u);
 }
 
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 68);
   OUTLINED_FUNCTION_4(*(a1 + 64));
-  v3 = *(v2 + 72);
-  v4 = *(v2 + 76);
   OUTLINED_FUNCTION_6();
-  v6 = *(v5 + 80);
-  v7 = *(v5 + 84);
   OUTLINED_FUNCTION_7();
-  v9 = *(v8 + 88);
-  v10 = *(v8 + 92);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v11, v12, v13, v14, v15, 0x52u);
-  v16 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x52u);
 }
 
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 100);
   OUTLINED_FUNCTION_4(*(a1 + 96));
-  v3 = *(v2 + 104);
-  v4 = *(v2 + 108);
   OUTLINED_FUNCTION_6();
-  v6 = *(v5 + 112);
-  v7 = *(v5 + 116);
   OUTLINED_FUNCTION_7();
-  v9 = *(v8 + 120);
-  v10 = *(v8 + 124);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v11, v12, v13, v14, v15, 0x52u);
-  v16 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x52u);
 }
 
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 132);
   OUTLINED_FUNCTION_4(*(a1 + 128));
-  v3 = *(v2 + 136);
-  v4 = *(v2 + 140);
   OUTLINED_FUNCTION_6();
-  v6 = *(v5 + 144);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v7, v8, v9, v10, v11, 0x34u);
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x34u);
 }
 
 {
@@ -4253,7 +4178,6 @@ void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(uint64_t a1)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -4261,7 +4185,6 @@ void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(uint64_t a1)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -4269,7 +4192,6 @@ void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(uint64_t a1)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -4277,7 +4199,6 @@ void PalmRejection::CalculateMetaClassifierProbabilitiesStep::run(uint64_t a1)
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void Device0x038P100CalBlobHandler::Device0x038P100CalBlobHandler(AlgDataNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -4543,7 +4464,7 @@ uint64_t Device0x038P100CalBlobHandler::loadLutParams(uint64_t result, uint64_t 
 
 AlgWorkNode *TouchService::EventInfoStep::EventInfoStep(AlgWorkNode *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  AlgWorkNode::AlgWorkNode(a1);
+  AlgWorkNode::AlgWorkNode(a1, 0x1848A7E6EC89206FLL);
   *v18 = &unk_2876EEBE8;
   *(v18 + 80) = a3;
   *(v18 + 88) = a4;
@@ -4699,26 +4620,23 @@ void TouchService::EventInfoStep::~EventInfoStep(TouchService::EventInfoStep *th
 
 void PadHostService::Device0x039PadHostServiceActivePlan::Device0x039PadHostServiceActivePlan(PadHostService::Device0x039PadHostServiceActivePlan *this)
 {
-  AlgTaskNode::AlgTaskNode(this);
+  AlgTaskNode::AlgTaskNode(this, 0xA5B36BE0AB2C55D0);
   *v2 = &unk_2876EEC38;
   v2[12] = 0;
   v2[13] = 0;
   v2[14] = 0;
   v3 = operator new(0xA0uLL);
-  Device0x039SurfaceDimensions::Device0x039SurfaceDimensions(v3);
+  Device0x039SurfaceDimensions::Device0x039SurfaceDimensions(v3, 0);
   *(this + 15) = v4;
-  operator new(0x8E0uLL);
-  v5 = *(this + 15);
-  *(this + 16) = Device0x039PadParameterCollection::Device0x039PadParameterCollection(v6);
-  v7 = operator new(0xC88uLL);
-  Device0x039PadFireflyParameterCollection::Device0x039PadFireflyParameterCollection(v7, *(this + 15));
-  *(this + 17) = v8;
-  v9 = operator new(0xBE8uLL);
-  *(this + 18) = Device0x039PadHoverParameterCollection::Device0x039PadHoverParameterCollection(v9, *(this + 15));
-  v10 = operator new(0xF8uLL);
-  v11 = *(this + 15);
-  v12 = *(v11 + 4);
-  *(this + 19) = SurfaceGrid::SurfaceGrid(v10, *v11, v11 + 8, *(this + 16) + 804, v11 + 116, (v11 + 20), v11 + 40, 0);
+  v5 = operator new(0x8E0uLL);
+  *(this + 16) = Device0x039PadParameterCollection::Device0x039PadParameterCollection(v5);
+  v6 = operator new(0xC88uLL);
+  Device0x039PadFireflyParameterCollection::Device0x039PadFireflyParameterCollection(v6, *(this + 15));
+  *(this + 17) = v7;
+  v8 = operator new(0xBE8uLL);
+  *(this + 18) = Device0x039PadHoverParameterCollection::Device0x039PadHoverParameterCollection(v8, *(this + 15));
+  v9 = operator new(0xF8uLL);
+  *(this + 19) = SurfaceGrid::SurfaceGrid(v9, **(this + 15), *(this + 15) + 8, *(this + 16) + 804, *(this + 15) + 116, (*(this + 15) + 20), *(this + 15) + 40, 0);
   AlgDataNode::AlgDataNode((this + 160), 0xD919591722A99D58, 0);
   *(this + 20) = &unk_2876F0108;
   *(this + 188) = 0;
@@ -4738,13 +4656,13 @@ void PadHostService::Device0x039PadHostServiceActivePlan::Device0x039PadHostServ
   *(this + 284) = 0;
   *(this + 68) = 20715;
   *(this + 70) = 28;
-  SurfaceDescriptorNode::SurfaceDescriptorNode((this + 312), 0x29965DE49819D20DuLL);
+  SurfaceDescriptorNode::SurfaceDescriptorNode((this + 312), 0x29965DE49819D20DLL);
   AlgDataNode::AlgDataNode((this + 368), 0xD992F1C73B6AF5FELL, 0);
   *(this + 46) = &unk_2876F0108;
   *(this + 396) = 0;
   *(this + 96) = 20480;
   *(this + 98) = 1;
-  v14 = *(*(this + 15) + 13);
+  v11 = *(*(this + 15) + 13);
   *(this + 51) = 0;
   *(this + 52) = 0;
   *(this + 50) = 0;
@@ -4753,16 +4671,16 @@ void PadHostService::Device0x039PadHostServiceActivePlan::Device0x039PadHostServ
   *(this + 56) = 0;
   *(this + 54) = 0;
   *(this + 228) = 0;
-  *(this + 214) = v14;
+  *(this + 214) = v11;
   *(this + 430) = 0;
-  v15 = &Device0x039::FFDtiStatsOPNormalization;
+  v12 = &Device0x039::FFDtiStatsOPNormalization;
   for (i = 108; i != 114; ++i)
   {
-    v17 = *v15++;
-    *(this + i) = v17;
+    v14 = *v12++;
+    *(this + i) = v14;
   }
 
-  v18 = v13;
+  v15 = v10;
   *(this + 228) = 0;
   AlgDataNode::AlgDataNode((this + 464), 0x762B06BEA3FE3797, 0);
   *(this + 58) = &unk_2876F01A8;
@@ -4774,7 +4692,7 @@ void PadHostService::Device0x039PadHostServiceActivePlan::Device0x039PadHostServ
   *(this + 524) = 0;
   *(this + 128) = 20482;
   *(this + 130) = 1;
-  Device0x039FireflyTask::Device0x039FireflyTask(this + 528, v18, *(this + 17), *(this + 18), *(this + 15), *(this + 19), this + 160, this + 224, this + 256, this + 400, this + 464, this + 496);
+  Device0x039FireflyTask::Device0x039FireflyTask(this + 528, v15, *(this + 17), *(this + 18), *(this + 15), *(this + 19), this + 160, this + 224, this + 256, this + 400, this + 464, this + 496);
 }
 
 void sub_2653CABA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14)
@@ -4990,65 +4908,65 @@ LABEL_7:
   return v10(a1, a3, a4, v8, v9, 0);
 }
 
-double Device0x039SurfaceDimensions::Device0x039SurfaceDimensions(uint64_t a1)
+double Device0x039SurfaceDimensions::Device0x039SurfaceDimensions(uint64_t a1, uint64_t a2)
 {
-  v1 = PadSurfaceDimensions::PadSurfaceDimensions(a1, 3u, 16, 0, 64);
-  *(v1 + 4) = 1140850688;
-  *(v1 + 8) = 0x300000400002;
-  *(v1 + 16) = 0;
-  *(v1 + 116) = xmmword_26541FFE0;
-  *(v1 + 132) = 0x48802C10483FD7A6;
-  *(v1 + 20) = xmmword_26541FFF0;
+  v2 = PadSurfaceDimensions::PadSurfaceDimensions(a1, 3u, 16, 0, 64, a2);
+  *(v2 + 4) = 1140850688;
+  *(v2 + 8) = 0x300000400002;
+  *(v2 + 16) = 0;
+  *(v2 + 116) = xmmword_26541FFE0;
+  *(v2 + 132) = 0x48802C10483FD7A6;
+  *(v2 + 20) = xmmword_26541FFF0;
   result = 0.0;
-  *(v1 + 40) = 0u;
-  *(v1 + 56) = 0u;
-  *(v1 + 72) = 0;
+  *(v2 + 40) = 0u;
+  *(v2 + 56) = 0u;
+  *(v2 + 72) = 0;
   return result;
 }
 
-uint64_t PadSurfaceDimensions::PadSurfaceDimensions(uint64_t a1, unsigned int a2, __int16 a3, char a4, __int16 a5)
+uint64_t PadSurfaceDimensions::PadSurfaceDimensions(uint64_t a1, unsigned int a2, __int16 a3, char a4, __int16 a5, uint64_t a6)
 {
   SurfaceDimensions::SurfaceDimensions(a1);
-  *(v10 + 144) = a2;
-  *(v10 + 146) = a3;
-  *(v10 + 148) = a4;
-  *(v10 + 150) = a5;
-  v11 = operator new(3 * a2);
-  *(a1 + 152) = v11;
-  v12 = *(a1 + 144);
+  *(v11 + 144) = a2;
+  *(v11 + 146) = a3;
+  *(v11 + 148) = a4;
+  *(v11 + 150) = a5;
+  v12 = operator new(3 * a2);
+  *(a1 + 152) = v12;
+  v13 = *(a1 + 144);
   if (*(a1 + 144))
   {
-    v13 = 0;
-    v14 = *(a1 + 146);
-    v15 = v11 + 2;
+    v14 = 0;
+    v15 = *(a1 + 146);
+    v16 = v12 + 2;
     do
     {
-      *(v15 - 2) = 0;
-      *(v15 - 1) = v14;
-      *v15 = v14 * v13;
-      v15 += 3;
-      ++v13;
+      *(v16 - 2) = 0;
+      *(v16 - 1) = v15;
+      *v16 = v15 * v14;
+      v16 += 3;
+      ++v14;
     }
 
-    while (v12 != v13);
+    while (v13 != v14);
   }
 
   return a1;
 }
 
-PadTouchParameterCollection *Device0x039PadParameterCollection::Device0x039PadParameterCollection(__n128 a1)
+PadTouchParameterCollection *Device0x039PadParameterCollection::Device0x039PadParameterCollection(uint64_t a1)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v4 = v1;
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = v1 + 282;
-  PadTouchParameterCollection::PadTouchParameterCollection(v1, *v2, *(v3 + 1), *(v3 + 10), *(v3 + 13), v3[73], v3[72]);
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = v3;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = v3 + 282;
+  PadTouchParameterCollection::PadTouchParameterCollection(v3, *v1, *(v2 + 1), *(v2 + 10), *(v2 + 13), v2[73], v2[72]);
   *(v6 + 4) = 120;
   *(v6 + 1084) = 0x2726212003120703;
   *(v6 + 1092) = 20544;
   *(v6 + 1460) = 589177120;
-  v7 = *(v3 + 1);
+  v7 = *(v2 + 1);
   *(v6 + 36) = 0x4100000000000000;
   *(v6 + 44) = v7;
   *(v6 + 48) = 1148846080;
@@ -5111,25 +5029,25 @@ PadTouchParameterCollection *Device0x039PadParameterCollection::Device0x039PadPa
   *(v5 + 170) = xmmword_265420120;
   memcpy(__dst, &unk_265420650, 0x1200uLL);
   v8 = *(v4 + 132);
-  LOBYTE(v12) = 0;
-  BYTE1(v12) = v8;
-  HIWORD(v12) = v8;
-  LOBYTE(v13) = v8;
-  HIBYTE(v13) = v8;
-  SA2DArrayBase<float>::copyFromBuffer<unsigned short>(v4 + 504, __dst, (v8 * v8), &v12);
+  LOBYTE(v11) = 0;
+  BYTE1(v11) = v8;
+  HIWORD(v11) = v8;
+  LOBYTE(v12) = v8;
+  HIBYTE(v12) = v8;
+  SA2DArrayBase<float>::copyFromBuffer<unsigned short>(v4 + 504, __dst, (v8 * v8), &v11);
   *(v4 + 150) = 880803840;
   SA1DArrayBase<float>::scaleElementwise(v4 + 504, v4 + 504, 0.00000023842);
   memcpy(__dst, &unk_265421850, sizeof(__dst));
   v9 = *(v4 + 148);
-  LOBYTE(v12) = 0;
-  BYTE1(v12) = v9;
-  HIWORD(v12) = v9;
-  LOBYTE(v13) = v9;
-  HIBYTE(v13) = v9;
-  SA2DArrayBase<float>::copyFromBuffer<unsigned short>(v4 + 568, __dst, (v9 * v9), &v12);
+  LOBYTE(v11) = 0;
+  BYTE1(v11) = v9;
+  HIWORD(v11) = v9;
+  LOBYTE(v12) = v9;
+  HIBYTE(v12) = v9;
+  SA2DArrayBase<float>::copyFromBuffer<unsigned short>(v4 + 568, __dst, (v9 * v9), &v11);
   *(v4 + 151) = 864026624;
   SA1DArrayBase<float>::scaleElementwise(v4 + 568, v4 + 568, 0.000000059605);
-  *(v4 + 1340) = (43692 * (*(v3 + 13) / *(v4 + 1333))) >> 16;
+  *(v4 + 1340) = (43692 * (*(v2 + 13) / *(v4 + 1333))) >> 16;
   *(v5 + 1210) = xmmword_265420130;
   *(v5 + 1226) = xmmword_265420140;
   *(v5 + 1242) = xmmword_265420150;
@@ -5157,10 +5075,9 @@ PadTouchParameterCollection *Device0x039PadParameterCollection::Device0x039PadPa
   __dst[1] = unk_265423860;
   __dst[2] = xmmword_265423870;
   __dst[3] = unk_265423880;
-  v12 = 1052672;
-  v13 = 4112;
-  SA2DArrayBase<signed char>::copyFromBuffer<signed char>(v4 + 2080, __dst, 256, &v12);
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = 1052672;
+  v12 = 4112;
+  SA2DArrayBase<signed char>::copyFromBuffer<signed char>(v4 + 2080, __dst, 256, &v11);
   return v4;
 }
 
@@ -5297,7 +5214,8 @@ void sub_2653CC414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t SA2DArrayBase<float>::copyFromBuffer<unsigned short>(uint64_t a1, _WORD *a2, uint64_t a3, unsigned __int8 *a4)
 {
-  v21 = (*(*a1 + 8))(a1);
+  v5 = a2;
+  v21 = (*(*a1 + 8))(a1, a2, a3);
   v7 = *a4;
   v8 = a4[3];
   v9 = (*(*a1 + 24))(a1);
@@ -5314,7 +5232,7 @@ uint64_t SA2DArrayBase<float>::copyFromBuffer<unsigned short>(uint64_t a1, _WORD
     v19 = 2 * (a4[4] - a4[3]);
     do
     {
-      LOWORD(v15) = *a2;
+      LOWORD(v15) = *v5;
       v15 = LODWORD(v15);
       *v18 = v15;
       if (v17 >= 2)
@@ -5322,7 +5240,7 @@ uint64_t SA2DArrayBase<float>::copyFromBuffer<unsigned short>(uint64_t a1, _WORD
         v20 = 1;
         do
         {
-          LOWORD(v15) = a2[v20];
+          LOWORD(v15) = v5[v20];
           v15 = LODWORD(v15);
           v18[v20++] = v15;
         }
@@ -5331,7 +5249,7 @@ uint64_t SA2DArrayBase<float>::copyFromBuffer<unsigned short>(uint64_t a1, _WORD
       }
 
       v18 += result;
-      a2 = (a2 + v19);
+      v5 = (v5 + v19);
       ++v16;
     }
 
@@ -5369,7 +5287,8 @@ uint64_t SA1DArrayBase<float>::scaleElementwise(uint64_t a1, uint64_t a2, float 
 
 void *SA2DArrayBase<signed char>::copyFromBuffer<signed char>(uint64_t a1, char *a2, uint64_t a3, unsigned __int8 *a4)
 {
-  v19 = (*(*a1 + 8))(a1);
+  v5 = a2;
+  v19 = (*(*a1 + 8))(a1, a2, a3);
   v7 = *a4;
   v8 = a4[3];
   v9 = (*(*a1 + 24))(a1);
@@ -5386,13 +5305,13 @@ void *SA2DArrayBase<signed char>::copyFromBuffer<signed char>(uint64_t a1, char 
     v18 = result;
     do
     {
-      if (a2 != v17)
+      if (v5 != v17)
       {
-        result = memcpy(v17, a2, (v12 - v13));
+        result = memcpy(v17, v5, (v12 - v13));
       }
 
       v17 += v18;
-      a2 += v16;
+      v5 += v16;
       --v15;
     }
 
@@ -5543,35 +5462,35 @@ void PadTouchBloomingKMatrixParams::PadTouchBloomingKMatrixParams(PadTouchBloomi
   *(this + 16) = vdup_n_s32(0x33D6BF95u);
 }
 
-AlgDataNode *SA2DArrayDynamicSize<float>::SA2DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, int a3, int a4, int a5, char a6)
+AlgDataNode *SA2DArrayDynamicSize<float>::SA2DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, int a3, int a4, uint64_t a5, char a6)
 {
   AlgDataNode::AlgDataNode(a1, a2, a6);
-  *v9 = &unk_2876EEE08;
-  *(v9 + 32) = &unk_2876EEE58;
-  *(v9 + 40) = 20481;
-  *(v9 + 44) = 2;
-  *(v9 + 46) = 0;
-  *(v9 + 56) = a3;
-  *(v9 + 60) = a4;
-  SA2DArrayDynamicSize<float>::initialize(v9, a3, a4);
+  *v10 = &unk_2876EEE08;
+  *(v10 + 32) = &unk_2876EEE58;
+  *(v10 + 40) = 20481;
+  *(v10 + 44) = 2;
+  *(v10 + 46) = 0;
+  *(v10 + 56) = a3;
+  *(v10 + 60) = a4;
+  SA2DArrayDynamicSize<float>::initialize(v10, a3, a4, a5);
   return a1;
 }
 
-uint64_t SA2DArrayDynamicSize<float>::initialize(uint64_t a1, int a2, int a3)
+uint64_t SA2DArrayDynamicSize<float>::initialize(uint64_t a1, int a2, int a3, uint64_t a4)
 {
-  v3 = a1;
+  v4 = a1;
   *(a1 + 16) = 39424;
   *(a1 + 22) = 8;
   *(a1 + 45) = a2;
   *(a1 + 46) = a3;
-  v4 = operator new(4 * (a3 * a2));
-  v6 = v3 + 32;
-  v5 = *(v3 + 32);
-  *(v3 + 48) = v4;
-  v7 = *(v3 + 22);
-  LODWORD(v3) = (*(v5 + 16))(v3 + 32);
-  result = (*(*v6 + 24))(v6);
-  *(v6 - 8) = v7 + 4 * v3 * result;
+  v5 = operator new(4 * (a3 * a2));
+  v7 = v4 + 32;
+  v6 = *(v4 + 32);
+  *(v4 + 48) = v5;
+  v8 = *(v4 + 22);
+  LODWORD(v4) = (*(v6 + 16))(v4 + 32);
+  result = (*(*v7 + 24))(v7);
+  *(v7 - 8) = v8 + 4 * v4 * result;
   return result;
 }
 
@@ -5924,35 +5843,35 @@ __n128 PlainDataNode<PadEsdDetectParams>::injectBuffer(__n128 *a1, __n128 *a2)
   return result;
 }
 
-AlgDataNode *SA2DArrayDynamicSize<signed char>::SA2DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, int a3, int a4, int a5, char a6)
+AlgDataNode *SA2DArrayDynamicSize<signed char>::SA2DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, int a3, int a4, uint64_t a5, char a6)
 {
   AlgDataNode::AlgDataNode(a1, a2, a6);
-  *v9 = &unk_2876EF398;
-  *(v9 + 32) = &unk_2876EF3E8;
-  *(v9 + 40) = 20483;
-  *(v9 + 44) = 2;
-  *(v9 + 46) = 0;
-  *(v9 + 56) = a3;
-  *(v9 + 60) = a4;
-  SA2DArrayDynamicSize<signed char>::initialize(v9, a3, a4);
+  *v10 = &unk_2876EF398;
+  *(v10 + 32) = &unk_2876EF3E8;
+  *(v10 + 40) = 20483;
+  *(v10 + 44) = 2;
+  *(v10 + 46) = 0;
+  *(v10 + 56) = a3;
+  *(v10 + 60) = a4;
+  SA2DArrayDynamicSize<signed char>::initialize(v10, a3, a4, a5);
   return a1;
 }
 
-uint64_t SA2DArrayDynamicSize<signed char>::initialize(uint64_t a1, int a2, int a3)
+uint64_t SA2DArrayDynamicSize<signed char>::initialize(uint64_t a1, int a2, int a3, uint64_t a4)
 {
-  v3 = a1;
+  v4 = a1;
   *(a1 + 16) = 39424;
   *(a1 + 22) = 8;
   *(a1 + 45) = a2;
   *(a1 + 46) = a3;
-  v4 = operator new((a3 * a2));
-  v6 = v3 + 32;
-  v5 = *(v3 + 32);
-  *(v3 + 48) = v4;
-  v7 = *(v3 + 22);
-  LODWORD(v3) = (*(v5 + 16))(v3 + 32);
-  result = (*(*v6 + 24))(v6);
-  *(v6 - 8) = v7 + result * v3;
+  v5 = operator new((a3 * a2));
+  v7 = v4 + 32;
+  v6 = *(v4 + 32);
+  *(v4 + 48) = v5;
+  v8 = *(v4 + 22);
+  LODWORD(v4) = (*(v6 + 16))(v4 + 32);
+  result = (*(*v7 + 24))(v7);
+  *(v7 - 8) = v8 + result * v4;
   return result;
 }
 
@@ -6021,35 +5940,35 @@ void *SA1DArrayBase<unsigned char>::fill(uint64_t a1, int a2)
   return result;
 }
 
-AlgDataNode *SA2DArrayDynamicSize<unsigned char>::SA2DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, int a3, int a4, int a5, char a6)
+AlgDataNode *SA2DArrayDynamicSize<unsigned char>::SA2DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, int a3, int a4, uint64_t a5, char a6)
 {
   AlgDataNode::AlgDataNode(a1, a2, a6);
-  *v9 = &unk_2876EF478;
-  *(v9 + 32) = &unk_2876EF4C8;
-  *(v9 + 40) = 20482;
-  *(v9 + 44) = 2;
-  *(v9 + 46) = 0;
-  *(v9 + 56) = a3;
-  *(v9 + 60) = a4;
-  SA2DArrayDynamicSize<unsigned char>::initialize(v9, a3, a4);
+  *v10 = &unk_2876EF478;
+  *(v10 + 32) = &unk_2876EF4C8;
+  *(v10 + 40) = 20482;
+  *(v10 + 44) = 2;
+  *(v10 + 46) = 0;
+  *(v10 + 56) = a3;
+  *(v10 + 60) = a4;
+  SA2DArrayDynamicSize<unsigned char>::initialize(v10, a3, a4, a5);
   return a1;
 }
 
-uint64_t SA2DArrayDynamicSize<unsigned char>::initialize(uint64_t a1, int a2, int a3)
+uint64_t SA2DArrayDynamicSize<unsigned char>::initialize(uint64_t a1, int a2, int a3, uint64_t a4)
 {
-  v3 = a1;
+  v4 = a1;
   *(a1 + 16) = 39424;
   *(a1 + 22) = 8;
   *(a1 + 45) = a2;
   *(a1 + 46) = a3;
-  v4 = operator new((a3 * a2));
-  v6 = v3 + 32;
-  v5 = *(v3 + 32);
-  *(v3 + 48) = v4;
-  v7 = *(v3 + 22);
-  LODWORD(v3) = (*(v5 + 16))(v3 + 32);
-  result = (*(*v6 + 24))(v6);
-  *(v6 - 8) = v7 + result * v3;
+  v5 = operator new((a3 * a2));
+  v7 = v4 + 32;
+  v6 = *(v4 + 32);
+  *(v4 + 48) = v5;
+  v8 = *(v4 + 22);
+  LODWORD(v4) = (*(v6 + 16))(v4 + 32);
+  result = (*(*v7 + 24))(v7);
+  *(v7 - 8) = v8 + result * v4;
   return result;
 }
 
@@ -6098,7 +6017,7 @@ void *SA2DArrayDynamicSize<unsigned char>::~SA2DArrayDynamicSize(void *a1)
 double Device0x039PadFireflyParameterCollection::Device0x039PadFireflyParameterCollection(PadFireflyParameterCollection *a1, uint64_t a2)
 {
   v2 = (a1 + 328);
-  PadFireflyParameterCollection::PadFireflyParameterCollection(a1, 6, 2, *(a2 + 10), *(a2 + 13), Device0x039::kProfileLookupTableLong, 8u, 1, 1u);
+  PadFireflyParameterCollection::PadFireflyParameterCollection(a1, 6, 2, *(a2 + 10), *(a2 + 13), Device0x039::kProfileLookupTableLong, 8, 1, 1u);
   *(v3 + 1836) = 1;
   *(v3 + 292) = 1202702336;
   *(v3 + 296) = 0;
@@ -6382,8 +6301,9 @@ double Device0x039PadFireflyParameterCollection::Device0x039PadFireflyParameterC
   return result;
 }
 
-void PadFireflyParameterCollection::PadFireflyParameterCollection(PadFireflyParameterCollection *this, int a2, int a3, int a4, int a5, unsigned __int8 *a6, unsigned int a7, int a8, unsigned __int8 a9)
+void PadFireflyParameterCollection::PadFireflyParameterCollection(PadFireflyParameterCollection *this, int a2, int a3, unsigned __int8 a4, unsigned __int8 a5, unsigned __int8 *a6, uint64_t a7, int a8, unsigned __int8 a9)
 {
+  v10 = a7;
   *this = -105;
   v15 = (this + 144);
   PadFireflyBloomingParams::PadFireflyBloomingParams((this + 8), a2, a3, a4, a5);
@@ -6435,7 +6355,7 @@ void PadFireflyParameterCollection::PadFireflyParameterCollection(PadFireflyPara
   *(this + 410) = 64;
   PlainDataNode<PadFireflyAdaptiveMakeBreak>::PlainDataNode((this + 1712), 0x7EFC3A890E5B841ALL, 0, 0);
   PlainDataNode<PadFireflyDisplayNoiseProjection>::PlainDataNode((this + 1808), 0xFCCD578C1EF39D4ELL, 0, 0);
-  SA1DArrayDynamicSize<unsigned char>::SA1DArrayDynamicSize((this + 1912), 0x1CFD9E94E117BA6BLL, a7);
+  SA1DArrayDynamicSize<unsigned char>::SA1DArrayDynamicSize((this + 1912), 0x1CFD9E94E117BA6BLL, v10, 0);
   AlgDataNode::AlgDataNode((this + 1968), 0x67D8B3472AC2AD89, 0);
   *(this + 246) = &unk_2876EF968;
   *(this + 250) = 0x3F0000003F333333;
@@ -6681,10 +6601,10 @@ void PadFireflyLutParams::PadFireflyLutParams(PadFireflyLutParams *this, int a2,
   SA2DArrayDynamicSize<float>::SA2DArrayDynamicSize((this + 216), 0x1BF2E999B76A69C8, a4, a6, 0, 0);
   SA2DArrayDynamicSize<float>::SA2DArrayDynamicSize((this + 280), 0x8D3FD794C9A45604, a4, a5, 0, 0);
   SA2DArrayDynamicSize<float>::SA2DArrayDynamicSize((this + 344), 0x8D3FD794C9A45605, a4, a6, 0, 0);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 408), 0xFD9BCB78049BEDF1, 4u);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 464), 0xFD9BCB78049BEDF2, 4u);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 520), 0xB7837F0AFE84642ELL, 4u);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 576), 0xB7837F0AFE84642FLL, 4u);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 408), 0xFD9BCB78049BEDF1, 4u, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 464), 0xFD9BCB78049BEDF2, 4u, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 520), 0xB7837F0AFE84642ELL, 4u, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 576), 0xB7837F0AFE84642FLL, 4u, 0);
   *(this + 632) = a3 + a2 == a4;
   *(this + 633) = 0;
   *(this + 635) = a2;
@@ -6717,17 +6637,17 @@ void sub_2653D0700(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-AlgDataNode *SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, unsigned int a3)
+AlgDataNode *SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   AlgDataNode::AlgDataNode(a1, a2, 0);
-  *v5 = &unk_2876EF698;
-  *(v5 + 32) = &unk_2876EF6E0;
-  *(v5 + 40) = 20481;
-  *(v5 + 44) = 1;
-  *(v5 + 16) = 39424;
-  *(v5 + 22) = 8;
-  *(v5 + 45) = a3;
-  *(v5 + 24) = 4 * a3 + 8;
+  *v6 = &unk_2876EF698;
+  *(v6 + 32) = &unk_2876EF6E0;
+  *(v6 + 40) = 20481;
+  *(v6 + 44) = 1;
+  *(v6 + 16) = 39424;
+  *(v6 + 22) = 8;
+  *(v6 + 45) = a3;
+  *(v6 + 24) = 4 * a3 + 8;
   *(a1 + 6) = operator new(4 * a3);
   return a1;
 }
@@ -6871,17 +6791,17 @@ __n128 PlainDataNode<PadFireflyDisplayNoiseProjection>::injectBuffer(uint64_t a1
   return result;
 }
 
-AlgDataNode *SA1DArrayDynamicSize<unsigned char>::SA1DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, unsigned int a3)
+AlgDataNode *SA1DArrayDynamicSize<unsigned char>::SA1DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   AlgDataNode::AlgDataNode(a1, a2, 0);
-  *v5 = &unk_2876EF8C8;
-  *(v5 + 32) = &unk_2876EF910;
-  *(v5 + 40) = 20482;
-  *(v5 + 44) = 1;
-  *(v5 + 16) = 39424;
-  *(v5 + 22) = 8;
-  *(v5 + 45) = a3;
-  *(v5 + 24) = a3 + 8;
+  *v6 = &unk_2876EF8C8;
+  *(v6 + 32) = &unk_2876EF910;
+  *(v6 + 40) = 20482;
+  *(v6 + 44) = 1;
+  *(v6 + 16) = 39424;
+  *(v6 + 22) = 8;
+  *(v6 + 45) = a3;
+  *(v6 + 24) = a3 + 8;
   *(a1 + 6) = operator new(a3);
   return a1;
 }
@@ -6967,7 +6887,7 @@ void PadFireflyLutParams::~PadFireflyLutParams(PadFireflyLutParams *this)
 
 uint64_t Device0x039PadHoverParameterCollection::Device0x039PadHoverParameterCollection(uint64_t a1, uint64_t a2)
 {
-  v3 = PadHoverParameterCollection::PadHoverParameterCollection(a1, 6, 8, 6, *(a2 + 10), *(a2 + 13), 0xCu, a2, 0x48u, 56, 14, &Device0x039::kFreqToProfileIndexLookupTable, 6u, 35, 8u, 8u);
+  v3 = PadHoverParameterCollection::PadHoverParameterCollection(a1, 6, 8, 6, *(a2 + 10), *(a2 + 13), 12, a2, 0x48u, 56, 14, &Device0x039::kFreqToProfileIndexLookupTable, 6, 35, 8u, 8u);
   *v3 = &unk_2876EFA58;
   v4 = PlainDataNode<ExtrapolationParams>::PlainDataNode((v3 + 370), 0xE9CCE10AB7FD5EF3, 0, 0);
   *(a1 + 836) = 1082560348;
@@ -7174,7 +7094,7 @@ uint64_t Device0x039PadHoverParameterCollection::Device0x039PadHoverParameterCol
   return a1;
 }
 
-uint64_t PadHoverParameterCollection::PadHoverParameterCollection(uint64_t a1, int a2, int a3, int a4, int a5, int a6, unsigned int a7, uint64_t a8, unsigned __int8 a9, char a10, char a11, void *__src, unsigned __int16 a13, char a14, unsigned __int8 a15, unsigned __int8 a16)
+uint64_t PadHoverParameterCollection::PadHoverParameterCollection(uint64_t a1, int a2, int a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int8 a9, char a10, char a11, void *__src, __int16 a13, char a14, unsigned __int8 a15, unsigned __int8 a16)
 {
   *a1 = &unk_2876EFAA0;
   PlainDataNode<HoverProfileModelParamsSt>::PlainDataNode((a1 + 8));
@@ -7182,7 +7102,7 @@ uint64_t PadHoverParameterCollection::PadHoverParameterCollection(uint64_t a1, i
   *(a1 + 808) = &unk_2876EFB10;
   *(a1 + 824) = 20481;
   *(a1 + 832) = 4;
-  SA1DArrayDynamicSize<unsigned char>::SA1DArrayDynamicSize((a1 + 840), 0xFD897E6A9732294FLL, a13);
+  SA1DArrayDynamicSize<unsigned char>::SA1DArrayDynamicSize((a1 + 840), 0xFD897E6A9732294FLL, a13, 0);
   PlainDataNode<PadHoverRefinementParam>::PlainDataNode((a1 + 896), 0xBB06875D8176EF9ALL, 0, 0);
   PlainDataNode<FireflyNegPixelCompensationParam>::PlainDataNode((a1 + 968), 0x7E9608A87C55B4EELL, 0, 0);
   AlgDataNode::AlgDataNode((a1 + 1096), 0x3470A5B2DBE2215ELL, 0);
@@ -7377,13 +7297,16 @@ __n128 PlainDataNode<PadHoverRefinementParam>::injectBuffer(uint64_t a1, uint64_
   return result;
 }
 
-void PadHoverProfileModelSt::PadHoverProfileModelSt(PadHoverProfileModelSt *this, int a2, int a3, unsigned int a4)
+void PadHoverProfileModelSt::PadHoverProfileModelSt(PadHoverProfileModelSt *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize(this, 0x6D7BC3F13914FBA6, a4);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((v8 + 56), 0x7C461B4818F04F9FLL, a3, a4, a3);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 128), 0x7C461B4818F04FA0, a2, a4, a2);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 200), 0x509844B36D60C42, a3, a4, a3);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 272), 0x509844B36D60C43, a2, a4, a2);
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
+  v8 = SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize(this, 0x6D7BC3F13914FBA6, a4, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((v8 + 56), 0x7C461B4818F04F9FLL, v5, v4, v5, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 128), 0x7C461B4818F04FA0, v6, v4, v6, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 200), 0x509844B36D60C42, v5, v4, v5, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 272), 0x509844B36D60C43, v6, v4, v6, 0);
 }
 
 void sub_2653D2A98(_Unwind_Exception *a1)
@@ -7395,37 +7318,37 @@ void sub_2653D2A98(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-AlgDataNode *SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, int a3, int a4, int a5)
+AlgDataNode *SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize(AlgDataNode *a1, uint64_t a2, int a3, int a4, int a5, uint64_t a6)
 {
   AlgDataNode::AlgDataNode(a1, a2, 0);
-  *v9 = &unk_2876EFC00;
-  *(v9 + 32) = &unk_2876EFC58;
-  *(v9 + 40) = 20481;
-  *(v9 + 44) = 3;
-  *(v9 + 56) = a3;
-  *(v9 + 60) = a4;
-  *(v9 + 64) = a5;
-  SA3DArrayDynamicSize<float>::initialize(v9, a3, a4, a5);
+  *v11 = &unk_2876EFC00;
+  *(v11 + 32) = &unk_2876EFC58;
+  *(v11 + 40) = 20481;
+  *(v11 + 44) = 3;
+  *(v11 + 56) = a3;
+  *(v11 + 60) = a4;
+  *(v11 + 64) = a5;
+  SA3DArrayDynamicSize<float>::initialize(v11, a3, a4, a5, a6);
   return a1;
 }
 
-uint64_t SA3DArrayDynamicSize<float>::initialize(uint64_t a1, int a2, int a3, int a4)
+uint64_t SA3DArrayDynamicSize<float>::initialize(uint64_t a1, int a2, int a3, int a4, uint64_t a5)
 {
-  v4 = a1;
+  v5 = a1;
   *(a1 + 16) = 39424;
   *(a1 + 22) = 8;
   *(a1 + 45) = a2;
   *(a1 + 46) = a3;
   *(a1 + 47) = a4;
-  v5 = operator new(4 * (a3 * a2 * a4));
-  v7 = v4 + 32;
-  v6 = *(v4 + 32);
-  *(v4 + 48) = v5;
-  v8 = *(v4 + 22);
-  LODWORD(v4) = (*(v6 + 16))(v4 + 32);
-  v9 = (*(*v7 + 24))(v7);
-  result = (*(*v7 + 32))(v7);
-  *(v7 - 8) = v8 + 4 * v4 * v9 * result;
+  v6 = operator new(4 * (a3 * a2 * a4));
+  v8 = v5 + 32;
+  v7 = *(v5 + 32);
+  *(v5 + 48) = v6;
+  v9 = *(v5 + 22);
+  LODWORD(v5) = (*(v7 + 16))(v5 + 32);
+  v10 = (*(*v8 + 24))(v8);
+  result = (*(*v8 + 32))(v8);
+  *(v8 - 8) = v9 + 4 * v5 * v10 * result;
   return result;
 }
 
@@ -7479,23 +7402,23 @@ void *SA3DArrayDynamicSize<float>::~SA3DArrayDynamicSize(void *a1)
   return a1;
 }
 
-void PadHoverLutSt::PadHoverLutSt(PadHoverLutSt *this, int a2, int a3, int a4, int a5, int a6, unsigned __int8 a7, unsigned int a8, unsigned __int8 a9, unsigned __int8 a10, unsigned __int8 a11, unsigned __int8 a12, unsigned __int8 a13)
+void PadHoverLutSt::PadHoverLutSt(PadHoverLutSt *this, int a2, int a3, int a4, int a5, int a6, unsigned __int8 a7, unsigned int a8, char a9, char a10, char a11, unsigned __int8 a12, unsigned __int8 a13)
 {
-  v20 = SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize(this, 0x7C78748458D391CCLL, a3, a6, a5);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((v20 + 72), 0x7C7874847DB6CAF1, a3, a6, a5);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 144), 0x7C6A29740D55F098, a4, a10, a8);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 216), 0x7C6F9A6A92B2A5D9, a4, a10, a9);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 288), 0x9AF57F51E09797BLL, a4, a10, a8);
-  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 360), 0xA62E7BC4EFCD6DCLL, a4, a10, a9);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 432), 0x9BC8B57692F3BB1, a9);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 488), 0xA701B1E9A229912, a8);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 544), 0xFE838EE459F965A1, a10);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 600), 0xBFB08C9237BCE8ECLL, a11);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 656), 0xF4FB2498D35E57A9, a11);
+  v20 = SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize(this, 0x7C78748458D391CCLL, a3, a6, a5, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((v20 + 72), 0x7C7874847DB6CAF1, a3, a6, a5, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 144), 0x7C6A29740D55F098, a4, a10, a8, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 216), 0x7C6F9A6A92B2A5D9, a4, a10, a9, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 288), 0x9AF57F51E09797BLL, a4, a10, a8, 0);
+  SA3DArrayDynamicSize<float>::SA3DArrayDynamicSize((this + 360), 0xA62E7BC4EFCD6DCLL, a4, a10, a9, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 432), 0x9BC8B57692F3BB1, a9, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 488), 0xA701B1E9A229912, a8, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 544), 0xFE838EE459F965A1, a10, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 600), 0xBFB08C9237BCE8ECLL, a11, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 656), 0xF4FB2498D35E57A9, a11, 0);
   SA2DArrayDynamicSize<float>::SA2DArrayDynamicSize((this + 712), 0xDC9B3CCB9A1D193BLL, a2, a12, 0, 0);
   SA2DArrayDynamicSize<float>::SA2DArrayDynamicSize((this + 776), 0x1A2ED6AC92934721, a2, a12, 0, 0);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 840), 0x33FEB832ACB9AD2, a13);
-  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 896), 0x7A65D43D836E9F8, a13);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 840), 0x33FEB832ACB9AD2, a13, 0);
+  SA1DArrayDynamicSize<float>::SA1DArrayDynamicSize((this + 896), 0x7A65D43D836E9F8, a13, 0);
   *(this + 952) = a8;
   *(this + 953) = a9;
   *(this + 954) = a10;
@@ -8186,9 +8109,9 @@ __n128 PlainDataNode<PadPTWResults>::injectBuffer(uint64_t a1, uint64_t a2)
 
 PadHostService::Device0x039PadHostServiceTTWPlan *PadHostService::Device0x039PadHostServiceTTWPlan::Device0x039PadHostServiceTTWPlan(PadHostService::Device0x039PadHostServiceTTWPlan *this)
 {
-  AlgTaskNode::AlgTaskNode(this);
+  AlgTaskNode::AlgTaskNode(this, 0x42BD12136436D303);
   *v2 = &unk_2876F01F8;
-  v3 = v2 + 15;
+  v3 = (v2 + 15);
   AlgDataNode::AlgDataNode((v2 + 15), 0x726DB665A87D6D56, 0);
   *(this + 15) = &unk_2876F0270;
   *(this + 148) = 0;
@@ -8226,8 +8149,8 @@ PadHostService::Device0x039PadHostServiceTTWPlan *PadHostService::Device0x039Pad
   *(this + 92) = 88;
   *(this + 43) = &unk_2876F0328;
   *(this + 464) = 0;
-  TouchService::TapEventGenerationStep::TapEventGenerationStep(this + 472, this + 96, v3, this + 176);
-  PadFireflyService::PTWEventGenerationStep::PTWEventGenerationStep(this + 576, this + 96, this + 288, this + 344);
+  TouchService::TapEventGenerationStep::TapEventGenerationStep((this + 472), this + 96, v3, this + 176);
+  PadFireflyService::PTWEventGenerationStep::PTWEventGenerationStep((this + 576), this + 96, this + 288, this + 344);
   PadHostService::Device0x039PadHostServiceTTWPlan::runNodeRegistrations(this);
   *(this + 148) = 0;
   *(this + 316) = 0;
@@ -8365,7 +8288,7 @@ __n128 PlainDataNode<SADigitizerStylusEventPacket>::injectBuffer(uint64_t a1, ui
   return result;
 }
 
-uint64_t PadHostService::Device0x039PadHostServiceAlgsDevice::Device0x039PadHostServiceAlgsDevice(uint64_t a1, char a2, int a3, char a4)
+uint64_t PadHostService::Device0x039PadHostServiceAlgsDevice::Device0x039PadHostServiceAlgsDevice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = SAPadHostServiceJ8xxVersionDescriptor();
   v9 = PadHostService::PadHostServiceAlgsDevice::PadHostServiceAlgsDevice(a1, a2, a3, a4, *v8);
@@ -8398,15 +8321,14 @@ uint64_t PadHostService::Device0x039PadHostServiceAlgsDevice::newPlanNode(PadHos
 {
   if (a2 == 1)
   {
-    v7 = *(this + 14);
-    if (v7)
+    v6 = *(this + 14);
+    if (v6)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v6 + 8))(v6);
     }
 
-    v8 = *(this + 120);
-    v9 = operator new(0x2A8uLL);
-    active = PadHostService::Device0x039PadHostServiceTTWPlan::Device0x039PadHostServiceTTWPlan(v9);
+    v7 = operator new(0x2A8uLL);
+    v5 = PadHostService::Device0x039PadHostServiceTTWPlan::Device0x039PadHostServiceTTWPlan(v7);
     goto LABEL_9;
   }
 
@@ -8418,11 +8340,10 @@ uint64_t PadHostService::Device0x039PadHostServiceAlgsDevice::newPlanNode(PadHos
       (*(*v3 + 8))(v3);
     }
 
-    v4 = *(this + 120);
-    v5 = operator new(0x99D8uLL);
-    active = PadHostService::Device0x039PadHostServiceActivePlan::Device0x039PadHostServiceActivePlan(v5);
+    v4 = operator new(0x99D8uLL);
+    v5 = PadHostService::Device0x039PadHostServiceActivePlan::Device0x039PadHostServiceActivePlan(v4);
 LABEL_9:
-    *(this + 14) = active;
+    *(this + 14) = v5;
     return 1;
   }
 
@@ -8431,9 +8352,9 @@ LABEL_9:
 
 PadHostService::Device0x038PadHostServiceTTWPlan *PadHostService::Device0x038PadHostServiceTTWPlan::Device0x038PadHostServiceTTWPlan(PadHostService::Device0x038PadHostServiceTTWPlan *this)
 {
-  AlgTaskNode::AlgTaskNode(this);
+  AlgTaskNode::AlgTaskNode(this, 0x42BD12136436D303);
   *v2 = &unk_2876F03F0;
-  v3 = v2 + 15;
+  v3 = (v2 + 15);
   AlgDataNode::AlgDataNode((v2 + 15), 0x726DB665A87D6D56, 0);
   *(this + 15) = &unk_2876F0270;
   *(this + 148) = 0;
@@ -8471,8 +8392,8 @@ PadHostService::Device0x038PadHostServiceTTWPlan *PadHostService::Device0x038Pad
   *(this + 92) = 88;
   *(this + 43) = &unk_2876F0328;
   *(this + 464) = 0;
-  TouchService::TapEventGenerationStep::TapEventGenerationStep(this + 472, this + 96, v3, this + 176);
-  PadFireflyService::PTWEventGenerationStep::PTWEventGenerationStep(this + 576, this + 96, this + 288, this + 344);
+  TouchService::TapEventGenerationStep::TapEventGenerationStep((this + 472), this + 96, v3, this + 176);
+  PadFireflyService::PTWEventGenerationStep::PTWEventGenerationStep((this + 576), this + 96, this + 288, this + 344);
   PadHostService::Device0x039PadHostServiceTTWPlan::runNodeRegistrations(this);
   *(this + 148) = 0;
   *(this + 316) = 0;
@@ -8550,26 +8471,23 @@ void PadHostService::Device0x038PadHostServiceTTWPlan::~Device0x038PadHostServic
 
 void PadHostService::Device0x038PadHostServiceActivePlan::Device0x038PadHostServiceActivePlan(PadHostService::Device0x038PadHostServiceActivePlan *this)
 {
-  AlgTaskNode::AlgTaskNode(this);
+  AlgTaskNode::AlgTaskNode(this, 0xA5B36BE0AB2C55D0);
   *v2 = &unk_2876F0468;
   v2[12] = 0;
   v2[13] = 0;
   v2[14] = 0;
   v3 = operator new(0xA0uLL);
-  Device0x038SurfaceDimensions::Device0x038SurfaceDimensions(v3);
+  Device0x038SurfaceDimensions::Device0x038SurfaceDimensions(v3, 0);
   *(this + 15) = v4;
-  operator new(0x8E0uLL);
-  v5 = *(this + 15);
-  *(this + 16) = Device0x038PadParameterCollection::Device0x038PadParameterCollection(v6);
-  v7 = operator new(0xCE0uLL);
-  Device0x038PadFireflyParameterCollection::Device0x038PadFireflyParameterCollection(v7, *(this + 15));
-  *(this + 17) = v8;
-  v9 = operator new(0xBE8uLL);
-  *(this + 18) = Device0x038PadHoverParameterCollection::Device0x038PadHoverParameterCollection(v9, *(this + 15));
-  v10 = operator new(0xF8uLL);
-  v11 = *(this + 15);
-  v12 = *(v11 + 4);
-  *(this + 19) = SurfaceGrid::SurfaceGrid(v10, *v11, v11 + 8, *(this + 16) + 804, v11 + 116, (v11 + 20), v11 + 40, 0);
+  v5 = operator new(0x8E0uLL);
+  *(this + 16) = Device0x038PadParameterCollection::Device0x038PadParameterCollection(v5);
+  v6 = operator new(0xCE0uLL);
+  Device0x038PadFireflyParameterCollection::Device0x038PadFireflyParameterCollection(v6, *(this + 15));
+  *(this + 17) = v7;
+  v8 = operator new(0xBE8uLL);
+  *(this + 18) = Device0x038PadHoverParameterCollection::Device0x038PadHoverParameterCollection(v8, *(this + 15));
+  v9 = operator new(0xF8uLL);
+  *(this + 19) = SurfaceGrid::SurfaceGrid(v9, **(this + 15), *(this + 15) + 8, *(this + 16) + 804, *(this + 15) + 116, (*(this + 15) + 20), *(this + 15) + 40, 0);
   AlgDataNode::AlgDataNode((this + 160), 0xD919591722A99D58, 0);
   *(this + 20) = &unk_2876F0108;
   *(this + 188) = 0;
@@ -8589,13 +8507,13 @@ void PadHostService::Device0x038PadHostServiceActivePlan::Device0x038PadHostServ
   *(this + 284) = 0;
   *(this + 68) = 20715;
   *(this + 70) = 28;
-  SurfaceDescriptorNode::SurfaceDescriptorNode((this + 312), 0x29965DE49819D20DuLL);
+  SurfaceDescriptorNode::SurfaceDescriptorNode((this + 312), 0x29965DE49819D20DLL);
   AlgDataNode::AlgDataNode((this + 368), 0xD992F1C73B6AF5FELL, 0);
   *(this + 46) = &unk_2876F0108;
   *(this + 396) = 0;
   *(this + 96) = 20480;
   *(this + 98) = 1;
-  v14 = *(*(this + 15) + 13);
+  v11 = *(*(this + 15) + 13);
   *(this + 51) = 0;
   *(this + 52) = 0;
   *(this + 50) = 0;
@@ -8604,16 +8522,16 @@ void PadHostService::Device0x038PadHostServiceActivePlan::Device0x038PadHostServ
   *(this + 56) = 0;
   *(this + 54) = 0;
   *(this + 228) = 0;
-  *(this + 214) = v14;
+  *(this + 214) = v11;
   *(this + 430) = 0;
-  v15 = &Device0x038::FFDtiStatsOPNormalization;
+  v12 = &Device0x038::FFDtiStatsOPNormalization;
   for (i = 108; i != 114; ++i)
   {
-    v17 = *v15++;
-    *(this + i) = v17;
+    v14 = *v12++;
+    *(this + i) = v14;
   }
 
-  v18 = v13;
+  v15 = v10;
   *(this + 228) = 0;
   AlgDataNode::AlgDataNode((this + 464), 0x762B06BEA3FE3797, 0);
   *(this + 58) = &unk_2876F01A8;
@@ -8625,7 +8543,7 @@ void PadHostService::Device0x038PadHostServiceActivePlan::Device0x038PadHostServ
   *(this + 524) = 0;
   *(this + 128) = 20482;
   *(this + 130) = 1;
-  Device0x038FireflyTask::Device0x038FireflyTask(this + 528, v18, *(this + 17), *(this + 18), *(this + 15), *(this + 19), this + 160, this + 224, this + 256, this + 400, this + 464, this + 496);
+  Device0x038FireflyTask::Device0x038FireflyTask(this + 528, v15, *(this + 17), *(this + 18), *(this + 15), *(this + 19), this + 160, this + 224, this + 256, this + 400, this + 464, this + 496);
 }
 
 void sub_2653D6CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14)
@@ -8775,35 +8693,35 @@ LABEL_7:
   return v10(a1, a3, a4, v8, v9, 0);
 }
 
-double Device0x038SurfaceDimensions::Device0x038SurfaceDimensions(uint64_t a1)
+double Device0x038SurfaceDimensions::Device0x038SurfaceDimensions(uint64_t a1, uint64_t a2)
 {
-  v1 = PadSurfaceDimensions::PadSurfaceDimensions(a1, 2u, 20, 0, 56);
-  *(v1 + 4) = 1140850688;
-  *(v1 + 8) = 0x280000380002;
-  *(v1 + 16) = 0;
-  *(v1 + 116) = xmmword_2655000A0;
-  *(v1 + 132) = 0x486135C0481AC740;
-  *(v1 + 20) = xmmword_2655000B0;
+  v2 = PadSurfaceDimensions::PadSurfaceDimensions(a1, 2u, 20, 0, 56, a2);
+  *(v2 + 4) = 1140850688;
+  *(v2 + 8) = 0x280000380002;
+  *(v2 + 16) = 0;
+  *(v2 + 116) = xmmword_2655000A0;
+  *(v2 + 132) = 0x486135C0481AC740;
+  *(v2 + 20) = xmmword_2655000B0;
   result = 0.0;
-  *(v1 + 40) = 0u;
-  *(v1 + 56) = 0u;
-  *(v1 + 72) = 0;
+  *(v2 + 40) = 0u;
+  *(v2 + 56) = 0u;
+  *(v2 + 72) = 0;
   return result;
 }
 
-PadTouchParameterCollection *Device0x038PadParameterCollection::Device0x038PadParameterCollection(__n128 a1)
+PadTouchParameterCollection *Device0x038PadParameterCollection::Device0x038PadParameterCollection(uint64_t a1)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v4 = v1;
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = v1 + 282;
-  PadTouchParameterCollection::PadTouchParameterCollection(v1, *v2, *(v3 + 1), *(v3 + 10), *(v3 + 13), v3[73], v3[72]);
+  MEMORY[0x28223BE20](a1);
+  v2 = v1;
+  v4 = v3;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = v3 + 282;
+  PadTouchParameterCollection::PadTouchParameterCollection(v3, *v1, *(v2 + 1), *(v2 + 10), *(v2 + 13), v2[73], v2[72]);
   *(v6 + 4) = 120;
   *(v6 + 1084) = 0x19180706030B0603;
   *(v6 + 1092) = 10288;
   *(v6 + 1460) = 387061012;
-  v7 = *(v3 + 1);
+  v7 = *(v2 + 1);
   *(v6 + 36) = 0x4100000000000000;
   *(v6 + 44) = v7;
   *(v6 + 48) = 1148846080;
@@ -8866,25 +8784,25 @@ PadTouchParameterCollection *Device0x038PadParameterCollection::Device0x038PadPa
   *(v5 + 170) = xmmword_2655000C0;
   memcpy(__dst, &unk_265500170, 0xC80uLL);
   v8 = *(v4 + 132);
-  LOBYTE(v12) = 0;
-  BYTE1(v12) = v8;
-  HIWORD(v12) = v8;
-  LOBYTE(v13) = v8;
-  HIBYTE(v13) = v8;
-  SA2DArrayBase<float>::copyFromBuffer<unsigned short>(v4 + 504, __dst, (v8 * v8), &v12);
+  LOBYTE(v11) = 0;
+  BYTE1(v11) = v8;
+  HIWORD(v11) = v8;
+  LOBYTE(v12) = v8;
+  HIBYTE(v12) = v8;
+  SA2DArrayBase<float>::copyFromBuffer<unsigned short>(v4 + 504, __dst, (v8 * v8), &v11);
   *(v4 + 150) = 880803840;
   SA1DArrayBase<float>::scaleElementwise(v4 + 504, v4 + 504, 0.00000023842);
   memcpy(__dst, &unk_265500DF0, sizeof(__dst));
   v9 = *(v4 + 148);
-  LOBYTE(v12) = 0;
-  BYTE1(v12) = v9;
-  HIWORD(v12) = v9;
-  LOBYTE(v13) = v9;
-  HIBYTE(v13) = v9;
-  SA2DArrayBase<float>::copyFromBuffer<unsigned short>(v4 + 568, __dst, (v9 * v9), &v12);
+  LOBYTE(v11) = 0;
+  BYTE1(v11) = v9;
+  HIWORD(v11) = v9;
+  LOBYTE(v12) = v9;
+  HIBYTE(v12) = v9;
+  SA2DArrayBase<float>::copyFromBuffer<unsigned short>(v4 + 568, __dst, (v9 * v9), &v11);
   *(v4 + 151) = 872415232;
   SA1DArrayBase<float>::scaleElementwise(v4 + 568, v4 + 568, 0.00000011921);
-  *(v4 + 1340) = (*(v3 + 13) / *(v4 + 1333)) >> 1;
+  *(v4 + 1340) = (*(v2 + 13) / *(v4 + 1333)) >> 1;
   *(v5 + 1210) = xmmword_265420130;
   *(v5 + 1226) = xmmword_265420140;
   *(v5 + 1242) = xmmword_265420150;
@@ -8897,18 +8815,17 @@ PadTouchParameterCollection *Device0x038PadParameterCollection::Device0x038PadPa
   *(v4 + 454) = 0;
   *(v4 + 528) = 1036495203;
   memcpy(__dst, &unk_265502670, 0x190uLL);
-  v12 = 1315840;
-  v13 = 5140;
-  SA2DArrayBase<signed char>::copyFromBuffer<signed char>(v4 + 2080, __dst, 400, &v12);
+  v11 = 1315840;
+  v12 = 5140;
+  SA2DArrayBase<signed char>::copyFromBuffer<signed char>(v4 + 2080, __dst, 400, &v11);
   *(v4 + 139) = xmmword_2655000D0;
   *(v4 + 280) = 0x41A8000041A00000;
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 double Device0x038PadFireflyParameterCollection::Device0x038PadFireflyParameterCollection(uint64_t a1, uint64_t a2)
 {
-  PadFireflyParameterCollection::PadFireflyParameterCollection(a1, 6, 2, *(a2 + 10), *(a2 + 13), Device0x038::kProfileLookupTableLong, 8u, 1, 1u);
+  PadFireflyParameterCollection::PadFireflyParameterCollection(a1, 6, 2, *(a2 + 10), *(a2 + 13), Device0x038::kProfileLookupTableLong, 8, 1, 1u);
   PlainDataNode<ExtrapolationParams>::PlainDataNode((v3 + 3208), 0xE9CCE10AB7FD5EF3, 0, 0);
   *(a1 + 1836) = 1;
   *(a1 + 292) = 1202702336;
@@ -9194,7 +9111,7 @@ double Device0x038PadFireflyParameterCollection::Device0x038PadFireflyParameterC
 
 uint64_t Device0x038PadHoverParameterCollection::Device0x038PadHoverParameterCollection(uint64_t a1, uint64_t a2)
 {
-  v3 = PadHoverParameterCollection::PadHoverParameterCollection(a1, 6, 8, 6, *(a2 + 10), *(a2 + 13), 0xCu, a2, 0x40u, 48, 14, &Device0x038::kFreqToProfileIndexLookupTable, 6u, 35, 8u, 8u);
+  v3 = PadHoverParameterCollection::PadHoverParameterCollection(a1, 6, 8, 6, *(a2 + 10), *(a2 + 13), 12, a2, 0x40u, 48, 14, &Device0x038::kFreqToProfileIndexLookupTable, 6, 35, 8u, 8u);
   *v3 = &unk_2876F04E0;
   v4 = PlainDataNode<ExtrapolationParams>::PlainDataNode((v3 + 370), 0xE9CCE10AB7FD5EF3, 0, 0);
   *(a1 + 836) = 1082560348;
@@ -9588,7 +9505,7 @@ void Device0x038PadFireflyParameterCollection::~Device0x038PadFireflyParameterCo
   SA2DArrayDynamicSize<float>::~SA2DArrayDynamicSize(this + 2);
 }
 
-uint64_t PadHostService::Device0x038PadHostServiceAlgsDevice::Device0x038PadHostServiceAlgsDevice(uint64_t a1, char a2, int a3, char a4)
+uint64_t PadHostService::Device0x038PadHostServiceAlgsDevice::Device0x038PadHostServiceAlgsDevice(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = SAPadHostServiceJ8xxVersionDescriptor();
   v9 = PadHostService::PadHostServiceAlgsDevice::PadHostServiceAlgsDevice(a1, a2, a3, a4, *v8);
@@ -9621,15 +9538,14 @@ uint64_t PadHostService::Device0x038PadHostServiceAlgsDevice::newPlanNode(PadHos
 {
   if (a2 == 1)
   {
-    v7 = *(this + 14);
-    if (v7)
+    v6 = *(this + 14);
+    if (v6)
     {
-      (*(*v7 + 8))(v7);
+      (*(*v6 + 8))(v6);
     }
 
-    v8 = *(this + 120);
-    v9 = operator new(0x2A8uLL);
-    active = PadHostService::Device0x038PadHostServiceTTWPlan::Device0x038PadHostServiceTTWPlan(v9);
+    v7 = operator new(0x2A8uLL);
+    v5 = PadHostService::Device0x038PadHostServiceTTWPlan::Device0x038PadHostServiceTTWPlan(v7);
     goto LABEL_9;
   }
 
@@ -9641,11 +9557,10 @@ uint64_t PadHostService::Device0x038PadHostServiceAlgsDevice::newPlanNode(PadHos
       (*(*v3 + 8))(v3);
     }
 
-    v4 = *(this + 120);
-    v5 = operator new(0x99D8uLL);
-    active = PadHostService::Device0x038PadHostServiceActivePlan::Device0x038PadHostServiceActivePlan(v5);
+    v4 = operator new(0x99D8uLL);
+    v5 = PadHostService::Device0x038PadHostServiceActivePlan::Device0x038PadHostServiceActivePlan(v4);
 LABEL_9:
-    *(this + 14) = active;
+    *(this + 14) = v5;
     return 1;
   }
 
@@ -9661,7 +9576,7 @@ uint64_t PadTouchService::PadTouchTask::PadTouchTask(uint64_t a1, uint64_t a2, u
   v17[13] = 0;
   v17[14] = 0;
   v17[15] = a2;
-  TouchService::PlainPathCollection::PlainPathCollection(v17 + 16, 0x310DDDD485, 18, 0);
+  TouchService::PlainPathCollection::PlainPathCollection((v17 + 16), 0x310DDDD485uLL, 18, 0);
   AlgDataNode::AlgDataNode((a1 + 184), 0x8A9B4B9510DFB2FALL, 0);
   *(a1 + 184) = &unk_2876F0108;
   *(a1 + 212) = 0;
@@ -9760,7 +9675,7 @@ uint64_t PadTouchService::PadTouchTask::PadTouchTask(uint64_t a1, uint64_t a2, u
   *(a1 + 864) = &unk_2876F02C0;
   *(a1 + 968) = 0;
   TouchService::TouchServiceEventCollection::TouchServiceEventCollection(a1 + 976, 0xA6CEC30BA0ABCAE0, 18, 0);
-  TouchService::TouchServicePathStatsCollection::TouchServicePathStatsCollection();
+  TouchService::TouchServicePathStatsCollection::TouchServicePathStatsCollection(a1 + 1032, 0x377AB9DB80CC6E1uLL, 18, 0);
   AlgDataNode::AlgDataNode((a1 + 1088), 0xE6B312786F98B150, 0);
   *(a1 + 1104) = 20481;
   *(a1 + 1112) = 4;
@@ -9819,8 +9734,8 @@ uint64_t PadTouchService::PadTouchTask::PadTouchTask(uint64_t a1, uint64_t a2, u
   *(a1 + 1608) = 0;
   PalmRejection::PalmRejectionTask::PalmRejectionTask(a1 + 1616, a1 + 184, a1 + 256, a5, a1 + 128, a4, a6);
   TouchService::TouchTask::TouchTask(a1 + 15488, a1 + 624, v23, a1 + 480, *(a1 + 320), *(a1 + 328), a1 + 128, a1 + 336, a1 + 376, a1 + 1304, a1 + 1032, v21, a1 + 976, a1 + 696, a1 + 808, a1 + 1088, a1 + 1128, a1 + 1200, v22, a1 + 656);
-  ConditionalAlgTaskNode::ConditionalAlgTaskNode(a1 + 17696, 0xA20A19A18718299DLL, *(a1 + 1440));
-  TouchService::TapEventGenerationStep::TapEventGenerationStep(a1 + 17800, v23, a1 + 1448, a1 + 1504);
+  ConditionalAlgTaskNode::ConditionalAlgTaskNode();
+  TouchService::TapEventGenerationStep::TapEventGenerationStep((a1 + 17800), v23, a1 + 1448, a1 + 1504);
   PadTouchService::PadTouchTask::runNodeRegistrations(a1);
   *(a1 + 244) = 0;
   *(*(a1 + 328) + 28) = 1;
@@ -9973,4 +9888,50 @@ uint64_t PadTouchService::PadTouchTask::runBeforeChildren(PadTouchService::PadTo
 
   *(this + 212) = v7 & 1;
   return 0;
+}
+
+uint64_t PadTouchService::PadTouchTask::runAfterChildren(PadTouchService::PadTouchTask *this)
+{
+  *(this + 540) = 0;
+  *(this + 572) = 0;
+  *(this + 616) = 0;
+  *(this + 1301) = 0;
+  if (*(this + 444) == 1 && *(this + 437) == 1)
+  {
+    *(this + 650) = 257;
+  }
+
+  *(this + 1476) = 0;
+  return 0;
+}
+
+uint64_t TimeState::updateWithMs(uint64_t this, uint64_t a2, int a3)
+{
+  v3 = *(this + 4);
+  *this = v3;
+  *(this + 4) = a3;
+  v4 = *(this + 24);
+  *(this + 24) = a2;
+  *(this + 32) = v4;
+  *(this + 56) = a2;
+  *(this + 8) = a3 - v3;
+  if (v3 && (v5 = a2 - v4, v5 >= 3))
+  {
+    v6 = 12 * v5;
+  }
+
+  else
+  {
+    v6 = *(this + 48) * (a3 - v3);
+  }
+
+  *(this + 40) = v6;
+  return this;
+}
+
+__n128 PlainDataNode<CoverGestureEvent>::injectBuffer(__n128 *a1, __n128 *a2)
+{
+  result = *a2;
+  a1[2] = *a2;
+  return result;
 }

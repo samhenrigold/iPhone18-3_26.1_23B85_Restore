@@ -83,7 +83,7 @@
   selfCopy = self;
   sub_100EB8D4C();
 
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -127,7 +127,7 @@
   v11 = OBJC_IVAR____TtC8Freeform12CRLBoardData_crdtData;
   swift_beginAccess();
   sub_10004FECC(v10 + v11, v5, type metadata accessor for CRLBoardCRDTData);
-  sub_1005B981C(&unk_1019F5250);
+  sub_1005B981C(&unk_1019F5250, &qword_101470FB0);
   CRRegister.wrappedValue.getter();
   sub_10003D69C(v5, type metadata accessor for CRLBoardCRDTData);
   v12.super.isa = UUID._bridgeToObjectiveC()().super.isa;
@@ -145,7 +145,7 @@
   v7 = OBJC_IVAR____TtC8Freeform12CRLBoardData_crdtData;
   swift_beginAccess();
   sub_10004FECC(v6 + v7, v5, type metadata accessor for CRLBoardCRDTData);
-  sub_1005B981C(&qword_101A1A020);
+  sub_1005B981C(&qword_101A1A020, &unk_10146C6C0);
   CRRegister.wrappedValue.getter();
   sub_10003D69C(v5, type metadata accessor for CRLBoardCRDTData);
   v8 = String._bridgeToObjectiveC()();
@@ -195,7 +195,7 @@
   sub_100EC53F4(children);
 
   type metadata accessor for UUID();
-  sub_100ED5648(&qword_1019FB870, &type metadata accessor for UUID);
+  sub_100ED5648(&qword_1019FB870, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   v5.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v5.super.isa;
@@ -248,7 +248,7 @@
   swift_beginAccess();
   sub_10004FECC(v6 + v7, v5, type metadata accessor for CRLBoardCRDTData);
   type metadata accessor for CRLSharedBoardMetadataCRDTData(0);
-  sub_1005B981C(&qword_101A22790);
+  sub_1005B981C(&qword_101A22790, &qword_1014B76A0);
   CRMaxRegister.wrappedValue.getter();
   sub_10003D69C(v5, type metadata accessor for CRLBoardCRDTData);
   return v9[7];
@@ -257,7 +257,7 @@
 - (void)setDidUseWritingTools:(BOOL)tools
 {
   selfCopy = self;
-  sub_100EC7294();
+  sub_100EC7294(tools);
 }
 
 - (unint64_t)resolvedMinRequiredVersion
@@ -290,7 +290,7 @@
   selfCopy = self;
   sub_100EC8784();
 
-  type metadata accessor for CRLSceneInfo();
+  type metadata accessor for CRLSceneInfo(0);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -346,7 +346,7 @@
   type metadata accessor for CRLBoardCRDTData(0);
   selfCopy = self;
 
-  LOBYTE(self) = sub_100726D18();
+  LOBYTE(self) = sub_100726D18(v7);
   swift_endAccess();
 
   (*(v5 + 8))(v7, v4);
@@ -387,7 +387,7 @@
   swift_beginAccess();
   v12 = type metadata accessor for CRLBoardCRDTData(0);
   sub_10004FECC(v11 + *(v12 + 36), v6, type metadata accessor for CRLBoardScenesCRDTData);
-  sub_1005B981C(&qword_1019FCC98);
+  sub_1005B981C(&qword_1019FCC98, &unk_1014AD3F0);
   CRDictionary.subscript.getter();
   sub_10003D69C(v6, type metadata accessor for CRLBoardScenesCRDTData);
   (*(v8 + 8))(v10, v7);
@@ -432,7 +432,7 @@
 
 - (BOOL)applyReorderingWithReorderedScenes:(id)scenes
 {
-  type metadata accessor for CRLSceneInfo();
+  type metadata accessor for CRLSceneInfo(0);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   v6 = sub_100ECA104(v4);
@@ -442,7 +442,7 @@
 
 - (int64_t)getScenesCount
 {
-  v3 = sub_1005B981C(&unk_101A28650);
+  v3 = sub_1005B981C(&unk_101A28650, &unk_101477C40);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v11 - v5;
@@ -477,7 +477,7 @@
   sub_100ECD1C8(v5, v6);
 
   type metadata accessor for CRLBoardItem(0);
-  sub_100ED5648(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_100ED5648(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v8.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;
@@ -490,8 +490,8 @@
   selfCopy = self;
   v7 = [(CRLBoard *)selfCopy parentMapOfItemsFrom:uuids];
   type metadata accessor for CRLBoardItem(0);
-  sub_1005B981C(&qword_1019FB568);
-  sub_100ED5648(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_1005B981C(&qword_1019FB568, &unk_1014748B0);
+  sub_100ED5648(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v8 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   sub_100ECEC48(v8, v5);
@@ -509,8 +509,8 @@
   sub_100ECF3A0(v4);
 
   type metadata accessor for CRLBoardItem(0);
-  sub_1005B981C(&qword_1019FB568);
-  sub_100ED5648(&qword_1019FCB80, type metadata accessor for CRLBoardItem);
+  sub_1005B981C(&qword_1019FB568, &unk_1014748B0);
+  sub_100ED5648(&qword_1019FCB80, type metadata accessor for CRLBoardItem, &protocol conformance descriptor for NSObject);
   v6.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -518,7 +518,7 @@
 
 - (void)hasUnsyncedChangesWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -549,7 +549,7 @@
 
 - (void)asyncSavePendingChangesWithCompletionHandler:(id)handler
 {
-  v5 = sub_1005B981C(&qword_1019FB750);
+  v5 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

@@ -8,8 +8,8 @@
 - (id)sf_muchBrightenedColor;
 - (id)sf_muchDarkenedColor;
 - (id)sf_slightlyDarkenedColor;
-- (uint64_t)safari_isCloseToWhite;
 - (uint64_t)sf_isDarkColor;
+- (void)safari_isCloseToWhite;
 @end
 
 @implementation UIColor(MobileSafariExtras)
@@ -71,7 +71,7 @@
   return v7;
 }
 
-- (uint64_t)safari_isCloseToWhite
+- (void)safari_isCloseToWhite
 {
   v5 = 0;
   v3 = 0.0;
@@ -80,7 +80,15 @@
   result = [self getHue:&v5 saturation:&v4 brightness:&v3 alpha:&v2];
   if (result)
   {
-    return v4 < 0.05 && v3 >= 0.9;
+    if (v4 < 0.05)
+    {
+      return (v3 >= 0.9);
+    }
+
+    else
+    {
+      return 0;
+    }
   }
 
   return result;

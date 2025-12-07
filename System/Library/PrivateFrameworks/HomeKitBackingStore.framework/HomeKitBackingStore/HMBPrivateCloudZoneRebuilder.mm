@@ -31,7 +31,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   uploadMonitorWatchdogTimer = [(HMBPrivateCloudZoneRebuilder *)self uploadMonitorWatchdogTimer];
 
@@ -43,9 +43,9 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      *v21 = 138543362;
-      *&v21[4] = v9;
-      _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly got a watchdog fire event from an unexpected timer.", v21, 0xCu);
+      *v20 = 138543362;
+      *&v20[4] = v9;
+      _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly got a watchdog fire event from an unexpected timer.", v20, 0xCu);
     }
 
 LABEL_9:
@@ -69,25 +69,23 @@ LABEL_9:
     {
       v18 = HMFGetLogIdentifier();
       v19 = [HMBCloudZoneRebuilderStatus rebuilderStateString:rebuildState];
-      *v21 = 138543618;
-      *&v21[4] = v18;
-      v22 = 2112;
-      v23 = v19;
-      _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly got a watchdog fire event in state %@", v21, 0x16u);
+      *v20 = 138543618;
+      *&v20[4] = v18;
+      v21 = 2112;
+      v22 = v19;
+      _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly got a watchdog fire event in state %@", v20, 0x16u);
     }
 
     goto LABEL_9;
   }
 
-  v17 = __transitionToState(self, 2, @"Watchdog fired while monitoring the upload.", v12, v13, v14, v15, v16, *v21);
+  v17 = __transitionToState(self, 2, @"Watchdog fired while monitoring the upload.", v12, v13, v14, v15, v16, *v20);
 LABEL_10:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleZoneChanged
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   rebuilderStatus = [(HMBPrivateCloudZoneRebuilder *)self rebuilderStatus];
   rebuildState = [rebuilderStatus rebuildState];
@@ -102,20 +100,20 @@ LABEL_10:
     [(HMBPrivateCloudZoneRebuilder *)self setUploadMonitorWatchdogTimer:0];
     os_unfair_lock_unlock(&self->_propertyLock);
     v6 = __fetchSentinelModel(self);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke;
-    v16[3] = &unk_2786E0BF8;
-    v16[4] = self;
-    v16[5] = rebuildState;
-    v7 = [v6 addFailureBlock:v16];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
-    v15[2] = __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke_20;
-    v15[3] = &unk_2786E0C20;
+    v15[2] = __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke;
+    v15[3] = &unk_2786E0BF8;
     v15[4] = self;
     v15[5] = rebuildState;
-    v8 = [v6 addSuccessBlock:v15];
+    v7 = [v6 addFailureBlock:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke_20;
+    v14[3] = &unk_2786E0C20;
+    v14[4] = self;
+    v14[5] = rebuildState;
+    v8 = [v6 addSuccessBlock:v14];
   }
 
   else
@@ -128,21 +126,19 @@ LABEL_10:
       v12 = HMFGetLogIdentifier();
       v13 = [HMBCloudZoneRebuilderStatus rebuilderStateString:rebuildState];
       *buf = 138543618;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v13;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v13;
       _os_log_impl(&dword_22AD27000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly got a CKNotification when in state %@ (ignoring)", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 isHMFError] && objc_msgSend(v3, "code") == 2)
   {
@@ -153,7 +149,7 @@ void __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke(uint64_t
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v7;
+      v31 = v7;
       _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Fetch succeeded, but no record returned.", buf, 0xCu);
     }
 
@@ -167,7 +163,7 @@ void __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke(uint64_t
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v32 = v16;
+        v31 = v16;
         v17 = "%{public}@Insufficient to transition out of Lost Key state.";
 LABEL_13:
         _os_log_impl(&dword_22AD27000, v15, OS_LOG_TYPE_DEFAULT, v17, buf, 0xCu);
@@ -178,7 +174,7 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v27 = __transitionToState(*(a1 + 32), 2, @"Failed to find sentinel model.", v8, v9, v10, v11, v12, v30);
+    v27 = __transitionToState(*(a1 + 32), 2, @"Failed to find sentinel model.", v8, v9, v10, v11, v12, v29);
 LABEL_17:
     v28 = v27;
     goto LABEL_18;
@@ -191,9 +187,9 @@ LABEL_17:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v32 = v21;
-    v33 = 2112;
-    v34 = v3;
+    v31 = v21;
+    v32 = 2112;
+    v33 = v3;
     _os_log_impl(&dword_22AD27000, v20, OS_LOG_TYPE_ERROR, "%{public}@received notification, but failed to fetch model: %@", buf, 0x16u);
   }
 
@@ -211,7 +207,7 @@ LABEL_17:
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v32 = v16;
+    v31 = v16;
     v17 = "%{public}@Will not transition out of Lost Key state.";
     goto LABEL_13;
   }
@@ -220,13 +216,11 @@ LABEL_14:
 
   objc_autoreleasePoolPop(v13);
 LABEL_18:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke_20(uint64_t a1, void *a2)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -235,9 +229,9 @@ void __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke_20(uint6
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v51 = v7;
-    v52 = 2112;
-    v53 = v3;
+    v50 = v7;
+    v51 = 2112;
+    v52 = v3;
     _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully fetched: %@", buf, 0x16u);
   }
 
@@ -254,7 +248,7 @@ void __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke_20(uint6
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v51 = v13;
+      v50 = v13;
       _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Sentinel record indicates that zone is completely rebuilt.", buf, 0xCu);
     }
 
@@ -267,19 +261,8 @@ void __49__HMBPrivateCloudZoneRebuilder_handleZoneChanged__block_invoke_20(uint6
   }
 
   v23 = [*(a1 + 32) lastRebuildUUID];
-  if (!v23)
+  if (!v23 || (v24 = v23, [v3 uniqueToken], v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "lastRebuildUUID"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v25, "isEqual:", v26), v26, v25, v24, !v27))
   {
-    goto LABEL_14;
-  }
-
-  v24 = v23;
-  v25 = [v3 uniqueToken];
-  v26 = [*(a1 + 32) lastRebuildUUID];
-  v27 = [v25 isEqual:v26];
-
-  if (!v27)
-  {
-LABEL_14:
     v33 = [v3 uniqueToken];
     [*(a1 + 32) setLastRebuildUUID:v33];
 
@@ -287,7 +270,7 @@ LABEL_14:
     {
       v39 = *(a1 + 32);
       v40 = [v39 lastRebuildUUID];
-      v49 = [v3 uniqueToken];
+      v48 = [v3 uniqueToken];
       v46 = __transitionToState(v39, 5, @"Change observed in sentinel %@ -> %@", v41, v42, v43, v44, v45, v40);
 
       goto LABEL_20;
@@ -302,11 +285,11 @@ LABEL_14:
       v37 = [*(a1 + 32) lastRebuildUUID];
       v38 = [v3 uniqueToken];
       *buf = 138543874;
-      v51 = v36;
-      v52 = 2112;
-      v53 = v37;
-      v54 = 2112;
-      v55 = v38;
+      v50 = v36;
+      v51 = 2112;
+      v52 = v37;
+      v53 = 2112;
+      v54 = v38;
       _os_log_impl(&dword_22AD27000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@Sentinel record unique token changed %@ -> %@", buf, 0x20u);
     }
 
@@ -323,9 +306,9 @@ LABEL_14:
       v31 = HMFGetLogIdentifier();
       v32 = [v3 uniqueToken];
       *buf = 138543618;
-      v51 = v31;
-      v52 = 2112;
-      v53 = v32;
+      v50 = v31;
+      v51 = 2112;
+      v52 = v32;
       _os_log_impl(&dword_22AD27000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Sentinel record unique token did not change from %@", buf, 0x16u);
     }
 
@@ -338,10 +321,8 @@ LABEL_18:
   v20 = @"No change observed in sentinel.";
   v21 = 2;
 LABEL_7:
-  v22 = __transitionToState(v19, v21, v20, v14, v15, v16, v17, v18, v48);
+  v22 = __transitionToState(v19, v21, v20, v14, v15, v16, v17, v18, v47);
 LABEL_20:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isZoneRebuildInProgress
@@ -354,7 +335,7 @@ LABEL_20:
 
 - (void)rebuild
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   rebuilderStatus = [(HMBPrivateCloudZoneRebuilder *)self rebuilderStatus];
   rebuildState = [rebuilderStatus rebuildState];
@@ -362,7 +343,7 @@ LABEL_20:
   os_unfair_lock_unlock(&self->_propertyLock);
   if (rebuildState <= 7 && ((1 << rebuildState) & 0x83) != 0)
   {
-    v10 = __transitionToState(self, 4, @"Attempting to acquire lock on zone.", v5, v6, v7, v8, v9, *v17);
+    v10 = __transitionToState(self, 4, @"Attempting to acquire lock on zone.", v5, v6, v7, v8, v9, *v16);
   }
 
   else
@@ -374,22 +355,20 @@ LABEL_20:
     {
       v14 = HMFGetLogIdentifier();
       v15 = [HMBCloudZoneRebuilderStatus rebuilderStateString:rebuildState];
-      *v17 = 138543618;
-      *&v17[4] = v14;
-      v18 = 2112;
-      v19 = v15;
-      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Received a request to begin rebuild but we are already in: %@.", v17, 0x16u);
+      *v16 = 138543618;
+      *&v16[4] = v14;
+      v17 = 2112;
+      v18 = v15;
+      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Received a request to begin rebuild but we are already in: %@.", v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIdentityLost
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   rebuilderStatus = [(HMBPrivateCloudZoneRebuilder *)self rebuilderStatus];
   rebuildState = [rebuilderStatus rebuildState];
@@ -397,7 +376,7 @@ LABEL_20:
   os_unfair_lock_unlock(&self->_propertyLock);
   if (rebuildState <= 7 && ((1 << rebuildState) & 0x83) != 0)
   {
-    v10 = __transitionToState(self, 1, @"Received notification that zone has lost keys.", v5, v6, v7, v8, v9, *v17);
+    v10 = __transitionToState(self, 1, @"Received notification that zone has lost keys.", v5, v6, v7, v8, v9, *v16);
   }
 
   else
@@ -409,17 +388,15 @@ LABEL_20:
     {
       v14 = HMFGetLogIdentifier();
       v15 = [HMBCloudZoneRebuilderStatus rebuilderStateString:rebuildState];
-      *v17 = 138543618;
-      *&v17[4] = v14;
-      v18 = 2112;
-      v19 = v15;
-      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Not transitioning to Lost Key state, already in an active rebuild state (%@).", v17, 0x16u);
+      *v16 = 138543618;
+      *&v16[4] = v14;
+      v17 = 2112;
+      v18 = v15;
+      _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Not transitioning to Lost Key state, already in an active rebuild state (%@).", v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)zoneStartUp
@@ -450,7 +427,7 @@ LABEL_20:
 
 void __43__HMBPrivateCloudZoneRebuilder_zoneStartUp__block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -473,9 +450,9 @@ void __43__HMBPrivateCloudZoneRebuilder_zoneStartUp__block_invoke(uint64_t a1, v
     v12 = [v9 cloudZone];
     v13 = [v12 localZone];
     v14 = +[HMBCloudZoneRebuilderModel sentinelUUID];
-    v38 = 0;
-    v15 = [v13 fetchModelWithModelID:v14 ofType:objc_opt_class() error:&v38];
-    v16 = v38;
+    v37 = 0;
+    v15 = [v13 fetchModelWithModelID:v14 ofType:objc_opt_class() error:&v37];
+    v16 = v37;
 
     if (v15)
     {
@@ -506,23 +483,23 @@ void __43__HMBPrivateCloudZoneRebuilder_zoneStartUp__block_invoke(uint64_t a1, v
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = ____startUp_block_invoke;
-      v40 = &unk_2786E0DB0;
+      v39 = &unk_2786E0DB0;
       v29 = v9;
-      v41 = v29;
+      v40 = v29;
       v30 = v7;
-      v42 = v30;
+      v41 = v30;
       v31 = [v28 addSuccessBlock:buf];
 
       v32 = [v21 future];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = ____startUp_block_invoke_248;
-      v35[3] = &unk_2786E1948;
-      v36 = v29;
-      v37 = v30;
-      v33 = [v32 addFailureBlock:v35];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = ____startUp_block_invoke_248;
+      v34[3] = &unk_2786E1948;
+      v35 = v29;
+      v36 = v30;
+      v33 = [v32 addFailureBlock:v34];
 
-      v22 = v41;
+      v22 = v40;
     }
   }
 
@@ -542,8 +519,6 @@ void __43__HMBPrivateCloudZoneRebuilder_zoneStartUp__block_invoke(uint64_t a1, v
     v27 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
     [v3 finishWithError:v27];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (HMBPrivateCloudZoneRebuilder)initWithCloudZone:(id)zone
@@ -582,12 +557,11 @@ void __43__HMBPrivateCloudZoneRebuilder_zoneStartUp__block_invoke(uint64_t a1, v
 
 uint64_t __43__HMBPrivateCloudZoneRebuilder_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v72;
-  logCategory__hmf_once_v72 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v72;
+  logCategory__hmf_once_v72 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

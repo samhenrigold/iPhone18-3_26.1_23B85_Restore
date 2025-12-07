@@ -16,90 +16,86 @@
 
 - (void)_startObservingViewModel:(id)model
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (!modelCopy)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The viewModel parameter must not be nil."];
   }
 
-  v16.receiver = self;
-  v16.super_class = VSCredentialEntryAppDocumentController;
-  [(VSAppDocumentController *)&v16 _startObservingViewModel:modelCopy];
+  v15.receiver = self;
+  v15.super_class = VSCredentialEntryAppDocumentController;
+  [(VSAppDocumentController *)&v15 _startObservingViewModel:modelCopy];
   v5 = [(VSCredentialEntryAppDocumentController *)self _credentialEntryViewModelWithViewModel:modelCopy];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   credentialEntryFields = [v5 credentialEntryFields];
-  v7 = [credentialEntryFields countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [credentialEntryFields countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(credentialEntryFields);
         }
 
-        [*(*(&v12 + 1) + 8 * i) addObserver:self forKeyPath:@"text" options:3 context:kVSKeyValueObservingContext_CredentialEntryFieldText];
+        [*(*(&v11 + 1) + 8 * i) addObserver:self forKeyPath:@"text" options:3 context:kVSKeyValueObservingContext_CredentialEntryFieldText];
       }
 
-      v8 = [credentialEntryFields countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v8 = [credentialEntryFields countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingViewModel:(id)model
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if (!modelCopy)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The viewModel parameter must not be nil."];
   }
 
-  v16.receiver = self;
-  v16.super_class = VSCredentialEntryAppDocumentController;
-  [(VSAppDocumentController *)&v16 _stopObservingViewModel:modelCopy];
+  v15.receiver = self;
+  v15.super_class = VSCredentialEntryAppDocumentController;
+  [(VSAppDocumentController *)&v15 _stopObservingViewModel:modelCopy];
   v5 = [(VSCredentialEntryAppDocumentController *)self _credentialEntryViewModelWithViewModel:modelCopy];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   credentialEntryFields = [v5 credentialEntryFields];
-  v7 = [credentialEntryFields countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [credentialEntryFields countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(credentialEntryFields);
         }
 
-        [*(*(&v12 + 1) + 8 * i) removeObserver:self forKeyPath:@"text" context:kVSKeyValueObservingContext_CredentialEntryFieldText];
+        [*(*(&v11 + 1) + 8 * i) removeObserver:self forKeyPath:@"text" context:kVSKeyValueObservingContext_CredentialEntryFieldText];
       }
 
-      v8 = [credentialEntryFields countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v8 = [credentialEntryFields countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newViewModel
@@ -253,11 +249,11 @@ LABEL_8:
 
 - (BOOL)_updateCredentialEntryViewModel:(id)model withTemplate:(id)template error:(id *)error
 {
-  v141 = *MEMORY[0x277D85DE8];
+  v140 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   templateCopy = template;
   v9 = MEMORY[0x277CBE660];
-  v111 = modelCopy;
+  v110 = modelCopy;
   if (modelCopy)
   {
     if (templateCopy)
@@ -281,34 +277,34 @@ LABEL_8:
   [MEMORY[0x277CBEAD8] raise:*v9 format:@"The templateElement parameter must not be nil."];
   templateCopy = v83;
 LABEL_3:
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
   v133 = 0u;
-  v103 = templateCopy;
+  v134 = 0u;
+  v131 = 0u;
+  v132 = 0u;
+  v102 = templateCopy;
   children = [templateCopy children];
-  v11 = [children countByEnumeratingWithState:&v132 objects:v140 count:16];
+  v11 = [children countByEnumeratingWithState:&v131 objects:v139 count:16];
   if (v11)
   {
     v12 = v11;
-    v107 = 0;
-    v13 = *v133;
-    v112 = *v9;
+    v106 = 0;
+    v13 = *v132;
+    v111 = *v9;
     selfCopy = self;
-    v105 = *v133;
-    v106 = children;
+    v104 = *v132;
+    v105 = children;
     while (1)
     {
       v14 = 0;
-      v108 = v12;
+      v107 = v12;
       do
       {
-        if (*v133 != v13)
+        if (*v132 != v13)
         {
           objc_enumerationMutation(children);
         }
 
-        v15 = *(*(&v132 + 1) + 8 * v14);
+        v15 = *(*(&v131 + 1) + 8 * v14);
         vs_elementType = [v15 vs_elementType];
         if (vs_elementType <= 156)
         {
@@ -320,11 +316,11 @@ LABEL_3:
               v78 = MEMORY[0x277CBEAD8];
               v79 = objc_opt_class();
               v80 = NSStringFromClass(v79);
-              [v78 raise:v112 format:{@"Unexpectedly, childElement was %@, instead of IKImageElement.", v80}];
+              [v78 raise:v111 format:{@"Unexpectedly, childElement was %@, instead of IKImageElement.", v80}];
             }
 
             v37 = [(VSAppDocumentController *)self _imageItemProviderWithImageElement:v15];
-            [v111 setLogoProvider:v37];
+            [v110 setLogoProvider:v37];
           }
 
           else
@@ -340,7 +336,7 @@ LABEL_3:
               v39 = MEMORY[0x277CBEAD8];
               v40 = objc_opt_class();
               v41 = NSStringFromClass(v40);
-              [v39 raise:v112 format:{@"Unexpectedly, childElement was %@, instead of IKTextElement.", v41}];
+              [v39 raise:v111 format:{@"Unexpectedly, childElement was %@, instead of IKTextElement.", v41}];
             }
 
             v37 = v15;
@@ -351,7 +347,7 @@ LABEL_3:
               [text string];
               v45 = v44 = v37;
 
-              [v111 setAdditionalMessage:v45];
+              [v110 setAdditionalMessage:v45];
               v37 = v44;
             }
           }
@@ -366,7 +362,7 @@ LABEL_3:
             v47 = [attributes objectForKey:@"label"];
 
             v48 = v47;
-            [v111 setLinkTitle:v47];
+            [v110 setLinkTitle:v47];
             attributes2 = [v15 attributes];
             v50 = [attributes2 objectForKey:@"src"];
 
@@ -375,7 +371,7 @@ LABEL_3:
               v51 = [MEMORY[0x277CBEBC0] URLWithString:v50];
               if (v51)
               {
-                [v111 setLinkURL:v51];
+                [v110 setLinkURL:v51];
               }
             }
 
@@ -391,14 +387,14 @@ LABEL_71:
               break;
             }
 
-            v110 = v14;
+            v109 = v14;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               v53 = MEMORY[0x277CBEAD8];
               v54 = objc_opt_class();
               v55 = NSStringFromClass(v54);
-              [v53 raise:v112 format:{@"Unexpectedly, childElement was %@, instead of VSIKItemGroupElement.", v55}];
+              [v53 raise:v111 format:{@"Unexpectedly, childElement was %@, instead of VSIKItemGroupElement.", v55}];
             }
 
             v37 = v15;
@@ -409,27 +405,27 @@ LABEL_71:
             if (v58)
             {
               obja = v58;
+              v121 = 0u;
               v122 = 0u;
               v123 = 0u;
               v124 = 0u;
-              v125 = 0u;
-              v116 = v37;
+              v115 = v37;
               children2 = [v37 children];
-              v60 = [children2 countByEnumeratingWithState:&v122 objects:v138 count:16];
+              v60 = [children2 countByEnumeratingWithState:&v121 objects:v137 count:16];
               if (v60)
               {
                 v61 = v60;
-                v62 = *v123;
+                v62 = *v122;
                 do
                 {
                   for (i = 0; i != v61; ++i)
                   {
-                    if (*v123 != v62)
+                    if (*v122 != v62)
                     {
                       objc_enumerationMutation(children2);
                     }
 
-                    v64 = *(*(&v122 + 1) + 8 * i);
+                    v64 = *(*(&v121 + 1) + 8 * i);
                     v65 = objc_alloc_init(VSCredentialEntryPickerItem);
                     text2 = [v64 text];
                     string = [text2 string];
@@ -448,13 +444,13 @@ LABEL_71:
                     }
                   }
 
-                  v61 = [children2 countByEnumeratingWithState:&v122 objects:v138 count:16];
+                  v61 = [children2 countByEnumeratingWithState:&v121 objects:v137 count:16];
                 }
 
                 while (v61);
               }
 
-              vs_selectedChildElementIndex = [v116 vs_selectedChildElementIndex];
+              vs_selectedChildElementIndex = [v115 vs_selectedChildElementIndex];
               if ([array count])
               {
                 v72 = objc_alloc_init(VSCredentialEntryPicker);
@@ -463,7 +459,7 @@ LABEL_71:
                 [(VSCredentialEntryPicker *)v72 setPickerItems:array];
                 [(VSCredentialEntryPicker *)v72 setSelectedIndex:vs_selectedChildElementIndex];
                 self = selfCopy;
-                [(VSCredentialEntryAppDocumentController *)selfCopy setPickerElement:v116];
+                [(VSCredentialEntryAppDocumentController *)selfCopy setPickerElement:v115];
                 pickerElement2 = [(VSCredentialEntryAppDocumentController *)selfCopy pickerElement];
                 itemGroup = [pickerElement2 itemGroup];
                 [itemGroup setSelectedItemIndex:vs_selectedChildElementIndex];
@@ -472,8 +468,8 @@ LABEL_71:
                 itemGroup2 = [pickerElement3 itemGroup];
                 [itemGroup2 setDelegate:selfCopy];
 
-                [v111 setPicker:v72];
-                ++v107;
+                [v110 setPicker:v72];
+                ++v106;
               }
 
               else
@@ -482,45 +478,45 @@ LABEL_71:
                 v73 = obja;
               }
 
-              v37 = v116;
+              v37 = v115;
             }
 
-            v13 = v105;
-            children = v106;
-            v12 = v108;
-            v14 = v110;
+            v13 = v104;
+            children = v105;
+            v12 = v107;
+            v14 = v109;
             goto LABEL_71;
           case 160:
-            credentialEntryFields = [v111 credentialEntryFields];
+            credentialEntryFields = [v110 credentialEntryFields];
 
             if (!credentialEntryFields)
             {
-              v109 = v14;
-              v115 = objc_alloc_init(MEMORY[0x277CBEB18]);
+              v108 = v14;
+              v114 = objc_alloc_init(MEMORY[0x277CBEB18]);
               v18 = [v15 vs_itemElementsOfType:140];
+              v127 = 0u;
               v128 = 0u;
               v129 = 0u;
               v130 = 0u;
-              v131 = 0u;
               obj = v18;
-              v19 = [v18 countByEnumeratingWithState:&v128 objects:v139 count:16];
+              v19 = [v18 countByEnumeratingWithState:&v127 objects:v138 count:16];
               if (!v19)
               {
                 goto LABEL_35;
               }
 
               v20 = v19;
-              v21 = *v129;
+              v21 = *v128;
               while (1)
               {
                 for (j = 0; j != v20; ++j)
                 {
-                  if (*v129 != v21)
+                  if (*v128 != v21)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v23 = *(*(&v128 + 1) + 8 * j);
+                  v23 = *(*(&v127 + 1) + 8 * j);
                   attributes5 = [v23 attributes];
                   v25 = [attributes5 objectForKey:@"label"];
 
@@ -528,7 +524,7 @@ LABEL_71:
                   {
                     if (!v25)
                     {
-                      [MEMORY[0x277CBEAD8] raise:v112 format:@"The fieldTitleOrNil parameter must not be nil."];
+                      [MEMORY[0x277CBEAD8] raise:v111 format:@"The fieldTitleOrNil parameter must not be nil."];
                     }
 
                     v26 = v25;
@@ -574,7 +570,7 @@ LABEL_29:
                     }
 
                     [(VSCredentialEntryField *)v27 setAutocorrectionType:1];
-                    [v115 addObject:v27];
+                    [v114 addObject:v27];
 
                     goto LABEL_33;
                   }
@@ -582,30 +578,30 @@ LABEL_29:
                   v26 = VSErrorLogObject();
                   if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                   {
-                    [VSCredentialEntryAppDocumentController _updateCredentialEntryViewModel:v127 withTemplate:v26 error:?];
+                    [VSCredentialEntryAppDocumentController _updateCredentialEntryViewModel:v126 withTemplate:v26 error:?];
                   }
 
 LABEL_33:
                 }
 
-                v20 = [obj countByEnumeratingWithState:&v128 objects:v139 count:16];
+                v20 = [obj countByEnumeratingWithState:&v127 objects:v138 count:16];
                 if (!v20)
                 {
 LABEL_35:
-                  v37 = v115;
-                  if ([v115 count])
+                  v37 = v114;
+                  if ([v114 count])
                   {
-                    v38 = [v115 copy];
-                    [v111 setCredentialEntryFields:v38];
+                    v38 = [v114 copy];
+                    [v110 setCredentialEntryFields:v38];
 
-                    v107 += [v115 count];
+                    v106 += [v114 count];
                   }
 
                   self = selfCopy;
-                  v13 = v105;
-                  children = v106;
-                  v12 = v108;
-                  v14 = v109;
+                  v13 = v104;
+                  children = v105;
+                  v12 = v107;
+                  v14 = v108;
 
                   goto LABEL_71;
                 }
@@ -620,10 +616,10 @@ LABEL_72:
       }
 
       while (v14 != v12);
-      v12 = [children countByEnumeratingWithState:&v132 objects:v140 count:16];
+      v12 = [children countByEnumeratingWithState:&v131 objects:v139 count:16];
       if (!v12)
       {
-        v81 = v107 == 0;
+        v81 = v106 == 0;
         goto LABEL_78;
       }
     }
@@ -635,48 +631,48 @@ LABEL_78:
   v84 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v85 = objc_opt_class();
   v86 = NSStringFromClass(v85);
-  v137[0] = @"title";
-  v137[1] = @"text";
-  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:2];
+  v136[0] = @"title";
+  v136[1] = @"text";
+  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v136 count:2];
   selfCopy2 = self;
   v89 = v87;
-  v121.receiver = selfCopy2;
-  v121.super_class = VSCredentialEntryAppDocumentController;
-  v90 = [(VSAppDocumentController *)&v121 _getSupportedButtonTextsforTemplate:v86 andElementKeys:v87 supportedCount:2];
+  v120.receiver = selfCopy2;
+  v120.super_class = VSCredentialEntryAppDocumentController;
+  v90 = [(VSAppDocumentController *)&v120 _getSupportedButtonTextsforTemplate:v86 andElementKeys:v87 supportedCount:2];
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
   v118 = 0u;
+  v119 = 0u;
+  v116 = 0u;
+  v117 = 0u;
   v91 = v90;
-  v92 = [v91 countByEnumeratingWithState:&v117 objects:v136 count:16];
+  v92 = [v91 countByEnumeratingWithState:&v116 objects:v135 count:16];
   if (v92)
   {
     v93 = v92;
-    v94 = *v118;
+    v94 = *v117;
     do
     {
       for (k = 0; k != v93; ++k)
       {
-        if (*v118 != v94)
+        if (*v117 != v94)
         {
           objc_enumerationMutation(v91);
         }
 
-        v96 = *(*(&v117 + 1) + 8 * k);
+        v96 = *(*(&v116 + 1) + 8 * k);
         v97 = objc_alloc_init(VSCredentialEntryButton);
         [(VSCredentialEntryButton *)v97 setTitle:v96];
-        [(VSCredentialEntryButton *)v97 setOwningViewModel:v111];
+        [(VSCredentialEntryButton *)v97 setOwningViewModel:v110];
         [v84 addObject:v97];
       }
 
-      v93 = [v91 countByEnumeratingWithState:&v117 objects:v136 count:16];
+      v93 = [v91 countByEnumeratingWithState:&v116 objects:v135 count:16];
     }
 
     while (v93);
   }
 
-  [v111 setButtons:v84];
+  [v110 setButtons:v84];
   if (v81)
   {
     v98 = VSPrivateError();
@@ -693,7 +689,6 @@ LABEL_78:
     *error = v98;
   }
 
-  v100 = *MEMORY[0x277D85DE8];
   return v98 == 0;
 }
 

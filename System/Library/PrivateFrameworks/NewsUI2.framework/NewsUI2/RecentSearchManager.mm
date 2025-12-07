@@ -14,7 +14,7 @@
 
 - (void)readingHistoryDidClear:(id)clear
 {
-  sub_218760638();
+  sub_218760638(0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = sub_219BF5BF4();

@@ -35,9 +35,9 @@
   optionsCopy = options;
   keybagCopy = keybag;
   BSDispatchQueueAssert();
-  v43.receiver = self;
-  v43.super_class = SUInstallationConstraintMonitorForBatteryDiskAndKeybag;
-  v16 = [(SUInstallationConstraintMonitorBase *)&v43 initOnQueue:queueCopy withRepresentedInstallationConstraints:53 andDownload:downloadCopy andInstallOptions:optionsCopy];
+  v45.receiver = self;
+  v45.super_class = SUInstallationConstraintMonitorForBatteryDiskAndKeybag;
+  v16 = [(SUInstallationConstraintMonitorBase *)&v45 initOnQueue:queueCopy withRepresentedInstallationConstraints:53 andDownload:downloadCopy andInstallOptions:optionsCopy];
   v17 = v16;
   if (v16)
   {
@@ -51,39 +51,39 @@
     *(v17 + 75) = 0;
     if (keybagCopy)
     {
-      v19 = keybagCopy;
+      v20 = keybagCopy;
     }
 
     else
     {
-      v20 = SULogInstallConstraints();
-      SULogDebugForSubsystem(v20, @"No KeybagInterface instance provided to SUInstallationConstraintMonitorForBatteryDiskAndKeybag initializer", v21, v22, v23, v24, v25, v26, v39);
+      v21 = SULogInstallConstraints(v19);
+      SULogDebugForSubsystem(v21, @"No KeybagInterface instance provided to SUInstallationConstraintMonitorForBatteryDiskAndKeybag initializer", v22, v23, v24, v25, v26, v27, v41);
 
-      v19 = +[SUKeybagInterface sharedInstance];
+      v20 = +[SUKeybagInterface sharedInstance];
     }
 
-    v27 = *(v17 + 48);
-    *(v17 + 48) = v19;
+    v28 = *(v17 + 48);
+    *(v17 + 48) = v20;
 
     [*(v17 + 48) addObserver:v17];
-    objc_initWeak(&location, v17);
-    v28 = SULogInstallConstraints();
-    SULogDebugForSubsystem(v28, @"%@ - timer scheduled for interval @ %f s", v29, v30, v31, v32, v33, v34, v17);
+    inited = objc_initWeak(&location, v17);
+    v30 = SULogInstallConstraints(inited);
+    SULogDebugForSubsystem(v30, @"%@ - timer scheduled for interval @ %f s", v31, v32, v33, v34, v35, v36, v17);
 
-    v35 = objc_alloc(MEMORY[0x277CF0D00]);
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __118__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_initOnQueue_withDownload_installOptions_pollDuration_keybag___block_invoke;
-    v40[3] = &unk_279CABC30;
-    objc_copyWeak(v41, &location);
-    v41[1] = *&duration;
-    v36 = [v35 initWithFireInterval:queueCopy repeatInterval:v40 leewayInterval:duration queue:duration handler:0.0];
-    v37 = *(v17 + 56);
-    *(v17 + 56) = v36;
+    v37 = objc_alloc(MEMORY[0x277CF0D00]);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __118__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_initOnQueue_withDownload_installOptions_pollDuration_keybag___block_invoke;
+    v42[3] = &unk_279CABC30;
+    objc_copyWeak(v43, &location);
+    v43[1] = *&duration;
+    v38 = [v37 initWithFireInterval:queueCopy repeatInterval:v42 leewayInterval:duration queue:duration handler:0.0];
+    v39 = *(v17 + 56);
+    *(v17 + 56) = v38;
 
     [*(v17 + 56) schedule];
     [v17 _queue_pollSatisfied];
-    objc_destroyWeak(v41);
+    objc_destroyWeak(v43);
     objc_destroyWeak(&location);
   }
 
@@ -92,13 +92,12 @@
 
 void __118__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_initOnQueue_withDownload_installOptions_pollDuration_keybag___block_invoke(uint64_t a1)
 {
-  v2 = SULogInstallConstraints();
+  v2 = SULogInstallConstraints(a1);
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v10 = *(a1 + 40);
   SULogDebugForSubsystem(v2, @"%@ - timer fired @ %f s", v4, v5, v6, v7, v8, v9, WeakRetained);
 
-  v11 = objc_loadWeakRetained((a1 + 32));
-  [v11 _queue_pollSatisfied];
+  v10 = objc_loadWeakRetained((a1 + 32));
+  [v10 _queue_pollSatisfied];
 }
 
 - (void)dealloc
@@ -107,25 +106,25 @@ void __118__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_initOnQueue_w
   queue_keybag = self->_queue_keybag;
   self->_queue_keybag = 0;
 
-  v4 = SULogInstallConstraints();
-  SULogDebugForSubsystem(v4, @"%@ - timer invalidated", v5, v6, v7, v8, v9, v10, self);
+  v5 = SULogInstallConstraints(v4);
+  SULogDebugForSubsystem(v5, @"%@ - timer invalidated", v6, v7, v8, v9, v10, v11, self);
 
-  v11 = self->_queue_timer;
+  v12 = self->_queue_timer;
   queue = self->super._queue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __65__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_dealloc__block_invoke;
   block[3] = &unk_279CAA708;
-  v18 = v11;
-  v13 = v11;
-  v14 = queue;
-  dispatch_async(v14, block);
+  v19 = v12;
+  v14 = v12;
+  v15 = queue;
+  dispatch_async(v15, block);
   queue_timer = self->_queue_timer;
   self->_queue_timer = 0;
 
-  v16.receiver = self;
-  v16.super_class = SUInstallationConstraintMonitorForBatteryDiskAndKeybag;
-  [(SUInstallationConstraintMonitorForBatteryDiskAndKeybag *)&v16 dealloc];
+  v17.receiver = self;
+  v17.super_class = SUInstallationConstraintMonitorForBatteryDiskAndKeybag;
+  [(SUInstallationConstraintMonitorForBatteryDiskAndKeybag *)&v17 dealloc];
 }
 
 - (unint64_t)deltaSpaceNeeded
@@ -149,27 +148,26 @@ void __118__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_initOnQueue_w
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
-  v4 = !self->_queue_batterySatisfied;
+  v3 = !self->_queue_batterySatisfied;
   if (!self->_queue_diskSatisfied)
   {
-    v4 |= 4uLL;
+    v3 |= 4uLL;
   }
 
   if (!self->_queue_keybagSatisfied)
   {
-    v4 |= 0x10uLL;
+    v3 |= 0x10uLL;
   }
 
   if (self->_queue_passcodeSatisfied)
   {
-    return v4;
+    return v3;
   }
 
   else
   {
-    return v4 | 0x20;
+    return v3 | 0x20;
   }
 }
 
@@ -219,9 +217,8 @@ void __118__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_initOnQueue_w
 
 - (void)_queue_pollSatisfied
 {
-  queue = self->super._queue;
-  BSDispatchQueueAssert();
-  v4 = SULogInstallConstraints();
+  v3 = BSDispatchQueueAssert();
+  v4 = SULogInstallConstraints(v3);
   SULogInfoForSubsystem(v4, @"%@ - evaluating constraints for disk/battery/passcode/keybag", v5, v6, v7, v8, v9, v10, self);
 
   if (!self->_queue_keybag)
@@ -267,30 +264,27 @@ void __118__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_initOnQueue_w
 
 - (BOOL)_queue_evaluateBattery
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   download = [(SUInstallationConstraintMonitorBase *)self download];
   descriptor = [download descriptor];
   installOptions = [(SUInstallationConstraintMonitorBase *)self installOptions];
-  v7 = SUHasEnoughBatteryForInstallation(descriptor, installOptions);
+  v6 = SUHasEnoughBatteryForInstallation(descriptor, installOptions);
 
   queue_batterySatisfied = self->_queue_batterySatisfied;
-  if (queue_batterySatisfied != v7)
+  if (queue_batterySatisfied != v6)
   {
-    self->_queue_batterySatisfied = v7;
-    v9 = SULogInstallConstraints();
-    self->_queue_batterySatisfied;
+    self->_queue_batterySatisfied = v6;
+    v9 = SULogInstallConstraints(v7);
     SULogInfoForSubsystem(v9, @"%@ - battery constraint changed (satisfied? %@)", v10, v11, v12, v13, v14, v15, self);
   }
 
-  return queue_batterySatisfied != v7;
+  return queue_batterySatisfied != v6;
 }
 
 - (BOOL)_queue_evaluateDisk
 {
-  queue = self->super._queue;
-  BSDispatchQueueAssert();
-  v4 = SULogInstallConstraints();
+  v3 = BSDispatchQueueAssert();
+  v4 = SULogInstallConstraints(v3);
   download = [(SUInstallationConstraintMonitorBase *)self download];
   SULogInfoForSubsystem(v4, @"evaluateDisk: download: (%p)", v6, v7, v8, v9, v10, v11, download);
 
@@ -299,7 +293,7 @@ void __118__SUInstallationConstraintMonitorForBatteryDiskAndKeybag_initOnQueue_w
   {
     v23 = @"Download instance is nil";
 LABEL_9:
-    SULogInfo(v23, v12, v13, v14, v15, v16, v17, v18, v40);
+    SULogInfo(v23, v12, v13, v14, v15, v16, v17, v18, v41);
     v24 = 0;
     goto LABEL_10;
   }
@@ -350,15 +344,15 @@ LABEL_14:
   [(SUSpacePurgeOptions *)v28 setCacheDeleteUrgency:4];
   v30 = [SUSpace hasSufficientSpaceWithOptions:v28 error:0];
   hasSufficientFreeSpace = [v30 hasSufficientFreeSpace];
-  self->_queue_deltaSpaceNeeded = [v30 additionalBytesRequired];
+  additionalBytesRequired = [v30 additionalBytesRequired];
+  self->_queue_deltaSpaceNeeded = additionalBytesRequired;
   queue_diskSatisfied = self->_queue_diskSatisfied;
   v24 = queue_diskSatisfied != hasSufficientFreeSpace;
   if (queue_diskSatisfied != hasSufficientFreeSpace)
   {
     self->_queue_diskSatisfied = hasSufficientFreeSpace;
-    v33 = SULogInstallConstraints();
-    self->_queue_diskSatisfied;
-    SULogInfoForSubsystem(v33, @"%@ - disk constraint changed (satisfied? %@)", v34, v35, v36, v37, v38, v39, self);
+    v34 = SULogInstallConstraints(additionalBytesRequired);
+    SULogInfoForSubsystem(v34, @"%@ - disk constraint changed (satisfied? %@)", v35, v36, v37, v38, v39, v40, self);
   }
 
 LABEL_10:
@@ -367,9 +361,9 @@ LABEL_10:
 
 - (BOOL)_queue_evaluatePasscodeLocked
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
-  if ([(SUKeybagInterface *)self->_queue_keybag isPasscodeLocked])
+  isPasscodeLocked = [(SUKeybagInterface *)self->_queue_keybag isPasscodeLocked];
+  if (isPasscodeLocked)
   {
     queue_keybagSatisfied = self->_queue_keybagSatisfied;
   }
@@ -384,8 +378,7 @@ LABEL_10:
   if (queue_passcodeSatisfied != v6)
   {
     self->_queue_passcodeSatisfied = v6;
-    v7 = SULogInstallConstraints();
-    self->_queue_passcodeSatisfied;
+    v7 = SULogInstallConstraints(isPasscodeLocked);
     SULogInfoForSubsystem(v7, @"%@ - passcode constraint changed (satisfied? %@)", v8, v9, v10, v11, v12, v13, self);
   }
 
@@ -394,23 +387,21 @@ LABEL_10:
 
 - (BOOL)_queue_evaluateKeybag
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   queue_keybag = self->_queue_keybag;
   download = [(SUInstallationConstraintMonitorBase *)self download];
   descriptor = [download descriptor];
-  v7 = [(SUKeybagInterface *)queue_keybag installationKeybagStateForDescriptor:descriptor]!= 1;
+  v6 = [(SUKeybagInterface *)queue_keybag installationKeybagStateForDescriptor:descriptor]!= 1;
 
   queue_keybagSatisfied = self->_queue_keybagSatisfied;
-  if (queue_keybagSatisfied != v7)
+  if (queue_keybagSatisfied != v6)
   {
-    self->_queue_keybagSatisfied = v7;
-    v9 = SULogInstallConstraints();
-    self->_queue_keybagSatisfied;
+    self->_queue_keybagSatisfied = v6;
+    v9 = SULogInstallConstraints(v7);
     SULogInfoForSubsystem(v9, @"%@ - keybag constraint changed (satisfied? %@)", v10, v11, v12, v13, v14, v15, self);
   }
 
-  return queue_keybagSatisfied != v7;
+  return queue_keybagSatisfied != v6;
 }
 
 @end

@@ -180,12 +180,12 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_21D588BE4();
-  v8 = v7;
+  sub_21D588BE4(overlay);
+  v9 = v8;
 
   swift_unknownObjectRelease();
 
-  return v8;
+  return v9;
 }
 
 - (void)mapDragRadiusView:(id)view didUpdateRegion:(id)region
@@ -259,7 +259,7 @@
   swift_unknownObjectRelease();
   sub_21D586AB4();
 
-  __swift_destroy_boxed_opaque_existential_0(&v5);
+  __swift_destroy_boxed_opaque_existential_0(v5);
 }
 
 - (void)stopHoldingCurrentContentViewHeight

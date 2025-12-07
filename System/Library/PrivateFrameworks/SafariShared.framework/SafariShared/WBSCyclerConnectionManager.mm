@@ -73,62 +73,62 @@
   self->_xpcListener = anonymousListener;
 
   [(NSXPCListener *)self->_xpcListener setDelegate:self];
-  [(NSXPCListener *)self->_xpcListener resume];
-  v5 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  resume = [(NSXPCListener *)self->_xpcListener resume];
+  v7 = WBS_LOG_CHANNEL_PREFIXCycler(resume, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Set up XPC listener; sending endpoint to cycler", v10, 2u);
+    *v12 = 0;
+    _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Set up XPC listener; sending endpoint to cycler", v12, 2u);
   }
 
-  v6 = objc_alloc_init(WBSCyclerServiceProxy);
+  v8 = objc_alloc_init(WBSCyclerServiceProxy);
   cyclerProxy = self->_cyclerProxy;
-  self->_cyclerProxy = v6;
+  self->_cyclerProxy = v8;
 
-  v8 = self->_cyclerProxy;
+  v10 = self->_cyclerProxy;
   endpoint = [(NSXPCListener *)self->_xpcListener endpoint];
-  [(WBSCyclerServiceProxy *)v8 setTestTargetEndpoint:endpoint reply:&__block_literal_global_36];
+  [(WBSCyclerServiceProxy *)v10 setTestTargetEndpoint:endpoint reply:&__block_literal_global_36];
 }
 
 void __37__WBSCyclerConnectionManager_connect__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXCycler();
-  v4 = v3;
+  v4 = WBS_LOG_CHANNEL_PREFIXCycler(v2, v3);
+  v5 = v4;
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __37__WBSCyclerConnectionManager_connect__block_invoke_cold_1(v2, v4);
+      __37__WBSCyclerConnectionManager_connect__block_invoke_cold_1(v2, v5);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_INFO, "Successfully sent endpoint to cycler", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_INFO, "Successfully sent endpoint to cycler", v6, 2u);
   }
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v6 = WBS_LOG_CHANNEL_PREFIXCycler();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = WBS_LOG_CHANNEL_PREFIXCycler(connectionCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543362;
-    v13 = connectionCopy;
-    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_INFO, "Received new connection %{public}@ from cycler", &v12, 0xCu);
+    v15 = 138543362;
+    v16 = connectionCopy;
+    _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_INFO, "Received new connection %{public}@ from cycler", &v15, 0xCu);
   }
 
-  v7 = [connectionCopy valueForEntitlement:@"com.apple.private.Safari.can-use-cycler"];
-  bOOLValue = [v7 BOOLValue];
+  v8 = [connectionCopy valueForEntitlement:@"com.apple.private.Safari.can-use-cycler"];
+  bOOLValue = [v8 BOOLValue];
 
   if (bOOLValue)
   {
-    v9 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F3AAC658];
-    [connectionCopy setExportedInterface:v9];
+    v12 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F3AAC658];
+    [connectionCopy setExportedInterface:v12];
 
     [connectionCopy setExportedObject:self->_testTarget];
     [connectionCopy resume];
@@ -136,10 +136,10 @@ void __37__WBSCyclerConnectionManager_connect__block_invoke(uint64_t a1, void *a
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXCycler(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [WBSCyclerConnectionManager listener:connectionCopy shouldAcceptNewConnection:v10];
+      [WBSCyclerConnectionManager listener:connectionCopy shouldAcceptNewConnection:v13];
     }
   }
 

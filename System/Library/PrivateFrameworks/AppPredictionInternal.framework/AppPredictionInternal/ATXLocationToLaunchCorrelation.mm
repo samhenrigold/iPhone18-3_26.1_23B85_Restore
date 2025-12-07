@@ -112,7 +112,7 @@ void __66__ATXLocationToLaunchCorrelation_addVisitForLocation_event_value___bloc
   return v11;
 }
 
-uint64_t __71__ATXLocationToLaunchCorrelation_launchProbabilityForEvent_atLocation___block_invoke(void *a1, uint64_t a2)
+void *__71__ATXLocationToLaunchCorrelation_launchProbabilityForEvent_atLocation___block_invoke(void *a1, uint64_t a2)
 {
   result = [ATXLocationToLaunchCorrelation _launchProbabilityForEvent:a1[4] atLocation:a1[5] correlationMatrix:*(a2 + 8) locationTotals:*(a2 + 16)];
   *(*(a1[6] + 8) + 24) = v4;
@@ -144,7 +144,7 @@ uint64_t __71__ATXLocationToLaunchCorrelation_launchProbabilityForEvent_atLocati
   return v11;
 }
 
-uint64_t __67__ATXLocationToLaunchCorrelation_totalLaunchesForEvent_atLocation___block_invoke(void *a1, uint64_t a2)
+void *__67__ATXLocationToLaunchCorrelation_totalLaunchesForEvent_atLocation___block_invoke(void *a1, uint64_t a2)
 {
   result = [ATXLocationToLaunchCorrelation _totalLaunchesForEvent:a1[4] atLocation:a1[5] correlationMatrix:*(a2 + 8)];
   *(*(a1[6] + 8) + 24) = v4;
@@ -173,7 +173,7 @@ uint64_t __67__ATXLocationToLaunchCorrelation_totalLaunchesForEvent_atLocation__
   return v7;
 }
 
-uint64_t __58__ATXLocationToLaunchCorrelation_totalLaunchesAtLocation___block_invoke(uint64_t a1, uint64_t a2)
+void *__58__ATXLocationToLaunchCorrelation_totalLaunchesAtLocation___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [ATXLocationToLaunchCorrelation _totalLaunchesAtLocation:*(a1 + 32) locationTotals:*(a2 + 16)];
   *(*(*(a1 + 40) + 8) + 24) = v4;
@@ -200,29 +200,29 @@ uint64_t __58__ATXLocationToLaunchCorrelation_totalLaunchesAtLocation___block_in
 
 void __47__ATXLocationToLaunchCorrelation_totalLaunches__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = v3[2];
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [v3[2] objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * v8), v12}];
+        v9 = [v3[2] objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * v8), v11}];
         [v9 doubleValue];
         *(*(*(a1 + 32) + 8) + 24) = v10 + *(*(*(a1 + 32) + 8) + 24);
 
@@ -230,13 +230,11 @@ void __47__ATXLocationToLaunchCorrelation_totalLaunches__block_invoke(uint64_t a
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (double)launchProbabilityForEvent:(id)event atLocationsWithProbabilities:(id)probabilities
@@ -266,29 +264,29 @@ void __47__ATXLocationToLaunchCorrelation_totalLaunches__block_invoke(uint64_t a
 
 void __89__ATXLocationToLaunchCorrelation_launchProbabilityForEvent_atLocationsWithProbabilities___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v10 = [*(a1 + 32) objectForKeyedSubscript:{v9, v15}];
+        v9 = *(*(&v14 + 1) + 8 * i);
+        v10 = [*(a1 + 32) objectForKeyedSubscript:{v9, v14}];
         [v10 doubleValue];
         v12 = v11;
 
@@ -299,13 +297,11 @@ void __89__ATXLocationToLaunchCorrelation_launchProbabilityForEvent_atLocationsW
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (ATXLocationToLaunchCorrelation)initWithCoder:(id)coder
@@ -376,35 +372,35 @@ uint64_t __50__ATXLocationToLaunchCorrelation_encodeWithCoder___block_invoke(uin
 
 void __47__ATXLocationToLaunchCorrelation_copyWithZone___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = v3[1];
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
-        v11 = [v3[1] objectForKeyedSubscript:{v10, v19}];
+        v10 = *(*(&v18 + 1) + 8 * i);
+        v11 = [v3[1] objectForKeyedSubscript:{v10, v18}];
         v12 = [v11 mutableCopy];
         [v4 setObject:v12 forKeyedSubscript:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -416,8 +412,6 @@ void __47__ATXLocationToLaunchCorrelation_copyWithZone___block_invoke(uint64_t a
   v16 = *(*(a1 + 32) + 8);
   v17 = *(v16 + 40);
   *(v16 + 40) = v15;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (double)_launchProbabilityForEvent:(id)event atLocation:(id)location correlationMatrix:(id)matrix locationTotals:(id)totals
@@ -447,10 +441,10 @@ void __47__ATXLocationToLaunchCorrelation_copyWithZone___block_invoke(uint64_t a
 
   else
   {
-    v19 = __atxlog_handle_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_default(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [ATXLocationToLaunchCorrelation _launchProbabilityForEvent:v19 atLocation:? correlationMatrix:? locationTotals:?];
+      [ATXLocationToLaunchCorrelation _launchProbabilityForEvent:v20 atLocation:? correlationMatrix:? locationTotals:?];
     }
 
     return 0.0;

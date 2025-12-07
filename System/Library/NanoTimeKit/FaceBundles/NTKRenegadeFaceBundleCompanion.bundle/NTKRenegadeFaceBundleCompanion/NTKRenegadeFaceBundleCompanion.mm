@@ -260,12 +260,16 @@ id NTKRenegadeQuiltPieceBezierPath(void *a1, void *a2, void *a3, void *a4, doubl
   v30 = NTKRenegadeTangentialPointFromLine(a11, a12, a7, a8, v28, v29);
   v32 = v31;
   [v23 moveToPoint:?];
-  NTKRenegadeBezierPathAddValues(v23, v20, a11, a12, a7, a8);
+  v33 = NTKRenegadeBezierPathAddValues(v23, v20, a11, a12, a7, a8, CGPointZero.x, CGPointZero.y);
+  v35 = v34;
 
-  NTKRenegadeBezierPathAddValues(v23, v21, a7, a8, a5, a6);
-  NTKRenegadeBezierPathAddValues(v23, v19, a5, a6, a9, a10);
+  v36 = NTKRenegadeBezierPathAddValues(v23, v21, a7, a8, a5, a6, v33, v35);
+  v38 = v37;
 
-  NTKRenegadeBezierPathAddValues(v23, v22, a9, a10, a11, a12);
+  v39 = NTKRenegadeBezierPathAddValues(v23, v19, a5, a6, a9, a10, v36, v38);
+  v41 = v40;
+
+  NTKRenegadeBezierPathAddValues(v23, v22, a9, a10, a11, a12, v39, v41);
   [v23 addQuadCurveToPoint:v30 controlPoint:{v32, a11, a12}];
   [v23 closePath];
 
@@ -295,75 +299,75 @@ double NTKRenegadeTangentialPointFromLine(double a1, double a2, double a3, doubl
   return v12 - a6 * __sincosf_stret(v14).__cosval;
 }
 
-double NTKRenegadeBezierPathAddValues(void *a1, void *a2, double a3, double a4, double a5, double a6)
+double NTKRenegadeBezierPathAddValues(void *a1, void *a2, double a3, double a4, double a5, double a6, double a7, double a8)
 {
-  v11 = a1;
-  v12 = a2;
-  v13 = NTKRenegadeOrderedKeysForValues(v12);
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3010000000;
-  v43 = 0;
-  v44 = 0;
-  v42 = &unk_E625;
+  v13 = a1;
+  v14 = a2;
+  v15 = NTKRenegadeOrderedKeysForValues(v14);
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3010000000;
+  v45 = 0;
+  v46 = 0;
+  v44 = &unk_E625;
   if (CLKPointEqualsPoint())
   {
-    v14 = 0;
-    v15 = v40;
-    v40[4] = a3;
-    v15[5] = a4;
+    v16 = 0;
+    v17 = v42;
+    v42[4] = a3;
+    v17[5] = a4;
   }
 
   else
   {
-    v16 = [v13 firstObject];
-    v17 = [v12 objectForKey:v16];
-    [v16 floatValue];
-    v19 = v18;
-    [v17 floatValue];
-    v21 = NTKRenegadeTangentialPointFromLine(a3, a4, a5, a6, v19, v20);
-    v22 = v40;
-    v40[4] = v21;
-    *(v22 + 5) = v23;
-    [v11 addQuadCurveToPoint:? controlPoint:?];
+    v18 = [v15 firstObject];
+    v19 = [v14 objectForKey:v18];
+    [v18 floatValue];
+    v21 = v20;
+    [v19 floatValue];
+    v23 = NTKRenegadeTangentialPointFromLine(a3, a4, a5, a6, v21, v22);
+    v24 = v42;
+    v42[4] = v23;
+    *(v24 + 5) = v25;
+    [v13 addQuadCurveToPoint:? controlPoint:?];
 
-    v14 = 1;
+    v16 = 1;
   }
 
-  if ([v13 count])
+  if ([v15 count])
   {
-    v24 = +[NSIndexSet indexSetWithIndexesInRange:](NSIndexSet, "indexSetWithIndexesInRange:", v14, [v13 count] - v14);
-    v38[0] = 0;
-    v38[1] = v38;
-    v38[2] = 0x2020000000;
-    v38[3] = 0;
-    v37[0] = 0;
-    v37[1] = v37;
-    v37[2] = 0x2020000000;
-    v37[3] = 0;
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_62D0;
-    v27[3] = &unk_10660;
-    v33 = a3;
-    v34 = a4;
-    v35 = a5;
-    v36 = a6;
-    v28 = v12;
-    v30 = v38;
-    v31 = v37;
-    v29 = v11;
-    v32 = &v39;
-    [v13 enumerateObjectsAtIndexes:v24 options:0 usingBlock:v27];
+    v26 = +[NSIndexSet indexSetWithIndexesInRange:](NSIndexSet, "indexSetWithIndexesInRange:", v16, [v15 count] - v16);
+    v40[0] = 0;
+    v40[1] = v40;
+    v40[2] = 0x2020000000;
+    v40[3] = 0;
+    v39[0] = 0;
+    v39[1] = v39;
+    v39[2] = 0x2020000000;
+    v39[3] = 0;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_62D0;
+    v29[3] = &unk_10660;
+    v35 = a3;
+    v36 = a4;
+    v37 = a5;
+    v38 = a6;
+    v30 = v14;
+    v32 = v40;
+    v33 = v39;
+    v31 = v13;
+    v34 = &v41;
+    [v15 enumerateObjectsAtIndexes:v26 options:0 usingBlock:v29];
 
-    _Block_object_dispose(v37, 8);
-    _Block_object_dispose(v38, 8);
+    _Block_object_dispose(v39, 8);
+    _Block_object_dispose(v40, 8);
   }
 
-  v25 = v40[4];
-  _Block_object_dispose(&v39, 8);
+  v27 = v42[4];
+  _Block_object_dispose(&v41, 8);
 
-  return v25;
+  return v27;
 }
 
 void sub_62D0(uint64_t a1, void *a2)

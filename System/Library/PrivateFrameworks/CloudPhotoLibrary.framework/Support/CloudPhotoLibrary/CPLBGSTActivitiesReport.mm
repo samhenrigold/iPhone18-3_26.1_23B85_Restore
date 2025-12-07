@@ -44,25 +44,13 @@
   v13.receiver = self;
   v13.super_class = CPLBGSTActivitiesReport;
   v6 = [(CPLBGSTActivitiesReport *)&v13 init];
-  if (!v6)
-  {
-    goto LABEL_4;
-  }
-
-  v7 = objc_opt_class();
-  v8 = [NSSet setWithObjects:v7, objc_opt_class(), 0];
-  v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"reports"];
-  reportPerIdentifier = v6->_reportPerIdentifier;
-  v6->_reportPerIdentifier = v9;
-
-  if (!v6->_reportPerIdentifier)
+  if (v6 && (v7 = objc_opt_class(), +[NSSet setWithObjects:](NSSet, "setWithObjects:", v7, objc_opt_class(), 0), v8 = objc_claimAutoreleasedReturnValue(), [coderCopy decodeObjectOfClasses:v8 forKey:@"reports"], v9 = objc_claimAutoreleasedReturnValue(), reportPerIdentifier = v6->_reportPerIdentifier, v6->_reportPerIdentifier = v9, reportPerIdentifier, v8, !v6->_reportPerIdentifier))
   {
     v11 = 0;
   }
 
   else
   {
-LABEL_4:
     v11 = v6;
   }
 

@@ -1042,80 +1042,80 @@ void __51__MABrainUpdater_install_asset_options_completion___block_invoke(uint64
   v5 = [*(a1 + 40) attributes];
   [v3 setObject:v5 forKeyedSubscript:@"MobileAssetProperties"];
 
-  v6 = BootSessionUUID();
-  [v3 setObject:v6 forKeyedSubscript:@"boot-session-uuid"];
+  v7 = BootSessionUUID(v6);
+  [v3 setObject:v7 forKeyedSubscript:@"boot-session-uuid"];
 
-  v7 = *(a1 + 48);
-  v8 = *(*(a1 + 72) + 8);
-  obj = *(v8 + 40);
-  v9 = [v7 writePlist:v3 path:v2 error:&obj];
-  objc_storeStrong((v8 + 40), obj);
-  if (!v9)
+  v8 = *(a1 + 48);
+  v9 = *(*(a1 + 72) + 8);
+  obj = *(v9 + 40);
+  v10 = [v8 writePlist:v3 path:v2 error:&obj];
+  objc_storeStrong((v9 + 40), obj);
+  if (!v10)
   {
-    v32[0] = NSDebugDescriptionErrorKey;
-    v32[1] = NSUnderlyingErrorKey;
-    v24 = *(*(*(a1 + 72) + 8) + 40);
-    v33[0] = @"Failed to write MobileAssetBrain.plist";
-    v33[1] = v24;
-    v32[2] = @"brainPlistPath";
-    v33[2] = v2;
-    v25 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:3];
-    v26 = 162;
+    v33[0] = NSDebugDescriptionErrorKey;
+    v33[1] = NSUnderlyingErrorKey;
+    v25 = *(*(*(a1 + 72) + 8) + 40);
+    v34[0] = @"Failed to write MobileAssetBrain.plist";
+    v34[1] = v25;
+    v33[2] = @"brainPlistPath";
+    v34[2] = v2;
+    v26 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:3];
+    v27 = 162;
 LABEL_7:
-    v28 = [NSError errorWithDomain:@"MobileAssetBrainErrorDomain" code:v26 userInfo:v25];
+    v29 = [NSError errorWithDomain:@"MobileAssetBrainErrorDomain" code:v27 userInfo:v26];
 
-    [*(a1 + 48) callback:*(a1 + 64) error:v28];
+    [*(a1 + 48) callback:*(a1 + 64) error:v29];
     goto LABEL_11;
   }
 
-  v10 = *(a1 + 48);
-  v11 = *(a1 + 56);
-  v12 = *(*(a1 + 72) + 8);
-  v30 = *(v12 + 40);
-  v13 = [v10 stage:v11 error:&v30];
-  objc_storeStrong((v12 + 40), v30);
-  if (!v13)
+  v11 = *(a1 + 48);
+  v12 = *(a1 + 56);
+  v13 = *(*(a1 + 72) + 8);
+  v31 = *(v13 + 40);
+  v14 = [v11 stage:v12 error:&v31];
+  objc_storeStrong((v13 + 40), v31);
+  if (!v14)
   {
-    v34[0] = NSDebugDescriptionErrorKey;
-    v34[1] = NSUnderlyingErrorKey;
-    v27 = *(*(*(a1 + 72) + 8) + 40);
-    v35[0] = @"Failed to write staging file";
-    v35[1] = v27;
-    v34[2] = @"stagingName";
-    v35[2] = *(a1 + 56);
-    v25 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:3];
-    v26 = 163;
+    v35[0] = NSDebugDescriptionErrorKey;
+    v35[1] = NSUnderlyingErrorKey;
+    v28 = *(*(*(a1 + 72) + 8) + 40);
+    v36[0] = @"Failed to write staging file";
+    v36[1] = v28;
+    v35[2] = @"stagingName";
+    v36[2] = *(a1 + 56);
+    v26 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:3];
+    v27 = 163;
     goto LABEL_7;
   }
 
-  v14 = *(*(a1 + 72) + 8);
-  v15 = *(v14 + 40);
-  *(v14 + 40) = 0;
+  v15 = *(*(a1 + 72) + 8);
+  v16 = *(v15 + 40);
+  *(v15 + 40) = 0;
 
-  v16 = img4_nonce_domain_roll_nonce();
-  if (v16)
+  v17 = img4_nonce_domain_roll_nonce();
+  if (v17)
   {
-    v17 = v16;
-    v36[0] = NSDebugDescriptionErrorKey;
-    v18 = [NSString stringWithFormat:@"Failed to roll the Cryptex1 MobileAssetBrain nonce"];
-    v37[0] = v18;
-    v36[1] = NSUnderlyingErrorKey;
-    v19 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v17 userInfo:0];
-    v37[1] = v19;
-    v20 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
-    v21 = [NSError errorWithDomain:@"MobileAssetBrainErrorDomain" code:109 userInfo:v20];
-    v22 = *(*(a1 + 72) + 8);
-    v23 = *(v22 + 40);
-    *(v22 + 40) = v21;
+    v18 = v17;
+    v37[0] = NSDebugDescriptionErrorKey;
+    v19 = [NSString stringWithFormat:@"Failed to roll the Cryptex1 MobileAssetBrain nonce"];
+    v38[0] = v19;
+    v37[1] = NSUnderlyingErrorKey;
+    v20 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v18 userInfo:0];
+    v38[1] = v20;
+    v21 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
+    v22 = [NSError errorWithDomain:@"MobileAssetBrainErrorDomain" code:109 userInfo:v21];
+    v23 = *(*(a1 + 72) + 8);
+    v24 = *(v23 + 40);
+    *(v23 + 40) = v22;
   }
 
   else
   {
-    v18 = _MADLog(@"Brain");
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = _MADLog(@"Brain");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v29 = 0;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "[MAB] Successfully rolled the Cryptex1 MobileAssetBrain nonce", v29, 2u);
+      *v30 = 0;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "[MAB] Successfully rolled the Cryptex1 MobileAssetBrain nonce", v30, 2u);
     }
   }
 
@@ -1547,7 +1547,7 @@ LABEL_12:
   }
 
 LABEL_14:
-  [*(a1 + 32) callback:*(a1 + 56) error:{v4, *v15}];
+  [*(a1 + 32) callback:*(a1 + 56) error:{v4, *v15, *&v15[8]}];
   [*(a1 + 40) purgeSync];
   if (!v4)
   {

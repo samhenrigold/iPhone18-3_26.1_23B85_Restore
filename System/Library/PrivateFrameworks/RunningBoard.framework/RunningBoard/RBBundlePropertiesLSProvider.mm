@@ -123,35 +123,35 @@ LABEL_9:
 
 - (NSString)debugDescription
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   os_unfair_lock_lock(&self->_lock);
   mapTableRepresentation = [(NSCache *)self->_propertiesByIdentity mapTableRepresentation];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = [mapTableRepresentation countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [mapTableRepresentation countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(mapTableRepresentation);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [mapTableRepresentation objectForKey:v9];
         v11 = [v9 description];
         [v3 appendFormat:@"%@=%@\n\t\t", v11, v10];
       }
 
-      v6 = [mapTableRepresentation countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [mapTableRepresentation countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -162,41 +162,39 @@ LABEL_9:
   v13 = [objc_opt_class() description];
   v14 = [v12 initWithFormat:@"<%@| propertiesByIdentity:{\n\t\t%@}>", v13, v3];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (void)_removeCachedValuesForAppProxies:(uint64_t)proxies
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (proxies)
   {
     v4 = [MEMORY[0x277CBEB58] set];
     os_unfair_lock_lock((proxies + 24));
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         v9 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
           v10 = MEMORY[0x277D46F60];
-          bundleIdentifier = [*(*(&v15 + 1) + 8 * v9) bundleIdentifier];
+          bundleIdentifier = [*(*(&v14 + 1) + 8 * v9) bundleIdentifier];
           v12 = [v10 identityForEmbeddedApplicationIdentifier:bundleIdentifier];
 
           [*(proxies + 8) removeObjectForKey:v12];
@@ -206,7 +204,7 @@ LABEL_9:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -216,11 +214,9 @@ LABEL_9:
     os_unfair_lock_unlock((proxies + 24));
     [WeakRetained bundlePropertiesProvider:proxies didChangePropertiesForProcessIdentities:v4];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-- (void)propertiesForIdentity:(void *)a1 .cold.1(void *a1, uint64_t *a2)
+- (void)propertiesForIdentity:(void *)a1 .cold.1(void *a1, void **a2)
 {
   v3 = MEMORY[0x277CC1E88];
   v4 = [a1 xpcServiceIdentifier];
@@ -229,7 +225,7 @@ LABEL_9:
   *a2 = [[RBLSBundleProperties alloc] initWithBundleProxy:v5];
 }
 
-- (void)propertiesForIdentity:(void *)a1 .cold.2(void *a1, uint64_t *a2)
+- (void)propertiesForIdentity:(void *)a1 .cold.2(void *a1, void **a2)
 {
   v3 = MEMORY[0x277CC1E60];
   v4 = [a1 embeddedApplicationIdentifier];

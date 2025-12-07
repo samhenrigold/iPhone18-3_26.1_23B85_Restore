@@ -32,14 +32,14 @@
 
 - (id)outputContentClasses
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = [(WFGetCurrentSongAction *)self parameterStateForKey:@"Subject"];
   value = [v3 value];
   if ([value isEqualToString:@"Current Song"])
   {
-    v13[0] = objc_opt_class();
+    v12[0] = objc_opt_class();
     v5 = MEMORY[0x277CBEA60];
-    v6 = v13;
+    v6 = v12;
 LABEL_5:
     outputContentClasses = [v5 arrayWithObjects:v6 count:1];
     goto LABEL_7;
@@ -47,19 +47,17 @@ LABEL_5:
 
   if ([value isEqualToString:@"Current Playback Time"])
   {
-    v12 = objc_opt_class();
+    v11 = objc_opt_class();
     v5 = MEMORY[0x277CBEA60];
-    v6 = &v12;
+    v6 = &v11;
     goto LABEL_5;
   }
 
-  v11.receiver = self;
-  v11.super_class = WFGetCurrentSongAction;
-  outputContentClasses = [(WFGetCurrentSongAction *)&v11 outputContentClasses];
+  v10.receiver = self;
+  v10.super_class = WFGetCurrentSongAction;
+  outputContentClasses = [(WFGetCurrentSongAction *)&v10 outputContentClasses];
 LABEL_7:
   v8 = outputContentClasses;
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

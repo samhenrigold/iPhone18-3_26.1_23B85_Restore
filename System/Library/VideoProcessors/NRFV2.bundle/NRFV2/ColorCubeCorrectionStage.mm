@@ -73,15 +73,16 @@ LABEL_8:
   outChromaCopy = outChroma;
   if (type == -1)
   {
-    v17 = FigSignalErrorAtGM();
+    v17 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v20, v21, v22);
   }
 
   else if ((type - 4) >= 0xFFFFFFFB)
   {
-    v17 = objc_msgSend_runOnLuma_andChroma_withMask_outChroma_(self->fixes[type], v15, lumaCopy, chromaCopy, maskCopy, outChromaCopy);
-    if (v17)
+    v18 = objc_msgSend_runOnLuma_andChroma_withMask_outChroma_(self->fixes[type], v15, lumaCopy, chromaCopy, maskCopy, outChromaCopy);
+    v17 = v18;
+    if (v18)
     {
-      sub_29588B4F0();
+      sub_29588B4F0(v18);
     }
   }
 

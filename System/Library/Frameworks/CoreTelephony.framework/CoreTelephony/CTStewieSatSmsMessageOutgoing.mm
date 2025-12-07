@@ -13,7 +13,7 @@
 
 - (CTStewieSatSmsMessageOutgoing)initWithContext:(id)context destinationPhoneNumber:(id)number codecID:(int64_t)d textPayload:(id)payload notifyDowngrade:(BOOL)downgrade error:(id *)p_isa
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   numberCopy = number;
   payloadCopy = payload;
@@ -28,13 +28,13 @@
           {
             if ([payloadCopy length] < 0x8F)
             {
-              v33.receiver = self;
-              v33.super_class = CTStewieSatSmsMessageOutgoing;
-              v32 = [(CTStewieSatSmsMessageOutgoing *)&v33 init];
-              p_isa = &v32->super.isa;
-              if (v32)
+              v32.receiver = self;
+              v32.super_class = CTStewieSatSmsMessageOutgoing;
+              v31 = [(CTStewieSatSmsMessageOutgoing *)&v32 init];
+              p_isa = &v31->super.isa;
+              if (v31)
               {
-                objc_storeStrong(&v32->_context, context);
+                objc_storeStrong(&v31->_context, context);
                 objc_storeStrong(p_isa + 3, number);
                 p_isa[4] = d;
                 objc_storeStrong(p_isa + 5, payload);
@@ -52,9 +52,9 @@
             else if (p_isa)
             {
               v26 = MEMORY[0x1E696ABC0];
-              v34 = *MEMORY[0x1E696A578];
-              v35 = @"textPayload is too big";
-              v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+              v33 = *MEMORY[0x1E696A578];
+              v34 = @"textPayload is too big";
+              v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
               *p_isa = [v26 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v27];
 
               goto LABEL_21;
@@ -64,9 +64,9 @@
           else if (p_isa)
           {
             v28 = MEMORY[0x1E696ABC0];
-            v36 = *MEMORY[0x1E696A578];
-            v37 = @"textPayload is missing";
-            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+            v35 = *MEMORY[0x1E696A578];
+            v36 = @"textPayload is missing";
+            v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
             *p_isa = [v28 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v29];
 
             goto LABEL_21;
@@ -76,9 +76,9 @@
         else if (p_isa)
         {
           v18 = MEMORY[0x1E696ABC0];
-          v38 = *MEMORY[0x1E696A578];
-          v39 = @"Invalid codecID";
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+          v37 = *MEMORY[0x1E696A578];
+          v38 = @"Invalid codecID";
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
           *p_isa = [v18 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v19];
 
 LABEL_21:
@@ -89,9 +89,9 @@ LABEL_21:
       else if (p_isa)
       {
         v24 = MEMORY[0x1E696ABC0];
-        v40 = *MEMORY[0x1E696A578];
-        v41 = @"destinationPhoneNumber is invalid";
-        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+        v39 = *MEMORY[0x1E696A578];
+        v40 = @"destinationPhoneNumber is invalid";
+        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
         *p_isa = [v24 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v25];
 
         goto LABEL_21;
@@ -101,9 +101,9 @@ LABEL_21:
     else if (p_isa)
     {
       v20 = MEMORY[0x1E696ABC0];
-      v42 = *MEMORY[0x1E696A578];
-      v43 = @"destinationPhoneNumber is missing";
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = *MEMORY[0x1E696A578];
+      v42 = @"destinationPhoneNumber is missing";
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       *p_isa = [v20 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v21];
 
       goto LABEL_21;
@@ -113,15 +113,14 @@ LABEL_21:
   else if (p_isa)
   {
     v22 = MEMORY[0x1E696ABC0];
-    v44 = *MEMORY[0x1E696A578];
-    v45[0] = @"Context is missing";
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v43 = *MEMORY[0x1E696A578];
+    v44[0] = @"Context is missing";
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
     *p_isa = [v22 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v23];
 
     goto LABEL_21;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 

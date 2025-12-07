@@ -40,34 +40,34 @@
 
 - (BOOL)isLocationShiftRequiredForItems:(id)items
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   itemsCopy = items;
-  v5 = [itemsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [itemsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        if ([(FMLocationShifter *)self isLocationShiftRequiredForItem:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(FMLocationShifter *)self isLocationShiftRequiredForItem:*(*(&v11 + 1) + 8 * i), v11])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [itemsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [itemsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -80,7 +80,6 @@
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -198,8 +197,7 @@ void __71__FMLocationShifter_shiftLocation_withCompletionHandler_callbackQueue__
   v12 = [*(a1 + 32) context];
   v13 = [(FMLocationShifterItem *)v4 initWithCoordinate:v11 accuracy:v12 timestamp:v6 context:v8, v10];
 
-  [(FMLocationShifterItem *)v13 setError:v3];
-  v14 = LogCategory_Unspecified();
+  v14 = LogCategory_Unspecified([(FMLocationShifterItem *)v13 setError:v3]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     __71__FMLocationShifter_shiftLocation_withCompletionHandler_callbackQueue___block_invoke_4_cold_1(v3, v14);
@@ -211,56 +209,56 @@ void __71__FMLocationShifter_shiftLocation_withCompletionHandler_callbackQueue__
 
 - (void)shiftLocations:(id)locations withCompletionHandler:(id)handler callbackQueue:(id)queue
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   handlerCopy = handler;
   queueCopy = queue;
   if ([(FMLocationShifter *)self isLocationShiftRequiredForItems:locationsCopy])
   {
-    v24 = handlerCopy;
+    v23 = handlerCopy;
     v11 = dispatch_queue_create("com.apple.icloud.fmcore.multishift.shiftSerialQueue", 0);
     v12 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(locationsCopy, "count")}];
     v13 = dispatch_group_create();
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v25 = locationsCopy;
+    v24 = locationsCopy;
     obj = locationsCopy;
-    v14 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v14 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v38;
+      v16 = *v37;
       do
       {
         v17 = 0;
         do
         {
           v18 = queueCopy;
-          if (*v38 != v16)
+          if (*v37 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v37 + 1) + 8 * v17);
+          v19 = *(*(&v36 + 1) + 8 * v17);
           dispatch_group_enter(v13);
-          v33[0] = MEMORY[0x277D85DD0];
-          v33[1] = 3221225472;
-          v33[2] = __72__FMLocationShifter_shiftLocations_withCompletionHandler_callbackQueue___block_invoke;
-          v33[3] = &unk_278FD9870;
-          v34 = v11;
-          v35 = v12;
-          v36 = v13;
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v32[2] = __72__FMLocationShifter_shiftLocations_withCompletionHandler_callbackQueue___block_invoke;
+          v32[3] = &unk_278FD9870;
+          v33 = v11;
+          v34 = v12;
+          v35 = v13;
           v20 = v19;
           queueCopy = v18;
-          [(FMLocationShifter *)self shiftLocation:v20 withCompletionHandler:v33 callbackQueue:v18];
+          [(FMLocationShifter *)self shiftLocation:v20 withCompletionHandler:v32 callbackQueue:v18];
 
           ++v17;
         }
 
         while (v15 != v17);
-        v15 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v15 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v15);
@@ -270,30 +268,28 @@ void __71__FMLocationShifter_shiftLocation_withCompletionHandler_callbackQueue__
     block[1] = 3221225472;
     block[2] = __72__FMLocationShifter_shiftLocations_withCompletionHandler_callbackQueue___block_invoke_3;
     block[3] = &unk_278FD97D0;
-    v31 = v12;
-    v32 = v24;
-    v21 = v24;
+    v30 = v12;
+    v31 = v23;
+    v21 = v23;
     v22 = v12;
     dispatch_group_notify(v13, queueCopy, block);
 
-    locationsCopy = v25;
+    locationsCopy = v24;
   }
 
   else
   {
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __72__FMLocationShifter_shiftLocations_withCompletionHandler_callbackQueue___block_invoke_4;
-    v27[3] = &unk_278FD97D0;
-    v29 = handlerCopy;
-    v28 = locationsCopy;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __72__FMLocationShifter_shiftLocations_withCompletionHandler_callbackQueue___block_invoke_4;
+    v26[3] = &unk_278FD97D0;
+    v28 = handlerCopy;
+    v27 = locationsCopy;
     v11 = handlerCopy;
-    dispatch_async(queueCopy, v27);
+    dispatch_async(queueCopy, v26);
 
-    v13 = v29;
+    v13 = v28;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __72__FMLocationShifter_shiftLocations_withCompletionHandler_callbackQueue___block_invoke(uint64_t a1, void *a2)
@@ -383,11 +379,10 @@ void __57__FMLocationShifter_Synchronous__shiftLocations_timeout___block_invoke(
 
 void __71__FMLocationShifter_shiftLocation_withCompletionHandler_callbackQueue___block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "GEOLocationShifter error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "GEOLocationShifter error: %@", &v2, 0xCu);
 }
 
 @end

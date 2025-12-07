@@ -1,51 +1,4 @@
-uint64_t ***std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string const>(unsigned long long &,std::__basic_format_arg_value<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>> *,std::string const &)::{lambda(void)#1}::operator()(uint64_t ***result)
-{
-  v1 = *result;
-  v2 = result[1];
-  v3 = *(*result + 23);
-  v4 = **result;
-  v5 = (*result)[1];
-  v6 = *v2;
-  if (*v2)
-  {
-    *result[2] = (*result[2] | (13 << v6));
-  }
-
-  else
-  {
-    *result[2] = 13;
-  }
-
-  v7 = v3;
-  if (v3 < 0)
-  {
-    v3 = v5;
-  }
-
-  if (v7 < 0)
-  {
-    v1 = v4;
-  }
-
-  *v2 = v6 + 5;
-  v8 = result[3];
-  v9 = *v8;
-  *v8 += 2;
-  *v9 = v1;
-  v9[1] = v3;
-  return result;
-}
-
-void AudioDSPGraph::BoxRegistry::~BoxRegistry(AudioDSPGraph::BoxRegistry *this)
-{
-  v2 = (this + 80);
-  std::vector<std::pair<std::string,AudioComponentDescription>>::__destroy_vector::operator()[abi:ne200100](&v2);
-  std::__hash_table<std::__hash_value_type<AudioComponentDescription,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::__unordered_map_hasher<AudioComponentDescription,std::__hash_value_type<AudioComponentDescription,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::hash<AudioComponentDescription>,AudioDSPGraph::BoxRegistry::AudioComponentDescriptionEquality,true>,std::__unordered_map_equal<AudioComponentDescription,std::__hash_value_type<AudioComponentDescription,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,AudioDSPGraph::BoxRegistry::AudioComponentDescriptionEquality,std::hash<AudioComponentDescription>,true>,std::allocator<std::__hash_value_type<AudioComponentDescription,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>>>::~__hash_table(this + 40);
-
-  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>>>::~__hash_table(this);
-}
-
-void std::vector<std::pair<std::string,AudioComponentDescription>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::pair<std::string,AudioComponentDescription>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -204,41 +157,39 @@ void sub_1C91D97B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 uint64_t CADSPBoxSetProperty(uint64_t a1, unint64_t a2, unsigned int a3)
 {
   v4 = a2;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = HIDWORD(a2);
   v6 = (*(**(a1 + 8) + 312))(*(a1 + 8));
   if (v6)
   {
-    v9 = a3;
-    v10 = v6;
-    v12[0] = v4;
-    v12[1] = 0;
-    v12[2] = v5;
-    v12[3] = 0;
-    v12[5] = 0;
-    v12[6] = 6342;
-    v12[4] = v9;
-    v13 = v17;
+    v8 = a3;
+    v9 = v6;
+    v11[0] = v4;
+    v11[1] = 0;
+    v11[2] = v5;
+    v11[3] = 0;
+    v11[5] = 0;
+    v11[6] = 6342;
+    v11[4] = v8;
+    v12 = v16;
     *__len = xmmword_1C925F110;
-    v15 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-    v16 = 0;
-    __p = v17;
+    v14 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    v15 = 0;
+    __p = v16;
     __dst[0] = 3;
-    __dst[1] = v12;
+    __dst[1] = v11;
     __dst[2] = 6342;
-    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v13, "failed to set property for ID {}, scope {}, element {}", 54, __dst);
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v12, "failed to set property for ID {}, scope {}, element {}", 54, __dst);
     std::string::basic_string<std::string_view,0>(__dst, __p, __len[1]);
-    if (__p != v17)
+    if (__p != v16)
     {
       operator delete(__p);
     }
 
-    AudioDSPGraph::ThrowException(v10, __dst, off_1E83345F8);
+    AudioDSPGraph::ThrowException(v9, __dst, off_1E83345F8);
   }
 
-  result = 1;
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 void sub_1C91D9A7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, void *a62)
@@ -253,7 +204,7 @@ void sub_1C91D9A7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     __cxa_begin_catch(exception_object);
     if (v62)
     {
-      CADSPRealTimeErrorCreateFromCurrentException();
+      CADSPRealTimeErrorCreateFromCurrentException(gCADSPRealTimeSafeAllocator);
       *v62 = v64;
     }
 
@@ -266,41 +217,51 @@ void sub_1C91D9A7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CADSPBoxGetPropertyInfo(uint64_t a1, unint64_t a2, unsigned int a3, int *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!a4)
   {
     __dst[0] = 0;
-    memset(v21, 0, 80);
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v15) = 134217984;
-    *(&v15 + 4) = 0;
-    _os_log_send_and_compose_impl();
+    memset(v22, 0, 80);
+    v12 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    LODWORD(v16) = 134217984;
+    *(&v16 + 4) = 0;
+    _os_log_send_and_compose_impl(v13, __dst, v22, 80, &dword_1C91AE000, v12, 16, "assertion failure: outPropertyInfo != nullptr -> %llu", &v16);
     LODWORD(v8) = _os_crash_msg();
     __break(1u);
-LABEL_8:
-    v13 = v8;
-    v15 = v5;
-    v16 = v6;
-    v17 = 0;
-    v19 = 0;
-    v20 = 6342;
-    v18 = v4;
-    *&v21[0] = &v21[2] + 8;
-    *(v21 + 8) = xmmword_1C925F110;
-    *(&v21[1] + 1) = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-    *&v21[2] = 0;
-    __p = &v21[2] + 8;
+LABEL_11:
+    v14 = v8;
+    v16 = v5;
+    v17 = v6;
+    v18 = 0;
+    v20 = 0;
+    v21 = 6342;
+    v19 = v4;
+    *&v22[0] = &v22[2] + 8;
+    *(v22 + 8) = xmmword_1C925F110;
+    *(&v22[1] + 1) = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    *&v22[2] = 0;
+    __p = &v22[2] + 8;
     __dst[0] = 3;
-    __dst[1] = &v15;
+    __dst[1] = &v16;
     __dst[2] = 6342;
-    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v21, "failed to get property info for ID {}, scope {}, element {}", 59, __dst);
-    std::string::basic_string<std::string_view,0>(__dst, __p, *&v21[1]);
-    if (__p != &v21[2] + 8)
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v22, "failed to get property info for ID {}, scope {}, element {}", 59, __dst);
+    std::string::basic_string<std::string_view,0>(__dst, __p, *&v22[1]);
+    if (__p != &v22[2] + 8)
     {
       operator delete(__p);
     }
 
-    AudioDSPGraph::ThrowException(v13, __dst, off_1E83345C8);
+    AudioDSPGraph::ThrowException(v14, __dst, off_1E83345C8);
   }
 
   v4 = a3;
@@ -309,7 +270,7 @@ LABEL_8:
   v8 = (*(**(a1 + 8) + 296))(*(a1 + 8));
   if ((v9 & 1) == 0)
   {
-    goto LABEL_8;
+    goto LABEL_11;
   }
 
   if ((v8 & 0x100000000) != 0)
@@ -324,9 +285,7 @@ LABEL_8:
 
   *a4 = v10;
   a4[1] = v8;
-  result = 1;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 void sub_1C91D9D7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, _Unwind_Exception *exception_object, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -341,7 +300,7 @@ void sub_1C91D9D7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     __cxa_begin_catch(a1);
     if (v63)
     {
-      CADSPRealTimeErrorCreateFromCurrentException();
+      CADSPRealTimeErrorCreateFromCurrentException(gCADSPRealTimeSafeAllocator);
       *v63 = v64;
     }
 
@@ -364,15 +323,25 @@ void sub_1C91D9DE0(_Unwind_Exception *a1, int a2)
 
 uint64_t CADSPBoxGetProperty(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, _DWORD *a5)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!a5)
   {
     __dst[0] = 0;
-    memset(v19, 0, 80);
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    LODWORD(v13) = 134217984;
-    *(&v13 + 4) = 0;
-    _os_log_send_and_compose_impl();
+    memset(v20, 0, 80);
+    v10 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    LODWORD(v14) = 134217984;
+    *(&v14 + 4) = 0;
+    _os_log_send_and_compose_impl(v11, __dst, v20, 80, &dword_1C91AE000, v10, 16, "assertion failure: ioPropertySize != nullptr -> %llu", &v14);
     _os_crash_msg();
     __break(1u);
   }
@@ -383,44 +352,43 @@ uint64_t CADSPBoxGetProperty(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4
     v8 = (*(**(a1 + 8) + 304))(*(a1 + 8), a2, HIDWORD(a2), a3, a5, a4);
     if (v8)
     {
-      v11 = v8;
-      v13 = a2;
-      v14 = HIDWORD(a2);
-      v15 = 0;
-      v17 = 0;
-      v18 = 6342;
-      v16 = v6;
-      *&v19[0] = &v19[2] + 8;
-      *(v19 + 8) = xmmword_1C925F110;
-      *(&v19[1] + 1) = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-      *&v19[2] = 0;
-      __p = &v19[2] + 8;
+      v12 = v8;
+      v14 = a2;
+      v15 = HIDWORD(a2);
+      v16 = 0;
+      v18 = 0;
+      v19 = 6342;
+      v17 = v6;
+      *&v20[0] = &v20[2] + 8;
+      *(v20 + 8) = xmmword_1C925F110;
+      *(&v20[1] + 1) = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+      *&v20[2] = 0;
+      __p = &v20[2] + 8;
       __dst[0] = 3;
-      __dst[1] = &v13;
+      __dst[1] = &v14;
       __dst[2] = 6342;
-      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v19, "failed to get property for ID {}, scope {}, element {}", 54, __dst);
-      std::string::basic_string<std::string_view,0>(__dst, __p, *&v19[1]);
-      if (__p != &v19[2] + 8)
+      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(v20, "failed to get property for ID {}, scope {}, element {}", 54, __dst);
+      std::string::basic_string<std::string_view,0>(__dst, __p, *&v20[1]);
+      if (__p != &v20[2] + 8)
       {
         operator delete(__p);
       }
 
-      AudioDSPGraph::ThrowException(v11, __dst, off_1E83345E0);
+      AudioDSPGraph::ThrowException(v12, __dst, off_1E83345E0);
     }
 
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = CADSPBoxGetPropertyInfo(a1, a2, a3, v19);
+    result = CADSPBoxGetPropertyInfo(a1, a2, a3, v20);
     if (result)
     {
-      *a5 = DWORD1(v19[0]);
+      *a5 = DWORD1(v20[0]);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -436,7 +404,7 @@ void sub_1C91DA094(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     __cxa_begin_catch(a1);
     if (v63)
     {
-      CADSPRealTimeErrorCreateFromCurrentException();
+      CADSPRealTimeErrorCreateFromCurrentException(gCADSPRealTimeSafeAllocator);
       *v63 = v64;
     }
 
@@ -457,7 +425,7 @@ void sub_1C91DA104(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-caulk::rt_safe_memory_resource *CADSPBoxSetParameter(uint64_t a1, uint64_t a2, uint64_t a3, const void ***a4)
+caulk::rt_safe_memory_resource *CADSPBoxSetParameter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   (*(**(a1 + 8) + 88))(v7);
   v5 = CA::DSP::RealTimeErrorGuard(a4, v7);
@@ -498,7 +466,7 @@ LABEL_6:
   return result;
 }
 
-caulk::rt_safe_memory_resource *CADSPBoxGetParameter(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, const void ***a5)
+caulk::rt_safe_memory_resource *CADSPBoxGetParameter(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, uint64_t *a5)
 {
   (*(**(a1 + 8) + 96))(&v15);
   if (v18)
@@ -698,7 +666,7 @@ void std::allocator<std::shared_ptr<AudioDSPGraph::BoxEventHandler>>::allocate_a
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<std::shared_ptr<AudioDSPGraph::BoxEventHandler>>::__init_with_size[abi:ne200100]<std::shared_ptr<AudioDSPGraph::BoxEventHandler>*,std::shared_ptr<AudioDSPGraph::BoxEventHandler>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::shared_ptr<AudioDSPGraph::BoxEventHandler>>::__init_with_size[abi:ne200100]<std::shared_ptr<AudioDSPGraph::BoxEventHandler>*,std::shared_ptr<AudioDSPGraph::BoxEventHandler>*>(void *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1038,7 +1006,7 @@ void std::__shared_ptr_emplace<AudioDSPGraph::BoxEventHandlerTree>::~__shared_pt
   JUMPOUT(0x1CCA84AE0);
 }
 
-uint64_t CADSPBoxEventListenerCreate(uint64_t a1)
+CADSPBoxEventListener *CADSPBoxEventListenerCreate(uint64_t a1)
 {
   v1 = [CADSPBoxEventListener allocWithZone:a1];
 
@@ -1123,7 +1091,6 @@ BOOL AudioDSPGraph::IR::BoxModel::operator==(void *a1, unsigned __int8 *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -1134,9 +1101,9 @@ BOOL AudioDSPGraph::IR::BoxModel::operator==(void *a1, unsigned __int8 *a2)
     return 0;
   }
 
-  v9 = *(v7 + 76);
-  v10 = v6[76];
-  if (v9 == v10 && *(v7 + 76))
+  v8 = *(v7 + 76);
+  v9 = v6[76];
+  if (v8 == v9 && *(v7 + 76))
   {
     if (!AudioDSPGraph::IR::AudioComponentDescription::operator==(v7 + 14, v6 + 14))
     {
@@ -1144,7 +1111,7 @@ BOOL AudioDSPGraph::IR::BoxModel::operator==(void *a1, unsigned __int8 *a2)
     }
   }
 
-  else if (v9 != v10)
+  else if (v8 != v9)
   {
     return 0;
   }
@@ -1188,7 +1155,6 @@ BOOL std::operator==[abi:ne200100]<std::string,std::string>(void *a1, unsigned _
         a1 = *a1;
       }
 
-      v9 = *a2;
       if (v8 < 0)
       {
         a2 = *a2;
@@ -1326,7 +1292,6 @@ BOOL AudioDSPGraph::IR::BoxAlias::operator==(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -1335,28 +1300,28 @@ BOOL AudioDSPGraph::IR::BoxAlias::operator==(void *a1, void *a2)
   return memcmp(a1, a2, v3) == 0;
 }
 
-uint64_t CADSPBoxModelCreate(uint64_t a1)
+CADSPBoxModel *CADSPBoxModelCreate(uint64_t a1)
 {
   v1 = [CADSPBoxModel allocWithZone:a1];
 
   return [(CADSPBoxModel *)v1 init];
 }
 
-uint64_t CADSPBoxModelCreateMutable(uint64_t a1)
+CADSPMutableBoxModel *CADSPBoxModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableBoxModel allocWithZone:a1];
 
   return [(CADSPMutableBoxModel *)v1 init];
 }
 
-uint64_t CADSPBoxRelationModelCreate(uint64_t a1)
+CADSPBoxRelationModel *CADSPBoxRelationModelCreate(uint64_t a1)
 {
   v1 = [CADSPBoxRelationModel allocWithZone:a1];
 
   return [(CADSPBoxRelationModel *)v1 init];
 }
 
-uint64_t CADSPBoxRelationModelCreateMutable(uint64_t a1)
+CADSPMutableBoxRelationModel *CADSPBoxRelationModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableBoxRelationModel allocWithZone:a1];
 
@@ -1543,9 +1508,9 @@ CFStringRef CADSPRealTimeErrorCopySourceFile(uint64_t a1)
   return Copy;
 }
 
-void sub_1C91DD8FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C91DD8FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(va);
   _Unwind_Resume(a1);
 }
@@ -1587,7 +1552,7 @@ const void **_CADSPRealTimeErrorCreate(const __CFAllocator *a1, uint64_t a2, uin
   return v7;
 }
 
-uint64_t CADSPErrorCreate(uint64_t a1, uint64_t a2, uint64_t a3)
+CADSPError *CADSPErrorCreate(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = [CADSPError allocWithZone:a1];
 
@@ -1655,20 +1620,20 @@ void sub_1C91DDD94(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x1C91DDD38);
 }
 
-void CADSPRealTimeErrorCreateFromCurrentException()
+void CADSPRealTimeErrorCreateFromCurrentException(uint64_t a1)
 {
   std::current_exception();
-  if (v3.__ptr_)
+  if (v4.__ptr_)
   {
-    std::exception_ptr::exception_ptr(&v2, &v3);
-    v1.__ptr_ = &v2;
-    std::rethrow_exception(v1);
+    std::exception_ptr::exception_ptr(&v3, &v4);
+    v2.__ptr_ = &v3;
+    std::rethrow_exception(v2);
     __break(1u);
   }
 
   else
   {
-    std::exception_ptr::~exception_ptr(&v3);
+    std::exception_ptr::~exception_ptr(&v4);
     Instance = _CFRuntimeCreateInstance();
     if (Instance)
     {
@@ -1722,17 +1687,29 @@ void sub_1C91DDFB8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 uint64_t __CADSPErrorInitialize_block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   gCADSPRealTimeErrorGetTypeID = _CFRuntimeRegisterClass();
   if (!gCADSPRealTimeErrorGetTypeID)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v3 = 0;
+    memset(v6, 0, sizeof(v6));
+    v0 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v1 = 3;
+    }
+
+    else
+    {
+      v1 = 2;
+    }
+
+    v4 = 134217984;
+    v5 = 0;
+    _os_log_send_and_compose_impl(v1, &v3, v6, 80, &dword_1C91AE000, v0, 16, "assertion failure: gCADSPRealTimeErrorGetTypeID != _kCFRuntimeNotATypeID -> %llu", &v4);
     _os_crash_msg();
     __break(1u);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 
   return MEMORY[0x1EEDB8558]();
 }
@@ -1863,32 +1840,32 @@ void sub_1C91DEE00(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C91E0FB4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1C91E0FB4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  if (*(v14 - 121) < 0)
+  va_start(va, a21);
+  if (*(v21 - 121) < 0)
   {
-    operator delete(*(v14 - 144));
+    operator delete(*(v21 - 144));
   }
 
   AudioDSPGraph::BoxRegistry::~BoxRegistry(va);
   __cxa_begin_catch(a1);
-  if (a10)
+  if (a17)
   {
     CADSPErrorCreateFromCurrentException(*MEMORY[0x1E695E480]);
-    v17 = v16;
+    v24 = v23;
   }
 
   else
   {
-    v17 = 0;
+    v24 = 0;
   }
 
   __cxa_end_catch();
-  if (a10)
+  if (a17)
   {
-    v18 = v17;
-    *a10 = v17;
+    v25 = v24;
+    *a17 = v24;
   }
 
   JUMPOUT(0x1C91E0210);
@@ -1954,7 +1931,7 @@ void sub_1C91E1568(void *a1)
   __cxa_begin_catch(a1);
   if (v1)
   {
-    CADSPRealTimeErrorCreateFromCurrentException();
+    CADSPRealTimeErrorCreateFromCurrentException(gCADSPRealTimeSafeAllocator);
     *v1 = v2;
   }
 
@@ -1991,22 +1968,22 @@ void sub_1C91E17C4(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x1C91E17A0);
 }
 
-uint64_t AudioDSPGraph::Boxes::GraphInput::getStreamDescription(AudioDSPGraph::Boxes::GraphInput *this)
+uint64_t AudioDSPGraph::Boxes::GraphInput::getStreamDescription(AudioDSPGraph::Boxes::GraphInput *this, const char *a2)
 {
-  v1 = *(this + 12);
-  if (*(this + 13) == v1)
+  v2 = *(this + 12);
+  if (*(this + 13) == v2)
   {
-    v3 = (this + 40);
+    v4 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v3 = *v3;
+      v4 = *v4;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E83378B0);
+    caulk::make_string(&v5, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v4, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v5, off_1E83378B0);
   }
 
-  return *(*(v1 + 16) + 120);
+  return *(*(v2 + 16) + 120);
 }
 
 void sub_1C91E29DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -2019,22 +1996,22 @@ void sub_1C91E29DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   __clang_call_terminate(a1);
 }
 
-uint64_t AudioDSPGraph::Boxes::GraphOutput::getStreamDescription(AudioDSPGraph::Boxes::GraphOutput *this)
+uint64_t AudioDSPGraph::Boxes::GraphOutput::getStreamDescription(AudioDSPGraph::Boxes::GraphOutput *this, const char *a2)
 {
-  v1 = *(this + 9);
-  if (*(this + 10) == v1)
+  v2 = *(this + 9);
+  if (*(this + 10) == v2)
   {
-    v3 = (this + 40);
+    v4 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v3 = *v3;
+      v4 = *v4;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E8337898);
+    caulk::make_string(&v5, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v4, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v5, off_1E8337898);
   }
 
-  return *(*(v1 + 16) + 120);
+  return *(*(v2 + 16) + 120);
 }
 
 void sub_1C91E2A78(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -2093,25 +2070,25 @@ void sub_1C91E3AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t CADSPGraphGetPropertyInfo(uint64_t a1, unsigned int a2, int *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 8);
   PropertyInfo = AudioDSPGraph::Graph::getPropertyInfo(v5, a2);
   if ((v7 & 1) == 0)
   {
-    v14[1] = 0;
-    v14[2] = 6;
+    v13[1] = 0;
+    v13[2] = 6;
     __dst[2] = 6;
-    v14[0] = a2;
-    v15 = v19;
+    v13[0] = a2;
+    v14 = v18;
     *__len = xmmword_1C925F110;
-    v17 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-    v18 = 0;
-    __p = v19;
+    v16 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    v17 = 0;
+    __p = v18;
     __dst[0] = 1;
-    __dst[1] = v14;
-    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v15, "property {} not found", 21, __dst);
+    __dst[1] = v13;
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v14, "property {} not found", 21, __dst);
     std::string::basic_string<std::string_view,0>(__dst, __p, __len[1]);
-    if (__p != v19)
+    if (__p != v18)
     {
       operator delete(__p);
     }
@@ -2146,9 +2123,7 @@ uint64_t CADSPGraphGetPropertyInfo(uint64_t a1, unsigned int a2, int *a3)
 
   *a3 = v9;
   a3[1] = v8;
-  result = 1;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 void sub_1C91E3F8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58)
@@ -2163,7 +2138,7 @@ void sub_1C91E3F8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     __cxa_begin_catch(exception_object);
     if (v58)
     {
-      CADSPRealTimeErrorCreateFromCurrentException();
+      CADSPRealTimeErrorCreateFromCurrentException(gCADSPRealTimeSafeAllocator);
       *v58 = v60;
     }
 
@@ -2176,7 +2151,6 @@ void sub_1C91E3F8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CADSPGraphGetPropertyDirection(uint64_t a1, unsigned int a2, _DWORD *a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v4 = std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>((*(a1 + 8) + 624), a2);
   if (!v4)
   {
@@ -2184,12 +2158,10 @@ uint64_t CADSPGraphGetPropertyDirection(uint64_t a1, unsigned int a2, _DWORD *a3
   }
 
   *a3 = *(v4 + 64);
-  result = 1;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
-void sub_1C91E4108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t __dst, uint64_t *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t *a18, __int128 __len, uint64_t (*a20)(uint64_t result, uint64_t a2), uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t *__p)
+void sub_1C91E4108(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t __dst, uint64_t *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t *a18, __int128 __len, void (*a20)(uint64_t a1, uint64_t a2), uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t *__p)
 {
   if (!a2)
   {
@@ -2231,7 +2203,7 @@ void sub_1C91E41BC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
     __cxa_begin_catch(a1);
     if (v58)
     {
-      CADSPRealTimeErrorCreateFromCurrentException();
+      CADSPRealTimeErrorCreateFromCurrentException(gCADSPRealTimeSafeAllocator);
       *v58 = v60;
     }
 
@@ -2264,15 +2236,15 @@ void CADSPGraphEnumerateProperties(uint64_t a1, void *a2)
   }
 }
 
-caulk::rt_safe_memory_resource *CADSPGraphSetParameter(uint64_t a1, unsigned int a2, const void ***a3, float a4)
+caulk::rt_safe_memory_resource *CADSPGraphSetParameter(uint64_t a1, float a2, uint64_t a3, uint64_t *a4)
 {
-  AudioDSPGraph::Graph::setParameter(v7, *(a1 + 8), a4, a2);
-  v5 = CA::DSP::RealTimeErrorGuard(a3, v7);
+  AudioDSPGraph::Graph::setParameter(v7, *(a1 + 8), a2, a3);
+  v5 = CA::DSP::RealTimeErrorGuard(a4, v7);
   std::__expected_void_base<AudioDSPGraph::Error>::__repr::~__repr[abi:ne200100](v7);
   return v5;
 }
 
-caulk::rt_safe_memory_resource *CADSPGraphGetParameterDirection(uint64_t a1, unsigned int a2, _DWORD *a3, const void ***a4)
+caulk::rt_safe_memory_resource *CADSPGraphGetParameterDirection(uint64_t a1, unsigned int a2, _DWORD *a3, uint64_t *a4)
 {
   v6 = *(a1 + 8);
   v20 = a2;
@@ -2407,7 +2379,7 @@ void sub_1C91E517C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CADSPGraphGetStreamDescription(uint64_t result, unsigned int a2, int a3, uint64_t a4)
+uint64_t CADSPGraphGetStreamDescription(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 {
   if (a3 == 1)
   {
@@ -2421,7 +2393,7 @@ uint64_t CADSPGraphGetStreamDescription(uint64_t result, unsigned int a2, int a3
     if (a3)
     {
 LABEL_7:
-      v8 = (*(*result + 672))(result);
+      v8 = (*(*result + 672))(result, a2);
       v9 = *(v8 + 32);
       v10 = *(v8 + 16);
       *a4 = *v8;
@@ -2630,7 +2602,7 @@ void sub_1C91E5D20(void *a1)
   __cxa_begin_catch(a1);
   if (v1)
   {
-    CADSPRealTimeErrorCreateFromCurrentException();
+    CADSPRealTimeErrorCreateFromCurrentException(gCADSPRealTimeSafeAllocator);
     *v1 = v2;
   }
 
@@ -2640,7 +2612,7 @@ void sub_1C91E5D20(void *a1)
 
 uint64_t CADSPGraphCalculateRequiredNumberOfInputPCMFramesWithFlags::$_0::operator()(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v1 = *(**a1 + 8);
   v2 = **(a1 + 8);
   v3 = (v2 + 4);
@@ -2658,66 +2630,64 @@ uint64_t CADSPGraphCalculateRequiredNumberOfInputPCMFramesWithFlags::$_0::operat
   v5 = ((v1[48] - v1[47]) >> 3);
   if (**(a1 + 16) != v5)
   {
-    v30 = **(a1 + 16);
-    v31 = 0;
-    v33 = 0;
-    v34 = 231;
-    v32 = v5;
-    v35 = v39;
-    v36 = xmmword_1C925F110;
-    v37 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-    v38 = 0;
-    v40 = v39;
-    v27 = 2;
-    v28 = &v30;
-    v29 = 231;
-    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v35, "client provided {} inputs for graph with {} inputs", 50, &v27);
-    std::string::basic_string<std::string_view,0>(v26, v40, *(&v36 + 1));
-    if (v40 != v39)
+    v29 = **(a1 + 16);
+    v30 = 0;
+    v32 = 0;
+    v33 = 231;
+    v31 = v5;
+    v34 = v38;
+    v35 = xmmword_1C925F110;
+    v36 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    v37 = 0;
+    v39 = v38;
+    v26 = 2;
+    v27 = &v29;
+    v28 = 231;
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v34, "client provided {} inputs for graph with {} inputs", 50, &v26);
+    std::string::basic_string<std::string_view,0>(v25, v39, *(&v35 + 1));
+    if (v39 != v38)
     {
-      operator delete(v40);
+      operator delete(v39);
     }
 
-    AudioDSPGraph::ThrowException(-50, v26, off_1E8334688);
+    AudioDSPGraph::ThrowException(-50, v25, off_1E8334688);
   }
 
   v7 = **(a1 + 24);
   if (v7 != ((v1[51] - v1[50]) >> 3))
   {
-    v30 = ((v1[51] - v1[50]) >> 3);
-    v31 = 0;
-    v33 = 0;
-    v34 = 231;
-    v32 = v7;
-    v35 = v39;
-    v36 = xmmword_1C925F110;
-    v37 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-    v38 = 0;
-    v40 = v39;
-    v27 = 2;
-    v28 = &v30;
-    v29 = 231;
-    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v35, "client provided {} outputs for graph with {} outputs", 52, &v27);
-    std::string::basic_string<std::string_view,0>(v25, v40, *(&v36 + 1));
-    if (v40 != v39)
+    v29 = ((v1[51] - v1[50]) >> 3);
+    v30 = 0;
+    v32 = 0;
+    v33 = 231;
+    v31 = v7;
+    v34 = v38;
+    v35 = xmmword_1C925F110;
+    v36 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
+    v37 = 0;
+    v39 = v38;
+    v26 = 2;
+    v27 = &v29;
+    v28 = 231;
+    std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v34, "client provided {} outputs for graph with {} outputs", 52, &v26);
+    std::string::basic_string<std::string_view,0>(v24, v39, *(&v35 + 1));
+    if (v39 != v38)
     {
-      operator delete(v40);
+      operator delete(v39);
     }
 
-    AudioDSPGraph::ThrowException(-50, v25, off_1E83346A0);
+    AudioDSPGraph::ThrowException(-50, v24, off_1E83346A0);
   }
 
   v8 = *v4;
   v9 = *v3;
   v10 = **(a1 + 32);
-  v1[48];
-  v1[47];
   MEMORY[0x1EEE9AC00](a1);
-  v12 = (&v25[-1] - v11);
-  bzero(&v25[-1] - v11, v11);
+  v12 = &v24[-1] - v11;
+  bzero(&v24[-1] - v11, v11);
   MEMORY[0x1EEE9AC00](v13);
-  v15 = (&v25[-1] - v14);
-  bzero(&v25[-1] - v14, v14);
+  v15 = &v24[-1] - v14;
+  bzero(&v24[-1] - v14, v14);
   result = AudioDSPGraph::Graph::preflight(v1, v12, v15, v8, v9, v10 & 1);
   v17 = **(a1 + 16);
   if (v17)
@@ -2726,7 +2696,7 @@ uint64_t CADSPGraphCalculateRequiredNumberOfInputPCMFramesWithFlags::$_0::operat
     do
     {
       v19 = *v12;
-      v12 += 20;
+      v12 += 80;
       *v18++ = v19;
       --v17;
     }
@@ -2741,7 +2711,7 @@ uint64_t CADSPGraphCalculateRequiredNumberOfInputPCMFramesWithFlags::$_0::operat
     do
     {
       v22 = *v15;
-      v15 += 20;
+      v15 += 80;
       *v21++ = v22;
       --v20;
     }
@@ -2749,7 +2719,6 @@ uint64_t CADSPGraphCalculateRequiredNumberOfInputPCMFramesWithFlags::$_0::operat
     while (v20);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2778,7 +2747,7 @@ void sub_1C91E6114(void *a1)
   __cxa_begin_catch(a1);
   if (v1)
   {
-    CADSPRealTimeErrorCreateFromCurrentException();
+    CADSPRealTimeErrorCreateFromCurrentException(gCADSPRealTimeSafeAllocator);
     *v1 = v2;
   }
 
@@ -2858,46 +2827,43 @@ uint64_t CADSPGraphCalculateExpectedNumberOfOutputPCMFramesWithFlags::$_0::opera
   v8 = *v4;
   v9 = *v3;
   v10 = **(a1 + 32);
-  v1[48];
-  v1[47];
-  MEMORY[0x1EEE9AC00]();
-  v12 = (&v24[-1] - v11);
+  MEMORY[0x1EEE9AC00](a1);
+  v12 = &v24[-1] - v11;
   bzero(&v24[-1] - v11, v11);
-  MEMORY[0x1EEE9AC00]();
-  v14 = (&v24[-1] - v13);
-  bzero(&v24[-1] - v13, v13);
-  result = AudioDSPGraph::Graph::preflight(v1, v12, v14, v8, v9, v10 & 1);
-  v16 = **(a1 + 16);
-  if (v16)
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v24[-1] - v14;
+  bzero(&v24[-1] - v14, v14);
+  result = AudioDSPGraph::Graph::preflight(v1, v12, v15, v8, v9, v10 & 1);
+  v17 = **(a1 + 16);
+  if (v17)
   {
-    v17 = **(a1 + 40);
+    v18 = **(a1 + 40);
     do
     {
-      v18 = *v12;
-      v12 += 20;
-      *v17++ = v18;
-      --v16;
+      v19 = *v12;
+      v12 += 80;
+      *v18++ = v19;
+      --v17;
     }
 
-    while (v16);
+    while (v17);
   }
 
-  v19 = **(a1 + 24);
-  if (v19)
+  v20 = **(a1 + 24);
+  if (v20)
   {
-    v20 = **(a1 + 48);
+    v21 = **(a1 + 48);
     do
     {
-      v21 = *v14;
-      v14 += 20;
-      *v20++ = v21;
-      --v19;
+      v22 = *v15;
+      v15 += 80;
+      *v21++ = v22;
+      --v20;
     }
 
-    while (v19);
+    while (v20);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3013,7 +2979,7 @@ LABEL_8:
   return std::unique_ptr<AudioDSPGraph::EventHandlerTree<AudioDSPGraph::BoxEventHandler,AudioDSPGraph::BoxEventDispatcher>::Root,std::default_delete<AudioDSPGraph::EventHandlerTree<AudioDSPGraph::BoxEventHandler,AudioDSPGraph::BoxEventDispatcher>::Root>>::~unique_ptr[abi:ne200100](&v17);
 }
 
-void std::vector<std::shared_ptr<AudioDSPGraph::GraphEventHandler>>::__init_with_size[abi:ne200100]<std::shared_ptr<AudioDSPGraph::GraphEventHandler>*,std::shared_ptr<AudioDSPGraph::GraphEventHandler>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::shared_ptr<AudioDSPGraph::GraphEventHandler>>::__init_with_size[abi:ne200100]<std::shared_ptr<AudioDSPGraph::GraphEventHandler>*,std::shared_ptr<AudioDSPGraph::GraphEventHandler>*>(void *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3240,7 +3206,7 @@ void std::__shared_ptr_emplace<AudioDSPGraph::GraphEventHandlerTree>::~__shared_
   JUMPOUT(0x1CCA84AE0);
 }
 
-uint64_t CADSPGraphEventListenerCreate(uint64_t a1)
+CADSPGraphEventListener *CADSPGraphEventListenerCreate(uint64_t a1)
 {
   v1 = [CADSPGraphEventListener allocWithZone:a1];
 
@@ -5391,7 +5357,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -5413,7 +5379,7 @@ void sub_1C91E9D60(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -5423,7 +5389,7 @@ void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t
   std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -7002,7 +6968,7 @@ BOOL std::operator==[abi:ne200100]<AudioDSPGraph::IR::SubsetModel,std::allocator
       break;
     }
 
-    v14 = v9 + 3;
+    v14 = (v9 + 3);
     if (v10 >= 0)
     {
       v15 = &a1[i];
@@ -7074,7 +7040,7 @@ uint64_t std::operator==[abi:ne200100]<AudioDSPGraph::IR::WireModel,std::allocat
   return result;
 }
 
-unint64_t std::operator==[abi:ne200100]<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::Hash,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,std::allocator<std::pair<AudioDSPGraph::IR::WireConfigurationAlias const,AudioDSPGraph::IR::WireConfiguration>>>(uint64_t a1, void *a2)
+uint64_t std::operator==[abi:ne200100]<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::Hash,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,std::allocator<std::pair<AudioDSPGraph::IR::WireConfigurationAlias const,AudioDSPGraph::IR::WireConfiguration>>>(uint64_t a1, void *a2)
 {
   if (*(a1 + 24) != a2[3])
   {
@@ -7104,7 +7070,7 @@ unint64_t std::operator==[abi:ne200100]<AudioDSPGraph::IR::WireConfigurationAlia
       break;
     }
 
-    if (!AudioDSPGraph::IR::WireConfiguration::operator==((v3 + 5), (v5 + 5)))
+    if (!AudioDSPGraph::IR::WireConfiguration::operator==((v3 + 5), v5 + 40))
     {
       return 0;
     }
@@ -7128,7 +7094,7 @@ uint64_t AudioDSPGraph::IR::operator==<std::vector<AudioDSPGraph::IR::PortModel>
     v7 = 0;
     do
     {
-      v8 = (v4 + v7);
+      v8 = v4 + v7;
       v9 = v3 + v7;
       v10 = *(v3 + v7 + 23);
       if (v10 >= 0)
@@ -7145,7 +7111,7 @@ uint64_t AudioDSPGraph::IR::operator==<std::vector<AudioDSPGraph::IR::PortModel>
       v13 = v12;
       if ((v12 & 0x80u) != 0)
       {
-        v12 = v8[1];
+        v12 = *(v8 + 8);
       }
 
       if (v11 != v12)
@@ -7154,9 +7120,8 @@ uint64_t AudioDSPGraph::IR::operator==<std::vector<AudioDSPGraph::IR::PortModel>
       }
 
       v14 = v10 >= 0 ? (v3 + v7) : *v9;
-      v15 = *v8;
-      v16 = (v13 >= 0 ? v4 + v7 : *v8);
-      if (memcmp(v14, v16, v11) || *(v9 + 24) != *(v8 + 6))
+      v15 = v13 >= 0 ? (v4 + v7) : *v8;
+      if (memcmp(v14, v15, v11) || *(v9 + 24) != *(v8 + 24))
       {
         return 0;
       }
@@ -7167,57 +7132,56 @@ uint64_t AudioDSPGraph::IR::operator==<std::vector<AudioDSPGraph::IR::PortModel>
     while (v3 + v7 != v2);
   }
 
-  v20 = a1 + 3;
-  v18 = a1[3];
-  v19 = v20[1];
-  v22 = a2 + 3;
-  v21 = a2[3];
-  if (v19 - v18 != v22[1] - v21)
+  v19 = a1 + 3;
+  v17 = a1[3];
+  v18 = v19[1];
+  v21 = a2 + 3;
+  v20 = a2[3];
+  if (v18 - v17 != v21[1] - v20)
   {
     return 0;
   }
 
-  if (v18 != v19)
+  if (v17 != v18)
   {
-    v23 = 0;
+    v22 = 0;
     while (1)
     {
-      v24 = (v21 + v23);
-      v25 = v18 + v23;
-      v26 = *(v18 + v23 + 23);
-      if (v26 >= 0)
+      v23 = v20 + v22;
+      v24 = v17 + v22;
+      v25 = *(v17 + v22 + 23);
+      if (v25 >= 0)
       {
-        v27 = *(v18 + v23 + 23);
+        v26 = *(v17 + v22 + 23);
       }
 
       else
       {
-        v27 = *(v18 + v23 + 8);
+        v26 = *(v17 + v22 + 8);
       }
 
-      v28 = *(v24 + 23);
-      v29 = v28;
-      if ((v28 & 0x80u) != 0)
+      v27 = *(v23 + 23);
+      v28 = v27;
+      if ((v27 & 0x80u) != 0)
       {
-        v28 = v24[1];
+        v27 = *(v23 + 8);
       }
 
-      if (v27 != v28)
-      {
-        break;
-      }
-
-      v30 = v26 >= 0 ? (v18 + v23) : *v25;
-      v31 = *v24;
-      v32 = (v29 >= 0 ? v21 + v23 : *v24);
-      if (memcmp(v30, v32, v27) || *(v25 + 24) != *(v24 + 6))
+      if (v26 != v27)
       {
         break;
       }
 
-      v23 += 32;
+      v29 = v25 >= 0 ? (v17 + v22) : *v24;
+      v30 = v28 >= 0 ? (v20 + v22) : *v23;
+      if (memcmp(v29, v30, v26) || *(v24 + 24) != *(v23 + 24))
+      {
+        break;
+      }
+
+      v22 += 32;
       result = 1;
-      if (v18 + v23 == v19)
+      if (v17 + v22 == v18)
       {
         return result;
       }
@@ -7504,9 +7468,9 @@ uint64_t std::operator==[abi:ne200100]<AudioDSPGraph::IR::GraphModel::AnalyzerCo
   return 0;
 }
 
-BOOL std::operator==[abi:ne200100]<AudioDSPGraph::IR::InjectTapPointModel,std::allocator<AudioDSPGraph::IR::InjectTapPointModel>>(const std::string_view::value_type *a1, std::__fs::filesystem::path::__string_view a2, uint64_t a3)
+BOOL std::operator==[abi:ne200100]<AudioDSPGraph::IR::InjectTapPointModel,std::allocator<AudioDSPGraph::IR::InjectTapPointModel>>(const std::string_view::value_type *a1, std::__fs::filesystem::path::__string_view a2, uint64_t a4)
 {
-  if (a2.__data_ - a1 != a3 - a2.__size_)
+  if (a2.__data_ - a1 != a4 - a2.__size_)
   {
     return 0;
   }
@@ -7650,7 +7614,6 @@ BOOL AudioDSPGraph::IR::ParameterEndpoint::operator==(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -7826,7 +7789,6 @@ BOOL AudioDSPGraph::IR::WireEndpoint::operator==(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -7835,14 +7797,15 @@ BOOL AudioDSPGraph::IR::WireEndpoint::operator==(void *a1, void *a2)
   return !memcmp(a1, a2, v3) && *(v7 + 6) == *(v6 + 6);
 }
 
-void sub_1C91ED7EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id a12, char a13)
+void sub_1C91ED7EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id a12, ...)
 {
-  if (*(v13 + 23) < 0)
+  va_start(va, a12);
+  if (*(v12 + 23) < 0)
   {
-    operator delete(*v13);
+    operator delete(*v12);
   }
 
-  std::__split_buffer<AudioDSPGraph::IR::WireModel>::~__split_buffer(&a13);
+  std::__split_buffer<AudioDSPGraph::IR::WireModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
@@ -7852,9 +7815,7 @@ uint64_t *CA::DSP::LazyCreate(uint64_t *result)
   if (!*result)
   {
     v1 = result;
-    v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:1];
-    v3 = *v1;
-    *v1 = v2;
+    *v1 = [MEMORY[0x1E695DF70] arrayWithCapacity:1];
 
     return MEMORY[0x1EEE66BB8]();
   }
@@ -7891,8 +7852,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatc
   result = *a2;
   v2[1].n128_u64[0] = a2[1].n128_u64[0];
   *v2 = result;
-  a2->n128_u64[1] = 0;
-  a2[1].n128_u64[0] = 0;
+  *(a2 + 8) = 0uLL;
   a2->n128_u64[0] = 0;
   return result;
 }
@@ -7915,9 +7875,10 @@ void sub_1C91EDB9C(_Unwind_Exception *a1, uint64_t a2, id a3, std::__split_buffe
   _Unwind_Resume(a1);
 }
 
-void sub_1C91EDE44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, char a12)
+void sub_1C91EDE44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, ...)
 {
-  std::__split_buffer<AudioDSPGraph::IR::PortModel>::~__split_buffer(&a12);
+  va_start(va, a11);
+  std::__split_buffer<AudioDSPGraph::IR::PortModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
@@ -7987,14 +7948,15 @@ void std::__split_buffer<AudioDSPGraph::IR::SubsetModel>::~__split_buffer(std::_
   }
 }
 
-void sub_1C91EE45C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, char a12)
+void sub_1C91EE45C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, ...)
 {
-  if (*(v12 + 23) < 0)
+  va_start(va, a11);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
-  std::__split_buffer<AudioDSPGraph::IR::BoxRelationModel>::~__split_buffer(&a12);
+  std::__split_buffer<AudioDSPGraph::IR::BoxRelationModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
@@ -8016,9 +7978,10 @@ uint64_t std::__split_buffer<AudioDSPGraph::IR::BoxRelationModel>::~__split_buff
   return a1;
 }
 
-void sub_1C91EE7F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, char a12)
+void sub_1C91EE7F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, ...)
 {
-  std::__split_buffer<AudioDSPGraph::IR::BoxModel>::~__split_buffer(&a12);
+  va_start(va, a11);
+  std::__split_buffer<AudioDSPGraph::IR::BoxModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
@@ -8046,52 +8009,57 @@ uint64_t std::__split_buffer<AudioDSPGraph::IR::BoxModel>::~__split_buffer(uint6
   return a1;
 }
 
-void sub_1C91EEBA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10)
+void sub_1C91EEBA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, ...)
 {
-  if (*(v10 + 23) < 0)
+  va_start(va, a9);
+  if (*(v9 + 23) < 0)
   {
-    operator delete(*v10);
+    operator delete(*v9);
   }
 
-  std::__split_buffer<AudioDSPGraph::IR::BoxRelationModel>::~__split_buffer(&a10);
+  std::__split_buffer<AudioDSPGraph::IR::BoxRelationModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C91EEEBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10)
+void sub_1C91EEEBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, ...)
 {
-  if (*(v10 + 23) < 0)
+  va_start(va, a9);
+  if (*(v9 + 23) < 0)
   {
-    operator delete(*v10);
+    operator delete(*v9);
   }
 
-  std::__split_buffer<AudioDSPGraph::IR::BoxRelationModel>::~__split_buffer(&a10);
+  std::__split_buffer<AudioDSPGraph::IR::BoxRelationModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C91EF224(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, char a12)
+void sub_1C91EF224(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, ...)
 {
-  if (*(v12 + 23) < 0)
+  va_start(va, a11);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
-  std::__split_buffer<AudioDSPGraph::IR::ParameterWireModel>::~__split_buffer(&a12);
+  std::__split_buffer<AudioDSPGraph::IR::ParameterWireModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C91EF4A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, char a12)
+void sub_1C91EF4A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, ...)
 {
-  std::__split_buffer<AudioDSPGraph::IR::ParameterConnectionModel>::~__split_buffer(&a12);
+  va_start(va, a11);
+  std::__split_buffer<AudioDSPGraph::IR::ParameterConnectionModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C91EF730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, char a12)
+void sub_1C91EF730(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, ...)
 {
-  std::__split_buffer<AudioDSPGraph::IR::PropertyModel>::~__split_buffer(&a12);
+  va_start(va, a11);
+  std::__split_buffer<AudioDSPGraph::IR::PropertyModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
@@ -8131,14 +8099,15 @@ uint64_t std::__split_buffer<AudioDSPGraph::IR::PropertyModel>::~__split_buffer(
   return a1;
 }
 
-void sub_1C91EFAE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, char a12)
+void sub_1C91EFAE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, ...)
 {
-  if (*(v12 + 23) < 0)
+  va_start(va, a11);
+  if (*(v11 + 23) < 0)
   {
-    operator delete(*v12);
+    operator delete(*v11);
   }
 
-  std::__split_buffer<AudioDSPGraph::IR::ParameterWireModel>::~__split_buffer(&a12);
+  std::__split_buffer<AudioDSPGraph::IR::ParameterWireModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
@@ -8160,9 +8129,10 @@ uint64_t std::__split_buffer<AudioDSPGraph::IR::ParameterWireModel>::~__split_bu
   return a1;
 }
 
-void sub_1C91EFDAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, char a12)
+void sub_1C91EFDAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id a11, ...)
 {
-  std::__split_buffer<AudioDSPGraph::IR::ParameterConnectionModel>::~__split_buffer(&a12);
+  va_start(va, a11);
+  std::__split_buffer<AudioDSPGraph::IR::ParameterConnectionModel>::~__split_buffer(va);
 
   _Unwind_Resume(a1);
 }
@@ -8280,7 +8250,7 @@ void std::__hash_table<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurati
               }
 
               while (v16 != v12);
-              if (v17 == (a1 + 2))
+              if (v17 == a1 + 2)
               {
                 goto LABEL_36;
               }
@@ -8331,7 +8301,7 @@ LABEL_37:
               v20 = *v12;
               if (*v12)
               {
-                v21 = v20[1];
+                v21 = *(v20 + 8);
                 if (v8 > 1)
                 {
                   if (v21 >= *&v5)
@@ -8447,7 +8417,7 @@ uint64_t CADSPGraphGetAudioStreamConfigurationForPort(void *a1, unsigned int a2,
     return 0;
   }
 
-  v11 = (v5 + 32 * a2);
+  v11 = v5 + 32 * a2;
   v12 = 32 * (a3 != 0);
   while (1)
   {
@@ -8466,7 +8436,7 @@ uint64_t CADSPGraphGetAudioStreamConfigurationForPort(void *a1, unsigned int a2,
     v16 = v15;
     if ((v15 & 0x80u) != 0)
     {
-      v15 = v11[1];
+      v15 = *(v11 + 8);
     }
 
     if (v14 != v15)
@@ -8475,34 +8445,33 @@ uint64_t CADSPGraphGetAudioStreamConfigurationForPort(void *a1, unsigned int a2,
     }
 
     v17 = v13 >= 0 ? (v8 + v12) : *(v8 + v12);
-    v18 = *v11;
-    v19 = v16 >= 0 ? v11 : *v11;
-    if (memcmp(v17, v19, v14))
+    v18 = v16 >= 0 ? v11 : *v11;
+    if (memcmp(v17, v18, v14))
     {
       goto LABEL_21;
     }
 
-    v20 = *(v8 + 112);
-    if (v20 == 2)
+    v19 = *(v8 + 112);
+    if (v19 == 2)
     {
       break;
     }
 
-    if (v20 == 1)
+    if (v19 == 1)
     {
-      v23 = (v8 + 64);
+      v22 = (v8 + 64);
       if (!a4)
       {
         return 1;
       }
 
 LABEL_27:
-      v24 = *v23;
-      v25 = *(v23 + 1);
-      *(a4 + 32) = v23[4];
-      *a4 = v24;
-      *(a4 + 16) = v25;
-      *(a4 + 40) = *(v23 + 10);
+      v23 = *v22;
+      v24 = *(v22 + 1);
+      *(a4 + 32) = v22[4];
+      *a4 = v23;
+      *(a4 + 16) = v24;
+      *(a4 + 40) = *(v22 + 10);
       return 1;
     }
 
@@ -8514,13 +8483,13 @@ LABEL_21:
     }
   }
 
-  v21 = std::__hash_table<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,std::__unordered_map_hasher<AudioDSPGraph::IR::WireConfigurationAlias,std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,AudioDSPGraph::IR::Hash,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,true>,std::__unordered_map_equal<AudioDSPGraph::IR::WireConfigurationAlias,std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,AudioDSPGraph::IR::Hash,true>,std::allocator<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>>>::find<AudioDSPGraph::IR::WireConfigurationAlias>(a1 + 20, (v8 + 64));
-  if (!v21)
+  v20 = std::__hash_table<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,std::__unordered_map_hasher<AudioDSPGraph::IR::WireConfigurationAlias,std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,AudioDSPGraph::IR::Hash,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,true>,std::__unordered_map_equal<AudioDSPGraph::IR::WireConfigurationAlias,std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,AudioDSPGraph::IR::Hash,true>,std::allocator<std::__hash_value_type<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration>>>::find<AudioDSPGraph::IR::WireConfigurationAlias>(a1 + 20, (v8 + 64));
+  if (!v20)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v23 = v21 + 5;
+  v22 = v20 + 5;
   if (a4)
   {
     goto LABEL_27;
@@ -8529,14 +8498,14 @@ LABEL_21:
   return 1;
 }
 
-uint64_t CADSPGraphModelCreate(uint64_t a1)
+CADSPGraphModel *CADSPGraphModelCreate(uint64_t a1)
 {
   v1 = [CADSPGraphModel allocWithZone:a1];
 
   return [(CADSPGraphModel *)v1 init];
 }
 
-uint64_t CADSPGraphModelCreateMutable(uint64_t a1)
+CADSPMutableGraphModel *CADSPGraphModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableGraphModel allocWithZone:a1];
 
@@ -8560,14 +8529,14 @@ uint64_t CADSPGraphModelCopyPorts(void *a1, int a2, uint64_t a3)
   return a3;
 }
 
-uint64_t CADSPJackModelCreate(uint64_t a1)
+CADSPJackModel *CADSPJackModelCreate(uint64_t a1)
 {
   v1 = [CADSPJackModel allocWithZone:a1];
 
   return [(CADSPJackModel *)v1 init];
 }
 
-uint64_t CADSPJackModelCreateMutable(uint64_t a1)
+CADSPMutableJackModel *CADSPJackModelCreateMutable(uint64_t a1)
 {
   v1 = [CADSPMutableJackModel allocWithZone:a1];
 
@@ -8680,7 +8649,7 @@ LABEL_19:
   return a1;
 }
 
-void sub_1C91F21DC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, void **a63)
+void sub_1C91F21DC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char *a63)
 {
   if (a2)
   {
@@ -8900,10 +8869,10 @@ const void **CA::DSP::ReferenceCounted<__CADSPInjectorTapPointModel *>::~Referen
 
 void CA::DSP::LanguageV1InterpreterCommandHandler::addAnalyzer(uint64_t a1, int a2, uint64_t *a3, int a4)
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   v4 = *a3;
-  v30[0] = a3[1];
-  *(v30 + 7) = *(a3 + 15);
+  v29[0] = a3[1];
+  *(v29 + 7) = *(a3 + 15);
   v5 = *(a3 + 23);
   a3[1] = 0;
   a3[2] = 0;
@@ -8944,26 +8913,26 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::addAnalyzer(uint64_t a1, int 
 
     v16 = 40 * v12;
     *v16 = a2;
-    v17 = v30[0];
+    v17 = v29[0];
     *(v16 + 8) = v4;
     *(v16 + 16) = v17;
-    *(v16 + 23) = *(v30 + 7);
+    *(v16 + 23) = *(v29 + 7);
     *(v16 + 31) = v5;
-    v30[0] = 0;
-    *(v30 + 7) = 0;
+    v29[0] = 0;
+    *(v29 + 7) = 0;
     v10 = 40 * v12 + 40;
     *(v16 + 32) = a4;
     v19 = v6[55];
     v18 = v6[56];
-    v26[0] = v6 + 55;
-    v26[1] = &v28;
-    v26[2] = &v29;
+    v25[0] = v6 + 55;
+    v25[1] = &v27;
+    v25[2] = &v28;
     v20 = 40 * v12 + v19 - v18;
+    v27 = v20;
     v28 = v20;
-    v29 = v20;
     if (v19 == v18)
     {
-      v27 = 1;
+      v26 = 1;
     }
 
     else
@@ -8985,8 +8954,8 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::addAnalyzer(uint64_t a1, int 
       }
 
       while (v21 != v18);
-      v29 = v22;
-      v27 = 1;
+      v28 = v22;
+      v26 = 1;
       do
       {
         if (*(v19 + 31) < 0)
@@ -9000,7 +8969,7 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::addAnalyzer(uint64_t a1, int 
       while (v19 != v18);
     }
 
-    std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<AudioDSPGraph::IR::GraphModel::AnalyzerConnection>,AudioDSPGraph::IR::GraphModel::AnalyzerConnection*>>::~__exception_guard_exceptions[abi:ne200100](v26);
+    std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<AudioDSPGraph::IR::GraphModel::AnalyzerConnection>,AudioDSPGraph::IR::GraphModel::AnalyzerConnection*>>::~__exception_guard_exceptions[abi:ne200100](v25);
     v24 = v6[55];
     v6[55] = v20;
     *(v6 + 28) = 40 * v12 + 40;
@@ -9013,17 +8982,16 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::addAnalyzer(uint64_t a1, int 
   else
   {
     *v7 = a2;
-    v9 = v30[0];
+    v9 = v29[0];
     *(v7 + 8) = v4;
     *(v7 + 16) = v9;
-    *(v7 + 23) = *(v30 + 7);
+    *(v7 + 23) = *(v29 + 7);
     *(v7 + 31) = v5;
     *(v7 + 32) = a4;
     v10 = v7 + 40;
   }
 
   v6[56] = v10;
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C91F2A00(_Unwind_Exception *exception_object)
@@ -9038,16 +9006,16 @@ void sub_1C91F2A00(_Unwind_Exception *exception_object)
 
 void CA::DSP::LanguageV1InterpreterCommandHandler::registerAnalyzer(uint64_t a1, int a2, uint64_t *a3, __int128 *a4)
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   v4 = *a3;
-  v35[0] = a3[1];
-  *(v35 + 7) = *(a3 + 15);
+  v34[0] = a3[1];
+  *(v34 + 7) = *(a3 + 15);
   v5 = *(a3 + 23);
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
-  v29 = *a4;
-  v30 = *(a4 + 4);
+  v28 = *a4;
+  v29 = *(a4 + 4);
   v6 = *(a1 + 8);
   v7 = v6 + 53;
   v8 = v6[53];
@@ -9086,27 +9054,27 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::registerAnalyzer(uint64_t a1,
     v17 = v6 + 52;
     v18 = 56 * v13;
     *v18 = a2;
-    v19 = v35[0];
+    v19 = v34[0];
     *(v18 + 8) = v4;
     *(v18 + 16) = v19;
-    *(v18 + 23) = *(v35 + 7);
+    *(v18 + 23) = *(v34 + 7);
     *(v18 + 31) = v5;
-    v35[0] = 0;
-    *(v35 + 7) = 0;
-    *(v18 + 32) = v29;
+    v34[0] = 0;
+    *(v34 + 7) = 0;
+    *(v18 + 32) = v28;
     v11 = 56 * v13 + 56;
-    *(v18 + 48) = v30;
+    *(v18 + 48) = v29;
     v20 = *v7;
     v21 = *v17;
-    v31[0] = v17;
-    v31[1] = &v33;
-    v31[2] = &v34;
+    v30[0] = v17;
+    v30[1] = &v32;
+    v30[2] = &v33;
     v22 = 56 * v13 + v21 - v20;
-    v33 = v18 + v21 - v20;
-    v34 = v33;
+    v32 = v18 + v21 - v20;
+    v33 = v32;
     if (v21 == v20)
     {
-      v32 = 1;
+      v31 = 1;
     }
 
     else
@@ -9130,8 +9098,8 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::registerAnalyzer(uint64_t a1,
       }
 
       while (v23 != v20);
-      v34 = v24;
-      v32 = 1;
+      v33 = v24;
+      v31 = 1;
       do
       {
         if (*(v21 + 31) < 0)
@@ -9145,7 +9113,7 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::registerAnalyzer(uint64_t a1,
       while (v21 != v20);
     }
 
-    std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<AudioDSPGraph::IR::GraphModel::Analyzer>,AudioDSPGraph::IR::GraphModel::Analyzer*>>::~__exception_guard_exceptions[abi:ne200100](v31);
+    std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<AudioDSPGraph::IR::GraphModel::Analyzer>,AudioDSPGraph::IR::GraphModel::Analyzer*>>::~__exception_guard_exceptions[abi:ne200100](v30);
     v27 = *v17;
     *v17 = v22;
     *v7 = v11;
@@ -9158,18 +9126,17 @@ void CA::DSP::LanguageV1InterpreterCommandHandler::registerAnalyzer(uint64_t a1,
   else
   {
     *v8 = a2;
-    v10 = v35[0];
+    v10 = v34[0];
     *(v8 + 8) = v4;
     *(v8 + 16) = v10;
-    *(v8 + 23) = *(v35 + 7);
+    *(v8 + 23) = *(v34 + 7);
     *(v8 + 31) = v5;
-    *(v8 + 32) = v29;
+    *(v8 + 32) = v28;
     v11 = v8 + 56;
-    *(v8 + 48) = v30;
+    *(v8 + 48) = v29;
   }
 
   *v7 = v11;
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C91F2C88(_Unwind_Exception *exception_object)
@@ -9854,4 +9821,78 @@ const void **CA::DSP::LanguageV1InterpreterCommandHandler::addJack(uint64_t a1, 
 
   CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v6);
   return CA::DSP::ReferenceCounted<__CADSPJackModel *>::~ReferenceCounted(&v8);
+}
+
+const void **CA::DSP::ReferenceCounted<__CADSPJackModel *>::~ReferenceCounted(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+    *a1 = 0;
+  }
+
+  return a1;
+}
+
+const void **CA::DSP::LanguageV1InterpreterCommandHandler::addWire(uint64_t a1, const UInt8 *a2, uint64_t a3, const UInt8 *a4, uint64_t a5, uint64_t a6, int a7)
+{
+  CA::DSP::MutableWireModel::Create(&v28, *MEMORY[0x1E695E480]);
+  v14 = v28;
+  v27 = v28;
+  if (v28)
+  {
+    CFRetain(v28);
+  }
+
+  CA::DSP::CreateUTF8StringNoCopy(v19, a2);
+  [v14 setBoxName:*&v19[0] ofEndpoint:0];
+  CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v19);
+  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v27);
+  v26 = v14;
+  if (v14)
+  {
+    CFRetain(v14);
+  }
+
+  [v14 setPortIndex:a3 ofEndpoint:0];
+  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v26);
+  v25 = v14;
+  if (v14)
+  {
+    CFRetain(v14);
+  }
+
+  CA::DSP::CreateUTF8StringNoCopy(v19, a4);
+  [v14 setBoxName:*&v19[0] ofEndpoint:1];
+  CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v19);
+  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v25);
+  v24 = v14;
+  if (v14)
+  {
+    CFRetain(v14);
+  }
+
+  [v14 setPortIndex:a5 ofEndpoint:1];
+  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v24);
+  v23 = v14;
+  if (v14)
+  {
+    CFRetain(v14);
+  }
+
+  v15 = *(a6 + 16);
+  v19[0] = *a6;
+  v19[1] = v15;
+  v20 = *(a6 + 32);
+  v21 = a7;
+  v22 = 1;
+  [v14 setAudioStreamConfiguration:v19];
+  CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v23);
+  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::ReferenceCounted(&v18, *(a1 + 8));
+  v28 = 0;
+  [v18 addWire:{v14, v14}];
+  CA::DSP::ReferenceCounted<__CADSPWireModel const*>::~ReferenceCounted(&v17);
+  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v18);
+  return CA::DSP::ReferenceCounted<__CADSPWireModel *>::~ReferenceCounted(&v28);
 }

@@ -26,36 +26,37 @@ uint64_t H16ISPExclaveDebugService::StartDebugService(H16ISPExclaveDebugService 
 {
   if ((*this & 2) != 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v6, "ISPExclaveExfiltrationThread");
-    v7 = a2;
-    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v7, "ISPExclaveExfiltrationThread");
+    v8 = a2;
+    if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&v8, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
-      v9 = 1;
-      if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
+      std::string::__init_copy_ctor_external(&v9, v7.__r_.__value_.__l.__data_, v7.__r_.__value_.__l.__size_);
+      v10 = 1;
+      if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v6.__r_.__value_.__l.__data_);
+        operator delete(v7.__r_.__value_.__l.__data_);
       }
     }
 
     else
     {
-      v8 = v6;
-      v9 = 1;
+      v9 = v7;
+      v10 = 1;
     }
 
-    if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+    v4 = v8;
+    if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v8.__r_.__value_.__l.__data_, v8.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v9.__r_.__value_.__l.__data_, v9.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v8;
+      __p = v9;
     }
 
-    v5 = v9;
-    InitExclaveFiltrationServiceThread();
+    v6 = v10;
+    InitExclaveFiltrationServiceThread(&v4);
   }
 
   return 3758097084;
@@ -76,14 +77,14 @@ void sub_2248D135C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2248D1538(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+void sub_2248D1538(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
 {
   if (a16 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x22AA55B60](v16, v17);
+  MEMORY[0x22AA55B60](v16, v17, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -135,7 +136,7 @@ LABEL_13:
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        ISPExclaveFiltrationThreadMain((a1 + 8), v12, v13, v14, v15, v16, v17, v18);
+        ISPExclaveFiltrationThreadMain(a1 + 8, v12, v13, v14, v15, v16, v17, v18);
       }
 
       goto LABEL_14;
@@ -304,7 +305,7 @@ double H16ISP::H16ISPGraphExclaveExitNode::H16ISPGraphExclaveExitNode(H16ISP::H1
   return result;
 }
 
-void H16ISP::H16ISPGraphExclaveExitNode::~H16ISPGraphExclaveExitNode(H16ISP::H16ISPGraphExclaveExitNode *this)
+void H16ISP::H16ISPGraphExclaveExitNode::~H16ISPGraphExclaveExitNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -375,7 +376,7 @@ NSObject *___ZN6H16ISP26H16ISPGraphExclaveExitNode47RegisterH16ISPExclaveMetadat
   return result;
 }
 
-uint64_t H16ISP::H16ISPGraphExclaveExitNode::onMessageProcessing(H16ISP::H16ISPDevice **this, H16ISP::H16ISPFilterGraphMessage *a2)
+uint64_t H16ISP::H16ISPGraphExclaveExitNode::onMessageProcessing(NSObject **this, H16ISP::H16ISPFilterGraphMessage *a2)
 {
   v26 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 9) & (1 << H16ISP::H16ISPFilterGraphNode::GetType(this));
@@ -421,7 +422,7 @@ uint64_t H16ISP::H16ISPGraphExclaveExitNode::onMessageProcessing(H16ISP::H16ISPD
       if (v13)
       {
         v14 = 0;
-        v15 = (this + 14);
+        v15 = this + 14;
         while (1)
         {
           if (v5 == *(v15 - 4))
@@ -508,9 +509,9 @@ LABEL_19:
   return 0;
 }
 
-void sub_2248D203C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2248D203C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1203,6 +1204,13 @@ LABEL_110:
   return 0;
 }
 
+void sub_2248D35A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
+{
+  va_start(va, a43);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 intptr_t ___ZN6H16ISP27H16ISPGraphFaceTrackingNode19onMessageProcessingEPNS_24H16ISPFilterGraphMessageE_block_invoke(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = a2;
@@ -1297,7 +1305,7 @@ uint64_t H16ISP::H16ISPGraphFaceTrackingNode::H16ISPGraphFaceTrackingNode(uint64
 
 void sub_2248D39EC(_Unwind_Exception *a1)
 {
-  std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::~__hash_table(v1 + 104);
+  std::__hash_table<std::__hash_value_type<unsigned int,__CVBuffer *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,__CVBuffer *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,__CVBuffer *>>>::~__hash_table((v1 + 13));
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(v1);
   _Unwind_Resume(a1);
 }
@@ -1326,7 +1334,7 @@ void H16ISP::H16ISPGraphFaceTrackingNode::~H16ISPGraphFaceTrackingNode(H16ISP::H
 
 BOOL GMC_SpatialCoverageTest(uint64_t a1, uint64_t a2, double *a3)
 {
-  Matrix<unsigned int>::Matrix(&v21, *(a2 + 116) / 32, *(a2 + 112) / 32);
+  Matrix<unsigned int>::Matrix(&v21, *(a2 + 116) / 32, *(a2 + 112) / 32, 0);
   v6 = *(a1 + 20);
   if (v6)
   {
@@ -1389,33 +1397,19 @@ BOOL GMC_SpatialCoverageTest(uint64_t a1, uint64_t a2, double *a3)
   return v19;
 }
 
-uint64_t Matrix<unsigned int>::Matrix(uint64_t result, int a2, int a3)
+uint64_t Matrix<unsigned int>::Matrix(uint64_t a1, int a2, int a3, int a4)
 {
-  *result = &unk_283813A68;
+  *a1 = &unk_283813A68;
   if (a3 * a2)
   {
     operator new[]();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = a2;
-  *(result + 20) = a3;
-  *(result + 24) = 0;
-  return result;
-}
-
-{
-  *result = &unk_283813A68;
-  if (a3 * a2)
-  {
-    operator new[]();
-  }
-
-  *(result + 8) = 0;
-  *(result + 16) = a2;
-  *(result + 20) = a3;
-  *(result + 24) = 0;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = a2;
+  *(a1 + 20) = a3;
+  *(a1 + 24) = 0;
+  return a1;
 }
 
 void Matrix<unsigned int>::~Matrix(uint64_t a1)
@@ -1488,7 +1482,7 @@ void H16ISP::H16ISPDeviceController::~H16ISPDeviceController(H16ISP::H16ISPDevic
   }
 }
 
-void H16ISP::cfArrayReleaseH16ISPUnitObject(H16ISP *this, const __CFAllocator *a2, const void *a3)
+void H16ISP::cfArrayReleaseH16ISPUnitObject(H16ISP *this, pthread_mutex_t *a2, const void *a3)
 {
   if (a2)
   {
@@ -1498,24 +1492,24 @@ void H16ISP::cfArrayReleaseH16ISPUnitObject(H16ISP *this, const __CFAllocator *a
   }
 }
 
-double readAnalyticsIsfThresholds(uint64_t a1, uint64_t a2)
+double readAnalyticsIsfThresholds(uint64_t a1)
 {
-  v2 = MEMORY[0x28223BE20](a1, a2);
-  if (!readAnalyticsFile("/var/mobile/Library/ISP/Pearl/IsfThresholds.bin", v2, 0x20u))
+  v1 = MEMORY[0x28223BE20](a1);
+  if (!readAnalyticsFile("/var/mobile/Library/ISP/Pearl/IsfThresholds.bin", v1, 0x20u))
   {
-    if (PCECalibration::readColorAssembly(v8))
+    if (PCECalibration::readColorAssembly(v8, v7))
     {
-      v6[2] = v8[2];
-      v6[3] = v8[3];
-      v7 = v9;
-      v6[0] = v8[0];
-      v6[1] = v8[1];
-      v4 = 0uLL;
-      v5 = 0.0;
-      GeomUtils::CalcRotationAngleFromMatrix<double>(v6, &v4);
-      *(v2 + 8) = v4;
-      result = v5;
-      *(v2 + 24) = v5;
+      v5[2] = v8[2];
+      v5[3] = v8[3];
+      v6 = v9;
+      v5[0] = v8[0];
+      v5[1] = v8[1];
+      v3 = 0uLL;
+      v4 = 0.0;
+      GeomUtils::CalcRotationAngleFromMatrix<double>(v5, &v3);
+      *(v1 + 8) = v3;
+      result = v4;
+      *(v1 + 24) = v4;
     }
   }
 
@@ -1562,26 +1556,26 @@ FILE *writeAnalyticsFile(const char *a1, const void *a2, unsigned int a3)
   return result;
 }
 
-void reportIsfResults(int a1, double *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void reportIsfResults(int a1, double *a2, int a3, double a4, double a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a3 == 2)
   {
     if ((analytics_send_event_lazy() & 1) == 0)
     {
-      v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+      v11 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
       if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
       {
-        v9 = os_log_create("com.apple.isp", "general");
-        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v9;
+        v11 = os_log_create("com.apple.isp", "general");
+        GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v11;
       }
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         reportIsfResults();
       }
     }
 
-    checkIsfThresholds(a2, a6);
+    checkIsfThresholds(a2, a8);
     if (!a1)
     {
       goto LABEL_14;
@@ -1595,14 +1589,14 @@ void reportIsfResults(int a1, double *a2, int a3, uint64_t a4, uint64_t a5, uint
       goto LABEL_13;
     }
 
-    v10 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v12 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v10 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v10;
+      v12 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v12;
     }
 
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
 LABEL_13:
       if (a1)
@@ -1617,7 +1611,7 @@ LABEL_13:
     if (!a1)
     {
 LABEL_14:
-      checkIsfThresholds(a2, a6);
+      checkIsfThresholds(a2, a8);
     }
   }
 }
@@ -1631,7 +1625,7 @@ void checkIsfThresholds(double *a1, uint64_t a2)
   checkIsfThresholdPerAxis("Z", (a2 + 4), v4);
 }
 
-void reportProjectorGmcResults(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+void reportProjectorGmcResults(uint64_t a1, uint64_t a2, int a3, uint64_t a4, void *a5)
 {
   *v28 = 3;
   v29 = -1;
@@ -1880,27 +1874,22 @@ void *___Z25reportProjectorGmcResultsRK26sCIspCmdChPearlCalibrationRK18GMCInnerS
   return v3;
 }
 
-void reportStereoGmcResults()
+void reportStereoGmcResults(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((analytics_send_event_lazy() & 1) == 0)
   {
-    v0 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v3 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v0 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v0;
+      v3 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v3;
     }
 
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       reportStereoGmcResults();
     }
   }
-}
-
-{
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_2247DB000, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, 2u);
 }
 
 void *___Z22reportStereoGmcResultsRK18GMCInnerStatisticsRK26sCIspCmdChPearlCalibrationy_block_invoke(void *a1)
@@ -1941,27 +1930,22 @@ void *___Z22reportStereoGmcResultsRK18GMCInnerStatisticsRK26sCIspCmdChPearlCalib
   return v3;
 }
 
-void reportMutualInformationResults()
+void reportMutualInformationResults(int a1, uint64_t a2, int a3, uint64_t a4)
 {
   if ((analytics_send_event_lazy() & 1) == 0)
   {
-    v0 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v4 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v0 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v0;
+      v4 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v4;
     }
 
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       reportMutualInformationResults();
     }
   }
-}
-
-{
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_2247DB000, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, 2u);
 }
 
 void *___Z30reportMutualInformationResultsiRKN16RgbIrCalibration20RgbIrInnerStatisticsE15MutualInfoStagey_block_invoke(uint64_t a1)
@@ -2009,27 +1993,22 @@ LABEL_10:
   return v3;
 }
 
-void reportJasperStateAnalytics()
+void reportJasperStateAnalytics(int a1, int a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7)
 {
   if ((analytics_send_event_lazy() & 1) == 0)
   {
-    v0 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v0 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v0;
+      v7 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v7;
     }
 
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       reportJasperStateAnalytics();
     }
   }
-}
-
-{
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_2247DB000, v0, v1, "Failed to send the %s event into the diagnostics system %08X\n\n", v2, v3, v4, v5, 2u);
 }
 
 void *___Z26reportJasperStateAnalytics13eJasperStatesS_yyiii_block_invoke(uint64_t a1)
@@ -2093,20 +2072,20 @@ LABEL_12:
   return v6;
 }
 
-void reportPeridotCoexRetries()
+void reportPeridotCoexRetries(int a1, int a2)
 {
   if ((analytics_send_event_lazy() & 1) == 0)
   {
-    v0 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
+    v2 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog;
     if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog == MEMORY[0x277D86220])
     {
-      v0 = os_log_create("com.apple.isp", "general");
-      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v0;
+      v2 = os_log_create("com.apple.isp", "general");
+      GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_generalLog = v2;
     }
 
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      reportPeridotCoexRetries(v0, v1, v2, v3, v4, v5, v6, v7);
+      reportPeridotCoexRetries(v2, v3, v4, v5, v6, v7, v8, v9);
     }
   }
 }
@@ -2240,7 +2219,7 @@ void *___ZL37reportIsfResultsFromMutualInformation9IsfStatusRKN3Isf18IsfInnerSta
   return v3;
 }
 
-void checkIsfThresholdPerAxis(char *a1, signed __int8 *a2, double a3)
+void checkIsfThresholdPerAxis(const char *result, signed __int8 *a2, double a3)
 {
   v6 = *a2;
   if ((v6 + 1) < a3)
@@ -2249,7 +2228,7 @@ void checkIsfThresholdPerAxis(char *a1, signed __int8 *a2, double a3)
     {
       v7 = v6 + 1;
       *a2 = v7;
-      reportIsfThreshold(v7, a1);
+      reportIsfThreshold(v7, result);
       LOBYTE(v6) = *a2;
     }
 
@@ -2263,7 +2242,7 @@ void checkIsfThresholdPerAxis(char *a1, signed __int8 *a2, double a3)
     {
       v9 = v8 - 1;
       a2[1] = v9;
-      reportIsfThreshold(v9, a1);
+      reportIsfThreshold(v9, result);
       LOBYTE(v8) = a2[1];
     }
 
@@ -2271,7 +2250,7 @@ void checkIsfThresholdPerAxis(char *a1, signed __int8 *a2, double a3)
   }
 }
 
-void reportIsfThreshold(signed __int8 a1, const char *a2)
+void reportIsfThreshold(char a1, const char *a2)
 {
   if ((analytics_send_event_lazy() & 1) == 0)
   {
@@ -2302,7 +2281,7 @@ void *___ZL18reportIsfThresholdaPKc_block_invoke(uint64_t a1)
   return v3;
 }
 
-void checkGmcThresholdPerAxis(char *a1, double *a2, double a3)
+void checkGmcThresholdPerAxis(const char *result, double *a2, double a3)
 {
   *a2 = *a2 * 0.99 + a3 * 0.01;
   v5 = a2 + 9;
@@ -2317,7 +2296,7 @@ void checkGmcThresholdPerAxis(char *a1, double *a2, double a3)
       v10 = (*(v5 - 1))++ + 1;
       if (v10 == 10)
       {
-        reportGmcThreshold(v6 + 51, a1);
+        reportGmcThreshold(v6 + 51, result);
         v9 = *a2;
       }
     }
@@ -2327,7 +2306,7 @@ void checkGmcThresholdPerAxis(char *a1, double *a2, double a3)
       v11 = (*v5)++ + 1;
       if (v11 == 10)
       {
-        reportGmcThreshold(v7, a1);
+        reportGmcThreshold(v7, result);
       }
     }
 
@@ -2339,7 +2318,7 @@ void checkGmcThresholdPerAxis(char *a1, double *a2, double a3)
   while (!__CFADD__(v6++, 1));
 }
 
-void reportGmcThreshold(signed __int8 a1, const char *a2)
+void reportGmcThreshold(char a1, const char *a2)
 {
   if ((analytics_send_event_lazy() & 1) == 0)
   {
@@ -2400,7 +2379,7 @@ xpc_object_t ___ZL21reportGmcEflToleranced_block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t PhotonDetectorArrivedCallback(void *a1, io_iterator_t iterator)
+uint64_t PhotonDetectorArrivedCallback(CFMutableArrayRef *a1, io_iterator_t iterator)
 {
   result = IOIteratorNext(iterator);
   if (result)
@@ -2714,169 +2693,169 @@ void AppleH16PhotonDetectorThreadSyncer::AppleH16PhotonDetectorThreadSyncer(Appl
   pthread_mutex_lock(this);
 }
 
-void H16ISP::H16ISPGraphNullNode::~H16ISPGraphNullNode(H16ISP::H16ISPGraphNullNode *this)
+void H16ISP::H16ISPGraphNullNode::~H16ISPGraphNullNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
   JUMPOUT(0x22AA55B60);
 }
 
-void ParseDCSNonVisionDataBuffer(__CVBuffer *a1, void *a2)
+void ParseDCSNonVisionDataBuffer(__CVBuffer *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   context = objc_autoreleasePoolPush();
   CVPixelBufferLockBaseAddress(a1, 1uLL);
   pixelBuffer = a1;
   BaseAddress = CVPixelBufferGetBaseAddress(a1);
-  memset(&v35, 0, sizeof(v35));
-  v5 = FigHostTimeToNanoseconds();
-  CMTimeMake(&v35, v5, 1000000000);
-  time = v35;
+  memset(&v37, 0, sizeof(v37));
+  v7 = FigHostTimeToNanoseconds();
+  CMTimeMake(&v37, v7, 1000000000);
+  time = v37;
   Seconds = CMTimeGetSeconds(&time);
   if (!*(BaseAddress + 3))
   {
-    v8 = 0;
-    v9 = 0;
-    v10 = Seconds * 1000000.0;
-    v33 = BaseAddress + 40;
-    v30 = BaseAddress + 64;
-    v11 = 0.0;
+    v10 = 0;
+    v11 = 0;
+    v12 = Seconds * 1000000.0;
+    v35 = BaseAddress + 40;
+    v32 = BaseAddress + 64;
+    v13 = 0.0;
     while (1)
     {
-      v12 = &v33[v9];
-      if (v33[v9] != 173)
+      v14 = &v35[v11];
+      if (v35[v11] != 173)
       {
         goto LABEL_31;
       }
 
-      v13 = v12[1];
-      v34 = v9;
-      if (v13 == 4)
+      v15 = v14[1];
+      v36 = v11;
+      if (v15 == 4)
       {
         break;
       }
 
-      if (v13 == 3)
+      if (v15 == 3)
       {
-        v14 = [a2 objectForKeyedSubscript:@"DCSMagData_Private"];
-        if (!v14)
+        v16 = [a2 objectForKeyedSubscript:@"DCSMagData_Private"];
+        if (!v16)
         {
-          v14 = objc_opt_new();
-          [a2 setObject:v14 forKeyedSubscript:@"DCSMagData_Private"];
+          v16 = objc_opt_new();
+          [a2 setObject:v16 forKeyedSubscript:@"DCSMagData_Private"];
         }
 
-        if (*(v12 + 7))
+        if (*(v14 + 7))
         {
-          v15 = 0;
-          v16 = &v30[v9];
+          v17 = 0;
+          v18 = &v32[v11];
           do
           {
-            memset(&v35, 0, sizeof(v35));
-            v17 = FigHostTimeToNanoseconds();
-            CMTimeMake(&v35, v17, 1000000000);
-            time = v35;
-            v35.value = CMTimeGetSeconds(&time);
-            *&v35.timescale = *(v16 - 1);
-            [v14 addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytes:length:", &v35, 16)}];
-            ++v15;
-            v16 += 16;
+            memset(&v37, 0, sizeof(v37));
+            v19 = FigHostTimeToNanoseconds();
+            CMTimeMake(&v37, v19, 1000000000);
+            time = v37;
+            v37.value = CMTimeGetSeconds(&time);
+            *&v37.timescale = *(v18 - 1);
+            [v16 addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytes:length:", &v37, 16)}];
+            ++v17;
+            v18 += 16;
           }
 
-          while (v15 < *(v12 + 7));
+          while (v17 < *(v14 + 7));
         }
       }
 
 LABEL_30:
-      v29 = v34 + *(v12 + 1);
-      v9 = v29 + 6;
-      if ((v29 + 12) >= 0x4000)
+      v31 = v36 + *(v14 + 1);
+      v11 = v31 + 6;
+      if ((v31 + 12) >= 0x4000)
       {
         goto LABEL_31;
       }
     }
 
-    v18 = [a2 objectForKeyedSubscript:@"DCSAudioAccelData_Private"];
-    if (!v18)
+    v20 = [a2 objectForKeyedSubscript:@"DCSAudioAccelData_Private"];
+    if (!v20)
     {
-      v18 = objc_opt_new();
-      [a2 setObject:v18 forKeyedSubscript:@"DCSAudioAccelData_Private"];
+      v20 = objc_opt_new();
+      [a2 setObject:v20 forKeyedSubscript:@"DCSAudioAccelData_Private"];
     }
 
-    v19 = vcvtpd_u64_f64(vcvtd_n_f64_u32(*(v12 + 7), 8uLL));
-    if (!v19)
+    v21 = vcvtpd_u64_f64(vcvtd_n_f64_u32(*(v14 + 7), 8uLL));
+    if (!v21)
     {
       goto LABEL_30;
     }
 
-    v20 = 0;
-    v21 = &BaseAddress[v9 + 63];
+    v22 = 0;
+    v23 = &BaseAddress[v11 + 63];
     while (1)
     {
-      v22 = *&v12[256 * v20 + 16] | (v12[256 * v20 + 20] << 32);
-      if (!v20)
+      v24 = *&v14[256 * v22 + 16] | (v14[256 * v22 + 20] << 32);
+      if (!v22)
       {
-        v11 = *(BaseAddress + 3) * 0.015625 - v22;
-        v8 = *(v12 + 4) | (v12[20] << 32);
+        v13 = *(BaseAddress + 3) * 0.015625 - v24;
+        v10 = *(v14 + 4) | (v14[20] << 32);
       }
 
-      *&v35.value = (v10 - v11 + (v22 - v8)) / 1000000.0;
-      if (v20 != v19 - 1)
-      {
-        break;
-      }
-
-      v23 = v12[14];
-      if (!v12[14])
+      *&v37.value = (v12 - v13 + (v24 - v10)) / 1000000.0;
+      if (v22 != v21 - 1)
       {
         break;
       }
 
-      v24 = v23 - 5;
-      v25 = (v23 - 5) >> 2;
-      *&v35.timescale = v25;
-      if (v24 >= 4)
+      v25 = v14[14];
+      if (!v14[14])
+      {
+        break;
+      }
+
+      v26 = v25 - 5;
+      v27 = (v25 - 5) >> 2;
+      *&v37.timescale = v27;
+      if (v26 >= 4)
       {
         goto LABEL_27;
       }
 
 LABEL_29:
-      [v18 addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytes:length:", &v35, 264, v30)}];
-      ++v20;
-      v21 += 256;
-      if (v20 == v19)
+      [v20 addObject:{objc_msgSend(MEMORY[0x277CBEA90], "dataWithBytes:length:", &v37, 264, v32)}];
+      ++v22;
+      v23 += 256;
+      if (v22 == v21)
       {
         goto LABEL_30;
       }
     }
 
-    *&v35.timescale = 62;
-    v25 = 62;
+    *&v37.timescale = 62;
+    v27 = 62;
 LABEL_27:
-    v26 = &v36;
-    v27 = v21;
+    v28 = &v38;
+    v29 = v23;
     do
     {
-      *v26 = *(v27 - 1);
-      v28 = *v27;
-      v27 += 4;
-      *(v26 - 62) = v28;
-      v26 = (v26 + 2);
-      --v25;
+      *v28 = *(v29 - 1);
+      v30 = *v29;
+      v29 += 4;
+      *(v28 - 62) = v30;
+      v28 = (v28 + 2);
+      --v27;
     }
 
-    while (v25);
+    while (v27);
     goto LABEL_29;
   }
 
-  v7 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
+  v9 = GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog;
   if (GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog == MEMORY[0x277D86220])
   {
-    v7 = os_log_create("com.apple.isp", "plugin");
-    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v7;
+    v9 = os_log_create("com.apple.isp", "plugin");
+    GetCameraUserspaceLogStream(CameraUserspaceLoggingCategory)::_pluginLog = v9;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    ParseDCSNonVisionDataBuffer(BaseAddress + 3, v7);
+    ParseDCSNonVisionDataBuffer(BaseAddress + 3, v9);
   }
 
 LABEL_31:
@@ -2884,52 +2863,52 @@ LABEL_31:
   objc_autoreleasePoolPop(context);
 }
 
-void ParseDCSIMUDataBuffer(__CVBuffer *a1, void *a2)
+void ParseDCSIMUDataBuffer(__CVBuffer *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_autoreleasePoolPush();
+  v6 = objc_autoreleasePoolPush();
   CVPixelBufferLockBaseAddress(a1, 1uLL);
   BaseAddress = CVPixelBufferGetBaseAddress(a1);
-  v6 = BaseAddress[1];
-  if (v6 >= 0x40)
+  v8 = BaseAddress[1];
+  if (v8 >= 0x40)
   {
-    v7 = 64;
+    v9 = 64;
   }
 
   else
   {
-    v7 = BaseAddress[1];
+    v9 = BaseAddress[1];
   }
 
-  v16[0] = *BaseAddress;
-  v16[1] = v7;
-  if (v6)
+  v18[0] = *BaseAddress;
+  v18[1] = v9;
+  if (v8)
   {
-    v8 = BaseAddress;
-    v9 = 0;
-    v10 = 0;
+    v10 = BaseAddress;
+    v11 = 0;
+    v12 = 0;
     do
     {
-      memset(&v15, 0, sizeof(v15));
-      v11 = FigHostTimeToNanoseconds();
-      CMTimeMake(&v15, v11, 1000000000);
-      v14 = v15;
-      Seconds = CMTimeGetSeconds(&v14);
-      v13 = &v16[v9 / 4];
-      *(v13 + 2) = Seconds;
-      v13[2] = *&v8[v9 + 24];
-      *(v13 + 12) = *&v8[v9 + 52];
-      *(v13 + 7) = *&v8[v9 + 28];
-      *(v13 + 11) = *&v8[v9 + 44];
-      ++v10;
-      v9 += 48;
+      memset(&v17, 0, sizeof(v17));
+      v13 = FigHostTimeToNanoseconds();
+      CMTimeMake(&v17, v13, 1000000000);
+      v16 = v17;
+      Seconds = CMTimeGetSeconds(&v16);
+      v15 = &v18[v11 / 4];
+      *(v15 + 2) = Seconds;
+      v15[2] = *&v10[v11 + 24];
+      *(v15 + 12) = *&v10[v11 + 52];
+      *(v15 + 7) = *&v10[v11 + 28];
+      *(v15 + 11) = *&v10[v11 + 44];
+      ++v12;
+      v11 += 48;
     }
 
-    while (v10 < v7);
+    while (v12 < v9);
   }
 
-  [a2 setObject:objc_msgSend(MEMORY[0x277CBEA90] forKeyedSubscript:{"dataWithBytes:length:", v16, 3080), @"DCSIMUData_Private"}];
+  [a2 setObject:objc_msgSend(MEMORY[0x277CBEA90] forKeyedSubscript:{"dataWithBytes:length:", v18, 3080), @"DCSIMUData_Private"}];
   CVPixelBufferUnlockBaseAddress(a1, 1uLL);
-  objc_autoreleasePoolPop(v4);
+  objc_autoreleasePoolPop(v6);
 }
 
 H16ISP::H16ISPFrameMetadata *H16ISP::H16ISPFrameMetadata::H16ISPFrameMetadata(H16ISP::H16ISPFrameMetadata *this, const void **a2)
@@ -4411,7 +4390,7 @@ uint64_t H16ISP::H16ISPGraphExclaveMotionDetectionNode::runMotionDetection(H16IS
   return v11;
 }
 
-void H16ISP::H16ISPGraphExclaveMotionDetectionNode::~H16ISPGraphExclaveMotionDetectionNode(H16ISP::H16ISPGraphExclaveMotionDetectionNode *this)
+void H16ISP::H16ISPGraphExclaveMotionDetectionNode::~H16ISPGraphExclaveMotionDetectionNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -4639,13 +4618,13 @@ void *H16ISP::H16ISPGraphNodeMCTF::ForwardMessage(void *this, H16ISP::H16ISPFilt
   return this;
 }
 
-void H16ISP::H16ISPGraphNodeMCTF::H16ISPGraphNodeMCTF(H16ISP::H16ISPGraphNodeMCTF *this, int a2, int a3, int a4)
+void H16ISP::H16ISPGraphNodeMCTF::H16ISPGraphNodeMCTF(H16ISP::H16ISPGraphNodeMCTF *this, int a2, int a3, int a4, char a5)
 {
   H16ISP::H16ISPFilterGraphNode::H16ISPFilterGraphNode(this, 14);
-  *v7 = &unk_283813BA8;
-  *(v7 + 84) = a2;
-  *(v7 + 88) = a3;
-  *(v7 + 92) = a4;
+  *v8 = &unk_283813BA8;
+  *(v8 + 84) = a2;
+  *(v8 + 88) = a3;
+  *(v8 + 92) = a4;
   operator new();
 }
 
@@ -4954,9 +4933,8 @@ uint64_t H16ISP::H16ISPGraphNodeMCTF::onMessageProcessing(H16ISP::H16ISPGraphNod
   return v4;
 }
 
-void *std::deque<H16ISP::H16ISPFilterGraphMessage *>::push_back(void *result, void *a2)
+void std::deque<H16ISP::H16ISPFilterGraphMessage *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -4973,30 +4951,29 @@ void *std::deque<H16ISP::H16ISPFilterGraphMessage *>::push_back(void *result, vo
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<H16ISP::H16ISPFilterGraphMessage *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<H16ISP::H16ISPFilterGraphMessage *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<H16ISP::H16ISPFilterGraphMessage *>::__add_back_capacity(void *a1)
+void std::deque<H16ISP::H16ISPFilterGraphMessage *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -5004,25 +4981,25 @@ void *std::deque<H16ISP::H16ISPFilterGraphMessage *>::__add_back_capacity(void *
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<__CVBuffer **>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<__CVBuffer **>::emplace_back<__CVBuffer **&>(a1, &v9);
 }
 
 void sub_2248D95EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -5036,9 +5013,8 @@ void sub_2248D95EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::push_back(void *result, void *a2)
+void std::deque<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -5055,30 +5031,29 @@ void *std::deque<std::chrono::time_point<std::chrono::steady_clock,std::chrono::
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::__add_back_capacity(void *a1)
+void std::deque<std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -5086,25 +5061,25 @@ void *std::deque<std::chrono::time_point<std::chrono::steady_clock,std::chrono::
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<ExclaveFrameRateBucket *>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<ExclaveFrameRateBucket *>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<ExclaveFrameRateBucket *>::emplace_back<ExclaveFrameRateBucket *>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<ExclaveFrameRateBucket *>::emplace_back<ExclaveFrameRateBucket *>(a1, &v9);
 }
 
 void sub_2248D9848(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -5210,7 +5185,7 @@ uint64_t GMC_Normalise2DPts(uint64_t a1, uint64_t a2, uint64_t a3)
   *(a3 + 48) = 0;
   *(a3 + 56) = 0;
   *(a3 + 64) = 0x3FF0000000000000;
-  MatrixMxN<3u,3u,double>::operator*<3u>(a3, a1, &v26);
+  MatrixMxN<3u,3u,double>::operator*<3u>(&v26, a3, a1);
   Matrix<double>::Resize(a2, v28, v29);
   memcpy(*(a2 + 8), __src, 8 * *(a2 + 16) * *(a2 + 20));
   Matrix<double>::~Matrix(&v26);
@@ -5244,7 +5219,7 @@ uint64_t H16ISP::H16ISPGraphExitNode::onDeactivate(H16ISP::H16ISPGraphExitNode *
   return 0;
 }
 
-void H16ISP::H16ISPGraphExitNode::~H16ISPGraphExitNode(H16ISP::H16ISPGraphExitNode *this)
+void H16ISP::H16ISPGraphExitNode::~H16ISPGraphExitNode(NSObject **this)
 {
   H16ISP::H16ISPFilterGraphNode::~H16ISPFilterGraphNode(this);
 
@@ -8782,13 +8757,13 @@ void ___ZN6H16ISP20H16ISPServicesRemote7ConnectEPFv25H16ISPServicesRemoteEventPv
   }
 }
 
-uint64_t H16ISP::H16ISPServicesRemote::VerifyConnection(H16ISP::H16ISPServicesRemote *this, uint64_t a2)
+int64_t H16ISP::H16ISPServicesRemote::VerifyConnection(H16ISP::H16ISPServicesRemote *this)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
-  v4[1665] = *MEMORY[0x277D85DE8];
-  bzero(v4, 0x3408uLL);
-  LODWORD(v4[0]) = 1;
-  return H16ISP::H16ISPServicesRemote::SetProperty(v2, v4);
+  v1 = MEMORY[0x28223BE20](this);
+  v3[1665] = *MEMORY[0x277D85DE8];
+  bzero(v3, 0x3408uLL);
+  LODWORD(v3[0]) = 1;
+  return H16ISP::H16ISPServicesRemote::SetProperty(v1, v3);
 }
 
 uint64_t H16ISP::H16ISPServicesRemote::Disconnect(xpc_connection_t *this)
@@ -8825,9 +8800,9 @@ void H16ISP::H16ISPServicesRemote::~H16ISPServicesRemote(H16ISP::H16ISPServicesR
   dispatch_release(*(this + 1));
 }
 
-uint64_t H16ISP::H16ISPServicesRemote::RunRgbIr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9, __int16 a10, unsigned __int8 a11, __int16 a12, __int16 a13, __int16 a14, unsigned __int8 a15, unsigned __int8 a16, int a17)
+int64_t H16ISP::H16ISPServicesRemote::RunRgbIr(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int16 a9, __int16 a10, unsigned __int8 a11, __int16 a12, __int16 a13, __int16 a14, unsigned __int8 a15, unsigned __int8 a16, int a17)
 {
-  v17 = MEMORY[0x28223BE20](a1, a2);
+  v17 = MEMORY[0x28223BE20](a1);
   v19 = v18;
   v21 = v20;
   v23 = v22;
@@ -8914,51 +8889,48 @@ uint64_t H16ISP::H16ISPServicesRemote::UpdateRgbIrPceCalib(xpc_connection_t *a1,
   return Property;
 }
 
-uint64_t H16ISP::H16ISPServicesRemote::RunRgbj(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, __int16 a11, int a12, uint64_t a13, uint64_t a14, int a15, int a16)
+int64_t H16ISP::H16ISPServicesRemote::RunRgbj(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, __int16 a11, int a12, __int128 a13, int a15, int a16)
 {
-  *&v56[16] = a15;
-  *&v56[8] = a14;
-  *v56 = a13;
-  v16 = MEMORY[0x28223BE20](a1, a2);
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
-  v25 = v16;
-  v55 = *MEMORY[0x277D85DE8];
-  LODWORD(v39) = 8;
-  v45 = v26;
-  v48 = a11;
-  v49 = a12;
-  v50 = a9;
-  v46 = a10;
-  v47 = v27;
-  v52 = *&v56[4];
-  v53 = *&v56[12];
-  v51 = v56[0];
-  v54 = a16;
-  XpcFromType = H16ISP::createXpcFromType(v28, v23);
-  v42 = XpcFromType;
-  v31 = H16ISP::createXpcFromType(v20, v30);
-  v43 = v31;
-  v33 = H16ISP::createXpcFromType(v18, v32);
-  v44 = v33;
-  v35 = H16ISP::createXpcFromType(v22, v34);
-  v41 = v35;
-  IOSurface = CVPixelBufferGetIOSurface(v24);
+  v15 = MEMORY[0x28223BE20](a1);
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v24 = v15;
+  v54 = *MEMORY[0x277D85DE8];
+  LODWORD(v38) = 8;
+  v44 = v25;
+  v47 = a11;
+  v48 = a12;
+  v49 = a9;
+  v45 = a10;
+  v46 = v26;
+  v51 = *(&a13 + 4);
+  v52 = *(&a13 + 12);
+  v50 = a13;
+  v53 = a16;
+  XpcFromType = H16ISP::createXpcFromType(v27, v22);
+  v41 = XpcFromType;
+  v30 = H16ISP::createXpcFromType(v19, v29);
+  v42 = v30;
+  v32 = H16ISP::createXpcFromType(v17, v31);
+  v43 = v32;
+  v34 = H16ISP::createXpcFromType(v21, v33);
+  v40 = v34;
+  IOSurface = CVPixelBufferGetIOSurface(v23);
   object = IOSurfaceCreateXPCObject(IOSurface);
-  v37 = H16ISP::H16ISPServicesRemote::SetProperty(v25, &v39);
+  v36 = H16ISP::H16ISPServicesRemote::SetProperty(v24, &v38);
   xpc_release(XpcFromType);
-  xpc_release(v31);
-  xpc_release(v33);
+  xpc_release(v30);
+  xpc_release(v32);
   xpc_release(object);
-  xpc_release(v35);
-  return v37;
+  xpc_release(v34);
+  return v36;
 }
 
-uint64_t H16ISP::H16ISPServicesRemote::SaveJasperCalibData(H16ISP::H16ISPServicesRemote *this, const __CFData *a2)
+int64_t H16ISP::H16ISPServicesRemote::SaveJasperCalibData(H16ISP::H16ISPServicesRemote *this, const __CFData *a2)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
+  v2 = MEMORY[0x28223BE20](this);
   v7[1665] = *MEMORY[0x277D85DE8];
   LODWORD(v7[0]) = 7;
   XpcFromType = H16ISP::createXpcFromType(v3, v3);
@@ -8987,9 +8959,9 @@ uint64_t H16ISP::H16ISPServicesRemote::ReadDictionary(xpc_connection_t *this, co
   return Property;
 }
 
-uint64_t H16ISP::H16ISPServicesRemote::WriteDictionary(H16ISP::H16ISPServicesRemote *this, const __CFString *a2, const __CFDictionary *a3)
+int64_t H16ISP::H16ISPServicesRemote::WriteDictionary(H16ISP::H16ISPServicesRemote *this, const __CFString *a2, const __CFDictionary *a3)
 {
-  v3 = MEMORY[0x28223BE20](this, a2);
+  v3 = MEMORY[0x28223BE20](this);
   v5 = v4;
   v6 = v3;
   v13[1665] = *MEMORY[0x277D85DE8];
@@ -9004,9 +8976,9 @@ uint64_t H16ISP::H16ISPServicesRemote::WriteDictionary(H16ISP::H16ISPServicesRem
   return v11;
 }
 
-uint64_t H16ISP::H16ISPServicesRemote::WriteData(H16ISP::H16ISPServicesRemote *this, const __CFString *a2, const __CFData *a3)
+int64_t H16ISP::H16ISPServicesRemote::WriteData(H16ISP::H16ISPServicesRemote *this, const __CFString *a2, const __CFData *a3)
 {
-  v3 = MEMORY[0x28223BE20](this, a2);
+  v3 = MEMORY[0x28223BE20](this);
   v5 = v4;
   v6 = v3;
   v13[1665] = *MEMORY[0x277D85DE8];
@@ -9021,13 +8993,13 @@ uint64_t H16ISP::H16ISPServicesRemote::WriteData(H16ISP::H16ISPServicesRemote *t
   return v11;
 }
 
-uint64_t H16ISP::H16ISPServicesRemote::UpdateFlickerIRSignalRateHint(H16ISP::H16ISPServicesRemote *this, float a2, uint64_t a3)
+int64_t H16ISP::H16ISPServicesRemote::UpdateFlickerIRSignalRateHint(H16ISP::H16ISPServicesRemote *this, float a2)
 {
-  v3 = MEMORY[0x28223BE20](this, a3);
-  v8 = *MEMORY[0x277D85DE8];
-  LODWORD(v6) = 14;
-  v7 = v4;
-  return H16ISP::H16ISPServicesRemote::SetProperty(v3, &v6);
+  v2 = MEMORY[0x28223BE20](this);
+  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v5) = 14;
+  v6 = v3;
+  return H16ISP::H16ISPServicesRemote::SetProperty(v2, &v5);
 }
 
 uint64_t GMC_Undistort(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -9409,14 +9381,15 @@ uint64_t GMC_Undistort(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return 0;
 }
 
-void sub_2248E0D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_2248E0D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   Matrix<double>::~Matrix(&a15);
-  Matrix<double>::~Matrix(v27 - 128);
+  Matrix<double>::~Matrix(v26 - 128);
   Matrix<double>::~Matrix(&a19);
   Matrix<double>::~Matrix(&a23);
-  Matrix<double>::~Matrix(&a27);
-  Matrix<double>::~Matrix(v27 - 160);
+  Matrix<double>::~Matrix(va);
+  Matrix<double>::~Matrix(v26 - 160);
   _Unwind_Resume(a1);
 }
 
@@ -9502,7 +9475,7 @@ uint64_t DistortRadialLiteInternal<double>(uint64_t a1, uint64_t a2, uint64_t a3
   Matrix<double>::Matrix(v53, 1, *(a1 + 20));
   v53[0] = &unk_283812C88;
   v17 = v57;
-  Matrix<double>::DotMult<double>(a1, a1, v49);
+  Matrix<double>::DotMult<double>(a1, a1, &v49);
   if (a6)
   {
     if (v17 >= 1)
@@ -9573,7 +9546,7 @@ LABEL_28:
     Algo::Interp1WithExtrap<double>(v62, v58, &v54, 1, v53, a10);
   }
 
-  MatrixNxPts<1u,double>::DotDiv(v53, &v54, &v41);
+  MatrixNxPts<1u,double>::DotDiv(&v41, v53, &v54);
   v45 = &unk_283812C58;
   v46 = v42;
   v47 = v43;
@@ -9674,7 +9647,7 @@ LABEL_54:
 
 LABEL_49:
   Matrix<double>::~Matrix(&v45);
-  Matrix<double>::~Matrix(v49);
+  Matrix<double>::~Matrix(&v49);
   Matrix<double>::~Matrix(v53);
   Matrix<double>::~Matrix(&v54);
   Matrix<double>::~Matrix(v58);
@@ -9682,25 +9655,25 @@ LABEL_49:
   return 0;
 }
 
-void sub_2248E1414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2248E1414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va2, a9);
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va2, a16);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   va_copy(va2, va1);
-  v16 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
-  v19 = va_arg(va2, void);
-  v20 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
+  v26 = va_arg(va2, void);
+  v27 = va_arg(va2, void);
   Matrix<double>::~Matrix(va);
   Matrix<double>::~Matrix(va1);
   Matrix<double>::~Matrix(va2);
-  Matrix<double>::~Matrix(v9 - 128);
-  Matrix<double>::~Matrix(v9 - 96);
+  Matrix<double>::~Matrix(v16 - 128);
+  Matrix<double>::~Matrix(v16 - 96);
   _Unwind_Resume(a1);
 }
 
@@ -9755,4 +9728,74 @@ uint64_t Algo::Interp1WithExtrap<double>(uint64_t a1, uint64_t a2, uint64_t a3, 
 
     return Interp1WithExtrap<double,NearestInterpolator<double>>(a1, a2, a3, a5, a6);
   }
+}
+
+uint64_t MatrixNxPts<1u,double>::DotDiv@<X0>(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  Matrix<double>::DotDiv(a2, a3, &v7);
+  v4 = v8;
+  v5 = v9;
+  *(a1 + 24) = v10;
+  v8 = 0;
+  v10 = 0;
+  *a1 = &unk_283812C88;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = 1;
+  *(a1 + 20) = v5;
+  return Matrix<double>::~Matrix(&v7);
+}
+
+uint64_t Interp1SortedWithExtrap<double,LinearInterpolator<double>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (*(a1 + 20) != *(a2 + 20))
+  {
+    Interp1SortedWithExtrap<double,LinearInterpolator<double>>();
+  }
+
+  v5 = *(a3 + 20);
+  if (v5 <= 1)
+  {
+    Interp1SortedWithExtrap<double,LinearInterpolator<double>>();
+  }
+
+  Matrix<double>::Resize(a4, 1, v5);
+  v9 = *(a3 + 20);
+  if (v9)
+  {
+    v10 = 0;
+    v11 = 0;
+    v12 = *(a1 + 20);
+    v13 = *(*(a1 + 8) + 8 * (v12 - 1));
+    do
+    {
+      v14 = *(*(a3 + 8) + 8 * v10);
+      v18 = 0;
+      if (v14 >= v13)
+      {
+        v15 = v12 - 2;
+        v11 = v12 - 2;
+      }
+
+      else
+      {
+        Algo::BinSearchNearestLowest<double>(a1, v11, &v18, v14);
+        v12 = *(a1 + 20);
+        v11 = v18;
+        v9 = *(a3 + 20);
+        v15 = v12 - 2;
+      }
+
+      if (v12 - 1 > v11)
+      {
+        v15 = v11;
+      }
+
+      v16 = *(a2 + 8);
+      *(*(a4 + 8) + 8 * v10++) = *(v16 + 8 * v15) + (*(v16 + 8 * (v15 + 1)) - *(v16 + 8 * v15)) * ((v14 - *(*(a1 + 8) + 8 * v15)) / (*(*(a1 + 8) + 8 * (v15 + 1)) - *(*(a1 + 8) + 8 * v15)));
+    }
+
+    while (v10 < v9);
+  }
+
+  return 0;
 }

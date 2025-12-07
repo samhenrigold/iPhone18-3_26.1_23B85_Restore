@@ -3,7 +3,7 @@
 
 @implementation MXUIService
 
-uint64_t __72__MXUIService_ServerDelegate_listener_didReceiveConnection_withContext___block_invoke()
+void *__72__MXUIService_ServerDelegate_listener_didReceiveConnection_withContext___block_invoke()
 {
   FigNote_AllowInternalDefaultLogs();
   fig_note_initialize_category_with_default_work();
@@ -125,20 +125,18 @@ uint64_t __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_2(
   return [a2 setInvalidationHandler:v5];
 }
 
-void __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_3()
+void __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   if (dword_27F8F0490)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
-void __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_81(uint64_t a1)
+void __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_81(uint64_t a1, uint64_t a2)
 {
   v4 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 28));
@@ -151,10 +149,9 @@ void __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_81(uin
   *(*(a1 + 32) + 8) = 0;
   *(*(a1 + 32) + 16) = 0;
   os_unfair_lock_unlock((*(a1 + 32) + 28));
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-void __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_82(uint64_t a1)
+void __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_82(uint64_t a1, uint64_t a2)
 {
   v4 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 28));
@@ -167,7 +164,6 @@ void __51__MXUIService_Client_recreateConnectionIfNecessary__block_invoke_82(uin
   *(*(a1 + 32) + 8) = 0;
   *(*(a1 + 32) + 16) = 0;
   os_unfair_lock_unlock((*(a1 + 32) + 28));
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__MXUIService_Client_promptForConnectDialog_withIconType_callbackHandler___block_invoke(uint64_t a1, void *a2)

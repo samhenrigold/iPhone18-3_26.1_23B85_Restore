@@ -2,6 +2,9 @@
 - (BOOL)loadResources:(id *)resources;
 - (CSUImageCaptioningDecoder)initWithConfiguration:(id)configuration;
 - (id)computeDecodedCaptionsForFeatures:(id)features withDecodingMethod:(int64_t)method error:(id *)error;
+- (id)computeDecodedCaptionsForFeaturesAXKVCacheE1:(id)e1 withDecodingMethod:(int64_t)method runDecoderOnly:(BOOL)only error:(id *)error;
+- (id)computeDecodedCaptionsForFeaturesE1:(id)e1 withDecodingMethod:(int64_t)method runDecoderOnly:(BOOL)only error:(id *)error;
+- (id)computeDecodedCaptionsForFeaturesE5:(id)e5 withDecodingMethod:(int64_t)method runDecoderOnly:(BOOL)only error:(id *)error;
 - (id)computeDecodedCaptionsForFeaturesWithCSUBuffer:(id)buffer withDecodingMethod:(int64_t)method error:(id *)error;
 - (id)getBridgeLayerOutputE1:(id)e1 error:(id *)error;
 - (id)getBridgeLayerOutputE5:(id)e5 error:(id *)error;
@@ -126,7 +129,7 @@ LABEL_10:
 
 - (id)computeDecodedCaptionsForFeaturesWithCSUBuffer:(id)buffer withDecodingMethod:(int64_t)method error:(id *)error
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   bufferCopy = buffer;
   v17 = objc_msgSend_runtimeEngine(self->_configuration, v9, v10, v11, v12);
   configuration = self->_configuration;
@@ -155,8 +158,8 @@ LABEL_3:
         v35 = objc_alloc(MEMORY[0x1E695FED0]);
         v36 = *v33;
         v40 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x1E696AD98], v37, v34, v38, v39);
-        v52[0] = v40;
-        v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v41, v52, 1, v42);
+        v51[0] = v40;
+        v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v41, v51, 1, v42);
         v45 = objc_msgSend_initWithDataPointer_shape_dataType_strides_deallocator_error_(v35, v44, v36, v43, 65568, &unk_1F20DF028, 0, error);
 
         v23 = objc_msgSend_computeDecodedCaptionsForFeaturesE5_withDecodingMethod_runDecoderOnly_error_(self, v46, v45, method, 0, error);
@@ -187,38 +190,36 @@ LABEL_3:
   *error = v23 = 0;
 LABEL_11:
 
-  v49 = *MEMORY[0x1E69E9840];
-
   return v23;
 }
 
 - (id)computeDecodedCaptionsForFeatures:(id)features withDecodingMethod:(int64_t)method error:(id *)error
 {
-  v94[1] = *MEMORY[0x1E69E9840];
+  v93[1] = *MEMORY[0x1E69E9840];
   featuresCopy = features;
   if (objc_msgSend_runtimeEngine(self->_configuration, v9, v10, v11, v12) == 1)
   {
     objc_msgSend_tensorForInputEmbedding_(CSUDataUtilities, v13, featuresCopy, v15, v16);
-    v17 = *(v92 + 40);
-    v18 = *(v92 + 24);
-    v78 = *(v92 + 8);
-    v79 = v18;
-    v80 = v17;
-    v19 = *(v92 + 72);
-    v20 = *(v92 + 104);
-    v21 = *(v92 + 56);
-    v83 = *(v92 + 88);
-    v84 = v20;
-    v81 = v21;
-    v82 = v19;
-    v22 = *(v92 + 120);
-    v23 = *(v92 + 136);
-    v24 = *(v92 + 152);
-    v88 = *(v92 + 168);
-    v86 = v23;
-    v87 = v24;
-    v85 = v22;
-    v28 = objc_msgSend_fromEspressoBuffer_(CSUEspressoBuffer, v25, &v78, v26, v27);
+    v17 = *(v91 + 40);
+    v18 = *(v91 + 24);
+    v77 = *(v91 + 8);
+    v78 = v18;
+    v79 = v17;
+    v19 = *(v91 + 72);
+    v20 = *(v91 + 104);
+    v21 = *(v91 + 56);
+    v82 = *(v91 + 88);
+    v83 = v20;
+    v80 = v21;
+    v81 = v19;
+    v22 = *(v91 + 120);
+    v23 = *(v91 + 136);
+    v24 = *(v91 + 152);
+    v87 = *(v91 + 168);
+    v85 = v23;
+    v86 = v24;
+    v84 = v22;
+    v28 = objc_msgSend_fromEspressoBuffer_(CSUEspressoBuffer, v25, &v77, v26, v27);
     v33 = objc_msgSend_bridgeNetworkPath(self->_configuration, v29, v30, v31, v32);
     v34 = v33 == 0;
 
@@ -234,8 +235,8 @@ LABEL_11:
       v44 = featuresCopy;
       v49 = objc_msgSend_bytes(v44, v45, v46, v47, v48);
       v53 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x1E696AD98], v50, v42 >> 2, v51, v52);
-      v94[0] = v53;
-      v56 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v54, v94, 1, v55);
+      v93[0] = v53;
+      v56 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v54, v93, 1, v55);
       v58 = objc_msgSend_initWithDataPointer_shape_dataType_strides_deallocator_error_(v43, v57, v49, v56, 65568, &unk_1F20DF040, 0, error);
 
       v36 = objc_msgSend_computeDecodedCaptionsForFeaturesE5_withDecodingMethod_runDecoderOnly_error_(self, v59, v58, method, 0, error);
@@ -251,48 +252,108 @@ LABEL_11:
     }
 
     objc_msgSend_tensorForInputEmbedding_(CSUDataUtilities, v60, featuresCopy, v61, v62);
-    v63 = *(v92 + 40);
-    v64 = *(v92 + 24);
-    v78 = *(v92 + 8);
-    v79 = v64;
-    v80 = v63;
-    v65 = *(v92 + 72);
-    v66 = *(v92 + 104);
-    v67 = *(v92 + 56);
-    v83 = *(v92 + 88);
-    v84 = v66;
-    v81 = v67;
-    v82 = v65;
-    v68 = *(v92 + 120);
-    v69 = *(v92 + 136);
-    v70 = *(v92 + 152);
-    v88 = *(v92 + 168);
-    v86 = v69;
-    v87 = v70;
-    v85 = v68;
-    v74 = objc_msgSend_fromEspressoBuffer_(CSUEspressoBuffer, v71, &v78, v72, v73);
+    v63 = *(v91 + 40);
+    v64 = *(v91 + 24);
+    v77 = *(v91 + 8);
+    v78 = v64;
+    v79 = v63;
+    v65 = *(v91 + 72);
+    v66 = *(v91 + 104);
+    v67 = *(v91 + 56);
+    v82 = *(v91 + 88);
+    v83 = v66;
+    v80 = v67;
+    v81 = v65;
+    v68 = *(v91 + 120);
+    v69 = *(v91 + 136);
+    v70 = *(v91 + 152);
+    v87 = *(v91 + 168);
+    v85 = v69;
+    v86 = v70;
+    v84 = v68;
+    v74 = objc_msgSend_fromEspressoBuffer_(CSUEspressoBuffer, v71, &v77, v72, v73);
     v36 = objc_msgSend_computeDecodedCaptionsForFeaturesAXKVCacheE1_withDecodingMethod_runDecoderOnly_error_(self, v75, v74, method, 1, error);
   }
 
-  v89 = &unk_1F20D01C0;
-  v37 = v93;
-  if (v93 && !atomic_fetch_add(&v93->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v88 = &unk_1F20D01C0;
+  v37 = v92;
+  if (v92 && !atomic_fetch_add(&v92->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v37->__on_zero_shared)(v37);
     std::__shared_weak_count::__release_weak(v37);
   }
 
-  if (v90)
+  if (v89)
   {
-    v91 = v90;
-    operator delete(v90);
+    v90 = v89;
+    operator delete(v89);
   }
 
 LABEL_13:
 
-  v76 = *MEMORY[0x1E69E9840];
-
   return v36;
+}
+
+- (id)computeDecodedCaptionsForFeaturesE1:(id)e1 withDecodingMethod:(int64_t)method runDecoderOnly:(BOOL)only error:(id *)error
+{
+  onlyCopy = only;
+  e1Copy = e1;
+  if (self->_imageCaptioningDecoderE1 && (objc_msgSend_loadResources_(self, v10, error, v11, v12) & 1) != 0)
+  {
+    v15 = objc_msgSend_computeDecodedCaptionsForFeatures_withDecodingMethod_runDecoderOnly_error_(self->_imageCaptioningDecoderE1, v14, e1Copy, method, onlyCopy, error);
+    v18 = objc_msgSend_postProcessResults_error_(self, v16, v15, error, v17);
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
+}
+
+- (id)computeDecodedCaptionsForFeaturesAXKVCacheE1:(id)e1 withDecodingMethod:(int64_t)method runDecoderOnly:(BOOL)only error:(id *)error
+{
+  onlyCopy = only;
+  e1Copy = e1;
+  if (self->_imageCaptioningDecoderAXKVCacheE1 && (objc_msgSend_loadResources_(self, v10, error, v11, v12) & 1) != 0)
+  {
+    v15 = objc_msgSend_computeDecodedCaptionsForFeatures_withDecodingMethod_runDecoderOnly_error_(self->_imageCaptioningDecoderAXKVCacheE1, v14, e1Copy, method, onlyCopy, error);
+    v18 = objc_msgSend_postProcessResults_error_(self, v16, v15, error, v17);
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
+}
+
+- (id)computeDecodedCaptionsForFeaturesE5:(id)e5 withDecodingMethod:(int64_t)method runDecoderOnly:(BOOL)only error:(id *)error
+{
+  onlyCopy = only;
+  e5Copy = e5;
+  if (self->_imageCaptioningDecoderE5 && (objc_msgSend_loadResources_(self, v10, error, v11, v12) & 1) != 0)
+  {
+    v17 = objc_msgSend_computeDecodedCaptionsForFeatures_withDecodingMethod_runDecoderOnly_error_(self->_imageCaptioningDecoderE5, v14, e5Copy, method, onlyCopy, error);
+    if (v17)
+    {
+      v18 = objc_msgSend_postProcessResults_error_(self, v15, v17, error, v16);
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
 }
 
 - (id)getBridgeLayerOutputE5:(id)e5 error:(id *)error
@@ -372,7 +433,7 @@ LABEL_7:
       goto LABEL_7;
   }
 
-  v18 = sub_1AC090E50();
+  v18 = sub_1AC090E50(v11);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     sub_1AC1201A0(v18);

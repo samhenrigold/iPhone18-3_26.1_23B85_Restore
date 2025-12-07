@@ -76,7 +76,7 @@
 
 - (void)setFence:(float)fence withCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
   if (+[IRCMPDRFenceBridge isAvailable]&& [(IRCMPDRFenceBridge *)self isSessionStarted])
@@ -95,26 +95,26 @@
       *&v11 = fence;
       v12 = [MEMORY[0x277CCABB0] numberWithFloat:v11];
       *buf = 138412546;
-      v23 = fenceIdentifier2;
-      v24 = 2112;
-      v25 = v12;
+      v22 = fenceIdentifier2;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_INFO, "#pdr-fence-bridge, Setting PDR fence (%@) with radius %@", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     fenceManager2 = [(IRCMPDRFenceBridge *)self fenceManager];
     fenceIdentifier3 = [(IRCMPDRFenceBridge *)self fenceIdentifier];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __46__IRCMPDRFenceBridge_setFence_withCompletion___block_invoke;
-    v20[3] = &unk_2797E0FC0;
-    objc_copyWeak(&v21, buf);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __46__IRCMPDRFenceBridge_setFence_withCompletion___block_invoke;
+    v19[3] = &unk_2797E0FC0;
+    objc_copyWeak(&v20, buf);
     *&v15 = fence;
-    [fenceManager2 setFence:fenceIdentifier3 withRadius:v20 withCompletion:v15];
+    [fenceManager2 setFence:fenceIdentifier3 withRadius:v19 withCompletion:v15];
 
     [(IRCMPDRFenceBridge *)self setIsFenceActive:1];
     [(IRCMPDRFenceBridge *)self setCompletionHandler:completionCopy];
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
@@ -123,12 +123,12 @@
     v16 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = [MEMORY[0x277CCABB0] numberWithBool:{+[IRCMPDRFenceBridge isAvailable](IRCMPDRFenceBridge, "isAvailable")}];
-      v19 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCMPDRFenceBridge isSessionStarted](self, "isSessionStarted")}];
+      v17 = [MEMORY[0x277CCABB0] numberWithBool:{+[IRCMPDRFenceBridge isAvailable](IRCMPDRFenceBridge, "isAvailable")}];
+      v18 = [MEMORY[0x277CCABB0] numberWithBool:{-[IRCMPDRFenceBridge isSessionStarted](self, "isSessionStarted")}];
       *buf = 138412546;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v19;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
       _os_log_error_impl(&dword_25543D000, v16, OS_LOG_TYPE_ERROR, "#pdr-fence-bridge, [ErrorId - Pedestrian fence set fail] Failed to set pedestrian fence, isAvailable:%@, isSessionStarted:%@", buf, 0x16u);
     }
 
@@ -136,8 +136,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __46__IRCMPDRFenceBridge_setFence_withCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -191,7 +189,7 @@ void __46__IRCMPDRFenceBridge_setFence_withCompletion___block_invoke(uint64_t a1
 
 void __35__IRCMPDRFenceBridge__startSession__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -200,9 +198,9 @@ void __35__IRCMPDRFenceBridge__startSession__block_invoke(uint64_t a1, void *a2,
     v8 = *MEMORY[0x277D21260];
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "#pdr-fence-bridge, startSessionWithStatusHandler: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_INFO, "#pdr-fence-bridge, startSessionWithStatusHandler: %@", &v9, 0xCu);
     }
 
     if (v6)
@@ -210,13 +208,11 @@ void __35__IRCMPDRFenceBridge__startSession__block_invoke(uint64_t a1, void *a2,
       [WeakRetained _handleFenceCompletionWithError:v6];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFenceCompletionWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   os_unfair_lock_lock(&self->_lock);
   v5 = *MEMORY[0x277D21260];
@@ -227,7 +223,7 @@ void __35__IRCMPDRFenceBridge__startSession__block_invoke(uint64_t a1, void *a2,
     {
       localizedDescription = [errorCopy localizedDescription];
       fenceIdentifier = [(IRCMPDRFenceBridge *)self fenceIdentifier];
-      [(IRCMPDRFenceBridge *)localizedDescription _handleFenceCompletionWithError:fenceIdentifier, v12, v6];
+      [(IRCMPDRFenceBridge *)localizedDescription _handleFenceCompletionWithError:fenceIdentifier, v11, v6];
     }
 
     [(IRCMPDRFenceBridge *)self setIsSessionStarted:0];
@@ -236,8 +232,8 @@ void __35__IRCMPDRFenceBridge__startSession__block_invoke(uint64_t a1, void *a2,
 
   else if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_INFO, "#pdr-fence-bridge, PDR fence completed sucessfully", v12, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_INFO, "#pdr-fence-bridge, PDR fence completed sucessfully", v11, 2u);
   }
 
   completionHandler = [(IRCMPDRFenceBridge *)self completionHandler];
@@ -252,8 +248,6 @@ void __35__IRCMPDRFenceBridge__startSession__block_invoke(uint64_t a1, void *a2,
 
   [(IRCMPDRFenceBridge *)self setIsFenceActive:0];
   os_unfair_lock_unlock(&self->_lock);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isAvailable

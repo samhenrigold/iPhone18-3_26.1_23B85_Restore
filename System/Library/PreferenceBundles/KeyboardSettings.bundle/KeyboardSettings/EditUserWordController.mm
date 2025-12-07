@@ -23,7 +23,9 @@
 - (void)setTarget:(id)target;
 - (void)textFieldDidBeginEditing:(id)editing;
 - (void)textFieldDidEndEditing:(id)editing;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation EditUserWordController
@@ -132,6 +134,36 @@
   v3 = OBJC_IVAR___PSListController__table;
   [*&self->PSListController_opaque[OBJC_IVAR___PSListController__table] setEstimatedSectionHeaderHeight:0.0];
   [*&self->PSListController_opaque[v3] setEstimatedSectionFooterHeight:0.0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = EditUserWordController;
+  [(EditUserWordController *)&v5 viewDidAppear:appear];
+  targetTextField = [(EditUserWordController *)self targetTextField];
+  if (![(NSString *)[(UITextField *)targetTextField text] length])
+  {
+    goto LABEL_5;
+  }
+
+  if ([(EditUserWordController *)self _shouldSetDefaultFirstResponder]|| ![(NSString *)[(UITextField *)[(EditUserWordController *)self shortcutTextField] text] length])
+  {
+    targetTextField = [(EditUserWordController *)self shortcutTextField];
+LABEL_5:
+    [(UITextField *)targetTextField becomeFirstResponder];
+  }
+
+  [objc_msgSend(-[EditUserWordController navigationItem](self "navigationItem")];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = EditUserWordController;
+  [(EditUserWordController *)&v4 viewWillDisappear:disappear];
+  [(UIAlertController *)[(EditUserWordController *)self keyboardAlertController] dismissViewControllerAnimated:1 completion:0];
+  [(EditUserWordController *)self setKeyboardAlertController:0];
 }
 
 - (id)specifiers

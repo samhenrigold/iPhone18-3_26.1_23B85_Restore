@@ -17,88 +17,85 @@
 - (void)signInEnablingAccountCreation:(BOOL)creation completion:(id)completion
 {
   v7 = sub_2805C(&qword_CA5E8, &qword_A0850);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v17 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  *(v12 + 16) = creation;
-  *(v12 + 24) = v11;
-  *(v12 + 32) = self;
-  v13 = sub_8468C();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  *(v11 + 16) = creation;
+  *(v11 + 24) = v10;
+  *(v11 + 32) = self;
+  v12 = sub_8468C();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_A17E0;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_A17E0;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_A17E8;
-  v15[5] = v14;
+  v14[4] = &unk_A17E8;
+  v14[5] = v13;
   selfCopy = self;
-  sub_55564(0, 0, v10, &unk_A17F0, v15);
+  sub_55564(0, 0, v9, &unk_A17F0, v14);
 }
 
 - (void)presentGiftViewControllerForAdamID:(NSString *)d options:(NSDictionary *)options completion:(id)completion
 {
   v9 = sub_2805C(&qword_CA5E8, &qword_A0850);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(completion);
-  v14 = swift_allocObject();
-  v14[2] = d;
-  v14[3] = options;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_8468C();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(completion);
+  v13 = swift_allocObject();
+  v13[2] = d;
+  v13[3] = options;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_8468C();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_A17C0;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_A17C0;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_A17C8;
-  v17[5] = v16;
+  v16[4] = &unk_A17C8;
+  v16[5] = v15;
   dCopy = d;
   optionsCopy = options;
   selfCopy = self;
-  sub_55564(0, 0, v12, &unk_A17D0, v17);
+  sub_55564(0, 0, v11, &unk_A17D0, v16);
 }
 
 - (void)presentRedeemViewControllerForRedemptionCode:(NSString *)code options:(NSDictionary *)options completion:(id)completion
 {
   v9 = sub_2805C(&qword_CA5E8, &qword_A0850);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(completion);
-  v14 = swift_allocObject();
-  v14[2] = code;
-  v14[3] = options;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_8468C();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(completion);
+  v13 = swift_allocObject();
+  v13[2] = code;
+  v13[3] = options;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_8468C();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_A1778;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_A1778;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_A11F8;
-  v17[5] = v16;
+  v16[4] = &unk_A11F8;
+  v16[5] = v15;
   codeCopy = code;
   optionsCopy = options;
   selfCopy = self;
-  sub_55564(0, 0, v12, &unk_A1200, v17);
+  sub_55564(0, 0, v11, &unk_A1200, v16);
 }
 
 - (void)presentGiftViewControllerForAdamID:(id)d :(id)a4 :(id)a5
@@ -136,71 +133,68 @@ LABEL_4:
 - (void)presentRedeemViewControllerForRedemptionCode:(id)code :(id)a4 :(id)a5
 {
   v9 = sub_2805C(&qword_CA5E8, &qword_A0850);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v18 - v11;
+  v11 = &v17 - v10;
   if (a4)
   {
     a4 = sub_8434C();
   }
 
-  v13 = sub_8468C();
-  (*(*(v13 - 8) + 56))(v12, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = code;
-  v14[5] = self;
-  v14[6] = a4;
-  v14[7] = a5;
+  v12 = sub_8468C();
+  (*(*(v12 - 8) + 56))(v11, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = code;
+  v13[5] = self;
+  v13[6] = a4;
+  v13[7] = a5;
   codeCopy = code;
-  v16 = a5;
+  v15 = a5;
   selfCopy = self;
-  sub_2D4A4(0, 0, v12, &unk_A1758, v14);
+  sub_2D4A4(0, 0, v11, &unk_A1758, v13);
 }
 
 - (void)viewAppleID:(id)d :(id)a4
 {
   v6 = sub_2805C(&qword_CA5E8, &qword_A0850);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v13 - v8;
+  v8 = &v12 - v7;
   if (a4)
   {
     a4 = sub_8434C();
   }
 
-  v10 = sub_8468C();
-  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = a4;
-  v11[5] = d;
+  v9 = sub_8468C();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = a4;
+  v10[5] = d;
   dCopy = d;
-  sub_2D4A4(0, 0, v9, &unk_A1750, v11);
+  sub_2D4A4(0, 0, v8, &unk_A1750, v10);
 }
 
 - (void)signIn:(id)in
 {
   v5 = sub_2805C(&qword_CA5E8, &qword_A0850);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v15 - v7;
-  v9 = objc_allocWithZone(AMSAuthenticateOptions);
+  v7 = &v14 - v6;
+  v8 = objc_allocWithZone(AMSAuthenticateOptions);
   inCopy = in;
   selfCopy = self;
-  v12 = [v9 init];
-  [v12 setEnableAccountCreation:1];
-  v13 = sub_8468C();
-  (*(*(v13 - 8) + 56))(v8, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = selfCopy;
-  v14[5] = v12;
-  v14[6] = inCopy;
-  sub_2D4A4(0, 0, v8, &unk_A1748, v14);
+  v11 = [v8 init];
+  [v11 setEnableAccountCreation:1];
+  v12 = sub_8468C();
+  (*(*(v12 - 8) + 56))(v7, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = selfCopy;
+  v13[5] = v11;
+  v13[6] = inCopy;
+  sub_2D4A4(0, 0, v7, &unk_A1748, v13);
 }
 
 - (void)signOut:(id)out

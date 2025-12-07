@@ -20,9 +20,11 @@
 
 uint64_t __45__CLKRenderingContext_sharedRenderingContext__block_invoke()
 {
-  sharedRenderingContext_sharedRenderingContext = [[CLKRenderingContext alloc] _init];
+  v0 = [[CLKRenderingContext alloc] _init];
+  v1 = sharedRenderingContext_sharedRenderingContext;
+  sharedRenderingContext_sharedRenderingContext = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_init

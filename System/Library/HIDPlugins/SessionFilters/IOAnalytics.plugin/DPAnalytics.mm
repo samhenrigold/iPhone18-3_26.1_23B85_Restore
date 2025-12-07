@@ -37,7 +37,7 @@
 
 - (void)start
 {
-  v3 = [(DPAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -62,7 +62,7 @@ void __20__DPAnalytics_start__block_invoke(uint64_t a1)
   v3 = *(a1 + 32);
   if (v2)
   {
-    v4 = [v3 log];
+    v4 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __20__DPAnalytics_start__block_invoke_cold_1();
@@ -80,7 +80,7 @@ void __20__DPAnalytics_start__block_invoke(uint64_t a1)
 
 - (void)stop
 {
-  v3 = [(DPAnalytics *)self log];
+  v3 = objc_msgSend_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -113,7 +113,7 @@ void __19__DPAnalytics_stop__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = [v3 log];
+    v5 = objc_msgSend_log(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __19__DPAnalytics_stop__block_invoke_cold_1();
@@ -125,18 +125,18 @@ void __19__DPAnalytics_stop__block_invoke(uint64_t a1)
 {
   if (![(DPAnalytics *)self monitoring]&& [(DPAnalytics *)self started])
   {
-    v3 = [(DPAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Starting matching notifications...", buf, 2u);
     }
 
-    v4 = [(DPAnalytics *)self log];
+    v4 = objc_msgSend_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Starting event monitoring...", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Starting event monitoring...", v14, 2u);
     }
 
     [(DPAnalytics *)self setMonitoring:1];
@@ -146,25 +146,25 @@ void __19__DPAnalytics_stop__block_invoke(uint64_t a1)
     IONotificationPortSetDispatchQueue(ioNotificationPort, queue);
 
     v7 = IOServiceMatching("IOPortTransportStateDisplayPort");
-    v8 = v7;
+    v9 = v7;
     if (v7)
     {
       [(__CFDictionary *)v7 setObject:&off_24100 forKey:@"IOPropertyExistsMatch"];
-      [(__CFDictionary *)v8 setObject:&off_24168 forKey:@"IOPropertyMatch"];
-      v9 = [(DPAnalytics *)self log];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      [(__CFDictionary *)v9 setObject:&off_24168 forKey:@"IOPropertyMatch"];
+      v10 = objc_msgSend_log(self);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        [(AUVDMAnalytics *)v8 _startEventMonitoring];
+        [(AUVDMAnalytics *)v9 _startEventMonitoring];
       }
 
-      v10 = IOServiceAddMatchingNotification([(DPAnalytics *)self ioNotificationPort], "IOServiceMatched", v8, _servicesMatched_4, self, &self->_ioServiceMatchingIterator);
-      if (!v10)
+      v11 = IOServiceAddMatchingNotification([(DPAnalytics *)self ioNotificationPort], "IOServiceMatched", v9, _servicesMatched_4, self, &self->_ioServiceMatchingIterator);
+      if (!v11)
       {
         _servicesMatched_4(self, self->_ioServiceMatchingIterator);
-        v11 = 1;
+        v12 = 1;
 LABEL_12:
 
-        return v11;
+        return v12;
       }
 
       [(AUVDMAnalytics *)self _startEventMonitoring];
@@ -175,7 +175,7 @@ LABEL_12:
       [(DPAnalytics *)self _startEventMonitoring];
     }
 
-    v11 = 0;
+    v12 = 0;
     goto LABEL_12;
   }
 
@@ -186,7 +186,7 @@ LABEL_12:
 {
   if ([(DPAnalytics *)self monitoring])
   {
-    v3 = [(DPAnalytics *)self log];
+    v3 = objc_msgSend_log(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -213,7 +213,7 @@ LABEL_12:
   {
     memset(name, 0, sizeof(name));
     IORegistryEntryGetName(matched, name);
-    v5 = [(DPAnalytics *)self log];
+    v5 = objc_msgSend_log(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       OUTLINED_FUNCTION_15();
@@ -223,28 +223,28 @@ LABEL_12:
 
     if (![(DPAnalytics *)self analyticsEventsEnabled])
     {
-      v5 = [(DPAnalytics *)self log];
+      v5 = objc_msgSend_log(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         OUTLINED_FUNCTION_5_3();
         OUTLINED_FUNCTION_8_1();
-        _os_log_impl(v18, v19, OS_LOG_TYPE_INFO, v20, v21, 0xCu);
+        _os_log_impl(v19, v20, OS_LOG_TYPE_INFO, v21, v22, 0xCu);
       }
 
-      goto LABEL_156;
+      goto LABEL_154;
     }
 
     if (!IOObjectConformsTo(matched, "IOPortTransportStateDisplayPort"))
     {
-      v22 = [(DPAnalytics *)self log];
-      if (OUTLINED_FUNCTION_18(v22))
+      v23 = objc_msgSend_log(self);
+      if (OUTLINED_FUNCTION_18(v23))
       {
         OUTLINED_FUNCTION_5_3();
         OUTLINED_FUNCTION_8_1();
-        _os_log_error_impl(v23, v24, OS_LOG_TYPE_ERROR, v25, v26, 0xCu);
+        _os_log_error_impl(v24, v25, OS_LOG_TYPE_ERROR, v26, v27, 0xCu);
       }
 
-      goto LABEL_156;
+      goto LABEL_154;
     }
 
     v10 = objc_alloc_init(NSMutableDictionary);
@@ -252,85 +252,64 @@ LABEL_12:
     CFProperty = IORegistryEntryCreateCFProperty(v11, v12, v13, v14);
     objc_opt_class();
     v16 = OUTLINED_FUNCTION_1_5();
-    v17 = castNSObjectToType(v16);
+    v18 = castNSObjectToType(v16, v17);
 
-    if (v17)
+    if (v18)
     {
-      [(__CFString *)v10 setObject:v17 forKey:@"PortType"];
+      [(__CFString *)v10 setObject:v18 forKey:@"PortType"];
     }
 
     else
     {
-      v27 = [(DPAnalytics *)self log];
-      if (OUTLINED_FUNCTION_5_0(v27))
+      v28 = objc_msgSend_log(self);
+      if (OUTLINED_FUNCTION_5_0(v28))
       {
-        OUTLINED_FUNCTION_4_3(&dword_0, v28, v29, "Could not find parent port type!", v30, v31, v32, v33, v309, v310, v311, v312, v313, v315, v317, v318, v322, v324, v326, v328, v330, v332, v334, v337, v339, v340, v341, v342, v343, cf, 0);
+        *buf = 0;
+        OUTLINED_FUNCTION_4_3(&dword_0, v29, v30, "Could not find parent port type!", v31, v32, v33, v34, v320, v321, v322, v323, v324, v326, v328, v329, v333, v335, v337, v339, v341, v343, v345, v348, v350, v351, v352, v353, v354, cf);
       }
     }
 
-    v34 = OUTLINED_FUNCTION_1_6();
-    v38 = IORegistryEntryCreateCFProperty(v34, v35, v36, v37);
+    v35 = OUTLINED_FUNCTION_1_6();
+    v39 = IORegistryEntryCreateCFProperty(v35, v36, v37, v38);
     objc_opt_class();
-    v39 = OUTLINED_FUNCTION_1_5();
-    v40 = castNSObjectToType(v39);
+    v40 = OUTLINED_FUNCTION_1_5();
+    v42 = castNSObjectToType(v40, v41);
 
-    if (v40)
+    if (v42)
     {
-      [(__CFString *)v10 setObject:v40 forKey:@"PortNumber"];
-      if (v17)
+      [(__CFString *)v10 setObject:v42 forKey:@"PortNumber"];
+      if (v18)
       {
-        v41 = IOServiceMatching("IOPort");
-        v353[0] = @"PortType";
-        v353[1] = @"PortNumber";
-        v354[0] = v17;
-        v354[1] = v40;
-        v335 = v40;
-        v42 = [NSDictionary dictionaryWithObjects:v354 forKeys:v353 count:2];
-        [(__CFDictionary *)v41 setObject:v42 forKey:@"IOPropertyMatch"];
+        v43 = IOServiceMatching("IOPort");
+        v364[0] = @"PortType";
+        v364[1] = @"PortNumber";
+        v365[0] = v18;
+        v365[1] = v42;
+        v346 = v42;
+        v44 = [NSDictionary dictionaryWithObjects:v365 forKeys:v364 count:2];
+        [(__CFDictionary *)v43 setObject:v44 forKey:@"IOPropertyMatch"];
 
-        v43 = [(DPAnalytics *)self log];
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        v45 = objc_msgSend_log(self);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
         {
           OUTLINED_FUNCTION_15();
-          _os_log_debug_impl(&dword_0, v43, OS_LOG_TYPE_DEBUG, "matchingDict: %@", buf, 0xCu);
+          _os_log_debug_impl(&dword_0, v45, OS_LOG_TYPE_DEBUG, "matchingDict: %@", buf, 0xCu);
         }
 
-        v44 = v41;
-        MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v44);
+        v46 = v43;
+        MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v46);
         if (MatchingService)
         {
-          v46 = MatchingService;
-          v47 = IORegistryEntryCreateCFProperty(MatchingService, @"BuiltIn", kCFAllocatorDefault, 0);
-          objc_opt_class();
-          v48 = castNSObjectToType(v47);
+          v48 = MatchingService;
+          v49 = IORegistryEntryCreateCFProperty(MatchingService, @"BuiltIn", kCFAllocatorDefault, 0);
+          v50 = objc_opt_class();
+          v51 = castNSObjectToType(v49, v50);
 
           selfCopy = self;
-          if (v48)
+          if (v51)
           {
-            v50 = v17;
-            [(__CFString *)v10 setObject:v48 forKey:@"PortBuiltIn"];
-          }
-
-          else
-          {
-            v69 = &_os_log_default;
-            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 0;
-              OUTLINED_FUNCTION_5_4();
-              _os_log_error_impl(v277, v278, v279, v280, v281, v282);
-            }
-
-            v50 = v17;
-          }
-
-          v70 = IORegistryEntryCreateCFProperty(v46, @"ConnectionUUID", kCFAllocatorDefault, 0);
-          objc_opt_class();
-          v71 = castNSObjectToType(v70);
-
-          if (v71)
-          {
-            [(__CFString *)v10 setObject:v71 forKey:@"ConnectionUUID"];
+            v53 = v18;
+            [(__CFString *)v10 setObject:v51 forKey:@"PortBuiltIn"];
           }
 
           else
@@ -340,592 +319,623 @@ LABEL_12:
             {
               *buf = 0;
               OUTLINED_FUNCTION_5_4();
-              _os_log_error_impl(v283, v284, v285, v286, v287, v288);
+              _os_log_error_impl(v288, v289, v290, v291, v292, v293);
+            }
+
+            v53 = v18;
+          }
+
+          v73 = IORegistryEntryCreateCFProperty(v48, @"ConnectionUUID", kCFAllocatorDefault, 0);
+          v74 = objc_opt_class();
+          v75 = castNSObjectToType(v73, v74);
+
+          if (v75)
+          {
+            [(__CFString *)v10 setObject:v75 forKey:@"ConnectionUUID"];
+          }
+
+          else
+          {
+            v76 = &_os_log_default;
+            if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 0;
+              OUTLINED_FUNCTION_5_4();
+              _os_log_error_impl(v294, v295, v296, v297, v298, v299);
             }
           }
 
-          v17 = v50;
-          IOObjectRelease(v46);
+          v18 = v53;
+          IOObjectRelease(v48);
 
           self = selfCopy;
         }
 
         else
         {
-          v48 = &_os_log_default;
-          v63 = &_os_log_default;
+          v51 = &_os_log_default;
+          v66 = &_os_log_default;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
             OUTLINED_FUNCTION_0_6();
-            _os_log_error_impl(v64, v65, v66, v67, v68, 2u);
+            _os_log_error_impl(v67, v68, v69, v70, v71, 2u);
           }
         }
 
-        v40 = v335;
+        v42 = v346;
         goto LABEL_40;
       }
     }
 
     else
     {
-      v51 = [(DPAnalytics *)self log];
-      if (OUTLINED_FUNCTION_5_0(v51))
+      v54 = objc_msgSend_log(self);
+      if (OUTLINED_FUNCTION_5_0(v54))
       {
-        OUTLINED_FUNCTION_4_3(&dword_0, v52, v53, "Could not find parent port number!", v54, v55, v56, v57, v309, v310, v311, v312, v313, v315, v317, v318, v322, v324, v326, v328, v330, v332, v334, v337, v339, v340, v341, v342, v343, cf, 0);
+        *buf = 0;
+        OUTLINED_FUNCTION_4_3(&dword_0, v55, v56, "Could not find parent port number!", v57, v58, v59, v60, v320, v321, v322, v323, v324, v326, v328, v329, v333, v335, v337, v339, v341, v343, v345, v348, v350, v351, v352, v353, v354, cf);
       }
     }
 
     cf = 0;
-    v58 = OUTLINED_FUNCTION_1_6();
-    IORegistryEntryCreateCFProperties(v58, v59, v60, v61);
-    v62 = [(DPAnalytics *)self log];
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
+    v61 = OUTLINED_FUNCTION_1_6();
+    IORegistryEntryCreateCFProperties(v61, v62, v63, v64);
+    v65 = objc_msgSend_log(self);
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
     {
       OUTLINED_FUNCTION_5_3();
-      _os_log_fault_impl(&dword_0, v62, OS_LOG_TYPE_FAULT, "Could not find parent port type and number! (serviceProperties: %@)", buf, 0xCu);
+      _os_log_fault_impl(&dword_0, v65, OS_LOG_TYPE_FAULT, "Could not find parent port type and number! (serviceProperties: %@)", buf, 0xCu);
     }
 
 LABEL_40:
-    v73 = OUTLINED_FUNCTION_1_6();
-    v77 = IORegistryEntryCreateCFProperty(v73, v74, v75, v76);
+    v77 = OUTLINED_FUNCTION_1_6();
+    v81 = IORegistryEntryCreateCFProperty(v77, v78, v79, v80);
     objc_opt_class();
-    v78 = OUTLINED_FUNCTION_1_5();
-    v79 = castNSObjectToType(v78);
+    v82 = OUTLINED_FUNCTION_1_5();
+    v84 = castNSObjectToType(v82, v83);
 
-    v336 = v79;
+    v347 = v84;
     selfCopy2 = self;
-    if (v79)
+    if (v84)
     {
-      v80 = v10;
-      [(__CFString *)v10 setObject:v79 forKey:@"TransportTunneled"];
+      v85 = v10;
+      [(__CFString *)v10 setObject:v84 forKey:@"TransportTunneled"];
     }
 
     else
     {
-      v80 = v10;
-      v81 = [(DPAnalytics *)self log];
-      if (OUTLINED_FUNCTION_5_0(v81))
+      v85 = v10;
+      v86 = objc_msgSend_log(self);
+      if (OUTLINED_FUNCTION_5_0(v86))
       {
-        OUTLINED_FUNCTION_4_3(&dword_0, v82, v83, "Could not find if transport is tunneled!", v84, v85, v86, v87, v309, v310, v311, v312, v313, v315, v317, v318, v322, v324, v326, v328, v330, v332, 0, self, v339, v340, v341, v342, v343, cf, 0);
+        *buf = 0;
+        OUTLINED_FUNCTION_4_3(&dword_0, v87, v88, "Could not find if transport is tunneled!", v89, v90, v91, v92, v320, v321, v322, v323, v324, v326, v328, v329, v333, v335, v337, v339, v341, v343, 0, self, v350, v351, v352, v353, v354, cf);
       }
     }
 
-    v88 = v40;
-    v89 = OUTLINED_FUNCTION_1_6();
-    IORegistryEntryCreateCFProperty(v89, v90, v91, v92);
+    v93 = v42;
+    v94 = OUTLINED_FUNCTION_1_6();
+    IORegistryEntryCreateCFProperty(v94, v95, v96, v97);
     OUTLINED_FUNCTION_14();
-    v93 = OUTLINED_FUNCTION_1_5();
-    v94 = castNSObjectToType(v93);
+    v98 = OUTLINED_FUNCTION_1_5();
+    v100 = castNSObjectToType(v98, v99);
 
-    if (v94)
+    if (v100)
     {
-      v95 = v17;
+      v101 = v18;
       OUTLINED_FUNCTION_12();
     }
 
     else
     {
-      v96 = [(DPAnalytics *)selfCopy2 log];
-      if (OUTLINED_FUNCTION_5_0(v96))
+      v102 = objc_msgSend_log(selfCopy2);
+      if (OUTLINED_FUNCTION_5_0(v102))
       {
-        OUTLINED_FUNCTION_4_3(&dword_0, v97, v98, "Could not find role!", v99, v100, v101, v102, v309, v310, v311, v312, v313, v315, v317, v318, v322, v324, v326, v328, v330, v332, v336, selfCopy2, v339, v340, v341, v342, v343, cf, 0);
+        *buf = 0;
+        OUTLINED_FUNCTION_4_3(&dword_0, v103, v104, "Could not find role!", v105, v106, v107, v108, v320, v321, v322, v323, v324, v326, v328, v329, v333, v335, v337, v339, v341, v343, v347, selfCopy2, v350, v351, v352, v353, v354, cf);
       }
 
-      v95 = v17;
+      v101 = v18;
     }
 
-    v103 = OUTLINED_FUNCTION_1_6();
-    IORegistryEntryCreateCFProperty(v103, v104, v105, v106);
+    v109 = OUTLINED_FUNCTION_1_6();
+    IORegistryEntryCreateCFProperty(v109, v110, v111, v112);
     OUTLINED_FUNCTION_14();
-    v107 = OUTLINED_FUNCTION_1_5();
-    v108 = castNSObjectToType(v107);
+    v113 = OUTLINED_FUNCTION_1_5();
+    v115 = castNSObjectToType(v113, v114);
 
-    v331 = v108;
-    v327 = v95;
-    if (v108)
+    v342 = v115;
+    v338 = v101;
+    if (v115)
     {
-      [(__CFString *)v80 setObject:v108 forKey:@"MaxLaneCount"];
+      [(__CFString *)v85 setObject:v115 forKey:@"MaxLaneCount"];
     }
 
     else
     {
-      v109 = [(DPAnalytics *)selfCopy2 log];
-      if (OUTLINED_FUNCTION_5_0(v109))
+      v116 = objc_msgSend_log(selfCopy2);
+      if (OUTLINED_FUNCTION_5_0(v116))
       {
-        OUTLINED_FUNCTION_4_3(&dword_0, v110, v111, "Could not find maxLaneCount!", v112, v113, v114, v115, v309, v310, v311, v312, v313, v315, v317, v318, v322, v324, v95, v328, 0, v332, v336, selfCopy2, v339, v340, v341, v342, v343, cf, 0);
+        *buf = 0;
+        OUTLINED_FUNCTION_4_3(&dword_0, v117, v118, "Could not find maxLaneCount!", v119, v120, v121, v122, v320, v321, v322, v323, v324, v326, v328, v329, v333, v335, v101, v339, 0, v343, v347, selfCopy2, v350, v351, v352, v353, v354, cf);
       }
     }
 
-    v116 = OUTLINED_FUNCTION_1_6();
-    IORegistryEntryCreateCFProperty(v116, v117, v118, v119);
+    v123 = OUTLINED_FUNCTION_1_6();
+    IORegistryEntryCreateCFProperty(v123, v124, v125, v126);
     OUTLINED_FUNCTION_14();
-    v120 = OUTLINED_FUNCTION_1_5();
-    v121 = castNSObjectToType(v120);
+    v127 = OUTLINED_FUNCTION_1_5();
+    v129 = castNSObjectToType(v127, v128);
 
-    v329 = v121;
-    if (v121)
+    v340 = v129;
+    if (v129)
     {
-      [(__CFString *)v80 setObject:v121 forKey:@"LaneCount"];
-      v122 = v88;
+      [(__CFString *)v85 setObject:v129 forKey:@"LaneCount"];
+      v130 = v93;
     }
 
     else
     {
-      v123 = [(DPAnalytics *)selfCopy2 log];
-      v122 = v88;
-      if (OUTLINED_FUNCTION_5_0(v123))
+      v131 = objc_msgSend_log(selfCopy2);
+      v130 = v93;
+      if (OUTLINED_FUNCTION_5_0(v131))
       {
-        OUTLINED_FUNCTION_4_3(&dword_0, v124, v125, "Could not find laneCount!", v126, v127, v128, v129, v309, v310, v311, v312, v313, v315, v317, v318, v322, v324, v327, 0, v331, v332, v336, selfCopy2, v339, v340, v341, v342, v343, cf, 0);
+        *buf = 0;
+        OUTLINED_FUNCTION_4_3(&dword_0, v132, v133, "Could not find laneCount!", v134, v135, v136, v137, v320, v321, v322, v323, v324, v326, v328, v329, v333, v335, v338, 0, v342, v343, v347, selfCopy2, v350, v351, v352, v353, v354, cf);
       }
     }
 
-    v130 = OUTLINED_FUNCTION_1_6();
-    IORegistryEntryCreateCFProperty(v130, v131, v132, v133);
+    v138 = OUTLINED_FUNCTION_1_6();
+    IORegistryEntryCreateCFProperty(v138, v139, v140, v141);
     OUTLINED_FUNCTION_14();
-    v134 = OUTLINED_FUNCTION_1_5();
-    v135 = castNSObjectToType(v134);
+    v142 = OUTLINED_FUNCTION_1_5();
+    v144 = castNSObjectToType(v142, v143);
 
-    v136 = selfCopy2;
-    v325 = v135;
-    if (v135)
+    v145 = selfCopy2;
+    v336 = v144;
+    if (v144)
     {
-      [(__CFString *)v80 setObject:v135 forKey:@"SinkCount"];
+      [(__CFString *)v85 setObject:v144 forKey:@"SinkCount"];
     }
 
     else
     {
-      v137 = [(DPAnalytics *)selfCopy2 log];
-      if (OUTLINED_FUNCTION_5_0(v137))
+      v146 = objc_msgSend_log(selfCopy2);
+      if (OUTLINED_FUNCTION_5_0(v146))
       {
-        OUTLINED_FUNCTION_4_3(&dword_0, v138, v139, "Could not find sinkCount!", v140, v141, v142, v143, v309, v310, v311, v312, v313, v315, v317, v318, v322, 0, v327, v329, v331, v332, v336, selfCopy2, v339, v340, v341, v342, v343, cf, 0);
+        *buf = 0;
+        OUTLINED_FUNCTION_4_3(&dword_0, v147, v148, "Could not find sinkCount!", v149, v150, v151, v152, v320, v321, v322, v323, v324, v326, v328, v329, v333, 0, v338, v340, v342, v343, v347, selfCopy2, v350, v351, v352, v353, v354, cf);
       }
     }
 
-    v144 = OUTLINED_FUNCTION_1_6();
-    IORegistryEntryCreateCFProperty(v144, v145, v146, v147);
+    v153 = OUTLINED_FUNCTION_1_6();
+    IORegistryEntryCreateCFProperty(v153, v154, v155, v156);
     OUTLINED_FUNCTION_14();
-    v148 = OUTLINED_FUNCTION_1_5();
-    v149 = castNSObjectToType(v148);
+    v157 = OUTLINED_FUNCTION_1_5();
+    v159 = castNSObjectToType(v157, v158);
 
-    v150 = v149;
-    v333 = v94;
-    if (v149)
+    v160 = v159;
+    v344 = v100;
+    if (v159)
     {
-      [(__CFString *)v80 setObject:v149 forKey:@"LinkRate"];
+      [(__CFString *)v85 setObject:v159 forKey:@"LinkRate"];
     }
 
     else
     {
-      v151 = [(DPAnalytics *)v136 log];
-      if (OUTLINED_FUNCTION_5_0(v151))
+      v161 = objc_msgSend_log(v145);
+      if (OUTLINED_FUNCTION_5_0(v161))
       {
-        OUTLINED_FUNCTION_4_3(&dword_0, v152, v153, "Could not find link rate!", v154, v155, v156, v157, v309, v310, v311, v312, v313, v315, v317, v318, v322, v325, v327, v329, v331, v94, v336, selfCopy2, v339, v340, v341, v342, v343, cf, 0);
+        *buf = 0;
+        OUTLINED_FUNCTION_4_3(&dword_0, v162, v163, "Could not find link rate!", v164, v165, v166, v167, v320, v321, v322, v323, v324, v326, v328, v329, v333, v336, v338, v340, v342, v100, v347, selfCopy2, v350, v351, v352, v353, v354, cf);
       }
 
-      v150 = 0;
+      v160 = 0;
     }
 
-    v158 = OUTLINED_FUNCTION_1_6();
-    v162 = IORegistryEntryCreateCFProperty(v158, v159, v160, v161);
-    objc_opt_class();
-    v163 = castNSObjectToType(v162);
+    v168 = OUTLINED_FUNCTION_1_6();
+    v172 = IORegistryEntryCreateCFProperty(v168, v169, v170, v171);
+    v173 = objc_opt_class();
+    v174 = castNSObjectToType(v172, v173);
 
-    if (v163)
+    if (v174)
     {
-      [(__CFString *)v80 setObject:v163 forKey:@"TransportIndex"];
-      v164 = v122;
+      [(__CFString *)v85 setObject:v174 forKey:@"TransportIndex"];
+      v175 = v130;
     }
 
     else
     {
-      v165 = [(DPAnalytics *)v136 log];
-      v164 = v122;
-      if (OUTLINED_FUNCTION_10(v165))
+      v176 = objc_msgSend_log(v145);
+      v175 = v130;
+      if (OUTLINED_FUNCTION_10(v176))
       {
         *buf = 0;
         OUTLINED_FUNCTION_0_6();
-        _os_log_error_impl(v241, v242, v243, v244, v245, 2u);
+        _os_log_error_impl(v252, v253, v254, v255, v256, 2u);
       }
     }
 
-    v166 = OUTLINED_FUNCTION_1_6();
-    v170 = IORegistryEntryCreateCFProperty(v166, v167, v168, v169);
+    v177 = OUTLINED_FUNCTION_1_6();
+    v181 = IORegistryEntryCreateCFProperty(v177, v178, v179, v180);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      goto LABEL_147;
+      goto LABEL_145;
     }
 
-    v171 = [v170 objectForKeyedSubscript:@"ManufacturerName"];
-    v323 = v163;
-    if (v171)
+    v182 = [v181 objectForKeyedSubscript:@"ManufacturerName"];
+    v334 = v174;
+    if (v182)
     {
-      objc_opt_class();
-      v162 = kACCCoreAnalytics_IOPort_Transport_DP_Field_ManufacturerID;
-      if ((OUTLINED_FUNCTION_13() & 1) == 0)
+      v183 = objc_opt_class();
+      v172 = kACCCoreAnalytics_IOPort_Transport_DP_Field_ManufacturerID;
+      if ((OUTLINED_FUNCTION_13(v183) & 1) == 0)
       {
-        objc_opt_class();
-        if (OUTLINED_FUNCTION_13())
+        v191 = objc_opt_class();
+        if (OUTLINED_FUNCTION_13(v191))
         {
           OUTLINED_FUNCTION_8_0();
           goto LABEL_90;
         }
 
-        v181 = [(DPAnalytics *)v136 log];
-        if (OUTLINED_FUNCTION_10(v181))
+        v193 = objc_msgSend_log(v145);
+        if (OUTLINED_FUNCTION_10(v193))
         {
-          v289 = objc_opt_class();
-          v316 = NSStringFromClass(v289);
-          v290 = objc_opt_class();
-          v317 = NSStringFromClass(v290);
-          v291 = objc_opt_class();
-          v292 = NSStringFromClass(v291);
+          v300 = objc_opt_class();
+          v327 = NSStringFromClass(v300);
+          v301 = objc_opt_class();
+          v328 = NSStringFromClass(v301);
+          v302 = objc_opt_class();
+          v303 = NSStringFromClass(v302);
           *buf = 138413058;
-          v346 = @"ManufacturerID";
-          v164 = v122;
-          v347 = 2112;
-          v348 = v316;
-          v349 = 2112;
-          v350 = v317;
-          v351 = 2112;
-          v352 = v292;
-          v293 = v292;
-          v314 = v292;
+          v357 = @"ManufacturerID";
+          v175 = v130;
+          v358 = 2112;
+          v359 = v327;
+          v360 = 2112;
+          v361 = v328;
+          v362 = 2112;
+          v363 = v303;
+          v304 = v303;
+          v325 = v303;
           OUTLINED_FUNCTION_0_6();
-          _os_log_error_impl(v294, v295, v296, v297, v298, 0x2Au);
+          _os_log_error_impl(v305, v306, v307, v308, v309, 0x2Au);
         }
 
 LABEL_89:
 
 LABEL_90:
-        v182 = [v170 objectForKeyedSubscript:@"ProductID"];
+        v194 = [v181 objectForKeyedSubscript:@"ProductID"];
 
-        if (v182)
+        if (v194)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             OUTLINED_FUNCTION_12();
-            goto LABEL_98;
+LABEL_98:
+            v203 = [v181 objectForKeyedSubscript:@"ProductName"];
+
+            if (v203)
+            {
+              v204 = objc_opt_class();
+              if (OUTLINED_FUNCTION_13(v204))
+              {
+                OUTLINED_FUNCTION_8_0();
+              }
+
+              else
+              {
+                v205 = objc_msgSend_log(v145);
+                if (OUTLINED_FUNCTION_10(v205))
+                {
+                  v269 = objc_opt_class();
+                  v332 = NSStringFromClass(v269);
+                  v270 = objc_opt_class();
+                  v271 = NSStringFromClass(v270);
+                  *buf = 136315650;
+                  OUTLINED_FUNCTION_2_5();
+                  OUTLINED_FUNCTION_0_6();
+                  _os_log_error_impl(v272, v273, v274, v275, v276, 0x20u);
+                }
+              }
+            }
+
+            v206 = [v181 objectForKeyedSubscript:@"Model Year"];
+
+            if (v206)
+            {
+              goto LABEL_105;
+            }
+
+            v207 = [v181 objectForKeyedSubscript:@"Week of Manufacture"];
+            v208 = v207;
+            if (v207 && [v207 unsignedIntegerValue])
+            {
+              OUTLINED_FUNCTION_8_0();
+            }
+
+            else
+            {
+              v209 = objc_msgSend_log(v145);
+              if (OUTLINED_FUNCTION_10(v209))
+              {
+                *buf = 0;
+                OUTLINED_FUNCTION_0_6();
+                _os_log_error_impl(v277, v278, v279, v280, v281, 2u);
+              }
+            }
+
+            v206 = [v181 objectForKeyedSubscript:@"Year of Manufacture"];
+
+            if (v206 && [v206 unsignedIntegerValue])
+            {
+LABEL_105:
+              OUTLINED_FUNCTION_12();
+            }
+
+            else
+            {
+              v210 = objc_msgSend_log(v145);
+              if (OUTLINED_FUNCTION_18(v210))
+              {
+                *buf = 0;
+                OUTLINED_FUNCTION_8_1();
+                OUTLINED_FUNCTION_5_4();
+                _os_log_error_impl(v282, v283, v284, v285, v286, v287);
+              }
+            }
+
+            v211 = [v181 objectForKeyedSubscript:@"SinkDeviceOUI"];
+
+            if (v211)
+            {
+              v212 = objc_opt_class();
+              if (OUTLINED_FUNCTION_13(v212))
+              {
+                if ([v211 length] == &dword_0 + 3)
+                {
+                  [v211 bytes];
+                  [OUTLINED_FUNCTION_9_0() bytes];
+                  [v211 bytes];
+                  OUTLINED_FUNCTION_6_3();
+                  v206 = [NSString stringWithFormat:@"%02X-%02X-%02X"];
+                  OUTLINED_FUNCTION_12();
+                }
+
+                else
+                {
+                  v224 = objc_msgSend_log(v145);
+                  if (OUTLINED_FUNCTION_10(v224))
+                  {
+                    [v211 length];
+                    OUTLINED_FUNCTION_15();
+                    OUTLINED_FUNCTION_3_5();
+                    OUTLINED_FUNCTION_0_6();
+                    _os_log_error_impl(v310, v311, v312, v313, v314, 0x1Cu);
+                  }
+                }
+              }
+
+              else
+              {
+                v213 = objc_msgSend_log(v145);
+                if (OUTLINED_FUNCTION_10(v213))
+                {
+                  v214 = objc_opt_class();
+                  v215 = NSStringFromClass(v214);
+                  v216 = objc_opt_class();
+                  v217 = NSStringFromClass(v216);
+                  OUTLINED_FUNCTION_15();
+                  v358 = 2112;
+                  v359 = v215;
+                  v360 = 2112;
+                  v361 = v218;
+                  OUTLINED_FUNCTION_0_6();
+                  _os_log_error_impl(v219, v220, v221, v222, v223, 0x20u);
+                }
+              }
+
+              v174 = v334;
+            }
+
+            v225 = [v181 objectForKeyedSubscript:@"SinkDeviceID"];
+
+            if (v225)
+            {
+              OUTLINED_FUNCTION_12();
+            }
+
+            v226 = [v181 objectForKeyedSubscript:@"BranchDeviceOUI"];
+
+            if (v226)
+            {
+              v227 = objc_opt_class();
+              if (OUTLINED_FUNCTION_13(v227))
+              {
+                if ([v226 length] == &dword_0 + 3)
+                {
+                  [v226 bytes];
+                  [OUTLINED_FUNCTION_9_0() bytes];
+                  [v226 bytes];
+                  OUTLINED_FUNCTION_6_3();
+                  v174 = v334;
+                  v225 = [NSString stringWithFormat:@"%02X-%02X-%02X"];
+                  OUTLINED_FUNCTION_12();
+                }
+
+                else
+                {
+                  v237 = objc_msgSend_log(v145);
+                  if (OUTLINED_FUNCTION_10(v237))
+                  {
+                    [v226 length];
+                    *buf = 136315650;
+                    v357 = "BranchDeviceOUI";
+                    OUTLINED_FUNCTION_3_5();
+                    OUTLINED_FUNCTION_0_6();
+                    _os_log_error_impl(v315, v316, v317, v318, v319, 0x1Cu);
+                  }
+                }
+              }
+
+              else
+              {
+                v228 = objc_msgSend_log(v145);
+                if (OUTLINED_FUNCTION_10(v228))
+                {
+                  v229 = objc_opt_class();
+                  v330 = NSStringFromClass(v229);
+                  v230 = objc_opt_class();
+                  v231 = NSStringFromClass(v230);
+                  *buf = 136315650;
+                  OUTLINED_FUNCTION_2_5();
+                  OUTLINED_FUNCTION_0_6();
+                  _os_log_error_impl(v232, v233, v234, v235, v236, 0x20u);
+                }
+              }
+            }
+
+            v238 = [v181 objectForKeyedSubscript:@"BranchDeviceID"];
+
+            if (v238)
+            {
+              OUTLINED_FUNCTION_12();
+            }
+
+            v239 = [v181 objectForKeyedSubscript:@"DFP Type"];
+
+            if (v239)
+            {
+              OUTLINED_FUNCTION_8_0();
+            }
+
+            else
+            {
+              v240 = objc_msgSend_log(v145);
+              if (OUTLINED_FUNCTION_10(v240))
+              {
+                *buf = 0;
+                OUTLINED_FUNCTION_0_6();
+                _os_log_error_impl(v257, v258, v259, v260, v261, 2u);
+              }
+            }
+
+LABEL_145:
+            v241 = objc_msgSend_log(v145);
+            if (os_log_type_enabled(v241, OS_LOG_TYPE_DEFAULT))
+            {
+              OUTLINED_FUNCTION_5_3();
+              OUTLINED_FUNCTION_8_1();
+              _os_log_impl(v242, v243, OS_LOG_TYPE_DEFAULT, v244, v245, 0xCu);
+            }
+
+            v246 = objc_msgSend_log(v145);
+            if (os_log_type_enabled(v246, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 138412290;
+              v357 = v85;
+              OUTLINED_FUNCTION_8_1();
+              _os_log_debug_impl(v248, v249, OS_LOG_TYPE_DEBUG, v250, v251, 0xCu);
+            }
+
+            v5 = v85;
+            if ((AnalyticsSendEventLazy() & 1) == 0)
+            {
+              v247 = objc_msgSend_log(v145);
+              if (os_log_type_enabled(v247, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138412290;
+                v357 = @"com.apple.ioport.transport.DP.published";
+                _os_log_error_impl(&dword_0, v247, OS_LOG_TYPE_ERROR, "Failed to send analytics event! (eventName: %@)", buf, 0xCu);
+              }
+            }
+
+LABEL_154:
+            return;
           }
 
-          v190 = [(DPAnalytics *)v136 log];
-          if (OUTLINED_FUNCTION_18(v190))
+          v202 = objc_msgSend_log(v145);
+          if (OUTLINED_FUNCTION_18(v202))
           {
-            v251 = objc_opt_class();
-            v320 = NSStringFromClass(v251);
-            v252 = objc_opt_class();
-            v253 = NSStringFromClass(v252);
+            v262 = objc_opt_class();
+            v331 = NSStringFromClass(v262);
+            v263 = objc_opt_class();
+            v264 = NSStringFromClass(v263);
             *buf = 136315650;
             OUTLINED_FUNCTION_2_5();
             OUTLINED_FUNCTION_8_1();
-            _os_log_error_impl(v254, v255, OS_LOG_TYPE_ERROR, v256, v257, 0x20u);
+            _os_log_error_impl(v265, v266, OS_LOG_TYPE_ERROR, v267, v268, 0x20u);
           }
         }
 
         else
         {
-          v183 = [(DPAnalytics *)v136 log];
-          if (OUTLINED_FUNCTION_18(v183))
+          v195 = objc_msgSend_log(v145);
+          if (OUTLINED_FUNCTION_18(v195))
           {
             *buf = 0;
             OUTLINED_FUNCTION_8_1();
             OUTLINED_FUNCTION_5_4();
-            _os_log_error_impl(v184, v185, v186, v187, v188, v189);
+            _os_log_error_impl(v196, v197, v198, v199, v200, v201);
           }
         }
 
-LABEL_98:
-        v191 = [v170 objectForKeyedSubscript:@"ProductName"];
-
-        if (v191)
-        {
-          objc_opt_class();
-          if (OUTLINED_FUNCTION_13())
-          {
-            OUTLINED_FUNCTION_8_0();
-          }
-
-          else
-          {
-            v192 = [(DPAnalytics *)v136 log];
-            if (OUTLINED_FUNCTION_10(v192))
-            {
-              v258 = objc_opt_class();
-              v321 = NSStringFromClass(v258);
-              v259 = objc_opt_class();
-              v260 = NSStringFromClass(v259);
-              *buf = 136315650;
-              OUTLINED_FUNCTION_2_5();
-              OUTLINED_FUNCTION_0_6();
-              _os_log_error_impl(v261, v262, v263, v264, v265, 0x20u);
-            }
-          }
-        }
-
-        v193 = [v170 objectForKeyedSubscript:@"Model Year"];
-
-        if (v193)
-        {
-          v194 = kACCCoreAnalytics_IOPort_Transport_DP_Field_ModelYear;
-        }
-
-        else
-        {
-          v196 = [v170 objectForKeyedSubscript:@"Week of Manufacture"];
-          v197 = v196;
-          if (v196 && [v196 unsignedIntegerValue])
-          {
-            OUTLINED_FUNCTION_8_0();
-          }
-
-          else
-          {
-            v198 = [(DPAnalytics *)v136 log];
-            if (OUTLINED_FUNCTION_10(v198))
-            {
-              *buf = 0;
-              OUTLINED_FUNCTION_0_6();
-              _os_log_error_impl(v266, v267, v268, v269, v270, 2u);
-            }
-          }
-
-          v193 = [v170 objectForKeyedSubscript:@"Year of Manufacture"];
-
-          if (!v193 || ![v193 unsignedIntegerValue])
-          {
-            v199 = [(DPAnalytics *)v136 log];
-            if (OUTLINED_FUNCTION_18(v199))
-            {
-              *buf = 0;
-              OUTLINED_FUNCTION_8_1();
-              OUTLINED_FUNCTION_5_4();
-              _os_log_error_impl(v271, v272, v273, v274, v275, v276);
-            }
-
-            goto LABEL_119;
-          }
-
-          v194 = kACCCoreAnalytics_IOPort_Transport_DP_Field_YearOfManufacture;
-        }
-
-        v195 = *v194;
-        OUTLINED_FUNCTION_12();
-LABEL_119:
-        v200 = [v170 objectForKeyedSubscript:@"SinkDeviceOUI"];
-
-        if (v200)
-        {
-          objc_opt_class();
-          if (OUTLINED_FUNCTION_13())
-          {
-            if ([v200 length] == &dword_0 + 3)
-            {
-              v201 = *([OUTLINED_FUNCTION_9_0(objc_msgSend(v200 "bytes"))] + 1);
-              OUTLINED_FUNCTION_6_3([v200 bytes]);
-              v193 = [NSString stringWithFormat:@"%02X-%02X-%02X"];
-              OUTLINED_FUNCTION_12();
-            }
-
-            else
-            {
-              v213 = [(DPAnalytics *)v136 log];
-              if (OUTLINED_FUNCTION_10(v213))
-              {
-                [v200 length];
-                OUTLINED_FUNCTION_15();
-                OUTLINED_FUNCTION_3_5();
-                OUTLINED_FUNCTION_0_6();
-                _os_log_error_impl(v299, v300, v301, v302, v303, 0x1Cu);
-              }
-            }
-          }
-
-          else
-          {
-            v202 = [(DPAnalytics *)v136 log];
-            if (OUTLINED_FUNCTION_10(v202))
-            {
-              v203 = objc_opt_class();
-              v204 = NSStringFromClass(v203);
-              v205 = objc_opt_class();
-              v206 = NSStringFromClass(v205);
-              OUTLINED_FUNCTION_15();
-              v347 = 2112;
-              v348 = v204;
-              v349 = 2112;
-              v350 = v207;
-              OUTLINED_FUNCTION_0_6();
-              _os_log_error_impl(v208, v209, v210, v211, v212, 0x20u);
-            }
-          }
-
-          v163 = v323;
-        }
-
-        v214 = [v170 objectForKeyedSubscript:@"SinkDeviceID"];
-
-        if (v214)
-        {
-          OUTLINED_FUNCTION_12();
-        }
-
-        v215 = [v170 objectForKeyedSubscript:@"BranchDeviceOUI"];
-
-        if (v215)
-        {
-          objc_opt_class();
-          if (OUTLINED_FUNCTION_13())
-          {
-            if ([v215 length] == &dword_0 + 3)
-            {
-              v216 = *([OUTLINED_FUNCTION_9_0(objc_msgSend(v215 "bytes"))] + 1);
-              OUTLINED_FUNCTION_6_3([v215 bytes]);
-              v163 = v323;
-              v214 = [NSString stringWithFormat:@"%02X-%02X-%02X"];
-              OUTLINED_FUNCTION_12();
-            }
-
-            else
-            {
-              v226 = [(DPAnalytics *)v136 log];
-              if (OUTLINED_FUNCTION_10(v226))
-              {
-                [v215 length];
-                *buf = 136315650;
-                v346 = "BranchDeviceOUI";
-                OUTLINED_FUNCTION_3_5();
-                OUTLINED_FUNCTION_0_6();
-                _os_log_error_impl(v304, v305, v306, v307, v308, 0x1Cu);
-              }
-            }
-          }
-
-          else
-          {
-            v217 = [(DPAnalytics *)v136 log];
-            if (OUTLINED_FUNCTION_10(v217))
-            {
-              v218 = objc_opt_class();
-              v319 = NSStringFromClass(v218);
-              v219 = objc_opt_class();
-              v220 = NSStringFromClass(v219);
-              *buf = 136315650;
-              OUTLINED_FUNCTION_2_5();
-              OUTLINED_FUNCTION_0_6();
-              _os_log_error_impl(v221, v222, v223, v224, v225, 0x20u);
-            }
-          }
-        }
-
-        v227 = [v170 objectForKeyedSubscript:@"BranchDeviceID"];
-
-        if (v227)
-        {
-          OUTLINED_FUNCTION_12();
-        }
-
-        v228 = [v170 objectForKeyedSubscript:@"DFP Type"];
-
-        if (v228)
-        {
-          OUTLINED_FUNCTION_8_0();
-        }
-
-        else
-        {
-          v229 = [(DPAnalytics *)v136 log];
-          if (OUTLINED_FUNCTION_10(v229))
-          {
-            *buf = 0;
-            OUTLINED_FUNCTION_0_6();
-            _os_log_error_impl(v246, v247, v248, v249, v250, 2u);
-          }
-        }
-
-LABEL_147:
-        v230 = [(DPAnalytics *)v136 log];
-        if (os_log_type_enabled(v230, OS_LOG_TYPE_DEFAULT))
-        {
-          OUTLINED_FUNCTION_5_3();
-          OUTLINED_FUNCTION_8_1();
-          _os_log_impl(v231, v232, OS_LOG_TYPE_DEFAULT, v233, v234, 0xCu);
-        }
-
-        v235 = [(DPAnalytics *)v136 log];
-        if (os_log_type_enabled(v235, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138412290;
-          v346 = v80;
-          OUTLINED_FUNCTION_8_1();
-          _os_log_debug_impl(v237, v238, OS_LOG_TYPE_DEBUG, v239, v240, 0xCu);
-        }
-
-        v5 = v80;
-        if ((AnalyticsSendEventLazy() & 1) == 0)
-        {
-          v236 = [(DPAnalytics *)v136 log];
-          if (os_log_type_enabled(v236, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138412290;
-            v346 = @"com.apple.ioport.transport.DP.published";
-            _os_log_error_impl(&dword_0, v236, OS_LOG_TYPE_ERROR, "Failed to send analytics event! (eventName: %@)", buf, 0xCu);
-          }
-        }
-
-LABEL_156:
-        return;
+        goto LABEL_98;
       }
 
-      if ([v171 length] == &dword_0 + 3)
+      if ([v182 length] == &dword_0 + 3)
       {
-        v172 = *([OUTLINED_FUNCTION_9_0(objc_msgSend(v171 "bytes"))] + 1);
-        OUTLINED_FUNCTION_6_3([v171 bytes]);
-        v162 = [NSString stringWithFormat:@"%02X-%02X-%02X"];
+        [v182 bytes];
+        [OUTLINED_FUNCTION_9_0() bytes];
+        [v182 bytes];
+        OUTLINED_FUNCTION_6_3();
+        v172 = [NSString stringWithFormat:@"%02X-%02X-%02X"];
         OUTLINED_FUNCTION_12();
         goto LABEL_89;
       }
 
-      v180 = [(DPAnalytics *)v136 log];
-      if (!OUTLINED_FUNCTION_10(v180))
+      v192 = objc_msgSend_log(v145);
+      if (!OUTLINED_FUNCTION_10(v192))
       {
         goto LABEL_89;
       }
 
-      [v171 length];
+      [v182 length];
       *buf = 138412802;
-      v346 = @"ManufacturerID";
+      v357 = @"ManufacturerID";
       OUTLINED_FUNCTION_3_5();
       OUTLINED_FUNCTION_0_6();
-      v179 = 28;
+      v190 = 28;
     }
 
     else
     {
-      v173 = [(DPAnalytics *)v136 log];
-      if (!OUTLINED_FUNCTION_10(v173))
+      v184 = objc_msgSend_log(v145);
+      if (!OUTLINED_FUNCTION_10(v184))
       {
         goto LABEL_89;
       }
 
       *buf = 0;
       OUTLINED_FUNCTION_0_6();
-      v179 = 2;
+      v190 = 2;
     }
 
-    _os_log_error_impl(v174, v175, v176, v177, v178, v179);
+    _os_log_error_impl(v185, v186, v187, v188, v189, v190);
     goto LABEL_89;
   }
 }
 
 - (void)_startEventMonitoring
 {
-  v1 = [self log];
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v3 = objc_msgSend_log(self, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_5_4();
-    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
+    _os_log_error_impl(v4, v5, v6, v7, v8, v9);
   }
 }
 

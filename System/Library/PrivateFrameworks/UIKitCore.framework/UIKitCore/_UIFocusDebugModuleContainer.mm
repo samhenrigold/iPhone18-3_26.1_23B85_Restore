@@ -35,7 +35,7 @@
     v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
     [v17 activateConstraints:v13];
 
-    v14 = +[UIColor blackColor];
+    v14 = objc_msgSend_blackColor(UIColor);
     v15 = [v14 colorWithAlphaComponent:0.6];
     [(UIView *)v5 setBackgroundColor:v15];
   }

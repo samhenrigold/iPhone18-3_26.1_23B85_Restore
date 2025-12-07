@@ -330,31 +330,31 @@ LABEL_58:
 
 - (id)descriptionDictionary
 {
-  v20[9] = *MEMORY[0x277D85DE8];
-  v19[0] = @"ResultType";
+  v19[9] = *MEMORY[0x277D85DE8];
+  v18[0] = @"ResultType";
   v4 = objc_opt_class();
-  v18 = NSStringFromClass(v4);
-  v20[0] = v18;
-  v19[1] = @"Address";
+  v17 = NSStringFromClass(v4);
+  v19[0] = v17;
+  v18[1] = @"Address";
   hexString = [(NSData *)self->_address hexString];
   detectionSummary = self->_detectionSummary;
   date = self->_date;
-  v20[1] = hexString;
-  v20[2] = detectionSummary;
-  v19[2] = @"Summary";
-  v19[3] = @"Date";
+  v19[1] = hexString;
+  v19[2] = detectionSummary;
+  v18[2] = @"Summary";
+  v18[3] = @"Date";
   getDateString = [(NSDate *)date getDateString];
-  v20[3] = getDateString;
-  v19[4] = @"DeviceType";
+  v19[3] = getDateString;
+  v18[4] = @"DeviceType";
   v9 = [TASPAdvertisement TASPAdvertisementDeviceTypeToString:[(TASPAdvertisement *)self->_latestAdvertisement getDeviceType]];
-  v20[4] = v9;
-  v19[5] = @"Type";
+  v19[4] = v9;
+  v18[5] = @"Type";
   v10 = [TAMetricsDetection convertTADetectionTypeToString:self->_detectionType];
-  v20[5] = v10;
-  v19[6] = @"Immediacy";
+  v19[5] = v10;
+  v18[6] = @"Immediacy";
   v11 = [TASuspiciousDevice convertTANotificationImmediacyTypeToString:self->_immediacyType];
-  v20[6] = v11;
-  v19[7] = @"AISInfo";
+  v19[6] = v11;
+  v18[7] = @"AISInfo";
   accessoryInfo = [(TASuspiciousDevice *)self accessoryInfo];
   if (accessoryInfo)
   {
@@ -367,17 +367,15 @@ LABEL_58:
     descriptionDictionary = &stru_287F632C0;
   }
 
-  v20[7] = descriptionDictionary;
-  v19[8] = @"ForceReason";
+  v19[7] = descriptionDictionary;
+  v18[8] = @"ForceReason";
   v14 = [TASuspiciousDevice convertTAForceSurfaceReasonToString:self->_forceSurfaceReason];
-  v20[8] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:9];
+  v19[8] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:9];
 
   if (accessoryInfo)
   {
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

@@ -47,7 +47,7 @@ LABEL_20:
 
   if (!v12->_osVersion)
   {
-    [MSDKManifestInstallableItem initWithIdentifier:andDictionary:forComponent:];
+    [MSDKManifestInstallableItem initWithIdentifier:identifierCopy andDictionary:? forComponent:?];
     goto LABEL_29;
   }
 
@@ -57,7 +57,7 @@ LABEL_20:
 
   if (!v12->_platformType)
   {
-    [MSDKManifestInstallableItem initWithIdentifier:andDictionary:forComponent:];
+    [MSDKManifestInstallableItem initWithIdentifier:identifierCopy andDictionary:? forComponent:?];
     goto LABEL_29;
   }
 
@@ -103,36 +103,36 @@ LABEL_20:
                 goto LABEL_15;
               }
 
-              [MSDKManifestInstallableItem initWithIdentifier:andDictionary:forComponent:];
+              [MSDKManifestInstallableItem initWithIdentifier:identifierCopy andDictionary:? forComponent:?];
             }
 
             else
             {
-              [MSDKManifestInstallableItem initWithIdentifier:andDictionary:forComponent:];
+              [MSDKManifestInstallableItem initWithIdentifier:identifierCopy andDictionary:? forComponent:?];
             }
           }
 
           else
           {
-            [MSDKManifestInstallableItem initWithIdentifier:andDictionary:forComponent:];
+            [MSDKManifestInstallableItem initWithIdentifier:identifierCopy andDictionary:? forComponent:?];
           }
         }
 
         else
         {
-          [MSDKManifestInstallableItem initWithIdentifier:andDictionary:forComponent:];
+          [MSDKManifestInstallableItem initWithIdentifier:identifierCopy andDictionary:? forComponent:?];
         }
       }
 
       else
       {
-        [MSDKManifestInstallableItem initWithIdentifier:andDictionary:forComponent:];
+        [MSDKManifestInstallableItem initWithIdentifier:identifierCopy andDictionary:? forComponent:?];
       }
     }
 
     else
     {
-      [MSDKManifestInstallableItem initWithIdentifier:andDictionary:forComponent:];
+      [MSDKManifestInstallableItem initWithIdentifier:identifierCopy andDictionary:? forComponent:?];
     }
 
 LABEL_29:
@@ -186,144 +186,126 @@ LABEL_17:
   return v6;
 }
 
-- (void)initWithIdentifier:andDictionary:forComponent:.cold.1()
+- (void)initWithIdentifier:(uint64_t)a1 andDictionary:forComponent:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1_3();
-    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithIdentifier:andDictionary:forComponent:.cold.2()
+- (void)initWithIdentifier:(uint64_t)a1 andDictionary:forComponent:.cold.2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1_3();
-    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithIdentifier:andDictionary:forComponent:.cold.3()
+- (void)initWithIdentifier:(uint64_t)a1 andDictionary:forComponent:.cold.3(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1_3();
-    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithIdentifier:andDictionary:forComponent:.cold.4()
+- (void)initWithIdentifier:(uint64_t)a1 andDictionary:forComponent:.cold.4(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1_3();
-    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithIdentifier:andDictionary:forComponent:.cold.5()
+- (void)initWithIdentifier:(uint64_t)a1 andDictionary:forComponent:.cold.5(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1_3();
-    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithIdentifier:andDictionary:forComponent:.cold.6()
+- (void)initWithIdentifier:(uint64_t)a1 andDictionary:forComponent:.cold.6(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1_3();
-    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithIdentifier:andDictionary:forComponent:.cold.7()
+- (void)initWithIdentifier:(uint64_t)a1 andDictionary:forComponent:.cold.7(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1_3();
-    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithIdentifier:andDictionary:forComponent:.cold.8()
+- (void)initWithIdentifier:(uint64_t)a1 andDictionary:forComponent:.cold.8(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = defaultLogHandle();
-  if (OUTLINED_FUNCTION_5(v1))
+  v2 = defaultLogHandle(a1);
+  if (OUTLINED_FUNCTION_5(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_1_3();
-    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_2_2(&dword_259B7D000, v3, v4, "%s: Failed to parse %{public}@ from app item %{public}@", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithIdentifier:(uint64_t)a1 andDictionary:(NSObject *)a2 forComponent:.cold.9(uint64_t a1, NSObject **a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
+    v10 = 136315650;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4_2(&dword_259B7D000, v5, v6, "%s: Failed to parse %{public}@ from app item %{public}@", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_4_2(&dword_259B7D000, v4, v5, "%s: Failed to parse %{public}@ from app item %{public}@", v6, v7, v8, v9, v10);
   }
 
   *a2 = v3;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithIdentifier:(uint64_t)a1 andDictionary:(NSObject *)a2 forComponent:.cold.10(uint64_t a1, NSObject **a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = defaultLogHandle();
+  v3 = defaultLogHandle(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
+    v10 = 136315650;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4_2(&dword_259B7D000, v5, v6, "%s: Failed to parse %{public}@ from app item %{public}@", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_4_2(&dword_259B7D000, v4, v5, "%s: Failed to parse %{public}@ from app item %{public}@", v6, v7, v8, v9, v10);
   }
 
   *a2 = v3;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

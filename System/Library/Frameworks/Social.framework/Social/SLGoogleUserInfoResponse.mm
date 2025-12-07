@@ -6,47 +6,47 @@
 
 - (void)_populateDataFromResponseDictionary:(id)dictionary
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   selfCopy = self;
   [(SLWebUserInfoResponse *)self setUserInfo:dictionaryCopy];
-  _SLLog(v3, 7, @"SLGoogleUserInfoResponse got _userInfo: %@");
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v36 = dictionaryCopy;
-  v6 = [dictionaryCopy objectForKeyedSubscript:{@"names", dictionaryCopy}];
-  v7 = [v6 countByEnumeratingWithState:&v42 objects:v47 count:16];
-  if (v7)
+  _SLLog(v3, 7, @"SLGoogleUserInfoResponse got _userInfo: %@", v6, v7, v8, v9, v10, dictionaryCopy);
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v45 = dictionaryCopy;
+  v11 = [dictionaryCopy objectForKeyedSubscript:@"names"];
+  v12 = [v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  if (v12)
   {
-    v8 = v7;
-    v9 = *v43;
+    v13 = v12;
+    v14 = *v52;
     while (2)
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v43 != v9)
+        if (*v52 != v14)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v11);
         }
 
-        v11 = *(*(&v42 + 1) + 8 * i);
-        v12 = [v11 objectForKeyedSubscript:@"metadata"];
-        v13 = [v12 objectForKeyedSubscript:@"primary"];
-        bOOLValue = [v13 BOOLValue];
+        v16 = *(*(&v51 + 1) + 8 * i);
+        v17 = [v16 objectForKeyedSubscript:@"metadata"];
+        v18 = [v17 objectForKeyedSubscript:@"primary"];
+        bOOLValue = [v18 BOOLValue];
 
         if (bOOLValue)
         {
-          v15 = [v11 objectForKeyedSubscript:@"displayName"];
-          [(SLWebUserInfoResponse *)selfCopy setDisplayName:v15];
+          v20 = [v16 objectForKeyedSubscript:@"displayName"];
+          [(SLWebUserInfoResponse *)selfCopy setDisplayName:v20];
 
           goto LABEL_11;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v42 objects:v47 count:16];
-      if (v8)
+      v13 = [v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      if (v13)
       {
         continue;
       }
@@ -58,77 +58,76 @@
 LABEL_11:
 
   array = [MEMORY[0x1E695DF70] array];
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v16 = [v36 objectForKeyedSubscript:@"emailAddresses"];
-  v17 = [v16 countByEnumeratingWithState:&v38 objects:v46 count:16];
-  if (v17)
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v21 = [v45 objectForKeyedSubscript:@"emailAddresses"];
+  v22 = [v21 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v22)
   {
-    v18 = v17;
-    v19 = *v39;
+    v23 = v22;
+    v24 = *v48;
     do
     {
-      for (j = 0; j != v18; ++j)
+      for (j = 0; j != v23; ++j)
       {
-        if (*v39 != v19)
+        if (*v48 != v24)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v21);
         }
 
-        v21 = *(*(&v38 + 1) + 8 * j);
-        v22 = [v21 objectForKeyedSubscript:@"value"];
-        if (v22)
+        v26 = *(*(&v47 + 1) + 8 * j);
+        v27 = [v26 objectForKeyedSubscript:@"value"];
+        if (v27)
         {
-          v23 = [v21 objectForKeyedSubscript:@"metadata"];
-          v24 = [v23 objectForKeyedSubscript:@"primary"];
-          bOOLValue2 = [v24 BOOLValue];
+          v28 = [v26 objectForKeyedSubscript:@"metadata"];
+          v29 = [v28 objectForKeyedSubscript:@"primary"];
+          bOOLValue2 = [v29 BOOLValue];
 
           if (bOOLValue2)
           {
-            [array insertObject:v22 atIndex:0];
+            [array insertObject:v27 atIndex:0];
           }
 
           else
           {
-            [array addObject:v22];
+            [array addObject:v27];
           }
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
-    while (v18);
+    while (v23);
   }
 
-  v26 = [array copy];
-  [(SLWebUserInfoResponse *)selfCopy setEmailAddresses:v26];
+  v31 = [array copy];
+  [(SLWebUserInfoResponse *)selfCopy setEmailAddresses:v31];
 
   emailAddresses = [(SLWebUserInfoResponse *)selfCopy emailAddresses];
 
   if (!emailAddresses)
   {
-    v34 = v36;
-    _SLLog(v3, 3, @"Couldn't get an email address. userInfo was: %@");
+    _SLLog(v3, 3, @"Couldn't get an email address. userInfo was: %@", v33, v34, v35, v36, v37, v45);
   }
 
-  v28 = [v36 objectForKeyedSubscript:{@"error", v34}];
+  v38 = [v45 objectForKeyedSubscript:@"error"];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v30 = [v36 objectForKeyedSubscript:@"error"];
-    v31 = [v30 objectForKeyedSubscript:@"message"];
+    v40 = [v45 objectForKeyedSubscript:@"error"];
+    v41 = [v40 objectForKeyedSubscript:@"message"];
     objc_opt_class();
-    v32 = objc_opt_isKindOfClass();
+    v42 = objc_opt_isKindOfClass();
 
-    if (v32)
+    if (v42)
     {
-      v33 = [v30 objectForKeyedSubscript:@"message"];
-      [(SLWebUserInfoResponse *)selfCopy setErrorMessage:v33];
+      v43 = [v40 objectForKeyedSubscript:@"message"];
+      [(SLWebUserInfoResponse *)selfCopy setErrorMessage:v43];
     }
   }
 }

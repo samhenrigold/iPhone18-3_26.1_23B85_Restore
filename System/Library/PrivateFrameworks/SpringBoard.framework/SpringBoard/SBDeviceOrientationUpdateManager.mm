@@ -136,7 +136,7 @@ id __40__SBDeviceOrientationUpdateManager_init__block_invoke(uint64_t a1)
   }
 
   lastUpdatedDeviceOrientation = self->_lastUpdatedDeviceOrientation;
-  v8 = [(NSHashTable *)self->_deferralAssertions containsObject:assertionCopy];
+  v8 = objc_msgSend_containsObject_(self->_deferralAssertions);
   [(NSHashTable *)self->_deferralAssertions removeObject:assertionCopy];
 
   if (SBTraitsArbiterOrientationActuationEnabledForRole(@"SBTraitsParticipantRolePipelineManager"))

@@ -165,18 +165,18 @@ LABEL_17:
       [dictionary setObject:v18 forKeyedSubscript:*MEMORY[0x1E695F5D0]];
       [dictionary setObject:v9 forKeyedSubscript:*MEMORY[0x1E695F5E0]];
       v19 = [v6 objectForKeyedSubscript:*off_1E798B510];
-      [dictionary setObject:v19 forKeyedSubscript:*MEMORY[0x1E695F5D8]];
-      [dictionary setObject:FigCaptureGetModelSpecificName() forKeyedSubscript:*MEMORY[0x1E695F5C8]];
+      v20 = [dictionary setObject:v19 forKeyedSubscript:*MEMORY[0x1E695F5D8]];
+      [dictionary setObject:FigCaptureGetModelSpecificName(v20 forKeyedSubscript:{v21), *MEMORY[0x1E695F5C8]}];
       if ([(NSDictionary *)self->_redEyeReductionParametersByPortType objectForKeyedSubscript:v9])
       {
-        v23 = [(NSDictionary *)self->_redEyeReductionParametersByPortType objectForKeyedSubscript:v9, v9];
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-        [dictionary setObject:v20 forKeyedSubscript:*MEMORY[0x1E695F5E8]];
+        v25 = [(NSDictionary *)self->_redEyeReductionParametersByPortType objectForKeyedSubscript:v9, v9];
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+        [dictionary setObject:v22 forKeyedSubscript:*MEMORY[0x1E695F5E8]];
       }
 
-      v21 = [(CIDualRedEyeRepairSession *)self->_redEyeRepairSession setPrimary:ImageBuffer observations:AttachedInference metadata:dictionary];
-      self->_skipRepair = v21 ^ 1;
-      if (((v21 ^ 1) & 1) == 0)
+      v23 = [(CIDualRedEyeRepairSession *)self->_redEyeRepairSession setPrimary:ImageBuffer observations:AttachedInference metadata:dictionary];
+      self->_skipRepair = v23 ^ 1;
+      if (((v23 ^ 1) & 1) == 0)
       {
         self->_primaryImageSampleBuffer = CFRetain(buffer);
         return;

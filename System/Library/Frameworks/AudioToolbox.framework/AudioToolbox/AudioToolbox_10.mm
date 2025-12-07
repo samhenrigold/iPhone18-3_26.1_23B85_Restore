@@ -992,7 +992,7 @@ void sub_1DDC306A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -1009,8 +1009,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -5040,7 +5040,7 @@ void *NoiseSuppression::Noise::LPCLevinson::ProcessBlock(NoiseSuppression::Noise
   return NoiseSuppression::Noise::LPCLevinson::Filter(a3, a2, v10, v11, a4, v12);
 }
 
-void NoiseSuppression::Noise::LPCLevinson::Correlation(uint64_t a1, uint64_t a2, float **a3)
+void NoiseSuppression::Noise::LPCLevinson::Correlation(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v13 = *MEMORY[0x1E69E9840];
   v4 = a3[1] - *a3;
@@ -5055,10 +5055,10 @@ void NoiseSuppression::Noise::LPCLevinson::Correlation(uint64_t a1, uint64_t a2,
   vDSP_conv(v8, 1, v8, 1, *a3, 1, v4 >> 2, v6);
 }
 
-void NoiseSuppression::Noise::LPCLevinson::Levinson(uint64_t *a1, void *a2, int a3)
+void NoiseSuppression::Noise::LPCLevinson::Levinson(uint64_t *a1, uint64_t *a2, int a3)
 {
   v35 = *MEMORY[0x1E69E9840];
-  v6 = MEMORY[0x1EEE9AC00](a1).n128_u64[0];
+  *&v6 = MEMORY[0x1EEE9AC00](a1);
   v8 = &v34 - v7;
   v10 = **v9;
   v12 = (v11[1] - *v11) >> 2;
@@ -6856,7 +6856,7 @@ uint64_t AUMixSwitch::SetProperty(AUMixSwitch *this, int a2, int a3, unsigned in
     {
       v8 = a6 >> 2;
       v9 = &__src[4 * v8];
-      v10 = this + 560;
+      v10 = (this + 560);
     }
 
     else
@@ -6874,7 +6874,7 @@ uint64_t AUMixSwitch::SetProperty(AUMixSwitch *this, int a2, int a3, unsigned in
 
       v8 = a6 >> 2;
       v9 = &__src[4 * v8];
-      v10 = this + 536;
+      v10 = (this + 536);
     }
 
     std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(v10, __src, v9, v8);
@@ -6904,7 +6904,7 @@ uint64_t AUMixSwitch::SetProperty(AUMixSwitch *this, int a2, int a3, unsigned in
   return result;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];

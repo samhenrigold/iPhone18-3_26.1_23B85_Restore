@@ -4,13 +4,18 @@
 - (GMSpecifierProvider)initWithPresenter:(id)presenter eligibilityProvider:(id)provider;
 - (id)_configuredGMSpecifier;
 - (id)_downloadingSpecifier;
+- (id)_inWaitlistSpecifierWithEnablement:(BOOL)enablement;
+- (id)_joinWaitlistSpecifierWithEnablement:(BOOL)enablement;
 - (id)_rampedPreparingSpecifier;
 - (id)_rampedSpecifier;
+- (id)_rampedSpecifierWithButton:(BOOL)button;
+- (id)_rampedSpecifierWithEnablement:(BOOL)enablement;
 - (id)fetchGMRampSpecifierWith:(id)with;
 - (id)gmUserOptInStatus:(id)status;
 - (id)valueForGMPreparingSpecifier:(id)specifier;
 - (id)valueForGMRampSpecifier:(id)specifier;
 - (void)GMJoinWaitlistTapped:(id)tapped;
+- (void)_setGMUserOptInStatus:(BOOL)status;
 - (void)dismissGMIntroViewController;
 - (void)fetchGMRampStatus;
 - (void)presentGMEnrollmentView;
@@ -67,7 +72,7 @@
 - (id)_configuredGMSpecifier
 {
   v3 = 0;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   switch(self->_gmEligibilityContext)
   {
     case 3:
@@ -114,14 +119,12 @@ LABEL_9:
   {
     gmEligibilityProvider = self->_gmEligibilityProvider;
     v9 = v7;
-    v12 = 136315394;
-    v13 = "[GMSpecifierProvider _configuredGMSpecifier]";
-    v14 = 2048;
+    v11 = 136315394;
+    v12 = "[GMSpecifierProvider _configuredGMSpecifier]";
+    v13 = 2048;
     eligibility = [(GMEligibilityProviderProtocol *)gmEligibilityProvider eligibility];
-    _os_log_impl(&dword_2413B9000, v9, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment returning specifier for context %ld", &v12, 0x16u);
+    _os_log_impl(&dword_2413B9000, v9, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment returning specifier for context %ld", &v11, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -157,6 +160,41 @@ LABEL_9:
   return v3;
 }
 
+- (id)_joinWaitlistSpecifierWithEnablement:(BOOL)enablement
+{
+  enablementCopy = enablement;
+  v4 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_285317CF0 target:self set:0 get:0 detail:0 cell:-1 edit:0];
+  v5 = +[AssistantController bundle];
+  v6 = [v5 localizedStringForKey:@"GM_WAITLIST_SPECIFIER_TITLE" value:&stru_285317CF0 table:@"AssistantSettings-GM"];
+  [v4 setName:v6];
+
+  [v4 setProperty:@"GM_RAMP_SPECIFIER" forKey:*MEMORY[0x277D3FFB8]];
+  [v4 setButtonAction:sel_GMJoinWaitlistTapped_];
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:enablementCopy];
+  [v4 setProperty:v7 forKey:*MEMORY[0x277D3FF38]];
+
+  [v4 setCellType:13];
+
+  return v4;
+}
+
+- (id)_inWaitlistSpecifierWithEnablement:(BOOL)enablement
+{
+  enablementCopy = enablement;
+  v4 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_285317CF0 target:self set:0 get:sel_valueForGMRampSpecifier_ detail:0 cell:-1 edit:0];
+  v5 = +[AssistantController bundle];
+  v6 = [v5 localizedStringForKey:@"GM_RAMP_SPECIFIER_TITLE" value:&stru_285317CF0 table:@"AssistantSettings-GM"];
+  [v4 setName:v6];
+
+  [v4 setProperty:@"GM_RAMP_SPECIFIER" forKey:*MEMORY[0x277D3FFB8]];
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:enablementCopy];
+  [v4 setProperty:v7 forKey:*MEMORY[0x277D3FF38]];
+
+  [v4 setCellType:-1];
+
+  return v4;
+}
+
 - (id)_rampedPreparingSpecifier
 {
   v2 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_285317CF0 target:self set:0 get:sel_valueForGMPreparingSpecifier_ detail:0 cell:-1 edit:0];
@@ -171,44 +209,75 @@ LABEL_9:
   return v2;
 }
 
+- (id)_rampedSpecifierWithEnablement:(BOOL)enablement
+{
+  enablementCopy = enablement;
+  v4 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_285317CF0 target:self set:sel_setGMUserOptInStatus_ get:sel_gmUserOptInStatus_ detail:0 cell:-1 edit:0];
+  v5 = +[AssistantController bundle];
+  v6 = [v5 localizedStringForKey:@"GM_RAMP_SPECIFIER_TITLE" value:&stru_285317CF0 table:@"AssistantSettings-GM"];
+  [v4 setName:v6];
+
+  [v4 setProperty:@"GM_RAMP_SPECIFIER" forKey:*MEMORY[0x277D3FFB8]];
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:enablementCopy];
+  [v4 setProperty:v7 forKey:*MEMORY[0x277D3FF38]];
+
+  [v4 setCellType:6];
+
+  return v4;
+}
+
+- (id)_rampedSpecifierWithButton:(BOOL)button
+{
+  buttonCopy = button;
+  v4 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_285317CF0 target:self set:0 get:0 detail:0 cell:-1 edit:0];
+  v5 = +[AssistantController bundle];
+  v6 = [v5 localizedStringForKey:@"GM_TURN_ON_GM_BUTTON_TITLE" value:&stru_285317CF0 table:@"AssistantSettings-GM"];
+  [v4 setName:v6];
+
+  [v4 setProperty:@"GM_RAMP_SPECIFIER" forKey:*MEMORY[0x277D3FFB8]];
+  [v4 setButtonAction:sel_turnOnGmTapped_];
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:buttonCopy];
+  [v4 setProperty:v7 forKey:*MEMORY[0x277D3FF38]];
+
+  [v4 setCellType:13];
+
+  return v4;
+}
+
 - (BOOL)fetchGMCapability
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ([(GMEligibilityProviderProtocol *)self->_gmEligibilityProvider eligibility]== 18 || ([(GMSpecifierControllerProcotol *)self->_gmSpecifierController gmFFEnabled]& 1) == 0)
+  v15 = *MEMORY[0x277D85DE8];
+  if ([(GMEligibilityProviderProtocol *)self->_gmEligibilityProvider eligibility]!= 18 && ([(GMSpecifierControllerProcotol *)self->_gmSpecifierController gmFFEnabled]& 1) != 0)
   {
-    v4 = *MEMORY[0x277CEF098];
-    v5 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
-    result = 0;
-    if (v5)
-    {
-      gmEligibilityProvider = self->_gmEligibilityProvider;
-      v7 = v4;
-      LODWORD(gmEligibilityProvider) = [(GMEligibilityProviderProtocol *)gmEligibilityProvider eligibility]== 18;
-      gmFFEnabled = [(GMSpecifierControllerProcotol *)self->_gmSpecifierController gmFFEnabled];
-      v10 = 136315650;
-      v11 = "[GMSpecifierProvider fetchGMCapability]";
-      v12 = 1024;
-      v13 = gmEligibilityProvider;
-      v14 = 1024;
-      v15 = gmFFEnabled;
-      _os_log_impl(&dword_2413B9000, v7, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment GMEligibilityContextDeviceNotCapable: %d and CSFAnyFFEnabled: %d", &v10, 0x18u);
-
-      result = 0;
-    }
+    return 1;
   }
 
-  else
+  v4 = *MEMORY[0x277CEF098];
+  v5 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
+  result = 0;
+  if (v5)
   {
-    result = 1;
+    gmEligibilityProvider = self->_gmEligibilityProvider;
+    v7 = v4;
+    LODWORD(gmEligibilityProvider) = [(GMEligibilityProviderProtocol *)gmEligibilityProvider eligibility]== 18;
+    gmFFEnabled = [(GMSpecifierControllerProcotol *)self->_gmSpecifierController gmFFEnabled];
+    v9 = 136315650;
+    v10 = "[GMSpecifierProvider fetchGMCapability]";
+    v11 = 1024;
+    v12 = gmEligibilityProvider;
+    v13 = 1024;
+    v14 = gmFFEnabled;
+    _os_log_impl(&dword_2413B9000, v7, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment GMEligibilityContextDeviceNotCapable: %d and CSFAnyFFEnabled: %d", &v9, 0x18u);
+
+    return 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (id)fetchGMRampSpecifierWith:(id)with
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(GMEligibilityProviderProtocol *)self->_gmEligibilityProvider eligibility]== 18 || ([(GMSpecifierControllerProcotol *)self->_gmSpecifierController gmFFEnabled]& 1) == 0)
   {
     v6 = *MEMORY[0x277CEF098];
@@ -218,13 +287,13 @@ LABEL_9:
       v8 = v6;
       LODWORD(gmEligibilityProvider) = [(GMEligibilityProviderProtocol *)gmEligibilityProvider eligibility]== 18;
       gmFFEnabled = [(GMSpecifierControllerProcotol *)self->_gmSpecifierController gmFFEnabled];
-      v12 = 136315650;
-      v13 = "[GMSpecifierProvider fetchGMRampSpecifierWith:]";
-      v14 = 1024;
-      v15 = gmEligibilityProvider;
-      v16 = 1024;
-      v17 = gmFFEnabled;
-      _os_log_impl(&dword_2413B9000, v8, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment GMEligibilityContextDeviceNotCapable: %d and CSFAnyFFEnabled: %d", &v12, 0x18u);
+      v11 = 136315650;
+      v12 = "[GMSpecifierProvider fetchGMRampSpecifierWith:]";
+      v13 = 1024;
+      v14 = gmEligibilityProvider;
+      v15 = 1024;
+      v16 = gmFFEnabled;
+      _os_log_impl(&dword_2413B9000, v8, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment GMEligibilityContextDeviceNotCapable: %d and CSFAnyFFEnabled: %d", &v11, 0x18u);
     }
 
     v5 = 0;
@@ -246,14 +315,12 @@ LABEL_9:
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)fetchGMRampStatus
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([(GMEligibilityProviderProtocol *)self->_gmEligibilityProvider eligibility]== 18 || ([(GMSpecifierControllerProcotol *)self->_gmSpecifierController gmFFEnabled]& 1) == 0)
   {
     v4 = *MEMORY[0x277CEF098];
@@ -264,11 +331,11 @@ LABEL_9:
       LODWORD(gmEligibilityProvider) = [(GMEligibilityProviderProtocol *)gmEligibilityProvider eligibility]== 18;
       gmFFEnabled = [(GMSpecifierControllerProcotol *)self->_gmSpecifierController gmFFEnabled];
       *buf = 136315650;
-      v14 = "[GMSpecifierProvider fetchGMRampStatus]";
-      v15 = 1024;
-      v16 = gmEligibilityProvider;
-      v17 = 1024;
-      v18 = gmFFEnabled;
+      v13 = "[GMSpecifierProvider fetchGMRampStatus]";
+      v14 = 1024;
+      v15 = gmEligibilityProvider;
+      v16 = 1024;
+      v17 = gmFFEnabled;
       _os_log_impl(&dword_2413B9000, v6, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment GMEligibilityContextDeviceNotCapable: %d and CSFAnyFFEnabled: %d", buf, 0x18u);
     }
   }
@@ -279,7 +346,7 @@ LABEL_9:
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[GMSpecifierProvider fetchGMRampStatus]";
+      v13 = "[GMSpecifierProvider fetchGMRampStatus]";
       _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment request is already in progress. Bailing.", buf, 0xCu);
     }
   }
@@ -290,23 +357,21 @@ LABEL_9:
     self->_requestState = 1;
     objc_initWeak(buf, self);
     gmSpecifierController = self->_gmSpecifierController;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __40__GMSpecifierProvider_fetchGMRampStatus__block_invoke;
-    v11[3] = &unk_278CD1770;
-    objc_copyWeak(v12, buf);
-    v12[1] = gmEligibilityContext;
-    [(GMSpecifierControllerProcotol *)gmSpecifierController fetchStatusWithCompletionHandler:v11];
-    objc_destroyWeak(v12);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __40__GMSpecifierProvider_fetchGMRampStatus__block_invoke;
+    v10[3] = &unk_278CD1770;
+    objc_copyWeak(v11, buf);
+    v11[1] = gmEligibilityContext;
+    [(GMSpecifierControllerProcotol *)gmSpecifierController fetchStatusWithCompletionHandler:v10];
+    objc_destroyWeak(v11);
     objc_destroyWeak(buf);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __40__GMSpecifierProvider_fetchGMRampStatus__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
   if (WeakRetained)
@@ -319,9 +384,9 @@ void __40__GMSpecifierProvider_fetchGMRampStatus__block_invoke(uint64_t a1, uint
       block[1] = 3221225472;
       block[2] = __40__GMSpecifierProvider_fetchGMRampStatus__block_invoke_35;
       block[3] = &unk_278CD1520;
-      objc_copyWeak(&v9, (a1 + 32));
+      objc_copyWeak(&v8, (a1 + 32));
       dispatch_async(MEMORY[0x277D85CD0], block);
-      objc_destroyWeak(&v9);
+      objc_destroyWeak(&v8);
     }
   }
 
@@ -331,12 +396,10 @@ void __40__GMSpecifierProvider_fetchGMRampStatus__block_invoke(uint64_t a1, uint
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v11 = "[GMSpecifierProvider fetchGMRampStatus]_block_invoke";
+      v10 = "[GMSpecifierProvider fetchGMRampStatus]_block_invoke";
       _os_log_impl(&dword_2413B9000, v6, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment self is unavailable at fetchStatus completion. Bailing.", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__GMSpecifierProvider_fetchGMRampStatus__block_invoke_35(uint64_t a1)
@@ -380,16 +443,14 @@ void __40__GMSpecifierProvider_fetchGMRampStatus__block_invoke_35(uint64_t a1)
 
 void __46__GMSpecifierProvider_presentGMEnrollmentView__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[GMSpecifierProvider presentGMEnrollmentView]_block_invoke";
-    _os_log_impl(&dword_2413B9000, v0, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment View Controller Presented", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[GMSpecifierProvider presentGMEnrollmentView]_block_invoke";
+    _os_log_impl(&dword_2413B9000, v0, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment View Controller Presented", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForGMRampSpecifier:(id)specifier
@@ -438,14 +499,43 @@ void __46__GMSpecifierProvider_presentGMEnrollmentView__block_invoke()
   }
 }
 
+- (void)_setGMUserOptInStatus:(BOOL)status
+{
+  statusCopy = status;
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277CEF098];
+  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 136315394;
+    v8 = "[GMSpecifierProvider _setGMUserOptInStatus:]";
+    v9 = 1024;
+    v10 = statusCopy;
+    _os_log_impl(&dword_2413B9000, v5, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment _setGMUserOptInStatus %d", &v7, 0x12u);
+  }
+
+  [(GMSpecifierControllerProcotol *)self->_gmSpecifierController setFeatureOptInStatusWithEnabled:statusCopy];
+  if (statusCopy)
+  {
+    v6 = 11;
+  }
+
+  else
+  {
+    v6 = 10;
+  }
+
+  [(GMAnalyticsProvider *)self->_gmAnalyticsProvider sendAction:v6];
+  [(GMSpecifierProvider *)self reloadGMSpecifier];
+}
+
 - (void)presentToggleOffAlert
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v29 = "[GMSpecifierProvider presentToggleOffAlert]";
+    v28 = "[GMSpecifierProvider presentToggleOffAlert]";
     _os_log_impl(&dword_2413B9000, v2, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment presentToggleOffAlert", buf, 0xCu);
   }
 
@@ -479,61 +569,55 @@ void __46__GMSpecifierProvider_presentGMEnrollmentView__block_invoke()
   v15 = MEMORY[0x277D750F8];
   v16 = +[AssistantController bundle];
   v17 = [v16 localizedStringForKey:@"GM_TURN_OFF_ALERT_OPTION_TURN_OFF" value:&stru_285317CF0 table:@"AssistantSettings-GM"];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __44__GMSpecifierProvider_presentToggleOffAlert__block_invoke;
-  v27[3] = &unk_278CD1798;
-  v27[4] = self;
-  v18 = [v15 actionWithTitle:v17 style:2 handler:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __44__GMSpecifierProvider_presentToggleOffAlert__block_invoke;
+  v26[3] = &unk_278CD1798;
+  v26[4] = self;
+  v18 = [v15 actionWithTitle:v17 style:2 handler:v26];
   [v14 addAction:v18];
 
   v19 = MEMORY[0x277D750F8];
   v20 = +[AssistantController bundle];
   v21 = [v20 localizedStringForKey:@"GM_TURN_OFF_ALERT_OPTION_CANCEL" value:&stru_285317CF0 table:@"AssistantSettings-GM"];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __44__GMSpecifierProvider_presentToggleOffAlert__block_invoke_64;
-  v26[3] = &unk_278CD1798;
-  v26[4] = self;
-  v22 = [v19 actionWithTitle:v21 style:1 handler:v26];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __44__GMSpecifierProvider_presentToggleOffAlert__block_invoke_64;
+  v25[3] = &unk_278CD1798;
+  v25[4] = self;
+  v22 = [v19 actionWithTitle:v21 style:1 handler:v25];
   [v14 addAction:v22];
 
   WeakRetained = objc_loadWeakRetained(&self->_listController);
   [WeakRetained presentViewController:v14 animated:1 completion:0];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__GMSpecifierProvider_presentToggleOffAlert__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[GMSpecifierProvider presentToggleOffAlert]_block_invoke";
-    _os_log_impl(&dword_2413B9000, v2, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment presentToggleOffAlert turn off selected", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[GMSpecifierProvider presentToggleOffAlert]_block_invoke";
+    _os_log_impl(&dword_2413B9000, v2, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment presentToggleOffAlert turn off selected", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _setGMUserOptInStatus:0];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _setGMUserOptInStatus:0];
 }
 
 uint64_t __44__GMSpecifierProvider_presentToggleOffAlert__block_invoke_64(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[GMSpecifierProvider presentToggleOffAlert]_block_invoke";
-    _os_log_impl(&dword_2413B9000, v2, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment presentToggleOffAlert cancel selected", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[GMSpecifierProvider presentToggleOffAlert]_block_invoke";
+    _os_log_impl(&dword_2413B9000, v2, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment presentToggleOffAlert cancel selected", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) reloadGMSpecifier];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) reloadGMSpecifier];
 }
 
 - (void)reloadGMSpecifier
@@ -724,21 +808,19 @@ void __64__GMSpecifierProvider_siriGMIntroViewControllerContinuePressed___block_
 
 void __51__GMSpecifierProvider_dismissGMIntroViewController__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[GMSpecifierProvider dismissGMIntroViewController]_block_invoke";
-    _os_log_impl(&dword_2413B9000, v0, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment View Controller Dismissed", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[GMSpecifierProvider dismissGMIntroViewController]_block_invoke";
+    _os_log_impl(&dword_2413B9000, v0, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment Enrollment View Controller Dismissed", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __31__GMSpecifierProvider_clearCFU__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -747,15 +829,13 @@ void __31__GMSpecifierProvider_clearCFU__block_invoke(uint64_t a1, void *a2)
     {
       v4 = v3;
       v5 = [v2 localizedDescription];
-      v7 = 136315394;
-      v8 = "[GMSpecifierProvider clearCFU]_block_invoke";
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_2413B9000, v4, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment GM Enrollment CFU could not be cleared %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[GMSpecifierProvider clearCFU]_block_invoke";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_2413B9000, v4, OS_LOG_TYPE_DEFAULT, "%s #gmenrollment GM Enrollment CFU could not be cleared %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithContext:(int64_t)context
@@ -786,12 +866,12 @@ void __41__GMSpecifierProvider_updateWithContext___block_invoke(uint64_t a1)
 
 - (void)updateADMState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[GMSpecifierProvider updateADMState]";
+    v7 = "[GMSpecifierProvider updateADMState]";
     _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_INFO, "%s Attempting ADM update", buf, 0xCu);
   }
 
@@ -800,11 +880,10 @@ void __41__GMSpecifierProvider_updateWithContext___block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __37__GMSpecifierProvider_updateADMState__block_invoke;
   block[3] = &unk_278CD1520;
-  objc_copyWeak(&v6, buf);
+  objc_copyWeak(&v5, buf);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v5);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __37__GMSpecifierProvider_updateADMState__block_invoke(uint64_t a1)

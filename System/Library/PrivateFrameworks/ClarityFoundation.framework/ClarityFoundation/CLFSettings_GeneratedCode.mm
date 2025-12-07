@@ -7,6 +7,21 @@
 - (NSString)adminPasscodeRecoveryAppleID;
 - (NSString)listLayout;
 - (NSString)restartReason;
+- (void)setAllowAccessibilityShortcut:(BOOL)shortcut;
+- (void)setAllowSiri:(BOOL)siri;
+- (void)setBatteryMonitoringEnabled:(BOOL)enabled;
+- (void)setEmergencyKeypadEnabled:(BOOL)enabled;
+- (void)setFullScreenCompatibilityMode:(BOOL)mode;
+- (void)setHasMigratedFileProtections:(BOOL)protections;
+- (void)setLockScreenClockEnabled:(BOOL)enabled;
+- (void)setLockScreenDateEnabled:(BOOL)enabled;
+- (void)setNotificationsEnabled:(BOOL)enabled;
+- (void)setOneTapUnlock:(BOOL)unlock;
+- (void)setRestrictPhoneCall:(BOOL)call;
+- (void)setShouldShowTripleClickInstructions:(BOOL)instructions;
+- (void)setShowTimeInStatusBar:(BOOL)bar;
+- (void)setSilentModeToggleEnabled:(BOOL)enabled;
+- (void)setVolumeButtonsEnabled:(BOOL)enabled;
 @end
 
 @implementation CLFSettings_GeneratedCode
@@ -117,56 +132,54 @@
 
 + (id)allPreferenceSelectorsAsStrings
 {
-  v28[20] = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = &OBJC_METACLASS___CLFSettings_GeneratedCode;
-  v2 = objc_msgSendSuper2(&v27, sel_allPreferenceSelectorsAsStrings);
-  v26 = NSStringFromSelector(sel_adminPasscodeRecoveryAppleID);
-  v28[0] = v26;
-  v25 = NSStringFromSelector(sel_allowAccessibilityShortcut);
-  v28[1] = v25;
-  v24 = NSStringFromSelector(sel_allowSiri);
-  v28[2] = v24;
-  v23 = NSStringFromSelector(sel_applicationBundleIdentifiers);
-  v28[3] = v23;
-  v22 = NSStringFromSelector(sel_batteryMonitoringEnabled);
-  v28[4] = v22;
-  v21 = NSStringFromSelector(sel_emergencyKeypadEnabled);
-  v28[5] = v21;
-  v20 = NSStringFromSelector(sel_fullScreenCompatibilityMode);
-  v28[6] = v20;
-  v19 = NSStringFromSelector(sel_hasMigratedFileProtections);
-  v28[7] = v19;
-  v18 = NSStringFromSelector(sel_listLayout);
-  v28[8] = v18;
-  v17 = NSStringFromSelector(sel_lockScreenClockEnabled);
-  v28[9] = v17;
-  v16 = NSStringFromSelector(sel_lockScreenDateEnabled);
-  v28[10] = v16;
-  v15 = NSStringFromSelector(sel_notificationsEnabled);
-  v28[11] = v15;
+  v27[20] = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = &OBJC_METACLASS___CLFSettings_GeneratedCode;
+  v2 = objc_msgSendSuper2(&v26, sel_allPreferenceSelectorsAsStrings);
+  v25 = NSStringFromSelector(sel_adminPasscodeRecoveryAppleID);
+  v27[0] = v25;
+  v24 = NSStringFromSelector(sel_allowAccessibilityShortcut);
+  v27[1] = v24;
+  v23 = NSStringFromSelector(sel_allowSiri);
+  v27[2] = v23;
+  v22 = NSStringFromSelector(sel_applicationBundleIdentifiers);
+  v27[3] = v22;
+  v21 = NSStringFromSelector(sel_batteryMonitoringEnabled);
+  v27[4] = v21;
+  v20 = NSStringFromSelector(sel_emergencyKeypadEnabled);
+  v27[5] = v20;
+  v19 = NSStringFromSelector(sel_fullScreenCompatibilityMode);
+  v27[6] = v19;
+  v18 = NSStringFromSelector(sel_hasMigratedFileProtections);
+  v27[7] = v18;
+  v17 = NSStringFromSelector(sel_listLayout);
+  v27[8] = v17;
+  v16 = NSStringFromSelector(sel_lockScreenClockEnabled);
+  v27[9] = v16;
+  v15 = NSStringFromSelector(sel_lockScreenDateEnabled);
+  v27[10] = v15;
+  v14 = NSStringFromSelector(sel_notificationsEnabled);
+  v27[11] = v14;
   v3 = NSStringFromSelector(sel_oneTapUnlock);
-  v28[12] = v3;
+  v27[12] = v3;
   v4 = NSStringFromSelector(sel_overrideNonClarityApplicationBundleIdentifiers);
-  v28[13] = v4;
+  v27[13] = v4;
   v5 = NSStringFromSelector(sel_restartReason);
-  v28[14] = v5;
+  v27[14] = v5;
   v6 = NSStringFromSelector(sel_restrictPhoneCall);
-  v28[15] = v6;
+  v27[15] = v6;
   v7 = NSStringFromSelector(sel_shouldShowTripleClickInstructions);
-  v28[16] = v7;
+  v27[16] = v7;
   v8 = NSStringFromSelector(sel_showTimeInStatusBar);
-  v28[17] = v8;
+  v27[17] = v8;
   v9 = NSStringFromSelector(sel_silentModeToggleEnabled);
-  v28[18] = v9;
+  v27[18] = v9;
   v10 = NSStringFromSelector(sel_volumeButtonsEnabled);
-  v28[19] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:20];
-  v14 = [v2 arrayByAddingObjectsFromArray:v11];
+  v27[19] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:20];
+  v13 = [v2 arrayByAddingObjectsFromArray:v11];
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 - (NSString)adminPasscodeRecoveryAppleID
@@ -174,6 +187,18 @@
   v3 = objc_opt_class();
 
   return [(AXBaseSettings *)self objectValueForPreferenceKey:@"AdminPasscodeRecoveryAppleID" ofClass:v3 defaultValue:0];
+}
+
+- (void)setAllowAccessibilityShortcut:(BOOL)shortcut
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:shortcut];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"AllowAccessibilityShortcut"];
+}
+
+- (void)setAllowSiri:(BOOL)siri
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:siri];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"AllowSiri"];
 }
 
 - (NSArray)applicationBundleIdentifiers
@@ -184,11 +209,59 @@
   return [(AXBaseSettings *)self objectValueForPreferenceKey:@"ApplicationBundleIdentifiers" ofClass:v3 defaultValue:v4];
 }
 
+- (void)setBatteryMonitoringEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"BatteryMonitoringEnabled"];
+}
+
+- (void)setEmergencyKeypadEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"EmergencyKeypadEnabled"];
+}
+
+- (void)setFullScreenCompatibilityMode:(BOOL)mode
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:mode];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"FullScreenCompatibilityMode"];
+}
+
+- (void)setHasMigratedFileProtections:(BOOL)protections
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:protections];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"HasMigratedFileProtections"];
+}
+
 - (NSString)listLayout
 {
   v3 = objc_opt_class();
 
   return [(AXBaseSettings *)self objectValueForPreferenceKey:@"ListLayout" ofClass:v3 defaultValue:@"grid"];
+}
+
+- (void)setLockScreenClockEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"LockScreenClockEnabled"];
+}
+
+- (void)setLockScreenDateEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"LockScreenDateEnabled"];
+}
+
+- (void)setNotificationsEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"NotificationsEnabled"];
+}
+
+- (void)setOneTapUnlock:(BOOL)unlock
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:unlock];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"OneTapUnlock"];
 }
 
 - (NSArray)overrideNonClarityApplicationBundleIdentifiers
@@ -204,6 +277,36 @@
   v3 = objc_opt_class();
 
   return [(AXBaseSettings *)self objectValueForPreferenceKey:@"RestartReason" ofClass:v3 defaultValue:@"unknown"];
+}
+
+- (void)setRestrictPhoneCall:(BOOL)call
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:call];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"RestrictPhoneCall"];
+}
+
+- (void)setShouldShowTripleClickInstructions:(BOOL)instructions
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:instructions];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"ShouldShowTripleClickInstructions"];
+}
+
+- (void)setShowTimeInStatusBar:(BOOL)bar
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:bar];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"ShowTimeInStatusBar"];
+}
+
+- (void)setSilentModeToggleEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"SilentModeToggleEnabled"];
+}
+
+- (void)setVolumeButtonsEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"VolumeButtonsEnabled"];
 }
 
 @end

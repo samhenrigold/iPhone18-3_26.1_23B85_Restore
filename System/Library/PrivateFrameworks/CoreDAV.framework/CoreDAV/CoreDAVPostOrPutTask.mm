@@ -60,9 +60,9 @@
 - (id)additionalHeaderValues
 {
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v16.receiver = self;
-  v16.super_class = CoreDAVPostOrPutTask;
-  additionalHeaderValues = [(CoreDAVTask *)&v16 additionalHeaderValues];
+  v17.receiver = self;
+  v17.super_class = CoreDAVPostOrPutTask;
+  additionalHeaderValues = [(CoreDAVTask *)&v17 additionalHeaderValues];
   [v3 addEntriesFromDictionary:additionalHeaderValues];
 
   requestDataContentType = [(CoreDAVPostOrPutTask *)self requestDataContentType];
@@ -97,17 +97,18 @@
   if (self->_sendOrder)
   {
     cDVRawLastPathComponent = [(NSURL *)self->_priorOrderedURL CDVRawLastPathComponent];
-    if ([cDVRawLastPathComponent length])
+    v11 = [cDVRawLastPathComponent length];
+    if (v11)
     {
-      v11 = MEMORY[0x277CCACA8];
-      v12 = CDVRelativeOrderHeaderString();
-      stringValue = [v11 stringWithFormat:@"%@%@", v12, cDVRawLastPathComponent];
+      v12 = MEMORY[0x277CCACA8];
+      v13 = CDVRelativeOrderHeaderString(v11);
+      stringValue = [v12 stringWithFormat:@"%@%@", v13, cDVRawLastPathComponent];
     }
 
     else
     {
-      v14 = [MEMORY[0x277CCABB0] numberWithInt:self->_absoluteOrder];
-      stringValue = [v14 stringValue];
+      v15 = [MEMORY[0x277CCABB0] numberWithInt:self->_absoluteOrder];
+      stringValue = [v15 stringValue];
 
       if (!stringValue)
       {

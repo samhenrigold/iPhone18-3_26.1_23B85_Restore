@@ -800,7 +800,7 @@ LABEL_11:
     }
   }
 
-  else if ([v4 code] == 4 && (objc_msgSend(v4, "domain"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqualToString:", *MEMORY[0x1E696A250]), v10, v11))
+  else if ([v4 code] == 4 && (objc_msgSend(v4, "domain"), v10 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v10), v10, isEqualToString))
   {
     v5 = PLMigrationGetLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))

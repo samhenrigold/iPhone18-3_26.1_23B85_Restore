@@ -85,54 +85,45 @@ LABEL_18:
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "%@u is not reguar file", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "%@u is not reguar file", &v2, 0xCu);
 }
 
 - (void)initWithURL:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithURL:.cold.3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithURL:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_6();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

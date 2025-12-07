@@ -71,7 +71,7 @@
   return v4;
 }
 
-uint64_t __41__PLAWDMetricsService_connectToAWDServer__block_invoke(uint64_t a1)
+void *__41__PLAWDMetricsService_connectToAWDServer__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   connectToAWDServer_classDebugEnabled = result;
@@ -192,7 +192,7 @@ uint64_t __41__PLAWDMetricsService_connectToAWDServer__block_invoke(uint64_t a1)
   return selfCopy;
 }
 
-uint64_t __27__PLAWDMetricsService_init__block_invoke(uint64_t a1)
+void *__27__PLAWDMetricsService_init__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   init_classDebugEnabled_0 = result;
@@ -234,7 +234,7 @@ uint64_t __27__PLAWDMetricsService_init__block_invoke(uint64_t a1)
   [(PLOperator *)self defaultBoolForKey:@"simulatedMode"];
 }
 
-uint64_t __47__PLAWDMetricsService_initOperatorDependancies__block_invoke(uint64_t a1)
+void *__47__PLAWDMetricsService_initOperatorDependancies__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   initOperatorDependancies_classDebugEnabled = result;
@@ -284,13 +284,13 @@ LABEL_9:
 
 - (BOOL)initAWDInterface
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __39__PLAWDMetricsService_initAWDInterface__block_invoke;
-  v40[3] = &unk_279A59130;
-  v40[4] = self;
-  v3 = MEMORY[0x25F8D0F80](v40, a2);
+  v41 = *MEMORY[0x277D85DE8];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __39__PLAWDMetricsService_initAWDInterface__block_invoke;
+  v39[3] = &unk_279A59130;
+  v39[4] = self;
+  v3 = MEMORY[0x25F8D0F80](v39, a2);
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   [(PLAWDMetricsService *)self setCurrRunningMetrics:v4];
 
@@ -351,27 +351,27 @@ LABEL_9:
     classDictionary17 = [(PLAWDMetricsService *)self classDictionary];
     allKeys = [classDictionary17 allKeys];
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v25 = allKeys;
-    v26 = [v25 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v37;
+      v28 = *v36;
       do
       {
         v29 = 0;
         do
         {
-          if (*v37 != v28)
+          if (*v36 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v36 + 1) + 8 * v29);
+          v30 = *(*(&v35 + 1) + 8 * v29);
           awdServerConn = [(PLAWDMetricsService *)self awdServerConn];
           [awdServerConn registerQueriableMetricCallback:v3 forIdentifier:{objc_msgSend(v30, "unsignedIntValue")}];
 
@@ -379,22 +379,21 @@ LABEL_9:
         }
 
         while (v27 != v29);
-        v27 = [v25 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v27);
     }
 
     awdServerConn2 = [(PLAWDMetricsService *)self awdServerConn];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __39__PLAWDMetricsService_initAWDInterface__block_invoke_77;
-    v35[3] = &unk_279A59158;
-    v35[4] = self;
-    [awdServerConn2 registerConfigChangeCallback:v35];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __39__PLAWDMetricsService_initAWDInterface__block_invoke_77;
+    v34[3] = &unk_279A59158;
+    v34[4] = self;
+    [awdServerConn2 registerConfigChangeCallback:v34];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return connectToAWDServer;
 }
 
@@ -402,13 +401,12 @@ void __39__PLAWDMetricsService_initAWDInterface__block_invoke(uint64_t a1, uint6
 {
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __39__PLAWDMetricsService_initAWDInterface__block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v5;
+    block[4] = v4;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce, block);
@@ -416,34 +414,34 @@ void __39__PLAWDMetricsService_initAWDInterface__block_invoke(uint64_t a1, uint6
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : AWD Submit data callback: metricType=%d", @"*******PLAWDMetricsService*******", a2];
-      v7 = MEMORY[0x277D3F178];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAWDMetricsService.m"];
-      v9 = [v8 lastPathComponent];
-      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDMetricsService initAWDInterface]_block_invoke"];
-      [v7 logMessage:v6 fromFile:v9 fromFunction:v10 fromLineNumber:218];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : AWD Submit data callback: metricType=%d", @"*******PLAWDMetricsService*******", a2];
+      v6 = MEMORY[0x277D3F178];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAWDMetricsService.m"];
+      v8 = [v7 lastPathComponent];
+      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDMetricsService initAWDInterface]_block_invoke"];
+      [v6 logMessage:v5 fromFile:v8 fromFunction:v9 fromLineNumber:218];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v10 = PLLogCommon();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [PLAWDDisplay startMetricCollection:];
       }
     }
   }
 
-  v12 = [*(a1 + 32) currRunningMetrics];
-  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2];
-  v14 = [v12 containsObject:v13];
+  v11 = [*(a1 + 32) currRunningMetrics];
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2];
+  v13 = [v11 containsObject:v12];
 
-  if (v14)
+  if (v13)
   {
-    v15 = *(a1 + 32);
-    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2];
-    [v15 auxClassWrapper:v16 withAction:2];
+    v14 = *(a1 + 32);
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2];
+    [v14 auxClassWrapper:v15 withAction:2];
   }
 }
 
-uint64_t __39__PLAWDMetricsService_initAWDInterface__block_invoke_2(uint64_t a1)
+void *__39__PLAWDMetricsService_initAWDInterface__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled = result;
@@ -452,17 +450,16 @@ uint64_t __39__PLAWDMetricsService_initAWDInterface__block_invoke_2(uint64_t a1)
 
 void __39__PLAWDMetricsService_initAWDInterface__block_invoke_77(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __39__PLAWDMetricsService_initAWDInterface__block_invoke_2_78;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v5;
+    block[4] = v4;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce, block);
@@ -470,114 +467,113 @@ void __39__PLAWDMetricsService_initAWDInterface__block_invoke_77(uint64_t a1, vo
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : AWD config change callback: %@", @"*******PLAWDMetricsService*******", v3];
-      v7 = MEMORY[0x277D3F178];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAWDMetricsService.m"];
-      v9 = [v8 lastPathComponent];
-      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDMetricsService initAWDInterface]_block_invoke"];
-      [v7 logMessage:v6 fromFile:v9 fromFunction:v10 fromLineNumber:255];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ : AWD config change callback: %@", @"*******PLAWDMetricsService*******", v3];
+      v6 = MEMORY[0x277D3F178];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAWDMetricsService.m"];
+      v8 = [v7 lastPathComponent];
+      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAWDMetricsService initAWDInterface]_block_invoke"];
+      [v6 logMessage:v5 fromFile:v8 fromFunction:v9 fromLineNumber:255];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v10 = PLLogCommon();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [PLAWDDisplay startMetricCollection:];
       }
     }
   }
 
-  v12 = objc_opt_new();
-  [*(a1 + 32) setUpdateRunningMetrics:v12];
+  v11 = objc_opt_new();
+  [*(a1 + 32) setUpdateRunningMetrics:v11];
 
   if (v3)
   {
-    v39 = 0u;
-    v40 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v13 = v3;
-    v14 = [v13 countByEnumeratingWithState:&v37 objects:v43 count:16];
-    if (v14)
+    v35 = 0u;
+    v36 = 0u;
+    v12 = v3;
+    v13 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v38;
+      v14 = v13;
+      v15 = *v36;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v38 != v16)
+          if (*v36 != v15)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v37 + 1) + 8 * i);
-          v19 = [*(a1 + 32) updateRunningMetrics];
-          [v19 addObject:v18];
+          v17 = *(*(&v35 + 1) + 8 * i);
+          v18 = [*(a1 + 32) updateRunningMetrics];
+          [v18 addObject:v17];
 
-          v20 = [*(a1 + 32) currRunningMetrics];
-          v21 = [v20 containsObject:v18];
+          v19 = [*(a1 + 32) currRunningMetrics];
+          v20 = [v19 containsObject:v17];
 
-          v22 = *(a1 + 32);
-          if (v21)
+          v21 = *(a1 + 32);
+          if (v20)
           {
-            v23 = [v22 currRunningMetrics];
-            [v23 removeObject:v18];
+            v22 = [v21 currRunningMetrics];
+            [v22 removeObject:v17];
           }
 
           else
           {
-            [v22 auxClassWrapper:v18 withAction:0];
+            [v21 auxClassWrapper:v17 withAction:0];
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
-      while (v15);
+      while (v14);
     }
   }
 
-  v24 = [*(a1 + 32) currRunningMetrics];
-  v25 = [v24 count];
+  v23 = [*(a1 + 32) currRunningMetrics];
+  v24 = [v23 count];
 
-  if (v25)
+  if (v24)
   {
-    v35 = 0u;
-    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v26 = [*(a1 + 32) currRunningMetrics];
-    v27 = [v26 countByEnumeratingWithState:&v33 objects:v42 count:16];
-    if (v27)
+    v31 = 0u;
+    v32 = 0u;
+    v25 = [*(a1 + 32) currRunningMetrics];
+    v26 = [v25 countByEnumeratingWithState:&v31 objects:v40 count:16];
+    if (v26)
     {
-      v28 = v27;
-      v29 = *v34;
+      v27 = v26;
+      v28 = *v32;
       do
       {
-        for (j = 0; j != v28; ++j)
+        for (j = 0; j != v27; ++j)
         {
-          if (*v34 != v29)
+          if (*v32 != v28)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v25);
           }
 
-          [*(a1 + 32) auxClassWrapper:*(*(&v33 + 1) + 8 * j) withAction:1];
+          [*(a1 + 32) auxClassWrapper:*(*(&v31 + 1) + 8 * j) withAction:1];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
-      while (v28);
+      while (v27);
     }
   }
 
-  v31 = [*(a1 + 32) updateRunningMetrics];
-  [*(a1 + 32) setCurrRunningMetrics:v31];
+  v30 = [*(a1 + 32) updateRunningMetrics];
+  [*(a1 + 32) setCurrRunningMetrics:v30];
 
   [*(a1 + 32) setUpdateRunningMetrics:0];
-  v32 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLAWDMetricsService_initAWDInterface__block_invoke_2_78(uint64_t a1)
+void *__39__PLAWDMetricsService_initAWDInterface__block_invoke_2_78(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled = result;

@@ -44,36 +44,38 @@
 {
   requestCopy = request;
   completionCopy = completion;
+  v8 = completionCopy;
   if (requestCopy)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall();
+    if (isInternalInstall)
     {
-      v8 = _TSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v10 = _TSLogDomain(isInternalInstall);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        [TSBuddyMLController loadRequest:requestCopy completion:v8];
+        [TSBuddyMLController loadRequest:requestCopy completion:v10];
       }
     }
 
     remoteUIController = self->_remoteUIController;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __46__TSBuddyMLController_loadRequest_completion___block_invoke;
-    v11[3] = &unk_279B456F8;
-    v11[4] = self;
-    v12 = completionCopy;
-    [(RemoteUIController *)remoteUIController loadRequest:requestCopy completion:v11];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __46__TSBuddyMLController_loadRequest_completion___block_invoke;
+    v13[3] = &unk_279B456F8;
+    v13[4] = self;
+    v14 = v8;
+    [(RemoteUIController *)remoteUIController loadRequest:requestCopy completion:v13];
   }
 
   else
   {
-    v10 = _TSLogDomain();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = _TSLogDomain(completionCopy);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [TSBuddyMLController loadRequest:v10 completion:?];
+      [TSBuddyMLController loadRequest:v12 completion:?];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0);
+    v8[2](v8, 0);
   }
 }
 
@@ -204,22 +206,20 @@ void __46__TSBuddyMLController__configureRUIController__block_invoke_2(uint64_t 
 
 - (void)loadRequest:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "[TSBuddyMLController loadRequest:completion:]";
-  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] Loading Request: %@ @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "[TSBuddyMLController loadRequest:completion:]";
+  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] Loading Request: %@ @%s", &v2, 0x16u);
 }
 
 - (void)loadRequest:(os_log_t)log completion:.cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSBuddyMLController loadRequest:completion:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Missing request @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSBuddyMLController loadRequest:completion:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Missing request @%s", &v1, 0xCu);
 }
 
 @end

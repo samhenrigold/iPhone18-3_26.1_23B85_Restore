@@ -1048,14 +1048,14 @@ LABEL_14:
         }
 
         regionsContainer = [(_UIFocusMapSnapshot *)self regionsContainer];
-        v133 = [v136 isEqual:regionsContainer];
-        if (v133 && (*&self->_flags & 2) == 0)
+        isEqual = objc_msgSend_isEqual_(v136);
+        if (isEqual && (*&self->_flags & 2) == 0)
         {
           *&self->_flags |= 2u;
         }
 
         WeakRetained = objc_loadWeakRetained(&self->_rootContainer);
-        if ([v136 isEqual:WeakRetained])
+        if (objc_msgSend_isEqual_(v136))
         {
           v29 = (*&self->_flags & 8) == 0;
 
@@ -1090,7 +1090,7 @@ LABEL_75:
             [(NSMutableArray *)self->_stateStack addObject:v114];
             [v136 _searchForFocusRegionsInContext:self];
             [(NSMutableArray *)self->_stateStack removeLastObject];
-            if (v133 && (*&self->_flags & 2) != 0)
+            if (isEqual && (*&self->_flags & 2) != 0)
             {
               *&self->_flags &= ~2u;
             }

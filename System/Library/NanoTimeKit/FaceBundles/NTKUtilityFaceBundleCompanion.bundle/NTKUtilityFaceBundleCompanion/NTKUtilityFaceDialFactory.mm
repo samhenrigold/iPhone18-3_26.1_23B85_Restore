@@ -190,7 +190,7 @@
     {
       if (style != 1 || v24 == 3 * ((1431655766 * v24) >> 32))
       {
-        v28 = _NTKUtilityHourLayer(v24, v26, v27, v14, v16, v15, typeface);
+        v28 = _NTKUtilityHourLayer(v24, v26, v27, v14, v16, v15, typeface, deviceCopy);
         [v12 addSublayer:v28];
         [v28 setContentsScale:v9];
       }

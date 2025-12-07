@@ -1,2408 +1,3 @@
-void CMMsl::TapAccept::~TapAccept(CMMsl::TapAccept *this)
-{
-  PB::Base::~Base(this);
-
-  JUMPOUT(0x25F8548F0);
-}
-
-uint64_t CMMsl::TapAccept::TapAccept(uint64_t this, const CMMsl::TapAccept *a2)
-{
-  *this = &unk_286C23FA8;
-  *(this + 36) = -1;
-  *(this + 44) = 0;
-  v2 = *(a2 + 44);
-  if ((v2 & 2) != 0)
-  {
-    v4 = *(a2 + 2);
-    v3 = 2;
-    *(this + 44) = 2;
-    *(this + 16) = v4;
-    v2 = *(a2 + 44);
-    if ((v2 & 4) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_5;
-  }
-
-  v3 = 0;
-  if ((*(a2 + 44) & 4) != 0)
-  {
-LABEL_5:
-    v5 = *(a2 + 6);
-    v3 |= 4u;
-    *(this + 44) = v3;
-    *(this + 24) = v5;
-    v2 = *(a2 + 44);
-  }
-
-LABEL_6:
-  if ((v2 & 0x20) != 0)
-  {
-    v6 = *(a2 + 9);
-    v3 |= 0x20u;
-    *(this + 44) = v3;
-    *(this + 36) = v6;
-    v2 = *(a2 + 44);
-    if ((v2 & 0x10) == 0)
-    {
-LABEL_8:
-      if ((v2 & 8) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_14;
-    }
-  }
-
-  else if ((v2 & 0x10) == 0)
-  {
-    goto LABEL_8;
-  }
-
-  v7 = *(a2 + 8);
-  v3 |= 0x10u;
-  *(this + 44) = v3;
-  *(this + 32) = v7;
-  v2 = *(a2 + 44);
-  if ((v2 & 8) == 0)
-  {
-LABEL_9:
-    if ((v2 & 1) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_14:
-  v8 = *(a2 + 7);
-  v3 |= 8u;
-  *(this + 44) = v3;
-  *(this + 28) = v8;
-  v2 = *(a2 + 44);
-  if ((v2 & 1) == 0)
-  {
-LABEL_10:
-    if ((v2 & 0x40) == 0)
-    {
-      return this;
-    }
-
-LABEL_16:
-    v10 = *(a2 + 10);
-    *(this + 44) = v3 | 0x40;
-    *(this + 40) = v10;
-    return this;
-  }
-
-LABEL_15:
-  v9 = *(a2 + 1);
-  v3 |= 1u;
-  *(this + 44) = v3;
-  *(this + 8) = v9;
-  if ((*(a2 + 44) & 0x40) != 0)
-  {
-    goto LABEL_16;
-  }
-
-  return this;
-}
-
-uint64_t CMMsl::TapAccept::operator=(uint64_t a1, const CMMsl::TapAccept *a2)
-{
-  if (a1 != a2)
-  {
-    CMMsl::TapAccept::TapAccept(&v8, a2);
-    v3 = *(a1 + 44);
-    *(a1 + 44) = v13;
-    v13 = v3;
-    v4 = *(a1 + 24);
-    *(a1 + 24) = v10;
-    v10 = v4;
-    v5 = *(a1 + 28);
-    *(a1 + 28) = v11;
-    v11 = v5;
-    v6 = *(a1 + 8);
-    *(a1 + 8) = v9;
-    v9 = v6;
-    *&v6 = *(a1 + 36);
-    *(a1 + 36) = v12;
-    v12 = v6;
-    PB::Base::~Base(&v8);
-  }
-
-  return a1;
-}
-
-double CMMsl::swap(CMMsl *this, CMMsl::TapAccept *a2, CMMsl::TapAccept *a3)
-{
-  v3 = *(this + 11);
-  *(this + 11) = *(a2 + 11);
-  *(a2 + 11) = v3;
-  v4 = *(this + 2);
-  *(this + 2) = *(a2 + 2);
-  *(a2 + 2) = v4;
-  v5 = *(this + 6);
-  *(this + 6) = *(a2 + 6);
-  *(a2 + 6) = v5;
-  LODWORD(v4) = *(this + 8);
-  *(this + 8) = *(a2 + 8);
-  *(a2 + 8) = v4;
-  LODWORD(v4) = *(this + 7);
-  *(this + 7) = *(a2 + 7);
-  *(a2 + 7) = v4;
-  v6 = *(this + 1);
-  *(this + 1) = *(a2 + 1);
-  *(a2 + 1) = v6;
-  result = *(a2 + 36);
-  v8 = *(this + 36);
-  *(this + 36) = result;
-  *(a2 + 36) = v8;
-  return result;
-}
-
-double CMMsl::TapAccept::TapAccept(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_286C23FA8;
-  *(a1 + 36) = -1;
-  *(a1 + 44) = *(a2 + 44);
-  *(a2 + 44) = 0;
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 28) = *(a2 + 28);
-  *(a1 + 8) = *(a2 + 8);
-  result = *(a2 + 36);
-  *(a1 + 36) = result;
-  return result;
-}
-
-{
-  *a1 = &unk_286C23FA8;
-  *(a1 + 36) = -1;
-  *(a1 + 44) = *(a2 + 44);
-  *(a2 + 44) = 0;
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 28) = *(a2 + 28);
-  *(a1 + 8) = *(a2 + 8);
-  result = *(a2 + 36);
-  *(a1 + 36) = result;
-  return result;
-}
-
-uint64_t CMMsl::TapAccept::operator=(uint64_t a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    v9 = &unk_286C23FA8;
-    v3 = *(a2 + 44);
-    *(a2 + 44) = 0;
-    v4 = *(a2 + 24);
-    v14 = *(a1 + 44);
-    v11 = *(a1 + 24);
-    v5 = *(a1 + 28);
-    *(a1 + 28) = *(a2 + 28);
-    v12 = v5;
-    v6 = *(a1 + 8);
-    *(a1 + 8) = *(a2 + 8);
-    v10 = v6;
-    *&v6 = *(a1 + 36);
-    v7 = *(a2 + 36);
-    *(a1 + 24) = v4;
-    *(a1 + 44) = v3;
-    *(a1 + 36) = v7;
-    v13 = v6;
-    PB::Base::~Base(&v9);
-  }
-
-  return a1;
-}
-
-uint64_t CMMsl::TapAccept::formatText(CMMsl::TapAccept *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 44);
-  if ((v5 & 4) != 0)
-  {
-    v6 = *(this + 6);
-    PB::TextFormatter::format(a2, "location");
-    v5 = *(this + 44);
-    if ((v5 & 8) == 0)
-    {
-LABEL_3:
-      if ((v5 & 0x10) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_14;
-    }
-  }
-
-  else if ((*(this + 44) & 8) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  PB::TextFormatter::format(a2, "peakHalfWidth", *(this + 7));
-  v5 = *(this + 44);
-  if ((v5 & 0x10) == 0)
-  {
-LABEL_4:
-    if ((v5 & 1) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_14:
-  PB::TextFormatter::format(a2, "peakMagnitude", *(this + 8));
-  v5 = *(this + 44);
-  if ((v5 & 1) == 0)
-  {
-LABEL_5:
-    if ((v5 & 0x20) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_16;
-  }
-
-LABEL_15:
-  PB::TextFormatter::format(a2, "peakTime", *(this + 1));
-  v5 = *(this + 44);
-  if ((v5 & 0x20) == 0)
-  {
-LABEL_6:
-    if ((v5 & 0x40) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_17;
-  }
-
-LABEL_16:
-  v7 = *(this + 9);
-  PB::TextFormatter::format(a2, "tapAcceptStatus");
-  v5 = *(this + 44);
-  if ((v5 & 0x40) == 0)
-  {
-LABEL_7:
-    if ((v5 & 2) == 0)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_8;
-  }
-
-LABEL_17:
-  v8 = *(this + 10);
-  PB::TextFormatter::format(a2, "tapCounter");
-  if ((*(this + 44) & 2) != 0)
-  {
-LABEL_8:
-    PB::TextFormatter::format(a2, "timestamp", *(this + 2));
-  }
-
-LABEL_9:
-
-  return MEMORY[0x2821A4560](a2);
-}
-
-uint64_t CMMsl::TapAccept::readFrom(CMMsl::TapAccept *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  while (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    v7 = *a2;
-    if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-    {
-      v15 = 0;
-      v16 = 0;
-      v10 = 0;
-      v17 = (v7 + v2);
-      v18 = v3 >= v2;
-      v19 = v3 - v2;
-      if (!v18)
-      {
-        v19 = 0;
-      }
-
-      v20 = v2 + 1;
-      while (v19)
-      {
-        v21 = *v17;
-        *(a2 + 1) = v20;
-        v10 |= (v21 & 0x7F) << v15;
-        if ((v21 & 0x80) == 0)
-        {
-          goto LABEL_19;
-        }
-
-        v15 += 7;
-        ++v17;
-        --v19;
-        ++v20;
-        v14 = v16++ > 8;
-        if (v14)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      v4 = 1;
-      *(a2 + 24) = 1;
-      break;
-    }
-
-    v8 = 0;
-    v9 = 0;
-    v10 = 0;
-    v11 = (v7 + v2);
-    v12 = v2 + 1;
-    while (1)
-    {
-      *(a2 + 1) = v12;
-      v13 = *v11++;
-      v10 |= (v13 & 0x7F) << v8;
-      if ((v13 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v8 += 7;
-      ++v12;
-      v14 = v9++ > 8;
-      if (v14)
-      {
-        goto LABEL_17;
-      }
-    }
-
-LABEL_19:
-    if ((v10 & 7) == 4)
-    {
-      v4 = 0;
-      break;
-    }
-
-    v22 = v10 >> 3;
-    if ((v10 >> 3) <= 3)
-    {
-      switch(v22)
-      {
-        case 1:
-          *(this + 44) |= 2u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
-          {
-LABEL_55:
-            *(a2 + 24) = 1;
-            goto LABEL_105;
-          }
-
-          *(this + 2) = *(*a2 + v2);
-LABEL_88:
-          v2 = *(a2 + 1) + 8;
-LABEL_89:
-          *(a2 + 1) = v2;
-          goto LABEL_105;
-        case 2:
-          *(this + 44) |= 4u;
-          v39 = *(a2 + 1);
-          v2 = *(a2 + 2);
-          v40 = *a2;
-          if (v39 > 0xFFFFFFFFFFFFFFF5 || v39 + 10 > v2)
-          {
-            v61 = 0;
-            v62 = 0;
-            v43 = 0;
-            if (v2 <= v39)
-            {
-              v2 = *(a2 + 1);
-            }
-
-            v63 = (v40 + v39);
-            v64 = v2 - v39;
-            v65 = v39 + 1;
-            while (1)
-            {
-              if (!v64)
-              {
-                LODWORD(v43) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_104;
-              }
-
-              v66 = v65;
-              v67 = *v63;
-              *(a2 + 1) = v66;
-              v43 |= (v67 & 0x7F) << v61;
-              if ((v67 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v61 += 7;
-              ++v63;
-              --v64;
-              v65 = v66 + 1;
-              v14 = v62++ > 8;
-              if (v14)
-              {
-                LODWORD(v43) = 0;
-                goto LABEL_103;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v43) = 0;
-            }
-
-LABEL_103:
-            v2 = v66;
-          }
-
-          else
-          {
-            v41 = 0;
-            v42 = 0;
-            v43 = 0;
-            v44 = (v40 + v39);
-            v45 = v39 + 1;
-            while (1)
-            {
-              v2 = v45;
-              *(a2 + 1) = v45;
-              v46 = *v44++;
-              v43 |= (v46 & 0x7F) << v41;
-              if ((v46 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v41 += 7;
-              ++v45;
-              v14 = v42++ > 8;
-              if (v14)
-              {
-                LODWORD(v43) = 0;
-                break;
-              }
-            }
-          }
-
-LABEL_104:
-          *(this + 6) = v43;
-          goto LABEL_105;
-        case 3:
-          *(this + 44) |= 0x20u;
-          v23 = *(a2 + 1);
-          v2 = *(a2 + 2);
-          v24 = *a2;
-          if (v23 > 0xFFFFFFFFFFFFFFF5 || v23 + 10 > v2)
-          {
-            v54 = 0;
-            v55 = 0;
-            v27 = 0;
-            if (v2 <= v23)
-            {
-              v2 = *(a2 + 1);
-            }
-
-            v56 = (v24 + v23);
-            v57 = v2 - v23;
-            v58 = v23 + 1;
-            while (1)
-            {
-              if (!v57)
-              {
-                LODWORD(v27) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_100;
-              }
-
-              v59 = v58;
-              v60 = *v56;
-              *(a2 + 1) = v59;
-              v27 |= (v60 & 0x7F) << v54;
-              if ((v60 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v54 += 7;
-              ++v56;
-              --v57;
-              v58 = v59 + 1;
-              v14 = v55++ > 8;
-              if (v14)
-              {
-                LODWORD(v27) = 0;
-                goto LABEL_99;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v27) = 0;
-            }
-
-LABEL_99:
-            v2 = v59;
-          }
-
-          else
-          {
-            v25 = 0;
-            v26 = 0;
-            v27 = 0;
-            v28 = (v24 + v23);
-            v29 = v23 + 1;
-            while (1)
-            {
-              v2 = v29;
-              *(a2 + 1) = v29;
-              v30 = *v28++;
-              v27 |= (v30 & 0x7F) << v25;
-              if ((v30 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v25 += 7;
-              ++v29;
-              v14 = v26++ > 8;
-              if (v14)
-              {
-                LODWORD(v27) = 0;
-                break;
-              }
-            }
-          }
-
-LABEL_100:
-          *(this + 9) = v27;
-          goto LABEL_105;
-      }
-    }
-
-    else if (v22 > 5)
-    {
-      if (v22 == 6)
-      {
-        *(this + 44) |= 1u;
-        v2 = *(a2 + 1);
-        if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
-        {
-          goto LABEL_55;
-        }
-
-        *(this + 1) = *(*a2 + v2);
-        goto LABEL_88;
-      }
-
-      if (v22 == 7)
-      {
-        *(this + 44) |= 0x40u;
-        v31 = *(a2 + 1);
-        v2 = *(a2 + 2);
-        v32 = *a2;
-        if (v31 > 0xFFFFFFFFFFFFFFF5 || v31 + 10 > v2)
-        {
-          v47 = 0;
-          v48 = 0;
-          v35 = 0;
-          if (v2 <= v31)
-          {
-            v2 = *(a2 + 1);
-          }
-
-          v49 = (v32 + v31);
-          v50 = v2 - v31;
-          v51 = v31 + 1;
-          while (1)
-          {
-            if (!v50)
-            {
-              LODWORD(v35) = 0;
-              *(a2 + 24) = 1;
-              goto LABEL_96;
-            }
-
-            v52 = v51;
-            v53 = *v49;
-            *(a2 + 1) = v52;
-            v35 |= (v53 & 0x7F) << v47;
-            if ((v53 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v47 += 7;
-            ++v49;
-            --v50;
-            v51 = v52 + 1;
-            v14 = v48++ > 8;
-            if (v14)
-            {
-              LODWORD(v35) = 0;
-              goto LABEL_95;
-            }
-          }
-
-          if (*(a2 + 24))
-          {
-            LODWORD(v35) = 0;
-          }
-
-LABEL_95:
-          v2 = v52;
-        }
-
-        else
-        {
-          v33 = 0;
-          v34 = 0;
-          v35 = 0;
-          v36 = (v32 + v31);
-          v37 = v31 + 1;
-          while (1)
-          {
-            v2 = v37;
-            *(a2 + 1) = v37;
-            v38 = *v36++;
-            v35 |= (v38 & 0x7F) << v33;
-            if ((v38 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v33 += 7;
-            ++v37;
-            v14 = v34++ > 8;
-            if (v14)
-            {
-              LODWORD(v35) = 0;
-              break;
-            }
-          }
-        }
-
-LABEL_96:
-        *(this + 10) = v35;
-        goto LABEL_105;
-      }
-    }
-
-    else
-    {
-      if (v22 == 4)
-      {
-        *(this + 44) |= 0x10u;
-        v2 = *(a2 + 1);
-        if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-        {
-          goto LABEL_55;
-        }
-
-        *(this + 8) = *(*a2 + v2);
-        goto LABEL_52;
-      }
-
-      if (v22 == 5)
-      {
-        *(this + 44) |= 8u;
-        v2 = *(a2 + 1);
-        if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-        {
-          goto LABEL_55;
-        }
-
-        *(this + 7) = *(*a2 + v2);
-LABEL_52:
-        v2 = *(a2 + 1) + 4;
-        goto LABEL_89;
-      }
-    }
-
-LABEL_17:
-    if (!PB::Reader::skip(a2))
-    {
-      v68 = 0;
-      return v68 & 1;
-    }
-
-    v2 = *(a2 + 1);
-LABEL_105:
-    v3 = *(a2 + 2);
-    v4 = *(a2 + 24);
-  }
-
-  v68 = v4 ^ 1;
-  return v68 & 1;
-}
-
-uint64_t CMMsl::TapAccept::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 44);
-  if ((v4 & 2) != 0)
-  {
-    this = PB::Writer::write(a2, *(this + 16));
-    v4 = *(v3 + 44);
-    if ((v4 & 4) == 0)
-    {
-LABEL_3:
-      if ((v4 & 0x20) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_11;
-    }
-  }
-
-  else if ((*(this + 44) & 4) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  v5 = *(v3 + 24);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 44);
-  if ((v4 & 0x20) == 0)
-  {
-LABEL_4:
-    if ((v4 & 0x10) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_12;
-  }
-
-LABEL_11:
-  v6 = *(v3 + 36);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 44);
-  if ((v4 & 0x10) == 0)
-  {
-LABEL_5:
-    if ((v4 & 8) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_12:
-  this = PB::Writer::write(a2, *(v3 + 32));
-  v4 = *(v3 + 44);
-  if ((v4 & 8) == 0)
-  {
-LABEL_6:
-    if ((v4 & 1) == 0)
-    {
-      goto LABEL_7;
-    }
-
-LABEL_14:
-    this = PB::Writer::write(a2, *(v3 + 8));
-    if ((*(v3 + 44) & 0x40) == 0)
-    {
-      return this;
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_13:
-  this = PB::Writer::write(a2, *(v3 + 28));
-  v4 = *(v3 + 44);
-  if (v4)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_7:
-  if ((v4 & 0x40) == 0)
-  {
-    return this;
-  }
-
-LABEL_15:
-  v7 = *(v3 + 40);
-
-  return PB::Writer::writeVarInt(a2);
-}
-
-uint64_t CMMsl::TapAccept::hash_value(CMMsl::TapAccept *this)
-{
-  if ((*(this + 44) & 2) != 0)
-  {
-    v1 = *(this + 2);
-    if (v1 == 0.0)
-    {
-      v1 = 0.0;
-    }
-
-    if ((*(this + 44) & 4) != 0)
-    {
-LABEL_3:
-      v2 = *(this + 6);
-      if ((*(this + 44) & 0x20) != 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_19;
-    }
-  }
-
-  else
-  {
-    v1 = 0.0;
-    if ((*(this + 44) & 4) != 0)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v2 = 0;
-  if ((*(this + 44) & 0x20) != 0)
-  {
-LABEL_4:
-    v3 = *(this + 9);
-    if ((*(this + 44) & 0x10) != 0)
-    {
-      goto LABEL_5;
-    }
-
-LABEL_20:
-    v5 = 0;
-    if ((*(this + 44) & 8) != 0)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_21:
-    v7 = 0;
-    if (*(this + 44))
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_22;
-  }
-
-LABEL_19:
-  v3 = 0;
-  if ((*(this + 44) & 0x10) == 0)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_5:
-  v4 = *(this + 8);
-  v5 = LODWORD(v4);
-  if (v4 == 0.0)
-  {
-    v5 = 0;
-  }
-
-  if ((*(this + 44) & 8) == 0)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_8:
-  v6 = *(this + 7);
-  v7 = LODWORD(v6);
-  if (v6 == 0.0)
-  {
-    v7 = 0;
-  }
-
-  if (*(this + 44))
-  {
-LABEL_11:
-    v8 = *(this + 1);
-    if (v8 == 0.0)
-    {
-      v8 = 0.0;
-    }
-
-    if ((*(this + 44) & 0x40) != 0)
-    {
-      goto LABEL_14;
-    }
-
-LABEL_23:
-    v9 = 0;
-    return v2 ^ *&v1 ^ v3 ^ v5 ^ v7 ^ *&v8 ^ v9;
-  }
-
-LABEL_22:
-  v8 = 0.0;
-  if ((*(this + 44) & 0x40) == 0)
-  {
-    goto LABEL_23;
-  }
-
-LABEL_14:
-  v9 = *(this + 10);
-  return v2 ^ *&v1 ^ v3 ^ v5 ^ v7 ^ *&v8 ^ v9;
-}
-
-void CMMsl::TapDetect::~TapDetect(CMMsl::TapDetect *this)
-{
-  PB::Base::~Base(this);
-
-  JUMPOUT(0x25F8548F0);
-}
-
-double CMMsl::TapDetect::TapDetect(CMMsl::TapDetect *this, const CMMsl::TapDetect *a2)
-{
-  *this = &unk_286C23FE0;
-  *(this + 7) = -2;
-  result = NAN;
-  *(this + 52) = xmmword_25AD37E90;
-  v3 = *(a2 + 32);
-  if ((v3 & 2) != 0)
-  {
-    result = *(a2 + 2);
-    v4 = 2;
-    *(this + 32) = 2;
-    *(this + 2) = result;
-    v3 = *(a2 + 32);
-    if ((v3 & 0x20) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_5;
-  }
-
-  v4 = 0;
-  if ((v3 & 0x20) != 0)
-  {
-LABEL_5:
-    v5 = *(a2 + 9);
-    v4 |= 0x20u;
-    *(this + 32) = v4;
-    *(this + 9) = v5;
-    v3 = *(a2 + 32);
-  }
-
-LABEL_6:
-  if ((v3 & 0x400) != 0)
-  {
-    v6 = *(a2 + 14);
-    v4 |= 0x400u;
-    *(this + 32) = v4;
-    *(this + 14) = v6;
-    v3 = *(a2 + 32);
-    if ((v3 & 4) == 0)
-    {
-LABEL_8:
-      if ((v3 & 0x10) == 0)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_19;
-    }
-  }
-
-  else if ((v3 & 4) == 0)
-  {
-    goto LABEL_8;
-  }
-
-  v7 = *(a2 + 6);
-  v4 |= 4u;
-  *(this + 32) = v4;
-  *(this + 6) = v7;
-  v3 = *(a2 + 32);
-  if ((v3 & 0x10) == 0)
-  {
-LABEL_9:
-    if ((v3 & 0x200) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_20;
-  }
-
-LABEL_19:
-  v8 = *(a2 + 8);
-  v4 |= 0x10u;
-  *(this + 32) = v4;
-  *(this + 8) = v8;
-  v3 = *(a2 + 32);
-  if ((v3 & 0x200) == 0)
-  {
-LABEL_10:
-    if ((v3 & 0x800) == 0)
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_21;
-  }
-
-LABEL_20:
-  v9 = *(a2 + 13);
-  v4 |= 0x200u;
-  *(this + 32) = v4;
-  *(this + 13) = v9;
-  v3 = *(a2 + 32);
-  if ((v3 & 0x800) == 0)
-  {
-LABEL_11:
-    if ((v3 & 8) == 0)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_22;
-  }
-
-LABEL_21:
-  v10 = *(a2 + 15);
-  v4 |= 0x800u;
-  *(this + 32) = v4;
-  *(this + 15) = v10;
-  v3 = *(a2 + 32);
-  if ((v3 & 8) == 0)
-  {
-LABEL_12:
-    if ((v3 & 0x100) == 0)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_23;
-  }
-
-LABEL_22:
-  v11 = *(a2 + 7);
-  v4 |= 8u;
-  *(this + 32) = v4;
-  *(this + 7) = v11;
-  v3 = *(a2 + 32);
-  if ((v3 & 0x100) == 0)
-  {
-LABEL_13:
-    if ((v3 & 0x80) == 0)
-    {
-      goto LABEL_14;
-    }
-
-    goto LABEL_24;
-  }
-
-LABEL_23:
-  LODWORD(result) = *(a2 + 12);
-  v4 |= 0x100u;
-  *(this + 32) = v4;
-  *(this + 12) = LODWORD(result);
-  v3 = *(a2 + 32);
-  if ((v3 & 0x80) == 0)
-  {
-LABEL_14:
-    if ((v3 & 0x40) == 0)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_25;
-  }
-
-LABEL_24:
-  LODWORD(result) = *(a2 + 11);
-  v4 |= 0x80u;
-  *(this + 32) = v4;
-  *(this + 11) = LODWORD(result);
-  v3 = *(a2 + 32);
-  if ((v3 & 0x40) == 0)
-  {
-LABEL_15:
-    if ((v3 & 1) == 0)
-    {
-      return result;
-    }
-
-LABEL_26:
-    result = *(a2 + 1);
-    *(this + 32) = v4 | 1;
-    *(this + 1) = result;
-    return result;
-  }
-
-LABEL_25:
-  LODWORD(result) = *(a2 + 10);
-  v4 |= 0x40u;
-  *(this + 32) = v4;
-  *(this + 10) = LODWORD(result);
-  if (*(a2 + 32))
-  {
-    goto LABEL_26;
-  }
-
-  return result;
-}
-
-CMMsl *CMMsl::TapDetect::operator=(CMMsl *a1, const CMMsl::TapDetect *a2)
-{
-  if (a1 != a2)
-  {
-    CMMsl::TapDetect::TapDetect(v5, a2);
-    CMMsl::swap(a1, v5, v3);
-    PB::Base::~Base(v5);
-  }
-
-  return a1;
-}
-
-double CMMsl::swap(CMMsl *this, CMMsl::TapDetect *a2, CMMsl::TapDetect *a3)
-{
-  v3 = *(this + 16);
-  *(this + 16) = *(a2 + 16);
-  *(a2 + 16) = v3;
-  v4 = *(this + 2);
-  *(this + 2) = *(a2 + 2);
-  *(a2 + 2) = v4;
-  v5 = *(this + 9);
-  *(this + 9) = *(a2 + 9);
-  *(a2 + 9) = v5;
-  v6 = *(this + 52);
-  *(this + 52) = *(a2 + 52);
-  *(a2 + 52) = v6;
-  v7 = *(this + 15);
-  *(this + 15) = *(a2 + 15);
-  *(a2 + 15) = v7;
-  v8 = *(this + 3);
-  *(this + 3) = *(a2 + 3);
-  *(a2 + 3) = v8;
-  v9 = *(this + 8);
-  *(this + 8) = *(a2 + 8);
-  *(a2 + 8) = v9;
-  LODWORD(v4) = *(this + 12);
-  *(this + 12) = *(a2 + 12);
-  *(a2 + 12) = v4;
-  LODWORD(v4) = *(this + 11);
-  *(this + 11) = *(a2 + 11);
-  *(a2 + 11) = v4;
-  LODWORD(v4) = *(this + 10);
-  *(this + 10) = *(a2 + 10);
-  *(a2 + 10) = v4;
-  result = *(this + 1);
-  *(this + 1) = *(a2 + 1);
-  *(a2 + 1) = result;
-  return result;
-}
-
-double CMMsl::TapDetect::TapDetect(uint64_t a1, uint64_t a2)
-{
-  *a1 = &unk_286C23FE0;
-  *(a1 + 28) = -2;
-  *(a1 + 52) = 0x100000001;
-  *(a1 + 60) = -2;
-  *(a1 + 64) = *(a2 + 64);
-  *(a2 + 64) = 0;
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 36) = *(a2 + 36);
-  *(a1 + 52) = *(a2 + 52);
-  *(a1 + 60) = *(a2 + 60);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 44) = *(a2 + 44);
-  *(a1 + 40) = *(a2 + 40);
-  result = *(a2 + 8);
-  *(a1 + 8) = result;
-  return result;
-}
-
-CMMsl *CMMsl::TapDetect::operator=(CMMsl *a1, uint64_t a2)
-{
-  if (a1 != a2)
-  {
-    CMMsl::TapDetect::TapDetect(v5, a2);
-    CMMsl::swap(a1, v5, v3);
-    PB::Base::~Base(v5);
-  }
-
-  return a1;
-}
-
-uint64_t CMMsl::TapDetect::formatText(CMMsl::TapDetect *this, PB::TextFormatter *a2, const char *a3)
-{
-  PB::TextFormatter::beginObject(a2, a3);
-  v5 = *(this + 32);
-  if ((v5 & 4) != 0)
-  {
-    v7 = *(this + 6);
-    PB::TextFormatter::format(a2, "axis");
-    v5 = *(this + 32);
-    if ((v5 & 8) == 0)
-    {
-LABEL_3:
-      if ((v5 & 0x10) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_19;
-    }
-  }
-
-  else if ((v5 & 8) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  v8 = *(this + 7);
-  PB::TextFormatter::format(a2, "clippedPeakType");
-  v5 = *(this + 32);
-  if ((v5 & 0x10) == 0)
-  {
-LABEL_4:
-    if ((v5 & 0x20) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_20;
-  }
-
-LABEL_19:
-  v9 = *(this + 8);
-  PB::TextFormatter::format(a2, "direction");
-  v5 = *(this + 32);
-  if ((v5 & 0x20) == 0)
-  {
-LABEL_5:
-    if ((v5 & 0x40) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_21;
-  }
-
-LABEL_20:
-  v10 = *(this + 9);
-  PB::TextFormatter::format(a2, "location");
-  v5 = *(this + 32);
-  if ((v5 & 0x40) == 0)
-  {
-LABEL_6:
-    if ((v5 & 0x80) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_22;
-  }
-
-LABEL_21:
-  PB::TextFormatter::format(a2, "peakHalfWidth", *(this + 10));
-  v5 = *(this + 32);
-  if ((v5 & 0x80) == 0)
-  {
-LABEL_7:
-    if ((v5 & 1) == 0)
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_23;
-  }
-
-LABEL_22:
-  PB::TextFormatter::format(a2, "peakMagnitude", *(this + 11));
-  v5 = *(this + 32);
-  if ((v5 & 1) == 0)
-  {
-LABEL_8:
-    if ((v5 & 0x100) == 0)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_24;
-  }
-
-LABEL_23:
-  PB::TextFormatter::format(a2, "peakTime", *(this + 1));
-  v5 = *(this + 32);
-  if ((v5 & 0x100) == 0)
-  {
-LABEL_9:
-    if ((v5 & 0x200) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_25;
-  }
-
-LABEL_24:
-  PB::TextFormatter::format(a2, "peakValue", *(this + 12));
-  v5 = *(this + 32);
-  if ((v5 & 0x200) == 0)
-  {
-LABEL_10:
-    if ((v5 & 0x400) == 0)
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_26;
-  }
-
-LABEL_25:
-  v11 = *(this + 13);
-  PB::TextFormatter::format(a2, "strideDirection");
-  v5 = *(this + 32);
-  if ((v5 & 0x400) == 0)
-  {
-LABEL_11:
-    if ((v5 & 2) == 0)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_27;
-  }
-
-LABEL_26:
-  v12 = *(this + 14);
-  PB::TextFormatter::format(a2, "tapDetectStatus");
-  v5 = *(this + 32);
-  if ((v5 & 2) == 0)
-  {
-LABEL_12:
-    if ((v5 & 0x800) == 0)
-    {
-      goto LABEL_14;
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_27:
-  PB::TextFormatter::format(a2, "timestamp", *(this + 2));
-  if ((*(this + 32) & 0x800) != 0)
-  {
-LABEL_13:
-    v6 = *(this + 15);
-    PB::TextFormatter::format(a2, "widthCalculationMethod");
-  }
-
-LABEL_14:
-
-  return MEMORY[0x2821A4560](a2);
-}
-
-uint64_t CMMsl::TapDetect::readFrom(CMMsl::TapDetect *this, PB::Reader *a2)
-{
-  v2 = *(a2 + 1);
-  v3 = *(a2 + 2);
-  v4 = *(a2 + 24);
-  while (v2 < v3 && (*(a2 + 24) & 1) == 0)
-  {
-    v7 = *a2;
-    if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
-    {
-      v15 = 0;
-      v16 = 0;
-      v10 = 0;
-      v17 = (v7 + v2);
-      v18 = v3 >= v2;
-      v19 = v3 - v2;
-      if (!v18)
-      {
-        v19 = 0;
-      }
-
-      v20 = v2 + 1;
-      while (v19)
-      {
-        v21 = *v17;
-        *(a2 + 1) = v20;
-        v10 |= (v21 & 0x7F) << v15;
-        if ((v21 & 0x80) == 0)
-        {
-          goto LABEL_19;
-        }
-
-        v15 += 7;
-        ++v17;
-        --v19;
-        ++v20;
-        v14 = v16++ > 8;
-        if (v14)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      v4 = 1;
-      *(a2 + 24) = 1;
-      break;
-    }
-
-    v8 = 0;
-    v9 = 0;
-    v10 = 0;
-    v11 = (v7 + v2);
-    v12 = v2 + 1;
-    while (1)
-    {
-      *(a2 + 1) = v12;
-      v13 = *v11++;
-      v10 |= (v13 & 0x7F) << v8;
-      if ((v13 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v8 += 7;
-      ++v12;
-      v14 = v9++ > 8;
-      if (v14)
-      {
-        goto LABEL_17;
-      }
-    }
-
-LABEL_19:
-    if ((v10 & 7) == 4)
-    {
-      v4 = 0;
-      break;
-    }
-
-    v22 = v10 >> 3;
-    if ((v10 >> 3) > 6)
-    {
-      if (v22 > 9)
-      {
-        switch(v22)
-        {
-          case 0xA:
-            *(this + 32) |= 0x80u;
-            v2 = *(a2 + 1);
-            if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-            {
-LABEL_99:
-              *(a2 + 24) = 1;
-              goto LABEL_194;
-            }
-
-            *(this + 11) = *(*a2 + v2);
-            goto LABEL_157;
-          case 0xB:
-            *(this + 32) |= 0x40u;
-            v2 = *(a2 + 1);
-            if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-            {
-              goto LABEL_99;
-            }
-
-            *(this + 10) = *(*a2 + v2);
-LABEL_157:
-            v2 = *(a2 + 1) + 4;
-            goto LABEL_158;
-          case 0xC:
-            *(this + 32) |= 1u;
-            v2 = *(a2 + 1);
-            if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
-            {
-              goto LABEL_99;
-            }
-
-            *(this + 1) = *(*a2 + v2);
-LABEL_58:
-            v2 = *(a2 + 1) + 8;
-LABEL_158:
-            *(a2 + 1) = v2;
-            goto LABEL_194;
-        }
-      }
-
-      else
-      {
-        switch(v22)
-        {
-          case 7:
-            *(this + 32) |= 0x800u;
-            v39 = *(a2 + 1);
-            v2 = *(a2 + 2);
-            v40 = *a2;
-            if (v39 > 0xFFFFFFFFFFFFFFF5 || v39 + 10 > v2)
-            {
-              v93 = 0;
-              v94 = 0;
-              v43 = 0;
-              if (v2 <= v39)
-              {
-                v2 = *(a2 + 1);
-              }
-
-              v95 = (v40 + v39);
-              v96 = v2 - v39;
-              v97 = v39 + 1;
-              while (1)
-              {
-                if (!v96)
-                {
-                  LODWORD(v43) = 0;
-                  *(a2 + 24) = 1;
-                  goto LABEL_177;
-                }
-
-                v98 = v97;
-                v99 = *v95;
-                *(a2 + 1) = v98;
-                v43 |= (v99 & 0x7F) << v93;
-                if ((v99 & 0x80) == 0)
-                {
-                  break;
-                }
-
-                v93 += 7;
-                ++v95;
-                --v96;
-                v97 = v98 + 1;
-                v14 = v94++ > 8;
-                if (v14)
-                {
-                  LODWORD(v43) = 0;
-                  goto LABEL_176;
-                }
-              }
-
-              if (*(a2 + 24))
-              {
-                LODWORD(v43) = 0;
-              }
-
-LABEL_176:
-              v2 = v98;
-            }
-
-            else
-            {
-              v41 = 0;
-              v42 = 0;
-              v43 = 0;
-              v44 = (v40 + v39);
-              v45 = v39 + 1;
-              while (1)
-              {
-                v2 = v45;
-                *(a2 + 1) = v45;
-                v46 = *v44++;
-                v43 |= (v46 & 0x7F) << v41;
-                if ((v46 & 0x80) == 0)
-                {
-                  break;
-                }
-
-                v41 += 7;
-                ++v45;
-                v14 = v42++ > 8;
-                if (v14)
-                {
-                  LODWORD(v43) = 0;
-                  break;
-                }
-              }
-            }
-
-LABEL_177:
-            *(this + 15) = v43;
-            goto LABEL_194;
-          case 8:
-            *(this + 32) |= 8u;
-            v63 = *(a2 + 1);
-            v2 = *(a2 + 2);
-            v64 = *a2;
-            if (v63 > 0xFFFFFFFFFFFFFFF5 || v63 + 10 > v2)
-            {
-              v114 = 0;
-              v115 = 0;
-              v67 = 0;
-              if (v2 <= v63)
-              {
-                v2 = *(a2 + 1);
-              }
-
-              v116 = (v64 + v63);
-              v117 = v2 - v63;
-              v118 = v63 + 1;
-              while (1)
-              {
-                if (!v117)
-                {
-                  LODWORD(v67) = 0;
-                  *(a2 + 24) = 1;
-                  goto LABEL_189;
-                }
-
-                v119 = v118;
-                v120 = *v116;
-                *(a2 + 1) = v119;
-                v67 |= (v120 & 0x7F) << v114;
-                if ((v120 & 0x80) == 0)
-                {
-                  break;
-                }
-
-                v114 += 7;
-                ++v116;
-                --v117;
-                v118 = v119 + 1;
-                v14 = v115++ > 8;
-                if (v14)
-                {
-                  LODWORD(v67) = 0;
-                  goto LABEL_188;
-                }
-              }
-
-              if (*(a2 + 24))
-              {
-                LODWORD(v67) = 0;
-              }
-
-LABEL_188:
-              v2 = v119;
-            }
-
-            else
-            {
-              v65 = 0;
-              v66 = 0;
-              v67 = 0;
-              v68 = (v64 + v63);
-              v69 = v63 + 1;
-              while (1)
-              {
-                v2 = v69;
-                *(a2 + 1) = v69;
-                v70 = *v68++;
-                v67 |= (v70 & 0x7F) << v65;
-                if ((v70 & 0x80) == 0)
-                {
-                  break;
-                }
-
-                v65 += 7;
-                ++v69;
-                v14 = v66++ > 8;
-                if (v14)
-                {
-                  LODWORD(v67) = 0;
-                  break;
-                }
-              }
-            }
-
-LABEL_189:
-            *(this + 7) = v67;
-            goto LABEL_194;
-          case 9:
-            *(this + 32) |= 0x100u;
-            v2 = *(a2 + 1);
-            if (v2 > 0xFFFFFFFFFFFFFFFBLL || v2 + 4 > *(a2 + 2))
-            {
-              goto LABEL_99;
-            }
-
-            *(this + 12) = *(*a2 + v2);
-            goto LABEL_157;
-        }
-      }
-    }
-
-    else if (v22 > 3)
-    {
-      switch(v22)
-      {
-        case 4:
-          *(this + 32) |= 4u;
-          v47 = *(a2 + 1);
-          v2 = *(a2 + 2);
-          v48 = *a2;
-          if (v47 > 0xFFFFFFFFFFFFFFF5 || v47 + 10 > v2)
-          {
-            v100 = 0;
-            v101 = 0;
-            v51 = 0;
-            if (v2 <= v47)
-            {
-              v2 = *(a2 + 1);
-            }
-
-            v102 = (v48 + v47);
-            v103 = v2 - v47;
-            v104 = v47 + 1;
-            while (1)
-            {
-              if (!v103)
-              {
-                LODWORD(v51) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_181;
-              }
-
-              v105 = v104;
-              v106 = *v102;
-              *(a2 + 1) = v105;
-              v51 |= (v106 & 0x7F) << v100;
-              if ((v106 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v100 += 7;
-              ++v102;
-              --v103;
-              v104 = v105 + 1;
-              v14 = v101++ > 8;
-              if (v14)
-              {
-                LODWORD(v51) = 0;
-                goto LABEL_180;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v51) = 0;
-            }
-
-LABEL_180:
-            v2 = v105;
-          }
-
-          else
-          {
-            v49 = 0;
-            v50 = 0;
-            v51 = 0;
-            v52 = (v48 + v47);
-            v53 = v47 + 1;
-            while (1)
-            {
-              v2 = v53;
-              *(a2 + 1) = v53;
-              v54 = *v52++;
-              v51 |= (v54 & 0x7F) << v49;
-              if ((v54 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v49 += 7;
-              ++v53;
-              v14 = v50++ > 8;
-              if (v14)
-              {
-                LODWORD(v51) = 0;
-                break;
-              }
-            }
-          }
-
-LABEL_181:
-          *(this + 6) = v51;
-          goto LABEL_194;
-        case 5:
-          *(this + 32) |= 0x10u;
-          v71 = *(a2 + 1);
-          v2 = *(a2 + 2);
-          v72 = *a2;
-          if (v71 > 0xFFFFFFFFFFFFFFF5 || v71 + 10 > v2)
-          {
-            v121 = 0;
-            v122 = 0;
-            v75 = 0;
-            if (v2 <= v71)
-            {
-              v2 = *(a2 + 1);
-            }
-
-            v123 = (v72 + v71);
-            v124 = v2 - v71;
-            v125 = v71 + 1;
-            while (1)
-            {
-              if (!v124)
-              {
-                LODWORD(v75) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_193;
-              }
-
-              v126 = v125;
-              v127 = *v123;
-              *(a2 + 1) = v126;
-              v75 |= (v127 & 0x7F) << v121;
-              if ((v127 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v121 += 7;
-              ++v123;
-              --v124;
-              v125 = v126 + 1;
-              v14 = v122++ > 8;
-              if (v14)
-              {
-                LODWORD(v75) = 0;
-                goto LABEL_192;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v75) = 0;
-            }
-
-LABEL_192:
-            v2 = v126;
-          }
-
-          else
-          {
-            v73 = 0;
-            v74 = 0;
-            v75 = 0;
-            v76 = (v72 + v71);
-            v77 = v71 + 1;
-            while (1)
-            {
-              v2 = v77;
-              *(a2 + 1) = v77;
-              v78 = *v76++;
-              v75 |= (v78 & 0x7F) << v73;
-              if ((v78 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v73 += 7;
-              ++v77;
-              v14 = v74++ > 8;
-              if (v14)
-              {
-                LODWORD(v75) = 0;
-                break;
-              }
-            }
-          }
-
-LABEL_193:
-          *(this + 8) = v75;
-          goto LABEL_194;
-        case 6:
-          *(this + 32) |= 0x200u;
-          v31 = *(a2 + 1);
-          v2 = *(a2 + 2);
-          v32 = *a2;
-          if (v31 > 0xFFFFFFFFFFFFFFF5 || v31 + 10 > v2)
-          {
-            v86 = 0;
-            v87 = 0;
-            v35 = 0;
-            if (v2 <= v31)
-            {
-              v2 = *(a2 + 1);
-            }
-
-            v88 = (v32 + v31);
-            v89 = v2 - v31;
-            v90 = v31 + 1;
-            while (1)
-            {
-              if (!v89)
-              {
-                LODWORD(v35) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_173;
-              }
-
-              v91 = v90;
-              v92 = *v88;
-              *(a2 + 1) = v91;
-              v35 |= (v92 & 0x7F) << v86;
-              if ((v92 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v86 += 7;
-              ++v88;
-              --v89;
-              v90 = v91 + 1;
-              v14 = v87++ > 8;
-              if (v14)
-              {
-                LODWORD(v35) = 0;
-                goto LABEL_172;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v35) = 0;
-            }
-
-LABEL_172:
-            v2 = v91;
-          }
-
-          else
-          {
-            v33 = 0;
-            v34 = 0;
-            v35 = 0;
-            v36 = (v32 + v31);
-            v37 = v31 + 1;
-            while (1)
-            {
-              v2 = v37;
-              *(a2 + 1) = v37;
-              v38 = *v36++;
-              v35 |= (v38 & 0x7F) << v33;
-              if ((v38 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v33 += 7;
-              ++v37;
-              v14 = v34++ > 8;
-              if (v14)
-              {
-                LODWORD(v35) = 0;
-                break;
-              }
-            }
-          }
-
-LABEL_173:
-          *(this + 13) = v35;
-          goto LABEL_194;
-      }
-    }
-
-    else
-    {
-      switch(v22)
-      {
-        case 1:
-          *(this + 32) |= 2u;
-          v2 = *(a2 + 1);
-          if (v2 > 0xFFFFFFFFFFFFFFF7 || v2 + 8 > *(a2 + 2))
-          {
-            goto LABEL_99;
-          }
-
-          *(this + 2) = *(*a2 + v2);
-          goto LABEL_58;
-        case 2:
-          *(this + 32) |= 0x20u;
-          v55 = *(a2 + 1);
-          v2 = *(a2 + 2);
-          v56 = *a2;
-          if (v55 > 0xFFFFFFFFFFFFFFF5 || v55 + 10 > v2)
-          {
-            v107 = 0;
-            v108 = 0;
-            v59 = 0;
-            if (v2 <= v55)
-            {
-              v2 = *(a2 + 1);
-            }
-
-            v109 = (v56 + v55);
-            v110 = v2 - v55;
-            v111 = v55 + 1;
-            while (1)
-            {
-              if (!v110)
-              {
-                LODWORD(v59) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_185;
-              }
-
-              v112 = v111;
-              v113 = *v109;
-              *(a2 + 1) = v112;
-              v59 |= (v113 & 0x7F) << v107;
-              if ((v113 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v107 += 7;
-              ++v109;
-              --v110;
-              v111 = v112 + 1;
-              v14 = v108++ > 8;
-              if (v14)
-              {
-                LODWORD(v59) = 0;
-                goto LABEL_184;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v59) = 0;
-            }
-
-LABEL_184:
-            v2 = v112;
-          }
-
-          else
-          {
-            v57 = 0;
-            v58 = 0;
-            v59 = 0;
-            v60 = (v56 + v55);
-            v61 = v55 + 1;
-            while (1)
-            {
-              v2 = v61;
-              *(a2 + 1) = v61;
-              v62 = *v60++;
-              v59 |= (v62 & 0x7F) << v57;
-              if ((v62 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v57 += 7;
-              ++v61;
-              v14 = v58++ > 8;
-              if (v14)
-              {
-                LODWORD(v59) = 0;
-                break;
-              }
-            }
-          }
-
-LABEL_185:
-          *(this + 9) = v59;
-          goto LABEL_194;
-        case 3:
-          *(this + 32) |= 0x400u;
-          v23 = *(a2 + 1);
-          v2 = *(a2 + 2);
-          v24 = *a2;
-          if (v23 > 0xFFFFFFFFFFFFFFF5 || v23 + 10 > v2)
-          {
-            v79 = 0;
-            v80 = 0;
-            v27 = 0;
-            if (v2 <= v23)
-            {
-              v2 = *(a2 + 1);
-            }
-
-            v81 = (v24 + v23);
-            v82 = v2 - v23;
-            v83 = v23 + 1;
-            while (1)
-            {
-              if (!v82)
-              {
-                LODWORD(v27) = 0;
-                *(a2 + 24) = 1;
-                goto LABEL_169;
-              }
-
-              v84 = v83;
-              v85 = *v81;
-              *(a2 + 1) = v84;
-              v27 |= (v85 & 0x7F) << v79;
-              if ((v85 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v79 += 7;
-              ++v81;
-              --v82;
-              v83 = v84 + 1;
-              v14 = v80++ > 8;
-              if (v14)
-              {
-                LODWORD(v27) = 0;
-                goto LABEL_168;
-              }
-            }
-
-            if (*(a2 + 24))
-            {
-              LODWORD(v27) = 0;
-            }
-
-LABEL_168:
-            v2 = v84;
-          }
-
-          else
-          {
-            v25 = 0;
-            v26 = 0;
-            v27 = 0;
-            v28 = (v24 + v23);
-            v29 = v23 + 1;
-            while (1)
-            {
-              v2 = v29;
-              *(a2 + 1) = v29;
-              v30 = *v28++;
-              v27 |= (v30 & 0x7F) << v25;
-              if ((v30 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v25 += 7;
-              ++v29;
-              v14 = v26++ > 8;
-              if (v14)
-              {
-                LODWORD(v27) = 0;
-                break;
-              }
-            }
-          }
-
-LABEL_169:
-          *(this + 14) = v27;
-          goto LABEL_194;
-      }
-    }
-
-LABEL_17:
-    if (!PB::Reader::skip(a2))
-    {
-      v128 = 0;
-      return v128 & 1;
-    }
-
-    v2 = *(a2 + 1);
-LABEL_194:
-    v3 = *(a2 + 2);
-    v4 = *(a2 + 24);
-  }
-
-  v128 = v4 ^ 1;
-  return v128 & 1;
-}
-
-uint64_t CMMsl::TapDetect::writeTo(uint64_t this, PB::Writer *a2)
-{
-  v3 = this;
-  v4 = *(this + 64);
-  if ((v4 & 2) != 0)
-  {
-    this = PB::Writer::write(a2, *(this + 16));
-    v4 = *(v3 + 64);
-    if ((v4 & 0x20) == 0)
-    {
-LABEL_3:
-      if ((v4 & 0x400) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_16;
-    }
-  }
-
-  else if ((v4 & 0x20) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  v5 = *(v3 + 36);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 64);
-  if ((v4 & 0x400) == 0)
-  {
-LABEL_4:
-    if ((v4 & 4) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_17;
-  }
-
-LABEL_16:
-  v6 = *(v3 + 56);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 64);
-  if ((v4 & 4) == 0)
-  {
-LABEL_5:
-    if ((v4 & 0x10) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_18;
-  }
-
-LABEL_17:
-  v7 = *(v3 + 24);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 64);
-  if ((v4 & 0x10) == 0)
-  {
-LABEL_6:
-    if ((v4 & 0x200) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_19;
-  }
-
-LABEL_18:
-  v8 = *(v3 + 32);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 64);
-  if ((v4 & 0x200) == 0)
-  {
-LABEL_7:
-    if ((v4 & 0x800) == 0)
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_20;
-  }
-
-LABEL_19:
-  v9 = *(v3 + 52);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 64);
-  if ((v4 & 0x800) == 0)
-  {
-LABEL_8:
-    if ((v4 & 8) == 0)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_21;
-  }
-
-LABEL_20:
-  v10 = *(v3 + 60);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 64);
-  if ((v4 & 8) == 0)
-  {
-LABEL_9:
-    if ((v4 & 0x100) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_22;
-  }
-
-LABEL_21:
-  v11 = *(v3 + 28);
-  this = PB::Writer::writeVarInt(a2);
-  v4 = *(v3 + 64);
-  if ((v4 & 0x100) == 0)
-  {
-LABEL_10:
-    if ((v4 & 0x80) == 0)
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_23;
-  }
-
-LABEL_22:
-  this = PB::Writer::write(a2, *(v3 + 48));
-  v4 = *(v3 + 64);
-  if ((v4 & 0x80) == 0)
-  {
-LABEL_11:
-    if ((v4 & 0x40) == 0)
-    {
-      goto LABEL_12;
-    }
-
-LABEL_24:
-    this = PB::Writer::write(a2, *(v3 + 40));
-    if ((*(v3 + 64) & 1) == 0)
-    {
-      return this;
-    }
-
-    goto LABEL_25;
-  }
-
-LABEL_23:
-  this = PB::Writer::write(a2, *(v3 + 44));
-  v4 = *(v3 + 64);
-  if ((v4 & 0x40) != 0)
-  {
-    goto LABEL_24;
-  }
-
-LABEL_12:
-  if ((v4 & 1) == 0)
-  {
-    return this;
-  }
-
-LABEL_25:
-  v12 = *(v3 + 8);
-
-  return PB::Writer::write(a2, v12);
-}
-
 uint64_t CMMsl::TapDetect::hash_value(CMMsl::TapDetect *this)
 {
   v1 = *(this + 32);
@@ -2887,7 +482,7 @@ uint64_t CMMsl::TempestPoCAuxiliaryDeviceMotion::TempestPoCAuxiliaryDeviceMotion
   return a1;
 }
 
-CMMsl *CMMsl::TempestPoCAuxiliaryDeviceMotion::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::TempestPoCAuxiliaryDeviceMotion::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2918,7 +513,6 @@ uint64_t CMMsl::TempestPoCAuxiliaryDeviceMotion::formatText(CMMsl::TempestPoCAux
   v8 = *(this + 52);
   if ((v8 & 0x40) != 0)
   {
-    v10 = *(this + 22);
     PB::TextFormatter::format(a2, "quiescentMode");
     v8 = *(this + 52);
     if ((v8 & 0x80) == 0)
@@ -2980,7 +574,6 @@ LABEL_10:
   }
 
 LABEL_25:
-  v11 = *(this + 24);
   PB::TextFormatter::format(a2, "sequenceNumber");
   v8 = *(this + 52);
   if ((v8 & 8) == 0)
@@ -3627,7 +1220,6 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v9 = *(v3 + 88);
   this = PB::Writer::writeVarInt(a2);
   v8 = *(v3 + 104);
   if ((v8 & 0x100) == 0)
@@ -3642,7 +1234,6 @@ LABEL_9:
   }
 
 LABEL_19:
-  v10 = *(v3 + 96);
   this = PB::Writer::writeVarInt(a2);
   v8 = *(v3 + 104);
   if ((v8 & 0x200) == 0)
@@ -3734,9 +1325,9 @@ LABEL_15:
   }
 
 LABEL_26:
-  v11 = *(v3 + 56);
+  v9 = *(v3 + 56);
 
-  return PB::Writer::write(a2, v11);
+  return PB::Writer::write(a2, v9);
 }
 
 uint64_t CMMsl::TempestPoCAuxiliaryDeviceMotion::hash_value(CMMsl::TempestPoCAuxiliaryDeviceMotion *this)
@@ -3752,23 +1343,21 @@ uint64_t CMMsl::TempestPoCAuxiliaryDeviceMotion::hash_value(CMMsl::TempestPoCAux
     v3 = 0;
   }
 
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  v6 = PBHashBytes();
-  v7 = *(this + 52);
-  if ((v7 & 0x80) != 0)
+  v4 = PBHashBytes();
+  v5 = *(this + 52);
+  if ((v5 & 0x80) != 0)
   {
-    v19 = *(this + 23);
-    v8 = LODWORD(v19);
-    if (v19 == 0.0)
+    v17 = *(this + 23);
+    v6 = LODWORD(v17);
+    if (v17 == 0.0)
     {
-      v8 = 0;
+      v6 = 0;
     }
 
-    if ((v7 & 0x40) != 0)
+    if ((v5 & 0x40) != 0)
     {
 LABEL_6:
-      v9 = *(this + 22);
+      v7 = *(this + 22);
       if ((*(this + 52) & 0x100) != 0)
       {
         goto LABEL_7;
@@ -3780,54 +1369,54 @@ LABEL_6:
 
   else
   {
-    v8 = 0;
-    if ((v7 & 0x40) != 0)
+    v6 = 0;
+    if ((v5 & 0x40) != 0)
     {
       goto LABEL_6;
     }
   }
 
-  v9 = 0;
+  v7 = 0;
   if ((*(this + 52) & 0x100) != 0)
   {
 LABEL_7:
-    v10 = *(this + 24);
+    v8 = *(this + 24);
     if ((*(this + 52) & 0x200) != 0)
     {
       goto LABEL_8;
     }
 
 LABEL_34:
-    v12 = 0;
-    if ((v7 & 2) != 0)
+    v10 = 0;
+    if ((v5 & 2) != 0)
     {
       goto LABEL_11;
     }
 
 LABEL_35:
-    v13 = 0.0;
-    if ((v7 & 4) != 0)
+    v11 = 0.0;
+    if ((v5 & 4) != 0)
     {
       goto LABEL_14;
     }
 
 LABEL_36:
-    v14 = 0.0;
-    if ((v7 & 0x10) != 0)
+    v12 = 0.0;
+    if ((v5 & 0x10) != 0)
     {
       goto LABEL_17;
     }
 
 LABEL_37:
-    v15 = 0.0;
-    if ((v7 & 0x20) != 0)
+    v13 = 0.0;
+    if ((v5 & 0x20) != 0)
     {
       goto LABEL_20;
     }
 
 LABEL_38:
-    v16 = 0.0;
-    if (v7)
+    v14 = 0.0;
+    if (v5)
     {
       goto LABEL_23;
     }
@@ -3836,107 +1425,107 @@ LABEL_38:
   }
 
 LABEL_33:
-  v10 = 0;
+  v8 = 0;
   if ((*(this + 52) & 0x200) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_8:
-  v11 = *(this + 25);
-  v12 = LODWORD(v11);
-  if (v11 == 0.0)
+  v9 = *(this + 25);
+  v10 = LODWORD(v9);
+  if (v9 == 0.0)
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  if ((v7 & 2) == 0)
+  if ((v5 & 2) == 0)
   {
     goto LABEL_35;
   }
 
 LABEL_11:
-  v13 = *(this + 5);
-  if (v13 == 0.0)
+  v11 = *(this + 5);
+  if (v11 == 0.0)
   {
-    v13 = 0.0;
+    v11 = 0.0;
   }
 
-  if ((v7 & 4) == 0)
+  if ((v5 & 4) == 0)
   {
     goto LABEL_36;
   }
 
 LABEL_14:
-  v14 = *(this + 6);
-  if (v14 == 0.0)
+  v12 = *(this + 6);
+  if (v12 == 0.0)
   {
-    v14 = 0.0;
+    v12 = 0.0;
   }
 
-  if ((v7 & 0x10) == 0)
+  if ((v5 & 0x10) == 0)
   {
     goto LABEL_37;
   }
 
 LABEL_17:
-  v15 = *(this + 8);
-  if (v15 == 0.0)
+  v13 = *(this + 8);
+  if (v13 == 0.0)
   {
-    v15 = 0.0;
+    v13 = 0.0;
   }
 
-  if ((v7 & 0x20) == 0)
+  if ((v5 & 0x20) == 0)
   {
     goto LABEL_38;
   }
 
 LABEL_20:
-  v16 = *(this + 9);
-  if (v16 == 0.0)
+  v14 = *(this + 9);
+  if (v14 == 0.0)
   {
-    v16 = 0.0;
+    v14 = 0.0;
   }
 
-  if (v7)
+  if (v5)
   {
 LABEL_23:
-    v17 = *(this + 4);
-    if (v17 == 0.0)
+    v15 = *(this + 4);
+    if (v15 == 0.0)
     {
-      v17 = 0.0;
+      v15 = 0.0;
     }
 
-    if ((v7 & 8) != 0)
+    if ((v5 & 8) != 0)
     {
       goto LABEL_26;
     }
 
 LABEL_40:
-    v18 = 0.0;
-    return v6 ^ v3 ^ v8 ^ v9 ^ v10 ^ v12 ^ *&v13 ^ *&v14 ^ *&v15 ^ *&v16 ^ *&v17 ^ *&v18;
+    v16 = 0.0;
+    return v4 ^ v3 ^ v6 ^ v7 ^ v8 ^ v10 ^ *&v11 ^ *&v12 ^ *&v13 ^ *&v14 ^ *&v15 ^ *&v16;
   }
 
 LABEL_39:
-  v17 = 0.0;
-  if ((v7 & 8) == 0)
+  v15 = 0.0;
+  if ((v5 & 8) == 0)
   {
     goto LABEL_40;
   }
 
 LABEL_26:
-  v18 = *(this + 7);
-  if (v18 == 0.0)
+  v16 = *(this + 7);
+  if (v16 == 0.0)
   {
-    v18 = 0.0;
+    v16 = 0.0;
   }
 
-  return v6 ^ v3 ^ v8 ^ v9 ^ v10 ^ v12 ^ *&v13 ^ *&v14 ^ *&v15 ^ *&v16 ^ *&v17 ^ *&v18;
+  return v4 ^ v3 ^ v6 ^ v7 ^ v8 ^ v10 ^ *&v11 ^ *&v12 ^ *&v13 ^ *&v14 ^ *&v15 ^ *&v16;
 }
 
-uint64_t CMMsl::TempestPoCAuxiliaryDeviceMotion::makeSuper(uint64_t this)
+void *CMMsl::TempestPoCAuxiliaryDeviceMotion::makeSuper(void *this)
 {
-  if (!*(this + 80))
+  if (!this[10])
   {
     operator new();
   }
@@ -4249,7 +1838,7 @@ uint64_t CMMsl::TempestPoCListenerOrientation::TempestPoCListenerOrientation(uin
   return a1;
 }
 
-CMMsl *CMMsl::TempestPoCListenerOrientation::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::TempestPoCListenerOrientation::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4314,7 +1903,6 @@ LABEL_5:
   }
 
 LABEL_25:
-  v13 = *(this + 124);
   PB::TextFormatter::format(a2, "inBTZ");
   v5 = *(this + 64);
   if ((v5 & 0x100) == 0)
@@ -5034,7 +2622,6 @@ LABEL_6:
   v8 = *(v3 + 128);
   if ((v8 & 0x800) != 0)
   {
-    v12 = *(v3 + 124);
     this = PB::Writer::write(a2);
     v8 = *(v3 + 128);
     if ((v8 & 0x40) == 0)
@@ -5128,9 +2715,9 @@ LABEL_17:
 
   if ((*(v3 + 128) & 4) != 0)
   {
-    v13 = *(v3 + 72);
+    v12 = *(v3 + 72);
 
-    return PB::Writer::write(a2, v13);
+    return PB::Writer::write(a2, v12);
   }
 
   return this;
@@ -5140,14 +2727,14 @@ uint64_t CMMsl::TempestPoCListenerOrientation::hash_value(CMMsl::TempestPoCListe
 {
   if ((*(this + 64) & 0x20) == 0)
   {
-    v29 = 0.0;
+    v25 = 0.0;
     if ((*(this + 64) & 0x400) != 0)
     {
       goto LABEL_3;
     }
 
 LABEL_15:
-    v28 = 0;
+    v24 = 0;
     if ((*(this + 64) & 0x100) != 0)
     {
       goto LABEL_6;
@@ -5162,7 +2749,7 @@ LABEL_15:
     v8 = 0.0;
   }
 
-  v29 = v8;
+  v25 = v8;
   if ((*(this + 64) & 0x400) == 0)
   {
     goto LABEL_15;
@@ -5176,7 +2763,7 @@ LABEL_3:
     v3 = 0;
   }
 
-  v28 = v3;
+  v24 = v3;
   if ((*(this + 64) & 0x100) != 0)
   {
 LABEL_6:
@@ -5187,7 +2774,7 @@ LABEL_6:
       v5 = 0;
     }
 
-    v27 = v5;
+    v23 = v5;
     if ((*(this + 64) & 0x200) != 0)
     {
       goto LABEL_9;
@@ -5199,7 +2786,7 @@ LABEL_17:
   }
 
 LABEL_16:
-  v27 = 0;
+  v23 = 0;
   if ((*(this + 64) & 0x200) == 0)
   {
     goto LABEL_17;
@@ -5218,42 +2805,40 @@ LABEL_9:
   }
 
 LABEL_18:
-  v9 = *(this + 4);
-  v10 = *(this + 5);
-  v11 = PBHashBytes();
-  v12 = *(this + 64);
-  if ((v12 & 0x800) == 0)
+  v9 = PBHashBytes();
+  v10 = *(this + 64);
+  if ((v10 & 0x800) == 0)
   {
-    v13 = 0;
-    if ((v12 & 0x40) != 0)
+    v11 = 0;
+    if ((v10 & 0x40) != 0)
     {
       goto LABEL_20;
     }
 
 LABEL_44:
-    v15 = 0;
-    if ((v12 & 0x80) != 0)
+    v13 = 0;
+    if ((v10 & 0x80) != 0)
     {
       goto LABEL_24;
     }
 
 LABEL_45:
-    v17 = 0;
-    if ((v12 & 0x10) != 0)
+    v15 = 0;
+    if ((v10 & 0x10) != 0)
     {
       goto LABEL_28;
     }
 
 LABEL_46:
-    v18 = 0;
-    if (v12)
+    v16 = 0;
+    if (v10)
     {
       goto LABEL_32;
     }
 
 LABEL_47:
-    v19 = 0;
-    if ((v12 & 8) != 0)
+    v17 = 0;
+    if ((v10 & 8) != 0)
     {
       goto LABEL_36;
     }
@@ -5261,14 +2846,31 @@ LABEL_47:
     goto LABEL_48;
   }
 
-  v13 = *(this + 124);
-  if ((v12 & 0x40) == 0)
+  v11 = *(this + 124);
+  if ((v10 & 0x40) == 0)
   {
     goto LABEL_44;
   }
 
 LABEL_20:
-  v14 = *(this + 26);
+  v12 = *(this + 26);
+  if (v12 == 0.0)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v13 = LODWORD(v12);
+  }
+
+  if ((v10 & 0x80) == 0)
+  {
+    goto LABEL_45;
+  }
+
+LABEL_24:
+  v14 = *(this + 27);
   if (v14 == 0.0)
   {
     v15 = 0;
@@ -5279,24 +2881,7 @@ LABEL_20:
     v15 = LODWORD(v14);
   }
 
-  if ((v12 & 0x80) == 0)
-  {
-    goto LABEL_45;
-  }
-
-LABEL_24:
-  v16 = *(this + 27);
-  if (v16 == 0.0)
-  {
-    v17 = 0;
-  }
-
-  else
-  {
-    v17 = LODWORD(v16);
-  }
-
-  if ((v12 & 0x10) == 0)
+  if ((v10 & 0x10) == 0)
   {
     goto LABEL_46;
   }
@@ -5304,15 +2889,15 @@ LABEL_24:
 LABEL_28:
   if (*(this + 11) == 0.0)
   {
-    v18 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v18 = *(this + 11);
+    v16 = *(this + 11);
   }
 
-  if ((v12 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
     goto LABEL_47;
   }
@@ -5320,40 +2905,40 @@ LABEL_28:
 LABEL_32:
   if (*(this + 7) == 0.0)
   {
-    v19 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v19 = *(this + 7);
+    v17 = *(this + 7);
   }
 
-  if ((v12 & 8) != 0)
+  if ((v10 & 8) != 0)
   {
 LABEL_36:
     if (*(this + 10) == 0.0)
     {
-      v20 = 0;
+      v18 = 0;
     }
 
     else
     {
-      v20 = *(this + 10);
+      v18 = *(this + 10);
     }
 
-    if ((v12 & 2) != 0)
+    if ((v10 & 2) != 0)
     {
       goto LABEL_40;
     }
 
 LABEL_49:
-    v21 = 0;
+    v19 = 0;
     goto LABEL_50;
   }
 
 LABEL_48:
-  v20 = 0;
-  if ((v12 & 2) == 0)
+  v18 = 0;
+  if ((v10 & 2) == 0)
   {
     goto LABEL_49;
   }
@@ -5361,33 +2946,31 @@ LABEL_48:
 LABEL_40:
   if (*(this + 8) == 0.0)
   {
-    v21 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v21 = *(this + 8);
+    v19 = *(this + 8);
   }
 
 LABEL_50:
-  v22 = *(this + 1);
-  v23 = *(this + 2);
-  v24 = PBHashBytes();
+  v20 = PBHashBytes();
   if ((*(this + 64) & 4) != 0)
   {
-    v25 = *(this + 9);
-    if (v25 == 0.0)
+    v21 = *(this + 9);
+    if (v21 == 0.0)
     {
-      v25 = 0.0;
+      v21 = 0.0;
     }
   }
 
   else
   {
-    v25 = 0.0;
+    v21 = 0.0;
   }
 
-  return v28 ^ *&v29 ^ v27 ^ v7 ^ v13 ^ v15 ^ v17 ^ v18 ^ v11 ^ v19 ^ v20 ^ v21 ^ v24 ^ *&v25;
+  return v24 ^ *&v25 ^ v23 ^ v7 ^ v11 ^ v13 ^ v15 ^ v16 ^ v9 ^ v17 ^ v18 ^ v19 ^ v20 ^ *&v21;
 }
 
 void CMMsl::Timestamp::~Timestamp(CMMsl::Timestamp *this)
@@ -5505,14 +3088,12 @@ uint64_t CMMsl::Timestamp::formatText(CMMsl::Timestamp *this, PB::TextFormatter 
   v5 = *(this + 20);
   if ((v5 & 2) != 0)
   {
-    v6 = *(this + 4);
     PB::TextFormatter::format(a2, "source");
     v5 = *(this + 20);
   }
 
   if (v5)
   {
-    v7 = *(this + 1);
     PB::TextFormatter::format(a2, "timestamp");
   }
 
@@ -5825,14 +3406,12 @@ uint64_t CMMsl::Timestamp::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 20);
   if ((v4 & 2) != 0)
   {
-    v5 = *(this + 16);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 20);
   }
 
   if (v4)
   {
-    v6 = *(v3 + 8);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -5994,7 +3573,6 @@ uint64_t CMMsl::TouchOscarEmu::formatText(CMMsl::TouchOscarEmu *this, PB::TextFo
 
   if ((v5 & 2) != 0)
   {
-    v6 = *(this + 16);
     PB::TextFormatter::format(a2, "touchDetected");
   }
 
@@ -6158,7 +3736,6 @@ uint64_t CMMsl::TouchOscarEmu::writeTo(uint64_t this, PB::Writer *a2)
 
   if ((v4 & 2) != 0)
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::write(a2);
   }
@@ -6452,7 +4029,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 4);
   PB::TextFormatter::format(a2, "estimatedLaneConfidence");
   v5 = *(this + 40);
   if ((v5 & 4) == 0)
@@ -6467,7 +4043,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  v8 = *(this + 5);
   PB::TextFormatter::format(a2, "estimatedLaneNumber");
   v5 = *(this + 40);
   if ((v5 & 8) == 0)
@@ -6482,7 +4057,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  v9 = *(this + 6);
   PB::TextFormatter::format(a2, "laneCount");
   v5 = *(this + 40);
   if ((v5 & 0x10) == 0)
@@ -6497,7 +4071,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  v10 = *(this + 7);
   PB::TextFormatter::format(a2, "laneNumber");
   v5 = *(this + 40);
   if ((v5 & 0x40) == 0)
@@ -6512,12 +4085,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  v11 = *(this + 36);
   PB::TextFormatter::format(a2, "odometerHasBeenCorrected");
   if ((*(this + 40) & 0x20) != 0)
   {
 LABEL_8:
-    v6 = *(this + 8);
     PB::TextFormatter::format(a2, "trackProximity");
   }
 
@@ -7133,7 +4704,6 @@ uint64_t CMMsl::TrackRunData::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 40);
   if ((v4 & 0x10) != 0)
   {
-    v5 = *(this + 28);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 40);
     if ((v4 & 4) == 0)
@@ -7153,7 +4723,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 20);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 40);
   if ((v4 & 8) == 0)
@@ -7168,7 +4737,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  v7 = *(v3 + 24);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 40);
   if ((v4 & 2) == 0)
@@ -7183,7 +4751,6 @@ LABEL_5:
   }
 
 LABEL_12:
-  v8 = *(v3 + 16);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 40);
   if ((v4 & 0x20) == 0)
@@ -7205,7 +4772,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  v9 = *(v3 + 32);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 40);
   if (v4)
@@ -7220,7 +4786,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  v10 = *(v3 + 36);
 
   return PB::Writer::write(a2);
 }
@@ -7531,7 +5096,6 @@ uint64_t CMMsl::UWBRange::formatText(CMMsl::UWBRange *this, PB::TextFormatter *a
   v5 = *(this + 56);
   if (v5)
   {
-    v6 = *(this + 1);
     PB::TextFormatter::format(a2, "cycleIndex");
     v5 = *(this + 56);
     if ((v5 & 2) == 0)
@@ -7551,7 +5115,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 2);
   PB::TextFormatter::format(a2, "error");
   v5 = *(this + 56);
   if ((v5 & 4) == 0)
@@ -7979,7 +5542,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  v5 = *(v3 + 8);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 56);
   if ((v4 & 2) == 0)
@@ -8001,7 +5563,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  v6 = *(v3 + 16);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 56);
   if ((v4 & 0x10) != 0)
@@ -8016,9 +5577,9 @@ LABEL_6:
   }
 
 LABEL_13:
-  v7 = *(v3 + 48);
+  v5 = *(v3 + 48);
 
-  return PB::Writer::write(a2, v7);
+  return PB::Writer::write(a2, v5);
 }
 
 uint64_t CMMsl::UWBRange::hash_value(CMMsl::UWBRange *this)
@@ -8142,27 +5703,27 @@ void CMMsl::UltraFastAccel::~UltraFastAccel(CMMsl::UltraFastAccel *this)
   JUMPOUT(0x25F8548F0);
 }
 
-uint64_t CMMsl::UltraFastAccel::UltraFastAccel(uint64_t this, const CMMsl::UltraFastAccel *a2)
+CMMsl::UltraFastAccel *CMMsl::UltraFastAccel::UltraFastAccel(CMMsl::UltraFastAccel *this, const CMMsl::Accel **a2)
 {
   *this = &unk_286C24168;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  if (*(a2 + 2))
+  *(this + 2) = 0;
+  *(this + 6) = 0;
+  if (a2[2])
   {
     operator new();
   }
 
-  if (*(a2 + 24))
+  if (a2[3])
   {
-    v2 = *(a2 + 1);
+    v2 = a2[1];
     *(this + 24) |= 1u;
-    *(this + 8) = v2;
+    *(this + 1) = v2;
   }
 
   return this;
 }
 
-uint64_t CMMsl::UltraFastAccel::operator=(uint64_t a1, const CMMsl::UltraFastAccel *a2)
+uint64_t CMMsl::UltraFastAccel::operator=(uint64_t a1, const CMMsl::Accel **a2)
 {
   if (a1 != a2)
   {
@@ -8243,14 +5804,13 @@ uint64_t CMMsl::UltraFastAccel::formatText(CMMsl::UltraFastAccel *this, PB::Text
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 24))
   {
-    v5 = *(this + 1);
     PB::TextFormatter::format(a2, "aopTimestamp");
   }
 
-  v6 = *(this + 2);
-  if (v6)
+  v5 = *(this + 2);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, a2, "super");
+    (*(*v5 + 32))(v5, a2, "super");
   }
 
   return MEMORY[0x2821A4560](a2);
@@ -8466,7 +6026,6 @@ uint64_t CMMsl::UltraFastAccel::writeTo(uint64_t this, PB::Writer *a2)
 
   if (*(v3 + 24))
   {
-    v5 = *(v3 + 8);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -8495,9 +6054,9 @@ unint64_t CMMsl::UltraFastAccel::hash_value(CMMsl::UltraFastAccel *this)
   return v3 ^ v2;
 }
 
-uint64_t CMMsl::UltraFastAccel::makeSuper(uint64_t this)
+void *CMMsl::UltraFastAccel::makeSuper(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -8524,16 +6083,16 @@ void CMMsl::UserStudyEvent::~UserStudyEvent(CMMsl::UserStudyEvent *this)
   JUMPOUT(0x25F8548F0);
 }
 
-uint64_t CMMsl::UserStudyEvent::UserStudyEvent(uint64_t this, const CMMsl::UserStudyEvent *a2)
+CMMsl::UserStudyEvent *CMMsl::UserStudyEvent::UserStudyEvent(CMMsl::UserStudyEvent *this, const CMMsl::UserStudyEvent *a2)
 {
   *this = &unk_286C241A0;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
+  *(this + 1) = 0;
+  *(this + 6) = 0;
   if (*(a2 + 24))
   {
     v2 = *(a2 + 2);
     *(this + 24) = 1;
-    *(this + 16) = v2;
+    *(this + 2) = v2;
   }
 
   if (*(a2 + 1))
@@ -9232,7 +6791,7 @@ uint64_t CMMsl::VIOEstimation::VIOEstimation(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::VIOEstimation::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::VIOEstimation::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9365,24 +6924,23 @@ uint64_t CMMsl::VIOEstimation::formatText(CMMsl::VIOEstimation *this, PB::TextFo
 
   if ((v37 & 0x40) != 0)
   {
-    v38 = *(this + 84);
     PB::TextFormatter::format(a2, "trackingState");
   }
 
-  v39 = *(this + 34);
-  v40 = *(this + 35);
-  while (v39 != v40)
+  v38 = *(this + 34);
+  v39 = *(this + 35);
+  while (v38 != v39)
   {
-    v41 = *v39++;
-    PB::TextFormatter::format(a2, "velocity", v41);
+    v40 = *v38++;
+    PB::TextFormatter::format(a2, "velocity", v40);
   }
 
-  v42 = *(this + 31);
-  v43 = *(this + 32);
-  while (v42 != v43)
+  v41 = *(this + 31);
+  v42 = *(this + 32);
+  while (v41 != v42)
   {
-    v44 = *v42++;
-    PB::TextFormatter::format(a2, "velocityCov", v44);
+    v43 = *v41++;
+    PB::TextFormatter::format(a2, "velocityCov", v43);
   }
 
   return MEMORY[0x2821A4560](a2);
@@ -11359,4 +8917,1114 @@ LABEL_463:
 LABEL_467:
   v383 = v4 ^ 1;
   return v383 & 1;
+}
+
+uint64_t CMMsl::VIOEstimation::writeTo(uint64_t this, PB::Writer *a2)
+{
+  v3 = this;
+  v4 = *(this + 340);
+  if ((v4 & 0x40) != 0)
+  {
+    this = PB::Writer::writeVarInt(a2);
+    v4 = *(v3 + 340);
+    if ((v4 & 4) == 0)
+    {
+LABEL_3:
+      if ((v4 & 1) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_49;
+    }
+  }
+
+  else if ((*(this + 340) & 4) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  this = PB::Writer::write(a2, *(v3 + 312));
+  v4 = *(v3 + 340);
+  if ((v4 & 1) == 0)
+  {
+LABEL_4:
+    if ((v4 & 8) == 0)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_50:
+    this = PB::Writer::write(a2, *(v3 + 320));
+    if ((*(v3 + 340) & 2) == 0)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+LABEL_49:
+  this = PB::Writer::write(a2, *(v3 + 296));
+  v4 = *(v3 + 340);
+  if ((v4 & 8) != 0)
+  {
+    goto LABEL_50;
+  }
+
+LABEL_5:
+  if ((v4 & 2) != 0)
+  {
+LABEL_6:
+    this = PB::Writer::write(a2, *(v3 + 304));
+  }
+
+LABEL_7:
+  v5 = *(v3 + 176);
+  v6 = *(v3 + 184);
+  while (v5 != v6)
+  {
+    v7 = *v5++;
+    this = PB::Writer::write(a2, v7);
+  }
+
+  v8 = *(v3 + 104);
+  v9 = *(v3 + 112);
+  while (v8 != v9)
+  {
+    v10 = *v8++;
+    this = PB::Writer::write(a2, v10);
+  }
+
+  v11 = *(v3 + 272);
+  v12 = *(v3 + 280);
+  while (v11 != v12)
+  {
+    v13 = *v11++;
+    this = PB::Writer::write(a2, v13);
+  }
+
+  v14 = *(v3 + 8);
+  v15 = *(v3 + 16);
+  while (v14 != v15)
+  {
+    v16 = *v14++;
+    this = PB::Writer::write(a2, v16);
+  }
+
+  v17 = *(v3 + 224);
+  v18 = *(v3 + 232);
+  while (v17 != v18)
+  {
+    v19 = *v17++;
+    this = PB::Writer::write(a2, v19);
+  }
+
+  v20 = *(v3 + 152);
+  v21 = *(v3 + 160);
+  while (v20 != v21)
+  {
+    v22 = *v20++;
+    this = PB::Writer::write(a2, v22);
+  }
+
+  v23 = *(v3 + 128);
+  v24 = *(v3 + 136);
+  while (v23 != v24)
+  {
+    v25 = *v23++;
+    this = PB::Writer::write(a2, v25);
+  }
+
+  v26 = *(v3 + 248);
+  v27 = *(v3 + 256);
+  while (v26 != v27)
+  {
+    v28 = *v26++;
+    this = PB::Writer::write(a2, v28);
+  }
+
+  v29 = *(v3 + 32);
+  v30 = *(v3 + 40);
+  while (v29 != v30)
+  {
+    v31 = *v29++;
+    this = PB::Writer::write(a2, v31);
+  }
+
+  v32 = *(v3 + 200);
+  v33 = *(v3 + 208);
+  while (v32 != v33)
+  {
+    v34 = *v32++;
+    this = PB::Writer::write(a2, v34);
+  }
+
+  v35 = *(v3 + 80);
+  v36 = *(v3 + 88);
+  while (v35 != v36)
+  {
+    v37 = *v35++;
+    this = PB::Writer::write(a2, v37);
+  }
+
+  v38 = *(v3 + 56);
+  v39 = *(v3 + 64);
+  while (v38 != v39)
+  {
+    v40 = *v38++;
+    this = PB::Writer::write(a2, v40);
+  }
+
+  v41 = *(v3 + 340);
+  if ((v41 & 0x20) != 0)
+  {
+    this = PB::Writer::write(a2, *(v3 + 332));
+    v41 = *(v3 + 340);
+  }
+
+  if ((v41 & 0x10) != 0)
+  {
+    v42 = *(v3 + 328);
+
+    return PB::Writer::write(a2, v42);
+  }
+
+  return this;
+}
+
+uint64_t CMMsl::VIOEstimation::hash_value(CMMsl::VIOEstimation *this)
+{
+  if ((*(this + 340) & 0x40) == 0)
+  {
+    v27 = 0;
+    if ((*(this + 340) & 4) != 0)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_16:
+    v26 = 0.0;
+    if (*(this + 340))
+    {
+      goto LABEL_6;
+    }
+
+LABEL_17:
+    v25 = 0.0;
+    if ((*(this + 340) & 8) != 0)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_18;
+  }
+
+  v27 = *(this + 84);
+  if ((*(this + 340) & 4) == 0)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_3:
+  v2 = *(this + 39);
+  if (v2 == 0.0)
+  {
+    v2 = 0.0;
+  }
+
+  v26 = v2;
+  if ((*(this + 340) & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_6:
+  v3 = *(this + 37);
+  if (v3 == 0.0)
+  {
+    v3 = 0.0;
+  }
+
+  v25 = v3;
+  if ((*(this + 340) & 8) != 0)
+  {
+LABEL_9:
+    v4 = *(this + 40);
+    if (v4 == 0.0)
+    {
+      v4 = 0.0;
+    }
+
+    v24 = v4;
+    if ((*(this + 340) & 2) != 0)
+    {
+      goto LABEL_12;
+    }
+
+LABEL_19:
+    v23 = 0.0;
+    goto LABEL_20;
+  }
+
+LABEL_18:
+  v24 = 0.0;
+  if ((*(this + 340) & 2) == 0)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_12:
+  v5 = *(this + 38);
+  if (v5 == 0.0)
+  {
+    v5 = 0.0;
+  }
+
+  v23 = v5;
+LABEL_20:
+  v22 = PBHashBytes();
+  v21 = PBHashBytes();
+  v6 = PBHashBytes();
+  v7 = PBHashBytes();
+  v8 = PBHashBytes();
+  v9 = PBHashBytes();
+  v10 = PBHashBytes();
+  v11 = PBHashBytes();
+  v12 = PBHashBytes();
+  v13 = PBHashBytes();
+  v14 = PBHashBytes();
+  v15 = PBHashBytes();
+  if ((*(this + 340) & 0x20) != 0)
+  {
+    v19 = *(this + 83);
+    v16 = LODWORD(v19);
+    if (v19 == 0.0)
+    {
+      v16 = 0;
+    }
+
+    if ((*(this + 340) & 0x10) != 0)
+    {
+      goto LABEL_22;
+    }
+
+LABEL_28:
+    v18 = 0;
+    return *&v26 ^ v27 ^ *&v25 ^ *&v24 ^ *&v23 ^ v22 ^ v21 ^ v6 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v18;
+  }
+
+  v16 = 0;
+  if ((*(this + 340) & 0x10) == 0)
+  {
+    goto LABEL_28;
+  }
+
+LABEL_22:
+  v17 = *(this + 82);
+  v18 = LODWORD(v17);
+  if (v17 == 0.0)
+  {
+    v18 = 0;
+  }
+
+  return *&v26 ^ v27 ^ *&v25 ^ *&v24 ^ *&v23 ^ v22 ^ v21 ^ v6 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v18;
+}
+
+void CMMsl::VIOPose::~VIOPose(CMMsl::VIOPose *this)
+{
+  *this = &unk_286C24210;
+  v2 = *(this + 1);
+  if (v2)
+  {
+    *(this + 2) = v2;
+    operator delete(v2);
+  }
+
+  PB::Base::~Base(this);
+}
+
+{
+  CMMsl::VIOPose::~VIOPose(this);
+
+  JUMPOUT(0x25F8548F0);
+}
+
+CMMsl::VIOPose *CMMsl::VIOPose::VIOPose(CMMsl::VIOPose *this, const CMMsl::VIOPose *a2)
+{
+  *this = &unk_286C24210;
+  *(this + 1) = 0;
+  v4 = (this + 8);
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 28) = 0;
+  v5 = *(a2 + 56);
+  if (v5)
+  {
+    v7 = *(a2 + 4);
+    v6 = 1;
+    *(this + 56) = 1;
+    *(this + 4) = v7;
+    v5 = *(a2 + 56);
+    if ((v5 & 0x200) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  v6 = 0;
+  if ((*(a2 + 56) & 0x200) != 0)
+  {
+LABEL_5:
+    v8 = *(a2 + 13);
+    v6 |= 0x200u;
+    *(this + 56) = v6;
+    *(this + 13) = v8;
+    v5 = *(a2 + 56);
+  }
+
+LABEL_6:
+  if ((v5 & 2) != 0)
+  {
+    v9 = *(a2 + 5);
+    *(this + 56) = v6 | 2;
+    *(this + 5) = v9;
+  }
+
+  if (this != a2)
+  {
+    sub_25AD285D4(v4, *(a2 + 1), *(a2 + 2), (*(a2 + 2) - *(a2 + 1)) >> 3);
+  }
+
+  v10 = *(a2 + 56);
+  if ((v10 & 8) != 0)
+  {
+    v13 = *(a2 + 7);
+    *(this + 56) |= 8u;
+    *(this + 7) = v13;
+    v10 = *(a2 + 56);
+    if ((v10 & 0x10) == 0)
+    {
+LABEL_12:
+      if ((v10 & 0x20) == 0)
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_21;
+    }
+  }
+
+  else if ((v10 & 0x10) == 0)
+  {
+    goto LABEL_12;
+  }
+
+  v14 = *(a2 + 8);
+  *(this + 56) |= 0x10u;
+  *(this + 8) = v14;
+  v10 = *(a2 + 56);
+  if ((v10 & 0x20) == 0)
+  {
+LABEL_13:
+    if ((v10 & 4) == 0)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_22;
+  }
+
+LABEL_21:
+  v15 = *(a2 + 9);
+  *(this + 56) |= 0x20u;
+  *(this + 9) = v15;
+  v10 = *(a2 + 56);
+  if ((v10 & 4) == 0)
+  {
+LABEL_14:
+    if ((v10 & 0x80) == 0)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_23;
+  }
+
+LABEL_22:
+  v16 = *(a2 + 6);
+  *(this + 56) |= 4u;
+  *(this + 6) = v16;
+  v10 = *(a2 + 56);
+  if ((v10 & 0x80) == 0)
+  {
+LABEL_15:
+    if ((v10 & 0x100) == 0)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_24:
+    v18 = *(a2 + 12);
+    *(this + 56) |= 0x100u;
+    *(this + 12) = v18;
+    if ((*(a2 + 56) & 0x40) == 0)
+    {
+      return this;
+    }
+
+    goto LABEL_17;
+  }
+
+LABEL_23:
+  v17 = *(a2 + 11);
+  *(this + 56) |= 0x80u;
+  *(this + 11) = v17;
+  v10 = *(a2 + 56);
+  if ((v10 & 0x100) != 0)
+  {
+    goto LABEL_24;
+  }
+
+LABEL_16:
+  if ((v10 & 0x40) != 0)
+  {
+LABEL_17:
+    v11 = *(a2 + 10);
+    *(this + 56) |= 0x40u;
+    *(this + 10) = v11;
+  }
+
+  return this;
+}
+
+CMMsl *CMMsl::VIOPose::operator=(CMMsl *a1, const CMMsl::VIOPose *a2)
+{
+  if (a1 != a2)
+  {
+    CMMsl::VIOPose::VIOPose(v5, a2);
+    CMMsl::swap(a1, v5, v3);
+    CMMsl::VIOPose::~VIOPose(v5);
+  }
+
+  return a1;
+}
+
+double CMMsl::swap(CMMsl *this, CMMsl::VIOPose *a2, CMMsl::VIOPose *a3)
+{
+  v3 = *(this + 28);
+  *(this + 28) = *(a2 + 28);
+  *(a2 + 28) = v3;
+  v4 = *(this + 4);
+  *(this + 4) = *(a2 + 4);
+  *(a2 + 4) = v4;
+  v5 = *(this + 13);
+  *(this + 13) = *(a2 + 13);
+  *(a2 + 13) = v5;
+  v6 = *(this + 5);
+  *(this + 5) = *(a2 + 5);
+  *(a2 + 5) = v6;
+  v7 = *(this + 1);
+  *(this + 1) = *(a2 + 1);
+  *(a2 + 1) = v7;
+  v8 = *(this + 2);
+  *(this + 2) = *(a2 + 2);
+  *(a2 + 2) = v8;
+  v9 = *(this + 3);
+  *(this + 3) = *(a2 + 3);
+  *(a2 + 3) = v9;
+  v10 = *(this + 7);
+  *(this + 7) = *(a2 + 7);
+  *(a2 + 7) = v10;
+  v11 = *(this + 8);
+  *(this + 8) = *(a2 + 8);
+  *(a2 + 8) = v11;
+  v12 = *(this + 9);
+  *(this + 9) = *(a2 + 9);
+  *(a2 + 9) = v12;
+  v13 = *(this + 6);
+  *(this + 6) = *(a2 + 6);
+  *(a2 + 6) = v13;
+  v14 = *(this + 11);
+  *(this + 11) = *(a2 + 11);
+  *(a2 + 11) = v14;
+  v15 = *(this + 12);
+  *(this + 12) = *(a2 + 12);
+  *(a2 + 12) = v15;
+  result = *(this + 10);
+  *(this + 10) = *(a2 + 10);
+  *(a2 + 10) = result;
+  return result;
+}
+
+uint64_t CMMsl::VIOPose::VIOPose(uint64_t a1, uint64_t a2)
+{
+  *a1 = &unk_286C24210;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 112) = *(a2 + 112);
+  *(a2 + 112) = 0;
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 104) = *(a2 + 104);
+  *(a1 + 40) = *(a2 + 40);
+  sub_25AD28758(a1 + 8, (a2 + 8));
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 72) = *(a2 + 72);
+  *(a1 + 48) = *(a2 + 48);
+  *(a1 + 88) = *(a2 + 88);
+  *(a1 + 96) = *(a2 + 96);
+  *(a1 + 80) = *(a2 + 80);
+  return a1;
+}
+
+CMMsl *CMMsl::VIOPose::operator=(CMMsl *a1, CMMsl *a2)
+{
+  if (a1 != a2)
+  {
+    CMMsl::VIOPose::VIOPose(v5, a2);
+    CMMsl::swap(a1, v5, v3);
+    CMMsl::VIOPose::~VIOPose(v5);
+  }
+
+  return a1;
+}
+
+uint64_t CMMsl::VIOPose::formatText(CMMsl::VIOPose *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 56);
+  if (v5)
+  {
+    PB::TextFormatter::format(a2, "currentTimestamp", *(this + 4));
+    v5 = *(this + 56);
+    if ((v5 & 2) == 0)
+    {
+LABEL_3:
+      if ((v5 & 4) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_20;
+    }
+  }
+
+  else if ((v5 & 2) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  PB::TextFormatter::format(a2, "latestInertialTimestamp", *(this + 5));
+  v5 = *(this + 56);
+  if ((v5 & 4) == 0)
+  {
+LABEL_4:
+    if ((v5 & 8) == 0)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_21;
+  }
+
+LABEL_20:
+  PB::TextFormatter::format(a2, "latestInertialTimestampMeta", *(this + 6));
+  v5 = *(this + 56);
+  if ((v5 & 8) == 0)
+  {
+LABEL_5:
+    if ((v5 & 0x10) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_22;
+  }
+
+LABEL_21:
+  PB::TextFormatter::format(a2, "positionX", *(this + 7));
+  v5 = *(this + 56);
+  if ((v5 & 0x10) == 0)
+  {
+LABEL_6:
+    if ((v5 & 0x20) == 0)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_23;
+  }
+
+LABEL_22:
+  PB::TextFormatter::format(a2, "positionY", *(this + 8));
+  v5 = *(this + 56);
+  if ((v5 & 0x20) == 0)
+  {
+LABEL_7:
+    if ((v5 & 0x40) == 0)
+    {
+      goto LABEL_8;
+    }
+
+    goto LABEL_24;
+  }
+
+LABEL_23:
+  PB::TextFormatter::format(a2, "positionZ", *(this + 9));
+  v5 = *(this + 56);
+  if ((v5 & 0x40) == 0)
+  {
+LABEL_8:
+    if ((v5 & 0x80) == 0)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_25;
+  }
+
+LABEL_24:
+  PB::TextFormatter::format(a2, "predictionComputeTimeMeta", *(this + 10));
+  v5 = *(this + 56);
+  if ((v5 & 0x80) == 0)
+  {
+LABEL_9:
+    if ((v5 & 0x100) == 0)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_10;
+  }
+
+LABEL_25:
+  PB::TextFormatter::format(a2, "predictionTimeMeta", *(this + 11));
+  if ((*(this + 56) & 0x100) != 0)
+  {
+LABEL_10:
+    PB::TextFormatter::format(a2, "propagationTimeMeta", *(this + 12));
+  }
+
+LABEL_11:
+  v6 = *(this + 1);
+  v7 = *(this + 2);
+  while (v6 != v7)
+  {
+    v8 = *v6++;
+    PB::TextFormatter::format(a2, "rotationMatrixElement", v8);
+  }
+
+  if ((*(this + 56) & 0x200) != 0)
+  {
+    PB::TextFormatter::format(a2, "targetTimestamp", *(this + 13));
+  }
+
+  return MEMORY[0x2821A4560](a2);
+}
+
+uint64_t CMMsl::VIOPose::readFrom(CMMsl::VIOPose *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v7 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        v15 = 0;
+        v16 = 0;
+        v10 = 0;
+        v17 = (v7 + v2);
+        v18 = v3 >= v2;
+        v19 = v3 - v2;
+        if (!v18)
+        {
+          v19 = 0;
+        }
+
+        v20 = v2 + 1;
+        while (v19)
+        {
+          v21 = *v17;
+          *(a2 + 1) = v20;
+          v10 |= (v21 & 0x7F) << v15;
+          if ((v21 & 0x80) == 0)
+          {
+            goto LABEL_19;
+          }
+
+          v15 += 7;
+          ++v17;
+          --v19;
+          ++v20;
+          v14 = v16++ > 8;
+          if (v14)
+          {
+            goto LABEL_17;
+          }
+        }
+
+        v4 = 1;
+        *(a2 + 24) = 1;
+        goto LABEL_107;
+      }
+
+      v8 = 0;
+      v9 = 0;
+      v10 = 0;
+      v11 = (v7 + v2);
+      v12 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v12;
+        v13 = *v11++;
+        v10 |= (v13 & 0x7F) << v8;
+        if ((v13 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v8 += 7;
+        ++v12;
+        v14 = v9++ > 8;
+        if (v14)
+        {
+          goto LABEL_17;
+        }
+      }
+
+LABEL_19:
+      if ((v10 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_107;
+      }
+
+      v22 = v10 >> 3;
+      if ((v10 >> 3) > 5)
+      {
+        if (v22 > 8)
+        {
+          switch(v22)
+          {
+            case 9:
+              *(this + 56) |= 0x80u;
+              v48 = *(a2 + 1);
+              if (v48 > 0xFFFFFFFFFFFFFFF7 || v48 + 8 > *(a2 + 2))
+              {
+                goto LABEL_100;
+              }
+
+              *(this + 11) = *(*a2 + v48);
+              goto LABEL_102;
+            case 0xA:
+              *(this + 56) |= 0x100u;
+              v45 = *(a2 + 1);
+              if (v45 > 0xFFFFFFFFFFFFFFF7 || v45 + 8 > *(a2 + 2))
+              {
+                goto LABEL_100;
+              }
+
+              *(this + 12) = *(*a2 + v45);
+              goto LABEL_102;
+            case 0xB:
+              *(this + 56) |= 0x40u;
+              v25 = *(a2 + 1);
+              if (v25 > 0xFFFFFFFFFFFFFFF7 || v25 + 8 > *(a2 + 2))
+              {
+                goto LABEL_100;
+              }
+
+              *(this + 10) = *(*a2 + v25);
+              goto LABEL_102;
+          }
+        }
+
+        else
+        {
+          switch(v22)
+          {
+            case 6:
+              *(this + 56) |= 0x10u;
+              v47 = *(a2 + 1);
+              if (v47 > 0xFFFFFFFFFFFFFFF7 || v47 + 8 > *(a2 + 2))
+              {
+                goto LABEL_100;
+              }
+
+              *(this + 8) = *(*a2 + v47);
+              goto LABEL_102;
+            case 7:
+              *(this + 56) |= 0x20u;
+              v44 = *(a2 + 1);
+              if (v44 > 0xFFFFFFFFFFFFFFF7 || v44 + 8 > *(a2 + 2))
+              {
+                goto LABEL_100;
+              }
+
+              *(this + 9) = *(*a2 + v44);
+              goto LABEL_102;
+            case 8:
+              *(this + 56) |= 4u;
+              v23 = *(a2 + 1);
+              if (v23 > 0xFFFFFFFFFFFFFFF7 || v23 + 8 > *(a2 + 2))
+              {
+                goto LABEL_100;
+              }
+
+              *(this + 6) = *(*a2 + v23);
+LABEL_102:
+              *(a2 + 1) += 8;
+              goto LABEL_103;
+          }
+        }
+
+        goto LABEL_17;
+      }
+
+      if (v22 <= 2)
+      {
+        break;
+      }
+
+      if (v22 == 3)
+      {
+        *(this + 56) |= 2u;
+        v46 = *(a2 + 1);
+        if (v46 > 0xFFFFFFFFFFFFFFF7 || v46 + 8 > *(a2 + 2))
+        {
+          goto LABEL_100;
+        }
+
+        *(this + 5) = *(*a2 + v46);
+        goto LABEL_102;
+      }
+
+      if (v22 != 4)
+      {
+        if (v22 == 5)
+        {
+          *(this + 56) |= 8u;
+          v24 = *(a2 + 1);
+          if (v24 > 0xFFFFFFFFFFFFFFF7 || v24 + 8 > *(a2 + 2))
+          {
+            goto LABEL_100;
+          }
+
+          *(this + 7) = *(*a2 + v24);
+          goto LABEL_102;
+        }
+
+        goto LABEL_17;
+      }
+
+      if ((v10 & 7) != 2)
+      {
+        v50 = *(this + 2);
+        v49 = *(this + 3);
+        if (v50 >= v49)
+        {
+          v52 = *(this + 1);
+          v53 = v50 - v52;
+          v54 = (v50 - v52) >> 3;
+          v55 = v54 + 1;
+          if ((v54 + 1) >> 61)
+          {
+LABEL_111:
+            sub_25AAE66B8();
+          }
+
+          v56 = v49 - v52;
+          if (v56 >> 2 > v55)
+          {
+            v55 = v56 >> 2;
+          }
+
+          if (v56 >= 0x7FFFFFFFFFFFFFF8)
+          {
+            v57 = 0x1FFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v57 = v55;
+          }
+
+          if (v57)
+          {
+            sub_25AD28710(v57);
+          }
+
+          v58 = (v50 - v52) >> 3;
+          v59 = (8 * v54);
+          v60 = (8 * v54 - 8 * v58);
+          *v59 = 0;
+          v51 = v59 + 1;
+          memcpy(v60, v52, v53);
+          v61 = *(this + 1);
+          *(this + 1) = v60;
+          *(this + 2) = v51;
+          *(this + 3) = 0;
+          if (v61)
+          {
+            operator delete(v61);
+          }
+        }
+
+        else
+        {
+          *v50 = 0;
+          v51 = v50 + 8;
+        }
+
+        *(this + 2) = v51;
+        v62 = *(a2 + 1);
+        if (v62 > 0xFFFFFFFFFFFFFFF7 || v62 + 8 > *(a2 + 2))
+        {
+LABEL_100:
+          *(a2 + 24) = 1;
+          goto LABEL_103;
+        }
+
+        *(v51 - 1) = *(*a2 + v62);
+        goto LABEL_102;
+      }
+
+      if (PB::Reader::placeMark())
+      {
+LABEL_109:
+        v63 = 0;
+        return v63 & 1;
+      }
+
+      v28 = *(a2 + 1);
+      v29 = *(a2 + 2);
+      while (v28 < v29 && (*(a2 + 24) & 1) == 0)
+      {
+        v31 = *(this + 2);
+        v30 = *(this + 3);
+        if (v31 >= v30)
+        {
+          v33 = *(this + 1);
+          v34 = v31 - v33;
+          v35 = (v31 - v33) >> 3;
+          v36 = v35 + 1;
+          if ((v35 + 1) >> 61)
+          {
+            goto LABEL_111;
+          }
+
+          v37 = v30 - v33;
+          if (v37 >> 2 > v36)
+          {
+            v36 = v37 >> 2;
+          }
+
+          if (v37 >= 0x7FFFFFFFFFFFFFF8)
+          {
+            v38 = 0x1FFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v38 = v36;
+          }
+
+          if (v38)
+          {
+            sub_25AD28710(v38);
+          }
+
+          v39 = (v31 - v33) >> 3;
+          v40 = (8 * v35);
+          v41 = (8 * v35 - 8 * v39);
+          *v40 = 0;
+          v32 = v40 + 1;
+          memcpy(v41, v33, v34);
+          v42 = *(this + 1);
+          *(this + 1) = v41;
+          *(this + 2) = v32;
+          *(this + 3) = 0;
+          if (v42)
+          {
+            operator delete(v42);
+          }
+        }
+
+        else
+        {
+          *v31 = 0;
+          v32 = v31 + 8;
+        }
+
+        *(this + 2) = v32;
+        v43 = *(a2 + 1);
+        if (v43 > 0xFFFFFFFFFFFFFFF7 || v43 + 8 > *(a2 + 2))
+        {
+          *(a2 + 24) = 1;
+          break;
+        }
+
+        *(v32 - 1) = *(*a2 + v43);
+        v29 = *(a2 + 2);
+        v28 = *(a2 + 1) + 8;
+        *(a2 + 1) = v28;
+      }
+
+      PB::Reader::recallMark();
+LABEL_103:
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_107;
+      }
+    }
+
+    if (v22 == 1)
+    {
+      *(this + 56) |= 1u;
+      v27 = *(a2 + 1);
+      if (v27 > 0xFFFFFFFFFFFFFFF7 || v27 + 8 > *(a2 + 2))
+      {
+        goto LABEL_100;
+      }
+
+      *(this + 4) = *(*a2 + v27);
+      goto LABEL_102;
+    }
+
+    if (v22 == 2)
+    {
+      *(this + 56) |= 0x200u;
+      v26 = *(a2 + 1);
+      if (v26 > 0xFFFFFFFFFFFFFFF7 || v26 + 8 > *(a2 + 2))
+      {
+        goto LABEL_100;
+      }
+
+      *(this + 13) = *(*a2 + v26);
+      goto LABEL_102;
+    }
+
+LABEL_17:
+    if ((PB::Reader::skip(a2) & 1) == 0)
+    {
+      goto LABEL_109;
+    }
+
+    goto LABEL_103;
+  }
+
+LABEL_107:
+  v63 = v4 ^ 1;
+  return v63 & 1;
 }

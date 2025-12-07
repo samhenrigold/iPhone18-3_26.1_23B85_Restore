@@ -22,7 +22,7 @@
     *(v6 + 2) = [descriptor label];
     if (descriptor)
     {
-      [descriptor screenSize];
+      objc_msgSend_screenSize(descriptor);
     }
 
     else
@@ -83,7 +83,7 @@
 {
   if (self)
   {
-    return [($F99D9A4FB75BC57F3386B8DC8EE08D7A *)self screenSize];
+    return objc_msgSend_screenSize(self, layer, a4);
   }
 
   retstr->var0 = 0;
@@ -94,24 +94,24 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v18[24] = *MEMORY[0x1E69E9840];
+  v17[24] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
+  v14 = 0;
   v15 = 0;
   v16 = 0;
-  v17 = 0;
   if (self)
   {
-    [(_MTLRasterizationRateMap *)self physicalGranularity];
+    objc_msgSend_physicalGranularity(self);
   }
 
   parameterBufferSizeAndAlign = [(_MTLRasterizationRateMap *)self parameterBufferSizeAndAlign];
   v7 = v6;
   v8 = MEMORY[0x1E696AEC0];
-  v14.receiver = self;
-  v14.super_class = _MTLRasterizationRateMap;
-  v9 = [(_MTLRasterizationRateMap *)&v14 description];
-  v18[0] = v4;
-  v18[1] = @"label =";
+  v13.receiver = self;
+  v13.super_class = _MTLRasterizationRateMap;
+  v9 = [(_MTLRasterizationRateMap *)&v13 description];
+  v17[0] = v4;
+  v17[1] = @"label =";
   label = self->_label;
   width = self->_dim.width;
   if (!label)
@@ -119,31 +119,29 @@
     label = @"<none>";
   }
 
-  v18[2] = label;
-  v18[3] = v4;
-  v18[4] = @"screenSize.width =";
-  v18[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:width];
-  v18[6] = v4;
-  v18[7] = @"screenSize.height =";
-  v18[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_dim.height];
-  v18[9] = v4;
-  v18[10] = @"layerCount =";
-  v18[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_dim.depth];
-  v18[12] = v4;
-  v18[13] = @"physicalGranularity.width =";
-  v18[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v15];
-  v18[15] = v4;
-  v18[16] = @"physicalGranularity.height =";
-  v18[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v16];
-  v18[18] = v4;
-  v18[19] = @"parameterBuffer.size =";
-  v18[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:parameterBufferSizeAndAlign];
-  v18[21] = v4;
-  v18[22] = @"parameterBuffer.align =";
-  v18[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v7];
-  result = [v8 stringWithFormat:@"%@%@", v9, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v18, 24), "componentsJoinedByString:", @" "];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  v17[2] = label;
+  v17[3] = v4;
+  v17[4] = @"screenSize.width =";
+  v17[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:width];
+  v17[6] = v4;
+  v17[7] = @"screenSize.height =";
+  v17[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_dim.height];
+  v17[9] = v4;
+  v17[10] = @"layerCount =";
+  v17[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_dim.depth];
+  v17[12] = v4;
+  v17[13] = @"physicalGranularity.width =";
+  v17[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v14];
+  v17[15] = v4;
+  v17[16] = @"physicalGranularity.height =";
+  v17[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v15];
+  v17[18] = v4;
+  v17[19] = @"parameterBuffer.size =";
+  v17[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:parameterBufferSizeAndAlign];
+  v17[21] = v4;
+  v17[22] = @"parameterBuffer.align =";
+  v17[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v7];
+  return [v8 stringWithFormat:@"%@%@", v9, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v17, 24), "componentsJoinedByString:", @" "];
 }
 
 @end

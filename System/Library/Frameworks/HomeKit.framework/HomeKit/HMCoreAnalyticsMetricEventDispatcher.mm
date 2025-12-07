@@ -7,7 +7,7 @@
 
 - (void)sendEvent:(id)event
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -15,11 +15,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = eventCopy;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Sending event: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = eventCopy;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Sending event: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -27,8 +27,6 @@
   name = [eventCopy name];
   eventPayload = [eventCopy eventPayload];
   sendEventHandler[2](sendEventHandler, name, eventPayload);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (HMCoreAnalyticsMetricEventDispatcher)initWithSendEventHandler:(id)handler
@@ -37,9 +35,9 @@
   if (handlerCopy)
   {
     v5 = handlerCopy;
-    v11.receiver = self;
-    v11.super_class = HMCoreAnalyticsMetricEventDispatcher;
-    v6 = [(HMCoreAnalyticsMetricEventDispatcher *)&v11 init];
+    v13.receiver = self;
+    v13.super_class = HMCoreAnalyticsMetricEventDispatcher;
+    v6 = [(HMCoreAnalyticsMetricEventDispatcher *)&v13 init];
     if (v6)
     {
       v7 = _Block_copy(v5);
@@ -53,8 +51,10 @@
   else
   {
     v10 = _HMFPreconditionFailure();
-    return __44__HMCoreAnalyticsMetricEventDispatcher_init__block_invoke(v10);
+    __44__HMCoreAnalyticsMetricEventDispatcher_init__block_invoke(v10, v11, v12);
   }
+
+  return result;
 }
 
 void __44__HMCoreAnalyticsMetricEventDispatcher_init__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -89,8 +89,8 @@ void __44__HMCoreAnalyticsMetricEventDispatcher_init__block_invoke(uint64_t a1, 
   _Block_object_dispose(&v17, 8);
   if (!v9)
   {
-    dlerror();
-    abort_report_np();
+    v14 = dlerror();
+    abort_report_np("%s", v14);
     __break(1u);
   }
 
@@ -112,8 +112,6 @@ void __44__HMCoreAnalyticsMetricEventDispatcher_init__block_invoke(uint64_t a1, 
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

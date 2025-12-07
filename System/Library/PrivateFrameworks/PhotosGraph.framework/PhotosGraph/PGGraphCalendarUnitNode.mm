@@ -100,7 +100,7 @@
 
 - (id)propertyForKey:(id)key
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"name"])
   {
@@ -121,23 +121,21 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
     {
-      v9 = 138412290;
-      v10 = keyCopy;
-      _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphCalendarUnitNode.", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = keyCopy;
+      _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphCalendarUnitNode.", &v8, 0xCu);
     }
 
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)propertyDictionary
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"name";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"name";
   v2 = *(self + 16);
   if (v2 == -1)
   {
@@ -149,13 +147,11 @@
     v3 = [MEMORY[0x277CCABB0] numberWithInteger:v2];
   }
 
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (v2 != -1)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -325,13 +321,11 @@
 
 + (id)propertiesWithCalendarUnitValue:(int64_t)value
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"name";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"name";
   v3 = [MEMORY[0x277CCABB0] numberWithLong:value];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

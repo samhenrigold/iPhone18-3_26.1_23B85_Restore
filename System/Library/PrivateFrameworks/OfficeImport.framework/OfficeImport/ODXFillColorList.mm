@@ -13,7 +13,7 @@
   v2 = +[ODXFillColorList hueDirectionMap]::hueDirectionMap;
   if (!+[ODXFillColorList hueDirectionMap]::hueDirectionMap)
   {
-    if ((atomic_load_explicit(&_MergedGlobals_54, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(_MergedGlobals_54, memory_order_acquire) & 1) == 0)
     {
       +[ODXFillColorList hueDirectionMap];
     }
@@ -33,7 +33,7 @@
   v2 = +[ODXFillColorList colorApplicationMethodMap]::colorApplicationMethodMap;
   if (!+[ODXFillColorList colorApplicationMethodMap]::colorApplicationMethodMap)
   {
-    if ((atomic_load_explicit(&qword_27FC3F2B8, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_27FC3F2B8, memory_order_acquire) & 1) == 0)
     {
       +[ODXFillColorList colorApplicationMethodMap];
     }
@@ -76,7 +76,7 @@
 
 + (void)hueDirectionMap
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_54))
+  if (__cxa_guard_acquire(_MergedGlobals_54))
   {
     dword_27FC3F2C0 = 0;
     qword_27FC3F2C8 = "ccw";
@@ -84,13 +84,13 @@
     qword_27FC3F2D8 = "cw";
     xmmword_27FC3F2E0 = TCXmlEnumSentinel;
 
-    __cxa_guard_release(&_MergedGlobals_54);
+    __cxa_guard_release(_MergedGlobals_54);
   }
 }
 
 + (void)colorApplicationMethodMap
 {
-  if (__cxa_guard_acquire(&qword_27FC3F2B8))
+  if (__cxa_guard_acquire(byte_27FC3F2B8))
   {
     qword_27FC3F2F8 = "cycle";
     dword_27FC3F300 = 1;
@@ -100,7 +100,7 @@
     qword_27FC3F318 = "span";
     unk_27FC3F320 = TCXmlEnumSentinel;
 
-    __cxa_guard_release(&qword_27FC3F2B8);
+    __cxa_guard_release(byte_27FC3F2B8);
   }
 }
 

@@ -71,8 +71,8 @@
         v24 = v15;
         if (v10)
         {
-          [v10 frameTimestamp];
-          [v10 lastDetectionTimestamp];
+          objc_msgSend_frameTimestamp(v10);
+          objc_msgSend_lastDetectionTimestamp(v10);
         }
 
         else
@@ -91,7 +91,7 @@
 
         v28 = identifier;
         v29 = 1;
-        [(FTCinematicInput *)self sourceFrameTimestamp];
+        objc_msgSend_sourceFrameTimestamp(self);
         *(&v22 + 1) = v7;
         v30 = v21;
         v31 = v22;

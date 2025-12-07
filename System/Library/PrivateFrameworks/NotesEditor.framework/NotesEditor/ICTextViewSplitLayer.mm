@@ -15,7 +15,7 @@
   v8 = [layoutManager glyphRangeForTextContainer:textContainer];
   v10 = v9;
 
-  [(ICTextViewSplitLayer *)self sublayerTransform:0];
+  objc_msgSend_sublayerTransform(self, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   textView3 = [(ICTextViewSplitLayer *)self textView];
   layoutManager2 = [textView3 layoutManager];
   [layoutManager2 drawGlyphsForGlyphRange:v8 atPoint:v10 updateAttachments:{0, 0.0, 0.0}];

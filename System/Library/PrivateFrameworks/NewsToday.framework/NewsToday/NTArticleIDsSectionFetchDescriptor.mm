@@ -37,46 +37,46 @@
 
 - (NTArticleIDsSectionFetchDescriptor)initWithArticleIDsConfiguration:(id)configuration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if (!configurationCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NTArticleIDsSectionFetchDescriptor initWithArticleIDsConfiguration:];
   }
 
-  v22.receiver = self;
-  v22.super_class = NTArticleIDsSectionFetchDescriptor;
-  v5 = [(NTArticleIDsSectionFetchDescriptor *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = NTArticleIDsSectionFetchDescriptor;
+  v5 = [(NTArticleIDsSectionFetchDescriptor *)&v21 init];
   if (v5)
   {
     v6 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     articles = [configurationCopy articles];
-    v8 = [articles countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v8 = [articles countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(articles);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * i);
+          v12 = *(*(&v17 + 1) + 8 * i);
           v13 = objc_opt_new();
           [v13 setItemType:0];
           [v13 setArticle:v12];
           [v6 addItems:v13];
         }
 
-        v9 = [articles countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v9 = [articles countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v9);
@@ -87,7 +87,6 @@
     v5->_privateFetchDescriptor = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -128,19 +127,17 @@
 
 - (void)initWithArticleIDsConfiguration:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "articleIDsConfiguration"];
   *buf = 136315906;
-  v3 = "[NTArticleIDsSectionFetchDescriptor initWithArticleIDsConfiguration:]";
-  v4 = 2080;
-  v5 = "NTArticleIDsSectionFetchDescriptor.m";
-  v6 = 1024;
-  v7 = 29;
-  v8 = 2114;
-  v9 = v0;
+  v2 = "[NTArticleIDsSectionFetchDescriptor initWithArticleIDsConfiguration:]";
+  v3 = 2080;
+  v4 = "NTArticleIDsSectionFetchDescriptor.m";
+  v5 = 1024;
+  v6 = 29;
+  v7 = 2114;
+  v8 = v0;
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

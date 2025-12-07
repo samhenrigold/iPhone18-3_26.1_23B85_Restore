@@ -25,7 +25,7 @@
   }
 
   v5 = sub_18B53541C(v3, v4);
-  sub_18B4A31A4(v3);
+  sub_18B4A31A4(v3, v4);
   return v5;
 }
 
@@ -53,11 +53,12 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC5AVKit25_AVOOPInputViewController_onTappingForDismissing);
   if (v2)
   {
+    v3 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC5AVKit25_AVOOPInputViewController_onTappingForDismissing);
     selfCopy = self;
-    v4 = sub_18B4A324C(v2);
-    v2(v4);
+    v5 = sub_18B4A324C(v2, v3);
+    v2(v5);
 
-    sub_18B4A31A4(v2);
+    sub_18B4A31A4(v2, v3);
   }
 }
 

@@ -20,7 +20,7 @@
 
 - (void)setHomeManager:(id)manager
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -31,22 +31,21 @@
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
     v12 = NSStringFromSelector(a2);
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v12;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@[%@ %@] no-op because CoreData storage is enabled", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@[%@ %@] no-op because CoreData storage is enabled", &v13, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resetBackingStore
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -55,23 +54,22 @@
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     v8 = NSStringFromSelector(a2);
-    v11 = 138543874;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@+[%@ %@] no-op because CoreData storage is enabled", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@+[%@ %@] no-op because CoreData storage is enabled", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)flushBackingStore
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -80,17 +78,16 @@
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     v8 = NSStringFromSelector(a2);
-    v11 = 138543874;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@+[%@ %@] no-op because CoreData storage is enabled", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@+[%@ %@] no-op because CoreData storage is enabled", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -116,10 +113,10 @@
 
 - (HMDBackingStoreSingleton)init
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = HMDBackingStoreSingleton;
-  v2 = [(HMDBackingStoreSingleton *)&v24 init];
+  v26 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = HMDBackingStoreSingleton;
+  v2 = [(HMDBackingStoreSingleton *)&v23 init];
   if (v2)
   {
     strongToWeakObjectsMapTable = [MEMORY[0x277CCAB00] strongToWeakObjectsMapTable];
@@ -159,7 +156,7 @@
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v20;
+        v25 = v20;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to create our local storage.", buf, 0xCu);
       }
 
@@ -169,7 +166,6 @@
     v21 = v2;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -187,15 +183,14 @@
 
 void __39__HMDBackingStoreSingleton_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v26_241848;
-  logCategory__hmf_once_v26_241848 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v26_241848;
+  logCategory__hmf_once_v26_241848 = v0;
 }
 
 + (void)start
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -204,17 +199,16 @@ void __39__HMDBackingStoreSingleton_logCategory__block_invoke()
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     v8 = NSStringFromSelector(a2);
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@+[%@ %@] no-op because CoreData storage is enabled", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@+[%@ %@] no-op because CoreData storage is enabled", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

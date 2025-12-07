@@ -58,7 +58,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "No keybag available to decrypt manifest", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "No keybag available to decrypt manifest");
     }
 
     if (error)
@@ -87,7 +87,7 @@
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Decrypting manifest database", buf, 2u);
-          _MBLog();
+          _MBLog(@"Df", "Decrypting manifest database");
         }
 
         v25 = objc_alloc_init(MBManifestDBDownloadHelper);
@@ -115,7 +115,7 @@
         *buf = 138412290;
         v34 = v27;
         _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Failed to download manifest db from backup: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to download manifest db from backup: %@", v27);
       }
 
       if (error)
@@ -134,7 +134,7 @@
       v35 = 2112;
       v36 = v18;
       _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "ManifestDB: downloading %@ to %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "ManifestDB: downloading %@ to %@", pathCopy, v18);
     }
   }
 
@@ -192,10 +192,9 @@
     {
       path = self->_path;
       *buf = 138412290;
-      v13 = path;
+      v12 = path;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Database (%@) was not closed before dealloc", buf, 0xCu);
-      v8 = self->_path;
-      _MBLog();
+      _MBLog(@"E ", "Database (%@) was not closed before dealloc", self->_path);
     }
 
     serialQueue = [(PQLConnection *)v3 serialQueue];
@@ -203,13 +202,13 @@
     block[1] = 3221225472;
     block[2] = sub_1002301FC;
     block[3] = &unk_1003BC0B0;
-    v11 = v3;
+    v10 = v3;
     dispatch_async(serialQueue, block);
   }
 
-  v9.receiver = self;
-  v9.super_class = MBManifestDB;
-  [(MBManifestDB *)&v9 dealloc];
+  v8.receiver = self;
+  v8.super_class = MBManifestDB;
+  [(MBManifestDB *)&v8 dealloc];
 }
 
 - (BOOL)openWithError:(id *)error
@@ -265,7 +264,7 @@ LABEL_2:
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "ManifestDB: opening %@", buf, 0xCu);
 
     stringByDeletingLastPathComponent = [(MBManifestDB *)self path];
-    _MBLog();
+    _MBLog(@"Df", "ManifestDB: opening %@", stringByDeletingLastPathComponent);
     v7 = 1;
 LABEL_10:
 
@@ -325,20 +324,20 @@ LABEL_11:
     }
 
     path3 = [(MBManifestDB *)self path];
-    _MBLog();
+    _MBLog(@"Df", "ManifestDB: closing %@", path3);
   }
 
-  v13 = *(v24 + 24);
+  v14 = *(v24 + 24);
   if (error && (v24[3] & 1) == 0)
   {
     *error = v18[5];
-    v13 = *(v24 + 24);
+    v14 = *(v24 + 24);
   }
 
   _Block_object_dispose(&v17, 8);
 
   _Block_object_dispose(&v23, 8);
-  return v13 & 1;
+  return v14 & 1;
 }
 
 - (BOOL)closeAndRemoveFileWithError:(id *)error
@@ -364,7 +363,7 @@ LABEL_11:
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "ManifestDB: removing %@", buf, 0xCu);
 
         path3 = [(MBManifestDB *)self path];
-        _MBLog();
+        _MBLog(@"Df", "ManifestDB: removing %@", path3);
       }
 
       LOBYTE(v5) = 1;
@@ -443,8 +442,7 @@ LABEL_11:
     *buf = 138412290;
     pathCopy2 = path;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Setting up the upload of an encrypted manifest database located at %@", buf, 0xCu);
-    v28 = self->_path;
-    _MBLog();
+    _MBLog(@"I ", "Setting up the upload of an encrypted manifest database located at %@", self->_path);
   }
 
   v17 = objc_alloc_init(MBManifestDBUploadHelper);
@@ -453,9 +451,9 @@ LABEL_11:
 
   if (self->_encryptedFileHandle)
   {
-    v35 = @"FileHandleFactory";
-    v36 = v17;
-    v19 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v33 = @"FileHandleFactory";
+    v34 = v17;
+    v19 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
 
 LABEL_7:
     v20 = MBGetDefaultLog();
@@ -464,17 +462,16 @@ LABEL_7:
       v21 = self->_path;
       *buf = 138412546;
       pathCopy2 = v21;
-      v33 = 2112;
-      v34 = pathCopy;
+      v31 = 2112;
+      v32 = pathCopy;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "ManifestDB: uploading manifest database from path %@ to path %@", buf, 0x16u);
-      v29 = self->_path;
-      _MBLog();
+      _MBLog(@"I ", "ManifestDB: uploading manifest database from path %@ to path %@", self->_path, pathCopy);
     }
 
     v22 = self->_path;
-    v30 = 0;
-    v23 = [driveCopy uploadFileAtPath:v22 toPath:pathCopy options:v19 error:&v30];
-    v24 = v30;
+    v28 = 0;
+    v23 = [driveCopy uploadFileAtPath:v22 toPath:pathCopy options:v19 error:&v28];
+    v24 = v28;
     if (v23)
     {
       v25 = 1;
@@ -500,7 +497,7 @@ LABEL_7:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Can't upload without a file handle to the db", buf, 2u);
-    _MBLog();
+    _MBLog(@"E ", "Can't upload without a file handle to the db");
   }
 
   v24 = 0;
@@ -516,16 +513,14 @@ LABEL_17:
   if (self->_encryptedFileHandle)
   {
     v5 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_7;
+      path = self->_path;
+      *buf = 138412290;
+      v14 = path;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Using existing cached file handle for manifest DB at path %@", buf, 0xCu);
+      _MBLog(@"I ", "Using existing cached file handle for manifest DB at path %@", self->_path);
     }
-
-    p_path = &self->_path;
-    path = self->_path;
-    *buf = 138412290;
-    v15 = path;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Using existing cached file handle for manifest DB at path %@", buf, 0xCu);
   }
 
   else
@@ -536,20 +531,15 @@ LABEL_17:
     self->_encryptedFileHandle = v8;
 
     v5 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_7;
+      v10 = *p_path;
+      *buf = 138412290;
+      v14 = v10;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Acquiring and caching a new encrypted file handle for manifest DB at path %@", buf, 0xCu);
+      _MBLog(@"I ", "Acquiring and caching a new encrypted file handle for manifest DB at path %@", *p_path);
     }
-
-    v10 = *p_path;
-    *buf = 138412290;
-    v15 = v10;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Acquiring and caching a new encrypted file handle for manifest DB at path %@", buf, 0xCu);
   }
-
-  v13 = *p_path;
-  _MBLog();
-LABEL_7:
 
   v11 = self->_encryptedFileHandle;
 
@@ -614,9 +604,9 @@ LABEL_7:
     {
       v11 = [pql_database2 url];
 
-      *v50 = 61;
+      *v48 = 61;
       pql_database3 = [(MBManifestDB *)self pql_database];
-      v13 = sqlite3_file_control([pql_database3 dbHandle], 0, 101, v50);
+      v13 = sqlite3_file_control([pql_database3 dbHandle], 0, 101, v48);
 
       pql_database4 = [(MBManifestDB *)self pql_database];
       v15 = [pql_database4 close:error];
@@ -630,8 +620,7 @@ LABEL_7:
           *buf = 138412290;
           *&buf[4] = v17;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Can't close db: %@", buf, 0xCu);
-          v43 = *error;
-          _MBLog();
+          _MBLog(@"E ", "Can't close db: %@", *error);
         }
       }
 
@@ -645,9 +634,7 @@ LABEL_7:
           *&buf[12] = 1024;
           *&buf[14] = v13;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Failed to truncate database at %@: %d", buf, 0x12u);
-          v43 = v11;
-          v44 = v13;
-          _MBLog();
+          _MBLog(@"E ", "Failed to truncate database at %@: %d", v11, v13);
         }
 
         v19 = v11;
@@ -662,32 +649,18 @@ LABEL_7:
             *&buf[12] = 1024;
             *&buf[14] = v21;
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to unlink %@: %{errno}d", buf, 0x12u);
-            v43 = v11;
-            v44 = *__error();
-            _MBLog();
+            v22 = __error();
+            _MBLog(@"E ", "Failed to unlink %@: %{errno}d", v11, *v22);
           }
         }
       }
 
-      v22 = [(MBManifestDB *)self _setupConnectionWithError:error, v43, v44];
+      v23 = [(MBManifestDB *)self _setupConnectionWithError:error];
 
-      if (v22)
+      if (v23)
       {
         pql_database5 = [(MBManifestDB *)self pql_database];
         [pql_database5 execute:@"PRAGMA cache_size = 250"];
-
-        v24 = MBGetDefaultLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
-        {
-          *buf = 67109376;
-          *&buf[4] = unsignedIntValue;
-          *&buf[8] = 1024;
-          *&buf[10] = 2;
-          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Migrating manifest database from version %d to %d", buf, 0xEu);
-          v43 = unsignedIntValue;
-          v44 = 2;
-          _MBLog();
-        }
 
         v25 = MBGetDefaultLog();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
@@ -696,31 +669,40 @@ LABEL_7:
           *&buf[4] = unsignedIntValue;
           *&buf[8] = 1024;
           *&buf[10] = 2;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Migrating database from version %d to %d", buf, 0xEu);
-          v43 = unsignedIntValue;
-          v44 = 2;
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Migrating manifest database from version %d to %d", buf, 0xEu);
+          _MBLog(@"I ", "Migrating manifest database from version %d to %d", unsignedIntValue, 2);
+        }
+
+        v26 = MBGetDefaultLog();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        {
+          *buf = 67109376;
+          *&buf[4] = unsignedIntValue;
+          *&buf[8] = 1024;
+          *&buf[10] = 2;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Migrating database from version %d to %d", buf, 0xEu);
+          _MBLog(@"I ", "Migrating database from version %d to %d", unsignedIntValue, 2);
         }
 
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v57 = sub_1002307A4;
-        v58 = sub_1002307B4;
-        v59 = 0;
+        v55 = sub_1002307A4;
+        v56 = sub_1002307B4;
+        v57 = 0;
         pql_database6 = [(MBManifestDB *)self pql_database];
-        v46[0] = _NSConcreteStackBlock;
-        v46[1] = 3221225472;
-        v46[2] = sub_100231BBC;
-        v46[3] = &unk_1003C21F8;
-        v47 = 0;
-        v48 = unsignedIntValue;
-        v49 = 2;
-        v46[4] = self;
-        v46[5] = buf;
-        v27 = [pql_database6 performWithFlags:10 action:v46];
+        v44[0] = _NSConcreteStackBlock;
+        v44[1] = 3221225472;
+        v44[2] = sub_100231BBC;
+        v44[3] = &unk_1003C21F8;
+        v45 = 0;
+        v46 = unsignedIntValue;
+        v47 = 2;
+        v44[4] = self;
+        v44[5] = buf;
+        v28 = [pql_database6 performWithFlags:10 action:v44];
 
-        if (v27)
+        if (v28)
         {
           pql_database7 = [(MBManifestDB *)self pql_database];
           [pql_database7 setUserVersion:2];
@@ -731,41 +713,40 @@ LABEL_7:
 
           _Block_object_dispose(buf, 8);
 LABEL_22:
-          v31 = [(MBManifestDB *)self pql_database:v43];
-          v32 = +[MBBehaviorOptions sharedOptions];
-          [v32 sqlBatchTime];
-          v34 = v33;
-          v35 = +[MBBehaviorOptions sharedOptions];
-          [v31 useBatchingWithDelay:objc_msgSend(v35 changeCount:{"sqlBatchCount"), v34}];
-
           pql_database9 = [(MBManifestDB *)self pql_database];
-          [pql_database9 useSerialQueue];
+          v33 = +[MBBehaviorOptions sharedOptions];
+          [v33 sqlBatchTime];
+          v35 = v34;
+          v36 = +[MBBehaviorOptions sharedOptions];
+          [pql_database9 useBatchingWithDelay:objc_msgSend(v36 changeCount:{"sqlBatchCount"), v35}];
 
           pql_database10 = [(MBManifestDB *)self pql_database];
-          serialQueue = [pql_database10 serialQueue];
+          [pql_database10 useSerialQueue];
+
+          pql_database11 = [(MBManifestDB *)self pql_database];
+          serialQueue = [pql_database11 serialQueue];
           dispatch_queue_set_specific(serialQueue, self, self, 0);
 
           LOBYTE(v5) = 1;
           return v5;
         }
 
-        v39 = MBGetDefaultLog();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v40 = MBGetDefaultLog();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          v40 = *(*&buf[8] + 40);
-          *v50 = 67109634;
-          v51 = unsignedIntValue;
-          v52 = 1024;
-          v53 = 2;
-          v54 = 2112;
-          v55 = v40;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Migration from version %d to %d failed, error:%@", v50, 0x18u);
-          v45 = *(*&buf[8] + 40);
-          _MBLog();
+          v41 = *(*&buf[8] + 40);
+          *v48 = 67109634;
+          v49 = unsignedIntValue;
+          v50 = 1024;
+          v51 = 2;
+          v52 = 2112;
+          v53 = v41;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Migration from version %d to %d failed, error:%@", v48, 0x18u);
+          _MBLog(@"E ", "Migration from version %d to %d failed, error:%@", unsignedIntValue, 2, *(*&buf[8] + 40));
         }
 
-        pql_database11 = [(MBManifestDB *)self pql_database];
-        [pql_database11 close:0];
+        pql_database12 = [(MBManifestDB *)self pql_database];
+        [pql_database12 close:0];
 
         if (error)
         {
@@ -995,8 +976,8 @@ LABEL_18:
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Password does not match password hash (%@ != %@)", buf, 0x16u);
 
           v17 = [hashCopy base64EncodedStringWithOptions:0];
-          v19 = [v11 base64EncodedStringWithOptions:0];
-          _MBLog();
+          v18 = [v11 base64EncodedStringWithOptions:0];
+          _MBLog(@"I ", "Password does not match password hash (%@ != %@)", v17, v18);
         }
       }
 
@@ -1007,7 +988,7 @@ LABEL_18:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Password not set but there is a password hash", buf, 2u);
-          goto LABEL_11;
+          _MBLog(@"I ", "Password not set but there is a password hash");
         }
       }
     }
@@ -1019,8 +1000,7 @@ LABEL_18:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Password set but no available password hash", buf, 2u);
-LABEL_11:
-        _MBLog();
+        _MBLog(@"I ", "Password set but no available password hash");
       }
     }
 
@@ -1054,7 +1034,7 @@ LABEL_19:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Setting up encryption for manifest database", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Setting up encryption for manifest database");
   }
 
   passwordData = [(MBManifestDB *)self passwordData];
@@ -1073,7 +1053,7 @@ LABEL_8:
         *buf = 138412290;
         v33 = v16;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to fetch password hash from database: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch password hash from database: %@", v16);
       }
 
       if (error)
@@ -1102,7 +1082,7 @@ LABEL_8:
         *buf = 138412290;
         v33 = v16;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Failed to fetch salt from database: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Failed to fetch salt from database: %@", v16);
       }
 
       if (error)
@@ -1145,7 +1125,7 @@ LABEL_41:
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to encode password", buf, 2u);
-            _MBLog();
+            _MBLog(@"E ", "Failed to encode password");
           }
 
           if (error)
@@ -1162,7 +1142,7 @@ LABEL_41:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Password does not match existing manifest password hash", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "Password does not match existing manifest password hash");
       }
 
       if (!error)
@@ -1181,7 +1161,7 @@ LABEL_41:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Inconsistent encryption settings in database: password hash without salt", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "Inconsistent encryption settings in database: password hash without salt");
       }
 
       if (!error)
@@ -1239,7 +1219,7 @@ LABEL_44:
           *buf = 138412290;
           v18 = v11;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to store password hash in database: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "Failed to store password hash in database: %@", v11);
         }
 
         if (error)
@@ -1262,7 +1242,7 @@ LABEL_44:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to generate password hash", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "Failed to generate password hash");
       }
 
       if (error)
@@ -1597,7 +1577,7 @@ LABEL_44:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Unsetting all verified file flags", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Unsetting all verified file flags");
   }
 
   v4 = [(MBManifestDB *)self _executeSQL:@"UPDATE Files SET flags = (flags & ~%lu) WHERE flags & %lu != 0", 32, 32];;
@@ -1612,7 +1592,7 @@ LABEL_44:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Removing files not already uploaded from manifest", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Removing files not already uploaded from manifest");
   }
 
   v4 = [(MBManifestDB *)self _executeSQL:@"DELETE FROM Files WHERE (flags & %lu) = 0 AND (flags & %lu) = 0", 8, 128];
@@ -1637,7 +1617,7 @@ LABEL_44:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Unsetting all already uploaded file flags", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Unsetting all already uploaded file flags");
   }
 
   v4 = [(MBManifestDB *)self _executeSQL:@"UPDATE Files SET flags = (flags & ~%lu) WHERE flags & %lu != 0", 8, 8];;

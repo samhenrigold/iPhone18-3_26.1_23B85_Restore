@@ -315,59 +315,59 @@
   result = 1.0;
   if (fineScrubbing)
   {
-    if (isPad())
+    if (isPad(fineScrubbing, v6))
     {
-      v7 = 20.0;
+      v8 = 20.0;
     }
 
     else
     {
-      v7 = 0.0;
+      v8 = 0.0;
     }
 
-    [(IMCustomSlider *)self fineScrubbingVerticalRange];
-    v9 = vabdd_f64(position, self->_beginLocation.y);
-    if (v8 >= v9)
+    fineScrubbingVerticalRange = [(IMCustomSlider *)self fineScrubbingVerticalRange];
+    v12 = vabdd_f64(position, self->_beginLocation.y);
+    if (v11 >= v12)
     {
-      v8 = v9;
+      v11 = v12;
     }
 
-    if (v7 >= v8)
+    if (v8 >= v11)
     {
-      v10 = v7;
+      v13 = v8;
     }
 
     else
     {
-      v10 = v8;
+      v13 = v11;
     }
 
-    if (isPad())
+    if (isPad(fineScrubbingVerticalRange, v10))
     {
-      v11 = 20.0;
+      v14 = 20.0;
     }
 
     else
     {
-      v11 = 0.0;
+      v14 = 0.0;
     }
 
-    v12 = v10 - v11;
-    v13 = v12;
-    [(IMCustomSlider *)self fineScrubbingVerticalRange];
-    v15 = v14;
-    if (isPad())
+    v15 = v13 - v14;
+    v16 = v15;
+    fineScrubbingVerticalRange2 = [(IMCustomSlider *)self fineScrubbingVerticalRange];
+    v19 = v18;
+    if (isPad(fineScrubbingVerticalRange2, v20))
     {
-      v16 = 20.0;
+      v21 = 20.0;
     }
 
     else
     {
-      v16 = 0.0;
+      v21 = 0.0;
     }
 
-    v17 = v13 / (v15 - v16);
-    result = 1.0 - v17;
+    v22 = v16 / (v19 - v21);
+    result = 1.0 - v22;
     if (result < 0.09)
     {
       return 0.09;

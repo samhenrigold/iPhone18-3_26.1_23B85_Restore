@@ -71,14 +71,14 @@
 {
   v6 = sub_1D7703020();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7702FF0();
   viewCopy = view;
   selfCopy = self;
-  DebugJournalViewController.tableView(_:didSelectRowAt:)();
+  DebugJournalViewController.tableView(_:didSelectRowAt:)(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
@@ -124,16 +124,16 @@
 {
   v6 = sub_1D7703020();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7702FF0();
   viewCopy = view;
   selfCopy = self;
-  v13 = DebugJournalViewController.tableView(_:cellForRowAt:)();
+  v12 = DebugJournalViewController.tableView(_:cellForRowAt:)(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 @end

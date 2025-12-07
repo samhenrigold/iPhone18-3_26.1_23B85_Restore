@@ -318,7 +318,7 @@ LABEL_21:
   }
 }
 
-uint64_t __98__UIWebBrowserFindOnPageHighlighter__setSelectionRect_textRects_contentImage_contentViews_wobble___block_invoke(uint64_t a1)
+char *__98__UIWebBrowserFindOnPageHighlighter__setSelectionRect_textRects_contentImage_contentViews_wobble___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   if (result)

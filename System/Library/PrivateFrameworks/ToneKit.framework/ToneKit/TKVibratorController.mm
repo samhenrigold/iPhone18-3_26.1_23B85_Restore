@@ -74,13 +74,13 @@ void __31__TKVibratorController_dealloc__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __37__TKVibratorController_vibratorState__block_invoke(uint64_t result)
+void *__37__TKVibratorController_vibratorState__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 16) || (result = [*(v2 + 24) count]) != 0)
   {
-    *(*(*(v1 + 40) + 8) + 24) = 1;
+    *(*(v1[5] + 8) + 24) = 1;
   }
 
   return result;
@@ -107,14 +107,13 @@ void __51__TKVibratorController_turnOnWithVibrationPattern___block_invoke(uint64
   objc_storeStrong((*(a1 + 32) + 16), v2);
   [*(a1 + 32) _previewVibrationSystemSoundID];
   v3 = objc_alloc(MEMORY[0x277CBEAC0]);
-  v4 = *MEMORY[0x277CBA638];
-  v5 = [v3 initWithObjectsAndKeys:{&unk_282E385F0, *MEMORY[0x277CBA638], *(a1 + 40), *MEMORY[0x277CBA658], 0}];
+  v4 = [v3 initWithObjectsAndKeys:{&unk_282E385F0, *MEMORY[0x277CBA638], *(a1 + 40), *MEMORY[0x277CBA658], 0}];
   objc_initWeak(&location, *(a1 + 32));
-  objc_copyWeak(&v7, &location);
-  v6 = v2;
+  objc_copyWeak(&v6, &location);
+  v5 = v2;
   AudioServicesPlaySystemSoundWithOptions();
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(&location);
 }
 

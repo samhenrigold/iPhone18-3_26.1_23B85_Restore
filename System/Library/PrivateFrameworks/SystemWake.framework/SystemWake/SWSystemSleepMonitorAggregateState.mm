@@ -62,27 +62,23 @@ id __62__SWSystemSleepMonitorAggregateState_descriptionForTimestamp___block_invo
 
   [v2 appendString:v4 withName:@"SWSleepState"];
   v5 = *(a1 + 32);
-  v6 = *(*(a1 + 40) + 16);
-  v7 = *(a1 + 48);
   BSTimeDifferenceFromMachTimeToMachTime();
-  v8 = [v5 appendTimeInterval:0 withName:0 decomposeUnits:?];
-  v9 = __ROR8__(*(*(a1 + 40) + 24) - 3758097008, 4);
-  if (v9 > 0xB)
+  v6 = [v5 appendTimeInterval:0 withName:0 decomposeUnits:?];
+  v7 = __ROR8__(*(*(a1 + 40) + 24) - 3758097008, 4);
+  if (v7 > 0xB)
   {
-    v10 = @"initialized";
+    v8 = @"initialized";
   }
 
   else
   {
-    v10 = off_279D43258[v9];
+    v8 = off_279D43258[v7];
   }
 
-  [*(a1 + 32) appendString:v10 withName:@"phase"];
-  v11 = *(a1 + 32);
-  v12 = *(*(a1 + 40) + 32);
-  v13 = *(a1 + 48);
+  [*(a1 + 32) appendString:v8 withName:@"phase"];
+  v9 = *(a1 + 32);
   BSTimeDifferenceFromMachTimeToMachTime();
-  return [v11 appendTimeInterval:0 withName:0 decomposeUnits:?];
+  return [v9 appendTimeInterval:0 withName:0 decomposeUnits:?];
 }
 
 @end

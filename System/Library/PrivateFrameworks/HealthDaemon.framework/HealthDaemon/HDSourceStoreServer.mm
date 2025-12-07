@@ -86,16 +86,16 @@ BOOL __76__HDSourceStoreServer_remote_fetchHasSampleWithBundleIdentifier_complet
 
 - (void)remote_deleteSourceWithBundleIdentifier:(id)identifier completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
     completionCopy = completion;
     profile = [(HDStandardTaskServer *)self profile];
     sourceManager = [profile sourceManager];
-    v26 = 0;
-    v11 = [sourceManager deleteSourceWithBundleIdentifier:identifierCopy error:&v26];
-    v12 = v26;
+    v25 = 0;
+    v11 = [sourceManager deleteSourceWithBundleIdentifier:identifierCopy error:&v25];
+    v12 = v25;
 
     _HKInitializeLogging();
     v13 = *MEMORY[0x277CCC2A0];
@@ -109,9 +109,9 @@ BOOL __76__HDSourceStoreServer_remote_fetchHasSampleWithBundleIdentifier_complet
         process = [client process];
         name = [process name];
         *buf = 138543618;
-        v28 = name;
-        v29 = 2114;
-        v30 = identifierCopy;
+        v27 = name;
+        v28 = 2114;
+        v29 = identifierCopy;
         _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "Client %{public}@ deleted source %{public}@", buf, 0x16u);
       }
 
@@ -126,17 +126,17 @@ BOOL __76__HDSourceStoreServer_remote_fetchHasSampleWithBundleIdentifier_complet
         goto LABEL_9;
       }
 
-      v23 = v13;
+      v22 = v13;
       profile2 = [(HDStandardTaskServer *)self client];
       process2 = [profile2 process];
       name2 = [process2 name];
       *buf = 138543874;
-      v28 = name2;
-      v29 = 2114;
-      v30 = identifierCopy;
-      v31 = 2114;
-      v32 = v12;
-      _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "Client %{public}@ failed to deleted source %{public}@: %{public}@", buf, 0x20u);
+      v27 = name2;
+      v28 = 2114;
+      v29 = identifierCopy;
+      v30 = 2114;
+      v31 = v12;
+      _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "Client %{public}@ failed to deleted source %{public}@: %{public}@", buf, 0x20u);
     }
 
 LABEL_9:
@@ -151,7 +151,6 @@ LABEL_9:
   (*(completion + 2))(completionCopy2, 0, v12);
 
 LABEL_10:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_fetchOrderedSourcesForObjectType:(id)type completion:(id)completion
@@ -328,10 +327,9 @@ LABEL_6:
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }

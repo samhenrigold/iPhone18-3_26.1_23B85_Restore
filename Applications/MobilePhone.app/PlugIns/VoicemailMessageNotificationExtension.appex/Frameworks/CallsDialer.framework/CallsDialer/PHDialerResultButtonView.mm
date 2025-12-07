@@ -72,26 +72,25 @@
 - (void)handleContentSizeCategoryDidChange:(id)change
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_5CAE0, &qword_31890);
-  v6 = *(*(v5 - 8) + 64);
   off_50838(v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (change)
   {
     sub_2D588();
-    v9 = sub_2D5A8();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_2D5A8();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_2D5A8();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_2D5A8();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  sub_2AD04(v8);
+  sub_2AD04(v7);
 
-  sub_2BB6C(v8, &qword_5CAE0, &qword_31890);
+  sub_2BB6C(v7, &qword_5CAE0, &qword_31890);
 }
 
 - (NSString)largeContentTitle

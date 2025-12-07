@@ -49,13 +49,13 @@ void sub_1B5804D5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void quasar::OnlineTransducerGraphSearchDecoder::writeRecordedStateAccessForFst(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void quasar::OnlineTransducerGraphSearchDecoder::writeRecordedStateAccessForFst(uint64_t a1, uint64_t a2, uint64_t **a3, uint64_t a4)
 {
-  v37[19] = *MEMORY[0x1E69E9840];
+  v38[19] = *MEMORY[0x1E69E9840];
   v4 = *(a3 + 23);
   if ((v4 & 0x80u) != 0)
   {
-    v4 = *(a3 + 8);
+    v4 = a3[1];
   }
 
   if (v4)
@@ -73,25 +73,25 @@ void quasar::OnlineTransducerGraphSearchDecoder::writeRecordedStateAccessForFst(
 
         if (quasar::gLogLevel >= 4)
         {
-          v35 = 0u;
           v36 = 0u;
-          v33 = 0u;
+          v37 = 0u;
           v34 = 0u;
-          v31 = 0u;
+          v35 = 0u;
           v32 = 0u;
-          v29 = 0u;
+          v33 = 0u;
           v30 = 0u;
-          v27 = 0u;
+          v31 = 0u;
           v28 = 0u;
-          v25 = 0u;
+          v29 = 0u;
           v26 = 0u;
-          v23 = 0u;
+          v27 = 0u;
           v24 = 0u;
-          v21 = 0u;
+          v25 = 0u;
           v22 = 0u;
-          v20 = 0u;
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v20);
-          v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "Write accessed states for ", 26);
+          v23 = 0u;
+          v21 = 0u;
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(&v21);
+          v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "Write accessed states for ", 26);
           v12 = *(a3 + 23);
           if (v12 >= 0)
           {
@@ -110,7 +110,7 @@ void quasar::OnlineTransducerGraphSearchDecoder::writeRecordedStateAccessForFst(
 
           else
           {
-            v14 = *(a3 + 8);
+            v14 = a3[1];
           }
 
           v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v13, v14);
@@ -137,21 +137,31 @@ void quasar::OnlineTransducerGraphSearchDecoder::writeRecordedStateAccessForFst(
           }
 
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v18, v19);
-          quasar::QuasarInfoMessage::~QuasarInfoMessage(&v20);
+          quasar::QuasarInfoMessage::~QuasarInfoMessage(&v21);
         }
 
-        std::ofstream::basic_ofstream(&v20);
-        quasar::StateAccessRecordingFst::WriteRecordedStateAccesses(v9, &v20);
+        if (*(a4 + 23) >= 0)
+        {
+          v20 = a4;
+        }
+
+        else
+        {
+          v20 = *a4;
+        }
+
+        std::ofstream::basic_ofstream(&v21, v20, 16);
+        quasar::StateAccessRecordingFst::WriteRecordedStateAccesses(v9, &v21);
         if (!std::filebuf::close())
         {
-          std::ios_base::clear((&v20 + *(v20 - 24)), *(&v22 + *(v20 - 24)) | 4);
+          std::ios_base::clear((&v21 + *(v21 - 24)), *(&v23 + *(v21 - 24)) | 4);
         }
 
-        *&v20 = *MEMORY[0x1E69E54D0];
-        *(&v20 + *(v20 - 24)) = *(MEMORY[0x1E69E54D0] + 24);
-        MEMORY[0x1B8C84A00](&v20 + 8);
+        *&v21 = *MEMORY[0x1E69E54D0];
+        *(&v21 + *(v21 - 24)) = *(MEMORY[0x1E69E54D0] + 24);
+        MEMORY[0x1B8C84A00](&v21 + 8);
         std::ostream::~ostream();
-        MEMORY[0x1B8C85200](v37);
+        MEMORY[0x1B8C85200](v38);
         if (v10)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v10);
@@ -162,26 +172,26 @@ void quasar::OnlineTransducerGraphSearchDecoder::writeRecordedStateAccessForFst(
 
   else if (quasar::gLogLevel >= 5)
   {
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v20 = 0u;
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v20);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "FST File empty", 14);
-    quasar::QuasarDebugMessage::~QuasarDebugMessage(&v20);
+    v23 = 0u;
+    v21 = 0u;
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(&v21);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "FST File empty", 14);
+    quasar::QuasarDebugMessage::~QuasarDebugMessage(&v21);
   }
 }
 
@@ -644,19 +654,19 @@ void quasar::OnlineTransducerGraphSearchDecoder::resetAccessedStatesCounts(quasa
   }
 }
 
-void sub_1B5805858(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5805858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v2)
+  va_start(va, a3);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   std::pair<std::string const,std::shared_ptr<quasar::ProcessingBlock>>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void quasar::OnlineTransducerGraphSearchDecoder::runImpl(quasar::OnlineTransducerGraphSearchDecoder *this, uint64_t a2, uint64_t a3, quasar::SpeechRequestData **a4)
+void quasar::OnlineTransducerGraphSearchDecoder::runImpl(quasar::OnlineTransducerGraphSearchDecoder *this, uint64_t *a2, unint64_t **a3, quasar::SpeechRequestData **a4, uint64_t a5)
 {
   if (*(this + 448) == 1)
   {
@@ -711,14 +721,14 @@ void quasar::OnlineTransducerGraphSearchDecoder::cleanUpAfterDecoding(quasar::On
   quasar::OnlineTransducerGraphSearchDecoder::DecoderCreationDependencies::clear((this + 904));
 }
 
-void quasar::OnlineTransducerGraphSearchDecoder::setUpDecoding(uint64_t a1, uint64_t a2, uint64_t a3, quasar::SpeechRequestData **a4)
+void quasar::OnlineTransducerGraphSearchDecoder::setUpDecoding(std::string::size_type a1, uint64_t a2, unint64_t **a3, quasar::SpeechRequestData **a4)
 {
   quasar::OnlineTransducerGraphSearchDecoder::loadLmeData(a1, a2, a3, a4);
   quasar::OnlineTransducerGraphSearchDecoder::setUpDecoderPassData(a1, a2, a4);
   operator new();
 }
 
-void sub_1B5807860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
+void sub_1B5807860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, unint64_t *a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
 {
   if (a37 < 0)
   {
@@ -866,15 +876,16 @@ uint64_t kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fs
     v7 = kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::ProcessEmitting<kaldi::AutoRegressiveDecodableInterface>(a1, a2, *(a1 + 8));
     kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::ProcessNonemitting(a1, *(a1 + 8), v7);
     v8 = kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::Finished(a1, a2);
-    v9 = *(a1 + 8);
+    v10 = *(a1 + 8);
     if (v8)
     {
-      kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokensFinal(a1, v9, 0);
+      kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokensFinal(a1, v10, 0);
     }
 
-    else if (!(v9 % *(a1 + 208)))
+    else if (!(v10 % *(a1 + 208)))
     {
-      kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokens(a1, v9, *(a1 + 204) * *(a1 + 232));
+      *&v9 = *(a1 + 204) * *(a1 + 232);
+      kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokens(a1, v10, v9);
     }
 
     ++*(a1 + 8);
@@ -971,7 +982,7 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
       while (1)
       {
         v22 = v21[8] & 0x7FFFFFFF;
-        LODWORD(v38[0]) = v22;
+        LODWORD(v38[0].__locale_) = v22;
         if ((a2 & 1) != 0 || v22)
         {
           std::vector<int>::push_back[abi:ne200100](a4, v38);
@@ -1000,7 +1011,7 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
       v25 = a4[1];
       if (*a4 != v25)
       {
-        v27 = v25 - 4;
+        v27 = (v25 - 4);
         if (v27 > v26)
         {
           v28 = v26 + 4;
@@ -1023,7 +1034,7 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
     {
       v31 = *a3;
       v32 = a3[1];
-      v33 = v32 - 4;
+      v33 = (v32 - 4);
       if (*a3 != v32 && v33 > v31)
       {
         v35 = v31 + 4;
@@ -1057,9 +1068,9 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
   }
 }
 
-void sub_1B5808344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B5808344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   kaldi::KaldiWarnMessage::~KaldiWarnMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1214,7 +1225,7 @@ BOOL kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
         v9 = *(a1 + 360);
         v10 = (*(*a2 + 200))(a2);
         v46[0].__locale_ = &v48;
-        *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v49, &v48) + 5) = v10;
+        *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v49, &v48, &std::piecewise_construct, v46) + 5) = v10;
       }
 
       if (!v7 && (*(*a2 + 160))(a2) >= 1)
@@ -1234,7 +1245,7 @@ BOOL kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
         v13 = *(a1 + 360);
         v14 = (*(*a2 + 200))(a2);
         v46[0].__locale_ = &v48;
-        *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v49, &v48) + 5) = v14;
+        *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v49, &v48, &std::piecewise_construct, v46) + 5) = v14;
       }
 
       ++v7;
@@ -1269,7 +1280,7 @@ LABEL_19:
       }
 
       v46[0].__locale_ = &v48;
-      v22 = *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v49, &v48) + 5);
+      v22 = *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v49, &v48, &std::piecewise_construct, v46) + 5);
       v26 = *(a1 + 360) + 36 * v48;
       for (m = *(v26 + 8); m; m = *(v28 + 16))
       {
@@ -1343,7 +1354,7 @@ LABEL_19:
 
       v34 = *(a1 + 360);
       v46[0].__locale_ = &v48;
-      v22 = *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v49, &v48) + 5);
+      v22 = *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v49, &v48, &std::piecewise_construct, v46) + 5);
       v35 = std::__hash_table<quasar::PersonalizedLmData::DocumentType,std::hash<quasar::PersonalizedLmData::DocumentType>,std::equal_to<quasar::PersonalizedLmData::DocumentType>,std::allocator<quasar::PersonalizedLmData::DocumentType>>::find<quasar::PersonalizedLmData::DocumentType>((a1 + 320), &v48);
       if (*(a1 + 144) == INFINITY)
       {
@@ -1380,15 +1391,15 @@ LABEL_44:
   return v19;
 }
 
-void sub_1B5808C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1B5808C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   kaldi::KaldiWarnMessage::~KaldiWarnMessage(va);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v5 - 144);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v9 - 144);
   _Unwind_Resume(a1);
 }
 
-void quasar::OnlineTransducerGraphSearchDecoder::loadLmeData(uint64_t a1, uint64_t a2, uint64_t a3, quasar::SpeechRequestData **a4)
+void quasar::OnlineTransducerGraphSearchDecoder::loadLmeData(std::string::size_type a1, uint64_t a2, unint64_t **a3, quasar::SpeechRequestData **a4)
 {
   v4 = a4;
   if (*(a1 + 460) == 1 && (quasar::SpeechRequestData::isLoadLmeProfile(*a4) & 1) == 0)
@@ -1402,7 +1413,7 @@ void quasar::OnlineTransducerGraphSearchDecoder::loadLmeData(uint64_t a1, uint64
     std::allocate_shared[abi:ne200100]<quasar::SymbolTableList,std::allocator<quasar::SymbolTableList>,quasar::SymbolTableList&,0>();
   }
 
-  v83 = (a2 + 320);
+  v83 = a2 + 320;
   std::vector<fst::FstWithLabel<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::clear[abi:ne200100]((a2 + 320));
   *(a2 + 352) = *(a2 + 344);
   std::__tree<int>::destroy(a2 + 368, *(a2 + 376));
@@ -1417,9 +1428,9 @@ void quasar::OnlineTransducerGraphSearchDecoder::loadLmeData(uint64_t a1, uint64
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  std::vector<quasar::LmeInfo>::clear[abi:ne200100]((*a3 + 600));
-  quasar::SymbolTableList::clear(*(*a3 + 488));
-  v8 = *(*a3 + 488);
+  std::vector<quasar::LmeInfo>::clear[abi:ne200100](*a3 + 75);
+  quasar::SymbolTableList::clear((*a3)[61]);
+  v8 = (*a3)[61];
   v9 = *(a1 + 1448);
   v114 = *(a1 + 1440);
   v115 = v9;
@@ -1436,7 +1447,7 @@ void quasar::OnlineTransducerGraphSearchDecoder::loadLmeData(uint64_t a1, uint64
 
   if (*(a1 + 460))
   {
-    quasar::SpeechRequestData::getRecogRequestTimer(*v4, &v87);
+    quasar::SpeechRequestData::getRecogRequestTimer(&v87, *v4);
     v10 = v87;
     v80 = a2;
     *(a1 + 880) = kaldi::Timer::GetSeconds(5, v11) - *v10;
@@ -1456,7 +1467,7 @@ void quasar::OnlineTransducerGraphSearchDecoder::loadLmeData(uint64_t a1, uint64
     {
 LABEL_90:
       LmeDataStreams = quasar::SpeechRequestData::getLmeDataStreams(*v4);
-      if (0xCCCCCCCCCCCCCCCDLL * ((*(*a3 + 608) - *(*a3 + 600)) >> 3) != (LmeDataStreams[1] - *LmeDataStreams) >> 4 && quasar::gLogLevel >= 2)
+      if (0xCCCCCCCCCCCCCCCDLL * (((*a3)[76] - (*a3)[75]) >> 3) != (LmeDataStreams[1] - *LmeDataStreams) >> 4 && quasar::gLogLevel >= 2)
       {
         v102 = 0u;
         v103 = 0u;
@@ -1481,7 +1492,7 @@ LABEL_90:
       }
 
       *(a1 + 2256) = *(a1 + 2248);
-      quasar::SpeechRequestData::getRecogRequestTimer(*v4, &v87);
+      quasar::SpeechRequestData::getRecogRequestTimer(&v87, *v4);
       v60 = v87;
       Seconds = kaldi::Timer::GetSeconds(5, v61);
       v63 = *v60;
@@ -1599,7 +1610,7 @@ LABEL_90:
         }
       }
 
-      quasar::SpeechRequestData::getRecogRequestTimer(*v82, &v87);
+      quasar::SpeechRequestData::getRecogRequestTimer(&v87, *v82);
       v74 = v87;
       v76 = kaldi::Timer::GetSeconds(5, v75);
       v77 = *v74;
@@ -1679,12 +1690,12 @@ LABEL_90:
         std::string::operator=(&v107, (v15 + 16));
         LODWORD(v104) = v18[20];
         *&v87 = &v104;
-        v106 = *(std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v109, &v104) + 8);
+        v106 = *(std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v109, &v104, &std::piecewise_construct, &v87) + 8);
         v20 = v18[20];
         v19 = v18[21];
         LODWORD(v104) = v20;
         *&v87 = &v104;
-        v21 = std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v109, &v104);
+        v21 = std::__tree<std::__value_type<int,float>,std::__map_value_compare<int,std::__value_type<int,float>,std::less<int>,true>,std::allocator<std::__value_type<int,float>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v109, &v104, &std::piecewise_construct, &v87);
         *(v21 + 8) += v19 - v20 + 1;
         if (v106)
         {
@@ -1730,7 +1741,7 @@ LABEL_90:
           quasar::QuasarInfoMessage::~QuasarInfoMessage(&v87);
         }
 
-        v31 = *(*a3 + 488);
+        v31 = (*a3)[61];
         v85 = v104;
         v86 = v105;
         if (v105)
@@ -1747,7 +1758,7 @@ LABEL_90:
         if (v32)
         {
           v33 = v18[25];
-          v34 = (v18 + 26);
+          v34 = v18 + 26;
           if (v33 != v18 + 26)
           {
             v35 = 0;
@@ -1765,7 +1776,7 @@ LABEL_90:
                     if ((*(*v37 + 40))(v37, v38))
                     {
                       *&v87 = v33 + 4;
-                      v39 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v111, v33 + 4);
+                      v39 = std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v111, v33 + 4, &std::piecewise_construct, &v87);
                       if (v106)
                       {
                         std::allocate_shared[abi:ne200100]<fst::ArcMapFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::quasar::OffsetOutputLabelMapper>,std::allocator<fst::ArcMapFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::quasar::OffsetOutputLabelMapper>>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::quasar::OffsetOutputLabelMapper,0>();
@@ -1776,7 +1787,7 @@ LABEL_90:
                       *(&v87 + 1) = v48;
                       if (v48)
                       {
-                        atomic_fetch_add_explicit(v48 + 1, 1uLL, memory_order_relaxed);
+                        atomic_fetch_add_explicit((v48 + 8), 1uLL, memory_order_relaxed);
                       }
 
                       std::vector<std::shared_ptr<quasar::FeatureExtractor>>::push_back[abi:ne200100](v39 + 5, &v87);
@@ -1962,12 +1973,12 @@ LABEL_72:
       }
 
       v4 = v82;
-      v53 = *(v52 + 608);
-      if (v53 >= *(v52 + 616))
+      v53 = v52[76];
+      if (v53 >= v52[77])
       {
-        v56 = std::vector<quasar::LmeInfo>::__emplace_back_slow_path<quasar::LmeInfo>(v52 + 600, &v87);
+        v56 = std::vector<quasar::LmeInfo>::__emplace_back_slow_path<quasar::LmeInfo>(v52 + 75, &v87);
         v57 = SBYTE7(v89);
-        *(v52 + 608) = v56;
+        v52[76] = v56;
         if (v57 < 0)
         {
           operator delete(__p[0]);
@@ -1982,7 +1993,7 @@ LABEL_72:
         v55 = *__p;
         *(v53 + 32) = v89;
         *(v53 + 16) = v55;
-        *(v52 + 608) = v53 + 40;
+        v52[76] = v53 + 40;
       }
 
       if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
@@ -2017,12 +2028,12 @@ LABEL_85:
 
 void sub_1B5809B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  std::__tree<int>::destroy(v67 - 216, a67);
-  std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>::~__hash_table(v67 - 192);
+  std::__tree<int>::destroy(v65 - 216, a65);
+  std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>::~__hash_table(v65 - 192);
   _Unwind_Resume(a1);
 }
 
-uint64_t **quasar::OnlineTransducerGraphSearchDecoder::setUpDecoderPassData(uint64_t a1, uint64_t a2, uint64_t a3)
+void *quasar::OnlineTransducerGraphSearchDecoder::setUpDecoderPassData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a1 + 1440);
   v6 = (*(**(v5 + 96) + 112))(*(v5 + 96));
@@ -2073,7 +2084,7 @@ uint64_t **quasar::OnlineTransducerGraphSearchDecoder::setUpDecoderPassData(uint
 
           quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::getPath(*v7, &__p);
           quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::getOriginStr(*v7, &v20);
-          quasar::StateAccessRecordingFst::getWrappedFst(v12, &v19);
+          quasar::StateAccessRecordingFst::getWrappedFst(&v19, v12);
           std::allocate_shared[abi:ne200100]<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::allocator<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,std::string,std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,0>();
         }
       }
@@ -2165,7 +2176,7 @@ void sub_1B580A02C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void quasar::OnlineTransducerGraphSearchDecoder::decoderObjectSetup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void quasar::OnlineTransducerGraphSearchDecoder::decoderObjectSetup(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v5 = *(*a4 + 24);
   v6 = *(a1 + 2128);
@@ -2470,7 +2481,7 @@ uint64_t quasar::OnlineTransducerGraphSearchDecoder::readAndCheckLmeData(uint64_
     v10 = *(*a2 + 39);
     if (v10 >= 0)
     {
-      v11 = (*a2 + 2);
+      v11 = *a2 + 2;
     }
 
     else
@@ -3100,34 +3111,34 @@ void std::vector<std::pair<int,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float
   *(a1 + 8) = v6;
 }
 
-void quasar::OnlineTransducerGraphSearchDecoder::insertLocationSpecificModels(uint64_t a1, uint64_t a2, quasar::SpeechRequestData **a3, uint64_t a4, uint64_t a5, quasar::Location *a6)
+void quasar::OnlineTransducerGraphSearchDecoder::insertLocationSpecificModels(std::string::size_type a1, void *a2, quasar::SpeechRequestData **a3, uint64_t a4, uint64_t a5, quasar::Location *a6)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   Location = quasar::SpeechRequestData::getLocation(*a3);
   *a6 = quasar::Location::fromSharedFuture(Location);
-  *(a6 + 1) = v10;
-  v11 = *(*a2 + 440);
+  *(a6 + 1) = v11;
+  v12 = *(*a2 + 440);
   std::string::basic_string[abi:ne200100]<0>(__p, "geoLocationStatus");
-  quasar::Location::statusAsString(a6, &v17);
-  quasar::SpeechRequestResultData::addDumpAA(v11, __p, &v17);
-  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+  quasar::Location::statusAsString(a6, &v18);
+  quasar::SpeechRequestResultData::addDumpAA(v12, __p, &v18);
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v17.__r_.__value_.__l.__data_);
+    operator delete(v18.__r_.__value_.__l.__data_);
   }
 
-  if (v13 < 0)
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v14 = 0;
   v15 = 0;
   v16 = 0;
+  v17 = 0;
   quasar::SpeechRequestData::getRegionId(*a3);
   quasar::Geography::getGeoContext();
 }
 
-void sub_1B580C5E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57)
+void sub_1B580C5E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void **a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57)
 {
   std::__function::__value_func<std::shared_ptr<kaldi::quasar::NnlmEvaluatorBase> ()(std::shared_ptr<kaldi::quasar::NnlmEvaluatorBase> const&)>::~__value_func[abi:ne200100](v58 - 232);
   a19 = &a16;
@@ -3149,7 +3160,7 @@ void sub_1B580C5E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void quasar::OnlineTransducerGraphSearchDecoder::appendEmptyFsts(void *a1, uint64_t *a2)
+void quasar::OnlineTransducerGraphSearchDecoder::appendEmptyFsts(void *a1, void *a2)
 {
   v2 = a1[75];
   if (v2)
@@ -3234,13 +3245,13 @@ uint64_t quasar::OnlineTransducerGraphSearchDecoder::logGeoLmMetrics(uint64_t a1
     if (quasar::Location::isKnown(a3))
     {
       v11 = *(a2 + 440);
-      *(v11 + 129) = 1;
+      v11[129] = 1;
     }
 
     else if (quasar::Location::isDenied(a3))
     {
       v11 = *(a2 + 440);
-      *(v11 + 130) = 1;
+      v11[130] = 1;
     }
 
     else
@@ -3249,7 +3260,7 @@ uint64_t quasar::OnlineTransducerGraphSearchDecoder::logGeoLmMetrics(uint64_t a1
       v11 = *(a2 + 440);
       if (isUndefined)
       {
-        *(v11 + 131) = 1;
+        v11[131] = 1;
       }
     }
 
@@ -3569,7 +3580,7 @@ void quasar::OnlineTransducerGraphSearchDecoder::mergeRegionalClassLms(void *a1@
 
       else
       {
-        std::__tree<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>> const&>(a3, v6 + 4);
+        std::__tree<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>> const&>(a3, v6 + 4, (v6 + 4));
         if ((v21 & 1) != 0 && quasar::gLogLevel >= 4)
         {
           v58 = 0u;
@@ -3654,16 +3665,16 @@ void quasar::OnlineTransducerGraphSearchDecoder::mergeRegionalClassLms(void *a1@
   }
 }
 
-void sub_1B580CF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B580CF4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   quasar::QuasarInfoMessage::~QuasarInfoMessage(va);
-  if (*(v8 - 89) < 0)
+  if (*(v14 - 89) < 0)
   {
-    operator delete(*(v8 - 112));
+    operator delete(*(v14 - 112));
   }
 
-  std::__tree<std::__value_type<std::string,std::shared_ptr<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>>>>>::destroy(v7, *(v7 + 8));
+  std::__tree<std::__value_type<std::string,std::shared_ptr<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>>>>>>::destroy(v13, *(v13 + 8));
   _Unwind_Resume(a1);
 }
 
@@ -3678,18 +3689,18 @@ void sub_1B580CF60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B580CF70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B580CF70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a4);
+  va_start(va, a8);
   std::__basic_node_handle<std::__tree_node<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,void *>,std::allocator<std::pair<std::string const,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>,std::__map_node_handle_specifics>::__destroy_node_pointer[abi:ne200100](va);
   JUMPOUT(0x1B580CF8CLL);
 }
 
-void quasar::OnlineTransducerGraphSearchDecoder::filterOutUnsupportedPlaceholders(uint64_t a1@<X0>, const void ***a2@<X1>, void *a3@<X8>)
+void quasar::OnlineTransducerGraphSearchDecoder::filterOutUnsupportedPlaceholders(uint64_t a1@<X0>, const void ***a2@<X1>, uint64_t a3@<X8>)
 {
-  a3[2] = 0;
-  a3[1] = 0;
-  *a3 = a3 + 1;
+  *(a3 + 16) = 0;
+  *(a3 + 8) = 0;
+  *a3 = a3 + 8;
   v4 = a2 + 1;
   v5 = *a2;
   if (*a2 != (a2 + 1))
@@ -3698,7 +3709,7 @@ void quasar::OnlineTransducerGraphSearchDecoder::filterOutUnsupportedPlaceholder
     {
       if (std::__hash_table<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>>>::find<std::string>((a1 + 504), v5 + 4))
       {
-        std::__tree<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>> const&>(a3, v5 + 4);
+        std::__tree<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<quasar::RegionalLmPlug<std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>> const&>(a3, v5 + 4, (v5 + 4));
       }
 
       else if (quasar::gLogLevel >= 4)
@@ -4101,7 +4112,7 @@ void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishI
   v6 = *(a1 + 8);
   if (**(a1 + 16))
   {
-    quasar::ModelLoader::requestEmbeddedMlock(*(v6 + 376), a2, v14);
+    quasar::ModelLoader::requestEmbeddedMlock(*(v6 + 376), a2, v14, 1.0);
     v7 = *(&v14[0] + 1);
     v8 = *(v6 + 376);
     v15 = v14[0];
@@ -4145,7 +4156,7 @@ void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishI
   }
 
   *&v14[0] = a2;
-  v10 = std::__tree<std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v6 + 1984, a2);
+  v10 = std::__tree<std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v6 + 1984), a2, &std::piecewise_construct, v14);
   v12 = *a3;
   v11 = a3[1];
   if (v11)
@@ -4153,9 +4164,9 @@ void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishI
     atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v13 = *(v10 + 64);
-  *(v10 + 56) = v12;
-  *(v10 + 64) = v11;
+  v13 = *(v10 + 8);
+  *(v10 + 7) = v12;
+  *(v10 + 8) = v11;
   if (v13)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v13);
@@ -4205,19 +4216,19 @@ __n128 std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finis
   return result;
 }
 
-void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_1,std::allocator<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_1>,std::shared_ptr<kaldi::quasar::NnlmEvaluatorBase> ()(std::string const&)>::operator()(uint64_t a1@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
+void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_1,std::allocator<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_1>,std::shared_ptr<kaldi::quasar::NnlmEvaluatorBase> ()(std::string const&)>::operator()(uint64_t a1@<X0>, std::string *a2@<X1>, const void **a3@<X8>)
 {
   v3 = *(a1 + 8);
   v4 = *(v3 + 376);
   v5 = *(v3 + 1892);
   v6 = *(a1 + 16);
   v7 = *(v3 + 1888);
-  LOBYTE(__p) = 0;
-  v10 = 0;
+  __p.__r_.__value_.__s.__data_[0] = 0;
+  v9 = 0;
   quasar::ModelLoader::readNeuralNetworkLm(v4, a2, v3 + 1600, v5, v7, &__p, a3, v6);
-  if (v10 == 1 && v9 < 0)
+  if (v9 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -4243,7 +4254,7 @@ uint64_t std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::fin
   }
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4307,10 +4318,10 @@ uint64_t std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::fin
   return result;
 }
 
-void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_2,std::allocator<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_2>,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>> ()(std::string const&)>::operator()(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_2,std::allocator<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_2>,std::shared_ptr<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>> ()(std::string const&)>::operator()(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v5 = *(a1 + 8);
-  quasar::ModelLoader::requestEmbeddedMlock(*(v5 + 376), a2, &v8);
+  quasar::ModelLoader::requestEmbeddedMlock(*(v5 + 376), a2, &v8, 1.0);
   v6 = v9;
   v7 = *(v5 + 376);
   if (v9)
@@ -4365,18 +4376,18 @@ uint64_t std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::fin
   return result;
 }
 
-void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_3,std::allocator<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_3>,std::shared_ptr<kaldi::quasar::NnlmEvaluatorBase> ()(std::string const&)>::operator()(uint64_t a1@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
+void std::__function::__func<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_3,std::allocator<quasar::OnlineTransducerGraphSearchDecoder::finishInit(void)::$_3>,std::shared_ptr<kaldi::quasar::NnlmEvaluatorBase> ()(std::string const&)>::operator()(uint64_t a1@<X0>, std::string *a2@<X1>, const void **a3@<X8>)
 {
   v3 = *(a1 + 8);
   v4 = *(v3 + 376);
   v5 = *(v3 + 1892);
   v6 = *(v3 + 1888);
-  LOBYTE(__p) = 0;
-  v9 = 0;
+  __p.__r_.__value_.__s.__data_[0] = 0;
+  v8 = 0;
   quasar::ModelLoader::readNeuralNetworkLm(v4, a2, v3 + 1600, v5, v6, &__p, a3, 0.0);
-  if (v9 == 1 && v8 < 0)
+  if (v8 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 }
 
@@ -4419,7 +4430,7 @@ void std::__shared_ptr_emplace<kaldi::RandomAccessTableReader<kaldi::TokenVector
   JUMPOUT(0x1B8C85350);
 }
 
-void *kaldi::RandomAccessTableReader<kaldi::TokenVectorHolder>::RandomAccessTableReader(void *a1, std::string *this)
+uint64_t *kaldi::RandomAccessTableReader<kaldi::TokenVectorHolder>::RandomAccessTableReader(uint64_t *a1, std::string *this)
 {
   *a1 = 0;
   if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
@@ -4468,7 +4479,7 @@ void *kaldi::RandomAccessTableReader<kaldi::TokenVectorHolder>::RandomAccessTabl
   return a1;
 }
 
-uint64_t kaldi::RandomAccessTableReader<kaldi::TokenVectorHolder>::Open(void *a1, std::string *this)
+uint64_t kaldi::RandomAccessTableReader<kaldi::TokenVectorHolder>::Open(uint64_t *a1, std::string *this)
 {
   if (*a1)
   {
@@ -4749,7 +4760,7 @@ LABEL_62:
   return result;
 }
 
-void *kaldi::RandomAccessTableReaderScriptImpl<kaldi::TokenVectorHolder>::Value(void *a1, uint64_t a2)
+void *kaldi::RandomAccessTableReaderScriptImpl<kaldi::TokenVectorHolder>::Value(void *a1, const void **a2)
 {
   if (((*(*a1 + 48))(a1) & 1) == 0)
   {
@@ -4772,7 +4783,7 @@ void *kaldi::RandomAccessTableReaderScriptImpl<kaldi::TokenVectorHolder>::Value(
 
   else
   {
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
   v7 = *(a1 + 95);
@@ -4810,13 +4821,13 @@ LABEL_16:
 
     else
     {
-      v15 = *(a2 + 8);
+      v15 = a2[1];
     }
 
     v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, v14, v15);
     v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, ", rspecifier is ", 16);
     v20 = a1[3];
-    v19 = (a1 + 3);
+    v19 = a1 + 3;
     v18 = v20;
     v21 = *(v19 + 23);
     if (v21 >= 0)
@@ -4836,7 +4847,7 @@ LABEL_16:
 
     else
     {
-      v23 = *(v19 + 8);
+      v23 = v19[1];
     }
 
     v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v22, v23);
@@ -4898,7 +4909,7 @@ void kaldi::RandomAccessTableReaderScriptImpl<kaldi::TokenVectorHolder>::~Random
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t kaldi::RandomAccessTableReaderScriptImpl<kaldi::TokenVectorHolder>::HasKeyInternal(uint64_t a1, __int128 *a2, int a3)
+uint64_t kaldi::RandomAccessTableReaderScriptImpl<kaldi::TokenVectorHolder>::HasKeyInternal(uint64_t a1, std::string *a2, int a3)
 {
   if (*(a1 + 152) <= 1u)
   {
@@ -4933,7 +4944,7 @@ uint64_t kaldi::RandomAccessTableReaderScriptImpl<kaldi::TokenVectorHolder>::Has
 
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v24);
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "HasKey called on key whose value was already read, and  you specified the once option (o,): try removing o, or adding no, : rspecifier is ", 141);
-    std::operator<<[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12, a1 + 24);
+    std::operator<<[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12, (a1 + 24));
 LABEL_49:
     kaldi::KaldiErrorMessage::~KaldiErrorMessage(v24);
   }
@@ -4951,7 +4962,7 @@ LABEL_6:
       std::vector<std::string>::clear[abi:ne200100]((a1 + 96));
     }
 
-    v8 = kaldi::Input::Stream((a1 + 8));
+    kaldi::Input::Stream((a1 + 8));
     if (kaldi::TokenVectorHolder::Read((a1 + 96), v8))
     {
       *(a1 + 152) = 3;
@@ -5260,9 +5271,9 @@ LABEL_52:
   return v33;
 }
 
-void sub_1B580F420(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B580F420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::pair<std::string,std::string>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -5437,13 +5448,13 @@ uint64_t kaldi::RandomAccessTableReaderArchiveImplBase<kaldi::TokenVectorHolder>
   return v4;
 }
 
-uint64_t kaldi::RandomAccessTableReaderDSortedArchiveImpl<kaldi::TokenVectorHolder>::Value(uint64_t a1, uint64_t a2)
+uint64_t kaldi::RandomAccessTableReaderDSortedArchiveImpl<kaldi::TokenVectorHolder>::Value(uint64_t a1, std::string *a2)
 {
   if (!kaldi::RandomAccessTableReaderDSortedArchiveImpl<kaldi::TokenVectorHolder>::FindKeyInternal(a1, a2))
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v13);
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "RandomAccessTableReader: Value() called but no such key ", 56);
-    v6 = *(a2 + 23);
+    v6 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
     if (v6 >= 0)
     {
       v7 = a2;
@@ -5451,20 +5462,20 @@ uint64_t kaldi::RandomAccessTableReaderDSortedArchiveImpl<kaldi::TokenVectorHold
 
     else
     {
-      v7 = *a2;
+      v7 = a2->__r_.__value_.__r.__words[0];
     }
 
     if (v6 >= 0)
     {
-      v8 = *(a2 + 23);
+      size = HIBYTE(a2->__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v8 = *(a2 + 8);
+      size = a2->__r_.__value_.__l.__size_;
     }
 
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v7, v8);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v7, size);
     v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " in archive ", 12);
     if (*(a1 + 71) < 0)
     {
@@ -5822,39 +5833,40 @@ void kaldi::RandomAccessTableReaderArchiveImplBase<kaldi::TokenVectorHolder>::Re
 {
   if (*(a1 + 76) != 1)
   {
-    kaldi::KaldiWarnMessage::KaldiWarnMessage(v27);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v27, "TableReader: ReadNextObject() called from wrong state.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v27);
+    kaldi::KaldiWarnMessage::KaldiWarnMessage(v28);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v28, "TableReader: ReadNextObject() called from wrong state.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v28);
   }
 
-  v2 = kaldi::Input::Stream((a1 + 8));
+  kaldi::Input::Stream((a1 + 8));
+  v3 = v2;
   std::ios_base::clear((v2 + *(*v2 - 24)), 0);
-  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v2, a1 + 16);
-  v3 = *(v2 + *(*v2 - 24) + 32);
-  if ((v3 & 2) == 0)
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v3, a1 + 16);
+  v4 = *(v3 + *(*v3 - 24) + 32);
+  if ((v4 & 2) == 0)
   {
-    if ((v3 & 5) != 0)
+    if ((v4 & 5) != 0)
     {
       if (kaldi::g_kaldi_verbose_level < -1)
       {
 LABEL_26:
-        v5 = 4;
+        v6 = 4;
         goto LABEL_27;
       }
 
-      kaldi::KaldiWarnMessage::KaldiWarnMessage(v27);
-      v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Error reading archive ", 22);
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v28);
+      v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Error reading archive ", 22);
       if (*(a1 + 71) < 0)
       {
-        std::string::__init_copy_ctor_external(&v25, *(a1 + 48), *(a1 + 56));
+        std::string::__init_copy_ctor_external(&v26, *(a1 + 48), *(a1 + 56));
       }
 
       else
       {
-        v25 = *(a1 + 48);
+        v26 = *(a1 + 48);
       }
 
-      kaldi::PrintableRxfilename(&v25, &__p);
+      kaldi::PrintableRxfilename(&v26, &__p);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_p = &__p;
@@ -5875,129 +5887,129 @@ LABEL_26:
         size = __p.__r_.__value_.__l.__size_;
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, p_p, size);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, p_p, size);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if ((SHIBYTE(v25.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_25:
-        kaldi::KaldiWarnMessage::~KaldiWarnMessage(v27);
+        kaldi::KaldiWarnMessage::~KaldiWarnMessage(v28);
         goto LABEL_26;
       }
 
-      v9 = v25.__r_.__value_.__r.__words[0];
+      v10 = v26.__r_.__value_.__r.__words[0];
 LABEL_24:
-      operator delete(v9);
+      operator delete(v10);
       goto LABEL_25;
     }
 
-    v6 = std::istream::peek();
-    if (v6 != 9)
+    v7 = std::istream::peek();
+    if (v7 != 9)
     {
-      if (v6 == 10)
+      if (v7 == 10)
       {
         goto LABEL_12;
       }
 
-      if (v6 != 32)
+      if (v7 != 32)
       {
         if (kaldi::g_kaldi_verbose_level < -1)
         {
           goto LABEL_26;
         }
 
-        kaldi::KaldiWarnMessage::KaldiWarnMessage(v27);
-        v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Invalid archive file format: expected space after key ", 54);
-        v11 = *(a1 + 39);
-        if (v11 >= 0)
+        kaldi::KaldiWarnMessage::KaldiWarnMessage(v28);
+        v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Invalid archive file format: expected space after key ", 54);
+        v12 = *(a1 + 39);
+        if (v12 >= 0)
         {
-          v12 = a1 + 16;
+          v13 = a1 + 16;
         }
 
         else
         {
-          v12 = *(a1 + 16);
+          v13 = *(a1 + 16);
         }
 
-        if (v11 >= 0)
+        if (v12 >= 0)
         {
-          v13 = *(a1 + 39);
+          v14 = *(a1 + 39);
         }
 
         else
         {
-          v13 = *(a1 + 24);
+          v14 = *(a1 + 24);
         }
 
-        v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v12, v13);
-        v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ", got character ", 16);
-        v24 = std::istream::peek();
-        kaldi::CharToString(&v24, &__p);
+        v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v13, v14);
+        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, ", got character ", 16);
+        v25 = std::istream::peek();
+        kaldi::CharToString(&v25, &__p);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v16 = &__p;
+          v17 = &__p;
         }
 
         else
         {
-          v16 = __p.__r_.__value_.__r.__words[0];
+          v17 = __p.__r_.__value_.__r.__words[0];
         }
 
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v17 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v18 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v17 = __p.__r_.__value_.__l.__size_;
+          v18 = __p.__r_.__value_.__l.__size_;
         }
 
-        v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v16, v17);
-        v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ", reading ", 10);
+        v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v17, v18);
+        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, ", reading ", 10);
         if (*(a1 + 71) < 0)
         {
-          std::string::__init_copy_ctor_external(&v22, *(a1 + 48), *(a1 + 56));
+          std::string::__init_copy_ctor_external(&v23, *(a1 + 48), *(a1 + 56));
         }
 
         else
         {
-          v22 = *(a1 + 48);
+          v23 = *(a1 + 48);
         }
 
-        kaldi::PrintableRxfilename(&v22, &v23);
-        if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        kaldi::PrintableRxfilename(&v23, &v24);
+        if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v20 = &v23;
+          v21 = &v24;
         }
 
         else
         {
-          v20 = v23.__r_.__value_.__r.__words[0];
+          v21 = v24.__r_.__value_.__r.__words[0];
         }
 
-        if ((v23.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v21 = HIBYTE(v23.__r_.__value_.__r.__words[2]);
+          v22 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v21 = v23.__r_.__value_.__l.__size_;
+          v22 = v24.__r_.__value_.__l.__size_;
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, v20, v21);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, v21, v22);
+        if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v24.__r_.__value_.__l.__data_);
+        }
+
         if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v23.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v22.__r_.__value_.__l.__data_);
         }
 
         if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -6005,7 +6017,7 @@ LABEL_24:
           goto LABEL_25;
         }
 
-        v9 = __p.__r_.__value_.__r.__words[0];
+        v10 = __p.__r_.__value_.__r.__words[0];
         goto LABEL_24;
       }
     }
@@ -6015,9 +6027,9 @@ LABEL_12:
     operator new();
   }
 
-  v5 = 3;
+  v6 = 3;
 LABEL_27:
-  *(a1 + 76) = v5;
+  *(a1 + 76) = v6;
 }
 
 uint64_t kaldi::RandomAccessTableReaderArchiveImplBase<kaldi::TokenVectorHolder>::CloseInternal(uint64_t a1)
@@ -6038,9 +6050,9 @@ uint64_t kaldi::RandomAccessTableReaderArchiveImplBase<kaldi::TokenVectorHolder>
   if (v2 == 2)
   {
     v6[0] = *(a1 + 40);
-    v3 = v6[0];
+    locale = v6[0].__locale_;
     std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v6);
-    MEMORY[0x1B8C85350](v3, 0x20C40960023A9);
+    MEMORY[0x1B8C85350](locale, 0x20C40960023A9);
     *(a1 + 40) = 0;
     v2 = *(a1 + 76);
   }
@@ -6132,7 +6144,7 @@ uint64_t kaldi::RandomAccessTableReaderSortedArchiveImpl<kaldi::TokenVectorHolde
   return result;
 }
 
-uint64_t kaldi::RandomAccessTableReaderSortedArchiveImpl<kaldi::TokenVectorHolder>::Value(uint64_t a1, uint64_t a2)
+uint64_t kaldi::RandomAccessTableReaderSortedArchiveImpl<kaldi::TokenVectorHolder>::Value(uint64_t a1, const std::string::value_type *a2)
 {
   kaldi::RandomAccessTableReaderSortedArchiveImpl<kaldi::TokenVectorHolder>::HandlePendingDelete(a1);
   v22 = 0;
@@ -6140,7 +6152,7 @@ uint64_t kaldi::RandomAccessTableReaderSortedArchiveImpl<kaldi::TokenVectorHolde
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v21);
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "RandomAccessTableReader: Value() called but no such key ", 56);
-    v6 = *(a2 + 23);
+    v6 = a2[23];
     if (v6 >= 0)
     {
       v7 = a2;
@@ -6158,7 +6170,7 @@ uint64_t kaldi::RandomAccessTableReaderSortedArchiveImpl<kaldi::TokenVectorHolde
 
     else
     {
-      v8 = *(a2 + 8);
+      v8 = *(a2 + 1);
     }
 
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v7, v8);
@@ -6187,7 +6199,7 @@ LABEL_26:
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v21);
     v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Error: Value() called more than once for key ", 45);
-    v12 = *(a2 + 23);
+    v12 = a2[23];
     if (v12 >= 0)
     {
       v13 = a2;
@@ -6205,7 +6217,7 @@ LABEL_26:
 
     else
     {
-      v14 = *(a2 + 8);
+      v14 = *(a2 + 1);
     }
 
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, v13, v14);
@@ -6802,14 +6814,14 @@ uint64_t kaldi::RandomAccessTableReaderSortedArchiveImpl<kaldi::TokenVectorHolde
   return kaldi::RandomAccessTableReaderArchiveImplBase<kaldi::TokenVectorHolder>::~RandomAccessTableReaderArchiveImplBase(a1);
 }
 
-uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::HasKey(uint64_t a1, uint64_t a2)
+uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::HasKey(uint64_t a1, char *a2)
 {
   kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::HandlePendingDelete(a1);
 
   return kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::FindKeyInternal(a1, a2, 0);
 }
 
-uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::Value(uint64_t a1, uint64_t a2)
+uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::Value(uint64_t a1, char *a2)
 {
   kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::HandlePendingDelete(a1);
   v14 = 0;
@@ -6817,7 +6829,7 @@ uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHol
   {
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v13);
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "RandomAccessTableReader: Value() called but no such key ", 56);
-    v6 = *(a2 + 23);
+    v6 = a2[23];
     if (v6 >= 0)
     {
       v7 = a2;
@@ -6830,12 +6842,12 @@ uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHol
 
     if (v6 >= 0)
     {
-      v8 = *(a2 + 23);
+      v8 = a2[23];
     }
 
     else
     {
-      v8 = *(a2 + 8);
+      v8 = *(a2 + 1);
     }
 
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v7, v8);
@@ -6973,7 +6985,7 @@ void sub_1B58114AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::FindKeyInternal(uint64_t a1, uint64_t a2, void *a3)
+uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHolder>::FindKeyInternal(uint64_t a1, char *a2, void *a3)
 {
   v6 = std::__hash_table<std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,kaldi::StringHasher,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,std::equal_to<std::string>,kaldi::StringHasher,true>,std::allocator<std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>>>::find<std::string>((a1 + 80), a2);
   if (v6)
@@ -6996,15 +7008,15 @@ uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHol
 LABEL_30:
     if (*(a1 + 72) == 1)
     {
-      v19 = *(a2 + 23);
+      v19 = a2[23];
       if (v19 >= 0)
       {
-        v20 = *(a2 + 23);
+        v20 = a2[23];
       }
 
       else
       {
-        v20 = *(a2 + 8);
+        v20 = *(a2 + 1);
       }
 
       v21 = *(a1 + 159);
@@ -7022,7 +7034,7 @@ LABEL_30:
         {
           kaldi::KaldiWarnMessage::KaldiWarnMessage(&v40);
           v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "RandomAccessTableReader: you specified the once (o) option but you are calling using key ", 89);
-          v33 = *(a2 + 23);
+          v33 = a2[23];
           if (v33 >= 0)
           {
             v34 = a2;
@@ -7035,12 +7047,12 @@ LABEL_30:
 
           if (v33 >= 0)
           {
-            v35 = *(a2 + 23);
+            v35 = a2[23];
           }
 
           else
           {
-            v35 = *(a2 + 8);
+            v35 = *(a2 + 1);
           }
 
           v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, v34, v35);
@@ -7097,7 +7109,7 @@ LABEL_29:
   }
 
   v41 = *(a1 + 40);
-  v10 = std::__hash_table<std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,kaldi::StringHasher,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,std::equal_to<std::string>,kaldi::StringHasher,true>,std::allocator<std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,kaldi::KaldiObjectHolder<quasar::KaldiString> *>>((a1 + 80), &v40);
+  v10 = std::__hash_table<std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,kaldi::StringHasher,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>,std::equal_to<std::string>,kaldi::StringHasher,true>,std::allocator<std::__hash_value_type<std::string,kaldi::KaldiObjectHolder<quasar::KaldiString> *>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,kaldi::KaldiObjectHolder<quasar::KaldiString> *>>((a1 + 80), &v40, &v40);
   v12 = v11;
   if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -7139,7 +7151,7 @@ LABEL_29:
 
     v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, v28, v29);
     v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, " in archive ", 12);
-    std::operator<<[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v31, a1 + 48);
+    std::operator<<[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v31, (a1 + 48));
 LABEL_59:
     kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v40);
   }
@@ -7156,11 +7168,11 @@ LABEL_59:
     v14 = *(a1 + 24);
   }
 
-  v15 = *(a2 + 23);
+  v15 = a2[23];
   v16 = v15;
   if ((v15 & 0x80u) != 0)
   {
-    v15 = *(a2 + 8);
+    v15 = *(a2 + 1);
   }
 
   if (v14 != v15 || (v13 >= 0 ? (v17 = (a1 + 16)) : (v17 = *v8), v16 >= 0 ? (v18 = a2) : (v18 = *a2), memcmp(v17, v18, v14)))
@@ -7227,7 +7239,7 @@ uint64_t kaldi::RandomAccessTableReaderUnsortedArchiveImpl<kaldi::TokenVectorHol
     operator delete(*(a1 + 136));
   }
 
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(a1 + 80);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((a1 + 80));
 
   return kaldi::RandomAccessTableReaderArchiveImplBase<kaldi::TokenVectorHolder>::~RandomAccessTableReaderArchiveImplBase(a1);
 }
@@ -7538,7 +7550,7 @@ LABEL_42:
           if ((v37 & 1) == 0 && (*(v14 + 32) & 0x7FFFFFFF) == 0)
           {
             LODWORD(v43) = *(*(*(a1 + 296) + 40) + 12 * (*(v14 + 28) >> 26) + 8);
-            kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::emitClassTag(a1, v14, v13, a2, v41, v17, v40, &v43, a3, 1, 0, 0);
+            kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::emitClassTag(a1, v14, v13, a2, v41, v17, v40, &v43, a3, 1u, 0, 0);
           }
         }
 
@@ -7552,7 +7564,7 @@ LABEL_42:
             do
             {
               *&v43 = *(v34 + v35 + 12);
-              kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::emitClassTag(a1, v14, v13, a2, v41, v17, v40, &v43, a3, 2, 1, v36++);
+              kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::emitClassTag(a1, v14, v13, a2, v41, v17, v40, &v43, a3, 2u, 1, v36++);
               v34 = *(*(a1 + 296) + 40);
               v35 += 12;
             }
@@ -7575,9 +7587,9 @@ uint64_t kaldi::quasar::E2ETokenHeap::Clear(kaldi::quasar::E2ETokenHeap *this)
   return kaldi::quasar::LazyBuffer<kaldi::quasar::E2ETokenHeap::Token>::Clear(v3);
 }
 
-void sub_1B5812134(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5812134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::quasar::E2ETokenHeap::~E2ETokenHeap(va);
   _Unwind_Resume(a1);
 }
@@ -7723,9 +7735,9 @@ uint64_t kaldi::quasar::LazyBuffer<kaldi::quasar::E2ETokenHeap::Token>::LazyBuff
   return a1;
 }
 
-void sub_1B58125C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B58125C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   kaldi::KaldiLogMessage::~KaldiLogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7775,9 +7787,9 @@ uint64_t kaldi::quasar::LazyBuffer<kaldi::quasar::E2ETokenHeap::ForwardLink>::La
   return a1;
 }
 
-void sub_1B5812758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B5812758(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   kaldi::KaldiLogMessage::~KaldiLogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -7804,15 +7816,15 @@ uint64_t kaldi::quasar::E2ETokenHeap::NewToken(kaldi::quasar::E2ETokenHeap *this
   return result;
 }
 
-uint64_t kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::New(uint64_t a1)
+uint64_t kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::New(void *a1)
 {
-  result = *(a1 + 48);
+  result = a1[6];
   if (!result)
   {
     operator new[]();
   }
 
-  *(a1 + 48) = *(result + 24);
+  a1[6] = *(result + 24);
   return result;
 }
 
@@ -7879,7 +7891,7 @@ void std::vector<std::pair<std::pair<unsigned long long,unsigned long long>,unsi
   *(a1 + 8) = v7;
 }
 
-void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::emitClassTag(uint64_t a1, uint64_t a2, int a3, int a4, int a5, uint64_t a6, uint64_t a7, _DWORD *a8, float a9, int a10, char a11, int a12)
+void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::emitClassTag(uint64_t a1, uint64_t a2, int a3, int a4, int a5, uint64_t a6, uint64_t a7, _DWORD *a8, float a9, unsigned int a10, char a11, int a12)
 {
   if (a10)
   {
@@ -8020,191 +8032,191 @@ float kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::
   v8 = *(a1 + 16);
   *(a1 + 16) = 0;
   *(a1 + 24) = -1;
-  v134 = 0;
-  v135 = 0;
-  kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(a1, v8, &v135, &v134, &v132);
-  v9 = (*(a1 + 216) * v135);
-  if (*(a1 + 32) < v9)
+  v136 = 0;
+  v137 = 0;
+  kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(a1, v8, &v137, &v136, &v134);
+  v11 = (*(a1 + 216) * v137);
+  if (*(a1 + 32) < v11)
   {
-    kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::SetSize(a1 + 16, v9);
+    kaldi::HashList<int,unsigned int,std::hash<int>,std::equal_to<int>>::SetSize(a1 + 16, v11, v9, v10);
   }
 
-  v10 = *(a1 + 152);
-  std::vector<int>::vector[abi:ne200100]<std::__tree_const_iterator<int,std::__tree_node<int,void *> *,long>,0>(&v130, v132, &v133);
+  v12 = *(a1 + 152);
+  std::vector<int>::vector[abi:ne200100]<std::__tree_const_iterator<int,std::__tree_node<int,void *> *,long>,0>(&v132, v134, &v135);
   __p = 0;
-  v128 = 0;
-  v129 = 0;
-  v115 = a3 - 1;
+  v130 = 0;
+  v131 = 0;
+  v117 = a3 - 1;
   if (((**a2)(a2) & 1) == 0)
   {
     goto LABEL_137;
   }
 
-  if (v134)
+  if (v136)
   {
-    v124 = v134[1];
-    v11 = v134[4];
-    v12 = *(a1 + 360);
-    v122 = *v134;
+    v126 = v136[1];
+    v13 = v136[4];
+    v14 = *(a1 + 360);
+    v124 = *v136;
     (*(**(a1 + 184) + 80))(*(a1 + 184));
-    v119 = v8;
-    v13 = v12 + 36 * v11;
-    v14 = *(a1 + 624);
-    for (i = *(a1 + 632); v14 != i; v14 += 4)
+    v121 = v8;
+    v15 = v14 + 36 * v13;
+    v16 = *(a1 + 624);
+    for (i = *(a1 + 632); v16 != i; v16 += 4)
     {
-      v16 = *v14;
-      if (*v14)
+      v18 = *v16;
+      if (*v16)
       {
-        v17 = *(v14 + 1);
-        v18 = v14[2];
-        if (LODWORD(v16) != (*(*a2 + 32))(a2))
+        v19 = *(v16 + 1);
+        v20 = v16[2];
+        if (LODWORD(v18) != (*(*a2 + 32))(a2))
         {
-          if (v17)
+          if (v19)
           {
-            if ((*(**(a1 + 288) + 32))(*(a1 + 288), v124, v17, &v136))
+            if ((*(**(a1 + 288) + 32))(*(a1 + 288), v126, v19, &v138))
             {
-              v19 = NAN;
-              if (v18 != -INFINITY)
+              v21 = NAN;
+              if (v20 != -INFINITY)
               {
-                v19 = NAN;
-                if (v137 != -INFINITY)
+                v21 = NAN;
+                if (v139 != -INFINITY)
                 {
-                  v19 = INFINITY;
-                  if (v137 != INFINITY && v18 != INFINITY)
+                  v21 = INFINITY;
+                  if (v139 != INFINITY && v20 != INFINITY)
                   {
-                    v19 = v18 + v137;
+                    v21 = v20 + v139;
                   }
                 }
               }
 
-              v21 = HIDWORD(v136) == 0;
+              v23 = HIDWORD(v138) == 0;
             }
 
             else
             {
-              v21 = 0;
-              v19 = INFINITY;
+              v23 = 0;
+              v21 = INFINITY;
             }
 
-            v18 = v19;
+            v20 = v21;
           }
 
           else
           {
-            v21 = 1;
+            v23 = 1;
           }
 
-          v22 = v130;
-          v23 = v131;
-          if (v131 != v130)
+          v24 = v132;
+          v25 = v133;
+          if (v133 != v132)
           {
-            v24 = (v131 - v130) >> 2;
-            v23 = v130;
+            v26 = (v133 - v132) >> 2;
+            v25 = v132;
             do
             {
-              v25 = v24 >> 1;
-              v26 = &v23[4 * (v24 >> 1)];
-              v28 = *v26;
-              v27 = v26 + 1;
-              v24 += ~(v24 >> 1);
-              if (v28 < *(v13 + 20))
+              v27 = v26 >> 1;
+              v28 = &v25[4 * (v26 >> 1)];
+              v30 = *v28;
+              v29 = v28 + 1;
+              v26 += ~(v26 >> 1);
+              if (v30 < *(v15 + 20))
               {
-                v23 = v27;
+                v25 = v29;
               }
 
               else
               {
-                v24 = v25;
+                v26 = v27;
               }
             }
 
-            while (v24);
+            while (v26);
           }
 
-          v29 = (*(*a2 + 16))(a2);
-          v30 = 0.0;
-          if (!v21)
+          v31 = (*(*a2 + 16))(a2);
+          v32 = 0.0;
+          if (!v23)
           {
-            v30 = *(a1 + 220);
+            v32 = *(a1 + 220);
           }
 
-          v31 = (v30 + v18) * *(a1 + 224);
-          v32 = *(a1 + 192) + ((*v13 - (*(__p + (LODWORD(v16) + v29 * ((v23 - v22) >> 2))) * *(a1 + 228))) + v31);
-          if (v32 < v10)
+          v33 = (v32 + v20) * *(a1 + 224);
+          v34 = *(a1 + 192) + ((*v15 - (*(__p + (LODWORD(v18) + v31 * ((v25 - v24) >> 2))) * *(a1 + 228))) + v33);
+          if (v34 < v12)
           {
-            v10 = v32;
+            v12 = v34;
           }
         }
       }
     }
 
-    v33 = v130;
-    v34 = v131;
-    if (v131 == v130)
+    v35 = v132;
+    v36 = v133;
+    if (v133 == v132)
     {
-      v8 = v119;
+      v8 = v121;
     }
 
     else
     {
-      v35 = (v131 - v130) >> 2;
-      v34 = v130;
-      v8 = v119;
+      v37 = (v133 - v132) >> 2;
+      v36 = v132;
+      v8 = v121;
       do
       {
-        v36 = v35 >> 1;
-        v37 = &v34[4 * (v35 >> 1)];
-        v39 = *v37;
-        v38 = v37 + 1;
-        v35 += ~(v35 >> 1);
-        if (v39 < *(v13 + 20))
+        v38 = v37 >> 1;
+        v39 = &v36[4 * (v37 >> 1)];
+        v41 = *v39;
+        v40 = v39 + 1;
+        v37 += ~(v37 >> 1);
+        if (v41 < *(v15 + 20))
         {
-          v34 = v38;
+          v36 = v40;
         }
 
         else
         {
-          v35 = v36;
+          v37 = v38;
         }
       }
 
-      while (v35);
+      while (v37);
     }
 
-    v40 = (*(*a2 + 16))(a2);
-    v41 = *v13 - (*(a1 + 228) * *(__p + ((*(*a2 + 32))(a2) + v40 * ((v34 - v33) >> 2))));
-    if (v41 < v10)
+    v42 = (*(*a2 + 16))(a2);
+    v43 = *v15 - (*(a1 + 228) * *(__p + ((*(*a2 + 32))(a2) + v42 * ((v36 - v35) >> 2))));
+    if (v43 < v12)
     {
       if (*(a1 + 224) == 0.0)
       {
-        v44 = 0.0;
+        v46 = 0.0;
       }
 
       else
       {
-        v42 = (*(**(a1 + 184) + 32))(*(a1 + 184), v122);
-        v43 = INFINITY;
-        if (v42 != INFINITY)
+        v44 = (*(**(a1 + 184) + 32))(*(a1 + 184), v124);
+        v45 = INFINITY;
+        if (v44 != INFINITY)
         {
-          v43 = v42 + (*(**(a1 + 288) + 16))(*(a1 + 288), v124);
+          v45 = v44 + (*(**(a1 + 288) + 16))(*(a1 + 288), v126);
         }
 
-        v44 = v43 * *(a1 + 224);
-        if (v44 == INFINITY)
+        v46 = v45 * *(a1 + 224);
+        if (v46 == INFINITY)
         {
-          if ((v41 + *(a1 + 192)) < v10)
+          if ((v43 + *(a1 + 192)) < v12)
           {
-            v10 = v41 + *(a1 + 192);
+            v12 = v43 + *(a1 + 192);
           }
 
           goto LABEL_55;
         }
       }
 
-      v45 = (v41 + v44) + *(a1 + 192);
-      if (v45 < v10)
+      v47 = (v43 + v46) + *(a1 + 192);
+      if (v47 < v12)
       {
-        v10 = v45;
+        v12 = v47;
       }
     }
   }
@@ -8214,176 +8226,176 @@ LABEL_55:
   {
     while (1)
     {
-      v46 = v133;
-      if (v133)
+      v48 = v135;
+      if (v135)
       {
-        v123 = *(v8 + 4);
-        v47 = *(v8 + 8);
-        v125 = *(a1 + 360) + 36 * *(v8 + 16);
-        v48 = *(v125 + 20);
+        v125 = *(v8 + 4);
+        v49 = *(v8 + 8);
+        v127 = *(a1 + 360) + 36 * *(v8 + 16);
+        v50 = *(v127 + 20);
         while (1)
         {
-          v49 = *(v46 + 7);
-          if (v48 >= v49)
+          v51 = *(v48 + 7);
+          if (v50 >= v51)
           {
             break;
           }
 
 LABEL_61:
-          v46 = *v46;
-          if (!v46)
+          v48 = *v48;
+          if (!v48)
           {
             goto LABEL_62;
           }
         }
 
-        if (v49 < v48)
+        if (v51 < v50)
         {
-          ++v46;
+          ++v48;
           goto LABEL_61;
         }
 
-        v116 = *(v8 + 16);
-        v120 = v8;
-        v113 = *v8;
+        v118 = *(v8 + 16);
+        v122 = v8;
+        v115 = *v8;
         (*(**(a1 + 184) + 80))(*(a1 + 184));
-        v52 = *(a1 + 624);
-        v53 = *(a1 + 632);
-        v54 = v125;
-        if (v52 != v53)
+        v54 = *(a1 + 624);
+        v55 = *(a1 + 632);
+        v56 = v127;
+        if (v54 != v55)
         {
-          v117 = (v47 >> 2) + (v47 << 6);
-          v118 = v47;
-          v114 = *(a1 + 632);
+          v119 = (v49 >> 2) + (v49 << 6);
+          v120 = v49;
+          v116 = *(a1 + 632);
           while (2)
           {
-            v55 = *v52;
-            if (!v55)
+            v57 = *v54;
+            if (!v57)
             {
               goto LABEL_111;
             }
 
-            v56 = *(v52 + 1);
-            v57 = v52[2];
-            v58 = *(v52 + 3);
-            if (v55 == (*(*a2 + 32))(a2))
+            v58 = *(v54 + 1);
+            v59 = v54[2];
+            v60 = *(v54 + 3);
+            if (v57 == (*(*a2 + 32))(a2))
             {
               goto LABEL_111;
             }
 
-            v60 = v130;
-            v59 = v131;
-            if (v131 != v130)
+            v62 = v132;
+            v61 = v133;
+            if (v133 != v132)
             {
-              v61 = (v131 - v130) >> 2;
-              v59 = v130;
+              v63 = (v133 - v132) >> 2;
+              v61 = v132;
               do
               {
-                v62 = v61 >> 1;
-                v63 = &v59[4 * (v61 >> 1)];
-                v65 = *v63;
-                v64 = v63 + 1;
-                v61 += ~(v61 >> 1);
-                if (v65 < *(v125 + 20))
+                v64 = v63 >> 1;
+                v65 = &v61[4 * (v63 >> 1)];
+                v67 = *v65;
+                v66 = v65 + 1;
+                v63 += ~(v63 >> 1);
+                if (v67 < *(v127 + 20))
                 {
-                  v59 = v64;
+                  v61 = v66;
                 }
 
                 else
                 {
-                  v61 = v62;
+                  v63 = v64;
                 }
               }
 
-              while (v61);
+              while (v63);
             }
 
-            v66 = (*(*a2 + 16))(a2);
-            v67.n128_u32[0] = *(a1 + 224);
-            v68 = -(*(__p + (v55 + v66 * ((v59 - v60) >> 2))) * *(a1 + 228));
-            v54 = v125;
-            v69 = *v125 + v68;
-            if (v56 < *(a1 + 264) || v56 > *(a1 + 268))
+            v68 = (*(*a2 + 16))(a2);
+            v69.n128_u32[0] = *(a1 + 224);
+            v70 = -(*(__p + (v57 + v68 * ((v61 - v62) >> 2))) * *(a1 + 228));
+            v56 = v127;
+            v71 = *v127 + v70;
+            if (v58 < *(a1 + 264) || v58 > *(a1 + 268))
             {
-              v67.n128_f32[0] = ((v57 * v67.n128_f32[0]) + v69) - *(a1 + 260);
-              if (v67.n128_f32[0] > v10)
+              v69.n128_f32[0] = ((v59 * v69.n128_f32[0]) + v71) - *(a1 + 260);
+              if (v69.n128_f32[0] > v12)
               {
                 goto LABEL_111;
               }
             }
 
-            v70 = *(a1 + 296);
-            if (v70)
+            v72 = *(a1 + 296);
+            if (v72)
             {
-              if (*(v125 + 28) >> 26)
+              if (*(v127 + 28) >> 26)
               {
-                LODWORD(v136) = v56;
-                if (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>((v70 + 64), &v136))
+                LODWORD(v138) = v58;
+                if (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>((v72 + 64), &v138))
                 {
                   goto LABEL_111;
                 }
               }
             }
 
-            if (v56)
+            if (v58)
             {
-              if ((*(**(a1 + 288) + 32))(*(a1 + 288), v123, v56, &v136, v67))
+              if ((*(**(a1 + 288) + 32))(*(a1 + 288), v125, v58, &v138, v69))
               {
-                v71 = NAN;
-                if (v57 != -INFINITY)
+                v73 = NAN;
+                if (v59 != -INFINITY)
                 {
-                  v71 = NAN;
-                  if (v137 != -INFINITY)
+                  v73 = NAN;
+                  if (v139 != -INFINITY)
                   {
-                    v72 = v137 == INFINITY || v57 == INFINITY;
-                    v71 = (v57 + v137);
-                    if (v72)
+                    v74 = v139 == INFINITY || v59 == INFINITY;
+                    v73 = (v59 + v139);
+                    if (v74)
                     {
-                      v71 = INFINITY;
+                      v73 = INFINITY;
                     }
                   }
                 }
 
-                LODWORD(v56) = HIDWORD(v136);
-                v73 = v138;
-                v74 = *(a1 + 224);
-                if (!HIDWORD(v136))
+                LODWORD(v58) = HIDWORD(v138);
+                v75 = v140;
+                v76 = *(a1 + 224);
+                if (!HIDWORD(v138))
                 {
-                  v75 = 0.0;
+                  v77 = 0.0;
 LABEL_95:
-                  v76 = v74 * (v71 + v75);
-                  v77 = v69 + v76;
-                  if (v77 <= v10 && v77 != INFINITY)
+                  v78 = v76 * (v73 + v77);
+                  v79 = v71 + v78;
+                  if (v79 <= v12 && v79 != INFINITY)
                   {
-                    if ((v77 + *(a1 + 192)) < v10)
+                    if ((v79 + *(a1 + 192)) < v12)
                     {
-                      v10 = v77 + *(a1 + 192);
+                      v12 = v79 + *(a1 + 192);
                     }
 
-                    v79 = (*(*a2 + 48))(a2);
-                    v80 = v117 + (v55 - 1640531527);
-                    if (v55 == v79)
+                    v81 = (*(*a2 + 48))(a2);
+                    v82 = v119 + (v57 - 1640531527);
+                    if (v57 == v81)
                     {
-                      v80 = 0;
+                      v82 = 0;
                     }
 
-                    LOBYTE(v126) = 0;
-                    v81 = kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::FindOrAddToken(a1, v58 + (v73 << 32), v118 ^ v80, a3, &v126, *(v125 + 28) >> 26, v77);
-                    if (v126 == 1)
+                    LOBYTE(v128) = 0;
+                    v83 = kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::FindOrAddToken(a1, v60 + (v75 << 32), v120 ^ v82, a3, &v128, *(v127 + 28) >> 26, v79);
+                    if (v128 == 1)
                     {
-                      if ((v82 = v73, v83 = (*(*a2 + 8))(a2, v115, *(v125 + 20), v55), v84 = (*(a1 + 360) + 36 * v81), v85 = v84[7] & 0xFC000000 | v116, v84[6] = v84[6] & 0x80000000 | v55, v84[7] = v85, v84[8] = v84[8] & 0x80000000 | v56, v84[4] = v82, v84[5] = HIDWORD(v83), v86 = *(a1 + 296), v53 = v114, v86) && v56 && (LODWORD(v136) = v56, !std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>((v86 + 64), &v136)) || *(v125 + 28) >> 26 && (*(v125 + 32) & 0x80000000) != 0)
+                      if ((v84 = v75, v85 = (*(*a2 + 8))(a2, v117, *(v127 + 20), v57), v86 = (*(a1 + 360) + 36 * v83), v87 = v86[7] & 0xFC000000 | v118, v86[6] = v86[6] & 0x80000000 | v57, v86[7] = v87, v86[8] = v86[8] & 0x80000000 | v58, v86[4] = v84, v86[5] = HIDWORD(v85), v88 = *(a1 + 296), v55 = v116, v88) && v58 && (LODWORD(v138) = v58, !std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>((v88 + 64), &v138)) || *(v127 + 28) >> 26 && (*(v127 + 32) & 0x80000000) != 0)
                       {
-                        v84[8] |= 0x80000000;
+                        v86[8] |= 0x80000000;
                       }
                     }
 
-                    *(v125 + 8) = kaldi::quasar::E2ETokenHeap::NewForwardLink((a1 + 360), v81, v55, v56, v76, v68, *(v125 + 8));
+                    *(v127 + 8) = kaldi::quasar::E2ETokenHeap::NewForwardLink((a1 + 360), v83, v57, v58, v78, v70, *(v127 + 8));
                     ++*(a1 + 312);
                   }
 
 LABEL_111:
-                  v52 += 4;
-                  if (v52 == v53)
+                  v54 += 4;
+                  if (v54 == v55)
                   {
                     goto LABEL_112;
                   }
@@ -8394,158 +8406,158 @@ LABEL_111:
 
               else
               {
-                v74 = *(a1 + 224);
-                v71 = INFINITY;
-                v73 = v123;
+                v76 = *(a1 + 224);
+                v73 = INFINITY;
+                v75 = v125;
               }
 
-              v75 = *(a1 + 220);
+              v77 = *(a1 + 220);
               goto LABEL_95;
             }
 
             break;
           }
 
-          v74 = *(a1 + 224);
-          v71 = v57;
-          v75 = 0.0;
-          v73 = v123;
+          v76 = *(a1 + 224);
+          v73 = v59;
+          v77 = 0.0;
+          v75 = v125;
           goto LABEL_95;
         }
 
 LABEL_112:
-        v87 = v130;
-        v88 = v131;
-        if (v131 != v130)
+        v89 = v132;
+        v90 = v133;
+        if (v133 != v132)
         {
-          v89 = (v131 - v130) >> 2;
-          v88 = v130;
+          v91 = (v133 - v132) >> 2;
+          v90 = v132;
           do
           {
-            v90 = v89 >> 1;
-            v91 = &v88[4 * (v89 >> 1)];
-            v93 = *v91;
-            v92 = v91 + 1;
-            v89 += ~(v89 >> 1);
-            if (v93 < *(v54 + 20))
+            v92 = v91 >> 1;
+            v93 = &v90[4 * (v91 >> 1)];
+            v95 = *v93;
+            v94 = v93 + 1;
+            v91 += ~(v91 >> 1);
+            if (v95 < *(v56 + 20))
             {
-              v88 = v92;
+              v90 = v94;
             }
 
             else
             {
-              v89 = v90;
+              v91 = v92;
             }
           }
 
-          while (v89);
+          while (v91);
         }
 
-        v94 = (*(*a2 + 16))(a2);
-        v95 = (*(*a2 + 32))(a2);
-        v96 = *(a1 + 228);
-        v97 = -(*(__p + (v95 + v94 * ((v88 - v87) >> 2))) * v96);
-        v98 = *v125 - (*(__p + (v95 + v94 * ((v88 - v87) >> 2))) * v96);
-        if (v98 > v10)
+        v96 = (*(*a2 + 16))(a2);
+        v97 = (*(*a2 + 32))(a2);
+        v98 = *(a1 + 228);
+        v99 = -(*(__p + (v97 + v96 * ((v90 - v89) >> 2))) * v98);
+        v100 = *v127 - (*(__p + (v97 + v96 * ((v90 - v89) >> 2))) * v98);
+        if (v100 > v12)
         {
-          v50 = v10;
-          v8 = v120;
+          v52 = v12;
+          v8 = v122;
           goto LABEL_63;
         }
 
-        v99 = v98 + 0.0;
-        v8 = v120;
+        v101 = v100 + 0.0;
+        v8 = v122;
         if (*(a1 + 224) == 0.0)
         {
-          v102 = 0.0;
+          v104 = 0.0;
         }
 
         else
         {
-          v100 = (*(**(a1 + 184) + 32))(*(a1 + 184), v113);
-          v101 = INFINITY;
-          if (v100 != INFINITY)
+          v102 = (*(**(a1 + 184) + 32))(*(a1 + 184), v115);
+          v103 = INFINITY;
+          if (v102 != INFINITY)
           {
-            v101 = v100 + (*(**(a1 + 288) + 16))(*(a1 + 288), v123);
+            v103 = v102 + (*(**(a1 + 288) + 16))(*(a1 + 288), v125);
           }
 
-          v102 = v101 * *(a1 + 224);
-          if (v102 == INFINITY)
+          v104 = v103 * *(a1 + 224);
+          if (v104 == INFINITY)
           {
-            v50 = v99 + *(a1 + 192);
-            v102 = INFINITY;
+            v52 = v101 + *(a1 + 192);
+            v104 = INFINITY;
             goto LABEL_129;
           }
         }
 
-        if ((v99 + v102) <= v10)
+        if ((v101 + v104) <= v12)
         {
-          v50 = (v99 + v102) + *(a1 + 204);
-          if (v50 >= *(a1 + 152))
+          v52 = (v101 + v104) + *(a1 + 204);
+          if (v52 >= *(a1 + 152))
           {
             goto LABEL_130;
           }
 
-          *(a1 + 152) = v50;
+          *(a1 + 152) = v52;
 LABEL_129:
-          if (v50 >= v10)
+          if (v52 >= v12)
           {
 LABEL_130:
-            v50 = v10;
+            v52 = v12;
           }
 
-          v103 = *(v125 + 20);
-          v104 = (*(*a2 + 32))(a2);
-          HIDWORD(v103) = (*(*a2 + 8))(a2, v115, v103, v104) >> 32;
-          v105 = (*(a1 + 120) + 8 * a3);
-          v106 = kaldi::quasar::E2ETokenHeap::NewToken((a1 + 360), v98 + 0.0, 0.0, 0, *v105, *(v125 + 28) >> 26);
-          *v105 = v106;
+          v105 = *(v127 + 20);
+          v106 = (*(*a2 + 32))(a2);
+          HIDWORD(v105) = (*(*a2 + 8))(a2, v117, v105, v106) >> 32;
+          v107 = (*(a1 + 120) + 8 * a3);
+          v108 = kaldi::quasar::E2ETokenHeap::NewToken((a1 + 360), v100 + 0.0, 0.0, 0, *v107, *(v127 + 28) >> 26);
+          *v107 = v108;
           ++*(a1 + 308);
-          v126 = v106;
-          v107 = (*(a1 + 360) + 36 * v106);
-          v107[7] = v107[7] & 0xFC000000 | v116;
-          v108 = v107[6] & 0x80000000 | (*(*a2 + 32))(a2);
-          v107[5] = HIDWORD(v103);
-          v107[6] = v108;
-          v107[8] &= 0x80000000;
-          v107[4] = v123;
-          LODWORD(v103) = v126;
-          v109 = (*(*a2 + 32))(a2);
-          *(v125 + 8) = kaldi::quasar::E2ETokenHeap::NewForwardLink((a1 + 360), v103, v109, 0, 0.0, v97, *(v125 + 8));
+          v128 = v108;
+          v109 = (*(a1 + 360) + 36 * v108);
+          v109[7] = v109[7] & 0xFC000000 | v118;
+          v110 = v109[6] & 0x80000000 | (*(*a2 + 32))(a2);
+          v109[5] = HIDWORD(v105);
+          v109[6] = v110;
+          v109[8] &= 0x80000000;
+          v109[4] = v125;
+          LODWORD(v105) = v128;
+          v111 = (*(*a2 + 32))(a2);
+          *(v127 + 8) = kaldi::quasar::E2ETokenHeap::NewForwardLink((a1 + 360), v105, v111, 0, 0.0, v99, *(v127 + 8));
           ++*(a1 + 312);
-          v136 = &v126;
-          *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 320), &v126) + 5) = v102;
-          v110 = v99 + v102;
-          if ((v99 + v102) >= *(a1 + 144))
+          v138 = &v128;
+          *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 320), &v128, &std::piecewise_construct, &v138) + 5) = v104;
+          v112 = v101 + v104;
+          if ((v101 + v104) >= *(a1 + 144))
           {
-            v110 = *(a1 + 144);
+            v112 = *(a1 + 144);
           }
 
-          if (v98 >= *(a1 + 148))
+          if (v100 >= *(a1 + 148))
           {
-            v111 = *(a1 + 148);
+            v113 = *(a1 + 148);
           }
 
           else
           {
-            v111 = v98 + 0.0;
+            v113 = v100 + 0.0;
           }
 
-          *(a1 + 144) = v110;
-          *(a1 + 148) = v111;
+          *(a1 + 144) = v112;
+          *(a1 + 148) = v113;
           goto LABEL_63;
         }
       }
 
 LABEL_62:
-      v50 = v10;
+      v52 = v12;
 LABEL_63:
-      v51 = *(v8 + 24);
+      v53 = *(v8 + 24);
       *(v8 + 24) = *(a1 + 64);
       *(a1 + 64) = v8;
-      v10 = v50;
-      v8 = v51;
-      if (!v51)
+      v12 = v52;
+      v8 = v53;
+      if (!v53)
       {
         goto LABEL_138;
       }
@@ -8553,25 +8565,25 @@ LABEL_63:
   }
 
 LABEL_137:
-  v50 = v10;
+  v52 = v12;
 LABEL_138:
   if (__p)
   {
-    v128 = __p;
+    v130 = __p;
     operator delete(__p);
   }
 
-  if (v130)
+  if (v132)
   {
-    v131 = v130;
-    operator delete(v130);
+    v133 = v132;
+    operator delete(v132);
   }
 
-  std::__tree<int>::destroy(&v132, v133);
-  return v50;
+  std::__tree<int>::destroy(&v134, v135);
+  return v52;
 }
 
-void sub_1B5813B64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, char a28, void *a29)
+void sub_1B5813B64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29)
 {
   if (__p)
   {
@@ -8587,10 +8599,11 @@ void sub_1B5813B64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokensFinal(uint64_t a1, int a2, int a3)
+void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokensFinal(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((*(a1 + 472) & 1) == 0)
   {
+    v3 = a3;
     v4 = a2;
     *(a1 + 472) = 1;
     *(a1 + 473) = a3;
@@ -8603,15 +8616,15 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
       {
         LOBYTE(v20[0].__locale_) = 0;
         v21 = 0;
-        kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneForwardLinks(a1, v4 - 1, v20, &v21, a3, 0.0);
-        kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneTokensForFrame(a1, v4, a3);
+        kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneForwardLinks(a1, v4 - 1, v20, &v21, v3, 0.0);
+        kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneTokensForFrame(a1, v4, v3);
         v8 = v4-- != 0;
       }
 
       while (v4 != 0 && v8);
     }
 
-    kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneTokensForFrame(a1, 0, a3);
+    kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneTokensForFrame(a1, 0, v3);
     if (kaldi::g_kaldi_verbose_level > 2)
     {
       kaldi::KaldiVlogMessage::KaldiVlogMessage(v20, 3);
@@ -8632,12 +8645,13 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
   }
 }
 
-void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokens(uint64_t a1, clockid_t a2, float a3)
+void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneActiveTokens(uint64_t a1, clockid_t a2, double a3)
 {
   v4 = *(a1 + 308);
   v5 = *(a1 + 312);
   if (a2 >= 1)
   {
+    v6 = *&a3;
     v7 = a2;
     v8 = *(a1 + 96);
     v9 = a2 + 1;
@@ -8648,7 +8662,7 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
       {
         LOBYTE(v19[0].__locale_) = 0;
         v20 = 0;
-        kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneForwardLinks(a1, v9 - 2, v19, &v20, 0, a3);
+        kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneForwardLinks(a1, v9 - 2, v19, &v20, 0, v6);
         v8 = *(a1 + 96);
         if (v9 != 2 && (v19[0].__locale_ & 1) != 0)
         {
@@ -8769,7 +8783,7 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
   {
     v23 = *(v21 + 1);
     v40[0].__locale_ = v21;
-    *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 320), v21) + 5) = v23;
+    *(std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,float>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,float>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,float>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 320), v21, &std::piecewise_construct, v40) + 5) = v23;
   }
 
   for (j = *(a1 + 16); j; j = *(j + 24))
@@ -8825,7 +8839,7 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
   }
 }
 
-void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X3>, void *a5@<X8>)
+void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, void *a5@<X8>)
 {
   __src = 0;
   v49 = 0;
@@ -9025,7 +9039,8 @@ void kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::T
     {
       do
       {
-        std::__tree<int>::__emplace_unique_key_args<int,int const&>(a5, __p + *v35++);
+        std::__tree<int>::__emplace_unique_key_args<int,int const&>(a5, __p + *v35, __p + *v35);
+        ++v35;
       }
 
       while (v35 != v34);
@@ -9084,7 +9099,7 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,float>,std::__un
   return result;
 }
 
-int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#1} &,std::__wrap_iter<int *>,std::__wrap_iter<int *>>(int *a1, int *a2, int *a3, uint64_t **a4)
+int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#1} &,std::__wrap_iter<int *>,std::__wrap_iter<int *>>(char *a1, char *a2, int *a3, uint64_t **a4)
 {
   v4 = a3;
   v5 = a2 - a1;
@@ -9096,7 +9111,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar
     if (v12 < 0 == v11)
     {
       v13 = v12 >> 1;
-      v14 = &a1[v13];
+      v14 = &a1[4 * v13];
       v15 = v13 + 1;
       do
       {
@@ -9131,7 +9146,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar
 
     if (v10 >= 2)
     {
-      v19 = a2 - 1;
+      v19 = (a2 - 4);
       do
       {
         v20 = *a1;
@@ -9145,7 +9160,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar
         {
           *v21 = *v19;
           *v19 = v20;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#1} &,std::__wrap_iter<int *>>(a1, (v21 + 1), a4, v21 + 1 - a1);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#1} &,std::__wrap_iter<int *>>(a1, (v21 + 1), a4, ((v21 + 1) - a1) >> 2);
         }
 
         --v19;
@@ -9327,17 +9342,17 @@ void sub_1B5814ADC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(int *a1, int *a2, uint64_t **a3, unint64_t a4, int *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(int *result, int *a2, uint64_t **a3, unint64_t a4, int *a5, int64_t a6)
 {
   if (a4 >= 2)
   {
     if (a4 == 2)
     {
       v9 = *(a2 - 1);
-      v10 = *a1;
+      v10 = *result;
       if (*(**a3 + 4 * v9) < *(**a3 + 4 * v10))
       {
-        *a1 = v9;
+        *result = v9;
         *(a2 - 1) = v10;
       }
     }
@@ -9345,29 +9360,29 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGrap
     else if (a4 > 128)
     {
       v14 = a4 >> 1;
-      v15 = &a1[a4 >> 1];
+      v15 = &result[a4 >> 1];
       v16 = a4 >> 1;
       if (a4 <= a6)
       {
-        std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(a1, v15, a3, v16, a5);
-        std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(result, v15, a3, v16, a5);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), &a5[v14]);
 
-        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,int *,int *,std::__wrap_iter<int *>>(a5, &a5[v14], &a5[v14], &a5[a4], a1, a3);
+        std::__merge_move_assign[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,int *,int *,std::__wrap_iter<int *>>(a5, &a5[v14], &a5[v14], &a5[a4], result, a3);
       }
 
       else
       {
-        std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(a1, v15, a3, v16, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(&a1[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(result, v15, a3, v16, a5, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(&result[a4 >> 1], a2, a3, a4 - (a4 >> 1), a5, a6);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(a1, &a1[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
+        std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(result, &result[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), a5, a6);
       }
     }
 
     else
     {
 
-      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(a1, a2, a3);
+      std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(result, a2, a3);
     }
   }
 }
@@ -9515,7 +9530,7 @@ LABEL_9:
   return result;
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(int *a1, char *a2, uint64_t a3, uint64_t **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(char *result, char *a2, char *a3, uint64_t **a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8)
 {
   if (a6)
   {
@@ -9533,7 +9548,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
       v16 = -a5;
       while (1)
       {
-        v17 = a1[v13 / 4];
+        v17 = *&v13[result];
         if (*(v15 + 4 * v14) < *(v15 + 4 * v17))
         {
           break;
@@ -9549,19 +9564,19 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
       v19 = -v16;
       v45 = a8;
       v46 = a4;
-      v43 = &a1[v13 / 4];
+      v43 = &v13[result];
       v44 = a3;
       if (-v16 >= v9)
       {
         if (v16 == -1)
         {
-          a1[v13 / 4] = v14;
+          *&v13[result] = v14;
           *a2 = v17;
           return;
         }
 
         v28 = v19 / 2;
-        v29 = &a1[v19 / 2];
+        v29 = &result[4 * (v19 / 2)];
         v21 = a2;
         if (a2 != a3)
         {
@@ -9574,7 +9589,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
             v34 = *v32;
             v33 = v32 + 4;
             v30 += ~(v30 >> 1);
-            if (*(v15 + 4 * v34) < *(v15 + 4 * v29[v13 / 4]))
+            if (*(v15 + 4 * v34) < *(v15 + 4 * *&v13[v29]))
             {
               v21 = v33;
             }
@@ -9589,7 +9604,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
         }
 
         v20 = (v21 - a2) >> 2;
-        v22 = &v29[v13 / 4];
+        v22 = &v13[v29];
       }
 
       else
@@ -9597,10 +9612,10 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
         v20 = v9 / 2;
         v21 = &a2[4 * (v9 / 2)];
         v22 = a2;
-        if (a2 - a1 != v13)
+        if ((a2 - result) != v13)
         {
-          v23 = (a2 - a1 - v13) >> 2;
-          v22 = &a1[v13 / 4];
+          v23 = (a2 - result - v13) >> 2;
+          v22 = &v13[result];
           do
           {
             v24 = v23 >> 1;
@@ -9622,7 +9637,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
           while (v23);
         }
 
-        v28 = (v22 - a1 - v13) >> 2;
+        v28 = (v22 - result - v13) >> 2;
       }
 
       a5 = -(v28 + v16);
@@ -9641,7 +9656,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
         a8 = v45;
         a5 = v42;
         a3 = v39;
-        a1 = v43;
+        result = v43;
       }
 
       else
@@ -9650,8 +9665,8 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
         a4 = v46;
         v41 = v20;
         a8 = v45;
-        std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(&a1[v13 / 4], v40, v37, v46, v38, v41, a7, v45);
-        a1 = v39;
+        std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(&v13[result], v40, v37, v46, v38, v41, a7, v45);
+        result = v39;
         a3 = v44;
       }
 
@@ -9663,7 +9678,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGr
       }
     }
 
-    std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(a1, a2, a3, a4, a5, v9, a7);
+    std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(result, a2, a3, a4, a5, v9, a7);
   }
 }
 
@@ -9774,7 +9789,7 @@ LABEL_9:
   return result;
 }
 
-void std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(int *__dst, int *a2, uint64_t a3, void **a4, uint64_t a5, uint64_t a6, uint64_t __src)
+void std::__buffered_inplace_merge[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::AutoRegressiveGraphSearchDecoder<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::CacheDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::PruneStates(kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem *,unsigned long *,kaldi::HashList<std::pair<unsigned long long,unsigned long long>,unsigned int,kaldi::PairHasher<unsigned long long>,std::equal_to<std::pair<unsigned long long,unsigned long long>>>::Elem **)::{lambda(int,int)#2} &,std::__wrap_iter<int *>>(int *__dst, int *a2, int *a3, void **a4, uint64_t a5, uint64_t a6, uint64_t __src)
 {
   v7 = a2;
   v8 = __dst;

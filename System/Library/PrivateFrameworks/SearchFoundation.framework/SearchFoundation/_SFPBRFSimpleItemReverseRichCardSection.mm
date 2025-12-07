@@ -15,7 +15,7 @@
 
 - (_SFPBRFSimpleItemReverseRichCardSection)initWithFacade:(id)facade
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBRFSimpleItemReverseRichCardSection *)self init];
   if (v5)
@@ -51,33 +51,33 @@
       v15 = 0;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     text6 = [facadeCopy text];
-    v17 = [text6 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v17 = [text6 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v34;
+      v19 = *v33;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v34 != v19)
+          if (*v33 != v19)
           {
             objc_enumerationMutation(text6);
           }
 
-          v21 = [[_SFPBRFTextProperty alloc] initWithFacade:*(*(&v33 + 1) + 8 * i)];
+          v21 = [[_SFPBRFTextProperty alloc] initWithFacade:*(*(&v32 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [text6 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v18 = [text6 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v18);
@@ -107,17 +107,16 @@
     v30 = v5;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBRFSimpleItemReverseRichCardSection)initWithDictionary:(id)dictionary
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v31.receiver = self;
-  v31.super_class = _SFPBRFSimpleItemReverseRichCardSection;
-  v5 = [(_SFPBRFSimpleItemReverseRichCardSection *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = _SFPBRFSimpleItemReverseRichCardSection;
+  v5 = [(_SFPBRFSimpleItemReverseRichCardSection *)&v30 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"text1"];
@@ -140,28 +139,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v25 = v8;
-      v26 = v6;
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
+      v24 = v8;
+      v25 = v6;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v28;
+        v14 = *v27;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v28 != v14)
+            if (*v27 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v27 + 1) + 8 * i);
+            v16 = *(*(&v26 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -170,16 +169,16 @@
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v13);
       }
 
-      v8 = v25;
+      v8 = v24;
     }
 
-    v18 = [dictionaryCopy objectForKeyedSubscript:{@"text4", v25, v26, v27}];
+    v18 = [dictionaryCopy objectForKeyedSubscript:{@"text4", v24, v25, v26}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -198,7 +197,6 @@
     v22 = v5;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -238,7 +236,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_text_1)
   {
@@ -275,26 +273,26 @@
   if ([(NSArray *)self->_text_3s count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v11 = self->_text_3s;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v26;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation3 = [*(*(&v26 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation3)
           {
             [array addObject:dictionaryRepresentation3];
@@ -307,7 +305,7 @@
           }
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v13);
@@ -347,8 +345,6 @@
       [dictionary setObject:null5 forKeyedSubscript:@"thumbnail"];
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -508,7 +504,7 @@ LABEL_28:
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   toCopy = to;
   text = [(_SFPBRFSimpleItemReverseRichCardSection *)self text];
   if (text)
@@ -523,32 +519,31 @@ LABEL_28:
   }
 
   text_3s = [(_SFPBRFSimpleItemReverseRichCardSection *)self text_3s];
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v8 = [text_3s countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [text_3s countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(text_3s);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [text_3s countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [text_3s countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -565,8 +560,6 @@ LABEL_28:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addText_3:(id)text_3
@@ -589,9 +582,7 @@ LABEL_28:
 
 - (void)setText_3:(id)text_3
 {
-  v4 = [text_3 copy];
-  text_3s = self->_text_3s;
-  self->_text_3s = v4;
+  self->_text_3s = [text_3 copy];
 
   MEMORY[0x1EEE66BB8]();
 }

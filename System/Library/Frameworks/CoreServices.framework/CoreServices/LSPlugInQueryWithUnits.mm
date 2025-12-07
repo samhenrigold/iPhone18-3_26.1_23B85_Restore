@@ -56,73 +56,70 @@
 
 - (void)_enumerateWithXPCConnection:(id)connection block:(id)block
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   blockCopy = block;
-  v22 = 0;
-  v23 = 0;
-  inited = _LSContextInitReturningError(&v23, &v22);
-  v9 = v22;
+  v20 = 0;
+  v21 = 0;
+  inited = _LSContextInitReturningError(&v21, &v20);
+  v9 = v20;
   if (inited)
   {
-    v10 = _LSDatabaseGetCacheGUID(v23);
+    v10 = _LSDatabaseGetCacheGUID(v21);
     v11 = [v10 isEqual:self->_dbUUID];
 
     if (v11)
     {
       v12 = [MEMORY[0x1E695DFD8] setWithArray:self->_pluginUnits];
       v13 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      [(_LSDatabase *)v23 store];
-      v14 = *([(_LSDatabase *)v23 schema]+ 1588);
-      v15 = v12;
-      v16 = v13;
+      [(_LSDatabase *)v21 store];
+      [(_LSDatabase *)v21 schema];
+      v14 = v12;
+      v15 = v13;
       _CSStoreEnumerateUnits();
-      if ([v16 isEqual:v15])
+      if ([v15 isEqual:v14])
       {
-        if ([v16 count])
+        if ([v15 count])
         {
-          [(LSPlugInQuery *)self sort:0 pluginIDs:v15 andYield:blockCopy context:&v23];
+          [(LSPlugInQuery *)self sort:0 pluginIDs:v14 andYield:blockCopy context:&v21];
         }
       }
 
       else
       {
-        v17 = [v15 mutableCopy];
-        [v17 minusSet:v16];
-        v18 = _LSDefaultLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v16 = [v14 mutableCopy];
+        v17 = _LSDefaultLog([v16 minusSet:v15]);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          [LSPlugInQueryWithUnits _enumerateWithXPCConnection:v17 block:v18];
+          [LSPlugInQueryWithUnits _enumerateWithXPCConnection:v16 block:v17];
         }
 
-        v26 = *MEMORY[0x1E696A278];
-        v27[0] = @"specified plugin units were not available";
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-        v20 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 114, v19, "[LSPlugInQueryWithUnits _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQueryAll.m", 141);
+        v24 = *MEMORY[0x1E696A278];
+        v25[0] = @"specified plugin units were not available";
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+        v19 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 114, v18, "[LSPlugInQueryWithUnits _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQueryAll.m", 141);
 
-        blockCopy[2](blockCopy, 0, v20);
-        v9 = v20;
+        blockCopy[2](blockCopy, 0, v19);
+        v9 = v19;
       }
     }
 
     else
     {
-      v24 = *MEMORY[0x1E696A278];
-      v25 = @"DB UUID mismatch";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      v16 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 114, v15, "[LSPlugInQueryWithUnits _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQueryAll.m", 147);
-      blockCopy[2](blockCopy, 0, v16);
+      v22 = *MEMORY[0x1E696A278];
+      v23 = @"DB UUID mismatch";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v15 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 114, v14, "[LSPlugInQueryWithUnits _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQueryAll.m", 147);
+      blockCopy[2](blockCopy, 0, v15);
     }
 
-    _LSContextDestroy(&v23);
+    _LSContextDestroy(&v21);
   }
 
   else
   {
     blockCopy[2](blockCopy, 0, v9);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __60__LSPlugInQueryWithUnits__enumerateWithXPCConnection_block___block_invoke(uint64_t a1, uint64_t a2)
@@ -141,11 +138,10 @@ void __60__LSPlugInQueryWithUnits__enumerateWithXPCConnection_block___block_invo
 
 - (void)_enumerateWithXPCConnection:(uint64_t)a1 block:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "LSPlugInQueryWithUnits: missing units %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "LSPlugInQueryWithUnits: missing units %@", &v2, 0xCu);
 }
 
 @end

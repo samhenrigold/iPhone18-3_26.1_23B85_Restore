@@ -16,10 +16,12 @@
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)change
 {
+  height = change.size.height;
+  width = change.size.width;
   selfCopy = self;
-  v4 = sub_2AC344();
+  v8 = sub_2AC344(v6, v7, width, height);
 
-  return v4 & 1;
+  return v8 & 1;
 }
 
 - (id)invalidationContextForBoundsChange:(CGRect)change
@@ -29,7 +31,7 @@
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  sub_2AC448(x, y, width, height);
+  sub_2AC448(selfCopy, x, y, width, height);
   v9 = v8;
 
   return v9;
@@ -45,7 +47,7 @@
 - (void)prepareLayout
 {
   selfCopy = self;
-  sub_2ACEF4();
+  sub_2ACEF4(selfCopy);
 }
 
 - (CGSize)collectionViewContentSize
@@ -92,12 +94,12 @@
 {
   v5 = sub_AB3820();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   pathCopy = path;
   selfCopy = self;
-  v11 = sub_2ADD4C();
+  v11 = sub_2ADD4C(v8);
 
   (*(v6 + 8))(v8, v5);
 
@@ -108,7 +110,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = sub_AB92A0();
   v13 = v12;
@@ -127,7 +129,7 @@
 {
   v8 = sub_AB3820();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
+  __chkstk_darwin();
   v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   pathCopy = path;

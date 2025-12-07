@@ -172,31 +172,31 @@ LABEL_18:
 
 - (id)recordViewsWithRelatedScopedIdentifier:(id)identifier class:(Class)class
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   selfCopy = self;
   [CPLRecordStorageView recordViewsWithRelatedScopedIdentifier:"recordViewsWithRelatedScopedIdentifier:class:" class:?];
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  obj = v65 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+  obj = v64 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
-    v10 = *v63;
+    v10 = *v62;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v63 != v10)
+        if (*v62 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v62 + 1) + 8 * i);
+        v12 = *(*(&v61 + 1) + 8 * i);
         if (!v9)
         {
           v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -212,7 +212,7 @@ LABEL_18:
         [v8 addObject:scopedIdentifier];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+      v7 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
     }
 
     while (v7);
@@ -226,25 +226,25 @@ LABEL_18:
 
   v14 = selfCopy;
   [(CPLChangeStorage *)selfCopy->_changeStorage changesWithRelatedScopedIdentifier:identifierCopy class:class];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v52 = v61 = 0u;
-  v15 = [v52 countByEnumeratingWithState:&v58 objects:v67 count:16];
+  v51 = v60 = 0u;
+  v15 = [v51 countByEnumeratingWithState:&v57 objects:v66 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v59;
+    v17 = *v58;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v59 != v17)
+        if (*v58 != v17)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v51);
         }
 
-        v19 = *(*(&v58 + 1) + 8 * j);
+        v19 = *(*(&v57 + 1) + 8 * j);
         scopedIdentifier2 = [v19 scopedIdentifier];
         [v8 removeObject:scopedIdentifier2];
         v21 = [v9 objectForKeyedSubscript:scopedIdentifier2];
@@ -298,7 +298,7 @@ LABEL_18:
           if (!asRecordView2)
           {
             currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-            v48 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLChangedRecordStorageView.m"];
+            v47 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLChangedRecordStorageView.m"];
             [currentHandler handleFailureInMethod:a2 object:v19 file:selfCopy lineNumber:? description:?];
 
             abort();
@@ -313,35 +313,35 @@ LABEL_18:
 LABEL_34:
       }
 
-      v16 = [v52 countByEnumeratingWithState:&v58 objects:v67 count:16];
+      v16 = [v51 countByEnumeratingWithState:&v57 objects:v66 count:16];
     }
 
     while (v16);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v28 = v8;
-  v29 = [v28 countByEnumeratingWithState:&v54 objects:v66 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v53 objects:v65 count:16];
   if (!v29)
   {
     goto LABEL_56;
   }
 
   v30 = v29;
-  v31 = *v55;
+  v31 = *v54;
   do
   {
     for (k = 0; k != v30; ++k)
     {
-      if (*v55 != v31)
+      if (*v54 != v31)
       {
         objc_enumerationMutation(v28);
       }
 
-      v33 = *(*(&v54 + 1) + 8 * k);
+      v33 = *(*(&v53 + 1) + 8 * k);
       v34 = [(CPLChangeStorage *)v14->_changeStorage changeWithScopedIdentifier:v33];
       v35 = v34;
       if (v34)
@@ -403,15 +403,13 @@ LABEL_48:
 LABEL_54:
     }
 
-    v30 = [v28 countByEnumeratingWithState:&v54 objects:v66 count:16];
+    v30 = [v28 countByEnumeratingWithState:&v53 objects:v65 count:16];
   }
 
   while (v30);
 LABEL_56:
 
   allValues = [v9 allValues];
-
-  v45 = *MEMORY[0x1E69E9840];
 
   return allValues;
 }

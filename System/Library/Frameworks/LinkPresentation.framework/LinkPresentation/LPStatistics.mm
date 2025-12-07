@@ -26,7 +26,7 @@
   v10[1] = v5;
   v9[2] = @"duration";
   v6 = MEMORY[0x1E696AD98];
-  [eventCopy duration];
+  objc_msgSend_duration(eventCopy);
   v7 = [v6 numberWithDouble:?];
   v10[2] = v7;
   v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];

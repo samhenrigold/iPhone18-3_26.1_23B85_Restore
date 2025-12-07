@@ -62,7 +62,8 @@
 
   v25 = objc_msgSend_processor(pipelineCopy, v21, v22, v23, v24);
   *v30 = 1065353216;
-  *&v30[4] = 0uLL;
+  *&v30[12] = 0;
+  *&v30[4] = 0;
   v31 = 1065353216;
   v32 = 0;
   v33 = 0;

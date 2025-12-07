@@ -481,13 +481,12 @@ void sub_100003F4C(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
   {
     v16 = *(a1 + 32);
     *buf = 138412290;
-    v40 = v16;
+    v38 = v16;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Finished loading request: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v37 = *(a1 + 32);
     _IDSLogV();
   }
 
@@ -496,13 +495,12 @@ void sub_100003F4C(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
   {
     v18 = *(a1 + 40);
     *buf = 138412290;
-    v40 = v18;
+    v38 = v18;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, " Data Usage identifier: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v38 = *(a1 + 40);
     _IDSLogV();
   }
 
@@ -510,7 +508,7 @@ void sub_100003F4C(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v40 = v11;
+    v38 = v11;
     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "              Response: %@", buf, 0xCu);
   }
 
@@ -524,7 +522,7 @@ void sub_100003F4C(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
   {
     v21 = [v12 length];
     *buf = 67109120;
-    LODWORD(v40) = v21;
+    LODWORD(v38) = v21;
     _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "     ResultData Length: %d", buf, 8u);
   }
 
@@ -538,7 +536,7 @@ void sub_100003F4C(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v40) = a3;
+    LODWORD(v38) = a3;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "            StatusCode: %d", buf, 8u);
   }
 
@@ -551,7 +549,7 @@ void sub_100003F4C(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v40 = v13;
+    v38 = v13;
     _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "                 Error: %@", buf, 0xCu);
   }
 
@@ -566,7 +564,7 @@ void sub_100003F4C(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
     v25 = +[NetworkChangeNotifier sharedInstance];
     v26 = [v25 linkQualityValueForInterfaceType:3];
     *buf = 67109120;
-    LODWORD(v40) = v26;
+    LODWORD(v38) = v26;
     _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "     Cell Link Quality: %d", buf, 8u);
   }
 
@@ -583,7 +581,7 @@ void sub_100003F4C(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6)
     v29 = +[NetworkChangeNotifier sharedInstance];
     v30 = [v29 linkQualityValueForInterfaceType:2];
     *buf = 67109120;
-    LODWORD(v40) = v30;
+    LODWORD(v38) = v30;
     _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "     WiFi Link Quality: %d", buf, 8u);
   }
 
@@ -676,29 +674,29 @@ void sub_1000048FC(id a1)
 void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, void *a6)
 {
   v11 = a2;
-  v55 = a4;
-  v56 = a5;
-  v54 = a6;
+  v54 = a4;
+  v55 = a5;
+  v53 = a6;
   if ([*(*(a1 + 32) + 24) containsObject:*(a1 + 40)])
   {
     [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
-    v53 = a3;
+    v52 = a3;
     v12 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = *(a1 + 40);
       v14 = *(*(a1 + 32) + 24);
       *buf = 138412546;
-      v58 = v13;
-      v59 = 2112;
-      v60 = v14;
+      v57 = v13;
+      v58 = 2112;
+      v59 = v14;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Removed uniqueID %@ from _pendingResponseUniqueIDs. New map: %@", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
       v48 = *(a1 + 40);
-      v51 = *(*(a1 + 32) + 24);
+      v50 = *(*(a1 + 32) + 24);
       _IDSLogV();
     }
 
@@ -707,7 +705,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
     {
       v16 = *(a1 + 48);
       *buf = 138412290;
-      v58 = v16;
+      v57 = v16;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Finished loading request: %@", buf, 0xCu);
     }
 
@@ -722,7 +720,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
     {
       v18 = *(a1 + 56);
       *buf = 138412290;
-      v58 = v18;
+      v57 = v18;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, " Data Usage identifier: %@", buf, 0xCu);
     }
 
@@ -736,7 +734,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = v11;
+      v57 = v11;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "              Response: %@", buf, 0xCu);
     }
 
@@ -749,15 +747,15 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
     v20 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = [v55 length];
+      v21 = [v54 length];
       *buf = 67109120;
-      LODWORD(v58) = v21;
+      LODWORD(v57) = v21;
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "     ResultData Length: %d", buf, 8u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      v48 = [v55 length];
+      v48 = [v54 length];
       _IDSLogV();
     }
 
@@ -765,7 +763,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v58) = a3;
+      LODWORD(v57) = a3;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "            StatusCode: %d", buf, 8u);
     }
 
@@ -779,13 +777,13 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = v56;
+      v57 = v55;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "                 Error: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      v48 = v56;
+      v48 = v55;
       _IDSLogV();
     }
 
@@ -824,7 +822,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
           if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v58 = v29;
+            v57 = v29;
             _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Could not get HTTP version for response %@", buf, 0xCu);
           }
 
@@ -842,7 +840,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v58 = v11;
+          v57 = v11;
           _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Could not get CFURLResponse from response %@", buf, 0xCu);
         }
 
@@ -860,9 +858,9 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
       if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v58 = @"IDSRemoteURLConnectionDaemonIDSInterface";
-        v59 = 2112;
-        v60 = v11;
+        v57 = @"IDSRemoteURLConnectionDaemonIDSInterface";
+        v58 = 2112;
+        v59 = v11;
         _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "%@ - Response is not an HTTP response %@", buf, 0x16u);
       }
 
@@ -871,7 +869,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
         _IDSWarnV();
         _IDSLogV();
         v49 = @"IDSRemoteURLConnectionDaemonIDSInterface";
-        v52 = v11;
+        v51 = v11;
         _IDSLogTransport();
       }
     }
@@ -908,13 +906,13 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
       CFDictionarySetValue(v38, IDSRemoteURLConnectionKeyHTTPVersion, v42);
     }
 
-    v43 = [NSNumber numberWithInteger:v53];
+    v43 = [NSNumber numberWithInteger:v52];
     if (v43)
     {
       CFDictionarySetValue(v38, IDSRemoteURLConnectionKeyResponseStatusCode, v43);
     }
 
-    v44 = v55;
+    v44 = v54;
     if (v44)
     {
       CFDictionarySetValue(v38, IDSRemoteURLConnectionKeyResultData, v44);
@@ -930,7 +928,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = v38;
+      v57 = v38;
       _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Sending an IDS message back to the watch. loadResponse: %@", buf, 0xCu);
     }
 
@@ -940,7 +938,7 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
       _IDSLogV();
     }
 
-    if (([*(a1 + 32) sendIDSMessage:v38 forLoaderWithUniqueID:{0, v49, v52}] & 1) == 0)
+    if (([*(a1 + 32) sendIDSMessage:v38 forLoaderWithUniqueID:{0, v49, v51}] & 1) == 0)
     {
       v47 = OSLogHandleForIDSCategory();
       if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
@@ -963,13 +961,12 @@ void sub_100005440(uint64_t a1, void *a2, __CFString *a3, void *a4, void *a5, vo
     {
       v33 = *(a1 + 40);
       *buf = 138412290;
-      v58 = v33;
+      v57 = v33;
       _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Response is for deactivated watch and was dropped. _pendingResponseUniqueIDs does not contain %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      v50 = *(a1 + 40);
       _IDSLogV();
     }
   }
@@ -1031,16 +1028,14 @@ void sub_100006F44(uint64_t a1)
       v10 = *(a1 + 32);
       v11 = *(a1 + 40);
       *buf = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "No URLLoader for uniqueID %@ message ID %@", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
       _IDSLogV();
     }
   }
@@ -1105,7 +1100,7 @@ LABEL_13:
   }
 }
 
-void sub_100007648()
+void sub_100007648(uint64_t result, uint64_t a2)
 {
   if (qword_1000156A0 != -1)
   {

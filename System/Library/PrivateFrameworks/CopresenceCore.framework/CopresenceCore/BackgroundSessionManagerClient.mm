@@ -23,55 +23,52 @@
 {
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
   selfCopy = self;
-  BackgroundSessionManagerClient.leave(identifier:completion:)(v10, thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()partial apply, v12);
+  BackgroundSessionManagerClient.leave(identifier:completion:)(v9, thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()partial apply, v11);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)updateMembersWithIdentifier:(id)identifier members:(id)members completion:(id)completion
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(completion);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUHandle, 0x1E69D8C00);
   lazy protocol witness table accessor for type TUHandle and conformance NSObject();
-  v13 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v12;
+  v12 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = swift_allocObject();
+  *(v13 + 16) = v11;
   selfCopy = self;
-  BackgroundSessionManagerClient.updateMembers(identifier:members:completion:)(v11, v13, thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()partial apply, v14);
+  BackgroundSessionManagerClient.updateMembers(identifier:members:completion:)(v10, v12, thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> ()partial apply, v13);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)updateShare:(id)share activityID:(id)d completion:(id)completion
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(completion);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   shareCopy = share;
   selfCopy = self;
-  BackgroundSessionManagerClient.updateShare(_:activityID:completion:)(shareCopy, v12, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> (), v14);
+  BackgroundSessionManagerClient.updateShare(_:activityID:completion:)(shareCopy, v11, partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSError?) -> (), v13);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)updateWithActivitySessions:(id)sessions
@@ -95,49 +92,47 @@
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = self + direct field offset for BackgroundSessionManagerClient.delegate;
+  v8 = self + direct field offset for BackgroundSessionManagerClient.delegate;
   swift_beginAccess();
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v10 = *(v9 + 1);
+    v9 = *(v8 + 1);
     ObjectType = swift_getObjectType();
-    v12 = *(v10 + 24);
+    v11 = *(v9 + 24);
     selfCopy = self;
-    v12(v8, ObjectType, v10);
+    v11(v7, ObjectType, v9);
 
     swift_unknownObjectRelease();
   }
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)sessionDidReceiveUpdatedUnknownParticipantListWithSessionID:(id)d unknownParticipants:(id)participants
 {
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for NSObject(0, &lazy cache variable for type metadata for TUHandle, 0x1E69D8C00);
   lazy protocol witness table accessor for type TUHandle and conformance NSObject();
-  v10 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = self + direct field offset for BackgroundSessionManagerClient.delegate;
+  v9 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v10 = self + direct field offset for BackgroundSessionManagerClient.delegate;
   swift_beginAccess();
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v12 = *(v11 + 1);
-    v16 = v6;
+    v11 = *(v10 + 1);
+    v15 = v6;
     ObjectType = swift_getObjectType();
-    v14 = *(v12 + 32);
+    v13 = *(v11 + 32);
     selfCopy = self;
-    v14(v9, v10, ObjectType, v12);
+    v13(v8, v9, ObjectType, v11);
 
-    v6 = v16;
+    v6 = v15;
     swift_unknownObjectRelease();
   }
 
@@ -145,7 +140,7 @@
   {
   }
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
 }
 
 @end

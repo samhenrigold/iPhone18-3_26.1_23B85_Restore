@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v28[6] = *MEMORY[0x1E69E9840];
-  v22 = @"provider";
+  v27[6] = *MEMORY[0x1E69E9840];
+  v21 = @"provider";
   provider = self->_provider;
   null = provider;
   if (!provider)
@@ -23,9 +23,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v28[0] = null;
-  v23 = @"boatName";
+  v20 = null;
+  v27[0] = null;
+  v22 = @"boatName";
   boatName = self->_boatName;
   null2 = boatName;
   if (!boatName)
@@ -33,9 +33,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null2;
-  v28[1] = null2;
-  v24 = @"boatNumber";
+  v19 = null2;
+  v27[1] = null2;
+  v23 = @"boatNumber";
   boatNumber = self->_boatNumber;
   null3 = boatNumber;
   if (!boatNumber)
@@ -43,9 +43,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null3;
-  v28[2] = null3;
-  v25 = @"tripDuration";
+  v17 = null3;
+  v27[2] = null3;
+  v24 = @"tripDuration";
   tripDuration = self->_tripDuration;
   null4 = tripDuration;
   if (!tripDuration)
@@ -53,8 +53,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[3] = null4;
-  v26 = @"departureBoatTerminalLocation";
+  v27[3] = null4;
+  v25 = @"departureBoatTerminalLocation";
   departureBoatTerminalLocation = self->_departureBoatTerminalLocation;
   null5 = departureBoatTerminalLocation;
   if (!departureBoatTerminalLocation)
@@ -62,8 +62,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[4] = null5;
-  v27 = @"arrivalBoatTerminalLocation";
+  v27[4] = null5;
+  v26 = @"arrivalBoatTerminalLocation";
   arrivalBoatTerminalLocation = self->_arrivalBoatTerminalLocation;
   null6 = arrivalBoatTerminalLocation;
   if (!arrivalBoatTerminalLocation)
@@ -71,8 +71,8 @@
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v22 count:{6, v18}];
+  v27[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v21 count:{6, v17}];
   if (arrivalBoatTerminalLocation)
   {
     if (departureBoatTerminalLocation)
@@ -143,7 +143,6 @@ LABEL_18:
 LABEL_27:
 
 LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -80,7 +80,7 @@
 {
   v3 = *&state;
   be_contentViewState = [(WKWebView *)self be_contentViewState];
-  v6 = _BookEPUBLog();
+  v6 = _BookEPUBLog(be_contentViewState);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     be_identifier = [(WKWebView *)self be_identifier];
@@ -125,7 +125,7 @@
 {
   transitionCopy = transition;
   be_contentViewState = [(WKWebView *)self be_contentViewState];
-  v6 = _BookEPUBLog();
+  v6 = _BookEPUBLog(be_contentViewState);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     be_identifier = [(WKWebView *)self be_identifier];
@@ -175,17 +175,18 @@
 - (void)be_willAttemptLoad:(id)load
 {
   loadCopy = load;
-  if ([(WKWebView *)self be_contentViewState]== 8)
+  be_contentViewState = [(WKWebView *)self be_contentViewState];
+  if (be_contentViewState == 8)
   {
-    v5 = _BookEPUBLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _BookEPUBLog(be_contentViewState);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       be_identifier = [(WKWebView *)self be_identifier];
-      v7 = 138543618;
-      v8 = be_identifier;
-      v9 = 2114;
-      v10 = loadCopy;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "#webViewState webView:%{public}@ attempting load of:%{public}@", &v7, 0x16u);
+      v8 = 138543618;
+      v9 = be_identifier;
+      v10 = 2114;
+      v11 = loadCopy;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "#webViewState webView:%{public}@ attempting load of:%{public}@", &v8, 0x16u);
     }
   }
 
@@ -615,13 +616,14 @@ LABEL_4:
     v13 = v12;
     v15 = v14;
 
-    v28.origin.x = CGPointZero.x;
-    v28.origin.y = y;
-    v28.size.width = v13;
-    v28.size.height = v15;
-    v27.x = v7;
-    v27.y = v9;
-    if (CGRectContainsPoint(v28, v27))
+    v29.origin.x = CGPointZero.x;
+    v29.origin.y = y;
+    v29.size.width = v13;
+    v29.size.height = v15;
+    v28.x = v7;
+    v28.y = v9;
+    v16 = CGRectContainsPoint(v29, v28);
+    if (v16)
     {
       [(WKWebView *)self be_setContentOffset:bOOLValue bypassingJS:v7, v9];
       [(WKWebView *)self setBe_requestedContentOffset:0];
@@ -630,25 +632,25 @@ LABEL_4:
 
     else
     {
-      v16 = _BookEPUBLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = _BookEPUBLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         be_identifier = [(WKWebView *)self be_identifier];
-        v29.origin.x = CGPointZero.x;
-        v29.origin.y = y;
-        v29.size.width = v13;
-        v29.size.height = v15;
-        v18 = NSStringFromCGRect(v29);
-        v26.x = v7;
-        v26.y = v9;
-        v19 = NSStringFromCGPoint(v26);
-        v20 = 138543874;
-        v21 = be_identifier;
-        v22 = 2114;
-        v23 = v18;
-        v24 = 2114;
-        v25 = v19;
-        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "be_applyRequestedContentOffset - contentSizeRect: WebView: %{public}@ %{public}@ does not contain %{public}@.  Skipping..", &v20, 0x20u);
+        v30.origin.x = CGPointZero.x;
+        v30.origin.y = y;
+        v30.size.width = v13;
+        v30.size.height = v15;
+        v19 = NSStringFromCGRect(v30);
+        v27.x = v7;
+        v27.y = v9;
+        v20 = NSStringFromCGPoint(v27);
+        v21 = 138543874;
+        v22 = be_identifier;
+        v23 = 2114;
+        v24 = v19;
+        v25 = 2114;
+        v26 = v20;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "be_applyRequestedContentOffset - contentSizeRect: WebView: %{public}@ %{public}@ does not contain %{public}@.  Skipping..", &v21, 0x20u);
       }
     }
   }
@@ -720,7 +722,7 @@ LABEL_4:
 {
   registerCopy = register;
   v5 = [registerCopy length];
-  v6 = _BookEPUBLog();
+  v6 = _BookEPUBLog(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
   if (v5)
   {
@@ -772,7 +774,7 @@ LABEL_4:
 
   else
   {
-    v10 = _BookEPUBLog();
+    v10 = _BookEPUBLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = 138412290;

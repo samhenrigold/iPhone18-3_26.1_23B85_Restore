@@ -43,7 +43,7 @@
 - (void)_startMediaLibraryFetchOperation
 {
   v22 = *MEMORY[0x1E69E9840];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mediaLibrary = [(VUIMediaEntitiesFetchControllerOperation *)self mediaLibrary];
@@ -105,9 +105,10 @@ void __76__VUIMediaEntitiesFetchControllerOperation__startMediaLibraryFetchOpera
 
 - (void)_handleCompletdFetchWithResponses:(id)responses error:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   responsesCopy = responses;
   errorCopy = error;
+  v8 = errorCopy;
   if (responsesCopy)
   {
     currentFetchResponses = [(VUIMediaEntitiesFetchControllerOperation *)self currentFetchResponses];
@@ -118,26 +119,26 @@ void __76__VUIMediaEntitiesFetchControllerOperation__startMediaLibraryFetchOpera
 
     else
     {
-      v11 = [(VUIMediaEntitiesFetchControllerOperation *)self _resultWithResponses:responsesCopy];
-      [(VUIMediaEntitiesFetchControllerOperation *)self setResult:v11];
+      v12 = [(VUIMediaEntitiesFetchControllerOperation *)self _resultWithResponses:responsesCopy];
+      [(VUIMediaEntitiesFetchControllerOperation *)self setResult:v12];
       [(VUIAsynchronousOperation *)self finishExecutionIfPossible];
     }
   }
 
   else
   {
-    v9 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VUIDefaultLogObject(errorCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       requests = [(VUIMediaEntitiesFetchControllerOperation *)self requests];
-      v12 = 138412546;
-      v13 = errorCopy;
-      v14 = 2112;
-      v15 = requests;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "Media entity fetch failed with error (%@) for requests: %@", &v12, 0x16u);
+      v13 = 138412546;
+      v14 = v8;
+      v15 = 2112;
+      v16 = requests;
+      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "Media entity fetch failed with error (%@) for requests: %@", &v13, 0x16u);
     }
 
-    [(VUIMediaEntitiesFetchControllerOperation *)self setError:errorCopy];
+    [(VUIMediaEntitiesFetchControllerOperation *)self setError:v8];
     [(VUIAsynchronousOperation *)self finishExecutionIfPossible];
   }
 }

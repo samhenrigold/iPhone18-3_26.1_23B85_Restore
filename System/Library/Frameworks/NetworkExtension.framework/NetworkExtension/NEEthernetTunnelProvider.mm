@@ -7,7 +7,7 @@
 
 - (void)setTunnelNetworkSettings:(id)settings completionHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   handlerCopy = handler;
   if (!settingsCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -37,9 +37,9 @@
       if (configMethod == 2)
       {
 LABEL_17:
-        v25.receiver = self;
-        v25.super_class = NEEthernetTunnelProvider;
-        [(NEPacketTunnelProvider *)&v25 setTunnelNetworkSettings:v9 completionHandler:handlerCopy];
+        v24.receiver = self;
+        v24.super_class = NEEthernetTunnelProvider;
+        [(NEPacketTunnelProvider *)&v24 setTunnelNetworkSettings:v9 completionHandler:handlerCopy];
         goto LABEL_18;
       }
     }
@@ -60,9 +60,9 @@ LABEL_17:
     if (!v20)
     {
       v21 = MEMORY[0x1E696ABC0];
-      v26 = *MEMORY[0x1E696A578];
-      v27 = @"[NEPacketTunnelFlow readPacketsWithCompletionHandler:] must be called before setting IPv4 settings or IPv6 settings with non-manual address configuration";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v25 = *MEMORY[0x1E696A578];
+      v26 = @"[NEPacketTunnelFlow readPacketsWithCompletionHandler:] must be called before setting IPv4 settings or IPv6 settings with non-manual address configuration";
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
       v23 = [v21 errorWithDomain:@"NETunnelProviderErrorDomain" code:1 userInfo:v22];
 
       handlerCopy[2](handlerCopy, v23);
@@ -73,15 +73,13 @@ LABEL_17:
   }
 
   v11 = MEMORY[0x1E696ABC0];
-  v28 = *MEMORY[0x1E696A578];
-  v29[0] = @"Only NEEthernetTunnelNetworkSettings can be used with NEEthernetTunnelProvider";
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v27 = *MEMORY[0x1E696A578];
+  v28[0] = @"Only NEEthernetTunnelNetworkSettings can be used with NEEthernetTunnelProvider";
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   v9 = [v11 errorWithDomain:@"NETunnelProviderErrorDomain" code:1 userInfo:v12];
 
   handlerCopy[2](handlerCopy, v9);
 LABEL_18:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (NEEthernetTunnelProvider)init

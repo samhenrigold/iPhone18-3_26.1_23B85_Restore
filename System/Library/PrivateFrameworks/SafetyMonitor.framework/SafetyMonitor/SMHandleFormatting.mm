@@ -7,15 +7,15 @@
 + (id)canonicalIDSAddressForAddress:(id)address
 {
   addressCopy = address;
-  if (IMSharedUtilitiesLibraryCore() && getIMChatCanonicalIDSIDsForAddressSymbolLoc())
+  if (IMSharedUtilitiesLibraryCore(0) && getIMChatCanonicalIDSIDsForAddressSymbolLoc())
   {
     v4 = addressCopy;
     IMChatCanonicalIDSIDsForAddressSymbolLoc = getIMChatCanonicalIDSIDsForAddressSymbolLoc();
     if (!IMChatCanonicalIDSIDsForAddressSymbolLoc)
     {
-      dlerror();
-      abort_report_np();
-      return IMSharedUtilitiesLibraryCore();
+      v10 = dlerror();
+      v11 = abort_report_np("%s", v10);
+      return IMSharedUtilitiesLibraryCore(v11);
     }
 
     v6 = IMChatCanonicalIDSIDsForAddressSymbolLoc(v4);

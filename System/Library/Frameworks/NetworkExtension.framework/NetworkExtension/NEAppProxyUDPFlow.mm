@@ -66,47 +66,47 @@
 
 - (void)writeDatagrams:(NSArray *)datagrams sentByEndpoints:(NSArray *)remoteEndpoints completionHandler:(void *)completionHandler
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   v8 = datagrams;
   v9 = remoteEndpoints;
-  v51 = completionHandler;
+  v47 = completionHandler;
   v10 = [(NSArray *)v8 count];
-  v49 = v9;
-  v50 = v8;
+  v45 = v9;
+  v46 = v8;
   if (v10 == [(NSArray *)v9 count])
   {
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
-    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v11 = v8;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v68 objects:v75 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v64 objects:v71 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v69;
+      v14 = *v65;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v69 != v14)
+          if (*v65 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          if ((isa_nsdata(*(*(&v68 + 1) + 8 * i)) & 1) == 0)
+          if ((isa_nsdata(*(*(&v64 + 1) + 8 * i)) & 1) == 0)
           {
-            v39 = ne_log_obj();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v36 = ne_log_obj();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v77 = "[NEAppProxyUDPFlow writeDatagrams:sentByEndpoints:completionHandler:]";
-              _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, "%s: Datagrams array contains a non-NSData object", buf, 0xCu);
+              v73 = "[NEAppProxyUDPFlow writeDatagrams:sentByEndpoints:completionHandler:]";
+              _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%s: Datagrams array contains a non-NSData object", buf, 0xCu);
             }
 
             if (self)
             {
-              Property = objc_getProperty(self, v40, 40, 1);
+              Property = objc_getProperty(self, v37, 40, 1);
             }
 
             else
@@ -114,19 +114,19 @@
               Property = 0;
             }
 
-            v42 = Property;
-            v66[0] = MEMORY[0x1E69E9820];
-            v66[1] = 3221225472;
-            v66[2] = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke_14;
-            v66[3] = &unk_1E7F0B600;
-            v67 = v51;
-            dispatch_async(v42, v66);
+            v39 = Property;
+            v62[0] = MEMORY[0x1E69E9820];
+            v62[1] = 3221225472;
+            v62[2] = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke_14;
+            v62[3] = &unk_1E7F0B600;
+            v63 = v47;
+            dispatch_async(v39, v62);
 
-            goto LABEL_51;
+            goto LABEL_48;
           }
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v68 objects:v75 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v64 objects:v71 count:16];
         if (v13)
         {
           continue;
@@ -136,61 +136,60 @@
       }
     }
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
-    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v16 = v9;
-    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v62 objects:v74 count:16];
+    v17 = [(NSArray *)v16 countByEnumeratingWithState:&v58 objects:v70 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v63;
+      v19 = *v59;
       while (2)
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v63 != v19)
+          if (*v59 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v62 + 1) + 8 * j);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v43 = ne_log_obj();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v40 = ne_log_obj();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v77 = "[NEAppProxyUDPFlow writeDatagrams:sentByEndpoints:completionHandler:]";
-              _os_log_error_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_ERROR, "%s: Remote endpoints array contains a non-NWEndpoint object", buf, 0xCu);
+              v73 = "[NEAppProxyUDPFlow writeDatagrams:sentByEndpoints:completionHandler:]";
+              _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%s: Remote endpoints array contains a non-NWEndpoint object", buf, 0xCu);
             }
 
             if (self)
             {
-              v45 = objc_getProperty(self, v44, 40, 1);
+              v42 = objc_getProperty(self, v41, 40, 1);
             }
 
             else
             {
-              v45 = 0;
+              v42 = 0;
             }
 
-            v46 = v45;
-            v60[0] = MEMORY[0x1E69E9820];
-            v60[1] = 3221225472;
-            v60[2] = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke_15;
-            v60[3] = &unk_1E7F0B600;
-            v61 = v51;
-            dispatch_async(v46, v60);
+            v43 = v42;
+            v56[0] = MEMORY[0x1E69E9820];
+            v56[1] = 3221225472;
+            v56[2] = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke_15;
+            v56[3] = &unk_1E7F0B600;
+            v57 = v47;
+            dispatch_async(v43, v56);
 
             v11 = v16;
-            goto LABEL_51;
+            goto LABEL_48;
           }
         }
 
-        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v62 objects:v74 count:16];
+        v18 = [(NSArray *)v16 countByEnumeratingWithState:&v58 objects:v70 count:16];
         if (v18)
         {
           continue;
@@ -202,110 +201,102 @@
 
     if ([(NSArray *)v11 count])
     {
-      v23 = 0;
-      *&v22 = 136315138;
-      v48 = v22;
+      v22 = 0;
+      *&v21 = 136315138;
+      v44 = v21;
       do
       {
-        v24 = [(NSArray *)v11 objectAtIndexedSubscript:v23, v48];
-        v25 = [(NSArray *)v16 objectAtIndexedSubscript:v23];
-        v26 = v25;
-        if (self)
+        v23 = [(NSArray *)v11 objectAtIndexedSubscript:v22, v44];
+        v24 = [(NSArray *)v16 objectAtIndexedSubscript:v22];
+        [v24 address];
+        v25 = [(NSArray *)v11 count]- 1;
+        if (v22 >= v25)
         {
-          flow = self->super._flow;
+          v51 = MEMORY[0x1E69E9820];
+          v52 = 3221225472;
+          v53 = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke_2;
+          v54 = &unk_1E7F06AB0;
+          v55 = v47;
         }
 
-        [v25 address];
-        v28 = [(NSArray *)v11 count]- 1;
-        if (v23 >= v28)
+        v26 = NEFlowWrite();
+        if (v26)
         {
-          v55 = MEMORY[0x1E69E9820];
-          v56 = 3221225472;
-          v57 = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke_2;
-          v58 = &unk_1E7F06AB0;
-          v59 = v51;
-        }
-
-        v29 = NEFlowWrite();
-        if (v29)
-        {
-          v30 = v29;
-          v31 = ne_log_obj();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v27 = v26;
+          v28 = ne_log_obj();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            *buf = v48;
-            v77 = "[NEAppProxyUDPFlow writeDatagrams:sentByEndpoints:completionHandler:]";
-            _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "%s: Failed to write flow Data", buf, 0xCu);
+            *buf = v44;
+            v73 = "[NEAppProxyUDPFlow writeDatagrams:sentByEndpoints:completionHandler:]";
+            _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "%s: Failed to write flow Data", buf, 0xCu);
           }
 
           if (self)
           {
-            v33 = objc_getProperty(self, v32, 40, 1);
+            v30 = objc_getProperty(self, v29, 40, 1);
           }
 
           else
           {
-            v33 = 0;
+            v30 = 0;
           }
 
-          v34 = v33;
+          v31 = v30;
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke_16;
           block[3] = &unk_1E7F0AB18;
-          v53 = v51;
-          v54 = v30;
-          dispatch_async(v34, block);
+          v49 = v47;
+          v50 = v27;
+          dispatch_async(v31, block);
         }
 
-        if (v23 >= v28)
+        if (v22 >= v25)
         {
         }
 
-        ++v23;
+        ++v22;
       }
 
-      while (v23 < [(NSArray *)v11 count]);
+      while (v22 < [(NSArray *)v11 count]);
     }
   }
 
   else
   {
-    v35 = ne_log_obj();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v32 = ne_log_obj();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v77 = "[NEAppProxyUDPFlow writeDatagrams:sentByEndpoints:completionHandler:]";
-      v78 = 2048;
-      v79 = [(NSArray *)v8 count];
-      v80 = 2048;
-      v81 = [(NSArray *)v9 count];
-      _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "%s: Size of datagrams array (%lu) does not match size of remoteEndpoints array (%lu)", buf, 0x20u);
+      v73 = "[NEAppProxyUDPFlow writeDatagrams:sentByEndpoints:completionHandler:]";
+      v74 = 2048;
+      v75 = [(NSArray *)v8 count];
+      v76 = 2048;
+      v77 = [(NSArray *)v9 count];
+      _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "%s: Size of datagrams array (%lu) does not match size of remoteEndpoints array (%lu)", buf, 0x20u);
     }
 
     if (self)
     {
-      v37 = objc_getProperty(self, v36, 40, 1);
+      v34 = objc_getProperty(self, v33, 40, 1);
     }
 
     else
     {
-      v37 = 0;
+      v34 = 0;
     }
 
-    v38 = v37;
-    v72[0] = MEMORY[0x1E69E9820];
-    v72[1] = 3221225472;
-    v72[2] = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke;
-    v72[3] = &unk_1E7F0B600;
-    v73 = v51;
-    dispatch_async(v38, v72);
+    v35 = v34;
+    v68[0] = MEMORY[0x1E69E9820];
+    v68[1] = 3221225472;
+    v68[2] = __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke;
+    v68[3] = &unk_1E7F0B600;
+    v69 = v47;
+    dispatch_async(v35, v68);
 
-    v11 = v73;
-LABEL_51:
+    v11 = v69;
+LABEL_48:
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___block_invoke(uint64_t a1)
@@ -345,47 +336,47 @@ void __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___
 
 - (void)writeDatagrams:(id)datagrams sentByFlowEndpoints:(id)endpoints completionHandler:(id)handler
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   datagramsCopy = datagrams;
   endpointsCopy = endpoints;
   handlerCopy = handler;
   v10 = [datagramsCopy count];
-  v48 = endpointsCopy;
-  v49 = datagramsCopy;
+  v45 = endpointsCopy;
+  v46 = datagramsCopy;
   if (v10 == [endpointsCopy count])
   {
-    v69 = 0u;
-    v70 = 0u;
+    v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     v11 = datagramsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v67 objects:v74 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v64 objects:v71 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v68;
+      v14 = *v65;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v68 != v14)
+          if (*v65 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          if ((isa_nsdata(*(*(&v67 + 1) + 8 * i)) & 1) == 0)
+          if ((isa_nsdata(*(*(&v64 + 1) + 8 * i)) & 1) == 0)
           {
-            v38 = ne_log_obj();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v36 = ne_log_obj();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v76 = "[NEAppProxyUDPFlow writeDatagrams:sentByFlowEndpoints:completionHandler:]";
-              _os_log_error_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_ERROR, "%s: Datagrams array contains a non-NSData object", buf, 0xCu);
+              v73 = "[NEAppProxyUDPFlow writeDatagrams:sentByFlowEndpoints:completionHandler:]";
+              _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "%s: Datagrams array contains a non-NSData object", buf, 0xCu);
             }
 
             if (self)
             {
-              Property = objc_getProperty(self, v39, 40, 1);
+              Property = objc_getProperty(self, v37, 40, 1);
             }
 
             else
@@ -393,19 +384,19 @@ void __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___
               Property = 0;
             }
 
-            v41 = Property;
-            v65[0] = MEMORY[0x1E69E9820];
-            v65[1] = 3221225472;
-            v65[2] = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke_10;
-            v65[3] = &unk_1E7F0B600;
-            v66 = handlerCopy;
-            dispatch_async(v41, v65);
+            v39 = Property;
+            v62[0] = MEMORY[0x1E69E9820];
+            v62[1] = 3221225472;
+            v62[2] = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke_10;
+            v62[3] = &unk_1E7F0B600;
+            v63 = handlerCopy;
+            dispatch_async(v39, v62);
 
-            goto LABEL_51;
+            goto LABEL_48;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v67 objects:v74 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v64 objects:v71 count:16];
         if (v13)
         {
           continue;
@@ -415,59 +406,59 @@ void __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___
       }
     }
 
-    v63 = 0u;
-    v64 = 0u;
+    v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v16 = endpointsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v61 objects:v73 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v58 objects:v70 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v62;
+      v19 = *v59;
       while (2)
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v62 != v19)
+          if (*v59 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          if (nw_endpoint_get_type(*(*(&v61 + 1) + 8 * j)) != nw_endpoint_type_address)
+          if (nw_endpoint_get_type(*(*(&v58 + 1) + 8 * j)) != nw_endpoint_type_address)
           {
-            v42 = ne_log_obj();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+            v40 = ne_log_obj();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v76 = "[NEAppProxyUDPFlow writeDatagrams:sentByFlowEndpoints:completionHandler:]";
-              _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, "%s: Remote endpoints array contains a non-NWEndpoint object", buf, 0xCu);
+              v73 = "[NEAppProxyUDPFlow writeDatagrams:sentByFlowEndpoints:completionHandler:]";
+              _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "%s: Remote endpoints array contains a non-NWEndpoint object", buf, 0xCu);
             }
 
             if (self)
             {
-              v44 = objc_getProperty(self, v43, 40, 1);
+              v42 = objc_getProperty(self, v41, 40, 1);
             }
 
             else
             {
-              v44 = 0;
+              v42 = 0;
             }
 
-            v45 = v44;
-            v59[0] = MEMORY[0x1E69E9820];
-            v59[1] = 3221225472;
-            v59[2] = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke_11;
-            v59[3] = &unk_1E7F0B600;
-            v60 = handlerCopy;
-            dispatch_async(v45, v59);
+            v43 = v42;
+            v56[0] = MEMORY[0x1E69E9820];
+            v56[1] = 3221225472;
+            v56[2] = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke_11;
+            v56[3] = &unk_1E7F0B600;
+            v57 = handlerCopy;
+            dispatch_async(v43, v56);
 
             v11 = v16;
-            goto LABEL_51;
+            goto LABEL_48;
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v61 objects:v73 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v58 objects:v70 count:16];
         if (v18)
         {
           continue;
@@ -481,61 +472,55 @@ void __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___
     {
       v22 = 0;
       *&v21 = 136315138;
-      v47 = v21;
+      v44 = v21;
       do
       {
-        v23 = [v11 objectAtIndexedSubscript:{v22, v47}];
+        v23 = [v11 objectAtIndexedSubscript:{v22, v44}];
         v24 = [v16 objectAtIndexedSubscript:v22];
-        v25 = v24;
-        if (self)
-        {
-          flow = self->super._flow;
-        }
-
         nw_endpoint_get_address(v24);
-        v27 = [v11 count] - 1;
-        if (v22 >= v27)
+        v25 = [v11 count] - 1;
+        if (v22 >= v25)
         {
-          v54 = MEMORY[0x1E69E9820];
-          v55 = 3221225472;
-          v56 = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke_2;
-          v57 = &unk_1E7F06AB0;
-          v58 = handlerCopy;
+          v51 = MEMORY[0x1E69E9820];
+          v52 = 3221225472;
+          v53 = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke_2;
+          v54 = &unk_1E7F06AB0;
+          v55 = handlerCopy;
         }
 
-        v28 = NEFlowWrite();
-        if (v28)
+        v26 = NEFlowWrite();
+        if (v26)
         {
-          v29 = v28;
-          v30 = ne_log_obj();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v27 = v26;
+          v28 = ne_log_obj();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            *buf = v47;
-            v76 = "[NEAppProxyUDPFlow writeDatagrams:sentByFlowEndpoints:completionHandler:]";
-            _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%s: Failed to write flow Data", buf, 0xCu);
+            *buf = v44;
+            v73 = "[NEAppProxyUDPFlow writeDatagrams:sentByFlowEndpoints:completionHandler:]";
+            _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "%s: Failed to write flow Data", buf, 0xCu);
           }
 
           if (self)
           {
-            v32 = objc_getProperty(self, v31, 40, 1);
+            v30 = objc_getProperty(self, v29, 40, 1);
           }
 
           else
           {
-            v32 = 0;
+            v30 = 0;
           }
 
-          v33 = v32;
+          v31 = v30;
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke_13;
           block[3] = &unk_1E7F0AB18;
-          v52 = handlerCopy;
-          v53 = v29;
-          dispatch_async(v33, block);
+          v49 = handlerCopy;
+          v50 = v27;
+          dispatch_async(v31, block);
         }
 
-        if (v22 >= v27)
+        if (v22 >= v25)
         {
         }
 
@@ -548,41 +533,39 @@ void __70__NEAppProxyUDPFlow_writeDatagrams_sentByEndpoints_completionHandler___
 
   else
   {
-    v34 = ne_log_obj();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v32 = ne_log_obj();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v76 = "[NEAppProxyUDPFlow writeDatagrams:sentByFlowEndpoints:completionHandler:]";
-      v77 = 2048;
-      v78 = [datagramsCopy count];
-      v79 = 2048;
-      v80 = [endpointsCopy count];
-      _os_log_error_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_ERROR, "%s: Size of datagrams array (%lu) does not match size of remoteEndpoints array (%lu)", buf, 0x20u);
+      v73 = "[NEAppProxyUDPFlow writeDatagrams:sentByFlowEndpoints:completionHandler:]";
+      v74 = 2048;
+      v75 = [datagramsCopy count];
+      v76 = 2048;
+      v77 = [endpointsCopy count];
+      _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "%s: Size of datagrams array (%lu) does not match size of remoteEndpoints array (%lu)", buf, 0x20u);
     }
 
     if (self)
     {
-      v36 = objc_getProperty(self, v35, 40, 1);
+      v34 = objc_getProperty(self, v33, 40, 1);
     }
 
     else
     {
-      v36 = 0;
+      v34 = 0;
     }
 
-    v37 = v36;
-    v71[0] = MEMORY[0x1E69E9820];
-    v71[1] = 3221225472;
-    v71[2] = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke;
-    v71[3] = &unk_1E7F0B600;
-    v72 = handlerCopy;
-    dispatch_async(v37, v71);
+    v35 = v34;
+    v68[0] = MEMORY[0x1E69E9820];
+    v68[1] = 3221225472;
+    v68[2] = __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke;
+    v68[3] = &unk_1E7F0B600;
+    v69 = handlerCopy;
+    dispatch_async(v35, v68);
 
-    v11 = v72;
-LABEL_51:
+    v11 = v69;
+LABEL_48:
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 void __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandler___block_invoke(uint64_t a1)
@@ -623,24 +606,19 @@ void __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandle
 - (void)readDatagramsWithCompletionHandler:(void *)completionHandler
 {
   v4 = completionHandler;
-  if (self)
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __56__NEAppProxyUDPFlow_readDatagramsWithCompletionHandler___block_invoke;
+  v17 = &unk_1E7F06A88;
+  v5 = v4;
+  v18 = v5;
+  v6 = NEFlowAsyncDatagramsCopyNext();
+  if (v6)
   {
-    flow = self->super._flow;
-  }
-
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __56__NEAppProxyUDPFlow_readDatagramsWithCompletionHandler___block_invoke;
-  v18 = &unk_1E7F06A88;
-  v6 = v4;
-  v19 = v6;
-  v7 = NEFlowAsyncDatagramsCopyNext();
-  if (v7)
-  {
-    v9 = v7;
+    v8 = v6;
     if (self)
     {
-      Property = objc_getProperty(self, v8, 40, 1);
+      Property = objc_getProperty(self, v7, 40, 1);
     }
 
     else
@@ -648,14 +626,14 @@ void __74__NEAppProxyUDPFlow_writeDatagrams_sentByFlowEndpoints_completionHandle
       Property = 0;
     }
 
-    v11 = Property;
+    v10 = Property;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __56__NEAppProxyUDPFlow_readDatagramsWithCompletionHandler___block_invoke_2;
     block[3] = &unk_1E7F0AB18;
-    v13 = v6;
-    v14 = v9;
-    dispatch_async(v11, block);
+    v12 = v5;
+    v13 = v8;
+    dispatch_async(v10, block);
   }
 }
 
@@ -683,24 +661,19 @@ void __56__NEAppProxyUDPFlow_readDatagramsWithCompletionHandler___block_invoke_2
 - (void)readDatagramsAndFlowEndpointsWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  if (self)
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __72__NEAppProxyUDPFlow_readDatagramsAndFlowEndpointsWithCompletionHandler___block_invoke;
+  v17 = &unk_1E7F06A88;
+  v5 = handlerCopy;
+  v18 = v5;
+  v6 = NEFlowAsyncDatagramsCopyNext();
+  if (v6)
   {
-    flow = self->super._flow;
-  }
-
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __72__NEAppProxyUDPFlow_readDatagramsAndFlowEndpointsWithCompletionHandler___block_invoke;
-  v18 = &unk_1E7F06A88;
-  v6 = handlerCopy;
-  v19 = v6;
-  v7 = NEFlowAsyncDatagramsCopyNext();
-  if (v7)
-  {
-    v9 = v7;
+    v8 = v6;
     if (self)
     {
-      Property = objc_getProperty(self, v8, 40, 1);
+      Property = objc_getProperty(self, v7, 40, 1);
     }
 
     else
@@ -708,14 +681,14 @@ void __56__NEAppProxyUDPFlow_readDatagramsWithCompletionHandler___block_invoke_2
       Property = 0;
     }
 
-    v11 = Property;
+    v10 = Property;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __72__NEAppProxyUDPFlow_readDatagramsAndFlowEndpointsWithCompletionHandler___block_invoke_2;
     block[3] = &unk_1E7F0AB18;
-    v13 = v6;
-    v14 = v9;
-    dispatch_async(v11, block);
+    v12 = v5;
+    v13 = v8;
+    dispatch_async(v10, block);
   }
 }
 
@@ -770,12 +743,11 @@ void __61__NEAppProxyUDPFlow_openWithLocalEndpoint_completionHandler___block_inv
 {
   if (self)
   {
-    v2 = *(self + 32);
-    v5 = NEFlowCopyProperty();
-    if (isa_nsdata(v5))
+    v4 = NEFlowCopyProperty();
+    if (isa_nsdata(v4))
     {
-      address = nw_endpoint_create_address([v5 bytes]);
-      v4 = *(self + 56);
+      address = nw_endpoint_create_address([v4 bytes]);
+      v3 = *(self + 56);
       *(self + 56) = address;
     }
   }

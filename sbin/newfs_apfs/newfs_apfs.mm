@@ -59,27 +59,26 @@ uint64_t sub_100000810(unsigned __int8 a1)
   return result;
 }
 
-uint64_t sub_1000008E4(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_1000008E4(uint64_t *a1, unsigned int a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = a3;
   v10 = a2;
   if (a2 && a2 < a3)
   {
-    v22 = &v22;
+    v20 = &v20;
     v11 = 2 * *a1;
     __chkstk_darwin(a1);
-    bzero(&v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
-    v12 = *(a1 + 8) + *(a1 + 16) + 19;
-    __chkstk_darwin(v13);
-    v16 = &v22 - v15;
-    if (v17 >= 8)
+    bzero(&v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
+    __chkstk_darwin(v12);
+    v15 = &v20 - v14;
+    if (v16 >= 8)
     {
-      memset(&v22 - v15, 170, v14);
+      memset(&v20 - v14, 170, v13);
     }
 
     ccdigest_init();
-    v18 = 2 * (a2 & 0x7FFFFFFF);
-    if (v18 > v7)
+    v17 = 2 * (a2 & 0x7FFFFFFF);
+    if (v17 > v7)
     {
       goto LABEL_18;
     }
@@ -88,11 +87,11 @@ uint64_t sub_1000008E4(uint64_t a1, unsigned int a2, unint64_t a3, uint64_t a4, 
     {
       ccdigest_parallel();
       ccdigest_update();
-      v7 -= v18;
-      a4 += v18;
+      v7 -= v17;
+      a4 += v17;
     }
 
-    while (v7 >= v18);
+    while (v7 >= v17);
     if (v7)
     {
 LABEL_18:
@@ -100,25 +99,24 @@ LABEL_18:
       {
         if (v7 >= v10)
         {
-          v19 = v10;
+          v18 = v10;
         }
 
         else
         {
-          v19 = v7;
+          v18 = v7;
         }
 
         ccdigest();
         ccdigest_update();
-        a4 += v19;
-        v7 -= v19;
+        a4 += v18;
+        v7 -= v18;
       }
 
       while (v7);
     }
 
-    (*(a1 + 56))(a1, v16, a5);
-    v20 = *(a1 + 8) + *(a1 + 16);
+    (a1[7])(a1, v15, a5);
     return cc_clear();
   }
 
@@ -207,7 +205,7 @@ uint64_t sub_100000BF0(uint64_t a1)
   return v3 & 1;
 }
 
-uint64_t sub_100000C78(uint64_t a1, void *a2, unsigned int a3, int a4)
+uint64_t sub_100000C78(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
 {
   memset(__s1, 0, sizeof(__s1));
   if (!a2)
@@ -251,7 +249,7 @@ uint64_t sub_100000C78(uint64_t a1, void *a2, unsigned int a3, int a4)
   return result;
 }
 
-uint64_t sub_100000D8C(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t sub_100000D8C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   result = 22;
   if (a2 && (*(*(a1 + 56) + 32) & 8) != 0)
@@ -390,7 +388,7 @@ uint64_t sub_100001040(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1000010CC(uint64_t a1, void *a2, int a3)
+uint64_t sub_1000010CC(uint64_t a1, atomic_ullong **a2, int a3)
 {
   if (!a1)
   {
@@ -477,7 +475,7 @@ uint64_t sub_100001264(uint64_t a1, _DWORD *a2)
   if (!result)
   {
     v4 = v8;
-    v5 = *(v8 + 392);
+    v5 = *(v8 + 98);
     if (v5 >= 0x40)
     {
       v6 = 64;
@@ -488,8 +486,8 @@ uint64_t sub_100001264(uint64_t a1, _DWORD *a2)
       v6 = v5;
     }
 
-    v7 = *(v8 + 384);
-    a2[6] = *(*(v8 + 376) + 40);
+    v7 = v8[48];
+    a2[6] = *(v8[47] + 40);
     a2[7] = v5;
     a2[5] |= 0x180u;
     memcpy(a2 + 8, v7, v6);
@@ -500,7 +498,7 @@ uint64_t sub_100001264(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t sub_1000012EC(uint64_t a1, int a2, unint64_t a3, void *a4)
+uint64_t sub_1000012EC(uint64_t a1, int a2, unint64_t a3, uint64_t *a4)
 {
   v14 = a2;
   v13 = 0;
@@ -630,7 +628,7 @@ uint64_t sub_100001544(void *a1)
   return 0;
 }
 
-uint64_t sub_100001558(uint64_t a1, uint64_t a2, unsigned __int16 **a3)
+uint64_t sub_100001558(uint64_t a1, uint64_t a2, char **a3)
 {
   v11 = 0u;
   v12 = 0u;
@@ -652,7 +650,7 @@ uint64_t sub_1000015F8(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   v4 = *(*(a1 + 392) + 392);
   v7 = 0xAAAAAAAAAAAAAAAALL;
-  v5 = sub_10003A1E8(v4, 0x40000000, a2, &xmmword_10006A8A8, 0, 0, 0, 0, &v7);
+  v5 = sub_10003A1E8(v4, 0x40000000uLL, a2, &xmmword_10006A8A8, 0, 0, 0, 0, &v7);
   if (!v5)
   {
     sub_100039E90(v7, a3);
@@ -662,11 +660,11 @@ uint64_t sub_1000015F8(uint64_t a1, unint64_t a2, uint64_t a3)
   return v5;
 }
 
-uint64_t sub_100001678(uint64_t a1, int a2, unint64_t a3, unint64_t a4, void *a5)
+uint64_t sub_100001678(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, void *a5)
 {
   v9 = *(*(a1 + 392) + 392);
   v16 = 0xAAAAAAAAAAAAAAAALL;
-  result = sub_10003A1E8(v9, 0x40000000, a3, &xmmword_10006A8A8, 0, 0, 0, a4, &v16);
+  result = sub_10003A1E8(v9, 0x40000000uLL, a3, &xmmword_10006A8A8, 0, 0, 0, a4, &v16);
   if (!result)
   {
     v11 = v16[47];
@@ -705,7 +703,7 @@ uint64_t sub_100001678(uint64_t a1, int a2, unint64_t a3, unint64_t a4, void *a5
   return result;
 }
 
-uint64_t sub_100001764(uint64_t a1, uint64_t a2, void *a3)
+uint64_t sub_100001764(uint64_t a1, unint64_t a2, void *a3)
 {
   v9 = 0;
   v6 = sub_100014C90(a1, 3, 0, &v9);
@@ -793,8 +791,9 @@ LABEL_9:
   return v13;
 }
 
-uint64_t sub_1000019C8(uint64_t a1, int a2, int a3, unint64_t a4, unint64_t a5, void *a6)
+uint64_t sub_1000019C8(uint64_t a1, int a2, uint64_t a3, unint64_t a4, unint64_t a5, void *a6)
 {
+  v9 = a3;
   v11 = sub_1000030E0;
   if (a3 == 5)
   {
@@ -844,7 +843,7 @@ uint64_t sub_1000019C8(uint64_t a1, int a2, int a3, unint64_t a4, unint64_t a5, 
   {
 LABEL_15:
     v16 = strerror(v13);
-    sub_100012178("%s:%d: %s Failed to get supplemental tree (type %d, oid %llu): %d (%s)\n", "supplemental_tree_destroy", 159, (a1 + 4040), a3, a5, v13, v16);
+    sub_100012178("%s:%d: %s Failed to get supplemental tree (type %d, oid %llu): %d (%s)\n", "supplemental_tree_destroy", 159, (a1 + 4040), v9, a5, v13, v16);
     return v13;
   }
 
@@ -854,7 +853,7 @@ LABEL_11:
   if (v14)
   {
     v15 = strerror(v14);
-    sub_100012178("%s:%d: %s Failed to delete supplemental tree (type %d): %d (%s)\n", "supplemental_tree_destroy", 167, (a1 + 4040), a3, v13, v15);
+    sub_100012178("%s:%d: %s Failed to delete supplemental tree (type %d): %d (%s)\n", "supplemental_tree_destroy", 167, (a1 + 4040), v9, v13, v15);
   }
 
   sub_100037058(v18);
@@ -980,7 +979,7 @@ uint64_t sub_100001C74(void *a1, uint64_t a2, unint64_t *a3, uint64_t a4, unint6
     v38[3] = v19;
     v38[0] = v19;
     v38[1] = v19;
-    sub_100025EF0(v38, v42, 0, 0, &v41, 8, 8u, &v40, 8u);
+    sub_100025EF0(v38, v42, 0, 0, &v41, 8, 8, &v40, 8u);
     v21 = v20;
     v36 = (v10 + 4040);
     v22 = 1023;
@@ -1005,7 +1004,7 @@ LABEL_31:
     {
       while (!sub_100025F1C(v38))
       {
-        if ((v37 & 0x40000000) != 0 && (v23 = v40, (v40 & 0x8000000000000000) != 0))
+        if ((v37 & 0x40000000) != 0 && (v23 = v40, v40 < 0))
         {
           v40 &= ~0x8000000000000000;
           sub_10004A66C(v10, 64, v23 & 0x7FFFFFFFFFFFFFFFLL, 1, a5);
@@ -1084,7 +1083,7 @@ LABEL_41:
   return v31;
 }
 
-uint64_t sub_100002008(void *a1, unint64_t a2, unint64_t a3, uint64_t **a4)
+uint64_t sub_100002008(void *a1, unint64_t a2, unint64_t a3, uint64_t *a4)
 {
   if (a1[1])
   {
@@ -1254,12 +1253,13 @@ uint64_t sub_10000216C(uint64_t result, unsigned __int16 *a2, unint64_t a3)
   return result;
 }
 
-uint64_t sub_100002214(unint64_t a1, uint64_t a2, int a3, void (*a4)(_OWORD *, uint64_t, uint64_t), uint64_t a5)
+uint64_t sub_100002214(unsigned __int8 *a1, uint64_t a2, uint64_t a3, void (*a4)(_OWORD *, uint64_t, uint64_t), uint64_t a5)
 {
+  v6 = a3;
   v19 = a1;
   v22[0] = 0xAAAAAAAAAAAAAAAALL;
   v22[1] = 0xAAAAAAAAAAAAAAAALL;
-  v7 = a1 + a2;
+  v7 = &a1[a2];
   v17 = 0;
   v18 = -1431655766;
   v16 = 0;
@@ -1280,7 +1280,7 @@ uint64_t sub_100002214(unint64_t a1, uint64_t a2, int a3, void (*a4)(_OWORD *, u
     v20[0] = v8;
     v14 = 0;
     v13 = 0;
-    v9 = sub_100002374(&v19, v7, a3, v22, &v18, &v17, &v16, v21, v20, &v14, &v13, &v15);
+    v9 = sub_100002374(&v19, v7, v6, v22, &v18, &v17, &v16, v21, v20, &v14, &v13, &v15);
     if (v9)
     {
       break;
@@ -1302,7 +1302,7 @@ uint64_t sub_100002214(unint64_t a1, uint64_t a2, int a3, void (*a4)(_OWORD *, u
   return v9;
 }
 
-uint64_t sub_100002374(unint64_t *a1, unint64_t a2, int a3, int *a4, uint64_t a5, int *a6, int *a7, uint64_t a8, uint64_t a9, int *a10, _BYTE *a11, _BYTE *a12)
+uint64_t sub_100002374(unsigned __int8 **a1, unint64_t a2, int a3, int *a4, uint64_t a5, int *a6, int *a7, uint64_t a8, uint64_t a9, int *a10, _BYTE *a11, _BYTE *a12)
 {
   v17 = *a6;
   v18 = *a7;
@@ -1348,7 +1348,7 @@ uint64_t sub_100002374(unint64_t *a1, unint64_t a2, int a3, int *a4, uint64_t a5
       do
       {
         v23 = v20 + 1;
-        *a1 = (v20 + 1);
+        *a1 = v20 + 1;
         v24 = *v20;
         result = 92;
         if (!*v20 || v24 == 47)
@@ -1456,29 +1456,13 @@ LABEL_33:
         if (&v23[v33] <= a2)
         {
           v34 = v24 & ~(-1 << (6 - v33));
-          if (v33 == 1)
+          if (v33 == 1 || (v33 == 2 || v33 == 3 && (v23 = v20 + 2, v35 = v20[1] ^ 0x80, v28 = -1, v35 <= 0x3F) && (v34 = v35 | (v34 << 6), v34 <= 0x10F)) && (v36 = *v23, ++v23, v37 = v36 ^ 0x80, v28 = -1, (v36 ^ 0x80u) <= 0x3F) && (v34 = v37 | (v34 << 6), (v34 & 0xFFE0) != 0x360))
           {
-            goto LABEL_41;
-          }
-
-          if (v33 == 2 || v33 == 3 && (v23 = v20 + 2, v35 = v20[1] ^ 0x80, v28 = -1, v35 <= 0x3F) && (v34 = v35 | (v34 << 6), v34 <= 0x10F))
-          {
-            v36 = *v23++;
-            v37 = v36 ^ 0x80;
-            v28 = -1;
-            if ((v36 ^ 0x80u) <= 0x3F)
+            v38 = *v23++;
+            v39 = v38 ^ 0x80;
+            if ((v38 ^ 0x80u) > 0x3F || (v28 = v39 | (v34 << 6), v28 < dword_100062690[v33]))
             {
-              v34 = v37 | (v34 << 6);
-              if ((v34 & 0xFFE0) != 0x360)
-              {
-LABEL_41:
-                v38 = *v23++;
-                v39 = v38 ^ 0x80;
-                if ((v38 ^ 0x80u) > 0x3F || (v28 = v39 | (v34 << 6), v28 < dword_100062690[v33]))
-                {
-                  v28 = -1;
-                }
-              }
+              v28 = -1;
             }
           }
         }
@@ -1506,7 +1490,7 @@ LABEL_47:
         v40 = v28;
         if (v28 >> 10 >= 0xC9)
         {
-          if (v28 - 918016 < 0xFFFFFE00)
+          if ((v28 - 918016) < 0xFFFFFE00)
           {
             goto LABEL_144;
           }
@@ -1823,7 +1807,7 @@ LABEL_143:
   return 0;
 }
 
-uint64_t sub_100002B4C(uint64_t result, uint64_t a2, int a3)
+uint64_t sub_100002B4C(uint64_t result, uint64_t a2, unsigned int a3)
 {
   if (a3 >= 2)
   {
@@ -1856,12 +1840,12 @@ uint64_t sub_100002B4C(uint64_t result, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t sub_100002BC0(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, int a5, BOOL *a6)
+uint64_t sub_100002BC0(unsigned __int8 *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, int a5, BOOL *a6)
 {
   v33 = a3;
   v34 = a1;
-  v7 = a1 + a2;
-  v8 = a3 + a4;
+  v7 = &a1[a2];
+  v8 = &a3[a4];
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
   __b[0] = v9;
@@ -2175,7 +2159,7 @@ uint64_t sub_1000030E0(uint64_t a1, void *a2, int a3, void *a4, int a5, int *a6)
   return result;
 }
 
-uint64_t sub_10000313C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_10000313C(void *a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v4 = *(a4 + 48) & 0xFE;
   v8 = *(a4 + 8);
@@ -2230,7 +2214,7 @@ uint64_t sub_100003294(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, ui
   v15 = sub_100014C9C(a1, 5, a2, a3, &v24);
   if (!v15)
   {
-    sub_100025DA4(v25, v24, a3, a7, &v29, 16, 0x10u, &v27, 0x10u, a6);
+    sub_100025DA4(v25, v24, a3, a7, &v29, 16, 16, &v27, 0x10u, a6);
     if (v16 != 2)
     {
       v15 = v16;
@@ -2284,15 +2268,14 @@ uint64_t sub_1000033FC(uint64_t a1)
 {
   if (a1)
   {
-    v2 = sub_10000E064(a1);
-    v17 = *(a1 + 384) + 212;
-    sub_1000121C8(v2, "%s:%d: %s Container corruption detected by %s:%u!\n", v3, v4, v5, v6, v7, v8, "nx_corruption_detected_int");
+    v1 = sub_10000E064(a1);
+    sub_1000121C8(v1, "%s:%d: %s Container corruption detected by %s:%u!\n");
   }
 
   else
   {
-    v9 = sub_10000E064(0);
-    sub_1000121C8(v9, "%s:%d: Container corruption detected by %s:%u!\n", v10, v11, v12, v13, v14, v15, "nx_corruption_detected_int");
+    v2 = sub_10000E064(0);
+    sub_1000121C8(v2, "%s:%d: Container corruption detected by %s:%u!\n");
   }
 
   return 92;
@@ -2305,7 +2288,7 @@ unint64_t sub_100003490(void *a1, int a2, int8x16_t a3, int8x16_t a4)
   {
     sub_100012178("%s:%d: failed: cksum 0x%016llx, oid 0x%llx, type 0x%x/0x%x, size %d\n", "obj_checksum_verify_phys", 52, *a1, a1[1], *(a1 + 6), *(a1 + 7), a2);
     v7 = sub_10000E064(0);
-    sub_1000121C8(v7, "%s:%d: Container corruption detected by %s:%u!\n", v8, v9, v10, v11, v12, v13, "nx_corruption_detected_int");
+    sub_1000121C8(v7, "%s:%d: Container corruption detected by %s:%u!\n", "nx_corruption_detected_int", 39, "obj_checksum_verify_phys", 54);
     return 92;
   }
 
@@ -2534,13 +2517,17 @@ unint64_t sub_100003584(uint64_t a1, unsigned int a2, int a3, int8x16_t a4, int8
   {
     if (v30)
     {
-      goto LABEL_105;
+      v31 = 193;
+LABEL_106:
+      v35 = sub_10000E064(0);
+      sub_1000121C8(v35, "%s:%d: Container corruption detected by %s:%u!\n", "nx_corruption_detected_int", 39, "nx_check_superblock", v31);
+      return 92;
     }
 
     return 0;
   }
 
-  v31 = *(a1 + 140);
+  v32 = *(a1 + 140);
   if (!*(a1 + 152))
   {
     ++v30;
@@ -2551,14 +2538,14 @@ unint64_t sub_100003584(uint64_t a1, unsigned int a2, int a3, int8x16_t a4, int8
     ++v30;
   }
 
-  if (!(a3 | v31))
+  if (!(a3 | v32))
   {
     if (!*(a1 + 148) && !*(a1 + 136) && !*(a1 + 144))
     {
       goto LABEL_104;
     }
 
-    v31 = 0;
+    v32 = 0;
   }
 
   if (*(a1 + 136) >= v15)
@@ -2566,49 +2553,47 @@ unint64_t sub_100003584(uint64_t a1, unsigned int a2, int a3, int8x16_t a4, int8
     ++v30;
   }
 
-  v32 = *(a1 + 148);
+  v33 = *(a1 + 148);
   if (*(a1 + 144) >= v23)
   {
     ++v30;
   }
 
-  if (v31 < 2)
+  if (v32 < 2)
   {
     ++v30;
   }
 
-  if (v31 < v15)
+  if (v32 < v15)
   {
-    v33 = v30;
+    v34 = v30;
   }
 
   else
   {
-    v33 = v30 + 1;
+    v34 = v30 + 1;
   }
 
-  if (v32 < 2)
+  if (v33 < 2)
   {
-    ++v33;
+    ++v34;
   }
 
-  if (v32 < v23)
+  if (v33 < v23)
   {
-    v30 = v33;
+    v30 = v34;
   }
 
   else
   {
-    v30 = v33 + 1;
+    v30 = v34 + 1;
   }
 
 LABEL_104:
   if (v30 | (*(a1 + 180) > 0x64u))
   {
-LABEL_105:
-    v34 = sub_10000E064(0);
-    sub_1000121C8(v34, "%s:%d: Container corruption detected by %s:%u!\n", v35, v36, v37, v38, v39, v40, "nx_corruption_detected_int");
-    return 92;
+    v31 = 226;
+    goto LABEL_106;
   }
 
   return 0;
@@ -3298,7 +3283,7 @@ uint64_t sub_100004608(const char *a1, IOOptionBits a2)
   return i;
 }
 
-const char *sub_1000047B8(const char *a1)
+char *sub_1000047B8(const char *a1)
 {
   v7 = 0xAAAAAAAAAAAAAAAALL;
   v2 = getmntinfo(&v7, 2);
@@ -3378,11 +3363,12 @@ LABEL_10:
   return close(v5);
 }
 
-uint64_t sub_100004958(io_registry_entry_t a1)
+uint64_t sub_100004958(uint64_t a1)
 {
+  v1 = a1;
   iterator = -1431655766;
   sub_100051C60(a1, &unk_100052CF5);
-  result = IORegistryEntryGetChildIterator(a1, "IOService", &iterator);
+  result = IORegistryEntryGetChildIterator(v1, "IOService", &iterator);
   if (!result)
   {
     v3 = IOIteratorNext(iterator);
@@ -3473,7 +3459,7 @@ uint64_t sub_100004AE8(uint64_t a1, const char *a2, uint64_t a3)
   return result;
 }
 
-unint64_t sub_100004B78(const char *a1)
+unint64_t sub_100004B78(char *a1)
 {
   __endptr = 0xAAAAAAAAAAAAAAAALL;
   result = strtoull(a1, &__endptr, 10);
@@ -4226,18 +4212,18 @@ const char *sub_100005818(const char *a1, uint64_t (*a2)(const char *, uint64_t)
   }
 }
 
-uint64_t sub_10000590C(void *a1, char a2)
+uint64_t sub_10000590C(uint64_t *a1, char a2)
 {
-  v276 = 0xAAAAAAAAAAAAAAAALL;
-  v277 = 0xAAAAAAAAAAAAAAAALL;
-  v275 = 0;
-  v273 = 0xAAAAAAAAAAAAAAAALL;
-  v274 = 0;
-  v272 = 0;
-  memset(v271, 170, sizeof(v271));
-  memset(v270, 170, sizeof(v270));
+  v255 = 0xAAAAAAAAAAAAAAAALL;
+  v256 = 0xAAAAAAAAAAAAAAAALL;
+  v254 = 0;
+  v252 = 0xAAAAAAAAAAAAAAAALL;
+  v253 = 0;
+  v251 = 0;
+  memset(v250, 170, sizeof(v250));
+  memset(v249, 170, sizeof(v249));
   v4 = a1[47];
-  v5 = sub_100042E24(a1, &v277);
+  v5 = sub_100042E24(a1, &v256);
   if (v5)
   {
     v6 = v5;
@@ -4245,24 +4231,24 @@ uint64_t sub_10000590C(void *a1, char a2)
     return v6;
   }
 
-  v7 = v277[47];
-  v258 = sub_100038020(v277);
+  v7 = v256[47];
+  v237 = sub_100038020(v256);
   v8 = *(v7 + 32);
-  v261 = v4;
+  v240 = v4;
   v9 = *(v4 + 36);
   if (v8 != v9)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman block size %d doesn't match nx superblock block size %d\n", "nx_check", 78, (a1[48] + 212), v8, v9);
     v8 = *(v7 + 32);
   }
 
-  v248 = a2;
+  v227 = a2;
   v10 = *(v7 + 36);
   LODWORD(v11) = v8;
   if (v10 != 8 * v8)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman blocks per chunk is bad: %d\n", "nx_check", 82, (a1[48] + 212), v10);
     LODWORD(v11) = *(v7 + 32);
   }
@@ -4277,30 +4263,30 @@ uint64_t sub_10000590C(void *a1, char a2)
 
   else
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman chunks per cib is bad: %d\n", "nx_check", 86, (a1[48] + 212), v14);
     v11 = *(v7 + 32);
   }
 
-  v264 = v11 + 0x7FFFFFFD8;
+  v243 = v11 + 0x7FFFFFFD8;
   v15 = (v11 + 0x7FFFFFFD8) >> 3;
   v16 = *(v7 + 44);
   if (v16 != v15)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman cibs per cab is bad: %d\n", "nx_check", 90, (a1[48] + 212), v16);
   }
 
   v17 = (8 * v8);
   v18 = *(v7 + 48);
-  v252 = (v7 + 48);
+  v231 = (v7 + 48);
   v19 = *(v7 + 96) + v18;
-  v20 = *(v261 + 40);
+  v20 = *(v240 + 40);
   if (v19 != v20)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman block count %lld doesn't match nx superblock block count %lld\n", "nx_check", 94, (a1[48] + 212), v19, v20);
-    v18 = *v252;
+    v18 = *v231;
   }
 
   v21 = *(v7 + 56);
@@ -4314,17 +4300,17 @@ uint64_t sub_10000590C(void *a1, char a2)
     v22 = v18 / v17;
   }
 
-  v23 = v258;
+  v23 = v237;
   if (v21 != v22)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman chunk count is bad: %lld\n", "nx_check", 97, (a1[48] + 212), v21);
     v21 = *(v7 + 56);
   }
 
   v24 = *(v7 + 64);
   v25 = (v12 >> 5);
-  v256 = v25;
+  v235 = v25;
   if (v21 % v25)
   {
     v26 = v21 / v25 + 1;
@@ -4337,7 +4323,7 @@ uint64_t sub_10000590C(void *a1, char a2)
 
   if (v26 != v24)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman cib count is bad: %d\n", "nx_check", 100, (a1[48] + 212), v24);
     LODWORD(v24) = *(v7 + 64);
   }
@@ -4361,7 +4347,7 @@ uint64_t sub_10000590C(void *a1, char a2)
   v29 = *(v7 + 68);
   if (v29 != v28)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman cab count is bad: %d\n", "nx_check", 109, (a1[48] + 212), v29);
   }
 
@@ -4369,7 +4355,7 @@ uint64_t sub_10000590C(void *a1, char a2)
   v31 = *(v7 + 48);
   if (v30 > v31)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman free count is too large: %lld > %lld\n", "nx_check", 112, (a1[48] + 212), v30, v31);
   }
 
@@ -4387,25 +4373,25 @@ uint64_t sub_10000590C(void *a1, char a2)
 
   if (v32 != v34)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman tier2 chunk count is bad: %lld\n", "nx_check", 116, (a1[48] + 212), v32);
     v32 = *(v7 + 104);
   }
 
   v35 = *(v7 + 112);
-  if (v32 % v256)
+  if (v32 % v235)
   {
-    v36 = v32 / v256 + 1;
+    v36 = v32 / v235 + 1;
   }
 
   else
   {
-    v36 = v32 / v256;
+    v36 = v32 / v235;
   }
 
   if (v36 != v35)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman tier2 cib count is bad: %d\n", "nx_check", 119, (a1[48] + 212), v35);
     LODWORD(v35) = *(v7 + 112);
   }
@@ -4429,7 +4415,7 @@ uint64_t sub_10000590C(void *a1, char a2)
   v39 = *(v7 + 116);
   if (v39 != v38)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman tier2 cab count is bad: %d\n", "nx_check", 128, (a1[48] + 212), v39);
   }
 
@@ -4437,7 +4423,7 @@ uint64_t sub_10000590C(void *a1, char a2)
   v41 = *(v7 + 96);
   if (v40 > v41)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman tier2 free count is too large: %lld > %lld\n", "nx_check", 131, (a1[48] + 212), v40, v41);
   }
 
@@ -4447,7 +4433,7 @@ uint64_t sub_10000590C(void *a1, char a2)
   v44 = *(v7 + 152) & 0x7FFFFFFFFFFFFFFFLL;
   if (v44 != 3 * v43)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP block count is bad: %lld\n", "nx_check", 137, (a1[48] + 212), v44);
     v44 = *(v7 + 152) & 0x7FFFFFFFFFFFFFFFLL;
   }
@@ -4455,21 +4441,21 @@ uint64_t sub_10000590C(void *a1, char a2)
   v45 = *(v7 + 160);
   if ((*(v7 + 32) + 8 * ((v44 + 63) >> 6) - 1) / *(v7 + 32) != v45)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bm block count is bad: %d\n", "nx_check", 140, (a1[48] + 212), v45);
   }
 
   v46 = *(v7 + 164) & 0x7FFFFFFF;
   if (v46 >= 0xFFFF)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bitmap block count is too large: %d\n", "nx_check", 143, (a1[48] + 212), v46);
   }
 
   v47 = *(v7 + 148);
   if (v47 <= 3)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bitmap tx multiplier is too small: %d\n", "nx_check", 146, (a1[48] + 212), v47);
   }
 
@@ -4477,7 +4463,7 @@ uint64_t sub_10000590C(void *a1, char a2)
   v49 = *(v7 + 164) & 0x7FFFFFFF;
   if (v49 / v48 <= 3)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bitmap block count per tx is too small: %d\n", "nx_check", 149, (a1[48] + 212), v49 / v48);
     v48 = *(v7 + 160);
     v49 = *(v7 + 164) & 0x7FFFFFFF;
@@ -4489,7 +4475,7 @@ uint64_t sub_10000590C(void *a1, char a2)
     v51 = 65534;
     if (v49 != 65534)
     {
-      ++v275;
+      ++v254;
       sub_100012128("%s:%d: %s spaceman IP bitmap block count is bad: %d\n", "nx_check", 156, (a1[48] + 212), v49);
       v48 = *(v7 + 160);
       v50 = *(v7 + 148);
@@ -4498,7 +4484,7 @@ uint64_t sub_10000590C(void *a1, char a2)
 
     if (v51 / v48 < v50 >> 1)
     {
-      ++v275;
+      ++v254;
       sub_100012128("%s:%d: %s spaceman IP bitmap block count is too low: %d\n", "nx_check", 159, (a1[48] + 212), v51);
     }
   }
@@ -4507,55 +4493,55 @@ uint64_t sub_10000590C(void *a1, char a2)
   v53 = *(v7 + 168);
   if (!v53 || v53 >= v52)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bm base address is bad: %lld\n", "nx_check", 166, (a1[48] + 212), v53);
   }
 
   v54 = *(v7 + 176);
   if (!v54 || v54 >= v52)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP base address is bad: %lld\n", "nx_check", 169, (a1[48] + 212), v54);
   }
 
-  v266 = v43;
-  v268 = a1;
-  v257 = v15;
-  v255 = v7;
+  v245 = v43;
+  v247 = a1;
+  v236 = v15;
+  v234 = v7;
   if (*(v7 + 160))
   {
     v55 = 0;
-    v251 = 0;
+    v230 = 0;
     do
     {
-      v56 = v277;
-      v57 = *(v277[109] + 8 * v55);
+      v56 = v256;
+      v57 = *(v256[109] + 8 * v55);
       if (v57 > v23)
       {
-        ++v275;
+        ++v254;
         sub_100012128("%s:%d: %s spaceman IP bitmap block %d xid %lld > spaceman xid %lld\n", "nx_check", 176, (a1[48] + 212), v55, v57, v23);
-        v56 = v277;
+        v56 = v256;
       }
 
       v58 = *(v56[110] + 2 * v55);
       if ((*(v7 + 164) & 0x7FFFFFFFu) <= v58)
       {
-        ++v275;
+        ++v254;
         sub_100012128("%s:%d: %s spaceman IP bitmap block %d index %d out of range\n", "nx_check", 179, (a1[48] + 212), v55, v58);
-        v58 = *(v277[110] + 2 * v55);
+        v58 = *(v256[110] + 2 * v55);
       }
 
-      v59 = sub_100042DE8(a1, v7, v58, &v270[2]);
-      if (v59 || (v59 = sub_10003A1E8(a1[49], 0x40000000, v270[2], &xmmword_10006A960, 0, 0, 0, 0, &v272)) != 0)
+      v59 = sub_100042DE8(a1, v7, v58, &v249[2]);
+      if (v59 || (v59 = sub_10003A1E8(a1[49], 0x40000000uLL, v249[2], &xmmword_10006A960, 0, 0, 0, 0, &v251)) != 0)
       {
-        v23 = v258;
-        ++v275;
-        sub_100012128("%s:%d: %s spaceman IP bitmap unable to get bitmap block %d @ %lld: %d\n", "nx_check", 187, (a1[48] + 212), v55, v270[2], v59);
+        v23 = v237;
+        ++v254;
+        sub_100012128("%s:%d: %s spaceman IP bitmap unable to get bitmap block %d @ %lld: %d\n", "nx_check", 187, (a1[48] + 212), v55, v249[2], v59);
       }
 
       else
       {
-        v23 = v258;
+        v23 = v237;
         if (v55 == *(v7 + 160) - 1)
         {
           v60 = (*(v7 + 152) & 0x7FFFFFFFFFFFFFFFuLL) % (8 * *(v7 + 32));
@@ -4566,8 +4552,8 @@ uint64_t sub_10000590C(void *a1, char a2)
           v60 = (8 * *(v7 + 32));
         }
 
-        v251 += sub_10001C584(v272[7], 0, 0, v60);
-        sub_100037058(v272);
+        v230 += sub_10001C584(v251[7], 0, 0, v60);
+        sub_100037058(v251);
       }
 
       ++v55;
@@ -4578,17 +4564,17 @@ uint64_t sub_10000590C(void *a1, char a2)
 
   else
   {
-    v251 = 0;
+    v230 = 0;
   }
 
   v61 = v7;
   v63 = v43;
   v62 = a1;
-  v64 = *(v7 + 56) + 2 * v266 + *(v7 + 104) - 1;
-  if (v251 > v64)
+  v64 = *(v7 + 56) + 2 * v245 + *(v7 + 104) - 1;
+  if (v230 > v64)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s spaceman IP bitmap has too many free blocks %lld > %lld\n", "nx_check", 196, (a1[48] + 212), v251, v64);
+    ++v254;
+    sub_100012128("%s:%d: %s spaceman IP bitmap has too many free blocks %lld > %lld\n", "nx_check", 196, (a1[48] + 212), v230, v64);
   }
 
   v65 = *(v7 + 320);
@@ -4596,28 +4582,28 @@ uint64_t sub_10000590C(void *a1, char a2)
   LODWORD(v67) = v66 & 0x7FFFFFFF;
   if ((v66 & 0x7FFFFFFFu) <= v65)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bitmap free head %d out of range\n", "nx_check", 201, (a1[48] + 212), v65);
     v66 = *(v7 + 164);
     LODWORD(v67) = v66 & 0x7FFFFFFF;
   }
 
   v68 = *(v7 + 322);
-  if (v67 > v68 || (++v275, sub_100012128("%s:%d: %s spaceman IP bitmap free head %d out of range\n", "nx_check", 204, (a1[48] + 212), v68), v66 = *(v7 + 164), LODWORD(v67) = v66 & 0x7FFFFFFF, (v66 & 0x7FFFFFFF) != 0))
+  if (v67 > v68 || (++v254, sub_100012128("%s:%d: %s spaceman IP bitmap free head %d out of range\n", "nx_check", 204, (a1[48] + 212), v68), v66 = *(v7 + 164), LODWORD(v67) = v66 & 0x7FFFFFFF, (v66 & 0x7FFFFFFF) != 0))
   {
     v69 = 0;
     v70 = 0;
-    v71 = v277[111];
+    v71 = v256[111];
     do
     {
       v72 = *(v71 + 2 * v69);
       v73 = v72 == 0xFFFF || v67 > v72;
       if (!v73)
       {
-        ++v275;
+        ++v254;
         sub_100012128("%s:%d: %s spaceman IP bitmap free next %d, value %d invalid\n", "nx_check", 209, (a1[48] + 212), v69, v72);
         v66 = *(v7 + 164);
-        v71 = v277[111];
+        v71 = v256[111];
         v72 = *(v71 + 2 * v69);
       }
 
@@ -4647,14 +4633,14 @@ uint64_t sub_10000590C(void *a1, char a2)
   v75 = (v67 - *(v7 + 160));
   if (v70 != v75)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bitmap next array free count is wrong, %lld != %d\n", "nx_check", 224, (a1[48] + 212), v70, v75);
     v66 = *(v7 + 164);
     v74 = *(v7 + 320);
   }
 
   v76 = v66 & 0x7FFFFFFF;
-  v77 = v258;
+  v77 = v237;
   if (v76 && v76 > v74)
   {
     v78 = 1;
@@ -4666,7 +4652,7 @@ uint64_t sub_10000590C(void *a1, char a2)
         break;
       }
 
-      v74 = *(v277[111] + 2 * v74);
+      v74 = *(v256[111] + 2 * v74);
       ++v78;
     }
 
@@ -4675,15 +4661,13 @@ uint64_t sub_10000590C(void *a1, char a2)
 
   if (v70 < 0)
   {
-    ++v275;
-    v229 = a1[48] + 212;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bitmap free list corrupted, too long, count %lld\n");
   }
 
   else if (v70)
   {
-    ++v275;
-    v228 = a1[48] + 212;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP bitmap free list corrupted, too short, count %lld\n");
   }
 
@@ -4691,99 +4675,98 @@ uint64_t sub_10000590C(void *a1, char a2)
   v80 = *(v7 + 152) & 0x7FFFFFFFFFFFFFFFLL;
   if (v79 > v80)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP free queue count is too large: %lld > %lld\n", "nx_check", 244, (a1[48] + 212), v79, v80);
   }
 
   if (*(v7 + 208))
   {
-    v81 = sub_10004464C(a1, v277, 0, 0, 0, &v271[4]);
+    v81 = sub_10004464C(a1, v256, 0, 0, 0, &v250[4]);
     if (v81)
     {
-      ++v275;
+      ++v254;
       sub_100012128("%s:%d: %s unable to get spaceman IP free queue tree: %d\n", "nx_check", 252, (a1[48] + 212), v81);
     }
 
-    else if (v271[4])
+    else if (v250[4])
     {
-      v144 = sub_10000DB3C(v271[4], 0, 0, 0);
-      if (v144)
+      v143 = sub_10000DB3C(v250[4], 0, 0, 0);
+      if (v143)
       {
-        v145 = v144;
-        ++v275;
-        sub_100012128("%s:%d: %s spaceman IP free queue tree sanity check failed: %d\n", "nx_check", 256, (a1[48] + 212), v144);
-        v270[1] = 0x1000000008;
+        v144 = v143;
+        ++v254;
+        sub_100012128("%s:%d: %s spaceman IP free queue tree sanity check failed: %d\n", "nx_check", 256, (a1[48] + 212), v143);
+        v249[1] = 0x1000000008;
       }
 
       else
       {
-        v270[1] = 0x1000000008;
-        v145 = sub_100025198(v271[4], 0, &v271[1], &v270[1] + 1, &v271[3], &v270[1]);
+        v249[1] = 0x1000000008;
+        v144 = sub_100025198(v250[4], 0, &v250[1], &v249[1] + 1, &v250[3], &v249[1]);
       }
 
+      v170 = 0;
       v171 = 0;
-      v172 = 0;
-      for (i = 0; !v145; v145 = sub_100025428(v271[4], 0, &v271[1], &v270[1] + 1, HIDWORD(v270[1]), &v271[3], &v270[1], 4u, 0, 0))
+      for (i = 0; !v144; v144 = sub_100025428(v250[4], 0, &v250[1], &v249[1] + 1, HIDWORD(v249[1]), &v250[3], &v249[1], 4, 0, 0))
       {
-        if (LODWORD(v270[1]))
+        if (LODWORD(v249[1]))
         {
-          v174 = v271[3];
+          v173 = v250[3];
         }
 
         else
         {
-          v271[3] = 1;
-          v174 = 1;
+          v250[3] = 1;
+          v173 = 1;
         }
 
-        v175 = v271[1];
-        if (v271[1] > v258)
+        v174 = v250[1];
+        if (v250[1] > v237)
         {
-          ++v275;
-          sub_100012128("%s:%d: %s spaceman IP free queue tree entry %lld:%lld xid larger than spaceman xid %lld\n", "nx_check", 269, (*(v268 + 384) + 212), v271[1], v271[2], v258);
-          v175 = v271[1];
+          ++v254;
+          sub_100012128("%s:%d: %s spaceman IP free queue tree entry %lld:%lld xid larger than spaceman xid %lld\n", "nx_check", 269, (v247[48] + 212), v250[1], v250[2], v237);
+          v174 = v250[1];
         }
 
-        if (v175 >= i)
+        if (v174 >= i)
         {
-          v177 = v271[2];
-          if (v175 == i)
+          v176 = v250[2];
+          if (v174 == i)
           {
-            if (v271[2] < v172)
+            if (v250[2] < v171)
             {
-              ++v275;
-              sub_100012128("%s:%d: %s spaceman IP free queue tree entries out of order: addr %lld < %lld\n", "nx_check", 277, (*(v268 + 384) + 212), v271[2], v172);
-              v177 = v271[2];
+              ++v254;
+              sub_100012128("%s:%d: %s spaceman IP free queue tree entries out of order: addr %lld < %lld\n", "nx_check", 277, (v247[48] + 212), v250[2], v171);
+              v176 = v250[2];
             }
 
-            v172 = v271[3] + v177;
+            v171 = v250[3] + v176;
           }
 
           else
           {
-            v172 = 0;
-            i = v175;
+            v171 = 0;
+            i = v174;
           }
 
-          v176 = v268;
+          v175 = v247;
         }
 
         else
         {
-          ++v275;
-          v176 = v268;
-          sub_100012128("%s:%d: %s spaceman IP free queue tree entries out of order: xid %lld < %lld\n", "nx_check", 272, (*(v268 + 384) + 212), v175, i);
-          v172 = 0;
-          v177 = v271[2];
-          i = v271[1];
+          ++v254;
+          v175 = v247;
+          sub_100012128("%s:%d: %s spaceman IP free queue tree entries out of order: xid %lld < %lld\n", "nx_check", 272, (v247[48] + 212), v174, i);
+          v171 = 0;
+          v176 = v250[2];
+          i = v250[1];
         }
 
-        v178 = sub_100046824(v176, v277, v177, v270);
-        if (v178)
+        v177 = sub_100046824(v175, v256, v176, v249);
+        if (v177)
         {
-          ++v275;
-          v238 = *(v268 + 384) + 212;
-          if (v178 == 2)
+          ++v254;
+          if (v177 == 2)
           {
             sub_100012128("%s:%d: %s spaceman IP free queue tree entry %lld:%lld %lld addr is bad\n");
           }
@@ -4794,14 +4777,13 @@ uint64_t sub_10000590C(void *a1, char a2)
           }
         }
 
-        if (v271[3] >= 2uLL)
+        if (v250[3] >= 2uLL)
         {
-          v179 = sub_100046824(v268, v277, v271[3] + v271[2] - 1, v270);
-          if (v179)
+          v178 = sub_100046824(v247, v256, v250[3] + v250[2] - 1, v249);
+          if (v178)
           {
-            ++v275;
-            v239 = *(v268 + 384) + 212;
-            if (v179 == 2)
+            ++v254;
+            if (v178 == 2)
             {
               sub_100012128("%s:%d: %s spaceman IP free queue tree entry %lld:%lld %lld end addr is bad\n");
             }
@@ -4813,22 +4795,22 @@ uint64_t sub_10000590C(void *a1, char a2)
           }
         }
 
-        v171 += v174;
-        LODWORD(v270[1]) = 8;
+        v170 += v173;
+        LODWORD(v249[1]) = 8;
       }
 
-      if (v145 != 2)
+      if (v144 != 2)
       {
-        ++v275;
-        sub_100012128("%s:%d: %s spaceman IP free queue tree iteration aborted with error %d\n", "nx_check", 304, (*(v268 + 384) + 212), v145);
+        ++v254;
+        sub_100012128("%s:%d: %s spaceman IP free queue tree iteration aborted with error %d\n", "nx_check", 304, (v247[48] + 212), v144);
       }
 
-      sub_100037058(v271[4]);
-      v63 = v266;
-      v62 = v268;
-      v77 = v258;
+      sub_100037058(v250[4]);
+      v63 = v245;
+      v62 = v247;
+      v77 = v237;
       v61 = v7;
-      v82 = v171;
+      v82 = v170;
       goto LABEL_123;
     }
   }
@@ -4838,28 +4820,28 @@ LABEL_123:
   v83 = *(v61 + 200);
   if (v82 != v83)
   {
-    ++v275;
+    ++v254;
     sub_100012128("%s:%d: %s spaceman IP free queue count %lld doesn't match count in the free queue: %lld\n", "nx_check", 310, (v62[48] + 212), v83, v82);
   }
 
-  v250 = v82;
+  v229 = v82;
   v84 = 0;
   v85 = 0;
-  v262 = 0;
-  v249 = 2 * v63;
-  v253 = (v264 >> 3);
-  v86 = v257;
+  v241 = 0;
+  v228 = 2 * v63;
+  v232 = (v243 >> 3);
+  v86 = v236;
   v87 = 1;
   do
   {
-    v254 = v87;
-    v88 = &v252[6 * v84];
+    v233 = v87;
+    v88 = &v231[6 * v84];
     if (*(v88 + 4))
     {
-      v260 = v84;
+      v239 = v84;
       v89 = 0;
-      v265 = 0;
-      v267 = 0;
+      v244 = 0;
+      v246 = 0;
       v90 = 0xFFFFFFFFLL;
       while (1)
       {
@@ -4867,64 +4849,63 @@ LABEL_123:
         {
           if (v89 / v86 != v90 || v85 == 0)
           {
-            v263 = v89 / v86;
-            v92 = *(v277[v260 + 112] + 8 * v263);
-            if (v274)
+            v242 = v89 / v86;
+            v92 = *(v256[v239 + 112] + 8 * v242);
+            if (v253)
             {
-              sub_100037058(v274);
-              v274 = 0;
+              sub_100037058(v253);
+              v253 = 0;
             }
 
-            if (sub_10003A1E8(v62[49], 0x40000000, v92, &xmmword_10006A940, 0, 0, 0, 0, &v274))
+            if (sub_10003A1E8(v62[49], 0x40000000uLL, v92, &xmmword_10006A940, 0, 0, 0, 0, &v253))
             {
-              ++v275;
-              v230 = v62[48] + 212;
+              ++v254;
               sub_100012128("%s:%d: %s unable to read cab %d @ %lld: %d\n");
-              goto LABEL_201;
+              goto LABEL_198;
             }
 
-            v123 = v274[7];
-            v124 = *(v123 + 36);
-            if (v124 > (sub_10003835C(v274) - 40) >> 3)
+            v122 = *(v253 + 56);
+            v123 = *(v122 + 36);
+            if (v123 > (sub_10003835C(v253) - 40) >> 3)
             {
-              ++v275;
-              sub_100012128("%s:%d: %s cab %d @ %lld cab_cib_count %d invalid\n", "nx_check", 337, (v62[48] + 212), v263, v92, *(v123 + 36));
-              v89 = v89 + v253 - 1 + ~((v89 + v253 - 1) % v253);
-              v85 = v123;
-              v77 = v258;
-              goto LABEL_201;
+              ++v254;
+              sub_100012128("%s:%d: %s cab %d @ %lld cab_cib_count %d invalid\n", "nx_check", 337, (v62[48] + 212), v242, v92, *(v122 + 36));
+              v89 = v89 + v232 - 1 + ~((v89 + v232 - 1) % v232);
+              v85 = v122;
+              v77 = v237;
+              goto LABEL_198;
             }
 
-            if (sub_100038020(v274) > v258)
+            if (sub_100038020(v253) > v237)
             {
-              ++v275;
-              v125 = (v62[48] + 212);
-              v126 = sub_100038020(v274);
-              sub_100012128("%s:%d: %s cab %d xid %lld > spaceman xid %lld\n", "nx_check", 344, v125, v263, v126, v258);
+              ++v254;
+              v124 = (v62[48] + 212);
+              v125 = sub_100038020(v253);
+              sub_100012128("%s:%d: %s cab %d xid %lld > spaceman xid %lld\n", "nx_check", 344, v124, v242, v125, v237);
             }
 
-            v85 = v123;
-            v127 = *(v123 + 32);
+            v85 = v122;
+            v126 = *(v122 + 32);
             v95 = v89 / v86;
-            if (v127 != v263)
+            if (v126 != v242)
             {
-              ++v275;
-              sub_100012128("%s:%d: %s cab %d index %d should be %d\n", "nx_check", 347, (v62[48] + 212), v263, v127, v263);
+              ++v254;
+              sub_100012128("%s:%d: %s cab %d index %d should be %d\n", "nx_check", 347, (v62[48] + 212), v242, v126, v242);
               v95 = v89 / v86;
             }
 
-            v128 = *(v123 + 36);
-            v77 = v258;
-            if (v128 != v86 && (*(v88 + 5) - 1 != v95 || v128 != *(v88 + 4) % v86))
+            v127 = *(v122 + 36);
+            v77 = v237;
+            if (v127 != v86 && (*(v88 + 5) - 1 != v95 || v127 != *(v88 + 4) % v86))
             {
-              ++v275;
-              v129 = v86;
+              ++v254;
+              v128 = v86;
               if (*(v88 + 5) - 1 == v95)
               {
-                v129 = *(v88 + 4) % v86;
+                v128 = *(v88 + 4) % v86;
               }
 
-              sub_100012128("%s:%d: %s cab %d cib count %d should be %d\n", "nx_check", 352, (v62[48] + 212), v95, v128, v129);
+              sub_100012128("%s:%d: %s cab %d cib count %d should be %d\n", "nx_check", 352, (v62[48] + 212), v95, v127, v128);
               v95 = v89 / v86;
             }
           }
@@ -4934,24 +4915,23 @@ LABEL_123:
             v95 = v90;
           }
 
-          v263 = v95;
+          v242 = v95;
           v94 = (v85 + 8 * (v89 - v95 * v86) + 40);
-          v93 = v277;
+          v93 = v256;
         }
 
         else
         {
-          v93 = v277;
-          v94 = (v277[v260 + 112] + 8 * v89);
-          v263 = v90;
+          v93 = v256;
+          v94 = (v256[v239 + 112] + 8 * v89);
+          v242 = v90;
         }
 
         v96 = *v94;
-        v97 = sub_100046824(v62, v93, *v94, v270);
+        v97 = sub_100046824(v62, v93, *v94, v249);
         if (v97)
         {
-          ++v275;
-          v231 = v62[48] + 212;
+          ++v254;
           if (v97 == 2)
           {
             sub_100012128("%s:%d: %s spaceman chunk info block %lld addr %lld not within IP block range\n");
@@ -4963,22 +4943,22 @@ LABEL_123:
           }
         }
 
-        if (!sub_10003A1E8(v62[49], 0x40000000, v96, &xmmword_10006A950, 0, 0, 0, 0, &v273))
+        if (!sub_10003A1E8(v62[49], 0x40000000uLL, v96, &xmmword_10006A950, 0, 0, 0, 0, &v252))
         {
-          v259 = v85;
-          if (sub_100038020(v273) > v77)
+          v238 = v85;
+          if (sub_100038020(v252) > v77)
           {
-            ++v275;
+            ++v254;
             v98 = (v62[48] + 212);
-            v99 = sub_100038020(v273);
+            v99 = sub_100038020(v252);
             sub_100012128("%s:%d: %s cib %lld xid %lld > spaceman xid %lld\n", "nx_check", 374, v98, v89, v99, v77);
           }
 
-          v100 = v273[7];
+          v100 = v252[7];
           v101 = *(v100 + 32);
           if (v89 != v101)
           {
-            ++v275;
+            ++v254;
             sub_100012128("%s:%d: %s cib %lld index %d should be %lld\n", "nx_check", 378, (v62[48] + 212), v89, v101, v89);
           }
 
@@ -4986,13 +4966,13 @@ LABEL_123:
           v103 = v13;
           if (v102 != v13)
           {
-            if (v89 != *(v88 + 4) - 1 || (v103 = *(v100 + 36), v88[1] % v256 != v102))
+            if (v89 != *(v88 + 4) - 1 || (v103 = *(v100 + 36), v88[1] % v235 != v102))
             {
-              ++v275;
-              v104 = v256;
+              ++v254;
+              v104 = v235;
               if (v89 == *(v88 + 4) - 1)
               {
-                v104 = v88[1] % v256;
+                v104 = v88[1] % v235;
               }
 
               sub_100012128("%s:%d: %s cib %lld chunk info count %d should be %lld\n", "nx_check", 383, (v62[48] + 212), v89, v102, v104);
@@ -5001,7 +4981,7 @@ LABEL_123:
 
             if (v103 > v13)
             {
-              ++v275;
+              ++v254;
               sub_100012128("%s:%d: %s cib %lld cib_chunk_info_count %d invalid\n", "nx_check", 387, (v62[48] + 212), v96, v103);
               v103 = *(v100 + 36);
             }
@@ -5019,914 +4999,893 @@ LABEL_123:
 
           if (!v105)
           {
-LABEL_200:
-            sub_100037058(v273);
-            v62 = v268;
-            v86 = v257;
-            v77 = v258;
-            v85 = v259;
-            goto LABEL_201;
+LABEL_197:
+            sub_100037058(v252);
+            v62 = v247;
+            v86 = v236;
+            v77 = v237;
+            v85 = v238;
+            goto LABEL_198;
           }
 
           v106 = 0;
-          v107 = v17 * v256 * v89;
+          v107 = v17 * v235 * v89;
           v108 = (v100 + 64);
           while (2)
           {
             v109 = *(v108 - 3);
-            if (v109 > sub_100038020(v273))
+            if (v109 > sub_100038020(v252))
             {
-              ++v275;
-              v110 = (*(v268 + 384) + 212);
+              ++v254;
+              v110 = (v247[48] + 212);
               v111 = *(v108 - 3);
-              v112 = sub_100038020(v273);
+              v112 = sub_100038020(v252);
               sub_100012128("%s:%d: %s cib %lld chunk info %d xid %lld > cib xid %lld\n", "nx_check", 392, v110, v89, v106, v111, v112);
             }
 
             v113 = *(v108 - 2);
             if (v107 != v113)
             {
-              ++v275;
-              sub_100012128("%s:%d: %s cib %lld chunk info %d addr %lld should be %lld\n", "nx_check", 396, (*(v268 + 384) + 212), v89, v106, v113, v107);
+              ++v254;
+              sub_100012128("%s:%d: %s cib %lld chunk info %d addr %lld should be %lld\n", "nx_check", 396, (v247[48] + 212), v89, v106, v113, v107);
             }
 
             v114 = *(v108 - 1) & 0xFFFFF;
-            if (v114 == v17 || v89 == *(v88 + 4) - 1 && v106 == *(v100 + 36) - 1 && *v88 % v17 == v114)
+            if (v114 != v17 && (v89 != *(v88 + 4) - 1 || v106 != *(v100 + 36) - 1 || *v88 % v17 != v114))
             {
-              if ((*(v108 - 1) & 0xFFFFFu) > v114)
-              {
-                ++v275;
-                sub_100012128("%s:%d: %s cib %lld chunk info %d free count %d > chunk block count %d\n", "nx_check", 407, (*(v268 + 384) + 212), v89, v106, *(v108 - 1) & 0xFFFFF, *(v108 - 1) & 0xFFFFF);
-              }
-
-              if (*v108)
-              {
-                v115 = sub_100046824(v268, v277, *v108, v270);
-                if (v115)
-                {
-                  ++v275;
-                  v245 = *v108;
-                  v233 = *(v268 + 384) + 212;
-                  if (v115 == 2)
-                  {
-                    sub_100012128("%s:%d: %s cib %lld ci %d bm addr %lld not within IP block range\n");
-                  }
-
-                  else
-                  {
-                    sub_100012128("%s:%d: %s error getting IP block index for cib %lld ci %d bm addr %lld\n");
-                  }
-
-                  goto LABEL_194;
-                }
-
-                if (sub_10003A1E8(*(v268 + 392), 0x40000000, *v108, &xmmword_10006A960, 0, 0, 0, 0, &v272))
-                {
-                  ++v275;
-                  v247 = *v108;
-                  v235 = *(v268 + 384) + 212;
-                  sub_100012128("%s:%d: %s cib %lld chunk %d unable to get bitmap block @ %lld: %d\n");
-                  goto LABEL_194;
-                }
-
-                v117 = sub_10001C584(v272[7], 0, 0, *(v108 - 1) & 0xFFFFF);
-              }
-
-              else
-              {
-                ++v262;
-                v117 = *(v108 - 1) & 0xFFFFFLL;
-              }
-
-              v118 = *(v108 - 1) & 0xFFFFF;
-              if (v117 != v118)
-              {
-                ++v275;
-                sub_100012128("%s:%d: %s cib %lld ci %d free count %d doesn't match free bits in bitmap block %lld\n", "nx_check", 429, (*(v268 + 384) + 212), v89, v106, *(v108 - 1) & 0xFFFFF, v117);
-                v118 = *(v108 - 1) & 0xFFFFF;
-              }
-
-              v267 += v117;
-              v265 += v118;
-              v119 = *(v261 + 1248);
-              if (v119)
-              {
-                v120 = *(v261 + 1240);
-                v278[0] = 0xAAAAAAAAAAAAAAAALL;
-                v121 = sub_100011DE8(*(v108 - 2), *(v108 - 1) & 0xFFFFF, v120, v119, v278);
-                if (v121)
-                {
-                  if (*v108)
-                  {
-                    v121 = sub_10001C584(v272[7], 0, v278[0] - *(v108 - 2), v278[0] + v121 - *(v108 - 2));
-                  }
-
-                  v267 -= v121;
-                  v265 -= v121;
-                }
-              }
-
-              if (*v108)
-              {
-                sub_100037058(v272);
-              }
-            }
-
-            else
-            {
-              ++v275;
-              if (v89 == *(v88 + 4) - 1 && v106 == *(v100 + 36) - 1)
-              {
-                v116 = (*v88 % v17);
-              }
-
-              v246 = *(v108 - 1) & 0xFFFFF;
-              v234 = *(v268 + 384) + 212;
+              ++v254;
               sub_100012128("%s:%d: %s cib %lld chunk info %d block count %d should be %d\n");
+              goto LABEL_191;
             }
 
-LABEL_194:
-            ++v106;
-            LODWORD(v122) = *(v100 + 36);
-            if (v122 >= v13)
+            if ((*(v108 - 1) & 0xFFFFFu) > v114)
             {
-              v122 = v13;
+              ++v254;
+              sub_100012128("%s:%d: %s cib %lld chunk info %d free count %d > chunk block count %d\n", "nx_check", 407, (v247[48] + 212), v89, v106, *(v108 - 1) & 0xFFFFF, *(v108 - 1) & 0xFFFFF);
+            }
+
+            if (*v108)
+            {
+              v115 = sub_100046824(v247, v256, *v108, v249);
+              if (v115)
+              {
+                ++v254;
+                if (v115 == 2)
+                {
+                  sub_100012128("%s:%d: %s cib %lld ci %d bm addr %lld not within IP block range\n");
+                }
+
+                else
+                {
+                  sub_100012128("%s:%d: %s error getting IP block index for cib %lld ci %d bm addr %lld\n");
+                }
+
+                goto LABEL_191;
+              }
+
+              if (sub_10003A1E8(v247[49], 0x40000000uLL, *v108, &xmmword_10006A960, 0, 0, 0, 0, &v251))
+              {
+                ++v254;
+                sub_100012128("%s:%d: %s cib %lld chunk %d unable to get bitmap block @ %lld: %d\n");
+                goto LABEL_191;
+              }
+
+              v116 = sub_10001C584(v251[7], 0, 0, *(v108 - 1) & 0xFFFFF);
             }
 
             else
             {
-              v122 = v122;
+              ++v241;
+              v116 = *(v108 - 1) & 0xFFFFFLL;
+            }
+
+            v117 = *(v108 - 1) & 0xFFFFF;
+            if (v116 != v117)
+            {
+              ++v254;
+              sub_100012128("%s:%d: %s cib %lld ci %d free count %d doesn't match free bits in bitmap block %lld\n", "nx_check", 429, (v247[48] + 212), v89, v106, *(v108 - 1) & 0xFFFFF, v116);
+              v117 = *(v108 - 1) & 0xFFFFF;
+            }
+
+            v246 += v116;
+            v244 += v117;
+            v118 = *(v240 + 1248);
+            if (v118)
+            {
+              v119 = *(v240 + 1240);
+              v257[0] = 0xAAAAAAAAAAAAAAAALL;
+              v120 = sub_100011DE8(*(v108 - 2), *(v108 - 1) & 0xFFFFF, v119, v118, v257);
+              if (v120)
+              {
+                if (*v108)
+                {
+                  v120 = sub_10001C584(v251[7], 0, v257[0] - *(v108 - 2), v257[0] + v120 - *(v108 - 2));
+                }
+
+                v246 -= v120;
+                v244 -= v120;
+              }
+            }
+
+            if (*v108)
+            {
+              sub_100037058(v251);
+            }
+
+LABEL_191:
+            ++v106;
+            LODWORD(v121) = *(v100 + 36);
+            if (v121 >= v13)
+            {
+              v121 = v13;
+            }
+
+            else
+            {
+              v121 = v121;
             }
 
             v107 += v17;
             v108 += 4;
-            if (v106 >= v122)
+            if (v106 >= v121)
             {
-              goto LABEL_200;
+              goto LABEL_197;
             }
 
             continue;
           }
         }
 
-        ++v275;
-        v232 = v62[48] + 212;
+        ++v254;
         sub_100012128("%s:%d: %s unable to read cib %lld @ %lld: %d\n");
-LABEL_201:
+LABEL_198:
         ++v89;
-        v90 = v263;
+        v90 = v242;
         if (v89 >= *(v88 + 4))
         {
-          goto LABEL_216;
+          goto LABEL_213;
         }
       }
     }
 
-    v265 = 0;
-    v267 = 0;
-LABEL_216:
-    if (v274)
+    v244 = 0;
+    v246 = 0;
+LABEL_213:
+    if (v253)
     {
-      sub_100037058(v274);
-      v274 = 0;
+      sub_100037058(v253);
+      v253 = 0;
     }
 
-    v130 = v88[3];
-    v131 = v265;
-    if (v265 != v130)
+    v129 = v88[3];
+    v130 = v244;
+    if (v244 != v129)
     {
-      ++v275;
-      sub_100012128("%s:%d: %s spaceman free count %lld doesn't match free count in chunks %lld\n", "nx_check", 469, (v62[48] + 212), v130, v265);
-      v131 = v88[3];
+      ++v254;
+      sub_100012128("%s:%d: %s spaceman free count %lld doesn't match free count in chunks %lld\n", "nx_check", 469, (v62[48] + 212), v129, v244);
+      v130 = v88[3];
     }
 
-    if (v267 != v131)
+    if (v246 != v130)
     {
-      ++v275;
-      sub_100012128("%s:%d: %s spaceman free count %lld doesn't match free count in bitmap %lld\n", "nx_check", 472, (v62[48] + 212), v131, v267);
+      ++v254;
+      sub_100012128("%s:%d: %s spaceman free count %lld doesn't match free count in bitmap %lld\n", "nx_check", 472, (v62[48] + 212), v130, v246);
     }
 
     v87 = 0;
     v84 = 1;
   }
 
-  while ((v254 & 1) != 0);
-  if (v250 + v251 != v262 + v249)
+  while ((v233 & 1) != 0);
+  if (v229 + v230 != v241 + v228)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s spaceman IP free block count is wrong %lld != %lld\n", "nx_check", 477, (v62[48] + 212), v250 + v251, v262 + v249);
+    ++v254;
+    sub_100012128("%s:%d: %s spaceman IP free block count is wrong %lld != %lld\n", "nx_check", 477, (v62[48] + 212), v229 + v230, v241 + v228);
   }
 
-  v132 = v255;
-  v133 = v255[30];
-  v134 = v255[6];
-  if (v133 > v134)
+  v131 = v234;
+  v132 = v234[30];
+  v133 = v234[6];
+  if (v132 > v133)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s spaceman free queue count is too large: %lld > %lld\n", "nx_check", 482, (v62[48] + 212), v133, v134);
+    ++v254;
+    sub_100012128("%s:%d: %s spaceman free queue count is too large: %lld > %lld\n", "nx_check", 482, (v62[48] + 212), v132, v133);
   }
 
-  if (!v255[31])
+  if (!v234[31])
   {
-    goto LABEL_230;
+    goto LABEL_227;
   }
 
-  v135 = sub_10004464C(v62, v277, 1u, 0, 0, &v271[4]);
-  if (v135)
+  v134 = sub_10004464C(v62, v256, 1u, 0, 0, &v250[4]);
+  if (v134)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s unable to get spaceman free queue tree: %d\n", "nx_check", 490, (v62[48] + 212), v135);
-    goto LABEL_230;
+    ++v254;
+    sub_100012128("%s:%d: %s unable to get spaceman free queue tree: %d\n", "nx_check", 490, (v62[48] + 212), v134);
+    goto LABEL_227;
   }
 
-  if (v271[4])
+  if (v250[4])
   {
-    v146 = sub_10000DB3C(v271[4], 0, 0, 0);
-    if (v146)
+    v145 = sub_10000DB3C(v250[4], 0, 0, 0);
+    if (v145)
     {
-      v147 = v146;
-      ++v275;
-      sub_100012128("%s:%d: %s spaceman free queue tree sanity check failed: %d\n", "nx_check", 494, (v62[48] + 212), v146);
-      v270[1] = 0x1000000008;
+      v146 = v145;
+      ++v254;
+      sub_100012128("%s:%d: %s spaceman free queue tree sanity check failed: %d\n", "nx_check", 494, (v62[48] + 212), v145);
+      v249[1] = 0x1000000008;
     }
 
     else
     {
-      v270[1] = 0x1000000008;
-      v147 = sub_100025198(v271[4], 0, &v271[1], &v270[1] + 1, &v271[3], &v270[1]);
+      v249[1] = 0x1000000008;
+      v146 = sub_100025198(v250[4], 0, &v250[1], &v249[1] + 1, &v250[3], &v249[1]);
     }
 
-    v136 = 0;
+    v135 = 0;
+    v179 = 0;
     v180 = 0;
-    v181 = 0;
-    while (!v147)
+    while (!v146)
     {
-      if (LODWORD(v270[1]))
+      if (LODWORD(v249[1]))
       {
-        v182 = v271[3];
+        v181 = v250[3];
       }
 
       else
       {
-        v271[3] = 1;
-        v182 = 1;
+        v250[3] = 1;
+        v181 = 1;
       }
 
-      v183 = v271[1];
-      if (v271[1] > v258)
+      v182 = v250[1];
+      if (v250[1] > v237)
       {
-        ++v275;
-        sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld xid larger than spaceman xid %lld\n", "nx_check", 507, (*(v268 + 384) + 212), v271[1], v271[2], v258);
-        v183 = v271[1];
+        ++v254;
+        sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld xid larger than spaceman xid %lld\n", "nx_check", 507, (v247[48] + 212), v250[1], v250[2], v237);
+        v182 = v250[1];
       }
 
-      if (v183 >= v181)
+      if (v182 >= v180)
       {
-        if (v183 == v181)
+        if (v182 == v180)
         {
-          v184 = v271[2];
-          if (v271[2] < v180)
+          v183 = v250[2];
+          if (v250[2] < v179)
           {
-            ++v275;
-            sub_100012128("%s:%d: %s spaceman free queue tree entries out of order: addr %lld < %lld\n", "nx_check", 515, (*(v268 + 384) + 212), v271[2], v180);
-            v184 = v271[2];
+            ++v254;
+            sub_100012128("%s:%d: %s spaceman free queue tree entries out of order: addr %lld < %lld\n", "nx_check", 515, (v247[48] + 212), v250[2], v179);
+            v183 = v250[2];
           }
 
-          v180 = v271[3] + v184;
-          goto LABEL_337;
+          v179 = v250[3] + v183;
+          goto LABEL_334;
         }
       }
 
       else
       {
-        ++v275;
-        sub_100012128("%s:%d: %s spaceman free queue tree entries out of order: xid %lld < %lld\n", "nx_check", 510, (*(v268 + 384) + 212), v183, v181);
-        v183 = v271[1];
+        ++v254;
+        sub_100012128("%s:%d: %s spaceman free queue tree entries out of order: xid %lld < %lld\n", "nx_check", 510, (v247[48] + 212), v182, v180);
+        v182 = v250[1];
       }
 
-      v180 = 0;
-      v184 = v271[2];
-      v181 = v183;
-LABEL_337:
-      if (v184 < 1 || (v185 = *v252, v184 >= *v252))
+      v179 = 0;
+      v183 = v250[2];
+      v180 = v182;
+LABEL_334:
+      if (v183 < 1 || (v184 = *v231, v183 >= *v231))
       {
-        ++v275;
-        sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld %lld addr is bad\n", "nx_check", 524, (*(v268 + 384) + 212), v271[1], v184, v271[3]);
-        v185 = *v252;
-        v184 = v271[2];
+        ++v254;
+        sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld %lld addr is bad\n", "nx_check", 524, (v247[48] + 212), v250[1], v183, v250[3]);
+        v184 = *v231;
+        v183 = v250[2];
       }
 
-      v73 = v185 > v271[3];
-      v186 = v185 - v271[3];
-      if (!v73 || v184 > v186)
+      v73 = v184 > v250[3];
+      v185 = v184 - v250[3];
+      if (!v73 || v183 > v185)
       {
-        ++v275;
-        sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld %lld range is bad\n", "nx_check", 527, (*(v268 + 384) + 212), v271[1], v184, v271[3]);
+        ++v254;
+        sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld %lld range is bad\n", "nx_check", 527, (v247[48] + 212), v250[1], v183, v250[3]);
       }
 
-      v136 += v182;
-      LODWORD(v270[1]) = 8;
-      v147 = sub_100025428(v271[4], 0, &v271[1], &v270[1] + 1, HIDWORD(v270[1]), &v271[3], &v270[1], 4u, 0, 0);
+      v135 += v181;
+      LODWORD(v249[1]) = 8;
+      v146 = sub_100025428(v250[4], 0, &v250[1], &v249[1] + 1, HIDWORD(v249[1]), &v250[3], &v249[1], 4, 0, 0);
     }
 
-    v62 = v268;
-    if (v147 != 2)
+    v62 = v247;
+    if (v146 != 2)
     {
-      ++v275;
-      sub_100012128("%s:%d: %s spaceman free queue tree iteration aborted with error %d\n", "nx_check", 534, (*(v268 + 384) + 212), v147);
+      ++v254;
+      sub_100012128("%s:%d: %s spaceman free queue tree iteration aborted with error %d\n", "nx_check", 534, (v247[48] + 212), v146);
     }
 
-    sub_100037058(v271[4]);
-    v77 = v258;
-    v132 = v255;
+    sub_100037058(v250[4]);
+    v77 = v237;
+    v131 = v234;
   }
 
   else
   {
-LABEL_230:
-    v136 = 0;
+LABEL_227:
+    v135 = 0;
   }
 
-  v137 = v132[30];
-  if (v136 != v137)
+  v136 = v131[30];
+  if (v135 != v136)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s spaceman free queue count %lld doesn't match count in the free queue: %lld\n", "nx_check", 540, (v62[48] + 212), v137, v136);
+    ++v254;
+    sub_100012128("%s:%d: %s spaceman free queue count %lld doesn't match count in the free queue: %lld\n", "nx_check", 540, (v62[48] + 212), v136, v135);
   }
 
-  v138 = v132[35];
-  v139 = v132[12];
-  if (v138 > v139)
+  v137 = v131[35];
+  v138 = v131[12];
+  if (v137 > v138)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s spaceman free queue count is too large: %lld > %lld\n", "nx_check", 544, (v62[48] + 212), v138, v139);
+    ++v254;
+    sub_100012128("%s:%d: %s spaceman free queue count is too large: %lld > %lld\n", "nx_check", 544, (v62[48] + 212), v137, v138);
   }
 
-  if (!v132[36])
+  if (!v131[36])
   {
-    goto LABEL_238;
+    goto LABEL_235;
   }
 
-  v140 = sub_10004464C(v62, v277, 2u, 0, 0, &v271[4]);
-  if (v140)
+  v139 = sub_10004464C(v62, v256, 2u, 0, 0, &v250[4]);
+  if (v139)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s unable to get spaceman free queue tree: %d\n", "nx_check", 552, (v62[48] + 212), v140);
-LABEL_238:
-    v141 = 0;
-    goto LABEL_239;
+    ++v254;
+    sub_100012128("%s:%d: %s unable to get spaceman free queue tree: %d\n", "nx_check", 552, (v62[48] + 212), v139);
+LABEL_235:
+    v140 = 0;
+    goto LABEL_236;
   }
 
-  if (!v271[4])
+  if (!v250[4])
   {
-    goto LABEL_238;
+    goto LABEL_235;
   }
 
-  v148 = sub_10000DB3C(v271[4], 0, 0, 0);
-  if (v148)
+  v147 = sub_10000DB3C(v250[4], 0, 0, 0);
+  if (v147)
   {
-    v149 = v148;
-    ++v275;
-    sub_100012128("%s:%d: %s spaceman free queue tree sanity check failed: %d\n", "nx_check", 556, (v62[48] + 212), v148);
-    v270[1] = 0x1000000008;
+    v148 = v147;
+    ++v254;
+    sub_100012128("%s:%d: %s spaceman free queue tree sanity check failed: %d\n", "nx_check", 556, (v62[48] + 212), v147);
+    v249[1] = 0x1000000008;
   }
 
   else
   {
-    v270[1] = 0x1000000008;
-    v149 = sub_100025198(v271[4], 0, &v271[1], &v270[1] + 1, &v271[3], &v270[1]);
+    v249[1] = 0x1000000008;
+    v148 = sub_100025198(v250[4], 0, &v250[1], &v249[1] + 1, &v250[3], &v249[1]);
   }
 
-  v141 = 0;
+  v140 = 0;
+  v186 = 0;
   v187 = 0;
-  v188 = 0;
-  while (!v149)
+  while (!v148)
   {
-    if (LODWORD(v270[1]))
+    if (LODWORD(v249[1]))
     {
-      v189 = v271[3];
+      v188 = v250[3];
     }
 
     else
     {
-      v271[3] = 1;
-      v189 = 1;
+      v250[3] = 1;
+      v188 = 1;
     }
 
-    v190 = v271[1];
-    if (v271[1] > v77)
+    v189 = v250[1];
+    if (v250[1] > v77)
     {
-      ++v275;
-      sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld xid larger than spaceman xid %lld\n", "nx_check", 569, (*(v268 + 384) + 212), v271[1], v271[2], v77);
-      v190 = v271[1];
+      ++v254;
+      sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld xid larger than spaceman xid %lld\n", "nx_check", 569, (v247[48] + 212), v250[1], v250[2], v77);
+      v189 = v250[1];
     }
 
-    if (v190 >= v188)
+    if (v189 >= v187)
     {
-      if (v190 == v188)
+      if (v189 == v187)
       {
-        v191 = v271[2];
-        if (v271[2] < v187)
+        v190 = v250[2];
+        if (v250[2] < v186)
         {
-          ++v275;
-          sub_100012128("%s:%d: %s spaceman free queue tree entries out of order: addr %lld < %lld\n", "nx_check", 577, (*(v268 + 384) + 212), v271[2], v187);
-          v191 = v271[2];
+          ++v254;
+          sub_100012128("%s:%d: %s spaceman free queue tree entries out of order: addr %lld < %lld\n", "nx_check", 577, (v247[48] + 212), v250[2], v186);
+          v190 = v250[2];
         }
 
-        v187 = v271[3] + v191;
-        goto LABEL_362;
+        v186 = v250[3] + v190;
+        goto LABEL_359;
       }
     }
 
     else
     {
-      ++v275;
-      sub_100012128("%s:%d: %s spaceman free queue tree entries out of order: xid %lld < %lld\n", "nx_check", 572, (*(v268 + 384) + 212), v190, v188);
-      v190 = v271[1];
+      ++v254;
+      sub_100012128("%s:%d: %s spaceman free queue tree entries out of order: xid %lld < %lld\n", "nx_check", 572, (v247[48] + 212), v189, v187);
+      v189 = v250[1];
     }
 
-    v187 = 0;
-    v191 = v271[2];
-    v188 = v190;
-LABEL_362:
-    if (v191 < 1 || (v192 = v255[12], v191 >= v192))
+    v186 = 0;
+    v190 = v250[2];
+    v187 = v189;
+LABEL_359:
+    if (v190 < 1 || (v191 = v234[12], v190 >= v191))
     {
-      ++v275;
-      sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld %lld addr is bad\n", "nx_check", 587, (*(v268 + 384) + 212), v271[1], v191, v271[3]);
-      v192 = v255[12];
+      ++v254;
+      sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld %lld addr is bad\n", "nx_check", 587, (v247[48] + 212), v250[1], v190, v250[3]);
+      v191 = v234[12];
     }
 
-    v73 = v192 > v271[3];
-    v193 = v192 - v271[3];
-    if (!v73 || v191 > v193)
+    v73 = v191 > v250[3];
+    v192 = v191 - v250[3];
+    if (!v73 || v190 > v192)
     {
-      ++v275;
-      sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld %lld range is bad\n", "nx_check", 590, (*(v268 + 384) + 212), v271[1], v271[2], v271[3]);
+      ++v254;
+      sub_100012128("%s:%d: %s spaceman free queue tree entry %lld:%lld %lld range is bad\n", "nx_check", 590, (v247[48] + 212), v250[1], v250[2], v250[3]);
     }
 
-    v141 += v189;
-    LODWORD(v270[1]) = 8;
-    v149 = sub_100025428(v271[4], 0, &v271[1], &v270[1] + 1, HIDWORD(v270[1]), &v271[3], &v270[1], 4u, 0, 0);
-    v77 = v258;
+    v140 += v188;
+    LODWORD(v249[1]) = 8;
+    v148 = sub_100025428(v250[4], 0, &v250[1], &v249[1] + 1, HIDWORD(v249[1]), &v250[3], &v249[1], 4, 0, 0);
+    v77 = v237;
   }
 
-  v62 = v268;
-  if (v149 != 2)
+  v62 = v247;
+  if (v148 != 2)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s spaceman free queue tree iteration aborted with error %d\n", "nx_check", 597, (*(v268 + 384) + 212), v149);
+    ++v254;
+    sub_100012128("%s:%d: %s spaceman free queue tree iteration aborted with error %d\n", "nx_check", 597, (v247[48] + 212), v148);
   }
 
-  sub_100037058(v271[4]);
-  v132 = v255;
-LABEL_239:
-  v142 = v132[35];
-  if (v141 != v142)
+  sub_100037058(v250[4]);
+  v131 = v234;
+LABEL_236:
+  v141 = v131[35];
+  if (v140 != v141)
   {
-    ++v275;
-    sub_100012128("%s:%d: %s spaceman free queue count %lld doesn't match count in the free queue: %lld\n", "nx_check", 603, (v62[48] + 212), v142, v141);
+    ++v254;
+    sub_100012128("%s:%d: %s spaceman free queue count %lld doesn't match count in the free queue: %lld\n", "nx_check", 603, (v62[48] + 212), v141, v140);
   }
 
-  if (*(v261 + 168))
+  if (*(v240 + 168))
   {
-    v143 = sub_10000EDC8(v62, &v276);
-    if (v143)
+    v142 = sub_10000EDC8(v62, &v255);
+    if (v142)
     {
-      v6 = v143;
-      v236 = v62[48] + 212;
+      v6 = v142;
       sub_100012178("%s:%d: %s unable to get reaper: %d\n");
-      goto LABEL_383;
+      goto LABEL_380;
     }
 
-    v150 = v276[47];
-    v151 = *(v150 + 32);
-    if (*(v150 + 40) >= v151)
+    v149 = v255[47];
+    v150 = *(v149 + 32);
+    if (*(v149 + 40) >= v150)
     {
-      sub_100012128("%s:%d: %s reaper completed ID 0x%llx not less than next reap ID 0x%llx\n", "nx_check_reaper", 940, (v62[48] + 212), *(v150 + 40), v151);
-      v152 = 1;
+      sub_100012128("%s:%d: %s reaper completed ID 0x%llx not less than next reap ID 0x%llx\n", "nx_check_reaper", 940, (v62[48] + 212), *(v149 + 40), v150);
+      v151 = 1;
     }
 
     else
     {
-      v152 = 0;
+      v151 = 0;
     }
 
-    v153 = *(v150 + 64);
-    if ((v153 & 1) == 0)
+    v152 = *(v149 + 64);
+    if ((v152 & 1) == 0)
     {
-      ++v152;
-      sub_100012128("%s:%d: %s reaper needs more cowbell, flags 0x%x\n", "nx_check_reaper", 943, (v62[48] + 212), v153);
+      ++v151;
+      sub_100012128("%s:%d: %s reaper needs more cowbell, flags 0x%x\n", "nx_check_reaper", 943, (v62[48] + 212), v152);
     }
 
-    v154 = *(v150 + 48);
-    if (!v154)
+    v153 = *(v149 + 48);
+    if (!v153)
     {
-      if (!*(v150 + 56) || (++v152, sub_100012128("%s:%d: %s reaper has tail with no head\n", "nx_check_reaper", 947, (v62[48] + 212)), (v154 = *(v150 + 48)) == 0))
+      if (!*(v149 + 56) || (++v151, sub_100012128("%s:%d: %s reaper has tail with no head\n", "nx_check_reaper", 947, (v62[48] + 212)), (v153 = *(v149 + 48)) == 0))
       {
-LABEL_375:
-        v275 += v152;
-        sub_100037058(v276);
-        v77 = v258;
-        goto LABEL_376;
+LABEL_372:
+        v254 += v151;
+        sub_100037058(v255);
+        v77 = v237;
+        goto LABEL_373;
       }
     }
 
-    v278[0] = 0xAAAAAAAAAAAAAAAALL;
-    v155 = *(v150 + 68);
+    v257[0] = 0xAAAAAAAAAAAAAAAALL;
+    v154 = *(v149 + 68);
     while (1)
     {
-      v156 = sub_10003A1E8(v62[49], 0x80000000, v154, &xmmword_10006A7D0, 0, 0, 0, 0, v278);
-      if (v156)
+      v155 = sub_10003A1E8(v62[49], 0x80000000uLL, v153, &xmmword_10006A7D0, 0, 0, 0, 0, v257);
+      if (v155)
       {
-        v6 = v156;
-        sub_100012178("%s:%d: %s failed to get reap list head: %d\n", "nx_check_reaper", 956, (v62[48] + 212), v156);
-        sub_100037058(v276);
-        v237 = v62[48] + 212;
+        v6 = v155;
+        sub_100012178("%s:%d: %s failed to get reap list head: %d\n", "nx_check_reaper", 956, (v62[48] + 212), v155);
+        sub_100037058(v255);
         sub_100012178("%s:%d: %s reaper check failed with error: %d\n");
-        goto LABEL_383;
+        goto LABEL_380;
       }
 
-      v157 = v278[0][47];
-      v158 = *(v157 + 44);
-      if (v158 != ((sub_10003835C(v278[0]) - 64) / 0x28))
+      v156 = v257[0][47];
+      v157 = *(v156 + 44);
+      if (v157 != ((sub_10003835C(v257[0]) - 64) / 0x28))
       {
-        ++v152;
-        v159 = (v62[48] + 212);
-        v160 = *(v157 + 44);
-        v161 = sub_10003835C(v278[0]);
-        sub_100012128("%s:%d: %s reap list object 0x%llx max record count %u not expected value %u\n", "nx_check_reaper", 963, v159, v154, v160, (v161 - 64) / 0x28);
+        ++v151;
+        v158 = (v62[48] + 212);
+        v159 = *(v156 + 44);
+        v160 = sub_10003835C(v257[0]);
+        sub_100012128("%s:%d: %s reap list object 0x%llx max record count %u not expected value %u\n", "nx_check_reaper", 963, v158, v153, v159, (v160 - 64) / 0x28);
       }
 
-      v162 = *(v157 + 44);
-      if (*(v157 + 48) <= v162)
+      v161 = *(v156 + 44);
+      if (*(v156 + 48) <= v161)
       {
-        v62 = v268;
-      }
-
-      else
-      {
-        ++v152;
-        v62 = v268;
-        sub_100012128("%s:%d: %s reap list object 0x%llx record count %d larger than max %d\n", "nx_check_reaper", 966, (*(v268 + 384) + 212), v154, *(v157 + 48), v162);
-      }
-
-      v163 = *(v157 + 52);
-      if (v163 != -1)
-      {
-        v164 = *(v157 + 44);
-        if (v163 > v164)
-        {
-          ++v152;
-          sub_100012128("%s:%d: %s reap list object 0x%llx first index %u larger than max %u\n", "nx_check_reaper", 969, (v62[48] + 212), v154, *(v157 + 52), v164);
-        }
-      }
-
-      v165 = *(v157 + 56);
-      if (v165 != -1)
-      {
-        v166 = *(v157 + 44);
-        if (v165 > v166)
-        {
-          ++v152;
-          sub_100012128("%s:%d: %s reap list object 0x%llx last index %u larger than max %u\n", "nx_check_reaper", 972, (v62[48] + 212), v154, *(v157 + 52), v166);
-        }
-      }
-
-      v167 = *(v157 + 60);
-      if (v167 != -1)
-      {
-        v168 = *(v157 + 44);
-        if (v167 > v168)
-        {
-          ++v152;
-          sub_100012128("%s:%d: %s reap list object 0x%llx free index %u larger than max %u\n", "nx_check_reaper", 975, (v62[48] + 212), v154, *(v157 + 60), v168);
-        }
-      }
-
-      v169 = *(v157 + 32);
-      v170 = *(v150 + 56);
-      if (!v169)
-      {
-        if (v170 == v154)
-        {
-          goto LABEL_283;
-        }
-
-        ++v152;
-        sub_100012128("%s:%d: %s last reap list object 0x%llx doesn't match tail 0x%llx\n", "nx_check_reaper", 984, (v62[48] + 212), v154, v170);
-        v170 = *(v150 + 56);
-        v169 = *(v157 + 32);
-      }
-
-      if (v170 == v154)
-      {
-        if (!v169)
-        {
-LABEL_283:
-          v154 = 0;
-          goto LABEL_284;
-        }
-
-        ++v152;
-        sub_100012128("%s:%d: %s reap list tail 0x%llx is not last reap list object, next 0x%llx\n", "nx_check_reaper", 987, (v62[48] + 212), v154, v169);
-        v154 = *(v157 + 32);
+        v62 = v247;
       }
 
       else
       {
-        v154 = v169;
+        ++v151;
+        v62 = v247;
+        sub_100012128("%s:%d: %s reap list object 0x%llx record count %d larger than max %d\n", "nx_check_reaper", 966, (v247[48] + 212), v153, *(v156 + 48), v161);
       }
 
-LABEL_284:
-      sub_100037058(v278[0]);
-      if (*(v150 + 68))
+      v162 = *(v156 + 52);
+      if (v162 != -1)
       {
-        --v155;
-        if (v154 && !v155)
+        v163 = *(v156 + 44);
+        if (v162 > v163)
         {
-          ++v152;
-          v240 = v62[48] + 212;
+          ++v151;
+          sub_100012128("%s:%d: %s reap list object 0x%llx first index %u larger than max %u\n", "nx_check_reaper", 969, (v62[48] + 212), v153, *(v156 + 52), v163);
+        }
+      }
+
+      v164 = *(v156 + 56);
+      if (v164 != -1)
+      {
+        v165 = *(v156 + 44);
+        if (v164 > v165)
+        {
+          ++v151;
+          sub_100012128("%s:%d: %s reap list object 0x%llx last index %u larger than max %u\n", "nx_check_reaper", 972, (v62[48] + 212), v153, *(v156 + 52), v165);
+        }
+      }
+
+      v166 = *(v156 + 60);
+      if (v166 != -1)
+      {
+        v167 = *(v156 + 44);
+        if (v166 > v167)
+        {
+          ++v151;
+          sub_100012128("%s:%d: %s reap list object 0x%llx free index %u larger than max %u\n", "nx_check_reaper", 975, (v62[48] + 212), v153, *(v156 + 60), v167);
+        }
+      }
+
+      v168 = *(v156 + 32);
+      v169 = *(v149 + 56);
+      if (!v168)
+      {
+        if (v169 == v153)
+        {
+          goto LABEL_280;
+        }
+
+        ++v151;
+        sub_100012128("%s:%d: %s last reap list object 0x%llx doesn't match tail 0x%llx\n", "nx_check_reaper", 984, (v62[48] + 212), v153, v169);
+        v169 = *(v149 + 56);
+        v168 = *(v156 + 32);
+      }
+
+      if (v169 == v153)
+      {
+        if (!v168)
+        {
+LABEL_280:
+          v153 = 0;
+          goto LABEL_281;
+        }
+
+        ++v151;
+        sub_100012128("%s:%d: %s reap list tail 0x%llx is not last reap list object, next 0x%llx\n", "nx_check_reaper", 987, (v62[48] + 212), v153, v168);
+        v153 = *(v156 + 32);
+      }
+
+      else
+      {
+        v153 = v168;
+      }
+
+LABEL_281:
+      sub_100037058(v257[0]);
+      if (*(v149 + 68))
+      {
+        --v154;
+        if (v153 && !v154)
+        {
+          ++v151;
           sub_100012128("%s:%d: %s reap list expected %u objects, but haven't seen last reap list object yet\n");
-          goto LABEL_375;
+          goto LABEL_372;
         }
 
-        if (!v154 && v155)
+        if (!v153 && v154)
         {
-          ++v152;
-          v244 = *(v150 + 68);
-          v241 = v62[48] + 212;
+          ++v151;
           sub_100012128("%s:%d: %s reap list expected %u objects, but got last reap list object with %u more objects left\n");
-          goto LABEL_375;
+          goto LABEL_372;
         }
       }
 
-      if (!v154)
+      if (!v153)
       {
-        goto LABEL_375;
+        goto LABEL_372;
       }
     }
   }
 
-LABEL_376:
-  v194 = *(v261 + 160);
-  if (v194)
+LABEL_373:
+  v193 = *(v240 + 160);
+  if (v193)
   {
-    v195 = sub_10003A1E8(v62[49], 0x40000000, v194, &xmmword_10006A8D8, 0, 0, 0, 0, v271);
-    if (v195)
+    v194 = sub_10003A1E8(v62[49], 0x40000000uLL, v193, &xmmword_10006A8D8, 0, 0, 0, 0, v250);
+    if (v194)
     {
-      v6 = v195;
-      v242 = v62[48] + 212;
+      v6 = v194;
       sub_100012178("%s:%d: %s unable to get omap: %d\n");
-LABEL_383:
-      sub_100037058(v277);
+LABEL_380:
+      sub_100037058(v256);
       return v6;
     }
 
-    if (sub_100038020(v271[0]) > v77)
+    if (sub_100038020(v250[0]) > v77)
     {
-      ++v275;
-      v196 = (v62[48] + 212);
-      v197 = sub_100038020(v271[0]);
-      sub_100012128("%s:%d: %s omap xid %lld > spaceman xid %lld\n", "nx_check", 633, v196, v197, v77);
+      ++v254;
+      v195 = (v62[48] + 212);
+      v196 = sub_100038020(v250[0]);
+      sub_100012128("%s:%d: %s omap xid %lld > spaceman xid %lld\n", "nx_check", 633, v195, v196, v77);
     }
 
-    v6 = sub_100008824(v62, v271[0], v77, &v275);
-    sub_100037058(v271[0]);
+    v6 = sub_100008824(v62, v250[0], v77, &v254);
+    sub_100037058(v250[0]);
     if (v6)
     {
-      v243 = v62[48] + 212;
       sub_100012178("%s:%d: %s omap check failed with error: %d\n");
-      goto LABEL_383;
+      goto LABEL_380;
     }
   }
 
-  v278[0] = 0xAAAAAAAAAAAAAAAALL;
-  v269 = 0xAAAAAAAAAAAAAAAALL;
-  if (*(v261 + 180))
+  v257[0] = 0xAAAAAAAAAAAAAAAALL;
+  v248 = 0xAAAAAAAAAAAAAAAALL;
+  if (*(v240 + 180))
   {
-    for (j = 0; j < *(v261 + 180); ++j)
+    for (j = 0; j < *(v240 + 180); ++j)
     {
-      v199 = *(v261 + 184 + 8 * j);
-      if (v199)
+      v198 = *(v240 + 184 + 8 * j);
+      if (v198)
       {
-        v200 = sub_10003A1E8(*(v268 + 392), 0, v199, &xmmword_10006A8A8, 0, 0, 0, 0, v278);
-        if (v200)
+        v199 = sub_10003A1E8(v247[49], 0, v198, &xmmword_10006A8A8, 0, 0, 0, 0, v257);
+        if (v199)
         {
-          sub_100012178("%s:%d: %s unable to get fs[%d] oid %lld, %d\n", "nx_check", 654, (*(v268 + 384) + 212), j, v199, v200);
+          sub_100012178("%s:%d: %s unable to get fs[%d] oid %lld, %d\n", "nx_check", 654, (v247[48] + 212), j, v198, v199);
         }
 
         else
         {
-          v201 = v278[0];
-          v202 = v278[0][47];
-          v203 = *(v202 + 128);
-          if (!v203)
+          v200 = v257[0];
+          v201 = v257[0][47];
+          v202 = *(v201 + 128);
+          if (!v202)
           {
-            goto LABEL_395;
+            goto LABEL_392;
           }
 
-          v204 = sub_10003A1E8(*(v268 + 392), 0x40000000, v203, &xmmword_10006A8D8, 0, v278[0], 0, 0, v271);
-          if (v204)
+          v203 = sub_10003A1E8(v247[49], 0x40000000uLL, v202, &xmmword_10006A8D8, 0, v257[0], 0, 0, v250);
+          if (v203)
           {
-            sub_100012178("%s:%d: %s unable to get omap %lld: %d\n", "nx_check", 661, v278[0] + 4040, *(v278[0][47] + 128), v204);
-            goto LABEL_443;
+            sub_100012178("%s:%d: %s unable to get omap %lld: %d\n", "nx_check", 661, v257[0] + 4040, *(v257[0][47] + 128), v203);
+            goto LABEL_440;
           }
 
-          v205 = sub_100008824(v278[0], v271[0], v258, &v275);
-          sub_100037058(v271[0]);
-          v201 = v278[0];
-          if (!v205)
+          v204 = sub_100008824(v257[0], v250[0], v237, &v254);
+          sub_100037058(v250[0]);
+          v200 = v257[0];
+          if (!v204)
           {
-            v202 = v278[0][47];
-LABEL_395:
-            if (*(v202 + 136))
+            v201 = v257[0][47];
+LABEL_392:
+            if (*(v201 + 136))
             {
-              if (*(v202 + 264) & 1) != 0 || (v248)
+              if (*(v201 + 264) & 1) != 0 || (v227)
               {
-                v269 = 0;
-                v206 = sub_10002E504(v201, 0, 0, &v269);
-                if (v206)
+                v248 = 0;
+                v205 = sub_10002E504(v200, 0, 0, &v248);
+                if (v205)
                 {
-                  sub_100012178("%s:%d: %s unable to get fs root tree: %d\n", "nx_check", 680, v278[0] + 4040, v206);
+                  sub_100012178("%s:%d: %s unable to get fs root tree: %d\n", "nx_check", 680, v257[0] + 4040, v205);
                 }
 
                 else
                 {
-                  if (sub_100038020(v269) > v258)
+                  if (sub_100038020(v248) > v237)
                   {
-                    ++v275;
-                    v207 = (v278[0] + 505);
-                    v208 = sub_100038020(v269);
-                    sub_100012128("%s:%d: %s fs root tree xid %lld > spaceman xid %lld\n", "nx_check", 683, v207, v208, v258);
+                    ++v254;
+                    v206 = (v257[0] + 505);
+                    v207 = sub_100038020(v248);
+                    sub_100012128("%s:%d: %s fs root tree xid %lld > spaceman xid %lld\n", "nx_check", 683, v206, v207, v237);
                   }
 
-                  v209 = sub_10000DB3C(v269, 0, 0, 0);
-                  if (v209)
+                  v208 = sub_10000DB3C(v248, 0, 0, 0);
+                  if (v208)
                   {
-                    ++v275;
-                    sub_100012128("%s:%d: %s fs root tree sanity check failed: %d\n", "nx_check", 688, v278[0] + 4040, v209);
+                    ++v254;
+                    sub_100012128("%s:%d: %s fs root tree sanity check failed: %d\n", "nx_check", 688, v257[0] + 4040, v208);
                   }
                 }
 
-                if (v269)
+                if (v248)
                 {
-                  sub_100037058(v269);
+                  sub_100037058(v248);
                 }
               }
 
               else
               {
-                sub_100012178("%s:%d: %s skipping check of fs[%d] oid %lld fs root tree because it's encrypted\n", "nx_check", 675, v201 + 4040, j, v199);
+                sub_100012178("%s:%d: %s skipping check of fs[%d] oid %lld fs root tree because it's encrypted\n", "nx_check", 675, v200 + 4040, j, v198);
               }
             }
 
-            v210 = *(v278[0][47] + 144);
-            if (v210)
+            v209 = *(v257[0][47] + 144);
+            if (v209)
             {
-              v269 = 0;
-              v211 = sub_10002E52C(v278[0], v210, 0, &v269);
-              if (v211)
+              v248 = 0;
+              v210 = sub_10002E52C(v257[0], v209, 0, &v248);
+              if (v210)
               {
-                sub_100012178("%s:%d: %s unable to get fs extentref tree: %d\n", "nx_check", 700, v278[0] + 4040, v211);
+                sub_100012178("%s:%d: %s unable to get fs extentref tree: %d\n", "nx_check", 700, v257[0] + 4040, v210);
               }
 
               else
               {
-                if (sub_100038020(v269) > v258)
+                if (sub_100038020(v248) > v237)
                 {
-                  ++v275;
-                  v212 = (v278[0] + 505);
-                  v213 = sub_100038020(v269);
-                  sub_100012128("%s:%d: %s fs extentref tree xid %lld > spaceman xid %lld\n", "nx_check", 703, v212, v213, v258);
+                  ++v254;
+                  v211 = (v257[0] + 505);
+                  v212 = sub_100038020(v248);
+                  sub_100012128("%s:%d: %s fs extentref tree xid %lld > spaceman xid %lld\n", "nx_check", 703, v211, v212, v237);
                 }
 
-                v214 = sub_10000DB3C(v269, 0, 0, 0);
-                if (v214)
+                v213 = sub_10000DB3C(v248, 0, 0, 0);
+                if (v213)
                 {
-                  ++v275;
-                  sub_100012128("%s:%d: %s fs extentref tree sanity check failed: %d\n", "nx_check", 708, v278[0] + 4040, v214);
+                  ++v254;
+                  sub_100012128("%s:%d: %s fs extentref tree sanity check failed: %d\n", "nx_check", 708, v257[0] + 4040, v213);
                 }
               }
 
-              if (v269)
+              if (v248)
               {
-                sub_100037058(v269);
+                sub_100037058(v248);
               }
             }
 
-            if (*(v278[0][47] + 152))
+            if (*(v257[0][47] + 152))
             {
-              v269 = 0;
-              v215 = sub_10002E570(v278[0], 0, &v269);
-              if (v215)
+              v248 = 0;
+              v214 = sub_10002E570(v257[0], 0, &v248);
+              if (v214)
               {
-                sub_100012178("%s:%d: %s unable to get fs snap meta tree: %d\n", "nx_check", 719, v278[0] + 4040, v215);
+                sub_100012178("%s:%d: %s unable to get fs snap meta tree: %d\n", "nx_check", 719, v257[0] + 4040, v214);
               }
 
               else
               {
-                if (sub_100038020(v269) > v258)
+                if (sub_100038020(v248) > v237)
                 {
-                  ++v275;
-                  v216 = (v278[0] + 505);
-                  v217 = sub_100038020(v269);
-                  sub_100012128("%s:%d: %s fs snap meta tree xid %lld > spaceman xid %lld\n", "nx_check", 722, v216, v217, v258);
+                  ++v254;
+                  v215 = (v257[0] + 505);
+                  v216 = sub_100038020(v248);
+                  sub_100012128("%s:%d: %s fs snap meta tree xid %lld > spaceman xid %lld\n", "nx_check", 722, v215, v216, v237);
                 }
 
-                v218 = sub_10000DB3C(v269, 0, 0, 0);
-                if (v218)
+                v217 = sub_10000DB3C(v248, 0, 0, 0);
+                if (v217)
                 {
-                  ++v275;
-                  sub_100012128("%s:%d: %s fs snap meta tree sanity check failed: %d\n", "nx_check", 727, v278[0] + 4040, v218);
+                  ++v254;
+                  sub_100012128("%s:%d: %s fs snap meta tree sanity check failed: %d\n", "nx_check", 727, v257[0] + 4040, v217);
                 }
               }
 
-              if (v269)
+              if (v248)
               {
-                sub_100037058(v269);
+                sub_100037058(v248);
               }
             }
 
-            if (*(v278[0][47] + 1072))
+            if (*(v257[0][47] + 1072))
             {
-              v269 = 0;
-              v219 = sub_10002E638(v278[0], 0, 0, 0, &v269);
-              if (v219)
+              v248 = 0;
+              v218 = sub_10002E638(v257[0], 0, 0, 0, &v248);
+              if (v218)
               {
-                sub_100012178("%s:%d: %s unable to get doc-id tree: %d\n", "nx_check", 738, v278[0] + 4040, v219);
+                sub_100012178("%s:%d: %s unable to get doc-id tree: %d\n", "nx_check", 738, v257[0] + 4040, v218);
               }
 
               else
               {
-                if (sub_100038020(v269) > v258)
+                if (sub_100038020(v248) > v237)
                 {
-                  ++v275;
-                  v220 = (v278[0] + 505);
-                  v221 = sub_100038020(v269);
-                  sub_100012128("%s:%d: %s doc-id tree xid %lld > spaceman xid %lld\n", "nx_check", 741, v220, v221, v258);
+                  ++v254;
+                  v219 = (v257[0] + 505);
+                  v220 = sub_100038020(v248);
+                  sub_100012128("%s:%d: %s doc-id tree xid %lld > spaceman xid %lld\n", "nx_check", 741, v219, v220, v237);
                 }
 
-                v222 = sub_10000DB3C(v269, 0, 0, 0);
-                if (v222)
+                v221 = sub_10000DB3C(v248, 0, 0, 0);
+                if (v221)
                 {
-                  ++v275;
-                  sub_100012128("%s:%d: %s doc-id tree sanity check failed: %d\n", "nx_check", 746, v278[0] + 4040, v222);
+                  ++v254;
+                  sub_100012128("%s:%d: %s doc-id tree sanity check failed: %d\n", "nx_check", 746, v257[0] + 4040, v221);
                 }
               }
 
-              if (v269)
+              if (v248)
               {
-                sub_100037058(v269);
+                sub_100037058(v248);
               }
             }
 
-            if (*(v278[0][47] + 1080))
+            if (*(v257[0][47] + 1080))
             {
-              v269 = 0;
-              v223 = sub_10002E638(v278[0], 1, 0, 0, &v269);
-              if (v223)
+              v248 = 0;
+              v222 = sub_10002E638(v257[0], 1, 0, 0, &v248);
+              if (v222)
               {
-                sub_100012178("%s:%d: %s unable to get prev doc-id tree: %d\n", "nx_check", 757, v278[0] + 4040, v223);
+                sub_100012178("%s:%d: %s unable to get prev doc-id tree: %d\n", "nx_check", 757, v257[0] + 4040, v222);
               }
 
               else
               {
-                if (sub_100038020(v269) > v258)
+                if (sub_100038020(v248) > v237)
                 {
-                  ++v275;
-                  v224 = (v278[0] + 505);
-                  v225 = sub_100038020(v269);
-                  sub_100012128("%s:%d: %s prev doc-id tree xid %lld > spaceman xid %lld\n", "nx_check", 760, v224, v225, v258);
+                  ++v254;
+                  v223 = (v257[0] + 505);
+                  v224 = sub_100038020(v248);
+                  sub_100012128("%s:%d: %s prev doc-id tree xid %lld > spaceman xid %lld\n", "nx_check", 760, v223, v224, v237);
                 }
 
-                v226 = sub_10000DB3C(v269, 0, 0, 0);
-                if (v226)
+                v225 = sub_10000DB3C(v248, 0, 0, 0);
+                if (v225)
                 {
-                  ++v275;
-                  sub_100012128("%s:%d: %s prev doc-id tree sanity check failed: %d\n", "nx_check", 765, v278[0] + 4040, v226);
+                  ++v254;
+                  sub_100012128("%s:%d: %s prev doc-id tree sanity check failed: %d\n", "nx_check", 765, v257[0] + 4040, v225);
                 }
               }
 
-              if (v269)
+              if (v248)
               {
-                sub_100037058(v269);
+                sub_100037058(v248);
               }
             }
 
-LABEL_443:
-            sub_100037058(v278[0]);
+LABEL_440:
+            sub_100037058(v257[0]);
             continue;
           }
 
-          sub_100012178("%s:%d: %s omap check failed for omap %lld: %d\n", "nx_check", 668, v278[0] + 4040, *(v278[0][47] + 128), v205);
-          sub_100037058(v278[0]);
+          sub_100012178("%s:%d: %s omap check failed for omap %lld: %d\n", "nx_check", 668, v257[0] + 4040, *(v257[0][47] + 128), v204);
+          sub_100037058(v257[0]);
         }
       }
     }
   }
 
-  sub_100037058(v277);
-  if (v275)
+  sub_100037058(v256);
+  if (v254)
   {
     return 22;
   }
@@ -5937,57 +5896,57 @@ LABEL_443:
   }
 }
 
-uint64_t sub_100008824(uint64_t a1, uint64_t a2, unint64_t a3, _DWORD *a4)
+uint64_t sub_100008824(uint64_t *a1, uint64_t a2, unint64_t a3, _DWORD *a4)
 {
   v8 = a1;
   if (sub_100036630(a1) == 13)
   {
-    v8 = *(a1 + 392);
+    v8 = a1[49];
   }
 
-  v47 = 0xAAAAAAAAAAAAAAAALL;
+  v44 = 0xAAAAAAAAAAAAAAAALL;
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v46[2] = v9;
-  v46[3] = v9;
-  v46[0] = v9;
-  v46[1] = v9;
-  v10 = *(*(v8 + 376) + 36);
+  v43[2] = v9;
+  v43[3] = v9;
+  v43[0] = v9;
+  v43[1] = v9;
+  v10 = *(v8[47] + 36);
   if (*(*(a2 + 376) + 36) >= 0x400u)
   {
     if (sub_100036630(a1) == 13)
     {
-      v11 = (a1 + 4040);
+      v11 = (a1 + 505);
     }
 
     else
     {
-      v11 = (*(a1 + 384) + 212);
+      v11 = (a1[48] + 212);
     }
 
     sub_100012128("%s:%d: %s omap snapshot count %d seems excessive\n", "nx_check_omap", 802, v11, *(*(a2 + 376) + 36));
   }
 
-  v48 = 0xAAAAAAAAAAAAAAAALL;
+  v45 = 0xAAAAAAAAAAAAAAAALL;
   v12 = *(a2 + 376);
   v13 = *(v12 + 40);
   if (v13 == 1073741826 || v13 == -2147483646)
   {
     v15 = *(v12 + 48);
-    v50 = 0u;
-    v55 = 0;
-    v54 = 0u;
-    v53 = 0u;
-    v52 = 0u;
+    v47 = 0u;
+    v52 = 0;
     v51 = 0u;
-    v49 = sub_10003DE40;
-    DWORD2(v50) = 11;
+    v50 = 0u;
+    v49 = 0u;
+    v48 = 0u;
+    v46 = sub_10003DE40;
+    DWORD2(v47) = 11;
     if (v13 == 2)
     {
-      v16 = sub_100026D00(a1, v13 & 0xFFFF0000, v15, 0, 0, &v49, 0, &v48);
+      v16 = sub_100026D00(a1, v13 & 0xFFFF0000, v15, 0, 0, &v46, 0, &v45);
       if (!v16)
       {
-        if (sub_100038020(v48) <= a3)
+        if (sub_100038020(v45) <= a3)
         {
           v22 = 0;
         }
@@ -5996,120 +5955,120 @@ uint64_t sub_100008824(uint64_t a1, uint64_t a2, unint64_t a3, _DWORD *a4)
         {
           if (sub_100036630(a1) == 13)
           {
-            v17 = (a1 + 4040);
+            v17 = (a1 + 505);
           }
 
           else
           {
-            v17 = (*(a1 + 384) + 212);
+            v17 = (a1[48] + 212);
           }
 
-          v23 = sub_100038020(v48);
+          v23 = sub_100038020(v45);
           sub_100012128("%s:%d: %s omap tree xid %lld > spaceman xid %lld\n", "nx_check_omap", 817, v17, v23, a3);
           v22 = 1;
         }
 
-        v24 = sub_10000DB3C(v48, 0, 0, 0);
+        v24 = sub_10000DB3C(v45, 0, 0, 0);
         if (v24)
         {
           v25 = v24;
           ++v22;
           if (sub_100036630(a1) == 13)
           {
-            v26 = (a1 + 4040);
+            v26 = (a1 + 505);
           }
 
           else
           {
-            v26 = (*(a1 + 384) + 212);
+            v26 = (a1[48] + 212);
           }
 
           sub_100012128("%s:%d: %s omap tree sanity check failed: %d\n", "nx_check_omap", 822, v26, v25);
           goto LABEL_83;
         }
 
-        v44 = 0xAAAAAAAAAAAAAAAALL;
-        v45 = 0xAAAAAAAAAAAAAAAALL;
-        v49 = 0;
-        *&v50 = 0;
-        sub_100025DA4(v46, v48, 0, 0, &v49, 16, 0x10u, &v44, 0x10u, 0);
-        if (sub_100025F1C(v46))
+        v41 = 0xAAAAAAAAAAAAAAAALL;
+        v42 = 0xAAAAAAAAAAAAAAAALL;
+        v46 = 0;
+        *&v47 = 0;
+        sub_100025DA4(v43, v45, 0, 0, &v46, 16, 16, &v41, 0x10u, 0);
+        if (sub_100025F1C(v43))
         {
 LABEL_83:
-          sub_100037058(v48);
+          sub_100037058(v45);
           goto LABEL_84;
         }
 
         v27 = 0;
-        *&v42[8] = 0;
-        v43 = (a1 + 4040);
-        *v42 = v10 - 1;
+        *&v39[8] = 0;
+        v40 = (a1 + 505);
+        *v39 = v10 - 1;
         v28 = -1;
-        while (v49 >= v27)
+        while (v46 >= v27)
         {
-          v29 = v50;
-          if (v49 == v27)
+          v29 = v47;
+          if (v46 == v27)
           {
-            if (v50 <= *&v42[4])
+            if (v47 <= *&v39[4])
             {
               ++v22;
               if (sub_100036630(a1) == 13)
               {
-                sub_100012128("%s:%d: %s omap tree entries out of order: oid %lld xid %lld <= lastxid %lld\n", "nx_check_omap", 841, v43, v49, v50, *&v42[4]);
+                sub_100012128("%s:%d: %s omap tree entries out of order: oid %lld xid %lld <= lastxid %lld\n", "nx_check_omap", 841, v40, v46, v47, *&v39[4]);
               }
 
               else
               {
-                sub_100012128("%s:%d: %s omap tree entries out of order: oid %lld xid %lld <= lastxid %lld\n", "nx_check_omap", 841, (*(a1 + 384) + 212), v49, v50, *&v42[4]);
+                sub_100012128("%s:%d: %s omap tree entries out of order: oid %lld xid %lld <= lastxid %lld\n", "nx_check_omap", 841, (a1[48] + 212), v46, v47, *&v39[4]);
               }
             }
 
             goto LABEL_44;
           }
 
-          *&v42[4] = 0;
+          *&v39[4] = 0;
           v28 = -1;
-          v27 = v49;
+          v27 = v46;
 LABEL_46:
           if (v29 > a3)
           {
             ++v22;
             if (sub_100036630(a1) == 13)
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld xid > spaceman xid %lld\n", "nx_check_omap", 850, v43, v49, v50, a3);
+              sub_100012128("%s:%d: %s omap entry %lld:%lld xid > spaceman xid %lld\n", "nx_check_omap", 850, v40, v46, v47, a3);
             }
 
             else
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld xid > spaceman xid %lld\n", "nx_check_omap", 850, (*(a1 + 384) + 212), v49, v50, a3);
+              sub_100012128("%s:%d: %s omap entry %lld:%lld xid > spaceman xid %lld\n", "nx_check_omap", 850, (a1[48] + 212), v46, v47, a3);
             }
           }
 
-          if (v44 >= 0x800)
+          if (v41 >= 0x800)
           {
             ++v22;
             if (sub_100036630(a1) == 13)
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld unknown flags are set: 0x%x\n", "nx_check_omap", 853, v43, v49, v50, v44 & 0xFFFFFFFE);
+              sub_100012128("%s:%d: %s omap entry %lld:%lld unknown flags are set: 0x%x\n", "nx_check_omap", 853, v40, v46, v47, v41 & 0xFFFFFFFE);
             }
 
             else
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld unknown flags are set: 0x%x\n", "nx_check_omap", 853, (*(a1 + 384) + 212), v49, v50, v44 & 0xFFFFFFFE);
+              sub_100012128("%s:%d: %s omap entry %lld:%lld unknown flags are set: 0x%x\n", "nx_check_omap", 853, (a1[48] + 212), v46, v47, v41 & 0xFFFFFFFE);
             }
           }
 
-          if ((v44 & 1) != 0 && v28 == -1)
+          if ((v41 & 1) != 0 && v28 == -1)
           {
             ++v22;
             if (sub_100036630(a1) == 13)
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld marks deletion of object with no earlier mappings\n", "nx_check_omap", 856, v43, v49, v50);
+              sub_100012128("%s:%d: %s omap entry %lld:%lld marks deletion of object with no earlier mappings\n", "nx_check_omap", 856, v40, v46, v47);
             }
 
             else
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld marks deletion of object with no earlier mappings\n", "nx_check_omap", 856, (*(a1 + 384) + 212), v49, v50);
+              sub_100012128("%s:%d: %s omap entry %lld:%lld marks deletion of object with no earlier mappings\n", "nx_check_omap", 856, (a1[48] + 212), v46, v47);
             }
           }
 
@@ -6120,18 +6079,18 @@ LABEL_46:
               ++v22;
               if (sub_100036630(a1) == 13)
               {
-                sub_100012128("%s:%d: %s omap entry %lld:%lld beyond deletion entry @ xid %lld\n", "nx_check_omap", 861, v43, v49, v50, v28);
+                sub_100012128("%s:%d: %s omap entry %lld:%lld beyond deletion entry @ xid %lld\n", "nx_check_omap", 861, v40, v46, v47, v28);
               }
 
               else
               {
-                sub_100012128("%s:%d: %s omap entry %lld:%lld beyond deletion entry @ xid %lld\n", "nx_check_omap", 861, (*(a1 + 384) + 212), v49, v50, v28);
+                sub_100012128("%s:%d: %s omap entry %lld:%lld beyond deletion entry @ xid %lld\n", "nx_check_omap", 861, (a1[48] + 212), v46, v47, v28);
               }
             }
 
-            else if (v44)
+            else if (v41)
             {
-              v28 = v50;
+              v28 = v47;
             }
 
             else
@@ -6142,9 +6101,9 @@ LABEL_46:
             goto LABEL_70;
           }
 
-          if (v44)
+          if (v41)
           {
-            v28 = v50;
+            v28 = v47;
           }
 
           else
@@ -6153,36 +6112,36 @@ LABEL_46:
           }
 
 LABEL_70:
-          if (HIDWORD(v44) >= 0x100000)
+          if (HIDWORD(v41) >= 0x100000)
           {
             ++v22;
             if (sub_100036630(a1) == 13)
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld size %d seems excessive\n", "nx_check_omap", 866, v43, v49, v50, HIDWORD(v44));
+              sub_100012128("%s:%d: %s omap entry %lld:%lld size %d seems excessive\n", "nx_check_omap", 866, v40, v46, v47, HIDWORD(v41));
             }
 
             else
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld size %d seems excessive\n", "nx_check_omap", 866, (*(a1 + 384) + 212), v49, v50, HIDWORD(v44));
+              sub_100012128("%s:%d: %s omap entry %lld:%lld size %d seems excessive\n", "nx_check_omap", 866, (a1[48] + 212), v46, v47, HIDWORD(v41));
             }
           }
 
-          if (sub_100003530(*(v8 + 376), 0, v45, (*v42 + HIDWORD(v44)) / v10, 0))
+          if (sub_100003530(v8[47], 0, v42, (*v39 + HIDWORD(v41)) / v10, 0))
           {
             ++v22;
             if (sub_100036630(a1) == 13)
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld addr %lld size %d is bad\n", "nx_check_omap", 871, v43, v49, v50, v45, HIDWORD(v44));
+              sub_100012128("%s:%d: %s omap entry %lld:%lld addr %lld size %d is bad\n", "nx_check_omap", 871, v40, v46, v47, v42, HIDWORD(v41));
             }
 
             else
             {
-              sub_100012128("%s:%d: %s omap entry %lld:%lld addr %lld size %d is bad\n", "nx_check_omap", 871, (*(a1 + 384) + 212), v49, v50, v45, HIDWORD(v44));
+              sub_100012128("%s:%d: %s omap entry %lld:%lld addr %lld size %d is bad\n", "nx_check_omap", 871, (a1[48] + 212), v46, v47, v42, HIDWORD(v41));
             }
           }
 
-          sub_100025F38(v46);
-          if (sub_100025F1C(v46))
+          sub_100025F38(v43);
+          if (sub_100025F1C(v43))
           {
             goto LABEL_83;
           }
@@ -6190,20 +6149,20 @@ LABEL_70:
 
         if (sub_100036630(a1) == 13)
         {
-          sub_100012128("%s:%d: %s omap tree entries out of order: oid %lld < %lld\n", "nx_check_omap", 835, v43, v49, v27);
+          sub_100012128("%s:%d: %s omap tree entries out of order: oid %lld < %lld\n", "nx_check_omap", 835, v40, v46, v27);
         }
 
         else
         {
-          sub_100012128("%s:%d: %s omap tree entries out of order: oid %lld < %lld\n", "nx_check_omap", 835, (*(a1 + 384) + 212), v49, v27);
+          sub_100012128("%s:%d: %s omap tree entries out of order: oid %lld < %lld\n", "nx_check_omap", 835, (a1[48] + 212), v46, v27);
         }
 
         ++v22;
         v28 = -1;
-        v27 = v49;
+        v27 = v46;
 LABEL_44:
-        v29 = v50;
-        *&v42[4] = v50;
+        v29 = v47;
+        *&v39[4] = v47;
         goto LABEL_46;
       }
     }
@@ -6215,28 +6174,28 @@ LABEL_44:
 
     if (sub_100036630(a1) == 13)
     {
-      v18 = (a1 + 4040);
+      v18 = (a1 + 505);
     }
 
     else
     {
-      v18 = (*(a1 + 384) + 212);
+      v18 = (a1[48] + 212);
     }
 
     sub_100012128("%s:%d: %s unable to get omap tree: %d\n", "nx_check_omap", 812, v18, v16);
     v21 = *a4 + 1;
-    goto LABEL_116;
+    goto LABEL_110;
   }
 
   v19 = sub_100036630(a1);
   if (v19 == 13)
   {
-    v20 = (a1 + 4040);
+    v20 = (a1 + 505);
   }
 
   else
   {
-    v20 = (*(a1 + 384) + 212);
+    v20 = (a1[48] + 212);
   }
 
   sub_100012128("%s:%d: %s omap tree type 0x%x is bad\n", "nx_check_omap", 881, v20, *(*(a2 + 376) + 40));
@@ -6246,10 +6205,10 @@ LABEL_84:
   v31 = *(v30 + 56);
   if (!v31)
   {
-LABEL_115:
+LABEL_109:
     v16 = 0;
     v21 = *a4 + v22;
-    goto LABEL_116;
+    goto LABEL_110;
   }
 
   v32 = *(v30 + 44);
@@ -6258,111 +6217,102 @@ LABEL_115:
     ++v22;
     if (sub_100036630(a1) == 13)
     {
-      v35 = (a1 + 4040);
+      v35 = (a1 + 505);
     }
 
     else
     {
-      v35 = (*(a1 + 384) + 212);
+      v35 = (a1[48] + 212);
     }
 
     sub_100012128("%s:%d: %s omap snapshot tree type 0x%x is bad\n", "nx_check_omap", 920, v35, *(*(a2 + 376) + 40));
-    goto LABEL_115;
+    goto LABEL_109;
   }
 
-  v50 = 0u;
-  v55 = 0;
-  v54 = 0u;
-  v53 = 0u;
-  v52 = 0u;
+  v47 = 0u;
+  v52 = 0;
   v51 = 0u;
-  v49 = sub_10003DE9C;
-  DWORD2(v50) = 19;
-  v16 = sub_100026D00(a1, v32 & 0xFFFF0000, v31, 0, 0, &v49, 0, &v48);
+  v50 = 0u;
+  v49 = 0u;
+  v48 = 0u;
+  v46 = sub_10003DE9C;
+  DWORD2(v47) = 19;
+  v16 = sub_100026D00(a1, v32 & 0xFFFF0000, v31, 0, 0, &v46, 0, &v45);
   if (!v16)
   {
-    if (sub_100038020(v48) > a3)
+    if (sub_100038020(v45) > a3)
     {
       ++v22;
       if (sub_100036630(a1) == 13)
       {
-        v33 = (a1 + 4040);
+        v33 = (a1 + 505);
       }
 
       else
       {
-        v33 = (*(a1 + 384) + 212);
+        v33 = (a1[48] + 212);
       }
 
-      v36 = sub_100038020(v48);
+      v36 = sub_100038020(v45);
       sub_100012128("%s:%d: %s omap snapshot tree xid %lld > spaceman xid %lld\n", "nx_check_omap", 896, v33, v36, a3);
     }
 
-    if (sub_10000DB3C(v48, 0, 0, 0))
+    if (sub_10000DB3C(v45, 0, 0, 0))
     {
       ++v22;
-      if (sub_100036630(a1) != 13)
-      {
-        v38 = *(a1 + 384) + 212;
-      }
-
+      sub_100036630(a1);
       sub_100012128("%s:%d: %s omap snapshot tree sanity check failed: %d\n");
     }
 
     else
     {
-      v49 = 0xAAAAAAAAAAAAAAAALL;
-      *&v50 = 0xAAAAAAAAAAAAAAAALL;
-      v44 = 0;
-      sub_100025DA4(v46, v48, 0, 0, &v44, 8, 8u, &v49, 0x10u, 0);
+      v46 = 0xAAAAAAAAAAAAAAAALL;
+      *&v47 = 0xAAAAAAAAAAAAAAAALL;
+      v41 = 0;
+      sub_100025DA4(v43, v45, 0, 0, &v41, 8, 8, &v46, 0x10u, 0);
       v37 = 0;
-      if (!sub_100025F1C(v46))
+      if (!sub_100025F1C(v43))
       {
         v37 = 0;
         do
         {
           ++v37;
-          sub_100025F38(v46);
+          sub_100025F38(v43);
         }
 
-        while (!sub_100025F1C(v46));
+        while (!sub_100025F1C(v43));
       }
 
       if (v37 != *(*(a2 + 376) + 36))
       {
         ++v22;
-        if (sub_100036630(a1) != 13)
-        {
-          v39 = *(a1 + 384) + 212;
-        }
-
-        v41 = *(*(a2 + 376) + 36);
+        sub_100036630(a1);
         sub_100012128("%s:%d: %s omap snapshot count %d doesn't match snapshot tree record count %lld\n");
       }
     }
 
-    sub_100037058(v48);
-    goto LABEL_115;
+    sub_100037058(v45);
+    goto LABEL_109;
   }
 
   if (sub_100036630(a1) == 13)
   {
-    v34 = (a1 + 4040);
+    v34 = (a1 + 505);
   }
 
   else
   {
-    v34 = (*(a1 + 384) + 212);
+    v34 = (a1[48] + 212);
   }
 
   sub_100012128("%s:%d: %s unable to get omap snapshot tree: %d\n", "nx_check_omap", 891, v34, v16);
   v21 = v22 + 1 + *a4;
-LABEL_116:
+LABEL_110:
   *a4 = v21;
   return v16;
 }
 
-uint64_t sub_100009280(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t *a4, int a5, _DWORD *a6, int a7)
+uint64_t sub_100009280(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t *a4, int a5, int *a6, int a7)
 {
   v21 = 0;
   v22 = 0;
@@ -6428,21 +6378,20 @@ uint64_t sub_100009280(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t *a4, in
   return v16;
 }
 
-uint64_t sub_1000093F8(void *a1)
+uint64_t sub_1000093F8(uint64_t *a1)
 {
-  memset(v54, 170, sizeof(v54));
-  v53 = 0xAAAAAAAAAAAAAAAALL;
-  v2 = sub_100042E24(a1, &v54[2]);
+  memset(v49, 170, sizeof(v49));
+  v48 = 0xAAAAAAAAAAAAAAAALL;
+  v2 = sub_100042E24(a1, &v49[2]);
   if (v2)
   {
     v3 = v2;
-    v43 = a1[48] + 212;
     sub_100012178("%s:%d: %s unable to get spaceman: %d\n");
     return v3;
   }
 
-  v4 = *(v54[2] + 376);
-  v5 = sub_100038020(v54[2]);
+  v4 = *(v49[2] + 376);
+  v5 = sub_100038020(v49[2]);
   v6 = 0;
   v7 = 0;
   if (v5 >= 3)
@@ -6455,11 +6404,11 @@ uint64_t sub_1000093F8(void *a1)
     v8 = 0;
   }
 
-  v52 = 0;
-  memset(v51, 170, sizeof(v51));
-  v48 = v8;
-  v49 = 0xAAAAAAAAAAAAAAAALL;
-  v50 = 0xAAAAAAAAAAAAAAAALL;
+  v47 = 0;
+  memset(v46, 170, sizeof(v46));
+  v43 = v8;
+  v44 = 0xAAAAAAAAAAAAAAAALL;
+  v45 = 0xAAAAAAAAAAAAAAAALL;
   do
   {
     v9 = v4 + 48 + 48 * v6;
@@ -6474,12 +6423,12 @@ LABEL_28:
     v11 = -1;
     while (!*(v9 + 20))
     {
-      v17 = (*(v54[2] + 8 * v6 + 896) + 8 * v10);
+      v17 = (*(v49[2] + 8 * v6 + 896) + 8 * v10);
 LABEL_23:
       v18 = *v17;
-      v49 = v4;
-      v50 = __PAIR64__(v10, v6);
-      v19 = sub_10003A1E8(a1[49], 0x40000000, v18, &xmmword_10006A950, &v49, 0, 0, 0, &v51[2]);
+      v44 = v4;
+      v45 = __PAIR64__(v10, v6);
+      v19 = sub_10003A1E8(a1[49], 0x40000000uLL, v18, &xmmword_10006A950, &v44, 0, 0, 0, &v46[2]);
       if (v19)
       {
         v21 = v19;
@@ -6488,7 +6437,7 @@ LABEL_23:
         goto LABEL_31;
       }
 
-      sub_100037058(v51[2]);
+      sub_100037058(v46[2]);
       v20 = 1;
 LABEL_25:
       v10 += v20;
@@ -6508,20 +6457,20 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v15 = *(*(v54[2] + 8 * v6 + 896) + 8 * v13);
-    if (v52)
+    v15 = *(*(v49[2] + 8 * v6 + 896) + 8 * v13);
+    if (v47)
     {
-      sub_100037058(v52);
-      v52 = 0;
+      sub_100037058(v47);
+      v47 = 0;
     }
 
-    v51[0] = v4;
-    v51[1] = __PAIR64__(v13, v6);
-    v16 = sub_10003A1E8(a1[49], 0x40000000, v15, &xmmword_10006A940, v51, 0, 0, 0, &v52);
+    v46[0] = v4;
+    v46[1] = __PAIR64__(v13, v6);
+    v16 = sub_10003A1E8(a1[49], 0x40000000uLL, v15, &xmmword_10006A940, v46, 0, 0, 0, &v47);
     if (!v16)
     {
-      v7 = v52[7];
-      if (sub_100038020(v52) <= v48)
+      v7 = v47[7];
+      if (sub_100038020(v47) <= v43)
       {
         v20 = *(v7 + 36);
         v11 = v13;
@@ -6536,15 +6485,15 @@ LABEL_22:
     v3 = v16;
     sub_100012178("%s:%d: %s unable to read cab %d @ %lld: %d\n", "nx_check_recent_sanity", 1125, (a1[48] + 212), v13, v15, v16);
 LABEL_31:
-    if (v52)
+    if (v47)
     {
-      sub_100037058(v52);
-      v52 = 0;
+      sub_100037058(v47);
+      v47 = 0;
     }
   }
 
   while (!(v3 | v6++));
-  sub_100037058(v54[2]);
+  sub_100037058(v49[2]);
   if (v3)
   {
     return v3;
@@ -6553,27 +6502,25 @@ LABEL_31:
   v24 = *(a1[47] + 160);
   if (v24)
   {
-    v25 = sub_10003A1E8(a1[49], 0x40000000, v24, &xmmword_10006A8D8, 0, 0, 0, 0, &v54[1]);
+    v25 = sub_10003A1E8(a1[49], 0x40000000uLL, v24, &xmmword_10006A8D8, 0, 0, 0, 0, &v49[1]);
     if (v25)
     {
       v3 = v25;
-      v44 = a1[48] + 212;
       sub_100012178("%s:%d: %s unable to get omap: %d\n");
       return v3;
     }
 
-    if (sub_100038020(v54[1]) <= v48)
+    if (sub_100038020(v49[1]) <= v43)
     {
-      sub_100037058(v54[1]);
+      sub_100037058(v49[1]);
     }
 
     else
     {
-      v3 = sub_100009B00(a1, v54[1], v48);
-      sub_100037058(v54[1]);
+      v3 = sub_100009B00(a1, v49[1], v43);
+      sub_100037058(v49[1]);
       if (v3)
       {
-        v45 = a1[48] + 212;
         sub_100012178("%s:%d: %s omap check failed with error: %d\n");
         return v3;
       }
@@ -6595,7 +6542,7 @@ LABEL_31:
       goto LABEL_76;
     }
 
-    v29 = sub_10003A1E8(a1[49], 0, v28, &xmmword_10006A8A8, 0, 0, 0, 0, v54);
+    v29 = sub_10003A1E8(a1[49], 0, v28, &xmmword_10006A8A8, 0, 0, 0, 0, v49);
     if (v29)
     {
       v41 = v29;
@@ -6603,36 +6550,35 @@ LABEL_31:
       return v41;
     }
 
-    v30 = sub_100038020(v54[0]);
-    v31 = v54[0];
-    if (v30 <= v48)
+    v30 = sub_100038020(v49[0]);
+    v31 = v49[0];
+    if (v30 <= v43)
     {
       goto LABEL_75;
     }
 
-    v32 = *(*(v54[0] + 376) + 128);
+    v32 = *(*(v49[0] + 376) + 128);
     if (!v32)
     {
       goto LABEL_54;
     }
 
-    v33 = sub_10003A1E8(a1[49], 0x40000000, v32, &xmmword_10006A8D8, 0, v54[0], 0, 0, &v54[1]);
+    v33 = sub_10003A1E8(a1[49], 0x40000000uLL, v32, &xmmword_10006A8D8, 0, v49[0], 0, 0, &v49[1]);
     if (!v33)
     {
-      if (sub_100038020(v54[1]) <= v48)
+      if (sub_100038020(v49[1]) <= v43)
       {
-        sub_100037058(v54[1]);
-        v31 = v54[0];
+        sub_100037058(v49[1]);
+        v31 = v49[0];
       }
 
       else
       {
-        v34 = sub_100009B00(v54[0], v54[1], v48);
-        sub_100037058(v54[1]);
-        v31 = v54[0];
+        v34 = sub_100009B00(v49[0], v49[1], v43);
+        sub_100037058(v49[1]);
+        v31 = v49[0];
         if (v34)
         {
-          v47 = *(*(v54[0] + 376) + 128);
           sub_100012178("%s:%d: %s omap check failed for omap %lld: %d\n");
           goto LABEL_81;
         }
@@ -6643,35 +6589,35 @@ LABEL_54:
       v36 = *(v35 + 144);
       if (v36)
       {
-        v53 = 0;
-        v37 = sub_10002E52C(v31, v36, 0, &v53);
+        v48 = 0;
+        v37 = sub_10002E52C(v31, v36, 0, &v48);
         if (v37)
         {
           v34 = v37;
-          sub_100012178("%s:%d: %s unable to get extentref tree %lld: %d\n", "nx_check_recent_sanity", 1228, (v54[0] + 4040), *(*(v54[0] + 376) + 144), v37);
+          sub_100012178("%s:%d: %s unable to get extentref tree %lld: %d\n", "nx_check_recent_sanity", 1228, (v49[0] + 4040), *(*(v49[0] + 376) + 144), v37);
         }
 
-        else if (sub_100038020(v53) <= v48)
+        else if (sub_100038020(v48) <= v43)
         {
           v34 = 0;
         }
 
         else
         {
-          v38 = sub_10000DB54(v53, v48, 0, 0);
+          v38 = sub_10000DB54(v48, v43, 0, 0);
           v34 = v38;
           if (v38)
           {
-            sub_100012178("%s:%d: %s extentref tree %lld: %d\n", "nx_check_recent_sanity", 1233, (v54[0] + 4040), *(*(v54[0] + 376) + 144), v38);
+            sub_100012178("%s:%d: %s extentref tree %lld: %d\n", "nx_check_recent_sanity", 1233, (v49[0] + 4040), *(*(v49[0] + 376) + 144), v38);
           }
         }
 
-        if (v53)
+        if (v48)
         {
-          sub_100037058(v53);
+          sub_100037058(v48);
         }
 
-        v31 = v54[0];
+        v31 = v49[0];
         if (v34)
         {
 LABEL_79:
@@ -6679,40 +6625,40 @@ LABEL_79:
           goto LABEL_82;
         }
 
-        v35 = *(v54[0] + 376);
+        v35 = *(v49[0] + 376);
       }
 
       if (*(v35 + 152))
       {
-        v53 = 0;
-        v39 = sub_10002E570(v31, 0, &v53);
+        v48 = 0;
+        v39 = sub_10002E570(v31, 0, &v48);
         if (v39)
         {
           v34 = v39;
-          sub_100012178("%s:%d: %s unable to get snap meta tree %lld: %d\n", "nx_check_recent_sanity", 1250, (v54[0] + 4040), *(*(v54[0] + 376) + 152), v39);
+          sub_100012178("%s:%d: %s unable to get snap meta tree %lld: %d\n", "nx_check_recent_sanity", 1250, (v49[0] + 4040), *(*(v49[0] + 376) + 152), v39);
         }
 
-        else if (sub_100038020(v53) <= v48)
+        else if (sub_100038020(v48) <= v43)
         {
           v34 = 0;
         }
 
         else
         {
-          v40 = sub_10000DB54(v53, v48, 0, 0);
+          v40 = sub_10000DB54(v48, v43, 0, 0);
           v34 = v40;
           if (v40)
           {
-            sub_100012178("%s:%d: %s snap meta tree %lld: %d\n", "nx_check_recent_sanity", 1255, (v54[0] + 4040), *(*(v54[0] + 376) + 144), v40);
+            sub_100012178("%s:%d: %s snap meta tree %lld: %d\n", "nx_check_recent_sanity", 1255, (v49[0] + 4040), *(*(v49[0] + 376) + 144), v40);
           }
         }
 
-        if (v53)
+        if (v48)
         {
-          sub_100037058(v53);
+          sub_100037058(v48);
         }
 
-        v31 = v54[0];
+        v31 = v49[0];
         if (v34)
         {
           goto LABEL_79;
@@ -6736,117 +6682,106 @@ LABEL_76:
   }
 
   v34 = v33;
-  v46 = *(*(v54[0] + 376) + 128);
   sub_100012178("%s:%d: %s unable to get omap %lld: %d\n");
 LABEL_81:
-  v42 = v54[0];
+  v42 = v49[0];
 LABEL_82:
   sub_100037058(v42);
   return v34;
 }
 
-uint64_t sub_100009B00(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t sub_100009B00(uint64_t *a1, uint64_t a2, unint64_t a3)
 {
-  v16 = 0xAAAAAAAAAAAAAAAALL;
+  v14 = 0xAAAAAAAAAAAAAAAALL;
   v6 = *(a2 + 376);
   v7 = *(v6 + 48);
-  if (v7)
+  if (!v7)
   {
-    v8 = *(v6 + 40);
-    v18 = 0u;
-    v19 = 0u;
-    v23 = 0;
-    v21 = 0u;
-    v22 = 0u;
-    v20 = 0u;
-    v17 = sub_10003DE40;
-    DWORD2(v18) = 11;
-    if (v8 == 2)
-    {
-      v9 = sub_100026D00(a1, v8 & 0xFFFF0000, v7, 0, 0, &v17, 0, &v16);
-      if (!v9)
-      {
-        if (sub_100038020(v16) <= a3)
-        {
-          sub_100037058(v16);
-        }
+    goto LABEL_10;
+  }
 
-        else
-        {
-          v9 = sub_10000DB54(v16, a3, sub_100009280, 0);
-          sub_100037058(v16);
-          if (v9)
-          {
-            return v9;
-          }
-        }
+  v8 = *(v6 + 40);
+  v16 = 0u;
+  v17 = 0u;
+  v21 = 0;
+  v19 = 0u;
+  v20 = 0u;
+  v18 = 0u;
+  v15 = sub_10003DE40;
+  DWORD2(v16) = 11;
+  if (v8 != 2)
+  {
+    v9 = 22;
+    goto LABEL_8;
+  }
 
-        goto LABEL_12;
-      }
-    }
-
-    else
-    {
-      v9 = 22;
-    }
-
-    if (sub_100036630(a1) != 13)
-    {
-      v10 = *(a1 + 384) + 212;
-    }
-
+  v9 = sub_100026D00(a1, v8 & 0xFFFF0000, v7, 0, 0, &v15, 0, &v14);
+  if (v9)
+  {
+LABEL_8:
+    sub_100036630(a1);
     sub_100012178("%s:%d: %s unable to get omap tree: %d\n");
     return v9;
   }
 
-LABEL_12:
-  v11 = *(a2 + 376);
-  v12 = *(v11 + 56);
-  if (!v12)
+  if (sub_100038020(v14) <= a3)
   {
-    return 0;
-  }
-
-  v13 = *(v11 + 44);
-  v18 = 0u;
-  v19 = 0u;
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = 0u;
-  v17 = sub_10003DE9C;
-  DWORD2(v18) = 19;
-  if (v13 == 2)
-  {
-    v9 = sub_100026D00(a1, v13 & 0xFFFF0000, v12, 0, 0, &v17, 0, &v16);
-    if (!v9)
-    {
-      if (sub_100038020(v16) <= a3)
-      {
-        v9 = 0;
-      }
-
-      else
-      {
-        v9 = sub_10000DB54(v16, a3, 0, 0);
-      }
-
-      sub_100037058(v16);
-      return v9;
-    }
+    sub_100037058(v14);
   }
 
   else
   {
-    v9 = 22;
+    v9 = sub_10000DB54(v14, a3, sub_100009280, 0);
+    sub_100037058(v14);
+    if (v9)
+    {
+      return v9;
+    }
   }
 
-  if (sub_100036630(a1) != 13)
+LABEL_10:
+  v10 = *(a2 + 376);
+  v11 = *(v10 + 56);
+  if (!v11)
   {
-    v14 = *(a1 + 384) + 212;
+    return 0;
   }
 
-  sub_100012178("%s:%d: %s unable to get omap snapshot tree: %d\n");
+  v12 = *(v10 + 44);
+  v16 = 0u;
+  v17 = 0u;
+  v21 = 0;
+  v19 = 0u;
+  v20 = 0u;
+  v18 = 0u;
+  v15 = sub_10003DE9C;
+  DWORD2(v16) = 19;
+  if (v12 != 2)
+  {
+    v9 = 22;
+    goto LABEL_17;
+  }
+
+  v9 = sub_100026D00(a1, v12 & 0xFFFF0000, v11, 0, 0, &v15, 0, &v14);
+  if (v9)
+  {
+LABEL_17:
+    sub_100036630(a1);
+    sub_100012178("%s:%d: %s unable to get omap snapshot tree: %d\n");
+    return v9;
+  }
+
+  if (sub_100038020(v14) <= a3)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = sub_10000DB54(v14, a3, 0, 0);
+  }
+
+  sub_100037058(v14);
   return v9;
 }
 
@@ -7021,7 +6956,7 @@ uint64_t sub_100009E68(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
   return v9;
 }
 
-uint64_t sub_10000A1F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int a6, uint64_t a7, int a8, uint64_t a9, char a10, unsigned __int8 a11)
+uint64_t sub_10000A1F8(void *a1, unint64_t a2, _BYTE *a3, uint64_t a4, void *a5, unsigned int a6, uint64_t a7, int a8, uint64_t a9, char a10, unsigned __int8 a11)
 {
   if (!a5 || (v12 = a5[7]) == 0)
   {
@@ -7042,1753 +6977,100 @@ uint64_t sub_10000A1F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
 
   v15 = a6;
   v16 = a1;
-  v347 = a2;
-  v348 = a4;
-  v350 = a3;
+  v284 = a2;
+  v285 = a4;
+  v287 = a3;
   v17 = a5[1];
   if (!v17)
   {
     v17 = *(*a5 + 392);
   }
 
-  v349 = v17;
-  if (!a9 || (a1 = sub_100009E68(a1, a5, a6, a9), v18 = a1, !a1))
+  v286 = v17;
+  if (a9)
   {
-    if (!v16 && (a5[4] & 1) == 0)
+    a1 = sub_100009E68(a1, a5, a6, a9);
+    v18 = a1;
+    if (a1)
     {
-      return 0;
+      return v18;
     }
-
-    v345 = a9;
-    v344 = a11;
-    v346 = v15;
-    if ((a11 & 1) == 0)
-    {
-      v18 = 0;
-      if (v350 && (*(v12 + 32) & 1) != 0)
-      {
-        v26 = a5[1];
-        if (v26)
-        {
-          v27 = (v26 + 4040);
-        }
-
-        else
-        {
-          v27 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v28 = sub_100038018(a5);
-        v29 = *(a5[7] + 34);
-        v30 = sub_100038018(v350);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): root node has a parent 0x%llx (level %d)\n", "btree_node_check", 183, v27, v28, v29, v30, *(*(v350 + 7) + 34));
-        v18 = 22;
-        v15 = v346;
-      }
-
-      if ((*(v12 + 32) & 2) != 0 && *(v12 + 34))
-      {
-        v31 = a5[1];
-        if (v31)
-        {
-          v32 = (v31 + 4040);
-        }
-
-        else
-        {
-          v32 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v34 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): leaf node has non-zero level\n", "btree_node_check", 186, v32, v34, *(v12 + 34));
-        v18 = 22;
-      }
-
-      if (v16)
-      {
-        if (*(a5[7] + 34) > *(v16[7] + 34))
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          v35 = a5[1];
-          if (v35)
-          {
-            v36 = (v35 + 4040);
-          }
-
-          else
-          {
-            v36 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v37 = sub_100038018(a5);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): node level greater than root level %d\n", "btree_node_check", 189, v36, v37, *(v12 + 34), *(v16[7] + 34));
-        }
-
-        v38 = v15 - 1;
-        if (*(v16[7] + 34) - (v15 - 1) != *(a5[7] + 34))
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          v39 = a5[1];
-          if (v39)
-          {
-            v40 = (v39 + 4040);
-          }
-
-          else
-          {
-            v40 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v41 = sub_100038018(a5);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): node level should be %d\n", "btree_node_check", 192, v40, v41, *(v12 + 34), *(v16[7] + 34) - v38);
-        }
-      }
-
-      if (*(v12 + 32))
-      {
-        v42 = -96;
-      }
-
-      else
-      {
-        v42 = -56;
-      }
-
-      v43 = v42 + ((a5[50] >> 27) & 0xF000);
-      if (*(v12 + 40))
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v44 = a5[1];
-        if (v44)
-        {
-          v45 = (v44 + 4040);
-        }
-
-        else
-        {
-          v45 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v46 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid table space offset\n", "btree_node_check", 203, v45, v46, *(a5[7] + 34));
-      }
-
-      if (*(v12 + 42) > v43)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v47 = a5[1];
-        if (v47)
-        {
-          v48 = (v47 + 4040);
-        }
-
-        else
-        {
-          v48 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v49 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): table space length larger than available data space\n", "btree_node_check", 206, v48, v49, *(a5[7] + 34));
-      }
-
-      if ((*(v12 + 32) & 4) == 0)
-      {
-        v50 = *(v12 + 42);
-        if (v50 < 8 * sub_10001D2A4(a5))
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          if (!a5[1])
-          {
-            v54 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v305 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): table space length smaller than minimum\n");
-          return v18;
-        }
-      }
-
-      if (v18)
-      {
-        return v18;
-      }
-
-      v51 = (v43 - *(v12 + 42));
-      if (*(v12 + 44) <= (v43 - *(v12 + 42)))
-      {
-        v18 = 0;
-      }
-
-      else
-      {
-        v52 = a5[1];
-        if (v52)
-        {
-          v53 = (v52 + 4040);
-        }
-
-        else
-        {
-          v53 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v56 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): free space offset too large\n", "btree_node_check", 218, v53, v56, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if (*(v12 + 46) + *(v12 + 44) > v51)
-      {
-        v57 = a5[1];
-        if (v57)
-        {
-          v58 = (v57 + 4040);
-        }
-
-        else
-        {
-          v58 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v59 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): free space extends beyond end of node\n", "btree_node_check", 221, v58, v59, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      v341 = *(v12 + 44);
-      v60 = *(v12 + 46);
-      if (*(v12 + 36) > v51)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v61 = a5[1];
-        if (v61)
-        {
-          v62 = (v61 + 4040);
-        }
-
-        else
-        {
-          v62 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v63 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): key count larger than possible\n", "btree_node_check", 228, v62, v63, *(a5[7] + 34));
-      }
-
-      v64 = *(v12 + 36);
-      v340 = v51;
-      if (v64 > v341 && (*(v12 + 32) & 0x80000000) == 0)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v65 = a5[1];
-        if (v65)
-        {
-          v66 = (v65 + 4040);
-        }
-
-        else
-        {
-          v66 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v68 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): key count larger than gross key space\n", "btree_node_check", 231, v66, v68, *(a5[7] + 34));
-      }
-
-      v69 = *(v12 + 36);
-      v70 = *(v12 + 42);
-      if (v69 > v70 / sub_10001D2A4(a5))
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        if (!a5[1])
-        {
-          v73 = *(*(*a5 + 392) + 384) + 212;
-        }
-
-        sub_100038018(a5);
-        v306 = *(a5[7] + 34);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): key count larger than TOC space\n");
-        return v18;
-      }
-
-      if (v18)
-      {
-        return v18;
-      }
-
-      if (a5[47] == v12 + 56)
-      {
-        v18 = 0;
-      }
-
-      else
-      {
-        v71 = a5[1];
-        if (v71)
-        {
-          v72 = (v71 + 4040);
-        }
-
-        else
-        {
-          v72 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v75 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid TOC[] pointer\n", "btree_node_check", 242, v72, v75, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if (a5[48] != v12 + 56 + *(v12 + 42))
-      {
-        v76 = a5[1];
-        if (v76)
-        {
-          v77 = (v76 + 4040);
-        }
-
-        else
-        {
-          v77 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v78 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid keys[] pointer\n", "btree_node_check", 245, v77, v78, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if ((*(v12 + 32) & 1) != 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000) - 40)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v79 = a5[1];
-        if (v79)
-        {
-          v80 = (v79 + 4040);
-        }
-
-        else
-        {
-          v80 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v81 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n", "btree_node_check", 248, v80, v81, *(a5[7] + 34));
-      }
-
-      if ((*(v12 + 32) & 1) == 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000))
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        if (!a5[1])
-        {
-          v86 = *(*(*a5 + 392) + 384) + 212;
-        }
-
-        sub_100038018(a5);
-        v308 = *(a5[7] + 34);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n");
-        return v18;
-      }
-
-      if (v18)
-      {
-        return v18;
-      }
-
-      v82 = v341 + v60;
-      if (*(v12 + 50) <= v341)
-      {
-        v18 = 0;
-        v85 = v340;
-      }
-
-      else
-      {
-        v83 = a5[1];
-        if (v83)
-        {
-          v84 = (v83 + 4040);
-        }
-
-        else
-        {
-          v84 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v85 = v340;
-        v139 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list space larger than key space available\n", "btree_node_check", 259, v84, v139, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      v140 = v85 - v82;
-      v141 = *(v12 + 48);
-      if (v141 != 0xFFFF && v341 - 4 < v141)
-      {
-        v142 = a5[1];
-        if (v142)
-        {
-          v143 = (v142 + 4040);
-        }
-
-        else
-        {
-          v143 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v144 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list head beyond key space available\n", "btree_node_check", 263, v143, v144, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if (*(v12 + 54) > v140)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v145 = a5[1];
-        if (v145)
-        {
-          v146 = (v145 + 4040);
-        }
-
-        else
-        {
-          v146 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v147 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list space larger than val space available\n", "btree_node_check", 266, v146, v147, *(a5[7] + 34));
-      }
-
-      v148 = *(v12 + 52);
-      if (v148 != 0xFFFF)
-      {
-        if (v148 > v140)
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          v149 = a5[1];
-          if (v149)
-          {
-            v150 = (v149 + 4040);
-          }
-
-          else
-          {
-            v150 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v155 = sub_100038018(a5);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list head beyond val space available\n", "btree_node_check", 270, v150, v155, *(a5[7] + 34));
-          v148 = *(v12 + 52);
-        }
-
-        if (v148 <= 3)
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          if (!a5[1])
-          {
-            v173 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v314 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list head beyond end of node\n");
-          return v18;
-        }
-      }
-
-      if (v18)
-      {
-        return v18;
-      }
-
-      v339 = v341 - 4;
-      v156 = sub_1000122F4((v340 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
-      v157 = sub_1000122F4((v340 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
-      v337 = (v340 + 63) >> 6;
-      v338 = v157;
-      if (!v156 || !v157)
-      {
-        v171 = a5[1];
-        if (v171)
-        {
-          v172 = (v171 + 4040);
-        }
-
-        else
-        {
-          v172 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v174 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): couldn't allocate bitmap to check btree node space usage\n", "btree_node_check", 286, v172, v174, *(a5[7] + 34));
-        v18 = 12;
-        goto LABEL_398;
-      }
-
-      v336 = v140;
-      v342 = a7;
-      v343 = a8;
-      sub_10001C098(v156, *(v12 + 44), *(v12 + 46), v158);
-      v159 = 0;
-      LOWORD(v160) = *(v12 + 48);
-      v161 = v156;
-      while (1)
-      {
-        v162 = v160;
-        if (v160 == 0xFFFF)
-        {
-          break;
-        }
-
-        if (v160 >= v341 || v339 < v160)
-        {
-          if (!a5[1])
-          {
-            v191 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v315 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry starts beyond key space available\n");
-          goto LABEL_396;
-        }
-
-        v163 = (a5[48] + v160);
-        v164 = v163[1];
-        if (v164 <= 3)
-        {
-          if (!a5[1])
-          {
-            v192 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-LABEL_389:
-          sub_100038018(a5);
-          v316 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry len value too small\n");
-          goto LABEL_396;
-        }
-
-        v165 = v164 + v160;
-        if (v165 > v341)
-        {
-          if (!a5[1])
-          {
-            v193 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v317 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry extends beyond key space available\n");
-          goto LABEL_396;
-        }
-
-        if (!sub_10001BFA8(v156, v162, v164, v165))
-        {
-          if (!a5[1])
-          {
-            v194 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v318 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry overlaps with other free space\n");
-          goto LABEL_396;
-        }
-
-        sub_10001C098(v156, v162, v163[1], v166);
-        v159 += v163[1];
-        v167 = *(v12 + 50);
-        if (v159 <= v167)
-        {
-          v18 = 0;
-        }
-
-        else
-        {
-          v168 = a5[1];
-          if (v168)
-          {
-            v169 = (v168 + 4040);
-          }
-
-          else
-          {
-            v169 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v170 = sub_100038018(a5);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entries total space exceeds free list space\n", "btree_node_check", 326, v169, v170, *(a5[7] + 34));
-          v18 = 22;
-        }
-
-        v160 = *v163;
-        if (v162 == v160)
-        {
-          if (!a5[1])
-          {
-            v195 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-LABEL_395:
-          sub_100038018(a5);
-          v319 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry points to itself\n");
-          goto LABEL_396;
-        }
-
-        v156 = v161;
-        if (v159 > v167)
-        {
-          goto LABEL_398;
-        }
-      }
-
-      v176 = 0;
-      LOWORD(v177) = *(v12 + 52);
-      while (1)
-      {
-        v178 = v177;
-        if (v177 == 0xFFFF)
-        {
-          break;
-        }
-
-        if (v177 <= 3u)
-        {
-          v179 = a5[1];
-          if (v179)
-          {
-            v180 = (v179 + 4040);
-          }
-
-          else
-          {
-            v180 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v181 = sub_100038018(a5);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entry beyond end of node\n", "btree_node_check", 342, v180, v181, *(a5[7] + 34));
-          v18 = 22;
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        if (v178 > v336)
-        {
-          if (!a5[1])
-          {
-            v198 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v320 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entry starts beyond val space available\n");
-          goto LABEL_396;
-        }
-
-        v156 = v161;
-        if (v178 < 4)
-        {
-          goto LABEL_398;
-        }
-
-        v182 = (a5[49] - v178);
-        v183 = v182[1];
-        if (v183 <= 3)
-        {
-          if (!a5[1])
-          {
-            v199 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          goto LABEL_389;
-        }
-
-        if (v178 < v183)
-        {
-          if (!a5[1])
-          {
-            v200 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v321 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entry extends beyond val space available\n");
-          goto LABEL_396;
-        }
-
-        v184 = v340 - v178;
-        v185 = v184;
-        if (!sub_10001BFA8(v161, v184, v183, v184))
-        {
-          if (!a5[1])
-          {
-            v201 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v322 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entry overlaps with other free space\n");
-          goto LABEL_396;
-        }
-
-        sub_10001C098(v161, v185, v182[1], v186);
-        v176 += v182[1];
-        v187 = *(v12 + 54);
-        if (v176 <= v187)
-        {
-          v18 = 0;
-        }
-
-        else
-        {
-          v188 = a5[1];
-          if (v188)
-          {
-            v189 = (v188 + 4040);
-          }
-
-          else
-          {
-            v189 = (*(*(*a5 + 392) + 384) + 212);
-          }
-
-          v190 = sub_100038018(a5);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entries total space exceeds free list space\n", "btree_node_check", 372, v189, v190, *(a5[7] + 34));
-          v18 = 22;
-        }
-
-        v177 = *v182;
-        if (v178 == v177)
-        {
-          if (!a5[1])
-          {
-            v202 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          goto LABEL_395;
-        }
-
-        v156 = v161;
-        if (v176 > v187)
-        {
-          goto LABEL_398;
-        }
-      }
-
-      if ((*(v12 + 32) & 4) != 0 && (*(a5 + 401) & 0x7FFE) == 0)
-      {
-        v203 = a5[1];
-        if (v203)
-        {
-          v204 = (v203 + 4040);
-        }
-
-        else
-        {
-          v204 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v205 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says key size is variable\n", "btree_node_check", 387, v204, v205, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      else
-      {
-        v18 = 0;
-      }
-
-      if ((*(a5[7] + 32) & 2) == 0 && (*(a5 + 401) & 0x7FFE) != 0 && (*(v12 + 32) & 4) == 0)
-      {
-        v196 = a5[1];
-        if (v196)
-        {
-          v197 = (v196 + 4040);
-        }
-
-        else
-        {
-          v197 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v206 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): tree says key size is fixed, but node says kv size is variable\n", "btree_node_check", 390, v197, v206, *(a5[7] + 34));
-        v18 = 22;
-      }
-
-      if ((*(v12 + 32) & 4) != 0 && (*(a5[7] + 32) & 2) != 0 && (*(a5 + 401) & 0x7FFF8000) == 0)
-      {
-        if (v18)
-        {
-          v18 = v18;
-        }
-
-        else
-        {
-          v18 = 22;
-        }
-
-        v207 = a5[1];
-        if (v207)
-        {
-          v208 = (v207 + 4040);
-        }
-
-        else
-        {
-          v208 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v209 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says val size is variable\n", "btree_node_check", 393, v208, v209, *(a5[7] + 34));
-      }
-
-      v210 = a5[7];
-      v211 = *(v210 + 32);
-      if ((v211 & 2) != 0)
-      {
-        v255 = a5[50];
-        if ((v255 & 0x7FFF800000) != 0 && (v255 & 4) == 0 && (v255 & 0x7FFE00) != 0 && (*(v12 + 32) & 4) == 0)
-        {
-          if (v18)
-          {
-            v18 = v18;
-          }
-
-          else
-          {
-            v18 = 22;
-          }
-
-          if (!a5[1])
-          {
-            v294 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v323 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): tree says kv sizes are fixed, but leaf says kv size is variable\n");
-          goto LABEL_397;
-        }
-      }
-
-      v156 = v161;
-      if (v18)
-      {
-LABEL_398:
-        if (v156)
-        {
-          sub_1000123F8(v156, (8 * v337));
-        }
-
-        if (v338)
-        {
-          sub_1000123F8(v338, (8 * v337));
-        }
-
-        return v18;
-      }
-
-      v212 = a5[47];
-      if ((*(v12 + 32) & 4) != 0)
-      {
-        v256 = a5[50];
-        if ((v211 & 2) != 0)
-        {
-          v257 = v256 >> 23;
-        }
-
-        else
-        {
-          v257 = 8;
-        }
-
-        if (*(v210 + 36))
-        {
-          v258 = 0;
-          v335 = (v256 >> 9) & 0x3FFF;
-          v332 = (v335 + 7) & 0x7FF8;
-          v334 = v257;
-          v333 = (v257 + 7) & 0x1FFF8;
-          v259 = (v212 + 2);
-          do
-          {
-            v260 = *(v259 - 1);
-            v339 = *v259;
-            if (v260 == 0xFFFF)
-            {
-              if ((*(v12 + 32) & 0x80000000) == 0)
-              {
-                if (!a5[1])
-                {
-                  v297 = *(*(*a5 + 392) + 384) + 212;
-                }
-
-                sub_100038018(a5);
-                v326 = *(a5[7] + 34);
-LABEL_662:
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid key offset\n");
-LABEL_396:
-                v18 = 22;
-LABEL_397:
-                v156 = v161;
-                goto LABEL_398;
-              }
-
-              v18 = 0;
-            }
-
-            else
-            {
-              v261 = *(v210 + 32);
-              if ((v261 & 2) != 0 && (v16 && *(v16[49] + 16) < v335 || (v261 & 1) != 0 && *(a5[49] + 16) < v335))
-              {
-                v262 = a5[1];
-                if (v262)
-                {
-                  v263 = (v262 + 4040);
-                }
-
-                else
-                {
-                  v263 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v264 = sub_100038018(a5);
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 452, v263, v264, *(a5[7] + 34));
-                v18 = 22;
-              }
-
-              else
-              {
-                v18 = 0;
-              }
-
-              if (v260 >= v341)
-              {
-                v265 = a5[1];
-                if (v265)
-                {
-                  v266 = (v265 + 4040);
-                }
-
-                else
-                {
-                  v266 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v267 = sub_100038018(a5);
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 452, v266, v267, *(a5[7] + 34));
-                v18 = 22;
-              }
-
-              if (v335 + v260 <= v341)
-              {
-                if (!v18)
-                {
-                  if (sub_10001BFA8(v161, v260, v335, &v359))
-                  {
-                    v18 = 0;
-                  }
-
-                  else
-                  {
-                    v271 = a5[1];
-                    if (v271)
-                    {
-                      v272 = (v271 + 4040);
-                    }
-
-                    else
-                    {
-                      v272 = (*(*(*a5 + 392) + 384) + 212);
-                    }
-
-                    v273 = sub_100038018(a5);
-                    sub_100012178("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 452, v272, v273, *(a5[7] + 34));
-                    v18 = 22;
-                  }
-
-                  if (!sub_10001BFA8(v338, v260, v335, &v359))
-                  {
-                    v274 = a5[1];
-                    if (v274)
-                    {
-                      v275 = (v274 + 4040);
-                    }
-
-                    else
-                    {
-                      v275 = (*(*(*a5 + 392) + 384) + 212);
-                    }
-
-                    v276 = sub_100038018(a5);
-                    sub_100012178("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 452, v275, v276, *(a5[7] + 34));
-                    v18 = 22;
-                  }
-
-                  if ((a5[50] & 0x40) != 0)
-                  {
-                    v277 = v335;
-                  }
-
-                  else
-                  {
-                    v277 = v332;
-                  }
-
-                  sub_10001C098(v338, v260, v277, v332);
-                }
-              }
-
-              else
-              {
-                if (v18)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = 22;
-                }
-
-                v268 = a5[1];
-                if (v268)
-                {
-                  v269 = (v268 + 4040);
-                }
-
-                else
-                {
-                  v269 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v270 = sub_100038018(a5);
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 452, v269, v270, *(a5[7] + 34));
-              }
-            }
-
-            if (v339 <= 0xFFFD)
-            {
-              v278 = *(a5[7] + 32);
-              if ((v278 & 2) != 0 && (v16 && *(v16[49] + 20) < v334 || (v278 & 1) != 0 && *(a5[49] + 20) < v334))
-              {
-                if (v18)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = 22;
-                }
-
-                v279 = a5[1];
-                if (v279)
-                {
-                  v280 = (v279 + 4040);
-                }
-
-                else
-                {
-                  v280 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v281 = sub_100038018(a5);
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 455, v280, v281, *(a5[7] + 34));
-              }
-
-              if (v339 > v336)
-              {
-                if (v18)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = 22;
-                }
-
-                v282 = a5[1];
-                if (v282)
-                {
-                  v283 = (v282 + 4040);
-                }
-
-                else
-                {
-                  v283 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v284 = sub_100038018(a5);
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 455, v283, v284, *(a5[7] + 34));
-              }
-
-              if (v339 < v257)
-              {
-                if (v18)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = 22;
-                }
-
-                if (!a5[1])
-                {
-                  v295 = *(*(*a5 + 392) + 384) + 212;
-                }
-
-                sub_100038018(a5);
-                v324 = *(a5[7] + 34);
-LABEL_657:
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): val location extends beyond val space\n");
-                goto LABEL_397;
-              }
-
-              v156 = v161;
-              if (v18)
-              {
-                goto LABEL_398;
-              }
-
-              v285 = v340 - v339;
-              if (sub_10001BFA8(v161, v340 - v339, v257, v340))
-              {
-                v18 = 0;
-              }
-
-              else
-              {
-                v287 = a5[1];
-                if (v287)
-                {
-                  v288 = (v287 + 4040);
-                }
-
-                else
-                {
-                  v288 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v289 = sub_100038018(a5);
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 455, v288, v289, *(a5[7] + 34));
-                v18 = 22;
-              }
-
-              if (!sub_10001BFA8(v338, v285, v257, v286))
-              {
-                v290 = a5[1];
-                if (v290)
-                {
-                  v291 = (v290 + 4040);
-                }
-
-                else
-                {
-                  v291 = (*(*(*a5 + 392) + 384) + 212);
-                }
-
-                v292 = sub_100038018(a5);
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 455, v291, v292, *(a5[7] + 34));
-                v18 = 22;
-              }
-
-              if ((a5[50] & 0x40) != 0)
-              {
-                v293 = v334;
-              }
-
-              else
-              {
-                v293 = v333;
-              }
-
-              sub_10001C098(v338, v285, v293, v334);
-            }
-
-            v156 = v161;
-            if (v18)
-            {
-              goto LABEL_398;
-            }
-
-            v259 += 2;
-            ++v258;
-            v210 = a5[7];
-          }
-
-          while (v258 < *(v210 + 36));
-        }
-      }
-
-      else if (*(v210 + 36))
-      {
-        v213 = 0;
-        v214 = (v212 + 4);
-        do
-        {
-          v215 = *(v214 - 2);
-          v339 = *v214;
-          v216 = v214[1];
-          if (v215 == 0xFFFF)
-          {
-            if ((*(v12 + 32) & 0x80000000) == 0)
-            {
-              if (!a5[1])
-              {
-                v298 = *(*(*a5 + 392) + 384) + 212;
-              }
-
-              sub_100038018(a5);
-              v327 = *(a5[7] + 34);
-              goto LABEL_662;
-            }
-
-            v18 = 0;
-          }
-
-          else
-          {
-            v217 = *(v214 - 1);
-            v218 = *(v210 + 32);
-            if ((v218 & 2) != 0 && (v16 && *(v16[49] + 16) < v217 || (v218 & 1) != 0 && *(a5[49] + 16) < v217))
-            {
-              v219 = a5[1];
-              if (v219)
-              {
-                v220 = (v219 + 4040);
-              }
-
-              else
-              {
-                v220 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v221 = sub_100038018(a5);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 475, v220, v221, *(a5[7] + 34));
-              v18 = 22;
-            }
-
-            else
-            {
-              v18 = 0;
-            }
-
-            if (v215 >= v341)
-            {
-              v222 = a5[1];
-              if (v222)
-              {
-                v223 = (v222 + 4040);
-              }
-
-              else
-              {
-                v223 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v224 = sub_100038018(a5);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 475, v223, v224, *(a5[7] + 34));
-              v18 = 22;
-            }
-
-            v225 = (v217 + v215);
-            if (v225 <= v341)
-            {
-              if (!v18)
-              {
-                if (sub_10001BFA8(v161, v215, v217, v225))
-                {
-                  v18 = 0;
-                }
-
-                else
-                {
-                  v230 = a5[1];
-                  if (v230)
-                  {
-                    v231 = (v230 + 4040);
-                  }
-
-                  else
-                  {
-                    v231 = (*(*(*a5 + 392) + 384) + 212);
-                  }
-
-                  v232 = sub_100038018(a5);
-                  sub_100012178("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 475, v231, v232, *(a5[7] + 34));
-                  v18 = 22;
-                }
-
-                if (!sub_10001BFA8(v338, v215, v217, v228))
-                {
-                  v233 = a5[1];
-                  if (v233)
-                  {
-                    v234 = (v233 + 4040);
-                  }
-
-                  else
-                  {
-                    v234 = (*(*(*a5 + 392) + 384) + 212);
-                  }
-
-                  v235 = sub_100038018(a5);
-                  sub_100012178("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 475, v234, v235, *(a5[7] + 34));
-                  v18 = 22;
-                }
-
-                v236 = a5[50];
-                if ((v236 & 0x40) != 0)
-                {
-                  v237 = v217;
-                }
-
-                else
-                {
-                  v237 = (v217 + 7) & 0x1FFF8;
-                }
-
-                sub_10001C098(v338, v215, v237, v236);
-              }
-            }
-
-            else
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              v226 = a5[1];
-              if (v226)
-              {
-                v227 = (v226 + 4040);
-              }
-
-              else
-              {
-                v227 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v229 = sub_100038018(a5);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 475, v227, v229, *(a5[7] + 34));
-            }
-          }
-
-          if (v339 > 0xFFFD)
-          {
-            if (v216 && v216 != 65534)
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              if (!a5[1])
-              {
-                v299 = *(*(*a5 + 392) + 384) + 212;
-              }
-
-              sub_100038018(a5);
-              v328 = *(a5[7] + 34);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid val offset has non-zero length\n");
-              goto LABEL_397;
-            }
-          }
-
-          else
-          {
-            v238 = *(a5[7] + 32);
-            if ((v238 & 2) != 0 && (v16 && *(v16[49] + 20) < v216 || (v238 & 1) != 0 && *(a5[49] + 20) < v216))
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              v239 = a5[1];
-              if (v239)
-              {
-                v240 = (v239 + 4040);
-              }
-
-              else
-              {
-                v240 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v241 = sub_100038018(a5);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 478, v240, v241, *(a5[7] + 34));
-            }
-
-            if (v339 > v336)
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              v242 = a5[1];
-              if (v242)
-              {
-                v243 = (v242 + 4040);
-              }
-
-              else
-              {
-                v243 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v244 = sub_100038018(a5);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 478, v243, v244, *(a5[7] + 34));
-            }
-
-            if (v339 < v216)
-            {
-              if (v18)
-              {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              if (!a5[1])
-              {
-                v296 = *(*(*a5 + 392) + 384) + 212;
-              }
-
-              sub_100038018(a5);
-              v325 = *(a5[7] + 34);
-              goto LABEL_657;
-            }
-
-            v156 = v161;
-            if (v18)
-            {
-              goto LABEL_398;
-            }
-
-            v245 = v340 - v339;
-            if (sub_10001BFA8(v161, v340 - v339, v216, v340))
-            {
-              v18 = 0;
-            }
-
-            else
-            {
-              v247 = a5[1];
-              if (v247)
-              {
-                v248 = (v247 + 4040);
-              }
-
-              else
-              {
-                v248 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v249 = sub_100038018(a5);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 478, v248, v249, *(a5[7] + 34));
-              v18 = 22;
-            }
-
-            if (!sub_10001BFA8(v338, v245, v216, v246))
-            {
-              v250 = a5[1];
-              if (v250)
-              {
-                v251 = (v250 + 4040);
-              }
-
-              else
-              {
-                v251 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v252 = sub_100038018(a5);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 478, v251, v252, *(a5[7] + 34));
-              v18 = 22;
-            }
-
-            v253 = a5[50];
-            if ((v253 & 0x40) != 0)
-            {
-              v254 = v216;
-            }
-
-            else
-            {
-              v254 = (v216 + 7) & 0x1FFF8;
-            }
-
-            sub_10001C098(v338, v245, v254, v253);
-          }
-
-          v156 = v161;
-          if (v18)
-          {
-            goto LABEL_398;
-          }
-
-          v214 += 4;
-          ++v213;
-          v210 = a5[7];
-        }
-
-        while (v213 < *(v210 + 36));
-      }
-
-      sub_1000123F8(v161, 8 * v337);
-      sub_1000123F8(v338, 8 * v337);
-      a8 = v343;
-      a7 = v342;
-      v15 = v346;
-    }
-
-    v357 = 0;
-    v358 = 0xAAAAAAAAAAAAAAAALL;
-    v356 = -21846;
-    v355 = 0;
-    v354 = 0;
+  }
+
+  if (!v16 && (a5[4] & 1) == 0)
+  {
+    return 0;
+  }
+
+  v282 = a9;
+  v281 = a11;
+  v283 = v15;
+  if (a11)
+  {
+LABEL_17:
+    v294 = 0;
+    v295 = 0xAAAAAAAAAAAAAAAALL;
+    v293 = -21846;
+    v292 = 0;
+    v291 = 0;
     v22 = a5[7];
-    v23 = v350;
-    v24 = v348;
-    if (v350 && *(v22 + 36))
+    v23 = v287;
+    v24 = v285;
+    if (v287 && *(v22 + 36))
     {
-      v25 = sub_10001D454(v350, v348, &v358, &v356);
+      v25 = sub_10001D454(v287, v285, &v295, &v293);
       if (v25)
       {
         v18 = v25;
-        if (!a5[1])
-        {
-          v55 = *(*(*a5 + 392) + 384) + 212;
-        }
-
-        sub_100038018(v350);
-        v300 = *(*(v350 + 7) + 34);
-LABEL_282:
+        sub_100038018(v287);
+LABEL_249:
         sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n");
         return v18;
       }
 
-      v33 = sub_10001D454(a5, 0, &v357, &v355);
+      v33 = sub_10001D454(a5, 0, &v294, &v292);
       if (v33)
       {
         v18 = v33;
-        if (!a5[1])
-        {
-          v67 = *(*(*a5 + 392) + 384) + 212;
-        }
-
         sub_100038018(a5);
-        v301 = *(a5[7] + 34);
-        goto LABEL_282;
+        goto LABEL_249;
       }
 
-      a1 = (a5[52])(v349, v358, v356, v357, v355, &v354);
+      a1 = (a5[52])(v286, v295, v293, v294, v292, &v291);
       if (a1)
       {
         v18 = a1;
-        if (!a5[1])
-        {
-          v74 = *(*(*a5 + 392) + 384) + 212;
-        }
-
         sub_100038018(a5);
-        v307 = *(a5[7] + 34);
         sub_100012178("%s:%d: %s oid 0x%llx (level %d): minkey compare error: %d\n");
         return v18;
       }
 
-      if (v354 >= 1)
+      if (v291 >= 1)
       {
-        if (!a5[1])
-        {
-          v87 = *(*(*a5 + 392) + 384) + 212;
-        }
-
         sub_100038018(a5);
-        v309 = *(a5[7] + 34);
         sub_100012178("%s:%d: %s oid 0x%llx (level %d): minkey not correct\n");
         return 22;
       }
 
-      if (v354)
+      if (v291)
       {
-        if (!a5[1])
-        {
-          v151 = *(*(*a5 + 392) + 384) + 212;
-        }
-
         sub_100038018(a5);
-        v313 = *(a5[7] + 34);
         sub_100012178("%s:%d: %s oid 0x%llx (level %d): minkey not in sync\n");
         return 22;
       }
 
       v22 = a5[7];
-      v23 = v350;
-      v24 = v348;
+      v23 = v287;
+      v24 = v285;
     }
 
-    v88 = *(v22 + 36);
-    if (v88 >= 2)
+    v81 = *(v22 + 36);
+    if (v81 >= 2)
     {
-      v342 = a7;
-      v343 = a8;
+      v279 = a7;
+      v280 = a8;
       v18 = 0;
-      for (i = 1; i < v88; ++i)
+      for (i = 1; i < v81; ++i)
       {
         a1 = sub_10001D364(a5, (i - 1));
         if (a1 != 0xFFFF)
@@ -8796,10 +7078,10 @@ LABEL_282:
           a1 = sub_10001D364(a5, i);
           if (a1 != 0xFFFF)
           {
-            v90 = sub_10001D454(a5, (i - 1), &v358, &v356);
-            if (v90)
+            v83 = sub_10001D454(a5, (i - 1), &v295, &v293);
+            if (v83)
             {
-              v91 = v90;
+              v84 = v83;
               if (v18)
               {
                 v18 = v18;
@@ -8807,30 +7089,30 @@ LABEL_282:
 
               else
               {
-                v18 = v90;
+                v18 = v83;
               }
 
-              v92 = a5[1];
-              if (v92)
+              v85 = a5[1];
+              if (v85)
               {
-                v93 = (v92 + 4040);
+                v86 = (v85 + 4040);
               }
 
               else
               {
-                v93 = (*(*(*a5 + 392) + 384) + 212);
+                v86 = (*(*(*a5 + 392) + 384) + 212);
               }
 
-              v94 = sub_100038018(a5);
-              a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 536, v93, v94, *(a5[7] + 34), i - 1, v91);
+              v87 = sub_100038018(a5);
+              a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 536, v86, v87, *(a5[7] + 34), i - 1, v84);
             }
 
             else
             {
-              a1 = sub_10001D454(a5, i, &v357, &v355);
+              a1 = sub_10001D454(a5, i, &v294, &v292);
               if (a1)
               {
-                v95 = a1;
+                v88 = a1;
                 if (v18)
                 {
                   v18 = v18;
@@ -8841,257 +7123,195 @@ LABEL_282:
                   v18 = a1;
                 }
 
-                v96 = a5[1];
-                if (v96)
+                v89 = a5[1];
+                if (v89)
                 {
-                  v97 = (v96 + 4040);
+                  v90 = (v89 + 4040);
                 }
 
                 else
                 {
-                  v97 = (*(*(*a5 + 392) + 384) + 212);
+                  v90 = (*(*(*a5 + 392) + 384) + 212);
                 }
 
-                v98 = sub_100038018(a5);
-                a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 543, v97, v98, *(a5[7] + 34), i, v95);
+                v91 = sub_100038018(a5);
+                a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 543, v90, v91, *(a5[7] + 34), i, v88);
               }
             }
 
             if (!v18)
             {
-              a1 = (a5[52])(v349, v358, v356, v357, v355, &v354);
+              a1 = (a5[52])(v286, v295, v293, v294, v292, &v291);
               if (a1)
               {
                 v18 = a1;
-                v99 = a5[1];
-                if (v99)
+                v92 = a5[1];
+                if (v92)
                 {
-                  v100 = (v99 + 4040);
+                  v93 = (v92 + 4040);
                 }
 
                 else
                 {
-                  v100 = (*(*(*a5 + 392) + 384) + 212);
+                  v93 = (*(*(*a5 + 392) + 384) + 212);
                 }
 
-                v101 = sub_100038018(a5);
-                a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n", "btree_node_check", 547, v100, v101, *(a5[7] + 34), i, v18);
+                v94 = sub_100038018(a5);
+                a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n", "btree_node_check", 547, v93, v94, *(a5[7] + 34), i, v18);
               }
 
-              else if (v354 < 0)
+              else if (v291 < 0)
               {
                 v18 = 0;
               }
 
               else
               {
-                v102 = a5[1];
-                if (v102)
+                v95 = a5[1];
+                if (v95)
                 {
-                  v103 = (v102 + 4040);
+                  v96 = (v95 + 4040);
                 }
 
                 else
                 {
-                  v103 = (*(*(*a5 + 392) + 384) + 212);
+                  v96 = (*(*(*a5 + 392) + 384) + 212);
                 }
 
-                v104 = sub_100038018(a5);
-                a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): keys out of order: %d\n", "btree_node_check", 550, v103, v104, *(a5[7] + 34), i);
+                v97 = sub_100038018(a5);
+                a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): keys out of order: %d\n", "btree_node_check", 550, v96, v97, *(a5[7] + 34), i);
                 v18 = 22;
               }
             }
           }
         }
 
-        v88 = *(a5[7] + 36);
+        v81 = *(a5[7] + 36);
       }
 
-      a8 = v343;
-      a7 = v342;
-      v15 = v346;
+      a8 = v280;
+      a7 = v279;
+      v15 = v283;
       if (v18)
       {
         return v18;
       }
 
-      v23 = v350;
-      v24 = v348;
+      v23 = v287;
+      v24 = v285;
     }
 
-    if (v23)
+    if (!v23)
     {
-      a1 = sub_10001D454(a5, (v88 - 1), &v358, &v356);
-      if (a1)
+      goto LABEL_203;
+    }
+
+    a1 = sub_10001D454(a5, (v81 - 1), &v295, &v293);
+    if (a1)
+    {
+      v98 = a1;
+      v99 = a5[1];
+      if (v99)
       {
-        v105 = a1;
-        v106 = a5[1];
-        if (v106)
-        {
-          v107 = (v106 + 4040);
-        }
-
-        else
-        {
-          v107 = (*(*(*a5 + 392) + 384) + 212);
-        }
-
-        v108 = sub_100038018(a5);
-        sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 559, v107, v108, *(a5[7] + 34), *(a5[7] + 36) - 1, v105);
-        return 22;
-      }
-
-      if (*(*(v23 + 56) + 36) - 1 <= v24)
-      {
-        v357 = a7;
-        v355 = a8;
-        v109 = a8;
-        v110 = a7;
+        v100 = (v99 + 4040);
       }
 
       else
       {
-        a1 = sub_10001D454(v23, (v24 + 1), &v357, &v355);
-        if (a1)
-        {
-          v18 = a1;
-          if (!a5[1])
-          {
-            v134 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(v350);
-          v302 = *(*(v350 + 7) + 34);
-          goto LABEL_282;
-        }
-
-        v110 = v357;
-        v109 = v355;
+        v100 = (*(*(*a5 + 392) + 384) + 212);
       }
 
-      if (v110 && v109 && v356)
-      {
-        a1 = (a5[52])(v349, v358);
-        if (a1)
-        {
-          v18 = a1;
-          if (!a5[1])
-          {
-            v136 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v137 = a5[7];
-          v304 = (*(v137 + 36) - 1);
-          v303 = *(v137 + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n");
-          return v18;
-        }
-
-        if ((v354 & 0x80000000) == 0)
-        {
-          if (!a5[1])
-          {
-            v138 = *(*(*a5 + 392) + 384) + 212;
-          }
-
-          sub_100038018(a5);
-          v312 = *(a5[7] + 34);
-          sub_100012178("%s:%d: %s oid 0x%llx (level %d): node's max key is not less than next sibling's entry in parent\n");
-          return 22;
-        }
-      }
+      v101 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 559, v100, v101, *(a5[7] + 34), *(a5[7] + 36) - 1, v98);
+      return 22;
     }
 
-    if (!v16)
+    if (*(*(v23 + 56) + 36) - 1 <= v24)
     {
-      return 0;
-    }
-
-    v111 = a5[7];
-    if ((*(v111 + 32) & 2) != 0 || *(v111 + 36))
-    {
-      v18 = 0;
+      v294 = a7;
+      v292 = a8;
+      v102 = a8;
+      v103 = a7;
     }
 
     else
     {
-      v132 = a5[1];
-      if (v132)
+      a1 = sub_10001D454(v23, (v24 + 1), &v294, &v292);
+      if (a1)
       {
-        v133 = (v132 + 4040);
+        v18 = a1;
+        sub_100038018(v287);
+        goto LABEL_249;
       }
 
-      else
-      {
-        v133 = (*(*(*a5 + 392) + 384) + 212);
-      }
-
-      v135 = sub_100038018(a5);
-      a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): non-leaf node has no children?\n", "btree_node_check", 595, v133, v135, *(a5[7] + 34));
-      v18 = 22;
+      v103 = v294;
+      v102 = v292;
     }
 
-    if ((*(a5[7] + 32) & 2) == 0 && (a10 & 1) == 0)
+    if (!v103 || !v102 || !v293)
     {
-      v350 = v331;
-      v112 = a5[50];
-      __chkstk_darwin(a1);
-      v114 = &v331[-v113];
-      bzero(&v331[-v113], v115);
-      if (*(a5[7] + 36))
+      goto LABEL_203;
+    }
+
+    a1 = (a5[52])(v286, v295);
+    if (a1)
+    {
+      v18 = a1;
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): key %d compare error: %d\n");
+      return v18;
+    }
+
+    if (v291 < 0)
+    {
+LABEL_203:
+      if (v16)
       {
-        v343 = a8;
-        v116 = v15;
-        v117 = 0;
-        LODWORD(v349) = v116 + 1;
-        do
+        v104 = a5[7];
+        if ((*(v104 + 32) & 2) != 0 || *(v104 + 36))
         {
-          if (sub_10001D364(a5, v117) != 0xFFFF && sub_10001D3B0(a5, v117) != 0xFFFF)
+          v18 = 0;
+        }
+
+        else
+        {
+          v122 = a5[1];
+          if (v122)
           {
-            v118 = sub_10001D758(a5, v117, v114);
-            if (v118)
+            v123 = (v122 + 4040);
+          }
+
+          else
+          {
+            v123 = (*(*(*a5 + 392) + 384) + 212);
+          }
+
+          v124 = sub_100038018(a5);
+          a1 = sub_100012178("%s:%d: %s oid 0x%llx (level %d): non-leaf node has no children?\n", "btree_node_check", 595, v123, v124, *(a5[7] + 34));
+          v18 = 22;
+        }
+
+        if ((*(a5[7] + 32) & 2) == 0 && (a10 & 1) == 0)
+        {
+          v287 = v268;
+          __chkstk_darwin(a1);
+          v106 = &v268[-v105];
+          bzero(&v268[-v105], v107);
+          if (*(a5[7] + 36))
+          {
+            v280 = a8;
+            v108 = v15;
+            v109 = 0;
+            LODWORD(v286) = v108 + 1;
+            while (1)
             {
-              v119 = v118;
-              v120 = a7;
-              if (v18)
+              if (sub_10001D364(a5, v109) != 0xFFFF && sub_10001D3B0(a5, v109) != 0xFFFF)
               {
-                v18 = v18;
-              }
-
-              else
-              {
-                v18 = 22;
-              }
-
-              v121 = a5[1];
-              if (v121)
-              {
-                v122 = (v121 + 4040);
-              }
-
-              else
-              {
-                v122 = (*(*(*a5 + 392) + 384) + 212);
-              }
-
-              v123 = sub_100038018(a5);
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get child %d oid: %d\n", "btree_node_check", 606, v122, v123, *(a5[7] + 34), v117, v119);
-              a7 = v120;
-            }
-
-            else if (*v114)
-            {
-              v352 = a7;
-              v353 = 0xAAAAAAAAAAAAAAAALL;
-              v351 = v343;
-              v124 = a5[7];
-              if (v117 < *(v124 + 36) - 1)
-              {
-                v125 = sub_10001D454(a5, (v117 + 1), &v352, &v351);
-                if (v125)
+                v110 = sub_10001D758(a5, v109, v106);
+                if (v110)
                 {
-                  v152 = v125;
+                  v111 = v110;
+                  v112 = a7;
                   if (v18)
                   {
                     v18 = v18;
@@ -9102,129 +7322,1668 @@ LABEL_282:
                     v18 = 22;
                   }
 
-                  v153 = a5[1];
-                  if (v153)
+                  v113 = a5[1];
+                  if (v113)
                   {
-                    v154 = (v153 + 4040);
+                    v114 = (v113 + 4040);
                   }
 
                   else
                   {
-                    v154 = (*(*(*a5 + 392) + 384) + 212);
+                    v114 = (*(*(*a5 + 392) + 384) + 212);
                   }
 
-                  v175 = sub_100038018(a5);
-                  sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 625, v154, v175, *(a5[7] + 34), v117 + 1, v152);
-                  return v18;
+                  v115 = sub_100038018(a5);
+                  sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get child %d oid: %d\n", "btree_node_check", 606, v114, v115, *(a5[7] + 34), v109, v111);
+                  a7 = v112;
                 }
 
-                v124 = a5[7];
-              }
-
-              v126 = v347;
-              if (sub_10001D02C(v16, v114, v347, 0x202u, *(v124 + 34) - 1, 0, &v353))
-              {
-                v127 = 1;
-              }
-
-              else
-              {
-                v127 = v353 == 0;
-              }
-
-              if (v127)
-              {
-                if (v18)
+                else if (*v106)
                 {
-                  v18 = v18;
+                  v289 = a7;
+                  v290 = 0xAAAAAAAAAAAAAAAALL;
+                  v288 = v280;
+                  v116 = a5[7];
+                  if (v109 < *(v116 + 36) - 1)
+                  {
+                    v117 = sub_10001D454(a5, (v109 + 1), &v289, &v288);
+                    if (v117)
+                    {
+                      v137 = v117;
+                      if (v18)
+                      {
+                        v18 = v18;
+                      }
+
+                      else
+                      {
+                        v18 = 22;
+                      }
+
+                      v138 = a5[1];
+                      if (v138)
+                      {
+                        v139 = (v138 + 4040);
+                      }
+
+                      else
+                      {
+                        v139 = (*(*(*a5 + 392) + 384) + 212);
+                      }
+
+                      v159 = sub_100038018(a5);
+                      sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get key %d: %d\n", "btree_node_check", 625, v139, v159, *(a5[7] + 34), v109 + 1, v137);
+                      return v18;
+                    }
+
+                    v116 = a5[7];
+                  }
+
+                  v118 = v284;
+                  if (sub_10001D02C(v16, v106, v284, 0x202u, *(v116 + 34) - 1, 0, &v290))
+                  {
+                    v119 = 1;
+                  }
+
+                  else
+                  {
+                    v119 = v290 == 0;
+                  }
+
+                  if (v119)
+                  {
+                    if (v18)
+                    {
+                      v18 = v18;
+                    }
+
+                    else
+                    {
+                      v18 = 22;
+                    }
+
+                    sub_100038018(a5);
+                    sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get child: 0x%llx\n");
+                  }
+
+                  else
+                  {
+                    v120 = sub_10000A1F8(v16, v118, a5, v109, v290, v286, v289, v288, v282, 0, v281);
+                    if (v18)
+                    {
+                      v121 = 1;
+                    }
+
+                    else
+                    {
+                      v121 = v120 == 0;
+                    }
+
+                    if (v121)
+                    {
+                      v18 = v18;
+                    }
+
+                    else
+                    {
+                      v18 = v120;
+                    }
+
+                    sub_10003C190(v290, 1);
+                    sub_100037058(v290);
+                  }
                 }
 
                 else
                 {
-                  v18 = 22;
-                }
+                  if (v18)
+                  {
+                    v18 = v18;
+                  }
 
-                if (!a5[1])
-                {
-                  v131 = *(*(*a5 + 392) + 384) + 212;
-                }
+                  else
+                  {
+                    v18 = 22;
+                  }
 
-                sub_100038018(a5);
-                v311 = *(a5[7] + 34);
-                v330 = *v114;
-                sub_100012178("%s:%d: %s oid 0x%llx (level %d): can't get child: 0x%llx\n");
+                  sub_100038018(a5);
+                  sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid child oid: 0x%llx\n");
+                }
               }
 
-              else
+              if (++v109 >= *(a5[7] + 36))
               {
-                v128 = sub_10000A1F8(v16, v126, a5, v117);
-                if (v18)
-                {
-                  v129 = 1;
-                }
-
-                else
-                {
-                  v129 = v128 == 0;
-                }
-
-                if (v129)
-                {
-                  v18 = v18;
-                }
-
-                else
-                {
-                  v18 = v128;
-                }
-
-                sub_10003C190(v353, 1);
-                sub_100037058(v353);
+                return v18;
               }
+            }
+          }
+        }
+
+        return v18;
+      }
+
+      return 0;
+    }
+
+    sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): node's max key is not less than next sibling's entry in parent\n");
+    return 22;
+  }
+
+  v18 = 0;
+  if (v287 && (*(v12 + 32) & 1) != 0)
+  {
+    v26 = a5[1];
+    if (v26)
+    {
+      v27 = (v26 + 4040);
+    }
+
+    else
+    {
+      v27 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v28 = sub_100038018(a5);
+    v29 = *(a5[7] + 34);
+    v30 = sub_100038018(v287);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): root node has a parent 0x%llx (level %d)\n", "btree_node_check", 183, v27, v28, v29, v30, *(*(v287 + 7) + 34));
+    v18 = 22;
+    v15 = v283;
+  }
+
+  if ((*(v12 + 32) & 2) != 0 && *(v12 + 34))
+  {
+    v31 = a5[1];
+    if (v31)
+    {
+      v32 = (v31 + 4040);
+    }
+
+    else
+    {
+      v32 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v34 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): leaf node has non-zero level\n", "btree_node_check", 186, v32, v34, *(v12 + 34));
+    v18 = 22;
+  }
+
+  if (v16)
+  {
+    if (*(a5[7] + 34) > *(v16[7] + 34))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v35 = a5[1];
+      if (v35)
+      {
+        v36 = (v35 + 4040);
+      }
+
+      else
+      {
+        v36 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v37 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): node level greater than root level %d\n", "btree_node_check", 189, v36, v37, *(v12 + 34), *(v16[7] + 34));
+    }
+
+    v38 = v15 - 1;
+    if (*(v16[7] + 34) - (v15 - 1) != *(a5[7] + 34))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v39 = a5[1];
+      if (v39)
+      {
+        v40 = (v39 + 4040);
+      }
+
+      else
+      {
+        v40 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v41 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): node level should be %d\n", "btree_node_check", 192, v40, v41, *(v12 + 34), *(v16[7] + 34) - v38);
+    }
+  }
+
+  if (*(v12 + 32))
+  {
+    v42 = -96;
+  }
+
+  else
+  {
+    v42 = -56;
+  }
+
+  v43 = v42 + ((a5[50] >> 27) & 0xF000);
+  if (*(v12 + 40))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v44 = a5[1];
+    if (v44)
+    {
+      v45 = (v44 + 4040);
+    }
+
+    else
+    {
+      v45 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v46 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid table space offset\n", "btree_node_check", 203, v45, v46, *(a5[7] + 34));
+  }
+
+  if (*(v12 + 42) > v43)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v47 = a5[1];
+    if (v47)
+    {
+      v48 = (v47 + 4040);
+    }
+
+    else
+    {
+      v48 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v49 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): table space length larger than available data space\n", "btree_node_check", 206, v48, v49, *(a5[7] + 34));
+  }
+
+  if ((*(v12 + 32) & 4) == 0)
+  {
+    v50 = *(v12 + 42);
+    if (v50 < 8 * sub_10001D2A4(a5))
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): table space length smaller than minimum\n");
+      return v18;
+    }
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v51 = (v43 - *(v12 + 42));
+  if (*(v12 + 44) <= (v43 - *(v12 + 42)))
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v52 = a5[1];
+    if (v52)
+    {
+      v53 = (v52 + 4040);
+    }
+
+    else
+    {
+      v53 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v54 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): free space offset too large\n", "btree_node_check", 218, v53, v54, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (*(v12 + 46) + *(v12 + 44) > v51)
+  {
+    v55 = a5[1];
+    if (v55)
+    {
+      v56 = (v55 + 4040);
+    }
+
+    else
+    {
+      v56 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v57 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): free space extends beyond end of node\n", "btree_node_check", 221, v56, v57, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  v278 = *(v12 + 44);
+  v58 = *(v12 + 46);
+  if (*(v12 + 36) > v51)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v59 = a5[1];
+    if (v59)
+    {
+      v60 = (v59 + 4040);
+    }
+
+    else
+    {
+      v60 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v61 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): key count larger than possible\n", "btree_node_check", 228, v60, v61, *(a5[7] + 34));
+  }
+
+  v62 = *(v12 + 36);
+  v277 = v51;
+  if (v62 > v278 && (*(v12 + 32) & 0x80000000) == 0)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v63 = a5[1];
+    if (v63)
+    {
+      v64 = (v63 + 4040);
+    }
+
+    else
+    {
+      v64 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v65 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): key count larger than gross key space\n", "btree_node_check", 231, v64, v65, *(a5[7] + 34));
+  }
+
+  v66 = *(v12 + 36);
+  v67 = *(v12 + 42);
+  if (v66 > v67 / sub_10001D2A4(a5))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): key count larger than TOC space\n");
+    return v18;
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  if (a5[47] == v12 + 56)
+  {
+    v18 = 0;
+  }
+
+  else
+  {
+    v68 = a5[1];
+    if (v68)
+    {
+      v69 = (v68 + 4040);
+    }
+
+    else
+    {
+      v69 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v70 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid TOC[] pointer\n", "btree_node_check", 242, v69, v70, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (a5[48] != v12 + 56 + *(v12 + 42))
+  {
+    v71 = a5[1];
+    if (v71)
+    {
+      v72 = (v71 + 4040);
+    }
+
+    else
+    {
+      v72 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v73 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid keys[] pointer\n", "btree_node_check", 245, v72, v73, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if ((*(v12 + 32) & 1) != 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000) - 40)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v74 = a5[1];
+    if (v74)
+    {
+      v75 = (v74 + 4040);
+    }
+
+    else
+    {
+      v75 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v76 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n", "btree_node_check", 248, v75, v76, *(a5[7] + 34));
+  }
+
+  if ((*(v12 + 32) & 1) == 0 && a5[49] != v12 + ((a5[50] >> 27) & 0x1F000))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid vals[] pointer\n");
+    return v18;
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v77 = v278 + v58;
+  if (*(v12 + 50) <= v278)
+  {
+    v18 = 0;
+    v80 = v277;
+  }
+
+  else
+  {
+    v78 = a5[1];
+    if (v78)
+    {
+      v79 = (v78 + 4040);
+    }
+
+    else
+    {
+      v79 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v80 = v277;
+    v125 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list space larger than key space available\n", "btree_node_check", 259, v79, v125, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  v126 = v80 - v77;
+  v127 = *(v12 + 48);
+  if (v127 != 0xFFFF && v278 - 4 < v127)
+  {
+    v128 = a5[1];
+    if (v128)
+    {
+      v129 = (v128 + 4040);
+    }
+
+    else
+    {
+      v129 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v130 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list head beyond key space available\n", "btree_node_check", 263, v129, v130, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if (*(v12 + 54) > v126)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v131 = a5[1];
+    if (v131)
+    {
+      v132 = (v131 + 4040);
+    }
+
+    else
+    {
+      v132 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v133 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list space larger than val space available\n", "btree_node_check", 266, v132, v133, *(a5[7] + 34));
+  }
+
+  v134 = *(v12 + 52);
+  if (v134 != 0xFFFF)
+  {
+    if (v134 > v126)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      v135 = a5[1];
+      if (v135)
+      {
+        v136 = (v135 + 4040);
+      }
+
+      else
+      {
+        v136 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v140 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list head beyond val space available\n", "btree_node_check", 270, v136, v140, *(a5[7] + 34));
+      v134 = *(v12 + 52);
+    }
+
+    if (v134 <= 3)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list head beyond end of node\n");
+      return v18;
+    }
+  }
+
+  if (v18)
+  {
+    return v18;
+  }
+
+  v276 = v278 - 4;
+  v141 = sub_1000122F4((v277 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
+  v142 = sub_1000122F4((v277 + 63) >> 6, 8uLL, 0x100004000313F17uLL);
+  v274 = (v277 + 63) >> 6;
+  v275 = v142;
+  if (!v141 || !v142)
+  {
+    v156 = a5[1];
+    if (v156)
+    {
+      v157 = (v156 + 4040);
+    }
+
+    else
+    {
+      v157 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v158 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): couldn't allocate bitmap to check btree node space usage\n", "btree_node_check", 286, v157, v158, *(a5[7] + 34));
+    v18 = 12;
+    goto LABEL_343;
+  }
+
+  v273 = v126;
+  v279 = a7;
+  v280 = a8;
+  sub_10001C098(v141, *(v12 + 44), *(v12 + 46), v143);
+  v144 = 0;
+  LOWORD(v145) = *(v12 + 48);
+  v146 = v141;
+  while (1)
+  {
+    v147 = v145;
+    if (v145 == 0xFFFF)
+    {
+      break;
+    }
+
+    if (v145 >= v278 || v276 < v145)
+    {
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry starts beyond key space available\n");
+LABEL_341:
+      v18 = 22;
+      goto LABEL_342;
+    }
+
+    v148 = (a5[48] + v145);
+    v149 = v148[1];
+    if (v149 <= 3)
+    {
+LABEL_339:
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry len value too small\n");
+      goto LABEL_341;
+    }
+
+    v150 = v149 + v145;
+    if (v150 > v278)
+    {
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry extends beyond key space available\n");
+      goto LABEL_341;
+    }
+
+    if (!sub_10001BFA8(v141, v147, v149, v150))
+    {
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry overlaps with other free space\n");
+      goto LABEL_341;
+    }
+
+    sub_10001C098(v141, v147, v148[1], v151);
+    v144 += v148[1];
+    v152 = *(v12 + 50);
+    if (v144 <= v152)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v153 = a5[1];
+      if (v153)
+      {
+        v154 = (v153 + 4040);
+      }
+
+      else
+      {
+        v154 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v155 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entries total space exceeds free list space\n", "btree_node_check", 326, v154, v155, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    v145 = *v148;
+    if (v147 == v145)
+    {
+LABEL_340:
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): key free list entry points to itself\n");
+      goto LABEL_341;
+    }
+
+    v141 = v146;
+    if (v144 > v152)
+    {
+      goto LABEL_343;
+    }
+  }
+
+  v160 = 0;
+  LOWORD(v161) = *(v12 + 52);
+  while (1)
+  {
+    v162 = v161;
+    if (v161 == 0xFFFF)
+    {
+      break;
+    }
+
+    if (v161 <= 3u)
+    {
+      v163 = a5[1];
+      if (v163)
+      {
+        v164 = (v163 + 4040);
+      }
+
+      else
+      {
+        v164 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v165 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entry beyond end of node\n", "btree_node_check", 342, v164, v165, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    if (v162 > v273)
+    {
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entry starts beyond val space available\n");
+      goto LABEL_341;
+    }
+
+    v141 = v146;
+    if (v162 < 4)
+    {
+      goto LABEL_343;
+    }
+
+    v166 = (a5[49] - v162);
+    v167 = v166[1];
+    if (v167 <= 3)
+    {
+      goto LABEL_339;
+    }
+
+    if (v162 < v167)
+    {
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entry extends beyond val space available\n");
+      goto LABEL_341;
+    }
+
+    v168 = v277 - v162;
+    v169 = v168;
+    if (!sub_10001BFA8(v146, v168, v167, v168))
+    {
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entry overlaps with other free space\n");
+      goto LABEL_341;
+    }
+
+    sub_10001C098(v146, v169, v166[1], v170);
+    v160 += v166[1];
+    v171 = *(v12 + 54);
+    if (v160 <= v171)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v172 = a5[1];
+      if (v172)
+      {
+        v173 = (v172 + 4040);
+      }
+
+      else
+      {
+        v173 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v174 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val free list entries total space exceeds free list space\n", "btree_node_check", 372, v173, v174, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    v161 = *v166;
+    if (v162 == v161)
+    {
+      goto LABEL_340;
+    }
+
+    v141 = v146;
+    if (v160 > v171)
+    {
+      goto LABEL_343;
+    }
+  }
+
+  if ((*(v12 + 32) & 4) != 0 && (*(a5 + 401) & 0x7FFE) == 0)
+  {
+    v177 = a5[1];
+    if (v177)
+    {
+      v178 = (v177 + 4040);
+    }
+
+    else
+    {
+      v178 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v179 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says key size is variable\n", "btree_node_check", 387, v178, v179, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  if ((*(a5[7] + 32) & 2) == 0 && (*(a5 + 401) & 0x7FFE) != 0 && (*(v12 + 32) & 4) == 0)
+  {
+    v175 = a5[1];
+    if (v175)
+    {
+      v176 = (v175 + 4040);
+    }
+
+    else
+    {
+      v176 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v180 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): tree says key size is fixed, but node says kv size is variable\n", "btree_node_check", 390, v176, v180, *(a5[7] + 34));
+    v18 = 22;
+  }
+
+  if ((*(v12 + 32) & 4) != 0 && (*(a5[7] + 32) & 2) != 0 && (*(a5 + 401) & 0x7FFF8000) == 0)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v181 = a5[1];
+    if (v181)
+    {
+      v182 = (v181 + 4040);
+    }
+
+    else
+    {
+      v182 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v183 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): node says kv size is fixed, but tree says val size is variable\n", "btree_node_check", 393, v182, v183, *(a5[7] + 34));
+  }
+
+  v184 = a5[7];
+  v185 = *(v184 + 32);
+  if ((v185 & 2) != 0)
+  {
+    v229 = a5[50];
+    if ((v229 & 0x7FFF800000) != 0 && (v229 & 4) == 0 && (v229 & 0x7FFE00) != 0 && (*(v12 + 32) & 4) == 0)
+    {
+      if (v18)
+      {
+        v18 = v18;
+      }
+
+      else
+      {
+        v18 = 22;
+      }
+
+      sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): tree says kv sizes are fixed, but leaf says kv size is variable\n");
+      goto LABEL_342;
+    }
+  }
+
+  v141 = v146;
+  if (v18)
+  {
+    goto LABEL_343;
+  }
+
+  v186 = a5[47];
+  if ((*(v12 + 32) & 4) == 0)
+  {
+    if (*(v184 + 36))
+    {
+      v187 = 0;
+      v188 = (v186 + 4);
+      while (1)
+      {
+        v189 = *(v188 - 2);
+        v276 = *v188;
+        v190 = v188[1];
+        if (v189 == 0xFFFF)
+        {
+          if ((*(v12 + 32) & 0x80000000) == 0)
+          {
+            sub_100038018(a5);
+            goto LABEL_577;
+          }
+
+          v18 = 0;
+        }
+
+        else
+        {
+          v191 = *(v188 - 1);
+          v192 = *(v184 + 32);
+          if ((v192 & 2) != 0 && (v16 && *(v16[49] + 16) < v191 || (v192 & 1) != 0 && *(a5[49] + 16) < v191))
+          {
+            v193 = a5[1];
+            if (v193)
+            {
+              v194 = (v193 + 4040);
             }
 
             else
             {
-              if (v18)
+              v194 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v195 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 475, v194, v195, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          else
+          {
+            v18 = 0;
+          }
+
+          if (v189 >= v278)
+          {
+            v196 = a5[1];
+            if (v196)
+            {
+              v197 = (v196 + 4040);
+            }
+
+            else
+            {
+              v197 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v198 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 475, v197, v198, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          v199 = (v191 + v189);
+          if (v199 <= v278)
+          {
+            if (!v18)
+            {
+              if (sub_10001BFA8(v146, v189, v191, v199))
               {
-                v18 = v18;
+                v18 = 0;
               }
 
               else
               {
+                v204 = a5[1];
+                if (v204)
+                {
+                  v205 = (v204 + 4040);
+                }
+
+                else
+                {
+                  v205 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v206 = sub_100038018(a5);
+                sub_100012178("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 475, v205, v206, *(a5[7] + 34));
                 v18 = 22;
               }
 
-              if (!a5[1])
+              if (!sub_10001BFA8(v275, v189, v191, v202))
               {
-                v130 = *(*(*a5 + 392) + 384) + 212;
+                v207 = a5[1];
+                if (v207)
+                {
+                  v208 = (v207 + 4040);
+                }
+
+                else
+                {
+                  v208 = (*(*(*a5 + 392) + 384) + 212);
+                }
+
+                v209 = sub_100038018(a5);
+                sub_100012178("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 475, v208, v209, *(a5[7] + 34));
+                v18 = 22;
               }
 
-              sub_100038018(a5);
-              v310 = *(a5[7] + 34);
-              v329 = *v114;
-              sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid child oid: 0x%llx\n");
+              v210 = a5[50];
+              if ((v210 & 0x40) != 0)
+              {
+                v211 = v191;
+              }
+
+              else
+              {
+                v211 = (v191 + 7) & 0x1FFF8;
+              }
+
+              sub_10001C098(v275, v189, v211, v210);
             }
           }
 
-          ++v117;
+          else
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v200 = a5[1];
+            if (v200)
+            {
+              v201 = (v200 + 4040);
+            }
+
+            else
+            {
+              v201 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v203 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 475, v201, v203, *(a5[7] + 34));
+          }
         }
 
-        while (v117 < *(a5[7] + 36));
+        if (v276 > 0xFFFD)
+        {
+          if (v190 && v190 != 65534)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid val offset has non-zero length\n");
+            goto LABEL_342;
+          }
+        }
+
+        else
+        {
+          v212 = *(a5[7] + 32);
+          if ((v212 & 2) != 0 && (v16 && *(v16[49] + 20) < v190 || (v212 & 1) != 0 && *(a5[49] + 20) < v190))
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v213 = a5[1];
+            if (v213)
+            {
+              v214 = (v213 + 4040);
+            }
+
+            else
+            {
+              v214 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v215 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 478, v214, v215, *(a5[7] + 34));
+          }
+
+          if (v276 > v273)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            v216 = a5[1];
+            if (v216)
+            {
+              v217 = (v216 + 4040);
+            }
+
+            else
+            {
+              v217 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v218 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 478, v217, v218, *(a5[7] + 34));
+          }
+
+          if (v276 < v190)
+          {
+            if (v18)
+            {
+              v18 = v18;
+            }
+
+            else
+            {
+              v18 = 22;
+            }
+
+            sub_100038018(a5);
+            goto LABEL_576;
+          }
+
+          v141 = v146;
+          if (v18)
+          {
+            goto LABEL_343;
+          }
+
+          v219 = v277 - v276;
+          if (sub_10001BFA8(v146, v277 - v276, v190, v277))
+          {
+            v18 = 0;
+          }
+
+          else
+          {
+            v221 = a5[1];
+            if (v221)
+            {
+              v222 = (v221 + 4040);
+            }
+
+            else
+            {
+              v222 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v223 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 478, v222, v223, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if (!sub_10001BFA8(v275, v219, v190, v220))
+          {
+            v224 = a5[1];
+            if (v224)
+            {
+              v225 = (v224 + 4040);
+            }
+
+            else
+            {
+              v225 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v226 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 478, v225, v226, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          v227 = a5[50];
+          if ((v227 & 0x40) != 0)
+          {
+            v228 = v190;
+          }
+
+          else
+          {
+            v228 = (v190 + 7) & 0x1FFF8;
+          }
+
+          sub_10001C098(v275, v219, v228, v227);
+        }
+
+        v141 = v146;
+        if (v18)
+        {
+          goto LABEL_343;
+        }
+
+        v188 += 4;
+        ++v187;
+        v184 = a5[7];
+        if (v187 >= *(v184 + 36))
+        {
+          goto LABEL_561;
+        }
       }
     }
+
+    goto LABEL_561;
+  }
+
+  v230 = a5[50];
+  if ((v185 & 2) != 0)
+  {
+    v231 = v230 >> 23;
+  }
+
+  else
+  {
+    v231 = 8;
+  }
+
+  if (!*(v184 + 36))
+  {
+LABEL_561:
+    sub_1000123F8(v146, 8 * v274);
+    sub_1000123F8(v275, 8 * v274);
+    a8 = v280;
+    a7 = v279;
+    v15 = v283;
+    goto LABEL_17;
+  }
+
+  v232 = 0;
+  v272 = (v230 >> 9) & 0x3FFF;
+  v269 = (v272 + 7) & 0x7FF8;
+  v271 = v231;
+  v270 = (v231 + 7) & 0x1FFF8;
+  v233 = (v186 + 2);
+  while (1)
+  {
+    v234 = *(v233 - 1);
+    v276 = *v233;
+    if (v234 == 0xFFFF)
+    {
+      if ((*(v12 + 32) & 0x80000000) == 0)
+      {
+        sub_100038018(a5);
+LABEL_577:
+        sub_100012178("%s:%d: %s oid 0x%llx (level %d): invalid key offset\n");
+        goto LABEL_341;
+      }
+
+      v18 = 0;
+    }
+
+    else
+    {
+      v235 = *(v184 + 32);
+      if ((v235 & 2) != 0 && (v16 && *(v16[49] + 16) < v272 || (v235 & 1) != 0 && *(a5[49] + 16) < v272))
+      {
+        v236 = a5[1];
+        if (v236)
+        {
+          v237 = (v236 + 4040);
+        }
+
+        else
+        {
+          v237 = (*(*(*a5 + 392) + 384) + 212);
+        }
+
+        v238 = sub_100038018(a5);
+        sub_100012178("%s:%d: %s oid 0x%llx (level %d): key size greater than longest recorded for tree\n", "btree_node_check", 452, v237, v238, *(a5[7] + 34));
+        v18 = 22;
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      if (v234 >= v278)
+      {
+        v239 = a5[1];
+        if (v239)
+        {
+          v240 = (v239 + 4040);
+        }
+
+        else
+        {
+          v240 = (*(*(*a5 + 392) + 384) + 212);
+        }
+
+        v241 = sub_100038018(a5);
+        sub_100012178("%s:%d: %s oid 0x%llx (level %d): key location not within key space\n", "btree_node_check", 452, v240, v241, *(a5[7] + 34));
+        v18 = 22;
+      }
+
+      if (v272 + v234 <= v278)
+      {
+        if (!v18)
+        {
+          if (sub_10001BFA8(v146, v234, v272, &v296))
+          {
+            v18 = 0;
+          }
+
+          else
+          {
+            v245 = a5[1];
+            if (v245)
+            {
+              v246 = (v245 + 4040);
+            }
+
+            else
+            {
+              v246 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v247 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with free space\n", "btree_node_check", 452, v246, v247, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if (!sub_10001BFA8(v275, v234, v272, &v296))
+          {
+            v248 = a5[1];
+            if (v248)
+            {
+              v249 = (v248 + 4040);
+            }
+
+            else
+            {
+              v249 = (*(*(*a5 + 392) + 384) + 212);
+            }
+
+            v250 = sub_100038018(a5);
+            sub_100012178("%s:%d: %s oid 0x%llx (level %d): key entry overlaps with other entries\n", "btree_node_check", 452, v249, v250, *(a5[7] + 34));
+            v18 = 22;
+          }
+
+          if ((a5[50] & 0x40) != 0)
+          {
+            v251 = v272;
+          }
+
+          else
+          {
+            v251 = v269;
+          }
+
+          sub_10001C098(v275, v234, v251, v269);
+        }
+      }
+
+      else
+      {
+        v18 = v18 ? v18 : 22;
+        v242 = a5[1];
+        v243 = (v242 ? v242 + 4040 : *(*(*a5 + 392) + 384) + 212);
+        v244 = sub_100038018(a5);
+        sub_100012178("%s:%d: %s oid 0x%llx (level %d): key location extends beyond key space\n", "btree_node_check", 452, v243, v244, *(a5[7] + 34));
+      }
+    }
+
+    if (v276 <= 0xFFFD)
+    {
+      break;
+    }
+
+LABEL_559:
+    v141 = v146;
+    if (v18)
+    {
+      goto LABEL_343;
+    }
+
+    v233 += 2;
+    ++v232;
+    v184 = a5[7];
+    if (v232 >= *(v184 + 36))
+    {
+      goto LABEL_561;
+    }
+  }
+
+  v252 = *(a5[7] + 32);
+  if ((v252 & 2) != 0 && (v16 && *(v16[49] + 20) < v271 || (v252 & 1) != 0 && *(a5[49] + 20) < v271))
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v253 = a5[1];
+    if (v253)
+    {
+      v254 = (v253 + 4040);
+    }
+
+    else
+    {
+      v254 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v255 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): val size greater than longest recorded for tree\n", "btree_node_check", 455, v254, v255, *(a5[7] + 34));
+  }
+
+  if (v276 > v273)
+  {
+    if (v18)
+    {
+      v18 = v18;
+    }
+
+    else
+    {
+      v18 = 22;
+    }
+
+    v256 = a5[1];
+    if (v256)
+    {
+      v257 = (v256 + 4040);
+    }
+
+    else
+    {
+      v257 = (*(*(*a5 + 392) + 384) + 212);
+    }
+
+    v258 = sub_100038018(a5);
+    sub_100012178("%s:%d: %s oid 0x%llx (level %d): val location not within val space\n", "btree_node_check", 455, v257, v258, *(a5[7] + 34));
+  }
+
+  if (v276 >= v231)
+  {
+    v141 = v146;
+    if (v18)
+    {
+      goto LABEL_343;
+    }
+
+    v259 = v277 - v276;
+    if (sub_10001BFA8(v146, v277 - v276, v231, v277))
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v261 = a5[1];
+      if (v261)
+      {
+        v262 = (v261 + 4040);
+      }
+
+      else
+      {
+        v262 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v263 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with free space\n", "btree_node_check", 455, v262, v263, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    if (!sub_10001BFA8(v275, v259, v231, v260))
+    {
+      v264 = a5[1];
+      if (v264)
+      {
+        v265 = (v264 + 4040);
+      }
+
+      else
+      {
+        v265 = (*(*(*a5 + 392) + 384) + 212);
+      }
+
+      v266 = sub_100038018(a5);
+      sub_100012178("%s:%d: %s oid 0x%llx (level %d): val entry overlaps with other entries\n", "btree_node_check", 455, v265, v266, *(a5[7] + 34));
+      v18 = 22;
+    }
+
+    if ((a5[50] & 0x40) != 0)
+    {
+      v267 = v271;
+    }
+
+    else
+    {
+      v267 = v270;
+    }
+
+    sub_10001C098(v275, v259, v267, v271);
+    goto LABEL_559;
+  }
+
+  if (v18)
+  {
+    v18 = v18;
+  }
+
+  else
+  {
+    v18 = 22;
+  }
+
+  sub_100038018(a5);
+LABEL_576:
+  sub_100012178("%s:%d: %s oid 0x%llx (level %d): val location extends beyond val space\n");
+LABEL_342:
+  v141 = v146;
+LABEL_343:
+  if (v141)
+  {
+    sub_1000123F8(v141, (8 * v274));
+  }
+
+  if (v275)
+  {
+    sub_1000123F8(v275, (8 * v274));
   }
 
   return v18;
 }
 
-uint64_t sub_10000CF38(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
+uint64_t sub_10000CF38(FILE *a1, void *a2, unint64_t a3, int a4, uint64_t a5)
 {
+  v5 = a5;
   if (sub_100036630(a2) == 2)
   {
-    v36 = 0;
-    v34 = 0u;
-    v35 = 0u;
+    v34 = 0;
     v32 = 0u;
     v33 = 0u;
     v30 = 0u;
@@ -9239,10 +8998,12 @@ uint64_t sub_10000CF38(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
     v23 = 0u;
     v20 = 0u;
     v21 = 0u;
+    v18 = 0u;
     v19 = 0u;
-    v10 = sub_10000A1F8(a2, a3, 0, 0, a2, 1u, 0, 0, &v19, 0, 0);
+    v17 = 0u;
+    v10 = sub_10000A1F8(a2, a3, 0, 0, a2, 1u, 0, 0, &v17, 0, 0);
     v11 = v10;
-    if (*(a2[49] + 24) != v20)
+    if (*(a2[49] + 24) != v18)
     {
       if (v10)
       {
@@ -9266,12 +9027,12 @@ uint64_t sub_10000CF38(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
       }
 
       v14 = sub_100038018(a2);
-      sub_100012178("%s:%d: %s oid 0x%llx: btree key count (%llu) doesn't match # leaf entries (%u)\n", "btree_check_ext", 681, v13, v14, *(a2[49] + 24), v20);
+      sub_100012178("%s:%d: %s oid 0x%llx: btree key count (%llu) doesn't match # leaf entries (%u)\n", "btree_check_ext", 681, v13, v14, *(a2[49] + 24), v18);
     }
 
-    if (*(a2[49] + 32) == DWORD1(v19) + v19)
+    if (*(a2[49] + 32) == DWORD1(v17) + v17)
     {
-      if (a5 && a4 && !v11)
+      if (v5 && a4 && !v11)
       {
         if (a1)
         {
@@ -9283,7 +9044,7 @@ uint64_t sub_10000CF38(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
           v15 = __stdoutp;
         }
 
-        sub_10000D190(v15, a2, &v19, a5);
+        sub_10000D190(v15, a2, &v17, v5);
       }
     }
 
@@ -9299,13 +9060,7 @@ uint64_t sub_10000CF38(FILE *a1, void *a2, uint64_t a3, int a4, int a5)
         v11 = 22;
       }
 
-      if (!a2[1])
-      {
-        v16 = *(*(*a2 + 392) + 384) + 212;
-      }
-
       sub_100038018(a2);
-      v18 = *(a2[49] + 32);
       sub_100012178("%s:%d: %s oid 0x%llx: btree node count (%llu) doesn't match # nodes traversed (%u)\n");
     }
   }
@@ -9436,19 +9191,19 @@ uint64_t sub_10000D190(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
     {
       *&v28 = 0xAAAAAAAAAAAAAAAALL;
       *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v74 = v28;
-      v75 = v28;
-      v72 = v28;
-      v73 = v28;
+      v66 = v28;
+      v67 = v28;
+      v64 = v28;
+      v65 = v28;
       *__str = v28;
-      v71 = v28;
+      v63 = v28;
       snprintf(__str, 0x10uLL, "<%d", *(*(a2 + 392) + 16) / 5u);
-      snprintf(&v71, 0x10uLL, "<%d", 2 * *(*(a2 + 392) + 16) / 5u);
-      snprintf(&v72, 0x10uLL, "<%d", 3 * *(*(a2 + 392) + 16) / 5u);
-      snprintf(&v73, 0x10uLL, "<%d", 4 * *(*(a2 + 392) + 16) / 5u);
-      snprintf(&v74, 0x10uLL, "<%d", *(*(a2 + 392) + 16));
-      snprintf(&v75, 0x10uLL, "=%d", *(*(a2 + 392) + 16));
-      fprintf(v7, "    keys: %9s %9s %9s %9s %9s %9s\n", __str, &v71, &v72, &v73, &v74, &v75);
+      snprintf(&v63, 0x10uLL, "<%d", 2 * *(*(a2 + 392) + 16) / 5u);
+      snprintf(&v64, 0x10uLL, "<%d", 3 * *(*(a2 + 392) + 16) / 5u);
+      snprintf(&v65, 0x10uLL, "<%d", 4 * *(*(a2 + 392) + 16) / 5u);
+      snprintf(&v66, 0x10uLL, "<%d", *(*(a2 + 392) + 16));
+      snprintf(&v67, 0x10uLL, "=%d", *(*(a2 + 392) + 16));
+      fprintf(v7, "    keys: %9s %9s %9s %9s %9s %9s\n", __str, &v63, &v64, &v65, &v66, &v67);
       fprintf(v7, "    keys: %9d %9d %9d %9d %9d %9d\n", a3[40], a3[41], a3[42], a3[43], a3[44], a3[45]);
       LODWORD(v34) = a3[40];
       v35 = a3[4];
@@ -9466,12 +9221,12 @@ uint64_t sub_10000D190(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
       LODWORD(v33) = a3[45];
       fprintf(v7, "    keys: %9.2f %9.2f %9.2f %9.2f %9.2f %9.2f\n", v37 / v36, v29 * 100.0 / v36, v30 * 100.0 / v36, v31 * 100.0 / v36, v32 * 100.0 / v36, v33 * 100.0 / v36);
       snprintf(__str, 0x10uLL, "<%d", *(*(a2 + 392) + 20) / 5u);
-      snprintf(&v71, 0x10uLL, "<%d", 2 * *(*(a2 + 392) + 20) / 5u);
-      snprintf(&v72, 0x10uLL, "<%d", 3 * *(*(a2 + 392) + 20) / 5u);
-      snprintf(&v73, 0x10uLL, "<%d", 4 * *(*(a2 + 392) + 20) / 5u);
-      snprintf(&v74, 0x10uLL, "<%d", *(*(a2 + 392) + 20));
-      snprintf(&v75, 0x10uLL, "=%d", *(*(a2 + 392) + 20));
-      fprintf(v7, "  values: %9s %9s %9s %9s %9s %9s\n", __str, &v71, &v72, &v73, &v74, &v75);
+      snprintf(&v63, 0x10uLL, "<%d", 2 * *(*(a2 + 392) + 20) / 5u);
+      snprintf(&v64, 0x10uLL, "<%d", 3 * *(*(a2 + 392) + 20) / 5u);
+      snprintf(&v65, 0x10uLL, "<%d", 4 * *(*(a2 + 392) + 20) / 5u);
+      snprintf(&v66, 0x10uLL, "<%d", *(*(a2 + 392) + 20));
+      snprintf(&v67, 0x10uLL, "=%d", *(*(a2 + 392) + 20));
+      fprintf(v7, "  values: %9s %9s %9s %9s %9s %9s\n", __str, &v63, &v64, &v65, &v66, &v67);
       fprintf(v7, "  values: %9d %9d %9d %9d %9d %9d\n", a3[46], a3[47], a3[48], a3[49], a3[50], a3[51]);
       LODWORD(v43) = a3[46];
       v44 = v43 * 100.0;
@@ -9491,8 +9246,6 @@ uint64_t sub_10000D190(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
       fprintf(v7, "capacity: all    %llu / %llu => %.2f %% used\n", *(a3 + 7), *(a3 + 6), *(a3 + 7) * 100.0 / *(a3 + 6));
       if (a4 == 4)
       {
-        v68 = *(a3 + 12);
-        v69 = *(a3 + 11);
         fprintf(v7, "capacity: nodes  %llu / %llu => %.2f %% used\n");
       }
 
@@ -9511,13 +9264,6 @@ uint64_t sub_10000D190(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
         fprintf(v7, "capacity: nodes  %llu / %llu => %.2f %% used\n", *(a3 + 12), *(a3 + 11), *(a3 + 12) * 100.0 / *(a3 + 11));
         fprintf(v7, "capacity: %9s %9s %9s %9s %9s %9s\n", "<20", "<40", "<60", "<80", "<100", "FULL");
         fprintf(v7, "capacity: %9d %9d %9d %9d %9d %9d\n", a3[16], a3[17], a3[18], a3[19], a3[20], a3[21]);
-        v54 = a3[16];
-        *a3;
-        v55 = a3[17];
-        v56 = a3[18];
-        v57 = a3[19];
-        v58 = a3[20];
-        v59 = a3[21];
         fprintf(v7, "capacity: %9.2f %9.2f %9.2f %9.2f %9.2f %9.2f\n");
       }
 
@@ -9526,15 +9272,15 @@ uint64_t sub_10000D190(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
       {
         fprintf(v7, "capacity: %9s %9s %9s %9s %9s %9s\n", "<20", "<40", "<60", "<80", "<100", "FULL");
         fprintf(v7, "capacity: %9d %9d %9d %9d %9d %9d\n", a3[26], a3[27], a3[28], a3[29], a3[30], a3[31]);
-        LODWORD(v60) = a3[26];
-        LODWORD(v61) = a3[27];
-        LODWORD(v62) = a3[1];
-        v63 = v62;
-        LODWORD(v64) = a3[28];
-        LODWORD(v65) = a3[29];
-        LODWORD(v66) = a3[30];
-        LODWORD(v67) = a3[31];
-        return fprintf(v7, "capacity: %9.2f %9.2f %9.2f %9.2f %9.2f %9.2f\n", v60 * 100.0 / v63, v61 * 100.0 / v63, v64 * 100.0 / v63, v65 * 100.0 / v63, v66 * 100.0 / v63, v67 * 100.0 / v63);
+        LODWORD(v54) = a3[26];
+        LODWORD(v55) = a3[27];
+        LODWORD(v56) = a3[1];
+        v57 = v56;
+        LODWORD(v58) = a3[28];
+        LODWORD(v59) = a3[29];
+        LODWORD(v60) = a3[30];
+        LODWORD(v61) = a3[31];
+        return fprintf(v7, "capacity: %9.2f %9.2f %9.2f %9.2f %9.2f %9.2f\n", v54 * 100.0 / v57, v55 * 100.0 / v57, v58 * 100.0 / v57, v59 * 100.0 / v57, v60 * 100.0 / v57, v61 * 100.0 / v57);
       }
     }
   }
@@ -9542,7 +9288,7 @@ uint64_t sub_10000D190(FILE *a1, uint64_t a2, _DWORD *a3, int a4)
   return result;
 }
 
-uint64_t sub_10000DB54(atomic_ullong *a1, unint64_t a2, uint64_t (*a3)(atomic_ullong, uint64_t, unint64_t, unint64_t, void, uint64_t, void), uint64_t a4)
+uint64_t sub_10000DB54(atomic_ullong *a1, unint64_t a2, uint64_t (*a3)(uint64_t, uint64_t, unint64_t, unint64_t, void, uint64_t, void), uint64_t a4)
 {
   v8 = a1[1];
   if (!v8)
@@ -9550,211 +9296,184 @@ uint64_t sub_10000DB54(atomic_ullong *a1, unint64_t a2, uint64_t (*a3)(atomic_ul
     v8 = *(*a1 + 392);
   }
 
-  v9 = a1[50];
   __chkstk_darwin(a1);
-  v11 = (&v49 - v10);
-  bzero(&v49 - v10, v12);
-  v54 = 0;
-  v55 = 0xAAAAAAAAAAAAAAAALL;
-  v53 = -1431655766;
-  v52 = -21846;
-  v51 = 0;
+  v10 = (&v40 - v9);
+  bzero(&v40 - v9, v11);
+  v45 = 0;
+  v46 = 0xAAAAAAAAAAAAAAAALL;
+  v44 = -1431655766;
+  v43 = -21846;
+  v42 = 0;
   sub_10003BBDC(a1, 1);
-  v13 = sub_100027AD8(a1, &v53);
-  if (v13)
+  v12 = sub_100027AD8(a1, &v44);
+  if (v12)
   {
-    v14 = v13;
+    v13 = v12;
     sub_10003C190(a1, 1);
-    return v14;
+    return v13;
   }
 
-  v15 = sub_1000122F4(v53, 0x10uLL, 0x1020040FFEA222EuLL);
-  if (!v15)
+  v14 = sub_1000122F4(v44, 0x10uLL, 0x1020040FFEA222EuLL);
+  if (!v14)
   {
     sub_10003C190(a1, 1);
     return 12;
   }
 
-  v16 = v15;
-  *v15 = a1;
-  *(v15 + 4) = 0;
+  v15 = v14;
+  *v14 = a1;
+  *(v14 + 4) = 0;
   sub_10003C894(a1);
-  v17 = 0;
-  v50 = v16;
+  v16 = 0;
+  v41 = v15;
   while (1)
   {
     while (1)
     {
-      v18 = &v16[16 * v17];
-      if (sub_100038020(*v18) <= a2)
+      v17 = &v15[16 * v16];
+      if (sub_100038020(*v17) <= a2)
       {
-        v20 = *v18;
+        v19 = *v17;
 LABEL_16:
-        sub_10001D260(v20, 1);
+        sub_10001D260(v19, 1);
         goto LABEL_17;
       }
 
-      v19 = *(v18 + 4);
-      v20 = *v18;
-      v21 = (*v18)[7];
-      if (*(v21 + 36) <= v19)
+      v18 = *(v17 + 4);
+      v19 = *v17;
+      v20 = *(*v17 + 56);
+      if (*(v20 + 36) <= v18)
       {
         goto LABEL_16;
       }
 
-      if ((*(v21 + 32) & 2) == 0)
+      if ((*(v20 + 32) & 2) == 0)
       {
         break;
       }
 
       if (a3)
       {
-        v25 = 0;
+        v24 = 0;
         while (1)
         {
-          v26 = sub_10001D454(v20, v25, &v55, &v52);
+          v25 = sub_10001D454(v19, v24, &v46, &v43);
+          if (v25 || (v25 = sub_10001D56C(*v17, v24, &v45, &v42), v25))
+          {
+            v13 = v25;
+            sub_100038018(*v17);
+            sub_100012178("%s:%d: %s node 0x%llx (level %d): error getting index %d key/val: %d\n");
+            goto LABEL_30;
+          }
+
+          v26 = a3(v8, a4, a2, v46, v43, v45, v42);
           if (v26)
           {
             break;
           }
 
-          v26 = sub_10001D56C(*v18, v25, &v54, &v51);
-          if (v26)
-          {
-            break;
-          }
-
-          v27 = a3(v8, a4, a2, v55, v52, v54, v51);
-          if (v27)
-          {
-            v14 = v27;
-            goto LABEL_33;
-          }
-
-          ++v25;
-          v20 = *v18;
-          if (v25 >= *((*v18)[7] + 36))
+          ++v24;
+          v19 = *v17;
+          if (v24 >= *(*(*v17 + 56) + 36))
           {
             goto LABEL_25;
           }
         }
 
-        v14 = v26;
-        if (!a1[1])
-        {
-          v29 = *(*(*a1 + 392) + 384) + 212;
-        }
-
-        sub_100038018(*v18);
-        v28 = *((*v18)[7] + 34);
-        sub_100012178("%s:%d: %s node 0x%llx (level %d): error getting index %d key/val: %d\n");
-        goto LABEL_33;
+        v13 = v26;
+        goto LABEL_30;
       }
 
 LABEL_25:
-      sub_10001D260(v20, 1);
-      v16 = v50;
+      sub_10001D260(v19, 1);
+      v15 = v41;
 LABEL_17:
-      *v18 = 0;
-      if ((--v17 & 0x8000) != 0)
+      *v17 = 0;
+      if ((--v16 & 0x8000) != 0)
       {
-LABEL_29:
-        v14 = 0;
-        goto LABEL_34;
+LABEL_28:
+        v13 = 0;
+        goto LABEL_31;
       }
     }
 
-    v22 = sub_10001D758(v20, v19, v11);
-    if (v22)
+    v21 = sub_10001D758(v19, v18, v10);
+    if (v21)
     {
-      v14 = v22;
-      if (!a1[1])
-      {
-        v41 = *(*(*a1 + 392) + 384) + 212;
-      }
-
-      sub_100038018(*v18);
-      v37 = *((*v18)[7] + 34);
-      v38 = *(v18 + 4);
+      v13 = v21;
+      sub_100038018(*v17);
       sub_100012178("%s:%d: %s node 0x%llx (level %d): error getting index %d child oid: %d\n");
-      goto LABEL_33;
+LABEL_30:
+      v15 = v41;
+      goto LABEL_31;
     }
 
-    ++*(v18 + 4);
-    if (v53 <= ++v17)
+    ++*(v17 + 4);
+    if (v44 <= ++v16)
     {
       break;
     }
 
-    v23 = &v16[16 * v17];
-    *(v23 + 4) = 0;
-    v24 = sub_10001D02C(a1, v11, 0, 2u, *(*(*(v23 - 2) + 56) + 34) - 1, 0, v23);
-    if (v24)
+    v22 = &v15[16 * v16];
+    *(v22 + 4) = 0;
+    v23 = sub_10001D02C(a1, v10, 0, 2u, *(*(*(v22 - 2) + 56) + 34) - 1, 0, v22);
+    if (v23)
     {
-      v14 = v24;
-      if (!a1[1])
-      {
-        v45 = *(*(*a1 + 392) + 384) + 212;
-      }
-
-      sub_100038018(*(v23 - 2));
-      v48 = *(v23 - 4);
-      v47 = *(*(*(v23 - 2) + 56) + 34);
+      v13 = v23;
+      sub_100038018(*(v22 - 2));
       sub_100012178("%s:%d: %s node 0x%llx (level %d): error getting index %d child: %d\n");
-LABEL_33:
-      v16 = v50;
-      goto LABEL_34;
+      goto LABEL_30;
     }
 
-    if ((v17 & 0x8000) != 0)
+    if ((v16 & 0x8000) != 0)
     {
-      goto LABEL_29;
+      goto LABEL_28;
     }
   }
 
-  v39 = a1[1];
-  if (v39)
+  v34 = a1[1];
+  if (v34)
   {
-    v40 = v39 + 4040;
+    v35 = v34 + 4040;
   }
 
   else
   {
-    v40 = *(*(*a1 + 392) + 384) + 212;
+    v35 = *(*(*a1 + 392) + 384) + 212;
   }
 
-  v42 = v50;
-  v43 = &v50[16 * v17];
-  v44 = sub_100038018(*(v43 - 2));
-  v46 = v40;
-  v16 = v42;
-  sub_100012178("%s:%d: %s node 0x%llx (level %d) index %d: more levels than expected\n", "btree_check_recent_sanity", 769, v46, v44, *(*(*(v43 - 2) + 56) + 34), *(v43 - 4));
-  v14 = 22;
-LABEL_34:
-  v30 = v53;
-  v31 = v53 - 1;
-  if (((v53 - 1) & 0x8000) == 0)
+  v36 = v41;
+  v37 = &v41[16 * v16];
+  v38 = sub_100038018(*(v37 - 2));
+  v39 = v35;
+  v15 = v36;
+  sub_100012178("%s:%d: %s node 0x%llx (level %d) index %d: more levels than expected\n", "btree_check_recent_sanity", 769, v39, v38, *(*(*(v37 - 2) + 56) + 34), *(v37 - 4));
+  v13 = 22;
+LABEL_31:
+  v27 = v44;
+  v28 = v44 - 1;
+  if (((v44 - 1) & 0x8000) == 0)
   {
-    v32 = v16;
-    v33 = v31 + 1;
-    v34 = &v32[16 * v31];
+    v29 = v15;
+    v30 = v28 + 1;
+    v31 = &v29[16 * v28];
     do
     {
-      if (*v34)
+      if (*v31)
       {
-        sub_10001D260(*v34, 1);
+        sub_10001D260(*v31, 1);
       }
 
-      v34 -= 2;
+      v31 -= 16;
     }
 
-    while (v33-- > 1);
-    v30 = v53;
-    v16 = v50;
+    while (v30-- > 1);
+    v27 = v44;
+    v15 = v41;
   }
 
-  sub_1000123F8(v16, 16 * v30);
-  return v14;
+  sub_1000123F8(v15, 16 * v27);
+  return v13;
 }
 
 uint64_t sub_10000E064(uint64_t a1)
@@ -10015,4 +9734,95 @@ LABEL_14:
   }
 
   return v4;
+}
+
+uint64_t sub_10000E3C4(uint64_t *a1, unsigned int a2, unint64_t a3, int a4, int a5, uint64_t *a6)
+{
+  *&v13 = 0;
+  v14 = 0u;
+  v18 = 0;
+  v16 = 0u;
+  v17 = 0u;
+  v15 = 0u;
+  v12 = sub_1000197E4;
+  DWORD2(v13) = 33;
+  HIDWORD(v13) = a4;
+  result = sub_100026D00(a1, a2, a3, 0, 0, &v12, 0, a6);
+  if (result == 92 && a5)
+  {
+    v13 = 0u;
+    v14 = 0u;
+    v18 = 0;
+    v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
+    v12 = sub_1000197E4;
+    HIDWORD(v13) = a4;
+    result = sub_100026D00(a1, 0, a3, 0, 0, &v12, 0, a6);
+    if (!result)
+    {
+      sub_100012088("%s:%d: %s found mapping tree with old subtype\n", "nx_get_evict_mapping_tree", 526, (a1[48] + 212));
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_10000E508(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!a3)
+  {
+    return 22;
+  }
+
+  v3 = *(a3 + 4);
+  *(a1 + 32) = 1112758350;
+  *(a1 + 36) = v3;
+  *(a1 + 1264) = 0;
+  *(a1 + 40) = *(a3 + 8);
+  *(a1 + 56) = xmmword_10006A770;
+  v4 = *(a3 + 32);
+  *(a1 + 88) = 1024;
+  *(a1 + 96) = v4;
+  uuid_copy((a1 + 72), (a3 + 64));
+  return 0;
+}
+
+uint64_t sub_10000E570(uint64_t a1, unsigned int *a2)
+{
+  if (!a2)
+  {
+    return 22;
+  }
+
+  v3 = *(a1 + 56);
+  *(a1 + 660) = -1;
+  v4 = *a2;
+  *(a1 + 664) = *a2;
+  *(a1 + 668) = *(v3 + 36) / v4;
+  v5 = *(a2 + 3);
+  *(a1 + 376) = v3;
+  *(a1 + 384) = v5;
+  LODWORD(v5) = a2[11];
+  *(a1 + 627) = a2[10] != 0;
+  *(a1 + 628) = v5 != 0;
+  LODWORD(v5) = a2[13];
+  *(a1 + 629) = a2[12] != 0;
+  *(a1 + 631) = v5 != 0;
+  LODWORD(v5) = a2[15];
+  *(a1 + 632) = a2[14] != 0;
+  *(a1 + 633) = v5 != 0;
+  *(a1 + 392) = *a1;
+  sub_100011924((a1 + 672));
+  sub_100011924((a1 + 864));
+  *(a1 + 928) = 0;
+  sub_100011924((a1 + 1120));
+  sub_100011924((a1 + 752));
+  *(a1 + 828) = 0;
+  *(a1 + 816) = 0;
+  *(a1 + 824) = 0;
+  sub_100011924((a1 + 504));
+  sub_10001193C((a1 + 568));
+  return 0;
 }

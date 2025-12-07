@@ -986,7 +986,7 @@ LABEL_53:
           else
           {
             v88 = MEMORY[0x1E696AEC0];
-            v89 = AVTAvatarUIBundle();
+            v89 = AVTAvatarUIBundle(0);
             v90 = [v89 localizedStringForKey:@"ADD_MULTICOLOR_FORMAT" value:&stru_1F39618F0 table:@"Localized"];
             title2 = [v34 title];
             title = [v88 stringWithFormat:v90, title2];

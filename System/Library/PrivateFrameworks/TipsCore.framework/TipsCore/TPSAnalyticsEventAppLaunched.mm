@@ -21,11 +21,11 @@
 
 - (TPSAnalyticsEventAppLaunched)initWithCoder:(id)coder
 {
-  v24[7] = *MEMORY[0x1E69E9840];
+  v23[7] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = TPSAnalyticsEventAppLaunched;
-  v5 = [(TPSAnalyticsEvent *)&v23 initWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = TPSAnalyticsEventAppLaunched;
+  v5 = [(TPSAnalyticsEvent *)&v22 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"user_type"];
@@ -52,14 +52,14 @@
     launchNumber = v5->_launchNumber;
     v5->_launchNumber = v16;
 
-    v24[0] = @"quick_action";
-    v24[1] = @"universal_link";
-    v24[2] = @"springboard";
-    v24[3] = @"foreground";
-    v24[4] = @"background";
-    v24[5] = @"terminated";
-    v24[6] = @"carousel";
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:7];
+    v23[0] = @"quick_action";
+    v23[1] = @"universal_link";
+    v23[2] = @"springboard";
+    v23[3] = @"foreground";
+    v23[4] = @"background";
+    v23[5] = @"terminated";
+    v23[6] = @"carousel";
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:7];
     v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"session_reset"];
     if ([v19 BOOLValue])
     {
@@ -76,7 +76,6 @@
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -268,9 +267,11 @@ LABEL_6:
 
 uint64_t __53__TPSAnalyticsEventAppLaunched__currentSessionEvents__block_invoke()
 {
-  _currentSessionEvents_gCurrentSessionEvents = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v1 = _currentSessionEvents_gCurrentSessionEvents;
+  _currentSessionEvents_gCurrentSessionEvents = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_initialSessionEvent

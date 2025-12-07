@@ -28,7 +28,7 @@
 - (double)contentsHeight
 {
   selfCopy = self;
-  v3 = sub_1E3FF8B3C();
+  v3 = sub_1E3FF8B3C(selfCopy);
 
   return v3;
 }
@@ -114,7 +114,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1E3FF92C0();
+  sub_1E3FF92C0(delegate);
 }
 
 - (void)vui_viewDidLoad

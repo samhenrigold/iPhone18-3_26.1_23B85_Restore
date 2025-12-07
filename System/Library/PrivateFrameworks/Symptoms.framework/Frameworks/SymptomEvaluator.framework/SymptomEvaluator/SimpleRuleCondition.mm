@@ -58,7 +58,7 @@
 
 + (id)objectWithName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = [ConfigurationHandler objectForName:nameCopy];
   if (!v4)
@@ -88,22 +88,20 @@ LABEL_8:
   {
     v6 = nameCopy;
     v7 = v5;
-    v12 = 136315138;
+    v11 = 136315138;
     uTF8String = [nameCopy UTF8String];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Attempted reuse of name %s", &v12, 0xCu);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Attempted reuse of name %s", &v11, 0xCu);
   }
 
   v8 = 0;
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)configureClass:(id)class
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   classCopy = class;
   v5 = [classCopy objectForKey:@"CONDITION_NAME"];
   if (v5)
@@ -128,15 +126,13 @@ LABEL_9:
     {
       v10 = v9;
       v11 = [classCopy description];
-      v14 = 136315138;
+      v13 = 136315138;
       uTF8String = [v11 UTF8String];
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Can't find name in configuration directory %s", &v14, 0xCu);
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Can't find name in configuration directory %s", &v13, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -153,16 +149,16 @@ LABEL_9:
 
 void __30__SimpleRuleCondition__reset___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 description];
-    v9 = 136315138;
-    v10 = [v5 UTF8String];
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "Issue reset for self %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = [v5 UTF8String];
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEBUG, "Issue reset for self %s", &v8, 0xCu);
   }
 
   v6 = *(a1 + 32);
@@ -176,13 +172,11 @@ void __30__SimpleRuleCondition__reset___block_invoke(uint64_t a1)
   {
     [SymptomStore resetSymptomsWithKey:*(v6 + 40)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (int)configureInstance:(id)instance
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   instanceCopy = instance;
   v5 = [instanceCopy objectForKey:@"REQUIRED_MINIMUM_COUNT"];
   v6 = v5;
@@ -326,15 +320,15 @@ void __30__SimpleRuleCondition__reset___block_invoke(uint64_t a1)
   }
 
   v37 = [instanceCopy objectForKey:@"RESET_SOURCES"];
-  v62 = v37;
+  v61 = v37;
   if (v37)
   {
-    v56 = v30;
-    v57 = v22;
-    v58 = v11;
-    v59 = v7;
-    v60 = v6;
-    v61 = instanceCopy;
+    v55 = v30;
+    v56 = v22;
+    v57 = v11;
+    v58 = v7;
+    v59 = v6;
+    v60 = instanceCopy;
     if (!self->_resetSources)
     {
       v38 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -343,52 +337,52 @@ void __30__SimpleRuleCondition__reset___block_invoke(uint64_t a1)
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     v41 = v37;
-    v42 = [v41 countByEnumeratingWithState:&v64 objects:v68 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v63 objects:v67 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v65;
+      v44 = *v64;
       do
       {
         for (i = 0; i != v43; ++i)
         {
-          if (*v65 != v44)
+          if (*v64 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = *(*(&v64 + 1) + 8 * i);
+          v46 = *(*(&v63 + 1) + 8 * i);
           v47 = [(NSMutableDictionary *)self->_resetSources objectForKeyedSubscript:v46];
 
           if (!v47)
           {
-            v63[0] = MEMORY[0x277D85DD0];
-            v63[1] = 3221225472;
-            v63[2] = __41__SimpleRuleCondition_configureInstance___block_invoke;
-            v63[3] = &unk_27898A690;
-            v63[4] = self;
-            v48 = [defaultCenter addObserverForName:v46 object:0 queue:0 usingBlock:v63];
+            v62[0] = MEMORY[0x277D85DD0];
+            v62[1] = 3221225472;
+            v62[2] = __41__SimpleRuleCondition_configureInstance___block_invoke;
+            v62[3] = &unk_27898A690;
+            v62[4] = self;
+            v48 = [defaultCenter addObserverForName:v46 object:0 queue:0 usingBlock:v62];
             [(NSMutableDictionary *)self->_resetSources setObject:v48 forKey:v46];
           }
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v64 objects:v68 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v63 objects:v67 count:16];
       }
 
       while (v43);
     }
 
-    v6 = v60;
-    instanceCopy = v61;
-    v7 = v59;
-    v22 = v57;
-    v11 = v58;
-    v30 = v56;
+    v6 = v59;
+    instanceCopy = v60;
+    v7 = v58;
+    v22 = v56;
+    v11 = v57;
+    v30 = v55;
   }
 
   if (!self->_conditionType)
@@ -427,10 +421,9 @@ void __30__SimpleRuleCondition__reset___block_invoke(uint64_t a1)
       }
     }
 
-    v37 = v62;
+    v37 = v61;
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -471,7 +464,7 @@ void __41__SimpleRuleCondition_configureInstance___block_invoke(uint64_t a1, voi
 
 - (BOOL)evaluatePrevSymptom:(id)symptom showingWorkAt:(id)at
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   v5 = [SymptomStore storedSymptomsWithKey:self->_conditionPrevSymptom];
   if (!v5)
@@ -483,9 +476,9 @@ LABEL_64:
     {
       conditionMinCount = self->_conditionMinCount;
       *buf = 67109376;
-      *v65 = conditionMinCount;
-      *&v65[4] = 1024;
-      *&v65[6] = v10;
+      *v64 = conditionMinCount;
+      *&v64[4] = 1024;
+      *&v64[6] = v10;
       _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_DEBUG, "Insufficient matches found, need %d, found %d", buf, 0xEu);
     }
 
@@ -519,7 +512,7 @@ LABEL_63:
       v15 = [v12 description];
       uTF8String = [v15 UTF8String];
       *buf = 136315138;
-      *v65 = uTF8String;
+      *v64 = uTF8String;
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "Test additional qualifier: compare against old event %s", buf, 0xCu);
     }
 
@@ -637,16 +630,16 @@ LABEL_15:
       eventQualifiers2 = [symptomCopy eventQualifiers];
       conditionStringID = self->_conditionStringID;
       *buf = 138412546;
-      *v65 = eventQualifiers2;
-      *&v65[8] = 2112;
-      v66 = conditionStringID;
+      *v64 = eventQualifiers2;
+      *&v64[8] = 2112;
+      v65 = conditionStringID;
       _os_log_impl(&dword_23255B000, v47, OS_LOG_TYPE_DEBUG, "Test additional qualifier: skip, no new string in %@ for key %@", buf, 0x16u);
     }
 
     goto LABEL_15;
   }
 
-  v62 = v32;
+  v61 = v32;
   eventQualifiers3 = [v12 eventQualifiers];
   v34 = [eventQualifiers3 objectForKey:self->_conditionStringID];
   v35 = [v34 description];
@@ -664,22 +657,22 @@ LABEL_15:
     goto LABEL_59;
   }
 
-  v38 = v62;
+  v38 = v61;
   if (v37)
   {
     *buf = 138412546;
-    *v65 = v62;
-    *&v65[8] = 2112;
-    v66 = v35;
+    *v64 = v61;
+    *&v64[8] = 2112;
+    v65 = v35;
     _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_DEBUG, "Test additional qualifier: compare new <%@> old <%@>", buf, 0x16u);
   }
 
   conditionStringLength = self->_conditionStringLength;
   if (conditionStringLength)
   {
-    if (conditionStringLength > [v62 length])
+    if (conditionStringLength > [v61 length])
     {
-      conditionStringLength = [v62 length];
+      conditionStringLength = [v61 length];
     }
 
     if (conditionStringLength > [v35 length])
@@ -687,7 +680,7 @@ LABEL_15:
       conditionStringLength = [v35 length];
     }
 
-    v61 = [v62 substringToIndex:conditionStringLength];
+    v60 = [v61 substringToIndex:conditionStringLength];
 
     v40 = [v35 substringToIndex:conditionStringLength];
 
@@ -695,13 +688,13 @@ LABEL_15:
     if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      *v65 = v61;
-      *&v65[8] = 2112;
-      v66 = v40;
+      *v64 = v60;
+      *&v64[8] = 2112;
+      v65 = v40;
       _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_DEBUG, "Test additional qualifier: chopped to new <%@> old <%@>", buf, 0x16u);
     }
 
-    v38 = v61;
+    v38 = v60;
   }
 
   else
@@ -709,7 +702,7 @@ LABEL_15:
     v40 = v35;
   }
 
-  v62 = v38;
+  v61 = v38;
   v50 = v40;
   v51 = [v38 isEqualToString:v40];
   v52 = evaluationLogHandle;
@@ -729,9 +722,9 @@ LABEL_59:
   if (v53)
   {
     *buf = 138412546;
-    *v65 = v62;
-    *&v65[8] = 2112;
-    v66 = v50;
+    *v64 = v61;
+    *&v64[8] = 2112;
+    v65 = v50;
     _os_log_impl(&dword_23255B000, v52, OS_LOG_TYPE_DEBUG, "Test additional qualifier: matched %@ and %@", buf, 0x16u);
   }
 
@@ -748,40 +741,38 @@ LABEL_12:
     goto LABEL_15;
   }
 
-  v59 = evaluationLogHandle;
+  v58 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v60 = self->_conditionMinCount;
+    v59 = self->_conditionMinCount;
     *buf = 67109376;
-    *v65 = v60;
-    *&v65[4] = 1024;
-    *&v65[6] = v10;
-    _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEBUG, "Ssufficient matches found, need %d, found %d", buf, 0xEu);
+    *v64 = v59;
+    *&v64[4] = 1024;
+    *&v64[6] = v10;
+    _os_log_impl(&dword_23255B000, v58, OS_LOG_TYPE_DEBUG, "Ssufficient matches found, need %d, found %d", buf, 0xEu);
   }
 
   v56 = 1;
 LABEL_67:
 
-  v57 = *MEMORY[0x277D85DE8];
   return v56;
 }
 
 - (BOOL)evaluateHandler:(id)handler showingWorkAt:(id)at
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   atCopy = at;
   additionalSelector = self->_additionalSelector;
   if (additionalSelector)
   {
-    v9 = self->_additionalSelector;
-    v10 = [(SymptomAdditionalProtocol *)self->_additionalHandler performSelector:additionalSelector];
-    v11 = evaluationLogHandle;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v9 = [(SymptomAdditionalProtocol *)self->_additionalHandler performSelector:additionalSelector];
+    v10 = evaluationLogHandle;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      if (v10)
+      if (v9)
       {
-        integerValue = [v10 integerValue];
+        integerValue = [v9 integerValue];
       }
 
       else
@@ -789,90 +780,87 @@ LABEL_67:
         integerValue = 0;
       }
 
-      additionalHandler = self->_additionalHandler;
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      uTF8String = [v23 UTF8String];
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      uTF8String = [v20 UTF8String];
       if (self->_additionalSelector)
       {
-        v25 = self->_additionalSelector;
+        v22 = self->_additionalSelector;
       }
 
       else
       {
-        v25 = 0;
+        v22 = 0;
       }
 
-      v26 = NSStringFromSelector(v25);
-      uTF8String2 = [v26 UTF8String];
+      v23 = NSStringFromSelector(v22);
+      uTF8String2 = [v23 UTF8String];
       conditionMinCount = self->_conditionMinCount;
-      v31 = 134219010;
-      v32 = v10;
-      v33 = 2048;
-      v34 = integerValue;
-      v35 = 2080;
-      v36 = uTF8String;
-      v37 = 2080;
-      v38 = uTF8String2;
-      v39 = 1024;
-      v40 = conditionMinCount;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "value %p %ld from CONDITION_ADDITIONAL_HANDLER %s, selector %s threshold %d", &v31, 0x30u);
+      v27 = 134219010;
+      v28 = v9;
+      v29 = 2048;
+      v30 = integerValue;
+      v31 = 2080;
+      v32 = uTF8String;
+      v33 = 2080;
+      v34 = uTF8String2;
+      v35 = 1024;
+      v36 = conditionMinCount;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "value %p %ld from CONDITION_ADDITIONAL_HANDLER %s, selector %s threshold %d", &v27, 0x30u);
     }
 
-    if (v10)
+    if (v9)
     {
-      if ([v10 integerValue] < self->_conditionMinCount)
+      if ([v9 integerValue] < self->_conditionMinCount)
       {
-        v20 = 0;
+        v18 = 0;
       }
 
       else
       {
-        v20 = -1;
+        v18 = -1;
       }
     }
 
     else
     {
-      v20 = 0;
+      v18 = 0;
     }
+
+    goto LABEL_20;
+  }
+
+  v9 = [(SymptomAdditionalProtocol *)self->_additionalHandler evaluate:handlerCopy forThreshold:self->_conditionMinCount];
+  v12 = evaluationLogHandle;
+  if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v13 = v12;
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    uTF8String3 = [v15 UTF8String];
+    v17 = self->_conditionMinCount;
+    v27 = 134218498;
+    v28 = v9;
+    v29 = 2080;
+    v30 = uTF8String3;
+    v31 = 1024;
+    LODWORD(v32) = v17;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "result %p from CONDITION_ADDITIONAL_HANDLER %s, threshold %d", &v27, 0x1Cu);
+  }
+
+  if (v9)
+  {
+    [atCopy addObject:v9];
+    v18 = 1;
+LABEL_20:
 
     goto LABEL_21;
   }
 
-  v10 = [(SymptomAdditionalProtocol *)self->_additionalHandler evaluate:handlerCopy forThreshold:self->_conditionMinCount];
-  v13 = evaluationLogHandle;
-  if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
-  {
-    v14 = self->_additionalHandler;
-    v15 = v13;
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
-    uTF8String3 = [v17 UTF8String];
-    v19 = self->_conditionMinCount;
-    v31 = 134218498;
-    v32 = v10;
-    v33 = 2080;
-    v34 = uTF8String3;
-    v35 = 1024;
-    LODWORD(v36) = v19;
-    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "result %p from CONDITION_ADDITIONAL_HANDLER %s, threshold %d", &v31, 0x1Cu);
-  }
-
-  if (v10)
-  {
-    [atCopy addObject:v10];
-    v20 = 1;
+  v18 = 0;
 LABEL_21:
 
-    goto LABEL_22;
-  }
-
-  v20 = 0;
-LABEL_22:
-
-  v29 = *MEMORY[0x277D85DE8];
-  return v20 & 1;
+  return v18 & 1;
 }
 
 - (BOOL)evaluate:(id)evaluate showingWorkAt:(id)at

@@ -1,5 +1,9 @@
 @interface GTMTLTextureRenderEncoder
 - (GTMTLTextureRenderEncoder)initWithDevice:(id)device;
+- (void)drawOverlay:(id)overlay color:(unsigned int)color shrinkToFit:(BOOL)fit;
+- (void)drawOverlay:(id)overlay color:(unsigned int)color shrinkToFit:(BOOL)fit waitEvent:(id)event waitValue:(unint64_t)value;
+- (void)drawTexture:(id)texture isDepthStencil:(BOOL)stencil shrinkToFit:(BOOL)fit;
+- (void)drawTexture:(id)texture isDepthStencil:(BOOL)stencil shrinkToFit:(BOOL)fit waitEvent:(id)event waitValue:(unint64_t)value;
 - (void)reset;
 - (void)resetCommand;
 - (void)setBounds:(CGRect)bounds contentsScale:(double)scale;
@@ -15,6 +19,66 @@
   [(NSMutableArray *)self->_commands removeAllObjects];
 
   [(GTMTLTextureRenderEncoder *)self resetCommand];
+}
+
+- (void)drawOverlay:(id)overlay color:(unsigned int)color shrinkToFit:(BOOL)fit waitEvent:(id)event waitValue:(unint64_t)value
+{
+  fitCopy = fit;
+  v9 = *&color;
+  currentCommand = self->_currentCommand;
+  eventCopy = event;
+  [(GTMTLTextureRenderEncoderCommand *)currentCommand setTexture:overlay];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setDepthStencil:0];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setOverlay:1];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setRgb:v9];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setShrinkToFit:fitCopy];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setWaitEvent:eventCopy];
+
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setWaitEventValue:value];
+
+  [(GTMTLTextureRenderEncoder *)self submitCommand];
+}
+
+- (void)drawOverlay:(id)overlay color:(unsigned int)color shrinkToFit:(BOOL)fit
+{
+  fitCopy = fit;
+  v6 = *&color;
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setTexture:overlay];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setDepthStencil:0];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setOverlay:1];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setRgb:v6];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setShrinkToFit:fitCopy];
+
+  [(GTMTLTextureRenderEncoder *)self submitCommand];
+}
+
+- (void)drawTexture:(id)texture isDepthStencil:(BOOL)stencil shrinkToFit:(BOOL)fit waitEvent:(id)event waitValue:(unint64_t)value
+{
+  fitCopy = fit;
+  stencilCopy = stencil;
+  currentCommand = self->_currentCommand;
+  eventCopy = event;
+  [(GTMTLTextureRenderEncoderCommand *)currentCommand setTexture:texture];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setDepthStencil:stencilCopy];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setOverlay:0];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setShrinkToFit:fitCopy];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setWaitEvent:eventCopy];
+
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setWaitEventValue:value];
+
+  [(GTMTLTextureRenderEncoder *)self submitCommand];
+}
+
+- (void)drawTexture:(id)texture isDepthStencil:(BOOL)stencil shrinkToFit:(BOOL)fit
+{
+  fitCopy = fit;
+  stencilCopy = stencil;
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setTexture:texture];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setDepthStencil:stencilCopy];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setOverlay:0];
+  [(GTMTLTextureRenderEncoderCommand *)self->_currentCommand setShrinkToFit:fitCopy];
+
+  [(GTMTLTextureRenderEncoder *)self submitCommand];
 }
 
 - (void)setWaitForEvent:(id)event value:(unint64_t)value

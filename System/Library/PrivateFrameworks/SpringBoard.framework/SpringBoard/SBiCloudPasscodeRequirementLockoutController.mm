@@ -78,7 +78,7 @@ void __88__SBiCloudPasscodeRequirementLockoutController_noteAuthenticationSuccee
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __88__SBiCloudPasscodeRequirementLockoutController_noteAuthenticationSucceededWithPasscode___block_invoke_2(uint64_t a1)
+void *__88__SBiCloudPasscodeRequirementLockoutController_noteAuthenticationSucceededWithPasscode___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) reload];
   *(*(a1 + 32) + 24) = 0;

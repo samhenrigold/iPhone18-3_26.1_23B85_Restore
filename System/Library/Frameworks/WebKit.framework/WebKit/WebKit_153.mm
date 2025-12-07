@@ -14,63 +14,63 @@ void sub_19DE11A34(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
 
 void WebKit::LocalConnection::getExistingCredentials(atomic_uint **a1@<X1>, void *a2@<X8>)
 {
-  v23[7] = *MEMORY[0x1E69E9840];
-  v4 = *MEMORY[0x1E697B020];
-  v5 = *MEMORY[0x1E697AEB0];
-  v22[0] = *MEMORY[0x1E697AFF8];
+  v22[7] = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E697B020];
+  v4 = *MEMORY[0x1E697AEB0];
+  v21[0] = *MEMORY[0x1E697AFF8];
+  v21[1] = v4;
+  v5 = *MEMORY[0x1E697AEB8];
+  v22[0] = v3;
   v22[1] = v5;
-  v6 = *MEMORY[0x1E697AEB8];
-  v23[0] = v4;
-  v23[1] = v6;
-  v7 = *MEMORY[0x1E697ABD0];
-  v23[2] = @"com.apple.webkit.webauthn";
-  v8 = *MEMORY[0x1E697ADC8];
-  v22[2] = v7;
-  v22[3] = v8;
-  v9 = *a1;
+  v6 = *MEMORY[0x1E697ABD0];
+  v22[2] = @"com.apple.webkit.webauthn";
+  v7 = *MEMORY[0x1E697ADC8];
+  v21[2] = v6;
+  v21[3] = v7;
+  v8 = *a1;
   if (*a1)
   {
-    atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
-    MEMORY[0x19EB00B70](&cf, v9);
-    if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed);
+    MEMORY[0x19EB00B70](&cf, v8);
+    if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v9, v10);
+      WTF::StringImpl::destroy(v8, v9);
     }
   }
 
   else
   {
     cf = &stru_1F1147748;
-    v11 = &stru_1F1147748;
+    v10 = &stru_1F1147748;
   }
 
-  v12 = *MEMORY[0x1E697B260];
-  v22[4] = *MEMORY[0x1E697B310];
-  v22[5] = v12;
-  v22[6] = *MEMORY[0x1E697B390];
-  v23[3] = cf;
-  v23[4] = MEMORY[0x1E695E118];
-  v23[5] = *MEMORY[0x1E697B268];
-  v23[6] = MEMORY[0x1E695E118];
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:{7, cf}];
-  v14 = v13;
-  if (v13)
+  v11 = *MEMORY[0x1E697B260];
+  v21[4] = *MEMORY[0x1E697B310];
+  v21[5] = v11;
+  v21[6] = *MEMORY[0x1E697B390];
+  v22[3] = cf;
+  v22[4] = MEMORY[0x1E695E118];
+  v22[5] = *MEMORY[0x1E697B268];
+  v22[6] = MEMORY[0x1E695E118];
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{7, cf}];
+  v13 = v12;
+  if (v12)
   {
-    v15 = v13;
+    v14 = v12;
   }
 
-  v16 = cf;
+  v15 = cf;
   cf = 0;
-  if (v16)
+  if (v15)
   {
   }
 
   cf = 0;
-  v17 = SecItemCopyMatching(v14, &cf);
-  if (v17 != -25300 && v17)
+  v16 = SecItemCopyMatching(v13, &cf);
+  if (v16 != -25300 && v16)
   {
     *a2 = 0;
-    if (!v14)
+    if (!v13)
     {
       return;
     }
@@ -78,19 +78,19 @@ void WebKit::LocalConnection::getExistingCredentials(atomic_uint **a1@<X1>, void
     goto LABEL_16;
   }
 
-  v18 = WTF::checked_cf_cast<__CFArray const*>(cf);
-  v19 = [v18 sortedArrayUsingComparator:&__block_literal_global_23];
-  *a2 = v19;
-  if (v19)
-  {
-    v20 = v19;
-  }
-
+  v17 = WTF::checked_cf_cast<__CFArray const*>(cf);
+  v18 = [v17 sortedArrayUsingComparator:&__block_literal_global_23];
+  *a2 = v18;
   if (v18)
   {
+    v19 = v18;
   }
 
-  if (v14)
+  if (v17)
+  {
+  }
+
+  if (v13)
   {
 LABEL_16:
   }
@@ -165,7 +165,7 @@ uint64_t WebKit::LocalService::isAvailable(WebKit::LocalService *this)
   v1 = [WebKit::getASCWebKitSPISupportClass[0](this) shouldUseAlternateCredentialStore];
   if ((v1 & 1) == 0)
   {
-    v3 = [objc_alloc(WebKit::getLAContextClass(v1)) init];
+    v3 = [objc_alloc(WebKit::getLAContextClass[0](v1)) init];
     v6 = 0;
     v4 = [v3 canEvaluatePolicy:1 error:&v6];
     if (v6)
@@ -283,7 +283,7 @@ void sub_19DE12144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (a12[4] == 1)
     {
-      (*(*a12 + 8))(a12);
+      (*(*a12 + 8))(a12, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -296,7 +296,7 @@ void sub_19DE12144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (a11[4] == 1)
     {
-      (*(*a11 + 8))(a11);
+      (*(*a11 + 8))(a11, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -309,7 +309,7 @@ void sub_19DE12144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (a10[2] == 1)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -318,56 +318,56 @@ void sub_19DE12144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     }
   }
 
-  (*(*v12 + 8))(v12);
+  (*(*v12 + 8))(v12, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-double WebKit::LocalAuthenticator::create@<D0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+double WebKit::LocalAuthenticator::create@<D0>(uint64_t *a1@<X0>, uint64_t *a3@<X8>)
 {
-  v4 = WTF::fastMalloc(0x370);
-  *(v4 + 8) = 0;
-  *(v4 + 16) = 1;
-  *(v4 + 344) = 0;
-  *(v4 + 352) = 0;
-  *(v4 + 360) = 0;
-  *(v4 + 368) = 0;
-  *(v4 + 384) = 0;
-  *(v4 + 400) = 0;
-  *(v4 + 752) = 0;
-  *(v4 + 792) = 0;
-  *(v4 + 824) = 0;
+  v5 = WTF::fastMalloc(a3, 0x370);
+  v5[1] = 0;
+  *(v5 + 4) = 1;
+  v5[43] = 0;
+  *(v5 + 352) = 0;
+  v5[45] = 0;
+  *(v5 + 368) = 0;
+  *(v5 + 384) = 0;
+  *(v5 + 400) = 0;
+  *(v5 + 752) = 0;
+  *(v5 + 792) = 0;
+  *(v5 + 824) = 0;
   result = 0.0;
-  *(v4 + 768) = 0u;
-  *(v4 + 784) = 0;
-  *(v4 + 40) = 0u;
-  *(v4 + 56) = 0u;
-  *(v4 + 72) = 0u;
-  *(v4 + 88) = 0u;
-  *(v4 + 104) = 0u;
-  *(v4 + 120) = 0u;
-  *(v4 + 136) = 0u;
-  *(v4 + 152) = 0u;
-  *(v4 + 168) = 0u;
-  *(v4 + 184) = 0u;
-  *(v4 + 200) = 0u;
-  *(v4 + 216) = 0u;
-  *(v4 + 232) = 0u;
-  *(v4 + 24) = 0u;
-  *(v4 + 248) = 0u;
-  *(v4 + 264) = 0u;
-  *(v4 + 280) = 0u;
-  *(v4 + 296) = 0u;
-  *(v4 + 312) = 0u;
-  *(v4 + 321) = 0u;
-  *v4 = &unk_1F110B698;
-  *(v4 + 832) = 0;
-  v6 = *a1;
+  *(v5 + 48) = 0u;
+  *(v5 + 392) = 0;
+  *(v5 + 5) = 0u;
+  *(v5 + 7) = 0u;
+  *(v5 + 9) = 0u;
+  *(v5 + 11) = 0u;
+  *(v5 + 13) = 0u;
+  *(v5 + 15) = 0u;
+  *(v5 + 17) = 0u;
+  *(v5 + 19) = 0u;
+  *(v5 + 21) = 0u;
+  *(v5 + 23) = 0u;
+  *(v5 + 25) = 0u;
+  *(v5 + 27) = 0u;
+  *(v5 + 29) = 0u;
+  *(v5 + 3) = 0u;
+  *(v5 + 31) = 0u;
+  *(v5 + 33) = 0u;
+  *(v5 + 35) = 0u;
+  *(v5 + 37) = 0u;
+  *(v5 + 39) = 0u;
+  *(v5 + 321) = 0u;
+  *v5 = &unk_1F110B698;
+  *(v5 + 208) = 0;
+  v7 = *a1;
   *a1 = 0;
-  *(v4 + 840) = v6;
-  *(v4 + 848) = 0;
-  *(v4 + 864) = 0;
-  *(v4 + 856) = 0;
-  *a2 = v4;
+  v5[105] = v7;
+  v5[106] = 0;
+  v5[108] = 0;
+  v5[107] = 0;
+  *a3 = v5;
   return result;
 }
 
@@ -390,15 +390,15 @@ uint64_t WebKit::LocalService::createLocalConnection@<X0>(void *a1@<X1>, void *a
   return result;
 }
 
-uint64_t WebKit::NfcConnection::create@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t WebKit::NfcConnection::create@<X0>(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v6 = WTF::fastMalloc(0x58);
+  v6 = WTF::fastMalloc(a3, 0x58);
   result = WebKit::NfcConnection::NfcConnection(v6, a1, a2);
   *a3 = v6;
   return result;
 }
 
-uint64_t WebKit::NfcConnection::NfcConnection(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t WebKit::NfcConnection::NfcConnection(uint64_t a1, uint64_t *a2, unint64_t a3)
 {
   *a1 = 0;
   *(a1 + 8) = 1;
@@ -431,7 +431,7 @@ uint64_t WebKit::NfcConnection::NfcConnection(uint64_t a1, uint64_t *a2, uint64_
   WTF::ThreadSafeWeakPtrControlBlock::strongRef(*(v8 + 8));
 LABEL_6:
   v15 = v9;
-  v12 = WTF::fastMalloc(0x20);
+  v12 = WTF::fastMalloc(v10, 0x20);
   *v12 = &unk_1F110BA10;
   v12[1] = a1;
   v12[2] = WebKit::NfcConnection::startPolling;
@@ -455,7 +455,7 @@ LABEL_6:
 void sub_19DE12578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v12 = v11;
-  (*(*v12 + 8))(v12);
+  (*(*v12 + 8))(v12, a2, a3, a4, a5, a6, a7, a8);
   if (a10)
   {
     WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WTF::SerialFunctionDispatcher,(WTF::DestructionThread)0>::deref((a10 + 8));
@@ -617,11 +617,11 @@ void sub_19DE129BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-WebKit::NfcService *WebKit::NfcService::create@<X0>(WebKit::NfcService *this@<X0>, WebKit::NfcService **a2@<X8>)
+WebKit::NfcService *WebKit::NfcService::create@<X0>(WebKit::NfcService *this@<X0>, WebKit::NfcService **a3@<X8>)
 {
   v5 = WebKit::FidoService::operatorNewSlow(0x60);
   result = WebKit::NfcService::NfcService(v5, this);
-  *a2 = v5;
+  *a3 = v5;
   return result;
 }
 
@@ -657,7 +657,7 @@ WebKit::NfcService *WebKit::NfcService::NfcService(WebKit::NfcService *this, Web
 
   WTF::ThreadSafeWeakPtrControlBlock::strongRef(*(v6 + 8));
 LABEL_6:
-  v10 = WTF::fastMalloc(0x20);
+  v10 = WTF::fastMalloc(v8, 0x20);
   *v10 = &unk_1F110BA38;
   v10[1] = this;
   v10[2] = WebKit::NfcService::platformStartDiscovery;
@@ -675,7 +675,7 @@ LABEL_6:
 
 void sub_19DE12BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  (*(*v12 + 8))(v12);
+  (*(*v12 + 8))(v12, a2, a3, a4, a5, a6, a7, a8);
   if (a10)
   {
     WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WTF::SerialFunctionDispatcher,(WTF::DestructionThread)0>::deref((a10 + 8));
@@ -804,11 +804,11 @@ void sub_19DE12FC4(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_19DE13348(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10)
+void sub_19DE13348(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a10)
@@ -823,11 +823,11 @@ void sub_19DE13348(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_19DE13600(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, WTF::StringImpl *a10)
+void sub_19DE13600(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, WTF::StringImpl *a10)
 {
   if (a9)
   {
-    (*(*a9 + 8))(a9);
+    (*(*a9 + 8))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a10)
@@ -842,11 +842,11 @@ void sub_19DE13600(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   _Unwind_Resume(a1);
 }
 
-void sub_19DE1379C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DE1379C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1196,7 +1196,7 @@ _DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<
   v1 = *a1;
   if (*a1 && (v2 = *(v1 - 4)) != 0)
   {
-    v3 = v2 << (6 * *(v1 - 12) >= (2 * v2));
+    v3 = (v2 << (6 * *(v1 - 12) >= (2 * v2)));
   }
 
   else
@@ -1207,8 +1207,9 @@ _DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<
   return WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RetainPtr<_WKSmartCardSlotStateObserver>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(a1, v3);
 }
 
-_DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RetainPtr<_WKSmartCardSlotStateObserver>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::RetainPtr<_WKSmartCardSlotStateObserver>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::RetainPtr<_WKSmartCardSlotStateObserver>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -1224,8 +1225,8 @@ _DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::RetainPtr<
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -1498,24 +1499,24 @@ uint64_t WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::Crash
   return (*(*v3 + 8))(v3);
 }
 
-void sub_19DE14534(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, char a12)
+void sub_19DE14534(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, char a12)
 {
   if (a12 == 1 && a11 && atomic_fetch_add_explicit(a11, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
     WTF::StringImpl::destroy(a11, a2);
   }
 
-  (*(*v12 + 8))(v12);
+  (*(*v12 + 8))(v12, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-unint64_t WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(unint64_t *a1, unint64_t a2, unint64_t a3)
 {
   v3 = a3;
   v5 = *a1;
-  if (*a1 > a3 || v5 + 32 * *(a1 + 12) <= a3)
+  if (*a1 > a3 || v5 + 32 * *(a1 + 3) <= a3)
   {
-    v10 = *(a1 + 8);
+    v10 = *(a1 + 2);
     if (v10 + (v10 >> 1) <= v10 + 1)
     {
       v11 = v10 + 1;
@@ -1547,7 +1548,7 @@ unint64_t WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMal
   else
   {
     v6 = a3 - v5;
-    v7 = *(a1 + 8);
+    v7 = *(a1 + 2);
     if (v7 + (v7 >> 1) <= v7 + 1)
     {
       v8 = v7 + 1;
@@ -1594,7 +1595,7 @@ void WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>:
     {
       v4 = *a1;
       v5 = *(a1 + 12);
-      v6 = WTF::fastMalloc((32 * a2));
+      v6 = WTF::fastMalloc(0, (32 * a2));
       *(a1 + 8) = v2;
       *a1 = v6;
       if (v5)
@@ -1606,7 +1607,7 @@ void WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>:
         {
           cbor::CBORValue::CBORValue();
           cbor::CBORValue::~CBORValue(v10);
-          v8 += 32;
+          v8 += 4;
           v10 = (v10 + 32);
           v9 -= 32;
         }
@@ -1910,58 +1911,59 @@ uint64_t WTF::Vector<WTF::KeyValuePair<WTF::String,WebCore::AuthenticationExtens
 
   if (v3 < 0x5555556)
   {
-    v5 = 48 * v3;
-    v6 = WTF::fastMalloc((48 * v3));
-    *(v2 + 8) = v5 / 0x30;
-    *v2 = v6;
-    v7 = *(a2 + 3);
-    if (v7)
+    v5 = (3 * v3);
+    v6 = 16 * v5;
+    v7 = WTF::fastMalloc(v5, (16 * v5));
+    *(v2 + 8) = v6 / 0x30;
+    *v2 = v7;
+    v8 = *(a2 + 3);
+    if (v8)
     {
-      v8 = v6;
-      v9 = 0;
-      v10 = *a2;
-      v11 = v10 + 48 * v7;
+      v9 = v7;
+      v10 = 0;
+      v11 = *a2;
+      v12 = v11 + 48 * v8;
       do
       {
-        v12 = v10 + v9;
-        v13 = *(v10 + v9);
-        if (v13)
+        v13 = v11 + v10;
+        v14 = *(v11 + v10);
+        if (v14)
         {
-          atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v14, 2u, memory_order_relaxed);
         }
 
-        v14 = v8 + v9;
-        *v14 = v13;
-        *(v14 + 8) = 0;
-        *(v14 + 16) = -1;
-        v15 = *(v12 + 16);
-        if (v15 != 255)
+        v15 = &v9[v10 / 8];
+        *v15 = v14;
+        *(v15 + 8) = 0;
+        *(v15 + 16) = -1;
+        v16 = *(v13 + 16);
+        if (v16 != 255)
         {
-          v16 = *(v10 + v9 + 8);
-          if (v16)
+          v17 = *(v11 + v10 + 8);
+          if (v17)
           {
-            if (*(v12 + 16))
+            if (*(v13 + 16))
             {
-              v17 = 2;
+              v18 = 2;
             }
 
             else
             {
-              v17 = 1;
+              v18 = 1;
             }
 
-            *v16 += v17;
+            *v17 += v18;
           }
 
-          *(v14 + 8) = v16;
-          *(v14 + 16) = v15;
+          v15[1] = v17;
+          *(v15 + 16) = v16;
         }
 
-        std::__optional_copy_base<WebCore::BufferSource,false>::__optional_copy_base[abi:sn200100]((v14 + 24), v10 + v9 + 24);
-        v9 += 48;
+        std::__optional_copy_base<WebCore::BufferSource,false>::__optional_copy_base[abi:sn200100](v15 + 24, v11 + v10 + 24);
+        v10 += 48;
       }
 
-      while (v12 + 48 != v11);
+      while (v13 + 48 != v12);
     }
 
     return v2;
@@ -2192,37 +2194,37 @@ uint64_t WTF::BlockPtr<void ()(NSDictionary *,NSError *)>::fromCallable<WebKit::
   v7 = *(a1 + 40);
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  v9 = WTF::fastMalloc(0x20);
-  *v9 = &unk_1F110B818;
-  *(v9 + 8) = v7;
+  v10 = WTF::fastMalloc(v9, 0x20);
+  *v10 = &unk_1F110B818;
+  v10[1] = v7;
   if (v6)
   {
-    v10 = 3;
+    v11 = 3;
   }
 
   else
   {
-    v10 = v5;
+    v11 = v5;
   }
 
-  *(v9 + 16) = v10;
-  *(v9 + 24) = v8;
-  v12 = v9;
+  *(v10 + 16) = v11;
+  v10[3] = v8;
+  v13 = v10;
   WTF::RunLoop::dispatch();
-  result = v12;
-  if (v12)
+  result = v13;
+  if (v13)
   {
-    return (*(*v12 + 8))(v12);
+    return (*(*v13 + 8))(v13);
   }
 
   return result;
 }
 
-void sub_19DE150E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DE150E4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2260,7 +2262,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::LocalConnection::verifyUser(WTF::S
   *(this + 1) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -2304,36 +2306,36 @@ uint64_t WTF::BlockPtr<void ()(NSDictionary *,NSError *)>::fromCallable<WebKit::
   WTF::RunLoop::mainSingleton(v6);
   v7 = *(a1 + 32);
   *(a1 + 32) = 0;
-  v8 = WTF::fastMalloc(0x18);
-  *v8 = &unk_1F110B860;
-  *(v8 + 8) = v7;
+  v9 = WTF::fastMalloc(v8, 0x18);
+  *v9 = &unk_1F110B860;
+  v9[1] = v7;
   if (v6)
   {
-    v9 = 3;
+    v10 = 3;
   }
 
   else
   {
-    v9 = v5;
+    v10 = v5;
   }
 
-  *(v8 + 16) = v9;
-  v11 = v8;
+  *(v9 + 16) = v10;
+  v12 = v9;
   WTF::RunLoop::dispatch();
-  result = v11;
-  if (v11)
+  result = v12;
+  if (v12)
   {
-    return (*(*v11 + 8))(v11);
+    return (*(*v12 + 8))(v12);
   }
 
   return result;
 }
 
-void sub_19DE15460(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DE15460(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2359,7 +2361,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::LocalConnection::verifyUser(__SecA
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -2397,23 +2399,23 @@ WTF::RunLoop *WTF::BlockPtr<void ()(NFReaderSession *,NSError *)>::fromCallable<
   {
     v4 = result;
     WTF::RunLoop::mainSingleton(result);
-    v5 = *(v4 + 4);
+    v6 = *(v4 + 4);
     *(v4 + 4) = 0;
     if (a2)
     {
-      v6 = a2;
+      v7 = a2;
     }
 
-    v7 = WTF::fastMalloc(0x18);
-    *v7 = &unk_1F110B8A8;
-    *(v7 + 1) = v5;
-    *(v7 + 2) = a2;
-    v8 = v7;
+    v8 = WTF::fastMalloc(v5, 0x18);
+    *v8 = &unk_1F110B8A8;
+    v8[1] = v6;
+    v8[2] = a2;
+    v9 = v8;
     WTF::RunLoop::dispatch();
-    result = v8;
-    if (v8)
+    result = v9;
+    if (v9)
     {
-      return (*(*v8 + 8))(v8);
+      return (*(*v9 + 8))(v9);
     }
   }
 
@@ -2474,7 +2476,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::NfcService::platformStartDiscovery
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::NfcService::platformStartDiscovery(void)::$_0::operator()(NFReaderSession *,NSError *)::{lambda(void)#1},void>::call(uint64_t a1)
+void *WTF::Detail::CallableWrapper<WebKit::NfcService::platformStartDiscovery(void)::$_0::operator()(NFReaderSession *,NSError *)::{lambda(void)#1},void>::call(uint64_t a1)
 {
   v1 = *(a1 + 8);
   if (v1 && (v2 = *(v1 + 8)) != 0)
@@ -2696,27 +2698,27 @@ void WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::makeCredential(voi
       v7 = error;
       if (error)
       {
-        v18[0] = 24;
-        MEMORY[0x19EB02040](&v17, [(__CFError *)error localizedDescription]);
-        v21[0] = "Couldn't create access control: ";
-        v21[1] = 33;
-        WTF::tryMakeString<WTF::ASCIILiteral,WTF::String>(v21, &v17, &v19);
-        if (!v19)
+        v19[0] = 24;
+        MEMORY[0x19EB02040](&v18, [(__CFError *)error localizedDescription]);
+        v22[0] = "Couldn't create access control: ";
+        v22[1] = 33;
+        WTF::tryMakeString<WTF::ASCIILiteral,WTF::String>(v22, &v18, &v20);
+        if (!v20)
         {
           __break(0xC471u);
           return;
         }
 
-        WebKit::LocalAuthenticator::receiveException(v3, v18, 5);
-        v9 = v19;
-        v19 = 0;
+        WebKit::LocalAuthenticator::receiveException(v3, v19, 5);
+        v9 = v20;
+        v20 = 0;
         if (v9 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
           WTF::StringImpl::destroy(v9, v8);
         }
 
-        v10 = v17;
-        v17 = 0;
+        v10 = v18;
+        v18 = 0;
         if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
           WTF::StringImpl::destroy(v10, v8);
@@ -2739,20 +2741,20 @@ void WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::makeCredential(voi
 
         WTF::WeakPtrFactory<WebKit::AuthenticatorObserver,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v3 + 8), v3);
         v12 = *(v3 + 8);
-        atomic_fetch_add(v12, 1u);
-        v13 = *(v3 + 840);
-        v14 = WTF::fastMalloc(0x20);
-        *v14 = &unk_1F110B970;
-        v14[1] = v6;
-        v14[2] = a2;
-        v14[3] = v12;
-        v21[0] = v14;
-        (*(*v13 + 32))(v13, v6, a2, v21);
-        v15 = v21[0];
-        v21[0] = 0;
-        if (v15)
+        add = atomic_fetch_add(v12, 1u);
+        v14 = *(v3 + 840);
+        v15 = WTF::fastMalloc(add, 0x20);
+        *v15 = &unk_1F110B970;
+        v15[1] = v6;
+        v15[2] = a2;
+        v15[3] = v12;
+        v22[0] = v15;
+        (*(*v14 + 32))(v14, v6, a2, v22);
+        v16 = v22[0];
+        v22[0] = 0;
+        if (v16)
         {
-          (*(*v15 + 8))(v15);
+          (*(*v16 + 8))(v16);
         }
       }
 
@@ -2763,9 +2765,9 @@ void WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::makeCredential(voi
 
       if (*(v3 + 16) == 1)
       {
-        v16 = *(*v3 + 8);
+        v17 = *(*v3 + 8);
 
-        v16(v3);
+        v17(v3);
       }
 
       else
@@ -2776,7 +2778,7 @@ void WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::makeCredential(voi
   }
 }
 
-void sub_19DE166BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, WTF::StringImpl *a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13)
+void sub_19DE166BC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, WTF::StringImpl *a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, uint64_t a13)
 {
   if (v14)
   {
@@ -2786,7 +2788,7 @@ void sub_19DE166BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (v13[4] == 1)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v13 + 8))(v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -2853,7 +2855,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::continueMakeCr
 
 uint64_t WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::continueMakeCredentialAfterReceivingLAContext(LAContext *)::$_0,void,WebKit::LocalConnection::UserVerification>::call(uint64_t a1, int a2)
 {
-  v170[3] = *MEMORY[0x1E69E9840];
+  v174[3] = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 24);
   if (!v6)
   {
@@ -2881,84 +2883,84 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::continueMakeCr
     goto LABEL_127;
   }
 
-  v141[0] = 0;
-  v141[1] = 0;
-  v140 = v141;
+  v143[0] = 0;
+  v143[1] = 0;
+  v142 = v143;
   cbor::CBORValue::CBORValue(&buf, (v7 + 88));
   cbor::CBORValue::CBORValue();
-  error = v149;
-  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v140, v149);
+  error = v151;
+  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v142, v151, &std::piecewise_construct, &error, &v146);
   cbor::CBORValue::operator=();
-  cbor::CBORValue::~CBORValue(v149);
+  cbor::CBORValue::~CBORValue(v151);
   cbor::CBORValue::~CBORValue(&buf);
   cbor::CBORValue::CBORValue(&buf, (v7 + 72));
   cbor::CBORValue::CBORValue();
-  error = v149;
-  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v140, v149);
+  error = v151;
+  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v142, v151, &std::piecewise_construct, &error, &v146);
   cbor::CBORValue::operator=();
-  cbor::CBORValue::~CBORValue(v149);
+  cbor::CBORValue::~CBORValue(v151);
   cbor::CBORValue::~CBORValue(&buf);
   cbor::CBORValue::CBORValue(&buf, (v7 + 104));
-  v10 = v149;
+  v10 = v151;
   cbor::CBORValue::CBORValue();
-  error = v149;
-  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v140, v149);
+  error = v151;
+  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v142, v151, &std::piecewise_construct, &error, &v146);
   cbor::CBORValue::operator=();
-  cbor::CBORValue::~CBORValue(v149);
+  cbor::CBORValue::~CBORValue(v151);
   cbor::CBORValue::~CBORValue(&buf);
   cbor::CBORValue::CBORValue();
   cbor::CBORWriter::write();
   cbor::CBORValue::~CBORValue(&buf);
-  if ((v139 & 1) == 0)
+  if ((v141 & 1) == 0)
   {
     __break(1u);
 LABEL_184:
-    v122 = [(__CFError *)v3 localizedDescription];
+    v124 = [(__CFError *)v3 localizedDescription];
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v122;
+    *(&buf + 4) = v124;
     _os_log_error_impl(&dword_19D52D000, v9, OS_LOG_TYPE_ERROR, "Couldn't generate attestation signature: %@", &buf, 0xCu);
 LABEL_96:
-    v149[0] = 0;
-    v149[1] = 0;
+    v151[0] = 0;
+    v151[1] = 0;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v78 = buf;
+    v80 = buf;
     LOBYTE(buf) = 24;
-    *(&buf + 1) = v78;
-    LOBYTE(v167) = 1;
-    WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v128, v149, &buf);
-    if (v167 == 1)
+    *(&buf + 1) = v80;
+    LOBYTE(v171) = 1;
+    WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v130, v151, &buf);
+    if (v171 == 1)
     {
-      v80 = *(&buf + 1);
+      v82 = *(&buf + 1);
       if (*(&buf + 1))
       {
         if (atomic_fetch_add_explicit(*(&buf + 1), 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v80, v79);
+          WTF::StringImpl::destroy(v82, v81);
         }
       }
     }
 
-    v81 = v149[0];
-    if (v149[0])
+    v83 = v151[0];
+    if (v151[0])
     {
-      v149[0] = 0;
-      LODWORD(v149[1]) = 0;
-      WTF::fastFree(v81, v79);
+      v151[0] = 0;
+      LODWORD(v151[1]) = 0;
+      WTF::fastFree(v83, v81);
     }
 
-    v82 = v3;
+    v84 = v3;
 LABEL_103:
-    CFRelease(v82);
+    CFRelease(v84);
     goto LABEL_104;
   }
 
-  v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v136 length:v138];
+  v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v138 length:v140];
   (*(**(v7 + 840) + 40))(&key);
   if (!key)
   {
     LOBYTE(buf) = 24;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    *(&buf + 1) = v149[0];
+    *(&buf + 1) = v151[0];
     WebKit::LocalAuthenticator::receiveException(v7, &buf, 5);
     v17 = *(&buf + 1);
     if (*(&buf + 1) && atomic_fetch_add_explicit(*(&buf + 1), 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -2975,27 +2977,27 @@ LABEL_103:
   v12 = error;
   if (error)
   {
-    LOBYTE(v149[0]) = 24;
-    MEMORY[0x19EB02040](&v144, [(__CFError *)error localizedDescription]);
+    LOBYTE(v151[0]) = 24;
+    MEMORY[0x19EB02040](&v146, [(__CFError *)error localizedDescription]);
     *&buf = "Couldn't export the public key: ";
     *(&buf + 1) = 33;
-    WTF::tryMakeString<WTF::ASCIILiteral,WTF::String>(&buf, &v144, &v149[1]);
-    if (!v149[1])
+    WTF::tryMakeString<WTF::ASCIILiteral,WTF::String>(&buf, &v146, &v151[1]);
+    if (!v151[1])
     {
       __break(0xC471u);
       JUMPOUT(0x19DE17CBCLL);
     }
 
-    WebKit::LocalAuthenticator::receiveException(v7, v149, 5);
-    v14 = v149[1];
-    v149[1] = 0;
+    WebKit::LocalAuthenticator::receiveException(v7, v151, 5);
+    v14 = v151[1];
+    v151[1] = 0;
     if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(v14, v13);
     }
 
-    v15 = v144;
-    v144 = 0;
+    v15 = v146;
+    v146 = 0;
     if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
       WTF::StringImpl::destroy(v15, v13);
@@ -3026,7 +3028,7 @@ LABEL_120:
     v18 = v8;
   }
 
-  v134 = 0uLL;
+  v136 = 0uLL;
   PAL::CryptoDigest::create();
   if (v8)
   {
@@ -3035,8 +3037,8 @@ LABEL_120:
   }
 
   PAL::CryptoDigest::addBytes();
-  PAL::CryptoDigest::computeHash(&buf, v149[0]);
-  v134 = buf;
+  PAL::CryptoDigest::computeHash(&buf, v151[0]);
+  v136 = buf;
   v19 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buf length:HIDWORD(buf)];
   v20 = *(v7 + 864);
   *(v7 + 864) = v19;
@@ -3046,10 +3048,10 @@ LABEL_120:
 
   v21 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v22 = *MEMORY[0x1E697AFF8];
-  v165[0] = *MEMORY[0x1E697B020];
+  v169[0] = *MEMORY[0x1E697B020];
   v23 = *MEMORY[0x1E697ADC8];
-  v164[0] = v22;
-  v164[1] = v23;
+  v168[0] = v22;
+  v168[1] = v23;
   v24 = *(v7 + 64);
   if (v24)
   {
@@ -3069,14 +3071,14 @@ LABEL_120:
 
   v27 = *MEMORY[0x1E697AC40];
   v28 = *(v7 + 864);
-  v165[1] = buf;
-  v165[2] = v28;
+  v169[1] = buf;
+  v169[2] = v28;
   v29 = *MEMORY[0x1E697B390];
-  v164[2] = v27;
-  v164[3] = v29;
+  v168[2] = v27;
+  v168[3] = v29;
   v30 = MEMORY[0x1E695E118];
-  v165[3] = MEMORY[0x1E695E118];
-  v31 = [v21 setDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v165, v164, 4)}];
+  v169[3] = MEMORY[0x1E695E118];
+  v31 = [v21 setDictionary:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v169, v168, 4)}];
   v32 = buf;
   *&buf = 0;
   if (v32)
@@ -3090,293 +3092,292 @@ LABEL_120:
   }
 
   v34 = *(v7 + 864);
-  v162 = *MEMORY[0x1E697AC38];
-  v163 = v34;
-  SecItemUpdate(v21, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v163 forKeys:&v162 count:1]);
+  v166 = *MEMORY[0x1E697AC38];
+  v167 = v34;
+  SecItemUpdate(v21, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v167 forKeys:&v166 count:1]);
   if (v21)
   {
   }
 
-  v35 = v149[0];
-  v149[0] = 0;
-  if (v35)
+  v36 = v151[0];
+  v151[0] = 0;
+  if (v36)
   {
-    PAL::CryptoDigest::~CryptoDigest(v35);
-    bmalloc::api::tzoneFree(v36, v37);
+    PAL::CryptoDigest::~CryptoDigest(v36);
+    bmalloc::api::tzoneFree(v37, v38);
   }
 
   *&buf = 0;
   *(&buf + 1) = 0x2000000000;
-  v38 = WTF::fastMalloc(0x20);
+  v39 = WTF::fastMalloc(v35, 0x20);
   DWORD2(buf) = 32;
-  *&buf = v38;
-  [(__CFData *)v8 getBytes:v38 range:1, 32];
-  v149[0] = 0;
-  v149[1] = 0x2000000000;
-  v39 = WTF::fastMalloc(0x20);
-  LODWORD(v149[1]) = 32;
-  v149[0] = v39;
-  [(__CFData *)v8 getBytes:v39 range:33, 32];
+  *&buf = v39;
+  [(__CFData *)v8 getBytes:v39 range:1, 32];
+  v151[0] = 0;
+  v151[1] = 0x2000000000;
+  v41 = WTF::fastMalloc(v40, 0x20);
+  LODWORD(v151[1]) = 32;
+  v151[0] = v41;
+  [(__CFData *)v8 getBytes:v41 range:33, 32];
   WebCore::encodeES256PublicKeyAsCBOR();
-  v132 = error;
-  v133 = v147;
-  v41 = v149[0];
-  if (v149[0])
+  v134 = error;
+  v135 = v149;
+  v43 = v151[0];
+  if (v151[0])
   {
-    v149[0] = 0;
-    LODWORD(v149[1]) = 0;
-    WTF::fastFree(v41, v40);
+    v151[0] = 0;
+    LODWORD(v151[1]) = 0;
+    WTF::fastFree(v43, v42);
   }
 
-  v42 = buf;
+  v44 = buf;
   if (buf)
   {
     *&buf = 0;
     DWORD2(buf) = 0;
-    v42 = WTF::fastFree(v42, v40);
+    v44 = WTF::fastFree(v44, v42);
   }
 
-  v43 = WebKit::getASCWebKitSPISupportClass[0](v42);
-  if (v43)
+  v45 = WebKit::getASCWebKitSPISupportClass[0](v44);
+  if (v45)
   {
-    [WebKit::getASCWebKitSPISupportClass[0](v43) shouldUseAlternateCredentialStore];
+    [WebKit::getASCWebKitSPISupportClass[0](v45) shouldUseAlternateCredentialStore];
   }
 
   if ((_MergedGlobals_83 & 1) == 0)
   {
     qword_1ED642760 = 0;
     *&dword_1ED642768 = 0x1000000000;
-    v123 = WTF::fastMalloc(0x10);
+    v125 = WTF::fastMalloc(&qword_1ED642760, 0x10);
     dword_1ED642768 = 16;
-    qword_1ED642760 = v123;
-    *v123 = xmmword_19E703CA0;
+    qword_1ED642760 = v125;
+    *v125 = xmmword_19E703CA0;
     _MergedGlobals_83 = 1;
   }
 
-  v44 = dword_1ED64276C;
-  v149[0] = 0;
-  LODWORD(v149[1]) = 0;
-  HIDWORD(v149[1]) = dword_1ED64276C;
+  v46 = dword_1ED64276C;
+  v151[0] = 0;
+  LODWORD(v151[1]) = 0;
+  HIDWORD(v151[1]) = dword_1ED64276C;
   if (dword_1ED64276C)
   {
-    v45 = WTF::fastMalloc(dword_1ED64276C);
-    LODWORD(v149[1]) = v44;
-    v149[0] = v45;
-    memcpy(v45, qword_1ED642760, dword_1ED64276C);
+    v47 = WTF::fastMalloc(&byte_1ED641F58[168], dword_1ED64276C);
+    LODWORD(v151[1]) = v46;
+    v151[0] = v47;
+    memcpy(v47, qword_1ED642760, dword_1ED64276C);
   }
 
   WebCore::buildAttestedCredentialData();
   WebCore::buildAuthData();
-  v47 = buf;
+  v49 = buf;
   if (buf)
   {
     *&buf = 0;
     DWORD2(buf) = 0;
-    WTF::fastFree(v47, v46);
+    WTF::fastFree(v49, v48);
   }
 
-  v48 = v149[0];
-  if (v149[0])
+  v50 = v151[0];
+  if (v151[0])
   {
-    v149[0] = 0;
-    LODWORD(v149[1]) = 0;
-    WTF::fastFree(v48, v46);
+    v151[0] = 0;
+    LODWORD(v151[1]) = 0;
+    WTF::fastFree(v50, v48);
   }
 
   if (*(v7 + 176) != 3)
   {
-    v57 = *MEMORY[0x1E696EBA8];
+    v59 = *MEMORY[0x1E696EBA8];
     if (*MEMORY[0x1E696EBA8])
     {
-      atomic_fetch_add_explicit(v57, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v59, 2u, memory_order_relaxed);
     }
 
-    error = v57;
+    error = v59;
     *(&buf + 1) = 0;
-    v167 = 0;
+    v171 = 0;
     *&buf = &buf + 8;
-    LOBYTE(v144) = 0;
+    LOBYTE(v146) = 0;
     WebCore::buildAttestationObject();
     std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::destroy(&buf, *(&buf + 1));
-    v59 = error;
+    v61 = error;
     error = 0;
-    if (v59 && atomic_fetch_add_explicit(v59, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (v61 && atomic_fetch_add_explicit(v61, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v59, v58);
+      WTF::StringImpl::destroy(v61, v60);
     }
 
     LOBYTE(buf) = 0;
-    LOBYTE(v167) = 0;
-    WebKit::LocalAuthenticator::finishMakeCredential(v7, &v134, v149, &buf);
-    if (v167 == 1)
+    LOBYTE(v171) = 0;
+    WebKit::LocalAuthenticator::finishMakeCredential(v7, &v136, v151, &buf);
+    if (v171 == 1)
     {
-      v60 = *(&buf + 1);
+      v62 = *(&buf + 1);
       *(&buf + 1) = 0;
-      if (v60)
+      if (v62)
       {
-        if (atomic_fetch_add_explicit(v60, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        if (atomic_fetch_add_explicit(v62, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v60, v16);
+          WTF::StringImpl::destroy(v62, v16);
         }
       }
     }
 
-    v61 = v149[0];
-    if (v149[0])
+    v63 = v151[0];
+    if (v151[0])
     {
-      v149[0] = 0;
-      LODWORD(v149[1]) = 0;
-      WTF::fastFree(v61, v16);
+      v151[0] = 0;
+      LODWORD(v151[1]) = 0;
+      WTF::fastFree(v63, v16);
     }
 
     goto LABEL_112;
   }
 
-  v49 = v134;
-  v134 = 0uLL;
+  v51 = v136;
+  v136 = 0uLL;
   WTF::WeakPtrFactory<WebKit::AuthenticatorObserver,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v7 + 8), v7);
-  v50 = *(v7 + 8);
-  atomic_fetch_add(v50, 1u);
-  v51 = WTF::fastMalloc(0x20);
-  *v51 = &unk_1F110B998;
-  *(v51 + 8) = v49;
-  *(v51 + 24) = v50;
-  v128 = v51;
-  v52 = [MEMORY[0x1E695DF88] dataWithBytes:v129 length:v131];
-  [v52 replaceBytesInRange:37 withBytes:{16, &enterpriseAAGUID}];
-  v53 = [v52 appendBytes:*(v7 + 32) length:*(v7 + 44)];
-  v54 = WebKit::getASCWebKitSPISupportClass[0](v53);
-  v55 = *(v7 + 64);
-  if (v55)
+  v52 = *(v7 + 8);
+  v53 = WTF::fastMalloc(atomic_fetch_add(v52, 1u), 0x20);
+  *v53 = &unk_1F110B998;
+  *(v53 + 1) = v51;
+  v53[3] = v52;
+  v130 = v53;
+  v54 = [MEMORY[0x1E695DF88] dataWithBytes:v131 length:v133];
+  [v54 replaceBytesInRange:37 withBytes:{16, &enterpriseAAGUID}];
+  v55 = [v54 appendBytes:*(v7 + 32) length:*(v7 + 44)];
+  v56 = WebKit::getASCWebKitSPISupportClass[0](v55);
+  v57 = *(v7 + 64);
+  if (v57)
   {
-    atomic_fetch_add_explicit(v55, 2u, memory_order_relaxed);
-    MEMORY[0x19EB00B70](&buf, v55);
-    if (atomic_fetch_add_explicit(v55, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v57, 2u, memory_order_relaxed);
+    MEMORY[0x19EB00B70](&buf, v57);
+    if (atomic_fetch_add_explicit(v57, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v55, v56);
+      WTF::StringImpl::destroy(v57, v58);
     }
   }
 
   else
   {
     *&buf = &stru_1F1147748;
-    v62 = &stru_1F1147748;
+    v64 = &stru_1F1147748;
   }
 
-  v63 = [v54 entepriseAttestationIdentityPersistentReferenceForRelyingParty:buf];
-  v64 = buf;
+  v65 = [v56 entepriseAttestationIdentityPersistentReferenceForRelyingParty:buf];
+  v66 = buf;
   *&buf = 0;
-  if (v64)
+  if (v66)
   {
   }
 
-  if (!v63)
+  if (!v65)
   {
 LABEL_79:
-    v149[0] = 0;
-    v149[1] = 0;
+    v151[0] = 0;
+    v151[1] = 0;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v70 = buf;
+    v72 = buf;
     LOBYTE(buf) = 24;
-    *(&buf + 1) = v70;
-    LOBYTE(v167) = 1;
-    WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v128, v149, &buf);
-    if (v167 == 1)
+    *(&buf + 1) = v72;
+    LOBYTE(v171) = 1;
+    WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v130, v151, &buf);
+    if (v171 == 1)
     {
-      v71 = *(&buf + 1);
+      v73 = *(&buf + 1);
       if (*(&buf + 1))
       {
         if (atomic_fetch_add_explicit(*(&buf + 1), 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v71, v16);
+          WTF::StringImpl::destroy(v73, v16);
         }
       }
     }
 
-    v72 = v149[0];
-    if (v149[0])
+    v74 = v151[0];
+    if (v151[0])
     {
-      v149[0] = 0;
-      LODWORD(v149[1]) = 0;
-      WTF::fastFree(v72, v16);
+      v151[0] = 0;
+      LODWORD(v151[1]) = 0;
+      WTF::fastFree(v74, v16);
     }
 
     goto LABEL_110;
   }
 
-  v65 = *MEMORY[0x1E697B010];
-  v66 = *MEMORY[0x1E697B3C8];
-  v169[0] = v22;
-  v169[1] = v66;
-  v170[0] = v65;
-  v170[1] = v63;
-  v169[2] = *MEMORY[0x1E697B328];
-  v170[2] = v30;
-  v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v170 forKeys:v169 count:3];
-  result[0] = 0;
-  v68 = SecItemCopyMatching(v67, result);
-  if (v68)
+  v67 = *MEMORY[0x1E697B010];
+  v68 = *MEMORY[0x1E697B3C8];
+  v173[0] = v22;
+  v173[1] = v68;
+  v174[0] = v67;
+  v174[1] = v65;
+  v173[2] = *MEMORY[0x1E697B328];
+  v174[2] = v30;
+  v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v174 forKeys:v173 count:3];
+  result = 0;
+  v70 = SecItemCopyMatching(v69, &result);
+  if (v70)
   {
-    v69 = qword_1ED641530;
+    v71 = qword_1ED641530;
     if (os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 67109120;
-      DWORD1(buf) = v68;
-      _os_log_error_impl(&dword_19D52D000, v69, OS_LOG_TYPE_ERROR, "Couldn't find attestation certificate: %d", &buf, 8u);
+      DWORD1(buf) = v70;
+      _os_log_error_impl(&dword_19D52D000, v71, OS_LOG_TYPE_ERROR, "Couldn't find attestation certificate: %d", &buf, 8u);
     }
 
     goto LABEL_79;
   }
 
-  v2 = result[0];
+  v2 = result;
   privateKeyRef = 0;
-  v73 = SecIdentityCopyPrivateKey(result[0], &privateKeyRef);
-  if (v73)
+  v75 = SecIdentityCopyPrivateKey(result, &privateKeyRef);
+  if (v75)
   {
-    v74 = qword_1ED641530;
+    v76 = qword_1ED641530;
     if (os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 67109120;
-      DWORD1(buf) = v73;
-      _os_log_error_impl(&dword_19D52D000, v74, OS_LOG_TYPE_ERROR, "Couldn't access attestation signing key: %d", &buf, 8u);
+      DWORD1(buf) = v75;
+      _os_log_error_impl(&dword_19D52D000, v76, OS_LOG_TYPE_ERROR, "Couldn't access attestation signing key: %d", &buf, 8u);
     }
 
-    v149[0] = 0;
-    v149[1] = 0;
+    v151[0] = 0;
+    v151[1] = 0;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v75 = buf;
+    v77 = buf;
     LOBYTE(buf) = 24;
-    *(&buf + 1) = v75;
-    LOBYTE(v167) = 1;
-    WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v128, v149, &buf);
-    if (v167 == 1)
+    *(&buf + 1) = v77;
+    LOBYTE(v171) = 1;
+    WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v130, v151, &buf);
+    if (v171 == 1)
     {
-      v76 = *(&buf + 1);
+      v78 = *(&buf + 1);
       if (*(&buf + 1))
       {
         if (atomic_fetch_add_explicit(*(&buf + 1), 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v76, v16);
+          WTF::StringImpl::destroy(v78, v16);
         }
       }
     }
 
-    v77 = v149[0];
-    if (v149[0])
+    v79 = v151[0];
+    if (v151[0])
     {
-      v149[0] = 0;
-      LODWORD(v149[1]) = 0;
-      WTF::fastFree(v77, v16);
+      v151[0] = 0;
+      LODWORD(v151[1]) = 0;
+      WTF::fastFree(v79, v16);
     }
 
     goto LABEL_108;
   }
 
   v4 = privateKeyRef;
-  v159 = 0;
-  v5 = SecKeyCreateSignature(privateKeyRef, *MEMORY[0x1E697B128], v52, &v159);
-  v3 = v159;
-  if (v159)
+  v161 = 0;
+  v5 = SecKeyCreateSignature(privateKeyRef, *MEMORY[0x1E697B128], v54, &v161);
+  v3 = v161;
+  if (v161)
   {
     v9 = qword_1ED641530;
     if (!os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_ERROR))
@@ -3388,267 +3389,267 @@ LABEL_79:
   }
 
   certificateRef = 0;
-  v89 = SecIdentityCopyCertificate(result[0], &certificateRef);
-  if (v89)
+  v91 = SecIdentityCopyCertificate(result, &certificateRef);
+  if (v91)
   {
-    v90 = qword_1ED641530;
+    v92 = qword_1ED641530;
     if (os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf) = 67109120;
-      DWORD1(buf) = v89;
-      _os_log_error_impl(&dword_19D52D000, v90, OS_LOG_TYPE_ERROR, "Couldn't access attestation certificate: %d", &buf, 8u);
+      DWORD1(buf) = v91;
+      _os_log_error_impl(&dword_19D52D000, v92, OS_LOG_TYPE_ERROR, "Couldn't access attestation certificate: %d", &buf, 8u);
     }
 
-    v149[0] = 0;
-    v149[1] = 0;
+    v151[0] = 0;
+    v151[1] = 0;
     WTF::StringImpl::createWithoutCopyingNonEmpty();
-    v91 = buf;
+    v93 = buf;
     LOBYTE(buf) = 24;
-    *(&buf + 1) = v91;
-    LOBYTE(v167) = 1;
-    WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v128, v149, &buf);
-    if (v167 == 1)
+    *(&buf + 1) = v93;
+    LOBYTE(v171) = 1;
+    WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v130, v151, &buf);
+    if (v171 == 1)
     {
-      v92 = *(&buf + 1);
+      v94 = *(&buf + 1);
       if (*(&buf + 1))
       {
         if (atomic_fetch_add_explicit(*(&buf + 1), 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v92, v16);
+          WTF::StringImpl::destroy(v94, v16);
         }
       }
     }
 
-    v93 = v149[0];
-    if (v149[0])
+    v95 = v151[0];
+    if (v151[0])
     {
-      v149[0] = 0;
-      LODWORD(v149[1]) = 0;
-      WTF::fastFree(v93, v16);
+      v151[0] = 0;
+      LODWORD(v151[1]) = 0;
+      WTF::fastFree(v95, v16);
     }
 
     goto LABEL_104;
   }
 
-  v125 = certificateRef;
-  v126 = v4;
-  v168 = certificateRef;
-  v127 = v2;
-  v124 = v5;
-  v94 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v168 count:1];
+  v127 = certificateRef;
+  v128 = v4;
+  v172 = certificateRef;
+  v129 = v2;
+  v126 = v5;
+  v96 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v172 count:1];
   BasicX509 = SecPolicyCreateBasicX509();
   trust = 0;
-  SecTrustCreateWithCertificates(v94, BasicX509, &trust);
-  v96 = SecTrustCopyCertificateChain(trust);
-  v156[0] = 0;
-  v156[1] = 0;
-  v154 = 0;
-  v155 = v156;
-  v153 = 0;
-  *v149 = 0u;
-  v150 = 0u;
-  v151 = 0u;
+  SecTrustCreateWithCertificates(v96, BasicX509, &trust);
+  v98 = SecTrustCopyCertificateChain(trust);
+  v158[0] = 0;
+  v158[1] = 0;
+  v156 = 0;
+  v157 = v158;
+  v155 = 0;
+  *v151 = 0u;
   v152 = 0u;
-  v97 = [(__CFArray *)v96 countByEnumeratingWithState:v149 objects:&buf count:16];
-  if (!v97)
+  v153 = 0u;
+  v154 = 0u;
+  v99 = [(__CFArray *)v98 countByEnumeratingWithState:v151 objects:&buf count:16];
+  if (!v99)
   {
     goto LABEL_165;
   }
 
-  v98 = *v150;
+  v100 = *v152;
   do
   {
-    v99 = 0;
+    v101 = 0;
     do
     {
-      if (*v150 != v98)
+      if (*v152 != v100)
       {
-        objc_enumerationMutation(v96);
+        objc_enumerationMutation(v98);
       }
 
-      v100 = SecCertificateCopyData(*(v149[1] + v99));
-      v101 = v100;
-      if (v100)
+      v102 = SecCertificateCopyData(*(v151[1] + v101));
+      v103 = v102;
+      if (v102)
       {
-        v102 = [(__CFData *)v100 bytes];
-        v103 = [(__CFData *)v101 length];
-        v104 = v103;
-        v144 = 0;
-        LODWORD(v145) = 0;
-        HIDWORD(v145) = v103;
-        if (v103)
+        v104 = [(__CFData *)v102 bytes];
+        v105 = [(__CFData *)v103 length];
+        v106 = v105;
+        v146 = 0;
+        LODWORD(v147) = 0;
+        HIDWORD(v147) = v105;
+        if (v105)
         {
-          if (HIDWORD(v103))
+          if (HIDWORD(v105))
           {
             goto LABEL_189;
           }
 
-          v105 = WTF::fastMalloc(v103);
-          LODWORD(v145) = v104;
-          v144 = v105;
+          v107 = WTF::fastMalloc(0, v105);
+          LODWORD(v147) = v106;
+          v146 = v107;
           do
           {
-            v106 = *v102++;
-            *v105 = v106;
-            v105 = (v105 + 1);
-            --v104;
+            v108 = *v104++;
+            *v107 = v108;
+            v107 = (v107 + 1);
+            --v106;
           }
 
-          while (v104);
+          while (v106);
         }
       }
 
       else
       {
-        v144 = 0;
-        v145 = 0;
+        v146 = 0;
+        v147 = 0;
       }
 
       cbor::CBORValue::CBORValue();
-      if (HIDWORD(v154) == v154)
+      if (HIDWORD(v156) == v156)
       {
-        WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v153, HIDWORD(v154) + 1, &error);
+        WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v155, HIDWORD(v156) + 1, &error);
       }
 
       cbor::CBORValue::CBORValue();
-      ++HIDWORD(v154);
+      ++HIDWORD(v156);
       cbor::CBORValue::~CBORValue(&error);
-      v108 = v144;
-      if (v144)
+      v110 = v146;
+      if (v146)
       {
-        v144 = 0;
-        LODWORD(v145) = 0;
-        WTF::fastFree(v108, v107);
-        if (!v101)
+        v146 = 0;
+        LODWORD(v147) = 0;
+        WTF::fastFree(v110, v109);
+        if (!v103)
         {
           goto LABEL_159;
         }
       }
 
-      else if (!v101)
+      else if (!v103)
       {
         goto LABEL_159;
       }
 
-      CFRelease(v101);
+      CFRelease(v103);
 LABEL_159:
-      ++v99;
+      ++v101;
     }
 
-    while (v99 != v97);
-    v109 = [(__CFArray *)v96 countByEnumeratingWithState:v149 objects:&buf count:16];
-    v97 = v109;
+    while (v101 != v99);
+    v111 = [(__CFArray *)v98 countByEnumeratingWithState:v151 objects:&buf count:16];
+    v99 = v111;
   }
 
-  while (v109);
+  while (v111);
 LABEL_165:
   cbor::CBORValue::CBORValue();
-  v4 = v126;
-  v2 = v127;
-  v5 = v124;
-  cbor::CBORValue::CBORValue(&v144, "x5c");
-  v142 = &v144;
-  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v155, &v144);
+  v4 = v128;
+  v2 = v129;
+  v5 = v126;
+  cbor::CBORValue::CBORValue(&v146, "x5c");
+  v144 = &v146;
+  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v157, &v146, &std::piecewise_construct, &v144, &v165);
   cbor::CBORValue::operator=();
-  cbor::CBORValue::~CBORValue(&v144);
+  cbor::CBORValue::~CBORValue(&v146);
   cbor::CBORValue::~CBORValue(&error);
   cbor::CBORValue::CBORValue(&error);
-  cbor::CBORValue::CBORValue(&v144, "alg");
-  v142 = &v144;
-  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v155, &v144);
+  cbor::CBORValue::CBORValue(&v146, "alg");
+  v144 = &v146;
+  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v157, &v146, &std::piecewise_construct, &v144, &v165);
   cbor::CBORValue::operator=();
-  cbor::CBORValue::~CBORValue(&v144);
+  cbor::CBORValue::~CBORValue(&v146);
   cbor::CBORValue::~CBORValue(&error);
-  if (v124)
+  if (v126)
   {
-    v110 = [(__CFData *)v124 bytes];
-    v111 = [(__CFData *)v124 length];
-    v112 = v111;
-    v142 = 0;
-    LODWORD(v143) = 0;
-    HIDWORD(v143) = v111;
-    if (v111)
+    v112 = [(__CFData *)v126 bytes];
+    v113 = [(__CFData *)v126 length];
+    v114 = v113;
+    v144 = 0;
+    LODWORD(v145) = 0;
+    HIDWORD(v145) = v113;
+    if (v113)
     {
-      if (HIDWORD(v111))
+      if (HIDWORD(v113))
       {
 LABEL_189:
         __break(0xC471u);
         JUMPOUT(0x19DE17CB4);
       }
 
-      v113 = WTF::fastMalloc(v111);
-      LODWORD(v143) = v112;
-      v142 = v113;
+      v115 = WTF::fastMalloc(0, v113);
+      LODWORD(v145) = v114;
+      v144 = v115;
       do
       {
-        v114 = *v110++;
-        *v113 = v114;
-        v113 = (v113 + 1);
-        --v112;
+        v116 = *v112++;
+        *v115 = v116;
+        v115 = (v115 + 1);
+        --v114;
       }
 
-      while (v112);
+      while (v114);
     }
   }
 
   else
   {
-    v142 = 0;
-    v143 = 0;
+    v144 = 0;
+    v145 = 0;
   }
 
   cbor::CBORValue::CBORValue();
-  cbor::CBORValue::CBORValue(&v144, "sig");
-  result[2] = &v144;
-  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v155, &v144);
+  cbor::CBORValue::CBORValue(&v146, "sig");
+  v165 = &v146;
+  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::__emplace_unique_key_args<cbor::CBORValue,std::piecewise_construct_t const&,std::tuple<cbor::CBORValue&&>,std::tuple<>>(&v157, &v146, &std::piecewise_construct, &v165, &v164);
   cbor::CBORValue::operator=();
-  cbor::CBORValue::~CBORValue(&v144);
+  cbor::CBORValue::~CBORValue(&v146);
   cbor::CBORValue::~CBORValue(&error);
-  v116 = v142;
-  if (v142)
-  {
-    v142 = 0;
-    LODWORD(v143) = 0;
-    WTF::fastFree(v116, v115);
-  }
-
-  WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v153, v115);
-  WTF::StringImpl::createWithoutCopyingNonEmpty();
-  v153 = error;
-  WebCore::buildAttestationObject();
-  v118 = v153;
-  v153 = 0;
-  if (v118 && atomic_fetch_add_explicit(v118, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v118, v117);
-  }
-
-  LOBYTE(error) = 0;
-  v148 = 0;
-  WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v128, &v144, &error);
-  if (v148 == 1)
-  {
-    v120 = v147;
-    if (v147)
-    {
-      if (atomic_fetch_add_explicit(v147, 0xFFFFFFFE, memory_order_relaxed) == 2)
-      {
-        WTF::StringImpl::destroy(v120, v119);
-      }
-    }
-  }
-
-  v121 = v144;
+  v118 = v144;
   if (v144)
   {
     v144 = 0;
     LODWORD(v145) = 0;
-    WTF::fastFree(v121, v119);
+    WTF::fastFree(v118, v117);
   }
 
-  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::destroy(&v155, v156[0]);
-  v82 = v125;
-  if (v125)
+  WTF::Vector<cbor::CBORValue,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v155, v117);
+  WTF::StringImpl::createWithoutCopyingNonEmpty();
+  v155 = error;
+  WebCore::buildAttestationObject();
+  v120 = v155;
+  v155 = 0;
+  if (v120 && atomic_fetch_add_explicit(v120, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v120, v119);
+  }
+
+  LOBYTE(error) = 0;
+  v150 = 0;
+  WTF::CompletionHandler<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,std::optional<WebCore::ExceptionData>)>::operator()(&v130, &v146, &error);
+  if (v150 == 1)
+  {
+    v122 = v149;
+    if (v149)
+    {
+      if (atomic_fetch_add_explicit(v149, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v122, v121);
+      }
+    }
+  }
+
+  v123 = v146;
+  if (v146)
+  {
+    v146 = 0;
+    LODWORD(v147) = 0;
+    WTF::fastFree(v123, v121);
+  }
+
+  std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::destroy(&v157, v158[0]);
+  v84 = v127;
+  if (v127)
   {
     goto LABEL_103;
   }
@@ -3671,34 +3672,34 @@ LABEL_108:
   }
 
 LABEL_110:
-  if (v128)
+  if (v130)
   {
-    (*(*v128 + 8))(v128);
+    (*(*v130 + 8))(v130);
   }
 
 LABEL_112:
-  v83 = v129;
-  if (v129)
+  v85 = v131;
+  if (v131)
   {
-    v129 = 0;
-    v130 = 0;
-    WTF::fastFree(v83, v16);
-  }
-
-  v84 = v132;
-  if (v132)
-  {
+    v131 = 0;
     v132 = 0;
-    LODWORD(v133) = 0;
-    WTF::fastFree(v84, v16);
+    WTF::fastFree(v85, v16);
   }
 
-  v85 = v134;
+  v86 = v134;
   if (v134)
   {
-    *&v134 = 0;
-    DWORD2(v134) = 0;
-    WTF::fastFree(v85, v16);
+    v134 = 0;
+    LODWORD(v135) = 0;
+    WTF::fastFree(v86, v16);
+  }
+
+  v87 = v136;
+  if (v136)
+  {
+    *&v136 = 0;
+    DWORD2(v136) = 0;
+    WTF::fastFree(v87, v16);
   }
 
   if (v8)
@@ -3708,35 +3709,35 @@ LABEL_112:
   }
 
 LABEL_121:
-  v86 = key;
+  v88 = key;
   key = 0;
-  if (v86)
+  if (v88)
   {
-    CFRelease(v86);
+    CFRelease(v88);
   }
 
   if (v10)
   {
   }
 
-  if (v139 == 1)
+  if (v141 == 1)
   {
-    v87 = v136;
-    if (v136)
+    v89 = v138;
+    if (v138)
     {
-      v136 = 0;
-      v137 = 0;
-      WTF::fastFree(v87, v16);
+      v138 = 0;
+      v139 = 0;
+      WTF::fastFree(v89, v16);
     }
   }
 
-  a1 = std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::destroy(&v140, v141[0]);
+  a1 = std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__map_value_compare<cbor::CBORValue,std::__value_type<cbor::CBORValue,cbor::CBORValue>,cbor::CBORValue::CTAPLess,true>,WTF::FastAllocator<std::__value_type<cbor::CBORValue,cbor::CBORValue>>>::destroy(&v142, v143[0]);
 LABEL_127:
   if (*(v7 + 16) == 1)
   {
-    v88 = *(*v7 + 8);
+    v90 = *(*v7 + 8);
 
-    return v88(v7);
+    return v90(v7);
   }
 
   else
@@ -3747,7 +3748,7 @@ LABEL_127:
   return a1;
 }
 
-void sub_19DE17CC8(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, CFTypeRef a10, CFTypeRef cf, CFTypeRef a12, CFTypeRef a13, uint64_t a14, uint64_t a15, WTF *a16, uint64_t a17, WTF *a18, uint64_t a19, WTF *a20, uint64_t a21, CFTypeRef a22, WTF *a23, uint64_t a24, char a25, int a26, __int16 a27, uint64_t a28, uint64_t a29, WTF *a30, uint64_t a31, WTF::StringImpl *a32, int a33, uint64_t a34, uint64_t a35, WTF::StringImpl *a36, WTF::StringImpl *a37, char a38, uint64_t a39, PAL::CryptoDigest *a40, WTF::StringImpl *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, WTF::StringImpl *a48, uint64_t a49, char a50, uint64_t a51)
+void sub_19DE17CC8(_Unwind_Exception *a1, WTF::StringImpl *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, CFTypeRef a10, CFTypeRef cf, CFTypeRef a12, CFTypeRef a13, uint64_t a14, uint64_t a15, WTF *a16, uint64_t a17, WTF *a18, uint64_t a19, WTF *a20, uint64_t a21, CFTypeRef a22, WTF *a23, uint64_t a24, char a25, int a26, __int16 a27, WTF *a28, uint64_t a29, WTF *a30, uint64_t a31, WTF::StringImpl *a32, int a33, uint64_t a34, uint64_t a35, WTF::StringImpl *a36, WTF::StringImpl *a37, char a38, uint64_t a39, PAL::CryptoDigest *a40, WTF::StringImpl *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, WTF::StringImpl *a48, uint64_t a49, uint64_t a50, WTF *a51)
 {
   if (a38 == 1)
   {
@@ -3955,27 +3956,27 @@ void sub_19DE18624(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-unsigned int *WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t a2)
+unsigned int *WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(unsigned int *result, unint64_t a2, unint64_t a3)
 {
   if (result[2] > a2)
   {
-    v3 = result;
-    v4 = result[3];
-    if (v4 > a2)
+    v4 = result;
+    v5 = result[3];
+    if (v5 > a2)
     {
-      result = WTF::VectorDestructor<true,WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>>::destruct((*result + 8 * a2), (*result + 8 * v4));
-      v3[3] = a2;
-      LODWORD(v4) = a2;
+      result = WTF::VectorDestructor<true,WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>>::destruct((*result + 8 * a2), (*result + 8 * v5));
+      v4[3] = a2;
+      LODWORD(v5) = a2;
     }
 
-    v5 = *v3;
+    v6 = *v4;
     if (a2)
     {
-      if (v3[2])
+      if (v4[2])
       {
-        v3[2] = a2;
-        result = WTF::fastRealloc(v5, (8 * a2));
-        *v3 = result;
+        v4[2] = a2;
+        result = WTF::fastRealloc(v6, (8 * a2));
+        *v4 = result;
         return result;
       }
 
@@ -3985,24 +3986,24 @@ unsigned int *WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::
         return result;
       }
 
-      result = WTF::fastMalloc((8 * a2));
-      v3[2] = a2;
-      *v3 = result;
-      if (result != v5)
+      result = WTF::fastMalloc(0, (8 * a2));
+      v4[2] = a2;
+      *v4 = result;
+      if (result != v6)
       {
-        result = memcpy(result, v5, 8 * v4);
+        result = memcpy(result, v6, 8 * v5);
       }
     }
 
-    if (v5)
+    if (v6)
     {
-      if (*v3 == v5)
+      if (*v4 == v6)
       {
-        *v3 = 0;
-        v3[2] = 0;
+        *v4 = 0;
+        v4[2] = 0;
       }
 
-      return WTF::fastFree(v5, a2);
+      return WTF::fastFree(v6, a2);
     }
   }
 
@@ -4095,19 +4096,19 @@ void WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::getAssertion(void)
 
       WTF::WeakPtrFactory<WebKit::AuthenticatorObserver,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v6 + 8), v6);
       v14 = *(v6 + 8);
-      atomic_fetch_add(v14, 1u);
-      v15 = *(v6 + 840);
-      v16 = WTF::fastMalloc(0x18);
-      *v16 = &unk_1F110B9E8;
-      v16[1] = v14;
-      v16[2] = v10;
-      v19 = v16;
-      (*(*v15 + 32))(v15, v11, v12, &v19);
-      v17 = v19;
-      v19 = 0;
-      if (v17)
+      add = atomic_fetch_add(v14, 1u);
+      v16 = *(v6 + 840);
+      v17 = WTF::fastMalloc(add, 0x18);
+      *v17 = &unk_1F110B9E8;
+      v17[1] = v14;
+      v17[2] = v10;
+      v20 = v17;
+      (*(*v16 + 32))(v16, v11, v12, &v20);
+      v18 = v20;
+      v20 = 0;
+      if (v18)
       {
-        (*(*v17 + 8))(v17);
+        (*(*v18 + 8))(v18);
       }
 
       if (v12)
@@ -4136,13 +4137,13 @@ LABEL_21:
 
   else
   {
-    v18 = *(*v6 + 8);
+    v19 = *(*v6 + 8);
 
-    v18(v6);
+    v19(v6);
   }
 }
 
-void sub_19DE18A64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_19DE18A64(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (v11)
   {
@@ -4153,7 +4154,7 @@ void sub_19DE18A64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   {
     if (v12[2] == 1)
     {
-      (*(*v12 + 8))(v12);
+      (*(*v12 + 8))(v12, a2, a3, a4, a5, a6, a7, a8);
     }
 
     else
@@ -4164,7 +4165,7 @@ void sub_19DE18A64(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (v10[4] == 1)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v10 + 8))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
@@ -4184,7 +4185,7 @@ void *WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::continueGetAssert
   {
     if (v3[2] == 1)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v3 + 8))(v3, a2);
     }
 
     else
@@ -4213,7 +4214,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::LocalAuthenticator::continueGetAss
   {
     if (v3[2] == 1)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v3 + 8))(v3, a2);
     }
 
     else
@@ -4654,7 +4655,7 @@ LABEL_43:
   }
 }
 
-void sub_19DE1962C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, CFTypeRef a10, CFTypeRef cf, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, WTF::StringImpl *a18, uint64_t a19, WTF *a20, int a21, int a22, char a23, uint64_t a24, uint64_t a25, WTF::StringImpl *a26)
+void sub_19DE1962C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, CFTypeRef a10, CFTypeRef cf, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, WTF::StringImpl *a18, uint64_t a19, WTF *a20, int a21, int a22, uint64_t a23, uint64_t a24, uint64_t a25, WTF::StringImpl *a26)
 {
   if (*(v28 - 240))
   {
@@ -4857,8 +4858,7 @@ __n128 WebKit::OriginQuotaManager::OriginQuotaManager(uint64_t a1, __int128 *a2,
   *a3 = 0;
   *(a1 + 128) = v4;
   result = a2[1];
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  a2[1] = 0uLL;
   *(a1 + 136) = result;
   return result;
 }
@@ -4891,13 +4891,13 @@ unint64_t WebKit::OriginQuotaManager::usage(WebKit::OriginQuotaManager *this)
   return result;
 }
 
-uint64_t WebKit::OriginQuotaManager::requestSpace(uint64_t this, uint64_t a2, uint64_t *a3)
+uint64_t *WebKit::OriginQuotaManager::requestSpace(uint64_t *this, unint64_t a2, unint64_t *a3)
 {
   v4 = this;
   v5 = *a3;
   *a3 = 0;
-  v7 = *(this + 8);
-  v6 = *(this + 16);
+  v7 = this[1];
+  v6 = this[2];
   if (v7)
   {
     if (v6 + 1 != v7)
@@ -4905,11 +4905,11 @@ uint64_t WebKit::OriginQuotaManager::requestSpace(uint64_t this, uint64_t a2, ui
       goto LABEL_29;
     }
 
-    LODWORD(v8) = *(this + 32);
+    LODWORD(v8) = *(this + 8);
     goto LABEL_9;
   }
 
-  v8 = *(this + 32);
+  v8 = *(this + 8);
   if (!v6)
   {
     if (v8)
@@ -4928,18 +4928,18 @@ LABEL_37:
       return this;
     }
 
-    v11 = *(this + 24);
+    v11 = this[3];
     if (v10 <= 0xF)
     {
       v10 = 15;
     }
 
     v12 = 24 * v10 + 24;
-    this = WTF::fastMalloc((24 * v10 + 24));
-    *(v4 + 32) = v12 / 0x18;
-    *(v4 + 24) = this;
-    v13 = *(v4 + 8);
-    v14 = *(v4 + 16);
+    this = WTF::fastMalloc(v10, (24 * v10 + 24));
+    *(v4 + 8) = v12 / 0x18;
+    v4[3] = this;
+    v13 = v4[1];
+    v14 = v4[2];
     v15 = v14 - v13;
     if (v14 >= v13)
     {
@@ -4965,7 +4965,7 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      this = WTF::VectorMover<false,WebKit::OriginQuotaManager::Request>::move(v11 + 24 * v13, v11 + 3 * v13 + 3 * v15, (this + 24 * v13));
+      this = WTF::VectorMover<false,WebKit::OriginQuotaManager::Request>::move(&v11[3 * v13], &v11[3 * v13 + 3 * v15], &this[3 * v13]);
       if (!v11)
       {
         goto LABEL_28;
@@ -4979,37 +4979,37 @@ LABEL_36:
         goto LABEL_36;
       }
 
-      this = WTF::VectorMover<false,WebKit::OriginQuotaManager::Request>::move(v11, v11 + 3 * v14, this);
-      v16 = *(v4 + 8);
+      this = WTF::VectorMover<false,WebKit::OriginQuotaManager::Request>::move(v11, &v11[3 * v14], this);
+      v16 = v4[1];
       if (v9 < v16)
       {
         goto LABEL_36;
       }
 
-      v17 = *(v4 + 32);
+      v17 = *(v4 + 8);
       if (v17 < v9 - v16)
       {
         goto LABEL_36;
       }
 
       v18 = v17 - (v9 - v16);
-      this = WTF::VectorMover<false,WebKit::OriginQuotaManager::Request>::move(v11 + 24 * v16, v11 + 3 * v9, (*(v4 + 24) + 24 * v18));
-      *(v4 + 8) = v18;
+      this = WTF::VectorMover<false,WebKit::OriginQuotaManager::Request>::move(&v11[3 * v16], &v11[3 * v9], (v4[3] + 24 * v18));
+      v4[1] = v18;
       if (!v11)
       {
         goto LABEL_28;
       }
     }
 
-    if (*(v4 + 24) == v11)
+    if (v4[3] == v11)
     {
-      *(v4 + 24) = 0;
-      *(v4 + 32) = 0;
+      v4[3] = 0;
+      *(v4 + 8) = 0;
     }
 
     this = WTF::fastFree(v11, v19);
 LABEL_28:
-    v6 = *(v4 + 16);
+    v6 = v4[2];
     goto LABEL_29;
   }
 
@@ -5019,17 +5019,17 @@ LABEL_28:
   }
 
 LABEL_29:
-  if (v6 >= *(v4 + 32))
+  if (v6 >= *(v4 + 8))
   {
     goto LABEL_36;
   }
 
-  v20 = (*(v4 + 24) + 24 * v6);
+  v20 = (v4[3] + 24 * v6);
   *v20 = a2;
   v20[1] = v5;
   v20[2] = 0;
-  v21 = *(v4 + 16);
-  if (v21 == *(v4 + 32) - 1)
+  v21 = v4[2];
+  if (v21 == *(v4 + 8) - 1)
   {
     v22 = 0;
   }
@@ -5039,7 +5039,7 @@ LABEL_29:
     v22 = v21 + 1;
   }
 
-  *(v4 + 16) = v22;
+  v4[2] = v22;
 
   return WebKit::OriginQuotaManager::handleRequests(v4);
 }
@@ -5411,7 +5411,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::StorageBucket(uint64_t res
   return result;
 }
 
-_DWORD *WebKit::OriginStorageManager::StorageBucket::connectionClosed(void *a1, uint64_t a2)
+WTF::StringImpl **WebKit::OriginStorageManager::StorageBucket::connectionClosed(void *a1, uint64_t a2)
 {
   v4 = a1[3];
   if (v4)
@@ -5437,8 +5437,8 @@ _DWORD *WebKit::OriginStorageManager::StorageBucket::connectionClosed(void *a1, 
   result = a1[11];
   if (result)
   {
-    v8 = result + 2;
-    ++result[2];
+    v8 = result + 1;
+    ++*(result + 2);
     WebKit::CacheStorageManager::connectionClosed(result, a2);
 
     return WTF::RefCounted<WebKit::CacheStorageManager>::deref(v8, v9);
@@ -5447,13 +5447,13 @@ _DWORD *WebKit::OriginStorageManager::StorageBucket::connectionClosed(void *a1, 
   return result;
 }
 
-uint64_t WebKit::SessionStorageManager::connectionClosed(uint64_t result, uint64_t a2)
+void *WebKit::SessionStorageManager::connectionClosed(void *result, uint64_t a2)
 {
   if (result)
   {
-    v3 = *(result - 4);
-    v4 = (result + 16 * v3);
-    if (*(result - 12))
+    v3 = *(result - 1);
+    v4 = &result[2 * v3];
+    if (*(result - 3))
     {
       if (v3)
       {
@@ -5487,7 +5487,7 @@ uint64_t WebKit::SessionStorageManager::connectionClosed(uint64_t result, uint64
   }
 
   v6 = v4;
-  v4 = (result + 16 * v3);
+  v4 = &result[2 * v3];
   if (!result)
   {
     v7 = 0;
@@ -5495,7 +5495,7 @@ uint64_t WebKit::SessionStorageManager::connectionClosed(uint64_t result, uint64
   }
 
 LABEL_13:
-  v7 = (result + 16 * *(result - 4));
+  v7 = &result[2 * *(result - 1)];
 LABEL_14:
   while (v6 != v7)
   {
@@ -5582,7 +5582,7 @@ LABEL_18:
   return v3 | (v2 << 8);
 }
 
-uint64_t WebKit::OriginStorageManager::StorageBucket::toStorageIdentifier(uint64_t result, int a2)
+atomic_uint **WebKit::OriginStorageManager::StorageBucket::toStorageIdentifier(atomic_uint **result, unsigned int a2)
 {
   v2 = result;
   if (a2 > 1)
@@ -5612,7 +5612,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t WebKit::OriginStorageManager::StorageBucket::typeStoragePath@<X0>(uint64_t a1@<X0>, int a2@<W1>, atomic_uint **a3@<X8>)
+atomic_uint **WebKit::OriginStorageManager::StorageBucket::typeStoragePath@<X0>(uint64_t *a1@<X0>, unsigned int a2@<W1>, atomic_uint **a3@<X8>)
 {
   result = WebKit::OriginStorageManager::StorageBucket::toStorageIdentifier(&v9, a2);
   if (*a1)
@@ -5622,7 +5622,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::typeStoragePath@<X0>(uint6
       v7 = v9;
       if (v9)
       {
-        if (*(v9 + 1))
+        if (v9[1])
         {
           result = WTF::FileSystemImpl::pathByAppendingComponent();
 LABEL_6:
@@ -5654,15 +5654,15 @@ LABEL_6:
   return result;
 }
 
-uint64_t WebKit::OriginStorageManager::StorageBucket::fileSystemStorageManager(uint64_t a1, atomic_uint *volatile *a2, uint64_t *a3)
+uint64_t WebKit::OriginStorageManager::StorageBucket::fileSystemStorageManager(uint64_t *a1, unsigned int *a2, uint64_t *a3)
 {
-  result = *(a1 + 24);
+  result = a1[3];
   if (!result)
   {
     WebKit::OriginStorageManager::StorageBucket::typeStoragePath(a1, 0, &v10);
     WebKit::FileSystemStorageManager::create(&v10, a2, a3, &v11);
-    v8 = *(a1 + 24);
-    *(a1 + 24) = v11;
+    v8 = a1[3];
+    a1[3] = v11;
     if (v8)
     {
       WTF::RefCounted<WebKit::FileSystemStorageManager>::deref((v8 + 8));
@@ -5678,7 +5678,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::fileSystemStorageManager(u
       }
     }
 
-    return *(a1 + 24);
+    return a1[3];
   }
 
   return result;
@@ -5690,7 +5690,7 @@ WebKit::LocalStorageManager *WebKit::OriginStorageManager::StorageBucket::localS
   result = *(this + 4);
   if (!result)
   {
-    v6 = WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(this, &v11);
+    v6 = WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(&v11, this);
     v8 = WebKit::LocalStorageManager::operator new(v6, v7);
     WebKit::LocalStorageManager::LocalStorageManager(v8, &v11, a2);
     std::unique_ptr<WebKit::LocalStorageManager>::reset[abi:sn200100](v4, v8);
@@ -5710,11 +5710,11 @@ WebKit::LocalStorageManager *WebKit::OriginStorageManager::StorageBucket::localS
   return result;
 }
 
-WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath@<X0>(WTF::StringImpl *this@<X0>, atomic_uint **a2@<X8>)
+uint64_t *WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath@<X0>(atomic_uint **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v25 = *MEMORY[0x1E69E9840];
-  v4 = (this + 48);
-  v3 = *(this + 6);
+  v4 = this + 6;
+  v3 = this[6];
   if (v3)
   {
     goto LABEL_18;
@@ -5723,7 +5723,7 @@ WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::resolvedLocalStora
   v5 = this;
   if (!*(this + 112))
   {
-    v11 = (this + 40);
+    v11 = (this + 5);
     goto LABEL_16;
   }
 
@@ -5735,10 +5735,10 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 1, &v20);
+  WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 1u, &v20);
   WebKit::LocalStorageManager::localStorageFilePath(&v20, &v19);
-  v7 = *(v5 + 5);
-  if (v7 && *(v7 + 4) && (WTF::FileSystemImpl::fileExists(&v19, v6) & 1) == 0 && WTF::FileSystemImpl::fileExists((v5 + 40), v8))
+  v7 = v5[5];
+  if (v7 && *(v7 + 4) && (WTF::FileSystemImpl::fileExists(&v19, v6) & 1) == 0 && WTF::FileSystemImpl::fileExists((v5 + 5), v8))
   {
     v12 = qword_1ED641350;
     if (os_log_type_enabled(qword_1ED641350, OS_LOG_TYPE_DEFAULT))
@@ -5765,7 +5765,7 @@ LABEL_16:
     }
 
     WTF::FileSystemImpl::makeAllDirectories(&v20, v13);
-    if ((WebCore::SQLiteFileSystem::moveDatabaseFile((v5 + 40), &v19, v15) & 1) == 0 && (WTF::FileSystemImpl::fileExists(&v19, v16) & 1) == 0)
+    if ((WebCore::SQLiteFileSystem::moveDatabaseFile((v5 + 5), &v19, v15) & 1) == 0 && (WTF::FileSystemImpl::fileExists(&v19, v16) & 1) == 0)
     {
       v17 = qword_1ED641350;
       if (os_log_type_enabled(qword_1ED641350, OS_LOG_TYPE_ERROR))
@@ -5800,11 +5800,11 @@ LABEL_18:
     atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed);
   }
 
-  *a2 = v3;
+  *a1 = v3;
   return this;
 }
 
-uint64_t WebKit::OriginStorageManager::StorageBucket::sessionStorageManager(WebKit::OriginStorageManager::StorageBucket *this, WebKit::StorageAreaRegistry *a2)
+uint64_t WebKit::OriginStorageManager::StorageBucket::sessionStorageManager(WebKit::OriginStorageManager::StorageBucket *this, atomic_uint *a2)
 {
   v3 = this + 56;
   result = *(this + 7);
@@ -5824,13 +5824,13 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::sessionStorageManager(WebK
   return result;
 }
 
-WebKit::IDBStorageManager *WebKit::OriginStorageManager::StorageBucket::idbStorageManager(uint64_t a1, atomic_uint *a2, uint64_t *a3)
+WebKit::IDBStorageManager *WebKit::OriginStorageManager::StorageBucket::idbStorageManager(WebKit::OriginStorageManager::StorageBucket *a1, atomic_uint *a2, uint64_t *a3)
 {
   v4 = (a1 + 64);
-  v3 = *(a1 + 64);
+  v3 = *(a1 + 8);
   if (!v3)
   {
-    WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(a1, &v14);
+    WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(&v14, a1);
     v8 = WebKit::IDBStorageManager::operator new(0x30, v7);
     *v8 = &unk_1F110AA00;
     *(v8 + 1) = 0;
@@ -5860,23 +5860,23 @@ WebKit::IDBStorageManager *WebKit::OriginStorageManager::StorageBucket::idbStora
   return v3;
 }
 
-char *WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath@<X0>(char *this@<X0>, atomic_uint **a2@<X8>)
+uint64_t *WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath@<X0>(atomic_uint **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v25 = *MEMORY[0x1E69E9840];
-  v4 = (this + 80);
-  v3 = *(this + 10);
+  v4 = (this + 10);
+  v3 = this[10];
   if (v3)
   {
     goto LABEL_18;
   }
 
   v5 = this;
-  if (this[112])
+  if (*(this + 112))
   {
-    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 3, &v18);
-    if ((WebKit::IDBStorageManager::migrateOriginData((v5 + 72), &v18, v6) & 1) == 0 && WTF::FileSystemImpl::fileExists(&v18, v7))
+    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 3u, &v18);
+    if ((WebKit::IDBStorageManager::migrateOriginData((v5 + 9), &v18, v6) & 1) == 0 && WTF::FileSystemImpl::fileExists(&v18, v7))
     {
-      WTF::FileSystemImpl::listDirectory(&v16, (v5 + 72), v7);
+      WTF::FileSystemImpl::listDirectory(&v16, (v5 + 9), v7);
       WTF::FileSystemImpl::listDirectory(&v14, &v18, v8);
       v9 = qword_1ED641350;
       if (os_log_type_enabled(qword_1ED641350, OS_LOG_TYPE_ERROR))
@@ -5927,7 +5927,7 @@ LABEL_18:
     atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed);
   }
 
-  *a2 = v3;
+  *a1 = v3;
   return this;
 }
 
@@ -6018,7 +6018,7 @@ LABEL_17:
   }
 
 LABEL_18:
-  WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(this, &v24);
+  WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(&v24, this);
   v15 = WebKit::CacheStorageManager::operator new(0xA8, v14);
   v16 = WebKit::CacheStorageManager::CacheStorageManager(v15, &v24, a2, v25, a4, a5);
   v18 = *(this + 11);
@@ -6078,11 +6078,11 @@ LABEL_18:
   return *(this + 11);
 }
 
-uint64_t WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath@<X0>(uint64_t this@<X0>, atomic_uint **a2@<X8>)
+uint64_t *WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath@<X0>(atomic_uint **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v19 = *MEMORY[0x1E69E9840];
-  v4 = (this + 104);
-  v3 = *(this + 104);
+  v4 = (this + 13);
+  v3 = this[13];
   if (v3)
   {
     goto LABEL_5;
@@ -6098,11 +6098,11 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath@<
       goto LABEL_6;
     }
 
-    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 4, buf);
+    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 4u, buf);
     v8 = *buf;
     *buf = 0;
-    this = *(v5 + 104);
-    *(v5 + 104) = v8;
+    this = v5[13];
+    v5[13] = v8;
     if (this)
     {
       if (atomic_fetch_add_explicit(this, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -6124,7 +6124,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath@<
     {
       if (v8[1])
       {
-        v9 = *(v5 + 96);
+        v9 = v5[12];
         if (v9)
         {
           if (*(v9 + 4))
@@ -6132,7 +6132,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath@<
             this = WTF::FileSystemImpl::fileExists(v4, v7);
             if ((this & 1) == 0)
             {
-              this = WTF::FileSystemImpl::fileExists((v5 + 96), v10);
+              this = WTF::FileSystemImpl::fileExists((v5 + 12), v10);
               if (this)
               {
                 v11 = qword_1ED641350;
@@ -6168,7 +6168,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath@<
                   }
                 }
 
-                this = WTF::FileSystemImpl::moveFile((v5 + 96), v4, v12);
+                this = WTF::FileSystemImpl::moveFile((v5 + 12), v4, v12);
               }
             }
           }
@@ -6179,7 +6179,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath@<
 
   else
   {
-    this = WTF::String::operator=((this + 104), (this + 96));
+    this = WTF::String::operator=(this + 13, this + 12);
   }
 
   v3 = *v4;
@@ -6190,7 +6190,7 @@ LABEL_5:
   }
 
 LABEL_6:
-  *a2 = v3;
+  *a1 = v3;
   return this;
 }
 
@@ -6199,7 +6199,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::backgroundFetchManager(Web
   result = *(this + 15);
   if (!result)
   {
-    WebKit::OriginStorageManager::StorageBucket::resolvedBackgroundFetchStoragePath(this, &v13);
+    WebKit::OriginStorageManager::StorageBucket::resolvedBackgroundFetchStoragePath(&v13, this);
     v8 = WebKit::BackgroundFetchStoreManager::operator new(0x38, v7);
     StoreManager = WebKit::BackgroundFetchStoreManager::BackgroundFetchStoreManager(v8, &v13, a2, a3);
     v11 = *(this + 15);
@@ -6224,20 +6224,20 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::backgroundFetchManager(Web
   return result;
 }
 
-WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::resolvedBackgroundFetchStoragePath@<X0>(WTF::StringImpl *this@<X0>, WTF::StringImpl **a2@<X8>)
+uint64_t *WebKit::OriginStorageManager::StorageBucket::resolvedBackgroundFetchStoragePath@<X0>(WTF::StringImpl **__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v3 = *(this + 13);
+  v3 = this[13];
   if (v3)
   {
     goto LABEL_2;
   }
 
   v4 = this;
-  WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 5, &v6);
+  WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 5u, &v6);
   v3 = v6;
   v6 = 0;
-  this = *(v4 + 13);
-  *(v4 + 13) = v3;
+  this = v4[13];
+  v4[13] = v3;
   if (this)
   {
     if (atomic_fetch_add_explicit(this, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -6252,7 +6252,7 @@ WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::resolvedBackground
       this = WTF::StringImpl::destroy(this, v5);
     }
 
-    v3 = *(v4 + 13);
+    v3 = v4[13];
   }
 
   if (v3)
@@ -6261,7 +6261,7 @@ LABEL_2:
     atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed);
   }
 
-  *a2 = v3;
+  *a1 = v3;
   return this;
 }
 
@@ -6311,7 +6311,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::serviceWorkerStorageManage
   return result;
 }
 
-uint64_t WebKit::OriginStorageManager::StorageBucket::resolvedPath@<X0>(char *a1@<X0>, int a2@<W1>, atomic_uint **a3@<X8>)
+uint64_t *WebKit::OriginStorageManager::StorageBucket::resolvedPath@<X0>(uint64_t *a1@<X0>, int a2@<W1>, atomic_uint **a3@<X8>)
 {
   result = WebKit::OriginStorageManager::StorageBucket::toStorageType(a1, a2);
   if (result <= 0xFFu)
@@ -6327,13 +6327,13 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::resolvedPath@<X0>(char *a1
       if (result == 3)
       {
 
-        return WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(a1, a3);
+        return WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(a3, a1);
       }
 
       if (result == 4)
       {
 
-        return WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(a1, a3);
+        return WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(a3, a1);
       }
 
 LABEL_28:
@@ -6345,7 +6345,7 @@ LABEL_28:
     if (result == 5)
     {
 
-      return WebKit::OriginStorageManager::StorageBucket::resolvedBackgroundFetchStoragePath(a1, a3);
+      return WebKit::OriginStorageManager::StorageBucket::resolvedBackgroundFetchStoragePath(a3, a1);
     }
 
     if (result != 6)
@@ -6373,7 +6373,7 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  return WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(a1, a3);
+  return WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(a3, a1);
 }
 
 BOOL WebKit::OriginStorageManager::StorageBucket::isActive(WebKit::OriginStorageManager::StorageBucket *this, WTF::StringImpl *a2)
@@ -6481,7 +6481,7 @@ uint64_t WebKit::SessionStorageManager::isActive(WebKit::SessionStorageManager *
   return 1;
 }
 
-BOOL WebKit::OriginStorageManager::StorageBucket::hasDataInMemory(WebKit::OriginStorageManager::StorageBucket *this, WTF::StringImpl *a2)
+uint64_t WebKit::OriginStorageManager::StorageBucket::hasDataInMemory(WebKit::OriginStorageManager::StorageBucket *this, WTF::StringImpl *a2)
 {
   v3 = *(this + 4);
   if (!v3 || !WebKit::LocalStorageManager::hasDataInMemory(v3, a2))
@@ -6570,10 +6570,10 @@ BOOL WebKit::SessionStorageManager::hasDataInMemory(WebKit::SessionStorageManage
   return result;
 }
 
-uint64_t WebKit::OriginStorageManager::StorageBucket::fetchDataTypesInList@<X0>(WTF::StringImpl *a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, uint64_t *a4@<X8>)
+uint64_t *WebKit::OriginStorageManager::StorageBucket::fetchDataTypesInList@<X0>(WebKit::OriginStorageManager::StorageBucket *a1@<X0>, int a2@<W1>, uint64_t *a3@<X8>, int a4@<W2>)
 {
   v6 = a2;
-  WebKit::OriginStorageManager::StorageBucket::fetchDataTypesInListFromDisk(a1, a2, a3, a4);
+  WebKit::OriginStorageManager::StorageBucket::fetchDataTypesInListFromDisk(a1, a2, a4, a3);
   result = WebKit::OriginStorageManager::StorageBucket::fetchDataTypesInListFromMemory(a1, v6);
   if (result)
   {
@@ -6582,7 +6582,7 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::fetchDataTypesInList@<X0>(
     {
       v10 = 0;
       v11 = v8 & -v8;
-      result = WTF::HashMap<WebKit::WebsiteDataType,unsigned long long,WTF::IntHash<WebKit::WebsiteDataType>,WTF::StrongEnumHashTraits<WebKit::WebsiteDataType>,WTF::HashTraits<unsigned long long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<int>(a4, &v11, &v10, &v9);
+      result = WTF::HashMap<WebKit::WebsiteDataType,unsigned long long,WTF::IntHash<WebKit::WebsiteDataType>,WTF::StrongEnumHashTraits<WebKit::WebsiteDataType>,WTF::HashTraits<unsigned long long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<int>(a3, &v11, &v10, &v9);
       v8 &= v8 - 1;
     }
 
@@ -6648,7 +6648,7 @@ LABEL_11:
     }
   }
 
-  WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(v6, &v31);
+  WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(&v31, v6);
   if (WTF::FileSystemImpl::fileExists(&v31, v14))
   {
     v33 = 0;
@@ -6674,7 +6674,7 @@ LABEL_11:
   }
 
 LABEL_20:
-  WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(v6, &v33);
+  WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(&v33, v6);
   WTF::FileSystemImpl::listDirectory(&v31, &v33, v16);
   if (v32)
   {
@@ -6720,7 +6720,7 @@ LABEL_30:
     }
   }
 
-  WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(v6, v28);
+  WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(v28, v6);
   hasCacheList = WebKit::CacheStorageManager::hasCacheList(v28, v22);
   this = v28[0];
   if (v28[0] && atomic_fetch_add_explicit(v28[0], 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -6740,7 +6740,7 @@ LABEL_30:
   v31 = 0;
   if (a3)
   {
-    WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(v6, v28);
+    WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(v28, v6);
     v31 = WebKit::CacheStorageManager::cacheStorageSize(v28, v25);
     v27 = v28[0];
     v28[0] = 0;
@@ -6924,14 +6924,14 @@ LABEL_13:
     }
 
     *v16 = -1;
-    *(v16 + 1) = 0;
+    *(v16 + 8) = 0;
     v18 = *(v9 - 16) - 1;
     *(v9 - 16) = v18;
     v4 = *a3;
   }
 
   *v16 = v4;
-  *(v16 + 1) = *a4;
+  *(v16 + 8) = *a4;
   v19 = *(v9 - 12) + 1;
   *(v9 - 12) = v19;
   v20 = (v19 + v18);
@@ -6966,18 +6966,19 @@ LABEL_16:
   v14 = v16;
 LABEL_21:
   *v8 = v14;
-  *(v8 + 1) = v23;
+  *(v8 + 8) = v23;
   *(v8 + 16) = v22;
   return result;
 }
 
-WTF::WallTime *WebKit::OriginStorageManager::StorageBucket::deleteData(WTF::WallTime *result, WTF::StringImpl *a2, double a3)
+WTF::WallTime *WebKit::OriginStorageManager::StorageBucket::deleteData(WTF::WallTime *result, WTF::StringImpl *a2, __n128 a3)
 {
+  v3 = a3.n128_f64[0];
   v4 = a2;
   v5 = result;
   if ((a2 & 0x80000) != 0)
   {
-    result = WebKit::OriginStorageManager::StorageBucket::deleteFileSystemStorageData(result, a3);
+    result = WebKit::OriginStorageManager::StorageBucket::deleteFileSystemStorageData(result, a3.n128_f64[0]);
     if ((v4 & 0x20) == 0)
     {
 LABEL_3:
@@ -6995,7 +6996,7 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  result = WebKit::OriginStorageManager::StorageBucket::deleteLocalStorageData(v5, a3);
+  result = WebKit::OriginStorageManager::StorageBucket::deleteLocalStorageData(v5, v3);
   if ((v4 & 0x10) == 0)
   {
     goto LABEL_9;
@@ -7003,7 +7004,7 @@ LABEL_3:
 
 LABEL_7:
   result = WTF::WallTime::now(result);
-  if (a3 < v6)
+  if (v3 < v6)
   {
     result = WebKit::OriginStorageManager::StorageBucket::deleteSessionStorageData(v5);
   }
@@ -7011,22 +7012,22 @@ LABEL_7:
 LABEL_9:
   if ((v4 & 0x80) != 0)
   {
-    result = WebKit::OriginStorageManager::StorageBucket::deleteIDBStorageData(v5, a3);
+    result = WebKit::OriginStorageManager::StorageBucket::deleteIDBStorageData(v5, v3);
   }
 
   if (v4 < 0)
   {
 
-    return WebKit::OriginStorageManager::StorageBucket::deleteCacheStorageData(v5, a2, a3);
+    return WebKit::OriginStorageManager::StorageBucket::deleteCacheStorageData(v5, a2, v3);
   }
 
   return result;
 }
 
-WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteFileSystemStorageData(uint64_t a1, double a2)
+WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteFileSystemStorageData(uint64_t *a1, double a2)
 {
-  v4 = *(a1 + 24);
-  *(a1 + 24) = 0;
+  v4 = a1[3];
+  a1[3] = 0;
   if (v4)
   {
     WTF::RefCounted<WebKit::FileSystemStorageManager>::deref((v4 + 8));
@@ -7048,9 +7049,9 @@ WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteFileSystemSt
   return result;
 }
 
-WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteLocalStorageData(WebKit::LocalStorageManager **a1, double a2)
+WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteLocalStorageData(uint64_t *a1, double a2)
 {
-  WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(a1, &v12);
+  WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(&v12, a1);
   v5 = COERCE_DOUBLE(WTF::FileSystemImpl::fileModificationTime(&v12, v4));
   if ((v6 & 1) != 0 && a2 <= v5)
   {
@@ -7064,7 +7065,7 @@ WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteLocalStorage
   }
 
   v10 = a1[4];
-  v9 = a1 + 4;
+  v9 = (a1 + 4);
   v8 = v10;
   if (v10)
   {
@@ -7106,15 +7107,15 @@ uint64_t WebKit::OriginStorageManager::StorageBucket::deleteSessionStorageData(W
   return result;
 }
 
-WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteIDBStorageData(uint64_t a1, double a2)
+WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteIDBStorageData(uint64_t *a1, double a2)
 {
-  v4 = *(a1 + 64);
+  v4 = a1[8];
   if (v4)
   {
     WebKit::IDBStorageManager::closeDatabasesForDeletion(v4);
   }
 
-  WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(a1, &v9);
+  WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(&v9, a1);
   v5.n128_f64[0] = a2;
   WTF::FileSystemImpl::deleteAllFilesModifiedSince(&v9, v6, v5);
   result = v9;
@@ -7130,9 +7131,9 @@ WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteIDBStorageDa
   return result;
 }
 
-WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteCacheStorageData(uint64_t a1, WTF::StringImpl *a2, double a3)
+WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteCacheStorageData(uint64_t *a1, WTF::StringImpl *a2, double a3)
 {
-  v5 = *(a1 + 88);
+  v5 = a1[11];
   if (v5)
   {
     v6 = (v5 + 8);
@@ -7141,7 +7142,7 @@ WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteCacheStorage
     WTF::RefCounted<WebKit::CacheStorageManager>::deref(v6, v7);
   }
 
-  WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(a1, &v12);
+  WebKit::OriginStorageManager::StorageBucket::resolvedCacheStoragePath(&v12, a1);
   v8.n128_f64[0] = a3;
   WTF::FileSystemImpl::deleteAllFilesModifiedSince(&v12, v9, v8);
   result = v12;
@@ -7240,7 +7241,7 @@ WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::moveData(WTF::Stri
     WebKit::LocalStorageManager::close(v8);
   }
 
-  WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(v6, &v21);
+  WebKit::OriginStorageManager::StorageBucket::resolvedLocalStoragePath(&v21, v6);
   this = v21;
   if (!v21)
   {
@@ -7291,13 +7292,13 @@ LABEL_14:
 LABEL_16:
   if (*a4 && *(*a4 + 4))
   {
-    v14 = *(v6 + 8);
+    v14 = v6[8];
     if (v14)
     {
       WebKit::IDBStorageManager::closeDatabasesForDeletion(v14);
     }
 
-    WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(v6, &v21);
+    WebKit::OriginStorageManager::StorageBucket::resolvedIDBStoragePath(&v21, v6);
     this = v21;
     if (v21)
     {
@@ -7335,10 +7336,10 @@ LABEL_28:
   return this;
 }
 
-unsigned __int8 *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirectory(unsigned __int8 *this)
+WTF::StringImpl *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirectory(WTF::StringImpl *this)
 {
   v1 = this;
-  v2 = this[112];
+  v2 = *(this + 112);
   if (v2 == 2)
   {
     WebKit::OriginStorageManager::StorageBucket::typeStoragePath(this, 0, &v27);
@@ -7350,7 +7351,7 @@ unsigned __int8 *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirecto
       WTF::StringImpl::destroy(v18, v17);
     }
 
-    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 1, &v27);
+    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 1u, &v27);
     WTF::FileSystemImpl::deleteEmptyDirectory(&v27, v19);
     v21 = v27;
     v27 = 0;
@@ -7359,7 +7360,7 @@ unsigned __int8 *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirecto
       WTF::StringImpl::destroy(v21, v20);
     }
 
-    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 3, &v27);
+    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 3u, &v27);
     WTF::FileSystemImpl::deleteEmptyDirectory(&v27, v22);
     v24 = v27;
     v27 = 0;
@@ -7368,7 +7369,7 @@ unsigned __int8 *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirecto
       WTF::StringImpl::destroy(v24, v23);
     }
 
-    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 4, &v27);
+    WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 4u, &v27);
     WTF::FileSystemImpl::deleteEmptyDirectory(&v27, v25);
     this = v27;
     v27 = 0;
@@ -7391,7 +7392,7 @@ unsigned __int8 *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirecto
         WTF::StringImpl::destroy(v10, v9);
       }
 
-      WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 1, &v27);
+      WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 1u, &v27);
       WTF::FileSystemImpl::deleteEmptyDirectory(&v27, v11);
       v13 = v27;
       v27 = 0;
@@ -7400,7 +7401,7 @@ unsigned __int8 *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirecto
         WTF::StringImpl::destroy(v13, v12);
       }
 
-      WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 3, &v27);
+      WebKit::OriginStorageManager::StorageBucket::typeStoragePath(v1, 3u, &v27);
       WTF::FileSystemImpl::deleteEmptyDirectory(&v27, v14);
       v15 = v27;
       v27 = 0;
@@ -7412,7 +7413,7 @@ unsigned __int8 *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirecto
 
     else
     {
-      if (this[112])
+      if (*(this + 112))
       {
         return this;
       }
@@ -7429,22 +7430,21 @@ unsigned __int8 *WebKit::OriginStorageManager::StorageBucket::deleteEmptyDirecto
         }
       }
 
-      WTF::FileSystemImpl::deleteEmptyDirectory((v1 + 40), v4);
-      WTF::FileSystemImpl::deleteEmptyDirectory((v1 + 72), v6);
+      WTF::FileSystemImpl::deleteEmptyDirectory((v1 + 5), v4);
+      WTF::FileSystemImpl::deleteEmptyDirectory((v1 + 9), v6);
     }
 
-    return WTF::FileSystemImpl::deleteEmptyDirectory((v1 + 96), v7);
+    return WTF::FileSystemImpl::deleteEmptyDirectory((v1 + 12), v7);
   }
 
   return this;
 }
 
-uint64_t WebKit::OriginStorageManager::createQuotaManager(void *a1, unsigned int *a2, __int128 *a3)
+uint64_t *WebKit::OriginStorageManager::createQuotaManager(void *a1, unsigned int *a2, __int128 *a3)
 {
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(a2, a2);
   v6 = *a2;
-  atomic_fetch_add(v6, 1u);
-  v7 = WTF::fastMalloc(0x10);
+  v7 = WTF::fastMalloc(atomic_fetch_add(v6, 1u), 0x10);
   *v7 = &unk_1F110BD00;
   v7[1] = v6;
   v14 = v7;
@@ -7486,7 +7486,7 @@ uint64_t WebKit::OriginStorageManager::OriginStorageManager(uint64_t a1, __int12
   return a1;
 }
 
-void WebKit::OriginStorageManager::~OriginStorageManager(WebKit::OriginStorageManager *this, void *a2)
+void WebKit::OriginStorageManager::~OriginStorageManager(WebKit::OriginStorageManager *this, WTF::StringImpl *a2)
 {
   v3 = *(this + 7);
   *(this + 7) = 0;
@@ -7528,7 +7528,7 @@ void WebKit::OriginStorageManager::~OriginStorageManager(WebKit::OriginStorageMa
   WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::~WeakPtrFactory(this, v8);
 }
 
-void *WebKit::OriginStorageManager::connectionClosed(uint64_t a1, uint64_t a2)
+WTF::StringImpl **WebKit::OriginStorageManager::connectionClosed(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 16);
   if (result)
@@ -7565,81 +7565,81 @@ WebKit::ServiceWorkerStorageManager **WebKit::OriginStorageManager::defaultBucke
   return result;
 }
 
-uint64_t WebKit::OriginStorageManager::fileSystemStorageManager(atomic_ullong **this, atomic_uint *volatile *a2)
+uint64_t WebKit::OriginStorageManager::fileSystemStorageManager(atomic_ullong **this, WebKit::FileSystemStorageHandleRegistry *a2)
 {
   v4 = WebKit::OriginStorageManager::defaultBucket(this);
   v5 = this[7];
-  v6 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkCache::Storage,(WTF::DestructionThread)2>::controlBlock(v5);
-  v7 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v6);
-  v8 = WTF::fastMalloc(0x18);
-  *v8 = &unk_1F110BD28;
-  v8[1] = v5;
-  v8[2] = v7;
-  v11 = v8;
-  v9 = WebKit::OriginStorageManager::StorageBucket::fileSystemStorageManager(v4, a2, &v11);
-  if (v11)
+  v7 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkCache::Storage,(WTF::DestructionThread)2>::controlBlock(v5, v6);
+  v8 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v7);
+  v10 = WTF::fastMalloc(v9, 0x18);
+  *v10 = &unk_1F110BD28;
+  v10[1] = v5;
+  v10[2] = v8;
+  v13 = v10;
+  v11 = WebKit::OriginStorageManager::StorageBucket::fileSystemStorageManager(v4, a2, &v13);
+  if (v13)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v13 + 8))(v13);
   }
 
-  return v9;
+  return v11;
 }
 
 WebKit::IDBStorageManager *WebKit::OriginStorageManager::idbStorageManager(atomic_ullong **this, atomic_uint *a2)
 {
   v4 = WebKit::OriginStorageManager::defaultBucket(this);
   v5 = this[7];
-  v6 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkCache::Storage,(WTF::DestructionThread)2>::controlBlock(v5);
-  v7 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v6);
-  v8 = WTF::fastMalloc(0x18);
-  *v8 = &unk_1F110BD78;
-  v8[1] = v5;
-  v8[2] = v7;
-  v11 = v8;
-  v9 = WebKit::OriginStorageManager::StorageBucket::idbStorageManager(v4, a2, &v11);
-  if (v11)
+  v7 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkCache::Storage,(WTF::DestructionThread)2>::controlBlock(v5, v6);
+  v8 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v7);
+  v10 = WTF::fastMalloc(v9, 0x18);
+  *v10 = &unk_1F110BD78;
+  v10[1] = v5;
+  v10[2] = v8;
+  v13 = v10;
+  v11 = WebKit::OriginStorageManager::StorageBucket::idbStorageManager(v4, a2, &v13);
+  if (v13)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v13 + 8))(v13);
   }
 
-  return v9;
+  return v11;
 }
 
-uint64_t WebKit::OriginStorageManager::cacheStorageManager(WebKit::OriginStorageManager *a1, atomic_uint *a2, uint64_t a3, uint64_t *a4)
+uint64_t WebKit::OriginStorageManager::cacheStorageManager(atomic_ullong **a1, atomic_uint *a2, uint64_t a3, uint64_t *a4)
 {
   v8 = WebKit::OriginStorageManager::defaultBucket(a1);
-  v9 = *(a1 + 7);
-  v10 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkCache::Storage,(WTF::DestructionThread)2>::controlBlock(v9);
-  v11 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v10);
-  v12 = WTF::fastMalloc(0x18);
-  *v12 = &unk_1F110BDC8;
-  v12[1] = v9;
-  v12[2] = v11;
-  v15 = v12;
-  v13 = WebKit::OriginStorageManager::StorageBucket::cacheStorageManager(v8, a2, a3, &v15, a4);
-  if (v15)
+  v9 = a1[7];
+  v11 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkCache::Storage,(WTF::DestructionThread)2>::controlBlock(v9, v10);
+  v12 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v11);
+  v14 = WTF::fastMalloc(v13, 0x18);
+  *v14 = &unk_1F110BDC8;
+  v14[1] = v9;
+  v14[2] = v12;
+  v17 = v14;
+  v15 = WebKit::OriginStorageManager::StorageBucket::cacheStorageManager(v8, a2, a3, &v17, a4);
+  if (v17)
   {
-    (*(*v15 + 8))(v15);
+    (*(*v17 + 8))(v17);
   }
 
-  return v13;
+  return v15;
 }
 
-uint64_t WebKit::OriginStorageManager::backgroundFetchManager(WebKit::OriginStorageManager *a1, uint64_t *a2)
+uint64_t WebKit::OriginStorageManager::backgroundFetchManager(atomic_ullong **a1, uint64_t *a2)
 {
   v4 = WebKit::OriginStorageManager::defaultBucket(a1);
-  v5 = *(a1 + 7);
-  v6 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkCache::Storage,(WTF::DestructionThread)2>::controlBlock(v5);
-  v7 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v6);
-  v8 = WTF::fastMalloc(0x18);
-  *v8 = &unk_1F110BE18;
-  v8[1] = v5;
-  v8[2] = v7;
-  v11 = v8;
-  Manager = WebKit::OriginStorageManager::StorageBucket::backgroundFetchManager(v4, a2, &v11);
-  if (v11)
+  v5 = a1[7];
+  v7 = WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkCache::Storage,(WTF::DestructionThread)2>::controlBlock(v5, v6);
+  v8 = WTF::ThreadSafeWeakPtrControlBlock::weakRef(v7);
+  v10 = WTF::fastMalloc(v9, 0x18);
+  *v10 = &unk_1F110BE18;
+  v10[1] = v5;
+  v10[2] = v8;
+  v13 = v10;
+  Manager = WebKit::OriginStorageManager::StorageBucket::backgroundFetchManager(v4, a2, &v13);
+  if (v13)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v13 + 8))(v13);
   }
 
   return Manager;
@@ -7672,7 +7672,7 @@ LABEL_6:
   return v4;
 }
 
-unsigned __int8 *WebKit::OriginStorageManager::deleteEmptyDirectory(unsigned __int8 *this)
+WTF::StringImpl *WebKit::OriginStorageManager::deleteEmptyDirectory(WTF::StringImpl *this)
 {
   v1 = *(this + 3);
   if (v1 && *(v1 + 4))
@@ -7685,10 +7685,11 @@ unsigned __int8 *WebKit::OriginStorageManager::deleteEmptyDirectory(unsigned __i
   return this;
 }
 
-uint64_t WebKit::SQLiteStorageArea::create@<X0>(int a1@<W0>, void *a2@<X1>, atomic_uint **a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X8>)
+uint64_t WebKit::SQLiteStorageArea::create@<X0>(uint64_t a1@<X0>, void *a2@<X1>, atomic_uint **a3@<X2>, uint64_t **a4@<X3>, uint64_t *a5@<X8>)
 {
+  v8 = a1;
   v10 = WebKit::SQLiteStorageArea::operator new(0xB8, a2);
-  result = WebKit::SQLiteStorageArea::SQLiteStorageArea(v10, a1, a2, a3, a4);
+  result = WebKit::SQLiteStorageArea::SQLiteStorageArea(v10, v8, a2, a3, a4);
   *a5 = result;
   return result;
 }
@@ -7706,7 +7707,7 @@ uint64_t WebKit::SQLiteStorageArea::operator new(WebKit::SQLiteStorageArea *this
   }
 }
 
-uint64_t WebKit::SQLiteStorageArea::SQLiteStorageArea(uint64_t a1, int a2, const WebCore::ClientOrigin *a3, atomic_uint **a4, uint64_t *a5)
+uint64_t WebKit::SQLiteStorageArea::SQLiteStorageArea(uint64_t a1, int a2, const WebCore::ClientOrigin *a3, atomic_uint **a4, uint64_t **a5)
 {
   v8 = WebKit::StorageAreaBase::StorageAreaBase(a1, a2, a3);
   *(v8 + 26) = 1;
@@ -7724,7 +7725,7 @@ uint64_t WebKit::SQLiteStorageArea::SQLiteStorageArea(uint64_t a1, int a2, const
   *(a1 + 128) = 0u;
   *(a1 + 144) = 0u;
   *(a1 + 156) = 6;
-  v11 = WTF::fastMalloc(0x30);
+  v11 = WTF::fastMalloc(v10, 0x30);
   *(a1 + 152) = 6;
   *(a1 + 144) = v11;
   bzero(v11, 8 * *(a1 + 156));
@@ -8442,7 +8443,7 @@ uint64_t WebKit::SQLiteStorageArea::handleDatabaseErrorIfNeeded(WebKit::SQLiteSt
   return 1;
 }
 
-uint64_t *std::experimental::fundamentals_v3::expected<WTF::UniqueRef<WebCore::SQLiteDatabase>,int>::operator=(uint64_t *a1, uint64_t a2)
+uint64_t *std::experimental::fundamentals_v3::expected<WTF::UniqueRef<WebCore::SQLiteDatabase>,int>::operator=(uint64_t *a1, uint64_t *a2)
 {
   LOBYTE(v7) = 0;
   v8 = -1;
@@ -8515,10 +8516,9 @@ WebCore::SQLiteTransaction *WebKit::SQLiteStorageArea::startTransactionIfNecessa
     v10 = *(this + 15);
     WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(this + 2, this);
     v11 = *(this + 1);
-    atomic_fetch_add(v11, 1u);
-    v12 = WTF::fastMalloc(0x10);
+    v12 = WTF::fastMalloc(atomic_fetch_add(v11, 1u), 0x10);
     *v12 = &unk_1F110BE68;
-    *(v12 + 1) = v11;
+    v12[1] = v11;
     v13 = v12;
     (*(*v10 + 16))(v10, &v13, 0.5);
     result = v13;
@@ -8539,35 +8539,35 @@ void WebKit::SQLiteStorageArea::getItem(WebKit::SQLiteStorageArea *this, const W
     goto LABEL_7;
   }
 
-  v5 = WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,mpark::variant<WTF::String,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,mpark::variant<WTF::String,unsigned int>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,mpark::variant<WTF::String,unsigned int>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<mpark::variant<WTF::String,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::find<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,mpark::variant<WTF::String,unsigned int>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<mpark::variant<WTF::String,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,(WTF::ShouldValidateKey)1,WTF::String>(a2 + 20, a3, a3);
+  v6 = WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,mpark::variant<WTF::String,unsigned int>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,mpark::variant<WTF::String,unsigned int>>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,mpark::variant<WTF::String,unsigned int>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<mpark::variant<WTF::String,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::find<WTF::IdentityHashTranslator<WTF::HashMap<WTF::String,mpark::variant<WTF::String,unsigned int>,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<mpark::variant<WTF::String,unsigned int>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::DefaultHash<WTF::String>>,(WTF::ShouldValidateKey)1,WTF::String>(a2 + 20, a3, a3);
   if ((*(a2 + 168) & 1) == 0)
   {
     __break(1u);
     return;
   }
 
-  v6 = *(a2 + 20);
-  if (v6)
+  v7 = *(a2 + 20);
+  if (v7)
   {
-    v6 += 24 * *(v6 - 4);
+    v7 += 3 * *(v7 - 1);
   }
 
-  if (v6 == v5)
+  if (v7 == v6)
   {
     *this = 1;
     *(this + 8) = 1;
     return;
   }
 
-  if (!*(v5 + 16))
+  if (!*(v6 + 16))
   {
-    v7 = *(v5 + 8);
-    if (v7)
+    v8 = v6[1];
+    if (v8)
     {
-      atomic_fetch_add_explicit(v7, 2u, memory_order_relaxed);
+      atomic_fetch_add_explicit(v8, 2u, memory_order_relaxed);
     }
 
-    *this = v7;
+    *this = v8;
     *(this + 8) = 0;
   }
 
@@ -8575,13 +8575,13 @@ void WebKit::SQLiteStorageArea::getItem(WebKit::SQLiteStorageArea *this, const W
   {
 LABEL_7:
 
-    WebKit::SQLiteStorageArea::getItemFromDatabase(this, a2);
+    WebKit::SQLiteStorageArea::getItemFromDatabase(this, a2, a3);
   }
 }
 
-void WebKit::SQLiteStorageArea::getItemFromDatabase(WebKit::SQLiteStorageArea *this, const WTF::String *a2)
+void WebKit::SQLiteStorageArea::getItemFromDatabase(WebKit::SQLiteStorageArea *this, const WTF::String *a2, uint64_t *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ((WebKit::SQLiteStorageArea::prepareDatabase(a2, 0) & 1) == 0)
   {
     goto LABEL_19;
@@ -8596,80 +8596,80 @@ LABEL_20:
     return;
   }
 
-  WebKit::SQLiteStorageArea::cachedStatement(&v15, a2, 3u);
-  v4 = v15;
-  if (v15)
+  WebKit::SQLiteStorageArea::cachedStatement(&v16, a2, 3u);
+  v5 = v16;
+  if (v16)
   {
-    atomic_fetch_add(v15, 1u);
-    MEMORY[0x19EB0CD50](&v15);
+    atomic_fetch_add(v16, 1u);
+    MEMORY[0x19EB0CD50](&v16);
     if (WebCore::SQLiteStatement::bindText())
     {
       goto LABEL_5;
     }
 
-    v6 = WebCore::SQLiteStatement::step(v4);
-    if (v6 == 100)
+    v7 = WebCore::SQLiteStatement::step(v5);
+    if (v7 == 100)
     {
-      WebCore::SQLiteStatement::columnBlobAsString(v4);
-      *this = v15;
+      WebCore::SQLiteStatement::columnBlobAsString(&v16, v5);
+      *this = v16;
       *(this + 8) = 0;
       goto LABEL_11;
     }
 
-    if (!atomic_load(v4))
+    if (!atomic_load(v5))
     {
 LABEL_22:
       __break(0xC471u);
       return;
     }
 
-    v9 = v6;
-    atomic_fetch_add(v4, 0xFFFFFFFF);
-    if (v6 == 101)
+    v10 = v7;
+    atomic_fetch_add(v5, 0xFFFFFFFF);
+    if (v7 == 101)
     {
       goto LABEL_15;
     }
 
-    v10 = qword_1ED641350;
+    v11 = qword_1ED641350;
     if (os_log_type_enabled(qword_1ED641350, OS_LOG_TYPE_ERROR))
     {
       Error = WebCore::SQLiteDatabase::lastError(*(a2 + 16));
       ErrorMsg = WebCore::SQLiteDatabase::lastErrorMsg(*(a2 + 16));
-      LODWORD(v15) = 67109378;
-      HIDWORD(v15) = Error;
-      v16 = 2082;
-      v17 = ErrorMsg;
-      _os_log_error_impl(&dword_19D52D000, v10, OS_LOG_TYPE_ERROR, "SQLiteStorageArea::getItemFromDatabase failed on stepping statement (%d) - %{public}s", &v15, 0x12u);
+      LODWORD(v16) = 67109378;
+      HIDWORD(v16) = Error;
+      v17 = 2082;
+      v18 = ErrorMsg;
+      _os_log_error_impl(&dword_19D52D000, v11, OS_LOG_TYPE_ERROR, "SQLiteStorageArea::getItemFromDatabase failed on stepping statement (%d) - %{public}s", &v16, 0x12u);
     }
 
-    WebKit::SQLiteStorageArea::handleDatabaseErrorIfNeeded(a2, v9);
+    WebKit::SQLiteStorageArea::handleDatabaseErrorIfNeeded(a2, v10);
 LABEL_19:
     *this = 0;
     goto LABEL_20;
   }
 
-  MEMORY[0x19EB0CD50](&v15);
+  MEMORY[0x19EB0CD50](&v16);
 LABEL_5:
-  v5 = qword_1ED641350;
+  v6 = qword_1ED641350;
   if (os_log_type_enabled(qword_1ED641350, OS_LOG_TYPE_ERROR))
   {
-    v11 = WebCore::SQLiteDatabase::lastError(*(a2 + 16));
-    v12 = WebCore::SQLiteDatabase::lastErrorMsg(*(a2 + 16));
-    LODWORD(v15) = 67109378;
-    HIDWORD(v15) = v11;
-    v16 = 2082;
-    v17 = v12;
-    _os_log_error_impl(&dword_19D52D000, v5, OS_LOG_TYPE_ERROR, "SQLiteStorageArea::getItemFromDatabase failed on creating statement (%d) - %{public}s", &v15, 0x12u);
+    v12 = WebCore::SQLiteDatabase::lastError(*(a2 + 16));
+    v13 = WebCore::SQLiteDatabase::lastErrorMsg(*(a2 + 16));
+    LODWORD(v16) = 67109378;
+    HIDWORD(v16) = v12;
+    v17 = 2082;
+    v18 = v13;
+    _os_log_error_impl(&dword_19D52D000, v6, OS_LOG_TYPE_ERROR, "SQLiteStorageArea::getItemFromDatabase failed on creating statement (%d) - %{public}s", &v16, 0x12u);
   }
 
   *this = 0;
   *(this + 8) = 1;
-  if (v4)
+  if (v5)
   {
 LABEL_11:
-    if (atomic_load(v4))
+    if (atomic_load(v5))
     {
-      atomic_fetch_add(v4, 0xFFFFFFFF);
+      atomic_fetch_add(v5, 0xFFFFFFFF);
       return;
     }
 
@@ -8677,7 +8677,7 @@ LABEL_11:
   }
 }
 
-WTF::StringImpl *WebKit::SQLiteStorageArea::allItems@<X0>(WebKit::SQLiteStorageArea *this@<X0>, uint64_t *a2@<X8>)
+WTF::StringImpl *WebKit::SQLiteStorageArea::allItems@<X0>(WebKit::SQLiteStorageArea *this@<X0>, WTF::StringImpl **a2@<X8>)
 {
   v49 = *MEMORY[0x1E69E9840];
   result = WebKit::SQLiteStorageArea::prepareDatabase(this, 0);
@@ -8743,7 +8743,7 @@ WTF::StringImpl *WebKit::SQLiteStorageArea::allItems@<X0>(WebKit::SQLiteStorageA
           v18 = *v5;
           if (*v5)
           {
-            v18 += 24 * *(v18 - 4);
+            v18 += 3 * *(v18 - 1);
           }
 
           if (v18 == v17)
@@ -8755,7 +8755,7 @@ WTF::StringImpl *WebKit::SQLiteStorageArea::allItems@<X0>(WebKit::SQLiteStorageA
 
           if (*(v17 + 16))
           {
-            WebKit::SQLiteStorageArea::getItemFromDatabase(&v39, this);
+            WebKit::SQLiteStorageArea::getItemFromDatabase(&v39, this, v14);
             v19 = v40;
             if (v40)
             {
@@ -8804,7 +8804,7 @@ WTF::StringImpl *WebKit::SQLiteStorageArea::allItems@<X0>(WebKit::SQLiteStorageA
 
           else
           {
-            WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<WTF::String&>(&v44, v14, (v17 + 8), buf);
+            WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<WTF::String&>(&v44, v14, v17 + 1, buf);
           }
 
           ++v14;
@@ -8876,8 +8876,8 @@ LABEL_70:
       {
         do
         {
-          WebCore::SQLiteStatement::columnText(v23);
-          WebCore::SQLiteStatement::columnBlobAsString(v23);
+          WebCore::SQLiteStatement::columnText(buf, v23);
+          WebCore::SQLiteStatement::columnBlobAsString(&v42, v23);
           if (*buf)
           {
             v26 = v42 == 0;
@@ -8971,7 +8971,7 @@ LABEL_67:
   return result;
 }
 
-uint64_t WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<WTF::String&>@<X0>(uint64_t *a1@<X0>, WTF::StringImpl **a2@<X1>, atomic_uint **a3@<X2>, uint64_t a4@<X8>)
+uint64_t *WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<WTF::String&>@<X0>(WTF::StringImpl ***a1@<X0>, WTF::StringImpl **a2@<X1>, atomic_uint **a3@<X2>, uint64_t a4@<X8>)
 {
   v25 = a3;
   if (*a2 == -1)
@@ -8989,7 +8989,7 @@ uint64_t WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF:
   v7 = *a1;
   if (*a1 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WTF::String>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WTF::String>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::expand(a1, 0), (v7 = *a1) != 0))
   {
-    v8 = *(v7 - 8);
+    v8 = *(v7 - 2);
   }
 
   else
@@ -9012,14 +9012,14 @@ uint64_t WTF::HashMap<WTF::String,WTF::String,WTF::DefaultHash<WTF::String>,WTF:
   for (i = 1; ; ++i)
   {
     v13 = v10 & v8;
-    v14 = (v7 + 16 * (v10 & v8));
+    v14 = &v7[2 * (v10 & v8)];
     v15 = *v14;
     if (*v14 != -1)
     {
       break;
     }
 
-    v11 = (v7 + 16 * v13);
+    v11 = &v7[2 * v13];
 LABEL_14:
     v10 = i + v13;
   }
@@ -9030,7 +9030,7 @@ LABEL_14:
     {
       *v11 = 0;
       v11[1] = 0;
-      --*(*a1 - 16);
+      --*(*a1 - 4);
       v14 = v11;
     }
 
@@ -9038,7 +9038,7 @@ LABEL_14:
     v17 = *a1;
     if (*a1)
     {
-      v18 = *(v17 - 12) + 1;
+      v18 = *(v17 - 3) + 1;
     }
 
     else
@@ -9046,9 +9046,9 @@ LABEL_14:
       v18 = 1;
     }
 
-    *(v17 - 12) = v18;
-    v23 = (*(v17 - 16) + v18);
-    v24 = *(v17 - 4);
+    *(v17 - 3) = v18;
+    v23 = (*(v17 - 4) + v18);
+    v24 = *(v17 - 1);
     if (v24 > 0x400)
     {
       if (v24 <= 2 * v23)
@@ -9059,7 +9059,7 @@ LABEL_25:
         v17 = *a1;
         if (*a1)
         {
-          v24 = *(v17 - 4);
+          v24 = *(v17 - 1);
         }
 
         else
@@ -9074,7 +9074,7 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v22 = v17 + 16 * v24;
+    v22 = &v17[2 * v24];
     v21 = 1;
     goto LABEL_28;
   }
@@ -9088,7 +9088,7 @@ LABEL_25:
   v19 = *a1;
   if (*a1)
   {
-    v20 = *(v19 - 4);
+    v20 = *(v19 - 1);
   }
 
   else
@@ -9097,7 +9097,7 @@ LABEL_25:
   }
 
   v21 = 0;
-  v22 = v19 + 16 * v20;
+  v22 = &v19[2 * v20];
 LABEL_28:
   *a4 = v14;
   *(a4 + 8) = v22;
@@ -9105,7 +9105,7 @@ LABEL_28:
   return result;
 }
 
-uint64_t WebKit::SQLiteStorageArea::updateCacheIfNeeded(uint64_t this, const WTF::StringImpl **a2, const WTF::String *a3)
+uint64_t WebKit::SQLiteStorageArea::updateCacheIfNeeded(uint64_t this, WTF::StringImpl **a2, WTF::StringImpl **a3)
 {
   v87 = *MEMORY[0x1E69E9840];
   if (*(this + 168) != 1)
@@ -9683,7 +9683,7 @@ LABEL_173:
   return this;
 }
 
-uint64_t WebKit::SQLiteStorageArea::setItem@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, char a5@<W4>, const WTF::StringImpl **a6@<X5>, const WTF::String *a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+uint64_t WebKit::SQLiteStorageArea::setItem@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, char a5@<W4>, WTF::StringImpl **a6@<X5>, WTF::StringImpl **a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
   v52 = *MEMORY[0x1E69E9840];
   result = WebKit::SQLiteStorageArea::prepareDatabase(a1, 1);
@@ -9759,7 +9759,7 @@ LABEL_36:
     v31 = *a7;
     if (*a7)
     {
-      LODWORD(v31) = *(v31 + 4) << ((*(v31 + 16) & 4) == 0);
+      LODWORD(v31) = *(v31 + 1) << ((*(v31 + 4) & 4) == 0);
     }
 
     v32 = __CFADD__(v29, v31);
@@ -9782,7 +9782,7 @@ LABEL_36:
     v26 = *a7;
     if (*a7)
     {
-      LODWORD(v26) = *(v26 + 4) << ((*(v26 + 16) & 4) == 0);
+      LODWORD(v26) = *(v26 + 1) << ((*(v26 + 4) & 4) == 0);
     }
 
     v27 = v26 + v25;

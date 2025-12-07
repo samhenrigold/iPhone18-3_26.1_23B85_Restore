@@ -2,6 +2,7 @@
 - (_TtC6MapsUI27TransitIncidentsSectionView)initWithCoder:(id)coder;
 - (_TtC6MapsUI27TransitIncidentsSectionView)initWithConfiguration:(id)configuration;
 - (_TtC6MapsUI27TransitIncidentsSectionView)initWithFrame:(CGRect)frame;
+- (_TtC6MapsUI27TransitIncidentsSectionView)initWithShowsSeparators:(BOOL)separators;
 @end
 
 @implementation TransitIncidentsSectionView
@@ -15,6 +16,18 @@
   v7.receiver = self;
   v7.super_class = ObjectType;
   return [(MUPlaceVerticalCardContainerView *)&v7 initWithConfiguration:configuration];
+}
+
+- (_TtC6MapsUI27TransitIncidentsSectionView)initWithShowsSeparators:(BOOL)separators
+{
+  separatorsCopy = separators;
+  ObjectType = swift_getObjectType();
+  *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC6MapsUI27TransitIncidentsSectionView_feedbackDelegate) = 0;
+  swift_unknownObjectWeakInit();
+  *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC6MapsUI27TransitIncidentsSectionView_incidentViewModels) = MEMORY[0x1E69E7CC0];
+  v7.receiver = self;
+  v7.super_class = ObjectType;
+  return [(MUPlaceVerticalCardContainerView *)&v7 initWithShowsSeparators:separatorsCopy];
 }
 
 - (_TtC6MapsUI27TransitIncidentsSectionView)initWithFrame:(CGRect)frame

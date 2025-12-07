@@ -89,7 +89,7 @@
         [(UIVisualEffectView *)v9 setBounds:?];
         [(UIVisualEffectView *)self->_platterVisualEffectView setAutoresizingMask:18];
         device = [(CDRichComplicationView *)self device];
-        v11 = NTKWhistlerSubdialComplicationDiameter();
+        v11 = NTKWhistlerSubdialComplicationDiameter(device);
 
         layer = [(UIVisualEffectView *)self->_platterVisualEffectView layer];
         [layer setCornerRadius:v11 * 0.5];

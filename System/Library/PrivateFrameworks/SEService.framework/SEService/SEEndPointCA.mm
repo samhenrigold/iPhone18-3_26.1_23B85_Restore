@@ -33,7 +33,6 @@ LABEL_8:
   if (error)
   {
     v19 = SESDefaultLogObject();
-    v20 = *MEMORY[0x1E69E5148];
     SESCreateAndLogError();
     *error = v17 = 0;
     goto LABEL_8;
@@ -56,7 +55,7 @@ LABEL_9:
 
 - (id)description
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
   identifier = [(SEEndPointCA *)self identifier];
   instanceAID = [(SEEndPointCA *)self instanceAID];
@@ -67,37 +66,36 @@ LABEL_9:
   certificates = [(SEEndPointCA *)self certificates];
   v11 = [v3 stringWithFormat:@"Identifier : %@ InstanceAID %@ : {\n\tsubjectIdentifier : %@\n\tsecureElementAttestation : %@\n\tcertificates (%lu) : {\n", identifier, asHexString, subjectIdentifier, asHexString2, objc_msgSend(certificates, "count")];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   certificates2 = [(SEEndPointCA *)self certificates];
-  v13 = [certificates2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [certificates2 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(certificates2);
         }
 
-        asHexString3 = [*(*(&v20 + 1) + 8 * i) asHexString];
+        asHexString3 = [*(*(&v19 + 1) + 8 * i) asHexString];
         [v11 appendFormat:@"\t\t : %@, \n", asHexString3];
       }
 
-      v14 = [certificates2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [certificates2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
   }
 
   [v11 appendString:@"\t}\n}"];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

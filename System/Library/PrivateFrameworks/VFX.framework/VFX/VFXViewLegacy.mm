@@ -164,10 +164,11 @@
   }
 
   v8 = (*(&self->super.super.super.isa + OBJC_IVAR____TtC3VFX13VFXViewLegacy_coreView) + OBJC_IVAR____TtC3VFX11VFXCoreView_postRenderCallback);
-  v9 = *v8;
+  v10 = *v8;
+  v9 = v8[1];
   *v8 = v7;
   v8[1] = v5;
-  sub_1AF719C94(v9);
+  sub_1AF719C94(v10, v9);
 }
 
 - (void)renderWithCompletion:(id)completion

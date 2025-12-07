@@ -146,65 +146,65 @@ LABEL_23:
 
 - (id)jsonDictionary
 {
-  v23[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   subjectID = [(BMHumanUnderstandingPersonalInferenceFact *)self subjectID];
   subjectAlias = [(BMHumanUnderstandingPersonalInferenceFact *)self subjectAlias];
   _subjectIsaJSONArray = [(BMHumanUnderstandingPersonalInferenceFact *)self _subjectIsaJSONArray];
   predicateID = [(BMHumanUnderstandingPersonalInferenceFact *)self predicateID];
   objectID = [(BMHumanUnderstandingPersonalInferenceFact *)self objectID];
   objectAlias = [(BMHumanUnderstandingPersonalInferenceFact *)self objectAlias];
-  v22[0] = @"subjectID";
+  v21[0] = @"subjectID";
   null = subjectID;
   if (!subjectID)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v23[0] = null;
-  v22[1] = @"subjectAlias";
+  v19 = null;
+  v22[0] = null;
+  v21[1] = @"subjectAlias";
   null2 = subjectAlias;
   if (!subjectAlias)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null2;
-  v23[1] = null2;
-  v22[2] = @"subjectIsa";
+  v17 = null2;
+  v22[1] = null2;
+  v21[2] = @"subjectIsa";
   null3 = _subjectIsaJSONArray;
   if (!_subjectIsaJSONArray)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = subjectID;
-  v23[2] = null3;
-  v22[3] = @"predicateID";
+  v20 = subjectID;
+  v22[2] = null3;
+  v21[3] = @"predicateID";
   null4 = predicateID;
   if (!predicateID)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22[4] = @"objectID";
+  v22[3] = null4;
+  v21[4] = @"objectID";
   null5 = objectID;
   if (!objectID)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v22[5] = @"objectAlias";
+  v22[4] = null5;
+  v21[5] = @"objectAlias";
   null6 = objectAlias;
   if (!objectAlias)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:{6, v18}];
+  v22[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{6, v17}];
   if (objectAlias)
   {
     if (objectID)
@@ -245,7 +245,7 @@ LABEL_16:
 
 LABEL_26:
 
-    if (v21)
+    if (v20)
     {
       goto LABEL_19;
     }
@@ -259,7 +259,7 @@ LABEL_26:
   }
 
 LABEL_18:
-  if (v21)
+  if (v20)
   {
     goto LABEL_19;
   }
@@ -267,51 +267,48 @@ LABEL_18:
 LABEL_27:
 
 LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)_subjectIsaJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   subjectIsa = [(BMHumanUnderstandingPersonalInferenceFact *)self subjectIsa];
-  v5 = [subjectIsa countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [subjectIsa countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(subjectIsa);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [subjectIsa countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [subjectIsa countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMHumanUnderstandingPersonalInferenceFact)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v87[1] = *MEMORY[0x1E69E9840];
+  v86[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"subjectID"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -324,10 +321,10 @@ LABEL_19:
         errorCopy = error;
         v36 = objc_alloc(MEMORY[0x1E696ABC0]);
         v37 = *MEMORY[0x1E698F240];
-        v86 = *MEMORY[0x1E696A578];
+        v85 = *MEMORY[0x1E696A578];
         v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"subjectID"];
-        v87[0] = v11;
-        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:&v86 count:1];
+        v86[0] = v11;
+        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:&v85 count:1];
         v39 = [v36 initWithDomain:v37 code:2 userInfo:v38];
         v8 = 0;
         v29 = 0;
@@ -350,9 +347,9 @@ LABEL_19:
   }
 
   v9 = [dictionaryCopy objectForKeyedSubscript:@"subjectAlias"];
-  v64 = v7;
-  v65 = v9;
-  v66 = v8;
+  v63 = v7;
+  v64 = v9;
+  v65 = v8;
   if (v9 && (v10 = v9, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -362,10 +359,10 @@ LABEL_19:
       {
         v40 = objc_alloc(MEMORY[0x1E696ABC0]);
         v41 = *MEMORY[0x1E698F240];
-        v84 = *MEMORY[0x1E696A578];
+        v83 = *MEMORY[0x1E696A578];
         v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"subjectAlias"];
-        v85 = v12;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+        v84 = v12;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
         v11 = 0;
         v29 = 0;
         *error = [v40 initWithDomain:v41 code:2 userInfo:v15];
@@ -408,10 +405,10 @@ LABEL_19:
           v42 = objc_alloc(MEMORY[0x1E696ABC0]);
           selfCopy2 = self;
           v44 = *MEMORY[0x1E698F240];
-          v82 = *MEMORY[0x1E696A578];
+          v81 = *MEMORY[0x1E696A578];
           v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"subjectIsa"];
-          v83 = v15;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+          v82 = v15;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
           v45 = v44;
           self = selfCopy2;
           v29 = 0;
@@ -428,31 +425,31 @@ LABEL_19:
   }
 
   v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v12, "count")}];
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   v12 = v12;
-  v16 = [v12 countByEnumeratingWithState:&v67 objects:v81 count:16];
-  v62 = v11;
+  v16 = [v12 countByEnumeratingWithState:&v66 objects:v80 count:16];
+  v61 = v11;
   if (!v16)
   {
     goto LABEL_21;
   }
 
   v17 = v16;
-  v18 = *v68;
+  v18 = *v67;
   while (2)
   {
     v19 = 0;
     do
     {
-      if (*v68 != v18)
+      if (*v67 != v18)
       {
         objc_enumerationMutation(v12);
       }
 
-      v20 = *(*(&v67 + 1) + 8 * v19);
+      v20 = *(*(&v66 + 1) + 8 * v19);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -460,15 +457,15 @@ LABEL_19:
         {
           v30 = objc_alloc(MEMORY[0x1E696ABC0]);
           v31 = *MEMORY[0x1E698F240];
-          v79 = *MEMORY[0x1E696A578];
-          v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"subjectIsa"];
-          v80 = v61;
+          v78 = *MEMORY[0x1E696A578];
+          v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"subjectIsa"];
+          v79 = v60;
           v32 = MEMORY[0x1E695DF20];
-          v33 = &v80;
-          v34 = &v79;
+          v33 = &v79;
+          v34 = &v78;
 LABEL_39:
           v26 = [v32 dictionaryWithObjects:v33 forKeys:v34 count:1];
-          v11 = v62;
+          v11 = v61;
           v29 = 0;
           *error = [v30 initWithDomain:v31 code:2 userInfo:v26];
           v23 = v12;
@@ -478,7 +475,7 @@ LABEL_39:
 LABEL_42:
         v29 = 0;
         v23 = v12;
-        v11 = v62;
+        v11 = v61;
         self = selfCopy3;
         goto LABEL_68;
       }
@@ -490,12 +487,12 @@ LABEL_42:
         {
           v30 = objc_alloc(MEMORY[0x1E696ABC0]);
           v31 = *MEMORY[0x1E698F240];
-          v77 = *MEMORY[0x1E696A578];
-          v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"subjectIsa"];
-          v78 = v61;
+          v76 = *MEMORY[0x1E696A578];
+          v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"subjectIsa"];
+          v77 = v60;
           v32 = MEMORY[0x1E695DF20];
-          v33 = &v78;
-          v34 = &v77;
+          v33 = &v77;
+          v34 = &v76;
           goto LABEL_39;
         }
 
@@ -507,8 +504,8 @@ LABEL_42:
     }
 
     while (v17 != v19);
-    v17 = [v12 countByEnumeratingWithState:&v67 objects:v81 count:16];
-    v11 = v62;
+    v17 = [v12 countByEnumeratingWithState:&v66 objects:v80 count:16];
+    v11 = v61;
     if (v17)
     {
       continue;
@@ -520,7 +517,7 @@ LABEL_42:
 LABEL_21:
 
   v21 = [dictionaryCopy objectForKeyedSubscript:@"predicateID"];
-  v61 = v21;
+  v60 = v21;
   if (v21)
   {
     v22 = v21;
@@ -531,7 +528,7 @@ LABEL_21:
       if (objc_opt_isKindOfClass())
       {
         v23 = v22;
-        v11 = v62;
+        v11 = v61;
         goto LABEL_24;
       }
 
@@ -539,17 +536,17 @@ LABEL_21:
       {
         v23 = 0;
         v29 = 0;
-        v11 = v62;
+        v11 = v61;
         self = selfCopy3;
         goto LABEL_67;
       }
 
       v46 = objc_alloc(MEMORY[0x1E696ABC0]);
       v47 = *MEMORY[0x1E698F240];
-      v75 = *MEMORY[0x1E696A578];
+      v74 = *MEMORY[0x1E696A578];
       v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"predicateID"];
-      v76 = v26;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+      v75 = v26;
+      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
       v49 = v47;
       v25 = v48;
       v50 = [v46 initWithDomain:v49 code:2 userInfo:v48];
@@ -563,7 +560,7 @@ LABEL_21:
   v23 = 0;
 LABEL_24:
   v24 = [dictionaryCopy objectForKeyedSubscript:@"objectID"];
-  v60 = v24;
+  v59 = v24;
   if (v24)
   {
     v25 = v24;
@@ -574,31 +571,31 @@ LABEL_24:
       if (objc_opt_isKindOfClass())
       {
         v26 = v25;
-        v11 = v62;
+        v11 = v61;
         goto LABEL_27;
       }
 
       if (error)
       {
-        v58 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v57 = objc_alloc(MEMORY[0x1E696ABC0]);
         v51 = *MEMORY[0x1E698F240];
-        v73 = *MEMORY[0x1E696A578];
+        v72 = *MEMORY[0x1E696A578];
         v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"objectID"];
-        v74 = v28;
-        v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-        v52 = [v58 initWithDomain:v51 code:2 userInfo:v27];
+        v73 = v28;
+        v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+        v52 = [v57 initWithDomain:v51 code:2 userInfo:v27];
         v26 = 0;
         v29 = 0;
         *error = v52;
 LABEL_63:
-        v11 = v62;
+        v11 = v61;
         goto LABEL_64;
       }
 
       v26 = 0;
       v29 = 0;
 LABEL_75:
-      v11 = v62;
+      v11 = v61;
       goto LABEL_65;
     }
   }
@@ -617,13 +614,13 @@ LABEL_27:
   {
     if (error)
     {
-      v59 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v57 = *MEMORY[0x1E698F240];
-      v71 = *MEMORY[0x1E696A578];
+      v58 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v56 = *MEMORY[0x1E698F240];
+      v70 = *MEMORY[0x1E696A578];
       v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"objectAlias"];
-      v72 = v53;
-      v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-      *error = [v59 initWithDomain:v57 code:2 userInfo:v54];
+      v71 = v53;
+      v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      *error = [v58 initWithDomain:v56 code:2 userInfo:v54];
     }
 
     v28 = 0;
@@ -632,33 +629,32 @@ LABEL_27:
   }
 
   v28 = v27;
-  v11 = v62;
+  v11 = v61;
 LABEL_30:
-  v29 = [(BMHumanUnderstandingPersonalInferenceFact *)selfCopy3 initWithSubjectID:v66 subjectAlias:v11 subjectIsa:v15 predicateID:v23 objectID:v26 objectAlias:v28];
+  v29 = [(BMHumanUnderstandingPersonalInferenceFact *)selfCopy3 initWithSubjectID:v65 subjectAlias:v11 subjectIsa:v15 predicateID:v23 objectID:v26 objectAlias:v28];
   selfCopy3 = v29;
 LABEL_64:
 
-  v25 = v60;
+  v25 = v59;
 LABEL_65:
 
 LABEL_66:
   self = selfCopy3;
 
-  v22 = v61;
+  v22 = v60;
 LABEL_67:
 
 LABEL_68:
 LABEL_69:
 
-  v7 = v64;
+  v7 = v63;
 LABEL_70:
-  v8 = v66;
+  v8 = v65;
 
-  v10 = v65;
+  v10 = v64;
 LABEL_71:
 
 LABEL_72:
-  v55 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -673,7 +669,7 @@ LABEL_72:
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_subjectID)
   {
@@ -685,33 +681,32 @@ LABEL_72:
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_subjectIsa;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -731,8 +726,6 @@ LABEL_72:
   {
     PBDataWriterWriteStringField();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -923,55 +916,51 @@ LABEL_39:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subjectID" number:1 type:13 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subjectAlias" number:2 type:13 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subjectIsa" number:3 type:13 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"predicateID" number:4 type:13 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"objectID" number:5 type:13 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"objectAlias" number:6 type:13 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"subjectID" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"subjectAlias" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"subjectIsa_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_84645];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"predicateID" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"objectID" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"objectAlias" dataType:2 requestOnly:0 fieldNumber:6 protoDataType:13 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
-id __52__BMHumanUnderstandingPersonalInferenceFact_columns__block_invoke(uint64_t a1, void *a2)
+id __52__BMHumanUnderstandingPersonalInferenceFact_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _subjectIsaJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _subjectIsaJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

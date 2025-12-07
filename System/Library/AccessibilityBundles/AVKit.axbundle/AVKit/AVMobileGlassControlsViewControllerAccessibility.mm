@@ -4,6 +4,7 @@
 - (void)_updateControlsVisibilityStateIfNeededAnimated:(id)animated;
 - (void)flashControlsWithDuration:(double)duration;
 - (void)toggleVisibility:(id)visibility;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation AVMobileGlassControlsViewControllerAccessibility
@@ -70,6 +71,14 @@ id __94__AVMobileGlassControlsViewControllerAccessibility__accessibilityLoadAcce
   v6 = accessibilityLocalizedString(v5);
 
   return v6;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AVMobileGlassControlsViewControllerAccessibility;
+  [(AVMobileGlassControlsViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(AVMobileGlassControlsViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (void)toggleVisibility:(id)visibility

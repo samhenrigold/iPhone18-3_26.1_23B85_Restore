@@ -809,7 +809,7 @@ LABEL_7:
   v7 = 0u;
   v8 = 0u;
   memset(&v6, 0, sizeof(v6));
-  [MEMORY[0x277D3D080] reviewScreenTopBarGeometryForReferenceBounds:orientation withOrientation:{bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height}];
+  objc_msgSend_reviewScreenTopBarGeometryForReferenceBounds_withOrientation_(MEMORY[0x277D3D080], a2, orientation, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
   return CGRectGetHeight(v6);
 }
 
@@ -1045,9 +1045,9 @@ LABEL_26:
 
   if (isVideo)
   {
-    duration = [v47 duration];
+    v38 = objc_msgSend_duration(v47);
     v39 = +[CFXMediaSettings sharedInstance];
-    v40 = duration / [v39 frameRate];
+    v40 = v38 / [v39 frameRate];
 
     v41 = +[CFXAnalyticsManager sharedInstance];
     [v41 trackEventWithName:@"videoduration" duration:v40];

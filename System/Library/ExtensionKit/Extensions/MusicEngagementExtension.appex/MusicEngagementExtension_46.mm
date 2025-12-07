@@ -1,132 +1,817 @@
-uint64_t specialized OrderedSet._regenerateHashTable()(void *(*a1)(uint64_t *__return_ptr, uint64_t, void, uint64_t, uint64_t))
+uint64_t implicit closure #1 in SyncedLyricsLineView.SBS_TextContentView.TextView.transliterationMetadata(transliteratedWords:previousLineWordRepresentations:originalWordRepresentations:originalStringRange:wordRangeAdjustment:size:)(uint64_t a1)
 {
-  v3 = *v1;
-  if (*v1)
+  _sS2SSysWl_2();
+  StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+  String.nonBreakingSpace.unsafeMutableAddressor();
+  StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+
+  v1 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+
+  return v1;
+}
+
+void SyncedLyricsLineView.SBS_TextContentView.TextView.insertLineBreak(before:)(uint64_t a1)
+{
+  v3 = (v1 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_adjustedText);
+  v4 = objc_allocWithZone(NSMutableString);
+
+  v5 = String._bridgeToObjectiveC()();
+
+  v6 = [v4 initWithString:v5];
+
+  v7 = *(a1 + 88);
+  v8 = v6;
+  v9 = [v8 substringWithRange:{v7, 1}];
+  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = v11;
+
+  if (v10 == 32 && v12 == 0xE100000000000000)
   {
-    swift_beginAccess();
-    v4 = *(v3 + 24) & 0x3FLL;
   }
 
   else
   {
-    v4 = 0;
+    v14 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if ((v14 & 1) == 0)
+    {
+      goto LABEL_9;
+    }
   }
 
-  v5 = v1[1];
-  if (v4 || *(v5 + 16) >= 0x10uLL)
+  if (__OFADD__(v7++, 1))
   {
-    v7 = static _HashTable.scale(forCapacity:)();
-    if (v4 <= v7)
-    {
-      v8 = v7;
-    }
+    __break(1u);
+    return;
+  }
 
-    else
-    {
-      v8 = v4;
-    }
+LABEL_9:
+  v16 = String._bridgeToObjectiveC()();
+  [v8 insertString:v16 atIndex:v7];
 
-    v6 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVySSG_Tt2g5Tm(v5, v8, 0, v4, a1);
+  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v19 = v18;
+
+  *v3 = v17;
+  v3[1] = v19;
+}
+
+void SyncedLyricsLineView.SBS_TextContentView.TextView.insertLineBreak(after:)(uint64_t a1, uint64_t a2)
+{
+  v5 = (v2 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_adjustedText);
+  v6 = objc_allocWithZone(NSMutableString);
+
+  v7 = String._bridgeToObjectiveC()();
+
+  v8 = [v6 initWithString:v7];
+
+  v9 = a1 + a2;
+  if (__OFADD__(a1, a2))
+  {
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  v10 = v8;
+  v11 = [v10 substringWithRange:{v9, 1}];
+  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v14 = v13;
+
+  if (v12 == 32 && v14 == 0xE100000000000000)
+  {
   }
 
   else
   {
-    v6 = 0;
+    v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if ((v16 & 1) == 0)
+    {
+      goto LABEL_10;
+    }
   }
 
-  *v1 = v6;
+  if (__OFADD__(v9++, 1))
+  {
+LABEL_14:
+    __break(1u);
+    return;
+  }
+
+LABEL_10:
+  v18 = String._bridgeToObjectiveC()();
+  [v10 insertString:v18 atIndex:v9];
+
+  v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v21 = v20;
+
+  *v5 = v19;
+  v5[1] = v21;
+}
+
+id SyncedLyricsLineView.SBS_TextContentView.TextView.__deallocating_deinit()
+{
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView.TextView(0);
+  return objc_msgSendSuper2(&v2, "dealloc");
+}
+
+uint64_t type metadata accessor for SyncedLyricsLineView.SBS_TextContentView.TextView(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for SyncedLyricsLineView.SBS_TextContentView.TextView;
+  if (!type metadata singleton initialization cache for SyncedLyricsLineView.SBS_TextContentView.TextView)
+  {
+    return swift_getSingletonMetadata();
+  }
+
   return result;
 }
 
-uint64_t _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVySSG_Tt2g5Tm(uint64_t a1, uint64_t a2, char a3, uint64_t a4, void *(*a5)(uint64_t *__return_ptr, uint64_t, void, uint64_t, uint64_t))
+void type metadata completion function for SyncedLyricsLineView.SBS_TextContentView.TextView(uint64_t a1)
 {
-  if (a3)
+  type metadata accessor for Locale.Language?(319);
+  if (v1 <= 0x3F)
   {
-    v8 = 0;
+    swift_updateClassMetadata2();
+  }
+}
+
+void type metadata accessor for Locale.Language?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for Locale.Language?)
+  {
+    type metadata accessor for Locale.Language();
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for Locale.Language?);
+    }
+  }
+}
+
+__n128 __swift_memcpy96_8_2(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v2;
+  result = *(a2 + 32);
+  v4 = *(a2 + 48);
+  v5 = *(a2 + 80);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 80) = v5;
+  *(a1 + 32) = result;
+  *(a1 + 48) = v4;
+  return result;
+}
+
+uint64_t get_enum_tag_for_layout_string_7LyricsX06SyncedA8LineViewC015SBS_TextContentD0C0fD0C22TranslationLabelUpdateO(unint64_t *a1)
+{
+  v1 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v1) = -1;
+  }
+
+  return (v1 + 1);
+}
+
+uint64_t getEnumTagSinglePayload for SyncedLyricsLineView.SBS_TextContentView.TextView.TranslationLabelUpdate(uint64_t *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFE && *(a1 + 40))
+  {
+    return (*a1 + 2147483646);
+  }
+
+  v3 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 + 1;
+  v5 = v3 - 1;
+  if (v4 >= 3)
+  {
+    return v5;
   }
 
   else
   {
-    v8 = a2;
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for SyncedLyricsLineView.SBS_TextContentView.TextView.TranslationLabelUpdate(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFD)
+  {
+    *(result + 32) = 0;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *result = a2 - 2147483646;
+    if (a3 >= 0x7FFFFFFE)
+    {
+      *(result + 40) = 1;
+    }
   }
 
-  v9 = static _HashTable.scale(forCapacity:)();
-  result = 0;
-  if (v9 <= v8)
+  else
+  {
+    if (a3 >= 0x7FFFFFFE)
+    {
+      *(result + 40) = 0;
+    }
+
+    if (a2)
+    {
+      *result = a2 + 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t destructiveInjectEnumTag for SyncedLyricsLineView.SBS_TextContentView.TextView.TranslationLabelUpdate(uint64_t result, int a2)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0u;
+    v2 = a2 & 0x7FFFFFFF;
+    *(result + 24) = 0u;
+  }
+
+  else
+  {
+    if (!a2)
+    {
+      return result;
+    }
+
+    v2 = (a2 - 1);
+  }
+
+  *result = v2;
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type SyncedLyricsLineView.SBS_TextContentView.TextView.Kind and conformance SyncedLyricsLineView.SBS_TextContentView.TextView.Kind()
+{
+  result = lazy protocol witness table cache variable for type SyncedLyricsLineView.SBS_TextContentView.TextView.Kind and conformance SyncedLyricsLineView.SBS_TextContentView.TextView.Kind;
+  if (!lazy protocol witness table cache variable for type SyncedLyricsLineView.SBS_TextContentView.TextView.Kind and conformance SyncedLyricsLineView.SBS_TextContentView.TextView.Kind)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SyncedLyricsLineView.SBS_TextContentView.TextView.Kind and conformance SyncedLyricsLineView.SBS_TextContentView.TextView.Kind);
+  }
+
+  return result;
+}
+
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7LyricsX06SyncedH8LineViewC0J0C_Tt1g5Tm(uint64_t a1, uint64_t a2)
+{
+  if (a2 <= a1)
+  {
+    v2 = a1;
+  }
+
+  else
+  {
+    v2 = a2;
+  }
+
+  if (!v2)
+  {
+    return _swiftEmptyArrayStorage;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2, &_ss23_ContiguousArrayStorageCyyXlGMR_2);
+  v4 = swift_allocObject();
+  v5 = _swift_stdlib_malloc_size(v4);
+  result = v4;
+  v8 = v5 - 32;
+  v7 = v5 < 32;
+  v9 = v5 - 25;
+  if (!v7)
   {
     v9 = v8;
   }
 
-  if (v9 <= a4)
-  {
-    v9 = a4;
-  }
-
-  if (v9 >= 5)
-  {
-    v11 = _HashTable.init(scale:reservedScale:)();
-    specialized _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:)(a1, v11 + 16, v11 + 32, a5);
-    return v11;
-  }
-
+  v4[2] = a1;
+  v4[3] = (2 * (v9 >> 3)) | 1;
   return result;
 }
 
-uint64_t _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVy7LyricsX06SyncedO8LineViewC0Q0CG_Tt2g5Tm(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
+void specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(void))
 {
-  if (a3)
+  v5 = a4 >> 1;
+  v6 = (a4 >> 1) - a3;
+  if (__OFSUB__(a4 >> 1, a3))
   {
-    v6 = 0;
+LABEL_11:
+    __break(1u);
+    return;
+  }
+
+  if (v6)
+  {
+    if (v6 < 1)
+    {
+      if (v5 != a3)
+      {
+LABEL_7:
+        a5(0);
+        swift_arrayInitWithCopy();
+        return;
+      }
+    }
+
+    else
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2, &_ss23_ContiguousArrayStorageCyyXlGMR_2);
+      v9 = swift_allocObject();
+      v10 = _swift_stdlib_malloc_size(v9);
+      v11 = v10 - 32;
+      if (v10 < 32)
+      {
+        v11 = v10 - 25;
+      }
+
+      v9[2] = v6;
+      v9[3] = (2 * (v11 >> 3)) | 1;
+      if (v5 != a3)
+      {
+        goto LABEL_7;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_11;
+  }
+}
+
+void *specialized _copyCollectionToContiguousArray<A>(_:)(unint64_t a1)
+{
+  if (a1 >> 62)
+  {
+    goto LABEL_5;
+  }
+
+  v1 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (!v1)
+  {
+    return _swiftEmptyArrayStorage;
+  }
+
+  while (1)
+  {
+    v2 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7LyricsX06SyncedH8LineViewC0J0C_Tt1g5Tm(v1, 0);
+
+    specialized _ArrayBuffer._copyContents(initializing:)();
+    v4 = v3;
+
+    if (v4 == v1)
+    {
+      break;
+    }
+
+    __break(1u);
+LABEL_5:
+    v1 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v1)
+    {
+      return _swiftEmptyArrayStorage;
+    }
+  }
+
+  return v2;
+}
+
+void specialized _NativeDictionary._delete(at:)(unint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  v3 = a1;
+  v4 = a2 + 64;
+  v5 = -1 << *(a2 + 32);
+  v6 = (a1 + 1) & ~v5;
+  if ((*(a2 + 64 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6))
+  {
+    v7 = ~v5;
+    v40 = a2 + 64;
+    v38 = (_HashTable.previousHole(before:)() + 1) & ~v5;
+    v39 = v7;
+    do
+    {
+      v45 = v3;
+      v43 = 56 * v6;
+      v8 = *(v2 + 48) + 56 * v6;
+      v9 = *v8;
+      v10 = *(v8 + 8);
+      v11 = *(v8 + 32);
+      v42 = *(v8 + 40);
+      v44 = *(v8 + 48);
+      Hasher.init(_seed:)();
+      if (v9 == 0.0)
+      {
+        v12 = 0.0;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      Hasher._combine(_:)(*&v12);
+      if (v10 == 0.0)
+      {
+        v13 = 0.0;
+      }
+
+      else
+      {
+        v13 = v10;
+      }
+
+      Hasher._combine(_:)(*&v13);
+
+      String.hash(into:)();
+      Hasher._combine(_:)(*(v11 + 16));
+      v14 = *(v11 + 16);
+      if (v14)
+      {
+        v15 = (v11 + 80);
+        do
+        {
+          v16 = *(v15 - 6);
+          v17 = *(v15 - 5);
+          v19 = *(v15 - 2);
+          v18 = *(v15 - 1);
+          v21 = *v15;
+          v15 += 7;
+          v20 = *&v21;
+          if (v16 == 0.0)
+          {
+            v16 = 0.0;
+          }
+
+          Hasher._combine(_:)(*&v16);
+          if (v17 == 0.0)
+          {
+            v22 = 0.0;
+          }
+
+          else
+          {
+            v22 = v17;
+          }
+
+          Hasher._combine(_:)(*&v22);
+
+          String.hash(into:)();
+          Hasher._combine(_:)(v19);
+          Hasher._combine(_:)(v18);
+          Hasher._combine(_:)(v20);
+
+          --v14;
+        }
+
+        while (v14);
+      }
+
+      if (v44)
+      {
+        Hasher._combine(_:)(0);
+      }
+
+      else
+      {
+        Hasher._combine(_:)(1uLL);
+        if ((v42 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+        {
+          v23 = v42;
+        }
+
+        else
+        {
+          v23 = 0;
+        }
+
+        Hasher._combine(_:)(v23);
+      }
+
+      v2 = a2;
+      v3 = v45;
+      v24 = Hasher._finalize()();
+
+      v25 = v24 & v39;
+      if (v45 >= v38)
+      {
+        v4 = v40;
+        if (v25 < v38)
+        {
+          goto LABEL_4;
+        }
+      }
+
+      else
+      {
+        v4 = v40;
+        if (v25 >= v38)
+        {
+          goto LABEL_30;
+        }
+      }
+
+      if (v45 >= v25)
+      {
+LABEL_30:
+        v26 = *(a2 + 48);
+        v27 = v26 + 56 * v45;
+        v28 = (v26 + v43);
+        if (56 * v45 < v43 || v27 >= v28 + 56 || v45 != v6)
+        {
+          v29 = *v28;
+          v30 = v28[1];
+          v31 = v28[2];
+          *(v27 + 48) = *(v28 + 6);
+          *(v27 + 16) = v30;
+          *(v27 + 32) = v31;
+          *v27 = v29;
+        }
+
+        v32 = *(a2 + 56);
+        v33 = (v32 + 8 * v45);
+        v34 = (v32 + 8 * v6);
+        if (v45 != v6 || v33 >= v34 + 1)
+        {
+          *v33 = *v34;
+          v3 = v6;
+        }
+      }
+
+LABEL_4:
+      v6 = (v6 + 1) & v39;
+    }
+
+    while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
+  }
+
+  *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
+  v35 = *(v2 + 16);
+  v36 = __OFSUB__(v35, 1);
+  v37 = v35 - 1;
+  if (v36)
+  {
+    __break(1u);
   }
 
   else
   {
-    v6 = a2;
+    *(v2 + 16) = v37;
+    ++*(v2 + 36);
+  }
+}
+
+uint64_t specialized UnsafeBufferPointer<A>._firstIndex(of:)(double *a1, uint64_t a2, uint64_t a3)
+{
+  if (a3)
+  {
+    v3 = a3;
+    v4 = a2;
+    v5 = a1;
+    v6 = 0;
+    v7 = *a1;
+    do
+    {
+      v8 = v4 + 56 * v6;
+      if (*v8 == v7 && *(v8 + 8) == v5[1])
+      {
+        result = *(v8 + 16);
+        v10 = *(v8 + 32);
+        v11 = *(v8 + 40);
+        v25 = *(v8 + 48);
+        v12 = result == *(v5 + 2) && *(v8 + 24) == *(v5 + 3);
+        if (v12 || (result = _stringCompareWithSmolCheck(_:_:expecting:)(), v5 = a1, v4 = a2, v3 = a3, (result & 1) != 0))
+        {
+          v13 = *(v5 + 4);
+          v14 = *(v10 + 16);
+          if (v14 == *(v13 + 16))
+          {
+            if (v14)
+            {
+              v15 = v10 == v13;
+            }
+
+            else
+            {
+              v15 = 1;
+            }
+
+            if (!v15)
+            {
+              v16 = (v10 + 80);
+              v17 = v13 + 40;
+              while (v14)
+              {
+                if (*(v16 - 6) != *(v17 - 8) || *(v16 - 5) != *v17)
+                {
+                  goto LABEL_4;
+                }
+
+                result = *(v16 - 4);
+                v19 = *(v16 - 2);
+                v20 = *(v16 - 1);
+                v21 = *v16;
+                v23 = *(v17 + 24);
+                v22 = *(v17 + 32);
+                v24 = *(v17 + 40);
+                if (result != *(v17 + 8) || *(v16 - 3) != *(v17 + 16))
+                {
+                  result = _stringCompareWithSmolCheck(_:_:expecting:)();
+                  v5 = a1;
+                  v4 = a2;
+                  v3 = a3;
+                  if ((result & 1) == 0)
+                  {
+                    goto LABEL_4;
+                  }
+                }
+
+                if (v19 != v23 || v20 != v22 || *&v21 != v24)
+                {
+                  goto LABEL_4;
+                }
+
+                v16 += 7;
+                v17 += 56;
+                if (!--v14)
+                {
+                  goto LABEL_18;
+                }
+              }
+
+              __break(1u);
+              return result;
+            }
+
+LABEL_18:
+            if (v25)
+            {
+              if (v5[6])
+              {
+                return v6;
+              }
+            }
+
+            else if ((v5[6] & 1) == 0 && v11 == v5[5])
+            {
+              return v6;
+            }
+          }
+        }
+      }
+
+LABEL_4:
+      ++v6;
+    }
+
+    while (v6 != v3);
   }
 
-  v7 = static _HashTable.scale(forCapacity:)();
+  return 0;
+}
+
+void specialized OrderedSet._regenerateHashTable()(void *(*a1)(uint64_t *__return_ptr, uint64_t, void, uint64_t, uint64_t), __n128 a2)
+{
+  v4 = *v2;
+  if (*v2)
+  {
+    swift_beginAccess();
+    v5 = *(v4 + 24) & 0x3FLL;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = v2[1];
+  if (v5 || *(v6 + 16) >= 0x10uLL)
+  {
+    v8 = static _HashTable.scale(forCapacity:)();
+    if (v5 <= v8)
+    {
+      v10 = v8;
+    }
+
+    else
+    {
+      v10 = v5;
+    }
+
+    v7 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVySSG_Tt2g5Tm(v6, v10, 0, v5, a1, v9);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  *v2 = v7;
+}
+
+uint64_t _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVySSG_Tt2g5Tm(uint64_t a1, uint64_t a2, char a3, uint64_t a4, void *(*a5)(uint64_t *__return_ptr, uint64_t, void, uint64_t, uint64_t), __n128 a6)
+{
+  if (a3)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = a2;
+  }
+
+  v10 = static _HashTable.scale(forCapacity:)();
   result = 0;
-  if (v7 <= v6)
+  if (v10 <= v9)
   {
-    v7 = v6;
+    v10 = v9;
   }
 
-  if (v7 <= a4)
+  if (v10 <= a4)
   {
-    v7 = a4;
+    v10 = a4;
   }
 
-  if (v7 >= 5)
+  if (v10 >= 5)
   {
-    v9 = _HashTable.init(scale:reservedScale:)();
-    specialized _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:)(a1, (v9 + 16));
-    return v9;
+    v12 = _HashTable.init(scale:reservedScale:)();
+    specialized _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:)(a1, v12 + 16, v12 + 32, a5);
+    return v12;
   }
 
   return result;
 }
 
-Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:)(uint64_t a1, uint64_t a2, void *a3)
+uint64_t _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVy7LyricsX06SyncedO8LineViewC0Q0CG_Tt2g5Tm(uint64_t a1, uint64_t a2, char a3, uint64_t a4, __n128 a5)
+{
+  if (a3)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = static _HashTable.scale(forCapacity:)();
+  result = 0;
+  if (v8 <= v7)
+  {
+    v8 = v7;
+  }
+
+  if (v8 <= a4)
+  {
+    v8 = a4;
+  }
+
+  if (v8 >= 5)
+  {
+    v10 = _HashTable.init(scale:reservedScale:)();
+    specialized _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:)(a1, (v10 + 16), v10 + 32);
+    return v10;
+  }
+
+  return result;
+}
+
+Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:)(Swift::Int result, uint64_t a2, void *a3, uint64_t a4)
 {
   if (a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v5 = 0;
+      v6 = 0;
       while (1)
       {
         Hasher.init(_seed:)();
 
         String.hash(into:)();
-        result = Hasher._finalize()();
+        v7 = Hasher._finalize()();
         if (__OFSUB__(1 << *a3, 1))
         {
           break;
         }
 
-        v7 = _HashTable.UnsafeHandle._startIterator(bucket:)();
+        v8 = _HashTable.UnsafeHandle._startIterator(bucket:)();
 
-        if (v7)
+        if (v8)
         {
           while (1)
           {
@@ -134,10 +819,10 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
           }
         }
 
-        result = _HashTable.BucketIterator.currentValue.setter();
-        if (++v5 == a2)
+        v7 = _HashTable.BucketIterator.currentValue.setter();
+        if (++v6 == a2)
         {
-          return result;
+          return v7;
         }
       }
 
@@ -147,37 +832,25 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
     __break(1u);
   }
 
-  return result;
+  return v7;
 }
 
-Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:)(Swift::Int result, uint64_t a2, void *a3)
 {
-  v22 = result;
+  v23 = result;
   if (a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v3 = 0;
+      v4 = 0;
       while (1)
       {
-        v4 = v22 + 56 * v3;
-        v5 = *v4;
-        v6 = *(v4 + 8);
-        v7 = *(v4 + 32);
-        v24 = *(v4 + 40);
-        v25 = *(v4 + 48);
+        v5 = v23 + 56 * v4;
+        v6 = *v5;
+        v7 = *(v5 + 8);
+        v8 = *(v5 + 32);
+        v25 = *(v5 + 40);
+        v26 = *(v5 + 48);
         Hasher.init(_seed:)();
-        if (v5 == 0.0)
-        {
-          v8 = 0.0;
-        }
-
-        else
-        {
-          v8 = v5;
-        }
-
-        Hasher._combine(_:)(*&v8);
         if (v6 == 0.0)
         {
           v9 = 0.0;
@@ -189,52 +862,63 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
         }
 
         Hasher._combine(_:)(*&v9);
+        if (v7 == 0.0)
+        {
+          v10 = 0.0;
+        }
+
+        else
+        {
+          v10 = v7;
+        }
+
+        Hasher._combine(_:)(*&v10);
 
         String.hash(into:)();
-        v10 = *(v7 + 16);
-        Hasher._combine(_:)(v10);
-        if (v10)
+        v11 = *(v8 + 16);
+        Hasher._combine(_:)(v11);
+        if (v11)
         {
-          v11 = (v7 + 80);
+          v12 = (v8 + 80);
           do
           {
-            v12 = *(v11 - 6);
-            v13 = *(v11 - 5);
-            v14 = *(v11 - 2);
-            v15 = *(v11 - 1);
-            v17 = *v11;
-            v11 += 7;
-            v16 = *&v17;
-            if (v12 == 0.0)
-            {
-              v12 = 0.0;
-            }
-
-            Hasher._combine(_:)(*&v12);
+            v13 = *(v12 - 6);
+            v14 = *(v12 - 5);
+            v15 = *(v12 - 2);
+            v16 = *(v12 - 1);
+            v18 = *v12;
+            v12 += 7;
+            v17 = *&v18;
             if (v13 == 0.0)
             {
-              v18 = 0.0;
+              v13 = 0.0;
+            }
+
+            Hasher._combine(_:)(*&v13);
+            if (v14 == 0.0)
+            {
+              v19 = 0.0;
             }
 
             else
             {
-              v18 = v13;
+              v19 = v14;
             }
 
-            Hasher._combine(_:)(*&v18);
+            Hasher._combine(_:)(*&v19);
 
             String.hash(into:)();
-            Hasher._combine(_:)(v14);
             Hasher._combine(_:)(v15);
             Hasher._combine(_:)(v16);
+            Hasher._combine(_:)(v17);
 
-            --v10;
+            --v11;
           }
 
-          while (v10);
+          while (v11);
         }
 
-        if (v25)
+        if (v26)
         {
           Hasher._combine(_:)(0);
         }
@@ -242,8 +926,8 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
         else
         {
           Hasher._combine(_:)(1uLL);
-          v19 = (v24 & 0x7FFFFFFFFFFFFFFFLL) != 0 ? v24 : 0;
-          Hasher._combine(_:)(v19);
+          v20 = (v25 & 0x7FFFFFFFFFFFFFFFLL) != 0 ? v25 : 0;
+          Hasher._combine(_:)(v20);
         }
 
         result = Hasher._finalize()();
@@ -252,9 +936,9 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
           break;
         }
 
-        v20 = _HashTable.UnsafeHandle._startIterator(bucket:)();
+        v21 = _HashTable.UnsafeHandle._startIterator(bucket:)();
 
-        if (v20)
+        if (v21)
         {
           while (1)
           {
@@ -263,7 +947,7 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
         }
 
         result = _HashTable.BucketIterator.currentValue.setter();
-        if (++v3 == a2)
+        if (++v4 == a2)
         {
           return result;
         }
@@ -283,13 +967,13 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v5 = result;
-      v6 = 0;
+      v6 = result;
+      v7 = 0;
       while (1)
       {
-        v7 = *(v5 + 8 * v6);
+        v8 = *(v6 + 8 * v7);
         Hasher.init(_seed:)();
-        Hasher._combine(_:)(v7);
+        Hasher._combine(_:)(v8);
         result = Hasher._finalize()();
         if (__OFSUB__(1 << *a3, 1))
         {
@@ -305,7 +989,7 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
         }
 
         result = _HashTable.BucketIterator.currentValue.setter();
-        if (++v6 == a2)
+        if (++v7 == a2)
         {
           return result;
         }
@@ -320,42 +1004,262 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUn
   return result;
 }
 
-uint64_t _s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSay7LyricsX06SyncedQ8LineViewC0S0CG_Tt3g5Tm(unint64_t *a1, unint64_t a2, uint64_t a3, char a4, uint64_t a5, void (*a6)(uint64_t *__return_ptr, id *, id), void (*a7)(id *, uint64_t, unint64_t))
+Swift::Int specialized _NativeSet.extractSubset(using:count:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v12 = a2 >> 62;
+  v4 = a4;
+  if (!a3)
+  {
+    v9 = &_swiftEmptySetSingleton;
+LABEL_6:
+
+    return v9;
+  }
+
+  v5 = a3;
+  if (*(a4 + 16) == a3)
+  {
+    return v4;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo14MSVLyricsAgentCGMd, &_ss11_SetStorageCySo14MSVLyricsAgentCGMR);
+  result = static _SetStorage.allocate(capacity:)();
+  v9 = result;
+  if (a2 < 1)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = *a1;
+  }
+
+  v11 = 0;
+  v12 = result + 56;
+  while (v10)
+  {
+    v13 = __clz(__rbit64(v10));
+    v10 &= v10 - 1;
+LABEL_17:
+    v16 = v9[5];
+    v17 = *(*(v4 + 48) + 8 * (v13 | (v11 << 6)));
+    result = NSObject._rawHashValue(seed:)(v16);
+    v18 = -1 << *(v9 + 32);
+    v19 = result & ~v18;
+    v20 = v19 >> 6;
+    if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
+    {
+      v22 = 0;
+      v23 = (63 - v18) >> 6;
+      while (++v20 != v23 || (v22 & 1) == 0)
+      {
+        v24 = v20 == v23;
+        if (v20 == v23)
+        {
+          v20 = 0;
+        }
+
+        v22 |= v24;
+        v25 = *(v12 + 8 * v20);
+        if (v25 != -1)
+        {
+          v21 = __clz(__rbit64(~v25)) + (v20 << 6);
+          goto LABEL_27;
+        }
+      }
+
+      goto LABEL_31;
+    }
+
+    v21 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
+LABEL_27:
+    *(v12 + ((v21 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v21;
+    *(v9[6] + 8 * v21) = v17;
+    ++v9[2];
+    if (__OFSUB__(v5--, 1))
+    {
+      goto LABEL_32;
+    }
+
+    if (!v5)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  v14 = v11;
+  while (1)
+  {
+    v11 = v14 + 1;
+    if (__OFADD__(v14, 1))
+    {
+      break;
+    }
+
+    if (v11 >= a2)
+    {
+      goto LABEL_6;
+    }
+
+    v15 = a1[v11];
+    ++v14;
+    if (v15)
+    {
+      v13 = __clz(__rbit64(v15));
+      v10 = (v15 - 1) & v15;
+      goto LABEL_17;
+    }
+  }
+
+  __break(1u);
+LABEL_31:
+  __break(1u);
+LABEL_32:
+  __break(1u);
+  return result;
+}
+
+{
+  v4 = a4;
+  if (!a3)
+  {
+    v9 = &_swiftEmptySetSingleton;
+LABEL_6:
+
+    return v9;
+  }
+
+  v5 = a3;
+  if (*(a4 + 16) == a3)
+  {
+    return v4;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy7LyricsX06SyncedC8LineViewC4WordCGMd, &_ss11_SetStorageCy7LyricsX06SyncedC8LineViewC4WordCGMR);
+  result = static _SetStorage.allocate(capacity:)();
+  v9 = result;
+  if (a2 < 1)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = *a1;
+  }
+
+  v11 = 0;
+  v12 = result + 56;
+  while (v10)
+  {
+    v13 = __clz(__rbit64(v10));
+    v10 &= v10 - 1;
+LABEL_17:
+    v16 = *(*(v4 + 48) + 8 * (v13 | (v11 << 6)));
+    Hasher.init(_seed:)();
+    Hasher._combine(_:)(v16);
+    result = Hasher._finalize()();
+    v17 = -1 << v9[32];
+    v18 = result & ~v17;
+    v19 = v18 >> 6;
+    if (((-1 << v18) & ~*(v12 + 8 * (v18 >> 6))) == 0)
+    {
+      v21 = 0;
+      v22 = (63 - v17) >> 6;
+      while (++v19 != v22 || (v21 & 1) == 0)
+      {
+        v23 = v19 == v22;
+        if (v19 == v22)
+        {
+          v19 = 0;
+        }
+
+        v21 |= v23;
+        v24 = *(v12 + 8 * v19);
+        if (v24 != -1)
+        {
+          v20 = __clz(__rbit64(~v24)) + (v19 << 6);
+          goto LABEL_27;
+        }
+      }
+
+      goto LABEL_31;
+    }
+
+    v20 = __clz(__rbit64((-1 << v18) & ~*(v12 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_27:
+    *(v12 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
+    *(*(v9 + 6) + 8 * v20) = v16;
+    ++*(v9 + 2);
+    if (__OFSUB__(v5--, 1))
+    {
+      goto LABEL_32;
+    }
+
+    if (!v5)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  v14 = v11;
+  while (1)
+  {
+    v11 = v14 + 1;
+    if (__OFADD__(v14, 1))
+    {
+      break;
+    }
+
+    if (v11 >= a2)
+    {
+      goto LABEL_6;
+    }
+
+    v15 = a1[v11];
+    ++v14;
+    if (v15)
+    {
+      v13 = __clz(__rbit64(v15));
+      v10 = (v15 - 1) & v15;
+      goto LABEL_17;
+    }
+  }
+
+  __break(1u);
+LABEL_31:
+  __break(1u);
+LABEL_32:
+  __break(1u);
+  return result;
+}
+
+uint64_t _s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSay7LyricsX06SyncedQ8LineViewC0S0CG_Tt3g5Tm(unint64_t *a1, unint64_t a2, uint64_t a3, char a4, uint64_t a5, void (*a6)(uint64_t *__return_ptr, void *, uint64_t, __n128), void (*a7)(void *, uint64_t, uint64_t), __n128 a8)
+{
+  v13 = a2 >> 62;
   if (a2 >> 62)
   {
-    v22 = a3;
-    v23 = a4;
+    v23 = a3;
+    v24 = a4;
     _CocoaArrayWrapper.endIndex.getter();
-    a4 = v23;
-    a3 = v22;
+    a4 = v24;
+    a3 = v23;
   }
 
   if (a4)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = a3;
+    v14 = a3;
   }
 
-  v14 = static _HashTable.scale(forCapacity:)();
-  if (v14 <= v13)
+  v15 = static _HashTable.scale(forCapacity:)();
+  if (v15 <= v14)
   {
-    v15 = v13;
-  }
-
-  else
-  {
-    v15 = v14;
-  }
-
-  if (v15 <= a5)
-  {
-    v16 = a5;
+    v16 = v14;
   }
 
   else
@@ -363,73 +1267,73 @@ uint64_t _s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scal
     v16 = v15;
   }
 
-  if (v16 <= 4)
+  if (v16 <= a5)
   {
-    if (v12)
+    v17 = a5;
+  }
+
+  else
+  {
+    v17 = v16;
+  }
+
+  if (v17 <= 4)
+  {
+    if (v13)
     {
       if (_CocoaArrayWrapper.endIndex.getter() >= 2)
       {
-        DuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSiSRyAOGXEfU_Say7f3X06g2Q8hI10Z18S0CG_TG5Tf3nnnpf_nTf1cn_nTm = _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq57LyricsX06SyncedI8LineViewC0K0C_SiTg5073_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_7i3X06j2F8kl187C0H0C_SiTG50159_s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSiSRyAOGXEfU_Say7f3X06g2Q8hI10Z18S0CG_TG5Tf3nnnpf_nTf1cn_nTm(a2, a7);
+        _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq57LyricsX06SyncedI8LineViewC0K0C_SiTg5073_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_7i3X06j2F8kl187C0H0C_SiTG50159_s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSiSRyAOGXEfU_Say7f3X06g2Q8hI10Z18S0CG_TG5Tf3nnnpf_nTf1cn_nTm(a2, a7);
         goto LABEL_21;
       }
 
-      v17 = _CocoaArrayWrapper.endIndex.getter();
+      v18 = _CocoaArrayWrapper.endIndex.getter();
     }
 
     else
     {
-      v17 = *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (v17 >= 2)
+      v18 = *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (v18 >= 2)
       {
-        DuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSiSRyAOGXEfU_Say7f3X06g2Q8hI10Z18S0CG_TG5Tf3nnnpf_nTf1cn_nTm = specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)((a2 & 0xFFFFFFFFFFFFFF8) + 32, v17, a7);
+        specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)((a2 & 0xFFFFFFFFFFFFFF8) + 32, v18, a7);
 LABEL_21:
-        v21 = DuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSiSRyAOGXEfU_Say7f3X06g2Q8hI10Z18S0CG_TG5Tf3nnnpf_nTf1cn_nTm;
+        v22 = v19;
         result = 0;
         goto LABEL_22;
       }
     }
 
     result = 0;
-    *a1 = v17;
+    *a1 = v18;
     return result;
   }
 
-  v19 = _HashTable.init(scale:reservedScale:)();
-  specialized _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(&v24, a2, (v19 + 16), v19 + 32, a6);
-  result = v19;
-  v21 = v24;
+  v20 = _HashTable.init(scale:reservedScale:)();
+  specialized _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(&v25, a2, (v20 + 16), v20 + 32, a6);
+  result = v20;
+  v22 = v25;
 LABEL_22:
-  *a1 = v21;
+  *a1 = v22;
   return result;
 }
 
-uint64_t _s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSay7LyricsX0Q0C4WordVG_Tt3g5(void *a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
+uint64_t _s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSay7LyricsX0Q0C4WordVG_Tt3g5(uint64_t *a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, __n128 a6)
 {
-  v8 = *(a2 + 16);
+  v9 = *(a2 + 16);
   if (a4)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = a3;
+    v10 = a3;
   }
 
-  v10 = static _HashTable.scale(forCapacity:)();
-  if (v10 <= v9)
+  v11 = static _HashTable.scale(forCapacity:)();
+  if (v11 <= v10)
   {
-    v11 = v9;
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  if (v11 <= a5)
-  {
-    v12 = a5;
+    v12 = v10;
   }
 
   else
@@ -437,31 +1341,41 @@ uint64_t _s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scal
     v12 = v11;
   }
 
-  if (v12 > 4)
+  if (v12 <= a5)
   {
-    v14 = _HashTable.init(scale:reservedScale:)();
-    specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(a2 + 32, v8, (v14 + 16), v14 + 32);
-    *a1 = v15;
-    return v14;
+    v13 = a5;
   }
 
-  else if (v8 >= 2)
+  else
   {
-    v16 = specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)((a2 + 32), v8);
-    result = 0;
+    v13 = v12;
+  }
+
+  if (v13 > 4)
+  {
+    v15 = _HashTable.init(scale:reservedScale:)();
+    specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(a2 + 32, v9, (v15 + 16), v15 + 32);
     *a1 = v16;
+    return v15;
+  }
+
+  else if (v9 >= 2)
+  {
+    v17 = specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)((a2 + 32), v9);
+    result = 0;
+    *a1 = v17;
   }
 
   else
   {
     result = 0;
-    *a1 = v8;
+    *a1 = v9;
   }
 
   return result;
 }
 
-id *_ss15ContiguousArrayVyAByxGqd__c7ElementQyd__RszSTRd__lufC7LyricsX06SyncedD8LineViewC0F0C_SayAJGTt0g5Tm(unint64_t a1, void (*a2)(id *, uint64_t, unint64_t))
+void *_ss15ContiguousArrayVyAByxGqd__c7ElementQyd__RszSTRd__lufC7LyricsX06SyncedD8LineViewC0F0C_SayAJGTt0g5Tm(unint64_t a1, void (*a2)(void *, uint64_t, uint64_t))
 {
   if (!(a1 >> 62))
   {
@@ -491,32 +1405,32 @@ LABEL_7:
   return result;
 }
 
-uint64_t specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)(uint64_t a1, uint64_t a2, void (*a3)(id *, uint64_t, unint64_t))
+void specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)(uint64_t a1, uint64_t a2, void (*a3)(void *, uint64_t, uint64_t))
 {
-  v11 = _ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(_swiftEmptyArrayStorage, a3);
-  result = specialized ContiguousArray.reserveCapacity(_:)();
+  v10 = _ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(_swiftEmptyArrayStorage, a3);
+  specialized ContiguousArray.reserveCapacity(_:)();
   if (a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v6 = 0;
+      v5 = 0;
       while (1)
       {
-        v7 = v6 + 1;
-        if (__OFADD__(v6, 1))
+        v6 = v5 + 1;
+        if (__OFADD__(v5, 1))
         {
           break;
         }
 
-        v8 = v11[2];
-        v9 = (v11 + 4);
-        while (v8)
+        v7 = v10[2];
+        v8 = v10 + 4;
+        while (v7)
         {
-          v10 = *v9++;
-          --v8;
-          if (*(a1 + 8 * v6) == v10)
+          v9 = *v8++;
+          --v7;
+          if (*(a1 + 8 * v5) == v9)
           {
-            goto LABEL_12;
+            goto LABEL_10;
           }
         }
 
@@ -526,11 +1440,10 @@ uint64_t specialized closure #1 in static _HashTable.create<A>(untilFirstDuplica
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
 
-        ++v6;
-        if (v7 == a2)
+        ++v5;
+        if (v6 == a2)
         {
-          v6 = a2;
-          goto LABEL_12;
+          goto LABEL_10;
         }
       }
 
@@ -542,16 +1455,11 @@ uint64_t specialized closure #1 in static _HashTable.create<A>(untilFirstDuplica
 
   else
   {
-    v6 = 0;
-LABEL_12:
-
-    return v6;
+LABEL_10:
   }
-
-  return result;
 }
 
-id *specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)(__int128 *a1, uint64_t a2)
+char *specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)(__int128 *a1, uint64_t a2)
 {
   v2 = a2;
   v16 = _swiftEmptyArrayStorage;
@@ -582,7 +1490,7 @@ LABEL_12:
       v21 = v18;
       v22 = v19;
       outlined init with copy of String(&v21, v15);
-      outlined init with copy of TaskPriority?(&v22, v15, &_sSay7LyricsX0A0C8SyllableVGMd);
+      outlined init with copy of TaskPriority?(&v22, v15, &_sSay7LyricsX0A0C8SyllableVGMd, &_sSay7LyricsX0A0C8SyllableVGMR);
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
       v16 = v5;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
@@ -600,7 +1508,7 @@ LABEL_12:
       }
 
       ++v6;
-      v5[2] = (v10 + 1);
+      v5[2] = v10 + 1;
       v11 = &v5[7 * v10];
       v12 = v17;
       v13 = v18;
@@ -749,7 +1657,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t specialized _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(void *a1, int64_t a2, void *a3, uint64_t a4, void (*a5)(uint64_t *__return_ptr, id *, id))
+uint64_t specialized _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(void *a1, uint64_t a2, void *a3, uint64_t a4, void (*a5)(uint64_t *__return_ptr, void *, uint64_t, __n128))
 {
   if (a2 < 0 || (a2 & 0x4000000000000000) != 0)
   {
@@ -758,14 +1666,14 @@ uint64_t specialized _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(voi
 
   else
   {
-    v6 = specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)((a2 & 0xFFFFFFFFFFFFFF8) + 32, *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10), a3);
+    v6 = specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)((a2 & 0xFFFFFFFFFFFFFF8) + 32, *((a2 & 0xFFFFFFFFFFFFFF8) + 0x10), a3, a4);
   }
 
   *a1 = v7;
   return v6 & 1;
 }
 
-Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(Swift::Int result, uint64_t a2, void *a3)
+Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(Swift::Int result, uint64_t a2, void *a3, uint64_t a4)
 {
   if (!a2)
   {
@@ -774,18 +1682,18 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstD
 
   if ((a2 & 0x8000000000000000) == 0)
   {
-    v5 = result;
+    v6 = result;
     for (i = 0; ; ++i)
     {
-      v7 = i + 1;
+      v8 = i + 1;
       if (__OFADD__(i, 1))
       {
         break;
       }
 
-      v8 = *(v5 + 8 * i);
+      v9 = *(v6 + 8 * i);
       Hasher.init(_seed:)();
-      Hasher._combine(_:)(v8);
+      Hasher._combine(_:)(v9);
       result = Hasher._finalize()();
       if (__OFSUB__(1 << *a3, 1))
       {
@@ -795,13 +1703,13 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstD
       _HashTable.UnsafeHandle._startIterator(bucket:)();
       while (1)
       {
-        v9 = _HashTable.BucketIterator.currentValue.getter();
-        if (v10)
+        v10 = _HashTable.BucketIterator.currentValue.getter();
+        if (v11)
         {
           break;
         }
 
-        if (*(v5 + 8 * v9) == *(v5 + 8 * i))
+        if (*(v6 + 8 * v10) == *(v6 + 8 * i))
         {
           return 0;
         }
@@ -810,7 +1718,7 @@ Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstD
       }
 
       result = _HashTable.BucketIterator.currentValue.setter();
-      if (v7 == a2)
+      if (v8 == a2)
       {
         return 1;
       }
@@ -825,7 +1733,6 @@ LABEL_15:
   return result;
 }
 
-Swift::Int specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(Swift::Int result, uint64_t a2, void *a3, uint64_t a4)
 {
   v44 = result;
   if (!a2)
@@ -860,7 +1767,7 @@ LABEL_50:
     v61 = v7;
     Hasher.init(_seed:)();
     outlined init with copy of String(v60, v46);
-    outlined init with copy of TaskPriority?(&v61, v46, &_sSay7LyricsX0A0C8SyllableVGMd);
+    outlined init with copy of TaskPriority?(&v61, v46, &_sSay7LyricsX0A0C8SyllableVGMd, &_sSay7LyricsX0A0C8SyllableVGMR);
     Lyrics.Word.hash(into:)(v47);
     result = Hasher._finalize()();
     v8 = 1 << *v4;
@@ -881,7 +1788,7 @@ LABEL_52:
     v14 = v13;
     v16 = v15;
     outlined destroy of String(v60);
-    outlined destroy of TaskPriority?(&v61, &_sSay7LyricsX0A0C8SyllableVGMd);
+    outlined destroy of TaskPriority?(&v61, &_sSay7LyricsX0A0C8SyllableVGMd, &_sSay7LyricsX0A0C8SyllableVGMR);
     *&v48 = v4;
     *(&v48 + 1) = a4;
     *&v49 = v11;
@@ -1017,139 +1924,6 @@ LABEL_9:
   }
 }
 
-uint64_t specialized Set._subtract<A>(_:)(uint64_t a1)
-{
-  if ((*v1 & 0xC000000000000001) != 0)
-  {
-    result = __CocoaSet.count.getter();
-    if (!result)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    result = *(*v1 + 16);
-    if (!result)
-    {
-      return result;
-    }
-  }
-
-  if ((a1 & 0xC000000000000001) != 0)
-  {
-    swift_unknownObjectRetain();
-    __CocoaSet.makeIterator()();
-    type metadata accessor for SyncedLyricsLineView.Word();
-    lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type SyncedLyricsLineView.Word and conformance SyncedLyricsLineView.Word, type metadata accessor for SyncedLyricsLineView.Word);
-    result = Set.Iterator.init(_cocoa:)();
-    a1 = v17;
-    v4 = v18;
-    v5 = v19;
-    v6 = v20;
-    v7 = v21;
-  }
-
-  else
-  {
-    v8 = -1 << *(a1 + 32);
-    v4 = a1 + 56;
-    v5 = ~v8;
-    v9 = -v8;
-    if (v9 < 64)
-    {
-      v10 = ~(-1 << v9);
-    }
-
-    else
-    {
-      v10 = -1;
-    }
-
-    v7 = v10 & *(a1 + 56);
-
-    v6 = 0;
-  }
-
-  if (a1 < 0)
-  {
-    goto LABEL_18;
-  }
-
-  while (1)
-  {
-    v11 = v6;
-    v12 = v7;
-    v13 = v6;
-    if (!v7)
-    {
-      break;
-    }
-
-LABEL_16:
-    v14 = (v12 - 1) & v12;
-    v15 = *(*(a1 + 48) + ((v13 << 9) | (8 * __clz(__rbit64(v12)))));
-
-    if (!v15)
-    {
-      return outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
-    }
-
-    while (1)
-    {
-      specialized Set._Variant.remove(_:)(v15);
-
-      v6 = v13;
-      v7 = v14;
-      if ((a1 & 0x8000000000000000) == 0)
-      {
-        break;
-      }
-
-LABEL_18:
-      if (__CocoaSet.Iterator.next()())
-      {
-        type metadata accessor for SyncedLyricsLineView.Word();
-        swift_dynamicCast();
-        v15 = v16;
-        v13 = v6;
-        v14 = v7;
-        if (v16)
-        {
-          continue;
-        }
-      }
-
-      return outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
-    }
-  }
-
-  while (1)
-  {
-    v13 = v11 + 1;
-    if (__OFADD__(v11, 1))
-    {
-      break;
-    }
-
-    if (v13 >= ((v5 + 64) >> 6))
-    {
-      return outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
-    }
-
-    v12 = *(v4 + 8 * v13);
-    ++v11;
-    if (v12)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
 void *specialized _NativeSet.subtracting<A>(_:)(uint64_t a1, unint64_t a2)
 {
   v3 = a2;
@@ -1165,13 +1939,13 @@ void *specialized _NativeSet.subtracting<A>(_:)(uint64_t a1, unint64_t a2)
     swift_unknownObjectRetain();
     __CocoaSet.makeIterator()();
     type metadata accessor for SyncedLyricsLineView.Word();
-    lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type SyncedLyricsLineView.Word and conformance SyncedLyricsLineView.Word, type metadata accessor for SyncedLyricsLineView.Word);
+    lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type SyncedLyricsLineView.Word and conformance SyncedLyricsLineView.Word, type metadata accessor for SyncedLyricsLineView.Word, &protocol conformance descriptor for SyncedLyricsLineView.Word);
     Set.Iterator.init(_cocoa:)();
-    v4 = v60;
-    v6 = v61;
-    v7 = v62;
-    v8 = v63;
-    v9 = v64;
+    v4 = v61;
+    v6 = v62;
+    v7 = v63;
+    v8 = v64;
+    v9 = v65;
   }
 
   else
@@ -1195,15 +1969,15 @@ void *specialized _NativeSet.subtracting<A>(_:)(uint64_t a1, unint64_t a2)
     v8 = 0;
   }
 
-  v55 = v4;
-  v56 = v6;
-  v57 = v7;
-  v58 = v8;
-  v51 = v7;
+  v56 = v4;
+  v57 = v6;
+  v58 = v7;
+  v59 = v8;
+  v52 = v7;
   v14 = (v7 + 64) >> 6;
   v15 = (v3 + 56);
-  v59 = v9;
-  v52 = v3;
+  v60 = v9;
+  v53 = v3;
   while (1)
   {
     if (v4 < 0)
@@ -1214,13 +1988,13 @@ void *specialized _NativeSet.subtracting<A>(_:)(uint64_t a1, unint64_t a2)
         goto LABEL_65;
       }
 
-      v53 = v21;
+      v54 = v21;
       type metadata accessor for SyncedLyricsLineView.Word();
       swift_dynamicCast();
-      v2 = v54;
+      v2 = v55;
       v19 = v8;
       v3 = v9;
-      if (!v54)
+      if (!v55)
       {
         goto LABEL_65;
       }
@@ -1278,23 +2052,23 @@ LABEL_20:
         v3 = 0;
       }
 
-      v55 = v4;
-      v56 = v6;
-      v57 = v51;
-      v58 = v19;
-      v59 = v3;
+      v56 = v4;
+      v57 = v6;
+      v58 = v52;
+      v59 = v19;
+      v60 = v3;
       if (!v2)
       {
 LABEL_65:
-        outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
-        return v52;
+        outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v4);
+        return v53;
       }
     }
 
     Hasher.init(_seed:)();
     Hasher._combine(_:)(v2);
     v22 = Hasher._finalize()();
-    v23 = -1 << *(v52 + 32);
+    v23 = -1 << *(v53 + 32);
     v9 = v22 & ~v23;
     v8 = v9 >> 6;
     v17 = 1 << v9;
@@ -1309,7 +2083,7 @@ LABEL_10:
     v9 = v3;
   }
 
-  v24 = *(v52 + 48);
+  v24 = *(v53 + 48);
   if (*(v24 + 8 * v9) != v2)
   {
     v25 = ~v23;
@@ -1327,10 +2101,10 @@ LABEL_10:
     while (*(v24 + 8 * v9) != v2);
   }
 
-  v2 = v52;
-  v26 = *(v52 + 32);
-  v47 = ((1 << v26) + 63) >> 6;
-  v5 = 8 * v47;
+  v2 = v53;
+  v26 = *(v53 + 32);
+  v48 = ((1 << v26) + 63) >> 6;
+  v5 = 8 * v48;
   if ((v26 & 0x3Fu) > 0xD)
   {
     goto LABEL_68;
@@ -1338,18 +2112,18 @@ LABEL_10:
 
   while (2)
   {
-    v48 = &v46;
+    v49 = &v47;
     __chkstk_darwin();
-    v9 = &v46 - ((v27 + 15) & 0x3FFFFFFFFFFFFFF0);
+    v9 = &v47 - ((v27 + 15) & 0x3FFFFFFFFFFFFFF0);
     memcpy(v9, v15, v27);
     v28 = *(v9 + 8 * v8) & ~v17;
     v29 = *(v2 + 16);
-    v49 = v9;
+    v50 = v9;
     *(v9 + 8 * v8) = v28;
     v30 = v29 - 1;
     v2 = 1;
 LABEL_34:
-    v50 = v30;
+    v51 = v30;
     while (1)
     {
       if (v4 < 0)
@@ -1360,11 +2134,11 @@ LABEL_34:
           goto LABEL_62;
         }
 
-        v53 = v31;
+        v54 = v31;
         type metadata accessor for SyncedLyricsLineView.Word();
         swift_dynamicCast();
-        v8 = v54;
-        if (!v54)
+        v8 = v55;
+        if (!v55)
         {
           goto LABEL_62;
         }
@@ -1385,21 +2159,21 @@ LABEL_49:
 
       v33 = v17;
 LABEL_50:
-      v55 = v4;
-      v56 = v6;
-      v57 = v51;
-      v58 = v33;
+      v56 = v4;
+      v57 = v6;
+      v58 = v52;
+      v59 = v33;
       v19 = v33;
-      v59 = v3;
+      v60 = v3;
       if (!v8)
       {
 LABEL_62:
-        v10 = specialized _NativeSet.extractSubset(using:count:)(v49, v47, v50, v52);
+        v10 = specialized _NativeSet.extractSubset(using:count:)(v50, v48, v51, v53);
         goto LABEL_63;
       }
 
 LABEL_51:
-      v35 = v52;
+      v35 = v53;
       Hasher.init(_seed:)();
       Hasher._combine(_:)(v8);
       v36 = Hasher._finalize()();
@@ -1412,7 +2186,7 @@ LABEL_51:
         goto LABEL_35;
       }
 
-      v40 = *(v52 + 48);
+      v40 = *(v53 + 48);
       if (*(v40 + 8 * v38) != v8)
       {
         v41 = ~v37;
@@ -1439,17 +2213,17 @@ LABEL_35:
 
 LABEL_56:
 
-      v42 = v49[v39];
-      v49[v39] = v42 & ~v9;
+      v42 = v50[v39];
+      v50[v39] = v42 & ~v9;
       if ((v42 & v9) != 0)
       {
-        v30 = v50 - 1;
-        if (__OFSUB__(v50, 1))
+        v30 = v51 - 1;
+        if (__OFSUB__(v51, 1))
         {
           __break(1u);
         }
 
-        if (v50 == 1)
+        if (v51 == 1)
         {
 
           v10 = &_swiftEmptySetSingleton;
@@ -1498,7 +2272,7 @@ LABEL_56:
 LABEL_67:
     __break(1u);
 LABEL_68:
-    v50 = v5;
+    v51 = v5;
 
     if (swift_stdlib_isStackAllocationSafe())
     {
@@ -1509,21 +2283,21 @@ LABEL_68:
     break;
   }
 
-  v44 = v50;
+  v44 = v51;
   v45 = swift_slowAlloc();
   memcpy(v45, v15, v44);
-  v10 = specialized closure #1 in _NativeSet.subtracting<A>(_:)(v45, v47, v2, v9, &v55);
+  specialized closure #1 in _NativeSet.subtracting<A>(_:)(v45, v48, v2, v9, &v56);
+  v10 = v46;
 
 LABEL_63:
-  outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
+  outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v56);
   return v10;
 }
 
-unint64_t *specialized closure #1 in _NativeSet.subtracting<A>(_:)(unint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
+void specialized closure #1 in _NativeSet.subtracting<A>(_:)(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4, void *a5)
 {
-  v7 = result;
   v8 = *(a3 + 16);
-  *(result + ((a4 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a4) - 1;
+  *(a1 + ((a4 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << a4) - 1;
   v9 = v8 - 1;
   v10 = a3 + 56;
   while (2)
@@ -1605,7 +2379,8 @@ LABEL_17:
           {
 LABEL_29:
 
-            return specialized _NativeSet.extractSubset(using:count:)(v7, a2, v28, a3);
+            specialized _NativeSet.extractSubset(using:count:)(a1, a2, v28, a3);
+            return;
           }
         }
 
@@ -1649,8 +2424,8 @@ LABEL_3:
 
 LABEL_23:
 
-      v26 = v7[v22];
-      v7[v22] = v26 & ~v23;
+      v26 = a1[v22];
+      a1[v22] = v26 & ~v23;
     }
 
     while ((v26 & v23) == 0);
@@ -1659,7 +2434,7 @@ LABEL_23:
     {
 LABEL_31:
       __break(1u);
-      return result;
+      return;
     }
 
     if (v28 != 1)
@@ -1667,27 +2442,27 @@ LABEL_31:
       continue;
     }
 
-    return &_swiftEmptySetSingleton;
+    break;
   }
 }
 
-uint64_t specialized OrderedSet._subtracting<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void specialized OrderedSet._subtracting<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a4 + 16))
   {
     __chkstk_darwin();
+    v9 = 0;
     v10 = 0;
-    v11 = 0;
     __chkstk_darwin();
     static _UnsafeBitSet._withTemporaryBitSet(wordCount:run:)();
   }
 
   else
   {
-    if (!(_swiftEmptyArrayStorage >> 62) || (v5 = _CocoaArrayWrapper.endIndex.getter()) == 0 || (v6 = v5, v7 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7LyricsX06SyncedH8LineViewC0J0C_Tt1g5Tm(v5, 0), specialized Array._copyContents(initializing:)((v7 + 4), v6, _swiftEmptyArrayStorage), v9 = v8, , v9 == v6))
+    if (!(_swiftEmptyArrayStorage >> 62) || (v4 = _CocoaArrayWrapper.endIndex.getter()) == 0 || (v5 = v4, v6 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7LyricsX06SyncedH8LineViewC0J0C_Tt1g5Tm(v4, 0), specialized Array._copyContents(initializing:)((v6 + 4), v5, _swiftEmptyArrayStorage), v8 = v7, , v8 == v5))
     {
 
-      return 0;
+      return;
     }
 
     __break(1u);
@@ -1695,41 +2470,37 @@ uint64_t specialized OrderedSet._subtracting<A>(_:)(uint64_t a1, uint64_t a2, ui
 
   __break(1u);
 
-  result = outlined consume of NoticeDismissal?(v10, v11);
+  outlined consume of NoticeDismissal?(v9, v10);
   __break(1u);
-  return result;
 }
 
-void *specialized closure #1 in static _UnsafeBitSet.withTemporaryBitSet<A>(wordCount:run:)(uint64_t a1, uint64_t *a2, void *(*a3)(__int128 *__return_ptr))
+void specialized closure #1 in static _UnsafeBitSet.withTemporaryBitSet<A>(wordCount:run:)(uint64_t a1, uint64_t *a2, void (*a3)(__int128 *__return_ptr, uint64_t))
 {
-  result = a3(&v8);
+  a3(&v7, a1);
   if (!v3)
   {
-    v6 = *a2;
-    v7 = a2[1];
-    *a2 = v8;
-    return outlined consume of NoticeDismissal?(v6, v7);
+    v5 = *a2;
+    v6 = a2[1];
+    *a2 = v7;
+    outlined consume of NoticeDismissal?(v5, v6);
   }
-
-  return result;
 }
 
-uint64_t specialized OrderedSet._extractSubset(using:count:extraCapacity:)(__int128 a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void specialized OrderedSet._extractSubset(using:count:extraCapacity:)(int8x8_t *a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, int8x8_t *a6, uint64_t a7)
 {
-  v8 = a5;
-  if (a3)
+  if (a4)
   {
-    if (a1 && *(&a1 + 1))
+    if (a1 && a2)
     {
-      a2 = 0;
-      v10 = 8 * *(&a1 + 1);
+      a3 = 0;
+      v10 = 8 * a2;
       v11 = a1;
       while (1)
       {
         v12 = vcnt_s8(*v11);
         v12.i16[0] = vaddlv_u8(v12);
-        v13 = __OFADD__(a2, v12.u32[0]);
-        a2 += v12.u32[0];
+        v13 = __OFADD__(a3, v12.u32[0]);
+        a3 += v12.u32[0];
         if (v13)
         {
           break;
@@ -1744,226 +2515,219 @@ uint64_t specialized OrderedSet._extractSubset(using:count:extraCapacity:)(__int
       }
 
       __break(1u);
-      goto LABEL_51;
+LABEL_50:
+      __break(1u);
+LABEL_51:
+      __break(1u);
+LABEL_52:
+      __break(1u);
+      goto LABEL_53;
     }
 
-    goto LABEL_14;
+LABEL_14:
+    _ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(_swiftEmptyArrayStorage, specialized Array._copyContents(initializing:));
+    specialized OrderedSet._reserveCapacity(_:persistent:)(a5, 0);
+
+    return;
   }
 
 LABEL_7:
-  if (!a2)
+  if (!a3)
   {
-LABEL_14:
-    _ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(_swiftEmptyArrayStorage, specialized Array._copyContents(initializing:));
-    specialized OrderedSet._reserveCapacity(_:persistent:)(a4, 0);
-
-    v8 = 0;
-    goto LABEL_49;
+    goto LABEL_14;
   }
 
-  if (a2 == *(a6 + 16))
+  if (a3 == *(a7 + 16))
   {
-    if (a5)
+    if (a6)
     {
-      v14 = a2;
+      v14 = a3;
       swift_beginAccess();
       v15 = static _HashTable.maximumCapacity(forScale:)();
-      a2 = v14;
+      a3 = v14;
       v16 = v15 - v14;
       if (!__OFSUB__(v15, v14))
       {
-        goto LABEL_11;
+LABEL_11:
+        if (v16 >= a5)
+        {
+          return;
+        }
+
+        if (!__OFADD__(a3, a5))
+        {
+          specialized OrderedSet._reserveCapacity(_:persistent:)(a3 + a5, 0);
+          return;
+        }
+
+        goto LABEL_54;
       }
     }
 
     else
     {
-      v16 = 15 - a2;
-      if (!__OFSUB__(15, a2))
+      v16 = 15 - a3;
+      if (!__OFSUB__(15, a3))
       {
-LABEL_11:
-        if (v16 < a4)
-        {
-          *&a1 = a2 + a4;
-          if (__OFADD__(a2, a4))
-          {
-            goto LABEL_55;
-          }
-
-          specialized OrderedSet._reserveCapacity(_:persistent:)(a1, 0);
-        }
-
-        goto LABEL_49;
+        goto LABEL_11;
       }
     }
 
     __break(1u);
+    goto LABEL_20;
+  }
+
+  v17 = a3 + a5;
+  if (!__OFADD__(a3, a5))
+  {
+    v27 = _ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(_swiftEmptyArrayStorage, specialized Array._copyContents(initializing:));
+    specialized OrderedSet._reserveCapacity(_:persistent:)(v17, 0);
+    v7 = 0;
+    v29 = v27;
 LABEL_20:
-    *&a1 = _UnsafeBitSet.Iterator.next()();
-    if ((BYTE8(a1) & 1) == 0)
+    v30 = _UnsafeBitSet.Iterator.next()();
+    if (v30.is_nil)
     {
-      while ((a1 & 0x8000000000000000) == 0)
+LABEL_47:
+
+      return;
+    }
+
+    while (1)
+    {
+      if ((v30.value & 0x8000000000000000) != 0)
       {
-        if (a1 >= *(a6 + 16))
+        goto LABEL_50;
+      }
+
+      if (v30.value >= *(a7 + 16))
+      {
+        goto LABEL_51;
+      }
+
+      v23 = *(a7 + 32 + 8 * v30.value);
+      swift_retain_n();
+      specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
+      specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
+      specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+      specialized ContiguousArray._endMutation()();
+      v24 = v29;
+      v25 = v29[2];
+      if (!v7)
+      {
+        break;
+      }
+
+      swift_beginAccess();
+      if (static _HashTable.maximumCapacity(forScale:)() >= v25)
+      {
+        if ((swift_isUniquelyReferenced_native() & 1) == 0)
+        {
+          v26 = _HashTable.copy()();
+
+          v7 = v26;
+          if (!v26)
+          {
+            goto LABEL_55;
+          }
+        }
+
+        Hasher.init(_seed:)();
+        Hasher._combine(_:)(v23);
+        Hasher._finalize()();
+        if (__OFSUB__(1 << *(v7 + 16), 1))
         {
           goto LABEL_52;
         }
 
-        v22 = *(a6 + 32 + 8 * a1);
-        swift_retain_n();
-        specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
-        specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        specialized ContiguousArray._endMutation()();
-        v23 = v29;
-        v24 = v29[2];
-        if (!v6)
+        if (_HashTable.UnsafeHandle._startIterator(bucket:)())
         {
           while (1)
           {
-            if (v24 > 0xF)
-            {
-              v18 = 0;
-              goto LABEL_23;
-            }
-
-            *&a1 = _UnsafeBitSet.Iterator.next()();
-            if (BYTE8(a1))
-            {
-              break;
-            }
-
-            if ((a1 & 0x8000000000000000) != 0)
-            {
-              goto LABEL_51;
-            }
-
-            if (a1 >= *(a6 + 16))
-            {
-              goto LABEL_52;
-            }
-
-            swift_retain_n();
-            specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-            specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
-            specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-            specialized ContiguousArray._endMutation()();
-            v23 = v29;
-            v24 = v29[2];
-          }
-
-          v6 = 0;
-          goto LABEL_48;
-        }
-
-        swift_beginAccess();
-        if (static _HashTable.maximumCapacity(forScale:)() >= v24)
-        {
-          if ((swift_isUniquelyReferenced_native() & 1) == 0)
-          {
-            v25 = _HashTable.copy()();
-
-            v6 = v25;
-            if (!v25)
-            {
-              goto LABEL_56;
-            }
-          }
-
-          Hasher.init(_seed:)();
-          Hasher._combine(_:)(v22);
-          *&a1 = Hasher._finalize()();
-          if (__OFSUB__(1 << *(v6 + 16), 1))
-          {
-            goto LABEL_53;
-          }
-
-          if (_HashTable.UnsafeHandle._startIterator(bucket:)())
-          {
-            while (1)
-            {
-              _HashTable.BucketIterator.advance()();
-            }
-          }
-
-          _HashTable.BucketIterator.currentValue.setter();
-        }
-
-        else
-        {
-          v18 = *(v6 + 24) & 0x3FLL;
-          if (v24 > 0xF || v18)
-          {
-LABEL_23:
-            v19 = static _HashTable.scale(forCapacity:)();
-            if (v18 <= v19)
-            {
-              v20 = v19;
-            }
-
-            else
-            {
-              v20 = v18;
-            }
-
-            v21 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVy7LyricsX06SyncedO8LineViewC0Q0CG_Tt2g5Tm(v23, v20, 0, v18);
-
-            v6 = v21;
-          }
-
-          else
-          {
-
-            v6 = 0;
+            _HashTable.BucketIterator.advance()();
           }
         }
 
-        *&a1 = _UnsafeBitSet.Iterator.next()();
-        if (BYTE8(a1))
-        {
-          goto LABEL_48;
-        }
+        _HashTable.BucketIterator.currentValue.setter();
       }
 
-LABEL_51:
-      __break(1u);
-LABEL_52:
-      __break(1u);
-LABEL_53:
-      __break(1u);
-      goto LABEL_54;
+      else
+      {
+        v18 = *(v7 + 24) & 0x3FLL;
+        if (v25 > 0xF || v18)
+        {
+          goto LABEL_23;
+        }
+
+        v7 = 0;
+      }
+
+LABEL_27:
+      v30 = _UnsafeBitSet.Iterator.next()();
+      if (v30.is_nil)
+      {
+        goto LABEL_47;
+      }
     }
 
-LABEL_48:
+    while (v25 <= 0xF)
+    {
 
-    v8 = v6;
-LABEL_49:
-    *&a1 = v8;
-    return a1;
+      v31 = _UnsafeBitSet.Iterator.next()();
+      if (v31.is_nil)
+      {
+        goto LABEL_47;
+      }
+
+      if ((v31.value & 0x8000000000000000) != 0)
+      {
+        goto LABEL_50;
+      }
+
+      if (v31.value >= *(a7 + 16))
+      {
+        goto LABEL_51;
+      }
+
+      swift_retain_n();
+      specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
+      specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
+      specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+      specialized ContiguousArray._endMutation()();
+      v24 = v29;
+      v25 = v29[2];
+    }
+
+    v18 = 0;
+LABEL_23:
+    v19 = static _HashTable.scale(forCapacity:)();
+    if (v18 <= v19)
+    {
+      v21 = v19;
+    }
+
+    else
+    {
+      v21 = v18;
+    }
+
+    v22 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVy7LyricsX06SyncedO8LineViewC0Q0CG_Tt2g5Tm(v24, v21, 0, v18, v20);
+
+    v7 = v22;
+    goto LABEL_27;
   }
 
-  v17 = a2 + a4;
-  if (!__OFADD__(a2, a4))
-  {
-    v27 = _ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(_swiftEmptyArrayStorage, specialized Array._copyContents(initializing:));
-    specialized OrderedSet._reserveCapacity(_:persistent:)(v17, 0);
-    v6 = 0;
-    v29 = v27;
-    goto LABEL_20;
-  }
-
+LABEL_53:
+  __break(1u);
 LABEL_54:
   __break(1u);
 LABEL_55:
   __break(1u);
-LABEL_56:
-  __break(1u);
-  return a1;
 }
 
-uint64_t specialized OrderedSet._reserveCapacity(_:persistent:)(uint64_t result, char a2)
+void specialized OrderedSet._reserveCapacity(_:persistent:)(uint64_t a1, char a2)
 {
-  if (result < 0)
+  if (a1 < 0)
   {
 LABEL_34:
     __break(1u);
@@ -1978,12 +2742,12 @@ LABEL_34:
     swift_beginAccess();
     v6 = *(v5 + 16) & 0x3FLL;
     v7 = static _HashTable.scale(forCapacity:)();
-    v8 = v7;
+    v9 = v7;
     if ((a2 & 1) == 0)
     {
       swift_beginAccess();
-      v7 = v8;
-      v8 = *(v5 + 24) & 0x3FLL;
+      v7 = v9;
+      v9 = *(v5 + 24) & 0x3FLL;
     }
   }
 
@@ -1993,83 +2757,83 @@ LABEL_34:
     v6 = 0;
     if (a2)
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
   }
 
-  v9 = v3[1];
+  v10 = v3[1];
   if (v6 < v7)
   {
-    if (v8 <= v7)
+    if (v9 <= v7)
     {
-      v10 = v7;
+      v11 = v7;
     }
 
     else
     {
-      v10 = v8;
+      v11 = v9;
     }
 
 LABEL_23:
-    v13 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVy7LyricsX06SyncedO8LineViewC0Q0CG_Tt2g5Tm(v9, v10, 0, v8);
+    v15 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVy7LyricsX06SyncedO8LineViewC0Q0CG_Tt2g5Tm(v10, v11, 0, v9, v8);
 
-    *v3 = v13;
-    return result;
+    *v3 = v15;
+    return;
   }
 
-  if (v8 <= v7)
+  if (v9 <= v7)
   {
-    v11 = v7;
-  }
-
-  else
-  {
-    v11 = v8;
-  }
-
-  result = static _HashTable.scale(forCapacity:)();
-  if (result <= v11)
-  {
-    v12 = v11;
+    v12 = v7;
   }
 
   else
   {
-    v12 = result;
+    v12 = v9;
   }
 
-  if (v12 < v6)
+  v13 = static _HashTable.scale(forCapacity:)();
+  if (v13 <= v12)
   {
-    if (v8 <= v12)
+    v14 = v12;
+  }
+
+  else
+  {
+    v14 = v13;
+  }
+
+  if (v14 < v6)
+  {
+    if (v9 <= v14)
     {
-      v10 = v12;
+      v11 = v14;
     }
 
     else
     {
-      v10 = v8;
+      v11 = v9;
     }
 
     goto LABEL_23;
   }
 
-  if (!v5 || (result = swift_isUniquelyReferenced_native(), (result & 1) != 0))
+  if (!v5 || (swift_isUniquelyReferenced_native() & 1) != 0)
   {
-    v14 = *v3;
+    v16 = *v3;
     if (*v3)
     {
       goto LABEL_28;
     }
 
 LABEL_32:
-    if (!v8)
+    if (!v9)
     {
-      return result;
+      return;
     }
 
     __break(1u);
@@ -2080,28 +2844,26 @@ LABEL_32:
   {
 LABEL_35:
     __break(1u);
-    return result;
+    return;
   }
 
-  v14 = _HashTable.copy()();
+  v16 = _HashTable.copy()();
 
-  *v3 = v14;
-  if (!v14)
+  *v3 = v16;
+  if (!v16)
   {
     goto LABEL_32;
   }
 
 LABEL_28:
-  result = swift_beginAccess();
-  if ((*(v14 + 24) & 0x3FLL) != v8)
+  swift_beginAccess();
+  if ((*(v16 + 24) & 0x3FLL) != v9)
   {
-    *(v14 + 24) = *(v14 + 24) & 0xFFFFFFFFFFFFFFC0 | v8 & 0x3F;
+    *(v16 + 24) = *(v16 + 24) & 0xFFFFFFFFFFFFFFC0 | v9 & 0x3F;
   }
-
-  return result;
 }
 
-unint64_t specialized OrderedSet._removeExistingMember(at:in:)@<X0>(int64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void specialized OrderedSet._removeExistingMember(at:in:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v6 = v3[1];
   v7 = *(v6 + 16);
@@ -2114,18 +2876,18 @@ unint64_t specialized OrderedSet._removeExistingMember(at:in:)@<X0>(int64_t a1@<
     }
 
 LABEL_15:
-    result = specialized ContiguousArray.remove(at:)(a1, &v17);
+    specialized ContiguousArray.remove(at:)(a1, &v19);
 LABEL_17:
-    v13 = v20;
-    v14 = v21;
-    v15 = v18;
-    v16 = v19;
-    *a3 = v17;
-    *(a3 + 16) = v15;
-    *(a3 + 24) = v16;
-    *(a3 + 40) = v13;
-    *(a3 + 48) = v14;
-    return result;
+    v15 = v22;
+    v16 = v23;
+    v17 = v20;
+    v18 = v21;
+    *a3 = v19;
+    *(a3 + 16) = v17;
+    *(a3 + 24) = v18;
+    *(a3 + 40) = v15;
+    *(a3 + 48) = v16;
+    return;
   }
 
   swift_beginAccess();
@@ -2140,14 +2902,14 @@ LABEL_17:
   else if (v7 <= static _HashTable.minimumCapacity(forScale:)())
   {
 LABEL_16:
-    specialized ContiguousArray.remove(at:)(a1, &v17);
-    result = specialized OrderedSet._regenerateHashTable()(specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:));
+    specialized ContiguousArray.remove(at:)(a1, &v19);
+    specialized OrderedSet._regenerateHashTable()(specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(uncheckedUniqueElements:), v14);
     goto LABEL_17;
   }
 
-  result = swift_isUniquelyReferenced_native();
+  isUniquelyReferenced_native = swift_isUniquelyReferenced_native();
   v11 = *v3;
-  if ((result & 1) == 0)
+  if ((isUniquelyReferenced_native & 1) == 0)
   {
     if (!v11)
     {
@@ -2163,7 +2925,7 @@ LABEL_16:
   if (v11)
   {
 
-    result = specialized _HashTable.UnsafeHandle.delete(bucket:hashValueGenerator:)(a2, (v11 + 16), v11 + 32, v3);
+    specialized _HashTable.UnsafeHandle.delete(bucket:hashValueGenerator:)(a2, (v11 + 16), v11 + 32, v3);
     if (__OFADD__(a1, 1))
     {
       __break(1u);
@@ -2172,7 +2934,7 @@ LABEL_16:
     else if (a1 + 1 >= a1)
     {
 
-      specialized _HashTable.UnsafeHandle.adjustContents<A>(preparingForRemovalOf:in:)(a1, a1 + 1, v6, (v11 + 16));
+      specialized _HashTable.UnsafeHandle.adjustContents<A>(preparingForRemovalOf:in:)(a1, a1 + 1, v6, (v11 + 16), v11 + 32, v13);
 
       goto LABEL_15;
     }
@@ -2183,10 +2945,9 @@ LABEL_16:
   __break(1u);
 LABEL_21:
   __break(1u);
-  return result;
 }
 
-unint64_t specialized OrderedSet._removeExistingMember(at:in:)(int64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t))
+void specialized OrderedSet._removeExistingMember(at:in:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t))
 {
   v6 = v3[1];
   v7 = *(v6 + 16);
@@ -2198,7 +2959,9 @@ unint64_t specialized OrderedSet._removeExistingMember(at:in:)(int64_t a1, uint6
       goto LABEL_16;
     }
 
-    return specialized ContiguousArray.remove(at:)(a1, a3);
+LABEL_15:
+    specialized ContiguousArray.remove(at:)(a1, a3);
+    return;
   }
 
   swift_beginAccess();
@@ -2213,14 +2976,14 @@ unint64_t specialized OrderedSet._removeExistingMember(at:in:)(int64_t a1, uint6
   else if (v7 <= static _HashTable.minimumCapacity(forScale:)())
   {
 LABEL_16:
-    v14 = specialized ContiguousArray.remove(at:)(a1, a3);
-    specialized OrderedSet._regenerateHashTable()();
-    return v14;
+    specialized ContiguousArray.remove(at:)(a1, a3);
+    specialized OrderedSet._regenerateHashTable()(v15);
+    return;
   }
 
-  result = swift_isUniquelyReferenced_native();
+  isUniquelyReferenced_native = swift_isUniquelyReferenced_native();
   v11 = *v3;
-  if ((result & 1) == 0)
+  if ((isUniquelyReferenced_native & 1) == 0)
   {
     if (!v11)
     {
@@ -2235,17 +2998,17 @@ LABEL_16:
 
   if (v11)
   {
-    result = specialized _HashTable.UnsafeHandle.delete(bucket:hashValueGenerator:)(a2, (v11 + 16), v11 + 32, v3);
-    v13 = a1 + 1;
+    specialized _HashTable.UnsafeHandle.delete(bucket:hashValueGenerator:)(a2, (v11 + 16), v11 + 32, v3);
+    v14 = a1 + 1;
     if (__OFADD__(a1, 1))
     {
       __break(1u);
     }
 
-    else if (v13 >= a1)
+    else if (v14 >= a1)
     {
-      specialized _HashTable.UnsafeHandle.adjustContents<A>(preparingForRemovalOf:in:)(a1, v13, v6, (v11 + 16));
-      return specialized ContiguousArray.remove(at:)(a1, a3);
+      specialized _HashTable.UnsafeHandle.adjustContents<A>(preparingForRemovalOf:in:)(a1, v14, v6, (v11 + 16), v11 + 32, v13);
+      goto LABEL_15;
     }
 
     __break(1u);
@@ -2254,7 +3017,6 @@ LABEL_16:
   __break(1u);
 LABEL_20:
   __break(1u);
-  return result;
 }
 
 uint64_t specialized ContiguousArray.remove(at:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -2408,6 +3170,7 @@ LABEL_12:
   return _HashTable.UnsafeHandle.subscript.setter();
 }
 
+void specialized _HashTable.UnsafeHandle.delete(bucket:hashValueGenerator:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v5 = a1;
   v34 = _HashTable.UnsafeHandle._startIterator(bucket:)();
@@ -2418,15 +3181,15 @@ LABEL_12:
     v29 = a2;
     while (1)
     {
-      result = _HashTable.BucketIterator.currentValue.getter();
+      v6 = _HashTable.BucketIterator.currentValue.getter();
       if (v7)
       {
 LABEL_40:
         __break(1u);
-        return result;
+        return;
       }
 
-      if ((result & 0x8000000000000000) != 0)
+      if ((v6 & 0x8000000000000000) != 0)
       {
         __break(1u);
 LABEL_38:
@@ -2437,12 +3200,12 @@ LABEL_39:
       }
 
       v8 = *(a4 + 8);
-      if (result >= *(v8 + 16))
+      if (v6 >= *(v8 + 16))
       {
         goto LABEL_38;
       }
 
-      v9 = v8 + 56 * result;
+      v9 = v8 + 56 * v6;
       v10 = *(v9 + 32);
       v11 = *(v9 + 40);
       v12 = *(v9 + 64);
@@ -2578,23 +3341,23 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  return _HashTable.UnsafeHandle.subscript.setter();
+  _HashTable.UnsafeHandle.subscript.setter();
 }
 
-void specialized _HashTable.UnsafeHandle.adjustContents<A>(preparingForRemovalOf:in:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void specialized _HashTable.UnsafeHandle.adjustContents<A>(preparingForRemovalOf:in:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, __n128 a6)
 {
-  v5 = a2 - a1;
+  v7 = a2 - a1;
   if (__OFSUB__(a2, a1))
   {
     goto LABEL_98;
   }
 
-  if (v5 >= 1)
+  if (v7 >= 1)
   {
-    v6 = a4;
-    v9 = *(a3 + 16);
-    v63 = a2 - a1;
-    if (a1 < (v9 - v5) / 2)
+    v8 = a4;
+    v11 = *(a3 + 16);
+    v65 = a2 - a1;
+    if (a1 < (v11 - v7) / 2)
     {
       if (static _HashTable.maximumCapacity(forScale:)() / 3 > a1)
       {
@@ -2605,7 +3368,7 @@ LABEL_102:
           goto LABEL_103;
         }
 
-        if (v9 < a1)
+        if (v11 < a1)
         {
 LABEL_103:
           __break(1u);
@@ -2614,85 +3377,85 @@ LABEL_103:
 
         if (a1)
         {
-          v10 = 0;
-          v57 = a1;
+          v12 = 0;
+          v59 = a1;
           while (1)
           {
-            v11 = a3 + 32 + 56 * v10;
-            v12 = *(v11 + 32);
-            v58 = *(v11 + 40);
-            v60 = *(v11 + 48);
-            v14 = *v11;
-            v13 = *(v11 + 8);
+            v13 = a3 + 32 + 56 * v12;
+            v14 = *(v13 + 32);
+            v60 = *(v13 + 40);
+            v62 = *(v13 + 48);
+            v16 = *v13;
+            v15 = *(v13 + 8);
             Hasher.init(_seed:)();
-            if (v14 == 0.0)
+            if (v16 == 0.0)
             {
-              v15 = 0.0;
+              v17 = 0.0;
             }
 
             else
             {
-              v15 = v14;
+              v17 = v16;
             }
 
-            Hasher._combine(_:)(*&v15);
-            if (v13 == 0.0)
+            Hasher._combine(_:)(*&v17);
+            if (v15 == 0.0)
             {
-              v16 = 0.0;
+              v18 = 0.0;
             }
 
             else
             {
-              v16 = v13;
+              v18 = v15;
             }
 
-            Hasher._combine(_:)(*&v16);
+            Hasher._combine(_:)(*&v18);
 
             String.hash(into:)();
-            v17 = *(v12 + 16);
-            Hasher._combine(_:)(v17);
-            if (v17)
+            v19 = *(v14 + 16);
+            Hasher._combine(_:)(v19);
+            if (v19)
             {
-              v18 = (v12 + 80);
+              v20 = (v14 + 80);
               do
               {
-                v19 = *(v18 - 6);
-                v20 = *(v18 - 5);
-                v22 = *(v18 - 2);
-                v21 = *(v18 - 1);
-                v24 = *v18;
-                v18 += 7;
-                v23 = *&v24;
-                if (v19 == 0.0)
+                v21 = *(v20 - 6);
+                v22 = *(v20 - 5);
+                v24 = *(v20 - 2);
+                v23 = *(v20 - 1);
+                v26 = *v20;
+                v20 += 7;
+                v25 = *&v26;
+                if (v21 == 0.0)
                 {
-                  v19 = 0.0;
+                  v21 = 0.0;
                 }
 
-                Hasher._combine(_:)(*&v19);
-                if (v20 == 0.0)
+                Hasher._combine(_:)(*&v21);
+                if (v22 == 0.0)
                 {
-                  v25 = 0.0;
+                  v27 = 0.0;
                 }
 
                 else
                 {
-                  v25 = v20;
+                  v27 = v22;
                 }
 
-                Hasher._combine(_:)(*&v25);
+                Hasher._combine(_:)(*&v27);
 
                 String.hash(into:)();
-                Hasher._combine(_:)(v22);
-                Hasher._combine(_:)(v21);
+                Hasher._combine(_:)(v24);
                 Hasher._combine(_:)(v23);
+                Hasher._combine(_:)(v25);
 
-                --v17;
+                --v19;
               }
 
-              while (v17);
+              while (v19);
             }
 
-            if (v60)
+            if (v62)
             {
               Hasher._combine(_:)(0);
             }
@@ -2700,12 +3463,12 @@ LABEL_103:
             else
             {
               Hasher._combine(_:)(1uLL);
-              v26 = (v58 & 0x7FFFFFFFFFFFFFFFLL) != 0 ? v58 : 0;
-              Hasher._combine(_:)(v26);
+              v28 = (v60 & 0x7FFFFFFFFFFFFFFFLL) != 0 ? v60 : 0;
+              Hasher._combine(_:)(v28);
             }
 
-            v6 = a4;
-            v5 = v63;
+            v8 = a4;
+            v7 = v65;
             Hasher._finalize()();
             if (__OFSUB__(1 << *a4, 1))
             {
@@ -2716,8 +3479,8 @@ LABEL_103:
             {
               while (1)
               {
-                v27 = _HashTable.BucketIterator.currentValue.getter();
-                if ((v28 & 1) == 0 && v27 == v10)
+                v29 = _HashTable.BucketIterator.currentValue.getter();
+                if ((v30 & 1) == 0 && v29 == v12)
                 {
                   break;
                 }
@@ -2726,15 +3489,15 @@ LABEL_103:
               }
             }
 
-            if (__OFADD__(v10, v63))
+            if (__OFADD__(v12, v65))
             {
               goto LABEL_95;
             }
 
-            ++v10;
+            ++v12;
             _HashTable.BucketIterator.currentValue.setter();
 
-            if (v10 == v57)
+            if (v12 == v59)
             {
               goto LABEL_37;
             }
@@ -2752,41 +3515,41 @@ LABEL_37:
       }
 
       _HashTable.UnsafeHandle._startIterator(bucket:)();
-      v34 = _HashTable.BucketIterator.currentValue.getter();
-      if ((v35 & 1) != 0 || v34 >= a1)
+      v36 = _HashTable.BucketIterator.currentValue.getter();
+      if ((v37 & 1) != 0 || v36 >= a1)
       {
 LABEL_53:
         _HashTable.BucketIterator.advance()();
 LABEL_38:
-        v29 = v6[1];
-        if (__OFSUB__(v29 >> 6, v5))
+        v31 = v8[1];
+        if (__OFSUB__(v31 >> 6, v7))
         {
 LABEL_100:
           __break(1u);
           goto LABEL_101;
         }
 
-        v30 = 1 << *v6;
-        v31 = __OFSUB__(v30, 1);
-        v32 = v30 - 1;
-        if (v31)
+        v32 = 1 << *v8;
+        v33 = __OFSUB__(v32, 1);
+        v34 = v32 - 1;
+        if (v33)
         {
 LABEL_101:
           __break(1u);
           goto LABEL_102;
         }
 
-        v33 = (v32 & (((v29 >> 6) - v5) >> 63)) + (v29 >> 6) - v5;
-        if (v33 < v32)
+        v35 = (v34 & (((v31 >> 6) - v7) >> 63)) + (v31 >> 6) - v7;
+        if (v35 < v34)
         {
-          v32 = 0;
+          v34 = 0;
         }
 
-        v6[1] = v6[1] & 0x3FLL | ((v33 - v32) << 6);
+        v8[1] = v8[1] & 0x3FLL | ((v35 - v34) << 6);
         return;
       }
 
-      if (!__OFADD__(v34, v5))
+      if (!__OFADD__(v36, v7))
       {
         _HashTable.BucketIterator.currentValue.setter();
         goto LABEL_53;
@@ -2795,10 +3558,10 @@ LABEL_101:
       __break(1u);
 LABEL_59:
       _HashTable.UnsafeHandle._startIterator(bucket:)();
-      v36 = _HashTable.BucketIterator.currentValue.getter();
-      if ((v37 & 1) == 0 && v36 >= v4)
+      v38 = _HashTable.BucketIterator.currentValue.getter();
+      if ((v39 & 1) == 0 && v38 >= v6)
       {
-        if (__OFSUB__(v36, v5))
+        if (__OFSUB__(v38, v7))
         {
 LABEL_96:
           __break(1u);
@@ -2816,113 +3579,113 @@ LABEL_98:
       return;
     }
 
-    v4 = a2;
-    if (__OFSUB__(v9, a2))
+    v6 = a2;
+    if (__OFSUB__(v11, a2))
     {
 LABEL_99:
       __break(1u);
       goto LABEL_100;
     }
 
-    if ((v9 - a2) >= static _HashTable.maximumCapacity(forScale:)() / 3)
+    if ((v11 - a2) >= static _HashTable.maximumCapacity(forScale:)() / 3)
     {
       goto LABEL_59;
     }
 
-    if (v9 < v4)
+    if (v11 < v6)
     {
 LABEL_104:
       __break(1u);
       goto LABEL_105;
     }
 
-    if (v4 < 0)
+    if (v6 < 0)
     {
 LABEL_105:
       __break(1u);
       return;
     }
 
-    if (v9 != v4)
+    if (v11 != v6)
     {
-      v56 = v9;
+      v58 = v11;
       do
       {
-        v38 = a3 + 32 + 56 * v4;
-        v39 = *(v38 + 32);
-        v59 = *(v38 + 40);
-        v61 = *(v38 + 48);
-        v41 = *v38;
-        v40 = *(v38 + 8);
+        v40 = a3 + 32 + 56 * v6;
+        v41 = *(v40 + 32);
+        v61 = *(v40 + 40);
+        v63 = *(v40 + 48);
+        v43 = *v40;
+        v42 = *(v40 + 8);
         Hasher.init(_seed:)();
-        if (v41 == 0.0)
+        if (v43 == 0.0)
         {
-          v42 = 0.0;
+          v44 = 0.0;
         }
 
         else
         {
-          v42 = v41;
+          v44 = v43;
         }
 
-        Hasher._combine(_:)(*&v42);
-        if (v40 == 0.0)
+        Hasher._combine(_:)(*&v44);
+        if (v42 == 0.0)
         {
-          v43 = 0.0;
+          v45 = 0.0;
         }
 
         else
         {
-          v43 = v40;
+          v45 = v42;
         }
 
-        Hasher._combine(_:)(*&v43);
+        Hasher._combine(_:)(*&v45);
 
         String.hash(into:)();
-        v44 = *(v39 + 16);
-        Hasher._combine(_:)(v44);
-        if (v44)
+        v46 = *(v41 + 16);
+        Hasher._combine(_:)(v46);
+        if (v46)
         {
-          v45 = (v39 + 80);
+          v47 = (v41 + 80);
           do
           {
-            v46 = *(v45 - 6);
-            v47 = *(v45 - 5);
-            v48 = *(v45 - 2);
-            v49 = *(v45 - 1);
-            v51 = *v45;
-            v45 += 7;
-            v50 = *&v51;
-            if (v46 == 0.0)
+            v48 = *(v47 - 6);
+            v49 = *(v47 - 5);
+            v50 = *(v47 - 2);
+            v51 = *(v47 - 1);
+            v53 = *v47;
+            v47 += 7;
+            v52 = *&v53;
+            if (v48 == 0.0)
             {
-              v46 = 0.0;
+              v48 = 0.0;
             }
 
-            Hasher._combine(_:)(*&v46);
-            if (v47 == 0.0)
+            Hasher._combine(_:)(*&v48);
+            if (v49 == 0.0)
             {
-              v52 = 0.0;
+              v54 = 0.0;
             }
 
             else
             {
-              v52 = v47;
+              v54 = v49;
             }
 
-            Hasher._combine(_:)(*&v52);
+            Hasher._combine(_:)(*&v54);
 
             String.hash(into:)();
-            Hasher._combine(_:)(v48);
-            Hasher._combine(_:)(v49);
             Hasher._combine(_:)(v50);
+            Hasher._combine(_:)(v51);
+            Hasher._combine(_:)(v52);
 
-            --v44;
+            --v46;
           }
 
-          while (v44);
+          while (v46);
         }
 
-        if (v61)
+        if (v63)
         {
           Hasher._combine(_:)(0);
         }
@@ -2930,8 +3693,8 @@ LABEL_105:
         else
         {
           Hasher._combine(_:)(1uLL);
-          v53 = (v59 & 0x7FFFFFFFFFFFFFFFLL) != 0 ? v59 : 0;
-          Hasher._combine(_:)(v53);
+          v55 = (v61 & 0x7FFFFFFFFFFFFFFFLL) != 0 ? v61 : 0;
+          Hasher._combine(_:)(v55);
         }
 
         Hasher._finalize()();
@@ -2944,8 +3707,8 @@ LABEL_105:
         {
           while (1)
           {
-            v54 = _HashTable.BucketIterator.currentValue.getter();
-            if ((v55 & 1) == 0 && v54 == v4)
+            v56 = _HashTable.BucketIterator.currentValue.getter();
+            if ((v57 & 1) == 0 && v56 == v6)
             {
               break;
             }
@@ -2957,22 +3720,22 @@ LABEL_105:
         _HashTable.BucketIterator.currentValue.setter();
       }
 
-      while (++v4 != v56);
+      while (++v6 != v58);
     }
   }
 }
 
 {
-  v5 = a2 - a1;
+  v7 = a2 - a1;
   if (__OFSUB__(a2, a1))
   {
     goto LABEL_54;
   }
 
-  if (v5 >= 1)
+  if (v7 >= 1)
   {
-    v9 = *(a3 + 16);
-    if (a1 < (v9 - v5) / 2)
+    v11 = *(a3 + 16);
+    if (a1 < (v11 - v7) / 2)
     {
       if (static _HashTable.maximumCapacity(forScale:)() / 3 > a1)
       {
@@ -2983,7 +3746,7 @@ LABEL_58:
           goto LABEL_59;
         }
 
-        if (v9 < a1)
+        if (v11 < a1)
         {
 LABEL_59:
           __break(1u);
@@ -2992,12 +3755,12 @@ LABEL_59:
 
         if (a1)
         {
-          v10 = 0;
+          v12 = 0;
           while (1)
           {
-            v11 = *(a3 + 32 + 8 * v10);
+            v13 = *(a3 + 32 + 8 * v12);
             Hasher.init(_seed:)();
-            Hasher._combine(_:)(v11);
+            Hasher._combine(_:)(v13);
             Hasher._finalize()();
             if (__OFSUB__(1 << *a4, 1))
             {
@@ -3008,8 +3771,8 @@ LABEL_59:
             {
               while (1)
               {
-                v12 = _HashTable.BucketIterator.currentValue.getter();
-                if ((v13 & 1) == 0 && v12 == v10)
+                v14 = _HashTable.BucketIterator.currentValue.getter();
+                if ((v15 & 1) == 0 && v14 == v12)
                 {
                   break;
                 }
@@ -3018,14 +3781,14 @@ LABEL_59:
               }
             }
 
-            if (__OFADD__(v10, v5))
+            if (__OFADD__(v12, v7))
             {
               goto LABEL_51;
             }
 
-            ++v10;
+            ++v12;
             _HashTable.BucketIterator.currentValue.setter();
-            if (v10 == a1)
+            if (v12 == a1)
             {
               goto LABEL_17;
             }
@@ -3041,41 +3804,41 @@ LABEL_51:
       }
 
       _HashTable.UnsafeHandle._startIterator(bucket:)();
-      v19 = _HashTable.BucketIterator.currentValue.getter();
-      if ((v20 & 1) != 0 || v19 >= a1)
+      v21 = _HashTable.BucketIterator.currentValue.getter();
+      if ((v22 & 1) != 0 || v21 >= a1)
       {
 LABEL_29:
         _HashTable.BucketIterator.advance()();
 LABEL_17:
-        v14 = a4[1];
-        if (__OFSUB__(v14 >> 6, v5))
+        v16 = a4[1];
+        if (__OFSUB__(v16 >> 6, v7))
         {
 LABEL_56:
           __break(1u);
           goto LABEL_57;
         }
 
-        v15 = 1 << *a4;
-        v16 = __OFSUB__(v15, 1);
-        v17 = v15 - 1;
-        if (v16)
+        v17 = 1 << *a4;
+        v18 = __OFSUB__(v17, 1);
+        v19 = v17 - 1;
+        if (v18)
         {
 LABEL_57:
           __break(1u);
           goto LABEL_58;
         }
 
-        v18 = (v17 & (((v14 >> 6) - v5) >> 63)) + (v14 >> 6) - v5;
-        if (v18 < v17)
+        v20 = (v19 & (((v16 >> 6) - v7) >> 63)) + (v16 >> 6) - v7;
+        if (v20 < v19)
         {
-          v17 = 0;
+          v19 = 0;
         }
 
-        a4[1] = a4[1] & 0x3FLL | ((v18 - v17) << 6);
+        a4[1] = a4[1] & 0x3FLL | ((v20 - v19) << 6);
         return;
       }
 
-      if (!__OFADD__(v19, v5))
+      if (!__OFADD__(v21, v7))
       {
         _HashTable.BucketIterator.currentValue.setter();
         goto LABEL_29;
@@ -3084,10 +3847,10 @@ LABEL_57:
       __break(1u);
 LABEL_35:
       _HashTable.UnsafeHandle._startIterator(bucket:)();
-      v21 = _HashTable.BucketIterator.currentValue.getter();
-      if ((v22 & 1) == 0 && v21 >= v4)
+      v23 = _HashTable.BucketIterator.currentValue.getter();
+      if ((v24 & 1) == 0 && v23 >= v6)
       {
-        if (__OFSUB__(v21, v5))
+        if (__OFSUB__(v23, v7))
         {
 LABEL_52:
           __break(1u);
@@ -3105,40 +3868,40 @@ LABEL_54:
       return;
     }
 
-    v4 = a2;
-    if (__OFSUB__(v9, a2))
+    v6 = a2;
+    if (__OFSUB__(v11, a2))
     {
 LABEL_55:
       __break(1u);
       goto LABEL_56;
     }
 
-    if ((v9 - a2) >= static _HashTable.maximumCapacity(forScale:)() / 3)
+    if ((v11 - a2) >= static _HashTable.maximumCapacity(forScale:)() / 3)
     {
       goto LABEL_35;
     }
 
-    if (v9 < v4)
+    if (v11 < v6)
     {
 LABEL_60:
       __break(1u);
       goto LABEL_61;
     }
 
-    if (v4 < 0)
+    if (v6 < 0)
     {
 LABEL_61:
       __break(1u);
       return;
     }
 
-    if (v9 != v4)
+    if (v11 != v6)
     {
       while (1)
       {
-        v23 = *(a3 + 32 + 8 * v4);
+        v25 = *(a3 + 32 + 8 * v6);
         Hasher.init(_seed:)();
-        Hasher._combine(_:)(v23);
+        Hasher._combine(_:)(v25);
         Hasher._finalize()();
         if (__OFSUB__(1 << *a4, 1))
         {
@@ -3149,8 +3912,8 @@ LABEL_61:
         {
           while (1)
           {
-            v24 = _HashTable.BucketIterator.currentValue.getter();
-            if ((v25 & 1) == 0 && v24 == v4)
+            v26 = _HashTable.BucketIterator.currentValue.getter();
+            if ((v27 & 1) == 0 && v26 == v6)
             {
               break;
             }
@@ -3160,7 +3923,7 @@ LABEL_61:
         }
 
         _HashTable.BucketIterator.currentValue.setter();
-        if (++v4 == v9)
+        if (++v6 == v11)
         {
           return;
         }
@@ -3201,7 +3964,7 @@ uint64_t _sSa6remove2atxSi_tFSnySiG_Tgq5_2(unint64_t a1)
   return result;
 }
 
-id *_ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(unint64_t a1, void (*a2)(id *, uint64_t, unint64_t))
+void *_ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(unint64_t a1, void (*a2)(void *, uint64_t, uint64_t))
 {
   if (!(a1 >> 62))
   {
@@ -3231,15 +3994,89 @@ LABEL_7:
   return result;
 }
 
-uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq57LyricsX06SyncedI8LineViewC0K0C_SiTg5073_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_7i3X06j2F8kl187C0H0C_SiTG50159_s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSiSRyAOGXEfU_Say7f3X06g2Q8hI10Z18S0CG_TG5Tf3nnnpf_nTf1cn_nTm(int64_t a1, void (*a2)(id *, uint64_t, unint64_t))
+uint64_t specialized Array._copyContents(initializing:)(uint64_t result, uint64_t a2, unint64_t a3, __n128 a4)
+{
+  v5 = result;
+  v6 = a3 >> 62;
+  if (a3 >> 62)
+  {
+    v13 = a2;
+    result = _CocoaArrayWrapper.endIndex.getter();
+    a2 = v13;
+    v7 = result;
+    if (!result)
+    {
+      return a3;
+    }
+  }
+
+  else
+  {
+    v7 = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v7)
+    {
+      return a3;
+    }
+  }
+
+  if (v5)
+  {
+    if (v6)
+    {
+      v8 = a2;
+      result = _CocoaArrayWrapper.endIndex.getter();
+      if (result <= v8)
+      {
+        if (v7 >= 1)
+        {
+          lazy protocol witness table accessor for type [MenuType] and conformance [A](&lazy protocol witness table cache variable for type [SyncedLyricsLineView.Word] and conformance [A], &_sSay7LyricsX06SyncedA8LineViewC4WordCGMd, &_sSay7LyricsX06SyncedA8LineViewC4WordCGMR);
+          for (i = 0; i != v7; ++i)
+          {
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7LyricsX06SyncedA8LineViewC4WordCGMd, &_sSay7LyricsX06SyncedA8LineViewC4WordCGMR);
+            v10 = specialized protocol witness for Collection.subscript.read in conformance [A](v14, i, a3);
+            v12 = *v11;
+
+            (v10)(v14, 0);
+            *(v5 + 8 * i) = v12;
+          }
+
+          return a3;
+        }
+
+        goto LABEL_16;
+      }
+    }
+
+    else
+    {
+      if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a2)
+      {
+        type metadata accessor for SyncedLyricsLineView.Word();
+        swift_arrayInitWithCopy();
+        return a3;
+      }
+
+      __break(1u);
+    }
+
+    __break(1u);
+LABEL_16:
+    __break(1u);
+  }
+
+  __break(1u);
+  return result;
+}
+
+void _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq57LyricsX06SyncedI8LineViewC0K0C_SiTg5073_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_7i3X06j2F8kl187C0H0C_SiTG50159_s19CollectionsInternal10_HashTableV6create21untilFirstDuplicateIn5scale13reservedScaleACSg04hashD0_5IndexQz3endtx_SiSgSitSkRzSH7ElementRpzlFZSiSRyAOGXEfU_Say7f3X06g2Q8hI10Z18S0CG_TG5Tf3nnnpf_nTf1cn_nTm(uint64_t a1, void (*a2)(void *, uint64_t, uint64_t))
 {
   AssociatedObject = specialized _ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(a1);
   v4 = AssociatedObject[2];
 
-  return specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)((AssociatedObject + 4), v4, a2);
+  specialized closure #1 in static _HashTable.create<A>(untilFirstDuplicateIn:scale:reservedScale:)((AssociatedObject + 4), v4, a2);
 }
 
-id *specialized _ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(int64_t a1)
+void *specialized _ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(int64_t a1)
 {
   if (a1 < 0)
   {
@@ -3329,7 +4166,7 @@ uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC7LyricsX0B14OptionsManagerC6O
   return result;
 }
 
-uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC7LyricsX06SyncedB8LineViewC4WordC_SayAHGTt0g5Tf4g_n(unint64_t a1)
+uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC7LyricsX06SyncedB8LineViewC4WordC_SayAHGTt0g5Tf4g_n(unint64_t a1, __n128 a2)
 {
   i = a1 >> 62;
   if (a1 >> 62)
@@ -3339,13 +4176,13 @@ LABEL_18:
   }
 
   type metadata accessor for SyncedLyricsLineView.Word();
-  lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type SyncedLyricsLineView.Word and conformance SyncedLyricsLineView.Word, type metadata accessor for SyncedLyricsLineView.Word);
+  lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type SyncedLyricsLineView.Word and conformance SyncedLyricsLineView.Word, type metadata accessor for SyncedLyricsLineView.Word, &protocol conformance descriptor for SyncedLyricsLineView.Word);
   result = Set.init(minimumCapacity:)();
-  v9 = result;
+  v10 = result;
   if (!i)
   {
-    v4 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v4)
+    v5 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v5)
     {
       return result;
     }
@@ -3355,13 +4192,13 @@ LABEL_6:
     {
       if ((a1 & 0xC000000000000001) != 0)
       {
-        v6 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-        v7 = i + 1;
+        v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v8 = i + 1;
         if (__OFADD__(i, 1))
         {
 LABEL_14:
           __break(1u);
-          return v9;
+          return v10;
         }
       }
 
@@ -3373,28 +4210,28 @@ LABEL_14:
           goto LABEL_18;
         }
 
-        v6 = *(a1 + 8 * i + 32);
+        v7 = *(a1 + 8 * i + 32);
 
-        v7 = i + 1;
+        v8 = i + 1;
         if (__OFADD__(i, 1))
         {
           goto LABEL_14;
         }
       }
 
-      specialized Set._Variant.insert(_:)(&v8, v6);
+      specialized Set._Variant.insert(_:)(&v9, v7);
 
-      if (v7 == v4)
+      if (v8 == v5)
       {
-        return v9;
+        return v10;
       }
     }
   }
 
-  v5 = result;
-  v4 = _CocoaArrayWrapper.endIndex.getter();
-  result = v5;
-  if (v4)
+  v6 = result;
+  v5 = _CocoaArrayWrapper.endIndex.getter();
+  result = v6;
+  if (v5)
   {
     goto LABEL_6;
   }
@@ -3442,31 +4279,31 @@ void specialized SyncedLyricsLineView.SBS_TextContentView.TextView.init(coder:)(
   __break(1u);
 }
 
-uint64_t specialized SyncedLyricsLineView.SBS_TextContentView.TextView.wordVisualRepresentations(for:lineFrame:typographicOrigin:lyricsWords:text:wordRangeAdjustment:lineStartingIndex:existingRepresentations:)(double a1, double a2, double a3, double a4, double a5, double a6, uint64_t a7, CFIndex a8, uint64_t a9, uint64_t a10, unint64_t a11, uint64_t a12, unint64_t a13)
+void specialized SyncedLyricsLineView.SBS_TextContentView.TextView.wordVisualRepresentations(for:lineFrame:typographicOrigin:lyricsWords:text:wordRangeAdjustment:lineStartingIndex:existingRepresentations:)(double a1, double a2, double a3, double a4, double a5, double a6, uint64_t a7, CFIndex a8, uint64_t a9, uint64_t a10, unint64_t a11, uint64_t a12, unint64_t a13)
 {
-  *&v191[16] = a3;
-  *&v191[24] = a4;
-  *v191 = a1;
-  *&v191[8] = a2;
+  *&v195[16] = a3;
+  *&v195[24] = a4;
+  *v195 = a1;
+  *&v195[8] = a2;
 
-  v19 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC7LyricsX06SyncedB8LineViewC4WordC_SayAHGTt0g5Tf4g_n(a13);
+  v20 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC7LyricsX06SyncedB8LineViewC4WordC_SayAHGTt0g5Tf4g_n(a13, v19);
 
-  v235 = v19;
-  v20 = CTLineRef.stringRange.getter();
-  if (__OFSUB__(a12, v20))
+  v239 = v20;
+  v21 = CTLineRef.stringRange.getter();
+  if (__OFSUB__(a12, v21))
   {
     goto LABEL_252;
   }
 
-  v208 = a12 - v20;
-  v21 = CTLineRef.glyphRuns.getter();
-  v194 = v21;
-  if (v21 >> 62)
+  v212 = a12 - v21;
+  v22 = CTLineRef.glyphRuns.getter();
+  v198 = v22;
+  if (v22 >> 62)
   {
 LABEL_253:
-    v22 = _CocoaArrayWrapper.endIndex.getter();
-    v23 = a10;
-    if (v22)
+    v23 = _CocoaArrayWrapper.endIndex.getter();
+    v24 = a10;
+    if (v23)
     {
       goto LABEL_4;
     }
@@ -3474,143 +4311,143 @@ LABEL_253:
 
   else
   {
-    v22 = *((v21 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    v23 = a10;
-    if (v22)
+    v23 = *((v22 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v24 = a10;
+    if (v23)
     {
 LABEL_4:
-      v198 = v22;
-      v24 = Int.seconds.getter(0);
-      v25 = 0;
-      v230 = *(a8 + 16);
-      v232 = a8 + 32;
-      v185 = a6;
+      v202 = v23;
+      v25 = Int.seconds.getter(0);
+      v26 = 0;
+      v234 = *(a8 + 16);
+      v236 = a8 + 32;
+      v189 = a6;
       do
       {
-        if ((v194 & 0xC000000000000001) != 0)
+        if ((v198 & 0xC000000000000001) != 0)
         {
-          v26 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v27 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if (v25 >= *((v194 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v26 >= *((v198 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             goto LABEL_249;
           }
 
-          v26 = *(v194 + 32 + 8 * v25);
+          v27 = *(v198 + 32 + 8 * v26);
         }
 
-        v216 = v26;
-        v27 = __OFADD__(v25, 1);
-        v28 = v25 + 1;
-        if (v27)
+        v220 = v27;
+        v28 = __OFADD__(v26, 1);
+        v29 = v26 + 1;
+        if (v28)
         {
           goto LABEL_246;
         }
 
-        v210 = v28;
-        v29 = CTRunGetFont();
+        v214 = v29;
+        v30 = CTRunGetFont();
         CTFontGetLanguageAwareOutsets();
 
-        if (String.containsExcessiveHeightCharacters.getter(a9, v23))
+        if (String.containsExcessiveHeightCharacters.getter(a9, v24))
         {
-          v30 = a6 - v24;
+          v31 = a6 - v25;
         }
 
         else
         {
-          v30 = a6;
+          v31 = a6;
         }
 
-        v215 = CTRunRef.positions.getter();
+        v219 = CTRunRef.positions.getter();
         a8 = CTRunRef.stringRange.getter();
-        v32 = v31;
-        v33 = CTRunRef.stringIndices.getter();
-        if (v208)
+        v33 = v32;
+        v34 = CTRunRef.stringIndices.getter();
+        if (v212)
         {
-          v27 = __OFADD__(a8, v208);
-          a8 += v208;
-          if (v27)
+          v28 = __OFADD__(a8, v212);
+          a8 += v212;
+          if (v28)
           {
             goto LABEL_247;
           }
 
-          v34 = *(v33 + 16);
-          if (v34)
+          v35 = *(v34 + 16);
+          if (v35)
           {
-            v35 = a11;
-            v236[0] = _swiftEmptyArrayStorage;
-            v36 = v33;
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v34, 0);
-            v37 = v36;
-            v38 = _swiftEmptyArrayStorage;
-            v39 = 32;
-            v40 = v208;
+            v36 = a11;
+            v240[0] = _swiftEmptyArrayStorage;
+            v37 = v34;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v35, 0);
+            v38 = v37;
+            v39 = _swiftEmptyArrayStorage;
+            v40 = 32;
+            v41 = v212;
             do
             {
-              v41 = *(v37 + v39);
-              a11 = v41 + v40;
-              if (__OFADD__(v41, v40))
+              v42 = *(v38 + v40);
+              a11 = v42 + v41;
+              if (__OFADD__(v42, v41))
               {
                 goto LABEL_234;
               }
 
-              v236[0] = v38;
-              v43 = v38[2];
-              v42 = v38[3];
-              if (v43 >= v42 >> 1)
+              v240[0] = v39;
+              v44 = v39[2];
+              v43 = v39[3];
+              if (v44 >= v43 >> 1)
               {
-                specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v42 > 1), v43 + 1, 1);
-                v37 = v36;
-                v40 = v208;
-                v38 = v236[0];
+                specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v43 > 1), v44 + 1, 1);
+                v38 = v37;
+                v41 = v212;
+                v39 = v240[0];
               }
 
-              v38[2] = (v43 + 1);
-              v38[v43 + 4] = a11;
-              v39 += 8;
-              --v34;
+              v39[2] = v44 + 1;
+              v39[v44 + 4] = a11;
+              v40 += 8;
+              --v35;
             }
 
-            while (v34);
+            while (v35);
 
-            v217 = v38;
-            a11 = v35;
+            v221 = v39;
+            a11 = v36;
           }
 
           else
           {
 
-            v217 = _swiftEmptyArrayStorage;
+            v221 = _swiftEmptyArrayStorage;
           }
         }
 
         else
         {
-          v217 = v33;
+          v221 = v34;
         }
 
-        v44 = v230;
-        if (!v230)
+        v45 = v234;
+        if (!v234)
         {
 LABEL_5:
-          v23 = a10;
+          v24 = a10;
           goto LABEL_6;
         }
 
-        v45 = 0;
-        v234 = a8 + v32;
-        v46 = __OFADD__(a8, v32);
-        v193 = v215 + 32;
-        v23 = a10;
-        v229 = v46;
+        v46 = 0;
+        v238 = a8 + v33;
+        v47 = __OFADD__(a8, v33);
+        v197 = v219 + 32;
+        v24 = a10;
+        v233 = v47;
         do
         {
           while (1)
           {
-            if (v45 >= v44)
+            if (v46 >= v45)
             {
               __break(1u);
 LABEL_229:
@@ -3634,31 +4471,31 @@ LABEL_237:
               goto LABEL_238;
             }
 
-            v47 = v232 + 56 * v45;
-            v48 = *v47;
-            v49 = *(v47 + 8);
-            v50 = *(v47 + 16);
-            v51 = *(v47 + 24);
-            v53 = *(v47 + 32);
-            v52 = *(v47 + 40);
-            v54 = *(v47 + 48);
-            v55 = *(v53 + 16);
-            if (v55)
+            v48 = (v236 + 56 * v46);
+            v49 = *v48;
+            v50 = v48[1];
+            v51 = v48[2];
+            v52 = v48[3];
+            v54 = v48[4];
+            v53 = v48[5];
+            v55 = *(v48 + 48);
+            v56 = *(v54 + 16);
+            if (v56)
             {
-              v56 = v53 + 56 * v55;
-              v58 = *(v56 + 8);
-              v57 = *(v56 + 16);
-              v27 = __OFADD__(v58, v57);
-              v59 = v58 + v57;
-              if (v27)
+              v57 = v54 + 56 * v56;
+              v59 = *(v57 + 8);
+              v58 = *(v57 + 16);
+              v28 = __OFADD__(v59, v58);
+              v60 = v59 + v58;
+              if (v28)
               {
                 goto LABEL_235;
               }
 
-              v55 = *(v53 + 64);
-              v27 = __OFSUB__(v59, v55);
-              v60 = v59 - v55;
-              if (v27)
+              v56 = *(v54 + 64);
+              v28 = __OFSUB__(v60, v56);
+              v61 = v60 - v56;
+              if (v28)
               {
                 goto LABEL_229;
               }
@@ -3666,105 +4503,107 @@ LABEL_237:
 
             else
             {
-              v60 = 0;
+              v61 = 0;
             }
 
-            v61 = v55 + a11;
-            if (__OFADD__(v55, a11))
+            v62 = v56 + a11;
+            if (__OFADD__(v56, a11))
             {
               goto LABEL_230;
             }
 
-            if (v46)
+            if (v47)
             {
               goto LABEL_231;
             }
 
-            v62 = v61 + v60;
-            if (__OFADD__(v61, v60))
+            v63 = v62 + v61;
+            if (__OFADD__(v62, v61))
             {
               goto LABEL_232;
             }
 
-            v63 = v234;
-            if (v234 >= v62)
+            v64 = v238;
+            if (v238 >= v63)
             {
-              v63 = v61 + v60;
+              v64 = v62 + v61;
             }
 
-            if (a8 >= v61 && a8 < v62)
+            if (a8 >= v62 && a8 < v63)
             {
-              v64 = v63 - a8;
-              if (__OFSUB__(v63, a8))
+              v65 = v64 - a8;
+              if (__OFSUB__(v64, a8))
               {
                 goto LABEL_236;
               }
 
-              v61 = a8;
+              v62 = a8;
               goto LABEL_53;
             }
 
-            if (v61 >= a8 && v61 < v234)
+            if (v62 >= a8 && v62 < v238)
             {
               break;
             }
 
 LABEL_32:
-            v27 = __OFADD__(v45++, 1);
-            if (v27)
+            v28 = __OFADD__(v46++, 1);
+            if (v28)
             {
               goto LABEL_233;
             }
 
-            if (v45 >= v44)
+            if (v46 >= v45)
             {
               goto LABEL_6;
             }
           }
 
-          v64 = v63 - v61;
-          if (__OFSUB__(v63, v61))
+          v65 = v64 - v62;
+          if (__OFSUB__(v64, v62))
           {
             goto LABEL_237;
           }
 
 LABEL_53:
-          if (v64 < 1)
+          if (v65 < 1)
           {
             goto LABEL_32;
           }
 
-          v224 = v54;
-          v225 = v52;
-          v227 = v50;
+          v228 = v55;
+          v229 = v53;
+          v231 = v51;
 
-          Range<>.init(_:in:)();
-          if (v65)
+          v66 = Range<>.init(_:in:)();
+          if (v68)
           {
 
-            v44 = v230;
-            v46 = v229;
+            v45 = v234;
+            v47 = v233;
             goto LABEL_32;
           }
 
-          v222 = v51;
-          v231 = a11;
+          v226 = v52;
+          v235 = a11;
+          v69 = v66;
+          v70 = v67;
 
-          v66 = _NSRange.init(range:in:)();
-          v218 = v67;
-          v219 = v66;
-          v68 = String.subscript.getter();
-          a11 = v70;
-          v71 = v68 >> 16;
-          v73 = v72 >> 16;
-          if (v69 == 32)
+          v71 = _NSRange.init(range:in:)(v69, v70, a9, v24);
+          v222 = v72;
+          v223 = v71;
+          v73 = String.subscript.getter();
+          a11 = v75;
+          v76 = v73 >> 16;
+          v78 = v77 >> 16;
+          if (v74 == 32)
           {
-            if (v70 == 0xE100000000000000 && !v71 && v73 == 1 || (v74 = _stringCompareInternal(_:_:_:_:expecting:)(), v75 = 32, v76 = v73, v77 = v71, (v74 & 1) != 0))
+            if (v75 == 0xE100000000000000 && !v76 && v78 == 1 || (v79 = _stringCompareInternal(_:_:_:_:expecting:)(), v80 = 32, v81 = v78, v82 = v76, (v79 & 1) != 0))
             {
 LABEL_62:
 
-              v27 = __OFADD__(v45++, 1);
-              if (!v27)
+              v28 = __OFADD__(v46++, 1);
+              if (!v28)
               {
                 goto LABEL_63;
               }
@@ -3775,22 +4614,22 @@ LABEL_62:
 
           else
           {
-            v78 = v69;
+            v83 = v74;
             if (_stringCompareInternal(_:_:_:_:expecting:)())
             {
               goto LABEL_62;
             }
 
-            v75 = v78;
-            v76 = v73;
-            v77 = v71;
-            if (v78 == 10 && a11 == 0xE100000000000000 && !v71 && v76 == 1)
+            v80 = v83;
+            v81 = v78;
+            v82 = v76;
+            if (v83 == 10 && a11 == 0xE100000000000000 && !v76 && v81 == 1)
             {
 LABEL_75:
 
-              a11 = v231 + 1;
-              v23 = a10;
-              if (!__OFADD__(v231, 1))
+              a11 = v235 + 1;
+              v24 = a10;
+              if (!__OFADD__(v235, 1))
               {
                 goto LABEL_76;
               }
@@ -3799,33 +4638,33 @@ LABEL_75:
             }
           }
 
-          range_8 = v76;
-          v79 = v75;
-          if ((_stringCompareInternal(_:_:_:_:expecting:)() & 1) != 0 || v79 == 10519010 && a11 == 0xA300000000000000 && !v77 && range_8 == 3)
+          range_8 = v81;
+          v84 = v80;
+          if ((_stringCompareInternal(_:_:_:_:expecting:)() & 1) != 0 || v84 == 10519010 && a11 == 0xA300000000000000 && !v82 && range_8 == 3)
           {
             goto LABEL_75;
           }
 
-          v209 = v79;
+          v213 = v84;
           if (_stringCompareInternal(_:_:_:_:expecting:)())
           {
             goto LABEL_75;
           }
 
-          v80.location = v61;
-          v80.length = v64;
-          v248 = CTRunRef.convertToGlyphRange(textRange:stringIndices:)(v80, v217);
-          if (v248.is_nil)
+          v85.location = v62;
+          v85.length = v65;
+          v252 = CTRunRef.convertToGlyphRange(textRange:stringIndices:)(v85, v221);
+          if (v252.is_nil)
           {
 
-            v27 = __OFADD__(v45++, 1);
-            if (!v27)
+            v28 = __OFADD__(v46++, 1);
+            if (!v28)
             {
 LABEL_63:
-              a11 = v231;
-              v23 = a10;
+              a11 = v235;
+              v24 = a10;
 LABEL_76:
-              v44 = v230;
+              v45 = v234;
               goto LABEL_77;
             }
 
@@ -3864,128 +4703,128 @@ LABEL_270:
             __break(1u);
           }
 
-          v81 = v248.value.location + v248.value.length;
-          if (__OFADD__(v248.value.location, v248.value.length))
+          v86 = v252.value.location + v252.value.length;
+          if (__OFADD__(v252.value.location, v252.value.length))
           {
             goto LABEL_255;
           }
 
-          if (v81 < v248.value.location)
+          if (v86 < v252.value.location)
           {
             goto LABEL_256;
           }
 
-          if (v248.value.location < 0)
+          if (v252.value.location < 0)
           {
             goto LABEL_257;
           }
 
-          v82 = *(v215 + 16);
-          if (v82 < v248.value.location || v82 < v81)
+          v87 = *(v219 + 16);
+          if (v87 < v252.value.location || v87 < v86)
           {
             goto LABEL_258;
           }
 
-          range = v248.value.location;
-          if (v248.value.location == v81)
+          range = v252.value.location;
+          if (v252.value.location == v86)
           {
-            length = v248.value.length;
-            v84 = INFINITY;
+            length = v252.value.length;
+            v89 = INFINITY;
           }
 
           else
           {
-            if (v248.value.location >= v81)
+            if (v252.value.location >= v86)
             {
               goto LABEL_261;
             }
 
-            v85 = (v193 + 16 * v248.value.location);
-            v84 = INFINITY;
-            length = v248.value.length;
-            v86 = v248.value.length;
+            v90 = (v197 + 16 * v252.value.location);
+            v89 = INFINITY;
+            length = v252.value.length;
+            v91 = v252.value.length;
             do
             {
-              v87 = *v85;
-              v85 += 2;
-              v88 = v87;
-              if (v87 < v84)
+              v92 = *v90;
+              v90 += 2;
+              v93 = v92;
+              if (v92 < v89)
               {
-                v84 = v88;
+                v89 = v93;
               }
 
-              --v86;
+              --v91;
             }
 
-            while (v86);
+            while (v91);
           }
 
-          v245.location = range;
-          v245.length = length;
-          CTRunRef.drawingWidth(range:positions:)(v245, v215);
-          v187 = v89;
+          v249.location = range;
+          v249.length = length;
+          CTRunRef.drawingWidth(range:positions:)(v249, v219);
+          v191 = v94;
 
-          Height = CGRectGetHeight(*v191);
-          if ((v235 & 0xC000000000000001) != 0)
+          Height = CGRectGetHeight(*v195);
+          if ((v239 & 0xC000000000000001) != 0)
           {
 
             __CocoaSet.makeIterator()();
             type metadata accessor for SyncedLyricsLineView.Word();
-            lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type SyncedLyricsLineView.Word and conformance SyncedLyricsLineView.Word, type metadata accessor for SyncedLyricsLineView.Word);
+            lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey(&lazy protocol witness table cache variable for type SyncedLyricsLineView.Word and conformance SyncedLyricsLineView.Word, type metadata accessor for SyncedLyricsLineView.Word, &protocol conformance descriptor for SyncedLyricsLineView.Word);
             Set.Iterator.init(_cocoa:)();
-            v90 = v238;
-            v91 = v239;
-            v93 = v240;
-            v92 = v241;
-            v94 = v242;
+            v95 = v242;
+            v96 = v243;
+            v98 = v244;
+            v97 = v245;
+            v99 = v246;
           }
 
           else
           {
-            v95 = -1 << *(v235 + 32);
-            v93 = ~v95;
-            v96 = -v95;
-            if (v96 < 64)
+            v100 = -1 << *(v239 + 32);
+            v98 = ~v100;
+            v101 = -v100;
+            if (v101 < 64)
             {
-              v97 = ~(-1 << v96);
+              v102 = ~(-1 << v101);
             }
 
             else
             {
-              v97 = -1;
+              v102 = -1;
             }
 
-            v94 = v97 & *(v235 + 56);
+            v99 = v102 & *(v239 + 56);
 
-            v91 = v235 + 56;
-            v92 = 0;
+            v96 = v239 + 56;
+            v97 = 0;
           }
 
-          v202 = v91;
-          v98 = (v93 + 64) >> 6;
-          v204 = v90;
-          while ((v90 & 0x8000000000000000) == 0)
+          v206 = v96;
+          v103 = (v98 + 64) >> 6;
+          v208 = v95;
+          while ((v95 & 0x8000000000000000) == 0)
           {
-            v99 = v92;
-            v100 = v94;
-            if (!v94)
+            v104 = v97;
+            v105 = v99;
+            if (!v99)
             {
               while (1)
               {
-                v92 = v99 + 1;
-                if (__OFADD__(v99, 1))
+                v97 = v104 + 1;
+                if (__OFADD__(v104, 1))
                 {
                   break;
                 }
 
-                if (v92 >= v98)
+                if (v97 >= v103)
                 {
                   goto LABEL_141;
                 }
 
-                v100 = *(v91 + 8 * v92);
-                ++v99;
-                if (v100)
+                v105 = *(v96 + 8 * v97);
+                ++v104;
+                if (v105)
                 {
                   goto LABEL_108;
                 }
@@ -4019,59 +4858,59 @@ LABEL_249:
             }
 
 LABEL_108:
-            v101 = (v100 - 1) & v100;
-            v102 = *(*(v90 + 48) + ((v92 << 9) | (8 * __clz(__rbit64(v100)))));
+            v106 = (v105 - 1) & v105;
+            v107 = *(*(v95 + 48) + ((v97 << 9) | (8 * __clz(__rbit64(v105)))));
 
-            if (!v102)
+            if (!v107)
             {
-              goto LABEL_141;
+              goto LABEL_194;
             }
 
 LABEL_112:
-            v103 = *(v102 + 72);
-            v104 = *(v102 + 80);
-            if ((v104 & 0x2000000000000000) != 0)
+            v108 = *(v107 + 72);
+            v109 = *(v107 + 80);
+            if ((v109 & 0x2000000000000000) != 0)
             {
-              v105 = HIBYTE(v104) & 0xF;
+              v110 = HIBYTE(v109) & 0xF;
             }
 
             else
             {
-              v105 = v103 & 0xFFFFFFFFFFFFLL;
+              v110 = v108 & 0xFFFFFFFFFFFFLL;
             }
 
-            v108 = v103 == v209 && v104 == a11 && v77 == 0 && v105 == range_8;
-            if (!v108 && (_stringCompareInternal(_:_:_:_:expecting:)() & 1) == 0 || *(v102 + 88) != v219 || *(v102 + 96) != v218)
+            v113 = v108 == v213 && v109 == a11 && v82 == 0 && v110 == range_8;
+            if (!v113 && (_stringCompareInternal(_:_:_:_:expecting:)() & 1) == 0 || *(v107 + 88) != v223 || *(v107 + 96) != v222)
             {
               goto LABEL_102;
             }
 
-            v109 = *(v102 + 104);
-            if (v109 >> 62)
+            v114 = *(v107 + 104);
+            if (v114 >> 62)
             {
-              v199 = *(v102 + 104);
-              v112 = _CocoaArrayWrapper.endIndex.getter();
-              v109 = v199;
-              if (!v112)
+              v203 = *(v107 + 104);
+              v117 = _CocoaArrayWrapper.endIndex.getter();
+              v114 = v203;
+              if (!v117)
               {
                 goto LABEL_102;
               }
             }
 
-            else if (!*((v109 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            else if (!*((v114 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
               goto LABEL_102;
             }
 
-            if ((v109 & 0xC000000000000001) != 0)
+            if ((v114 & 0xC000000000000001) != 0)
             {
 
-              v196 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+              v200 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-              v113 = *(v196 + 120);
-              a6 = *(v196 + 128);
+              v118 = *(v200 + 120);
+              a6 = *(v200 + 128);
               swift_unknownObjectRelease();
-              if (v113 != a5)
+              if (v118 != a5)
               {
                 goto LABEL_102;
               }
@@ -4079,78 +4918,78 @@ LABEL_112:
 
             else
             {
-              if (!*((v109 & 0xFFFFFFFFFFFFFF8) + 0x10))
+              if (!*((v114 & 0xFFFFFFFFFFFFFF8) + 0x10))
               {
                 goto LABEL_260;
               }
 
-              v110 = *(v109 + 32);
-              if (*(v110 + 120) != a5)
+              v115 = *(v114 + 32);
+              if (*(v115 + 120) != a5)
               {
                 goto LABEL_102;
               }
 
-              a6 = *(v110 + 128);
+              a6 = *(v115 + 128);
             }
 
-            if (a6 == v30)
+            if (a6 == v31)
             {
-              v111 = CGRectGetHeight(*v191);
-              if (v111 == CGRectGetHeight(*(v102 + 176)))
+              v116 = CGRectGetHeight(*v195);
+              if (v116 == CGRectGetHeight(*(v107 + 176)))
               {
 
-                v165 = *(v102 + 176);
-                *(v102 + 176) = v84;
-                *(v102 + 184) = 0;
-                *(v102 + 192) = v187;
-                *(v102 + 200) = Height;
-                *(v102 + 216) = v84 - v165 + *(v102 + 216);
-                v166 = *(v102 + 104);
-                if (v166 >> 62)
+                v170 = *(v107 + 176);
+                *(v107 + 176) = v89;
+                *(v107 + 184) = 0;
+                *(v107 + 192) = v191;
+                *(v107 + 200) = Height;
+                *(v107 + 216) = v89 - v170 + *(v107 + 216);
+                v171 = *(v107 + 104);
+                if (v171 >> 62)
                 {
-                  v167 = _CocoaArrayWrapper.endIndex.getter();
+                  v172 = _CocoaArrayWrapper.endIndex.getter();
                 }
 
                 else
                 {
-                  v167 = *((v166 & 0xFFFFFFFFFFFFFF8) + 0x10);
+                  v172 = *((v171 & 0xFFFFFFFFFFFFFF8) + 0x10);
                 }
 
-                a11 = v231;
-                v23 = a10;
-                if (!v167)
+                a11 = v235;
+                v24 = a10;
+                if (!v172)
                 {
 LABEL_217:
-                  *(v102 + 144) = v84;
-                  *(v102 + 152) = 0;
-                  *(v102 + 160) = v187;
-                  *(v102 + 168) = Height;
+                  *(v107 + 144) = v89;
+                  *(v107 + 152) = 0;
+                  *(v107 + 160) = v191;
+                  *(v107 + 168) = Height;
                   if (_swiftEmptyArrayStorage >> 62)
                   {
-                    v176 = _CocoaArrayWrapper.endIndex.getter();
+                    v181 = _CocoaArrayWrapper.endIndex.getter();
                   }
 
                   else
                   {
-                    v176 = *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10);
+                    v181 = *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10);
                   }
 
-                  a6 = v185;
-                  *(v102 + 112) = v176;
+                  a6 = v189;
+                  *(v107 + 112) = v181;
 
                   specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
                   if (*((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
                   {
                     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-                    v23 = a10;
+                    v24 = a10;
                   }
 
                   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-                  specialized Set._Variant.remove(_:)(v102);
-                  outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
+                  specialized Set._Variant.remove(_:)(v107);
+                  outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v208);
 
-                  v27 = __OFADD__(v45++, 1);
-                  if (!v27)
+                  v28 = __OFADD__(v46++, 1);
+                  if (!v28)
                   {
                     goto LABEL_76;
                   }
@@ -4158,18 +4997,18 @@ LABEL_217:
                   goto LABEL_270;
                 }
 
-                v168 = 0;
-                v226 = v167;
-                v228 = v166 & 0xC000000000000001;
-                v223 = v166 & 0xFFFFFFFFFFFFFF8;
-                v220 = v166 + 32;
+                v173 = 0;
+                v230 = v172;
+                v232 = v171 & 0xC000000000000001;
+                v227 = v171 & 0xFFFFFFFFFFFFFF8;
+                v224 = v171 + 32;
                 while (2)
                 {
-                  if (v228)
+                  if (v232)
                   {
-                    v169 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-                    v27 = __OFADD__(v168++, 1);
-                    if (v27)
+                    v174 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+                    v28 = __OFADD__(v173++, 1);
+                    if (v28)
                     {
                       goto LABEL_266;
                     }
@@ -4177,70 +5016,70 @@ LABEL_217:
 
                   else
                   {
-                    if (v168 >= *(v223 + 16))
+                    if (v173 >= *(v227 + 16))
                     {
                       goto LABEL_269;
                     }
 
-                    v169 = *(v220 + 8 * v168);
+                    v174 = *(v224 + 8 * v173);
 
-                    v27 = __OFADD__(v168++, 1);
-                    if (v27)
+                    v28 = __OFADD__(v173++, 1);
+                    if (v28)
                     {
                       goto LABEL_266;
                     }
                   }
 
-                  v170 = *(v102 + 216);
-                  *(v169 + 192) = v170;
-                  *(v169 + 152) = CGRectOffset(*(v169 + 200), v170, 0.0);
-                  v171 = *(v169 + 88);
-                  if (v171 >> 62)
+                  v175 = *(v107 + 216);
+                  *(v174 + 192) = v175;
+                  *(v174 + 152) = CGRectOffset(*(v174 + 200), v175, 0.0);
+                  v176 = *(v174 + 88);
+                  if (v176 >> 62)
                   {
-                    v172 = _CocoaArrayWrapper.endIndex.getter();
-                    if (v172)
+                    v177 = _CocoaArrayWrapper.endIndex.getter();
+                    if (v177)
                     {
 LABEL_209:
-                      if (v172 < 1)
+                      if (v177 < 1)
                       {
                         goto LABEL_267;
                       }
 
-                      v173 = 0;
+                      v178 = 0;
                       do
                       {
-                        if ((v171 & 0xC000000000000001) != 0)
+                        if ((v176 & 0xC000000000000001) != 0)
                         {
-                          v174 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+                          v179 = specialized _ArrayBuffer._getElementSlowPath(_:)();
                         }
 
                         else
                         {
-                          v174 = *(v171 + 8 * v173 + 32);
+                          v179 = *(v176 + 8 * v178 + 32);
                         }
 
-                        ++v173;
-                        v175 = *(v169 + 192);
-                        *(v174 + 104) = v175;
-                        *(v174 + 64) = CGRectOffset(*(v174 + 112), v175, 0.0);
+                        ++v178;
+                        v180 = *(v174 + 192);
+                        *(v179 + 104) = v180;
+                        *(v179 + 64) = CGRectOffset(*(v179 + 112), v180, 0.0);
                       }
 
-                      while (v172 != v173);
+                      while (v177 != v178);
                     }
                   }
 
                   else
                   {
-                    v172 = *((v171 & 0xFFFFFFFFFFFFFF8) + 0x10);
-                    if (v172)
+                    v177 = *((v176 & 0xFFFFFFFFFFFFFF8) + 0x10);
+                    if (v177)
                     {
                       goto LABEL_209;
                     }
                   }
 
-                  a11 = v231;
-                  v23 = a10;
-                  if (v168 == v226)
+                  a11 = v235;
+                  v24 = a10;
+                  if (v173 == v230)
                   {
                     goto LABEL_217;
                   }
@@ -4252,140 +5091,149 @@ LABEL_209:
 
 LABEL_102:
 
-            v91 = v202;
-            v90 = v204;
-            v94 = v101;
+            v96 = v206;
+            v95 = v208;
+            v99 = v106;
           }
 
-          v206 = v94;
+          v210 = v99;
           if (__CocoaSet.Iterator.next()())
           {
             type metadata accessor for SyncedLyricsLineView.Word();
             swift_dynamicCast();
-            v102 = v236[0];
-            v101 = v206;
-            if (v236[0])
+            v107 = v240[0];
+            v106 = v210;
+            if (!v240[0])
             {
-              goto LABEL_112;
+LABEL_194:
+              v95 = v208;
+              goto LABEL_141;
             }
+
+            goto LABEL_112;
           }
 
+          v95 = v208;
 LABEL_141:
-          outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
-          v114 = *(v53 + 16);
+          outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v95);
+          v119 = *(v54 + 16);
 
-          v192 = v216;
-          if (!v114)
+          v196 = v220;
+          if (!v119)
           {
             goto LABEL_186;
           }
 
           a11 = 0;
-          v115 = v53 + 80;
-          v207 = v114;
-          do
+          v120 = v54 + 80;
+          v211 = v119;
+          while (2)
           {
-            v116 = (v115 + 56 * a11);
-            while (1)
+            v121 = (v120 + 56 * a11);
+            while (2)
             {
-              if (a11 >= v114)
+              if (a11 >= v119)
               {
                 goto LABEL_240;
               }
 
-              v117 = a11 + 1;
+              v122 = a11 + 1;
               if (__OFADD__(a11, 1))
               {
                 goto LABEL_241;
               }
 
-              v118 = *(v116 - 2);
-              v119 = v118 + v231;
-              if (__OFADD__(v118, v231))
+              v123 = *(v121 - 2);
+              v124 = v123 + v235;
+              if (__OFADD__(v123, v235))
               {
                 goto LABEL_242;
               }
 
-              v120 = *(v116 - 1);
-              v121 = v119 + v120;
-              if (__OFADD__(v119, v120))
+              v125 = *(v121 - 1);
+              v126 = v124 + v125;
+              if (__OFADD__(v124, v125))
               {
                 goto LABEL_243;
               }
 
-              a6 = *(v116 - 6);
-              v122 = *(v116 - 5);
-              v123 = v234;
-              if (v234 >= v121)
+              a6 = *(v121 - 6);
+              v127 = *(v121 - 5);
+              v128 = v238;
+              if (v238 >= v126)
               {
-                v123 = v119 + v120;
+                v128 = v124 + v125;
               }
 
-              if (a8 >= v119 && a8 < v121)
+              if (a8 >= v124 && a8 < v126)
               {
-                break;
+                v130 = v128 - a8;
+                if (__OFSUB__(v128, a8))
+                {
+                  goto LABEL_245;
+                }
+
+                v124 = a8;
+                if (v130 < 1)
+                {
+                  goto LABEL_145;
+                }
               }
 
-              if (v119 >= a8 && v119 < v234)
+              else
               {
-                v125 = v123 - v119;
-                if (__OFSUB__(v123, v119))
+                if (v124 < a8 || v124 >= v238)
+                {
+                  goto LABEL_145;
+                }
+
+                v130 = v128 - v124;
+                if (__OFSUB__(v128, v124))
                 {
                   goto LABEL_248;
                 }
 
-                if (v125 >= 1)
+                if (v130 < 1)
                 {
-                  goto LABEL_163;
+                  goto LABEL_145;
                 }
               }
 
-LABEL_145:
-              ++a11;
-              v116 += 7;
-              if (v117 == v114)
+              v204 = *(v121 - 4);
+              v205 = *v121;
+              v207 = *(v121 - 1);
+              v209 = *(v121 - 2);
+              rangea = *(v121 - 3);
+              range_8a = a11 + 1;
+
+              Range<>.init(_:in:)();
+              if ((v131 & 1) != 0 || (, v132.location = v124, v132.length = v130, v253 = CTRunRef.convertToGlyphRange(textRange:stringIndices:)(v132, v221), location = v253.value.location, v134 = v253.value.length, is_nil = v253.is_nil, , is_nil))
               {
-                goto LABEL_186;
+
+                v122 = a11 + 1;
+                v119 = v211;
+LABEL_145:
+                ++a11;
+                v121 += 7;
+                if (v122 == v119)
+                {
+                  goto LABEL_186;
+                }
+
+                continue;
               }
-            }
 
-            v125 = v123 - a8;
-            if (__OFSUB__(v123, a8))
-            {
-              goto LABEL_245;
-            }
-
-            v119 = a8;
-            if (v125 < 1)
-            {
-              goto LABEL_145;
-            }
-
-LABEL_163:
-            v200 = *(v116 - 4);
-            v201 = *v116;
-            v203 = *(v116 - 1);
-            v205 = *(v116 - 2);
-            rangea = *(v116 - 3);
-            range_8a = a11 + 1;
-
-            Range<>.init(_:in:)();
-            if ((v126 & 1) != 0 || (, v127.location = v119, v127.length = v125, v249 = CTRunRef.convertToGlyphRange(textRange:stringIndices:)(v127, v217), location = v249.value.location, v129 = v249.value.length, is_nil = v249.is_nil, , is_nil))
-            {
-
-              v117 = a11 + 1;
-              v114 = v207;
-              goto LABEL_145;
+              break;
             }
 
             String.subscript.getter();
-            v131 = location + v129;
-            if (__OFADD__(location, v129))
+            v136 = location + v134;
+            if (__OFADD__(location, v134))
             {
               goto LABEL_262;
             }
 
-            if (v131 < location)
+            if (v136 < location)
             {
               goto LABEL_263;
             }
@@ -4395,120 +5243,120 @@ LABEL_163:
               goto LABEL_264;
             }
 
-            v132 = *(v215 + 16);
-            if (v132 < location || v132 < v131)
+            v137 = *(v219 + 16);
+            if (v137 < location || v137 < v136)
             {
               goto LABEL_265;
             }
 
-            v190 = *(v215 + 16);
-            if (location == v131)
+            v194 = *(v219 + 16);
+            if (location == v136)
             {
-              v133 = INFINITY;
+              v138 = INFINITY;
               goto LABEL_177;
             }
 
-            if (location >= v131)
+            if (location >= v136)
             {
               goto LABEL_268;
             }
 
-            v134 = (v193 + 16 * location);
-            v133 = INFINITY;
-            v135 = v129;
+            v139 = (v197 + 16 * location);
+            v138 = INFINITY;
+            v140 = v134;
             do
             {
-              v136 = *v134;
-              v134 += 2;
-              v137 = v136;
-              if (v136 < v133)
+              v141 = *v139;
+              v139 += 2;
+              v142 = v141;
+              if (v141 < v138)
               {
-                v133 = v137;
+                v138 = v142;
               }
 
-              --v135;
+              --v140;
             }
 
-            while (v135);
+            while (v140);
 LABEL_177:
-            v181 = v133;
-            v195 = v24;
-            v246.location = location;
-            v246.length = v129;
+            v185 = v138;
+            v199 = v25;
+            v250.location = location;
+            v250.length = v134;
             a11 = location;
-            CTRunRef.drawingWidth(range:positions:)(v246, v215);
-            v180 = v138;
-            v179 = CGRectGetHeight(*v191);
+            CTRunRef.drawingWidth(range:positions:)(v250, v219);
+            v184 = v143;
+            v183 = CGRectGetHeight(*v195);
 
-            v139 = v192;
+            v144 = v196;
             specialized ContiguousArray.reserveCapacity(_:)();
-            v182 = v129;
-            v183 = location;
+            v186 = v134;
+            v187 = location;
             _NSRange.makeIterator()();
-            v236[0] = v140;
-            v236[1] = v141;
-            v236[2] = v142;
-            v237 = v143 & 1;
-            v243 = _NSRange.NSRangeIterator.next()();
-            if (!v243.is_nil)
+            v240[0] = v145;
+            v240[1] = v146;
+            v240[2] = v147;
+            v241 = v148 & 1;
+            v247 = _NSRange.NSRangeIterator.next()();
+            if (!v247.is_nil)
             {
-              value = v243.value;
-              v114 = v207;
-              v188 = v122;
-              v189 = a6;
-              v197 = v139;
-              while (value < v190)
+              value = v247.value;
+              v119 = v211;
+              v192 = v127;
+              v193 = a6;
+              v201 = v144;
+              while (value < v194)
               {
-                a6 = v30;
-                v145 = a5;
-                v146 = *(v193 + 16 * value);
-                v247.location = value;
-                v247.length = v215;
-                CTRunRef.drawingWidth(forGlyphAtIndex:positions:)(v247);
-                v148 = v147;
-                v149 = CGRectGetHeight(*v191);
-                if (value >= v217[2])
+                a6 = v31;
+                v150 = a5;
+                v151 = *(v197 + 16 * value);
+                v251.location = value;
+                v251.length = v219;
+                CTRunRef.drawingWidth(forGlyphAtIndex:positions:)(v251);
+                v153 = v152;
+                v154 = CGRectGetHeight(*v195);
+                if (value >= v221[2])
                 {
                   goto LABEL_251;
                 }
 
-                v150 = v149;
+                v155 = v154;
                 _sS2SSysWl_2();
 
                 String.Index.init<A>(utf16Offset:in:)();
-                v151 = String.subscript.getter();
-                v153 = v152;
+                v156 = String.subscript.getter();
+                v158 = v157;
                 type metadata accessor for SyncedLyricsLineView.Glyph();
                 a11 = swift_allocObject();
                 *(a11 + 96) = 0;
-                *(a11 + 48) = v151;
-                *(a11 + 56) = v153;
-                *(a11 + 64) = v146;
+                *(a11 + 48) = v156;
+                *(a11 + 56) = v158;
+                *(a11 + 64) = v151;
                 *(a11 + 72) = 0;
-                *(a11 + 80) = v148;
-                *(a11 + 88) = v150;
-                *(a11 + 104) = v195;
-                *(a11 + 112) = v146;
+                *(a11 + 80) = v153;
+                *(a11 + 88) = v155;
+                *(a11 + 104) = v199;
+                *(a11 + 112) = v151;
                 *(a11 + 120) = 0;
-                *(a11 + 128) = v148;
-                *(a11 + 136) = v150;
+                *(a11 + 128) = v153;
+                *(a11 + 136) = v155;
                 *(a11 + 16) = value;
-                *(a11 + 40) = v197;
-                a5 = v145;
-                *(a11 + 24) = v145;
+                *(a11 + 40) = v201;
+                a5 = v150;
+                *(a11 + 24) = v150;
                 *(a11 + 32) = a6;
-                v30 = a6;
-                v154 = v197;
+                v31 = a6;
+                v159 = v201;
                 specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
                 specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
-                v139 = v197;
+                v144 = v201;
                 specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
                 specialized ContiguousArray._endMutation()();
-                v244 = _NSRange.NSRangeIterator.next()();
-                value = v244.value;
-                v122 = v188;
-                a6 = v189;
-                if (v244.is_nil)
+                v248 = _NSRange.NSRangeIterator.next()();
+                value = v248.value;
+                v127 = v192;
+                a6 = v193;
+                if (v248.is_nil)
                 {
                   goto LABEL_183;
                 }
@@ -4523,43 +5371,43 @@ LABEL_252:
               goto LABEL_253;
             }
 
-            v114 = v207;
+            v119 = v211;
 LABEL_183:
 
-            v155 = static String._fromSubstring(_:)();
-            v184 = v156;
+            v160 = static String._fromSubstring(_:)();
+            v188 = v161;
 
             type metadata accessor for SyncedLyricsLineView.Syllable();
-            v157 = swift_allocObject();
-            *(v157 + 136) = 0;
-            *(v157 + 144) = 2;
-            *(v157 + 184) = 0;
-            *(v157 + 16) = a6;
-            *(v157 + 24) = v122;
-            *(v157 + 32) = v200;
-            *(v157 + 40) = rangea;
-            *(v157 + 48) = v205;
-            *(v157 + 56) = v203;
-            *(v157 + 64) = v201;
-            *(v157 + 72) = v155;
-            *(v157 + 80) = v184;
-            *(v157 + 88) = _swiftEmptyArrayStorage;
-            v24 = v195;
-            *(v157 + 192) = v195;
-            *(v157 + 200) = v181;
-            *(v157 + 208) = 0;
-            *(v157 + 216) = v180;
-            *(v157 + 224) = v179;
-            *(v157 + 152) = v181;
-            *(v157 + 160) = 0;
-            *(v157 + 168) = v180;
-            *(v157 + 176) = v179;
-            *(v157 + 96) = v183;
-            *(v157 + 104) = v182;
-            *(v157 + 112) = v139;
-            *(v157 + 120) = a5;
-            *(v157 + 128) = v30;
-            v158 = v139;
+            v162 = swift_allocObject();
+            *(v162 + 136) = 0;
+            *(v162 + 144) = 2;
+            *(v162 + 184) = 0;
+            *(v162 + 16) = a6;
+            *(v162 + 24) = v127;
+            *(v162 + 32) = v204;
+            *(v162 + 40) = rangea;
+            *(v162 + 48) = v209;
+            *(v162 + 56) = v207;
+            *(v162 + 64) = v205;
+            *(v162 + 72) = v160;
+            *(v162 + 80) = v188;
+            *(v162 + 88) = _swiftEmptyArrayStorage;
+            v25 = v199;
+            *(v162 + 192) = v199;
+            *(v162 + 200) = v185;
+            *(v162 + 208) = 0;
+            *(v162 + 216) = v184;
+            *(v162 + 224) = v183;
+            *(v162 + 152) = v185;
+            *(v162 + 160) = 0;
+            *(v162 + 168) = v184;
+            *(v162 + 176) = v183;
+            *(v162 + 96) = v187;
+            *(v162 + 104) = v186;
+            *(v162 + 112) = v144;
+            *(v162 + 120) = a5;
+            *(v162 + 128) = v31;
+            v163 = v144;
 
             specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
             if (*((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
@@ -4569,56 +5417,61 @@ LABEL_183:
 
             specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
             a11 = range_8a;
-            v115 = v53 + 80;
+            v120 = v54 + 80;
+            if (range_8a != v119)
+            {
+              continue;
+            }
+
+            break;
           }
 
-          while (range_8a != v114);
 LABEL_186:
 
-          v159 = static String._fromSubstring(_:)();
-          v161 = v160;
+          v164 = static String._fromSubstring(_:)();
+          v166 = v165;
 
           if (_swiftEmptyArrayStorage >> 62)
           {
-            v162 = _CocoaArrayWrapper.endIndex.getter();
+            v167 = _CocoaArrayWrapper.endIndex.getter();
           }
 
           else
           {
-            v162 = *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10);
+            v167 = *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10);
           }
 
           type metadata accessor for SyncedLyricsLineView.Word();
-          v163 = swift_allocObject();
-          *(v163 + 136) = 2;
-          *(v163 + 208) = 0;
-          *(v163 + 216) = v24;
-          *(v163 + 224) = v24;
-          *(v163 + 232) = 0;
-          *(v163 + 16) = v48;
-          *(v163 + 24) = v49;
-          *(v163 + 32) = v227;
-          *(v163 + 40) = v222;
-          *(v163 + 48) = v53;
-          *(v163 + 56) = v225;
-          *(v163 + 64) = v224;
-          *(v163 + 72) = v159;
-          *(v163 + 80) = v161;
-          *(v163 + 184) = 0;
-          *(v163 + 192) = v187;
-          *(v163 + 200) = Height;
-          *(v163 + 144) = v84;
-          *(v163 + 152) = 0;
-          *(v163 + 160) = v187;
-          *(v163 + 168) = Height;
-          *(v163 + 176) = v84;
-          *(v163 + 104) = _swiftEmptyArrayStorage;
-          *(v163 + 112) = v162;
-          *(v163 + 88) = v219;
-          *(v163 + 96) = v218;
-          *(v163 + 120) = v192;
-          *(v163 + 128) = 0;
-          v164 = v192;
+          v168 = swift_allocObject();
+          *(v168 + 136) = 2;
+          *(v168 + 208) = 0;
+          *(v168 + 216) = v25;
+          *(v168 + 224) = v25;
+          *(v168 + 232) = 0;
+          *(v168 + 16) = v49;
+          *(v168 + 24) = v50;
+          *(v168 + 32) = v231;
+          *(v168 + 40) = v226;
+          *(v168 + 48) = v54;
+          *(v168 + 56) = v229;
+          *(v168 + 64) = v228;
+          *(v168 + 72) = v164;
+          *(v168 + 80) = v166;
+          *(v168 + 184) = 0;
+          *(v168 + 192) = v191;
+          *(v168 + 200) = Height;
+          *(v168 + 144) = v89;
+          *(v168 + 152) = 0;
+          *(v168 + 160) = v191;
+          *(v168 + 168) = Height;
+          *(v168 + 176) = v89;
+          *(v168 + 104) = _swiftEmptyArrayStorage;
+          *(v168 + 112) = v167;
+          *(v168 + 88) = v223;
+          *(v168 + 96) = v222;
+          *(v168 + 120) = v196;
+          *(v168 + 128) = 0;
+          v169 = v196;
 
           specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
           if (*((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((_swiftEmptyArrayStorage & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
@@ -4628,42 +5481,40 @@ LABEL_186:
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-          a11 = v231;
-          a6 = v185;
-          if (v234 == v62)
+          a11 = v235;
+          a6 = v189;
+          if (v238 == v63)
           {
             goto LABEL_5;
           }
 
-          v27 = __OFADD__(v45++, 1);
-          v23 = a10;
-          v44 = v230;
-          if (v27)
+          v28 = __OFADD__(v46++, 1);
+          v24 = a10;
+          v45 = v234;
+          if (v28)
           {
             goto LABEL_259;
           }
 
 LABEL_77:
-          v46 = v229;
+          v47 = v233;
         }
 
-        while (v45 < v44);
+        while (v46 < v45);
 LABEL_6:
 
-        v25 = v210;
+        v26 = v214;
       }
 
-      while (v210 != v198);
+      while (v214 != v202);
     }
   }
 
-  v236[0] = _ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(v177, specialized Array._copyContents(initializing:));
-  specialized MutableCollection<>.sort(by:)(v236);
-
-  return v236[0];
+  v240[0] = _ss15ContiguousArrayV12arrayLiteralAByxGxd_tcfC7LyricsX06SyncedE8LineViewC0G0C_Tt0g5Tm(v182, specialized Array._copyContents(initializing:));
+  specialized MutableCollection<>.sort(by:)(v240);
 }
 
-uint64_t outlined consume of Lyrics.Word?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double outlined consume of Lyrics.Word?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -4684,12 +5535,12 @@ uint64_t sub_10046F320()
   return swift_deallocObject();
 }
 
-uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq57LyricsX06SyncedI8LineViewC0K0C_Sb7success_Si3endtTg5073_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_7i3X06j2F8kL27C0H0C_Sb7success_Si3endtTG5ADq_sAE_pRi_zRi0_zRi__Ri0__r0_lyAKSbAL_SiAMtIsgyrzo_Tf1cn_nTf4ng_nTm(int64_t a1, void (*a2)(uint64_t *__return_ptr, id *, id))
+uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFADq0_q_Ri_zRi0_zRi__Ri0__Ri_0_Ri0_0_r1_lyxsAE_pqd__Isgyrzr_AByxGqd__sAE_psAE_pRsd_0_r_0_lIetMggrzo_Tpq57LyricsX06SyncedI8LineViewC0K0C_Sb7success_Si3endtTg5073_sSa32withContiguousStorageIfAvailableyqd__Sgqd__SRyxGKXEKlFqd__ACKXEfU_7i3X06j2F8kL27C0H0C_Sb7success_Si3endtTG5ADq_sAE_pRi_zRi0_zRi__Ri0__r0_lyAKSbAL_SiAMtIsgyrzo_Tf1cn_nTf4ng_nTm(int64_t a1, void (*a2)(uint64_t *__return_ptr, void *, uint64_t, __n128))
 {
   AssociatedObject = specialized _ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(a1);
   v5 = AssociatedObject[2];
 
-  a2(&v8, AssociatedObject + 4, v5);
+  (a2)(&v8, AssociatedObject + 4, v5);
   if (!v2)
   {
     v6 = v8;
@@ -4698,20 +5549,19 @@ uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_Y
   return v6 & 1;
 }
 
-Swift::Int specialized OrderedSet.append<A>(contentsOf:)(Swift::Int result, uint64_t a2, unint64_t a3)
+void specialized OrderedSet.append<A>(contentsOf:)(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v4 = a3 >> 1;
   if (a3 >> 1 == a2)
   {
-    return result;
+    return;
   }
 
   v5 = v3;
   v6 = a2;
-  v7 = result;
   while (v6 < v4)
   {
-    v8 = *(v7 + 8 * v6);
+    v8 = *(a1 + 8 * v6);
     v10 = *v5;
     v9 = v5[1];
     v11 = (v9 + 32);
@@ -4719,21 +5569,21 @@ Swift::Int specialized OrderedSet.append<A>(contentsOf:)(Swift::Int result, uint
     {
       Hasher.init(_seed:)();
       Hasher._combine(_:)(v8);
-      result = Hasher._finalize()();
+      Hasher._finalize()();
       if (__OFSUB__(1 << *(v10 + 16), 1))
       {
         goto LABEL_33;
       }
 
       _HashTable.UnsafeHandle._startIterator(bucket:)();
-      result = _HashTable.BucketIterator.currentValue.getter();
-      if ((v12 & 1) == 0)
+      v12 = _HashTable.BucketIterator.currentValue.getter();
+      if ((v13 & 1) == 0)
       {
-        while (v11[result] != v8)
+        while (v11[v12] != v8)
         {
           _HashTable.BucketIterator.advance()();
-          result = _HashTable.BucketIterator.currentValue.getter();
-          if (v13)
+          v12 = _HashTable.BucketIterator.currentValue.getter();
+          if (v14)
           {
             goto LABEL_16;
           }
@@ -4745,13 +5595,13 @@ Swift::Int specialized OrderedSet.append<A>(contentsOf:)(Swift::Int result, uint
 
     else
     {
-      v14 = *(v9 + 16);
-      if (v14)
+      v15 = *(v9 + 16);
+      if (v15)
       {
         while (*v11 != v8)
         {
           ++v11;
-          if (!--v14)
+          if (!--v15)
           {
             goto LABEL_16;
           }
@@ -4767,28 +5617,28 @@ LABEL_16:
     specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
     specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
     specialized ContiguousArray._endMutation()();
-    v15 = v5[1];
-    v16 = *(v15 + 16);
+    v16 = v5[1];
+    v17 = *(v16 + 16);
     if (!v10)
     {
-      if (v16 > 0xF)
+      if (v17 > 0xF)
       {
-        v17 = 0;
+        v18 = 0;
 LABEL_23:
-        v18 = static _HashTable.scale(forCapacity:)();
-        if (v17 <= v18)
+        v19 = static _HashTable.scale(forCapacity:)();
+        if (v18 <= v19)
         {
-          v19 = v18;
+          v21 = v19;
         }
 
         else
         {
-          v19 = v17;
+          v21 = v18;
         }
 
-        v20 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVy7LyricsX06SyncedO8LineViewC0Q0CG_Tt2g5Tm(v15, v19, 0, v17);
+        v22 = _s19CollectionsInternal10_HashTableV6create23uncheckedUniqueElements5scale13reservedScaleACSgx_SiSgSitSkRzSH7ElementRpzlFZs15ContiguousArrayVy7LyricsX06SyncedO8LineViewC0Q0CG_Tt2g5Tm(v16, v21, 0, v18, v20);
 
-        *v5 = v20;
+        *v5 = v22;
         goto LABEL_5;
       }
 
@@ -4796,24 +5646,24 @@ LABEL_23:
     }
 
     swift_beginAccess();
-    if (static _HashTable.maximumCapacity(forScale:)() >= v16)
+    if (static _HashTable.maximumCapacity(forScale:)() >= v17)
     {
-      result = swift_isUniquelyReferenced_native();
-      v21 = *v5;
-      if ((result & 1) == 0)
+      isUniquelyReferenced_native = swift_isUniquelyReferenced_native();
+      v24 = *v5;
+      if ((isUniquelyReferenced_native & 1) == 0)
       {
-        if (!v21)
+        if (!v24)
         {
           goto LABEL_35;
         }
 
-        v22 = _HashTable.copy()();
+        v25 = _HashTable.copy()();
 
-        *v5 = v22;
-        v21 = v22;
+        *v5 = v25;
+        v24 = v25;
       }
 
-      if (!v21)
+      if (!v24)
       {
         goto LABEL_34;
       }
@@ -4824,8 +5674,8 @@ LABEL_4:
       goto LABEL_5;
     }
 
-    v17 = *(v10 + 24) & 0x3FLL;
-    if (v16 > 0xF || v17)
+    v18 = *(v10 + 24) & 0x3FLL;
+    if (v17 > 0xF || v18)
     {
       goto LABEL_23;
     }
@@ -4834,7 +5684,7 @@ LABEL_4:
 LABEL_5:
     if (++v6 == v4)
     {
-      return result;
+      return;
     }
   }
 
@@ -4845,7 +5695,6 @@ LABEL_34:
   __break(1u);
 LABEL_35:
   __break(1u);
-  return result;
 }
 
 uint64_t partial apply for implicit closure #9 in SyncedLyricsLineView.SBS_TextContentView.TextView.transliterationMetadata(transliteratedWords:previousLineWordRepresentations:originalWordRepresentations:originalStringRange:wordRangeAdjustment:size:)()
@@ -4960,9 +5809,9 @@ id partial apply for closure #3 in SyncedLyricsLineView.SBS_TextContentView.Text
   return result;
 }
 
-void partial apply for specialized closure #1 in OrderedSet._subtracting<A>(_:)(uint64_t *a1@<X0>, void *a2@<X8>)
+void partial apply for specialized closure #1 in OrderedSet._subtracting<A>(_:)(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  specialized closure #1 in OrderedSet._subtracting<A>(_:)(a1, v2[2], v2[3], *(v2[4] + 8));
+  specialized closure #1 in OrderedSet._subtracting<A>(_:)(a1, *(v2 + 16), *(v2 + 24), *(*(v2 + 32) + 8));
   if (!v3)
   {
     *a2 = v5;
@@ -4970,7 +5819,7 @@ void partial apply for specialized closure #1 in OrderedSet._subtracting<A>(_:)(
   }
 }
 
-void specialized closure #1 in OrderedSet._subtracting<A>(_:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void specialized closure #1 in OrderedSet._subtracting<A>(_:)(uint64_t a1, int8x8_t *a2, uint64_t a3, uint64_t a4)
 {
   v8 = *(a3 + 16);
   _UnsafeBitSet.insertAll(upTo:)(v8);
@@ -4986,12 +5835,10 @@ void specialized closure #1 in OrderedSet._subtracting<A>(_:)(uint64_t *a1, uint
     {
 LABEL_19:
       v20 = *a1;
-      v19 = a1[1];
+      v19 = *(a1 + 8);
       v21 = static MPMediaLibraryFilteringOptions.none.getter();
 
-      *&v23 = v20;
-      *(&v23 + 1) = v19;
-      specialized OrderedSet._extractSubset(using:count:extraCapacity:)(v23, v13, 0, v21, a2, v22);
+      specialized OrderedSet._extractSubset(using:count:extraCapacity:)(v20, v19, v13, 0, v21, a2, v22);
       return;
     }
 
@@ -5014,7 +5861,7 @@ LABEL_21:
       v15 = *(v11 + 8 * v9++);
       if (a2)
       {
-        v16 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)(v15, v12, v8, a2 + 16, a2 + 32);
+        v16 = specialized _HashTable.UnsafeHandle._find<A>(_:in:)();
         if (v17)
         {
           goto LABEL_5;
@@ -5175,7 +6022,7 @@ Swift::Int partial apply for specialized closure #1 in _HashTable.UnsafeHandle.f
 }
 
 {
-  result = specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(a1, a2, *(v3 + 16));
+  result = specialized closure #1 in _HashTable.UnsafeHandle.fill<A>(untilFirstDuplicateIn:)(a1, a2, *(v3 + 16), *(v3 + 24));
   if (!v4)
   {
     *a3 = result & 1;
@@ -5211,7 +6058,7 @@ id outlined copy of AnimationStatus(id result, unsigned __int8 a2)
   return result;
 }
 
-uint64_t outlined consume of SyncedLyricsLineView.SBS_TextContentView.TextView.TextLayoutDiffMetadata?(uint64_t a1, uint64_t a2)
+double outlined consume of SyncedLyricsLineView.SBS_TextContentView.TextView.TextLayoutDiffMetadata?(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -5516,173 +6363,173 @@ void SyncedLyricsLineView.Glyph.GlyphContainerView.purgeAnimators()()
 {
   v1 = OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView5Glyph18GlyphContainerView_currentAnimators;
   swift_beginAccess();
-  v30 = v1;
-  v2 = *(v0 + v1);
-  v29 = v2 >> 62;
-  v3 = v2 & 0xFFFFFFFFFFFFFF8;
-  if (v2 >> 62)
+  v31 = v1;
+  v3 = *(v0 + v1);
+  v30 = v3 >> 62;
+  v4 = v3 & 0xFFFFFFFFFFFFFF8;
+  if (v3 >> 62)
   {
     goto LABEL_75;
   }
 
-  v4 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v5 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_3:
-  v5 = 0;
+  v6 = 0;
   while (1)
   {
-    if (v4 == v5)
+    if (v5 == v6)
     {
-      if (v29)
+      if (v30)
       {
-        v5 = _CocoaArrayWrapper.endIndex.getter();
+        v6 = _CocoaArrayWrapper.endIndex.getter();
       }
 
       else
       {
-        v5 = *(v3 + 16);
+        v6 = *(v4 + 16);
       }
 
       goto LABEL_26;
     }
 
-    if ((v2 & 0xC000000000000001) != 0)
+    if ((v3 & 0xC000000000000001) != 0)
     {
-      v6 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
 
     else
     {
-      if (v5 >= *(v3 + 16))
+      if (v6 >= *(v4 + 16))
       {
         goto LABEL_66;
       }
 
-      v6 = *(v2 + 8 * v5 + 32);
+      v7 = *(v3 + 8 * v6 + 32);
     }
 
-    v7 = v6;
-    v8 = [v6 state];
+    v8 = v7;
+    v9 = [v7 state];
 
-    v9 = __OFADD__(v5, 1);
-    if (v8 == 2 || v8 == 0)
+    v10 = __OFADD__(v6, 1);
+    if (v9 == 2 || v9 == 0)
     {
       break;
     }
 
-    ++v5;
-    if (v9)
+    ++v6;
+    if (v10)
     {
       goto LABEL_67;
     }
   }
 
-  if (!v9)
+  if (!v10)
   {
-    if (v29)
+    if (v30)
     {
-      v11 = _CocoaArrayWrapper.endIndex.getter();
+      v12 = _CocoaArrayWrapper.endIndex.getter();
     }
 
     else
     {
-      v11 = *(v3 + 16);
+      v12 = *(v4 + 16);
     }
 
-    v12 = v0;
-    if (v5 + 1 != v11)
+    v13 = v0;
+    if (v6 + 1 != v12)
     {
-      v3 = v5 + 5;
+      v4 = v6 + 5;
       do
       {
-        v14 = v3 - 4;
-        v0 = (v2 & 0xC000000000000001);
-        if ((v2 & 0xC000000000000001) != 0)
+        v15 = v4 - 4;
+        v0 = (v3 & 0xC000000000000001);
+        if ((v3 & 0xC000000000000001) != 0)
         {
-          v15 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v16 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if ((v14 & 0x8000000000000000) != 0)
+          if ((v15 & 0x8000000000000000) != 0)
           {
             goto LABEL_68;
           }
 
-          if (v14 >= *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v15 >= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             goto LABEL_69;
           }
 
-          v15 = *(v2 + 8 * v3);
+          v16 = *(v3 + 8 * v4);
         }
 
-        v16 = v15;
-        v17 = [v15 state];
+        v17 = v16;
+        v18 = [v16 state];
 
-        if (v17 != 2 && v17 != 0)
+        if (v18 != 2 && v18 != 0)
         {
-          if (v14 != v5)
+          if (v15 != v6)
           {
             if (v0)
             {
-              v19 = specialized _ArrayBuffer._getElementSlowPath(_:)();
               v20 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+              v21 = specialized _ArrayBuffer._getElementSlowPath(_:)();
             }
 
             else
             {
-              if ((v5 & 0x8000000000000000) != 0)
+              if ((v6 & 0x8000000000000000) != 0)
               {
                 goto LABEL_78;
               }
 
-              v21 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-              if (v5 >= v21)
+              v22 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+              if (v6 >= v22)
               {
                 goto LABEL_79;
               }
 
-              if (v14 >= v21)
+              if (v15 >= v22)
               {
                 goto LABEL_80;
               }
 
-              v0 = *(v2 + 8 * v3);
-              v19 = *(v2 + 8 * v5 + 32);
-              v20 = v0;
+              v0 = *(v3 + 8 * v4);
+              v20 = *(v3 + 8 * v6 + 32);
+              v21 = v0;
             }
 
-            v22 = v20;
+            v23 = v21;
             isUniquelyReferenced_nonNull_bridgeObject = swift_isUniquelyReferenced_nonNull_bridgeObject();
-            *(v12 + v30) = v2;
-            if (!isUniquelyReferenced_nonNull_bridgeObject || (v2 & 0x8000000000000000) != 0 || (v2 & 0x4000000000000000) != 0)
+            *(v13 + v31) = v3;
+            if (!isUniquelyReferenced_nonNull_bridgeObject || (v3 & 0x8000000000000000) != 0 || (v3 & 0x4000000000000000) != 0)
             {
-              v2 = specialized _ArrayBuffer._consumeAndCreateNew()(v2);
-              *(v12 + v30) = v2;
+              v3 = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
+              *(v13 + v31) = v3;
             }
 
-            if ((v5 & 0x8000000000000000) != 0)
+            if ((v6 & 0x8000000000000000) != 0)
             {
               goto LABEL_72;
             }
 
-            v0 = (v2 & 0xFFFFFFFFFFFFFF8);
-            if (v5 >= *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            v0 = (v3 & 0xFFFFFFFFFFFFFF8);
+            if (v6 >= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
               goto LABEL_73;
             }
 
-            v24 = &v0[v5];
-            v25 = v24[4];
-            v24[4] = v22;
+            v25 = &v0[v6];
+            v26 = v25[4];
+            v25[4] = v23;
 
-            *(v12 + v30) = v2;
-            if ((v2 & 0x8000000000000000) != 0 || (v2 & 0x4000000000000000) != 0)
+            *(v13 + v31) = v3;
+            if ((v3 & 0x8000000000000000) != 0 || (v3 & 0x4000000000000000) != 0)
             {
-              v2 = specialized _ArrayBuffer._consumeAndCreateNew()(v2);
-              *(v12 + v30) = v2;
-              v0 = (v2 & 0xFFFFFFFFFFFFFF8);
-              if ((v14 & 0x8000000000000000) != 0)
+              v3 = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
+              *(v13 + v31) = v3;
+              v0 = (v3 & 0xFFFFFFFFFFFFFF8);
+              if ((v15 & 0x8000000000000000) != 0)
               {
 LABEL_65:
                 __break(1u);
@@ -5705,60 +6552,60 @@ LABEL_73:
 LABEL_74:
                 __break(1u);
 LABEL_75:
-                v4 = _CocoaArrayWrapper.endIndex.getter();
+                v5 = _CocoaArrayWrapper.endIndex.getter();
                 goto LABEL_3;
               }
             }
 
-            else if ((v14 & 0x8000000000000000) != 0)
+            else if ((v15 & 0x8000000000000000) != 0)
             {
               goto LABEL_65;
             }
 
-            if (v14 >= v0[2])
+            if (v15 >= v0[2])
             {
               goto LABEL_74;
             }
 
-            v26 = v0[v3];
-            v0[v3] = v19;
+            v27 = v0[v4];
+            v0[v4] = v20;
 
-            *(v12 + v30) = v2;
+            *(v13 + v31) = v3;
           }
 
-          if (__OFADD__(v5++, 1))
+          if (__OFADD__(v6++, 1))
           {
             goto LABEL_71;
           }
         }
 
-        v0 = (v3 - 3);
-        if (__OFADD__(v14, 1))
+        v0 = (v4 - 3);
+        if (__OFADD__(v15, 1))
         {
           goto LABEL_70;
         }
 
-        if (v2 >> 62)
+        if (v3 >> 62)
         {
-          v28 = _CocoaArrayWrapper.endIndex.getter();
+          v29 = _CocoaArrayWrapper.endIndex.getter();
         }
 
         else
         {
-          v28 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v29 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
         }
 
-        ++v3;
+        ++v4;
       }
 
-      while (v0 != v28);
+      while (v0 != v29);
     }
 
 LABEL_26:
-    if (v2 >> 62)
+    if (v3 >> 62)
     {
-      v13 = _CocoaArrayWrapper.endIndex.getter();
-      if (v13 >= v5)
+      v14 = _CocoaArrayWrapper.endIndex.getter();
+      if (v14 >= v6)
       {
         goto LABEL_28;
       }
@@ -5766,11 +6613,11 @@ LABEL_26:
 
     else
     {
-      v13 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (v13 >= v5)
+      v14 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (v14 >= v6)
       {
 LABEL_28:
-        specialized Array.replaceSubrange<A>(_:with:)(v5, v13);
+        specialized Array.replaceSubrange<A>(_:with:)(v6, v14, v2);
         swift_endAccess();
         return;
       }
@@ -5788,7 +6635,7 @@ LABEL_80:
   __break(1u);
 }
 
-uint64_t closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.grow(springTimingParameters:position:factor:delay:)(void *a1, double a2, double a3, CGFloat a4)
+void closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.grow(springTimingParameters:position:factor:delay:)(void *a1, double a2, double a3, CGFloat a4)
 {
   v8 = objc_opt_self();
   v9 = swift_allocObject();
@@ -5796,13 +6643,13 @@ uint64_t closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.grow(spring
   v10 = swift_allocObject();
   *(v10 + 16) = partial apply for closure #1 in closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.grow(springTimingParameters:position:factor:delay:);
   *(v10 + 24) = v9;
-  *&v14.tx = thunk for @escaping @callee_guaranteed () -> ()partial apply;
-  *&v14.ty = v10;
-  *&v14.a = _NSConcreteStackBlock;
-  *&v14.b = 1107296256;
-  *&v14.c = thunk for @escaping @callee_guaranteed () -> ();
-  *&v14.d = &block_descriptor_42_1;
-  v11 = _Block_copy(&v14);
+  *&v13.tx = thunk for @escaping @callee_guaranteed () -> ()partial apply;
+  *&v13.ty = v10;
+  *&v13.a = _NSConcreteStackBlock;
+  *&v13.b = 1107296256;
+  *&v13.c = thunk for @escaping @callee_guaranteed () -> ();
+  *&v13.d = &block_descriptor_42_1;
+  v11 = _Block_copy(&v13);
   v12 = a1;
 
   [v8 performWithoutAnimation:v11];
@@ -5818,11 +6665,9 @@ uint64_t closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.grow(spring
   {
     [v12 frame];
     [v12 setFrame:{a2, a3}];
-    CGAffineTransformMakeScale(&v14, a4, a4);
-    [v12 setTransform:&v14];
+    CGAffineTransformMakeScale(&v13, a4, a4);
+    [v12 setTransform:&v13];
   }
-
-  return result;
 }
 
 void SyncedLyricsLineView.Glyph.GlyphContainerView.degrow(springTimingParameters:position:delay:)(void *a1, double a2, double a3, double a4)
@@ -5871,7 +6716,7 @@ void SyncedLyricsLineView.Glyph.GlyphContainerView.degrow(springTimingParameters
   swift_endAccess();
 }
 
-uint64_t closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.degrow(springTimingParameters:position:delay:)(void *a1, double a2, double a3)
+void closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.degrow(springTimingParameters:position:delay:)(void *a1, double a2, double a3)
 {
   v6 = objc_opt_self();
   v7 = swift_allocObject();
@@ -5879,13 +6724,13 @@ uint64_t closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.degrow(spri
   v8 = swift_allocObject();
   *(v8 + 16) = partial apply for closure #1 in closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.degrow(springTimingParameters:position:delay:);
   *(v8 + 24) = v7;
-  v16 = partial apply for thunk for @escaping @callee_guaranteed () -> ();
-  v17 = v8;
-  v12 = _NSConcreteStackBlock;
-  v13 = 1107296256;
-  v14 = thunk for @escaping @callee_guaranteed () -> ();
-  v15 = &block_descriptor_31_0;
-  v9 = _Block_copy(&v12);
+  v15 = partial apply for thunk for @escaping @callee_guaranteed () -> ();
+  v16 = v8;
+  v11 = _NSConcreteStackBlock;
+  v12 = 1107296256;
+  v13 = thunk for @escaping @callee_guaranteed () -> ();
+  v14 = &block_descriptor_31_0;
+  v9 = _Block_copy(&v11);
   v10 = a1;
 
   [v6 performWithoutAnimation:v9];
@@ -5899,18 +6744,16 @@ uint64_t closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.degrow(spri
 
   else
   {
-    v12 = 0x3FF0000000000000;
+    v11 = 0x3FF0000000000000;
+    v12 = 0;
     v13 = 0;
-    v14 = 0;
-    v15 = 0x3FF0000000000000;
+    v14 = 0x3FF0000000000000;
+    v15 = 0;
     v16 = 0;
-    v17 = 0;
-    [v10 setTransform:&v12];
+    [v10 setTransform:&v11];
     [v10 frame];
     [v10 setFrame:{a2, a3}];
   }
-
-  return result;
 }
 
 id closure #1 in closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.grow(springTimingParameters:position:factor:delay:)(uint64_t a1, uint64_t (*a2)(void))
@@ -5920,22 +6763,22 @@ id closure #1 in closure #1 in SyncedLyricsLineView.Glyph.GlyphContainerView.gro
   return UIView.setAnchorPoint(_:preserveFrame:)(1, *v2, v2[1]);
 }
 
-void closure #2 in SyncedLyricsLineView.Glyph.GlyphContainerView.grow(springTimingParameters:position:factor:delay:)()
+void closure #2 in SyncedLyricsLineView.Glyph.GlyphContainerView.grow(springTimingParameters:position:factor:delay:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     SyncedLyricsLineView.Glyph.GlyphContainerView.purgeAnimators()();
   }
 }
 
-id SyncedLyricsLineView.Glyph.GlyphContainerView.__deallocating_deinit()
+id SyncedLyricsLineView.Glyph.GlyphContainerView.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SyncedLyricsLineView.Glyph.GlyphContainerView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SyncedLyricsLineView.Glyph.GlyphContainerView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t SyncedLyricsLineView.Glyph.__deallocating_deinit()
@@ -6062,7 +6905,7 @@ id SyncedLyricsLineView.Line.contentView.getter()
   }
 
   v2 = [result subviews];
-  type metadata accessor for UIAction(0, &_sSo6UIViewCML_2);
+  type metadata accessor for UIAction(0, &_sSo6UIViewCML_2, UIView_ptr);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v3 >> 62)
@@ -6104,7 +6947,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t SyncedLyricsLineView.Line.words.didset()
+void SyncedLyricsLineView.Line.words.didset()
 {
   v1 = v0;
   swift_beginAccess();
@@ -6122,7 +6965,7 @@ uint64_t SyncedLyricsLineView.Line.words.didset()
   v4 = _swiftEmptyArrayStorage;
   if (v3)
   {
-    v25 = _swiftEmptyArrayStorage;
+    v24 = _swiftEmptyArrayStorage;
 
     _ss15ContiguousArrayV16_createNewBuffer14bufferIsUnique15minimumCapacity13growForAppendySb_SiSbtFSd_Tg5_0(0, v3 & ~(v3 >> 63), 0);
     if (v3 < 0)
@@ -6132,7 +6975,7 @@ uint64_t SyncedLyricsLineView.Line.words.didset()
     }
 
     v5 = 0;
-    v4 = v25;
+    v4 = v24;
     do
     {
       if ((v2 & 0xC000000000000001) != 0)
@@ -6155,30 +6998,30 @@ uint64_t SyncedLyricsLineView.Line.words.didset()
         v8 = 0;
       }
 
-      v25 = v4;
-      v10 = v4[2];
-      v9 = v4[3];
+      v24 = v4;
+      v10 = *(v4 + 2);
+      v9 = *(v4 + 3);
       if (v10 >= v9 >> 1)
       {
         _ss15ContiguousArrayV16_createNewBuffer14bufferIsUnique15minimumCapacity13growForAppendySb_SiSbtFSd_Tg5_0((v9 > 1), v10 + 1, 1);
-        v4 = v25;
+        v4 = v24;
       }
 
       ++v5;
-      v4[2] = (v10 + 1);
-      v4[v10 + 4] = v8;
+      *(v4 + 2) = v10 + 1;
+      *&v4[8 * v10 + 32] = v8;
     }
 
     while (v3 != v5);
   }
 
-  v25 = v4;
+  v24 = v4;
 
-  specialized MutableCollection<>.sort(by:)(&v25);
+  specialized MutableCollection<>.sort(by:)(&v24);
 
-  if (v25[2])
+  if (*(v24 + 2))
   {
-    v11 = v25[4];
+    v11 = *(v24 + 4);
   }
 
   else
@@ -6201,13 +7044,13 @@ uint64_t SyncedLyricsLineView.Line.words.didset()
   v14 = _swiftEmptyArrayStorage;
   if (v13)
   {
-    v25 = _swiftEmptyArrayStorage;
+    v24 = _swiftEmptyArrayStorage;
 
     _ss15ContiguousArrayV16_createNewBuffer14bufferIsUnique15minimumCapacity13growForAppendySb_SiSbtFSd_Tg5_0(0, v13 & ~(v13 >> 63), 0);
     if ((v13 & 0x8000000000000000) == 0)
     {
       v15 = 0;
-      v14 = v25;
+      v14 = v24;
       do
       {
         if ((v12 & 0xC000000000000001) != 0)
@@ -6231,18 +7074,18 @@ uint64_t SyncedLyricsLineView.Line.words.didset()
           v19 = 0;
         }
 
-        v25 = v14;
-        v21 = v14[2];
-        v20 = v14[3];
+        v24 = v14;
+        v21 = *(v14 + 2);
+        v20 = *(v14 + 3);
         if (v21 >= v20 >> 1)
         {
           _ss15ContiguousArrayV16_createNewBuffer14bufferIsUnique15minimumCapacity13growForAppendySb_SiSbtFSd_Tg5_0((v20 > 1), v21 + 1, 1);
-          v14 = v25;
+          v14 = v24;
         }
 
         ++v15;
-        v14[2] = (v21 + 1);
-        v14[v21 + 4] = v19;
+        *(v14 + 2) = v21 + 1;
+        *&v14[8 * v21 + 32] = v19;
       }
 
       while (v13 != v15);
@@ -6254,18 +7097,18 @@ LABEL_41:
     __break(1u);
 
     __break(1u);
-    return result;
+    return;
   }
 
 LABEL_34:
-  v25 = v14;
+  v24 = v14;
 
-  specialized MutableCollection<>.sort(by:)(&v25);
+  specialized MutableCollection<>.sort(by:)(&v24);
 
-  v22 = v25[2];
+  v22 = *(v24 + 2);
   if (v22)
   {
-    v23 = v25[v22 + 3];
+    v23 = *&v24[8 * v22 + 24];
   }
 
   else
@@ -6274,7 +7117,6 @@ LABEL_34:
   }
 
   v1[9] = v23;
-  return result;
 }
 
 void SyncedLyricsLineView.Line.finishGradient(specs:)(uint64_t a1)
@@ -6408,12 +7250,12 @@ LABEL_28:
 
             [v17 animateWithDuration:196609 delay:v20 options:0 animations:v18 completion:0.0];
             _Block_release(v20);
-            type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3);
+            type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3, OS_dispatch_queue_ptr);
             v22 = static OS_dispatch_queue.main.getter();
             v23 = swift_allocObject();
             swift_weakInit();
 
-            OS_dispatch_queue.asyncAfter(_:block:)(partial apply for closure #2 in SyncedLyricsLineView.Line.finishGradient(specs:), v23);
+            OS_dispatch_queue.asyncAfter(_:block:)(partial apply for closure #2 in SyncedLyricsLineView.Line.finishGradient(specs:), v23, v18);
 
             return;
           }
@@ -6462,13 +7304,13 @@ id closure #1 in SyncedLyricsLineView.Line.finishGradient(specs:)(uint64_t a1, i
   return [a2 setFrame:{v18, v16, v19, v15}];
 }
 
-uint64_t closure #1 in SyncedLyricsLineView.Line.resetGradient(specs:)()
+double closure #1 in SyncedLyricsLineView.Line.resetGradient(specs:)(uint64_t a1)
 {
   swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
+  Strong = swift_weakLoadStrong();
+  if (Strong)
   {
-    *(result + 120) = 0;
+    *(Strong + 120) = 0;
   }
 
   return result;
@@ -6495,19 +7337,19 @@ void SyncedLyricsLineView.Line.animate(progress:specs:)(unint64_t a1, double a2)
   if (v15)
   {
 LABEL_3:
-    v111 = *(v3 + 56);
-    v109 = *(v3 + 57);
-    v113 = v14 & 0xC000000000000001;
-    v108 = v14 & 0xFFFFFFFFFFFFFF8;
-    v107 = v3;
-    v117 = &v120;
+    v112 = *(v3 + 56);
+    v110 = *(v3 + 57);
+    v114 = v14 & 0xC000000000000001;
+    v109 = v14 & 0xFFFFFFFFFFFFFF8;
+    v108 = v3;
+    v118 = &v121;
 
     v5 = 0;
     v9 = 1107296256;
-    v110 = v15;
+    v111 = v15;
     while (1)
     {
-      if (v113)
+      if (v114)
       {
         v21 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         v22 = __OFADD__(v5++, 1);
@@ -6519,7 +7361,7 @@ LABEL_3:
 
       else
       {
-        v23 = *(v108 + 16);
+        v23 = *(v109 + 16);
         if (v5 >= v23)
         {
           __break(1u);
@@ -6539,8 +7381,8 @@ LABEL_187:
         }
       }
 
-      v115 = v21;
-      if (v111)
+      v116 = v21;
+      if (v112)
       {
         goto LABEL_39;
       }
@@ -6611,20 +7453,20 @@ LABEL_37:
               goto LABEL_37;
             }
 
-            type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
+            type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
             v24 = UIViewPropertyAnimator.init(springTimingParameters:)([objc_allocWithZone(UISpringTimingParameters) initWithMass:1.0 stiffness:14.0 damping:7.0 initialVelocity:{0.0, 0.0}]).super.isa;
 LABEL_20:
             v25 = swift_allocObject();
             *(v25 + 16) = v6;
             *(v25 + 24) = v8 > a2;
             memcpy((v25 + 32), a1, 0x2B0uLL);
-            v124[4] = partial apply for closure #1 in SyncedLyricsLineView.Syllable.animate(reversed:specs:);
-            v124[5] = v25;
-            v124[0] = _NSConcreteStackBlock;
-            v124[1] = 1107296256;
-            v124[2] = thunk for @escaping @callee_guaranteed () -> ();
-            v124[3] = &block_descriptor_23_2;
-            v26 = _Block_copy(v124);
+            v125[4] = partial apply for closure #1 in SyncedLyricsLineView.Syllable.animate(reversed:specs:);
+            v125[5] = v25;
+            v125[0] = _NSConcreteStackBlock;
+            v125[1] = 1107296256;
+            v125[2] = thunk for @escaping @callee_guaranteed () -> ();
+            v125[3] = &block_descriptor_23_2;
+            v26 = _Block_copy(v125);
 
             outlined init with copy of SyncedLyricsViewController.Specs(a1, &aBlock);
 
@@ -6633,12 +7475,12 @@ LABEL_20:
             v27 = swift_allocObject();
             *(v27 + 16) = v6;
             *(v27 + 24) = v8 > a2;
-            v122 = partial apply for closure #2 in SyncedLyricsLineView.Syllable.animate(reversed:specs:);
-            v123 = v27;
+            v123 = partial apply for closure #2 in SyncedLyricsLineView.Syllable.animate(reversed:specs:);
+            v124 = v27;
             aBlock = _NSConcreteStackBlock;
-            v119 = 1107296256;
-            v120 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
-            v121 = &block_descriptor_29;
+            v120 = 1107296256;
+            v121 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
+            v122 = &block_descriptor_29;
             v28 = _Block_copy(&aBlock);
 
             [(objc_class *)v24 addCompletion:v28];
@@ -6675,22 +7517,22 @@ LABEL_100:
       }
 
 LABEL_39:
-      if (!v109)
+      if (!v110)
       {
-        v3 = v115;
+        v3 = v116;
         SyncedLyricsLineView.Word.animateGlow(progress:specs:)(a1, a2);
 
         goto LABEL_7;
       }
 
-      v32 = *(v115 + 208);
+      v32 = *(v116 + 208);
       if (v32)
       {
         v33 = *&v32[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_crossfadeAnimationParameters];
         if (v33)
         {
           v4 = *&v32[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_crossfadeAnimationParameters + 8];
-          v2 = *(v115 + 48);
+          v2 = *(v116 + 48);
           if (*(v2 + 16))
           {
             if (*(v2 + 32) > a2)
@@ -6703,7 +7545,7 @@ LABEL_39:
           {
 LABEL_44:
             v2 = *&v32[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_overlayView];
-            LOBYTE(v6) = v115;
+            LOBYTE(v6) = v116;
             v3 = v32;
             outlined copy of SyncedLyricsLineView.Word.CrossfadeAnimationParameters?(v33, v4);
             v34 = v2;
@@ -6719,7 +7561,7 @@ LABEL_44:
           if (v36)
           {
             v7 = v36;
-            type metadata accessor for UIAction(0, &_sSo7UIColorCML_1);
+            type metadata accessor for UIAction(0, &_sSo7UIColorCML_1, UIColor_ptr);
             v37 = v4;
             v3 = static NSObject.== infix(_:_:)();
 
@@ -6743,19 +7585,19 @@ LABEL_44:
             v17 = 0.0;
           }
 
-          v2 = v115;
+          v2 = v116;
           v3 = objc_opt_self();
           v8 = v17 - v16;
           v18 = swift_allocObject();
           v18[2] = v6;
           v18[3] = v33;
           v18[4] = v4;
-          v122 = partial apply for closure #1 in SyncedLyricsLineView.Word.animateCrossfade(progress:);
-          v123 = v18;
+          v123 = partial apply for closure #1 in SyncedLyricsLineView.Word.animateCrossfade(progress:);
+          v124 = v18;
           aBlock = _NSConcreteStackBlock;
-          v119 = 1107296256;
-          v120 = thunk for @escaping @callee_guaranteed () -> ();
-          v121 = &block_descriptor_41_0;
+          v120 = 1107296256;
+          v121 = thunk for @escaping @callee_guaranteed () -> ();
+          v122 = &block_descriptor_41_0;
           v19 = _Block_copy(&aBlock);
           v6 = v6;
           v4 = v4;
@@ -6768,11 +7610,11 @@ LABEL_44:
       }
 
 LABEL_7:
-      v15 = v110;
-      if (v5 == v110)
+      v15 = v111;
+      if (v5 == v111)
       {
 
-        v3 = v107;
+        v3 = v108;
         break;
       }
     }
@@ -6806,11 +7648,11 @@ LABEL_53:
               v45 = *(v3 + 96);
               v46 = *(v3 + 104);
               v47 = v15;
-              v125.origin.x = v43;
-              v125.origin.y = v44;
-              v125.size.width = v45;
-              v125.size.height = v46;
-              v48 = v8 * 0.5 + CGRectGetWidth(v125);
+              v126.origin.x = v43;
+              v126.origin.y = v44;
+              v126.size.width = v45;
+              v126.size.height = v46;
+              v48 = v8 * 0.5 + CGRectGetWidth(v126);
               [v47 frame];
               [v47 setFrame:v48];
             }
@@ -6821,19 +7663,20 @@ LABEL_53:
             }
 
             [v47 frame];
-            [v47 setFrame:{v64, v65, v8, v66, v107}];
+            [v47 setFrame:{v65, v66, v8, v67, v108}];
             goto LABEL_85;
           }
 
-          v5 = SyncedLyricsLineView.Line.currentWord(for:)(a2);
-          a1 = v51;
-          v52 = SyncedLyricsLineView.Line.currentSyllable(for:)(a2);
-          v4 = v52;
-          v3 = v53;
-          if (v5 && v52)
+          SyncedLyricsLineView.Line.currentWord(for:)(a2);
+          v5 = v51;
+          a1 = v52;
+          v53 = SyncedLyricsLineView.Line.currentSyllable(for:)(a2);
+          v4 = v53;
+          v3 = v54;
+          if (v5 && v53)
           {
-            v54 = *(v7 + 128);
-            if (v54 && v52 == v54)
+            v55 = *(v7 + 128);
+            if (v55 && v53 == v55)
             {
 
               return;
@@ -6852,25 +7695,25 @@ LABEL_91:
                   if ((v2 & 0xC000000000000001) != 0)
                   {
 
-                    v74 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+                    v75 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-                    v67 = *(v74 + 104);
+                    v68 = *(v75 + 104);
 
                     swift_unknownObjectRelease();
-                    if ((v67 & 0x8000000000000000) == 0 && (v67 & 0x4000000000000000) == 0)
+                    if ((v68 & 0x8000000000000000) == 0 && (v68 & 0x4000000000000000) == 0)
                     {
 LABEL_95:
-                      if (*((v67 & 0xFFFFFFFFFFFFFF8) + 0x10))
+                      if (*((v68 & 0xFFFFFFFFFFFFFF8) + 0x10))
                       {
 LABEL_96:
-                        if ((v67 & 0xC000000000000001) != 0)
+                        if ((v68 & 0xC000000000000001) != 0)
                         {
                           goto LABEL_194;
                         }
 
-                        if (*((v67 & 0xFFFFFFFFFFFFFF8) + 0x10))
+                        if (*((v68 & 0xFFFFFFFFFFFFFF8) + 0x10))
                         {
-                          v68 = *(v67 + 32);
+                          v69 = *(v68 + 32);
                           goto LABEL_115;
                         }
 
@@ -6894,9 +7737,9 @@ LABEL_137:
 
                   if (*((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
                   {
-                    v67 = *(*(v2 + 32) + 104);
+                    v68 = *(*(v2 + 32) + 104);
 
-                    if ((v67 & 0x8000000000000000) == 0 && (v67 & 0x4000000000000000) == 0)
+                    if ((v68 & 0x8000000000000000) == 0 && (v68 & 0x4000000000000000) == 0)
                     {
                       goto LABEL_95;
                     }
@@ -6924,8 +7767,8 @@ LABEL_131:
 LABEL_101:
             if (v23)
             {
-              v69 = _CocoaArrayWrapper.endIndex.getter();
-              if (!v69)
+              v70 = _CocoaArrayWrapper.endIndex.getter();
+              if (!v70)
               {
                 goto LABEL_134;
               }
@@ -6933,15 +7776,15 @@ LABEL_101:
 
             else
             {
-              v69 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
-              if (!v69)
+              v70 = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10);
+              if (!v70)
               {
                 goto LABEL_134;
               }
             }
 
-            v70 = v69 - 1;
-            if (__OFSUB__(v69, 1))
+            v71 = v70 - 1;
+            if (__OFSUB__(v70, 1))
             {
               __break(1u);
 LABEL_140:
@@ -6953,12 +7796,12 @@ LABEL_140:
             {
 LABEL_141:
 
-              v75 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+              v76 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-              v71 = *(v75 + 104);
+              v72 = *(v76 + 104);
 
               swift_unknownObjectRelease();
-              if (v71 < 0 || (v71 & 0x4000000000000000) != 0)
+              if (v72 < 0 || (v72 & 0x4000000000000000) != 0)
               {
                 goto LABEL_143;
               }
@@ -6966,22 +7809,22 @@ LABEL_141:
               goto LABEL_109;
             }
 
-            if ((v70 & 0x8000000000000000) != 0)
+            if ((v71 & 0x8000000000000000) != 0)
             {
               __break(1u);
 LABEL_175:
               __break(1u);
             }
 
-            else if (v70 < *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            else if (v71 < *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
-              v71 = *(*(v2 + 8 * v70 + 32) + 104);
+              v72 = *(*(v2 + 8 * v71 + 32) + 104);
 
-              if (v71 < 0 || (v71 & 0x4000000000000000) != 0)
+              if (v72 < 0 || (v72 & 0x4000000000000000) != 0)
               {
 LABEL_143:
-                v72 = _CocoaArrayWrapper.endIndex.getter();
-                if (!v72)
+                v73 = _CocoaArrayWrapper.endIndex.getter();
+                if (!v73)
                 {
                   goto LABEL_144;
                 }
@@ -6990,32 +7833,32 @@ LABEL_143:
               }
 
 LABEL_109:
-              v72 = *((v71 & 0xFFFFFFFFFFFFFF8) + 0x10);
-              if (!v72)
+              v73 = *((v72 & 0xFFFFFFFFFFFFFF8) + 0x10);
+              if (!v73)
               {
                 goto LABEL_144;
               }
 
 LABEL_110:
-              v22 = __OFSUB__(v72, 1);
-              v73 = v72 - 1;
+              v22 = __OFSUB__(v73, 1);
+              v74 = v73 - 1;
               if (!v22)
               {
-                if ((v71 & 0xC000000000000001) != 0)
+                if ((v72 & 0xC000000000000001) != 0)
                 {
                   goto LABEL_194;
                 }
 
-                if ((v73 & 0x8000000000000000) == 0)
+                if ((v74 & 0x8000000000000000) == 0)
                 {
-                  if (v73 < *((v71 & 0xFFFFFFFFFFFFFF8) + 0x10))
+                  if (v74 < *((v72 & 0xFFFFFFFFFFFFFF8) + 0x10))
                   {
-                    v68 = *(v71 + 8 * v73 + 32);
+                    v69 = *(v72 + 8 * v74 + 32);
                     while (1)
                     {
 LABEL_115:
 
-                      if (v68 == v4)
+                      if (v69 == v4)
                       {
                         v10 = 1.0;
                       }
@@ -7023,10 +7866,10 @@ LABEL_115:
                       else
                       {
 LABEL_145:
-                        v76 = *(v4 + 64);
-                        if (!v76 || (v10 = 0.5, v76 >= 3))
+                        v77 = *(v4 + 64);
+                        if (!v77 || (v10 = 0.5, v77 >= 3))
                         {
-                          if (!v3 || (, v77 = String.count.getter(), , v10 = 0.25, v77 >= 3))
+                          if (!v3 || (, v78 = String.count.getter(), , v10 = 0.25, v78 >= 3))
                           {
                             v10 = 0.12;
                           }
@@ -7035,30 +7878,30 @@ LABEL_145:
 
                       if (v6)
                       {
-                        v78 = *(v4 + 152) - v11 * v10 - v8;
+                        v79 = *(v4 + 152) - v11 * v10 - v8;
                         [v15 frame];
-                        v80 = v79;
-                        v81 = v7;
-                        v82 = CGRectGetWidth(*(v7 + 80)) - v78;
+                        v81 = v80;
+                        v82 = v7;
+                        v83 = CGRectGetWidth(*(v7 + 80)) - v79;
                         goto LABEL_183;
                       }
 
                       v9 = *(v4 + 16);
                       a2 = *(v4 + 24);
-                      v70 = *(v4 + 32);
+                      v71 = *(v4 + 32);
                       v2 = *(v4 + 40);
-                      v84 = *(v4 + 48);
-                      v83 = *(v4 + 56);
-                      v85 = *(v4 + 64);
+                      v85 = *(v4 + 48);
+                      v84 = *(v4 + 56);
+                      v86 = *(v4 + 64);
                       v6 = *(v5 + 104);
                       if (v6 >> 62)
                       {
-                        v115 = *(v4 + 56);
-                        v117 = *(v4 + 48);
-                        v86 = _CocoaArrayWrapper.endIndex.getter();
-                        v84 = v117;
-                        v83 = v115;
-                        if (!v86)
+                        v116 = *(v4 + 56);
+                        v118 = *(v4 + 48);
+                        v87 = _CocoaArrayWrapper.endIndex.getter();
+                        v85 = v118;
+                        v84 = v116;
+                        if (!v87)
                         {
 LABEL_172:
 
@@ -7075,42 +7918,42 @@ LABEL_179:
 
                       else
                       {
-                        v86 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
-                        if (!v86)
+                        v87 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+                        if (!v87)
                         {
                           goto LABEL_172;
                         }
                       }
 
-                      v113 = v85;
-                      v87 = v86 - 1;
-                      if (__OFSUB__(v86, 1))
+                      v114 = v86;
+                      v88 = v87 - 1;
+                      if (__OFSUB__(v87, 1))
                       {
                         goto LABEL_175;
                       }
 
-                      v115 = v83;
-                      v117 = v84;
+                      v116 = v84;
+                      v118 = v85;
                       if ((v6 & 0xC000000000000001) != 0)
                       {
                         goto LABEL_177;
                       }
 
-                      if ((v87 & 0x8000000000000000) != 0)
+                      if ((v88 & 0x8000000000000000) != 0)
                       {
                         __break(1u);
                       }
 
-                      else if (v87 < *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10))
+                      else if (v88 < *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10))
                       {
-                        v88 = *(v6 + 8 * v87 + 32);
-                        v90 = *(v88 + 16);
-                        v89 = *(v88 + 24);
-                        v92 = *(v88 + 32);
-                        v91 = *(v88 + 40);
-                        v116 = *(v88 + 48);
-                        v114 = *(v88 + 56);
-                        v112 = *(v88 + 64);
+                        v89 = *(v6 + 8 * v88 + 32);
+                        v91 = *(v89 + 16);
+                        v90 = *(v89 + 24);
+                        v93 = *(v89 + 32);
+                        v92 = *(v89 + 40);
+                        v117 = *(v89 + 48);
+                        v115 = *(v89 + 56);
+                        v113 = *(v89 + 64);
 
                         if (!v2)
                         {
@@ -7122,7 +7965,7 @@ LABEL_179:
 
                       __break(1u);
 LABEL_194:
-                      v68 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+                      v69 = specialized _ArrayBuffer._getElementSlowPath(_:)();
                       swift_unknownObjectRelease();
                     }
                   }
@@ -7145,79 +7988,79 @@ LABEL_196:
             __break(1u);
 LABEL_177:
 
-            v94 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+            v95 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-            v95 = v94;
-            v90 = *(v94 + 16);
-            v89 = *(v94 + 24);
-            v92 = *(v94 + 32);
-            v91 = v95[5];
-            v116 = v95[6];
-            v114 = v95[7];
-            v112 = v95[8];
+            v96 = v95;
+            v91 = *(v95 + 16);
+            v90 = *(v95 + 24);
+            v93 = *(v95 + 32);
+            v92 = v96[5];
+            v117 = v96[6];
+            v115 = v96[7];
+            v113 = v96[8];
 
             swift_unknownObjectRelease();
             if (v2)
             {
 LABEL_159:
-              if (!v91 || *&v9 != v90 || a2 != v89)
+              if (!v92 || *&v9 != v91 || a2 != v90)
               {
                 goto LABEL_179;
               }
 
-              if (v70 == v92 && v91 == v2)
+              if (v71 == v93 && v92 == v2)
               {
               }
 
               else
               {
-                v93 = _stringCompareWithSmolCheck(_:_:expecting:)();
+                v94 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-                if ((v93 & 1) == 0)
+                if ((v94 & 1) == 0)
                 {
                   goto LABEL_180;
                 }
               }
 
-              if (v117 == v116 && v115 == v114)
+              if (v118 == v117 && v116 == v115)
               {
 
-                if (v113 == v112 && a1)
+                if (v114 == v113 && a1)
                 {
 LABEL_191:
                   MaxX = *(a1 + 176);
 LABEL_182:
                   [v15 frame];
-                  v78 = v97;
-                  v80 = v98;
-                  v82 = v8 + v11 * v10 + MaxX;
-                  v81 = v7;
+                  v79 = v98;
+                  v81 = v99;
+                  v83 = v8 + v11 * v10 + MaxX;
+                  v82 = v7;
 LABEL_183:
                   [v15 frame];
-                  v100 = v99;
+                  v101 = v100;
 
-                  v101 = *(v81 + 112);
-                  if (v101)
+                  v102 = *(v82 + 112);
+                  if (v102)
                   {
-                    v102 = *(v4 + 24) - *(v4 + 16);
-                    v103 = objc_opt_self();
-                    v104 = swift_allocObject();
-                    *(v104 + 16) = v101;
-                    *(v104 + 24) = v78;
-                    *(v104 + 32) = v80;
-                    *(v104 + 40) = v82;
-                    *(v104 + 48) = v100;
-                    v122 = partial apply for closure #1 in SyncedLyricsLineView.Line.LineView.animateGradient(frame:duration:);
-                    v123 = v104;
+                    v103 = *(v4 + 24) - *(v4 + 16);
+                    v104 = objc_opt_self();
+                    v105 = swift_allocObject();
+                    *(v105 + 16) = v102;
+                    *(v105 + 24) = v79;
+                    *(v105 + 32) = v81;
+                    *(v105 + 40) = v83;
+                    *(v105 + 48) = v101;
+                    v123 = partial apply for closure #1 in SyncedLyricsLineView.Line.LineView.animateGradient(frame:duration:);
+                    v124 = v105;
                     aBlock = _NSConcreteStackBlock;
-                    v119 = 1107296256;
-                    v120 = thunk for @escaping @callee_guaranteed () -> ();
-                    v121 = &block_descriptor_35_1;
-                    v105 = _Block_copy(&aBlock);
-                    v106 = v101;
+                    v120 = 1107296256;
+                    v121 = thunk for @escaping @callee_guaranteed () -> ();
+                    v122 = &block_descriptor_35_1;
+                    v106 = _Block_copy(&aBlock);
+                    v107 = v102;
 
-                    [v103 animateWithDuration:196609 delay:v105 options:0 animations:v102 completion:0.0];
-                    _Block_release(v105);
+                    [v104 animateWithDuration:196609 delay:v106 options:0 animations:v103 completion:0.0];
+                    _Block_release(v106);
                   }
 
                   else
@@ -7238,7 +8081,7 @@ LABEL_180:
             else
             {
 LABEL_178:
-              if (v91)
+              if (v92)
               {
                 goto LABEL_179;
               }
@@ -7262,17 +8105,17 @@ LABEL_190:
         {
           v47 = v15;
           [v47 frame];
-          [v47 setFrame:{-(v11 + v8), v49, v11 + v8 + CGRectGetWidth(*(v3 + 80)), v50, v107}];
+          [v47 setFrame:{-(v11 + v8), v49, v11 + v8 + CGRectGetWidth(*(v3 + 80)), v50, v108}];
 LABEL_85:
 
           goto LABEL_188;
         }
 
-        v55 = *(v3 + 16);
-        if (v55 >> 62)
+        v56 = *(v3 + 16);
+        if (v56 >> 62)
         {
-          v56 = _CocoaArrayWrapper.endIndex.getter();
-          if (!v56)
+          v57 = _CocoaArrayWrapper.endIndex.getter();
+          if (!v57)
           {
             goto LABEL_188;
           }
@@ -7280,8 +8123,8 @@ LABEL_85:
 
         else
         {
-          v56 = *((v55 & 0xFFFFFFFFFFFFFF8) + 0x10);
-          if (!v56)
+          v57 = *((v56 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          if (!v57)
           {
 LABEL_188:
             [v15 setNeedsDisplay];
@@ -7290,13 +8133,13 @@ LABEL_188:
           }
         }
 
-        v2 = v56 - 1;
-        if (__OFSUB__(v56, 1))
+        v2 = v57 - 1;
+        if (__OFSUB__(v57, 1))
         {
           __break(1u);
         }
 
-        else if ((v55 & 0xC000000000000001) == 0)
+        else if ((v56 & 0xC000000000000001) == 0)
         {
           if ((v2 & 0x8000000000000000) != 0)
           {
@@ -7304,27 +8147,27 @@ LABEL_188:
             goto LABEL_124;
           }
 
-          if (v2 >= *((v55 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v2 >= *((v56 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             __break(1u);
             goto LABEL_127;
           }
 
-          v2 = *(v55 + 8 * v2 + 32);
+          v2 = *(v56 + 8 * v2 + 32);
 
 LABEL_75:
           a1 = *(v2 + 104);
           if (!(a1 >> 62))
           {
-            v57 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-            if (!v57)
+            v58 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+            if (!v58)
             {
               goto LABEL_187;
             }
 
 LABEL_77:
-            v3 = v57 - 1;
-            if (!__OFSUB__(v57, 1))
+            v3 = v58 - 1;
+            if (!__OFSUB__(v58, 1))
             {
               if ((a1 & 0xC000000000000001) == 0)
               {
@@ -7335,21 +8178,21 @@ LABEL_77:
 
                 else if (v3 < *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10))
                 {
-                  v58 = *(a1 + 8 * v3 + 32);
+                  v59 = *(a1 + 8 * v3 + 32);
 
 LABEL_82:
-                  v59 = v58[19];
-                  v60 = v58[20];
-                  v61 = v58[21];
-                  v62 = v58[22];
-                  v63 = v15;
-                  v126.origin.x = v59;
-                  v126.origin.y = v60;
-                  v126.size.width = v61;
-                  v126.size.height = v62;
-                  CGRectGetMaxX(v126);
-                  [v63 frame];
-                  [v63 setFrame:?];
+                  v60 = v59[19];
+                  v61 = v59[20];
+                  v62 = v59[21];
+                  v63 = v59[22];
+                  v64 = v15;
+                  v127.origin.x = v60;
+                  v127.origin.y = v61;
+                  v127.size.width = v62;
+                  v127.size.height = v63;
+                  CGRectGetMaxX(v127);
+                  [v64 frame];
+                  [v64 setFrame:?];
 
                   goto LABEL_188;
                 }
@@ -7360,7 +8203,7 @@ LABEL_82:
 
 LABEL_128:
 
-              v58 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+              v59 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
               goto LABEL_82;
             }
@@ -7371,8 +8214,8 @@ LABEL_127:
           }
 
 LABEL_124:
-          v57 = _CocoaArrayWrapper.endIndex.getter();
-          if (!v57)
+          v58 = _CocoaArrayWrapper.endIndex.getter();
+          if (!v58)
           {
             goto LABEL_187;
           }
@@ -7388,7 +8231,7 @@ LABEL_124:
   }
 }
 
-uint64_t SyncedLyricsLineView.Line.currentWord(for:)(double a1)
+void SyncedLyricsLineView.Line.currentWord(for:)(double a1)
 {
   swift_beginAccess();
   v3 = *(v1 + 16);
@@ -7400,105 +8243,105 @@ LABEL_28:
     {
       goto LABEL_3;
     }
-
-    return 0;
   }
 
-  v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!v4)
+  else
   {
-    return 0;
-  }
-
+    v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v4)
+    {
 LABEL_3:
 
-  for (i = 4; ; ++i)
-  {
-    v6 = i - 4;
-    if ((v3 & 0xC000000000000001) != 0)
-    {
-      v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-    }
-
-    else
-    {
-      if (v6 >= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
+      for (i = 4; ; ++i)
       {
-        goto LABEL_27;
-      }
-    }
+        v6 = i - 4;
+        if ((v3 & 0xC000000000000001) != 0)
+        {
+          v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        }
 
-    v8 = *(v7 + 48);
-    v9 = *(v8 + 16);
-    if (v9)
-    {
-      v10 = *(v8 + 32);
-      v11 = *(v8 + 32 + 56 * v9 - 48);
+        else
+        {
+          if (v6 >= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          {
+            goto LABEL_27;
+          }
+        }
 
-      if (v10 > v11)
-      {
-        __break(1u);
+        v8 = *(v7 + 48);
+        v9 = *(v8 + 16);
+        if (v9)
+        {
+          v10 = *(v8 + 32);
+          v11 = *(v8 + 32 + 56 * v9 - 48);
+
+          if (v10 > v11)
+          {
+            __break(1u);
 LABEL_26:
-        __break(1u);
+            __break(1u);
 LABEL_27:
-        __break(1u);
-        goto LABEL_28;
+            __break(1u);
+            goto LABEL_28;
+          }
+        }
+
+        else
+        {
+
+          v10 = 0.0;
+          v11 = 0.0;
+        }
+
+        if (v10 <= a1 && v11 > a1)
+        {
+          break;
+        }
+
+        v13 = i - 3;
+        if (__OFADD__(v6, 1))
+        {
+          goto LABEL_26;
+        }
+
+        if (v13 == v4)
+        {
+
+          return;
+        }
       }
-    }
 
-    else
-    {
+      swift_beginAccess();
+      v14 = *(v1 + 16);
+      if ((v14 & 0xC000000000000001) != 0)
+      {
+        specialized _ArrayBuffer._getElementSlowPath(_:)();
+      }
 
-      v10 = 0.0;
-      v11 = 0.0;
-    }
+      else
+      {
+        if (v6 >= *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+LABEL_32:
+          __break(1u);
+          return;
+        }
+      }
 
-    if (v10 <= a1 && v11 > a1)
-    {
-      break;
-    }
+      swift_endAccess();
+      if (!__OFADD__(v6, 1))
+      {
+        v15 = type metadata accessor for SyncedLyricsLineView.Word();
 
-    v13 = i - 3;
-    if (__OFADD__(v6, 1))
-    {
-      goto LABEL_26;
-    }
+        Array.subscript.getter(v15, v16);
 
-    if (v13 == v4)
-    {
+        return;
+      }
 
-      return 0;
+      __break(1u);
+      goto LABEL_32;
     }
   }
-
-  result = swift_beginAccess();
-  v15 = *(v1 + 16);
-  if ((v15 & 0xC000000000000001) != 0)
-  {
-    v16 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-    goto LABEL_24;
-  }
-
-  if (v6 < *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    v16 = *(v15 + 8 * i);
-
-LABEL_24:
-    result = swift_endAccess();
-    if (!__OFADD__(v6, 1))
-    {
-      v17 = type metadata accessor for SyncedLyricsLineView.Word();
-
-      Array.subscript.getter(v17, v18);
-
-      return v16;
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
 }
 
 uint64_t SyncedLyricsLineView.Line.currentSyllable(for:)(double a1)
@@ -7597,7 +8440,7 @@ LABEL_16:
   return 0;
 }
 
-id SyncedLyricsLineView.Line.updatedView(color:kind:specs:)(void *a1, char a2, uint64_t a3)
+id SyncedLyricsLineView.Line.updatedView(color:kind:specs:)(void *a1, char a2, void *a3)
 {
   v4 = v3;
   v5 = a3;
@@ -7608,117 +8451,120 @@ id SyncedLyricsLineView.Line.updatedView(color:kind:specs:)(void *a1, char a2, u
     v10 = *(v3 + 88);
     v11 = *(v3 + 96);
     v12 = *(v3 + 104);
-    v13 = v8;
-    [v13 setFrame:{v9, v10, v11, v12}];
-    v14 = SyncedLyricsLineView.Line.contentView.getter();
-    if (!v14)
+    v13 = &selRef_reloadRowsAtIndexPaths_withRowAnimation_;
+    v14 = v8;
+    [v14 setFrame:{v9, v10, v11, v12}];
+    v15 = SyncedLyricsLineView.Line.contentView.getter();
+    if (!v15)
     {
-      v14 = [objc_allocWithZone(UIView) initWithFrame:{0.0, 0.0, *(v3 + 96), *(v3 + 104)}];
+      v15 = [objc_allocWithZone(UIView) initWithFrame:{0.0, 0.0, *(v3 + 96), *(v3 + 104)}];
     }
 
-    v66 = v14;
-    [v14 setFrame:{0.0, 0.0, *(v3 + 96), *(v3 + 104)}];
+    v67 = v15;
+    [v15 setFrame:{0.0, 0.0, *(v3 + 96), *(v3 + 104)}];
   }
 
   else
   {
-    v15 = *(v3 + 80);
-    v16 = *(v3 + 88);
-    v17 = *(v3 + 96);
-    v18 = *(v3 + 104);
-    v19 = *(v3 + 58);
-    v20 = *(v4 + 57);
-    v21 = type metadata accessor for SyncedLyricsLineView.Line.LineView();
-    v22 = v5;
-    v23 = objc_allocWithZone(v21);
-    *&v23[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_backgroundColorLayer] = 0;
-    *&v23[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_gradientView] = 0;
-    v23[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_kind] = a2 & 1;
-    memcpy(&v23[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_specs], v22, 0x2B0uLL);
-    v23[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_animationKind] = v20;
-    v23[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_direction] = v19;
-    outlined init with copy of SyncedLyricsViewController.Specs(v22, aBlock);
-    v71.receiver = v23;
-    v71.super_class = v21;
-    v24 = objc_msgSendSuper2(&v71, "initWithFrame:", v15, v16, v17, v18);
-    v25 = v24;
-    if ((v20 & 1) == 0)
+    v16 = *(v3 + 80);
+    v17 = *(v3 + 88);
+    v18 = *(v3 + 96);
+    v19 = *(v3 + 104);
+    v20 = *(v3 + 58);
+    v21 = *(v4 + 57);
+    v22 = type metadata accessor for SyncedLyricsLineView.Line.LineView();
+    v23 = v5;
+    v24 = objc_allocWithZone(v22);
+    *&v24[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_backgroundColorLayer] = 0;
+    *&v24[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_gradientView] = 0;
+    v24[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_kind] = a2 & 1;
+    memcpy(&v24[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_specs], v23, 0x2B0uLL);
+    v24[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_animationKind] = v21;
+    v24[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_direction] = v20;
+    outlined init with copy of SyncedLyricsViewController.Specs(v23, aBlock);
+    v73.receiver = v24;
+    v73.super_class = v22;
+    v13 = &selRef_reloadRowsAtIndexPaths_withRowAnimation_;
+    v25 = objc_msgSendSuper2(&v73, "initWithFrame:", v16, v17, v18, v19);
+    v26 = v25;
+    if ((v21 & 1) == 0)
     {
-      v26 = v24;
-      v70 = a1;
-      v27 = [a1 CGColor];
-      v28 = [objc_allocWithZone(CALayer) init];
-      [v28 setBackgroundColor:v27];
+      v27 = v25;
+      v72 = a1;
+      v28 = [a1 CGColor];
+      v29 = [objc_allocWithZone(CALayer) init];
+      [v29 setBackgroundColor:v28];
       if (one-time initialization token for shared != -1)
       {
         swift_once();
       }
 
-      v29 = static LyricsOptionsManager.shared;
-      if (!os_variant_has_internal_content() || !_sSh8containsySbxF7LyricsX0B14OptionsManagerC6OptionO_Tg5_0(9, *(v29 + 40)))
+      v30 = static LyricsOptionsManager.shared;
+      if (!os_variant_has_internal_content() || !_sSh8containsySbxF7LyricsX0B14OptionsManagerC6OptionO_Tg5_0(9, *(v30 + 40)))
       {
-        v30 = [v26 layer];
-        [v30 addSublayer:v28];
+        v31 = [v27 layer];
+        [v31 addSublayer:v29];
 
-        v27 = v30;
+        v28 = v31;
       }
 
-      v31 = *&v26[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_backgroundColorLayer];
-      *&v26[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_backgroundColorLayer] = v28;
+      v32 = *&v27[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_backgroundColorLayer];
+      *&v27[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_backgroundColorLayer] = v29;
 
-      v32 = SyncedLyricsLineView.Line.LineView.createGradientView(kind:specs:direction:)(a2 & 1, a3, v19);
-      v33 = *&v26[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_gradientView];
-      *&v26[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_gradientView] = v32;
+      v33 = SyncedLyricsLineView.Line.LineView.createGradientView(kind:specs:direction:)(a2 & 1, a3, v20);
+      v34 = *&v27[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_gradientView];
+      *&v27[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_gradientView] = v33;
 
-      a1 = v70;
+      a1 = v72;
     }
 
-    v34 = *(v4 + 96);
-    v35 = *(v4 + 104);
-    v36 = objc_allocWithZone(UIView);
-    v13 = v25;
-    v66 = [v36 initWithFrame:{0.0, 0.0, v34, v35}];
-    v37 = *(v4 + 112);
-    *(v4 + 112) = v13;
+    v35 = *(v4 + 96);
+    v36 = *(v4 + 104);
+    v37 = objc_allocWithZone(UIView);
+    v14 = v26;
+    v67 = [v37 initWithFrame:{0.0, 0.0, v35, v36}];
+    v38 = *(v4 + 112);
+    *(v4 + 112) = v14;
 
     v5 = a3;
   }
 
-  v64 = *(v4 + 57);
-  if (v64 == 1)
+  v65 = *(v4 + 57);
+  if (v65 == 1)
   {
-    v38 = 61;
+    v39 = 61;
     if (a2)
     {
-      v38 = 62;
+      v39 = 62;
     }
 
-    v39 = v5[v38];
-    v40 = v39;
-    v41 = a1;
+    v40 = v5[v39];
+    v41 = v40;
+    v42 = a1;
   }
 
   else
   {
     a1 = 0;
-    v39 = 0;
+    v40 = 0;
   }
 
   swift_beginAccess();
-  v42 = *(v4 + 16);
-  if (v42 >> 62)
+  v43 = *(v4 + 16);
+  if (v43 >> 62)
   {
 LABEL_34:
-    v43 = _CocoaArrayWrapper.endIndex.getter();
-    v44 = v66;
-    if (v43)
+    v44 = _CocoaArrayWrapper.endIndex.getter();
+    v45 = v67;
+    if (v44)
     {
       goto LABEL_21;
     }
 
 LABEL_35:
-    v42 = 0;
-    if ((v64 & 1) == 0)
+    v43 = 0;
+    v13 = 0;
+    if ((v65 & 1) == 0)
     {
 LABEL_36:
       if (one-time initialization token for shared != -1)
@@ -7726,10 +8572,10 @@ LABEL_36:
         swift_once();
       }
 
-      v54 = static LyricsOptionsManager.shared;
-      if (!os_variant_has_internal_content() || !_sSh8containsySbxF7LyricsX0B14OptionsManagerC6OptionO_Tg5_0(9, *(v54 + 40)))
+      v55 = static LyricsOptionsManager.shared;
+      if (!os_variant_has_internal_content() || !_sSh8containsySbxF7LyricsX0B14OptionsManagerC6OptionO_Tg5_0(9, *(v55 + 40)))
       {
-        [v13 setMaskView:{v44, v63}];
+        [v14 setMaskView:{v45, v64}];
         goto LABEL_46;
       }
     }
@@ -7737,80 +8583,82 @@ LABEL_36:
     goto LABEL_40;
   }
 
-  v43 = *((v42 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  v44 = v66;
-  if (!v43)
+  v44 = *((v43 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v45 = v67;
+  if (!v44)
   {
     goto LABEL_35;
   }
 
 LABEL_21:
-  if (v43 < 1)
+  if (v44 < 1)
   {
     __break(1u);
     goto LABEL_49;
   }
 
-  v63 = v13;
+  v64 = v14;
 
-  v68 = 0;
-  v13 = 0;
-  v69 = v43;
+  v69 = 0;
+  v70 = 0;
+  v14 = 0;
+  v71 = v44;
   do
   {
-    if ((v42 & 0xC000000000000001) != 0)
+    if ((v43 & 0xC000000000000001) != 0)
     {
-      v48 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v49 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
 
     else
     {
-      v48 = *(v42 + 8 * v13 + 32);
+      v49 = *(v43 + 8 * v14 + 32);
     }
 
-    v49 = swift_allocObject();
-    v49[2] = v48;
-    memcpy(v49 + 3, v5, 0x2B0uLL);
-    v49[89] = a1;
-    v49[90] = v39;
-    v49[91] = v44;
-    if (*(v48 + 208))
+    v50 = swift_allocObject();
+    v50[2] = v49;
+    memcpy(v50 + 3, v5, 0x2B0uLL);
+    v50[89] = a1;
+    v50[90] = v40;
+    v50[91] = v45;
+    if (*(v49 + 208))
     {
       outlined init with copy of SyncedLyricsViewController.Specs(v5, aBlock);
 
-      v45 = v44;
-      outlined copy of SyncedLyricsLineView.Word.CrossfadeAnimationParameters?(a1, v39);
-      SyncedLyricsLineView.Word.updatedView(specs:crossfadeAnimationParameters:)(v5, a1, v39);
-      v47 = v46;
-      [v45 addSubview:v46];
+      v46 = v45;
+      outlined copy of SyncedLyricsLineView.Word.CrossfadeAnimationParameters?(a1, v40);
+      SyncedLyricsLineView.Word.updatedView(specs:crossfadeAnimationParameters:)(v5, a1, v40);
+      v48 = v47;
+      [v46 addSubview:v47];
     }
 
     else
     {
-      v67 = objc_opt_self();
-      v50 = swift_allocObject();
-      *(v50 + 16) = partial apply for specialized closure #1 in SyncedLyricsLineView.Line.updatedView(color:kind:specs:);
-      *(v50 + 24) = v49;
+      v68 = objc_opt_self();
+      v51 = swift_allocObject();
+      *(v51 + 16) = partial apply for specialized closure #1 in SyncedLyricsLineView.Line.updatedView(color:kind:specs:);
+      *(v51 + 24) = v50;
       outlined init with copy of SyncedLyricsViewController.Specs(v5, aBlock);
 
-      v51 = v44;
-      v52 = a1;
-      outlined copy of SyncedLyricsLineView.Word.CrossfadeAnimationParameters?(a1, v39);
+      v52 = v45;
+      v53 = a1;
+      outlined copy of SyncedLyricsLineView.Word.CrossfadeAnimationParameters?(a1, v40);
 
-      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v68);
+      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v70, v69);
       v5 = swift_allocObject();
-      v68 = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
+      v70 = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
       v5[2] = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
-      v5[3] = v50;
+      v5[3] = v51;
       aBlock[4] = partial apply for thunk for @escaping @callee_guaranteed () -> ();
-      aBlock[5] = v5;
+      v75 = v5;
       aBlock[0] = _NSConcreteStackBlock;
       aBlock[1] = 1107296256;
       aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
       aBlock[3] = &block_descriptor_82;
       a1 = _Block_copy(aBlock);
+      v13 = v75;
 
-      [v67 performWithoutAnimation:a1];
+      [v68 performWithoutAnimation:a1];
 
       _Block_release(a1);
       isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
@@ -7821,55 +8669,57 @@ LABEL_21:
         goto LABEL_34;
       }
 
-      a1 = v52;
+      v69 = v51;
+      a1 = v53;
       v5 = a3;
-      v44 = v66;
+      v45 = v67;
     }
 
-    v13 = v13 + 1;
+    v14 = v14 + 1;
   }
 
-  while (v69 != v13);
+  while (v71 != v14);
 
-  v13 = v63;
-  v42 = v68;
-  if ((v64 & 1) == 0)
+  v14 = v64;
+  v13 = v69;
+  v43 = v70;
+  if ((v65 & 1) == 0)
   {
     goto LABEL_36;
   }
 
 LABEL_40:
-  [v13 addSubview:{v44, v63}];
+  [v14 addSubview:{v45, v64}];
   if (one-time initialization token for shared != -1)
   {
 LABEL_49:
     swift_once();
   }
 
-  v55 = static LyricsOptionsManager.shared;
-  if ((os_variant_has_internal_content() & 1) != 0 && _sSh8containsySbxF7LyricsX0B14OptionsManagerC6OptionO_Tg5_0(9, *(v55 + 40)))
+  v56 = static LyricsOptionsManager.shared;
+  if ((os_variant_has_internal_content() & 1) != 0 && _sSh8containsySbxF7LyricsX0B14OptionsManagerC6OptionO_Tg5_0(9, *(v56 + 40)))
   {
-    v56 = objc_opt_self();
-    v57 = [v56 grayColor];
-    [v13 setBackgroundColor:v57];
+    v57 = objc_opt_self();
+    v58 = [v57 grayColor];
+    [v14 setBackgroundColor:v58];
 
-    v58 = [v56 blackColor];
+    v59 = [v57 blackColor];
     UIView.Border.init(thickness:color:)();
-    UIView.border.setter(v60, v59 & 1, v61);
+    UIView.border.setter(v61, v60 & 1, v62);
 LABEL_46:
 
-    outlined consume of Artwork.Content?(a1, v39);
+    outlined consume of Artwork.Content?(a1, v40);
     goto LABEL_47;
   }
 
-  outlined consume of Artwork.Content?(a1, v39);
+  outlined consume of Artwork.Content?(a1, v40);
 
 LABEL_47:
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v42);
-  return v13;
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v43, v13);
+  return v14;
 }
 
-id *specialized Sequence.flatMap<A>(_:)(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
+void *specialized Sequence.flatMap<A>(_:)(unint64_t isUniquelyReferenced_nonNull_bridgeObject)
 {
   if (isUniquelyReferenced_nonNull_bridgeObject >> 62)
   {
@@ -7990,7 +8840,7 @@ LABEL_24:
             lazy protocol witness table accessor for type [SyncedLyricsLineView.Syllable] and conformance [A]();
             for (i = 0; i != v14; ++i)
             {
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7LyricsX06SyncedA8LineViewC8SyllableCGMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7LyricsX06SyncedA8LineViewC8SyllableCGMd, &_sSay7LyricsX06SyncedA8LineViewC8SyllableCGMR);
               v18 = specialized protocol witness for Collection.subscript.read in conformance [A](v30, i, v6);
               v20 = *v19;
 
@@ -8195,7 +9045,7 @@ LABEL_24:
             lazy protocol witness table accessor for type [SyncedLyricsLineView.Glyph] and conformance [A]();
             for (i = 0; i != v14; ++i)
             {
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7LyricsX06SyncedA8LineViewC5GlyphCGMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7LyricsX06SyncedA8LineViewC5GlyphCGMd, &_sSay7LyricsX06SyncedA8LineViewC5GlyphCGMR);
               v18 = specialized protocol witness for Collection.subscript.read in conformance [A](v30, i, v6);
               v20 = *v19;
 
@@ -8408,7 +9258,7 @@ Swift::Void __swiftcall SyncedLyricsLineView.Line.LineView.tintColorDidChange()(
     v3 = *v2;
     v4 = *&v1[OBJC_IVAR____TtC7LyricsX24LineProgressGradientView_color];
     *&v1[OBJC_IVAR____TtC7LyricsX24LineProgressGradientView_color] = *v2;
-    type metadata accessor for UIAction(0, &_sSo7UIColorCML_1);
+    type metadata accessor for UIAction(0, &_sSo7UIColorCML_1, UIColor_ptr);
     v5 = v3;
     v6 = v1;
     if ((static NSObject.== infix(_:_:)() & 1) == 0)
@@ -8440,7 +9290,7 @@ Swift::Void __swiftcall SyncedLyricsLineView.Line.LineView.traitCollectionDidCha
     v5 = *v4;
     v6 = *&v3[OBJC_IVAR____TtC7LyricsX24LineProgressGradientView_color];
     *&v3[OBJC_IVAR____TtC7LyricsX24LineProgressGradientView_color] = *v4;
-    type metadata accessor for UIAction(0, &_sSo7UIColorCML_1);
+    type metadata accessor for UIAction(0, &_sSo7UIColorCML_1, UIColor_ptr);
     v7 = v5;
     v8 = v3;
     if ((static NSObject.== infix(_:_:)() & 1) == 0)
@@ -8553,7 +9403,7 @@ unint64_t lazy protocol witness table accessor for type [SyncedLyricsLineView.Sy
   result = lazy protocol witness table cache variable for type [SyncedLyricsLineView.Syllable] and conformance [A];
   if (!lazy protocol witness table cache variable for type [SyncedLyricsLineView.Syllable] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay7LyricsX06SyncedA8LineViewC8SyllableCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay7LyricsX06SyncedA8LineViewC8SyllableCGMd, &_sSay7LyricsX06SyncedA8LineViewC8SyllableCGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [SyncedLyricsLineView.Syllable] and conformance [A]);
   }
@@ -8709,7 +9559,7 @@ uint64_t SyncedLyricsLineView.Syllable.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:)(void *a1, char a2, const void *a3)
+void SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:)(void *a1, char a2, void *a3)
 {
   v6 = *(v3 + 96);
   v7 = "MusicTabsDictionaryProvider";
@@ -8720,7 +9570,7 @@ uint64_t SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:)(void 
     *(v9 + 16) = v6;
     *(v9 + 24) = v3;
     v10 = swift_allocObject();
-    v39 = partial apply for closure #1 in SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:);
+    v38 = partial apply for closure #1 in SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:);
     *(v10 + 16) = partial apply for closure #1 in SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:);
     *(v10 + 24) = v9;
     v49 = thunk for @escaping @callee_guaranteed () -> ()partial apply;
@@ -8739,82 +9589,85 @@ uint64_t SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:)(void 
     if (v8)
     {
       __break(1u);
-      return result;
+      return;
     }
 
-    v14 = v12;
+    v37 = v9;
+    v13 = v12;
     v7 = "MusicTabsDictionaryProvider";
   }
 
   else
   {
-    v15 = [objc_allocWithZone(type metadata accessor for SyncedLyricsLineView.TextContainer.TextContainerView()) initWithFrame:{*(v3 + 64), *(v3 + 72), *(v3 + 80), *(v3 + 88)}];
-    v16 = *(v3 + 96);
-    *(v3 + 96) = v15;
-    v14 = v15;
+    v14 = [objc_allocWithZone(type metadata accessor for SyncedLyricsLineView.TextContainer.TextContainerView()) initWithFrame:{*(v3 + 64), *(v3 + 72), *(v3 + 80), *(v3 + 88)}];
+    v15 = *(v3 + 96);
+    *(v3 + 96) = v14;
+    v13 = v14;
 
-    v39 = 0;
+    v37 = 0;
+    v38 = 0;
   }
 
-  v17 = *(v3 + 56);
-  v44 = *(v17 + 16);
+  v16 = *(v3 + 56);
+  v44 = *(v16 + 16);
   if (v44)
   {
-    v18 = a2 & 1;
+    v17 = a2 & 1;
 
+    v41 = 0;
     v42 = 0;
-    v19 = 0;
-    v20 = *(v7 + 251);
-    v21 = a3;
+    v18 = 0;
+    v19 = *(v7 + 251);
+    v20 = a3;
     v43 = a2 & 1;
-    while (v19 < *(v17 + 16))
+    while (v18 < *(v16 + 16))
     {
-      v24 = *(v17 + 8 * v19 + 32);
-      v25 = swift_allocObject();
-      *(v25 + 16) = v24;
-      *(v25 + 24) = a1;
-      *(v25 + 32) = v18;
-      memcpy((v25 + 40), v21, 0x2B0uLL);
-      *(v25 + 728) = v14;
-      if (*(v24 + 112))
+      v23 = *(v16 + 8 * v18 + 32);
+      v24 = swift_allocObject();
+      *(v24 + 16) = v23;
+      *(v24 + 24) = a1;
+      *(v24 + 32) = v17;
+      memcpy((v24 + 40), v20, 0x2B0uLL);
+      *(v24 + 728) = v13;
+      if (*(v23 + 112))
       {
         swift_retain_n();
-        outlined init with copy of SyncedLyricsViewController.Specs(v21, &aBlock);
-        v22 = a1;
-        v23 = v14;
-        v7 = SyncedLyricsLineView.Line.updatedView(color:kind:specs:)(v22, v18, v21);
-        [v23 addSubview:v7];
+        outlined init with copy of SyncedLyricsViewController.Specs(v20, &aBlock);
+        v21 = a1;
+        v22 = v13;
+        v7 = SyncedLyricsLineView.Line.updatedView(color:kind:specs:)(v21, v17, v20);
+        [v22 addSubview:v7];
       }
 
       else
       {
-        v41 = objc_opt_self();
-        v26 = swift_allocObject();
-        *(v26 + 16) = partial apply for closure #2 in SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:);
-        *(v26 + 24) = v25;
+        v40 = objc_opt_self();
+        v25 = swift_allocObject();
+        *(v25 + 16) = partial apply for closure #2 in SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:);
+        *(v25 + 24) = v24;
         swift_retain_n();
-        outlined init with copy of SyncedLyricsViewController.Specs(v21, &aBlock);
-        v27 = a1;
-        v28 = v14;
-        v29 = v14;
+        outlined init with copy of SyncedLyricsViewController.Specs(v20, &aBlock);
+        v26 = a1;
+        v20 = v13;
+        v27 = v13;
 
-        outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v42);
+        outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v41, v42);
         v7 = swift_allocObject();
-        v42 = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
+        v41 = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
         *(v7 + 2) = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
-        *(v7 + 3) = v26;
+        *(v7 + 3) = v25;
         v49 = partial apply for thunk for @escaping @callee_guaranteed () -> ();
         v50 = v7;
         aBlock = _NSConcreteStackBlock;
-        v46 = v20;
+        v46 = v19;
         v47 = thunk for @escaping @callee_guaranteed () -> ();
         v48 = &block_descriptor_83;
-        v30 = _Block_copy(&aBlock);
-        v14 = v50;
+        v28 = _Block_copy(&aBlock);
+        v13 = v50;
 
-        [v41 performWithoutAnimation:v30];
+        [v40 performWithoutAnimation:v28];
 
-        _Block_release(v30);
+        _Block_release(v28);
         isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
         if (isEscapingClosureAtFileLocation)
@@ -8822,16 +9675,17 @@ uint64_t SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:)(void 
           goto LABEL_21;
         }
 
-        v14 = v28;
-        v21 = a3;
+        v42 = v25;
+        v13 = v20;
+        v20 = a3;
       }
 
-      ++v19;
-      v18 = v43;
-      if (v44 == v19)
+      ++v18;
+      v17 = v43;
+      if (v44 == v18)
       {
 
-        v7 = v42;
+        v7 = v41;
         goto LABEL_15;
       }
     }
@@ -8844,7 +9698,9 @@ LABEL_21:
   else
   {
     v7 = 0;
+    v42 = 0;
 LABEL_15:
+    v20 = v37;
     if (one-time initialization token for shared == -1)
     {
       goto LABEL_16;
@@ -8853,24 +9709,23 @@ LABEL_15:
 
   swift_once();
 LABEL_16:
-  v32 = static LyricsOptionsManager.shared;
+  v30 = static LyricsOptionsManager.shared;
   if (os_variant_has_internal_content())
   {
-    if (_sSh8containsySbxF7LyricsX0B14OptionsManagerC6OptionO_Tg5_0(9, *(v32 + 40)))
+    if (_sSh8containsySbxF7LyricsX0B14OptionsManagerC6OptionO_Tg5_0(9, *(v30 + 40)))
     {
-      v33 = objc_opt_self();
-      v34 = [v33 blackColor];
-      [v14 setBackgroundColor:v34];
+      v31 = objc_opt_self();
+      v32 = [v31 blackColor];
+      [v13 setBackgroundColor:v32];
 
-      v35 = [v33 yellowColor];
+      v33 = [v31 yellowColor];
       UIView.Border.init(thickness:color:)();
-      UIView.border.setter(v37, v36 & 1, v38);
+      UIView.border.setter(v35, v34 & 1, v36);
     }
   }
 
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v39);
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v7);
-  return v14;
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v38, v20);
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v7, v42);
 }
 
 Swift::Void __swiftcall SyncedLyricsLineView.TextContainer.destroyViews()()
@@ -9187,7 +10042,7 @@ uint64_t sub_1004761BC()
 void partial apply for closure #2 in SyncedLyricsLineView.TextContainer.updatedView(color:kind:specs:)()
 {
   v1 = *(v0 + 728);
-  v2 = SyncedLyricsLineView.Line.updatedView(color:kind:specs:)(*(v0 + 24), *(v0 + 32), v0 + 40);
+  v2 = SyncedLyricsLineView.Line.updatedView(color:kind:specs:)(*(v0 + 24), *(v0 + 32), (v0 + 40));
   [v1 addSubview:v2];
 }
 
@@ -9249,7 +10104,7 @@ Swift::Void __swiftcall SyncedLyricsLineView.Word.resetAnimation()()
     v29 = v7 & 0xC000000000000001;
     v27 = v7 & 0xFFFFFFFFFFFFFF8;
     v25 = v1;
-    v26 = (v7 + 32);
+    v26 = v7 + 32;
     while (1)
     {
       if (v29)
@@ -9269,7 +10124,7 @@ Swift::Void __swiftcall SyncedLyricsLineView.Word.resetAnimation()()
         goto LABEL_33;
       }
 
-      v10 = v26[v9];
+      v10 = *(v26 + 8 * v9);
 
       v11 = __OFADD__(v9++, 1);
       if (v11)
@@ -9335,8 +10190,8 @@ LABEL_29:
         v19 = CGPoint.center.unsafeMutableAddressor();
         swift_beginAccess();
         UIView.setAnchorPoint(_:preserveFrame:)(1, *v19, v19[1]);
-        type metadata accessor for UIAction(0, &_sSo6UIViewCML_2);
-        type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+        type metadata accessor for UIAction(0, &_sSo6UIViewCML_2, UIView_ptr);
+        type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
         v20 = UISpringTimingParameters.init(dampingRatio:response:)(1.0, 1.5);
         v21 = swift_allocObject();
         *(v21 + 16) = v12;
@@ -9669,57 +10524,57 @@ LABEL_24:
   }
 }
 
-unint64_t SyncedLyricsLineView.Word.endTime.getter()
+void SyncedLyricsLineView.Word.endTime.getter()
 {
   v1 = *(v0 + 104);
   if (v1 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    if (result)
+    v2 = _CocoaArrayWrapper.endIndex.getter();
+    if (v2)
     {
 LABEL_3:
-      if (__OFSUB__(result--, 1))
+      v3 = __OFSUB__(v2, 1);
+      v4 = v2 - 1;
+      if (v3)
       {
         __break(1u);
       }
 
       else if ((v1 & 0xC000000000000001) == 0)
       {
-        if ((result & 0x8000000000000000) != 0)
+        if ((v4 & 0x8000000000000000) != 0)
         {
           __break(1u);
         }
 
-        else if (result < *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        else if (v4 < *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
-          return result;
+          return;
         }
 
         __break(1u);
-        return result;
+        return;
       }
 
       specialized _ArrayBuffer._getElementSlowPath(_:)();
-      return swift_unknownObjectRelease();
+      swift_unknownObjectRelease();
     }
   }
 
   else
   {
-    result = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (result)
+    v2 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v2)
     {
       goto LABEL_3;
     }
   }
-
-  return result;
 }
 
-void SyncedLyricsLineView.Word.animateGlow(progress:specs:)(uint64_t a1, double a2)
+void SyncedLyricsLineView.Word.animateGlow(progress:specs:)(double *a1, double a2)
 {
   v3 = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_4, &_sScPSgMR_4);
   __chkstk_darwin();
   *&v7 = &v78 - v6;
   v8 = *(v2 + 6);
@@ -9786,7 +10641,8 @@ LABEL_5:
           if (v89.super.isa)
           {
             v17 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-            v18 = __OFADD__(a1++, 1);
+            v18 = __OFADD__(a1, 1);
+            a1 = (a1 + 1);
             if (v18)
             {
               break;
@@ -9802,7 +10658,8 @@ LABEL_5:
 
           v17 = *(v86 + 8 * a1);
 
-          v18 = __OFADD__(a1++, 1);
+          v18 = __OFADD__(a1, 1);
+          a1 = (a1 + 1);
           if (v18)
           {
             break;
@@ -9866,8 +10723,8 @@ LABEL_35:
             v28 = CGPoint.center.unsafeMutableAddressor();
             swift_beginAccess();
             UIView.setAnchorPoint(_:preserveFrame:)(1, *v28, v28[1]);
-            type metadata accessor for UIAction(0, &_sSo6UIViewCML_2);
-            type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+            type metadata accessor for UIAction(0, &_sSo6UIViewCML_2, UIView_ptr);
+            type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
             v3 = UISpringTimingParameters.init(dampingRatio:response:)(1.0, 1.5);
             v29 = swift_allocObject();
             *(v29 + 16) = v19;
@@ -9999,7 +10856,7 @@ LABEL_47:
       }
 
       *&v87 = v47;
-      v33 = *(a1 + 248) + v33 * (*(a1 + 256) - *(a1 + 248));
+      v33 = a1[31] + v33 * (a1[32] - a1[31]);
       if (v37 <= 3.0)
       {
         v48 = v37;
@@ -10010,7 +10867,7 @@ LABEL_47:
         v48 = 3.0;
       }
 
-      type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+      type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
       v88 = UISpringTimingParameters.init(dampingRatio:response:)(1.0, v48);
       v49 = *(v3 + 24);
       v50 = *(v3 + 25);
@@ -10065,11 +10922,11 @@ LABEL_73:
         v59 = *(v3 + 23);
         v60 = *(v56 + 64) - v58;
         v61 = *(v56 + 72) - v59;
-        v62 = *(a1 + 624);
+        v62 = a1[78];
         v63 = v58 + (v60 + v81 + v33 * v60) * 0.5;
         v64 = v59 + (v61 + v84 + v33 * v61) * 0.25 - v62;
         v37 = *&v87 * *&v7;
-        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
+        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
         v65 = v57;
         v89.super.isa = v88;
         isa = UIViewPropertyAnimator.init(springTimingParameters:)(v89).super.isa;
@@ -10531,7 +11388,7 @@ char *SyncedLyricsLineView.Word.WordContainerView.init(wordView:crossfadeAnimati
 Swift::Void __swiftcall SyncedLyricsLineView.Word.WordView.resetGlow()()
 {
   v1 = v0;
-  type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+  type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
   v2 = UISpringTimingParameters.init(dampingRatio:response:)(1.0, 1.5);
   v3 = String._bridgeToObjectiveC()();
   v4 = [objc_opt_self() animationWithKeyPath:v3];
@@ -10574,7 +11431,7 @@ void SyncedLyricsLineView.Word.WordView.glow(factor:duration:specs:)(uint64_t a1
     v6 = 3.0;
   }
 
-  type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+  type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
   v7 = UISpringTimingParameters.init(dampingRatio:response:)(1.0, v6);
   v8 = String._bridgeToObjectiveC()();
   v9 = [objc_opt_self() animationWithKeyPath:v8];
@@ -10604,11 +11461,11 @@ void SyncedLyricsLineView.Word.WordView.glow(factor:duration:specs:)(uint64_t a1
   [v19 setShadowOpacity:v18];
 }
 
-id SyncedLyricsLineView.Word.WordContainerView.__deallocating_deinit()
+id SyncedLyricsLineView.Word.WordContainerView.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SyncedLyricsLineView.Word.WordContainerView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SyncedLyricsLineView.Word.WordContainerView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t SyncedLyricsLineView.Word.deinit()
@@ -10644,7 +11501,7 @@ unint64_t lazy protocol witness table accessor for type [SyncedLyricsLineView.Gl
   result = lazy protocol witness table cache variable for type [SyncedLyricsLineView.Glyph] and conformance [A];
   if (!lazy protocol witness table cache variable for type [SyncedLyricsLineView.Glyph] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay7LyricsX06SyncedA8LineViewC5GlyphCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay7LyricsX06SyncedA8LineViewC5GlyphCGMd, &_sSay7LyricsX06SyncedA8LineViewC5GlyphCGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [SyncedLyricsLineView.Glyph] and conformance [A]);
   }
@@ -10979,12 +11836,12 @@ Swift::Void __swiftcall SyncedLyricsLineView.SBS_TextContentView.setSelected(_:a
 
         else
         {
-          type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+          type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
           v13 = UISpringTimingParameters.init(dampingRatio:response:)(1.0, 0.2);
         }
 
         v15.super.isa = v13;
-        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
+        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
         isa = UIViewPropertyAnimator.init(springTimingParameters:)(v15).super.isa;
         v18[4] = partial apply for closure #1 in SyncedLyricsLineView.SBS_TextContentView.setSelected(_:animated:);
         v18[5] = v12;
@@ -11145,7 +12002,7 @@ void *SyncedLyricsLineView.SBS_TextContentView.accessibilityMainTextView.getter(
 
 void SyncedLyricsLineView.SBS_TextContentView.copy()(char **a1@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
   v155 = &v149 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -11164,7 +12021,7 @@ void SyncedLyricsLineView.SBS_TextContentView.copy()(char **a1@<X8>)
   v11 = &v149 - v10;
   __chkstk_darwin();
   v13 = &v149 - v12;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   __chkstk_darwin();
   v178 = &v149 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -11195,7 +12052,7 @@ LABEL_51:
   v197 = *(v23 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_words);
   v25 = OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_language;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v23 + v25, v22, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined init with copy of TaskPriority?(v23 + v25, v22, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   v191 = *&v1[OBJC_IVAR___MusicSBS_TextContentView_alignment];
   LODWORD(v185) = v1[OBJC_IVAR___MusicSBS_TextContentView_direction];
   v198 = *&v1[OBJC_IVAR___MusicSBS_TextContentView_capabilities];
@@ -11224,7 +12081,7 @@ LABEL_51:
   v29 = OBJC_IVAR___MusicSBS_TextContentView_transliteratedLine;
   swift_beginAccess();
   v173 = v1;
-  outlined init with copy of TaskPriority?(&v1[v29], v13, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(&v1[v29], v13, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   v30 = *(v23 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_translatedText + 8);
   v168 = *(v23 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_translatedText);
   v192 = v30;
@@ -11246,8 +12103,8 @@ LABEL_51:
   v32 = OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_translationLanguage;
   swift_beginAccess();
   v33 = v190;
-  outlined init with copy of TaskPriority?(v23 + v32, v190, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  v172 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
+  outlined init with copy of TaskPriority?(v23 + v32, v190, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  v172 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
   v34 = objc_allocWithZone(v172);
   v34[OBJC_IVAR___MusicSBS_TextContentView_isScrolling] = 1;
   v35 = &v34[OBJC_IVAR___MusicSBS_TextContentView_text];
@@ -11285,35 +12142,35 @@ LABEL_51:
   v40 = &v34[v36];
   v41 = v37;
   v42 = v196;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v196, v40, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v196, v40, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   swift_endAccess();
-  outlined init with copy of TaskPriority?(v189, v194, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  outlined init with copy of TaskPriority?(v33, v186, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  outlined init with copy of TaskPriority?(v42, v11, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(v189, v194, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  outlined init with copy of TaskPriority?(v33, v186, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  outlined init with copy of TaskPriority?(v42, v11, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   v45 = *(v38 + 48);
   v44 = v38 + 48;
   v43 = v45;
   if (v45(v11, 1, v41) == 1)
   {
-    outlined destroy of TaskPriority?(v11, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v11, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v46 = type metadata accessor for Locale.Language();
     (*(*(v46 - 8) + 56))(v187, 1, 1, v46);
   }
 
   else
   {
-    outlined init with copy of TaskPriority?(&v11[v41[7]], v187, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined init with copy of TaskPriority?(&v11[v41[7]], v187, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     outlined destroy of Lyrics.TextLine(v11);
   }
 
   v47 = v181;
   v48 = v174;
-  outlined init with copy of TaskPriority?(v42, v174, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(v42, v174, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   v49 = v43(v48, 1, v41);
   v50 = v175;
   if (v49 == 1)
   {
-    outlined destroy of TaskPriority?(v48, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v48, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v51 = 2;
   }
 
@@ -11325,10 +12182,10 @@ LABEL_51:
   }
 
   LODWORD(v174) = v51;
-  outlined init with copy of TaskPriority?(v42, v50, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(v42, v50, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   if (v43(v50, 1, v41) == 1)
   {
-    outlined destroy of TaskPriority?(v50, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v50, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v165 = 0;
     v166 = 0;
   }
@@ -11341,14 +12198,14 @@ LABEL_51:
     outlined destroy of Lyrics.TextLine(v50);
   }
 
-  outlined init with copy of TaskPriority?(v42, v47, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(v42, v47, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   v55 = v43(v47, 1, v41);
   v150 = v44;
   v151 = v41;
   v149 = v43;
   if (v55 == 1)
   {
-    outlined destroy of TaskPriority?(v47, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v47, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v175 = 0;
   }
 
@@ -11358,7 +12215,7 @@ LABEL_51:
     outlined destroy of Lyrics.TextLine(v47);
   }
 
-  v181 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView.TextView();
+  v181 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView.TextView(0);
   v56 = objc_allocWithZone(v181);
   v57 = &v56[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_transliteratedText];
   *v57 = 0;
@@ -11419,15 +12276,15 @@ LABEL_51:
   v73[1] = v69;
   swift_beginAccess();
 
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v194, &v56[v59], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v194, &v56[v59], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   swift_endAccess();
   swift_beginAccess();
   v74 = v186;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v186, &v56[v64], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v186, &v56[v64], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   swift_endAccess();
   swift_beginAccess();
   v75 = v187;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v187, &v56[v65], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v187, &v56[v65], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   swift_endAccess();
   v56[v163] = v174;
   v76 = v165;
@@ -11450,9 +12307,9 @@ LABEL_51:
   v201.receiver = v56;
   v201.super_class = v181;
   v78 = objc_msgSendSuper2(&v201, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-  outlined destroy of TaskPriority?(v75, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  outlined destroy of TaskPriority?(v74, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  outlined destroy of TaskPriority?(v194, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined destroy of TaskPriority?(v75, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  outlined destroy of TaskPriority?(v74, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  outlined destroy of TaskPriority?(v194, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   v79 = v182;
   v80 = *&v182[v167];
   *&v182[v167] = v78;
@@ -11460,11 +12317,11 @@ LABEL_51:
   v81 = v195;
   if (v195)
   {
-    outlined init with copy of TaskPriority?(v189, v176, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-    outlined init with copy of TaskPriority?(v190, v177, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined init with copy of TaskPriority?(v189, v176, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+    outlined init with copy of TaskPriority?(v190, v177, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     v82 = v196;
     v83 = v154;
-    outlined init with copy of TaskPriority?(v196, v154, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(v196, v154, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v84 = v151;
     v85 = v149;
     v86 = v149(v83, 1, v151);
@@ -11472,23 +12329,23 @@ LABEL_51:
     if (v86 == 1)
     {
 
-      outlined destroy of TaskPriority?(v83, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v83, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v159(v178, 1, 1, v160);
     }
 
     else
     {
-      outlined init with copy of TaskPriority?(v83 + v84[7], v178, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+      outlined init with copy of TaskPriority?(v83 + v84[7], v178, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
 
       outlined destroy of Lyrics.TextLine(v83);
     }
 
     v88 = v156;
     v87 = v157;
-    outlined init with copy of TaskPriority?(v82, v156, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(v82, v156, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     if (v85(v88, 1, v84) == 1)
     {
-      outlined destroy of TaskPriority?(v88, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v88, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v89 = 2;
     }
 
@@ -11500,10 +12357,10 @@ LABEL_51:
     }
 
     LODWORD(v194) = v89;
-    outlined init with copy of TaskPriority?(v82, v87, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(v82, v87, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     if (v85(v87, 1, v84) == 1)
     {
-      outlined destroy of TaskPriority?(v87, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v87, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v186 = 0;
       v187 = 0;
     }
@@ -11516,7 +12373,7 @@ LABEL_51:
       {
         v186 = v206[2];
 
-        outlined destroy of TaskPriority?(v206, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+        outlined destroy of TaskPriority?(v206, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
       }
 
       else
@@ -11529,10 +12386,10 @@ LABEL_51:
 
     v91 = v82;
     v92 = v155;
-    outlined init with copy of TaskPriority?(v91, v155, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(v91, v155, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     if (v85(v92, 1, v84) == 1)
     {
-      outlined destroy of TaskPriority?(v92, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v92, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     }
 
     else
@@ -11543,7 +12400,7 @@ LABEL_51:
       {
         v185 = v208[7];
 
-        outlined destroy of TaskPriority?(v208, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+        outlined destroy of TaskPriority?(v208, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
 LABEL_38:
         v93 = objc_allocWithZone(v77);
         v94 = v93 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_transliteratedText;
@@ -11600,17 +12457,17 @@ LABEL_38:
 
         v109 = v93 + v96;
         v110 = v176;
-        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v176, v109, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v176, v109, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         swift_endAccess();
         swift_beginAccess();
         v111 = v93 + v99;
         v112 = v177;
-        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v177, v111, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v177, v111, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         swift_endAccess();
         swift_beginAccess();
         v113 = v93 + v100;
         v114 = v178;
-        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v178, v113, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v178, v113, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         swift_endAccess();
         v175[v93] = v194;
         v115 = v187;
@@ -11633,9 +12490,9 @@ LABEL_38:
         v199.receiver = v93;
         v199.super_class = v181;
         v117 = objc_msgSendSuper2(&v199, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-        outlined destroy of TaskPriority?(v114, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-        outlined destroy of TaskPriority?(v112, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-        outlined destroy of TaskPriority?(v110, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined destroy of TaskPriority?(v114, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+        outlined destroy of TaskPriority?(v112, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+        outlined destroy of TaskPriority?(v110, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         v79 = v182;
         v118 = v179;
         v119 = *&v182[v179];
@@ -11681,7 +12538,7 @@ LABEL_42:
   v200.super_class = v172;
   v129 = objc_msgSendSuper2(&v200, "initWithFrame:", 0.0, 0.0, 0.0, 0.0, v149, v150, v151);
   v130 = OBJC_IVAR___MusicSBS_TextContentView_textView;
-  v131 = *&v129[OBJC_IVAR___MusicSBS_TextContentView_textView];
+  v131 = *(v129 + OBJC_IVAR___MusicSBS_TextContentView_textView);
   v132 = v173;
   v133 = v196;
   if (!v131)
@@ -11694,7 +12551,7 @@ LABEL_52:
   v134 = v129;
   v135 = v129;
   [v135 addSubview:v131];
-  v136 = *&v135[OBJC_IVAR___MusicSBS_TextContentView_backgroundTextView];
+  v136 = *(v135 + OBJC_IVAR___MusicSBS_TextContentView_backgroundTextView);
   if (!v136)
   {
 
@@ -11703,7 +12560,7 @@ LABEL_52:
     goto LABEL_48;
   }
 
-  v137 = *&v134[v130];
+  v137 = *(v134 + v130);
   if (!v137)
   {
 LABEL_53:
@@ -11713,7 +12570,7 @@ LABEL_53:
 
   v138 = v136;
   [v137 frame];
-  v139 = *&v134[v130];
+  v139 = *(v134 + v130);
   if (v139)
   {
     v140 = v139;
@@ -11728,9 +12585,9 @@ LABEL_53:
     v133 = v196;
 LABEL_48:
     v141 = v189;
-    outlined destroy of TaskPriority?(v190, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-    outlined destroy of TaskPriority?(v133, &_s7LyricsX0A0C8TextLineVSgMd);
-    outlined destroy of TaskPriority?(v141, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined destroy of TaskPriority?(v190, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+    outlined destroy of TaskPriority?(v133, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+    outlined destroy of TaskPriority?(v141, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     v142 = objc_opt_self();
     v143 = swift_allocObject();
     *(v143 + 16) = v135;
@@ -11831,7 +12688,7 @@ Swift::Void __swiftcall SyncedLyricsLineView.SBS_TextContentView.layoutSubviews(
 {
   v1 = v0;
   v32.receiver = v0;
-  v32.super_class = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
+  v32.super_class = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
   objc_msgSendSuper2(&v32, "layoutSubviews");
   v2 = OBJC_IVAR___MusicSBS_TextContentView_textView;
   v3 = *&v0[OBJC_IVAR___MusicSBS_TextContentView_textView];
@@ -11933,11 +12790,11 @@ LABEL_19:
 id SyncedLyricsLineView.SBS_TextContentView.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
+  v2.super_class = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for SyncedLyricsLineView.SBS_TextContentView()
+uint64_t type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SyncedLyricsLineView.SBS_TextContentView;
   if (!type metadata singleton initialization cache for SyncedLyricsLineView.SBS_TextContentView)
@@ -11948,24 +12805,24 @@ uint64_t type metadata accessor for SyncedLyricsLineView.SBS_TextContentView()
   return result;
 }
 
-void type metadata completion function for SyncedLyricsLineView.SBS_TextContentView()
+void type metadata completion function for SyncedLyricsLineView.SBS_TextContentView(uint64_t a1)
 {
-  type metadata accessor for Lyrics.TextLine?();
-  if (v0 <= 0x3F)
+  type metadata accessor for Lyrics.TextLine?(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void type metadata accessor for Lyrics.TextLine?()
+void type metadata accessor for Lyrics.TextLine?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Lyrics.TextLine?)
   {
     type metadata accessor for Lyrics.TextLine(255);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Lyrics.TextLine?);
+      atomic_store(v1, &lazy cache variable for type metadata for Lyrics.TextLine?);
     }
   }
 }
@@ -12663,31 +13520,30 @@ LABEL_20:
   __break(1u);
 }
 
-uint64_t closure #3 in SyncedLyricsLineView.InstrumentalContentView.fadeIn(elapsedTime:)(uint64_t a1)
+void closure #3 in SyncedLyricsLineView.InstrumentalContentView.fadeIn(elapsedTime:)(uint64_t a1)
 {
   v2 = OBJC_IVAR___MusicInstrumentalContentView_dots;
-  result = swift_beginAccess();
-  v4 = *(a1 + v2);
-  if (v4 >> 62)
+  swift_beginAccess();
+  v3 = *(a1 + v2);
+  if (v3 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    v5 = result;
-    if (!result)
+    v4 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v4)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v5)
+    v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v4)
     {
-      return result;
+      return;
     }
   }
 
-  if (v5 < 1)
+  if (v4 < 1)
   {
     __break(1u);
   }
@@ -12695,36 +13551,34 @@ uint64_t closure #3 in SyncedLyricsLineView.InstrumentalContentView.fadeIn(elaps
   else
   {
 
-    v6 = 0;
+    v5 = 0;
     do
     {
-      if ((v4 & 0xC000000000000001) != 0)
+      if ((v3 & 0xC000000000000001) != 0)
       {
-        v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v6 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v7 = *(v4 + 8 * v6 + 32);
+        v6 = *(v3 + 8 * v5 + 32);
       }
 
-      v8 = v7;
+      v7 = v6;
       if (one-time initialization token for breathInTransform != -1)
       {
         swift_once();
       }
 
-      ++v6;
-      v9[0] = static SyncedLyricsLineView.InstrumentalContentView.Specs.breathInTransform;
-      v9[1] = *algn_10063FB90;
-      v9[2] = xmmword_10063FBA0;
-      [v8 setTransform:v9];
+      ++v5;
+      v8[0] = static SyncedLyricsLineView.InstrumentalContentView.Specs.breathInTransform;
+      v8[1] = *algn_10063FB90;
+      v8[2] = xmmword_10063FBA0;
+      [v7 setTransform:v8];
     }
 
-    while (v5 != v6);
+    while (v4 != v5);
   }
-
-  return result;
 }
 
 Swift::Void __swiftcall SyncedLyricsLineView.InstrumentalContentView.update(elapsedTime:)(Swift::Double elapsedTime)
@@ -13038,62 +13892,61 @@ LABEL_32:
   __break(1u);
 }
 
-uint64_t closure #2 in SyncedLyricsLineView.InstrumentalContentView.update(elapsedTime:)(uint64_t a1, uint64_t a2)
+void closure #2 in SyncedLyricsLineView.InstrumentalContentView.update(elapsedTime:)(uint64_t a1, uint64_t a2)
 {
   v4 = OBJC_IVAR___MusicInstrumentalContentView_dots;
-  result = swift_beginAccess();
-  v6 = *(a1 + v4);
-  if (v6 >> 62)
+  swift_beginAccess();
+  v5 = *(a1 + v4);
+  if (v5 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    v7 = result;
-    if (!result)
+    v6 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v6)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    v7 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v7)
+    v6 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v6)
     {
-      return result;
+      return;
     }
   }
 
-  if (v7 < 1)
+  if (v6 < 1)
   {
     __break(1u);
   }
 
   else
   {
-    v8 = a2 & 0x8000000000000001;
+    v7 = a2 & 0x8000000000000001;
 
-    for (i = 0; i != v7; ++i)
+    for (i = 0; i != v6; ++i)
     {
-      if ((v6 & 0xC000000000000001) != 0)
+      if ((v5 & 0xC000000000000001) != 0)
       {
-        v11 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v10 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v11 = *(v6 + 8 * i + 32);
+        v10 = *(v5 + 8 * i + 32);
       }
 
-      v12 = v11;
-      if (v8 == 1)
+      v11 = v10;
+      if (v7 == 1)
       {
         if (one-time initialization token for breathInTransform != -1)
         {
           swift_once();
         }
 
-        v13 = static SyncedLyricsLineView.InstrumentalContentView.Specs.breathInTransform;
-        v14 = *algn_10063FB90;
-        v10 = xmmword_10063FBA0;
+        v12 = static SyncedLyricsLineView.InstrumentalContentView.Specs.breathInTransform;
+        v13 = *algn_10063FB90;
+        v9 = xmmword_10063FBA0;
       }
 
       else
@@ -13103,17 +13956,15 @@ uint64_t closure #2 in SyncedLyricsLineView.InstrumentalContentView.update(elaps
           swift_once();
         }
 
-        v13 = static SyncedLyricsLineView.InstrumentalContentView.Specs.breathOutTransform;
-        v14 = xmmword_10063FB60;
-        v10 = xmmword_10063FB70;
+        v12 = static SyncedLyricsLineView.InstrumentalContentView.Specs.breathOutTransform;
+        v13 = xmmword_10063FB60;
+        v9 = xmmword_10063FB70;
       }
 
-      v15 = v10;
-      [v12 setTransform:&v13];
+      v14 = v9;
+      [v11 setTransform:&v12];
     }
   }
-
-  return result;
 }
 
 void SyncedLyricsLineView.InstrumentalContentView.fadeOut()()
@@ -13169,31 +14020,30 @@ void SyncedLyricsLineView.InstrumentalContentView.fadeOut()()
   }
 }
 
-uint64_t closure #1 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(uint64_t a1)
+void closure #1 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(uint64_t a1)
 {
   v2 = OBJC_IVAR___MusicInstrumentalContentView_dots;
-  result = swift_beginAccess();
-  v4 = *(a1 + v2);
-  if (v4 >> 62)
+  swift_beginAccess();
+  v3 = *(a1 + v2);
+  if (v3 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    v5 = result;
-    if (!result)
+    v4 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v4)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v5)
+    v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v4)
     {
-      return result;
+      return;
     }
   }
 
-  if (v5 < 1)
+  if (v4 < 1)
   {
     __break(1u);
   }
@@ -13201,63 +14051,60 @@ uint64_t closure #1 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(ui
   else
   {
 
-    v6 = 0;
+    v5 = 0;
     do
     {
-      if ((v4 & 0xC000000000000001) != 0)
+      if ((v3 & 0xC000000000000001) != 0)
       {
-        v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v6 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v7 = *(v4 + 8 * v6 + 32);
+        v6 = *(v3 + 8 * v5 + 32);
       }
 
-      v8 = v7;
+      v7 = v6;
       if (one-time initialization token for fadeOutZoomInTransform != -1)
       {
         swift_once();
       }
 
-      ++v6;
-      v9[0] = static SyncedLyricsLineView.InstrumentalContentView.Specs.fadeOutZoomInTransform;
-      v9[1] = xmmword_10063FBC0;
-      v9[2] = xmmword_10063FBD0;
-      [v8 setTransform:v9];
+      ++v5;
+      v8[0] = static SyncedLyricsLineView.InstrumentalContentView.Specs.fadeOutZoomInTransform;
+      v8[1] = xmmword_10063FBC0;
+      v8[2] = xmmword_10063FBD0;
+      [v7 setTransform:v8];
     }
 
-    while (v5 != v6);
+    while (v4 != v5);
   }
-
-  return result;
 }
 
-uint64_t closure #2 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(uint64_t a1)
+void closure #2 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(uint64_t a1)
 {
   v2 = OBJC_IVAR___MusicInstrumentalContentView_dots;
-  result = swift_beginAccess();
-  v4 = *(a1 + v2);
-  if (v4 >> 62)
+  swift_beginAccess();
+  v3 = *(a1 + v2);
+  if (v3 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    v5 = result;
-    if (!result)
+    v4 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v4)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v5)
+    v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v4)
     {
-      return result;
+      return;
     }
   }
 
-  if (v5 < 1)
+  if (v4 < 1)
   {
     __break(1u);
   }
@@ -13265,51 +14112,48 @@ uint64_t closure #2 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(ui
   else
   {
 
-    for (i = 0; i != v5; ++i)
+    for (i = 0; i != v4; ++i)
     {
-      if ((v4 & 0xC000000000000001) != 0)
+      if ((v3 & 0xC000000000000001) != 0)
       {
-        v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v6 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v7 = *(v4 + 8 * i + 32);
+        v6 = *(v3 + 8 * i + 32);
       }
 
-      v8 = v7;
-      [v7 setAlpha:0.0];
+      v7 = v6;
+      [v6 setAlpha:0.0];
     }
   }
-
-  return result;
 }
 
-uint64_t closure #3 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(uint64_t a1)
+void closure #3 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(uint64_t a1)
 {
   v2 = OBJC_IVAR___MusicInstrumentalContentView_dots;
-  result = swift_beginAccess();
-  v4 = *(a1 + v2);
-  if (v4 >> 62)
+  swift_beginAccess();
+  v3 = *(a1 + v2);
+  if (v3 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    v5 = result;
-    if (!result)
+    v4 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v4)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v5)
+    v4 = *((v3 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v4)
     {
-      return result;
+      return;
     }
   }
 
-  if (v5 < 1)
+  if (v4 < 1)
   {
     __break(1u);
   }
@@ -13317,36 +14161,34 @@ uint64_t closure #3 in SyncedLyricsLineView.InstrumentalContentView.fadeOut()(ui
   else
   {
 
-    v6 = 0;
+    v5 = 0;
     do
     {
-      if ((v4 & 0xC000000000000001) != 0)
+      if ((v3 & 0xC000000000000001) != 0)
       {
-        v7 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v6 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v7 = *(v4 + 8 * v6 + 32);
+        v6 = *(v3 + 8 * v5 + 32);
       }
 
-      v8 = v7;
+      v7 = v6;
       if (one-time initialization token for fadeOutZoomOutTransform != -1)
       {
         swift_once();
       }
 
-      ++v6;
-      v9[0] = static SyncedLyricsLineView.InstrumentalContentView.Specs.fadeOutZoomOutTransform;
-      v9[1] = *algn_10063FBF0;
-      v9[2] = xmmword_10063FC00;
-      [v8 setTransform:v9];
+      ++v5;
+      v8[0] = static SyncedLyricsLineView.InstrumentalContentView.Specs.fadeOutZoomOutTransform;
+      v8[1] = *algn_10063FBF0;
+      v8[2] = xmmword_10063FC00;
+      [v7 setTransform:v8];
     }
 
-    while (v5 != v6);
+    while (v4 != v5);
   }
-
-  return result;
 }
 
 void SyncedLyricsLineView.InstrumentalContentView.createDots()()
@@ -13617,7 +14459,7 @@ void closure #2 in SyncedLyricsLineView.TextContentView.setSelected(_:animated:)
 void SyncedLyricsLineView.TextContentView.copy()(char **a1@<X8>)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v5 = &v16[-v4];
   v6 = type metadata accessor for SyncedLyricsLineView.TextContentView.Content(0);
@@ -13639,7 +14481,7 @@ void SyncedLyricsLineView.TextContentView.copy()(char **a1@<X8>)
   (*(v7 + 56))(v5, 1, 1, v6);
   SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v14);
 
-  outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   v15 = v13;
   [v2 bounds];
   [v15 setFrame:?];
@@ -13648,13 +14490,13 @@ void SyncedLyricsLineView.TextContentView.copy()(char **a1@<X8>)
   *a1 = v15;
 }
 
-uint64_t SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(uint64_t a1)
+void SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(uint64_t a1)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeVSgMd_0, &_s10Foundation6LocaleV12LanguageCodeVSgMR_0);
   __chkstk_darwin();
   v103 = &v95 - v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   __chkstk_darwin();
   v107 = &v95 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -13745,8 +14587,8 @@ LABEL_9:
       else
       {
 
-        v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd);
-        outlined destroy of TaskPriority?(&v9[*(v47 + 48)], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd, &_sSS_10Foundation6LocaleV8LanguageVSgtMR);
+        outlined destroy of TaskPriority?(&v9[*(v47 + 48)], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         [*(v2 + v123) setFont:*(v32 + 200)];
         v48 = *(v2 + v122);
         if (v48)
@@ -13802,7 +14644,7 @@ LABEL_35:
       {
         v36 = *v19;
         v37 = v19[1];
-        v38 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd) + 48);
+        v38 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd, &_sSS_10Foundation6LocaleV8LanguageVSgtMR) + 48);
         v102 = v19;
         outlined init with take of Locale.Language?(v19 + v38, v117);
         v39 = [objc_allocWithZone(NSMutableParagraphStyle) init];
@@ -13842,24 +14684,24 @@ LABEL_35:
           v46 = *(v41 + v51);
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR_0);
         inited = swift_initStackObject();
         *(inited + 16) = v105;
         *(inited + 32) = v115;
         v97 = *(v41 + 200);
         v53 = v97;
         v98 = (inited + 32);
-        v54 = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+        v54 = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
         *(inited + 40) = v53;
         v55 = v114;
         *(inited + 64) = v54;
         *(inited + 72) = v55;
-        v56 = type metadata accessor for UIAction(0, &_sSo23NSMutableParagraphStyleCML_0);
+        v56 = type metadata accessor for UIAction(0, &_sSo23NSMutableParagraphStyleCML_0, NSMutableParagraphStyle_ptr);
         *(inited + 80) = v109;
         v57 = v113;
         *(inited + 104) = v56;
         *(inited + 112) = v57;
-        v58 = type metadata accessor for UIAction(0, &_sSo7UIColorCML_1);
+        v58 = type metadata accessor for UIAction(0, &_sSo7UIColorCML_1, UIColor_ptr);
         v100 = v58;
         v101 = v46;
         *(inited + 120) = v46;
@@ -13882,92 +14724,94 @@ LABEL_35:
         {
           v68 = v59;
           v69 = &_s10Foundation6LocaleV8LanguageVSgMd_0;
+          v70 = &_s10Foundation6LocaleV8LanguageVSgMR_0;
 LABEL_43:
-          outlined destroy of TaskPriority?(v68, v69);
-          v73 = v116;
-          v74 = (inited + 160);
+          outlined destroy of TaskPriority?(v68, v69, v70);
+          v74 = v116;
+          v75 = (inited + 160);
           *(inited + 184) = &type metadata for String;
 LABEL_44:
-          v75 = &_s8MusicKit0A7LibraryC0aB8InternalE9AddStatusO7addableyA2F13AddableCaveatOSgcAFmFWC_ptr;
-          *v74 = 0;
-          v76 = 0xE000000000000000;
+          v76 = &_s8MusicKit0A7LibraryC0aB8InternalE9AddStatusO7addableyA2F13AddableCaveatOSgcAFmFWC_ptr;
+          *v75 = 0;
+          v77 = 0xE000000000000000;
           goto LABEL_45;
         }
 
-        v70 = v103;
+        v71 = v103;
         Locale.Language.languageCode.getter();
         (*(v62 + 8))(v59, v61);
-        v71 = type metadata accessor for Locale.LanguageCode();
-        v72 = *(v71 - 8);
-        if ((*(v72 + 48))(v70, 1, v71) == 1)
+        v72 = type metadata accessor for Locale.LanguageCode();
+        v73 = *(v72 - 8);
+        if ((*(v73 + 48))(v71, 1, v72) == 1)
         {
-          v68 = v70;
+          v68 = v71;
           v69 = &_s10Foundation6LocaleV12LanguageCodeVSgMd_0;
+          v70 = &_s10Foundation6LocaleV12LanguageCodeVSgMR_0;
           goto LABEL_43;
         }
 
         v97 = Locale.LanguageCode.identifier.getter();
-        v76 = v93;
-        (*(v72 + 8))(v70, v71);
-        v74 = (inited + 160);
+        v77 = v94;
+        (*(v73 + 8))(v71, v72);
+        v75 = (inited + 160);
         *(inited + 184) = &type metadata for String;
-        v73 = v116;
-        if (!v76)
+        v74 = v116;
+        if (!v77)
         {
           goto LABEL_44;
         }
 
-        *v74 = v97;
-        v75 = &_s8MusicKit0A7LibraryC0aB8InternalE9AddStatusO7addableyA2F13AddableCaveatOSgcAFmFWC_ptr;
+        *v75 = v97;
+        v76 = &_s8MusicKit0A7LibraryC0aB8InternalE9AddStatusO7addableyA2F13AddableCaveatOSgcAFmFWC_ptr;
 LABEL_45:
-        *(inited + 168) = v76;
-        v77 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n_0(inited);
+        *(inited + 168) = v77;
+        v78 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n_0(inited);
         swift_setDeallocating();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd_0);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd_0, &_sSo21NSAttributedStringKeya_yptMR_0);
         swift_arrayDestroy();
-        v98 = *(v73 + v123);
-        v78 = objc_allocWithZone(v75[269]);
+        v98 = *(v74 + v123);
+        v79 = objc_allocWithZone(v76[269]);
 
-        v79 = String._bridgeToObjectiveC()();
+        v80 = String._bridgeToObjectiveC()();
         _sSo21NSAttributedStringKeyaMa_1(0);
-        v81 = v80;
+        v82 = v81;
         v96 = lazy protocol witness table accessor for type NSAttributedStringKey and conformance NSAttributedStringKey();
-        v97 = v81;
+        v97 = v82;
         isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-        v83 = [v78 initWithString:v79 attributes:isa];
+        v84 = [v79 initWithString:v80 attributes:isa];
 
-        [v98 setAttributedText:v83];
+        [v98 setAttributedText:v84];
         v2 = v116;
-        v84 = *(v121 + 352);
+        v85 = *(v121 + 352);
         v128 = v100;
-        *&v127 = v84;
+        *&v127 = v85;
         outlined init with take of Any(&v127, v126);
-        v85 = v84;
+        v86 = v85;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v125 = v77;
+        v125 = v78;
         specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v126, v99, isUniquelyReferenced_nonNull_native);
-        v87 = *(v2 + v122);
-        if (v87)
+        v88 = *(v2 + v122);
+        if (v88)
         {
-          v88 = objc_allocWithZone(NSAttributedString);
-          v89 = v87;
-          v90 = String._bridgeToObjectiveC()();
+          v89 = objc_allocWithZone(NSAttributedString);
+          v90 = v88;
+          v91 = String._bridgeToObjectiveC()();
 
-          v91 = Dictionary._bridgeToObjectiveC()().super.isa;
+          v92 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-          v92 = [v88 initWithString:v90 attributes:v91];
+          v93 = [v89 initWithString:v91 attributes:v92];
 
-          [v89 setAttributedText:v92];
+          [v90 setAttributedText:v93];
           v2 = v116;
 
-          outlined destroy of TaskPriority?(v117, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined destroy of TaskPriority?(v117, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         }
 
         else
         {
 
-          outlined destroy of TaskPriority?(v117, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined destroy of TaskPriority?(v117, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         }
 
         v9 = v111;
@@ -13987,6 +14831,7 @@ LABEL_45:
 
     if (v21 >= v20)
     {
+      break;
     }
 
     v14 = *(v16 + 8 * v21);
@@ -13999,10 +14844,10 @@ LABEL_45:
   }
 }
 
-uint64_t type metadata completion function for SyncedLyricsLineView.TextContentView()
+uint64_t type metadata completion function for SyncedLyricsLineView.TextContentView(uint64_t a1)
 {
   result = type metadata accessor for SyncedLyricsLineView.TextContentView.Content(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -14016,7 +14861,7 @@ uint64_t type metadata completion function for SyncedLyricsLineView.TextContentV
 
 uint64_t protocol witness for SyncedLyricsLineContentView.specs.setter in conformance SyncedLyricsLineView.TextContentView(const void *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v4 = &v9[-v3];
   v5 = *v1;
@@ -14029,13 +14874,13 @@ uint64_t protocol witness for SyncedLyricsLineContentView.specs.setter in confor
   (*(*(v7 - 8) + 56))(v4, 1, 1, v7);
   SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v6);
 
-  outlined destroy of TaskPriority?(v4, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  outlined destroy of TaskPriority?(v4, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   return outlined destroy of SyncedLyricsViewController.Specs(a1);
 }
 
 uint64_t protocol witness for SyncedLyricsLineContentView.isScrolling.setter in conformance SyncedLyricsLineView.TextContentView(char a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v4 = &v8 - v3;
   *(*v1 + OBJC_IVAR___MusicTextContentView_isScrolling) = a1;
@@ -14044,88 +14889,88 @@ uint64_t protocol witness for SyncedLyricsLineContentView.isScrolling.setter in 
   (*(*(v6 - 8) + 56))(v4, 1, 1, v6);
   SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v5);
 
-  return outlined destroy of TaskPriority?(v4, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  return outlined destroy of TaskPriority?(v4, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
 }
 
 void SyncedLyricsLineView.DespacitoContentView.specs.didset()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
-  v3 = &v20[-v2 - 8];
+  v3 = &v19[-v2 - 8];
   v4 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_mainLineView);
   v5 = OBJC_IVAR___MusicDespacitoContentView_specs;
-  memcpy(v23, (v1 + OBJC_IVAR___MusicDespacitoContentView_specs), sizeof(v23));
-  memcpy(v24, &v4[OBJC_IVAR___MusicTextContentView_specs], 0x2B0uLL);
+  memcpy(v22, (v1 + OBJC_IVAR___MusicDespacitoContentView_specs), sizeof(v22));
+  memcpy(v23, &v4[OBJC_IVAR___MusicTextContentView_specs], 0x2B0uLL);
   memmove(&v4[OBJC_IVAR___MusicTextContentView_specs], (v1 + OBJC_IVAR___MusicDespacitoContentView_specs), 0x2B0uLL);
-  outlined init with copy of SyncedLyricsViewController.Specs(v23, v22);
-  outlined init with copy of SyncedLyricsViewController.Specs(v23, v22);
+  outlined init with copy of SyncedLyricsViewController.Specs(v22, v21);
+  outlined init with copy of SyncedLyricsViewController.Specs(v22, v21);
   v6 = v4;
-  outlined destroy of SyncedLyricsViewController.Specs(v24);
+  outlined destroy of SyncedLyricsViewController.Specs(v23);
   v7 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7LyricsX06SyncedE8LineViewC011TextContentH0C6Change33_328E32CB8485E005C40C2FB54DA07A72LLO_Tt0g5Tf4g_n(&outlined read-only object #0 of SyncedLyricsLineView.TextContentView.specs.setter);
   v8 = type metadata accessor for SyncedLyricsLineView.TextContentView.Content(0);
   v9 = *(*(v8 - 8) + 56);
   v9(v3, 1, 1, v8);
   SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v7);
 
-  outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
-  outlined destroy of SyncedLyricsViewController.Specs(v23);
+  outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
+  outlined destroy of SyncedLyricsViewController.Specs(v22);
 
   v10 = *(v1 + OBJC_IVAR___MusicDespacitoContentView_translationLineView);
   if (v10)
   {
-    memcpy(v21, (v1 + v5), sizeof(v21));
-    memcpy(v22, &v10[OBJC_IVAR___MusicTextContentView_specs], sizeof(v22));
+    memcpy(v20, (v1 + v5), sizeof(v20));
+    memcpy(v21, &v10[OBJC_IVAR___MusicTextContentView_specs], sizeof(v21));
     memmove(&v10[OBJC_IVAR___MusicTextContentView_specs], (v1 + v5), 0x2B0uLL);
-    outlined init with copy of SyncedLyricsViewController.Specs(v21, v20);
-    outlined init with copy of SyncedLyricsViewController.Specs(v21, v20);
+    outlined init with copy of SyncedLyricsViewController.Specs(v20, v19);
+    outlined init with copy of SyncedLyricsViewController.Specs(v20, v19);
     v11 = v10;
-    outlined destroy of SyncedLyricsViewController.Specs(v22);
+    outlined destroy of SyncedLyricsViewController.Specs(v21);
     v12 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7LyricsX06SyncedE8LineViewC011TextContentH0C6Change33_328E32CB8485E005C40C2FB54DA07A72LLO_Tt0g5Tf4g_n(&outlined read-only object #0 of SyncedLyricsLineView.TextContentView.specs.setter);
     v9(v3, 1, 1, v8);
     SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v12);
 
-    outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
-    outlined destroy of SyncedLyricsViewController.Specs(v21);
+    outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
+    outlined destroy of SyncedLyricsViewController.Specs(v20);
   }
 
   v13 = *(v1 + OBJC_IVAR___MusicDespacitoContentView_transliterationLineView);
   if (v13)
   {
-    memcpy(v21, (v1 + v5), sizeof(v21));
-    memcpy(v22, &v13[OBJC_IVAR___MusicTextContentView_specs], sizeof(v22));
+    memcpy(v20, (v1 + v5), sizeof(v20));
+    memcpy(v21, &v13[OBJC_IVAR___MusicTextContentView_specs], sizeof(v21));
     memmove(&v13[OBJC_IVAR___MusicTextContentView_specs], (v1 + v5), 0x2B0uLL);
-    outlined init with copy of SyncedLyricsViewController.Specs(v21, v20);
-    outlined init with copy of SyncedLyricsViewController.Specs(v21, v20);
+    outlined init with copy of SyncedLyricsViewController.Specs(v20, v19);
+    outlined init with copy of SyncedLyricsViewController.Specs(v20, v19);
     v14 = v13;
-    outlined destroy of SyncedLyricsViewController.Specs(v22);
+    outlined destroy of SyncedLyricsViewController.Specs(v21);
     v15 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7LyricsX06SyncedE8LineViewC011TextContentH0C6Change33_328E32CB8485E005C40C2FB54DA07A72LLO_Tt0g5Tf4g_n(&outlined read-only object #0 of SyncedLyricsLineView.TextContentView.specs.setter);
     v9(v3, 1, 1, v8);
     SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v15);
 
-    outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
-    outlined destroy of SyncedLyricsViewController.Specs(v21);
+    outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
+    outlined destroy of SyncedLyricsViewController.Specs(v20);
   }
 
   v16 = *(v1 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView);
   if (v16)
   {
-    memcpy(v21, (v1 + v5), sizeof(v21));
-    memcpy(v22, &v16[OBJC_IVAR___MusicDespacitoContentView_specs], sizeof(v22));
+    memcpy(v20, (v1 + v5), sizeof(v20));
+    memcpy(v21, &v16[OBJC_IVAR___MusicDespacitoContentView_specs], sizeof(v21));
     memmove(&v16[OBJC_IVAR___MusicDespacitoContentView_specs], (v1 + v5), 0x2B0uLL);
-    outlined init with copy of SyncedLyricsViewController.Specs(v21, v20);
-    outlined init with copy of SyncedLyricsViewController.Specs(v21, v20);
+    outlined init with copy of SyncedLyricsViewController.Specs(v20, v19);
+    outlined init with copy of SyncedLyricsViewController.Specs(v20, v19);
     v17 = v16;
-    v18 = outlined destroy of SyncedLyricsViewController.Specs(v22);
-    SyncedLyricsLineView.DespacitoContentView.specs.didset(v18);
     outlined destroy of SyncedLyricsViewController.Specs(v21);
+    SyncedLyricsLineView.DespacitoContentView.specs.didset();
+    outlined destroy of SyncedLyricsViewController.Specs(v20);
   }
 }
 
 void SyncedLyricsLineView.DespacitoContentView.isScrolling.didset()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v3 = &v18 - v2;
   v4 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_mainLineView);
@@ -14138,7 +14983,7 @@ void SyncedLyricsLineView.DespacitoContentView.isScrolling.didset()
   v9 = v4;
   SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v6);
 
-  outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   v10 = *(v1 + OBJC_IVAR___MusicDespacitoContentView_translationLineView);
   if (v10)
   {
@@ -14148,7 +14993,7 @@ void SyncedLyricsLineView.DespacitoContentView.isScrolling.didset()
     v12 = v10;
     SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v11);
 
-    outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+    outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   }
 
   v13 = *(v1 + OBJC_IVAR___MusicDespacitoContentView_transliterationLineView);
@@ -14160,7 +15005,7 @@ void SyncedLyricsLineView.DespacitoContentView.isScrolling.didset()
     v15 = v13;
     SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v14);
 
-    outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+    outlined destroy of TaskPriority?(v3, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   }
 
   v16 = *(v1 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView);
@@ -14175,7 +15020,7 @@ void SyncedLyricsLineView.DespacitoContentView.isScrolling.didset()
 uint64_t SyncedLyricsLineView.DespacitoContentView.alignment.setter(uint64_t a1)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v5 = &v18 - v4;
   v6 = *(v1 + OBJC_IVAR___MusicDespacitoContentView_mainLineView);
@@ -14187,7 +15032,7 @@ uint64_t SyncedLyricsLineView.DespacitoContentView.alignment.setter(uint64_t a1)
   v10 = v6;
   SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v7);
 
-  result = outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  result = outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   v12 = *(v2 + OBJC_IVAR___MusicDespacitoContentView_translationLineView);
   if (v12)
   {
@@ -14197,7 +15042,7 @@ uint64_t SyncedLyricsLineView.DespacitoContentView.alignment.setter(uint64_t a1)
     v14 = v12;
     SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v13);
 
-    result = outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+    result = outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   }
 
   v15 = *(v2 + OBJC_IVAR___MusicDespacitoContentView_transliterationLineView);
@@ -14209,7 +15054,7 @@ uint64_t SyncedLyricsLineView.DespacitoContentView.alignment.setter(uint64_t a1)
     v17 = v15;
     SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v16);
 
-    return outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+    return outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   }
 
   return result;
@@ -14283,7 +15128,7 @@ double SyncedLyricsLineView.DespacitoContentView.sizeThatFits(_:selected:)(char 
 
 uint64_t SyncedLyricsLineView.DespacitoContentView.text.didset()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v2 = &v20 - v1;
   v20 = type metadata accessor for SyncedLyricsLineView.TextContentView.Content(0);
@@ -14292,7 +15137,7 @@ uint64_t SyncedLyricsLineView.DespacitoContentView.text.didset()
   v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
   v7 = (&v20 - v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   __chkstk_darwin();
   v9 = &v20 - v8;
   v10 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_mainLineView);
@@ -14301,7 +15146,7 @@ uint64_t SyncedLyricsLineView.DespacitoContentView.text.didset()
   v13 = OBJC_IVAR___MusicDespacitoContentView_language;
   swift_beginAccess();
   outlined init with copy of Locale.Language?(v0 + v13, v9);
-  v14 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd) + 48);
+  v14 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd, &_sSS_10Foundation6LocaleV8LanguageVSgtMR) + 48);
   *v7 = v12;
   v7[1] = v11;
   outlined init with copy of Locale.Language?(v9, v7 + v14);
@@ -14320,43 +15165,43 @@ uint64_t SyncedLyricsLineView.DespacitoContentView.text.didset()
   (*(v3 + 56))(v2, 0, 1, v15);
   SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v18);
 
-  outlined destroy of TaskPriority?(v2, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  outlined destroy of TaskPriority?(v2, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
 
   outlined destroy of SyncedLyricsLineView.TextContentView.Content(v5);
   outlined destroy of SyncedLyricsLineView.TextContentView.Content(v7);
-  return outlined destroy of TaskPriority?(v9, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  return outlined destroy of TaskPriority?(v9, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
 }
 
 void SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset()
 {
   type metadata accessor for SyncedLyricsLineView.TextContentView.Content(0);
   __chkstk_darwin();
-  v2 = (&v73 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  v2 = (&v71 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   __chkstk_darwin();
   __chkstk_darwin();
   __chkstk_darwin();
-  v4 = &v73 - v3;
+  v4 = &v71 - v3;
   __chkstk_darwin();
-  v6 = &v73 - v5;
+  v6 = &v71 - v5;
   *&v9 = __chkstk_darwin().n128_u64[0];
-  v11 = &v73 - v10;
+  v11 = &v71 - v10;
   v12 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText + 8);
   if (v12)
   {
-    v82 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText);
+    v80 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText);
     v13 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView);
     if (v13)
     {
       v14 = OBJC_IVAR___MusicDespacitoContentView_language;
       swift_beginAccess();
       outlined init with copy of Locale.Language?(v0 + v14, v11);
-      v79 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText);
+      v77 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText);
       v15 = v6;
       v16 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText + 8);
       v17 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
       swift_beginAccess();
-      v81 = v15;
+      v79 = v15;
       outlined init with copy of Locale.Language?(v0 + v17, v15);
       outlined init with copy of Locale.Language?(v11, v4);
       v18 = OBJC_IVAR___MusicDespacitoContentView_language;
@@ -14367,13 +15212,13 @@ void SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset()
       outlined assign with take of Locale.Language?(v4, v13 + v18);
       swift_endAccess();
       v20 = &v19[OBJC_IVAR___MusicDespacitoContentView_text];
-      *v20 = v82;
+      *v20 = v80;
       v20[1] = v12;
 
       SyncedLyricsLineView.DespacitoContentView.text.didset();
       v21 = type metadata accessor for Locale.Language();
-      v80 = *(*(v21 - 8) + 56);
-      v80(v4, 1, 1, v21);
+      v78 = *(*(v21 - 8) + 56);
+      v78(v4, 1, 1, v21);
       v22 = OBJC_IVAR___MusicDespacitoContentView_transliterationLanguage;
       swift_beginAccess();
       outlined assign with take of Locale.Language?(v4, &v19[v22]);
@@ -14387,29 +15232,29 @@ void SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset()
       {
         v24 = String.lowercased()();
 
-        v82 = v16;
+        v80 = v16;
         v25 = String.lowercased()();
         if (v24._countAndFlagsBits != v25._countAndFlagsBits || v24._object != v25._object)
         {
-          v65 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v63 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          v26 = v81;
-          if ((v65 & 1) == 0)
+          v26 = v79;
+          if ((v63 & 1) == 0)
           {
-            outlined init with copy of Locale.Language?(v81, v4);
-            v67 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
+            outlined init with copy of Locale.Language?(v79, v4);
+            v65 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
             swift_beginAccess();
-            outlined assign with take of Locale.Language?(v4, &v19[v67]);
+            outlined assign with take of Locale.Language?(v4, &v19[v65]);
             swift_endAccess();
-            v68 = &v19[OBJC_IVAR___MusicDespacitoContentView_translationText];
-            v69 = v82;
-            *v68 = v79;
-            v68[1] = v69;
+            v66 = &v19[OBJC_IVAR___MusicDespacitoContentView_translationText];
+            v67 = v80;
+            *v66 = v77;
+            v66[1] = v67;
             goto LABEL_9;
           }
 
 LABEL_8:
-          v80(v4, 1, 1, v21);
+          v78(v4, 1, 1, v21);
           v27 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
           swift_beginAccess();
           outlined assign with take of Locale.Language?(v4, &v19[v27]);
@@ -14425,127 +15270,127 @@ LABEL_9:
           *v29 = 0;
           v29[1] = 0;
 
-          SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset(v30);
+          SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset();
           v19[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition] = 2;
           [v19 setNeedsLayout];
 
-          outlined destroy of TaskPriority?(v26, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-          outlined destroy of TaskPriority?(v11, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined destroy of TaskPriority?(v26, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+          outlined destroy of TaskPriority?(v11, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
           return;
         }
       }
 
-      v26 = v81;
+      v26 = v79;
       goto LABEL_8;
     }
 
-    v79 = OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView;
-    v33 = OBJC_IVAR___MusicDespacitoContentView_language;
-    v34 = v7;
-    v35 = v8;
-    v74 = v8;
+    v77 = OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView;
+    v32 = OBJC_IVAR___MusicDespacitoContentView_language;
+    v33 = v7;
+    v34 = v8;
+    v72 = v8;
     swift_beginAccess();
-    outlined init with copy of Locale.Language?(v0 + v33, v35);
-    v36 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText + 8);
-    v73 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText);
-    v77 = v36;
-    v37 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
+    outlined init with copy of Locale.Language?(v0 + v32, v34);
+    v35 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText + 8);
+    v71 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText);
+    v75 = v35;
+    v36 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
     swift_beginAccess();
-    v81 = v34;
-    outlined init with copy of Locale.Language?(v0 + v37, v34);
-    v80 = v0;
-    memcpy(v85, v0 + OBJC_IVAR___MusicDespacitoContentView_specs, 0x2B0uLL);
-    v78 = type metadata accessor for SyncedLyricsLineView.DespacitoContentView(0);
-    v38 = objc_allocWithZone(v78);
-    v38[OBJC_IVAR___MusicDespacitoContentView_isScrolling] = 1;
-    *&v38[OBJC_IVAR___MusicDespacitoContentView_translationLineView] = 0;
-    *&v38[OBJC_IVAR___MusicDespacitoContentView_transliterationLineView] = 0;
-    *&v38[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView] = 0;
-    v39 = OBJC_IVAR___MusicDespacitoContentView_language;
-    v75 = OBJC_IVAR___MusicDespacitoContentView_language;
-    v40 = type metadata accessor for Locale.Language();
-    v41 = *(*(v40 - 8) + 56);
-    v41(&v38[v39], 1, 1, v40);
-    v76 = OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition;
-    v38[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition] = 2;
-    v42 = &v38[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText];
+    v79 = v33;
+    outlined init with copy of Locale.Language?(v0 + v36, v33);
+    v78 = v0;
+    memcpy(v83, v0 + OBJC_IVAR___MusicDespacitoContentView_specs, 0x2B0uLL);
+    v76 = type metadata accessor for SyncedLyricsLineView.DespacitoContentView(0);
+    v37 = objc_allocWithZone(v76);
+    v37[OBJC_IVAR___MusicDespacitoContentView_isScrolling] = 1;
+    *&v37[OBJC_IVAR___MusicDespacitoContentView_translationLineView] = 0;
+    *&v37[OBJC_IVAR___MusicDespacitoContentView_transliterationLineView] = 0;
+    *&v37[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView] = 0;
+    v38 = OBJC_IVAR___MusicDespacitoContentView_language;
+    v73 = OBJC_IVAR___MusicDespacitoContentView_language;
+    v39 = type metadata accessor for Locale.Language();
+    v40 = *(*(v39 - 8) + 56);
+    v40(&v37[v38], 1, 1, v39);
+    v74 = OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition;
+    v37[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition] = 2;
+    v41 = &v37[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText];
+    *v41 = 0;
+    v41[1] = 0;
+    v42 = &v37[OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText];
     *v42 = 0;
     v42[1] = 0;
-    v43 = &v38[OBJC_IVAR___MusicDespacitoContentView_translationBackgroundVocalsText];
+    v37[OBJC_IVAR___MusicDespacitoContentView_pendingTranslationViewUpdate] = 2;
+    v40(&v37[OBJC_IVAR___MusicDespacitoContentView_translationLanguage], 1, 1, v39);
+    v43 = &v37[OBJC_IVAR___MusicDespacitoContentView_translationText];
     *v43 = 0;
     v43[1] = 0;
-    v38[OBJC_IVAR___MusicDespacitoContentView_pendingTranslationViewUpdate] = 2;
-    v41(&v38[OBJC_IVAR___MusicDespacitoContentView_translationLanguage], 1, 1, v40);
-    v44 = &v38[OBJC_IVAR___MusicDespacitoContentView_translationText];
+    v37[OBJC_IVAR___MusicDespacitoContentView_pendingTransliterationViewUpdate] = 2;
+    v40(&v37[OBJC_IVAR___MusicDespacitoContentView_transliterationLanguage], 1, 1, v39);
+    v44 = &v37[OBJC_IVAR___MusicDespacitoContentView_transliterationText];
     *v44 = 0;
     v44[1] = 0;
-    v38[OBJC_IVAR___MusicDespacitoContentView_pendingTransliterationViewUpdate] = 2;
-    v41(&v38[OBJC_IVAR___MusicDespacitoContentView_transliterationLanguage], 1, 1, v40);
-    v45 = &v38[OBJC_IVAR___MusicDespacitoContentView_transliterationText];
-    *v45 = 0;
-    v45[1] = 0;
-    v46 = v74;
-    outlined init with copy of Locale.Language?(v74, v4);
-    v47 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd) + 48);
-    v48 = v82;
-    *v2 = v82;
+    v45 = v72;
+    outlined init with copy of Locale.Language?(v72, v4);
+    v46 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd, &_sSS_10Foundation6LocaleV8LanguageVSgtMR) + 48);
+    v47 = v80;
+    *v2 = v80;
     v2[1] = v12;
-    outlined init with copy of Locale.Language?(v4, v2 + v47);
-    v49 = v48;
+    outlined init with copy of Locale.Language?(v4, v2 + v46);
+    v48 = v47;
     swift_storeEnumTagMultiPayload();
-    v50 = objc_allocWithZone(type metadata accessor for SyncedLyricsLineView.TextContentView(0));
+    v49 = objc_allocWithZone(type metadata accessor for SyncedLyricsLineView.TextContentView(0));
 
-    outlined init with copy of SyncedLyricsViewController.Specs(v85, v84);
+    outlined init with copy of SyncedLyricsViewController.Specs(v83, v82);
 
-    outlined init with copy of SyncedLyricsViewController.Specs(v85, v84);
-    v51 = v77;
+    outlined init with copy of SyncedLyricsViewController.Specs(v83, v82);
+    v50 = v75;
 
-    v52 = specialized SyncedLyricsLineView.TextContentView.init(content:specs:textColorOverride:)(v2, v85, 0);
-    outlined destroy of SyncedLyricsViewController.Specs(v85);
-    outlined destroy of TaskPriority?(v4, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-    *&v38[OBJC_IVAR___MusicDespacitoContentView_mainLineView] = v52;
-    memcpy(&v38[OBJC_IVAR___MusicDespacitoContentView_specs], v85, 0x2B0uLL);
-    v53 = &v38[OBJC_IVAR___MusicDespacitoContentView_text];
-    *v53 = v49;
-    v53[1] = v12;
-    v54 = v75;
+    v51 = specialized SyncedLyricsLineView.TextContentView.init(content:specs:textColorOverride:)(v2, v83, 0);
+    outlined destroy of SyncedLyricsViewController.Specs(v83);
+    outlined destroy of TaskPriority?(v4, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+    *&v37[OBJC_IVAR___MusicDespacitoContentView_mainLineView] = v51;
+    memcpy(&v37[OBJC_IVAR___MusicDespacitoContentView_specs], v83, 0x2B0uLL);
+    v52 = &v37[OBJC_IVAR___MusicDespacitoContentView_text];
+    *v52 = v48;
+    v52[1] = v12;
+    v53 = v73;
     swift_beginAccess();
 
-    outlined init with copy of SyncedLyricsViewController.Specs(v85, v84);
-    outlined assign with copy of Locale.Language?(v46, &v38[v54]);
+    outlined init with copy of SyncedLyricsViewController.Specs(v83, v82);
+    outlined assign with copy of Locale.Language?(v45, &v37[v53]);
     swift_endAccess();
-    v38[v76] = 2;
-    v83.receiver = v38;
-    v83.super_class = v78;
-    v55 = objc_msgSendSuper2(&v83, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-    v56 = *&v55[OBJC_IVAR___MusicDespacitoContentView_mainLineView];
-    v57 = v55;
-    [v57 addSubview:v56];
-    if (v51)
+    v37[v74] = 2;
+    v81.receiver = v37;
+    v81.super_class = v76;
+    v54 = objc_msgSendSuper2(&v81, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
+    v55 = *&v54[OBJC_IVAR___MusicDespacitoContentView_mainLineView];
+    v56 = v54;
+    [v56 addSubview:v55];
+    if (v50)
     {
-      v58 = String.lowercased()();
+      v57 = String.lowercased()();
 
-      v59 = v73;
-      v60 = String.lowercased()();
-      if (v58._countAndFlagsBits == v60._countAndFlagsBits && v58._object == v60._object)
+      v58 = v71;
+      v59 = String.lowercased()();
+      if (v57._countAndFlagsBits == v59._countAndFlagsBits && v57._object == v59._object)
       {
       }
 
       else
       {
-        v66 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v64 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if ((v66 & 1) == 0)
+        if ((v64 & 1) == 0)
         {
-          outlined init with copy of Locale.Language?(v81, v4);
-          v70 = v51;
-          v71 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
+          outlined init with copy of Locale.Language?(v79, v4);
+          v68 = v50;
+          v69 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
           swift_beginAccess();
-          outlined assign with take of Locale.Language?(v4, &v57[v71]);
+          outlined assign with take of Locale.Language?(v4, &v56[v69]);
           swift_endAccess();
-          v72 = &v57[OBJC_IVAR___MusicDespacitoContentView_translationText];
-          *v72 = v59;
-          *(v72 + 1) = v70;
+          v70 = &v56[OBJC_IVAR___MusicDespacitoContentView_translationText];
+          *v70 = v58;
+          *(v70 + 1) = v68;
 
           SyncedLyricsLineView.DespacitoContentView.translationText.didset();
           goto LABEL_20;
@@ -14554,34 +15399,34 @@ LABEL_9:
     }
 
 LABEL_20:
-    v61 = &v57[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText];
-    *v61 = 0;
-    *(v61 + 1) = 0;
+    v60 = &v56[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText];
+    *v60 = 0;
+    *(v60 + 1) = 0;
 
-    SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset(v62);
+    SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset();
 
-    outlined destroy of SyncedLyricsViewController.Specs(v85);
-    outlined destroy of TaskPriority?(v81, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-    outlined destroy of TaskPriority?(v46, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-    v57[OBJC_IVAR___MusicDespacitoContentView_isScrolling] = 0;
+    outlined destroy of SyncedLyricsViewController.Specs(v83);
+    outlined destroy of TaskPriority?(v79, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+    outlined destroy of TaskPriority?(v45, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+    v56[OBJC_IVAR___MusicDespacitoContentView_isScrolling] = 0;
     SyncedLyricsLineView.DespacitoContentView.isScrolling.didset();
-    v63 = v80;
-    [v80 addSubview:v57];
-    v64 = *(v63 + v79);
-    *(v63 + v79) = v57;
+    v61 = v78;
+    [v78 addSubview:v56];
+    v62 = *(v61 + v77);
+    *(v61 + v77) = v56;
 
     return;
   }
 
-  v31 = OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView;
-  v32 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView);
-  if (v32)
+  v30 = OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView;
+  v31 = *(v0 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView);
+  if (v31)
   {
-    [v32 removeFromSuperview];
-    v32 = *(v0 + v31);
+    [v31 removeFromSuperview];
+    v31 = *(v0 + v30);
   }
 
-  *(v0 + v31) = 0;
+  *(v0 + v30) = 0;
 }
 
 void SyncedLyricsLineView.DespacitoContentView.translationBackgroundVocalsText.setter(uint64_t a1, uint64_t a2)
@@ -14606,7 +15451,7 @@ void SyncedLyricsLineView.DespacitoContentView.translationBackgroundVocalsText.s
 
 void SyncedLyricsLineView.DespacitoContentView.translationText.didset()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v2 = &v56 - v1;
   v67 = type metadata accessor for SyncedLyricsLineView.TextContentView.Content(0);
@@ -14619,10 +15464,10 @@ void SyncedLyricsLineView.DespacitoContentView.translationText.didset()
   v7 = *(v6 - 8);
   __chkstk_darwin();
   v9 = &v56 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   __chkstk_darwin();
   v11 = &v56 - v10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeVSgMd_0, &_s10Foundation6LocaleV12LanguageCodeVSgMR_0);
   __chkstk_darwin();
   v13 = &v56 - v12;
   v14 = *&v0[OBJC_IVAR___MusicDespacitoContentView_translationText + 8];
@@ -14641,13 +15486,13 @@ void SyncedLyricsLineView.DespacitoContentView.translationText.didset()
   }
 
   v16 = *&v0[OBJC_IVAR___MusicDespacitoContentView_specs + v15];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR_0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1004F2EF0;
   v60 = NSFontAttributeName;
   *(inited + 32) = NSFontAttributeName;
   v62 = inited + 32;
-  v18 = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+  v18 = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
   v61 = v16;
   *(inited + 40) = v16;
   *(inited + 64) = v18;
@@ -14663,7 +15508,7 @@ void SyncedLyricsLineView.DespacitoContentView.translationText.didset()
 
     v22 = v60;
     v23 = v59;
-    outlined destroy of TaskPriority?(v11, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined destroy of TaskPriority?(v11, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
 LABEL_13:
     v30 = (inited + 80);
     *(inited + 104) = &type metadata for String;
@@ -14680,14 +15525,14 @@ LABEL_14:
 
   v26 = v60;
   v27 = v59;
-  outlined destroy of TaskPriority?(v11, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined destroy of TaskPriority?(v11, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   Locale.Language.languageCode.getter();
   (*(v7 + 8))(v9, v6);
   v28 = type metadata accessor for Locale.LanguageCode();
   v29 = *(v28 - 8);
   if ((*(v29 + 48))(v13, 1, v28) == 1)
   {
-    outlined destroy of TaskPriority?(v13, &_s10Foundation6LocaleV12LanguageCodeVSgMd_0);
+    outlined destroy of TaskPriority?(v13, &_s10Foundation6LocaleV12LanguageCodeVSgMd_0, &_s10Foundation6LocaleV12LanguageCodeVSgMR_0);
     v0 = v57;
     v20 = v24;
     goto LABEL_13;
@@ -14712,7 +15557,7 @@ LABEL_15:
   *(inited + 88) = v31;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n_0(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd_0, &_sSo21NSAttributedStringKeya_yptMR_0);
   swift_arrayDestroy();
   v32 = objc_allocWithZone(NSAttributedString);
   v33 = String._bridgeToObjectiveC()();
@@ -14746,7 +15591,7 @@ LABEL_15:
     (*(v65 + 56))(v45, 0, 1, v39);
     SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v44);
 
-    outlined destroy of TaskPriority?(v45, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+    outlined destroy of TaskPriority?(v45, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
 
     outlined destroy of SyncedLyricsLineView.TextContentView.Content(v41);
     outlined destroy of SyncedLyricsLineView.TextContentView.Content(v38);
@@ -14779,7 +15624,7 @@ LABEL_15:
 
 void SyncedLyricsLineView.DespacitoContentView.transliterationText.didset()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v2 = &v52 - v1;
   v3 = type metadata accessor for SyncedLyricsLineView.TextContentView.Content(0);
@@ -14792,10 +15637,10 @@ void SyncedLyricsLineView.DespacitoContentView.transliterationText.didset()
   v62 = *(v9 - 8);
   __chkstk_darwin();
   v57 = &v52 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   __chkstk_darwin();
   v12 = &v52 - v11;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeVSgMd_0, &_s10Foundation6LocaleV12LanguageCodeVSgMR_0);
   __chkstk_darwin();
   v14 = &v52 - v13;
   if (!*&v0[OBJC_IVAR___MusicDespacitoContentView_transliterationText + 8])
@@ -14810,14 +15655,14 @@ void SyncedLyricsLineView.DespacitoContentView.transliterationText.didset()
   v61 = v8;
   v56 = v2;
   v59 = *&v0[OBJC_IVAR___MusicDespacitoContentView_transliterationText];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR_0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1004F2EF0;
   *(inited + 32) = NSFontAttributeName;
   v58 = inited + 32;
   v53 = &v0[OBJC_IVAR___MusicDespacitoContentView_specs];
   v16 = *&v0[OBJC_IVAR___MusicDespacitoContentView_specs + 312];
-  v17 = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+  v17 = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
   *(inited + 40) = v16;
   *(inited + 64) = v17;
   *(inited + 72) = NSLanguageIdentifierAttributeName;
@@ -14832,7 +15677,7 @@ void SyncedLyricsLineView.DespacitoContentView.transliterationText.didset()
     v21 = NSFontAttributeName;
     v22 = v16;
     v23 = NSLanguageIdentifierAttributeName;
-    outlined destroy of TaskPriority?(v12, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined destroy of TaskPriority?(v12, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     v24 = v61;
 LABEL_7:
     v32 = (inited + 80);
@@ -14851,14 +15696,14 @@ LABEL_8:
   v27 = NSFontAttributeName;
   v28 = v16;
   v29 = NSLanguageIdentifierAttributeName;
-  outlined destroy of TaskPriority?(v12, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined destroy of TaskPriority?(v12, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   Locale.Language.languageCode.getter();
   (*(v25 + 8))(v26, v9);
   v30 = type metadata accessor for Locale.LanguageCode();
   v31 = *(v30 - 8);
   if ((*(v31 + 48))(v14, 1, v30) == 1)
   {
-    outlined destroy of TaskPriority?(v14, &_s10Foundation6LocaleV12LanguageCodeVSgMd_0);
+    outlined destroy of TaskPriority?(v14, &_s10Foundation6LocaleV12LanguageCodeVSgMd_0, &_s10Foundation6LocaleV12LanguageCodeVSgMR_0);
     v24 = v61;
     v20 = v52;
     goto LABEL_7;
@@ -14881,7 +15726,7 @@ LABEL_9:
   *(inited + 88) = v33;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n_0(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd_0, &_sSo21NSAttributedStringKeya_yptMR_0);
   swift_arrayDestroy();
   v34 = objc_allocWithZone(NSAttributedString);
   v35 = String._bridgeToObjectiveC()();
@@ -14914,7 +15759,7 @@ LABEL_9:
     (*(v54 + 56))(v46, 0, 1, v40);
     SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v45);
 
-    outlined destroy of TaskPriority?(v46, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+    outlined destroy of TaskPriority?(v46, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
 
     outlined destroy of SyncedLyricsLineView.TextContentView.Content(v42);
     outlined destroy of SyncedLyricsLineView.TextContentView.Content(v24);
@@ -14979,6 +15824,7 @@ Swift::Void __swiftcall SyncedLyricsLineView.DespacitoContentView.layoutSubviews
   v14 = *&v0[OBJC_IVAR___MusicDespacitoContentView_transliterationLineView];
   if (!v14)
   {
+    v28 = 0;
     v27 = 0;
     goto LABEL_21;
   }
@@ -15004,19 +15850,20 @@ Swift::Void __swiftcall SyncedLyricsLineView.DespacitoContentView.layoutSubviews
         *&v0[v13] = 0;
 
         v26 = 0;
+        v27 = 0;
       }
 
       else
       {
-        v38 = swift_allocObject();
-        *(v38 + 16) = v15;
-        *(v38 + 24) = 0;
-        *(v38 + 32) = v20;
-        *(v38 + 40) = Width;
-        *(v38 + 48) = v19;
+        v27 = swift_allocObject();
+        *(v27 + 16) = v15;
+        *(v27 + 24) = 0;
+        *(v27 + 32) = v20;
+        *(v27 + 40) = Width;
+        *(v27 + 48) = v19;
         v39 = swift_allocObject();
         *(v39 + 16) = partial apply for closure #2 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews();
-        *(v39 + 24) = v38;
+        *(v39 + 24) = v27;
         v77 = thunk for @escaping @callee_guaranteed () -> ()partial apply;
         v78 = v39;
         aBlock = _NSConcreteStackBlock;
@@ -15051,7 +15898,7 @@ Swift::Void __swiftcall SyncedLyricsLineView.DespacitoContentView.layoutSubviews
       specialized SyncedLyricsLineView.DespacitoContentView.animate(view:for:completion:)(v45, v44, partial apply for closure #3 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews(), v43);
 
       swift_unknownObjectWeakDestroy();
-      v27 = v26;
+      v28 = v26;
       goto LABEL_20;
     }
 
@@ -15061,20 +15908,21 @@ Swift::Void __swiftcall SyncedLyricsLineView.DespacitoContentView.layoutSubviews
   if (v24 == 2 || (v24 & 1) == 0)
   {
 LABEL_16:
-    v29 = v15;
-    [v29 setFrame:{0.0, v20, Width, v19}];
-    [v29 frame];
-    v31 = v30;
-    v33 = v32;
-    v35 = v34;
-    v37 = v36;
+    v30 = v15;
+    [v30 setFrame:{0.0, v20, Width, v19}];
+    [v30 frame];
+    v32 = v31;
+    v34 = v33;
+    v36 = v35;
+    v38 = v37;
 
-    v85.origin.x = v31;
-    v85.origin.y = v33;
-    v85.size.width = v35;
-    v85.size.height = v37;
+    v85.origin.x = v32;
+    v85.origin.y = v34;
+    v85.size.width = v36;
+    v85.size.height = v38;
     MaxY = CGRectGetMaxY(v85);
 
+    v28 = 0;
     v27 = 0;
     v79 = MaxY;
     goto LABEL_20;
@@ -15082,9 +15930,10 @@ LABEL_16:
 
   [v15 removeFromSuperview];
 
-  v28 = *&v0[v13];
+  v29 = *&v0[v13];
   *&v0[v13] = 0;
 
+  v28 = 0;
   v27 = 0;
 LABEL_20:
   v0[OBJC_IVAR___MusicDespacitoContentView_pendingTransliterationViewUpdate] = 2;
@@ -15093,7 +15942,7 @@ LABEL_21:
   v47 = *&v0[OBJC_IVAR___MusicDespacitoContentView_translationLineView];
   if (v47)
   {
-    v71 = v27;
+    v71 = v28;
     v48 = v47;
     [v0 bounds];
     [v48 sizeThatFits:{v49, v50}];
@@ -15113,6 +15962,7 @@ LABEL_21:
         {
           [v48 removeFromSuperview];
           v59 = 0;
+          v60 = 0;
 LABEL_33:
           v67 = swift_allocObject();
           swift_unknownObjectWeakInit();
@@ -15126,15 +15976,15 @@ LABEL_33:
           goto LABEL_34;
         }
 
-        v62 = swift_allocObject();
-        *(v62 + 16) = v48;
-        *(v62 + 24) = 0;
-        *(v62 + 32) = v53;
-        *(v62 + 40) = v54;
-        *(v62 + 48) = v52;
+        v60 = swift_allocObject();
+        *(v60 + 16) = v48;
+        *(v60 + 24) = 0;
+        *(v60 + 32) = v53;
+        *(v60 + 40) = v54;
+        *(v60 + 48) = v52;
         v63 = swift_allocObject();
         *(v63 + 16) = partial apply for closure #4 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews();
-        *(v63 + 24) = v62;
+        *(v63 + 24) = v60;
         v77 = partial apply for thunk for @escaping @callee_guaranteed () -> ();
         v78 = v63;
         aBlock = _NSConcreteStackBlock;
@@ -15172,13 +16022,14 @@ LABEL_40:
       {
         [v48 removeFromSuperview];
 
-        v60 = *&v0[v46];
+        v61 = *&v0[v46];
         *&v0[v46] = 0;
 
         v59 = 0;
+        v60 = 0;
 LABEL_34:
         v0[OBJC_IVAR___MusicDespacitoContentView_pendingTranslationViewUpdate] = 2;
-        v27 = v71;
+        v28 = v71;
         goto LABEL_35;
       }
     }
@@ -15188,49 +16039,50 @@ LABEL_34:
     v88.origin.y = v53;
     v88.size.width = v54;
     v88.size.height = v52;
-    v61 = CGRectGetMaxY(v88);
+    v62 = CGRectGetMaxY(v88);
 
     v59 = 0;
-    v79 = v61;
+    v60 = 0;
+    v79 = v62;
     goto LABEL_34;
   }
 
   v59 = 0;
+  v60 = 0;
   v58 = v72;
 LABEL_35:
   v69 = v0[v58];
   if (v69 != 2 && (v69 & 1) != 0)
   {
-    v70 = v27;
+    v70 = v28;
     specialized closure #1 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews()(v0, &v79);
-    v27 = v70;
+    v28 = v70;
   }
 
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v27);
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v59);
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v28, v27);
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v59, v60);
 }
 
-uint64_t specialized closure #1 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews()(uint64_t result, double *a2)
+void specialized closure #1 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews()(char *a1, double *a2)
 {
-  v2 = *(result + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView);
+  v2 = *&a1[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsView];
   if (v2)
   {
-    v4 = result;
     v5 = v2;
-    [v4 bounds];
-    SyncedLyricsLineView.DespacitoContentView.sizeThatFits(_:selected:)(*(*&v4[OBJC_IVAR___MusicDespacitoContentView_mainLineView] + OBJC_IVAR___MusicTextContentView_isSelected), v6, v7);
+    [a1 bounds];
+    SyncedLyricsLineView.DespacitoContentView.sizeThatFits(_:selected:)(*(*&a1[OBJC_IVAR___MusicDespacitoContentView_mainLineView] + OBJC_IVAR___MusicTextContentView_isSelected), v6, v7);
     v9 = v8;
     swift_beginAccess();
     v10 = OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition;
     v11 = 0.0;
-    if (v4[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition])
+    if (a1[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition])
     {
-      v11 = *&v4[OBJC_IVAR___MusicDespacitoContentView_specs + 112];
+      v11 = *&a1[OBJC_IVAR___MusicDespacitoContentView_specs + 112];
     }
 
     v12 = *a2 + v11;
     v13 = v5;
-    [v4 bounds];
+    [a1 bounds];
     [v13 setFrame:{0.0, v12, CGRectGetWidth(v25), v9}];
     [v13 frame];
     v15 = v14;
@@ -15244,21 +16096,19 @@ uint64_t specialized closure #1 in SyncedLyricsLineView.DespacitoContentView.lay
     v26.size.height = v21;
     MaxY = CGRectGetMaxY(v26);
 
-    result = swift_beginAccess();
+    swift_beginAccess();
     *a2 = MaxY;
-    v23 = v4[v10];
+    v23 = a1[v10];
     if (v23 != 2 && (v23 & 1) == 0)
     {
-      v24 = *&v4[OBJC_IVAR___MusicDespacitoContentView_specs + 112];
-      result = swift_beginAccess();
+      v24 = *&a1[OBJC_IVAR___MusicDespacitoContentView_specs + 112];
+      swift_beginAccess();
       *a2 = MaxY + v24;
     }
   }
-
-  return result;
 }
 
-void closure #5 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews()(char a1)
+void closure #5 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews()(char a1, uint64_t a2)
 {
   if (a1)
   {
@@ -15266,7 +16116,7 @@ void closure #5 in SyncedLyricsLineView.DespacitoContentView.layoutSubviews()(ch
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v2 = *&Strong[OBJC_IVAR___MusicDespacitoContentView_translationLineView];
+      v3 = *&Strong[OBJC_IVAR___MusicDespacitoContentView_translationLineView];
       *&Strong[OBJC_IVAR___MusicDespacitoContentView_translationLineView] = 0;
     }
   }
@@ -15278,7 +16128,7 @@ void SyncedLyricsLineView.DespacitoContentView.copy()(char **a1@<X8>)
   v74 = type metadata accessor for SyncedLyricsLineView.TextContentView.Content(0);
   __chkstk_darwin();
   v3 = (&v65 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   __chkstk_darwin();
   v79 = &v65 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -15351,7 +16201,7 @@ void SyncedLyricsLineView.DespacitoContentView.copy()(char **a1@<X8>)
   v29[1] = 0;
   v30 = v79;
   outlined init with copy of Locale.Language?(v84, v79);
-  v31 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd) + 48);
+  v31 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd, &_sSS_10Foundation6LocaleV8LanguageVSgtMR) + 48);
   v32 = v82;
   v33 = v3;
   *v3 = v82;
@@ -15367,7 +16217,7 @@ void SyncedLyricsLineView.DespacitoContentView.copy()(char **a1@<X8>)
   v36 = v72;
 
   v37 = specialized SyncedLyricsLineView.TextContentView.init(content:specs:textColorOverride:)(v33, v88, 0);
-  outlined destroy of TaskPriority?(v35, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined destroy of TaskPriority?(v35, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   *&v19[OBJC_IVAR___MusicDespacitoContentView_mainLineView] = v37;
   memcpy(&v19[OBJC_IVAR___MusicDespacitoContentView_specs], v88, 0x2B0uLL);
   v38 = &v19[OBJC_IVAR___MusicDespacitoContentView_text];
@@ -15383,7 +16233,7 @@ void SyncedLyricsLineView.DespacitoContentView.copy()(char **a1@<X8>)
   v86.receiver = v19;
   v86.super_class = v81;
   v40 = objc_msgSendSuper2(&v86, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-  v41 = *&v40[OBJC_IVAR___MusicDespacitoContentView_mainLineView];
+  v41 = *(v40 + OBJC_IVAR___MusicDespacitoContentView_mainLineView);
   v42 = v40;
   [v42 addSubview:v41];
   if (v36)
@@ -15409,11 +16259,11 @@ void SyncedLyricsLineView.DespacitoContentView.copy()(char **a1@<X8>)
         outlined init with copy of Locale.Language?(v78, v79);
         v48 = OBJC_IVAR___MusicDespacitoContentView_transliterationLanguage;
         swift_beginAccess();
-        outlined assign with take of Locale.Language?(v47, &v42[v48]);
+        outlined assign with take of Locale.Language?(v47, v42 + v48);
         swift_endAccess();
-        v49 = &v42[OBJC_IVAR___MusicDespacitoContentView_transliterationText];
+        v49 = (v42 + OBJC_IVAR___MusicDespacitoContentView_transliterationText);
         *v49 = v66;
-        *(v49 + 1) = v36;
+        v49[1] = v36;
 
         SyncedLyricsLineView.DespacitoContentView.transliterationText.didset();
       }
@@ -15482,11 +16332,11 @@ LABEL_16:
   outlined init with copy of Locale.Language?(v52, v79);
   v55 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
   swift_beginAccess();
-  outlined assign with take of Locale.Language?(v54, &v42[v55]);
+  outlined assign with take of Locale.Language?(v54, v42 + v55);
   swift_endAccess();
-  v56 = &v42[OBJC_IVAR___MusicDespacitoContentView_translationText];
+  v56 = (v42 + OBJC_IVAR___MusicDespacitoContentView_translationText);
   *v56 = v67;
-  *(v56 + 1) = v27;
+  v56[1] = v27;
 
   SyncedLyricsLineView.DespacitoContentView.translationText.didset();
   if (v83)
@@ -15495,17 +16345,17 @@ LABEL_16:
   }
 
 LABEL_27:
-  v60 = &v42[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText];
+  v60 = (v42 + OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsText);
   v61 = v85;
   *v60 = v80;
-  *(v60 + 1) = v61;
+  v60[1] = v61;
 
   SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset();
 
   outlined destroy of SyncedLyricsViewController.Specs(v88);
-  outlined destroy of TaskPriority?(v52, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  outlined destroy of TaskPriority?(v78, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  outlined destroy of TaskPriority?(v84, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined destroy of TaskPriority?(v52, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  outlined destroy of TaskPriority?(v78, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  outlined destroy of TaskPriority?(v84, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   v62 = OBJC_IVAR___MusicDespacitoContentView_mainLineView;
   v63 = v75;
   SyncedLyricsLineView.DespacitoContentView.setSelected(_:animated:)(*(*&v75[OBJC_IVAR___MusicDespacitoContentView_mainLineView] + OBJC_IVAR___MusicTextContentView_isSelected), 0);
@@ -15536,35 +16386,35 @@ id SyncedLyricsLineView.TextContentView.__deallocating_deinit(uint64_t (*a1)(voi
   return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-void type metadata completion function for SyncedLyricsLineView.DespacitoContentView()
+void type metadata completion function for SyncedLyricsLineView.DespacitoContentView(uint64_t a1)
 {
-  type metadata accessor for Locale.Language?();
-  if (v0 <= 0x3F)
+  type metadata accessor for Locale.Language?(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void type metadata completion function for SyncedLyricsLineView.TextContentView.Content()
+void type metadata completion function for SyncedLyricsLineView.TextContentView.Content(uint64_t a1)
 {
-  type metadata accessor for (String, Locale.Language?)();
-  if (v0 <= 0x3F)
+  type metadata accessor for (String, Locale.Language?)(319);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for UIAction(319, &_sSo18NSAttributedStringCML_0);
-    if (v1 <= 0x3F)
+    type metadata accessor for UIAction(319, &_sSo18NSAttributedStringCML_0, NSAttributedString_ptr);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
     }
   }
 }
 
-void type metadata accessor for (String, Locale.Language?)()
+void type metadata accessor for (String, Locale.Language?)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (String, Locale.Language?))
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (String, Locale.Language?));
     }
@@ -15596,7 +16446,7 @@ uint64_t protocol witness for SyncedLyricsLineContentView.specs.setter in confor
 
 uint64_t outlined init with copy of Locale.Language?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -15642,7 +16492,7 @@ char *specialized SyncedLyricsLineView.TextContentView.init(content:specs:textCo
   v7 = *(v6 - 8);
   __chkstk_darwin();
   v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v11 = &v27 - v10;
   v3[OBJC_IVAR___MusicTextContentView_isSelected] = 0;
@@ -15675,7 +16525,7 @@ char *specialized SyncedLyricsLineView.TextContentView.init(content:specs:textCo
   SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v19);
   v21 = a1;
 
-  outlined destroy of TaskPriority?(v11, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  outlined destroy of TaskPriority?(v11, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   outlined init with copy of SyncedLyricsLineView.TextContentView.Content(a1, v9);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
@@ -15697,9 +16547,9 @@ char *specialized SyncedLyricsLineView.TextContentView.init(content:specs:textCo
       v24 = *(a2 + 80);
     }
 
-    v25 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd) + 48);
+    v25 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd, &_sSS_10Foundation6LocaleV8LanguageVSgtMR) + 48);
     [v23 setTextAlignment:v24];
-    outlined destroy of TaskPriority?(&v9[v25], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined destroy of TaskPriority?(&v9[v25], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     p_cache = &OBJC_METACLASS____TtCC7LyricsX20SyncedLyricsLineView4Line.cache;
   }
 
@@ -15711,14 +16561,14 @@ char *specialized SyncedLyricsLineView.TextContentView.init(content:specs:textCo
 
 uint64_t outlined assign with copy of Locale.Language?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined assign with take of Locale.Language?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -15790,7 +16640,7 @@ void specialized SyncedLyricsLineView.DespacitoContentView.animate(view:for:comp
 {
   if (a2)
   {
-    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
+    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
     v7.super.isa = UIViewPropertyAnimator.init(springTimingParameters:)([objc_allocWithZone(UISpringTimingParameters) initWithMass:1.0 stiffness:130.0 damping:30.0 initialVelocity:{0.0, 0.0}]).super.isa;
     v8 = swift_allocObject();
     *(v8 + 16) = a1;
@@ -15862,7 +16712,7 @@ LABEL_5:
 
   if ((v19 & 1) == 0)
   {
-    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
+    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
     v7.super.isa = UIViewPropertyAnimator.init(springTimingParameters:)([objc_allocWithZone(UISpringTimingParameters) initWithMass:1.0 stiffness:150.0 damping:30.0 initialVelocity:{0.0, 0.0}]).super.isa;
     v24 = swift_allocObject();
     *(v24 + 16) = v23;
@@ -15957,7 +16807,7 @@ uint64_t sub_100485990()
 
 uint64_t outlined init with take of Locale.Language?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -16061,7 +16911,7 @@ LABEL_7:
   [v4 setTranslatesAutoresizingMaskIntoConstraints:0];
   [*&v1[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_containerView] addSubview:v4];
   v5 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2, &_ss23_ContiguousArrayStorageCyyXlGMR_2);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_1004F3040;
   v7 = [v4 leadingAnchor];
@@ -16084,7 +16934,7 @@ LABEL_7:
   v18 = [v16 constraintEqualToAnchor:v17];
 
   *(v6 + 56) = v18;
-  type metadata accessor for UIAction(0, &_sSo18NSLayoutConstraintCML_1);
+  type metadata accessor for UIAction(0, &_sSo18NSLayoutConstraintCML_1, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v5 activateConstraints:isa];
@@ -16155,34 +17005,34 @@ id closure #1 in SyncedLyricsLineView.backgroundView.getter(char *a1)
   [v4 setCornerCurve:kCACornerCurveContinuous];
 
   v5 = [v2 layer];
-  [v5 setCornerRadius:v3[72]];
+  [v5 setCornerRadius:*(v3 + 72)];
 
   [a1 insertSubview:v2 atIndex:0];
   v6 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2, &_ss23_ContiguousArrayStorageCyyXlGMR_2);
   v7 = swift_allocObject();
   *(v7 + 16) = xmmword_1004F3040;
   v8 = [v2 leadingAnchor];
   v9 = [a1 leadingAnchor];
-  v10 = [v8 constraintEqualToAnchor:v9 constant:-v3[73]];
+  v10 = [v8 constraintEqualToAnchor:v9 constant:-*(v3 + 73)];
 
   *(v7 + 32) = v10;
   v11 = [v2 trailingAnchor];
   v12 = [a1 trailingAnchor];
-  v13 = [v11 constraintEqualToAnchor:v12 constant:v3[73]];
+  v13 = [v11 constraintEqualToAnchor:v12 constant:*(v3 + 73)];
 
   *(v7 + 40) = v13;
   v14 = [v2 topAnchor];
   v15 = [a1 topAnchor];
-  v16 = [v14 constraintEqualToAnchor:v15 constant:-v3[73]];
+  v16 = [v14 constraintEqualToAnchor:v15 constant:-*(v3 + 73)];
 
   *(v7 + 48) = v16;
   v17 = [v2 bottomAnchor];
   v18 = [a1 bottomAnchor];
-  v19 = [v17 constraintEqualToAnchor:v18 constant:v3[73]];
+  v19 = [v17 constraintEqualToAnchor:v18 constant:*(v3 + 73)];
 
   *(v7 + 56) = v19;
-  type metadata accessor for UIAction(0, &_sSo18NSLayoutConstraintCML_1);
+  type metadata accessor for UIAction(0, &_sSo18NSLayoutConstraintCML_1, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v6 activateConstraints:isa];
@@ -16190,118 +17040,116 @@ id closure #1 in SyncedLyricsLineView.backgroundView.getter(char *a1)
   return v2;
 }
 
-id SyncedLyricsLineView.isHighlighted.didset(char a1)
+void SyncedLyricsLineView.isHighlighted.didset(char a1)
 {
-  v2 = a1 & 1;
-  result = [v1 isHighlighted];
-  if (result == v2)
+  if ([v1 isHighlighted] == (a1 & 1))
   {
-    return result;
+    return;
   }
 
-  v4 = SyncedLyricsLineView.backgroundView.getter();
+  v2 = SyncedLyricsLineView.backgroundView.getter();
   if ([v1 isHighlighted])
   {
-    v5 = &v1[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_previousBlurRadius];
-    *v5 = *&v1[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_blurRadius];
-    v5[8] = 0;
-    v6 = 0.0;
+    v3 = &v1[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_previousBlurRadius];
+    *v3 = *&v1[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_blurRadius];
+    v3[8] = 0;
+    v4 = 0.0;
 LABEL_6:
-    SyncedLyricsLineView.setBlurRadius(_:animated:)(1, v6);
+    SyncedLyricsLineView.setBlurRadius(_:animated:)(1, v4);
     goto LABEL_7;
   }
 
   if ((v1[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_previousBlurRadius + 8] & 1) == 0)
   {
-    v6 = *&v1[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_previousBlurRadius];
+    v4 = *&v1[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_previousBlurRadius];
     goto LABEL_6;
   }
 
 LABEL_7:
-  v7 = swift_allocObject();
-  *(v7 + 16) = v4;
-  *(v7 + 24) = v1;
-  v8 = swift_allocObject();
-  *(v8 + 16) = v1;
-  *(v8 + 24) = v4;
-  v9 = v4;
-  v10 = v1;
-  v11 = v9;
-  v12 = [v10 isHighlighted];
-  v13 = objc_allocWithZone(UISpringTimingParameters);
-  if (v12)
+  v5 = swift_allocObject();
+  *(v5 + 16) = v2;
+  *(v5 + 24) = v1;
+  v6 = swift_allocObject();
+  *(v6 + 16) = v1;
+  *(v6 + 24) = v2;
+  v7 = v2;
+  v8 = v1;
+  v9 = v7;
+  v10 = [v8 isHighlighted];
+  v11 = objc_allocWithZone(UISpringTimingParameters);
+  if (v10)
   {
-    v14 = 24.0;
+    v12 = 24.0;
   }
 
   else
   {
-    v14 = 50.0;
+    v12 = 50.0;
   }
 
-  v15 = 322.0;
-  if (!v12)
+  v13 = 322.0;
+  if (!v10)
   {
-    v15 = 300.0;
+    v13 = 300.0;
   }
 
-  v16 = 2.0;
-  if (v12)
+  v14 = 2.0;
+  if (v10)
   {
-    v16 = 1.0;
-    v17 = 0.0;
+    v14 = 1.0;
+    v15 = 0.0;
   }
 
   else
   {
-    v17 = 0.1;
+    v15 = 0.1;
   }
 
-  if (v12)
+  if (v10)
   {
-    v18 = 0.2;
+    v16 = 0.2;
   }
 
   else
   {
-    v18 = 0.3;
+    v16 = 0.3;
   }
 
-  v19 = [v13 initWithMass:v16 stiffness:v15 damping:v14 initialVelocity:{0.0, 0.0}];
-  v20 = specialized static SyncedLyricsViewController.Specs.highlightAnimationFactory(highlighted:)(v12);
-  v21 = objc_opt_self();
-  v36 = partial apply for closure #1 in SyncedLyricsLineView.isHighlighted.didset;
-  v37 = v7;
-  v32 = _NSConcreteStackBlock;
-  v33 = 1107296256;
-  v34 = thunk for @escaping @callee_guaranteed () -> ();
-  v35 = &block_descriptor_77_0;
-  v22 = _Block_copy(&v32);
+  v17 = [v11 initWithMass:v14 stiffness:v13 damping:v12 initialVelocity:{0.0, 0.0}];
+  v18 = specialized static SyncedLyricsViewController.Specs.highlightAnimationFactory(highlighted:)(v10);
+  v19 = objc_opt_self();
+  v34 = partial apply for closure #1 in SyncedLyricsLineView.isHighlighted.didset;
+  v35 = v5;
+  v30 = _NSConcreteStackBlock;
+  v31 = 1107296256;
+  v32 = thunk for @escaping @callee_guaranteed () -> ();
+  v33 = &block_descriptor_77_0;
+  v20 = _Block_copy(&v30);
   swift_unknownObjectRetain();
 
-  [v21 _animateWithDuration:0 delay:v20 options:v22 factory:0 animations:v18 completion:v17];
-  _Block_release(v22);
+  [v19 _animateWithDuration:0 delay:v18 options:v20 factory:0 animations:v16 completion:v15];
+  _Block_release(v20);
   swift_unknownObjectRelease();
-  [v19 settlingDuration];
+  [v17 settlingDuration];
+  v22 = v21;
+  [v17 mass];
   v24 = v23;
-  [v19 mass];
+  [v17 stiffness];
   v26 = v25;
-  [v19 stiffness];
+  [v17 damping];
   v28 = v27;
-  [v19 damping];
-  v30 = v29;
-  v36 = partial apply for closure #2 in SyncedLyricsLineView.isHighlighted.didset;
-  v37 = v8;
-  v32 = _NSConcreteStackBlock;
-  v33 = 1107296256;
-  v34 = thunk for @escaping @callee_guaranteed () -> ();
-  v35 = &block_descriptor_80_0;
-  v31 = _Block_copy(&v32);
+  v34 = partial apply for closure #2 in SyncedLyricsLineView.isHighlighted.didset;
+  v35 = v6;
+  v30 = _NSConcreteStackBlock;
+  v31 = 1107296256;
+  v32 = thunk for @escaping @callee_guaranteed () -> ();
+  v33 = &block_descriptor_80_0;
+  v29 = _Block_copy(&v30);
 
-  [v21 _animateUsingSpringWithDuration:0 delay:v31 options:0 mass:v24 stiffness:v17 damping:v26 initialVelocity:v28 animations:v30 completion:0.0];
+  [v19 _animateUsingSpringWithDuration:0 delay:v29 options:0 mass:v22 stiffness:v15 damping:v24 initialVelocity:v26 animations:v28 completion:0.0];
 
   swift_unknownObjectRelease();
-  _Block_release(v31);
+  _Block_release(v29);
 }
 
 void closure #1 in SyncedLyricsLineView.isHighlighted.didset(void *a1, char *a2)
@@ -16637,11 +17485,11 @@ Swift::Void __swiftcall SyncedLyricsLineView.setFocused(_:animated:)(Swift::Bool
     [v6 setValue:isa forKey:kCAFilterInputAmount];
 
     v8 = [v2 layer];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_3);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_3, &_ss23_ContiguousArrayStorageCyypGMR_3);
     v9 = swift_allocObject();
     *(v9 + 16) = xmmword_1004F2EF0;
     v10 = *&v2[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_blurFilter];
-    v11 = type metadata accessor for UIAction(0, &_sSo8CAFilterCML_1);
+    v11 = type metadata accessor for UIAction(0, &_sSo8CAFilterCML_1, CAFilter_ptr);
     *(v9 + 32) = v10;
     *(v9 + 88) = v11;
     *(v9 + 56) = v11;
@@ -16757,7 +17605,7 @@ void closure #1 in SyncedLyricsLineView.setBlurRadius(_:animated:)(void *a1)
 
 void SyncedLyricsLineView.updateContentView()()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
   __chkstk_darwin();
   v680 = &v627 - v1;
   type metadata accessor for Locale();
@@ -16779,7 +17627,7 @@ void SyncedLyricsLineView.updateContentView()()
   v696 = *(v695 - 1);
   __chkstk_darwin();
   *&v691 = &v627 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
   __chkstk_darwin();
   v676 = &v627 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -16804,7 +17652,7 @@ void SyncedLyricsLineView.updateContentView()()
   v652 = &v627 - v19;
   __chkstk_darwin();
   v645 = &v627 - v20;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
   v674 = &v627 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -16859,7 +17707,7 @@ void SyncedLyricsLineView.updateContentView()()
   v646 = &v627 - v48;
   __chkstk_darwin();
   v673 = &v627 - v49;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   __chkstk_darwin();
   v688 = &v627 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -16917,7 +17765,7 @@ void SyncedLyricsLineView.updateContentView()()
   swift_beginAccess();
   v700 = v0;
   outlined init with copy of ActionPerforming(&v0[v79], v709);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   if (!swift_dynamicCast())
   {
     if (swift_dynamicCast())
@@ -16947,21 +17795,21 @@ void SyncedLyricsLineView.updateContentView()()
       v697 = (v90 + 8);
       v686 = v97;
       (v97)(v89, v92);
-      v694 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0);
+      v694 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR_0);
       v98 = swift_allocObject();
       v691 = xmmword_1004F2400;
       *(v98 + 16) = xmmword_1004F2400;
       *(v98 + 32) = NSFontAttributeName;
       v99 = &v700[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs];
       v100 = *&v700[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs + 232];
-      v688 = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+      v688 = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
       *(v98 + 64) = v688;
       *(v98 + 40) = v100;
       v685 = NSFontAttributeName;
       v101 = v100;
       _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n_0(v98);
       swift_setDeallocating();
-      outlined destroy of TaskPriority?(v98 + 32, &_sSo21NSAttributedStringKeya_yptMd_0);
+      outlined destroy of TaskPriority?(v98 + 32, &_sSo21NSAttributedStringKeya_yptMd_0, &_sSo21NSAttributedStringKeya_yptMR_0);
       swift_deallocClassInstance();
       v102 = objc_allocWithZone(NSAttributedString);
       v103 = String._bridgeToObjectiveC()();
@@ -16984,7 +17832,7 @@ void SyncedLyricsLineView.updateContentView()()
       v109 = v99;
       String.init(localized:table:bundle:locale:comment:)();
       (v686)(v89, v108);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd_2);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd_2, &_sSaySSGMR_2);
       _sSaySSGSayxGSKsWl_2();
       BidirectionalCollection<>.joined(separator:)();
 
@@ -16997,7 +17845,7 @@ void SyncedLyricsLineView.updateContentView()()
       v112 = v111;
       _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n_0(v110);
       swift_setDeallocating();
-      outlined destroy of TaskPriority?(v110 + 32, &_sSo21NSAttributedStringKeya_yptMd_0);
+      outlined destroy of TaskPriority?(v110 + 32, &_sSo21NSAttributedStringKeya_yptMd_0, &_sSo21NSAttributedStringKeya_yptMR_0);
       swift_deallocClassInstance();
       v113 = objc_allocWithZone(NSAttributedString);
       v114 = String._bridgeToObjectiveC()();
@@ -17034,7 +17882,7 @@ void SyncedLyricsLineView.updateContentView()()
         v128(v127, 0, 1, v122);
         SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v126);
 
-        outlined destroy of TaskPriority?(v127, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+        outlined destroy of TaskPriority?(v127, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
         v129 = v124;
         v116 = v697;
         outlined destroy of SyncedLyricsLineView.TextContentView.Content(v129, type metadata accessor for SyncedLyricsLineView.TextContentView.Content);
@@ -17051,7 +17899,7 @@ void SyncedLyricsLineView.updateContentView()()
         v107 = v699;
         SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v131);
 
-        outlined destroy of TaskPriority?(v127, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+        outlined destroy of TaskPriority?(v127, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
         v132 = v700;
       }
 
@@ -17079,7 +17927,7 @@ void SyncedLyricsLineView.updateContentView()()
         (v679[7])(v680, 1, 1, v139);
         SyncedLyricsLineView.TextContentView.updateLabel(changes:oldContent:)(v144);
 
-        outlined destroy of TaskPriority?(v145, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd);
+        outlined destroy of TaskPriority?(v145, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMd, &_s7LyricsX06SyncedA8LineViewC011TextContentD0C0F033_328E32CB8485E005C40C2FB54DA07A72LLOSgMR);
         v146 = *v117;
         *v117 = v142;
         *(v117 + 1) = &protocol witness table for SyncedLyricsLineView.TextContentView;
@@ -17367,7 +18215,7 @@ LABEL_26:
   }
 
   v84 = *v710;
-  v85 = outlined destroy of TaskPriority?(v710, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+  v85 = outlined destroy of TaskPriority?(v710, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
   v86 = (*&v76[v72[17]])(v85);
   if (!*(v86 + 16))
   {
@@ -17426,14 +18274,14 @@ LABEL_27:
         v690 = v155;
         v694 = v160();
         v689 = v161;
-        outlined init with copy of TaskPriority?(v159 + v158[7], v686, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined init with copy of TaskPriority?(v159 + v158[7], v686, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         v162 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_transliteratedLine;
         swift_beginAccess();
-        outlined init with copy of TaskPriority?(&v156[v162], v26, &_s7LyricsX0A0C8TextLineVSgMd);
-        v163 = v699[6];
+        outlined init with copy of TaskPriority?(&v156[v162], v26, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+        v163 = *(v699 + 6);
         if (v163(v26, 1, v158))
         {
-          outlined destroy of TaskPriority?(v26, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v26, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v687 = 0;
           v164 = 0;
         }
@@ -17441,27 +18289,27 @@ LABEL_27:
         else
         {
           outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v26, v74, type metadata accessor for Lyrics.TextLine);
-          v224 = outlined destroy of TaskPriority?(v26, &_s7LyricsX0A0C8TextLineVSgMd);
+          v224 = outlined destroy of TaskPriority?(v26, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v687 = (*&v74[v158[16]])(v224);
           v164 = v225;
           outlined destroy of SyncedLyricsLineView.TextContentView.Content(v74, type metadata accessor for Lyrics.TextLine);
         }
 
         v226 = v665;
-        outlined init with copy of TaskPriority?(&v156[v162], v665, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(&v156[v162], v665, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         v227 = v163(v226, 1, v158);
         v688 = v164;
         if (v227)
         {
-          outlined destroy of TaskPriority?(v226, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v226, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v228 = type metadata accessor for Locale.Language();
           (*(*(v228 - 8) + 56))(v682, 1, 1, v228);
         }
 
         else
         {
-          outlined init with copy of TaskPriority?(v226 + v158[7], v682, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-          outlined destroy of TaskPriority?(v226, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined init with copy of TaskPriority?(v226 + v158[7], v682, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+          outlined destroy of TaskPriority?(v226, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         }
 
         v229 = v695;
@@ -17469,11 +18317,11 @@ LABEL_27:
         v231 = v667;
         v232 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_translatedLine;
         swift_beginAccess();
-        outlined init with copy of TaskPriority?(&v156[v232], v230, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined init with copy of TaskPriority?(&v156[v232], v230, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         v233 = *(v696 + 48);
         if (v233(v230, 1, v229))
         {
-          v234 = outlined destroy of TaskPriority?(v230, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+          v234 = outlined destroy of TaskPriority?(v230, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
           v693 = 0;
           v235 = 0;
         }
@@ -17482,7 +18330,7 @@ LABEL_27:
         {
           v236 = v691;
           outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v230, v691, type metadata accessor for Lyrics.Translation.Line);
-          outlined destroy of TaskPriority?(v230, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+          outlined destroy of TaskPriority?(v230, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
           v235 = *(v236 + 8);
           v693 = *v236;
 
@@ -17506,7 +18354,7 @@ LABEL_27:
         {
           v699 = *&v728[1];
 
-          outlined destroy of TaskPriority?(v728, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+          outlined destroy of TaskPriority?(v728, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
         }
 
         else
@@ -17518,24 +18366,24 @@ LABEL_27:
         if (v700[v237] == 1)
         {
           v378 = v639;
-          outlined init with copy of TaskPriority?(&v700[v232], v639, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+          outlined init with copy of TaskPriority?(&v700[v232], v639, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
           if (!v233(v378, 1, v695))
           {
             v506 = v378;
             v507 = v691;
             outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v506, v691, type metadata accessor for Lyrics.Translation.Line);
-            outlined destroy of TaskPriority?(v639, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+            outlined destroy of TaskPriority?(v639, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
             v508 = *(v507 + 24);
             v685 = *(v507 + 16);
             v696 = v508;
 
             outlined destroy of SyncedLyricsLineView.TextContentView.Content(v507, type metadata accessor for Lyrics.Translation.Line);
 LABEL_153:
-            outlined init with copy of TaskPriority?(&v239[v232], v231, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+            outlined init with copy of TaskPriority?(&v239[v232], v231, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
             v379 = v695;
             if (v233(v231, 1, v695))
             {
-              outlined destroy of TaskPriority?(v231, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+              outlined destroy of TaskPriority?(v231, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
               v380 = type metadata accessor for Locale.Language();
               (*(*(v380 - 8) + 56))(v683, 1, 1, v380);
             }
@@ -17544,7 +18392,7 @@ LABEL_153:
             {
               v381 = v691;
               outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v231, v691, type metadata accessor for Lyrics.Translation.Line);
-              outlined destroy of TaskPriority?(v231, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+              outlined destroy of TaskPriority?(v231, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
               v382 = *(v379 + 6);
               v383 = type metadata accessor for Locale.Language();
               v384 = *(v383 - 8);
@@ -17556,10 +18404,10 @@ LABEL_153:
             }
 
             v387 = v698;
-            outlined init with copy of TaskPriority?(v686, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+            outlined init with copy of TaskPriority?(v686, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
             v388 = OBJC_IVAR___MusicDespacitoContentView_language;
             swift_beginAccess();
-            outlined assign with take of PlaybackIntentDescriptor.IntentType?(v387, &v157[v388], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+            outlined assign with take of PlaybackIntentDescriptor.IntentType?(v387, &v157[v388], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
             swift_endAccess();
             v389 = &v157[OBJC_IVAR___MusicDespacitoContentView_text];
             v390 = v689;
@@ -17584,10 +18432,10 @@ LABEL_153:
                 {
                   v489 = v391;
                   v490 = v698;
-                  outlined init with copy of TaskPriority?(v682, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                  outlined init with copy of TaskPriority?(v682, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                   v491 = OBJC_IVAR___MusicDespacitoContentView_transliterationLanguage;
                   swift_beginAccess();
-                  outlined assign with take of PlaybackIntentDescriptor.IntentType?(v490, &v157[v491], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                  outlined assign with take of PlaybackIntentDescriptor.IntentType?(v490, &v157[v491], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                   swift_endAccess();
                   v492 = &v157[OBJC_IVAR___MusicDespacitoContentView_transliterationText];
                   *v492 = v687;
@@ -17611,10 +18459,10 @@ LABEL_163:
                       if ((v401 & 1) == 0)
                       {
                         v493 = v698;
-                        outlined init with copy of TaskPriority?(v683, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                        outlined init with copy of TaskPriority?(v683, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                         v494 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
                         swift_beginAccess();
-                        outlined assign with take of PlaybackIntentDescriptor.IntentType?(v493, &v157[v494], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                        outlined assign with take of PlaybackIntentDescriptor.IntentType?(v493, &v157[v494], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                         swift_endAccess();
                         v495 = &v157[OBJC_IVAR___MusicDespacitoContentView_translationText];
                         *v495 = v693;
@@ -17665,9 +18513,9 @@ LABEL_179:
                         v157[OBJC_IVAR___MusicDespacitoContentView_backgroundVocalsPosition] = v692;
                         [v157 setNeedsLayout];
 
-                        outlined destroy of TaskPriority?(v683, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-                        outlined destroy of TaskPriority?(v682, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-                        outlined destroy of TaskPriority?(v686, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                        outlined destroy of TaskPriority?(v683, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+                        outlined destroy of TaskPriority?(v682, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+                        outlined destroy of TaskPriority?(v686, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                         SyncedLyricsLineView.DespacitoContentView.alignment.setter(*&v402[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_alignment]);
 
 LABEL_299:
@@ -17684,7 +18532,7 @@ LABEL_299:
                   (*(*(v403 - 8) + 56))(v698, 1, 1, v403);
                   v405 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
                   swift_beginAccess();
-                  outlined assign with take of PlaybackIntentDescriptor.IntentType?(v404, &v157[v405], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                  outlined assign with take of PlaybackIntentDescriptor.IntentType?(v404, &v157[v405], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                   swift_endAccess();
                   v406 = &v157[OBJC_IVAR___MusicDespacitoContentView_translationText];
                   *v406 = 0;
@@ -17699,7 +18547,7 @@ LABEL_299:
             (*(*(v395 - 8) + 56))(v698, 1, 1, v395);
             v397 = OBJC_IVAR___MusicDespacitoContentView_transliterationLanguage;
             swift_beginAccess();
-            outlined assign with take of PlaybackIntentDescriptor.IntentType?(v396, &v157[v397], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+            outlined assign with take of PlaybackIntentDescriptor.IntentType?(v396, &v157[v397], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
             swift_endAccess();
             v398 = &v157[OBJC_IVAR___MusicDespacitoContentView_transliterationText];
             *v398 = 0;
@@ -17707,7 +18555,7 @@ LABEL_299:
             goto LABEL_163;
           }
 
-          outlined destroy of TaskPriority?(v378, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+          outlined destroy of TaskPriority?(v378, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         }
 
         v685 = 0;
@@ -17721,14 +18569,14 @@ LABEL_299:
     v166 = v697;
     v686 = (*(v697 + v693[16]))(v152);
     v684 = v167;
-    outlined init with copy of TaskPriority?(v166 + v165[7], v694, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined init with copy of TaskPriority?(v166 + v165[7], v694, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     v168 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_transliteratedLine;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(&v156[v168], v23, &_s7LyricsX0A0C8TextLineVSgMd);
-    v169 = v699[6];
+    outlined init with copy of TaskPriority?(&v156[v168], v23, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+    v169 = *(v699 + 6);
     if (v169(v23, 1, v165))
     {
-      outlined destroy of TaskPriority?(v23, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v23, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v681 = 0;
       v683 = 0;
     }
@@ -17736,7 +18584,7 @@ LABEL_299:
     else
     {
       outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v23, v74, type metadata accessor for Lyrics.TextLine);
-      v191 = outlined destroy of TaskPriority?(v23, &_s7LyricsX0A0C8TextLineVSgMd);
+      v191 = outlined destroy of TaskPriority?(v23, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v681 = (*&v74[v165[16]])(v191);
       v683 = v192;
       outlined destroy of SyncedLyricsLineView.TextContentView.Content(v74, type metadata accessor for Lyrics.TextLine);
@@ -17745,29 +18593,29 @@ LABEL_299:
     v193 = v696;
     v194 = v676;
     v195 = v674;
-    outlined init with copy of TaskPriority?(&v156[v168], v674, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(&v156[v168], v674, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     if (v169(v195, 1, v165))
     {
-      outlined destroy of TaskPriority?(v195, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v195, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v196 = type metadata accessor for Locale.Language();
       (*(*(v196 - 8) + 56))(v687, 1, 1, v196);
     }
 
     else
     {
-      outlined init with copy of TaskPriority?(v195 + v165[7], v687, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-      outlined destroy of TaskPriority?(v195, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined init with copy of TaskPriority?(v195 + v165[7], v687, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+      outlined destroy of TaskPriority?(v195, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     }
 
     v197 = v675;
     v198 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_translatedLine;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(&v156[v198], v197, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+    outlined init with copy of TaskPriority?(&v156[v198], v197, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     v199 = *(v193 + 48);
     v200 = v695;
     if (v199(v197, 1, v695))
     {
-      v201 = outlined destroy of TaskPriority?(v197, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      v201 = outlined destroy of TaskPriority?(v197, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       v680 = 0;
       v693 = 0;
     }
@@ -17776,7 +18624,7 @@ LABEL_299:
     {
       v202 = v691;
       outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v197, v691, type metadata accessor for Lyrics.Translation.Line);
-      outlined destroy of TaskPriority?(v197, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      outlined destroy of TaskPriority?(v197, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       v203 = v202[1];
       v680 = *v202;
       v693 = v203;
@@ -17793,7 +18641,7 @@ LABEL_299:
       {
         v696 = *&v724;
 
-        outlined destroy of TaskPriority?(v723, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+        outlined destroy of TaskPriority?(v723, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
       }
 
       else
@@ -17804,7 +18652,7 @@ LABEL_299:
       v240 = v661;
       if (v156[v204] == 1)
       {
-        outlined init with copy of TaskPriority?(&v156[v198], v661, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined init with copy of TaskPriority?(&v156[v198], v661, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         if (!v199(v240, 1, v200))
         {
           v500 = v240;
@@ -17814,7 +18662,7 @@ LABEL_299:
           outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v500, v691, type metadata accessor for Lyrics.Translation.Line);
           v503 = v501;
           v205 = v699;
-          outlined destroy of TaskPriority?(v503, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+          outlined destroy of TaskPriority?(v503, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
           v504 = *(v502 + 24);
           v679 = *(v502 + 16);
           v682 = v504;
@@ -17822,10 +18670,10 @@ LABEL_299:
           outlined destroy of SyncedLyricsLineView.TextContentView.Content(v502, type metadata accessor for Lyrics.Translation.Line);
 LABEL_77:
           v699 = v205;
-          outlined init with copy of TaskPriority?(&v156[v198], v194, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+          outlined init with copy of TaskPriority?(&v156[v198], v194, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
           if (v199(v194, 1, v200))
           {
-            outlined destroy of TaskPriority?(v194, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+            outlined destroy of TaskPriority?(v194, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
             v241 = type metadata accessor for Locale.Language();
             (*(*(v241 - 8) + 56))(v688, 1, 1, v241);
           }
@@ -17834,7 +18682,7 @@ LABEL_77:
           {
             v242 = v691;
             outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v194, v691, type metadata accessor for Lyrics.Translation.Line);
-            outlined destroy of TaskPriority?(v194, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+            outlined destroy of TaskPriority?(v194, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
             v243 = *(v200 + 6);
             v241 = type metadata accessor for Locale.Language();
             v244 = *(v241 - 8);
@@ -17877,20 +18725,20 @@ LABEL_77:
           v253[1] = 0;
           v254 = v694;
           v255 = v698;
-          outlined init with copy of TaskPriority?(v694, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-          v256 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd) + 48);
+          outlined init with copy of TaskPriority?(v694, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+          v256 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation6LocaleV8LanguageVSgtMd, &_sSS_10Foundation6LocaleV8LanguageVSgtMR) + 48);
           v257 = v689;
           v258 = v686;
           v259 = v684;
           *v689 = v686;
           *(v257 + 8) = v259;
-          outlined init with copy of TaskPriority?(v255, v257 + v256, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined init with copy of TaskPriority?(v255, v257 + v256, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
           swift_storeEnumTagMultiPayload();
           v260 = objc_allocWithZone(type metadata accessor for SyncedLyricsLineView.TextContentView(0));
 
           outlined init with copy of SyncedLyricsViewController.Specs(v728, &v706);
           v261 = specialized SyncedLyricsLineView.TextContentView.init(content:specs:textColorOverride:)(v257, v728, 0);
-          outlined destroy of TaskPriority?(v255, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined destroy of TaskPriority?(v255, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
           *&v247[OBJC_IVAR___MusicDespacitoContentView_mainLineView] = v261;
           memcpy(&v247[OBJC_IVAR___MusicDespacitoContentView_specs], v728, 0x2B0uLL);
           v262 = &v247[OBJC_IVAR___MusicDespacitoContentView_text];
@@ -17899,7 +18747,7 @@ LABEL_77:
           swift_beginAccess();
 
           outlined init with copy of SyncedLyricsViewController.Specs(v728, &v706);
-          outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v254, &v247[v248], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v254, &v247[v248], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
           swift_endAccess();
           v247[v691] = v692;
           v705.receiver = v247;
@@ -17930,10 +18778,10 @@ LABEL_77:
               else
               {
                 v356 = v698;
-                outlined init with copy of TaskPriority?(v687, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined init with copy of TaskPriority?(v687, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 v357 = OBJC_IVAR___MusicDespacitoContentView_transliterationLanguage;
                 swift_beginAccess();
-                outlined assign with take of PlaybackIntentDescriptor.IntentType?(v356, &v265[v357], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined assign with take of PlaybackIntentDescriptor.IntentType?(v356, &v265[v357], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 swift_endAccess();
                 v358 = &v265[OBJC_IVAR___MusicDespacitoContentView_transliterationText];
                 *v358 = v269;
@@ -17968,12 +18816,12 @@ LABEL_77:
               else
               {
                 v366 = v698;
-                outlined init with copy of TaskPriority?(v688, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined init with copy of TaskPriority?(v688, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 v367 = OBJC_IVAR___MusicDespacitoContentView_translationLanguage;
                 swift_beginAccess();
                 v368 = &v265[v367];
                 v364 = v700;
-                outlined assign with take of PlaybackIntentDescriptor.IntentType?(v366, v368, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined assign with take of PlaybackIntentDescriptor.IntentType?(v366, v368, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 swift_endAccess();
                 v369 = &v265[OBJC_IVAR___MusicDespacitoContentView_translationText];
                 *v369 = v362;
@@ -18011,9 +18859,9 @@ LABEL_219:
               SyncedLyricsLineView.DespacitoContentView.backgroundVocalsText.didset();
 
               outlined destroy of SyncedLyricsViewController.Specs(v728);
-              outlined destroy of TaskPriority?(v688, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-              outlined destroy of TaskPriority?(v687, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-              outlined destroy of TaskPriority?(v694, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+              outlined destroy of TaskPriority?(v688, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+              outlined destroy of TaskPriority?(v687, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+              outlined destroy of TaskPriority?(v694, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
               SyncedLyricsLineView.DespacitoContentView.alignment.setter(*&v364[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_alignment]);
               v497 = v685;
               v498 = *v685;
@@ -18038,7 +18886,7 @@ LABEL_219:
           goto LABEL_219;
         }
 
-        outlined destroy of TaskPriority?(v240, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined destroy of TaskPriority?(v240, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       }
     }
 
@@ -18057,7 +18905,7 @@ LABEL_219:
   v171 = *&v700[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_contentView];
   if (v171)
   {
-    type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
+    type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
     v152 = swift_dynamicCastClass();
     if (v152)
     {
@@ -18069,7 +18917,7 @@ LABEL_219:
       v681 = v174();
       v690 = v175;
       v689 = v150();
-      v176 = outlined init with copy of TaskPriority?(v173 + v172[7], v668, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+      v176 = outlined init with copy of TaskPriority?(v173 + v172[7], v668, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
       v177 = v700;
       v686 = *&v700[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_alignment];
       LODWORD(v678) = (*(v173 + v172[15]))(v176);
@@ -18081,7 +18929,7 @@ LABEL_219:
       {
         v675 = v712;
 
-        v179 = outlined destroy of TaskPriority?(v711, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+        v179 = outlined destroy of TaskPriority?(v711, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
       }
 
       else
@@ -18095,7 +18943,7 @@ LABEL_219:
       {
         v683 = v716;
 
-        v414 = outlined destroy of TaskPriority?(v714, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+        v414 = outlined destroy of TaskPriority?(v714, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
       }
 
       else
@@ -18108,7 +18956,7 @@ LABEL_219:
       if (v718)
       {
         LODWORD(v680) = v719;
-        outlined destroy of TaskPriority?(v717, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+        outlined destroy of TaskPriority?(v717, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
       }
 
       else
@@ -18120,16 +18968,16 @@ LABEL_219:
       v416 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_transliteratedLine;
       swift_beginAccess();
       v417 = v673;
-      outlined init with copy of TaskPriority?(&v177[v416], v673, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined init with copy of TaskPriority?(&v177[v416], v673, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v418 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_translatedLine;
       swift_beginAccess();
-      outlined init with copy of TaskPriority?(&v177[v418], v413, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      outlined init with copy of TaskPriority?(&v177[v418], v413, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       v419 = *(v696 + 48);
       v420 = v695;
       v696 += 48;
       if (v419(v413, 1, v695))
       {
-        outlined destroy of TaskPriority?(v413, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined destroy of TaskPriority?(v413, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         v679 = 0;
         v688 = 0;
       }
@@ -18138,7 +18986,7 @@ LABEL_219:
       {
         v421 = v691;
         outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v413, v691, type metadata accessor for Lyrics.Translation.Line);
-        outlined destroy of TaskPriority?(v413, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined destroy of TaskPriority?(v413, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         v422 = *(v421 + 8);
         v679 = *v421;
         v688 = v422;
@@ -18150,10 +18998,10 @@ LABEL_219:
 
       v424 = v699;
       v425 = v672;
-      outlined init with copy of TaskPriority?(&v177[v418], v415, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      outlined init with copy of TaskPriority?(&v177[v418], v415, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       if (v419(v415, 1, v420))
       {
-        outlined destroy of TaskPriority?(v415, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined destroy of TaskPriority?(v415, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         v674 = 0;
         v682 = 0;
       }
@@ -18171,7 +19019,7 @@ LABEL_219:
         v425 = v429;
         v417 = v428;
         v424 = v427;
-        outlined destroy of TaskPriority?(v432, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined destroy of TaskPriority?(v432, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         v433 = *(v431 + 24);
         v674 = *(v431 + 16);
         v682 = v433;
@@ -18181,10 +19029,10 @@ LABEL_219:
 
       v434 = &v177[v418];
       v435 = v648;
-      outlined init with copy of TaskPriority?(v434, v648, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      outlined init with copy of TaskPriority?(v434, v648, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       if (v419(v435, 1, v420))
       {
-        outlined destroy of TaskPriority?(v435, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined destroy of TaskPriority?(v435, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         v436 = type metadata accessor for Locale.Language();
         (*(*(v436 - 8) + 56))(v425, 1, 1, v436);
       }
@@ -18193,7 +19041,7 @@ LABEL_219:
       {
         v437 = v691;
         outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v435, v691, type metadata accessor for Lyrics.Translation.Line);
-        outlined destroy of TaskPriority?(v435, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+        outlined destroy of TaskPriority?(v435, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
         v438 = *(v420 + 6);
         v439 = type metadata accessor for Locale.Language();
         v440 = *(v439 - 8);
@@ -18204,17 +19052,17 @@ LABEL_219:
 
       v441 = v649;
       v442 = v646;
-      outlined init with copy of TaskPriority?(v417, v646, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined init with copy of TaskPriority?(v417, v646, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v443 = OBJC_IVAR___MusicSBS_TextContentView_transliteratedLine;
       v444 = v694;
       swift_beginAccess();
-      outlined assign with take of PlaybackIntentDescriptor.IntentType?(v442, v444 + v443, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined assign with take of PlaybackIntentDescriptor.IntentType?(v442, v444 + v443, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       swift_endAccess();
       v445 = *(v444 + OBJC_IVAR___MusicSBS_TextContentView_textView);
       if (v445)
       {
         v446 = v647;
-        outlined init with copy of TaskPriority?(v417, v647, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(v417, v647, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         v449 = v424[6];
         v447 = v424 + 6;
         v448 = v449;
@@ -18225,22 +19073,22 @@ LABEL_219:
         if (v451 == 1)
         {
           v454 = v445;
-          outlined destroy of TaskPriority?(v446, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v446, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v455 = type metadata accessor for Locale.Language();
           (*(*(v455 - 8) + 56))(v664, 1, 1, v455);
         }
 
         else
         {
-          outlined init with copy of TaskPriority?(v446 + v450[7], v664, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined init with copy of TaskPriority?(v446 + v450[7], v664, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
           v456 = v445;
           outlined destroy of SyncedLyricsLineView.TextContentView.Content(v446, type metadata accessor for Lyrics.TextLine);
         }
 
-        outlined init with copy of TaskPriority?(v417, v441, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(v417, v441, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         if ((v448)(v441, 1, v450) == 1)
         {
-          outlined destroy of TaskPriority?(v441, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v441, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v457 = 2;
         }
 
@@ -18252,11 +19100,11 @@ LABEL_219:
         }
 
         LODWORD(v695) = v457;
-        outlined init with copy of TaskPriority?(v417, v453, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(v417, v453, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         v699 = v447;
         if ((v448)(v453, 1, v450) == 1)
         {
-          outlined destroy of TaskPriority?(v453, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v453, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           *&v691 = 0;
           v677 = 0;
         }
@@ -18268,12 +19116,12 @@ LABEL_219:
           outlined destroy of SyncedLyricsLineView.TextContentView.Content(v453, type metadata accessor for Lyrics.TextLine);
         }
 
-        outlined init with copy of TaskPriority?(v417, v452, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(v417, v452, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         v460 = (v448)(v452, 1, v450);
         v696 = v448;
         if (v460 == 1)
         {
-          outlined destroy of TaskPriority?(v452, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v452, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v676 = 0;
         }
 
@@ -18296,17 +19144,17 @@ LABEL_219:
         *&v445[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_words] = v689;
 
         v465 = v698;
-        outlined init with copy of TaskPriority?(v672, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined init with copy of TaskPriority?(v672, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         v466 = OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_translationLanguage;
         swift_beginAccess();
 
-        outlined assign with take of PlaybackIntentDescriptor.IntentType?(v465, &v445[v466], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined assign with take of PlaybackIntentDescriptor.IntentType?(v465, &v445[v466], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         swift_endAccess();
         v467 = v664;
-        outlined init with copy of TaskPriority?(v664, v465, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined init with copy of TaskPriority?(v664, v465, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         v468 = OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_transliterationLanguage;
         swift_beginAccess();
-        outlined assign with take of PlaybackIntentDescriptor.IntentType?(v465, &v445[v468], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined assign with take of PlaybackIntentDescriptor.IntentType?(v465, &v445[v468], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         swift_endAccess();
         v469 = &v445[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_translatedText];
         v470 = v688;
@@ -18330,7 +19178,7 @@ LABEL_219:
 
         [v445 setNeedsLayout];
 
-        outlined destroy of TaskPriority?(v467, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined destroy of TaskPriority?(v467, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         v475 = v694;
         v476 = &v694[OBJC_IVAR___MusicSBS_TextContentView_text];
         *v476 = v462;
@@ -18354,19 +19202,19 @@ LABEL_219:
           {
             LODWORD(v695) = v477;
             v482 = v632;
-            outlined init with copy of TaskPriority?(v673, v632, &_s7LyricsX0A0C8TextLineVSgMd);
+            outlined init with copy of TaskPriority?(v673, v632, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
             v483 = v693;
             if ((v696)(v482, 1, v693) == 1)
             {
               v484 = v479;
-              outlined destroy of TaskPriority?(v482, &_s7LyricsX0A0C8TextLineVSgMd);
+              outlined destroy of TaskPriority?(v482, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
               v485 = type metadata accessor for Locale.Language();
               (*(*(v485 - 8) + 56))(v640, 1, 1, v485);
             }
 
             else
             {
-              outlined init with copy of TaskPriority?(v482 + v483[7], v640, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+              outlined init with copy of TaskPriority?(v482 + v483[7], v640, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
               v509 = v479;
               outlined destroy of SyncedLyricsLineView.TextContentView.Content(v482, type metadata accessor for Lyrics.TextLine);
             }
@@ -18374,10 +19222,10 @@ LABEL_219:
             v510 = v480;
             v512 = v633;
             v511 = v634;
-            outlined init with copy of TaskPriority?(v510, v633, &_s7LyricsX0A0C8TextLineVSgMd);
+            outlined init with copy of TaskPriority?(v510, v633, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
             if ((v696)(v512, 1, v483) == 1)
             {
-              outlined destroy of TaskPriority?(v512, &_s7LyricsX0A0C8TextLineVSgMd);
+              outlined destroy of TaskPriority?(v512, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
               v513 = 2;
             }
 
@@ -18389,10 +19237,10 @@ LABEL_219:
             }
 
             LODWORD(v692) = v513;
-            outlined init with copy of TaskPriority?(v673, v511, &_s7LyricsX0A0C8TextLineVSgMd);
+            outlined init with copy of TaskPriority?(v673, v511, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
             if ((v696)(v511, 1, v483) == 1)
             {
-              outlined destroy of TaskPriority?(v511, &_s7LyricsX0A0C8TextLineVSgMd);
+              outlined destroy of TaskPriority?(v511, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
               v681 = 0;
               *&v691 = 0;
               v515 = v635;
@@ -18406,7 +19254,7 @@ LABEL_219:
               {
                 v681 = v707;
 
-                outlined destroy of TaskPriority?(&v706, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+                outlined destroy of TaskPriority?(&v706, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
               }
 
               else
@@ -18418,11 +19266,11 @@ LABEL_219:
               outlined destroy of SyncedLyricsLineView.TextContentView.Content(v511, type metadata accessor for Lyrics.TextLine);
             }
 
-            outlined init with copy of TaskPriority?(v673, v515, &_s7LyricsX0A0C8TextLineVSgMd);
+            outlined init with copy of TaskPriority?(v673, v515, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
             v579 = v693;
             if ((v696)(v515, 1, v693) == 1)
             {
-              outlined destroy of TaskPriority?(v515, &_s7LyricsX0A0C8TextLineVSgMd);
+              outlined destroy of TaskPriority?(v515, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
             }
 
             else
@@ -18433,7 +19281,7 @@ LABEL_219:
               {
                 v699 = *(&v728[3] + 1);
 
-                outlined destroy of TaskPriority?(v728, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+                outlined destroy of TaskPriority?(v728, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
 LABEL_279:
                 v580 = &v479[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_text];
                 v581 = v675;
@@ -18448,17 +19296,17 @@ LABEL_279:
 
                 v564 = v672;
                 v583 = v698;
-                outlined init with copy of TaskPriority?(v672, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined init with copy of TaskPriority?(v672, v698, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 v584 = OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_translationLanguage;
                 swift_beginAccess();
 
-                outlined assign with take of PlaybackIntentDescriptor.IntentType?(v583, &v479[v584], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined assign with take of PlaybackIntentDescriptor.IntentType?(v583, &v479[v584], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 swift_endAccess();
                 v585 = v640;
-                outlined init with copy of TaskPriority?(v640, v583, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined init with copy of TaskPriority?(v640, v583, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 v586 = OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_transliterationLanguage;
                 swift_beginAccess();
-                outlined assign with take of PlaybackIntentDescriptor.IntentType?(v583, &v479[v586], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined assign with take of PlaybackIntentDescriptor.IntentType?(v583, &v479[v586], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 swift_endAccess();
                 v587 = &v479[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_translatedText];
                 v588 = v682;
@@ -18480,7 +19328,7 @@ LABEL_279:
 
                 [v479 setNeedsLayout];
 
-                outlined destroy of TaskPriority?(v585, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+                outlined destroy of TaskPriority?(v585, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
                 v402 = v700;
                 v480 = v673;
                 v475 = v694;
@@ -18502,9 +19350,9 @@ LABEL_251:
 LABEL_298:
           [v475 setNeedsLayout];
 
-          outlined destroy of TaskPriority?(v564, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-          outlined destroy of TaskPriority?(v480, &_s7LyricsX0A0C8TextLineVSgMd);
-          outlined destroy of TaskPriority?(v668, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined destroy of TaskPriority?(v564, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+          outlined destroy of TaskPriority?(v480, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+          outlined destroy of TaskPriority?(v668, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
           goto LABEL_299;
         }
 
@@ -18518,34 +19366,34 @@ LABEL_298:
 
         v692 = OBJC_IVAR___MusicSBS_TextContentView_backgroundTextView;
         LODWORD(v695) = v477;
-        outlined init with copy of TaskPriority?(v668, v637, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-        outlined init with copy of TaskPriority?(v672, v638, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined init with copy of TaskPriority?(v668, v637, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+        outlined init with copy of TaskPriority?(v672, v638, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         v486 = v628;
-        outlined init with copy of TaskPriority?(v480, v628, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(v480, v628, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         v487 = v693;
         if ((v696)(v486, 1, v693) == 1)
         {
 
-          outlined destroy of TaskPriority?(v486, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v486, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v488 = type metadata accessor for Locale.Language();
           (*(*(v488 - 8) + 56))(v636, 1, 1, v488);
         }
 
         else
         {
-          outlined init with copy of TaskPriority?(v486 + v487[7], v636, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+          outlined init with copy of TaskPriority?(v486 + v487[7], v636, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
 
           outlined destroy of SyncedLyricsLineView.TextContentView.Content(v486, type metadata accessor for Lyrics.TextLine);
         }
 
         v565 = v631;
         v566 = v629;
-        outlined init with copy of TaskPriority?(v480, v629, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(v480, v629, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         v567 = (v696)(v566, 1, v487);
         v568 = v630;
         if (v567 == 1)
         {
-          outlined destroy of TaskPriority?(v566, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v566, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v569 = 2;
         }
 
@@ -18557,11 +19405,11 @@ LABEL_298:
         }
 
         LODWORD(v691) = v569;
-        outlined init with copy of TaskPriority?(v480, v568, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(v480, v568, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         v571 = v696;
         if ((v696)(v568, 1, v487) == 1)
         {
-          outlined destroy of TaskPriority?(v568, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v568, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           v698 = 0;
           v681 = 0;
         }
@@ -18574,7 +19422,7 @@ LABEL_298:
           {
             v698 = v721;
 
-            outlined destroy of TaskPriority?(v720, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+            outlined destroy of TaskPriority?(v720, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
           }
 
           else
@@ -18585,10 +19433,10 @@ LABEL_298:
           outlined destroy of SyncedLyricsLineView.TextContentView.Content(v568, type metadata accessor for Lyrics.TextLine);
         }
 
-        outlined init with copy of TaskPriority?(v480, v565, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined init with copy of TaskPriority?(v480, v565, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         if (v571(v565, 1, v487) == 1)
         {
-          outlined destroy of TaskPriority?(v565, &_s7LyricsX0A0C8TextLineVSgMd);
+          outlined destroy of TaskPriority?(v565, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
         }
 
         else
@@ -18599,11 +19447,11 @@ LABEL_298:
           {
             v699 = v727;
 
-            outlined destroy of TaskPriority?(v723, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+            outlined destroy of TaskPriority?(v723, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
 LABEL_297:
             v696 = v475 + OBJC_IVAR___MusicSBS_TextContentView_specs;
             memcpy(v728, v475 + OBJC_IVAR___MusicSBS_TextContentView_specs, 0x2B0uLL);
-            v693 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView.TextView();
+            v693 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView.TextView(0);
             v598 = objc_allocWithZone(v693);
             v599 = &v598[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_transliteratedText];
             *v599 = 0;
@@ -18657,14 +19505,14 @@ LABEL_297:
 
             v613 = &v598[v601];
             v475 = v694;
-            outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v637, v613, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+            outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v637, v613, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
             swift_endAccess();
             swift_beginAccess();
-            outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v638, &v598[v604], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+            outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v638, &v598[v604], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
             swift_endAccess();
             swift_beginAccess();
             v614 = v636;
-            outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v636, &v598[v605], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+            outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v636, &v598[v605], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
             swift_endAccess();
             *(v679 + v598) = v691;
             v615 = v681;
@@ -18690,9 +19538,9 @@ LABEL_297:
             v701.super_class = v693;
 
             v619 = objc_msgSendSuper2(&v701, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-            outlined destroy of TaskPriority?(v614, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-            outlined destroy of TaskPriority?(v638, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-            outlined destroy of TaskPriority?(v637, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+            outlined destroy of TaskPriority?(v614, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+            outlined destroy of TaskPriority?(v638, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+            outlined destroy of TaskPriority?(v637, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
             v620 = specialized static SyncedLyricsLineView.SBS_TextContentView.anchorPoint(for:)(v618);
             v622 = v621;
             v623 = v619;
@@ -18730,7 +19578,7 @@ LABEL_297:
   v686 = (*(v697 + v693[16]))(v152);
   v694 = v183;
   v690 = v150();
-  v184 = outlined init with copy of TaskPriority?(v182 + v181[7], v684, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  v184 = outlined init with copy of TaskPriority?(v182 + v181[7], v684, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   v185 = v700;
   v688 = *&v700[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_alignment];
   v186 = (*(v182 + v181[15]))(v184);
@@ -18743,7 +19591,7 @@ LABEL_297:
   {
     v652 = v712;
 
-    v189 = outlined destroy of TaskPriority?(v711, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+    v189 = outlined destroy of TaskPriority?(v711, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
   }
 
   else
@@ -18757,7 +19605,7 @@ LABEL_297:
   {
     v687 = v716;
 
-    v286 = outlined destroy of TaskPriority?(v714, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+    v286 = outlined destroy of TaskPriority?(v714, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
   }
 
   else
@@ -18770,7 +19618,7 @@ LABEL_297:
   if (v718)
   {
     LODWORD(v683) = v719;
-    outlined destroy of TaskPriority?(v717, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+    outlined destroy of TaskPriority?(v717, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
   }
 
   else
@@ -18782,16 +19630,16 @@ LABEL_297:
   memcpy(v728, &v185[v153], 0x2B0uLL);
   v288 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_transliteratedLine;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(&v185[v288], v685, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(&v185[v288], v685, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   v289 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_translatedLine;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(&v185[v289], v285, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  outlined init with copy of TaskPriority?(&v185[v289], v285, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
   v290 = *(v696 + 48);
   v291 = v695;
   if (v290(v285, 1, v695))
   {
     outlined init with copy of SyncedLyricsViewController.Specs(v728, &v706);
-    outlined destroy of TaskPriority?(v285, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+    outlined destroy of TaskPriority?(v285, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     v675 = 0;
     v696 = 0;
   }
@@ -18801,7 +19649,7 @@ LABEL_297:
     v292 = v691;
     outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v285, v691, type metadata accessor for Lyrics.Translation.Line);
     outlined init with copy of SyncedLyricsViewController.Specs(v728, &v706);
-    outlined destroy of TaskPriority?(v285, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+    outlined destroy of TaskPriority?(v285, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     v293 = v292[1];
     v675 = *v292;
     v696 = v293;
@@ -18810,10 +19658,10 @@ LABEL_297:
   }
 
   v294 = v699;
-  outlined init with copy of TaskPriority?(&v185[v289], v287, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  outlined init with copy of TaskPriority?(&v185[v289], v287, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
   if (v290(v287, 1, v291))
   {
-    outlined destroy of TaskPriority?(v287, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+    outlined destroy of TaskPriority?(v287, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     v654 = 0;
     v682 = 0;
   }
@@ -18822,7 +19670,7 @@ LABEL_297:
   {
     v295 = v691;
     outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v287, v691, type metadata accessor for Lyrics.Translation.Line);
-    outlined destroy of TaskPriority?(v287, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+    outlined destroy of TaskPriority?(v287, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     v296 = *(v295 + 24);
     v654 = *(v295 + 16);
     v682 = v296;
@@ -18832,10 +19680,10 @@ LABEL_297:
 
   v297 = &v185[v289];
   v298 = v655;
-  outlined init with copy of TaskPriority?(v297, v655, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  outlined init with copy of TaskPriority?(v297, v655, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
   if (v290(v298, 1, v291))
   {
-    outlined destroy of TaskPriority?(v298, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+    outlined destroy of TaskPriority?(v298, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     v299 = type metadata accessor for Locale.Language();
     v300 = v677;
     (*(*(v299 - 8) + 56))(v677, 1, 1, v299);
@@ -18845,7 +19693,7 @@ LABEL_297:
   {
     v301 = v691;
     outlined init with copy of SyncedLyricsLineView.TextContentView.Content(v298, v691, type metadata accessor for Lyrics.Translation.Line);
-    outlined destroy of TaskPriority?(v298, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+    outlined destroy of TaskPriority?(v298, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     v302 = *(v291 + 6);
     v303 = type metadata accessor for Locale.Language();
     v304 = *(v303 - 8);
@@ -18857,7 +19705,7 @@ LABEL_297:
 
   v305 = v693;
   v306 = v698;
-  v679 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
+  v679 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
   v307 = objc_allocWithZone(v679);
   *(v307 + OBJC_IVAR___MusicSBS_TextContentView_isScrolling) = 1;
   v308 = (v307 + OBJC_IVAR___MusicSBS_TextContentView_text);
@@ -18890,36 +19738,36 @@ LABEL_297:
 
   v695 = v307;
   v311 = v685;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v685, v307 + v309, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v685, v307 + v309, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   swift_endAccess();
-  outlined init with copy of TaskPriority?(v684, v681, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined init with copy of TaskPriority?(v684, v681, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   v312 = v693;
-  outlined init with copy of TaskPriority?(v300, v670, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined init with copy of TaskPriority?(v300, v670, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   v313 = v656;
-  outlined init with copy of TaskPriority?(v311, v656, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(v311, v656, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   v316 = v294[6];
   v314 = v294 + 6;
   v315 = v316;
   if ((v316)(v313, 1, v312) == 1)
   {
-    outlined destroy of TaskPriority?(v313, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v313, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v317 = type metadata accessor for Locale.Language();
     (*(*(v317 - 8) + 56))(v671, 1, 1, v317);
   }
 
   else
   {
-    outlined init with copy of TaskPriority?(v313 + v312[7], v671, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined init with copy of TaskPriority?(v313 + v312[7], v671, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     outlined destroy of SyncedLyricsLineView.TextContentView.Content(v313, type metadata accessor for Lyrics.TextLine);
   }
 
   v319 = v658;
   v318 = v659;
   v320 = v657;
-  outlined init with copy of TaskPriority?(v311, v657, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(v311, v657, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   if ((v315)(v320, 1, v312) == 1)
   {
-    outlined destroy of TaskPriority?(v320, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v320, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v321 = 2;
   }
 
@@ -18931,10 +19779,10 @@ LABEL_297:
   }
 
   LODWORD(v672) = v321;
-  outlined init with copy of TaskPriority?(v311, v319, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(v311, v319, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   if ((v315)(v319, 1, v312) == 1)
   {
-    outlined destroy of TaskPriority?(v319, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v319, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v667 = 0;
     v668 = 0;
   }
@@ -18948,13 +19796,13 @@ LABEL_297:
   }
 
   LODWORD(v691) = v683 & 1;
-  outlined init with copy of TaskPriority?(v311, v318, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined init with copy of TaskPriority?(v311, v318, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   v325 = (v315)(v318, 1, v312);
   v699 = v314;
   v655 = v315;
   if (v325 == 1)
   {
-    outlined destroy of TaskPriority?(v318, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v318, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v666 = 0;
   }
 
@@ -18964,7 +19812,7 @@ LABEL_297:
     outlined destroy of SyncedLyricsLineView.TextContentView.Content(v318, type metadata accessor for Lyrics.TextLine);
   }
 
-  v683 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView.TextView();
+  v683 = type metadata accessor for SyncedLyricsLineView.SBS_TextContentView.TextView(0);
   v326 = objc_allocWithZone(v683);
   v327 = &v326[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_transliteratedText];
   *v327 = 0;
@@ -19025,16 +19873,16 @@ LABEL_297:
   v343[1] = v340;
   swift_beginAccess();
 
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v681, &v326[v329], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v681, &v326[v329], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   swift_endAccess();
   swift_beginAccess();
   v344 = &v326[v334];
   v345 = v670;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v670, v344, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v670, v344, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   swift_endAccess();
   swift_beginAccess();
   v346 = v671;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v671, &v326[v335], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v671, &v326[v335], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   swift_endAccess();
   v326[v664] = v672;
   v347 = v667;
@@ -19057,42 +19905,42 @@ LABEL_297:
   v348 = v683;
   v704.super_class = v683;
   v349 = objc_msgSendSuper2(&v704, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-  outlined destroy of TaskPriority?(v346, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  outlined destroy of TaskPriority?(v345, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-  outlined destroy of TaskPriority?(v681, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+  outlined destroy of TaskPriority?(v346, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  outlined destroy of TaskPriority?(v345, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+  outlined destroy of TaskPriority?(v681, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
   v350 = v695;
   v351 = *(v695 + v674);
   *(v695 + v674) = v349;
 
   if (v689)
   {
-    outlined init with copy of TaskPriority?(v684, v669, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-    outlined init with copy of TaskPriority?(v677, v662, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined init with copy of TaskPriority?(v684, v669, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+    outlined init with copy of TaskPriority?(v677, v662, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     v352 = v685;
     v353 = v641;
-    outlined init with copy of TaskPriority?(v685, v641, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(v685, v641, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v354 = v693;
     v355 = v655;
     if ((v655)(v353, 1, v693) == 1)
     {
 
-      outlined destroy of TaskPriority?(v353, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v353, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v658(v663, 1, 1, v659);
     }
 
     else
     {
-      outlined init with copy of TaskPriority?(v353 + v354[7], v663, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+      outlined init with copy of TaskPriority?(v353 + v354[7], v663, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
 
       outlined destroy of SyncedLyricsLineView.TextContentView.Content(v353, type metadata accessor for Lyrics.TextLine);
     }
 
     v375 = v642;
     v374 = v643;
-    outlined init with copy of TaskPriority?(v352, v642, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(v352, v642, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     if ((v355)(v375, 1, v354) == 1)
     {
-      outlined destroy of TaskPriority?(v375, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v375, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v376 = 2;
     }
 
@@ -19104,10 +19952,10 @@ LABEL_297:
     }
 
     LODWORD(v686) = v376;
-    outlined init with copy of TaskPriority?(v352, v374, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(v352, v374, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     if ((v355)(v374, 1, v354) == 1)
     {
-      outlined destroy of TaskPriority?(v374, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v374, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v675 = 0;
       v681 = 0;
     }
@@ -19120,7 +19968,7 @@ LABEL_297:
       {
         v675 = v721;
 
-        outlined destroy of TaskPriority?(v720, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+        outlined destroy of TaskPriority?(v720, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
       }
 
       else
@@ -19133,10 +19981,10 @@ LABEL_297:
 
     v516 = v352;
     v517 = v644;
-    outlined init with copy of TaskPriority?(v516, v644, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with copy of TaskPriority?(v516, v644, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     if ((v355)(v517, 1, v354) == 1)
     {
-      outlined destroy of TaskPriority?(v517, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v517, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     }
 
     else
@@ -19147,7 +19995,7 @@ LABEL_297:
       {
         v699 = v727;
 
-        outlined destroy of TaskPriority?(v723, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd);
+        outlined destroy of TaskPriority?(v723, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMd, &_s7LyricsX0A0C8TextLineV16BackgroundVocalsVSgMR);
 LABEL_239:
         v518 = objc_allocWithZone(v348);
         v519 = &v518[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_transliteratedText];
@@ -19203,16 +20051,16 @@ LABEL_239:
         v533[1] = v532;
         swift_beginAccess();
 
-        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v669, &v518[v521], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v669, &v518[v521], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         swift_endAccess();
         swift_beginAccess();
         v534 = &v518[v524];
         v535 = v662;
-        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v662, v534, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v662, v534, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         swift_endAccess();
         swift_beginAccess();
         v536 = v663;
-        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v663, &v518[v525], &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v663, &v518[v525], &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         swift_endAccess();
         v518[v674] = v686;
         v537 = v681;
@@ -19235,9 +20083,9 @@ LABEL_239:
         v702.receiver = v518;
         v702.super_class = v683;
         v539 = objc_msgSendSuper2(&v702, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-        outlined destroy of TaskPriority?(v536, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-        outlined destroy of TaskPriority?(v535, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-        outlined destroy of TaskPriority?(v669, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+        outlined destroy of TaskPriority?(v536, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+        outlined destroy of TaskPriority?(v535, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+        outlined destroy of TaskPriority?(v669, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
         v350 = v695;
         v540 = v680;
         v541 = *(v695 + v680);
@@ -19327,9 +20175,9 @@ LABEL_313:
     [v554 addSubview:v557];
     outlined destroy of SyncedLyricsViewController.Specs(v728);
 LABEL_249:
-    outlined destroy of TaskPriority?(v552, &_s10Foundation6LocaleV8LanguageVSgMd_0);
-    outlined destroy of TaskPriority?(v685, &_s7LyricsX0A0C8TextLineVSgMd);
-    outlined destroy of TaskPriority?(v684, &_s10Foundation6LocaleV8LanguageVSgMd_0);
+    outlined destroy of TaskPriority?(v552, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
+    outlined destroy of TaskPriority?(v685, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+    outlined destroy of TaskPriority?(v684, &_s10Foundation6LocaleV8LanguageVSgMd_0, &_s10Foundation6LocaleV8LanguageVSgMR_0);
     v560 = v660;
     v561 = *v660;
     *v660 = v554;
@@ -19349,11 +20197,11 @@ LABEL_314:
 id SyncedLyricsLineView.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for SyncedLyricsLineView();
+  v2.super_class = type metadata accessor for SyncedLyricsLineView(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for SyncedLyricsLineView()
+uint64_t type metadata accessor for SyncedLyricsLineView(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SyncedLyricsLineView;
   if (!type metadata singleton initialization cache for SyncedLyricsLineView)
@@ -19364,20 +20212,20 @@ uint64_t type metadata accessor for SyncedLyricsLineView()
   return result;
 }
 
-void type metadata completion function for SyncedLyricsLineView()
+void type metadata completion function for SyncedLyricsLineView(uint64_t a1)
 {
   type metadata accessor for Lyrics.TextLine?(319, &lazy cache variable for type metadata for Lyrics.TextLine?, type metadata accessor for Lyrics.TextLine);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Lyrics.TextLine?(319, &lazy cache variable for type metadata for Lyrics.Translation.Line?, type metadata accessor for Lyrics.Translation.Line);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void type metadata accessor for Lyrics.TextLine?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata accessor for Lyrics.TextLine?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -19402,7 +20250,7 @@ unint64_t lazy protocol witness table accessor for type SyncedLyricsLineView.Bac
   return result;
 }
 
-char *specialized SyncedLyricsLineView.init(line:transliteratedLine:translatedLine:alignment:specs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5)
+char *specialized SyncedLyricsLineView.init(line:transliteratedLine:translatedLine:alignment:specs:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5)
 {
   v10 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_transliteratedLine;
   v11 = type metadata accessor for Lyrics.TextLine(0);
@@ -19430,28 +20278,28 @@ char *specialized SyncedLyricsLineView.init(line:transliteratedLine:translatedLi
   outlined init with copy of ActionPerforming(v16, &v5[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line]);
   swift_beginAccess();
   v44 = a3;
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a3, &v5[v12], &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a3, &v5[v12], &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
   swift_endAccess();
   *&v5[v14] = a4;
   memcpy(&v5[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs], a5, 0x2B0uLL);
   swift_beginAccess();
   outlined init with copy of SyncedLyricsViewController.Specs(a5, v46);
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a2, &v5[v10], &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a2, &v5[v10], &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   swift_endAccess();
   v20 = [objc_allocWithZone(CAFilter) initWithType:kCAFilterGaussianBlur];
   *&v5[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_blurFilter] = v20;
   v45.receiver = v5;
-  v45.super_class = type metadata accessor for SyncedLyricsLineView();
+  v45.super_class = type metadata accessor for SyncedLyricsLineView(0);
   v21 = objc_msgSendSuper2(&v45, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
   v22 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_containerView;
-  [*&v21[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_containerView] setUserInteractionEnabled:0];
-  v23 = *&v21[v22];
+  [*(v21 + OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_containerView) setUserInteractionEnabled:0];
+  v23 = *(v21 + v22);
   v24 = v21;
   [v24 addSubview:v23];
   [v24 setExclusiveTouch:1];
-  v25 = *&v24[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs + 416];
-  v26 = *&v24[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs + 432];
-  v46[0] = *&v24[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs + 400];
+  v25 = *(v24 + OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs + 416);
+  v26 = *(v24 + OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs + 432);
+  v46[0] = *(v24 + OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs + 400);
   v46[1] = v25;
   v46[2] = v26;
   [v24 setTransform:v46];
@@ -19465,16 +20313,16 @@ char *specialized SyncedLyricsLineView.init(line:transliteratedLine:translatedLi
 
   [v28 setRasterizationScale:v31];
   v32 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_blurFilter;
-  v33 = *&v24[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_blurFilter];
+  v33 = *(v24 + OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_blurFilter);
   isa = Int._bridgeToObjectiveC()().super.super.isa;
   [v33 setValue:isa forKey:kCAFilterInputRadius];
 
   v35 = [v24 layer];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_3, &_ss23_ContiguousArrayStorageCyypGMR_3);
   v36 = swift_allocObject();
   *(v36 + 16) = xmmword_1004F2400;
-  v37 = *&v24[v32];
-  *(v36 + 56) = type metadata accessor for UIAction(0, &_sSo8CAFilterCML_1);
+  v37 = *(v24 + v32);
+  *(v36 + 56) = type metadata accessor for UIAction(0, &_sSo8CAFilterCML_1, CAFilter_ptr);
   *(v36 + 32) = v37;
   v38 = v37;
   v39 = Array._bridgeToObjectiveC()().super.isa;
@@ -19495,8 +20343,8 @@ char *specialized SyncedLyricsLineView.init(line:transliteratedLine:translatedLi
 
   SyncedLyricsLineView.updateContentView()();
   SyncedLyricsLineView.reset()();
-  outlined destroy of TaskPriority?(v44, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
-  outlined destroy of TaskPriority?(v17, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined destroy of TaskPriority?(v44, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
+  outlined destroy of TaskPriority?(v17, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __swift_destroy_boxed_opaque_existential_0Tm(v16);
   return v24;
 }
@@ -19601,21 +20449,24 @@ uint64_t SyncedLyricsManager.configuration.getter@<X0>(uint64_t a1@<X8>)
   *(a1 + 32) = v4;
 }
 
-uint64_t SyncedLyricsManager.configuration.setter(uint64_t a1)
+double SyncedLyricsManager.configuration.setter(uint64_t a1)
 {
   swift_beginAccess();
   v3 = *(a1 + 16);
   *(v1 + 24) = *a1;
   *(v1 + 40) = v3;
   *(v1 + 56) = *(a1 + 32);
+
+  return result;
 }
 
-uint64_t SyncedLyricsManager.delegate.setter(uint64_t a1, uint64_t a2)
+double SyncedLyricsManager.delegate.setter(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   *(v2 + 72) = a2;
   swift_unknownObjectWeakAssign();
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
 void (*SyncedLyricsManager.delegate.modify(uint64_t *a1))(uint64_t a1, char a2)
@@ -19661,18 +20512,20 @@ void SyncedLyricsManager.delegate.modify(uint64_t a1, char a2)
   free(v3);
 }
 
-uint64_t key path setter for SyncedLyricsManager.selectedLines : SyncedLyricsManager(uint64_t *a1, uint64_t *a2)
+double key path setter for SyncedLyricsManager.selectedLines : SyncedLyricsManager(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = *a2;
   swift_beginAccess();
   *(v3 + 80) = v2;
+
+  return result;
 }
 
-uint64_t SyncedLyricsManager.isPlayingSpatial.setter(char a1)
+double SyncedLyricsManager.selectedLines.getter()
 {
-  result = swift_beginAccess();
-  *(v1 + 88) = a1;
+  swift_beginAccess();
+
   return result;
 }
 
@@ -19694,17 +20547,18 @@ uint64_t SyncedLyricsManager.adjustedElapsedTime.getter()
   v1 = *(v0 + 96);
   if (v1)
   {
+    v2 = *(v0 + 104);
 
-    v3 = v1(v2);
+    v4 = v1(v3);
     swift_beginAccess();
-    v4 = 0.0;
+    v5 = 0.0;
     if (*(v0 + 88) == 1)
     {
-      v4 = Lyrics.spatialOffset.getter();
+      v5 = Lyrics.spatialOffset.getter();
     }
 
-    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v1);
-    *&result = v3 - v4;
+    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v1, v2);
+    *&result = v4 - v5;
   }
 
   else
@@ -19722,93 +20576,94 @@ void SyncedLyricsManager.elapsedTimeProvider.didset()
   v2 = *(v0 + 96);
   if (v2)
   {
+    v3 = *(v0 + 104);
 
-    v4 = v2(v3);
+    v5 = v2(v4);
     swift_beginAccess();
-    v5 = 0.0;
+    v6 = 0.0;
     if (*(v0 + 88) == 1)
     {
-      v5 = Lyrics.spatialOffset.getter();
+      v6 = Lyrics.spatialOffset.getter();
     }
 
-    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v2);
-    v6 = v4 - v5;
-    v7 = *(v0 + 16);
-    Lyrics.line(before:useOriginalLines:)(0, &v20, v6 + 0.1);
-    if (v21)
+    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v2, v3);
+    v7 = v5 - v6;
+    v8 = *(v0 + 16);
+    Lyrics.line(before:useOriginalLines:)(0, &v21, v7 + 0.1);
+    if (v22)
     {
-      outlined init with take of ActionPerforming(&v20, &v22);
+      outlined init with take of ActionPerforming(&v21, &v23);
     }
 
     else
     {
-      v19 = *(v7 + 40);
-      if (*(v19 + 16))
+      v20 = *(v8 + 40);
+      if (*(v20 + 16))
       {
-        outlined init with copy of ActionPerforming(v19 + 32, &v22);
-        if (v21)
+        outlined init with copy of ActionPerforming(v20 + 32, &v23);
+        if (v22)
         {
-          outlined destroy of TaskPriority?(&v20, &_s7LyricsX0A4Line_pSgMd);
+          outlined destroy of TaskPriority?(&v21, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
         }
       }
 
       else
       {
-        v24 = 0;
-        v22 = 0u;
+        v25 = 0;
         v23 = 0u;
+        v24 = 0u;
       }
     }
 
-    if (*(&v23 + 1))
+    if (*(&v24 + 1))
     {
-      outlined init with take of ActionPerforming(&v22, v25);
-      v9 = v26;
-      v8 = v27;
-      __swift_project_boxed_opaque_existential_0Tm(v25, v26);
-      if ((*(*(v8 + 8) + 8))(v9) < v6 || (v11 = v26, v10 = v27, __swift_project_boxed_opaque_existential_0Tm(v25, v26), vabdd_f64(v6, (*(*(v10 + 8) + 8))(v11)) <= 0.1))
+      outlined init with take of ActionPerforming(&v23, v26);
+      v10 = v27;
+      v9 = v28;
+      __swift_project_boxed_opaque_existential_0Tm(v26, v27);
+      if ((*(*(v9 + 8) + 8))(v10) < v7 || (v12 = v27, v11 = v28, __swift_project_boxed_opaque_existential_0Tm(v26, v27), vabdd_f64(v7, (*(*(v11 + 8) + 8))(v12)) <= 0.1))
       {
-        Lyrics.line(after:)(v25, &v22);
+        Lyrics.line(after:)(v26, &v23);
         swift_beginAccess();
-        outlined assign with copy of LyricsLine?(&v22, v1 + 112);
+        outlined assign with copy of LyricsLine?(&v23, v1 + 112);
         swift_endAccess();
-        outlined destroy of TaskPriority?(&v22, &_s7LyricsX0A4Line_pSgMd);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy7LyricsX0D4Line_pGMd);
-        v16 = swift_allocObject();
-        *(v16 + 16) = xmmword_1004F2400;
-        outlined init with copy of ActionPerforming(v25, v16 + 32);
+        outlined destroy of TaskPriority?(&v23, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy7LyricsX0D4Line_pGMd, &_ss23_ContiguousArrayStorageCy7LyricsX0D4Line_pGMR);
+        v17 = swift_allocObject();
+        *(v17 + 16) = xmmword_1004F2400;
+        outlined init with copy of ActionPerforming(v26, v17 + 32);
         swift_beginAccess();
-        *(v1 + 80) = v16;
+        *(v1 + 80) = v17;
 
         swift_beginAccess();
         if (!swift_unknownObjectWeakLoadStrong())
         {
 LABEL_16:
-          __swift_destroy_boxed_opaque_existential_0Tm(v25);
+          __swift_destroy_boxed_opaque_existential_0Tm(v26);
           return;
         }
 
-        v17 = *(v1 + 72);
+        v18 = *(v1 + 72);
         ObjectType = swift_getObjectType();
-        (*(v17 + 16))(v1, v25, 1, ObjectType, v17, v6);
+        (*(v18 + 16))(v1, v26, 1, ObjectType, v18, v7);
       }
 
       else
       {
-        outlined init with copy of ActionPerforming(v25, &v22);
+        outlined init with copy of ActionPerforming(v26, &v23);
         swift_beginAccess();
-        outlined assign with copy of LyricsLine?(&v22, v1 + 112);
+        outlined assign with copy of LyricsLine?(&v23, v1 + 112);
         swift_endAccess();
-        outlined destroy of TaskPriority?(&v22, &_s7LyricsX0A4Line_pSgMd);
+        outlined destroy of TaskPriority?(&v23, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
         swift_beginAccess();
         *(v1 + 80) = _swiftEmptyArrayStorage;
 
         swift_beginAccess();
         if (swift_unknownObjectWeakLoadStrong())
         {
-          v12 = *(v1 + 72);
-          v13 = swift_getObjectType();
-          (*(v12 + 48))(v1, v13, v12);
+          v13 = *(v1 + 72);
+          v14 = swift_getObjectType();
+          (*(v13 + 48))(v1, v14, v13);
           swift_unknownObjectRelease();
         }
 
@@ -19817,16 +20672,16 @@ LABEL_16:
           goto LABEL_16;
         }
 
-        v14 = *(v1 + 72);
-        v15 = swift_getObjectType();
-        (*(v14 + 16))(v1, v25, 0, v15, v14, v6);
+        v15 = *(v1 + 72);
+        v16 = swift_getObjectType();
+        (*(v15 + 16))(v1, v26, 0, v16, v15, v7);
       }
 
       swift_unknownObjectRelease();
       goto LABEL_16;
     }
 
-    outlined destroy of TaskPriority?(&v22, &_s7LyricsX0A4Line_pSgMd);
+    outlined destroy of TaskPriority?(&v23, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   }
 
   SyncedLyricsManager.update()();
@@ -19836,7 +20691,7 @@ uint64_t SyncedLyricsManager.elapsedTimeProvider.getter()
 {
   swift_beginAccess();
   v1 = *(v0 + 96);
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(v1);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v1, *(v0 + 104));
   return v1;
 }
 
@@ -19844,12 +20699,13 @@ uint64_t SyncedLyricsManager.elapsedTimeProvider.setter(uint64_t a1, uint64_t a2
 {
   swift_beginAccess();
   v5 = *(v2 + 96);
+  v6 = *(v2 + 104);
   *(v2 + 96) = a1;
   *(v2 + 104) = a2;
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(a1);
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v5);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(a1, a2);
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v5, v6);
   SyncedLyricsManager.elapsedTimeProvider.didset();
-  return outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(a1);
+  return outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(a1, a2);
 }
 
 void (*SyncedLyricsManager.elapsedTimeProvider.modify(uint64_t a1))(uint64_t a1, char a2)
@@ -19916,7 +20772,7 @@ uint64_t SyncedLyricsManager.init(lyrics:configuration:delegate:isPlayingSpatial
 Swift::Void __swiftcall SyncedLyricsManager.update()()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
   v3 = &ObjectType - v2;
   v4 = type metadata accessor for Lyrics.TextLine(0);
@@ -19925,150 +20781,151 @@ Swift::Void __swiftcall SyncedLyricsManager.update()()
   v7 = &ObjectType - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   SyncedLyricsManager.updateNextLineIfNeeded()();
   swift_beginAccess();
-  outlined init with copy of LyricsLine?(v0 + 112, &v68);
-  if (!v69)
+  outlined init with copy of LyricsLine?(v0 + 112, &v69);
+  if (!v70)
   {
-    outlined destroy of TaskPriority?(&v68, &_s7LyricsX0A4Line_pSgMd);
+    outlined destroy of TaskPriority?(&v69, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
     return;
   }
 
-  outlined init with take of ActionPerforming(&v68, v71);
+  outlined init with take of ActionPerforming(&v69, v72);
   swift_beginAccess();
   v8 = *(v0 + 96);
   if (v8)
   {
+    v9 = *(v0 + 104);
 
-    v10 = v8(v9);
+    v11 = v8(v10);
     swift_beginAccess();
-    v11 = 0.0;
+    v12 = 0.0;
     if (*(v0 + 88) == 1)
     {
-      v11 = Lyrics.spatialOffset.getter();
+      v12 = Lyrics.spatialOffset.getter();
     }
 
-    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v8);
+    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v8, v9);
     swift_beginAccess();
-    v12 = *(v0 + 80);
-    v13 = *(v12 + 16);
-    if (v13)
+    v13 = *(v0 + 80);
+    v14 = *(v13 + 16);
+    if (v14)
     {
-      outlined init with copy of ActionPerforming(v12 + 40 * v13 - 8, &v68);
-      v15 = v72;
-      v14 = v73;
-      __swift_project_boxed_opaque_existential_0Tm(v71, v72);
-      v16 = (*(*(v14 + 8) + 8))(v15);
-      v18 = v69;
-      v17 = v70;
-      __swift_project_boxed_opaque_existential_0Tm(&v68, v69);
-      v19 = v16 - (*(v17[1] + 2))(v18);
+      outlined init with copy of ActionPerforming(v13 + 40 * v14 - 8, &v69);
+      v16 = v73;
+      v15 = v74;
+      __swift_project_boxed_opaque_existential_0Tm(v72, v73);
+      v17 = (*(*(v15 + 8) + 8))(v16);
+      v19 = v70;
+      v18 = v71;
+      __swift_project_boxed_opaque_existential_0Tm(&v69, v70);
+      v20 = v17 - (*(v18[1] + 2))(v19);
       swift_beginAccess();
-      v20 = *(v1 + 24);
+      v21 = *(v1 + 24);
 
-      v22 = v20(v21, v19);
+      v23 = v21(v22, v20);
 
-      __swift_destroy_boxed_opaque_existential_0Tm(&v68);
+      __swift_destroy_boxed_opaque_existential_0Tm(&v69);
     }
 
     else
     {
       swift_beginAccess();
-      v23 = *(v0 + 24);
+      v24 = *(v0 + 24);
 
-      v22 = v23(v24, 0.0);
+      v23 = v24(v25, 0.0);
     }
 
-    v25 = v10 - v11;
-    v26 = *(v1 + 80);
-    v27 = *(v26 + 16);
-    v65 = v5;
-    if (v27)
+    v26 = v11 - v12;
+    v27 = *(v1 + 80);
+    v28 = *(v27 + 16);
+    v66 = v5;
+    if (v28)
     {
-      outlined init with copy of ActionPerforming(v26 + 40 * v27 - 8, &v68);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+      outlined init with copy of ActionPerforming(v27 + 40 * v28 - 8, &v69);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
       if (swift_dynamicCast())
       {
-        v28 = v66[0];
-        v29 = v66[1];
-        v30 = v66[2];
-        v31 = v67;
+        v29 = v67[0];
+        v30 = v67[1];
+        v31 = v67[2];
+        v32 = v68;
         swift_beginAccess();
         if (swift_unknownObjectWeakLoadStrong())
         {
-          v32 = *(v1 + 72);
+          v33 = *(v1 + 72);
           ObjectType = swift_getObjectType();
-          v69 = &type metadata for Lyrics.InstrumentalLine;
-          v70 = &protocol witness table for Lyrics.InstrumentalLine;
-          v33 = swift_allocObject();
-          *&v68 = v33;
-          *(v33 + 16) = v28;
-          *(v33 + 24) = v29;
-          *(v33 + 32) = v30;
-          *(v33 + 40) = v31;
-          (*(v32 + 24))(v1, &v68, ObjectType, v32, v25);
+          v70 = &type metadata for Lyrics.InstrumentalLine;
+          v71 = &protocol witness table for Lyrics.InstrumentalLine;
+          v34 = swift_allocObject();
+          *&v69 = v34;
+          *(v34 + 16) = v29;
+          *(v34 + 24) = v30;
+          *(v34 + 32) = v31;
+          *(v34 + 40) = v32;
+          (*(v33 + 24))(v1, &v69, ObjectType, v33, v26);
           swift_unknownObjectRelease();
-          __swift_destroy_boxed_opaque_existential_0Tm(&v68);
+          __swift_destroy_boxed_opaque_existential_0Tm(&v69);
         }
       }
     }
 
     swift_beginAccess();
-    if (calculateNextLineAction #1 (elapsedTime:) in SyncedLyricsManager.update()(v71, v1, v25 + *(v1 + 40), v22) == 1)
+    if (calculateNextLineAction #1 (elapsedTime:) in SyncedLyricsManager.update()(v72, v1, v26 + *(v1 + 40), v23) == 1)
     {
-      v34 = *(v1 + 80);
-      v35 = *(v34 + 16);
-      if (v35)
+      v35 = *(v1 + 80);
+      v36 = *(v35 + 16);
+      if (v36)
       {
-        v36 = v34 + 32;
+        v37 = v35 + 32;
 
         swift_beginAccess();
         do
         {
-          outlined init with copy of ActionPerforming(v36, &v68);
+          outlined init with copy of ActionPerforming(v37, &v69);
           if (swift_unknownObjectWeakLoadStrong())
           {
-            v37 = *(v1 + 72);
-            v38 = swift_getObjectType();
-            (*(v37 + 40))(v1, &v68, v38, v37);
+            v38 = *(v1 + 72);
+            v39 = swift_getObjectType();
+            (*(v38 + 40))(v1, &v69, v39, v38);
             swift_unknownObjectRelease();
           }
 
-          __swift_destroy_boxed_opaque_existential_0Tm(&v68);
-          v36 += 40;
-          --v35;
+          __swift_destroy_boxed_opaque_existential_0Tm(&v69);
+          v37 += 40;
+          --v36;
         }
 
-        while (v35);
+        while (v36);
       }
     }
 
-    v40 = v72;
-    v39 = v73;
-    __swift_project_boxed_opaque_existential_0Tm(v71, v72);
-    if ((*(*(v39 + 8) + 8))(v40) <= v25 + v22)
+    v41 = v73;
+    v40 = v74;
+    __swift_project_boxed_opaque_existential_0Tm(v72, v73);
+    if ((*(*(v40 + 8) + 8))(v41) <= v26 + v23)
     {
-      v41 = *(v1 + 80);
-      v42 = *(v41 + 16);
-      if (v42)
+      v42 = *(v1 + 80);
+      v43 = *(v42 + 16);
+      if (v43)
       {
-        outlined init with copy of ActionPerforming(v41 + 40 * v42 - 8, &v68);
-        v44 = v72;
-        v43 = v73;
-        __swift_project_boxed_opaque_existential_0Tm(v71, v72);
-        v45 = (*(*(v43 + 8) + 8))(v44);
-        v47 = v69;
-        v46 = v70;
-        __swift_project_boxed_opaque_existential_0Tm(&v68, v69);
-        v48 = (*(v46[1] + 2))(v47);
-        v50 = v69;
-        v49 = v70;
-        __swift_project_boxed_opaque_existential_0Tm(&v68, v69);
-        v51 = (*(v49[1] + 2))(v50) - *(v1 + 48);
-        outlined init with copy of ActionPerforming(v71, v66);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+        outlined init with copy of ActionPerforming(v42 + 40 * v43 - 8, &v69);
+        v45 = v73;
+        v44 = v74;
+        __swift_project_boxed_opaque_existential_0Tm(v72, v73);
+        v46 = (*(*(v44 + 8) + 8))(v45);
+        v48 = v70;
+        v47 = v71;
+        __swift_project_boxed_opaque_existential_0Tm(&v69, v70);
+        v49 = (*(v47[1] + 2))(v48);
+        v51 = v70;
+        v50 = v71;
+        __swift_project_boxed_opaque_existential_0Tm(&v69, v70);
+        v52 = (*(v50[1] + 2))(v51) - *(v1 + 48);
+        outlined init with copy of ActionPerforming(v72, v67);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
         if (swift_dynamicCast())
         {
-          v52 = v65;
-          if (v51 < v25)
+          v53 = v66;
+          if (v52 < v26)
           {
             goto LABEL_34;
           }
@@ -20076,75 +20933,75 @@ Swift::Void __swiftcall SyncedLyricsManager.update()()
 
         else
         {
-          outlined init with copy of ActionPerforming(&v68, v66);
-          v53 = swift_dynamicCast();
-          v52 = v65;
-          if (!v53 && *(*(v1 + 80) + 16) < *(v1 + 56))
+          outlined init with copy of ActionPerforming(&v69, v67);
+          v54 = swift_dynamicCast();
+          v53 = v66;
+          if (!v54 && *(*(v1 + 80) + 16) < *(v1 + 56))
           {
-            v54 = v72;
             v55 = v73;
-            __swift_project_boxed_opaque_existential_0Tm(v71, v72);
-            ObjectType = (*(v55 + 16))(v54, v55);
-            v57 = v69;
-            v56 = v70;
-            __swift_project_boxed_opaque_existential_0Tm(&v68, v69);
-            v58 = (v56[2])(v57, v56);
-            if (v58 < ObjectType)
+            v56 = v74;
+            __swift_project_boxed_opaque_existential_0Tm(v72, v73);
+            ObjectType = (*(v56 + 16))(v55, v56);
+            v58 = v70;
+            v57 = v71;
+            __swift_project_boxed_opaque_existential_0Tm(&v69, v70);
+            v59 = (v57[2])(v58, v57);
+            if (v59 < ObjectType)
             {
-              v60 = v72;
-              v59 = v73;
-              __swift_project_boxed_opaque_existential_0Tm(v71, v72);
-              if ((*(*(v59 + 8) + 8))(v60) < v25)
+              v61 = v73;
+              v60 = v74;
+              __swift_project_boxed_opaque_existential_0Tm(v72, v73);
+              if ((*(*(v60 + 8) + 8))(v61) < v26)
               {
-                SyncedLyricsManager.selectLine(line:)(v71);
+                SyncedLyricsManager.selectLine(line:)(v72);
                 goto LABEL_36;
               }
             }
           }
 
-          if (v51 < v25)
+          if (v52 < v26)
           {
 LABEL_34:
-            SyncedLyricsManager.moveToLine(line:elapsedTime:gap:)(v71, COERCE__INT64(v45 - v48), 0, v25);
+            SyncedLyricsManager.moveToLine(line:elapsedTime:gap:)(v72, COERCE__INT64(v46 - v49), 0, v26);
             goto LABEL_36;
           }
         }
 
-        outlined init with copy of ActionPerforming(&v68, v66);
-        v61 = swift_dynamicCast();
-        v62 = *(v52 + 56);
-        if ((v61 & 1) == 0)
+        outlined init with copy of ActionPerforming(&v69, v67);
+        v62 = swift_dynamicCast();
+        v63 = *(v53 + 56);
+        if ((v62 & 1) == 0)
         {
-          v62(v3, 1, 1, v4);
-          outlined destroy of TaskPriority?(v3, &_s7LyricsX0A0C8TextLineVSgMd);
+          v63(v3, 1, 1, v4);
+          outlined destroy of TaskPriority?(v3, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
           goto LABEL_36;
         }
 
-        v62(v3, 0, 1, v4);
+        v63(v3, 0, 1, v4);
         outlined init with take of Lyrics.TextLine(v3, v7);
-        v63 = *&v7[*(v4 + 44)];
+        v64 = *&v7[*(v4 + 44)];
         outlined destroy of Lyrics.TextLine(v7);
-        if (v63 - *(v1 + 48) < v25)
+        if (v64 - *(v1 + 48) < v26)
         {
           goto LABEL_34;
         }
 
 LABEL_36:
-        __swift_destroy_boxed_opaque_existential_0Tm(&v68);
+        __swift_destroy_boxed_opaque_existential_0Tm(&v69);
         goto LABEL_37;
       }
 
-      SyncedLyricsManager.moveToLine(line:elapsedTime:gap:)(v71, 0, 1, v25);
+      SyncedLyricsManager.moveToLine(line:elapsedTime:gap:)(v72, 0, 1, v26);
     }
   }
 
 LABEL_37:
-  __swift_destroy_boxed_opaque_existential_0Tm(v71);
+  __swift_destroy_boxed_opaque_existential_0Tm(v72);
 }
 
 uint64_t calculateNextLineAction #1 (elapsedTime:) in SyncedLyricsManager.update()(void *a1, uint64_t a2, double a3, double a4)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
   v9 = v34 - v8 + 24;
   v10 = type metadata accessor for Lyrics.TextLine(0);
@@ -20169,7 +21026,7 @@ uint64_t calculateNextLineAction #1 (elapsedTime:) in SyncedLyricsManager.update
       swift_beginAccess();
       v21 = v20 - *(a2 + 48);
       outlined init with copy of ActionPerforming(a1, v34);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
       if (!swift_dynamicCast())
       {
         outlined init with copy of ActionPerforming(v35, v34);
@@ -20222,7 +21079,7 @@ LABEL_10:
       else
       {
         v31(v9, 1, 1, v10);
-        outlined destroy of TaskPriority?(v9, &_s7LyricsX0A0C8TextLineVSgMd);
+        outlined destroy of TaskPriority?(v9, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       }
 
       __swift_destroy_boxed_opaque_existential_0Tm(v35);
@@ -20232,35 +21089,32 @@ LABEL_10:
   return 0;
 }
 
-uint64_t SyncedLyricsManager.moveToLine(line:elapsedTime:gap:)(void *a1, uint64_t a2, char a3, double a4)
+void SyncedLyricsManager.moveToLine(line:elapsedTime:gap:)(void *a1, uint64_t a2, char a3, double a4)
 {
   v5 = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy7LyricsX0D4Line_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy7LyricsX0D4Line_pGMd, &_ss23_ContiguousArrayStorageCy7LyricsX0D4Line_pGMR);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_1004F2400;
   outlined init with copy of ActionPerforming(a1, v10 + 32);
   swift_beginAccess();
   *(v5 + 80) = v10;
 
-  Lyrics.line(after:)(a1, v14);
+  Lyrics.line(after:)(a1, v13);
   swift_beginAccess();
-  outlined assign with copy of LyricsLine?(v14, v5 + 112);
+  outlined assign with copy of LyricsLine?(v13, v5 + 112);
   swift_endAccess();
-  outlined destroy of TaskPriority?(v14, &_s7LyricsX0A4Line_pSgMd);
+  outlined destroy of TaskPriority?(v13, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
+  if (swift_unknownObjectWeakLoadStrong())
   {
-    v12 = *(v5 + 72);
+    v11 = *(v5 + 72);
     ObjectType = swift_getObjectType();
-    (*(v12 + 8))(v5, a1, a2, a3 & 1, ObjectType, v12, a4);
-    return swift_unknownObjectRelease();
+    (*(v11 + 8))(v5, a1, a2, a3 & 1, ObjectType, v11, a4);
+    swift_unknownObjectRelease();
   }
-
-  return result;
 }
 
-uint64_t SyncedLyricsManager.selectLine(line:)(void *a1)
+double SyncedLyricsManager.selectLine(line:)(void *a1)
 {
   v2 = v1;
   outlined init with copy of ActionPerforming(a1, v18);
@@ -20286,7 +21140,7 @@ uint64_t SyncedLyricsManager.selectLine(line:)(void *a1)
   v9 = v20;
   __swift_mutable_project_boxed_opaque_existential_1(v18, v19);
   v10 = __chkstk_darwin();
-  v12 = v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0) + 22;
+  v12 = &v17[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
   (*(v13 + 16))(v12, v10);
   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v7, v12, (v2 + 80), v8, v9);
   __swift_destroy_boxed_opaque_existential_0Tm(v18);
@@ -20296,35 +21150,35 @@ uint64_t SyncedLyricsManager.selectLine(line:)(void *a1)
   swift_beginAccess();
   outlined assign with copy of LyricsLine?(v18, v2 + 112);
   swift_endAccess();
-  outlined destroy of TaskPriority?(v18, &_s7LyricsX0A4Line_pSgMd);
+  outlined destroy of TaskPriority?(v18, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
+  if (swift_unknownObjectWeakLoadStrong())
   {
     v15 = *(v2 + 72);
     ObjectType = swift_getObjectType();
     (*(v15 + 32))(v2, a1, ObjectType, v15);
-    return swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
 
   return result;
 }
 
-uint64_t SyncedLyricsManager.updateNextLineIfNeeded()()
+void SyncedLyricsManager.updateNextLineIfNeeded()()
 {
   v1 = v0;
   swift_beginAccess();
   outlined init with copy of LyricsLine?(v0 + 112, &v19);
   v2 = *(&v20 + 1);
-  result = outlined destroy of TaskPriority?(&v19, &_s7LyricsX0A4Line_pSgMd);
+  outlined destroy of TaskPriority?(&v19, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   if (!v2)
   {
-    result = swift_beginAccess();
-    v4 = *(v1 + 96);
-    if (v4)
+    swift_beginAccess();
+    v3 = *(v1 + 96);
+    if (v3)
     {
+      v4 = *(v1 + 104);
 
-      v6 = v4(v5);
+      v6 = v3(v5);
       swift_beginAccess();
       v7 = 0.0;
       if (*(v1 + 88) == 1)
@@ -20332,7 +21186,7 @@ uint64_t SyncedLyricsManager.updateNextLineIfNeeded()()
         v7 = Lyrics.spatialOffset.getter();
       }
 
-      result = outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v4);
+      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v3, v4);
       v8 = *(v1 + 16);
       v9 = *(v8 + 40);
       if (*(v9 + 16))
@@ -20362,7 +21216,7 @@ uint64_t SyncedLyricsManager.updateNextLineIfNeeded()()
           swift_beginAccess();
           outlined assign with copy of LyricsLine?(&v19, v1 + 112);
           swift_endAccess();
-          return outlined destroy of TaskPriority?(&v19, &_s7LyricsX0A4Line_pSgMd);
+          outlined destroy of TaskPriority?(&v19, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
         }
 
         else
@@ -20387,13 +21241,13 @@ uint64_t SyncedLyricsManager.updateNextLineIfNeeded()()
             swift_beginAccess();
             outlined assign with copy of LyricsLine?(&v17, v1 + 112);
             swift_endAccess();
-            outlined destroy of TaskPriority?(&v17, &_s7LyricsX0A4Line_pSgMd);
-            return __swift_destroy_boxed_opaque_existential_0Tm(&v19);
+            outlined destroy of TaskPriority?(&v17, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
+            __swift_destroy_boxed_opaque_existential_0Tm(&v19);
           }
 
           else
           {
-            return outlined destroy of TaskPriority?(&v17, &_s7LyricsX0A4Line_pSgMd);
+            outlined destroy of TaskPriority?(&v17, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
           }
         }
       }
@@ -20404,13 +21258,11 @@ uint64_t SyncedLyricsManager.updateNextLineIfNeeded()()
       }
     }
   }
-
-  return result;
 }
 
 uint64_t outlined init with copy of LyricsLine?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -20420,8 +21272,8 @@ uint64_t SyncedLyricsManager.deinit()
 
   outlined destroy of weak ActionsObserver?(v0 + 64);
 
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(*(v0 + 96));
-  outlined destroy of TaskPriority?(v0 + 112, &_s7LyricsX0A4Line_pSgMd);
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(*(v0 + 96), *(v0 + 104));
+  outlined destroy of TaskPriority?(v0 + 112, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   return v0;
 }
 
@@ -20430,17 +21282,19 @@ uint64_t SyncedLyricsManager.__deallocating_deinit()
 
   outlined destroy of weak ActionsObserver?(v0 + 64);
 
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(*(v0 + 96));
-  outlined destroy of TaskPriority?(v0 + 112, &_s7LyricsX0A4Line_pSgMd);
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(*(v0 + 96), *(v0 + 104));
+  outlined destroy of TaskPriority?(v0 + 112, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
 
   return swift_deallocClassInstance();
 }
 
-uint64_t sub_100490D28@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+double sub_100490D28@<D0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   swift_beginAccess();
   *a2 = *(v3 + 80);
+
+  return result;
 }
 
 uint64_t specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
@@ -20456,7 +21310,7 @@ uint64_t specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(
 
 uint64_t outlined assign with copy of LyricsLine?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -20471,10 +21325,10 @@ CFIndex one-time initialization function for shadowOpacity(uint64_t a1, uint64_t
 void SyncedLyricsTimestampLabel.line.didset()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd_0, &_s10Foundation8TimeZoneVSgMR_0);
   __chkstk_darwin();
   v3 = &v26 - v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd_0, &_s10Foundation8CalendarVSgMR_0);
   __chkstk_darwin();
   v5 = &v26 - v4;
   v6 = type metadata accessor for DateComponents();
@@ -20637,7 +21491,7 @@ char *SyncedLyricsTimestampLabel.init(frame:)(double a1, double a2, double a3, d
 
   SyncedLyricsTimestampLabel.updateBackground()();
   v45 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2, &_ss23_ContiguousArrayStorageCyyXlGMR_2);
   v46 = swift_allocObject();
   *(v46 + 16) = xmmword_1004F3060;
   v47 = [v31 centerYAnchor];
@@ -20833,7 +21687,7 @@ unint64_t type metadata accessor for NSLayoutConstraint()
 
 uint64_t outlined destroy of LyricsLine?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -20866,7 +21720,7 @@ id static SyncedLyricsViewController.Specs.backgroundVocalsSpringTimingParameter
 
   else
   {
-    type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+    type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
     return UISpringTimingParameters.init(dampingRatio:response:)(1.0, 0.2);
   }
 }
@@ -20878,10 +21732,11 @@ id static SyncedLyricsViewController.Specs.opacityAnimator()()
   return [v0 initWithDuration:0 controlPoint1:0.12 controlPoint2:0.33 animations:{0.0, 0.2, 0.1}];
 }
 
-void static SyncedLyricsViewController.Specs.animateWithHighlightAnimationCurves(highlighted:fadeAnimations:transformAnimations:)(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void static SyncedLyricsViewController.Specs.animateWithHighlightAnimationCurves(highlighted:fadeAnimations:transformAnimations:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v9 = a1;
   v10 = objc_allocWithZone(UISpringTimingParameters);
-  if (a1)
+  if (v9)
   {
     v11 = 24.0;
   }
@@ -20892,13 +21747,13 @@ void static SyncedLyricsViewController.Specs.animateWithHighlightAnimationCurves
   }
 
   v12 = 322.0;
-  if ((a1 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
     v12 = 300.0;
   }
 
   v13 = 2.0;
-  if (a1)
+  if (v9)
   {
     v13 = 1.0;
     v14 = 0.0;
@@ -20909,7 +21764,7 @@ void static SyncedLyricsViewController.Specs.animateWithHighlightAnimationCurves
     v14 = 0.1;
   }
 
-  if (a1)
+  if (v9)
   {
     v15 = 0.2;
   }
@@ -20920,7 +21775,7 @@ void static SyncedLyricsViewController.Specs.animateWithHighlightAnimationCurves
   }
 
   v16 = [v10 initWithMass:v13 stiffness:v12 damping:v11 initialVelocity:{0.0, 0.0}];
-  v17 = specialized static SyncedLyricsViewController.Specs.highlightAnimationFactory(highlighted:)(a1);
+  v17 = specialized static SyncedLyricsViewController.Specs.highlightAnimationFactory(highlighted:)(v9);
   v18 = objc_opt_self();
   v33 = a2;
   v34 = a3;
@@ -21154,7 +22009,7 @@ void closure #1 in variable initialization expression of static SyncedLyricsView
   v4 = [v2 systemFontOfSize:32.0 weight:UIFontWeightBold];
 
   *(a1 + 224) = v4;
-  type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+  type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
   v5 = static UIFont.preferredFont(forTextStyle:weight:)();
 
   *(a1 + 264) = v5;
@@ -21209,7 +22064,7 @@ void closure #1 in variable initialization expression of static SyncedLyricsView
   v6 = [v2 systemFontOfSize:33.0 weight:UIFontWeightBold];
 
   *(a1 + 272) = v6;
-  type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+  type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
   v7 = static UIFont.preferredFont(forTextStyle:weight:)();
 
   *(a1 + 280) = v7;
@@ -21362,7 +22217,7 @@ void closure #1 in variable initialization expression of static SyncedLyricsView
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
   *(a1 + 152) = 0x3FF0000000000000;
-  type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+  type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
   v7 = static UIFont.preferredFont(forTextStyle:weight:)();
@@ -21426,16 +22281,16 @@ void *SyncedLyricsViewController.Specs.static.unsafeMutableAddressor()
   return &static SyncedLyricsViewController.Specs.static;
 }
 
-uint64_t static SyncedLyricsViewController.Specs.default.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static SyncedLyricsViewController.Specs.default.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
-  v4 = a3;
+  v5 = a4;
   if (*a1 != -1)
   {
     swift_once();
-    v4 = a3;
+    v5 = a4;
   }
 
-  return outlined init with copy of SyncedLyricsViewController.Specs(a2, v4);
+  return outlined init with copy of SyncedLyricsViewController.Specs(a2, v5);
 }
 
 UISpringTimingParameters __swiftcall SyncedLyricsViewController.Specs.syllableBySyllableLineChangeSpringTimingParameters(gap:)(Swift::Double_optional gap)
@@ -21467,7 +22322,7 @@ UISpringTimingParameters __swiftcall SyncedLyricsViewController.Specs.syllableBy
 
     v11 = (1.0 - v10) * 0.12 + 0.78;
     v12 = v10 * 0.27 + 0.48;
-    type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+    type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
     return UISpringTimingParameters.init(dampingRatio:response:)(v11, v12);
   }
 }
@@ -21629,12 +22484,12 @@ BOOL specialized static SyncedLyricsViewController.Specs.__derived_struct_equals
     return 0;
   }
 
-  if (v11[22] != v12[22])
+  if (*(v11 + 22) != *(v12 + 22))
   {
     return 0;
   }
 
-  if (v11[23] != v12[23])
+  if (*(v11 + 23) != *(v12 + 23))
   {
     return 0;
   }
@@ -21644,16 +22499,16 @@ BOOL specialized static SyncedLyricsViewController.Specs.__derived_struct_equals
     return 0;
   }
 
-  type metadata accessor for UIAction(0, &_sSo8NSObjectCML_2);
+  type metadata accessor for UIAction(0, &_sSo8NSObjectCML_2, NSObject_ptr);
   if ((static NSObject.== infix(_:_:)() & 1) == 0)
   {
     return 0;
   }
 
-  v13 = *(v12 + 216);
-  if (v11[27])
+  v13 = v12[216];
+  if (v11[216])
   {
-    if (!*(v12 + 216))
+    if (!v12[216])
     {
       return 0;
     }
@@ -21661,7 +22516,7 @@ BOOL specialized static SyncedLyricsViewController.Specs.__derived_struct_equals
 
   else
   {
-    if (v11[26] != v12[26])
+    if (*(v11 + 26) != *(v12 + 26))
     {
       v13 = 1;
     }
@@ -21672,7 +22527,7 @@ BOOL specialized static SyncedLyricsViewController.Specs.__derived_struct_equals
     }
   }
 
-  if ((static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0 || v11[31] != v12[31] || v11[32] != v12[32] || (static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0)
+  if ((static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0 || *(v11 + 31) != *(v12 + 31) || *(v11 + 32) != *(v12 + 32) || (static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0 || (static NSObject.== infix(_:_:)() & 1) == 0)
   {
     return 0;
   }
@@ -21683,7 +22538,7 @@ BOOL specialized static SyncedLyricsViewController.Specs.__derived_struct_equals
   {
     if (!v15)
     {
-      return v11[37] == v12[37] && v11[38] == v12[38] && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && v11[41] == v12[41] && v11[42] == v12[42] && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static CGAffineTransform.== infix(_:_:)() & 1) != 0 && v11[56] == v12[56] && (static NSObject.== infix(_:_:)() & 1) != 0 && v11[58] == v12[58] && v11[59] == v12[59] && v11[60] == v12[60] && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && v11[63] == v12[63] && (static CGAffineTransform.== infix(_:_:)() & 1) != 0 && v11[70] == v12[70] && (static NSObject.== infix(_:_:)() & 1) != 0 && v11[72] == v12[72] && v11[73] == v12[73] && *(v11 + 74) == *(v12 + 74) && v11[75] == v12[75] && v11[76] == v12[76] && v11[77] == v12[77] && v11[78] == v12[78] && v11[79] == v12[79] && v11[80] == v12[80] && v11[81] == v12[81] && ((*(v11 + 656) ^ *(v12 + 656)) & 1) == 0 && ((*(v11 + 657) ^ *(v12 + 657)) & 1) == 0 && ((*(v11 + 658) ^ *(v12 + 658)) & 1) == 0 && ((*(v11 + 659) ^ *(v12 + 659)) & 1) == 0 && v11[83] == v12[83] && v11[84] == v12[84] && v11[85] == v12[85];
+      return *(v11 + 37) == *(v12 + 37) && *(v11 + 38) == *(v12 + 38) && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && *(v11 + 41) == *(v12 + 41) && *(v11 + 42) == *(v12 + 42) && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static CGAffineTransform.== infix(_:_:)() & 1) != 0 && *(v11 + 56) == *(v12 + 56) && (static NSObject.== infix(_:_:)() & 1) != 0 && *(v11 + 58) == *(v12 + 58) && *(v11 + 59) == *(v12 + 59) && *(v11 + 60) == *(v12 + 60) && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && *(v11 + 63) == *(v12 + 63) && (static CGAffineTransform.== infix(_:_:)() & 1) != 0 && *(v11 + 70) == *(v12 + 70) && (static NSObject.== infix(_:_:)() & 1) != 0 && *(v11 + 72) == *(v12 + 72) && *(v11 + 73) == *(v12 + 73) && *(v11 + 74) == *(v12 + 74) && *(v11 + 75) == *(v12 + 75) && *(v11 + 76) == *(v12 + 76) && *(v11 + 77) == *(v12 + 77) && *(v11 + 78) == *(v12 + 78) && *(v11 + 79) == *(v12 + 79) && *(v11 + 80) == *(v12 + 80) && *(v11 + 81) == *(v12 + 81) && ((v11[656] ^ v12[656]) & 1) == 0 && ((v11[657] ^ v12[657]) & 1) == 0 && ((v11[658] ^ v12[658]) & 1) == 0 && ((v11[659] ^ v12[659]) & 1) == 0 && *(v11 + 83) == *(v12 + 83) && *(v11 + 84) == *(v12 + 84) && *(v11 + 85) == *(v12 + 85);
     }
 
     return 0;
@@ -21694,7 +22549,7 @@ BOOL specialized static SyncedLyricsViewController.Specs.__derived_struct_equals
     return 0;
   }
 
-  type metadata accessor for UIAction(0, &_sSo7UIColorCML_1);
+  type metadata accessor for UIAction(0, &_sSo7UIColorCML_1, UIColor_ptr);
   v16 = v15;
   v17 = v14;
   v18 = static NSObject.== infix(_:_:)();
@@ -21704,10 +22559,10 @@ BOOL specialized static SyncedLyricsViewController.Specs.__derived_struct_equals
     return 0;
   }
 
-  return v11[37] == v12[37] && v11[38] == v12[38] && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && v11[41] == v12[41] && v11[42] == v12[42] && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static CGAffineTransform.== infix(_:_:)() & 1) != 0 && v11[56] == v12[56] && (static NSObject.== infix(_:_:)() & 1) != 0 && v11[58] == v12[58] && v11[59] == v12[59] && v11[60] == v12[60] && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && v11[63] == v12[63] && (static CGAffineTransform.== infix(_:_:)() & 1) != 0 && v11[70] == v12[70] && (static NSObject.== infix(_:_:)() & 1) != 0 && v11[72] == v12[72] && v11[73] == v12[73] && *(v11 + 74) == *(v12 + 74) && v11[75] == v12[75] && v11[76] == v12[76] && v11[77] == v12[77] && v11[78] == v12[78] && v11[79] == v12[79] && v11[80] == v12[80] && v11[81] == v12[81] && ((*(v11 + 656) ^ *(v12 + 656)) & 1) == 0 && ((*(v11 + 657) ^ *(v12 + 657)) & 1) == 0 && ((*(v11 + 658) ^ *(v12 + 658)) & 1) == 0 && ((*(v11 + 659) ^ *(v12 + 659)) & 1) == 0 && v11[83] == v12[83] && v11[84] == v12[84] && v11[85] == v12[85];
+  return *(v11 + 37) == *(v12 + 37) && *(v11 + 38) == *(v12 + 38) && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && *(v11 + 41) == *(v12 + 41) && *(v11 + 42) == *(v12 + 42) && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && (static CGAffineTransform.== infix(_:_:)() & 1) != 0 && *(v11 + 56) == *(v12 + 56) && (static NSObject.== infix(_:_:)() & 1) != 0 && *(v11 + 58) == *(v12 + 58) && *(v11 + 59) == *(v12 + 59) && *(v11 + 60) == *(v12 + 60) && (static NSObject.== infix(_:_:)() & 1) != 0 && (static NSObject.== infix(_:_:)() & 1) != 0 && *(v11 + 63) == *(v12 + 63) && (static CGAffineTransform.== infix(_:_:)() & 1) != 0 && *(v11 + 70) == *(v12 + 70) && (static NSObject.== infix(_:_:)() & 1) != 0 && *(v11 + 72) == *(v12 + 72) && *(v11 + 73) == *(v12 + 73) && *(v11 + 74) == *(v12 + 74) && *(v11 + 75) == *(v12 + 75) && *(v11 + 76) == *(v12 + 76) && *(v11 + 77) == *(v12 + 77) && *(v11 + 78) == *(v12 + 78) && *(v11 + 79) == *(v12 + 79) && *(v11 + 80) == *(v12 + 80) && *(v11 + 81) == *(v12 + 81) && ((v11[656] ^ v12[656]) & 1) == 0 && ((v11[657] ^ v12[657]) & 1) == 0 && ((v11[658] ^ v12[658]) & 1) == 0 && ((v11[659] ^ v12[659]) & 1) == 0 && *(v11 + 83) == *(v12 + 83) && *(v11 + 84) == *(v12 + 84) && *(v11 + 85) == *(v12 + 85);
 }
 
-void *specialized SyncedLyricsViewController.Specs.init(_:)@<X0>(void (*a1)(_BYTE *)@<X0>, void *a2@<X8>)
+void *specialized SyncedLyricsViewController.Specs.init(_:)@<X0>(void (*a1)(_BYTE *)@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   __src[0] = 0;
   *&__src[8] = 0x404E000000000000;
@@ -21724,18 +22579,18 @@ void *specialized SyncedLyricsViewController.Specs.init(_:)@<X0>(void (*a1)(_BYT
   *&__src[128] = aBlock;
   *&__src[176] = xmmword_1005181F0;
   *&__src[192] = 2;
-  type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+  type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
   *&__src[200] = static UIFont.preferredFont(forTextStyle:weight:)();
   *&__src[208] = 0;
   __src[216] = 1;
   *&__src[224] = static UIFont.shortEmphasizedPreferredFont(forTextStyle:)();
-  v2 = objc_opt_self();
-  *&__src[232] = [v2 systemFontOfSize:22.0 weight:UIFontWeightBold];
-  *&__src[240] = [v2 systemFontOfSize:22.0 weight:UIFontWeightSemibold];
+  v3 = objc_opt_self();
+  *&__src[232] = [v3 systemFontOfSize:22.0 weight:UIFontWeightBold];
+  *&__src[240] = [v3 systemFontOfSize:22.0 weight:UIFontWeightSemibold];
   *&__src[248] = xmmword_100518200;
   *&__src[264] = static UIFont.preferredFont(forTextStyle:weight:)();
   *&__src[272] = static UIFont.preferredFont(forTextStyle:weight:)();
-  *&__src[280] = [v2 systemFontOfSize:14.0 weight:UIFontWeightBold];
+  *&__src[280] = [v3 systemFontOfSize:14.0 weight:UIFontWeightBold];
   *&__src[288] = 0;
   *&__src[296] = Int.seconds.getter(7);
   *&__src[304] = Int.seconds.getter(4);
@@ -21743,198 +22598,198 @@ void *specialized SyncedLyricsViewController.Specs.init(_:)@<X0>(void (*a1)(_BYT
   *&__src[320] = static UIFont.preferredFont(forTextStyle:weight:)();
   *&__src[328] = Int.seconds.getter(5);
   *&__src[336] = *&__src[328];
-  *&__src[344] = [v2 preferredFontForTextStyle:UIFontTextStyleSubheadline];
-  v3 = objc_opt_self();
-  v4 = [v3 whiteColor];
-  v5 = [v3 labelColor];
-  v6 = objc_allocWithZone(UIColor);
-  v7 = swift_allocObject();
-  *(v7 + 16) = v5;
-  *(v7 + 24) = v4;
+  *&__src[344] = [v3 preferredFontForTextStyle:UIFontTextStyleSubheadline];
+  v4 = objc_opt_self();
+  v5 = [v4 whiteColor];
+  v6 = [v4 labelColor];
+  v7 = objc_allocWithZone(UIColor);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v6;
+  *(v8 + 24) = v5;
   *&aBlock.tx = closure #1 in UIColor.init(normal:highContrast:)partial apply;
-  *&aBlock.ty = v7;
+  *&aBlock.ty = v8;
   *&aBlock.a = _NSConcreteStackBlock;
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   *&aBlock.d = &block_descriptor_80_1;
-  v8 = _Block_copy(&aBlock);
-  v9 = v5;
-  v10 = v4;
+  v9 = _Block_copy(&aBlock);
+  v10 = v6;
+  v11 = v5;
 
-  v11 = [v6 initWithDynamicProvider:v8];
+  v12 = [v7 initWithDynamicProvider:v9];
 
-  _Block_release(v8);
-  *&__src[352] = v11;
-  v12 = [v3 whiteColor];
-  v13 = [v12 colorWithAlphaComponent:0.35];
+  _Block_release(v9);
+  *&__src[352] = v12;
+  v13 = [v4 whiteColor];
+  v14 = [v13 colorWithAlphaComponent:0.35];
 
-  v14 = [v3 labelColor];
-  v15 = [v14 colorWithAlphaComponent:0.85];
+  v15 = [v4 labelColor];
+  v16 = [v15 colorWithAlphaComponent:0.85];
 
-  v16 = objc_allocWithZone(UIColor);
-  v17 = swift_allocObject();
-  *(v17 + 16) = v15;
-  *(v17 + 24) = v13;
+  v17 = objc_allocWithZone(UIColor);
+  v18 = swift_allocObject();
+  *(v18 + 16) = v16;
+  *(v18 + 24) = v14;
   *&aBlock.tx = closure #1 in UIColor.init(normal:highContrast:)partial apply;
-  *&aBlock.ty = v17;
+  *&aBlock.ty = v18;
   *&aBlock.a = _NSConcreteStackBlock;
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   *&aBlock.d = &block_descriptor_87;
-  v18 = _Block_copy(&aBlock);
-  v19 = v15;
-  v20 = v13;
+  v19 = _Block_copy(&aBlock);
+  v20 = v16;
+  v21 = v14;
 
-  v21 = [v16 initWithDynamicProvider:v18];
+  v22 = [v17 initWithDynamicProvider:v19];
 
-  _Block_release(v18);
-  *&__src[360] = v21;
-  v22 = [v3 whiteColor];
-  v23 = [v22 colorWithAlphaComponent:0.175];
+  _Block_release(v19);
+  *&__src[360] = v22;
+  v23 = [v4 whiteColor];
+  v24 = [v23 colorWithAlphaComponent:0.175];
 
-  v24 = [v3 labelColor];
-  v25 = [v24 colorWithAlphaComponent:0.4];
+  v25 = [v4 labelColor];
+  v26 = [v25 colorWithAlphaComponent:0.4];
 
-  v26 = objc_allocWithZone(UIColor);
-  v27 = swift_allocObject();
-  *(v27 + 16) = v25;
-  *(v27 + 24) = v23;
+  v27 = objc_allocWithZone(UIColor);
+  v28 = swift_allocObject();
+  *(v28 + 16) = v26;
+  *(v28 + 24) = v24;
   *&aBlock.tx = closure #1 in UIColor.init(normal:highContrast:)partial apply;
-  *&aBlock.ty = v27;
+  *&aBlock.ty = v28;
   *&aBlock.a = _NSConcreteStackBlock;
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   *&aBlock.d = &block_descriptor_94;
-  v28 = _Block_copy(&aBlock);
-  v29 = v25;
-  v30 = v23;
+  v29 = _Block_copy(&aBlock);
+  v30 = v26;
+  v31 = v24;
 
-  v31 = [v26 initWithDynamicProvider:v28];
+  v32 = [v27 initWithDynamicProvider:v29];
 
-  _Block_release(v28);
-  *&__src[368] = v31;
-  v32 = [v3 whiteColor];
-  v33 = [v32 colorWithAlphaComponent:0.35];
+  _Block_release(v29);
+  *&__src[368] = v32;
+  v33 = [v4 whiteColor];
+  v34 = [v33 colorWithAlphaComponent:0.35];
 
-  v34 = [v3 labelColor];
-  v35 = [v34 colorWithAlphaComponent:0.85];
+  v35 = [v4 labelColor];
+  v36 = [v35 colorWithAlphaComponent:0.85];
 
-  v36 = objc_allocWithZone(UIColor);
-  v37 = swift_allocObject();
-  *(v37 + 16) = v35;
-  *(v37 + 24) = v33;
+  v37 = objc_allocWithZone(UIColor);
+  v38 = swift_allocObject();
+  *(v38 + 16) = v36;
+  *(v38 + 24) = v34;
   *&aBlock.tx = closure #1 in UIColor.init(normal:highContrast:)partial apply;
-  *&aBlock.ty = v37;
+  *&aBlock.ty = v38;
   *&aBlock.a = _NSConcreteStackBlock;
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   *&aBlock.d = &block_descriptor_101;
-  v38 = _Block_copy(&aBlock);
-  v39 = v35;
-  v40 = v33;
+  v39 = _Block_copy(&aBlock);
+  v40 = v36;
+  v41 = v34;
 
-  v41 = [v36 initWithDynamicProvider:v38];
+  v42 = [v37 initWithDynamicProvider:v39];
 
-  _Block_release(v38);
-  *&__src[376] = v41;
-  v42 = [v3 whiteColor];
-  v43 = [v42 colorWithAlphaComponent:0.175];
+  _Block_release(v39);
+  *&__src[376] = v42;
+  v43 = [v4 whiteColor];
+  v44 = [v43 colorWithAlphaComponent:0.175];
 
-  v44 = [v3 labelColor];
-  v45 = [v44 colorWithAlphaComponent:0.65];
+  v45 = [v4 labelColor];
+  v46 = [v45 colorWithAlphaComponent:0.65];
 
-  v46 = objc_allocWithZone(UIColor);
-  v47 = swift_allocObject();
-  *(v47 + 16) = v45;
-  *(v47 + 24) = v43;
+  v47 = objc_allocWithZone(UIColor);
+  v48 = swift_allocObject();
+  *(v48 + 16) = v46;
+  *(v48 + 24) = v44;
   *&aBlock.tx = closure #1 in UIColor.init(normal:highContrast:)partial apply;
-  *&aBlock.ty = v47;
+  *&aBlock.ty = v48;
   *&aBlock.a = _NSConcreteStackBlock;
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   *&aBlock.d = &block_descriptor_108;
-  v48 = _Block_copy(&aBlock);
-  v49 = v45;
-  v50 = v43;
+  v49 = _Block_copy(&aBlock);
+  v50 = v46;
+  v51 = v44;
 
-  v51 = [v46 initWithDynamicProvider:v48];
+  v52 = [v47 initWithDynamicProvider:v49];
 
-  _Block_release(v48);
-  *&__src[384] = v51;
-  v52 = [v3 whiteColor];
-  v53 = [v52 colorWithAlphaComponent:0.4];
+  _Block_release(v49);
+  *&__src[384] = v52;
+  v53 = [v4 whiteColor];
+  v54 = [v53 colorWithAlphaComponent:0.4];
 
-  v54 = [v3 labelColor];
-  v55 = [v54 colorWithAlphaComponent:0.4];
+  v55 = [v4 labelColor];
+  v56 = [v55 colorWithAlphaComponent:0.4];
 
-  v56 = objc_allocWithZone(UIColor);
-  v57 = swift_allocObject();
-  *(v57 + 16) = v55;
-  *(v57 + 24) = v53;
+  v57 = objc_allocWithZone(UIColor);
+  v58 = swift_allocObject();
+  *(v58 + 16) = v56;
+  *(v58 + 24) = v54;
   *&aBlock.tx = closure #1 in UIColor.init(normal:highContrast:)partial apply;
-  *&aBlock.ty = v57;
+  *&aBlock.ty = v58;
   *&aBlock.a = _NSConcreteStackBlock;
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   *&aBlock.d = &block_descriptor_115_0;
-  v58 = _Block_copy(&aBlock);
-  v59 = v55;
-  v60 = v53;
+  v59 = _Block_copy(&aBlock);
+  v60 = v56;
+  v61 = v54;
 
-  v61 = [v56 initWithDynamicProvider:v58];
+  v62 = [v57 initWithDynamicProvider:v59];
 
-  _Block_release(v58);
-  *&__src[392] = v61;
+  _Block_release(v59);
+  *&__src[392] = v62;
   CGAffineTransformMakeScale(&aBlock, 0.98, 0.98);
   *&__src[400] = aBlock;
   *&__src[448] = 0x3FB999999999999ALL;
-  *&__src[456] = [v3 whiteColor];
+  *&__src[456] = [v4 whiteColor];
   *&__src[464] = xmmword_100518210;
   *&__src[480] = 0x3FD999999999999ALL;
-  v62 = [v3 whiteColor];
-  v63 = [v3 tintColor];
-  v64 = objc_allocWithZone(UIColor);
-  v65 = swift_allocObject();
-  *(v65 + 16) = v63;
-  *(v65 + 24) = v62;
+  v63 = [v4 whiteColor];
+  v64 = [v4 tintColor];
+  v65 = objc_allocWithZone(UIColor);
+  v66 = swift_allocObject();
+  *(v66 + 16) = v64;
+  *(v66 + 24) = v63;
   *&aBlock.tx = closure #1 in UIColor.init(normal:highContrast:)partial apply;
-  *&aBlock.ty = v65;
+  *&aBlock.ty = v66;
   *&aBlock.a = _NSConcreteStackBlock;
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   *&aBlock.d = &block_descriptor_122;
-  v66 = _Block_copy(&aBlock);
-  v67 = v63;
-  v68 = v62;
+  v67 = _Block_copy(&aBlock);
+  v68 = v64;
+  v69 = v63;
 
-  v69 = [v64 initWithDynamicProvider:v66];
+  v70 = [v65 initWithDynamicProvider:v67];
 
-  _Block_release(v66);
-  *&__src[488] = v69;
-  v70 = [v3 whiteColor];
-  v71 = [v70 colorWithAlphaComponent:0.175];
+  _Block_release(v67);
+  *&__src[488] = v70;
+  v71 = [v4 whiteColor];
+  v72 = [v71 colorWithAlphaComponent:0.175];
 
-  v72 = [v3 tintColor];
-  v73 = [v72 colorWithAlphaComponent:0.175];
+  v73 = [v4 tintColor];
+  v74 = [v73 colorWithAlphaComponent:0.175];
 
-  v74 = objc_allocWithZone(UIColor);
-  v75 = swift_allocObject();
-  *(v75 + 16) = v73;
-  *(v75 + 24) = v71;
+  v75 = objc_allocWithZone(UIColor);
+  v76 = swift_allocObject();
+  *(v76 + 16) = v74;
+  *(v76 + 24) = v72;
   *&aBlock.tx = closure #1 in UIColor.init(normal:highContrast:)partial apply;
-  *&aBlock.ty = v75;
+  *&aBlock.ty = v76;
   *&aBlock.a = _NSConcreteStackBlock;
   *&aBlock.b = 1107296256;
   *&aBlock.c = thunk for @escaping @callee_guaranteed (@guaranteed UITraitCollection) -> (@owned UIColor);
   *&aBlock.d = &block_descriptor_129;
-  v76 = _Block_copy(&aBlock);
-  v77 = v73;
-  v78 = v71;
+  v77 = _Block_copy(&aBlock);
+  v78 = v74;
+  v79 = v72;
 
-  v79 = [v74 initWithDynamicProvider:v76];
+  v80 = [v75 initWithDynamicProvider:v77];
 
-  _Block_release(v76);
-  *&__src[496] = v79;
+  _Block_release(v77);
+  *&__src[496] = v80;
   *&__src[504] = 0x403E000000000000;
   CGAffineTransformMakeScale(&aBlock, 0.95, 0.95);
   *&__src[512] = aBlock;
@@ -21949,21 +22804,21 @@ void *specialized SyncedLyricsViewController.Specs.init(_:)@<X0>(void (*a1)(_BYT
   *&__src[624] = xmmword_100518230;
   *&__src[640] = xmmword_100518240;
   *&__src[656] = 257;
-  v85 = Int.seconds.getter(1);
-  v86 = Int.seconds.getter(100);
-  v87 = Int.seconds.getter(18);
-  *&__src[664] = v85;
-  *&__src[672] = v86;
-  *&__src[680] = v87;
+  v86 = Int.seconds.getter(1);
+  v87 = Int.seconds.getter(100);
+  v88 = Int.seconds.getter(18);
+  *&__src[664] = v86;
+  *&__src[672] = v87;
+  *&__src[680] = v88;
   if (a1)
   {
 
     a1(__src);
-    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(a1);
-    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(a1);
+    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(a1, a2);
+    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(a1, a2);
   }
 
-  return memcpy(a2, __src, 0x2B0uLL);
+  return memcpy(a3, __src, 0x2B0uLL);
 }
 
 id specialized static SyncedLyricsViewController.Specs.highlightAnimationFactory(highlighted:)(char a1)
@@ -22185,17 +23040,17 @@ uint64_t sub_1004962B4()
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_4, &_sScPSgMR_4);
   __chkstk_darwin();
   v10 = v24 - v9;
-  outlined init with copy of TaskPriority?(a3, v24 - v9, &_sScPSgMd_4);
+  outlined init with copy of TaskPriority?(a3, v24 - v9, &_sScPSgMd_4, &_sScPSgMR_4);
   v11 = type metadata accessor for TaskPriority();
   v12 = *(v11 - 8);
   v13 = (*(v12 + 48))(v10, 1, v11);
 
   if (v13 == 1)
   {
-    outlined destroy of TaskPriority?(v10, &_sScPSgMd_4);
+    outlined destroy of TaskPriority?(v10, &_sScPSgMd_4, &_sScPSgMR_4);
   }
 
   else
@@ -22240,7 +23095,7 @@ LABEL_6:
       v24[3] = v18;
       v22 = swift_task_create();
 
-      outlined destroy of TaskPriority?(a3, &_sScPSgMd_4);
+      outlined destroy of TaskPriority?(a3, &_sScPSgMd_4, &_sScPSgMR_4);
 
       return v22;
     }
@@ -22256,7 +23111,7 @@ LABEL_6:
     }
   }
 
-  outlined destroy of TaskPriority?(a3, &_sScPSgMd_4);
+  outlined destroy of TaskPriority?(a3, &_sScPSgMd_4, &_sScPSgMR_4);
   v21 = swift_allocObject();
   *(v21 + 16) = a4;
   *(v21 + 24) = a5;
@@ -22346,13 +23201,12 @@ uint64_t SyncedLyricsSharingTransitionInfo.transitionWillBeginHandler.getter()
   return v1;
 }
 
-uint64_t SyncedLyricsSharingTransitionInfo.transitionWillBeginHandler.setter(uint64_t a1, uint64_t a2)
+void SyncedLyricsSharingTransitionInfo.transitionWillBeginHandler.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + *(type metadata accessor for SyncedLyricsSharingTransitionInfo(0) + 40));
 
   *v5 = a1;
   v5[1] = a2;
-  return result;
 }
 
 uint64_t SyncedLyricsSharingTransitionInfo.transitionCompletionHandler.getter()
@@ -22362,13 +23216,12 @@ uint64_t SyncedLyricsSharingTransitionInfo.transitionCompletionHandler.getter()
   return v1;
 }
 
-uint64_t SyncedLyricsSharingTransitionInfo.transitionCompletionHandler.setter(uint64_t a1, uint64_t a2)
+void SyncedLyricsSharingTransitionInfo.transitionCompletionHandler.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + *(type metadata accessor for SyncedLyricsSharingTransitionInfo(0) + 44));
 
   *v5 = a1;
   v5[1] = a2;
-  return result;
 }
 
 uint64_t SyncedLyricsViewController.isPlayingSpatial.getter()
@@ -22378,22 +23231,20 @@ uint64_t SyncedLyricsViewController.isPlayingSpatial.getter()
   return *(v0 + v1);
 }
 
-uint64_t SyncedLyricsViewController.isPlayingSpatial.setter(char a1)
+void SyncedLyricsViewController.isPlayingSpatial.setter(char a1)
 {
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isPlayingSpatial;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  v5 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
-  if (v5)
+  v4 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
+  if (v4)
   {
-    result = swift_beginAccess();
-    *(v5 + 88) = a1 & 1;
+    swift_beginAccess();
+    *(v4 + 88) = a1 & 1;
   }
-
-  return result;
 }
 
-void (*SyncedLyricsViewController.isPlayingSpatial.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*SyncedLyricsViewController.isPlayingSpatial.modify(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -22413,7 +23264,7 @@ void (*SyncedLyricsViewController.isPlayingSpatial.modify(uint64_t *a1))(void **
   return SyncedLyricsViewController.isPlayingSpatial.modify;
 }
 
-void SyncedLyricsViewController.isPlayingSpatial.modify(void **a1, char a2)
+void SyncedLyricsViewController.isPlayingSpatial.modify(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
@@ -22439,12 +23290,11 @@ uint64_t SyncedLyricsViewController.isFullScreen.getter()
   return *(v0 + v1);
 }
 
-uint64_t SyncedLyricsViewController.isFullScreen.setter(char a1)
+void SyncedLyricsViewController.isFullScreen.setter(char a1)
 {
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isFullScreen;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 double SyncedLyricsViewController.bottomTapAreaHeight.getter()
@@ -22454,12 +23304,11 @@ double SyncedLyricsViewController.bottomTapAreaHeight.getter()
   return *(v0 + v1);
 }
 
-uint64_t SyncedLyricsViewController.bottomTapAreaHeight.setter(double a1)
+void SyncedLyricsViewController.bottomTapAreaHeight.setter(double a1)
 {
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_bottomTapAreaHeight;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 double SyncedLyricsViewController.containerHeight.getter()
@@ -22472,16 +23321,16 @@ double SyncedLyricsViewController.containerHeight.getter()
 void SyncedLyricsViewController.containerHeight.setter(double a1)
 {
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight;
-  swift_beginAccess();
-  v4 = *(v1 + v3);
+  v4 = swift_beginAccess();
+  v5.n128_u64[0] = *(v1 + v3);
   *(v1 + v3) = a1;
-  if (v4 != a1)
+  if (v5.n128_f64[0] != a1)
   {
-    SyncedLyricsViewController.updateInsets()();
+    SyncedLyricsViewController.updateInsets()(v4, v5);
   }
 }
 
-void (*SyncedLyricsViewController.containerHeight.modify(uint64_t *a1))(uint64_t a1)
+void (*SyncedLyricsViewController.containerHeight.modify(uint64_t *a1))(uint64_t a1, __n128 a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -22503,20 +23352,20 @@ void (*SyncedLyricsViewController.containerHeight.modify(uint64_t *a1))(uint64_t
   return SyncedLyricsViewController.containerHeight.modify;
 }
 
-void SyncedLyricsViewController.containerHeight.modify(uint64_t a1)
+void SyncedLyricsViewController.containerHeight.modify(uint64_t a1, __n128 a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 24);
+  v2 = *a1;
+  a2.n128_u64[0] = *(*a1 + 24);
   v4 = *(*a1 + 32);
   v3 = *(*a1 + 40);
   v5 = *(v4 + v3);
-  *(v4 + v3) = v2;
-  if (v2 != v5)
+  *(v4 + v3) = a2.n128_u64[0];
+  if (a2.n128_f64[0] != v5)
   {
-    SyncedLyricsViewController.updateInsets()();
+    SyncedLyricsViewController.updateInsets()(a1, a2);
   }
 
-  free(v1);
+  free(v2);
 }
 
 void SyncedLyricsViewController.specs.didset(unsigned __int8 *a1)
@@ -22530,25 +23379,25 @@ void SyncedLyricsViewController.specs.didset(unsigned __int8 *a1)
   v4 = &v1[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs];
   swift_beginAccess();
   memcpy(__dst, v4, 0x2B0uLL);
-  outlined init with copy of SyncedLyricsViewController.Specs(__dst, v34);
+  outlined init with copy of SyncedLyricsViewController.Specs(__dst, v36);
   v5 = specialized static SyncedLyricsViewController.Specs.__derived_struct_equals(_:_:)(__dst, a1);
-  outlined destroy of SyncedLyricsViewController.Specs(__dst);
+  v6 = outlined destroy of SyncedLyricsViewController.Specs(__dst);
   if (v5)
   {
     return;
   }
 
-  SyncedLyricsViewController.updateInsets()();
-  v6 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+  SyncedLyricsViewController.updateInsets()(v6, v7);
+  v8 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
   swift_beginAccess();
-  [*&v2[v6] setShowsVerticalScrollIndicator:v4[656]];
-  v7 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
+  [*&v2[v8] setShowsVerticalScrollIndicator:v4[656]];
+  v9 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
   swift_beginAccess();
-  v8 = *&v2[v7];
-  if (v8 >> 62)
+  v10 = *&v2[v9];
+  if (v10 >> 62)
   {
-    v9 = _CocoaArrayWrapper.endIndex.getter();
-    if (v9)
+    v11 = _CocoaArrayWrapper.endIndex.getter();
+    if (v11)
     {
       goto LABEL_5;
     }
@@ -22556,73 +23405,73 @@ void SyncedLyricsViewController.specs.didset(unsigned __int8 *a1)
 
   else
   {
-    v9 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v9)
+    v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v11)
     {
 LABEL_5:
-      v25 = a1;
-      v28 = v9 - 1;
-      if (v9 < 1)
+      v27 = a1;
+      v30 = v11 - 1;
+      if (v11 < 1)
       {
         __break(1u);
         return;
       }
 
-      v27 = v8 & 0xC000000000000001;
+      v29 = v10 & 0xC000000000000001;
 
-      v10 = 0;
-      v26 = v4;
-      if ((v8 & 0xC000000000000001) == 0)
+      v12 = 0;
+      v28 = v4;
+      if ((v10 & 0xC000000000000001) == 0)
       {
         goto LABEL_8;
       }
 
 LABEL_7:
-      for (i = specialized _ArrayBuffer._getElementSlowPath(_:)(); ; i = *(v8 + 8 * v10 + 32))
+      for (i = specialized _ArrayBuffer._getElementSlowPath(_:)(); ; i = *(v10 + 8 * v12 + 32))
       {
-        v12 = i;
-        memcpy(v32, v4, sizeof(v32));
-        v13 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs;
-        memcpy(v33, &v12[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs], sizeof(v33));
-        memmove(&v12[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs], v4, 0x2B0uLL);
-        outlined init with copy of SyncedLyricsViewController.Specs(v32, v31);
-        outlined init with copy of SyncedLyricsViewController.Specs(v32, v31);
-        outlined destroy of SyncedLyricsViewController.Specs(v33);
-        v15 = SyncedLyricsLineView.contentView.modify(v30);
-        if (*v14)
+        v14 = i;
+        memcpy(v34, v4, sizeof(v34));
+        v15 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs;
+        memcpy(v35, &v14[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs], sizeof(v35));
+        memmove(&v14[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_specs], v4, 0x2B0uLL);
+        outlined init with copy of SyncedLyricsViewController.Specs(v34, v33);
+        outlined init with copy of SyncedLyricsViewController.Specs(v34, v33);
+        outlined destroy of SyncedLyricsViewController.Specs(v35);
+        v17 = SyncedLyricsLineView.contentView.modify(v32);
+        if (*v16)
         {
-          v16 = v14;
-          memcpy(v34, &v12[v13], sizeof(v34));
-          v29 = v10;
-          v17 = v8;
-          v19 = *v16;
-          v18 = v16[1];
+          v18 = v16;
+          memcpy(v36, &v14[v15], sizeof(v36));
+          v31 = v12;
+          v19 = v10;
+          v21 = *v18;
+          v20 = v18[1];
           ObjectType = swift_getObjectType();
-          v21 = v2;
-          v22 = v18[2];
-          outlined init with copy of SyncedLyricsViewController.Specs(v34, v31);
-          v23 = v19;
-          v22(v34, ObjectType, v18);
-          v2 = v21;
-          v24 = *v16;
-          *v16 = v19;
-          v16[1] = v18;
-          v8 = v17;
-          v10 = v29;
+          v23 = v2;
+          v24 = v20[2];
+          outlined init with copy of SyncedLyricsViewController.Specs(v36, v33);
+          v25 = v21;
+          v24(v36, ObjectType, v20);
+          v2 = v23;
+          v26 = *v18;
+          *v18 = v21;
+          v18[1] = v20;
+          v10 = v19;
+          v12 = v31;
         }
 
-        v15(v30, 0);
-        outlined destroy of SyncedLyricsViewController.Specs(v32);
-        SyncedLyricsViewController.layout(lineView:)(v12);
+        v17(v32, 0);
+        outlined destroy of SyncedLyricsViewController.Specs(v34);
+        SyncedLyricsViewController.layout(lineView:)(v14);
 
-        if (v28 == v10)
+        if (v30 == v12)
         {
           break;
         }
 
-        ++v10;
-        v4 = v26;
-        if (v27)
+        ++v12;
+        v4 = v28;
+        if (v29)
         {
           goto LABEL_7;
         }
@@ -22631,8 +23480,8 @@ LABEL_8:
         ;
       }
 
-      a1 = v25;
-      v4 = v26;
+      a1 = v27;
+      v4 = v28;
     }
   }
 
@@ -22741,13 +23590,14 @@ void SyncedLyricsViewController.specs.modify(unsigned __int8 **a1, char a2)
   free(v2);
 }
 
-uint64_t SyncedLyricsViewController.delegate.setter(uint64_t a1, uint64_t a2)
+double SyncedLyricsViewController.delegate.setter(uint64_t a1, uint64_t a2)
 {
   v4 = v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_delegate;
   swift_beginAccess();
   *(v4 + 8) = a2;
   swift_unknownObjectWeakAssign();
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
 void (*SyncedLyricsViewController.delegate.modify(uint64_t *a1))(uint64_t a1, char a2)
@@ -22803,7 +23653,7 @@ uint64_t SyncedLyricsViewController.mode.getter()
   return *(v0 + v1);
 }
 
-uint64_t key path setter for SyncedLyricsViewController.lyrics : SyncedLyricsViewController(uint64_t *a1, uint64_t *a2)
+double key path setter for SyncedLyricsViewController.lyrics : SyncedLyricsViewController(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = *a2;
@@ -22813,9 +23663,11 @@ uint64_t key path setter for SyncedLyricsViewController.lyrics : SyncedLyricsVie
   *(v3 + v4) = v2;
 
   SyncedLyricsViewController.lyrics.didset(v5);
+
+  return result;
 }
 
-id SyncedLyricsViewController.lyrics.didset(uint64_t a1)
+void SyncedLyricsViewController.lyrics.didset(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
   swift_beginAccess();
@@ -22824,124 +23676,127 @@ id SyncedLyricsViewController.lyrics.didset(uint64_t a1)
   {
     if (v4 == a1)
     {
-      return SyncedLyricsViewController.updateLines(animator:)(0);
+LABEL_3:
+      SyncedLyricsViewController.updateLines(animator:)(0);
+      return;
     }
   }
 
   else if (!a1)
   {
-    return SyncedLyricsViewController.updateLines(animator:)(0);
+    goto LABEL_3;
   }
 
-  v6 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timestampLabel);
+  v5 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timestampLabel);
   *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timestampLabel) = 0;
-  if (v6)
+  if (v5)
   {
-    [v6 removeFromSuperview];
+    [v5 removeFromSuperview];
   }
 
-  v7 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
+  v6 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
   swift_beginAccess();
-  *(v1 + v7) = _swiftEmptyArrayStorage;
+  *(v1 + v6) = _swiftEmptyArrayStorage;
 
   if (_swiftEmptyArrayStorage >> 62 && _CocoaArrayWrapper.endIndex.getter())
   {
     _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7LyricsX06SyncedE8LineViewC_Tt0g5Tf4g_n(_swiftEmptyArrayStorage);
-    v8 = v27;
+    v7 = v27;
   }
 
   else
   {
-    v8 = &_swiftEmptySetSingleton;
+    v7 = &_swiftEmptySetSingleton;
   }
 
-  v9 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_blurredLineViews;
+  v8 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_blurredLineViews;
   swift_beginAccess();
-  *(v1 + v9) = v8;
+  *(v1 + v8) = v7;
 
-  v10 = *(v1 + v3);
-  if (v10)
+  v9 = *(v1 + v3);
+  if (v9)
   {
-    v11 = v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
+    v10 = v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
     swift_beginAccess();
-    if (*v11)
+    if (*v10)
     {
     }
 
     else
     {
-      v13 = swift_allocObject();
+      v12 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v14 = *(v11 + 648);
-      v15 = *(v11 + 184);
-      v16 = *(v11 + 192);
-      v17 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isPlayingSpatial;
+      v13 = *(v10 + 648);
+      v14 = *(v10 + 184);
+      v15 = *(v10 + 192);
+      v16 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isPlayingSpatial;
       swift_beginAccess();
-      v18 = *(v1 + v17);
+      v17 = *(v1 + v16);
       type metadata accessor for SyncedLyricsManager();
-      v19 = swift_allocObject();
-      *(v19 + 72) = 0;
+      v18 = swift_allocObject();
+      *(v18 + 72) = 0;
       swift_unknownObjectWeakInit();
-      *(v19 + 80) = _swiftEmptyArrayStorage;
-      *(v19 + 96) = 0u;
-      *(v19 + 112) = 0u;
-      *(v19 + 128) = 0u;
-      *(v19 + 144) = 0;
-      *(v19 + 16) = v10;
-      *(v19 + 24) = partial apply for closure #1 in SyncedLyricsViewController.lyrics.didset;
-      *(v19 + 32) = v13;
-      *(v19 + 40) = v14;
-      *(v19 + 48) = v15;
-      *(v19 + 56) = v16;
+      *(v18 + 80) = _swiftEmptyArrayStorage;
+      *(v18 + 96) = 0u;
+      *(v18 + 112) = 0u;
+      *(v18 + 128) = 0u;
+      *(v18 + 144) = 0;
+      *(v18 + 16) = v9;
+      *(v18 + 24) = partial apply for closure #1 in SyncedLyricsViewController.lyrics.didset;
+      *(v18 + 32) = v12;
+      *(v18 + 40) = v13;
+      *(v18 + 48) = v14;
+      *(v18 + 56) = v15;
       swift_beginAccess();
-      *(v19 + 72) = &protocol witness table for SyncedLyricsViewController;
+      *(v18 + 72) = &protocol witness table for SyncedLyricsViewController;
       swift_unknownObjectWeakAssign();
-      *(v19 + 88) = v18;
-      *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager) = v19;
+      *(v18 + 88) = v17;
+      *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager) = v18;
       swift_retain_n();
     }
 
-    v20 = v1;
+    v19 = v1;
     SyncedLyricsViewController.cancelAnimations()();
-    SyncedLyricsViewController.setupUI(with:)(v10);
-    v21 = v1;
-    v22 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
-    if (v22)
+    SyncedLyricsViewController.setupUI(with:)(v9);
+    v20 = v1;
+    v21 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
+    if (v21)
     {
-      v23 = swift_allocObject();
+      v22 = swift_allocObject();
       swift_unknownObjectWeakInit();
       swift_beginAccess();
-      v24 = *(v22 + 96);
-      *(v22 + 96) = partial apply for closure #2 in SyncedLyricsViewController.lyrics.didset;
-      *(v22 + 104) = v23;
+      v23 = *(v21 + 96);
+      v24 = *(v21 + 104);
+      *(v21 + 96) = partial apply for closure #2 in SyncedLyricsViewController.lyrics.didset;
+      *(v21 + 104) = v22;
 
       swift_retain_n();
-      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v24);
+      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v23, v24);
       SyncedLyricsManager.elapsedTimeProvider.didset();
-      v21 = v20;
+      v20 = v19;
     }
 
-    v25 = *(v21 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
+    v25 = *(v20 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
     if (v25)
     {
       v26 = v25;
-      [v26 setPaused:SyncedLyricsViewController.displayLinkShouldPause()() & 1];
+      [v26 setPaused:SyncedLyricsViewController.displayLinkShouldPause()()];
     }
   }
 
   else
   {
-    v12 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
-    if (v12)
+    v11 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
+    if (v11)
     {
-      [v12 setPaused:1];
+      [v11 setPaused:1];
     }
 
     *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager) = 0;
   }
 }
 
-double closure #1 in SyncedLyricsViewController.lyrics.didset(double a1)
+double closure #1 in SyncedLyricsViewController.lyrics.didset(uint64_t a1, double a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -22950,38 +23805,38 @@ double closure #1 in SyncedLyricsViewController.lyrics.didset(double a1)
     return 0.0;
   }
 
-  v3 = Strong;
-  v4 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(*&a1, 0);
+  v4 = Strong;
+  v5 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(*&a2, 0);
 
-  [v4 settlingDuration];
-  v6 = v5;
+  [v5 settlingDuration];
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 void SyncedLyricsViewController.timingProvider.didset(uint64_t a1)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd_2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd_2, &_s10Foundation4DateVSgMR_2);
   __chkstk_darwin();
-  v5 = &v52 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v54 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
-  v7 = &v52 - v6;
+  v7 = &v54 - v6;
   v8 = type metadata accessor for Date();
   v9 = *(v8 - 8);
   __chkstk_darwin();
-  v11 = &v52 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
-  v13 = &v52 - v12;
+  v13 = &v54 - v12;
   v14 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v2 + v14, &v55, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined init with copy of TaskPriority?(v2 + v14, &v57, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   p_cache = (&OBJC_METACLASS____TtCC7LyricsX20SyncedLyricsLineView4Line + 16);
-  if (v56)
+  if (v58)
   {
-    outlined init with take of ActionPerforming(&v55, v58);
-    outlined init with copy of ActionPerforming(v58, &v55);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA14TimingProvider_pMd);
+    outlined init with take of ActionPerforming(&v57, v60);
+    outlined init with copy of ActionPerforming(v60, &v57);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA14TimingProvider_pMd, &_s7LyricsX06SyncedA14TimingProvider_pMR);
     type metadata accessor for SyncedLyricsViewController.StaticTimingProvider();
     if (swift_dynamicCast())
     {
@@ -22989,147 +23844,148 @@ void SyncedLyricsViewController.timingProvider.didset(uint64_t a1)
       goto LABEL_26;
     }
 
-    v18 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_mode;
+    v19 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_mode;
     swift_beginAccess();
-    if (*(v2 + v18) == 2)
+    if (*(v2 + v19) == 2)
     {
 LABEL_26:
       __chkstk_darwin();
-      *(&v52 - 2) = v58;
+      *(&v54 - 2) = v60;
       specialized SyncedLyricsViewController.log(_:)(partial apply for implicit closure #3 in SyncedLyricsViewController.timingProvider.didset);
-      v45 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
-      if (v45)
+      v46 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
+      if (v46)
       {
-        v46 = swift_allocObject();
+        v47 = swift_allocObject();
         swift_unknownObjectWeakInit();
         swift_beginAccess();
-        v47 = *(v45 + 96);
-        *(v45 + 96) = partial apply for closure #2 in SyncedLyricsViewController.lyrics.didset;
-        *(v45 + 104) = v46;
+        v48 = *(v46 + 96);
+        v49 = *(v46 + 104);
+        *(v46 + 96) = partial apply for closure #2 in SyncedLyricsViewController.lyrics.didset;
+        *(v46 + 104) = v47;
 
         swift_retain_n();
-        outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v47);
+        outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v48, v49);
         SyncedLyricsManager.elapsedTimeProvider.didset();
       }
 
 LABEL_28:
-      __swift_destroy_boxed_opaque_existential_0Tm(v58);
+      __swift_destroy_boxed_opaque_existential_0Tm(v60);
       goto LABEL_29;
     }
 
-    outlined init with copy of TaskPriority?(a1, &v55, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-    v19 = v56;
-    if (v56)
+    outlined init with copy of TaskPriority?(a1, &v57, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+    v20 = v58;
+    if (v58)
     {
-      v20 = v57;
-      __swift_project_boxed_opaque_existential_0Tm(&v55, v56);
-      v21 = (*(v20 + 8))(v19, v20);
-      v22 = v21();
+      v21 = v59;
+      __swift_project_boxed_opaque_existential_0Tm(&v57, v58);
+      v22 = (*(v21 + 8))(v20, v21);
+      v23 = v22();
 
-      __swift_destroy_boxed_opaque_existential_0Tm(&v55);
-      v23 = v59;
-      v24 = v60;
-      __swift_project_boxed_opaque_existential_0Tm(v58, v59);
-      v25 = (*(v24 + 8))(v23, v24);
-      v26 = v25();
+      __swift_destroy_boxed_opaque_existential_0Tm(&v57);
+      v24 = v61;
+      v25 = v62;
+      __swift_project_boxed_opaque_existential_0Tm(v60, v61);
+      v26 = (*(v25 + 8))(v24, v25);
+      v27 = v26();
 
-      if (vabdd_f64(v22, v26) <= 0.5)
+      if (vabdd_f64(v23, v27) <= 0.5)
       {
         if (one-time initialization token for logger != -1)
         {
           swift_once();
         }
 
-        v27 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v27, static SyncedLyricsViewController.logger);
-        v28 = Logger.logObject.getter();
-        v29 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v28, v29))
+        v28 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v28, static SyncedLyricsViewController.logger);
+        v29 = Logger.logObject.getter();
+        v30 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v29, v30))
         {
-          v53 = "ince last tap, ignoring.";
-          v30 = swift_slowAlloc();
+          v55 = "ince last tap, ignoring.";
           v31 = swift_slowAlloc();
-          v52 = v28;
-          v32 = v31;
-          *&v55 = v31;
-          *v30 = 136315138;
-          *(v30 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD00000000000005FLL, v53 | 0x8000000000000000, &v55);
-          v33 = v29;
-          v34 = v52;
-          _os_log_impl(&_mh_execute_header, v52, v33, "%s", v30, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0Tm(v32);
+          v32 = swift_slowAlloc();
+          v54 = v29;
+          v33 = v32;
+          *&v57 = v32;
+          *v31 = 136315138;
+          *(v31 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD00000000000005FLL, v55 | 0x8000000000000000, &v57);
+          v34 = v30;
+          v35 = v54;
+          _os_log_impl(&_mh_execute_header, v54, v34, "%s", v31, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0Tm(v33);
         }
 
         else
         {
         }
 
-        v35 = 0;
+        v36 = 0;
 LABEL_16:
-        v36 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lastTapDate;
+        v37 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lastTapDate;
         swift_beginAccess();
-        outlined init with copy of TaskPriority?(v2 + v36, v7, &_s10Foundation4DateVSgMd_2);
+        outlined init with copy of TaskPriority?(v2 + v37, v7, &_s10Foundation4DateVSgMd_2, &_s10Foundation4DateVSgMR_2);
         if ((*(v9 + 48))(v7, 1, v8) == 1)
         {
-          outlined destroy of TaskPriority?(v7, &_s10Foundation4DateVSgMd_2);
+          outlined destroy of TaskPriority?(v7, &_s10Foundation4DateVSgMd_2, &_s10Foundation4DateVSgMR_2);
         }
 
         else
         {
-          LODWORD(v53) = v35;
+          LODWORD(v55) = v36;
           (*(v9 + 32))(v13, v7, v8);
           Date.init()();
           Date.timeIntervalSince(_:)();
-          v38 = v37;
-          v39 = *(v9 + 8);
-          v39(v11, v8);
-          if (v38 < 1.0)
+          v39 = v38;
+          v40 = *(v9 + 8);
+          v40(v11, v8);
+          if (v39 < 1.0)
           {
             if (one-time initialization token for logger != -1)
             {
               swift_once();
             }
 
-            v40 = type metadata accessor for Logger();
-            __swift_project_value_buffer(v40, static SyncedLyricsViewController.logger);
-            v41 = Logger.logObject.getter();
-            v42 = static os_log_type_t.default.getter();
-            if (os_log_type_enabled(v41, v42))
+            v41 = type metadata accessor for Logger();
+            __swift_project_value_buffer(v41, static SyncedLyricsViewController.logger);
+            v42 = Logger.logObject.getter();
+            v43 = static os_log_type_t.default.getter();
+            if (os_log_type_enabled(v42, v43))
             {
-              v43 = swift_slowAlloc();
               v44 = swift_slowAlloc();
-              v54[0] = v44;
-              *v43 = 136315138;
-              *(v43 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD000000000000058, 0x80000001004D8230, v54);
-              _os_log_impl(&_mh_execute_header, v41, v42, "%s", v43, 0xCu);
-              __swift_destroy_boxed_opaque_existential_0Tm(v44);
+              v45 = swift_slowAlloc();
+              v56[0] = v45;
+              *v44 = 136315138;
+              *(v44 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD000000000000058, 0x80000001004D8230, v56);
+              _os_log_impl(&_mh_execute_header, v42, v43, "%s", v44, 0xCu);
+              __swift_destroy_boxed_opaque_existential_0Tm(v45);
             }
 
-            v39(v13, v8);
+            v40(v13, v8);
             p_cache = &OBJC_METACLASS____TtCC7LyricsX20SyncedLyricsLineView4Line.cache;
             goto LABEL_32;
           }
 
-          v39(v13, v8);
-          v35 = v53;
+          v40(v13, v8);
+          v36 = v55;
         }
 
         (*(v9 + 56))(v5, 1, 1, v8);
         swift_beginAccess();
-        outlined assign with take of PlaybackIntentDescriptor.IntentType?(v5, v2 + v36, &_s10Foundation4DateVSgMd_2);
+        outlined assign with take of PlaybackIntentDescriptor.IntentType?(v5, v2 + v37, &_s10Foundation4DateVSgMd_2, &_s10Foundation4DateVSgMR_2);
         swift_endAccess();
         p_cache = &OBJC_METACLASS____TtCC7LyricsX20SyncedLyricsLineView4Line.cache;
-        if (v35)
+        if (v36)
         {
           goto LABEL_26;
         }
 
 LABEL_32:
-        v50 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
-        if (v50)
+        v52 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
+        if (v52)
         {
-          v51 = v50;
-          [v51 setPaused:SyncedLyricsViewController.displayLinkShouldPause()() & 1];
+          v53 = v52;
+          [v53 setPaused:SyncedLyricsViewController.displayLinkShouldPause()()];
         }
 
         goto LABEL_28;
@@ -23138,32 +23994,33 @@ LABEL_32:
 
     else
     {
-      outlined destroy of TaskPriority?(&v55, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+      outlined destroy of TaskPriority?(&v57, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     }
 
-    v35 = 1;
+    v36 = 1;
     goto LABEL_16;
   }
 
-  outlined destroy of TaskPriority?(&v55, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined destroy of TaskPriority?(&v57, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   v16 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
   if (v16)
   {
     swift_beginAccess();
     v17 = *(v16 + 96);
+    v18 = *(v16 + 104);
     *(v16 + 96) = 0;
     *(v16 + 104) = 0;
 
-    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v17);
+    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v17, v18);
     SyncedLyricsManager.elapsedTimeProvider.didset();
   }
 
 LABEL_29:
-  v48 = *(p_cache[455] + v2);
-  if (v48)
+  v50 = *(p_cache[455] + v2);
+  if (v50)
   {
-    v49 = v48;
-    [v49 setPaused:SyncedLyricsViewController.displayLinkShouldPause()() & 1];
+    v51 = v50;
+    [v51 setPaused:SyncedLyricsViewController.displayLinkShouldPause()()];
   }
 }
 
@@ -23183,60 +24040,60 @@ uint64_t implicit closure #3 in SyncedLyricsViewController.timingProvider.didset
   return 0;
 }
 
-double closure #2 in SyncedLyricsViewController.lyrics.didset()
+double closure #2 in SyncedLyricsViewController.lyrics.didset(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
-  v1 = 0.0;
+  v2 = 0.0;
   if (Strong)
   {
-    v2 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
-    v3 = Strong;
+    v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
+    v4 = Strong;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v3 + v2, v14, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined init with copy of TaskPriority?(v4 + v3, v15, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
 
-    v4 = v15;
-    if (v15)
+    v5 = v16;
+    if (v16)
     {
-      v5 = v16;
-      __swift_project_boxed_opaque_existential_0Tm(v14, v15);
-      v6 = *(v4 - 8);
-      v7 = __chkstk_darwin();
-      v9 = v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-      (*(v6 + 16))(v9, v7);
-      outlined destroy of TaskPriority?(v14, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-      v10 = (*(v5 + 8))(v4, v5);
-      v11 = (*(v6 + 8))(v9, v4);
-      v1 = v10(v11);
+      v6 = v17;
+      __swift_project_boxed_opaque_existential_0Tm(v15, v16);
+      v7 = *(v5 - 8);
+      v8 = __chkstk_darwin();
+      v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+      (*(v7 + 16))(v10, v8);
+      outlined destroy of TaskPriority?(v15, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+      v11 = (*(v6 + 8))(v5, v6);
+      v12 = (*(v7 + 8))(v10, v5);
+      v2 = v11(v12);
     }
 
     else
     {
-      outlined destroy of TaskPriority?(v14, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+      outlined destroy of TaskPriority?(v15, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     }
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t SyncedLyricsViewController.timingProvider.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
   swift_beginAccess();
-  return outlined init with copy of TaskPriority?(v1 + v3, a1, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  return outlined init with copy of TaskPriority?(v1 + v3, a1, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
 }
 
 uint64_t SyncedLyricsViewController.timingProvider.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v1 + v3, v5, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined init with copy of TaskPriority?(v1 + v3, v5, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   swift_beginAccess();
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a1, v1 + v3, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a1, v1 + v3, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   swift_endAccess();
   SyncedLyricsViewController.timingProvider.didset(v5);
-  outlined destroy of TaskPriority?(a1, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-  return outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined destroy of TaskPriority?(a1, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+  return outlined destroy of TaskPriority?(v5, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
 }
 
 void (*SyncedLyricsViewController.timingProvider.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -23257,7 +24114,7 @@ void (*SyncedLyricsViewController.timingProvider.modify(uint64_t *a1))(uint64_t 
   *(v3 + 168) = v1;
   *(v3 + 176) = v5;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v1 + v5, v4, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined init with copy of TaskPriority?(v1 + v5, v4, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   return SyncedLyricsViewController.timingProvider.modify;
 }
 
@@ -23268,26 +24125,26 @@ void SyncedLyricsViewController.timingProvider.modify(uint64_t *a1, char a2)
   v4 = *(*a1 + 176);
   if (a2)
   {
-    outlined init with copy of TaskPriority?(*a1, v2 + 40, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-    outlined init with copy of TaskPriority?(v3 + v4, v2 + 80, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined init with copy of TaskPriority?(*a1, v2 + 40, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+    outlined init with copy of TaskPriority?(v3 + v4, v2 + 80, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     swift_beginAccess();
-    outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v2 + 40, v3 + v4, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v2 + 40, v3 + v4, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     swift_endAccess();
     SyncedLyricsViewController.timingProvider.didset(v2 + 80);
-    outlined destroy of TaskPriority?(v2 + 80, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined destroy of TaskPriority?(v2 + 80, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   }
 
   else
   {
-    outlined init with copy of TaskPriority?(v3 + v4, v2 + 40, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined init with copy of TaskPriority?(v3 + v4, v2 + 40, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     swift_beginAccess();
-    outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v2, v3 + v4, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v2, v3 + v4, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     swift_endAccess();
     SyncedLyricsViewController.timingProvider.didset(v2 + 40);
   }
 
-  outlined destroy of TaskPriority?(v2 + 40, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-  outlined destroy of TaskPriority?(v2, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined destroy of TaskPriority?(v2 + 40, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+  outlined destroy of TaskPriority?(v2, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
 
   free(v2);
 }
@@ -23315,7 +24172,7 @@ void SyncedLyricsViewController.bottomViewMetadata.setter(uint64_t a1)
   *v3 = *a1;
   *(v3 + 16) = v5;
   *(v3 + 32) = *(a1 + 32);
-  outlined init with copy of TaskPriority?(a1, &v11, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMd);
+  outlined init with copy of TaskPriority?(a1, &v11, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMd, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMR);
   if (v4)
   {
     [v4 removeFromSuperview];
@@ -23334,7 +24191,7 @@ void SyncedLyricsViewController.bottomViewMetadata.setter(uint64_t a1)
 
 LABEL_12:
 
-    outlined destroy of TaskPriority?(a1, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMd);
+    outlined destroy of TaskPriority?(a1, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMd, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMR);
 
     return;
   }
@@ -23373,7 +24230,7 @@ LABEL_14:
 LABEL_10:
     SyncedLyricsViewController.layout(lineView:)(v10);
 
-    outlined destroy of TaskPriority?(a1, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMd);
+    outlined destroy of TaskPriority?(a1, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMd, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMR);
     return;
   }
 
@@ -23413,19 +24270,19 @@ void SyncedLyricsViewController.bottomViewMetadata.modify(char **a1, char a2)
   v3 = *(*a1 + 6);
   if (a2)
   {
-    *v2 = *(v2 + 5);
-    *(v2 + 1) = v3;
+    *v2 = v2[5];
+    v2[1] = v3;
     *(v2 + 4) = *(v2 + 14);
-    outlined init with copy of TaskPriority?(v2, (v2 + 120), &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMd);
+    outlined init with copy of TaskPriority?(v2, v2 + 120, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMd, &_s7LyricsX06SyncedA14ViewControllerC06BottomC8MetadataVSgMR);
     SyncedLyricsViewController.bottomViewMetadata.setter(v2);
   }
 
   else
   {
-    *(v2 + 40) = *(v2 + 5);
+    *(v2 + 40) = v2[5];
     *(v2 + 56) = v3;
     *(v2 + 9) = *(v2 + 14);
-    SyncedLyricsViewController.bottomViewMetadata.setter((v2 + 40));
+    SyncedLyricsViewController.bottomViewMetadata.setter(v2 + 40);
   }
 
   free(v2);
@@ -23436,7 +24293,7 @@ uint64_t SyncedLyricsViewController.shareHandler.getter()
   v1 = (v0 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_shareHandler);
   swift_beginAccess();
   v2 = *v1;
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(*v1);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(*v1, v1[1]);
   return v2;
 }
 
@@ -23445,9 +24302,10 @@ uint64_t SyncedLyricsViewController.shareHandler.setter(uint64_t a1, uint64_t a2
   v5 = (v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_shareHandler);
   swift_beginAccess();
   v6 = *v5;
+  v7 = v5[1];
   *v5 = a1;
   v5[1] = a2;
-  return outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v6);
+  return outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v6, v7);
 }
 
 id SyncedLyricsViewController.contentView.getter()
@@ -23484,7 +24342,7 @@ void SyncedLyricsViewController.scrollView.setter(uint64_t a1)
   *(v1 + v3) = a1;
 }
 
-void (*SyncedLyricsViewController.currentTranslation.modify(uint64_t *a1))(void *a1, char a2)
+uint64_t (*SyncedLyricsViewController.currentTranslation.modify(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -23499,7 +24357,7 @@ void (*SyncedLyricsViewController.currentTranslation.modify(uint64_t *a1))(void 
   v4 = v3;
   *a1 = v3;
   *(v3 + 24) = v1;
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0) - 8) + 64);
+  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0) - 8) + 64);
   if (&_swift_coroFrameAlloc)
   {
     v6 = swift_coroFrameAlloc();
@@ -23517,39 +24375,39 @@ void (*SyncedLyricsViewController.currentTranslation.modify(uint64_t *a1))(void 
   return SyncedLyricsViewController.currentTranslation.modify;
 }
 
-uint64_t SyncedLyricsViewController.currentTranslation.setter(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t (*a5)(void))
+uint64_t SyncedLyricsViewController.currentTranslation.setter(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t (*a5)(void))
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(a2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
   __chkstk_darwin();
-  v11 = &v17 - v10;
-  v12 = *a4;
+  v12 = &v18 - v11;
+  v13 = *a4;
   swift_beginAccess();
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a1, v5 + v12, a2);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(a1, v5 + v13, a2, a3);
   swift_endAccess();
   if ((*(v5 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isSettingLyrics) & 1) == 0)
   {
-    outlined init with copy of TaskPriority?(v5 + v12, v11, a2);
-    v13 = a5(0);
-    if ((*(*(v13 - 8) + 48))(v11, 1, v13) == 1)
+    outlined init with copy of TaskPriority?(v5 + v13, v12, a2, a3);
+    v14 = a5(0);
+    if ((*(*(v14 - 8) + 48))(v12, 1, v14) == 1)
     {
-      v14 = 150.0;
+      v15 = 150.0;
     }
 
     else
     {
-      v14 = 130.0;
+      v15 = 130.0;
     }
 
-    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
-    outlined destroy of TaskPriority?(v11, a2);
-    isa = UIViewPropertyAnimator.init(springTimingParameters:)([objc_allocWithZone(UISpringTimingParameters) initWithMass:1.0 stiffness:v14 damping:30.0 initialVelocity:{0.0, 0.0}]).super.isa;
+    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
+    outlined destroy of TaskPriority?(v12, a2, a3);
+    isa = UIViewPropertyAnimator.init(springTimingParameters:)([objc_allocWithZone(UISpringTimingParameters) initWithMass:1.0 stiffness:v15 damping:30.0 initialVelocity:{0.0, 0.0}]).super.isa;
     SyncedLyricsViewController.updateLines(animator:)(isa);
   }
 
-  return outlined destroy of TaskPriority?(a1, a2);
+  return outlined destroy of TaskPriority?(a1, a2, a3);
 }
 
-void (*SyncedLyricsViewController.currentTransliteration.modify(uint64_t *a1))(void *a1, char a2)
+uint64_t (*SyncedLyricsViewController.currentTransliteration.modify(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -23564,7 +24422,7 @@ void (*SyncedLyricsViewController.currentTransliteration.modify(uint64_t *a1))(v
   v4 = v3;
   *a1 = v3;
   *(v3 + 24) = v1;
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0) - 8) + 64);
+  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0) - 8) + 64);
   if (&_swift_coroFrameAlloc)
   {
     v6 = swift_coroFrameAlloc();
@@ -23582,45 +24440,45 @@ void (*SyncedLyricsViewController.currentTransliteration.modify(uint64_t *a1))(v
   return SyncedLyricsViewController.currentTransliteration.modify;
 }
 
-void SyncedLyricsViewController.currentTranslation.modify(void *a1, char a2, uint64_t *a3, uint64_t a4, uint64_t (*a5)(void))
+void SyncedLyricsViewController.currentTranslation.modify(void *a1, char a2, uint64_t *a3, uint64_t *a4, uint64_t (*a5)(void))
 {
-  v8 = *a1;
+  v9 = *a1;
   swift_endAccess();
   if ((a2 & 1) == 0)
   {
-    v9 = v8[3];
-    if ((*(v9 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isSettingLyrics) & 1) == 0)
+    v10 = v9[3];
+    if ((*(v10 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isSettingLyrics) & 1) == 0)
     {
-      v10 = v8[4];
-      outlined init with copy of TaskPriority?(v9 + v8[5], v10, a3);
-      v11 = a5(0);
-      if ((*(*(v11 - 8) + 48))(v10, 1, v11) == 1)
+      v11 = v9[4];
+      outlined init with copy of TaskPriority?(v10 + v9[5], v11, a3, a4);
+      v12 = a5(0);
+      if ((*(*(v12 - 8) + 48))(v11, 1, v12) == 1)
       {
-        v12 = 150.0;
+        v13 = 150.0;
       }
 
       else
       {
-        v12 = 130.0;
+        v13 = 130.0;
       }
 
-      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
-      outlined destroy of TaskPriority?(v10, a3);
-      isa = UIViewPropertyAnimator.init(springTimingParameters:)([objc_allocWithZone(UISpringTimingParameters) initWithMass:1.0 stiffness:v12 damping:30.0 initialVelocity:{0.0, 0.0}]).super.isa;
+      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
+      outlined destroy of TaskPriority?(v11, a3, a4);
+      isa = UIViewPropertyAnimator.init(springTimingParameters:)([objc_allocWithZone(UISpringTimingParameters) initWithMass:1.0 stiffness:v13 damping:30.0 initialVelocity:{0.0, 0.0}]).super.isa;
       SyncedLyricsViewController.updateLines(animator:)(isa);
     }
   }
 
-  free(v8[4]);
+  free(v9[4]);
 
-  free(v8);
+  free(v9);
 }
 
 Swift::Void __swiftcall SyncedLyricsViewController.viewDidLoad()()
 {
   v1 = v0;
   swift_getObjectType();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd_4, &_sScPSgMR_4);
   __chkstk_darwin();
   v3 = &v62 - v2;
   v4 = type metadata accessor for SyncedLyricsViewController(0);
@@ -23703,7 +24561,7 @@ LABEL_12:
   [v34 setShowsVerticalScrollIndicator:v35[656]];
   [*&v1[v33] _setHiddenPocketEdges:15];
   [*&v1[v7] addSubview:*&v1[v33]];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd_2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMd_2, &_ss23_ContiguousArrayStorageCy5UIKit17UITraitDefinition_pXpGMR_2);
   v36 = swift_allocObject();
   v62 = xmmword_1004F2400;
   *(v36 + 16) = xmmword_1004F2400;
@@ -23765,11 +24623,11 @@ LABEL_12:
   v55 = v54;
   if (v53 == 2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd_2, &_ss23_ContiguousArrayStorageCyyXlGMR_2);
     v56 = swift_allocObject();
     *(v56 + 16) = xmmword_1004F2F10;
     *(v56 + 32) = Int._bridgeToObjectiveC()();
-    type metadata accessor for UIAction(0, &_sSo8NSNumberCML_2);
+    type metadata accessor for UIAction(0, &_sSo8NSNumberCML_2, NSNumber_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v55 setAllowedPressTypes:isa];
@@ -23814,11 +24672,11 @@ uint64_t closure #3 in SyncedLyricsViewController.viewDidLoad()(uint64_t a1, uin
   v5[21] = swift_task_alloc();
   type metadata accessor for NSNotificationCenter.Notifications.Iterator();
   v5[22] = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneCGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneCGMd, &_ss23AsyncCompactMapSequenceVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneCGMR);
   v5[23] = v8;
   v5[24] = *(v8 - 8);
   v5[25] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMd, &_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMR);
   v5[26] = v9;
   v5[27] = *(v9 - 8);
   v5[28] = swift_task_alloc();
@@ -23838,8 +24696,8 @@ uint64_t closure #3 in SyncedLyricsViewController.viewDidLoad()()
   v3 = v0[23];
   v0[11] = v0[14];
   type metadata accessor for NSNotificationCenter.Notifications();
-  v0[33] = type metadata accessor for UIAction(0, &_sSo13UIWindowSceneCML_1);
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type NSNotificationCenter.Notifications and conformance NSNotificationCenter.Notifications, &type metadata accessor for NSNotificationCenter.Notifications);
+  v0[33] = type metadata accessor for UIAction(0, &_sSo13UIWindowSceneCML_1, UIWindowScene_ptr);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type NSNotificationCenter.Notifications and conformance NSNotificationCenter.Notifications, &type metadata accessor for NSNotificationCenter.Notifications, &protocol conformance descriptor for NSNotificationCenter.Notifications);
 
   AsyncCompactMapSequence.init(_:transform:)();
   AsyncCompactMapSequence.base.getter();
@@ -23928,7 +24786,7 @@ void closure #3 in SyncedLyricsViewController.viewDidLoad()()
         v22 = v0[17];
         v16 = v0[15];
 
-        type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3);
+        type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3, OS_dispatch_queue_ptr);
         v21 = static OS_dispatch_queue.main.getter();
         v0[6] = partial apply for closure #2 in closure #3 in SyncedLyricsViewController.viewDidLoad();
         v0[7] = v16;
@@ -23940,9 +24798,9 @@ void closure #3 in SyncedLyricsViewController.viewDidLoad()()
 
         static DispatchQoS.unspecified.getter();
         v0[13] = _swiftEmptyArrayStorage;
-        _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
+        _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
         dispatch thunk of SetAlgebra.init<A>(_:)();
         OS_dispatch_queue.async(group:qos:flags:execute:)();
         _Block_release(v17);
@@ -23994,7 +24852,7 @@ uint64_t closure #1 in closure #3 in SyncedLyricsViewController.viewDidLoad()()
   v1 = v0[6];
   if (v0[5])
   {
-    type metadata accessor for UIAction(0, &_sSo13UIWindowSceneCML_1);
+    type metadata accessor for UIAction(0, &_sSo13UIWindowSceneCML_1, UIWindowScene_ptr);
     if ((swift_dynamicCast() & 1) == 0)
     {
       *v0[6] = 0;
@@ -24003,7 +24861,7 @@ uint64_t closure #1 in closure #3 in SyncedLyricsViewController.viewDidLoad()()
 
   else
   {
-    outlined destroy of TaskPriority?((v0 + 2), &_sypSgMd_3);
+    outlined destroy of TaskPriority?((v0 + 2), &_sypSgMd_3, &_sypSgMR_3);
     *v1 = 0;
   }
 
@@ -24017,7 +24875,7 @@ uint64_t _ss23AsyncCompactMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa
   v3[8] = a2;
   v3[9] = v2;
   v3[7] = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd_0, &_s10Foundation12NotificationVSgMR_0);
   v3[10] = swift_task_alloc();
   v5 = type metadata accessor for Notification();
   v3[11] = v5;
@@ -24044,10 +24902,10 @@ uint64_t _ss23AsyncCompactMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa
 
 uint64_t _ss23AsyncCompactMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa7FailureQzYKFSo20NSNotificationCenterC10FoundationE13NotificationsC_So13UIWindowSceneCTg5TY0_()
 {
-  v0[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMd);
+  v0[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMd, &_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMR);
   v0[17] = AsyncCompactMapSequence.Iterator.baseIterator.modify();
   type metadata accessor for NSNotificationCenter.Notifications.Iterator();
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_sSo20NSNotificationCenterC10FoundationE13NotificationsC8IteratorVAGScIACWL_0, &type metadata accessor for NSNotificationCenter.Notifications.Iterator);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_sSo20NSNotificationCenterC10FoundationE13NotificationsC8IteratorVAGScIACWL_0, &type metadata accessor for NSNotificationCenter.Notifications.Iterator, &protocol conformance descriptor for NSNotificationCenter.Notifications.Iterator);
   v1 = swift_task_alloc();
   v0[18] = v1;
   *v1 = v0;
@@ -24088,7 +24946,7 @@ uint64_t _ss23AsyncCompactMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa
   v3 = v0[10];
   if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
-    outlined destroy of TaskPriority?(v3, &_s10Foundation12NotificationVSgMd_0);
+    outlined destroy of TaskPriority?(v3, &_s10Foundation12NotificationVSgMd_0, &_s10Foundation12NotificationVSgMR_0);
 
     v4 = v0[1];
 
@@ -24147,10 +25005,10 @@ uint64_t _ss23AsyncCompactMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa
 
   else
   {
-    v0[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMd);
+    v0[16] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMd, &_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMR);
     v0[17] = AsyncCompactMapSequence.Iterator.baseIterator.modify();
     type metadata accessor for NSNotificationCenter.Notifications.Iterator();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_sSo20NSNotificationCenterC10FoundationE13NotificationsC8IteratorVAGScIACWL_0, &type metadata accessor for NSNotificationCenter.Notifications.Iterator);
+    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_sSo20NSNotificationCenterC10FoundationE13NotificationsC8IteratorVAGScIACWL_0, &type metadata accessor for NSNotificationCenter.Notifications.Iterator, &protocol conformance descriptor for NSNotificationCenter.Notifications.Iterator);
     v4 = swift_task_alloc();
     v0[18] = v4;
     *v4 = v0;
@@ -24163,7 +25021,7 @@ uint64_t _ss23AsyncCompactMapSequenceV8IteratorV4next9isolationq_SgScA_pSgYi_tYa
   }
 }
 
-void closure #2 in closure #3 in SyncedLyricsViewController.viewDidLoad()()
+void closure #2 in closure #3 in SyncedLyricsViewController.viewDidLoad()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -24173,16 +25031,16 @@ void closure #2 in closure #3 in SyncedLyricsViewController.viewDidLoad()()
   }
 
   swift_beginAccess();
-  v1 = swift_unknownObjectWeakLoadStrong();
-  if (v1)
+  v2 = swift_unknownObjectWeakLoadStrong();
+  if (v2)
   {
-    v2 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
-    v3 = v1;
+    v3 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
     v4 = v2;
+    v5 = v3;
 
-    if (v2)
+    if (v3)
     {
-      [v4 setPaused:1];
+      [v5 setPaused:1];
     }
   }
 }
@@ -24201,11 +25059,11 @@ uint64_t closure #4 in SyncedLyricsViewController.viewDidLoad()(uint64_t a1, uin
   v5[21] = swift_task_alloc();
   type metadata accessor for NSNotificationCenter.Notifications.Iterator();
   v5[22] = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneCGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneCGMd, &_ss23AsyncCompactMapSequenceVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneCGMR);
   v5[23] = v8;
   v5[24] = *(v8 - 8);
   v5[25] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMd, &_ss23AsyncCompactMapSequenceV8IteratorVySo20NSNotificationCenterC10FoundationE13NotificationsCSo13UIWindowSceneC_GMR);
   v5[26] = v9;
   v5[27] = *(v9 - 8);
   v5[28] = swift_task_alloc();
@@ -24225,8 +25083,8 @@ uint64_t closure #4 in SyncedLyricsViewController.viewDidLoad()()
   v3 = v0[23];
   v0[11] = v0[14];
   type metadata accessor for NSNotificationCenter.Notifications();
-  v0[33] = type metadata accessor for UIAction(0, &_sSo13UIWindowSceneCML_1);
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type NSNotificationCenter.Notifications and conformance NSNotificationCenter.Notifications, &type metadata accessor for NSNotificationCenter.Notifications);
+  v0[33] = type metadata accessor for UIAction(0, &_sSo13UIWindowSceneCML_1, UIWindowScene_ptr);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type NSNotificationCenter.Notifications and conformance NSNotificationCenter.Notifications, &type metadata accessor for NSNotificationCenter.Notifications, &protocol conformance descriptor for NSNotificationCenter.Notifications);
 
   AsyncCompactMapSequence.init(_:transform:)();
   AsyncCompactMapSequence.base.getter();
@@ -24299,7 +25157,7 @@ void closure #4 in SyncedLyricsViewController.viewDidLoad()()
         v11 = v0[16];
         v18 = v0[17];
         v12 = v0[15];
-        type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3);
+        type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3, OS_dispatch_queue_ptr);
         v17 = static OS_dispatch_queue.main.getter();
         v0[6] = partial apply for closure #2 in closure #4 in SyncedLyricsViewController.viewDidLoad();
         v0[7] = v12;
@@ -24311,9 +25169,9 @@ void closure #4 in SyncedLyricsViewController.viewDidLoad()()
 
         static DispatchQoS.unspecified.getter();
         v0[13] = _swiftEmptyArrayStorage;
-        _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
+        _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
         dispatch thunk of SetAlgebra.init<A>(_:)();
         OS_dispatch_queue.async(group:qos:flags:execute:)();
         _Block_release(v13);
@@ -24359,37 +25217,38 @@ uint64_t closure #1 in closure #4 in SyncedLyricsViewController.viewDidLoad()(ui
   return _swift_task_switch(closure #1 in closure #4 in SyncedLyricsViewController.viewDidLoad(), 0, 0);
 }
 
-void closure #2 in closure #4 in SyncedLyricsViewController.viewDidLoad()()
+void closure #2 in closure #4 in SyncedLyricsViewController.viewDidLoad()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = *(Strong + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
-    v2 = Strong;
+    v2 = *(Strong + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
+    v3 = Strong;
 
-    if (v1)
+    if (v2)
     {
-      v3 = swift_allocObject();
+      v4 = swift_allocObject();
       swift_beginAccess();
-      v4 = swift_unknownObjectWeakLoadStrong();
+      v5 = swift_unknownObjectWeakLoadStrong();
       swift_unknownObjectWeakInit();
 
       swift_beginAccess();
-      v5 = *(v1 + 96);
-      *(v1 + 96) = partial apply for closure #1 in closure #2 in closure #4 in SyncedLyricsViewController.viewDidLoad();
-      *(v1 + 104) = v3;
+      v6 = *(v2 + 96);
+      v7 = *(v2 + 104);
+      *(v2 + 96) = partial apply for closure #1 in closure #2 in closure #4 in SyncedLyricsViewController.viewDidLoad();
+      *(v2 + 104) = v4;
       swift_retain_n();
-      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v5);
+      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v6, v7);
       SyncedLyricsManager.elapsedTimeProvider.didset();
     }
   }
 
   swift_beginAccess();
-  v6 = swift_unknownObjectWeakLoadStrong();
-  if (v6)
+  v8 = swift_unknownObjectWeakLoadStrong();
+  if (v8)
   {
-    v6[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isBackgrounded] = 0;
+    v8[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isBackgrounded] = 0;
   }
 
   if (one-time initialization token for lyrics != -1)
@@ -24397,58 +25256,58 @@ void closure #2 in closure #4 in SyncedLyricsViewController.viewDidLoad()()
     swift_once();
   }
 
-  v7 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v7, static Logger.lyrics);
+  v9 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v9, static Logger.lyrics);
 
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.default.getter();
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v8, v9))
+  if (os_log_type_enabled(v10, v11))
   {
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v24[0] = v11;
-    *v10 = 136315138;
+    v12 = swift_slowAlloc();
+    v13 = swift_slowAlloc();
+    v26[0] = v13;
+    *v12 = 136315138;
     swift_beginAccess();
-    v12 = swift_unknownObjectWeakLoadStrong();
-    if (v12)
+    v14 = swift_unknownObjectWeakLoadStrong();
+    if (v14)
     {
-      v13 = v12;
+      v15 = v14;
       SyncedLyricsViewController.displayLinkShouldPause()();
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd_0);
-    v14 = String.init<A>(describing:)();
-    v16 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(v14, v15, v24);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd_0, &_sSbSgMR_0);
+    v16 = String.init<A>(describing:)();
+    v18 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(v16, v17, v26);
 
-    *(v10 + 4) = v16;
-    __swift_destroy_boxed_opaque_existential_0Tm(v11);
+    *(v12 + 4) = v18;
+    __swift_destroy_boxed_opaque_existential_0Tm(v13);
   }
 
   swift_beginAccess();
-  v17 = swift_unknownObjectWeakLoadStrong();
-  if (v17)
+  v19 = swift_unknownObjectWeakLoadStrong();
+  if (v19)
   {
-    v18 = *(v17 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
-    v19 = v17;
-    v20 = v18;
+    v20 = *(v19 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
+    v21 = v19;
+    v22 = v20;
 
-    if (v18)
+    if (v20)
     {
       swift_beginAccess();
-      v21 = swift_unknownObjectWeakLoadStrong();
-      if (v21)
+      v23 = swift_unknownObjectWeakLoadStrong();
+      if (v23)
       {
-        v22 = v21;
-        v23 = SyncedLyricsViewController.displayLinkShouldPause()();
+        v24 = v23;
+        v25 = SyncedLyricsViewController.displayLinkShouldPause()();
       }
 
       else
       {
-        v23 = 1;
+        v25 = 1;
       }
 
-      [v20 setPaused:v23 & 1];
+      [v22 setPaused:v25];
     }
   }
 }
@@ -24512,35 +25371,36 @@ uint64_t closure #2 in SyncedLyricsViewController.menuHandler(_:)(double a1, dou
 {
   v10 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
-  outlined init with copy of ActionPerforming(a6 + v10, v12);
-  SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(v12, 0, 0, 1, 0, a1, a2, a3);
-  return __swift_destroy_boxed_opaque_existential_0Tm(v12);
+  outlined init with copy of ActionPerforming(a6 + v10, v13);
+  v11.n128_f64[0] = a1;
+  SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(v13, 0, 0, 1, 0, v11, a2, a3);
+  return __swift_destroy_boxed_opaque_existential_0Tm(v13);
 }
 
-uint64_t SyncedLyricsViewController.handleTap(on:)(uint64_t a1)
+void SyncedLyricsViewController.handleTap(on:)(uint64_t a1)
 {
   v2 = v1;
   v4 = type metadata accessor for DispatchWorkItemFlags();
-  v97 = *(v4 - 8);
-  v98 = v4;
+  v98 = *(v4 - 8);
+  v99 = v4;
   __chkstk_darwin();
-  v95 = v82 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v96 = type metadata accessor for DispatchQoS();
-  v94 = *(v96 - 8);
+  v96 = v83 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v97 = type metadata accessor for DispatchQoS();
+  v95 = *(v97 - 8);
   __chkstk_darwin();
-  v93 = v82 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v102 = type metadata accessor for DispatchTime();
-  v92 = *(v102 - 8);
+  v94 = v83 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v103 = type metadata accessor for DispatchTime();
+  v93 = *(v103 - 8);
   __chkstk_darwin();
-  v90 = v82 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v91 = v83 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
-  v91 = v82 - v8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd_2);
+  v92 = v83 - v8;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd_2, &_s10Foundation4DateVSgMR_2);
   __chkstk_darwin();
-  v89 = v82 - v9;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  v90 = v83 - v9;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   *&v10 = __chkstk_darwin().n128_u64[0];
-  v12 = v82 - v11;
+  v12 = v83 - v11;
   [*(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_tapFeedbackGenerator) selectionChanged];
   v13 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink);
   if (v13)
@@ -24557,8 +25417,8 @@ uint64_t SyncedLyricsViewController.handleTap(on:)(uint64_t a1)
   *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_allowAnimateToNextLineAfterScroll) = 1;
   v16 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
-  outlined init with copy of ActionPerforming(a1 + v16, v105);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  outlined init with copy of ActionPerforming(a1 + v16, v106);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   v17 = type metadata accessor for Lyrics.TextLine(0);
   v18 = swift_dynamicCast();
   v19 = *(*(v17 - 8) + 56);
@@ -24566,25 +25426,25 @@ uint64_t SyncedLyricsViewController.handleTap(on:)(uint64_t a1)
   {
 LABEL_37:
     (v19)(v12, 1, 1, v17);
-    outlined destroy of TaskPriority?(v12, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v12, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     goto LABEL_38;
   }
 
   (v19)(v12, 0, 1, v17);
-  outlined destroy of TaskPriority?(v12, &_s7LyricsX0A0C8TextLineVSgMd);
+  outlined destroy of TaskPriority?(v12, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   v12 = *(a1 + OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_contentView);
   if (v12)
   {
-    type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
-    result = swift_dynamicCastClass();
-    if (result)
+    type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
+    v20 = swift_dynamicCastClass();
+    if (v20)
     {
-      v21 = *(result + OBJC_IVAR___MusicSBS_TextContentView_textView);
+      v21 = *(v20 + OBJC_IVAR___MusicSBS_TextContentView_textView);
       if (!v21)
       {
 LABEL_49:
         __break(1u);
-        return result;
+        return;
       }
 
       v17 = *(v21 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_textContainer);
@@ -24595,87 +25455,88 @@ LABEL_49:
         if (v23)
         {
           v24 = *(v17 + 48);
-          v101 = type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3);
+          v102 = type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3, OS_dispatch_queue_ptr);
           v25 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
-          v82[1] = v24;
+          v83[1] = v24;
 
-          v82[0] = v12;
-          v82[2] = v17;
+          v83[0] = v12;
+          v83[2] = v17;
 
-          v100 = v25;
+          v101 = v25;
           swift_beginAccess();
           v19 = *(v22 + 16);
           if (v19)
           {
             v26 = 0;
-            v99 = v22 + 32;
-            v84 = a1;
-            v85 = v2;
-            v83 = v16;
-            v86 = v23;
-            v87 = v22;
+            v100 = v22 + 32;
+            v85 = a1;
+            v86 = v2;
+            v84 = v16;
+            v87 = v23;
+            v88 = v22;
             while (1)
             {
-              v17 = *(v99 + 8 * v26);
-              v103 = v26 + 1;
-              memcpy(v105, &v100[v2], 0x2B0uLL);
+              v17 = *(v100 + 8 * v26);
+              v104 = v26 + 1;
+              memcpy(v106, &v101[v2], 0x2B0uLL);
               *(v17 + 120) = 1;
 
-              outlined init with copy of SyncedLyricsViewController.Specs(v105, v104);
+              outlined init with copy of SyncedLyricsViewController.Specs(v106, v105);
               v12 = static OS_dispatch_queue.main.getter();
-              v27 = swift_allocObject();
+              v27 = *&v106[80];
+              v28 = swift_allocObject();
               swift_weakInit();
 
-              OS_dispatch_queue.asyncAfter(_:block:)(partial apply for closure #1 in SyncedLyricsLineView.Line.resetGradient(specs:), v27);
+              OS_dispatch_queue.asyncAfter(_:block:)(partial apply for closure #1 in SyncedLyricsLineView.Line.resetGradient(specs:), v28, v27);
 
               if ((*(v17 + 57) & 1) == 0)
               {
-                v37 = *(v17 + 112);
-                if (v37 && (v38 = *(v37 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_gradientView)) != 0)
+                v38 = *(v17 + 112);
+                if (v38 && (v39 = *(v38 + OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Line8LineView_gradientView)) != 0)
                 {
-                  v39 = v105[25];
-                  v40 = v38;
-                  [v39 lineHeight];
-                  v42 = vabdd_f64(v41 * *&v105[32] + *&v105[58] + *&v105[58], CGRectGetHeight(*(v17 + 80))) * 0.5;
+                  v40 = v106[25];
+                  v41 = v39;
+                  [v40 lineHeight];
+                  v43 = vabdd_f64(v42 * *&v106[32] + *&v106[58] + *&v106[58], CGRectGetHeight(*(v17 + 80))) * 0.5;
                   if (*(v17 + 58))
                   {
-                    v43 = v42 + CGRectGetWidth(*(v17 + 80));
-                    v44 = -v42;
+                    v44 = v43 + CGRectGetWidth(*(v17 + 80));
+                    v45 = -v43;
                   }
 
                   else
                   {
-                    v44 = -v42;
-                    v43 = -v42;
+                    v45 = -v43;
+                    v44 = -v43;
                   }
 
-                  v45 = *(v17 + 80);
-                  v46 = *(v17 + 88);
-                  v47 = *(v17 + 96);
-                  v48 = *(v17 + 104);
-                  v12 = v40;
-                  v108.origin.x = v45;
-                  v108.origin.y = v46;
-                  v108.size.width = v47;
-                  v108.size.height = v48;
-                  [v12 setFrame:{v43, v44, v42, v42 + v42 + CGRectGetHeight(v108)}];
-                  outlined destroy of SyncedLyricsViewController.Specs(v105);
+                  v46 = *(v17 + 80);
+                  v47 = *(v17 + 88);
+                  v48 = *(v17 + 96);
+                  v49 = *(v17 + 104);
+                  v12 = v41;
+                  v109.origin.x = v46;
+                  v109.origin.y = v47;
+                  v109.size.width = v48;
+                  v109.size.height = v49;
+                  [v12 setFrame:{v44, v45, v43, v43 + v43 + CGRectGetHeight(v109)}];
+                  outlined destroy of SyncedLyricsViewController.Specs(v106);
                 }
 
                 else
                 {
-                  outlined destroy of SyncedLyricsViewController.Specs(v105);
+                  outlined destroy of SyncedLyricsViewController.Specs(v106);
                 }
 
                 goto LABEL_34;
               }
 
-              result = swift_beginAccess();
+              swift_beginAccess();
               v12 = *(v17 + 16);
               if (!(v12 >> 62))
               {
-                v28 = *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10);
-                if (v28)
+                v29 = *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10);
+                if (v29)
                 {
                   break;
                 }
@@ -24683,45 +25544,44 @@ LABEL_49:
                 goto LABEL_32;
               }
 
-              result = _CocoaArrayWrapper.endIndex.getter();
-              v28 = result;
-              if (result)
+              v29 = _CocoaArrayWrapper.endIndex.getter();
+              if (v29)
               {
                 break;
               }
 
 LABEL_32:
-              outlined destroy of SyncedLyricsViewController.Specs(v105);
+              outlined destroy of SyncedLyricsViewController.Specs(v106);
 
 LABEL_33:
-              v23 = v86;
-              v22 = v87;
+              v23 = v87;
+              v22 = v88;
 LABEL_34:
-              v26 = v103;
-              if (v103 == v23)
+              v26 = v104;
+              if (v104 == v23)
               {
 
                 goto LABEL_38;
               }
 
               v19 = *(v22 + 16);
-              if (v103 >= v19)
+              if (v104 >= v19)
               {
                 goto LABEL_36;
               }
             }
 
-            if (v28 >= 1)
+            if (v29 >= 1)
             {
-              v88 = v17;
+              v89 = v17;
 
-              v29 = 0;
+              v30 = 0;
               while (1)
               {
                 if ((v12 & 0xC000000000000001) != 0)
                 {
-                  v30 = *(specialized _ArrayBuffer._getElementSlowPath(_:)() + 208);
-                  if (v30)
+                  v31 = *(specialized _ArrayBuffer._getElementSlowPath(_:)() + 208);
+                  if (v31)
                   {
                     goto LABEL_21;
                   }
@@ -24729,36 +25589,36 @@ LABEL_34:
 
                 else
                 {
-                  v31 = *(v12 + 8 * v29 + 32);
+                  v32 = *(v12 + 8 * v30 + 32);
 
-                  v30 = *(v31 + 208);
-                  if (v30)
+                  v31 = *(v32 + 208);
+                  if (v31)
                   {
 LABEL_21:
-                    v32 = *&v30[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_crossfadeAnimationParameters];
-                    if (v32)
+                    v33 = *&v31[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_crossfadeAnimationParameters];
+                    if (v33)
                     {
-                      v17 = *&v30[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_crossfadeAnimationParameters + 8];
-                      v33 = *&v30[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_overlayView];
-                      v34 = v30;
-                      outlined copy of SyncedLyricsLineView.Word.CrossfadeAnimationParameters?(v32, v17);
-                      v35 = v33;
-                      v36 = v32;
-                      [v35 setBackgroundColor:v36];
+                      v17 = *&v31[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_crossfadeAnimationParameters + 8];
+                      v34 = *&v31[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView4Word17WordContainerView_overlayView];
+                      v35 = v31;
+                      outlined copy of SyncedLyricsLineView.Word.CrossfadeAnimationParameters?(v33, v17);
+                      v36 = v34;
+                      v37 = v33;
+                      [v36 setBackgroundColor:v37];
                     }
                   }
                 }
 
-                ++v29;
+                ++v30;
 
-                if (v28 == v29)
+                if (v29 == v30)
                 {
 
-                  outlined destroy of SyncedLyricsViewController.Specs(v105);
+                  outlined destroy of SyncedLyricsViewController.Specs(v106);
 
-                  a1 = v84;
-                  v2 = v85;
-                  v16 = v83;
+                  a1 = v85;
+                  v2 = v86;
+                  v16 = v84;
                   goto LABEL_33;
                 }
               }
@@ -24777,151 +25637,152 @@ LABEL_36:
   }
 
 LABEL_38:
-  v49 = [objc_allocWithZone(MSVLyricsLine) init];
-  outlined init with copy of ActionPerforming(a1 + v16, v105);
-  v50 = v105[3];
-  v51 = v105[4];
-  __swift_project_boxed_opaque_existential_0Tm(v105, v105[3]);
-  v52 = (*(*(v51 + 8) + 8))(v50);
-  v53 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
-  v54 = 0.0;
-  if (v53)
+  v50 = [objc_allocWithZone(MSVLyricsLine) init];
+  outlined init with copy of ActionPerforming(a1 + v16, v106);
+  v51 = v106[3];
+  v52 = v106[4];
+  __swift_project_boxed_opaque_existential_0Tm(v106, v106[3]);
+  v53 = (*(*(v52 + 8) + 8))(v51);
+  v54 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
+  v55 = 0.0;
+  if (v54)
   {
     swift_beginAccess();
-    if (*(v53 + 88) == 1)
+    if (*(v54 + 88) == 1)
     {
 
-      v54 = Lyrics.spatialOffset.getter();
+      v55 = Lyrics.spatialOffset.getter();
     }
   }
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v105);
-  [v49 setStartTime:v52 + v54];
-  outlined init with copy of ActionPerforming(a1 + v16, v105);
-  v55 = v105[3];
-  v56 = v105[4];
-  __swift_project_boxed_opaque_existential_0Tm(v105, v105[3]);
-  (*(*(v56 + 8) + 16))(v55);
-  [v49 setEndTime:?];
-  __swift_destroy_boxed_opaque_existential_0Tm(v105);
-  v57 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
+  __swift_destroy_boxed_opaque_existential_0Tm(v106);
+  [v50 setStartTime:v53 + v55];
+  outlined init with copy of ActionPerforming(a1 + v16, v106);
+  v56 = v106[3];
+  v57 = v106[4];
+  __swift_project_boxed_opaque_existential_0Tm(v106, v106[3]);
+  (*(*(v57 + 8) + 16))(v56);
+  [v50 setEndTime:?];
+  __swift_destroy_boxed_opaque_existential_0Tm(v106);
+  v58 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v2 + v57, v104, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-  [v49 startTime];
-  v59 = v58;
-  outlined init with copy of TaskPriority?(v104, v105, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-  v60 = v105[3];
-  if (v105[3])
+  outlined init with copy of TaskPriority?(v2 + v58, v105, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+  [v50 startTime];
+  v60 = v59;
+  outlined init with copy of TaskPriority?(v105, v106, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+  v61 = v106[3];
+  if (v106[3])
   {
-    v61 = v105[4];
-    __swift_project_boxed_opaque_existential_0Tm(v105, v105[3]);
-    v62 = (*(v61 + 16))(v60, v61);
-    __swift_destroy_boxed_opaque_existential_0Tm(v105);
+    v62 = v106[4];
+    __swift_project_boxed_opaque_existential_0Tm(v106, v106[3]);
+    v63 = (*(v62 + 16))(v61, v62);
+    __swift_destroy_boxed_opaque_existential_0Tm(v106);
   }
 
   else
   {
-    outlined destroy of TaskPriority?(v105, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-    v62 = 1;
+    outlined destroy of TaskPriority?(v106, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+    v63 = 1;
   }
 
-  v63 = type metadata accessor for SyncedLyricsViewController.StaticTimingProvider();
-  v64 = swift_allocObject();
-  *(v64 + 24) = v59;
-  *(v64 + 16) = v62 & 1;
-  v105[4] = &protocol witness table for SyncedLyricsViewController.StaticTimingProvider;
-  v105[3] = v63;
-  v105[0] = v64;
-  outlined init with copy of TaskPriority?(v2 + v57, v106, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  v64 = type metadata accessor for SyncedLyricsViewController.StaticTimingProvider();
+  v65 = swift_allocObject();
+  *(v65 + 24) = v60;
+  *(v65 + 16) = v63 & 1;
+  v106[4] = &protocol witness table for SyncedLyricsViewController.StaticTimingProvider;
+  v106[3] = v64;
+  v106[0] = v65;
+  outlined init with copy of TaskPriority?(v2 + v58, v107, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   swift_beginAccess();
 
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v105, v2 + v57, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v106, v2 + v58, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   swift_endAccess();
-  SyncedLyricsViewController.timingProvider.didset(v106);
-  outlined destroy of TaskPriority?(v106, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-  outlined destroy of TaskPriority?(v105, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-  v65 = v89;
+  SyncedLyricsViewController.timingProvider.didset(v107);
+  outlined destroy of TaskPriority?(v107, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+  outlined destroy of TaskPriority?(v106, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+  v66 = v90;
   Date.init()();
-  v66 = type metadata accessor for Date();
-  (*(*(v66 - 8) + 56))(v65, 0, 1, v66);
-  v67 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lastTapDate;
+  v67 = type metadata accessor for Date();
+  (*(*(v67 - 8) + 56))(v66, 0, 1, v67);
+  v68 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lastTapDate;
   swift_beginAccess();
-  outlined assign with take of PlaybackIntentDescriptor.IntentType?(v65, v2 + v67, &_s10Foundation4DateVSgMd_2);
+  outlined assign with take of PlaybackIntentDescriptor.IntentType?(v66, v2 + v68, &_s10Foundation4DateVSgMd_2, &_s10Foundation4DateVSgMR_2);
   swift_endAccess();
-  v68 = v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_delegate;
+  v69 = v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_delegate;
   swift_beginAccess();
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v69 = *(v68 + 1);
+    v70 = *(v69 + 1);
     ObjectType = swift_getObjectType();
-    (*(v69 + 8))(v2, v49, ObjectType, v69);
+    (*(v70 + 8))(v2, v50, ObjectType, v70);
     swift_unknownObjectRelease();
   }
 
-  type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3);
-  v101 = static OS_dispatch_queue.main.getter();
-  v71 = v90;
-  static DispatchTime.now()();
+  type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3, OS_dispatch_queue_ptr);
+  v102 = static OS_dispatch_queue.main.getter();
   v72 = v91;
+  static DispatchTime.now()();
+  v73 = v92;
   + infix(_:_:)();
-  v103 = *(v92 + 8);
-  (v103)(v71, v102);
-  outlined init with copy of TaskPriority?(v104, v106, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-  v73 = swift_allocObject();
-  *(v73 + 16) = v2;
-  *(v73 + 24) = v64;
-  v74 = v106[1];
-  *(v73 + 32) = v106[0];
-  *(v73 + 48) = v74;
-  *(v73 + 64) = v107;
-  v105[4] = partial apply for closure #1 in SyncedLyricsViewController.handleTap(on:);
-  v105[5] = v73;
-  v105[0] = _NSConcreteStackBlock;
-  v105[1] = 1107296256;
-  v105[2] = thunk for @escaping @callee_guaranteed () -> ();
-  v105[3] = &block_descriptor_281;
-  v75 = _Block_copy(v105);
-  v100 = v49;
-  v76 = v75;
+  v104 = *(v93 + 8);
+  (v104)(v72, v103);
+  outlined init with copy of TaskPriority?(v105, v107, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+  v74 = swift_allocObject();
+  *(v74 + 16) = v2;
+  *(v74 + 24) = v65;
+  v75 = v107[1];
+  *(v74 + 32) = v107[0];
+  *(v74 + 48) = v75;
+  *(v74 + 64) = v108;
+  v106[4] = partial apply for closure #1 in SyncedLyricsViewController.handleTap(on:);
+  v106[5] = v74;
+  v106[0] = _NSConcreteStackBlock;
+  v106[1] = 1107296256;
+  v106[2] = thunk for @escaping @callee_guaranteed () -> ();
+  v106[3] = &block_descriptor_281;
+  v76 = _Block_copy(v106);
+  v101 = v50;
+  v77 = v76;
 
-  v77 = v2;
+  v78 = v2;
 
-  v78 = v93;
+  v79 = v94;
   static DispatchQoS.unspecified.getter();
-  v105[0] = _swiftEmptyArrayStorage;
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
-  v79 = v95;
-  v80 = v98;
+  v106[0] = _swiftEmptyArrayStorage;
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
+  v80 = v96;
+  v81 = v99;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v81 = v101;
+  v82 = v102;
   OS_dispatch_queue.asyncAfter(deadline:qos:flags:execute:)();
-  _Block_release(v76);
+  _Block_release(v77);
 
-  (*(v97 + 8))(v79, v80);
-  (*(v94 + 8))(v78, v96);
-  (v103)(v72, v102);
-  return outlined destroy of TaskPriority?(v104, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  (*(v98 + 8))(v80, v81);
+  (*(v95 + 8))(v79, v97);
+  (v104)(v73, v103);
+  outlined destroy of TaskPriority?(v105, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
 }
 
-uint64_t closure #1 in SyncedLyricsViewController.handleTap(on:)(uint64_t a1, uint64_t a2, uint64_t a3)
+void closure #1 in SyncedLyricsViewController.handleTap(on:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(a1 + v6, v14, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-  if (v14[3])
+  outlined init with copy of TaskPriority?(a1 + v6, v13, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+  if (v13[3])
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA14TimingProvider_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX06SyncedA14TimingProvider_pMd, &_s7LyricsX06SyncedA14TimingProvider_pMR);
     type metadata accessor for SyncedLyricsViewController.StaticTimingProvider();
-    result = swift_dynamicCast();
-    if ((result & 1) == 0)
+    if ((swift_dynamicCast() & 1) == 0)
     {
-      return result;
+      return;
     }
 
-    if (v13[0] != a2)
+    if (v12[0] != a2)
     {
+
+      return;
     }
 
     if (one-time initialization token for logger != -1)
@@ -24929,40 +25790,40 @@ uint64_t closure #1 in SyncedLyricsViewController.handleTap(on:)(uint64_t a1, ui
       swift_once();
     }
 
-    v8 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v8, static SyncedLyricsViewController.logger);
-    v9 = Logger.logObject.getter();
-    v10 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v9, v10))
+    v7 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v7, static SyncedLyricsViewController.logger);
+    v8 = Logger.logObject.getter();
+    v9 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v8, v9))
     {
+      v10 = swift_slowAlloc();
       v11 = swift_slowAlloc();
-      v12 = swift_slowAlloc();
-      v14[0] = v12;
-      *v11 = 136315138;
-      *(v11 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD00000000000004DLL, 0x80000001004D81B0, v14);
-      _os_log_impl(&_mh_execute_header, v9, v10, "%s", v11, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0Tm(v12);
+      v13[0] = v11;
+      *v10 = 136315138;
+      *(v10 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD00000000000004DLL, 0x80000001004D81B0, v13);
+      _os_log_impl(&_mh_execute_header, v8, v9, "%s", v10, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0Tm(v11);
     }
 
-    outlined init with copy of TaskPriority?(a3, v14, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
-    outlined init with copy of TaskPriority?(a1 + v6, v13, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined init with copy of TaskPriority?(a3, v13, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
+    outlined init with copy of TaskPriority?(a1 + v6, v12, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     swift_beginAccess();
-    outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v14, a1 + v6, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined assign with copy of PlaybackIntentDescriptor.IntentType?(v13, a1 + v6, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     swift_endAccess();
-    SyncedLyricsViewController.timingProvider.didset(v13);
+    SyncedLyricsViewController.timingProvider.didset(v12);
 
-    outlined destroy of TaskPriority?(v13, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined destroy of TaskPriority?(v12, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   }
 
-  return outlined destroy of TaskPriority?(v14, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined destroy of TaskPriority?(v13, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
 }
 
 Swift::Void __swiftcall SyncedLyricsViewController.viewDidAppear(_:)(Swift::Bool a1)
 {
   v2 = v1;
-  v37.receiver = v2;
-  v37.super_class = type metadata accessor for SyncedLyricsViewController(0);
-  objc_msgSendSuper2(&v37, "viewDidAppear:", a1);
+  v38.receiver = v2;
+  v38.super_class = type metadata accessor for SyncedLyricsViewController(0);
+  objc_msgSendSuper2(&v38, "viewDidAppear:", a1);
   v4 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink;
   if (!*&v2[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_displayLink])
   {
@@ -25028,22 +25889,23 @@ Swift::Void __swiftcall SyncedLyricsViewController.viewDidAppear(_:)(Swift::Bool
       swift_unknownObjectWeakInit();
       swift_beginAccess();
       v22 = *(v20 + 96);
+      v23 = *(v20 + 104);
       *(v20 + 96) = partial apply for closure #2 in SyncedLyricsViewController.lyrics.didset;
       *(v20 + 104) = v21;
 
       swift_retain_n();
-      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v22);
+      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v22, v23);
       SyncedLyricsManager.elapsedTimeProvider.didset();
     }
 
     v2[v19] = 0;
   }
 
-  v23 = *&v2[v4];
-  if (v23)
+  v24 = *&v2[v4];
+  if (v24)
   {
-    v24 = v23;
-    [v24 setPaused:SyncedLyricsViewController.displayLinkShouldPause()() & 1];
+    v25 = v24;
+    [v25 setPaused:SyncedLyricsViewController.displayLinkShouldPause()()];
   }
 
   if (one-time initialization token for lyrics != -1)
@@ -25051,45 +25913,45 @@ Swift::Void __swiftcall SyncedLyricsViewController.viewDidAppear(_:)(Swift::Bool
     swift_once();
   }
 
-  v25 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v25, static Logger.lyrics);
-  v26 = v2;
-  v27 = Logger.logObject.getter();
-  v28 = static os_log_type_t.default.getter();
+  v26 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v26, static Logger.lyrics);
+  v27 = v2;
+  v28 = Logger.logObject.getter();
+  v29 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v28, v29))
   {
-    v29 = swift_slowAlloc();
     v30 = swift_slowAlloc();
-    v36 = v30;
-    *v29 = 136315138;
-    v31 = SyncedLyricsViewController.displayLinkShouldPause()();
-    v32 = (v31 & 1) == 0;
-    if (v31)
-    {
-      v33 = 1702195828;
-    }
-
-    else
-    {
-      v33 = 0x65736C6166;
-    }
-
+    v31 = swift_slowAlloc();
+    v37 = v31;
+    *v30 = 136315138;
+    v32 = SyncedLyricsViewController.displayLinkShouldPause()();
+    v33 = !v32;
     if (v32)
     {
-      v34 = 0xE500000000000000;
+      v34 = 1702195828;
     }
 
     else
     {
-      v34 = 0xE400000000000000;
+      v34 = 0x65736C6166;
     }
 
-    v35 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(v33, v34, &v36);
+    if (v33)
+    {
+      v35 = 0xE500000000000000;
+    }
 
-    *(v29 + 4) = v35;
-    _os_log_impl(&_mh_execute_header, v27, v28, "[SyncedLyricsViewController] viewDidAppear (displayLinkShouldPause: %s", v29, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v30);
+    else
+    {
+      v35 = 0xE400000000000000;
+    }
+
+    v36 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(v34, v35, &v37);
+
+    *(v30 + 4) = v36;
+    _os_log_impl(&_mh_execute_header, v28, v29, "[SyncedLyricsViewController] viewDidAppear (displayLinkShouldPause: %s", v30, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v31);
   }
 }
 
@@ -25139,9 +26001,9 @@ Swift::Void __swiftcall SyncedLyricsViewController.viewDidDisappear(_:)(Swift::B
 Swift::Void __swiftcall SyncedLyricsViewController.viewDidLayoutSubviews()()
 {
   v1 = v0;
-  v35.receiver = v0;
-  v35.super_class = type metadata accessor for SyncedLyricsViewController(0);
-  objc_msgSendSuper2(&v35, "viewDidLayoutSubviews");
+  v37.receiver = v0;
+  v37.super_class = type metadata accessor for SyncedLyricsViewController(0);
+  objc_msgSendSuper2(&v37, "viewDidLayoutSubviews");
   v2 = [v0 view];
   if (!v2)
   {
@@ -25178,11 +26040,11 @@ LABEL_16:
   v12 = v11;
   v14 = v13;
 
-  v36.origin.x = v8;
-  v36.origin.y = v10;
-  v36.size.width = v12;
-  v36.size.height = v14;
-  CGRectGetWidth(v36);
+  v38.origin.x = v8;
+  v38.origin.y = v10;
+  v38.size.width = v12;
+  v38.size.height = v14;
+  CGRectGetWidth(v38);
   CGRectGetWidth(*v4);
   if (static ApproximatelyEquatable.!=~ infix(_:_:)())
   {
@@ -25202,40 +26064,41 @@ LABEL_16:
   v22 = v21;
   v24 = v23;
 
-  v37.origin.x = v18;
-  v37.origin.y = v20;
-  v37.size.width = v22;
-  v37.size.height = v24;
-  CGRectGetHeight(v37);
+  v39.origin.x = v18;
+  v39.origin.y = v20;
+  v39.size.width = v22;
+  v39.size.height = v24;
+  CGRectGetHeight(v39);
   CGRectGetHeight(*v4);
   if (static ApproximatelyEquatable.!=~ infix(_:_:)())
   {
     SyncedLyricsViewController.updateBlur(views:)(0);
     swift_beginAccess();
     lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
-    if (static ApproximatelyEquatable<>.==~ infix(_:_:)())
+    v25 = static ApproximatelyEquatable<>.==~ infix(_:_:)();
+    if (v25)
     {
-      SyncedLyricsViewController.updateInsets()();
+      SyncedLyricsViewController.updateInsets()(v25, v26);
     }
   }
 
-  v25 = [v1 view];
-  if (!v25)
+  v27 = [v1 view];
+  if (!v27)
   {
     goto LABEL_16;
   }
 
-  v26 = v25;
-  [v25 bounds];
   v28 = v27;
+  [v27 bounds];
   v30 = v29;
   v32 = v31;
   v34 = v33;
+  v36 = v35;
 
-  *v4 = v28;
-  *(v4 + 1) = v30;
-  *(v4 + 2) = v32;
-  *(v4 + 3) = v34;
+  *v4 = v30;
+  *(v4 + 1) = v32;
+  *(v4 + 2) = v34;
+  *(v4 + 3) = v36;
 }
 
 Swift::Void __swiftcall SyncedLyricsViewController.viewLayoutMarginsDidChange()()
@@ -25303,19 +26166,19 @@ LABEL_10:
   __break(1u);
 }
 
-uint64_t SyncedLyricsViewController.set(lyrics:translation:transliteration:)(uint64_t a1, uint64_t a2, uint64_t a3)
+void SyncedLyricsViewController.set(lyrics:translation:transliteration:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
   __chkstk_darwin();
-  v8 = &v15 - v7;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0);
+  v8 = &v14 - v7;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
   __chkstk_darwin();
-  v10 = &v15 - v9;
+  v10 = &v14 - v9;
   v11 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isSettingLyrics;
   *(v3 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isSettingLyrics) = 1;
-  outlined init with copy of TaskPriority?(a2, &v15 - v9, &_s7LyricsX0A0C11TranslationVSgMd_0);
+  outlined init with copy of TaskPriority?(a2, &v14 - v9, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
   SyncedLyricsViewController.currentTranslation.setter(v10);
-  outlined init with copy of TaskPriority?(a3, v8, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+  outlined init with copy of TaskPriority?(a3, v8, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
   SyncedLyricsViewController.currentTransliteration.setter(v8);
   v12 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
   swift_beginAccess();
@@ -25325,7 +26188,6 @@ uint64_t SyncedLyricsViewController.set(lyrics:translation:transliteration:)(uin
   SyncedLyricsViewController.lyrics.didset(v13);
 
   *(v3 + v11) = 0;
-  return result;
 }
 
 Swift::Bool __swiftcall SyncedLyricsViewController.handleSelectGesture()()
@@ -25345,10 +26207,10 @@ Swift::Bool __swiftcall SyncedLyricsViewController.handleSelectGesture()()
 
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsTimestampLabel_line;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v2 + v3, &v13, &_s7LyricsX0A4Line_pSgMd);
+  outlined init with copy of TaskPriority?(v2 + v3, &v13, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   if (!v14)
   {
-    outlined destroy of TaskPriority?(&v13, &_s7LyricsX0A4Line_pSgMd);
+    outlined destroy of TaskPriority?(&v13, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
     return 0;
   }
 
@@ -25394,7 +26256,7 @@ void SyncedLyricsViewController.updateProgress(for:animated:)(uint64_t a1, char 
   v3 = *(a1 + OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_contentView);
   if (v3)
   {
-    type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
+    type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
     if (swift_dynamicCastClass())
     {
       v5 = *(v2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager);
@@ -25404,25 +26266,26 @@ void SyncedLyricsViewController.updateProgress(for:animated:)(uint64_t a1, char 
         v6 = *(v5 + 96);
         if (v6)
         {
-          v7 = v3;
+          v7 = *(v5 + 104);
+          v8 = v3;
 
-          v8 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v6);
-          v9 = v6(v8);
+          v9 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v6, v7);
+          v10 = v6(v9);
           swift_beginAccess();
           if (*(v5 + 88) == 1)
           {
-            v10 = Lyrics.spatialOffset.getter();
-            outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v6);
+            v11 = Lyrics.spatialOffset.getter();
+            outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v6, v7);
           }
 
           else
           {
 
-            outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v6);
-            v10 = 0.0;
+            outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v6, v7);
+            v11 = 0.0;
           }
 
-          SyncedLyricsLineView.SBS_TextContentView.setProgress(_:animated:)(v9 - v10, a2 & 1);
+          SyncedLyricsLineView.SBS_TextContentView.setProgress(_:animated:)(v10 - v11, a2 & 1);
         }
       }
     }
@@ -25457,52 +26320,54 @@ LABEL_19:
       return;
     }
 
-    v20 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v19);
-    v21 = v19(v20);
+    v20 = *(v18 + 104);
+
+    v21 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v19, v20);
+    v22 = v19(v21);
     swift_beginAccess();
     if (*(v18 + 88) == 1)
     {
-      v22 = Lyrics.spatialOffset.getter();
-      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v19);
+      v23 = Lyrics.spatialOffset.getter();
+      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v19, v20);
     }
 
     else
     {
 
-      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v19);
-      v22 = 0.0;
+      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v19, v20);
+      v23 = 0.0;
     }
 
-    v23 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
+    v24 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
     swift_beginAccess();
-    if (*&v3[v23])
+    if (*&v3[v24])
     {
 
-      Lyrics.line(before:useOriginalLines:)(0, &v47, v21 - v22);
+      Lyrics.line(before:useOriginalLines:)(0, &v48, v22 - v23);
 
-      if (*(&v48 + 1))
+      if (*(&v49 + 1))
       {
-        outlined init with take of ActionPerforming(&v47, v50);
-        v24 = v51;
+        outlined init with take of ActionPerforming(&v48, v51);
         v25 = v52;
-        __swift_project_boxed_opaque_existential_0Tm(v50, v51);
-        v26 = (*(v25 + 16))(v24, v25);
-        v27 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
+        v26 = v53;
+        __swift_project_boxed_opaque_existential_0Tm(v51, v52);
+        v27 = (*(v26 + 16))(v25, v26);
+        v28 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
         swift_beginAccess();
-        v28 = *&v3[v27];
-        if ((v28 & 0xC000000000000001) != 0)
+        v29 = *&v3[v28];
+        if ((v29 & 0xC000000000000001) != 0)
         {
           goto LABEL_58;
         }
 
-        if ((v26 & 0x8000000000000000) != 0)
+        if ((v27 & 0x8000000000000000) != 0)
         {
           __break(1u);
         }
 
-        else if (v26 < *((v28 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        else if (v27 < *((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
-          v29 = *(v28 + 8 * v26 + 32);
+          v30 = *(v29 + 8 * v27 + 32);
           goto LABEL_30;
         }
 
@@ -25513,12 +26378,12 @@ LABEL_19:
 
     else
     {
-      v49 = 0;
-      v47 = 0u;
+      v50 = 0;
       v48 = 0u;
+      v49 = 0u;
     }
 
-    outlined destroy of TaskPriority?(&v47, &_s7LyricsX0A4Line_pSgMd);
+    outlined destroy of TaskPriority?(&v48, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
     return;
   }
 
@@ -25540,9 +26405,9 @@ LABEL_3:
   {
 LABEL_34:
 
-    v30 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v31 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-    v8 = v30;
+    v8 = v31;
     goto LABEL_8;
   }
 
@@ -25566,18 +26431,18 @@ LABEL_8:
   {
     v2 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
     swift_beginAccess();
-    outlined init with copy of ActionPerforming(v7 + v2, v50);
+    outlined init with copy of ActionPerforming(v7 + v2, v51);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
     if (!swift_dynamicCast())
     {
       goto LABEL_39;
     }
 
-    outlined init with copy of ActionPerforming(v7 + v2, v50);
-    v9 = v51;
-    v1 = v52;
-    __swift_project_boxed_opaque_existential_0Tm(v50, v51);
+    outlined init with copy of ActionPerforming(v7 + v2, v51);
+    v9 = v52;
+    v1 = v53;
+    __swift_project_boxed_opaque_existential_0Tm(v51, v52);
     v10 = (*(v1 + 16))(v9, v1);
     v5 = v10 + 1;
     if (__OFADD__(v10, 1))
@@ -25585,7 +26450,7 @@ LABEL_8:
       break;
     }
 
-    __swift_destroy_boxed_opaque_existential_0Tm(v50);
+    __swift_destroy_boxed_opaque_existential_0Tm(v51);
     v1 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
     swift_beginAccess();
     v11 = *&v3[v1];
@@ -25600,65 +26465,65 @@ LABEL_8:
     }
 
 LABEL_39:
-    outlined init with copy of ActionPerforming(v7 + v2, v50);
+    outlined init with copy of ActionPerforming(v7 + v2, v51);
     if ((swift_dynamicCast() & 1) == 0)
     {
       goto LABEL_48;
     }
 
-    outlined init with copy of ActionPerforming(v7 + v2, v50);
-    v31 = v51;
+    outlined init with copy of ActionPerforming(v7 + v2, v51);
     v32 = v52;
-    __swift_project_boxed_opaque_existential_0Tm(v50, v51);
-    v33 = (*(v32 + 16))(v31, v32);
-    __swift_destroy_boxed_opaque_existential_0Tm(v50);
-    if (v33 < 1)
+    v33 = v53;
+    __swift_project_boxed_opaque_existential_0Tm(v51, v52);
+    v34 = (*(v33 + 16))(v32, v33);
+    __swift_destroy_boxed_opaque_existential_0Tm(v51);
+    if (v34 < 1)
     {
       goto LABEL_48;
     }
 
-    outlined init with copy of ActionPerforming(v7 + v2, v50);
-    v34 = v51;
+    outlined init with copy of ActionPerforming(v7 + v2, v51);
     v35 = v52;
-    __swift_project_boxed_opaque_existential_0Tm(v50, v51);
-    v36 = (*(v35 + 16))(v34, v35);
-    v37 = v36 - 1;
-    if (__OFSUB__(v36, 1))
+    v36 = v53;
+    __swift_project_boxed_opaque_existential_0Tm(v51, v52);
+    v37 = (*(v36 + 16))(v35, v36);
+    v38 = v37 - 1;
+    if (__OFSUB__(v37, 1))
     {
       goto LABEL_54;
     }
 
-    __swift_destroy_boxed_opaque_existential_0Tm(v50);
-    v38 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
+    __swift_destroy_boxed_opaque_existential_0Tm(v51);
+    v39 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
     swift_beginAccess();
-    v39 = *&v3[v38];
-    if ((v39 & 0xC000000000000001) != 0)
+    v40 = *&v3[v39];
+    if ((v40 & 0xC000000000000001) != 0)
     {
       goto LABEL_55;
     }
 
-    if ((v37 & 0x8000000000000000) != 0)
+    if ((v38 & 0x8000000000000000) != 0)
     {
       __break(1u);
     }
 
-    else if (v37 < *((v39 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    else if (v38 < *((v40 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v17 = v39 + 8 * v37;
+      v17 = v40 + 8 * v38;
 LABEL_46:
-      v40 = *(v17 + 32);
+      v41 = *(v17 + 32);
       goto LABEL_47;
     }
 
     __break(1u);
 LABEL_58:
 
-    v46 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v47 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-    v29 = v46;
+    v30 = v47;
 LABEL_30:
-    v7 = v29;
-    __swift_destroy_boxed_opaque_existential_0Tm(v50);
+    v7 = v30;
+    __swift_destroy_boxed_opaque_existential_0Tm(v51);
   }
 
 LABEL_37:
@@ -25670,10 +26535,10 @@ LABEL_38:
   }
 
 LABEL_13:
-  outlined init with copy of ActionPerforming(v7 + v2, v50);
-  v12 = v51;
-  v13 = v52;
-  __swift_project_boxed_opaque_existential_0Tm(v50, v51);
+  outlined init with copy of ActionPerforming(v7 + v2, v51);
+  v12 = v52;
+  v13 = v53;
+  __swift_project_boxed_opaque_existential_0Tm(v51, v52);
   v14 = (*(v13 + 16))(v12, v13);
   v15 = v14 + 1;
   if (__OFADD__(v14, 1))
@@ -25683,7 +26548,7 @@ LABEL_13:
 
   else
   {
-    __swift_destroy_boxed_opaque_existential_0Tm(v50);
+    __swift_destroy_boxed_opaque_existential_0Tm(v51);
     v16 = *&v3[v1];
     if ((v16 & 0xC000000000000001) == 0)
     {
@@ -25703,54 +26568,54 @@ LABEL_54:
       __break(1u);
 LABEL_55:
 
-      v40 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v41 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
 LABEL_47:
 
-      v7 = v40;
+      v7 = v41;
       goto LABEL_48;
     }
   }
 
-  v45 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+  v46 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-  v7 = v45;
+  v7 = v46;
 LABEL_48:
-  v41 = v7;
-  [v41 setHighlighted:1];
-  type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3);
-  v42 = static OS_dispatch_queue.main.getter();
-  v43 = swift_allocObject();
-  *(v43 + 16) = v3;
-  *(v43 + 24) = v41;
-  v44 = v3;
-  OS_dispatch_queue.asyncAfter(_:block:)(partial apply for specialized closure #1 in SyncedLyricsViewController.presentSharing(), v43);
+  v42 = v7;
+  [v42 setHighlighted:1];
+  type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3, OS_dispatch_queue_ptr);
+  v43 = static OS_dispatch_queue.main.getter();
+  v44 = swift_allocObject();
+  *(v44 + 16) = v3;
+  *(v44 + 24) = v42;
+  v45 = v3;
+  OS_dispatch_queue.asyncAfter(_:block:)(partial apply for specialized closure #1 in SyncedLyricsViewController.presentSharing(), v44, 0.3);
 }
 
 id SyncedLyricsViewController.startSharing(from:)(char *a1)
 {
   v3 = type metadata accessor for SyncedLyricsSharingTransitionInfo(0);
   __chkstk_darwin();
-  v5 = &v55 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  v5 = &v56 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
-  v7 = &v55 - v6;
+  v7 = &v56 - v6;
   v8 = type metadata accessor for Lyrics.TextLine(0);
   v9 = *(v8 - 8);
   __chkstk_darwin();
-  v11 = &v55 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v56 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
-  v13 = &v55 - v12;
+  v13 = &v56 - v12;
   v14 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
-  outlined init with copy of ActionPerforming(&a1[v14], v58);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  outlined init with copy of ActionPerforming(&a1[v14], v59);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   v15 = swift_dynamicCast();
   v16 = *(v9 + 56);
   if ((v15 & 1) == 0)
   {
     v16(v7, 1, 1, v8);
-    return outlined destroy of TaskPriority?(v7, &_s7LyricsX0A0C8TextLineVSgMd);
+    return outlined destroy of TaskPriority?(v7, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   }
 
   v16(v7, 0, 1, v8);
@@ -25764,13 +26629,13 @@ id SyncedLyricsViewController.startSharing(from:)(char *a1)
   [v17 copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  type metadata accessor for UIAction(0, &_sSo6UIViewCML_2);
+  type metadata accessor for UIAction(0, &_sSo6UIViewCML_2, UIView_ptr);
   if ((swift_dynamicCast() & 1) == 0)
   {
     return outlined destroy of Lyrics.TextLine(v13, type metadata accessor for Lyrics.TextLine);
   }
 
-  v57 = v61;
+  v58 = v62;
   [a1 cancelTrackingWithEvent:0];
   v18 = outlined init with copy of Lyrics.TextLine(v13, v11, type metadata accessor for Lyrics.TextLine);
   v19 = *&v13[*(v8 + 60)];
@@ -25805,16 +26670,16 @@ id SyncedLyricsViewController.startSharing(from:)(char *a1)
 
     LOBYTE(v33) = [a1 isSelected];
     [a1 transform];
-    v42 = v59;
-    v43 = v60;
-    v56 = v58[0];
-    v55 = v58[1];
+    v42 = v60;
+    v43 = v61;
+    v57 = v59[0];
+    v56 = v59[1];
     v44 = swift_allocObject();
     *(v44 + 16) = a1;
     v45 = swift_allocObject();
     *(v45 + 16) = a1;
     outlined init with take of Lyrics.Transliteration(v11, v5, type metadata accessor for Lyrics.TextLine);
-    *&v5[v3[5]] = v57;
+    *&v5[v3[5]] = v58;
     *&v5[v3[6]] = v25;
     v46 = &v5[v3[7]];
     *v46 = v35;
@@ -25823,8 +26688,8 @@ id SyncedLyricsViewController.startSharing(from:)(char *a1)
     *(v46 + 3) = v41;
     v5[v3[8]] = v33;
     v47 = &v5[v3[9]];
-    v48 = v55;
-    *v47 = v56;
+    v48 = v56;
+    *v47 = v57;
     *(v47 + 1) = v48;
     *(v47 + 4) = v42;
     *(v47 + 5) = v43;
@@ -25839,15 +26704,16 @@ id SyncedLyricsViewController.startSharing(from:)(char *a1)
     v52 = *v51;
     if (*v51)
     {
-      v53 = a1;
-      outlined copy of (@escaping @callee_guaranteed () -> ())?(v52);
+      v53 = *(v51 + 1);
+      v54 = a1;
+      outlined copy of (@escaping @callee_guaranteed () -> ())?(v52, v53);
       v52(v5);
-      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v52);
+      outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v52, v53);
     }
 
     else
     {
-      v54 = a1;
+      v55 = a1;
     }
 
     outlined destroy of Lyrics.TextLine(v5, type metadata accessor for SyncedLyricsSharingTransitionInfo);
@@ -25864,67 +26730,67 @@ Swift::Void __swiftcall SyncedLyricsViewController.displayLinkResumeIfNeeded()()
   if (v1)
   {
     v2 = v1;
-    [v2 setPaused:SyncedLyricsViewController.displayLinkShouldPause()() & 1];
+    [v2 setPaused:SyncedLyricsViewController.displayLinkShouldPause()()];
   }
 }
 
-void SyncedLyricsViewController.updateInsets()()
+void SyncedLyricsViewController.updateInsets()(uint64_t a1, __n128 a2)
 {
-  v1 = v0;
+  v3 = v2;
   SyncedLyricsViewController.cancelAnimations()();
-  v2 = &v0[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs];
+  v4 = &v2[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs];
   swift_beginAccess();
-  if (*v2)
+  if (*v4)
   {
-    v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+    v5 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
     swift_beginAccess();
-    v4 = *(v2 + 7);
-    v5 = *&v1[v3];
-    [v5 contentInset];
-    [v5 setContentInset:v4];
+    v6 = *(v4 + 7);
+    v7 = *&v3[v5];
+    [v7 contentInset];
+    [v7 setContentInset:v6];
 LABEL_23:
 
     goto LABEL_24;
   }
 
-  if ((v2[48] & 0x80000000) == 0)
+  if ((v4[48] & 0x80000000) == 0)
   {
-    v6 = *(v2 + 2);
-    v7 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+    v8 = *(v4 + 2);
+    v9 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
     swift_beginAccess();
-    [*&v1[v7] contentOffset];
-    v9 = v8;
+    [*&v3[v9] contentOffset];
     v11 = v10;
-    v12 = [v1 view];
-    if (v12)
+    v13 = v12;
+    v14 = [v3 view];
+    if (v14)
     {
-      v13 = v12;
-      [v12 frame];
       v15 = v14;
+      [v14 frame];
+      v17 = v16;
 
-      v16 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight;
+      v18 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight;
       swift_beginAccess();
-      v17 = *&v1[v16];
-      if (v17 > 0.0)
+      v19 = *&v3[v18];
+      if (v19 > 0.0)
       {
 LABEL_8:
-        v22 = v9;
-        v23 = v11;
-        v24 = v15;
-        v25 = v6 * (CGRectGetHeight(*(&v17 - 3)) / 100.0);
-        [*(v2 + 25) ascender];
-        v27 = v25 - v26;
+        v24 = v11;
+        v25 = v13;
+        v26 = v17;
+        v27 = v8 * (CGRectGetHeight(*(&v19 - 3)) / 100.0);
+        [*(v4 + 25) ascender];
+        v29 = v27 - v28;
         goto LABEL_21;
       }
 
-      v18 = [v1 view];
-      if (v18)
+      v20 = [v3 view];
+      if (v20)
       {
-        v19 = v18;
-        [v18 frame];
         v21 = v20;
+        [v20 frame];
+        v23 = v22;
 
-        v17 = v21;
+        v19 = v23;
         goto LABEL_8;
       }
 
@@ -25938,67 +26804,67 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v28 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
+  v30 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
   swift_beginAccess();
-  v29 = *&v1[v28];
-  if (v29 >> 62)
+  v31 = *&v3[v30];
+  if (v31 >> 62)
   {
     if (_CocoaArrayWrapper.endIndex.getter())
     {
 LABEL_11:
-      if ((v29 & 0xC000000000000001) != 0)
+      if ((v31 & 0xC000000000000001) != 0)
       {
 
-        v30 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v32 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (!*((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (!*((v31 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           __break(1u);
           goto LABEL_33;
         }
 
-        v30 = *(v29 + 32);
+        v32 = *(v31 + 32);
       }
 
-      v31 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
+      v33 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
       swift_beginAccess();
-      outlined init with copy of ActionPerforming(v30 + v31, v63);
+      outlined init with copy of ActionPerforming(v32 + v33, v65);
 
-      outlined init with take of ActionPerforming(v63, v64);
-      v32 = v65;
-      v33 = v66;
-      __swift_project_boxed_opaque_existential_0Tm(v64, v65);
-      v34 = (*(v33 + 16))(v32, v33);
-      v35 = *&v1[v28];
-      if ((v35 & 0xC000000000000001) != 0)
+      outlined init with take of ActionPerforming(v65, v66);
+      v34 = v67;
+      v35 = v68;
+      __swift_project_boxed_opaque_existential_0Tm(v66, v67);
+      v36 = (*(v35 + 16))(v34, v35);
+      v37 = *&v3[v30];
+      if ((v37 & 0xC000000000000001) != 0)
       {
 
-        v62 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v64 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-        v36 = v62;
+        v38 = v64;
         goto LABEL_18;
       }
 
-      if ((v34 & 0x8000000000000000) == 0)
+      if ((v36 & 0x8000000000000000) == 0)
       {
-        if (v34 < *((v35 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v36 < *((v37 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
-          v36 = *(v35 + 8 * v34 + 32);
+          v38 = *(v37 + 8 * v36 + 32);
 LABEL_18:
-          v37 = v36;
-          v38 = UIView.untransformedFrame.getter();
-          v40 = v39;
+          v39 = v38;
+          v40 = UIView.untransformedFrame.getter();
           v42 = v41;
           v44 = v43;
-
-          SyncedLyricsViewController.contentOffset(for:)(v38, v40, v42, v44);
           v46 = v45;
 
-          v27 = fabs(v46);
-          __swift_destroy_boxed_opaque_existential_0Tm(v64);
+          SyncedLyricsViewController.contentOffset(for:)(v40, v42, v44, v46);
+          v48 = v47;
+
+          v29 = fabs(v48);
+          __swift_destroy_boxed_opaque_existential_0Tm(v66);
           goto LABEL_21;
         }
 
@@ -26013,67 +26879,67 @@ LABEL_33:
     }
   }
 
-  else if (*((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  else if (*((v31 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     goto LABEL_11;
   }
 
-  [*(v2 + 25) _bodyLeading];
-  v27 = v47;
+  [*(v4 + 25) _bodyLeading];
+  v29 = v49;
 LABEL_21:
-  v48 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+  v50 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
   swift_beginAccess();
-  v49 = *&v1[v48];
-  [v49 contentInset];
-  [v49 setContentInset:v27];
+  v51 = *&v3[v50];
+  [v51 contentInset];
+  [v51 setContentInset:v29];
 
-  [*&v1[v48] contentOffset];
-  if (v50 <= 0.0)
+  [*&v3[v50] contentOffset];
+  if (v52 <= 0.0)
   {
-    v5 = *&v1[v48];
-    [v5 contentOffset];
-    [v5 setContentOffset:?];
+    v7 = *&v3[v50];
+    [v7 contentOffset];
+    [v7 setContentOffset:?];
     goto LABEL_23;
   }
 
 LABEL_24:
-  *&v63[0] = 0;
-  *(&v63[0] + 1) = 0xE000000000000000;
+  *&v65[0] = 0;
+  *(&v65[0] + 1) = 0xE000000000000000;
   _StringGuts.grow(_:)(49);
-  v69 = v63[0];
-  v51._object = 0x80000001004D8330;
-  v51._countAndFlagsBits = 0xD00000000000002FLL;
-  String.append(_:)(v51);
-  v52 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+  v71 = v65[0];
+  v53._object = 0x80000001004D8330;
+  v53._countAndFlagsBits = 0xD00000000000002FLL;
+  String.append(_:)(v53);
+  v54 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
   swift_beginAccess();
-  [*&v1[v52] contentOffset];
-  v67 = v53;
-  v68 = v54;
+  [*&v3[v54] contentOffset];
+  v69 = v55;
+  v70 = v56;
   _sSo7CGPointVMa_3(0);
   _print_unlocked<A, B>(_:_:)();
-  v55 = v69;
+  v57 = v71;
   if (one-time initialization token for logger != -1)
   {
     swift_once();
   }
 
-  v56 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v56, static SyncedLyricsViewController.logger);
+  v58 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v58, static SyncedLyricsViewController.logger);
 
-  v57 = Logger.logObject.getter();
-  v58 = static os_log_type_t.default.getter();
+  v59 = Logger.logObject.getter();
+  v60 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v57, v58))
+  if (os_log_type_enabled(v59, v60))
   {
-    v59 = swift_slowAlloc();
-    v60 = swift_slowAlloc();
-    *&v69 = v60;
-    *v59 = 136315138;
-    v61 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(v55, *(&v55 + 1), &v69);
+    v61 = swift_slowAlloc();
+    v62 = swift_slowAlloc();
+    *&v71 = v62;
+    *v61 = 136315138;
+    v63 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(v57, *(&v57 + 1), &v71);
 
-    *(v59 + 4) = v61;
-    _os_log_impl(&_mh_execute_header, v57, v58, "%s", v59, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v60);
+    *(v61 + 4) = v63;
+    _os_log_impl(&_mh_execute_header, v59, v60, "%s", v61, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v62);
   }
 
   else
@@ -26190,7 +27056,7 @@ LABEL_9:
   __break(1u);
 }
 
-uint64_t closure #1 in SyncedLyricsViewController.layoutLines()(void *a1)
+void closure #1 in SyncedLyricsViewController.layoutLines()(void *a1)
 {
   v2 = objc_opt_self();
   v3 = swift_allocObject();
@@ -26198,13 +27064,13 @@ uint64_t closure #1 in SyncedLyricsViewController.layoutLines()(void *a1)
   v4 = swift_allocObject();
   *(v4 + 16) = closure #1 in closure #1 in SyncedLyricsViewController.layoutLines()partial apply;
   *(v4 + 24) = v3;
-  v8[4] = partial apply for closure #2 in ActionMenuView.body.getter;
-  v8[5] = v4;
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 1107296256;
-  v8[2] = thunk for @escaping @callee_guaranteed () -> ();
-  v8[3] = &block_descriptor_316;
-  v5 = _Block_copy(v8);
+  v7[4] = partial apply for closure #2 in ActionMenuView.body.getter;
+  v7[5] = v4;
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 1107296256;
+  v7[2] = thunk for @escaping @callee_guaranteed () -> ();
+  v7[3] = &block_descriptor_316;
+  v5 = _Block_copy(v7);
   v6 = a1;
 
   [v2 performWithoutAnimation:v5];
@@ -26215,8 +27081,6 @@ uint64_t closure #1 in SyncedLyricsViewController.layoutLines()(void *a1)
   {
     __break(1u);
   }
-
-  return result;
 }
 
 void closure #1 in closure #1 in SyncedLyricsViewController.layoutLines()(unint64_t a1)
@@ -26412,7 +27276,7 @@ LABEL_29:
       v36._object = 0xE500000000000000;
       String.append(_:)(v36);
       outlined init with copy of ActionPerforming(v10 + i, &v46);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
       _print_unlocked<A, B>(_:_:)();
       __swift_destroy_boxed_opaque_existential_0Tm(&v46);
       v19 = v44;
@@ -26470,7 +27334,7 @@ void SyncedLyricsViewController.frame(for:selected:previousViewFrame:)(char *a1,
 {
   v4 = v3;
   v87 = a3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
   v83 = &v82 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -26500,7 +27364,7 @@ void SyncedLyricsViewController.frame(for:selected:previousViewFrame:)(char *a1,
   v20 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
   outlined init with copy of ActionPerforming(&a1[v20], v92);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   v88 = v9;
   if (swift_dynamicCast())
   {
@@ -26715,7 +27579,7 @@ LABEL_38:
   if ((v68 & 1) == 0)
   {
     v69(v61, 1, 1, v60);
-    outlined destroy of TaskPriority?(v61, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v61, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     goto LABEL_48;
   }
 
@@ -26753,7 +27617,7 @@ LABEL_47:
   outlined destroy of Lyrics.TextLine(v75, type metadata accessor for Lyrics.TextLine);
   if ((*(v85 + 48))(v76, 1, v88) == 1)
   {
-    outlined destroy of TaskPriority?(v76, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v76, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v17 = &selRef_constraintEqualToAnchor_constant_;
     v24 = &selRef_parent;
   }
@@ -26807,7 +27671,7 @@ id SyncedLyricsViewController.createAutomaticallyCreatedText()()
   v78 = v5;
   __chkstk_darwin();
   v72 = &v71 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
   __chkstk_darwin();
   v71 = &v71 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -26816,7 +27680,7 @@ id SyncedLyricsViewController.createAutomaticallyCreatedText()()
   v10 = *(v9 - 8);
   __chkstk_darwin();
   v12 = &v71 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
   __chkstk_darwin();
   v14 = &v71 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
@@ -26825,17 +27689,17 @@ id SyncedLyricsViewController.createAutomaticallyCreatedText()()
   swift_beginAccess();
   v18 = v0 + v17;
   v19 = v0;
-  outlined init with copy of TaskPriority?(v18, v16, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+  outlined init with copy of TaskPriority?(v18, v16, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
   v20 = *(v10 + 48);
   if (v20(v16, 1, v9))
   {
-    outlined destroy of TaskPriority?(v16, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+    outlined destroy of TaskPriority?(v16, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
   }
 
   else
   {
     outlined init with copy of Lyrics.TextLine(v16, v12, type metadata accessor for Lyrics.Transliteration);
-    outlined destroy of TaskPriority?(v16, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+    outlined destroy of TaskPriority?(v16, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
     v21 = v12[*(v9 + 24)];
     outlined destroy of Lyrics.TextLine(v12, type metadata accessor for Lyrics.Transliteration);
     if (v21)
@@ -26852,17 +27716,17 @@ id SyncedLyricsViewController.createAutomaticallyCreatedText()()
   {
     v25 = OBJC_IVAR____TtC7LyricsX6Lyrics_currentTransliteration;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v24 + v25, v14, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+    outlined init with copy of TaskPriority?(v24 + v25, v14, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
     if (v20(v14, 1, v9))
     {
-      outlined destroy of TaskPriority?(v14, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+      outlined destroy of TaskPriority?(v14, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
       v22 = 0;
     }
 
     else
     {
       outlined init with copy of Lyrics.TextLine(v14, v12, type metadata accessor for Lyrics.Transliteration);
-      outlined destroy of TaskPriority?(v14, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+      outlined destroy of TaskPriority?(v14, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
       v22 = v12[*(v9 + 24)];
       outlined destroy of Lyrics.TextLine(v12, type metadata accessor for Lyrics.Transliteration);
     }
@@ -26881,19 +27745,19 @@ LABEL_11:
   v28 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentTranslation;
   swift_beginAccess();
   v29 = v76;
-  outlined init with copy of TaskPriority?(v19 + v28, v76, &_s7LyricsX0A0C11TranslationVSgMd_0);
+  outlined init with copy of TaskPriority?(v19 + v28, v76, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
   v30 = *(v27 + 48);
   v31 = v30(v29, 1, v26);
   v32 = v79;
   if (v31)
   {
-    outlined destroy of TaskPriority?(v29, &_s7LyricsX0A0C11TranslationVSgMd_0);
+    outlined destroy of TaskPriority?(v29, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
     goto LABEL_15;
   }
 
   v33 = v72;
   outlined init with copy of Lyrics.TextLine(v29, v72, type metadata accessor for Lyrics.Translation);
-  outlined destroy of TaskPriority?(v29, &_s7LyricsX0A0C11TranslationVSgMd_0);
+  outlined destroy of TaskPriority?(v29, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
   v34 = *(v33 + *(v26 + 28));
   outlined destroy of Lyrics.TextLine(v33, type metadata accessor for Lyrics.Translation);
   if (v34 != 1)
@@ -26909,12 +27773,12 @@ LABEL_15:
       swift_beginAccess();
       v39 = v37 + v38;
       v40 = v71;
-      outlined init with copy of TaskPriority?(v39, v71, &_s7LyricsX0A0C11TranslationVSgMd_0);
+      outlined init with copy of TaskPriority?(v39, v71, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
       if (!v30(v40, 1, v26))
       {
         v41 = v72;
         outlined init with copy of Lyrics.TextLine(v40, v72, type metadata accessor for Lyrics.Translation);
-        outlined destroy of TaskPriority?(v40, &_s7LyricsX0A0C11TranslationVSgMd_0);
+        outlined destroy of TaskPriority?(v40, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
         v42 = *(v41 + *(v26 + 28));
         outlined destroy of Lyrics.TextLine(v41, type metadata accessor for Lyrics.Translation);
         if (v22 & 1) != 0 || (v42)
@@ -26925,7 +27789,7 @@ LABEL_15:
         return 0;
       }
 
-      outlined destroy of TaskPriority?(v40, &_s7LyricsX0A0C11TranslationVSgMd_0);
+      outlined destroy of TaskPriority?(v40, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
     }
 
     if (v22)
@@ -26952,19 +27816,19 @@ LABEL_22:
   v46 = String.init(localized:table:bundle:locale:comment:)();
   v48 = v47;
   (*(v44 + 8))(v35, v43);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd_0, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR_0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1004F2EF0;
   *(inited + 32) = NSForegroundColorAttributeName;
   v50 = v19 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
   swift_beginAccess();
   v51 = *(v50 + 368);
-  v52 = type metadata accessor for UIAction(0, &_sSo7UIColorCML_1);
+  v52 = type metadata accessor for UIAction(0, &_sSo7UIColorCML_1, UIColor_ptr);
   *(inited + 40) = v51;
   *(inited + 64) = v52;
   *(inited + 72) = NSFontAttributeName;
   v53 = *(v50 + 344);
-  *(inited + 104) = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1);
+  *(inited + 104) = type metadata accessor for UIAction(0, &_sSo6UIFontCML_1, UIFont_ptr);
   *(inited + 80) = v53;
   v54 = NSForegroundColorAttributeName;
   v55 = v51;
@@ -26972,7 +27836,7 @@ LABEL_22:
   v57 = v53;
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n_0(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NSAttributedStringKeya_yptMd_0, &_sSo21NSAttributedStringKeya_yptMR_0);
   swift_arrayDestroy();
   v58 = [objc_allocWithZone(NSTextAttachment) init];
   v59 = String._bridgeToObjectiveC()();
@@ -26991,7 +27855,7 @@ LABEL_22:
   [v58 setImage:v61];
 
   _sSo21NSAttributedStringKeyaMa_1(0);
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_sSo21NSAttributedStringKeyaABSHSCWL_1, _sSo21NSAttributedStringKeyaMa_1);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_sSo21NSAttributedStringKeyaABSHSCWL_1, _sSo21NSAttributedStringKeyaMa_1, &_sSo21NSAttributedStringKeyaSHSCMc_1);
   v63 = v58;
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
   v62 = [objc_opt_self() attributedStringWithAttachment:v63 attributes:isa];
@@ -27013,7 +27877,7 @@ LABEL_22:
   return v62;
 }
 
-char *SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:)(void *a1, uint64_t a2)
+void SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:)(void *a1, uint64_t a2)
 {
   v3 = v2;
   if (a1)
@@ -27027,24 +27891,24 @@ char *SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPrev
   v8 = *&v3[v7];
   if (v8 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    if (!result)
+    v9 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v9)
     {
-      return result;
+      return;
     }
   }
 
   else
   {
-    result = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!result)
+    v9 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v9)
     {
-      return result;
+      return;
     }
   }
 
-  v10 = result - 1;
-  if (__OFSUB__(result, 1))
+  v10 = v9 - 1;
+  if (__OFSUB__(v9, 1))
   {
     __break(1u);
   }
@@ -27076,136 +27940,137 @@ LABEL_10:
   v12 = *&v3[v11];
   v13 = a1;
   [v12 frame];
-  Width = CGRectGetWidth(v99);
-  result = [v3 view];
-  if (!result)
+  Width = CGRectGetWidth(v101);
+  v15 = [v3 view];
+  if (!v15)
   {
 LABEL_41:
     __break(1u);
     goto LABEL_42;
   }
 
-  v15 = result;
-  [result layoutMargins];
+  v16 = v15;
+  [v15 layoutMargins];
 
   UIEdgeInsets.horizontal.getter();
-  v17 = Width - v16;
-  v18 = v6;
-  v19 = UIView.untransformedFrame.getter();
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
-  v26 = SyncedLyricsViewController.createAutomaticallyCreatedText()();
-  v27 = &selRef_reloadRowsAtIndexPaths_withRowAnimation_;
-  if (!v26)
+  v18 = Width - v17;
+  v19 = v6;
+  v20 = UIView.untransformedFrame.getter();
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
+  v27 = SyncedLyricsViewController.createAutomaticallyCreatedText()();
+  v28 = &selRef_reloadRowsAtIndexPaths_withRowAnimation_;
+  if (!v27)
   {
-    v32 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel;
-    v33 = *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel];
-    if (v33)
+    v33 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel;
+    v34 = *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel];
+    if (v34)
     {
-      [v33 removeFromSuperview];
-      v34 = *&v3[v32];
+      [v34 removeFromSuperview];
+      v35 = *&v3[v33];
     }
 
     else
     {
-      v34 = 0;
+      v35 = 0;
     }
 
     p_cache = &OBJC_METACLASS____TtCC7LyricsX20SyncedLyricsLineView4Line.cache;
-    *&v3[v32] = 0;
+    *&v3[v33] = 0;
 
-    v51 = 0;
+    v53 = 0;
+    v54 = 0;
     goto LABEL_26;
   }
 
-  v28 = v26;
-  v29 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel;
-  v30 = *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel];
-  if (v30)
+  v29 = v27;
+  v30 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel;
+  v31 = *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel];
+  if (v31)
   {
-    v95 = *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel];
-    v31 = v30;
+    v97 = *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_automaticallyCreatedDisclaimerLabel];
+    v32 = v31;
   }
 
   else
   {
-    v35 = [objc_allocWithZone(UILabel) init];
-    v95 = v35;
-    [v35 setNumberOfLines:0];
-    v36 = *&v3[v29];
-    *&v3[v29] = v35;
-    v31 = v35;
+    v36 = [objc_allocWithZone(UILabel) init];
+    v97 = v36;
+    [v36 setNumberOfLines:0];
+    v37 = *&v3[v30];
+    *&v3[v30] = v36;
+    v32 = v36;
 
-    v27 = &selRef_reloadRowsAtIndexPaths_withRowAnimation_;
-    v30 = 0;
+    v28 = &selRef_reloadRowsAtIndexPaths_withRowAnimation_;
+    v31 = 0;
   }
 
-  v37 = v30;
-  [v31 setAttributedText:v28];
-  [v31 v27[254]];
-  result = [v3 view];
-  if (!result)
+  v38 = v31;
+  [v32 setAttributedText:v29];
+  [v32 v28[254]];
+  v39 = [v3 view];
+  if (!v39)
   {
 LABEL_42:
     __break(1u);
-    return result;
+    return;
   }
 
-  v38 = result;
-  [result layoutMargins];
+  v40 = v39;
+  [v39 layoutMargins];
 
-  v100.origin.x = v19;
-  v100.origin.y = v21;
-  v100.size.width = v23;
-  v100.size.height = v25;
-  CGRectGetMaxY(v100);
+  v102.origin.x = v20;
+  v102.origin.y = v22;
+  v102.size.width = v24;
+  v102.size.height = v26;
+  CGRectGetMaxY(v102);
   p_cache = &OBJC_METACLASS____TtCC7LyricsX20SyncedLyricsLineView4Line.cache;
   swift_beginAccess();
-  v40 = *&v3[v11];
-  v96 = 0u;
-  v97 = 0u;
-  v98 = 1;
-  v41 = v40;
-  CGRect.applyingLayoutDirection(in:bounds:)();
+  v42 = *&v3[v11];
+  v98 = 0u;
+  v99 = 0u;
+  v100 = 1;
   v43 = v42;
+  CGRect.applyingLayoutDirection(in:bounds:)();
   v45 = v44;
   v47 = v46;
   v49 = v48;
+  v51 = v50;
 
-  v50 = objc_opt_self();
-  if ([v50 _isInAnimationBlockWithAnimationsEnabled] && (*(a2 + 32) & 1) == 0)
+  v52 = objc_opt_self();
+  if ([v52 _isInAnimationBlockWithAnimationsEnabled] && (*(a2 + 32) & 1) == 0)
   {
-    v52 = swift_allocObject();
-    *(v52 + 16) = v43;
-    *(v52 + 24) = v45;
-    *(v52 + 32) = v47;
-    *(v52 + 40) = v49;
-    v53 = *(a2 + 16);
-    *(v52 + 48) = *a2;
-    *(v52 + 64) = v53;
-    *(v52 + 80) = v3;
-    *(v52 + 88) = &v95;
     v54 = swift_allocObject();
-    *(v54 + 16) = partial apply for closure #1 in SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:);
-    *(v54 + 24) = v52;
+    *(v54 + 16) = v45;
+    *(v54 + 24) = v47;
+    *(v54 + 32) = v49;
+    *(v54 + 40) = v51;
+    v55 = *(a2 + 16);
+    *(v54 + 48) = *a2;
+    *(v54 + 64) = v55;
+    *(v54 + 80) = v3;
+    *(v54 + 88) = &v97;
+    v56 = swift_allocObject();
+    *(v56 + 16) = partial apply for closure #1 in SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:);
+    *(v56 + 24) = v54;
     aBlock[4] = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
-    aBlock[5] = v54;
+    aBlock[5] = v56;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
     aBlock[3] = &block_descriptor_221_0;
-    v55 = _Block_copy(aBlock);
-    v56 = v3;
+    v57 = _Block_copy(aBlock);
+    v58 = v3;
 
-    [v50 performWithoutAnimation:v55];
-    _Block_release(v55);
-    LOBYTE(v55) = swift_isEscapingClosureAtFileLocation();
+    [v52 performWithoutAnimation:v57];
+    _Block_release(v57);
+    LOBYTE(v57) = swift_isEscapingClosureAtFileLocation();
 
-    if ((v55 & 1) == 0)
+    if ((v57 & 1) == 0)
     {
-      v51 = partial apply for closure #1 in SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:);
-      v31 = v95;
+      v53 = partial apply for closure #1 in SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:);
+      v32 = v97;
       p_cache = (&OBJC_METACLASS____TtCC7LyricsX20SyncedLyricsLineView4Line + 16);
       goto LABEL_23;
     }
@@ -27213,94 +28078,95 @@ LABEL_42:
     goto LABEL_40;
   }
 
-  v51 = 0;
+  v53 = 0;
+  v54 = 0;
 LABEL_23:
-  [v31 setAlpha:1.0];
-  [v95 setFrame:{v43, v45, v47, v49}];
-  [*&v3[v11] addSubview:v95];
-  v57 = v95;
-  [v57 frame];
-  v19 = v58;
-  v21 = v59;
-  v23 = v60;
-  v25 = v61;
+  [v32 setAlpha:1.0];
+  [v97 setFrame:{v45, v47, v49, v51}];
+  [*&v3[v11] addSubview:v97];
+  v59 = v97;
+  [v59 frame];
+  v20 = v60;
+  v22 = v61;
+  v24 = v62;
+  v26 = v63;
 
 LABEL_26:
-  v62 = &v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_bottomViewMetadata];
+  v64 = &v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_bottomViewMetadata];
   swift_beginAccess();
-  if (*v62)
+  if (*v64)
   {
-    v93 = v62[3];
-    v63 = v62[1];
-    v64 = *v62;
-    [v64 sizeThatFits:{v17, INFINITY}];
-    v66 = v65;
+    v95 = v64[3];
+    v65 = v64[1];
+    v66 = *v64;
+    [v66 sizeThatFits:{v18, INFINITY}];
     v68 = v67;
-    v69 = *&v3[v11];
-    v70 = v64;
-    [v69 frame];
-    v71 = (CGRectGetWidth(v101) - v66) * 0.5;
-    v102.origin.x = v19;
-    v102.origin.y = v21;
-    v102.size.width = v23;
-    v102.size.height = v25;
-    [v70 setFrame:{v71, v63 + CGRectGetMaxY(v102), v66, v68}];
+    v70 = v69;
+    v71 = *&v3[v11];
+    v72 = v66;
+    [v71 frame];
+    v73 = (CGRectGetWidth(v103) - v68) * 0.5;
+    v104.origin.x = v20;
+    v104.origin.y = v22;
+    v104.size.width = v24;
+    v104.size.height = v26;
+    [v72 setFrame:{v73, v65 + CGRectGetMaxY(v104), v68, v70}];
 
-    [*&v3[v11] addSubview:v70];
-    [v70 frame];
-    v19 = v72;
-    v21 = v73;
-    v23 = v74;
-    v76 = v75;
+    [*&v3[v11] addSubview:v72];
+    [v72 frame];
+    v20 = v74;
+    v22 = v75;
+    v24 = v76;
+    v78 = v77;
 
-    v25 = v93 + v76;
+    v26 = v95 + v78;
   }
 
-  v77 = *&v3[v11];
-  [v77 frame];
-  v78 = CGRectGetWidth(v103);
-  v104.origin.x = v19;
-  v104.origin.y = v21;
-  v104.size.width = v23;
-  v104.size.height = v25;
-  [v77 setContentSize:{v78, CGRectGetMaxY(v104)}];
+  v79 = *&v3[v11];
+  [v79 frame];
+  v80 = CGRectGetWidth(v105);
+  v106.origin.x = v20;
+  v106.origin.y = v22;
+  v106.size.width = v24;
+  v106.size.height = v26;
+  [v79 setContentSize:{v80, CGRectGetMaxY(v106)}];
 
-  v79 = p_cache[434] + v3;
+  v81 = p_cache[434] + v3;
   swift_beginAccess();
-  if (*v79)
+  if (*v81)
   {
 
-    v80 = *&v3[v11];
+    v82 = *&v3[v11];
   }
 
   else
   {
     [*&v3[v11] frame];
-    Height = CGRectGetHeight(v105);
+    Height = CGRectGetHeight(v107);
     [*&v3[v11] contentInset];
-    v83 = v82;
-    v84 = UIView.untransformedFrame.getter();
-    v86 = v85;
+    v85 = v84;
+    v86 = UIView.untransformedFrame.getter();
     v88 = v87;
     v90 = v89;
+    v92 = v91;
 
-    v106.origin.x = v84;
-    v106.origin.y = v86;
-    v106.size.width = v88;
-    v106.size.height = v90;
-    v91 = Height - (v83 + CGRectGetHeight(v106));
-    v92 = *&v3[v11];
-    v80 = v92;
-    if (v91 <= 0.0)
+    v108.origin.x = v86;
+    v108.origin.y = v88;
+    v108.size.width = v90;
+    v108.size.height = v92;
+    v93 = Height - (v85 + CGRectGetHeight(v108));
+    v94 = *&v3[v11];
+    v82 = v94;
+    if (v93 <= 0.0)
     {
-      [v92 contentInset];
+      [v94 contentInset];
     }
   }
 
-  [v80 contentInset];
-  [v80 setContentInset:?];
+  [v82 contentInset];
+  [v82 setContentInset:?];
 
-  return outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v51);
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v53, v54);
 }
 
 id closure #1 in SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:)(uint64_t a1, id *a2, double a3, double a4, double a5, double a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10)
@@ -27316,67 +28182,67 @@ id closure #1 in SyncedLyricsViewController.layoutBottomViews(lastLineView:lastL
   return [*a2 setAlpha:0.0];
 }
 
-char *SyncedLyricsViewController.layout(lineView:)(char *a1)
+void SyncedLyricsViewController.layout(lineView:)(char *a1)
 {
   v2 = v1;
-  memset(v34, 0, sizeof(v34));
+  memset(v33, 0, sizeof(v33));
   v4 = 1;
-  v35 = 1;
-  SyncedLyricsViewController.frame(for:selected:previousViewFrame:)(a1, 2, v34);
+  v34 = 1;
+  SyncedLyricsViewController.frame(for:selected:previousViewFrame:)(a1, 2, v33);
   UIView.untransformedFrame.setter(v5, v6, v7, v8);
   v9 = *(v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timestampLabel);
   if (v9)
   {
     v10 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsTimestampLabel_line;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v9 + v10, v31, &_s7LyricsX0A4Line_pSgMd);
-    v11 = v32;
-    if (v32)
+    outlined init with copy of TaskPriority?(v9 + v10, v30, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
+    v11 = v31;
+    if (v31)
     {
-      v12 = v33;
-      __swift_project_boxed_opaque_existential_0Tm(v31, v32);
+      v12 = v32;
+      __swift_project_boxed_opaque_existential_0Tm(v30, v31);
       v13 = *(v11 - 8);
       v14 = __chkstk_darwin();
-      v16 = &v30[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
+      v16 = &v29[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
       (*(v13 + 16))(v16, v14);
-      outlined destroy of TaskPriority?(v31, &_s7LyricsX0A4Line_pSgMd);
+      outlined destroy of TaskPriority?(v30, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
       v17 = (*(v12 + 16))(v11, v12);
       (*(v13 + 8))(v16, v11);
       v4 = 0;
       goto LABEL_6;
     }
 
-    outlined destroy of TaskPriority?(v31, &_s7LyricsX0A4Line_pSgMd);
+    outlined destroy of TaskPriority?(v30, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   }
 
   v17 = 0;
 LABEL_6:
   v18 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
-  outlined init with copy of ActionPerforming(&a1[v18], v31);
-  v19 = v32;
-  v20 = v33;
-  __swift_project_boxed_opaque_existential_0Tm(v31, v32);
+  outlined init with copy of ActionPerforming(&a1[v18], v30);
+  v19 = v31;
+  v20 = v32;
+  __swift_project_boxed_opaque_existential_0Tm(v30, v31);
   v21 = (*(v20 + 16))(v19, v20);
   if (v4)
   {
-    __swift_destroy_boxed_opaque_existential_0Tm(v31);
+    __swift_destroy_boxed_opaque_existential_0Tm(v30);
   }
 
   else
   {
     v22 = v21;
-    __swift_destroy_boxed_opaque_existential_0Tm(v31);
+    __swift_destroy_boxed_opaque_existential_0Tm(v30);
     if (v17 == v22)
     {
       SyncedLyricsViewController.updateTimestampLabelFrame()();
     }
   }
 
-  outlined init with copy of ActionPerforming(&a1[v18], v31);
-  v23 = v32;
-  v24 = v33;
-  __swift_project_boxed_opaque_existential_0Tm(v31, v32);
+  outlined init with copy of ActionPerforming(&a1[v18], v30);
+  v23 = v31;
+  v24 = v32;
+  __swift_project_boxed_opaque_existential_0Tm(v30, v31);
   v25 = (*(v24 + 16))(v23, v24);
   v26 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
   swift_beginAccess();
@@ -27391,13 +28257,11 @@ LABEL_6:
     v28 = -1;
   }
 
-  result = __swift_destroy_boxed_opaque_existential_0Tm(v31);
+  __swift_destroy_boxed_opaque_existential_0Tm(v30);
   if (v25 == v28)
   {
-    return SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:)(a1, v34);
+    SyncedLyricsViewController.layoutBottomViews(lastLineView:lastLineViewPreviousFrame:)(a1, v33);
   }
-
-  return result;
 }
 
 void SyncedLyricsViewController.updateTimestampLabelFrame()()
@@ -27408,7 +28272,7 @@ void SyncedLyricsViewController.updateTimestampLabelFrame()()
     v2 = v0;
     v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsTimestampLabel_line;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v1 + v3, &v36, &_s7LyricsX0A4Line_pSgMd);
+    outlined init with copy of TaskPriority?(v1 + v3, &v36, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
     if (v37)
     {
       outlined init with take of ActionPerforming(&v36, v38);
@@ -27485,7 +28349,7 @@ LABEL_7:
       goto LABEL_16;
     }
 
-    outlined destroy of TaskPriority?(&v36, &_s7LyricsX0A4Line_pSgMd);
+    outlined destroy of TaskPriority?(&v36, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   }
 }
 
@@ -27496,26 +28360,26 @@ uint64_t SyncedLyricsViewController.lineData(for:)@<X0>(uint64_t a1@<X0>, uint64
   v51 = v4;
   __chkstk_darwin();
   v44 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
   __chkstk_darwin();
   v52 = &v42 - v6;
   v48 = type metadata accessor for Lyrics.Translation(0);
   v45 = *(v48 - 8);
   __chkstk_darwin();
   v43 = &v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
   __chkstk_darwin();
   v47 = &v42 - v8;
   v9 = type metadata accessor for Lyrics.TextLine(0);
   v10 = *(v9 - 8);
   __chkstk_darwin();
   v12 = (&v42 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
   __chkstk_darwin();
   v46 = &v42 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
   v15 = &v42 - v14;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
   v49 = (&v42 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin();
@@ -27531,7 +28395,7 @@ uint64_t SyncedLyricsViewController.lineData(for:)@<X0>(uint64_t a1@<X0>, uint64
   v54 = v15;
   v23(v15, 1, 1, v22);
   outlined init with copy of ActionPerforming(v57, v56);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   if (swift_dynamicCast())
   {
     v42 = a2;
@@ -27542,13 +28406,13 @@ uint64_t SyncedLyricsViewController.lineData(for:)@<X0>(uint64_t a1@<X0>, uint64
     swift_beginAccess();
     v26 = v25 + v24;
     v27 = v47;
-    outlined init with copy of TaskPriority?(v26, v47, &_s7LyricsX0A0C11TranslationVSgMd_0);
+    outlined init with copy of TaskPriority?(v26, v47, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
     v28 = v21;
     if ((*(v45 + 48))(v27, 1, v48))
     {
       v29 = v54;
-      outlined destroy of TaskPriority?(v54, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
-      outlined destroy of TaskPriority?(v27, &_s7LyricsX0A0C11TranslationVSgMd_0);
+      outlined destroy of TaskPriority?(v54, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
+      outlined destroy of TaskPriority?(v27, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
       v30 = v46;
       v23(v46, 1, 1, v22);
     }
@@ -27557,29 +28421,29 @@ uint64_t SyncedLyricsViewController.lineData(for:)@<X0>(uint64_t a1@<X0>, uint64
     {
       v32 = v43;
       outlined init with copy of Lyrics.TextLine(v27, v43, type metadata accessor for Lyrics.Translation);
-      outlined destroy of TaskPriority?(v27, &_s7LyricsX0A0C11TranslationVSgMd_0);
+      outlined destroy of TaskPriority?(v27, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
       v30 = v46;
       Lyrics.Translation.translatedLine(for:)(v12, v46);
       outlined destroy of Lyrics.TextLine(v32, type metadata accessor for Lyrics.Translation);
       v29 = v54;
-      outlined destroy of TaskPriority?(v54, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      outlined destroy of TaskPriority?(v54, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     }
 
-    outlined init with take of URL?(v30, v29, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+    outlined init with take of URL?(v30, v29, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
     v33 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentTransliteration;
     v34 = v55;
     swift_beginAccess();
     v35 = v34 + v33;
     v36 = v52;
-    outlined init with copy of TaskPriority?(v35, v52, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+    outlined init with copy of TaskPriority?(v35, v52, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
     v37 = (*(v50 + 48))(v36, 1, v51);
     a2 = v42;
     if (v37)
     {
       outlined destroy of Lyrics.TextLine(v12, type metadata accessor for Lyrics.TextLine);
       v31 = v53;
-      outlined destroy of TaskPriority?(v53, &_s7LyricsX0A0C8TextLineVSgMd);
-      outlined destroy of TaskPriority?(v36, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+      outlined destroy of TaskPriority?(v53, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+      outlined destroy of TaskPriority?(v36, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
       v38 = v49;
       v28(v49, 1, 1, v9);
     }
@@ -27588,55 +28452,55 @@ uint64_t SyncedLyricsViewController.lineData(for:)@<X0>(uint64_t a1@<X0>, uint64
     {
       v39 = v44;
       outlined init with copy of Lyrics.TextLine(v36, v44, type metadata accessor for Lyrics.Transliteration);
-      outlined destroy of TaskPriority?(v36, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+      outlined destroy of TaskPriority?(v36, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
       v38 = v49;
       Lyrics.Transliteration.transliteratedLine(for:)(v12, v49);
       outlined destroy of Lyrics.TextLine(v39, type metadata accessor for Lyrics.Transliteration);
       outlined destroy of Lyrics.TextLine(v12, type metadata accessor for Lyrics.TextLine);
       v31 = v53;
-      outlined destroy of TaskPriority?(v53, &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined destroy of TaskPriority?(v53, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     }
 
-    outlined init with take of URL?(v38, v31, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined init with take of URL?(v38, v31, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   }
 
   else
   {
     v21(v18, 1, 1, v9);
-    outlined destroy of TaskPriority?(v18, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v18, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v31 = v53;
     v29 = v54;
   }
 
   outlined init with take of ActionPerforming(v57, a2);
   v40 = type metadata accessor for SyncedLyricsViewController.LineData(0);
-  outlined init with take of URL?(v31, a2 + *(v40 + 20), &_s7LyricsX0A0C8TextLineVSgMd);
-  return outlined init with take of URL?(v29, a2 + *(v40 + 24), &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  outlined init with take of URL?(v31, a2 + *(v40 + 20), &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+  return outlined init with take of URL?(v29, a2 + *(v40 + 24), &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
 }
 
 void SyncedLyricsViewController.setupUI(with:)(uint64_t a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
   __chkstk_darwin();
-  v111 = &v101 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = &v103 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
-  v103 = &v101 - v4;
+  v105 = &v103 - v4;
   __chkstk_darwin();
-  v6 = &v101 - v5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  v6 = &v103 - v5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
-  v112 = &v101 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v114 = &v103 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
-  v102 = &v101 - v8;
+  v104 = &v103 - v8;
   __chkstk_darwin();
-  v109 = &v101 - v9;
-  v110 = type metadata accessor for SyncedLyricsViewController.LineData(0);
+  v111 = &v103 - v9;
+  v112 = type metadata accessor for SyncedLyricsViewController.LineData(0);
   __chkstk_darwin();
-  v11 = (&v101 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = (&v103 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   v12 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
-  v114 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
+  v116 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
   swift_beginAccess();
-  v116 = v1;
+  v118 = v1;
   v13 = *&v1[v12];
   if (v13 >> 62)
   {
@@ -27651,14 +28515,14 @@ LABEL_64:
 
   v15 = *(a1 + 40);
   v16 = *(v15 + 16);
-  v104 = v6;
-  v105 = v11;
+  v106 = v6;
+  v107 = v11;
   if (v16 >= v14)
   {
     goto LABEL_8;
   }
 
-  v17 = *&v116[v114];
+  v17 = *&v118[v116];
   if (!(v17 >> 62))
   {
     v18 = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
@@ -27686,37 +28550,37 @@ LABEL_6:
     if (v16 < v18)
     {
       v11 = &selRef_constraintEqualToAnchor_constant_;
-      v99 = v16;
+      v101 = v16;
       while (1)
       {
-        v6 = *&v116[v114];
+        v6 = *&v118[v116];
         if ((v6 & 0xC000000000000001) != 0)
         {
 
-          v100 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v102 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if ((v99 & 0x8000000000000000) != 0)
+          if ((v101 & 0x8000000000000000) != 0)
           {
             goto LABEL_62;
           }
 
-          if (v99 >= *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v101 >= *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
 LABEL_63:
             __break(1u);
             goto LABEL_64;
           }
 
-          v100 = *(v6 + 8 * v99 + 32);
+          v102 = *(v6 + 8 * v101 + 32);
         }
 
-        ++v99;
-        [v100 removeFromSuperview];
+        ++v101;
+        [v102 removeFromSuperview];
 
-        if (v18 == v99)
+        if (v18 == v101)
         {
           goto LABEL_7;
         }
@@ -27730,33 +28594,33 @@ LABEL_7:
   swift_beginAccess();
   specialized Array.replaceSubrange<A>(_:with:)(v16, v18, specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:));
   swift_endAccess();
-  v11 = v105;
+  v11 = v107;
 LABEL_8:
-  v19 = *&v116[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_instrumentalBreakVisibleView];
-  *&v116[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_instrumentalBreakVisibleView] = 0;
+  v19 = *&v118[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_instrumentalBreakVisibleView];
+  *&v118[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_instrumentalBreakVisibleView] = 0;
 
   v20 = *(v15 + 16);
-  v6 = v114;
+  v6 = v116;
   if (v20)
   {
-    v21 = &v116[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs];
+    v21 = &v118[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs];
     v22 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
     v23 = v15 + 32;
-    v108 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
+    v110 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
     swift_beginAccess();
-    v113 = v21;
+    v115 = v21;
     swift_beginAccess();
-    v101 = v22;
+    v103 = v22;
     swift_beginAccess();
     do
     {
-      v115 = v20;
-      outlined init with copy of ActionPerforming(v23, &v123);
-      v25 = v116;
-      SyncedLyricsViewController.lineData(for:)(&v123, v11);
-      v26 = v125;
-      v27 = v126;
-      __swift_project_boxed_opaque_existential_0Tm(&v123, v125);
+      v117 = v20;
+      outlined init with copy of ActionPerforming(v23, &v125);
+      v25 = v118;
+      SyncedLyricsViewController.lineData(for:)(&v125, v11);
+      v26 = v127;
+      v27 = v128;
+      __swift_project_boxed_opaque_existential_0Tm(&v125, v127);
       v28 = (*(v27 + 16))(v26, v27);
       v29 = *&v25[v6];
       if (v29 >> 62)
@@ -27764,26 +28628,26 @@ LABEL_8:
         if (v28 >= _CocoaArrayWrapper.endIndex.getter())
         {
 LABEL_30:
-          outlined init with copy of ActionPerforming(v11, v122);
-          v64 = v110;
-          outlined init with copy of TaskPriority?(v11 + *(v110 + 20), v112, &_s7LyricsX0A0C8TextLineVSgMd);
-          outlined init with copy of TaskPriority?(v11 + *(v64 + 24), v111, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
-          v65 = *&v116[v108];
-          v66 = v113;
+          outlined init with copy of ActionPerforming(v11, v124);
+          v64 = v112;
+          outlined init with copy of TaskPriority?(v11 + *(v112 + 20), v114, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+          outlined init with copy of TaskPriority?(v11 + *(v64 + 24), v113, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
+          v65 = *&v118[v110];
+          v66 = v115;
           if (v65)
           {
-            if (*(v65 + OBJC_IVAR____TtC7LyricsX6Lyrics_vocalistsType) || *(v113 + 88) == 1)
+            if (*(v65 + OBJC_IVAR____TtC7LyricsX6Lyrics_vocalistsType) || *(v115 + 88) == 1)
             {
               v67 = v11[3];
               v68 = v11[4];
               __swift_project_boxed_opaque_existential_0Tm(v11, v67);
-              v6 = v114;
+              v6 = v116;
               v69 = (*(v68 + 3))(v67, v68);
             }
 
             else
             {
-              v69 = v113[10];
+              v69 = v115[10];
             }
           }
 
@@ -27792,17 +28656,17 @@ LABEL_30:
             v69 = 4;
           }
 
-          memcpy(v127, v66, 0x2B0uLL);
-          v70 = objc_allocWithZone(type metadata accessor for SyncedLyricsLineView());
-          outlined init with copy of SyncedLyricsViewController.Specs(v127, v121);
-          v71 = specialized SyncedLyricsLineView.init(line:transliteratedLine:translatedLine:alignment:specs:)(v122, v112, v111, v69, v127);
-          outlined destroy of SyncedLyricsViewController.Specs(v127);
-          v72 = [v116 traitCollection];
+          memcpy(v129, v66, 0x2B0uLL);
+          v70 = objc_allocWithZone(type metadata accessor for SyncedLyricsLineView(0));
+          outlined init with copy of SyncedLyricsViewController.Specs(v129, v123);
+          v71 = specialized SyncedLyricsLineView.init(line:transliteratedLine:translatedLine:alignment:specs:)(v124, v114, v113, v69, v129);
+          outlined destroy of SyncedLyricsViewController.Specs(v129);
+          v72 = [v118 traitCollection];
           v73 = [v72 userInterfaceIdiom];
 
           if (v73 != 2)
           {
-            type metadata accessor for UIAction(0, &_sSo8UIActionCML_2);
+            type metadata accessor for UIAction(0, &_sSo8UIActionCML_2, UIAction_ptr);
             v74 = swift_allocObject();
             swift_unknownObjectWeakInit();
             v75 = swift_allocObject();
@@ -27810,14 +28674,14 @@ LABEL_30:
             v76 = swift_allocObject();
             *(v76 + 16) = v74;
             *(v76 + 24) = v75;
-            v6 = v114;
+            v6 = v116;
             v77 = v71;
             v78 = UIAction.init(title:subtitle:image:selectedImage:identifier:discoverabilityTitle:attributes:state:handler:)();
             [v77 addAction:v78 forControlEvents:64];
           }
 
-          v79 = v116;
-          v80 = *&v116[v101];
+          v79 = v118;
+          v80 = *&v118[v103];
           v34 = v71;
           [v80 addSubview:v34];
           swift_beginAccess();
@@ -27829,7 +28693,7 @@ LABEL_30:
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
           swift_endAccess();
-          if (*v113 == 1)
+          if (*v115 == 1)
           {
             [v34 setUserInteractionEnabled:0];
           }
@@ -27838,7 +28702,7 @@ LABEL_30:
           {
             v24 = [objc_allocWithZone(UILongPressGestureRecognizer) init];
             [v24 setCancelsTouchesInView:0];
-            [v24 addTarget:v116 action:"shareGestureHandler:"];
+            [v24 addTarget:v118 action:"shareGestureHandler:"];
             [v34 addGestureRecognizer:v24];
           }
 
@@ -27851,22 +28715,22 @@ LABEL_30:
         goto LABEL_30;
       }
 
-      v30 = v125;
-      v31 = v126;
-      __swift_project_boxed_opaque_existential_0Tm(&v123, v125);
+      v30 = v127;
+      v31 = v128;
+      __swift_project_boxed_opaque_existential_0Tm(&v125, v127);
       v32 = (*(v31 + 16))(v30, v31);
-      v33 = *&v116[v6];
+      v33 = *&v118[v6];
       if ((v33 & 0xC000000000000001) != 0)
       {
 
         v34 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-        a1 = v104;
+        a1 = v106;
       }
 
       else
       {
-        a1 = v104;
+        a1 = v106;
         if ((v32 & 0x8000000000000000) != 0)
         {
           __break(1u);
@@ -27885,15 +28749,15 @@ LABEL_62:
         v34 = *(v33 + 8 * v32 + 32);
       }
 
-      outlined init with copy of ActionPerforming(v11, v121);
-      v35 = v110;
-      outlined init with copy of TaskPriority?(v11 + *(v110 + 20), v109, &_s7LyricsX0A0C8TextLineVSgMd);
-      outlined init with copy of TaskPriority?(v11 + *(v35 + 24), a1, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
-      v36 = *&v116[v108];
-      v107 = v23;
+      outlined init with copy of ActionPerforming(v11, v123);
+      v35 = v112;
+      outlined init with copy of TaskPriority?(v11 + *(v112 + 20), v111, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+      outlined init with copy of TaskPriority?(v11 + *(v35 + 24), a1, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
+      v36 = *&v118[v110];
+      v109 = v23;
       if (v36)
       {
-        if (*(v36 + OBJC_IVAR____TtC7LyricsX6Lyrics_vocalistsType) || (v113[11] & 1) != 0)
+        if (*(v36 + OBJC_IVAR____TtC7LyricsX6Lyrics_vocalistsType) || (v115[11] & 1) != 0)
         {
           v37 = v11;
           v38 = v11[3];
@@ -27906,7 +28770,7 @@ LABEL_62:
 
         else
         {
-          v42 = v113[10];
+          v42 = v115[10];
           v44 = v34;
         }
       }
@@ -27917,132 +28781,132 @@ LABEL_62:
         v42 = 4;
       }
 
-      outlined init with copy of ActionPerforming(v121, v122);
+      outlined init with copy of ActionPerforming(v123, v124);
       v45 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
       swift_beginAccess();
       __swift_destroy_boxed_opaque_existential_0Tm(&v34[v45]);
-      outlined init with take of ActionPerforming(v122, &v34[v45]);
+      outlined init with take of ActionPerforming(v124, &v34[v45]);
       swift_endAccess();
-      v46 = v109;
-      v47 = v102;
-      outlined init with copy of TaskPriority?(v109, v102, &_s7LyricsX0A0C8TextLineVSgMd);
+      v46 = v111;
+      v47 = v104;
+      outlined init with copy of TaskPriority?(v111, v104, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       v48 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_transliteratedLine;
       swift_beginAccess();
-      outlined assign with take of PlaybackIntentDescriptor.IntentType?(v47, &v34[v48], &_s7LyricsX0A0C8TextLineVSgMd);
+      outlined assign with take of PlaybackIntentDescriptor.IntentType?(v47, &v34[v48], &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
       swift_endAccess();
-      v49 = v103;
-      outlined init with copy of TaskPriority?(a1, v103, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      v49 = v105;
+      outlined init with copy of TaskPriority?(a1, v105, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       v50 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_translatedLine;
       swift_beginAccess();
-      outlined assign with take of PlaybackIntentDescriptor.IntentType?(v49, &v34[v50], &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      outlined assign with take of PlaybackIntentDescriptor.IntentType?(v49, &v34[v50], &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       swift_endAccess();
       *&v34[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_alignment] = v42;
       SyncedLyricsLineView.updateContentView()();
-      outlined destroy of TaskPriority?(a1, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
-      outlined destroy of TaskPriority?(v46, &_s7LyricsX0A0C8TextLineVSgMd);
-      __swift_destroy_boxed_opaque_existential_0Tm(v121);
+      outlined destroy of TaskPriority?(a1, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
+      outlined destroy of TaskPriority?(v46, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+      __swift_destroy_boxed_opaque_existential_0Tm(v123);
       v51 = *&v34[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_contentView];
       if (v51)
       {
         v52 = *&v34[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_contentView + 8];
         ObjectType = swift_getObjectType();
-        v121[0] = v51;
+        v123[0] = v51;
         (*(v52 + 80))(ObjectType, v52);
       }
 
       v54 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_isScrolling;
       v34[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_isScrolling] = 1;
-      v56 = SyncedLyricsLineView.contentView.modify(v121);
+      v56 = SyncedLyricsLineView.contentView.modify(v123);
       v57 = *v55;
       if (*v55)
       {
         v58 = v55;
-        v106 = v34[v54];
+        v108 = v34[v54];
         v59 = *(v55 + 8);
         v60 = swift_getObjectType();
-        *&v122[0] = v57;
+        *&v124[0] = v57;
         v61 = *(v59 + 40);
         v62 = v57;
-        v61(v106, v60, v59);
+        v61(v108, v60, v59);
         v63 = *v58;
-        *v58 = *&v122[0];
+        *v58 = *&v124[0];
         *(v58 + 8) = v59;
       }
 
-      v56(v121, 0);
-      v11 = v105;
-      v6 = v114;
-      v23 = v107;
-      v128.value.super.isa = 0;
-      SyncedLyricsLineView.setSelected(_:animator:)(0, v128);
+      v56(v123, 0);
+      v11 = v107;
+      v6 = v116;
+      v23 = v109;
+      v130.value.super.isa = 0;
+      SyncedLyricsLineView.setSelected(_:animator:)(0, v130);
 LABEL_11:
       SyncedLyricsViewController.layout(lineView:)(v34);
 
       outlined destroy of Lyrics.TextLine(v11, type metadata accessor for SyncedLyricsViewController.LineData);
-      __swift_destroy_boxed_opaque_existential_0Tm(&v123);
+      __swift_destroy_boxed_opaque_existential_0Tm(&v125);
       v23 += 40;
-      v20 = v115 - 1;
+      v20 = v117 - 1;
     }
 
-    while (v115 != 1);
+    while (v117 != 1);
   }
 
-  v81 = v116;
+  v81 = v118;
   SyncedLyricsViewController.updateBlur(views:)(0);
-  SyncedLyricsViewController.updateInsets()();
-  v82 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
+  SyncedLyricsViewController.updateInsets()(v82, v83);
+  v84 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
   swift_beginAccess();
-  if (v81[v82] == 1)
+  if (v81[v84] == 1)
   {
-    v83 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
-    v84 = v116;
+    v85 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+    v86 = v118;
     swift_beginAccess();
-    v85 = *&v84[v83];
-    [v85 contentInset];
-    [v85 contentOffset];
-    [v85 setContentOffset:?];
+    v87 = *&v86[v85];
+    [v87 contentInset];
+    [v87 contentOffset];
+    [v87 setContentOffset:?];
   }
 
-  v123 = 0;
-  v124 = 0xE000000000000000;
+  v125 = 0;
+  v126 = 0xE000000000000000;
   _StringGuts.grow(_:)(44);
-  v117 = v123;
-  v118 = v124;
-  v86._object = 0x80000001004D7F70;
-  v86._countAndFlagsBits = 0xD00000000000002ALL;
-  String.append(_:)(v86);
-  v87 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
-  v88 = v116;
+  v119 = v125;
+  v120 = v126;
+  v88._object = 0x80000001004D7F70;
+  v88._countAndFlagsBits = 0xD00000000000002ALL;
+  String.append(_:)(v88);
+  v89 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+  v90 = v118;
   swift_beginAccess();
-  [*&v88[v87] contentOffset];
-  v119 = v89;
-  v120 = v90;
+  [*&v90[v89] contentOffset];
+  v121 = v91;
+  v122 = v92;
   _sSo7CGPointVMa_3(0);
   _print_unlocked<A, B>(_:_:)();
-  v92 = v117;
-  v91 = v118;
+  v94 = v119;
+  v93 = v120;
   if (one-time initialization token for logger != -1)
   {
     swift_once();
   }
 
-  v93 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v93, static SyncedLyricsViewController.logger);
+  v95 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v95, static SyncedLyricsViewController.logger);
 
-  v94 = Logger.logObject.getter();
-  v95 = static os_log_type_t.default.getter();
+  v96 = Logger.logObject.getter();
+  v97 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v94, v95))
+  if (os_log_type_enabled(v96, v97))
   {
-    v96 = swift_slowAlloc();
-    v97 = swift_slowAlloc();
-    v117 = v97;
-    *v96 = 136315138;
-    v98 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(v92, v91, &v117);
+    v98 = swift_slowAlloc();
+    v99 = swift_slowAlloc();
+    v119 = v99;
+    *v98 = 136315138;
+    v100 = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(v94, v93, &v119);
 
-    *(v96 + 4) = v98;
-    _os_log_impl(&_mh_execute_header, v94, v95, "%s", v96, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0Tm(v97);
+    *(v98 + 4) = v100;
+    _os_log_impl(&_mh_execute_header, v96, v97, "%s", v98, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0Tm(v99);
   }
 
   else
@@ -28050,63 +28914,63 @@ LABEL_11:
   }
 }
 
-void closure #1 in SyncedLyricsViewController.setupUI(with:)()
+void closure #1 in SyncedLyricsViewController.setupUI(with:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v4 = Strong;
     swift_beginAccess();
-    v2 = swift_unknownObjectWeakLoadStrong();
-    if (v2)
+    v5 = swift_unknownObjectWeakLoadStrong();
+    if (v5)
     {
-      v3 = v2;
-      SyncedLyricsViewController.handleTap(on:)(v2);
+      v6 = v5;
+      SyncedLyricsViewController.handleTap(on:)(v5);
 
-      v1 = v3;
+      v4 = v6;
     }
   }
 }
 
-id SyncedLyricsViewController.updateLines(animator:)(void *a1)
+void SyncedLyricsViewController.updateLines(animator:)(void *a1)
 {
-  v125 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd);
+  v126 = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
   __chkstk_darwin();
-  v124 = &v105 - v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  v125 = &v106 - v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
-  v123 = &v105 - v3;
-  v122 = type metadata accessor for SyncedLyricsViewController.LineData(0);
+  v124 = &v106 - v3;
+  v123 = type metadata accessor for SyncedLyricsViewController.LineData(0);
   __chkstk_darwin();
-  v5 = (&v105 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v5 = (&v106 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
   v6 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
-  result = swift_beginAccess();
-  v8 = *(v1 + v6);
-  if (!v8)
+  swift_beginAccess();
+  v7 = *(v1 + v6);
+  if (!v7)
   {
-    return result;
+    return;
   }
 
   SyncedLyricsViewController.cancelAnimations()();
-  v9 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+  v8 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
   swift_beginAccess();
-  [*(v1 + v9) contentOffset];
-  v11 = v10;
-  v111 = v9;
-  [*(v1 + v9) contentOffset];
-  v127 = v12;
-  v14 = v13;
-  result = [v1 view];
-  if (!result)
+  [*(v1 + v8) contentOffset];
+  v10 = v9;
+  v112 = v8;
+  [*(v1 + v8) contentOffset];
+  v128 = v11;
+  v13 = v12;
+  v14 = [v1 view];
+  if (!v14)
   {
     __break(1u);
     goto LABEL_81;
   }
 
-  v15 = result;
-  [result frame];
+  v15 = v14;
+  [v14 frame];
   v17 = v16;
 
   v18 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight;
@@ -28117,84 +28981,84 @@ id SyncedLyricsViewController.updateLines(animator:)(void *a1)
     goto LABEL_6;
   }
 
-  result = [v1 view];
-  if (!result)
+  v20 = [v1 view];
+  if (!v20)
   {
 LABEL_81:
     __break(1u);
-    return result;
+    return;
   }
 
-  v20 = result;
-  [result frame];
-  v19 = v21;
+  v21 = v20;
+  [v20 frame];
+  v19 = v22;
 
 LABEL_6:
-  v22 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
+  v23 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
   swift_beginAccess();
-  v23 = *(v1 + v22);
-  v24 = v23 & 0xFFFFFFFFFFFFFF8;
-  if (v23 >> 62)
+  v24 = *(v1 + v23);
+  v25 = v24 & 0xFFFFFFFFFFFFFF8;
+  if (v24 >> 62)
   {
     goto LABEL_72;
   }
 
-  v126 = *((v23 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v127 = *((v24 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_8:
 
-  v25 = 0;
+  v26 = 0;
   do
   {
-    v26 = v25;
-    if (v126 == v25)
+    v27 = v26;
+    if (v127 == v26)
     {
       break;
     }
 
-    if ((v23 & 0xC000000000000001) != 0)
+    if ((v24 & 0xC000000000000001) != 0)
     {
-      v27 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v28 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
 
     else
     {
-      if (v25 >= *(v24 + 16))
+      if (v26 >= *(v25 + 16))
       {
         goto LABEL_70;
       }
 
-      v27 = *(v23 + 8 * v25 + 32);
+      v28 = *(v24 + 8 * v26 + 32);
     }
 
-    v28 = v27;
-    if (__OFADD__(v26, 1))
+    v29 = v28;
+    if (__OFADD__(v27, 1))
     {
       goto LABEL_69;
     }
 
-    [v27 frame];
-    v145.x = v29;
-    v145.y = v30;
-    v147.origin.x = v127;
-    v147.origin.y = v14;
-    v147.size.width = v17;
-    v147.size.height = v19;
-    v31 = CGRectContainsPoint(v147, v145);
+    [v28 frame];
+    v146.x = v30;
+    v146.y = v31;
+    v148.origin.x = v128;
+    v148.origin.y = v13;
+    v148.size.width = v17;
+    v148.size.height = v19;
+    v32 = CGRectContainsPoint(v148, v146);
 
-    v25 = v26 + 1;
+    v26 = v27 + 1;
   }
 
-  while (!v31);
+  while (!v32);
 
-  [*(v1 + v111) contentOffset];
-  v113 = v32;
-  v33 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
+  [*(v1 + v112) contentOffset];
+  v114 = v33;
+  v34 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
   swift_beginAccess();
-  v23 = *(v1 + v33);
-  if (v23 >> 62)
+  v24 = *(v1 + v34);
+  if (v24 >> 62)
   {
-    v24 = _CocoaArrayWrapper.endIndex.getter();
-    if (v24)
+    v25 = _CocoaArrayWrapper.endIndex.getter();
+    if (v25)
     {
       goto LABEL_19;
     }
@@ -28202,56 +29066,56 @@ LABEL_8:
 
   else
   {
-    v24 = *((v23 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v24)
+    v25 = *((v24 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v25)
     {
 LABEL_19:
-      v34 = v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
-      v118 = OBJC_IVAR____TtC7LyricsX6Lyrics_vocalistsType;
-      v121 = v23 & 0xC000000000000001;
+      v35 = v1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
+      v119 = OBJC_IVAR____TtC7LyricsX6Lyrics_vocalistsType;
+      v122 = v24 & 0xC000000000000001;
 
-      v116 = v34;
+      v117 = v35;
       swift_beginAccess();
-      v107 = 0;
-      v132 = 0;
-      v35 = 0;
-      v114 = v23 & 0xFFFFFFFFFFFFFF8;
-      v36 = 0uLL;
-      v37 = 1;
-      v112 = v14;
+      v108 = 0;
+      v133 = 0;
+      v36 = 0;
+      v115 = v24 & 0xFFFFFFFFFFFFFF8;
+      v37 = 0uLL;
+      v38 = 1;
+      v113 = v13;
       New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1 = _swiftEmptyArrayStorage;
-      v110 = _swiftEmptyArrayStorage;
-      v38 = 0uLL;
-      v115 = v26;
-      v119 = v24;
-      v120 = v23;
-      v117 = v8;
+      v111 = _swiftEmptyArrayStorage;
+      v39 = 0uLL;
+      v116 = v27;
+      v120 = v25;
+      v121 = v24;
+      v118 = v7;
       while (1)
       {
         while (1)
         {
           while (1)
           {
-            v143[0] = v36;
-            v143[1] = v38;
-            v144 = v37 & 1;
-            if (v121)
+            v144[0] = v37;
+            v144[1] = v39;
+            v145 = v38 & 1;
+            if (v122)
             {
-              v39 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+              v40 = specialized _ArrayBuffer._getElementSlowPath(_:)();
             }
 
             else
             {
-              if (v35 >= *(v114 + 16))
+              if (v36 >= *(v115 + 16))
               {
                 goto LABEL_71;
               }
 
-              v39 = *(v23 + 8 * v35 + 32);
+              v40 = *(v24 + 8 * v36 + 32);
             }
 
-            v40 = v39;
-            if (__OFADD__(v35, 1))
+            v41 = v40;
+            if (__OFADD__(v36, 1))
             {
               __break(1u);
 LABEL_67:
@@ -28265,247 +29129,247 @@ LABEL_70:
 LABEL_71:
               __break(1u);
 LABEL_72:
-              v126 = _CocoaArrayWrapper.endIndex.getter();
+              v127 = _CocoaArrayWrapper.endIndex.getter();
               goto LABEL_8;
             }
 
-            v128 = v35;
-            v131 = (v35 + 1);
-            v23 = v1;
-            v41 = v8;
-            v8 = *(v8 + 40);
-            v24 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
+            v129 = v36;
+            v132 = (v36 + 1);
+            v24 = v1;
+            v42 = v7;
+            v7 = *(v7 + 40);
+            v25 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
             swift_beginAccess();
-            outlined init with copy of ActionPerforming(&v40[v24], &v137);
-            v42 = v139;
+            outlined init with copy of ActionPerforming(&v41[v25], &v138);
             v43 = v140;
-            v1 = __swift_project_boxed_opaque_existential_0Tm(&v137, v139);
-            v44 = v43[2](v42, v43);
-            if ((v44 & 0x8000000000000000) != 0)
+            v44 = v141;
+            v1 = __swift_project_boxed_opaque_existential_0Tm(&v138, v140);
+            v45 = v44[2](v43, v44);
+            if ((v45 & 0x8000000000000000) != 0)
             {
               goto LABEL_67;
             }
 
-            if (v44 >= *(v8 + 16))
+            if (v45 >= *(v7 + 16))
             {
               goto LABEL_68;
             }
 
-            outlined init with copy of ActionPerforming(v8 + 40 * v44 + 32, v142);
-            SyncedLyricsViewController.lineData(for:)(v142, v5);
-            __swift_destroy_boxed_opaque_existential_0Tm(v142);
-            __swift_destroy_boxed_opaque_existential_0Tm(&v137);
-            if (*(v41 + v118) || v116[88] == 1)
+            outlined init with copy of ActionPerforming(v7 + 40 * v45 + 32, v143);
+            SyncedLyricsViewController.lineData(for:)(v143, v5);
+            __swift_destroy_boxed_opaque_existential_0Tm(v143);
+            __swift_destroy_boxed_opaque_existential_0Tm(&v138);
+            if (*(v42 + v119) || v117[88] == 1)
             {
-              v45 = v5[3];
-              v46 = v5[4];
-              __swift_project_boxed_opaque_existential_0Tm(v5, v45);
-              v47 = (*(v46 + 24))(v45, v46);
+              v46 = v5[3];
+              v47 = v5[4];
+              __swift_project_boxed_opaque_existential_0Tm(v5, v46);
+              v48 = (*(v47 + 24))(v46, v47);
             }
 
             else
             {
-              v47 = *(v116 + 10);
+              v48 = *(v117 + 10);
             }
 
-            v48 = *(v122 + 20);
-            v49 = *(v122 + 24);
-            outlined init with copy of ActionPerforming(v5, &v137);
+            v49 = *(v123 + 20);
+            v50 = *(v123 + 24);
+            outlined init with copy of ActionPerforming(v5, &v138);
             swift_beginAccess();
-            __swift_destroy_boxed_opaque_existential_0Tm(&v40[v24]);
-            outlined init with take of ActionPerforming(&v137, &v40[v24]);
+            __swift_destroy_boxed_opaque_existential_0Tm(&v41[v25]);
+            outlined init with take of ActionPerforming(&v138, &v41[v25]);
             swift_endAccess();
-            v50 = v5 + v48;
-            v51 = v123;
-            outlined init with copy of TaskPriority?(v50, v123, &_s7LyricsX0A0C8TextLineVSgMd);
-            v52 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_transliteratedLine;
+            v51 = v5 + v49;
+            v52 = v124;
+            outlined init with copy of TaskPriority?(v51, v124, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+            v53 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_transliteratedLine;
             swift_beginAccess();
-            outlined assign with take of PlaybackIntentDescriptor.IntentType?(v51, &v40[v52], &_s7LyricsX0A0C8TextLineVSgMd);
+            outlined assign with take of PlaybackIntentDescriptor.IntentType?(v52, &v41[v53], &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
             swift_endAccess();
-            v53 = v124;
-            outlined init with copy of TaskPriority?(v5 + v49, v124, &_s7LyricsX0A0C11TranslationV4LineVSgMd);
-            v54 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_translatedLine;
+            v54 = v125;
+            outlined init with copy of TaskPriority?(v5 + v50, v125, &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
+            v55 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_translatedLine;
             swift_beginAccess();
-            outlined assign with take of PlaybackIntentDescriptor.IntentType?(v53, &v40[v54], &_s7LyricsX0A0C11TranslationV4LineVSgMd);
+            outlined assign with take of PlaybackIntentDescriptor.IntentType?(v54, &v41[v55], &_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
             swift_endAccess();
-            *&v40[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_alignment] = v47;
+            *&v41[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_alignment] = v48;
             SyncedLyricsLineView.updateContentView()();
-            v55 = v40;
-            [v55 frame];
-            v57 = v56;
-            v59 = v58;
-            v61 = v60;
-            v63 = v62;
-            v1 = v23;
-            SyncedLyricsViewController.frame(for:selected:previousViewFrame:)(v55, 2, v143);
-            v135 = v66;
+            v56 = v41;
+            [v56 frame];
+            v58 = v57;
+            v60 = v59;
+            v62 = v61;
+            v64 = v63;
+            v1 = v24;
+            SyncedLyricsViewController.frame(for:selected:previousViewFrame:)(v56, 2, v144);
             v136 = v67;
-            v133 = v64;
+            v137 = v68;
             v134 = v65;
-            if (v132)
+            v135 = v66;
+            if (v133)
             {
-              v132 = 1;
-              v23 = v120;
-              v8 = v117;
+              v133 = 1;
+              v24 = v121;
+              v7 = v118;
             }
 
             else
             {
-              v148.origin.x = v127;
-              v148.origin.y = v14;
-              v148.size.width = v17;
-              v148.size.height = v19;
-              v146.x = v57;
-              v146.y = v59;
-              v68 = CGRectContainsPoint(v148, v146);
-              v23 = v120;
-              v8 = v117;
-              if (v68 && (v126 == v115 || [v55 isSelected]))
+              v149.origin.x = v128;
+              v149.origin.y = v13;
+              v149.size.width = v17;
+              v149.size.height = v19;
+              v147.x = v58;
+              v147.y = v60;
+              v69 = CGRectContainsPoint(v149, v147);
+              v24 = v121;
+              v7 = v118;
+              if (v69 && (v127 == v116 || [v56 isSelected]))
               {
-                *&v149.origin.x = v133;
-                *&v149.origin.y = v134;
-                *&v149.size.width = v135;
-                *&v149.size.height = v136;
-                MinY = CGRectGetMinY(v149);
-                v150.origin.x = v57;
-                v150.origin.y = v59;
-                v150.size.width = v61;
-                v150.size.height = v63;
-                *&v64 = CGRectGetMinY(v150);
-                *&v66 = v135;
+                *&v150.origin.x = v134;
+                *&v150.origin.y = v135;
+                *&v150.size.width = v136;
+                *&v150.size.height = v137;
+                MinY = CGRectGetMinY(v150);
+                v151.origin.x = v58;
+                v151.origin.y = v60;
+                v151.size.width = v62;
+                v151.size.height = v64;
+                *&v65 = CGRectGetMinY(v151);
                 *&v67 = v136;
-                v11 = MinY - (*&v64 - v113);
-                *&v64 = v133;
+                *&v68 = v137;
+                v10 = MinY - (*&v65 - v114);
                 *&v65 = v134;
-                v132 = 1;
-                v112 = v11;
+                *&v66 = v135;
+                v133 = 1;
+                v113 = v10;
               }
 
               else
               {
-                v132 = 0;
-                *&v66 = v135;
+                v133 = 0;
                 *&v67 = v136;
-                *&v64 = v133;
+                *&v68 = v137;
                 *&v65 = v134;
+                *&v66 = v135;
               }
             }
 
-            *(&v64 + 1) = v65;
-            v130 = v64;
-            *&v70 = v66;
-            *(&v70 + 1) = v67;
-            v129 = v70;
-            v71 = swift_allocObject();
-            *(v71 + 2) = v55;
-            v72 = v134;
-            *(v71 + 3) = v133;
-            *(v71 + 4) = v72;
-            v73 = v136;
-            *(v71 + 5) = v135;
-            *(v71 + 6) = v73;
-            *(v71 + 7) = v1;
-            v71[8] = v57;
-            v71[9] = v59;
-            v71[10] = v61;
-            v71[11] = v63;
-            if (v125)
+            *(&v65 + 1) = v66;
+            v131 = v65;
+            *&v71 = v67;
+            *(&v71 + 1) = v68;
+            v130 = v71;
+            v72 = swift_allocObject();
+            *(v72 + 2) = v56;
+            v73 = v135;
+            *(v72 + 3) = v134;
+            *(v72 + 4) = v73;
+            v74 = v137;
+            *(v72 + 5) = v136;
+            *(v72 + 6) = v74;
+            *(v72 + 7) = v1;
+            v72[8] = v58;
+            v72[9] = v60;
+            v72[10] = v62;
+            v72[11] = v64;
+            if (v126)
             {
               break;
             }
 
-            v74 = v1;
-            closure #2 in SyncedLyricsViewController.updateLines(animator:)(v55, v74, *&v133, *&v134, *&v135, *&v136, v57, v59, v61, v63);
+            v75 = v1;
+            closure #2 in SyncedLyricsViewController.updateLines(animator:)(v56, v75, *&v134, *&v135, *&v136, *&v137, v58, v60, v62, v64);
 
             outlined destroy of Lyrics.TextLine(v5, type metadata accessor for SyncedLyricsViewController.LineData);
-            v37 = 0;
-            v35 = (v128 + 1);
-            v24 = v119;
-            v38 = v129;
-            v36 = v130;
-            if (v131 == v119)
+            v38 = 0;
+            v36 = (v129 + 1);
+            v25 = v120;
+            v39 = v130;
+            v37 = v131;
+            if (v132 == v120)
             {
               goto LABEL_62;
             }
           }
 
-          v75 = v55;
-          v106 = v1;
-          v128 = v125;
-          v151.origin.x = v57;
-          v151.origin.y = v59;
-          v151.size.width = v61;
-          v151.size.height = v63;
-          v153.origin.x = v127;
-          v153.origin.y = v14;
-          v153.size.width = v17;
-          v153.size.height = v19;
-          if (!CGRectIntersectsRect(v151, v153))
+          v76 = v56;
+          v107 = v1;
+          v129 = v126;
+          v152.origin.x = v58;
+          v152.origin.y = v60;
+          v152.size.width = v62;
+          v152.size.height = v64;
+          v154.origin.x = v128;
+          v154.origin.y = v13;
+          v154.size.width = v17;
+          v154.size.height = v19;
+          if (!CGRectIntersectsRect(v152, v154))
           {
-            *&v152.origin.x = v133;
-            *&v152.origin.y = v134;
-            *&v152.size.width = v135;
-            *&v152.size.height = v136;
-            v154.origin.x = v127;
-            v154.origin.y = v112;
-            v154.size.width = v17;
-            v154.size.height = v19;
-            if (!CGRectIntersectsRect(v152, v154))
+            *&v153.origin.x = v134;
+            *&v153.origin.y = v135;
+            *&v153.size.width = v136;
+            *&v153.size.height = v137;
+            v155.origin.x = v128;
+            v155.origin.y = v113;
+            v155.size.width = v17;
+            v155.size.height = v19;
+            if (!CGRectIntersectsRect(v153, v155))
             {
-              [v75 setHidden:1];
+              [v76 setHidden:1];
 
-              v82 = swift_allocObject();
-              v82[2] = v75;
-              v82[3] = partial apply for closure #2 in SyncedLyricsViewController.updateLines(animator:);
-              v82[4] = v71;
-              *&v136 = v75;
+              v83 = swift_allocObject();
+              v83[2] = v76;
+              v83[3] = partial apply for closure #2 in SyncedLyricsViewController.updateLines(animator:);
+              v83[4] = v72;
+              *&v137 = v76;
 
               if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
               {
                 New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1(0, New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1[2] + 1, 1, New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1);
               }
 
-              v84 = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1[2];
-              v83 = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1[3];
-              if (v84 >= v83 >> 1)
+              v85 = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1[2];
+              v84 = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1[3];
+              if (v85 >= v84 >> 1)
               {
-                New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1((v83 > 1), v84 + 1, 1, New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1);
+                New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1((v84 > 1), v85 + 1, 1, New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1);
               }
 
-              v85 = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1;
-              New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1[2] = (v84 + 1);
-              v86 = &v85[2 * v84];
-              v86[4] = partial apply for closure #4 in SyncedLyricsViewController.updateLines(animator:);
-              v86[5] = v82;
+              v86 = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1;
+              New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1[2] = v85 + 1;
+              v87 = &v86[2 * v85];
+              v87[4] = partial apply for closure #4 in SyncedLyricsViewController.updateLines(animator:);
+              v87[5] = v83;
               outlined destroy of Lyrics.TextLine(v5, type metadata accessor for SyncedLyricsViewController.LineData);
               goto LABEL_54;
             }
           }
 
-          v76 = swift_allocObject();
-          *(v76 + 16) = partial apply for closure #2 in SyncedLyricsViewController.updateLines(animator:);
-          *(v76 + 24) = v71;
+          v77 = swift_allocObject();
+          *(v77 + 16) = partial apply for closure #2 in SyncedLyricsViewController.updateLines(animator:);
+          *(v77 + 24) = v72;
 
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          v108 = v75;
+          v109 = v76;
           if ((isUniquelyReferenced_nonNull_native & 1) == 0)
           {
-            v110 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1(0, v110[2] + 1, 1, v110);
+            v111 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1(0, v111[2] + 1, 1, v111);
           }
 
-          v79 = v110[2];
-          v78 = v110[3];
-          if (v79 >= v78 >> 1)
+          v80 = v111[2];
+          v79 = v111[3];
+          if (v80 >= v79 >> 1)
           {
-            v110 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1((v78 > 1), v79 + 1, 1, v110);
+            v111 = _ss12_ArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1((v79 > 1), v80 + 1, 1, v111);
           }
 
-          v80 = v110;
-          v110[2] = (v79 + 1);
-          v81 = &v80[2 * v79];
-          v81[4] = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
-          v81[5] = v76;
-          if (v132)
+          v81 = v111;
+          v111[2] = v80 + 1;
+          v82 = &v81[2 * v80];
+          v82[4] = partial apply for closure #3 in View.actionContextMenu<A>(title:menu:excluding:preview:previewAction:);
+          v82[5] = v77;
+          if (v133)
           {
             break;
           }
@@ -28513,15 +29377,15 @@ LABEL_72:
           outlined destroy of Lyrics.TextLine(v5, type metadata accessor for SyncedLyricsViewController.LineData);
 
 LABEL_54:
-          v37 = 0;
-          v24 = v119;
-          v35 = v131;
-          v38 = v129;
-          v36 = v130;
-          if (v131 == v119)
+          v38 = 0;
+          v25 = v120;
+          v36 = v132;
+          v39 = v130;
+          v37 = v131;
+          if (v132 == v120)
           {
 
-            if ((v107 & 1) == 0)
+            if ((v108 & 1) == 0)
             {
               goto LABEL_63;
             }
@@ -28530,85 +29394,87 @@ LABEL_54:
           }
         }
 
-        v87 = v108;
-        if (v107)
+        v88 = v109;
+        if (v108)
         {
           outlined destroy of Lyrics.TextLine(v5, type metadata accessor for SyncedLyricsViewController.LineData);
 
 LABEL_59:
-          v37 = 0;
-          v107 = 1;
-          v132 = 1;
-          v24 = v119;
-          v35 = v131;
-          v38 = v129;
-          v36 = v130;
-          if (v131 == v119)
+          v38 = 0;
+          v108 = 1;
+          v133 = 1;
+          v25 = v120;
+          v36 = v132;
+          v39 = v130;
+          v37 = v131;
+          if (v132 == v120)
           {
 
 LABEL_65:
-            v91 = v106;
-            v92 = *(v106 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineUpdateAnimator);
-            *(v106 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineUpdateAnimator) = v125;
-            v93 = v128;
+            v92 = v107;
+            v93 = *(v107 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineUpdateAnimator);
+            *(v107 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineUpdateAnimator) = v126;
+            v94 = v129;
 
-            v94 = swift_allocObject();
-            *(v94 + 16) = v110;
-            *(v94 + 24) = v91;
-            *(v94 + 32) = v11;
-            v140 = partial apply for specialized closure #5 in SyncedLyricsViewController.updateLines(animator:);
-            v141 = v94;
-            *&v137 = _NSConcreteStackBlock;
-            *(&v137 + 1) = 1107296256;
-            v138 = thunk for @escaping @callee_guaranteed () -> ();
-            v139 = &block_descriptor_353_0;
-            v95 = _Block_copy(&v137);
-            v96 = v91;
+            v95 = swift_allocObject();
+            *(v95 + 16) = v111;
+            *(v95 + 24) = v92;
+            *(v95 + 32) = v10;
+            v141 = partial apply for specialized closure #5 in SyncedLyricsViewController.updateLines(animator:);
+            v142 = v95;
+            *&v138 = _NSConcreteStackBlock;
+            *(&v138 + 1) = 1107296256;
+            v139 = thunk for @escaping @callee_guaranteed () -> ();
+            v140 = &block_descriptor_353_0;
+            v96 = _Block_copy(&v138);
+            v97 = v92;
 
-            [v93 addAnimations:v95];
-            _Block_release(v95);
-            v97 = swift_allocObject();
-            *(v97 + 16) = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1;
-            *(v97 + 24) = v96;
-            v140 = partial apply for specialized closure #6 in SyncedLyricsViewController.updateLines(animator:);
-            v141 = v97;
-            *&v137 = _NSConcreteStackBlock;
-            *(&v137 + 1) = 1107296256;
-            v138 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
-            v139 = &block_descriptor_359;
-            v98 = _Block_copy(&v137);
-            v99 = v96;
+            [v94 addAnimations:v96];
+            _Block_release(v96);
+            v98 = swift_allocObject();
+            *(v98 + 16) = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1;
+            *(v98 + 24) = v97;
+            v141 = partial apply for specialized closure #6 in SyncedLyricsViewController.updateLines(animator:);
+            v142 = v98;
+            *&v138 = _NSConcreteStackBlock;
+            *(&v138 + 1) = 1107296256;
+            v139 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
+            v140 = &block_descriptor_359;
+            v99 = _Block_copy(&v138);
+            v100 = v97;
 
-            [v93 addCompletion:v98];
-            _Block_release(v98);
-            [v93 startAnimation];
+            [v94 addCompletion:v99];
+            _Block_release(v99);
+            [v94 startAnimation];
+
+            return;
           }
         }
 
         else
         {
 
-          v88 = vabdd_f64(v63, *&v136);
+          v89 = vabdd_f64(v64, *&v137);
           outlined destroy of Lyrics.TextLine(v5, type metadata accessor for SyncedLyricsViewController.LineData);
-          if (v88 > 1.0)
+          if (v89 > 1.0)
           {
             goto LABEL_59;
           }
 
-          v107 = 0;
-          v37 = 0;
-          v132 = 1;
-          v24 = v119;
-          v35 = v131;
-          v38 = v129;
-          v36 = v130;
-          if (v131 == v119)
+          v108 = 0;
+          v38 = 0;
+          v133 = 1;
+          v25 = v120;
+          v36 = v132;
+          v39 = v130;
+          v37 = v131;
+          if (v132 == v120)
           {
 LABEL_62:
 
 LABEL_63:
-            v89 = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1;
-            v90 = v110;
+            v90 = New14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFyyc_Tg5_1;
+            v91 = v111;
             goto LABEL_75;
           }
         }
@@ -28616,34 +29482,34 @@ LABEL_63:
     }
   }
 
+  v91 = _swiftEmptyArrayStorage;
   v90 = _swiftEmptyArrayStorage;
-  v89 = _swiftEmptyArrayStorage;
 LABEL_75:
-  v100 = *(v1 + v111);
-  [v100 contentOffset];
-  [v100 setContentOffset:?];
+  v101 = *(v1 + v112);
+  [v101 contentOffset];
+  [v101 setContentOffset:?];
 
-  *&v137 = v90;
-  specialized Array.append<A>(contentsOf:)(v89);
-  v101 = *(v137 + 16);
-  if (v101)
+  *&v138 = v91;
+  specialized Array.append<A>(contentsOf:)(v90);
+  v102 = *(v138 + 16);
+  if (v102)
   {
-    v102 = v137 + 40;
+    v103 = v138 + 40;
     do
     {
-      v103 = *(v102 - 8);
+      v104 = *(v103 - 8);
 
-      v103(v104);
+      v104(v105);
 
-      v102 += 16;
-      --v101;
+      v103 += 16;
+      --v102;
     }
 
-    while (v101);
+    while (v102);
   }
 }
 
-void closure #2 in SyncedLyricsViewController.updateLines(animator:)(void *a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, double a7, double a8, double a9, double a10)
+void closure #2 in SyncedLyricsViewController.updateLines(animator:)(char *a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6, double a7, double a8, double a9, double a10)
 {
   UIView.untransformedFrame.setter(a3, a4, a5, a6);
   v16 = *(a2 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timestampLabel);
@@ -28651,7 +29517,7 @@ void closure #2 in SyncedLyricsViewController.updateLines(animator:)(void *a1, u
   {
     v17 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsTimestampLabel_line;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v16 + v17, v39, &_s7LyricsX0A4Line_pSgMd);
+    outlined init with copy of TaskPriority?(v16 + v17, v39, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
     v18 = v40;
     if (v40)
     {
@@ -28661,14 +29527,14 @@ void closure #2 in SyncedLyricsViewController.updateLines(animator:)(void *a1, u
       v21 = __chkstk_darwin();
       v23 = &v38[-((v22 + 15) & 0xFFFFFFFFFFFFFFF0)];
       (*(v20 + 16))(v23, v21);
-      outlined destroy of TaskPriority?(v39, &_s7LyricsX0A4Line_pSgMd);
+      outlined destroy of TaskPriority?(v39, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
       v24 = (*(v19 + 16))(v18, v19);
       (*(v20 + 8))(v23, v18);
       v25 = 0;
       goto LABEL_6;
     }
 
-    outlined destroy of TaskPriority?(v39, &_s7LyricsX0A4Line_pSgMd);
+    outlined destroy of TaskPriority?(v39, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   }
 
   v24 = 0;
@@ -28676,7 +29542,7 @@ void closure #2 in SyncedLyricsViewController.updateLines(animator:)(void *a1, u
 LABEL_6:
   v26 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
-  outlined init with copy of ActionPerforming(a1 + v26, v39);
+  outlined init with copy of ActionPerforming(&a1[v26], v39);
   v27 = v40;
   v28 = v41;
   __swift_project_boxed_opaque_existential_0Tm(v39, v40);
@@ -28743,7 +29609,7 @@ LABEL_6:
   v35 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
 LABEL_17:
-  type metadata accessor for SyncedLyricsLineView();
+  type metadata accessor for SyncedLyricsLineView(0);
   v36 = a1;
   v37 = static NSObject.== infix(_:_:)();
 
@@ -28829,7 +29695,7 @@ Swift::Void __swiftcall SyncedLyricsViewController.leaveTrackingMode()()
   }
 }
 
-uint64_t SyncedLyricsViewController.displayLinkShouldPause()()
+BOOL SyncedLyricsViewController.displayLinkShouldPause()()
 {
   v1 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
   swift_beginAccess();
@@ -28840,7 +29706,7 @@ uint64_t SyncedLyricsViewController.displayLinkShouldPause()()
 
   v3 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v0 + v3, &v8, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+  outlined init with copy of TaskPriority?(v0 + v3, &v8, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
   if (v9)
   {
     outlined init with take of ActionPerforming(&v8, v10);
@@ -28865,12 +29731,12 @@ uint64_t SyncedLyricsViewController.displayLinkShouldPause()()
 
   else
   {
-    outlined destroy of TaskPriority?(&v8, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined destroy of TaskPriority?(&v8, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     return 1;
   }
 }
 
-id *SyncedLyricsViewController.visibleLineViews.getter()
+void *SyncedLyricsViewController.visibleLineViews.getter()
 {
   v1 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
   swift_beginAccess();
@@ -28992,9 +29858,9 @@ uint64_t SyncedLyricsViewController.lineViews(in:startingAt:)(void *a1, CGFloat 
   v11 = a1[3];
   v12 = a1[4];
   __swift_project_boxed_opaque_existential_0Tm(a1, v11);
-  v35 = v11;
-  v34 = *(v12 + 16);
-  v13 = v34(v11, v12);
+  v38 = v11;
+  v37 = *(v12 + 16);
+  v13 = v37(v11, v12);
   v14 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
   swift_beginAccess();
   v15 = 0;
@@ -29026,11 +29892,11 @@ LABEL_2:
     }
 
     [v20 frame];
-    v38.origin.x = a2;
-    v38.origin.y = a3;
-    v38.size.width = a4;
-    v38.size.height = a5;
-    if (!CGRectIntersectsRect(v36, v38))
+    v41.origin.x = a2;
+    v41.origin.y = a3;
+    v41.size.width = a4;
+    v41.size.height = a5;
+    if (!CGRectIntersectsRect(v39, v41))
     {
       break;
     }
@@ -29062,7 +29928,7 @@ LABEL_3:
   }
 
 LABEL_18:
-  v22 = v34(v35, v12);
+  v22 = v37(v38, v12);
   v13 = v22 + 1;
   if (__OFADD__(v22, 1))
   {
@@ -29126,20 +29992,20 @@ LABEL_28:
       v31 = *(v30 + 8 * v13 + 32);
 LABEL_32:
       [v31 frame];
-      v39.origin.x = a2;
-      v39.origin.y = a3;
-      v39.size.width = a4;
-      v39.size.height = a5;
-      if (!CGRectIntersectsRect(v37, v39))
+      v42.origin.x = a2;
+      v42.origin.y = a3;
+      v42.size.width = a4;
+      v42.size.height = a5;
+      if (!CGRectIntersectsRect(v40, v42))
       {
 
 LABEL_39:
-        swift_getKeyPath();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7LyricsX06SyncedA8LineViewCGMd);
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [SyncedLyricsLineView] and conformance [A], &_sSay7LyricsX06SyncedA8LineViewCGMd);
-        v33 = Sequence.sorted<A>(by:comparator:)();
+        KeyPath = swift_getKeyPath();
+        v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay7LyricsX06SyncedA8LineViewCGMd, &_sSay7LyricsX06SyncedA8LineViewCGMR);
+        v35 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [SyncedLyricsLineView] and conformance [A], &_sSay7LyricsX06SyncedA8LineViewCGMd, &_sSay7LyricsX06SyncedA8LineViewCGMR);
+        v36 = Sequence.sorted<A>(by:comparator:)(KeyPath, protocol witness for static Comparable.< infix(_:_:) in conformance ICEnvironmentMonitorThermalPressureLevel, 0, v34, v35, &protocol witness table for Int);
 
-        return v33;
+        return v36;
       }
 
       v32 = v31;
@@ -29181,15 +30047,16 @@ LABEL_46:
   return result;
 }
 
-uint64_t key path setter for SyncedLyricsLineView.line : SyncedLyricsLineView(uint64_t a1, uint64_t *a2)
+double key path setter for SyncedLyricsLineView.line : SyncedLyricsLineView(uint64_t a1, uint64_t *a2)
 {
   outlined init with copy of ActionPerforming(a1, v6);
   v3 = *a2;
   v4 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(v3 + v4);
+  __swift_destroy_boxed_opaque_existential_0Tm((v3 + v4));
   outlined init with take of ActionPerforming(v6, v3 + v4);
-  return swift_endAccess();
+  swift_endAccess();
+  return result;
 }
 
 double SyncedLyricsViewController.contentOffset(for:)(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
@@ -29328,24 +30195,27 @@ LABEL_17:
             v30 = *(v28 + 96);
             if (v30)
             {
+              v31 = p_cache;
+              v32 = *(v28 + 104);
 
-              v31 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v30);
-              v32 = v30(v31);
+              v33 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v30, v32);
+              v34 = v30(v33);
               swift_beginAccess();
               if (*(v28 + 88) == 1)
               {
-                v33 = Lyrics.spatialOffset.getter();
-                outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v30);
+                v35 = Lyrics.spatialOffset.getter();
+                outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v30, v32);
               }
 
               else
               {
 
-                outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v30);
-                v33 = 0.0;
+                outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v30, v32);
+                v35 = 0.0;
               }
 
-              v29 = v32 - v33;
+              v29 = v34 - v35;
+              p_cache = v31;
             }
           }
 
@@ -29355,11 +30225,11 @@ LABEL_17:
     }
 
     SyncedLyricsViewController.applyBlurRadius(_:to:animated:)(v15, 1, 0.0);
-    v34 = p_cache[462];
+    v36 = p_cache[462];
     swift_beginAccess();
     v9 = v15;
     specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-    if (*((*(v34 + v5) & 0xFFFFFFFFFFFFFF8) + 0x10) < *((*(v34 + v5) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    if (*((*(v36 + v5) & 0xFFFFFFFFFFFFFF8) + 0x10) < *((*(v36 + v5) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       goto LABEL_29;
     }
@@ -29368,7 +30238,7 @@ LABEL_17:
   }
 
 LABEL_5:
-  v35 = a4;
+  v37 = a4;
   v17 = p_cache[462];
   swift_beginAccess();
   v18 = *&v17[v5];
@@ -29383,7 +30253,7 @@ LABEL_5:
 LABEL_16:
     *&v17[v5] = _swiftEmptyArrayStorage;
 
-    a4 = v35;
+    a4 = v37;
     goto LABEL_17;
   }
 
@@ -29394,7 +30264,7 @@ LABEL_16:
   }
 
 LABEL_7:
-  type metadata accessor for SyncedLyricsLineView();
+  type metadata accessor for SyncedLyricsLineView(0);
   if (v19 >= 1)
   {
 
@@ -29425,13 +30295,13 @@ LABEL_7:
   __break(1u);
 }
 
-uint64_t implicit closure #2 in SyncedLyricsViewController.select(line:animator:deselectAll:fadeInInstrumentalView:)()
+uint64_t implicit closure #2 in SyncedLyricsViewController.select(line:animator:deselectAll:fadeInInstrumentalView:)(uint64_t a1)
 {
   _StringGuts.grow(_:)(37);
-  v0._object = 0x80000001004D8070;
-  v0._countAndFlagsBits = 0xD000000000000023;
-  String.append(_:)(v0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  v1._object = 0x80000001004D8070;
+  v1._countAndFlagsBits = 0xD000000000000023;
+  String.append(_:)(v1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   _print_unlocked<A, B>(_:_:)();
   return 0;
 }
@@ -29467,7 +30337,7 @@ id SyncedLyricsViewController.lineChangeSpringParameters(gap:)(uint64_t a1, char
 
       v13 = (1.0 - v12) * 0.12 + 0.78;
       v14 = v12 * 0.27 + 0.48;
-      type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0);
+      type metadata accessor for UIAction(0, &_sSo24UISpringTimingParametersCML_0, UISpringTimingParameters_ptr);
       return UISpringTimingParameters.init(dampingRatio:response:)(v13, v14);
     }
   }
@@ -29496,8 +30366,8 @@ void SyncedLyricsViewController.updateBlur(views:)(unint64_t a1)
     {
 
       __CocoaSet.makeIterator()();
-      type metadata accessor for SyncedLyricsLineView();
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView);
+      type metadata accessor for SyncedLyricsLineView(0);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView, &protocol conformance descriptor for NSObject);
       Set.Iterator.init(_cocoa:)();
       v7 = v152;
       v8 = v153;
@@ -29539,7 +30409,7 @@ void SyncedLyricsViewController.updateBlur(views:)(unint64_t a1)
         }
 
         v151 = v62;
-        type metadata accessor for SyncedLyricsLineView();
+        type metadata accessor for SyncedLyricsLineView(0);
         swift_dynamicCast();
         v61 = v142;
         v11 = v2;
@@ -29586,7 +30456,7 @@ LABEL_100:
           }
 
 LABEL_75:
-          outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
+          outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v7);
           return;
         }
 
@@ -29754,7 +30624,7 @@ LABEL_138:
               v2 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
               swift_beginAccess();
               outlined init with copy of ActionPerforming(v19 + v2, v143);
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
               if (swift_dynamicCast())
               {
 
@@ -29985,8 +30855,8 @@ LABEL_103:
     if ((v11 & 0xC000000000000001) != 0)
     {
       __CocoaSet.makeIterator()();
-      type metadata accessor for SyncedLyricsLineView();
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView);
+      type metadata accessor for SyncedLyricsLineView(0);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView, &protocol conformance descriptor for NSObject);
       Set.Iterator.init(_cocoa:)();
       v11 = v152;
       v101 = v153;
@@ -30016,7 +30886,7 @@ LABEL_103:
       }
 
       v143[0] = v114;
-      type metadata accessor for SyncedLyricsLineView();
+      type metadata accessor for SyncedLyricsLineView(0);
       swift_dynamicCast();
       v113 = v146;
       v2 = v103;
@@ -30084,7 +30954,7 @@ LABEL_116:
     }
 
 LABEL_122:
-    outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
+    outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v11);
     v117 = *&v140[v136];
     if ((v117 & 0xC000000000000001) != 0)
     {
@@ -30361,7 +31231,7 @@ void SyncedLyricsViewController.applyBlurRadius(_:to:animated:)(void *a1, char a
   }
 }
 
-uint64_t SyncedLyricsViewController.removeAllBlurs()()
+void SyncedLyricsViewController.removeAllBlurs()()
 {
   v1 = v0;
   v2 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_blurredLineViews;
@@ -30371,14 +31241,14 @@ uint64_t SyncedLyricsViewController.removeAllBlurs()()
   {
 
     __CocoaSet.makeIterator()();
-    type metadata accessor for SyncedLyricsLineView();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView);
+    type metadata accessor for SyncedLyricsLineView(0);
+    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView, &protocol conformance descriptor for NSObject);
     Set.Iterator.init(_cocoa:)();
-    v3 = v41[10];
-    v4 = v41[11];
-    v5 = v41[12];
-    v6 = v41[13];
-    v7 = v41[14];
+    v3 = v41;
+    v4 = v42;
+    v5 = v43;
+    v6 = v44;
+    v7 = v45;
   }
 
   else
@@ -30411,13 +31281,13 @@ uint64_t SyncedLyricsViewController.removeAllBlurs()()
       goto LABEL_20;
     }
 
-    v41[4] = v18;
-    type metadata accessor for SyncedLyricsLineView();
+    v40[4] = v18;
+    type metadata accessor for SyncedLyricsLineView(0);
     swift_dynamicCast();
-    v17 = v41[0];
+    v17 = v40[0];
     v15 = v6;
     v16 = v7;
-    if (!v41[0])
+    if (!v40[0])
     {
       goto LABEL_20;
     }
@@ -30479,98 +31349,96 @@ LABEL_14:
   }
 
 LABEL_20:
-  outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
+  outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v3);
   v21 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
-  result = swift_beginAccess();
+  swift_beginAccess();
   v1 = *(v1 + v21);
   if (!(v1 >> 62))
   {
-    v23 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v23)
+    v22 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v22)
     {
-      return result;
+      return;
     }
 
     goto LABEL_22;
   }
 
 LABEL_33:
-  result = _CocoaArrayWrapper.endIndex.getter();
-  v23 = result;
-  if (!result)
+  v22 = _CocoaArrayWrapper.endIndex.getter();
+  if (!v22)
   {
-    return result;
+    return;
   }
 
 LABEL_22:
-  if (v23 < 1)
+  if (v22 < 1)
   {
     __break(1u);
   }
 
   else
   {
-    v40 = v1 & 0xC000000000000001;
+    v39 = v1 & 0xC000000000000001;
 
-    v24 = 0;
-    v38 = v23;
-    v39 = v1;
+    v23 = 0;
+    v37 = v22;
+    v38 = v1;
     do
     {
-      if (v40)
+      if (v39)
       {
-        v25 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v24 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v25 = *(v1 + 8 * v24 + 32);
+        v24 = *(v1 + 8 * v23 + 32);
       }
 
-      v26 = v25;
-      v27 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_isScrolling;
-      v25[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_isScrolling] = 1;
-      v29 = SyncedLyricsLineView.contentView.modify(v41);
-      v30 = *v28;
-      if (*v28)
+      v25 = v24;
+      v26 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_isScrolling;
+      v24[OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_isScrolling] = 1;
+      v28 = SyncedLyricsLineView.contentView.modify(v40);
+      v29 = *v27;
+      if (*v27)
       {
-        v31 = v26[v27];
-        v32 = *(v28 + 8);
-        v33 = v28;
+        v30 = v25[v26];
+        v31 = *(v27 + 8);
+        v32 = v27;
         ObjectType = swift_getObjectType();
-        v35 = *(v32 + 40);
-        v36 = v30;
-        v35(v31, ObjectType, v32);
-        v37 = *v33;
-        *v33 = v30;
-        *(v33 + 8) = v32;
-        v23 = v38;
-        v1 = v39;
+        v34 = *(v31 + 40);
+        v35 = v29;
+        v34(v30, ObjectType, v31);
+        v36 = *v32;
+        *v32 = v29;
+        *(v32 + 8) = v31;
+        v22 = v37;
+        v1 = v38;
       }
 
-      v29(v41, 0);
-      ++v24;
+      v28(v40, 0);
+      ++v23;
     }
 
-    while (v23 != v24);
+    while (v22 != v23);
   }
-
-  return result;
 }
 
-void SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(void *a1, char a2, uint64_t a3, int a4, char a5, double a6, double a7, double a8)
+void SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(void *a1, char a2, unint64_t a3, int a4, char a5, __n128 a6, double a7, double a8)
 {
   v9 = v8;
   LODWORD(v10) = a4;
+  v15 = a6.n128_u64[0];
   if (*(v8 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineUpdateAnimator))
   {
     SyncedLyricsViewController.cancelAnimations()();
   }
 
   v16 = swift_allocObject();
-  *(v16 + 16) = a6;
+  *(v16 + 16) = v15;
   *(v16 + 24) = a7;
-  v224 = v16;
+  v225 = v16;
   v17 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
   swift_beginAccess();
   [*(v8 + v17) contentOffset];
@@ -30604,19 +31472,19 @@ void SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjusted
     v29 = v32;
   }
 
-  v216 = a2;
+  v217 = a2;
   v33 = a7 - v19;
-  v252.origin.x = v21;
-  v252.origin.y = v23;
-  v252.size.width = v27;
-  v252.size.height = v29;
-  v256 = CGRectOffset(v252, 0.0, v33);
   v253.origin.x = v21;
   v253.origin.y = v23;
   v253.size.width = v27;
   v253.size.height = v29;
-  v254 = CGRectUnion(v253, v256);
-  v34 = SyncedLyricsViewController.lineViews(in:startingAt:)(a1, v254.origin.x, v254.origin.y, v254.size.width, v254.size.height);
+  v257 = CGRectOffset(v253, 0.0, v33);
+  v254.origin.x = v21;
+  v254.origin.y = v23;
+  v254.size.width = v27;
+  v254.size.height = v29;
+  v255 = CGRectUnion(v254, v257);
+  v34 = SyncedLyricsViewController.lineViews(in:startingAt:)(a1, v255.origin.x, v255.origin.y, v255.size.width, v255.size.height);
   v35 = a1[3];
   v36 = a1[4];
   __swift_project_boxed_opaque_existential_0Tm(a1, v35);
@@ -30627,9 +31495,9 @@ void SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjusted
   if ((v39 & 0xC000000000000001) != 0)
   {
 
-    v226 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v227 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-    v40 = v216;
+    v40 = v217;
     if (v10)
     {
       goto LABEL_15;
@@ -30638,7 +31506,7 @@ void SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjusted
 
   else
   {
-    v40 = v216;
+    v40 = v217;
     if ((v37 & 0x8000000000000000) != 0)
     {
       goto LABEL_164;
@@ -30649,7 +31517,7 @@ void SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjusted
       goto LABEL_165;
     }
 
-    v226 = *(v39 + 8 * v37 + 32);
+    v227 = *(v39 + 8 * v37 + 32);
     if (v10)
     {
       goto LABEL_15;
@@ -30678,20 +31546,20 @@ LABEL_15:
 LABEL_18:
   v45 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(v43, v44);
 LABEL_19:
-  v238 = v45;
+  v239 = v45;
   v47 = a1[3];
   v46 = a1[4];
   __swift_project_boxed_opaque_existential_0Tm(a1, v47);
   v48 = (*(*(v46 + 8) + 16))(v47);
-  v237 = (v9 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs);
+  v238 = (v9 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs);
   swift_beginAccess();
   p_cache = &OBJC_METACLASS____TtCC7LyricsX20SyncedLyricsLineView4Line.cache;
-  v239 = v9;
-  v240 = v34;
+  v240 = v9;
+  v241 = v34;
   if ((v40 & 1) == 0)
   {
-    a7 = v48 - v237[23];
-    [v238 settlingDuration];
+    a7 = v48 - v238[23];
+    [v239 settlingDuration];
     if (a7 < v49 + a8)
     {
       if (one-time initialization token for logger == -1)
@@ -30703,10 +31571,10 @@ LABEL_19:
     }
   }
 
-  [v238 settlingDuration];
+  [v239 settlingDuration];
   a7 = v54;
   *(v9 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isAnimating) = 1;
-  if ((v40 & 1) == 0 || (*(v237 + 659) & 1) == 0)
+  if ((v40 & 1) == 0 || (*(v238 + 659) & 1) == 0)
   {
     goto LABEL_27;
   }
@@ -30725,12 +31593,12 @@ LABEL_35:
   }
 
   outlined init with copy of ActionPerforming(a1, &aBlock);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   v70 = swift_dynamicCast();
   if (v70)
   {
-    v33 = *(v224 + 16);
-    v21 = *(v224 + 24);
+    v33 = *(v225 + 16);
+    v21 = *(v225 + 24);
     p_cache = (v34 >> 62);
     if (v34 >> 62)
     {
@@ -30749,8 +31617,8 @@ LABEL_35:
   if (!v68)
   {
     v74 = v34 >> 62;
-    v214 = a3;
-    v212 = v10;
+    v215 = a3;
+    v213 = v10;
     if (v34 >> 62)
     {
       v75 = _CocoaArrayWrapper.endIndex.getter();
@@ -30808,15 +31676,15 @@ LABEL_35:
         *(v87 + 5) = v21;
         v87[6] = v82;
         v87[7] = v84;
-        v34 = v240;
+        v34 = v241;
       }
 
       while (v75 != v76);
     }
 
-    v217 = swift_allocObject();
-    *(v217 + 16) = 0;
-    v221 = [objc_allocWithZone(UIViewPropertyAnimator) initWithDuration:0 controlPoint1:0.28 controlPoint2:0.17 animations:{0.0, 0.83, 1.0}];
+    v218 = swift_allocObject();
+    *(v218 + 16) = 0;
+    v222 = [objc_allocWithZone(UIViewPropertyAnimator) initWithDuration:0 controlPoint1:0.28 controlPoint2:0.17 animations:{0.0, 0.83, 1.0}];
     if (v74)
     {
       v88 = _CocoaArrayWrapper.endIndex.getter();
@@ -30830,16 +31698,16 @@ LABEL_35:
     p_cache = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentAnimators;
     a3 = 1;
     swift_beginAccess();
-    v249 = 0u;
     v250 = 0u;
-    v251 = 1;
-    v225 = p_cache;
+    v251 = 0u;
+    v252 = 1;
+    v226 = p_cache;
     if (!v88)
     {
 LABEL_124:
 
       swift_beginAccess();
-      v47 = v221;
+      v47 = v222;
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
       if (*((*(p_cache + v9) & 0xFFFFFFFFFFFFFF8) + 0x10) < *((*(p_cache + v9) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
@@ -30850,25 +31718,25 @@ LABEL_124:
     }
 
     v120 = 0;
-    v231 = 0;
-    v223 = v34 & 0xC000000000000001;
-    v220 = v34 & 0xFFFFFFFFFFFFFF8;
-    v228 = v75 - 1;
+    v232 = 0;
+    v224 = v34 & 0xC000000000000001;
+    v221 = v34 & 0xFFFFFFFFFFFFFF8;
+    v229 = v75 - 1;
     v121 = __OFSUB__(v75, 1);
-    v219 = v121;
-    v236 = 7;
-    v218 = v88;
-    v215 = v10;
+    v220 = v121;
+    v237 = 7;
+    v219 = v88;
+    v216 = v10;
     while (1)
     {
-      if (v223)
+      if (v224)
       {
         v122 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (v120 >= *(v220 + 16))
+        if (v120 >= *(v221 + 16))
         {
           goto LABEL_160;
         }
@@ -30877,11 +31745,11 @@ LABEL_124:
       }
 
       v34 = v122;
-      v123 = [objc_allocWithZone(UIViewPropertyAnimator) initWithDuration:v238 timingParameters:a7];
+      v123 = [objc_allocWithZone(UIViewPropertyAnimator) initWithDuration:v239 timingParameters:a7];
       v124 = swift_allocObject();
-      type metadata accessor for UIAction(0, &_sSo8NSObjectCML_2);
+      type metadata accessor for UIAction(0, &_sSo8NSObjectCML_2, NSObject_ptr);
       v125 = static NSObject.== infix(_:_:)();
-      SyncedLyricsViewController.frame(for:selected:previousViewFrame:)(v34, v125 & 1, &v249);
+      SyncedLyricsViewController.frame(for:selected:previousViewFrame:)(v34, v125 & 1, &v250);
       *(v124 + 16) = v128;
       v9 = (v124 + 16);
       *(v124 + 24) = v126;
@@ -30936,7 +31804,7 @@ LABEL_41:
             v72 = *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10);
           }
 
-          v233 = v72 - 1;
+          v234 = v72 - 1;
           if (__OFSUB__(v72, 1))
           {
             goto LABEL_169;
@@ -30944,11 +31812,11 @@ LABEL_41:
 
           v89 = 0;
           p_cache = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentAnimators;
-          v230 = v34 & 0xC000000000000001;
-          v227 = v71;
+          v231 = v34 & 0xC000000000000001;
+          v228 = v71;
           while (1)
           {
-            if (v230)
+            if (v231)
             {
               v90 = specialized _ArrayBuffer._getElementSlowPath(_:)();
             }
@@ -30959,20 +31827,20 @@ LABEL_41:
             }
 
             v91 = v90;
-            v10 = [objc_allocWithZone(UIViewPropertyAnimator) initWithDuration:v238 timingParameters:a7];
+            v10 = [objc_allocWithZone(UIViewPropertyAnimator) initWithDuration:v239 timingParameters:a7];
             a3 = a1;
-            outlined init with copy of ActionPerforming(a1, v248);
+            outlined init with copy of ActionPerforming(a1, v249);
             v92 = swift_allocObject();
             *(v92 + 16) = v91;
-            outlined init with take of ActionPerforming(v248, v92 + 24);
+            outlined init with take of ActionPerforming(v249, v92 + 24);
             *(v92 + 64) = v9;
             *(v92 + 72) = v29;
-            v246 = partial apply for closure #1 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:);
-            v247 = v92;
+            v247 = partial apply for closure #1 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:);
+            v248 = v92;
             aBlock = _NSConcreteStackBlock;
-            v243 = 1107296256;
-            v244 = thunk for @escaping @callee_guaranteed () -> ();
-            v245 = &block_descriptor_184;
+            v244 = 1107296256;
+            v245 = thunk for @escaping @callee_guaranteed () -> ();
+            v246 = &block_descriptor_184;
             v93 = _Block_copy(&aBlock);
             v94 = v91;
             v95 = v9;
@@ -30982,9 +31850,9 @@ LABEL_41:
             v96 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
             swift_beginAccess();
             outlined init with copy of ActionPerforming(&v94[v96], &aBlock);
-            v97 = v245;
-            v98 = v246;
-            __swift_project_boxed_opaque_existential_0Tm(&aBlock, v245);
+            v97 = v246;
+            v98 = v247;
+            __swift_project_boxed_opaque_existential_0Tm(&aBlock, v246);
             v99 = (*(v98 + 2))(v97, v98);
             v101 = a1[3];
             v100 = a1[4];
@@ -31008,12 +31876,12 @@ LABEL_41:
                   *(v107 + 16) = v95;
                   *(v107 + 24) = v94;
                   *(v107 + 32) = v29;
-                  v246 = partial apply for closure #2 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:);
-                  v247 = v107;
+                  v247 = partial apply for closure #2 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:);
+                  v248 = v107;
                   aBlock = _NSConcreteStackBlock;
-                  v243 = 1107296256;
-                  v244 = thunk for @escaping @callee_guaranteed () -> ();
-                  v245 = &block_descriptor_196;
+                  v244 = 1107296256;
+                  v245 = thunk for @escaping @callee_guaranteed () -> ();
+                  v246 = &block_descriptor_196;
                   v108 = _Block_copy(&aBlock);
                   v109 = v94;
                   v110 = v95;
@@ -31024,12 +31892,12 @@ LABEL_41:
                   v112 = swift_allocObject();
                   *(v112 + 16) = v106;
                   *(v112 + 24) = a8;
-                  v246 = partial apply for closure #3 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:);
-                  v247 = v112;
+                  v247 = partial apply for closure #3 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:);
+                  v248 = v112;
                   aBlock = _NSConcreteStackBlock;
-                  v243 = 1107296256;
-                  v244 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
-                  v245 = &block_descriptor_202;
+                  v244 = 1107296256;
+                  v245 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
+                  v246 = &block_descriptor_202;
                   v113 = _Block_copy(&aBlock);
                   a3 = v111;
 
@@ -31039,24 +31907,24 @@ LABEL_41:
               }
             }
 
-            v34 = v240;
-            if (v233 == v89)
+            v34 = v241;
+            if (v234 == v89)
             {
-              outlined init with copy of ActionPerforming(a1, v248);
+              outlined init with copy of ActionPerforming(a1, v249);
               v114 = swift_allocObject();
-              *(v114 + 16) = v240;
+              *(v114 + 16) = v241;
               *(v114 + 24) = v29;
               *(v114 + 32) = v94;
               *(v114 + 40) = v95;
               *(v114 + 48) = v33;
               *(v114 + 56) = v21;
-              outlined init with take of ActionPerforming(v248, v114 + 64);
-              v246 = partial apply for closure #4 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:);
-              v247 = v114;
+              outlined init with take of ActionPerforming(v249, v114 + 64);
+              v247 = partial apply for closure #4 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:);
+              v248 = v114;
               aBlock = _NSConcreteStackBlock;
-              v243 = 1107296256;
-              v244 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
-              v245 = &block_descriptor_190;
+              v244 = 1107296256;
+              v245 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
+              v246 = &block_descriptor_190;
               v115 = _Block_copy(&aBlock);
               v116 = v94;
               v117 = v95;
@@ -31065,7 +31933,7 @@ LABEL_41:
               _Block_release(v115);
             }
 
-            v9 = v239;
+            v9 = v240;
             swift_beginAccess();
             v118 = v10;
             specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
@@ -31092,9 +31960,9 @@ LABEL_41:
             }
 
             ++v89;
-            [v118 startAnimationAfterDelay:v237[22] * (v119 - 1)];
+            [v118 startAnimationAfterDelay:v238[22] * (v119 - 1)];
 
-            if (v227 == v89)
+            if (v228 == v89)
             {
               goto LABEL_182;
             }
@@ -31121,14 +31989,14 @@ LABEL_22:
           v53 = swift_slowAlloc();
           aBlock = v53;
           *v52 = 136315138;
-          v34 = v240;
+          v34 = v241;
           *(v52 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0x100000000000003ELL, 0x80000001004D7E50, &aBlock);
           _os_log_impl(&_mh_execute_header, v51, v47, "%s", v52, 0xCu);
           __swift_destroy_boxed_opaque_existential_0Tm(v53);
         }
 
         a7 = a7 - a8;
-        [v238 setImplicitDuration:0];
+        [v239 setImplicitDuration:0];
         *(p_cache[475] + v9) = 1;
 LABEL_27:
         v55 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_instrumentalBreakVisibleView;
@@ -31152,14 +32020,14 @@ LABEL_27:
         }
 
         v47 = v58;
-        v211 = v10;
-        v213 = a3;
+        v212 = v10;
+        v214 = a3;
         v59 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
         swift_beginAccess();
         outlined init with copy of ActionPerforming(&v56[v59], &aBlock);
-        v60 = v245;
-        v9 = v246;
-        __swift_project_boxed_opaque_existential_0Tm(&aBlock, v245);
+        v60 = v246;
+        v9 = v247;
+        __swift_project_boxed_opaque_existential_0Tm(&aBlock, v246);
         v61 = *(v9 + 2);
         v62 = v56;
         v34 = v57;
@@ -31173,45 +32041,45 @@ LABEL_27:
           __swift_project_boxed_opaque_existential_0Tm(a1, v65);
           v67 = (*(v66 + 16))(v65, v66);
           v68 = v64 == v67;
-          v9 = v239;
+          v9 = v240;
           if (v64 == v67)
           {
-            v69 = *(v239 + v55);
-            *(v239 + v55) = 0;
+            v69 = *(v240 + v55);
+            *(v240 + v55) = 0;
 
             [v62 frame];
-            *(v224 + 24) = *(v224 + 24) - (CGRectGetHeight(v255) + v237[14]);
+            *(v225 + 24) = *(v225 + 24) - (CGRectGetHeight(v256) + v238[14]);
             SyncedLyricsLineView.InstrumentalContentView.reset()();
           }
 
-          v34 = v240;
-          a3 = v213;
-          LODWORD(v10) = v211;
+          v34 = v241;
+          a3 = v214;
+          LODWORD(v10) = v212;
           goto LABEL_35;
         }
 
         __break(1u);
 LABEL_175:
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        p_cache = v225;
+        p_cache = v226;
 LABEL_125:
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         swift_endAccess();
         v174 = swift_allocObject();
         *(v174 + 16) = v9;
-        v246 = partial apply for closure #5 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:);
-        v247 = v174;
+        v247 = partial apply for closure #5 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:);
+        v248 = v174;
         aBlock = _NSConcreteStackBlock;
-        v243 = 1107296256;
-        v244 = thunk for @escaping @callee_guaranteed () -> ();
-        v245 = &block_descriptor_166;
+        v244 = 1107296256;
+        v245 = thunk for @escaping @callee_guaranteed () -> ();
+        v246 = &block_descriptor_166;
         v175 = _Block_copy(&aBlock);
         v176 = v9;
 
         [v47 addAnimations:v175];
         _Block_release(v175);
         [v47 startAnimation];
-        v70 = specialized Collection<>.firstIndex(of:)(v226, v34);
+        v70 = specialized Collection<>.firstIndex(of:)(v227, v34);
         if (v177)
         {
           goto LABEL_180;
@@ -31246,8 +32114,8 @@ LABEL_128:
         goto LABEL_181;
       }
 
-      v130 = *&v10[v236];
-      v234 = v120;
+      v130 = *&v10[v237];
+      v235 = v120;
       if (v130 == v127)
       {
         if (a5)
@@ -31258,7 +32126,7 @@ LABEL_128:
 
       else
       {
-        *(v217 + 16) = 1;
+        *(v218 + 16) = 1;
         if (a5)
         {
           goto LABEL_108;
@@ -31272,23 +32140,23 @@ LABEL_128:
         swift_beginAccess();
         outlined init with copy of ActionPerforming(v34 + v134, &aBlock);
         v135 = v123;
-        v136 = v245;
-        v137 = v246;
-        __swift_project_boxed_opaque_existential_0Tm(&aBlock, v245);
+        v136 = v246;
+        v137 = v247;
+        __swift_project_boxed_opaque_existential_0Tm(&aBlock, v246);
         v138 = *(v137 + 2);
         v139 = v137;
         v123 = v135;
         LOBYTE(v135) = v138(v136, v139) < v133;
         __swift_destroy_boxed_opaque_existential_0Tm(&aBlock);
-        v231 |= v135;
-        v130 = *&v10[v236];
+        v232 |= v135;
+        v130 = *&v10[v237];
       }
 
       swift_beginAccess();
-      if (v130 == *(v124 + 40) || (v140 = a1[3], v141 = a1[4], __swift_project_boxed_opaque_existential_0Tm(a1, v140), v142 = (*(v141 + 16))(v140, v141), v143 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line, swift_beginAccess(), outlined init with copy of ActionPerforming(v34 + v143, &aBlock), v144 = v123, v145 = v245, v146 = v246, __swift_project_boxed_opaque_existential_0Tm(&aBlock, v245), v147 = *(v146 + 2), v148 = v146, v123 = v144, v149 = v147(v145, v148), __swift_destroy_boxed_opaque_existential_0Tm(&aBlock), v149 >= v142))
+      if (v130 == *(v124 + 40) || (v140 = a1[3], v141 = a1[4], __swift_project_boxed_opaque_existential_0Tm(a1, v140), v142 = (*(v141 + 16))(v140, v141), v143 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line, swift_beginAccess(), outlined init with copy of ActionPerforming(v34 + v143, &aBlock), v144 = v123, v145 = v246, v146 = v247, __swift_project_boxed_opaque_existential_0Tm(&aBlock, v246), v147 = *(v146 + 2), v148 = v146, v123 = v144, v149 = v147(v145, v148), __swift_destroy_boxed_opaque_existential_0Tm(&aBlock), v149 >= v142))
       {
         v144 = v123;
-        v150 = v231;
+        v150 = v232;
       }
 
       else
@@ -31299,16 +32167,16 @@ LABEL_128:
       v151 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
       swift_beginAccess();
       outlined init with copy of ActionPerforming(v34 + v151, &aBlock);
-      v152 = v245;
-      v153 = v246;
-      __swift_project_boxed_opaque_existential_0Tm(&aBlock, v245);
+      v152 = v246;
+      v153 = v247;
+      __swift_project_boxed_opaque_existential_0Tm(&aBlock, v246);
       v154 = (*(v153 + 2))(v152, v153);
       v155 = a1[3];
       v156 = a1[4];
       __swift_project_boxed_opaque_existential_0Tm(a1, v155);
       v157 = (*(v156 + 16))(v155, v156);
       __swift_destroy_boxed_opaque_existential_0Tm(&aBlock);
-      v231 = (v154 != v157) & v150;
+      v232 = (v154 != v157) & v150;
       if (v154 == v157)
       {
         v123 = v144;
@@ -31321,31 +32189,32 @@ LABEL_128:
           *(v124 + 24) = v200;
           SyncedLyricsViewController.contentOffset(for:)(v199, v200, *(v124 + 32), *(v124 + 40));
           v202 = v201;
-          if (!v234)
+          if (!v235)
           {
 LABEL_156:
 
-            SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(a1, v216 & 1, v214, v212 & 1, 1, 0.0, v202, a8);
+            v207.n128_u64[0] = 0;
+            SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(a1, v217 & 1, v215, v213 & 1, 1, v207, v202, a8);
 
             return;
           }
 
-          if (v223 || v234 <= *(v220 + 16))
+          if (v224 || v235 <= *(v221 + 16))
           {
-            if (v234 <= v10[2])
+            if (v235 <= v10[2])
             {
               v203 = 0;
               v204 = (v10 + 7);
               do
               {
-                if (v223)
+                if (v224)
                 {
                   v205 = specialized _ArrayBuffer._getElementSlowPath(_:)();
                 }
 
                 else
                 {
-                  v205 = *(v240 + 8 * v203 + 32);
+                  v205 = *(v241 + 8 * v203 + 32);
                 }
 
                 v206 = v205;
@@ -31355,7 +32224,7 @@ LABEL_156:
                 v204 += 4;
               }
 
-              while (v234 != v203);
+              while (v235 != v203);
               goto LABEL_156;
             }
 
@@ -31382,12 +32251,12 @@ LABEL_108:
       v21 = *(v124 + 24);
       v158 = *(v124 + 32);
       v159 = *(v124 + 40);
-      if (v231)
+      if (v232)
       {
         v160 = v34;
         UIView.untransformedFrame.setter(v33, v21, v158, v159);
 
-        v9 = v239;
+        v9 = v240;
       }
 
       else
@@ -31395,64 +32264,64 @@ LABEL_108:
         v161 = swift_allocObject();
         *(v161 + 16) = v34;
         *(v161 + 24) = v124;
-        v9 = v239;
-        *(v161 + 32) = v239;
+        v9 = v240;
+        *(v161 + 32) = v240;
         *(v161 + 40) = v29;
-        v162 = v239;
+        v162 = v240;
         v163 = v34;
 
         UIViewPropertyAnimator.addModifiedAnimations(with:animations:)(2, partial apply for specialized closure #2 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:), v161);
       }
 
-      p_cache = v225;
-      outlined init with copy of ActionPerforming(a1, v248);
+      p_cache = v226;
+      outlined init with copy of ActionPerforming(a1, v249);
       v164 = swift_allocObject();
       *(v164 + 16) = v9;
       *(v164 + 24) = v34;
-      outlined init with take of ActionPerforming(v248, v164 + 32);
-      v246 = partial apply for closure #3 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:);
-      v247 = v164;
+      outlined init with take of ActionPerforming(v249, v164 + 32);
+      v247 = partial apply for closure #3 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:);
+      v248 = v164;
       aBlock = _NSConcreteStackBlock;
-      v243 = 1107296256;
-      v244 = thunk for @escaping @callee_guaranteed () -> ();
-      v245 = &block_descriptor_154;
+      v244 = 1107296256;
+      v245 = thunk for @escaping @callee_guaranteed () -> ();
+      v246 = &block_descriptor_154;
       a3 = _Block_copy(&aBlock);
       v165 = v9;
       v34 = v34;
 
-      [v221 addAnimations:a3];
+      [v222 addAnimations:a3];
       _Block_release(a3);
-      if (v219)
+      if (v220)
       {
         goto LABEL_161;
       }
 
-      v166 = v234;
-      if (v228 == v234)
+      v166 = v235;
+      if (v229 == v235)
       {
-        outlined init with copy of ActionPerforming(a1, v248);
+        outlined init with copy of ActionPerforming(a1, v249);
         v167 = swift_allocObject();
-        *(v167 + 16) = v240;
+        *(v167 + 16) = v241;
         *(v167 + 24) = v29;
         *(v167 + 32) = v165;
-        *(v167 + 40) = v217;
-        *(v167 + 48) = v228;
-        *(v167 + 56) = v224;
-        outlined init with take of ActionPerforming(v248, v167 + 64);
-        v246 = partial apply for specialized closure #4 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:);
-        v247 = v167;
+        *(v167 + 40) = v218;
+        *(v167 + 48) = v229;
+        *(v167 + 56) = v225;
+        outlined init with take of ActionPerforming(v249, v167 + 64);
+        v247 = partial apply for specialized closure #4 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:);
+        v248 = v167;
         aBlock = _NSConcreteStackBlock;
-        v243 = 1107296256;
-        v244 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
-        v245 = &block_descriptor_160_1;
+        v244 = 1107296256;
+        v245 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
+        v246 = &block_descriptor_160_1;
         a3 = _Block_copy(&aBlock);
         v168 = v165;
 
-        v10 = v215;
+        v10 = v216;
 
-        p_cache = v225;
+        p_cache = v226;
 
-        v166 = v234;
+        v166 = v235;
 
         [v123 addCompletion:a3];
         _Block_release(a3);
@@ -31464,12 +32333,12 @@ LABEL_108:
       if (*((*(p_cache + v9) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(p_cache + v9) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-        p_cache = v225;
+        p_cache = v226;
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       swift_endAccess();
-      v170 = v237[22];
+      v170 = v238[22];
       if (v29 >= 0.0)
       {
         v171 = v166;
@@ -31477,8 +32346,8 @@ LABEL_108:
 
       else
       {
-        v171 = v228 - v166;
-        if (__OFSUB__(v228, v166))
+        v171 = v229 - v166;
+        if (__OFSUB__(v229, v166))
         {
           goto LABEL_163;
         }
@@ -31496,22 +32365,22 @@ LABEL_108:
       v120 = v166 + 1;
       [v169 startAnimationAfterDelay:v170 * (v173 & ~(v173 >> 63))];
 
-      *&v249 = v33;
-      *(&v249 + 1) = v21;
-      *&v250 = v158;
-      *(&v250 + 1) = v159;
-      v236 += 4;
-      v251 = 0;
-      v34 = v240;
-      if (v218 == v120)
+      *&v250 = v33;
+      *(&v250 + 1) = v21;
+      *&v251 = v158;
+      *(&v251 + 1) = v159;
+      v237 += 4;
+      v252 = 0;
+      v34 = v241;
+      if (v219 == v120)
       {
         goto LABEL_124;
       }
     }
   }
 
-  a8 = *(v224 + 16);
-  v33 = *(v224 + 24);
+  a8 = *(v225 + 16);
+  v33 = *(v225 + 24);
   if (v34 >> 62)
   {
     v70 = _CocoaArrayWrapper.endIndex.getter();
@@ -31549,7 +32418,7 @@ LABEL_177:
     v70 = *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v235 = v70 - 1;
+  v236 = v70 - 1;
   if (__OFSUB__(v70, 1))
   {
 LABEL_178:
@@ -31559,12 +32428,12 @@ LABEL_178:
 
   v180 = 0;
   p_cache = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentAnimators;
-  v232 = v34 & 0xC000000000000001;
+  v233 = v34 & 0xC000000000000001;
   *&v21 = 1107296256;
-  v229 = v73;
+  v230 = v73;
   do
   {
-    if (v232)
+    if (v233)
     {
       v181 = specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
@@ -31575,19 +32444,19 @@ LABEL_178:
     }
 
     v182 = v181;
-    v183 = [objc_allocWithZone(UIViewPropertyAnimator) initWithDuration:v238 timingParameters:a7];
-    outlined init with copy of ActionPerforming(a1, v248);
+    v183 = [objc_allocWithZone(UIViewPropertyAnimator) initWithDuration:v239 timingParameters:a7];
+    outlined init with copy of ActionPerforming(a1, v249);
     v184 = swift_allocObject();
     *(v184 + 16) = v182;
-    outlined init with take of ActionPerforming(v248, v184 + 24);
+    outlined init with take of ActionPerforming(v249, v184 + 24);
     *(v184 + 64) = v29;
     *(v184 + 72) = v9;
-    v246 = partial apply for closure #1 in SyncedLyricsViewController.animateInstrumentalEnd(line:contentOffset:visibleViews:timingParameters:duration:deltaY:);
-    v247 = v184;
+    v247 = partial apply for closure #1 in SyncedLyricsViewController.animateInstrumentalEnd(line:contentOffset:visibleViews:timingParameters:duration:deltaY:);
+    v248 = v184;
     aBlock = _NSConcreteStackBlock;
-    v243 = 1107296256;
-    v244 = thunk for @escaping @callee_guaranteed () -> ();
-    v245 = &block_descriptor_172;
+    v244 = 1107296256;
+    v245 = thunk for @escaping @callee_guaranteed () -> ();
+    v246 = &block_descriptor_172;
     v185 = _Block_copy(&aBlock);
     v186 = v9;
     v9 = v182;
@@ -31597,9 +32466,9 @@ LABEL_178:
     v187 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
     swift_beginAccess();
     outlined init with copy of ActionPerforming(v9 + v187, &aBlock);
-    v188 = v245;
-    v189 = v246;
-    __swift_project_boxed_opaque_existential_0Tm(&aBlock, v245);
+    v188 = v246;
+    v189 = v247;
+    __swift_project_boxed_opaque_existential_0Tm(&aBlock, v246);
     v190 = (*(v189 + 2))(v188, v189);
     v191 = a1[3];
     v192 = a1[4];
@@ -31612,22 +32481,22 @@ LABEL_178:
       SyncedLyricsViewController.select(line:animator:deselectAll:fadeInInstrumentalView:)(a1, v183, 1, 1);
     }
 
-    v34 = v240;
-    if (v235 == v180)
+    v34 = v241;
+    if (v236 == v180)
     {
-      outlined init with copy of ActionPerforming(a1, v248);
+      outlined init with copy of ActionPerforming(a1, v249);
       v195 = swift_allocObject();
-      *(v195 + 16) = v240;
+      *(v195 + 16) = v241;
       *(v195 + 24) = v186;
       *(v195 + 32) = a8;
       *(v195 + 40) = v33;
-      outlined init with take of ActionPerforming(v248, v195 + 48);
-      v246 = partial apply for closure #2 in SyncedLyricsViewController.animateInstrumentalEnd(line:contentOffset:visibleViews:timingParameters:duration:deltaY:);
-      v247 = v195;
+      outlined init with take of ActionPerforming(v249, v195 + 48);
+      v247 = partial apply for closure #2 in SyncedLyricsViewController.animateInstrumentalEnd(line:contentOffset:visibleViews:timingParameters:duration:deltaY:);
+      v248 = v195;
       aBlock = _NSConcreteStackBlock;
-      v243 = 1107296256;
-      v244 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
-      v245 = &block_descriptor_178;
+      v244 = 1107296256;
+      v245 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
+      v246 = &block_descriptor_178;
       v196 = _Block_copy(&aBlock);
       v197 = v186;
 
@@ -31638,7 +32507,7 @@ LABEL_178:
     swift_beginAccess();
     v10 = v183;
     specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-    if (*((*(p_cache + v239) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(p_cache + v239) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    if (*((*(p_cache + v240) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(p_cache + v240) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
       specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
     }
@@ -31662,25 +32531,25 @@ LABEL_178:
     }
 
     ++v180;
-    [v10 startAnimationAfterDelay:v237[22] * (v198 - 1)];
+    [v10 startAnimationAfterDelay:v238[22] * (v198 - 1)];
 
-    v9 = v239;
+    v9 = v240;
   }
 
-  while (v229 != v180);
+  while (v230 != v180);
 LABEL_182:
-  v207 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_mode;
+  v208 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_mode;
   swift_beginAccess();
-  if (*(v9 + v207) == 1)
+  if (*(v9 + v208) == 1)
   {
-    *(v9 + v207) = 0;
-    v208 = v9 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_delegate;
+    *(v9 + v208) = 0;
+    v209 = v9 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_delegate;
     swift_beginAccess();
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v209 = *(v208 + 1);
+      v210 = *(v209 + 1);
       ObjectType = swift_getObjectType();
-      (*(v209 + 24))(v9, ObjectType, v209);
+      (*(v210 + 24))(v9, ObjectType, v210);
       swift_unknownObjectRelease();
     }
   }
@@ -31697,7 +32566,7 @@ void specialized closure #2 in SyncedLyricsViewController.animate(line:to:elapse
   {
     v7 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsTimestampLabel_line;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v6 + v7, v37, &_s7LyricsX0A4Line_pSgMd);
+    outlined init with copy of TaskPriority?(v6 + v7, v37, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
     v8 = v38;
     if (v38)
     {
@@ -31708,7 +32577,7 @@ void specialized closure #2 in SyncedLyricsViewController.animate(line:to:elapse
       v13 = &v36[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
       (*(v10 + 16))(v13, v11);
       v14 = v6;
-      outlined destroy of TaskPriority?(v37, &_s7LyricsX0A4Line_pSgMd);
+      outlined destroy of TaskPriority?(v37, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
       v15 = (*(v9 + 16))(v8, v9);
       (*(v10 + 8))(v13, v8);
     }
@@ -31716,7 +32585,7 @@ void specialized closure #2 in SyncedLyricsViewController.animate(line:to:elapse
     else
     {
       v16 = v6;
-      outlined destroy of TaskPriority?(v37, &_s7LyricsX0A4Line_pSgMd);
+      outlined destroy of TaskPriority?(v37, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
       v15 = 0;
     }
 
@@ -31798,7 +32667,7 @@ LABEL_13:
   }
 }
 
-void closure #3 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(uint64_t a1, void *a2, void *a3)
+void closure #3 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(uint64_t a1, char *a2, void *a3)
 {
   v5 = a1 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
   swift_beginAccess();
@@ -31806,7 +32675,7 @@ void closure #3 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMod
   {
     v6 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
     swift_beginAccess();
-    outlined init with copy of ActionPerforming(a2 + v6, v15);
+    outlined init with copy of ActionPerforming(&a2[v6], v15);
     v7 = v16;
     v8 = v17;
     __swift_project_boxed_opaque_existential_0Tm(v15, v16);
@@ -32058,7 +32927,7 @@ LABEL_72:
         return;
       }
 
-      type metadata accessor for SyncedLyricsLineView();
+      type metadata accessor for SyncedLyricsLineView(0);
       swift_bridgeObjectRetain_n();
       v38 = v34;
       do
@@ -32090,7 +32959,7 @@ LABEL_39:
     String.append(_:)(v43);
     if (!__OFSUB__(v36, v34))
     {
-      v75 = v36 - v34;
+      v75[0] = v36 - v34;
       v44._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
       String.append(_:)(v44);
 
@@ -32201,38 +33070,38 @@ LABEL_56:
   SyncedLyricsViewController.dismissInstrumentalView(_:currentView:)(v14, v64);
 }
 
-uint64_t implicit closure #2 in closure #4 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)()
+uint64_t implicit closure #2 in closure #4 in SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(__int128 *a1, uint64_t a2)
 {
   _StringGuts.grow(_:)(56);
-  v0._object = 0x80000001004D7F40;
-  v0._countAndFlagsBits = 0xD00000000000002FLL;
-  String.append(_:)(v0);
+  v2._object = 0x80000001004D7F40;
+  v2._countAndFlagsBits = 0xD00000000000002FLL;
+  String.append(_:)(v2);
   swift_beginAccess();
   _sSo7CGPointVMa_3(0);
   _print_unlocked<A, B>(_:_:)();
-  v1._countAndFlagsBits = 0x20726F6620;
-  v1._object = 0xE500000000000000;
-  String.append(_:)(v1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  v3._countAndFlagsBits = 0x20726F6620;
+  v3._object = 0xE500000000000000;
+  String.append(_:)(v3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   _print_unlocked<A, B>(_:_:)();
   return 0;
 }
 
-id closure #1 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:)(void *a1, void *a2)
+id closure #1 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:)(char *a1, void *a2, uint64_t a3)
 {
-  v4 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
+  v5 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
-  outlined init with copy of ActionPerforming(a1 + v4, v12);
-  v5 = v13;
+  outlined init with copy of ActionPerforming(&a1[v5], v13);
   v6 = v14;
-  __swift_project_boxed_opaque_existential_0Tm(v12, v13);
-  v7 = (*(v6 + 16))(v5, v6);
-  v8 = a2[3];
-  v9 = a2[4];
-  __swift_project_boxed_opaque_existential_0Tm(a2, v8);
-  v10 = (*(v9 + 16))(v8, v9);
-  __swift_destroy_boxed_opaque_existential_0Tm(v12);
-  if (v10 < v7)
+  v7 = v15;
+  __swift_project_boxed_opaque_existential_0Tm(v13, v14);
+  v8 = (*(v7 + 16))(v6, v7);
+  v9 = a2[3];
+  v10 = a2[4];
+  __swift_project_boxed_opaque_existential_0Tm(a2, v9);
+  v11 = (*(v10 + 16))(v9, v10);
+  __swift_destroy_boxed_opaque_existential_0Tm(v13);
+  if (v11 < v8)
   {
     swift_beginAccess();
   }
@@ -32392,37 +33261,37 @@ LABEL_27:
   __break(1u);
 }
 
-uint64_t implicit closure #1 in closure #4 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:)()
+uint64_t implicit closure #1 in closure #4 in SyncedLyricsViewController.animateInstrumentalStart(line:contentOffset:visibleViews:timingParameters:duration:deltaY:elapsed:)(uint64_t a1, double a2, double a3)
 {
   _StringGuts.grow(_:)(68);
-  v0._object = 0x80000001004D7E90;
-  v0._countAndFlagsBits = 0xD00000000000003BLL;
-  String.append(_:)(v0);
+  v3._object = 0x80000001004D7E90;
+  v3._countAndFlagsBits = 0xD00000000000003BLL;
+  String.append(_:)(v3);
   _sSo7CGPointVMa_3(0);
   _print_unlocked<A, B>(_:_:)();
-  v1._countAndFlagsBits = 0x20726F6620;
-  v1._object = 0xE500000000000000;
-  String.append(_:)(v1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  v4._countAndFlagsBits = 0x20726F6620;
+  v4._object = 0xE500000000000000;
+  String.append(_:)(v4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   _print_unlocked<A, B>(_:_:)();
   return 0;
 }
 
-id closure #1 in SyncedLyricsViewController.animateInstrumentalEnd(line:contentOffset:visibleViews:timingParameters:duration:deltaY:)(void *a1, void *a2)
+id closure #1 in SyncedLyricsViewController.animateInstrumentalEnd(line:contentOffset:visibleViews:timingParameters:duration:deltaY:)(char *a1, void *a2, uint64_t a3)
 {
-  v4 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
+  v5 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
-  outlined init with copy of ActionPerforming(a1 + v4, v12);
-  v5 = v13;
+  outlined init with copy of ActionPerforming(&a1[v5], v13);
   v6 = v14;
-  __swift_project_boxed_opaque_existential_0Tm(v12, v13);
-  v7 = (*(v6 + 16))(v5, v6);
-  v8 = a2[3];
-  v9 = a2[4];
-  __swift_project_boxed_opaque_existential_0Tm(a2, v8);
-  v10 = (*(v9 + 16))(v8, v9);
-  __swift_destroy_boxed_opaque_existential_0Tm(v12);
-  if (v7 < v10)
+  v7 = v15;
+  __swift_project_boxed_opaque_existential_0Tm(v13, v14);
+  v8 = (*(v7 + 16))(v6, v7);
+  v9 = a2[3];
+  v10 = a2[4];
+  __swift_project_boxed_opaque_existential_0Tm(a2, v9);
+  v11 = (*(v10 + 16))(v9, v10);
+  __swift_destroy_boxed_opaque_existential_0Tm(v13);
+  if (v8 < v11)
   {
     swift_beginAccess();
   }
@@ -32541,18 +33410,18 @@ LABEL_22:
   __break(1u);
 }
 
-uint64_t implicit closure #1 in closure #2 in SyncedLyricsViewController.animateInstrumentalEnd(line:contentOffset:visibleViews:timingParameters:duration:deltaY:)()
+uint64_t implicit closure #1 in closure #2 in SyncedLyricsViewController.animateInstrumentalEnd(line:contentOffset:visibleViews:timingParameters:duration:deltaY:)(uint64_t a1, double a2, double a3)
 {
   _StringGuts.grow(_:)(66);
-  v0._object = 0x80000001004D7ED0;
-  v0._countAndFlagsBits = 0xD000000000000039;
-  String.append(_:)(v0);
+  v3._object = 0x80000001004D7ED0;
+  v3._countAndFlagsBits = 0xD000000000000039;
+  String.append(_:)(v3);
   _sSo7CGPointVMa_3(0);
   _print_unlocked<A, B>(_:_:)();
-  v1._countAndFlagsBits = 0x20726F6620;
-  v1._object = 0xE500000000000000;
-  String.append(_:)(v1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  v4._countAndFlagsBits = 0x20726F6620;
+  v4._object = 0xE500000000000000;
+  String.append(_:)(v4);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   _print_unlocked<A, B>(_:_:)();
   return 0;
 }
@@ -32665,7 +33534,7 @@ LABEL_8:
         v38._object = 0xE500000000000000;
         String.append(_:)(v38);
         outlined init with copy of ActionPerforming(v58 + v59, &v68);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
         _print_unlocked<A, B>(_:_:)();
         __swift_destroy_boxed_opaque_existential_0Tm(&v68);
         v27 = v74;
@@ -32725,7 +33594,7 @@ LABEL_20:
       if ((specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v57, v67) & 1) != 0 && v65 < v66)
       {
         v48 = [objc_allocWithZone(UISpringTimingParameters) initWithMass:*(v27 + 664) stiffness:*(v27 + 672) damping:*(v27 + 680) initialVelocity:{0.0, 0.0}];
-        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
+        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
         isa = UIViewPropertyAnimator.init(springTimingParameters:)(v48).super.isa;
         v50 = swift_allocObject();
         *(v50 + 16) = v3;
@@ -32946,7 +33815,7 @@ Swift::Void __swiftcall SyncedLyricsViewController.didUpdateFocus(in:with:)(UIFo
             v28 = [*&v3[v21] panGestureRecognizer];
             [v28 setEnabled:0];
 
-            type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3);
+            type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3, OS_dispatch_queue_ptr);
             v52 = static OS_dispatch_queue.main.getter();
             static DispatchTime.now()();
             + infix(_:_:)();
@@ -32967,9 +33836,9 @@ Swift::Void __swiftcall SyncedLyricsViewController.didUpdateFocus(in:with:)(UIFo
 
             static DispatchQoS.unspecified.getter();
             aBlock[0] = _swiftEmptyArrayStorage;
-            v50 = _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags);
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
-            lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
+            v50 = _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
+            lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
             v33 = v54;
             v32 = v55;
             dispatch thunk of SetAlgebra.init<A>(_:)();
@@ -33081,7 +33950,7 @@ id SyncedLyricsViewController.init(nibName:bundle:)(uint64_t a1, uint64_t a2, vo
   *&v3[v6] = v7;
   *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight] = v7;
   v8 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
-  specialized SyncedLyricsViewController.Specs.init(_:)(0, __src);
+  specialized SyncedLyricsViewController.Specs.init(_:)(0, 0, __src);
   memcpy(&v3[v8], __src, 0x2B0uLL);
   *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_delegate + 8] = 0;
   swift_unknownObjectWeakInit();
@@ -33165,7 +34034,7 @@ id SyncedLyricsViewController.init(coder:)(void *a1)
   *&v1[v3] = v4;
   *&v1[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight] = v4;
   v5 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs;
-  specialized SyncedLyricsViewController.Specs.init(_:)(0, __src);
+  specialized SyncedLyricsViewController.Specs.init(_:)(0, 0, __src);
   memcpy(&v1[v5], __src, 0x2B0uLL);
   *&v1[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_delegate + 8] = 0;
   swift_unknownObjectWeakInit();
@@ -33241,24 +34110,24 @@ id SyncedLyricsViewController.ScrollView.__deallocating_deinit(uint64_t (*a1)(vo
   return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-uint64_t implicit closure #1 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:)()
+uint64_t implicit closure #1 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:)(uint64_t a1)
 {
   _StringGuts.grow(_:)(35);
-  v0._object = 0x80000001004D8180;
-  v0._countAndFlagsBits = 0xD000000000000021;
-  String.append(_:)(v0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  v1._object = 0x80000001004D8180;
+  v1._countAndFlagsBits = 0xD000000000000021;
+  String.append(_:)(v1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   _print_unlocked<A, B>(_:_:)();
   return 0;
 }
 
-uint64_t implicit closure #1 in SyncedLyricsViewController.syncedLyrics(_:jumpTo:select:elapsedTime:)()
+uint64_t implicit closure #1 in SyncedLyricsViewController.syncedLyrics(_:jumpTo:select:elapsedTime:)(uint64_t a1)
 {
   _StringGuts.grow(_:)(33);
-  v0._object = 0x80000001004D8160;
-  v0._countAndFlagsBits = 0xD00000000000001FLL;
-  String.append(_:)(v0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  v1._object = 0x80000001004D8160;
+  v1._countAndFlagsBits = 0xD00000000000001FLL;
+  String.append(_:)(v1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   _print_unlocked<A, B>(_:_:)();
   return 0;
 }
@@ -33284,7 +34153,7 @@ void closure #1 in SyncedLyricsViewController.syncedLyrics(_:jumpTo:select:elaps
   v11 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
   swift_beginAccess();
   outlined init with copy of ActionPerforming(a2 + v11, v20);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   _print_unlocked<A, B>(_:_:)();
   __swift_destroy_boxed_opaque_existential_0Tm(v20);
   v13 = v21;
@@ -33318,27 +34187,27 @@ void closure #1 in SyncedLyricsViewController.syncedLyrics(_:jumpTo:select:elaps
   }
 }
 
-void SyncedLyricsViewController.syncedLyrics(_:select:)(uint64_t a1, void *a2)
+void SyncedLyricsViewController.syncedLyrics(_:select:)(uint64_t a1, void *a2, __n128 a3)
 {
-  v3 = v2;
+  v4 = v3;
   specialized SyncedLyricsViewController.log(_:)(partial apply for implicit closure #1 in SyncedLyricsViewController.syncedLyrics(_:select:));
-  v6 = a2[3];
-  v7 = a2[4];
-  __swift_project_boxed_opaque_existential_0Tm(a2, v6);
-  v8 = (*(v7 + 16))(v6, v7);
-  v9 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
+  v7 = a2[3];
+  v8 = a2[4];
+  __swift_project_boxed_opaque_existential_0Tm(a2, v7);
+  v9 = (*(v8 + 16))(v7, v8);
+  v10 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lineViews;
   swift_beginAccess();
-  v10 = *&v3[v9];
-  if ((v10 & 0xC000000000000001) == 0)
+  v11 = *&v4[v10];
+  if ((v11 & 0xC000000000000001) == 0)
   {
-    if ((v8 & 0x8000000000000000) != 0)
+    if ((v9 & 0x8000000000000000) != 0)
     {
       __break(1u);
     }
 
-    else if (v8 < *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    else if (v9 < *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
-      v8 = *(v10 + 8 * v8 + 32);
+      v9 = *(v11 + 8 * v9 + 32);
       goto LABEL_5;
     }
 
@@ -33346,83 +34215,83 @@ void SyncedLyricsViewController.syncedLyrics(_:select:)(uint64_t a1, void *a2)
     goto LABEL_24;
   }
 
-  v8 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+  v9 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
 LABEL_5:
-  v11 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+  v12 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
   swift_beginAccess();
-  [*&v3[v11] contentOffset];
-  v13 = v12;
-  v15 = v14;
-  v16 = [v3 view];
-  if (v16)
+  [*&v4[v12] contentOffset];
+  v14 = v13;
+  v16 = v15;
+  v17 = [v4 view];
+  if (v17)
   {
-    v17 = v16;
-    [v16 frame];
-    v19 = v18;
+    v18 = v17;
+    [v17 frame];
+    v20 = v19;
 
-    v20 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight;
+    v21 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight;
     swift_beginAccess();
-    v21 = *&v3[v20];
-    if (v21 > 0.0)
+    v22 = *&v4[v21];
+    if (v22 > 0.0)
     {
       goto LABEL_9;
     }
 
-    v22 = [v3 view];
-    if (v22)
+    v23 = [v4 view];
+    if (v23)
     {
-      v23 = v22;
-      [v22 frame];
-      v21 = v24;
+      v24 = v23;
+      [v23 frame];
+      v22 = v25;
 
 LABEL_9:
-      [v8 frame];
-      v55.origin.x = v25;
-      v55.origin.y = v26;
-      v55.size.width = v27;
-      v55.size.height = v28;
-      v54.origin.x = v13;
-      v54.origin.y = v15;
-      v54.size.width = v19;
-      v54.size.height = v21;
-      if (CGRectContainsRect(v54, v55))
+      [v9 frame];
+      v57.origin.x = v26;
+      v57.origin.y = v27;
+      v57.size.width = v28;
+      v57.size.height = v29;
+      v56.origin.x = v14;
+      v56.origin.y = v16;
+      v56.size.width = v20;
+      v56.size.height = v22;
+      if (CGRectContainsRect(v56, v57))
       {
-        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
-        v29 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(0, 1);
-        isa = UIViewPropertyAnimator.init(springTimingParameters:)(v29).super.isa;
+        type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
+        v30 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(0, 1);
+        isa = UIViewPropertyAnimator.init(springTimingParameters:)(v30).super.isa;
         SyncedLyricsViewController.select(line:animator:deselectAll:fadeInInstrumentalView:)(a2, isa, 0, 1);
-        v31 = swift_allocObject();
-        *(v31 + 16) = v3;
-        v52 = partial apply for closure #1 in SyncedLyricsViewController.syncedLyrics(_:select:);
-        v53 = v31;
+        v32 = swift_allocObject();
+        *(v32 + 16) = v4;
+        v54 = partial apply for closure #1 in SyncedLyricsViewController.syncedLyrics(_:select:);
+        v55 = v32;
         aBlock = _NSConcreteStackBlock;
-        v49 = 1107296256;
-        v50 = thunk for @escaping @callee_guaranteed () -> ();
-        v51 = &block_descriptor_25_2;
-        v32 = _Block_copy(&aBlock);
-        v33 = v3;
+        v51 = 1107296256;
+        v52 = thunk for @escaping @callee_guaranteed () -> ();
+        v53 = &block_descriptor_25_2;
+        v33 = _Block_copy(&aBlock);
+        v34 = v4;
 
-        [(objc_class *)isa addAnimations:v32];
-        _Block_release(v32);
-        v34 = [(objc_class *)isa state]== 3;
-        v33[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isAnimating] = v34;
-        v35 = swift_allocObject();
-        *(v35 + 16) = v33;
-        v52 = partial apply for closure #2 in SyncedLyricsViewController.syncedLyrics(_:select:);
-        v53 = v35;
+        [(objc_class *)isa addAnimations:v33];
+        _Block_release(v33);
+        v35 = [(objc_class *)isa state]== 3;
+        v34[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isAnimating] = v35;
+        v36 = swift_allocObject();
+        *(v36 + 16) = v34;
+        v54 = partial apply for closure #2 in SyncedLyricsViewController.syncedLyrics(_:select:);
+        v55 = v36;
         aBlock = _NSConcreteStackBlock;
-        v49 = 1107296256;
-        v50 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
-        v51 = &block_descriptor_31_1;
-        v36 = _Block_copy(&aBlock);
-        v37 = v33;
+        v51 = 1107296256;
+        v52 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
+        v53 = &block_descriptor_31_1;
+        v37 = _Block_copy(&aBlock);
+        v38 = v34;
 
-        [(objc_class *)isa addCompletion:v36];
-        _Block_release(v36);
+        [(objc_class *)isa addCompletion:v37];
+        _Block_release(v37);
         [(objc_class *)isa startAnimation];
 
-        v8 = isa;
+        v9 = isa;
 LABEL_20:
 
         return;
@@ -33431,44 +34300,45 @@ LABEL_20:
       if (one-time initialization token for logger == -1)
       {
 LABEL_12:
-        v38 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v38, static SyncedLyricsViewController.logger);
-        v39 = Logger.logObject.getter();
-        v40 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v39, v40))
+        v39 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v39, static SyncedLyricsViewController.logger);
+        v40 = Logger.logObject.getter();
+        v41 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v40, v41))
         {
-          v41 = swift_slowAlloc();
           v42 = swift_slowAlloc();
-          aBlock = v42;
-          *v41 = 136315138;
-          *(v41 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD000000000000056, 0x80000001004D79F0, &aBlock);
-          _os_log_impl(&_mh_execute_header, v39, v40, "%s", v41, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0Tm(v42);
+          v43 = swift_slowAlloc();
+          aBlock = v43;
+          *v42 = 136315138;
+          *(v42 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD000000000000056, 0x80000001004D79F0, &aBlock);
+          _os_log_impl(&_mh_execute_header, v40, v41, "%s", v42, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0Tm(v43);
         }
 
         swift_beginAccess();
-        v43 = *(a1 + 96);
-        if (v43)
+        v44 = *(a1 + 96);
+        if (v44)
         {
+          v45 = *(a1 + 104);
 
-          v45 = v43(v44);
+          v47 = v44(v46);
           swift_beginAccess();
-          v46 = 0.0;
+          v48 = 0.0;
           if (*(a1 + 88) == 1)
           {
-            v46 = Lyrics.spatialOffset.getter();
+            v48 = Lyrics.spatialOffset.getter();
           }
 
-          outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v43);
-          v47 = v45 - v46;
+          outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v44, v45);
+          v49 = v47 - v48;
         }
 
         else
         {
-          v47 = 0.0;
+          v49 = 0.0;
         }
 
-        specialized SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:)(a2, 0, 1, v47);
+        specialized SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:)(a2, 0, 1, v49);
         goto LABEL_20;
       }
 
@@ -33486,26 +34356,25 @@ LABEL_24:
   __break(1u);
 }
 
-uint64_t implicit closure #1 in SyncedLyricsViewController.syncedLyrics(_:select:)()
+uint64_t implicit closure #1 in SyncedLyricsViewController.syncedLyrics(_:select:)(uint64_t a1)
 {
   _StringGuts.grow(_:)(32);
-  v0._object = 0x80000001004D80A0;
-  v0._countAndFlagsBits = 0xD00000000000001ELL;
-  String.append(_:)(v0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  v1._object = 0x80000001004D80A0;
+  v1._countAndFlagsBits = 0xD00000000000001ELL;
+  String.append(_:)(v1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   _print_unlocked<A, B>(_:_:)();
   return 0;
 }
 
-unint64_t closure #2 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:)()
+void closure #2 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:)()
 {
-  result = SyncedLyricsViewController.visibleLineViews.getter();
-  v1 = result;
-  if (result >> 62)
+  v0 = SyncedLyricsViewController.visibleLineViews.getter();
+  v1 = v0;
+  if (v0 >> 62)
   {
-    result = _CocoaArrayWrapper.endIndex.getter();
-    v2 = result;
-    if (!result)
+    v2 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v2)
     {
       goto LABEL_8;
     }
@@ -33513,7 +34382,7 @@ unint64_t closure #2 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elap
 
   else
   {
-    v2 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v2 = *((v0 & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (!v2)
     {
       goto LABEL_8;
@@ -33523,7 +34392,7 @@ unint64_t closure #2 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elap
   if (v2 < 1)
   {
     __break(1u);
-    return result;
+    return;
   }
 
   v23 = 0u;
@@ -33616,14 +34485,14 @@ Swift::Bool __swiftcall SyncedLyricsViewController.gestureRecognizer(_:shouldRec
   if (v6 == 2)
   {
     v7 = *&v3[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_menuRecognizer];
-    if (v7 && (type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIGestureRecognizer), v8 = _.super.isa, v9 = v7, v10 = static NSObject.== infix(_:_:)(), v9, v8, (v10 & 1) != 0))
+    if (v7 && (type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIGestureRecognizer, UIGestureRecognizer_ptr), v8 = _.super.isa, v9 = v7, v10 = static NSObject.== infix(_:_:)(), v9, v8, (v10 & 1) != 0))
     {
       v11 = 0;
     }
 
     else
     {
-      type metadata accessor for UIAction(0, &_sSo8NSObjectCML_2);
+      type metadata accessor for UIAction(0, &_sSo8NSObjectCML_2, NSObject_ptr);
       v12 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
       swift_beginAccess();
       v13 = [*&v3[v12] panGestureRecognizer];
@@ -33658,7 +34527,7 @@ Swift::Bool __swiftcall SyncedLyricsViewController.gestureRecognizerShouldBegin(
     return 1;
   }
 
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIGestureRecognizer);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIGestureRecognizer, UIGestureRecognizer_ptr);
   v7 = a1.super.isa;
   v8 = v6;
   v9 = static NSObject.== infix(_:_:)();
@@ -33683,7 +34552,7 @@ Swift::Void __swiftcall SyncedLyricsViewController.scrollViewDidScroll(_:)(UIScr
   }
 }
 
-void closure #1 in SyncedLyricsViewController.scrollViewDidEndDragging(_:willDecelerate:)()
+void closure #1 in SyncedLyricsViewController.scrollViewDidEndDragging(_:willDecelerate:)(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -33693,134 +34562,134 @@ void closure #1 in SyncedLyricsViewController.scrollViewDidEndDragging(_:willDec
   }
 }
 
-uint64_t SyncedLyricsViewController.reportConcernData.getter@<X0>(void *a1@<X8>)
+void SyncedLyricsViewController.reportConcernData.getter(void *a1@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
   v4 = &v46 - v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
   __chkstk_darwin();
   v6 = &v46 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
   v8 = &v46 - v7;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
   __chkstk_darwin();
   v10 = &v46 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin();
   v12 = &v46 - v11;
   v13 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_lyrics;
-  result = swift_beginAccess();
-  v15 = *(v1 + v13);
-  if (!v15)
+  swift_beginAccess();
+  v14 = *(v1 + v13);
+  if (!v14)
   {
+    v20 = 0;
     v21 = 0;
     v22 = 0;
     v23 = 0;
     v24 = 0;
-    v25 = 0;
-    v26 = 1;
+    v25 = 1;
 LABEL_29:
-    *a1 = v21;
-    a1[1] = v26;
-    a1[2] = v22;
-    a1[3] = v23;
-    a1[4] = v24;
-    a1[5] = v25;
-    return result;
+    *a1 = v20;
+    a1[1] = v25;
+    a1[2] = v21;
+    a1[3] = v22;
+    a1[4] = v23;
+    a1[5] = v24;
+    return;
   }
 
   v47 = v4;
   v48 = a1;
-  v16 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentTranslation;
+  v15 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentTranslation;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v1 + v16, v10, &_s7LyricsX0A0C11TranslationVSgMd_0);
-  v17 = type metadata accessor for Lyrics.Translation(0);
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 48);
-  if (v19(v10, 1, v17) == 1)
+  outlined init with copy of TaskPriority?(v1 + v15, v10, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
+  v16 = type metadata accessor for Lyrics.Translation(0);
+  v17 = *(v16 - 8);
+  v18 = *(v17 + 48);
+  if (v18(v10, 1, v16) == 1)
   {
-    v20 = OBJC_IVAR____TtC7LyricsX6Lyrics_currentTranslation;
+    v19 = OBJC_IVAR____TtC7LyricsX6Lyrics_currentTranslation;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v15 + v20, v12, &_s7LyricsX0A0C11TranslationVSgMd_0);
-    LODWORD(v20) = v19(v10, 1, v17);
+    outlined init with copy of TaskPriority?(v14 + v19, v12, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
+    LODWORD(v19) = v18(v10, 1, v16);
 
-    if (v20 != 1)
+    if (v19 != 1)
     {
-      outlined destroy of TaskPriority?(v10, &_s7LyricsX0A0C11TranslationVSgMd_0);
+      outlined destroy of TaskPriority?(v10, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
     }
   }
 
   else
   {
     outlined init with take of Lyrics.Transliteration(v10, v12, type metadata accessor for Lyrics.Translation);
-    (*(v18 + 56))(v12, 0, 1, v17);
+    (*(v17 + 56))(v12, 0, 1, v16);
   }
 
-  if (v19(v12, 1, v17) == 1)
+  if (v18(v12, 1, v16) == 1)
   {
-    outlined destroy of TaskPriority?(v12, &_s7LyricsX0A0C11TranslationVSgMd_0);
-    v21 = 0;
-    v26 = 0;
+    outlined destroy of TaskPriority?(v12, &_s7LyricsX0A0C11TranslationVSgMd_0, &_s7LyricsX0A0C11TranslationVSgMR_0);
+    v20 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v27 = &v12[*(v17 + 20)];
-    v21 = *v27;
-    v26 = *(v27 + 1);
+    v26 = &v12[*(v16 + 20)];
+    v20 = *v26;
+    v25 = *(v26 + 1);
 
     outlined destroy of Lyrics.TextLine(v12, type metadata accessor for Lyrics.Translation);
   }
 
-  v28 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentTransliteration;
+  v27 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_currentTransliteration;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v1 + v28, v6, &_s7LyricsX0A0C15TransliterationVSgMd_0);
-  v29 = type metadata accessor for Lyrics.Transliteration(0);
-  v30 = *(v29 - 8);
-  v31 = *(v30 + 48);
-  if (v31(v6, 1, v29) == 1)
+  outlined init with copy of TaskPriority?(v1 + v27, v6, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
+  v28 = type metadata accessor for Lyrics.Transliteration(0);
+  v29 = *(v28 - 8);
+  v30 = *(v29 + 48);
+  if (v30(v6, 1, v28) == 1)
   {
-    v32 = OBJC_IVAR____TtC7LyricsX6Lyrics_currentTransliteration;
+    v31 = OBJC_IVAR____TtC7LyricsX6Lyrics_currentTransliteration;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v15 + v32, v8, &_s7LyricsX0A0C15TransliterationVSgMd_0);
-    if (v31(v6, 1, v29) != 1)
+    outlined init with copy of TaskPriority?(v14 + v31, v8, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
+    if (v30(v6, 1, v28) != 1)
     {
-      outlined destroy of TaskPriority?(v6, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+      outlined destroy of TaskPriority?(v6, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
     }
   }
 
   else
   {
     outlined init with take of Lyrics.Transliteration(v6, v8, type metadata accessor for Lyrics.Transliteration);
-    (*(v30 + 56))(v8, 0, 1, v29);
+    (*(v29 + 56))(v8, 0, 1, v28);
   }
 
-  v33 = v31(v8, 1, v29);
-  v34 = v47;
-  if (v33 == 1)
+  v32 = v30(v8, 1, v28);
+  v33 = v47;
+  if (v32 == 1)
   {
-    outlined destroy of TaskPriority?(v8, &_s7LyricsX0A0C15TransliterationVSgMd_0);
+    outlined destroy of TaskPriority?(v8, &_s7LyricsX0A0C15TransliterationVSgMd_0, &_s7LyricsX0A0C15TransliterationVSgMR_0);
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
   }
 
   else
   {
-    v35 = &v8[*(v29 + 20)];
-    v22 = *v35;
-    v23 = *(v35 + 1);
+    v34 = &v8[*(v28 + 20)];
+    v21 = *v34;
+    v22 = *(v34 + 1);
 
     outlined destroy of Lyrics.TextLine(v8, type metadata accessor for Lyrics.Transliteration);
   }
 
   a1 = v48;
-  v36 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
+  v35 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
   swift_beginAccess();
-  v37 = *(v1 + v36);
-  if (!(v37 >> 62))
+  v36 = *(v1 + v35);
+  if (!(v36 >> 62))
   {
-    result = *((v37 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (result)
+    v37 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v37)
     {
       goto LABEL_19;
     }
@@ -33828,25 +34697,25 @@ LABEL_29:
 LABEL_27:
 
     v45 = type metadata accessor for Lyrics.TextLine(0);
-    (*(*(v45 - 8) + 56))(v34, 1, 1, v45);
+    (*(*(v45 - 8) + 56))(v33, 1, 1, v45);
     goto LABEL_28;
   }
 
-  result = _CocoaArrayWrapper.endIndex.getter();
-  if (!result)
+  v37 = _CocoaArrayWrapper.endIndex.getter();
+  if (!v37)
   {
     goto LABEL_27;
   }
 
 LABEL_19:
-  v38 = result - 1;
-  if (__OFSUB__(result, 1))
+  v38 = v37 - 1;
+  if (__OFSUB__(v37, 1))
   {
     __break(1u);
     goto LABEL_31;
   }
 
-  if ((v37 & 0xC000000000000001) != 0)
+  if ((v36 & 0xC000000000000001) != 0)
   {
 LABEL_31:
 
@@ -33858,25 +34727,25 @@ LABEL_24:
     swift_beginAccess();
     outlined init with copy of ActionPerforming(v39 + v40, v49);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
     v41 = type metadata accessor for Lyrics.TextLine(0);
     v42 = swift_dynamicCast();
     v43 = *(v41 - 8);
-    (*(v43 + 56))(v34, v42 ^ 1u, 1, v41);
-    if ((*(v43 + 48))(v34, 1, v41) != 1)
+    (*(v43 + 56))(v33, v42 ^ 1u, 1, v41);
+    if ((*(v43 + 48))(v33, 1, v41) != 1)
     {
-      v44 = (v34 + *(v41 + 52));
-      v24 = *v44;
-      v25 = v44[1];
+      v44 = (v33 + *(v41 + 52));
+      v23 = *v44;
+      v24 = v44[1];
 
-      result = outlined destroy of Lyrics.TextLine(v34, type metadata accessor for Lyrics.TextLine);
+      outlined destroy of Lyrics.TextLine(v33, type metadata accessor for Lyrics.TextLine);
       goto LABEL_29;
     }
 
 LABEL_28:
-    result = outlined destroy of TaskPriority?(v34, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v33, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
+    v23 = 0;
     v24 = 0;
-    v25 = 0;
     goto LABEL_29;
   }
 
@@ -33885,17 +34754,16 @@ LABEL_28:
     __break(1u);
   }
 
-  else if (v38 < *((v37 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  else if (v38 < *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v39 = *(v37 + 8 * v38 + 32);
+    v39 = *(v36 + 8 * v38 + 32);
     goto LABEL_24;
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t specialized closure #1 in SyncedLyricsViewController.viewDidLoad()(void *a1, void *a2)
+double specialized closure #1 in SyncedLyricsViewController.viewDidLoad()(void *a1, void *a2)
 {
   v4 = type metadata accessor for DispatchWorkItemFlags();
   v5 = *(v4 - 8);
@@ -33922,7 +34790,7 @@ uint64_t specialized closure #1 in SyncedLyricsViewController.viewDidLoad()(void
 
     if ((v20 & 1) == 0)
     {
-      type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3);
+      type metadata accessor for UIAction(0, &_sSo17OS_dispatch_queueCML_3, OS_dispatch_queue_ptr);
       v22 = static OS_dispatch_queue.main.getter();
       v23 = swift_allocObject();
       *(v23 + 16) = a1;
@@ -33937,15 +34805,15 @@ uint64_t specialized closure #1 in SyncedLyricsViewController.viewDidLoad()(void
 
       static DispatchQoS.unspecified.getter();
       aBlock[0] = _swiftEmptyArrayStorage;
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
-      lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&_s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWL_3, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
+      lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&_sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWL_3, &_sSay8Dispatch0A13WorkItemFlagsVGMd_3, &_sSay8Dispatch0A13WorkItemFlagsVGMR_3);
       dispatch thunk of SetAlgebra.init<A>(_:)();
       OS_dispatch_queue.async(group:qos:flags:execute:)();
       _Block_release(v24);
 
       (*(v26 + 8))(v7, v4);
-      return (*(v27 + 8))(v11, v8);
+      (*(v27 + 8))(v11, v8);
     }
   }
 
@@ -34043,14 +34911,14 @@ uint64_t specialized Array.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2,
 
   else
   {
-    v3 = a2;
-    v5 = a1;
-    v6 = *v4;
-    v7 = *v4 >> 62;
-    v12 = a3;
-    if (!v7)
+    v4 = a2;
+    v6 = a1;
+    v7 = *v5;
+    v8 = *v5 >> 62;
+    v13 = a3;
+    if (!v8)
     {
-      result = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      result = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
       if (result >= a2)
       {
         goto LABEL_4;
@@ -34063,21 +34931,21 @@ LABEL_15:
   }
 
   result = _CocoaArrayWrapper.endIndex.getter();
-  if (result < v3)
+  if (result < v4)
   {
     goto LABEL_15;
   }
 
 LABEL_4:
-  if (__OFSUB__(v3, v5))
+  if (__OFSUB__(v4, v6))
   {
 LABEL_16:
     __break(1u);
     goto LABEL_17;
   }
 
-  v9 = v5 - v3;
-  if (__OFSUB__(0, v3 - v5))
+  v10 = v6 - v4;
+  if (__OFSUB__(0, v4 - v6))
   {
 LABEL_17:
     __break(1u);
@@ -34086,29 +34954,29 @@ LABEL_18:
     return result;
   }
 
-  if (v7)
+  if (v8)
   {
-    v10 = _CocoaArrayWrapper.endIndex.getter();
+    v11 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v10 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v11 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v11 = __OFADD__(v10, v9);
-  result = v10 + v9;
-  if (v11)
+  v12 = __OFADD__(v11, v10);
+  result = v11 + v10;
+  if (v12)
   {
     goto LABEL_18;
   }
 
-  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result);
+  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result, 1);
 
-  return v12(v5, v3, 0);
+  return v13(v6, v4, 0);
 }
 
-void specialized SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:)(_BOOL8 a1, uint64_t a2, char a3, CGFloat a4)
+void specialized SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:)(_BOOL8 a1, unint64_t a2, char a3, CGFloat a4)
 {
   v5 = v4;
   LOBYTE(v6) = a3;
@@ -34141,7 +35009,7 @@ LABEL_44:
   v15 = *(v14 + 8 * v12 + 32);
   while (1)
   {
-    v94 = a4;
+    v95 = a4;
     [v15 frame];
     v17 = v16;
     v19 = v18;
@@ -34149,7 +35017,7 @@ LABEL_44:
     v23 = v22;
     v24 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
     swift_beginAccess();
-    v97 = v24;
+    v98 = v24;
     [*&v5[v24] contentOffset];
     v26 = v25;
     v28 = v27;
@@ -34165,7 +35033,7 @@ LABEL_44:
 
     v33 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_containerHeight;
     swift_beginAccess();
-    v96 = v33;
+    v97 = v33;
     a4 = *&v5[v33];
     if (a4 <= 0.0)
     {
@@ -34180,27 +35048,27 @@ LABEL_44:
       a4 = v36;
     }
 
-    v104.origin.x = v17;
-    v104.origin.y = v19;
-    v104.size.width = v21;
-    v104.size.height = v23;
-    v106.origin.x = v26;
-    v106.origin.y = v28;
-    v106.size.width = v32;
-    v106.size.height = a4;
-    v95 = v13;
-    if (CGRectIntersectsRect(v104, v106))
+    v105.origin.x = v17;
+    v105.origin.y = v19;
+    v105.size.width = v21;
+    v105.size.height = v23;
+    v107.origin.x = v26;
+    v107.origin.y = v28;
+    v107.size.width = v32;
+    v107.size.height = a4;
+    v96 = v13;
+    if (CGRectIntersectsRect(v105, v107))
     {
       break;
     }
 
-    v92 = a2;
+    v93 = a2;
     v37 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
     swift_beginAccess();
     v14 = *&v5[v37];
-    v93 = v15;
-    v91 = v6;
-    v90 = a1;
+    v94 = v15;
+    v92 = v6;
+    v91 = a1;
     a2 = v14 & 0xFFFFFFFFFFFFFF8;
     if (v14 >> 62)
     {
@@ -34221,10 +35089,10 @@ LABEL_45:
       {
 LABEL_25:
 
-        a2 = v92;
-        v15 = v93;
-        LOBYTE(v6) = v91;
-        a1 = v90;
+        a2 = v93;
+        v15 = v94;
+        LOBYTE(v6) = v92;
+        a1 = v91;
         goto LABEL_26;
       }
 
@@ -34254,7 +35122,7 @@ LABEL_25:
       v44 = v43;
       v46 = v45;
       v48 = v47;
-      [*&v5[v97] contentOffset];
+      [*&v5[v98] contentOffset];
       v50 = v49;
       v52 = v51;
       v53 = [v5 view];
@@ -34267,7 +35135,7 @@ LABEL_25:
       [v53 frame];
       v56 = v55;
 
-      a4 = *&v5[v96];
+      a4 = *&v5[v97];
       if (a4 <= 0.0)
       {
         v57 = [v5 view];
@@ -34281,15 +35149,15 @@ LABEL_25:
         a4 = v59;
       }
 
-      v105.origin.x = v42;
-      v105.origin.y = v44;
-      v105.size.width = v46;
-      v105.size.height = v48;
-      v107.origin.x = v50;
-      v107.origin.y = v52;
-      v107.size.width = v56;
-      v107.size.height = a4;
-      a1 = CGRectIntersectsRect(v105, v107);
+      v106.origin.x = v42;
+      v106.origin.y = v44;
+      v106.size.width = v46;
+      v106.size.height = v48;
+      v108.origin.x = v50;
+      v108.origin.y = v52;
+      v108.size.width = v56;
+      v108.size.height = a4;
+      a1 = CGRectIntersectsRect(v106, v108);
 
       ++v39;
       if (a1)
@@ -34323,40 +35191,40 @@ LABEL_26:
 
   v63 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_mode;
   swift_beginAccess();
-  if (v5[v63] == 2 || ((v13 | [*&v5[v97] isDragging] & (v62 ^ 1)) & 1) != 0 || v5[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_allowAnimateToNextLineAfterScroll] != 1)
+  if (v5[v63] == 2 || ((v13 | [*&v5[v98] isDragging] & (v62 ^ 1)) & 1) != 0 || v5[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_allowAnimateToNextLineAfterScroll] != 1)
   {
-    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
-    v80 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(a2, v6 & 1);
-    isa = UIViewPropertyAnimator.init(springTimingParameters:)(v80).super.isa;
+    type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
+    v81 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(a2, v6 & 1);
+    isa = UIViewPropertyAnimator.init(springTimingParameters:)(v81).super.isa;
     SyncedLyricsViewController.select(line:animator:deselectAll:fadeInInstrumentalView:)(a1, isa, 1, 1);
-    v82 = swift_allocObject();
-    *(v82 + 16) = v5;
-    v102 = partial apply for closure #2 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:);
-    v103 = v82;
+    v83 = swift_allocObject();
+    *(v83 + 16) = v5;
+    v103 = partial apply for closure #2 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:);
+    v104 = v83;
     aBlock = _NSConcreteStackBlock;
-    v99 = 1107296256;
-    v100 = thunk for @escaping @callee_guaranteed () -> ();
-    v101 = &block_descriptor_269;
-    v83 = _Block_copy(&aBlock);
-    v84 = v5;
+    v100 = 1107296256;
+    v101 = thunk for @escaping @callee_guaranteed () -> ();
+    v102 = &block_descriptor_269;
+    v84 = _Block_copy(&aBlock);
+    v85 = v5;
 
-    [(objc_class *)isa addAnimations:v83];
-    _Block_release(v83);
-    v85 = [(objc_class *)isa state]== 3;
-    v84[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isAnimating] = v85;
-    v86 = swift_allocObject();
-    *(v86 + 16) = v84;
-    v102 = partial apply for closure #3 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:);
-    v103 = v86;
+    [(objc_class *)isa addAnimations:v84];
+    _Block_release(v84);
+    v86 = [(objc_class *)isa state]== 3;
+    v85[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_isAnimating] = v86;
+    v87 = swift_allocObject();
+    *(v87 + 16) = v85;
+    v103 = partial apply for closure #3 in SyncedLyricsViewController.syncedLyrics(_:animateTo:elapsedTime:gap:);
+    v104 = v87;
     aBlock = _NSConcreteStackBlock;
-    v99 = 1107296256;
-    v100 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
-    v101 = &block_descriptor_275_0;
-    v87 = _Block_copy(&aBlock);
-    v88 = v84;
+    v100 = 1107296256;
+    v101 = thunk for @escaping @callee_guaranteed (@unowned UIViewAnimatingPosition) -> ();
+    v102 = &block_descriptor_275_0;
+    v88 = _Block_copy(&aBlock);
+    v89 = v85;
 
-    [(objc_class *)isa addCompletion:v87];
-    _Block_release(v87);
+    [(objc_class *)isa addCompletion:v88];
+    _Block_release(v88);
     [(objc_class *)isa startAnimation];
   }
 
@@ -34370,17 +35238,17 @@ LABEL_26:
     v64 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
     swift_beginAccess();
     outlined init with copy of ActionPerforming(v15 + v64, &aBlock);
-    v65 = v101;
-    v66 = v102;
-    __swift_project_boxed_opaque_existential_0Tm(&aBlock, v101);
-    v67 = (*(v66 + 2))(v65, v66);
-    v68 = *&v5[v95];
+    v65 = v102;
+    v66 = v103;
+    __swift_project_boxed_opaque_existential_0Tm(&aBlock, v102);
+    v67 = v66[2](v65, v66);
+    v68 = *&v5[v96];
     if ((v68 & 0xC000000000000001) != 0)
     {
 
-      v89 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      v90 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
-      v69 = v89;
+      v69 = v90;
       goto LABEL_38;
     }
 
@@ -34404,7 +35272,8 @@ LABEL_38:
 
       __swift_destroy_boxed_opaque_existential_0Tm(&aBlock);
       outlined init with copy of ActionPerforming(v15 + v64, &aBlock);
-      SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(&aBlock, v5[v60], a2, v6 & 1, 0, 0.0, v79, v94);
+      v80.n128_u64[0] = 0;
+      SyncedLyricsViewController.animate(line:to:elapsedTime:tapMode:gap:adjustedContentOffset:)(&aBlock, v5[v60], a2, v6 & 1, 0, v80, v79, v95);
 
       __swift_destroy_boxed_opaque_existential_0Tm(&aBlock);
       v5[v60] = 0;
@@ -34518,8 +35387,8 @@ LABEL_43:
     {
 
       __CocoaSet.makeIterator()();
-      type metadata accessor for SyncedLyricsLineView();
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView);
+      type metadata accessor for SyncedLyricsLineView(0);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView, &protocol conformance descriptor for NSObject);
       Set.Iterator.init(_cocoa:)();
       a2 = v145;
       v88 = v146;
@@ -34562,7 +35431,7 @@ LABEL_43:
         }
 
         v151[4] = v99;
-        type metadata accessor for SyncedLyricsLineView();
+        type metadata accessor for SyncedLyricsLineView(0);
         swift_dynamicCast();
         v98 = v152[0];
         v96 = v12;
@@ -34587,7 +35456,7 @@ LABEL_61:
       }
 
 LABEL_63:
-      outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
+      outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(a2);
       v101 = v143;
       if (v143[v137])
       {
@@ -34847,7 +35716,7 @@ LABEL_9:
     if (CGRectIntersectsRect(v157, v158))
     {
       outlined init with copy of ActionPerforming(v142, &v145);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
       if (swift_dynamicCast() & 1) == 0 && (a2)
       {
 
@@ -34861,7 +35730,7 @@ LABEL_9:
     }
 
     outlined init with copy of ActionPerforming(v142, &v145);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
     if (!swift_dynamicCast())
     {
       goto LABEL_36;
@@ -35085,7 +35954,7 @@ LABEL_42:
   [v38 startAnimation];
 }
 
-uint64_t specialized SyncedLyricsViewController.syncedLyricsDesectAllLines(_:)()
+void specialized SyncedLyricsViewController.syncedLyricsDesectAllLines(_:)()
 {
   v1 = v0;
   if (one-time initialization token for logger != -1)
@@ -35101,33 +35970,31 @@ uint64_t specialized SyncedLyricsViewController.syncedLyricsDesectAllLines(_:)()
   {
     v5 = swift_slowAlloc();
     v6 = swift_slowAlloc();
-    v25[0] = v6;
+    v24[0] = v6;
     *v5 = 136315138;
-    *(v5 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD000000000000023, 0x80000001004D8040, v25);
+    *(v5 + 4) = _s2os32getNullTerminatedUTF8PointerImpl_21storingStringOwnersInSVSS_SpyypGSgztF_4(0xD000000000000023, 0x80000001004D8040, v24);
     _os_log_impl(&_mh_execute_header, v3, v4, "%s", v5, 0xCu);
     __swift_destroy_boxed_opaque_existential_0Tm(v6);
   }
 
   v7 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_mode;
-  result = swift_beginAccess();
+  swift_beginAccess();
   if (!v1[v7])
   {
-    v9 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
+    v8 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_scrollView;
     swift_beginAccess();
-    result = [*&v1[v9] isDragging];
-    if ((result & 1) == 0)
+    if (([*&v1[v8] isDragging] & 1) == 0)
     {
-      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator);
-      v10 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(0, 1);
-      v11.super.isa = UIViewPropertyAnimator.init(springTimingParameters:)(v10).super.isa;
-      v12 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
-      result = swift_beginAccess();
-      v13 = *&v1[v12];
-      if (v13 >> 62)
+      type metadata accessor for UIAction(0, &lazy cache variable for type metadata for UIViewPropertyAnimator, UIViewPropertyAnimator_ptr);
+      v9 = SyncedLyricsViewController.lineChangeSpringParameters(gap:)(0, 1);
+      v10.super.isa = UIViewPropertyAnimator.init(springTimingParameters:)(v9).super.isa;
+      v11 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_selectedLineViews;
+      swift_beginAccess();
+      v12 = *&v1[v11];
+      if (v12 >> 62)
       {
-        result = _CocoaArrayWrapper.endIndex.getter();
-        v14 = result;
-        if (result)
+        v13 = _CocoaArrayWrapper.endIndex.getter();
+        if (v13)
         {
           goto LABEL_9;
         }
@@ -35135,38 +36002,38 @@ uint64_t specialized SyncedLyricsViewController.syncedLyricsDesectAllLines(_:)()
 
       else
       {
-        v14 = *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        if (v14)
+        v13 = *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        if (v13)
         {
 LABEL_9:
-          v23 = v12;
-          if (v14 < 1)
+          v22 = v11;
+          if (v13 < 1)
           {
             __break(1u);
-            return result;
+            return;
           }
 
-          v15 = &v1[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs];
+          v14 = &v1[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_specs];
 
           swift_beginAccess();
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if ((v13 & 0xC000000000000001) != 0)
+            if ((v12 & 0xC000000000000001) != 0)
             {
-              v17 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+              v16 = specialized _ArrayBuffer._getElementSlowPath(_:)();
             }
 
             else
             {
-              v17 = *(v13 + 8 * i + 32);
+              v16 = *(v12 + 8 * i + 32);
             }
 
-            v18 = v17;
-            v19 = v11.super.isa;
-            v26.value = v11;
-            SyncedLyricsLineView.setSelected(_:animator:)(0, v26);
+            v17 = v16;
+            v18 = v10.super.isa;
+            v25.value = v10;
+            SyncedLyricsLineView.setSelected(_:animator:)(0, v25);
 
-            if (v15[657] != 1 || (v20 = [v1 traitCollection], v21 = objc_msgSend(v20, "accessibilityContrast"), v20, v21 == 1))
+            if (v14[657] != 1 || (v19 = [v1 traitCollection], v20 = objc_msgSend(v19, "accessibilityContrast"), v19, v20 == 1))
             {
             }
 
@@ -35174,21 +36041,19 @@ LABEL_9:
             {
               SyncedLyricsLineView.setBlurRadius(_:animated:)(1, 3.0);
               swift_beginAccess();
-              specialized Set._Variant.insert(_:)(&v24, v18);
-              v22 = v24;
+              specialized Set._Variant.insert(_:)(&v23, v17);
+              v21 = v23;
               swift_endAccess();
             }
           }
 
-          v12 = v23;
+          v11 = v22;
         }
       }
 
-      *&v1[v12] = _swiftEmptyArrayStorage;
+      *&v1[v11] = _swiftEmptyArrayStorage;
     }
   }
-
-  return result;
 }
 
 void specialized SyncedLyricsViewController.syncedLyrics(_:update:elapsedTime:)(void *a1, Swift::Double a2)
@@ -35238,7 +36103,7 @@ LABEL_5:
 void specialized SyncedLyricsViewController.syncedLyrics(_:finish:)(uint64_t a1)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
   __chkstk_darwin();
   v5 = &v22 - v4;
   v6 = type metadata accessor for Lyrics.TextLine(0);
@@ -35246,20 +36111,20 @@ void specialized SyncedLyricsViewController.syncedLyrics(_:finish:)(uint64_t a1)
   __chkstk_darwin();
   v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   outlined init with copy of ActionPerforming(a1, v26);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
   v10 = swift_dynamicCast();
   v11 = *(v7 + 56);
   if ((v10 & 1) == 0)
   {
     v11(v5, 1, 1, v6);
-    outlined destroy of TaskPriority?(v5, &_s7LyricsX0A0C8TextLineVSgMd);
+    outlined destroy of TaskPriority?(v5, &_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     return;
   }
 
   v11(v5, 0, 1, v6);
   outlined init with take of Lyrics.Transliteration(v5, v9, type metadata accessor for Lyrics.TextLine);
   swift_beginAccess();
-  v12 = type metadata accessor for SyncedLyricsLineView();
+  v12 = type metadata accessor for SyncedLyricsLineView(0);
 
   Array.subscript.getter(v12, v26);
 
@@ -35275,7 +36140,7 @@ void specialized SyncedLyricsViewController.syncedLyrics(_:finish:)(uint64_t a1)
     goto LABEL_13;
   }
 
-  type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
+  type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
   v15 = swift_dynamicCastClass();
   if (v15)
   {
@@ -35377,7 +36242,7 @@ void specialized SyncedLyricsViewController.menuHandler(_:)()
 
     v5 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timingProvider;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(&v0[v5], &aBlock, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+    outlined init with copy of TaskPriority?(&v0[v5], &aBlock, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     v6 = v38;
     if (v38)
     {
@@ -35387,7 +36252,7 @@ void specialized SyncedLyricsViewController.menuHandler(_:)()
       v9 = __chkstk_darwin();
       v11 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
       (*(v8 + 16))(v11, v9);
-      outlined destroy of TaskPriority?(&aBlock, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+      outlined destroy of TaskPriority?(&aBlock, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
       v12 = v0;
       v13 = v7[1](v6, v7);
       v14 = (*(v8 + 8))(v11, v6);
@@ -35441,7 +36306,7 @@ void specialized SyncedLyricsViewController.menuHandler(_:)()
     else
     {
 
-      outlined destroy of TaskPriority?(&aBlock, &_s7LyricsX06SyncedA14TimingProvider_pSgMd);
+      outlined destroy of TaskPriority?(&aBlock, &_s7LyricsX06SyncedA14TimingProvider_pSgMd, &_s7LyricsX06SyncedA14TimingProvider_pSgMR);
     }
   }
 }
@@ -35474,8 +36339,8 @@ LABEL_3:
         v9 = p_cache[430];
         v10 = v5 & 0xC000000000000001;
         v11 = &OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_contentView;
-        v45 = v9;
-        v46 = v5;
+        v47 = v9;
+        v48 = v5;
         while (1)
         {
           if (v10)
@@ -35495,7 +36360,7 @@ LABEL_3:
             goto LABEL_6;
           }
 
-          type metadata accessor for SyncedLyricsLineView.SBS_TextContentView();
+          type metadata accessor for SyncedLyricsLineView.SBS_TextContentView(0);
           v15 = swift_dynamicCastClass();
           if (!v15)
           {
@@ -35511,7 +36376,7 @@ LABEL_3:
           v17 = v6;
           v18 = v10;
           v19 = v11;
-          v48 = v15;
+          v50 = v15;
           swift_beginAccess();
           v20 = *(v16 + 96);
           if (v20)
@@ -35522,7 +36387,7 @@ LABEL_3:
           v11 = v19;
           v10 = v18;
           v6 = v17;
-          v5 = v46;
+          v5 = v48;
 LABEL_6:
           ++v8;
 
@@ -35532,76 +36397,79 @@ LABEL_6:
           }
         }
 
-        v47 = v14;
+        v21 = v3;
+        v22 = *(v16 + 104);
+        v49 = v14;
 
-        v21 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v20);
-        v22 = v20(v21);
+        v23 = outlined copy of (@escaping @callee_guaranteed () -> ())?(v20, v22);
+        v24 = v20(v23);
         swift_beginAccess();
         if (*(v16 + 88) == 1)
         {
-          v23 = Lyrics.spatialOffset.getter();
-          outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v20);
+          v25 = Lyrics.spatialOffset.getter();
+          outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v20, v22);
         }
 
         else
         {
 
-          outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v20);
-          v23 = 0.0;
+          outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v20, v22);
+          v25 = 0.0;
         }
 
-        v24 = v22 - v23;
-        v25 = v48;
+        v26 = v24 - v25;
+        v27 = v50;
+        v3 = v21;
         v11 = v19;
-        if (v24 == *(v48 + OBJC_IVAR___MusicSBS_TextContentView_progress))
+        if (v26 == *(v50 + OBJC_IVAR___MusicSBS_TextContentView_progress))
         {
           v10 = v18;
           v6 = v17;
-          v9 = v45;
-          v5 = v46;
+          v9 = v47;
+          v5 = v48;
         }
 
         else
         {
-          *(v48 + OBJC_IVAR___MusicSBS_TextContentView_progress) = v24;
-          v27 = *(v25 + OBJC_IVAR___MusicSBS_TextContentView_textView);
-          v9 = v45;
-          if (!v27)
+          *(v50 + OBJC_IVAR___MusicSBS_TextContentView_progress) = v26;
+          v29 = *(v27 + OBJC_IVAR___MusicSBS_TextContentView_textView);
+          v9 = v47;
+          if (!v29)
           {
             goto LABEL_58;
           }
 
           v10 = v18;
-          v28 = *&v27[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_progress];
+          v30 = *&v29[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_progress];
           v6 = v17;
-          if (v28 != v24 && (v24 >= v28 || v28 - v24 >= 0.5))
+          if (v30 != v26 && (v26 >= v30 || v30 - v26 >= 0.5))
           {
-            *&v27[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_progress] = v24;
-            v30 = v27;
-            SyncedLyricsLineView.SBS_TextContentView.TextView.updateProgress(_:animated:)(1, v24);
+            *&v29[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_progress] = v26;
+            v32 = v29;
+            SyncedLyricsLineView.SBS_TextContentView.TextView.updateProgress(_:animated:)(1, v26);
 
-            v25 = v48;
+            v27 = v50;
           }
 
-          v31 = *(v25 + OBJC_IVAR___MusicSBS_TextContentView_backgroundTextView);
-          v5 = v46;
-          if (v31)
+          v33 = *(v27 + OBJC_IVAR___MusicSBS_TextContentView_backgroundTextView);
+          v5 = v48;
+          if (v33)
           {
-            v32 = *&v31[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_progress];
-            if (v32 != v24 && (v24 >= v32 || v32 - v24 >= 0.5))
+            v34 = *&v33[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_progress];
+            if (v34 != v26 && (v26 >= v34 || v34 - v26 >= 0.5))
             {
-              *&v31[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_progress] = v24;
-              v34 = v31;
-              SyncedLyricsLineView.SBS_TextContentView.TextView.updateProgress(_:animated:)(1, v24);
+              *&v33[OBJC_IVAR____TtCCC7LyricsX20SyncedLyricsLineView19SBS_TextContentView8TextView_progress] = v26;
+              v36 = v33;
+              SyncedLyricsLineView.SBS_TextContentView.TextView.updateProgress(_:animated:)(1, v26);
 
-              v26 = v13;
-              v13 = v34;
+              v28 = v13;
+              v13 = v36;
               goto LABEL_20;
             }
           }
         }
 
-        v26 = v47;
+        v28 = v49;
 LABEL_20:
 
         goto LABEL_6;
@@ -35631,8 +36499,8 @@ LABEL_36:
   v1 = *(v3 + v2);
   if (!(v1 >> 62))
   {
-    v35 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v35)
+    v37 = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v37)
     {
       goto LABEL_48;
     }
@@ -35641,8 +36509,8 @@ LABEL_36:
   }
 
 LABEL_52:
-  v35 = _CocoaArrayWrapper.endIndex.getter();
-  if (!v35)
+  v37 = _CocoaArrayWrapper.endIndex.getter();
+  if (!v37)
   {
 LABEL_48:
     if (*(v3 + OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_manager))
@@ -35655,8 +36523,8 @@ LABEL_48:
   }
 
 LABEL_40:
-  v36 = v35 - 1;
-  if (__OFSUB__(v35, 1))
+  v38 = v37 - 1;
+  if (__OFSUB__(v37, 1))
   {
     __break(1u);
     goto LABEL_55;
@@ -35665,37 +36533,37 @@ LABEL_40:
   if ((v1 & 0xC000000000000001) != 0)
   {
 LABEL_55:
-    v43 = v6;
+    v45 = v6;
 
-    v39 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v41 = specialized _ArrayBuffer._getElementSlowPath(_:)();
 
     goto LABEL_45;
   }
 
-  if ((v36 & 0x8000000000000000) != 0)
+  if ((v38 & 0x8000000000000000) != 0)
   {
     __break(1u);
   }
 
-  else if (v36 < *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  else if (v38 < *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v37 = *(v1 + 8 * v36 + 32);
-    v38 = v6;
-    v39 = v37;
+    v39 = *(v1 + 8 * v38 + 32);
+    v40 = v6;
+    v41 = v39;
 LABEL_45:
-    v40 = *(v3 + v2);
-    v49 = v6;
+    v42 = *(v3 + v2);
+    v51 = v6;
     __chkstk_darwin();
-    v44[2] = &v49;
+    v46[2] = &v51;
 
-    v41 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v44, v40);
+    v43 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v46, v42);
 
-    if ((v41 & 1) == 0)
+    if ((v43 & 1) == 0)
     {
-      v42 = *(v3 + v0);
+      v44 = *(v3 + v0);
       *(v3 + v0) = 0;
 
-      SyncedLyricsViewController.dismissInstrumentalView(_:currentView:)(v6, v39);
+      SyncedLyricsViewController.dismissInstrumentalView(_:currentView:)(v6, v41);
       SyncedLyricsLineView.reset()();
     }
 
@@ -35814,8 +36682,8 @@ void specialized SyncedLyricsViewController.scrollViewWillBeginDragging(_:)()
   {
 
     __CocoaSet.makeIterator()();
-    type metadata accessor for SyncedLyricsLineView();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView);
+    type metadata accessor for SyncedLyricsLineView(0);
+    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(&lazy protocol witness table cache variable for type SyncedLyricsLineView and conformance NSObject, type metadata accessor for SyncedLyricsLineView, &protocol conformance descriptor for NSObject);
     Set.Iterator.init(_cocoa:)();
     v12 = v48;
     v13 = v49;
@@ -35934,7 +36802,7 @@ LABEL_19:
       if (v26)
       {
         *&v45 = v26;
-        type metadata accessor for SyncedLyricsLineView();
+        type metadata accessor for SyncedLyricsLineView(0);
         swift_dynamicCast();
         v25 = aBlock[0];
         v23 = v15;
@@ -35950,7 +36818,7 @@ LABEL_19:
   }
 
 LABEL_23:
-  outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant();
+  outlined consume of Set<Library.Menu.Identifier>.Iterator._Variant(v12);
   v28 = *&v1[OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_timestampLabel];
   if (!v28)
   {
@@ -35962,11 +36830,11 @@ LABEL_23:
 
   v29 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsTimestampLabel_line;
   swift_beginAccess();
-  outlined init with copy of TaskPriority?(v28 + v29, &v45, &_s7LyricsX0A4Line_pSgMd);
+  outlined init with copy of TaskPriority?(v28 + v29, &v45, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   if (!*(&v46 + 1))
   {
 LABEL_31:
-    outlined destroy of TaskPriority?(&v45, &_s7LyricsX0A4Line_pSgMd);
+    outlined destroy of TaskPriority?(&v45, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
     goto LABEL_32;
   }
 
@@ -36234,7 +37102,7 @@ LABEL_32:
     v39 = OBJC_IVAR____TtC7LyricsX20SyncedLyricsLineView_line;
     swift_beginAccess();
     outlined init with copy of ActionPerforming(v38 + v39, aBlock);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A4Line_pMd, &_s7LyricsX0A4Line_pMR);
     if (swift_dynamicCast())
     {
     }
@@ -36290,7 +37158,7 @@ LABEL_67:
   {
     v54 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsTimestampLabel_line;
     swift_beginAccess();
-    outlined init with copy of TaskPriority?(v53 + v54, &v93, &_s7LyricsX0A4Line_pSgMd);
+    outlined init with copy of TaskPriority?(v53 + v54, &v93, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
     if (*(&v94 + 1))
     {
       outlined init with take of ActionPerforming(&v93, aBlock);
@@ -36335,7 +37203,7 @@ LABEL_70:
     v94 = 0u;
   }
 
-  outlined destroy of TaskPriority?(&v93, &_s7LyricsX0A4Line_pSgMd);
+  outlined destroy of TaskPriority?(&v93, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   v59 = 0;
 LABEL_56:
   type metadata accessor for SyncedLyricsTimestampLabel();
@@ -36359,10 +37227,10 @@ LABEL_56:
   outlined init with copy of ActionPerforming(v88 + v65, aBlock);
   v66 = *v27;
   swift_beginAccess();
-  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(aBlock, v61 + v66, &_s7LyricsX0A4Line_pSgMd);
+  outlined assign with copy of PlaybackIntentDescriptor.IntentType?(aBlock, v61 + v66, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   swift_endAccess();
   SyncedLyricsTimestampLabel.line.didset();
-  outlined destroy of TaskPriority?(aBlock, &_s7LyricsX0A4Line_pSgMd);
+  outlined destroy of TaskPriority?(aBlock, &_s7LyricsX0A4Line_pSgMd, &_s7LyricsX0A4Line_pSgMR);
   [v61 setAlpha:0.0];
   SyncedLyricsViewController.updateTimestampLabelFrame()();
   v67 = [v4 view];
@@ -36426,23 +37294,21 @@ unint64_t lazy protocol witness table accessor for type SyncedLyricsViewControll
   return result;
 }
 
-uint64_t sub_1004B32F8@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1004B32F8(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
   v4 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_mode;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *a2 = *(v3 + v4);
-  return result;
 }
 
-uint64_t sub_1004B3350(char *a1, uint64_t *a2)
+void sub_1004B3350(char *a1, uint64_t *a2)
 {
   v2 = *a1;
   v3 = *a2;
   v4 = OBJC_IVAR____TtC7LyricsX26SyncedLyricsViewController_mode;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v3 + v4) = v2;
-  return result;
 }
 
 uint64_t sub_1004B33A4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -36495,25 +37361,25 @@ uint64_t sub_1004B34E8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void type metadata completion function for SyncedLyricsSharingTransitionInfo()
+void type metadata completion function for SyncedLyricsSharingTransitionInfo(uint64_t a1)
 {
   type metadata accessor for Lyrics.TextLine(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for UIAction(319, &_sSo6UIViewCML_2);
-    if (v1 <= 0x3F)
+    type metadata accessor for UIAction(319, &_sSo6UIViewCML_2, UIView_ptr);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for NSTextAlignment(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         _sSo6CGRectVMa_2(319);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           _sSo17CGAffineTransformVMa_1(319);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             _syycMa_2();
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -36524,16 +37390,16 @@ void type metadata completion function for SyncedLyricsSharingTransitionInfo()
   }
 }
 
-void type metadata completion function for SyncedLyricsViewController()
+void type metadata completion function for SyncedLyricsViewController(uint64_t a1)
 {
   type metadata accessor for Lyrics.Translation?(319, &_s7LyricsX0A0C11TranslationVSgML_0, type metadata accessor for Lyrics.Translation);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Lyrics.Translation?(319, &_s7LyricsX0A0C15TransliterationVSgML_0, type metadata accessor for Lyrics.Transliteration);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for Lyrics.Translation?(319, &_s10Foundation4DateVSgML_1, &type metadata accessor for Date);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_updateClassMetadata2();
       }
@@ -36555,7 +37421,7 @@ uint64_t sub_1004B39B0()
 
 uint64_t sub_1004B3A08()
 {
-  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 32);
+  __swift_destroy_boxed_opaque_existential_0Tm((v0 + 32));
 
   return swift_deallocObject();
 }
@@ -36563,7 +37429,7 @@ uint64_t sub_1004B3A08()
 uint64_t sub_1004B3A5C()
 {
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 64);
+  __swift_destroy_boxed_opaque_existential_0Tm((v0 + 64));
 
   return swift_deallocObject();
 }
@@ -36576,7 +37442,7 @@ uint64_t sub_1004B3ACC()
 
 uint64_t sub_1004B3B04()
 {
-  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 24);
+  __swift_destroy_boxed_opaque_existential_0Tm((v0 + 24));
 
   return swift_deallocObject();
 }
@@ -36584,14 +37450,14 @@ uint64_t sub_1004B3B04()
 uint64_t sub_1004B3B60()
 {
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 48);
+  __swift_destroy_boxed_opaque_existential_0Tm((v0 + 48));
 
   return swift_deallocObject();
 }
 
 uint64_t sub_1004B3BB8()
 {
-  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 24);
+  __swift_destroy_boxed_opaque_existential_0Tm((v0 + 24));
 
   return swift_deallocObject();
 }
@@ -36599,7 +37465,7 @@ uint64_t sub_1004B3BB8()
 uint64_t sub_1004B3C14()
 {
 
-  __swift_destroy_boxed_opaque_existential_0Tm(v0 + 64);
+  __swift_destroy_boxed_opaque_existential_0Tm((v0 + 64));
 
   return swift_deallocObject();
 }
@@ -36712,7 +37578,7 @@ uint64_t sub_1004B41DC()
 
   if (*(v0 + 56))
   {
-    __swift_destroy_boxed_opaque_existential_0Tm(v0 + 32);
+    __swift_destroy_boxed_opaque_existential_0Tm((v0 + 32));
   }
 
   return swift_deallocObject();
@@ -36731,7 +37597,7 @@ uint64_t sub_1004B4288()
   return swift_deallocObject();
 }
 
-uint64_t _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -36793,7 +37659,7 @@ uint64_t sub_1004B45E0(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a2)
     {
@@ -36806,7 +37672,7 @@ uint64_t sub_1004B45E0(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       v14 = *(*(v13 - 8) + 48);
       v15 = a1 + *(a3 + 24);
 
@@ -36825,7 +37691,7 @@ uint64_t sub_1004B4730(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C8TextLineVSgMd, &_s7LyricsX0A0C8TextLineVSgMR);
     v9 = *(v8 - 8);
     if (*(v9 + 84) == a3)
     {
@@ -36838,7 +37704,7 @@ uint64_t sub_1004B4730(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
     else
     {
-      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd);
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7LyricsX0A0C11TranslationV4LineVSgMd, &_s7LyricsX0A0C11TranslationV4LineVSgMR);
       v14 = *(*(v13 - 8) + 56);
       v15 = v5 + *(a4 + 24);
 
@@ -36849,16 +37715,16 @@ uint64_t sub_1004B4730(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void type metadata completion function for SyncedLyricsViewController.LineData()
+void type metadata completion function for SyncedLyricsViewController.LineData(uint64_t a1)
 {
   type metadata accessor for LyricsLine();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Lyrics.Translation?(319, &lazy cache variable for type metadata for Lyrics.TextLine?, type metadata accessor for Lyrics.TextLine);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for Lyrics.Translation?(319, &lazy cache variable for type metadata for Lyrics.Translation.Line?, type metadata accessor for Lyrics.Translation.Line);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -36878,7 +37744,7 @@ unint64_t type metadata accessor for LyricsLine()
   return result;
 }
 
-void type metadata accessor for Lyrics.Translation?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata accessor for Lyrics.Translation?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -37128,7 +37994,7 @@ id LineProgressGradientView.updateColors()()
   v1 = [*(v0 + OBJC_IVAR____TtC7LyricsX24LineProgressGradientView_gradientView) layer];
   objc_opt_self();
   v2 = swift_dynamicCastObjCClassUnconditional();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd_3, &_ss23_ContiguousArrayStorageCyypGMR_3);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1004F2EF0;
   v4 = OBJC_IVAR____TtC7LyricsX24LineProgressGradientView_color;
@@ -37152,10 +38018,10 @@ id LineProgressGradientView.updateColors()()
   return [v11 setBackgroundColor:v12];
 }
 
-id LineProgressGradientView.GradientView.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(void))
+id LineProgressGradientView.GradientView.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, "dealloc");
 }
 

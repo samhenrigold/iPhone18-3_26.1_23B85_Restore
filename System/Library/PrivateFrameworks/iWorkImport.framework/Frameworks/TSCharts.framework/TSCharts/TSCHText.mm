@@ -800,7 +800,7 @@ LABEL_15:
     {
       if (results)
       {
-        objc_msgSend_textLayoutResultsForColumn_(self, v64, v65, v66.width, v67, v63);
+        objc_msgSend_textLayoutResultsForColumn_(self, v65, v66.width, v67);
         v66 = v138[1];
         results->var0.origin = v138[0];
         results->var0.size = v66;
@@ -1317,7 +1317,7 @@ LABEL_27:
         {
           if (results)
           {
-            objc_msgSend_textLayoutResultsForColumn_(self, v142, v144, v145, v146, v143);
+            objc_msgSend_textLayoutResultsForColumn_(self, v144, v145, v146);
             *results = v168;
           }
 

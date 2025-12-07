@@ -157,8 +157,8 @@ LABEL_9:
   x = bounds.origin.x;
   v8 = PKTableViewCellTextInset();
   v9 = x + v8;
-  v21 = width;
-  v22 = height;
+  v41 = width;
+  v42 = height;
   v10 = width - (v8 + v8);
   v11 = height + -24.0;
   if ([(PKApplyRadioCell *)self _shouldReverseLayoutDirection])
@@ -177,49 +177,64 @@ LABEL_9:
   remainder.size.width = v10;
   remainder.size.height = v11;
   [(UIButton *)self->_button sizeThatFits:v10, v11];
+  v15 = v14;
   if (v13 <= v10)
   {
-    v14 = v13;
+    v16 = v13;
   }
 
   else
   {
-    v14 = v10;
+    v16 = v10;
   }
 
-  v26.origin.x = v9;
-  v26.origin.y = y + 12.0;
-  v26.size.width = v10;
-  v26.size.height = v11;
-  CGRectDivide(v26, &slice, &remainder, v14, v12);
+  v46.origin.x = v9;
+  v46.origin.y = y + 12.0;
+  v46.size.width = v10;
+  v46.size.height = v11;
+  CGRectDivide(v46, &slice, &remainder, v16, v12);
   if (!self->_isTemplateLayout)
   {
     button = self->_button;
-    PKSizeAlignedInRect();
+    v19.n128_u64[0] = *&slice.origin.x;
+    v20.n128_u64[0] = *&slice.origin.y;
+    v21.n128_u64[0] = *&slice.size.width;
+    v22.n128_u64[0] = *&slice.size.height;
+    v17.n128_f64[0] = v16;
+    v18.n128_u64[0] = v15;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v17, v18, v19, v20, v21, v22, v23);
     [(UIButton *)button setFrame:?];
   }
 
   CGRectDivide(remainder, &slice, &remainder, 4.0, v12);
   [(UILabel *)self->_titleLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v17 = v16;
-  CGRectDivide(remainder, &slice, &remainder, v16, CGRectMinYEdge);
+  v26 = v25;
+  v28 = v27;
+  v29 = remainder.size.width;
+  CGRectDivide(remainder, &slice, &remainder, v27, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     titleLabel = self->_titleLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v31 = PKContentAlignmentMake();
+    v32.n128_u64[0] = *&slice.origin.x;
+    v33.n128_u64[0] = *&slice.origin.y;
+    v34.n128_u64[0] = *&slice.size.width;
+    v35.n128_u64[0] = *&slice.size.height;
+    v36.n128_u64[0] = fmin(v29, v26);
+    v37.n128_f64[0] = v28;
+    PKSizeAlignedInRect(v31, v36, v37, v32, v33, v34, v35, v38);
     [(UILabel *)titleLabel setFrame:?];
   }
 
   CGRectDivide(remainder, &slice, &remainder, 12.0, CGRectMinYEdge);
-  v27.origin.x = x;
-  v27.origin.y = y;
-  v27.size.width = v21;
-  v27.size.height = v22;
-  v19 = CGRectGetWidth(v27);
-  v20 = v17 + 12.0 + 12.0;
-  result.height = v20;
-  result.width = v19;
+  v47.origin.x = x;
+  v47.origin.y = y;
+  v47.size.width = v41;
+  v47.size.height = v42;
+  v39 = CGRectGetWidth(v47);
+  v40 = v28 + 12.0 + 12.0;
+  result.height = v40;
+  result.width = v39;
   return result;
 }
 

@@ -30,11 +30,11 @@
 
 + (NSString)name
 {
-  swift_getObjCClassMetadata();
-  sub_1001745A8();
-  v2 = String._bridgeToObjectiveC()();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
+  sub_1001745A8(ObjCClassMetadata, v3, v4);
+  v5 = String._bridgeToObjectiveC()();
 
-  return v2;
+  return v5;
 }
 
 - (id)createPayload

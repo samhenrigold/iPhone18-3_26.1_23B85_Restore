@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10052CC10();
+  sub_10052CC10(selfCopy);
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

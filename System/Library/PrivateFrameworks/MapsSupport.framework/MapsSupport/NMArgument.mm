@@ -5,10 +5,13 @@
 - (id)_nm_compressedArgument:(int)argument;
 - (id)_nm_dictionaryValue;
 - (id)_nm_errorValue;
+- (id)_nm_initWithLocation:(id)location tag:(int)tag;
+- (id)_nm_initWithSecureCodingValue:(id)value tag:(int)tag;
 - (id)_nm_locationValue;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)tagAsString:(int)string;
 - (int)StringAsTag:(id)tag;
 - (int)tag;
 - (unint64_t)hash;
@@ -64,6 +67,315 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)tagAsString:(int)string
+{
+  if (string <= 399)
+  {
+    if (string <= 102)
+    {
+      if (string > 5)
+      {
+        if (string <= 99)
+        {
+          if (string == 6)
+          {
+            v4 = @"SHA256_HASH";
+          }
+
+          else
+          {
+            if (string != 7)
+            {
+              goto LABEL_181;
+            }
+
+            v4 = @"OFFLINE_COHORT_ID";
+          }
+        }
+
+        else if (string == 100)
+        {
+          v4 = @"TILE_KEY";
+        }
+
+        else if (string == 101)
+        {
+          v4 = @"ETAG";
+        }
+
+        else
+        {
+          v4 = @"TILE_REQUESTS";
+        }
+      }
+
+      else if (string <= 2)
+      {
+        if (string == 1)
+        {
+          v4 = @"DATA";
+        }
+
+        else
+        {
+          if (string != 2)
+          {
+            goto LABEL_181;
+          }
+
+          v4 = @"USER_INFO";
+        }
+      }
+
+      else if (string == 3)
+      {
+        v4 = @"ERROR";
+      }
+
+      else if (string == 4)
+      {
+        v4 = @"BUNDLE_IDENTIFIER";
+      }
+
+      else
+      {
+        v4 = @"FLAG";
+      }
+    }
+
+    else if (string <= 199)
+    {
+      if (string <= 104)
+      {
+        if (string == 103)
+        {
+          v4 = @"REQUEST_IDENTIFIER";
+        }
+
+        else
+        {
+          v4 = @"BASE_TILE_DATA";
+        }
+      }
+
+      else
+      {
+        switch(string)
+        {
+          case 'i':
+            v4 = @"BASE_TILE_ETAG";
+
+            break;
+          case 'j':
+            v4 = @"LOCALIZATION_TILE_DATA";
+
+            break;
+          case 'k':
+            v4 = @"LOCALIZATION_TILE_ETAG";
+
+            break;
+          default:
+            goto LABEL_181;
+        }
+      }
+    }
+
+    else if (string > 204)
+    {
+      switch(string)
+      {
+        case 205:
+          v4 = @"RESOURCE_NAME";
+
+          break;
+        case 206:
+          v4 = @"RESOURCE_IS_REGIONAL";
+
+          break;
+        case 302:
+          v4 = @"URL";
+
+          break;
+        default:
+          goto LABEL_181;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 200:
+          v4 = @"TILE_GROUP_IDENTIFIER";
+
+          break;
+        case 201:
+          v4 = @"CURRENT_RESOURCES";
+
+          break;
+        case 202:
+          v4 = @"BUNDLED_RESOURCES_IN_FRAMEWORK";
+
+          break;
+        default:
+          goto LABEL_181;
+      }
+    }
+  }
+
+  else
+  {
+    if (string <= 499)
+    {
+      switch(string)
+      {
+        case 400:
+          v4 = @"DIRECTIONS_TRANSPORT_TYPE";
+
+          break;
+        case 401:
+          v4 = @"DIRECTIONS_ROUTE_DETAILS";
+
+          break;
+        case 402:
+          v4 = @"DIRECTIONS_ROUTE_STATUS";
+
+          break;
+        case 403:
+          v4 = @"DIRECTIONS_SAFETY_WARNING_TYPE";
+
+          break;
+        case 404:
+          v4 = @"DIRECTIONS_SOURCE";
+
+          break;
+        case 405:
+          v4 = @"DIRECTIONS_DESTINATION";
+
+          break;
+        case 406:
+          v4 = @"DIRECTIONS_ROUTE_CONTEXT";
+
+          break;
+        case 407:
+          v4 = @"DIRECTIONS_START_DATE";
+
+          break;
+        case 408:
+          v4 = @"DIRECTIONS_END_DATE";
+
+          break;
+        case 409:
+          v4 = @"DIRECTIONS_ROUTE_INDEX";
+
+          break;
+        case 410:
+          v4 = @"DIRECTIONS_NUMBER_OF_ROUTES";
+
+          break;
+        case 411:
+          v4 = @"DIRECTIONS_ROUTE_ID";
+
+          break;
+        case 412:
+          v4 = @"DIRECTIONS_ROUTE_UPDATE";
+
+          break;
+        case 413:
+          v4 = @"DIRECTIONS_AUTOMOBILE_OPTIONS";
+
+          break;
+        case 414:
+          v4 = @"DIRECTIONS_TRANSIT_OPTIONS";
+
+          break;
+        case 415:
+          v4 = @"DIRECTIONS_WALKING_OPTIONS";
+
+          break;
+        case 416:
+          v4 = @"DIRECTIONS_CYCLING_OPTIONS";
+
+          break;
+        case 417:
+          v4 = @"DIRECTIONS_WAYPOINTS";
+
+          break;
+        case 418:
+          v4 = @"DIRECTIONS_DISPLAYED_STEP";
+
+          break;
+        case 419:
+          v4 = @"DIRECTIONS_ROUTE_PERSISTENT_DATA";
+
+          break;
+        default:
+          goto LABEL_181;
+      }
+
+      return v4;
+    }
+
+    if (string <= 502)
+    {
+      if (string == 500)
+      {
+        v4 = @"MUIDs";
+      }
+
+      else if (string == 501)
+      {
+        v4 = @"TRAITS";
+      }
+
+      else
+      {
+        v4 = @"IDENTIFIERS";
+      }
+    }
+
+    else if (string > 599)
+    {
+      if (string == 600)
+      {
+        v4 = @"TRANSIENT_CL_AUTH_INFO";
+      }
+
+      else
+      {
+        if (string != 1000)
+        {
+          goto LABEL_181;
+        }
+
+        v4 = @"PING_REQUIRE_MAPS_RUNNING";
+      }
+    }
+
+    else
+    {
+      if (string != 503)
+      {
+        if (string == 504)
+        {
+          v4 = @"REQUEST_TYPE";
+
+          return v4;
+        }
+
+LABEL_181:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"REQUEST";
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsTag:(id)tag
@@ -888,7 +1200,6 @@ LABEL_88:
   toCopy = to;
   if ((*&self->_has & 8) != 0)
   {
-    tag = self->_tag;
     PBDataWriterWriteInt32Field();
   }
 
@@ -900,14 +1211,12 @@ LABEL_88:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    intValue = self->_intValue;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
   }
 
@@ -916,67 +1225,65 @@ LABEL_88:
     PBDataWriterWriteDataField();
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v9 = self->_stringToObjectMaps;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v49 objects:v56 count:16];
-  if (v10)
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v6 = self->_stringToObjectMaps;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v50;
+    v8 = v7;
+    v9 = *v41;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v50 != v12)
+        if (*v41 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v49 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v49 objects:v56 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v40 objects:v47 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v15 = self->_stringListValues;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v45 objects:v55 count:16];
-  if (v16)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v11 = self->_stringListValues;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v36 objects:v46 count:16];
+  if (v12)
   {
-    v17 = v16;
-    v18 = *v46;
+    v13 = v12;
+    v14 = *v37;
     do
     {
-      for (j = 0; j != v17; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v46 != v18)
+        if (*v37 != v14)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v11);
         }
 
-        v20 = *(*(&v45 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v36 objects:v46 count:16];
     }
 
-    while (v17);
+    while (v13);
   }
 
   if (*&self->_has)
   {
-    v44 = 0;
+    v35 = 0;
     PBDataWriterPlaceMark();
     NMLocationWriteTo(&self->_locationValue, toCopy);
     PBDataWriterRecallMark();
@@ -984,78 +1291,74 @@ LABEL_88:
 
   if (self->_unsignedIntListValues.count)
   {
-    v21 = 0;
+    v16 = 0;
     do
     {
-      v22 = self->_unsignedIntListValues.list[v21];
       PBDataWriterWriteUint64Field();
-      ++v21;
+      ++v16;
     }
 
-    while (v21 < self->_unsignedIntListValues.count);
+    while (v16 < self->_unsignedIntListValues.count);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v23 = self->_dataListValues;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v40 objects:v54 count:16];
-  if (v24)
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v17 = self->_dataListValues;
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v31 objects:v45 count:16];
+  if (v18)
   {
-    v25 = v24;
-    v26 = *v41;
+    v19 = v18;
+    v20 = *v32;
     do
     {
-      for (k = 0; k != v25; k = k + 1)
+      for (k = 0; k != v19; ++k)
       {
-        if (*v41 != v26)
+        if (*v32 != v20)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v17);
         }
 
-        v28 = *(*(&v40 + 1) + 8 * k);
         PBDataWriterWriteDataField();
       }
 
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v40 objects:v54 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v31 objects:v45 count:16];
     }
 
-    while (v25);
+    while (v19);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v29 = self->_tileRequestValues;
-  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v36 objects:v53 count:16];
-  if (v30)
+  v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v22 = self->_tileRequestValues;
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v27 objects:v44 count:16];
+  if (v23)
   {
-    v31 = v30;
-    v32 = *v37;
+    v24 = v23;
+    v25 = *v28;
     do
     {
-      for (m = 0; m != v31; m = m + 1)
+      for (m = 0; m != v24; ++m)
       {
-        if (*v37 != v32)
+        if (*v28 != v25)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v22);
         }
 
-        v34 = *(*(&v36 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v36 objects:v53 count:16];
+      v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v27 objects:v44 count:16];
     }
 
-    while (v31);
+    while (v24);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -1381,7 +1684,6 @@ LABEL_88:
   }
 
   has = self->_has;
-  v6 = equalCopy[236];
   if ((has & 8) != 0)
   {
     if ((equalCopy[236] & 8) == 0 || self->_tag != *(equalCopy + 54))
@@ -1406,7 +1708,6 @@ LABEL_88:
     has = self->_has;
   }
 
-  v8 = equalCopy[236];
   if ((has & 4) != 0)
   {
     if ((equalCopy[236] & 4) == 0 || self->_intValue != *(equalCopy + 21))
@@ -1428,7 +1729,7 @@ LABEL_88:
     }
 
 LABEL_39:
-    v15 = 0;
+    v13 = 0;
     goto LABEL_40;
   }
 
@@ -1437,7 +1738,6 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v17 = equalCopy[232];
   if (self->_BOOLValue)
   {
     if ((equalCopy[232] & 1) == 0)
@@ -1476,18 +1776,18 @@ LABEL_17:
     }
   }
 
-  v12 = self->_has;
-  if (v12 & 1) != 0 && (equalCopy[236])
+  v10 = self->_has;
+  if (v10 & 1) != 0 && (equalCopy[236])
   {
     if (NMLocationEquals(&self->_locationValue, equalCopy + 8))
     {
       goto LABEL_29;
     }
 
-    v12 = self->_has;
+    v10 = self->_has;
   }
 
-  if (v12 & 1) != 0 || (equalCopy[236])
+  if (v10 & 1) != 0 || (equalCopy[236])
   {
     goto LABEL_39;
   }
@@ -1516,7 +1816,7 @@ LABEL_29:
     }
   }
 
-  v15 = (equalCopy[236] & 2) == 0;
+  v13 = (equalCopy[236] & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((equalCopy[236] & 2) == 0 || self->_doubleValue != *(equalCopy + 20))
@@ -1524,12 +1824,12 @@ LABEL_29:
       goto LABEL_39;
     }
 
-    v15 = 1;
+    v13 = 1;
   }
 
 LABEL_40:
 
-  return v15;
+  return v13;
 }
 
 - (unint64_t)hash
@@ -1839,6 +2139,105 @@ LABEL_9:
   return 0;
 }
 
+- (id)_nm_initWithSecureCodingValue:(id)value tag:(int)tag
+{
+  v4 = *&tag;
+  valueCopy = value;
+  v14.receiver = self;
+  v14.super_class = NMArgument;
+  v7 = [(NMArgument *)&v14 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(NMArgument *)v7 setTag:v4];
+    if (valueCopy)
+    {
+      v9 = [[NSKeyedArchiver alloc] initRequiringSecureCoding:1];
+      [v9 encodeObject:valueCopy forKey:@"d"];
+      encodedData = [v9 encodedData];
+      [(NMArgument *)v8 setDataValue:encodedData];
+      v11 = v8;
+    }
+
+    else
+    {
+      v12 = v8;
+    }
+  }
+
+  return v8;
+}
+
+- (id)_nm_initWithLocation:(id)location tag:(int)tag
+{
+  v4 = *&tag;
+  locationCopy = location;
+  v41.receiver = self;
+  v41.super_class = NMArgument;
+  v7 = [(NMArgument *)&v41 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(NMArgument *)v7 setTag:v4];
+    v9 = 0uLL;
+    memset(v40, 0, 156);
+    if (locationCopy)
+    {
+      objc_msgSend_clientLocation(locationCopy);
+      v10 = *(v40 + 4);
+      v11 = *(v40 + 12);
+      v12 = *(&v40[1] + 4);
+      v13 = *(&v40[1] + 12);
+      v14 = *(&v40[2] + 4);
+      v15 = *(&v40[2] + 12);
+      v9 = *(&v40[3] + 12);
+      v16 = *(&v40[4] + 12);
+      v17 = DWORD1(v40[5]);
+      v18 = *(&v40[5] + 1);
+      v19 = v40[6];
+      v20 = *(&v40[6] + 4);
+      v21 = *(&v40[7] + 4);
+    }
+
+    else
+    {
+      v19 = 0;
+      v17 = 0;
+      v21 = 0;
+      v18 = 0;
+      v16 = 0;
+      v14 = 0;
+      v13 = 0;
+      v12 = 0;
+      v11 = 0;
+      v10 = 0;
+      v20 = 0uLL;
+      v15 = 0uLL;
+    }
+
+    v39 = 0;
+    v38 = 0;
+    v24 = v13;
+    v25 = v9;
+    v26 = v12;
+    v27 = v10;
+    v28 = v18;
+    v29 = v11;
+    v30 = v21;
+    v31 = v20;
+    v32 = v15;
+    v33 = v16;
+    v34 = v14;
+    v35 = v17;
+    v36 = v19;
+    v37 = -1;
+    [(NMArgument *)v8 setLocationValue:&v24];
+    v22 = v8;
+  }
+
+  return v8;
+}
+
 - (id)_nm_dictionaryValue
 {
   dataValue = [(NMArgument *)self dataValue];
@@ -2023,7 +2422,7 @@ LABEL_8:
     v29 = 0u;
     v30 = 0u;
     memset(v28, 0, sizeof(v28));
-    [(NMArgument *)self locationValue];
+    objc_msgSend_locationValue(self);
     v3 = vceqz_s32(vand_s8(vdup_n_s32(WORD4(v34)), 0x400000002));
     v4.i64[0] = v3.i32[0];
     v4.i64[1] = v3.i32[1];

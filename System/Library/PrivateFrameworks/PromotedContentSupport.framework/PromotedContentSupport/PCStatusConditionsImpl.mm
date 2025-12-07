@@ -197,7 +197,7 @@
 
 - (BOOL)isConditionRateLimited:(id)limited onOperation:(int64_t)operation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   limitedCopy = limited;
   [(PCStatusConditionsImpl *)self cleanupExpiredConditionsInBuffer];
   v7 = APLogForCategory();
@@ -209,9 +209,9 @@
       v8 = @"Set";
     }
 
-    v17 = 138543362;
-    v18 = v8;
-    _os_log_impl(&dword_260F1D000, v7, OS_LOG_TYPE_INFO, "PCStatusConditions %{public}@ called. Checking rate limiting.", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v8;
+    _os_log_impl(&dword_260F1D000, v7, OS_LOG_TYPE_INFO, "PCStatusConditions %{public}@ called. Checking rate limiting.", &v16, 0xCu);
   }
 
   v9 = [(PCStatusConditionsImpl *)self operationWithCondition:limitedCopy forType:operation];
@@ -227,11 +227,11 @@
         v12 = @"SET";
       }
 
-      v17 = 138543362;
-      v18 = v12;
+      v16 = 138543362;
+      v17 = v12;
       v13 = "This is a duplicate %{public}@ call which will be rate limited";
 LABEL_14:
-      _os_log_impl(&dword_260F1D000, v10, OS_LOG_TYPE_INFO, v13, &v17, 0xCu);
+      _os_log_impl(&dword_260F1D000, v10, OS_LOG_TYPE_INFO, v13, &v16, 0xCu);
     }
   }
 
@@ -243,44 +243,43 @@ LABEL_14:
       v14 = @"SET";
     }
 
-    v17 = 138543362;
-    v18 = v14;
+    v16 = 138543362;
+    v17 = v14;
     v13 = "This is a new %{public}@ call which will execute.";
     goto LABEL_14;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)operationWithCondition:(id)condition forType:(int64_t)type
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   conditionCopy = condition;
   v6 = +[PCRingBuffer sharedInstance];
   lock = [v6 lock];
   [lock lock];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   ringBuffer = [v6 ringBuffer];
-  v9 = [ringBuffer countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v9 = [ringBuffer countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v30;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(ringBuffer);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
+        v13 = *(*(&v29 + 1) + 8 * i);
         statusCondition = [v13 statusCondition];
         if ([statusCondition isEqual:conditionCopy])
         {
@@ -298,20 +297,20 @@ LABEL_14:
         }
       }
 
-      v10 = [ringBuffer countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v10 = [ringBuffer countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v10);
   }
 
   v16 = MEMORY[0x277CCAC30];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = sub_260F21598;
-  v28[3] = &unk_279AC9940;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = sub_260F21598;
+  v27[3] = &unk_279AC9940;
   v17 = conditionCopy;
-  v29 = v17;
-  v18 = [v16 predicateWithBlock:v28];
+  v28 = v17;
+  v18 = [v16 predicateWithBlock:v27];
   ringBuffer2 = [v6 ringBuffer];
   [ringBuffer2 filterUsingPredicate:v18];
 
@@ -323,13 +322,12 @@ LABEL_14:
   [ringBuffer3 addObject:v22];
 
   v24 = 0;
-  ringBuffer = v29;
+  ringBuffer = v28;
 LABEL_13:
 
   lock2 = [v6 lock];
   [lock2 unlock];
 
-  v26 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

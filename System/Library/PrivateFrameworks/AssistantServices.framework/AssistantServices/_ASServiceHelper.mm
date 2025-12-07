@@ -16,6 +16,7 @@
 - (void)dealloc;
 - (void)dismissAssistant;
 - (void)dismissAssistantWithReason:(int64_t)reason;
+- (void)fetchContextsForKeys:(id)keys includesNearbyDevices:(BOOL)devices completion:(id)completion;
 - (void)handleCommand:(id)command completion:(id)completion;
 - (void)invalidate;
 - (void)isDeviceWatchAuthenticatedWithCompletion:(id)completion;
@@ -239,6 +240,35 @@
   LOBYTE(v4) = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
   return v4;
+}
+
+- (void)fetchContextsForKeys:(id)keys includesNearbyDevices:(BOOL)devices completion:(id)completion
+{
+  devicesCopy = devices;
+  keysCopy = keys;
+  completionCopy = completion;
+  if (self->_isInvalid)
+  {
+    v10 = AFSiriLogContextService;
+    if (os_log_type_enabled(AFSiriLogContextService, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 136315394;
+      v17 = "[_ASServiceHelper fetchContextsForKeys:includesNearbyDevices:completion:]";
+      v18 = 2112;
+      selfCopy = self;
+      _os_log_fault_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "%s Attempting to access %@ after it has been invalidated.", buf, 0x16u);
+    }
+  }
+
+  v11 = [(_ASServiceHelper *)self _providerServiceDelegateWithErrorHandler:&stru_100014800];
+  requestID = [(AFCommandExecutionInfo *)self->_commandExecutionInfo requestID];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_100008044;
+  v14[3] = &unk_100014828;
+  v15 = completionCopy;
+  v13 = completionCopy;
+  [v11 fetchContextsForKeys:keysCopy forRequestID:requestID includesNearbyDevices:devicesCopy completion:v14];
 }
 
 - (void)prepareForAudioHandoffWithCompletion:(id)completion

@@ -151,113 +151,113 @@
 
 - (id)configuredCaptureDeviceWithError:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
+  v54 = *MEMORY[0x277D85DE8];
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v5 = getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr;
-  v48 = getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr;
+  v47 = getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr;
   if (!getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr)
   {
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_block_invoke;
-    v43 = &unk_278C37610;
-    v44 = &v45;
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_block_invoke;
+    v42 = &unk_278C37610;
+    v43 = &v44;
     v6 = AVFoundationLibrary_2446();
-    v46[3] = dlsym(v6, "AVCaptureDeviceTypeBuiltInDualCamera");
-    getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr = *(v44[1] + 24);
-    v5 = v46[3];
+    v45[3] = dlsym(v6, "AVCaptureDeviceTypeBuiltInDualCamera");
+    getAVCaptureDeviceTypeBuiltInDualCameraSymbolLoc_ptr = *(v43[1] + 24);
+    v5 = v45[3];
   }
 
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v5)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVCaptureDeviceType getAVCaptureDeviceTypeBuiltInDualCamera(void)"];
-    [currentHandler handleFailureInFunction:v35 file:@"WFTakePhotoImmediateModeManager.m" lineNumber:20 description:{@"%s", dlerror()}];
+    v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVCaptureDeviceType getAVCaptureDeviceTypeBuiltInDualCamera(void)"];
+    [currentHandler handleFailureInFunction:v34 file:@"WFTakePhotoImmediateModeManager.m" lineNumber:20 description:{@"%s", dlerror()}];
 
     goto LABEL_29;
   }
 
   v7 = *v5;
-  v53 = v7;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
+  v52 = v7;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v8 = getAVCaptureDeviceTypeBuiltInWideAngleCameraSymbolLoc_ptr;
-  v48 = getAVCaptureDeviceTypeBuiltInWideAngleCameraSymbolLoc_ptr;
+  v47 = getAVCaptureDeviceTypeBuiltInWideAngleCameraSymbolLoc_ptr;
   if (!getAVCaptureDeviceTypeBuiltInWideAngleCameraSymbolLoc_ptr)
   {
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getAVCaptureDeviceTypeBuiltInWideAngleCameraSymbolLoc_block_invoke;
-    v43 = &unk_278C37610;
-    v44 = &v45;
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __getAVCaptureDeviceTypeBuiltInWideAngleCameraSymbolLoc_block_invoke;
+    v42 = &unk_278C37610;
+    v43 = &v44;
     v9 = AVFoundationLibrary_2446();
-    v46[3] = dlsym(v9, "AVCaptureDeviceTypeBuiltInWideAngleCamera");
-    getAVCaptureDeviceTypeBuiltInWideAngleCameraSymbolLoc_ptr = *(v44[1] + 24);
-    v8 = v46[3];
+    v45[3] = dlsym(v9, "AVCaptureDeviceTypeBuiltInWideAngleCamera");
+    getAVCaptureDeviceTypeBuiltInWideAngleCameraSymbolLoc_ptr = *(v43[1] + 24);
+    v8 = v45[3];
   }
 
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v8)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-    v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVCaptureDeviceType getAVCaptureDeviceTypeBuiltInWideAngleCamera(void)"];
-    [currentHandler2 handleFailureInFunction:v37 file:@"WFTakePhotoImmediateModeManager.m" lineNumber:21 description:{@"%s", dlerror()}];
+    v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVCaptureDeviceType getAVCaptureDeviceTypeBuiltInWideAngleCamera(void)"];
+    [currentHandler2 handleFailureInFunction:v36 file:@"WFTakePhotoImmediateModeManager.m" lineNumber:21 description:{@"%s", dlerror()}];
 
     goto LABEL_29;
   }
 
-  v54 = *v8;
+  v53 = *v8;
   v10 = MEMORY[0x277CBEA60];
-  v11 = v54;
-  v12 = [v10 arrayWithObjects:&v53 count:2];
+  v11 = v53;
+  v12 = [v10 arrayWithObjects:&v52 count:2];
 
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2050000000;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2050000000;
   v13 = getAVCaptureDeviceDiscoverySessionClass_softClass;
-  v48 = getAVCaptureDeviceDiscoverySessionClass_softClass;
+  v47 = getAVCaptureDeviceDiscoverySessionClass_softClass;
   if (!getAVCaptureDeviceDiscoverySessionClass_softClass)
   {
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getAVCaptureDeviceDiscoverySessionClass_block_invoke;
-    v43 = &unk_278C37610;
-    v44 = &v45;
-    __getAVCaptureDeviceDiscoverySessionClass_block_invoke(&v40);
-    v13 = v46[3];
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __getAVCaptureDeviceDiscoverySessionClass_block_invoke;
+    v42 = &unk_278C37610;
+    v43 = &v44;
+    __getAVCaptureDeviceDiscoverySessionClass_block_invoke(&v39);
+    v13 = v45[3];
   }
 
   v14 = v13;
-  _Block_object_dispose(&v45, 8);
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
+  _Block_object_dispose(&v44, 8);
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v15 = getAVMediaTypeVideoSymbolLoc_ptr;
-  v48 = getAVMediaTypeVideoSymbolLoc_ptr;
+  v47 = getAVMediaTypeVideoSymbolLoc_ptr;
   if (!getAVMediaTypeVideoSymbolLoc_ptr)
   {
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __getAVMediaTypeVideoSymbolLoc_block_invoke;
-    v43 = &unk_278C37610;
-    v44 = &v45;
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __getAVMediaTypeVideoSymbolLoc_block_invoke;
+    v42 = &unk_278C37610;
+    v43 = &v44;
     v16 = AVFoundationLibrary_2446();
     v17 = dlsym(v16, "AVMediaTypeVideo");
-    *(v44[1] + 24) = v17;
-    getAVMediaTypeVideoSymbolLoc_ptr = *(v44[1] + 24);
-    v15 = v46[3];
+    *(v43[1] + 24) = v17;
+    getAVMediaTypeVideoSymbolLoc_ptr = *(v43[1] + 24);
+    v15 = v45[3];
   }
 
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v15)
   {
     currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-    v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVMediaType getAVMediaTypeVideo(void)"];
-    [currentHandler3 handleFailureInFunction:v39 file:@"WFTakePhotoImmediateModeManager.m" lineNumber:22 description:{@"%s", dlerror()}];
+    v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"AVMediaType getAVMediaTypeVideo(void)"];
+    [currentHandler3 handleFailureInFunction:v38 file:@"WFTakePhotoImmediateModeManager.m" lineNumber:22 description:{@"%s", dlerror()}];
 
 LABEL_29:
     __break(1u);
@@ -273,10 +273,10 @@ LABEL_29:
   {
     v23 = MEMORY[0x277CCA9B8];
     v24 = getAVFoundationErrorDomain();
-    v51 = *MEMORY[0x277CCA450];
+    v50 = *MEMORY[0x277CCA450];
     v25 = WFLocalizedString(@"No suitable camera was detected on this device.");
-    v52 = v25;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+    v51 = v25;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
     *error = [v23 errorWithDomain:v24 code:-11814 userInfo:v26];
 
 LABEL_18:
@@ -288,10 +288,10 @@ LABEL_18:
   {
     v27 = MEMORY[0x277CCA9B8];
     v28 = getAVFoundationErrorDomain();
-    v49 = *MEMORY[0x277CCA450];
+    v48 = *MEMORY[0x277CCA450];
     v29 = WFLocalizedString(@"The camera is already in use.");
-    v50 = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v49 = v29;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     *error = [v27 errorWithDomain:v28 code:-11817 userInfo:v30];
 
     goto LABEL_18;
@@ -315,8 +315,6 @@ LABEL_22:
   [firstObject unlockForConfiguration];
   v31 = firstObject;
 LABEL_23:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }

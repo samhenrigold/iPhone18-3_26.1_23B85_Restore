@@ -172,30 +172,30 @@ id __73__PLExpandedPlatterHeaderContentView__ellipsisHighlightedBackgroundImage_
   v1 = [MEMORY[0x277D75348] _tertiaryLabelColor];
   [v0 setBackgroundColor:{objc_msgSend(v1, "CGColor")}];
 
-  [v0 setCornerRadius:15.0];
-  v2 = PLMainScreenScale();
-  v6.height = 30.0;
-  v6.width = 40.0;
-  UIGraphicsBeginImageContextWithOptions(v6, 0, v2);
+  v2 = [v0 setCornerRadius:15.0];
+  v4 = PLMainScreenScale(v2, v3);
+  v8.height = 30.0;
+  v8.width = 40.0;
+  UIGraphicsBeginImageContextWithOptions(v8, 0, v4);
   [v0 renderInContext:UIGraphicsGetCurrentContext()];
-  v3 = UIGraphicsGetImageFromCurrentImageContext();
+  v5 = UIGraphicsGetImageFromCurrentImageContext();
 
-  return v3;
+  return v5;
 }
 
 - (void)_configureUtilityButton
 {
-  v16.receiver = self;
-  v16.super_class = PLExpandedPlatterHeaderContentView;
-  [(PLPlatterHeaderContentView *)&v16 _configureUtilityButton];
-  v3 = MEMORY[0x277D755B8];
-  v4 = PlatterKitFrameworkBundle();
-  v5 = [v3 imageNamed:@"ellipsis" inBundle:v4];
+  v17.receiver = self;
+  v17.super_class = PLExpandedPlatterHeaderContentView;
+  _configureUtilityButton = [(PLPlatterHeaderContentView *)&v17 _configureUtilityButton];
+  v4 = MEMORY[0x277D755B8];
+  v5 = PlatterKitFrameworkBundle(_configureUtilityButton);
+  v6 = [v4 imageNamed:@"ellipsis" inBundle:v5];
   _secondaryLabelColor = [MEMORY[0x277D75348] _secondaryLabelColor];
-  v7 = [v5 _flatImageWithColor:_secondaryLabelColor];
+  v8 = [v6 _flatImageWithColor:_secondaryLabelColor];
 
   utilityButton = [(PLPlatterHeaderContentView *)self utilityButton];
-  [utilityButton setImage:v7 forState:0];
+  [utilityButton setImage:v8 forState:0];
 
   utilityButton2 = [(PLPlatterHeaderContentView *)self utilityButton];
   _ellipsisHighlightedBackgroundImage = [(PLExpandedPlatterHeaderContentView *)self _ellipsisHighlightedBackgroundImage];

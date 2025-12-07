@@ -2,6 +2,7 @@
 + (id)customDomain:(id)domain;
 + (id)mixedDomain;
 + (id)msgDomain;
++ (id)timerDomain:(unsigned int)domain;
 - (BOOL)isEqual:(id)equal;
 - (PSStreamDomain)initWithCoder:(id)coder;
 - (PSStreamDomain)initWithKey:(id)key isGroupable:(BOOL)groupable;
@@ -29,6 +30,14 @@ uint64_t __27__PSStreamDomain_msgDomain__block_invoke()
   msgDomain_staticMSGDomain = [[PSStreamDomain alloc] initWithKey:@"msg" isGroupable:1];
 
   return MEMORY[0x2821F96F8]();
+}
+
++ (id)timerDomain:(unsigned int)domain
+{
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"timer-%03d", *&domain];
+  v4 = [[PSStreamDomain alloc] initWithKey:v3 isGroupable:1];
+
+  return v4;
 }
 
 + (id)customDomain:(id)domain

@@ -424,23 +424,23 @@
 
 - (id)dictionaryRepresentation
 {
-  v69 = *MEMORY[0x277D85DE8];
-  v66[0] = @"walls";
-  v61 = sub_2622AFA60(self->walls, 0);
-  v67[0] = v61;
-  v66[1] = @"doors";
-  v57 = sub_2622AFA60(self->doors, 2);
-  v67[1] = v57;
-  v66[2] = @"windows";
-  v58 = sub_2622AFA60(self->windows, 1);
-  v67[2] = v58;
-  v66[3] = @"openings";
-  v59 = sub_2622AFA60(self->openings, 3);
-  v67[3] = v59;
-  v66[4] = @"open_doors";
-  v60 = sub_2622AFA60(self->opendoors, 4);
-  v67[4] = v60;
-  v66[5] = @"objects";
+  v68 = *MEMORY[0x277D85DE8];
+  v65[0] = @"walls";
+  v60 = sub_2622AFA60(self->walls, 0);
+  v66[0] = v60;
+  v65[1] = @"doors";
+  v56 = sub_2622AFA60(self->doors, 2);
+  v66[1] = v56;
+  v65[2] = @"windows";
+  v57 = sub_2622AFA60(self->windows, 1);
+  v66[2] = v57;
+  v65[3] = @"openings";
+  v58 = sub_2622AFA60(self->openings, 3);
+  v66[3] = v58;
+  v65[4] = @"open_doors";
+  v59 = sub_2622AFA60(self->opendoors, 4);
+  v66[4] = v59;
+  v65[5] = @"objects";
   v3 = self->objects;
   v6 = v3;
   if (v3 && objc_msgSend_count(v3, v4, v5))
@@ -448,29 +448,29 @@
     v9 = MEMORY[0x277CBEB18];
     v10 = objc_msgSend_count(v6, v7, v8);
     v12 = objc_msgSend_arrayWithCapacity_(v9, v11, v10);
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     v13 = v6;
-    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v62, v68, 16);
+    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v61, v67, 16);
     if (v17)
     {
-      v18 = *v63;
+      v18 = *v62;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v63 != v18)
+          if (*v62 != v18)
           {
             objc_enumerationMutation(v13);
           }
 
-          v20 = objc_msgSend_dictionaryRepresentation(*(*(&v62 + 1) + 8 * i), v15, v16);
+          v20 = objc_msgSend_dictionaryRepresentation(*(*(&v61 + 1) + 8 * i), v15, v16);
           objc_msgSend_addObject_(v12, v21, v20);
         }
 
-        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v62, v68, 16);
+        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v15, &v61, v67, 16);
       }
 
       while (v17);
@@ -484,11 +484,11 @@
     v24 = MEMORY[0x277CBEBF8];
   }
 
-  v67[5] = v24;
-  v66[6] = @"curved_walls";
+  v66[5] = v24;
+  v65[6] = @"curved_walls";
   v25 = sub_2622AFC34(self->curvedWalls, 0);
-  v67[6] = v25;
-  v66[7] = @"room_types";
+  v66[6] = v25;
+  v65[7] = @"room_types";
   v26 = self->roomTypes;
   v29 = v26;
   if (v26 && objc_msgSend_count(v26, v27, v28))
@@ -496,29 +496,29 @@
     v32 = MEMORY[0x277CBEB18];
     v33 = objc_msgSend_count(v29, v30, v31);
     v35 = objc_msgSend_arrayWithCapacity_(v32, v34, v33);
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     v36 = v29;
-    v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v62, v68, 16);
+    v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v61, v67, 16);
     if (v40)
     {
-      v41 = *v63;
+      v41 = *v62;
       do
       {
         for (j = 0; j != v40; ++j)
         {
-          if (*v63 != v41)
+          if (*v62 != v41)
           {
             objc_enumerationMutation(v36);
           }
 
-          v43 = objc_msgSend_dictionaryRepresentation(*(*(&v62 + 1) + 8 * j), v38, v39);
+          v43 = objc_msgSend_dictionaryRepresentation(*(*(&v61 + 1) + 8 * j), v38, v39);
           objc_msgSend_addObject_(v35, v44, v43);
         }
 
-        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v38, &v62, v68, 16);
+        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v38, &v61, v67, 16);
       }
 
       while (v40);
@@ -532,22 +532,20 @@
     v47 = MEMORY[0x277CBEBF8];
   }
 
-  v67[7] = v47;
-  v66[8] = @"floors";
+  v66[7] = v47;
+  v65[8] = @"floors";
   v48 = sub_2622AFA60(self->floors, 5);
-  v67[8] = v48;
-  v66[9] = @"curved_windows";
+  v66[8] = v48;
+  v65[9] = @"curved_windows";
   v49 = sub_2622AFC34(self->curvedWindows, 1);
-  v67[9] = v49;
-  v66[10] = @"curved_doors";
+  v66[9] = v49;
+  v65[10] = @"curved_doors";
   v50 = sub_2622AFC34(self->curvedDoors, 2);
-  v67[10] = v50;
-  v66[11] = @"story";
+  v66[10] = v50;
+  v65[11] = @"story";
   v52 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v51, self->storyLevel);
-  v67[11] = v52;
-  v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, v67, v66, 12);
-
-  v55 = *MEMORY[0x277D85DE8];
+  v66[11] = v52;
+  v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, v66, v65, 12);
 
   return v54;
 }

@@ -7,12 +7,12 @@ void __epp_ActivateForFeaturesWithCompletionCallback_block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = a1[6];
-  v23 = a1[5];
-  v24 = a1[8];
+  v25 = a1[5];
+  v26 = a1[8];
   CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APEndpointPlus <= 40 && (gLogCategory_APEndpointPlus != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APEndpointPlus, "OSStatus epp_activateInternal(FigEndpointRef _Nonnull, FigEndpointFeatures, CFDictionaryRef _Nullable, FigEndpointActivationCompletionCallback _Nullable, struct ProxyContext *)", 33554472, "[%{ptr}] Activate endpoint with context %@", v2, *v26);
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -39,36 +39,37 @@ void __epp_ActivateForFeaturesWithCompletionCallback_block_invoke(void *a1)
     *(DerivedStorage + 64) = v11;
     dispatch_retain(v11);
     FigSimpleMutexUnlock();
-    if (!epp_toggleInnerEndpointDiscovery(v2, 1))
+    v12 = epp_toggleInnerEndpointDiscovery(v2, 1);
+    if (!v12)
     {
-      v12 = dispatch_time(0, 1000000 * v5);
-      dispatch_semaphore_wait(v9, v12);
+      v13 = dispatch_time(0, 1000000 * v5);
+      dispatch_semaphore_wait(v9, v13);
       v10 = 1;
       goto LABEL_11;
     }
 
-    __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_1();
+    __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_1(v12);
   }
 
   else
   {
-    __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_2();
+    __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_2((DerivedStorage + 32));
   }
 
   v10 = 0;
 LABEL_11:
   FigSimpleMutexLock();
-  v13 = *(DerivedStorage + 64);
-  if (v13)
+  v14 = *(DerivedStorage + 64);
+  if (v14)
   {
-    dispatch_release(v13);
+    dispatch_release(v14);
     *(DerivedStorage + 64) = 0;
   }
 
-  v14 = *(DerivedStorage + 40);
-  if (v14)
+  v15 = *(DerivedStorage + 40);
+  if (v15)
   {
-    v8 = CFRetain(v14);
+    v8 = CFRetain(v15);
   }
 
   else
@@ -79,13 +80,13 @@ LABEL_11:
   FigSimpleMutexUnlock();
   if (gLogCategory_APEndpointPlus <= 50 && (gLogCategory_APEndpointPlus != -1 || _LogCategory_Initialize()))
   {
-    __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_3();
+    __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_3(v8, v2, v16);
     if (v8)
     {
 LABEL_20:
-      v15 = CFRetain(v8);
-      v16 = 0;
-      v17 = 1;
+      v17 = CFRetain(v8);
+      v18 = 0;
+      v19 = 1;
       if (!v9)
       {
         goto LABEL_22;
@@ -102,14 +103,14 @@ LABEL_20:
 
   if (gLogCategory_APEndpointPlus <= 90 && (gLogCategory_APEndpointPlus != -1 || _LogCategory_Initialize()))
   {
-    __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_4();
+    __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_4(v2);
   }
 
   epp_postNotificationAsync(v2, @"WantsCacheEviction", &unk_283584390);
-  v15 = 0;
-  v8 = 0;
   v17 = 0;
-  v16 = 4294949690;
+  v8 = 0;
+  v19 = 0;
+  v18 = 4294949690;
   if (v9)
   {
 LABEL_21:
@@ -122,21 +123,21 @@ LABEL_22:
     CFRelease(v8);
   }
 
-  if (v17)
+  if (v19)
   {
     if (gLogCategory_APEndpointPlus <= 50 && (gLogCategory_APEndpointPlus != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APEndpointPlus, "OSStatus epp_activateInternal(FigEndpointRef _Nonnull, FigEndpointFeatures, CFDictionaryRef _Nullable, FigEndpointActivationCompletionCallback _Nullable, struct ProxyContext *)", 33554482, "[%{ptr}] Activating with real endpoint [%{ptr}] with features %#ll{flags} and options %@", v2, v17, v25, &unk_222298168, v3);
     }
 
-    v18 = *(*(CMBaseObjectGetVTable() + 16) + 8);
-    if (v18)
+    v20 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+    if (v20)
     {
-      v19 = v18(v15, v23, v3, epp_activationCallback, v24);
-      v20 = v19 == -12782;
-      if (!v19)
+      v21 = v20(v17, v25, v3, epp_activationCallback, v26);
+      v22 = v21 == -12782;
+      if (!v21)
       {
-        v16 = 0;
+        v18 = 0;
         if (!v10)
         {
           goto LABEL_36;
@@ -147,13 +148,13 @@ LABEL_35:
         goto LABEL_36;
       }
 
-      v16 = v19;
+      v18 = v21;
     }
 
     else
     {
-      v16 = 4294954514;
-      v20 = 1;
+      v18 = 4294954514;
+      v22 = 1;
     }
 
     APSLogErrorAt();
@@ -165,17 +166,17 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_5();
-  v20 = 1;
+  __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_5(v18);
+  v22 = 1;
   if (v10)
   {
     goto LABEL_35;
   }
 
 LABEL_36:
-  if (!v20)
+  if (!v22)
   {
-    if (!v15)
+    if (!v17)
     {
       goto LABEL_39;
     }
@@ -183,33 +184,34 @@ LABEL_36:
     goto LABEL_38;
   }
 
-  epp_activationCallback(v15, 0, 0, v16, v24);
-  if (v15)
+  epp_activationCallback(v17, 0, 0, v18, v26);
+  if (v17)
   {
 LABEL_38:
-    CFRelease(v15);
+    CFRelease(v17);
   }
 
 LABEL_39:
-  v21 = a1[6];
-  if (v21)
+  v23 = a1[6];
+  if (v23)
   {
-    CFRelease(v21);
+    CFRelease(v23);
   }
 
-  v22 = a1[4];
-  if (v22)
+  v24 = a1[4];
+  if (v24)
   {
 
-    CFRelease(v22);
+    CFRelease(v24);
   }
 }
 
-uint64_t __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_2()
+double __epp_ActivateForFeaturesWithCompletionCallback_block_invoke_cold_2(uint64_t *a1)
 {
   APSLogErrorAt();
 
-  return FigSimpleMutexUnlock();
+  FigSimpleMutexUnlock();
+  return result;
 }
 
 @end

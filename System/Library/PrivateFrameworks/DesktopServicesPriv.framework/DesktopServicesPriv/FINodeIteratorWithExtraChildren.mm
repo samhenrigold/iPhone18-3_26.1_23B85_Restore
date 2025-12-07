@@ -1,10 +1,28 @@
 @interface FINodeIteratorWithExtraChildren
 - (BOOL)fullyPopulated;
+- (FINodeIteratorWithExtraChildren)initWithIterator:(id)iterator extraChildren:(id)children extraChildrenFullyPopulated:(BOOL)populated options:(unsigned int)options;
 - (id)first;
 - (id)next;
 @end
 
 @implementation FINodeIteratorWithExtraChildren
+
+- (FINodeIteratorWithExtraChildren)initWithIterator:(id)iterator extraChildren:(id)children extraChildrenFullyPopulated:(BOOL)populated options:(unsigned int)options
+{
+  v6 = *&options;
+  populatedCopy = populated;
+  iteratorCopy = iterator;
+  childrenCopy = children;
+  v17.receiver = self;
+  v17.super_class = FINodeIteratorWithExtraChildren;
+  v13 = [(FINodeIteratorWithExtraChildren *)&v17 init];
+  objc_storeStrong(&v13->_baseIterator, iterator);
+  v14 = [[FIChildrenIterator alloc] initWithChildren:childrenCopy fullyPopulated:populatedCopy options:v6];
+  extraIterator = v13->_extraIterator;
+  v13->_extraIterator = v14;
+
+  return v13;
+}
 
 - (id)first
 {

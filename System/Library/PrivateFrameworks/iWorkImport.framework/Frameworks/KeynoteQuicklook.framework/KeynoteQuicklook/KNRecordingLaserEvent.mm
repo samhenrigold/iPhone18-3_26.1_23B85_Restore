@@ -29,69 +29,69 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_allocWithZone_(KNRecordingLaserEvent, a2, zone);
-  objc_msgSend_startTime(self, v5, v6);
-  objc_msgSend_unitLocation(self, v7, v8);
+  v4 = [KNRecordingLaserEvent allocWithZone:zone];
+  [(KNRecordingEvent *)self startTime];
+  [(KNRecordingLaserEvent *)self unitLocation];
 
-  return MEMORY[0x2821F9670](v4, sel_initWithStartTime_unitLocation_, v9);
+  return MEMORY[0x2821F9670](v4, sel_initWithStartTime_unitLocation_);
 }
 
 - (id)description
 {
-  objc_msgSend_unitLocation(self, a2, v2);
-  v5 = v4;
-  v7 = v6;
-  v8 = MEMORY[0x277CCACA8];
-  v9 = objc_opt_class();
-  v10 = NSStringFromClass(v9);
-  objc_msgSend_startTime(self, v11, v12);
-  v15 = objc_msgSend_stringWithFormat_(v8, v13, @"<%@: %p time=%f unitPoint={%f, %f}>", v10, self, v14, v5, v7);
+  [(KNRecordingLaserEvent *)self unitLocation];
+  v4 = v3;
+  v6 = v5;
+  v7 = MEMORY[0x277CCACA8];
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  [(KNRecordingEvent *)self startTime];
+  v11 = [v7 stringWithFormat:@"<%@: %p time=%f unitPoint={%f, %f}>", v9, self, v10, v4, v6];
 
-  return v15;
+  return v11;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v18.receiver = self;
-  v18.super_class = KNRecordingLaserEvent;
-  if ([(KNRecordingEvent *)&v18 isEqual:equalCopy])
+  v14.receiver = self;
+  v14.super_class = KNRecordingLaserEvent;
+  if ([(KNRecordingEvent *)&v14 isEqual:equalCopy])
   {
     objc_opt_class();
-    v7 = TSUDynamicCast();
-    if (v7)
+    v5 = TSUDynamicCast();
+    if (v5)
     {
-      objc_msgSend_unitLocation(self, v5, v6);
+      [(KNRecordingLaserEvent *)self unitLocation];
+      v7 = v6;
       v9 = v8;
-      v11 = v10;
-      objc_msgSend_unitLocation(v7, v12, v13);
-      v16 = v11 == v15 && v9 == v14;
+      [v5 unitLocation];
+      v12 = v9 == v11 && v7 == v10;
     }
 
     else
     {
-      v16 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v12 = 0;
   }
 
-  return v16;
+  return v12;
 }
 
 - (unint64_t)hash
 {
-  v11.receiver = self;
-  v11.super_class = KNRecordingLaserEvent;
-  v3 = [(KNRecordingEvent *)&v11 hash];
-  objc_msgSend_unitLocation(self, v4, v5);
-  DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v12);
-  v9 = objc_msgSend_hash(DictionaryRepresentation, v7, v8);
+  v7.receiver = self;
+  v7.super_class = KNRecordingLaserEvent;
+  v3 = [(KNRecordingEvent *)&v7 hash];
+  [(KNRecordingLaserEvent *)self unitLocation];
+  DictionaryRepresentation = CGPointCreateDictionaryRepresentation(v8);
+  v5 = [(__CFDictionary *)DictionaryRepresentation hash];
 
-  return v9 ^ v3;
+  return v5 ^ v3;
 }
 
 - (CGPoint)unitLocation
@@ -130,45 +130,45 @@
 - (void)saveToMessage:(void *)message archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v19.receiver = self;
-  v19.super_class = KNRecordingLaserEvent;
-  [(KNRecordingEvent *)&v19 saveToMessage:message archiver:archiverCopy];
+  v17.receiver = self;
+  v17.super_class = KNRecordingLaserEvent;
+  [(KNRecordingEvent *)&v17 saveToMessage:message archiver:archiverCopy];
   *(message + 4) |= 2u;
-  v9 = *(message + 4);
-  if (!v9)
+  v7 = *(message + 4);
+  if (!v7)
   {
-    v10 = *(message + 1);
-    if (v10)
+    v8 = *(message + 1);
+    if (v8)
     {
-      v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
+      v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v9 = sub_275E20F30(v10);
-    *(message + 4) = v9;
+    v7 = sub_275E20F30(v8);
+    *(message + 4) = v7;
   }
 
-  objc_msgSend_unitLocation(self, v7, v8);
+  [(KNRecordingLaserEvent *)self unitLocation];
+  v10 = v9;
   v12 = v11;
-  v14 = v13;
-  *(v9 + 16) |= 2u;
-  v15 = *(v9 + 32);
-  if (!v15)
+  *(v7 + 16) |= 2u;
+  v13 = *(v7 + 32);
+  if (!v13)
   {
-    v16 = *(v9 + 8);
-    if (v16)
+    v14 = *(v7 + 8);
+    if (v14)
     {
-      v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
+      v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v15 = MEMORY[0x277C8F020](v16);
-    *(v9 + 32) = v15;
+    v13 = MEMORY[0x277C8F020](v14);
+    *(v7 + 32) = v13;
   }
 
-  v17 = v12;
-  v18 = v14;
-  *(v15 + 16) |= 3u;
-  *(v15 + 24) = v17;
-  *(v15 + 28) = v18;
+  v15 = v10;
+  v16 = v12;
+  *(v13 + 16) |= 3u;
+  *(v13 + 24) = v15;
+  *(v13 + 28) = v16;
 }
 
 @end

@@ -357,10 +357,10 @@ uint64_t __77__SBHStackConfigurationFadeAnimator_finalizeAnimationAtEndpoint_wit
   [animation setDuration:INFINITY];
   [animation setAppliesY:1];
   [animation setAppliesX:1];
-  [targetViewCopy bounds];
+  objc_msgSend_bounds(targetViewCopy);
   v11 = v10;
   v13 = v12;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   [viewCopy convertRect:targetViewCopy toView:?];
   v15 = v14;
   v17 = v16;

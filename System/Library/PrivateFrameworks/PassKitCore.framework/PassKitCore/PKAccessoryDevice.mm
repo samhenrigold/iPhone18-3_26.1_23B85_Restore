@@ -12,72 +12,72 @@
 
 + (id)mockAccessoryDevice
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF88]);
-  v15 = 0x3FF0000000000000;
-  [v2 appendBytes:&v15 length:8];
-  v15 = 0;
-  [v2 appendBytes:&v15 length:8];
-  [v2 appendBytes:&v15 length:8];
-  v15 = 0x3FF0000000000000;
-  [v2 appendBytes:&v15 length:8];
+  v16 = 0x3FF0000000000000;
+  [v2 appendBytes:&v16 length:8];
+  v16 = 0;
+  [v2 appendBytes:&v16 length:8];
+  [v2 appendBytes:&v16 length:8];
+  v16 = 0x3FF0000000000000;
+  [v2 appendBytes:&v16 length:8];
   v3 = objc_alloc_init(MEMORY[0x1E695DF88]);
-  v15 = 0;
-  [v3 appendBytes:&v15 length:8];
-  [v3 appendBytes:&v15 length:8];
-  [v3 appendBytes:&v15 length:8];
-  v15 = 0x3FF0000000000000;
-  [v3 appendBytes:&v15 length:8];
-  v4 = _MergedGlobals_174();
-  v16[0] = v4;
-  v5 = [v2 copy];
+  v16 = 0;
+  [v3 appendBytes:&v16 length:8];
+  [v3 appendBytes:&v16 length:8];
+  [v3 appendBytes:&v16 length:8];
+  v16 = 0x3FF0000000000000;
+  v4 = [v3 appendBytes:&v16 length:8];
+  v5 = _MergedGlobals_174(v4);
   v17[0] = v5;
-  v6 = off_1ED6D10D8();
-  v16[1] = v6;
-  v7 = [v3 copy];
+  v6 = [v2 copy];
+  v18[0] = v6;
+  v7 = off_1ED6D10D8();
   v17[1] = v7;
-  v8 = off_1ED6D10E0();
-  v16[2] = v8;
-  v9 = [MEMORY[0x1E696AD98] numberWithChar:86];
-  v16[3] = @"isMock";
+  v8 = [v3 copy];
+  v18[1] = v8;
+  v9 = off_1ED6D10E0();
   v17[2] = v9;
-  v17[3] = MEMORY[0x1E695E118];
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v10 = [MEMORY[0x1E696AD98] numberWithChar:86];
+  v17[3] = @"isMock";
+  v18[2] = v10;
+  v18[3] = MEMORY[0x1E695E118];
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
-  v11 = objc_alloc_init(MEMORY[0x1E696AFB0]);
-  uUIDString = [v11 UUIDString];
+  v12 = objc_alloc_init(MEMORY[0x1E696AFB0]);
+  uUIDString = [v12 UUIDString];
 
-  v13 = [[PKAccessoryDevice alloc] initWithDictionary:v10 endpointUUID:uUIDString];
+  v14 = [[PKAccessoryDevice alloc] initWithDictionary:v11 endpointUUID:uUIDString];
 
-  return v13;
+  return v14;
 }
 
 - (PKAccessoryDevice)initWithDictionary:(id)dictionary endpointUUID:(id)d
 {
   dictionaryCopy = dictionary;
   dCopy = d;
-  v21.receiver = self;
-  v21.super_class = PKAccessoryDevice;
-  v9 = [(PKAccessoryDevice *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = PKAccessoryDevice;
+  v9 = [(PKAccessoryDevice *)&v22 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_endpointUUID, d);
     objc_storeStrong(&v10->_dictionary, dictionary);
-    v11 = _MergedGlobals_174();
-    v12 = [dictionaryCopy objectForKeyedSubscript:v11];
+    v12 = _MergedGlobals_174(v11);
+    v13 = [dictionaryCopy objectForKeyedSubscript:v12];
     primaryColorData = v10->_primaryColorData;
-    v10->_primaryColorData = v12;
+    v10->_primaryColorData = v13;
 
-    v14 = off_1ED6D10D8();
-    v15 = [dictionaryCopy objectForKeyedSubscript:v14];
+    v15 = off_1ED6D10D8();
+    v16 = [dictionaryCopy objectForKeyedSubscript:v15];
     secondaryColorData = v10->_secondaryColorData;
-    v10->_secondaryColorData = v15;
+    v10->_secondaryColorData = v16;
 
-    v17 = off_1ED6D10E0();
-    v18 = [dictionaryCopy objectForKeyedSubscript:v17];
+    v18 = off_1ED6D10E0();
+    v19 = [dictionaryCopy objectForKeyedSubscript:v18];
     type = v10->_type;
-    v10->_type = v18;
+    v10->_type = v19;
 
     v10->_isMock = [dictionaryCopy PKBoolForKey:@"isMock"];
   }

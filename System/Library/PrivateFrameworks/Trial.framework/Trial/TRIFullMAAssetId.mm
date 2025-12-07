@@ -109,60 +109,8 @@ LABEL_4:
 {
   identCopy = ident;
   v5 = identCopy;
-  if (!identCopy)
+  if (!identCopy || (v6 = self->_type == 0, [identCopy type], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (type = self->_type) != 0 && (objc_msgSend(v5, "type"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](type, "isEqual:", v10), v10, !v11) || (v12 = self->_specifier == 0, objc_msgSend(v5, "specifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (specifier = self->_specifier) != 0 && (objc_msgSend(v5, "specifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](specifier, "isEqual:", v16), v16, !v17) || (v18 = self->_version == 0, objc_msgSend(v5, "version"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20))
   {
-    goto LABEL_11;
-  }
-
-  v6 = self->_type == 0;
-  type = [identCopy type];
-  v8 = type != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  type = self->_type;
-  if (type)
-  {
-    type2 = [v5 type];
-    v11 = [(NSString *)type isEqual:type2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v12 = self->_specifier == 0;
-  specifier = [v5 specifier];
-  v14 = specifier != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_11;
-  }
-
-  specifier = self->_specifier;
-  if (specifier)
-  {
-    specifier2 = [v5 specifier];
-    v17 = [(NSString *)specifier isEqual:specifier2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = self->_version == 0;
-  version = [v5 version];
-  v20 = version != 0;
-
-  if (v18 == v20)
-  {
-LABEL_11:
     v23 = 0;
   }
 
@@ -171,8 +119,8 @@ LABEL_11:
     version = self->_version;
     if (version)
     {
-      version2 = [v5 version];
-      v23 = [(NSString *)version isEqual:version2];
+      version = [v5 version];
+      v23 = [(NSString *)version isEqual:version];
     }
 
     else
@@ -210,7 +158,7 @@ LABEL_11:
 
 - (TRIFullMAAssetId)initWithCoder:(id)coder
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"type"];
   if (v5)
@@ -234,9 +182,9 @@ LABEL_24:
           goto LABEL_25;
         }
 
-        v38 = *MEMORY[0x277CCA450];
-        v39 = @"Retrieved nil serialized value for nonnull TRIFullMAAssetId.specifier";
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v37 = *MEMORY[0x277CCA450];
+        v38 = @"Retrieved nil serialized value for nonnull TRIFullMAAssetId.specifier";
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
         v23 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFullMAAssetIdOCNTErrorDomain" code:2 userInfo:v13];
         [coderCopy failWithError:v23];
 
@@ -257,9 +205,9 @@ LABEL_24:
 
           if (!error2)
           {
-            v34 = *MEMORY[0x277CCA450];
-            v35 = @"Retrieved nil serialized value for nonnull TRIFullMAAssetId.version";
-            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+            v33 = *MEMORY[0x277CCA450];
+            v34 = @"Retrieved nil serialized value for nonnull TRIFullMAAssetId.version";
+            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
             v26 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFullMAAssetIdOCNTErrorDomain" code:2 userInfo:v25];
             [coderCopy failWithError:v26];
           }
@@ -284,9 +232,9 @@ LABEL_23:
         v28 = objc_opt_class();
         v18 = NSStringFromClass(v28);
         v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIFullMAAssetId key version (expected %@, decoded %@)", v17, v18, 0];
-        v32 = *MEMORY[0x277CCA450];
-        v33 = v19;
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+        v31 = *MEMORY[0x277CCA450];
+        v32 = v19;
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
         v29 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFullMAAssetIdOCNTErrorDomain" code:3 userInfo:v22];
         [coderCopy failWithError:v29];
       }
@@ -297,9 +245,9 @@ LABEL_23:
         v21 = objc_opt_class();
         v17 = NSStringFromClass(v21);
         v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIFullMAAssetId key specifier (expected %@, decoded %@)", v13, v17, 0];
-        v36 = *MEMORY[0x277CCA450];
-        v37 = v18;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v35 = *MEMORY[0x277CCA450];
+        v36 = v18;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
         v22 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFullMAAssetIdOCNTErrorDomain" code:3 userInfo:v19];
         [coderCopy failWithError:v22];
       }
@@ -311,9 +259,9 @@ LABEL_23:
       v16 = objc_opt_class();
       v13 = NSStringFromClass(v16);
       v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIFullMAAssetId key type (expected %@, decoded %@)", v9, v13, 0];
-      v40 = *MEMORY[0x277CCA450];
-      v41 = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      v39 = *MEMORY[0x277CCA450];
+      v40 = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
       v19 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFullMAAssetIdOCNTErrorDomain" code:3 userInfo:v18];
       [coderCopy failWithError:v19];
     }
@@ -327,9 +275,9 @@ LABEL_22:
 
   if (!error3)
   {
-    v42 = *MEMORY[0x277CCA450];
-    v43[0] = @"Retrieved nil serialized value for nonnull TRIFullMAAssetId.type";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v41 = *MEMORY[0x277CCA450];
+    v42[0] = @"Retrieved nil serialized value for nonnull TRIFullMAAssetId.type";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
     v13 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIFullMAAssetIdOCNTErrorDomain" code:2 userInfo:v9];
     [coderCopy failWithError:v13];
     goto LABEL_22;
@@ -338,7 +286,6 @@ LABEL_22:
   selfCopy = 0;
 LABEL_25:
 
-  v30 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

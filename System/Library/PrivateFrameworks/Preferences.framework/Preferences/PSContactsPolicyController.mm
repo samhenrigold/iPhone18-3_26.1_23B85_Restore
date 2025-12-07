@@ -13,7 +13,7 @@
 {
   v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v9 = _PSLoggingFacility();
+  v9 = _PSLoggingFacility(identifierCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (value != 4)
   {
@@ -66,7 +66,7 @@
             v14 = identifierCopy;
             v26 = v14;
             v15 = _Block_copy(&v21);
-            v16 = _PSLoggingFacility();
+            v16 = _PSLoggingFacility(v15);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
@@ -154,7 +154,7 @@ void __67__PSContactsPolicyController_setTCCForService_appIdentifier_value___blo
 
 - (id)contactsStatus:(id)status
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = [status propertyForKey:@"appBundleID"];
   [(PSContactsPolicyController *)self updateContactsAuthorizationStatus];
   contactsFullAccessAllowedAppIDs = [(PSContactsPolicyController *)self contactsFullAccessAllowedAppIDs];
@@ -162,135 +162,135 @@ void __67__PSContactsPolicyController_setTCCForService_appIdentifier_value___blo
 
   if (v6)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PSLoggingFacility(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v4;
-      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "App %@ has full contacts access", &v17, 0xCu);
+      v21 = 138412290;
+      v22 = v4;
+      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "App %@ has full contacts access", &v21, 0xCu);
     }
 
-    v8 = &unk_1EFE65A18;
+    v9 = &unk_1EFE65A18;
     goto LABEL_19;
   }
 
   contactsLimitedAccessAppIDs = [(PSContactsPolicyController *)self contactsLimitedAccessAppIDs];
-  v10 = [contactsLimitedAccessAppIDs containsObject:v4];
+  v11 = [contactsLimitedAccessAppIDs containsObject:v4];
 
-  if (v10)
+  if (v11)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PSLoggingFacility(v12);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v4;
-      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "App %@ has limited contacts access", &v17, 0xCu);
+      v21 = 138412290;
+      v22 = v4;
+      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "App %@ has limited contacts access", &v21, 0xCu);
     }
 
-    v8 = &unk_1EFE65A00;
+    v9 = &unk_1EFE65A00;
     goto LABEL_19;
   }
 
   contactsDeniedAppIDs = [(PSContactsPolicyController *)self contactsDeniedAppIDs];
-  v12 = [contactsDeniedAppIDs containsObject:v4];
+  v14 = [contactsDeniedAppIDs containsObject:v4];
 
-  if (v12)
+  if (v14)
   {
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PSLoggingFacility(v15);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v4;
-      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "App %@ has no access to contacts", &v17, 0xCu);
+      v21 = 138412290;
+      v22 = v4;
+      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "App %@ has no access to contacts", &v21, 0xCu);
     }
 
 LABEL_18:
-    v8 = &unk_1EFE65A30;
+    v9 = &unk_1EFE65A30;
     goto LABEL_19;
   }
 
   pickerUsageAppIDs = [(PSContactsPolicyController *)self pickerUsageAppIDs];
-  v14 = [pickerUsageAppIDs containsObject:v4];
+  v17 = [pickerUsageAppIDs containsObject:v4];
 
-  v15 = _PSLoggingFacility();
-  v7 = v15;
-  if (!v14)
+  v19 = _PSLoggingFacility(v18);
+  v8 = v19;
+  if (!v17)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(PSContactsPolicyController *)v4 contactsStatus:v7];
+      [(PSContactsPolicyController *)v4 contactsStatus:v8];
     }
 
     goto LABEL_18;
   }
 
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v4;
-    _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "App %@ has private access to contacts", &v17, 0xCu);
+    v21 = 138412290;
+    v22 = v4;
+    _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "App %@ has private access to contacts", &v21, 0xCu);
   }
 
-  v8 = &unk_1EFE65A48;
+  v9 = &unk_1EFE65A48;
 LABEL_19:
 
-  return v8;
+  return v9;
 }
 
 - (void)_setContactsTCCStatus:(id)status specifier:(id)specifier
 {
-  *&v16[13] = *MEMORY[0x1E69E9840];
+  *&v18[13] = *MEMORY[0x1E69E9840];
   statusCopy = status;
   v7 = [specifier propertyForKey:@"appBundleID"];
   intValue = [statusCopy intValue];
 
   if (intValue > 4)
   {
-    v9 = @"unsupported";
+    v10 = @"unsupported";
   }
 
   else
   {
-    v9 = off_1E71DBF38[intValue];
+    v10 = off_1E71DBF38[intValue];
   }
 
-  v10 = _PSLoggingFacility();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _PSLoggingFacility(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412802;
-    v14 = v7;
-    v15 = 1024;
-    *v16 = intValue;
-    v16[2] = 2112;
-    *&v16[3] = v9;
-    _os_log_impl(&dword_18B008000, v10, OS_LOG_TYPE_DEFAULT, "Selected contacts auth for app %@: %d(%@)", &v13, 0x1Cu);
+    v15 = 138412802;
+    v16 = v7;
+    v17 = 1024;
+    *v18 = intValue;
+    v18[2] = 2112;
+    *&v18[3] = v10;
+    _os_log_impl(&dword_18B008000, v11, OS_LOG_TYPE_DEFAULT, "Selected contacts auth for app %@: %d(%@)", &v15, 0x1Cu);
   }
 
-  v11 = _PSLoggingFacility();
-  v12 = v11;
+  v13 = _PSLoggingFacility(v12);
+  v14 = v13;
   if (intValue > 2)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v13 = 138412802;
-      v14 = v7;
-      v15 = 1024;
-      *v16 = intValue;
-      v16[2] = 2112;
-      *&v16[3] = v9;
-      _os_log_fault_impl(&dword_18B008000, v12, OS_LOG_TYPE_FAULT, "Unexpected value set for contacts tcc access for app %@: %d(%@)", &v13, 0x1Cu);
+      v15 = 138412802;
+      v16 = v7;
+      v17 = 1024;
+      *v18 = intValue;
+      v18[2] = 2112;
+      *&v18[3] = v10;
+      _os_log_fault_impl(&dword_18B008000, v14, OS_LOG_TYPE_FAULT, "Unexpected value set for contacts tcc access for app %@: %d(%@)", &v15, 0x1Cu);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2112;
-      *v16 = v9;
-      _os_log_impl(&dword_18B008000, v12, OS_LOG_TYPE_DEFAULT, "Setting contacts auth for app %@ to %@", &v13, 0x16u);
+      v15 = 138412546;
+      v16 = v7;
+      v17 = 2112;
+      *v18 = v10;
+      _os_log_impl(&dword_18B008000, v14, OS_LOG_TYPE_DEFAULT, "Setting contacts auth for app %@ to %@", &v15, 0x16u);
     }
 
     [(PSContactsPolicyController *)self setTCCForService:*MEMORY[0x1E69D5500] appIdentifier:v7 value:intValue];

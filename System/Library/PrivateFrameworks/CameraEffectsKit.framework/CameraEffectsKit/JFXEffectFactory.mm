@@ -31,9 +31,11 @@
 
 uint64_t __34__JFXEffectFactory_sharedInstance__block_invoke()
 {
-  sharedInstance_sInstance_1 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sInstance_1;
+  sharedInstance_sInstance_1 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)effectCategoriesForPickerItem:(id)item completion:(id)completion
@@ -339,46 +341,46 @@ void __54__JFXEffectFactory_effectIDsForPickerItem_completion___block_invoke(uin
 
 void __46__JFXEffectFactory_effectsForType_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = JFXEffectClassForType(*(a1 + 40));
-  v5 = objc_opt_new();
-  v14 = 0u;
+  v5 = JFXEffectClassForType(*(a1 + 40), v4);
+  v6 = objc_opt_new();
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
+  v18 = 0u;
+  v7 = v3;
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v15;
+    v9 = v8;
+    v10 = *v16;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v16 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
-        v12 = [v4 alloc];
-        v13 = [v12 initWithEffectID:{v11, v14}];
-        if (v13)
+        v12 = *(*(&v15 + 1) + 8 * v11);
+        v13 = [v5 alloc];
+        v14 = [v13 initWithEffectID:{v12, v15}];
+        if (v14)
         {
-          [v5 addObject:v13];
+          [v6 addObject:v14];
         }
 
-        ++v10;
+        ++v11;
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -399,46 +401,46 @@ void __46__JFXEffectFactory_effectsForType_completion___block_invoke(uint64_t a1
 
 void __57__JFXEffectFactory_effectsForType_pickerItem_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = JFXEffectClassForType(*(a1 + 40));
-  v5 = objc_opt_new();
-  v14 = 0u;
+  v5 = JFXEffectClassForType(*(a1 + 40), v4);
+  v6 = objc_opt_new();
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
+  v18 = 0u;
+  v7 = v3;
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v15;
+    v9 = v8;
+    v10 = *v16;
     do
     {
-      v10 = 0;
+      v11 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v16 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
-        v12 = [v4 alloc];
-        v13 = [v12 initWithEffectID:{v11, v14}];
-        if (v13)
+        v12 = *(*(&v15 + 1) + 8 * v11);
+        v13 = [v5 alloc];
+        v14 = [v13 initWithEffectID:{v12, v15}];
+        if (v14)
         {
-          [v5 addObject:v13];
+          [v6 addObject:v14];
         }
 
-        ++v10;
+        ++v11;
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v9 != v11);
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -446,43 +448,43 @@ void __57__JFXEffectFactory_effectsForType_pickerItem_completion___block_invoke(
 
 - (id)effectsForType:(int)type fromCategory:(id)category
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   categoryCopy = category;
-  v6 = JFXEffectClassForType(type);
-  v7 = objc_opt_new();
-  v15 = 0u;
+  v7 = JFXEffectClassForType(type, v6);
+  v8 = objc_opt_new();
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
   effectIDs = [categoryCopy effectIDs];
-  v9 = [effectIDs countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v10 = [effectIDs countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v16;
+    v11 = v10;
+    v12 = *v17;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v11)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(effectIDs);
         }
 
-        v13 = [[v6 alloc] initWithEffectID:*(*(&v15 + 1) + 8 * i)];
-        if (v13)
+        v14 = [[v7 alloc] initWithEffectID:*(*(&v16 + 1) + 8 * i)];
+        if (v14)
         {
-          [v7 addObject:v13];
+          [v8 addObject:v14];
         }
       }
 
-      v10 = [effectIDs countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [effectIDs countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)fetchPickerItems:(id)items
@@ -627,23 +629,23 @@ uint64_t __53__JFXEffectFactory_pickerItemForCategory_completion___block_invoke_
 {
   dCopy = d;
   propertiesCopy = properties;
-  v9 = JFXEffectClassForType(type);
-  if (v9)
+  v10 = JFXEffectClassForType(type, v9);
+  if (v10)
   {
-    v10 = [[v9 alloc] initWithEffectID:dCopy];
-    v11 = v10;
+    v11 = [[v10 alloc] initWithEffectID:dCopy];
+    v12 = v11;
     if (propertiesCopy)
     {
-      [v10 addEffectParameters:propertiesCopy];
+      [v11 addEffectParameters:propertiesCopy];
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)noneEffectIDForType:(int)type

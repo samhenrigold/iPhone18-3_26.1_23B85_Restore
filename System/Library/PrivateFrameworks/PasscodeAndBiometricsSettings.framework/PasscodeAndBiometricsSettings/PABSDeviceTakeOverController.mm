@@ -38,7 +38,7 @@
 
 + (BOOL)isRatchetFeatureAvailable
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   sf_isiPhone = [currentDevice sf_isiPhone];
 
@@ -49,16 +49,15 @@
     v6 = [MEMORY[0x277CCABB0] numberWithBool:sf_isiPhone & v4];
     v7 = [MEMORY[0x277CCABB0] numberWithBool:sf_isiPhone];
     v8 = [MEMORY[0x277CCABB0] numberWithBool:v4 & 1];
-    v11 = 138412802;
-    v12 = v6;
-    v13 = 2112;
-    v14 = v7;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "Ratchet: %@ [isPhone: %@, FeatureEnabled: %@]", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "Ratchet: %@ [isPhone: %@, FeatureEnabled: %@]", &v10, 0x20u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return sf_isiPhone & v4;
 }
 
@@ -111,7 +110,7 @@
 
 void __66__PABSDeviceTakeOverController_toggleToStrictMode_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PABSLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -126,21 +125,20 @@ void __66__PABSDeviceTakeOverController_toggleToStrictMode_withCompletion___bloc
       v5 = @"Succeeded";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "Ratchet: Turn on Strict Mode - %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "Ratchet: Turn on Strict Mode - %@", &v6, 0xCu);
     if (v3)
     {
     }
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v3 == 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __66__PABSDeviceTakeOverController_toggleToStrictMode_withCompletion___block_invoke_6(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = PABSLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -155,21 +153,20 @@ void __66__PABSDeviceTakeOverController_toggleToStrictMode_withCompletion___bloc
       v5 = @"Succeeded";
     }
 
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "Ratchet: Turn off Strict Mode - %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_25E0E9000, v4, OS_LOG_TYPE_DEFAULT, "Ratchet: Turn off Strict Mode - %@", &v6, 0xCu);
     if (v3)
     {
     }
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v3 == 0);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)gateWithRatchetForOperation:(unint64_t)operation forPresentingVC:(id)c completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   cCopy = c;
   completionCopy = completion;
   v10 = [(PABSDeviceTakeOverController *)self canGateOperation:operation];
@@ -190,15 +187,15 @@ void __66__PABSDeviceTakeOverController_toggleToStrictMode_withCompletion___bloc
 
     objc_initWeak(buf, self);
     v16 = [(PABSDeviceTakeOverController *)self getArmingOptionsDictionaryForIdentifier:operation];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __87__PABSDeviceTakeOverController_gateWithRatchetForOperation_forPresentingVC_completion___block_invoke;
-    v18[3] = &unk_279A03820;
-    objc_copyWeak(&v20, buf);
-    v19 = completionCopy;
-    [v15 armWithOptions:v16 completion:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __87__PABSDeviceTakeOverController_gateWithRatchetForOperation_forPresentingVC_completion___block_invoke;
+    v17[3] = &unk_279A03820;
+    objc_copyWeak(&v19, buf);
+    v18 = completionCopy;
+    [v15 armWithOptions:v16 completion:v17];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
 
@@ -212,8 +209,6 @@ void __66__PABSDeviceTakeOverController_toggleToStrictMode_withCompletion___bloc
     (*(completionCopy + 2))(completionCopy, 2);
     [(PABSDeviceTakeOverController *)self showAlertForFailureToGateForOperation:operation forPresentingVC:cCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __87__PABSDeviceTakeOverController_gateWithRatchetForOperation_forPresentingVC_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -296,7 +291,7 @@ void __87__PABSDeviceTakeOverController_gateWithRatchetForOperation_forPresentin
 
 - (BOOL)canGateOperation:(unint64_t)operation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CD47B0] = [MEMORY[0x277CD47B0] sharedInstance];
   isSensorTrusted = [mEMORY[0x277CD47B0] isSensorTrusted];
 
@@ -339,18 +334,17 @@ void __87__PABSDeviceTakeOverController_gateWithRatchetForOperation_forPresentin
     v12 = [MEMORY[0x277CCABB0] numberWithBool:v10 & 1];
     v13 = [MEMORY[0x277CCABB0] numberWithBool:isSensorTrusted];
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
-    v17 = 138413058;
-    v18 = v12;
-    v19 = 2048;
+    v16 = 138413058;
+    v17 = v12;
+    v18 = 2048;
     operationCopy = operation;
-    v21 = 2112;
-    v22 = v13;
-    v23 = 2112;
-    v24 = v14;
-    _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "Ratchet: Gating precheck: %@ for identifier: %lu [TrustedSensor:%@ | IdentitiesCount:%@]", &v17, 0x2Au);
+    v20 = 2112;
+    v21 = v13;
+    v22 = 2112;
+    v23 = v14;
+    _os_log_impl(&dword_25E0E9000, v11, OS_LOG_TYPE_DEFAULT, "Ratchet: Gating precheck: %@ for identifier: %lu [TrustedSensor:%@ | IdentitiesCount:%@]", &v16, 0x2Au);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -439,7 +433,7 @@ void __86__PABSDeviceTakeOverController_showAlertForFailureToGateForOperation_fo
 
 void __83__PABSDeviceTakeOverController_performPreliminaryPreEnableDTOChecksWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -465,15 +459,15 @@ void __83__PABSDeviceTakeOverController_performPreliminaryPreEnableDTOChecksWith
     v12 = PABSLogForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v20 = [v6 description];
-      v21 = [MEMORY[0x277CCABB0] numberWithBool:v9];
-      v22 = 138412802;
-      v23 = v20;
-      v24 = 2112;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v21;
-      _os_log_error_impl(&dword_25E0E9000, v12, OS_LOG_TYPE_ERROR, "Ratchet: Preliminary check failed: Error: %@ - %@ [Current Ratchet status: %@]", &v22, 0x20u);
+      v19 = [v6 description];
+      v20 = [MEMORY[0x277CCABB0] numberWithBool:v9];
+      v21 = 138412802;
+      v22 = v19;
+      v23 = 2112;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v20;
+      _os_log_error_impl(&dword_25E0E9000, v12, OS_LOG_TYPE_ERROR, "Ratchet: Preliminary check failed: Error: %@ - %@ [Current Ratchet status: %@]", &v21, 0x20u);
     }
 
     v13 = [v6 domain];
@@ -513,14 +507,12 @@ LABEL_21:
   v10 = PABSLogForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_25E0E9000, v10, OS_LOG_TYPE_DEFAULT, "Ratchet: Preliminary check succeeded", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_log_impl(&dword_25E0E9000, v10, OS_LOG_TYPE_DEFAULT, "Ratchet: Preliminary check succeeded", &v21, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
 LABEL_22:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)footerDescriptionOfDTORequirements
@@ -597,7 +589,7 @@ void __60__PABSDeviceTakeOverController_enableRatchetWithCompletion___block_invo
 
 - (void)proceedToPeformBiometricLivenessIfNeededWithResultDictionary:(id)dictionary withCompletion:(id)completion
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   completionCopy = completion;
   v8 = [dictionaryCopy objectForKeyedSubscript:&unk_286FD6C60];
@@ -626,25 +618,23 @@ void __60__PABSDeviceTakeOverController_enableRatchetWithCompletion___block_invo
 
     objc_initWeak(&buf, self);
     v12 = objc_alloc_init(MEMORY[0x277CD4790]);
-    v22 = &unk_286FD6C18;
+    v21 = &unk_286FD6C18;
     v13 = PABS_LocalizedStringForPasscodeLock(@"DTO_BIOMETRIC_LIVENESS_NEEDED_REASON");
-    v23[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __108__PABSDeviceTakeOverController_proceedToPeformBiometricLivenessIfNeededWithResultDictionary_withCompletion___block_invoke;
-    v17[3] = &unk_279A03890;
+    v22[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __108__PABSDeviceTakeOverController_proceedToPeformBiometricLivenessIfNeededWithResultDictionary_withCompletion___block_invoke;
+    v16[3] = &unk_279A03890;
     v15 = v12;
-    v18 = v15;
-    v19 = completionCopy;
-    objc_copyWeak(&v20, &buf);
-    [v15 evaluatePolicy:1 options:v14 reply:v17];
+    v17 = v15;
+    v18 = completionCopy;
+    objc_copyWeak(&v19, &buf);
+    [v15 evaluatePolicy:1 options:v14 reply:v16];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&buf);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __108__PABSDeviceTakeOverController_proceedToPeformBiometricLivenessIfNeededWithResultDictionary_withCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1058,54 +1048,41 @@ LABEL_26:
 
 - (void)gateWithRatchetForOperation:forPresentingVC:completion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_25E0E9000, v0, OS_LOG_TYPE_ERROR, "Ratchet: Cannot perform gating check for identifier: %lu", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25E0E9000, v0, OS_LOG_TYPE_ERROR, "Ratchet: Cannot perform gating check for identifier: %lu", v1, 0xCu);
 }
 
 void __87__PABSDeviceTakeOverController_gateWithRatchetForOperation_forPresentingVC_completion___block_invoke_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __60__PABSDeviceTakeOverController_enableRatchetWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PABSDeviceTakeOverController_proceedToEnableRatchetWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PABSDeviceTakeOverController_disableRatchetWithCompletion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

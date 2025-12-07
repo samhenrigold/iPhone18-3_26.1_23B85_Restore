@@ -1036,10 +1036,10 @@ LABEL_13:
   Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::DecibelsToEnergy<float>,&float Phase::EnergyToDecibels<float>>(v44, v45, v38, Phase::sOctaveBandFrequencies, Phase::sThirdOctaveBandFrequencies, &v55);
   Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::DecibelsToEnergy<float>,&float Phase::EnergyToDecibels<float>>(v44, v45, v35, Phase::sOctaveBandFrequencies, Phase::sThirdOctaveBandFrequencies, &v56);
   Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::Identity<float>,&float Phase::Identity<float>>(v44, v45, __p, Phase::sOctaveBandFrequencies, Phase::sThirdOctaveBandFrequencies, &v57);
-  Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::Identity<float>,&float Phase::Identity<float>>(v44, v45, v41, Phase::sThirdOctaveBandFrequencies, &Phase::sThirdOctaveBandFrequencies[31], &v58);
-  Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::DecibelsToEnergy<float>,&float Phase::EnergyToDecibels<float>>(v44, v45, v38, Phase::sThirdOctaveBandFrequencies, &Phase::sThirdOctaveBandFrequencies[31], &v59);
-  Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::DecibelsToEnergy<float>,&float Phase::EnergyToDecibels<float>>(v44, v45, v35, Phase::sThirdOctaveBandFrequencies, &Phase::sThirdOctaveBandFrequencies[31], &v60);
-  Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::Identity<float>,&float Phase::Identity<float>>(v44, v45, __p, Phase::sThirdOctaveBandFrequencies, &Phase::sThirdOctaveBandFrequencies[31], &v61);
+  Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::Identity<float>,&float Phase::Identity<float>>(v44, v45, v41, Phase::sThirdOctaveBandFrequencies, flt_23A5970A4, &v58);
+  Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::DecibelsToEnergy<float>,&float Phase::EnergyToDecibels<float>>(v44, v45, v38, Phase::sThirdOctaveBandFrequencies, flt_23A5970A4, &v59);
+  Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::DecibelsToEnergy<float>,&float Phase::EnergyToDecibels<float>>(v44, v45, v35, Phase::sThirdOctaveBandFrequencies, flt_23A5970A4, &v60);
+  Phase::GetValuesFromFrequencyResponse<std::__wrap_iter<float *>,std::__wrap_iter<float *>,float const*,float *,&float Phase::Identity<float>,&float Phase::Identity<float>>(v44, v45, __p, Phase::sThirdOctaveBandFrequencies, flt_23A5970A4, &v61);
   (*(**(self->_impl.__ptr_ + 46) + 184))(*(self->_impl.__ptr_ + 46), buf);
   self->_roomAcousticTarget = targetCopy;
   if (__p)
@@ -1396,7 +1396,7 @@ LABEL_13:
   v13 = **(v12 + 8);
   v20 = 0;
   v19 = 1;
-  v14 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v13, 24, &v20, &v19);
+  v14 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v13, 0x18uLL, &v20, &v19);
   if (!v14)
   {
     Instance = Phase::Logger::GetInstance(0);

@@ -27,13 +27,12 @@
 
 void __49__PGAOINameShortener_s_aoiReplacementsDictionary__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v2 URLForResource:@"aoiReplacements" withExtension:@"plist"];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v1 URLForResource:@"aoiReplacements" withExtension:@"plist"];
 
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v5];
-  v4 = s_aoiReplacementsDictionary_s_aoiReplacementsDictionary;
-  s_aoiReplacementsDictionary_s_aoiReplacementsDictionary = v3;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v4];
+  v3 = s_aoiReplacementsDictionary_s_aoiReplacementsDictionary;
+  s_aoiReplacementsDictionary_s_aoiReplacementsDictionary = v2;
 }
 
 + (BOOL)isCountryWithAOISubstitutions:(id)substitutions
@@ -91,7 +90,7 @@ void __52__PGAOINameShortener_isCountryWithAOISubstitutions___block_invoke()
 
 void __67__PGAOINameShortener__enumerateWordCombinationsForName_usingBlock___block_invoke(void *a1, int a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   if (a2)
   {
@@ -103,26 +102,26 @@ void __67__PGAOINameShortener__enumerateWordCombinationsForName_usingBlock___blo
     [v4 objectEnumerator];
   }
 
-  v19 = 0u;
-  v20 = 0u;
   v17 = 0u;
-  v5 = v18 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = v12;
         if (*(*(a1[6] + 8) + 24) == 1)
@@ -135,12 +134,12 @@ void __67__PGAOINameShortener__enumerateWordCombinationsForName_usingBlock___blo
         {
           if (a2)
           {
-            [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v11, v8, v17];
+            [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v11, v8, v15];
           }
 
           else
           {
-            [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v8, v11, v17];
+            [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v8, v11, v15];
           }
           v14 = ;
 
@@ -152,12 +151,11 @@ void __67__PGAOINameShortener__enumerateWordCombinationsForName_usingBlock___blo
           v8 = v11;
         }
 
-        v15 = *(a1[6] + 8);
         (*(a1[5] + 16))();
         objc_autoreleasePoolPop(v13);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -168,8 +166,6 @@ void __67__PGAOINameShortener__enumerateWordCombinationsForName_usingBlock___blo
 
 LABEL_20:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_shortenedAOIForName:(id)name
@@ -337,7 +333,7 @@ LABEL_7:
 
 void __71__PGAOINameShortener_shortenedAOIForLocationOrAreaNode_locationHelper___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v8 = [*(a1 + 32) countryNodeFromAddressNodeAsCollection:?];
+  v8 = [*(a1 + 32) countryNodeFromAddressNodeAsCollection:a3];
   v6 = [v8 names];
   v7 = [v6 firstObject];
 

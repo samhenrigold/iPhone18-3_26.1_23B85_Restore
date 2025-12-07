@@ -422,7 +422,7 @@ LABEL_65:
 
       else
       {
-        v7 = share_sheet_log();
+        v7 = share_sheet_log(0);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           sub_1000635AC(_uri, v7);

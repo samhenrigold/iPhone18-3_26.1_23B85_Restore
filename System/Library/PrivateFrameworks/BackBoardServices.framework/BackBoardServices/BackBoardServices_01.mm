@@ -1,80 +1,26 @@
-void BKSHIDEventSendToProcess(uint64_t a1, uint64_t a2)
-{
-  v15 = *MEMORY[0x1E69E9840];
-  if (a2 <= 0)
-  {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pid > 0"];
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSendToProcess(IOHIDEventRef, pid_t)"}];
-      *buf = 138544130;
-      v8 = v4;
-      v9 = 2114;
-      v10 = @"BKSHIDEvent.m";
-      v11 = 1024;
-      v12 = 180;
-      v13 = 2114;
-      v14 = v3;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
-    }
-
-    [v3 UTF8String];
-    _bs_set_crash_log_message();
-    __break(0);
-    JUMPOUT(0x1863B9214);
-  }
-
-  if (!a1)
-  {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"event != ((void *)0)"];
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSendToProcess(IOHIDEventRef, pid_t)"}];
-      *buf = 138544130;
-      v8 = v6;
-      v9 = 2114;
-      v10 = @"BKSHIDEvent.m";
-      v11 = 1024;
-      v12 = 181;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
-    }
-
-    [v5 UTF8String];
-    _bs_set_crash_log_message();
-    __break(0);
-    JUMPOUT(0x1863B92E8);
-  }
-
-  v2 = *MEMORY[0x1E69E9840];
-
-  _RedirectEventToClient(a1, 0, a2, 0);
-}
-
 void BKSHIDEventSendToProcessAndFollowDeferringRules(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v14 = a3;
+  v22 = *MEMORY[0x1E69E9840];
+  v13 = a3;
   v7 = a4;
   if (a2 <= 0)
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pid > 0"];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pid > 0"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSendToProcessAndFollowDeferringRules(IOHIDEventRef, pid_t, BKSHIDEventDeferringToken *__strong, BKSHIDEventDeferringEnvironment *__strong)"}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v16 = v11;
-      v17 = 2114;
-      v18 = @"BKSHIDEvent.m";
-      v19 = 1024;
-      v20 = 187;
-      v21 = 2114;
-      v22 = v10;
+      v15 = v10;
+      v16 = 2114;
+      v17 = @"BKSHIDEvent.m";
+      v18 = 1024;
+      v19 = 187;
+      v20 = 2114;
+      v21 = v9;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v10 UTF8String];
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B9468);
@@ -82,31 +28,29 @@ void BKSHIDEventSendToProcessAndFollowDeferringRules(uint64_t a1, uint64_t a2, v
 
   if (!a1)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"event != ((void *)0)"];
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"event != ((void *)0)"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSendToProcessAndFollowDeferringRules(IOHIDEventRef, pid_t, BKSHIDEventDeferringToken *__strong, BKSHIDEventDeferringEnvironment *__strong)"}];
+      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v16 = v13;
-      v17 = 2114;
-      v18 = @"BKSHIDEvent.m";
-      v19 = 1024;
-      v20 = 188;
-      v21 = 2114;
-      v22 = v12;
+      v15 = v12;
+      v16 = 2114;
+      v17 = @"BKSHIDEvent.m";
+      v18 = 1024;
+      v19 = 188;
+      v20 = 2114;
+      v21 = v11;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v12 UTF8String];
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B953CLL);
   }
 
   v8 = v7;
-  _RedirectEventToClient(a1, v7, a2, v14);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _RedirectEventToClient(a1, v7, a2, v13);
 }
 
 _DWORD *BKSHIDEventGetPointerAttributes(uint64_t a1)
@@ -262,7 +206,7 @@ uint64_t BKSHIDEventCopyDisplayIDFromEvent(uint64_t a1)
   return v6;
 }
 
-uint64_t BKSHIDEventGetContextIDFromEvent(uint64_t a1)
+void *BKSHIDEventGetContextIDFromEvent(uint64_t a1)
 {
   if (!a1)
   {
@@ -285,7 +229,7 @@ uint64_t BKSHIDEventGetContextIDFromEvent(uint64_t a1)
   return v4;
 }
 
-uint64_t BKSHIDEventGetSourceFromKeyboardEvent(uint64_t result)
+void *BKSHIDEventGetSourceFromKeyboardEvent(void *result)
 {
   if (result)
   {
@@ -298,7 +242,7 @@ uint64_t BKSHIDEventGetSourceFromKeyboardEvent(uint64_t result)
   return result;
 }
 
-uint64_t BKSHIDEventGetIsSystemAppEventFromEvent(uint64_t a1)
+void *BKSHIDEventGetIsSystemAppEventFromEvent(uint64_t a1)
 {
   if (!a1)
   {
@@ -314,199 +258,200 @@ uint64_t BKSHIDEventGetIsSystemAppEventFromEvent(uint64_t a1)
 
 void BKSHIDEventSetBaseAttributes(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v7 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = a2;
   v3 = objc_opt_class();
-  if (([v3 isEqual:objc_opt_class()] & 1) == 0)
+  objc_opt_class();
+  if (([v3 isEqual:?] & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no classes other than BKSHIDEventBaseAttributes allowed, not even %@", objc_opt_class()];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSetBaseAttributes(IOHIDEventRef, BKSHIDEventBaseAttributes *__strong)"}];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v9 = v6;
-      v10 = 2114;
-      v11 = @"BKSHIDEvent.m";
-      v12 = 1024;
-      v13 = 397;
-      v14 = 2114;
-      v15 = v5;
+      v8 = v5;
+      v9 = 2114;
+      v10 = @"BKSHIDEvent.m";
+      v11 = 1024;
+      v12 = 397;
+      v13 = 2114;
+      v14 = v4;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B9A60);
   }
 
-  _BKSHIDEventSetAttributes(a1, v7, 1);
-  v4 = *MEMORY[0x1E69E9840];
+  _BKSHIDEventSetAttributes(a1, v6, 1);
 }
 
 void BKSHIDEventSetDigitizerAttributes(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v7 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = a2;
   v3 = objc_opt_class();
-  if (([v3 isEqual:objc_opt_class()] & 1) == 0)
+  objc_opt_class();
+  if (([v3 isEqual:?] & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no classes other than BKSHIDEventDigitizerAttributes allowed, not even %@", objc_opt_class()];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSetDigitizerAttributes(IOHIDEventRef, BKSHIDEventDigitizerAttributes *__strong)"}];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v9 = v6;
-      v10 = 2114;
-      v11 = @"BKSHIDEvent.m";
-      v12 = 1024;
-      v13 = 403;
-      v14 = 2114;
-      v15 = v5;
+      v8 = v5;
+      v9 = 2114;
+      v10 = @"BKSHIDEvent.m";
+      v11 = 1024;
+      v12 = 403;
+      v13 = 2114;
+      v14 = v4;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B9BDCLL);
   }
 
-  _BKSHIDEventSetAttributes(a1, v7, 2);
-  v4 = *MEMORY[0x1E69E9840];
+  _BKSHIDEventSetAttributes(a1, v6, 2);
 }
 
 void BKSHIDEventSetPointerAttributes(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v7 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = a2;
   v3 = objc_opt_class();
-  if (([v3 isEqual:objc_opt_class()] & 1) == 0)
+  objc_opt_class();
+  if (([v3 isEqual:?] & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no classes other than BKSHIDEventPointerAttributes allowed, not even %@", objc_opt_class()];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSetPointerAttributes(IOHIDEventRef, BKSHIDEventPointerAttributes *__strong)"}];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v9 = v6;
-      v10 = 2114;
-      v11 = @"BKSHIDEvent.m";
-      v12 = 1024;
-      v13 = 409;
-      v14 = 2114;
-      v15 = v5;
+      v8 = v5;
+      v9 = 2114;
+      v10 = @"BKSHIDEvent.m";
+      v11 = 1024;
+      v12 = 409;
+      v13 = 2114;
+      v14 = v4;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B9D58);
   }
 
-  _BKSHIDEventSetAttributes(a1, v7, 5);
-  v4 = *MEMORY[0x1E69E9840];
+  _BKSHIDEventSetAttributes(a1, v6, 5);
 }
 
 void BKSHIDEventSetKeyboardAttributes(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v7 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = a2;
   v3 = objc_opt_class();
-  if (([v3 isEqual:objc_opt_class()] & 1) == 0)
+  objc_opt_class();
+  if (([v3 isEqual:?] & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no classes other than BKSHIDEventKeyboardAttributes allowed, not even %@", objc_opt_class()];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSetKeyboardAttributes(IOHIDEventRef, BKSHIDEventKeyboardAttributes *__strong)"}];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v9 = v6;
-      v10 = 2114;
-      v11 = @"BKSHIDEvent.m";
-      v12 = 1024;
-      v13 = 415;
-      v14 = 2114;
-      v15 = v5;
+      v8 = v5;
+      v9 = 2114;
+      v10 = @"BKSHIDEvent.m";
+      v11 = 1024;
+      v12 = 415;
+      v13 = 2114;
+      v14 = v4;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B9ED4);
   }
 
-  _BKSHIDEventSetAttributes(a1, v7, 6);
-  v4 = *MEMORY[0x1E69E9840];
+  _BKSHIDEventSetAttributes(a1, v6, 6);
 }
 
 void BKSHIDEventSetProximityAttributes(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v7 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = a2;
   v3 = objc_opt_class();
-  if (([v3 isEqual:objc_opt_class()] & 1) == 0)
+  objc_opt_class();
+  if (([v3 isEqual:?] & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no classes other than BKSHIDEventProximityAttributes allowed, not even %@", objc_opt_class()];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSetProximityAttributes(IOHIDEventRef, BKSHIDEventProximityAttributes *__strong)"}];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v9 = v6;
-      v10 = 2114;
-      v11 = @"BKSHIDEvent.m";
-      v12 = 1024;
-      v13 = 421;
-      v14 = 2114;
-      v15 = v5;
+      v8 = v5;
+      v9 = 2114;
+      v10 = @"BKSHIDEvent.m";
+      v11 = 1024;
+      v12 = 421;
+      v13 = 2114;
+      v14 = v4;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BA050);
   }
 
-  _BKSHIDEventSetAttributes(a1, v7, 7);
-  v4 = *MEMORY[0x1E69E9840];
+  _BKSHIDEventSetAttributes(a1, v6, 7);
 }
 
 void BKSHIDEventSetSmartCoverAttributes(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v7 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = a2;
   v3 = objc_opt_class();
-  if (([v3 isEqual:objc_opt_class()] & 1) == 0)
+  objc_opt_class();
+  if (([v3 isEqual:?] & 1) == 0)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"no classes other than BKSHIDEventSmartCoverAttributes allowed, not even %@", objc_opt_class()];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSetSmartCoverAttributes(IOHIDEventRef, BKSHIDEventSmartCoverAttributes *__strong)"}];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v9 = v6;
-      v10 = 2114;
-      v11 = @"BKSHIDEvent.m";
-      v12 = 1024;
-      v13 = 427;
-      v14 = 2114;
-      v15 = v5;
+      v8 = v5;
+      v9 = 2114;
+      v10 = @"BKSHIDEvent.m";
+      v11 = 1024;
+      v12 = 427;
+      v13 = 2114;
+      v14 = v4;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BA1CCLL);
   }
 
-  _BKSHIDEventSetAttributes(a1, v7, 4);
-  v4 = *MEMORY[0x1E69E9840];
+  _BKSHIDEventSetAttributes(a1, v6, 4);
 }
 
 void BKSHIDEventSetSimpleInfo(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, char a6)
 {
-  v15 = objc_opt_new();
+  v7 = a5;
+  v14 = objc_opt_new();
   if (a6)
   {
     +[BKSHIDEventDeferringEnvironment systemEnvironment];
@@ -516,30 +461,30 @@ void BKSHIDEventSetSimpleInfo(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uin
   {
     +[BKSHIDEventDeferringEnvironment keyboardFocusEnvironment];
   }
-  v12 = ;
-  [v15 setEnvironment:v12];
-  if (a5)
+  v11 = ;
+  [v14 setEnvironment:?];
+  if (v7)
   {
-    v13 = [BKSHIDEventDeferringToken tokenForIdentifierOfCAContext:a5];
-    [v15 setToken:v13];
+    v12 = [BKSHIDEventDeferringToken tokenForIdentifierOfCAContext:?];
+    [v14 setToken:?];
   }
 
   if (a4)
   {
-    v14 = [BKSHIDEventDisplay displayWithHardwareIdentifier:a4];
-    [v15 setDisplay:v14];
+    v13 = [BKSHIDEventDisplay displayWithHardwareIdentifier:?];
+    [v14 setDisplay:?];
   }
 
-  [v15 setSource:a2];
+  [v14 setSource:?];
   if (a3)
   {
-    [v15 setOptions:1];
+    [v14 setOptions:?];
   }
 
-  _BKSHIDEventSetAttributes(a1, v15, 1);
+  _BKSHIDEventSetAttributes(a1, v14, 1);
 }
 
-uint64_t BKSHIDEventGetButtonIsCancelledFromButtonEvent(uint64_t a1)
+unint64_t BKSHIDEventGetButtonIsCancelledFromButtonEvent(unint64_t a1)
 {
   v1 = a1;
   if (a1)
@@ -559,7 +504,7 @@ uint64_t BKSHIDEventGetButtonIsCancelledFromButtonEvent(uint64_t a1)
   return v1;
 }
 
-uint64_t BKSHIDEventGetSystemGestureStatusFromDigitizerEvent(uint64_t a1)
+void *BKSHIDEventGetSystemGestureStatusFromDigitizerEvent(uint64_t a1)
 {
   v1 = BKSHIDEventGetDigitizerAttributes(a1);
   v2 = [v1 systemGesturesPossible];
@@ -567,7 +512,7 @@ uint64_t BKSHIDEventGetSystemGestureStatusFromDigitizerEvent(uint64_t a1)
   return v2;
 }
 
-uint64_t BKSHIDEventGetIsSystemGestureStateChangeFromDigitizerEvent(uint64_t a1)
+void *BKSHIDEventGetIsSystemGestureStateChangeFromDigitizerEvent(uint64_t a1)
 {
   v1 = BKSHIDEventGetDigitizerAttributes(a1);
   v2 = [v1 systemGestureStateChange];
@@ -575,7 +520,7 @@ uint64_t BKSHIDEventGetIsSystemGestureStateChangeFromDigitizerEvent(uint64_t a1)
   return v2;
 }
 
-uint64_t BKSHIDEventGetTouchStreamIdentifier(uint64_t a1)
+void *BKSHIDEventGetTouchStreamIdentifier(uint64_t a1)
 {
   v1 = BKSHIDEventGetDigitizerAttributes(a1);
   v2 = [v1 touchStreamIdentifier];
@@ -603,25 +548,25 @@ float BKSHIDEventGetMaximumForceFromDigitizerEvent(uint64_t a1)
 
 double BKSHIDEventGetPointFromDigitizerEvent(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"digitizerEvent"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"digitizerEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CGPoint BKSHIDEventGetPointFromDigitizerEvent(IOHIDEventRef)"];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v10 = v6;
-      v11 = 2114;
-      v12 = @"BKSHIDEvent.m";
-      v13 = 1024;
-      v14 = 540;
-      v15 = 2114;
-      v16 = v5;
+      v9 = v5;
+      v10 = 2114;
+      v11 = @"BKSHIDEvent.m";
+      v12 = 1024;
+      v13 = 540;
+      v14 = 2114;
+      v15 = v4;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BA5F0);
@@ -629,22 +574,22 @@ double BKSHIDEventGetPointFromDigitizerEvent(uint64_t a1)
 
   if (IOHIDEventGetType() != 11)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"event is the wrong type: %d", IOHIDEventGetType()];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:IOHIDEventGetType()];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CGPoint BKSHIDEventGetPointFromDigitizerEvent(IOHIDEventRef)"];
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v10 = v8;
-      v11 = 2114;
-      v12 = @"BKSHIDEvent.m";
-      v13 = 1024;
-      v14 = 541;
-      v15 = 2114;
-      v16 = v7;
+      v9 = v7;
+      v10 = 2114;
+      v11 = @"BKSHIDEvent.m";
+      v12 = 1024;
+      v13 = 541;
+      v14 = 2114;
+      v15 = v6;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v7 UTF8String];
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BA6C8);
@@ -653,31 +598,30 @@ double BKSHIDEventGetPointFromDigitizerEvent(uint64_t a1)
   IOHIDEventGetFloatValue();
   v2 = v1;
   IOHIDEventGetFloatValue();
-  v3 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
-uint64_t BKSHIDEventDigitizerGetTouchIdentifier(uint64_t a1, uint64_t a2)
+void *BKSHIDEventDigitizerGetTouchIdentifier(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathCollectionEvent"];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathCollectionEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BKSHIDEventTouchIdentifier BKSHIDEventDigitizerGetTouchIdentifier(IOHIDEventRef, IOHIDEventRef)"}];
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v11 = v7;
-      v12 = 2114;
-      v13 = @"BKSHIDEvent.m";
-      v14 = 1024;
-      v15 = 548;
-      v16 = 2114;
-      v17 = v6;
+      v10 = v6;
+      v11 = 2114;
+      v12 = @"BKSHIDEvent.m";
+      v13 = 1024;
+      v14 = 548;
+      v15 = 2114;
+      v16 = v5;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v6 UTF8String];
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BA810);
@@ -685,22 +629,22 @@ uint64_t BKSHIDEventDigitizerGetTouchIdentifier(uint64_t a1, uint64_t a2)
 
   if (!a2)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathEvent"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BKSHIDEventTouchIdentifier BKSHIDEventDigitizerGetTouchIdentifier(IOHIDEventRef, IOHIDEventRef)"}];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v11 = v9;
-      v12 = 2114;
-      v13 = @"BKSHIDEvent.m";
-      v14 = 1024;
-      v15 = 549;
-      v16 = 2114;
-      v17 = v8;
+      v10 = v8;
+      v11 = 2114;
+      v12 = @"BKSHIDEvent.m";
+      v13 = 1024;
+      v14 = 549;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v8 UTF8String];
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BA8E4);
@@ -709,31 +653,30 @@ uint64_t BKSHIDEventDigitizerGetTouchIdentifier(uint64_t a1, uint64_t a2)
   v2 = _BKSHIDEventGetSubEventInfoFromDigitierEventForPathEvent(a1, a2);
   v3 = [v2 touchIdentifier];
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-uint64_t BKSHIDEventDigitizerGetTouchUserIdentifier(uint64_t a1, uint64_t a2)
+void *BKSHIDEventDigitizerGetTouchUserIdentifier(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathCollectionEvent"];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathCollectionEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"uint32_t BKSHIDEventDigitizerGetTouchUserIdentifier(IOHIDEventRef, IOHIDEventRef)"}];
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v11 = v7;
-      v12 = 2114;
-      v13 = @"BKSHIDEvent.m";
-      v14 = 1024;
-      v15 = 555;
-      v16 = 2114;
-      v17 = v6;
+      v10 = v6;
+      v11 = 2114;
+      v12 = @"BKSHIDEvent.m";
+      v13 = 1024;
+      v14 = 555;
+      v15 = 2114;
+      v16 = v5;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v6 UTF8String];
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BAA2CLL);
@@ -741,22 +684,22 @@ uint64_t BKSHIDEventDigitizerGetTouchUserIdentifier(uint64_t a1, uint64_t a2)
 
   if (!a2)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathEvent"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"uint32_t BKSHIDEventDigitizerGetTouchUserIdentifier(IOHIDEventRef, IOHIDEventRef)"}];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v11 = v9;
-      v12 = 2114;
-      v13 = @"BKSHIDEvent.m";
-      v14 = 1024;
-      v15 = 556;
-      v16 = 2114;
-      v17 = v8;
+      v10 = v8;
+      v11 = 2114;
+      v12 = @"BKSHIDEvent.m";
+      v13 = 1024;
+      v14 = 556;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v8 UTF8String];
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BAB00);
@@ -765,31 +708,30 @@ uint64_t BKSHIDEventDigitizerGetTouchUserIdentifier(uint64_t a1, uint64_t a2)
   v2 = _BKSHIDEventGetSubEventInfoFromDigitierEventForPathEvent(a1, a2);
   v3 = [v2 userIdentifier];
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 float BKSHIDEventGetZGradientFromDigitizerEventForPathEvent(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathCollectionEvent"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathCollectionEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"float BKSHIDEventGetZGradientFromDigitizerEventForPathEvent(IOHIDEventRef, IOHIDEventRef)"}];
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v12 = v8;
-      v13 = 2114;
-      v14 = @"BKSHIDEvent.m";
-      v15 = 1024;
-      v16 = 569;
-      v17 = 2114;
-      v18 = v7;
+      v11 = v7;
+      v12 = 2114;
+      v13 = @"BKSHIDEvent.m";
+      v14 = 1024;
+      v15 = 569;
+      v16 = 2114;
+      v17 = v6;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v7 UTF8String];
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BAC50);
@@ -797,22 +739,22 @@ float BKSHIDEventGetZGradientFromDigitizerEventForPathEvent(uint64_t a1, uint64_
 
   if (!a2)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathEvent"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"float BKSHIDEventGetZGradientFromDigitizerEventForPathEvent(IOHIDEventRef, IOHIDEventRef)"}];
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v12 = v10;
-      v13 = 2114;
-      v14 = @"BKSHIDEvent.m";
-      v15 = 1024;
-      v16 = 570;
-      v17 = 2114;
-      v18 = v9;
+      v11 = v9;
+      v12 = 2114;
+      v13 = @"BKSHIDEvent.m";
+      v14 = 1024;
+      v15 = 570;
+      v16 = 2114;
+      v17 = v8;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BAD24);
@@ -822,31 +764,30 @@ float BKSHIDEventGetZGradientFromDigitizerEventForPathEvent(uint64_t a1, uint64_
   [v2 zGradient];
   v4 = v3;
 
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 double BKSHIDEventGetHitTestPointFromDigitizerEventForPathEvent(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathCollectionEvent"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathCollectionEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CGPoint BKSHIDEventGetHitTestPointFromDigitizerEventForPathEvent(IOHIDEventRef, IOHIDEventRef)"}];
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v16 = v10;
-      v17 = 2114;
-      v18 = @"BKSHIDEvent.m";
-      v19 = 1024;
-      v20 = 576;
-      v21 = 2114;
-      v22 = v9;
+      v15 = v9;
+      v16 = 2114;
+      v17 = @"BKSHIDEvent.m";
+      v18 = 1024;
+      v19 = 576;
+      v20 = 2114;
+      v21 = v8;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BAED4);
@@ -854,22 +795,22 @@ double BKSHIDEventGetHitTestPointFromDigitizerEventForPathEvent(uint64_t a1, uin
 
   if (!a2)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathEvent"];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CGPoint BKSHIDEventGetHitTestPointFromDigitizerEventForPathEvent(IOHIDEventRef, IOHIDEventRef)"}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v16 = v12;
-      v17 = 2114;
-      v18 = @"BKSHIDEvent.m";
-      v19 = 1024;
-      v20 = 577;
-      v21 = 2114;
-      v22 = v11;
+      v15 = v11;
+      v16 = 2114;
+      v17 = @"BKSHIDEvent.m";
+      v18 = 1024;
+      v19 = 577;
+      v20 = 2114;
+      v21 = v10;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BAFA8);
@@ -888,22 +829,22 @@ double BKSHIDEventGetHitTestPointFromDigitizerEventForPathEvent(uint64_t a1, uin
   {
     if (IOHIDEventGetType() != 11)
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"event is the wrong type: %d", IOHIDEventGetType()];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:IOHIDEventGetType()];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CGPoint BKSHIDEventGetHitTestPointFromDigitizerEventForPathEvent(IOHIDEventRef, IOHIDEventRef)"}];
+        v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
         *buf = 138544130;
-        v16 = v14;
-        v17 = 2114;
-        v18 = @"BKSHIDEvent.m";
-        v19 = 1024;
-        v20 = 582;
-        v21 = 2114;
-        v22 = v13;
+        v15 = v13;
+        v16 = 2114;
+        v17 = @"BKSHIDEvent.m";
+        v18 = 1024;
+        v19 = 582;
+        v20 = 2114;
+        v21 = v12;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
       }
 
-      [v13 UTF8String];
+      [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863BB080);
@@ -914,31 +855,30 @@ double BKSHIDEventGetHitTestPointFromDigitizerEventForPathEvent(uint64_t a1, uin
     IOHIDEventGetFloatValue();
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 double BKSHIDEventGetPrecisePointFromDigitizerEventForPathEvent(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathCollectionEvent"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathCollectionEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CGPoint BKSHIDEventGetPrecisePointFromDigitizerEventForPathEvent(IOHIDEventRef, IOHIDEventRef)"}];
+      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v16 = v10;
-      v17 = 2114;
-      v18 = @"BKSHIDEvent.m";
-      v19 = 1024;
-      v20 = 588;
-      v21 = 2114;
-      v22 = v9;
+      v15 = v9;
+      v16 = 2114;
+      v17 = @"BKSHIDEvent.m";
+      v18 = 1024;
+      v19 = 588;
+      v20 = 2114;
+      v21 = v8;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BB22CLL);
@@ -946,22 +886,22 @@ double BKSHIDEventGetPrecisePointFromDigitizerEventForPathEvent(uint64_t a1, uin
 
   if (!a2)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathEvent"];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CGPoint BKSHIDEventGetPrecisePointFromDigitizerEventForPathEvent(IOHIDEventRef, IOHIDEventRef)"}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v16 = v12;
-      v17 = 2114;
-      v18 = @"BKSHIDEvent.m";
-      v19 = 1024;
-      v20 = 589;
-      v21 = 2114;
-      v22 = v11;
+      v15 = v11;
+      v16 = 2114;
+      v17 = @"BKSHIDEvent.m";
+      v18 = 1024;
+      v19 = 589;
+      v20 = 2114;
+      v21 = v10;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BB300);
@@ -980,22 +920,22 @@ double BKSHIDEventGetPrecisePointFromDigitizerEventForPathEvent(uint64_t a1, uin
   {
     if (IOHIDEventGetType() != 11)
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"event is the wrong type: %d", IOHIDEventGetType()];
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:IOHIDEventGetType()];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"CGPoint BKSHIDEventGetPrecisePointFromDigitizerEventForPathEvent(IOHIDEventRef, IOHIDEventRef)"}];
+        v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
         *buf = 138544130;
-        v16 = v14;
-        v17 = 2114;
-        v18 = @"BKSHIDEvent.m";
-        v19 = 1024;
-        v20 = 596;
-        v21 = 2114;
-        v22 = v13;
+        v15 = v13;
+        v16 = 2114;
+        v17 = @"BKSHIDEvent.m";
+        v18 = 1024;
+        v19 = 596;
+        v20 = 2114;
+        v21 = v12;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
       }
 
-      [v13 UTF8String];
+      [v12 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863BB3D8);
@@ -1006,7 +946,6 @@ double BKSHIDEventGetPrecisePointFromDigitizerEventForPathEvent(uint64_t a1, uin
     IOHIDEventGetFloatValue();
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1015,51 +954,49 @@ void BKSHIDEventSetDigitizerInfoWithSubEventInfoAndTouchStreamIdentifier(uint64_
   if (a1)
   {
     LODWORD(v11) = a7;
-    v27 = objc_alloc_init(BKSHIDEventDigitizerAttributes);
-    v20 = [BKSHIDEventDeferringToken tokenForIdentifierOfCAContext:a2];
-    [(BKSHIDEventBaseAttributes *)v27 setToken:v20];
+    v19 = objc_alloc_init(BKSHIDEventDigitizerAttributes);
+    v14 = [BKSHIDEventDeferringToken tokenForIdentifierOfCAContext:?];
+    [(BKSHIDEventBaseAttributes *)v19 setToken:?];
 
     if (a6)
     {
-      v22 = [BKSHIDEventDisplay displayWithHardwareIdentifier:a6];
-      [(BKSHIDEventBaseAttributes *)v27 setDisplay:v22];
+      v15 = [BKSHIDEventDisplay displayWithHardwareIdentifier:?];
+      [(BKSHIDEventBaseAttributes *)v19 setDisplay:?];
     }
 
-    *&v21 = a10;
-    [(BKSHIDEventDigitizerAttributes *)v27 setMaximumForce:v21];
-    [(BKSHIDEventDigitizerAttributes *)v27 setInitialTouchTimestamp:a9];
-    [(BKSHIDEventDigitizerAttributes *)v27 setTouchStreamIdentifier:a5];
-    [(BKSHIDEventDigitizerAttributes *)v27 setSystemGesturesPossible:a3 != 0];
-    [(BKSHIDEventDigitizerAttributes *)v27 setSystemGestureStateChange:a4 != 0];
-    v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [(BKSHIDEventDigitizerAttributes *)v19 setMaximumForce:?];
+    [(BKSHIDEventDigitizerAttributes *)v19 setInitialTouchTimestamp:?];
+    [(BKSHIDEventDigitizerAttributes *)v19 setTouchStreamIdentifier:?];
+    [(BKSHIDEventDigitizerAttributes *)v19 setSystemGesturesPossible:?];
+    [(BKSHIDEventDigitizerAttributes *)v19 setSystemGestureStateChange:?];
+    v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
     if (v11)
     {
       v11 = v11;
-      v24 = a8 + 16;
+      v17 = a8 + 16;
       do
       {
-        v25 = objc_alloc_init(BKSHIDEventDigitizerPathAttributes);
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setPathIndex:*(v24 - 16)];
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setTouchIdentifier:*(v24 - 12)];
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setUserIdentifier:*(v24 - 8)];
-        LODWORD(v26) = *v24;
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setZGradient:v26];
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setLocus:*(v24 - 4)];
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setHitTestLocationX:*(v24 + 4)];
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setHitTestLocationY:*(v24 + 8)];
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setPreciseLocationX:*(v24 + 12)];
-        [(BKSHIDEventDigitizerPathAttributes *)v25 setPreciseLocationY:*(v24 + 16)];
-        [v23 addObject:v25];
+        v18 = objc_alloc_init(BKSHIDEventDigitizerPathAttributes);
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setPathIndex:?];
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setTouchIdentifier:?];
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setUserIdentifier:?];
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setZGradient:?];
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setLocus:?];
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setHitTestLocationX:?];
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setHitTestLocationY:?];
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setPreciseLocationX:?];
+        [(BKSHIDEventDigitizerPathAttributes *)v18 setPreciseLocationY:?];
+        [v16 addObject:?];
 
-        v24 += 36;
+        v17 += 36;
         --v11;
       }
 
       while (v11);
     }
 
-    [(BKSHIDEventDigitizerAttributes *)v27 setPathAttributes:v23];
-    _BKSHIDEventSetAttributes(a1, v27, 2);
+    [(BKSHIDEventDigitizerAttributes *)v19 setPathAttributes:?];
+    _BKSHIDEventSetAttributes(a1, v19, 2);
   }
 }
 
@@ -1076,7 +1013,7 @@ __CFString *NSStringFromBKSHIDEventSmartCoverState(int a1)
   }
 }
 
-uint64_t BKSHIDEventGetSmartCoverStateFromEvent(uint64_t a1)
+void *BKSHIDEventGetSmartCoverStateFromEvent(uint64_t a1)
 {
   v1 = BKSHIDEventGetSmartCoverAttributes(a1);
   v2 = [v1 smartCoverState];
@@ -1088,16 +1025,16 @@ void BKSHIDEventSetSmartCoverInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
-    v6 = BKSHIDEventGetSmartCoverAttributes(a1);
-    if (!v6)
+    v4 = BKSHIDEventGetSmartCoverAttributes(a1);
+    if (!v4)
     {
-      v6 = objc_alloc_init(BKSHIDEventSmartCoverAttributes);
+      v4 = objc_alloc_init(BKSHIDEventSmartCoverAttributes);
     }
 
-    v7 = v6;
-    [(BKSHIDEventSmartCoverAttributes *)v6 setSmartCoverState:a2];
-    [(BKSHIDEventSmartCoverAttributes *)v7 setWakeAnimationStyle:a3];
-    _BKSHIDEventSetAttributes(a1, v7, 4);
+    v5 = v4;
+    [(BKSHIDEventSmartCoverAttributes *)v4 setSmartCoverState:?];
+    [(BKSHIDEventSmartCoverAttributes *)v5 setWakeAnimationStyle:?];
+    _BKSHIDEventSetAttributes(a1, v5, 4);
   }
 }
 
@@ -1106,7 +1043,6 @@ void BKSHIDEventSetRemoteTimestamp(uint64_t a1, uint64_t a2)
   _BKSHIDEventClearRemoteTimestamp(a1);
   if (a2)
   {
-    v3 = *MEMORY[0x1E695E480];
     VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
     IOHIDEventAppendEvent();
     CFRelease(VendorDefinedEvent);
@@ -1115,49 +1051,46 @@ void BKSHIDEventSetRemoteTimestamp(uint64_t a1, uint64_t a2)
 
 void _BKSHIDEventClearRemoteTimestamp(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = ___BKSHIDEventClearRemoteTimestamp_block_invoke;
-  v15[3] = &unk_1E6F47A48;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = ___BKSHIDEventClearRemoteTimestamp_block_invoke;
+  v12[3] = &unk_1E6F47A48;
   v3 = v2;
-  v16 = v3;
-  BKSHIDEventEnumerateChildEvents(a1, v15);
-  v13 = 0u;
-  v14 = 0u;
+  v13 = v3;
+  BKSHIDEventEnumerateChildEvents(a1, v12);
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
+  v9 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:0 objects:? count:?];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v9;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v9 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
         IOHIDEventRemoveEvent();
-        ++v8;
+        v8 = (v8 + 1);
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v6);
   }
 
   BKSHIDEventEnumerateChildEvents(a1, &__block_literal_global_426);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void BKSHIDEventEnumerateChildEvents(uint64_t a1, void *a2)
@@ -1201,7 +1134,7 @@ __CFString *NSStringFromBKSHIDEventSource(uint64_t a1)
 {
   if (a1 >= 0xE)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:0x%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -1216,7 +1149,7 @@ __CFString *NSStringFromBKSHIDTouchLocus(uint64_t a1)
 {
   if (a1 >= 5)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%d>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -1236,7 +1169,7 @@ __CFString *NSStringFromBKSTouchStreamIdentifier(uint64_t a1)
 
   else
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown: %u>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   return v2;
@@ -1258,7 +1191,7 @@ __CFString *BKNSStringFromIOHIDGenericGestureType(uint64_t a1)
 
     else
     {
-      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%d>", a1];
+      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
     }
   }
 
@@ -1270,38 +1203,36 @@ __CFString *BKNSStringFromIOHIDGenericGestureType(uint64_t a1)
   return v2;
 }
 
-__CFString *_BKSHIDEventGetConciseDescriptionGenericGesture()
+__CFString *_BKSHIDEventGetConciseDescriptionGenericGesture(uint64_t a1)
 {
   IntegerValue = IOHIDEventGetIntegerValue();
   switch(IntegerValue)
   {
     case 5:
-      v7 = MEMORY[0x1E696AEC0];
+      v8 = MEMORY[0x1E696AEC0];
       Phase = IOHIDEventGetPhase();
-      v4 = BKNSStringFromIOHIDEventPhase(Phase);
+      v5 = BKNSStringFromIOHIDEventPhase(Phase);
       v13 = @"squeeze";
-      v14 = v4;
-      v9 = @"%@ phase:%@";
+      v14 = v5;
       goto LABEL_7;
     case 1:
       IOHIDEventGetDoubleValue();
-      v6 = v5;
-      v7 = MEMORY[0x1E696AEC0];
-      v8 = IOHIDEventGetPhase();
-      v4 = BKNSStringFromIOHIDEventPhase(v8);
-      v15 = v4;
-      v14 = v6;
+      v7 = v6;
+      v8 = MEMORY[0x1E696AEC0];
+      v9 = IOHIDEventGetPhase();
+      v5 = BKNSStringFromIOHIDEventPhase(v9);
+      v15 = v5;
+      v14 = v7;
       v13 = @"swipe";
-      v9 = @"%@ progress:%g phase:%@";
 LABEL_7:
-      [v7 stringWithFormat:v9, v13, v14, v15];
+      [v8 stringWithFormat:v13, v14, v15];
       goto LABEL_8;
     case 0:
-      v1 = IOHIDEventGetIntegerValue();
-      v2 = MEMORY[0x1E696AEC0];
-      v3 = IOHIDEventGetPhase();
-      v4 = BKNSStringFromIOHIDEventPhase(v3);
-      [v2 stringWithFormat:@"%@ count:%d phase:%@", @"tap", v1, v4];
+      v2 = IOHIDEventGetIntegerValue();
+      v3 = MEMORY[0x1E696AEC0];
+      v4 = IOHIDEventGetPhase();
+      v5 = BKNSStringFromIOHIDEventPhase(v4);
+      [v3 stringWithFormat:@"tap", v2, v5];
       v11 = LABEL_8:;
 
       goto LABEL_10;
@@ -1325,11 +1256,11 @@ __CFString *BKNSStringFromIOHIDEventPhase(uint64_t a1)
         if (((1 << i) & a1) != 0)
         {
           v5 = _BKSPhaseStringForBit(a1);
-          [v3 addObject:v5];
+          [v3 addObject:?];
         }
       }
 
-      v2 = [v3 componentsJoinedByString:{@", "}];
+      v2 = [v3 componentsJoinedByString:?];
     }
 
     else
@@ -1385,7 +1316,7 @@ __CFString *_BKSPhaseStringForBit(uint64_t a1)
     }
 
 LABEL_36:
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown:%X", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
 
     return v2;
   }
@@ -1428,232 +1359,213 @@ LABEL_36:
 
 id _BKSHIDEventGetConciseDescriptionPointer(uint64_t a1)
 {
-  v59 = *MEMORY[0x1E69E9840];
   if (IOHIDEventGetEvent())
   {
     IOHIDEventGetFloatValue();
-    v3 = v2 != 0.0;
     IOHIDEventGetFloatValue();
-    v5 = v4 != 0.0 || v3;
     if (IOHIDEventGetEvent())
     {
-      v6 = IOHIDEventGetIntegerValue() != 0;
+      IOHIDEventGetIntegerValue();
     }
 
-    else
+    v12 = MEMORY[0x1E696AEC0];
+    v4 = [MEMORY[0x1E696AD98] numberWithBool:?];
+    v13 = [MEMORY[0x1E696AD98] numberWithBool:?];
+    v14 = [v12 stringWithFormat:v4, v13];
+    goto LABEL_53;
+  }
+
+  v2 = IOHIDEventGetChildren();
+  v3 = [MEMORY[0x1E695DF70] array];
+  v4 = v2;
+  v5 = [v4 countByEnumeratingWithState:? objects:? count:?];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = 0;
+    v8 = MEMORY[0];
+    do
     {
-      v6 = 0;
+      v9 = 0;
+      do
+      {
+        if (MEMORY[0] != v8)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        Type = IOHIDEventGetType();
+        if (Type <= 0x11)
+        {
+          if (((1 << Type) & 0x8F6) != 0)
+          {
+            [v3 addObject:?];
+            v7 = 1;
+          }
+
+          else if (Type == 17)
+          {
+            v7 = 1;
+          }
+        }
+
+        v9 = (v9 + 1);
+      }
+
+      while (v6 != v9);
+      v11 = [v4 countByEnumeratingWithState:? objects:? count:?];
+      v6 = v11;
     }
 
-    v18 = MEMORY[0x1E696AEC0];
-    v9 = [MEMORY[0x1E696AD98] numberWithBool:v5];
-    v19 = [MEMORY[0x1E696AD98] numberWithBool:v6];
-    v20 = [v18 stringWithFormat:@"Pointer movement:%@ buttonDown:%@", v9, v19];
+    while (v11);
   }
 
   else
   {
-    v7 = IOHIDEventGetChildren();
-    v8 = [MEMORY[0x1E695DF70] array];
-    v53 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v53 objects:v58 count:16];
-    if (v10)
-    {
-      v11 = v10;
-      v12 = 0;
-      v13 = *v54;
-      do
-      {
-        v14 = 0;
-        do
-        {
-          if (*v54 != v13)
-          {
-            objc_enumerationMutation(v9);
-          }
+    v7 = 0;
+  }
 
-          v15 = *(*(&v53 + 1) + 8 * v14);
-          Type = IOHIDEventGetType();
-          if (Type <= 0x11)
-          {
-            if (((1 << Type) & 0x8F6) != 0)
-            {
-              [v8 addObject:v15];
-              v12 = 1;
-            }
+  IOHIDEventGetFloatValue();
+  v16 = v15;
+  IOHIDEventGetFloatValue();
+  v18 = v17;
+  IntegerValue = IOHIDEventGetIntegerValue();
+  v20 = BKSHIDEventGetPointerAttributes(a1);
+  v21 = v20;
+  if (v20)
+  {
+    v22 = [v20 activeModifiers];
+    v23 = [v21 pointerEdgeMask];
+  }
 
-            else if (Type == 17)
-            {
-              v12 = 1;
-            }
-          }
+  else
+  {
+    v22 = 0;
+    v23 = 0;
+  }
 
-          ++v14;
-        }
+  v14 = [MEMORY[0x1E696AD60] stringWithFormat:?];
+  v24 = v16 == 0.0;
+  if (v18 != 0.0)
+  {
+    v24 = 0;
+  }
 
-        while (v11 != v14);
-        v17 = [v9 countByEnumeratingWithState:&v53 objects:v58 count:16];
-        v11 = v17;
-      }
-
-      while (v17);
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    IOHIDEventGetFloatValue();
-    v22 = v21;
-    IOHIDEventGetFloatValue();
-    v24 = v23;
-    IntegerValue = IOHIDEventGetIntegerValue();
-    v26 = BKSHIDEventGetPointerAttributes(a1);
+  if ((v24 & v7 & 1) == 0)
+  {
+    v25 = [v21 contextMove];
+    v26 = NSStringFromBKSHIDEventContextType([v21 contextType]);
     v27 = v26;
-    if (v26)
+    if (v25)
     {
-      v28 = [v26 activeModifiers];
-      v29 = [v27 pointerEdgeMask];
+      v28 = NSStringFromBKSHIDEventContextMove(v25);
+      [v14 appendFormat:*&v16, *&v18, v27, v28];
     }
 
     else
     {
-      v28 = 0;
-      v29 = 0;
-    }
-
-    v20 = [MEMORY[0x1E696AD60] stringWithFormat:@"Pointer"];
-    v30 = v22 == 0.0;
-    if (v24 != 0.0)
-    {
-      v30 = 0;
-    }
-
-    if ((v30 & v12 & 1) == 0)
-    {
-      v31 = [v27 contextMove];
-      v32 = NSStringFromBKSHIDEventContextType([v27 contextType]);
-      v33 = v32;
-      if (v31)
-      {
-        v34 = NSStringFromBKSHIDEventContextMove(v31);
-        [v20 appendFormat:@" %g, %g (%@ %@)", *&v22, *&v24, v33, v34];
-      }
-
-      else
-      {
-        [v20 appendFormat:@" %g, %g (%@)", *&v22, *&v24, v32];
-      }
-    }
-
-    v35 = [v27 authenticationMessage];
-
-    if (v35)
-    {
-      [v20 appendString:@" auth"];
-    }
-
-    v36 = [v27 hitTestSecurityAnalysis];
-
-    if (v36)
-    {
-      [v20 appendString:@" sa"];
-    }
-
-    if (IntegerValue)
-    {
-      [v20 appendFormat:@" buttonMask:%X", IntegerValue];
-    }
-
-    if (v28)
-    {
-      v37 = NSStringFromBKSKeyModifierFlags(v28);
-      [v20 appendFormat:@" modifiers:%@", v37];
-    }
-
-    if (v29)
-    {
-      v38 = NSStringFromBKSHIDEventScreenEdgeMask(v29);
-      [v20 appendFormat:@" edges:%@", v38];
-    }
-
-    v39 = [v27 fingerDownCount];
-    if (([v27 options] & 2) != 0)
-    {
-      if (v39 < 1)
-      {
-        [v20 appendFormat:@" touchUp", v48];
-      }
-
-      else
-      {
-        [v20 appendFormat:@" touchChanged fingersDown:%d", v39];
-      }
-    }
-
-    else if (v39)
-    {
-      [v20 appendFormat:@" fingersDown:%d", v39];
-    }
-
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v19 = v8;
-    v40 = [v19 countByEnumeratingWithState:&v49 objects:v57 count:16];
-    if (v40)
-    {
-      v41 = v40;
-      v42 = *v50;
-      do
-      {
-        for (i = 0; i != v41; ++i)
-        {
-          if (*v50 != v42)
-          {
-            objc_enumerationMutation(v19);
-          }
-
-          v44 = *(*(&v49 + 1) + 8 * i);
-          [v20 appendString:@" "];
-          v45 = BKSHIDEventGetConciseDescription(v44);
-          [v20 appendString:v45];
-        }
-
-        v41 = [v19 countByEnumeratingWithState:&v49 objects:v57 count:16];
-      }
-
-      while (v41);
+      [v14 appendFormat:*&v16, *&v18, v26];
     }
   }
 
-  v46 = *MEMORY[0x1E69E9840];
+  v29 = [v21 authenticationMessage];
 
-  return v20;
+  if (v29)
+  {
+    [v14 appendString:?];
+  }
+
+  v30 = [v21 hitTestSecurityAnalysis];
+
+  if (v30)
+  {
+    [v14 appendString:?];
+  }
+
+  if (IntegerValue)
+  {
+    [v14 appendFormat:IntegerValue];
+  }
+
+  if (v22)
+  {
+    v31 = NSStringFromBKSKeyModifierFlags(v22);
+    [v14 appendFormat:v31];
+  }
+
+  if (v23)
+  {
+    v32 = NSStringFromBKSHIDEventScreenEdgeMask(v23);
+    [v14 appendFormat:v32];
+  }
+
+  v33 = [v21 fingerDownCount];
+  if (([v21 options] & 2) != 0)
+  {
+    if (v33 < 1)
+    {
+      [v14 appendFormat:v41];
+      goto LABEL_45;
+    }
+
+    goto LABEL_42;
+  }
+
+  if (v33)
+  {
+LABEL_42:
+    [v14 appendFormat:v33];
+  }
+
+LABEL_45:
+  v13 = v3;
+  v34 = [v13 countByEnumeratingWithState:? objects:? count:?];
+  if (v34)
+  {
+    v35 = v34;
+    v36 = MEMORY[0];
+    do
+    {
+      for (i = 0; i != v35; i = (i + 1))
+      {
+        if (MEMORY[0] != v36)
+        {
+          objc_enumerationMutation(v13);
+        }
+
+        v38 = *(8 * i);
+        [v14 appendString:?];
+        v39 = BKSHIDEventGetConciseDescription(v38);
+        [v14 appendString:?];
+      }
+
+      v35 = [v13 countByEnumeratingWithState:? objects:? count:?];
+    }
+
+    while (v35);
+  }
+
+LABEL_53:
+
+  return v14;
 }
 
 void _BKSHIDEventAppendEventFlags(uint64_t a1, void *a2)
 {
-  v9 = a2;
+  v7 = a2;
   IntegerValue = IOHIDEventGetIntegerValue();
   v3 = IOHIDEventGetIntegerValue();
   v4 = IOHIDEventGetIntegerValue();
   v5 = IOHIDEventGetIntegerValue();
   if ((IntegerValue & 0x80) != 0)
   {
-    [v9 appendString:@"cancel" withName:0];
+    [v7 appendString:? withName:?];
   }
 
   v6 = (v3 != 0) & (IntegerValue >> 1);
   if ((IntegerValue & 0x20000) != 0)
   {
-    [v9 appendString:@"tap" withName:0];
+    [v7 appendString:? withName:?];
     if (!v6)
     {
 LABEL_5:
@@ -1671,13 +1583,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  [v9 appendString:@"down" withName:0];
+  [v7 appendString:? withName:?];
   if ((IntegerValue & 4) == 0)
   {
 LABEL_6:
     if ((IntegerValue & 2) == 0)
     {
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     goto LABEL_13;
@@ -1686,247 +1598,236 @@ LABEL_6:
 LABEL_10:
   if (v3)
   {
-    [v9 appendString:@"move" withName:0];
-    goto LABEL_15;
+    [v7 appendString:? withName:?];
+    goto LABEL_14;
   }
 
-  [v9 appendString:@"move (not touching!)" withName:0];
+  [v7 appendString:? withName:?];
   if ((IntegerValue & 2) != 0)
   {
 LABEL_13:
     if (!v3)
     {
-      v7 = @"up";
-LABEL_23:
-      [v9 appendString:v7 withName:0];
-      goto LABEL_24;
+LABEL_18:
+      [v7 appendString:? withName:?];
+      goto LABEL_19;
     }
   }
 
-LABEL_15:
+LABEL_14:
   if ((IntegerValue & 3) == 1)
   {
-    if (IOHIDEventGetIntegerValue())
-    {
-      v8 = @"range (in)";
-    }
-
-    else
-    {
-      v8 = @"range (out)";
-    }
-
-    [v9 appendString:v8 withName:0];
+    IOHIDEventGetIntegerValue();
+    [v7 appendString:? withName:?];
   }
 
   if (!(((IntegerValue & 0x40) == 0) | (v3 != 0) & (IntegerValue >> 1)) && (IntegerValue & 0x84) == 0)
   {
-    v7 = @"attribute";
-    goto LABEL_23;
+    goto LABEL_18;
   }
 
-LABEL_24:
+LABEL_19:
   if (v4)
   {
-    [v9 appendString:@"will-update" withName:0];
+    [v7 appendString:? withName:?];
   }
 
   if (v5)
   {
-    [v9 appendString:@"did-update" withName:0];
+    [v7 appendString:? withName:?];
   }
 
   if ((IntegerValue & 0x800) != 0)
   {
-    [v9 appendString:@"edge" withName:0];
+    [v7 appendString:? withName:?];
     if ((IntegerValue & 0x1000) == 0)
     {
-LABEL_30:
+LABEL_25:
       if ((IntegerValue & 0x2000) == 0)
       {
-        goto LABEL_31;
+        goto LABEL_26;
       }
 
-      goto LABEL_38;
+      goto LABEL_33;
     }
   }
 
   else if ((IntegerValue & 0x1000) == 0)
   {
-    goto LABEL_30;
+    goto LABEL_25;
   }
 
-  [v9 appendString:@"corner" withName:0];
+  [v7 appendString:? withName:?];
   if ((IntegerValue & 0x2000) == 0)
   {
-LABEL_31:
+LABEL_26:
     if ((IntegerValue & 0x40000) == 0)
     {
-      goto LABEL_33;
+      goto LABEL_28;
     }
 
-    goto LABEL_32;
-  }
-
-LABEL_38:
-  [v9 appendString:@"swipe-pending" withName:0];
-  if ((IntegerValue & 0x40000) != 0)
-  {
-LABEL_32:
-    [v9 appendString:@"swipe-locked" withName:0];
+    goto LABEL_27;
   }
 
 LABEL_33:
+  [v7 appendString:? withName:?];
+  if ((IntegerValue & 0x40000) != 0)
+  {
+LABEL_27:
+    [v7 appendString:? withName:?];
+  }
+
+LABEL_28:
 }
 
-id _BKSHIDEventGetConciseDescriptionScroll()
+id _BKSHIDEventGetConciseDescriptionScroll(void *a1)
 {
-  v0 = IOHIDEventGetChildren();
-  if ([v0 firstObject])
+  v1 = IOHIDEventGetChildren();
+  if ([v1 firstObject])
   {
     IOHIDEventGetType();
   }
 
   IOHIDEventGetFloatValue();
-  v2 = v1;
+  v3 = v2;
   IOHIDEventGetFloatValue();
-  v4 = v3;
+  v5 = v4;
   IOHIDEventGetFloatValue();
-  v6 = v5;
+  v7 = v6;
   Phase = IOHIDEventGetPhase();
   if (Phase)
   {
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = BKNSStringFromIOHIDEventPhase(Phase);
-    v10 = [v8 stringWithFormat:@"Scroll %g, %g (%@)", v2, v4, v9];
+    v9 = MEMORY[0x1E696AEC0];
+    v10 = BKNSStringFromIOHIDEventPhase(Phase);
+    v11 = [v9 stringWithFormat:v3, v5, v10];
   }
 
   else
   {
-    if (v6 == 0.0)
+    if (v7 == 0.0)
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"Scroll %g, %g", v2, v4, v12];
+      [MEMORY[0x1E696AEC0] stringWithFormat:v3, v5, v13];
     }
 
     else
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"Scroll x:%g y:%g z:%g", v2, v4, *&v6];
+      [MEMORY[0x1E696AEC0] stringWithFormat:v3, v5, *&v7];
     }
-    v10 = ;
+    v11 = ;
   }
 
-  return v10;
+  return v11;
 }
 
-id _BKSHIDEventGetConciseDescriptionScale()
+id _BKSHIDEventGetConciseDescriptionScale(uint64_t a1)
 {
   Phase = IOHIDEventGetPhase();
   IOHIDEventGetFloatValue();
-  v2 = v1;
+  v3 = v2;
   IOHIDEventGetFloatValue();
-  v4 = v3;
+  v5 = v4;
   IOHIDEventGetFloatValue();
-  v6 = v5;
-  v7 = MEMORY[0x1E696AEC0];
-  v8 = BKNSStringFromIOHIDEventPhase(Phase);
-  v9 = v8;
-  if (v2 == 0.0 && v4 == 0.0)
+  v7 = v6;
+  v8 = MEMORY[0x1E696AEC0];
+  v9 = BKNSStringFromIOHIDEventPhase(Phase);
+  v10 = v9;
+  if (v3 == 0.0 && v5 == 0.0)
   {
-    [v7 stringWithFormat:@"Scale (%@) z:%g", v8, v6, v12, v13];
+    [v8 stringWithFormat:v9, v7, v13, v14];
   }
 
   else
   {
-    [v7 stringWithFormat:@"Scale (%@) x:%g y%g z:%g", v8, *&v2, *&v4, v6];
+    [v8 stringWithFormat:v9, *&v3, *&v5, v7];
   }
-  v10 = ;
+  v11 = ;
 
-  return v10;
+  return v11;
 }
 
-id _BKSHIDEventGetConciseDescriptionTranslation()
+id _BKSHIDEventGetConciseDescriptionTranslation(uint64_t a1)
 {
   Phase = IOHIDEventGetPhase();
   IOHIDEventGetFloatValue();
-  v2 = v1;
+  v3 = v2;
   IOHIDEventGetFloatValue();
-  v4 = v3;
+  v5 = v4;
   IOHIDEventGetFloatValue();
-  v6 = v5;
-  v7 = MEMORY[0x1E696AEC0];
-  v8 = BKNSStringFromIOHIDEventPhase(Phase);
-  v9 = v8;
-  if (v6 == 0.0)
+  v7 = v6;
+  v8 = MEMORY[0x1E696AEC0];
+  v9 = BKNSStringFromIOHIDEventPhase(Phase);
+  v10 = v9;
+  if (v7 == 0.0)
   {
-    [v7 stringWithFormat:@"Translation (%@) %g, %g", v8, v2, v4, v12];
+    [v8 stringWithFormat:v9, v3, v5, v13];
   }
 
   else
   {
-    [v7 stringWithFormat:@"Translation (%@) x:%g y:%g z:%g", v8, v2, v4, *&v6];
+    [v8 stringWithFormat:v9, v3, v5, *&v7];
   }
-  v10 = ;
+  v11 = ;
 
-  return v10;
+  return v11;
 }
 
-id _BKSHIDEventGetConciseDescriptionRotation()
+id _BKSHIDEventGetConciseDescriptionRotation(uint64_t a1)
 {
   Phase = IOHIDEventGetPhase();
   IOHIDEventGetFloatValue();
-  v2 = v1;
+  v3 = v2;
   IOHIDEventGetFloatValue();
-  v4 = v3;
+  v5 = v4;
   IOHIDEventGetFloatValue();
-  v6 = v5;
-  v7 = MEMORY[0x1E696AEC0];
-  v8 = BKNSStringFromIOHIDEventPhase(Phase);
-  v9 = v8;
-  if (v2 == 0.0 && v4 == 0.0)
+  v7 = v6;
+  v8 = MEMORY[0x1E696AEC0];
+  v9 = BKNSStringFromIOHIDEventPhase(Phase);
+  v10 = v9;
+  if (v3 == 0.0 && v5 == 0.0)
   {
-    [v7 stringWithFormat:@"Rotation (%@) z:%g", v8, v6, v12, v13];
+    [v8 stringWithFormat:v9, v7, v13, v14];
   }
 
   else
   {
-    [v7 stringWithFormat:@"Rotation (%@) x:%g y%g z:%g", v8, *&v2, *&v4, v6];
+    [v8 stringWithFormat:v9, *&v3, *&v5, v7];
   }
-  v10 = ;
+  v11 = ;
 
-  return v10;
+  return v11;
 }
 
-id _BKSHIDEventGetConciseDescriptionVendorDefined()
+id _BKSHIDEventGetConciseDescriptionVendorDefined(uint64_t a1)
 {
   IntegerValue = IOHIDEventGetIntegerValue();
-  v1 = IOHIDEventGetIntegerValue();
-  if (IntegerValue == 65280 && v1 == 17)
+  v3 = IOHIDEventGetIntegerValue();
+  if (IntegerValue == 65280 && v3 == 17)
   {
-    _BKSHIDEventGetConciseDescriptionVendorDefinedForceStageEvent();
+    _BKSHIDEventGetConciseDescriptionVendorDefinedForceStageEvent(a1);
   }
 
   else
   {
-    [MEMORY[0x1E696AEC0] stringWithFormat:@"VendorDefined page:%X usage:%X", IntegerValue, v1];
+    [MEMORY[0x1E696AEC0] stringWithFormat:IntegerValue, v3];
   }
-  v3 = ;
+  v5 = ;
 
-  return v3;
+  return v5;
 }
 
-id _BKSHIDEventGetConciseDescriptionVendorDefinedForceStageEvent()
+id _BKSHIDEventGetConciseDescriptionVendorDefinedForceStageEvent(uint64_t a1)
 {
   IOHIDEventGetVendorDefinedData();
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<corrupt data>", v2, v3];
+  v1 = [MEMORY[0x1E696AEC0] stringWithFormat:v3, v4];
 
-  return v0;
+  return v1;
 }
 
 __CFString *NSStringFromBKSHIDForceStageTransition(uint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -1970,33 +1871,33 @@ id BKSHIDEventDescription(void *a1)
 {
   v2 = _BKSHIDEventGetEventInfoDescription(a1);
   v3 = CFCopyDescription(a1);
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n%@", v2, v3];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:v2, v3];
 
   return v4;
 }
 
 void BKSHIDEventEnumerateUpdatesWithBlock(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"why so nil, bro?"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventEnumerateUpdatesWithBlock(IOHIDEventRef, __strong BKSHIDEventUpdateHandler)"}];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v15 = v9;
-      v16 = 2114;
-      v17 = @"BKSHIDEvent.m";
-      v18 = 1024;
-      v19 = 2015;
-      v20 = 2114;
-      v21 = v8;
+      v14 = v8;
+      v15 = 2114;
+      v16 = @"BKSHIDEvent.m";
+      v17 = 1024;
+      v18 = 2015;
+      v19 = 2114;
+      v20 = v7;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v8 UTF8String];
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BD43CLL);
@@ -2011,85 +1912,77 @@ void BKSHIDEventEnumerateUpdatesWithBlock(uint64_t a1, void *a2)
     {
       if (v6)
       {
-        v10[0] = MEMORY[0x1E69E9820];
-        v10[1] = 3221225472;
-        v10[2] = __BKSHIDEventEnumerateUpdatesWithBlock_block_invoke;
-        v10[3] = &unk_1E6F47A00;
-        v12 = IntegerValue;
-        v13 = v6;
-        v11 = v4;
-        BKSHIDEventEnumerateChildEvents(a1, v10);
+        v9[0] = MEMORY[0x1E69E9820];
+        v9[1] = 3221225472;
+        v9[2] = __BKSHIDEventEnumerateUpdatesWithBlock_block_invoke;
+        v9[3] = &unk_1E6F47A00;
+        v11 = IntegerValue;
+        v12 = v6;
+        v10 = v4;
+        BKSHIDEventEnumerateChildEvents(a1, v9);
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __BKSHIDEventEnumerateUpdatesWithBlock_block_invoke(uint64_t a1)
+uint64_t __BKSHIDEventEnumerateUpdatesWithBlock_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   IntegerValue = IOHIDEventGetIntegerValue();
   result = IOHIDEventGetIntegerValue();
   if (IntegerValue && result)
   {
-    v4 = *(a1 + 40);
-    if (v4 != IntegerValue)
+    v5 = *(a1 + 40);
+    if (v5 != IntegerValue)
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"child event should have the same generation as parent (child:%ld parent:%ld)", IntegerValue, v4];
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:IntegerValue, v5];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventEnumerateUpdatesWithBlock(IOHIDEventRef, __strong BKSHIDEventUpdateHandler)_block_invoke"}];
+        v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
         *buf = 138544130;
-        v14 = v10;
-        v15 = 2114;
-        v16 = @"BKSHIDEvent.m";
-        v17 = 1024;
-        v18 = 2026;
-        v19 = 2114;
-        v20 = v9;
+        v13 = v9;
+        v14 = 2114;
+        v15 = @"BKSHIDEvent.m";
+        v16 = 1024;
+        v17 = 2026;
+        v18 = 2114;
+        v19 = v8;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
       }
 
-      [v9 UTF8String];
+      [v8 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863BD61CLL);
     }
 
-    v5 = *(a1 + 48);
-    if ((result & ~v5) != 0)
+    v6 = *(a1 + 48);
+    if ((result & ~v6) != 0)
     {
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"child update mask should be a subset of parent update mask (child:%X parent:%X)", result, v5];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:result, v6];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventEnumerateUpdatesWithBlock(IOHIDEventRef, __strong BKSHIDEventUpdateHandler)_block_invoke"}];
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
         *buf = 138544130;
-        v14 = v12;
-        v15 = 2114;
-        v16 = @"BKSHIDEvent.m";
-        v17 = 1024;
-        v18 = 2027;
-        v19 = 2114;
-        v20 = v11;
+        v13 = v11;
+        v14 = 2114;
+        v15 = @"BKSHIDEvent.m";
+        v16 = 1024;
+        v17 = 2027;
+        v18 = 2114;
+        v19 = v10;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
       }
 
-      [v11 UTF8String];
+      [v10 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x1863BD6ECLL);
     }
 
-    v6 = *(*(a1 + 32) + 16);
-    v7 = *MEMORY[0x1E69E9840];
+    v7 = *(*(a1 + 32) + 16);
 
-    return v6();
-  }
-
-  else
-  {
-    v8 = *MEMORY[0x1E69E9840];
+    return v7();
   }
 
   return result;
@@ -2097,26 +1990,26 @@ uint64_t __BKSHIDEventEnumerateUpdatesWithBlock_block_invoke(uint64_t a1)
 
 uint64_t _BKSHIDEventMatchingPredicateCore(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Can't pass nil for predicate. That's illegal."];
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"IOHIDEventRef _BKSHIDEventMatchingPredicateCore(IOHIDEventRef, NSInteger, BOOL (^__strong)(IOHIDEventRef, NSInteger))"}];
+      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v23 = v16;
-      v24 = 2114;
-      v25 = @"BKSHIDEvent.m";
-      v26 = 1024;
-      v27 = 2036;
-      v28 = 2114;
-      v29 = v15;
+      v21 = v15;
+      v22 = 2114;
+      v23 = @"BKSHIDEvent.m";
+      v24 = 1024;
+      v25 = 2036;
+      v26 = 2114;
+      v27 = v14;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v15 UTF8String];
+    [v14 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BD910);
@@ -2125,38 +2018,38 @@ uint64_t _BKSHIDEventMatchingPredicateCore(uint64_t a1, uint64_t a2, void *a3)
   v6 = v5;
   if (a1 && ((*(v5 + 2))(v5, a1, a2) & 1) == 0)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = IOHIDEventGetChildren();
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:0 objects:? count:?];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = _BKSHIDEventMatchingPredicateCore(*(*(&v17 + 1) + 8 * v11), a2 + 1, v6);
+          v12 = _BKSHIDEventMatchingPredicateCore(*(*(&v16 + 1) + 8 * v11), a2 + 1, v6);
           if (v12)
           {
             a1 = v12;
             goto LABEL_14;
           }
 
-          ++v11;
+          v11 = (v11 + 1);
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:? objects:? count:?];
         if (v9)
         {
           continue;
@@ -2170,11 +2063,10 @@ uint64_t _BKSHIDEventMatchingPredicateCore(uint64_t a1, uint64_t a2, void *a3)
 LABEL_14:
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-uint64_t BKSHIDEventDigitizerDetachTouchesWithIdentifiers(void *a1, int a2)
+uint64_t BKSHIDEventDigitizerDetachTouchesWithIdentifiers(void *a1, uint64_t a2)
 {
   v3 = BKSHIDEventDigitizerDetachTouchesWithIdentifiers_onceToken;
   v4 = a1;
@@ -2188,30 +2080,31 @@ uint64_t BKSHIDEventDigitizerDetachTouchesWithIdentifiers(void *a1, int a2)
   return v5;
 }
 
-uint64_t BKSHIDEventDigitizerDetachTouches(void *a1, int a2, void *a3, double a4, double a5)
+uint64_t BKSHIDEventDigitizerDetachTouches(void *a1, uint64_t a2, void *a3, double a4, double a5)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v8 = a2;
+  v45 = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a3;
   v11 = [v9 count];
   if (v11 <= 0)
   {
-    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"need more than zero identifiers"];
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL BKSHIDEventDigitizerDetachTouches(NSArray<NSNumber *> *__strong _Nonnull, uint32_t, BKSHIDTouchRoutingPolicy *__strong _Nonnull, CGPoint)"}];
+      v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v39 = v31;
-      v40 = 2114;
-      v41 = @"BKSHIDEvent.m";
-      v42 = 1024;
-      v43 = 2084;
-      v44 = 2114;
-      v45 = v30;
+      v38 = v30;
+      v39 = 2114;
+      v40 = @"BKSHIDEvent.m";
+      v41 = 1024;
+      v42 = 2084;
+      v43 = 2114;
+      v44 = v29;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v30 UTF8String];
+    [v29 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BDD18);
@@ -2220,22 +2113,22 @@ uint64_t BKSHIDEventDigitizerDetachTouches(void *a1, int a2, void *a3, double a4
   v12 = v11;
   if (v11 >= 0x20)
   {
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"need less than 32 identifiers"];
+    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL BKSHIDEventDigitizerDetachTouches(NSArray<NSNumber *> *__strong _Nonnull, uint32_t, BKSHIDTouchRoutingPolicy *__strong _Nonnull, CGPoint)"}];
+      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v39 = v33;
-      v40 = 2114;
-      v41 = @"BKSHIDEvent.m";
-      v42 = 1024;
-      v43 = 2085;
-      v44 = 2114;
-      v45 = v32;
+      v38 = v32;
+      v39 = 2114;
+      v40 = @"BKSHIDEvent.m";
+      v41 = 1024;
+      v42 = 2085;
+      v43 = 2114;
+      v44 = v31;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v32 UTF8String];
+    [v31 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BDDE0);
@@ -2243,36 +2136,36 @@ uint64_t BKSHIDEventDigitizerDetachTouches(void *a1, int a2, void *a3, double a4
 
   if (!v10)
   {
-    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"need a policy (a default one will do)"];
+    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v35 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL BKSHIDEventDigitizerDetachTouches(NSArray<NSNumber *> *__strong _Nonnull, uint32_t, BKSHIDTouchRoutingPolicy *__strong _Nonnull, CGPoint)"}];
+      v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v39 = v35;
-      v40 = 2114;
-      v41 = @"BKSHIDEvent.m";
-      v42 = 1024;
-      v43 = 2087;
-      v44 = 2114;
-      v45 = v34;
+      v38 = v34;
+      v39 = 2114;
+      v40 = @"BKSHIDEvent.m";
+      v41 = 1024;
+      v42 = 2087;
+      v43 = 2114;
+      v44 = v33;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v34 UTF8String];
+    [v33 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BDEA8);
   }
 
   MEMORY[0x1EEE9AC00]();
-  v14 = &v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  for (i = 0; i != v12; ++i)
+  v14 = &v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  for (i = 0; i != v12; i = (i + 1))
   {
-    v16 = [v9 objectAtIndex:i];
+    v16 = [v9 objectAtIndex:?];
     *&v14[4 * i] = [v16 unsignedIntValue];
   }
 
-  v17 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v10];
+  v17 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   if (!v17)
   {
     v23 = BKLogCommon();
@@ -2282,19 +2175,19 @@ uint64_t BKSHIDEventDigitizerDetachTouches(void *a1, int a2, void *a3, double a4
     }
 
     *buf = 138543362;
-    v39 = v10;
+    v38 = v10;
     v24 = "Error encoding policy: %{public}@";
     goto LABEL_18;
   }
 
-  v37 = 0;
+  v36 = 0;
   v18 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
   v19 = a4;
   v20 = a5;
-  v21 = _BKSHIDDigitizerTouchDetach(v18, v19, v20, v14, v12, a2, [v17 bytes], objc_msgSend(v17, "length"), &v37);
+  v21 = _BKSHIDDigitizerTouchDetach(v18, v14, v12, v8, [v17 bytes], objc_msgSend(v17, "length"), &v36, v19, v20);
   if (!v21)
   {
-    if (v37)
+    if (v36)
     {
       v27 = 1;
       goto LABEL_12;
@@ -2307,7 +2200,7 @@ uint64_t BKSHIDEventDigitizerDetachTouches(void *a1, int a2, void *a3, double a4
     }
 
     *buf = 138543362;
-    v39 = v9;
+    v38 = v9;
     v24 = "Touches not found:%{public}@";
 LABEL_18:
     v25 = v23;
@@ -2320,7 +2213,7 @@ LABEL_18:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    LODWORD(v39) = v22;
+    LODWORD(v38) = v22;
     v24 = "Error detaching touches: 0x%X";
     v25 = v23;
     v26 = 8;
@@ -2333,7 +2226,6 @@ LABEL_11:
   v27 = 0;
 LABEL_12:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -2346,62 +2238,63 @@ uint64_t __BKSHIDEventDigitizerDetachTouchesWithIdentifiers_block_invoke()
   return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-uint64_t BKSHIDEventDigitizerSetTouchOffset(int a1, double a2, double a3)
+uint64_t BKSHIDEventDigitizerSetTouchOffset(uint64_t a1, double a2, double a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"need nonzero userIdentififer"];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventDigitizerSetTouchOffset(uint32_t, CGPoint)"}];
-      v13 = 138544130;
-      v14 = v12;
-      v15 = 2114;
-      v16 = @"BKSHIDEvent.m";
-      v17 = 1024;
-      v18 = 2117;
-      v19 = 2114;
-      v20 = v11;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v13, 0x26u);
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+      v12 = 138544130;
+      v13 = v11;
+      v14 = 2114;
+      v15 = @"BKSHIDEvent.m";
+      v16 = 1024;
+      v17 = 2117;
+      v18 = 2114;
+      v19 = v10;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v12, 0x26u);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BE06CLL);
   }
 
+  v5 = a1;
   v6 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  v7 = *MEMORY[0x1E69E9840];
 
-  v8 = a2;
-  v9 = a3;
-  return _BKSHIDDigitizerTouchSetOffset(v6, a1, v8, v9);
+  v7 = a2;
+  v8 = a3;
+  return _BKSHIDDigitizerTouchSetOffset(v6, v5, v7, v8);
 }
 
-void BKSHIDEventDigitizerSetTouchRoutingPolicy(int a1, void *a2)
+void BKSHIDEventDigitizerSetTouchRoutingPolicy(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  if (!a1)
+  if (!v2)
   {
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"zero is not a valid userIdentifier"];
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventDigitizerSetTouchRoutingPolicy(uint32_t, BKSHIDTouchRoutingPolicy *__strong _Nonnull)"}];
+      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      *v30 = v16;
-      *&v30[8] = 2114;
-      v31 = @"BKSHIDEvent.m";
-      v32 = 1024;
-      v33 = 2123;
-      v34 = 2114;
-      v35 = v15;
+      *v29 = v15;
+      *&v29[8] = 2114;
+      v30 = @"BKSHIDEvent.m";
+      v31 = 1024;
+      v32 = 2123;
+      v33 = 2114;
+      v34 = v14;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v15 UTF8String];
+    [v14 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BE30CLL);
@@ -2410,26 +2303,26 @@ void BKSHIDEventDigitizerSetTouchRoutingPolicy(int a1, void *a2)
   v4 = v3;
   if (!v4)
   {
-    v17 = MEMORY[0x1E696AEC0];
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = [v17 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"policyForDetachedTouches", v19];
+    v16 = MEMORY[0x1E696AEC0];
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v19 = [v16 stringWithFormat:@"policyForDetachedTouches", v18];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventDigitizerSetTouchRoutingPolicy(uint32_t, BKSHIDTouchRoutingPolicy *__strong _Nonnull)"}];
+      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      *v30 = v21;
-      *&v30[8] = 2114;
-      v31 = @"BKSHIDEvent.m";
-      v32 = 1024;
-      v33 = 2124;
-      v34 = 2114;
-      v35 = v20;
+      *v29 = v20;
+      *&v29[8] = 2114;
+      v30 = @"BKSHIDEvent.m";
+      v31 = 1024;
+      v32 = 2124;
+      v33 = 2114;
+      v34 = v19;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v20 UTF8String];
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BE400);
@@ -2439,48 +2332,48 @@ void BKSHIDEventDigitizerSetTouchRoutingPolicy(int a1, void *a2)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v22 = MEMORY[0x1E696AEC0];
-    v23 = [v5 classForCoder];
-    if (!v23)
+    v21 = MEMORY[0x1E696AEC0];
+    v22 = [v5 classForCoder];
+    if (!v22)
     {
-      v23 = objc_opt_class();
+      v22 = objc_opt_class();
     }
 
-    v24 = NSStringFromClass(v23);
-    v25 = objc_opt_class();
-    v26 = NSStringFromClass(v25);
-    v27 = [v22 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"policyForDetachedTouches", v24, v26];
+    v23 = NSStringFromClass(v22);
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    v26 = [v21 stringWithFormat:@"policyForDetachedTouches", v23, v25];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventDigitizerSetTouchRoutingPolicy(uint32_t, BKSHIDTouchRoutingPolicy *__strong _Nonnull)"}];
+      v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      *v30 = v28;
-      *&v30[8] = 2114;
-      v31 = @"BKSHIDEvent.m";
-      v32 = 1024;
-      v33 = 2124;
-      v34 = 2114;
-      v35 = v27;
+      *v29 = v27;
+      *&v29[8] = 2114;
+      v30 = @"BKSHIDEvent.m";
+      v31 = 1024;
+      v32 = 2124;
+      v33 = 2114;
+      v34 = v26;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v27 UTF8String];
+    [v26 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BE518);
   }
 
-  v6 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v5];
+  v6 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   if (!v6)
   {
     v10 = BKLogCommon();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      *v30 = v5;
-      *&v30[8] = 1024;
-      LODWORD(v31) = a1;
+      *v29 = v5;
+      *&v29[8] = 1024;
+      LODWORD(v30) = v2;
       v11 = "Error encoding policy: %{public}@ for touches with userIdentifier:%X";
       v12 = v10;
       v13 = 18;
@@ -2493,7 +2386,7 @@ LABEL_9:
   }
 
   v7 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  v8 = _BKSHIDDigitizerTouchSetRoutingPolicy(v7, a1, [v6 bytes], objc_msgSend(v6, "length"));
+  v8 = _BKSHIDDigitizerTouchSetRoutingPolicy(v7, v2, [v6 bytes], objc_msgSend(v6, "length"));
   if (v8)
   {
     v9 = v8;
@@ -2501,9 +2394,9 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      *v30 = v9;
-      *&v30[4] = 1024;
-      *&v30[6] = a1;
+      *v29 = v9;
+      *&v29[4] = 1024;
+      *&v29[6] = v2;
       v11 = "Error setting touch routing policy:0x%X for touches with userIdentifier:%X";
       v12 = v10;
       v13 = 14;
@@ -2516,33 +2409,32 @@ LABEL_12:
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void BKSHIDEventTransferTouchesToDifferentCAContext(void *a1, mach_port_name_t a2)
+void BKSHIDEventTransferTouchesToDifferentCAContext(void *a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [v3 count];
   if (v4 <= 0)
   {
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"need more than zero identifiers"];
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventTransferTouchesToDifferentCAContext(NSArray<NSNumber *> *__strong, uint32_t)"}];
+      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v22 = v16;
-      v23 = 2114;
-      v24 = @"BKSHIDEvent.m";
-      v25 = 1024;
-      v26 = 2139;
-      v27 = 2114;
-      v28 = v15;
+      v21 = v15;
+      v22 = 2114;
+      v23 = @"BKSHIDEvent.m";
+      v24 = 1024;
+      v25 = 2139;
+      v26 = 2114;
+      v27 = v14;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v15 UTF8String];
+    [v14 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BE770);
@@ -2551,45 +2443,45 @@ void BKSHIDEventTransferTouchesToDifferentCAContext(void *a1, mach_port_name_t a
   v5 = v4;
   if (v4 >= 0x20)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"need less than 32 identifiers"];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventTransferTouchesToDifferentCAContext(NSArray<NSNumber *> *__strong, uint32_t)"}];
+      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v22 = v18;
-      v23 = 2114;
-      v24 = @"BKSHIDEvent.m";
-      v25 = 1024;
-      v26 = 2140;
-      v27 = 2114;
-      v28 = v17;
+      v21 = v17;
+      v22 = 2114;
+      v23 = @"BKSHIDEvent.m";
+      v24 = 1024;
+      v25 = 2140;
+      v26 = 2114;
+      v27 = v16;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v17 UTF8String];
+    [v16 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BE838);
   }
 
-  if (!a2)
+  if (!v2)
   {
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"need nonzero contextID"];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventTransferTouchesToDifferentCAContext(NSArray<NSNumber *> *__strong, uint32_t)"}];
+      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v22 = v20;
-      v23 = 2114;
-      v24 = @"BKSHIDEvent.m";
-      v25 = 1024;
-      v26 = 2141;
-      v27 = 2114;
-      v28 = v19;
+      v21 = v19;
+      v22 = 2114;
+      v23 = @"BKSHIDEvent.m";
+      v24 = 1024;
+      v25 = 2141;
+      v26 = 2114;
+      v27 = v18;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v19 UTF8String];
+    [v18 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863BE900);
@@ -2597,14 +2489,14 @@ void BKSHIDEventTransferTouchesToDifferentCAContext(void *a1, mach_port_name_t a
 
   MEMORY[0x1EEE9AC00]();
   v7 = &buf[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  for (i = 0; i != v5; ++i)
+  for (i = 0; i != v5; i = (i + 1))
   {
-    v9 = [v3 objectAtIndex:i];
+    v9 = [v3 objectAtIndex:?];
     *&v7[4 * i] = [v9 unsignedIntValue];
   }
 
   v10 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  v11 = _BKSHIDTouchTransfer(v10, v7, v5, a2);
+  v11 = _BKSHIDTouchTransfer(v10, v7, v5, v2);
   if (v11)
   {
     v12 = v11;
@@ -2612,58 +2504,57 @@ void BKSHIDEventTransferTouchesToDifferentCAContext(void *a1, mach_port_name_t a
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v22) = v12;
+      LODWORD(v21) = v12;
       _os_log_error_impl(&dword_186345000, v13, OS_LOG_TYPE_ERROR, "Error transferring touches: 0x%X", buf, 8u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t _BKSHIDGetBacklightFactor(int a1, _DWORD *a2)
+uint64_t _BKSHIDGetBacklightFactor(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8D8000000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000100)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = *&name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -2674,47 +2565,47 @@ uint64_t _BKSHIDGetBacklightFactor(int a1, _DWORD *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -2722,7 +2613,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _BKSHIDSetBacklightFactorPending(mach_port_t a1, float a2)
@@ -2753,26 +2644,27 @@ uint64_t _BKSHIDSetBacklightFactorPending(mach_port_t a1, float a2)
   return v2;
 }
 
-uint64_t _BKSHIDSetBacklightFactorWithFadeDuration(mach_port_t a1, char a2, char a3, float a4, float a5)
+uint64_t _BKSHIDSetBacklightFactorWithFadeDuration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float a5, float a6)
 {
-  v13 = a4;
-  v12 = *MEMORY[0x1E69E99E0];
+  v6 = a1;
   v14 = a5;
-  v15 = a2;
-  v16 = 0;
+  v13 = *MEMORY[0x1E69E99E0];
+  v15 = a6;
+  v16 = a2;
   v17 = 0;
-  v18 = a3;
-  v19 = 0;
+  v18 = 0;
+  v19 = a3;
   v20 = 0;
+  v21 = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&v11.msgh_bits = 5395;
-  v11.msgh_remote_port = a1;
-  v11.msgh_local_port = special_reply_port;
-  *&v11.msgh_voucher_port = 0x5B8D8200000000;
+  *&v12.msgh_bits = 5395;
+  v12.msgh_remote_port = v6;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x5B8D8200000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v11);
-    msgh_local_port = v11.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -2780,62 +2672,67 @@ uint64_t _BKSHIDSetBacklightFactorWithFadeDuration(mach_port_t a1, char a2, char
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v11, 3162115, 0x30u, 0x2Cu, msgh_local_port, 0, 0);
-  v9 = v8;
-  if ((v8 - 268435458) <= 0xE && ((1 << (v8 - 2)) & 0x4003) != 0)
+  v9 = mach_msg(&v12, 3162115, 0x30u, 0x2Cu, msgh_local_port, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) <= 0xE && ((1 << (v9 - 2)) & 0x4003) != 0)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  if (v8)
+  if (v9)
   {
     mig_dealloc_special_reply_port();
-LABEL_14:
-    if ((v9 - 268435459) > 1)
+LABEL_15:
+    if ((v10 - 268435459) > 1)
     {
-      return v9;
+      return v10;
     }
 
-    if ((v11.msgh_bits & 0x1F00) == 0x1100)
+    if ((v12.msgh_bits & 0x1F00) == 0x1100)
     {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], v11.msgh_local_port);
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], v12.msgh_local_port);
     }
 
-LABEL_19:
-    mach_msg_destroy(&v11);
-    return v9;
+LABEL_20:
+    mach_msg_destroy(&v12);
+    return v10;
   }
 
-  if (v11.msgh_id == 71)
+  if (v12.msgh_id == 71)
   {
-    v9 = 4294966988;
-    goto LABEL_19;
+    v10 = 4294966988;
+    goto LABEL_20;
   }
 
-  if (v11.msgh_id != 6000102)
+  if (v12.msgh_id != 6000102)
   {
-    v9 = 4294966995;
-    goto LABEL_19;
+    v10 = 4294966995;
+    goto LABEL_20;
   }
 
-  v9 = 4294966996;
-  if ((v11.msgh_bits & 0x80000000) != 0)
+  v10 = 4294966996;
+  if ((v12.msgh_bits & 0x80000000) != 0)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  if (*&v11.msgh_size != 36)
+  if (v12.msgh_size != 36)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  v9 = LODWORD(v13);
-  if (v13 != 0.0)
+  if (v12.msgh_remote_port)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  return v9;
+  v10 = LODWORD(v14);
+  if (v14 != 0.0)
+  {
+    goto LABEL_20;
+  }
+
+  return v10;
 }
 
 uint64_t _BKSHIDNotifySetBacklightFactorWithFadeDurationAsync(mach_port_t a1, char a2, char a3, char a4, float a5, float a6)
@@ -2876,50 +2773,51 @@ uint64_t _BKSHIDNotifySetBacklightFactorWithFadeDurationAsync(mach_port_t a1, ch
   return v6;
 }
 
-uint64_t _BKSHIDBrigthnessIsAutoBrightnessAvailable(int a1, _BYTE *a2)
+uint64_t _BKSHIDBrigthnessIsAutoBrightnessAvailable(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8D8500000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000105)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -2930,47 +2828,47 @@ uint64_t _BKSHIDBrigthnessIsAutoBrightnessAvailable(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -2978,53 +2876,54 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t _BKSHIDBrigthnessIsBrightnessLevelControlAvailable(int a1, _BYTE *a2)
+uint64_t _BKSHIDBrigthnessIsBrightnessLevelControlAvailable(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8D8600000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000106)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -3035,47 +2934,47 @@ uint64_t _BKSHIDBrigthnessIsBrightnessLevelControlAvailable(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -3083,7 +2982,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _BKSHIDSetBacklightFeatures(int a1, uint64_t a2, int a3)
@@ -3115,50 +3014,51 @@ uint64_t _BKSHIDSetBacklightFeatures(int a1, uint64_t a2, int a3)
   return v3;
 }
 
-uint64_t _BKSHIDAmbientLightSensorExists(int a1, _BYTE *a2)
+uint64_t _BKSHIDAmbientLightSensorExists(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8D8800000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000108)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -3169,47 +3069,47 @@ uint64_t _BKSHIDAmbientLightSensorExists(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -3217,7 +3117,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _BKSHIDAmbientLightSensorDisableAutoBrightness(mach_port_t a1)
@@ -3306,52 +3206,53 @@ uint64_t _BKSHIDSetDeviceOrientationForAutomation(mach_port_t a1, char a2)
   return v2;
 }
 
-uint64_t _BKSHIDRequestEstimatedProximityEvents(int a1, _DWORD *a2, float a3)
+uint64_t _BKSHIDRequestEstimatedProximityEvents(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, float a5)
 {
+  v6 = a1;
   memset(&name[16], 0, 28);
   *name = 0u;
   *&name[20] = *MEMORY[0x1E69E99E0];
-  *&name[28] = a3;
+  *&name[28] = a5;
   special_reply_port = mig_get_special_reply_port();
-  *&name[4] = a1;
+  *&name[4] = v6;
   *&name[8] = special_reply_port;
-  v11 = 5395;
+  v13 = 5395;
   *&name[12] = 0x5B8D8D00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v11);
-    v6 = *&name[8];
+    voucher_mach_msg_set(&v13);
+    v8 = *&name[8];
   }
 
   else
   {
-    v6 = special_reply_port;
+    v8 = special_reply_port;
   }
 
-  v7 = mach_msg(&v11, 3162115, 0x24u, 0x30u, v6, 0, 0);
-  v8 = v7;
-  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  v9 = mach_msg(&v13, 3162115, 0x24u, 0x30u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
-    if (!v7)
+    if (!v9)
     {
       if (*&name[16] == 71)
       {
-        v8 = 4294966988;
+        v10 = 4294966988;
       }
 
       else if (*&name[16] == 6000113)
       {
-        if ((v11 & 0x80000000) == 0)
+        if ((v13 & 0x80000000) == 0)
         {
           if (*name == 40)
           {
             if (!*&name[4])
             {
-              v8 = *&name[28];
+              v10 = *&name[28];
               if (!*&name[28])
               {
                 *a2 = *&name[32];
-                return v8;
+                return v10;
               }
 
               goto LABEL_26;
@@ -3362,47 +3263,47 @@ uint64_t _BKSHIDRequestEstimatedProximityEvents(int a1, _DWORD *a2, float a3)
           {
             if (*&name[4])
             {
-              v9 = 1;
+              v11 = 1;
             }
 
             else
             {
-              v9 = *&name[28] == 0;
+              v11 = *&name[28] == 0;
             }
 
-            if (v9)
+            if (v11)
             {
-              v8 = 4294966996;
+              v10 = 4294966996;
             }
 
             else
             {
-              v8 = *&name[28];
+              v10 = *&name[28];
             }
 
             goto LABEL_26;
           }
         }
 
-        v8 = 4294966996;
+        v10 = 4294966996;
       }
 
       else
       {
-        v8 = 4294966995;
+        v10 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v11);
-      return v8;
+      mach_msg_destroy(&v13);
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v8 - 268435459) <= 1)
+  if ((v10 - 268435459) <= 1)
   {
-    if ((v11 & 0x1F00) == 0x1100)
+    if ((v13 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], *&name[8]);
     }
@@ -3410,33 +3311,33 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v8;
+  return v10;
 }
 
 uint64_t _BKSHIDRequestProximityStatusEvent(mach_port_name_t a1, const char *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  memset(v10, 0, 480);
+  v10 = *MEMORY[0x1E69E9840];
+  memset(v9, 0, 480);
   *name = 0u;
-  v9 = 0u;
-  *(&v9 + 1) = *MEMORY[0x1E69E99E0];
+  v8 = 0u;
+  *(&v8 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 1024);
+    v3 = mig_strncpy_zerofill(v9 + 8, a2, 1024);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 1024);
+    v3 = mig_strncpy(v9 + 8, a2, 1024);
   }
 
-  LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  LODWORD(v9[0]) = 0;
+  DWORD1(v9[0]) = v3;
   v4 = (v3 + 3) & 0xFFFFFFFC;
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v9 = 0x5B8D8E00000000;
+  *&v8 = 0x5B8D8E00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -3453,7 +3354,6 @@ uint64_t _BKSHIDRequestProximityStatusEvent(mach_port_name_t a1, const char *a2)
     mach_msg_destroy(name);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -3509,50 +3409,51 @@ uint64_t _BKSHIDProximityDidUnoccludeAfterScreenWake(mach_port_t a1)
   return v1;
 }
 
-uint64_t _BKSHIDGetObjectInProximityIgnoresTouches(int a1, _BYTE *a2)
+uint64_t _BKSHIDGetObjectInProximityIgnoresTouches(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8D9300000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000119)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -3563,47 +3464,47 @@ uint64_t _BKSHIDGetObjectInProximityIgnoresTouches(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -3611,7 +3512,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _BKSHIDSetObjectInProximityIgnoresTouches(mach_port_t a1, char a2)
@@ -3644,50 +3545,51 @@ uint64_t _BKSHIDSetObjectInProximityIgnoresTouches(mach_port_t a1, char a2)
   return v2;
 }
 
-uint64_t _BKSHIDGetRingerState(int a1, _DWORD *a2)
+uint64_t _BKSHIDGetRingerState(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8D9500000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000121)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = *&name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -3698,47 +3600,47 @@ uint64_t _BKSHIDGetRingerState(int a1, _DWORD *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -3746,18 +3648,19 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t _BKSHIDCancelButtonEventsFromSenderID(mach_port_t a1, uint64_t a2, int a3, int a4)
+uint64_t _BKSHIDCancelButtonEventsFromSenderID(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a1;
   v11 = *MEMORY[0x1E69E99E0];
   v12 = a2;
   v13 = a3;
   v14 = a4;
   special_reply_port = mig_get_special_reply_port();
   *&v10.msgh_bits = 5395;
-  v10.msgh_remote_port = a1;
+  v10.msgh_remote_port = v4;
   v10.msgh_local_port = special_reply_port;
   *&v10.msgh_voucher_port = 0x5B8D9700000000;
   if (MEMORY[0x1EEE9AC50])
@@ -3775,13 +3678,13 @@ uint64_t _BKSHIDCancelButtonEventsFromSenderID(mach_port_t a1, uint64_t a2, int 
   v8 = v7;
   if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   if (v7)
   {
     mig_dealloc_special_reply_port();
-LABEL_14:
+LABEL_15:
     if ((v8 - 268435459) > 1)
     {
       return v8;
@@ -3792,7 +3695,7 @@ LABEL_14:
       mach_port_deallocate(*MEMORY[0x1E69E9A60], v10.msgh_local_port);
     }
 
-LABEL_19:
+LABEL_20:
     mach_msg_destroy(&v10);
     return v8;
   }
@@ -3800,30 +3703,35 @@ LABEL_19:
   if (v10.msgh_id == 71)
   {
     v8 = 4294966988;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   if (v10.msgh_id != 6000123)
   {
     v8 = 4294966995;
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v8 = 4294966996;
   if ((v10.msgh_bits & 0x80000000) != 0)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  if (*&v10.msgh_size != 36)
+  if (v10.msgh_size != 36)
   {
-    goto LABEL_19;
+    goto LABEL_20;
+  }
+
+  if (v10.msgh_remote_port)
+  {
+    goto LABEL_20;
   }
 
   v8 = v12;
   if (v12)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   return v8;
@@ -3831,29 +3739,29 @@ LABEL_19:
 
 uint64_t _BKSHIDClaimGenericGestureFocus(mach_port_name_t a1, const char *a2, int a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  memset(v12, 0, 480);
+  v12 = *MEMORY[0x1E69E9840];
+  memset(v11, 0, 480);
   *name = 0u;
-  v11 = 0u;
-  *(&v11 + 1) = *MEMORY[0x1E69E99E0];
+  v10 = 0u;
+  *(&v10 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v12 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v11 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v12 + 8, a2, 1024);
+    v5 = mig_strncpy(v11 + 8, a2, 1024);
   }
 
-  LODWORD(v12[0]) = 0;
-  DWORD1(v12[0]) = v5;
+  LODWORD(v11[0]) = 0;
+  DWORD1(v11[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
-  *(v12 + v6 + 8) = a3;
+  *(v11 + v6 + 8) = a3;
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v11 = 0x5B8D9800000000;
+  *&v10 = 0x5B8D9800000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -3870,7 +3778,6 @@ uint64_t _BKSHIDClaimGenericGestureFocus(mach_port_name_t a1, const char *a2, in
     mach_msg_destroy(name);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -4047,24 +3954,24 @@ uint64_t _BKSHIDRequestHapticFeedback(int a1, uint64_t a2, int a3)
 
 uint64_t _BKSHIDTouchStreamCreate(mach_port_name_t a1, int a2, char *src, int a4, char a5, _DWORD *a6)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  memset(v22, 0, 480);
+  v22 = *MEMORY[0x1E69E9840];
+  memset(v21, 0, 480);
   *name = 0u;
-  v21 = 0u;
-  *(&v21 + 1) = *MEMORY[0x1E69E99E0];
-  LODWORD(v22[0]) = a2;
+  v20 = 0u;
+  *(&v20 + 1) = *MEMORY[0x1E69E99E0];
+  LODWORD(v21[0]) = a2;
   if (MEMORY[0x1EEE9AC40])
   {
-    v10 = mig_strncpy_zerofill(v22 + 12, src, 1024);
+    v10 = mig_strncpy_zerofill(v21 + 12, src, 1024);
   }
 
   else
   {
-    v10 = mig_strncpy(v22 + 12, src, 1024);
+    v10 = mig_strncpy(v21 + 12, src, 1024);
   }
 
-  DWORD1(v22[0]) = 0;
-  DWORD2(v22[0]) = v10;
+  DWORD1(v21[0]) = 0;
+  DWORD2(v21[0]) = v10;
   v11 = (v10 + 3) & 0xFFFFFFFC;
   v12 = name + v11;
   *(v12 + 11) = a4;
@@ -4075,7 +3982,7 @@ uint64_t _BKSHIDTouchStreamCreate(mach_port_name_t a1, int a2, char *src, int a4
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v21 = 0x5B8DA100000000;
+  *&v20 = 0x5B8DA100000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -4093,12 +4000,12 @@ uint64_t _BKSHIDTouchStreamCreate(mach_port_name_t a1, int a2, char *src, int a4
   {
     if (!v15)
     {
-      if (DWORD1(v21) == 71)
+      if (DWORD1(v20) == 71)
       {
         v16 = 4294966988;
       }
 
-      else if (DWORD1(v21) == 6000133)
+      else if (DWORD1(v20) == 6000133)
       {
         if ((name[0] & 0x80000000) == 0)
         {
@@ -4106,11 +4013,11 @@ uint64_t _BKSHIDTouchStreamCreate(mach_port_name_t a1, int a2, char *src, int a4
           {
             if (!name[2])
             {
-              v16 = LODWORD(v22[0]);
-              if (!LODWORD(v22[0]))
+              v16 = LODWORD(v21[0]);
+              if (!LODWORD(v21[0]))
               {
-                *a6 = DWORD1(v22[0]);
-                goto LABEL_30;
+                *a6 = DWORD1(v21[0]);
+                return v16;
               }
 
               goto LABEL_29;
@@ -4126,7 +4033,7 @@ uint64_t _BKSHIDTouchStreamCreate(mach_port_name_t a1, int a2, char *src, int a4
 
             else
             {
-              v17 = LODWORD(v22[0]) == 0;
+              v17 = LODWORD(v21[0]) == 0;
             }
 
             if (v17)
@@ -4136,7 +4043,7 @@ uint64_t _BKSHIDTouchStreamCreate(mach_port_name_t a1, int a2, char *src, int a4
 
             else
             {
-              v16 = LODWORD(v22[0]);
+              v16 = LODWORD(v21[0]);
             }
 
             goto LABEL_29;
@@ -4153,7 +4060,7 @@ uint64_t _BKSHIDTouchStreamCreate(mach_port_name_t a1, int a2, char *src, int a4
 
 LABEL_29:
       mach_msg_destroy(name);
-      goto LABEL_30;
+      return v16;
     }
 
     mig_dealloc_special_reply_port();
@@ -4169,48 +4076,47 @@ LABEL_29:
     goto LABEL_29;
   }
 
-LABEL_30:
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
-uint64_t _BKSHIDTouchStreamInvalidate(int a1, int a2)
+uint64_t _BKSHIDTouchStreamInvalidate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a1;
   *&msg[20] = 0u;
-  v9 = 0;
+  v11 = 0;
   *&msg[4] = 0u;
   *&msg[24] = *MEMORY[0x1E69E99E0];
   *&msg[32] = a2;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v4;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x5B8DA200000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v4 = *&msg[12];
+    v6 = *&msg[12];
   }
 
   else
   {
-    v4 = special_reply_port;
+    v6 = special_reply_port;
   }
 
-  v5 = mach_msg(msg, 3162115, 0x24u, 0x2Cu, v4, 0, 0);
-  v6 = v5;
-  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(msg, 3162115, 0x24u, 0x2Cu, v6, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
     goto LABEL_15;
   }
 
-  if (v5)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
 LABEL_15:
-    if ((v6 - 268435459) > 1)
+    if ((v8 - 268435459) > 1)
     {
-      return v6;
+      return v8;
     }
 
     if ((*msg & 0x1F00) == 0x1100)
@@ -4220,22 +4126,22 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(msg);
-    return v6;
+    return v8;
   }
 
   if (*&msg[20] == 71)
   {
-    v6 = 4294966988;
+    v8 = 4294966988;
     goto LABEL_20;
   }
 
   if (*&msg[20] != 6000134)
   {
-    v6 = 4294966995;
+    v8 = 4294966995;
     goto LABEL_20;
   }
 
-  v6 = 4294966996;
+  v8 = 4294966996;
   if ((*msg & 0x80000000) != 0)
   {
     goto LABEL_20;
@@ -4251,13 +4157,13 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v6 = *&msg[32];
+  v8 = *&msg[32];
   if (*&msg[32])
   {
     goto LABEL_20;
   }
 
-  return v6;
+  return v8;
 }
 
 uint64_t _BKSHIDTouchTransfer(mach_port_name_t a1, uint64_t a2, unsigned int a3, mach_port_name_t a4)
@@ -4362,35 +4268,35 @@ LABEL_22:
   return v4;
 }
 
-uint64_t _BKSHIDDigitizerTouchDetach(mach_port_t a1, float a2, float a3, uint64_t a4, unsigned int a5, int a6, uint64_t a7, unsigned int a8, _BYTE *a9)
+uint64_t _BKSHIDDigitizerTouchDetach(mach_port_t a1, uint64_t a2, unsigned int a3, int a4, uint64_t a5, unsigned int a6, _BYTE *a7, float a8, float a9)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  *&v29[8] = 0u;
-  v38 = 0;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
+  v38 = *MEMORY[0x1E69E9840];
+  *&v28[8] = 0u;
+  v37 = 0;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   memset(&name, 0, sizeof(name));
-  v26 = 1;
-  v27 = a7;
-  v28 = 16777472;
-  *v29 = a8;
-  *&v29[4] = *MEMORY[0x1E69E99E0];
-  if (a5 <= 0x20)
+  v25 = 1;
+  v26 = a5;
+  v27 = 16777472;
+  *v28 = a6;
+  *&v28[4] = *MEMORY[0x1E69E99E0];
+  if (a3 <= 0x20)
   {
-    v17 = 4 * a5;
+    v17 = 4 * a3;
     __memcpy_chk();
-    *&v29[12] = a5;
+    *&v28[12] = a3;
     v18 = &name + v17;
-    *(v18 + 14) = a6;
-    *(v18 + 15) = a2;
-    *(v18 + 16) = a3;
-    *(v18 + 17) = a8;
+    *(v18 + 14) = a4;
+    *(v18 + 15) = a8;
+    *(v18 + 16) = a9;
+    *(v18 + 17) = a6;
     special_reply_port = mig_get_special_reply_port();
     name.msgh_remote_port = a1;
     name.msgh_local_port = special_reply_port;
@@ -4426,11 +4332,11 @@ uint64_t _BKSHIDDigitizerTouchDetach(mach_port_t a1, float a2, float a3, uint64_
             {
               if (!name.msgh_remote_port)
               {
-                v10 = HIDWORD(v27);
-                if (!HIDWORD(v27))
+                v10 = HIDWORD(v26);
+                if (!HIDWORD(v26))
                 {
-                  *a9 = v28;
-                  goto LABEL_29;
+                  *a7 = v27;
+                  return v10;
                 }
 
                 goto LABEL_28;
@@ -4446,7 +4352,7 @@ uint64_t _BKSHIDDigitizerTouchDetach(mach_port_t a1, float a2, float a3, uint64_
 
               else
               {
-                v22 = HIDWORD(v27) == 0;
+                v22 = HIDWORD(v26) == 0;
               }
 
               if (v22)
@@ -4456,7 +4362,7 @@ uint64_t _BKSHIDDigitizerTouchDetach(mach_port_t a1, float a2, float a3, uint64_
 
               else
               {
-                v10 = HIDWORD(v27);
+                v10 = HIDWORD(v26);
               }
 
               goto LABEL_28;
@@ -4473,7 +4379,7 @@ uint64_t _BKSHIDDigitizerTouchDetach(mach_port_t a1, float a2, float a3, uint64_
 
 LABEL_28:
         mach_msg_destroy(&name);
-        goto LABEL_29;
+        return v10;
       }
 
       mig_dealloc_special_reply_port();
@@ -4481,7 +4387,7 @@ LABEL_28:
 
     if ((v10 - 268435459) > 1)
     {
-      goto LABEL_29;
+      return v10;
     }
 
     if ((name.msgh_bits & 0x1F00) == 0x1100)
@@ -4492,10 +4398,7 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v10 = 4294966989;
-LABEL_29:
-  v23 = *MEMORY[0x1E69E9840];
-  return v10;
+  return 4294966989;
 }
 
 uint64_t _BKSHIDDigitizerTouchSetOffset(mach_port_t a1, int a2, float a3, float a4)
@@ -4613,50 +4516,51 @@ uint64_t _BKSHIDNotifyOnNextUserEvent(mach_port_t a1)
   return v1;
 }
 
-uint64_t _BKSHIDSafeToResetIdleTimer(int a1, _BYTE *a2)
+uint64_t _BKSHIDSafeToResetIdleTimer(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8DAB00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000143)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -4667,47 +4571,47 @@ uint64_t _BKSHIDSafeToResetIdleTimer(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -4715,53 +4619,54 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t _BKSHIDGetCurrentDeviceOrientation(int a1, _DWORD *a2)
+uint64_t _BKSHIDGetCurrentDeviceOrientation(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8DAD00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000145)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = *&name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -4772,47 +4677,47 @@ uint64_t _BKSHIDGetCurrentDeviceOrientation(int a1, _DWORD *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -4820,28 +4725,28 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _BKSHIDSetOrientationClient(mach_port_name_t a1, const char *a2, char a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  memset(v13, 0, 480);
+  v13 = *MEMORY[0x1E69E9840];
+  memset(v12, 0, 480);
   *name = 0u;
-  v12 = 0u;
-  *(&v12 + 1) = *MEMORY[0x1E69E99E0];
+  v11 = 0u;
+  *(&v11 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v13 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v12 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v13 + 8, a2, 1024);
+    v5 = mig_strncpy(v12 + 8, a2, 1024);
   }
 
-  LODWORD(v13[0]) = 0;
-  DWORD1(v13[0]) = v5;
+  LODWORD(v12[0]) = 0;
+  DWORD1(v12[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   v7 = name + v6;
   v7[40] = a3;
@@ -4850,7 +4755,7 @@ uint64_t _BKSHIDSetOrientationClient(mach_port_name_t a1, const char *a2, char a
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v12 = 0x5B8DAE00000000;
+  *&v11 = 0x5B8DAE00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -4867,48 +4772,48 @@ uint64_t _BKSHIDSetOrientationClient(mach_port_name_t a1, const char *a2, char a
     mach_msg_destroy(name);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
-uint64_t _BKSHIDLockOrientation(int a1, int a2, char a3)
+uint64_t _BKSHIDLockOrientation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a1;
   *&msg[20] = 0u;
-  v10 = 0;
+  v11 = 0;
   *&msg[4] = 0u;
   *&msg[24] = *MEMORY[0x1E69E99E0];
   *&msg[32] = a2;
-  LOBYTE(v10) = a3;
+  LOBYTE(v11) = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v4;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x5B8DAF00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v5 = *&msg[12];
+    v6 = *&msg[12];
   }
 
   else
   {
-    v5 = special_reply_port;
+    v6 = special_reply_port;
   }
 
-  v6 = mach_msg(msg, 3162115, 0x28u, 0x2Cu, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) <= 0xE && ((1 << (v6 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(msg, 3162115, 0x28u, 0x2Cu, v6, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
     goto LABEL_15;
   }
 
-  if (v6)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
 LABEL_15:
-    if ((v7 - 268435459) > 1)
+    if ((v8 - 268435459) > 1)
     {
-      return v7;
+      return v8;
     }
 
     if ((*msg & 0x1F00) == 0x1100)
@@ -4918,22 +4823,22 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(msg);
-    return v7;
+    return v8;
   }
 
   if (*&msg[20] == 71)
   {
-    v7 = 4294966988;
+    v8 = 4294966988;
     goto LABEL_20;
   }
 
   if (*&msg[20] != 6000147)
   {
-    v7 = 4294966995;
+    v8 = 4294966995;
     goto LABEL_20;
   }
 
-  v7 = 4294966996;
+  v8 = 4294966996;
   if ((*msg & 0x80000000) != 0)
   {
     goto LABEL_20;
@@ -4949,13 +4854,13 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v7 = *&msg[32];
+  v8 = *&msg[32];
   if (*&msg[32])
   {
     goto LABEL_20;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t _BKSHIDUnlockOrientation(mach_port_t a1)
@@ -4984,16 +4889,215 @@ uint64_t _BKSHIDUnlockOrientation(mach_port_t a1)
   return v1;
 }
 
-uint64_t _BKSHIDIsOrientationLockedWithOrientation(int a1, _DWORD *a2, _DWORD *a3)
+uint64_t _BKSHIDIsOrientationLockedWithOrientation(uint64_t a1, _DWORD *a2, _DWORD *a3, uint64_t a4)
 {
+  v6 = a1;
   *&msg[20] = 0u;
-  v14 = 0u;
+  v15 = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v6;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x5B8DB100000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v8 = *&msg[12];
+  }
+
+  else
+  {
+    v8 = special_reply_port;
+  }
+
+  v9 = mach_msg(msg, 3162115, 0x18u, 0x34u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
+  {
+    if (!v9)
+    {
+      if (*&msg[20] == 71)
+      {
+        v10 = 4294966988;
+      }
+
+      else if (*&msg[20] == 6000149)
+      {
+        if ((*msg & 0x80000000) == 0)
+        {
+          if (*&msg[4] == 44)
+          {
+            if (!*&msg[8])
+            {
+              v10 = *&msg[32];
+              if (!*&msg[32])
+              {
+                v13 = DWORD1(v15);
+                *a2 = v15;
+                *a3 = v13;
+                return v10;
+              }
+
+              goto LABEL_26;
+            }
+          }
+
+          else if (*&msg[4] == 36)
+          {
+            if (*&msg[8])
+            {
+              v11 = 1;
+            }
+
+            else
+            {
+              v11 = *&msg[32] == 0;
+            }
+
+            if (v11)
+            {
+              v10 = 4294966996;
+            }
+
+            else
+            {
+              v10 = *&msg[32];
+            }
+
+            goto LABEL_26;
+          }
+        }
+
+        v10 = 4294966996;
+      }
+
+      else
+      {
+        v10 = 4294966995;
+      }
+
+LABEL_26:
+      mach_msg_destroy(msg);
+      return v10;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  if ((v10 - 268435459) <= 1)
+  {
+    if ((*msg & 0x1F00) == 0x1100)
+    {
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
+    }
+
+    goto LABEL_26;
+  }
+
+  return v10;
+}
+
+uint64_t _BKSHIDBeginDisplayBrightnessTransaction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a1;
+  *&msg[20] = 0u;
+  *&msg[4] = 0;
+  *&msg[24] = 1;
+  *&msg[28] = a2;
+  v11 = 1310720;
+  special_reply_port = mig_get_special_reply_port();
+  *&msg[8] = v4;
+  *&msg[12] = special_reply_port;
+  *msg = -2147478253;
+  *&msg[16] = 0x5B8DB500000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v6 = *&msg[12];
+  }
+
+  else
+  {
+    v6 = special_reply_port;
+  }
+
+  v7 = mach_msg(msg, 3162115, 0x28u, 0x2Cu, v6, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
+  {
+    goto LABEL_15;
+  }
+
+  if (v7)
+  {
+    mig_dealloc_special_reply_port();
+LABEL_15:
+    if ((v8 - 268435459) > 1)
+    {
+      return v8;
+    }
+
+    if ((*msg & 0x1F00) == 0x1100)
+    {
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
+    }
+
+LABEL_20:
+    mach_msg_destroy(msg);
+    return v8;
+  }
+
+  if (*&msg[20] == 71)
+  {
+    v8 = 4294966988;
+    goto LABEL_20;
+  }
+
+  if (*&msg[20] != 6000153)
+  {
+    v8 = 4294966995;
+    goto LABEL_20;
+  }
+
+  v8 = 4294966996;
+  if ((*msg & 0x80000000) != 0)
+  {
+    goto LABEL_20;
+  }
+
+  if (*&msg[4] != 36)
+  {
+    goto LABEL_20;
+  }
+
+  if (*&msg[8])
+  {
+    goto LABEL_20;
+  }
+
+  v8 = *&msg[32];
+  if (*&msg[32])
+  {
+    goto LABEL_20;
+  }
+
+  return v8;
+}
+
+uint64_t _BKSHIDSetDisplayBrightnessWithImplicitTransaction(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float a5)
+{
+  v5 = a1;
+  *&msg[20] = 0u;
+  v12 = 0;
+  *&msg[4] = 0u;
+  *&msg[24] = *MEMORY[0x1E69E99E0];
+  *&msg[32] = a5;
+  special_reply_port = mig_get_special_reply_port();
+  *&msg[8] = v5;
+  *&msg[12] = special_reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x5B8DB600000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
@@ -5005,132 +5109,22 @@ uint64_t _BKSHIDIsOrientationLockedWithOrientation(int a1, _DWORD *a2, _DWORD *a
     v7 = special_reply_port;
   }
 
-  v8 = mach_msg(msg, 3162115, 0x18u, 0x34u, v7, 0, 0);
+  v8 = mach_msg(msg, 3162115, 0x24u, 0x2Cu, v7, 0, 0);
   v9 = v8;
-  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  if ((v8 - 268435458) <= 0xE && ((1 << (v8 - 2)) & 0x4003) != 0)
   {
-    if (!v8)
+    goto LABEL_15;
+  }
+
+  if (v8)
+  {
+    mig_dealloc_special_reply_port();
+LABEL_15:
+    if ((v9 - 268435459) > 1)
     {
-      if (*&msg[20] == 71)
-      {
-        v9 = 4294966988;
-      }
-
-      else if (*&msg[20] == 6000149)
-      {
-        if ((*msg & 0x80000000) == 0)
-        {
-          if (*&msg[4] == 44)
-          {
-            if (!*&msg[8])
-            {
-              v9 = *&msg[32];
-              if (!*&msg[32])
-              {
-                v12 = DWORD1(v14);
-                *a2 = v14;
-                *a3 = v12;
-                return v9;
-              }
-
-              goto LABEL_26;
-            }
-          }
-
-          else if (*&msg[4] == 36)
-          {
-            if (*&msg[8])
-            {
-              v10 = 1;
-            }
-
-            else
-            {
-              v10 = *&msg[32] == 0;
-            }
-
-            if (v10)
-            {
-              v9 = 4294966996;
-            }
-
-            else
-            {
-              v9 = *&msg[32];
-            }
-
-            goto LABEL_26;
-          }
-        }
-
-        v9 = 4294966996;
-      }
-
-      else
-      {
-        v9 = 4294966995;
-      }
-
-LABEL_26:
-      mach_msg_destroy(msg);
       return v9;
     }
 
-    mig_dealloc_special_reply_port();
-  }
-
-  if ((v9 - 268435459) <= 1)
-  {
-    if ((*msg & 0x1F00) == 0x1100)
-    {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
-    }
-
-    goto LABEL_26;
-  }
-
-  return v9;
-}
-
-uint64_t _BKSHIDBeginDisplayBrightnessTransaction(int a1, int a2)
-{
-  *&msg[20] = 0u;
-  *&msg[4] = 0;
-  *&msg[24] = 1;
-  *&msg[28] = a2;
-  v9 = 1310720;
-  special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
-  *&msg[12] = special_reply_port;
-  *msg = -2147478253;
-  *&msg[16] = 0x5B8DB500000000;
-  if (MEMORY[0x1EEE9AC50])
-  {
-    voucher_mach_msg_set(msg);
-    v4 = *&msg[12];
-  }
-
-  else
-  {
-    v4 = special_reply_port;
-  }
-
-  v5 = mach_msg(msg, 3162115, 0x28u, 0x2Cu, v4, 0, 0);
-  v6 = v5;
-  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
-  {
-    goto LABEL_15;
-  }
-
-  if (v5)
-  {
-    mig_dealloc_special_reply_port();
-LABEL_15:
-    if ((v6 - 268435459) > 1)
-    {
-      return v6;
-    }
-
     if ((*msg & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
@@ -5138,108 +5132,22 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(msg);
-    return v6;
+    return v9;
   }
 
   if (*&msg[20] == 71)
   {
-    v6 = 4294966988;
-    goto LABEL_20;
-  }
-
-  if (*&msg[20] != 6000153)
-  {
-    v6 = 4294966995;
-    goto LABEL_20;
-  }
-
-  v6 = 4294966996;
-  if ((*msg & 0x80000000) != 0)
-  {
-    goto LABEL_20;
-  }
-
-  if (*&msg[4] != 36)
-  {
-    goto LABEL_20;
-  }
-
-  if (*&msg[8])
-  {
-    goto LABEL_20;
-  }
-
-  v6 = *&msg[32];
-  if (*&msg[32])
-  {
-    goto LABEL_20;
-  }
-
-  return v6;
-}
-
-uint64_t _BKSHIDSetDisplayBrightnessWithImplicitTransaction(int a1, float a2)
-{
-  *&msg[20] = 0u;
-  v9 = 0;
-  *&msg[4] = 0u;
-  *&msg[24] = *MEMORY[0x1E69E99E0];
-  *&msg[32] = a2;
-  special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
-  *&msg[12] = special_reply_port;
-  *msg = 5395;
-  *&msg[16] = 0x5B8DB600000000;
-  if (MEMORY[0x1EEE9AC50])
-  {
-    voucher_mach_msg_set(msg);
-    v4 = *&msg[12];
-  }
-
-  else
-  {
-    v4 = special_reply_port;
-  }
-
-  v5 = mach_msg(msg, 3162115, 0x24u, 0x2Cu, v4, 0, 0);
-  v6 = v5;
-  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
-  {
-    goto LABEL_15;
-  }
-
-  if (v5)
-  {
-    mig_dealloc_special_reply_port();
-LABEL_15:
-    if ((v6 - 268435459) > 1)
-    {
-      return v6;
-    }
-
-    if ((*msg & 0x1F00) == 0x1100)
-    {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], *&msg[12]);
-    }
-
-LABEL_20:
-    mach_msg_destroy(msg);
-    return v6;
-  }
-
-  if (*&msg[20] == 71)
-  {
-    v6 = 4294966988;
+    v9 = 4294966988;
     goto LABEL_20;
   }
 
   if (*&msg[20] != 6000154)
   {
-    v6 = 4294966995;
+    v9 = 4294966995;
     goto LABEL_20;
   }
 
-  v6 = 4294966996;
+  v9 = 4294966996;
   if ((*msg & 0x80000000) != 0)
   {
     goto LABEL_20;
@@ -5255,13 +5163,13 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v6 = *&msg[32];
+  v9 = *&msg[32];
   if (*&msg[32])
   {
     goto LABEL_20;
   }
 
-  return v6;
+  return v9;
 }
 
 uint64_t _BKSHIDSetDisplayBrightnessValue(mach_port_t a1, char a2, float a3)
@@ -5295,41 +5203,42 @@ uint64_t _BKSHIDSetDisplayBrightnessValue(mach_port_t a1, char a2, float a3)
   return v3;
 }
 
-uint64_t _BKSHIDFlushDisplayBrightnessUpdates(int a1)
+uint64_t _BKSHIDFlushDisplayBrightnessUpdates(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = 0;
+  v4 = a1;
+  v11 = 0;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v4;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x5B8DB800000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
+    v6 = *&msg[12];
   }
 
   else
   {
-    v3 = special_reply_port;
+    v6 = special_reply_port;
   }
 
-  v4 = mach_msg(msg, 3162115, 0x18u, 0x2Cu, v3, 0, 0);
-  v5 = v4;
-  if ((v4 - 268435458) <= 0xE && ((1 << (v4 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(msg, 3162115, 0x18u, 0x2Cu, v6, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
     goto LABEL_15;
   }
 
-  if (v4)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
 LABEL_15:
-    if ((v5 - 268435459) > 1)
+    if ((v8 - 268435459) > 1)
     {
-      return v5;
+      return v8;
     }
 
     if ((*msg & 0x1F00) == 0x1100)
@@ -5339,22 +5248,22 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(msg);
-    return v5;
+    return v8;
   }
 
   if (*&msg[20] == 71)
   {
-    v5 = 4294966988;
+    v8 = 4294966988;
     goto LABEL_20;
   }
 
   if (*&msg[20] != 6000156)
   {
-    v5 = 4294966995;
+    v8 = 4294966995;
     goto LABEL_20;
   }
 
-  v5 = 4294966996;
+  v8 = 4294966996;
   if ((*msg & 0x80000000) != 0)
   {
     goto LABEL_20;
@@ -5370,13 +5279,13 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v5 = *&msg[32];
+  v8 = *&msg[32];
   if (*&msg[32])
   {
     goto LABEL_20;
   }
 
-  return v5;
+  return v8;
 }
 
 uint64_t _BKSHIDRestoreSystemDisplayBrightness(mach_port_t a1)
@@ -5405,50 +5314,51 @@ uint64_t _BKSHIDRestoreSystemDisplayBrightness(mach_port_t a1)
   return v1;
 }
 
-uint64_t _BKSHIDGetCurrentDisplayBrightnessCurve(int a1, _BYTE *a2)
+uint64_t _BKSHIDGetCurrentDisplayBrightnessCurve(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8DBA00000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000158)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -5459,47 +5369,47 @@ uint64_t _BKSHIDGetCurrentDisplayBrightnessCurve(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -5507,7 +5417,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _BKSHIDSetDisplayBrightnessCurveValue(mach_port_t a1, char a2)
@@ -5570,38 +5480,39 @@ uint64_t _BKSHIDSetAutoDisplayBrightnessEnabled(mach_port_t a1, char a2)
   return v2;
 }
 
-uint64_t _BKSHIDIsCapsLockLightOn(int a1, uint64_t a2, _BYTE *a3)
+uint64_t _BKSHIDIsCapsLockLightOn(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4)
 {
+  v5 = a1;
   v14 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 28);
   *msg_4 = 0u;
   *&msg_4[20] = *MEMORY[0x1E69E99E0];
   *&msg_4[28] = a2;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v5;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x5B8DBE00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(&msg);
-    v6 = *&msg_4[8];
+    v7 = *&msg_4[8];
   }
 
   else
   {
-    v6 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v7 = mach_msg(&msg, 3162115, 0x28u, 0x30u, v6, 0, 0);
-  v8 = v7;
-  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&msg, 3162115, 0x28u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v7)
+    if (!v8)
     {
       if (*&msg_4[16] == 71)
       {
-        v8 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&msg_4[16] == 6000162)
@@ -5612,11 +5523,11 @@ uint64_t _BKSHIDIsCapsLockLightOn(int a1, uint64_t a2, _BYTE *a3)
           {
             if (!*&msg_4[4])
             {
-              v8 = *&msg_4[28];
+              v9 = *&msg_4[28];
               if (!*&msg_4[28])
               {
                 *a3 = msg_4[32];
-                goto LABEL_27;
+                return v9;
               }
 
               goto LABEL_26;
@@ -5627,45 +5538,45 @@ uint64_t _BKSHIDIsCapsLockLightOn(int a1, uint64_t a2, _BYTE *a3)
           {
             if (*&msg_4[4])
             {
-              v9 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v9 = *&msg_4[28] == 0;
+              v10 = *&msg_4[28] == 0;
             }
 
-            if (v9)
+            if (v10)
             {
-              v8 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v8 = *&msg_4[28];
+              v9 = *&msg_4[28];
             }
 
             goto LABEL_26;
           }
         }
 
-        v8 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v8 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
       mach_msg_destroy(&msg);
-      goto LABEL_27;
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v8 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
     if ((msg & 0x1F00) == 0x1100)
     {
@@ -5675,9 +5586,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-LABEL_27:
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 uint64_t _BKSHIDSetCapsLockRomanSwitchMode(mach_port_t a1, uint64_t a2, char a3)
@@ -5800,38 +5709,39 @@ uint64_t _BKSHIDSetCapsLockActive(mach_port_t a1, uint64_t a2, char a3)
   return v3;
 }
 
-uint64_t _BKSHIDKeyboardWantsStandardTypeOverride(int a1, uint64_t a2, _BYTE *a3)
+uint64_t _BKSHIDKeyboardWantsStandardTypeOverride(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4)
 {
+  v5 = a1;
   v14 = *MEMORY[0x1E69E9840];
   memset(&msg_4[16], 0, 28);
   *msg_4 = 0u;
   *&msg_4[20] = *MEMORY[0x1E69E99E0];
   *&msg_4[28] = a2;
   special_reply_port = mig_get_special_reply_port();
-  *&msg_4[4] = a1;
+  *&msg_4[4] = v5;
   *&msg_4[8] = special_reply_port;
   msg = 5395;
   *&msg_4[12] = 0x5B8DC300000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(&msg);
-    v6 = *&msg_4[8];
+    v7 = *&msg_4[8];
   }
 
   else
   {
-    v6 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v7 = mach_msg(&msg, 3162115, 0x28u, 0x30u, v6, 0, 0);
-  v8 = v7;
-  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&msg, 3162115, 0x28u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v7)
+    if (!v8)
     {
       if (*&msg_4[16] == 71)
       {
-        v8 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&msg_4[16] == 6000167)
@@ -5842,11 +5752,11 @@ uint64_t _BKSHIDKeyboardWantsStandardTypeOverride(int a1, uint64_t a2, _BYTE *a3
           {
             if (!*&msg_4[4])
             {
-              v8 = *&msg_4[28];
+              v9 = *&msg_4[28];
               if (!*&msg_4[28])
               {
                 *a3 = msg_4[32];
-                goto LABEL_27;
+                return v9;
               }
 
               goto LABEL_26;
@@ -5857,45 +5767,45 @@ uint64_t _BKSHIDKeyboardWantsStandardTypeOverride(int a1, uint64_t a2, _BYTE *a3
           {
             if (*&msg_4[4])
             {
-              v9 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v9 = *&msg_4[28] == 0;
+              v10 = *&msg_4[28] == 0;
             }
 
-            if (v9)
+            if (v10)
             {
-              v8 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v8 = *&msg_4[28];
+              v9 = *&msg_4[28];
             }
 
             goto LABEL_26;
           }
         }
 
-        v8 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v8 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
       mach_msg_destroy(&msg);
-      goto LABEL_27;
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v8 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
     if ((msg & 0x1F00) == 0x1100)
     {
@@ -5905,37 +5815,35 @@ LABEL_26:
     goto LABEL_26;
   }
 
-LABEL_27:
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 uint64_t _BKSHIDSetHardwareKeyboardLayout(mach_port_name_t a1, uint64_t a2, char *src)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v11 = 0u;
-  memset(v12, 0, 464);
-  *name = 0u;
+  v12 = *MEMORY[0x1E69E9840];
   v10 = 0u;
-  *(&v10 + 1) = *MEMORY[0x1E69E99E0];
-  *&v11 = a2;
+  memset(v11, 0, 464);
+  *name = 0u;
+  v9 = 0u;
+  *(&v9 + 1) = *MEMORY[0x1E69E99E0];
+  *&v10 = a2;
   if (MEMORY[0x1EEE9AC40])
   {
-    v4 = mig_strncpy_zerofill(v12, src, 1024);
+    v4 = mig_strncpy_zerofill(v11, src, 1024);
   }
 
   else
   {
-    v4 = mig_strncpy(v12, src, 1024);
+    v4 = mig_strncpy(v11, src, 1024);
   }
 
-  DWORD2(v11) = 0;
-  HIDWORD(v11) = v4;
+  DWORD2(v10) = 0;
+  HIDWORD(v10) = v4;
   v5 = (v4 + 3) & 0xFFFFFFFC;
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v10 = 0x5B8DC400000000;
+  *&v9 = 0x5B8DC400000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -5952,7 +5860,6 @@ uint64_t _BKSHIDSetHardwareKeyboardLayout(mach_port_name_t a1, uint64_t a2, char
     mach_msg_destroy(name);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -6018,8 +5925,9 @@ uint64_t _BKSHIDSetPersistentServiceProperties(int a1, uint64_t a2, int a3, uint
   return v5;
 }
 
-uint64_t _BKSHIDGetPersistentServiceProperties(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, void *a6, _DWORD *a7)
+uint64_t _BKSHIDGetPersistentServiceProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t *a6, _DWORD *a7)
 {
+  v9 = a1;
   v17 = 2;
   v18 = a2;
   v19 = 16777472;
@@ -6032,7 +5940,7 @@ uint64_t _BKSHIDGetPersistentServiceProperties(mach_port_t a1, uint64_t a2, int 
   v26 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&v16.msgh_bits = 2147489043;
-  v16.msgh_remote_port = a1;
+  v16.msgh_remote_port = v9;
   v16.msgh_local_port = special_reply_port;
   *&v16.msgh_voucher_port = 0x5B8DC700000000;
   if (MEMORY[0x1EEE9AC50])
@@ -6083,11 +5991,11 @@ uint64_t _BKSHIDGetPersistentServiceProperties(mach_port_t a1, uint64_t a2, int 
             v13 = 4294966996;
           }
 
-          goto LABEL_27;
+          goto LABEL_28;
         }
 
         v13 = 4294966996;
-        if (v17 == 1 && *&v16.msgh_size == 56 && HIBYTE(v19) == 1)
+        if (v17 == 1 && v16.msgh_size == 56 && !v16.msgh_remote_port && HIBYTE(v19) == 1)
         {
           v14 = v20;
           if (v20 == v22)
@@ -6105,7 +6013,7 @@ uint64_t _BKSHIDGetPersistentServiceProperties(mach_port_t a1, uint64_t a2, int 
         v13 = 4294966995;
       }
 
-LABEL_27:
+LABEL_28:
       mach_msg_destroy(&v16);
       return v13;
     }
@@ -6120,30 +6028,31 @@ LABEL_27:
       mach_port_deallocate(*MEMORY[0x1E69E9A60], v16.msgh_local_port);
     }
 
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   return v13;
 }
 
-uint64_t _BKSHIDVerifyEventAuthenticationMessage(mach_port_t a1, uint64_t a2, int a3, int *a4)
+uint64_t _BKSHIDVerifyEventAuthenticationMessage(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v14 = 1;
-  v15 = a2;
-  v16 = 16777472;
-  v17 = a3;
-  v18 = *MEMORY[0x1E69E99E0];
-  v19 = a3;
+  v5 = a1;
+  v19 = *MEMORY[0x1E69E9840];
+  v13 = 1;
+  v14 = a2;
+  v15 = 16777472;
+  v16 = a3;
+  v17 = *MEMORY[0x1E69E99E0];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 2147489043;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x5B8DC800000000;
+  *&v12.msgh_bits = 2147489043;
+  v12.msgh_remote_port = v5;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x5B8DC800000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -6151,46 +6060,46 @@ uint64_t _BKSHIDVerifyEventAuthenticationMessage(mach_port_t a1, uint64_t a2, in
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 6000172)
+      else if (v12.msgh_id == 6000172)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_27;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_26;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -6200,7 +6109,7 @@ uint64_t _BKSHIDVerifyEventAuthenticationMessage(mach_port_t a1, uint64_t a2, in
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_26;
@@ -6216,8 +6125,8 @@ uint64_t _BKSHIDVerifyEventAuthenticationMessage(mach_port_t a1, uint64_t a2, in
       }
 
 LABEL_26:
-      mach_msg_destroy(&v13);
-      goto LABEL_27;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
@@ -6225,16 +6134,14 @@ LABEL_26:
 
   if ((v9 - 268435459) <= 1)
   {
-    if ((v13.msgh_bits & 0x1F00) == 0x1100)
+    if ((v12.msgh_bits & 0x1F00) == 0x1100)
     {
-      mach_port_deallocate(*MEMORY[0x1E69E9A60], v13.msgh_local_port);
+      mach_port_deallocate(*MEMORY[0x1E69E9A60], v12.msgh_local_port);
     }
 
     goto LABEL_26;
   }
 
-LABEL_27:
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -6267,19 +6174,20 @@ uint64_t _BKSHIDTouchAddAuthenticationSpecifications(int a1, uint64_t a2, int a3
   return v3;
 }
 
-uint64_t _BKSHIDVerifyEventProvenance(mach_port_t a1, uint64_t a2, int a3, int a4, _BYTE *a5)
+uint64_t _BKSHIDVerifyEventProvenance(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v15 = 1;
-  v16 = a2;
-  v17 = 16777472;
-  v18 = a3;
-  v19 = *MEMORY[0x1E69E99E0];
-  v20 = a3;
-  v21 = a4;
+  v6 = a1;
+  v21 = *MEMORY[0x1E69E9840];
+  v14 = 1;
+  v15 = a2;
+  v16 = 16777472;
+  v17 = a3;
+  v18 = *MEMORY[0x1E69E99E0];
+  v19 = a3;
+  v20 = a4;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 2147489043;
-  msg.msgh_remote_port = a1;
+  msg.msgh_remote_port = v6;
   msg.msgh_local_port = special_reply_port;
   *&msg.msgh_voucher_port = 0x5B8DCA00000000;
   if (MEMORY[0x1EEE9AC50])
@@ -6312,11 +6220,11 @@ uint64_t _BKSHIDVerifyEventProvenance(mach_port_t a1, uint64_t a2, int a3, int a
           {
             if (!msg.msgh_remote_port)
             {
-              v10 = HIDWORD(v16);
-              if (!HIDWORD(v16))
+              v10 = HIDWORD(v15);
+              if (!HIDWORD(v15))
               {
-                *a5 = v17;
-                goto LABEL_27;
+                *a5 = v16;
+                return v10;
               }
 
               goto LABEL_26;
@@ -6332,7 +6240,7 @@ uint64_t _BKSHIDVerifyEventProvenance(mach_port_t a1, uint64_t a2, int a3, int a
 
             else
             {
-              v11 = HIDWORD(v16) == 0;
+              v11 = HIDWORD(v15) == 0;
             }
 
             if (v11)
@@ -6342,7 +6250,7 @@ uint64_t _BKSHIDVerifyEventProvenance(mach_port_t a1, uint64_t a2, int a3, int a
 
             else
             {
-              v10 = HIDWORD(v16);
+              v10 = HIDWORD(v15);
             }
 
             goto LABEL_26;
@@ -6359,7 +6267,7 @@ uint64_t _BKSHIDVerifyEventProvenance(mach_port_t a1, uint64_t a2, int a3, int a
 
 LABEL_26:
       mach_msg_destroy(&msg);
-      goto LABEL_27;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
@@ -6375,41 +6283,40 @@ LABEL_26:
     goto LABEL_26;
   }
 
-LABEL_27:
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
-uint64_t _BKSHIDGetUISensorCharacteristics(int a1, void *a2, _DWORD *a3)
+uint64_t _BKSHIDGetUISensorCharacteristics(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4)
 {
+  v6 = a1;
   v18 = *MEMORY[0x1E69E9840];
   memset(&msg_16[4], 0, 44);
   msg_4 = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg_8 = a1;
+  msg_8 = v6;
   msg_12 = special_reply_port;
   msg = 5395;
   *msg_16 = 0x5B8DCC00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(&msg);
-    v7 = msg_12;
+    v8 = msg_12;
   }
 
   else
   {
-    v7 = special_reply_port;
+    v8 = special_reply_port;
   }
 
-  v8 = mach_msg(&msg, 3162115, 0x18u, 0x40u, v7, 0, 0);
-  v9 = v8;
-  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  v9 = mach_msg(&msg, 3162115, 0x18u, 0x40u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
-    if (!v8)
+    if (!v9)
     {
       if (*&msg_16[4] == 71)
       {
-        v9 = 4294966988;
+        v10 = 4294966988;
       }
 
       else if (*&msg_16[4] == 6000176)
@@ -6418,57 +6325,57 @@ uint64_t _BKSHIDGetUISensorCharacteristics(int a1, void *a2, _DWORD *a3)
         {
           if (msg_4 == 36)
           {
-            v9 = 4294966996;
+            v10 = 4294966996;
             if (*&msg_16[16])
             {
               if (msg_8)
               {
-                v9 = 4294966996;
+                v10 = 4294966996;
               }
 
               else
               {
-                v9 = *&msg_16[16];
+                v10 = *&msg_16[16];
               }
             }
           }
 
           else
           {
-            v9 = 4294966996;
+            v10 = 4294966996;
           }
 
           goto LABEL_28;
         }
 
-        v9 = 4294966996;
+        v10 = 4294966996;
         if (*&msg_16[8] == 1 && msg_4 == 56 && !msg_8 && msg_16[23] == 1)
         {
-          v10 = *&msg_16[24];
+          v11 = *&msg_16[24];
           if (*&msg_16[24] == *&msg_16[36])
           {
-            v9 = 0;
+            v10 = 0;
             *a2 = *&msg_16[12];
-            *a3 = v10;
-            goto LABEL_29;
+            *a3 = v11;
+            return v10;
           }
         }
       }
 
       else
       {
-        v9 = 4294966995;
+        v10 = 4294966995;
       }
 
 LABEL_28:
       mach_msg_destroy(&msg);
-      goto LABEL_29;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v9 - 268435459) <= 1)
+  if ((v10 - 268435459) <= 1)
   {
     if ((msg & 0x1F00) == 0x1100)
     {
@@ -6478,9 +6385,7 @@ LABEL_28:
     goto LABEL_28;
   }
 
-LABEL_29:
-  v11 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 uint64_t _BKSHIDTouchSensitiveButtonSetScanMode(mach_port_t a1, int a2, int a3)
@@ -6514,29 +6419,29 @@ uint64_t _BKSHIDTouchSensitiveButtonSetScanMode(mach_port_t a1, int a2, int a3)
 
 uint64_t _BKSDisplayIsDisabled(mach_port_name_t a1, const char *a2, _BYTE *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v16, 0, 480);
+  v16 = *MEMORY[0x1E69E9840];
+  memset(v15, 0, 480);
   *name = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x1E69E99E0];
+  v14 = 0u;
+  *(&v14 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v16 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v16 + 8, a2, 1024);
+    v5 = mig_strncpy(v15 + 8, a2, 1024);
   }
 
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
+  LODWORD(v15[0]) = 0;
+  DWORD1(v15[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   special_reply_port = mig_get_special_reply_port();
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v15 = 0x5B916800000000;
+  *&v14 = 0x5B916800000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -6554,12 +6459,12 @@ uint64_t _BKSDisplayIsDisabled(mach_port_name_t a1, const char *a2, _BYTE *a3)
   {
     if (!v9)
     {
-      if (DWORD1(v15) == 71)
+      if (DWORD1(v14) == 71)
       {
         v10 = 4294966988;
       }
 
-      else if (DWORD1(v15) == 6001100)
+      else if (DWORD1(v14) == 6001100)
       {
         if ((name[0] & 0x80000000) == 0)
         {
@@ -6567,11 +6472,11 @@ uint64_t _BKSDisplayIsDisabled(mach_port_name_t a1, const char *a2, _BYTE *a3)
           {
             if (!name[2])
             {
-              v10 = LODWORD(v16[0]);
-              if (!LODWORD(v16[0]))
+              v10 = LODWORD(v15[0]);
+              if (!LODWORD(v15[0]))
               {
-                *a3 = BYTE4(v16[0]);
-                goto LABEL_30;
+                *a3 = BYTE4(v15[0]);
+                return v10;
               }
 
               goto LABEL_29;
@@ -6587,7 +6492,7 @@ uint64_t _BKSDisplayIsDisabled(mach_port_name_t a1, const char *a2, _BYTE *a3)
 
             else
             {
-              v11 = LODWORD(v16[0]) == 0;
+              v11 = LODWORD(v15[0]) == 0;
             }
 
             if (v11)
@@ -6597,7 +6502,7 @@ uint64_t _BKSDisplayIsDisabled(mach_port_name_t a1, const char *a2, _BYTE *a3)
 
             else
             {
-              v10 = LODWORD(v16[0]);
+              v10 = LODWORD(v15[0]);
             }
 
             goto LABEL_29;
@@ -6614,7 +6519,7 @@ uint64_t _BKSDisplayIsDisabled(mach_port_name_t a1, const char *a2, _BYTE *a3)
 
 LABEL_29:
       mach_msg_destroy(name);
-      goto LABEL_30;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
@@ -6630,30 +6535,28 @@ LABEL_29:
     goto LABEL_29;
   }
 
-LABEL_30:
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 uint64_t _BKSDisplaySetDisabled(mach_port_name_t a1, const char *a2, char a3, _BYTE *a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  memset(v19, 0, 480);
+  v19 = *MEMORY[0x1E69E9840];
+  memset(v18, 0, 480);
   *name = 0u;
-  v18 = 0u;
-  *(&v18 + 1) = *MEMORY[0x1E69E99E0];
+  v17 = 0u;
+  *(&v17 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v7 = mig_strncpy_zerofill(v19 + 8, a2, 1024);
+    v7 = mig_strncpy_zerofill(v18 + 8, a2, 1024);
   }
 
   else
   {
-    v7 = mig_strncpy(v19 + 8, a2, 1024);
+    v7 = mig_strncpy(v18 + 8, a2, 1024);
   }
 
-  LODWORD(v19[0]) = 0;
-  DWORD1(v19[0]) = v7;
+  LODWORD(v18[0]) = 0;
+  DWORD1(v18[0]) = v7;
   v8 = (v7 + 3) & 0xFFFFFFFC;
   v9 = name + v8;
   v9[40] = a3;
@@ -6663,7 +6566,7 @@ uint64_t _BKSDisplaySetDisabled(mach_port_name_t a1, const char *a2, char a3, _B
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v18 = 0x5B916900000000;
+  *&v17 = 0x5B916900000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -6681,12 +6584,12 @@ uint64_t _BKSDisplaySetDisabled(mach_port_name_t a1, const char *a2, char a3, _B
   {
     if (!v12)
     {
-      if (DWORD1(v18) == 71)
+      if (DWORD1(v17) == 71)
       {
         v13 = 4294966988;
       }
 
-      else if (DWORD1(v18) == 6001101)
+      else if (DWORD1(v17) == 6001101)
       {
         if ((name[0] & 0x80000000) == 0)
         {
@@ -6694,11 +6597,11 @@ uint64_t _BKSDisplaySetDisabled(mach_port_name_t a1, const char *a2, char a3, _B
           {
             if (!name[2])
             {
-              v13 = LODWORD(v19[0]);
-              if (!LODWORD(v19[0]))
+              v13 = LODWORD(v18[0]);
+              if (!LODWORD(v18[0]))
               {
-                *a4 = BYTE4(v19[0]);
-                goto LABEL_30;
+                *a4 = BYTE4(v18[0]);
+                return v13;
               }
 
               goto LABEL_29;
@@ -6714,7 +6617,7 @@ uint64_t _BKSDisplaySetDisabled(mach_port_name_t a1, const char *a2, char a3, _B
 
             else
             {
-              v14 = LODWORD(v19[0]) == 0;
+              v14 = LODWORD(v18[0]) == 0;
             }
 
             if (v14)
@@ -6724,7 +6627,7 @@ uint64_t _BKSDisplaySetDisabled(mach_port_name_t a1, const char *a2, char a3, _B
 
             else
             {
-              v13 = LODWORD(v19[0]);
+              v13 = LODWORD(v18[0]);
             }
 
             goto LABEL_29;
@@ -6741,7 +6644,7 @@ uint64_t _BKSDisplaySetDisabled(mach_port_name_t a1, const char *a2, char a3, _B
 
 LABEL_29:
       mach_msg_destroy(name);
-      goto LABEL_30;
+      return v13;
     }
 
     mig_dealloc_special_reply_port();
@@ -6757,30 +6660,28 @@ LABEL_29:
     goto LABEL_29;
   }
 
-LABEL_30:
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 uint64_t _BKSDisplaySetReachabilityBounds(mach_port_name_t a1, const char *a2, float a3, float a4, float a5, float a6)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  memset(v22, 0, 480);
+  v22 = *MEMORY[0x1E69E9840];
+  memset(v21, 0, 480);
   *name = 0u;
-  v21 = 0u;
-  *(&v21 + 1) = *MEMORY[0x1E69E99E0];
+  v20 = 0u;
+  *(&v20 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v11 = mig_strncpy_zerofill(v22 + 8, a2, 1024);
+    v11 = mig_strncpy_zerofill(v21 + 8, a2, 1024);
   }
 
   else
   {
-    v11 = mig_strncpy(v22 + 8, a2, 1024);
+    v11 = mig_strncpy(v21 + 8, a2, 1024);
   }
 
-  LODWORD(v22[0]) = 0;
-  DWORD1(v22[0]) = v11;
+  LODWORD(v21[0]) = 0;
+  DWORD1(v21[0]) = v11;
   v12 = (v11 + 3) & 0xFFFFFFFC;
   v13 = (name + v12);
   v13[10] = a3;
@@ -6791,7 +6692,7 @@ uint64_t _BKSDisplaySetReachabilityBounds(mach_port_name_t a1, const char *a2, f
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v21 = 0x5B916A00000000;
+  *&v20 = 0x5B916A00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -6816,7 +6717,7 @@ uint64_t _BKSDisplaySetReachabilityBounds(mach_port_name_t a1, const char *a2, f
 LABEL_18:
     if ((v17 - 268435459) > 1)
     {
-      goto LABEL_24;
+      return v17;
     }
 
     if ((name[0] & 0x1F00) == 0x1100)
@@ -6826,16 +6727,16 @@ LABEL_18:
 
 LABEL_23:
     mach_msg_destroy(name);
-    goto LABEL_24;
+    return v17;
   }
 
-  if (DWORD1(v21) == 71)
+  if (DWORD1(v20) == 71)
   {
     v17 = 4294966988;
     goto LABEL_23;
   }
 
-  if (DWORD1(v21) != 6001102)
+  if (DWORD1(v20) != 6001102)
   {
     v17 = 4294966995;
     goto LABEL_23;
@@ -6857,41 +6758,39 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v17 = LODWORD(v22[0]);
-  if (LODWORD(v22[0]))
+  v17 = LODWORD(v21[0]);
+  if (LODWORD(v21[0]))
   {
     goto LABEL_23;
   }
 
-LABEL_24:
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 uint64_t _BKSDisplayWillUnblank(mach_port_name_t a1, const char *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  memset(v10, 0, 480);
+  v10 = *MEMORY[0x1E69E9840];
+  memset(v9, 0, 480);
   *name = 0u;
-  v9 = 0u;
-  *(&v9 + 1) = *MEMORY[0x1E69E99E0];
+  v8 = 0u;
+  *(&v8 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 1024);
+    v3 = mig_strncpy_zerofill(v9 + 8, a2, 1024);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 1024);
+    v3 = mig_strncpy(v9 + 8, a2, 1024);
   }
 
-  LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  LODWORD(v9[0]) = 0;
+  DWORD1(v9[0]) = v3;
   v4 = (v3 + 3) & 0xFFFFFFFC;
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v9 = 0x5B916C00000000;
+  *&v8 = 0x5B916C00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -6908,63 +6807,62 @@ uint64_t _BKSDisplayWillUnblank(mach_port_name_t a1, const char *a2)
     mach_msg_destroy(name);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t _BKSDisplayGetSystemIdentifiers(mach_port_name_t a1, const char *a2, void *a3, _DWORD *a4)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  v46 = *MEMORY[0x1E69E9840];
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v17 = 0u;
   *name = 0u;
-  memset(v17, 0, sizeof(v17));
-  *(&v17[0] + 1) = *MEMORY[0x1E69E99E0];
+  memset(v16, 0, sizeof(v16));
+  *(&v16[0] + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v7 = mig_strncpy_zerofill(&v17[1] + 8, a2, 1024);
+    v7 = mig_strncpy_zerofill(&v16[1] + 8, a2, 1024);
   }
 
   else
   {
-    v7 = mig_strncpy(&v17[1] + 8, a2, 1024);
+    v7 = mig_strncpy(&v16[1] + 8, a2, 1024);
   }
 
-  LODWORD(v17[1]) = 0;
-  DWORD1(v17[1]) = v7;
+  LODWORD(v16[1]) = 0;
+  DWORD1(v16[1]) = v7;
   v8 = (v7 + 3) & 0xFFFFFFFC;
   special_reply_port = mig_get_special_reply_port();
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v17[0] = 0x5B916D00000000;
+  *&v16[0] = 0x5B916D00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -6982,19 +6880,19 @@ uint64_t _BKSDisplayGetSystemIdentifiers(mach_port_name_t a1, const char *a2, vo
   {
     if (!v11)
     {
-      if (DWORD1(v17[0]) == 71)
+      if (DWORD1(v16[0]) == 71)
       {
         v12 = 4294966988;
       }
 
-      else if (DWORD1(v17[0]) == 6001105)
+      else if (DWORD1(v16[0]) == 6001105)
       {
         if ((name[0] & 0x80000000) == 0)
         {
           if (name[1] == 36)
           {
             v12 = 4294966996;
-            if (LODWORD(v17[1]))
+            if (LODWORD(v16[1]))
             {
               if (name[2])
               {
@@ -7003,7 +6901,7 @@ uint64_t _BKSDisplayGetSystemIdentifiers(mach_port_name_t a1, const char *a2, vo
 
               else
               {
-                v12 = LODWORD(v17[1]);
+                v12 = LODWORD(v16[1]);
               }
             }
           }
@@ -7017,15 +6915,15 @@ uint64_t _BKSDisplayGetSystemIdentifiers(mach_port_name_t a1, const char *a2, vo
         }
 
         v12 = 4294966996;
-        if (DWORD2(v17[0]) == 1 && name[1] == 56 && !name[2] && BYTE7(v17[1]) == 1)
+        if (DWORD2(v16[0]) == 1 && name[1] == 56 && !name[2] && BYTE7(v16[1]) == 1)
         {
-          v13 = DWORD2(v17[1]);
-          if (DWORD2(v17[1]) == DWORD1(v18))
+          v13 = DWORD2(v16[1]);
+          if (DWORD2(v16[1]) == DWORD1(v17))
           {
             v12 = 0;
-            *a3 = *(v17 + 12);
+            *a3 = *(v16 + 12);
             *a4 = v13;
-            goto LABEL_32;
+            return v12;
           }
         }
       }
@@ -7037,7 +6935,7 @@ uint64_t _BKSDisplayGetSystemIdentifiers(mach_port_name_t a1, const char *a2, vo
 
 LABEL_31:
       mach_msg_destroy(name);
-      goto LABEL_32;
+      return v12;
     }
 
     mig_dealloc_special_reply_port();
@@ -7053,63 +6951,61 @@ LABEL_31:
     goto LABEL_31;
   }
 
-LABEL_32:
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 uint64_t _BKSDisplaySetSystemIdentifiers(mach_port_t a1, const char *a2, uint64_t a3, unsigned int a4)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
+  v43 = *MEMORY[0x1E69E9840];
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  *&v15[8] = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  *&v14[8] = 0u;
   memset(&name, 0, sizeof(name));
-  v12 = 1;
-  v13 = a3;
-  v14 = 16777472;
-  *v15 = a4;
-  *&v15[4] = *MEMORY[0x1E69E99E0];
+  v11 = 1;
+  v12 = a3;
+  v13 = 16777472;
+  *v14 = a4;
+  *&v14[4] = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v6 = mig_strncpy_zerofill(&v15[20], a2, 1024);
+    v6 = mig_strncpy_zerofill(&v14[20], a2, 1024);
   }
 
   else
   {
-    v6 = mig_strncpy(&v15[20], a2, 1024);
+    v6 = mig_strncpy(&v14[20], a2, 1024);
   }
 
-  *&v15[12] = 0;
-  *&v15[16] = v6;
+  *&v14[12] = 0;
+  *&v14[16] = v6;
   v7 = (v6 + 3) & 0xFFFFFFFC;
-  *&v15[v7 + 20] = a4;
+  *&v14[v7 + 20] = a4;
   name.msgh_bits = -2147483629;
   name.msgh_remote_port = a1;
   name.msgh_local_port = 0;
@@ -7130,35 +7026,34 @@ uint64_t _BKSDisplaySetSystemIdentifiers(mach_port_t a1, const char *a2, uint64_
     mach_msg_destroy(&name);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t _BKSDisplayIsFlipBookEnabled(mach_port_name_t a1, const char *a2, _BYTE *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v16, 0, 480);
+  v16 = *MEMORY[0x1E69E9840];
+  memset(v15, 0, 480);
   *name = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x1E69E99E0];
+  v14 = 0u;
+  *(&v14 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v16 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v16 + 8, a2, 1024);
+    v5 = mig_strncpy(v15 + 8, a2, 1024);
   }
 
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
+  LODWORD(v15[0]) = 0;
+  DWORD1(v15[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   special_reply_port = mig_get_special_reply_port();
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v15 = 0x5B916F00000000;
+  *&v14 = 0x5B916F00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -7176,12 +7071,12 @@ uint64_t _BKSDisplayIsFlipBookEnabled(mach_port_name_t a1, const char *a2, _BYTE
   {
     if (!v9)
     {
-      if (DWORD1(v15) == 71)
+      if (DWORD1(v14) == 71)
       {
         v10 = 4294966988;
       }
 
-      else if (DWORD1(v15) == 6001107)
+      else if (DWORD1(v14) == 6001107)
       {
         if ((name[0] & 0x80000000) == 0)
         {
@@ -7189,11 +7084,11 @@ uint64_t _BKSDisplayIsFlipBookEnabled(mach_port_name_t a1, const char *a2, _BYTE
           {
             if (!name[2])
             {
-              v10 = LODWORD(v16[0]);
-              if (!LODWORD(v16[0]))
+              v10 = LODWORD(v15[0]);
+              if (!LODWORD(v15[0]))
               {
-                *a3 = BYTE4(v16[0]);
-                goto LABEL_30;
+                *a3 = BYTE4(v15[0]);
+                return v10;
               }
 
               goto LABEL_29;
@@ -7209,7 +7104,7 @@ uint64_t _BKSDisplayIsFlipBookEnabled(mach_port_name_t a1, const char *a2, _BYTE
 
             else
             {
-              v11 = LODWORD(v16[0]) == 0;
+              v11 = LODWORD(v15[0]) == 0;
             }
 
             if (v11)
@@ -7219,7 +7114,7 @@ uint64_t _BKSDisplayIsFlipBookEnabled(mach_port_name_t a1, const char *a2, _BYTE
 
             else
             {
-              v10 = LODWORD(v16[0]);
+              v10 = LODWORD(v15[0]);
             }
 
             goto LABEL_29;
@@ -7236,7 +7131,7 @@ uint64_t _BKSDisplayIsFlipBookEnabled(mach_port_name_t a1, const char *a2, _BYTE
 
 LABEL_29:
       mach_msg_destroy(name);
-      goto LABEL_30;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
@@ -7252,30 +7147,28 @@ LABEL_29:
     goto LABEL_29;
   }
 
-LABEL_30:
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 uint64_t _BKSDisplaySetFlipBookEnabled(mach_port_name_t a1, const char *a2, char a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v16, 0, 480);
+  v16 = *MEMORY[0x1E69E9840];
+  memset(v15, 0, 480);
   *name = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x1E69E99E0];
+  v14 = 0u;
+  *(&v14 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v16 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v16 + 8, a2, 1024);
+    v5 = mig_strncpy(v15 + 8, a2, 1024);
   }
 
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
+  LODWORD(v15[0]) = 0;
+  DWORD1(v15[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   v7 = name + v6;
   v7[40] = a3;
@@ -7285,7 +7178,7 @@ uint64_t _BKSDisplaySetFlipBookEnabled(mach_port_name_t a1, const char *a2, char
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v15 = 0x5B917000000000;
+  *&v14 = 0x5B917000000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -7310,7 +7203,7 @@ uint64_t _BKSDisplaySetFlipBookEnabled(mach_port_name_t a1, const char *a2, char
 LABEL_18:
     if ((v11 - 268435459) > 1)
     {
-      goto LABEL_24;
+      return v11;
     }
 
     if ((name[0] & 0x1F00) == 0x1100)
@@ -7320,16 +7213,16 @@ LABEL_18:
 
 LABEL_23:
     mach_msg_destroy(name);
-    goto LABEL_24;
+    return v11;
   }
 
-  if (DWORD1(v15) == 71)
+  if (DWORD1(v14) == 71)
   {
     v11 = 4294966988;
     goto LABEL_23;
   }
 
-  if (DWORD1(v15) != 6001108)
+  if (DWORD1(v14) != 6001108)
   {
     v11 = 4294966995;
     goto LABEL_23;
@@ -7351,36 +7244,34 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v11 = LODWORD(v16[0]);
-  if (LODWORD(v16[0]))
+  v11 = LODWORD(v15[0]);
+  if (LODWORD(v15[0]))
   {
     goto LABEL_23;
   }
 
-LABEL_24:
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 uint64_t _BKSDisplaySetCalibrationPhase(mach_port_name_t a1, const char *a2, int a3, int a4, int a5)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  memset(v20, 0, 480);
+  v20 = *MEMORY[0x1E69E9840];
+  memset(v19, 0, 480);
   *name = 0u;
-  v19 = 0u;
-  *(&v19 + 1) = *MEMORY[0x1E69E99E0];
+  v18 = 0u;
+  *(&v18 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v9 = mig_strncpy_zerofill(v20 + 8, a2, 1024);
+    v9 = mig_strncpy_zerofill(v19 + 8, a2, 1024);
   }
 
   else
   {
-    v9 = mig_strncpy(v20 + 8, a2, 1024);
+    v9 = mig_strncpy(v19 + 8, a2, 1024);
   }
 
-  LODWORD(v20[0]) = 0;
-  DWORD1(v20[0]) = v9;
+  LODWORD(v19[0]) = 0;
+  DWORD1(v19[0]) = v9;
   v10 = (v9 + 3) & 0xFFFFFFFC;
   v11 = (name + v10);
   v11[10] = a3;
@@ -7390,7 +7281,7 @@ uint64_t _BKSDisplaySetCalibrationPhase(mach_port_name_t a1, const char *a2, int
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v19 = 0x5B917100000000;
+  *&v18 = 0x5B917100000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -7415,7 +7306,7 @@ uint64_t _BKSDisplaySetCalibrationPhase(mach_port_name_t a1, const char *a2, int
 LABEL_18:
     if ((v15 - 268435459) > 1)
     {
-      goto LABEL_24;
+      return v15;
     }
 
     if ((name[0] & 0x1F00) == 0x1100)
@@ -7425,16 +7316,16 @@ LABEL_18:
 
 LABEL_23:
     mach_msg_destroy(name);
-    goto LABEL_24;
+    return v15;
   }
 
-  if (DWORD1(v19) == 71)
+  if (DWORD1(v18) == 71)
   {
     v15 = 4294966988;
     goto LABEL_23;
   }
 
-  if (DWORD1(v19) != 6001109)
+  if (DWORD1(v18) != 6001109)
   {
     v15 = 4294966995;
     goto LABEL_23;
@@ -7456,42 +7347,40 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v15 = LODWORD(v20[0]);
-  if (LODWORD(v20[0]))
+  v15 = LODWORD(v19[0]);
+  if (LODWORD(v19[0]))
   {
     goto LABEL_23;
   }
 
-LABEL_24:
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 uint64_t _BKSDisplayIsFlipBookSuppressed(mach_port_name_t a1, const char *a2, _BYTE *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v16, 0, 480);
+  v16 = *MEMORY[0x1E69E9840];
+  memset(v15, 0, 480);
   *name = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x1E69E99E0];
+  v14 = 0u;
+  *(&v14 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v16 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v16 + 8, a2, 1024);
+    v5 = mig_strncpy(v15 + 8, a2, 1024);
   }
 
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
+  LODWORD(v15[0]) = 0;
+  DWORD1(v15[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   special_reply_port = mig_get_special_reply_port();
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v15 = 0x5B917200000000;
+  *&v14 = 0x5B917200000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -7509,12 +7398,12 @@ uint64_t _BKSDisplayIsFlipBookSuppressed(mach_port_name_t a1, const char *a2, _B
   {
     if (!v9)
     {
-      if (DWORD1(v15) == 71)
+      if (DWORD1(v14) == 71)
       {
         v10 = 4294966988;
       }
 
-      else if (DWORD1(v15) == 6001110)
+      else if (DWORD1(v14) == 6001110)
       {
         if ((name[0] & 0x80000000) == 0)
         {
@@ -7522,11 +7411,11 @@ uint64_t _BKSDisplayIsFlipBookSuppressed(mach_port_name_t a1, const char *a2, _B
           {
             if (!name[2])
             {
-              v10 = LODWORD(v16[0]);
-              if (!LODWORD(v16[0]))
+              v10 = LODWORD(v15[0]);
+              if (!LODWORD(v15[0]))
               {
-                *a3 = BYTE4(v16[0]);
-                goto LABEL_30;
+                *a3 = BYTE4(v15[0]);
+                return v10;
               }
 
               goto LABEL_29;
@@ -7542,7 +7431,7 @@ uint64_t _BKSDisplayIsFlipBookSuppressed(mach_port_name_t a1, const char *a2, _B
 
             else
             {
-              v11 = LODWORD(v16[0]) == 0;
+              v11 = LODWORD(v15[0]) == 0;
             }
 
             if (v11)
@@ -7552,7 +7441,7 @@ uint64_t _BKSDisplayIsFlipBookSuppressed(mach_port_name_t a1, const char *a2, _B
 
             else
             {
-              v10 = LODWORD(v16[0]);
+              v10 = LODWORD(v15[0]);
             }
 
             goto LABEL_29;
@@ -7569,7 +7458,7 @@ uint64_t _BKSDisplayIsFlipBookSuppressed(mach_port_name_t a1, const char *a2, _B
 
 LABEL_29:
       mach_msg_destroy(name);
-      goto LABEL_30;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
@@ -7585,30 +7474,28 @@ LABEL_29:
     goto LABEL_29;
   }
 
-LABEL_30:
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 uint64_t _BKSDisplaySetFlipBookSuppressed(mach_port_name_t a1, const char *a2, char a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  memset(v16, 0, 480);
+  v16 = *MEMORY[0x1E69E9840];
+  memset(v15, 0, 480);
   *name = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x1E69E99E0];
+  v14 = 0u;
+  *(&v14 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v16 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v16 + 8, a2, 1024);
+    v5 = mig_strncpy(v15 + 8, a2, 1024);
   }
 
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
+  LODWORD(v15[0]) = 0;
+  DWORD1(v15[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   v7 = name + v6;
   v7[40] = a3;
@@ -7618,7 +7505,7 @@ uint64_t _BKSDisplaySetFlipBookSuppressed(mach_port_name_t a1, const char *a2, c
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v15 = 0x5B917300000000;
+  *&v14 = 0x5B917300000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -7643,7 +7530,7 @@ uint64_t _BKSDisplaySetFlipBookSuppressed(mach_port_name_t a1, const char *a2, c
 LABEL_18:
     if ((v11 - 268435459) > 1)
     {
-      goto LABEL_24;
+      return v11;
     }
 
     if ((name[0] & 0x1F00) == 0x1100)
@@ -7653,16 +7540,16 @@ LABEL_18:
 
 LABEL_23:
     mach_msg_destroy(name);
-    goto LABEL_24;
+    return v11;
   }
 
-  if (DWORD1(v15) == 71)
+  if (DWORD1(v14) == 71)
   {
     v11 = 4294966988;
     goto LABEL_23;
   }
 
-  if (DWORD1(v15) != 6001111)
+  if (DWORD1(v14) != 6001111)
   {
     v11 = 4294966995;
     goto LABEL_23;
@@ -7684,14 +7571,12 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v11 = LODWORD(v16[0]);
-  if (LODWORD(v16[0]))
+  v11 = LODWORD(v15[0]);
+  if (LODWORD(v15[0]))
   {
     goto LABEL_23;
   }
 
-LABEL_24:
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -7727,23 +7612,23 @@ uint64_t _BKSDisplaySetCloneRotationDisabled(mach_port_t a1, char a2)
 
 uint64_t _BKSDisplaySetCloneMirroringModeForDestinationDisplay(mach_port_name_t a1, const char *a2, char a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  memset(v13, 0, 480);
+  v13 = *MEMORY[0x1E69E9840];
+  memset(v12, 0, 480);
   *name = 0u;
-  v12 = 0u;
-  *(&v12 + 1) = *MEMORY[0x1E69E99E0];
+  v11 = 0u;
+  *(&v11 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v13 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v12 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v13 + 8, a2, 1024);
+    v5 = mig_strncpy(v12 + 8, a2, 1024);
   }
 
-  LODWORD(v13[0]) = 0;
-  DWORD1(v13[0]) = v5;
+  LODWORD(v12[0]) = 0;
+  DWORD1(v12[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   v7 = name + v6;
   v7[40] = a3;
@@ -7752,7 +7637,7 @@ uint64_t _BKSDisplaySetCloneMirroringModeForDestinationDisplay(mach_port_name_t 
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v12 = 0x5B917600000000;
+  *&v11 = 0x5B917600000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -7769,34 +7654,33 @@ uint64_t _BKSDisplaySetCloneMirroringModeForDestinationDisplay(mach_port_name_t 
     mach_msg_destroy(name);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t _BKSDisplayRemoveCloneMirroringModeForDestinationDisplay(mach_port_name_t a1, const char *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  memset(v10, 0, 480);
+  v10 = *MEMORY[0x1E69E9840];
+  memset(v9, 0, 480);
   *name = 0u;
-  v9 = 0u;
-  *(&v9 + 1) = *MEMORY[0x1E69E99E0];
+  v8 = 0u;
+  *(&v8 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 1024);
+    v3 = mig_strncpy_zerofill(v9 + 8, a2, 1024);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 1024);
+    v3 = mig_strncpy(v9 + 8, a2, 1024);
   }
 
-  LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  LODWORD(v9[0]) = 0;
+  DWORD1(v9[0]) = v3;
   v4 = (v3 + 3) & 0xFFFFFFFC;
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v9 = 0x5B917700000000;
+  *&v8 = 0x5B917700000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -7813,54 +7697,54 @@ uint64_t _BKSDisplayRemoveCloneMirroringModeForDestinationDisplay(mach_port_name
     mach_msg_destroy(name);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-uint64_t _BKSDisplayTetherPrefsNeedImmediateUpdate(int a1, _BYTE *a2)
+uint64_t _BKSDisplayTetherPrefsNeedImmediateUpdate(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B917900000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6001117)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -7871,47 +7755,47 @@ uint64_t _BKSDisplayTetherPrefsNeedImmediateUpdate(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -7919,48 +7803,49 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t _BKSDisplaySetTetheredOrientationNotificationsDisabled(int a1, char a2)
+uint64_t _BKSDisplaySetTetheredOrientationNotificationsDisabled(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a1;
   *&msg[20] = 0u;
-  v9 = 0;
+  v11 = 0;
   *&msg[4] = 0u;
   *&msg[24] = *MEMORY[0x1E69E99E0];
   msg[32] = a2;
   *&msg[33] = 0;
   msg[35] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v4;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0x5B917A00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(msg);
-    v4 = *&msg[12];
+    v6 = *&msg[12];
   }
 
   else
   {
-    v4 = special_reply_port;
+    v6 = special_reply_port;
   }
 
-  v5 = mach_msg(msg, 3162115, 0x24u, 0x2Cu, v4, 0, 0);
-  v6 = v5;
-  if ((v5 - 268435458) <= 0xE && ((1 << (v5 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(msg, 3162115, 0x24u, 0x2Cu, v6, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
     goto LABEL_15;
   }
 
-  if (v5)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
 LABEL_15:
-    if ((v6 - 268435459) > 1)
+    if ((v8 - 268435459) > 1)
     {
-      return v6;
+      return v8;
     }
 
     if ((*msg & 0x1F00) == 0x1100)
@@ -7970,22 +7855,22 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(msg);
-    return v6;
+    return v8;
   }
 
   if (*&msg[20] == 71)
   {
-    v6 = 4294966988;
+    v8 = 4294966988;
     goto LABEL_20;
   }
 
   if (*&msg[20] != 6001118)
   {
-    v6 = 4294966995;
+    v8 = 4294966995;
     goto LABEL_20;
   }
 
-  v6 = 4294966996;
+  v8 = 4294966996;
   if ((*msg & 0x80000000) != 0)
   {
     goto LABEL_20;
@@ -8001,13 +7886,13 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v6 = *&msg[32];
+  v8 = *&msg[32];
   if (*&msg[32])
   {
     goto LABEL_20;
   }
 
-  return v6;
+  return v8;
 }
 
 uint64_t _BKSDisplayUpdateTetheredDisplayOrientationIfNecessaryWithInterfaceOrientation(mach_port_t a1, char a2)
@@ -8072,57 +7957,57 @@ uint64_t _BKSDisplayUpdateMirroredDisplayOrientationWithInterfaceOrientation(mac
 
 uint64_t _BKSDisplayRenderOverlay(mach_port_name_t a1, const char *a2, void *a3, _DWORD *a4)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  v46 = *MEMORY[0x1E69E9840];
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v17 = 0u;
   *name = 0u;
-  memset(v17, 0, sizeof(v17));
-  *(&v17[0] + 1) = *MEMORY[0x1E69E99E0];
+  memset(v16, 0, sizeof(v16));
+  *(&v16[0] + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v7 = mig_strncpy_zerofill(&v17[1] + 8, a2, 1024);
+    v7 = mig_strncpy_zerofill(&v16[1] + 8, a2, 1024);
   }
 
   else
   {
-    v7 = mig_strncpy(&v17[1] + 8, a2, 1024);
+    v7 = mig_strncpy(&v16[1] + 8, a2, 1024);
   }
 
-  LODWORD(v17[1]) = 0;
-  DWORD1(v17[1]) = v7;
+  LODWORD(v16[1]) = 0;
+  DWORD1(v16[1]) = v7;
   v8 = (v7 + 3) & 0xFFFFFFFC;
   special_reply_port = mig_get_special_reply_port();
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v17[0] = 0x5B917E00000000;
+  *&v16[0] = 0x5B917E00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -8140,19 +8025,19 @@ uint64_t _BKSDisplayRenderOverlay(mach_port_name_t a1, const char *a2, void *a3,
   {
     if (!v11)
     {
-      if (DWORD1(v17[0]) == 71)
+      if (DWORD1(v16[0]) == 71)
       {
         v12 = 4294966988;
       }
 
-      else if (DWORD1(v17[0]) == 6001122)
+      else if (DWORD1(v16[0]) == 6001122)
       {
         if ((name[0] & 0x80000000) == 0)
         {
           if (name[1] == 36)
           {
             v12 = 4294966996;
-            if (LODWORD(v17[1]))
+            if (LODWORD(v16[1]))
             {
               if (name[2])
               {
@@ -8161,7 +8046,7 @@ uint64_t _BKSDisplayRenderOverlay(mach_port_name_t a1, const char *a2, void *a3,
 
               else
               {
-                v12 = LODWORD(v17[1]);
+                v12 = LODWORD(v16[1]);
               }
             }
           }
@@ -8175,15 +8060,15 @@ uint64_t _BKSDisplayRenderOverlay(mach_port_name_t a1, const char *a2, void *a3,
         }
 
         v12 = 4294966996;
-        if (DWORD2(v17[0]) == 1 && name[1] == 56 && !name[2] && BYTE7(v17[1]) == 1)
+        if (DWORD2(v16[0]) == 1 && name[1] == 56 && !name[2] && BYTE7(v16[1]) == 1)
         {
-          v13 = DWORD2(v17[1]);
-          if (DWORD2(v17[1]) == DWORD1(v18))
+          v13 = DWORD2(v16[1]);
+          if (DWORD2(v16[1]) == DWORD1(v17))
           {
             v12 = 0;
-            *a3 = *(v17 + 12);
+            *a3 = *(v16 + 12);
             *a4 = v13;
-            goto LABEL_32;
+            return v12;
           }
         }
       }
@@ -8195,7 +8080,7 @@ uint64_t _BKSDisplayRenderOverlay(mach_port_name_t a1, const char *a2, void *a3,
 
 LABEL_31:
       mach_msg_destroy(name);
-      goto LABEL_32;
+      return v12;
     }
 
     mig_dealloc_special_reply_port();
@@ -8211,27 +8096,26 @@ LABEL_31:
     goto LABEL_31;
   }
 
-LABEL_32:
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
-uint64_t _BKSDisplayApplyRenderOverlay(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+uint64_t _BKSDisplayApplyRenderOverlay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v13 = 2;
-  v14 = a2;
-  v15 = 16777472;
-  v16 = a3;
-  v17 = a4;
-  v18 = 16777472;
-  v19 = a5;
-  v20 = *MEMORY[0x1E69E99E0];
-  v21 = a3;
-  v22 = a5;
+  v5 = a1;
+  v22 = *MEMORY[0x1E69E9840];
+  v12 = 2;
+  v13 = a2;
+  v14 = 16777472;
+  v15 = a3;
+  v16 = a4;
+  v17 = 16777472;
+  v18 = a5;
+  v19 = *MEMORY[0x1E69E99E0];
+  v20 = a3;
+  v21 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 2147489043;
-  msg.msgh_remote_port = a1;
+  msg.msgh_remote_port = v5;
   msg.msgh_local_port = special_reply_port;
   *&msg.msgh_voucher_port = 0x5B917F00000000;
   if (MEMORY[0x1EEE9AC50])
@@ -8258,7 +8142,7 @@ uint64_t _BKSDisplayApplyRenderOverlay(mach_port_t a1, uint64_t a2, int a3, uint
 LABEL_15:
     if ((v9 - 268435459) > 1)
     {
-      goto LABEL_21;
+      return v9;
     }
 
     if ((msg.msgh_bits & 0x1F00) == 0x1100)
@@ -8268,7 +8152,7 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(&msg);
-    goto LABEL_21;
+    return v9;
   }
 
   if (msg.msgh_id == 71)
@@ -8299,33 +8183,32 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v9 = HIDWORD(v14);
-  if (HIDWORD(v14))
+  v9 = HIDWORD(v13);
+  if (HIDWORD(v13))
   {
     goto LABEL_20;
   }
 
-LABEL_21:
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
-uint64_t _BKSDisplayRemoveRenderOverlay(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+uint64_t _BKSDisplayRemoveRenderOverlay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v13 = 2;
-  v14 = a2;
-  v15 = 16777472;
-  v16 = a3;
-  v17 = a4;
-  v18 = 16777472;
-  v19 = a5;
-  v20 = *MEMORY[0x1E69E99E0];
-  v21 = a3;
-  v22 = a5;
+  v5 = a1;
+  v22 = *MEMORY[0x1E69E9840];
+  v12 = 2;
+  v13 = a2;
+  v14 = 16777472;
+  v15 = a3;
+  v16 = a4;
+  v17 = 16777472;
+  v18 = a5;
+  v19 = *MEMORY[0x1E69E99E0];
+  v20 = a3;
+  v21 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 2147489043;
-  msg.msgh_remote_port = a1;
+  msg.msgh_remote_port = v5;
   msg.msgh_local_port = special_reply_port;
   *&msg.msgh_voucher_port = 0x5B918000000000;
   if (MEMORY[0x1EEE9AC50])
@@ -8352,7 +8235,7 @@ uint64_t _BKSDisplayRemoveRenderOverlay(mach_port_t a1, uint64_t a2, int a3, uin
 LABEL_15:
     if ((v9 - 268435459) > 1)
     {
-      goto LABEL_21;
+      return v9;
     }
 
     if ((msg.msgh_bits & 0x1F00) == 0x1100)
@@ -8362,7 +8245,7 @@ LABEL_15:
 
 LABEL_20:
     mach_msg_destroy(&msg);
-    goto LABEL_21;
+    return v9;
   }
 
   if (msg.msgh_id == 71)
@@ -8393,19 +8276,18 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v9 = HIDWORD(v14);
-  if (HIDWORD(v14))
+  v9 = HIDWORD(v13);
+  if (HIDWORD(v13))
   {
     goto LABEL_20;
   }
 
-LABEL_21:
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
-uint64_t _BKSDisplayFreezeRenderOverlay(mach_port_t a1, uint64_t a2, int a3)
+uint64_t _BKSDisplayFreezeRenderOverlay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a1;
   v17 = *MEMORY[0x1E69E9840];
   v11 = 1;
   v12 = a2;
@@ -8415,7 +8297,7 @@ uint64_t _BKSDisplayFreezeRenderOverlay(mach_port_t a1, uint64_t a2, int a3)
   v16 = a3;
   special_reply_port = mig_get_special_reply_port();
   *&v10.msgh_bits = 2147489043;
-  v10.msgh_remote_port = a1;
+  v10.msgh_remote_port = v4;
   v10.msgh_local_port = special_reply_port;
   *&v10.msgh_voucher_port = 0x5B918100000000;
   if (MEMORY[0x1EEE9AC50])
@@ -8429,20 +8311,20 @@ uint64_t _BKSDisplayFreezeRenderOverlay(mach_port_t a1, uint64_t a2, int a3)
     msgh_local_port = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x38u, 0x2Cu, msgh_local_port, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) <= 0xE && ((1 << (v6 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(&v10, 3162115, 0x38u, 0x2Cu, msgh_local_port, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  if (v6)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
-LABEL_14:
-    if ((v7 - 268435459) > 1)
+LABEL_15:
+    if ((v8 - 268435459) > 1)
     {
-      goto LABEL_20;
+      return v8;
     }
 
     if ((v10.msgh_bits & 0x1F00) == 0x1100)
@@ -8450,47 +8332,51 @@ LABEL_14:
       mach_port_deallocate(*MEMORY[0x1E69E9A60], v10.msgh_local_port);
     }
 
-LABEL_19:
+LABEL_20:
     mach_msg_destroy(&v10);
-    goto LABEL_20;
+    return v8;
   }
 
   if (v10.msgh_id == 71)
   {
-    v7 = 4294966988;
-    goto LABEL_19;
+    v8 = 4294966988;
+    goto LABEL_20;
   }
 
   if (v10.msgh_id != 6001125)
   {
-    v7 = 4294966995;
-    goto LABEL_19;
+    v8 = 4294966995;
+    goto LABEL_20;
   }
 
-  v7 = 4294966996;
+  v8 = 4294966996;
   if ((v10.msgh_bits & 0x80000000) != 0)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  if (*&v10.msgh_size != 36)
+  if (v10.msgh_size != 36)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  v7 = HIDWORD(v12);
+  if (v10.msgh_remote_port)
+  {
+    goto LABEL_20;
+  }
+
+  v8 = HIDWORD(v12);
   if (HIDWORD(v12))
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-LABEL_20:
-  v8 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v8;
 }
 
-uint64_t _BKSDisplayDismissInterstitialRenderOverlay(mach_port_t a1, uint64_t a2, int a3)
+uint64_t _BKSDisplayDismissInterstitialRenderOverlay(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a1;
   v17 = *MEMORY[0x1E69E9840];
   v11 = 1;
   v12 = a2;
@@ -8500,7 +8386,7 @@ uint64_t _BKSDisplayDismissInterstitialRenderOverlay(mach_port_t a1, uint64_t a2
   v16 = a3;
   special_reply_port = mig_get_special_reply_port();
   *&v10.msgh_bits = 2147489043;
-  v10.msgh_remote_port = a1;
+  v10.msgh_remote_port = v4;
   v10.msgh_local_port = special_reply_port;
   *&v10.msgh_voucher_port = 0x5B918200000000;
   if (MEMORY[0x1EEE9AC50])
@@ -8514,20 +8400,20 @@ uint64_t _BKSDisplayDismissInterstitialRenderOverlay(mach_port_t a1, uint64_t a2
     msgh_local_port = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x38u, 0x2Cu, msgh_local_port, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) <= 0xE && ((1 << (v6 - 2)) & 0x4003) != 0)
+  v7 = mach_msg(&v10, 3162115, 0x38u, 0x2Cu, msgh_local_port, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
   {
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  if (v6)
+  if (v7)
   {
     mig_dealloc_special_reply_port();
-LABEL_14:
-    if ((v7 - 268435459) > 1)
+LABEL_15:
+    if ((v8 - 268435459) > 1)
     {
-      goto LABEL_20;
+      return v8;
     }
 
     if ((v10.msgh_bits & 0x1F00) == 0x1100)
@@ -8535,75 +8421,79 @@ LABEL_14:
       mach_port_deallocate(*MEMORY[0x1E69E9A60], v10.msgh_local_port);
     }
 
-LABEL_19:
+LABEL_20:
     mach_msg_destroy(&v10);
-    goto LABEL_20;
+    return v8;
   }
 
   if (v10.msgh_id == 71)
   {
-    v7 = 4294966988;
-    goto LABEL_19;
+    v8 = 4294966988;
+    goto LABEL_20;
   }
 
   if (v10.msgh_id != 6001126)
   {
-    v7 = 4294966995;
-    goto LABEL_19;
+    v8 = 4294966995;
+    goto LABEL_20;
   }
 
-  v7 = 4294966996;
+  v8 = 4294966996;
   if ((v10.msgh_bits & 0x80000000) != 0)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  if (*&v10.msgh_size != 36)
+  if (v10.msgh_size != 36)
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-  v7 = HIDWORD(v12);
+  if (v10.msgh_remote_port)
+  {
+    goto LABEL_20;
+  }
+
+  v8 = HIDWORD(v12);
   if (HIDWORD(v12))
   {
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-LABEL_20:
-  v8 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v8;
 }
 
-uint64_t _BKSDisplayGetRenderOverlayDismissActions(int a1, void *a2, _DWORD *a3)
+uint64_t _BKSDisplayGetRenderOverlayDismissActions(uint64_t a1, void *a2, _DWORD *a3, uint64_t a4)
 {
+  v6 = a1;
   v18 = *MEMORY[0x1E69E9840];
   memset(&msg_16[4], 0, 44);
   msg_4 = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg_8 = a1;
+  msg_8 = v6;
   msg_12 = special_reply_port;
   msg = 5395;
   *msg_16 = 0x5B918300000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(&msg);
-    v7 = msg_12;
+    v8 = msg_12;
   }
 
   else
   {
-    v7 = special_reply_port;
+    v8 = special_reply_port;
   }
 
-  v8 = mach_msg(&msg, 3162115, 0x18u, 0x40u, v7, 0, 0);
-  v9 = v8;
-  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
+  v9 = mach_msg(&msg, 3162115, 0x18u, 0x40u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
-    if (!v8)
+    if (!v9)
     {
       if (*&msg_16[4] == 71)
       {
-        v9 = 4294966988;
+        v10 = 4294966988;
       }
 
       else if (*&msg_16[4] == 6001127)
@@ -8612,57 +8502,57 @@ uint64_t _BKSDisplayGetRenderOverlayDismissActions(int a1, void *a2, _DWORD *a3)
         {
           if (msg_4 == 36)
           {
-            v9 = 4294966996;
+            v10 = 4294966996;
             if (*&msg_16[16])
             {
               if (msg_8)
               {
-                v9 = 4294966996;
+                v10 = 4294966996;
               }
 
               else
               {
-                v9 = *&msg_16[16];
+                v10 = *&msg_16[16];
               }
             }
           }
 
           else
           {
-            v9 = 4294966996;
+            v10 = 4294966996;
           }
 
           goto LABEL_28;
         }
 
-        v9 = 4294966996;
+        v10 = 4294966996;
         if (*&msg_16[8] == 1 && msg_4 == 56 && !msg_8 && msg_16[23] == 1)
         {
-          v10 = *&msg_16[24];
+          v11 = *&msg_16[24];
           if (*&msg_16[24] == *&msg_16[36])
           {
-            v9 = 0;
+            v10 = 0;
             *a2 = *&msg_16[12];
-            *a3 = v10;
-            goto LABEL_29;
+            *a3 = v11;
+            return v10;
           }
         }
       }
 
       else
       {
-        v9 = 4294966995;
+        v10 = 4294966995;
       }
 
 LABEL_28:
       mach_msg_destroy(&msg);
-      goto LABEL_29;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v9 - 268435459) <= 1)
+  if ((v10 - 268435459) <= 1)
   {
     if ((msg & 0x1F00) == 0x1100)
     {
@@ -8672,9 +8562,7 @@ LABEL_28:
     goto LABEL_28;
   }
 
-LABEL_29:
-  v11 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 uint64_t _BKSDisplaySetArrangement(int a1, uint64_t a2, int a3)

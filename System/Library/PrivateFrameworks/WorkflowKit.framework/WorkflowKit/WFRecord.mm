@@ -44,28 +44,28 @@
 
 - (void)setDefaultPropertyValuesExceptFetched
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allValues = [(NSDictionary *)self->_allPropertiesByName allValues];
-  v4 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * v7);
+        v8 = *(*(&v17 + 1) + 8 * v7);
         fetchedPropertyNames = [(WFRecord *)self fetchedPropertyNames];
         name = [v8 name];
         v11 = [fetchedPropertyNames containsObject:name];
@@ -90,13 +90,11 @@
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)allProperties
@@ -178,29 +176,29 @@ void __39__WFRecord_tearDownPropertyObservation__block_invoke(uint64_t a1, void 
 
 - (void)enumerateSettablePropertiesWithBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allValues = [(NSDictionary *)self->_allPropertiesByName allValues];
-  v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * v9);
+        v10 = *(*(&v16 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         setter = [v10 setter];
 
@@ -221,18 +219,16 @@ void __39__WFRecord_tearDownPropertyObservation__block_invoke(uint64_t a1, void 
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)saveProperties:(id)properties toStorage:(id)storage error:(id *)error
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   storageCopy = storage;
   if ([propertiesCopy count])
@@ -240,7 +236,7 @@ void __39__WFRecord_tearDownPropertyObservation__block_invoke(uint64_t a1, void 
     v8 = objc_opt_class();
     v9 = [WFRecord propertiesForClass:v8 walkingSuperclassesUntilReaching:objc_opt_class()];
     objc_opt_class();
-    v39 = v9;
+    v38 = v9;
     v10 = storageCopy;
     if (objc_opt_respondsToSelector())
     {
@@ -252,28 +248,28 @@ void __39__WFRecord_tearDownPropertyObservation__block_invoke(uint64_t a1, void 
       recordPropertyMap = 0;
     }
 
-    v38 = objc_opt_new();
+    v37 = objc_opt_new();
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
-    v35 = propertiesCopy;
+    v34 = propertiesCopy;
     obj = propertiesCopy;
-    v13 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
+    v13 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v41;
+      v15 = *v40;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v41 != v15)
+          if (*v40 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v40 + 1) + 8 * i);
+          v17 = *(*(&v39 + 1) + 8 * i);
           v18 = objc_autoreleasePoolPush();
           name = [v17 name];
           v20 = [recordPropertyMap objectForKeyedSubscript:name];
@@ -290,13 +286,13 @@ void __39__WFRecord_tearDownPropertyObservation__block_invoke(uint64_t a1, void 
 
           v23 = name2;
 
-          v24 = [v39 objectForKeyedSubscript:v23];
+          v24 = [v38 objectForKeyedSubscript:v23];
           if (v24)
           {
             v25 = [[WFRecordPropertyMapping alloc] initWithSourceObject:self property:v17 destinationObject:v10 property:v24];
             [(WFRecordPropertyMapping *)v25 propagate];
             name3 = [v24 name];
-            [v38 addObject:name3];
+            [v37 addObject:name3];
           }
 
           else
@@ -310,11 +306,11 @@ void __39__WFRecord_tearDownPropertyObservation__block_invoke(uint64_t a1, void 
             v27 = objc_opt_class();
             name3 = NSStringFromClass(v27);
             *buf = 136315650;
-            v45 = "[WFRecord saveProperties:toStorage:error:]";
-            v46 = 2114;
+            v44 = "[WFRecord saveProperties:toStorage:error:]";
+            v45 = 2114;
             selfCopy = v23;
-            v48 = 2114;
-            v49 = name3;
+            v47 = 2114;
+            v48 = name3;
             _os_log_impl(&dword_1CA256000, &v25->super, OS_LOG_TYPE_INFO, "%s Not saving property %{public}@ to storage, because storage %{public}@ doesn't have it.", buf, 0x20u);
           }
 
@@ -322,7 +318,7 @@ LABEL_20:
           objc_autoreleasePoolPop(v18);
         }
 
-        v14 = [obj countByEnumeratingWithState:&v40 objects:v52 count:16];
+        v14 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
       }
 
       while (v14);
@@ -331,7 +327,7 @@ LABEL_20:
     storageCopy = v10;
     if (objc_opt_respondsToSelector())
     {
-      [v10 didUpdateProperties:v38];
+      [v10 didUpdateProperties:v37];
     }
 
     v28 = getWFWFRecordLogObject();
@@ -342,18 +338,18 @@ LABEL_20:
       v31 = objc_opt_class();
       v32 = NSStringFromClass(v31);
       *buf = 136315906;
-      v45 = "[WFRecord saveProperties:toStorage:error:]";
-      v46 = 2048;
+      v44 = "[WFRecord saveProperties:toStorage:error:]";
+      v45 = 2048;
       selfCopy = v29;
-      v48 = 2114;
-      v49 = v30;
-      v50 = 2114;
-      v51 = v32;
+      v47 = 2114;
+      v48 = v30;
+      v49 = 2114;
+      v50 = v32;
       _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_INFO, "%s Saved %lu properties on record %{public}@ to storage %{public}@", buf, 0x2Au);
     }
 
-    propertiesCopy = v35;
-    v12 = v39;
+    propertiesCopy = v34;
+    v12 = v38;
   }
 
   else
@@ -362,20 +358,19 @@ LABEL_20:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v45 = "[WFRecord saveProperties:toStorage:error:]";
-      v46 = 2112;
+      v44 = "[WFRecord saveProperties:toStorage:error:]";
+      v45 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_INFO, "%s Requested saving a set of properties to storage, but the set is empty. Bailing (%@)", buf, 0x16u);
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)resetModificationsForProperties:(id)properties onlySinceLastSave:(BOOL)save
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   v7 = propertiesCopy;
   if (propertiesCopy)
@@ -412,27 +407,27 @@ LABEL_20:
   allObjects2 = [v8 allObjects];
   [v14 removeObjectsForKeys:allObjects2];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = v8;
-  v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * i);
-        v22 = [(WFRecord *)self valueForKey:v21, v26];
+        v21 = *(*(&v25 + 1) + 8 * i);
+        v22 = [(WFRecord *)self valueForKey:v21, v25];
         lastSavedOrFetchedValues2 = [(WFRecord *)self lastSavedOrFetchedValues];
         [lastSavedOrFetchedValues2 setValue:v22 forKey:v21];
 
@@ -443,13 +438,11 @@ LABEL_20:
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v18);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markPropertyModifiedIfNecessary:(id)necessary
@@ -539,32 +532,32 @@ LABEL_22:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = [objc_opt_class() allocWithZone:zone];
   v5 = objc_opt_new();
   v6 = [v4 initWithStorage:0 properties:v5 settingDefaultValues:0];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   allProperties = [(WFRecord *)self allProperties];
-  v8 = [allProperties countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [allProperties countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       v11 = 0;
       do
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(allProperties);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * v11);
+        v12 = *(*(&v25 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         v14 = [[WFRecordPropertyMapping alloc] initWithSourceObject:self property:v12 destinationObject:v6 property:v12];
         [(WFRecordPropertyMapping *)v14 propagate:1];
@@ -574,7 +567,7 @@ LABEL_22:
       }
 
       while (v9 != v11);
-      v9 = [allProperties countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [allProperties countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
@@ -599,45 +592,44 @@ LABEL_22:
   storageIdentifier = [(WFRecord *)self storageIdentifier];
   [v6 setStorageIdentifier:storageIdentifier];
 
-  v24 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)descriptionWithValues:(BOOL)values
 {
   valuesCopy = values;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AEC0];
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
   v8 = [v5 stringWithFormat:@"<%@: %p, {\n", v7, self];
 
-  v27 = v8;
+  v26 = v8;
   v9 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:v8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   allPropertiesByName = [(WFRecord *)self allPropertiesByName];
   allKeys = [allPropertiesByName allKeys];
   v12 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   obj = v12;
-  v13 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * i);
+        v17 = *(*(&v28 + 1) + 8 * i);
         [v9 appendString:@"\t"];
         [v9 appendString:v17];
         fetchedPropertyNames = [(WFRecord *)self fetchedPropertyNames];
@@ -673,14 +665,13 @@ LABEL_22:
         [v9 appendString:@"\n"];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v14 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v14);
   }
 
   [v9 appendString:@"}>"];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -696,7 +687,7 @@ LABEL_22:
 
 - (BOOL)saveChangesToStorage:(id)storage error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   if (!storageCopy)
   {
@@ -749,8 +740,8 @@ LABEL_22:
     if (os_log_type_enabled(error, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v22 = "[WFRecord saveChangesToStorage:error:]";
-      v23 = 2112;
+      v21 = "[WFRecord saveChangesToStorage:error:]";
+      v22 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1CA256000, error, OS_LOG_TYPE_INFO, "%s Requested saving changes to storage, but looks like nothing changed — bailing out (%@)", buf, 0x16u);
     }
@@ -758,13 +749,12 @@ LABEL_22:
     LOBYTE(error) = 1;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (void)loadFromStorage:(id)storage properties:(id)properties
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   propertiesCopy = properties;
   v8 = getWFGeneralLogObject();
@@ -780,7 +770,7 @@ LABEL_22:
 
   objc_opt_class();
   spid = v9;
-  v37 = v9 - 1;
+  v36 = v9 - 1;
   if (objc_opt_respondsToSelector())
   {
     recordPropertyMap = [objc_opt_class() recordPropertyMap];
@@ -806,26 +796,26 @@ LABEL_22:
 
 LABEL_9:
   v15 = objc_opt_class();
-  v40 = [WFRecord propertiesForClass:v15 walkingSuperclassesUntilReaching:objc_opt_class()];
+  v39 = [WFRecord propertiesForClass:v15 walkingSuperclassesUntilReaching:objc_opt_class()];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = propertiesCopy;
-  v42 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
-  if (v42)
+  v41 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+  if (v41)
   {
-    v39 = *v44;
+    v38 = *v43;
     do
     {
-      for (i = 0; i != v42; ++i)
+      for (i = 0; i != v41; ++i)
       {
-        if (*v44 != v39)
+        if (*v43 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v43 + 1) + 8 * i);
+        v17 = *(*(&v42 + 1) + 8 * i);
         v18 = objc_autoreleasePoolPush();
         allPropertiesByName2 = [(WFRecord *)self allPropertiesByName];
         v20 = [allPropertiesByName2 objectForKey:v17];
@@ -852,7 +842,7 @@ LABEL_9:
 
         v24 = v23;
 
-        v25 = [v40 objectForKeyedSubscript:v24];
+        v25 = [v39 objectForKeyedSubscript:v24];
         if (v25)
         {
           v26 = [[WFRecordPropertyMapping alloc] initWithSourceObject:storageCopy property:v25 destinationObject:self property:v20];
@@ -864,10 +854,10 @@ LABEL_9:
         objc_autoreleasePoolPop(v18);
       }
 
-      v42 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v41 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
-    while (v42);
+    while (v41);
   }
 
   identifier = [storageCopy identifier];
@@ -876,13 +866,11 @@ LABEL_9:
   [(WFRecord *)self resetModificationsForProperties:obj onlySinceLastSave:0];
   v32 = getWFGeneralLogObject();
   v33 = v32;
-  if (v37 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+  if (v36 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
   {
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_1CA256000, v33, OS_SIGNPOST_INTERVAL_END, spid, "WFRecordLoadFromStorage", "", buf, 2u);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)modifiedProperties
@@ -957,7 +945,7 @@ id __29__WFRecord_fetchedProperties__block_invoke(uint64_t a1, void *a2)
 - (WFRecord)initWithStorage:(id)storage properties:(id)properties settingDefaultValues:(BOOL)values
 {
   valuesCopy = values;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   propertiesCopy = properties;
   v10 = getWFGeneralLogObject();
@@ -968,14 +956,14 @@ id __29__WFRecord_fetchedProperties__block_invoke(uint64_t a1, void *a2)
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v37 = objc_opt_class();
-    v14 = v37;
+    v36 = objc_opt_class();
+    v14 = v36;
     _os_signpost_emit_with_name_impl(&dword_1CA256000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "WFRecordInitWithStorage", "class=%{signpost.description:attribute}@", buf, 0xCu);
   }
 
-  v35.receiver = self;
-  v35.super_class = WFRecord;
-  v15 = [(WFRecord *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = WFRecord;
+  v15 = [(WFRecord *)&v34 init];
   if (v15)
   {
     recordSubclassProperties = [objc_opt_class() recordSubclassProperties];
@@ -1029,7 +1017,6 @@ id __29__WFRecord_fetchedProperties__block_invoke(uint64_t a1, void *a2)
     v32 = v15;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

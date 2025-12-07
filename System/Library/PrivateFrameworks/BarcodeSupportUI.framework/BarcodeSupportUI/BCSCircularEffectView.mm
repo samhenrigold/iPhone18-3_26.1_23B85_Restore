@@ -232,20 +232,20 @@
 
 - (void)animateRingsRotationWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v17[0] = xmmword_241A06650;
-  v17[1] = xmmword_241A06650;
-  v18 = 0xC03E000000000000;
+  v16[0] = xmmword_241A06650;
+  v16[1] = xmmword_241A06650;
+  v17 = 0xC03E000000000000;
   [MEMORY[0x277CD9FF0] begin];
   v5 = MEMORY[0x277CD9FF0];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __60__BCSCircularEffectView_animateRingsRotationWithCompletion___block_invoke;
-  v15[3] = &unk_278D02498;
-  v14 = completionCopy;
-  v16 = v14;
-  [v5 setCompletionBlock:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __60__BCSCircularEffectView_animateRingsRotationWithCompletion___block_invoke;
+  v14[3] = &unk_278D02498;
+  v13 = completionCopy;
+  v15 = v13;
+  [v5 setCompletionBlock:v14];
   if ([(NSMutableArray *)self->_circles count])
   {
     v6 = 0;
@@ -258,7 +258,7 @@
       [v9 setDamping:50.0];
       [v9 setStiffness:300.0];
       [v9 setFromValue:&unk_2853A1150];
-      v10 = [MEMORY[0x277CCABB0] numberWithDouble:*(v17 + v6) / 180.0 * 3.14159265];
+      v10 = [MEMORY[0x277CCABB0] numberWithDouble:*(v16 + v6) / 180.0 * 3.14159265];
       [v9 setToValue:v10];
 
       [v9 setDuration:0.6];
@@ -277,8 +277,6 @@
   }
 
   [MEMORY[0x277CD9FF0] commit];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revealCenterGlyphAndRings

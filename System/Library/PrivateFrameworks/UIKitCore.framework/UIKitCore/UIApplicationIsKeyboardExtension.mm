@@ -17,7 +17,7 @@ void ___UIApplicationIsKeyboardExtension_block_invoke()
     {
       v2 = v0;
       v1 = [v0 identifier];
-      byte_1EA992DB0 = [v1 isEqualToString:@"com.apple.keyboard-service"];
+      byte_1EA992DB0 = objc_msgSend_isEqualToString_(v1);
 
       v0 = v2;
     }

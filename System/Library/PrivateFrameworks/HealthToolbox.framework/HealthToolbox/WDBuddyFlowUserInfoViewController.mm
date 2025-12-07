@@ -19,6 +19,8 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WDBuddyFlowUserInfoViewController
@@ -74,7 +76,7 @@
 
 - (NSArray)dataEntryItems
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dataEntryItems = self->_dataEntryItems;
   if (!dataEntryItems)
   {
@@ -85,29 +87,29 @@
       v5 = self->_dataEntryItems;
       self->_dataEntryItems = defaultDataEntryItems;
 
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       v6 = self->_dataEntryItems;
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v14;
+        v9 = *v13;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v14 != v9)
+            if (*v13 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            [*(*(&v13 + 1) + 8 * i) setToolbarDelegate:{self, v13}];
+            [*(*(&v12 + 1) + 8 * i) setToolbarDelegate:{self, v12}];
           }
 
-          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v8);
@@ -116,8 +118,6 @@
       dataEntryItems = self->_dataEntryItems;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return dataEntryItems;
 }
@@ -188,10 +188,10 @@ void __58__WDBuddyFlowUserInfoViewController_continueButtonTapped___block_invoke
 
 - (void)viewDidLoad
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = WDBuddyFlowUserInfoViewController;
-  [(OBTableWelcomeController *)&v14 viewDidLoad];
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = WDBuddyFlowUserInfoViewController;
+  [(OBTableWelcomeController *)&v13 viewDidLoad];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   view = [(WDBuddyFlowUserInfoViewController *)self view];
   [view setBackgroundColor:systemBackgroundColor];
@@ -208,16 +208,48 @@ void __58__WDBuddyFlowUserInfoViewController_continueButtonTapped___block_invoke
   view2 = [(WDBuddyFlowUserInfoViewController *)self view];
   [view2 setAccessibilityIdentifier:baseAutomationIdentifier];
 
-  v15[0] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   v11 = [(WDBuddyFlowUserInfoViewController *)self registerForTraitChanges:v10 withTarget:self action:sel__updateForCurrentSizeCategory];
 
   [(WDBuddyFlowUserInfoViewController *)self _setHeaderIcon];
   [(WDBuddyFlowUserInfoViewController *)self _setUpTableView];
   tableView = [(OBTableWelcomeController *)self tableView];
   [tableView _setSectionContentInsetFollowsLayoutMargins:1];
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v14.receiver = self;
+  v14.super_class = WDBuddyFlowUserInfoViewController;
+  [(WDBuddyFlowUserInfoViewController *)&v14 viewIsAppearing:appearing];
+  view = [(WDBuddyFlowUserInfoViewController *)self view];
+  [view hk_onboardingListEdgeInsets];
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  tableView = [(OBTableWelcomeController *)self tableView];
+  [tableView _setSectionContentInset:{v6, v8, v10, v12}];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = WDBuddyFlowUserInfoViewController;
+  [(OBTableWelcomeController *)&v10 viewWillAppear:appear];
+  [(WDBuddyFlowUserInfoViewController *)self _setUpFooterView];
+  navigationController = [(WDBuddyFlowUserInfoViewController *)self navigationController];
+  [navigationController setNavigationBarHidden:0 animated:0];
+
+  navigationController2 = [(WDBuddyFlowUserInfoViewController *)self navigationController];
+  navigationBar = [navigationController2 navigationBar];
+  [navigationBar _setHidesShadow:1];
+
+  navigationController3 = [(WDBuddyFlowUserInfoViewController *)self navigationController];
+  navigationBar2 = [navigationController3 navigationBar];
+  systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
+  [navigationBar2 setBarTintColor:systemBackgroundColor];
 }
 
 - (void)viewDidLayoutSubviews
@@ -314,66 +346,66 @@ void __58__WDBuddyFlowUserInfoViewController_continueButtonTapped___block_invoke
 
 - (void)_setHeaderIcon
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   view = [(WDBuddyFlowUserInfoViewController *)self view];
   [view setTranslatesAutoresizingMaskIntoConstraints:1];
 
-  v31 = objc_alloc_init(MEMORY[0x277CECA90]);
-  profilePictureForAccountOwnerWithoutMonogramFallback = [v31 profilePictureForAccountOwnerWithoutMonogramFallback];
-  v36 = [profilePictureForAccountOwnerWithoutMonogramFallback hk_resizedInterfaceImageWithSize:{82.0, 82.0}];
-  if (!v36)
+  v30 = objc_alloc_init(MEMORY[0x277CECA90]);
+  profilePictureForAccountOwnerWithoutMonogramFallback = [v30 profilePictureForAccountOwnerWithoutMonogramFallback];
+  v35 = [profilePictureForAccountOwnerWithoutMonogramFallback hk_resizedInterfaceImageWithSize:{82.0, 82.0}];
+  if (!v35)
   {
     _applicationKeyWindow = [MEMORY[0x277D75DA0] _applicationKeyWindow];
     effectiveUserInterfaceLayoutDirection = [_applicationKeyWindow effectiveUserInterfaceLayoutDirection];
 
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2050000000;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2050000000;
     v6 = getCNAvatarImageRendererClass_softClass;
-    v45 = getCNAvatarImageRendererClass_softClass;
+    v44 = getCNAvatarImageRendererClass_softClass;
     if (!getCNAvatarImageRendererClass_softClass)
     {
-      v37 = MEMORY[0x277D85DD0];
-      v38 = 3221225472;
-      v39 = __getCNAvatarImageRendererClass_block_invoke;
-      v40 = &unk_2796E8028;
-      v41 = &v42;
-      __getCNAvatarImageRendererClass_block_invoke(&v37);
-      v6 = v43[3];
+      v36 = MEMORY[0x277D85DD0];
+      v37 = 3221225472;
+      v38 = __getCNAvatarImageRendererClass_block_invoke;
+      v39 = &unk_2796E8028;
+      v40 = &v41;
+      __getCNAvatarImageRendererClass_block_invoke(&v36);
+      v6 = v42[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
     v8 = objc_alloc_init(v6);
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2050000000;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2050000000;
     v9 = getCNAvatarImageRenderingScopeClass_softClass;
-    v45 = getCNAvatarImageRenderingScopeClass_softClass;
+    v44 = getCNAvatarImageRenderingScopeClass_softClass;
     if (!getCNAvatarImageRenderingScopeClass_softClass)
     {
-      v37 = MEMORY[0x277D85DD0];
-      v38 = 3221225472;
-      v39 = __getCNAvatarImageRenderingScopeClass_block_invoke;
-      v40 = &unk_2796E8028;
-      v41 = &v42;
-      __getCNAvatarImageRenderingScopeClass_block_invoke(&v37);
-      v9 = v43[3];
+      v36 = MEMORY[0x277D85DD0];
+      v37 = 3221225472;
+      v38 = __getCNAvatarImageRenderingScopeClass_block_invoke;
+      v39 = &unk_2796E8028;
+      v40 = &v41;
+      __getCNAvatarImageRenderingScopeClass_block_invoke(&v36);
+      v9 = v42[3];
     }
 
     v10 = v9;
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen scale];
     v13 = [v9 scopeWithPointSize:effectiveUserInterfaceLayoutDirection == 1 scale:0 rightToLeft:82.0 style:{82.0, v12}];
 
     v14 = objc_alloc_init(MEMORY[0x277CBDA58]);
-    v47[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
-    v36 = [v8 avatarImageForContacts:v15 scope:v13];
+    v46[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
+    v35 = [v8 avatarImageForContacts:v15 scope:v13];
   }
 
-  v16 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v36];
+  v16 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v35];
   [v16 setTranslatesAutoresizingMaskIntoConstraints:0];
   headerView = [(WDBuddyFlowUserInfoViewController *)self headerView];
   customIconContainerView = [headerView customIconContainerView];
@@ -382,25 +414,23 @@ void __58__WDBuddyFlowUserInfoViewController_continueButtonTapped___block_invoke
   headerView2 = [(WDBuddyFlowUserInfoViewController *)self headerView];
   customIconContainerView2 = [headerView2 customIconContainerView];
 
-  v30 = MEMORY[0x277CCAAD0];
+  v29 = MEMORY[0x277CCAAD0];
   centerXAnchor = [v16 centerXAnchor];
   centerXAnchor2 = [customIconContainerView2 centerXAnchor];
-  v32 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v46[0] = v32;
+  v31 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v45[0] = v31;
   centerYAnchor = [v16 centerYAnchor];
   centerYAnchor2 = [customIconContainerView2 centerYAnchor];
   v23 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v46[1] = v23;
+  v45[1] = v23;
   widthAnchor = [v16 widthAnchor];
   v25 = [widthAnchor constraintEqualToConstant:82.0];
-  v46[2] = v25;
+  v45[2] = v25;
   heightAnchor = [v16 heightAnchor];
   v27 = [heightAnchor constraintEqualToConstant:82.0];
-  v46[3] = v27;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:4];
-  [v30 activateConstraints:v28];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v45[3] = v27;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:4];
+  [v29 activateConstraints:v28];
 }
 
 - (void)_loadData
@@ -468,22 +498,20 @@ void __61__WDBuddyFlowUserInfoViewController__saveDataWithCompletion___block_inv
   [v2 didSaveFirstLastNameFor:*(*(a1 + 32) + 1288)];
 }
 
-uint64_t __61__WDBuddyFlowUserInfoViewController__saveDataWithCompletion___block_invoke_2(uint64_t a1)
+uint64_t __61__WDBuddyFlowUserInfoViewController__saveDataWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_251E85000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed saving changes to health store.", &v6, 0xCu);
+    v5 = *(a1 + 32);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed saving changes to health store.", &v7, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)dataEntryItemDonePressed:(id)pressed
@@ -538,7 +566,7 @@ uint64_t __61__WDBuddyFlowUserInfoViewController__saveDataWithCompletion___block
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   dataEntryItems = [(WDBuddyFlowUserInfoViewController *)self dataEntryItems];
   v7 = [pathCopy row];
@@ -549,14 +577,12 @@ uint64_t __61__WDBuddyFlowUserInfoViewController__saveDataWithCompletion___block
   secondarySystemBackgroundColor = [MEMORY[0x277D75348] secondarySystemBackgroundColor];
   [cell setBackgroundColor:secondarySystemBackgroundColor];
 
-  v16[0] = self->_baseAutomationIdentifier;
+  v15[0] = self->_baseAutomationIdentifier;
   accessibilityIdentifier = [v8 accessibilityIdentifier];
-  v16[1] = accessibilityIdentifier;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = accessibilityIdentifier;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v13 = HKUIJoinStringsForAutomationIdentifier();
   [cell setAccessibilityIdentifier:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return cell;
 }

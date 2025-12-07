@@ -176,8 +176,9 @@ LABEL_26:
   return v13;
 }
 
-void __84__VCSecureDataChannel_initWithLocalCallID_remoteCallID_isCaller_sharedSecret_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void __84__VCSecureDataChannel_initWithLocalCallID_remoteCallID_isCaller_sharedSecret_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v12[1] = *MEMORY[0x1E69E9840];
   v7 = [*(a1 + 32) strong];
   v12[0] = 0;
@@ -188,7 +189,7 @@ void __84__VCSecureDataChannel_initWithLocalCallID_remoteCallID_isCaller_sharedS
   }
 
   v8 = v7;
-  if (a4 == 2)
+  if (v4 == 2)
   {
     v9 = 1;
 LABEL_6:
@@ -207,7 +208,7 @@ LABEL_6:
     goto LABEL_11;
   }
 
-  if (a4 == 6)
+  if (v4 == 6)
   {
     v9 = 2;
     goto LABEL_6;
@@ -328,6 +329,7 @@ LABEL_20:
 - (int)sendData:(id)data messageType:(unsigned int)type encrypted:(BOOL)encrypted
 {
   encryptedCopy = encrypted;
+  v6 = *&type;
   v23 = *MEMORY[0x1E69E9840];
   v21 = 0;
   if (encrypted)
@@ -355,19 +357,19 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  if (type == 1)
+  if (v6 == 1)
   {
     v17 = 2;
     goto LABEL_12;
   }
 
-  if (type == 2)
+  if (v6 == 2)
   {
     v17 = 6;
     goto LABEL_12;
   }
 
-  v18 = VCSignalErrorAt(2149974017, "Signalled error at %s: Invalid message type %d", v11, v12, v13, v14, v15, v16, "getOFTTypeForSecureDataMessageType");
+  v18 = VCSignalErrorAt(2149974017, "Signalled error at %s: Invalid message type %d", v11, v12, v13, v14, v15, v16, "getOFTTypeForSecureDataMessageType", v6);
   if ((v18 & 0x80000000) == 0)
   {
     v17 = 0;

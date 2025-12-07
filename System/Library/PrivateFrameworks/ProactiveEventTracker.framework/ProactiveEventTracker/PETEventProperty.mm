@@ -1,6 +1,9 @@
 @interface PETEventProperty
 + (id)freeValuedPropertyWithName:(id)name;
++ (id)propertyWithName:(id)name enumMapping:(id)mapping autoSanitizeValues:(BOOL)values;
++ (id)propertyWithName:(id)name possibleValues:(id)values autoSanitizeValues:(BOOL)sanitizeValues;
 + (id)propertyWithName:(id)name range:(_NSRange)range;
++ (id)propertyWithName:(id)name range:(_NSRange)range clampValues:(BOOL)values;
 + (id)propertyWithName:(id)name rangeMin:(unint64_t)min rangeMax:(unint64_t)max;
 - (PETEventProperty)initWithName:(id)name;
 - (_NSRange)validRange;
@@ -66,6 +69,40 @@
   v7 = [objc_opt_class() propertyWithName:nameCopy range:location clampValues:{length, 0}];
 
   return v7;
+}
+
++ (id)propertyWithName:(id)name range:(_NSRange)range clampValues:(BOOL)values
+{
+  valuesCopy = values;
+  length = range.length;
+  location = range.location;
+  nameCopy = name;
+  valuesCopy = [[PETEventNumericalProperty alloc] initWithName:nameCopy range:location clampValues:length, valuesCopy];
+
+  return valuesCopy;
+}
+
++ (id)propertyWithName:(id)name enumMapping:(id)mapping autoSanitizeValues:(BOOL)values
+{
+  valuesCopy = values;
+  mappingCopy = mapping;
+  nameCopy = name;
+  v9 = [[PETEventEnumMappedProperty alloc] initWithName:nameCopy enumMapping:mappingCopy autoSanitizeValues:valuesCopy];
+
+  return v9;
+}
+
++ (id)propertyWithName:(id)name possibleValues:(id)values autoSanitizeValues:(BOOL)sanitizeValues
+{
+  sanitizeValuesCopy = sanitizeValues;
+  valuesCopy = values;
+  nameCopy = name;
+  v9 = [PETEventStringValuedProperty alloc];
+  v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:valuesCopy];
+
+  v11 = [(PETEventStringValuedProperty *)v9 initWithName:nameCopy possibleValues:v10 autoSanitizeValues:sanitizeValuesCopy];
+
+  return v11;
 }
 
 @end

@@ -1,4 +1,5 @@
 @interface PSAppCellularUsageSpecifier
++ (id)_specifierWithDisplayName:(id)name appName:(id)appName bundleID:(id)d shouldShowUsage:(BOOL)usage icon:(id)icon statisticsCache:(id)cache usageType:(unint64_t)type;
 + (id)appSpecifierWithBundleID:(id)d name:(id)name statisticsCache:(id)cache usageType:(unint64_t)type;
 + (id)systemPolicySpecifierForAppName:(id)name bundleID:(id)d icon:(id)icon;
 + (void)setIconForSpecifier:(id)specifier bundleID:(id)d;
@@ -12,6 +13,35 @@
 @end
 
 @implementation PSAppCellularUsageSpecifier
+
++ (id)_specifierWithDisplayName:(id)name appName:(id)appName bundleID:(id)d shouldShowUsage:(BOOL)usage icon:(id)icon statisticsCache:(id)cache usageType:(unint64_t)type
+{
+  usageCopy = usage;
+  nameCopy = name;
+  appNameCopy = appName;
+  dCopy = d;
+  iconCopy = icon;
+  cacheCopy = cache;
+  if (type || ([MEMORY[0x277D75418] currentDevice], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "sf_isChinaRegionCellularDevice"), v19, !v20))
+  {
+    v21 = [[PSAppDataUsagePolicySwitchSpecifier alloc] initWithBundleID:dCopy displayName:nameCopy statisticsCache:cacheCopy];
+  }
+
+  else
+  {
+    v21 = [[PSAppDataUsagePolicyTernaryControlSpecifier alloc] initWithBundleID:dCopy displayName:nameCopy appName:appNameCopy statisticsCache:cacheCopy];
+  }
+
+  v22 = v21;
+  [(PSAppCellularUsageSpecifier *)v21 setUsageType:type];
+  bundleID = [(PSAppCellularUsageSpecifier *)v22 bundleID];
+  [(PSAppDataUsagePolicySwitchSpecifier *)v22 setIdentifier:bundleID];
+
+  [(PSAppDataUsagePolicySwitchSpecifier *)v22 setShouldShowUsage:usageCopy];
+  [(PSAppDataUsagePolicySwitchSpecifier *)v22 setProperty:iconCopy forKey:*MEMORY[0x277D3FFC0]];
+
+  return v22;
+}
 
 + (id)appSpecifierWithBundleID:(id)d name:(id)name statisticsCache:(id)cache usageType:(unint64_t)type
 {
@@ -131,17 +161,7 @@
   }
 
   bundleID = [(PSAppCellularUsageSpecifier *)self bundleID];
-  if (!bundleID)
-  {
-    goto LABEL_8;
-  }
-
-  v6 = bundleID;
-  v7 = +[PSCellularManagementCache sharedInstance];
-  bundleID2 = [(PSAppCellularUsageSpecifier *)self bundleID];
-  v9 = [v7 isManaged:bundleID2];
-
-  if (v9)
+  if (bundleID && (v6 = bundleID, +[PSCellularManagementCache sharedInstance](PSCellularManagementCache, "sharedInstance"), v7 = objc_claimAutoreleasedReturnValue(), -[PSAppCellularUsageSpecifier bundleID](self, "bundleID"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 isManaged:v8], v8, v7, v6, v9))
   {
     if (v4)
     {
@@ -162,7 +182,6 @@
 
   else
   {
-LABEL_8:
     v15 = &stru_287730CE8;
     if (v4)
     {

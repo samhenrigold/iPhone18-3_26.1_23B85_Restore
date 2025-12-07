@@ -6,7 +6,7 @@
 
 - (id)ds_accountEmails
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   aa_primaryEmail = [self aa_primaryEmail];
 
@@ -33,47 +33,47 @@
     accountProperties = [self accountProperties];
     v11 = [accountProperties objectForKeyedSubscript:@"CalDAVPrincipals"];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     obj = v11;
-    v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
-    if (v26)
+    v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    if (v25)
     {
-      v25 = *v33;
+      v24 = *v32;
       do
       {
-        for (i = 0; i != v26; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v33 != v25)
+          if (*v32 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = [obj objectForKeyedSubscript:*(*(&v32 + 1) + 8 * i)];
+          v13 = [obj objectForKeyedSubscript:*(*(&v31 + 1) + 8 * i)];
           v14 = [v13 objectForKeyedSubscript:@"PreferredCalendarUserAddresses"];
 
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
           v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
           v15 = v14;
-          v16 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v29;
+            v18 = *v28;
             do
             {
               for (j = 0; j != v17; ++j)
               {
-                if (*v29 != v18)
+                if (*v28 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = [*(*(&v28 + 1) + 8 * j) objectForKeyedSubscript:@"packedCalendarUserAddressAddress"];
+                v20 = [*(*(&v27 + 1) + 8 * j) objectForKeyedSubscript:@"packedCalendarUserAddressAddress"];
                 if ([v20 hasPrefix:@"mailto:"])
                 {
                   v21 = [v20 substringFromIndex:{objc_msgSend(@"mailto:", "length")}];
@@ -86,23 +86,21 @@
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
             }
 
             while (v17);
           }
         }
 
-        v26 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
   }
 
   v22 = [MEMORY[0x277CBEB98] setWithSet:v2];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

@@ -150,11 +150,11 @@
   [(STListDataDiff *)v9 applyToMutableListData:locationAttributionListData];
 }
 
-uint64_t __53__STLocationStatusDomainDataDiff_applyToMutableData___block_invoke(uint64_t result, uint64_t a2, void *a3)
+void *__53__STLocationStatusDomainDataDiff_applyToMutableData___block_invoke(void *result, uint64_t a2, void *a3)
 {
   if (!a2)
   {
-    v4 = *(result + 32);
+    v4 = result[4];
     v5 = [a3 unsignedIntegerValue];
 
     return [v4 setActiveDisplayModes:v5];

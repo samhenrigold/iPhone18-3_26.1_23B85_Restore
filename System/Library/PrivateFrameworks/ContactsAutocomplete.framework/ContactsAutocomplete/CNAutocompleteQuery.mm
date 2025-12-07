@@ -30,22 +30,20 @@
 
 - (void)searchOperationsHaveFinished
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = CNALoggingContextTriage();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = CNALoggingContextTriage(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     request = [(CNAutocompleteQuery *)self request];
     triageIdentifier = [request triageIdentifier];
-    v9 = 138543362;
-    v10 = triageIdentifier;
-    _os_log_impl(&dword_2155FE000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Search operation complete.", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = triageIdentifier;
+    _os_log_impl(&dword_2155FE000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Search operation complete.", &v8, 0xCu);
   }
 
   delegate = self->_delegate;
   WeakRetained = objc_loadWeakRetained(&self->_delegateToken);
   [(CNAutocompleteDelegateWrapper *)delegate autocompleteFetchDidFinish:WeakRetained];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)queryWithRequest:(id)request searchProvider:(id)provider delegate:(id)delegate probeProvider:(id)probeProvider scheduler:(id)scheduler userSession:(id)session delegateToken:(id)token
@@ -287,7 +285,7 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
 
 + (id)observableForQuery:(id)query context:(id)context
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   contextCopy = context;
   request = [queryCopy request];
@@ -311,12 +309,11 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
     if ([sourceInclusionPolicy includeContacts])
     {
       localSearchObservable = [v19 localSearchObservable];
-      [v14 addContactsObservable:localSearchObservable];
-      v21 = CNALoggingContextDebug();
+      v21 = CNALoggingContextDebug([v14 addContactsObservable:localSearchObservable]);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = localSearchObservable;
+        v81 = localSearchObservable;
         _os_log_impl(&dword_2155FE000, v21, OS_LOG_TYPE_DEFAULT, "Adding local contacts observable %@", buf, 0xCu);
       }
     }
@@ -324,12 +321,11 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
     if ([sourceInclusionPolicy includeRecents])
     {
       recentsSearchObservable = [v19 recentsSearchObservable];
-      [v14 addCoreRecentsObservable:recentsSearchObservable];
-      v23 = CNALoggingContextDebug();
+      v23 = CNALoggingContextDebug([v14 addCoreRecentsObservable:recentsSearchObservable]);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = recentsSearchObservable;
+        v81 = recentsSearchObservable;
         _os_log_impl(&dword_2155FE000, v23, OS_LOG_TYPE_DEFAULT, "Adding recent contacts observable %@", buf, 0xCu);
       }
     }
@@ -337,12 +333,11 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
     if ([sourceInclusionPolicy includeStewie])
     {
       stewieSearchObservable = [v19 stewieSearchObservable];
-      [v14 addStewieObservable:stewieSearchObservable];
-      v25 = CNALoggingContextDebug();
+      v25 = CNALoggingContextDebug([v14 addStewieObservable:stewieSearchObservable]);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = v19;
+        v81 = v19;
         _os_log_impl(&dword_2155FE000, v25, OS_LOG_TYPE_DEFAULT, "Adding Stewie observable %@", buf, 0xCu);
       }
     }
@@ -350,12 +345,11 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
     if ([sourceInclusionPolicy includeSuggestions])
     {
       suggestionsSearchObservable = [v19 suggestionsSearchObservable];
-      [v14 addSuggestionsObservable:suggestionsSearchObservable];
-      v27 = CNALoggingContextDebug();
+      v27 = CNALoggingContextDebug([v14 addSuggestionsObservable:suggestionsSearchObservable]);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = suggestionsSearchObservable;
+        v81 = suggestionsSearchObservable;
         _os_log_impl(&dword_2155FE000, v27, OS_LOG_TYPE_DEFAULT, "Adding suggested contacts observable %@", buf, 0xCu);
       }
     }
@@ -364,12 +358,12 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
     if ([sourceInclusionPolicy includeLocalExtensions])
     {
       localExtensionSearchObservables = [v19 localExtensionSearchObservables];
-      v76[0] = MEMORY[0x277D85DD0];
-      v76[1] = 3221225472;
-      v76[2] = __50__CNAutocompleteQuery_observableForQuery_context___block_invoke;
-      v76[3] = &unk_2781C4A68;
-      v77 = v14;
-      [localExtensionSearchObservables _cn_each:v76];
+      v78[0] = MEMORY[0x277D85DD0];
+      v78[1] = 3221225472;
+      v78[2] = __50__CNAutocompleteQuery_observableForQuery_context___block_invoke;
+      v78[3] = &unk_2781C4A68;
+      v79 = v14;
+      [localExtensionSearchObservables _cn_each:v78];
     }
 
     if ([sourceInclusionPolicy includePredictions])
@@ -380,68 +374,65 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
       future = [v29 future];
       [delegate setPredictionResultsFuture:future];
 
-      v74[0] = MEMORY[0x277D85DD0];
-      v74[1] = 3221225472;
-      v74[2] = __50__CNAutocompleteQuery_observableForQuery_context___block_invoke_17;
-      v74[3] = &unk_2781C3FB0;
-      v75 = v29;
+      v76[0] = MEMORY[0x277D85DD0];
+      v76[1] = 3221225472;
+      v76[2] = __50__CNAutocompleteQuery_observableForQuery_context___block_invoke_17;
+      v76[3] = &unk_2781C3FB0;
+      v77 = v29;
       v33 = v29;
-      [v14 addPredictionObservable:v30 doOnTimeout:v74];
-      v34 = CNALoggingContextDebug();
+      v34 = CNALoggingContextDebug([v14 addPredictionObservable:v30 doOnTimeout:v76]);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = v30;
+        v81 = v30;
         _os_log_impl(&dword_2155FE000, v34, OS_LOG_TYPE_DEFAULT, "Adding predictions CoreDuet/PeopleSuggester observable %@", buf, 0xCu);
       }
     }
 
     if ([sourceInclusionPolicy includeDirectoryServers])
     {
-      v69 = v19;
+      v71 = v19;
       directoryServersSearchObservable = [v19 directoryServersSearchObservable];
-      v72 = contextCopy;
+      v74 = contextCopy;
       directoryServerReuseCache = [contextCopy directoryServerReuseCache];
       request4 = [queryCopy request];
       searchString = [request4 searchString];
 
       v39 = [[CNAutocompleteQueryCacheHelper alloc] initWithCache:directoryServerReuseCache searchString:searchString serverSearchObservable:directoryServersSearchObservable];
       cachedResultsObservable = [(CNAutocompleteQueryCacheHelper *)v39 cachedResultsObservable];
-      [v14 addCachedDirectoryServerObservable:cachedResultsObservable];
-      v41 = CNALoggingContextDebug();
+      v41 = CNALoggingContextDebug([v14 addCachedDirectoryServerObservable:cachedResultsObservable]);
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = cachedResultsObservable;
+        v81 = cachedResultsObservable;
         _os_log_impl(&dword_2155FE000, v41, OS_LOG_TYPE_DEFAULT, "Adding cached directory servers observable %@", buf, 0xCu);
       }
 
       uncachedResultsObservable = [(CNAutocompleteQueryCacheHelper *)v39 uncachedResultsObservable];
-      [v14 addDirectoryServerObservable:uncachedResultsObservable];
-      v43 = CNALoggingContextDebug();
+      v43 = CNALoggingContextDebug([v14 addDirectoryServerObservable:uncachedResultsObservable]);
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = uncachedResultsObservable;
+        v81 = uncachedResultsObservable;
         _os_log_impl(&dword_2155FE000, v43, OS_LOG_TYPE_DEFAULT, "Adding directory servers observable %@", buf, 0xCu);
       }
 
-      contextCopy = v72;
-      v19 = v69;
+      contextCopy = v74;
+      v19 = v71;
     }
 
     if ([sourceInclusionPolicy includeCalendarServers] && +[CNAutocompleteCalendarServerSearch isSupported](CNAutocompleteCalendarServerSearch, "isSupported"))
     {
-      v70 = v19;
+      v72 = v19;
       calendarServersSearchObservable = [v19 calendarServersSearchObservable];
-      v73 = contextCopy;
+      v75 = contextCopy;
       calendarServerReuseCache = [contextCopy calendarServerReuseCache];
       request5 = [queryCopy request];
       searchString2 = [request5 searchString];
 
       v48 = [CNAutocompleteQueryCacheHelper alloc];
-      v67 = calendarServersSearchObservable;
-      v68 = calendarServerReuseCache;
+      v69 = calendarServersSearchObservable;
+      v70 = calendarServerReuseCache;
       v49 = calendarServerReuseCache;
       v50 = searchString2;
       v51 = [(CNAutocompleteQueryCacheHelper *)v48 initWithCache:v49 searchString:searchString2 serverSearchObservable:calendarServersSearchObservable];
@@ -457,39 +448,39 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
       uncachedObservable = [(CNAutocompleteCalendarQueryAssembler *)v55 uncachedObservable];
       [v14 addCalendarServerObservable:uncachedObservable];
 
-      v58 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      v59 = CNALoggingContextDebug(v58);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
         cachedObservable2 = [(CNAutocompleteCalendarQueryAssembler *)v55 cachedObservable];
         *buf = 138412290;
-        v79 = cachedObservable2;
-        _os_log_impl(&dword_2155FE000, v58, OS_LOG_TYPE_DEFAULT, "Adding cached calendar servers observable %@", buf, 0xCu);
+        v81 = cachedObservable2;
+        _os_log_impl(&dword_2155FE000, v59, OS_LOG_TYPE_DEFAULT, "Adding cached calendar servers observable %@", buf, 0xCu);
       }
 
-      v60 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      v62 = CNALoggingContextDebug(v61);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
         uncachedObservable2 = [(CNAutocompleteCalendarQueryAssembler *)v55 uncachedObservable];
         *buf = 138412290;
-        v79 = uncachedObservable2;
-        _os_log_impl(&dword_2155FE000, v60, OS_LOG_TYPE_DEFAULT, "Adding calendar servers observable %@", buf, 0xCu);
+        v81 = uncachedObservable2;
+        _os_log_impl(&dword_2155FE000, v62, OS_LOG_TYPE_DEFAULT, "Adding calendar servers observable %@", buf, 0xCu);
       }
 
-      contextCopy = v73;
-      v19 = v70;
+      contextCopy = v75;
+      v19 = v72;
     }
 
     if ([sourceInclusionPolicy includeSupplementalResults])
     {
-      v62 = [selfCopy observableWithSupplementalResultsForQuery:queryCopy];
-      [v14 addSupplementalObservable:v62];
+      v64 = [selfCopy observableWithSupplementalResultsForQuery:queryCopy];
+      [v14 addSupplementalObservable:v64];
 
-      v63 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+      v66 = CNALoggingContextDebug(v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = v19;
-        _os_log_impl(&dword_2155FE000, v63, OS_LOG_TYPE_DEFAULT, "Adding supplemental observable %@", buf, 0xCu);
+        v81 = v19;
+        _os_log_impl(&dword_2155FE000, v66, OS_LOG_TYPE_DEFAULT, "Adding supplemental observable %@", buf, 0xCu);
       }
     }
 
@@ -501,39 +492,32 @@ void __42__CNAutocompleteQuery_executeWithContext___block_invoke_4(uint64_t a1, 
     makeObservable = [MEMORY[0x277CFBE60] emptyObservable];
   }
 
-  v65 = *MEMORY[0x277D85DE8];
-
   return makeObservable;
 }
 
 void __50__CNAutocompleteQuery_observableForQuery_context___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  [*(a1 + 32) addLocalExtensionObservable:v3];
-  v4 = CNALoggingContextDebug();
+  v4 = CNALoggingContextDebug([*(a1 + 32) addLocalExtensionObservable:v3]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Adding local extensions observable %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Adding local extensions observable %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __50__CNAutocompleteQuery_observableForQuery_context___block_invoke_17(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x277CCA9B8];
-  v6 = *MEMORY[0x277CCA470];
-  v7[0] = @"Duet observable timed out.";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x277CCA470];
+  v6[0] = @"Duet observable timed out.";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"CNContactAutocompleteErrorDomain" code:1 userInfo:v3];
   [v1 finishWithError:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)configureNetworkForBuilder:(id)builder query:(id)query
@@ -595,21 +579,21 @@ void __72__CNAutocompleteQuery_configureNetworkActivityHandlersForBuilder_query_
   request = [queryCopy request];
   triageIdentifier = [request triageIdentifier];
 
-  v6 = CNALoggingContextDebug();
-  v7 = MEMORY[0x277CFBE60];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke;
-  v13[3] = &unk_2781C4B50;
-  v14 = queryCopy;
-  v15 = triageIdentifier;
-  v16 = v6;
-  v8 = v6;
-  v9 = triageIdentifier;
-  v10 = queryCopy;
-  v11 = [v7 observableWithBlock:v13];
+  v7 = CNALoggingContextDebug(v6);
+  v8 = MEMORY[0x277CFBE60];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke;
+  v14[3] = &unk_2781C4B50;
+  v15 = queryCopy;
+  v16 = triageIdentifier;
+  v17 = v7;
+  v9 = v7;
+  v10 = triageIdentifier;
+  v11 = queryCopy;
+  v12 = [v8 observableWithBlock:v14];
 
-  return v11;
+  return v12;
 }
 
 id __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke(id *a1, void *a2)
@@ -632,104 +616,103 @@ id __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_i
 
 void __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_2(id *a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x2020000000;
-  v37 = 0;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x2020000000;
+  v40 = 0;
   v4 = [objc_alloc(MEMORY[0x277CFBDA8]) initWithState:1];
   v5 = [MEMORY[0x277CFBED0] defaultProvider];
   [v5 timestamp];
   v7 = v6;
 
-  v8 = CNALoggingContextTriage();
-  v9 = os_signpost_id_generate(v8);
+  v9 = CNALoggingContextTriage(v8);
+  v10 = os_signpost_id_generate(v9);
 
-  v10 = CNALoggingContextPerformance();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = CNALoggingContextPerformance(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2155FE000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "Searching via Delegate (supplemental results", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2155FE000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "Searching via Delegate (supplemental results", "", buf, 2u);
   }
 
-  v12 = [a1[4] delegate];
-  v13 = [a1[4] delegateToken];
-  v14 = [a1[4] request];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_29;
-  v26[3] = &unk_2781C4B00;
-  v34 = v9;
-  v35 = v7;
-  v27 = a1[5];
-  v15 = v3;
-  v28 = v15;
-  v33 = v36;
-  v29 = a1[4];
-  v30 = a1[6];
-  v16 = v4;
-  v31 = v16;
-  v32 = a1[7];
-  v17 = [v12 autocompleteFetch:v13 shouldExpectSupplementalResultsForRequest:v14 completionHandler:v26];
+  v14 = [a1[4] delegate];
+  v15 = [a1[4] delegateToken];
+  v16 = [a1[4] request];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_29;
+  v29[3] = &unk_2781C4B00;
+  v37 = v10;
+  v38 = v7;
+  v30 = a1[5];
+  v17 = v3;
+  v31 = v17;
+  v36 = v39;
+  v32 = a1[4];
+  v33 = a1[6];
+  v18 = v4;
+  v34 = v18;
+  v35 = a1[7];
+  v19 = [v14 autocompleteFetch:v15 shouldExpectSupplementalResultsForRequest:v16 completionHandler:v29];
 
-  if (v17)
+  if (v19)
   {
-    v18 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = CNALoggingContextTriage(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = a1[5];
+      v22 = a1[5];
       *buf = 138543362;
-      v39 = v19;
-      _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Supplemental: Results are expected", buf, 0xCu);
+      v42 = v22;
+      _os_log_impl(&dword_2155FE000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Supplemental: Results are expected", buf, 0xCu);
     }
   }
 
   else
   {
-    v20 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v23 = CNALoggingContextTriage(v20);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = a1[5];
+      v24 = a1[5];
       *buf = 138543362;
-      v39 = v21;
-      _os_log_impl(&dword_2155FE000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Supplemental: Results are not expected", buf, 0xCu);
+      v42 = v24;
+      _os_log_impl(&dword_2155FE000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Supplemental: Results are not expected", buf, 0xCu);
     }
 
-    v22 = CNALoggingContextPerformance();
-    v23 = v22;
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v26 = CNALoggingContextPerformance(v25);
+    v27 = v26;
+    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_2155FE000, v23, OS_SIGNPOST_INTERVAL_END, v9, "Searching via Delegate (supplemental results", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_2155FE000, v27, OS_SIGNPOST_INTERVAL_END, v10, "Searching via Delegate (supplemental results", "", buf, 2u);
     }
 
-    if ([v16 trySetState:0])
+    if ([v18 trySetState:0])
     {
       [a1[7] observerDidComplete];
     }
 
     else
     {
-      v24 = a1[6];
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = a1[6];
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_2_cold_1(v24);
+        __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_2_cold_1(v28);
       }
     }
   }
 
-  _Block_object_dispose(v36, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v39, 8);
 }
 
 void __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_29(uint64_t a1, void *a2, void *a3)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = CNALoggingContextPerformance();
+  v7 = CNALoggingContextPerformance(v6);
   v8 = v7;
   v9 = *(a1 + 88);
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -743,7 +726,7 @@ void __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block
   v12 = v11;
 
   v13 = [MEMORY[0x277CFBEC8] stringForTimeInterval:v12 - *(a1 + 96)];
-  v14 = CNALoggingContextTriage();
+  v14 = CNALoggingContextTriage(v13);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -758,7 +741,7 @@ void __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block
     *&buf[12] = 2114;
     *&buf[14] = v13;
     *&buf[22] = 2114;
-    v53 = v6;
+    v52 = v6;
     v17 = "[%{public}@] Supplemental: Search failed (%{public}@): %{public}@";
     v18 = v14;
     v19 = 32;
@@ -785,9 +768,9 @@ void __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block
 
     *&buf[14] = v21;
     *&buf[22] = 2080;
-    v53 = v23;
-    v54 = 2114;
-    v55 = v13;
+    v52 = v23;
+    v53 = 2114;
+    v54 = v13;
     v17 = "[%{public}@] Supplemental: Search complete (%lu %s, %{public}@)";
     v18 = v14;
     v19 = 42;
@@ -842,16 +825,16 @@ LABEL_12:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v53 = 1;
-    v40 = MEMORY[0x277D85DD0];
-    v41 = 3221225472;
-    v42 = __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_37;
-    v43 = &unk_2781C4AD8;
-    v44 = *(a1 + 40);
-    v45 = *(a1 + 56);
-    v47 = buf;
-    v46 = *(a1 + 48);
-    v32 = [v25 _cn_flatMap:&v40];
+    v52 = 1;
+    v39 = MEMORY[0x277D85DD0];
+    v40 = 3221225472;
+    v41 = __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_37;
+    v42 = &unk_2781C4AD8;
+    v43 = *(a1 + 40);
+    v44 = *(a1 + 56);
+    v46 = buf;
+    v45 = *(a1 + 48);
+    v32 = [v25 _cn_flatMap:&v39];
     v33 = *(a1 + 56);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
@@ -863,11 +846,11 @@ LABEL_12:
         v36 = "member";
       }
 
-      *v48 = 134218242;
-      v49 = v34;
-      v50 = 2080;
-      v51 = v36;
-      _os_log_impl(&dword_2155FE000, v33, OS_LOG_TYPE_INFO, "Promoting %lu %s to include with the top-level results", v48, 0x16u);
+      *v47 = 134218242;
+      v48 = v34;
+      v49 = 2080;
+      v50 = v36;
+      _os_log_impl(&dword_2155FE000, v33, OS_LOG_TYPE_INFO, "Promoting %lu %s to include with the top-level results", v47, 0x16u);
     }
 
     v37 = [v5 arrayByAddingObjectsFromArray:v32];
@@ -895,13 +878,11 @@ LABEL_27:
   }
 
 LABEL_32:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 id __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_37(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1 + 32) isCanceled])
   {
@@ -910,7 +891,7 @@ id __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_i
     {
       v5 = *(*(*(a1 + 56) + 8) + 24);
       *buf = 134217984;
-      v26 = v5;
+      v25 = v5;
       _os_log_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEFAULT, "Supplemental search has been cancelled; will not expand group %lu.", buf, 0xCu);
     }
 
@@ -919,33 +900,33 @@ id __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_i
 
   else
   {
-    v24 = 0;
-    v7 = [v3 members:&v24];
-    v8 = v24;
+    v23 = 0;
+    v7 = [v3 members:&v23];
+    v8 = v23;
     if (v7)
     {
-      v19 = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_38;
-      v22 = &unk_2781C4AB0;
-      v23 = *(a1 + 48);
-      v6 = [v7 _cn_filter:&v19];
+      v18 = MEMORY[0x277D85DD0];
+      v19 = 3221225472;
+      v20 = __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_38;
+      v21 = &unk_2781C4AB0;
+      v22 = *(a1 + 48);
+      v6 = [v7 _cn_filter:&v18];
       v9 = *(a1 + 40);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v14 = *(*(a1 + 56) + 8);
-        v15 = *(v14 + 24);
-        *(v14 + 24) = v15 + 1;
-        v16 = v9;
-        v17 = [v6 count];
-        v18 = [v7 count];
+        v13 = *(*(a1 + 56) + 8);
+        v14 = *(v13 + 24);
+        *(v13 + 24) = v14 + 1;
+        v15 = v9;
+        v16 = [v6 count];
+        v17 = [v7 count];
         *buf = 134218496;
-        v26 = v15;
-        v27 = 2048;
-        v28 = v17;
-        v29 = 2048;
-        v30 = v18;
-        _os_log_debug_impl(&dword_2155FE000, v16, OS_LOG_TYPE_DEBUG, "Expanding group %lu: %lu/%lu members matched", buf, 0x20u);
+        v25 = v14;
+        v26 = 2048;
+        v27 = v16;
+        v28 = 2048;
+        v29 = v17;
+        _os_log_debug_impl(&dword_2155FE000, v15, OS_LOG_TYPE_DEBUG, "Expanding group %lu: %lu/%lu members matched", buf, 0x20u);
       }
     }
 
@@ -966,8 +947,6 @@ id __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_i
       v6 = MEMORY[0x277CBEBF8];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1003,8 +982,8 @@ uint64_t __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___b
 
   if (v12 >= maximumResultsCount2)
   {
-    v17 = CNALoggingContextTriage();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = CNALoggingContextTriage(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       request3 = [(CNAutocompleteQuery *)self request];
       triageIdentifier = [request3 triageIdentifier];
@@ -1017,7 +996,7 @@ uint64_t __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___b
       v29 = maximumResultsCount3;
       v30 = 2048;
       v31 = [completeResults4 count];
-      _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Reached maximumResultsCount (%lu) completeResults: (%lu), cancelling.", &v26, 0x20u);
+      _os_log_impl(&dword_2155FE000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Reached maximumResultsCount (%lu) completeResults: (%lu), cancelling.", &v26, 0x20u);
     }
 
     [(CNAutocompleteQuery *)self cancel];
@@ -1029,11 +1008,9 @@ uint64_t __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___b
   else
   {
     delegate = self->_delegate;
-    v16 = objc_loadWeakRetained(&self->_delegateToken);
-    [(CNAutocompleteDelegateWrapper *)delegate autocompleteFetch:v16 didReceiveResults:v8];
+    v17 = objc_loadWeakRetained(&self->_delegateToken);
+    [(CNAutocompleteDelegateWrapper *)delegate autocompleteFetch:v17 didReceiveResults:v8];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)searchOperationEncounteredError:(id)error
@@ -1050,7 +1027,7 @@ uint64_t __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___b
 
 - (void)searchOperationsHaveBegunNetworkActivity
 {
-  v3 = CNALoggingContextDebug();
+  v3 = CNALoggingContextDebug(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1064,7 +1041,7 @@ uint64_t __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___b
 
 - (void)searchOperationsHaveEndedNetworkActivity
 {
-  v3 = CNALoggingContextDebug();
+  v3 = CNALoggingContextDebug(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1078,47 +1055,43 @@ uint64_t __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___b
 
 - (void)cancel
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = CNALoggingContextDebug();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = CNALoggingContextDebug(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegateToken);
-    v6 = 134218240;
+    v5 = 134218240;
     selfCopy = self;
-    v8 = 2048;
-    v9 = WeakRetained;
-    _os_log_impl(&dword_2155FE000, v3, OS_LOG_TYPE_DEFAULT, "Cancelling query %p, delegate token: %p", &v6, 0x16u);
+    v7 = 2048;
+    v8 = WeakRetained;
+    _os_log_impl(&dword_2155FE000, v3, OS_LOG_TYPE_DEFAULT, "Cancelling query %p, delegate token: %p", &v5, 0x16u);
   }
 
   [(CNCancelationToken *)self->_cancelationToken cancel];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_37_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_2155FE000, log, OS_LOG_TYPE_ERROR, "Error expanding supplemental group (%{public}@): %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_2155FE000, log, OS_LOG_TYPE_ERROR, "Error expanding supplemental group (%{public}@): %{public}@", &v3, 0x16u);
 }
 
 void __65__CNAutocompleteQuery_observableWithSupplementalResultsForQuery___block_invoke_37_cold_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 56) + 8);
   v3 = *(v2 + 24);
   *(v2 + 24) = v3 + 1;
   v4 = a2;
-  v6 = 134218240;
-  v7 = v3;
-  v8 = 2048;
-  v9 = [0 count];
-  _os_log_debug_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEBUG, "Expanding group %lu resulted in error, 0/%lu members matched", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134218240;
+  v6 = v3;
+  v7 = 2048;
+  v8 = [0 count];
+  _os_log_debug_impl(&dword_2155FE000, v4, OS_LOG_TYPE_DEBUG, "Expanding group %lu resulted in error, 0/%lu members matched", &v5, 0x16u);
 }
 
 @end

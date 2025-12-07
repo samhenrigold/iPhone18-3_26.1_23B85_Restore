@@ -89,7 +89,7 @@
 
 - (BOOL)isAvailable
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   isAvailableNum = self->_isAvailableNum;
   if (!isAvailableNum)
   {
@@ -99,8 +99,8 @@
     if (objc_opt_isKindOfClass())
     {
       v6 = [v5 copy];
-      v28[0] = v6;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+      v27[0] = v6;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
 
       v5 = v7;
     }
@@ -109,28 +109,28 @@
     if (objc_opt_isKindOfClass())
     {
       [@"iOS" caseInsensitiveCompare:@"tvOS"];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v8 = v5;
-      v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v9)
       {
         v10 = v9;
-        v21 = v5;
-        v22 = v4;
-        v11 = *v24;
+        v20 = v5;
+        v21 = v4;
+        v11 = *v23;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v24 != v11)
+            if (*v23 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [*(*(&v23 + 1) + 8 * i) componentsSeparatedByString:{@".", v21, v22, v23}];
+            v13 = [*(*(&v22 + 1) + 8 * i) componentsSeparatedByString:{@".", v20, v21, v22}];
             firstObject = [v13 firstObject];
             v15 = [firstObject caseInsensitiveCompare:@"iOS"];
 
@@ -141,7 +141,7 @@
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v10)
           {
             continue;
@@ -152,8 +152,8 @@
 
         v16 = 0;
 LABEL_16:
-        v5 = v21;
-        v4 = v22;
+        v5 = v20;
+        v4 = v21;
       }
 
       else
@@ -174,15 +174,13 @@ LABEL_16:
     isAvailableNum = self->_isAvailableNum;
   }
 
-  result = [(NSNumber *)isAvailableNum BOOLValue];
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NSNumber *)isAvailableNum BOOLValue];
 }
 
 - (unint64_t)domainAvailability
 {
   selfCopy = self;
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   domainAvailabilityNum = self->_domainAvailabilityNum;
   if (!domainAvailabilityNum)
   {
@@ -192,8 +190,8 @@ LABEL_16:
     if (objc_opt_isKindOfClass())
     {
       v6 = [v5 copy];
-      v29[0] = v6;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+      v28[0] = v6;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
 
       v5 = v7;
     }
@@ -201,29 +199,29 @@ LABEL_16:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v23 = selfCopy;
-      v22 = v5;
+      v22 = selfCopy;
+      v21 = v5;
       v8 = v5;
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
-      v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v9)
       {
         v10 = v9;
         v11 = 0;
-        v12 = *v25;
+        v12 = *v24;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v25 != v12)
+            if (*v24 != v12)
             {
               objc_enumerationMutation(v8);
             }
 
-            v14 = [*(*(&v24 + 1) + 8 * i) componentsSeparatedByString:@"."];
+            v14 = [*(*(&v23 + 1) + 8 * i) componentsSeparatedByString:@"."];
             firstObject = [v14 firstObject];
             v16 = firstObject;
             if (firstObject && ![firstObject caseInsensitiveCompare:@"iOS"])
@@ -252,7 +250,7 @@ LABEL_16:
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v10);
@@ -263,8 +261,8 @@ LABEL_16:
         v11 = 0;
       }
 
-      selfCopy = v23;
-      v5 = v22;
+      selfCopy = v22;
+      v5 = v21;
     }
 
     else
@@ -279,14 +277,12 @@ LABEL_16:
     domainAvailabilityNum = selfCopy->_domainAvailabilityNum;
   }
 
-  result = [(NSNumber *)domainAvailabilityNum unsignedLongValue];
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NSNumber *)domainAvailabilityNum unsignedLongValue];
 }
 
 - (BOOL)dataCollectionEnabled
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   dataCollectionEnabledNum = self->_dataCollectionEnabledNum;
   if (!dataCollectionEnabledNum)
   {
@@ -305,7 +301,7 @@ LABEL_12:
         self->_dataCollectionEnabledNum = v11;
 
         dataCollectionEnabledNum = self->_dataCollectionEnabledNum;
-        goto LABEL_13;
+        return [(NSNumber *)dataCollectionEnabledNum BOOLValue];
       }
 
       objc_opt_class();
@@ -328,15 +324,15 @@ LABEL_12:
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v15 = 0;
+              v14 = 0;
               goto LABEL_31;
             }
 
-            v26[0] = v9;
-            v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+            v25[0] = v9;
+            v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
           }
 
-          v15 = v10;
+          v14 = v10;
           if (v10 && [v10 count])
           {
             if (dataCollectionIsEnabled_onceToken != -1)
@@ -346,35 +342,35 @@ LABEL_12:
 
             if (dataCollectionIsEnabled_countryCode)
             {
-              v23 = 0u;
-              v24 = 0u;
-              v21 = 0u;
               v22 = 0u;
-              v15 = v15;
-              v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
-              if (v16)
+              v23 = 0u;
+              v20 = 0u;
+              v21 = 0u;
+              v14 = v14;
+              v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+              if (v15)
               {
-                v17 = v16;
-                v20 = v9;
-                v18 = *v22;
+                v16 = v15;
+                v19 = v9;
+                v17 = *v21;
                 while (2)
                 {
-                  for (i = 0; i != v17; ++i)
+                  for (i = 0; i != v16; ++i)
                   {
-                    if (*v22 != v18)
+                    if (*v21 != v17)
                     {
-                      objc_enumerationMutation(v15);
+                      objc_enumerationMutation(v14);
                     }
 
-                    if (![dataCollectionIsEnabled_countryCode caseInsensitiveCompare:*(*(&v21 + 1) + 8 * i)])
+                    if (![dataCollectionIsEnabled_countryCode caseInsensitiveCompare:*(*(&v20 + 1) + 8 * i)])
                     {
                       bOOLValue = 0;
                       goto LABEL_33;
                     }
                   }
 
-                  v17 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
-                  if (v17)
+                  v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+                  if (v16)
                   {
                     continue;
                   }
@@ -384,7 +380,7 @@ LABEL_12:
 
                 bOOLValue = 1;
 LABEL_33:
-                v9 = v20;
+                v9 = v19;
               }
 
               else
@@ -414,10 +410,7 @@ LABEL_37:
     goto LABEL_12;
   }
 
-LABEL_13:
-  result = [(NSNumber *)dataCollectionEnabledNum BOOLValue];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NSNumber *)dataCollectionEnabledNum BOOLValue];
 }
 
 + (id)eventStreamPropertiesFromDictionary:(id)dictionary

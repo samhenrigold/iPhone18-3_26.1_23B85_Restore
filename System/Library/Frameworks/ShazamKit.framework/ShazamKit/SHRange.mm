@@ -132,18 +132,16 @@
 
 - (id)serializedRepresentation
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   [(SHRange *)self lowerBound];
   v4 = [v3 numberWithDouble:?];
-  v10[0] = v4;
+  v9[0] = v4;
   v5 = MEMORY[0x277CCABB0];
   [(SHRange *)self upperBound];
   v6 = [v5 numberWithDouble:?];
-  v10[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
 
   return v7;
 }

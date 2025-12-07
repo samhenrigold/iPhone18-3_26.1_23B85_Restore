@@ -1,34 +1,34 @@
-void sub_258B7CAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258B7CAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getAKAnisetteProvisioningControllerClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!AuthKitLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __AuthKitLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_2798B1358;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __AuthKitLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_2798B1358;
+    v5 = 0;
     AuthKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AuthKitLibraryCore_frameworkLibrary)
   {
-    __getAKAnisetteProvisioningControllerClass_block_invoke_cold_2(v4);
+    __getAKAnisetteProvisioningControllerClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("AKAnisetteProvisioningController");
@@ -39,17 +39,13 @@ Class __getAKAnisetteProvisioningControllerClass_block_invoke(uint64_t a1)
   }
 
   getAKAnisetteProvisioningControllerClass_softClass = *(*(*(a1 + 32) + 8) + 40);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AuthKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AuthKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -62,9 +58,9 @@ uint64_t __RegisterGmailAuthSchemes_block_invoke()
   return [v0 registerSchemeClass:v1];
 }
 
-void sub_258B815B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_258B815B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -121,7 +117,7 @@ uint64_t _storeOnServerForTuple(void *a1, uint64_t a2)
   return [v6 BOOLValue];
 }
 
-uint64_t _setSeparatorCharAndNamespace(uint64_t a1, void *a2, void *a3)
+void *_setSeparatorCharAndNamespace(uint64_t a1, void *a2, void *a3)
 {
   _MFLockGlobalLock();
   if (a2)
@@ -211,7 +207,7 @@ LABEL_24:
   return result;
 }
 
-uint64_t _mailboxDictionaryWithName(void *a1, uint64_t a2, unint64_t *a3)
+void *_mailboxDictionaryWithName(void *a1, uint64_t a2, unint64_t *a3)
 {
   result = [a1 count];
   if (result)
@@ -544,35 +540,31 @@ uint64_t __MFIMAPDateSearchStringForDate_block_invoke()
 
 void *MFUIDPlusInfoFromResponse(void *a1)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if ([a1 responseType] != 2 || objc_msgSend(a1, "responseCode") != 16)
   {
-    goto LABEL_6;
+    return 0;
   }
 
   result = [a1 responseInfo];
-  if (result)
+  if (!result)
   {
-    v3 = result;
-    if ([result count] >= 3)
-    {
-      v5[0] = @"UIDVALIDITY";
-      v6[0] = [v3 objectAtIndexedSubscript:0];
-      v5[1] = @"Source UIDS";
-      v6[1] = [v3 objectAtIndexedSubscript:1];
-      v5[2] = @"Destination UIDS";
-      v6[2] = [v3 objectAtIndexedSubscript:2];
-      result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
-      goto LABEL_7;
-    }
-
-LABEL_6:
-    result = 0;
+    return result;
   }
 
-LABEL_7:
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v3 = result;
+  if ([result count] < 3)
+  {
+    return 0;
+  }
+
+  v4[0] = @"UIDVALIDITY";
+  v5[0] = [v3 objectAtIndexedSubscript:0];
+  v4[1] = @"Source UIDS";
+  v5[1] = [v3 objectAtIndexedSubscript:1];
+  v4[2] = @"Destination UIDS";
+  v5[2] = [v3 objectAtIndexedSubscript:2];
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 }
 
 __CFString *MFIMAPStringFromMailboxName(__CFString *a1)
@@ -827,15 +819,15 @@ void sub_258B9087C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t _processSelectCommand(uint64_t a1, unsigned int a2, __CFString *a3)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
-  v20[0] = a2;
-  v25[0] = MFIMAPStringFromMailboxName(a3);
-  v20[1] = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[1] = *MEMORY[0x277D85DE8];
+  v19[0] = a2;
+  v24[0] = MFIMAPStringFromMailboxName(a3);
+  v19[1] = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v20 = 0;
   v21 = 0;
   v22 = 0;
-  v23 = 0;
   [a1 mf_lock];
-  v5 = [a1 _responseFromSendingCommands:v20 count:1];
+  v5 = [a1 _responseFromSendingCommands:v19 count:1];
   v6 = [v5 responseType];
   if (v6 == 4)
   {
@@ -853,7 +845,7 @@ uint64_t _processSelectCommand(uint64_t a1, unsigned int a2, __CFString *a3)
   if (v6 != 2)
   {
 LABEL_15:
-    [a1 _errorForResponse:v5 commandParams:v20];
+    [a1 _errorForResponse:v5 commandParams:v19];
     v13 = 0;
     goto LABEL_18;
   }
@@ -861,26 +853,26 @@ LABEL_15:
   *(a1 + 168) = [(__CFString *)a3 copy];
   *(a1 + 144) = *(a1 + 144) & 0xF8 | 3;
   *(a1 + 248) &= ~1u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v7 = v21;
-  v8 = [v21 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v7 = v20;
+  v8 = [v20 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
+        v12 = *(*(&v15 + 1) + 8 * i);
         if ([v12 responseType] == 2 && objc_msgSend(v12, "responseCode") == 13)
         {
           *(a1 + 248) |= 1u;
@@ -888,7 +880,7 @@ LABEL_15:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
       v13 = 1;
       if (v9)
       {
@@ -907,21 +899,20 @@ LABEL_17:
 
 LABEL_18:
   [a1 mf_unlock];
-  [a1 didFinishCommands:v20 count:1];
-  v14 = *MEMORY[0x277D85DE8];
+  [a1 didFinishCommands:v19 count:1];
   return v13;
 }
 
 uint64_t _doUidSearch(void *a1, uint64_t a2, void *a3, void *a4, BOOL *a5, char a6)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v12 = [objc_allocWithZone(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(a3, "count") + 2 * (a2 != 0)}];
   v13 = v12;
-  v33[1] = v12;
-  v33[0] = 24;
-  v35 = 0;
-  v36 = 0;
+  v32[1] = v12;
+  v32[0] = 24;
   v34 = 0;
+  v35 = 0;
+  v33 = 0;
   if (a2)
   {
     if ((a6 & 1) == 0)
@@ -932,41 +923,41 @@ uint64_t _doUidSearch(void *a1, uint64_t a2, void *a3, void *a4, BOOL *a5, char 
     [v13 addObject:a2];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v14 = [a3 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v14 = [a3 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v30;
+    v16 = *v29;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v30 != v16)
+        if (*v29 != v16)
         {
           objc_enumerationMutation(a3);
         }
 
-        v18 = [a1 copyArgumentForSearchTerm:*(*(&v29 + 1) + 8 * i)];
+        v18 = [a1 copyArgumentForSearchTerm:*(*(&v28 + 1) + 8 * i)];
         [v13 addObject:v18];
       }
 
-      v15 = [a3 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v15 = [a3 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v15);
   }
 
-  v19 = [objc_msgSend(a1 _responseFromSendingCommands:v33 count:{1), "responseType"}];
+  v19 = [objc_msgSend(a1 _responseFromSendingCommands:v32 count:{1), "responseType"}];
   if (a5)
   {
     *a5 = v19 == 2;
   }
 
-  if (v19 == 2 && (v20 = [v34 count]) != 0)
+  if (v19 == 2 && (v20 = [v33 count]) != 0)
   {
     v21 = v20;
     v22 = 0;
@@ -974,7 +965,7 @@ uint64_t _doUidSearch(void *a1, uint64_t a2, void *a3, void *a4, BOOL *a5, char 
     v24 = 0;
     do
     {
-      v25 = [v34 objectAtIndex:v24];
+      v25 = [v33 objectAtIndex:v24];
       if ([v25 responseType] == 14)
       {
         v26 = [v25 searchResults];
@@ -991,7 +982,7 @@ uint64_t _doUidSearch(void *a1, uint64_t a2, void *a3, void *a4, BOOL *a5, char 
           }
         }
 
-        [v34 removeObjectAtIndex:v24];
+        [v33 removeObjectAtIndex:v24];
         --v21;
         v22 = 1;
       }
@@ -1011,14 +1002,13 @@ uint64_t _doUidSearch(void *a1, uint64_t a2, void *a3, void *a4, BOOL *a5, char 
     v22 = 0;
   }
 
-  [a1 didFinishCommands:v33 count:1];
+  [a1 didFinishCommands:v32 count:1];
   if (a4)
   {
     [v23 sortUsingSelector:sel_compare_];
     *a4 = v23;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v22 & 1;
 }
 
@@ -1178,50 +1168,50 @@ LABEL_18:
   return v22;
 }
 
-uint64_t _lockedUpdateDownloadsInRange(uint64_t result, unint64_t a2, uint64_t a3, void *a4)
+id *_lockedUpdateDownloadsInRange(id *result, unint64_t a2, uint64_t a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v6 = result;
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    result = [a4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    result = [a4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (result)
     {
       v7 = result;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         v9 = 0;
         do
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(a4);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * v9);
+          v10 = *(*(&v15 + 1) + 8 * v9);
           if ([v10 type] != 8 && a2 < a2 + a3)
           {
             v12 = a3;
             v13 = a2;
             do
             {
-              [objc_msgSend(*(v6 + 8) objectAtIndex:{v13++), "handleFetchResult:", v10}];
+              [objc_msgSend(v6[1] objectAtIndex:{v13++), "handleFetchResult:", v10}];
               --v12;
             }
 
             while (v12);
           }
 
-          ++v9;
+          v9 = (v9 + 1);
         }
 
         while (v9 != v7);
-        result = [a4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        result = [a4 countByEnumeratingWithState:&v15 objects:v19 count:16];
         v7 = result;
       }
 
@@ -1229,7 +1219,6 @@ uint64_t _lockedUpdateDownloadsInRange(uint64_t result, unint64_t a2, uint64_t a
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1292,7 +1281,7 @@ void sub_258B9A658(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _createStringFromData(void *a1, void *a2)
+void *_createStringFromData(void *a1, void *a2)
 {
   v4 = [a1 bytes] + *a2;
   v5 = [a1 bytes];
@@ -1411,46 +1400,46 @@ uint64_t _serializeStringToData(void *a1, void *a2)
   return [a2 appendBytes:&v5 length:1];
 }
 
-uint64_t _serializeStringArrayToData(void *a1, void *a2)
+void *_serializeStringArrayToData(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = [a1 count];
-  [a2 appendBytes:&v13 length:4];
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = [a1 count];
+  [a2 appendBytes:&v12 length:4];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  result = [a1 countByEnumeratingWithState:&v9 objects:v14 count:16];
+  result = [a1 countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(a1);
         }
 
-        _serializeStringToData(*(*(&v9 + 1) + 8 * v7++), a2);
+        _serializeStringToData(*(*(&v8 + 1) + 8 * v7), a2);
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      result = [a1 countByEnumeratingWithState:&v9 objects:v14 count:16];
+      result = [a1 countByEnumeratingWithState:&v8 objects:v13 count:16];
       v5 = result;
     }
 
     while (result);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _serializeUidArrayToData(CFArrayRef theArray, void *a2)
+void *_serializeUidArrayToData(CFArrayRef theArray, void *a2)
 {
   if (theArray)
   {
@@ -1511,7 +1500,7 @@ __CFArray *_createUidArrayFromStringArray(void *a1)
 
 void *_stringArrayFromUidArray(const __CFArray *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     Count = CFArrayGetCount(a1);
@@ -1519,10 +1508,9 @@ void *_stringArrayFromUidArray(const __CFArray *a1)
     {
       v3 = Count;
       v4 = 0;
-      v5 = 0;
-      while (1)
+      for (i = 0; ; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(a1, v5);
+        ValueAtIndex = CFArrayGetValueAtIndex(a1, i);
         if (ValueAtIndex)
         {
           v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:__str length:snprintf(__str encoding:{0x20uLL, "%u", ValueAtIndex), 4}];
@@ -1548,19 +1536,15 @@ LABEL_7:
         }
 
 LABEL_8:
-        ++v5;
         if (!--v3)
         {
-          goto LABEL_13;
+          return v4;
         }
       }
     }
   }
 
-  v4 = 0;
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
-  return v4;
+  return 0;
 }
 
 void _setFlags(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -1635,7 +1619,7 @@ uint64_t _writeDataToPath(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 
 uint64_t _saveChanges(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [a1 mf_lock];
   v2 = [*(a1 + 24) count];
   if (v2)
@@ -1644,31 +1628,31 @@ uint64_t _saveChanges(uint64_t a1)
     if (v2 > *(a1 + 36))
     {
       v4 = [objc_allocWithZone(MEMORY[0x277CBEB28]) init];
+      v12 = 0u;
       v13 = 0u;
       v14 = 0u;
       v15 = 0u;
-      v16 = 0u;
       v5 = *(a1 + 24);
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v14;
+        v8 = *v13;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v14 != v8)
+            if (*v13 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v13 + 1) + 8 * i);
+            v10 = *(*(&v12 + 1) + 8 * i);
             [v4 appendBytes:&IMAPOperationCacheFileMagic length:3];
             [v10 serializeIntoData:v4];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v7);
@@ -1687,9 +1671,7 @@ uint64_t _saveChanges(uint64_t a1)
     MFRemoveItemAtPath();
   }
 
-  result = [a1 mf_unlock];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [a1 mf_unlock];
 }
 
 void *_convertTemporaryUids(void *a1, const __CFDictionary *a2)
@@ -1766,7 +1748,7 @@ BOOL _selectMailboxIfNeeded(uint64_t a1, uint64_t a2, const void *a3)
 uint64_t _searchForNewUid(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4)
 {
   result = 0;
-  v11[4] = *MEMORY[0x277D85DE8];
+  v10[4] = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (a4)
@@ -1775,25 +1757,24 @@ uint64_t _searchForNewUid(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4)
       if (result)
       {
         v8 = *(a2 + 8);
-        v11[0] = @"RECENT";
-        v11[1] = @"HEADER";
-        v11[2] = @"MESSAGE-ID";
-        v11[3] = a3;
-        result = [v8 searchUidSet:0 forTerms:objc_msgSend(MEMORY[0x277CBEA60] success:{"arrayWithObjects:count:", v11, 4), 0}];
+        v10[0] = @"RECENT";
+        v10[1] = @"HEADER";
+        v10[2] = @"MESSAGE-ID";
+        v10[3] = a3;
+        result = [v8 searchUidSet:0 forTerms:objc_msgSend(MEMORY[0x277CBEA60] success:{"arrayWithObjects:count:", v10, 4), 0}];
         if (result)
         {
           v9 = result;
           result = [result count];
           if (result)
           {
-            result = [objc_msgSend(v9 "lastObject")];
+            return [objc_msgSend(v9 "lastObject")];
           }
         }
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1828,10 +1809,11 @@ const void *_getStoreForMailboxName(uint64_t a1, CFDictionaryRef *a2, void *key)
   return Value;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t mf_isIMAPAtom(unsigned int a1)
@@ -1851,7 +1833,7 @@ uint64_t _nullOrCFTypeRetain(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    return MEMORY[0x2821F9840]();
+    return MEMORY[0x2821F9840](a1);
   }
 
   else
@@ -1864,10 +1846,10 @@ uint64_t _nullOrCFTypeRelease(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](a1);
   }
 
-  return result;
+  return a1;
 }
 
 __CFString *_nullOrCFTypeCopyDescription(uint64_t a1)
@@ -1920,7 +1902,31 @@ CFMutableArrayRef createFixedMutableArray(void *a1)
   }
 }
 
-uint64_t response(void *a1)
+void sub_258BA29A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v11 = objc_begin_catch(a1);
+    v12 = MFLogGeneral();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = [v11 name];
+      v14 = [v11 reason];
+      LODWORD(buf) = 138412546;
+      *(&buf + 4) = v13;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v14;
+      _os_log_impl(&dword_258B7A000, v12, OS_LOG_TYPE_DEFAULT, "#Warning caught %@: %@", &buf, 0x16u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x258BA2950);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void *response(void *a1)
 {
   v2 = [a1 lookAhead];
   if (v2 == 42)
@@ -2011,64 +2017,58 @@ uint64_t MFCreateArrayForMessageFlags(uint64_t a1, int a2)
 
 uint64_t MFMessageFlagsFromArray(void *a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = [a1 count];
-  memset(v11, 0, 13);
-  if (v2)
+  memset(v10, 0, 13);
+  if (!v2)
   {
-    v3 = v2;
-    v4 = 0;
-    do
+    return 0;
+  }
+
+  v3 = v2;
+  v4 = 0;
+  do
+  {
+    while (1)
     {
-      while (1)
+      v5 = [objc_msgSend(a1 objectAtIndex:{--v3), "dataUsingEncoding:allowLossyConversion:", 1, 1}];
+      v6 = [v5 bytes];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
       {
-        v5 = [objc_msgSend(a1 objectAtIndex:{--v3), "dataUsingEncoding:allowLossyConversion:", 1, 1}];
-        v6 = [v5 bytes];
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          break;
-        }
+        break;
+      }
 
 LABEL_8:
-        if (!v3)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      v7 = 0;
-      v8 = &qword_2798B1A50;
-      while ((*(v11 + v7) & 1) != 0 || strncasecmp(v6, *(v8 - 1), [v5 length]))
+      if (!v3)
       {
-        ++v7;
-        v8 += 3;
-        if (v7 == 13)
-        {
-          goto LABEL_8;
-        }
+        return v4;
       }
-
-      *(v11 + v7) = 1;
-      v4 |= *v8;
     }
 
-    while (v3);
+    v7 = 0;
+    v8 = &qword_2798B1A50;
+    while ((*(v10 + v7) & 1) != 0 || strncasecmp(v6, *(v8 - 1), [v5 length]))
+    {
+      ++v7;
+      v8 += 3;
+      if (v7 == 13)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    *(v10 + v7) = 1;
+    v4 |= *v8;
   }
 
-  else
-  {
-    v4 = 0;
-  }
-
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
+  while (v3);
   return v4;
 }
 
 void resp_text(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (([a1 parseSpace] & 1) == 0)
   {
     [a1 emitWarning:@"Expected space"];
@@ -2214,16 +2214,16 @@ void resp_text(void *a1)
     if ([a1 match:"NEWNAME" upToSpecial:v5])
     {
       [a1 parseSpace];
-      v10 = mailbox(a1);
-      values = v10;
+      v9 = mailbox(a1);
+      values = v9;
       [a1 parseSpace];
-      v11 = mailbox(a1);
+      v10 = mailbox(a1);
       v6 = 0;
-      v26 = v11;
-      if (v10 && v11)
+      v25 = v10;
+      if (v9 && v10)
       {
         v6 = CFArrayCreate(0, &values, 2, MEMORY[0x277CBF128]);
-        v10 = values;
+        v9 = values;
       }
 
       v7 = 3;
@@ -2327,14 +2327,14 @@ void resp_text(void *a1)
 
     if ([a1 match:"CAPABILITY" upToSpecial:v5])
     {
-      v12 = [a1 end];
+      v11 = [a1 end];
       if (v2)
       {
         [a1 setEnd:v2];
       }
 
       v6 = capability_array(a1);
-      [a1 setEnd:v12];
+      [a1 setEnd:v11];
       if (!v2)
       {
         v2 = [a1 end];
@@ -2352,32 +2352,32 @@ void resp_text(void *a1)
         [a1 emitWarning:@"Expected space"];
       }
 
-      v13 = [a1 copyNumber];
-      if (v13)
+      v12 = [a1 copyNumber];
+      if (v12)
       {
         if (([a1 parseSpace] & 1) == 0)
         {
           [a1 emitWarning:@"Expected space"];
         }
 
-        v14 = [a1 copyNumber];
-        if (v14)
+        v13 = [a1 copyNumber];
+        if (v13)
         {
-          v15 = [objc_allocWithZone(MEMORY[0x277CBEA60]) initWithObjects:{v13, v14, 0}];
+          v14 = [objc_allocWithZone(MEMORY[0x277CBEA60]) initWithObjects:{v12, v13, 0}];
           v7 = 15;
 LABEL_117:
 
-          v6 = v15;
+          v6 = v14;
           goto LABEL_47;
         }
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
       }
 
-      v15 = 0;
+      v14 = 0;
       v7 = 0;
       goto LABEL_117;
     }
@@ -2386,11 +2386,11 @@ LABEL_117:
     {
       if ([a1 match:"CLIENTBUG" upToSpecial:v2])
       {
-        v19 = MFLogGeneral();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v18 = MFLogGeneral();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           LOWORD(values) = 0;
-          _os_log_impl(&dword_258B7A000, v19, OS_LOG_TYPE_INFO, "We did something bad: we just got back a CLIENTBUG from the server.", &values, 2u);
+          _os_log_impl(&dword_258B7A000, v18, OS_LOG_TYPE_INFO, "We did something bad: we just got back a CLIENTBUG from the server.", &values, 2u);
         }
 
         v6 = 0;
@@ -2404,28 +2404,28 @@ LABEL_117:
           v2 = [a1 end];
         }
 
-        v20 = [a1 start];
+        v19 = [a1 start];
         if (v5)
         {
-          v21 = [a1 copyStringFrom:v20 to:v5 withCaseOption:1];
+          v20 = [a1 copyStringFrom:v19 to:v5 withCaseOption:1];
           v5 = [a1 copyStringFrom:&v5->isa + 1 to:v2 withCaseOption:0];
         }
 
         else
         {
-          v21 = [a1 copyStringFrom:v20 to:v2 withCaseOption:1];
+          v20 = [a1 copyStringFrom:v19 to:v2 withCaseOption:1];
         }
 
-        v22 = objc_allocWithZone(MEMORY[0x277CBEA60]);
-        v23 = &stru_2869E1DA0;
+        v21 = objc_allocWithZone(MEMORY[0x277CBEA60]);
+        v22 = &stru_2869E1DA0;
         if (v5)
         {
-          v23 = v5;
+          v22 = v5;
         }
 
-        v24 = [v22 initWithObjects:{v21, v23, 0}];
+        v23 = [v21 initWithObjects:{v20, v22, 0}];
 
-        v6 = v24;
+        v6 = v23;
         [a1 setStart:v2];
         v7 = 34;
       }
@@ -2438,26 +2438,26 @@ LABEL_117:
       [a1 emitWarning:@"Expected space"];
     }
 
-    v16 = [a1 copyNumber];
-    if (v16)
+    v15 = [a1 copyNumber];
+    if (v15)
     {
       if (([a1 parseSpace] & 1) == 0)
       {
         [a1 emitWarning:@"Expected space"];
       }
 
-      v17 = [a1 copyMessageSet];
-      if (v17)
+      v16 = [a1 copyMessageSet];
+      if (v16)
       {
         if (([a1 parseSpace] & 1) == 0)
         {
           [a1 emitWarning:@"Expected space"];
         }
 
-        v18 = [a1 copyMessageSet];
-        if (v18)
+        v17 = [a1 copyMessageSet];
+        if (v17)
         {
-          v6 = [objc_allocWithZone(MEMORY[0x277CBEA60]) initWithObjects:{v16, v17, v18, 0}];
+          v6 = [objc_allocWithZone(MEMORY[0x277CBEA60]) initWithObjects:{v15, v16, v17, 0}];
           v7 = 16;
 LABEL_125:
 
@@ -2467,14 +2467,14 @@ LABEL_125:
 
       else
       {
-        v18 = 0;
+        v17 = 0;
       }
     }
 
     else
     {
-      v18 = 0;
       v17 = 0;
+      v16 = 0;
     }
 
     v6 = 0;
@@ -2504,8 +2504,6 @@ LABEL_50:
   v8 = [objc_allocWithZone(MEMORY[0x277D24F00]) initWithBytes:objc_msgSend(a1 length:{"start"), objc_msgSend(a1, "end") - objc_msgSend(a1, "start")}];
   [a1 setEnd:{objc_msgSend(a1, "start")}];
   [objc_msgSend(a1 "response")];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void capability_response(void *a1)
@@ -2775,7 +2773,7 @@ LABEL_21:
 
 void fetch_response(void *a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   [objc_msgSend(a1 "response")];
   if (([a1 parseSpace] & 1) == 0)
   {
@@ -2794,10 +2792,10 @@ void fetch_response(void *a1)
     v5 = 1;
     v6 = 0x277CBE000uLL;
     *&v3 = 138412290;
-    v49 = v3;
+    v48 = v3;
     while (1)
     {
-      if ([a1 match:"]", v49))
+      if ([a1 match:"]", v48))
       {
         goto LABEL_145;
       }
@@ -3098,7 +3096,7 @@ LABEL_67:
 
           if ([a1 match:{"(") && (objc_msgSend(a1, "match:", ")") & 1}] == 0)
           {
-            v50 = 0;
+            v49 = 0;
             v13 = 0;
             v23 = 1;
             do
@@ -3209,7 +3207,7 @@ LABEL_67:
 
               else
               {
-                v50 |= *(v34 - 2);
+                v49 |= *(v34 - 2);
                 v6 = v30;
               }
 
@@ -3223,10 +3221,10 @@ LABEL_67:
           else
           {
             v13 = 0;
-            v50 = 0;
+            v49 = 0;
           }
 
-          [(MFIMAPFetchResult *)v12 setMessageFlags:v50];
+          [(MFIMAPFetchResult *)v12 setMessageFlags:v49];
           [(MFIMAPFetchResult *)v12 setCustomFlagsArray:v13];
         }
 
@@ -3283,7 +3281,7 @@ LABEL_66:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           v17 = [v13 description];
-          *buf = v49;
+          *buf = v48;
           *&buf[4] = v17;
           _os_log_impl(&dword_258B7A000, v16, OS_LOG_TYPE_INFO, "#Power [Server Fetch Time] InternalDate=%@", buf, 0xCu);
         }
@@ -3313,8 +3311,6 @@ LABEL_145:
   if (v4)
   {
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void quotaroot_response(void *a1)
@@ -3678,7 +3674,7 @@ void *capability_array(void *a1)
   return v2;
 }
 
-uint64_t body_data(void *a1, uint64_t a2)
+void *body_data(void *a1, uint64_t a2)
 {
   v4 = [objc_msgSend(a1 "response")];
   if (v4)
@@ -3705,7 +3701,7 @@ uint64_t body_data(void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t nilOrString(void *a1)
+void *nilOrString(void *a1)
 {
   result = [a1 copyNilOrString];
   if (result)
@@ -3947,7 +3943,7 @@ NSString *OUTLINED_FUNCTION_3()
 
 uint64_t _syncFlags(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, char a6, uint64_t a7)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v14 = [a1 relativePath];
   [objc_msgSend(objc_msgSend(a1 "account")];
   v15 = [a1 account];
@@ -3959,9 +3955,9 @@ uint64_t _syncFlags(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, c
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v30 = a2;
-      v31 = 2112;
-      v32 = v16;
+      v29 = a2;
+      v30 = 2112;
+      v31 = v16;
       _os_log_impl(&dword_258B7A000, v17, OS_LOG_TYPE_INFO, "#IMAPFlagChanges applying pending changes for message %u: %@", buf, 0x12u);
     }
 
@@ -3984,9 +3980,9 @@ uint64_t _syncFlags(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, c
     {
       v22 = [a5 tag];
       *buf = 67109378;
-      v30 = v22;
-      v31 = 2112;
-      v32 = v20;
+      v29 = v22;
+      v30 = 2112;
+      v31 = v20;
       _os_log_impl(&dword_258B7A000, v21, OS_LOG_TYPE_INFO, "#IMAPFlagChanges remaining changes from server (connection %u): %@", buf, 0x12u);
     }
   }
@@ -3998,46 +3994,43 @@ uint64_t _syncFlags(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, c
     {
       v24 = v23;
       v25 = [v23 messageStore];
-      v28 = v24;
-      [v25 setFlagsLocallyFromDictionary:v20 forMessages:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v28, 1)}];
+      v27 = v24;
+      [v25 setFlagsLocallyFromDictionary:v20 forMessages:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v27, 1)}];
     }
   }
 
-  result = [objc_msgSend(objc_msgSend(a1 "account")];
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_msgSend(objc_msgSend(a1 "account")];
 }
 
 uint64_t uidFromFetchResults(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [a1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(a1);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if ([v6 type] == 8)
         {
-          result = [v6 uid];
-          goto LABEL_11;
+          return [v6 uid];
         }
       }
 
-      v3 = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [a1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -4047,46 +4040,42 @@ uint64_t uidFromFetchResults(void *a1)
     }
   }
 
-  result = 0x7FFFFFFFFFFFFFFFLL;
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0x7FFFFFFFFFFFFFFFLL;
 }
 
-uint64_t flagsFromFetchResults(void *a1)
+void *flagsFromFetchResults(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  result = [a1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  result = [a1 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (result)
   {
     v3 = result;
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(a1);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
+        v6 = *(*(&v7 + 1) + 8 * v5);
         if ([v6 type] == 10)
         {
-          result = [v6 messageFlags];
-          goto LABEL_11;
+          return [v6 messageFlags];
         }
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
-      result = [a1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      result = [a1 countByEnumeratingWithState:&v7 objects:v11 count:16];
       v3 = result;
       if (result)
       {
@@ -4097,20 +4086,18 @@ uint64_t flagsFromFetchResults(void *a1)
     }
   }
 
-LABEL_11:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_258BA8BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_258BA8BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t compactMessagesToUID(void *a1, uint64_t a2)
+void *compactMessagesToUID(void *a1, uint64_t a2)
 {
   v3 = [objc_msgSend(a1 "library")];
   result = [v3 count];
@@ -4126,138 +4113,134 @@ uint64_t compactMessagesToUID(void *a1, uint64_t a2)
 
 void tokenizeCriterionWithHandler(void *a1, uint64_t a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v4 = [a1 expression];
   v5 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
   theString = v4;
-  if (![-[__CFString stringByTrimmingCharactersInSet:](v4 stringByTrimmingCharactersInSet:{v5), "length"}])
+  if ([-[__CFString stringByTrimmingCharactersInSet:](v4 stringByTrimmingCharactersInSet:{v5), "length"}])
   {
-LABEL_34:
-    v33 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if ([a1 qualifier] != 8 && !-[__CFString mf_isLegalEmailAddress](v4, "mf_isLegalEmailAddress"))
-  {
-    v8 = [objc_alloc(MEMORY[0x277CCA948]) initWithTypes:32 error:0];
-    if (v8)
+    if ([a1 qualifier] == 8 || -[__CFString mf_isLegalEmailAddress](v4, "mf_isLegalEmailAddress"))
     {
-      v35 = v5;
-      v34 = v8;
-      v9 = [v8 matchesInString:v4 options:16 range:{0, -[__CFString length](v4, "length")}];
-      v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v42 = 0u;
-      v43 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      obj = v9;
-      v11 = [v9 countByEnumeratingWithState:&v42 objects:v47 count:16];
-      if (v11)
+      v6 = *(a2 + 16);
+
+      v6(a2, v4);
+    }
+
+    else
+    {
+      v7 = [objc_alloc(MEMORY[0x277CCA948]) initWithTypes:32 error:0];
+      if (v7)
       {
-        v12 = v11;
-        v13 = *v43;
-        do
-        {
-          for (i = 0; i != v12; ++i)
-          {
-            if (*v43 != v13)
-            {
-              objc_enumerationMutation(obj);
-            }
-
-            v15 = *(*(&v42 + 1) + 8 * i);
-            v16 = [v15 range];
-            (*(a2 + 16))(a2, [(__CFString *)theString substringWithRange:v16, v17]);
-            v18 = MEMORY[0x277CCAE60];
-            v19 = [v15 range];
-            [v10 ef_insertObject:objc_msgSend(v18 usingComparator:"valueWithRange:" allowDuplicates:{v19, v20), &__block_literal_global_581, 0}];
-          }
-
-          v12 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-        }
-
-        while (v12);
-      }
-
-      if ([v10 count])
-      {
-        theString = [(__CFString *)theString mutableCopy];
-        v38 = 0u;
-        v39 = 0u;
+        v33 = v5;
+        v32 = v7;
+        v8 = [v7 matchesInString:v4 options:16 range:{0, -[__CFString length](v4, "length")}];
+        v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v40 = 0u;
         v41 = 0u;
-        v21 = [v10 countByEnumeratingWithState:&v38 objects:v46 count:16];
-        v22 = v34;
-        if (v21)
+        v42 = 0u;
+        v43 = 0u;
+        obj = v8;
+        v10 = [v8 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        if (v10)
         {
-          v23 = v21;
-          v24 = *v39;
+          v11 = v10;
+          v12 = *v41;
           do
           {
-            for (j = 0; j != v23; ++j)
+            for (i = 0; i != v11; ++i)
             {
-              if (*v39 != v24)
+              if (*v41 != v12)
               {
-                objc_enumerationMutation(v10);
+                objc_enumerationMutation(obj);
               }
 
-              v26 = [*(*(&v38 + 1) + 8 * j) rangeValue];
-              [(__CFString *)theString deleteCharactersInRange:v26, v27];
+              v14 = *(*(&v40 + 1) + 8 * i);
+              v15 = [v14 range];
+              (*(a2 + 16))(a2, [(__CFString *)theString substringWithRange:v15, v16]);
+              v17 = MEMORY[0x277CCAE60];
+              v18 = [v14 range];
+              [v9 ef_insertObject:objc_msgSend(v17 usingComparator:"valueWithRange:" allowDuplicates:{v18, v19), &__block_literal_global_581, 0}];
             }
 
-            v23 = [v10 countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v11 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
           }
 
-          while (v23);
+          while (v11);
         }
-      }
 
-      else
-      {
-        v22 = v34;
-      }
-
-      v5 = v35;
-    }
-
-    if ([-[__CFString stringByTrimmingCharactersInSet:](theString stringByTrimmingCharactersInSet:{v5), "length"}])
-    {
-      v28 = [MEMORY[0x277CBEAF8] currentLocale];
-      v50.length = CFStringGetLength(theString);
-      v50.location = 0;
-      v29 = CFStringTokenizerCreate(*MEMORY[0x277CBECE8], theString, v50, 4uLL, v28);
-      if (v29)
-      {
-        v30 = v29;
-        while (CFStringTokenizerAdvanceToNextToken(v30))
+        if ([v9 count])
         {
-          CurrentTokenRange = CFStringTokenizerGetCurrentTokenRange(v30);
-          if (CurrentTokenRange.length != 1)
+          theString = [(__CFString *)theString mutableCopy];
+          v36 = 0u;
+          v37 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          v20 = [v9 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v21 = v32;
+          if (v20)
           {
-            v32 = [(__CFString *)theString substringWithRange:CurrentTokenRange.location, CurrentTokenRange.length];
-            if ([objc_msgSend(v32 stringByTrimmingCharactersInSet:{v5), "length"}])
+            v22 = v20;
+            v23 = *v37;
+            do
             {
-              (*(a2 + 16))(a2, v32);
+              for (j = 0; j != v22; ++j)
+              {
+                if (*v37 != v23)
+                {
+                  objc_enumerationMutation(v9);
+                }
+
+                v25 = [*(*(&v36 + 1) + 8 * j) rangeValue];
+                [(__CFString *)theString deleteCharactersInRange:v25, v26];
+              }
+
+              v22 = [v9 countByEnumeratingWithState:&v36 objects:v44 count:16];
             }
+
+            while (v22);
           }
         }
 
-        CFRelease(v30);
+        else
+        {
+          v21 = v32;
+        }
+
+        v5 = v33;
+      }
+
+      if ([-[__CFString stringByTrimmingCharactersInSet:](theString stringByTrimmingCharactersInSet:{v5), "length"}])
+      {
+        v27 = [MEMORY[0x277CBEAF8] currentLocale];
+        v48.length = CFStringGetLength(theString);
+        v48.location = 0;
+        v28 = CFStringTokenizerCreate(*MEMORY[0x277CBECE8], theString, v48, 4uLL, v27);
+        if (v28)
+        {
+          v29 = v28;
+          while (CFStringTokenizerAdvanceToNextToken(v29))
+          {
+            CurrentTokenRange = CFStringTokenizerGetCurrentTokenRange(v29);
+            if (CurrentTokenRange.length != 1)
+            {
+              v31 = [(__CFString *)theString substringWithRange:CurrentTokenRange.location, CurrentTokenRange.length];
+              if ([objc_msgSend(v31 stringByTrimmingCharactersInSet:{v5), "length"}])
+              {
+                (*(a2 + 16))(a2, v31);
+              }
+            }
+          }
+
+          CFRelease(v29);
+        }
       }
     }
-
-    goto LABEL_34;
   }
-
-  v6 = *(a2 + 16);
-  v7 = *MEMORY[0x277D85DE8];
-
-  v6(a2, v4);
 }
 
-void sub_258BA9CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_258BA9CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4285,10 +4268,10 @@ void *fetchArgumentsForCriterion(void *a1, int a2)
     {
       if (v8 == 26)
       {
-        v30 = [MEMORY[0x277CCAB68] string];
+        v31 = [MEMORY[0x277CCAB68] string];
         if ([a1 qualifier] == 7)
         {
-          [(__CFString *)v30 appendString:@"NOT "];
+          [(__CFString *)v31 appendString:@"NOT "];
         }
 
         if (fetchArgumentsForCriterion_onceToken != -1)
@@ -4296,34 +4279,34 @@ void *fetchArgumentsForCriterion(void *a1, int a2)
           fetchArgumentsForCriterion_cold_1();
         }
 
-        v31 = [fetchArgumentsForCriterion_flagMap objectForKey:{objc_msgSend(a1, "expression")}];
-        if (!v31)
+        v32 = [fetchArgumentsForCriterion_flagMap objectForKey:{objc_msgSend(a1, "expression")}];
+        if (!v32)
         {
           fetchArgumentsForCriterion_cold_2(a1);
         }
 
-        [(__CFString *)v30 appendString:v31];
-        v32 = v7;
-        v33 = v30;
+        [(__CFString *)v31 appendString:v32];
+        v33 = v7;
+        v34 = v31;
         goto LABEL_84;
       }
 
       if (v8 == 32)
       {
-        v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v73[0] = MEMORY[0x277D85DD0];
         v73[1] = 3221225472;
         v73[2] = __fetchArgumentsForCriterion_block_invoke;
         v73[3] = &unk_2798B2238;
         v73[4] = a1;
-        v73[5] = v22;
+        v73[5] = v23;
         tokenizeCriterionWithHandler(a1, v73);
-        v23 = [v22 count];
-        if (v23)
+        v24 = [v23 count];
+        if (v24)
         {
-          if (v23 == 1)
+          if (v24 == 1)
           {
-            [v7 addObjectsFromArray:{objc_msgSend(v22, "lastObject")}];
+            [v7 addObjectsFromArray:{objc_msgSend(v23, "lastObject")}];
           }
 
           else
@@ -4332,11 +4315,11 @@ void *fetchArgumentsForCriterion(void *a1, int a2)
             v81 = 0u;
             v78 = 0u;
             v79 = 0u;
-            v44 = [v22 countByEnumeratingWithState:&v78 objects:buf count:16];
+            v44 = [v23 countByEnumeratingWithState:&v78 objects:buf count:16];
             if (v44)
             {
               v45 = v44;
-              obj = v22;
+              obj = v23;
               v60 = *v79;
               v46 = 1;
               do
@@ -4401,7 +4384,7 @@ void *fetchArgumentsForCriterion(void *a1, int a2)
                   }
                 }
 
-                v22 = obj;
+                v23 = obj;
                 v45 = [obj countByEnumeratingWithState:&v78 objects:buf count:16];
               }
 
@@ -4412,7 +4395,7 @@ void *fetchArgumentsForCriterion(void *a1, int a2)
           }
         }
 
-        goto LABEL_85;
+        return v7;
       }
 
       goto LABEL_123;
@@ -4421,35 +4404,35 @@ void *fetchArgumentsForCriterion(void *a1, int a2)
     switch(v8)
     {
       case '""':
-        v9 = @"FROM";
+        v10 = @"FROM";
         break;
       case '&':
-        v9 = @"TO";
+        v10 = @"TO";
         break;
       case '\'':
-        v9 = @"CC";
+        v10 = @"CC";
         break;
       default:
 LABEL_123:
-        fetchArgumentsForCriterion_cold_4(a1);
+        fetchArgumentsForCriterion_cold_4(a1, v9);
     }
 
-    [v7 addObject:v9];
+    [v7 addObject:v10];
     if (v4)
     {
 LABEL_60:
-      v29 = [v5 dataUsingEncoding:4];
+      v30 = [v5 dataUsingEncoding:4];
 LABEL_82:
-      v33 = v29;
+      v34 = v30;
 LABEL_83:
-      v32 = v7;
+      v33 = v7;
 LABEL_84:
-      [v32 addObject:v33];
-      goto LABEL_85;
+      [v33 addObject:v34];
+      return v7;
     }
 
 LABEL_81:
-    v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v5];
+    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v5];
     goto LABEL_82;
   }
 
@@ -4462,15 +4445,15 @@ LABEL_81:
         objc_msgSend(v7, "addObject:", @"(OR TO");
         if (v4)
         {
-          v10 = [v5 dataUsingEncoding:4];
+          v11 = [v5 dataUsingEncoding:4];
         }
 
         else
         {
-          v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v5];
+          v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v5];
         }
 
-        [v7 addObject:v10];
+        [v7 addObject:v11];
         [v7 addObject:@"CC"];
         if (v4)
         {
@@ -4484,28 +4467,28 @@ LABEL_81:
 
         [v7 addObject:v43];
 LABEL_91:
-        v33 = @"");
+        v34 = @"");
         goto LABEL_83;
       }
 
       goto LABEL_123;
     }
 
-    v24 = [a1 criterionIdentifier];
-    if ([v24 isEqual:*MEMORY[0x277D07030]])
+    v25 = [a1 criterionIdentifier];
+    if ([v25 isEqual:*MEMORY[0x277D07030]])
     {
-      v25 = @"SUBJECT";
+      v26 = @"SUBJECT";
     }
 
     else
     {
-      if (![v24 isEqualToString:*MEMORY[0x277D06FE0]])
+      if (![v25 isEqualToString:*MEMORY[0x277D06FE0]])
       {
         v58 = MFLogGeneral();
         if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v87 = v24;
+          v87 = v25;
           _os_log_impl(&dword_258B7A000, v58, OS_LOG_TYPE_DEFAULT, "#Warning unsupported header criterion type %@", buf, 0xCu);
         }
 
@@ -4524,10 +4507,10 @@ LABEL_80:
         fetchArgumentsForCriterion_cold_3();
       }
 
-      v25 = @"Message-ID";
+      v26 = @"Message-ID";
     }
 
-    [v7 addObject:v25];
+    [v7 addObject:v26];
     goto LABEL_80;
   }
 
@@ -4535,19 +4518,19 @@ LABEL_80:
   {
     if ([a1 qualifier] == 6)
     {
-      v26 = @"SINCE";
+      v27 = @"SINCE";
     }
 
     else
     {
-      v26 = @"BEFORE";
+      v27 = @"BEFORE";
     }
 
-    [v7 addObject:v26];
-    v27 = MEMORY[0x277CBEAA8];
+    [v7 addObject:v27];
+    v28 = MEMORY[0x277CBEAA8];
     [objc_msgSend(a1 "expression")];
-    v28 = [v27 dateWithTimeIntervalSince1970:?];
-    v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", MFIMAPDateSearchStringForDate(v28)];
+    v29 = [v28 dateWithTimeIntervalSince1970:?];
+    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", MFIMAPDateSearchStringForDate(v29)];
     goto LABEL_82;
   }
 
@@ -4556,78 +4539,78 @@ LABEL_80:
     goto LABEL_123;
   }
 
-  v11 = [MEMORY[0x277CBEB18] array];
+  v12 = [MEMORY[0x277CBEB18] array];
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v12 = [a1 criteria];
-  v13 = [v12 countByEnumeratingWithState:&v69 objects:v84 count:16];
-  if (v13)
+  v13 = [a1 criteria];
+  v14 = [v13 countByEnumeratingWithState:&v69 objects:v84 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v70;
+    v15 = v14;
+    v16 = *v70;
     do
     {
-      for (k = 0; k != v14; ++k)
+      for (k = 0; k != v15; ++k)
       {
-        if (*v70 != v15)
+        if (*v70 != v16)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
         ArgumentsForCriterion = fetchArgumentsForCriterion(*(*(&v69 + 1) + 8 * k), 0);
         if (ArgumentsForCriterion)
         {
-          [v11 addObject:ArgumentsForCriterion];
+          [v12 addObject:ArgumentsForCriterion];
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v69 objects:v84 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v69 objects:v84 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
-  if ([v11 count] == 1 && objc_msgSend(objc_msgSend(v11, "objectAtIndex:", 0), "count") == 1 || a2 && objc_msgSend(a1, "allCriteriaMustBeSatisfied"))
+  if ([v12 count] == 1 && objc_msgSend(objc_msgSend(v12, "objectAtIndex:", 0), "count") == 1 || a2 && objc_msgSend(a1, "allCriteriaMustBeSatisfied"))
   {
     v67 = 0u;
     v68 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v18 = [v11 countByEnumeratingWithState:&v65 objects:v83 count:16];
-    if (v18)
+    v19 = [v12 countByEnumeratingWithState:&v65 objects:v83 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v66;
+      v20 = v19;
+      v21 = *v66;
       do
       {
-        for (m = 0; m != v19; ++m)
+        for (m = 0; m != v20; ++m)
         {
-          if (*v66 != v20)
+          if (*v66 != v21)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
           [v7 addObjectsFromArray:*(*(&v65 + 1) + 8 * m)];
         }
 
-        v19 = [v11 countByEnumeratingWithState:&v65 objects:v83 count:16];
+        v20 = [v12 countByEnumeratingWithState:&v65 objects:v83 count:16];
       }
 
-      while (v19);
+      while (v20);
     }
 
-    goto LABEL_85;
+    return v7;
   }
 
   if (![a1 allCriteriaMustBeSatisfied])
   {
-    v55 = [v11 count];
+    v55 = [v12 count];
     v56 = v55 - 1;
     if (v55 == 1)
     {
-      [v7 addObjectsFromArray:{objc_msgSend(v11, "lastObject")}];
+      [v7 addObjectsFromArray:{objc_msgSend(v12, "lastObject")}];
     }
 
     else
@@ -4636,11 +4619,11 @@ LABEL_80:
       do
       {
         objc_msgSend(v7, "addObject:", @"(OR");
-        [v7 addObjectsFromArray:{objc_msgSend(v11, "objectAtIndex:", v57++)}];
+        [v7 addObjectsFromArray:{objc_msgSend(v12, "objectAtIndex:", v57++)}];
       }
 
       while (v56 != v57);
-      [v7 addObjectsFromArray:{objc_msgSend(v11, "lastObject")}];
+      [v7 addObjectsFromArray:{objc_msgSend(v12, "lastObject")}];
       do
       {
         [v7 addObject:@""]);
@@ -4650,125 +4633,125 @@ LABEL_80:
       while (v56);
     }
 
-    goto LABEL_85;
+    return v7;
   }
 
   v63 = 0u;
   v64 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v34 = [v11 countByEnumeratingWithState:&v61 objects:v82 count:16];
-  if (!v34)
+  v35 = [v12 countByEnumeratingWithState:&v61 objects:v82 count:16];
+  if (!v35)
   {
-    goto LABEL_85;
+    return v7;
   }
 
-  v35 = v34;
-  LOBYTE(v36) = 0;
-  v37 = *v62;
+  v36 = v35;
+  LOBYTE(v37) = 0;
+  v38 = *v62;
   do
   {
-    for (n = 0; n != v35; ++n)
+    for (n = 0; n != v36; ++n)
     {
-      if (*v62 != v37)
+      if (*v62 != v38)
       {
-        objc_enumerationMutation(v11);
+        objc_enumerationMutation(v12);
       }
 
-      v39 = *(*(&v61 + 1) + 8 * n);
-      if (v36)
+      v40 = *(*(&v61 + 1) + 8 * n);
+      if (v37)
       {
         goto LABEL_71;
       }
 
-      v36 = [*(*(&v61 + 1) + 8 * n) count];
-      if (v36)
+      v37 = [*(*(&v61 + 1) + 8 * n) count];
+      if (v37)
       {
-        v40 = [v39 objectAtIndex:0];
-        objc_msgSend(v7, "addObject:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"(%@"), v40);
-        if (v36 != 1)
+        v41 = [v40 objectAtIndex:0];
+        objc_msgSend(v7, "addObject:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"(%@"), v41);
+        if (v37 != 1)
         {
-          v39 = [v39 subarrayWithRange:{1, v36 - 1}];
+          v40 = [v40 subarrayWithRange:{1, v37 - 1}];
 LABEL_71:
-          [v7 addObjectsFromArray:v39];
-          LODWORD(v36) = 1;
+          [v7 addObjectsFromArray:v40];
+          LODWORD(v37) = 1;
           continue;
         }
       }
     }
 
-    v35 = [v11 countByEnumeratingWithState:&v61 objects:v82 count:16];
+    v36 = [v12 countByEnumeratingWithState:&v61 objects:v82 count:16];
   }
 
-  while (v35);
-  if (v36)
+  while (v36);
+  if (v37)
   {
     goto LABEL_91;
   }
 
-LABEL_85:
-  v41 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-void sub_258BAA8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258BAA8E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258BAAA88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258BAAA88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258BAABD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_258BAABD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258BAADD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_258BAADD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258BAAF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_258BAAF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258BABA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_258BABA7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 160), 8);
-  _Block_object_dispose((v35 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 160), 8);
+  _Block_object_dispose((v34 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258BABFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_258BABFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 176), 8);
-  _Block_object_dispose((v33 - 144), 8);
-  _Block_object_dispose((v33 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 176), 8);
+  _Block_object_dispose((v32 - 144), 8);
+  _Block_object_dispose((v32 - 112), 8);
   _Unwind_Resume(a1);
 }
 
 void _addIDForAppendedMessage(int a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a1 && a3)
   {
     v4 = "";
@@ -4785,8 +4768,6 @@ void _addIDForAppendedMessage(int a1, int a2, void *a3)
       [a3 addObject:v6];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id _uidSearchForMessageIds(void *a1, int a2, void *a3)
@@ -4803,93 +4784,109 @@ id _uidSearchForMessageIds(void *a1, int a2, void *a3)
   return v6;
 }
 
-void sub_258BAD598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_258BAD598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 BOOL _flagsToSetAndClearFromDictionary(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v7 = [MEMORY[0x277CBEB18] array];
   v8 = [MEMORY[0x277CBEB18] array];
+  v48 = 0u;
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v48 = a2;
+  v46 = a2;
   obj = [a2 allKeys];
-  v9 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
+  v9 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
   if (v9)
   {
     v10 = v9;
-    v49 = v7;
-    v37 = a3;
-    v38 = a4;
+    v47 = v7;
+    v35 = a3;
+    v36 = a4;
     v11 = 0;
     v12 = 0;
-    v13 = *v51;
+    v13 = *v49;
     v14 = *MEMORY[0x277D283C8];
-    v46 = *MEMORY[0x277D283C0];
-    v45 = *MEMORY[0x277D283D8];
-    v43 = *MEMORY[0x277D28300];
-    v41 = *MEMORY[0x277D28308];
-    v42 = *MEMORY[0x277D283D0];
-    v15 = *MEMORY[0x277D28328];
-    v39 = *MEMORY[0x277D28328];
-    v40 = *MEMORY[0x277D28310];
+    v44 = *MEMORY[0x277D283C0];
+    v43 = *MEMORY[0x277D283D8];
+    v41 = *MEMORY[0x277D28300];
+    v39 = *MEMORY[0x277D28308];
+    v40 = *MEMORY[0x277D283D0];
+    v37 = *MEMORY[0x277D28328];
+    v38 = *MEMORY[0x277D28310];
     while (1)
     {
-      v16 = 0;
+      v15 = 0;
       do
       {
-        if (*v51 != v13)
+        if (*v49 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v50 + 1) + 8 * v16);
-        v18 = [v48 mf_BOOLForKey:v17];
-        v19 = v8;
-        if (v18)
+        v16 = *(*(&v48 + 1) + 8 * v15);
+        v17 = [v46 mf_BOOLForKey:v16];
+        v18 = v8;
+        if (v17)
         {
-          v8 = v49;
+          v8 = v47;
         }
 
-        if ([v17 isEqual:v14])
+        if ([v16 isEqual:v14])
         {
-          v20 = v18 == 0;
-          if (v18)
+          v19 = v17 == 0;
+          if (v17)
           {
-            v21 = v11;
+            v20 = v11;
           }
 
           else
           {
-            v21 = v12;
+            v20 = v12;
           }
 
-          v22 = v21 | 1;
+          v21 = v20 | 1;
 LABEL_28:
-          if (v20)
+          if (v19)
           {
-            v12 = v22;
+            v12 = v21;
           }
 
           else
           {
-            v11 = v22;
+            v11 = v21;
           }
 
           goto LABEL_31;
         }
 
-        if ([v17 isEqual:v46])
+        if ([v16 isEqual:v44])
         {
-          v20 = v18 == 0;
-          if (v18)
+          v19 = v17 == 0;
+          if (v17)
+          {
+            v22 = v11;
+          }
+
+          else
+          {
+            v22 = v12;
+          }
+
+          v21 = v22 | 2;
+          goto LABEL_28;
+        }
+
+        if ([v16 isEqual:v43])
+        {
+          v19 = v17 == 0;
+          if (v17)
           {
             v23 = v11;
           }
@@ -4899,14 +4896,14 @@ LABEL_28:
             v23 = v12;
           }
 
-          v22 = v23 | 2;
+          v21 = v23 | 4;
           goto LABEL_28;
         }
 
-        if ([v17 isEqual:v45])
+        if ([v16 isEqual:v41])
         {
-          v20 = v18 == 0;
-          if (v18)
+          v19 = v17 == 0;
+          if (v17)
           {
             v24 = v11;
           }
@@ -4916,28 +4913,11 @@ LABEL_28:
             v24 = v12;
           }
 
-          v22 = v24 | 4;
+          v21 = v24 | 0x10;
           goto LABEL_28;
         }
 
-        if ([v17 isEqual:v43])
-        {
-          v20 = v18 == 0;
-          if (v18)
-          {
-            v25 = v11;
-          }
-
-          else
-          {
-            v25 = v12;
-          }
-
-          v22 = v25 | 0x10;
-          goto LABEL_28;
-        }
-
-        if ([v17 isEqual:v42])
+        if ([v16 isEqual:v40])
         {
           if ((*(a1 + 144) & 0x20) != 0)
           {
@@ -4946,14 +4926,14 @@ LABEL_28:
 
           if (*(a1 + 144) & 0x40) != 0 || (*(a1 + 144))
           {
-            v26 = v8;
-            v27 = @"$Forwarded";
+            v25 = v8;
+            v26 = @"$Forwarded";
 LABEL_51:
-            [v26 addObject:v27];
+            [v25 addObject:v26];
           }
         }
 
-        else if ([v17 isEqualToString:v41])
+        else if ([v16 isEqualToString:v39])
         {
           if ((*(a1 + 144) & 2) != 0)
           {
@@ -4962,13 +4942,13 @@ LABEL_51:
 
           if (*(a1 + 144) & 4) != 0 || (*(a1 + 144))
           {
-            v26 = v8;
-            v27 = @"$Junk";
+            v25 = v8;
+            v26 = @"$Junk";
             goto LABEL_51;
           }
         }
 
-        else if ([v17 isEqualToString:v40])
+        else if ([v16 isEqualToString:v38])
         {
           if ((*(a1 + 144) & 8) != 0)
           {
@@ -4977,68 +4957,68 @@ LABEL_51:
 
           if (*(a1 + 144) & 0x10) != 0 || (*(a1 + 144))
           {
-            v26 = v8;
-            v27 = @"$NotJunk";
+            v25 = v8;
+            v26 = @"$NotJunk";
             goto LABEL_51;
           }
         }
 
         else if (*(a1 + 144))
         {
-          v28 = [v17 isEqual:v39];
-          if (v18)
+          v27 = [v16 isEqual:v37];
+          if (v17)
           {
-            v29 = v11;
+            v28 = v11;
           }
 
           else
+          {
+            v28 = v12;
+          }
+
+          v29 = v28 | 0x200;
+          if (v17)
+          {
+            v30 = v29;
+          }
+
+          else
+          {
+            v30 = v11;
+          }
+
+          if (v17)
           {
             v29 = v12;
           }
 
-          v30 = v29 | 0x200;
-          if (v18)
+          if (v27)
           {
-            v31 = v30;
-          }
-
-          else
-          {
-            v31 = v11;
-          }
-
-          if (v18)
-          {
-            v30 = v12;
-          }
-
-          if (v28)
-          {
-            v11 = v31;
-            v12 = v30;
+            v11 = v30;
+            v12 = v29;
           }
         }
 
 LABEL_31:
-        v8 = v19;
-        ++v16;
+        v8 = v18;
+        ++v15;
       }
 
-      while (v10 != v16);
-      v32 = [obj countByEnumeratingWithState:&v50 objects:v54 count:16];
-      v10 = v32;
-      if (!v32)
+      while (v10 != v15);
+      v31 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v10 = v31;
+      if (!v31)
       {
-        v7 = v49;
-        if ([v49 count])
+        v7 = v47;
+        if ([v47 count])
         {
-          a3 = v37;
-          a4 = v38;
+          a3 = v35;
+          a4 = v36;
           goto LABEL_68;
         }
 
-        a3 = v37;
-        a4 = v38;
+        a3 = v35;
+        a4 = v36;
         if (v11)
         {
           v7 = MFCreateArrayForMessageFlags(v11, *(a1 + 144) & 1);
@@ -5066,20 +5046,20 @@ LABEL_70:
           v8 = 0;
         }
 
-        v33 = v7 != 0;
+        v32 = v7 != 0;
         if (a3 && v7)
         {
           *a3 = v7;
         }
 
-        v34 = v8 != 0;
+        v33 = v8 != 0;
         if (a4 && v8)
         {
           *a4 = v8;
-          v34 = 1;
+          v33 = 1;
         }
 
-        goto LABEL_84;
+        return v32 || v33;
       }
     }
   }
@@ -5100,11 +5080,9 @@ LABEL_68:
     goto LABEL_70;
   }
 
-  v34 = 0;
   v33 = 0;
-LABEL_84:
-  v35 = *MEMORY[0x277D85DE8];
-  return v33 || v34;
+  v32 = 0;
+  return v32 || v33;
 }
 
 uint64_t _waitForDataFromDownload(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -5191,16 +5169,16 @@ LABEL_2:
   return v12;
 }
 
-void sub_258BAF554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_258BAF554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5219,32 +5197,32 @@ void _compactMessageIfNoData(void *a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_258BAFB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_258BAFB4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258BAFE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_258BAFE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_258BB04DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258BB04DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5256,9 +5234,9 @@ void sub_258BB11E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_258BB2440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_258BB2440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5277,58 +5255,52 @@ uint64_t __remainingExpressionAfterTokenizingLinks_block_invoke(uint64_t a1, voi
 
 uint64_t needUTF8ForCriterion(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  if ([a1 criterionType] == 24)
+  v12 = *MEMORY[0x277D85DE8];
+  if ([a1 criterionType] != 24)
   {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    v2 = [a1 criteria];
-    result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
-    if (result)
+    return [objc_msgSend(a1 "expression")] == 0;
+  }
+
+  v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v2 = [a1 criteria];
+  result = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  if (result)
+  {
+    v4 = result;
+    v5 = *v8;
+    while (2)
     {
-      v4 = result;
-      v5 = *v9;
-      while (2)
+      for (i = 0; i != v4; ++i)
       {
-        for (i = 0; i != v4; ++i)
+        if (*v8 != v5)
         {
-          if (*v9 != v5)
-          {
-            objc_enumerationMutation(v2);
-          }
-
-          if (needUTF8ForCriterion(*(*(&v8 + 1) + 8 * i)))
-          {
-            result = 1;
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(v2);
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
-        result = 0;
-        if (v4)
+        if (needUTF8ForCriterion(*(*(&v7 + 1) + 8 * i)))
         {
-          continue;
+          return 1;
         }
-
-        break;
       }
+
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      result = 0;
+      if (v4)
+      {
+        continue;
+      }
+
+      break;
     }
   }
 
-  else
-  {
-    result = [objc_msgSend(a1 "expression")] == 0;
-  }
-
-LABEL_13:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __fetchArgumentsForCriterion_block_invoke(uint64_t a1, void *a2)
+void *__fetchArgumentsForCriterion_block_invoke(uint64_t a1, void *a2)
 {
   v4 = [*(a1 + 32) includeRemoteBodyContent];
   v5 = [a2 dataUsingEncoding:1];
@@ -5426,22 +5398,21 @@ uint64_t __fetchArgumentsForCriterion_block_invoke(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t __fetchArgumentsForCriterion_block_invoke_625()
+void *__fetchArgumentsForCriterion_block_invoke_625()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D283C0];
-  v4[0] = *MEMORY[0x277D28300];
-  v4[1] = v0;
-  v5[0] = @"FLAGGED";
-  v5[1] = @"DELETED";
+  v3[0] = *MEMORY[0x277D28300];
+  v3[1] = v0;
+  v4[0] = @"FLAGGED";
+  v4[1] = @"DELETED";
   v1 = *MEMORY[0x277D283D8];
-  v4[2] = *MEMORY[0x277D283C8];
-  v4[3] = v1;
-  v5[2] = @"SEEN";
-  v5[3] = @"ANSWERED";
-  result = [objc_msgSend(MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:{4), "copy"}];
+  v3[2] = *MEMORY[0x277D283C8];
+  v3[3] = v1;
+  v4[2] = @"SEEN";
+  v4[3] = @"ANSWERED";
+  result = [objc_msgSend(MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:{4), "copy"}];
   fetchArgumentsForCriterion_flagMap = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5503,10 +5474,11 @@ void ___uidSearchForMessageIds_block_invoke(uint64_t a1, void *a2)
   }
 }
 
-void OUTLINED_FUNCTION_1_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t __RegisterYahooAuthSchemes_block_invoke()
@@ -5533,22 +5505,22 @@ void __getAKAnisetteProvisioningControllerClass_block_invoke_cold_2(void *a1)
 
 void _selectMailboxIfNeeded_cold_1(uint64_t a1, id *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [objc_msgSend(*a2 "error")];
+  LODWORD(v9) = 138412546;
+  *(&v9 + 4) = a1;
   OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_3(&dword_258B7A000, v2, v3, "*** Error while selecting %@: %{public}@", v4, v5, v6, v7, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_258B7A000, v3, v4, "*** Error while selecting %@: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-void fetchArgumentsForCriterion_cold_4(uint64_t a1)
+void fetchArgumentsForCriterion_cold_4(uint64_t a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = MFLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = MFLogGeneral();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 138412290;
-    v4 = a1;
-    _os_log_impl(&dword_258B7A000, v2, OS_LOG_TYPE_DEFAULT, "#Warning need to handle criterion for IMAP search: %@", &v3, 0xCu);
+    v4 = 138412290;
+    v5 = a1;
+    _os_log_impl(&dword_258B7A000, v3, OS_LOG_TYPE_DEFAULT, "#Warning need to handle criterion for IMAP search: %@", &v4, 0xCu);
   }
 
   __assert_rtn("fetchArgumentsForCriterion", "LibraryIMAPStore.m", 1716, "0 && Need to handle criterion for IMAP headers");

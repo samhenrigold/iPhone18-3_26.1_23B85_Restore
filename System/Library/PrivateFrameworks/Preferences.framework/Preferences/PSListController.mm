@@ -510,9 +510,9 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v22.receiver = self;
-  v22.super_class = PSListController;
-  [(PSListController *)&v22 viewDidLayoutSubviews];
+  v24.receiver = self;
+  v24.super_class = PSListController;
+  [(PSListController *)&v24 viewDidLayoutSubviews];
   view = [(PSListController *)self view];
   [view bounds];
   v5 = v4;
@@ -521,11 +521,12 @@
   v11 = v10;
 
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-  if ([currentDevice sf_isiPad])
+  sf_isiPad = [currentDevice sf_isiPad];
+  if (sf_isiPad)
   {
-    v13 = PSIsRunningInAssistant();
+    v15 = PSIsRunningInAssistant(sf_isiPad, v14);
 
-    if (v13)
+    if (v15)
     {
       WeakRetained = objc_loadWeakRetained(&self->super._rootController);
       objc_opt_class();
@@ -533,30 +534,30 @@
 
       if ((isKindOfClass & 1) == 0)
       {
-        v24 = 0;
-        v25 = &v24;
-        v26 = 0x2050000000;
-        v16 = getBFFStyleClass_softClass;
-        v27 = getBFFStyleClass_softClass;
+        v26 = 0;
+        v27 = &v26;
+        v28 = 0x2050000000;
+        v18 = getBFFStyleClass_softClass;
+        v29 = getBFFStyleClass_softClass;
         if (!getBFFStyleClass_softClass)
         {
-          v23[0] = MEMORY[0x1E69E9820];
-          v23[1] = 3221225472;
-          v23[2] = __getBFFStyleClass_block_invoke;
-          v23[3] = &unk_1E71DBC78;
-          v23[4] = &v24;
-          __getBFFStyleClass_block_invoke(v23);
-          v16 = v25[3];
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = __getBFFStyleClass_block_invoke;
+          v25[3] = &unk_1E71DBC78;
+          v25[4] = &v26;
+          __getBFFStyleClass_block_invoke(v25);
+          v18 = v27[3];
         }
 
-        v17 = v16;
-        _Block_object_dispose(&v24, 8);
-        sharedStyle = [v16 sharedStyle];
+        v19 = v18;
+        _Block_object_dispose(&v26, 8);
+        sharedStyle = [v18 sharedStyle];
         [sharedStyle edgeInsetsForTable:self->_table];
-        v5 = v19;
-        v21 = v20;
+        v5 = v21;
+        v23 = v22;
 
-        v9 = v9 - (v5 + v21);
+        v9 = v9 - (v5 + v23);
       }
     }
   }
@@ -628,7 +629,7 @@
   v11 = [bundleCopy pathForResource:nameCopy ofType:@"plist"];
   if (!v11)
   {
-    v12 = _PSLoggingFacility();
+    v12 = _PSLoggingFacility(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       bundlePath = [bundleCopy bundlePath];
@@ -734,8 +735,7 @@
   }
 
   while (v11);
-  [specifierCopy setProperty:v10 forKey:@"id"];
-  v12 = _PSLoggingFacility();
+  v12 = _PSLoggingFacility([specifierCopy setProperty:v10 forKey:@"id"]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     name = [specifierCopy name];
@@ -1464,7 +1464,7 @@ LABEL_10:
 
 - (void)_insertContiguousSpecifiers:(id)specifiers atIndex:(int64_t)index animated:(BOOL)animated
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   specifiersCopy = specifiers;
   v9 = specifiersCopy;
   if (self->_specifiers)
@@ -1472,22 +1472,22 @@ LABEL_10:
     v10 = [specifiersCopy count];
     if ((index & 0x8000000000000000) == 0 && v10 && [(NSArray *)self->_specifiers count]>= index)
     {
-      v52 = -1;
       v53 = -1;
-      v41 = [(NSArray *)self->_specifiers count];
-      v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v42 = objc_alloc_init(MEMORY[0x1E696AD50]);
+      v54 = -1;
+      v42 = [(NSArray *)self->_specifiers count];
+      v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v43 = objc_alloc_init(MEMORY[0x1E696AD50]);
       v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
-      v38 = v9;
+      v39 = v9;
       v12 = v9;
       v13 = v12;
       animatedCopy = animated;
-      v43 = v11;
+      v44 = v11;
       if (index)
       {
-        [(PSListController *)self getGroup:&v52 row:&v53 ofSpecifierAtIndex:index - 1];
-        v15 = v52;
-        v14 = v53;
+        [(PSListController *)self getGroup:&v53 row:&v54 ofSpecifierAtIndex:index - 1];
+        v15 = v53;
+        v14 = v54;
       }
 
       else
@@ -1506,43 +1506,43 @@ LABEL_10:
         v14 = -1;
       }
 
-      v45 = v14;
+      v46 = v14;
       indexCopy = index;
       selfCopy = self;
-      v47 = [(NSArray *)self->_specifiers mutableCopy];
-      v48 = 0u;
+      v48 = [(NSArray *)self->_specifiers mutableCopy];
       v49 = 0u;
       v50 = 0u;
       v51 = 0u;
+      v52 = 0u;
       obj = v13;
-      v21 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
-      v22 = v42;
+      v21 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v22 = v43;
       if (v21)
       {
         v23 = v21;
         v24 = 0;
-        v46 = *v49;
+        v47 = *v50;
         v25 = indexCopy;
-        v39 = indexCopy;
+        v40 = indexCopy;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v49 != v46)
+            if (*v50 != v47)
             {
               objc_enumerationMutation(obj);
             }
 
-            v27 = *(*(&v48 + 1) + 8 * i);
-            [v47 insertObject:v27 atIndex:v25];
+            v27 = *(*(&v49 + 1) + 8 * i);
+            [v48 insertObject:v27 atIndex:v25];
             [(PSListController *)selfCopy _addIdentifierForSpecifier:v27];
             if (*(v27 + 56))
             {
               if ((v24 & 1) == 0)
               {
-                ++v45;
+                ++v46;
                 v28 = [MEMORY[0x1E696AC88] indexPathForRow:? inSection:?];
-                [v43 addObject:v28];
+                [v44 addObject:v28];
 
                 v24 = 0;
                 goto LABEL_28;
@@ -1559,7 +1559,7 @@ LABEL_26:
               goto LABEL_26;
             }
 
-            integerValue = v41;
+            integerValue = v42;
             if (v15 != [(NSMutableArray *)selfCopy->_groups count])
             {
               v30 = [(NSMutableArray *)selfCopy->_groups objectAtIndex:v15];
@@ -1570,29 +1570,29 @@ LABEL_26:
             if (integerValue == indexCopy || v31 < 1)
             {
               v24 = 1;
-              v22 = v42;
+              v22 = v43;
             }
 
             else
             {
-              v32 = v53;
+              v32 = v54;
               do
               {
-                v33 = [MEMORY[0x1E696AC88] indexPathForRow:++v32 inSection:v52];
-                [v40 addObject:v33];
+                v33 = [MEMORY[0x1E696AC88] indexPathForRow:++v32 inSection:v53];
+                [v41 addObject:v33];
               }
 
-              while (v32 < v31 + v53);
+              while (v32 < v31 + v54);
               v24 = 1;
-              v22 = v42;
-              indexCopy = v39;
+              v22 = v43;
+              indexCopy = v40;
             }
 
 LABEL_28:
             ++v25;
           }
 
-          v23 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+          v23 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
         }
 
         while (v23);
@@ -1600,7 +1600,7 @@ LABEL_28:
 
       v34 = selfCopy;
       objc_sync_enter(v34);
-      objc_storeStrong(&selfCopy->_specifiers, v47);
+      objc_storeStrong(&selfCopy->_specifiers, v48);
       objc_sync_exit(v34);
 
       [v34 createGroupIndices];
@@ -1615,21 +1615,21 @@ LABEL_28:
         v35 = 5;
       }
 
-      v9 = v38;
+      v9 = v39;
       [v34[134] beginUpdates];
-      if ([v40 count])
+      if ([v41 count])
       {
-        [v34[134] deleteRowsAtIndexPaths:v40 withRowAnimation:v35];
-      }
-
-      if ([v42 count])
-      {
-        [v34[134] insertSections:v42 withRowAnimation:v35];
+        [v34[134] deleteRowsAtIndexPaths:v41 withRowAnimation:v35];
       }
 
       if ([v43 count])
       {
-        [v34[134] insertRowsAtIndexPaths:v43 withRowAnimation:v35];
+        [v34[134] insertSections:v43 withRowAnimation:v35];
+      }
+
+      if ([v44 count])
+      {
+        [v34[134] insertRowsAtIndexPaths:v44 withRowAnimation:v35];
       }
 
       [v34[134] endUpdates];
@@ -1640,12 +1640,13 @@ LABEL_28:
     }
   }
 
-  if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x1E696AF00] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
-    v36 = _PSLoggingFacility();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+    v37 = _PSLoggingFacility(isMainThread);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
     {
-      [PSListController _insertContiguousSpecifiers:v36 atIndex:? animated:?];
+      [PSListController _insertContiguousSpecifiers:v37 atIndex:? animated:?];
     }
   }
 }
@@ -1748,7 +1749,7 @@ LABEL_28:
 - (void)_removeContiguousSpecifiers:(id)specifiers animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v57 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   specifiersCopy = specifiers;
   v7 = [specifiersCopy count];
   if (self->_specifiers)
@@ -1766,31 +1767,31 @@ LABEL_28:
     goto LABEL_52;
   }
 
-  v54 = -1;
+  v55 = -1;
   v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:v7];
   indexSet = [MEMORY[0x1E696AD50] indexSet];
-  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
   v11 = specifiersCopy;
-  v12 = [v11 countByEnumeratingWithState:&v50 objects:v56 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (!v12)
   {
 
-    v45 = 0;
+    v46 = 0;
     goto LABEL_29;
   }
 
   v13 = v12;
-  v42 = v9;
-  v43 = indexSet;
-  v38 = animatedCopy;
-  v40 = specifiersCopy;
+  v43 = v9;
+  v44 = indexSet;
+  v39 = animatedCopy;
+  v41 = specifiersCopy;
   v14 = 0;
-  v45 = 0;
+  v46 = 0;
   LOBYTE(v9) = 0;
-  v15 = *v51;
+  v15 = *v52;
   integerValue = -1;
   v17 = -1;
   while (2)
@@ -1798,32 +1799,32 @@ LABEL_28:
     for (i = 0; i != v13; ++i)
     {
       v19 = v14;
-      if (*v51 != v15)
+      if (*v52 != v15)
       {
         objc_enumerationMutation(v11);
       }
 
-      v14 = *(*(&v50 + 1) + 8 * i);
+      v14 = *(*(&v51 + 1) + 8 * i);
 
       v20 = [(NSArray *)self->_specifiers indexOfObject:v14];
       if (v20 == 0x7FFFFFFFFFFFFFFFLL)
       {
 LABEL_27:
 
-        specifiersCopy = v40;
-        v9 = v42;
-        indexSet = v43;
+        specifiersCopy = v41;
+        v9 = v43;
+        indexSet = v44;
         goto LABEL_51;
       }
 
       v21 = v20;
       if (v17 == -1)
       {
-        [(PSListController *)self getGroup:&v54 row:0 ofSpecifierAtIndex:v20];
-        v22 = [(NSMutableArray *)self->_groups objectAtIndex:v54];
+        [(PSListController *)self getGroup:&v55 row:0 ofSpecifierAtIndex:v20];
+        v22 = [(NSMutableArray *)self->_groups objectAtIndex:v55];
         integerValue = [v22 integerValue];
 
-        v45 = v21;
+        v46 = v21;
         v17 = v21;
       }
 
@@ -1836,8 +1837,8 @@ LABEL_27:
       {
         if ((v9 & 1) == 0)
         {
-          v23 = [MEMORY[0x1E696AC88] indexPathForRow:v17 + ~integerValue inSection:v54];
-          [v42 insertObject:v23 atIndex:0];
+          v23 = [MEMORY[0x1E696AC88] indexPathForRow:v17 + ~integerValue inSection:v55];
+          [v43 insertObject:v23 atIndex:0];
 
           LODWORD(v9) = 0;
           goto LABEL_22;
@@ -1846,12 +1847,12 @@ LABEL_27:
 
       else
       {
-        if (v45 != v17)
+        if (v46 != v17)
         {
-          ++v54;
+          ++v55;
         }
 
-        [v43 addIndex:?];
+        [v44 addIndex:?];
       }
 
       LODWORD(v9) = 1;
@@ -1859,7 +1860,7 @@ LABEL_22:
       ++v17;
     }
 
-    v13 = [v11 countByEnumeratingWithState:&v50 objects:v56 count:16];
+    v13 = [v11 countByEnumeratingWithState:&v51 objects:v57 count:16];
     if (v13)
     {
       continue;
@@ -1870,29 +1871,29 @@ LABEL_22:
 
   if (v9)
   {
-    v24 = v54;
-    animatedCopy = v38;
-    indexSet = v43;
+    v24 = v55;
+    animatedCopy = v39;
+    indexSet = v44;
     if (v24 == [(NSMutableArray *)self->_groups count]- 1)
     {
-      v25 = [(NSArray *)self->_specifiers count]- v45;
+      v25 = [(NSArray *)self->_specifiers count]- v46;
     }
 
     else
     {
-      v36 = [(NSMutableArray *)self->_groups objectAtIndex:v54 + 1];
-      v25 = [v36 integerValue] - v45;
+      v37 = [(NSMutableArray *)self->_groups objectAtIndex:v55 + 1];
+      v25 = [v37 integerValue] - v46;
     }
 
-    specifiersCopy = v40;
-    v9 = v42;
+    specifiersCopy = v41;
+    v9 = v43;
     goto LABEL_30;
   }
 
-  specifiersCopy = v40;
-  v9 = v42;
-  animatedCopy = v38;
-  indexSet = v43;
+  specifiersCopy = v41;
+  v9 = v43;
+  animatedCopy = v39;
+  indexSet = v44;
 LABEL_29:
   v25 = [v11 count];
 LABEL_30:
@@ -1913,33 +1914,33 @@ LABEL_30:
 
   [(UITableView *)self->_table beginUpdates];
   v14 = [(NSArray *)self->_specifiers mutableCopy];
-  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v37 = v25;
-  v27 = [v14 subarrayWithRange:{v45, v25}];
-  v28 = [v27 countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v50 = 0u;
+  v38 = v25;
+  v27 = [v14 subarrayWithRange:{v46, v25}];
+  v28 = [v27 countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v28)
   {
     v29 = v28;
-    v44 = indexSet;
-    v39 = animatedCopy;
-    v41 = specifiersCopy;
+    v45 = indexSet;
+    v40 = animatedCopy;
+    v42 = specifiersCopy;
     v30 = 0;
-    v31 = *v47;
+    v31 = *v48;
     do
     {
       v32 = 0;
       v33 = v30;
       do
       {
-        if (*v47 != v31)
+        if (*v48 != v31)
         {
           objc_enumerationMutation(v27);
         }
 
-        v30 = *(*(&v46 + 1) + 8 * v32);
+        v30 = *(*(&v47 + 1) + 8 * v32);
 
         if (v30[7])
         {
@@ -1952,17 +1953,17 @@ LABEL_30:
       }
 
       while (v29 != v32);
-      v29 = [v27 countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v29);
 
-    specifiersCopy = v41;
-    LOBYTE(animatedCopy) = v39;
-    indexSet = v44;
+    specifiersCopy = v42;
+    LOBYTE(animatedCopy) = v40;
+    indexSet = v45;
   }
 
-  [v14 removeObjectsInRange:{v45, v37}];
+  [v14 removeObjectsInRange:{v46, v38}];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_storeStrong(&self->_specifiers, v14);
@@ -1988,12 +1989,13 @@ LABEL_30:
 LABEL_51:
 
 LABEL_52:
-  if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x1E696AF00] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
-    v35 = _PSLoggingFacility();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+    v36 = _PSLoggingFacility(isMainThread);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
     {
-      [PSListController _removeContiguousSpecifiers:v35 animated:?];
+      [PSListController _removeContiguousSpecifiers:v36 animated:?];
     }
   }
 }
@@ -2530,7 +2532,7 @@ void __27__PSListController_dealloc__block_invoke(uint64_t a1, void *a2)
   }
 
   v7 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v8 = PSPreferencesFrameworkBundle();
+  v8 = PSPreferencesFrameworkBundle(v7);
   v9 = [v7 isEqual:v8];
 
   v10 = [(PSListController *)self isMemberOfClass:objc_opt_class()];
@@ -2546,7 +2548,7 @@ void __27__PSListController_dealloc__block_invoke(uint64_t a1, void *a2)
     v15 = layer;
     if (layer)
     {
-      [layer cornerRadii];
+      objc_msgSend_cornerRadii(layer);
     }
 
     else
@@ -3218,7 +3220,7 @@ LABEL_21:
       if (v18)
       {
         v19 = [MEMORY[0x1E696AAE8] bundleForClass:v14];
-        v20 = PSPreferencesFrameworkBundle();
+        v20 = PSPreferencesFrameworkBundle(v19);
         v21 = [v19 isEqual:v20];
 
         v22 = objc_getAssociatedObject(v15, &__PSViewMarkerLayerKey);
@@ -3245,7 +3247,7 @@ LABEL_21:
           v28 = layer2;
           if (layer2)
           {
-            [layer2 cornerRadii];
+            objc_msgSend_cornerRadii(layer2);
           }
 
           else
@@ -3292,7 +3294,7 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v10 = _PSLoggingFacility();
+  v10 = _PSLoggingFacility(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v32[0]) = 0;
@@ -3372,7 +3374,7 @@ LABEL_23:
   }
 }
 
-uint64_t __35__PSListController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
+void *__35__PSListController_viewWillAppear___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -3419,61 +3421,63 @@ uint64_t __35__PSListController_viewWillAppear___block_invoke_2(uint64_t a1, voi
 
 void __54__PSListController__scrollToSpecifierWithID_animated___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) section];
-  if (v2 >= [*(*(a1 + 40) + 1072) numberOfSections])
+  v3 = [*(*(a1 + 40) + 1072) numberOfSections];
+  if (v2 >= v3)
   {
-    v7 = _PSLoggingFacility();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _PSLoggingFacility(v3);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
 LABEL_9:
 
       return;
     }
 
-    v8 = [*(a1 + 32) section];
-    v9 = [*(*(a1 + 40) + 1072) numberOfSections];
-    v16 = 134218240;
-    v17 = v8;
-    v18 = 2048;
-    v19 = v9;
-    v10 = "Scroll target index path section %ld is out of bounds. Current number of sections is %ld.";
-    v11 = v7;
-    v12 = 22;
+    v10 = [*(a1 + 32) section];
+    v11 = [*(*(a1 + 40) + 1072) numberOfSections];
+    v18 = 134218240;
+    v19 = v10;
+    v20 = 2048;
+    v21 = v11;
+    v12 = "Scroll target index path section %ld is out of bounds. Current number of sections is %ld.";
+    v13 = v9;
+    v14 = 22;
 LABEL_11:
-    _os_log_error_impl(&dword_18B008000, v11, OS_LOG_TYPE_ERROR, v10, &v16, v12);
+    _os_log_error_impl(&dword_18B008000, v13, OS_LOG_TYPE_ERROR, v12, &v18, v14);
     goto LABEL_9;
   }
 
-  v3 = [*(a1 + 32) row];
-  if (v3 >= [*(*(a1 + 40) + 1072) numberOfRowsInSection:{objc_msgSend(*(a1 + 32), "section")}])
+  v4 = [*(a1 + 32) row];
+  v5 = [*(*(a1 + 40) + 1072) numberOfRowsInSection:{objc_msgSend(*(a1 + 32), "section")}];
+  if (v4 >= v5)
   {
-    v7 = _PSLoggingFacility();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _PSLoggingFacility(v5);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_9;
     }
 
-    v13 = [*(a1 + 32) row];
-    v14 = [*(*(a1 + 40) + 1072) numberOfRowsInSection:{objc_msgSend(*(a1 + 32), "section")}];
-    v15 = [*(a1 + 32) section];
-    v16 = 134218496;
-    v17 = v13;
-    v18 = 2048;
-    v19 = v14;
+    v15 = [*(a1 + 32) row];
+    v16 = [*(*(a1 + 40) + 1072) numberOfRowsInSection:{objc_msgSend(*(a1 + 32), "section")}];
+    v17 = [*(a1 + 32) section];
+    v18 = 134218496;
+    v19 = v15;
     v20 = 2048;
-    v21 = v15;
-    v10 = "Scroll target index path row %ld is out of bounds. Current number of row is %ld for section %ld.";
-    v11 = v7;
-    v12 = 32;
+    v21 = v16;
+    v22 = 2048;
+    v23 = v17;
+    v12 = "Scroll target index path row %ld is out of bounds. Current number of row is %ld for section %ld.";
+    v13 = v9;
+    v14 = 32;
     goto LABEL_11;
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(*(a1 + 40) + 1072);
-  v6 = *(a1 + 48);
+  v6 = *(a1 + 32);
+  v7 = *(*(a1 + 40) + 1072);
+  v8 = *(a1 + 48);
 
-  [v5 scrollToRowAtIndexPath:v4 atScrollPosition:1 animated:v6];
+  [v7 scrollToRowAtIndexPath:v6 atScrollPosition:1 animated:v8];
 }
 
 - (BOOL)_isEmptyGroup:(unint64_t)group
@@ -4616,29 +4620,30 @@ LABEL_5:
 - (void)showController:(id)controller animate:(BOOL)animate
 {
   animateCopy = animate;
-  v33 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   if (controllerCopy)
   {
     navigationController = [(PSListController *)self navigationController];
     childViewControllers = [navigationController childViewControllers];
 
-    if ([childViewControllers containsObject:controllerCopy])
+    v10 = [childViewControllers containsObject:controllerCopy];
+    if (v10)
     {
-      v10 = _PSLoggingFacility();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _PSLoggingFacility(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [PSListController showController:v10 animate:?];
+        [PSListController showController:v11 animate:?];
       }
 
-      v11 = _PSLoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = _PSLoggingFacility(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [PSListController showController:animate:];
       }
 
-      v12 = _PSLoggingFacility();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v15 = _PSLoggingFacility(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [PSListController showController:animate:];
       }
@@ -4646,26 +4651,26 @@ LABEL_5:
 
     navigationController2 = [(PSListController *)self navigationController];
 
-    v14 = PKLogForCategory(3);
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v17 = PKLogForCategory(3);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
     if (navigationController2)
     {
-      if (v15)
+      if (v18)
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v18 = NSStringFromSelector(a2);
-        v23 = 138544386;
-        v24 = v17;
-        v25 = 2114;
-        v26 = v18;
-        v27 = 2160;
-        v28 = 1752392040;
-        v29 = 2112;
-        v30 = controllerCopy;
-        v31 = 1024;
-        v32 = animateCopy;
-        _os_log_impl(&dword_18B008000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ called with %{mask.hash}@, %{BOOL}d", &v23, 0x30u);
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
+        v21 = NSStringFromSelector(a2);
+        v26 = 138544386;
+        v27 = v20;
+        v28 = 2114;
+        v29 = v21;
+        v30 = 2160;
+        v31 = 1752392040;
+        v32 = 2112;
+        v33 = controllerCopy;
+        v34 = 1024;
+        v35 = animateCopy;
+        _os_log_impl(&dword_18B008000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ called with %{mask.hash}@, %{BOOL}d", &v26, 0x30u);
       }
 
       [(PSListController *)self _showController:controllerCopy animate:animateCopy];
@@ -4673,37 +4678,37 @@ LABEL_5:
 
     else
     {
-      if (v15)
+      if (v18)
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
-        v21 = NSStringFromSelector(a2);
-        v23 = 138544386;
-        v24 = v20;
-        v25 = 2114;
-        v26 = v21;
-        v27 = 2160;
-        v28 = 1752392040;
-        v29 = 2112;
-        v30 = controllerCopy;
-        v31 = 1024;
-        v32 = animateCopy;
-        _os_log_impl(&dword_18B008000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ called with %{mask.hash}@, %{BOOL}d but navigationController is nil, stashing.", &v23, 0x30u);
+        v22 = objc_opt_class();
+        v23 = NSStringFromClass(v22);
+        v24 = NSStringFromSelector(a2);
+        v26 = 138544386;
+        v27 = v23;
+        v28 = 2114;
+        v29 = v24;
+        v30 = 2160;
+        v31 = 1752392040;
+        v32 = 2112;
+        v33 = controllerCopy;
+        v34 = 1024;
+        v35 = animateCopy;
+        _os_log_impl(&dword_18B008000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ called with %{mask.hash}@, %{BOOL}d but navigationController is nil, stashing.", &v26, 0x30u);
       }
 
-      v22 = [[_PSPendingShowControllerPayload alloc] initWithViewControllerToPresent:controllerCopy animate:animateCopy];
-      [(PSViewController *)self setPendingShowControllerPayload:v22];
+      v25 = [[_PSPendingShowControllerPayload alloc] initWithViewControllerToPresent:controllerCopy animate:animateCopy];
+      [(PSViewController *)self setPendingShowControllerPayload:v25];
     }
   }
 
   else
   {
-    childViewControllers = _PSLoggingFacility();
+    childViewControllers = _PSLoggingFacility(0);
     if (os_log_type_enabled(childViewControllers, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315138;
-      v24 = "[PSListController showController:animate:]";
-      _os_log_impl(&dword_18B008000, childViewControllers, OS_LOG_TYPE_DEFAULT, "%s: attempted to push nil controller", &v23, 0xCu);
+      v26 = 136315138;
+      v27 = "[PSListController showController:animate:]";
+      _os_log_impl(&dword_18B008000, childViewControllers, OS_LOG_TYPE_DEFAULT, "%s: attempted to push nil controller", &v26, 0xCu);
     }
   }
 }
@@ -5291,13 +5296,13 @@ LABEL_5:
   }
 }
 
-uint64_t __44__PSListController_performSpecifierUpdates___block_invoke(uint64_t result, int a2)
+void *__44__PSListController_performSpecifierUpdates___block_invoke(void *result, int a2)
 {
-  if (*(*(*(result + 40) + 8) + 24) != a2)
+  if (*(*(result[5] + 8) + 24) != a2)
   {
     v2 = a2;
     v3 = result;
-    v4 = *(result + 32);
+    v4 = result[4];
     if (a2)
     {
       result = [v4 beginUpdates];
@@ -5308,7 +5313,7 @@ uint64_t __44__PSListController_performSpecifierUpdates___block_invoke(uint64_t 
       result = [v4 endUpdates];
     }
 
-    *(*(*(v3 + 40) + 8) + 24) = v2;
+    *(*(v3[5] + 8) + 24) = v2;
   }
 
   return result;
@@ -5429,7 +5434,7 @@ void __64__PSListController_appearanceWhenContainedInInstancesOfClasses___block_
 {
   enabledCopy = enabled;
   self->_prefetchingEnabled = enabled;
-  v5 = _PSLoggingFacility();
+  v5 = _PSLoggingFacility(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (enabledCopy)
   {
@@ -5739,7 +5744,7 @@ void __85__PSListController_CustomizationExtras__setCellHighlightingSelectionInv
   v1 = [*(v0 + 1072) indexPathForSelectedRow];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_18B008000, v2, v3, "%{mask.hash}@: Performed legacyAction, deselecting any selected row %{public}@ and returning nil.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_18B008000, v2, v3, "%{mask.hash}@: Performed legacyAction, deselecting any selected row %{public}@ and returning nil.", v4, v5, v6, v7);
 }
 
 - (void)controllerForSpecifier:.cold.2()
@@ -5748,7 +5753,7 @@ void __85__PSListController_CustomizationExtras__setCellHighlightingSelectionInv
   v1 = [*(v0 + 1072) indexPathForSelectedRow];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_18B008000, v2, v3, "%{mask.hash}@: Performed buttonAction, deselecting any selected row %{public}@ and returning nil.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_18B008000, v2, v3, "%{mask.hash}@: Performed buttonAction, deselecting any selected row %{public}@ and returning nil.", v4, v5, v6, v7);
 }
 
 - (void)controllerForSpecifier:(void *)a1 .cold.3(void *a1)
@@ -5785,7 +5790,7 @@ void __85__PSListController_CustomizationExtras__setCellHighlightingSelectionInv
   v1 = [PSTableCell reuseIdentifierForClassAndType:v0];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_18B008000, v2, v3, "%{mask.hash}@: Cell type %{public}@ supports being checked, returning non-nil value.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_18B008000, v2, v3, "%{mask.hash}@: Cell type %{public}@ supports being checked, returning non-nil value.", v4, v5, v6, v7);
 }
 
 - (void)controllerForSpecifier:.cold.7()
@@ -5794,7 +5799,7 @@ void __85__PSListController_CustomizationExtras__setCellHighlightingSelectionInv
   v1 = [PSTableCell reuseIdentifierForClassAndType:v0];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_18B008000, v2, v3, "%{mask.hash}@: Cell type %{public}@ does not expect navigation semantics. Returning nil.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_3(&dword_18B008000, v2, v3, "%{mask.hash}@: Cell type %{public}@ does not expect navigation semantics. Returning nil.", v4, v5, v6, v7);
 }
 
 - (void)controllerForSpecifier:.cold.8()

@@ -13,12 +13,12 @@
   if (!WeakRetained)
   {
     WeakRetained = objc_alloc_init(MTIDCompositeSecretStore);
-    objc_storeWeak(&selfCopy->_secretStore, WeakRetained);
-    v4 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v4 = objc_storeWeak(&selfCopy->_secretStore, WeakRetained);
+    v5 = MTMetricsKitOSLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "MetricsKit: AMPIDService shared secret store created", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "MetricsKit: AMPIDService shared secret store created", v7, 2u);
     }
   }
 
@@ -75,8 +75,7 @@
   v24[4] = &v25;
   [connectionCopy setInvalidationHandler:v24];
   [connectionCopy setInterruptionHandler:&stru_1000204E0];
-  [connectionCopy resume];
-  v21 = MTMetricsKitOSLog();
+  v21 = MTMetricsKitOSLog([connectionCopy resume]);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     processIdentifier = [connectionCopy processIdentifier];

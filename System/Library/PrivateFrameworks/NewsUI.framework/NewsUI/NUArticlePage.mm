@@ -234,10 +234,9 @@ uint64_t __40__NUArticlePage_asyncOnceLoadPageStyle___block_invoke_2(uint64_t a1
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   [WeakRetained setPageStyle:v2];
 
-  v4 = *(a1 + 32) != 0;
-  v5 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v4();
 }
 
 @end

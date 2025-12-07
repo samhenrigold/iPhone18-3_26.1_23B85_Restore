@@ -35,8 +35,8 @@
 {
   v4 = objc_alloc_init(MEMORY[0x277D2C900]);
   v5 = [HFActionSetItemProvider alloc];
-  home = [(HFActionSetListItem *)self home];
-  v7 = [(HFActionSetItemProvider *)v5 initWithHome:home actionSetItemStyle:0];
+  v6 = objc_msgSend_home(self);
+  v7 = [(HFActionSetItemProvider *)v5 initWithHome:v6 actionSetItemStyle:0];
 
   room = [(HFActionSetListItem *)self room];
   [(HFActionSetItemProvider *)v7 setRoom:room];
@@ -83,7 +83,7 @@ void __51__HFActionSetListItem__subclass_updateWithOptions___block_invoke_2(uint
     [v19 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
   }
 
-  v8 = [*(a1 + 32) home];
+  v8 = objc_msgSend_home(*(a1 + 32));
   v9 = [v8 hf_shouldBlockCurrentUserFromHome];
 
   if (v9)
@@ -92,7 +92,7 @@ void __51__HFActionSetListItem__subclass_updateWithOptions___block_invoke_2(uint
   }
 
   v10 = [MEMORY[0x277CBEB58] set];
-  v11 = [*(a1 + 32) home];
+  v11 = objc_msgSend_home(*(a1 + 32));
   [v10 addObject:v11];
 
   v12 = [*(a1 + 32) room];

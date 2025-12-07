@@ -6,31 +6,31 @@
 
 - (__CFString)asQueryParameterString
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if ([self count])
   {
     string = [MEMORY[0x1E696AD60] string];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     obj = [self allKeys];
-    v2 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v2 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v2)
     {
       v3 = v2;
-      v16 = *v19;
+      v15 = *v18;
       v4 = @"?%@=%@";
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v19 != v16)
+          if (*v18 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v18 + 1) + 8 * i);
+          v6 = *(*(&v17 + 1) + 8 * i);
           uRLQueryAllowedCharacterSet = [MEMORY[0x1E696AB08] URLQueryAllowedCharacterSet];
           v8 = [v6 stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
           v9 = [self objectForKey:v6];
@@ -41,7 +41,7 @@
           v4 = @"&%@=%@";
         }
 
-        v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v3);
@@ -54,8 +54,6 @@
   {
     v12 = &stru_1F098C218;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

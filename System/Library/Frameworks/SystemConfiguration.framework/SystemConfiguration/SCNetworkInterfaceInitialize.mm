@@ -5,7 +5,7 @@
 
 void ____SCNetworkInterfaceInitialize_block_invoke()
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   pthread_mutex_init(&lock_1, 0);
   __kSCNetworkInterfaceTypeID = _CFRuntimeRegisterClass();
   _CFRuntimeInitStaticInstance();
@@ -25,16 +25,15 @@ void ____SCNetworkInterfaceInitialize_block_invoke()
     v3 = _SC_syslog_os_log_mapping(5);
     if (__SC_log_enabled(5, v2, v3))
     {
-      v4 = v8 - ((_os_log_pack_size() + 15) & 0xFFFFFFFFFFFFFFF0);
-      v5 = *__error();
-      v6 = _os_log_pack_fill();
-      *v6 = 67109120;
-      v6[1] = v1;
-      __SC_log_send(5, v2, v3, v4);
+      v4 = _os_log_pack_size();
+      v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v6 = __error();
+      v7 = _os_log_pack_fill(v5, v4, *v6, &dword_1AD2AD000, "could not get IOMainPort, kr = %d", v8);
+      *v7 = 67109120;
+      v7[1] = v1;
+      __SC_log_send(5, v2, v3, v5);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

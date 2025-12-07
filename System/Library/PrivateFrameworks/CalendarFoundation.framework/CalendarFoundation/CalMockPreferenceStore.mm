@@ -202,7 +202,7 @@
 
 - (void)_setValue:(id)value forDomain:(id)domain key:(id)key
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   valueCopy = value;
   domainCopy = domain;
   keyCopy = key;
@@ -227,17 +227,17 @@
     [v13 setObject:valueCopy forKeyedSubscript:v11];
     if (self->_path)
     {
-      v22[0] = @"keys";
+      v21[0] = @"keys";
       v14 = [CalMockPreferenceStore encodeKeysDictionary:self->_keys];
-      v22[1] = @"values";
-      v23[0] = v14;
-      v23[1] = self->_values;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+      v21[1] = @"values";
+      v22[0] = v14;
+      v22[1] = self->_values;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
       v16 = [MEMORY[0x1E695DFF8] fileURLWithPath:self->_path];
-      v21 = 0;
-      v17 = [v15 writeToURL:v16 error:&v21];
-      v18 = v21;
+      v20 = 0;
+      v17 = [v15 writeToURL:v16 error:&v20];
+      v18 = v20;
 
       if ((v17 & 1) == 0)
       {
@@ -249,11 +249,48 @@
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)encodeKeysDictionary:(id)dictionary
+{
+  v19 = *MEMORY[0x1E69E9840];
+  dictionaryCopy = dictionary;
+  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v5 = dictionaryCopy;
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v15;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v15 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [v5 objectForKeyedSubscript:{v10, v14}];
+        allObjects = [v11 allObjects];
+        [v4 setObject:allObjects forKeyedSubscript:v10];
+      }
+
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v7);
+  }
+
+  return v4;
+}
+
++ (id)decodeKeysDictionary:(id)dictionary
 {
   v20 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
@@ -278,9 +315,10 @@
         }
 
         v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [v5 objectForKeyedSubscript:{v10, v15}];
-        allObjects = [v11 allObjects];
-        [v4 setObject:allObjects forKeyedSubscript:v10];
+        v11 = objc_alloc(MEMORY[0x1E695DFA8]);
+        v12 = [v5 objectForKeyedSubscript:{v10, v15}];
+        v13 = [v11 initWithArray:v12];
+        [v4 setObject:v13 forKeyedSubscript:v10];
       }
 
       v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
@@ -289,60 +327,15 @@
     while (v7);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v4;
-}
-
-+ (id)decodeKeysDictionary:(id)dictionary
-{
-  v21 = *MEMORY[0x1E69E9840];
-  dictionaryCopy = dictionary;
-  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v5 = dictionaryCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v17;
-    do
-    {
-      for (i = 0; i != v7; ++i)
-      {
-        if (*v17 != v8)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v11 = objc_alloc(MEMORY[0x1E695DFA8]);
-        v12 = [v5 objectForKeyedSubscript:{v10, v16}];
-        v13 = [v11 initWithArray:v12];
-        [v4 setObject:v13 forKeyedSubscript:v10];
-      }
-
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    }
-
-    while (v7);
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)_setValue:(uint64_t)a1 forDomain:(NSObject *)a2 key:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Couldn't save preferences: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Couldn't save preferences: %@", &v2, 0xCu);
 }
 
 @end

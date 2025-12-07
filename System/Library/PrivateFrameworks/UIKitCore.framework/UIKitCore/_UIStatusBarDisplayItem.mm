@@ -454,7 +454,7 @@ LABEL_5:
   view = self->_view;
   if (view)
   {
-    [(_UIStatusBarDisplayable *)view transform];
+    objc_msgSend_transform(view, a2);
     t1 = v12;
     if (!CGAffineTransformEqualToTransform(&t1, &t2))
     {

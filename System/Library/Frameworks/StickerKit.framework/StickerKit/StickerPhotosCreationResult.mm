@@ -19,7 +19,7 @@
 
 - (NSUUID)stickerUUID
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800, &qword_19A7BCE60);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC10StickerKitP33_19FC6B4034B7CA5830119A91FEF116A027StickerPhotosCreationResult_stickerUUID;
@@ -41,7 +41,7 @@
 
 - (void)setStickerUUID:(id)d
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAFCD800, &qword_19A7BCE60);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12 - v6;
   if (d)

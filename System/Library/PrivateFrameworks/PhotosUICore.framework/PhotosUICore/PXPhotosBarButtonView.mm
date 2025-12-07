@@ -35,16 +35,13 @@ void __52___PXPhotosBarButtonView__createButtonConfiguration__block_invoke_4(uin
   [WeakRetained _handleWillDismissMenu];
 }
 
-Class __40___PXPhotosBarButtonView_layoutSubviews__block_invoke()
+void __40___PXPhotosBarButtonView_layoutSubviews__block_invoke()
 {
-  result = NSClassFromString(&cfstr_Uitamicadaptor.isa);
-  layoutSubviews_adaptorClass = result;
-  if (!result)
+  layoutSubviews_adaptorClass = NSClassFromString(&cfstr_Uitamicadaptor.isa);
+  if (!layoutSubviews_adaptorClass)
   {
     PXAssertGetLog();
   }
-
-  return result;
 }
 
 @end

@@ -21,7 +21,7 @@
   v23 = __Block_byref_object_copy__5;
   v24 = __Block_byref_object_dispose__5;
   v25 = 0;
-  v10 = fskit_std_log();
+  v10 = fskit_std_log(typeCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [stolenUSBLocalStorageClient loadVolumes:ofType:withError:];
@@ -41,7 +41,7 @@
   v18[4] = &v26;
   v18[5] = &v20;
   [v12 addDisk:volumesCopy fileSystemType:typeCopy reply:v18];
-  if (v27[5] || ![v21[5] count])
+  if (v27[5] || (v13 = [v21[5] count]) == 0)
   {
     if (error)
     {
@@ -51,8 +51,8 @@
 
   else
   {
-    v13 = fskit_std_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = fskit_std_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v17 = v21[5];
       *buf = 136315906;
@@ -63,29 +63,26 @@
       v37 = typeCopy;
       v38 = 2112;
       v39 = v17;
-      _os_log_debug_impl(&dword_24A929000, v13, OS_LOG_TYPE_DEBUG, "%s:finish:%@:%@:%@", buf, 0x2Au);
+      _os_log_debug_impl(&dword_24A929000, v14, OS_LOG_TYPE_DEBUG, "%s:finish:%@:%@:%@", buf, 0x2Au);
     }
   }
 
-  v14 = v21[5];
+  v15 = v21[5];
 
   _Block_object_dispose(&v20, 8);
   _Block_object_dispose(&v26, 8);
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 - (void)loadVolumes:ofType:withError:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_24A929000, v2, OS_LOG_TYPE_DEBUG, "%s:start:%@:%@", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_24A929000, v2, OS_LOG_TYPE_DEBUG, "%s:start:%@:%@", v3, 0x20u);
 }
 
 @end

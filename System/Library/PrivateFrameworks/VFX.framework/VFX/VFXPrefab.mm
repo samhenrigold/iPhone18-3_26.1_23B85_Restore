@@ -15,16 +15,16 @@
 
 - (VFXPrefab)initWithAsset:(id)asset
 {
-  v9.receiver = self;
-  v9.super_class = VFXPrefab;
-  v4 = [(VFXPrefab *)&v9 init];
-  v7 = v4;
+  v8.receiver = self;
+  v8.super_class = VFXPrefab;
+  v4 = [(VFXPrefab *)&v8 init];
+  v6 = v4;
   if (v4)
   {
-    objc_msgSend_setSource_(v4, v5, asset, v6);
+    objc_msgSend_setSource_(v4, v5, asset);
   }
 
-  return v7;
+  return v6;
 }
 
 - (VFXPrefab)init
@@ -37,9 +37,9 @@
 + (id)prefabWithAsset:(id)asset
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend_initWithAsset_(v4, v5, asset, v6);
+  v6 = objc_msgSend_initWithAsset_(v4, v5, asset);
 
-  return v7;
+  return v6;
 }
 
 - (void)dealloc
@@ -61,36 +61,36 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p source=%@>", v7, v5, self, self->_source);
+  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p source=%@>", v5, self, self->_source);
 }
 
 - (id)reload:(id)reload options:(unint64_t)options
 {
-  v7 = objc_msgSend_source(self, a2, reload, options);
-  v10 = objc_msgSend_instantiate_(v7, v8, 0, v9);
-  v13 = v10;
+  v7 = objc_msgSend_source(self, a2, reload);
+  v9 = objc_msgSend_instantiate_(v7, v8, 0);
+  v11 = v9;
   if (!reload || (options & 0x80) != 0)
   {
-    objc_msgSend_setPrefab_(v10, v11, self, v12);
+    objc_msgSend_setPrefab_(v9, v10, self);
     if (!reload)
     {
-      objc_msgSend_setHidden_(v13, v16, 0, v18);
-      return v13;
+      objc_msgSend_setHidden_(v11, v14, 0);
+      return v11;
     }
   }
 
   else
   {
-    v14 = objc_alloc_init(VFXPrefabUpdater);
-    objc_msgSend_updatePrefab_withNewPrefab_options_(v14, v15, reload, v13, options);
-    v13 = 0;
+    v12 = objc_alloc_init(VFXPrefabUpdater);
+    objc_msgSend_updatePrefab_withNewPrefab_options_(v12, v13, reload, v11, options);
+    v11 = 0;
   }
 
-  objc_msgSend_position(reload, v16, v17, v18);
-  objc_msgSend_setPosition_(v13, v19, v20, v21);
-  isHidden = objc_msgSend_isHidden(reload, v22, v23, v24);
-  objc_msgSend_setHidden_(v13, v26, isHidden, v27);
-  return v13;
+  objc_msgSend_position(reload, v14, v15);
+  objc_msgSend_setPosition_(v11, v16, v17);
+  isHidden = objc_msgSend_isHidden(reload, v18, v19);
+  objc_msgSend_setHidden_(v11, v21, isHidden);
+  return v11;
 }
 
 - (void)enumerateReferencesForOperation:(int64_t)operation usingBlock:(id)block
@@ -115,18 +115,18 @@
 
 - (VFXPrefab)initWithCoder:(id)coder
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = VFXPrefab;
-  v4 = [(VFXPrefab *)&v16 init];
+  v15[1] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = VFXPrefab;
+  v4 = [(VFXPrefab *)&v14 init];
   if (v4)
   {
     v5 = MEMORY[0x1E695DFD8];
-    v17[0] = objc_opt_class();
-    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, v17, 1);
-    v10 = objc_msgSend_setWithArray_(v5, v8, v7, v9);
-    v12 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v11, v10, @"source");
-    objc_msgSend_setSource_(v4, v13, v12, v14);
+    v15[0] = objc_opt_class();
+    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, v15, 1);
+    v9 = objc_msgSend_setWithArray_(v5, v8, v7);
+    v11 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v10, v9, @"source");
+    objc_msgSend_setSource_(v4, v12, v11);
   }
 
   return v4;

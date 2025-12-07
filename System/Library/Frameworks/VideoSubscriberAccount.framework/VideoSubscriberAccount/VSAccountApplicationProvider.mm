@@ -112,28 +112,29 @@ LABEL_14:
 - (VSAccountApplicationProvider)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v8.receiver = self;
-  v8.super_class = VSAccountApplicationProvider;
-  v5 = [(VSAccountApplicationProvider *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = VSAccountApplicationProvider;
+  v5 = [(VSAccountApplicationProvider *)&v9 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = VSAccountApplicationProviderValueType();
-    VSValueTypeInitWithCoder(v6, v5, coderCopy);
+    v7 = VSAccountApplicationProviderValueType(v5);
+    VSValueTypeInitWithCoder(v7, v6, coderCopy);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = VSAccountApplicationProviderValueType();
+  v5 = VSAccountApplicationProviderValueType(coderCopy);
   VSValueTypeEncodeWithCoder(v5, self, coderCopy);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = VSAccountApplicationProviderValueType();
+  v5 = VSAccountApplicationProviderValueType(self);
   v6 = VSValueTypeCopyWithZone(v5, self, zone);
 
   return v6;
@@ -141,7 +142,7 @@ LABEL_14:
 
 - (unint64_t)hash
 {
-  v3 = VSAccountApplicationProviderValueType();
+  v3 = VSAccountApplicationProviderValueType(self);
   v4 = VSValueTypeHash(v3, self);
 
   return v4;
@@ -150,7 +151,7 @@ LABEL_14:
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = VSAccountApplicationProviderValueType();
+  v5 = VSAccountApplicationProviderValueType(equalCopy);
   LOBYTE(self) = VSValueTypeIsEqual(v5, self, equalCopy);
 
   return self;
@@ -158,7 +159,7 @@ LABEL_14:
 
 - (id)description
 {
-  v3 = VSAccountApplicationProviderValueType();
+  v3 = VSAccountApplicationProviderValueType(self);
   v4 = VSValueTypeDescription(v3, self);
 
   return v4;

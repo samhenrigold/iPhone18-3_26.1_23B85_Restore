@@ -66,7 +66,6 @@
 
 + (id)br_assetWithAssetReferece:()BRCEnhancedDrivePrivacyAdditions boundaryKey:
 {
-  v13 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [objc_alloc(MEMORY[0x277CBC190]) initWithAssetReference:v6];
@@ -75,8 +74,6 @@
 
   [v8 setBoundaryKey:v7];
   v10 = v8;
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

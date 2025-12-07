@@ -27,11 +27,11 @@
 
 - (BOOL)overwriteNamespaceDescriptors:(id)descriptors forTreatmentId:(id)id
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   idCopy = id;
-  v37 = [(TRINamespaceDescriptorSetStorage *)self pathForNamespaceDescriptorsWithTreatmentId:?];
-  if (v37)
+  v36 = [(TRINamespaceDescriptorSetStorage *)self pathForNamespaceDescriptorsWithTreatmentId:?];
+  if (v36)
   {
     v6 = [TRITempDirScopeGuard alloc];
     localTempDir = [(TRIPaths *)self->_paths localTempDir];
@@ -44,32 +44,32 @@
       v11 = objc_opt_new();
       uUIDString = [v11 UUIDString];
       v13 = [v10 initWithFormat:@"ns-desc-set-%@", uUIDString];
-      v38 = [path stringByAppendingPathComponent:v13];
+      v37 = [path stringByAppendingPathComponent:v13];
 
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
-      stringByDeletingLastPathComponent = [v37 stringByDeletingLastPathComponent];
-      v52[0] = stringByDeletingLastPathComponent;
-      v15 = [v38 stringByAppendingPathComponent:@"legacyNamespaceDescriptors"];
-      v52[1] = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      stringByDeletingLastPathComponent = [v36 stringByDeletingLastPathComponent];
+      v51[0] = stringByDeletingLastPathComponent;
+      v15 = [v37 stringByAppendingPathComponent:@"legacyNamespaceDescriptors"];
+      v51[1] = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
 
-      v17 = [v16 countByEnumeratingWithState:&v43 objects:v53 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v42 objects:v52 count:16];
       if (v17)
       {
-        v18 = *v44;
+        v18 = *v43;
         while (2)
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v44 != v18)
+            if (*v43 != v18)
             {
               objc_enumerationMutation(v16);
             }
 
-            if (![MEMORY[0x277CCAA00] triIdempotentCreateDirectoryOrFaultWithPath:*(*(&v43 + 1) + 8 * i)])
+            if (![MEMORY[0x277CCAA00] triIdempotentCreateDirectoryOrFaultWithPath:*(*(&v42 + 1) + 8 * i)])
             {
 
               v31 = 0;
@@ -77,7 +77,7 @@
             }
           }
 
-          v17 = [v16 countByEnumeratingWithState:&v43 objects:v53 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v42 objects:v52 count:16];
           if (v17)
           {
             continue;
@@ -87,27 +87,27 @@
         }
       }
 
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v20 = descriptorsCopy;
-      v21 = [v20 countByEnumeratingWithState:&v39 objects:v51 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v38 objects:v50 count:16];
       if (v21)
       {
-        v22 = *v40;
+        v22 = *v39;
         while (2)
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v40 != v22)
+            if (*v39 != v22)
             {
               objc_enumerationMutation(v20);
             }
 
-            v24 = *(*(&v39 + 1) + 8 * j);
+            v24 = *(*(&v38 + 1) + 8 * j);
             v25 = objc_autoreleasePoolPush();
-            v26 = [v38 stringByAppendingPathComponent:@"legacyNamespaceDescriptors"];
+            v26 = [v37 stringByAppendingPathComponent:@"legacyNamespaceDescriptors"];
             v27 = [v24 saveToDirectory:v26];
 
             if ((v27 & 1) == 0)
@@ -116,7 +116,7 @@
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v48 = idCopy;
+                v47 = idCopy;
                 _os_log_error_impl(&dword_26F567000, v28, OS_LOG_TYPE_ERROR, "Failed to save namespace descriptor set for treatment %@.", buf, 0xCu);
               }
             }
@@ -129,7 +129,7 @@
             }
           }
 
-          v21 = [v20 countByEnumeratingWithState:&v39 objects:v51 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v38 objects:v50 count:16];
           if (v21)
           {
             continue;
@@ -139,15 +139,15 @@
         }
       }
 
-      if (+[TRIReferenceManagedDir createFromDir:](TRIReferenceManagedDir, "createFromDir:", v38) && ([MEMORY[0x277CCAA00] defaultManager], v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "triForceRemoveItemAtPath:error:", v37, 0), v29, objc_msgSend(MEMORY[0x277CCAA00], "triRenameOrFaultWithSourcePath:destPath:", v38, v37)))
+      if (+[TRIReferenceManagedDir createFromDir:](TRIReferenceManagedDir, "createFromDir:", v37) && ([MEMORY[0x277CCAA00] defaultManager], v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "triForceRemoveItemAtPath:error:", v36, 0), v29, objc_msgSend(MEMORY[0x277CCAA00], "triRenameOrFaultWithSourcePath:destPath:", v37, v36)))
       {
         v30 = TRILogCategory_Server();
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v48 = idCopy;
-          v49 = 2112;
-          v50 = v37;
+          v47 = idCopy;
+          v48 = 2112;
+          v49 = v36;
           _os_log_impl(&dword_26F567000, v30, OS_LOG_TYPE_DEFAULT, "Wrote namespace descriptor set %@ --> %@", buf, 0x16u);
         }
 
@@ -161,7 +161,7 @@ LABEL_32:
       }
 
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      [defaultManager triForceRemoveItemAtPath:v38 error:0];
+      [defaultManager triForceRemoveItemAtPath:v37 error:0];
 
 LABEL_34:
     }
@@ -177,13 +177,12 @@ LABEL_34:
     v31 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (id)pathForNamespaceDescriptorsWithTreatmentId:(id)id
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if ([idCopy triIsPathSafePlausibleUniqueId])
   {
@@ -199,15 +198,13 @@ LABEL_34:
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = idCopy;
-      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Rejecting use of bad treatmentId: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = idCopy;
+      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Rejecting use of bad treatmentId: %@", &v10, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

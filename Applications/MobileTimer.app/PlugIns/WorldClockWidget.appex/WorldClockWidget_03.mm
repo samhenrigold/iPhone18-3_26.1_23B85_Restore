@@ -1,9 +1,9 @@
-uint64_t sub_100064034(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_100064034(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    sub_100007094(a2);
+    sub_100007094(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -17,9 +17,9 @@ unint64_t sub_1000640B8()
   result = qword_10008BE58;
   if (!qword_10008BE58)
   {
-    sub_100007094(&qword_10008BE48);
+    sub_100007094(&qword_10008BE48, &qword_10007D410);
     sub_100064170();
-    sub_100011308(&qword_10008B388, &qword_10008B378);
+    sub_100011308(&qword_10008B388, &qword_10008B378, &qword_10007D430, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10008BE58);
   }
@@ -32,8 +32,8 @@ unint64_t sub_100064170()
   result = qword_10008BE60;
   if (!qword_10008BE60)
   {
-    sub_100007094(&qword_10008BE68);
-    sub_100064034(&qword_10008BE70, &qword_10008BE78, &unk_10007D420, sub_100064220);
+    sub_100007094(&qword_10008BE68, &qword_10007D418);
+    sub_100064034(&qword_10008BE70, &qword_10008BE78, &qword_10007D420, sub_100064220);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10008BE60);
   }
@@ -46,7 +46,7 @@ unint64_t sub_100064220()
   result = qword_10008BE80;
   if (!qword_10008BE80)
   {
-    sub_100007094(&qword_10008BE88);
+    sub_100007094(&qword_10008BE88, &qword_10007D428);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10008BE80);
   }
@@ -61,12 +61,12 @@ uint64_t sub_10006429C(uint64_t a1, uint64_t (*a2)(void))
   return a1;
 }
 
-uint64_t sub_1000642FC(uint64_t a1, uint64_t a2, char a3)
+uint64_t sub_1000642FC(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   sub_100050270(a1, a2, a3 & 1);
 }
 
-uint64_t sub_100064338(uint64_t a1, uint64_t a2, char a3)
+uint64_t sub_100064338(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   sub_1000070DC(a1, a2, a3 & 1);
 }
@@ -76,9 +76,9 @@ unint64_t sub_100064374()
   result = qword_10008BEF0;
   if (!qword_10008BEF0)
   {
-    sub_100007094(&qword_10008BEE8);
+    sub_100007094(&qword_10008BEE8, &qword_10007D500);
     sub_10006442C();
-    sub_100011308(&qword_10008A1C0, &qword_10008A1C8);
+    sub_100011308(&qword_10008A1C0, &qword_10008A1C8, &qword_10007BAA0, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10008BEF0);
   }
@@ -91,8 +91,8 @@ unint64_t sub_10006442C()
   result = qword_10008BEF8;
   if (!qword_10008BEF8)
   {
-    sub_100007094(&qword_10008BF00);
-    sub_100011308(&qword_10008A020, &qword_10008A028);
+    sub_100007094(&qword_10008BF00, &qword_10007D508);
+    sub_100011308(&qword_10008A020, &qword_10008A028, &qword_10007B950, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10008BEF8);
   }
@@ -105,9 +105,9 @@ unint64_t sub_1000644E4()
   result = qword_10008BF50;
   if (!qword_10008BF50)
   {
-    sub_100007094(&qword_10008BF40);
+    sub_100007094(&qword_10008BF40, &qword_10007D538);
     sub_10006385C();
-    sub_100011308(&qword_10008BDD8, &qword_10008BDE0);
+    sub_100011308(&qword_10008BDD8, &qword_10008BDE0, &qword_10007D3E0, &protocol conformance descriptor for VStack<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10008BF50);
   }
@@ -115,7 +115,7 @@ unint64_t sub_1000644E4()
   return result;
 }
 
-uint64_t sub_10006459C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10006459C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -169,7 +169,7 @@ uint64_t sub_1000646B0()
   return v4;
 }
 
-uint64_t type metadata accessor for WorldClockCity()
+uint64_t type metadata accessor for WorldClockCity(uint64_t a1)
 {
   result = qword_10008FC30;
   if (!qword_10008FC30)
@@ -182,35 +182,35 @@ uint64_t type metadata accessor for WorldClockCity()
 
 uint64_t sub_1000647FC(char a1)
 {
-  result = type metadata accessor for WorldClockCity();
+  result = type metadata accessor for WorldClockCity(0);
   *(v1 + *(result + 20)) = a1;
   return result;
 }
 
 uint64_t sub_100064874()
 {
-  v1 = *(v0 + *(type metadata accessor for WorldClockCity() + 24));
+  v1 = *(v0 + *(type metadata accessor for WorldClockCity(0) + 24));
 
   return v1;
 }
 
 uint64_t sub_1000648B4()
 {
-  v1 = *(v0 + *(type metadata accessor for WorldClockCity() + 28));
+  v1 = *(v0 + *(type metadata accessor for WorldClockCity(0) + 28));
 
   return v1;
 }
 
 uint64_t sub_1000648F4()
 {
-  v1 = *(v0 + *(type metadata accessor for WorldClockCity() + 32));
+  v1 = *(v0 + *(type metadata accessor for WorldClockCity(0) + 32));
 
   return v1;
 }
 
 uint64_t sub_100064934@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for WorldClockCity() + 36);
+  v3 = *(type metadata accessor for WorldClockCity(0) + 36);
   v4 = sub_10006BB7C();
   v5 = *(*(v4 - 8) + 16);
 
@@ -219,7 +219,7 @@ uint64_t sub_100064934@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_1000649B0@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for WorldClockCity() + 40);
+  v3 = *(type metadata accessor for WorldClockCity(0) + 40);
   v4 = sub_10006BB7C();
   v5 = *(*(v4 - 8) + 16);
 
@@ -228,21 +228,21 @@ uint64_t sub_1000649B0@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100064A2C@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for WorldClockCity() + 44);
+  v3 = v1 + *(type metadata accessor for WorldClockCity(0) + 44);
 
   return sub_1000062E0(v3, a1);
 }
 
 uint64_t sub_100064A94(char a1)
 {
-  result = type metadata accessor for WorldClockCity();
+  result = type metadata accessor for WorldClockCity(0);
   *(v1 + *(result + 48)) = a1;
   return result;
 }
 
 uint64_t sub_100064B30(char a1)
 {
-  result = type metadata accessor for WorldClockCity();
+  result = type metadata accessor for WorldClockCity(0);
   *(v1 + *(result + 52)) = a1;
   return result;
 }
@@ -268,7 +268,7 @@ BOOL sub_100064BD8()
   v21 = &v36 - v20;
   __chkstk_darwin(v22);
   v24 = &v36 - v23;
-  if (*(v1 + *(type metadata accessor for WorldClockCity() + 48)))
+  if (*(v1 + *(type metadata accessor for WorldClockCity(0) + 48)))
   {
     return 1;
   }
@@ -349,7 +349,7 @@ uint64_t sub_1000651C8()
   v9 = v34 - v8;
   __chkstk_darwin(v10);
   v40 = v34 - v11;
-  v12 = sub_100003500(&qword_100088BE0);
+  v12 = sub_100003500(&qword_100088BE0, &qword_10007B3C0);
   __chkstk_darwin(v12 - 8);
   v14 = v34 - v13;
   v15 = sub_10006BD3C();
@@ -358,7 +358,7 @@ uint64_t sub_1000651C8()
   v18 = v34 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v19);
   v42 = v34 - v20;
-  v21 = type metadata accessor for WorldClockCity();
+  v21 = type metadata accessor for WorldClockCity(0);
   if (*(v0 + *(v21 + 48)) == 1)
   {
     v43 = 11565;
@@ -379,7 +379,7 @@ LABEL_6:
   sub_10006BCEC();
   if ((*(v16 + 48))(v14, 1, v15) == 1)
   {
-    sub_100009204(v14, &qword_100088BE0);
+    sub_100009204(v14, &qword_100088BE0, &qword_10007B3C0);
     goto LABEL_6;
   }
 
@@ -442,10 +442,10 @@ LABEL_6:
 
 uint64_t sub_1000657E8@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100003500(&qword_100088BE0);
+  v2 = sub_100003500(&qword_100088BE0, &qword_10007B3C0);
   __chkstk_darwin(v2 - 8);
   v4 = &v9 - v3;
-  type metadata accessor for WorldClockCity();
+  type metadata accessor for WorldClockCity(0);
   sub_10006BCEC();
   v5 = sub_10006BD3C();
   v6 = *(v5 - 8);
@@ -459,7 +459,7 @@ uint64_t sub_1000657E8@<X0>(uint64_t a1@<X8>)
   result = (v7)(v4, 1, v5);
   if (result != 1)
   {
-    return sub_100009204(v4, &qword_100088BE0);
+    return sub_100009204(v4, &qword_100088BE0, &qword_10007B3C0);
   }
 
   return result;
@@ -471,7 +471,7 @@ void sub_100065940(char a1)
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100003500(&qword_100088BE0);
+  v7 = sub_100003500(&qword_100088BE0, &qword_10007B3C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v24 - v8;
   v10 = sub_10006BD3C();
@@ -480,13 +480,13 @@ void sub_100065940(char a1)
   v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v14);
   v16 = &v24 - v15;
-  v17 = type metadata accessor for WorldClockCity();
+  v17 = type metadata accessor for WorldClockCity(0);
   if ((*(v1 + *(v17 + 48)) & 1) == 0 && (*(v1 + *(v17 + 52)) & 1) == 0)
   {
     sub_10006BCEC();
     if ((*(v11 + 48))(v9, 1, v10) == 1)
     {
-      sub_100009204(v9, &qword_100088BE0);
+      sub_100009204(v9, &qword_100088BE0, &qword_10007B3C0);
     }
 
     else
@@ -537,7 +537,7 @@ uint64_t sub_100065CC0()
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v21 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_100003500(&qword_100088BE0);
+  v4 = sub_100003500(&qword_100088BE0, &qword_10007B3C0);
   __chkstk_darwin(v4 - 8);
   v6 = &v21 - v5;
   v7 = sub_10006BD3C();
@@ -546,11 +546,11 @@ uint64_t sub_100065CC0()
   v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
   v13 = &v21 - v12;
-  type metadata accessor for WorldClockCity();
+  type metadata accessor for WorldClockCity(0);
   sub_10006BCEC();
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    sub_100009204(v6, &qword_100088BE0);
+    sub_100009204(v6, &qword_100088BE0, &qword_10007B3C0);
     return 0;
   }
 
@@ -605,7 +605,7 @@ uint64_t sub_100065FD4@<X0>(uint64_t a1@<X8>)
   sub_10006BB6C();
   v6 = *(v3 + 16);
   v6(a1, v5, v2);
-  v7 = type metadata accessor for WorldClockCity();
+  v7 = type metadata accessor for WorldClockCity(0);
   v6(a1 + v7[9], v5, v2);
   v6(a1 + v7[10], v5, v2);
   v8 = v7[11];
@@ -631,7 +631,7 @@ uint64_t sub_100066180@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, ui
   v20 = sub_10006BB7C();
   v21 = *(*(v20 - 8) + 32);
   v21(a9, a1, v20);
-  v22 = type metadata accessor for WorldClockCity();
+  v22 = type metadata accessor for WorldClockCity(0);
   *(a9 + v22[5]) = a2;
   v23 = (a9 + v22[6]);
   *v23 = a3;
@@ -652,7 +652,7 @@ uint64_t sub_100066180@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, ui
 
 uint64_t sub_1000662E4@<X0>(uint64_t a1@<X8>)
 {
-  v2 = sub_100003500(&qword_1000887E8);
+  v2 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   __chkstk_darwin(v2 - 8);
   v4 = &v30 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
@@ -686,7 +686,7 @@ uint64_t sub_1000662E4@<X0>(uint64_t a1@<X8>)
     sub_10006BB6C();
     if ((*(v9 + 48))(v7, 1, v8) != 1)
     {
-      sub_100009204(v7, &qword_1000887E8);
+      sub_100009204(v7, &qword_1000887E8, &qword_1000795A0);
     }
   }
 
@@ -704,10 +704,10 @@ uint64_t sub_1000662E4@<X0>(uint64_t a1@<X8>)
   }
 
   v20(v4, v22, 1, v8);
-  sub_100009204(v4, &qword_1000887E8);
+  sub_100009204(v4, &qword_1000887E8, &qword_1000795A0);
   v23 = *(v9 + 16);
   v23(a1, v14, v8);
-  v24 = type metadata accessor for WorldClockCity();
+  v24 = type metadata accessor for WorldClockCity(0);
   v23(a1 + v24[9], v14, v8);
   v23(a1 + v24[10], v14, v8);
   v25 = v24[11];
@@ -730,7 +730,7 @@ uint64_t sub_1000662E4@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_100066694()
 {
-  v1 = sub_100003500(&qword_1000887E8);
+  v1 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   __chkstk_darwin(v1);
   v3 = v10 - v2;
   v10[0] = 0;
@@ -739,7 +739,7 @@ uint64_t sub_100066694()
   v11._countAndFlagsBits = 0xD000000000000021;
   v11._object = 0x800000010006E950;
   sub_10006CBBC(v11);
-  v4 = type metadata accessor for WorldClockCity();
+  v4 = type metadata accessor for WorldClockCity(0);
   sub_10006CBBC(*(v0 + v4[6]));
   v12._object = 0x800000010006E980;
   v12._countAndFlagsBits = 0xD000000000000010;
@@ -753,7 +753,7 @@ uint64_t sub_100066694()
   v14._object = 0xEF203A6574614465;
   sub_10006CBBC(v14);
   sub_10006BB7C();
-  sub_1000675E8(&qword_100088800, &type metadata accessor for Date);
+  sub_1000675E8(&qword_100088800, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   v15._countAndFlagsBits = sub_10006CD9C();
   sub_10006CBBC(v15);
 
@@ -825,46 +825,46 @@ uint64_t sub_100066694()
   return v10[0];
 }
 
-void sub_1000669B4()
+void sub_1000669B4(uint64_t a1)
 {
-  v1 = sub_10006BB7C();
-  v2 = *(v1 - 8);
-  __chkstk_darwin(v1);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_100003500(&qword_1000887E8);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v9 - v6;
-  sub_1000675E8(&qword_10008C020, &type metadata accessor for Date);
+  v2 = sub_10006BB7C();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v10 - v7;
+  sub_1000675E8(&qword_10008C020, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_10006CB1C();
-  v8 = type metadata accessor for WorldClockCity();
-  sub_10006CDEC(*(v0 + v8[5]));
+  v9 = type metadata accessor for WorldClockCity(0);
+  sub_10006CDEC(*(v1 + v9[5]));
   sub_10006CB9C();
   sub_10006CB9C();
   sub_10006CB9C();
   sub_10006CB1C();
   sub_10006CB1C();
-  sub_1000062E0(v0 + v8[11], v7);
-  if ((*(v2 + 48))(v7, 1, v1) == 1)
+  sub_1000062E0(v1 + v9[11], v8);
+  if ((*(v3 + 48))(v8, 1, v2) == 1)
   {
     sub_10006CDEC(0);
   }
 
   else
   {
-    (*(v2 + 32))(v4, v7, v1);
+    (*(v3 + 32))(v5, v8, v2);
     sub_10006CDEC(1u);
     sub_10006CB1C();
-    (*(v2 + 8))(v4, v1);
+    (*(v3 + 8))(v5, v2);
   }
 
-  sub_10006CDEC(*(v0 + v8[12]));
-  sub_10006CDEC(*(v0 + v8[13]));
+  sub_10006CDEC(*(v1 + v9[12]));
+  sub_10006CDEC(*(v1 + v9[13]));
 }
 
 Swift::Int sub_100066C4C()
 {
   sub_10006CDCC();
-  sub_1000669B4();
+  sub_1000669B4(v1);
   return sub_10006CDFC();
 }
 
@@ -886,7 +886,7 @@ uint64_t sub_100066C8C@<X0>(uint64_t *a1@<X8>)
 Swift::Int sub_100066D6C()
 {
   sub_10006CDCC();
-  sub_1000669B4();
+  sub_1000669B4(v1);
   return sub_10006CDFC();
 }
 
@@ -915,10 +915,10 @@ uint64_t sub_100066E30(uint64_t a1, uint64_t a2)
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_100003500(&qword_1000887E8);
+  v8 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
   __chkstk_darwin(v8 - 8);
   v10 = &v36 - v9;
-  v11 = sub_100003500(&qword_10008C0D8);
+  v11 = sub_100003500(&qword_10008C0D8, &unk_10007D7A0);
   __chkstk_darwin(v11);
   v13 = &v36 - v12;
   if ((sub_10006BB2C() & 1) == 0)
@@ -926,7 +926,7 @@ uint64_t sub_100066E30(uint64_t a1, uint64_t a2)
     goto LABEL_3;
   }
 
-  v14 = type metadata accessor for WorldClockCity();
+  v14 = type metadata accessor for WorldClockCity(0);
   if (*(a1 + *(v14 + 20)) != *(a2 + *(v14 + 20)))
   {
     goto LABEL_3;
@@ -978,12 +978,12 @@ uint64_t sub_100066E30(uint64_t a1, uint64_t a2)
     if (v33(&v13[v37], 1, v4) != 1)
     {
       (*(v5 + 32))(v7, &v13[v37], v4);
-      sub_1000675E8(&qword_10008C0E0, &type metadata accessor for Date);
+      sub_1000675E8(&qword_10008C0E0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
       v34 = sub_10006CB3C();
       v35 = *(v5 + 8);
       v35(v7, v4);
       v35(v10, v4);
-      sub_100009204(v13, &qword_1000887E8);
+      sub_100009204(v13, &qword_1000887E8, &qword_1000795A0);
       if ((v34 & 1) == 0)
       {
         goto LABEL_3;
@@ -994,7 +994,7 @@ uint64_t sub_100066E30(uint64_t a1, uint64_t a2)
 
     (*(v5 + 8))(v10, v4);
 LABEL_23:
-    sub_100009204(v13, &qword_10008C0D8);
+    sub_100009204(v13, &qword_10008C0D8, &unk_10007D7A0);
     goto LABEL_3;
   }
 
@@ -1003,7 +1003,7 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  sub_100009204(v13, &qword_1000887E8);
+  sub_100009204(v13, &qword_1000887E8, &qword_1000795A0);
 LABEL_25:
   if (*(a1 + v17[12]) == *(a2 + v17[12]))
   {
@@ -1040,7 +1040,7 @@ uint64_t sub_1000672BC(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v11 = sub_100003500(&qword_1000887E8);
+    v11 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
     v12 = *(*(v11 - 8) + 48);
     v13 = a1 + *(a3 + 44);
 
@@ -1066,7 +1066,7 @@ uint64_t sub_100067404(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v11 = sub_100003500(&qword_1000887E8);
+    v11 = sub_100003500(&qword_1000887E8, &qword_1000795A0);
     v12 = *(*(v11 - 8) + 56);
     v13 = a1 + *(a4 + 44);
 
@@ -1076,20 +1076,20 @@ uint64_t sub_100067404(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_100067538()
+void sub_100067538(uint64_t a1)
 {
   sub_10006BB7C();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_100006774();
-    if (v1 <= 0x3F)
+    sub_100006774(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-uint64_t sub_1000675E8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1000675E8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1129,7 +1129,7 @@ unint64_t sub_100067774()
   result = qword_100089220;
   if (!qword_100089220)
   {
-    type metadata accessor for ClockWidgetEnvironmentObject();
+    type metadata accessor for ClockWidgetEnvironmentObject(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100089220);
   }
@@ -1137,7 +1137,7 @@ unint64_t sub_100067774()
   return result;
 }
 
-uint64_t type metadata accessor for ClockWidgetEnvironmentObject()
+uint64_t type metadata accessor for ClockWidgetEnvironmentObject(uint64_t a1)
 {
   result = qword_10008FD50;
   if (!qword_10008FD50)
@@ -1178,7 +1178,7 @@ uint64_t sub_100067988()
   return result;
 }
 
-void (*sub_100067A68(uint64_t *a1))(void **a1)
+uint64_t (*sub_100067A68(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -1207,7 +1207,7 @@ void (*sub_100067A68(uint64_t *a1))(void **a1)
   return sub_100067B78;
 }
 
-void sub_100067B78(void **a1)
+void sub_100067B78(void *a1)
 {
   v1 = *a1;
   swift_endAccess();
@@ -1270,10 +1270,10 @@ uint64_t sub_100067E08()
   return swift_deallocClassInstance();
 }
 
-uint64_t sub_100067EAC()
+uint64_t sub_100067EAC(uint64_t a1)
 {
   result = sub_10006BD9C();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -1938,52 +1938,52 @@ uint64_t sub_10006B1FC()
   return sub_10006BDCC();
 }
 
-uint64_t sub_10006B330(uint64_t a1, uint64_t *a2)
+uint64_t sub_10006B330(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = sub_10006BDDC();
-  sub_1000263C4(v3, a2);
-  sub_100022560(v3, a2);
+  v5 = sub_10006BDDC();
+  sub_1000263C4(v5, a2);
+  sub_100022560(v5, a2);
   if (qword_10008FD60 != -1)
   {
     swift_once();
   }
 
-  v4 = qword_10008FD68;
+  v6 = qword_10008FD68;
   return sub_10006BDCC();
 }
 
-uint64_t sub_10006B40C(void *a1, uint64_t (*a2)(void), uint64_t a3)
+uint64_t sub_10006B40C(void *a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4)
 {
   if (*a1 == -1)
   {
-    v4 = a2(0);
+    v5 = a2(0);
   }
 
   else
   {
     swift_once();
-    v4 = a2(0);
+    v5 = a2(0);
   }
 
-  return sub_100022560(v4, a3);
+  return sub_100022560(v5, a3);
 }
 
-uint64_t sub_10006B4A4@<X0>(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t sub_10006B4A4@<X0>(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a5@<X8>)
 {
   if (*a1 == -1)
   {
-    v6 = a2(0);
+    v7 = a2(0);
   }
 
   else
   {
     swift_once();
-    v6 = a2(0);
+    v7 = a2(0);
   }
 
-  v7 = v6;
-  v8 = sub_100022560(v6, a3);
-  v9 = *(*(v7 - 8) + 16);
+  v8 = v7;
+  v9 = sub_100022560(v7, a3);
+  v10 = *(*(v8 - 8) + 16);
 
-  return v9(a4, v8, v7);
+  return v10(a5, v9, v8);
 }

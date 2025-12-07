@@ -560,7 +560,7 @@ void __70__CAMExpandableMenuButton__applyMenuItemAlphaForCurrentExpansionState__
   return result;
 }
 
-uint64_t __66__CAMExpandableMenuButton__layoutForPhoneCollapsedPortraitButton___block_invoke(uint64_t a1, void *a2)
+void *__66__CAMExpandableMenuButton__layoutForPhoneCollapsedPortraitButton___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 intrinsicContentSize];
@@ -1671,24 +1671,24 @@ uint64_t __62__CAMExpandableMenuButton__updateFromExpansionChangeAnimated___bloc
   }
 }
 
-uint64_t __64__CAMExpandableMenuButton__updateFromOrientationChangeAnimated___block_invoke(uint64_t a1)
+uint64_t __64__CAMExpandableMenuButton__updateFromOrientationChangeAnimated___block_invoke(uint64_t a1, const char *a2)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  if (v2)
+  v4 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [v2 transform];
+    objc_msgSend_transform(v3, a2);
   }
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    memset(v7, 0, sizeof(v7));
   }
 
-  [v3 setTransform:v6];
-  v4 = *(a1 + 32);
+  [v4 setTransform:v7];
+  v5 = *(a1 + 32);
   [*(a1 + 40) frame];
-  return [v4 setFrame:?];
+  return [v5 setFrame:?];
 }
 
 uint64_t __64__CAMExpandableMenuButton__updateFromOrientationChangeAnimated___block_invoke_2(uint64_t a1)

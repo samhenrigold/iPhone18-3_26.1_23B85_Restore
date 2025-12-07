@@ -25,7 +25,7 @@
   return regex_sRegEx;
 }
 
-uint64_t __57__ABVCardActivityAlertQuotingSerializationStrategy_regex__block_invoke()
+void *__57__ABVCardActivityAlertQuotingSerializationStrategy_regex__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:@"([])" options:0 error:0];
   regex_sRegEx = result;

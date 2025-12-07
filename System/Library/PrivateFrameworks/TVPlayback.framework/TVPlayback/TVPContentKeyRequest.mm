@@ -151,7 +151,7 @@ LABEL_12:
 
 - (void)makeKeyRequestDataForCertificateData:(id)data assetIDData:(id)dData completion:(id)completion
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dDataCopy = dData;
   completionCopy = completion;
@@ -172,15 +172,15 @@ LABEL_12:
         keyFormatVersions2 = [(TVPContentKeyRequest *)self keyFormatVersions];
         *buf = 138412546;
         *&buf[4] = keyFormatVersions2;
-        v37 = 2112;
+        v36 = 2112;
         selfCopy = self;
         _os_log_impl(&dword_26CEDD000, v21, OS_LOG_TYPE_DEFAULT, "Using key format versions %@ for key request: %@", buf, 0x16u);
       }
 
-      v34 = *MEMORY[0x277CE5CF8];
+      v33 = *MEMORY[0x277CE5CF8];
       keyFormatVersions3 = [(TVPContentKeyRequest *)self keyFormatVersions];
-      v35 = keyFormatVersions3;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v34 = keyFormatVersions3;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
       goto LABEL_10;
     }
 
@@ -202,24 +202,24 @@ LABEL_15:
   if (v14)
   {
     keyFormatVersions3 = v14;
-    v39[0] = *MEMORY[0x277CE5D08];
+    v38[0] = *MEMORY[0x277CE5D08];
     offlineKeyData2 = [(TVPContentKeyRequest *)self offlineKeyData];
-    v39[1] = *MEMORY[0x277CE5D18];
-    v40[0] = offlineKeyData2;
-    v40[1] = keyFormatVersions3;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+    v38[1] = *MEMORY[0x277CE5D18];
+    v39[0] = offlineKeyData2;
+    v39[1] = keyFormatVersions3;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
 
 LABEL_10:
 LABEL_16:
     avContentKeyRequest = [(TVPContentKeyRequest *)self avContentKeyRequest];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __84__TVPContentKeyRequest_makeKeyRequestDataForCertificateData_assetIDData_completion___block_invoke;
-    v32[3] = &unk_279D7D320;
-    v25 = &v33;
-    v33 = completionCopy;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __84__TVPContentKeyRequest_makeKeyRequestDataForCertificateData_assetIDData_completion___block_invoke;
+    v31[3] = &unk_279D7D320;
+    v25 = &v32;
+    v32 = completionCopy;
     v26 = completionCopy;
-    [avContentKeyRequest makeStreamingContentKeyRequestDataForApp:dataCopy contentIdentifier:dDataCopy options:v17 completionHandler:v32];
+    [avContentKeyRequest makeStreamingContentKeyRequestDataForApp:dataCopy contentIdentifier:dDataCopy options:v17 completionHandler:v31];
     goto LABEL_17;
   }
 
@@ -239,16 +239,14 @@ LABEL_16:
   block[1] = 3221225472;
   block[2] = __84__TVPContentKeyRequest_makeKeyRequestDataForCertificateData_assetIDData_completion___block_invoke_3;
   block[3] = &unk_279D7D348;
-  v25 = &v31;
-  v30 = v24;
-  v31 = completionCopy;
+  v25 = &v30;
+  v29 = v24;
+  v30 = completionCopy;
   v26 = v24;
   v17 = completionCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  avContentKeyRequest = v30;
+  avContentKeyRequest = v29;
 LABEL_17:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __84__TVPContentKeyRequest_makeKeyRequestDataForCertificateData_assetIDData_completion___block_invoke(uint64_t a1, void *a2, void *a3)

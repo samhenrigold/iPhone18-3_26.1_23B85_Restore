@@ -9,11 +9,11 @@ void __71___UISceneKeyboardProxyLayerForwardingManager_isRootSystemShellProcess_
   _MergedGlobals_1020 = [v0 usesLocalInitializationContext];
 }
 
-void __61___UISceneKeyboardProxyLayerForwardingManager_sharedInstance__block_invoke()
+void __61___UISceneKeyboardProxyLayerForwardingManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = [objc_alloc(objc_opt_class()) _init];
-  v1 = qword_1ED49CB80;
-  qword_1ED49CB80 = v0;
+  v1 = [objc_alloc(objc_opt_class()) _init];
+  v2 = qword_1ED49CB80;
+  qword_1ED49CB80 = v1;
 }
 
 @end

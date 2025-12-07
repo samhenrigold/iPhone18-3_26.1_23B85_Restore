@@ -1,6 +1,7 @@
 @interface HULiveListenObserver
 - (HULiveListenObserver)initWithController:(id)controller;
 - (void)_notifyListenersAndPollAudioLevelIfLiveListenIsRunning;
+- (void)_notifyListenersWithIsListening:(BOOL)listening audioLevel:(float)level isPlayingBack:(BOOL)back transcription:(id)transcription;
 - (void)_pollLiveListenAudioLevelAfterDelay;
 - (void)registerUpdateBlock:(id)block withListener:(id)listener;
 - (void)removeListener:(id)listener;
@@ -95,9 +96,58 @@ BOOL __39__HULiveListenObserver_removeListener___block_invoke(uint64_t a1, void 
   return v4;
 }
 
+- (void)_notifyListenersWithIsListening:(BOOL)listening audioLevel:(float)level isPlayingBack:(BOOL)back transcription:(id)transcription
+{
+  backCopy = back;
+  listeningCopy = listening;
+  v26 = *MEMORY[0x1E69E9840];
+  transcriptionCopy = transcription;
+  updateLock = [(HULiveListenObserver *)self updateLock];
+  [updateLock lock];
+
+  updateBlocks = [(HULiveListenObserver *)self updateBlocks];
+  v13 = [updateBlocks copy];
+
+  updateLock2 = [(HULiveListenObserver *)self updateLock];
+  [updateLock2 unlock];
+
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v15 = v13;
+  v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v22;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v22 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        block = [*(*(&v21 + 1) + 8 * v19) block];
+        (block)[2](block, listeningCopy, backCopy, transcriptionCopy, level);
+
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    }
+
+    while (v17);
+  }
+}
+
 - (void)_notifyListenersAndPollAudioLevelIfLiveListenIsRunning
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   controller = [(HULiveListenObserver *)self controller];
   isListening = [controller isListening];
 
@@ -120,34 +170,34 @@ BOOL __39__HULiveListenObserver_removeListener___block_invoke(uint64_t a1, void 
   updateLock2 = [(HULiveListenObserver *)self updateLock];
   [updateLock2 unlock];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v16 = v14;
-  v17 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       v20 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        block = [*(*(&v24 + 1) + 8 * v20) block];
+        block = [*(*(&v23 + 1) + 8 * v20) block];
         (block)[2](block, isListening, isPlayingBack, combinedSessionTranscription, v7);
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [v16 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v18);
@@ -165,8 +215,6 @@ BOOL __39__HULiveListenObserver_removeListener___block_invoke(uint64_t a1, void 
 
     [(HULiveListenObserver *)self setLiveListenLevelsTimer:0];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pollLiveListenAudioLevelAfterDelay

@@ -17,24 +17,24 @@
   if (v9)
   {
     v10 = [elementCopy getAttribute:@"type"];
-    if ([v10 isEqualToString:@"actionSheet"])
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 1;
     }
 
-    else if ([v10 isEqualToString:@"error"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 3;
     }
 
-    else if ([v10 isEqualToString:@"itemActionSheet"])
+    else if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 2;
     }
 
     else
     {
-      if (![v10 isEqualToString:@"toast"])
+      if (!objc_msgSend_isEqualToString_(v10))
       {
         v9->_dialogType = 0;
         goto LABEL_11;

@@ -23,9 +23,9 @@ void __65___UINavigationBarTransitionContextCrossfade__animateContentView__block
   }
 }
 
-uint64_t __68___UINavigationBarTransitionContextCrossfade__animateLargeTitleView__block_invoke(uint64_t result)
+void *__68___UINavigationBarTransitionContextCrossfade__animateLargeTitleView__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 160) & 0x20) != 0)
   {
     return [*(v1 + 104) setContentHidden:1];
@@ -34,9 +34,9 @@ uint64_t __68___UINavigationBarTransitionContextCrossfade__animateLargeTitleView
   return result;
 }
 
-uint64_t __68___UINavigationBarTransitionContextCrossfade__animateLargeTitleView__block_invoke_2(uint64_t result)
+void *__68___UINavigationBarTransitionContextCrossfade__animateLargeTitleView__block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 160) & 0x40) != 0)
   {
     return [*(v1 + 112) setContentHidden:0];

@@ -195,7 +195,6 @@ uint64_t __43__EFQueueScheduler_performCancelableBlock___block_invoke(uint64_t a
 {
   if (([*(a1 + 32) isCanceled] & 1) == 0)
   {
-    v2 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 

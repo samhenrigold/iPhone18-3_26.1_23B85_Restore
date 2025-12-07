@@ -116,7 +116,7 @@
     v4->_rotaryScrubCenterPunchout = v10;
 
     v12 = v4->_rotaryScrubCenterPunchout;
-    v13 = +[UIColor blackColor];
+    v13 = objc_msgSend_blackColor(UIColor);
     [(UIView *)v12 setBackgroundColor:v13];
 
     layer = [(UIView *)v4->_rotaryScrubCenterPunchout layer];
@@ -203,7 +203,7 @@
     v4->_fingerPositionView = v39;
 
     v41 = v4->_fingerPositionView;
-    v42 = +[UIColor blackColor];
+    v42 = objc_msgSend_blackColor(UIColor);
     [(UIView *)v41 setBackgroundColor:v42];
 
     layer8 = [(UIView *)v4->_fingerPositionView layer];
@@ -483,7 +483,7 @@
 
 - (void)updateFailedMovementHeading:(unint64_t)heading
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_RotaryFocusRingHidesArrowsOnFailedMovement, @"RotaryFocusRingHidesArrowsOnFailedMovement", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1EA95E95C)
+  if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_RotaryFocusRingHidesArrowsOnFailedMovement, @"RotaryFocusRingHidesArrowsOnFailedMovement", _UIInternalPreferenceUpdateBool) || byte_1EA95E95C)
   {
     self->_failedMovementHeading = heading;
 
@@ -558,7 +558,7 @@
     if (visible)
     {
       memset(&v46, 0, sizeof(v46));
-      [(_UIFocusRotaryIndicatorView *)self _transformForWheelPosition:self->_wheelPosition];
+      objc_msgSend__transformForWheelPosition_(self, a2, self->_wheelPosition);
       memset(&v45, 0, sizeof(v45));
       v44 = v46;
       CGAffineTransformRotate(&v45, &v44, -3.92699082);
@@ -696,7 +696,7 @@
     if (self->_visible)
     {
       v25 = self->_fingerPositionContainerView;
-      [(_UIFocusRotaryIndicatorView *)self _transformForWheelPosition:self->_wheelPosition];
+      objc_msgSend__transformForWheelPosition_(self, self->_wheelPosition);
       [(UIView *)v25 setTransform:&v46];
       v26 = *(MEMORY[0x1E695EFD0] + 16);
       *&v46.a = *MEMORY[0x1E695EFD0];
@@ -759,7 +759,7 @@
       v8 = 0u;
       v9 = 0u;
       v7 = 0u;
-      [(_UIFocusRotaryIndicatorView *)self _transformForWheelPosition:position];
+      objc_msgSend__transformForWheelPosition_(self, a2, position);
       v6[0] = v7;
       v6[1] = v8;
       v6[2] = v9;

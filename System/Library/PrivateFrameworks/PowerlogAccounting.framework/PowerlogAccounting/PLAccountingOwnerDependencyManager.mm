@@ -106,7 +106,7 @@ void __42__PLAccountingOwnerDependencyManager_init__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __42__PLAccountingOwnerDependencyManager_init__block_invoke_2(uint64_t a1)
+void *__42__PLAccountingOwnerDependencyManager_init__block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   init_classDebugEnabled = result;
@@ -129,16 +129,15 @@ uint64_t __42__PLAccountingOwnerDependencyManager_init__block_invoke_2(uint64_t 
 
 void __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke(uint64_t a1)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_0 != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_0, block);
@@ -146,15 +145,15 @@ void __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke(uint64_t a
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_0 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"owner=%@", *(a1 + 40)];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:71];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"owner=%@", *(a1 + 40)];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:71];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
@@ -165,108 +164,105 @@ void __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke(uint64_t a
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v79[0] = MEMORY[0x277D85DD0];
-      v79[1] = 3221225472;
-      v79[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_29;
-      v79[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v79[4] = v11;
+      v9 = objc_opt_class();
+      v72[0] = MEMORY[0x277D85DD0];
+      v72[1] = 3221225472;
+      v72[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_29;
+      v72[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v72[4] = v9;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_27 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_27, v79);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_27, v72);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_28 == 1)
       {
-        v12 = MEMORY[0x277CCACA8];
-        v13 = [*(a1 + 40) ID];
-        v14 = [v12 stringWithFormat:@"owner.ID=%@", v13];
+        v10 = MEMORY[0x277CCACA8];
+        v11 = [*(a1 + 40) ID];
+        v12 = [v10 stringWithFormat:@"owner.ID=%@", v11];
 
-        v15 = MEMORY[0x277D3F178];
-        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v17 = [v16 lastPathComponent];
-        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke_2"];
-        [v15 logMessage:v14 fromFile:v17 fromFunction:v18 fromLineNumber:74];
+        v13 = MEMORY[0x277D3F178];
+        v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v15 = [v14 lastPathComponent];
+        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke_2"];
+        [v13 logMessage:v12 fromFile:v15 fromFunction:v16 fromLineNumber:74];
 
-        v19 = PLLogCommon();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v17 = PLLogCommon();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
       }
     }
 
-    v20 = [*(a1 + 32) ownersRepository];
-    [v20 addObject:*(a1 + 40)];
+    v18 = [*(a1 + 32) ownersRepository];
+    [v18 addObject:*(a1 + 40)];
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v21 = *(a1 + 32);
-      v22 = objc_opt_class();
-      v78[0] = MEMORY[0x277D85DD0];
-      v78[1] = 3221225472;
-      v78[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_36;
-      v78[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v78[4] = v22;
+      v19 = objc_opt_class();
+      v71[0] = MEMORY[0x277D85DD0];
+      v71[1] = 3221225472;
+      v71[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_36;
+      v71[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v71[4] = v19;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_34 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_34, v78);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_34, v71);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_35 == 1)
       {
-        v23 = MEMORY[0x277CCACA8];
-        v24 = [*(a1 + 32) ownersRepository];
-        v25 = [v23 stringWithFormat:@"ownersRepository=%@", v24];
+        v20 = MEMORY[0x277CCACA8];
+        v21 = [*(a1 + 32) ownersRepository];
+        v22 = [v20 stringWithFormat:@"ownersRepository=%@", v21];
 
-        v26 = MEMORY[0x277D3F178];
-        v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v28 = [v27 lastPathComponent];
-        v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke_2"];
-        [v26 logMessage:v25 fromFile:v28 fromFunction:v29 fromLineNumber:78];
+        v23 = MEMORY[0x277D3F178];
+        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v25 = [v24 lastPathComponent];
+        v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke_2"];
+        [v23 logMessage:v22 fromFile:v25 fromFunction:v26 fromLineNumber:78];
 
-        v30 = PLLogCommon();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+        v27 = PLLogCommon();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
       }
     }
 
-    v31 = *(a1 + 40);
-    v32 = [*(a1 + 32) ownerIDToLastOwner];
-    v33 = [*(a1 + 40) ID];
-    [v32 setObject:v31 forKeyedSubscript:v33];
+    v28 = *(a1 + 40);
+    v29 = [*(a1 + 32) ownerIDToLastOwner];
+    v30 = [*(a1 + 40) ID];
+    [v29 setObject:v28 forKeyedSubscript:v30];
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v34 = *(a1 + 32);
-      v35 = objc_opt_class();
-      v77[0] = MEMORY[0x277D85DD0];
-      v77[1] = 3221225472;
-      v77[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_42;
-      v77[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v77[4] = v35;
+      v31 = objc_opt_class();
+      v70[0] = MEMORY[0x277D85DD0];
+      v70[1] = 3221225472;
+      v70[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_42;
+      v70[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v70[4] = v31;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_40 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_40, v77);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_40, v70);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_41 == 1)
       {
-        v36 = MEMORY[0x277CCACA8];
-        v37 = [*(a1 + 32) ownerIDToLastOwner];
-        v38 = [v36 stringWithFormat:@"ownerIDToLastOwner=%@", v37];
+        v32 = MEMORY[0x277CCACA8];
+        v33 = [*(a1 + 32) ownerIDToLastOwner];
+        v34 = [v32 stringWithFormat:@"ownerIDToLastOwner=%@", v33];
 
-        v39 = MEMORY[0x277D3F178];
-        v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v41 = [v40 lastPathComponent];
-        v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke_2"];
-        [v39 logMessage:v38 fromFile:v41 fromFunction:v42 fromLineNumber:82];
+        v35 = MEMORY[0x277D3F178];
+        v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v37 = [v36 lastPathComponent];
+        v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke_2"];
+        [v35 logMessage:v34 fromFile:v37 fromFunction:v38 fromLineNumber:82];
 
-        v43 = PLLogCommon();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        v39 = PLLogCommon();
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
@@ -275,134 +271,129 @@ void __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke(uint64_t a
 
     [*(a1 + 40) setManager:*(a1 + 32)];
     [*(a1 + 40) activate];
-    v44 = [*(a1 + 32) ownersRepository];
-    v45 = [v44 count];
-    v46 = *(a1 + 32);
-    v47 = [objc_opt_class() maxOwners];
+    v40 = [*(a1 + 32) ownersRepository];
+    v41 = [v40 count];
+    v42 = [objc_opt_class() maxOwners];
 
-    if (v45 > v47)
+    if (v41 > v42)
     {
-      v75 = 0u;
-      v76 = 0u;
-      v73 = 0u;
-      v74 = 0u;
-      v48 = [*(a1 + 32) ownersRepository];
-      v49 = [v48 countByEnumeratingWithState:&v73 objects:v81 count:16];
-      if (v49)
+      v68 = 0u;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v43 = [*(a1 + 32) ownersRepository];
+      v44 = [v43 countByEnumeratingWithState:&v66 objects:v74 count:16];
+      if (v44)
       {
-        v50 = v49;
-        v51 = 0;
-        v52 = *v74;
+        v45 = v44;
+        v46 = 0;
+        v47 = *v67;
         do
         {
-          for (i = 0; i != v50; ++i)
+          for (i = 0; i != v45; ++i)
           {
-            if (*v74 != v52)
+            if (*v67 != v47)
             {
-              objc_enumerationMutation(v48);
+              objc_enumerationMutation(v43);
             }
 
-            v54 = *(*(&v73 + 1) + 8 * i);
-            if (!v51)
+            v49 = *(*(&v66 + 1) + 8 * i);
+            if (v46)
             {
-              goto LABEL_38;
+              v50 = [*(*(&v66 + 1) + 8 * i) activationDate];
+              v51 = [v46 activationDate];
+              [v50 timeIntervalSinceDate:v51];
+              v53 = v52;
+
+              if (v53 >= 0.0)
+              {
+                continue;
+              }
             }
 
-            v55 = [*(*(&v73 + 1) + 8 * i) activationDate];
-            v56 = [v51 activationDate];
-            [v55 timeIntervalSinceDate:v56];
-            v58 = v57;
+            v54 = v49;
 
-            if (v58 < 0.0)
-            {
-LABEL_38:
-              v59 = v54;
-
-              v51 = v59;
-            }
+            v46 = v54;
           }
 
-          v50 = [v48 countByEnumeratingWithState:&v73 objects:v81 count:16];
+          v45 = [v43 countByEnumeratingWithState:&v66 objects:v74 count:16];
         }
 
-        while (v50);
+        while (v45);
       }
 
       else
       {
-        v51 = 0;
+        v46 = 0;
       }
 
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v60 = *(a1 + 32);
-        v61 = objc_opt_class();
-        v70[0] = MEMORY[0x277D85DD0];
-        v70[1] = 3221225472;
-        v70[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_48;
-        v70[3] = &unk_279A55D70;
-        v71 = @"free";
-        v72 = v61;
+        v55 = objc_opt_class();
+        v63[0] = MEMORY[0x277D85DD0];
+        v63[1] = 3221225472;
+        v63[2] = __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_48;
+        v63[3] = &unk_279A55D70;
+        v64 = @"free";
+        v65 = v55;
         if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_46 != -1)
         {
-          dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_46, v70);
+          dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_46, v63);
         }
 
-        v62 = PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_47;
+        v56 = PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_47;
 
-        if (v62 == 1)
+        if (v56 == 1)
         {
-          v63 = [MEMORY[0x277CCACA8] stringWithFormat:@"freeing owner=%@", v51];
-          v64 = MEMORY[0x277D3F178];
-          v65 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-          v66 = [v65 lastPathComponent];
-          v67 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke_2"];
-          [v64 logMessage:v63 fromFile:v66 fromFunction:v67 fromLineNumber:96];
+          v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"freeing owner=%@", v46];
+          v58 = MEMORY[0x277D3F178];
+          v59 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+          v60 = [v59 lastPathComponent];
+          v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addOwner:]_block_invoke_2"];
+          [v58 logMessage:v57 fromFile:v60 fromFunction:v61 fromLineNumber:96];
 
-          v68 = PLLogCommon();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+          v62 = PLLogCommon();
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
           {
             [PLAccountingDependency activate];
           }
         }
       }
 
-      [v51 deactivate];
+      [v46 deactivate];
     }
   }
-
-  v69 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_2(uint64_t a1)
+void *__47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_29(uint64_t a1)
+void *__47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_29(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_28 = result;
   return result;
 }
 
-uint64_t __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_36(uint64_t a1)
+void *__47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_36(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_35 = result;
   return result;
 }
 
-uint64_t __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_42(uint64_t a1)
+void *__47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_42(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_41 = result;
   return result;
 }
 
-uint64_t __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_48(uint64_t a1)
+void *__47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_48(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_47 = result;
@@ -425,16 +416,15 @@ uint64_t __47__PLAccountingOwnerDependencyManager_addOwner___block_invoke_48(uin
 
 void __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_0 != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_0, block);
@@ -442,15 +432,15 @@ void __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___bloc
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled_0 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"owner=%@", *(a1 + 40)];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager notifyDependenciesWithOwner:]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:104];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"owner=%@", *(a1 + 40)];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager notifyDependenciesWithOwner:]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:104];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
@@ -461,82 +451,79 @@ void __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___bloc
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___block_invoke_54;
-      v33[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v33[4] = v11;
+      v9 = objc_opt_class();
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___block_invoke_54;
+      v30[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v30[4] = v9;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_52 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_52, v33);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_2_defaultOnce_52, v30);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled_53 == 1)
       {
-        v12 = MEMORY[0x277CCACA8];
-        v13 = [*(a1 + 32) ownerIDToObservingDependencies];
-        v14 = [v12 stringWithFormat:@"ownerIDToObservingDependencies=%@", v13];
+        v10 = MEMORY[0x277CCACA8];
+        v11 = [*(a1 + 32) ownerIDToObservingDependencies];
+        v12 = [v10 stringWithFormat:@"ownerIDToObservingDependencies=%@", v11];
 
-        v15 = MEMORY[0x277D3F178];
-        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v17 = [v16 lastPathComponent];
-        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager notifyDependenciesWithOwner:]_block_invoke_2"];
-        [v15 logMessage:v14 fromFile:v17 fromFunction:v18 fromLineNumber:108];
+        v13 = MEMORY[0x277D3F178];
+        v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v15 = [v14 lastPathComponent];
+        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager notifyDependenciesWithOwner:]_block_invoke_2"];
+        [v13 logMessage:v12 fromFile:v15 fromFunction:v16 fromLineNumber:108];
 
-        v19 = PLLogCommon();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v17 = PLLogCommon();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
       }
     }
 
-    v31 = 0u;
-    v32 = 0u;
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v20 = [*(a1 + 32) ownerIDToObservingDependencies];
-    v21 = [*(a1 + 40) ID];
-    v22 = [v20 objectForKeyedSubscript:v21];
-    v23 = [v22 copy];
+    v26 = 0u;
+    v27 = 0u;
+    v18 = [*(a1 + 32) ownerIDToObservingDependencies];
+    v19 = [*(a1 + 40) ID];
+    v20 = [v18 objectForKeyedSubscript:v19];
+    v21 = [v20 copy];
 
-    v24 = [v23 countByEnumeratingWithState:&v29 objects:v35 count:16];
-    if (v24)
+    v22 = [v21 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    if (v22)
     {
-      v25 = v24;
-      v26 = *v30;
+      v23 = v22;
+      v24 = *v27;
       do
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v30 != v26)
+          if (*v27 != v24)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v21);
           }
 
-          [*(*(&v29 + 1) + 8 * i) didReceiveOwner:*(a1 + 40)];
+          [*(*(&v26 + 1) + 8 * i) didReceiveOwner:*(a1 + 40)];
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
-      while (v25);
+      while (v23);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___block_invoke_2(uint64_t a1)
+void *__66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___block_invoke_54(uint64_t a1)
+void *__66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___block_invoke_54(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_2_classDebugEnabled_53 = result;
@@ -559,16 +546,15 @@ uint64_t __66__PLAccountingOwnerDependencyManager_notifyDependenciesWithOwner___
 
 void __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke(uint64_t a1)
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_0 != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_0, block);
@@ -576,15 +562,15 @@ void __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke(uint6
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_0 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"dependency=%@", *(a1 + 40)];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:117];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"dependency=%@", *(a1 + 40)];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:117];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
@@ -595,307 +581,299 @@ void __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke(uint6
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v98[0] = MEMORY[0x277D85DD0];
-      v98[1] = 3221225472;
-      v98[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_64;
-      v98[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v98[4] = v11;
+      v9 = objc_opt_class();
+      v90[0] = MEMORY[0x277D85DD0];
+      v90[1] = 3221225472;
+      v90[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_64;
+      v90[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v90[4] = v9;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_62 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_62, v98);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_62, v90);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_63 == 1)
       {
-        v12 = MEMORY[0x277CCACA8];
-        v13 = [*(a1 + 40) ID];
-        v14 = [v12 stringWithFormat:@"dependency.ID=%@", v13];
+        v10 = MEMORY[0x277CCACA8];
+        v11 = [*(a1 + 40) ID];
+        v12 = [v10 stringWithFormat:@"dependency.ID=%@", v11];
 
-        v15 = MEMORY[0x277D3F178];
-        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v17 = [v16 lastPathComponent];
-        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke_2"];
-        [v15 logMessage:v14 fromFile:v17 fromFunction:v18 fromLineNumber:120];
+        v13 = MEMORY[0x277D3F178];
+        v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v15 = [v14 lastPathComponent];
+        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke_2"];
+        [v13 logMessage:v12 fromFile:v15 fromFunction:v16 fromLineNumber:120];
 
-        v19 = PLLogCommon();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v17 = PLLogCommon();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
       }
     }
 
-    v20 = [*(a1 + 32) dependencyIDToDependencies];
-    v21 = [*(a1 + 40) ID];
-    v22 = [v20 objectForKeyedSubscript:v21];
+    v18 = [*(a1 + 32) dependencyIDToDependencies];
+    v19 = [*(a1 + 40) ID];
+    v20 = [v18 objectForKeyedSubscript:v19];
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v23 = *(a1 + 32);
-      v24 = objc_opt_class();
-      v97[0] = MEMORY[0x277D85DD0];
-      v97[1] = 3221225472;
-      v97[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_71;
-      v97[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v97[4] = v24;
+      v21 = objc_opt_class();
+      v89[0] = MEMORY[0x277D85DD0];
+      v89[1] = 3221225472;
+      v89[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_71;
+      v89[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v89[4] = v21;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_69 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_69, v97);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_69, v89);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_70 == 1)
       {
-        v25 = v22;
-        v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"before dependencies=%@", v22];
-        v27 = MEMORY[0x277D3F178];
-        v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v29 = [v28 lastPathComponent];
-        v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke_2"];
-        [v27 logMessage:v26 fromFile:v29 fromFunction:v30 fromLineNumber:124];
+        v22 = v20;
+        v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"before dependencies=%@", v20];
+        v24 = MEMORY[0x277D3F178];
+        v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v26 = [v25 lastPathComponent];
+        v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke_2"];
+        [v24 logMessage:v23 fromFile:v26 fromFunction:v27 fromLineNumber:124];
 
-        v31 = PLLogCommon();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v28 = PLLogCommon();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
 
-        v22 = v25;
+        v20 = v22;
       }
     }
 
-    if (!v22)
+    if (!v20)
     {
-      v22 = [MEMORY[0x277CBEB18] array];
-      v32 = [*(a1 + 32) dependencyIDToDependencies];
-      v33 = [*(a1 + 40) ID];
-      [v32 setObject:v22 forKeyedSubscript:v33];
+      v20 = [MEMORY[0x277CBEB18] array];
+      v29 = [*(a1 + 32) dependencyIDToDependencies];
+      v30 = [*(a1 + 40) ID];
+      [v29 setObject:v20 forKeyedSubscript:v30];
     }
 
-    [v22 addObject:*(a1 + 40)];
+    [v20 addObject:*(a1 + 40)];
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v34 = *(a1 + 32);
-      v35 = objc_opt_class();
-      v96[0] = MEMORY[0x277D85DD0];
-      v96[1] = 3221225472;
-      v96[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_78;
-      v96[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v96[4] = v35;
+      v31 = objc_opt_class();
+      v88[0] = MEMORY[0x277D85DD0];
+      v88[1] = 3221225472;
+      v88[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_78;
+      v88[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v88[4] = v31;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_76 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_76, v96);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_76, v88);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_77 == 1)
       {
-        v36 = v22;
-        v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"after dependencies=%@", v22];
-        v38 = MEMORY[0x277D3F178];
-        v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v40 = [v39 lastPathComponent];
-        v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke_2"];
-        [v38 logMessage:v37 fromFile:v40 fromFunction:v41 fromLineNumber:130];
+        v32 = v20;
+        v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"after dependencies=%@", v20];
+        v34 = MEMORY[0x277D3F178];
+        v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v36 = [v35 lastPathComponent];
+        v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke_2"];
+        [v34 logMessage:v33 fromFile:v36 fromFunction:v37 fromLineNumber:130];
 
-        v42 = PLLogCommon();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+        v38 = PLLogCommon();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
 
-        v22 = v36;
+        v20 = v32;
       }
     }
 
     [*(a1 + 40) setManager:*(a1 + 32)];
     [*(a1 + 40) activate];
-    v43 = *(a1 + 32);
-    v44 = [v43 numDependencies];
-    [v43 setNumDependencies:(v44 + 1)];
-    v45 = *(a1 + 32);
-    if (v44 >= [objc_opt_class() maxDependencies])
+    v39 = *(a1 + 32);
+    v40 = [v39 numDependencies];
+    [v39 setNumDependencies:(v40 + 1)];
+    if (v40 >= [objc_opt_class() maxDependencies])
     {
-      v76 = a1;
-      v77 = v22;
+      v69 = v20;
       [*(a1 + 32) dependencyIDToDependencies];
-      v92 = 0u;
-      v93 = 0u;
-      v94 = 0u;
-      v80 = v95 = 0u;
-      obj = [v80 allKeys];
-      v81 = [obj countByEnumeratingWithState:&v92 objects:v101 count:16];
-      v46 = 0;
-      if (!v81)
+      v84 = 0u;
+      v85 = 0u;
+      v86 = 0u;
+      v72 = v87 = 0u;
+      obj = [v72 allKeys];
+      v73 = [obj countByEnumeratingWithState:&v84 objects:v93 count:16];
+      v41 = 0;
+      if (!v73)
       {
         goto LABEL_55;
       }
 
-      v79 = *v93;
-      v47 = 0x277CBE000uLL;
+      v71 = *v85;
+      v42 = 0x277CBE000uLL;
       while (1)
       {
-        v48 = 0;
+        v43 = 0;
         do
         {
-          if (*v93 != v79)
+          if (*v85 != v71)
           {
             objc_enumerationMutation(obj);
           }
 
-          v82 = v48;
-          v49 = *(*(&v92 + 1) + 8 * v48);
-          v88 = 0u;
-          v89 = 0u;
-          v90 = 0u;
-          v91 = 0u;
-          v50 = [v80 objectForKeyedSubscript:v49];
-          v51 = [v50 copy];
+          v74 = v43;
+          v44 = *(*(&v84 + 1) + 8 * v43);
+          v80 = 0u;
+          v81 = 0u;
+          v82 = 0u;
+          v83 = 0u;
+          v45 = [v72 objectForKeyedSubscript:v44];
+          v46 = [v45 copy];
 
-          v84 = v51;
-          v52 = [v51 countByEnumeratingWithState:&v88 objects:v100 count:16];
-          if (v52)
+          v76 = v46;
+          v47 = [v46 countByEnumeratingWithState:&v80 objects:v92 count:16];
+          if (v47)
           {
-            v53 = v52;
-            v54 = *v89;
-            v83 = *v89;
+            v48 = v47;
+            v49 = *v81;
+            v75 = *v81;
             do
             {
-              for (i = 0; i != v53; ++i)
+              for (i = 0; i != v48; ++i)
               {
-                if (*v89 != v54)
+                if (*v81 != v49)
                 {
-                  objc_enumerationMutation(v84);
+                  objc_enumerationMutation(v76);
                 }
 
-                v56 = *(*(&v88 + 1) + 8 * i);
-                v57 = [v56 range];
-                v58 = [v57 endDate];
-                v59 = [*(v47 + 2728) distantFuture];
-                if ([v58 isEqualToDate:v59])
+                v51 = *(*(&v80 + 1) + 8 * i);
+                v52 = [v51 range];
+                v53 = [v52 endDate];
+                v54 = [*(v42 + 2728) distantFuture];
+                if ([v53 isEqualToDate:v54])
                 {
 
                   goto LABEL_50;
                 }
 
-                if (!v46)
+                if (!v41)
                 {
 
 LABEL_49:
-                  v57 = v46;
-                  v46 = v56;
+                  v52 = v41;
+                  v41 = v51;
 LABEL_50:
 
                   continue;
                 }
 
-                v60 = [v56 activationDate];
-                [v46 activationDate];
-                v61 = v46;
-                v63 = v62 = v47;
-                [v60 timeIntervalSinceDate:v63];
-                v65 = v64;
+                v55 = [v51 activationDate];
+                [v41 activationDate];
+                v56 = v41;
+                v58 = v57 = v42;
+                [v55 timeIntervalSinceDate:v58];
+                v60 = v59;
 
-                v47 = v62;
-                v46 = v61;
+                v42 = v57;
+                v41 = v56;
 
-                v54 = v83;
-                if (v65 < 0.0)
+                v49 = v75;
+                if (v60 < 0.0)
                 {
                   goto LABEL_49;
                 }
               }
 
-              v53 = [v84 countByEnumeratingWithState:&v88 objects:v100 count:16];
+              v48 = [v76 countByEnumeratingWithState:&v80 objects:v92 count:16];
             }
 
-            while (v53);
+            while (v48);
           }
 
-          v48 = v82 + 1;
+          v43 = v74 + 1;
         }
 
-        while (v82 + 1 != v81);
-        v81 = [obj countByEnumeratingWithState:&v92 objects:v101 count:16];
-        if (!v81)
+        while (v74 + 1 != v73);
+        v73 = [obj countByEnumeratingWithState:&v84 objects:v93 count:16];
+        if (!v73)
         {
 LABEL_55:
 
           if ([MEMORY[0x277D3F180] debugEnabled])
           {
-            v66 = *(v76 + 32);
-            v67 = objc_opt_class();
-            v85[0] = MEMORY[0x277D85DD0];
-            v85[1] = 3221225472;
-            v85[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_84;
-            v85[3] = &unk_279A55D70;
-            v86 = @"free";
-            v87 = v67;
+            v61 = objc_opt_class();
+            v77[0] = MEMORY[0x277D85DD0];
+            v77[1] = 3221225472;
+            v77[2] = __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_84;
+            v77[3] = &unk_279A55D70;
+            v78 = @"free";
+            v79 = v61;
             if (PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_82 != -1)
             {
-              dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_82, v85);
+              dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_3_defaultOnce_82, v77);
             }
 
-            v68 = PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_83;
+            v62 = PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_83;
 
-            if (v68 == 1)
+            if (v62 == 1)
             {
-              v69 = [MEMORY[0x277CCACA8] stringWithFormat:@"freeing dependency=%@", v46];
-              v70 = MEMORY[0x277D3F178];
-              v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-              v72 = [v71 lastPathComponent];
-              v73 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke_2"];
-              [v70 logMessage:v69 fromFile:v72 fromFunction:v73 fromLineNumber:148];
+              v63 = [MEMORY[0x277CCACA8] stringWithFormat:@"freeing dependency=%@", v41];
+              v64 = MEMORY[0x277D3F178];
+              v65 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+              v66 = [v65 lastPathComponent];
+              v67 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager addDependency:]_block_invoke_2"];
+              [v64 logMessage:v63 fromFile:v66 fromFunction:v67 fromLineNumber:148];
 
-              v74 = PLLogCommon();
-              if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+              v68 = PLLogCommon();
+              if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
               {
                 [PLAccountingDependency activate];
               }
             }
           }
 
-          [v46 deactivate];
+          [v41 deactivate];
 
-          v22 = v77;
+          v20 = v69;
           break;
         }
       }
     }
   }
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_2(uint64_t a1)
+void *__52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_64(uint64_t a1)
+void *__52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_64(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_63 = result;
   return result;
 }
 
-uint64_t __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_71(uint64_t a1)
+void *__52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_71(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_70 = result;
   return result;
 }
 
-uint64_t __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_78(uint64_t a1)
+void *__52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_78(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_77 = result;
   return result;
 }
 
-uint64_t __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_84(uint64_t a1)
+void *__52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_84(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_3_classDebugEnabled_83 = result;
@@ -918,16 +896,15 @@ uint64_t __52__PLAccountingOwnerDependencyManager_addDependency___block_invoke_8
 
 void __65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_4_defaultOnce_0 != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_4_defaultOnce_0, block);
@@ -935,15 +912,15 @@ void __65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_4_classDebugEnabled_0 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"dependency=%@", *(a1 + 40)];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager notifyOwnersWithDependency:]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:156];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"dependency=%@", *(a1 + 40)];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager notifyOwnersWithDependency:]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:156];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
@@ -954,82 +931,79 @@ void __65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block_invoke_90;
-      v33[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v33[4] = v11;
+      v9 = objc_opt_class();
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block_invoke_90;
+      v30[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v30[4] = v9;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_4_defaultOnce_88 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_4_defaultOnce_88, v33);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_4_defaultOnce_88, v30);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_4_classDebugEnabled_89 == 1)
       {
-        v12 = MEMORY[0x277CCACA8];
-        v13 = [*(a1 + 32) dependencyIDToObservingOwners];
-        v14 = [v12 stringWithFormat:@"dependencyIDToObservingOwners=%@", v13];
+        v10 = MEMORY[0x277CCACA8];
+        v11 = [*(a1 + 32) dependencyIDToObservingOwners];
+        v12 = [v10 stringWithFormat:@"dependencyIDToObservingOwners=%@", v11];
 
-        v15 = MEMORY[0x277D3F178];
-        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v17 = [v16 lastPathComponent];
-        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager notifyOwnersWithDependency:]_block_invoke_2"];
-        [v15 logMessage:v14 fromFile:v17 fromFunction:v18 fromLineNumber:160];
+        v13 = MEMORY[0x277D3F178];
+        v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v15 = [v14 lastPathComponent];
+        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager notifyOwnersWithDependency:]_block_invoke_2"];
+        [v13 logMessage:v12 fromFile:v15 fromFunction:v16 fromLineNumber:160];
 
-        v19 = PLLogCommon();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v17 = PLLogCommon();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
       }
     }
 
-    v31 = 0u;
-    v32 = 0u;
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v20 = [*(a1 + 32) dependencyIDToObservingOwners];
-    v21 = [*(a1 + 40) ID];
-    v22 = [v20 objectForKeyedSubscript:v21];
-    v23 = [v22 copy];
+    v26 = 0u;
+    v27 = 0u;
+    v18 = [*(a1 + 32) dependencyIDToObservingOwners];
+    v19 = [*(a1 + 40) ID];
+    v20 = [v18 objectForKeyedSubscript:v19];
+    v21 = [v20 copy];
 
-    v24 = [v23 countByEnumeratingWithState:&v29 objects:v35 count:16];
-    if (v24)
+    v22 = [v21 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    if (v22)
     {
-      v25 = v24;
-      v26 = *v30;
+      v23 = v22;
+      v24 = *v27;
       do
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v30 != v26)
+          if (*v27 != v24)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v21);
           }
 
-          [*(*(&v29 + 1) + 8 * i) didReceiveDependency:*(a1 + 40)];
+          [*(*(&v26 + 1) + 8 * i) didReceiveDependency:*(a1 + 40)];
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
-      while (v25);
+      while (v23);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block_invoke_2(uint64_t a1)
+void *__65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_4_classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block_invoke_90(uint64_t a1)
+void *__65__PLAccountingOwnerDependencyManager_notifyOwnersWithDependency___block_invoke_90(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_4_classDebugEnabled_89 = result;
@@ -1057,13 +1031,12 @@ void __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate
 {
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v3;
+    block[4] = v2;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_0 != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_0, block);
@@ -1071,15 +1044,15 @@ void __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_5_classDebugEnabled_0 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"dependencyID=%@, endDate=%@", *(a1 + 40), *(a1 + 48)];
-      v5 = MEMORY[0x277D3F178];
-      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-      v7 = [v6 lastPathComponent];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager updateLastDependencyID:withEndDate:]_block_invoke"];
-      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:170];
+      v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"dependencyID=%@, endDate=%@", *(a1 + 40), *(a1 + 48)];
+      v4 = MEMORY[0x277D3F178];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager updateLastDependencyID:withEndDate:]_block_invoke"];
+      [v4 logMessage:v3 fromFile:v6 fromFunction:v7 fromLineNumber:170];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v8 = PLLogCommon();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [PLAccountingDependency activate];
       }
@@ -1088,109 +1061,106 @@ void __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate
 
   if ([*(a1 + 40) intValue] >= 1 && *(a1 + 48))
   {
-    v10 = [*(a1 + 32) dependencyIDToDependencies];
-    v11 = [v10 objectForKeyedSubscript:*(a1 + 40)];
+    v9 = [*(a1 + 32) dependencyIDToDependencies];
+    v10 = [v9 objectForKeyedSubscript:*(a1 + 40)];
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v12 = *(a1 + 32);
-      v13 = objc_opt_class();
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_100;
-      v43[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v43[4] = v13;
+      v11 = objc_opt_class();
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_100;
+      v39[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v39[4] = v11;
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_98 != -1)
       {
-        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_98, v43);
+        dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_98, v39);
       }
 
       if (PLSubmissionAnalyticsStateSuccess_block_invoke_5_classDebugEnabled_99 == 1)
       {
-        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"dependencies=%@", v11];
-        v15 = MEMORY[0x277D3F178];
-        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-        v17 = [v16 lastPathComponent];
-        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager updateLastDependencyID:withEndDate:]_block_invoke_2"];
-        [v15 logMessage:v14 fromFile:v17 fromFunction:v18 fromLineNumber:175];
+        v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"dependencies=%@", v10];
+        v13 = MEMORY[0x277D3F178];
+        v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+        v15 = [v14 lastPathComponent];
+        v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager updateLastDependencyID:withEndDate:]_block_invoke_2"];
+        [v13 logMessage:v12 fromFile:v15 fromFunction:v16 fromLineNumber:175];
 
-        v19 = PLLogCommon();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v17 = PLLogCommon();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           [PLAccountingDependency activate];
         }
       }
     }
 
-    if (v11)
+    if (v10)
     {
-      v20 = [v11 lastObject];
+      v18 = [v10 lastObject];
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v21 = *(a1 + 32);
-        v22 = objc_opt_class();
-        v42[0] = MEMORY[0x277D85DD0];
-        v42[1] = 3221225472;
-        v42[2] = __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_107;
-        v42[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v42[4] = v22;
+        v19 = objc_opt_class();
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_107;
+        v38[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v38[4] = v19;
         if (PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_105 != -1)
         {
-          dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_105, v42);
+          dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_105, v38);
         }
 
         if (PLSubmissionAnalyticsStateSuccess_block_invoke_5_classDebugEnabled_106 == 1)
         {
-          v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"lastDependency=%@", v20];
-          v24 = MEMORY[0x277D3F178];
-          v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-          v26 = [v25 lastPathComponent];
-          v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager updateLastDependencyID:withEndDate:]_block_invoke_2"];
-          [v24 logMessage:v23 fromFile:v26 fromFunction:v27 fromLineNumber:180];
+          v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"lastDependency=%@", v18];
+          v21 = MEMORY[0x277D3F178];
+          v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+          v23 = [v22 lastPathComponent];
+          v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager updateLastDependencyID:withEndDate:]_block_invoke_2"];
+          [v21 logMessage:v20 fromFile:v23 fromFunction:v24 fromLineNumber:180];
 
-          v28 = PLLogCommon();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          v25 = PLLogCommon();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
           {
             [PLAccountingDependency activate];
           }
         }
       }
 
-      v29 = [v20 range];
-      v30 = [v29 endDate];
-      v31 = [MEMORY[0x277CBEAA8] distantFuture];
-      v32 = [v30 isEqualToDate:v31];
+      v26 = [v18 range];
+      v27 = [v26 endDate];
+      v28 = [MEMORY[0x277CBEAA8] distantFuture];
+      v29 = [v27 isEqualToDate:v28];
 
-      if (v32)
+      if (v29)
       {
-        [v20 updateWithEndDate:*(a1 + 48)];
+        [v18 updateWithEndDate:*(a1 + 48)];
       }
 
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v33 = *(a1 + 32);
-        v34 = objc_opt_class();
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_113;
-        v41[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v41[4] = v34;
+        v30 = objc_opt_class();
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_113;
+        v37[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v37[4] = v30;
         if (PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_111 != -1)
         {
-          dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_111, v41);
+          dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_5_defaultOnce_111, v37);
         }
 
         if (PLSubmissionAnalyticsStateSuccess_block_invoke_5_classDebugEnabled_112 == 1)
         {
-          v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"after update: lastDependency=%@", v20];
-          v36 = MEMORY[0x277D3F178];
-          v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
-          v38 = [v37 lastPathComponent];
-          v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager updateLastDependencyID:withEndDate:]_block_invoke_2"];
-          [v36 logMessage:v35 fromFile:v38 fromFunction:v39 fromLineNumber:186];
+          v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"after update: lastDependency=%@", v18];
+          v32 = MEMORY[0x277D3F178];
+          v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/PowerlogAccounting/General Owner Dependency/PLAccountingOwnerDependencyManager.m"];
+          v34 = [v33 lastPathComponent];
+          v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAccountingOwnerDependencyManager updateLastDependencyID:withEndDate:]_block_invoke_2"];
+          [v32 logMessage:v31 fromFile:v34 fromFunction:v35 fromLineNumber:186];
 
-          v40 = PLLogCommon();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v36 = PLLogCommon();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             [PLAccountingDependency activate];
           }
@@ -1200,28 +1170,28 @@ void __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate
   }
 }
 
-uint64_t __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_2(uint64_t a1)
+void *__73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_5_classDebugEnabled_0 = result;
   return result;
 }
 
-uint64_t __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_100(uint64_t a1)
+void *__73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_100(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_5_classDebugEnabled_99 = result;
   return result;
 }
 
-uint64_t __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_107(uint64_t a1)
+void *__73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_107(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_5_classDebugEnabled_106 = result;
   return result;
 }
 
-uint64_t __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_113(uint64_t a1)
+void *__73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEndDate___block_invoke_113(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   PLSubmissionAnalyticsStateSuccess_block_invoke_5_classDebugEnabled_112 = result;
@@ -1256,10 +1226,7 @@ uint64_t __73__PLAccountingOwnerDependencyManager_updateLastDependencyID_withEnd
 
 uint64_t __68__PLAccountingOwnerDependencyManager_lastDependencyForDependencyID___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _lastDependencyForDependencyID:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _lastDependencyForDependencyID:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1510,28 +1477,28 @@ uint64_t __68__PLAccountingOwnerDependencyManager_lastDependencyForDependencyID_
   return v59;
 }
 
-uint64_t __77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_withRange___block_invoke(uint64_t a1)
+void *__77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_withRange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependenciesWithDependencyID_withRange__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_withRange___block_invoke_122(uint64_t a1)
+void *__77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_withRange___block_invoke_122(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependenciesWithDependencyID_withRange__classDebugEnabled_121 = result;
   return result;
 }
 
-uint64_t __77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_withRange___block_invoke_125(uint64_t a1)
+void *__77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_withRange___block_invoke_125(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependenciesWithDependencyID_withRange__classDebugEnabled_124 = result;
   return result;
 }
 
-uint64_t __77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_withRange___block_invoke_131(uint64_t a1)
+void *__77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_withRange___block_invoke_131(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   dependenciesWithDependencyID_withRange__classDebugEnabled_130 = result;
@@ -1617,14 +1584,14 @@ uint64_t __77__PLAccountingOwnerDependencyManager_dependenciesWithDependencyID_w
   }
 }
 
-uint64_t __74__PLAccountingOwnerDependencyManager_startObservingDependencyID_forOwner___block_invoke(uint64_t a1)
+void *__74__PLAccountingOwnerDependencyManager_startObservingDependencyID_forOwner___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startObservingDependencyID_forOwner__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __74__PLAccountingOwnerDependencyManager_startObservingDependencyID_forOwner___block_invoke_140(uint64_t a1)
+void *__74__PLAccountingOwnerDependencyManager_startObservingDependencyID_forOwner___block_invoke_140(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startObservingDependencyID_forOwner__classDebugEnabled_139 = result;
@@ -1703,14 +1670,14 @@ uint64_t __74__PLAccountingOwnerDependencyManager_startObservingDependencyID_for
   }
 }
 
-uint64_t __73__PLAccountingOwnerDependencyManager_stopObservingDependencyID_forOwner___block_invoke(uint64_t a1)
+void *__73__PLAccountingOwnerDependencyManager_stopObservingDependencyID_forOwner___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopObservingDependencyID_forOwner__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __73__PLAccountingOwnerDependencyManager_stopObservingDependencyID_forOwner___block_invoke_143(uint64_t a1)
+void *__73__PLAccountingOwnerDependencyManager_stopObservingDependencyID_forOwner___block_invoke_143(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopObservingDependencyID_forOwner__classDebugEnabled_142 = result;
@@ -1787,14 +1754,14 @@ uint64_t __73__PLAccountingOwnerDependencyManager_stopObservingDependencyID_forO
   }
 }
 
-uint64_t __51__PLAccountingOwnerDependencyManager_canFreeOwner___block_invoke(uint64_t a1)
+void *__51__PLAccountingOwnerDependencyManager_canFreeOwner___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   canFreeOwner__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __51__PLAccountingOwnerDependencyManager_canFreeOwner___block_invoke_146(uint64_t a1)
+void *__51__PLAccountingOwnerDependencyManager_canFreeOwner___block_invoke_146(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   canFreeOwner__classDebugEnabled_145 = result;
@@ -1889,14 +1856,14 @@ uint64_t __51__PLAccountingOwnerDependencyManager_canFreeOwner___block_invoke_14
   }
 }
 
-uint64_t __74__PLAccountingOwnerDependencyManager_startObservingOwnerID_forDependency___block_invoke(uint64_t a1)
+void *__74__PLAccountingOwnerDependencyManager_startObservingOwnerID_forDependency___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startObservingOwnerID_forDependency__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __74__PLAccountingOwnerDependencyManager_startObservingOwnerID_forDependency___block_invoke_152(uint64_t a1)
+void *__74__PLAccountingOwnerDependencyManager_startObservingOwnerID_forDependency___block_invoke_152(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   startObservingOwnerID_forDependency__classDebugEnabled_151 = result;
@@ -1975,14 +1942,14 @@ uint64_t __74__PLAccountingOwnerDependencyManager_startObservingOwnerID_forDepen
   }
 }
 
-uint64_t __73__PLAccountingOwnerDependencyManager_stopObservingOwnerID_forDependency___block_invoke(uint64_t a1)
+void *__73__PLAccountingOwnerDependencyManager_stopObservingOwnerID_forDependency___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopObservingOwnerID_forDependency__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __73__PLAccountingOwnerDependencyManager_stopObservingOwnerID_forDependency___block_invoke_155(uint64_t a1)
+void *__73__PLAccountingOwnerDependencyManager_stopObservingOwnerID_forDependency___block_invoke_155(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   stopObservingOwnerID_forDependency__classDebugEnabled_154 = result;
@@ -2063,14 +2030,14 @@ uint64_t __73__PLAccountingOwnerDependencyManager_stopObservingOwnerID_forDepend
   [(PLAccountingOwnerDependencyManager *)self setNumDependencies:[(PLAccountingOwnerDependencyManager *)self numDependencies]- 1];
 }
 
-uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invoke(uint64_t a1)
+void *__56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   canFreeDependency__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invoke_158(uint64_t a1)
+void *__56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invoke_158(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   canFreeDependency__classDebugEnabled_157 = result;
@@ -2079,22 +2046,22 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
 
 - (void)freeExpiredOwnersAtNow:(id)now
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   nowCopy = now;
   v5 = 0x277D3F000uLL;
-  v57 = nowCopy;
+  v56 = nowCopy;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v6 = objc_opt_class();
-    v74[0] = MEMORY[0x277D85DD0];
-    v74[1] = 3221225472;
-    v74[2] = __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke;
-    v74[3] = &unk_279A55D70;
-    v75 = @"free";
-    v76 = v6;
+    v73[0] = MEMORY[0x277D85DD0];
+    v73[1] = 3221225472;
+    v73[2] = __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke;
+    v73[3] = &unk_279A55D70;
+    v74 = @"free";
+    v75 = v6;
     if (freeExpiredOwnersAtNow__defaultOnce != -1)
     {
-      dispatch_once(&freeExpiredOwnersAtNow__defaultOnce, v74);
+      dispatch_once(&freeExpiredOwnersAtNow__defaultOnce, v73);
     }
 
     v7 = freeExpiredOwnersAtNow__classDebugEnabled;
@@ -2114,7 +2081,7 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
         [PLAccountingDependency activate];
       }
 
-      nowCopy = v57;
+      nowCopy = v56;
       v5 = 0x277D3F000uLL;
     }
   }
@@ -2122,15 +2089,15 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v14 = objc_opt_class();
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_167;
-    v71[3] = &unk_279A55D70;
-    v72 = @"free";
-    v73 = v14;
+    v70[0] = MEMORY[0x277D85DD0];
+    v70[1] = 3221225472;
+    v70[2] = __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_167;
+    v70[3] = &unk_279A55D70;
+    v71 = @"free";
+    v72 = v14;
     if (freeExpiredOwnersAtNow__defaultOnce_165 != -1)
     {
-      dispatch_once(&freeExpiredOwnersAtNow__defaultOnce_165, v71);
+      dispatch_once(&freeExpiredOwnersAtNow__defaultOnce_165, v70);
     }
 
     v15 = freeExpiredOwnersAtNow__classDebugEnabled_166;
@@ -2154,36 +2121,36 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
         [PLAccountingDependency activate];
       }
 
-      nowCopy = v57;
+      nowCopy = v56;
       v5 = 0x277D3F000uLL;
     }
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   ownersRepository2 = [(PLAccountingOwnerDependencyManager *)self ownersRepository];
   v26 = [ownersRepository2 copy];
 
   obj = v26;
-  v27 = [v26 countByEnumeratingWithState:&v67 objects:v79 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v66 objects:v78 count:16];
   if (v27)
   {
     v28 = v27;
-    v60 = *v68;
+    v59 = *v67;
     do
     {
       v29 = 0;
-      v58 = v28;
+      v57 = v28;
       do
       {
-        if (*v68 != v60)
+        if (*v67 != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = *(*(&v67 + 1) + 8 * v29);
+        v30 = *(*(&v66 + 1) + 8 * v29);
         range = [v30 range];
         endDate = [range endDate];
 
@@ -2202,8 +2169,8 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
           block[1] = 3221225472;
           block[2] = __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_173;
           block[3] = &unk_279A55D70;
-          v65 = @"free";
-          v66 = v35;
+          v64 = @"free";
+          v65 = v35;
           if (freeExpiredOwnersAtNow__defaultOnce_171 != -1)
           {
             dispatch_once(&freeExpiredOwnersAtNow__defaultOnce_171, block);
@@ -2227,12 +2194,12 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
             if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v78 = v39;
+              v77 = v39;
               _os_log_debug_impl(&dword_25EDCD000, v44, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            nowCopy = v57;
-            v28 = v58;
+            nowCopy = v56;
+            v28 = v57;
             v5 = 0x277D3F000uLL;
           }
         }
@@ -2245,15 +2212,15 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
           if ([*(v5 + 384) debugEnabled])
           {
             v48 = objc_opt_class();
-            v61[0] = MEMORY[0x277D85DD0];
-            v61[1] = 3221225472;
-            v61[2] = __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_179;
-            v61[3] = &unk_279A55D70;
-            v62 = @"free";
-            v63 = v48;
+            v60[0] = MEMORY[0x277D85DD0];
+            v60[1] = 3221225472;
+            v60[2] = __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_179;
+            v60[3] = &unk_279A55D70;
+            v61 = @"free";
+            v62 = v48;
             if (freeExpiredOwnersAtNow__defaultOnce_177 != -1)
             {
-              dispatch_once(&freeExpiredOwnersAtNow__defaultOnce_177, v61);
+              dispatch_once(&freeExpiredOwnersAtNow__defaultOnce_177, v60);
             }
 
             v49 = freeExpiredOwnersAtNow__classDebugEnabled_178;
@@ -2271,12 +2238,12 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
               if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v78 = v50;
+                v77 = v50;
                 _os_log_debug_impl(&dword_25EDCD000, v55, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
-              nowCopy = v57;
-              v28 = v58;
+              nowCopy = v56;
+              v28 = v57;
               v5 = 0x277D3F000;
             }
           }
@@ -2288,37 +2255,35 @@ uint64_t __56__PLAccountingOwnerDependencyManager_canFreeDependency___block_invo
       }
 
       while (v28 != v29);
-      v28 = [obj countByEnumeratingWithState:&v67 objects:v79 count:16];
+      v28 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
     }
 
     while (v28);
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke(uint64_t a1)
+void *__61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   freeExpiredOwnersAtNow__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_167(uint64_t a1)
+void *__61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_167(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   freeExpiredOwnersAtNow__classDebugEnabled_166 = result;
   return result;
 }
 
-uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_173(uint64_t a1)
+void *__61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_173(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   freeExpiredOwnersAtNow__classDebugEnabled_172 = result;
   return result;
 }
 
-uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_179(uint64_t a1)
+void *__61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block_invoke_179(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   freeExpiredOwnersAtNow__classDebugEnabled_178 = result;
@@ -2327,22 +2292,22 @@ uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block
 
 - (void)freeExpiredDependenciesAtNow:(id)now
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   nowCopy = now;
   v5 = 0x277D3F000uLL;
   selfCopy = self;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v6 = objc_opt_class();
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __67__PLAccountingOwnerDependencyManager_freeExpiredDependenciesAtNow___block_invoke;
-    v60[3] = &unk_279A55D70;
-    v61 = @"free";
-    v62 = v6;
+    v59[0] = MEMORY[0x277D85DD0];
+    v59[1] = 3221225472;
+    v59[2] = __67__PLAccountingOwnerDependencyManager_freeExpiredDependenciesAtNow___block_invoke;
+    v59[3] = &unk_279A55D70;
+    v60 = @"free";
+    v61 = v6;
     if (freeExpiredDependenciesAtNow__defaultOnce != -1)
     {
-      dispatch_once(&freeExpiredDependenciesAtNow__defaultOnce, v60);
+      dispatch_once(&freeExpiredDependenciesAtNow__defaultOnce, v59);
     }
 
     v7 = freeExpiredDependenciesAtNow__classDebugEnabled;
@@ -2368,53 +2333,53 @@ uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block
   }
 
   [(PLAccountingOwnerDependencyManager *)self dependencyIDToDependencies];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v42 = v59 = 0u;
-  obj = [v42 allKeys];
-  v43 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
-  if (v43)
+  v41 = v58 = 0u;
+  obj = [v41 allKeys];
+  v42 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+  if (v42)
   {
-    v41 = *v57;
-    v45 = nowCopy;
+    v40 = *v56;
+    v44 = nowCopy;
     do
     {
       v14 = 0;
       do
       {
-        if (*v57 != v41)
+        if (*v56 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = v14;
-        v15 = *(*(&v56 + 1) + 8 * v14);
+        v43 = v14;
+        v15 = *(*(&v55 + 1) + 8 * v14);
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
         v54 = 0u;
-        v55 = 0u;
-        v16 = [v42 objectForKeyedSubscript:v15];
+        v16 = [v41 objectForKeyedSubscript:v15];
         v17 = [v16 copy];
 
-        v48 = v17;
-        v18 = [v17 countByEnumeratingWithState:&v52 objects:v65 count:16];
+        v47 = v17;
+        v18 = [v17 countByEnumeratingWithState:&v51 objects:v64 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v53;
-          v47 = *v53;
+          v20 = *v52;
+          v46 = *v52;
           do
           {
             v21 = 0;
             do
             {
-              if (*v53 != v20)
+              if (*v52 != v20)
               {
-                objc_enumerationMutation(v48);
+                objc_enumerationMutation(v47);
               }
 
-              v22 = *(*(&v52 + 1) + 8 * v21);
+              v22 = *(*(&v51 + 1) + 8 * v21);
               range = [v22 range];
               endDate = [range endDate];
 
@@ -2438,8 +2403,8 @@ uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block
                   block[1] = 3221225472;
                   block[2] = __67__PLAccountingOwnerDependencyManager_freeExpiredDependenciesAtNow___block_invoke_188;
                   block[3] = &unk_279A55D70;
-                  v50 = @"free";
-                  v51 = v30;
+                  v49 = @"free";
+                  v50 = v30;
                   if (freeExpiredDependenciesAtNow__defaultOnce_186 != -1)
                   {
                     dispatch_once(&freeExpiredDependenciesAtNow__defaultOnce_186, block);
@@ -2448,7 +2413,7 @@ uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block
                   v31 = freeExpiredDependenciesAtNow__classDebugEnabled_187;
 
                   v32 = v31 == 1;
-                  v20 = v47;
+                  v20 = v46;
                   if (v32)
                   {
                     v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"freeing dependency=%@", v22];
@@ -2462,13 +2427,13 @@ uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block
                     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v64 = v33;
+                      v63 = v33;
                       _os_log_debug_impl(&dword_25EDCD000, v38, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                     }
 
-                    nowCopy = v45;
+                    nowCopy = v44;
                     v5 = 0x277D3F000;
-                    v20 = v47;
+                    v20 = v46;
                   }
                 }
 
@@ -2479,33 +2444,31 @@ uint64_t __61__PLAccountingOwnerDependencyManager_freeExpiredOwnersAtNow___block
             }
 
             while (v19 != v21);
-            v19 = [v48 countByEnumeratingWithState:&v52 objects:v65 count:16];
+            v19 = [v47 countByEnumeratingWithState:&v51 objects:v64 count:16];
           }
 
           while (v19);
         }
 
-        v14 = v44 + 1;
+        v14 = v43 + 1;
       }
 
-      while (v44 + 1 != v43);
-      v43 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+      while (v43 + 1 != v42);
+      v42 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __67__PLAccountingOwnerDependencyManager_freeExpiredDependenciesAtNow___block_invoke(uint64_t a1)
+void *__67__PLAccountingOwnerDependencyManager_freeExpiredDependenciesAtNow___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   freeExpiredDependenciesAtNow__classDebugEnabled = result;
   return result;
 }
 
-uint64_t __67__PLAccountingOwnerDependencyManager_freeExpiredDependenciesAtNow___block_invoke_188(uint64_t a1)
+void *__67__PLAccountingOwnerDependencyManager_freeExpiredDependenciesAtNow___block_invoke_188(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   freeExpiredDependenciesAtNow__classDebugEnabled_187 = result;

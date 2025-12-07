@@ -44,16 +44,17 @@
 - (void)registerActivity:(int64_t)activity
 {
   date = [MEMORY[0x277CBEAA8] date];
+  v7 = date;
   if (!activity)
   {
-    v6 = _LTOSLogXPC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v8 = _LTOSLogXPC(date, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [_LTActivityLogger registerActivity:v6];
+      [_LTActivityLogger registerActivity:v8];
     }
   }
 
-  [(_LTActivityLogger *)self _registerActivity:activity onDate:date];
+  [(_LTActivityLogger *)self _registerActivity:activity onDate:v7];
 }
 
 - (void)_registerActivity:(int64_t)activity onDate:(id)date
@@ -113,30 +114,30 @@ LABEL_11:
 {
   v20 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v9 = _LTOSLogXPC();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _LTOSLogXPC(dateCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     if (interval > 2)
     {
-      v10 = @"undefined";
+      v11 = @"undefined";
     }
 
     else
     {
-      v10 = off_2789B5188[interval];
+      v11 = off_2789B5188[interval];
     }
 
-    v11 = v9;
-    v12 = [(_LTActivityLogger *)self _featureNameForTask:task];
+    v12 = v10;
+    v13 = [(_LTActivityLogger *)self _featureNameForTask:task];
     v16 = 138543618;
-    v17 = v10;
+    v17 = v11;
     v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&dword_232E53000, v11, OS_LOG_TYPE_DEFAULT, "Log %{public}@ activity for %{public}@", &v16, 0x16u);
+    v19 = v13;
+    _os_log_impl(&dword_232E53000, v12, OS_LOG_TYPE_DEFAULT, "Log %{public}@ activity for %{public}@", &v16, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v14 = WeakRetained;
+  v15 = WeakRetained;
   if (task)
   {
     [WeakRetained activityLogger:self logUsageForTask:task interval:interval date:dateCopy];
@@ -150,8 +151,6 @@ LABEL_11:
       [(_LTActivityLogger *)self _logAssetSnapshotForDate:dateCopy];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logAssetSnapshotForDate:(id)date
@@ -171,23 +170,23 @@ LABEL_11:
 
   v8 = v7;
 
-  v9 = _LTOSLogAssets();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = _LTOSLogAssets(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [_LTActivityLogger _logAssetSnapshotForDate:v9];
+    [_LTActivityLogger _logAssetSnapshotForDate:v11];
   }
 
   objc_initWeak(&location, self);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __46___LTActivityLogger__logAssetSnapshotForDate___block_invoke;
-  v11[3] = &unk_2789B5168;
-  objc_copyWeak(&v13, &location);
-  v10 = dateCopy;
-  v12 = v10;
-  [(_LTDAnalyticsAssetSnapshotProvider *)v8 collectAssetSnapshotWithCompletion:v11];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __46___LTActivityLogger__logAssetSnapshotForDate___block_invoke;
+  v13[3] = &unk_2789B5168;
+  objc_copyWeak(&v15, &location);
+  v12 = dateCopy;
+  v14 = v12;
+  [(_LTDAnalyticsAssetSnapshotProvider *)v8 collectAssetSnapshotWithCompletion:v13];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 }
 
@@ -195,10 +194,10 @@ LABEL_11:
 {
   v17 = *MEMORY[0x277D85DE8];
   dateCopy = date;
-  v7 = _LTOSLogXPC();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = _LTOSLogXPC(dateCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v11 = v7;
+    v11 = v8;
     v12 = [(_LTActivityLogger *)self _featureNameForTask:task];
     v13 = 138543618;
     v14 = v12;
@@ -208,7 +207,7 @@ LABEL_11:
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (task)
   {
     [WeakRetained activityLogger:self updateLastLoggedDate:dateCopy forTask:task];
@@ -218,8 +217,6 @@ LABEL_11:
   {
     [WeakRetained activityLogger:self updateLastAggregateLogDate:dateCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activityLogger:(id)logger logUsageForTask:(int64_t)task interval:(unint64_t)interval date:(id)date
@@ -288,14 +285,12 @@ LABEL_11:
 
 - (void)_sendDailyUsageForTask:(int64_t)task date:(id)date
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   date = [(_LTActivityLogger *)self _featureNameForTask:task, date];
-  v7 = @"feature";
-  v8[0] = date;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"feature";
+  v7[0] = date;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   AnalyticsSendEvent();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_weekNameForDate:(id)date
@@ -308,47 +303,43 @@ LABEL_11:
 
 - (void)_sendWeeklyUsageForTask:(int64_t)task date:(id)date
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v7 = [(_LTActivityLogger *)self _featureNameForTask:task];
   v8 = [(_LTActivityLogger *)self _weekNameForDate:dateCopy];
 
-  v11[0] = @"feature";
-  v11[1] = @"week_name";
-  v12[0] = v7;
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[0] = @"feature";
+  v10[1] = @"week_name";
+  v11[0] = v7;
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   AnalyticsSendEvent();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMonthlyUsageForTask:(int64_t)task date:(id)date
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v7 = [(_LTActivityLogger *)self _featureNameForTask:task];
   v8 = [(NSCalendar *)self->_calendar components:12 fromDate:dateCopy];
 
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%0*ld_%ld", 2, objc_msgSend(v8, "month"), objc_msgSend(v8, "year")];
-  v12[0] = @"feature";
-  v12[1] = @"month_name";
-  v13[0] = v7;
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = @"feature";
+  v11[1] = @"month_name";
+  v12[0] = v7;
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   AnalyticsSendEvent();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendWeeklyMobileAssetSnapshot:(id)snapshot date:(id)date
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   v7 = [(_LTActivityLogger *)self _weekNameForDate:date];
-  v19[0] = v7;
-  v18[0] = @"week_name";
-  v18[1] = @"asset_build_number";
+  v18[0] = v7;
+  v17[0] = @"week_name";
+  v17[1] = @"asset_build_number";
   assetBuild = [snapshotCopy assetBuild];
   v9 = assetBuild;
   if (assetBuild)
@@ -361,8 +352,8 @@ LABEL_11:
     v10 = @"<UNAVAILABLE>";
   }
 
-  v19[1] = v10;
-  v18[2] = @"expected_configuration_version";
+  v18[1] = v10;
+  v17[2] = @"expected_configuration_version";
   expectedAssetVersion = [snapshotCopy expectedAssetVersion];
   v12 = expectedAssetVersion;
   if (expectedAssetVersion)
@@ -375,8 +366,8 @@ LABEL_11:
     v13 = @"<UNAVAILABLE>";
   }
 
-  v19[2] = v13;
-  v18[3] = @"installed_configuration_version";
+  v18[2] = v13;
+  v17[3] = @"installed_configuration_version";
   installedAssetVersion = [snapshotCopy installedAssetVersion];
 
   if (installedAssetVersion)
@@ -389,11 +380,9 @@ LABEL_11:
     v15 = @"<UNAVAILABLE>";
   }
 
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
   AnalyticsSendEvent();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_featureNameForTask:(int64_t)task

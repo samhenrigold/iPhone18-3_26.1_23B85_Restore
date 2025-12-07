@@ -201,12 +201,12 @@
   return v24;
 }
 
-void __111__AVCustomStackLayout__flexibleWidthMapForLayoutItemsBeginningWithLayoutItem_endingWithItem_withAvailableSize___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __111__AVCustomStackLayout__flexibleWidthMapForLayoutItemsBeginningWithLayoutItem_endingWithItem_withAvailableSize___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v10 = a2;
   if (a3)
   {
-    v5 = [*(a1 + 40) count] - 1;
+    v5 = ([*(a1 + 40) count] - 1);
     v6 = MEMORY[0x1E696AD98];
     v7 = *(a1 + 48);
     if (v5 != a3)

@@ -159,74 +159,74 @@
 - (id)marginNoteAtPoint:(CGPoint)point
 {
   [(AEMarginNotesController *)self ownerScale];
-  CGPointMultiply();
-  v5 = v4;
-  v7 = v6;
-  isPad();
+  v4 = CGPointMultiply();
+  v6 = v5;
+  v8 = v7;
+  isPad(v4, v9);
   CGSizeScale();
-  v9 = v8;
   v11 = v10;
-  v28 = 0u;
-  v29 = 0u;
+  v13 = v12;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   marginNoteMarkers = [(AEMarginNotesController *)self marginNoteMarkers];
-  v13 = [marginNoteMarkers countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v13)
+  v15 = [marginNoteMarkers countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v15)
   {
-    v14 = v13;
-    v15 = 0;
-    v16 = *v29;
-    v27 = 1.79769313e308;
+    v16 = v15;
+    v17 = 0;
+    v18 = *v31;
+    v29 = 1.79769313e308;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v16; i = i + 1)
       {
-        if (*v29 != v16)
+        if (*v31 != v18)
         {
           objc_enumerationMutation(marginNoteMarkers);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
+        v20 = *(*(&v30 + 1) + 8 * i);
         marginNoteMarkers2 = [(AEMarginNotesController *)self marginNoteMarkers];
-        v20 = [marginNoteMarkers2 objectForKey:v18];
-        layer = [v20 layer];
+        v22 = [marginNoteMarkers2 objectForKey:v20];
+        layer = [v22 layer];
 
         [layer frame];
-        MidX = CGRectGetMidX(v35);
+        MidX = CGRectGetMidX(v37);
         [layer frame];
-        MidY = CGRectGetMidY(v36);
-        v37.origin.x = MidX - v9 * 0.5;
-        v37.origin.y = MidY - v11 * 0.5;
-        v37.size.width = v9;
-        v37.size.height = v11;
-        v34.x = v5;
-        v34.y = v7;
-        if (CGRectContainsPoint(v37, v34))
+        MidY = CGRectGetMidY(v38);
+        v39.origin.x = MidX - v11 * 0.5;
+        v39.origin.y = MidY - v13 * 0.5;
+        v39.size.width = v11;
+        v39.size.height = v13;
+        v36.x = v6;
+        v36.y = v8;
+        if (CGRectContainsPoint(v39, v36))
         {
-          v24 = (MidY - v7) * (MidY - v7) + (MidX - v5) * (MidX - v5);
-          if (!v15 || v24 < v27)
+          v26 = (MidY - v8) * (MidY - v8) + (MidX - v6) * (MidX - v6);
+          if (!v17 || v26 < v29)
           {
-            v25 = v18;
+            v27 = v20;
 
-            v27 = v24;
-            v15 = v25;
+            v29 = v26;
+            v17 = v27;
           }
         }
       }
 
-      v14 = [marginNoteMarkers countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v16 = [marginNoteMarkers countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v14);
+    while (v16);
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
-  return v15;
+  return v17;
 }
 
 - (BOOL)hasMarginNoteAtPoint:(CGPoint)point

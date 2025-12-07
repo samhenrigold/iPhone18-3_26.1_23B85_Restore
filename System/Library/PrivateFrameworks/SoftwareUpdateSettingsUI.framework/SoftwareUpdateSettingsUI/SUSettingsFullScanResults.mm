@@ -66,46 +66,46 @@
 
 - (id)description
 {
-  v80 = &v100;
+  v79 = &v99;
   selfCopy = self;
-  v100 = a2;
+  v99 = a2;
   location = MEMORY[0x277D82BE0](@"(null)");
   currentDownload = [(SUSettingsScanResults *)selfCopy currentDownload];
-  v97 = 0;
-  v95 = 0;
-  v82 = 0;
+  v96 = 0;
+  v94 = 0;
+  v81 = 0;
   if (currentDownload)
   {
-    currentDownload2 = [v80[1] currentDownload];
-    v79 = 1;
-    v97 = 1;
+    currentDownload2 = [v79[1] currentDownload];
+    v78 = 1;
+    v96 = 1;
     descriptor = [currentDownload2 descriptor];
-    v95 = 1;
-    v82 = descriptor != 0;
+    v94 = 1;
+    v81 = descriptor != 0;
   }
 
-  v78 = v82;
-  if (v95)
+  v77 = v81;
+  if (v94)
   {
     MEMORY[0x277D82BD8](descriptor);
   }
 
-  if (v97)
+  if (v96)
   {
     MEMORY[0x277D82BD8](currentDownload2);
   }
 
   MEMORY[0x277D82BD8](currentDownload);
-  if (v78)
+  if (v77)
   {
-    v71 = MEMORY[0x277CCACA8];
-    currentDownload3 = [v80[1] currentDownload];
+    v70 = MEMORY[0x277CCACA8];
+    currentDownload3 = [v79[1] currentDownload];
     descriptor2 = [currentDownload3 descriptor];
     humanReadableUpdateName = [descriptor2 humanReadableUpdateName];
-    currentDownload4 = [v80[1] currentDownload];
-    currentDownload5 = [v80[1] currentDownload];
+    currentDownload4 = [v79[1] currentDownload];
+    currentDownload5 = [v79[1] currentDownload];
     progress = [currentDownload5 progress];
-    v2 = [v71 stringWithFormat:@"%@ (%p) (progess: %@)", humanReadableUpdateName, currentDownload4, progress];
+    v2 = [v70 stringWithFormat:@"%@ (%p) (progess: %@)", humanReadableUpdateName, currentDownload4, progress];
     v3 = location;
     location = v2;
     MEMORY[0x277D82BD8](v3);
@@ -117,165 +117,164 @@
     MEMORY[0x277D82BD8](currentDownload3);
   }
 
-  v66 = MEMORY[0x277CCACA8];
-  v4 = v80[1];
-  v5 = objc_opt_class();
-  v67 = NSStringFromClass(v5);
-  v68 = v80[1];
-  scanUUID = [v80[1] scanUUID];
-  preferredDescriptor = [v80[1] preferredDescriptor];
-  v93 = 0;
-  v91 = 0;
+  v65 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v66 = NSStringFromClass(v4);
+  v67 = v79[1];
+  scanUUID = [v79[1] scanUUID];
+  preferredDescriptor = [v79[1] preferredDescriptor];
+  v92 = 0;
+  v90 = 0;
   if (preferredDescriptor)
   {
-    preferredDescriptor2 = [v80[1] preferredDescriptor];
-    v64 = 1;
-    v93 = 1;
+    preferredDescriptor2 = [v79[1] preferredDescriptor];
+    v63 = 1;
+    v92 = 1;
     humanReadableUpdateName2 = [preferredDescriptor2 humanReadableUpdateName];
-    v91 = 1;
-    v65 = humanReadableUpdateName2;
+    v90 = 1;
+    v64 = humanReadableUpdateName2;
   }
 
   else
   {
-    v65 = @"(null)";
+    v64 = @"(null)";
   }
 
-  v61 = v65;
-  preferredDescriptor3 = [v80[1] preferredDescriptor];
-  alternateDescriptor = [v80[1] alternateDescriptor];
-  v89 = 0;
-  v87 = 0;
+  v60 = v64;
+  preferredDescriptor3 = [v79[1] preferredDescriptor];
+  alternateDescriptor = [v79[1] alternateDescriptor];
+  v88 = 0;
+  v86 = 0;
   if (alternateDescriptor)
   {
-    alternateDescriptor2 = [v80[1] alternateDescriptor];
-    v59 = 1;
-    v89 = 1;
+    alternateDescriptor2 = [v79[1] alternateDescriptor];
+    v58 = 1;
+    v88 = 1;
     humanReadableUpdateName3 = [alternateDescriptor2 humanReadableUpdateName];
-    v87 = 1;
-    v60 = humanReadableUpdateName3;
+    v86 = 1;
+    v59 = humanReadableUpdateName3;
   }
 
   else
   {
-    v60 = @"(null)";
+    v59 = @"(null)";
   }
 
-  v56 = v60;
-  alternateDescriptor3 = [v80[1] alternateDescriptor];
-  latestDescriptor = [v80[1] latestDescriptor];
-  v85 = 0;
-  v83 = 0;
+  v55 = v59;
+  alternateDescriptor3 = [v79[1] alternateDescriptor];
+  latestDescriptor = [v79[1] latestDescriptor];
+  v84 = 0;
+  v82 = 0;
   if (latestDescriptor)
   {
-    latestDescriptor2 = [v80[1] latestDescriptor];
-    v54 = 1;
-    v85 = 1;
+    latestDescriptor2 = [v79[1] latestDescriptor];
+    v53 = 1;
+    v84 = 1;
     humanReadableUpdateName4 = [latestDescriptor2 humanReadableUpdateName];
-    v83 = 1;
-    v55 = humanReadableUpdateName4;
+    v82 = 1;
+    v54 = humanReadableUpdateName4;
   }
 
   else
   {
-    v55 = @"(null)";
+    v54 = @"(null)";
   }
 
-  latestDescriptor3 = [v80[1] latestDescriptor];
-  v53 = latestDescriptor3;
-  scanError = [v80[1] scanError];
-  v52 = scanError;
-  emptyScanResults = [v80[1] emptyScanResults];
-  v30 = "NO";
-  v31 = "YES";
+  latestDescriptor3 = [v79[1] latestDescriptor];
+  v52 = latestDescriptor3;
+  scanError = [v79[1] scanError];
+  v51 = scanError;
+  emptyScanResults = [v79[1] emptyScanResults];
+  v29 = "NO";
+  v30 = "YES";
   if (emptyScanResults)
   {
-    v9 = "YES";
+    v8 = "YES";
   }
 
   else
   {
-    v9 = "NO";
+    v8 = "NO";
   }
 
-  if ([v80[1] preferredUpdateDownloadable])
+  if ([v79[1] preferredUpdateDownloadable])
   {
-    v10 = v31;
+    v9 = v30;
   }
 
   else
+  {
+    v9 = v29;
+  }
+
+  if ([v79[1] alternateUpdateDownloadable])
   {
     v10 = v30;
   }
 
-  if ([v80[1] alternateUpdateDownloadable])
-  {
-    v11 = v31;
-  }
-
   else
   {
-    v11 = v30;
+    v10 = v29;
   }
 
-  preferredUpdateDownloadError = [v80[1] preferredUpdateDownloadError];
-  v51 = preferredUpdateDownloadError;
-  alternateUpdateDownloadError = [v80[1] alternateUpdateDownloadError];
-  v50 = alternateUpdateDownloadError;
-  agreementManager = [v80[1] agreementManager];
-  v49 = agreementManager;
-  isClearingSpaceForDownload = [v80[1] isClearingSpaceForDownload];
-  v32 = location;
-  [v80[1] mdmPathRestrictions];
-  v48 = SUStringFromMDMSUPath();
-  mdmPathRestrictions = [v80[1] mdmPathRestrictions];
-  ddmDeclaration = [v80[1] ddmDeclaration];
-  isDelayingUpdate = [v80[1] isDelayingUpdate];
-  v17 = v31;
+  preferredUpdateDownloadError = [v79[1] preferredUpdateDownloadError];
+  v50 = preferredUpdateDownloadError;
+  alternateUpdateDownloadError = [v79[1] alternateUpdateDownloadError];
+  v49 = alternateUpdateDownloadError;
+  agreementManager = [v79[1] agreementManager];
+  v48 = agreementManager;
+  isClearingSpaceForDownload = [v79[1] isClearingSpaceForDownload];
+  v31 = location;
+  [v79[1] mdmPathRestrictions];
+  v47 = SUStringFromMDMSUPath();
+  mdmPathRestrictions = [v79[1] mdmPathRestrictions];
+  ddmDeclaration = [v79[1] ddmDeclaration];
+  isDelayingUpdate = [v79[1] isDelayingUpdate];
+  v16 = v30;
   if ((isDelayingUpdate & 1) == 0)
   {
-    v17 = v30;
+    v16 = v29;
   }
 
-  v34 = v17;
-  isRollingBack = [v80[1] isRollingBack];
-  v19 = v31;
+  v33 = v16;
+  isRollingBack = [v79[1] isRollingBack];
+  v18 = v30;
   if ((isRollingBack & 1) == 0)
   {
-    v19 = v30;
+    v18 = v29;
   }
 
-  v35 = v19;
-  rollbackDescriptor = [v80[1] rollbackDescriptor];
-  currentSeedingDevice = [v80[1] currentSeedingDevice];
-  betaPrograms = [v80[1] betaPrograms];
-  betaPrograms2 = [v80[1] betaPrograms];
-  v36 = [betaPrograms2 count];
-  enrolledBetaProgram = [v80[1] enrolledBetaProgram];
-  isAutoUpdateScheduled = [v80[1] isAutoUpdateScheduled];
-  v21 = v31;
+  v34 = v18;
+  rollbackDescriptor = [v79[1] rollbackDescriptor];
+  currentSeedingDevice = [v79[1] currentSeedingDevice];
+  betaPrograms = [v79[1] betaPrograms];
+  betaPrograms2 = [v79[1] betaPrograms];
+  v35 = [betaPrograms2 count];
+  enrolledBetaProgram = [v79[1] enrolledBetaProgram];
+  isAutoUpdateScheduled = [v79[1] isAutoUpdateScheduled];
+  v20 = v30;
   if ((isAutoUpdateScheduled & 1) == 0)
   {
-    v21 = v30;
+    v20 = v29;
   }
 
-  v37 = v21;
-  currentAutoInstallOperation = [v80[1] currentAutoInstallOperation];
-  isUpdateReadyForInstallation = [v80[1] isUpdateReadyForInstallation];
-  v23 = v31;
+  v36 = v20;
+  currentAutoInstallOperation = [v79[1] currentAutoInstallOperation];
+  isUpdateReadyForInstallation = [v79[1] isUpdateReadyForInstallation];
+  v22 = v30;
   if ((isUpdateReadyForInstallation & 1) == 0)
   {
-    v23 = v30;
+    v22 = v29;
   }
 
-  v38 = v23;
-  updateInstallationError = [v80[1] updateInstallationError];
-  v39 = &v28;
-  v29 = isClearingSpaceForDownload & 1;
-  v24 = [v66 stringWithFormat:@"<%@: %p, \n\tscanUUID: %@, \n\tpreferredDescriptor: %@ (%p), \n\talternateDescriptor: %@ (%p), \n\tlatestUpdateDescriptor: %@ (%p), \n\tscanError: %@, \n\temptyScanResults: %s, \n\tpreferredUpdateDownloadable: %s, \n\talternateUpdateDownloadable: %s, \n\tpreferredUpdateDownloadError: %@, \n\talternateUpdateDownloadError: %@, \n\tagreementManager: %@, \n\tisClearingSpaceForDownload: %d, \n\tcurrentDownload: %@, \n\tmdmPathRestrictions: %@ (%ld), \n\tddmDeclaration: %p\n\tisDelayingUpdate: %s\n\tisRollingBack: %s\n\trollbackDescriptor: %p\n\tcurrentSeedingDevice: %p\n\tbetaPrograms: %p (count: %ld)\n\tenrolledBetaProgram: %p\n\tautoUpdateScheduled: %s (%p)\n\tisUpdateReadyForInstallation: %s\n\tupdateInstallationError: %@>", v67, v68, scanUUID, v61, preferredDescriptor3, v56, alternateDescriptor3, v55, latestDescriptor3, scanError, v9, v10, v11, preferredUpdateDownloadError, alternateUpdateDownloadError, agreementManager, v29, v32, v48, mdmPathRestrictions, ddmDeclaration, v34, v35, rollbackDescriptor, currentSeedingDevice, betaPrograms, v36, enrolledBetaProgram, v37, currentAutoInstallOperation, v38, updateInstallationError];
-  v25 = updateInstallationError;
-  v80[2] = v24;
-  MEMORY[0x277D82BD8](v25);
+  v37 = v22;
+  updateInstallationError = [v79[1] updateInstallationError];
+  v38 = &v27;
+  v28 = isClearingSpaceForDownload & 1;
+  v23 = [v65 stringWithFormat:@"<%@: %p, \n\tscanUUID: %@, \n\tpreferredDescriptor: %@ (%p), \n\talternateDescriptor: %@ (%p), \n\tlatestUpdateDescriptor: %@ (%p), \n\tscanError: %@, \n\temptyScanResults: %s, \n\tpreferredUpdateDownloadable: %s, \n\talternateUpdateDownloadable: %s, \n\tpreferredUpdateDownloadError: %@, \n\talternateUpdateDownloadError: %@, \n\tagreementManager: %@, \n\tisClearingSpaceForDownload: %d, \n\tcurrentDownload: %@, \n\tmdmPathRestrictions: %@ (%ld), \n\tddmDeclaration: %p\n\tisDelayingUpdate: %s\n\tisRollingBack: %s\n\trollbackDescriptor: %p\n\tcurrentSeedingDevice: %p\n\tbetaPrograms: %p (count: %ld)\n\tenrolledBetaProgram: %p\n\tautoUpdateScheduled: %s (%p)\n\tisUpdateReadyForInstallation: %s\n\tupdateInstallationError: %@>", v66, v67, scanUUID, v60, preferredDescriptor3, v55, alternateDescriptor3, v54, latestDescriptor3, scanError, v8, v9, v10, preferredUpdateDownloadError, alternateUpdateDownloadError, agreementManager, v28, v31, v47, mdmPathRestrictions, ddmDeclaration, v33, v34, rollbackDescriptor, currentSeedingDevice, betaPrograms, v35, enrolledBetaProgram, v36, currentAutoInstallOperation, v37, updateInstallationError];
+  v24 = updateInstallationError;
+  v79[2] = v23;
+  MEMORY[0x277D82BD8](v24);
   MEMORY[0x277D82BD8](currentAutoInstallOperation);
   MEMORY[0x277D82BD8](enrolledBetaProgram);
   MEMORY[0x277D82BD8](betaPrograms2);
@@ -283,53 +282,53 @@
   MEMORY[0x277D82BD8](currentSeedingDevice);
   MEMORY[0x277D82BD8](rollbackDescriptor);
   MEMORY[0x277D82BD8](ddmDeclaration);
+  MEMORY[0x277D82BD8](v47);
   MEMORY[0x277D82BD8](v48);
   MEMORY[0x277D82BD8](v49);
   MEMORY[0x277D82BD8](v50);
   MEMORY[0x277D82BD8](v51);
   MEMORY[0x277D82BD8](v52);
-  MEMORY[0x277D82BD8](v53);
-  if (v83)
+  if (v82)
   {
     MEMORY[0x277D82BD8](humanReadableUpdateName4);
   }
 
-  if (v85)
+  if (v84)
   {
     MEMORY[0x277D82BD8](latestDescriptor2);
   }
 
   MEMORY[0x277D82BD8](latestDescriptor);
   MEMORY[0x277D82BD8](alternateDescriptor3);
-  if (v87)
+  if (v86)
   {
     MEMORY[0x277D82BD8](humanReadableUpdateName3);
   }
 
-  if (v89)
+  if (v88)
   {
     MEMORY[0x277D82BD8](alternateDescriptor2);
   }
 
   MEMORY[0x277D82BD8](alternateDescriptor);
   MEMORY[0x277D82BD8](preferredDescriptor3);
-  if (v91)
+  if (v90)
   {
     MEMORY[0x277D82BD8](humanReadableUpdateName2);
   }
 
-  if (v93)
+  if (v92)
   {
     MEMORY[0x277D82BD8](preferredDescriptor2);
   }
 
   MEMORY[0x277D82BD8](preferredDescriptor);
   MEMORY[0x277D82BD8](scanUUID);
-  MEMORY[0x277D82BD8](v67);
+  MEMORY[0x277D82BD8](v66);
   objc_storeStrong(&location, 0);
-  v26 = v80[2];
+  v25 = v79[2];
 
-  return v26;
+  return v25;
 }
 
 @end

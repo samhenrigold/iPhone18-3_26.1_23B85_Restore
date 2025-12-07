@@ -110,11 +110,11 @@
 
 - (HMAction)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = HMAction;
-  v5 = [(HMAction *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = HMAction;
+  v5 = [(HMAction *)&v25 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -132,9 +132,9 @@
       v17 = HMFGetLogIdentifier();
       v18 = objc_opt_class();
       *buf = 138543618;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v18;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v18;
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive %@, missing uuid", buf, 0x16u);
     }
 
@@ -154,9 +154,9 @@
       v22 = HMFGetLogIdentifier();
       v23 = objc_opt_class();
       *buf = 138543618;
-      v28 = v22;
-      v29 = 2112;
-      v30 = v23;
+      v27 = v22;
+      v28 = 2112;
+      v29 = v23;
       _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive %@, missing action set", buf, 0x16u);
     }
 
@@ -177,19 +177,16 @@ LABEL_5:
   v13 = v5;
 LABEL_13:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (id)_serializeForAdd
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v6 = @"kActionType";
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"kActionType";
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMAction type](self, "type")}];
-  v7[0] = v2;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -276,7 +273,7 @@ LABEL_13:
 
 - (HMAction)initWithDictionary:(id)dictionary home:(id)home
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   homeCopy = home;
   v8 = [dictionaryCopy hmf_numberForKey:@"kActionType"];
@@ -289,15 +286,15 @@ LABEL_13:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v30 = 138543618;
-      v31 = v16;
-      v32 = 2112;
-      v33 = objc_opt_class();
+      v29 = 138543618;
+      v30 = v16;
+      v31 = 2112;
+      v32 = objc_opt_class();
       v17 = "%{public}@Unable to decode %@, missing action type";
       v18 = v15;
       v19 = 22;
 LABEL_12:
-      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, v17, &v30, v19);
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, v17, &v29, v19);
 
       goto LABEL_13;
     }
@@ -314,12 +311,12 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v30 = 138543874;
-      v31 = v16;
-      v32 = 2112;
-      v33 = objc_opt_class();
-      v34 = 2112;
-      v35 = v9;
+      v29 = 138543874;
+      v30 = v16;
+      v31 = 2112;
+      v32 = objc_opt_class();
+      v33 = 2112;
+      v34 = v9;
       v17 = "%{public}@Unable to decode %@, invalid action type: %@";
       goto LABEL_11;
     }
@@ -347,12 +344,12 @@ LABEL_13:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v30 = 138543874;
-      v31 = v16;
-      v32 = 2112;
-      v33 = objc_opt_class();
-      v34 = 2112;
-      v35 = v9;
+      v29 = 138543874;
+      v30 = v16;
+      v31 = 2112;
+      v32 = objc_opt_class();
+      v33 = 2112;
+      v34 = v9;
       v17 = "%{public}@Unable to decode %@, wrong action type: %@";
 LABEL_11:
       v18 = v15;
@@ -363,37 +360,36 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  v23 = [dictionaryCopy hmf_UUIDForKey:@"kActionUUID"];
-  if (v23)
+  v22 = [dictionaryCopy hmf_UUIDForKey:@"kActionUUID"];
+  if (v22)
   {
-    v24 = [MEMORY[0x1E69A2A28] hmf_cachedInstanceForNSUUID:v23];
+    v23 = [MEMORY[0x1E69A2A28] hmf_cachedInstanceForNSUUID:v22];
     uuid = self->_uuid;
-    self->_uuid = v24;
+    self->_uuid = v23;
 
     selfCopy4 = self;
   }
 
   else
   {
-    v26 = objc_autoreleasePoolPush();
+    v25 = objc_autoreleasePoolPush();
     selfCopy5 = self;
-    v28 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v29 = HMFGetLogIdentifier();
-      v30 = 138543618;
-      v31 = v29;
-      v32 = 2112;
-      v33 = objc_opt_class();
-      _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, missing uuid", &v30, 0x16u);
+      v28 = HMFGetLogIdentifier();
+      v29 = 138543618;
+      v30 = v28;
+      v31 = 2112;
+      v32 = objc_opt_class();
+      _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to decode %@, missing uuid", &v29, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v26);
+    objc_autoreleasePoolPop(v25);
     selfCopy4 = 0;
   }
 
 LABEL_14:
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy4;
 }
 

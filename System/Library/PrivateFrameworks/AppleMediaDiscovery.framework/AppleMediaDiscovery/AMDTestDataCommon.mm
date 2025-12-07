@@ -56,7 +56,6 @@
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:15];
   MEMORY[0x277D82BD8](v5);
   MEMORY[0x277D82BD8](date);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -103,7 +102,6 @@
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:16];
   MEMORY[0x277D82BD8](v5);
   MEMORY[0x277D82BD8](date);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -128,7 +126,6 @@
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:5];
   MEMORY[0x277D82BD8](v5);
   MEMORY[0x277D82BD8](date);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -153,29 +150,26 @@
   v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:5];
   MEMORY[0x277D82BD8](v5);
   MEMORY[0x277D82BD8](date);
-  *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)getSampleEventLaunches
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v4[0] = 0x2852ACEA8;
-  v5[0] = @"launches";
-  v4[1] = 0x2852ACCE8;
-  v5[1] = @"2.1";
-  v4[2] = 0x2852B19A8;
-  v5[2] = &unk_2852BC420;
-  v4[3] = 0x2852ACE28;
-  v5[3] = @"iPhone";
-  v4[4] = 0x2852ACD68;
-  v5[4] = &unk_2852BAF38;
-  v4[5] = 0x2852ACD08;
-  v5[5] = &unk_2852BAF50;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:6];
-  *MEMORY[0x277D85DE8];
-  return v3;
+  v4[6] = *MEMORY[0x277D85DE8];
+  v3[0] = 0x2852ACEA8;
+  v4[0] = @"launches";
+  v3[1] = 0x2852ACCE8;
+  v4[1] = @"2.1";
+  v3[2] = 0x2852B19A8;
+  v4[2] = &unk_2852BC420;
+  v3[3] = 0x2852ACE28;
+  v4[3] = @"iPhone";
+  v3[4] = 0x2852ACD68;
+  v4[4] = &unk_2852BAF38;
+  v3[5] = 0x2852ACD08;
+  v4[5] = &unk_2852BAF50;
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:6];
 }
 
 + (id)getEventPayload:(id)payload
@@ -225,7 +219,6 @@
   v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:{2, &v14}];
   objc_storeStrong(v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -267,7 +260,6 @@
   MEMORY[0x277D82BD8](v8);
   MEMORY[0x277D82BD8](v9);
   MEMORY[0x277D82BD8](v10);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -318,7 +310,6 @@
   MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
   objc_storeStrong(v9, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -345,7 +336,6 @@
   v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   MEMORY[0x277D82BD8](v3);
   MEMORY[0x277D82BD8](v5);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -372,7 +362,6 @@
   v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   MEMORY[0x277D82BD8](v3);
   MEMORY[0x277D82BD8](v5);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -395,7 +384,6 @@
   v8[1] = @"run_inference";
   v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
   MEMORY[0x277D82BD8](v3);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -457,7 +445,6 @@
   MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
   MEMORY[0x277D82BD8](v9);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -493,7 +480,6 @@
   v7[0] = v3;
   v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   MEMORY[0x277D82BD8](v3);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -54,17 +54,17 @@
   if (v19)
   {
     uUIDString = [dCopy UUIDString];
-    v21 = [uUIDString copy];
+    v21 = objc_msgSend_copy(uUIDString);
     [(HDCloudSyncCodableSharedSummaryTransactionRecord *)v19->_underlyingTransactionRecord setUuid:v21];
 
-    v22 = [identifierCopy copy];
+    v22 = objc_msgSend_copy(identifierCopy);
     [(HDCloudSyncCodableSharedSummaryTransactionRecord *)v19->_underlyingTransactionRecord setSourceDeviceIdentifier:v22];
 
     v23 = [identifiersCopy hk_map:&__block_literal_global_122];
     v24 = [v23 mutableCopy];
     [(HDCloudSyncCodableSharedSummaryTransactionRecord *)v19->_underlyingTransactionRecord setSummaryIdentifiers:v24];
 
-    v25 = [metadataCopy copy];
+    v25 = objc_msgSend_copy(metadataCopy);
     [(HDCloudSyncCodableSharedSummaryTransactionRecord *)v19->_underlyingTransactionRecord setMetadata:v25];
   }
 
@@ -73,10 +73,10 @@
 
 - (HDCloudSyncSharedSummaryTransactionRecord)initWithCKRecord:(id)record schemaVersion:(int64_t)version
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = HDCloudSyncSharedSummaryTransactionRecord;
-  v4 = [(HDCloudSyncRecord *)&v15 initWithCKRecord:record schemaVersion:version];
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = HDCloudSyncSharedSummaryTransactionRecord;
+  v4 = [(HDCloudSyncRecord *)&v14 initWithCKRecord:record schemaVersion:version];
   v5 = v4;
   if (!v4)
   {
@@ -111,14 +111,13 @@ LABEL_9:
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v17 = v5;
+    v16 = v5;
     _os_log_fault_impl(&dword_228986000, v9, OS_LOG_TYPE_FAULT, "[summary-sharing] %{public}@: Failed to decode underlying record.", buf, 0xCu);
   }
 
   v10 = 0;
 LABEL_10:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -134,7 +133,7 @@ LABEL_10:
 - (NSString)sourceDeviceIdentifier
 {
   sourceDeviceIdentifier = [(HDCloudSyncCodableSharedSummaryTransactionRecord *)self->_underlyingTransactionRecord sourceDeviceIdentifier];
-  v3 = [sourceDeviceIdentifier copy];
+  v3 = objc_msgSend_copy(sourceDeviceIdentifier);
 
   return v3;
 }

@@ -58,7 +58,7 @@
       goto LABEL_13;
     }
     v12 = ;
-    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_22E659894();
@@ -68,8 +68,8 @@
     v27 = *MEMORY[0x277CCA068];
     v28[0] = v12;
     objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, v28, &v27, 1);
-    v21 = LABEL_12:;
-    *error = objc_msgSend_errorWithDomain_code_userInfo_(v14, v22, @"ANSTErrorDomain", 4, v21);
+    v22 = LABEL_12:;
+    *error = objc_msgSend_errorWithDomain_code_userInfo_(v14, v23, @"ANSTErrorDomain", 4, v22);
 
     LOBYTE(error) = 0;
     goto LABEL_13;
@@ -86,8 +86,8 @@
     v17 = objc_msgSend_description(self->_inputPixelBufferDescriptor, v10, v11);
     v12 = objc_msgSend_stringWithFormat_(v16, v18, @"Input pixel buffer does not match ANSTVideoCaptionAlgorithm.inputPixelBufferDescriptor (%@)", v17);
 
-    v19 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = _ANSTLoggingGetOSLogForCategoryANSTKit(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_22E659894();
     }
@@ -95,14 +95,13 @@
     v14 = MEMORY[0x277CCA9B8];
     v25 = *MEMORY[0x277CCA068];
     v26 = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v20, &v26, &v25, 1);
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v21, &v26, &v25, 1);
     goto LABEL_12;
   }
 
   LOBYTE(error) = 1;
 LABEL_13:
 
-  v23 = *MEMORY[0x277D85DE8];
   return error;
 }
 

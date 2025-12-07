@@ -150,14 +150,14 @@ uint64_t __44__EDOutgoingMessageRepository_performBlock___block_invoke(uint64_t 
 
 void __91__EDOutgoingMessageRepository_saveDraftMessage_mailboxID_previousDraftObjectID_completion___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v2 = +[EDOutgoingMessageRepository signpostLog];
   v3 = [*(a1 + 32) signpostID];
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v4 = *(a1 + 40);
     *buf = 138412290;
-    v47 = v4;
+    v46 = v4;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v2, OS_SIGNPOST_EVENT, v3, "EMAIL DELIVERY", "Begin Saving Draft %@", buf, 0xCu);
   }
 
@@ -165,22 +165,22 @@ void __91__EDOutgoingMessageRepository_saveDraftMessage_mailboxID_previousDraftO
   v6 = [v5 baseMessageForOutgoingMessage:*(a1 + 48) isDraft:1];
 
   v7 = [v6 headers];
-  v36 = [v7 firstHeaderForKey:*MEMORY[0x1E699B1C0]];
+  v35 = [v7 firstHeaderForKey:*MEMORY[0x1E699B1C0]];
 
-  v8 = [*(a1 + 32) messagesForDocumentID:v36 mailboxID:*(a1 + 56)];
+  v8 = [*(a1 + 32) messagesForDocumentID:v35 mailboxID:*(a1 + 56)];
   v9 = [*(a1 + 32) messageChangeManager];
-  v45 = v6;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
+  v44 = v6;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
   v11 = [*(a1 + 56) url];
-  v37 = [v9 addNewMessages:v10 mailboxURL:v11 userInitiated:1];
+  v36 = [v9 addNewMessages:v10 mailboxURL:v11 userInitiated:1];
 
   v12 = MEMORY[0x1E699AD28];
-  v44 = *(a1 + 56);
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
+  v43 = *(a1 + 56);
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
   v14 = [v12 mailboxScopeForMailboxObjectIDs:v13 forExclusion:0];
 
   v15 = [*(a1 + 32) messagePersistence];
-  v35 = [v15 messagesForPersistedMessages:v37 mailboxScope:v14];
+  v34 = [v15 messagesForPersistedMessages:v36 mailboxScope:v14];
 
   if ([v8 count])
   {
@@ -191,34 +191,34 @@ void __91__EDOutgoingMessageRepository_saveDraftMessage_mailboxID_previousDraftO
   if (*(a1 + 40))
   {
     v17 = [*(a1 + 32) messagePersistence];
-    v43 = *(a1 + 40);
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+    v42 = *(a1 + 40);
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
     v19 = [v17 persistedMessagesForMessageObjectIDs:v18 requireProtectedData:0 temporarilyUnavailableMessageObjectIDs:0];
 
     v20 = [*(a1 + 32) messageChangeManager];
     [v20 deleteMessages:v19];
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v21 = v35;
-  v22 = [v21 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v21 = v34;
+  v22 = [v21 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v22)
   {
-    v23 = *v39;
+    v23 = *v38;
     do
     {
       v24 = 0;
       do
       {
-        if (*v39 != v23)
+        if (*v38 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        v25 = *(*(&v38 + 1) + 8 * v24);
+        v25 = *(*(&v37 + 1) + 8 * v24);
         v26 = [*(a1 + 32) messagePersistence];
         v27 = [v25 objectID];
         v28 = [v26 requestSummaryForMessageObjectID:v27];
@@ -227,7 +227,7 @@ void __91__EDOutgoingMessageRepository_saveDraftMessage_mailboxID_previousDraftO
       }
 
       while (v22 != v24);
-      v22 = [v21 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v22);
@@ -239,15 +239,13 @@ void __91__EDOutgoingMessageRepository_saveDraftMessage_mailboxID_previousDraftO
   {
     v31 = *(a1 + 40);
     *buf = 138412290;
-    v47 = v31;
+    v46 = v31;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v29, OS_SIGNPOST_EVENT, v30, "EMAIL DELIVERY", "End Saving Draft %@", buf, 0xCu);
   }
 
   v32 = *(a1 + 64);
   v33 = [v21 firstObject];
   (*(v32 + 16))(v32, v33);
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveSendLaterMessage:(id)message sendLaterDate:(id)date completion:(id)completion
@@ -271,14 +269,14 @@ void __91__EDOutgoingMessageRepository_saveDraftMessage_mailboxID_previousDraftO
 
 void __77__EDOutgoingMessageRepository_saveSendLaterMessage_sendLaterDate_completion___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = +[EDOutgoingMessageRepository signpostLog];
   v3 = [*(a1 + 32) signpostID];
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v4 = *(a1 + 40);
     *buf = 138543362;
-    v35 = v4;
+    v34 = v4;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v2, OS_SIGNPOST_INTERVAL_BEGIN, v3, "EMAIL DELIVERY", "Begin saving outgoing message for outgoing message for %{public}@", buf, 0xCu);
   }
 
@@ -291,13 +289,13 @@ void __77__EDOutgoingMessageRepository_saveSendLaterMessage_sendLaterDate_comple
   {
     v9 = *(a1 + 40);
     *buf = 138543362;
-    v35 = v9;
+    v34 = v9;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v7, OS_SIGNPOST_INTERVAL_END, v8, "EMAIL DELIVERY", "Base message for %{public}@ was created", buf, 0xCu);
   }
 
   v10 = [*(a1 + 32) messageChangeManager];
-  v33 = v6;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+  v32 = v6;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
   v12 = [*(a1 + 32) urlForSendLaterFolder];
   v13 = [v10 addNewMessages:v11 mailboxURL:v12 userInitiated:1];
 
@@ -306,8 +304,8 @@ void __77__EDOutgoingMessageRepository_saveSendLaterMessage_sendLaterDate_comple
   v16 = [v14 initWithURL:v15];
 
   v17 = MEMORY[0x1E699AD28];
-  v32 = v16;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
+  v31 = v16;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
   v19 = [v17 mailboxScopeForMailboxObjectIDs:v18 forExclusion:0];
 
   v20 = [*(a1 + 32) messagePersistence];
@@ -319,7 +317,7 @@ void __77__EDOutgoingMessageRepository_saveSendLaterMessage_sendLaterDate_comple
   {
     v24 = [v13 count];
     *buf = 134217984;
-    v35 = v24;
+    v34 = v24;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v22, OS_SIGNPOST_INTERVAL_END, v23, "EMAIL DELIVERY", "%lu of messages are to be returned in completion", buf, 0xCu);
   }
 
@@ -332,7 +330,7 @@ void __77__EDOutgoingMessageRepository_saveSendLaterMessage_sendLaterDate_comple
   {
     v28 = *(a1 + 40);
     *buf = 138543362;
-    v35 = v28;
+    v34 = v28;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v26, OS_SIGNPOST_INTERVAL_END, v27, "EMAIL DELIVERY", "End saving outgoing message for message at for %{public}@", buf, 0xCu);
   }
 
@@ -342,8 +340,6 @@ void __77__EDOutgoingMessageRepository_saveSendLaterMessage_sendLaterDate_comple
     v30 = [v21 firstObject];
     (*(v29 + 16))(v29, v30);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSendLaterDate:(id)date message:(id)message completion:(id)completion
@@ -367,7 +363,7 @@ void __77__EDOutgoingMessageRepository_saveSendLaterMessage_sendLaterDate_comple
 
 void __70__EDOutgoingMessageRepository_updateSendLaterDate_message_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = +[EDOutgoingMessageRepository signpostLog];
   v3 = [*(a1 + 32) signpostID];
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
@@ -375,16 +371,16 @@ void __70__EDOutgoingMessageRepository_updateSendLaterDate_message_completion___
     v4 = [*(a1 + 40) documentID];
     v5 = *(a1 + 48);
     *buf = 138412546;
-    v19 = v4;
-    v20 = 2114;
-    v21 = v5;
+    v17 = v4;
+    v18 = 2114;
+    v19 = v5;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v2, OS_SIGNPOST_INTERVAL_BEGIN, v3, "EMAIL DELIVERY", "Begin editing outgoing message for documentID %@ at for %{public}@", buf, 0x16u);
   }
 
   v6 = [*(a1 + 32) messagePersistence];
   v7 = [*(a1 + 40) objectID];
-  v17 = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+  v15 = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
   v9 = [v6 persistedMessagesForObjectIDs:v8 requireProtectedData:0];
 
   v10 = [*(a1 + 32) messagePersistence];
@@ -397,16 +393,13 @@ void __70__EDOutgoingMessageRepository_updateSendLaterDate_message_completion___
     v13 = [*(a1 + 40) documentID];
     v14 = *(a1 + 48);
     *buf = 138412546;
-    v19 = v13;
-    v20 = 2114;
-    v21 = v14;
+    v17 = v13;
+    v18 = 2114;
+    v19 = v14;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v11, OS_SIGNPOST_INTERVAL_END, v12, "EMAIL DELIVERY", "End editing outgoing message for documentID %@ at for %{public}@", buf, 0x16u);
   }
 
-  v15 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeSendLaterDateFromMessage:(id)message draftsMailboxObjectID:(id)d completion:(id)completion
@@ -430,21 +423,21 @@ void __70__EDOutgoingMessageRepository_updateSendLaterDate_message_completion___
 
 void __95__EDOutgoingMessageRepository_removeSendLaterDateFromMessage_draftsMailboxObjectID_completion___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = +[EDOutgoingMessageRepository signpostLog];
   v3 = [*(a1 + 32) signpostID];
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
     v4 = [*(a1 + 40) documentID];
     *buf = 138412290;
-    v27 = v4;
+    v26 = v4;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v2, OS_SIGNPOST_INTERVAL_BEGIN, v3, "EMAIL DELIVERY", "Begin removing send later date for message with documentID %@", buf, 0xCu);
   }
 
   v5 = [*(a1 + 32) messagePersistence];
   v6 = [*(a1 + 40) objectID];
-  v25 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+  v24 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
   v8 = [v5 persistedMessagesForObjectIDs:v7 requireProtectedData:0];
 
   v9 = [*(a1 + 32) messagePersistence];
@@ -455,8 +448,8 @@ void __95__EDOutgoingMessageRepository_removeSendLaterDateFromMessage_draftsMail
   v12 = [v10 moveMessages:v8 destinationMailboxURL:v11 userInitiated:1];
 
   v13 = MEMORY[0x1E699AD28];
-  v24 = *(a1 + 48);
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+  v23 = *(a1 + 48);
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
   v15 = [v13 mailboxScopeForMailboxObjectIDs:v14 forExclusion:0];
 
   v16 = [*(a1 + 32) messagePersistence];
@@ -468,15 +461,13 @@ void __95__EDOutgoingMessageRepository_removeSendLaterDateFromMessage_draftsMail
   {
     v20 = [*(a1 + 40) documentID];
     *buf = 138412290;
-    v27 = v20;
+    v26 = v20;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v18, OS_SIGNPOST_INTERVAL_END, v19, "EMAIL DELIVERY", "End removing send later date for message for documentID %@", buf, 0xCu);
   }
 
   v21 = *(a1 + 56);
   v22 = [v17 firstObject];
   (*(v21 + 16))(v21, v22);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleAlarmForSendLaterDate:(id)date completion:(id)completion
@@ -508,7 +499,7 @@ void __95__EDOutgoingMessageRepository_removeSendLaterDateFromMessage_draftsMail
 
 void __88__EDOutgoingMessageRepository_deleteDraftsInMailboxID_documentID_previousDraftObjectID___block_invoke(uint64_t a1)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   if (*(a1 + 32))
   {
@@ -516,14 +507,14 @@ void __88__EDOutgoingMessageRepository_deleteDraftsInMailboxID_documentID_previo
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *v2;
-      v21 = 138412290;
-      v22 = v4;
-      _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Deleting Draft %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v4;
+      _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Deleting Draft %@", &v20, 0xCu);
     }
 
     v5 = [*(a1 + 40) messagePersistence];
-    v27[0] = *(a1 + 32);
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+    v26[0] = *(a1 + 32);
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
     v7 = [v5 persistedMessagesForMessageObjectIDs:v6 requireProtectedData:0 temporarilyUnavailableMessageObjectIDs:0];
 
     if ([v7 count])
@@ -554,11 +545,11 @@ void __88__EDOutgoingMessageRepository_deleteDraftsInMailboxID_documentID_previo
       {
         v13 = *v10;
         v14 = *v9;
-        v21 = 138412546;
-        v22 = v13;
-        v23 = 2112;
-        v24 = v14;
-        _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Deleting draft messages for documentID %@ in mailboxID %@", &v21, 0x16u);
+        v20 = 138412546;
+        v21 = v13;
+        v22 = 2112;
+        v23 = v14;
+        _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "Deleting draft messages for documentID %@ in mailboxID %@", &v20, 0x16u);
       }
 
       if ([v11 count])
@@ -569,13 +560,13 @@ void __88__EDOutgoingMessageRepository_deleteDraftsInMailboxID_documentID_previo
           v16 = [v11 count];
           v17 = *v10;
           v18 = *v9;
-          v21 = 134218498;
-          v22 = v16;
-          v23 = 2112;
-          v24 = v17;
-          v25 = 2112;
-          v26 = v18;
-          _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Deleting %lu messages for documentID %@ in mailboxID %@", &v21, 0x20u);
+          v20 = 134218498;
+          v21 = v16;
+          v22 = 2112;
+          v23 = v17;
+          v24 = 2112;
+          v25 = v18;
+          _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Deleting %lu messages for documentID %@ in mailboxID %@", &v20, 0x20u);
         }
 
         v19 = [*(a1 + 40) messageChangeManager];
@@ -592,8 +583,6 @@ void __88__EDOutgoingMessageRepository_deleteDraftsInMailboxID_documentID_previo
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deliverMessage:(id)message usingMailDrop:(BOOL)drop isCancelable:(BOOL)cancelable completion:(id)completion
@@ -665,25 +654,23 @@ void __88__EDOutgoingMessageRepository_deleteDraftsInMailboxID_documentID_previo
 
 void __88__EDOutgoingMessageRepository_deleteDraftsInMailboxID_documentID_previousDraftObjectID___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Unable to find persisted message for draft: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Unable to find persisted message for draft: %@", &v3, 0xCu);
 }
 
 void __88__EDOutgoingMessageRepository_deleteDraftsInMailboxID_documentID_previousDraftObjectID___block_invoke_cold_2(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "Unable to find persisted message for draft documentID %@ in mailboxID %@", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "Unable to find persisted message for draft documentID %@ in mailboxID %@", &v5, 0x16u);
 }
 
 @end

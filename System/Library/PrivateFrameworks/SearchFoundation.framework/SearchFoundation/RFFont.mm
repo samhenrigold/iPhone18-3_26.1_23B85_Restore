@@ -185,7 +185,6 @@ LABEL_17:
   has = self->_has;
   self->_name = name;
   *&self->_has = has & 0xFC | 1;
-  system = self->_system;
   self->_system = 0;
   MEMORY[0x1EEE66BB8]();
 }

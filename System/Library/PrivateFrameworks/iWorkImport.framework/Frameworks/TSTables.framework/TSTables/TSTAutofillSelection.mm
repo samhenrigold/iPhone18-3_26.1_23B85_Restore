@@ -15,9 +15,9 @@
   size = range.size;
   origin = range.origin;
   v5 = objc_alloc(objc_opt_class());
-  v8 = objc_msgSend_initWithSourceCellRange_(v5, v6, origin, size, v7);
+  v7 = objc_msgSend_initWithSourceCellRange_(v5, v6, origin, size);
 
-  return v8;
+  return v7;
 }
 
 + (id)autofillSelectionWithSourceCellRange:(TSUCellRect)range targetCellRange:(TSUCellRect)cellRange
@@ -54,35 +54,35 @@
 
 - (BOOL)isValidForCellSelection:(id)selection inTable:(id)table
 {
-  v6 = objc_msgSend_selectionAdjustedForVisibilityInTableInfo_(selection, a2, table, table, v4);
-  v11 = objc_msgSend_cellRegion(v6, v7, v8, v9, v10);
-  v16 = objc_msgSend_boundingCellRange(v11, v12, v13, v14, v15);
-  v18 = v17;
-  v22 = objc_msgSend_targetCellRange(self, v17, v19, v20, v21);
-  v24 = ((v22 ^ v16) & 0x101FFFF00000000) == 0 && v18 == v23;
-  v25 = v16 == v22 && v24;
+  v5 = objc_msgSend_selectionAdjustedForVisibilityInTableInfo_(selection, a2, table, table);
+  v9 = objc_msgSend_cellRegion(v5, v6, v7, v8);
+  v13 = objc_msgSend_boundingCellRange(v9, v10, v11, v12);
+  v15 = v14;
+  v18 = objc_msgSend_targetCellRange(self, v14, v16, v17);
+  v20 = ((v18 ^ v13) & 0x101FFFF00000000) == 0 && v15 == v19;
+  v21 = v13 == v18 && v20;
 
-  return v25;
+  return v21;
 }
 
 - (BOOL)isValidForRowVisibilityChangeInRegion:(id)region table:(id)table
 {
   regionCopy = region;
   tableCopy = table;
-  v12 = objc_msgSend_sourceCellRange(self, v8, v9, v10, v11);
-  if (objc_msgSend_intersectsCellRange_(regionCopy, v13, v12, v13, v14))
+  v11 = objc_msgSend_sourceCellRange(self, v8, v9, v10);
+  if (objc_msgSend_intersectsCellRange_(regionCopy, v12, v11, v12))
   {
-    v19 = objc_msgSend_sourceCellRange(self, v15, v16, v17, v18);
-    v22 = objc_msgSend_indexesOfHiddenRowsInCellRange_(tableCopy, v20, v19, v20, v21);
-    v27 = objc_msgSend_count(v22, v23, v24, v25, v26) == 0;
+    v16 = objc_msgSend_sourceCellRange(self, v13, v14, v15);
+    v18 = objc_msgSend_indexesOfHiddenRowsInCellRange_(tableCopy, v17, v16, v17);
+    v22 = objc_msgSend_count(v18, v19, v20, v21) == 0;
   }
 
   else
   {
-    v27 = 1;
+    v22 = 1;
   }
 
-  return v27;
+  return v22;
 }
 
 - (TSUCellRect)sourceCellRange

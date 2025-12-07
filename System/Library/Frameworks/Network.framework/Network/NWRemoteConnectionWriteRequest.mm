@@ -24,7 +24,7 @@
   v13 = __nwlog_obj();
   *buf = 136446210;
   v24 = "[NWRemoteConnectionWriteRequest initWithData:clientID:]";
-  v14 = _os_log_send_and_compose_impl();
+  v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;

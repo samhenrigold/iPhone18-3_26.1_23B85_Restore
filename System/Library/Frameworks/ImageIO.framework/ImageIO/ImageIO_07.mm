@@ -1,903 +1,3 @@
-uint64_t png_image_size(uint64_t a1)
-{
-  v1 = *(a1 + 284);
-  v2 = *(a1 + 296);
-  if (v2 >> 15)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = v1 >> 15 == 0;
-  }
-
-  if (!v3)
-  {
-    return 0xFFFFFFFFLL;
-  }
-
-  if (!*(a1 + 428))
-  {
-    return v1 + v1 * v2;
-  }
-
-  result = 0;
-  v6 = *(a1 + 434);
-  v7 = *(a1 + 280);
-  v8 = 7;
-  v9 = 1;
-  do
-  {
-    v10 = v9 - 1;
-    if (v9 - 1 <= 1)
-    {
-      v11 = 3;
-    }
-
-    else
-    {
-      v11 = v8 >> 1;
-    }
-
-    v12 = (v7 + ~(-1 << v11) - (((v10 & 1) << (3 - (v9 >> 1))) & 7)) >> v11;
-    if (v12)
-    {
-      v13 = (v6 >> 3) * v12;
-      v14 = (v6 * v12 + 7) >> 3;
-      if (v6 > 7)
-      {
-        v14 = v13;
-      }
-
-      v15 = (v8 + 1) >> 1;
-      if (v10 < 3)
-      {
-        LOBYTE(v15) = 3;
-      }
-
-      v16 = (v1 - ((!(v10 & 1) << (3 - (v10 >> 1))) & 7) + ~(-1 << v15)) >> v15;
-      result += v16 + v16 * v14;
-    }
-
-    ++v9;
-    --v8;
-  }
-
-  while (v8);
-  return result;
-}
-
-uint64_t png_deflate_claim(uint64_t a1, int a2, unint64_t a3)
-{
-  v27 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 92);
-  if (!v6)
-  {
-    goto LABEL_5;
-  }
-
-  memset(v26, 0, sizeof(v26));
-  v25 = 0u;
-  v24 = 0u;
-  v18[0] = HIBYTE(a2);
-  v18[1] = BYTE2(a2);
-  v18[2] = BYTE1(a2);
-  v18[3] = a2;
-  v19 = 8250;
-  v20 = HIBYTE(v6);
-  v21 = BYTE2(v6);
-  v22 = BYTE1(v6);
-  v23 = v6;
-  png_safecat(v18, &v27, 0x40uLL, 0xAuLL, " using zstream");
-  png_warning(a1, v18);
-  if (*(a1 + 92) != 1229209940)
-  {
-    *(a1 + 92) = 0;
-LABEL_5:
-    if (a2 == 1229209940)
-    {
-      v8 = *(a1 + 220);
-      v9 = *(a1 + 224);
-      v10 = *(a1 + 228);
-      v11 = *(a1 + 232);
-      if (*(a1 + 80))
-      {
-        v12 = *(a1 + 236);
-      }
-
-      else
-      {
-        v12 = *(a1 + 430) != 8;
-      }
-    }
-
-    else
-    {
-      v8 = *(a1 + 240);
-      v9 = *(a1 + 244);
-      v10 = *(a1 + 248);
-      v11 = *(a1 + 252);
-      v12 = *(a1 + 256);
-    }
-
-    if (a3 <= 0x4000)
-    {
-      v13 = (1 << (v10 - 1));
-      if (a3 + 262 <= v13)
-      {
-        do
-        {
-          LODWORD(v13) = v13 >> 1;
-          --v10;
-        }
-
-        while (v13 >= a3 + 262);
-      }
-    }
-
-    if ((*(a1 + 84) & 0x10) != 0)
-    {
-      goto LABEL_31;
-    }
-
-    v14 = *(a1 + 80);
-    if ((v14 & 2) != 0 && (*(a1 + 260) != v8 || *(a1 + 264) != v9 || *(a1 + 268) != v10 || *(a1 + 272) != v11 || *(a1 + 276) != v12))
-    {
-      if (deflateEnd((a1 + 96)))
-      {
-        png_warning(a1, "deflateEnd failed (ignored)");
-      }
-
-      v14 = *(a1 + 80) & 0xFFFFFFFD;
-      *(a1 + 80) = v14;
-    }
-
-    *(a1 + 96) = 0;
-    v15 = (a1 + 96);
-    *(a1 + 104) = 0;
-    *(a1 + 120) = 0;
-    *(a1 + 128) = 0;
-    if ((v14 & 2) != 0)
-    {
-      v16 = deflateReset(v15);
-      if (!v16)
-      {
-        goto LABEL_31;
-      }
-    }
-
-    else
-    {
-      if (a2 == 1229209940 && (*(a1 + 84) & 0x11) != 0)
-      {
-        v10 = -v10;
-      }
-
-      v16 = deflateInit2_(v15, v8, v9, v10, v11, v12, "1.2.12", 112);
-      if (!v16)
-      {
-        *(a1 + 80) |= 2u;
-LABEL_31:
-        v7 = 0;
-        *(a1 + 92) = a2;
-        return v7;
-      }
-    }
-
-    v7 = v16;
-    png_zstream_error(a1, v16);
-    return v7;
-  }
-
-  *(a1 + 144) = "in use by IDAT";
-  return 4294967294;
-}
-
-void png_write_finish_row(uint64_t a1)
-{
-  v1 = *(a1 + 308) + 1;
-  *(a1 + 308) = v1;
-  if (v1 < *(a1 + 288))
-  {
-    return;
-  }
-
-  if (!*(a1 + 428))
-  {
-    goto LABEL_19;
-  }
-
-  *(a1 + 308) = 0;
-  v2 = *(a1 + 429);
-  if ((*(a1 + 88) & 2) != 0)
-  {
-    ++v2;
-  }
-
-  else
-  {
-    while (++v2 <= 6u)
-    {
-      v3 = png_write_finish_row_png_pass_inc[v2];
-      v4 = *(a1 + 280) + v3 + ~png_write_finish_row_png_pass_start[v2];
-      *(a1 + 292) = v4 / v3;
-      v5 = png_write_finish_row_png_pass_yinc[v2];
-      v6 = *(a1 + 284) + v5 + ~png_write_finish_row_png_pass_ystart[v2];
-      *(a1 + 288) = v6 / v5;
-      if (v4 >= v3 && v6 >= v5)
-      {
-        break;
-      }
-    }
-  }
-
-  *(a1 + 429) = v2;
-  if (v2 > 6u)
-  {
-    goto LABEL_19;
-  }
-
-  v7 = *(a1 + 320);
-  if (v7)
-  {
-    v8 = *(a1 + 328);
-    v9 = *(a1 + 433) * *(a1 + 436);
-    v10 = *(a1 + 280);
-    v11 = v9 >= 8;
-    v12 = (v10 * v9 + 7) >> 3;
-    v13 = v10 * (v9 >> 3);
-    if (!v11)
-    {
-      v13 = v12;
-    }
-
-    v11 = v8 >= v7;
-    v14 = v8 - v7;
-    if (!v11 || v13 >= v14 || (v15 = v13 + 1, bzero(*(a1 + 320), v13 + 1), v7 > v7 + v15))
-    {
-      __break(0x5519u);
-LABEL_19:
-
-      png_compress_IDAT(a1, 0, 0, 4);
-    }
-  }
-}
-
-uint64_t _cg_png_write_chunk_data(uint64_t result, Bytef *a2, uint64_t a3)
-{
-  if (result && a2 && a3)
-  {
-    v5 = result;
-    png_write_data(result, a2, a3);
-
-    return png_calculate_crc(v5, a2, a3);
-  }
-
-  return result;
-}
-
-void _cg_png_cleanup_for_write_start_row(void *a1)
-{
-  v2 = a1[42];
-  if (v2)
-  {
-    free(v2);
-    a1[42] = 0;
-    a1[43] = 0;
-  }
-
-  v3 = a1[40];
-  if (v3)
-  {
-    free(v3);
-    a1[40] = 0;
-    a1[41] = 0;
-  }
-}
-
-uint64_t png_flush(uint64_t result)
-{
-  v1 = *(result + 472);
-  if (v1)
-  {
-    return v1();
-  }
-
-  return result;
-}
-
-uint64_t IIOImageWriteSession::seek(IIOImageWriteSession *this, uint64_t a2, int a3)
-{
-  v4 = a2;
-  if (a3)
-  {
-    if (a3 == 1)
-    {
-      v5 = 64;
-    }
-
-    else
-    {
-      if (a3 != 2)
-      {
-        return -1;
-      }
-
-      v5 = 56;
-    }
-
-    v4 = *(this + v5) + a2;
-  }
-
-  v6 = *(this + 4);
-  if (!v6 || !fseek(v6, a2, a3))
-  {
-    *(this + 8) = v4;
-    return v4;
-  }
-
-  return -1;
-}
-
-void (**png_write_IEND(uint64_t a1))(void)
-{
-  result = _cg_png_write_complete_chunk(a1, 1229278788, 0, 0);
-  *(a1 + 76) |= 0x10u;
-  return result;
-}
-
-uint64_t write_unknown_chunks(uint64_t result, uint64_t a2, unsigned __int8 a3)
-{
-  v3 = *(a2 + 352);
-  if (v3)
-  {
-    v4 = *(a2 + 344);
-    v5 = v4 + 32 * v3;
-    if (v4 < v5)
-    {
-      v7 = result;
-      for (i = *(a2 + 344); v4 <= i; i += 32)
-      {
-        v9 = i + 32;
-        if (i + 32 > v5)
-        {
-          break;
-        }
-
-        if ((*(i + 24) & a3) != 0)
-        {
-          result = png_handle_as_unknown(v7, i);
-          if (result != 1 && (result == 3 || (*(i + 3) & 0x20) != 0 || !result && *(v7 + 880) == 3))
-          {
-            v10 = *(i + 16);
-            if (!v10)
-            {
-              png_warning(v7, "Writing zero-length unknown chunk");
-              v10 = *(i + 16);
-            }
-
-            result = _cg_png_write_chunk(v7, i, *(i + 8), v10);
-          }
-        }
-
-        if (v9 >= v5)
-        {
-          return result;
-        }
-      }
-
-      __break(0x5519u);
-    }
-  }
-
-  return result;
-}
-
-void _cg_png_destroy_write_struct(uint64_t *a1, _OWORD **a2)
-{
-  if (a1)
-  {
-    v3 = *a1;
-    if (*a1)
-    {
-      if (v3 >= v3 + 1280)
-      {
-        goto LABEL_11;
-      }
-
-      _cg_png_destroy_info_struct(*a1, a2);
-      *a1 = 0;
-      if ((*(v3 + 80) & 2) != 0)
-      {
-        deflateEnd((v3 + 96));
-      }
-
-      if (v3 + 208 > v3 + 216)
-      {
-LABEL_11:
-        __break(0x5519u);
-      }
-
-      else
-      {
-        png_free_buffer_list(v3, (v3 + 208));
-        png_free(v3, *(v3 + 336));
-        *(v3 + 336) = 0u;
-        png_free(v3, *(v3 + 320));
-        png_free(v3, *(v3 + 352));
-        png_free(v3, *(v3 + 368));
-        *(v3 + 320) = 0u;
-        *(v3 + 352) = 0u;
-        *(v3 + 368) = 0u;
-        png_free(v3, *(v3 + 888));
-        *(v3 + 888) = 0u;
-
-        png_destroy_png_struct(v3);
-      }
-    }
-  }
-}
-
-void png_free_buffer_list(uint64_t a1, void **a2)
-{
-  v3 = *a2;
-  if (v3)
-  {
-    *a2 = 0;
-    do
-    {
-      v5 = *v3;
-      png_free(a1, v3);
-      v3 = v5;
-    }
-
-    while (v5);
-  }
-}
-
-void PNGWritePlugin::~PNGWritePlugin(PNGWritePlugin *this, uint64_t a2, const char *a3)
-{
-  *this = &unk_1EF4D92B8;
-  v4 = *(this + 7);
-  if (v4)
-  {
-    free(v4);
-  }
-
-  v5 = *(this + 14);
-  if (v5)
-  {
-    free(v5);
-  }
-
-  if (*(this + 5))
-  {
-    _cg_jpeg_mem_term("~PNGWritePlugin", 158, "*** PNGWritePlugin::~PNGWritePlugin -- cleaning up '_png_ptr' -- should have been done in writeEpilogue\n");
-    if (*(this + 6))
-    {
-      v6 = (this + 48);
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    _cg_png_destroy_write_struct(this + 5, v6);
-    *(this + 5) = 0;
-    *(this + 6) = 0;
-  }
-
-  _cg_jpeg_mem_term(this, a2, a3);
-}
-
-{
-  PNGWritePlugin::~PNGWritePlugin(this, a2, a3);
-
-  JUMPOUT(0x186602850);
-}
-
-uint64_t _CGImagePixelDataProviderFinalize(void *a1)
-{
-  atomic_fetch_add_explicit(&gPDPCount, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
-  result = a1[3];
-  if (result)
-  {
-    result = (*(*result + 8))(result);
-  }
-
-  a1[2] = 0;
-  a1[3] = 0;
-  return result;
-}
-
-uint64_t IIOImageWriteSession::finalize(IIOImageWriteSession *this, int a2)
-{
-  v4 = *(this + 5);
-  if (v4)
-  {
-    MaximumSizeOfFileSystemRepresentation = CFStringGetMaximumSizeOfFileSystemRepresentation(v4);
-    v6 = malloc_type_malloc(MaximumSizeOfFileSystemRepresentation, 0x100004077774924uLL);
-    if (!CFStringGetFileSystemRepresentation(*(this + 5), v6, MaximumSizeOfFileSystemRepresentation))
-    {
-      v7 = 0;
-      goto LABEL_36;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v8 = *(this + 6);
-  if (v8)
-  {
-    v9 = CFStringGetMaximumSizeOfFileSystemRepresentation(v8);
-    v7 = malloc_type_malloc(v9, 0x100004077774924uLL);
-    if (!CFStringGetFileSystemRepresentation(*(this + 6), v7, v9))
-    {
-      goto LABEL_36;
-    }
-
-    if (a2)
-    {
-      if (v7)
-      {
-        unlink(v7);
-        goto LABEL_14;
-      }
-
-      goto LABEL_11;
-    }
-  }
-
-  else
-  {
-    if (a2)
-    {
-LABEL_11:
-      v10 = *(this + 3);
-      if (v10)
-      {
-        CFDataSetLength(v10, 0);
-      }
-
-      v7 = 0;
-      goto LABEL_14;
-    }
-
-    v7 = 0;
-  }
-
-  if (!*(this + 5))
-  {
-    if (!*(this + 2))
-    {
-      goto LABEL_14;
-    }
-
-    v18 = *(this + 3);
-    if (!v18)
-    {
-      goto LABEL_14;
-    }
-
-    if (!*(this + 7))
-    {
-      goto LABEL_14;
-    }
-
-    MutableBytePtr = CFDataGetMutableBytePtr(v18);
-    v20 = *(this + 7);
-    if (!v20)
-    {
-      goto LABEL_14;
-    }
-
-    v21 = MutableBytePtr;
-    while (1)
-    {
-      v22 = CGDataConsumerPutBytes();
-      if (!v22)
-      {
-        break;
-      }
-
-      v21 += v22;
-      v20 -= v22;
-      if (!v20)
-      {
-        goto LABEL_14;
-      }
-    }
-
-    LogError("finalize", 433, "*** ERROR: Could not write any more data to the consumer\n");
-LABEL_36:
-    v11 = 4294967246;
-    if (!v6)
-    {
-      goto LABEL_38;
-    }
-
-    goto LABEL_37;
-  }
-
-  v12 = *(this + 4);
-  if (v12)
-  {
-    if ((gIIODebugFlags & 0x200000000000) != 0)
-    {
-      ImageIOLog("<<< CGImageWriteSessionFinalize: [%p] closing FILE* %p\n", this, v12);
-      v12 = *(this + 4);
-    }
-
-    fclose(v12);
-    *(this + 73) = 0;
-  }
-
-  *(this + 4) = 0;
-  if (v6)
-  {
-    if (v7)
-    {
-      if (strcmp(v7, v6))
-      {
-        rename(v7, v6, v13);
-        if (v14)
-        {
-          v15 = __error();
-          v16 = strerror(*v15);
-          v17 = __error();
-          LogError("finalize", 413, "*** ERROR: rename (%s to %s) failed: '%s' (%d)\n", v7, v6, v16, *v17);
-          unlink(v7);
-          v11 = 4294967246;
-          goto LABEL_37;
-        }
-      }
-    }
-  }
-
-LABEL_14:
-  v11 = 0;
-  *(this + 7) = 0;
-  *(this + 8) = 0;
-  if (v6)
-  {
-LABEL_37:
-    free(v6);
-  }
-
-LABEL_38:
-  if (v7)
-  {
-    free(v7);
-  }
-
-  return v11;
-}
-
-void IIOImageDestination::~IIOImageDestination(IIOImageDestination *this)
-{
-  IIOImageDestination::~IIOImageDestination(this);
-
-  JUMPOUT(0x186602850);
-}
-
-{
-  *this = &unk_1EF4DA278;
-  v3 = (this + 16);
-  v2 = *(this + 2);
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  *v3 = 0;
-  v3[1] = 0;
-  v4 = *(this + 20);
-  if (v4)
-  {
-    CFRelease(v4);
-  }
-
-  *(this + 20) = 0;
-  v5 = *(this + 11);
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  *(this + 11) = 0;
-  v6 = *(this + 12);
-  if (v6)
-  {
-    CFRelease(v6);
-  }
-
-  *(this + 12) = 0;
-  v8 = *(this + 13);
-  for (i = *(this + 14); v8 != i; ++v8)
-  {
-    if (*v8)
-    {
-      CGImageRelease(*v8);
-    }
-  }
-
-  v10 = *(this + 16);
-  for (j = *(this + 17); v10 != j; ++v10)
-  {
-    if (*v10)
-    {
-      (*(**v10 + 8))(*v10);
-    }
-  }
-
-  v11 = *(this + 21);
-  if (v11)
-  {
-    CGImageRelease(v11);
-    *(this + 21) = 0;
-  }
-
-  v12 = *(this + 4);
-  if (v12)
-  {
-    (*(*v12 + 8))(v12);
-  }
-
-  *(this + 4) = 0;
-  v13 = *(this + 19);
-  if (v13)
-  {
-    CFRelease(v13);
-  }
-
-  *(this + 19) = 0;
-  *(this + 8) = 0;
-  *(this + 9) = 0;
-  v14 = *(this + 16);
-  if (v14)
-  {
-    *(this + 17) = v14;
-    operator delete(v14);
-  }
-
-  v15 = *(this + 13);
-  if (v15)
-  {
-    *(this + 14) = v15;
-    operator delete(v15);
-  }
-}
-
-uint64_t _CGImageDestinationFinalize(void *a1)
-{
-  atomic_fetch_add_explicit(&gIDRCount, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
-  result = a1[3];
-  if (result)
-  {
-    result = (*(*result + 8))(result);
-  }
-
-  a1[2] = 0;
-  a1[3] = 0;
-  return result;
-}
-
-uint64_t _CGImageWriteSessionFinalize(void *a1)
-{
-  atomic_fetch_add_explicit(&gWriteSessionCount, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed);
-  result = a1[3];
-  if (result)
-  {
-    result = (*(*result + 8))(result);
-  }
-
-  a1[2] = 0;
-  a1[3] = 0;
-  return result;
-}
-
-uint64_t CreateMetadataFromXMPBufferInternal(const char *a1, uint64_t a2, const char *a3)
-{
-  if (a1 && a2)
-  {
-    pthread_mutex_lock(&CreateMetadataFromXMPBufferInternal(char const*,unsigned long,char const*,unsigned long,unsigned int)::mutex);
-    v12 = 0;
-    v13 = 0;
-    v14 = 0;
-    v9 = 0;
-    v10 = 0;
-    v11 = 0;
-    cStr = 0;
-    v7 = 0;
-    v8 = 0;
-    v5 = 0;
-    if (IIO_InitializeXMPToolkit())
-    {
-      v4[0] = 0;
-      v4[1] = 0;
-      TXMPMeta<std::string>::TXMPMeta(v4);
-    }
-
-    pthread_mutex_unlock(&CreateMetadataFromXMPBufferInternal(char const*,unsigned long,char const*,unsigned long,unsigned int)::mutex);
-    if (SHIBYTE(v8) < 0)
-    {
-      operator delete(cStr);
-    }
-
-    if (SHIBYTE(v11) < 0)
-    {
-      operator delete(v9);
-    }
-
-    if (SHIBYTE(v14) < 0)
-    {
-      operator delete(v12);
-    }
-  }
-
-  return 0;
-}
-
-CGImageMetadataRef CGImageMetadataCreateFromXMPData(CFDataRef data)
-{
-  if (data)
-  {
-    CFDataGetLength(data);
-  }
-
-  kdebug_trace();
-  IIOInitDebugFlags();
-  if ((~gIIODebugFlags & 0x3000) == 0)
-  {
-    ImageIODebugOptions(3, "A", "CGImageMetadataCreateFromXMPData", 0, 0, -1, 0);
-  }
-
-  if (data && (v2 = CFGetTypeID(data), v2 == CFDataGetTypeID()) && (Length = CFDataGetLength(data), Length >= 0x29))
-  {
-    v4 = Length;
-    BytePtr = CFDataGetBytePtr(data);
-    v6 = 29;
-    if (strncmp(BytePtr, kMainXMPSignatureString[0], 0x1DuLL))
-    {
-      if (strncmp(BytePtr, kMainXMPPlainString[0], 0x21uLL))
-      {
-        if (v4 < 0x7FFFFFFFFFFFFFF8)
-        {
-          operator new();
-        }
-
-        std::string::__throw_length_error[abi:fe200100]();
-      }
-
-      v6 = 0;
-    }
-
-    MetadataFromXMPBuffer = CreateMetadataFromXMPBuffer(&BytePtr[v6], v4 - v6);
-    v8 = MetadataFromXMPBuffer;
-    if (MetadataFromXMPBuffer)
-    {
-      v9 = *(MetadataFromXMPBuffer + 24);
-      if (v9)
-      {
-        CFDictionaryGetCount(v9);
-      }
-    }
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  kdebug_trace();
-  return v8;
-}
-
 uint64_t IIO_InitializeXMPToolkit()
 {
   pthread_mutex_lock(&xmpLock);
@@ -908,7 +8,7 @@ uint64_t IIO_InitializeXMPToolkit()
   return v1 & v5;
 }
 
-void AdobeXMPCore_Int::ManageDefaultNameSpacePrefixMap(AdobeXMPCore_Int *this@<X0>, void *a2@<X8>)
+void AdobeXMPCore_Int::ManageDefaultNameSpacePrefixMap(AdobeXMPCore::INameSpacePrefixMap_v1 *this@<X0>, void *a2@<X8>)
 {
   v3 = AdobeXMPCore_Int::ManageDefaultNameSpacePrefixMap(BOOL)::sDefaultNameSpacePrefixMap;
   if (this)
@@ -936,7 +36,7 @@ void AdobeXMPCore_Int::ManageDefaultNameSpacePrefixMap(AdobeXMPCore_Int *this@<X
   {
     if (!AdobeXMPCore_Int::ManageDefaultNameSpacePrefixMap(BOOL)::sDefaultNameSpacePrefixMap)
     {
-      AdobeXMPCore::INameSpacePrefixMap_v1::CreateNameSpacePrefixMap(this);
+      AdobeXMPCore::INameSpacePrefixMap_v1::CreateNameSpacePrefixMap();
     }
 
     v6 = *(AdobeXMPCore_Int::ManageDefaultNameSpacePrefixMap(BOOL)::sDefaultNameSpacePrefixMap + 8);
@@ -1018,11 +118,11 @@ void XMP_ReadWriteLock::XMP_ReadWriteLock(XMP_ReadWriteLock *this)
   }
 }
 
-BOOL XMP_NamespaceTable::Define(XMP_NamespaceTable *this, char *a2, char *a3, const char **a4, unsigned int *a5)
+BOOL XMP_NamespaceTable::Define(uint64_t **this, char *a2, char *a3, const char **a4, unsigned int *a5)
 {
   v54 = *MEMORY[0x1E69E9840];
-  v51 = (this + 8);
-  XMP_ReadWriteLock::Acquire((this + 8), 1);
+  v51 = (this + 1);
+  XMP_ReadWriteLock::Acquire((this + 1), 1);
   if (!a2 || !a3 || !*a2 || !*a3)
   {
     __assert_rtn("Define", "XMP_LibUtils.cpp", 451, "(_uri != 0) && (*_uri != 0) && (_suggPrefix != 0) && (*_suggPrefix != 0)");
@@ -1146,8 +246,8 @@ LABEL_116:
     while (v17 < v15);
   }
 
-  v26 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(this + 216, &v49);
-  if ((this + 224) == v26)
+  v26 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>((this + 27), &v49);
+  if (this + 28 == v26)
   {
     memset(&v47, 0, sizeof(v47));
     if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
@@ -1163,7 +263,7 @@ LABEL_116:
     *__str = 0u;
     v53 = 0u;
     v27 = 1;
-    while ((this + 248) != std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(this + 240, &v47.__r_.__value_.__l.__data_))
+    while (this + 31 != std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>((this + 30), &v47.__r_.__value_.__l.__data_))
     {
       snprintf(__str, 0x20uLL, "_%d_:", v27);
       std::string::operator=(&v47, &v48);
@@ -1180,13 +280,13 @@ LABEL_116:
 
     memset(v46, 0, sizeof(v46));
     std::pair<std::string,std::string>::pair[abi:fe200100]<std::string&,std::string&,0>(v46, &v49, &v47);
-    v26 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string,std::string> &>(this + 27, this + 224, &v46[0].__r_.__value_.__l.__data_);
+    v26 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string,std::string> &>(this + 27, this + 28, &v46[0].__r_.__value_.__l.__data_);
     v29 = v46[0].__r_.__value_.__r.__words[2];
     v30 = *&v46[0].__r_.__value_.__l.__data_;
     v46[0] = v46[1];
     *&v46[1].__r_.__value_.__l.__data_ = v30;
     v46[1].__r_.__value_.__r.__words[2] = v29;
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string,std::string> &>(this + 30, this + 248, &v46[0].__r_.__value_.__l.__data_);
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string,std::string> &>(this + 30, this + 31, &v46[0].__r_.__value_.__l.__data_);
     if (SHIBYTE(v46[1].__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v46[1].__r_.__value_.__l.__data_);
@@ -1410,7 +510,7 @@ void sub_185EBF9E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t AdobeXMPCore_Int::VerifyParameters(AdobeXMPCore_Int *this, int a2, char *__s, const char *a4, const char *a5, uint64_t a6)
+uint64_t AdobeXMPCore_Int::VerifyParameters(AdobeXMPCore_Int *this, int a2, char *__s, const char *a4, const char *a5, size_t a6)
 {
   if (this)
   {
@@ -1479,7 +579,7 @@ void sub_185EC0194(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AdobeXMPCore_Int::NameSpacePrefixMapImpl::Insert(AdobeXMPCore_Int::NameSpacePrefixMapImpl *this, char *__s, char *a3, const char *a4, uint64_t a5)
+uint64_t AdobeXMPCore_Int::NameSpacePrefixMapImpl::Insert(AdobeXMPCore_Int::NameSpacePrefixMapImpl *this, char *__s, char *a3, char *a4, size_t a5)
 {
   v7 = a3;
   v9 = AdobeXMPCore_Int::VerifyParameters(1, 1, __s, a4, a3, a5);
@@ -1534,7 +634,7 @@ LABEL_13:
     {
 LABEL_63:
       v23 = 0uLL;
-      AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String(__s, v7);
+      AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String();
     }
 
     while (1)
@@ -1595,10 +695,10 @@ void sub_185EC0928(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x185EC0950);
 }
 
-void AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String(AdobeXMPCore_Int::IUTF8String_I *this, const char *a2)
+void AdobeXMPCore_Int::IUTF8String_I::CreateUTF8String()
 {
+  v1 = 0;
   v2 = 0;
-  v3 = 0;
   operator new();
 }
 
@@ -1815,16 +915,16 @@ uint64_t std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8Stri
   return v6;
 }
 
-uint64_t std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>>>::__emplace_unique_key_args<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const> const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+void *std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>>>::__emplace_unique_key_args<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const> const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, void **a4)
 {
-  v4 = 0;
-  v2 = *std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>>>::__find_equal<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>(a1, &v4, a2);
-  if (!v2)
+  v6 = 0;
+  v4 = *std::__tree<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,std::__map_value_compare<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>,AdobeXMPCore_Int::IUTF8StringComparator,true>,std::allocator<std::__value_type<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>,std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>>>::__find_equal<std::shared_ptr<AdobeXMPCommon::IUTF8String_v1 const>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 IIODictionary *IIOMetadataFlagsFromImageSourceOptions(IIODictionary *result)
@@ -1928,7 +1028,7 @@ void ___ZN19AppleJPEGReadPlugin12readExifDataEP13IIODictionarybb_block_invoke(ui
   else
   {
     v6 = a3 + *(a2 + 16) + *(a1 + 72);
-    v7 = (v6 + 10);
+    v7 = v6 + 10;
     if (v6 == -10)
     {
       return;
@@ -1969,9 +1069,9 @@ void ___ZN19AppleJPEGReadPlugin12readExifDataEP13IIODictionarybb_block_invoke(ui
   }
 }
 
-void sub_185EC168C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185EC168C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IIONumber::~IIONumber(va);
   _Unwind_Resume(a1);
 }
@@ -1988,7 +1088,7 @@ uint64_t XMPMeta::Initialize(XMPMeta *this)
   result = ImageIOShouldAllowFullsizeDecode();
   if (result)
   {
-    v5 = _cg_jpeg_mem_term(result, v3, v4);
+    _cg_jpeg_mem_term(result, v3, v4);
     AdobeXMPCore_Int::INameSpacePrefixMap_I::CreateDefaultNameSpacePrefixMap(v5);
     operator new();
   }
@@ -2241,7 +1341,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string,std::string> &>(void *a1, uint64_t a2, const void **a3)
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string,std::string> &>(uint64_t **a1, void *a2, const void **a3)
 {
   v8 = 0;
   v9 = 0;
@@ -2257,23 +1357,23 @@ uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value
   return v3;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(void *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, const void **a5)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(void *a1, void *a2, const void ***a3, uint64_t *a4, const void **a5)
 {
-  v9 = (a1 + 1);
-  if (a1 + 1 != a2 && !std::less<std::string>::operator()[abi:fe200100](a1, a5, (a2 + 32)))
+  v9 = a1 + 1;
+  if (a1 + 1 != a2 && !std::less<std::string>::operator()[abi:fe200100](a1, a5, a2 + 4))
   {
-    if (!std::less<std::string>::operator()[abi:fe200100](a1, (a2 + 32), a5))
+    if (!std::less<std::string>::operator()[abi:fe200100](a1, a2 + 4, a5))
     {
       *a3 = a2;
       *a4 = a2;
       return a4;
     }
 
-    a4 = (a2 + 8);
-    v13 = *(a2 + 8);
+    a4 = a2 + 1;
+    v13 = a2[1];
     if (v13)
     {
-      v14 = *(a2 + 8);
+      v14 = a2[1];
       do
       {
         v15 = v14;
@@ -2327,7 +1427,7 @@ LABEL_16:
     if (*a2)
     {
       *a3 = v12;
-      return v12 + 8;
+      return (v12 + 1);
     }
 
     else
@@ -2343,7 +1443,7 @@ LABEL_16:
     do
     {
       v12 = v11;
-      v11 = *(v11 + 8);
+      v11 = v11[1];
     }
 
     while (v11);
@@ -2354,7 +1454,7 @@ LABEL_16:
     v16 = a2;
     do
     {
-      v12 = *(v16 + 16);
+      v12 = v16[2];
       v17 = *v12 == v16;
       v16 = v12;
     }
@@ -2362,7 +1462,7 @@ LABEL_16:
     while (v17);
   }
 
-  if (std::less<std::string>::operator()[abi:fe200100](a1, (v12 + 32), a5))
+  if (std::less<std::string>::operator()[abi:fe200100](a1, v12 + 4, a5))
   {
     goto LABEL_16;
   }
@@ -2415,9 +1515,9 @@ void AdobeXMPCore_Int::AutoSharedLock::~AutoSharedLock(uint64_t **this)
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<XPathStepInfo>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<XPathStepInfo>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<XPathStepInfo>>>>::__find_equal<std::string>(uint64_t a1, uint64_t *a2, const void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,std::vector<XPathStepInfo>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<XPathStepInfo>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<XPathStepInfo>>>>::__find_equal<std::string>(uint64_t a1, const void ***a2, const void **a3)
 {
-  v5 = a1 + 8;
+  v5 = (a1 + 8);
   v4 = *(a1 + 8);
   if (v4)
   {
@@ -2426,7 +1526,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::vector<XPathStepInfo>>,s
       while (1)
       {
         v8 = v4;
-        if (!std::less<std::string>::operator()[abi:fe200100](a1, a3, (v4 + 32)))
+        if (!std::less<std::string>::operator()[abi:fe200100](a1, a3, v4 + 4))
         {
           break;
         }
@@ -2439,13 +1539,13 @@ uint64_t std::__tree<std::__value_type<std::string,std::vector<XPathStepInfo>>,s
         }
       }
 
-      if (!std::less<std::string>::operator()[abi:fe200100](a1, (v8 + 32), a3))
+      if (!std::less<std::string>::operator()[abi:fe200100](a1, v8 + 4, a3))
       {
         break;
       }
 
-      v5 = v8 + 8;
-      v4 = *(v8 + 8);
+      v5 = v8 + 1;
+      v4 = v8[1];
     }
 
     while (v4);
@@ -2453,7 +1553,7 @@ uint64_t std::__tree<std::__value_type<std::string,std::vector<XPathStepInfo>>,s
 
   else
   {
-    v8 = a1 + 8;
+    v8 = (a1 + 8);
   }
 
 LABEL_9:
@@ -2559,7 +1659,7 @@ void RegisterAlias(char *a1, char *a2, char *a3, char *a4, unsigned int a5)
       goto LABEL_122;
     }
 
-    LODWORD(v73[2].__r_.__value_.__r.__words[1]) |= v8;
+    *(v73 + 14) |= v8;
     if (v8 > 0xFFF)
     {
       std::string::basic_string[abi:fe200100]<0>(&__p, "[?xml:lang=x-default]");
@@ -2590,11 +1690,11 @@ LABEL_15:
     }
 
     v11 = *&__p.__r_.__value_.__l.__data_;
-    v10->__r_.__value_.__r.__words[2] = __p.__r_.__value_.__r.__words[2];
-    *&v10->__r_.__value_.__l.__data_ = v11;
+    *(v10 + 2) = *(&__p.__r_.__value_.__l + 2);
+    *v10 = v11;
     memset(&__p, 0, sizeof(__p));
-    LODWORD(v10[1].__r_.__value_.__l.__data_) = v72;
-    v74 = (v10 + 32);
+    *(v10 + 6) = v72;
+    v74 = v10 + 2;
   }
 
 LABEL_17:
@@ -2603,7 +1703,7 @@ LABEL_17:
     goto LABEL_122;
   }
 
-  v12 = std::__tree<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>>>::find<std::string>(sRegisteredAliasMap, v76 + 32);
+  v12 = std::__tree<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>>>::find<std::string>(sRegisteredAliasMap, (v76 + 4));
   if (sRegisteredAliasMap + 8 == v12)
   {
     if ((v74 - v73) <= 0x20)
@@ -2611,7 +1711,7 @@ LABEL_17:
       goto LABEL_122;
     }
 
-    v35 = std::__tree<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>>>::find<std::string>(sRegisteredAliasMap, &v73[1].__r_.__value_.__l.__size_);
+    v35 = std::__tree<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>>>::find<std::string>(sRegisteredAliasMap, (v73 + 2));
     if (sRegisteredAliasMap + 8 == v35)
     {
 LABEL_60:
@@ -2623,7 +1723,7 @@ LABEL_60:
 LABEL_110:
         if ((v77 - v76) > 0x20)
         {
-          std::pair<std::string const,std::vector<XPathStepInfo>>::pair[abi:fe200100]<std::string&,std::vector<XPathStepInfo>&,0>(&__p, (v76 + 32), &v73);
+          std::pair<std::string const,std::vector<XPathStepInfo>>::pair[abi:fe200100]<std::string&,std::vector<XPathStepInfo>&,0>(&__p, v76 + 2, &v73);
           std::__tree<std::__value_type<std::string,std::vector<XPathStepInfo>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<XPathStepInfo>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<XPathStepInfo>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::vector<XPathStepInfo>>>(v38, &__p.__r_.__value_.__l.__data_);
           v79 = &v72;
           std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v79);
@@ -2661,7 +1761,7 @@ LABEL_110:
 
             else
             {
-              v47 = *(v41 + 40);
+              v47 = v41[5];
             }
 
             v48 = *(v44 + 55);
@@ -2673,7 +1773,7 @@ LABEL_110:
 
             if (v47 == v48)
             {
-              v50 = v46 >= 0 ? (v41 + 32) : *(v41 + 32);
+              v50 = v46 >= 0 ? v41 + 4 : v41[4];
               v53 = *(v44 + 32);
               v51 = v44 + 32;
               v52 = v53;
@@ -2729,7 +1829,7 @@ LABEL_110:
 
             else
             {
-              v61 = *(v76 + 40);
+              v61 = v76[5];
             }
 
             v62 = v59[2].__r_.__value_.__s.__data_[7];
@@ -2741,7 +1841,7 @@ LABEL_110:
 
             if (v61 == v62)
             {
-              v64 = v60 >= 0 ? (v76 + 32) : *(v76 + 32);
+              v64 = v60 >= 0 ? v76 + 4 : v76[4];
               v65 = v63 >= 0 ? &v59[1].__r_.__value_.__r.__words[1] : v59[1].__r_.__value_.__l.__size_;
               if (!memcmp(v64, v65, v61))
               {
@@ -2762,7 +1862,7 @@ LABEL_110:
                   goto LABEL_122;
                 }
 
-                std::string::operator=((v66 + 32), (v73 + 32));
+                std::string::operator=((v66 + 32), (v73 + 2));
               }
             }
 
@@ -2827,7 +1927,7 @@ LABEL_123:
       v37 = *(v35 + 56);
       if ((*(v35 + 64) - v37) > 0x20 && (v74 - v73) > 0x20)
       {
-        std::string::operator=((v73 + 32), (v37 + 32));
+        std::string::operator=((v73 + 2), (v37 + 32));
         goto LABEL_60;
       }
     }
@@ -2857,15 +1957,15 @@ LABEL_122:
     goto LABEL_120;
   }
 
-  v16 = v73[2].__r_.__value_.__s.__data_[7];
+  v16 = *(v73 + 55);
   if (v16 >= 0)
   {
-    v17 = v73[2].__r_.__value_.__s.__data_[7];
+    v17 = *(v73 + 55);
   }
 
   else
   {
-    v17 = v73[1].__r_.__value_.__r.__words[2];
+    v17 = *(v73 + 5);
   }
 
   v18 = *(v13 + 55);
@@ -2875,7 +1975,7 @@ LABEL_122:
     v18 = *(v13 + 40);
   }
 
-  if (v17 != v18 || (v16 >= 0 ? (size = &v73[1].__r_.__value_.__s.__data_[8]) : (size = v73[1].__r_.__value_.__l.__size_), v19 >= 0 ? (v21 = (v13 + 32)) : (v21 = *(v13 + 32)), memcmp(size, v21, v17)))
+  if (v17 != v18 || (v16 >= 0 ? (v20 = v73 + 2) : (v20 = *(v73 + 4)), v19 >= 0 ? (v21 = (v13 + 32)) : (v21 = *(v13 + 32)), memcmp(v20, v21, v17)))
   {
     v34 = "Mismatch with existing actual name";
     goto LABEL_120;
@@ -2883,15 +1983,15 @@ LABEL_122:
 
   if (v14 == 96)
   {
-    v22 = v15[3].__r_.__value_.__s.__data_[15];
+    v22 = *(v15 + 87);
     if (v22 >= 0)
     {
-      v23 = v15[3].__r_.__value_.__s.__data_[15];
+      v23 = *(v15 + 87);
     }
 
     else
     {
-      v23 = v15[3].__r_.__value_.__r.__words[0];
+      v23 = *(v15 + 9);
     }
 
     v24 = *(v13 + 87);
@@ -2901,7 +2001,7 @@ LABEL_122:
       v24 = *(v13 + 72);
     }
 
-    if (v23 != v24 || ((v28 = v15[2].__r_.__value_.__r.__words[2], v27 = &v15[2].__r_.__value_.__s.__data_[16], v26 = v28, v22 >= 0) ? (v29 = v27) : (v29 = v26), (v32 = *(v13 + 64), v31 = (v13 + 64), v30 = v32, v25 >= 0) ? (v33 = v31) : (v33 = v30), memcmp(v29, v33, v23)))
+    if (v23 != v24 || ((v28 = *(v15 + 8), v27 = v15 + 4, v26 = v28, v22 >= 0) ? (v29 = v27) : (v29 = v26), (v32 = *(v13 + 64), v31 = (v13 + 64), v30 = v32, v25 >= 0) ? (v33 = v31) : (v33 = v30), memcmp(v29, v33, v23)))
     {
       v34 = "Mismatch with existing actual array item";
 LABEL_120:
@@ -2935,7 +2035,7 @@ void sub_185EC37B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ExpandXPath(char *a1, _BYTE *a2, uint64_t a3)
+void ExpandXPath(char *a1, _BYTE *a2, void ***a3)
 {
   if (!a1 || !a2 || !a3 || (v5 = *a2, !*a2))
   {
@@ -3000,7 +2100,7 @@ LABEL_166:
     goto LABEL_170;
   }
 
-  if (*a3 != *(a3 + 8))
+  if (*a3 != a3[1])
   {
     v76 = "(expandedXPath != 0) && (expandedXPath->empty())";
     v77 = 117;
@@ -3063,12 +2163,12 @@ LABEL_32:
   {
     std::string::basic_string[abi:fe200100]<0>(&__p, a1);
     v91 = 0x80000000;
-    v22 = *(a3 + 8);
-    if (v22 >= *(a3 + 16))
+    v22 = a3[1];
+    if (v22 >= a3[2])
     {
       v32 = std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(a3, &__p);
       v33 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-      *(a3 + 8) = v32;
+      a3[1] = v32;
       if (v33 < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -3078,42 +2178,42 @@ LABEL_32:
     else
     {
       v23 = *&__p.__r_.__value_.__l.__data_;
-      *(v22 + 16) = *(&__p.__r_.__value_.__l + 2);
+      v22[2] = __p.__r_.__value_.__r.__words[2];
       *v22 = v23;
       memset(&__p, 0, sizeof(__p));
-      *(v22 + 24) = v91;
-      *(a3 + 8) = v22 + 32;
+      *(v22 + 6) = v91;
+      a3[1] = v22 + 4;
     }
 
     std::string::basic_string[abi:fe200100]<0>(&__p, v92);
     v91 = 0;
-    v34 = *(a3 + 8);
-    if (v34 >= *(a3 + 16))
+    v34 = a3[1];
+    if (v34 >= a3[2])
     {
       v36 = std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(a3, &__p);
       v37 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-      *(a3 + 8) = v36;
+      a3[1] = v36;
       if (v37 < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
-        v36 = *(a3 + 8);
+        v36 = a3[1];
       }
     }
 
     else
     {
       v35 = *&__p.__r_.__value_.__l.__data_;
-      *(v34 + 16) = *(&__p.__r_.__value_.__l + 2);
+      v34[2] = __p.__r_.__value_.__r.__words[2];
       *v34 = v35;
       memset(&__p, 0, sizeof(__p));
-      *(v34 + 24) = v91;
-      v36 = v34 + 32;
-      *(a3 + 8) = v34 + 32;
+      *(v34 + 6) = v91;
+      v36 = (v34 + 4);
+      a3[1] = v34 + 4;
     }
 
     if ((v36 - *a3) > 0x20)
     {
-      std::string::append((*a3 + 32), v13);
+      std::string::append((*a3 + 4), v13);
       goto LABEL_65;
     }
 
@@ -3164,12 +2264,12 @@ LABEL_182:
 
   std::string::basic_string[abi:fe200100]<0>(&__p, a1);
   v91 = 0x80000000;
-  v24 = *(a3 + 8);
-  if (v24 >= *(a3 + 16))
+  v24 = a3[1];
+  if (v24 >= a3[2])
   {
     v26 = std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(a3, &__p);
     v27 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-    *(a3 + 8) = v26;
+    a3[1] = v26;
     if (v27 < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3179,21 +2279,21 @@ LABEL_182:
   else
   {
     v25 = *&__p.__r_.__value_.__l.__data_;
-    *(v24 + 16) = *(&__p.__r_.__value_.__l + 2);
+    v24[2] = __p.__r_.__value_.__r.__words[2];
     *v24 = v25;
     memset(&__p, 0, sizeof(__p));
-    *(v24 + 24) = v91;
-    *(a3 + 8) = v24 + 32;
+    *(v24 + 6) = v91;
+    a3[1] = v24 + 4;
   }
 
   std::string::basic_string[abi:fe200100]<0>(&__p, v13);
   v91 = 0;
-  v28 = *(a3 + 8);
-  if (v28 >= *(a3 + 16))
+  v28 = a3[1];
+  if (v28 >= a3[2])
   {
     v30 = std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(a3, &__p);
     v31 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-    *(a3 + 8) = v30;
+    a3[1] = v30;
     if (v31 < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -3203,11 +2303,11 @@ LABEL_182:
   else
   {
     v29 = *&__p.__r_.__value_.__l.__data_;
-    *(v28 + 16) = *(&__p.__r_.__value_.__l + 2);
+    v28[2] = __p.__r_.__value_.__r.__words[2];
     *v28 = v29;
     memset(&__p, 0, sizeof(__p));
-    *(v28 + 24) = v91;
-    *(a3 + 8) = v28 + 32;
+    *(v28 + 6) = v91;
+    a3[1] = v28 + 4;
   }
 
   if (SHIBYTE(v89) < 0)
@@ -3216,13 +2316,13 @@ LABEL_182:
   }
 
 LABEL_65:
-  if (*(a3 + 8) - *a3 <= 0x20uLL)
+  if ((a3[1] - *a3) <= 0x20)
   {
     goto LABEL_188;
   }
 
-  v38 = std::__tree<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>>>::find<std::string>(sRegisteredAliasMap, *a3 + 32);
-  if (*(a3 + 8) - *a3 <= 0x20uLL)
+  v38 = std::__tree<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<IIOBaseObject>>>>::find<std::string>(sRegisteredAliasMap, (*a3 + 4));
+  if ((a3[1] - *a3) <= 0x20)
   {
     goto LABEL_188;
   }
@@ -3239,7 +2339,7 @@ LABEL_65:
     v41 = 17;
   }
 
-  *(*a3 + 56) |= v41;
+  *(*a3 + 14) |= v41;
   while (1)
   {
     v42 = *v15;
@@ -3576,12 +2676,12 @@ LABEL_149:
     }
 
     v91 = v46;
-    v72 = *(a3 + 8);
-    if (v72 >= *(a3 + 16))
+    v72 = a3[1];
+    if (v72 >= a3[2])
     {
       v74 = std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(a3, &__p);
       v75 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-      *(a3 + 8) = v74;
+      a3[1] = v74;
       if (v75 < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -3591,11 +2691,11 @@ LABEL_149:
     else
     {
       v73 = *&__p.__r_.__value_.__l.__data_;
-      *(v72 + 16) = *(&__p.__r_.__value_.__l + 2);
+      v72[2] = __p.__r_.__value_.__r.__words[2];
       *v72 = v73;
       memset(&__p, 0, sizeof(__p));
-      *(v72 + 24) = v91;
-      *(a3 + 8) = v72 + 32;
+      *(v72 + 6) = v91;
+      a3[1] = v72 + 4;
     }
 
     if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
@@ -3632,7 +2732,7 @@ void sub_185EC420C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<XPathStepInfo>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<XPathStepInfo>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
@@ -3647,14 +2747,14 @@ void *std::vector<XPathStepInfo>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_185EC4368(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185EC4368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<XPathStepInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-char *VerifySimpleXMLName(char *result, char *a2)
+unsigned __int8 *VerifySimpleXMLName(unsigned __int8 *result, const char *a2)
 {
   if (result >= a2)
   {
@@ -3835,16 +2935,16 @@ uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<IIOBaseObject
   return v7;
 }
 
-uint64_t std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(uint64_t *a1, __int128 *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -3878,14 +2978,14 @@ uint64_t std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(uin
   *a2 = 0;
   *(v8 + 24) = *(a2 + 6);
   *&v18 = 32 * v2 + 32;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 32 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<XPathStepInfo>,XPathStepInfo*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -3894,18 +2994,18 @@ uint64_t std::vector<XPathStepInfo>::__emplace_back_slow_path<XPathStepInfo>(uin
   return v15;
 }
 
-void sub_185EC488C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_185EC488C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<XPathStepInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-AdobeXMPCore_Int::ISharedMutex *AdobeXMPCore_Int::ThreadSafeImpl::EnableThreadSafety(AdobeXMPCore_Int::ISharedMutex *this)
+uint64_t AdobeXMPCore_Int::ThreadSafeImpl::EnableThreadSafety(uint64_t this)
 {
-  if (!*(this + 1))
+  if (!*(this + 8))
   {
-    AdobeXMPCore_Int::ISharedMutex::CreateSharedMutex(this);
+    AdobeXMPCore_Int::ISharedMutex::CreateSharedMutex();
   }
 
   return this;
@@ -4013,22 +3113,22 @@ uint64_t Common::HandlerRegistry::initialize(Common::HandlerRegistry *this)
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>>>::__emplace_hint_unique_key_args<unsigned int,std::pair<unsigned int,Common::XMPFileHandlerInfo>>(void *a1, uint64_t *a2, unsigned int *a3)
+uint64_t std::__tree<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>>>::__emplace_hint_unique_key_args<unsigned int,std::pair<unsigned int,Common::XMPFileHandlerInfo>>(uint64_t **a1, uint64_t *a2, unsigned int *a3, uint64_t a4)
 {
-  v5 = 0;
   v6 = 0;
-  v3 = *std::__tree<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>>>::__find_equal<unsigned int>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v7 = 0;
+  v4 = *std::__tree<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>>>::__find_equal<unsigned int>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>>>::__find_equal<unsigned int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
+uint64_t *std::__tree<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,Common::XMPFileHandlerInfo>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,Common::XMPFileHandlerInfo>>>::__find_equal<unsigned int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, unsigned int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -4055,7 +3155,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -4116,7 +3216,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -4195,7 +3295,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -4402,13 +3502,6 @@ void TXMPMeta<std::string>::TXMPMeta(void *a1)
   WXMPMeta_CTor_1(v1);
 }
 
-{
-  *a1 = &unk_1EF4D9060;
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  WXMPMeta_CTor_1(v1);
-}
-
 void XMPMeta::XMPMeta(XMPMeta *this)
 {
   *this = &unk_1EF4FCF18;
@@ -4473,53 +3566,49 @@ vImagePixelCount IIOImagePixelDataProvider::getBytesDataProvider(IIOImagePixelDa
           return 0;
         }
 
-        v32 = DataProvider;
-        v33 = CGDataProviderCopyData(DataProvider);
-        *(this + 27) = v33;
-        if (!v33)
+        v32 = CGDataProviderCopyData(DataProvider);
+        *(this + 27) = v32;
+        if (!v32)
         {
           return 0;
         }
 
-        v34 = (*(this + 4) - 1) * *(this + 16) + ((*(this + 3) * *(this + 11)) >> 3);
-        Length = CFDataGetLength(v33);
-        if (Length < v34)
+        v33 = (*(this + 4) - 1) * *(this + 16) + ((*(this + 3) * *(this + 11)) >> 3);
+        if (CFDataGetLength(v32) < v33)
         {
-          v36 = Length;
           CFRelease(*(this + 27));
           *(this + 27) = 0;
-          _cg_jpeg_mem_term("getBytesDataProvider", 1042, "CGDataProviderCopyData(%p) did not return enough data. Got %d, expected %d.\n", v32, v36, *(this + 8) * *(this + 32));
-          v37 = CGAccessSessionCreate();
-          *&v38 = _cg_jpeg_mem_term("getBytesDataProvider", 1045, "Making a copy of the data via CGAccessSession (%p).\n", v37).n128_u64[0];
-          if (v37)
+          _cg_jpeg_mem_term("getBytesDataProvider", 1042, "CGDataProviderCopyData(%p) did not return enough data. Got %d, expected %d.\n");
+          v40 = CGAccessSessionCreate();
+          _cg_jpeg_mem_term("getBytesDataProvider", 1045, "Making a copy of the data via CGAccessSession (%p).\n");
+          if (v40)
           {
             SizeOfData = CGDataProviderGetSizeOfData();
-            v40 = *(this + 16);
-            v41 = *(this + 4);
-            if (SizeOfData != v41 * v40)
+            v35 = *(this + 16);
+            v36 = *(this + 4);
+            if (SizeOfData != v36 * v35)
             {
-              SizeOfData = (v41 - 1) * v40 + *(this + 3) * (*(this + 11) >> 3);
+              SizeOfData = (v36 - 1) * v35 + *(this + 3) * (*(this + 11) >> 3);
             }
 
             Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], SizeOfData);
             if (Mutable)
             {
-              v43 = Mutable;
+              v38 = Mutable;
               CFDataSetLength(Mutable, SizeOfData);
-              CFDataGetMutableBytePtr(v43);
-              Bytes = CGAccessSessionGetBytes();
-              if (Bytes == SizeOfData)
+              CFDataGetMutableBytePtr(v38);
+              if (CGAccessSessionGetBytes() == SizeOfData)
               {
-                _cg_jpeg_mem_term("getBytesDataProvider", 1066, "    success: (%p) CGAccessSessionGetBytes - got all data.\n", v32);
-                *(this + 27) = CFRetain(v43);
+                _cg_jpeg_mem_term("getBytesDataProvider", 1066, "    success: (%p) CGAccessSessionGetBytes - got all data.\n");
+                *(this + 27) = CFRetain(v38);
               }
 
               else
               {
-                _cg_jpeg_mem_term("getBytesDataProvider", 1070, "*** CGAccessSessionGetBytes did not return enough data. Expected %zd, Got %zd.\n", SizeOfData, Bytes);
+                _cg_jpeg_mem_term("getBytesDataProvider", 1070, "*** CGAccessSessionGetBytes did not return enough data. Expected %zd, Got %zd.\n");
               }
 
-              CFRelease(v43);
+              CFRelease(v38);
             }
 
             else
@@ -4532,7 +3621,7 @@ vImagePixelCount IIOImagePixelDataProvider::getBytesDataProvider(IIOImagePixelDa
 
           else
           {
-            _cg_jpeg_mem_term("getBytesDataProvider", 1080, "*** Failed to create CGAccessSession.\n", v38);
+            _cg_jpeg_mem_term("getBytesDataProvider", 1080, "*** Failed to create CGAccessSession.\n");
           }
         }
 
@@ -4552,14 +3641,14 @@ vImagePixelCount IIOImagePixelDataProvider::getBytesDataProvider(IIOImagePixelDa
         v14 = (8 * (v12 % v13) / *(this + 21));
         v15 = (v12 / v13);
         v16 = IIOImagePixelDataProvider::endingPointForByteCount(this, v8);
-        v47.x = v16;
+        v42.x = v16;
         v18 = v17;
         LODWORD(v16) = *(this + 11);
         v19 = &v11[*(this + 16) * v15 + (v14 * *&v16 * 0.125)];
-        v46.x = v14;
-        v46.y = v15;
-        v47.y = v18;
-        v3 = IIOImagePixelDataProvider::convertBytesWithRange(this, v19, a2, v46, v47, v8);
+        v41.x = v14;
+        v41.y = v15;
+        v42.y = v18;
+        v3 = IIOImagePixelDataProvider::convertBytesWithRange(this, v19, a2, v41, v42, v8);
         if ((*(this + 56) & 0x1F) == 0 && (*(this + 24) & 0x1F) == 3)
         {
           Mask = CGImageGetMask();
@@ -4848,7 +3937,7 @@ LABEL_13:
     result = XMP_Node::ClearNode((this + 224));
     if (v6 | v8)
     {
-      XMP_NewExpatAdapter();
+      XMP_NewExpatAdapter(1);
     }
   }
 
@@ -5134,7 +4223,7 @@ void sub_185EC6504(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t XMPMeta::ProcessXMLBuffer(XMPMeta *this, const char *a2, unsigned int a3, uint64_t a4)
+uint64_t XMPMeta::ProcessXMLBuffer(XMPMeta *this, const char *a2, unsigned int a3, _BOOL8 a4)
 {
   v5 = a3;
   v6 = a2;
@@ -5158,7 +4247,7 @@ uint64_t XMPMeta::ProcessXMLBuffer(XMPMeta *this, const char *a2, unsigned int a
       memcpy((v8 + 216 + v10), a2, v13);
       v11 = *(v8 + 208) + v13;
       *(v8 + 208) = v11;
-      if ((a4 & 1) == 0 && v11 < 0x10)
+      if (!a4 && v11 < 0x10)
       {
         return 0;
       }
@@ -5236,7 +4325,7 @@ LABEL_31:
     memcpy((v15 + v14), v6, v16);
     v17 = *(v8 + 208) + v16;
     *(v8 + 208) = v17;
-    if ((a4 & 1) == 0 && v17 < 0x10)
+    if (!a4 && v17 < 0x10)
     {
       return 0;
     }
@@ -5699,7 +4788,7 @@ LABEL_22:
   return result;
 }
 
-BOOL StartNamespaceDeclHandler(_BOOL8 result, char *a2, char *__s1)
+uint64_t StartNamespaceDeclHandler(uint64_t result, char *a2, char *__s1)
 {
   if (a2)
   {
@@ -5935,8 +5024,8 @@ LABEL_9:
     if (strncmp(a2, "Warning", 7uLL))
     {
 LABEL_34:
-      _cg_jpeg_mem_term("AddTextChunkToProperties", 1069, "PNG - not handling:      key: %s\n", a2);
-      _cg_jpeg_mem_term("AddTextChunkToProperties", 1070, "                        text: %s\n", bytes);
+      _cg_jpeg_mem_term("AddTextChunkToProperties", 1069, "PNG - not handling:      key: %s\n");
+      _cg_jpeg_mem_term("AddTextChunkToProperties", 1070, "                        text: %s\n");
       goto LABEL_35;
     }
 
@@ -5954,7 +5043,7 @@ LABEL_35:
   CFRelease(v12);
 }
 
-void StartElementHandler(void *a1, const char *a2, const char **a3)
+void StartElementHandler(ExpatAdapter *a1, const char *a2, const char **a3)
 {
   if (a3)
   {
@@ -5978,7 +5067,7 @@ void StartElementHandler(void *a1, const char *a2, const char **a3)
       }
     }
 
-    if (a1[20] != a1[21])
+    if (*(a1 + 20) != *(a1 + 21))
     {
       operator new();
     }
@@ -6144,7 +5233,7 @@ LABEL_55:
   return result;
 }
 
-uint64_t CharacterDataHandler(uint64_t result, const char *a2)
+uint64_t CharacterDataHandler(uint64_t result, const char *a2, int a3)
 {
   if (*(result + 160) != *(result + 168))
   {
@@ -6172,9 +5261,9 @@ void *EndElementHandler(void *result, const char *a2)
   return result;
 }
 
-void XMPMeta::ProcessXMLTree(XMPMeta *this, char a2)
+void XMPMeta::ProcessXMLTree(size_t *this, char a2)
 {
-  v4 = *(this + 43);
+  v4 = this[43];
   if (v4[24] < 2uLL)
   {
     v5 = v4[23];
@@ -6251,15 +5340,15 @@ LABEL_44:
   {
 LABEL_16:
     XMPMeta::ProcessRDF(this, v5);
-    NormalizeDCArrays((this + 224));
+    NormalizeDCArrays((this + 28));
     if ((*(this + 234) & 2) != 0)
     {
-      MoveExplicitAliases((this + 224), a2, (this + 352));
+      MoveExplicitAliases((this + 28), a2, (this + 44));
     }
 
     TouchUpDataModel(this, v11);
-    v12 = *(this + 37);
-    v13 = *(this + 38);
+    v12 = this[37];
+    v13 = this[38];
     if (v13 != v12)
     {
       v14 = 0;
@@ -6269,8 +5358,8 @@ LABEL_16:
         if (v15[10] == v15[9])
         {
           (*(*v15 + 8))(v15);
-          v12 = *(this + 37);
-          v16 = *(this + 38);
+          v12 = this[37];
+          v16 = this[38];
           if (v16 == v12 + 8 * v14)
           {
             __break(1u);
@@ -6282,11 +5371,11 @@ LABEL_16:
           if (v16 != v17 + 8)
           {
             memmove((v12 + 8 * v14), (v17 + 8), v16 - (v17 + 8));
-            v12 = *(this + 37);
+            v12 = this[37];
           }
 
           v13 = v17 + v18;
-          *(this + 38) = v17 + v18;
+          this[38] = v17 + v18;
         }
 
         else
@@ -6300,15 +5389,15 @@ LABEL_16:
   }
 }
 
-void RDF_Parser::NodeElementList(RDF_Parser *this, size_t *a2, const XML_Node *a3, char a4)
+void RDF_Parser::NodeElementList(RDF_Parser *this, size_t *a2, XML_Node ***a3, char a4)
 {
   if ((a4 & 1) == 0)
   {
     RDF_Parser::NodeElementList();
   }
 
-  v4 = *(a3 + 16);
-  for (i = *(a3 + 17); v4 != i; ++v4)
+  v4 = a3[16];
+  for (i = a3[17]; v4 != i; ++v4)
   {
     if ((XML_Node::IsWhitespaceNode(*v4) & 1) == 0)
     {
@@ -6690,40 +5779,40 @@ LABEL_19:
   return this;
 }
 
-uint64_t IIO_ConvertCGColorToColorComponents(CGColor *a1, uint64_t a2)
+uint64_t IIO_ConvertCGColorToColorComponents(CGColor *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = MEMORY[0x186601360](a2, 0);
-  if (!v3)
+  v5 = MEMORY[0x186601360](a2, 0);
+  if (!v5)
   {
     return 0;
   }
 
-  v4 = v3;
+  v6 = v5;
   if (a1)
   {
     CGColorGetColorSpace(a1);
     CGColorGetComponents(a1);
-    v5 = CGColorTransformConvertColorComponents();
+    v7 = CGColorTransformConvertColorComponents();
   }
 
   else
   {
-    v6 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F128]);
-    if (v6)
+    v8 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F128]);
+    if (v8)
     {
-      v7 = v6;
-      v5 = CGColorTransformConvertColorComponents();
-      CFRelease(v7);
+      v9 = v8;
+      v7 = CGColorTransformConvertColorComponents();
+      CFRelease(v9);
     }
 
     else
     {
-      v5 = 0;
+      v7 = 0;
     }
   }
 
-  CFRelease(v4);
-  return v5;
+  CFRelease(v6);
+  return v7;
 }
 
 void RDF_Parser::PropertyElementList(RDF_Parser *this, XMP_Node *a2, const XML_Node *a3, int a4)
@@ -6937,7 +6026,7 @@ LABEL_64:
   }
 }
 
-void RDF_Parser::LiteralPropertyElement(RDF_Parser *this, XMP_Node *a2, const XML_Node ***a3, int a4)
+void RDF_Parser::LiteralPropertyElement(RDF_Parser *this, XMP_Node *a2, const XML_Node ***a3, BOOL a4)
 {
   v6 = RDF_Parser::AddChildNode(this, a2, a3, "", a4);
   if (v6)
@@ -7082,17 +6171,17 @@ LABEL_17:
   }
 }
 
-uint64_t FindSchemaNode(uint64_t result, char *__s, int a3, void *a4)
+size_t FindSchemaNode(size_t result, char *__s, int a3, XMP_Node ***a4, uint64_t (*a5)(uint64_t, char *, _BYTE *, _BYTE *), uint64_t a6)
 {
   if (*(result + 64))
   {
     FindSchemaNode();
   }
 
-  v5 = result;
-  v7 = *(result + 72);
-  v8 = *(result + 80) - v7;
-  if (!v8)
+  v7 = result;
+  v9 = *(result + 72);
+  v10 = *(result + 80) - v9;
+  if (!v10)
   {
 LABEL_14:
     if (a3)
@@ -7100,62 +6189,62 @@ LABEL_14:
       operator new();
     }
 
-    v12 = 0;
+    v14 = 0;
     goto LABEL_21;
   }
 
-  v9 = 0;
-  v10 = v8 >> 3;
-  v11 = *(result + 72);
+  v11 = 0;
+  v12 = v10 >> 3;
+  v13 = *(result + 72);
   while (1)
   {
-    if (v10 == v9)
+    if (v12 == v11)
     {
       __break(1u);
       return result;
     }
 
-    v12 = *(v7 + 8 * v9);
-    if (*(v12 + 64) != v5)
+    v14 = *(v9 + 8 * v11);
+    if (*(v14 + 64) != v7)
     {
       FindSchemaNode();
     }
 
-    v13 = (v12 + 16);
+    v15 = (v14 + 16);
     result = strlen(__s);
-    v14 = *(v12 + 39);
-    if ((v14 & 0x8000000000000000) == 0)
+    v16 = *(v14 + 39);
+    if ((v16 & 0x8000000000000000) == 0)
     {
       break;
     }
 
-    if (result == *(v12 + 24))
+    if (result == *(v14 + 24))
     {
       if (result == -1)
       {
         std::string::__throw_out_of_range[abi:fe200100]();
       }
 
-      v13 = *v13;
+      v15 = *v15;
       goto LABEL_12;
     }
 
 LABEL_13:
-    ++v9;
-    v11 += 8;
-    if (v10 == v9)
+    ++v11;
+    ++v13;
+    if (v12 == v11)
     {
       goto LABEL_14;
     }
   }
 
-  if (result != v14)
+  if (result != v16)
   {
     goto LABEL_13;
   }
 
 LABEL_12:
-  result = memcmp(v13, __s, result);
+  result = memcmp(v15, __s, result);
   if (result)
   {
     goto LABEL_13;
@@ -7163,18 +6252,18 @@ LABEL_12:
 
   if (!a4)
   {
-    return v12;
+    return v14;
   }
 
-  *a4 = v11;
-  if (v12)
+  *a4 = v13;
+  if (v14)
   {
-    if (v12 != **a4)
+    if (v14 != **a4)
     {
       FindSchemaNode();
     }
 
-    return v12;
+    return v14;
   }
 
 LABEL_21:
@@ -7183,7 +6272,7 @@ LABEL_21:
     FindSchemaNode();
   }
 
-  return v12;
+  return v14;
 }
 
 uint64_t png_do_write_transformations(uint64_t result, unsigned int *a2)
@@ -7280,10 +6369,10 @@ uint64_t png_do_write_transformations(uint64_t result, unsigned int *a2)
           v41 = 0;
         }
 
-        v42 = (v38 + ~v39);
+        v42 = v38 + ~v39;
         if (v41 >= v42)
         {
-          v43 = (v38 + ~v39);
+          v43 = v38 + ~v39;
         }
 
         else
@@ -8282,7 +7371,7 @@ uint64_t RDF_Parser::AddChildNode(RDF_Parser *this, XMP_Node *a2, const XML_Node
       v23 = *(a3 + 2);
     }
 
-    SchemaNode = FindSchemaNode(v10, v23, 1, 0);
+    SchemaNode = FindSchemaNode(v10, v23, 1, 0, 0, 0);
     v10 = SchemaNode;
     v25 = *(SchemaNode + 8);
     if ((v25 & 0x8000) != 0)
@@ -8808,7 +7897,7 @@ LABEL_37:
         break;
       }
 
-      v25 = v8 + 1;
+      v25 = (v8 + 1);
       if ((v22 + 1) >= a3 || v25 < a2)
       {
         break;
@@ -8843,7 +7932,7 @@ LABEL_90:
   return result;
 }
 
-uint64_t FindChildNode(uint64_t a1, char *__s, int a3, void *a4)
+XMP_Node *FindChildNode(uint64_t a1, char *__s, int a3, XMP_Node ***a4)
 {
   v6 = *(a1 + 8);
   if ((v6 & 0x80000100) != 0)
@@ -8932,7 +8021,7 @@ LABEL_18:
 
 LABEL_17:
     ++v10;
-    v12 += 8;
+    ++v12;
     if (v11 == v10)
     {
       goto LABEL_18;
@@ -8980,8 +8069,8 @@ void XMP_Node::XMP_Node(XMP_Node *this, XMP_Node *a2, char *__s, char *a4, int a
   *this = &unk_1EF4DE950;
   *(this + 2) = a5;
   v8 = (this + 16);
-  std::string::basic_string[abi:fe200100]<0>(this + 16, __s);
-  std::string::basic_string[abi:fe200100]<0>(this + 40, a4);
+  std::string::basic_string[abi:fe200100]<0>(this + 2, __s);
+  std::string::basic_string[abi:fe200100]<0>(this + 5, a4);
   *(this + 72) = 0u;
   *(this + 8) = a2;
   *(this + 88) = 0u;
@@ -9035,13 +8124,13 @@ void sub_185ECA3B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NormalizeDCArrays(XMP_Node *a1)
+void NormalizeDCArrays(XMP_Node *a1)
 {
-  result = FindSchemaNode(a1, "http://purl.org/dc/elements/1.1/", 0, 0);
-  if (result)
+  SchemaNode = FindSchemaNode(a1, "http://purl.org/dc/elements/1.1/", 0, 0, 0, 0);
+  if (SchemaNode)
   {
-    v2 = result;
-    v3 = *(result + 80) - *(result + 72);
+    v2 = SchemaNode;
+    v3 = *(SchemaNode + 80) - *(SchemaNode + 72);
     if (v3)
     {
       v4 = 0;
@@ -9062,7 +8151,7 @@ uint64_t NormalizeDCArrays(XMP_Node *a1)
         if (v4 >= (*(v2 + 80) - v7) >> 3)
         {
           __break(1u);
-          return result;
+          return;
         }
 
         v8 = *(v7 + 8 * v4);
@@ -9075,7 +8164,7 @@ uint64_t NormalizeDCArrays(XMP_Node *a1)
 LABEL_8:
         if (v6 == ++v4)
         {
-          return result;
+          return;
         }
       }
 
@@ -9173,13 +8262,7 @@ LABEL_60:
         }
 
 LABEL_102:
-        if (std::operator==[abi:fe200100]<char,std::char_traits<char>,std::allocator<char>>(v9, "dc:subject"))
-        {
-          goto LABEL_104;
-        }
-
-        result = std::operator==[abi:fe200100]<char,std::char_traits<char>,std::allocator<char>>(v33 + 2, "dc:type");
-        if (result)
+        if (std::operator==[abi:fe200100]<char,std::char_traits<char>,std::allocator<char>>(v9, "dc:subject") || std::operator==[abi:fe200100]<char,std::char_traits<char>,std::allocator<char>>(v33 + 2, "dc:type"))
         {
           goto LABEL_104;
         }
@@ -9219,13 +8302,11 @@ LABEL_102:
       goto LABEL_102;
     }
   }
-
-  return result;
 }
 
 void TouchUpDataModel(XMPMeta *a1, XMPMeta::ErrorCallbackInfo *a2)
 {
-  SchemaNode = FindSchemaNode(a1 + 224, "http://ns.adobe.com/exif/1.0/", 0, 0);
+  SchemaNode = FindSchemaNode(a1 + 224, "http://ns.adobe.com/exif/1.0/", 0, 0, 0, 0);
   if (SchemaNode)
   {
     v4 = SchemaNode;
@@ -9237,7 +8318,7 @@ void TouchUpDataModel(XMPMeta *a1, XMPMeta::ErrorCallbackInfo *a2)
       *__p = 0u;
       v66 = 0u;
       v7 = *(ChildNode + 63);
-      v8 = (ChildNode + 40);
+      v8 = ChildNode + 40;
       if (v7 < 0)
       {
         v8 = v6->__r_.__value_.__r.__words[0];
@@ -9250,7 +8331,7 @@ void TouchUpDataModel(XMPMeta *a1, XMPMeta::ErrorCallbackInfo *a2)
         if (v9 || (v9 = FindChildNode(v4, "exif:DateTimeDigitized", 0, 0)) != 0)
         {
           v10 = v9;
-          v11 = (v9 + 40);
+          v11 = v9 + 40;
           v64 = 0;
           memset(v63, 0, sizeof(v63));
           if (*(v10 + 63) < 0)
@@ -9273,18 +8354,18 @@ void TouchUpDataModel(XMPMeta *a1, XMPMeta::ErrorCallbackInfo *a2)
     }
   }
 
-  v13 = FindSchemaNode(a1 + 224, "http://ns.adobe.com/xmp/1.0/DynamicMedia/", 0, 0);
+  v13 = FindSchemaNode(a1 + 224, "http://ns.adobe.com/xmp/1.0/DynamicMedia/", 0, 0, 0, 0);
   if (v13)
   {
     v14 = FindChildNode(v13, "xmpDM:copyright", 0, 0);
     if (v14)
     {
       v15 = v14;
-      v16 = FindSchemaNode(a1 + 224, "http://purl.org/dc/elements/1.1/", 1, 0);
+      v16 = FindSchemaNode(a1 + 224, "http://purl.org/dc/elements/1.1/", 1, 0, 0, 0);
       v17 = FindChildNode(v16, "dc:rights", 0, 0);
       v18 = v17;
-      v19 = (v15 + 40);
-      if (!v17 || *(v17 + 72) == *(v17 + 80))
+      v19 = v15 + 40;
+      if (!v17 || *(v17 + 9) == *(v17 + 10))
       {
         std::string::insert((v15 + 40), 0, "\n\n");
         if (*(v15 + 63) < 0)
@@ -9384,7 +8465,7 @@ LABEL_47:
 
           else
           {
-            v39 = *(v15 + 48);
+            v39 = *(v15 + 6);
           }
 
           v40 = *(v25 + 48);
@@ -9393,18 +8474,18 @@ LABEL_47:
             v40 = v27;
           }
 
-          if (v39 != v40 || (v38 >= 0 ? (v41 = (v15 + 40)) : (v41 = *v19), (v27 & 0x80000000) == 0 ? (v42 = v26) : (v42 = v26->__r_.__value_.__r.__words[0]), memcmp(v41, v42, v39)))
+          if (v39 != v40 || (v38 >= 0 ? (v41 = v15 + 40) : (v41 = *v19), (v27 & 0x80000000) == 0 ? (v42 = v26) : (v42 = v26->__r_.__value_.__r.__words[0]), memcmp(v41, v42, v39)))
           {
             std::string::append(v26, "\n\n");
             v43 = *(v15 + 63);
             if (v43 >= 0)
             {
-              v44 = (v15 + 40);
+              v44 = v15 + 40;
             }
 
             else
             {
-              v44 = *(v15 + 40);
+              v44 = *(v15 + 5);
             }
 
             if (v43 >= 0)
@@ -9414,7 +8495,7 @@ LABEL_47:
 
             else
             {
-              v45 = *(v15 + 48);
+              v45 = *(v15 + 6);
             }
 
             std::string::append(v26, v44, v45);
@@ -9425,7 +8506,7 @@ LABEL_47:
         {
           v33 = ((v32 - v28) & 0x7FFFFFFF) + 2;
           v34 = *(v15 + 63);
-          v35 = *(v15 + 40);
+          v35 = *(v15 + 5);
           if (v34 >= 0)
           {
             v36 = *(v15 + 63);
@@ -9433,7 +8514,7 @@ LABEL_47:
 
           else
           {
-            v36 = *(v15 + 48);
+            v36 = *(v15 + 6);
           }
 
           if ((v27 & 0x80000000) != 0)
@@ -9499,13 +8580,13 @@ LABEL_112:
   }
 
 LABEL_70:
-  v46 = FindSchemaNode(a1 + 224, "http://purl.org/dc/elements/1.1/", 0, 0);
+  v46 = FindSchemaNode(a1 + 224, "http://purl.org/dc/elements/1.1/", 0, 0, 0, 0);
   if (v46)
   {
     v47 = FindChildNode(v46, "dc:subject", 0, 0);
     if (v47)
     {
-      *(v47 + 8) &= 0xFFFFE3FF;
+      *(v47 + 2) &= 0xFFFFE3FF;
     }
   }
 
@@ -9599,29 +8680,29 @@ LABEL_79:
   }
 }
 
-uint64_t RepairAltText(XMP_Node *a1, char *a2, char *a3)
+void *RepairAltText(XMP_Node *a1, char *a2, char *a3)
 {
-  result = FindSchemaNode(a1, a2, 0, 0);
+  result = FindSchemaNode(a1, a2, 0, 0, 0, 0);
   if (result)
   {
     result = FindChildNode(result, a3, 0, 0);
     if (result)
     {
       v5 = result;
-      if ((*(result + 8) & 0x1200) == 0x200)
+      if ((result[1] & 0x1200) == 0x200)
       {
-        *(result + 8) |= 0x1C00u;
-        v6 = ((*(result + 80) - *(result + 72)) >> 3) - 1;
+        *(result + 2) |= 0x1C00u;
+        v6 = ((result[10] - result[9]) >> 3) - 1;
         if (v6 >= 0)
         {
           v7 = v6 + 1;
-          v8 = 8 * (((*(result + 80) - *(result + 72)) >> 3) - 1);
+          v8 = 8 * (((result[10] - result[9]) >> 3) - 1);
           v9 = v8 ^ 0xFFFFFFFFFFFFFFF8;
           do
           {
             --v7;
-            v10 = *(v5 + 72);
-            if (v7 >= ((*(v5 + 80) - v10) >> 3))
+            v10 = v5[9];
+            if (v7 >= ((v5[10] - v10) >> 3))
             {
 LABEL_19:
               __break(1u);
@@ -9650,8 +8731,8 @@ LABEL_19:
             }
 
             result = (*(*v11 + 8))(v11);
-            v13 = *(v5 + 72);
-            v14 = *(v5 + 80);
+            v13 = v5[9];
+            v14 = v5[10];
             if (v14 == (v8 + v13))
             {
               goto LABEL_19;
@@ -9666,7 +8747,7 @@ LABEL_19:
               result = memmove(v15, v16, &v17[v9]);
             }
 
-            *(v5 + 80) = &v18[v15];
+            v5[10] = &v18[v15];
 LABEL_17:
             v8 -= 8;
             v9 += 8;
@@ -9728,41 +8809,41 @@ void XMLParserAdapter::~XMLParserAdapter(XMLParserAdapter *this)
     operator delete(v2);
   }
 
-  XML_Node::~XML_Node((this + 8));
+  XML_Node::~XML_Node(this + 1);
 }
 
-void XML_Node::~XML_Node(XML_Node *this)
+void XML_Node::~XML_Node(void **this)
 {
   *this = &unk_1EF4FF1C8;
   XML_Node::RemoveAttrs(this);
   XML_Node::RemoveContent(this);
-  v2 = *(this + 16);
+  v2 = this[16];
   if (v2)
   {
-    *(this + 17) = v2;
+    this[17] = v2;
     operator delete(v2);
   }
 
-  v3 = *(this + 13);
+  v3 = this[13];
   if (v3)
   {
-    *(this + 14) = v3;
+    this[14] = v3;
     operator delete(v3);
   }
 
   if (*(this + 87) < 0)
   {
-    operator delete(*(this + 8));
+    operator delete(this[8]);
   }
 
   if (*(this + 63) < 0)
   {
-    operator delete(*(this + 5));
+    operator delete(this[5]);
   }
 
   if (*(this + 39) < 0)
   {
-    operator delete(*(this + 2));
+    operator delete(this[2]);
   }
 }
 
@@ -9770,4 +8851,968 @@ void XML_Node::~XML_Node(XML_Node *this)
   XML_Node::~XML_Node(this);
 
   JUMPOUT(0x186602850);
+}
+
+void *XML_Node::RemoveAttrs(void *this)
+{
+  v1 = this;
+  v2 = this[13];
+  v3 = this[14] - v2;
+  if (v3)
+  {
+    v4 = 0;
+    if ((v3 >> 3) <= 1)
+    {
+      v5 = 1;
+    }
+
+    else
+    {
+      v5 = v3 >> 3;
+    }
+
+    while (1)
+    {
+      v6 = v1[13];
+      if (v4 >= (v1[14] - v6) >> 3)
+      {
+        break;
+      }
+
+      this = *(v6 + 8 * v4);
+      if (this)
+      {
+        this = (*(*this + 8))(this);
+      }
+
+      if (v5 == ++v4)
+      {
+        v2 = v1[13];
+        goto LABEL_10;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_10:
+    v1[14] = v2;
+  }
+
+  return this;
+}
+
+void *XML_Node::RemoveContent(void *this)
+{
+  v1 = this;
+  v2 = this[16];
+  v3 = this[17] - v2;
+  if (v3)
+  {
+    v4 = 0;
+    if ((v3 >> 3) <= 1)
+    {
+      v5 = 1;
+    }
+
+    else
+    {
+      v5 = v3 >> 3;
+    }
+
+    while (1)
+    {
+      v6 = v1[16];
+      if (v4 >= (v1[17] - v6) >> 3)
+      {
+        break;
+      }
+
+      this = *(v6 + 8 * v4);
+      if (this)
+      {
+        this = (*(*this + 8))(this);
+      }
+
+      if (v5 == ++v4)
+      {
+        v2 = v1[16];
+        goto LABEL_10;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_10:
+    v1[17] = v2;
+  }
+
+  return this;
+}
+
+void WXMPIterator_PropCTor_1(uint64_t a1, const char *a2, const char *a3, unsigned int a4, void *a5)
+{
+  *a5 = 0;
+  v5 = a1 + 16;
+  XMP_ReadWriteLock::Acquire((a1 + 16), 0);
+  operator new();
+}
+
+void sub_185ECB904(void *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  MEMORY[0x186602850](v5, 0x10F3C40652ADE5BLL, a3);
+  XMP_AutoLock::~XMP_AutoLock(va);
+  if (a2 == 3)
+  {
+    v9 = __cxa_begin_catch(a1);
+    *(v4 + 32) = *v9;
+    v10 = *(v9 + 1);
+    if (!v10)
+    {
+      v10 = v6;
+    }
+
+    *(v4 + 8) = "XMP";
+  }
+
+  else
+  {
+    v11 = __cxa_begin_catch(a1);
+    if (a2 == 2)
+    {
+      *(v4 + 32) = 13;
+      v12 = (*(*v11 + 16))(v11);
+      if (v12)
+      {
+        v10 = v12;
+      }
+
+      else
+      {
+        v10 = v6;
+      }
+    }
+
+    else
+    {
+      *(v4 + 32) = 14;
+      v10 = "Caught unknown exception";
+    }
+  }
+
+  *v4 = v10;
+  __cxa_end_catch();
+  JUMPOUT(0x185ECB8C4);
+}
+
+void TXMPIterator<std::string>::TXMPIterator(void *a1, uint64_t a2, unsigned int a3)
+{
+  *a1 = &unk_1EF4D9080;
+  a1[1] = 0;
+  v4 = 0;
+  memset(v3, 0, sizeof(v3));
+  WXMPIterator_PropCTor_1(*(a2 + 8), "", "", a3, v3);
+}
+
+void XMPIterator::XMPIterator(XMPIterator *this, const XMPMeta *a2, char *a3, char *a4, int a5)
+{
+  *this = &unk_1EF4DFAA0;
+  *(this + 2) = 0;
+  XMP_ReadWriteLock::XMP_ReadWriteLock((this + 16));
+  *(this + 56) = a5;
+  *(this + 29) = a2;
+  *(this + 15) = 0u;
+  *(this + 392) = 0;
+  *(this + 312) = 0u;
+  *(this + 328) = 0u;
+  *(this + 344) = 0u;
+  *(this + 360) = 0u;
+  *(this + 376) = 0u;
+  *(this + 16) = 0u;
+  *(this + 17) = 0u;
+  *(this + 18) = 0u;
+  *(this + 76) = 0;
+  if (a5)
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    *exception = 103;
+    exception[1] = "Unsupported iteration kind";
+    *(exception + 16) = 0;
+  }
+
+  if (*a4)
+  {
+    memset(&v48, 0, sizeof(v48));
+    ExpandXPath(a3, a4, &v48);
+    Node = FindNode(a2 + 224, &v48.__r_.__value_.__l.__data_, 0, 0, 0);
+    if (!Node)
+    {
+LABEL_48:
+      v44 = &v48;
+      std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v44);
+      goto LABEL_49;
+    }
+
+    memset(&v47, 0, sizeof(v47));
+    size = v48.__r_.__value_.__l.__size_;
+    v11 = v48.__r_.__value_.__r.__words[0];
+    v13 = v48.__r_.__value_.__l.__size_ - v48.__r_.__value_.__r.__words[0];
+    if (v48.__r_.__value_.__l.__size_ - v48.__r_.__value_.__r.__words[0] > 0x20)
+    {
+      if (*(v48.__r_.__value_.__r.__words[0] + 55) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v47, *(v48.__r_.__value_.__r.__words[0] + 32), *(v48.__r_.__value_.__r.__words[0] + 40));
+        size = v48.__r_.__value_.__l.__size_;
+        v11 = v48.__r_.__value_.__r.__words[0];
+        v13 = v48.__r_.__value_.__l.__size_ - v48.__r_.__value_.__r.__words[0];
+      }
+
+      else
+      {
+        v47 = *(v48.__r_.__value_.__r.__words[0] + 32);
+      }
+
+      if (v13 >= 0x41)
+      {
+        v14 = 0;
+        v15 = 2;
+        do
+        {
+          if ((*(v11 + v14 + 88) & 0xFu) <= 2)
+          {
+            std::string::push_back(&v47, 47);
+            size = v48.__r_.__value_.__l.__size_;
+            v11 = v48.__r_.__value_.__r.__words[0];
+          }
+
+          if (v15 >= (size - v11) >> 5)
+          {
+            goto LABEL_82;
+          }
+
+          v16 = v11 + v14;
+          v19 = *(v16 + 64);
+          v17 = v16 + 64;
+          v18 = v19;
+          v20 = *(v17 + 23);
+          if (v20 >= 0)
+          {
+            v21 = v17;
+          }
+
+          else
+          {
+            v21 = v18;
+          }
+
+          if (v20 >= 0)
+          {
+            v22 = *(v17 + 23);
+          }
+
+          else
+          {
+            v22 = *(v17 + 8);
+          }
+
+          std::string::append(&v47, v21, v22);
+          ++v15;
+          size = v48.__r_.__value_.__l.__size_;
+          v11 = v48.__r_.__value_.__r.__words[0];
+          v14 += 32;
+        }
+
+        while (v15 < (v48.__r_.__value_.__l.__size_ - v48.__r_.__value_.__r.__words[0]) >> 5);
+      }
+
+      v23 = HIBYTE(v47.__r_.__value_.__r.__words[2]);
+      if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v24 = &v47;
+      }
+
+      else
+      {
+        v24 = v47.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v23 = v47.__r_.__value_.__l.__size_;
+      }
+
+      for (; v23; --v23)
+      {
+        v25 = v24->__r_.__value_.__s.__data_[v23];
+        if (v25 == 47)
+        {
+          break;
+        }
+
+        if (v25 == 91)
+        {
+          break;
+        }
+      }
+
+      if (v24->__r_.__value_.__s.__data_[v23] == 47)
+      {
+        v26 = v23 + 1;
+      }
+
+      else
+      {
+        v26 = v23;
+      }
+
+      v27 = *(Node + 8);
+      std::string::basic_string[abi:fe200100]<0>(&v43, v24);
+      LODWORD(v44) = v27;
+      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&__p, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
+      }
+
+      else
+      {
+        __p = v43;
+      }
+
+      *&v46[0] = v26;
+      memset(v46 + 8, 0, 49);
+      std::vector<IterNode>::push_back[abi:fe200100](this + 43, &v44);
+      v49[0] = &v46[2];
+      std::vector<IterNode>::__destroy_vector::operator()[abi:fe200100](v49);
+      v49[0] = v46 + 1;
+      std::vector<IterNode>::__destroy_vector::operator()[abi:fe200100](v49);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v43.__r_.__value_.__l.__data_);
+      }
+
+      if (v48.__r_.__value_.__l.__size_ != v48.__r_.__value_.__r.__words[0])
+      {
+        MEMORY[0x186602520](this + 240);
+        if ((*(this + 225) & 1) == 0)
+        {
+          goto LABEL_46;
+        }
+
+        v28 = *(this + 44);
+        if (*(this + 43) != v28)
+        {
+          AddNodeOffspring(this + 224, v28 - 96, Node);
+LABEL_46:
+          if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+          {
+            operator delete(v47.__r_.__value_.__l.__data_);
+          }
+
+          goto LABEL_48;
+        }
+      }
+    }
+
+LABEL_82:
+    __break(1u);
+    return;
+  }
+
+  if (*a3)
+  {
+    std::string::basic_string[abi:fe200100]<0>(&v48, a3);
+    LODWORD(v44) = 0x80000000;
+    if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+    {
+      std::string::__init_copy_ctor_external(&__p, v48.__r_.__value_.__l.__data_, v48.__r_.__value_.__l.__size_);
+    }
+
+    else
+    {
+      __p = v48;
+    }
+
+    memset(v46, 0, 57);
+    std::vector<IterNode>::push_back[abi:fe200100](this + 43, &v44);
+    v47.__r_.__value_.__r.__words[0] = &v46[2];
+    std::vector<IterNode>::__destroy_vector::operator()[abi:fe200100](&v47);
+    v47.__r_.__value_.__r.__words[0] = v46 + 8;
+    std::vector<IterNode>::__destroy_vector::operator()[abi:fe200100](&v47);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v48.__r_.__value_.__l.__data_);
+    }
+
+    v39 = *(this + 44);
+    if (*(this + 43) != v39)
+    {
+      SchemaNode = FindSchemaNode(a2 + 224, a3, 0, 0, 0, 0);
+      if (SchemaNode)
+      {
+        AddSchemaProps(v39 - 96, SchemaNode);
+      }
+
+      if (*(v39 - 56) != *(v39 - 48))
+      {
+        MEMORY[0x186602520](this + 240, a3);
+        goto LABEL_49;
+      }
+
+      v41 = *(this + 44);
+      if (*(this + 43) != v41)
+      {
+        std::vector<IterNode>::__base_destruct_at_end[abi:fe200100](this + 344, (v41 - 96));
+        goto LABEL_49;
+      }
+    }
+
+    goto LABEL_82;
+  }
+
+  v31 = *(a2 + 38) - *(a2 + 37);
+  if (v31)
+  {
+    v32 = 0;
+    v33 = v31 >> 3;
+    do
+    {
+      v34 = *(a2 + 37);
+      if (v32 >= (*(a2 + 38) - v34) >> 3)
+      {
+        goto LABEL_82;
+      }
+
+      v35 = *(v34 + 8 * v32);
+      LODWORD(v44) = 0x80000000;
+      if (*(v35 + 39) < 0)
+      {
+        std::string::__init_copy_ctor_external(&__p, *(v35 + 16), *(v35 + 24));
+      }
+
+      else
+      {
+        v36 = *(v35 + 16);
+        __p.__r_.__value_.__r.__words[2] = *(v35 + 32);
+        *&__p.__r_.__value_.__l.__data_ = v36;
+      }
+
+      memset(v46, 0, 57);
+      std::vector<IterNode>::push_back[abi:fe200100](this + 43, &v44);
+      v48.__r_.__value_.__r.__words[0] = &v46[2];
+      std::vector<IterNode>::__destroy_vector::operator()[abi:fe200100](&v48);
+      v48.__r_.__value_.__r.__words[0] = v46 + 8;
+      std::vector<IterNode>::__destroy_vector::operator()[abi:fe200100](&v48);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      v37 = *(this + 44);
+      if (*(this + 43) == v37)
+      {
+        goto LABEL_82;
+      }
+
+      if ((*(this + 225) & 1) == 0)
+      {
+        AddSchemaProps(v37 - 96, v35);
+        if (*(v37 - 56) == *(v37 - 48))
+        {
+          v38 = *(this + 44);
+          if (*(this + 43) == v38)
+          {
+            goto LABEL_82;
+          }
+
+          std::vector<IterNode>::__base_destruct_at_end[abi:fe200100](this + 344, (v38 - 96));
+        }
+      }
+    }
+
+    while (v33 != ++v32);
+  }
+
+LABEL_49:
+  v29 = *(this + 43);
+  v30 = *(this + 44);
+  *(this + 33) = v29;
+  *(this + 34) = v30;
+  if ((*(this + 225) & 1) != 0 && v29 != v30)
+  {
+    if (*a3)
+    {
+      *(v29 + 88) = 1;
+    }
+  }
+}
+
+void sub_185ECC018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
+{
+  if (*(v35 - 97) < 0)
+  {
+    operator delete(*(v35 - 120));
+  }
+
+  IterInfo::~IterInfo(v34);
+  XMP_ReadWriteLock::~XMP_ReadWriteLock((v33 + 16));
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::vector<IterNode>::__emplace_back_slow_path<IterNode>(unint64_t *a1, uint64_t a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v3 = v2 + 1;
+  if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
+  {
+    std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
+  }
+
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
+  {
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
+  {
+    v6 = 0x2AAAAAAAAAAAAAALL;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v16 = a1;
+  if (v6)
+  {
+    std::__allocate_at_least[abi:fe200100]<std::allocator<IterNode>>(a1, v6);
+  }
+
+  v13 = 0;
+  v14 = 96 * v2;
+  std::allocator<IterNode>::construct[abi:fe200100]<IterNode,IterNode>(a1, 96 * v2, a2);
+  v15 = 96 * v2 + 96;
+  v7 = a1[1];
+  v8 = 96 * v2 + *a1 - v7;
+  std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<IterNode>,IterNode*>(a1, *a1, v7, v8);
+  v9 = *a1;
+  *a1 = v8;
+  v10 = a1[2];
+  v12 = v15;
+  *(a1 + 1) = v15;
+  *&v15 = v9;
+  *(&v15 + 1) = v10;
+  v13 = v9;
+  v14 = v9;
+  std::__split_buffer<IterNode>::~__split_buffer(&v13);
+  return v12;
+}
+
+void sub_185ECC204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  std::__split_buffer<IterNode>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__split_buffer<IterNode>::~__split_buffer(uint64_t a1)
+{
+  std::__split_buffer<IterNode>::__destruct_at_end[abi:fe200100](a1, *(a1 + 8));
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void AddSchemaProps(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 80) - *(a2 + 72);
+  if (v2)
+  {
+    v5 = 0;
+    v6 = v2 >> 3;
+    while (1)
+    {
+      v7 = *(a2 + 72);
+      if (v5 >= (*(a2 + 80) - v7) >> 3)
+      {
+        break;
+      }
+
+      v8 = *(v7 + 8 * v5);
+      v10 = *(v8 + 8);
+      if (*(v8 + 39) < 0)
+      {
+        std::string::__init_copy_ctor_external(__p, *(v8 + 16), *(v8 + 24));
+      }
+
+      else
+      {
+        v9 = *(v8 + 16);
+        *&__p[16] = *(v8 + 32);
+        *__p = v9;
+      }
+
+      memset(v12, 0, 25);
+      memset(&__p[24], 0, 32);
+      std::vector<IterNode>::push_back[abi:fe200100]((a1 + 40), &v10);
+      v13 = v12;
+      std::vector<IterNode>::__destroy_vector::operator()[abi:fe200100](&v13);
+      v13 = &__p[32];
+      std::vector<IterNode>::__destroy_vector::operator()[abi:fe200100](&v13);
+      if ((__p[23] & 0x80000000) != 0)
+      {
+        operator delete(*__p);
+      }
+
+      if (v6 == ++v5)
+      {
+        return;
+      }
+    }
+
+    __break(1u);
+  }
+}
+
+void sub_185ECC34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  IterNode::~IterNode(va);
+  _Unwind_Resume(a1);
+}
+
+void WXMPIterator_Next_1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, void (*a6)(uint64_t, uint64_t, void), uint64_t a7)
+{
+  v23 = (a1 + 2);
+  XMP_ReadWriteLock::Acquire((a1 + 2), 1);
+  *a7 = 0;
+  v22 = 0;
+  v21 = 0;
+  v20 = 0;
+  v19 = 0;
+  v17 = 0;
+  v18 = 0;
+  if (!a5)
+  {
+    a5 = &v17;
+  }
+
+  v14 = a1[29];
+  if (!v14)
+  {
+    __assert_rtn("WXMPIterator_Next_1", "WXMPIterator.cpp", 140, "thiz->info.xmpObj != __null");
+  }
+
+  v16 = (v14 + 16);
+  XMP_ReadWriteLock::Acquire((v14 + 16), 0);
+  v15 = (*(*a1 + 16))(a1, &v22, &v21, &v20, &v19, &v18, &v17 + 4, a5, v16, v17);
+  *(a7 + 32) = v15;
+  if (v15)
+  {
+    if (a2)
+    {
+      a6(a2, v22, v21);
+    }
+
+    if (a3)
+    {
+      a6(a3, v20, v19);
+    }
+
+    if (a4)
+    {
+      a6(a4, v18, HIDWORD(v17));
+    }
+  }
+
+  XMP_AutoLock::~XMP_AutoLock(&v16);
+  XMP_AutoLock::~XMP_AutoLock(&v23);
+}
+
+void sub_185ECC4C0(void *a1, int a2)
+{
+  if (a2 == 3)
+  {
+    v4 = __cxa_begin_catch(a1);
+    *(v2 + 32) = *v4;
+    v5 = *(v4 + 1);
+    if (!v5)
+    {
+      v5 = "";
+    }
+
+    *v2 = v5;
+    *(v2 + 8) = "XMP";
+    __cxa_end_catch();
+  }
+
+  else
+  {
+    v6 = __cxa_begin_catch(a1);
+    if (a2 == 2)
+    {
+      *(v2 + 32) = 13;
+      v7 = (*(*v6 + 16))(v6);
+      v8 = "";
+      if (v7)
+      {
+        v8 = v7;
+      }
+
+      *v2 = v8;
+      __cxa_end_catch();
+    }
+
+    else
+    {
+      *(v2 + 32) = 14;
+      *v2 = "Caught unknown exception";
+      __cxa_end_catch();
+    }
+  }
+
+  JUMPOUT(0x185ECC478);
+}
+
+void sub_185ECC590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  XMP_AutoLock::~XMP_AutoLock(va);
+  _Unwind_Resume(a1);
+}
+
+BOOL TXMPIterator<std::string>::Next(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+{
+  v9 = 0;
+  memset(v8, 0, sizeof(v8));
+  WXMPIterator_Next_1(*(a1 + 8), a2, a3, a4, a5, TXMPIterator<std::string>::SetClientString, v8);
+  if (*&v8[0])
+  {
+    exception = __cxa_allocate_exception(0x18uLL);
+    v7 = *&v8[0];
+    *exception = v9;
+    exception[1] = v7;
+    *(exception + 16) = 0;
+  }
+
+  return v9 != 0;
+}
+
+uint64_t XMPIterator::Next(XMPIterator *this, const char **a2, unsigned int *a3, const char **a4, unsigned int *a5, const char **a6, unsigned int *a7, unsigned int *a8)
+{
+  if (*(this + 33) == *(this + 34))
+  {
+    return 0;
+  }
+
+  result = GetNextXMPNode(this + 224);
+  if (result)
+  {
+    v17 = result;
+    if ((*(this + 225) & 2) != 0)
+    {
+      while (1)
+      {
+        v26 = *(this + 33);
+        if ((*v26 & 0x80000000) == 0 && *(v17 + 72) == *(v17 + 80))
+        {
+          break;
+        }
+
+        *(v26 + 88) = 2;
+        result = GetNextXMPNode(this + 224);
+        v17 = result;
+        if (!result)
+        {
+          return result;
+        }
+      }
+    }
+
+    v18 = this + 240;
+    if (*(this + 263) < 0)
+    {
+      v18 = *v18;
+    }
+
+    *a2 = v18;
+    v19 = *(this + 263);
+    if (v19 < 0)
+    {
+      v19 = *(this + 31);
+    }
+
+    *a3 = v19;
+    *a8 = **(this + 33);
+    *a4 = "";
+    *a5 = 0;
+    *a6 = "";
+    *a7 = 0;
+    if ((*a8 & 0x80000000) == 0)
+    {
+      v20 = *(this + 33);
+      v21 = (v20 + 8);
+      if (*(v20 + 31) < 0)
+      {
+        v21 = *v21;
+      }
+
+      *a4 = v21;
+      v22 = *(this + 33);
+      v23 = *(v22 + 31);
+      if (v23 < 0)
+      {
+        v23 = *(v22 + 16);
+      }
+
+      *a5 = v23;
+      if ((*(this + 225) & 4) != 0)
+      {
+        *a4 = &v21[*(v22 + 32)];
+        *a5 = v23 - *(*(this + 33) + 32);
+        XMP_Node::GetLocalURI(v17, a2, a3);
+      }
+
+      if ((*(a8 + 1) & 0x1F) == 0)
+      {
+        v24 = (v17 + 40);
+        if (*(v17 + 63) < 0)
+        {
+          v24 = *v24;
+        }
+
+        *a6 = v24;
+        v25 = *(v17 + 63);
+        if (v25 < 0)
+        {
+          v25 = *(v17 + 48);
+        }
+
+        *a7 = v25;
+      }
+    }
+
+    return 1;
+  }
+
+  return result;
+}
+
+const XMP_Node *GetNextXMPNode(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  if (*(v2 + 88))
+  {
+    AdvanceIterPos(a1);
+    v2 = *(a1 + 40);
+  }
+
+  memset(v14, 0, sizeof(v14));
+  if (v2 == *(a1 + 48))
+  {
+    goto LABEL_25;
+  }
+
+  while (1)
+  {
+    v3 = *v2;
+    if (*v2 < 0)
+    {
+      std::string::operator=((a1 + 16), (v2 + 2));
+      v7 = *(a1 + 40);
+      v8 = (v7 + 8);
+      if (*(v7 + 31) < 0)
+      {
+        v8 = *v8;
+      }
+
+      SchemaNode = FindSchemaNode(*(a1 + 8) + 224, v8, 0, 0, 0, 0);
+      Node = SchemaNode ? SchemaNode : sDummySchema;
+    }
+
+    else
+    {
+      if (*(a1 + 39) >= 0)
+      {
+        v4 = (a1 + 16);
+      }
+
+      else
+      {
+        v4 = *(a1 + 16);
+      }
+
+      v5 = v2 + 2;
+      if (*(v2 + 31) < 0)
+      {
+        v5 = *v5;
+      }
+
+      ExpandXPath(v4, v5, v14);
+      Node = FindNode(*(a1 + 8) + 224, v14, 0, 0, 0);
+    }
+
+    v10 = *(a1 + 40);
+    if (Node)
+    {
+      break;
+    }
+
+    v12 = *(v10 + 40);
+    v11 = v10 + 40;
+    *(v11 + 48) = 3;
+    std::vector<IterNode>::__base_destruct_at_end[abi:fe200100](v11, v12);
+    std::vector<IterNode>::__base_destruct_at_end[abi:fe200100](*(a1 + 40) + 64, *(*(a1 + 40) + 64));
+    AdvanceIterPos(a1);
+    v2 = *(a1 + 40);
+    if (v2 == *(a1 + 48))
+    {
+      goto LABEL_25;
+    }
+  }
+
+  if (v10 == *(a1 + 48))
+  {
+LABEL_25:
+    Node = 0;
+  }
+
+  else
+  {
+    if (*(v10 + 88))
+    {
+      __assert_rtn("GetNextXMPNode", "XMPIterator.cpp", 312, "info.currPos->visitStage == kIter_BeforeVisit");
+    }
+
+    if ((v3 & 0x80000000) == 0 && (*(a1 + 1) & 1) == 0)
+    {
+      AddNodeOffspring(a1, *(a1 + 40), Node);
+      v10 = *(a1 + 40);
+    }
+
+    *(v10 + 88) = 1;
+  }
+
+  v15 = v14;
+  std::vector<XPathStepInfo>::__destroy_vector::operator()[abi:fe200100](&v15);
+  return Node;
 }

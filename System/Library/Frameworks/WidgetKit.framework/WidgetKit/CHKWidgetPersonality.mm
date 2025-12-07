@@ -10,17 +10,13 @@
 
 - (int64_t)hash
 {
-  sub_192228B40();
-  v3 = *(self + OBJC_IVAR___CHKWidgetPersonality_extensionBundleIdentifier);
-  v4 = *(self + OBJC_IVAR___CHKWidgetPersonality_extensionBundleIdentifier + 8);
+  sub_192228B40(v6);
   selfCopy = self;
   sub_1922279B0();
-  v6 = *(selfCopy + OBJC_IVAR___CHKWidgetPersonality_kind);
-  v7 = *(selfCopy + OBJC_IVAR___CHKWidgetPersonality_kind + 8);
   sub_1922279B0();
-  v8 = sub_192228B20();
+  v4 = sub_192228B20();
 
-  return v8;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

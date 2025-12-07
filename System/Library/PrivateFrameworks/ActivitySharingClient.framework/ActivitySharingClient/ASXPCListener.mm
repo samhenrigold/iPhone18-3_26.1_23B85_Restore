@@ -9,8 +9,8 @@
 
 - (void)transportRequest:(int64_t)request data:(id)data completion:(id)completion
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E3466E0, &qword_23E5CE510) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27E3466E0, &qword_23E5CE510);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v21 - v10;
   v12 = _Block_copy(completion);
   selfCopy = self;
@@ -52,13 +52,13 @@
 
 - (_TtC21ActivitySharingClient13ASXPCListener)init
 {
-  v2 = *MEMORY[0x277CE9330];
-  sub_23E5C8F40();
-  v3 = objc_allocWithZone(type metadata accessor for ASXPCListener());
-  v4 = ASXPCListener.init(machServiceName:)();
+  v2 = sub_23E5C8F40();
+  v4 = v3;
+  v5 = objc_allocWithZone(type metadata accessor for ASXPCListener());
+  v6 = ASXPCListener.init(machServiceName:)(v2, v4);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v4;
+  return v6;
 }
 
 - (void)dealloc

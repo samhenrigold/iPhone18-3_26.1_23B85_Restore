@@ -7,32 +7,32 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v25 = 0;
-  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v25);
-  v14 = v25;
-  if (v14)
+  v22 = 0;
+  v9 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v22);
+  v13 = v22;
+  if (v13)
   {
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v10, v14, v12, v13);
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v10, v13, v12);
   }
 
   else
   {
-    v15 = objc_msgSend_erfc(v9, v10, v11, v12, v13);
+    v14 = objc_msgSend_erfc(v9, v10, v11, v12);
     if (v7)
     {
-      objc_msgSend_formatWithContext_(v7, v16, context, v17, v18);
+      objc_msgSend_formatWithContext_(v7, v15, context, v16);
     }
 
     else
     {
-      memset(&v23, 0, sizeof(v23));
+      memset(&v20, 0, sizeof(v20));
     }
 
-    TSCEFormat::TSCEFormat(&v24, &v23);
-    objc_msgSend_setFormat_(v15, v19, &v24, v20, v21);
+    TSCEFormat::TSCEFormat(&v21, &v20);
+    objc_msgSend_setFormat_(v14, v17, &v21, v18);
   }
 
-  return v15;
+  return v14;
 }
 
 @end

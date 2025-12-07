@@ -52,20 +52,20 @@
 - (void)didMoveToSuperview
 {
   selfCopy = self;
-  sub_1C1A65648();
+  sub_1C1A65648(selfCopy);
 }
 
 - (void)dealloc
 {
   selfCopy = self;
-  sub_1C1A6F65C();
+  v3 = sub_1C1A6F65C();
   sub_1C199E4CC();
-  v3 = sub_1C1A6F8EC();
-  sub_1C1A6F18C();
+  v4 = sub_1C1A6F8EC();
+  sub_1C1A6F18C(v3, &dword_1C198D000, v4, "Unloading the PromotedContentWebView", 36, 2, MEMORY[0x1E69E7CC0]);
 
-  v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for PromotedContentWebView();
-  [(PromotedContentWebView *)&v4 dealloc];
+  v5.receiver = selfCopy;
+  v5.super_class = type metadata accessor for PromotedContentWebView();
+  [(PromotedContentWebView *)&v5 dealloc];
 }
 
 - (_TtC17PromotedContentUI22PromotedContentWebView)initWithFrame:(CGRect)frame configuration:(id)configuration
@@ -78,13 +78,13 @@
 - (void)webProcessPlugInDidCreateBrowserContextController
 {
   selfCopy = self;
-  sub_1C1A65C9C();
+  sub_1C1A65C9C(selfCopy);
 }
 
 - (void)webProcessPlugInWillDestroyBrowserContextController
 {
   selfCopy = self;
-  sub_1C1A65E40();
+  sub_1C1A65E40(selfCopy);
 }
 
 - (void)webProcessDiagnosticJSOStatusReported:(id)reported status:(id)status

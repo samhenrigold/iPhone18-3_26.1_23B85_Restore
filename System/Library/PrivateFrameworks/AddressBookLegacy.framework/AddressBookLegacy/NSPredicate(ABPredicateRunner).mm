@@ -15,7 +15,7 @@
   {
     v18 = 0u;
     v17 = 0u;
-    *&v18 = ABCRecordStoreReadColumns();
+    *&v18 = ABCRecordStoreReadColumns(&v18 + 8, 0);
     if ([(__CFDictionary *)a6 predicateShouldContinue:self])
     {
       CPRecordStoreGetDatabase();

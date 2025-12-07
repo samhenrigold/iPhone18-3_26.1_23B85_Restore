@@ -41,9 +41,11 @@
 
 uint64_t __31__WeatherService_sharedService__block_invoke()
 {
-  sharedService_service = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedService_service;
+  sharedService_service = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WeatherService)init
@@ -277,9 +279,12 @@ void __31__WeatherService_removeClient___block_invoke(uint64_t a1)
 
 uint64_t __25__WeatherService_clients__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) allValues];
+  v2 = [*(a1 + 32) allValues];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)clientForPid:(int)pid

@@ -1542,7 +1542,7 @@ LABEL_6:
       v26 = v25;
       if (v25)
       {
-        [v25 rowMetrics];
+        objc_msgSend_rowMetrics(v25);
         v27 = *(&v137 + 1);
       }
 
@@ -1568,7 +1568,7 @@ LABEL_6:
   v29 = v28;
   if (v28)
   {
-    [v28 rowMetrics];
+    objc_msgSend_rowMetrics(v28);
     v30 = *(&v132 + 1);
   }
 
@@ -1640,15 +1640,15 @@ LABEL_18:
   v130 = 0u;
   if (v7)
   {
-    [v7 rowMetrics];
+    objc_msgSend_rowMetrics(v7);
     *&v130 = *(&v124 + 1);
     *(&v130 + 1) = index;
     v131 = 1;
-    [v7 rowMetrics];
-    [v7 rowMetrics];
-    [v7 rowMetrics];
+    objc_msgSend_rowMetrics(v7);
+    objc_msgSend_rowMetrics(v7);
+    objc_msgSend_rowMetrics(v7);
     v39 = *(&v119 + 1) - (*&v115 + *(&v110 + 1));
-    [v7 rowMetrics];
+    objc_msgSend_rowMetrics(v7);
     v40 = *&v105;
   }
 
@@ -1708,7 +1708,7 @@ LABEL_18:
         v48 = v92 + v46 - v86;
         if (v7)
         {
-          [v7 rowMetrics];
+          objc_msgSend_rowMetrics(v7);
           v49 = *(&v99 + 1);
         }
 
@@ -1872,7 +1872,7 @@ LABEL_85:
       v79 = v78;
       if (v78)
       {
-        [v78 rowMetrics];
+        objc_msgSend_rowMetrics(v78);
         v80 = *(&v95 + 1);
       }
 
@@ -1897,7 +1897,7 @@ LABEL_85:
   {
     if (v82)
     {
-      [v82 rowMetrics];
+      objc_msgSend_rowMetrics(v82);
       v84 = v94;
       goto LABEL_98;
     }
@@ -1912,7 +1912,7 @@ LABEL_97:
     goto LABEL_97;
   }
 
-  [v82 rowMetrics];
+  objc_msgSend_rowMetrics(v82);
   v84 = v93;
 LABEL_98:
 
@@ -2007,7 +2007,7 @@ LABEL_84:
   {
     if (v10)
     {
-      [v10 rowMetrics];
+      objc_msgSend_rowMetrics(v10);
     }
 
     v12 = 0.0 - 0.0;
@@ -2024,7 +2024,7 @@ LABEL_84:
       v17 = v16;
       if (v16)
       {
-        [v16 rowMetrics];
+        objc_msgSend_rowMetrics(v16);
       }
 
       v18 = metrics->var3.location;
@@ -2253,7 +2253,7 @@ LABEL_84:
                 v53 = v52;
                 if (v52)
                 {
-                  [v52 rowMetrics];
+                  objc_msgSend_rowMetrics(v52);
                 }
 
                 else
@@ -2413,7 +2413,7 @@ LABEL_84:
       v28 = v27;
       if (v24)
       {
-        [v24 compoundRowMetrics];
+        objc_msgSend_compoundRowMetrics(v24);
         v29 = *(&v40 + 1);
       }
 
@@ -2432,7 +2432,7 @@ LABEL_84:
 
     else if (v24)
     {
-      [v24 compoundRowMetrics];
+      objc_msgSend_compoundRowMetrics(v24);
       v30 = *&v35;
     }
 

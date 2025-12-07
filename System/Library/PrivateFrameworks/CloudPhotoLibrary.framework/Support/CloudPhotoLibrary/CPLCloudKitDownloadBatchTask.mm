@@ -106,7 +106,7 @@
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    sub_10019BBDC();
+    sub_10019BBDC(scopeCopy);
   }
 }
 
@@ -116,70 +116,71 @@
   if (-[NSMutableDictionary count](self->_supplementalChangeTokenByZoneID, "count") && (v5 = [obligationsCopy count]) != 0)
   {
     v6 = [[NSMutableArray alloc] initWithCapacity:v5];
-    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v18 = obligationsCopy;
+    v23 = 0u;
+    v19 = obligationsCopy;
     v7 = obligationsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v21;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v20 != v10)
+          if (*v21 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           v13 = [(NSMutableDictionary *)self->_supplementalChangeTokenByZoneID objectForKeyedSubscript:v12];
 
           if (v13)
           {
             v14 = [(NSMutableDictionary *)self->_scopesBySupplementalZoneID objectForKeyedSubscript:v12];
+            v15 = v14;
             if (v14)
             {
               if ((_CPLSilentLogging & 1) == 0)
               {
-                v15 = sub_1000037CC();
-                if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+                v16 = sub_1000037CC(v14);
+                if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  v24 = v14;
-                  v25 = 2114;
-                  v26 = v12;
-                  _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ needs to pull changes (sync obligation on %{public}@)", buf, 0x16u);
+                  v25 = v15;
+                  v26 = 2114;
+                  v27 = v12;
+                  _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ needs to pull changes (sync obligation on %{public}@)", buf, 0x16u);
                 }
               }
 
-              [v6 addObject:v14];
+              [v6 addObject:v15];
             }
 
             [(NSMutableDictionary *)self->_supplementalChangeTokenByZoneID removeObjectForKey:v12];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v9);
     }
 
-    v16 = [v6 copy];
-    obligationsCopy = v18;
+    v17 = [v6 copy];
+    obligationsCopy = v19;
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (void)sendProgressBatch:(id)batch updatedScopeChange:(id)change updatedFlags:(id)flags updatedSyncAnchor:(id)anchor zoneIDsWithSyncObligations:(id)obligations

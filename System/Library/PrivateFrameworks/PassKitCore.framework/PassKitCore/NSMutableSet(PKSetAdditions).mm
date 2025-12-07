@@ -8,10 +8,10 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

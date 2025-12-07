@@ -67,50 +67,48 @@ unint64_t sub_24EC()
   return result;
 }
 
-uint64_t sub_255C()
+uint64_t sub_255C(uint64_t a1)
 {
-  v1 = sub_2B40(&qword_8318, &qword_38A0);
-  v2 = sub_2EC8(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v2);
-  v8 = v18 - v7;
+  sub_2B40(&qword_8318, &qword_38A0);
+  sub_2EC8();
+  v3 = v2;
+  __chkstk_darwin(v4);
+  v6 = v16 - v5;
 
   sub_2B40(&qword_8320, &qword_38A8);
-  v9 = sub_2F30();
-  v10 = sub_2F10();
+  v7 = sub_2F30();
+  v8 = sub_2F10();
   sub_2EB0();
-  v13 = sub_2B90(v11, v12);
+  v11 = sub_2B90(v9, v10, &protocol conformance descriptor for GameCenterSettingsContainerView);
   sub_2E98();
-  v16 = sub_2B90(v14, v15);
-  v18[0] = v9;
-  v18[1] = v10;
-  v18[2] = v13;
-  v18[3] = v16;
+  v14 = sub_2B90(v12, v13, &protocol conformance descriptor for GameCenterSettingsState);
+  v16[0] = v7;
+  v16[1] = v8;
+  v16[2] = v11;
+  v16[3] = v14;
   swift_getOpaqueTypeConformance2();
   sub_2FA0();
   sub_2D78();
 
   sub_2F60();
-  return (*(v4 + 8))(v8, v0);
+  return (*(v3 + 8))(v6, v1);
 }
 
-uint64_t sub_2740()
+uint64_t sub_2740(uint64_t a1)
 {
-  v1 = sub_2F30();
-  v2 = sub_2EC8(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v2);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_2F30();
+  sub_2EC8();
+  v3 = v2;
+  __chkstk_darwin(v4);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2F20();
   sub_2F10();
   sub_2EB0();
-  sub_2B90(v9, v10);
+  sub_2B90(v7, v8, &protocol conformance descriptor for GameCenterSettingsContainerView);
   sub_2E98();
-  sub_2B90(v11, v12);
+  sub_2B90(v9, v10, &protocol conformance descriptor for GameCenterSettingsState);
   sub_2F50();
-  return (*(v4 + 8))(v8, v0);
+  return (*(v3 + 8))(v6, v1);
 }
 
 uint64_t sub_2880(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -120,53 +118,43 @@ uint64_t sub_2880(uint64_t a1, uint64_t a2, uint64_t a3)
   v3[2] = a1;
   v4 = sub_2F40();
   v3[5] = v4;
-  v5 = *(v4 - 8);
-  v3[6] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3[6] = *(v4 - 8);
   v3[7] = swift_task_alloc();
-  v7 = sub_2EE0();
-  v3[8] = v7;
-  v8 = *(v7 - 8);
-  v3[9] = v8;
-  v9 = *(v8 + 64) + 15;
+  v5 = sub_2EE0();
+  v3[8] = v5;
+  v3[9] = *(v5 - 8);
   v3[10] = swift_task_alloc();
   sub_2FD0();
   v3[11] = sub_2FC0();
-  v11 = sub_2FB0();
+  v7 = sub_2FB0();
 
-  return _swift_task_switch(sub_29D4, v11, v10);
+  return _swift_task_switch(sub_29D4, v7, v6);
 }
 
 uint64_t sub_29D4()
 {
-  v2 = v0[10];
-  v1 = v0[11];
-  v3 = v0[8];
-  v4 = v0[9];
-  v6 = v0[6];
-  v5 = v0[7];
-  v7 = v0[4];
-  v12 = v0[5];
-  v9 = v0[2];
-  v8 = v0[3];
+  v1 = v0[10];
+  v2 = v0[8];
+  v3 = v0[9];
+  v5 = v0[6];
+  v4 = v0[7];
+  v8 = v0[5];
 
   sub_2F80();
   sub_2EF0();
-  (*(v4 + 8))(v2, v3);
+  (*(v3 + 8))(v1, v2);
   sub_2F70();
   sub_2F90();
-  (*(v6 + 8))(v5, v12);
+  (*(v5 + 8))(v4, v8);
 
-  v10 = v0[1];
+  v6 = v0[1];
 
-  return v10();
+  return v6();
 }
 
 uint64_t sub_2AD8()
 {
-  v0 = sub_2F10();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  sub_2F10();
   swift_allocObject();
   return sub_2F00();
 }
@@ -183,7 +171,6 @@ uint64_t sub_2B40(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -191,7 +178,7 @@ uint64_t sub_2B40(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_2B90(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2B90(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -216,12 +203,11 @@ uint64_t sub_2BD8(uint64_t a1, uint64_t a2)
 
 uint64_t sub_2C84()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t sub_2D78()
@@ -242,7 +228,6 @@ uint64_t sub_2DDC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

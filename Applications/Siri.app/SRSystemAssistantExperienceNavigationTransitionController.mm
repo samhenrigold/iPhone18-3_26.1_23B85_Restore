@@ -67,26 +67,27 @@
     WeakRetained = objc_loadWeakRetained(&self->_closeButton);
     if (WeakRetained)
     {
-      v6 = WeakRetained;
-      IsPad = SiriUIDeviceIsPad();
+      v7 = WeakRetained;
+      SiriUIDeviceIsPad(WeakRetained, v6);
+      v9 = v8;
 
-      if (IsPad)
+      if (v9)
       {
         _isDrillIn = [(SRSystemAssistantExperienceNavigationTransitionController *)self _isDrillIn];
-        v9 = objc_loadWeakRetained(&self->_closeButton);
-        v10 = v9;
+        v11 = objc_loadWeakRetained(&self->_closeButton);
+        v12 = v11;
         if (_isDrillIn)
         {
-          [v9 setHidden:0];
+          [v11 setHidden:0];
 
-          v10 = objc_loadWeakRetained(&self->_navigationController);
-          view = [v10 view];
+          v12 = objc_loadWeakRetained(&self->_navigationController);
+          view = [v12 view];
           [(SRSystemAssistantExperienceNavigationTransitionController *)self _moveCloseButtonToView:view];
         }
 
         else
         {
-          [v9 setHidden:1];
+          [v11 setHidden:1];
         }
       }
 
@@ -138,15 +139,15 @@
   v3 = +[UIScreen mainScreen];
   traitCollection = [v3 traitCollection];
   [traitCollection displayCornerRadius];
-  v89 = v5;
+  v91 = v5;
 
   layer = [containerView layer];
-  [layer setCornerRadius:v89];
+  [layer setCornerRadius:v91];
 
-  v87 = [contextCopy viewForKey:UITransitionContextFromViewKey];
-  v98 = [contextCopy viewControllerForKey:UITransitionContextFromViewControllerKey];
+  v89 = [contextCopy viewForKey:UITransitionContextFromViewKey];
+  v100 = [contextCopy viewControllerForKey:UITransitionContextFromViewControllerKey];
   v7 = [contextCopy viewForKey:UITransitionContextToViewKey];
-  v95 = [contextCopy viewControllerForKey:UITransitionContextToViewControllerKey];
+  v97 = [contextCopy viewControllerForKey:UITransitionContextToViewControllerKey];
   [v7 frame];
   v9 = v8;
   v11 = v10;
@@ -173,10 +174,10 @@
     v18 = v13 + 2.0;
   }
 
-  v85 = v18;
-  v86 = v17;
-  v96 = v11;
-  v97 = v9;
+  v87 = v18;
+  v88 = v17;
+  v98 = v11;
+  v99 = v9;
   if (IsPad)
   {
     v19 = v11;
@@ -197,101 +198,102 @@
     v20 = v9 + -1.0;
   }
 
-  v100 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _platterViewOfViewController:v98, *&v20, *&v19];
-  v88 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _snippetContainerViewOfView:v100];
+  v102 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _platterViewOfViewController:v100, *&v20, *&v19];
+  v90 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _snippetContainerViewOfView:v102];
   v21 = [UIVisualEffectView alloc];
   v22 = [UIBlurEffect effectWithStyle:4];
   v23 = [v21 initWithEffect:v22];
 
-  v103 = v23;
+  v105 = v23;
   layer2 = [v23 layer];
   v25 = SiriSharedUISmartDialogPlatterCornerRadius;
   [layer2 setCornerRadius:SiriSharedUISmartDialogPlatterCornerRadius];
 
   [v7 bounds];
-  [v103 setFrame:?];
-  layer3 = [v103 layer];
+  [v105 setFrame:?];
+  layer3 = [v105 layer];
   [layer3 setMasksToBounds:1];
 
-  [v103 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v103 setUserInteractionEnabled:0];
-  [v7 addSubview:v103];
-  leadingAnchor = [v103 leadingAnchor];
+  [v105 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v105 setUserInteractionEnabled:0];
+  [v7 addSubview:v105];
+  leadingAnchor = [v105 leadingAnchor];
   leadingAnchor2 = [v7 leadingAnchor];
-  v91 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v137[0] = v91;
-  trailingAnchor = [v103 trailingAnchor];
+  v93 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v139[0] = v93;
+  trailingAnchor = [v105 trailingAnchor];
   trailingAnchor2 = [v7 trailingAnchor];
   v28 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v137[1] = v28;
-  topAnchor = [v103 topAnchor];
+  v139[1] = v28;
+  topAnchor = [v105 topAnchor];
   topAnchor2 = [v7 topAnchor];
   v31 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v137[2] = v31;
-  bottomAnchor = [v103 bottomAnchor];
+  v139[2] = v31;
+  bottomAnchor = [v105 bottomAnchor];
   bottomAnchor2 = [v7 bottomAnchor];
   v34 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v137[3] = v34;
-  v35 = [NSArray arrayWithObjects:v137 count:4];
+  v139[3] = v34;
+  v35 = [NSArray arrayWithObjects:v139 count:4];
   [NSLayoutConstraint activateConstraints:v35];
 
   v36 = [PLPlatterView platterViewWithBlurEffectStyle:9];
-  if (SiriUIDeviceIsPad())
+  SiriUIDeviceIsPad(v36, v37);
+  if (v38)
   {
-    v37 = objc_alloc_init(UIView);
+    v39 = objc_alloc_init(UIView);
 
-    [v37 siriSharedUI_setGlassBackground];
+    [(SRSystemAssistantExperienceViewController *)v39 siriSharedUI_setGlassBackground];
   }
 
   else
   {
-    v37 = v36;
+    v39 = v36;
   }
 
   _navigationController = [(SRSystemAssistantExperienceNavigationTransitionController *)self _navigationController];
-  [_navigationController setAnimatingBackgroundView:v37];
+  [_navigationController setAnimatingBackgroundView:v39];
 
-  layer4 = [v37 layer];
+  layer4 = [(SRSystemAssistantExperienceViewController *)v39 layer];
   [layer4 setMasksToBounds:1];
 
-  [v100 frame];
-  v41 = v40;
+  [v102 frame];
   v43 = v42;
   v45 = v44;
   v47 = v46;
-  superview = [v100 superview];
-  [containerView convertRect:superview fromView:{v41, v43, v45, v47}];
-  v50 = v49;
+  v49 = v48;
+  superview = [v102 superview];
+  [containerView convertRect:superview fromView:{v43, v45, v47, v49}];
   v52 = v51;
   v54 = v53;
   v56 = v55;
+  v58 = v57;
 
-  [v37 setFrame:{v50, v52, v54, v56}];
-  layer5 = [v37 layer];
+  [(SRSystemAssistantExperienceViewController *)v39 setFrame:v52, v54, v56, v58];
+  layer5 = [(SRSystemAssistantExperienceViewController *)v39 layer];
   [layer5 setCornerRadius:v25];
 
-  [v37 setAutoresizingMask:18];
-  v102 = objc_alloc_init(UIView);
+  [(SRSystemAssistantExperienceViewController *)v39 setAutoresizingMask:18];
+  v104 = objc_alloc_init(UIView);
   _navigationController2 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _navigationController];
-  [_navigationController2 setBlurrableView:v102];
+  [_navigationController2 setBlurrableView:v104];
 
   [containerView frame];
-  [v102 setFrame:?];
-  [v102 setAutoresizingMask:18];
-  [v102 addSubview:v37];
-  [v88 frame];
-  MinY = CGRectGetMinY(v138);
+  [v104 setFrame:?];
+  [v104 setAutoresizingMask:18];
+  [v104 addSubview:v39];
+  [v90 frame];
+  MinY = CGRectGetMinY(v140);
   [v7 setClipsToBounds:1];
   [v7 setAlpha:0.0];
-  [v7 setFrame:{v50, v52, v54, v56}];
+  [v7 setFrame:{v52, v54, v56, v58}];
   layer6 = [v7 layer];
   [layer6 setCornerRadius:v25];
 
   layer7 = [v7 layer];
   [layer7 setMasksToBounds:1];
 
-  [containerView insertSubview:v7 belowSubview:v87];
-  [containerView insertSubview:v102 belowSubview:v7];
+  [containerView insertSubview:v7 belowSubview:v89];
+  [containerView insertSubview:v104 belowSubview:v7];
   if ([(SRSystemAssistantExperienceNavigationTransitionController *)self _isDrillIn])
   {
     [(SRSystemAssistantExperienceNavigationTransitionController *)self _createCloseButton:v7];
@@ -299,99 +301,99 @@
     [(SRSystemAssistantExperienceNavigationTransitionController *)self _addDrillOutSwipeRecognizerToView:v7 forDirection:8];
   }
 
-  v139.origin.y = v96;
-  v139.origin.x = v97;
-  v139.size.width = v13;
-  v139.size.height = v15;
-  MidX = CGRectGetMidX(v139);
-  v140.origin.y = v96;
-  v140.origin.x = v97;
-  v140.size.width = v13;
-  v140.size.height = v15;
-  [v7 setCenter:{MidX, MinY + CGRectGetMidY(v140)}];
+  v141.origin.y = v98;
+  v141.origin.x = v99;
+  v141.size.width = v13;
+  v141.size.height = v15;
+  MidX = CGRectGetMidX(v141);
+  v142.origin.y = v98;
+  v142.origin.x = v99;
+  v142.size.width = v13;
+  v142.size.height = v15;
+  [v7 setCenter:{MidX, MinY + CGRectGetMidY(v142)}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v63 = v95;
+    v65 = v97;
   }
 
   else
   {
-    v63 = 0;
+    v65 = 0;
   }
 
-  v94 = v63;
-  [v63 prepareForDrillInAnimation];
-  v64 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _saeContainerViewFromViewController:v98];
-  [v64 prepareForDrillinAnimation];
-  resultViewContainer = [v64 resultViewContainer];
+  v96 = v65;
+  [v65 prepareForDrillInAnimation];
+  v66 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _saeContainerViewFromViewController:v100];
+  [v66 prepareForDrillinAnimation];
+  resultViewContainer = [v66 resultViewContainer];
   [resultViewContainer frame];
-  v67 = v66;
   v69 = v68;
   v71 = v70;
   v73 = v72;
+  v75 = v74;
 
   objc_initWeak(&location, self);
-  [v64 resultViewContainer];
-  v134[0] = _NSConcreteStackBlock;
-  v134[1] = 3221225472;
-  v134[2] = sub_1000513AC;
-  v135 = v134[3] = &unk_100167010;
-  v128[0] = _NSConcreteStackBlock;
-  v128[1] = 3221225472;
-  v128[2] = sub_1000513B4;
-  v128[3] = &unk_100167B38;
-  v74 = v135;
-  v129 = v74;
-  v130 = v67;
-  v131 = v69;
-  v132 = v71;
-  v133 = v73;
-  [UIView animateWithDuration:v134 animations:v128 completion:0.5];
+  [v66 resultViewContainer];
+  v136[0] = _NSConcreteStackBlock;
+  v136[1] = 3221225472;
+  v136[2] = sub_1000513AC;
+  v137 = v136[3] = &unk_100167010;
+  v130[0] = _NSConcreteStackBlock;
+  v130[1] = 3221225472;
+  v130[2] = sub_1000513B4;
+  v130[3] = &unk_100167B38;
+  v76 = v137;
+  v131 = v76;
+  v132 = v69;
+  v133 = v71;
+  v134 = v73;
+  v135 = v75;
+  [UIView animateWithDuration:v136 animations:v130 completion:0.5];
   springAnimationBehavior = self->_springAnimationBehavior;
-  v112[0] = _NSConcreteStackBlock;
-  v112[1] = 3221225472;
-  v112[2] = sub_1000513C8;
-  v112[3] = &unk_100167B60;
-  v92 = v7;
-  v113 = v92;
-  v118 = v97;
-  v119 = v96;
-  v120 = v13;
-  v121 = v15;
-  v122 = v89;
-  v76 = v37;
-  v114 = v76;
-  v123 = v83;
-  v124 = v84;
+  v114[0] = _NSConcreteStackBlock;
+  v114[1] = 3221225472;
+  v114[2] = sub_1000513C8;
+  v114[3] = &unk_100167B60;
+  v94 = v7;
+  v115 = v94;
+  v120 = v99;
+  v121 = v98;
+  v122 = v13;
+  v123 = v15;
+  v124 = v91;
+  v78 = v39;
+  v116 = v78;
   v125 = v85;
   v126 = v86;
-  v77 = v88;
-  v115 = v77;
-  v78 = v64;
-  v116 = v78;
-  v79 = v103;
+  v127 = v87;
+  v128 = v88;
+  v79 = v90;
   v117 = v79;
-  v127 = MinY;
-  v106[0] = _NSConcreteStackBlock;
-  v106[1] = 3221225472;
-  v106[2] = sub_100051584;
-  v106[3] = &unk_100167B88;
-  objc_copyWeak(&v111, &location);
-  v80 = v87;
-  v107 = v80;
-  v81 = v79;
-  v108 = v81;
-  v82 = contextCopy;
+  v80 = v66;
+  v118 = v80;
+  v81 = v105;
+  v119 = v81;
+  v129 = MinY;
+  v108[0] = _NSConcreteStackBlock;
+  v108[1] = 3221225472;
+  v108[2] = sub_100051584;
+  v108[3] = &unk_100167B88;
+  objc_copyWeak(&v113, &location);
+  v82 = v89;
   v109 = v82;
+  v83 = v81;
+  v110 = v83;
+  v84 = contextCopy;
+  v111 = v84;
   selfCopy = self;
-  [UIView _animateUsingSpringBehavior:springAnimationBehavior tracking:0 animations:v112 completion:v106];
+  [UIView _animateUsingSpringBehavior:springAnimationBehavior tracking:0 animations:v114 completion:v108];
   if (objc_opt_respondsToSelector())
   {
-    [v100 performSelector:"animateForDrillIn"];
+    [v102 performSelector:"animateForDrillIn"];
   }
 
-  objc_destroyWeak(&v111);
+  objc_destroyWeak(&v113);
   objc_destroyWeak(&location);
 }
 
@@ -406,20 +408,20 @@
   _navigationController = [(SRSystemAssistantExperienceNavigationTransitionController *)self _navigationController];
   popAnimationType = [_navigationController popAnimationType];
 
-  v93 = [contextCopy viewForKey:UITransitionContextFromViewKey];
-  v83 = [contextCopy viewControllerForKey:UITransitionContextFromViewControllerKey];
-  v97 = [contextCopy viewForKey:UITransitionContextToViewKey];
-  v88 = [contextCopy viewControllerForKey:UITransitionContextToViewControllerKey];
-  v87 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _saeContainerViewFromViewController:v88];
-  v90 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _platterViewOfViewController:v88];
-  v81 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _snippetContainerViewOfView:v90];
+  v96 = [contextCopy viewForKey:UITransitionContextFromViewKey];
+  v86 = [contextCopy viewControllerForKey:UITransitionContextFromViewControllerKey];
+  v100 = [contextCopy viewForKey:UITransitionContextToViewKey];
+  v91 = [contextCopy viewControllerForKey:UITransitionContextToViewControllerKey];
+  v90 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _saeContainerViewFromViewController:v91];
+  v93 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _platterViewOfViewController:v91];
+  v84 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _snippetContainerViewOfView:v93];
   _navigationController2 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _navigationController];
   blurrableView = [_navigationController2 blurrableView];
 
   _navigationController3 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _navigationController];
   animatingBackgroundView = [_navigationController3 animatingBackgroundView];
 
-  v7 = blurrableView;
+  v9 = blurrableView;
   if (popAnimationType)
   {
     if (popAnimationType != 1)
@@ -427,164 +429,165 @@
       goto LABEL_5;
     }
 
-    v7 = v93;
+    v9 = v96;
   }
 
-  [containerView insertSubview:v97 belowSubview:v7];
+  v7 = [containerView insertSubview:v100 belowSubview:v9];
 LABEL_5:
-  if (SiriUIDeviceIsPad())
+  SiriUIDeviceIsPad(v7, v8);
+  if (v10)
   {
-    [(SRSystemAssistantExperienceNavigationTransitionController *)self _moveCloseButtonToView:v93];
+    [(SRSystemAssistantExperienceNavigationTransitionController *)self _moveCloseButtonToView:v96];
   }
 
-  v91 = [[UIVisualEffectView alloc] initWithEffect:0];
-  v8 = [UIVisualEffectView alloc];
-  v9 = [UIBlurEffect effectWithStyle:4];
-  v10 = [v8 initWithEffect:v9];
+  v94 = [[UIVisualEffectView alloc] initWithEffect:0];
+  v11 = [UIVisualEffectView alloc];
+  v12 = [UIBlurEffect effectWithStyle:4];
+  v13 = [v11 initWithEffect:v12];
 
   if (popAnimationType == 1)
   {
-    layer2 = [v91 layer];
-    v12 = SiriSharedUISmartDialogPlatterCornerRadius;
+    layer2 = [v94 layer];
+    v15 = SiriSharedUISmartDialogPlatterCornerRadius;
     [layer2 setCornerRadius:SiriSharedUISmartDialogPlatterCornerRadius];
 
-    [v93 bounds];
-    [v91 setFrame:?];
-    layer3 = [v91 layer];
+    [v96 bounds];
+    [v94 setFrame:?];
+    layer3 = [v94 layer];
     [layer3 setMasksToBounds:1];
 
-    [v91 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v91 setUserInteractionEnabled:0];
-    [v93 addSubview:v91];
-    leadingAnchor = [v91 leadingAnchor];
-    leadingAnchor2 = [v93 leadingAnchor];
-    v74 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v128[0] = v74;
-    trailingAnchor = [v91 trailingAnchor];
-    trailingAnchor2 = [v93 trailingAnchor];
-    v15 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v128[1] = v15;
-    topAnchor = [v91 topAnchor];
-    topAnchor2 = [v93 topAnchor];
-    v18 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v128[2] = v18;
-    bottomAnchor = [v91 bottomAnchor];
-    bottomAnchor2 = [v93 bottomAnchor];
-    v21 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v128[3] = v21;
-    v22 = [NSArray arrayWithObjects:v128 count:4];
-    [NSLayoutConstraint activateConstraints:v22];
+    [v94 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v94 setUserInteractionEnabled:0];
+    [v96 addSubview:v94];
+    leadingAnchor = [v94 leadingAnchor];
+    leadingAnchor2 = [v96 leadingAnchor];
+    v77 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v131[0] = v77;
+    trailingAnchor = [v94 trailingAnchor];
+    trailingAnchor2 = [v96 trailingAnchor];
+    v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v131[1] = v18;
+    topAnchor = [v94 topAnchor];
+    topAnchor2 = [v96 topAnchor];
+    v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v131[2] = v21;
+    bottomAnchor = [v94 bottomAnchor];
+    bottomAnchor2 = [v96 bottomAnchor];
+    v24 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v131[3] = v24;
+    v25 = [NSArray arrayWithObjects:v131 count:4];
+    [NSLayoutConstraint activateConstraints:v25];
 
-    layer4 = [v10 layer];
-    [layer4 setCornerRadius:v12];
+    layer4 = [v13 layer];
+    [layer4 setCornerRadius:v15];
 
-    [v97 bounds];
-    [v10 setFrame:?];
-    layer5 = [v10 layer];
+    [v100 bounds];
+    [v13 setFrame:?];
+    layer5 = [v13 layer];
     [layer5 setMasksToBounds:1];
 
-    [v10 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v10 setUserInteractionEnabled:0];
-    [v97 addSubview:v10];
-    leadingAnchor3 = [v10 leadingAnchor];
-    leadingAnchor4 = [v97 leadingAnchor];
-    v75 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v127[0] = v75;
-    trailingAnchor3 = [v10 trailingAnchor];
-    trailingAnchor4 = [v97 trailingAnchor];
-    v26 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v127[1] = v26;
-    topAnchor3 = [v10 topAnchor];
-    topAnchor4 = [v97 topAnchor];
-    v29 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-    v127[2] = v29;
-    bottomAnchor3 = [v10 bottomAnchor];
-    bottomAnchor4 = [v97 bottomAnchor];
-    v32 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-    v127[3] = v32;
-    v33 = [NSArray arrayWithObjects:v127 count:4];
-    [NSLayoutConstraint activateConstraints:v33];
+    [v13 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v13 setUserInteractionEnabled:0];
+    [v100 addSubview:v13];
+    leadingAnchor3 = [v13 leadingAnchor];
+    leadingAnchor4 = [v100 leadingAnchor];
+    v78 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v130[0] = v78;
+    trailingAnchor3 = [v13 trailingAnchor];
+    trailingAnchor4 = [v100 trailingAnchor];
+    v29 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+    v130[1] = v29;
+    topAnchor3 = [v13 topAnchor];
+    topAnchor4 = [v100 topAnchor];
+    v32 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+    v130[2] = v32;
+    bottomAnchor3 = [v13 bottomAnchor];
+    bottomAnchor4 = [v100 bottomAnchor];
+    v35 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+    v130[3] = v35;
+    v36 = [NSArray arrayWithObjects:v130 count:4];
+    [NSLayoutConstraint activateConstraints:v36];
 
-    [v10 setHidden:1];
+    [v13 setHidden:1];
   }
 
-  [v97 setHidden:0];
-  [v87 prepareForPopAnimationOfType:popAnimationType];
-  resultViewContainer = [v87 resultViewContainer];
+  [v100 setHidden:0];
+  [v90 prepareForPopAnimationOfType:popAnimationType];
+  resultViewContainer = [v90 resultViewContainer];
   [resultViewContainer setAlpha:1.0];
   [resultViewContainer siriSharedUI_setGlassBackground];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = v83;
+    v37 = v86;
   }
 
   else
   {
-    v34 = 0;
+    v37 = 0;
   }
 
-  v78 = v34;
-  [v34 prepareForPopAnimationOfType:popAnimationType];
-  [v90 frame];
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
-  v42 = v41;
-  superview = [v90 superview];
-  [containerView convertRect:superview fromView:{v36, v38, v40, v42}];
+  v81 = v37;
+  [v37 prepareForPopAnimationOfType:popAnimationType];
+  [v93 frame];
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
   v45 = v44;
-  v47 = v46;
-  v49 = v48;
-  v51 = v50;
+  superview = [v93 superview];
+  [containerView convertRect:superview fromView:{v39, v41, v43, v45}];
+  v48 = v47;
+  v50 = v49;
+  v52 = v51;
+  v54 = v53;
 
   objc_initWeak(&location, self);
   springAnimationBehavior = self->_springAnimationBehavior;
-  v109[0] = _NSConcreteStackBlock;
-  v109[1] = 3221225472;
-  v109[2] = sub_10005222C;
-  v109[3] = &unk_100167BD8;
-  v119 = popAnimationType;
-  v53 = v93;
-  v110 = v53;
-  v54 = animatingBackgroundView;
-  v111 = v54;
-  v120 = v45;
-  v121 = v47;
-  v122 = v49;
-  v123 = v51;
-  v55 = v10;
-  v112 = v55;
-  v80 = v97;
-  v113 = v80;
-  v56 = v91;
-  v114 = v56;
-  v94 = v81;
-  v115 = v94;
-  v92 = v90;
-  v116 = v92;
-  v98 = v87;
-  v117 = v98;
-  v57 = blurrableView;
-  v118 = v57;
-  v101[0] = _NSConcreteStackBlock;
-  v101[1] = 3221225472;
-  v101[2] = sub_100052488;
-  v101[3] = &unk_100167C00;
-  objc_copyWeak(&v108, &location);
-  v58 = v53;
-  v102 = v58;
-  v59 = v56;
-  v103 = v59;
-  v60 = v54;
-  v104 = v60;
-  v61 = v57;
+  v112[0] = _NSConcreteStackBlock;
+  v112[1] = 3221225472;
+  v112[2] = sub_10005222C;
+  v112[3] = &unk_100167BD8;
+  v122 = popAnimationType;
+  v56 = v96;
+  v113 = v56;
+  v57 = animatingBackgroundView;
+  v114 = v57;
+  v123 = v48;
+  v124 = v50;
+  v125 = v52;
+  v126 = v54;
+  v58 = v13;
+  v115 = v58;
+  v83 = v100;
+  v116 = v83;
+  v59 = v94;
+  v117 = v59;
+  v97 = v84;
+  v118 = v97;
+  v95 = v93;
+  v119 = v95;
+  v101 = v90;
+  v120 = v101;
+  v60 = blurrableView;
+  v121 = v60;
+  v104[0] = _NSConcreteStackBlock;
+  v104[1] = 3221225472;
+  v104[2] = sub_100052488;
+  v104[3] = &unk_100167C00;
+  objc_copyWeak(&v111, &location);
+  v61 = v56;
   v105 = v61;
-  v62 = v55;
+  v62 = v59;
   v106 = v62;
-  v96 = contextCopy;
-  v107 = v96;
-  [UIView _animateUsingSpringBehavior:springAnimationBehavior tracking:0 animations:v109 completion:v101];
+  v63 = v57;
+  v107 = v63;
+  v64 = v60;
+  v108 = v64;
+  v65 = v58;
+  v109 = v65;
+  v99 = contextCopy;
+  v110 = v99;
+  [UIView _animateUsingSpringBehavior:springAnimationBehavior tracking:0 animations:v112 completion:v104];
   if (popAnimationType)
   {
     if (popAnimationType == 1)
@@ -592,41 +595,41 @@ LABEL_5:
       _navigationController4 = [(SRSystemAssistantExperienceNavigationTransitionController *)self _navigationController];
       [_navigationController4 setPopAnimationType:0];
 
-      [v98 performAnimatedBlur:0 usingSpringWithMass:2.0 stiffness:200.0 damping:30.0];
+      [v101 performAnimatedBlur:0 usingSpringWithMass:2.0 stiffness:200.0 damping:30.0];
     }
   }
 
   else
   {
-    v64 = [CAFilter filterWithType:kCAFilterGaussianBlur];
-    [v64 setName:@"gaussianBlur"];
-    [v64 setValue:&off_10016E5A8 forKey:kCAFilterInputRadius];
-    v65 = [CASpringAnimation animationWithKeyPath:@"filters.gaussianBlur.inputRadius"];
-    [v65 setMass:2.0];
-    [v65 setStiffness:200.0];
-    [v65 setDamping:30.0];
-    [v65 setAdditive:1];
-    [v65 setFromValue:&off_10016E5A8];
-    [v65 setToValue:&off_10016E4C0];
-    [v65 setDuration:1.0];
-    layer6 = [v58 layer];
-    v126 = v64;
-    v67 = [NSArray arrayWithObjects:&v126 count:1];
-    [layer6 setFilters:v67];
+    v67 = [CAFilter filterWithType:kCAFilterGaussianBlur];
+    [v67 setName:@"gaussianBlur"];
+    [v67 setValue:&off_10016E5A8 forKey:kCAFilterInputRadius];
+    v68 = [CASpringAnimation animationWithKeyPath:@"filters.gaussianBlur.inputRadius"];
+    [v68 setMass:2.0];
+    [v68 setStiffness:200.0];
+    [v68 setDamping:30.0];
+    [v68 setAdditive:1];
+    [v68 setFromValue:&off_10016E5A8];
+    [v68 setToValue:&off_10016E4C0];
+    [v68 setDuration:1.0];
+    layer6 = [v61 layer];
+    v129 = v67;
+    v70 = [NSArray arrayWithObjects:&v129 count:1];
+    [layer6 setFilters:v70];
 
-    layer7 = [v61 layer];
-    v125 = v64;
-    v69 = [NSArray arrayWithObjects:&v125 count:1];
-    [layer7 setFilters:v69];
+    layer7 = [v64 layer];
+    v128 = v67;
+    v72 = [NSArray arrayWithObjects:&v128 count:1];
+    [layer7 setFilters:v72];
 
-    layer8 = [v58 layer];
-    [layer8 addAnimation:v65 forKey:@"filters.gaussianBlur.inputRadius"];
+    layer8 = [v61 layer];
+    [layer8 addAnimation:v68 forKey:@"filters.gaussianBlur.inputRadius"];
 
-    layer9 = [v61 layer];
-    [layer9 addAnimation:v65 forKey:@"filters.gaussianBlur.inputRadius"];
+    layer9 = [v64 layer];
+    [layer9 addAnimation:v68 forKey:@"filters.gaussianBlur.inputRadius"];
   }
 
-  objc_destroyWeak(&v108);
+  objc_destroyWeak(&v111);
   objc_destroyWeak(&location);
 }
 

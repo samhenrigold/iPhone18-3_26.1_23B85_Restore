@@ -70,45 +70,44 @@ void __39__ASUSQLiteQuery_copyEntityIdentifiers__block_invoke(uint64_t a1, uint6
 
 - (id)copySelectSQLWithProperties:(id)properties
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   entityClass = [(ASUSQLiteQueryDescriptor *)self->_descriptor entityClass];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = propertiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [(objc_class *)entityClass disambiguatedSQLForProperty:*(*(&v16 + 1) + 8 * v11), v16];
+        v12 = [(objc_class *)entityClass disambiguatedSQLForProperty:*(*(&v15 + 1) + 8 * v11), v15];
         [v5 addObject:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
 
   v13 = [(ASUSQLiteQueryDescriptor *)self->_descriptor _newSelectSQLWithProperties:v7 columns:v5];
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -131,11 +130,11 @@ void __39__ASUSQLiteQuery_copyEntityIdentifiers__block_invoke(uint64_t a1, uint6
 
 - (BOOL)createTemporaryTableWithName:(id)name properties:(id)properties
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   propertiesCopy = properties;
   v8 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"CREATE TEMPORARY TABLE "];
-  v23 = nameCopy;
+  v22 = nameCopy;
   [v8 appendString:nameCopy];
   [v8 appendString:@" AS "];
   v9 = [(ASUSQLiteQueryDescriptor *)self->_descriptor copy];
@@ -143,34 +142,34 @@ void __39__ASUSQLiteQuery_copyEntityIdentifiers__block_invoke(uint64_t a1, uint6
   [v9 setOrderingProperties:0];
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   entityClass = [(ASUSQLiteQueryDescriptor *)self->_descriptor entityClass];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v12 = propertiesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       v16 = 0;
       do
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [(objc_class *)entityClass disambiguatedSQLForProperty:*(*(&v26 + 1) + 8 * v16)];
+        v17 = [(objc_class *)entityClass disambiguatedSQLForProperty:*(*(&v25 + 1) + 8 * v16)];
         [v10 addObject:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v14);
@@ -180,15 +179,14 @@ void __39__ASUSQLiteQuery_copyEntityIdentifiers__block_invoke(uint64_t a1, uint6
   [v8 appendString:v18];
   [v8 appendString:@";"];
   connection = self->_connection;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __58__ASUSQLiteQuery_createTemporaryTableWithName_properties___block_invoke;
-  v24[3] = &unk_278C97AE8;
-  v25 = v9;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __58__ASUSQLiteQuery_createTemporaryTableWithName_properties___block_invoke;
+  v23[3] = &unk_278C97AE8;
+  v24 = v9;
   v20 = v9;
-  LOBYTE(connection) = [(ASUSQLiteConnection *)connection executeStatement:v8 error:0 bindings:v24];
+  LOBYTE(connection) = [(ASUSQLiteConnection *)connection executeStatement:v8 error:0 bindings:v23];
 
-  v21 = *MEMORY[0x277D85DE8];
   return connection;
 }
 
@@ -323,7 +321,7 @@ void __67__ASUSQLiteQuery_enumerateMemoryEntitiesWithProperties_usingBlock___blo
 
 - (void)enumeratePersistentIDsAndProperties:(id)properties usingBlock:(id)block
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   blockCopy = block;
   v8 = propertiesCopy;
@@ -334,34 +332,34 @@ void __67__ASUSQLiteQuery_enumerateMemoryEntitiesWithProperties_usingBlock___blo
     v11 = [(objc_class *)entityClass disambiguatedSQLForProperty:@"ROWID"];
     [v9 addObject:v11];
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v12 = v8;
-    v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v27;
+      v15 = *v26;
       do
       {
         v16 = 0;
         do
         {
-          if (*v27 != v15)
+          if (*v26 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [(objc_class *)entityClass disambiguatedSQLForProperty:*(*(&v26 + 1) + 8 * v16)];
+          v17 = [(objc_class *)entityClass disambiguatedSQLForProperty:*(*(&v25 + 1) + 8 * v16)];
           [v9 addObject:v17];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v14);
@@ -376,18 +374,16 @@ void __67__ASUSQLiteQuery_enumerateMemoryEntitiesWithProperties_usingBlock___blo
   }
 
   connection = self->_connection;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __65__ASUSQLiteQuery_enumeratePersistentIDsAndProperties_usingBlock___block_invoke;
-  v23[3] = &unk_278C97E40;
-  v23[4] = self;
-  v24 = v8;
-  v25 = blockCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __65__ASUSQLiteQuery_enumeratePersistentIDsAndProperties_usingBlock___block_invoke;
+  v22[3] = &unk_278C97E40;
+  v22[4] = self;
+  v23 = v8;
+  v24 = blockCopy;
   v20 = blockCopy;
   v21 = v8;
-  [(ASUSQLiteConnection *)connection executeQuery:v18 withResults:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [(ASUSQLiteConnection *)connection executeQuery:v18 withResults:v22];
 }
 
 void __65__ASUSQLiteQuery_enumeratePersistentIDsAndProperties_usingBlock___block_invoke(id *a1, void *a2, void *a3)

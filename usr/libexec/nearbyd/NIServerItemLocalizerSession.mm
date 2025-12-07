@@ -9,6 +9,7 @@
 - (BOOL)updateConfiguration:(id)configuration;
 - (NIServerItemLocalizerSession)initWithResourcesManager:(id)manager configuration:(id)configuration error:(id *)error;
 - (RoseDeviceDescriptor)_getCompanionDescriptor;
+- (RoseStartRangingOptions)_populateNBAMMSRoseStartRangingOptions:(SEL)options;
 - (RoseStartRangingOptions)_populateP2PRoseStartRangingOptions;
 - (basic_string<char,)uniqueIdentifierForEngine:(std::allocator<char>> *__return_ptr)retstr;
 - (float)_adjustDutyCycleForInterfaceDelays:(float)delays schedulingInterval:(unsigned int)interval;
@@ -80,6 +81,8 @@
 - (void)findMyAccessoryManager:(id)manager didHaveRangingMovementOnDevice:(id)device;
 - (void)findMyAccessoryManager:(id)manager didInitRangingOnDevice:(id)device withStatus:(unsigned int)status error:(id)error;
 - (void)findMyAccessoryManager:(id)manager didPrepareRangingOnDevice:(id)device withConnInterval:(id)interval error:(id)error;
+- (void)findMyAccessoryManager:(id)manager didReceiveRangingErrorFromDevice:(id)device withStatus:(unsigned int)status;
+- (void)findMyAccessoryManager:(id)manager didReceiveRangingTimestampFromDevice:(id)device status:(unsigned __int16)status rtt:(unint64_t)rtt tat:(unint64_t)tat cycleIndex:(unsigned __int16)index;
 - (void)findMyAccessoryManager:(id)manager didStartRangingOnDevice:(id)device error:(id)error;
 - (void)invalidate;
 - (void)processVisionInput:(id)input;
@@ -109,7 +112,7 @@
   }
 
   v13 = sub_1000054A8();
-  if ((sub_100460AF8(v13) & 1) == 0)
+  if (!sub_100460AF8(v13))
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
@@ -172,7 +175,7 @@
     selfCopy2->_cleaningUponDidFail = 0;
     if (managerCopy)
     {
-      [managerCopy protobufLogger];
+      objc_msgSend_protobufLogger(managerCopy);
       v26 = *buf;
     }
 
@@ -1043,7 +1046,7 @@ LABEL_10:
 
   if (v6)
   {
-    v10[0] = 0;
+    *v10 = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,Extended distance measurement available", v10, 2u);
   }
 
@@ -1099,15 +1102,14 @@ LABEL_10:
 
 - (void)didReceiveNewSolution:(const void *)solution
 {
-  v4 = (solution + 32);
   v3 = *(solution + 8);
-  v5 = v3 > 4;
-  v6 = (1 << v3) & 0x1A;
-  if (v5 || v6 == 0)
+  v4 = v3 > 4;
+  v5 = (1 << v3) & 0x1A;
+  if (v4 || v5 == 0)
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_FAULT))
     {
-      sub_1004BE154(v4);
+      sub_1004BE154();
     }
   }
 
@@ -1116,11 +1118,11 @@ LABEL_10:
     self->_cachedSolutionMacAddr = *(solution + 5);
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEBUG))
     {
-      sub_1004BE0A8(&self->_cachedSolutionMacAddr);
+      sub_1004BE0A8();
     }
 
-    v10 = [(NIServerItemLocalizerSession *)self discoveryTokenFromIdentifier:self->_cachedSolutionMacAddr];
-    if (v10)
+    v9 = [(NIServerItemLocalizerSession *)self discoveryTokenFromIdentifier:self->_cachedSolutionMacAddr];
+    if (v9)
     {
       [(NINearbyUpdatesEngine *)self->_updatesEngine acceptRoseSolution:solution];
     }
@@ -1304,7 +1306,7 @@ LABEL_10:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004BE2C8(&self->_localRangingState);
+      sub_1004BE2C8();
     }
 
     v21 = NSLocalizedDescriptionKey;
@@ -1320,7 +1322,7 @@ LABEL_10:
   {
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_1004BE340(&self->_companionRangingState);
+      sub_1004BE340();
     }
 
     v19 = NSLocalizedDescriptionKey;
@@ -2225,20 +2227,20 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,Configure companion for ranging. UUID: %@", buf, 0xCu);
   }
 
-  v10 = sub_10035D02C();
-  v11 = *(v10 + 406);
-  v12 = *(v10 + 407);
-  if (v12)
+  v5 = sub_10035D02C();
+  v6 = *(v5 + 406);
+  v7 = *(v5 + 407);
+  if (v7)
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (v11)
+  if (v6)
   {
     if (self->_roseServiceRequest.var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_)
     {
-      v13 = *&self->_roseServiceRequest.var0.__val_.range_enable_params.nbamms.mms_slot_sz_250us.var0.__null_state_;
-      if (v13 == 1)
+      v8 = *&self->_roseServiceRequest.var0.__val_.range_enable_params.nbamms.mms_slot_sz_250us.var0.__null_state_;
+      if (v8 == 1)
       {
         *buf = 0;
         *&buf[8] = 0;
@@ -2247,11 +2249,11 @@ LABEL_11:
         {
           self->_companionRoseState = 2;
           uUID3 = [(NIServerItemLocalizerSession *)self _getDictFromRangeConfigNBAMMS:buf];
-          v30 = qword_1009F9820;
+          v25 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
-            *v36 = 0;
-            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,[CL] configureNBRangingOnDevice", v36, 2u);
+            *v31 = 0;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,[CL] configureNBRangingOnDevice", v31, 2u);
           }
 
           companionRangingManager = self->_companionRangingManager;
@@ -2261,10 +2263,10 @@ LABEL_11:
 
         else
         {
-          v37 = NSLocalizedDescriptionKey;
-          v38 = @"Failed to construct companion range config command.";
-          v34 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-          uUID3 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v34];
+          v32 = NSLocalizedDescriptionKey;
+          v33 = @"Failed to construct companion range config command.";
+          v29 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+          uUID3 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v29];
 
           [(NIServerItemLocalizerSession *)self _handleError:uUID3];
         }
@@ -2272,96 +2274,96 @@ LABEL_11:
 
       else
       {
-        if (v13)
+        if (v8)
         {
           goto LABEL_38;
         }
 
-        *v36 = 0;
-        if (sub_10032A118(v11, &self->_roseServiceRequest, v36, v5, v6, v7, v8, v9))
+        *v31 = 0;
+        if (sub_10032A118(v6, &self->_roseServiceRequest, v31))
         {
-          v14 = qword_1009F9820;
+          v9 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,+++++++++++++++++++++++++++++++++++++++++", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,+++++++++++++++++++++++++++++++++++++++++", buf, 2u);
+          }
+
+          v10 = qword_1009F9820;
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,Sent command to remote device:", buf, 2u);
+          }
+
+          v11 = qword_1009F9820;
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            *&buf[4] = v31[0];
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   countryCode: 0x%x", buf, 8u);
+          }
+
+          v12 = qword_1009F9820;
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            *&buf[4] = v31[1] & 3;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   channel: 0x%x", buf, 8u);
+          }
+
+          v13 = qword_1009F9820;
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            *&buf[4] = (v31[1] >> 2) & 3;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   txPreamble: 0x%x", buf, 8u);
+          }
+
+          v14 = qword_1009F9820;
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 67109120;
+            *&buf[4] = (v31[1] >> 4) & 3;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   rxPreamble: 0x%x", buf, 8u);
           }
 
           v15 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = 0;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,Sent command to remote device:", buf, 2u);
+            *buf = 67109120;
+            *&buf[4] = *&v31[2];
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   intervalMs: %d", buf, 8u);
           }
 
           v16 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = 67109120;
-            *&buf[4] = v36[0];
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   countryCode: 0x%x", buf, 8u);
-          }
-
-          v17 = qword_1009F9820;
-          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 67109120;
-            *&buf[4] = v36[1] & 3;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   channel: 0x%x", buf, 8u);
-          }
-
-          v18 = qword_1009F9820;
-          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 67109120;
-            *&buf[4] = (v36[1] >> 2) & 3;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   txPreamble: 0x%x", buf, 8u);
-          }
-
-          v19 = qword_1009F9820;
-          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 67109120;
-            *&buf[4] = (v36[1] >> 4) & 3;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   rxPreamble: 0x%x", buf, 8u);
-          }
-
-          v20 = qword_1009F9820;
-          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 67109120;
-            *&buf[4] = *&v36[2];
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,   intervalMs: %d", buf, 8u);
-          }
-
-          v21 = qword_1009F9820;
-          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
-          {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,+++++++++++++++++++++++++++++++++++++++++", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,+++++++++++++++++++++++++++++++++++++++++", buf, 2u);
           }
 
           self->_companionRoseState = 2;
-          v22 = qword_1009F9820;
+          v17 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,[CL] configureRangingOnDevice", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,[CL] configureRangingOnDevice", buf, 2u);
           }
 
-          v23 = self->_companionRangingManager;
+          v18 = self->_companionRangingManager;
           uUID3 = [(CompanionDevice *)self->_companionDevice UUID];
           roseMACAddress = [(CompanionDevice *)self->_companionDevice roseMACAddress];
-          LOWORD(v35) = *&v36[2];
-          [(CLFindMyAccessoryManager *)v23 configureRangingOnDevice:uUID3 macAddress:roseMACAddress countryCode:v36[0] uwbChannel:v36[1] & 3 acqPreamble:(v36[1] >> 2) & 3 trackingPreamble:(v36[1] >> 4) & 3 interval:v35];
+          LOWORD(v30) = *&v31[2];
+          [(CLFindMyAccessoryManager *)v18 configureRangingOnDevice:uUID3 macAddress:roseMACAddress countryCode:v31[0] uwbChannel:v31[1] & 3 acqPreamble:(v31[1] >> 2) & 3 trackingPreamble:(v31[1] >> 4) & 3 interval:v30];
         }
 
         else
         {
-          v40 = NSLocalizedDescriptionKey;
-          v41 = @"Failed to construct companion range config command.";
-          v33 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-          uUID3 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v33];
+          v35 = NSLocalizedDescriptionKey;
+          v36 = @"Failed to construct companion range config command.";
+          v28 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+          uUID3 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v28];
 
           [(NIServerItemLocalizerSession *)self _handleError:uUID3];
         }
@@ -2370,29 +2372,29 @@ LABEL_11:
 
     else
     {
-      v42 = NSLocalizedDescriptionKey;
-      v43 = @"No cached ranging request.";
-      v28 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-      v29 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v28];
+      v37 = NSLocalizedDescriptionKey;
+      v38 = @"No cached ranging request.";
+      v23 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v24 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v23];
 
-      [(NIServerItemLocalizerSession *)self _handleError:v29];
+      [(NIServerItemLocalizerSession *)self _handleError:v24];
     }
   }
 
   else
   {
-    v44 = NSLocalizedDescriptionKey;
-    v45 = @"Configuration Manager Error.";
-    v26 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-    v27 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v26];
+    v39 = NSLocalizedDescriptionKey;
+    v40 = @"Configuration Manager Error.";
+    v21 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v22 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v21];
 
-    [(NIServerItemLocalizerSession *)self _handleError:v27];
+    [(NIServerItemLocalizerSession *)self _handleError:v22];
   }
 
 LABEL_38:
-  if (v12)
+  if (v7)
   {
-    sub_10000AD84(v12);
+    sub_10000AD84(v7);
   }
 }
 
@@ -2509,19 +2511,10 @@ LABEL_9:
 - (BOOL)_setCompanionDeviceRoseMacAddress
 {
   debugParameters = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
-  if (!debugParameters)
+  if (debugParameters && ([*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters], v4 = objc_claimAutoreleasedReturnValue(), v5 = PRP2PBaseAddress, objc_msgSend(v4, "objectForKey:", PRP2PBaseAddress), v6 = objc_claimAutoreleasedReturnValue(), v6, v4, debugParameters, v6))
   {
-    goto LABEL_6;
-  }
-
-  debugParameters2 = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
-  v5 = PRP2PBaseAddress;
-  v6 = [debugParameters2 objectForKey:PRP2PBaseAddress];
-
-  if (v6)
-  {
-    debugParameters3 = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
-    v8 = [debugParameters3 objectForKey:v5];
+    debugParameters2 = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
+    v8 = [debugParameters2 objectForKey:v5];
 
     v9 = qword_1009F9820;
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
@@ -2536,7 +2529,6 @@ LABEL_9:
 
   else
   {
-LABEL_6:
     v8 = +[NSUUID UUID];
     *buf[0].i8 = 0uLL;
     [v8 getUUIDBytes:buf];
@@ -2627,19 +2619,19 @@ LABEL_6:
       goto LABEL_18;
     }
 
-    [(NIServerItemLocalizerSession *)self _prepareNBAMMSServiceRequest];
+    objc_msgSend__prepareNBAMMSServiceRequest(self);
   }
 
   else
   {
-    [(NIServerItemLocalizerSession *)self _prepareP2PServiceRequest];
+    objc_msgSend__prepareP2PServiceRequest(self);
   }
 
   memcpy(&self->_roseServiceRequest, __src, 0x241uLL);
 LABEL_18:
   if (self->_roseServiceRequest.var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_)
   {
-    v8 = [(NIServerItemLocalizerSession *)self _buildRoseSession:?];
+    v8 = objc_msgSend__buildRoseSession_(self);
     v4 = v8;
     if (!v8)
     {
@@ -2732,7 +2724,7 @@ LABEL_10:
       goto LABEL_12;
     }
 
-    [(NIServerItemLocalizerSession *)self _populateP2PRoseStartRangingOptions];
+    objc_msgSend__populateP2PRoseStartRangingOptions(self, a2);
     v5 = sub_10034024C(self->_p2pSession.__ptr_, v17);
     if (v5)
     {
@@ -2740,7 +2732,7 @@ LABEL_10:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_100342F8C(v5, v12);
-        sub_1004BE788(v12);
+        sub_1004BE788();
       }
 
       v15 = NSLocalizedDescriptionKey;
@@ -2756,7 +2748,7 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  [(NIServerItemLocalizerSession *)self _populateNBAMMSRoseStartRangingOptions:self->_isInitiator];
+  objc_msgSend__populateNBAMMSRoseStartRangingOptions_(self, a2, self->_isInitiator);
   v8 = sub_10034024C(self->_nbammsSession.__ptr_, v17);
   if (!v8)
   {
@@ -2767,7 +2759,7 @@ LABEL_11:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_100342F8C(v8, v12);
-    sub_1004BE788(v12);
+    sub_1004BE788();
   }
 
   v13 = NSLocalizedDescriptionKey;
@@ -2888,7 +2880,7 @@ LABEL_12:
     goto LABEL_19;
   }
 
-  v9 = [(NIServerItemLocalizerSession *)self _buildRoseSession:?];
+  v9 = objc_msgSend__buildRoseSession_(self);
   v10 = qword_1009F9820;
   v11 = os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT);
   if (v9)
@@ -2939,7 +2931,7 @@ LABEL_20:
     v12 = getResourcesManager;
     if (getResourcesManager)
     {
-      [getResourcesManager protobufLogger];
+      objc_msgSend_protobufLogger(getResourcesManager);
     }
 
     else
@@ -3368,7 +3360,7 @@ LABEL_20:
 - (optional<rose::RoseServiceRequest>)_prepareP2PServiceRequest
 {
   dispatch_assert_queue_V2(self->_clientQueue);
-  [(NIServerItemLocalizerSession *)self _getCompanionDescriptor];
+  objc_msgSend__getCompanionDescriptor(self);
   *v43 = 0;
   v44 = &v50;
   communicationProtocol = self->_communicationProtocol;
@@ -3648,7 +3640,7 @@ LABEL_37:
     }
   }
 
-  [(NIServerItemLocalizerSession *)self _getCompanionDescriptor];
+  objc_msgSend__getCompanionDescriptor(self);
   v25 = v29;
   *&retstr->peer.var0.__null_state_ = *buf;
   *(&retstr->peer.var0.__val_.uuid.var0 + 12) = v25;
@@ -3770,6 +3762,100 @@ LABEL_13:
   return result;
 }
 
+- (RoseStartRangingOptions)_populateNBAMMSRoseStartRangingOptions:(SEL)options
+{
+  v4 = a4;
+  intValue = 10000000;
+  debugParameters = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
+
+  if (debugParameters)
+  {
+    debugParameters2 = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
+    v10 = [debugParameters2 objectForKey:@"startTimeUncertainty"];
+
+    if (v10)
+    {
+      intValue = [v10 intValue];
+    }
+  }
+
+  if (v4)
+  {
+    intValue2 = 61000;
+  }
+
+  else
+  {
+    intValue2 = 29000;
+  }
+
+  debugParameters3 = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
+
+  if (debugParameters3)
+  {
+    debugParameters4 = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
+    v14 = [debugParameters4 objectForKey:@"schedulingInterval"];
+
+    if (v14)
+    {
+      intValue2 = [v14 intValue];
+    }
+  }
+
+  if (v4)
+  {
+    v15 = 0.0;
+  }
+
+  else
+  {
+    v15 = 0.1034;
+  }
+
+  debugParameters5 = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
+
+  if (debugParameters5)
+  {
+    debugParameters6 = [*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec debugParameters];
+    v19 = [debugParameters6 objectForKey:@"dutyCycle"];
+
+    if (v19)
+    {
+      [v19 floatValue];
+      v15 = v20;
+    }
+  }
+
+  if (intValue2 && v15 <= 1.0)
+  {
+    *&v17 = v15;
+    [(NIServerItemLocalizerSession *)self _adjustDutyCycleForInterfaceDelays:intValue2 schedulingInterval:v17];
+    v15 = v21;
+  }
+
+  result = [(NIServerItemLocalizerSession *)self _getDitherConst:v4];
+  *&retstr->peer.var0.__val_.bt_adv_address.var0.__null_state_ = 0;
+  *&retstr->peer.var0.__val_.bt_adv_address.var0.__val_.__elems_[4] = 0;
+  retstr->peer.var0.__val_.type = 2;
+  retstr->peer.var0.__val_.uuid.var0.__null_state_ = 0;
+  *&retstr->peer.var0.__val_.uuid.__engaged_ = 0;
+  retstr->peer.var0.__val_.rose_mac_address.__engaged_ = 0;
+  retstr->peer.var0.__val_.bt_adv_address.__engaged_ = 1;
+  retstr->peer.__engaged_ = 1;
+  retstr->start_time_or_offset_usec = 17000;
+  retstr->start_time_type = 1;
+  retstr->listening_window_usec = intValue;
+  retstr->scheduling_interval_usec = intValue2;
+  retstr->duty_cycle = v15;
+  retstr->conn_evt_trigger_desc = 0;
+  retstr->dither_constant_msec = result;
+  *&retstr->nb_uwb_band_channel.var0.__null_state_ = 0;
+  *(&retstr->secondary_scheduling_interval_usec + 2) = 0;
+  *(&retstr->secondary_scheduling_delay_usec + 2) = 0;
+  retstr->secondary_duty_cycle = 0;
+  return result;
+}
+
 - (BOOL)_updateNBAMMSCompanionConfigurationCommandWithRequest:(const void *)request rangeConfig:(RangeConfigNBAMMS *)config
 {
   *&config->var0 = 0;
@@ -3833,7 +3919,7 @@ LABEL_13:
     config->var3 = BYTE2(v10) & 0xF;
     config->var15 = self->_useTimeDitheringForNBARanging | (2 * self->_usePreambleRandomizationForNBARanging);
     config->var4 = 60;
-    [(NIServerItemLocalizerSession *)self _populateNBAMMSRoseStartRangingOptions:!self->_isInitiator];
+    objc_msgSend__populateNBAMMSRoseStartRangingOptions_(self);
     config->var5 = v19 / 0x3E8;
     if (v21)
     {
@@ -4828,6 +4914,186 @@ LABEL_26:
 LABEL_16:
 }
 
+- (void)findMyAccessoryManager:(id)manager didReceiveRangingErrorFromDevice:(id)device withStatus:(unsigned int)status
+{
+  v5 = *&status;
+  managerCopy = manager;
+  deviceCopy = device;
+  if (*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec)
+  {
+    if (self->_companionRangingManager == managerCopy)
+    {
+      uUID = [(CompanionDevice *)self->_companionDevice UUID];
+      v11 = [deviceCopy isEqual:uUID];
+
+      if (v11)
+      {
+        self->_companionRoseState = 0;
+        v12 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          v19 = v5;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,[CL cb] didReceiveRoseError, status: %d", buf, 8u);
+        }
+
+        v13 = [NSString stringWithFormat:@"Error event ROSE_STATUS: %d", v5];
+        v16[0] = NSLocalizedDescriptionKey;
+        v16[1] = NSLocalizedFailureReasonErrorKey;
+        v17[0] = @"Remote Device Reported Error";
+        v17[1] = v13;
+        v14 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
+        v15 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:301 userInfo:v14];
+
+        [(NIServerItemLocalizerSession *)self _handleError:v15];
+      }
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+  {
+    sub_1004BF214();
+  }
+}
+
+- (void)findMyAccessoryManager:(id)manager didReceiveRangingTimestampFromDevice:(id)device status:(unsigned __int16)status rtt:(unint64_t)rtt tat:(unint64_t)tat cycleIndex:(unsigned __int16)index
+{
+  indexCopy = index;
+  statusCopy = status;
+  managerCopy = manager;
+  deviceCopy = device;
+  if (*&self->_machTimeConverter.fStartTimes.machContinuousTimeSec)
+  {
+    if (self->_companionRangingManager == managerCopy)
+    {
+      uUID = [(CompanionDevice *)self->_companionDevice UUID];
+      v17 = [deviceCopy isEqual:uUID];
+
+      if (v17)
+      {
+        v18 = qword_1009F9820;
+        if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109888;
+          *v38 = statusCopy;
+          *&v38[4] = 2048;
+          *&v38[6] = rtt;
+          v39 = 2048;
+          tatCopy = tat;
+          v41 = 1024;
+          v42 = indexCopy;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,[CL cb] didReceiveRangingTimestampsFromDevice, status: %d, rtt: %llu, tat: %llu, cycleIndex: %d", buf, 0x22u);
+        }
+
+        if ((self->_companionRangingState - 5) >= 2)
+        {
+          v47 = NSLocalizedDescriptionKey;
+          v48 = @"Unexpected didReceiveRangingTimestampsFromDevice";
+          v23 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+          v24 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:301 userInfo:v23];
+
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+          {
+            sub_1004BF248();
+          }
+
+          [(NIServerItemLocalizerSession *)self _handleError:v24];
+        }
+
+        else if ((self->_localRangingState | 4) == 5)
+        {
+          v20 = qword_1009F9820;
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+          {
+            v21 = self->_localRangingState - 1;
+            if (v21 > 4)
+            {
+              v22 = "Invalid";
+            }
+
+            else
+            {
+              v22 = off_1009A51F8[v21];
+            }
+
+            *buf = 136315138;
+            *v38 = v22;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,Cannot process received timestamps as local ranging state == %s", buf, 0xCu);
+          }
+        }
+
+        else
+        {
+          ptr = self->_p2pSession.__ptr_;
+          if (!ptr)
+          {
+            if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+            {
+              sub_1004BF27C();
+            }
+
+            v45 = NSLocalizedDescriptionKey;
+            v46 = @"P2P session undefined!";
+            v26 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+            v27 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v26];
+
+            if (v27)
+            {
+              [(NIServerItemLocalizerSession *)self _handleError:v27];
+            }
+
+            ptr = self->_p2pSession.__ptr_;
+          }
+
+          v28 = *(ptr + 188);
+          if ((v28 & 0x10000) == 0)
+          {
+            if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+            {
+              sub_1004BF2B0();
+            }
+
+            v43 = NSLocalizedDescriptionKey;
+            v44 = @"P2P service ticket unavailable!";
+            v29 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+            v30 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-5887 userInfo:v29];
+
+            if (v30)
+            {
+              [(NIServerItemLocalizerSession *)self _handleError:v30];
+            }
+          }
+
+          v34[0] = sub_100427984(statusCopy, v19);
+          v34[1] = indexCopy;
+          rttCopy = rtt;
+          tatCopy2 = tat;
+          if ((v28 & 0x10000) == 0)
+          {
+            sub_1000195BC();
+          }
+
+          sub_100193800(buf, 1, 0, 0, v28, v34);
+          v31 = qword_1009F9820;
+          if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+          {
+            *v33 = 0;
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#ses-item-loc,PRRangingManager ingestOutOfBandTimestampEvent", v33, 2u);
+          }
+
+          v32 = sub_10035D02C();
+          (*(*v32 + 128))(v32, buf);
+        }
+      }
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+  {
+    sub_1004BF2E4();
+  }
+}
+
 - (void)findMyAccessoryManager:(id)manager didHaveRangingMovementOnDevice:(id)device
 {
   managerCopy = manager;
@@ -5163,7 +5429,7 @@ LABEL_31:
   self->_pbLogger.__cntrl_ = 0;
   self->_roseServiceRequest.var0.__null_state_ = 0;
   self->_roseServiceRequest.var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_ = 0;
-  sub_1002FE758(&self->_roseServiceRequest.__engaged_, a2);
+  sub_1002FE758(&self->_roseServiceRequest.__engaged_);
   return self;
 }
 

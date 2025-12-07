@@ -10,12 +10,10 @@
 - (id)description
 {
   v3 = objc_opt_class();
-  entityType = self->_entityType;
-  v5 = NSStringFromICLibraryPinEntityType();
-  cloudID = self->_cloudID;
-  v7 = [NSString stringWithFormat:@"<%@: %p entityType=%@, position=%ul, cloudID=%lld, cloudLibraryID=%@>", v3, self, v5, self->_positionIndex, cloudID, self->_cloudLibraryID];
+  v4 = NSStringFromICLibraryPinEntityType();
+  v5 = [NSString stringWithFormat:@"<%@: %p entityType=%@, position=%ul, cloudID=%lld, cloudLibraryID=%@>", v3, self, v4, self->_positionIndex, self->_cloudID, self->_cloudLibraryID];
 
-  return v7;
+  return v5;
 }
 
 - (id)_bodyDataWithServerDatabaseRevision:(unsigned int)revision

@@ -136,7 +136,7 @@ LABEL_20:
 
 - (void)applyToTextField:(id)field
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fieldCopy = field;
   _rtiSourceSession = [fieldCopy _rtiSourceSession];
   v6 = _rtiSourceSession;
@@ -266,29 +266,26 @@ LABEL_33:
   }
 
   [_rtiSourceSession handleTextActionPayload:?];
-  rtiDataPayload = self->_rtiDataPayload;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = self->_rtiDataPayload;
-    documentTraits = [(RTIDataPayload *)v8 documentTraits];
+    v7 = self->_rtiDataPayload;
+    documentTraits = [(RTIDataPayload *)v7 documentTraits];
     prompt = [documentTraits prompt];
     [fieldCopy setPlaceholder:prompt];
 
-    v11 = _TVRCRemoteTextInputLog();
+    v11 = _TVRCRemoteTextInputLog(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      documentTraits2 = [(RTIDataPayload *)v8 documentTraits];
+      documentTraits2 = [(RTIDataPayload *)v7 documentTraits];
       prompt2 = [documentTraits2 prompt];
-      v23 = 138412290;
-      v24 = prompt2;
-      _os_log_impl(&dword_26CF7F000, v11, OS_LOG_TYPE_DEFAULT, "Setting textfield prompt to '%@'", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = prompt2;
+      _os_log_impl(&dword_26CF7F000, v11, OS_LOG_TYPE_DEFAULT, "Setting textfield prompt to '%@'", &v22, 0xCu);
     }
   }
 
 LABEL_46:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

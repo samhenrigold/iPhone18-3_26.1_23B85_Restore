@@ -7,6 +7,7 @@
 - (id)stateString;
 - (void)checkLargeTransfersAt:(double)at;
 - (void)dumpStateAt:(double)at;
+- (void)markActiveTransferSizeFlowsAs:(unsigned int)as;
 - (void)refreshTransferSizeState;
 @end
 
@@ -49,7 +50,7 @@
 
 - (void)refreshTransferSizeState
 {
-  v139 = *MEMORY[0x277D85DE8];
+  v138 = *MEMORY[0x277D85DE8];
   v3 = apparentTime();
   selfCopy = self;
   *&self->_numWiFiRxUpperThresholdTransferSizes = 0u;
@@ -59,31 +60,31 @@
   *&self[-1]._transferSizeRelatedRecentCellTxThroughput = 0u;
   p_transferSizeRelatedRecentCellTxThroughput = &self[-1]._transferSizeRelatedRecentCellTxThroughput;
   *&self[-1]._transferSizeRelatedRecentWiFiTxThroughput = 0u;
-  v101 = (self - 16);
+  v100 = (self - 16);
   *&self->numUpperThresholdRxTransferSizes = 0u;
   *&self->numCloakedTransferSizes = 0u;
   [self[-1]._numCellTxLowerThresholdTransferSizes removeAllObjects];
-  v121 = 0u;
-  v122 = 0u;
-  v119 = 0u;
   v120 = 0u;
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
   selfCopy2 = self;
   obj = [self[-1]._numCellRxUpperThresholdTransferSizes transferSizeFlows];
-  v4 = [obj countByEnumeratingWithState:&v119 objects:v138 count:16];
+  v4 = [obj countByEnumeratingWithState:&v118 objects:v137 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v120;
+    v6 = *v119;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v120 != v6)
+        if (*v119 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v119 + 1) + 8 * i);
+        v8 = *(*(&v118 + 1) + 8 * i);
         transferSizeFlows = [(FlowScrutinizer *)selfCopy->_flowScrutinizer transferSizeFlows];
         v10 = [transferSizeFlows objectForKeyedSubscript:v8];
 
@@ -98,11 +99,11 @@
             v14 = v12;
             creatorLedger2 = [v10 creatorLedger];
             *buf = 138543874;
-            v124 = v8;
-            v125 = 2114;
-            v126 = creatorLedger2;
-            v127 = 2114;
-            v128 = v10;
+            v123 = v8;
+            v124 = 2114;
+            v125 = creatorLedger2;
+            v126 = 2114;
+            v127 = v10;
             _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "refreshTransferSizeState finds uuid %{public}@ has for %{public}@ the flow %{public}@", buf, 0x20u);
           }
 
@@ -148,7 +149,7 @@
           {
             v31 = selfCopy->_appTransferSummaries;
             *buf = 138543362;
-            v124 = v31;
+            v123 = v31;
             _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_INFO, "refreshTransferSizeState _appTransferSummaries %{public}@", buf, 0xCu);
           }
         }
@@ -156,40 +157,40 @@
         else if (v13)
         {
           *buf = 138543618;
-          v124 = v8;
-          v125 = 2114;
-          v126 = v10;
+          v123 = v8;
+          v124 = 2114;
+          v125 = v10;
           _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_INFO, "refreshTransferSizeState finds uuid %{public}@ has unmatched flow %{public}@", buf, 0x16u);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v119 objects:v138 count:16];
+      v5 = [obj countByEnumeratingWithState:&v118 objects:v137 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableDictionary *)selfCopy->_appTransferSummaries allKeys];
+  v114 = 0u;
   v115 = 0u;
   v116 = 0u;
-  v117 = 0u;
-  v96 = v118 = 0u;
-  v98 = [v96 countByEnumeratingWithState:&v115 objects:v137 count:16];
-  if (v98)
+  v95 = v117 = 0u;
+  v97 = [v95 countByEnumeratingWithState:&v114 objects:v136 count:16];
+  if (v97)
   {
-    v97 = *v116;
+    v96 = *v115;
     do
     {
       v32 = 0;
       do
       {
-        if (*v116 != v97)
+        if (*v115 != v96)
         {
-          objc_enumerationMutation(v96);
+          objc_enumerationMutation(v95);
         }
 
-        v99 = *(*(&v115 + 1) + 8 * v32);
-        v100 = v32;
+        v98 = *(*(&v114 + 1) + 8 * v32);
+        v99 = v32;
         v33 = [(NSMutableDictionary *)selfCopy->_appTransferSummaries objectForKeyedSubscript:?];
         transferFlows3 = [v33 transferFlows];
         allKeys = [transferFlows3 allKeys];
@@ -206,27 +207,27 @@
         [v33 setRecentCellTxThroughput:0.0];
         [v33 setRecentWiFiRxThroughput:0.0];
         [v33 setRecentWiFiTxThroughput:0.0];
-        v113 = 0u;
-        v114 = 0u;
-        v111 = 0u;
         v112 = 0u;
+        v113 = 0u;
+        v110 = 0u;
+        v111 = 0u;
         v36 = allKeys;
-        v37 = [v36 countByEnumeratingWithState:&v111 objects:v136 count:16];
+        v37 = [v36 countByEnumeratingWithState:&v110 objects:v135 count:16];
         if (v37)
         {
           v38 = v37;
-          v39 = *v112;
+          v39 = *v111;
           do
           {
             v40 = 0;
             do
             {
-              if (*v112 != v39)
+              if (*v111 != v39)
               {
                 objc_enumerationMutation(v36);
               }
 
-              v41 = *(*(&v111 + 1) + 8 * v40);
+              v41 = *(*(&v110 + 1) + 8 * v40);
               transferFlows4 = [v33 transferFlows];
               v43 = [transferFlows4 objectForKeyedSubscript:v41];
 
@@ -255,7 +256,7 @@
                     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412290;
-                      v124 = v41;
+                      v123 = v41;
                       _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_DEFAULT, "FlowScrutinizer end of quarantine for flow %@", buf, 0xCu);
                     }
 
@@ -321,7 +322,7 @@ LABEL_32:
                 if ([transferFlows5 rxTransferSizeLowerThreshold])
                 {
                   [v33 setNumWiFiRxLowerThresholdTransferSizes:{objc_msgSend(v33, "numWiFiRxLowerThresholdTransferSizes") + 1}];
-                  v51 = v101;
+                  v51 = v100;
 LABEL_60:
                   [v33 setTotalWiFiRxTransferSize:{objc_msgSend(v33, "totalWiFiRxTransferSize") + objc_msgSend(transferFlows5, "rxTransferSizeCount")}];
                   ++v51->super.isa;
@@ -357,7 +358,7 @@ LABEL_33:
             }
 
             while (v38 != v40);
-            v52 = [v36 countByEnumeratingWithState:&v111 objects:v136 count:16];
+            v52 = [v36 countByEnumeratingWithState:&v110 objects:v135 count:16];
             v38 = v52;
           }
 
@@ -373,28 +374,28 @@ LABEL_33:
           [v33 setRecentCellTxThroughput:0.0];
           [v33 setRecentWiFiRxThroughput:0.0];
           [v33 setRecentWiFiTxThroughput:0.0];
-          v109 = 0u;
-          v110 = 0u;
-          v107 = 0u;
           v108 = 0u;
+          v109 = 0u;
+          v106 = 0u;
+          v107 = 0u;
           ledger = [v33 ledger];
           currentFlows = [ledger currentFlows];
 
-          v57 = [currentFlows countByEnumeratingWithState:&v107 objects:v135 count:16];
+          v57 = [currentFlows countByEnumeratingWithState:&v106 objects:v134 count:16];
           if (v57)
           {
             v58 = v57;
-            v59 = *v108;
+            v59 = *v107;
             do
             {
               for (j = 0; j != v58; ++j)
               {
-                if (*v108 != v59)
+                if (*v107 != v59)
                 {
                   objc_enumerationMutation(currentFlows);
                 }
 
-                v61 = *(*(&v107 + 1) + 8 * j);
+                v61 = *(*(&v106 + 1) + 8 * j);
                 ledger2 = [v33 ledger];
                 currentFlows2 = [ledger2 currentFlows];
                 v64 = [currentFlows2 objectForKeyedSubscript:v61];
@@ -417,7 +418,7 @@ LABEL_33:
                 [v33 setRecentWiFiTxThroughput:v75 + v76];
               }
 
-              v58 = [currentFlows countByEnumeratingWithState:&v107 objects:v135 count:16];
+              v58 = [currentFlows countByEnumeratingWithState:&v106 objects:v134 count:16];
             }
 
             while (v58);
@@ -435,17 +436,17 @@ LABEL_33:
 
         else
         {
-          [(NSMutableDictionary *)selfCopy->_appTransferSummaries setObject:0 forKeyedSubscript:v99];
+          [(NSMutableDictionary *)selfCopy->_appTransferSummaries setObject:0 forKeyedSubscript:v98];
         }
 
-        v32 = v100 + 1;
+        v32 = v99 + 1;
       }
 
-      while (v100 + 1 != v98);
-      v98 = [v96 countByEnumeratingWithState:&v115 objects:v137 count:16];
+      while (v99 + 1 != v97);
+      v97 = [v95 countByEnumeratingWithState:&v114 objects:v136 count:16];
     }
 
-    while (v98);
+    while (v97);
   }
 
   v81 = flowScrutinyLogHandle;
@@ -458,17 +459,17 @@ LABEL_33:
     transferSizeRelatedRecentCellRxThroughput = selfCopy->_transferSizeRelatedRecentCellRxThroughput;
     transferSizeRelatedRecentCellTxThroughput = selfCopy->_transferSizeRelatedRecentCellTxThroughput;
     *buf = 134219264;
-    v124 = numCellRxUpperThresholdTransferSizes;
-    v125 = 2048;
-    v126 = numCellRxLowerThresholdTransferSizes;
-    v127 = 2048;
-    v128 = numCellTxUpperThresholdTransferSizes;
-    v129 = 2048;
-    v130 = numCellTxLowerThresholdTransferSizes;
-    v131 = 2048;
-    v132 = transferSizeRelatedRecentCellRxThroughput;
-    v133 = 2048;
-    v134 = transferSizeRelatedRecentCellTxThroughput;
+    v123 = numCellRxUpperThresholdTransferSizes;
+    v124 = 2048;
+    v125 = numCellRxLowerThresholdTransferSizes;
+    v126 = 2048;
+    v127 = numCellTxUpperThresholdTransferSizes;
+    v128 = 2048;
+    v129 = numCellTxLowerThresholdTransferSizes;
+    v130 = 2048;
+    v131 = transferSizeRelatedRecentCellRxThroughput;
+    v132 = 2048;
+    v133 = transferSizeRelatedRecentCellTxThroughput;
     _os_log_impl(&dword_23255B000, v81, OS_LOG_TYPE_DEBUG, "refreshTransferSizeState exit cell rx-upper %zd rx-lower %zd tx-upper %zd tx-lower %zd rx-tput %.6f tx-tput %.6f", buf, 0x3Eu);
   }
 
@@ -482,26 +483,24 @@ LABEL_33:
     transferSizeRelatedRecentWiFiRxThroughput = selfCopy->_transferSizeRelatedRecentWiFiRxThroughput;
     transferSizeRelatedRecentWiFiTxThroughput = selfCopy->_transferSizeRelatedRecentWiFiTxThroughput;
     *buf = 134219264;
-    v124 = numWiFiRxUpperThresholdTransferSizes;
-    v125 = 2048;
-    v126 = numWiFiRxLowerThresholdTransferSizes;
-    v127 = 2048;
-    v128 = numWiFiTxUpperThresholdTransferSizes;
-    v129 = 2048;
-    v130 = numWiFiTxLowerThresholdTransferSizes;
-    v131 = 2048;
-    v132 = transferSizeRelatedRecentWiFiRxThroughput;
-    v133 = 2048;
-    v134 = transferSizeRelatedRecentWiFiTxThroughput;
+    v123 = numWiFiRxUpperThresholdTransferSizes;
+    v124 = 2048;
+    v125 = numWiFiRxLowerThresholdTransferSizes;
+    v126 = 2048;
+    v127 = numWiFiTxUpperThresholdTransferSizes;
+    v128 = 2048;
+    v129 = numWiFiTxLowerThresholdTransferSizes;
+    v130 = 2048;
+    v131 = transferSizeRelatedRecentWiFiRxThroughput;
+    v132 = 2048;
+    v133 = transferSizeRelatedRecentWiFiTxThroughput;
     _os_log_impl(&dword_23255B000, v88, OS_LOG_TYPE_DEBUG, "refreshTransferSizeState exit wifi rx-upper %zd rx-lower %zd tx-upper %zd tx-lower %zd rx-tput %.6f tx-tput %.6f", buf, 0x3Eu);
   }
-
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkLargeTransfersAt:(double)at
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   setApparentTime(at);
   lastTransferSizeCheck = self->_lastTransferSizeCheck;
   if (lastTransferSizeCheck <= 0.0)
@@ -517,244 +516,326 @@ LABEL_33:
   self->_lastTransferSizeCheck = at;
   [(LargeTransferAssessor *)self refreshTransferSizeState];
   state = self->_state;
-  switch(state)
+  if (state == 3)
   {
-    case 3:
-      v17 = at - self->_lastTransferSizeUse;
-      v18 = flowScrutinyLogHandle;
-      if (v17 < self->_normalCloseDampeningInterval)
+    v17 = at - self->_lastTransferSizeUse;
+    v18 = flowScrutinyLogHandle;
+    if (v17 < self->_normalCloseDampeningInterval)
+    {
+      if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
       {
-        if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
-        {
-          LODWORD(v34) = 134217984;
-          *(&v34 + 4) = v17;
-          v12 = "LargeTransferAssessor checkLargeTransfers continue hysteresis, has continued for %.3f secs";
-          v19 = v18;
-          v20 = OS_LOG_TYPE_INFO;
-          v21 = 12;
+        LODWORD(v33) = 134217984;
+        *(&v33 + 4) = v17;
+        v12 = "LargeTransferAssessor checkLargeTransfers continue hysteresis, has continued for %.3f secs";
+        v19 = v18;
+        v20 = OS_LOG_TYPE_INFO;
+        v21 = 12;
 LABEL_40:
-          _os_log_impl(&dword_23255B000, v19, v20, v12, &v34, v21);
-          goto LABEL_41;
+        _os_log_impl(&dword_23255B000, v19, v20, v12, &v33, v21);
+        goto LABEL_41;
+      }
+
+      goto LABEL_41;
+    }
+
+    if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v33) = 0;
+      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "LargeTransferAssessor FinalHysteresis -> Idle", &v33, 2u);
+    }
+
+    goto LABEL_28;
+  }
+
+  if (state != 2)
+  {
+    if (state != 1)
+    {
+      goto LABEL_42;
+    }
+
+    shouldStayActiveBlock = [(LargeTransferAssessor *)self shouldStayActiveBlock];
+
+    if (shouldStayActiveBlock)
+    {
+      shouldStayActiveBlock2 = [(LargeTransferAssessor *)self shouldStayActiveBlock];
+      v10 = (shouldStayActiveBlock2)[2](shouldStayActiveBlock2, self);
+
+      if (v10)
+      {
+        if (v10 != 2)
+        {
+          if (v10 != 1)
+          {
+            goto LABEL_41;
+          }
+
+          self->_lastTransferSizeUse = at;
+          v11 = flowScrutinyLogHandle;
+          if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
+          {
+            goto LABEL_41;
+          }
+
+          LOWORD(v33) = 0;
+          v12 = "LargeTransferAssessor Active -> Active";
+          goto LABEL_38;
         }
 
-        goto LABEL_41;
+        self->_state = 2;
+        v16 = flowScrutinyLogHandle;
+        if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v33) = 0;
+          v12 = "LargeTransferAssessor checkLargeTransfers Active -> Hysteresis";
+          goto LABEL_35;
+        }
       }
 
-      if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
-      {
-        LOWORD(v34) = 0;
-        _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "LargeTransferAssessor FinalHysteresis -> Idle", &v34, 2u);
-      }
-
-      break;
-    case 2:
-      shouldStayActiveBlock = [(LargeTransferAssessor *)self shouldStayActiveBlock];
-
-      if (!shouldStayActiveBlock)
-      {
-        goto LABEL_41;
-      }
-
-      shouldStayActiveBlock2 = [(LargeTransferAssessor *)self shouldStayActiveBlock];
-      v15 = (shouldStayActiveBlock2)[2](shouldStayActiveBlock2, self);
-
-      if (!v15)
+      else
       {
         [(LargeTransferAssessor *)self markActiveTransferSizeFlowsAs:3];
         self->_state = 3;
         v16 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v34) = 0;
-          v12 = "LargeTransferAssessor checkLargeTransfers Hysteresis -> FinalHysteresis";
-LABEL_35:
-          v19 = v16;
-          v20 = OS_LOG_TYPE_DEFAULT;
-LABEL_39:
-          v21 = 2;
-          goto LABEL_40;
+          LOWORD(v33) = 0;
+          v12 = "LargeTransferAssessor checkLargeTransfers Active -> FinalHysteresis";
+          goto LABEL_35;
         }
-
-LABEL_41:
-        state = self->_state;
-LABEL_42:
-        if (state)
-        {
-          goto LABEL_54;
-        }
-
-        goto LABEL_43;
       }
+    }
 
-      if (v15 != 2)
+    goto LABEL_41;
+  }
+
+  shouldStayActiveBlock3 = [(LargeTransferAssessor *)self shouldStayActiveBlock];
+
+  if (!shouldStayActiveBlock3)
+  {
+    goto LABEL_41;
+  }
+
+  shouldStayActiveBlock4 = [(LargeTransferAssessor *)self shouldStayActiveBlock];
+  v15 = (shouldStayActiveBlock4)[2](shouldStayActiveBlock4, self);
+
+  if (v15)
+  {
+    if (v15 != 2)
+    {
+      if (v15 != 1)
       {
-        if (v15 != 1)
-        {
-          goto LABEL_41;
-        }
-
-        self->_lastTransferSizeUse = at;
-        self->_state = 1;
-        ++self->_numTransitionsLowThroughputHysteresisToActive;
-        v16 = flowScrutinyLogHandle;
-        if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_41;
-        }
-
-        LOWORD(v34) = 0;
-        v12 = "LargeTransferAssessor Hysteresis -> Active";
-        goto LABEL_35;
-      }
-
-      self->_accumulatedLowThroughputHysteresisTime = v6 + self->_accumulatedLowThroughputHysteresisTime;
-      v11 = flowScrutinyLogHandle;
-      if (at - self->_lastTransferSizeUse <= self->_prolongedBelowThresholdDampeningInterval)
-      {
-        if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
-        {
-          LOWORD(v34) = 0;
-          v12 = "LargeTransferAssessor Hysteresis -> Hysteresis";
-LABEL_38:
-          v19 = v11;
-          v20 = OS_LOG_TYPE_INFO;
-          goto LABEL_39;
-        }
-
         goto LABEL_41;
       }
 
-      if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+      self->_lastTransferSizeUse = at;
+      self->_state = 1;
+      ++self->_numTransitionsLowThroughputHysteresisToActive;
+      v16 = flowScrutinyLogHandle;
+      if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v34) = 0;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "LargeTransferAssessor Hysteresis -> Idle", &v34, 2u);
+        goto LABEL_41;
       }
 
-      [(LargeTransferAssessor *)self markActiveTransferSizeFlowsAs:2];
-      break;
-    case 1:
-      shouldStayActiveBlock3 = [(LargeTransferAssessor *)self shouldStayActiveBlock];
+      LOWORD(v33) = 0;
+      v12 = "LargeTransferAssessor Hysteresis -> Active";
+      goto LABEL_35;
+    }
 
-      if (shouldStayActiveBlock3)
+    self->_accumulatedLowThroughputHysteresisTime = v6 + self->_accumulatedLowThroughputHysteresisTime;
+    v11 = flowScrutinyLogHandle;
+    if (at - self->_lastTransferSizeUse <= self->_prolongedBelowThresholdDampeningInterval)
+    {
+      if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
       {
-        shouldStayActiveBlock4 = [(LargeTransferAssessor *)self shouldStayActiveBlock];
-        v10 = (shouldStayActiveBlock4)[2](shouldStayActiveBlock4, self);
-
-        if (v10)
-        {
-          if (v10 != 2)
-          {
-            if (v10 != 1)
-            {
-              goto LABEL_41;
-            }
-
-            self->_lastTransferSizeUse = at;
-            v11 = flowScrutinyLogHandle;
-            if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
-            {
-              goto LABEL_41;
-            }
-
-            LOWORD(v34) = 0;
-            v12 = "LargeTransferAssessor Active -> Active";
-            goto LABEL_38;
-          }
-
-          self->_state = 2;
-          v16 = flowScrutinyLogHandle;
-          if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
-          {
-            LOWORD(v34) = 0;
-            v12 = "LargeTransferAssessor checkLargeTransfers Active -> Hysteresis";
-            goto LABEL_35;
-          }
-        }
-
-        else
-        {
-          [(LargeTransferAssessor *)self markActiveTransferSizeFlowsAs:3];
-          self->_state = 3;
-          v16 = flowScrutinyLogHandle;
-          if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
-          {
-            LOWORD(v34) = 0;
-            v12 = "LargeTransferAssessor checkLargeTransfers Active -> FinalHysteresis";
-            goto LABEL_35;
-          }
-        }
+        LOWORD(v33) = 0;
+        v12 = "LargeTransferAssessor Hysteresis -> Hysteresis";
+LABEL_38:
+        v19 = v11;
+        v20 = OS_LOG_TYPE_INFO;
+        goto LABEL_39;
       }
 
       goto LABEL_41;
-    default:
-      goto LABEL_42;
+    }
+
+    if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v33) = 0;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "LargeTransferAssessor Hysteresis -> Idle", &v33, 2u);
+    }
+
+    [(LargeTransferAssessor *)self markActiveTransferSizeFlowsAs:2];
+LABEL_28:
+    self->_lastTransferSizeUse = 0.0;
+    self->_state = 0;
+    goto LABEL_43;
   }
 
-  self->_lastTransferSizeUse = 0.0;
-  self->_state = 0;
+  [(LargeTransferAssessor *)self markActiveTransferSizeFlowsAs:3];
+  self->_state = 3;
+  v16 = flowScrutinyLogHandle;
+  if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v33) = 0;
+    v12 = "LargeTransferAssessor checkLargeTransfers Hysteresis -> FinalHysteresis";
+LABEL_35:
+    v19 = v16;
+    v20 = OS_LOG_TYPE_DEFAULT;
+LABEL_39:
+    v21 = 2;
+    goto LABEL_40;
+  }
+
+LABEL_41:
+  state = self->_state;
+LABEL_42:
+  if (state)
+  {
+    return;
+  }
+
 LABEL_43:
   shouldGoActiveBlock = [(LargeTransferAssessor *)self shouldGoActiveBlock];
 
-  if (shouldGoActiveBlock)
+  if (!shouldGoActiveBlock)
   {
-    shouldGoActiveBlock2 = [(LargeTransferAssessor *)self shouldGoActiveBlock];
-    self->_activeTransitionQualifier = (shouldGoActiveBlock2)[2](shouldGoActiveBlock2, self);
+    return;
+  }
 
-    activeTransitionQualifier = self->_activeTransitionQualifier;
-    if (activeTransitionQualifier < 1)
+  shouldGoActiveBlock2 = [(LargeTransferAssessor *)self shouldGoActiveBlock];
+  self->_activeTransitionQualifier = (shouldGoActiveBlock2)[2](shouldGoActiveBlock2, self);
+
+  activeTransitionQualifier = self->_activeTransitionQualifier;
+  if (activeTransitionQualifier < 1)
+  {
+    if (activeTransitionQualifier < 0)
     {
-      if (activeTransitionQualifier < 0)
+      [(LargeTransferAssessor *)self markActiveTransferSizeFlowsAs:3];
+      v32 = flowScrutinyLogHandle;
+      if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        [(LargeTransferAssessor *)self markActiveTransferSizeFlowsAs:3];
-        v32 = flowScrutinyLogHandle;
-        if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_54;
-        }
-
-        LOWORD(v34) = 0;
-        v27 = "LargeTransferAssessor Idle -> Idle, move all current large transfers to quarantine state";
-        v28 = v32;
-        v29 = OS_LOG_TYPE_DEFAULT;
+        return;
       }
 
-      else
-      {
-        v31 = flowScrutinyLogHandle;
-        if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_54;
-        }
-
-        LOWORD(v34) = 0;
-        v27 = "LargeTransferAssessor Idle -> Idle";
-        v28 = v31;
-        v29 = OS_LOG_TYPE_DEBUG;
-      }
-
-      v30 = 2;
-      goto LABEL_53;
+      LOWORD(v33) = 0;
+      v27 = "LargeTransferAssessor Idle -> Idle, move all current large transfers to quarantine state";
+      v28 = v32;
+      v29 = OS_LOG_TYPE_DEFAULT;
     }
 
+    else
+    {
+      v31 = flowScrutinyLogHandle;
+      if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        return;
+      }
+
+      LOWORD(v33) = 0;
+      v27 = "LargeTransferAssessor Idle -> Idle";
+      v28 = v31;
+      v29 = OS_LOG_TYPE_DEBUG;
+    }
+
+    v30 = 2;
+  }
+
+  else
+  {
     self->_lastTransferSizeUse = at;
     self->_state = 1;
     v25 = flowScrutinyLogHandle;
-    if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = self->_activeTransitionQualifier;
-      LODWORD(v34) = 67109120;
-      DWORD1(v34) = v26;
-      v27 = "LargeTransferAssessor Idle -> Active, qualifier %d";
-      v28 = v25;
-      v29 = OS_LOG_TYPE_DEFAULT;
-      v30 = 8;
-LABEL_53:
-      _os_log_impl(&dword_23255B000, v28, v29, v27, &v34, v30);
+      return;
     }
+
+    v26 = self->_activeTransitionQualifier;
+    LODWORD(v33) = 67109120;
+    DWORD1(v33) = v26;
+    v27 = "LargeTransferAssessor Idle -> Active, qualifier %d";
+    v28 = v25;
+    v29 = OS_LOG_TYPE_DEFAULT;
+    v30 = 8;
   }
 
-LABEL_54:
-  v33 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_23255B000, v28, v29, v27, &v33, v30);
+}
+
+- (void)markActiveTransferSizeFlowsAs:(unsigned int)as
+{
+  v3 = *&as;
+  v29 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  obj = self->_appTransferSummaries;
+  v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v17 = *v24;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v24 != v17)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v7 = [(NSMutableDictionary *)self->_appTransferSummaries objectForKeyedSubscript:*(*(&v23 + 1) + 8 * v6)];
+        v19 = 0u;
+        v20 = 0u;
+        v21 = 0u;
+        v22 = 0u;
+        transferFlows = [v7 transferFlows];
+        v9 = [transferFlows countByEnumeratingWithState:&v19 objects:v27 count:16];
+        if (v9)
+        {
+          v10 = v9;
+          v11 = *v20;
+          do
+          {
+            v12 = 0;
+            do
+            {
+              if (*v20 != v11)
+              {
+                objc_enumerationMutation(transferFlows);
+              }
+
+              v13 = *(*(&v19 + 1) + 8 * v12);
+              transferFlows2 = [v7 transferFlows];
+              v15 = [transferFlows2 objectForKeyedSubscript:v13];
+
+              if ([v15 state] == 1)
+              {
+                [v15 setState:v3];
+              }
+
+              ++v12;
+            }
+
+            while (v10 != v12);
+            v10 = [transferFlows countByEnumeratingWithState:&v19 objects:v27 count:16];
+          }
+
+          while (v10);
+        }
+
+        ++v6;
+      }
+
+      while (v6 != v5);
+      v5 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+    }
+
+    while (v5);
+  }
 }
 
 - (double)transferSizeRelatedRecentTotalThroughput
@@ -783,16 +864,16 @@ LABEL_54:
 
 - (BOOL)setConfiguration:(id)configuration
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if (configurationCopy)
   {
     v5 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
-      v11 = configurationCopy;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "LargeTransferAssessor set configuration %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = configurationCopy;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "LargeTransferAssessor set configuration %@", &v9, 0xCu);
     }
 
     logHandle = [configurationCopy logHandle];
@@ -809,103 +890,100 @@ LABEL_54:
     [configurationCopy setLogHandle:logHandle];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)dumpStateAt:(double)at
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ((activeTraceTargets & 8) != 0)
   {
-    traceEntry(3, "[LargeTransferAssessor dumpStateAt:]", "%t", v3, v4, v5, v6, v7, *&at);
+    traceEntry(3, "[LargeTransferAssessor dumpStateAt:]", "%t", *&at);
   }
 
   setApparentTime(at);
-  v10 = flowScrutinyLogHandle;
+  v5 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "=========================== START OF LARGETRANSFERASSESSOR STATE DUMP ===========================", buf, 2u);
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "=========================== START OF LARGETRANSFERASSESSOR STATE DUMP ===========================", buf, 2u);
   }
 
   getState = [(LargeTransferAssessor *)self getState];
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v12 = [getState countByEnumeratingWithState:&v20 objects:v26 count:16];
-  if (v12)
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = [getState countByEnumeratingWithState:&v14 objects:v20 count:16];
+  if (v7)
   {
-    v13 = v12;
-    v14 = *v21;
+    v8 = v7;
+    v9 = *v15;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v14)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(getState);
         }
 
-        v16 = flowScrutinyLogHandle;
+        v11 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = *(*(&v20 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           *buf = 138543362;
-          v25 = v17;
-          _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+          v19 = v12;
+          _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
         }
       }
 
-      v13 = [getState countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v8 = [getState countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
-    while (v13);
+    while (v8);
   }
 
-  v18 = flowScrutinyLogHandle;
+  v13 = flowScrutinyLogHandle;
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "=========================== END OF LARGETRANSFERASSESSOR STATE DUMP ===========================", buf, 2u);
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "=========================== END OF LARGETRANSFERASSESSOR STATE DUMP ===========================", buf, 2u);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getState
 {
-  *&v8 = apparentTime();
+  v3 = apparentTime();
   if ((activeTraceTargets & 8) != 0)
   {
-    traceEntry(3, "[LargeTransferAssessor getState]", "%t", v3, v4, v5, v6, v7, v8);
+    traceEntry(3, "[LargeTransferAssessor getState]", "%t", *&v3);
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v10 = objc_alloc(MEMORY[0x277CCACA8]);
+  v5 = objc_alloc(MEMORY[0x277CCACA8]);
   stateString = [(LargeTransferAssessor *)self stateString];
-  v12 = [v10 initWithFormat:@"LargeTransferAssessor state %@ configuration: low-tput-dampening %.3f final-dampening %.3f quarantine %.3f", stateString, *&self->_prolongedBelowThresholdDampeningInterval, *&self->_normalCloseDampeningInterval, *&self->_transferSizeFlowFailedThresholdQuarantineTime];
+  v7 = [v5 initWithFormat:@"LargeTransferAssessor state %@ configuration: low-tput-dampening %.3f final-dampening %.3f quarantine %.3f", stateString, *&self->_prolongedBelowThresholdDampeningInterval, *&self->_normalCloseDampeningInterval, *&self->_transferSizeFlowFailedThresholdQuarantineTime];
 
-  [array addObject:v12];
-  v13 = objc_alloc(MEMORY[0x277CCACA8]);
+  [array addObject:v7];
+  v8 = objc_alloc(MEMORY[0x277CCACA8]);
   numCellRxUpperThresholdTransferSizes = self->_numCellRxUpperThresholdTransferSizes;
   numCellTxUpperThresholdTransferSizes = self->_numCellTxUpperThresholdTransferSizes;
   numCellRxLowerThresholdTransferSizes = self->_numCellRxLowerThresholdTransferSizes;
   numCellTxLowerThresholdTransferSizes = self->_numCellTxLowerThresholdTransferSizes;
   [(LargeTransferAssessor *)self transferSizeRelatedRecentCellThroughput];
-  v19 = [v13 initWithFormat:@"LargeTransferAssessor cell num rx-upper %zd rx-lower %zd tx-upper %zd tx-lower %zd total-tput %.6f rx %.6f tx %.6f", numCellRxUpperThresholdTransferSizes, numCellRxLowerThresholdTransferSizes, numCellTxUpperThresholdTransferSizes, numCellTxLowerThresholdTransferSizes, v18, *&self->_transferSizeRelatedRecentCellRxThroughput, *&self->_transferSizeRelatedRecentCellTxThroughput];
+  v14 = [v8 initWithFormat:@"LargeTransferAssessor cell num rx-upper %zd rx-lower %zd tx-upper %zd tx-lower %zd total-tput %.6f rx %.6f tx %.6f", numCellRxUpperThresholdTransferSizes, numCellRxLowerThresholdTransferSizes, numCellTxUpperThresholdTransferSizes, numCellTxLowerThresholdTransferSizes, v13, *&self->_transferSizeRelatedRecentCellRxThroughput, *&self->_transferSizeRelatedRecentCellTxThroughput];
 
-  [array addObject:v19];
-  v20 = objc_alloc(MEMORY[0x277CCACA8]);
+  [array addObject:v14];
+  v15 = objc_alloc(MEMORY[0x277CCACA8]);
   numWiFiRxUpperThresholdTransferSizes = self->_numWiFiRxUpperThresholdTransferSizes;
   numWiFiTxUpperThresholdTransferSizes = self->_numWiFiTxUpperThresholdTransferSizes;
   numWiFiRxLowerThresholdTransferSizes = self->_numWiFiRxLowerThresholdTransferSizes;
   numWiFiTxLowerThresholdTransferSizes = self->_numWiFiTxLowerThresholdTransferSizes;
   [(LargeTransferAssessor *)self transferSizeRelatedRecentWiFiThroughput];
-  v26 = [v20 initWithFormat:@"LargeTransferAssessor wifi num rx-upper %zd rx-lower %zd tx-upper %zd tx-lower %zd total-tput %.6f rx %.6f tx %.6f", numWiFiRxUpperThresholdTransferSizes, numWiFiRxLowerThresholdTransferSizes, numWiFiTxUpperThresholdTransferSizes, numWiFiTxLowerThresholdTransferSizes, v25, *&self->_transferSizeRelatedRecentWiFiRxThroughput, *&self->_transferSizeRelatedRecentWiFiTxThroughput];
+  v21 = [v15 initWithFormat:@"LargeTransferAssessor wifi num rx-upper %zd rx-lower %zd tx-upper %zd tx-lower %zd total-tput %.6f rx %.6f tx %.6f", numWiFiRxUpperThresholdTransferSizes, numWiFiRxLowerThresholdTransferSizes, numWiFiTxUpperThresholdTransferSizes, numWiFiTxLowerThresholdTransferSizes, v20, *&self->_transferSizeRelatedRecentWiFiRxThroughput, *&self->_transferSizeRelatedRecentWiFiTxThroughput];
 
-  [array addObject:v26];
+  [array addObject:v21];
 
   return array;
 }

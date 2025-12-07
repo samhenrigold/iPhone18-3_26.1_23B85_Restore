@@ -12,7 +12,7 @@ void __41____GCHIDEventUIKitClient_sharedInstance__block_invoke()
   sharedInstance_Shared_0 = v1;
 }
 
-void __48____GCHIDEventUIKitClient__initWithApplication___block_invoke(uint64_t a1)
+void __48____GCHIDEventUIKitClient__initWithApplication___block_invoke(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x277D85DE8];
   IOHIDEventGetSenderID();
@@ -20,40 +20,38 @@ void __48____GCHIDEventUIKitClient__initWithApplication___block_invoke(uint64_t 
   IOHIDEventGetType();
   kdebug_trace();
   os_unfair_lock_lock((*(a1 + 32) + 16));
-  v2 = *(*(a1 + 32) + 24);
+  v3 = *(*(a1 + 32) + 24);
   os_unfair_lock_unlock((*(a1 + 32) + 16));
   v11 = 0u;
   v12 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v4)
+  v4 = v3;
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v10;
+    v6 = v5;
+    v7 = *v10;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v10 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
-        ++v7;
+        (*(*(*(&v9 + 1) + 8 * v8) + 16))(*(*(&v9 + 1) + 8 * v8));
+        ++v8;
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v6 != v8);
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48____GCHIDEventUIKitClient_registerEventHandler___block_invoke(uint64_t a1)

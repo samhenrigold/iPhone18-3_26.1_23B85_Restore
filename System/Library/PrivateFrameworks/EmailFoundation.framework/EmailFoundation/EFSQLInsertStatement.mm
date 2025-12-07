@@ -89,6 +89,7 @@
 
 - (void)_renderQueryStringForNamedBindings:(void *)bindings into:
 {
+  v3 = a2;
   bindingsCopy = bindings;
   if (self)
   {
@@ -150,7 +151,7 @@
     [v19 enumerateObjectsUsingBlock:v22];
 
     [v20 appendString:@" VALUES "]);
-    [(EFSQLInsertStatement *)self _renderValuesForNamedBindings:a2 intoString:v20];
+    [(EFSQLInsertStatement *)self _renderValuesForNamedBindings:v3 intoString:v20];
   }
 }
 
@@ -332,13 +333,13 @@ LABEL_6:
 
 - (void)enumerateBindingIndicesAndValuesUsingBlock:(id)block
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v32 = 0;
+  v31 = 0;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   if (self)
   {
     values = self->_values;
@@ -350,29 +351,29 @@ LABEL_6:
   }
 
   v6 = values;
-  v22 = v6;
-  v21 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v28 objects:v34 count:16];
-  if (v21)
+  v21 = v6;
+  v20 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  if (v20)
   {
     v7 = 0;
-    v8 = *v29;
-    v19 = *v29;
+    v8 = *v28;
+    v18 = *v28;
     selfCopy = self;
     do
     {
-      v23 = 0;
+      v22 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * v23);
+        v9 = *(*(&v27 + 1) + 8 * v22);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         if (self)
         {
           requiredColumns = self->_requiredColumns;
@@ -384,29 +385,29 @@ LABEL_6:
         }
 
         v11 = requiredColumns;
-        v12 = [(NSMutableOrderedSet *)v11 countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v12 = [(NSMutableOrderedSet *)v11 countByEnumeratingWithState:&v23 objects:v32 count:16];
         if (v12)
         {
-          v13 = *v25;
+          v13 = *v24;
           while (2)
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v25 != v13)
+              if (*v24 != v13)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v15 = [v9 objectForKeyedSubscript:{*(*(&v24 + 1) + 8 * i), v19, selfCopy}];
+              v15 = [v9 objectForKeyedSubscript:{*(*(&v23 + 1) + 8 * i), v18, selfCopy}];
               if (objc_opt_respondsToSelector())
               {
-                blockCopy[2](blockCopy, v7, v15, &v32);
-                v16 = v32;
+                blockCopy[2](blockCopy, v7, v15, &v31);
+                v16 = v31;
 
                 if (v16)
                 {
 
-                  v6 = v22;
+                  v6 = v21;
                   goto LABEL_27;
                 }
 
@@ -418,7 +419,7 @@ LABEL_6:
               }
             }
 
-            v12 = [(NSMutableOrderedSet *)v11 countByEnumeratingWithState:&v24 objects:v33 count:16];
+            v12 = [(NSMutableOrderedSet *)v11 countByEnumeratingWithState:&v23 objects:v32 count:16];
             if (v12)
             {
               continue;
@@ -428,23 +429,21 @@ LABEL_6:
           }
         }
 
-        v6 = v22;
+        v6 = v21;
         self = selfCopy;
-        ++v23;
-        v8 = v19;
+        ++v22;
+        v8 = v18;
       }
 
-      while (v23 != v21);
-      v17 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v28 objects:v34 count:16];
-      v21 = v17;
+      while (v22 != v20);
+      v17 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v20 = v17;
     }
 
     while (v17);
   }
 
 LABEL_27:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateBindingNamesAndValuesUsingBlock:(id)block
@@ -473,13 +472,13 @@ LABEL_27:
 
 void __65__EFSQLInsertStatement_enumerateBindingNamesAndValuesUsingBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, char *a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = a2;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v20 = a1;
+  v17 = a1;
   v8 = *(a1 + 32);
   if (v8)
   {
@@ -487,44 +486,37 @@ void __65__EFSQLInsertStatement_enumerateBindingNamesAndValuesUsingBlock___block
   }
 
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
-    v10 = *v23;
-    v11 = &selRef_arrayWithArray_;
+    v10 = *v20;
     while (2)
     {
-      v12 = 0;
-      v13 = v11[164];
-      do
+      for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * v12);
-        v15 = [v7 objectForKeyedSubscript:v14];
+        v12 = *(*(&v19 + 1) + 8 * i);
+        v13 = [v7 objectForKeyedSubscript:v12];
         if (objc_opt_respondsToSelector())
         {
-          v16 = a3 ? [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@":insert_%@_%lu", v14, a3] : objc_msgSend(objc_alloc(MEMORY[0x1E696AEC0]), "initWithFormat:", @":insert_%@", v14);
-          v17 = v16;
-          (*(*(v20 + 40) + 16))();
-          v18 = *a4;
+          v14 = a3 ? [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@":insert_%@_%lu", v12, a3] : objc_msgSend(objc_alloc(MEMORY[0x1E696AEC0]), "initWithFormat:", @":insert_%@", v12);
+          v15 = v14;
+          (*(*(v17 + 40) + 16))();
+          v16 = *a4;
 
-          if (v18)
+          if (v16)
           {
 
             goto LABEL_17;
           }
         }
-
-        ++v12;
       }
 
-      while (v9 != v12);
-      v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-      v11 = &selRef_arrayWithArray_;
+      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v9)
       {
         continue;
@@ -535,8 +527,6 @@ void __65__EFSQLInsertStatement_enumerateBindingNamesAndValuesUsingBlock___block
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addValue

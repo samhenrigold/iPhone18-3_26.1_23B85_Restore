@@ -42,45 +42,44 @@ uint64_t __93___HKQueryUtilities_calculateIncludedValuesWithSamples_startDate_en
 
 void __93___HKQueryUtilities_calculateIncludedValuesWithSamples_startDate_endDate_intervalComponents___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(&v15 + 1) + 8 * v12), "hk_integerValue", v15)}];
+        v13 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(*(*(&v14 + 1) + 8 * v12), "hk_integerValue", v14)}];
         [v7 addObject:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   [*(a1 + 32) setObject:v7 forKeyedSubscript:v5];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __99___HKQueryUtilities_arrayByCoalescingObjects_startDate_intervalComponents_calendar_combiningBlock___block_invoke(uint64_t a1, void *a2)
@@ -132,38 +131,38 @@ uint64_t __97___HKQueryUtilities_coalesceTotalDurations_startDate_intervalCompon
 
 uint64_t __97___HKQueryUtilities_coalesceTotalDurations_startDate_intervalComponents_intervalRecordCountsOut___block_invoke_2(id *a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if ([v7 count])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       v14 = 0.0;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = [a1[4] objectForKeyedSubscript:{*(*(&v23 + 1) + 8 * i), v23}];
+          v16 = [a1[4] objectForKeyedSubscript:{*(*(&v22 + 1) + 8 * i), v22}];
           [v16 doubleValue];
           v14 = v14 + v17;
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v12);
@@ -182,7 +181,6 @@ uint64_t __97___HKQueryUtilities_coalesceTotalDurations_startDate_intervalCompon
     [a1[6] setObject:v20 forKeyedSubscript:v18];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

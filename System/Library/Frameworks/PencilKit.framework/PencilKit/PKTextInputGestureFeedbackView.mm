@@ -278,7 +278,7 @@
                   v51 = v57;
                 }
 
-                v58 = [(PKTextInputFeedbackRect *)v56 rectWithFrame:v52, v51, v54];
+                v58 = [PKTextInputFeedbackRect rectWithFrame:v56, v52, v51, v54];
                 [v36 addObject:v58];
 
                 v59 = height + v52;
@@ -307,7 +307,7 @@
                   if (v61 >= v43)
                   {
                     [(PKTextInputGestureFeedbackView *)self bounds];
-                    v63 = [(PKTextInputFeedbackRect *)0.0 rectWithFrame:v59, v62, v61];
+                    v63 = [PKTextInputFeedbackRect rectWithFrame:v59, v62, v61];
                     [v36 addObject:v63];
                   }
 
@@ -335,7 +335,7 @@
                   v53 = v51;
                 }
 
-                height = [(PKTextInputFeedbackRect *)v53 rectWithFrame:v52, v48, height];
+                height = [PKTextInputFeedbackRect rectWithFrame:v53, v52, v48, height];
                 [v36 addObject:height];
               }
             }
@@ -806,14 +806,14 @@ uint64_t __63__PKTextInputGestureFeedbackView_beginShowingReserveSpaceIntro__blo
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __63__PKTextInputGestureFeedbackView_beginShowingReserveSpaceIntro__block_invoke_4(uint64_t result, int a2)
+id *__63__PKTextInputGestureFeedbackView_beginShowingReserveSpaceIntro__block_invoke_4(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) _setCornerRadius:0.0];
-    [*(v2 + 32) setAlpha:1.0];
-    v3 = *(v2 + 32);
+    [result[4] _setCornerRadius:0.0];
+    [v2[4] setAlpha:1.0];
+    v3 = v2[4];
 
     return [v3 removeFromSuperview];
   }
@@ -848,14 +848,14 @@ uint64_t __64__PKTextInputGestureFeedbackView_cancelShowingReserveSpaceIntro__bl
   return [v8 _setCornerRadius:0.0];
 }
 
-uint64_t __64__PKTextInputGestureFeedbackView_cancelShowingReserveSpaceIntro__block_invoke_2(uint64_t result, int a2)
+id *__64__PKTextInputGestureFeedbackView_cancelShowingReserveSpaceIntro__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setAlpha:1.0];
-    [*(v2 + 32) _setCornerRadius:0.0];
-    v3 = *(v2 + 32);
+    [result[4] setAlpha:1.0];
+    [v2[4] _setCornerRadius:0.0];
+    v3 = v2[4];
 
     return [v3 removeFromSuperview];
   }

@@ -40,15 +40,14 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *&self->_name;
-  v7[0] = @"NAME";
-  v7[1] = @"VERSION";
-  v8 = v3;
-  v7[2] = @"LOCALE";
+  v6[0] = @"NAME";
+  v6[1] = @"VERSION";
+  v7 = v3;
+  v6[2] = @"LOCALE";
   locale = self->_locale;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:v7 count:3];
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:v6 count:3];
 
   return v4;
 }
@@ -301,15 +300,13 @@ LABEL_4:
 
 id __52__PMLSessionDescriptor_initWithName_version_locale___block_invoke(void *a1)
 {
-  v2 = MEMORY[0x277CCABB0];
-  v3 = a1[4];
-  v4 = objc_alloc(MEMORY[0x277CCACA8]);
-  v5 = a1[4];
-  v6 = [v4 initWithFormat:@"%@-%@-%@", a1[5], v5, a1[6]];
-  [PMLSessionDescriptor _parseFeatureVersion:v3 descriptor:v6];
-  v7 = [v2 numberWithFloat:?];
+  v1 = MEMORY[0x277CCABB0];
+  v2 = a1[4];
+  v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-%@-%@", a1[5], v2, a1[6]];
+  [PMLSessionDescriptor _parseFeatureVersion:v2 descriptor:v3];
+  v4 = [v1 numberWithFloat:?];
 
-  return v7;
+  return v4;
 }
 
 + (float)_parseFeatureVersion:(id)version descriptor:(id)descriptor

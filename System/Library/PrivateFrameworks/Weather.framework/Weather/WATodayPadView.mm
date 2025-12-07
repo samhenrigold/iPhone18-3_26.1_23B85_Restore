@@ -19,10 +19,10 @@
 
 - (WATodayPadView)initWithFrame:(CGRect)frame
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = WATodayPadView;
-  v3 = [(WATodayPadView *)&v28 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v30 = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = WATodayPadView;
+  v3 = [(WATodayPadView *)&v27 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [MEMORY[0x277D760A8] sharedInstanceForStyle:0];
@@ -49,33 +49,33 @@
     v11 = objc_opt_new();
     [(WATodayPadView *)v3 setConditionsLabel:v11];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     locationLabel = [(WATodayPadView *)v3 locationLabel];
-    v29[0] = locationLabel;
+    v28[0] = locationLabel;
     conditionsLabel = [(WATodayPadView *)v3 conditionsLabel];
-    v29[1] = conditionsLabel;
+    v28[1] = conditionsLabel;
     temperatureLabel = [(WATodayPadView *)v3 temperatureLabel];
-    v29[2] = temperatureLabel;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+    v28[2] = temperatureLabel;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
 
-    v16 = [v15 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v25;
+      v18 = *v24;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v25 != v18)
+          if (*v24 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v24 + 1) + 8 * i);
+          v20 = *(*(&v23 + 1) + 8 * i);
           [v20 setTranslatesAutoresizingMaskIntoConstraints:0];
           whiteColor = [MEMORY[0x277D75348] whiteColor];
           [v20 setTextColor:whiteColor];
@@ -83,7 +83,7 @@
           [(WATodayPadView *)v3 addSubview:v20];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
       while (v17);
@@ -95,7 +95,6 @@
     [(WATodayPadView *)v3 setLocationName:0];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -236,47 +235,45 @@
 
 - (void)updateForChangedSettings:(id)settings
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   [(WATodayPadView *)self setLegibilitySettings:settingsCopy];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   locationLabel = [(WATodayPadView *)self locationLabel];
-  v18[0] = locationLabel;
+  v17[0] = locationLabel;
   conditionsLabel = [(WATodayPadView *)self conditionsLabel];
-  v18[1] = conditionsLabel;
+  v17[1] = conditionsLabel;
   temperatureLabel = [(WATodayPadView *)self temperatureLabel];
-  v18[2] = temperatureLabel;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v17[2] = temperatureLabel;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
 
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) updateForChangedSettings:settingsCopy];
+        [*(*(&v13 + 1) + 8 * v12++) updateForChangedSettings:settingsCopy];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStyle:(id)style

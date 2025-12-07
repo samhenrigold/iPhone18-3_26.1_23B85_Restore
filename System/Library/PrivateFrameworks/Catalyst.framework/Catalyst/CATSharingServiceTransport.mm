@@ -16,21 +16,21 @@
 - (CATSharingServiceTransport)initWithConnection:(id)connection
 {
   connectionCopy = connection;
-  v13.receiver = self;
-  v13.super_class = CATSharingServiceTransport;
-  v6 = [(CATTransport *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = CATSharingServiceTransport;
+  v6 = [(CATTransport *)&v14 init];
   if (v6)
   {
     v7 = objc_opt_new();
     mCatalystQueue = v6->mCatalystQueue;
     v6->mCatalystQueue = v7;
 
-    v9 = CATGetCatalystQueue();
-    [(CATOperationQueue *)v6->mCatalystQueue setUnderlyingQueue:v9];
+    v10 = CATGetCatalystQueue(v9);
+    [(CATOperationQueue *)v6->mCatalystQueue setUnderlyingQueue:v10];
 
-    v10 = objc_opt_new();
+    v11 = objc_opt_new();
     mReceivedMessages = v6->mReceivedMessages;
-    v6->mReceivedMessages = v10;
+    v6->mReceivedMessages = v11;
 
     objc_storeStrong(&v6->mConnection, connection);
     [(CATSharingConnection *)v6->mConnection setDelegate:v6];
@@ -41,7 +41,7 @@
 
 - (void)resumeConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if ([(CATSharingConnection *)self->mConnection isClosed])
@@ -73,7 +73,7 @@
 
 - (void)suspendConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   self->mIsActive = 0;
@@ -133,16 +133,16 @@
 
 void __54__CATSharingServiceTransport_connection_receivedData___block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
     v3 = MEMORY[0x277CCAAC8];
     v4 = objc_opt_class();
     v5 = *(a1 + 32);
-    v12 = 0;
-    v6 = [v3 cat_unarchiveObjectOfClass:v4 withData:v5 error:&v12];
-    v7 = v12;
+    v11 = 0;
+    v6 = [v3 cat_unarchiveObjectOfClass:v4 withData:v5 error:&v11];
+    v7 = v11;
     v8 = v7;
     if (v6)
     {
@@ -152,21 +152,19 @@ void __54__CATSharingServiceTransport_connection_receivedData___block_invoke(uin
 
     else
     {
-      v13 = *MEMORY[0x277CCA7E8];
-      v14[0] = v7;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x277CCA7E8];
+      v13[0] = v7;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       v10 = CATErrorWithCodeAndUserInfo(301, v9);
       [WeakRetained didInterruptWithError:v10];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionClosed:(id)closed
 {
   closedCopy = closed;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(closedCopy);
   CATAssertIsQueue(v5);
 
   closedError = [closedCopy closedError];
@@ -187,7 +185,7 @@ void __54__CATSharingServiceTransport_connection_receivedData___block_invoke(uin
 
 - (void)processReceivedMessages
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if (self->mIsActive && [(NSMutableArray *)self->mReceivedMessages count])
@@ -201,7 +199,7 @@ void __54__CATSharingServiceTransport_connection_receivedData___block_invoke(uin
 
 - (void)invalidateIfNeeded
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if (!self->mIsInvalidated)

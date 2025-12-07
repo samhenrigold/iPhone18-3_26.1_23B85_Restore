@@ -15,7 +15,7 @@
 
 - (id)debugDescription
 {
-  [(IPASloMoOperation *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   [(IPASloMoOperation *)self rate];
   v4 = v3;
   v5 = MEMORY[0x277CCACA8];
@@ -55,13 +55,13 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = operationCopy;
-    [(IPASloMoOperation *)self timeRange];
+    objc_msgSend_timeRange(self);
     [(IPASloMoOperation *)self rate];
     v7 = v6;
     memset(v18, 0, sizeof(v18));
     if (v5)
     {
-      [v5 timeRange];
+      objc_msgSend_timeRange(v5);
     }
 
     [v5 rate];
@@ -171,7 +171,7 @@
 
         if (v9)
         {
-          [v9 slowMotionTimeRange];
+          objc_msgSend_slowMotionTimeRange(v9);
           v10 = *buf;
           v11 = v19;
           *(v5 + 24) = v18;
@@ -274,7 +274,7 @@ LABEL_11:
   if (v5)
   {
     v6 = [IPASloMoOperation alloc];
-    [v5 slowMotionTimeRange];
+    objc_msgSend_slowMotionTimeRange(v5);
     [v5 slowMotionRate];
     v7 = [(IPASloMoOperation *)v6 initWithTimeRange:&v9 rate:?];
   }

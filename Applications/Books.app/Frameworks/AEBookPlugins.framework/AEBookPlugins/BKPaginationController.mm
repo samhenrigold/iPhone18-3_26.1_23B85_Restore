@@ -206,11 +206,11 @@
   v3 = +[NSNotificationCenter defaultCenter];
   [v3 postNotificationName:BKPaginationDataLoadedNotification object:self];
 
-  v4 = _AEPaginationLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _AEPaginationLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Posting PaginationLoaded", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Posting PaginationLoaded", v6, 2u);
   }
 }
 
@@ -415,12 +415,12 @@ LABEL_4:
 
   if (v14)
   {
-    v15 = _AEPaginationLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AEPaginationLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 138412290;
-      v32 = v14;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Set an override view: %@", &v31, 0xCu);
+      v35 = 138412290;
+      v36 = v14;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Set an override view: %@", &v35, 0xCu);
     }
 
     configuration2 = [(BKPaginationController *)self configuration];
@@ -432,39 +432,40 @@ LABEL_4:
   environment3 = [configuration3 environment];
   [environment3 freeze];
 
-  v20 = _AEPaginationLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v22 = _AEPaginationLog(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     configuration4 = [(BKPaginationController *)self configuration];
-    v31 = 138543618;
-    v32 = configuration4;
-    v33 = 2114;
-    v34 = styleCopy;
-    _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "\nCaptured configuration: %{public}@\nStyle:%{public}@\n", &v31, 0x16u);
+    v35 = 138543618;
+    v36 = configuration4;
+    v37 = 2114;
+    v38 = styleCopy;
+    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "\nCaptured configuration: %{public}@\nStyle:%{public}@\n", &v35, 0x16u);
   }
 
   [(BKPaginationController *)self releasePaginationInfo];
-  if (styleCopy || ![(BKPaginationFactory *)self->_operationFactory isStyleRequiredForPagination])
+  if (styleCopy || (v24 = [(BKPaginationFactory *)self->_operationFactory isStyleRequiredForPagination], (v24 & 1) == 0))
   {
     _lookupKey2 = [(BKPaginationController *)self _lookupKey];
-    v23 = _AEPaginationLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v26 = _AEPaginationLog(_lookupKey2);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 138543362;
-      v32 = _lookupKey2;
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Repagination request made for:%{public}@.", &v31, 0xCu);
+      v35 = 138543362;
+      v36 = _lookupKey2;
+      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Repagination request made for:%{public}@.", &v35, 0xCu);
     }
 
-    if (([_lookupKey isEqualToString:_lookupKey2] & 1) == 0)
+    v27 = [_lookupKey isEqualToString:_lookupKey2];
+    if ((v27 & 1) == 0)
     {
-      v24 = _AEPaginationLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v28 = _AEPaginationLog(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        v31 = 138543618;
-        v32 = _lookupKey2;
-        v33 = 2114;
-        v34 = _lookupKey;
-        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, "CurrentKey:%{public}@ != PreviousKey:%{public}@ Resetting count. #retryPagination", &v31, 0x16u);
+        v35 = 138543618;
+        v36 = _lookupKey2;
+        v37 = 2114;
+        v38 = _lookupKey;
+        _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "CurrentKey:%{public}@ != PreviousKey:%{public}@ Resetting count. #retryPagination", &v35, 0x16u);
       }
 
       [(BKPaginationController *)self setPaginationRetryCount:0];
@@ -472,34 +473,34 @@ LABEL_4:
 
     [(BKPaginationController *)self updatePaginationCache:forceCopy];
     [(BKPaginationController *)self setJobGeneration:[(BKPaginationController *)self jobGeneration]+ 1];
-    v25 = [(BKPaginationJob *)[BKPaginationBatchJob alloc] init:[(BKPaginationController *)self jobGeneration]];
-    [v25 setStyle:styleCopy];
-    [v25 setLookupKey:_lookupKey2];
+    v29 = [(BKPaginationJob *)[BKPaginationBatchJob alloc] init:[(BKPaginationController *)self jobGeneration]];
+    [v29 setStyle:styleCopy];
+    [v29 setLookupKey:_lookupKey2];
     bookDatabaseKey = [(BKPaginationController *)self bookDatabaseKey];
-    [v25 setBookDatabaseKey:bookDatabaseKey];
+    [v29 setBookDatabaseKey:bookDatabaseKey];
 
     configuration5 = [(BKPaginationController *)self configuration];
     [configuration5 contentLayoutSize];
-    [v25 setPageSize:?];
+    [v29 setPageSize:?];
 
     navigationHistory = [(BKPaginationController *)self navigationHistory];
     allObjects = [navigationHistory allObjects];
-    [v25 setHistoryEntities:allObjects];
+    [v29 setHistoryEntities:allObjects];
 
     configuration6 = [(BKPaginationController *)self configuration];
-    [v25 setConfiguration:configuration6];
+    [v29 setConfiguration:configuration6];
 
-    [v25 setForce:forceCopy];
-    [(BKPaginationController *)self addPrepareJob:v25];
+    [v29 setForce:forceCopy];
+    [(BKPaginationController *)self addPrepareJob:v29];
   }
 
   else
   {
-    _lookupKey2 = _AEPaginationLog();
+    _lookupKey2 = _AEPaginationLog(v24);
     if (os_log_type_enabled(_lookupKey2, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_0, _lookupKey2, OS_LOG_TYPE_ERROR, "Aborting pagination because no style was provided.", &v31, 2u);
+      LOWORD(v35) = 0;
+      _os_log_impl(&dword_0, _lookupKey2, OS_LOG_TYPE_ERROR, "Aborting pagination because no style was provided.", &v35, 2u);
     }
   }
 }
@@ -1026,33 +1027,33 @@ LABEL_11:
     allObjects = [chapters allObjects];
     v11 = [allObjects count];
 
-    [(BKPaginationController *)self progress];
-    v12 = 0;
-    if (v13 >= 1.0 && v7 != v11)
+    progress = [(BKPaginationController *)self progress];
+    v13 = 0;
+    if (v14 >= 1.0 && v7 != v11)
     {
-      v14 = _AEPaginationLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = _AEPaginationLog(progress);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = [NSNumber numberWithUnsignedInteger:v7];
-        v16 = [NSNumber numberWithUnsignedInteger:v11];
-        v20 = 138543618;
-        v21 = v15;
-        v22 = 2114;
-        v23 = v16;
+        v16 = [NSNumber numberWithUnsignedInteger:v7];
+        v17 = [NSNumber numberWithUnsignedInteger:v11];
+        v21 = 138543618;
+        v22 = v16;
+        v23 = 2114;
+        v24 = v17;
       }
 
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v17 = [(NSArray *)chapterInfo objectAtIndex:v5];
-    pageNumber = [v17 pageNumber];
-    v12 = -[BKPaginationController pageTitleForPageNumber:](self, "pageTitleForPageNumber:", [pageNumber integerValue]);
+    v18 = [(NSArray *)chapterInfo objectAtIndex:v5];
+    pageNumber = [v18 pageNumber];
+    v13 = -[BKPaginationController pageTitleForPageNumber:](self, "pageTitleForPageNumber:", [pageNumber integerValue]);
   }
 
-  return v12;
+  return v13;
 }
 
 - (id)_lookupKey
@@ -1141,12 +1142,12 @@ LABEL_11:
     v10 = [(BKPaginationController *)self paginationArrayWithLookupKey:_lookupKey];
     if (![v10 count])
     {
-      v11 = _AEPaginationLog();
+      v11 = _AEPaginationLog(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138543362;
-        v26 = _lookupKey;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Did not find existing pagination results for LookupKey:%{public}@", &v25, 0xCu);
+        v26 = 138543362;
+        v27 = _lookupKey;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Did not find existing pagination results for LookupKey:%{public}@", &v26, 0xCu);
       }
     }
 
@@ -1183,15 +1184,15 @@ LABEL_11:
         [(BKPaginationController *)self updateProgress];
       }
 
-      v20 = [(BKPaginationController *)self chapterArrayWithLookupKey:_lookupKey];
-      v21 = self->_chapterInfo;
-      self->_chapterInfo = v20;
-      v22 = v20;
+      v21 = [(BKPaginationController *)self chapterArrayWithLookupKey:_lookupKey];
+      v22 = self->_chapterInfo;
+      self->_chapterInfo = v21;
+      v23 = v21;
 
       objc_storeStrong(&self->_paginationInfo, v10);
-      v23 = [(BKPaginationController *)self physicalPagesArrayWithLookupKey:_lookupKey];
-      v24 = self->_physicalPagesInfo;
-      self->_physicalPagesInfo = v23;
+      v24 = [(BKPaginationController *)self physicalPagesArrayWithLookupKey:_lookupKey];
+      v25 = self->_physicalPagesInfo;
+      self->_physicalPagesInfo = v24;
 
       [(BKPaginationController *)self postPaginationLoadedNotification];
     }
@@ -1206,13 +1207,13 @@ LABEL_11:
       return;
     }
 
-    _lookupKey = _AEPaginationLog();
+    _lookupKey = _AEPaginationLog(v19);
     if (os_log_type_enabled(_lookupKey, OS_LOG_TYPE_ERROR))
     {
       bookObjectID2 = [(BKPaginationController *)self bookObjectID];
-      v25 = 138412290;
-      v26 = bookObjectID2;
-      _os_log_impl(&dword_0, _lookupKey, OS_LOG_TYPE_ERROR, "We have no book. Was it deleted? %@", &v25, 0xCu);
+      v26 = 138412290;
+      v27 = bookObjectID2;
+      _os_log_impl(&dword_0, _lookupKey, OS_LOG_TYPE_ERROR, "We have no book. Was it deleted? %@", &v26, 0xCu);
     }
   }
 }

@@ -1,5 +1,6 @@
 @interface ATXMPBDonationCountTracker
 - (BOOL)isEqual:(id)equal;
+- (id)actionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -25,6 +26,29 @@
   {
     return 0;
   }
+}
+
+- (id)actionTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Intent";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"NSUA";
+  }
+
+  return v4;
 }
 
 - (int)StringAsActionType:(id)type
@@ -119,26 +143,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    actionType = self->_actionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    count = self->_count;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -200,7 +222,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_actionType != *(equalCopy + 4))
@@ -212,7 +233,7 @@
   else if (*(equalCopy + 24))
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -232,17 +253,17 @@ LABEL_14:
   abGroup = self->_abGroup;
   if (abGroup | *(equalCopy + 1))
   {
-    v7 = [(NSString *)abGroup isEqual:?];
+    v6 = [(NSString *)abGroup isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

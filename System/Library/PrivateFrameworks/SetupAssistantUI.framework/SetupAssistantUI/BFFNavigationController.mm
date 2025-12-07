@@ -390,53 +390,53 @@ id __55__BFFNavigationController_pushViewController_animated___block_invoke(uint
   objc_destroyWeak(buf);
 }
 
-void __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_2(uint64_t a1)
+void __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = _BYLoggingFacility();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v19 = v3;
-    _os_log_impl(&dword_265AC5000, v2, OS_LOG_TYPE_DEFAULT, "did transition to shield color %@", buf, 0xCu);
+    v20 = v4;
+    _os_log_impl(&dword_265AC5000, v3, OS_LOG_TYPE_DEFAULT, "did transition to shield color %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v5 = [MEMORY[0x277CCAE60] valueWithPointer:*(a1 + 40)];
-  v6 = *(a1 + 56);
-  v7 = WeakRetained[188];
-  if (v6)
+  v6 = [MEMORY[0x277CCAE60] valueWithPointer:*(a1 + 40)];
+  v7 = *(a1 + 56);
+  v8 = WeakRetained[188];
+  if (v7)
   {
-    v8 = _Block_copy(v6);
-    [v7 setObject:v8 forKey:v5];
+    v9 = _Block_copy(v7);
+    [v8 setObject:v9 forKey:v6];
   }
 
   else
   {
-    [WeakRetained[188] removeObjectForKey:v5];
+    [WeakRetained[188] removeObjectForKey:v6];
   }
 
-  v9 = [WeakRetained viewControllers];
-  v10 = [v9 arrayByAddingObject:*(a1 + 40)];
-  [WeakRetained setViewControllers:v10];
+  v10 = [WeakRetained viewControllers];
+  v11 = [v10 arrayByAddingObject:*(a1 + 40)];
+  [WeakRetained setViewControllers:v11];
 
-  v11 = [WeakRetained view];
-  [v11 bringSubviewToFront:*(a1 + 48)];
+  v12 = [WeakRetained view];
+  [v12 bringSubviewToFront:*(a1 + 48)];
 
-  v12 = MEMORY[0x277D75D18];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_38;
-  v16[3] = &unk_279BB49A8;
-  v17 = *(a1 + 48);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_2_39;
-  v13[3] = &unk_279BB4EA0;
-  v14 = *(a1 + 32);
-  v15 = *(a1 + 48);
-  [v12 animateWithDuration:v16 animations:v13 completion:0.5];
+  v13 = MEMORY[0x277D75D18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_38;
+  v17[3] = &unk_279BB49A8;
+  v18 = *(a1 + 48);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_2_39;
+  v14[3] = &unk_279BB4EA0;
+  v15 = *(a1 + 32);
+  v16 = *(a1 + 48);
+  [v13 animateWithDuration:v17 animations:v14 completion:0.5];
 }
 
 void __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_38(uint64_t a1)
@@ -445,16 +445,16 @@ void __74__BFFNavigationController_pushViewController_usingShieldColor_completio
   [*(a1 + 32) setBackgroundColor:v2];
 }
 
-uint64_t __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_2_39(uint64_t a1)
+uint64_t __74__BFFNavigationController_pushViewController_usingShieldColor_completion___block_invoke_2_39(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = _BYLoggingFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = _BYLoggingFacility();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_265AC5000, v2, OS_LOG_TYPE_DEFAULT, "did transition from shield color %@", &v5, 0xCu);
+    v4 = *(a1 + 32);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_265AC5000, v3, OS_LOG_TYPE_DEFAULT, "did transition from shield color %@", &v6, 0xCu);
   }
 
   return [*(a1 + 40) removeFromSuperview];

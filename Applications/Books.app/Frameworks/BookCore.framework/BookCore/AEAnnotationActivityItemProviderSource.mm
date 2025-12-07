@@ -15,14 +15,14 @@
 + (id)truncatedAnnotationSelectedText:(id)text
 {
   annotationSelectedText = [text annotationSelectedText];
-  v10 = 0;
-  [annotationSelectedText tokenCountWithEnumerationOptions:3 maxTokenCount:objc_msgSend(self outLimitLength:{"citationWordCountLimit"), &v10}];
-  v5 = v10;
-  v6 = IMCommonCoreBundle();
-  v7 = [v6 localizedStringForKey:@"[\\U2026]" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
-  v8 = [annotationSelectedText stringByTruncatingToLength:v5 options:3 truncationString:v7];
+  v11 = 0;
+  v5 = [annotationSelectedText tokenCountWithEnumerationOptions:3 maxTokenCount:objc_msgSend(self outLimitLength:{"citationWordCountLimit"), &v11}];
+  v6 = v11;
+  v7 = IMCommonCoreBundle(v5);
+  v8 = [v7 localizedStringForKey:@"[\\U2026]" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
+  v9 = [annotationSelectedText stringByTruncatingToLength:v6 options:3 truncationString:v8];
 
-  return v8;
+  return v9;
 }
 
 + (id)activityItemProviderSourceWithAnnotations:(id)annotations propertySource:(id)source
@@ -60,7 +60,7 @@
   v7.receiver = self;
   v7.super_class = AEAnnotationActivityItemProviderSource;
   citation = [(AEAssetActivityItemProviderSource *)&v7 citation];
-  v3 = IMCommonCoreBundle();
+  v3 = IMCommonCoreBundle(citation);
   v4 = [v3 localizedStringForKey:@"This material may be protected by copyright." value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
   v5 = [citation stringByAppendingFormat:@"\n%@", v4];
 

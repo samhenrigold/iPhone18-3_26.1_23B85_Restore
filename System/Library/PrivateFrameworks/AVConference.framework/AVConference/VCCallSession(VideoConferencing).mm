@@ -36,11 +36,13 @@
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to activate VCDisplayLink", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, "VCCallSession [%s] %s:%d Failed to activate VCDisplayLink", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }
@@ -49,11 +51,13 @@
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, "VCCallSession [%s] %s:%d Failed to create VCDisplayLink", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, "VCCallSession [%s] %s:%d Failed to create VCDisplayLink", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }

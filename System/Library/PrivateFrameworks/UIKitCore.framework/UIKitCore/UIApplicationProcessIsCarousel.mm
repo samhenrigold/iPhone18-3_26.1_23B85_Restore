@@ -8,7 +8,7 @@ void ___UIApplicationProcessIsCarousel_block_invoke()
   if ([UIApp isFrontBoard])
   {
     v0 = _UIMainBundleIdentifier();
-    byte_1EA992DBE = [v0 isEqualToString:@"com.apple.Carousel"];
+    byte_1EA992DBE = objc_msgSend_isEqualToString_(v0);
   }
 
   else

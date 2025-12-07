@@ -53,30 +53,30 @@
     expiration = v4->_expiration;
     v4->_expiration = v13;
 
-    v4->_mmPredictionCount = [(NSUserDefaults *)v4->_defaults integerForKey:@"com.apple.duetexpertd.MMUpdateMonitor.PredictionCount"];
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = [(NSUserDefaults *)v4->_defaults integerForKey:@"com.apple.duetexpertd.MMUpdateMonitor.PredictionCount"];
+    v4->_mmPredictionCount = v15;
+    v16 = __atxlog_handle_default(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v4->_expiration;
+      v17 = v4->_expiration;
       mmPredictionCount = v4->_mmPredictionCount;
       *buf = 138412546;
-      v25 = v16;
+      v25 = v17;
       v26 = 2048;
       v27 = mmPredictionCount;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "ATXMM: Recovered expiration date of predictions: %@. MM prediction count: %ld", buf, 0x16u);
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "ATXMM: Recovered expiration date of predictions: %@. MM prediction count: %ld", buf, 0x16u);
     }
 
     [(ATXMagicalMomentsUpdateMonitor *)v4 setupUpdateListener];
-    v18 = v4->_queue;
+    v19 = v4->_queue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __48__ATXMagicalMomentsUpdateMonitor_initWithLimit___block_invoke;
     block[3] = &unk_278596BB8;
     v22 = v4;
-    dispatch_async(v18, block);
+    dispatch_async(v19, block);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -104,11 +104,11 @@
         v9 = objc_opt_new();
         [(ATXMagicalMomentsUpdateMonitor *)self _setPredictions:v8 expiration:v9 totalPredictionCount:0];
 
-        v10 = __atxlog_handle_default();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = __atxlog_handle_default(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          *v11 = 0;
-          _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "ATXMM: Dropped the cache because the predictions have expired.", v11, 2u);
+          *v12 = 0;
+          _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXMM: Dropped the cache because the predictions have expired.", v12, 2u);
         }
       }
     }
@@ -171,7 +171,7 @@ uint64_t __57__ATXMagicalMomentsUpdateMonitor_predictionsForBundleId___block_inv
   return v3;
 }
 
-uint64_t __51__ATXMagicalMomentsUpdateMonitor_mmPredictionCount__block_invoke(uint64_t a1)
+void *__51__ATXMagicalMomentsUpdateMonitor_mmPredictionCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dropCacheIfExpired];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 24);
@@ -217,7 +217,7 @@ void __53__ATXMagicalMomentsUpdateMonitor_setupUpdateListener__block_invoke(uint
   dispatch_async(queue, block);
 }
 
-void __65__ATXMagicalMomentsUpdateMonitor_updatePredictionsWith_consumer___block_invoke(uint64_t a1)
+void __65__ATXMagicalMomentsUpdateMonitor_updatePredictionsWith_consumer___block_invoke(uint64_t a1, uint64_t a2)
 {
   v26 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
@@ -228,41 +228,41 @@ void __65__ATXMagicalMomentsUpdateMonitor_updatePredictionsWith_consumer___block
     v23 = 0u;
     v24 = 0u;
     obj = [*(a1 + 32) predictedItems];
-    v2 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v2)
+    v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v3)
     {
-      v3 = v2;
-      v4 = 0;
-      v5 = *v22;
+      v4 = v3;
+      v5 = 0;
+      v6 = *v22;
 LABEL_4:
-      v6 = 0;
+      v7 = 0;
       while (1)
       {
-        if (*v22 != v5)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        if (v4 >= *(*(a1 + 40) + 56))
+        if (v5 >= *(*(a1 + 40) + 56))
         {
           break;
         }
 
-        v7 = *(*(&v21 + 1) + 8 * v6);
-        v8 = [ATXMagicalMomentsSignals alloc];
-        v9 = [v7 predictionSource];
-        v10 = [v7 reason];
-        v11 = [v7 reasonMetadata];
-        [v7 confidence];
-        v13 = -[ATXMagicalMomentsSignals initWithPredictionSource:pmmReason:reasonMetadata:confidence:anchorType:index:](v8, "initWithPredictionSource:pmmReason:reasonMetadata:confidence:anchorType:index:", v9, v10, v11, [v7 anchorType], v4, v12);
-        v14 = [v7 bundleId];
-        [v20 setObject:v13 forKeyedSubscript:v14];
+        v8 = *(*(&v21 + 1) + 8 * v7);
+        v9 = [ATXMagicalMomentsSignals alloc];
+        v10 = [v8 predictionSource];
+        v11 = [v8 reason];
+        v12 = [v8 reasonMetadata];
+        [v8 confidence];
+        v14 = -[ATXMagicalMomentsSignals initWithPredictionSource:pmmReason:reasonMetadata:confidence:anchorType:index:](v9, "initWithPredictionSource:pmmReason:reasonMetadata:confidence:anchorType:index:", v10, v11, v12, [v8 anchorType], v5, v13);
+        v15 = [v8 bundleId];
+        [v20 setObject:v14 forKeyedSubscript:v15];
 
-        ++v4;
-        if (v3 == ++v6)
+        ++v5;
+        if (v4 == ++v7)
         {
-          v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
-          if (v3)
+          v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+          if (v4)
           {
             goto LABEL_4;
           }
@@ -273,18 +273,16 @@ LABEL_4:
     }
 
     [ATXMagicalMomentsBlendingUpdater updateBlendingLayerWithMagicalMomentsMap:v20];
-    v15 = *(a1 + 40);
-    v16 = [*(a1 + 32) expirationDate];
-    v17 = [*(a1 + 32) predictedItems];
-    [v15 _setPredictions:v20 expiration:v16 totalPredictionCount:{objc_msgSend(v17, "count")}];
+    v16 = *(a1 + 40);
+    v17 = [*(a1 + 32) expirationDate];
+    v18 = [*(a1 + 32) predictedItems];
+    [v16 _setPredictions:v20 expiration:v17 totalPredictionCount:{objc_msgSend(v18, "count")}];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPredictions:(id)predictions expiration:(id)expiration totalPredictionCount:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
   expirationCopy = expiration;
   dispatch_assert_queue_V2(self->_queue);
@@ -292,20 +290,17 @@ LABEL_4:
   objc_storeStrong(&self->_expiration, expiration);
   self->_mmPredictionCount = count;
   [(NSUserDefaults *)self->_defaults setObject:self->_expiration forKey:@"com.apple.duetexpertd.MMUpdateMonitor.ExpirationDate"];
-  [(NSUserDefaults *)self->_defaults setInteger:self->_mmPredictionCount forKey:@"com.apple.duetexpertd.MMUpdateMonitor.PredictionCount"];
-  v11 = __atxlog_handle_default();
+  v11 = __atxlog_handle_default([(NSUserDefaults *)self->_defaults setInteger:self->_mmPredictionCount forKey:@"com.apple.duetexpertd.MMUpdateMonitor.PredictionCount"]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     expiration = self->_expiration;
     mmPredictionCount = self->_mmPredictionCount;
-    v15 = 138412546;
+    v14 = 138412546;
     expirationCopy2 = expiration;
-    v17 = 2048;
-    v18 = mmPredictionCount;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXMM: Persisted expiration date of predictions: %@. MM prediction count: %ld to NSUserDefaults", &v15, 0x16u);
+    v16 = 2048;
+    v17 = mmPredictionCount;
+    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXMM: Persisted expiration date of predictions: %@. MM prediction count: %ld to NSUserDefaults", &v14, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

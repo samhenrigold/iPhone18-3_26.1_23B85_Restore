@@ -166,7 +166,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    startDate = self->_startDate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -186,7 +185,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  endDate = self->_endDate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -201,7 +199,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  masterCount = self->_masterCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -216,12 +213,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  occurrenceCount = self->_occurrenceCount;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    showAlert = self->_showAlert;
     PBDataWriterWriteBOOLField();
   }
 

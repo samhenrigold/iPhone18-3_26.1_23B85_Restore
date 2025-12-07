@@ -65,9 +65,9 @@
     +[ICCloudConfiguration cloudConfigurationQueue];
   }
 
-  v0 = cloudConfigurationQueue_queue;
+  v2 = cloudConfigurationQueue_queue;
 
-  return v0;
+  return v2;
 }
 
 void __47__ICCloudConfiguration_cloudConfigurationQueue__block_invoke()
@@ -870,17 +870,17 @@ void __77__ICCloudConfiguration_downloadConfigurationFromRemoteURL_completionHan
 {
   lCopy = l;
   handlerCopy = handler;
-  v8 = +[ICCloudConfiguration cloudConfigurationQueue];
+  v9 = +[ICCloudConfiguration cloudConfigurationQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __67__ICCloudConfiguration_loadConfigurationFromURL_completionHandler___block_invoke;
   block[3] = &unk_278196690;
   selfCopy = self;
-  v14 = handlerCopy;
-  v12 = lCopy;
-  v9 = handlerCopy;
-  v10 = lCopy;
-  dispatch_async(v8, block);
+  v15 = handlerCopy;
+  v13 = lCopy;
+  v10 = handlerCopy;
+  v11 = lCopy;
+  dispatch_async(v9, block);
 }
 
 void __67__ICCloudConfiguration_loadConfigurationFromURL_completionHandler___block_invoke(uint64_t a1)
@@ -1789,16 +1789,16 @@ void __55__ICCloudConfiguration_setConfigurationFromDictionary___block_invoke(ui
 + (void)loadSharedConfigurationWithQoSClass:(unsigned int)class completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = +[ICCloudConfiguration cloudConfigurationQueue];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __94__ICCloudConfiguration_SharedInstance__loadSharedConfigurationWithQoSClass_completionHandler___block_invoke;
-  v10[3] = &unk_2781966B8;
-  v11 = handlerCopy;
+  v8 = +[(ICCloudConfiguration *)self];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __94__ICCloudConfiguration_SharedInstance__loadSharedConfigurationWithQoSClass_completionHandler___block_invoke;
+  v11[3] = &unk_2781966B8;
+  v12 = handlerCopy;
   selfCopy = self;
-  v8 = handlerCopy;
-  v9 = dispatch_block_create_with_qos_class(0, class, 0, v10);
-  dispatch_async(v7, v9);
+  v9 = handlerCopy;
+  v10 = dispatch_block_create_with_qos_class(0, class, 0, v11);
+  dispatch_async(v8, v10);
 }
 
 void __94__ICCloudConfiguration_SharedInstance__loadSharedConfigurationWithQoSClass_completionHandler___block_invoke(uint64_t a1)
@@ -1859,21 +1859,21 @@ void __77__ICCloudConfiguration_downloadConfigurationFromRemoteURL_completionHan
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error downloading remote configuration plist: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error downloading remote configuration plist: %@", v4, v5, v6, v7);
 }
 
 void __77__ICCloudConfiguration_downloadConfigurationFromRemoteURL_completionHandler___block_invoke_cold_2(void *a1)
 {
   v1 = [MEMORY[0x277CCAA40] localizedStringForStatusCode:{objc_msgSend(a1, "statusCode")}];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Connected to remote configuration plist server but got back non 200 response: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Connected to remote configuration plist server but got back non 200 response: %@", v4, v5, v6, v7);
 }
 
 void __77__ICCloudConfiguration_downloadConfigurationFromRemoteURL_completionHandler___block_invoke_cold_3(void *a1)
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error serializing plist data to dictionary: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_214D51000, v2, v3, "Error serializing plist data to dictionary: %@", v4, v5, v6, v7);
 }
 
 - (void)loadConfigurationFromURL:.cold.1()

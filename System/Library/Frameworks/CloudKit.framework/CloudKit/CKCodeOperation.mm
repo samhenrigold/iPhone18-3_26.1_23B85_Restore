@@ -131,7 +131,7 @@
 - (void)setPerRecordProgressBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -162,7 +162,7 @@ LABEL_9:
 
 - (id)perRecordProgressBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -199,7 +199,7 @@ LABEL_9:
 - (void)setPerRecordCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -230,7 +230,7 @@ LABEL_9:
 
 - (id)perRecordCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -267,7 +267,7 @@ LABEL_9:
 - (void)setCodeOperationCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -298,7 +298,7 @@ LABEL_9:
 
 - (id)codeOperationCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -335,7 +335,7 @@ LABEL_9:
 - (void)setIncompleteResponsePreviewBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -366,7 +366,7 @@ LABEL_9:
 
 - (id)incompleteResponsePreviewBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -403,12 +403,12 @@ LABEL_9:
 - (void)setDidSubstituteRequestRecordTransportsBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v5, v6))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v5, v6))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v5, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
 
-  if (blockCopy && (__sTestOverridesAvailable[0] & 1) == 0)
+  if (blockCopy && (__sTestOverridesAvailable & 1) == 0)
   {
     v13 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v5, v6);
     objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, self, @"CKCodeOperation.m", 92, @"Only suitable for testing: %s:%d", "/Library/Caches/com.apple.xbs/Sources/CloudKit/Sources/CloudKit/CKObjCCode/CKCodeOperation.m", 92);
@@ -440,7 +440,7 @@ LABEL_12:
 
 - (id)didSubstituteRequestRecordTransportsBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -587,7 +587,7 @@ LABEL_12:
 
 - (void)performCKOperation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_request(self, a2, v2);
   v5 = objc_opt_respondsToSelector();
 
@@ -603,26 +603,26 @@ LABEL_12:
   }
 
   v12 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v13 = v11;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v31, v35, 16);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v30, v34, 16);
   if (v15)
   {
     v18 = v15;
-    v19 = *v32;
+    v19 = *v31;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v32 != v19)
+        if (*v31 != v19)
         {
           objc_enumerationMutation(v13);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * i);
+        v21 = *(*(&v30 + 1) + 8 * i);
         if (objc_msgSend_contents(v21, v16, v17) != 1)
         {
           v27 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v22, @"CKErrorDomain", 12, @"Request RecordTransport had unexpected contents: %@", v21);
@@ -635,7 +635,7 @@ LABEL_12:
         objc_msgSend_addObject_(v12, v25, v24);
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v31, v35, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v30, v34, 16);
       if (v18)
       {
         continue;
@@ -646,17 +646,15 @@ LABEL_12:
   }
 
   objc_msgSend_setRequestLocalSerializations_(self, v26, v12);
-  v30.receiver = self;
-  v30.super_class = CKCodeOperation;
-  [(CKOperation *)&v30 performCKOperation];
+  v29.receiver = self;
+  v29.super_class = CKCodeOperation;
+  [(CKOperation *)&v29 performCKOperation];
 LABEL_14:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -709,28 +707,26 @@ LABEL_14:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKCodeOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKCodeOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -774,13 +770,11 @@ LABEL_14:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKCodeOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKCodeOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate
@@ -873,7 +867,7 @@ LABEL_12:
 
 - (void)handleReplaceLocalWithWireSerializations:(id)serializations encryptedMasterKeys:(id)keys wireEnvelopes:(id)envelopes reply:(id)reply
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   serializationsCopy = serializations;
   keysCopy = keys;
   replyCopy = reply;
@@ -882,12 +876,12 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = sub_1885A8234;
-  v41[3] = &unk_1E70BE6A0;
-  v42 = keysCopy;
-  v17 = objc_msgSend_CKMapWithIndex_(serializationsCopy, v16, v41);
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = sub_1885A8234;
+  v40[3] = &unk_1E70BE6A0;
+  v41 = keysCopy;
+  v17 = objc_msgSend_CKMapWithIndex_(serializationsCopy, v16, v40);
   v20 = objc_msgSend_request(self, v18, v19);
   v21 = objc_opt_respondsToSelector();
 
@@ -911,14 +905,14 @@ LABEL_12:
     }
 
     v24 = v28;
-    v40 = objc_msgSend_request(self, v38, v39);
+    v39 = objc_msgSend_request(self, v37, v38);
     *buf = 138412290;
-    v44 = v40;
+    v43 = v39;
     _os_log_error_impl(&dword_1883EA000, v24, OS_LOG_TYPE_ERROR, "Found wire serializations to substitute, but request claims to not support substituting: %@", buf, 0xCu);
   }
 
 LABEL_8:
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     v29 = objc_msgSend_didSubstituteRequestRecordTransportsBlock(self, v26, v27);
 
@@ -933,13 +927,11 @@ LABEL_12:
   v33 = objc_msgSend_request(self, v14, v15);
   v36 = objc_msgSend_data(v33, v34, v35);
   replyCopy[2](replyCopy, v36, 0);
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleInitialResponseReceived:(id)received reply:(id)reply
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   replyCopy = reply;
   v10 = objc_msgSend_responseClass(self, v8, v9);
@@ -959,34 +951,34 @@ LABEL_12:
   v20 = objc_opt_new();
   if (objc_msgSend_count(v19, v21, v22))
   {
-    v70 = receivedCopy;
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
+    v69 = receivedCopy;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     v25 = v19;
-    v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v71, v77, 16);
+    v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v70, v76, 16);
     if (v27)
     {
       v30 = v27;
-      v31 = *v72;
+      v31 = *v71;
       while (2)
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v72 != v31)
+          if (*v71 != v31)
           {
             objc_enumerationMutation(v25);
           }
 
-          v33 = *(*(&v71 + 1) + 8 * i);
+          v33 = *(*(&v70 + 1) + 8 * i);
           if (objc_msgSend_contents(v33, v28, v29) != 2)
           {
             v53 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v34, @"CKErrorDomain", 12, @"Request RecordTransport had unexpected contents: %@", v33);
             objc_msgSend_finishWithError_(self, v54, v53);
             replyCopy[2](replyCopy, 0, v53);
 
-            receivedCopy = v70;
+            receivedCopy = v69;
             goto LABEL_28;
           }
 
@@ -994,7 +986,7 @@ LABEL_12:
           objc_msgSend_addObject_(v20, v37, v36);
         }
 
-        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v28, &v71, v77, 16);
+        v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v28, &v70, v76, 16);
         if (v30)
         {
           continue;
@@ -1026,12 +1018,12 @@ LABEL_12:
       v51 = objc_msgSend_response(self, v49, v50);
       objc_msgSend_substituteRecordTransports_(v51, v52, v39);
 
-      receivedCopy = v70;
+      receivedCopy = v69;
     }
 
     else
     {
-      receivedCopy = v70;
+      receivedCopy = v69;
       if (ck_log_initialization_predicate != -1)
       {
         dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -1040,11 +1032,11 @@ LABEL_12:
       v55 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
-        v66 = v55;
-        v69 = objc_msgSend_response(self, v67, v68);
+        v65 = v55;
+        v68 = objc_msgSend_response(self, v66, v67);
         *buf = 138412290;
-        v76 = v69;
-        _os_log_error_impl(&dword_1883EA000, v66, OS_LOG_TYPE_ERROR, "Found record transports to substitute, but response claims to not support substituting: %@", buf, 0xCu);
+        v75 = v68;
+        _os_log_error_impl(&dword_1883EA000, v65, OS_LOG_TYPE_ERROR, "Found record transports to substitute, but response claims to not support substituting: %@", buf, 0xCu);
       }
     }
   }
@@ -1063,44 +1055,42 @@ LABEL_12:
 
   (replyCopy)[2](replyCopy, v20, 0);
 LABEL_28:
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleReplaceWireSerializationsWithRecords:(id)records
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   if (objc_msgSend_count(recordsCopy, v5, v6))
   {
     v7 = objc_opt_new();
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v8 = recordsCopy;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v34, v40, 16);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v33, v39, 16);
     if (v10)
     {
       v12 = v10;
-      v13 = *v35;
+      v13 = *v34;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v35 != v13)
+          if (*v34 != v13)
           {
             objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * i);
-          objc_msgSend__wireUpAssetContentForOperation_inRecord_checkSignatures_outError_(CKOperation, v11, self, v15, 0, 0, v34);
+          v15 = *(*(&v33 + 1) + 8 * i);
+          objc_msgSend__wireUpAssetContentForOperation_inRecord_checkSignatures_outError_(CKOperation, v11, self, v15, 0, 0, v33);
           v16 = [CKCodeRecordTransport alloc];
           v18 = objc_msgSend_initWithRecord_(v16, v17, v15);
           objc_msgSend_addObject_(v7, v19, v18);
         }
 
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v34, v40, 16);
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v33, v39, 16);
       }
 
       while (v12);
@@ -1125,21 +1115,19 @@ LABEL_28:
       v28 = ck_log_facility_ck;
       if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
       {
-        v30 = v28;
-        v33 = objc_msgSend_response(self, v31, v32);
+        v29 = v28;
+        v32 = objc_msgSend_response(self, v30, v31);
         *buf = 138412290;
-        v39 = v33;
-        _os_log_error_impl(&dword_1883EA000, v30, OS_LOG_TYPE_ERROR, "Found record transports to substitute, but response claims to not support substituting: %@", buf, 0xCu);
+        v38 = v32;
+        _os_log_error_impl(&dword_1883EA000, v29, OS_LOG_TYPE_ERROR, "Found record transports to substitute, but response claims to not support substituting: %@", buf, 0xCu);
       }
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFetchForRecordID:(id)d record:(id)record error:(id)error
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   dCopy = d;
   recordCopy = record;
   errorCopy = error;
@@ -1194,9 +1182,9 @@ LABEL_28:
     }
 
     *buf = 138412546;
-    v54 = dCopy;
-    v55 = 2112;
-    v56 = errorCopy;
+    v53 = dCopy;
+    v54 = 2112;
+    v55 = errorCopy;
     v25 = "Record %@ fetched with error: %@";
     v26 = v19;
     v27 = v24;
@@ -1238,7 +1226,7 @@ LABEL_28:
   if ((v37 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     *buf = 138412290;
-    v54 = dCopy;
+    v53 = dCopy;
     v25 = "Record %@ fetched";
     v26 = v19;
     v27 = v37;
@@ -1256,9 +1244,9 @@ LABEL_22:
   {
     if (recordCopy)
     {
-      v52 = errorCopy;
-      objc_msgSend__wireUpAssetContentForOperation_inRecord_checkSignatures_outError_(CKOperation, v39, self, recordCopy, 0, &v52);
-      v41 = v52;
+      v51 = errorCopy;
+      objc_msgSend__wireUpAssetContentForOperation_inRecord_checkSignatures_outError_(CKOperation, v39, self, recordCopy, 0, &v51);
+      v41 = v51;
 
       errorCopy = v41;
     }
@@ -1288,13 +1276,11 @@ LABEL_22:
   {
     objc_msgSend_setResponseError_(self, v49, errorCopy);
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFetchForRecordID:(id)d didProgress:(double)progress
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (self)
   {
@@ -1338,11 +1324,11 @@ LABEL_22:
 
     if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
-      v26 = 138412546;
-      v27 = dCopy;
-      v28 = 2048;
+      v25 = 138412546;
+      v26 = dCopy;
+      v27 = 2048;
       progressCopy = progress;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v15, OS_SIGNPOST_EVENT, v20, "CKCodeOperation", "Record %@ updated progress %f", &v26, 0x16u);
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v15, OS_SIGNPOST_EVENT, v20, "CKCodeOperation", "Record %@ updated progress %f", &v25, 0x16u);
     }
   }
 
@@ -1353,8 +1339,6 @@ LABEL_22:
     v24 = objc_msgSend_perRecordProgressBlock(self, v22, v23);
     (v24)[2](v24, dCopy, progress);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAssetDataForRecordID:(id)d recordKey:(id)key arrayIndex:(int64_t)index data:(id)data offset:(unint64_t)offset
@@ -1369,7 +1353,7 @@ LABEL_22:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1449,19 +1433,19 @@ LABEL_22:
     v21 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v34 = v21;
-      v35 = objc_opt_class();
-      v36 = NSStringFromClass(v35);
-      v39 = objc_msgSend_ckShortDescription(self, v37, v38);
+      v33 = v21;
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
+      v38 = objc_msgSend_ckShortDescription(self, v36, v37);
       *buf = 138544130;
-      v42 = v36;
-      v43 = 2048;
+      v41 = v35;
+      v42 = 2048;
       selfCopy = self;
-      v45 = 2114;
-      v46 = v39;
-      v47 = 2112;
-      v48 = errorCopy;
-      _os_log_debug_impl(&dword_1883EA000, v34, OS_LOG_TYPE_DEBUG, "Calling codeOperationCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
+      v44 = 2114;
+      v45 = v38;
+      v46 = 2112;
+      v47 = errorCopy;
+      _os_log_debug_impl(&dword_1883EA000, v33, OS_LOG_TYPE_DEBUG, "Calling codeOperationCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
     }
 
     v24 = objc_msgSend_response(self, v22, v23);
@@ -1479,11 +1463,9 @@ LABEL_22:
     objc_msgSend_setCodeOperationCompletionBlock_(self, v32, 0);
   }
 
-  v40.receiver = self;
-  v40.super_class = CKCodeOperation;
-  [(CKOperation *)&v40 _finishOnCallbackQueueWithError:errorCopy];
-
-  v33 = *MEMORY[0x1E69E9840];
+  v39.receiver = self;
+  v39.super_class = CKCodeOperation;
+  [(CKOperation *)&v39 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 + (void)applyDaemonCallbackInterfaceTweaks:(id)tweaks

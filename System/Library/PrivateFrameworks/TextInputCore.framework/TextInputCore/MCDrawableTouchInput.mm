@@ -21,53 +21,51 @@
 
 - (id)description
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = MCDrawableTouchInput;
-  v3 = [(MCTouchInput *)&v19 description];
-  string = [MEMORY[0x277CCAB68] string];
-  [string appendString:@"{"];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v20 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = MCDrawableTouchInput;
+  v3 = [(MCTouchInput *)&v18 description];
+  v4 = objc_msgSend_string(MEMORY[0x277CCAB68]);
+  [v4 appendString:@"{"];
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   nearbyKeys = [(MCDrawableTouchInput *)self nearbyKeys];
-  v6 = [nearbyKeys countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v6 = [nearbyKeys countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     v9 = 1;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(nearbyKeys);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if ((v9 & 1) == 0)
         {
-          [string appendString:{@", "}];
+          [v4 appendString:{@", "}];
         }
 
-        [string appendFormat:@"%c", objc_msgSend(v11, "character")];
+        [v4 appendFormat:@"%c", objc_msgSend(v11, "character")];
         v9 = 0;
       }
 
-      v7 = [nearbyKeys countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v7 = [nearbyKeys countByEnumeratingWithState:&v14 objects:v19 count:16];
       v9 = 0;
     }
 
     while (v7);
   }
 
-  [string appendString:@"}"];
-  v12 = [v3 stringByAppendingFormat:@", nearbyKeys=%@", string];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v4 appendString:@"}"];
+  v12 = [v3 stringByAppendingFormat:@", nearbyKeys=%@", v4];
 
   return v3;
 }

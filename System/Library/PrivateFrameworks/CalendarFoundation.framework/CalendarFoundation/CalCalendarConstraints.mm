@@ -45,40 +45,38 @@
 
 void __68__CalCalendarConstraints_backwardsCompatibleConstraintsPathForName___block_invoke()
 {
-  v4[14] = *MEMORY[0x1E69E9840];
-  v3[0] = @"CalDAVCalendarConstraints";
-  v3[1] = @"CalDAVCalendarConstraintsNoComments";
-  v4[0] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/CalDAVCalendarConstraints.plist";
-  v4[1] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/CalDAVCalendarConstraintsNoComments.plist";
-  v3[2] = @"CalDAVCalendarConstraintsNoSchedule";
-  v3[3] = @"CalDAVCalendarConstraintsNoScheduleNoComments";
-  v4[2] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/CalDAVCalendarConstraintsNoSchedule.plist";
-  v4[3] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/CalDAVCalendarConstraintsNoScheduleNoComments.plist";
-  v3[4] = @"FutureLimitedCalDAVCalendarConstraints";
-  v3[5] = @"FutureLimitedCalDAVCalendarConstraintsNoComments";
-  v4[4] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/FutureLimitedCalDAVCalendarConstraints.plist";
-  v4[5] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/FutureLimitedCalDAVCalendarConstraintsNoComments.plist";
-  v3[6] = @"FutureLimitedCalDAVCalendarConstraintsNoSchedule";
-  v3[7] = @"FutureLimitedCalDAVCalendarConstraintsNoScheduleNoComments";
-  v4[6] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/FutureLimitedCalDAVCalendarConstraintsNoSchedule.plist";
-  v4[7] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/FutureLimitedCalDAVCalendarConstraintsNoScheduleNoComments.plist";
-  v3[8] = @"EAS12CalendarConstraints";
-  v3[9] = @"EAS14CalendarConstraints";
-  v4[8] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS12CalendarConstraints.plist";
-  v4[9] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS14CalendarConstraints.plist";
-  v3[10] = @"EAS16CalendarConstraints";
-  v3[11] = @"EAS161CalendarConstraints";
-  v4[10] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS16CalendarConstraints.plist";
-  v4[11] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS161CalendarConstraints.plist";
-  v3[12] = @"EAS25CalendarConstraints";
-  v3[13] = @"SubCalCalendarConstraints";
-  v4[12] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS25CalendarConstraints.plist";
-  v4[13] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DASubCal.framework/SubCalCalendarConstraints.plist";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:14];
+  v3[14] = *MEMORY[0x1E69E9840];
+  v2[0] = @"CalDAVCalendarConstraints";
+  v2[1] = @"CalDAVCalendarConstraintsNoComments";
+  v3[0] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/CalDAVCalendarConstraints.plist";
+  v3[1] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/CalDAVCalendarConstraintsNoComments.plist";
+  v2[2] = @"CalDAVCalendarConstraintsNoSchedule";
+  v2[3] = @"CalDAVCalendarConstraintsNoScheduleNoComments";
+  v3[2] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/CalDAVCalendarConstraintsNoSchedule.plist";
+  v3[3] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/CalDAVCalendarConstraintsNoScheduleNoComments.plist";
+  v2[4] = @"FutureLimitedCalDAVCalendarConstraints";
+  v2[5] = @"FutureLimitedCalDAVCalendarConstraintsNoComments";
+  v3[4] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/FutureLimitedCalDAVCalendarConstraints.plist";
+  v3[5] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/FutureLimitedCalDAVCalendarConstraintsNoComments.plist";
+  v2[6] = @"FutureLimitedCalDAVCalendarConstraintsNoSchedule";
+  v2[7] = @"FutureLimitedCalDAVCalendarConstraintsNoScheduleNoComments";
+  v3[6] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/FutureLimitedCalDAVCalendarConstraintsNoSchedule.plist";
+  v3[7] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DACalDAV.framework/FutureLimitedCalDAVCalendarConstraintsNoScheduleNoComments.plist";
+  v2[8] = @"EAS12CalendarConstraints";
+  v2[9] = @"EAS14CalendarConstraints";
+  v3[8] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS12CalendarConstraints.plist";
+  v3[9] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS14CalendarConstraints.plist";
+  v2[10] = @"EAS16CalendarConstraints";
+  v2[11] = @"EAS161CalendarConstraints";
+  v3[10] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS16CalendarConstraints.plist";
+  v3[11] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS161CalendarConstraints.plist";
+  v2[12] = @"EAS25CalendarConstraints";
+  v2[13] = @"SubCalCalendarConstraints";
+  v3[12] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DAEAS.framework/EAS25CalendarConstraints.plist";
+  v3[13] = @"/System/Library/PrivateFrameworks/DataAccess.framework/Frameworks/DASubCal.framework/SubCalCalendarConstraints.plist";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:14];
   v1 = backwardsCompatibleConstraintsPathForName__map;
   backwardsCompatibleConstraintsPathForName__map = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_strippedConstraintsNameForStoredConstraintsName:(id)name

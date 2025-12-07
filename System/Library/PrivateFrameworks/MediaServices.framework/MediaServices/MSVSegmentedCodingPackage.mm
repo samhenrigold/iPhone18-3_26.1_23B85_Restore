@@ -164,44 +164,44 @@ void __47__MSVSegmentedCodingPackage_decodersWithError___block_invoke(uint64_t a
   v14 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v13];
   if ([v14 length])
   {
-    v15 = MSVGzipDecompressData();
+    v17 = MSVGzipDecompressData(v14, v15, v16);
 
-    if ([v15 length])
+    if ([v17 length])
     {
-      v16 = *(*(a1 + 48) + 8);
-      v18 = *(v16 + 40);
-      v17 = (v16 + 40);
-      v23 = a4;
-      obj = v18;
-      v19 = v9;
-      v14 = v15;
-      if (([v19 isEqualToString:@"MSVOPACKCoder"] & 1) == 0)
+      v18 = *(*(a1 + 48) + 8);
+      v20 = *(v18 + 40);
+      v19 = (v18 + 40);
+      v25 = a4;
+      obj = v20;
+      v21 = v9;
+      v14 = v17;
+      if (([v21 isEqualToString:@"MSVOPACKCoder"] & 1) == 0)
       {
-        v21 = [MEMORY[0x1E696AAA8] currentHandler];
-        v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSCoder<MSVSegmentedSubDecoder> * _Nonnull _MSVSegmentedCodingPackageDecoderForCoderType(NSString * _Nonnull __strong, NSData * _Nonnull __strong, NSError *__autoreleasing  _Nullable * _Nullable)"}];
-        [v21 handleFailureInFunction:v22 file:@"MSVSegmentedCodingPackage.m" lineNumber:25 description:{@"Unsupported coder type %@", v19}];
+        v23 = [MEMORY[0x1E696AAA8] currentHandler];
+        v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSCoder<MSVSegmentedSubDecoder> * _Nonnull _MSVSegmentedCodingPackageDecoderForCoderType(NSString * _Nonnull __strong, NSData * _Nonnull __strong, NSError *__autoreleasing  _Nullable * _Nullable)"}];
+        [v23 handleFailureInFunction:v24 file:@"MSVSegmentedCodingPackage.m" lineNumber:25 description:{@"Unsupported coder type %@", v21}];
 
         abort();
       }
 
-      v20 = [[MSVOPACKDecoder alloc] initForReadingFromData:v14 error:&obj];
+      v22 = [[MSVOPACKDecoder alloc] initForReadingFromData:v14 error:&obj];
 
-      objc_storeStrong(v17, obj);
+      objc_storeStrong(v19, obj);
       if (*(*(*(a1 + 48) + 8) + 40))
       {
-        *v23 = 1;
+        *v25 = 1;
         [*(a1 + 40) removeAllObjects];
       }
 
       else
       {
-        [*(a1 + 40) addObject:v20];
+        [*(a1 + 40) addObject:v22];
       }
     }
 
     else
     {
-      v14 = v15;
+      v14 = v17;
     }
   }
 }
@@ -310,32 +310,32 @@ void __44__MSVSegmentedCodingPackage_writeWithError___block_invoke(uint64_t a1, 
   if ([v6 hasTopLevelData])
   {
     v14 = [v6 encodedData];
-    v15 = MSVGzipCompressData();
+    v17 = MSVGzipCompressData(v14, v15, v16);
 
-    if ([v15 length])
+    if ([v17 length])
     {
-      v16 = *(*(a1 + 40) + 8);
-      obj = *(v16 + 40);
-      [v15 writeToURL:v13 options:0 error:&obj];
-      objc_storeStrong((v16 + 40), obj);
+      v18 = *(*(a1 + 40) + 8);
+      obj = *(v18 + 40);
+      [v17 writeToURL:v13 options:0 error:&obj];
+      objc_storeStrong((v18 + 40), obj);
     }
   }
 
   else
   {
-    v17 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:@"segments"];
-    v18 = [v17 objectForKeyedSubscript:v5];
+    v19 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:@"segments"];
+    v20 = [v19 objectForKeyedSubscript:v5];
 
-    if (v18)
+    if (v20)
     {
-      v19 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:@"segments"];
-      [v19 setObject:0 forKeyedSubscript:v5];
+      v21 = [*(*(a1 + 32) + 40) objectForKeyedSubscript:@"segments"];
+      [v21 setObject:0 forKeyedSubscript:v5];
 
       *(*(a1 + 32) + 8) = 1;
     }
 
-    v20 = [MEMORY[0x1E696AC08] defaultManager];
-    [v20 removeItemAtURL:v13 error:0];
+    v22 = [MEMORY[0x1E696AC08] defaultManager];
+    [v22 removeItemAtURL:v13 error:0];
   }
 }
 

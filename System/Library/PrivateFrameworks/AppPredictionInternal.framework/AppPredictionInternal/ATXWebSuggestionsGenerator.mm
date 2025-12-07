@@ -30,84 +30,84 @@
 
 - (void)refreshWebsitePredictions
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   webpageHistory = [(ATXWebSuggestionsGenerator *)self webpageHistory];
-  v24 = [(ATXWebSuggestionsGenerator *)self urlToDatesGivenWebpageHistory:webpageHistory];
-  if ([v24 count])
+  v23 = [(ATXWebSuggestionsGenerator *)self urlToDatesGivenWebpageHistory:webpageHistory];
+  if ([v23 count])
   {
-    v22 = objc_alloc_init(ATXContextHeuristicsBiomeStream);
-    v52[0] = 0;
-    v52[1] = v52;
-    v52[2] = 0x2020000000;
-    v52[3] = 0;
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x3032000000;
-    v49 = __Block_byref_object_copy__24;
-    v50 = __Block_byref_object_dispose__24;
-    v51 = objc_opt_new();
-    v44[0] = 0;
-    v44[1] = v44;
-    v44[2] = 0x3032000000;
-    v44[3] = __Block_byref_object_copy__24;
-    v44[4] = __Block_byref_object_dispose__24;
-    v45 = objc_opt_new();
+    v21 = objc_alloc_init(ATXContextHeuristicsBiomeStream);
+    v51[0] = 0;
+    v51[1] = v51;
+    v51[2] = 0x2020000000;
+    v51[3] = 0;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__24;
+    v49 = __Block_byref_object_dispose__24;
+    v50 = objc_opt_new();
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x3032000000;
+    v43[3] = __Block_byref_object_copy__24;
+    v43[4] = __Block_byref_object_dispose__24;
+    v44 = objc_opt_new();
     v2 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-2419200.0];
     [v2 timeIntervalSinceReferenceDate];
-    v3 = [(ATXContextHeuristicsBiomeStream *)v22 publisherFromStartTime:?];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __55__ATXWebSuggestionsGenerator_refreshWebsitePredictions__block_invoke_2;
-    v38[3] = &unk_2785997A0;
-    v39 = v24;
+    v3 = [(ATXContextHeuristicsBiomeStream *)v21 publisherFromStartTime:?];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __55__ATXWebSuggestionsGenerator_refreshWebsitePredictions__block_invoke_2;
+    v37[3] = &unk_2785997A0;
+    v38 = v23;
     selfCopy = self;
-    v41 = v52;
-    v42 = v44;
-    v43 = &v46;
-    v4 = [v3 sinkWithCompletion:&__block_literal_global_52 shouldContinue:v38];
+    v40 = v51;
+    v41 = v43;
+    v42 = &v45;
+    v4 = [v3 sinkWithCompletion:&__block_literal_global_52 shouldContinue:v37];
 
-    v28 = objc_opt_new();
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v27 = objc_opt_new();
     v35 = 0u;
-    obj = v47[5];
-    v5 = [obj countByEnumeratingWithState:&v34 objects:v54 count:16];
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    obj = v46[5];
+    v5 = [obj countByEnumeratingWithState:&v33 objects:v53 count:16];
     if (v5)
     {
-      v27 = *v35;
+      v26 = *v34;
       do
       {
-        v29 = v5;
-        for (i = 0; i != v29; ++i)
+        v28 = v5;
+        for (i = 0; i != v28; ++i)
         {
-          if (*v35 != v27)
+          if (*v34 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v34 + 1) + 8 * i);
+          v7 = *(*(&v33 + 1) + 8 * i);
           v8 = objc_opt_new();
-          v32 = 0u;
-          v33 = 0u;
-          v30 = 0u;
           v31 = 0u;
-          v9 = [v47[5] objectForKeyedSubscript:v7];
-          v10 = [v9 countByEnumeratingWithState:&v30 objects:v53 count:16];
+          v32 = 0u;
+          v29 = 0u;
+          v30 = 0u;
+          v9 = [v46[5] objectForKeyedSubscript:v7];
+          v10 = [v9 countByEnumeratingWithState:&v29 objects:v52 count:16];
           if (v10)
           {
-            v11 = *v31;
+            v11 = *v30;
             do
             {
               for (j = 0; j != v10; ++j)
               {
-                if (*v31 != v11)
+                if (*v30 != v11)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v13 = *(*(&v30 + 1) + 8 * j);
-                v14 = [v47[5] objectForKeyedSubscript:{v7, v22}];
+                v13 = *(*(&v29 + 1) + 8 * j);
+                v14 = [v46[5] objectForKeyedSubscript:{v7, v21}];
                 v15 = [v14 countForObject:v13];
 
                 if (v15 >= 5)
@@ -122,33 +122,33 @@
                 }
               }
 
-              v10 = [v9 countByEnumeratingWithState:&v30 objects:v53 count:16];
+              v10 = [v9 countByEnumeratingWithState:&v29 objects:v52 count:16];
             }
 
             while (v10);
           }
 
-          [v28 setObject:v8 forKeyedSubscript:v7];
+          [v27 setObject:v8 forKeyedSubscript:v7];
         }
 
-        v5 = [obj countByEnumeratingWithState:&v34 objects:v54 count:16];
+        v5 = [obj countByEnumeratingWithState:&v33 objects:v53 count:16];
       }
 
       while (v5);
     }
 
     cache = self->_cache;
-    v17 = [v28 copy];
+    v17 = [v27 copy];
     [(ATXVerticalModelsCache *)cache writeWebsiteSuggestionsCache:v17];
 
     v18 = self->_cache;
     v19 = [(ATXWebSuggestionsGenerator *)self webpageTitlesAndSubtitlesGivenWebpageHistory:webpageHistory];
     [(ATXVerticalModelsCache *)v18 writeWebsiteTitlesAndSubtitlesCache:v19];
 
-    _Block_object_dispose(v44, 8);
-    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(v43, 8);
+    _Block_object_dispose(&v45, 8);
 
-    _Block_object_dispose(v52, 8);
+    _Block_object_dispose(v51, 8);
   }
 
   else
@@ -157,21 +157,19 @@
     [(ATXVerticalModelsCache *)self->_cache writeWebsiteSuggestionsCache:MEMORY[0x277CBEC10]];
     [(ATXVerticalModelsCache *)self->_cache writeWebsiteTitlesAndSubtitlesCache:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__ATXWebSuggestionsGenerator_refreshWebsitePredictions__block_invoke_2(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 eventBody];
   v5 = [v4 contextType];
 
   if (v5)
   {
-    v35 = v5;
-    v36 = v3;
+    v34 = v5;
+    v35 = v3;
     v6 = MEMORY[0x277CBEAA8];
     [v3 timestamp];
     v7 = [v6 dateWithTimeIntervalSinceReferenceDate:?];
@@ -182,33 +180,33 @@ uint64_t __55__ATXWebSuggestionsGenerator_refreshWebsitePredictions__block_invok
     v11 = [*(a1 + 32) objectAtIndexedSubscript:*(*(*(a1 + 48) + 8) + 24)];
     v12 = [v11 objectForKeyedSubscript:v10];
 
-    v37 = v7;
+    v36 = v7;
     if ([v12 compare:v7] == -1)
     {
       while (1)
       {
-        v38 = v12;
+        v37 = v12;
         v16 = [*(a1 + 40) rootUrlFromUrl:v10];
+        v38 = 0u;
         v39 = 0u;
         v40 = 0u;
         v41 = 0u;
-        v42 = 0u;
         v17 = *(*(*(a1 + 56) + 8) + 40);
-        v18 = [v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v38 objects:v42 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v40;
+          v20 = *v39;
           do
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v40 != v20)
+              if (*v39 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = *(*(&v39 + 1) + 8 * i);
+              v22 = *(*(&v38 + 1) + 8 * i);
               v23 = [*(*(*(a1 + 64) + 8) + 40) objectForKeyedSubscript:v22];
 
               if (!v23)
@@ -230,7 +228,7 @@ uint64_t __55__ATXWebSuggestionsGenerator_refreshWebsitePredictions__block_invok
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v39 objects:v43 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v38 objects:v42 count:16];
           }
 
           while (v19);
@@ -258,9 +256,9 @@ uint64_t __55__ATXWebSuggestionsGenerator_refreshWebsitePredictions__block_invok
       }
 
       v15 = 0;
-      v5 = v35;
-      v3 = v36;
-      v13 = v38;
+      v5 = v34;
+      v3 = v35;
+      v13 = v37;
     }
 
     else
@@ -268,23 +266,23 @@ uint64_t __55__ATXWebSuggestionsGenerator_refreshWebsitePredictions__block_invok
       v13 = v12;
       v14 = v10;
 LABEL_21:
-      v3 = v36;
-      v30 = [v36 eventBody];
+      v3 = v35;
+      v30 = [v35 eventBody];
       v31 = [v30 isStart];
 
       v32 = *(*(*(a1 + 56) + 8) + 40);
       if (v31)
       {
-        v5 = v35;
-        [v32 addObject:v35];
+        v5 = v34;
+        [v32 addObject:v34];
       }
 
       else
       {
-        v5 = v35;
-        if ([v32 containsObject:v35])
+        v5 = v34;
+        if ([v32 containsObject:v34])
         {
-          [*(*(*(a1 + 56) + 8) + 40) removeObject:v35];
+          [*(*(*(a1 + 56) + 8) + 40) removeObject:v34];
         }
       }
 
@@ -298,7 +296,6 @@ LABEL_21:
     v15 = 1;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -363,7 +360,7 @@ uint64_t __69__ATXWebSuggestionsGenerator_websitePredictionsForContextType_limit
 
 - (void)overwriteWebsitePredictionsCacheWithWebsiteString:(id)string contextType:(id)type
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   typeCopy = type;
   [(ATXWebSuggestionsGenerator *)self refreshWebsitePredictions];
@@ -378,39 +375,37 @@ uint64_t __69__ATXWebSuggestionsGenerator_websitePredictionsForContextType_limit
 
   while (v10);
   cache = self->_cache;
-  v14 = typeCopy;
-  v15[0] = v8;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = typeCopy;
+  v14[0] = v8;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   [(ATXVerticalModelsCache *)cache writeWebsiteSuggestionsCache:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)urlToDatesGivenWebpageHistory:(id)history
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   v4 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = historyCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         action = [v10 action];
         userActivity = [action userActivity];
 
@@ -436,13 +431,11 @@ uint64_t __69__ATXWebSuggestionsGenerator_websitePredictionsForContextType_limit
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -475,26 +468,26 @@ uint64_t __69__ATXWebSuggestionsGenerator_websitePredictionsForContextType_limit
 
 - (id)dedupedUrlsFromUrls:(id)urls limit:(unint64_t)limit
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   urlsCopy = urls;
-  v19 = objc_opt_new();
+  v18 = objc_opt_new();
   v7 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = urlsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v21;
+    v12 = *v20;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v21 != v12)
+      if (*v20 != v12)
       {
         objc_enumerationMutation(v8);
       }
@@ -504,18 +497,18 @@ LABEL_3:
         break;
       }
 
-      v14 = *(*(&v20 + 1) + 8 * v13);
+      v14 = *(*(&v19 + 1) + 8 * v13);
       v15 = [(ATXWebSuggestionsGenerator *)self rootUrlFromUrl:v14];
       if (v15 && ([v7 containsObject:v15] & 1) == 0)
       {
         [v7 addObject:v15];
-        [v19 addObject:v14];
+        [v18 addObject:v14];
         ++v11;
       }
 
       if (v10 == ++v13)
       {
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -526,37 +519,36 @@ LABEL_3:
     }
   }
 
-  v16 = [v19 copy];
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [v18 copy];
 
   return v16;
 }
 
 - (id)webpageTitlesAndSubtitlesGivenWebpageHistory:(id)history
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   v4 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = historyCopy;
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        action = [*(*(&v22 + 1) + 8 * i) action];
+        action = [*(*(&v21 + 1) + 8 * i) action];
         userActivity = [action userActivity];
         webpageURL = [userActivity webpageURL];
 
@@ -575,21 +567,20 @@ LABEL_3:
 
         if (!v16 && actionSubtitle != 0)
         {
-          v26[0] = actionTitle;
-          v26[1] = actionSubtitle;
-          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+          v25[0] = actionTitle;
+          v25[1] = actionSubtitle;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
           [v4 setObject:v18 forKeyedSubscript:webpageURL];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
   }
 
   v19 = [v4 copy];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

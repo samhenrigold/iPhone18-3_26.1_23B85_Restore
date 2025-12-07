@@ -857,17 +857,18 @@ void __56__MPStoreLibraryPersonalizationRequestOperation_execute__block_invoke_4
 
 + (id)_personalizedArtistResponseForStoreID:(int64_t)d modelObject:(id)object groupingKey:(id)key personalizationStyle:(int64_t)style personalizationProperties:(id)properties libraryView:(id)view libraryRequest:(id)request matchingStoreIDAndName:(BOOL)self0
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   dCopy = d;
   objectCopy = object;
   keyCopy = key;
   propertiesCopy = properties;
   viewCopy = view;
+  requestCopy = request;
   nameCopy = name;
-  [[MPModelLibraryResponse alloc] initWithRequest:request];
+  [[MPModelLibraryResponse alloc] initWithRequest:requestCopy];
   v14 = mlcore::ArtistPropertyStoreID(objc_alloc_init(MPMutableSectionedCollection));
-  LODWORD(v21) = 0;
-  std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+  LODWORD(v23[0]) = 0;
+  std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v22, &v14, v23, &dCopy);
 }
 
 + (uint64_t)_personalizedArtistResponseForStoreID:modelObject:groupingKey:personalizationStyle:personalizationProperties:libraryView:libraryRequest:matchingStoreIDAndName:
@@ -896,7 +897,7 @@ void __56__MPStoreLibraryPersonalizationRequestOperation_execute__block_invoke_4
     v12 = **(self + 24);
     if (v12)
     {
-      [v12 mlCoreView];
+      objc_msgSend_mlCoreView(v12);
       v13 = *v23;
     }
 
@@ -906,23 +907,19 @@ void __56__MPStoreLibraryPersonalizationRequestOperation_execute__block_invoke_4
     }
 
     v42 = v13;
-    *v23 = 0uLL;
+    *v23 = 0;
+    *&v23[8] = 0;
     mlcore::EntityCache::EntityCache();
     if (*(&v42 + 1))
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](*(&v42 + 1));
     }
 
-    if (*&v23[8])
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*&v23[8]);
-    }
-
     v14 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class()];
     v15 = v14;
     if (v14)
     {
-      [v14 MLCorePropertiesForPropertySet:**(self + 40)];
+      objc_msgSend_MLCorePropertiesForPropertySet_(v14);
     }
 
     else
@@ -998,14 +995,14 @@ void __56__MPStoreLibraryPersonalizationRequestOperation_execute__block_invoke_4
 + (id)personalizedResponseForContentDescriptor:(id)descriptor requestedProperties:(id)properties matchAlbumArtistOnStoreIdAndName:(BOOL)name
 {
   nameCopy = name;
-  v85[9] = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   propertiesCopy = properties;
   model = [descriptorCopy model];
-  v78 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class()];
+  v81 = [MPMediaLibraryEntityTranslator translatorForMPModelClass:objc_opt_class()];
   personalizationStyle = [descriptorCopy personalizationStyle];
   v8 = personalizationStyle;
-  v77 = 0;
+  v80 = 0;
   if ((personalizationStyle - 1) < 2)
   {
     v9 = [MPStoreLibraryPersonalizationContentDescriptor lightweightPersonalizationPropertiesForModelClass:objc_opt_class()];
@@ -1022,15 +1019,15 @@ void __56__MPStoreLibraryPersonalizationRequestOperation_execute__block_invoke_4
     v11 = [MPStoreLibraryPersonalizationContentDescriptor requiredLightweightPersonalizationPropertiesForModelClass:objc_opt_class() requestedProperties:propertiesCopy];
     v12 = [v10 propertySetByCombiningWithPropertySet:v11];
 LABEL_5:
-    v13 = v77;
-    v77 = v12;
+    v13 = v80;
+    v80 = v12;
 
     goto LABEL_6;
   }
 
   v26 = +[MPPropertySet emptyPropertySet];
-  v27 = v77;
-  v77 = v26;
+  v27 = v80;
+  v80 = v26;
 
   if (!v8)
   {
@@ -1051,56 +1048,58 @@ LABEL_6:
     activeAccount = [MEMORY[0x1E69E4680] activeAccount];
     v15 = [MPStoreLibraryPersonalizationRequest libraryViewWithUserIdentity:activeAccount];
 
-    v76 = objc_alloc_init(MPModelLibraryRequest);
+    v79 = objc_alloc_init(MPModelLibraryRequest);
     library = [v15 library];
-    [(MPModelLibraryRequest *)v76 setMediaLibrary:library];
+    [(MPModelLibraryRequest *)v79 setMediaLibrary:library];
 
-    -[MPModelLibraryRequest setFilteringOptions:](v76, "setFilteringOptions:", [v15 filteringOptions]);
-    v17 = [[MPModelLibraryResponse alloc] initWithRequest:v76];
+    -[MPModelLibraryRequest setFilteringOptions:](v79, "setFilteringOptions:", [v15 filteringOptions]);
+    v17 = [[MPModelLibraryResponse alloc] initWithRequest:v79];
     v18 = objc_alloc_init(MPMutableSectionedCollection);
-    v73 = 0;
-    v74 = 0;
-    v75 = 0;
+    v76 = 0;
+    v77 = 0;
+    v78 = 0;
     identifiers = [model identifiers];
     universalStore = [identifiers universalStore];
     adamID = [universalStore adamID];
 
-    v72 = adamID;
+    v75 = adamID;
     if (adamID)
     {
-      std::vector<long long>::push_back[abi:ne200100](&v73, &v72);
+      std::vector<long long>::push_back[abi:ne200100](&v76, &v75);
     }
 
     universalStore2 = [identifiers universalStore];
     subscriptionAdamID = [universalStore2 subscriptionAdamID];
 
-    v71 = subscriptionAdamID;
+    v74 = subscriptionAdamID;
     if (subscriptionAdamID)
     {
-      std::vector<long long>::push_back[abi:ne200100](&v73, &v71);
+      std::vector<long long>::push_back[abi:ne200100](&v76, &v74);
     }
 
-    if (v74 != v73)
+    if (v77 != v76)
     {
-      if ((v74 - v73) >= 9)
+      v73 = 0uLL;
+      if ((v77 - v76) >= 9)
       {
-        v85[1] = mlcore::ItemPropertyStoreID(v24);
-        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+        *&v89 = mlcore::ItemPropertyStoreID(v24);
+        LODWORD(v72) = 0;
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v90, &v89, &v72, v76);
       }
 
       v25 = mlcore::ItemPropertyStoreID(v24);
       mlcore::ItemPropertySubscriptionStoreItemID(v25);
-      v81 = 0uLL;
-      *&v82 = 0;
+      v84 = 0uLL;
+      *&v85 = 0;
       operator new();
     }
 
     [(MPModelResponse *)v17 setResults:v18];
 
-    if (v73)
+    if (v76)
     {
-      v74 = v73;
-      operator delete(v73);
+      v77 = v76;
+      operator delete(v76);
     }
 
     goto LABEL_30;
@@ -1168,7 +1167,7 @@ LABEL_6:
           v54 = [autoupdatingSharedLibrary groupingKeyForString:name];
 LABEL_52:
           LOBYTE(v62) = nameCopy;
-          v17 = [MPStoreLibraryPersonalizationRequestOperation _personalizedArtistResponseForStoreID:adamID2 modelObject:model groupingKey:v54 personalizationStyle:v8 personalizationProperties:v77 libraryView:v66 libraryRequest:v42 matchingStoreIDAndName:v62];
+          v17 = [MPStoreLibraryPersonalizationRequestOperation _personalizedArtistResponseForStoreID:adamID2 modelObject:model groupingKey:v54 personalizationStyle:v8 personalizationProperties:v80 libraryView:v66 libraryRequest:v42 matchingStoreIDAndName:v62];
 
           v55 = 0;
           goto LABEL_53;
@@ -1181,11 +1180,11 @@ LABEL_52:
           v56 = @"<nil>";
         }
 
-        v83 = @"modelObject";
-        v84 = v56;
-        v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
-        v85[0] = v57;
-        v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:1];
+        v86 = @"modelObject";
+        v87 = v56;
+        v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+        v88 = v57;
+        v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
         [v63 snapshotWithDomain:*MEMORY[0x1E69B1340] type:@"Bug" subType:@"Album Artist With No Name" context:@"Request to personalize album artist with missing name" triggerThresholdValues:0 events:v58 completion:0];
 
         v55 = [MEMORY[0x1E696ABC0] msv_errorWithDomain:@"MPStoreLibraryPersonalizationRequestOperationErrorDomain" code:1 debugDescription:@"No album artist name to favorite."];
@@ -1220,49 +1219,49 @@ LABEL_53:
   }
 
   activeAccount4 = [MEMORY[0x1E69E4680] activeAccount];
-  v80 = [MPStoreLibraryPersonalizationRequest libraryViewWithUserIdentity:activeAccount4];
+  v83 = [MPStoreLibraryPersonalizationRequest libraryViewWithUserIdentity:activeAccount4];
 
-  v76 = objc_alloc_init(MPModelLibraryRequest);
-  library3 = [v80 library];
-  [(MPModelLibraryRequest *)v76 setMediaLibrary:library3];
+  v79 = objc_alloc_init(MPModelLibraryRequest);
+  library3 = [v83 library];
+  [(MPModelLibraryRequest *)v79 setMediaLibrary:library3];
 
-  -[MPModelLibraryRequest setFilteringOptions:](v76, "setFilteringOptions:", [v80 filteringOptions]);
-  v17 = [[MPModelLibraryResponse alloc] initWithRequest:v76];
+  -[MPModelLibraryRequest setFilteringOptions:](v79, "setFilteringOptions:", [v83 filteringOptions]);
+  v17 = [[MPModelLibraryResponse alloc] initWithRequest:v79];
   v32 = objc_alloc_init(MPMutableSectionedCollection);
-  v73 = 0;
-  v74 = 0;
-  v75 = 0;
+  v76 = 0;
+  v77 = 0;
+  v78 = 0;
   identifiers3 = [model identifiers];
   universalStore4 = [identifiers3 universalStore];
   adamID3 = [universalStore4 adamID];
 
-  v72 = adamID3;
+  v75 = adamID3;
   if (adamID3)
   {
-    std::vector<long long>::push_back[abi:ne200100](&v73, &v72);
+    std::vector<long long>::push_back[abi:ne200100](&v76, &v75);
   }
 
   universalStore5 = [identifiers3 universalStore];
   subscriptionAdamID2 = [universalStore5 subscriptionAdamID];
 
-  v71 = subscriptionAdamID2;
+  v74 = subscriptionAdamID2;
   if (subscriptionAdamID2)
   {
-    std::vector<long long>::push_back[abi:ne200100](&v73, &v71);
+    std::vector<long long>::push_back[abi:ne200100](&v76, &v74);
   }
 
-  if (v74 != v73)
+  if (v77 != v76)
   {
-    mlcore::ItemPropertyStorePlaylistID(v38);
-    std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+    __src[0] = mlcore::ItemPropertyStorePlaylistID(v38);
+    std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v84, __src, &v76);
   }
 
   [(MPModelResponse *)v17 setResults:v32];
 
-  if (v73)
+  if (v76)
   {
-    v74 = v73;
-    operator delete(v73);
+    v77 = v76;
+    operator delete(v76);
   }
 
 LABEL_30:

@@ -66,12 +66,12 @@ LABEL_9:
 
 - (id)description
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [v2 stringWithFormat:@"%@, event type %d, value %d", v4, objc_msgSend(self, "eventType"), objc_msgSend(self, "value")];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"%@, event type %d, value %d", v5, objc_msgSend(self, "eventType"), objc_msgSend(self, "value")];
 
-  return v5;
+  return v6;
 }
 
 @end

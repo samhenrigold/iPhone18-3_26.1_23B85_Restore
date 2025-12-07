@@ -37,7 +37,7 @@
 
 - (AFDataStore)initWithPropertyListRepresentation:(id)representation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = objc_alloc_init(AFDictionarySchema);
   v6 = [AFCoercion typeAssertionWithClass:objc_opt_class()];
@@ -46,9 +46,9 @@
   v7 = [AFCoercion coercionWithBlock:&__block_literal_global_17492];
   [(AFDictionarySchema *)v5 setObjectCoercion:v7 forKey:@"Entries"];
 
-  v21 = 0;
-  v8 = [(AFDictionarySchema *)v5 coerceObject:representationCopy error:&v21];
-  v9 = v21;
+  v20 = 0;
+  v8 = [(AFDictionarySchema *)v5 coerceObject:representationCopy error:&v20];
+  v9 = v20;
   if (!v8)
   {
     v14 = AFSiriLogContextConnection;
@@ -60,11 +60,11 @@ LABEL_7:
     }
 
     *buf = 136315650;
-    v23 = "[AFDataStore initWithPropertyListRepresentation:]";
-    v24 = 2112;
-    v25 = representationCopy;
-    v26 = 2114;
-    v27 = v9;
+    v22 = "[AFDataStore initWithPropertyListRepresentation:]";
+    v23 = 2112;
+    v24 = representationCopy;
+    v25 = 2114;
+    v26 = v9;
     v15 = "%s returning nil; passed invalid property list (%@): %{public}@";
     v16 = v14;
     v17 = 32;
@@ -85,9 +85,9 @@ LABEL_10:
     }
 
     *buf = 136315394;
-    v23 = "[AFDataStore initWithPropertyListRepresentation:]";
-    v24 = 2050;
-    v25 = integerValue;
+    v22 = "[AFDataStore initWithPropertyListRepresentation:]";
+    v23 = 2050;
+    v24 = integerValue;
     v15 = "%s unable to deserialize property list with version %{public}ld; returning nil";
     v16 = v18;
     v17 = 22;
@@ -100,7 +100,6 @@ LABEL_10:
   selfCopy = self;
 LABEL_8:
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -188,7 +187,7 @@ void __41__AFDataStore_propertyListRepresentation__block_invoke(uint64_t a1, voi
 
 - (id)imageDataForKey:(id)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v5 = [(NSMutableDictionary *)self->_entries objectForKey:keyCopy];
   v6 = v5;
@@ -203,22 +202,20 @@ void __41__AFDataStore_propertyListRepresentation__block_invoke(uint64_t a1, voi
     v8 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v11 = v8;
+      v10 = v8;
       value2 = [v6 value];
-      v13 = 136315650;
-      v14 = "[AFDataStore imageDataForKey:]";
-      v15 = 2112;
-      v16 = keyCopy;
-      v17 = 2112;
-      v18 = value2;
-      _os_log_error_impl(&dword_1912FE000, v11, OS_LOG_TYPE_ERROR, "%s returning nil because value for key %@ is %@, which cannot be coerced to an image", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "[AFDataStore imageDataForKey:]";
+      v14 = 2112;
+      v15 = keyCopy;
+      v16 = 2112;
+      v17 = value2;
+      _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s returning nil because value for key %@ is %@, which cannot be coerced to an image", &v12, 0x20u);
     }
   }
 
   value = 0;
 LABEL_7:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return value;
 }

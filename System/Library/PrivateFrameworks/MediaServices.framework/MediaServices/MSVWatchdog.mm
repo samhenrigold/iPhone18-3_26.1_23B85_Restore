@@ -215,7 +215,7 @@ void __28__MSVWatchdog__scheduleTest__block_invoke_3(uint64_t a1)
   dispatch_sync(queue, block);
 }
 
-uint64_t __21__MSVWatchdog_resume__block_invoke(uint64_t a1)
+void *__21__MSVWatchdog_resume__block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) scheduled] && (objc_msgSend(*(a1 + 32), "running") & 1) == 0)
   {
@@ -251,7 +251,7 @@ uint64_t __21__MSVWatchdog_resume__block_invoke(uint64_t a1)
   dispatch_sync(queue, block);
 }
 
-uint64_t __22__MSVWatchdog_suspend__block_invoke(uint64_t a1)
+void *__22__MSVWatchdog_suspend__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) running];
   if (result)

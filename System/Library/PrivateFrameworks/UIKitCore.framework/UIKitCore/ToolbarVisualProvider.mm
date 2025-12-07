@@ -80,7 +80,7 @@
 
 - (void)updateWithItems:(id)items fromOldItems:(id)oldItems animate:(BOOL)animate
 {
-  sub_188A34624(0, &qword_1ED48E8C0);
+  sub_188A34624(0, &qword_1ED48E8C0, off_1E70E94D0);
   v7 = sub_18A4A7548();
   selfCopy = self;
   sub_188C19C30(v7, animate);

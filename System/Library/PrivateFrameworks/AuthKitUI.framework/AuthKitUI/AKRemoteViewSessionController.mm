@@ -127,7 +127,6 @@
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -180,7 +179,6 @@ void __55__AKRemoteViewSessionController_respondToAction_error___block_invoke(ui
 
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __55__AKRemoteViewSessionController_respondToAction_error___block_invoke_18(uint64_t *a1)
@@ -209,7 +207,6 @@ void __55__AKRemoteViewSessionController_respondToAction_error___block_invoke_18
   dispatch_async(queue, &v5);
   MEMORY[0x277D82BD8](queue);
   objc_storeStrong(&v10, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 double __55__AKRemoteViewSessionController_respondToAction_error___block_invoke_19(uint64_t a1)
@@ -327,7 +324,6 @@ double __55__AKRemoteViewSessionController_respondToAction_error___block_invoke_
   objc_storeStrong(&v35, 0);
   objc_storeStrong(&info, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v42;
 
   return v5;
@@ -550,7 +546,6 @@ uint64_t __77__AKRemoteViewSessionController__requestDimmingWithConfiguration_co
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_onmainqueue_updatePlacementWithSceneID:(id)d completion:(id)completion
@@ -577,7 +572,6 @@ uint64_t __77__AKRemoteViewSessionController__requestDimmingWithConfiguration_co
 
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_onmainqueue_requestDimmingWithConfiguration:(id)configuration
@@ -624,7 +618,6 @@ uint64_t __77__AKRemoteViewSessionController__requestDimmingWithConfiguration_co
   objc_storeStrong(&v21, 0);
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -660,7 +653,6 @@ BOOL __95__AKRemoteViewSessionController__respondToActions_forFBSScene_inUIScene
   [(NSMutableSet *)selfCopy->_sessions addObject:location[0]];
   os_unfair_lock_unlock(&selfCopy->_lock);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_unregisterSession:(id)session
@@ -700,7 +692,6 @@ BOOL __95__AKRemoteViewSessionController__respondToActions_forFBSScene_inUIScene
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissAndDestroy

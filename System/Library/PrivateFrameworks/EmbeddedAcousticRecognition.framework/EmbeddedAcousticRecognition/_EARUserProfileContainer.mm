@@ -41,7 +41,7 @@
         _os_log_impl(&dword_1B501D000, v11, OS_LOG_TYPE_INFO, "Reading user profile: path %{private}@", buf, 0xCu);
       }
 
-      [pathCopy ear_toString];
+      objc_msgSend_ear_toString(pathCopy);
       std::allocate_shared[abi:ne200100]<std::ifstream,std::allocator<std::ifstream>,std::string,0>();
     }
 
@@ -177,7 +177,7 @@
       operator new();
     }
 
-    [orthographyCopy ear_toString];
+    objc_msgSend_ear_toString(orthographyCopy);
     quasar::LmeDataSearch::getCategoriesForOrthography(v6, &__p, v10);
     if (v9 < 0)
     {
@@ -208,8 +208,9 @@
 - (void)initWithPath:userId:error:.cold.2()
 {
   OUTLINED_FUNCTION_0();
-  (*(v0 + 16))();
-  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "Failed to read profile: Internal C++ exception: %s", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = (*(v0 + 16))();
+  OUTLINED_FUNCTION_3(&dword_1B501D000, v1, v2, "Failed to read profile: Internal C++ exception: %s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

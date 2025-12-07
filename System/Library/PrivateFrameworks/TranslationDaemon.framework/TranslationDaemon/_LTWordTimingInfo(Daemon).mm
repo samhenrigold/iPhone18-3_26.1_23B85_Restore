@@ -69,281 +69,287 @@
 
 + (id)smoothedWordTimingWithTextRangeInfoFrom:()Daemon wordTimingInfo:
 {
-  v101 = *MEMORY[0x277D85DE8];
-  v84 = a3;
+  v112 = *MEMORY[0x277D85DE8];
+  v95 = a3;
   v5 = a4;
   array = [MEMORY[0x277CBEB18] array];
-  v89 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v92 = 0u;
+  v100 = 0u;
+  v101 = 0u;
+  v102 = 0u;
+  v103 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+  v6 = [obj countByEnumeratingWithState:&v100 objects:v111 count:16];
   if (v6)
   {
-    v7 = v6;
-    v8 = 0;
-    v9 = *v90;
+    v8 = v6;
+    v9 = 0;
+    v10 = *v101;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v11 = 0;
+      do
       {
-        if (*v90 != v9)
+        if (*v101 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v89 + 1) + 8 * i);
-        v12 = _LTOSLogTTS();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v12 = *(*(&v100 + 1) + 8 * v11);
+        v13 = _LTOSLogTTS(v6, v7);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v95 = v11;
-          _os_log_debug_impl(&dword_232E53000, v12, OS_LOG_TYPE_DEBUG, "Smoothing _LTWordTimingInfo: %@", buf, 0xCu);
+          v106 = v12;
+          _os_log_debug_impl(&dword_232E53000, v13, OS_LOG_TYPE_DEBUG, "Smoothing _LTWordTimingInfo: %@", buf, 0xCu);
         }
 
-        v13 = objc_alloc_init(MEMORY[0x277CE1C50]);
-        word = [v11 word];
-        [v13 setWord:word];
+        v14 = objc_alloc_init(MEMORY[0x277CE1C50]);
+        word = [v12 word];
+        [v14 setWord:word];
 
-        [v13 setSampleIndex:{objc_msgSend(v11, "sampleIndex")}];
-        [v11 startTime];
-        [v13 setStartTime:?];
-        offset = [v11 offset];
-        v16 = [v11 length];
+        [v14 setSampleIndex:{objc_msgSend(v12, "sampleIndex")}];
+        [v12 startTime];
+        [v14 setStartTime:?];
+        offset = [v12 offset];
+        v17 = [v12 length];
         if (NSClassFromString(&cfstr_Sirittsnsrange.isa))
         {
-          v17 = [NSClassFromString(&cfstr_Sirittsnsrange.isa) mapUtf8RangeToUtf16:offset inText:v16, v84];
-          [v13 setTextRange:{v17, v18}];
+          v18 = [NSClassFromString(&cfstr_Sirittsnsrange.isa) mapUtf8RangeToUtf16:offset inText:v17, v95];
+          [v14 setTextRange:{v18, v19}];
         }
 
-        [v13 textRange];
-        [v13 setLength:v19];
-        [v13 setOffset:{objc_msgSend(v13, "textRange")}];
-        if ([v13 textRange] != offset || v20 != v16)
+        [v14 textRange];
+        [v14 setLength:v20];
+        [v14 setOffset:{objc_msgSend(v14, "textRange")}];
+        textRange = [v14 textRange];
+        if (textRange != offset || v22 != v17)
         {
-          v21 = _LTOSLogTTS();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          v23 = _LTOSLogTTS(textRange, v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
-            v22 = v21;
-            v103.location = offset;
-            v103.length = v16;
-            v23 = NSStringFromRange(v103);
-            v104.location = [v13 textRange];
-            v24 = NSStringFromRange(v104);
-            word2 = [v13 word];
-            v26 = [word2 length];
+            v24 = v23;
+            v114.location = offset;
+            v114.length = v17;
+            v25 = NSStringFromRange(v114);
+            v115.location = [v14 textRange];
+            v26 = NSStringFromRange(v115);
+            word2 = [v14 word];
+            v28 = [word2 length];
             *buf = 138412802;
-            v95 = v23;
-            v96 = 2112;
-            v97 = v24;
-            v98 = 2048;
-            v99 = v26;
-            _os_log_impl(&dword_232E53000, v22, OS_LOG_TYPE_INFO, "Corrected FTWordTimingInfo UTF8(%@) range to UTF16(%@), word length: %zu", buf, 0x20u);
+            v106 = v25;
+            v107 = 2112;
+            v108 = v26;
+            v109 = 2048;
+            v110 = v28;
+            _os_log_impl(&dword_232E53000, v24, OS_LOG_TYPE_INFO, "Corrected FTWordTimingInfo UTF8(%@) range to UTF16(%@), word length: %zu", buf, 0x20u);
           }
         }
 
-        if (v8 && ([v8 startTime], v28 = v27, objc_msgSend(v13, "startTime"), v28 == v29))
+        if (v9 && ([v9 startTime], v30 = v29, v31 = objc_msgSend(v14, "startTime"), v30 == v33))
         {
-          v30 = _LTOSLogTTS();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          v34 = _LTOSLogTTS(v31, v32);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_232E53000, v30, OS_LOG_TYPE_INFO, "Merging _LTWordTimingInfo to previous one because same start timestamp", buf, 2u);
+            _os_log_impl(&dword_232E53000, v34, OS_LOG_TYPE_INFO, "Merging _LTWordTimingInfo to previous one because same start timestamp", buf, 2u);
           }
 
-          word3 = [v8 word];
-          word4 = [v13 word];
-          v33 = [word3 stringByAppendingString:word4];
-          [v8 setWord:v33];
+          word3 = [v9 word];
+          word4 = [v14 word];
+          v37 = [word3 stringByAppendingString:word4];
+          [v9 setWord:v37];
 
-          [v8 textRange];
-          v35 = v34;
-          word5 = [v13 word];
-          v37 = [word5 length] + v35;
+          [v9 textRange];
+          v39 = v38;
+          word5 = [v14 word];
+          v41 = [word5 length] + v39;
 
-          [v8 setTextRange:{objc_msgSend(v8, "textRange"), v37}];
-          [v8 setLength:v37];
+          [v9 setTextRange:{objc_msgSend(v9, "textRange"), v41}];
+          [v9 setLength:v41];
         }
 
         else
         {
-          [array addObject:v13];
-          v38 = v13;
+          [array addObject:v14];
+          v42 = v14;
 
-          v8 = v38;
+          v9 = v42;
         }
+
+        ++v11;
       }
 
-      v7 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+      while (v8 != v11);
+      v6 = [obj countByEnumeratingWithState:&v100 objects:v111 count:16];
+      v8 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v83 = array;
-  v39 = [v83 countByEnumeratingWithState:&v85 objects:v93 count:16];
-  if (!v39)
+  v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v94 = array;
+  v43 = [v94 countByEnumeratingWithState:&v96 objects:v104 count:16];
+  if (!v43)
   {
     length = 0;
-    v64 = v84;
+    v73 = v95;
     goto LABEL_47;
   }
 
-  v41 = v39;
+  v46 = v43;
   length = 0;
   location = 0;
-  v44 = 0;
-  v45 = *v86;
-  *&v40 = 134218240;
-  v80 = v40;
+  v49 = 0;
+  v50 = *v97;
+  *&v45 = 134218240;
+  v91 = v45;
   do
   {
-    v46 = 0;
+    v51 = 0;
     do
     {
-      v47 = v44;
-      if (*v86 != v45)
+      v52 = v49;
+      if (*v97 != v50)
       {
-        objc_enumerationMutation(v83);
+        objc_enumerationMutation(v94);
       }
 
-      v48 = *(*(&v85 + 1) + 8 * v46);
-      v49 = _LTOSLogTTS();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      v53 = *(*(&v96 + 1) + 8 * v51);
+      v54 = _LTOSLogTTS(v43, v44);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v95 = v48;
-        _os_log_debug_impl(&dword_232E53000, v49, OS_LOG_TYPE_DEBUG, "Smoothed _LTWordTimingInfo:\n%@", buf, 0xCu);
+        v106 = v53;
+        _os_log_debug_impl(&dword_232E53000, v54, OS_LOG_TYPE_DEBUG, "Smoothed _LTWordTimingInfo:\n%@", buf, 0xCu);
       }
 
-      v110.location = [v48 textRange];
-      v110.length = v50;
-      v105.location = location;
-      v105.length = length;
-      v51 = NSUnionRange(v105, v110);
-      location = v51.location;
-      length = v51.length;
-      word6 = [v48 word];
-      v53 = [word6 length];
-      [v48 textRange];
-      v55 = v54;
+      v121.location = [v53 textRange];
+      v121.length = v55;
+      v116.location = location;
+      v116.length = length;
+      v56 = NSUnionRange(v116, v121);
+      location = v56.location;
+      length = v56.length;
+      word6 = [v53 word];
+      v58 = [word6 length];
+      [v53 textRange];
+      v60 = v59;
 
-      if (v53 != v55 && (v56 = _LTOSLogTTS(), os_log_type_enabled(v56, OS_LOG_TYPE_ERROR)))
+      if (v58 != v60 && (v63 = _LTOSLogTTS(v61, v62), os_log_type_enabled(v63, OS_LOG_TYPE_ERROR)))
       {
-        v66 = v56;
-        word7 = [v48 word];
-        v68 = [word7 length];
-        [v48 textRange];
-        *buf = v80;
-        v95 = v68;
-        v96 = 2048;
-        v97 = v69;
-        _os_log_error_impl(&dword_232E53000, v66, OS_LOG_TYPE_ERROR, "_LTWordTimingInfo word length(%zu) and text range length(%zu) don't match", buf, 0x16u);
+        v77 = v63;
+        word7 = [v53 word];
+        v79 = [word7 length];
+        [v53 textRange];
+        *buf = v91;
+        v106 = v79;
+        v107 = 2048;
+        v108 = v80;
+        _os_log_error_impl(&dword_232E53000, v77, OS_LOG_TYPE_ERROR, "_LTWordTimingInfo word length(%zu) and text range length(%zu) don't match", buf, 0x16u);
 
-        if (!v47)
+        if (!v52)
         {
           goto LABEL_37;
         }
       }
 
-      else if (!v47)
+      else if (!v52)
       {
         goto LABEL_37;
       }
 
-      textRange = [v47 textRange];
-      v59 = v58;
-      v111.location = [v48 textRange];
-      v111.length = v60;
-      v106.location = textRange;
-      v106.length = v59;
-      if (NSIntersectionRange(v106, v111).length)
+      textRange2 = [v52 textRange];
+      v66 = v65;
+      v122.location = [v53 textRange];
+      v122.length = v67;
+      v117.location = textRange2;
+      v117.length = v66;
+      v68 = NSIntersectionRange(v117, v122);
+      if (v68.length)
       {
-        v61 = _LTOSLogTTS();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        v69 = _LTOSLogTTS(v68.location, v68.length);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
-          v73 = v61;
-          v108.location = [v48 textRange];
-          v74 = NSStringFromRange(v108);
-          v109.location = [v47 textRange];
-          v75 = NSStringFromRange(v109);
+          v84 = v69;
+          v119.location = [v53 textRange];
+          v85 = NSStringFromRange(v119);
+          v120.location = [v52 textRange];
+          v86 = NSStringFromRange(v120);
           *buf = 138412546;
-          v95 = v74;
-          v96 = 2112;
-          v97 = v75;
-          _os_log_error_impl(&dword_232E53000, v73, OS_LOG_TYPE_ERROR, "_LTWordTimingInfo text range(%@) overlaps with previous one(%@)", buf, 0x16u);
+          v106 = v85;
+          v107 = 2112;
+          v108 = v86;
+          _os_log_error_impl(&dword_232E53000, v84, OS_LOG_TYPE_ERROR, "_LTWordTimingInfo text range(%@) overlaps with previous one(%@)", buf, 0x16u);
         }
       }
 
 LABEL_37:
-      textRange2 = [v48 textRange];
-      [v48 textRange];
-      v64 = v84;
-      if (v63 + textRange2 > [v84 length])
+      textRange3 = [v53 textRange];
+      [v53 textRange];
+      v72 = v71 + textRange3;
+      v73 = v95;
+      v74 = [v95 length];
+      if (v72 > v74)
       {
-        v65 = _LTOSLogTTS();
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v76 = _LTOSLogTTS(v74, v75);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
-          v70 = v65;
-          v107.location = [v48 textRange];
-          v71 = NSStringFromRange(v107);
-          v72 = [v84 length];
+          v81 = v76;
+          v118.location = [v53 textRange];
+          v82 = NSStringFromRange(v118);
+          v83 = [v95 length];
           *buf = 138412546;
-          v95 = v71;
-          v96 = 2048;
-          v97 = v72;
-          _os_log_error_impl(&dword_232E53000, v70, OS_LOG_TYPE_ERROR, "_LTWordTimingInfo text range(%@) is out of range from total text(text.length: %zu)", buf, 0x16u);
+          v106 = v82;
+          v107 = 2048;
+          v108 = v83;
+          _os_log_error_impl(&dword_232E53000, v81, OS_LOG_TYPE_ERROR, "_LTWordTimingInfo text range(%@) is out of range from total text(text.length: %zu)", buf, 0x16u);
         }
       }
 
-      v44 = v48;
+      v49 = v53;
 
-      ++v46;
+      ++v51;
     }
 
-    while (v41 != v46);
-    v76 = [v83 countByEnumeratingWithState:&v85 objects:v93 count:16];
-    v41 = v76;
+    while (v46 != v51);
+    v43 = [v94 countByEnumeratingWithState:&v96 objects:v104 count:16];
+    v46 = v43;
   }
 
-  while (v76);
+  while (v43);
 
 LABEL_47:
-  if (length != [v64 length])
+  v87 = [v73 length];
+  if (length != v87)
   {
-    v77 = _LTOSLogTTS();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+    v89 = _LTOSLogTTS(v87, v88);
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
     {
-      [(_LTWordTimingInfo(Daemon) *)v77 smoothedWordTimingWithTextRangeInfoFrom:v64 wordTimingInfo:length];
+      [(_LTWordTimingInfo(Daemon) *)v89 smoothedWordTimingWithTextRangeInfoFrom:v73 wordTimingInfo:length];
     }
   }
 
-  v78 = *MEMORY[0x277D85DE8];
-
-  return v83;
+  return v94;
 }
 
 + (void)smoothedWordTimingWithTextRangeInfoFrom:()Daemon wordTimingInfo:.cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v7 = 134218240;
-  v8 = a3;
-  v9 = 2048;
-  v10 = [a2 length];
-  _os_log_error_impl(&dword_232E53000, v5, OS_LOG_TYPE_ERROR, "Union of _LTWordTimingInfo ranges length(%zu) does not match text length(%zu)", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218240;
+  v7 = a3;
+  v8 = 2048;
+  v9 = [a2 length];
+  _os_log_error_impl(&dword_232E53000, v5, OS_LOG_TYPE_ERROR, "Union of _LTWordTimingInfo ranges length(%zu) does not match text length(%zu)", &v6, 0x16u);
 }
 
 @end

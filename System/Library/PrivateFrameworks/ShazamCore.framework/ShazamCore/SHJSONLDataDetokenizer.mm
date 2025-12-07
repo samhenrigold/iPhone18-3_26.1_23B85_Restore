@@ -107,24 +107,13 @@ LABEL_14:
     currentData3 = [(SHJSONLDataDetokenizer *)self currentData];
     v16 = [currentData3 length];
 
-    if (!v16)
-    {
-      goto LABEL_7;
-    }
-
-    currentData4 = [(SHJSONLDataDetokenizer *)self currentData];
-    data = [MEMORY[0x277CBEB28] data];
-    [(SHJSONLDataDetokenizer *)self setCurrentData:data];
-
-    LODWORD(data) = [(SHJSONLDataDetokenizer *)self writeDataToDelegate:currentData4 withError:error];
-    if (!data)
+    if (v16 && (-[SHJSONLDataDetokenizer currentData](self, "currentData"), v17 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CBEB28] data], v18 = objc_claimAutoreleasedReturnValue(), -[SHJSONLDataDetokenizer setCurrentData:](self, "setCurrentData:", v18), v18, LODWORD(v18) = -[SHJSONLDataDetokenizer writeDataToDelegate:withError:](self, "writeDataToDelegate:withError:", v17, error), v17, !v18))
     {
       v11 = 0;
     }
 
     else
     {
-LABEL_7:
       v19 = MEMORY[0x277CBEB28];
       v20 = [dataCopy subdataWithRange:{v13, objc_msgSend(dataCopy, "length") - v13}];
       v21 = [v19 dataWithData:v20];

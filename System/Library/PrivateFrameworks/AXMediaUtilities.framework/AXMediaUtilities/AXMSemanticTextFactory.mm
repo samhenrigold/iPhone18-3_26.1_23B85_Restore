@@ -13,6 +13,7 @@
 - (void)_applyDataDetectors:(id)detectors;
 - (void)_applyNaturalLanguageTokens:(id)tokens;
 - (void)_performSemanticAnalysis:(id)analysis;
+- (void)dataDetector;
 @end
 
 @implementation AXMSemanticTextFactory
@@ -530,12 +531,12 @@ void __47__AXMSemanticTextFactory__applyCustomPatterns___block_invoke(uint64_t a
   [v7 enumerateMatchesInString:v8 options:v9 range:v10 usingBlock:{v12, v14}];
 }
 
-uint64_t __47__AXMSemanticTextFactory__applyCustomPatterns___block_invoke_2(uint64_t result, void *a2)
+void *__47__AXMSemanticTextFactory__applyCustomPatterns___block_invoke_2(void *result, void *a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
-    v3 = *(result + 40);
+    v2 = result[4];
+    v3 = result[5];
     v5 = [a2 range];
 
     return [v2 addCustomPattern:v3 withRange:{v5, v4}];
@@ -735,33 +736,33 @@ LABEL_2:
   return v8;
 }
 
-void __58__AXMSemanticTextFactory__textExistsInLexicon_withLocale___block_invoke(uint64_t a1)
+void __58__AXMSemanticTextFactory__textExistsInLexicon_withLocale___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = LXEntryCopyString();
+  v24 = *MEMORY[0x1E69E9840];
+  v3 = LXEntryCopyString();
   MetaFlags = LXEntryGetMetaFlags();
   LXEntryGetProbability();
-  v5 = v4;
+  v6 = v5;
   LXEntryGetPartialProbability();
-  v7 = v6;
+  v8 = v7;
   UsageCount = LXEntryGetUsageCount();
-  v9 = AXMediaLogTextProcessing();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = AXMediaLogTextProcessing();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(*(*(a1 + 32) + 8) + 24);
-    v11 = 134219266;
-    v12 = v10;
-    v13 = 2112;
-    v14 = v2;
-    v15 = 2048;
-    v16 = MetaFlags;
-    v17 = 2048;
-    v18 = v5;
-    v19 = 2048;
-    v20 = v7;
-    v21 = 1024;
-    v22 = UsageCount;
-    _os_log_impl(&dword_1AE37B000, v9, OS_LOG_TYPE_DEFAULT, "lex #%ld: '%@' flags:%lu prob:%.2f partialProb:%.2f usageCount:%u", &v11, 0x3Au);
+    v11 = *(*(*(a1 + 32) + 8) + 24);
+    v12 = 134219266;
+    v13 = v11;
+    v14 = 2112;
+    v15 = v3;
+    v16 = 2048;
+    v17 = MetaFlags;
+    v18 = 2048;
+    v19 = v6;
+    v20 = 2048;
+    v21 = v8;
+    v22 = 1024;
+    v23 = UsageCount;
+    _os_log_impl(&dword_1AE37B000, v10, OS_LOG_TYPE_DEFAULT, "lex #%ld: '%@' flags:%lu prob:%.2f partialProb:%.2f usageCount:%u", &v12, 0x3Au);
   }
 
   ++*(*(*(a1 + 32) + 8) + 24);
@@ -835,6 +836,27 @@ LABEL_14:
   }
 
   return v6;
+}
+
+- (void)dataDetector
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "Error creating data detector: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_lexiconForLocale:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "Unable to create lexicon: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_lexiconForLocale:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_1AE37B000, a2, a3, "No lexicon found for locale: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

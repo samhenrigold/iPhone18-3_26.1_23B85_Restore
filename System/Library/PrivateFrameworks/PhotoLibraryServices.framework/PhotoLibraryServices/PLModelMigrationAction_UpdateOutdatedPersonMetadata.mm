@@ -134,33 +134,41 @@
       v52 = 0u;
       memset(buf, 0, sizeof(buf));
       v32 = PLMigrationGetLog();
-      os_log_type_enabled(v32, OS_LOG_TYPE_INFO);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      {
+        v33 = 3;
+      }
+
+      else
+      {
+        v33 = 2;
+      }
+
       v46 = 134218240;
       v47 = v38;
       v48 = 2048;
       v49 = v10;
-      LODWORD(v37) = 22;
-      v33 = _os_log_send_and_compose_impl();
+      v34 = _os_log_send_and_compose_impl(v33, 0, buf, 512, &dword_19BF1F000, v32, 1, "Updated %lu person metadata files and deleted %lu person metadata files", &v46, 22);
 
-      v34 = [(PLModelMigrationActionCore *)self logger:&v46];
-      [v34 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1644, 1}];
+      logger2 = [(PLModelMigrationActionCore *)self logger];
+      [logger2 logWithMessage:v34 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1644, 1}];
 
-      if (v33 != buf)
+      if (v34 != buf)
       {
-        free(v33);
+        free(v34);
       }
     }
 
     else
     {
-      v35 = PLMigrationGetLog();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v36 = PLMigrationGetLog();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
         *&buf[4] = v38;
         *&buf[12] = 2048;
         *&buf[14] = v10;
-        _os_log_impl(&dword_19BF1F000, v35, OS_LOG_TYPE_INFO, "Updated %lu person metadata files and deleted %lu person metadata files", buf, 0x16u);
+        _os_log_impl(&dword_19BF1F000, v36, OS_LOG_TYPE_INFO, "Updated %lu person metadata files and deleted %lu person metadata files", buf, 0x16u);
       }
     }
   }

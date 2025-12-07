@@ -150,42 +150,42 @@ void __42__SPCorrectionProxy_inputFilesURLForUser___block_invoke(uint64_t a1)
 
 - (void)deleteExpiredInputFiles
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   inputFilesURL = [(SPCorrectionProxy *)self inputFilesURL];
-  v24[0] = *MEMORY[0x1E695EBE8];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
-  v22 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtURL:inputFilesURL includingPropertiesForKeys:v5 options:0 error:&v22];
-  v7 = v22;
+  v23[0] = *MEMORY[0x1E695EBE8];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v21 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtURL:inputFilesURL includingPropertiesForKeys:v5 options:0 error:&v21];
+  v7 = v21;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       v12 = 0;
       do
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * v12);
+        v13 = *(*(&v17 + 1) + 8 * v12);
         v14 = [objc_opt_class() dateFromFileURL:v13];
         if ([(SPCorrectionProxy *)self dateIsExpired:v14])
         {
-          v17 = v7;
-          [defaultManager removeItemAtURL:v13 error:&v17];
-          v15 = v17;
+          v16 = v7;
+          [defaultManager removeItemAtURL:v13 error:&v16];
+          v15 = v16;
 
           v7 = v15;
         }
@@ -194,35 +194,32 @@ void __42__SPCorrectionProxy_inputFilesURLForUser___block_invoke(uint64_t a1)
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithFileHandle:(id)handle
 {
   handleCopy = handle;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = SPLogForSPLogCategoryDefault();
-  v7 = gSPLogInfoAsDefault;
-  if (os_log_type_enabled(v6, ((gSPLogInfoAsDefault & 1) == 0)))
+  v6 = objc_sync_enter(selfCopy);
+  v7 = SPLogForSPLogCategoryDefault(v6);
+  v8 = gSPLogInfoAsDefault;
+  if (os_log_type_enabled(v7, ((gSPLogInfoAsDefault & 1) == 0)))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C81BF000, v6, ((v7 & 1) == 0), "Processing corrections begin", buf, 2u);
+    _os_log_impl(&dword_1C81BF000, v7, ((v8 & 1) == 0), "Processing corrections begin", buf, 2u);
   }
 
-  [(SPCorrectionProxy *)selfCopy processCorrectionsWithHandle:handleCopy];
-  v8 = SPLogForSPLogCategoryDefault();
-  v9 = gSPLogInfoAsDefault;
-  if (os_log_type_enabled(v8, ((gSPLogInfoAsDefault & 1) == 0)))
+  v9 = SPLogForSPLogCategoryDefault([(SPCorrectionProxy *)selfCopy processCorrectionsWithHandle:handleCopy]);
+  v10 = gSPLogInfoAsDefault;
+  if (os_log_type_enabled(v9, ((gSPLogInfoAsDefault & 1) == 0)))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_1C81BF000, v8, ((v9 & 1) == 0), "Processing corrections complete", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&dword_1C81BF000, v9, ((v10 & 1) == 0), "Processing corrections complete", v11, 2u);
   }
 
   objc_sync_exit(selfCopy);
@@ -230,23 +227,23 @@ void __42__SPCorrectionProxy_inputFilesURLForUser___block_invoke(uint64_t a1)
 
 - (void)processCorrectionsWithHandle:(id)handle
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v4 = [handle readDataToEndOfFileAndReturnError:&v22];
-  v5 = v22;
+  v24 = *MEMORY[0x1E69E9840];
+  v21 = 0;
+  v4 = [handle readDataToEndOfFileAndReturnError:&v21];
+  v5 = v21;
   v6 = v5;
   if (v4)
   {
     if (v5)
     {
-      v7 = SPLogForSPLogCategoryDefault();
+      v7 = SPLogForSPLogCategoryDefault(v5);
       v8 = gSPLogInfoAsDefault;
       if (os_log_type_enabled(v7, ((gSPLogInfoAsDefault & 1) == 0)))
       {
         v9 = [v6 debugDescription];
         uTF8String = [v9 UTF8String];
         *buf = 136315138;
-        v24 = uTF8String;
+        v23 = uTF8String;
         _os_log_impl(&dword_1C81BF000, v7, ((v8 & 1) == 0), "inputFile write error: %s\n", buf, 0xCu);
       }
 
@@ -259,13 +256,13 @@ void __42__SPCorrectionProxy_inputFilesURLForUser___block_invoke(uint64_t a1)
     {
       v12 = dispatch_group_create();
       dispatch_group_enter(v12);
-      v17 = MEMORY[0x1E69E9820];
-      v18 = 3221225472;
-      v19 = __50__SPCorrectionProxy_processCorrectionsWithHandle___block_invoke;
-      v20 = &unk_1E82F95A8;
-      v21 = v12;
+      v16 = MEMORY[0x1E69E9820];
+      v17 = 3221225472;
+      v18 = __50__SPCorrectionProxy_processCorrectionsWithHandle___block_invoke;
+      v19 = &unk_1E82F95A8;
+      v20 = v12;
       v7 = v12;
-      v13 = MEMORY[0x1CCA71310](&v17);
+      v13 = MEMORY[0x1CCA71310](&v16);
       defaultSearchableIndex = [MEMORY[0x1E6964E78] defaultSearchableIndex];
       path = [inputFileURLForCurrentTime path];
       [defaultSearchableIndex updateCorrectionsWithFilePath:path completionHandler:v13];
@@ -281,30 +278,27 @@ LABEL_9:
   }
 
   [(SPCorrectionProxy *)self deleteExpiredInputFiles];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __50__SPCorrectionProxy_processCorrectionsWithHandle___block_invoke(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SPLogForSPLogCategoryDefault();
-    v5 = gSPLogInfoAsDefault;
-    if (os_log_type_enabled(v4, ((gSPLogInfoAsDefault & 1) == 0)))
+    v5 = SPLogForSPLogCategoryDefault(v3);
+    v6 = gSPLogInfoAsDefault;
+    if (os_log_type_enabled(v5, ((gSPLogInfoAsDefault & 1) == 0)))
     {
-      v6 = [v3 debugDescription];
+      v7 = [v4 debugDescription];
       v8 = 136315138;
-      v9 = [v6 UTF8String];
-      _os_log_impl(&dword_1C81BF000, v4, ((v5 & 1) == 0), "updateCompletionHandler error: %s\n", &v8, 0xCu);
+      v9 = [v7 UTF8String];
+      _os_log_impl(&dword_1C81BF000, v5, ((v6 & 1) == 0), "updateCompletionHandler error: %s\n", &v8, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

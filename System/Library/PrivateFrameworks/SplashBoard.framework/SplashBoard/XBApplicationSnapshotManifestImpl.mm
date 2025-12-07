@@ -117,19 +117,19 @@
 
 - (void)_workloop_incrementClientCount
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(__ManifestWorkloop);
   ++self->_clientCount;
-  v3 = XBLogFileManifest();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = XBLogFileManifest(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     logIdentifier = self->_logIdentifier;
     clientCount = self->_clientCount;
-    v6 = 138543618;
-    v7 = logIdentifier;
-    v8 = 1024;
-    v9 = clientCount;
-    _os_log_impl(&dword_26B5EF000, v3, OS_LOG_TYPE_INFO, "%{public}@ Incrementing client count: %u", &v6, 0x12u);
+    v7 = 138543618;
+    v8 = logIdentifier;
+    v9 = 1024;
+    v10 = clientCount;
+    _os_log_impl(&dword_26B5EF000, v4, OS_LOG_TYPE_INFO, "%{public}@ Incrementing client count: %u", &v7, 0x12u);
   }
 }
 
@@ -143,36 +143,36 @@
 
 - (void)_workloop_reallyCheckClientCount
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(__ManifestWorkloop);
   if (*&self->_clientCount == 0)
   {
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2020000000;
-    v11 = 0;
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __69__XBApplicationSnapshotManifestImpl__workloop_reallyCheckClientCount__block_invoke;
-    v7[3] = &unk_279CF9A40;
-    v7[4] = self;
-    v7[5] = &v8;
-    dispatch_sync(__ManifestArchiveSchedulingQueue, v7);
-    if (*(v9 + 24) == 1)
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
+    v13 = 0;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __69__XBApplicationSnapshotManifestImpl__workloop_reallyCheckClientCount__block_invoke;
+    v9[3] = &unk_279CF9A40;
+    v9[4] = self;
+    v9[5] = &v10;
+    dispatch_sync(__ManifestArchiveSchedulingQueue, v9);
+    if (*(v11 + 24) == 1)
     {
-      v3 = XBLogFileManifest();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = XBLogFileManifest(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         logIdentifier = self->_logIdentifier;
         *buf = 138543618;
-        v13 = logIdentifier;
-        v14 = 2048;
+        v15 = logIdentifier;
+        v16 = 2048;
         selfCopy = self;
-        _os_log_impl(&dword_26B5EF000, v3, OS_LOG_TYPE_INFO, "%{public}@ Manifest (%p) has no remaining clients or work. Invalidating!", buf, 0x16u);
+        _os_log_impl(&dword_26B5EF000, v4, OS_LOG_TYPE_INFO, "%{public}@ Manifest (%p) has no remaining clients or work. Invalidating!", buf, 0x16u);
       }
 
-      v5 = XBLogSnapshotReaper();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = XBLogSnapshotReaper(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         [XBApplicationSnapshotManifestImpl _workloop_reallyCheckClientCount];
       }
@@ -184,7 +184,7 @@
       [XBApplicationSnapshotManifestImpl _workloop_noteManifestInvalidated:self];
     }
 
-    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(&v10, 8);
   }
 }
 
@@ -347,7 +347,7 @@ void __79__XBApplicationSnapshotManifestImpl__access_purgeSnapshotsWithProtected
   }
 }
 
-uintptr_t __47__XBApplicationSnapshotManifestImpl_initialize__block_invoke()
+void *__47__XBApplicationSnapshotManifestImpl_initialize__block_invoke()
 {
   v0 = __memoryPressureStatus;
   result = dispatch_source_get_data(__memoryPressureSource);
@@ -413,7 +413,7 @@ LABEL_3:
 
 void __99__XBApplicationSnapshotManifestImpl_acquireManifestForContainerIdentity_store_creatingIfNecessary___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) bundleIdentifier];
   v3 = [XBSnapshotManifestIdentity identityWithBundleIdentifier:v2 store:*(a1 + 40)];
   v4 = [__ManifestsByIdentity objectForKey:v3];
@@ -433,86 +433,86 @@ void __99__XBApplicationSnapshotManifestImpl_acquireManifestForContainerIdentity
     v9 = [*(a1 + 40) loadManifestDataForBundleIdentifier:v2];
     if ([v9 length])
     {
-      v34 = 0;
-      v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v34];
-      v14 = v34;
+      v35 = 0;
+      v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v35];
+      v14 = v35;
       v15 = v14;
       if (v13)
       {
 
         v12 = v13;
-        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
+        v34 = 0u;
         v16 = [v12 _allSnapshotGroups];
-        v17 = [v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v31 objects:v44 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v31;
+          v19 = *v32;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v31 != v19)
+              if (*v32 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              [*(*(&v30 + 1) + 8 * i) _manifestQueueDecode_setStore:*(a1 + 40)];
+              [*(*(&v31 + 1) + 8 * i) _manifestQueueDecode_setStore:*(a1 + 40)];
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v30 objects:v43 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v31 objects:v44 count:16];
           }
 
           while (v18);
         }
 
-        v21 = XBLogFileManifest();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v22 = XBLogFileManifest(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v22 = [v12 succinctDescription];
+          v23 = [v12 succinctDescription];
           *buf = 138543618;
-          v40 = v22;
-          v41 = 2112;
-          v42 = v3;
-          _os_log_impl(&dword_26B5EF000, v21, OS_LOG_TYPE_INFO, "acquireManifestForContainerIdentity:store:creatingIfNecessary: Unarchived manifest %{public}@ for %@.", buf, 0x16u);
+          v41 = v23;
+          v42 = 2112;
+          v43 = v3;
+          _os_log_impl(&dword_26B5EF000, v22, OS_LOG_TYPE_INFO, "acquireManifestForContainerIdentity:store:creatingIfNecessary: Unarchived manifest %{public}@ for %@.", buf, 0x16u);
         }
 
         v5 = v12;
 LABEL_27:
 
-        v25 = [v3 copy];
-        v26 = v5[4];
-        v5[4] = v25;
+        v26 = [v3 copy];
+        v27 = v5[4];
+        v5[4] = v26;
 
         [__ManifestsByIdentity setObject:v5 forKey:v3];
 LABEL_28:
 
-        v27 = objc_autoreleasePoolPush();
+        v28 = objc_autoreleasePoolPush();
         [v5 _validateWithContainerIdentity:*(a1 + 32)];
         [v5 _noteDirtied];
         [v5 _scheduleArchivingIfNecessaryWithCompletion:0];
-        objc_autoreleasePoolPop(v27);
+        objc_autoreleasePoolPop(v28);
         goto LABEL_29;
       }
 
-      v23 = XBLogFileManifest();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = XBLogFileManifest(v14);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         __99__XBApplicationSnapshotManifestImpl_acquireManifestForContainerIdentity_store_creatingIfNecessary___block_invoke_cold_1();
       }
     }
 
     v5 = [[XBApplicationSnapshotManifestImpl alloc] _initWithContainerIdentity:*(a1 + 32)];
-    v21 = XBLogFileManifest();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v22 = XBLogFileManifest(v5);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v24 = [v5 succinctDescription];
+      v25 = [v5 succinctDescription];
       *buf = 138543362;
-      v40 = v24;
-      _os_log_impl(&dword_26B5EF000, v21, OS_LOG_TYPE_INFO, "acquireManifestForContainerIdentity:store:creatingIfNecessary: Created manifest: %{public}@.", buf, 0xCu);
+      v41 = v25;
+      _os_log_impl(&dword_26B5EF000, v22, OS_LOG_TYPE_INFO, "acquireManifestForContainerIdentity:store:creatingIfNecessary: Created manifest: %{public}@.", buf, 0xCu);
     }
 
     v12 = 0;
@@ -525,34 +525,33 @@ LABEL_28:
   if ((v7 & 1) == 0)
   {
     v8 = [v5 succinctDescriptionBuilder];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __99__XBApplicationSnapshotManifestImpl_acquireManifestForContainerIdentity_store_creatingIfNecessary___block_invoke_2;
-    v35[3] = &unk_279CF9108;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __99__XBApplicationSnapshotManifestImpl_acquireManifestForContainerIdentity_store_creatingIfNecessary___block_invoke_2;
+    v36[3] = &unk_279CF9108;
     v9 = v8;
-    v36 = v9;
+    v37 = v9;
     v5 = v5;
-    v37 = v5;
-    v38 = *(a1 + 32);
-    [v9 appendBodySectionWithName:0 multilinePrefix:0 block:v35];
-    v10 = XBLogFileManifest();
+    v38 = v5;
+    v39 = *(a1 + 32);
+    v10 = XBLogFileManifest([v9 appendBodySectionWithName:0 multilinePrefix:0 block:v36]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = [v9 build];
       *buf = 138543362;
-      v40 = v11;
+      v41 = v11;
       _os_log_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_INFO, "acquireManifestForContainerIdentity:store:creatingIfNecessary: Manifest containerIdentity has changed: %{public}@", buf, 0xCu);
     }
 
-    v12 = v36;
+    v12 = v37;
     goto LABEL_28;
   }
 
 LABEL_29:
   [v5 _workloop_incrementClientCount];
-  v28 = *(*(a1 + 48) + 8);
-  v29 = *(v28 + 40);
-  *(v28 + 40) = v5;
+  v29 = *(*(a1 + 48) + 8);
+  v30 = *(v29 + 40);
+  *(v29 + 40) = v5;
 }
 
 id __99__XBApplicationSnapshotManifestImpl_acquireManifestForContainerIdentity_store_creatingIfNecessary___block_invoke_2(uint64_t a1)
@@ -603,25 +602,26 @@ void __56__XBApplicationSnapshotManifestImpl_relinquishManifest___block_invoke(u
 
 + (void)_workloop_noteManifestInvalidated:(id)invalidated
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
   dispatch_assert_queue_V2(__ManifestWorkloop);
   identity = [invalidatedCopy identity];
   if (identity)
   {
     v7 = [__ManifestsByIdentity objectForKey:identity];
+    v8 = v7;
     if (v7 != invalidatedCopy)
     {
       [(XBApplicationSnapshotManifestImpl *)a2 _workloop_noteManifestInvalidated:self, invalidatedCopy, v7];
     }
 
-    v8 = XBLogFileManifest();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = XBLogFileManifest(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       succinctDescription = [invalidatedCopy succinctDescription];
-      v10 = 138543362;
-      v11 = succinctDescription;
-      _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_INFO, "Removing manifest: %{public}@", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = succinctDescription;
+      _os_log_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_INFO, "Removing manifest: %{public}@", &v11, 0xCu);
     }
 
     [__ManifestsByIdentity removeObjectForKey:identity];
@@ -703,7 +703,7 @@ void __56__XBApplicationSnapshotManifestImpl_relinquishManifest___block_invoke(u
 - (void)endTrackingImageDeletions
 {
   v14 = *MEMORY[0x277D85DE8];
-  v3 = XBLogFileManifest();
+  v3 = XBLogFileManifest(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -784,23 +784,23 @@ void __56__XBApplicationSnapshotManifestImpl_relinquishManifest___block_invoke(u
 
 - (id)snapshotsForGroupIDs:(id)ds
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   os_unfair_lock_assert_not_owner(&self->_accessLock);
   os_unfair_lock_lock(&self->_accessLock);
   v5 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotsForGroupIDs:dsCopy];
   os_unfair_lock_unlock(&self->_accessLock);
-  v6 = XBLogFetchRequests();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = XBLogFetchRequests(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     logIdentifier = self->_logIdentifier;
-    v9 = 138412802;
-    v10 = logIdentifier;
-    v11 = 2112;
-    v12 = dsCopy;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_debug_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs given groupIDs: %@; returning snapshots:\n\t%@", &v9, 0x20u);
+    v10 = 138412802;
+    v11 = logIdentifier;
+    v12 = 2112;
+    v13 = dsCopy;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_debug_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs given groupIDs: %@; returning snapshots:\n\t%@", &v10, 0x20u);
   }
 
   return v5;
@@ -808,26 +808,26 @@ void __56__XBApplicationSnapshotManifestImpl_relinquishManifest___block_invoke(u
 
 - (id)snapshotsForGroupIDs:(id)ds matchingPredicate:(id)predicate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   predicateCopy = predicate;
   os_unfair_lock_assert_not_owner(&self->_accessLock);
   os_unfair_lock_lock(&self->_accessLock);
   v8 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotsForGroupIDs:dsCopy matchingPredicate:predicateCopy];
   os_unfair_lock_unlock(&self->_accessLock);
-  v9 = XBLogFetchRequests();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = XBLogFetchRequests(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     logIdentifier = self->_logIdentifier;
-    v12 = 138413058;
-    v13 = logIdentifier;
-    v14 = 2112;
-    v15 = dsCopy;
-    v16 = 2112;
-    v17 = predicateCopy;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_debug_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs:matchingPredicate: given groupIDs: %@; predicate: %@; returning matchingSnapshots:\n%@", &v12, 0x2Au);
+    v13 = 138413058;
+    v14 = logIdentifier;
+    v15 = 2112;
+    v16 = dsCopy;
+    v17 = 2112;
+    v18 = predicateCopy;
+    v19 = 2112;
+    v20 = v8;
+    _os_log_debug_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs:matchingPredicate: given groupIDs: %@; predicate: %@; returning matchingSnapshots:\n%@", &v13, 0x2Au);
   }
 
   return v8;
@@ -835,20 +835,20 @@ void __56__XBApplicationSnapshotManifestImpl_relinquishManifest___block_invoke(u
 
 - (id)snapshotsForGroupIDs:(id)ds fetchRequest:(id)request
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   requestCopy = request;
   predicate = [requestCopy predicate];
-  v9 = XBLogFetchRequests();
+  v9 = XBLogFetchRequests(predicate);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     logIdentifier = self->_logIdentifier;
     *buf = 138412802;
-    v48 = logIdentifier;
-    v49 = 2112;
-    v50 = dsCopy;
-    v51 = 2112;
-    v52 = requestCopy;
+    v51 = logIdentifier;
+    v52 = 2112;
+    v53 = dsCopy;
+    v54 = 2112;
+    v55 = requestCopy;
     _os_log_debug_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_DEBUG, "[%@] BEGIN snapshotsForGroupIDs:fetchRequest: groupIDs: %@; fetchRequest: %@", buf, 0x20u);
   }
 
@@ -857,151 +857,149 @@ void __56__XBApplicationSnapshotManifestImpl_relinquishManifest___block_invoke(u
   if (predicate)
   {
     v10 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotsForGroupIDs:dsCopy matchingPredicate:predicate];
-    v43 = [v10 mutableCopy];
+    v46 = [v10 mutableCopy];
 
-    v11 = XBLogFetchRequests();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = XBLogFetchRequests(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v12 = self->_logIdentifier;
-      v13 = [v43 bs_map:&__block_literal_global_234];
+      v13 = self->_logIdentifier;
+      v14 = [v46 bs_map:&__block_literal_global_234];
       *buf = 138412802;
-      v48 = v12;
-      v49 = 2112;
-      v50 = predicate;
-      v51 = 2112;
-      v52 = v13;
-      _os_log_debug_impl(&dword_26B5EF000, v11, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs:fetchRequest: fetchRequest has predicate %@; retrieved matchingSnapshots:\n\t%@", buf, 0x20u);
+      v51 = v13;
+      v52 = 2112;
+      v53 = predicate;
+      v54 = 2112;
+      v55 = v14;
+      _os_log_debug_impl(&dword_26B5EF000, v12, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs:fetchRequest: fetchRequest has predicate %@; retrieved matchingSnapshots:\n\t%@", buf, 0x20u);
     }
   }
 
   else
   {
-    v14 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotsForGroupIDs:dsCopy];
-    v43 = [v14 mutableCopy];
+    v15 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotsForGroupIDs:dsCopy];
+    v46 = [v15 mutableCopy];
 
-    v11 = XBLogFetchRequests();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = XBLogFetchRequests(v16);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [(XBApplicationSnapshotManifestImpl *)self snapshotsForGroupIDs:v43 fetchRequest:v11];
+      [(XBApplicationSnapshotManifestImpl *)self snapshotsForGroupIDs:v46 fetchRequest:v12];
     }
   }
 
   os_unfair_lock_unlock(&self->_accessLock);
   fallbackGenerationContext = [requestCopy fallbackGenerationContext];
-  v16 = fallbackGenerationContext;
-  v17 = v43;
+  v18 = fallbackGenerationContext;
+  v19 = v46;
   if (fallbackGenerationContext)
   {
-    v41 = predicate;
-    v42 = dsCopy;
+    v44 = predicate;
+    v45 = dsCopy;
     launchRequest = [fallbackGenerationContext launchRequest];
     urlSchemeName = [launchRequest urlSchemeName];
-    applicationCompatibilityInfo = [v16 applicationCompatibilityInfo];
-    v21 = applicationCompatibilityInfo;
+    applicationCompatibilityInfo = [v18 applicationCompatibilityInfo];
+    v23 = applicationCompatibilityInfo;
     if (urlSchemeName && applicationCompatibilityInfo && ([applicationCompatibilityInfo launchInterfaceExistsForScheme:urlSchemeName] & 1) == 0)
     {
-      v22 = [launchRequest copy];
+      v24 = [launchRequest copy];
 
-      [v22 setUrlSchemeName:0];
-      v23 = XBLogFetchRequests();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v25 = XBLogFetchRequests([v24 setUrlSchemeName:0]);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         [XBApplicationSnapshotManifestImpl snapshotsForGroupIDs:fetchRequest:];
       }
 
-      launchRequest = v22;
+      launchRequest = v24;
     }
 
-    v24 = [XBApplicationSnapshotManifestImpl _snapshotPredicateForRequest:launchRequest];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __71__XBApplicationSnapshotManifestImpl_snapshotsForGroupIDs_fetchRequest___block_invoke_238;
-    v44[3] = &unk_279CF98B8;
-    v25 = v24;
-    v45 = v25;
+    v26 = [XBApplicationSnapshotManifestImpl _snapshotPredicateForRequest:launchRequest];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __71__XBApplicationSnapshotManifestImpl_snapshotsForGroupIDs_fetchRequest___block_invoke_238;
+    v47[3] = &unk_279CF98B8;
+    v27 = v26;
+    v48 = v27;
     selfCopy = self;
-    v26 = [v43 indexesOfObjectsPassingTest:v44];
-    if (![v26 count])
+    v28 = [v46 indexesOfObjectsPassingTest:v47];
+    if (![v28 count])
     {
-      v39 = v21;
-      launchRequest2 = [v16 launchRequest];
+      v42 = v23;
+      launchRequest2 = [v18 launchRequest];
       groupID = [launchRequest2 groupID];
-      v29 = [(XBApplicationSnapshotManifestImpl *)self _generatableSnapshotForGroupID:groupID generationContext:v16];
+      v31 = [(XBApplicationSnapshotManifestImpl *)self _generatableSnapshotForGroupID:groupID generationContext:v18];
 
-      v17 = v43;
-      v40 = v29;
-      [v43 addObject:v29];
-      v30 = XBLogFetchRequests();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v19 = v46;
+      v43 = v31;
+      v32 = XBLogFetchRequests([v46 addObject:v31]);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
       {
-        v37 = self->_logIdentifier;
-        logIdentifier = [v29 logIdentifier];
+        v40 = self->_logIdentifier;
+        logIdentifier = [v31 logIdentifier];
         *buf = 138412802;
-        v48 = v37;
-        v17 = v43;
-        v49 = 2112;
-        v50 = v25;
-        v51 = 2112;
-        v52 = logIdentifier;
-        _os_log_debug_impl(&dword_26B5EF000, v30, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs:fetchRequest: fetchRequest has fallbackPredicate %@, no snapshot matched, so generated and added fallbackSnapshot:\n\t%@", buf, 0x20u);
+        v51 = v40;
+        v19 = v46;
+        v52 = 2112;
+        v53 = v27;
+        v54 = 2112;
+        v55 = logIdentifier;
+        _os_log_debug_impl(&dword_26B5EF000, v32, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs:fetchRequest: fetchRequest has fallbackPredicate %@, no snapshot matched, so generated and added fallbackSnapshot:\n\t%@", buf, 0x20u);
       }
 
-      v21 = v39;
+      v23 = v42;
     }
 
-    predicate = v41;
-    dsCopy = v42;
+    predicate = v44;
+    dsCopy = v45;
   }
 
   sortDescriptors = [requestCopy sortDescriptors];
-  v32 = [sortDescriptors count];
+  v34 = [sortDescriptors count];
 
-  if (v32)
+  if (v34)
   {
     nSSortDescriptors = [requestCopy NSSortDescriptors];
-    [v17 sortUsingDescriptors:nSSortDescriptors];
+    [v19 sortUsingDescriptors:nSSortDescriptors];
 
-    v34 = XBLogFetchRequests();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v37 = XBLogFetchRequests(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
-      [(XBApplicationSnapshotManifestImpl *)self snapshotsForGroupIDs:v17 fetchRequest:v34];
+      [(XBApplicationSnapshotManifestImpl *)self snapshotsForGroupIDs:v19 fetchRequest:v37];
     }
   }
 
-  return v17;
+  return v19;
 }
 
 uint64_t __71__XBApplicationSnapshotManifestImpl_snapshotsForGroupIDs_fetchRequest___block_invoke_238(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  if ([*(a1 + 32) evaluateWithObject:v6] && objc_msgSend(v6, "isValid"))
+  if ([*(a1 + 32) evaluateWithObject:v6] && (v7 = objc_msgSend(v6, "isValid"), v7))
   {
     *a4 = 1;
-    v7 = XBLogFetchRequests();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = XBLogFetchRequests(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *(a1 + 32);
-      v11 = *(*(a1 + 40) + 112);
-      v12 = [v6 logIdentifier];
-      v13 = 138412802;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v12;
-      _os_log_debug_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs:fetchRequest: fetchRequest has fallbackPredicate %@ and found matching snapshot %@; will not generate", &v13, 0x20u);
+      v11 = *(a1 + 32);
+      v12 = *(*(a1 + 40) + 112);
+      v13 = [v6 logIdentifier];
+      v14 = 138412802;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_debug_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_DEBUG, "[%@] snapshotsForGroupIDs:fetchRequest: fetchRequest has fallbackPredicate %@ and found matching snapshot %@; will not generate", &v14, 0x20u);
     }
 
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)createSnapshotWithGroupID:(id)d
@@ -1052,16 +1050,17 @@ LABEL_3:
   signalCopy = signal;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v13 = XBLogCapture();
+  v13 = XBLogCapture(handlerCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [XBApplicationSnapshotManifestImpl _didGenerateImage:imageGenerationSignal:logIdentifier:imageGeneratedHandler:qos:];
   }
 
-  if ([signalCopy hasBeenSignalled])
+  hasBeenSignalled = [signalCopy hasBeenSignalled];
+  if (hasBeenSignalled)
   {
-    v14 = XBLogCapture();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = XBLogCapture(hasBeenSignalled);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [XBApplicationSnapshotManifestImpl _didGenerateImage:imageGenerationSignal:logIdentifier:imageGeneratedHandler:qos:];
     }
@@ -1072,18 +1071,18 @@ LABEL_3:
     [signalCopy signal];
     os_unfair_lock_assert_not_owner(&self->_accessLock);
     os_unfair_lock_lock(&self->_accessLock);
-    v15 = XBLogCapture();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = XBLogCapture(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [XBApplicationSnapshotManifestImpl _didGenerateImage:imageGenerationSignal:logIdentifier:imageGeneratedHandler:qos:];
     }
 
     if (handlerCopy)
     {
-      v16 = __ManifestCallOutQueue;
-      v18 = handlerCopy;
-      v17 = BSDispatchBlockCreateWithQualityOfService();
-      dispatch_async(v16, v17);
+      v18 = __ManifestCallOutQueue;
+      v20 = handlerCopy;
+      v19 = BSDispatchBlockCreateWithQualityOfService();
+      dispatch_async(v18, v19);
     }
 
     os_unfair_lock_unlock(&self->_accessLock);
@@ -1093,56 +1092,58 @@ LABEL_3:
 - (void)_didGenerateImageData:(id)data forSnapshot:(id)snapshot imageWasGenerated:(BOOL)generated imageDataGenerationSignal:(id)signal logIdentifier:(id)identifier didSaveHandler:(id)handler qos:(unsigned int)qos writeToFileIfSupported:(BOOL)self0
 {
   generatedCopy = generated;
-  v45 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   snapshotCopy = snapshot;
   signalCopy = signal;
   identifierCopy = identifier;
   handlerCopy = handler;
   logIdentifier = [snapshotCopy logIdentifier];
-  v20 = XBLogCapture();
+  v20 = XBLogCapture(logIdentifier);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     [XBApplicationSnapshotManifestImpl _didGenerateImageData:forSnapshot:imageWasGenerated:imageDataGenerationSignal:logIdentifier:didSaveHandler:qos:writeToFileIfSupported:];
   }
 
-  if (([signalCopy hasBeenSignalled] & 1) == 0)
+  hasBeenSignalled = [signalCopy hasBeenSignalled];
+  if ((hasBeenSignalled & 1) == 0)
   {
     [signalCopy signal];
     os_unfair_lock_assert_not_owner(&self->_accessLock);
     os_unfair_lock_lock(&self->_accessLock);
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
-    v40 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
     if (dataCopy && ([snapshotCopy _isInvalidated] & 1) == 0)
     {
-      v23 = __ManifestImageAccessQueue;
+      v25 = __ManifestImageAccessQueue;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnapshot_imageWasGenerated_imageDataGenerationSignal_logIdentifier_didSaveHandler_qos_writeToFileIfSupported___block_invoke;
       block[3] = &unk_279CF9908;
-      v36 = &v37;
+      v38 = &v39;
       block[4] = self;
-      v32 = dataCopy;
-      v33 = snapshotCopy;
-      v34 = identifierCopy;
-      v35 = logIdentifier;
-      dispatch_sync(v23, block);
+      v34 = dataCopy;
+      v35 = snapshotCopy;
+      v36 = identifierCopy;
+      v37 = logIdentifier;
+      dispatch_sync(v25, block);
     }
 
     else
     {
-      if ([snapshotCopy _isInvalidated])
+      _isInvalidated = [snapshotCopy _isInvalidated];
+      if (_isInvalidated)
       {
-        v22 = XBLogFileManifest();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v24 = XBLogFileManifest(_isInvalidated);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 138543618;
-          v42 = identifierCopy;
-          v43 = 2114;
-          v44 = logIdentifier;
-          _os_log_impl(&dword_26B5EF000, v22, OS_LOG_TYPE_INFO, "%{public}@ Snapshot was invalidated between imageGenerationHandler and imageDataGenerationHandler. Skipping saving. %{public}@", buf, 0x16u);
+          v44 = identifierCopy;
+          v45 = 2114;
+          v46 = logIdentifier;
+          _os_log_impl(&dword_26B5EF000, v24, OS_LOG_TYPE_INFO, "%{public}@ Snapshot was invalidated between imageGenerationHandler and imageDataGenerationHandler. Skipping saving. %{public}@", buf, 0x16u);
         }
       }
 
@@ -1152,19 +1153,19 @@ LABEL_3:
       }
     }
 
-    if (*(v38 + 24) == 1)
+    if (*(v40 + 24) == 1)
     {
       [(XBApplicationSnapshotManifestImpl *)self _noteDirtied];
 LABEL_20:
-      v24 = __ManifestCallOutQueue;
-      v30 = handlerCopy;
-      v28 = identifierCopy;
-      v29 = snapshotCopy;
-      v25 = BSDispatchBlockCreateWithQualityOfService();
-      dispatch_async(v24, v25);
+      v26 = __ManifestCallOutQueue;
+      v32 = handlerCopy;
+      v30 = identifierCopy;
+      v31 = snapshotCopy;
+      v27 = BSDispatchBlockCreateWithQualityOfService();
+      dispatch_async(v26, v27);
 
       os_unfair_lock_unlock(&self->_accessLock);
-      _Block_object_dispose(&v37, 8);
+      _Block_object_dispose(&v39, 8);
       goto LABEL_21;
     }
 
@@ -1177,8 +1178,8 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v21 = XBLogCapture();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v22 = XBLogCapture(hasBeenSignalled);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     [XBApplicationSnapshotManifestImpl _didGenerateImageData:forSnapshot:imageWasGenerated:imageDataGenerationSignal:logIdentifier:didSaveHandler:qos:writeToFileIfSupported:];
   }
@@ -1188,39 +1189,40 @@ LABEL_21:
 
 void __171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnapshot_imageWasGenerated_imageDataGenerationSignal_logIdentifier_didSaveHandler_qos_writeToFileIfSupported___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  *(*(*(a1 + 72) + 8) + 24) = [*(a1 + 32) _imageAccessQueue_saveData:*(a1 + 40) forSnapshot:*(a1 + 48)];
-  v2 = *(*(*(a1 + 72) + 8) + 24);
-  v3 = XBLogFileManifest();
-  v4 = v3;
-  if (v2 == 1)
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) _imageAccessQueue_saveData:*(a1 + 40) forSnapshot:*(a1 + 48)];
+  *(*(*(a1 + 72) + 8) + 24) = v2;
+  v3 = *(*(*(a1 + 72) + 8) + 24);
+  v4 = XBLogFileManifest(v2);
+  v5 = v4;
+  if (v3 == 1)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 56);
-      v5 = *(a1 + 64);
-      v7 = [*(a1 + 48) path];
-      v8 = 138543874;
-      v9 = v6;
-      v10 = 2114;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v7;
-      _os_log_impl(&dword_26B5EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Snapshot data for %{public}@ written to file: %{public}@", &v8, 0x20u);
+      v7 = *(a1 + 56);
+      v6 = *(a1 + 64);
+      v8 = [*(a1 + 48) path];
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v8;
+      _os_log_impl(&dword_26B5EF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Snapshot data for %{public}@ written to file: %{public}@", &v9, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnapshot_imageWasGenerated_imageDataGenerationSignal_logIdentifier_didSaveHandler_qos_writeToFileIfSupported___block_invoke_cold_1();
   }
 }
 
-uint64_t __171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnapshot_imageWasGenerated_imageDataGenerationSignal_logIdentifier_didSaveHandler_qos_writeToFileIfSupported___block_invoke_253(uint64_t a1)
+void *__171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnapshot_imageWasGenerated_imageDataGenerationSignal_logIdentifier_didSaveHandler_qos_writeToFileIfSupported___block_invoke_253(uint64_t a1)
 {
   if (*(a1 + 56))
   {
-    v2 = XBLogCapture();
+    v2 = XBLogCapture(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       __171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnapshot_imageWasGenerated_imageDataGenerationSignal_logIdentifier_didSaveHandler_qos_writeToFileIfSupported___block_invoke_253_cold_1();
@@ -1232,15 +1234,19 @@ uint64_t __171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnaps
   v3 = (a1 + 40);
   [*(a1 + 40) clearImageGenerator];
   [*(a1 + 40) endImageAccess];
-  if (*(a1 + 72) == 1 && ([*v3 hasProtectedContent] & 1) == 0 && (objc_msgSend(*v3, "_isInvalidated") & 1) == 0 && (objc_msgSend(*v3, "fileExists") & 1) == 0)
+  if (*(a1 + 72) == 1 && ([*v3 hasProtectedContent] & 1) == 0 && (objc_msgSend(*v3, "_isInvalidated") & 1) == 0)
   {
-    v4 = XBLogSnapshot();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = [*v3 fileExists];
+    if ((v4 & 1) == 0)
     {
-      __171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnapshot_imageWasGenerated_imageDataGenerationSignal_logIdentifier_didSaveHandler_qos_writeToFileIfSupported___block_invoke_253_cold_2(a1, (a1 + 40));
-    }
+      v5 = XBLogSnapshot(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        __171__XBApplicationSnapshotManifestImpl__didGenerateImageData_forSnapshot_imageWasGenerated_imageDataGenerationSignal_logIdentifier_didSaveHandler_qos_writeToFileIfSupported___block_invoke_253_cold_2(a1, (a1 + 40));
+      }
 
-    [*v3 _invalidate];
+      [*v3 _invalidate];
+    }
   }
 
   result = [*v3 _isInvalidated];
@@ -1399,8 +1405,7 @@ uint64_t __127__XBApplicationSnapshotManifestImpl_generateImageForSnapshot_dataP
   [contextCopy scale];
   [snapshotCopy setImageScale:?];
   [snapshotCopy setImageOpaque:{objc_msgSend(contextCopy, "isOpaque")}];
-  [(XBApplicationSnapshotManifestImpl *)self _noteDirtied];
-  v11 = XBLogFileManifest();
+  v11 = XBLogFileManifest([(XBApplicationSnapshotManifestImpl *)self _noteDirtied]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     logIdentifier = self->_logIdentifier;
@@ -1431,22 +1436,23 @@ uint64_t __127__XBApplicationSnapshotManifestImpl_generateImageForSnapshot_dataP
 
 - (void)deleteSnapshots:(id)snapshots
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   snapshotsCopy = snapshots;
   os_unfair_lock_assert_not_owner(&self->_accessLock);
   os_unfair_lock_lock(&self->_accessLock);
-  if ([snapshotsCopy count])
+  v5 = [snapshotsCopy count];
+  if (v5)
   {
-    v5 = XBLogFileManifest();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = XBLogFileManifest(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier = self->_logIdentifier;
-      v7 = [snapshotsCopy arrayByApplyingSelector:sel_succinctDescription];
-      v8 = 138543618;
-      v9 = logIdentifier;
-      v10 = 2114;
-      v11 = v7;
-      _os_log_impl(&dword_26B5EF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Deleting snapshots: %{public}@", &v8, 0x16u);
+      v8 = [snapshotsCopy arrayByApplyingSelector:sel_succinctDescription];
+      v9 = 138543618;
+      v10 = logIdentifier;
+      v11 = 2114;
+      v12 = v8;
+      _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Deleting snapshots: %{public}@", &v9, 0x16u);
     }
   }
 
@@ -1456,25 +1462,26 @@ uint64_t __127__XBApplicationSnapshotManifestImpl_generateImageForSnapshot_dataP
 
 - (void)deleteSnapshotsMatchingPredicate:(id)predicate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   os_unfair_lock_assert_not_owner(&self->_accessLock);
   os_unfair_lock_lock(&self->_accessLock);
   v5 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotsMatchingPredicate:predicateCopy];
-  if ([v5 count])
+  v6 = [v5 count];
+  if (v6)
   {
-    v6 = XBLogFileManifest();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = XBLogFileManifest(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier = self->_logIdentifier;
-      v8 = [v5 arrayByApplyingSelector:sel_succinctDescription];
-      v9 = 138543874;
-      v10 = logIdentifier;
-      v11 = 2114;
-      v12 = v8;
-      v13 = 2112;
-      v14 = predicateCopy;
-      _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Deleting snapshots: %{public}@ matching predicate: %@", &v9, 0x20u);
+      v9 = [v5 arrayByApplyingSelector:sel_succinctDescription];
+      v10 = 138543874;
+      v11 = logIdentifier;
+      v12 = 2114;
+      v13 = v9;
+      v14 = 2112;
+      v15 = predicateCopy;
+      _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ Deleting snapshots: %{public}@ matching predicate: %@", &v10, 0x20u);
     }
   }
 
@@ -1509,29 +1516,30 @@ uint64_t __127__XBApplicationSnapshotManifestImpl_generateImageForSnapshot_dataP
 
 - (void)deleteSnapshotsForGroupID:(id)d matchingPredicate:(id)predicate
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   predicateCopy = predicate;
   os_unfair_lock_assert_not_owner(&self->_accessLock);
   os_unfair_lock_lock(&self->_accessLock);
-  v19[0] = dCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v20[0] = dCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v9 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotsForGroupIDs:v8 matchingPredicate:predicateCopy];
 
-  if ([v9 count])
+  v10 = [v9 count];
+  if (v10)
   {
-    v10 = XBLogFileManifest();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = XBLogFileManifest(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       logIdentifier = self->_logIdentifier;
-      v12 = [v9 arrayByApplyingSelector:sel_succinctDescription];
-      v13 = 138543874;
-      v14 = logIdentifier;
-      v15 = 2114;
-      v16 = v12;
-      v17 = 2112;
-      v18 = predicateCopy;
-      _os_log_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_INFO, "%{public}@ Deleting snapshots: %{public}@ matching predicate: %@", &v13, 0x20u);
+      v13 = [v9 arrayByApplyingSelector:sel_succinctDescription];
+      v14 = 138543874;
+      v15 = logIdentifier;
+      v16 = 2114;
+      v17 = v13;
+      v18 = 2112;
+      v19 = predicateCopy;
+      _os_log_impl(&dword_26B5EF000, v11, OS_LOG_TYPE_INFO, "%{public}@ Deleting snapshots: %{public}@ matching predicate: %@", &v14, 0x20u);
     }
   }
 
@@ -1541,31 +1549,32 @@ uint64_t __127__XBApplicationSnapshotManifestImpl_generateImageForSnapshot_dataP
 
 - (void)deleteSnapshotsForGroupID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   os_unfair_lock_assert_not_owner(&self->_accessLock);
   os_unfair_lock_lock(&self->_accessLock);
   v5 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotGroupForID:dCopy creatingIfNeeded:0];
+  v6 = v5;
   if (v5)
   {
-    v6 = XBLogFileManifest();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = XBLogFileManifest(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       logIdentifier = self->_logIdentifier;
       *buf = 138543618;
-      v12 = logIdentifier;
-      v13 = 2114;
-      v14 = dCopy;
-      _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_INFO, "%{public}@ Deleting all snapshots for group: %{public}@.", buf, 0x16u);
+      v13 = logIdentifier;
+      v14 = 2114;
+      v15 = dCopy;
+      _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_INFO, "%{public}@ Deleting all snapshots for group: %{public}@.", buf, 0x16u);
     }
 
-    [v5 _invalidate];
+    [v6 _invalidate];
     [(NSMutableDictionary *)self->_snapshotGroupsByID removeObjectForKey:dCopy];
     [(XBApplicationSnapshotManifestImpl *)self _noteDirtied];
-    containerPath = [v5 containerPath];
-    v10 = containerPath;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
-    [(XBApplicationSnapshotManifestImpl *)self _access_deletePaths:v9];
+    containerPath = [v6 containerPath];
+    v11 = containerPath;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    [(XBApplicationSnapshotManifestImpl *)self _access_deletePaths:v10];
   }
 
   os_unfair_lock_unlock(&self->_accessLock);
@@ -1592,25 +1601,25 @@ uint64_t __127__XBApplicationSnapshotManifestImpl_generateImageForSnapshot_dataP
 
 - (void)deleteAllSnapshots
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_not_owner(&self->_accessLock);
   os_unfair_lock_lock(&self->_accessLock);
-  v3 = XBLogFileManifest();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = XBLogFileManifest(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     bundleIdentifier = [(XBApplicationSnapshotManifestImpl *)self bundleIdentifier];
     *buf = 138543362;
-    v9 = bundleIdentifier;
-    _os_log_impl(&dword_26B5EF000, v3, OS_LOG_TYPE_INFO, "%{public}@ Deleting all snapshots.", buf, 0xCu);
+    v10 = bundleIdentifier;
+    _os_log_impl(&dword_26B5EF000, v4, OS_LOG_TYPE_INFO, "%{public}@ Deleting all snapshots.", buf, 0xCu);
   }
 
   [(XBApplicationSnapshotManifestImpl *)self _noteDirtied];
   [(NSMutableDictionary *)self->_snapshotGroupsByID enumerateKeysAndObjectsUsingBlock:&__block_literal_global_274];
   [(NSMutableDictionary *)self->_snapshotGroupsByID removeAllObjects];
   containerPath = [(XBApplicationSnapshotManifestImpl *)self containerPath];
-  v7 = containerPath;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
-  [(XBApplicationSnapshotManifestImpl *)self _access_deletePaths:v6];
+  v8 = containerPath;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  [(XBApplicationSnapshotManifestImpl *)self _access_deletePaths:v7];
 
   os_unfair_lock_unlock(&self->_accessLock);
 }
@@ -1763,8 +1772,7 @@ uint64_t __79__XBApplicationSnapshotManifestImpl_beginSnapshotAccessTransaction_
   }
 
   v8 = [(XBApplicationSnapshotManifestImpl *)self _createSnapshotWithGroupID:dCopy generationContext:contextCopy];
-  [(XBApplicationSnapshotManifestImpl *)self _addSnapshotToGroup:v8];
-  v9 = XBLogFileManifest();
+  v9 = XBLogFileManifest([(XBApplicationSnapshotManifestImpl *)self _addSnapshotToGroup:v8]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     logIdentifier = self->_logIdentifier;
@@ -1988,31 +1996,31 @@ void __87__XBApplicationSnapshotManifestImpl__scheduleArchivingIfNecessaryWithDe
 
 - (void)_access_doArchiveWithCompletions:(id)completions
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   completionsCopy = completions;
   os_unfair_lock_assert_owner(&self->_accessLock);
   [(XBApplicationSnapshotManifestImpl *)self _access_workloop_reapExpiredAndInvalidSnapshots];
-  v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
+  v30 = 0u;
   allValues = [(NSMutableDictionary *)self->_snapshotGroupsByID allValues];
-  v6 = [allValues countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v30;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        snapshots = [*(*(&v28 + 1) + 8 * v9) snapshots];
+        snapshots = [*(*(&v29 + 1) + 8 * v9) snapshots];
         v11 = [snapshots count];
 
         if (v11)
@@ -2025,7 +2033,7 @@ void __87__XBApplicationSnapshotManifestImpl__scheduleArchivingIfNecessaryWithDe
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v29 objects:v37 count:16];
       if (v7)
       {
         continue;
@@ -2040,7 +2048,7 @@ LABEL_11:
 
   bundleIdentifier = [(XBApplicationSnapshotManifestImpl *)self bundleIdentifier];
   store = [(XBSnapshotManifestIdentity *)self->_identity store];
-  v15 = XBLogFileManifest();
+  v15 = XBLogFileManifest(store);
   v16 = v15;
   if (v12)
   {
@@ -2048,19 +2056,20 @@ LABEL_11:
     {
       logIdentifier = self->_logIdentifier;
       *buf = 138543618;
-      v33 = logIdentifier;
-      v34 = 2048;
+      v34 = logIdentifier;
+      v35 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_26B5EF000, v16, OS_LOG_TYPE_INFO, "%{public}@ Archiving manifest (%p).", buf, 0x16u);
     }
 
-    v27 = 0;
-    v18 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v27];
-    v19 = v27;
+    v28 = 0;
+    v18 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v28];
+    v19 = v28;
+    v20 = v19;
     if (!v18)
     {
-      v20 = XBLogFileManifest();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = XBLogFileManifest(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [XBApplicationSnapshotManifestImpl _access_doArchiveWithCompletions:];
       }
@@ -2073,9 +2082,9 @@ LABEL_11:
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = self->_logIdentifier;
+      v22 = self->_logIdentifier;
       *buf = 138543362;
-      v33 = v21;
+      v34 = v22;
       _os_log_impl(&dword_26B5EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ We don't have any snapshots, so we're clearing our manifest data.", buf, 0xCu);
     }
 
@@ -2084,15 +2093,15 @@ LABEL_11:
 
   if ([completionsCopy count])
   {
-    v22 = dispatch_get_global_queue(21, 0);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __70__XBApplicationSnapshotManifestImpl__access_doArchiveWithCompletions___block_invoke;
-    v23[3] = &unk_279CF9108;
-    v24 = store;
-    v25 = bundleIdentifier;
-    v26 = completionsCopy;
-    dispatch_async(v22, v23);
+    v23 = dispatch_get_global_queue(21, 0);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __70__XBApplicationSnapshotManifestImpl__access_doArchiveWithCompletions___block_invoke;
+    v24[3] = &unk_279CF9108;
+    v25 = store;
+    v26 = bundleIdentifier;
+    v27 = completionsCopy;
+    dispatch_async(v23, v24);
   }
 }
 
@@ -2161,7 +2170,7 @@ void __70__XBApplicationSnapshotManifestImpl__access_doArchiveWithCompletions___
 
 - (BOOL)_access_validateWithContainerIdentity:(id)identity
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   if (!identityCopy)
   {
@@ -2171,52 +2180,53 @@ void __70__XBApplicationSnapshotManifestImpl__access_doArchiveWithCompletions___
   os_unfair_lock_assert_owner(&self->_accessLock);
   [(XBApplicationSnapshotManifestImpl *)self _setContainerIdentity:identityCopy];
   v5 = [(NSMutableDictionary *)self->_snapshotGroupsByID copy];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __75__XBApplicationSnapshotManifestImpl__access_validateWithContainerIdentity___block_invoke;
-  v21[3] = &unk_279CF9A90;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __75__XBApplicationSnapshotManifestImpl__access_validateWithContainerIdentity___block_invoke;
+  v23[3] = &unk_279CF9A90;
   v6 = identityCopy;
-  v22 = v6;
+  v24 = v6;
   selfCopy = self;
-  [v5 enumerateKeysAndObjectsUsingBlock:v21];
+  [v5 enumerateKeysAndObjectsUsingBlock:v23];
   snapshotContainerPath = [v6 snapshotContainerPath];
-  if ([(NSMutableDictionary *)self->_snapshotGroupsByID count])
+  v8 = [(NSMutableDictionary *)self->_snapshotGroupsByID count];
+  if (v8)
   {
-    v8 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v8 = snapshotContainerPath == 0;
+    v9 = snapshotContainerPath == 0;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = XBLogFileManifest();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = XBLogFileManifest(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier = [(XBApplicationSnapshotManifestImpl *)self bundleIdentifier];
       *buf = 138543618;
-      v25 = bundleIdentifier;
-      v26 = 2112;
-      v27 = snapshotContainerPath;
-      _os_log_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Manifest is empty; purging everything at %@", buf, 0x16u);
+      v27 = bundleIdentifier;
+      v28 = 2112;
+      v29 = snapshotContainerPath;
+      _os_log_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Manifest is empty; purging everything at %@", buf, 0x16u);
     }
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v20 = 0;
-    v12 = [defaultManager removeItemAtPath:snapshotContainerPath error:&v20];
-    v13 = v20;
+    v22 = 0;
+    v13 = [defaultManager removeItemAtPath:snapshotContainerPath error:&v22];
+    v14 = v22;
 
-    if (v12)
+    if (v13)
     {
       goto LABEL_17;
     }
 
-    domain = [v13 domain];
+    domain = [v14 domain];
     if ([domain isEqualToString:*MEMORY[0x277CCA050]])
     {
-      code = [v13 code];
+      code = [v14 code];
 
       if (code == 4)
       {
@@ -2230,45 +2240,46 @@ LABEL_17:
     {
     }
 
-    v16 = XBLogFileManifest();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = XBLogFileManifest(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       logIdentifier = self->_logIdentifier;
       *buf = 138543874;
-      v25 = logIdentifier;
-      v26 = 2114;
-      v27 = snapshotContainerPath;
+      v27 = logIdentifier;
       v28 = 2114;
-      v29 = v13;
-      _os_log_error_impl(&dword_26B5EF000, v16, OS_LOG_TYPE_ERROR, "%{public}@ Error removing snapshotContainer for purge at %{public}@: %{public}@", buf, 0x20u);
+      v29 = snapshotContainerPath;
+      v30 = 2114;
+      v31 = v14;
+      _os_log_error_impl(&dword_26B5EF000, v18, OS_LOG_TYPE_ERROR, "%{public}@ Error removing snapshotContainer for purge at %{public}@: %{public}@", buf, 0x20u);
     }
 
     goto LABEL_17;
   }
 
 LABEL_18:
-  v17 = [(NSMutableDictionary *)self->_snapshotGroupsByID count]!= 0;
+  v19 = [(NSMutableDictionary *)self->_snapshotGroupsByID count]!= 0;
 
-  return v17;
+  return v19;
 }
 
 void __75__XBApplicationSnapshotManifestImpl__access_validateWithContainerIdentity___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ([v6 _validateWithContainerIdentity:*(a1 + 32)] & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0 || (isKindOfClass = [v6 _validateWithContainerIdentity:*(a1 + 32)], (isKindOfClass & 1) == 0))
   {
-    v7 = XBLogFileManifest();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = XBLogFileManifest(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(*(a1 + 40) + 112);
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_26B5EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ group isn't valid. removing from snapshotGroupsByID and will be culled later: %@", &v9, 0x16u);
+      v9 = *(*(a1 + 40) + 112);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ group isn't valid. removing from snapshotGroupsByID and will be culled later: %@", &v10, 0x16u);
     }
 
     [*(*(a1 + 40) + 40) removeObjectForKey:v5];
@@ -2300,23 +2311,23 @@ void __84__XBApplicationSnapshotManifestImpl__access_workloop_reapExpiredAndInva
   v1 = (a1 + 32);
   os_unfair_lock_assert_not_owner((*(a1 + 32) + 100));
   os_unfair_lock_lock(*v1 + 25);
-  v2 = XBLogSnapshotReaper();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = XBLogSnapshotReaper(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __84__XBApplicationSnapshotManifestImpl__access_workloop_reapExpiredAndInvalidSnapshots__block_invoke_cold_1();
   }
 
   [*&(*v1)[14]._os_unfair_lock_opaque invalidate];
-  v3 = *&(*v1)[14]._os_unfair_lock_opaque;
+  v4 = *&(*v1)[14]._os_unfair_lock_opaque;
   *&(*v1)[14]._os_unfair_lock_opaque = 0;
 
-  v4 = *v1;
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __84__XBApplicationSnapshotManifestImpl__access_workloop_reapExpiredAndInvalidSnapshots__block_invoke_290;
-  v5[3] = &unk_279CF9280;
-  v5[4] = v4;
-  [(os_unfair_lock_s *)v4 _access_accessSnapshotsWithBlock:0 completion:v5];
+  v5 = *v1;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __84__XBApplicationSnapshotManifestImpl__access_workloop_reapExpiredAndInvalidSnapshots__block_invoke_290;
+  v6[3] = &unk_279CF9280;
+  v6[4] = v5;
+  [(os_unfair_lock_s *)v5 _access_accessSnapshotsWithBlock:0 completion:v6];
   os_unfair_lock_unlock(*v1 + 25);
 }
 
@@ -2400,31 +2411,32 @@ void __81__XBApplicationSnapshotManifestImpl__access_accessSnapshotsWithBlock_co
 
 - (void)_access_deletePaths:(id)paths
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   os_unfair_lock_assert_owner(&self->_accessLock);
-  if ([pathsCopy count])
+  v5 = [pathsCopy count];
+  if (v5)
   {
-    v5 = XBLogFileManifest();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = XBLogFileManifest(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier = self->_logIdentifier;
       *buf = 138543618;
-      v12 = logIdentifier;
-      v13 = 2112;
-      v14 = pathsCopy;
-      _os_log_impl(&dword_26B5EF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Deleting paths: %@", buf, 0x16u);
+      v13 = logIdentifier;
+      v14 = 2112;
+      v15 = pathsCopy;
+      _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Deleting paths: %@", buf, 0x16u);
     }
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __57__XBApplicationSnapshotManifestImpl__access_deletePaths___block_invoke;
-  v8[3] = &unk_279CF9B30;
-  v9 = pathsCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__XBApplicationSnapshotManifestImpl__access_deletePaths___block_invoke;
+  v9[3] = &unk_279CF9B30;
+  v10 = pathsCopy;
   selfCopy = self;
-  v7 = pathsCopy;
-  [(XBApplicationSnapshotManifestImpl *)self _access_accessSnapshotsWithBlock:v8 completion:0];
+  v8 = pathsCopy;
+  [(XBApplicationSnapshotManifestImpl *)self _access_accessSnapshotsWithBlock:v9 completion:0];
 }
 
 void __57__XBApplicationSnapshotManifestImpl__access_deletePaths___block_invoke(uint64_t a1, void *a2)
@@ -2444,12 +2456,12 @@ void __57__XBApplicationSnapshotManifestImpl__access_deletePaths___block_invoke(
 
 void __57__XBApplicationSnapshotManifestImpl__access_deletePaths___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v12 = 0;
-  v5 = [v4 removeItemAtPath:v3 error:&v12];
-  v6 = v12;
+  v13 = 0;
+  v5 = [v4 removeItemAtPath:v3 error:&v13];
+  v6 = v13;
   v7 = v6;
   if ((v5 & 1) == 0)
   {
@@ -2468,17 +2480,17 @@ void __57__XBApplicationSnapshotManifestImpl__access_deletePaths___block_invoke_
     {
     }
 
-    v10 = XBLogFileManifest();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = XBLogFileManifest(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(*(a1 + 40) + 112);
+      v12 = *(*(a1 + 40) + 112);
       *buf = 138543874;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v3;
-      v17 = 2114;
-      v18 = v7;
-      _os_log_error_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_ERROR, "%{public}@ error deleting path %@: %{public}@", buf, 0x20u);
+      v15 = v12;
+      v16 = 2112;
+      v17 = v3;
+      v18 = 2114;
+      v19 = v7;
+      _os_log_error_impl(&dword_26B5EF000, v11, OS_LOG_TYPE_ERROR, "%{public}@ error deleting path %@: %{public}@", buf, 0x20u);
     }
   }
 
@@ -2487,70 +2499,70 @@ LABEL_9:
 
 - (void)_access_deleteSnapshots:(id)snapshots
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   snapshotsCopy = snapshots;
   os_unfair_lock_assert_owner(&self->_accessLock);
   array = [MEMORY[0x277CBEB18] array];
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
   v6 = snapshotsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v7)
   {
     v9 = v7;
     v10 = 0;
-    v11 = *v28;
+    v11 = *v29;
     *&v8 = 138543874;
-    v24 = v8;
+    v25 = v8;
     do
     {
       v12 = 0;
       v13 = v10;
-      v25 = v9;
+      v26 = v9;
       do
       {
-        if (*v28 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * v12);
-        v26 = v13;
-        v15 = [v14 _shouldDeleteFileOnPurge:{&v26, v24}];
-        v10 = v26;
+        v14 = *(*(&v28 + 1) + 8 * v12);
+        v27 = v13;
+        v15 = [v14 _shouldDeleteFileOnPurge:{&v27, v25}];
+        v10 = v27;
 
         if (v15)
         {
-          v16 = XBLogFileManifest();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = XBLogFileManifest(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            v17 = v11;
-            v18 = v6;
-            v19 = array;
+            v18 = v11;
+            v19 = v6;
+            v20 = array;
             logIdentifier = self->_logIdentifier;
             logIdentifier = [v14 logIdentifier];
-            *buf = v24;
-            v32 = logIdentifier;
-            array = v19;
-            v6 = v18;
-            v11 = v17;
-            v9 = v25;
-            v33 = 2114;
-            v34 = logIdentifier;
-            v35 = 2114;
-            v36 = v10;
-            _os_log_impl(&dword_26B5EF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Deleting snapshot %{public}@ for reason: %{public}@", buf, 0x20u);
+            *buf = v25;
+            v33 = logIdentifier;
+            array = v20;
+            v6 = v19;
+            v11 = v18;
+            v9 = v26;
+            v34 = 2114;
+            v35 = logIdentifier;
+            v36 = 2114;
+            v37 = v10;
+            _os_log_impl(&dword_26B5EF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ Deleting snapshot %{public}@ for reason: %{public}@", buf, 0x20u);
           }
 
           [(XBApplicationSnapshotManifestImpl *)self _access_gatherPaths:array forSnapshot:v14];
         }
 
         groupID = [v14 groupID];
-        v23 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotGroupForID:groupID creatingIfNeeded:0];
+        v24 = [(XBApplicationSnapshotManifestImpl *)self _access_snapshotGroupForID:groupID creatingIfNeeded:0];
 
-        if ([v23 removeSnapshot:v14])
+        if ([v24 removeSnapshot:v14])
         {
           [(XBApplicationSnapshotManifestImpl *)self _noteDirtied];
         }
@@ -2562,7 +2574,7 @@ LABEL_9:
       }
 
       while (v9 != v12);
-      v9 = [v6 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v9);
@@ -2643,7 +2655,7 @@ void __76__XBApplicationSnapshotManifestImpl__access_updateSnapshotsAPFSPurgabil
               if (v17)
               {
                 v18 = v17;
-                v19 = XBLogPurge();
+                v19 = XBLogPurge(v17);
                 if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                 {
                   v20 = *(*(a1 + 32) + 112);
@@ -2918,7 +2930,7 @@ uint64_t __69__XBApplicationSnapshotManifestImpl__access_gatherPaths_forSnapshot
 
 - (BOOL)_imageAccessQueue_saveData:(id)data forSnapshot:(id)snapshot
 {
-  v48[5] = *MEMORY[0x277D85DE8];
+  v55[5] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   snapshotCopy = snapshot;
   BSDispatchQueueAssert();
@@ -2953,20 +2965,21 @@ LABEL_5:
   }
 
   stringByDeletingLastPathComponent = [v8 stringByDeletingLastPathComponent];
-  if (!XBEnsureDirectoryExistsAtPath(stringByDeletingLastPathComponent))
+  v10 = XBEnsureDirectoryExistsAtPath(stringByDeletingLastPathComponent);
+  if (!v10)
   {
-    v10 = XBLogFileManifest();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = XBLogFileManifest(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
     }
   }
 
-  v11 = open([v8 fileSystemRepresentation], 1793, 438);
-  if (v11 == -1)
+  v12 = open([v8 fileSystemRepresentation], 1793, 438);
+  if (v12 == -1)
   {
-    v22 = XBLogFileManifest();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v27 = XBLogFileManifest(v12);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
     }
@@ -2974,18 +2987,19 @@ LABEL_5:
     goto LABEL_58;
   }
 
-  v12 = v11;
-  v13 = XBApplicationSnapshotContentTypeMaskForContentType([snapshotCopy contentType]) & 6;
-  v14 = 2;
-  if (v13)
+  v13 = v12;
+  v14 = XBApplicationSnapshotContentTypeMaskForContentType([snapshotCopy contentType]) & 6;
+  v15 = 2;
+  if (v14)
   {
-    v14 = 3;
+    v15 = 3;
   }
 
-  if (fcntl(v12, 64, v14) == -1)
+  v16 = fcntl(v13, 64, v15);
+  if (v16 == -1)
   {
-    v23 = XBLogFileManifest();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v28 = XBLogFileManifest(v16);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
     }
@@ -2995,15 +3009,15 @@ LABEL_5:
 
   fileFormat = [snapshotCopy fileFormat];
   bytes = [dataCopy bytes];
-  v17 = [dataCopy length];
+  v19 = [dataCopy length];
   if (fileFormat != 1)
   {
-    v24 = write(v12, bytes, v17);
+    v29 = write(v13, bytes, v19);
     goto LABEL_47;
   }
 
-  v18 = v8;
-  if (v12 < 0)
+  v20 = v8;
+  if (v13 < 0)
   {
     [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
     if (v8)
@@ -3016,7 +3030,7 @@ LABEL_18:
 
 LABEL_69:
       [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
-      if (v17)
+      if (v19)
       {
         goto LABEL_20;
       }
@@ -3037,7 +3051,7 @@ LABEL_69:
   }
 
 LABEL_19:
-  if (v17)
+  if (v19)
   {
     goto LABEL_20;
   }
@@ -3045,33 +3059,36 @@ LABEL_19:
 LABEL_70:
   [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
 LABEL_20:
-  [v18 fileSystemRepresentation];
-  if (VolumeSupportsCompression())
+  [v20 fileSystemRepresentation];
+  v21 = VolumeSupportsCompression();
+  if (v21)
   {
-    v19 = *MEMORY[0x277CED158];
-    v48[0] = *MEMORY[0x277CED140];
-    v48[1] = v19;
-    v20 = *MEMORY[0x277CED138];
-    v48[2] = *MEMORY[0x277CED150];
-    v48[3] = v20;
-    *&v41[16] = MEMORY[0x277CBEC38];
-    *&v42 = MEMORY[0x277CBEBF8];
-    *v41 = &unk_287C26398;
-    *&v41[8] = MEMORY[0x277CBEC38];
-    v48[4] = *MEMORY[0x277CED148];
-    *(&v42 + 1) = MEMORY[0x277CBEC38];
-    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v48 count:5];
+    v22 = *MEMORY[0x277CED158];
+    v55[0] = *MEMORY[0x277CED140];
+    v55[1] = v22;
+    v23 = *MEMORY[0x277CED138];
+    v55[2] = *MEMORY[0x277CED150];
+    v55[3] = v23;
+    *&v48[16] = MEMORY[0x277CBEC38];
+    *&v49 = MEMORY[0x277CBEBF8];
+    *v48 = &unk_287C26398;
+    *&v48[8] = MEMORY[0x277CBEC38];
+    v55[4] = *MEMORY[0x277CED148];
+    *(&v49 + 1) = MEMORY[0x277CBEC38];
+    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v55 count:5];
     if (CreateStreamCompressorQueueWithOptions())
     {
-      [v18 fileSystemRepresentation];
+      [v20 fileSystemRepresentation];
       if (CreateStreamCompressor())
       {
-        if (WriteToStreamCompressor() == v17)
+        v24 = WriteToStreamCompressor();
+        if (v24 == v19)
         {
-          if (CloseStreamCompressor())
+          v25 = CloseStreamCompressor();
+          if (v25)
           {
-            v21 = XBLogFileManifest();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v26 = XBLogFileManifest(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
             }
@@ -3079,10 +3096,11 @@ LABEL_20:
 
           else
           {
-            if (!FinishStreamCompressorQueue())
+            v46 = FinishStreamCompressorQueue();
+            if (!v46)
             {
 
-              if (v17 != -1)
+              if (v19 != -1)
               {
                 goto LABEL_48;
               }
@@ -3090,8 +3108,8 @@ LABEL_20:
               goto LABEL_44;
             }
 
-            v21 = XBLogFileManifest();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v26 = XBLogFileManifest(v46);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
             }
@@ -3100,8 +3118,8 @@ LABEL_20:
 
         else
         {
-          v21 = XBLogFileManifest();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v26 = XBLogFileManifest(v24);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
           }
@@ -3110,127 +3128,127 @@ LABEL_20:
 
       else
       {
-        v21 = XBLogFileManifest();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v26 = XBLogFileManifest(0);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = __error();
-          v27 = strerror(*v26);
+          v31 = __error();
+          v32 = strerror(*v31);
           *buf = 138412546;
-          v45 = v18;
-          v46 = 2080;
-          v47 = v27;
-          _os_log_impl(&dword_26B5EF000, v21, OS_LOG_TYPE_DEFAULT, "CreateStreamCompressor() failed for %@: (%s)", buf, 0x16u);
+          v52 = v20;
+          v53 = 2080;
+          v54 = v32;
+          _os_log_impl(&dword_26B5EF000, v26, OS_LOG_TYPE_DEFAULT, "CreateStreamCompressor() failed for %@: (%s)", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v21 = XBLogFileManifest();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v26 = XBLogFileManifest(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
       }
     }
 
-    v25 = v40;
+    v30 = v47;
   }
 
   else
   {
-    v25 = XBLogFileManifest();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v30 = XBLogFileManifest(v21);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
     }
   }
 
 LABEL_44:
-  v28 = v13;
-  v29 = XBLogFileManifest();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v34 = v14;
+  v35 = XBLogFileManifest(v33);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
-    *v41 = 138543618;
-    *&v41[4] = logIdentifier;
-    *&v41[12] = 2112;
-    *&v41[14] = v18;
-    _os_log_impl(&dword_26B5EF000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ Compressed write for %@ failed; falling back to uncompressed write", v41, 0x16u);
+    *v48 = 138543618;
+    *&v48[4] = logIdentifier;
+    *&v48[12] = 2112;
+    *&v48[14] = v20;
+    _os_log_impl(&dword_26B5EF000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ Compressed write for %@ failed; falling back to uncompressed write", v48, 0x16u);
   }
 
-  v24 = write(v12, [dataCopy bytes], objc_msgSend(dataCopy, "length"));
-  v13 = v28;
+  v29 = write(v13, [dataCopy bytes], objc_msgSend(dataCopy, "length"));
+  v14 = v34;
 LABEL_47:
-  if (v24 == -1)
+  if (v29 == -1)
   {
-    v23 = XBLogFileManifest();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v28 = XBLogFileManifest(-1);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [XBApplicationSnapshotManifestImpl _imageAccessQueue_saveData:forSnapshot:];
     }
 
 LABEL_57:
 
-    close(v12);
+    close(v13);
 LABEL_58:
-    v33 = 0;
+    v39 = 0;
     goto LABEL_59;
   }
 
 LABEL_48:
-  v31 = 67588;
-  if (v13)
+  v37 = 67588;
+  if (v14)
   {
-    v31 = 0;
+    v37 = 0;
   }
 
-  v48[0] = v31;
-  v32 = ffsctl(v12, 0xC0084A44uLL, v48, 0);
-  v33 = v32 == 0;
-  if (v32)
+  v55[0] = v37;
+  v38 = ffsctl(v13, 0xC0084A44uLL, v55, 0);
+  v39 = v38 == 0;
+  if (v38)
   {
-    v34 = v32;
-    v35 = XBLogFileManifest();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v40 = v38;
+    v41 = XBLogFileManifest(v38);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      v37 = self->_logIdentifier;
-      v38 = __error();
-      v39 = strerror(*v38);
-      *v41 = 138544386;
-      *&v41[4] = v37;
-      *&v41[12] = 2112;
-      *&v41[14] = v8;
-      *&v41[22] = 1024;
-      LODWORD(v42) = v34;
-      WORD2(v42) = 2080;
-      *(&v42 + 6) = v39;
-      HIWORD(v42) = 2048;
-      v43 = v48[0];
-      _os_log_error_impl(&dword_26B5EF000, v35, OS_LOG_TYPE_ERROR, "%{public}@ Failed to mark %@ as purgeable %d (%s) (flags 0x%llx)", v41, 0x30u);
+      v43 = self->_logIdentifier;
+      v44 = __error();
+      v45 = strerror(*v44);
+      *v48 = 138544386;
+      *&v48[4] = v43;
+      *&v48[12] = 2112;
+      *&v48[14] = v8;
+      *&v48[22] = 1024;
+      LODWORD(v49) = v40;
+      WORD2(v49) = 2080;
+      *(&v49 + 6) = v45;
+      HIWORD(v49) = 2048;
+      v50 = v55[0];
+      _os_log_error_impl(&dword_26B5EF000, v41, OS_LOG_TYPE_ERROR, "%{public}@ Failed to mark %@ as purgeable %d (%s) (flags 0x%llx)", v48, 0x30u);
     }
   }
 
-  close(v12);
+  close(v13);
 LABEL_59:
 
-  return v33;
+  return v39;
 }
 
 - (void)_workloop_decrementClientCount
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(__ManifestWorkloop);
   --self->_clientCount;
-  v3 = XBLogFileManifest();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = XBLogFileManifest(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     logIdentifier = self->_logIdentifier;
     clientCount = self->_clientCount;
-    v6 = 138543618;
-    v7 = logIdentifier;
-    v8 = 1024;
-    v9 = clientCount;
-    _os_log_impl(&dword_26B5EF000, v3, OS_LOG_TYPE_INFO, "%{public}@ Decrementing client count: %u", &v6, 0x12u);
+    v7 = 138543618;
+    v8 = logIdentifier;
+    v9 = 1024;
+    v10 = clientCount;
+    _os_log_impl(&dword_26B5EF000, v4, OS_LOG_TYPE_INFO, "%{public}@ Decrementing client count: %u", &v7, 0x12u);
   }
 
   [(XBApplicationSnapshotManifestImpl *)self _workloop_checkClientCount];
@@ -3312,11 +3330,11 @@ uint64_t __62__XBApplicationSnapshotManifestImpl__outputFormatForSnapshot___bloc
 
 - (XBApplicationSnapshotManifestImpl)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = XBApplicationSnapshotManifestImpl;
-  v5 = [(XBApplicationSnapshotManifestImpl *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = XBApplicationSnapshotManifestImpl;
+  v5 = [(XBApplicationSnapshotManifestImpl *)&v21 init];
   v6 = v5;
   if (v5)
   {
@@ -3324,18 +3342,18 @@ uint64_t __62__XBApplicationSnapshotManifestImpl__outputFormatForSnapshot___bloc
     v7 = [coderCopy decodeIntegerForKey:@"version"];
     if (v7 < 3)
     {
-      v16 = v7;
-      v17 = XBLogFileManifest();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v17 = v7;
+      v18 = XBLogFileManifest(v7);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         logIdentifier = v6->_logIdentifier;
         *buf = 138543874;
-        v22 = logIdentifier;
-        v23 = 1024;
-        v24 = v16;
-        v25 = 1024;
-        v26 = 3;
-        _os_log_impl(&dword_26B5EF000, v17, OS_LOG_TYPE_INFO, "%{public}@ Snapshot manifest out of date (currVers=%d, newVers=%d).", buf, 0x18u);
+        v23 = logIdentifier;
+        v24 = 1024;
+        v25 = v17;
+        v26 = 1024;
+        v27 = 3;
+        _os_log_impl(&dword_26B5EF000, v18, OS_LOG_TYPE_INFO, "%{public}@ Snapshot manifest out of date (currVers=%d, newVers=%d).", buf, 0x18u);
       }
 
       [(XBApplicationSnapshotManifestImpl *)v6 _invalidate];
@@ -3351,10 +3369,11 @@ uint64_t __62__XBApplicationSnapshotManifestImpl__outputFormatForSnapshot___bloc
       v12 = [v9 setWithObjects:{v10, v11, objc_opt_class(), 0}];
       v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"snapshots"];
       error = [coderCopy error];
+      v15 = error;
       if (error)
       {
-        v15 = XBLogFileManifest();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = XBLogFileManifest(error);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           [XBApplicationSnapshotManifestImpl initWithCoder:];
         }

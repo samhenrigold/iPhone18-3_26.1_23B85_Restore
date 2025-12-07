@@ -1,6 +1,7 @@
 @interface NPKIDVRemoteDeviceProtoProvisionCredentialRequest
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)credentialTypeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsCredentialType:(id)type;
@@ -11,6 +12,29 @@
 @end
 
 @implementation NPKIDVRemoteDeviceProtoProvisionCredentialRequest
+
+- (id)credentialTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Identity";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Unknown";
+  }
+
+  return v4;
+}
 
 - (int)StringAsCredentialType:(id)type
 {
@@ -94,8 +118,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  credentialType = self->_credentialType;
-  v7 = toCopy;
   PBDataWriterWriteInt32Field();
   if (self->_metadataData)
   {
@@ -107,17 +129,17 @@
     PBDataWriterWriteStringField();
   }
 
-  v6 = v7;
+  v4 = toCopy;
   if (self->_attestationsData)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_supplementalData)
   {
     PBDataWriterWriteDataField();
-    v6 = v7;
+    v4 = toCopy;
   }
 }
 

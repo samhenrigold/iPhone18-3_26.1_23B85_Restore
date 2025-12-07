@@ -72,7 +72,8 @@ void __80__NSString_LSVisualOrderingAdditions__ls_visuallyOrderCharactersReturni
 void __61__NSString_LSPluginQueryAdditions__ls_matchesForPluginQuery___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = a2;
-  if (_NSIsNSString())
+  v7 = _NSIsNSString();
+  if (v7)
   {
     *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) ls_matchesStringForPluginQuery:v6];
     if (*(*(*(a1 + 48) + 8) + 24) == 1)
@@ -83,22 +84,21 @@ void __61__NSString_LSPluginQueryAdditions__ls_matchesForPluginQuery___block_inv
 
   else
   {
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _LSDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __61__NSString_LSPluginQueryAdditions__ls_matchesForPluginQuery___block_invoke_cold_1(a1, v7);
+      __61__NSString_LSPluginQueryAdditions__ls_matchesForPluginQuery___block_invoke_cold_1(a1, v8);
     }
   }
 }
 
 void __61__NSString_LSPluginQueryAdditions__ls_matchesForPluginQuery___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Cannot match invalid query %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "Cannot match invalid query %@", &v3, 0xCu);
 }
 
 @end

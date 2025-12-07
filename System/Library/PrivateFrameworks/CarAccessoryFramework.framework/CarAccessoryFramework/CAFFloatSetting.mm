@@ -13,6 +13,7 @@
 - (NSString)minimumSymbolName;
 - (float)value;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)setValue:(float)value;
 - (void)unregisterObserver:(id)observer;
@@ -221,6 +222,81 @@
   v3 = minimumSymbolNameCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000006"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    valueCharacteristic = [(CAFFloatSetting *)self valueCharacteristic];
+    uniqueIdentifier2 = [valueCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [(CAFFloatSetting *)self value];
+      [observers floatSettingService:self didUpdateValue:?];
+LABEL_13:
+
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000026"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    maximumSymbolNameCharacteristic = [(CAFFloatSetting *)self maximumSymbolNameCharacteristic];
+    uniqueIdentifier4 = [maximumSymbolNameCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      maximumSymbolName = [(CAFFloatSetting *)self maximumSymbolName];
+      [observers floatSettingService:self didUpdateMaximumSymbolName:maximumSymbolName];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000025"])
+  {
+    goto LABEL_13;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  minimumSymbolNameCharacteristic = [(CAFFloatSetting *)self minimumSymbolNameCharacteristic];
+  uniqueIdentifier6 = [minimumSymbolNameCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    maximumSymbolName = [(CAFFloatSetting *)self minimumSymbolName];
+    [observers floatSettingService:self didUpdateMinimumSymbolName:maximumSymbolName];
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  v23.receiver = self;
+  v23.super_class = CAFFloatSetting;
+  [(CAFAutomakerSetting *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForFloatValue

@@ -969,7 +969,7 @@ LABEL_18:
   v10 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -1182,30 +1182,30 @@ LABEL_18:
     v28 = v27;
     v30 = v29;
     canvas2 = [(CRLCanvasRep *)self canvas];
-    [canvas2 contentsScale];
-    v33 = sub_10012218C(v28, v30, v32);
-    x = sub_10011F334(v25, v26, v33);
-    y = v34;
+    contentsScale = [canvas2 contentsScale];
+    v34 = sub_10012218C(contentsScale, v28, v30, v33);
+    x = sub_10011F334(v25, v26, v34);
+    y = v35;
   }
 
   else
   {
     [(CRLCanvasRep *)self i_layerFrameInScaledCanvasIgnoringDragging];
-    x = v35;
-    y = v36;
-    width = v37;
-    height = v38;
+    x = v36;
+    y = v37;
+    width = v38;
+    height = v39;
   }
 
 LABEL_14:
-  v39 = x;
-  v40 = y;
-  v41 = width;
-  v42 = height;
-  result.size.height = v42;
-  result.size.width = v41;
-  result.origin.y = v40;
-  result.origin.x = v39;
+  v40 = x;
+  v41 = y;
+  v42 = width;
+  v43 = height;
+  result.size.height = v43;
+  result.size.width = v42;
+  result.origin.y = v41;
+  result.origin.x = v40;
   return result;
 }
 
@@ -1367,7 +1367,7 @@ LABEL_14:
   v6 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -1398,7 +1398,7 @@ LABEL_14:
 {
   y = relative.y;
   x = relative.x;
-  [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+  objc_msgSend_transformToConvertNaturalToLayerRelative(self, a2);
   v3 = vaddq_f64(v9, vmlaq_n_f64(vmulq_n_f64(v8, y), v7, x));
   v4 = v3.f64[1];
   result.x = v3.f64[0];
@@ -1410,7 +1410,7 @@ LABEL_14:
 {
   y = relative.y;
   x = relative.x;
-  [(CRLCanvasRep *)self transformToConvertNaturalFromLayerRelative];
+  objc_msgSend_transformToConvertNaturalFromLayerRelative(self, a2);
   v3 = vaddq_f64(v9, vmlaq_n_f64(vmulq_n_f64(v8, y), v7, x));
   v4 = v3.f64[1];
   result.x = v3.f64[0];
@@ -1424,7 +1424,7 @@ LABEL_14:
   width = relative.size.width;
   y = relative.origin.y;
   x = relative.origin.x;
-  [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
+  objc_msgSend_transformToConvertNaturalToLayerRelative(self, a2);
   v8.origin.x = x;
   v8.origin.y = y;
   v8.size.width = width;
@@ -1438,7 +1438,7 @@ LABEL_14:
   width = relative.size.width;
   y = relative.origin.y;
   x = relative.origin.x;
-  [(CRLCanvasRep *)self transformToConvertNaturalFromLayerRelative];
+  objc_msgSend_transformToConvertNaturalFromLayerRelative(self, a2);
   v8.origin.x = x;
   v8.origin.y = y;
   v8.size.width = width;
@@ -1519,7 +1519,7 @@ LABEL_14:
           v24 = geometry;
           if (geometry)
           {
-            [geometry inverseTransform];
+            objc_msgSend_inverseTransform(geometry);
             v25 = v37;
             v26 = v38;
             v27 = v39;
@@ -1636,7 +1636,7 @@ LABEL_16:
         v16 = geometry;
         if (geometry)
         {
-          [geometry inverseTransform];
+          objc_msgSend_inverseTransform(geometry);
           v17 = v29;
           v18 = v30;
           v19 = v31;
@@ -1717,7 +1717,7 @@ LABEL_16:
         v15 = geometry;
         if (geometry)
         {
-          [geometry inverseTransform];
+          objc_msgSend_inverseTransform(geometry);
           v16 = v28;
           v17 = v29;
           v18 = v30;
@@ -1819,7 +1819,7 @@ LABEL_18:
           v22 = geometry;
           if (geometry)
           {
-            [geometry inverseTransform];
+            objc_msgSend_inverseTransform(geometry);
             v23 = v56[0];
             v24 = v56[1];
             v25 = v56[2];
@@ -1983,7 +1983,7 @@ LABEL_31:
 
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -2922,7 +2922,7 @@ LABEL_29:
       v14 = 0uLL;
       if (fromCopy)
       {
-        [fromCopy transform];
+        objc_msgSend_transform(fromCopy, 0.0, 0.0, 0.0);
         v13 = v41;
         v14 = v42;
         v12 = v43;
@@ -2937,7 +2937,7 @@ LABEL_29:
       v20 = 0uLL;
       if (toCopy)
       {
-        [toCopy transform];
+        objc_msgSend_transform(toCopy, 0.0, 0.0, 0.0);
         v18 = v41;
         v19 = v42;
         v20 = v43;
@@ -3001,7 +3001,7 @@ LABEL_29:
       v20 = layout2;
       if (layout2)
       {
-        [layout2 originalPureTransformInRoot];
+        objc_msgSend_originalPureTransformInRoot(layout2);
       }
 
       else
@@ -3018,7 +3018,7 @@ LABEL_29:
       v22 = layout3;
       if (layout3)
       {
-        [layout3 pureTransformInRoot];
+        objc_msgSend_pureTransformInRoot(layout3);
       }
 
       else
@@ -3091,7 +3091,7 @@ LABEL_25:
       v24 = layout6;
       if (layout6)
       {
-        [layout6 originalPureTransformInRoot];
+        objc_msgSend_originalPureTransformInRoot(layout6);
       }
 
       else
@@ -3108,7 +3108,7 @@ LABEL_25:
       v26 = layout7;
       if (layout7)
       {
-        [layout7 pureTransformInRoot];
+        objc_msgSend_pureTransformInRoot(layout7);
       }
 
       else
@@ -3220,7 +3220,7 @@ LABEL_13:
     v9 = parentRep2;
     if (parentRep2)
     {
-      [parentRep2 layerTransformInRootForZeroAnchor];
+      objc_msgSend_layerTransformInRootForZeroAnchor(parentRep2);
     }
 
     else
@@ -3261,7 +3261,7 @@ LABEL_13:
       v12 = v11;
       v14 = v13;
       memset(&v22, 0, sizeof(v22));
-      [(CGAffineTransform *)v6 i_layerTransform];
+      objc_msgSend_i_layerTransform(v6);
       t2 = v22;
       sub_100139EB4(&t2, &t1, v12 * -0.5, v14 * -0.5);
       v22 = t1;
@@ -3301,7 +3301,7 @@ LABEL_13:
   v15 = 0u;
   v16 = 0u;
   v14 = 0u;
-  [(CRLCanvasRep *)self i_layerTransform];
+  objc_msgSend_i_layerTransform(self);
   v13[0] = v14;
   v13[1] = v15;
   v13[2] = v16;
@@ -3451,12 +3451,12 @@ LABEL_13:
     memset(&v44, 0, sizeof(v44));
     if (-[CRLCanvasRep isBeingRotated](self, "isBeingRotated") && (-[CRLCanvasRep layout](self, "layout"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [v23 wantsNormalLayoutDuringDynamicRotation], v23, (v24 & 1) == 0))
     {
-      [v22 originalTransformInRoot];
+      objc_msgSend_originalTransformInRoot(v22);
     }
 
     else
     {
-      [v22 transformInRoot];
+      objc_msgSend_transformInRoot(v22);
     }
 
     v25 = *&onTransform->c;
@@ -3524,7 +3524,7 @@ LABEL_13:
   v9 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -3546,7 +3546,7 @@ LABEL_13:
   v9 = geometryCopy;
   if (geometryCopy)
   {
-    [geometryCopy transform];
+    objc_msgSend_transform(geometryCopy);
   }
 
   else
@@ -3722,7 +3722,7 @@ LABEL_13:
     v15 = layout;
     if (layout)
     {
-      [layout originalTransformInRoot];
+      objc_msgSend_originalTransformInRoot(layout);
       goto LABEL_8;
     }
   }
@@ -3733,7 +3733,7 @@ LABEL_13:
     v15 = layout2;
     if (layout2)
     {
-      [layout2 transformInRoot];
+      objc_msgSend_transformInRoot(layout2);
       goto LABEL_8;
     }
   }
@@ -3956,7 +3956,7 @@ LABEL_8:
 
         if (layout)
         {
-          [layout transform];
+          objc_msgSend_transform(layout);
         }
 
         else
@@ -4010,7 +4010,7 @@ LABEL_8:
   v10 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -4391,7 +4391,7 @@ LABEL_8:
     v6 = v5;
     if (v5)
     {
-      [v5 transformInRootForStandardKnobs];
+      objc_msgSend_transformInRootForStandardKnobs(v5);
       goto LABEL_7;
     }
   }
@@ -4402,7 +4402,7 @@ LABEL_8:
     v6 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
       goto LABEL_7;
     }
   }
@@ -4570,7 +4570,7 @@ LABEL_7:
       v58 = v57;
 
       memset(&v102, 0, sizeof(v102));
-      [(CRLCanvasRep *)self transformForCollaboratorCursorRenderable];
+      objc_msgSend_transformForCollaboratorCursorRenderable(self);
       CGAffineTransformMakeScale(&t2, v19, v19);
       t1 = v102;
       CGAffineTransformConcat(&buf, &t1, &t2);
@@ -5512,7 +5512,7 @@ LABEL_11:
   v3 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -5790,7 +5790,7 @@ LABEL_8:
     v6 = v5;
     if (v5)
     {
-      [v5 transformInRootForStandardKnobs];
+      objc_msgSend_transformInRootForStandardKnobs(v5);
       goto LABEL_7;
     }
   }
@@ -5801,7 +5801,7 @@ LABEL_8:
     v6 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
       goto LABEL_7;
     }
   }
@@ -5884,7 +5884,7 @@ LABEL_5:
     v16 = v15;
     v18 = v17;
     memset(&v27, 0, sizeof(v27));
-    [(CRLCanvasRep *)self transformForHighlightLayer];
+    objc_msgSend_transformForHighlightLayer(self);
     CGAffineTransformMakeScale(&t2, v10, v10);
     v24 = v27;
     CGAffineTransformConcat(&v26, &v24, &t2);
@@ -6429,23 +6429,23 @@ LABEL_50:
   if ([shadowCopy isDropShadow])
   {
     sub_10011FFD8(x, y, width, height, v15);
-    v96 = 0u;
+    v99 = 0u;
+    v100 = 0u;
     v97 = 0u;
-    v94 = 0u;
-    v95 = 0u;
-    v93 = 0u;
-    [(CRLCanvasRep *)self computeDirectLayerFrame:&v96 andTransform:&v93];
-    v16 = sub_100120414(*&v96, *(&v96 + 1), *&v97, *(&v97 + 1));
+    v98 = 0u;
+    v96 = 0u;
+    [(CRLCanvasRep *)self computeDirectLayerFrame:&v99 andTransform:&v96];
+    v16 = sub_100120414(*&v99, *(&v99 + 1), *&v100, *(&v100 + 1));
     v18 = v17;
     [shadowCopy offsetDelta];
     v21 = sub_10011F340(v19, v20, v15);
-    v23 = sub_100122154(v21, v22);
-    [renderableCopy setPosition:{sub_10011F334(v16, v18, v23)}];
+    v24 = sub_100122154(v22, v21, v23);
+    [renderableCopy setPosition:{sub_10011F334(v16, v18, v24)}];
     [renderableCopy setBounds:sub_10011ECB4()];
-    v90 = v93;
-    v91 = v94;
-    v92 = v95;
-    v24 = &v90;
+    v93 = v96;
+    v94 = v97;
+    v95 = v98;
+    v25 = &v93;
   }
 
   else
@@ -6454,17 +6454,17 @@ LABEL_50:
     {
       shadow = [(CRLCanvasRep *)self shadow];
       [shadow boundsForRep:self];
-      v27 = v26;
-      v29 = v28;
-      v31 = v30;
-      v33 = v32;
+      v28 = v27;
+      v30 = v29;
+      v32 = v31;
+      v34 = v33;
 
-      v34 = sub_10011FFD8(v27, v29, v31, v33, v15);
-      v38 = sub_100120414(v34, v35, v36, v37);
-      v40 = v39;
+      v35 = sub_10011FFD8(v28, v30, v32, v34, v15);
+      v39 = sub_100120414(v35, v36, v37, v38);
+      v41 = v40;
       [shadowCopy offset];
-      v42 = v41;
-      v43 = 0.0;
+      v43 = v42;
+      v44 = 0.0;
     }
 
     else
@@ -6476,75 +6476,75 @@ LABEL_50:
 
       shadow2 = [(CRLCanvasRep *)self shadow];
       [shadow2 boundsForRep:self];
-      v46 = v45;
-      v48 = v47;
-      v50 = v49;
-      v52 = v51;
+      v47 = v46;
+      v49 = v48;
+      v51 = v50;
+      v53 = v52;
 
-      v53 = sub_10011FFD8(v46, v48, v50, v52, v15);
-      v38 = sub_100120414(v53, v54, v55, v56);
-      v40 = v57;
+      v54 = sub_10011FFD8(v47, v49, v51, v53, v15);
+      v39 = sub_100120414(v54, v55, v56, v57);
+      v41 = v58;
       [shadowCopy offsetDelta];
     }
 
-    v58 = sub_10011F340(v43, v42, v15);
-    v60 = sub_100122154(v58, v59);
-    v61 = sub_10011F334(v38, v40, v60);
-    v63 = v62;
+    v59 = sub_10011F340(v44, v43, v15);
+    v62 = sub_100122154(v60, v59, v61);
+    v63 = sub_10011F334(v39, v41, v62);
+    v65 = v64;
     parentRep = [(CRLCanvasRep *)self parentRep];
 
     if (parentRep)
     {
       parentRep2 = [(CRLCanvasRep *)self parentRep];
       [parentRep2 layerFrameInScaledCanvas];
-      v67 = v66;
       v69 = v68;
+      v71 = v70;
 
-      v61 = v61 - v67;
       v63 = v63 - v69;
+      v65 = v65 - v71;
     }
 
-    [renderableCopy setPosition:{v61, v63}];
+    [renderableCopy setPosition:{v63, v65}];
     [renderableCopy setBounds:sub_10011ECB4()];
-    v70 = *&CGAffineTransformIdentity.c;
-    v93 = *&CGAffineTransformIdentity.a;
-    v94 = v70;
-    v95 = *&CGAffineTransformIdentity.tx;
-    v24 = &v93;
+    v72 = *&CGAffineTransformIdentity.c;
+    v96 = *&CGAffineTransformIdentity.a;
+    v97 = v72;
+    v98 = *&CGAffineTransformIdentity.tx;
+    v25 = &v96;
   }
 
-  [renderableCopy setAffineTransform:{v24, v90, v91, v92, v93, v94, v95}];
+  [renderableCopy setAffineTransform:{v25, v93, v94, v95, v96, v97, v98}];
 LABEL_11:
   [renderableCopy frame];
-  v72 = v71;
   v74 = v73;
+  v76 = v75;
   superlayer = [renderableCopy superlayer];
   if (superlayer)
   {
-    v76 = superlayer;
+    v78 = superlayer;
     do
     {
-      [v76 frame];
-      v72 = sub_10011F334(v72, v74, v77);
-      v74 = v78;
-      superlayer2 = [v76 superlayer];
+      [v78 frame];
+      v74 = sub_10011F334(v74, v76, v79);
+      v76 = v80;
+      superlayer2 = [v78 superlayer];
 
-      v76 = superlayer2;
+      v78 = superlayer2;
     }
 
     while (superlayer2);
   }
 
   [renderableCopy position];
-  v81 = v80;
   v83 = v82;
+  v85 = v84;
   canvas2 = [(CRLCanvasRep *)self canvas];
-  [canvas2 contentsScale];
-  v86 = sub_10012218C(v72, v74, v85);
-  v88 = v87;
+  contentsScale = [canvas2 contentsScale];
+  v89 = sub_10012218C(contentsScale, v74, v76, v88);
+  v91 = v90;
 
-  v89 = sub_10011F31C(v86, v88, v72);
-  [renderableCopy setPosition:{sub_10011F334(v81, v83, v89)}];
+  v92 = sub_10011F31C(v89, v91, v74);
+  [renderableCopy setPosition:{sub_10011F334(v83, v85, v92)}];
 }
 
 - (CGImage)newShadowImageWithSize:(CGSize)size shadow:(id)shadow drawSelector:(SEL)selector unflipped:(BOOL)unflipped
@@ -6913,7 +6913,7 @@ LABEL_11:
     v10 = sub_100014370(v9, info);
     if (trackerCopy)
     {
-      [trackerCopy rotateTransform];
+      objc_msgSend_rotateTransform(trackerCopy);
     }
 
     else
@@ -7728,7 +7728,7 @@ LABEL_5:
   v11 = v10;
   v13 = v12;
   memset(&transform, 0, sizeof(transform));
-  [(CRLCanvasRep *)self transformForHighlightLayer];
+  objc_msgSend_transformForHighlightLayer(self);
   CGAffineTransformMakeScale(&t2, v5, v5);
   v15 = transform;
   CGAffineTransformConcat(&v17, &v15, &t2);
@@ -8219,7 +8219,7 @@ LABEL_5:
 
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else

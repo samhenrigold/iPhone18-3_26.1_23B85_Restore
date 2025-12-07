@@ -17,7 +17,7 @@
 
 - (_SFPBRFSummaryItemAlignedTextCardSection)initWithFacade:(id)facade
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBRFSummaryItemAlignedTextCardSection *)self init];
   if (v5)
@@ -53,33 +53,33 @@
       v15 = 0;
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     text6 = [facadeCopy text];
-    v17 = [text6 countByEnumeratingWithState:&v49 objects:v54 count:16];
+    v17 = [text6 countByEnumeratingWithState:&v48 objects:v53 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v50;
+      v19 = *v49;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v50 != v19)
+          if (*v49 != v19)
           {
             objc_enumerationMutation(text6);
           }
 
-          v21 = [[_SFPBRFTextProperty alloc] initWithFacade:*(*(&v49 + 1) + 8 * i)];
+          v21 = [[_SFPBRFTextProperty alloc] initWithFacade:*(*(&v48 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [text6 countByEnumeratingWithState:&v49 objects:v54 count:16];
+        v18 = [text6 countByEnumeratingWithState:&v48 objects:v53 count:16];
       }
 
       while (v18);
@@ -117,33 +117,33 @@
       v31 = 0;
     }
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     text12 = [facadeCopy text];
-    v33 = [text12 countByEnumeratingWithState:&v45 objects:v53 count:16];
+    v33 = [text12 countByEnumeratingWithState:&v44 objects:v52 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v46;
+      v35 = *v45;
       do
       {
         for (j = 0; j != v34; ++j)
         {
-          if (*v46 != v35)
+          if (*v45 != v35)
           {
             objc_enumerationMutation(text12);
           }
 
-          v37 = [[_SFPBRFTextProperty alloc] initWithFacade:*(*(&v45 + 1) + 8 * j)];
+          v37 = [[_SFPBRFTextProperty alloc] initWithFacade:*(*(&v44 + 1) + 8 * j)];
           if (v37)
           {
             [v31 addObject:v37];
           }
         }
 
-        v34 = [text12 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v34 = [text12 countByEnumeratingWithState:&v44 objects:v52 count:16];
       }
 
       while (v34);
@@ -163,17 +163,16 @@
     v42 = v5;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBRFSummaryItemAlignedTextCardSection)initWithDictionary:(id)dictionary
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v48.receiver = self;
-  v48.super_class = _SFPBRFSummaryItemAlignedTextCardSection;
-  v5 = [(_SFPBRFSummaryItemAlignedTextCardSection *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = _SFPBRFSummaryItemAlignedTextCardSection;
+  v5 = [(_SFPBRFSummaryItemAlignedTextCardSection *)&v47 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"text1"];
@@ -194,31 +193,31 @@
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"text3"];
     objc_opt_class();
-    v38 = v8;
-    v39 = v6;
-    v37 = v10;
+    v37 = v8;
+    v38 = v6;
+    v36 = v10;
     if (objc_opt_isKindOfClass())
     {
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
       v45 = 0u;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v45;
+        v14 = *v44;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v45 != v14)
+            if (*v44 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v44 + 1) + 8 * i);
+            v16 = *(*(&v43 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -227,14 +226,14 @@
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v44 objects:v50 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v43 objects:v49 count:16];
         }
 
         while (v13);
       }
 
-      v8 = v38;
-      v10 = v37;
+      v8 = v37;
+      v10 = v36;
     }
 
     v18 = [dictionaryCopy objectForKeyedSubscript:@"text4"];
@@ -253,32 +252,32 @@
       [(_SFPBRFSummaryItemAlignedTextCardSection *)v5 setText_5:v21];
     }
 
-    v36 = v20;
+    v35 = v20;
     v22 = [dictionaryCopy objectForKeyedSubscript:@"text6"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v35 = v18;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
+      v34 = v18;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v23 = v22;
-      v24 = [v23 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v39 objects:v48 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v41;
+        v26 = *v40;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v41 != v26)
+            if (*v40 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v40 + 1) + 8 * j);
+            v28 = *(*(&v39 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -287,16 +286,16 @@
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v40 objects:v49 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v39 objects:v48 count:16];
         }
 
         while (v25);
       }
 
-      v8 = v38;
-      v6 = v39;
-      v10 = v37;
-      v18 = v35;
+      v8 = v37;
+      v6 = v38;
+      v10 = v36;
+      v18 = v34;
     }
 
     v30 = [dictionaryCopy objectForKeyedSubscript:@"thumbnail"];
@@ -310,7 +309,6 @@
     v32 = v5;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -350,7 +348,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_text_1)
   {
@@ -387,26 +385,26 @@
   if ([(NSArray *)self->_text_3s count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v11 = self->_text_3s;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v42;
+      v14 = *v41;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v42 != v14)
+          if (*v41 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation3 = [*(*(&v41 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation3)
           {
             [array addObject:dictionaryRepresentation3];
@@ -419,7 +417,7 @@
           }
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v13);
@@ -463,26 +461,26 @@
   if ([(NSArray *)self->_text_6s count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v25 = self->_text_6s;
-    v26 = [(NSArray *)v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v26 = [(NSArray *)v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v38;
+      v28 = *v37;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v38 != v28)
+          if (*v37 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          dictionaryRepresentation6 = [*(*(&v37 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation6 = [*(*(&v36 + 1) + 8 * j) dictionaryRepresentation];
           if (dictionaryRepresentation6)
           {
             [array2 addObject:dictionaryRepresentation6];
@@ -495,7 +493,7 @@
           }
         }
 
-        v27 = [(NSArray *)v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v27 = [(NSArray *)v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
       while (v27);
@@ -519,8 +517,6 @@
       [dictionary setObject:null7 forKeyedSubscript:@"thumbnail"];
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -732,7 +728,7 @@ LABEL_38:
 
 - (void)writeTo:(id)to
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   toCopy = to;
   text = [(_SFPBRFSummaryItemAlignedTextCardSection *)self text];
   if (text)
@@ -747,32 +743,31 @@ LABEL_38:
   }
 
   text_3s = [(_SFPBRFSummaryItemAlignedTextCardSection *)self text_3s];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v8 = [text_3s countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v8 = [text_3s countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v28;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v28 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(text_3s);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [text_3s countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v9 = [text_3s countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v9);
@@ -791,35 +786,34 @@ LABEL_38:
   }
 
   text_6s = [(_SFPBRFSummaryItemAlignedTextCardSection *)self text_6s];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v16 = [text_6s countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v16)
+  v15 = [text_6s countByEnumeratingWithState:&v20 objects:v28 count:16];
+  if (v15)
   {
-    v17 = v16;
-    v18 = *v24;
+    v16 = v15;
+    v17 = *v21;
     do
     {
-      v19 = 0;
+      v18 = 0;
       do
       {
-        if (*v24 != v18)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(text_6s);
         }
 
-        v20 = *(*(&v23 + 1) + 8 * v19);
         PBDataWriterWriteSubmessage();
-        ++v19;
+        ++v18;
       }
 
-      while (v17 != v19);
-      v17 = [text_6s countByEnumeratingWithState:&v23 objects:v31 count:16];
+      while (v16 != v18);
+      v16 = [text_6s countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
-    while (v17);
+    while (v16);
   }
 
   thumbnail = [(_SFPBRFSummaryItemAlignedTextCardSection *)self thumbnail];
@@ -827,8 +821,6 @@ LABEL_38:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addText_6:(id)text_6
@@ -851,9 +843,7 @@ LABEL_38:
 
 - (void)setText_6:(id)text_6
 {
-  v4 = [text_6 copy];
-  text_6s = self->_text_6s;
-  self->_text_6s = v4;
+  self->_text_6s = [text_6 copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -878,9 +868,7 @@ LABEL_38:
 
 - (void)setText_3:(id)text_3
 {
-  v4 = [text_3 copy];
-  text_3s = self->_text_3s;
-  self->_text_3s = v4;
+  self->_text_3s = [text_3 copy];
 
   MEMORY[0x1EEE66BB8]();
 }

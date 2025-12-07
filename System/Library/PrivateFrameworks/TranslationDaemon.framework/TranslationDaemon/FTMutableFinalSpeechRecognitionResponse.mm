@@ -8,14 +8,17 @@
 - (int64_t)lang_profile_recreate_codes;
 - (int64_t)watermark_detection;
 - (void)setAudio_analytics:(id)audio_analytics;
+- (void)setHas_result:(BOOL)has_result;
 - (void)setLang_profile_recreate_codes:(int64_t)lang_profile_recreate_codes;
 - (void)setLanguage:(id)language;
 - (void)setLatnn_mitigator_result:(id)latnn_mitigator_result;
 - (void)setRecognition_result:(id)recognition_result;
 - (void)setRequest_locale:(id)request_locale;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
+- (void)setSpeech_profile_used:(BOOL)speech_profile_used;
 - (void)setWatermark_detection:(int64_t)watermark_detection;
 - (void)setWatermark_peak_average:(double)watermark_peak_average;
 @end
@@ -65,6 +68,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setReturn_str:(id)return_str
@@ -154,12 +163,24 @@
   return bOOLValue;
 }
 
+- (void)setHas_result:(BOOL)has_result
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:has_result];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (BOOL)speech_profile_used
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"speech_profile_used"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSpeech_profile_used:(BOOL)speech_profile_used
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:speech_profile_used];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

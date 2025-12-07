@@ -19,17 +19,16 @@
 {
   v4 = sub_100004144();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  DiagnosticFileProvider.exportDirectory()(v8);
+  DiagnosticFileProvider.exportDirectory()(v7);
 
-  sub_100004114(v10);
-  v12 = v11;
-  (*(v5 + 8))(v8, v4);
+  sub_100004114(v9);
+  v11 = v10;
+  (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v11;
 }
 
 @end

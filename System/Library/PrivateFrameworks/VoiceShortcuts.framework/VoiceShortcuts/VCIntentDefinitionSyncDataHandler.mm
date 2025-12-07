@@ -56,49 +56,49 @@ LABEL_8:
 
 - (BOOL)applyChanges:(id)changes fromSyncService:(id)service error:(id *)error
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   v8 = changesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v63 objects:v76 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v62 objects:v75 count:16];
   if (!v9)
   {
-    v55 = 1;
+    v54 = 1;
     goto LABEL_46;
   }
 
   v11 = v9;
-  v12 = *v64;
-  v55 = 1;
+  v12 = *v63;
+  v54 = 1;
   *&v10 = 136315394;
-  v46 = v10;
-  v48 = v8;
+  v45 = v10;
+  v47 = v8;
   errorCopy = error;
-  v52 = defaultManager;
-  v47 = *v64;
+  v51 = defaultManager;
+  v46 = *v63;
   do
   {
     v13 = 0;
-    v50 = v11;
+    v49 = v11;
     do
     {
-      if (*v64 != v12)
+      if (*v63 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v63 + 1) + 8 * v13);
+      v14 = *(*(&v62 + 1) + 8 * v13);
       v15 = WFSyncedDefinitionDirectoryURL();
       objectIdentifier = [v14 objectIdentifier];
       v17 = WFDefinitionDirectoryURLForBundleIdentifier();
 
-      v62 = 0;
-      LOBYTE(v15) = [defaultManager removeItemAtURL:v17 error:&v62];
-      v18 = v62;
+      v61 = 0;
+      LOBYTE(v15) = [defaultManager removeItemAtURL:v17 error:&v61];
+      v18 = v61;
       v19 = v18;
       if ((v15 & 1) == 0)
       {
@@ -113,23 +113,23 @@ LABEL_8:
           v20 = getWFWatchSyncLogObject();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            *buf = v46;
-            v68 = "[VCIntentDefinitionSyncDataHandler applyChanges:fromSyncService:error:]";
-            v69 = 2114;
-            v70 = v14;
+            *buf = v45;
+            v67 = "[VCIntentDefinitionSyncDataHandler applyChanges:fromSyncService:error:]";
+            v68 = 2114;
+            v69 = v14;
             _os_log_impl(&dword_23103C000, v20, OS_LOG_TYPE_ERROR, "%s Could not delete directory for change: %{public}@", buf, 0x16u);
           }
 
           if (error)
           {
             v21 = v19;
-            v55 = 0;
+            v54 = 0;
             *error = v19;
           }
 
           else
           {
-            v55 = 0;
+            v54 = 0;
           }
 
           goto LABEL_40;
@@ -138,40 +138,40 @@ LABEL_8:
 
       if ([v14 changeType] == 1 || objc_msgSend(v14, "changeType") == 2)
       {
-        v61 = 0;
-        v22 = [defaultManager createDirectoryAtURL:v17 withIntermediateDirectories:1 attributes:0 error:&v61];
-        v23 = v61;
+        v60 = 0;
+        v22 = [defaultManager createDirectoryAtURL:v17 withIntermediateDirectories:1 attributes:0 error:&v60];
+        v23 = v60;
         if ((v22 & 1) != 0 || !v23)
         {
-          v53 = v23;
-          v54 = v19;
-          v59 = 0u;
-          v60 = 0u;
-          v57 = 0u;
+          v52 = v23;
+          v53 = v19;
           v58 = 0u;
-          v51 = v14;
+          v59 = 0u;
+          v56 = 0u;
+          v57 = 0u;
+          v50 = v14;
           files = [v14 files];
-          v30 = [files countByEnumeratingWithState:&v57 objects:v75 count:16];
+          v30 = [files countByEnumeratingWithState:&v56 objects:v74 count:16];
           if (v30)
           {
             v31 = v30;
-            v32 = *v58;
+            v32 = *v57;
             while (2)
             {
               for (i = 0; i != v31; ++i)
               {
-                if (*v58 != v32)
+                if (*v57 != v32)
                 {
                   objc_enumerationMutation(files);
                 }
 
-                v34 = *(*(&v57 + 1) + 8 * i);
+                v34 = *(*(&v56 + 1) + 8 * i);
                 filename = [v34 filename];
                 v36 = [v17 URLByAppendingPathComponent:filename];
 
-                v56 = 0;
-                v37 = [v34 writeToFileURL:v36 overwriting:1 error:&v56];
-                v38 = v56;
+                v55 = 0;
+                v37 = [v34 writeToFileURL:v36 overwriting:1 error:&v55];
+                v38 = v55;
                 v39 = v38;
                 if ((v37 & 1) == 0)
                 {
@@ -180,33 +180,33 @@ LABEL_8:
                   {
                     filename2 = [v34 filename];
                     *buf = 136315906;
-                    v68 = "[VCIntentDefinitionSyncDataHandler applyChanges:fromSyncService:error:]";
-                    v69 = 2114;
-                    v70 = filename2;
-                    v71 = 2114;
-                    v72 = v51;
-                    v73 = 2114;
-                    v74 = v39;
+                    v67 = "[VCIntentDefinitionSyncDataHandler applyChanges:fromSyncService:error:]";
+                    v68 = 2114;
+                    v69 = filename2;
+                    v70 = 2114;
+                    v71 = v50;
+                    v72 = 2114;
+                    v73 = v39;
                     _os_log_impl(&dword_23103C000, v40, OS_LOG_TYPE_ERROR, "%s Could not write %{public}@ for %{public}@: %{public}@", buf, 0x2Au);
                   }
 
                   error = errorCopy;
-                  v11 = v50;
-                  v12 = v47;
+                  v11 = v49;
+                  v12 = v46;
                   if (errorCopy)
                   {
                     v42 = v39;
                     *errorCopy = v39;
                   }
 
-                  v55 = 0;
-                  defaultManager = v52;
-                  v8 = v48;
+                  v54 = 0;
+                  defaultManager = v51;
+                  v8 = v47;
                   goto LABEL_36;
                 }
               }
 
-              v31 = [files countByEnumeratingWithState:&v57 objects:v75 count:16];
+              v31 = [files countByEnumeratingWithState:&v56 objects:v74 count:16];
               if (v31)
               {
                 continue;
@@ -215,17 +215,17 @@ LABEL_8:
               break;
             }
 
-            v8 = v48;
+            v8 = v47;
             error = errorCopy;
-            defaultManager = v52;
-            v12 = v47;
-            v11 = v50;
+            defaultManager = v51;
+            v12 = v46;
+            v11 = v49;
           }
 
 LABEL_36:
-          v19 = v54;
+          v19 = v53;
 
-          v28 = v53;
+          v28 = v52;
         }
 
         else
@@ -237,30 +237,30 @@ LABEL_36:
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v68 = "[VCIntentDefinitionSyncDataHandler applyChanges:fromSyncService:error:]";
-            v69 = 2114;
-            v70 = v14;
-            v71 = 2114;
-            v72 = v26;
+            v67 = "[VCIntentDefinitionSyncDataHandler applyChanges:fromSyncService:error:]";
+            v68 = 2114;
+            v69 = v14;
+            v70 = 2114;
+            v71 = v26;
             _os_log_impl(&dword_23103C000, v27, OS_LOG_TYPE_ERROR, "%s Could not create intent definition directory for %{public}@: %{public}@", buf, 0x20u);
           }
 
           if (error)
           {
             v28 = v26;
-            v55 = 0;
+            v54 = 0;
             *error = v26;
           }
 
           else
           {
-            v55 = 0;
+            v54 = 0;
             v28 = v26;
           }
 
           v8 = v25;
           v12 = v24;
-          defaultManager = v52;
+          defaultManager = v51;
         }
       }
 
@@ -270,15 +270,14 @@ LABEL_40:
     }
 
     while (v13 != v11);
-    v43 = [v8 countByEnumeratingWithState:&v63 objects:v76 count:16];
+    v43 = [v8 countByEnumeratingWithState:&v62 objects:v75 count:16];
     v11 = v43;
   }
 
   while (v43);
 LABEL_46:
 
-  v44 = *MEMORY[0x277D85DE8];
-  return v55 & 1;
+  return v54 & 1;
 }
 
 - (BOOL)markChangesAsSynced:(id)synced withSyncService:(id)service metadata:(id)metadata error:(id *)error
@@ -303,12 +302,12 @@ LABEL_46:
 
 uint64_t __88__VCIntentDefinitionSyncDataHandler_markChangesAsSynced_withSyncService_metadata_error___block_invoke(uint64_t a1, void *a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 applications];
   v5 = [v4 mutableCopy];
   v6 = v5;
-  v39 = v3;
+  v37 = v3;
   if (v5)
   {
     v7 = v5;
@@ -321,27 +320,27 @@ uint64_t __88__VCIntentDefinitionSyncDataHandler_markChangesAsSynced_withSyncSer
 
   v8 = v7;
 
-  v44 = 0u;
-  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v38 = a1;
+  v40 = 0u;
+  v41 = 0u;
+  v36 = a1;
   obj = *(a1 + 32);
-  v9 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+  v9 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v43;
+    v11 = *v41;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v43 != v11)
+        if (*v41 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v42 + 1) + 8 * i);
+        v13 = *(*(&v40 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         if ([v13 changeType] == 3)
         {
@@ -353,9 +352,9 @@ uint64_t __88__VCIntentDefinitionSyncDataHandler_markChangesAsSynced_withSyncSer
         {
           v16 = objc_alloc(MEMORY[0x277CC1E70]);
           v17 = [v13 objectIdentifier];
-          v41 = 0;
-          v18 = [v16 initWithBundleIdentifier:v17 allowPlaceholder:0 error:&v41];
-          v15 = v41;
+          v39 = 0;
+          v18 = [v16 initWithBundleIdentifier:v17 allowPlaceholder:0 error:&v39];
+          v15 = v39;
 
           if (!v18)
           {
@@ -364,11 +363,11 @@ uint64_t __88__VCIntentDefinitionSyncDataHandler_markChangesAsSynced_withSyncSer
             {
               v20 = [v13 objectIdentifier];
               *buf = 136315651;
-              v47 = "[VCIntentDefinitionSyncDataHandler markChangesAsSynced:withSyncService:metadata:error:]_block_invoke";
-              v48 = 2113;
-              v49 = v20;
-              v50 = 2112;
-              v51 = v15;
+              v45 = "[VCIntentDefinitionSyncDataHandler markChangesAsSynced:withSyncService:metadata:error:]_block_invoke";
+              v46 = 2113;
+              v47 = v20;
+              v48 = 2112;
+              v49 = v15;
               _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_ERROR, "%s Could not get LSApplicationRecord for bundle ID %{private}@: %@", buf, 0x20u);
             }
           }
@@ -387,21 +386,21 @@ uint64_t __88__VCIntentDefinitionSyncDataHandler_markChangesAsSynced_withSyncSer
         objc_autoreleasePoolPop(v14);
       }
 
-      v10 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+      v10 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
     }
 
     while (v10);
   }
 
-  [v39 setApplications:v8];
-  v25 = *(v38 + 40);
+  [v37 setApplications:v8];
+  v25 = *(v36 + 40);
   if (v25)
   {
     v26 = [v25 objectForKeyedSubscript:@"LSDatabaseUUID"];
     if (v26)
     {
       v27 = objc_alloc(MEMORY[0x277CCAD78]);
-      v28 = [*(v38 + 40) objectForKeyedSubscript:@"LSDatabaseUUID"];
+      v28 = [*(v36 + 40) objectForKeyedSubscript:@"LSDatabaseUUID"];
       v29 = [v27 initWithUUIDString:v28];
     }
 
@@ -410,29 +409,27 @@ uint64_t __88__VCIntentDefinitionSyncDataHandler_markChangesAsSynced_withSyncSer
       v29 = 0;
     }
 
-    v30 = [*(v38 + 40) objectForKeyedSubscript:@"LSDatabaseSequenceNumber"];
+    v30 = [*(v36 + 40) objectForKeyedSubscript:@"LSDatabaseSequenceNumber"];
     v31 = v30;
     if (v29 && v30)
     {
       v32 = getWFWatchSyncLogObject();
       if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
-        v33 = *(v38 + 48);
-        v34 = objc_opt_class();
-        v35 = NSStringFromClass(v34);
+        v33 = objc_opt_class();
+        v34 = NSStringFromClass(v33);
         *buf = 136315394;
-        v47 = "[VCIntentDefinitionSyncDataHandler markChangesAsSynced:withSyncService:metadata:error:]_block_invoke";
-        v48 = 2114;
-        v49 = v35;
+        v45 = "[VCIntentDefinitionSyncDataHandler markChangesAsSynced:withSyncService:metadata:error:]_block_invoke";
+        v46 = 2114;
+        v47 = v34;
         _os_log_impl(&dword_23103C000, v32, OS_LOG_TYPE_INFO, "%s %{public}@ completed syncing entire changeset, ratcheting database sequence number", buf, 0x16u);
       }
 
-      [v39 setDatabaseUUID:v29];
-      [v39 setSequenceNumber:v31];
+      [v37 setDatabaseUUID:v29];
+      [v37 setSequenceNumber:v31];
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -468,14 +465,14 @@ uint64_t __88__VCIntentDefinitionSyncDataHandler_markChangesAsSynced_withSyncSer
 
 uint64_t __82__VCIntentDefinitionSyncDataHandler_unsyncedChangesForSyncService_metadata_error___block_invoke(uint64_t a1, void *a2)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v67 = 0;
-  v68 = 0;
-  [v4 getKnowledgeUUID:&v68 andSequenceNumber:&v67];
-  v5 = v68;
-  v6 = v67;
+  v65 = 0;
+  v66 = 0;
+  [v4 getKnowledgeUUID:&v66 andSequenceNumber:&v65];
+  v5 = v66;
+  v6 = v65;
   v7 = [v3 databaseUUID];
   if ([v7 isEqual:v5])
   {
@@ -488,7 +485,7 @@ uint64_t __82__VCIntentDefinitionSyncDataHandler_unsyncedChangesForSyncService_m
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v72 = "[VCIntentDefinitionSyncDataHandler unsyncedChangesForSyncService:metadata:error:]_block_invoke";
+        v70 = "[VCIntentDefinitionSyncDataHandler unsyncedChangesForSyncService:metadata:error:]_block_invoke";
         _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_INFO, "%s LaunchServices database is unchanged, therefore there are no intent definition changes", buf, 0xCu);
       }
 
@@ -501,37 +498,37 @@ uint64_t __82__VCIntentDefinitionSyncDataHandler_unsyncedChangesForSyncService_m
   {
   }
 
-  v53 = v6;
-  v54 = v5;
-  v55 = v4;
-  v58 = objc_opt_new();
+  v51 = v6;
+  v52 = v5;
+  v53 = v4;
+  v56 = objc_opt_new();
   WFInstalledAppsEnumerator();
+  v61 = 0u;
+  v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  obj = v66 = 0u;
-  v12 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
-  v57 = v3;
+  obj = v64 = 0u;
+  v12 = [obj countByEnumeratingWithState:&v61 objects:v74 count:16];
+  v55 = v3;
   if (v12)
   {
     v13 = v12;
-    v14 = *v64;
+    v14 = *v62;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v64 != v14)
+        if (*v62 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v63 + 1) + 8 * i);
+        v16 = *(*(&v61 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
         v18 = [objc_alloc(*(a1 + 56)) initWithApplicationRecord:v16 changeType:2];
         if (v18)
         {
           v19 = [v16 bundleIdentifier];
-          [v58 addObject:v19];
+          [v56 addObject:v19];
 
           v20 = [v3 applications];
           v21 = [v18 objectIdentifier];
@@ -554,17 +551,17 @@ uint64_t __82__VCIntentDefinitionSyncDataHandler_unsyncedChangesForSyncService_m
                 [v18 setChangeType:1];
               }
 
-              [*(a1 + 32) addObject:{v18, v53, v54}];
+              [*(a1 + 32) addObject:{v18, v51, v52}];
             }
           }
 
-          v3 = v57;
+          v3 = v55;
         }
 
         objc_autoreleasePoolPop(v17);
       }
 
-      v13 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+      v13 = [obj countByEnumeratingWithState:&v61 objects:v74 count:16];
     }
 
     while (v13);
@@ -584,30 +581,30 @@ uint64_t __82__VCIntentDefinitionSyncDataHandler_unsyncedChangesForSyncService_m
     v33 = 0;
   }
 
-  v6 = v53;
-  v5 = v54;
+  v6 = v51;
+  v5 = v52;
 
-  [v33 minusSet:v58];
-  v61 = 0u;
-  v62 = 0u;
+  [v33 minusSet:v56];
   v59 = 0u;
   v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v34 = v33;
-  v35 = [v34 countByEnumeratingWithState:&v59 objects:v75 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v57 objects:v73 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v60;
+    v37 = *v58;
     do
     {
       for (j = 0; j != v36; ++j)
       {
-        if (*v60 != v37)
+        if (*v58 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v59 + 1) + 8 * j);
+        v39 = *(*(&v57 + 1) + 8 * j);
         v40 = objc_autoreleasePoolPush();
         v41 = *(a1 + 32);
         v42 = [objc_alloc(*(a1 + 56)) initWithObjectIdentifier:v39 changeType:3];
@@ -616,28 +613,28 @@ uint64_t __82__VCIntentDefinitionSyncDataHandler_unsyncedChangesForSyncService_m
         objc_autoreleasePoolPop(v40);
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v59 objects:v75 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v57 objects:v73 count:16];
     }
 
     while (v36);
   }
 
   v11 = 0;
-  if (v54)
+  if (v52)
   {
-    v3 = v57;
-    v10 = v58;
-    v4 = v55;
-    if (v53)
+    v3 = v55;
+    v10 = v56;
+    v4 = v53;
+    if (v51)
     {
       if ([*(a1 + 32) count])
       {
-        v69[0] = @"LSDatabaseUUID";
-        v43 = [v54 UUIDString];
-        v69[1] = @"LSDatabaseSequenceNumber";
-        v70[0] = v43;
-        v70[1] = v53;
-        v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
+        v67[0] = @"LSDatabaseUUID";
+        v43 = [v52 UUIDString];
+        v67[1] = @"LSDatabaseSequenceNumber";
+        v68[0] = v43;
+        v68[1] = v51;
+        v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:2];
         v45 = *(*(a1 + 48) + 8);
         v46 = *(v45 + 40);
         *(v45 + 40) = v44;
@@ -650,18 +647,17 @@ uint64_t __82__VCIntentDefinitionSyncDataHandler_unsyncedChangesForSyncService_m
         v47 = getWFWatchSyncLogObject();
         if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
         {
-          v48 = *(a1 + 40);
-          v49 = objc_opt_class();
-          v50 = NSStringFromClass(v49);
+          v48 = objc_opt_class();
+          v49 = NSStringFromClass(v48);
           *buf = 136315394;
-          v72 = "[VCIntentDefinitionSyncDataHandler unsyncedChangesForSyncService:metadata:error:]_block_invoke";
-          v73 = 2114;
-          v74 = v50;
+          v70 = "[VCIntentDefinitionSyncDataHandler unsyncedChangesForSyncService:metadata:error:]_block_invoke";
+          v71 = 2114;
+          v72 = v49;
           _os_log_impl(&dword_23103C000, v47, OS_LOG_TYPE_INFO, "%s %{public}@ found no changes to sync, ratcheting database sequence number", buf, 0x16u);
         }
 
-        [v57 setDatabaseUUID:v54];
-        [v57 setSequenceNumber:v53];
+        [v55 setDatabaseUUID:v52];
+        [v55 setSequenceNumber:v51];
         v11 = 1;
       }
     }
@@ -669,13 +665,12 @@ uint64_t __82__VCIntentDefinitionSyncDataHandler_unsyncedChangesForSyncService_m
 
   else
   {
-    v3 = v57;
-    v10 = v58;
-    v4 = v55;
+    v3 = v55;
+    v10 = v56;
+    v4 = v53;
   }
 
 LABEL_40:
-  v51 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

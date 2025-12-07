@@ -34,44 +34,44 @@
   distributorIDCopy = distributorID;
   delegateCopy = delegate;
   objc_storeWeak(&self->_delegate, delegateCopy);
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2050000000;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2050000000;
   v16 = qword_10008AA20;
-  v44 = qword_10008AA20;
+  v45 = qword_10008AA20;
   if (!qword_10008AA20)
   {
-    v36 = _NSConcreteStackBlock;
-    v37 = 3221225472;
-    v38 = sub_1000030E0;
-    v39 = &unk_10007E248;
-    v40 = &v41;
-    sub_1000030E0(&v36);
-    v16 = v42[3];
+    v37 = _NSConcreteStackBlock;
+    v38 = 3221225472;
+    v39 = sub_1000030E0;
+    v40 = &unk_10007E248;
+    v41 = &v42;
+    sub_1000030E0(&v37);
+    v16 = v43[3];
   }
 
   v17 = v16;
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v42, 8);
   v18 = [[v16 alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
   [v18 setDelegate:self];
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2050000000;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2050000000;
   v19 = qword_10008AA30;
-  v44 = qword_10008AA30;
+  v45 = qword_10008AA30;
   if (!qword_10008AA30)
   {
-    v36 = _NSConcreteStackBlock;
-    v37 = 3221225472;
-    v38 = sub_1000032AC;
-    v39 = &unk_10007E248;
-    v40 = &v41;
-    sub_1000032AC(&v36);
-    v19 = v42[3];
+    v37 = _NSConcreteStackBlock;
+    v38 = 3221225472;
+    v39 = sub_1000032AC;
+    v40 = &unk_10007E248;
+    v41 = &v42;
+    sub_1000032AC(&v37);
+    v19 = v43[3];
   }
 
   v20 = v19;
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v42, 8);
   v21 = [[v19 alloc] initWithStringValue:dCopy];
   v22 = sub_100002B0C();
   v23 = v22;
@@ -79,26 +79,26 @@
   {
     v24 = [v22 alloc];
     v25 = sub_100002BEC();
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x2020000000;
     v26 = qword_10008AA48;
-    v44 = qword_10008AA48;
+    v45 = qword_10008AA48;
     if (!qword_10008AA48)
     {
-      v36 = _NSConcreteStackBlock;
-      v37 = 3221225472;
-      v38 = sub_1000033AC;
-      v39 = &unk_10007E248;
-      v40 = &v41;
+      v37 = _NSConcreteStackBlock;
+      v38 = 3221225472;
+      v39 = sub_1000033AC;
+      v40 = &unk_10007E248;
+      v41 = &v42;
       v27 = sub_100003138();
       v28 = dlsym(v27, "ASCLockupContextAppStoreInstall");
-      *(v40[1] + 24) = v28;
-      qword_10008AA48 = *(v40[1] + 24);
-      v26 = v42[3];
+      *(v41[1] + 24) = v28;
+      qword_10008AA48 = *(v41[1] + 24);
+      v26 = v43[3];
     }
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v42, 8);
     if (v26)
     {
       v29 = [v24 initWithID:v21 kind:v25 context:*v26];
@@ -107,32 +107,33 @@
 
     sub_1000619BC();
 LABEL_18:
-    v35 = sub_1000619BC();
-    _Block_object_dispose(&v41, 8);
-    _Unwind_Resume(v35);
+    sub_1000619BC();
+    v36 = v35;
+    _Block_object_dispose(&v42, 8);
+    _Unwind_Resume(v36);
   }
 
   v25 = sub_100002BEC();
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
   v30 = qword_10008AA50;
-  v44 = qword_10008AA50;
+  v45 = qword_10008AA50;
   if (!qword_10008AA50)
   {
-    v36 = _NSConcreteStackBlock;
-    v37 = 3221225472;
-    v38 = sub_1000033FC;
-    v39 = &unk_10007E248;
-    v40 = &v41;
+    v37 = _NSConcreteStackBlock;
+    v38 = 3221225472;
+    v39 = sub_1000033FC;
+    v40 = &unk_10007E248;
+    v41 = &v42;
     v31 = sub_100003138();
     v32 = dlsym(v31, "ASCLockupContextAppDistributionInstall");
-    *(v40[1] + 24) = v32;
-    qword_10008AA50 = *(v40[1] + 24);
-    v30 = v42[3];
+    *(v41[1] + 24) = v32;
+    qword_10008AA50 = *(v41[1] + 24);
+    v30 = v43[3];
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v42, 8);
   if (!v30)
   {
     goto LABEL_18;

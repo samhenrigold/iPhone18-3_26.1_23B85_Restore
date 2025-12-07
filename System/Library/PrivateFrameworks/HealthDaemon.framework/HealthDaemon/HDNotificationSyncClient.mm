@@ -29,7 +29,7 @@
   if (v11)
   {
     objc_storeWeak(&v11->_profile, profileCopy);
-    v13 = [identifierCopy copy];
+    v13 = objc_msgSend_copy(identifierCopy);
     clientIdentifier = v12->_clientIdentifier;
     v12->_clientIdentifier = v13;
 
@@ -79,7 +79,7 @@
 
 - (void)notificationInstructionManager:(id)manager didInsertNotificationInstruction:(id)instruction
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   instructionCopy = instruction;
   dispatch_assert_queue_V2(self->_queue);
   os_unfair_lock_lock(&self->_lock);
@@ -90,19 +90,17 @@
   if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    *v11 = 138543874;
-    *&v11[4] = objc_opt_class();
-    *&v11[12] = 2114;
-    *&v11[14] = WeakRetained;
-    *&v11[22] = 2114;
-    v12 = instructionCopy;
-    v9 = *&v11[4];
-    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying delegate %{public}@ of new instruction %{public}@", v11, 0x20u);
+    *v10 = 138543874;
+    *&v10[4] = objc_opt_class();
+    *&v10[12] = 2114;
+    *&v10[14] = WeakRetained;
+    *&v10[22] = 2114;
+    v11 = instructionCopy;
+    v9 = *&v10[4];
+    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying delegate %{public}@ of new instruction %{public}@", v10, 0x20u);
   }
 
-  [WeakRetained notificationSyncClient:self didReceiveInstructionWithAction:{objc_msgSend(instructionCopy, "action", *v11, *&v11[16], v12)}];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [WeakRetained notificationSyncClient:self didReceiveInstructionWithAction:{objc_msgSend(instructionCopy, "action", *v10, *&v10[8], v11)}];
 }
 
 - (HDPendingNotificationInstructions)_pendingNotificationInstructionsForAction:(void *)action error:
@@ -261,7 +259,7 @@ uint64_t __76__HDNotificationSyncClient__pendingNotificationInstructionsForActio
 
   if (error)
   {
-    v7 = [v11[5] copy];
+    v7 = objc_msgSend_copy(v11[5]);
   }
 
   else
@@ -360,12 +358,12 @@ uint64_t __66__HDNotificationSyncClient_notificationHoldInstructionsWithError___
 
 - (void)fakeReceivedNotificationInstruction:(id)instruction sendingDeviceInfo:(id)info criteria:(id)criteria completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   criteriaCopy = criteria;
   infoCopy = info;
   instructionCopy = instruction;
-  v27 = [HDNotificationInstruction alloc];
+  v26 = [HDNotificationInstruction alloc];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
   _currentDate = [(HDNotificationSyncClient *)self _currentDate];
@@ -376,26 +374,24 @@ uint64_t __66__HDNotificationSyncClient_notificationHoldInstructionsWithError___
   categoryIdentifier = [instructionCopy categoryIdentifier];
   expirationDate = [instructionCopy expirationDate];
 
-  LOBYTE(v25) = 0;
-  v19 = [(HDNotificationInstruction *)v27 initWithMessageIdentifier:uUIDString creationDate:_currentDate receivedDate:_currentDate2 modificationDate:_currentDate3 sendingDeviceName:infoCopy sendingDeviceInfo:infoCopy action:action clientIdentifier:clientIdentifier categoryIdentifier:categoryIdentifier expirationDate:expirationDate criteria:criteriaCopy isInvalid:v25];
+  LOBYTE(v24) = 0;
+  v19 = [(HDNotificationInstruction *)v26 initWithMessageIdentifier:uUIDString creationDate:_currentDate receivedDate:_currentDate2 modificationDate:_currentDate3 sendingDeviceName:infoCopy sendingDeviceInfo:infoCopy action:action clientIdentifier:clientIdentifier categoryIdentifier:categoryIdentifier expirationDate:expirationDate criteria:criteriaCopy isInvalid:v24];
 
   _HKInitializeLogging();
   v20 = *MEMORY[0x277CCC300];
   if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_ERROR))
   {
-    v23 = v20;
+    v22 = v20;
     *buf = 138543618;
-    v32 = objc_opt_class();
-    v33 = 2114;
-    v34 = v19;
-    v24 = v32;
-    _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "[%{public}@] Faking received instruction: %{public}@", buf, 0x16u);
+    v31 = objc_opt_class();
+    v32 = 2114;
+    v33 = v19;
+    v23 = v31;
+    _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] Faking received instruction: %{public}@", buf, 0x16u);
   }
 
   instructionManager = [(HDNotificationSyncClient *)self instructionManager];
   [instructionManager insertNotificationInstruction:v19 completion:completionCopy];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)obliterateNotificationInstructionsWithError:(id *)error
@@ -408,45 +404,43 @@ uint64_t __66__HDNotificationSyncClient_notificationHoldInstructionsWithError___
 
 - (id)diagnosticDescription
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"%@\n", self];
   os_unfair_lock_lock(&self->_lock);
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMutableSet count](self->_lock_messageIdentifiersInFlight, "count")}];
   [v3 appendFormat:@"Message Identifiers In-Flight (%@)\n", v4];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_lock_messageIdentifiersInFlight;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v3 appendFormat:@"\t-%@", *(*(&v13 + 1) + 8 * i)];
+        [v3 appendFormat:@"\t-%@", *(*(&v12 + 1) + 8 * i)];
       }
 
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = [v3 copy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = objc_msgSend_copy(v3);
 
   return v10;
 }

@@ -14,11 +14,11 @@
 
 - (BLPurchaseResponse)initWithAMSPurchaseResult:(id)result
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v72.receiver = self;
-  v72.super_class = BLPurchaseResponse;
-  v6 = [(BLPurchaseResponse *)&v72 init];
+  v71.receiver = self;
+  v71.super_class = BLPurchaseResponse;
+  v6 = [(BLPurchaseResponse *)&v71 init];
   v7 = v6;
   if (resultCopy && v6)
   {
@@ -29,29 +29,29 @@
 
     if ([v10 count])
     {
-      v62 = v7;
-      v63 = resultCopy;
-      v67 = objc_opt_new();
+      v61 = v7;
+      v62 = resultCopy;
+      v66 = objc_opt_new();
+      v67 = 0u;
       v68 = 0u;
       v69 = 0u;
       v70 = 0u;
-      v71 = 0u;
       obj = v10;
-      v11 = [obj countByEnumeratingWithState:&v68 objects:v73 count:16];
+      v11 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
       if (v11)
       {
         v12 = v11;
-        v66 = *v69;
+        v65 = *v68;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v69 != v66)
+            if (*v68 != v65)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v68 + 1) + 8 * i);
+            v14 = *(*(&v67 + 1) + 8 * i);
             v15 = objc_alloc_init(BLPurchaseResponseItem);
             [(BLPurchaseResponseItem *)v15 setItem:v14];
             objc_opt_class();
@@ -85,7 +85,7 @@
               else
               {
                 [v14 objectForKeyedSubscript:@"redownload-params"];
-                v65 = v23 = 1;
+                v64 = v23 = 1;
               }
             }
 
@@ -105,21 +105,21 @@
             v26 = BUDynamicCast();
             -[BLPurchaseResponseItem setIsPurchaseRedownload:](v15, "setIsPurchaseRedownload:", [v26 BOOLValue]);
 
-            [v67 addObject:v15];
+            [v66 addObject:v15];
           }
 
-          v12 = [obj countByEnumeratingWithState:&v68 objects:v73 count:16];
+          v12 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
         }
 
         while (v12);
       }
 
-      v27 = [v67 copy];
-      v7 = v62;
-      purchaseResponseItems = v62->_purchaseResponseItems;
-      v62->_purchaseResponseItems = v27;
+      v27 = [v66 copy];
+      v7 = v61;
+      purchaseResponseItems = v61->_purchaseResponseItems;
+      v61->_purchaseResponseItems = v27;
 
-      resultCopy = v63;
+      resultCopy = v62;
     }
 
     purchase = [resultCopy purchase];
@@ -193,7 +193,6 @@
     [(BLPurchaseResponse *)v7 _updatePropertiesFromPurchaseError:error];
   }
 
-  v60 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

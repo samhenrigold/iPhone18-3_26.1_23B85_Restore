@@ -1,4 +1,5 @@
 @interface RecoverDeviceMenuViewController
+- (RecoverDeviceMenuViewController)initWithOptions:(int)options forDevice:(id)device;
 - (id)subtitleForOption:(int)option;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (id)titleForOption:(int)option;
@@ -6,6 +7,7 @@
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)initOptions:(int)options;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewIsAppearing:(BOOL)appearing;
 @end
 
 @implementation RecoverDeviceMenuViewController
@@ -52,6 +54,40 @@ LABEL_3:
 LABEL_7:
   options3 = [(RecoverDeviceMenuViewController *)self options];
   [options3 addObject:&off_100022180];
+}
+
+- (RecoverDeviceMenuViewController)initWithOptions:(int)options forDevice:(id)device
+{
+  v4 = *&options;
+  deviceCopy = device;
+  v18.receiver = self;
+  v18.super_class = RecoverDeviceMenuViewController;
+  v7 = [(RecoverDeviceMenuViewController *)&v18 initWithStyle:0];
+  v8 = v7;
+  if (v7)
+  {
+    [(RecoverDeviceMenuViewController *)v7 setDeviceType:deviceCopy];
+    [(RecoverDeviceMenuViewController *)v8 initOptions:v4];
+    tableView = [(RecoverDeviceMenuViewController *)v8 tableView];
+    [tableView setAllowsSelection:1];
+
+    v10 = objc_opt_new();
+    tableView2 = [(RecoverDeviceMenuViewController *)v8 tableView];
+    [tableView2 setTableFooterView:v10];
+
+    tableView3 = [(RecoverDeviceMenuViewController *)v8 tableView];
+    [tableView3 setSectionFooterHeight:1.0];
+
+    v13 = +[UIColor secondarySystemBackgroundColor];
+    tableView4 = [(RecoverDeviceMenuViewController *)v8 tableView];
+    [tableView4 setBackgroundColor:v13];
+
+    tableView5 = [(RecoverDeviceMenuViewController *)v8 tableView];
+    layer = [tableView5 layer];
+    [layer setCornerRadius:10.0];
+  }
+
+  return v8;
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
@@ -240,6 +276,34 @@ LABEL_9:
 
   objc_sync_exit(selfCopy);
   return intValue;
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v15.receiver = self;
+  v15.super_class = RecoverDeviceMenuViewController;
+  [(RecoverDeviceMenuViewController *)&v15 viewIsAppearing:appearing];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  tableView = [(RecoverDeviceMenuViewController *)selfCopy tableView];
+  indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
+
+  if (!indexPathsForSelectedRows)
+  {
+    tableView2 = [(RecoverDeviceMenuViewController *)selfCopy tableView];
+    v8 = [NSIndexPath indexPathForRow:0 inSection:0];
+    [tableView2 selectRowAtIndexPath:v8 animated:0 scrollPosition:1];
+
+    v9 = [UIImageView alloc];
+    v10 = [UIImage systemImageNamed:@"checkmark.circle.fill"];
+    v11 = [v9 initWithImage:v10];
+    tableView3 = [(RecoverDeviceMenuViewController *)selfCopy tableView];
+    v13 = [NSIndexPath indexPathForRow:0 inSection:0];
+    v14 = [tableView3 cellForRowAtIndexPath:v13];
+    [v14 setAccessoryView:v11];
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 @end

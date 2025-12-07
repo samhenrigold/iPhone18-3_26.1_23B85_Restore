@@ -8,49 +8,49 @@
 {
   v9 = **arguments;
   v10 = *(*arguments + 8);
-  v15 = objc_msgSend_checkType_right_context_(self, v11, v9, v10, context);
-  if (!v15)
+  v14 = objc_msgSend_checkType_right_context_(self, v11, v9, v10, context);
+  if (!v14)
   {
-    if (objc_msgSend_deepType_(v9, v12, context, v13, v14) == 7 && objc_msgSend_deepType_(v10, v17, context, v18, v19) == 7)
+    if (objc_msgSend_deepType_(v9, v12, context, v13) == 7 && objc_msgSend_deepType_(v10, v16, context, v17) == 7)
     {
-      v37 = 0;
-      v21 = objc_msgSend_asString_outError_(v9, v17, context, &v37, v20);
-      v22 = v37;
-      v36 = v22;
-      v25 = objc_msgSend_asString_outError_(v10, v23, context, &v36, v24);
-      v15 = v36;
+      v31 = 0;
+      v18 = objc_msgSend_asString_outError_(v9, v16, context, &v31);
+      v19 = v31;
+      v30 = v19;
+      v21 = objc_msgSend_asString_outError_(v10, v20, context, &v30);
+      v14 = v30;
 
-      v29 = objc_msgSend_caseInsensitiveCompare_(v21, v26, v25, v27, v28);
-      if (!v15)
+      v24 = objc_msgSend_caseInsensitiveCompare_(v18, v22, v21, v23);
+      if (!v14)
       {
 LABEL_6:
-        v33 = objc_msgSend_BOOLValue_(TSCEBooleanValue, v30, v29 == 1, v31, v32);
+        v27 = objc_msgSend_BOOLValue_(TSCEBooleanValue, v25, v24 == 1, v26);
         goto LABEL_10;
       }
     }
 
     else
     {
-      v35 = 0;
-      v29 = objc_msgSend_compareValuesWithContextLeft_right_context_functionSpec_outError_(TSCEValue, v17, v9, v10, context, spec, &v35);
-      v15 = v35;
-      if (!v15)
+      v29 = 0;
+      v24 = objc_msgSend_compareValuesWithContextLeft_right_context_functionSpec_outError_(TSCEValue, v16, v9, v10, context, spec, &v29);
+      v14 = v29;
+      if (!v14)
       {
         goto LABEL_6;
       }
     }
 
-    v16 = objc_msgSend_raiseErrorOrConvert_(context, v30, v15, v31, v32);
+    v15 = objc_msgSend_raiseErrorOrConvert_(context, v25, v14, v26);
     goto LABEL_9;
   }
 
-  v16 = objc_msgSend_raiseErrorOrConvert_(context, v12, v15, v13, v14);
+  v15 = objc_msgSend_raiseErrorOrConvert_(context, v12, v14, v13);
 LABEL_9:
-  v33 = v16;
+  v27 = v15;
 
 LABEL_10:
 
-  return v33;
+  return v27;
 }
 
 @end

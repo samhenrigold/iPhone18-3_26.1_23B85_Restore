@@ -75,7 +75,7 @@
 
 + (id)keyPairFromPrivateKey:(id)key comment:(id)comment error:(id *)error
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v8 = [[WFSSHKeyDecoder alloc] initWithData:keyCopy];
   v9 = -[WFSSHKeyDecoder decodeStringWithLength:](v8, "decodeStringWithLength:", [@"openssh-key-v1" length]);
@@ -105,7 +105,7 @@
             decodeStringWithPrecedingLength4 = [(WFSSHKeyDecoder *)v8 decodeStringWithPrecedingLength];
             if ([decodeDataWithPrecedingLength2 length] == 32)
             {
-              v30 = decodeDataWithPrecedingLength3;
+              v29 = decodeDataWithPrecedingLength3;
               v19 = [self sshPublicKeyFromED25519Data:decodeDataWithPrecedingLength2];
               if (v19)
               {
@@ -117,7 +117,7 @@
                 v20 = 0;
               }
 
-              decodeDataWithPrecedingLength3 = v30;
+              decodeDataWithPrecedingLength3 = v29;
             }
 
             else
@@ -147,12 +147,12 @@ LABEL_18:
       }
 
       v22 = MEMORY[0x277CCA9B8];
-      v32 = *MEMORY[0x277CCA450];
+      v31 = *MEMORY[0x277CCA450];
       v23 = WFLocalizedString(@"Multiple keys are not supported.");
-      v33 = v23;
+      v32 = v23;
       v24 = MEMORY[0x277CBEAC0];
-      v25 = &v33;
-      v26 = &v32;
+      v25 = &v32;
+      v26 = &v31;
     }
 
     else
@@ -163,12 +163,12 @@ LABEL_18:
       }
 
       v22 = MEMORY[0x277CCA9B8];
-      v34 = *MEMORY[0x277CCA450];
+      v33 = *MEMORY[0x277CCA450];
       v23 = WFLocalizedString(@"Encrypted SSH keys are not currently supported.");
-      v35 = v23;
+      v34 = v23;
       v24 = MEMORY[0x277CBEAC0];
-      v25 = &v35;
-      v26 = &v34;
+      v25 = &v34;
+      v26 = &v33;
     }
 
     v27 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:1];
@@ -184,28 +184,27 @@ LABEL_18:
   }
 
   v21 = MEMORY[0x277CCA9B8];
-  v36 = *MEMORY[0x277CCA450];
+  v35 = *MEMORY[0x277CCA450];
   decodeStringWithPrecedingLength = WFLocalizedString(@"Unable to parse magic bytes from OpenSSH key.");
-  v37[0] = decodeStringWithPrecedingLength;
-  decodeStringWithPrecedingLength2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+  v36[0] = decodeStringWithPrecedingLength;
+  decodeStringWithPrecedingLength2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
   [v21 errorWithDomain:@"WFSSHKeyED25519ErrorDomain" code:1 userInfo:decodeStringWithPrecedingLength2];
   *error = v20 = 0;
 LABEL_19:
 
 LABEL_20:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 + (id)generateKeyPairWithKeySize:(unint64_t)size comment:(id)comment
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   commentCopy = comment;
-  if (ccrng() && (memset(v16, 0, sizeof(v16)), v14 = 0u, v15 = 0u, ccsha512_di(), !cced25519_make_key_pair()))
+  if (ccrng() && (memset(v15, 0, sizeof(v15)), v13 = 0u, v14 = 0u, ccsha512_di(), !cced25519_make_key_pair()))
   {
-    v7 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:v16 length:{32, v14, v15}];
-    v8 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:&v14 length:32];
+    v7 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:v15 length:{32, v13, v14}];
+    v8 = [MEMORY[0x277CBEA90] _newZeroingDataWithBytes:&v13 length:32];
     v9 = [self sshPrivateKeyFromED25519PrivateKey:v8 publicKey:v7 comment:commentCopy];
     v10 = [self sshPublicKeyFromED25519Data:v7];
     v11 = v10;
@@ -220,8 +219,6 @@ LABEL_20:
   {
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

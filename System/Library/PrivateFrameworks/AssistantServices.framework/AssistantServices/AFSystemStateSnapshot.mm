@@ -38,7 +38,7 @@
 
 - (AFSystemStateSnapshot)initWithSerializedBackingStore:(id)store
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -54,18 +54,17 @@
       v6 = AFSiriLogContextUtility;
       if (os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
       {
-        v9 = 136315394;
-        v10 = "[AFSystemStateSnapshot(ContextSnapshot) initWithSerializedBackingStore:]";
-        v11 = 2112;
-        v12 = storeCopy;
-        _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s #hal serializedBackingStore is of unexpected type: %@", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[AFSystemStateSnapshot(ContextSnapshot) initWithSerializedBackingStore:]";
+        v10 = 2112;
+        v11 = storeCopy;
+        _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s #hal serializedBackingStore is of unexpected type: %@", &v8, 0x16u);
       }
     }
 
     selfCopy = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

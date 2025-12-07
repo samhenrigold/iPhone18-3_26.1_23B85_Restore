@@ -48,7 +48,7 @@
         v11 = *(*(&v16 + 1) + 8 * i);
         if (v11)
         {
-          [*(*(&v16 + 1) + 8 * i) timeRange];
+          objc_msgSend_timeRange(*(*(&v16 + 1) + 8 * i));
           if ((v15 & 0x1D) == 1)
           {
             v12 = [AVTimeRange timeRangeWithInterstice:v11];
@@ -142,7 +142,7 @@
   }
 
   v7 = v6;
-  [v6 duration];
+  objc_msgSend_duration(v6);
   if (v8 == 0.0)
   {
     v9 = +[AVTimeRange timeRangeZero];
@@ -194,7 +194,7 @@ LABEL_3:
 
       if ([v9 isCollapsedInTimeLine])
       {
-        [v9 duration];
+        objc_msgSend_duration(v9);
         time = time + v11;
       }
 
@@ -265,7 +265,7 @@ LABEL_20:
 
         if ([v10 isCollapsedInTimeLine])
         {
-          [v10 duration];
+          objc_msgSend_duration(v10);
           v8 = v8 + v12;
         }
 
@@ -427,7 +427,7 @@ void __53__AVTimeRangeCollection_arrayOfDisplayTimesMatching___block_invoke(void
         v10 = MEMORY[0x1E696B098];
         if (v9)
         {
-          [*(*(&v20 + 1) + 8 * i) startCMTime];
+          objc_msgSend_startCMTime(*(*(&v20 + 1) + 8 * i));
         }
 
         else
@@ -440,13 +440,13 @@ void __53__AVTimeRangeCollection_arrayOfDisplayTimesMatching___block_invoke(void
         v11 = [v10 valueWithCMTime:&v17];
         [array addObject:v11];
 
-        [v9 duration];
+        objc_msgSend_duration(v9);
         if (v12 > 0.0)
         {
           v13 = MEMORY[0x1E696B098];
           if (v9)
           {
-            [v9 endCMTime];
+            objc_msgSend_endCMTime(v9);
           }
 
           else
@@ -868,7 +868,7 @@ LABEL_11:
         v15 = *(*(&v23 + 1) + 8 * i);
         if ([v15 isCollapsedInTimeLine])
         {
-          [v15 duration];
+          objc_msgSend_duration(v15);
 LABEL_11:
           v12 = v12 + v16;
           goto LABEL_12;
@@ -877,7 +877,7 @@ LABEL_11:
         [v15 insertedDuration];
         if (v17 > 0.0)
         {
-          [v15 duration];
+          objc_msgSend_duration(v15);
           v19 = v18;
           [v15 insertedDuration];
           v16 = v19 - v20;
@@ -888,7 +888,7 @@ LABEL_12:
         [v15 endTime];
         if (+[AVTimeRange isPrerollSupportEnabled](AVTimeRange, "isPrerollSupportEnabled") && [v15 isCollapsedInTimeLine])
         {
-          [v15 duration];
+          objc_msgSend_duration(v15);
           v13 = v13 + v21;
         }
       }

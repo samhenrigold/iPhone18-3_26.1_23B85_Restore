@@ -100,4 +100,25 @@
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s, key, %@, value, %@", &v3, 0x20u);
 }
 
+- (void)objectForKey:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MOContextDefaultsManager objectForKey:]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s, key cannot be nil!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)setObject:(uint64_t)a3 forKey:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MOContextDefaultsManager setObject:forKey:]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s, key cannot be nil!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)deleteObjectForKey:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MOContextDefaultsManager deleteObjectForKey:]";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, a1, a3, "%s, key cannot be nil!", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

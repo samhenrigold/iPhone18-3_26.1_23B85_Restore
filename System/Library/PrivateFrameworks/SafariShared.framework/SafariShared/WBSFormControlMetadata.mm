@@ -1324,15 +1324,16 @@ LABEL_104:
 
 - (NSData)serializedData
 {
-  v6 = 0;
-  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v6];
-  v3 = v6;
+  v8 = 0;
+  v2 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v8];
+  v3 = v8;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(WBSFormControlMetadata *)v4 serializedData];
+      [(WBSFormControlMetadata *)v6 serializedData];
     }
   }
 
@@ -1345,11 +1346,11 @@ LABEL_104:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v17 = 0;
+    v19 = 0;
     goto LABEL_10;
   }
 
-  v19 = MEMORY[0x1E695DFD8];
+  v21 = MEMORY[0x1E695DFD8];
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
@@ -1359,16 +1360,17 @@ LABEL_104:
   v10 = objc_opt_class();
   v11 = objc_opt_class();
   v12 = objc_opt_class();
-  v13 = [v19 setWithObjects:{v4, v5, v6, v7, v8, v9, v10, v11, v12, objc_opt_class(), 0}];
-  v20 = 0;
-  v14 = [MEMORY[0x1E696ACD0] _strictlyUnarchivedObjectOfClasses:v13 fromData:dataCopy error:&v20];
-  v15 = v20;
+  v13 = [v21 setWithObjects:{v4, v5, v6, v7, v8, v9, v10, v11, v12, objc_opt_class(), 0}];
+  v22 = 0;
+  v14 = [MEMORY[0x1E696ACD0] _strictlyUnarchivedObjectOfClasses:v13 fromData:dataCopy error:&v22];
+  v15 = v22;
+  v17 = v15;
   if (v15)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = WBS_LOG_CHANNEL_PREFIXKeyedArchiver(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(WBSFormControlMetadata *)v16 formControlMetadataFromSerializedData:v15];
+      [(WBSFormControlMetadata *)v18 formControlMetadataFromSerializedData:v17];
     }
 
     goto LABEL_8;
@@ -1378,16 +1380,16 @@ LABEL_104:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_8:
-    v17 = 0;
+    v19 = 0;
     goto LABEL_9;
   }
 
-  v17 = v14;
+  v19 = v14;
 LABEL_9:
 
 LABEL_10:
 
-  return v17;
+  return v19;
 }
 
 - (int64_t)oneTimeCodeFieldClassification
@@ -1432,14 +1434,18 @@ LABEL_10:
 {
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to archive WBSFormControlMetadata: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = safari_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to archive WBSFormControlMetadata: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 + (void)formControlMetadataFromSerializedData:(void *)a1 .cold.1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to read from WBSFormControlMetadata data with exception: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v5, v6, "Failed to read from WBSFormControlMetadata data with exception: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

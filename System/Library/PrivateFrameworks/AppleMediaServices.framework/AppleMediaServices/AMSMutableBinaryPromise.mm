@@ -90,7 +90,7 @@
   return v8;
 }
 
-uint64_t __53__AMSMutableBinaryPromise_finishPromise_withPromise___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__53__AMSMutableBinaryPromise_finishPromise_withPromise___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) finishWithSuccess:a2 error:a3];
   *(*(*(a1 + 40) + 8) + 24) = result;

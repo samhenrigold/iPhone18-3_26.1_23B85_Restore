@@ -25,6 +25,7 @@
 - (void)setAppAllowed:(id)allowed specifier:(id)specifier;
 - (void)unpairDevice:(id)device;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ASAccessoryInfoViewController
@@ -92,6 +93,13 @@
   [(ASAccessoryInfoViewController *)&v4 viewDidLoad];
   name = [(DADevice *)self->_device name];
   [(ASAccessoryInfoViewController *)self setTitle:name];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = ASAccessoryInfoViewController;
+  [(ASAccessoryInfoViewController *)&v3 viewWillAppear:appear];
 }
 
 - (CGSize)preferredContentSize
@@ -216,16 +224,16 @@
 - (id)specifiersForUnpairedDisclaimer
 {
   array = [MEMORY[0x277CBEB18] array];
-  v4 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v4 = [getPSSpecifierClass(array) preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
   [v4 setIdentifier:@"unpaired"];
   v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"Unpaired Device Tracking Disclaimer" value:&stru_28499D698 table:0];
 
   [v4 setObject:v6 forKeyedSubscript:*MEMORY[0x277D3FF80]];
   [array addObject:v4];
-  PSSpecifierClass = getPSSpecifierClass();
+  v7 = (getPSSpecifierClass)();
   name = [(DADevice *)self->_device name];
-  v9 = [(objc_class *)PSSpecifierClass preferenceSpecifierNamed:name target:self set:0 get:sel_unpairedString_ detail:0 cell:-1 edit:0];
+  v9 = [(objc_class *)v7 preferenceSpecifierNamed:name target:self set:0 get:sel_unpairedString_ detail:0 cell:-1 edit:0];
 
   [array addObject:v9];
 
@@ -235,7 +243,7 @@
 - (id)specifiersForRenameSection
 {
   array = [MEMORY[0x277CBEB18] array];
-  v4 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v4 = [getPSSpecifierClass(array) preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
   [v4 setIdentifier:@"rename"];
   bluetoothIdentifier = [(DADevice *)self->_device bluetoothIdentifier];
 
@@ -365,10 +373,10 @@
 LABEL_27:
   [v4 setObject:sSID2 forKeyedSubscript:*MEMORY[0x277D3FF80]];
   [array addObject:v4];
-  PSSpecifierClass = getPSSpecifierClass();
+  v22 = (getPSSpecifierClass)();
   v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v24 = [v23 localizedStringForKey:@"Name" value:&stru_28499D698 table:0];
-  v25 = [(objc_class *)PSSpecifierClass preferenceSpecifierNamed:v24 target:self set:0 get:sel_deviceName_ detail:objc_opt_class() cell:2 edit:0];
+  v25 = [(objc_class *)v22 preferenceSpecifierNamed:v24 target:self set:0 get:sel_deviceName_ detail:objc_opt_class() cell:2 edit:0];
 
   [v25 setProperty:self->_device forKey:@"device"];
   appAccessInfoMap = [(DADevice *)self->_device appAccessInfoMap];
@@ -388,60 +396,58 @@ LABEL_27:
   appAccessInfoMap = [(DADevice *)self->_device appAccessInfoMap];
   allKeys = [appAccessInfoMap allKeys];
 
-  PSSpecifierClass = getPSSpecifierClass();
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v8 = [v7 localizedStringForKey:@"Apps Header" value:&stru_28499D698 table:0];
+  PSSpecifierClass = getPSSpecifierClass(v6);
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v9 = [v8 localizedStringForKey:@"Apps Header" value:&stru_28499D698 table:0];
   selfCopy = self;
-  v9 = [(objc_class *)PSSpecifierClass preferenceSpecifierNamed:v8 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v10 = [PSSpecifierClass preferenceSpecifierNamed:v9 target:self set:0 get:0 detail:0 cell:0 edit:0];
 
-  [v9 setIdentifier:@"header_Apps"];
+  [v10 setIdentifier:@"header_Apps"];
   v27 = array;
-  v22 = v9;
-  [array addObject:v9];
+  v22 = v10;
+  [array addObject:v10];
   v30 = 0u;
   v31 = 0u;
   v28 = 0u;
   v29 = 0u;
   obj = allKeys;
-  v10 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v10)
+  v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v11)
   {
-    v11 = v10;
+    v12 = v11;
     v25 = *v29;
     v24 = *MEMORY[0x277D40028];
-    v12 = *MEMORY[0x277D40010];
+    v13 = *MEMORY[0x277D40010];
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
         if (*v29 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
-        v15 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:v14 allowPlaceholder:1 error:0];
-        localizedName = [v15 localizedName];
-        v17 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:localizedName target:selfCopy set:sel_setAppAllowed_specifier_ get:sel_isAppAllowed_ detail:0 cell:6 edit:0];
-        v18 = [MEMORY[0x277CCABB0] numberWithBool:1];
-        [v17 setProperty:v18 forKey:v24];
+        v15 = *(*(&v28 + 1) + 8 * i);
+        v16 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:v15 allowPlaceholder:1 error:0];
+        localizedName = [v16 localizedName];
+        v18 = [getPSSpecifierClass(localizedName) preferenceSpecifierNamed:localizedName target:selfCopy set:sel_setAppAllowed_specifier_ get:sel_isAppAllowed_ detail:0 cell:6 edit:0];
+        v19 = [MEMORY[0x277CCABB0] numberWithBool:1];
+        [v18 setProperty:v19 forKey:v24];
 
-        [v17 setProperty:v14 forKey:v12];
-        [v17 setProperty:v14 forKey:@"bundleID"];
-        [v27 addObject:v17];
+        [v18 setProperty:v15 forKey:v13];
+        [v18 setProperty:v15 forKey:@"bundleID"];
+        [v27 addObject:v18];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v19 = [v27 sortedArrayUsingComparator:&__block_literal_global_234];
+  v20 = [v27 sortedArrayUsingComparator:&__block_literal_global_234];
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v20;
 }
 
 BOOL __62__ASAccessoryInfoViewController_specifiersForAppAccessSection__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -458,7 +464,7 @@ BOOL __62__ASAccessoryInfoViewController_specifiersForAppAccessSection__block_in
   v4 = MEMORY[0x277CBEB18];
   buttonCopy = button;
   array = [v4 array];
-  v7 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v7 = [getPSSpecifierClass(array) preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
   [v7 setIdentifier:@"appLink"];
   [array addObject:v7];
   v8 = MEMORY[0x277CCACA8];
@@ -467,7 +473,7 @@ BOOL __62__ASAccessoryInfoViewController_specifiersForAppAccessSection__block_in
   name = [buttonCopy name];
   v12 = [v8 stringWithFormat:v10, name];
 
-  v13 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:v12 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  v13 = [(objc_class *)(getPSSpecifierClass)() preferenceSpecifierNamed:v12 target:self set:0 get:0 detail:0 cell:13 edit:0];
   v14 = [buttonCopy propertyForKey:@"bundleID"];
 
   [v13 setProperty:v14 forKey:@"bundleID"];
@@ -479,51 +485,47 @@ BOOL __62__ASAccessoryInfoViewController_specifiersForAppAccessSection__block_in
 
 - (id)specifiersForForgetDeviceButton
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v4 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v4 = [getPSSpecifierClass(array) preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
   [v4 setIdentifier:@"forget"];
-  PSSpecifierClass = getPSSpecifierClass();
+  v5 = (getPSSpecifierClass)();
   v6 = +[ASAccessoryInfoViewFactory forgetDeviceButtonTitle];
-  v7 = [(objc_class *)PSSpecifierClass preferenceSpecifierNamed:v6 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  v7 = [(objc_class *)v5 preferenceSpecifierNamed:v6 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
   [v7 setButtonAction:sel_forgetDevice_];
-  v11[0] = v4;
-  v11[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = v4;
+  v10[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   [array addObjectsFromArray:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)specifiersForUnpairDeviceButton
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v4 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v4 = [getPSSpecifierClass(array) preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
   [v4 setIdentifier:@"unpair"];
-  PSSpecifierClass = getPSSpecifierClass();
+  v5 = (getPSSpecifierClass)();
   v6 = +[ASAccessoryInfoViewFactory unpairDeviceButtonTitle];
-  v7 = [(objc_class *)PSSpecifierClass preferenceSpecifierNamed:v6 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  v7 = [(objc_class *)v5 preferenceSpecifierNamed:v6 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
   [v7 setButtonAction:sel_unpairDevice_];
-  v11[0] = v4;
-  v11[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = v4;
+  v10[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   [array addObjectsFromArray:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)specifiersForResetWiFiButton
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v4 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v4 = [getPSSpecifierClass(array) preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
   [v4 setIdentifier:@"resetWiFiGroup"];
   supportsWAPI = self->_supportsWAPI;
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -541,66 +543,60 @@ BOOL __62__ASAccessoryInfoViewController_specifiersForAppAccessSection__block_in
   v9 = [v6 localizedStringForKey:v8 value:&stru_28499D698 table:0];
 
   [v4 setObject:v9 forKeyedSubscript:*MEMORY[0x277D3FF80]];
-  PSSpecifierClass = getPSSpecifierClass();
+  v10 = (getPSSpecifierClass)();
   v11 = +[ASAccessoryInfoViewFactory resetWiFiButtonTitle];
-  v12 = [(objc_class *)PSSpecifierClass preferenceSpecifierNamed:v11 target:self set:0 get:0 detail:0 cell:13 edit:0];
+  v12 = [(objc_class *)v10 preferenceSpecifierNamed:v11 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
   [v12 setButtonAction:sel_resetWiFiIdentifier_];
   [v12 setIdentifier:@"resetWiFi"];
-  v16[0] = v4;
-  v16[1] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v4;
+  v15[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   [array addObjectsFromArray:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)specifiersForHeader
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v3 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
-  v4 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:&stru_28499D698 target:self set:0 get:0 detail:0 cell:-1 edit:0];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v3 = [getPSSpecifierClass(self) preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v4 = [(objc_class *)(getPSSpecifierClass)() preferenceSpecifierNamed:&stru_28499D698 target:self set:0 get:0 detail:0 cell:-1 edit:0];
   [v4 setUserInfo:self->_device];
   [v4 setObject:objc_opt_class() forKeyedSubscript:*MEMORY[0x277D3FE60]];
   [v4 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D3FF30]];
-  v8[0] = v3;
-  v8[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v7[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
 
   return v5;
 }
 
 - (id)companionAppSpecifiers:(id)specifiers
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB18];
   specifiersCopy = specifiers;
   array = [v4 array];
-  PSSpecifierClass = getPSSpecifierClass();
+  PSSpecifierClass = getPSSpecifierClass(array);
   v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v9 = [v8 localizedStringForKey:@"Companion App" value:&stru_28499D698 table:0];
-  v10 = [(objc_class *)PSSpecifierClass preferenceSpecifierNamed:v9 target:self set:0 get:0 detail:0 cell:0 edit:0];
+  v10 = [PSSpecifierClass preferenceSpecifierNamed:v9 target:self set:0 get:0 detail:0 cell:0 edit:0];
 
   v11 = [@"header_companionApp_" stringByAppendingString:specifiersCopy];
   [v10 setIdentifier:v11];
 
-  v12 = [(objc_class *)getPSSpecifierClass() preferenceSpecifierNamed:&stru_28499D698 target:self set:0 get:0 detail:0 cell:-1 edit:0];
+  v12 = [(objc_class *)(getPSSpecifierClass)() preferenceSpecifierNamed:&stru_28499D698 target:self set:0 get:0 detail:0 cell:-1 edit:0];
   v13 = [@"companionApp_" stringByAppendingString:specifiersCopy];
   [v12 setIdentifier:v13];
 
   [v12 setUserInfo:specifiersCopy];
   [v12 setObject:objc_opt_class() forKeyedSubscript:*MEMORY[0x277D3FE60]];
   [v12 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D3FF30]];
-  v17[0] = v10;
-  v17[1] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = v10;
+  v16[1] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   [array addObjectsFromArray:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -678,7 +674,7 @@ BOOL __62__ASAccessoryInfoViewController_specifiersForAppAccessSection__block_in
 
 - (BOOL)isDeviceArchived
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(DADevice *)self->_device state]== 1)
   {
     LOBYTE(v3) = 1;
@@ -686,34 +682,34 @@ BOOL __62__ASAccessoryInfoViewController_specifiersForAppAccessSection__block_in
 
   else
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     appAccessInfoMap = [(DADevice *)self->_device appAccessInfoMap];
     allValues = [appAccessInfoMap allValues];
 
-    v3 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v3 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
-      v6 = *v11;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if ([*(*(&v10 + 1) + 8 * i) state] == 1)
+          if ([*(*(&v9 + 1) + 8 * i) state] == 1)
           {
             LOBYTE(v3) = 1;
             goto LABEL_13;
           }
         }
 
-        v3 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v3 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v3)
         {
           continue;
@@ -726,7 +722,6 @@ BOOL __62__ASAccessoryInfoViewController_specifiersForAppAccessSection__block_in
 LABEL_13:
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -768,28 +763,28 @@ LABEL_13:
 
 void __46__ASAccessoryInfoViewController_unpairDevice___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = [*(*(a1 + 32) + 1464) appAccessInfoMap];
-  v2 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v2 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v17;
+    v4 = *v16;
     do
     {
       v5 = 0;
       do
       {
-        if (*v17 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v16 + 1) + 8 * v5);
+        v6 = *(*(&v15 + 1) + 8 * v5);
         v7 = [*(*(a1 + 32) + 1464) appAccessInfoMap];
         v8 = [v7 objectForKeyedSubscript:v6];
 
@@ -798,26 +793,24 @@ void __46__ASAccessoryInfoViewController_unpairDevice___block_invoke(uint64_t a1
         v9 = objc_alloc_init(MEMORY[0x277D04780]);
         [v9 setBundleID:@"com.apple.Preferences"];
         v10 = *(*(a1 + 32) + 1464);
-        v15 = 0;
-        [MEMORY[0x277D04780] setDeviceAppAccessInfo:v8 device:v10 session:v9 error:&v15];
-        v11 = v15;
+        v14 = 0;
+        [MEMORY[0x277D04780] setDeviceAppAccessInfo:v8 device:v10 session:v9 error:&v14];
+        v11 = v14;
         if (v11 && gLogCategory_ASAccessoryInfoView <= 90 && (gLogCategory_ASAccessoryInfoView != -1 || _LogCategory_Initialize()))
         {
-          __46__ASAccessoryInfoViewController_unpairDevice___block_invoke_cold_1();
+          __46__ASAccessoryInfoViewController_unpairDevice___block_invoke_cold_1(v11);
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v12 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
       v3 = v12;
     }
 
     while (v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetWiFiIdentifier:(id)identifier
@@ -931,7 +924,7 @@ void __46__ASAccessoryInfoViewController_forgetDevice___block_invoke(uint64_t a1
   v7 = v10;
   if (v7 && gLogCategory_ASAccessoryInfoView <= 90 && (gLogCategory_ASAccessoryInfoView != -1 || _LogCategory_Initialize()))
   {
-    __46__ASAccessoryInfoViewController_forgetDevice___block_invoke_cold_1();
+    __46__ASAccessoryInfoViewController_forgetDevice___block_invoke_cold_1(v7);
   }
 
   *(*(a1 + 32) + 1489) = 1;

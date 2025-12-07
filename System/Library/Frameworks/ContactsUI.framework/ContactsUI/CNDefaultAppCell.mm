@@ -159,29 +159,29 @@
   [v6 addFailureBlock:v9];
 }
 
-void __34__CNDefaultAppCell_performAction___block_invoke(uint64_t a1)
+void __34__CNDefaultAppCell_performAction___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = CNUILogContactCard();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = CNUILogContactCard();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&dword_199A75000, v2, OS_LOG_TYPE_DEFAULT, "[CNDefaultAppCell performAction:], did perform action %@", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_199A75000, v3, OS_LOG_TYPE_DEFAULT, "[CNDefaultAppCell performAction:], did perform action %@", &v5, 0xCu);
   }
 }
 
-void __34__CNDefaultAppCell_performAction___block_invoke_28(uint64_t a1)
+void __34__CNDefaultAppCell_performAction___block_invoke_28(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = CNUILogContactCard();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = CNUILogContactCard();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = *(a1 + 32);
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_error_impl(&dword_199A75000, v2, OS_LOG_TYPE_ERROR, "[CNDefaultAppCell performAction:], failed to perform action %@", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_error_impl(&dword_199A75000, v3, OS_LOG_TYPE_ERROR, "[CNDefaultAppCell performAction:], failed to perform action %@", &v5, 0xCu);
   }
 }
 

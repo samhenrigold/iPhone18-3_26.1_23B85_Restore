@@ -93,7 +93,7 @@ LABEL_7:
 
 - (void)notifyActivationEvent:(id)event completion:(id)completion
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   completionCopy = completion;
   v8 = CSLogContextFacilityCoreSpeech;
@@ -104,13 +104,13 @@ LABEL_7:
     _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __64__CSDeviceActivationXPCClient_notifyActivationEvent_completion___block_invoke;
-  v14[3] = &unk_1E865CAB8;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __64__CSDeviceActivationXPCClient_notifyActivationEvent_completion___block_invoke;
+  v13[3] = &unk_1E865CAB8;
   v9 = completionCopy;
-  v15 = v9;
-  v10 = MEMORY[0x1E12BA300](v14);
+  v14 = v9;
+  v10 = MEMORY[0x1E12BA300](v13);
   *buf = xmmword_1E865CAD8;
   values[0] = xpc_int64_create(2);
   values[1] = [eventCopy xpcObject];
@@ -120,8 +120,6 @@ LABEL_7:
   for (i = 1; i != -1; --i)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__CSDeviceActivationXPCClient_notifyActivationEvent_completion___block_invoke(uint64_t a1)
@@ -137,77 +135,74 @@ uint64_t __64__CSDeviceActivationXPCClient_notifyActivationEvent_completion___bl
 
 - (void)_handleListenerError:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v5 = errorCopy;
+  v4 = errorCopy;
   if (!errorCopy)
   {
-    v15 = CSLogContextFacilityCoreSpeech;
+    v13 = CSLogContextFacilityCoreSpeech;
     if (!os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
     }
 
-    v18 = 136315394;
-    v19 = "[CSDeviceActivationXPCClient _handleListenerError:]";
-    v20 = 2050;
-    v21 = 0;
-    v13 = "%s cannot handle error : error = %{public}p";
+    v15 = 136315394;
+    v16 = "[CSDeviceActivationXPCClient _handleListenerError:]";
+    v17 = 2050;
+    v18 = 0;
+    v11 = "%s cannot handle error : error = %{public}p";
     goto LABEL_17;
   }
 
-  v6 = MEMORY[0x1E69E9E20];
+  v5 = MEMORY[0x1E69E9E20];
   if (errorCopy != MEMORY[0x1E69E9E20] && errorCopy != MEMORY[0x1E69E9E18])
   {
     string = xpc_dictionary_get_string(errorCopy, *MEMORY[0x1E69E9E28]);
-    v15 = CSLogContextFacilityCoreSpeech;
+    v13 = CSLogContextFacilityCoreSpeech;
     if (!os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_15;
     }
 
-    v18 = 136315394;
-    v19 = "[CSDeviceActivationXPCClient _handleListenerError:]";
-    v20 = 2082;
-    v21 = string;
-    v13 = "%s connection error: %{public}s";
+    v15 = 136315394;
+    v16 = "[CSDeviceActivationXPCClient _handleListenerError:]";
+    v17 = 2082;
+    v18 = string;
+    v11 = "%s connection error: %{public}s";
 LABEL_17:
-    _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, v13, &v18, 0x16u);
+    _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, v11, &v15, 0x16u);
     goto LABEL_15;
   }
 
-  v8 = CSLogContextFacilityCoreSpeech;
+  v7 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315138;
-    v19 = "[CSDeviceActivationXPCClient _handleListenerError:]";
-    _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Listener connection disconnected", &v18, 0xCu);
+    v15 = 136315138;
+    v16 = "[CSDeviceActivationXPCClient _handleListenerError:]";
+    _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Listener connection disconnected", &v15, 0xCu);
   }
 
-  if (v5 == v6)
+  if (v4 == v5)
   {
-    v9 = CSLogContextFacilityCoreSpeech;
+    v8 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      xpcConnection = self->_xpcConnection;
-      v11 = v9;
-      v12 = xpc_connection_copy_invalidation_reason();
-      v18 = 136315394;
-      v19 = "[CSDeviceActivationXPCClient _handleListenerError:]";
-      v20 = 2080;
-      v21 = v12;
-      _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s XPC Connection Invalidated for reason: %s", &v18, 0x16u);
+      v9 = v8;
+      v10 = xpc_connection_copy_invalidation_reason();
+      v15 = 136315394;
+      v16 = "[CSDeviceActivationXPCClient _handleListenerError:]";
+      v17 = 2080;
+      v18 = v10;
+      _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s XPC Connection Invalidated for reason: %s", &v15, 0x16u);
     }
   }
 
 LABEL_15:
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleListenerEvent:(id)event
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = eventCopy;
   if (eventCopy)
@@ -221,13 +216,13 @@ LABEL_15:
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[CSDeviceActivationXPCClient _handleListenerEvent:]";
+      v11 = 136315138;
+      v12 = "[CSDeviceActivationXPCClient _handleListenerEvent:]";
       v7 = "%s ignore unknown types of message ";
       v8 = v6;
       v9 = 12;
 LABEL_7:
-      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, v7, &v12, v9);
+      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, v7, &v11, v9);
     }
   }
 
@@ -236,10 +231,10 @@ LABEL_7:
     v10 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "[CSDeviceActivationXPCClient _handleListenerEvent:]";
-      v14 = 2050;
-      v15 = 0;
+      v11 = 136315394;
+      v12 = "[CSDeviceActivationXPCClient _handleListenerEvent:]";
+      v13 = 2050;
+      v14 = 0;
       v7 = "%s cannot handle event : event = %{public}p";
       v8 = v10;
       v9 = 22;
@@ -248,13 +243,11 @@ LABEL_7:
   }
 
 LABEL_9:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   xpcConnection = self->_xpcConnection;
   if (xpcConnection)
   {
@@ -262,7 +255,7 @@ LABEL_9:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v9 = "[CSDeviceActivationXPCClient dealloc]";
+      v8 = "[CSDeviceActivationXPCClient dealloc]";
       _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s disconnect activationXPCClient", buf, 0xCu);
       xpcConnection = self->_xpcConnection;
     }
@@ -272,10 +265,9 @@ LABEL_9:
     self->_xpcConnection = 0;
   }
 
-  v7.receiver = self;
-  v7.super_class = CSDeviceActivationXPCClient;
-  [(CSDeviceActivationXPCClient *)&v7 dealloc];
-  v6 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = CSDeviceActivationXPCClient;
+  [(CSDeviceActivationXPCClient *)&v6 dealloc];
 }
 
 - (void)connect
@@ -302,10 +294,10 @@ void __38__CSDeviceActivationXPCClient_connect__block_invoke(uint64_t a1, void *
 
 - (CSDeviceActivationXPCClient)initWithMachServiceName:(const char *)name
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = CSDeviceActivationXPCClient;
-  v4 = [(CSDeviceActivationXPCClient *)&v10 init];
+  v14 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = CSDeviceActivationXPCClient;
+  v4 = [(CSDeviceActivationXPCClient *)&v9 init];
   if (v4)
   {
     CSLogInitIfNeededWithSubsystemType(0);
@@ -317,14 +309,13 @@ void __38__CSDeviceActivationXPCClient_connect__block_invoke(uint64_t a1, void *
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v12 = "[CSDeviceActivationXPCClient initWithMachServiceName:]";
-      v13 = 2080;
+      v11 = "[CSDeviceActivationXPCClient initWithMachServiceName:]";
+      v12 = 2080;
       nameCopy = name;
       _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s machServiceName : %s", buf, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

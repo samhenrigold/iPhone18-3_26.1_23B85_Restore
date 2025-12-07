@@ -13,43 +13,42 @@
 - (CAFAppLinksManager)initWithChangeBlock:(id)block
 {
   blockCopy = block;
-  v15.receiver = self;
-  v15.super_class = CAFAppLinksManager;
-  v5 = [(CAFAppLinksManager *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = CAFAppLinksManager;
+  v5 = [(CAFAppLinksManager *)&v16 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = CAFAppLinksLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = CAFAppLinksLogging(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_231618000, v6, OS_LOG_TYPE_DEFAULT, "Initializing appLinks manager", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_231618000, v7, OS_LOG_TYPE_DEFAULT, "Initializing appLinks manager", v15, 2u);
     }
 
-    v7 = +[CAFAppLinksServiceSpecification identifier];
+    v8 = +[CAFAppLinksServiceSpecification identifier];
     serial = [MEMORY[0x277CF0C18] serial];
-    v9 = BSDispatchQueueCreate();
-    workQueue = v5->_workQueue;
-    v5->_workQueue = v9;
+    v10 = BSDispatchQueueCreate();
+    workQueue = v6->_workQueue;
+    v6->_workQueue = v10;
 
-    v11 = MEMORY[0x231933C60](blockCopy);
-    snapshotChangeBlock = v5->_snapshotChangeBlock;
-    v5->_snapshotChangeBlock = v11;
+    v12 = MEMORY[0x231933C60](blockCopy);
+    snapshotChangeBlock = v6->_snapshotChangeBlock;
+    v6->_snapshotChangeBlock = v12;
 
-    [(CAFAppLinksManager *)v5 _setupConnection];
+    [(CAFAppLinksManager *)v6 _setupConnection];
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)_setupConnection
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = +[CAFAppLinksServiceSpecification identifier];
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_231618000, self, OS_LOG_TYPE_ERROR, "Failed to create appLinks endpoint! This process can't look up the machport. (%@)", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_231618000, self, OS_LOG_TYPE_ERROR, "Failed to create appLinks endpoint! This process can't look up the machport. (%@)", &v3, 0xCu);
 }
 
 void __38__CAFAppLinksManager__setupConnection__block_invoke(uint64_t a1, void *a2)
@@ -104,19 +103,19 @@ void __38__CAFAppLinksManager__setupConnection__block_invoke_3(uint64_t a1)
   }
 }
 
-void __38__CAFAppLinksManager__setupConnection__block_invoke_4()
+void __38__CAFAppLinksManager__setupConnection__block_invoke_4(uint64_t a1)
 {
-  v0 = CAFAppLinksLogging();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = CAFAppLinksLogging(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_231618000, v0, OS_LOG_TYPE_DEFAULT, "AppLinks connection invalidated", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_231618000, v1, OS_LOG_TYPE_DEFAULT, "AppLinks connection invalidated", v2, 2u);
   }
 }
 
 - (void)_connectionActivated
 {
-  v3 = CAFAppLinksLogging();
+  v3 = CAFAppLinksLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -128,7 +127,7 @@ void __38__CAFAppLinksManager__setupConnection__block_invoke_4()
 
 - (void)_connectionInterrupted
 {
-  v3 = CAFAppLinksLogging();
+  v3 = CAFAppLinksLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -140,7 +139,7 @@ void __38__CAFAppLinksManager__setupConnection__block_invoke_4()
 
 - (void)_fetchSnapshot
 {
-  v3 = CAFAppLinksLogging();
+  v3 = CAFAppLinksLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -158,10 +157,10 @@ void __38__CAFAppLinksManager__setupConnection__block_invoke_4()
 
 void __36__CAFAppLinksManager__fetchSnapshot__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = CAFAppLinksLogging();
+  v7 = CAFAppLinksLogging(v6);
   v8 = v7;
   if (v6)
   {
@@ -176,20 +175,18 @@ void __36__CAFAppLinksManager__fetchSnapshot__block_invoke(uint64_t a1, void *a2
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v5;
+      v12 = v5;
       _os_log_impl(&dword_231618000, v8, OS_LOG_TYPE_DEFAULT, "Received updated appLinks snapshot %@", buf, 0xCu);
     }
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __36__CAFAppLinksManager__fetchSnapshot__block_invoke_6;
-    v10[3] = &unk_27890D548;
-    v10[4] = *(a1 + 32);
-    v11 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __36__CAFAppLinksManager__fetchSnapshot__block_invoke_6;
+    v9[3] = &unk_27890D548;
+    v9[4] = *(a1 + 32);
+    v10 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __36__CAFAppLinksManager__fetchSnapshot__block_invoke_6(uint64_t a1)
@@ -206,7 +203,7 @@ void __36__CAFAppLinksManager__fetchSnapshot__block_invoke_6(uint64_t a1)
 
 - (void)refreshAppLinksSnapshot
 {
-  v3 = CAFAppLinksLogging();
+  v3 = CAFAppLinksLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -218,7 +215,7 @@ void __36__CAFAppLinksManager__fetchSnapshot__block_invoke_6(uint64_t a1)
 
 - (void)invalidate
 {
-  v3 = CAFAppLinksLogging();
+  v3 = CAFAppLinksLogging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

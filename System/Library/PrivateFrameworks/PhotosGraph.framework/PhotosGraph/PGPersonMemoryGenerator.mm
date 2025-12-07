@@ -1,6 +1,7 @@
 @interface PGPersonMemoryGenerator
 - (PGPersonMemoryGenerator)initWithMemoryGenerationContext:(id)context;
 - (id)keyAssetCurationOptionsWithTriggeredMemory:(id)memory inGraph:(id)graph;
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter;
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph;
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type;
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block;
@@ -10,7 +11,7 @@
 
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   contextCopy = context;
   memoryFeatureNodes = [memoryCopy memoryFeatureNodes];
@@ -36,12 +37,12 @@
               v19 = [PGPeopleMemoryTitleGenerator alloc];
               temporarySet = [memoryMomentNodes temporarySet];
               [MEMORY[0x277CBEB98] setWithObject:anyNode];
-              v36 = loggingConnection2;
+              v35 = loggingConnection2;
               v22 = v21 = name;
               v23 = [(PGPeopleMemoryTitleGenerator *)v19 initWithMomentNodes:temporarySet personNodes:v22 seasonName:v21 type:4 titleGenerationContext:contextCopy];
 
               name = v21;
-              loggingConnection2 = v36;
+              loggingConnection2 = v35;
             }
 
             else
@@ -50,14 +51,14 @@
               if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
               {
                 [loggingConnection2 description];
-                v32 = loggingConnection2;
-                v34 = v33 = name;
+                v31 = loggingConnection2;
+                v33 = v32 = name;
                 *buf = 138412290;
-                v39 = v34;
+                v38 = v33;
                 _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGPersonMemoryGenerator] No season name found for season node in collection %@", buf, 0xCu);
 
-                name = v33;
-                loggingConnection2 = v32;
+                name = v32;
+                loggingConnection2 = v31;
               }
 
               v23 = 0;
@@ -68,16 +69,16 @@
           {
             name = [memoryMomentNodes temporarySet];
             v24 = [PGPeopleMemoryTitleGenerator peopleOverTimeTimeTitleOptionsWithMomentNodes:?];
-            v37 = [(PGGraphNodeCollection *)PGGraphYearNodeCollection subsetInCollection:memoryFeatureNodes];
-            if ([v37 count] == 1)
+            v36 = [(PGGraphNodeCollection *)PGGraphYearNodeCollection subsetInCollection:memoryFeatureNodes];
+            if ([v36 count] == 1)
             {
-              [v24 setFeaturedYearNodes:v37];
+              [v24 setFeaturedYearNodes:v36];
             }
 
             v25 = [PGPeopleMemoryTitleGenerator alloc];
             v26 = [MEMORY[0x277CBEB98] setWithObject:anyNode];
             v27 = v24;
-            v35 = v24;
+            v34 = v24;
             v28 = v26;
             v23 = [(PGPeopleMemoryTitleGenerator *)v25 initWithMomentNodes:name personNodes:v26 timeTitleOptions:v27 type:0 titleGenerationContext:contextCopy];
           }
@@ -134,8 +135,6 @@
     v23 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
@@ -153,6 +152,41 @@
   [v6 setReferencePersonLocalIdentifiers:localIdentifiers];
 
   return v6;
+}
+
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter
+{
+  assetCopy = asset;
+  graphCopy = graph;
+  memoryCopy = memory;
+  memoryFeatureNodes = [memoryCopy memoryFeatureNodes];
+  v12 = [(PGGraphNodeCollection *)PGGraphPersonNodeCollection subsetInCollection:memoryFeatureNodes];
+
+  memoryMomentNodes = [memoryCopy memoryMomentNodes];
+
+  v14 = [(PGGraphEdgeCollection *)PGGraphMomentFeaturesEdgeCollection edgesFromNodes:memoryMomentNodes toNodes:v12];
+
+  if ([v14 count])
+  {
+    allRelevantAssetLocalIdentifiers = [v14 allRelevantAssetLocalIdentifiers];
+    allObjects = [allRelevantAssetLocalIdentifiers allObjects];
+    memoryCurationSession = [(PGMemoryGenerator *)self memoryCurationSession];
+    v18 = [PGMemoryGenerationHelper feederForMemoriesWithAssetLocalIdentifiers:allObjects memoryCurationSession:memoryCurationSession graph:graphCopy allowGuestAsset:assetCopy];
+  }
+
+  else
+  {
+    loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+    {
+      *v21 = 0;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGPersonMemoryGenerator] No moment feature edges found", v21, 2u);
+    }
+
+    v18 = 0;
+  }
+
+  return v18;
 }
 
 - (void)enumerateMomentNodesAndFeatureNodesInGraph:(id)graph usingBlock:(id)block
@@ -183,31 +217,25 @@ void __81__PGPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_us
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
   typeCopy = type;
-  v13 = *MEMORY[0x277D85DE8];
-  if (type - 1 >= 3)
+  v12 = *MEMORY[0x277D85DE8];
+  if (type - 1 < 3)
   {
-    loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-    if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 1024;
-      v12 = typeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-    }
-
-    result = 0;
+    return type | 0x7D0;
   }
 
-  else
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
-    result = type | 0x7D0;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (PGPersonMemoryGenerator)initWithMemoryGenerationContext:(id)context

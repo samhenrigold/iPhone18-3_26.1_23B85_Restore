@@ -1,453 +1,4 @@
-void *OpenSteer::PolygonObstacle::PolygonObstacle(void *this)
-{
-  *this = &unk_284B50708;
-  this[1] = 0;
-  this[2] = 0;
-  this[3] = 0;
-  return this;
-}
-
-{
-  *this = &unk_284B50708;
-  this[1] = 0;
-  this[2] = 0;
-  this[3] = 0;
-  return this;
-}
-
-void *OpenSteer::PolygonObstacle::PolygonObstacle(void *a1, void *a2)
-{
-  *a1 = &unk_284B50708;
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  a1[3] = 0;
-  v5 = *a2;
-  v6 = a2[1];
-  v7 = v6 == *a2;
-  v8 = 0xAAAAAAAAAAAAAAABLL * ((v6 - *a2) >> 2);
-  if (!v7)
-  {
-    std::vector<OpenSteer::Vec3>::__append((a1 + 1), v8);
-    v5 = *a2;
-    v6 = a2[1];
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v6 - *a2) >> 2);
-  }
-
-  if (v6 != v5)
-  {
-    v9 = *v4;
-    if (v8 <= 1)
-    {
-      v10 = 1;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    if (v8 <= 0xB)
-    {
-      v11 = 0;
-LABEL_9:
-      v12 = v9 + 12 * v11;
-      v13 = v5 + 12 * v11;
-      v14 = v10 - v11;
-      do
-      {
-        v15 = *v13;
-        *(v12 + 8) = *(v13 + 2);
-        *v12 = v15;
-        v12 += 12;
-        v13 += 12;
-        --v14;
-      }
-
-      while (v14);
-      return a1;
-    }
-
-    v11 = 0;
-    v17 = v9 + 12 * v10;
-    v18 = v17 - 8;
-    v19 = v5 + 12 * v10;
-    v21 = v9 + 4 < v19 - 4 && v5 + 4 < v17 - 4;
-    v23 = v9 + 8 < v19 && v5 + 8 < v17;
-    if (v5 < v18 && v9 < v19 - 8)
-    {
-      goto LABEL_9;
-    }
-
-    if (v21)
-    {
-      goto LABEL_9;
-    }
-
-    if (v23)
-    {
-      goto LABEL_9;
-    }
-
-    v11 = v10 & 0xFFFFFFFFFFFFFFF8;
-    v25 = v10 & 0xFFFFFFFFFFFFFFF8;
-    v26 = v5;
-    v27 = *v4;
-    do
-    {
-      v28 = v26[1];
-      v30 = v26[4];
-      v29 = v26[5];
-      v31 = v26[2];
-      v32 = v26[3];
-      *v27 = *v26;
-      v27[1] = v28;
-      v27[2] = v31;
-      v27[3] = v32;
-      v27[4] = v30;
-      v27[5] = v29;
-      v27 += 6;
-      v26 += 6;
-      v25 -= 8;
-    }
-
-    while (v25);
-    if (v8 != v11)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  return a1;
-}
-
-{
-  *a1 = &unk_284B50708;
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  a1[3] = 0;
-  v5 = *a2;
-  v6 = a2[1];
-  v7 = v6 == *a2;
-  v8 = 0xAAAAAAAAAAAAAAABLL * ((v6 - *a2) >> 2);
-  if (!v7)
-  {
-    std::vector<OpenSteer::Vec3>::__append((a1 + 1), v8);
-    v5 = *a2;
-    v6 = a2[1];
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v6 - *a2) >> 2);
-  }
-
-  if (v6 != v5)
-  {
-    v9 = *v4;
-    if (v8 <= 1)
-    {
-      v10 = 1;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    if (v8 <= 0xB)
-    {
-      v11 = 0;
-LABEL_9:
-      v12 = v10 - v11;
-      v13 = 12 * v11;
-      v14 = v9 + v13;
-      v15 = v5 + v13;
-      do
-      {
-        v16 = *v15;
-        *(v14 + 8) = *(v15 + 2);
-        *v14 = v16;
-        v14 += 12;
-        v15 += 12;
-        --v12;
-      }
-
-      while (v12);
-      return a1;
-    }
-
-    v11 = 0;
-    v18 = v9 + 12 * v10;
-    v19 = v18 - 8;
-    v20 = v5 + 12 * v10;
-    v22 = v9 + 4 < v20 - 4 && v5 + 4 < v18 - 4;
-    v24 = v9 + 8 < v20 && v5 + 8 < v18;
-    if (v5 < v19 && v9 < v20 - 8)
-    {
-      goto LABEL_9;
-    }
-
-    if (v22)
-    {
-      goto LABEL_9;
-    }
-
-    if (v24)
-    {
-      goto LABEL_9;
-    }
-
-    v11 = v10 & 0xFFFFFFFFFFFFFFF8;
-    v26 = v10 & 0xFFFFFFFFFFFFFFF8;
-    v27 = v5;
-    v28 = *v4;
-    do
-    {
-      v29 = v27[1];
-      v31 = v27[4];
-      v30 = v27[5];
-      v32 = v27[2];
-      v33 = v27[3];
-      *v28 = *v27;
-      v28[1] = v29;
-      v28[2] = v32;
-      v28[3] = v33;
-      v28[4] = v31;
-      v28[5] = v30;
-      v28 += 6;
-      v27 += 6;
-      v26 -= 8;
-    }
-
-    while (v26);
-    if (v8 != v11)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  return a1;
-}
-
-void sub_2389E2548(_Unwind_Exception *exception_object)
-{
-  v4 = *v2;
-  if (*v2)
-  {
-    *(v1 + 16) = v4;
-    operator delete(v4);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_2389E26EC(_Unwind_Exception *exception_object)
-{
-  v4 = *v2;
-  if (*v2)
-  {
-    *(v1 + 16) = v4;
-    operator delete(v4);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void OpenSteer::PolygonObstacle::findIntersectionWithVehiclePath(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4)
-{
-  *a3 = 0;
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *(a1 + 8)) >> 2) >= 3)
-  {
-    v8 = (*(*a2 + 48))(a2);
-    v38 = LODWORD(v8);
-    (*(*a2 + 48))(a2);
-    v35 = v9;
-    v10 = (*(*a2 + 192))(a2);
-    v34 = LODWORD(v10);
-    (*(*a2 + 192))(a2);
-    __p = 0;
-    v43 = 0;
-    v44 = 0;
-    v12 = *(a1 + 8);
-    v13 = *(a1 + 16);
-    if (v13 != v12)
-    {
-      v33 = v11;
-      std::vector<long>::__append(&__p, 0xAAAAAAAAAAAAAAABLL * ((v13 - v12) >> 2));
-      v12 = *(a1 + 8);
-      v13 = *(a1 + 16);
-      v11 = v33;
-    }
-
-    if (v13 != v12)
-    {
-      v14 = 0;
-      v15 = 0;
-      do
-      {
-        v16 = (v12 + v14);
-        LODWORD(v17) = *v16;
-        HIDWORD(v17) = v16[2];
-        *(__p + v15++) = v17;
-        v12 = *(a1 + 8);
-        v14 += 12;
-      }
-
-      while (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - v12) >> 2) > v15);
-    }
-
-    v18 = __p;
-    if (v43 == __p)
-    {
-      *&v37 = 0;
-      v32 = 3.4028e38;
-      v4.i32[0] = 2139095039;
-    }
-
-    else
-    {
-      v19 = 0;
-      v39 = __PAIR64__(v35, v38);
-      *(&v20 + 1) = a4.n128_u64[1];
-      v21 = vmla_n_f32(v39, __PAIR64__(v11, v34), a4.n128_f32[0]);
-      v22 = (v43 - __p) >> 3;
-      v4.i32[0] = 2139095039;
-      *&v20 = 0;
-      v37 = v20;
-      v23 = 3.4028e38;
-      do
-      {
-        v27 = v19 + 1;
-        v28 = *&v18[8 * v19];
-        if (v22 > v19 + 1)
-        {
-          v29 = v19 + 1;
-        }
-
-        else
-        {
-          v29 = 0;
-        }
-
-        v30 = *&v18[8 * v29];
-        v40 = 0;
-        v41 = 0;
-        GKClosestPointsBetweenLineSegments(&v41, &v40, v28, v30, v39, v21);
-        v31 = vsub_f32(v40, v41);
-        v32 = vaddv_f32(vmul_f32(v31, v31));
-        if (v32 < v23)
-        {
-          *(&v24 + 1) = *(&v37 + 1);
-          v25 = vsub_f32(v41, v39);
-          v26 = vmul_f32(v25, v25);
-          *&v24 = vbsl_s8(vdup_lane_s32(vcgt_f32(v4, vadd_f32(v26, vdup_lane_s32(v26, 1))), 0), v41, *&v37);
-          v37 = v24;
-          v4.f32[0] = fminf(vaddv_f32(v26), v4.f32[0]);
-          v23 = v32;
-        }
-
-        else
-        {
-          v32 = v23;
-        }
-
-        v18 = __p;
-        v22 = (v43 - __p) >> 3;
-        v19 = v27;
-      }
-
-      while (v22 > v27);
-    }
-
-    if (v32 <= (*(*a2 + 176))(a2))
-    {
-      *a3 = 1;
-      *(a3 + 4) = sqrtf(v4.f32[0]);
-      *(a3 + 8) = v37;
-      *(a3 + 16) = DWORD1(v37);
-      *(a3 + 32) = a1;
-    }
-
-    if (__p)
-    {
-      v43 = __p;
-      operator delete(__p);
-    }
-  }
-}
-
-void sub_2389E2A24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t GKDoesLineSegmentIntersectPolygon(uint64_t a1, int a2, float32x2_t a3, float32x2_t a4)
-{
-  if (a2 >= 1)
-  {
-    v4 = 0;
-    v5 = vsub_f32(a4, a3);
-    v6 = vrev64_s32(v5);
-    v7 = 1;
-    __asm { FMOV            V3.4S, #1.0 }
-
-    while (1)
-    {
-      v15 = v4 + 1;
-      v16 = *(a1 + 8 * v4);
-      if (v4 + 1 < a2)
-      {
-        v17 = v4 + 1;
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-
-      v18 = *(a1 + 8 * v17);
-      v19 = v4 + 1 < a2;
-      v20 = vsub_f32(v18, v16);
-      v21 = vsub_f32(v16, a3);
-      v22 = vmul_f32(v20, v6);
-      v23 = vsub_f32(v22, vdup_lane_s32(v22, 1));
-      *v24.f32 = vmls_lane_f32(vmul_lane_f32(vzip1_s32(v5, v20), v21, 1), vzip2_s32(v5, v20), v21, 0);
-      if (*v23.i32 == 0.0)
-      {
-        if (v24.f32[0] == 0.0 && v24.f32[1] == 0.0)
-        {
-          return v7 & 1;
-        }
-      }
-
-      else
-      {
-        v24.i64[1] = v24.i64[0];
-        v13 = vmulq_f32(v24, vdivq_f32(_Q3, vdupq_lane_s32(v23, 0)));
-        v14.i32[0] = vmovn_s32(vcgeq_f32(xmmword_2389FBDE0, v13)).u32[0];
-        v14.i32[1] = vmovn_s32(vcgeq_f32(v13, xmmword_2389FBDE0)).i32[1];
-        if (vminv_u16(vcltz_s16(vshl_n_s16(v14, 0xFuLL))))
-        {
-          return v7 & 1;
-        }
-      }
-
-      ++v4;
-      v7 = v19;
-      if (a2 == v15)
-      {
-        return v7 & 1;
-      }
-    }
-  }
-
-  return 0;
-}
-
-void GKGetLineSegmentPolygonIntersectionPoints(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>, float32x2_t a4@<D0>, float32x2_t a5@<D1>)
+void GKGetLineSegmentPolygonIntersectionPoints(uint64_t result@<X0>, unsigned int a2@<W1>, void *a3@<X8>, float32x2_t a4@<D0>, float32x2_t a5@<D1>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -464,7 +15,7 @@ void GKGetLineSegmentPolygonIntersectionPoints(uint64_t a1@<X0>, int a2@<W1>, vo
     do
     {
       v20 = v9++;
-      v21 = *(a1 + 8 * v20);
+      v21 = *(result + 8 * v20);
       if (v9 < v12)
       {
         v22 = v20 + 1;
@@ -475,7 +26,7 @@ void GKGetLineSegmentPolygonIntersectionPoints(uint64_t a1@<X0>, int a2@<W1>, vo
         v22 = 0;
       }
 
-      v23 = *(a1 + 8 * v22);
+      v23 = *(result + 8 * v22);
       v24 = vsub_f32(v23, v21);
       v25 = vsub_f32(v21, a4);
       v26 = vmul_f32(v24, v11);
@@ -690,12 +241,12 @@ void std::vector<OpenSteer::Vec3>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_2389E3FF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2389E3FF0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = GKGraphNode;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -776,47 +327,47 @@ void sub_2389E5F08(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2389E61D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2389E61D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389E61F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2389E61F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389E6204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2389E6204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-
-  std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_2389E6304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
+  va_start(va, a7);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389E631C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2389E6304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
+
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389E6330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2389E631C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
+  std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_2389E6330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -976,16 +527,16 @@ uint64_t GKCOctreeNode<NSObject>::addPoint(uint64_t a1, void *a2, int8x16_t a3)
 {
   v4 = a2;
   v5 = v4;
-  v27 = v4;
+  v19 = v4;
   v6 = *(a1 + 96);
   if (COERCE_FLOAT(*(a1 + 48)) < v6 || COERCE_FLOAT(HIDWORD(*(a1 + 48))) < v6 || COERCE_FLOAT(*(a1 + 56)) < v6)
   {
     v9 = *(a1 + 184);
     if (v9 >= *(a1 + 192))
     {
-      v15 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>((a1 + 176), &v27);
-      v5 = v27;
-      *(a1 + 184) = v15;
+      v16 = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>((a1 + 176), &v19);
+      v5 = v19;
+      *(a1 + 184) = v16;
     }
 
     else
@@ -1026,58 +577,13 @@ uint64_t GKCOctreeNode<NSObject>::addPoint(uint64_t a1, void *a2, int8x16_t a3)
     }
 
     v14 = v12 | v13;
-    if (!*(a1 + 8 * v14 + 112))
+    v15 = *(a1 + 8 * v14 + 112);
+    if (!v15)
     {
-      if (v14 > 3)
-      {
-        if (v14 > 5)
-        {
-          v25 = *(a1 + 80);
-          if (v14 == 6)
-          {
-            v19 = *(a1 + 16);
-          }
-        }
-
-        else if (v14 == 4)
-        {
-          v17 = *(a1 + 16);
-        }
-
-        else
-        {
-          v21 = *(a1 + 20);
-        }
-      }
-
-      else if (v14 > 1)
-      {
-        if (v14 == 2)
-        {
-          v18 = *(a1 + 16);
-        }
-
-        else
-        {
-          v22 = *(a1 + 24);
-        }
-      }
-
-      else if (v14)
-      {
-        v20 = *(a1 + 16);
-      }
-
-      else
-      {
-        v24 = *(a1 + 16);
-      }
-
-      v23 = *(a1 + 48);
       operator new();
     }
 
-    a1 = GKCOctreeNode<NSObject>::addPoint(a3);
+    a1 = GKCOctreeNode<NSObject>::addPoint(v15, v5, a3);
   }
 
   return a1;
@@ -1090,89 +596,32 @@ void sub_2389E6A38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t GKCOctreeNode<NSObject>::createNodeForOctant(float32x4_t *a1, int a2)
+uint64_t GKCOctreeNode<NSObject>::createNodeForOctant(uint64_t a1, int a2)
 {
   v2 = a1 + 8 * a2;
-  if (!*(v2 + 14))
+  if (!*(v2 + 112))
   {
     if (a2 > 3)
     {
-      if (a2 > 5)
+      if (a2 < 8)
       {
-        if (a2 == 6)
-        {
-          v4 = &a1[1];
-          v5 = a1[5];
-          goto LABEL_20;
-        }
-
-        if (a2 == 7)
-        {
-          v5 = a1[5];
-          goto LABEL_21;
-        }
-
-LABEL_22:
-        GKCOctreeNode<NSObject>::createNodeForOctant();
-      }
-
-      if (a2 == 4)
-      {
-        v5 = a1[1];
-        v5.i32[2] = a1[5].i32[2];
-      }
-
-      else
-      {
-        v5 = a1[5];
-        v5.i32[1] = a1[1].i32[1];
+        goto LABEL_7;
       }
     }
 
-    else
+    else if (a2 >= 0)
     {
-      if (a2 <= 1)
-      {
-        if (!a2)
-        {
-          v5 = a1[1];
-          goto LABEL_21;
-        }
-
-        if (a2 == 1)
-        {
-          v4 = &a1[5];
-          v5 = a1[1];
-LABEL_20:
-          v5.i32[0] = *v4;
-          goto LABEL_21;
-        }
-
-        goto LABEL_22;
-      }
-
-      if (a2 == 2)
-      {
-        v5 = a1[1];
-        v5.i32[1] = a1[5].i32[1];
-      }
-
-      else
-      {
-        v5 = a1[5];
-        v5.i32[2] = a1[1].i32[2];
-      }
+LABEL_7:
+      operator new();
     }
 
-LABEL_21:
-    v6 = vaddq_f32(a1[3], v5);
-    operator new();
+    GKCOctreeNode<NSObject>::createNodeForOctant();
   }
 
-  return *(v2 + 14);
+  return *(v2 + 112);
 }
 
-id std::vector<NSObject * {__strong}>::emplace_back<NSObject * const {__strong}&>(unint64_t *a1, id *a2)
+void **std::vector<NSObject * {__strong}>::emplace_back<NSObject * const {__strong}&>(void ***a1, id *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -1185,59 +634,55 @@ id std::vector<NSObject * {__strong}>::emplace_back<NSObject * const {__strong}&
   {
     result = *a2;
     *v3 = result;
-    a1[1] = (v3 + 1);
+    a1[1] = v3 + 1;
   }
 
   return result;
 }
 
-uint64_t GKCOctreeNode<NSObject>::addBox(uint64_t a1, void *a2, float32x4_t a3, float32x4_t a4)
+uint64_t GKCOctreeNode<NSObject>::addBox(uint64_t a1, void *a2, int8x16_t a3, float32x4_t a4)
 {
-  v55 = a4;
-  v56 = a3;
+  v43 = a4;
+  v44 = a3;
   v5 = a2;
   v6 = v5;
-  v54 = v5;
-  v7 = (a1 + 48);
-  v8 = *(a1 + 48);
-  LODWORD(v9) = HIDWORD(*(a1 + 48));
-  v10 = *(a1 + 96);
-  if (v8.f32[0] <= v10 || v9 <= v10)
+  v42 = v5;
+  v7 = *(a1 + 48);
+  LODWORD(v8) = HIDWORD(*(a1 + 48));
+  v9 = *(a1 + 96);
+  if (v7.f32[0] <= v9 || v8 <= v9)
   {
-    v12 = *(a1 + 184);
-    if (v12 >= *(a1 + 192))
+    v11 = *(a1 + 184);
+    if (v11 >= *(a1 + 192))
     {
-      *(a1 + 184) = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>((a1 + 176), &v54);
+      *(a1 + 184) = std::vector<NSObject * {__strong}>::__emplace_back_slow_path<NSObject * const {__strong}&>((a1 + 176), &v42);
     }
 
     else
     {
-      *v12 = v5;
-      *(a1 + 184) = v12 + 1;
+      *v11 = v5;
+      *(a1 + 184) = v11 + 1;
     }
   }
 
   else
   {
-    v13 = *(a1 + 16);
-    v14 = *(a1 + 80);
-    v15 = a3;
-    v16 = vaddq_f32(a4, a3).u64[0];
-    v17 = *&v16 > vaddq_f32(v13, v8).f32[0];
-    v18 = a3.f32[0] < v13.f32[0] || v17;
-    if (a3.f32[0] >= v13.f32[0] && !v17 && a3.f32[1] >= v14.f32[1])
+    v12 = *(a1 + 16);
+    v13 = *(a1 + 80);
+    v14 = a3;
+    v15 = vaddq_f32(a4, a3).u64[0];
+    v16 = *&v15 > vaddq_f32(v12, v7).f32[0];
+    v17 = *a3.i32 < v12.f32[0] || v16;
+    if (*a3.i32 >= v12.f32[0] && !v16 && *&a3.i32[1] >= v13.f32[1])
     {
-      if (*(&v16 + 1) <= (v14.f32[1] + v9) && a3.f32[2] >= v13.f32[2])
+      if (*(&v15 + 1) <= (v13.f32[1] + v8) && *&a3.i32[2] >= v12.f32[2])
       {
-        v19 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v13, v13, 8uLL)), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(v8, v8, 8uLL)));
-        if ((vcgt_f32(v19, vdup_lane_s32(v19, 1)).u32[0] & 1) == 0)
+        v18 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v12, v12, 8uLL)), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(v7, v7, 8uLL)));
+        if ((vcgt_f32(v18, vdup_lane_s32(v18, 1)).u8[0] & 1) == 0)
         {
-          v36 = *(a1 + 136);
-          if (!v36)
+          v35 = *(a1 + 136);
+          if (!v35)
           {
-            v45 = *(a1 + 80);
-            v49 = *(a1 + 16);
-            v41 = *v7;
             operator new();
           }
 
@@ -1245,18 +690,15 @@ uint64_t GKCOctreeNode<NSObject>::addBox(uint64_t a1, void *a2, float32x4_t a3, 
         }
       }
 
-      v15 = a3;
-      if (*(&v16 + 1) <= (v14.f32[1] + v9) && a3.f32[2] >= v13.f32[2])
+      v14 = a3;
+      if (*(&v15 + 1) <= (v13.f32[1] + v8) && *&a3.i32[2] >= v12.f32[2])
       {
-        v20 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v13, v13, 8uLL)), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(v8, v8, 8uLL)));
-        if ((vcgt_f32(v20, vdup_lane_s32(v20, 1)).u32[0] & 1) == 0)
+        v19 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v12, v12, 8uLL)), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(v7, v7, 8uLL)));
+        if ((vcgt_f32(v19, vdup_lane_s32(v19, 1)).u8[0] & 1) == 0)
         {
-          v36 = *(a1 + 128);
-          if (!v36)
+          v35 = *(a1 + 128);
+          if (!v35)
           {
-            v46 = *(a1 + 80);
-            v50 = *(a1 + 16);
-            v42 = *v7;
             operator new();
           }
 
@@ -1265,44 +707,39 @@ uint64_t GKCOctreeNode<NSObject>::addBox(uint64_t a1, void *a2, float32x4_t a3, 
       }
     }
 
-    v21 = (*v15.i32 < v14.f32[0]) | (*&v16 > vaddq_f32(v14, v8).f32[0]);
-    if ((v21 & 1) == 0)
+    v20 = (*v14.i32 < v13.f32[0]) | (*&v15 > vaddq_f32(v13, v7).f32[0]);
+    if ((v20 & 1) == 0)
     {
-      v22 = *&v15.i32[1] >= v13.f32[1] && *(&v16 + 1) <= (v13.f32[1] + v9);
-      if (v22 && *&v15.i32[2] >= v13.f32[2])
+      v21 = *&v14.i32[1] >= v12.f32[1] && *(&v15 + 1) <= (v12.f32[1] + v8);
+      if (v21 && *&v14.i32[2] >= v12.f32[2])
       {
-        v35 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v13, v13, 8uLL)), vzip1_s32(*&vextq_s8(v15, v15, 8uLL), *&vextq_s8(v8, v8, 8uLL)));
-        if ((vcgt_f32(v35, vdup_lane_s32(v35, 1)).u32[0] & 1) == 0)
+        v34 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v12, v12, 8uLL)), vzip1_s32(*&vextq_s8(v14, v14, 8uLL), *&vextq_s8(v7, v7, 8uLL)));
+        if ((vcgt_f32(v34, vdup_lane_s32(v34, 1)).u8[0] & 1) == 0)
         {
-          v36 = *(a1 + 120);
-          if (!v36)
+          v35 = *(a1 + 120);
+          if (!v35)
           {
-            v43 = *(a1 + 80);
-            v47 = *(a1 + 16);
-            v40 = *v7;
             operator new();
           }
 
 LABEL_62:
-          v34 = GKCOctreeNode<NSObject>::addBox(v36, v6, a3, a4);
+          v33 = GKCOctreeNode<NSObject>::addBox(v35, v6, a3, a4);
           goto LABEL_63;
         }
       }
     }
 
-    if (!v18)
+    if (!v17)
     {
-      v24 = a3.f32[1] >= v13.f32[1] && *(&v16 + 1) <= (v13.f32[1] + v9);
-      if (v24 && a3.f32[2] >= v13.f32[2])
+      v23 = *&a3.i32[1] >= v12.f32[1] && *(&v15 + 1) <= (v12.f32[1] + v8);
+      if (v23 && *&a3.i32[2] >= v12.f32[2])
       {
-        v37 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v13, v13, 8uLL)), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(v8, v8, 8uLL)));
-        if ((vcgt_f32(v37, vdup_lane_s32(v37, 1)).u8[0] & 1) == 0)
+        v36 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v12, v12, 8uLL)), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(v7, v7, 8uLL)));
+        if ((vcgt_f32(v36, vdup_lane_s32(v36, 1)).u8[0] & 1) == 0)
         {
-          v36 = *(a1 + 112);
-          if (!v36)
+          v35 = *(a1 + 112);
+          if (!v35)
           {
-            v44 = *v7;
-            v48 = *(a1 + 16);
             operator new();
           }
 
@@ -1311,57 +748,57 @@ LABEL_62:
       }
     }
 
-    if ((v21 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
-      v26 = v14.f32[1] + v9;
-      v27 = a3.f32[1] >= v14.f32[1] && *(&v16 + 1) <= v26;
-      if (v27 && a3.f32[2] >= v14.f32[2])
+      v25 = v13.f32[1] + v8;
+      v26 = *&a3.i32[1] >= v13.f32[1] && *(&v15 + 1) <= v25;
+      if (v26 && *&a3.i32[2] >= v13.f32[2])
       {
-        v38 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v14, v14, 8uLL)), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(v8, v8, 8uLL)));
-        if ((vcgt_f32(v38, vdup_lane_s32(v38, 1)).u8[0] & 1) == 0)
+        v37 = vadd_f32(vzip1_s32(*&vextq_s8(a4, a4, 8uLL), *&vextq_s8(v13, v13, 8uLL)), vzip1_s32(*&vextq_s8(a3, a3, 8uLL), *&vextq_s8(v7, v7, 8uLL)));
+        if ((vcgt_f32(v37, vdup_lane_s32(v37, 1)).u8[0] & 1) == 0)
         {
           NodeForOctant = GKCOctreeNode<NSObject>::createNodeForOctant(a1, 7);
-          v33 = a4;
-          v32 = a3;
+          v32 = a4;
+          v31 = a3;
           goto LABEL_49;
         }
       }
     }
 
-    v14.i32[2] = DWORD2(*(a1 + 24));
-    v53 = v14;
-    if (isBoxInsideBox(&v56, &v55, &v53, (a1 + 48)))
+    v13.i32[2] = *(a1 + 24);
+    v41 = v13;
+    if (isBoxInsideBox(&v44, &v43, &v41, (a1 + 48)))
     {
       NodeForOctant = GKCOctreeNode<NSObject>::createNodeForOctant(a1, 6);
 LABEL_48:
-      v33 = v55;
-      v32 = v56;
+      v32 = v43;
+      v31 = v44;
 LABEL_49:
-      v34 = GKCOctreeNode<NSObject>::addBox(NodeForOctant, v54, v32, v33);
+      v33 = GKCOctreeNode<NSObject>::addBox(NodeForOctant, v42, v31, v32);
 LABEL_63:
-      a1 = v34;
+      a1 = v33;
       goto LABEL_64;
     }
 
-    v30 = *(a1 + 80);
-    v30.i32[1] = *(a1 + 20);
-    v53 = v30;
-    if (isBoxInsideBox(&v56, &v55, &v53, (a1 + 48)))
+    v29 = *(a1 + 80);
+    v29.i32[1] = *(a1 + 20);
+    v41 = v29;
+    if (isBoxInsideBox(&v44, &v43, &v41, (a1 + 48)))
     {
       NodeForOctant = GKCOctreeNode<NSObject>::createNodeForOctant(a1, 5);
       goto LABEL_48;
     }
 
-    v31 = *(a1 + 16);
-    v31.i32[2] = *(a1 + 88);
-    v53 = v31;
-    if (isBoxInsideBox(&v56, &v55, &v53, (a1 + 48)))
+    v30 = *(a1 + 16);
+    v30.i32[2] = *(a1 + 88);
+    v41 = v30;
+    if (isBoxInsideBox(&v44, &v43, &v41, (a1 + 48)))
     {
       NodeForOctant = GKCOctreeNode<NSObject>::createNodeForOctant(a1, 4);
       goto LABEL_48;
     }
 
-    std::vector<NSObject * {__strong}>::emplace_back<NSObject * const {__strong}&>((a1 + 176), &v54);
+    std::vector<NSObject * {__strong}>::emplace_back<NSObject * const {__strong}&>((a1 + 176), &v42);
   }
 
 LABEL_64:
@@ -1400,152 +837,151 @@ id *GKCOctreeNode<NSObject>::queryBox(id *result, float32x4_t *a2, float32x4_t *
   {
     while (1)
     {
-      v8 = *(v7 + 11);
-      v9 = v7[23];
-      v10 = v7[22];
-      if (v9 != v10)
+      v8 = v7[23];
+      v9 = v7[22];
+      if (v8 != v9)
       {
-        result = std::vector<NSObject * {__strong}>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NSObject * const {__strong}*>,NSObject * const {__strong}*>(a4, a4[1], v10, v9, v9 - v10);
+        result = std::vector<NSObject * {__strong}>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NSObject * const {__strong}*>,NSObject * const {__strong}*>(a4, a4[1], v9, v8, v8 - v9);
       }
 
-      v11 = *a2;
-      v12 = *(v7 + 5);
-      v13 = COERCE_FLOAT(v7[11]);
-      LODWORD(v14) = HIDWORD(a2->i64[0]);
-      LODWORD(v15) = HIDWORD(v7[10]);
-      if (COERCE_FLOAT(a2->i64[1]) <= v13)
+      v10 = *a2;
+      v11 = *(v7 + 5);
+      v12 = COERCE_FLOAT(v7[11]);
+      LODWORD(v13) = HIDWORD(a2->i64[0]);
+      LODWORD(v14) = HIDWORD(v7[10]);
+      if (COERCE_FLOAT(a2->i64[1]) <= v12)
       {
         break;
       }
 
-      if (v14 >= v15)
+      if (v13 >= v14)
       {
-        v34 = *a3;
-        v35 = vaddq_f32(*a3, v11);
-        v36 = vmovn_s32(vcgtq_f32(v35, v12));
-        if ((v36.i8[2] & 1) == 0)
+        v33 = *a3;
+        v34 = vaddq_f32(*a3, v10);
+        v35 = vmovn_s32(vcgtq_f32(v34, v11));
+        if ((v35.i8[2] & 1) == 0)
         {
-          v52 = *(v7 + 1);
-          if (v36.i8[0])
+          v51 = *(v7 + 1);
+          if (v35.i8[0])
           {
-            v53 = *(v7 + 3);
-            v54 = vmovn_s32(vcgtq_f32(vaddq_f32(v53, v12), v11));
-            if (v54.i8[0] & 1) != 0 && (vmovn_s32(vcgtq_f32(v35, v52)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v53, v52), v11)).i8[2] & 1) != 0 && (v36.i8[4] & 1) != 0 && (v54.i8[4])
+            v52 = *(v7 + 3);
+            v53 = vmovn_s32(vcgtq_f32(vaddq_f32(v52, v11), v10));
+            if (v53.i8[0] & 1) != 0 && (vmovn_s32(vcgtq_f32(v34, v51)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v52, v51), v10)).i8[2] & 1) != 0 && (v35.i8[4] & 1) != 0 && (v53.i8[4])
             {
               result = v7[19];
               if (result)
               {
                 result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-                v52 = *(v7 + 1);
-                v12 = *(v7 + 5);
-                v11 = *a2;
-                v34 = *a3;
-                v35.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+                v51 = *(v7 + 1);
+                v11 = *(v7 + 5);
+                v10 = *a2;
+                v33 = *a3;
+                v34.i32[0] = vaddq_f32(*a3, *a2).u32[0];
               }
             }
           }
 
-          if (v52.f32[0] < v35.f32[0])
+          if (v51.f32[0] < v34.f32[0])
           {
-            v55 = *(v7 + 3);
-            v56 = vaddq_f32(v55, v52);
-            if (v56.f32[0] > v11.f32[0])
+            v54 = *(v7 + 3);
+            v55 = vaddq_f32(v54, v51);
+            if (v55.f32[0] > v10.f32[0])
             {
-              v57 = vaddq_f32(v34, v11);
-              if (vmovn_s32(vcgtq_f32(v57, v52)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v56, v11)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v57, v12)).i32[1] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v55, v12), v11)).i32[1])
+              v56 = vaddq_f32(v33, v10);
+              if (vmovn_s32(vcgtq_f32(v56, v51)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v55, v10)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v56, v11)).i32[1] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v54, v11), v10)).i32[1])
               {
                 result = v7[18];
                 if (result)
                 {
                   result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-                  v12 = *(v7 + 5);
-                  v11 = *a2;
-                  v34 = *a3;
-                  v35.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+                  v11 = *(v7 + 5);
+                  v10 = *a2;
+                  v33 = *a3;
+                  v34.i32[0] = vaddq_f32(*a3, *a2).u32[0];
                 }
               }
             }
           }
 
-          if (v12.f32[0] >= v35.f32[0])
+          if (v11.f32[0] >= v34.f32[0])
           {
             goto LABEL_90;
           }
 
-          v58 = vaddq_f32(*(v7 + 3), v12);
-          if (v58.f32[0] <= v11.f32[0])
+          v57 = vaddq_f32(*(v7 + 3), v11);
+          if (v57.f32[0] <= v10.f32[0])
           {
             goto LABEL_90;
           }
 
-          v36 = vmovn_s32(vcgtq_f32(vaddq_f32(v34, v11), v12));
+          v35 = vmovn_s32(vcgtq_f32(vaddq_f32(v33, v10), v11));
+          if ((v35.i8[2] & 1) == 0)
+          {
+            goto LABEL_90;
+          }
+
+          v36 = vmovn_s32(vcgtq_f32(v57, v10));
           if ((v36.i8[2] & 1) == 0)
           {
             goto LABEL_90;
           }
 
-          v37 = vmovn_s32(vcgtq_f32(v58, v11));
-          if ((v37.i8[2] & 1) == 0)
-          {
-            goto LABEL_90;
-          }
-
 LABEL_86:
-          if (v36.i8[4] & 1) != 0 && (v37.i8[4])
+          if (v35.i8[4] & 1) != 0 && (v36.i8[4])
           {
             result = v7[21];
             if (result)
             {
               result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-              v12 = *(v7 + 5);
-              v11 = *a2;
-              v34 = *a3;
-              v35.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+              v11 = *(v7 + 5);
+              v10 = *a2;
+              v33 = *a3;
+              v34.i32[0] = vaddq_f32(*a3, *a2).u32[0];
             }
           }
 
           goto LABEL_90;
         }
 
-        if (v36.i8[0])
+        if (v35.i8[0])
         {
-          v37 = vmovn_s32(vcgtq_f32(vaddq_f32(*(v7 + 3), v12), v11));
-          if (v37.i8[0] & 1) != 0 && (v37.i8[2])
+          v36 = vmovn_s32(vcgtq_f32(vaddq_f32(*(v7 + 3), v11), v10));
+          if (v36.i8[0] & 1) != 0 && (v36.i8[2])
           {
             goto LABEL_86;
           }
         }
 
 LABEL_90:
-        if (v12.f32[0] >= v35.f32[0])
+        if (v11.f32[0] >= v34.f32[0])
         {
           return result;
         }
 
-        v59 = *(v7 + 3);
-        if ((v59.f32[0] + v12.f32[0]) <= v11.f32[0])
+        v58 = *(v7 + 3);
+        if ((v58.f32[0] + v11.f32[0]) <= v10.f32[0])
         {
           return result;
         }
 
-        v60 = vaddq_f32(v34, v11);
-        if ((vmovn_s32(vcgtq_f32(v60, v12)).i8[2] & 1) == 0)
+        v59 = vaddq_f32(v33, v10);
+        if ((vmovn_s32(vcgtq_f32(v59, v11)).i8[2] & 1) == 0)
         {
           return result;
         }
 
-        if ((vmovn_s32(vcgtq_f32(vaddq_f32(v59, v12), v11)).i8[2] & 1) == 0)
+        if ((vmovn_s32(vcgtq_f32(vaddq_f32(v58, v11), v10)).i8[2] & 1) == 0)
         {
           return result;
         }
 
-        v61 = *(v7 + 1);
-        if ((vmovn_s32(vcgtq_f32(v60, v61)).i32[1] & 1) == 0)
+        v60 = *(v7 + 1);
+        if ((vmovn_s32(vcgtq_f32(v59, v60)).i32[1] & 1) == 0)
         {
           return result;
         }
 
-        if ((vmovn_s32(vcgtq_f32(vaddq_f32(v59, v61), v11)).i32[1] & 1) == 0)
+        if ((vmovn_s32(vcgtq_f32(vaddq_f32(v58, v60), v10)).i32[1] & 1) == 0)
         {
           return result;
         }
@@ -1559,43 +995,43 @@ LABEL_90:
 
       else
       {
-        v16 = *(v7 + 1);
-        v17 = *a3;
-        v18 = vaddq_f32(*a3, v11);
-        v19 = vmovn_s32(vcgtq_f32(v18, v12));
-        if (v19.i8[0])
+        v15 = *(v7 + 1);
+        v16 = *a3;
+        v17 = vaddq_f32(*a3, v10);
+        v18 = vmovn_s32(vcgtq_f32(v17, v11));
+        if (v18.i8[0])
         {
-          v20 = *(v7 + 3);
-          v21 = vmovn_s32(vcgtq_f32(vaddq_f32(v20, v12), v11));
-          if (v21.i8[0] & 1) != 0 && (vmovn_s32(vcgtq_f32(v18, v16)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v20, v16), v11)).i8[2] & 1) != 0 && (v19.i8[4] & 1) != 0 && (v21.i8[4])
+          v19 = *(v7 + 3);
+          v20 = vmovn_s32(vcgtq_f32(vaddq_f32(v19, v11), v10));
+          if (v20.i8[0] & 1) != 0 && (vmovn_s32(vcgtq_f32(v17, v15)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v19, v15), v10)).i8[2] & 1) != 0 && (v18.i8[4] & 1) != 0 && (v20.i8[4])
           {
             result = v7[19];
             if (result)
             {
               result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-              v16 = *(v7 + 1);
-              v12 = *(v7 + 5);
-              v11 = *a2;
-              v17 = *a3;
-              v18.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+              v15 = *(v7 + 1);
+              v11 = *(v7 + 5);
+              v10 = *a2;
+              v16 = *a3;
+              v17.i32[0] = vaddq_f32(*a3, *a2).u32[0];
             }
           }
         }
 
-        if (v16.f32[0] >= v18.f32[0])
+        if (v15.f32[0] >= v17.f32[0])
         {
           return result;
         }
 
-        v22 = *(v7 + 3);
-        v23 = vaddq_f32(v22, v16);
-        if (v23.f32[0] <= v11.f32[0])
+        v21 = *(v7 + 3);
+        v22 = vaddq_f32(v21, v15);
+        if (v22.f32[0] <= v10.f32[0])
         {
           return result;
         }
 
-        v24 = vaddq_f32(v17, v11);
-        if ((vmovn_s32(vcgtq_f32(v24, v16)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(v23, v11)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(v24, v12)).i32[1] & 1) == 0 || (vmovn_s32(vcgtq_f32(vaddq_f32(v22, v12), v11)).i32[1] & 1) == 0)
+        v23 = vaddq_f32(v16, v10);
+        if ((vmovn_s32(vcgtq_f32(v23, v15)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(v22, v10)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(v23, v11)).i32[1] & 1) == 0 || (vmovn_s32(vcgtq_f32(vaddq_f32(v21, v11), v10)).i32[1] & 1) == 0)
         {
           return result;
         }
@@ -1609,90 +1045,90 @@ LABEL_183:
       }
     }
 
-    v25 = *a3;
-    v26 = vaddq_f32(*a3, v11);
-    if (v26.f32[2] >= v13)
+    v24 = *a3;
+    v25 = vaddq_f32(*a3, v10);
+    if (v25.f32[2] >= v12)
     {
       break;
     }
 
-    if (v14 >= v15)
+    if (v13 >= v14)
     {
-      v47 = vmovn_s32(vcgtq_f32(v26, v12));
-      v48 = *(v7 + 1);
-      if ((v47.i8[2] & 1) == 0)
+      v46 = vmovn_s32(vcgtq_f32(v25, v11));
+      v47 = *(v7 + 1);
+      if ((v46.i8[2] & 1) == 0)
       {
-        if (v47.i8[0])
+        if (v46.i8[0])
         {
-          v69 = *(v7 + 3);
-          if (vmovn_s32(vcgtq_f32(vaddq_f32(v69, v12), v11)).u8[0])
+          v68 = *(v7 + 3);
+          if (vmovn_s32(vcgtq_f32(vaddq_f32(v68, v11), v10)).u8[0])
           {
-            v70 = vmovn_s32(vcgtq_f32(v26, v48));
-            if (v70.i8[2])
+            v69 = vmovn_s32(vcgtq_f32(v25, v47));
+            if (v69.i8[2])
             {
-              v71 = vmovn_s32(vcgtq_f32(vaddq_f32(v69, v48), v11));
-              if (v71.i8[2] & 1) != 0 && (v70.i8[4] & 1) != 0 && (v71.i8[4])
+              v70 = vmovn_s32(vcgtq_f32(vaddq_f32(v68, v47), v10));
+              if (v70.i8[2] & 1) != 0 && (v69.i8[4] & 1) != 0 && (v70.i8[4])
               {
                 result = v7[15];
                 if (result)
                 {
                   result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-                  v48 = *(v7 + 1);
-                  v11 = *a2;
-                  v25 = *a3;
-                  v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+                  v47 = *(v7 + 1);
+                  v10 = *a2;
+                  v24 = *a3;
+                  v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
                 }
               }
             }
           }
         }
 
-        if (v48.f32[0] < v26.f32[0])
+        if (v47.f32[0] < v25.f32[0])
         {
-          v72 = vaddq_f32(*(v7 + 3), v48);
-          if (v72.f32[0] > v11.f32[0])
+          v71 = vaddq_f32(*(v7 + 3), v47);
+          if (v71.f32[0] > v10.f32[0])
           {
-            v73 = vmovn_s32(vcgtq_f32(vaddq_f32(v25, v11), v48));
-            if (v73.i8[2])
+            v72 = vmovn_s32(vcgtq_f32(vaddq_f32(v24, v10), v47));
+            if (v72.i8[2])
             {
-              v74 = vmovn_s32(vcgtq_f32(v72, v11));
-              if (v74.i8[2] & 1) != 0 && (v73.i8[4] & 1) != 0 && (v74.i8[4])
+              v73 = vmovn_s32(vcgtq_f32(v71, v10));
+              if (v73.i8[2] & 1) != 0 && (v72.i8[4] & 1) != 0 && (v73.i8[4])
               {
                 result = v7[14];
                 if (result)
                 {
                   result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-                  v48 = *(v7 + 1);
-                  v11 = *a2;
-                  v25 = *a3;
-                  v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+                  v47 = *(v7 + 1);
+                  v10 = *a2;
+                  v24 = *a3;
+                  v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
                 }
               }
             }
           }
         }
 
-        v12 = *(v7 + 5);
-        if (v48.f32[0] >= v26.f32[0])
+        v11 = *(v7 + 5);
+        if (v47.f32[0] >= v25.f32[0])
         {
           goto LABEL_145;
         }
 
-        v75 = *(v7 + 3);
-        if ((v75.f32[0] + v48.f32[0]) <= v11.f32[0])
+        v74 = *(v7 + 3);
+        if ((v74.f32[0] + v47.f32[0]) <= v10.f32[0])
         {
           goto LABEL_145;
         }
 
-        v76 = vaddq_f32(v25, v11);
-        if ((vmovn_s32(vcgtq_f32(v76, v12)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(vaddq_f32(v75, v12), v11)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(v76, v48)).i32[1] & 1) == 0)
+        v75 = vaddq_f32(v24, v10);
+        if ((vmovn_s32(vcgtq_f32(v75, v11)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(vaddq_f32(v74, v11), v10)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(v75, v47)).i32[1] & 1) == 0)
         {
           goto LABEL_145;
         }
 
-        v67 = vaddq_f32(v75, v48);
+        v66 = vaddq_f32(v74, v47);
 LABEL_142:
-        if (vmovn_s32(vcgtq_f32(v67, v11)).i32[1])
+        if (vmovn_s32(vcgtq_f32(v66, v10)).i32[1])
         {
           goto LABEL_143;
         }
@@ -1700,56 +1136,56 @@ LABEL_142:
         goto LABEL_145;
       }
 
-      v49 = vmovn_s32(vcgtq_f32(v26, v48));
-      if (v49.i8[0])
+      v48 = vmovn_s32(vcgtq_f32(v25, v47));
+      if (v48.i8[0])
       {
-        v50 = *(v7 + 3);
-        v51 = vmovn_s32(vcgtq_f32(vaddq_f32(v50, v48), v11));
-        if (v51.i8[0] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v50, v12), v11)).i8[2] & 1) != 0 && (v49.i8[4] & 1) != 0 && (v51.i8[4])
+        v49 = *(v7 + 3);
+        v50 = vmovn_s32(vcgtq_f32(vaddq_f32(v49, v47), v10));
+        if (v50.i8[0] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v49, v11), v10)).i8[2] & 1) != 0 && (v48.i8[4] & 1) != 0 && (v50.i8[4])
         {
 LABEL_143:
           result = v7[17];
           if (result)
           {
             result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-            v48 = *(v7 + 1);
-            v12 = *(v7 + 5);
-            v11 = *a2;
-            v25 = *a3;
-            v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+            v47 = *(v7 + 1);
+            v11 = *(v7 + 5);
+            v10 = *a2;
+            v24 = *a3;
+            v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
           }
         }
       }
 
 LABEL_145:
-      if (v48.f32[0] >= v26.f32[0])
+      if (v47.f32[0] >= v25.f32[0])
       {
         return result;
       }
 
-      v77 = *(v7 + 3);
-      if ((v77.f32[0] + v48.f32[0]) <= v11.f32[0])
+      v76 = *(v7 + 3);
+      if ((v76.f32[0] + v47.f32[0]) <= v10.f32[0])
       {
         return result;
       }
 
-      v78 = vaddq_f32(v25, v11);
-      if ((vmovn_s32(vcgtq_f32(v78, v12)).i8[2] & 1) == 0)
+      v77 = vaddq_f32(v24, v10);
+      if ((vmovn_s32(vcgtq_f32(v77, v11)).i8[2] & 1) == 0)
       {
         return result;
       }
 
-      if ((vmovn_s32(vcgtq_f32(vaddq_f32(v77, v12), v11)).i8[2] & 1) == 0)
+      if ((vmovn_s32(vcgtq_f32(vaddq_f32(v76, v11), v10)).i8[2] & 1) == 0)
       {
         return result;
       }
 
-      if ((vmovn_s32(vcgtq_f32(v78, v48)).i32[1] & 1) == 0)
+      if ((vmovn_s32(vcgtq_f32(v77, v47)).i32[1] & 1) == 0)
       {
         return result;
       }
 
-      if ((vmovn_s32(vcgtq_f32(vaddq_f32(v77, v48), v11)).i32[1] & 1) == 0)
+      if ((vmovn_s32(vcgtq_f32(vaddq_f32(v76, v47), v10)).i32[1] & 1) == 0)
       {
         return result;
       }
@@ -1763,61 +1199,61 @@ LABEL_145:
 
     else
     {
-      v27 = *(v7 + 1);
-      if (vmovn_s32(vcgtq_f32(v26, v12)).u8[0])
+      v26 = *(v7 + 1);
+      if (vmovn_s32(vcgtq_f32(v25, v11)).u8[0])
       {
-        v28 = *(v7 + 3);
-        if (vmovn_s32(vcgtq_f32(vaddq_f32(v28, v12), v11)).u8[0])
+        v27 = *(v7 + 3);
+        if (vmovn_s32(vcgtq_f32(vaddq_f32(v27, v11), v10)).u8[0])
         {
-          v29 = vmovn_s32(vcgtq_f32(v26, v27));
-          if (v29.i8[2])
+          v28 = vmovn_s32(vcgtq_f32(v25, v26));
+          if (v28.i8[2])
           {
-            v30 = vmovn_s32(vcgtq_f32(vaddq_f32(v28, v27), v11));
-            if (v30.i8[2] & 1) != 0 && (v29.i8[4] & 1) != 0 && (v30.i8[4])
+            v29 = vmovn_s32(vcgtq_f32(vaddq_f32(v27, v26), v10));
+            if (v29.i8[2] & 1) != 0 && (v28.i8[4] & 1) != 0 && (v29.i8[4])
             {
               result = v7[15];
               if (result)
               {
                 result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-                v27 = *(v7 + 1);
-                v11 = *a2;
-                v25 = *a3;
-                v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+                v26 = *(v7 + 1);
+                v10 = *a2;
+                v24 = *a3;
+                v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
               }
             }
           }
         }
       }
 
-      if (v27.f32[0] >= v26.f32[0])
+      if (v26.f32[0] >= v25.f32[0])
       {
         return result;
       }
 
-      v31 = vaddq_f32(*(v7 + 3), v27);
-      if (v31.f32[0] <= v11.f32[0])
+      v30 = vaddq_f32(*(v7 + 3), v26);
+      if (v30.f32[0] <= v10.f32[0])
       {
         return result;
       }
 
-      v32 = vmovn_s32(vcgtq_f32(vaddq_f32(v25, v11), v27));
+      v31 = vmovn_s32(vcgtq_f32(vaddq_f32(v24, v10), v26));
+      if ((v31.i8[2] & 1) == 0)
+      {
+        return result;
+      }
+
+      v32 = vmovn_s32(vcgtq_f32(v30, v10));
       if ((v32.i8[2] & 1) == 0)
       {
         return result;
       }
 
-      v33 = vmovn_s32(vcgtq_f32(v31, v11));
-      if ((v33.i8[2] & 1) == 0)
+      if ((v31.i8[4] & 1) == 0)
       {
         return result;
       }
 
       if ((v32.i8[4] & 1) == 0)
-      {
-        return result;
-      }
-
-      if ((v33.i8[4] & 1) == 0)
       {
         return result;
       }
@@ -1830,46 +1266,46 @@ LABEL_145:
     }
   }
 
-  v38 = v14 < v15;
-  v39 = vcgtq_f32(v26, v12);
-  if (v38)
+  v37 = v13 < v14;
+  v38 = vcgtq_f32(v25, v11);
+  if (v37)
   {
-    v40 = *(v7 + 1);
-    if (vmovn_s32(v39).u8[0])
+    v39 = *(v7 + 1);
+    if (vmovn_s32(v38).u8[0])
     {
-      v41 = *(v7 + 3);
-      if (vmovn_s32(vcgtq_f32(vaddq_f32(v41, v12), v11)).u8[0])
+      v40 = *(v7 + 3);
+      if (vmovn_s32(vcgtq_f32(vaddq_f32(v40, v11), v10)).u8[0])
       {
-        v42 = vmovn_s32(vcgtq_f32(v26, v40));
-        if (v42.i8[2])
+        v41 = vmovn_s32(vcgtq_f32(v25, v39));
+        if (v41.i8[2])
         {
-          v43 = vmovn_s32(vcgtq_f32(vaddq_f32(v41, v40), v11));
-          if (v43.i8[2] & 1) != 0 && (v42.i8[4] & 1) != 0 && (v43.i8[4])
+          v42 = vmovn_s32(vcgtq_f32(vaddq_f32(v40, v39), v10));
+          if (v42.i8[2] & 1) != 0 && (v41.i8[4] & 1) != 0 && (v42.i8[4])
           {
             result = v7[15];
             if (result)
             {
               result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-              v40 = *(v7 + 1);
-              v11 = *a2;
-              v25 = *a3;
-              v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+              v39 = *(v7 + 1);
+              v10 = *a2;
+              v24 = *a3;
+              v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
             }
           }
         }
       }
     }
 
-    if (v40.f32[0] < v26.f32[0])
+    if (v39.f32[0] < v25.f32[0])
     {
-      v44 = vaddq_f32(*(v7 + 3), v40);
-      if (v44.f32[0] > v11.f32[0])
+      v43 = vaddq_f32(*(v7 + 3), v39);
+      if (v43.f32[0] > v10.f32[0])
       {
-        v45 = vmovn_s32(vcgtq_f32(vaddq_f32(v25, v11), v40));
-        if (v45.i8[2])
+        v44 = vmovn_s32(vcgtq_f32(vaddq_f32(v24, v10), v39));
+        if (v44.i8[2])
         {
-          v46 = vmovn_s32(vcgtq_f32(v44, v11));
-          if (v46.i8[2])
+          v45 = vmovn_s32(vcgtq_f32(v43, v10));
+          if (v45.i8[2])
           {
             goto LABEL_165;
           }
@@ -1880,63 +1316,63 @@ LABEL_145:
     goto LABEL_169;
   }
 
-  v62 = vmovn_s32(v39);
-  if (v62.i8[2])
+  v61 = vmovn_s32(v38);
+  if (v61.i8[2])
   {
-    if (v62.i8[0])
+    if (v61.i8[0])
     {
-      v63 = vmovn_s32(vcgtq_f32(vaddq_f32(*(v7 + 3), v12), v11));
-      if (v63.i8[0] & 1) != 0 && (v63.i8[2] & 1) != 0 && v13 < v26.f32[2] && (v63.i8[4])
+      v62 = vmovn_s32(vcgtq_f32(vaddq_f32(*(v7 + 3), v11), v10));
+      if (v62.i8[0] & 1) != 0 && (v62.i8[2] & 1) != 0 && v12 < v25.f32[2] && (v62.i8[4])
       {
         result = v7[21];
         if (result)
         {
           result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-          v12 = *(v7 + 5);
-          v11 = *a2;
-          v25 = *a3;
-          v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+          v11 = *(v7 + 5);
+          v10 = *a2;
+          v24 = *a3;
+          v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
         }
       }
     }
 
-    v48 = *(v7 + 1);
-    if (v12.f32[0] < v26.f32[0])
+    v47 = *(v7 + 1);
+    if (v11.f32[0] < v25.f32[0])
     {
-      v64 = *(v7 + 3);
-      if ((v64.f32[0] + v12.f32[0]) > v11.f32[0])
+      v63 = *(v7 + 3);
+      if ((v63.f32[0] + v11.f32[0]) > v10.f32[0])
       {
-        v65 = vaddq_f32(v25, v11);
-        if (vmovn_s32(vcgtq_f32(v65, v12)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v64, v12), v11)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v65, v48)).i32[1] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v64, v48), v11)).i32[1])
+        v64 = vaddq_f32(v24, v10);
+        if (vmovn_s32(vcgtq_f32(v64, v11)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v63, v11), v10)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v64, v47)).i32[1] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v63, v47), v10)).i32[1])
         {
           result = v7[20];
           if (result)
           {
             result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-            v48 = *(v7 + 1);
-            v12 = *(v7 + 5);
-            v11 = *a2;
-            v25 = *a3;
-            v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+            v47 = *(v7 + 1);
+            v11 = *(v7 + 5);
+            v10 = *a2;
+            v24 = *a3;
+            v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
           }
         }
       }
     }
 
-    if (v48.f32[0] >= v26.f32[0])
+    if (v47.f32[0] >= v25.f32[0])
     {
       goto LABEL_145;
     }
 
-    v66 = *(v7 + 3);
-    v67 = vaddq_f32(v66, v48);
-    if (v67.f32[0] <= v11.f32[0])
+    v65 = *(v7 + 3);
+    v66 = vaddq_f32(v65, v47);
+    if (v66.f32[0] <= v10.f32[0])
     {
       goto LABEL_145;
     }
 
-    v68 = vaddq_f32(v25, v11);
-    if ((vmovn_s32(vcgtq_f32(v68, v12)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(vaddq_f32(v66, v12), v11)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(v68, v48)).i32[1] & 1) == 0)
+    v67 = vaddq_f32(v24, v10);
+    if ((vmovn_s32(vcgtq_f32(v67, v11)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(vaddq_f32(v65, v11), v10)).i8[2] & 1) == 0 || (vmovn_s32(vcgtq_f32(v67, v47)).i32[1] & 1) == 0)
     {
       goto LABEL_145;
     }
@@ -1944,54 +1380,54 @@ LABEL_145:
     goto LABEL_142;
   }
 
-  v40 = *(v7 + 1);
-  if (v62.i8[0])
+  v39 = *(v7 + 1);
+  if (v61.i8[0])
   {
-    v79 = *(v7 + 3);
-    if (vmovn_s32(vcgtq_f32(vaddq_f32(v79, v12), v11)).u8[0])
+    v78 = *(v7 + 3);
+    if (vmovn_s32(vcgtq_f32(vaddq_f32(v78, v11), v10)).u8[0])
     {
-      v80 = vmovn_s32(vcgtq_f32(v26, v40));
-      if (v80.i8[2])
+      v79 = vmovn_s32(vcgtq_f32(v25, v39));
+      if (v79.i8[2])
       {
-        v81 = vmovn_s32(vcgtq_f32(vaddq_f32(v79, v40), v11));
-        if (v81.i8[2] & 1) != 0 && (v80.i8[4] & 1) != 0 && (v81.i8[4])
+        v80 = vmovn_s32(vcgtq_f32(vaddq_f32(v78, v39), v10));
+        if (v80.i8[2] & 1) != 0 && (v79.i8[4] & 1) != 0 && (v80.i8[4])
         {
           result = v7[15];
           if (result)
           {
             result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-            v40 = *(v7 + 1);
-            v11 = *a2;
-            v25 = *a3;
-            v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+            v39 = *(v7 + 1);
+            v10 = *a2;
+            v24 = *a3;
+            v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
           }
         }
       }
     }
   }
 
-  if (v40.f32[0] < v26.f32[0])
+  if (v39.f32[0] < v25.f32[0])
   {
-    v82 = *(v7 + 3);
-    if ((v82.f32[0] + v40.f32[0]) > v11.f32[0])
+    v81 = *(v7 + 3);
+    if ((v81.f32[0] + v39.f32[0]) > v10.f32[0])
     {
-      v45 = vmovn_s32(vcgtq_f32(vaddq_f32(v25, v11), v40));
-      if (v45.i8[2])
+      v44 = vmovn_s32(vcgtq_f32(vaddq_f32(v24, v10), v39));
+      if (v44.i8[2])
       {
-        v46 = vmovn_s32(vcgtq_f32(vaddq_f32(v82, v40), v11));
-        if (v46.i8[2])
+        v45 = vmovn_s32(vcgtq_f32(vaddq_f32(v81, v39), v10));
+        if (v45.i8[2])
         {
 LABEL_165:
-          if (v45.i8[4] & 1) != 0 && (v46.i8[4])
+          if (v44.i8[4] & 1) != 0 && (v45.i8[4])
           {
             result = v7[14];
             if (result)
             {
               result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-              v40 = *(v7 + 1);
-              v11 = *a2;
-              v25 = *a3;
-              v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+              v39 = *(v7 + 1);
+              v10 = *a2;
+              v24 = *a3;
+              v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
             }
           }
         }
@@ -2000,38 +1436,38 @@ LABEL_165:
   }
 
 LABEL_169:
-  v83 = *(v7 + 5);
-  if (v83.f32[0] < v26.f32[0])
+  v82 = *(v7 + 5);
+  if (v82.f32[0] < v25.f32[0])
   {
-    v84 = *(v7 + 3);
-    v85 = vaddq_f32(v84, v83);
-    if (v85.f32[0] > v11.f32[0])
+    v83 = *(v7 + 3);
+    v84 = vaddq_f32(v83, v82);
+    if (v84.f32[0] > v10.f32[0])
     {
-      v86 = vaddq_f32(v25, v11);
-      if (vmovn_s32(vcgtq_f32(v86, v40)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v84, v40), v11)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v86, v83)).i32[1] & 1) != 0 && (vmovn_s32(vcgtq_f32(v85, v11)).i32[1])
+      v85 = vaddq_f32(v24, v10);
+      if (vmovn_s32(vcgtq_f32(v85, v39)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v83, v39), v10)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v85, v82)).i32[1] & 1) != 0 && (vmovn_s32(vcgtq_f32(v84, v10)).i32[1])
       {
         result = v7[19];
         if (result)
         {
           result = GKCOctreeNode<NSObject>::queryBox(result, a2, a3, a4);
-          v40 = *(v7 + 1);
-          v83 = *(v7 + 5);
-          v11 = *a2;
-          v25 = *a3;
-          v26.i32[0] = vaddq_f32(*a3, *a2).u32[0];
+          v39 = *(v7 + 1);
+          v82 = *(v7 + 5);
+          v10 = *a2;
+          v24 = *a3;
+          v25.i32[0] = vaddq_f32(*a3, *a2).u32[0];
         }
       }
     }
   }
 
-  if (v40.f32[0] < v26.f32[0])
+  if (v39.f32[0] < v25.f32[0])
   {
-    v87 = *(v7 + 3);
-    v88 = vaddq_f32(v87, v40);
-    if (v88.f32[0] > v11.f32[0])
+    v86 = *(v7 + 3);
+    v87 = vaddq_f32(v86, v39);
+    if (v87.f32[0] > v10.f32[0])
     {
-      v89 = vaddq_f32(v25, v11);
-      if (vmovn_s32(vcgtq_f32(v89, v40)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v88, v11)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v89, v83)).i32[1] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v87, v83), v11)).i32[1])
+      v88 = vaddq_f32(v24, v10);
+      if (vmovn_s32(vcgtq_f32(v88, v39)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v87, v10)).i8[2] & 1) != 0 && (vmovn_s32(vcgtq_f32(v88, v82)).i32[1] & 1) != 0 && (vmovn_s32(vcgtq_f32(vaddq_f32(v86, v82), v10)).i32[1])
       {
         goto LABEL_183;
       }
@@ -2887,7 +2323,7 @@ float GKGetCircleToLineIntersectionPoints(_DWORD *a1, float32x2_t *a2, float32x2
 BOOL GKDoesCircleIntersectLineSegment(float32x2_t a1, float a2, double a3, double a4)
 {
   v7 = 0;
-  GKGetCircleToLineSegmentIntersectionPoints(&v7, &v6, &v5, a1, a2, a3, a4);
+  GKGetCircleToLineSegmentIntersectionPoints(&v7, v6, &v5, a1, a2, a3, a4);
   return v7 > 0;
 }
 
@@ -3018,10 +2454,10 @@ float Clamp(float a1, float a2, float a3)
   }
 }
 
-float32x2_t GKClosestPointsBetweenLineSegments(float32x2_t *a1, double *a2, float32x2_t result, float32x2_t a4, float32x2_t a5, float32x2_t a6)
+float32x2_t GKClosestPointsBetweenLineSegments(float32x2_t *a1, float32x2_t *a2, float32x2_t result, float32x2_t a4, double a5, float32x2_t a6)
 {
   v6 = vsub_f32(a4, result);
-  v7 = vsub_f32(a6, a5);
+  v7 = vsub_f32(a6, *&a5);
   v8 = vmul_f32(v6, v6);
   v9 = vaddv_f32(v8);
   v10 = vmul_f32(v7, v7);
@@ -3029,11 +2465,11 @@ float32x2_t GKClosestPointsBetweenLineSegments(float32x2_t *a1, double *a2, floa
   if (v9 <= 0.00000011921 && v11 <= 0.00000011921)
   {
     *a1 = result;
-    *a2 = *&a5;
+    *a2 = a5;
     return result;
   }
 
-  v13 = vsub_f32(result, a5);
+  v13 = vsub_f32(result, *&a5);
   v14 = vadd_f32(v10, vdup_lane_s32(v10, 1));
   v15 = vmul_f32(v7, v13);
   v16 = vadd_f32(v15, vdup_lane_s32(v15, 1));
@@ -3045,7 +2481,7 @@ float32x2_t GKClosestPointsBetweenLineSegments(float32x2_t *a1, double *a2, floa
 LABEL_7:
     result = vmla_n_f32(result, v6, v18);
     *a1 = result;
-    *a2 = vmla_n_f32(a5, v7, v19);
+    *a2 = vmla_n_f32(*&a5, v7, v19);
     return result;
   }
 
@@ -3082,7 +2518,7 @@ LABEL_7:
 LABEL_12:
       result = vmla_n_f32(result, v6, fmaxf(fminf(-v21 / v9, 1.0), 0.0));
       *a1 = result;
-      *a2 = vmla_n_f32(a5, v7, 0.0);
+      *a2 = vmla_n_f32(*&a5, v7, 0.0);
       return result;
     }
   }
@@ -3094,7 +2530,7 @@ LABEL_12:
 
   result = vmla_n_f32(result, v6, fmaxf(fminf(vdiv_f32(vsub_f32(v26, v25), v22).f32[0], 1.0), 0.0));
   *a1 = result;
-  *a2 = vmla_n_f32(a5, v7, 1.0);
+  *a2 = vmla_n_f32(*&a5, v7, 1.0);
   return result;
 }
 
@@ -3131,15 +2567,18 @@ void sub_2389EBE58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void p2t::Sweep::SweepPoints(p2t::Sweep *this, p2t::SweepContext *a2)
+p2t::Sweep *p2t::Sweep::SweepPoints(p2t::Sweep *this, p2t::SweepContext *a2)
 {
-  v4 = 1;
+  v6 = 1;
   if (((*(a2 + 17) - *(a2 + 16)) >> 3) >= 2)
   {
-    Point = p2t::SweepContext::GetPoint(a2, &v4);
-    p2t::SweepContext::LocateNode(a2, Point);
-    p2t::Sweep::NewFrontTriangle();
+    v3 = this;
+    Point = p2t::SweepContext::GetPoint(a2, &v6);
+    Node = p2t::SweepContext::LocateNode(a2, Point);
+    p2t::Sweep::NewFrontTriangle(v3, a2, Point, Node);
   }
+
+  return this;
 }
 
 void p2t::Sweep::FinalizationPolygon(p2t::Sweep *this, p2t::SweepContext *a2)
@@ -3193,30 +2632,32 @@ uint64_t p2t::Sweep::EdgeEvent(p2t::Sweep *a1, uint64_t a2, Point **a3, uint64_t
   return result;
 }
 
-void p2t::Sweep::FillAdvancingFront(_BOOL8 a1, uint64_t a2, uint64_t *a3)
+void p2t::Sweep::FillAdvancingFront(_BOOL8 a1, p2t::SweepContext *a2, void *a3)
 {
   v5 = a1;
-  if (*(a3[2] + 16))
+  v6 = a3[2];
+  if (*(v6 + 16))
   {
-    a1 = p2t::Sweep::LargeHole_DontFill(a1, a3[2]);
+    a1 = p2t::Sweep::LargeHole_DontFill(a1, v6);
     if (!a1)
     {
-      p2t::Sweep::Fill();
+      p2t::Sweep::Fill(v5, a2, v6);
     }
   }
 
-  if (*(a3[3] + 24) && !p2t::Sweep::LargeHole_DontFill(a1, a3[3]))
+  v7 = a3[3];
+  if (*(v7 + 24) && !p2t::Sweep::LargeHole_DontFill(a1, v7))
   {
-    p2t::Sweep::Fill();
+    p2t::Sweep::Fill(v5, a2, v7);
   }
 
-  v6 = a3[2];
-  if (v6)
+  v8 = a3[2];
+  if (v8)
   {
-    v7 = *(v6 + 16);
-    if (v7)
+    v9 = *(v8 + 16);
+    if (v9)
     {
-      if (atan2(*(*a3 + 8) - *(*v7 + 8), **a3 - **v7) < 2.35619449)
+      if (atan2(*(*a3 + 8) - *(*v9 + 8), **a3 - **v9) < 2.35619449)
       {
 
         p2t::Sweep::FillBasin(v5, a2, a3);
@@ -3241,28 +2682,29 @@ BOOL p2t::Sweep::IsEdgeSideOfTriangle(p2t::Sweep *this, p2t::Triangle *a2, Point
   return v7 != -1;
 }
 
-void p2t::Sweep::FillEdgeEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+p2t::Sweep *p2t::Sweep::FillEdgeEvent(p2t::Sweep *result, p2t::SweepContext *a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4;
+  v7 = result;
   v8 = *a3;
   v9 = **a3;
   if (*(a2 + 72) == 1)
   {
     v10 = *(a4 + 16);
     v11 = *v10;
-    for (i = **v10; i < v9; i = **v10)
+    for (i = (*v10)->f64[0]; i < v9; i = (*v10)->f64[0])
     {
       v13 = (v8->f64[1] - *(*(a3 + 8) + 8)) * (i - v9) + (v11[1] - v8->f64[1]) * (**(a3 + 8) - v9);
       if (fabs(v13) >= 1.0e-12 && v13 > 0.0)
       {
-        p2t::Sweep::FillRightBelowEdgeEvent(a1, a2, a3, v4);
+        result = p2t::Sweep::FillRightBelowEdgeEvent(v7, a2, a3, v4);
         v8 = *a3;
         v9 = **a3;
         v10 = v4;
       }
 
       v4 = v10;
-      v10 = *(v10 + 16);
+      v10 = v10[2];
       v11 = *v10;
     }
   }
@@ -3271,22 +2713,24 @@ void p2t::Sweep::FillEdgeEvent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   {
     v14 = *(a4 + 24);
     v15 = *v14;
-    for (j = **v14; j > v9; j = **v14)
+    for (j = (*v14)->f64[0]; j > v9; j = (*v14)->f64[0])
     {
       v17 = (v8->f64[1] - *(*(a3 + 8) + 8)) * (j - v9) + (v15[1] - v8->f64[1]) * (**(a3 + 8) - v9);
       if (fabs(v17) >= 1.0e-12 && v17 <= 0.0)
       {
-        p2t::Sweep::FillLeftBelowEdgeEvent(a1, a2, a3, v4);
+        result = p2t::Sweep::FillLeftBelowEdgeEvent(v7, a2, a3, v4);
         v8 = *a3;
         v9 = **a3;
         v14 = v4;
       }
 
       v4 = v14;
-      v14 = *(v14 + 24);
+      v14 = v14[3];
       v15 = *v14;
     }
   }
+
+  return result;
 }
 
 uint64_t p2t::Sweep::EdgeEvent(p2t::Sweep *this, p2t::SweepContext *a2, Point *a3, Point *a4, p2t::Triangle *a5, Point *a6)
@@ -3686,7 +3130,7 @@ BOOL p2t::Sweep::LargeHole_DontFill(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void p2t::Sweep::FillBasin(uint64_t a1, uint64_t a2, uint64_t a3)
+p2t::Sweep *p2t::Sweep::FillBasin(p2t::Sweep *a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a3 + 16);
   v4 = ***(v3 + 16);
@@ -3733,9 +3177,11 @@ void p2t::Sweep::FillBasin(uint64_t a1, uint64_t a2, uint64_t a3)
       v16 = v13[1];
       *(a2 + 48) = *v13 - *v14;
       *(a2 + 56) = v15 > v16;
-      p2t::Sweep::FillBasinReq(a1, a2, v10);
+      return p2t::Sweep::FillBasinReq(a1, a2, v10);
     }
   }
+
+  return a1;
 }
 
 BOOL p2t::Sweep::AngleExceeds90Degrees(p2t::Sweep *this, Point *a2, Point *a3, Point *a4)
@@ -3761,7 +3207,7 @@ long double p2t::Sweep::Angle(p2t::Sweep *this, Point *a2, Point *a3, Point *a4)
   return atan2(vmlsq_laneq_f64(vmulq_laneq_f64(v4, v5, 1), v5, v4, 1).f64[0], vaddvq_f64(vmulq_f64(v5, v4)));
 }
 
-double p2t::Sweep::HoleAngle(uint64_t a1, uint64_t a2)
+long double p2t::Sweep::HoleAngle(uint64_t a1, uint64_t a2)
 {
   v2 = **a2;
   v3 = vsubq_f64(***(a2 + 16), v2);
@@ -3837,7 +3283,7 @@ void *p2t::Sweep::RotateTrianglePair(p2t::Sweep *this, p2t::Triangle *a2, Point 
   return p2t::Triangle::MarkNeighbor(a2, a4);
 }
 
-void p2t::Sweep::FillBasinReq(uint64_t a1, uint64_t a2, uint64_t a3)
+p2t::Sweep *p2t::Sweep::FillBasinReq(p2t::Sweep *result, uint64_t a2, uint64_t a3)
 {
   v3 = 40;
   if (*(a2 + 56))
@@ -3847,8 +3293,10 @@ void p2t::Sweep::FillBasinReq(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (*(a2 + 48) <= *(**(a2 + v3) + 8) - *(*a3 + 8))
   {
-    p2t::Sweep::Fill();
+    p2t::Sweep::Fill(result, a2, a3);
   }
+
+  return result;
 }
 
 BOOL p2t::Sweep::IsShallow(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3862,190 +3310,220 @@ BOOL p2t::Sweep::IsShallow(uint64_t a1, uint64_t a2, uint64_t a3)
   return *(a2 + 48) > *(**(a2 + v3) + 8) - *(*a3 + 8);
 }
 
-void p2t::Sweep::FillRightAboveEdgeEvent(uint64_t a1, uint64_t a2, float64x2_t **a3, uint64_t a4)
+p2t::Sweep *p2t::Sweep::FillRightAboveEdgeEvent(p2t::Sweep *result, p2t::SweepContext *a2, float64x2_t **a3, uint64_t a4)
 {
   v4 = *(a4 + 16);
   v5 = *v4;
-  v6 = **v4;
+  v6 = (*v4)->f64[0];
   v7 = *a3;
   v8 = (*a3)->f64[0];
   if (v6 < v8)
   {
     v9 = a4;
+    v12 = result;
     do
     {
       v13 = (v7->f64[1] - a3[1]->f64[1]) * (v6 - v8) + (v5[1] - v7->f64[1]) * (a3[1]->f64[0] - v8);
       if (fabs(v13) >= 1.0e-12 && v13 > 0.0)
       {
-        p2t::Sweep::FillRightBelowEdgeEvent(a1, a2, a3, v9);
+        result = p2t::Sweep::FillRightBelowEdgeEvent(v12, a2, a3, v9);
         v7 = *a3;
         v8 = (*a3)->f64[0];
         v4 = v9;
       }
 
       v9 = v4;
-      v4 = *(v4 + 16);
+      v4 = v4[2];
       v5 = *v4;
-      v6 = **v4;
+      v6 = (*v4)->f64[0];
     }
 
     while (v6 < v8);
   }
+
+  return result;
 }
 
-void p2t::Sweep::FillLeftAboveEdgeEvent(uint64_t a1, uint64_t a2, float64x2_t **a3, uint64_t a4)
+p2t::Sweep *p2t::Sweep::FillLeftAboveEdgeEvent(p2t::Sweep *result, p2t::SweepContext *a2, float64x2_t **a3, uint64_t a4)
 {
   v4 = *(a4 + 24);
   v5 = *v4;
-  v6 = **v4;
+  v6 = (*v4)->f64[0];
   v7 = *a3;
   v8 = (*a3)->f64[0];
   if (v6 > v8)
   {
     v9 = a4;
+    v12 = result;
     do
     {
       v13 = (v7->f64[1] - a3[1]->f64[1]) * (v6 - v8) + (v5[1] - v7->f64[1]) * (a3[1]->f64[0] - v8);
       if (fabs(v13) >= 1.0e-12 && v13 <= 0.0)
       {
-        p2t::Sweep::FillLeftBelowEdgeEvent(a1, a2, a3, v9);
+        result = p2t::Sweep::FillLeftBelowEdgeEvent(v12, a2, a3, v9);
         v7 = *a3;
         v8 = (*a3)->f64[0];
         v4 = v9;
       }
 
       v9 = v4;
-      v4 = *(v4 + 24);
+      v4 = v4[3];
       v5 = *v4;
-      v6 = **v4;
+      v6 = (*v4)->f64[0];
     }
 
     while (v6 > v8);
   }
+
+  return result;
 }
 
-void p2t::Sweep::FillRightBelowEdgeEvent(uint64_t a1, uint64_t a2, float64x2_t **a3, uint64_t a4)
+p2t::Sweep *p2t::Sweep::FillRightBelowEdgeEvent(p2t::Sweep *result, p2t::SweepContext *a2, float64x2_t **a3, float64x2_t **a4)
 {
   v4 = *a4;
-  for (v5.f64[0] = **a4; v5.f64[0] < (*a3)->f64[0]; v5.f64[0] = **a4)
+  v5.f64[0] = (*a4)->f64[0];
+  if (v5.f64[0] < (*a3)->f64[0])
   {
-    v10 = *(a4 + 16);
-    v11 = **(v10 + 16);
-    v5.f64[1] = v4[1];
-    v12 = vsubq_f64(v5, *v11);
-    v13 = vmulq_f64(vsubq_f64(**v10, *v11), vextq_s8(v12, v12, 8uLL));
-    *&v14 = *&vsubq_f64(vdupq_laneq_s64(v13, 1), v13);
-    if (fabs(v14) >= 1.0e-12 && v14 > 0.0)
+    v9 = result;
+    do
     {
-      p2t::Sweep::Fill();
+      v10 = a4[2];
+      v11 = **&v10[1].f64[0];
+      v5.f64[1] = *(v4 + 8);
+      v12 = vsubq_f64(v5, *v11);
+      v13 = vmulq_f64(vsubq_f64(**&v10->f64[0], *v11), vextq_s8(v12, v12, 8uLL));
+      *&v14 = *&vsubq_f64(vdupq_laneq_s64(v13, 1), v13);
+      if (fabs(v14) >= 1.0e-12 && v14 > 0.0)
+      {
+        p2t::Sweep::Fill(v9, a2, v10);
+      }
+
+      result = p2t::Sweep::FillRightConvexEdgeEvent(v9, a2, a3, a4);
+      v4 = *a4;
+      v5.f64[0] = (*a4)->f64[0];
     }
 
-    p2t::Sweep::FillRightConvexEdgeEvent(a1, a2, a3, a4);
-    v4 = *a4;
+    while (v5.f64[0] < (*a3)->f64[0]);
   }
+
+  return result;
 }
 
-void p2t::Sweep::FillRightConvexEdgeEvent(uint64_t a1, uint64_t a2, float64x2_t **a3, uint64_t a4)
+p2t::Sweep *p2t::Sweep::FillRightConvexEdgeEvent(p2t::Sweep *result, p2t::SweepContext *a2, float64x2_t **a3, uint64_t a4)
 {
-  v4 = *(a4 + 16);
-  v5 = *v4;
-  v6 = v4[2];
-  v7 = *v6;
-  v8.f64[0] = **v4;
-  v9 = **v6;
+  v5 = *(a4 + 16);
+  v6 = *v5;
+  v7 = v5[2];
+  v8 = *v7;
+  v9.f64[0] = **v5;
+  v10 = **v7;
   do
   {
-    v10 = v5 + 1;
-    v5 = v7;
-    v6 = v6[2];
-    v7 = *v6;
-    v11 = **v6;
-    v8.f64[1] = *v10;
-    v12 = vsubq_f64(v8, v11);
-    v13 = vmulq_f64(vsubq_f64(v9, v11), vextq_s8(v12, v12, 8uLL));
-    *&v14 = *&vsubq_f64(vdupq_laneq_s64(v13, 1), v13);
-    if (fabs(v14) >= 1.0e-12 && v14 > 0.0)
+    v11 = v7;
+    v12 = v6 + 1;
+    v6 = v8;
+    v7 = v7[2];
+    v8 = *v7;
+    v13 = **v7;
+    v9.f64[1] = *v12;
+    v14 = vsubq_f64(v9, v13);
+    v15 = vmulq_f64(vsubq_f64(v10, v13), vextq_s8(v14, v14, 8uLL));
+    *&v16 = *&vsubq_f64(vdupq_laneq_s64(v15, 1), v15);
+    if (fabs(v16) >= 1.0e-12 && v16 > 0.0)
     {
-      p2t::Sweep::Fill();
+      p2t::Sweep::Fill(result, a2, v11);
     }
 
-    v15 = **a3;
-    v16 = vsubq_f64(*a3[1], v15);
-    v17 = vmulq_f64(vextq_s8(v16, v16, 8uLL), vsubq_f64(v9, v15));
-    *&v18 = *&vsubq_f64(vdupq_laneq_s64(v17, 1), v17);
-    if (fabs(v18) < 1.0e-12)
+    v17 = **a3;
+    v18 = vsubq_f64(*a3[1], v17);
+    v19 = vmulq_f64(vextq_s8(v18, v18, 8uLL), vsubq_f64(v10, v17));
+    *&v20 = *&vsubq_f64(vdupq_laneq_s64(v19, 1), v19);
+    if (fabs(v20) < 1.0e-12)
     {
       break;
     }
 
-    v19 = v18 <= 0.0;
-    v8.f64[0] = v9.f64[0];
-    v9 = **v6;
+    v21 = v20 <= 0.0;
+    v9.f64[0] = v10.f64[0];
+    v10 = **v7;
   }
 
-  while (!v19);
+  while (!v21);
+  return result;
 }
 
-void p2t::Sweep::FillLeftBelowEdgeEvent(uint64_t a1, uint64_t a2, float64x2_t **a3, uint64_t a4)
+p2t::Sweep *p2t::Sweep::FillLeftBelowEdgeEvent(p2t::Sweep *result, p2t::SweepContext *a2, float64x2_t **a3, float64x2_t **a4)
 {
   v4 = *a4;
-  for (v5.f64[0] = **a4; v5.f64[0] > (*a3)->f64[0]; v5.f64[0] = **a4)
+  v5.f64[0] = (*a4)->f64[0];
+  if (v5.f64[0] > (*a3)->f64[0])
   {
-    v10 = *(a4 + 24);
-    v11 = **(v10 + 24);
-    v5.f64[1] = v4[1];
-    v12 = vsubq_f64(v5, *v11);
-    v13 = vmulq_f64(vsubq_f64(**v10, *v11), vextq_s8(v12, v12, 8uLL));
-    *&v14 = *&vsubq_f64(vdupq_laneq_s64(v13, 1), v13);
-    if (fabs(v14) >= 1.0e-12 && v14 <= 0.0)
+    v9 = result;
+    do
     {
-      p2t::Sweep::Fill();
+      v10 = a4[3];
+      v11 = **&v10[1].f64[1];
+      v5.f64[1] = *(v4 + 8);
+      v12 = vsubq_f64(v5, *v11);
+      v13 = vmulq_f64(vsubq_f64(**&v10->f64[0], *v11), vextq_s8(v12, v12, 8uLL));
+      *&v14 = *&vsubq_f64(vdupq_laneq_s64(v13, 1), v13);
+      if (fabs(v14) >= 1.0e-12 && v14 <= 0.0)
+      {
+        p2t::Sweep::Fill(v9, a2, v10);
+      }
+
+      result = p2t::Sweep::FillLeftConvexEdgeEvent(v9, a2, a3, a4);
+      v4 = *a4;
+      v5.f64[0] = (*a4)->f64[0];
     }
 
-    p2t::Sweep::FillLeftConvexEdgeEvent(a1, a2, a3, a4);
-    v4 = *a4;
+    while (v5.f64[0] > (*a3)->f64[0]);
   }
+
+  return result;
 }
 
-void p2t::Sweep::FillLeftConvexEdgeEvent(uint64_t a1, uint64_t a2, float64x2_t **a3, uint64_t a4)
+p2t::Sweep *p2t::Sweep::FillLeftConvexEdgeEvent(p2t::Sweep *result, p2t::SweepContext *a2, float64x2_t **a3, uint64_t a4)
 {
-  v4 = *(a4 + 24);
-  v5 = *v4;
-  v6 = v4[3];
-  v7 = *v6;
-  v8.f64[0] = **v4;
-  v9 = **v6;
+  v5 = *(a4 + 24);
+  v6 = *v5;
+  v7 = v5[3];
+  v8 = *v7;
+  v9.f64[0] = **v5;
+  v10 = **v7;
   do
   {
-    v10 = v5 + 1;
-    v5 = v7;
-    v6 = v6[3];
-    v7 = *v6;
-    v11 = **v6;
-    v8.f64[1] = *v10;
-    v12 = vsubq_f64(v8, v11);
-    v13 = vmulq_f64(vsubq_f64(v9, v11), vextq_s8(v12, v12, 8uLL));
-    *&v14 = *&vsubq_f64(vdupq_laneq_s64(v13, 1), v13);
-    if (fabs(v14) >= 1.0e-12 && v14 <= 0.0)
+    v11 = v7;
+    v12 = v6 + 1;
+    v6 = v8;
+    v7 = v7[3];
+    v8 = *v7;
+    v13 = **v7;
+    v9.f64[1] = *v12;
+    v14 = vsubq_f64(v9, v13);
+    v15 = vmulq_f64(vsubq_f64(v10, v13), vextq_s8(v14, v14, 8uLL));
+    *&v16 = *&vsubq_f64(vdupq_laneq_s64(v15, 1), v15);
+    if (fabs(v16) >= 1.0e-12 && v16 <= 0.0)
     {
-      p2t::Sweep::Fill();
+      p2t::Sweep::Fill(result, a2, v11);
     }
 
-    v15 = **a3;
-    v16 = vsubq_f64(*a3[1], v15);
-    v17 = vmulq_f64(vextq_s8(v16, v16, 8uLL), vsubq_f64(v9, v15));
-    *&v18 = *&vsubq_f64(vdupq_laneq_s64(v17, 1), v17);
-    if (fabs(v18) < 1.0e-12)
+    v17 = **a3;
+    v18 = vsubq_f64(*a3[1], v17);
+    v19 = vmulq_f64(vextq_s8(v18, v18, 8uLL), vsubq_f64(v10, v17));
+    *&v20 = *&vsubq_f64(vdupq_laneq_s64(v19, 1), v19);
+    if (fabs(v20) < 1.0e-12)
     {
       break;
     }
 
-    v19 = v18 <= 0.0;
-    v8.f64[0] = v9.f64[0];
-    v9 = **v6;
+    v21 = v20 <= 0.0;
+    v9.f64[0] = v10.f64[0];
+    v10 = **v7;
   }
 
-  while (v19);
+  while (v21);
+  return result;
 }
 
 p2t::Triangle *p2t::Sweep::NextFlipTriangle(p2t::Sweep *this, p2t::SweepContext *a2, int a3, p2t::Triangle *a4, p2t::Triangle *a5, Point *a6, Point *a7)
@@ -4177,7 +3655,7 @@ void p2t::Sweep::~Sweep(p2t::Sweep *this)
   }
 }
 
-void sub_2389EEE58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_2389EEE58(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
   if (__p)
   {
@@ -4186,7 +3664,7 @@ void sub_2389EEE58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     _Unwind_Resume(a1);
   }
 
-  MEMORY[0x23EE6C500](v12, v11);
+  MEMORY[0x23EE6C500](v12, v11, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4242,25 +3720,25 @@ void p2t::CDT::~CDT(p2t::SweepContext **this)
   }
 }
 
-void sub_2389EF3C8(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2389EF3C8(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389EF7DC(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2389EF7DC(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2389EFBF0(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_2389EFBF0(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   std::vector<NSObject * {__strong}>::~vector[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -4283,7 +3761,7 @@ void sub_2389F0228(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void makeHeap(uint64_t a1, uint64_t a2)
+void makeHeap(uint64_t a1, uint64_t **a2)
 {
   if (a1 && *(a1 + 8) != *a1)
   {
@@ -4299,7 +3777,7 @@ void makeHeap(uint64_t a1, uint64_t a2)
     {
       v6 = 0;
       v7 = 0;
-      v8 = (a2 + 8);
+      v8 = a2 + 1;
       do
       {
         v9 = v5[v6];
@@ -4335,14 +3813,14 @@ LABEL_12:
             break;
           }
 
-          v12 = *(v13 + 1);
+          v12 = v13[1];
           if (!v12)
           {
             goto LABEL_12;
           }
         }
 
-        v15 = v13[10];
+        v15 = *(v13 + 10);
         if (!v11)
         {
 LABEL_19:
@@ -4372,14 +3850,14 @@ LABEL_19:
             break;
           }
 
-          v11 = *(v16 + 1);
+          v11 = v16[1];
           if (!v11)
           {
             goto LABEL_19;
           }
         }
 
-        if (v15 < v16[10])
+        if (v15 < *(v16 + 10))
         {
           v18 = v9;
 
@@ -4408,17 +3886,17 @@ LABEL_19:
   }
 }
 
-uint64_t makeHeap(uint64_t result, uint64_t a2)
+unint64_t **makeHeap(unint64_t **result, uint64_t **a2)
 {
   if (result)
   {
     v2 = *result;
-    if (*(result + 8) != *result)
+    if (result[1] != *result)
     {
       v3 = 0;
       v4 = 0;
       v5 = *v2;
-      v6 = (a2 + 8);
+      v6 = a2 + 1;
       do
       {
         v8 = v2[v3];
@@ -4453,14 +3931,14 @@ LABEL_13:
             break;
           }
 
-          v10 = *(v11 + 1);
+          v10 = v11[1];
           if (!v10)
           {
             goto LABEL_13;
           }
         }
 
-        v13 = v11[10];
+        v13 = *(v11 + 10);
         if (!v9)
         {
 LABEL_20:
@@ -4490,14 +3968,14 @@ LABEL_20:
             break;
           }
 
-          v9 = *(v14 + 1);
+          v9 = v14[1];
           if (!v9)
           {
             goto LABEL_20;
           }
         }
 
-        if (v13 < v14[10])
+        if (v13 < *(v14 + 10))
         {
           v5 = v8;
           v4 = v3;
@@ -4505,7 +3983,7 @@ LABEL_20:
 
         ++v3;
         v2 = *result;
-        v7 = *(result + 8);
+        v7 = result[1];
       }
 
       while (v3 < (v7 - *result) >> 3);
@@ -4518,7 +3996,7 @@ LABEL_20:
   return result;
 }
 
-void sub_2389F1CBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, void *a17, uint64_t a18, char a19, void *a20, uint64_t a21, char a22, void *a23, uint64_t a24, void *__p, uint64_t a26)
+void sub_2389F1CBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, void *__p, uint64_t a26)
 {
   std::__tree<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::__map_value_compare<p2t::Triangle *,std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::less<p2t::Triangle *>,true>,std::allocator<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>>>::destroy(&a16, a17);
   std::__tree<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::__map_value_compare<p2t::Triangle *,std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>,std::less<p2t::Triangle *>,true>,std::allocator<std::__value_type<p2t::Triangle *,GKTriangleGraphNodes>>>::destroy(&a19, a20);
@@ -4550,7 +4028,7 @@ void GKFindPath(GKGraphNode *a1, GKGraphNode *a2)
   operator new();
 }
 
-void sub_2389F343C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, char a19, void *a20, uint64_t a21, char a22, void *a23, uint64_t a24, char a25, void *a26, uint64_t a27, void *a28)
+void sub_2389F343C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, void *a28)
 {
   std::__tree<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::__map_value_compare<NSString * {__strong},std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>,std::less<NSString * {__strong}>,true>,std::allocator<std::__value_type<NSString * {__strong},NSMutableArray * {__strong}>>>::destroy(&a19, a20);
   std::__tree<std::__value_type<GKGraphNode * {__strong},float>,std::__map_value_compare<GKGraphNode * {__strong},std::__value_type<GKGraphNode * {__strong},float>,std::less<GKGraphNode * {__strong}>,true>,std::allocator<std::__value_type<GKGraphNode * {__strong},float>>>::destroy(&a22, a23);
@@ -4574,44 +4052,44 @@ void std::__tree<std::__value_type<GKGraphNode * {__strong},float>,std::__map_va
 
 void RepairGKSceneNodeReferencesRelativeToScene(void *a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = [a1 entities];
-  v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v17)
   {
-    v17 = *v24;
+    v16 = *v23;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v23 + 1) + 8 * i);
+        v5 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         v6 = [v5 components];
-        v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v20;
+          v9 = *v19;
           do
           {
             for (j = 0; j != v8; ++j)
             {
-              if (*v20 == v9)
+              if (*v19 == v9)
               {
-                v11 = *(*(&v19 + 1) + 8 * j);
+                v11 = *(*(&v18 + 1) + 8 * j);
                 if (![v11 conformsToProtocol:&unk_284B59A68])
                 {
                   continue;
@@ -4621,7 +4099,7 @@ void RepairGKSceneNodeReferencesRelativeToScene(void *a1, void *a2)
               else
               {
                 objc_enumerationMutation(v6);
-                v11 = *(*(&v19 + 1) + 8 * j);
+                v11 = *(*(&v18 + 1) + 8 * j);
                 if (![v11 conformsToProtocol:&unk_284B59A68])
                 {
                   continue;
@@ -4636,23 +4114,21 @@ void RepairGKSceneNodeReferencesRelativeToScene(void *a1, void *a2)
               [v12 setSerializableNodeIndexPath:0];
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v8);
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v17 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-void _ZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS0_RKS1_S5__cold_1(void **a1, id *a2, void **a3)
+void _ZN12GKCRTreeNodeI8NSObjectDv2_fE18SplitReduceOverlapEPS0_RKS1_S5__cold_1(id **a1, id *a2, id **a3)
 {
   v5 = *a1;
   v6 = a2;

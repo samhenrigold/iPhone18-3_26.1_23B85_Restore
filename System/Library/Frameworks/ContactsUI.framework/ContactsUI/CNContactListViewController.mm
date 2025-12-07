@@ -1106,8 +1106,8 @@ LABEL_15:
     return 0;
   }
 
-  contacts = [(CNContactDataSource *)self->_dataSource contacts];
-  v3 = [contacts count] == 0;
+  v4 = objc_msgSend_contacts(self->_dataSource);
+  v3 = [v4 count] == 0;
 
   return v3;
 }
@@ -1558,11 +1558,11 @@ uint64_t __51__CNContactListViewController_createCollectionView__block_invoke_2(
   return [(CNDuplicateContactsController *)duplicatesController allDuplicatesCount];
 }
 
-uint64_t __58__CNContactListViewController_updateDuplicatesCountBanner__block_invoke(uint64_t result, int a2)
+id *__58__CNContactListViewController_updateDuplicatesCountBanner__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) refreshDuplicatesBanner];
+    return [result[4] refreshDuplicatesBanner];
   }
 
   return result;
@@ -2277,7 +2277,7 @@ void __57__CNContactListViewController_didPerformDuplicatesMerge___block_invoke(
   v9 = [v8 afterDelay:v10 performBlock:3.0];
 }
 
-uint64_t __57__CNContactListViewController_didPerformDuplicatesMerge___block_invoke_2(uint64_t a1)
+void *__57__CNContactListViewController_didPerformDuplicatesMerge___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) shouldShowDuplicateBannerView];
   if ((result & 1) == 0)
@@ -5457,14 +5457,14 @@ void __69__CNContactListViewController_collectionView_cellForItemAtIndexPath___b
   _sections = [(CNContactListViewController *)self _sections];
   if ((*(*MEMORY[0x1E6996530] + 16))())
   {
-    contacts = [(CNContactDataSource *)self->_dataSource contacts];
-    v6 = [contacts count];
+    v10 = objc_msgSend_contacts(self->_dataSource);
+    v6 = [v10 count];
   }
 
   else
   {
-    contacts = [_sections objectAtIndexedSubscript:v8];
-    [contacts range];
+    v10 = [_sections objectAtIndexedSubscript:v8];
+    [v10 range];
     v6 = v11;
   }
 
@@ -5594,16 +5594,16 @@ LABEL_9:
   {
     v6 = [pathCopy row];
 LABEL_7:
-    contacts = [(CNContactDataSource *)self->_dataSource contacts];
-    if ([contacts count] <= v6)
+    v11 = objc_msgSend_contacts(self->_dataSource);
+    if ([v11 count] <= v6)
     {
       v7 = 0;
     }
 
     else
     {
-      contacts2 = [(CNContactDataSource *)self->_dataSource contacts];
-      v7 = [contacts2 objectAtIndexedSubscript:v6];
+      v12 = objc_msgSend_contacts(self->_dataSource);
+      v7 = [v12 objectAtIndexedSubscript:v6];
     }
 
     goto LABEL_12;
@@ -5785,7 +5785,7 @@ void __58__CNContactListViewController_contactDataSourceDidChange___block_invoke
   {
     v7 = [*(a1 + 32) visibleListViewController];
     v3 = [v7 dataSource];
-    v4 = [v3 contacts];
+    v4 = objc_msgSend_contacts(v3);
     if (v4)
     {
       v5 = v4;
@@ -6601,7 +6601,7 @@ void __53__CNContactListViewController__updateCountStringNow___block_invoke(uint
     else
     {
       v6 = [*(a1 + 32) dataSource];
-      v7 = [v6 contacts];
+      v7 = objc_msgSend_contacts(v6);
       v8 = [v7 count];
 
       v9 = [v10 contactCount] == v8;
@@ -6874,7 +6874,7 @@ LABEL_9:
 void __73__CNContactListViewController_scrollTopToContactWithIdentifier_animated___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) dataSource];
-  v3 = [v2 contacts];
+  v3 = objc_msgSend_contacts(v2);
   v6[0] = MEMORY[0x1E69E9820];
   v6[1] = 3221225472;
   v6[2] = __73__CNContactListViewController_scrollTopToContactWithIdentifier_animated___block_invoke_2;
@@ -7896,8 +7896,8 @@ LABEL_23:
 {
   animatorCopy = animator;
   actionHelper = [(CNContactListViewController *)self actionHelper];
-  contacts = [actionHelper contacts];
-  v9 = [contacts count];
+  v8 = objc_msgSend_contacts(actionHelper);
+  v9 = [v8 count];
 
   if (v9 == 1)
   {
@@ -7921,7 +7921,7 @@ void __104__CNContactListViewController_collectionView_willPerformPreviewActionF
   v6 = [*(a1 + 32) delegate];
   v2 = *(a1 + 32);
   v3 = [v2 actionHelper];
-  v4 = [v3 contacts];
+  v4 = objc_msgSend_contacts(v3);
   v5 = [v4 firstObject];
   [v6 contactListViewController:v2 didSelectContact:v5 shouldScrollToContact:0];
 }
@@ -8943,7 +8943,7 @@ LABEL_21:
 - (BOOL)validateSiriLanguage
 {
   v15[1] = *MEMORY[0x1E69E9840];
-  if (softLinkAFAssistantRestricted[0]())
+  if (softLinkAFAssistantRestricted(self, a2))
   {
     return 0;
   }
@@ -8987,7 +8987,7 @@ LABEL_21:
 - (BOOL)validateSiriEnabled
 {
   v7 = *MEMORY[0x1E69E9840];
-  if (softLinkAFAssistantRestricted[0]())
+  if (softLinkAFAssistantRestricted(self, a2))
   {
     assistantIsEnabled = 0;
   }

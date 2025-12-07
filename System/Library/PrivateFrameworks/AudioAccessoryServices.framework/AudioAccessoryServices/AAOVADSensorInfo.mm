@@ -69,56 +69,47 @@
     {
       [AAOVADSensorInfo update:];
     }
+
+    goto LABEL_17;
+  }
+
+  v9 = 0;
+  [updateCopy getBytes:&v9 length:2];
+  if (v9 != 1)
+  {
+    if (gLogCategory_AASensorService <= 90 && (gLogCategory_AASensorService != -1 || _LogCategory_Initialize()))
+    {
+      [AAOVADSensorInfo update:];
+    }
+
+    goto LABEL_17;
+  }
+
+  if (HIBYTE(v9) == 1)
+  {
+    v5 = 2;
   }
 
   else
   {
-    v10 = 0;
-    [updateCopy getBytes:&v10 length:2];
-    if (v10 == 1)
-    {
-      if (HIBYTE(v10) == 1)
-      {
-        v5 = 2;
-      }
-
-      else
-      {
-        v5 = 1;
-      }
-
-      ownVoiceActivityLevel = self->_ownVoiceActivityLevel;
-      if (v5 != ownVoiceActivityLevel)
-      {
-        if (gLogCategory_AASensorService <= 40)
-        {
-          if (gLogCategory_AASensorService == -1)
-          {
-            if (!_LogCategory_Initialize())
-            {
-              goto LABEL_20;
-            }
-
-            v9 = self->_ownVoiceActivityLevel;
-          }
-
-          LogPrintF();
-        }
-
-LABEL_20:
-        self->_ownVoiceActivityLevel = v5;
-        v7 = 1;
-        goto LABEL_18;
-      }
-    }
-
-    else if (gLogCategory_AASensorService <= 90 && (gLogCategory_AASensorService != -1 || _LogCategory_Initialize()))
-    {
-      [AAOVADSensorInfo update:];
-    }
+    v5 = 1;
   }
 
-  v7 = 0;
+  ownVoiceActivityLevel = self->_ownVoiceActivityLevel;
+  if (v5 == ownVoiceActivityLevel)
+  {
+LABEL_17:
+    v7 = 0;
+    goto LABEL_18;
+  }
+
+  if (gLogCategory_AASensorService <= 40 && (gLogCategory_AASensorService != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF();
+  }
+
+  self->_ownVoiceActivityLevel = v5;
+  v7 = 1;
 LABEL_18:
 
   return v7;

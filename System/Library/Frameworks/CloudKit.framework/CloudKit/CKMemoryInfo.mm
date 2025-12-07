@@ -81,7 +81,7 @@
 
 - (void)handleMemoryPressureEvent:(unint64_t)event
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -144,8 +144,6 @@
     v14 = dispatch_block_create_with_qos_class(0, v12, 0, block);
     dispatch_async(v13, v14);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

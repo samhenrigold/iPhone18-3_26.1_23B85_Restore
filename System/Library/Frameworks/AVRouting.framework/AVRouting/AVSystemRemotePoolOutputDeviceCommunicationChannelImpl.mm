@@ -22,7 +22,7 @@
 
 - (void)sendData:(id)data completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = [handler copy];
   if (dword_1ED6F6B68)
   {
@@ -31,16 +31,14 @@
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v8 = [(AVOutputContext *)self->_outputContext figRoutingContext:v13];
+  figRoutingContext = [(AVOutputContext *)self->_outputContext figRoutingContext];
   deviceID = self->_deviceID;
   commChannelUUID = self->_commChannelUUID;
   v11 = *(*(CMBaseObjectGetVTable() + 16) + 160);
   if (v11)
   {
-    v11(v8, deviceID, commChannelUUID, data, AVSystemRemotePoolOutputDeviceCommunicationChannelSendDataCompletion, v6);
+    v11(figRoutingContext, deviceID, commChannelUUID, data, AVSystemRemotePoolOutputDeviceCommunicationChannelSendDataCompletion, v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)close
@@ -48,13 +46,11 @@
   figRoutingContext = [(AVOutputContext *)self->_outputContext figRoutingContext];
   deviceID = self->_deviceID;
   commChannelUUID = self->_commChannelUUID;
-  VTable = CMBaseObjectGetVTable();
-  v7 = *(*(VTable + 16) + 168);
-  if (v7)
+  v6 = *(*(CMBaseObjectGetVTable() + 16) + 168);
+  if (v6)
   {
-    v8 = *(VTable + 16) + 168;
 
-    v7(figRoutingContext, deviceID, commChannelUUID);
+    v6(figRoutingContext, deviceID, commChannelUUID);
   }
 }
 

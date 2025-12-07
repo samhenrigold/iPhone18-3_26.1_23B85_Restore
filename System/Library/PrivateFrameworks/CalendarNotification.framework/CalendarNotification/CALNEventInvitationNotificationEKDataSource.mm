@@ -39,36 +39,36 @@
 
 - (id)fetchEventInvitationNotifications
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [(CALNEventInvitationNotificationEKDataSource *)self fetchEventInvitationNotificationSourceClientIdentifiers:0];
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(CALNEventInvitationNotificationEKDataSource *)self fetchEventInvitationNotificationWithSourceClientIdentifier:*(*(&v16 + 1) + 8 * i), v16];
+        v10 = [(CALNEventInvitationNotificationEKDataSource *)self fetchEventInvitationNotificationWithSourceClientIdentifier:*(*(&v15 + 1) + 8 * i), v15];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v7);
@@ -79,19 +79,18 @@
   {
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
     *buf = 138543362;
-    v21 = v12;
+    v20 = v12;
     _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_DEFAULT, "Fetched event invitation notification infos. Found %{public}@ notifications", buf, 0xCu);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)fetchEventInvitationNotificationSourceClientIdentifiers:(id)identifiers
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   preferences = [(CALNEventInvitationNotificationEKDataSource *)self preferences];
   invitationNotificationsDisabled = [preferences invitationNotificationsDisabled];
@@ -106,29 +105,29 @@
   eventNotificationReferences = [inboxNotificationProvider eventNotificationReferences];
 
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(eventNotificationReferences, "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v10 = eventNotificationReferences;
-  v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v11)
   {
     goto LABEL_22;
   }
 
   v12 = v11;
-  v13 = *v25;
+  v13 = *v24;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v25 != v13)
+      if (*v24 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v24 + 1) + 8 * i);
+      v15 = *(*(&v23 + 1) + 8 * i);
       if (![v15 type])
       {
         if (!identifiersCopy || ([v15 objectID], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "stringRepresentation"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(identifiersCopy, "containsObject:", v17), v17, v16, v18))
@@ -161,21 +160,20 @@ LABEL_19:
       }
     }
 
-    v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
   }
 
   while (v12);
 LABEL_22:
 
 LABEL_23:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)fetchEventInvitationNotificationWithSourceClientIdentifier:(id)identifier
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   eventStoreProvider = [(CALNEventInvitationNotificationEKDataSource *)self eventStoreProvider];
   eventStore = [eventStoreProvider eventStore];
@@ -192,11 +190,11 @@ LABEL_23:
       v11 = +[CALNLogSubsystem calendar];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 138543618;
-        v27 = identifierCopy;
-        v28 = 2112;
-        v29 = v10;
-        _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_DEFAULT, "Fetched event invitation notification info with sourceClientIdentifier: %{public}@ info: %@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = identifierCopy;
+        v27 = 2112;
+        v28 = v10;
+        _os_log_impl(&dword_242909000, v11, OS_LOG_TYPE_DEFAULT, "Fetched event invitation notification info with sourceClientIdentifier: %{public}@ info: %@", &v25, 0x16u);
       }
     }
 
@@ -222,8 +220,6 @@ LABEL_23:
 
     v10 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -304,7 +300,7 @@ LABEL_23:
 
 - (void)_setParticipantStatus:(int64_t)status withSourceClientIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   eventStoreProvider = [(CALNEventInvitationNotificationEKDataSource *)self eventStoreProvider];
   eventStore = [eventStoreProvider eventStore];
@@ -320,22 +316,22 @@ LABEL_23:
     remoteMutator = [(CALNEventInvitationNotificationEKDataSource *)self remoteMutator];
     [remoteMutator setParticipantStatus:status span:v11 event:v10];
 
-    v18 = 0;
-    LOBYTE(v11) = [eventStore saveEvent:v10 span:v11 error:&v18];
-    v13 = v18;
+    v17 = 0;
+    LOBYTE(v11) = [eventStore saveEvent:v10 span:v11 error:&v17];
+    v13 = v17;
     if ((v11 & 1) == 0)
     {
       v14 = +[CALNLogSubsystem calendar];
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         externalURI = [v10 externalURI];
-        v17 = [MEMORY[0x277CCABB0] numberWithInteger:status];
+        v16 = [MEMORY[0x277CCABB0] numberWithInteger:status];
         *buf = 138543874;
-        v20 = externalURI;
-        v21 = 2114;
-        v22 = v17;
-        v23 = 2112;
-        v24 = v13;
+        v19 = externalURI;
+        v20 = 2114;
+        v21 = v16;
+        v22 = 2112;
+        v23 = v13;
         _os_log_error_impl(&dword_242909000, v14, OS_LOG_TYPE_ERROR, "Failed to save event (%{public}@) when setting participant status (%{public}@): %@", buf, 0x20u);
       }
     }
@@ -349,8 +345,6 @@ LABEL_23:
       [(CALNEventInvitationNotificationEKDataSource *)identifierCopy _setParticipantStatus:status withSourceClientIdentifier:v13];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)_spanForNewStatusWithEvent:(id)event
@@ -376,36 +370,34 @@ LABEL_23:
 
 - (void)fetchEventInvitationNotificationWithSourceClientIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Failed to get notification from notification reference. sourceClientIdentifier = %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Failed to get notification from notification reference. sourceClientIdentifier = %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)fetchEventInvitationNotificationWithSourceClientIdentifier:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Failed to get notification reference with sourceClientIdentifier %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Failed to get notification reference with sourceClientIdentifier %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)reportEventInvitationAsJunkWithSourceClientIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Failed to get event (%{public}@) when attempting to report as junk", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_242909000, a2, a3, "Failed to get event (%{public}@) when attempting to report as junk", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_setParticipantStatus:(NSObject *)a3 withSourceClientIdentifier:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_242909000, a3, OS_LOG_TYPE_ERROR, "Failed to get event (%{public}@) when attempting to set participant status to %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_242909000, a3, OS_LOG_TYPE_ERROR, "Failed to get event (%{public}@) when attempting to set participant status to %{public}@", &v6, 0x16u);
 }
 
 @end

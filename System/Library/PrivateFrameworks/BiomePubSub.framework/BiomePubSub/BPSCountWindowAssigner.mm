@@ -25,27 +25,27 @@
 
 - (id)assignWindow:(id)window input:(id)input
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   windowCopy = window;
-  v6 = [windowCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [windowCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v20 != v8)
+      if (*v19 != v8)
       {
         objc_enumerationMutation(windowCopy);
       }
 
-      v10 = *(*(&v19 + 1) + 8 * v9);
+      v10 = *(*(&v18 + 1) + 8 * v9);
       if ([v10 currentCount] < self->_capacity)
       {
         break;
@@ -53,7 +53,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [windowCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [windowCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -86,37 +86,35 @@ LABEL_9:
 LABEL_12:
   v16 = [MEMORY[0x1E695DFD8] setWithObject:v11];
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (id)updateAndReturnNewWindowStates:(id)states input:(id)input
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   inputCopy = input;
   v8 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v9 = statesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v29 != v12)
+      if (*v28 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v28 + 1) + 8 * v13);
+      v14 = *(*(&v27 + 1) + 8 * v13);
       currentCount = [v14 currentCount];
       if (currentCount < [v14 capacity])
       {
@@ -125,7 +123,7 @@ LABEL_3:
 
       if (v11 == ++v13)
       {
-        v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v11)
         {
           goto LABEL_3;
@@ -175,8 +173,6 @@ LABEL_12:
       }
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

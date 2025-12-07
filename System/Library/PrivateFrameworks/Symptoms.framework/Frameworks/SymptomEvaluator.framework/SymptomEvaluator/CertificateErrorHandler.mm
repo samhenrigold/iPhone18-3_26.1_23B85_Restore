@@ -110,7 +110,7 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
 
 - (BOOL)allowNotifyingOutrankAt:(double)at
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (self->_captivityReportingDisabled)
   {
     LOBYTE(nonIdle) = 1;
@@ -144,32 +144,31 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
       if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
       {
         v12 = v11;
-        v15[0] = 67110656;
-        v15[1] = nonIdle;
-        v16 = 2048;
+        v14[0] = 67110656;
+        v14[1] = nonIdle;
+        v15 = 2048;
         atCopy = at;
-        v18 = 2048;
-        v19 = v6;
-        v20 = 2048;
-        v21 = v7;
-        v22 = 2048;
-        v23 = v6 - at;
-        v24 = 2048;
-        v25 = v7 - at;
-        v26 = 1024;
+        v17 = 2048;
+        v18 = v6;
+        v19 = 2048;
+        v20 = v7;
+        v21 = 2048;
+        v22 = v6 - at;
+        v23 = 2048;
+        v24 = v7 - at;
+        v25 = 1024;
         nonIdle2 = [v9 nonIdle];
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: allowNotifyingOutrankAt: ret %d from now %.3f allow from %.3f to %.3f (delta %.3f to %.3f) outrank nonidle %d", v15, 0x40u);
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: allowNotifyingOutrankAt: ret %d from now %.3f allow from %.3f to %.3f (delta %.3f to %.3f) outrank nonidle %d", v14, 0x40u);
       }
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return nonIdle;
 }
 
 - (BOOL)allowNotifyingCaptivityAt:(double)at
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lastCaptivityReportTime = self->_lastCaptivityReportTime;
   v6 = lastCaptivityReportTime + self->_outrankEventGraceTime;
   v7 = lastCaptivityReportTime + self->_outrankEventMaxTime;
@@ -210,59 +209,58 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
     v13 = self->_lastCaptivityReportTime;
     v14 = v11;
     v15 = +[CellOutrankHandler sharedInstance];
-    v18[0] = 67110656;
-    v18[1] = v8;
-    v19 = 1024;
-    v20 = captivityReportingDisabled;
-    v21 = 2048;
-    v22 = v13;
-    v23 = 2048;
+    v17[0] = 67110656;
+    v17[1] = v8;
+    v18 = 1024;
+    v19 = captivityReportingDisabled;
+    v20 = 2048;
+    v21 = v13;
+    v22 = 2048;
     atCopy = at;
-    v25 = 2048;
-    v26 = v6;
-    v27 = 2048;
-    v28 = v7;
-    v29 = 1024;
+    v24 = 2048;
+    v25 = v6;
+    v26 = 2048;
+    v27 = v7;
+    v28 = 1024;
     nonIdle = [v15 nonIdle];
-    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: allowNotifyingCaptivityAt: ret %d disabled %d _lastCaptivityReportTime %.3f from now %.3ff allow from %.3f to %.3f nonidle %d", v18, 0x3Cu);
+    _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: allowNotifyingCaptivityAt: ret %d disabled %d _lastCaptivityReportTime %.3f from now %.3ff allow from %.3f to %.3f nonidle %d", v17, 0x3Cu);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)storeMaintenance
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   allKeys = [(NSMutableDictionary *)self->_stores allKeys];
-  v32.tv_sec = 0;
-  *&v32.tv_usec = 0;
-  gettimeofday(&v32, 0);
-  tv_sec = v32.tv_sec;
+  v31.tv_sec = 0;
+  *&v31.tv_usec = 0;
+  gettimeofday(&v31, 0);
+  tv_sec = v31.tv_sec;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = allKeys;
-  v26 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (v25)
   {
-    v23 = 0;
-    v27 = 0;
-    v25 = *v29;
+    v22 = 0;
+    v26 = 0;
+    v24 = *v28;
     *&v5 = 138412290;
-    v22 = v5;
+    v21 = v5;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v29 != v25)
+        if (*v28 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v28 + 1) + 8 * i);
-        v8 = [(NSMutableDictionary *)self->_stores objectForKeyedSubscript:v7, v22];
+        v7 = *(*(&v27 + 1) + 8 * i);
+        v8 = [(NSMutableDictionary *)self->_stores objectForKeyedSubscript:v7, v21];
         if ([v8 count] > self->_maxCount)
         {
           v9 = evaluationLogHandle;
@@ -272,11 +270,11 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
             v11 = [v8 count];
             maxCount = self->_maxCount;
             *buf = 138412802;
-            *v34 = v7;
-            *&v34[8] = 1024;
-            LODWORD(v35) = v11;
-            WORD2(v35) = 1024;
-            *(&v35 + 6) = maxCount;
+            *v33 = v7;
+            *&v33[8] = 1024;
+            LODWORD(v34) = v11;
+            WORD2(v34) = 1024;
+            *(&v34 + 6) = maxCount;
             _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: remove cert error from history for %@: too many, count %d max %d", buf, 0x18u);
           }
 
@@ -292,8 +290,8 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
           {
             if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
             {
-              *buf = v22;
-              *v34 = v7;
+              *buf = v21;
+              *v33 = v7;
               _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: No more old cert error events in history for %@", buf, 0xCu);
             }
 
@@ -304,11 +302,11 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
           {
             maxAge = self->_maxAge;
             *buf = 138412802;
-            *v34 = v7;
-            *&v34[8] = 2048;
-            *&v35 = v14;
-            WORD4(v35) = 1024;
-            *(&v35 + 10) = maxAge;
+            *v33 = v7;
+            *&v33[8] = 2048;
+            *&v34 = v14;
+            WORD4(v34) = 1024;
+            *(&v34 + 10) = maxAge;
             _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "CertificateErrorHandler: remove cert error from history for %@: too old (%lld secs), retain time %d", buf, 0x1Cu);
           }
 
@@ -322,11 +320,11 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
 
           if (!v18)
           {
-            v23 += [v8 count];
+            v22 += [v8 count];
           }
 
-          LODWORD(v27) = v27 + v17;
-          ++HIDWORD(v27);
+          LODWORD(v26) = v26 + v17;
+          ++HIDWORD(v26);
         }
 
         else
@@ -335,42 +333,40 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v25 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   else
   {
-    v23 = 0;
-    v27 = 0;
+    v22 = 0;
+    v26 = 0;
   }
 
-  self->_numCerts = v27;
-  self->_numNonBannedCerts = v23;
-  self->_numCertOrigins = HIDWORD(v27);
+  self->_numCerts = v26;
+  self->_numNonBannedCerts = v22;
+  self->_numCertOrigins = HIDWORD(v26);
   v19 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
     stores = self->_stores;
     *buf = 67109890;
-    *v34 = v27;
-    *&v34[4] = 1024;
-    *&v34[6] = v23;
-    LOWORD(v35) = 1024;
-    *(&v35 + 2) = HIDWORD(v27);
-    WORD3(v35) = 2112;
-    *(&v35 + 1) = stores;
+    *v33 = v26;
+    *&v33[4] = 1024;
+    *&v33[6] = v22;
+    LOWORD(v34) = 1024;
+    *(&v34 + 2) = HIDWORD(v26);
+    WORD3(v34) = 2112;
+    *(&v34 + 1) = stores;
     _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: storeMaintenance certs %d nonBanned %d origins %d store %@", buf, 0x1Eu);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)evaluate:(id)evaluate forThreshold:(int64_t)threshold
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   evaluateCopy = evaluate;
   eventData = [evaluateCopy eventData];
   if (self->_threshold != threshold)
@@ -380,9 +376,9 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
     {
       threshold = self->_threshold;
       *buf = 134218240;
-      *v72 = threshold;
-      *&v72[8] = 1024;
-      *&v72[10] = threshold;
+      *v71 = threshold;
+      *&v71[8] = 1024;
+      *&v71[10] = threshold;
       _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: override threshold %ld with %d", buf, 0x12u);
     }
 
@@ -399,15 +395,15 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
     v15 = eventData[5];
     v16 = eventData[6];
     *buf = 136316162;
-    *v72 = processName;
-    *&v72[8] = 2048;
-    *&v72[10] = v13;
-    *&v72[18] = 2048;
-    *&v72[20] = v14;
-    *&v72[28] = 2048;
-    *&v72[30] = v15;
-    *&v72[38] = 2048;
-    v73 = v16;
+    *v71 = processName;
+    *&v71[8] = 2048;
+    *&v71[10] = v13;
+    *&v71[18] = 2048;
+    *&v71[20] = v14;
+    *&v71[28] = 2048;
+    *&v71[30] = v15;
+    *&v71[38] = 2048;
+    v72 = v16;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "CERT_ERROR from %s, domain %lld error %lld  num attempts %lld num symptoms %lld", buf, 0x34u);
   }
 
@@ -429,15 +425,15 @@ void __41__CertificateErrorHandler_sharedInstance__block_invoke(uint64_t a1)
       v23 = eventData[5];
       v24 = eventData[6];
       *buf = 136316162;
-      *v72 = processName2;
-      *&v72[8] = 2048;
-      *&v72[10] = v21;
-      *&v72[18] = 2048;
-      *&v72[20] = v22;
-      *&v72[28] = 2048;
-      *&v72[30] = v23;
-      *&v72[38] = 2048;
-      v73 = v24;
+      *v71 = processName2;
+      *&v71[8] = 2048;
+      *&v71[10] = v21;
+      *&v71[18] = 2048;
+      *&v71[20] = v22;
+      *&v71[28] = 2048;
+      *&v71[30] = v23;
+      *&v71[38] = 2048;
+      v72 = v24;
       _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "CERT_ERROR with non-UTF8 name from %s, domain %lld error %lld  num attempts %lld num symptoms %lld", buf, 0x34u);
     }
 
@@ -466,15 +462,15 @@ LABEL_12:
     numCertOrigins = self->_numCertOrigins;
     stores = self->_stores;
     *buf = 67110146;
-    *v72 = numCerts;
-    *&v72[4] = 1024;
-    *&v72[6] = numNonBannedCerts;
-    *&v72[10] = 1024;
-    *&v72[12] = numCertOrigins;
-    *&v72[16] = 1024;
-    *&v72[18] = threshold;
-    *&v72[22] = 2112;
-    *&v72[24] = stores;
+    *v71 = numCerts;
+    *&v71[4] = 1024;
+    *&v71[6] = numNonBannedCerts;
+    *&v71[10] = 1024;
+    *&v71[12] = numCertOrigins;
+    *&v71[16] = 1024;
+    *&v71[18] = threshold;
+    *&v71[22] = 2112;
+    *&v71[24] = stores;
     _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_INFO, "CertificateErrorHandler: evaluate with count %d nonBannedCount %d sources %d while captivity threshold %d, stores %@", buf, 0x24u);
   }
 
@@ -489,9 +485,9 @@ LABEL_12:
     {
       v37 = self->_numNonBannedCerts;
       *buf = 67109376;
-      *v72 = v37;
-      *&v72[4] = 2048;
-      *&v72[6] = threshold;
+      *v71 = v37;
+      *&v71[4] = 2048;
+      *&v71[6] = threshold;
       _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_INFO, "CertificateErrorHandler: suppress Captivity checking, defer to Outrank, count %d while threshold %ld", buf, 0x12u);
     }
 
@@ -510,11 +506,11 @@ LABEL_12:
         v42 = self->_numNonBannedCerts;
         dampeningCurrentInterval = self->_dampeningCurrentInterval;
         *buf = 67109632;
-        *v72 = v42;
-        *&v72[4] = 2048;
-        *&v72[6] = v39;
-        *&v72[14] = 2048;
-        *&v72[16] = dampeningCurrentInterval;
+        *v71 = v42;
+        *&v71[4] = 2048;
+        *&v71[6] = v39;
+        *&v71[14] = 2048;
+        *&v71[16] = dampeningCurrentInterval;
         _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "CertificateErrorHandler: Cert error evaluated positive, %d certs, no suppression, previous evaluation (%.3f secs, need %.3f secs)", buf, 0x1Cu);
       }
 
@@ -532,20 +528,20 @@ LABEL_12:
       {
         v47 = self->_dampeningCurrentInterval;
         *buf = 134217984;
-        *v72 = v47;
+        *v71 = v47;
         _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: Set dampening to %.3f for cert errors", buf, 0xCu);
       }
 
       v35 = objc_alloc_init(Evaluation);
       v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", objc_msgSend(evaluateCopy, "processName")];
-      v68[0] = MEMORY[0x277D85DD0];
-      v68[1] = 3221225472;
-      v68[2] = __49__CertificateErrorHandler_evaluate_forThreshold___block_invoke;
-      v68[3] = &unk_27898A7F8;
-      v69 = v48;
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = 3221225472;
+      v67[2] = __49__CertificateErrorHandler_evaluate_forThreshold___block_invoke;
+      v67[3] = &unk_27898A7F8;
+      v68 = v48;
       selfCopy = self;
       v49 = v48;
-      [(Evaluation *)v35 setCallback:v68];
+      [(Evaluation *)v35 setCallback:v67];
 
       goto LABEL_34;
     }
@@ -555,9 +551,9 @@ LABEL_12:
     {
       v41 = self->_dampeningCurrentInterval;
       *buf = 134218240;
-      *v72 = v39;
-      *&v72[8] = 2048;
-      *&v72[10] = v41;
+      *v71 = v39;
+      *&v71[8] = 2048;
+      *&v71[10] = v41;
       _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_INFO, "CertificateErrorHandler: Cert error evaluated positive, suppressed as too close in time to previous evaluation (%.3f secs, need %.3f secs)", buf, 0x16u);
     }
 
@@ -581,7 +577,7 @@ LABEL_35:
         v60 = v58;
         allKeys = [(NSMutableDictionary *)v59 allKeys];
         *buf = 138412290;
-        *v72 = allKeys;
+        *v71 = allKeys;
         _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEFAULT, "CertificateErrorHandler: perform Outrank notification, sources %@", buf, 0xCu);
       }
 
@@ -600,13 +596,13 @@ LABEL_35:
         outrankCertThreshold = self->_outrankCertThreshold;
         outrankOriginThreshold = self->_outrankOriginThreshold;
         *buf = 67109888;
-        *v72 = v51;
-        *&v72[4] = 1024;
-        *&v72[6] = v52;
-        *&v72[10] = 1024;
-        *&v72[12] = outrankCertThreshold;
-        *&v72[16] = 1024;
-        *&v72[18] = outrankOriginThreshold;
+        *v71 = v51;
+        *&v71[4] = 1024;
+        *&v71[6] = v52;
+        *&v71[10] = 1024;
+        *&v71[12] = outrankCertThreshold;
+        *&v71[16] = 1024;
+        *&v71[18] = outrankOriginThreshold;
         _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_DEBUG, "CertificateErrorHandler: skip Outrank notification, under threshold, certs %d origins %d need %d %d", buf, 0x1Au);
       }
 
@@ -636,39 +632,37 @@ LABEL_35:
     v64 = self->_numNonBannedCerts;
     v65 = self->_numCertOrigins;
     *buf = 67110656;
-    *v72 = v38;
-    *&v72[4] = 1024;
-    *&v72[6] = v35 != 0;
-    *&v72[10] = 1024;
-    *&v72[12] = v57;
-    *&v72[16] = 1024;
-    *&v72[18] = v55;
-    *&v72[22] = 1024;
-    *&v72[24] = v63;
-    *&v72[28] = 1024;
-    *&v72[30] = v64;
-    *&v72[34] = 1024;
-    *&v72[36] = v65;
+    *v71 = v38;
+    *&v71[4] = 1024;
+    *&v71[6] = v35 != 0;
+    *&v71[10] = 1024;
+    *&v71[12] = v57;
+    *&v71[16] = 1024;
+    *&v71[18] = v55;
+    *&v71[22] = 1024;
+    *&v71[24] = v63;
+    *&v71[28] = 1024;
+    *&v71[30] = v64;
+    *&v71[34] = 1024;
+    *&v71[36] = v65;
     _os_log_impl(&dword_23255B000, v62, OS_LOG_TYPE_DEFAULT, "CertificateErrorHandler: evaluation exit, captivity notifications allowed %d sent %d  outrank notifications allowed %d sent %d cert-errs %d non-banned %d sources %d", buf, 0x2Cu);
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
 
 void __49__CertificateErrorHandler_evaluate_forThreshold___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     v3 = evaluationLogHandle;
     if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CertificateErrorHandler: Placing process %@ on the untrusted list for CERT_ERRs", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "CertificateErrorHandler: Placing process %@ on the untrusted list for CERT_ERRs", &v7, 0xCu);
     }
 
     [*(*(a1 + 40) + 8) setObject:*(a1 + 32) forKey:*(a1 + 32)];
@@ -676,13 +670,11 @@ void __49__CertificateErrorHandler_evaluate_forThreshold___block_invoke(uint64_t
     if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_INFO))
     {
       v6 = *(*(a1 + 40) + 8);
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "CertificateErrorHandler: _banned = %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "CertificateErrorHandler: _banned = %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reset:(id)_reset
@@ -701,14 +693,14 @@ void __49__CertificateErrorHandler_evaluate_forThreshold___block_invoke(uint64_t
 
 - (void)setConfiguration:(id)configuration
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = outrankLogHandle;
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = configurationCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CertificateErrorHandler:  new configuration parameters %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = configurationCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "CertificateErrorHandler:  new configuration parameters %{public}@", &v7, 0xCu);
   }
 
   [configurationCopy extractKey:@"certErrsGracePeriod" toDouble:&self->_outrankEventGraceTime defaultTo:10.0];
@@ -724,8 +716,6 @@ void __49__CertificateErrorHandler_evaluate_forThreshold___block_invoke(uint64_t
   {
     [(CertificateErrorHandler *)self restoreDefaults];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int)configureInstance:(id)instance

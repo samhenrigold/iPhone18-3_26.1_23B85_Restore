@@ -245,15 +245,15 @@ void __38__SSVTelephonyController_providerName__block_invoke(uint64_t a1)
 
 void __53__SSVTelephonyController_mobileSubscriberCountryCode__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) _ensureTelephonyHandlesAreReady])
   {
     v2 = *(a1 + 32);
     v3 = *(v2 + 64);
     v4 = *(v2 + 72);
-    v24 = 0;
-    v5 = [v3 copyMobileSubscriberCountryCode:v4 error:&v24];
-    v6 = v24;
+    v23 = 0;
+    v5 = [v3 copyMobileSubscriberCountryCode:v4 error:&v23];
+    v6 = v23;
     v7 = *(*(a1 + 40) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v5;
@@ -270,7 +270,7 @@ void __53__SSVTelephonyController_mobileSubscriberCountryCode__block_invoke(uint
 
     if (v9)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v10 = +[SSLogConfig sharedStoreServicesConfig];
@@ -282,16 +282,21 @@ void __53__SSVTelephonyController_mobileSubscriberCountryCode__block_invoke(uint
     v11 = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = v11 | 2;
+      LODWORD(v12) = v11 | 2;
     }
 
     else
     {
-      v12 = v11;
+      LODWORD(v12) = v11;
     }
 
     v13 = [v10 OSLogObject];
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -299,28 +304,27 @@ void __53__SSVTelephonyController_mobileSubscriberCountryCode__block_invoke(uint
     if (v12)
     {
       v14 = objc_opt_class();
-      v25 = 138543618;
-      v26 = v14;
-      v27 = 2114;
-      v28 = v6;
+      v24 = 138543618;
+      v25 = v14;
+      v26 = 2114;
+      v27 = v6;
       v15 = v14;
-      LODWORD(v23) = 22;
-      v16 = _os_log_send_and_compose_impl();
+      v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, v13, 16, "%{public}@: Failed to retrieve telephony mobile subscriber country code with error: %{public}@.", &v24, 22);
 
       if (!v16)
       {
-LABEL_17:
-
 LABEL_18:
+
+LABEL_19:
         return;
       }
 
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v25, v23}];
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog(v10, @"%@", v17, v18, v19, v20, v21, v22, v13);
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 }
 
@@ -348,15 +352,15 @@ LABEL_18:
 
 void __53__SSVTelephonyController_mobileSubscriberNetworkCode__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) _ensureTelephonyHandlesAreReady])
   {
     v2 = *(a1 + 32);
     v3 = *(v2 + 64);
     v4 = *(v2 + 72);
-    v24 = 0;
-    v5 = [v3 copyMobileSubscriberNetworkCode:v4 error:&v24];
-    v6 = v24;
+    v23 = 0;
+    v5 = [v3 copyMobileSubscriberNetworkCode:v4 error:&v23];
+    v6 = v23;
     v7 = *(*(a1 + 40) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v5;
@@ -373,7 +377,7 @@ void __53__SSVTelephonyController_mobileSubscriberNetworkCode__block_invoke(uint
 
     if (v9)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v10 = +[SSLogConfig sharedStoreServicesConfig];
@@ -385,16 +389,21 @@ void __53__SSVTelephonyController_mobileSubscriberNetworkCode__block_invoke(uint
     v11 = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = v11 | 2;
+      LODWORD(v12) = v11 | 2;
     }
 
     else
     {
-      v12 = v11;
+      LODWORD(v12) = v11;
     }
 
     v13 = [v10 OSLogObject];
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
@@ -402,28 +411,27 @@ void __53__SSVTelephonyController_mobileSubscriberNetworkCode__block_invoke(uint
     if (v12)
     {
       v14 = objc_opt_class();
-      v25 = 138543618;
-      v26 = v14;
-      v27 = 2114;
-      v28 = v6;
+      v24 = 138543618;
+      v25 = v14;
+      v26 = 2114;
+      v27 = v6;
       v15 = v14;
-      LODWORD(v23) = 22;
-      v16 = _os_log_send_and_compose_impl();
+      v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, v13, 16, "%{public}@: Failed to retrieve telephony mobile subscriber network code with error: %{public}@.", &v24, 22);
 
       if (!v16)
       {
-LABEL_17:
-
 LABEL_18:
+
+LABEL_19:
         return;
       }
 
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v25, v23}];
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog(v10, @"%@", v17, v18, v19, v20, v21, v22, v13);
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 }
 
@@ -481,15 +489,15 @@ void __44__SSVTelephonyController_registrationStatus__block_invoke(uint64_t a1)
 
 void __30__SSVTelephonyController_IMEI__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) _ensureTelephonyHandlesAreReady])
   {
     v2 = *(a1 + 32);
     v3 = *(v2 + 64);
     v4 = *(v2 + 72);
-    v25 = 0;
-    v5 = [v3 getMobileEquipmentInfoFor:v4 error:&v25];
-    v6 = v25;
+    v24 = 0;
+    v5 = [v3 getMobileEquipmentInfoFor:v4 error:&v24];
+    v6 = v24;
     v7 = [v5 IMEI];
     v8 = *(*(a1 + 40) + 8);
     v9 = *(v8 + 40);
@@ -507,7 +515,7 @@ void __30__SSVTelephonyController_IMEI__block_invoke(uint64_t a1)
 
     if (v10)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v11 = +[SSLogConfig sharedStoreServicesConfig];
@@ -519,16 +527,21 @@ void __30__SSVTelephonyController_IMEI__block_invoke(uint64_t a1)
     v12 = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = v12 | 2;
+      LODWORD(v13) = v12 | 2;
     }
 
     else
     {
-      v13 = v12;
+      LODWORD(v13) = v12;
     }
 
     v14 = [v11 OSLogObject];
-    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
@@ -536,28 +549,27 @@ void __30__SSVTelephonyController_IMEI__block_invoke(uint64_t a1)
     if (v13)
     {
       v15 = objc_opt_class();
-      v26 = 138543618;
-      v27 = v15;
-      v28 = 2114;
-      v29 = v6;
+      v25 = 138543618;
+      v26 = v15;
+      v27 = 2114;
+      v28 = v6;
       v16 = v15;
-      LODWORD(v24) = 22;
-      v17 = _os_log_send_and_compose_impl();
+      v17 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1D48BA000, v14, 16, "%{public}@: Failed to retrieve telephony mobile equipment info with error: %{public}@.", &v25, 22);
 
       if (!v17)
       {
-LABEL_17:
-
 LABEL_18:
+
+LABEL_19:
         return;
       }
 
-      v14 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v26, v24}];
+      v14 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
       free(v17);
       SSFileLog(v11, @"%@", v18, v19, v20, v21, v22, v23, v14);
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 }
 
@@ -606,7 +618,7 @@ LABEL_18:
 
 void __74__SSVTelephonyController_sendSMSWithText_toPhoneNumber_countryCode_error___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) _ensureTelephonyHandlesAreReady])
   {
     v2 = [MEMORY[0x1E6965068] phoneNumberWithDigits:objc_msgSend(*(*(a1 + 32) + 72) digits:"slotID") countryCode:{*(a1 + 40), *(a1 + 48)}];
@@ -628,16 +640,21 @@ void __74__SSVTelephonyController_sendSMSWithText_toPhoneNumber_countryCode_erro
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -647,19 +664,18 @@ void __74__SSVTelephonyController_sendSMSWithText_toPhoneNumber_countryCode_erro
       v11 = objc_opt_class();
       v12 = *(a1 + 40);
       v13 = *(*(a1 + 32) + 72);
-      v33 = 138543874;
-      v34 = v11;
-      v35 = 2112;
-      v36 = v12;
-      v37 = 2114;
-      v38 = v13;
+      v32 = 138543874;
+      v33 = v11;
+      v34 = 2112;
+      v35 = v12;
+      v36 = 2114;
+      v37 = v13;
       v14 = v11;
-      LODWORD(v30) = 32;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v10, 16, "%{public}@: Telephony request to send SMS to %@ failed. Telephony context: %{public}@.", &v32, 32);
 
       if (!v15)
       {
-LABEL_15:
+LABEL_16:
 
         v22 = [*(*(a1 + 32) + 72) slotID];
         if (v22 > 2)
@@ -674,9 +690,9 @@ LABEL_15:
 
         v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to send SMS using telephony slot: %@.", v23];
         v25 = MEMORY[0x1E696ABC0];
-        v31 = *MEMORY[0x1E696A578];
-        v32 = v24;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v30 = *MEMORY[0x1E696A578];
+        v31 = v24;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
         v27 = [v25 errorWithDomain:@"SSErrorDomain" code:720 userInfo:v26];
         v28 = *(*(a1 + 72) + 8);
         v29 = *(v28 + 40);
@@ -685,18 +701,18 @@ LABEL_15:
         return;
       }
 
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v33, v30}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog(v7, @"%@", v16, v17, v18, v19, v20, v21, v10);
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 }
 
 - (void)activeSubscriptionsDidChange
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = +[SSLogConfig sharedStoreServicesConfig];
   if (!v3)
   {
@@ -706,37 +722,41 @@ LABEL_15:
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  v18 = 138543362;
-  v19 = objc_opt_class();
-  v7 = v19;
-  LODWORD(v16) = 12;
-  v8 = _os_log_send_and_compose_impl();
+  v17 = 138543362;
+  v18 = objc_opt_class();
+  v7 = v18;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: Telephony active subscriptions did change.", &v17, 12);
 
   if (v8)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v18, v16}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, oSLogObject);
-LABEL_11:
+LABEL_12:
   }
 
   accessQueue = self->_accessQueue;
@@ -862,7 +882,7 @@ void __58__SSVTelephonyController__hasRequiredTelephonyEntitlement__block_invoke
 
 - (id)_telephonyClient
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_accessQueue);
   if (!self->_telephonyClient)
   {
@@ -879,50 +899,55 @@ void __58__SSVTelephonyController__hasRequiredTelephonyEntitlement__block_invoke
         shouldLog = [v5 shouldLog];
         if ([v5 shouldLogToDisk])
         {
-          v14 = shouldLog | 2;
+          LODWORD(v15) = shouldLog | 2;
         }
 
         else
         {
-          v14 = shouldLog;
+          LODWORD(v15) = shouldLog;
         }
 
         oSLogObject = [v5 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          v14 &= 2u;
+          v15 = v15;
         }
 
-        if (!v14)
+        else
         {
-          goto LABEL_34;
+          v15 &= 2u;
         }
 
-        v15 = objc_opt_class();
-        v16 = MEMORY[0x1E696AE30];
-        v17 = v15;
-        processInfo = [v16 processInfo];
-        [processInfo processName];
-        v28 = 138543618;
-        v29 = v15;
-        v31 = v30 = 2114;
-        LODWORD(v27) = 22;
-        v12 = _os_log_send_and_compose_impl();
-
-LABEL_32:
-        if (!v12)
+        if (!v15)
         {
-LABEL_35:
-
-          goto LABEL_36;
+          goto LABEL_38;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v28, v27}];
-        free(v12);
-        SSFileLog(v5, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
-LABEL_34:
+        v16 = objc_opt_class();
+        v17 = MEMORY[0x1E696AE30];
+        v18 = v16;
+        processInfo = [v17 processInfo];
+        processName = [processInfo processName];
+        *v29 = 138543618;
+        *&v29[4] = v16;
+        *&v29[12] = 2114;
+        *&v29[14] = processName;
+        v13 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: Process %{public}@ is missing required telephony entitlement. Skipping instantiation of CoreTelephonyClient.", v29, 22);
 
-        goto LABEL_35;
+LABEL_36:
+        if (!v13)
+        {
+LABEL_39:
+
+          goto LABEL_40;
+        }
+
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+        free(v13);
+        SSFileLog(v5, @"%@", v21, v22, v23, v24, v25, v26, oSLogObject);
+LABEL_38:
+
+        goto LABEL_39;
       }
 
       v3 = [objc_alloc(MEMORY[0x1E69650A0]) initWithQueue:self->_telephonyCallbackQueue];
@@ -932,7 +957,7 @@ LABEL_34:
       [(CoreTelephonyClient *)self->_telephonyClient setDelegate:self];
       if (self->_telephonyClient)
       {
-        goto LABEL_36;
+        goto LABEL_40;
       }
 
       v5 = +[SSLogConfig sharedStoreServicesConfig];
@@ -944,24 +969,34 @@ LABEL_34:
       shouldLog2 = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v7 = shouldLog2 | 2;
+        LODWORD(v7) = shouldLog2 | 2;
       }
 
       else
       {
-        v7 = shouldLog2;
+        LODWORD(v7) = shouldLog2;
       }
 
       oSLogObject = [v5 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v7 = v7;
+      }
+
+      else
       {
         v7 &= 2u;
       }
 
       if (!v7)
       {
-        goto LABEL_34;
+        goto LABEL_38;
       }
+
+      *v29 = 138543362;
+      *&v29[4] = objc_opt_class();
+      v9 = *&v29[4];
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to instantiate CoreTelephonyClient.", v29, 12, *v29, *&v29[8]);
     }
 
     else
@@ -975,39 +1010,45 @@ LABEL_34:
       shouldLog3 = [v5 shouldLog];
       if ([v5 shouldLogToDisk])
       {
-        v10 = shouldLog3 | 2;
+        LODWORD(v12) = shouldLog3 | 2;
       }
 
       else
       {
-        v10 = shouldLog3;
+        LODWORD(v12) = shouldLog3;
       }
 
       oSLogObject = [v5 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
       {
-        v10 &= 2u;
+        v12 = v12;
       }
 
-      if (!v10)
+      else
       {
-        goto LABEL_34;
+        v12 &= 2u;
       }
+
+      if (!v12)
+      {
+        goto LABEL_38;
+      }
+
+      *v29 = 138543362;
+      *&v29[4] = objc_opt_class();
+      v9 = *&v29[4];
+      v10 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%{public}@: Current device does not have telephony capability. Skipping telephony client initialization.", v29, 12, *v29, *&v29[8]);
     }
 
-    v28 = 138543362;
-    v29 = objc_opt_class();
-    v11 = v29;
-    LODWORD(v27) = 12;
-    v12 = _os_log_send_and_compose_impl();
+    v13 = v10;
 
-    goto LABEL_32;
+    goto LABEL_36;
   }
 
-LABEL_36:
-  v25 = self->_telephonyClient;
+LABEL_40:
+  v27 = self->_telephonyClient;
 
-  return v25;
+  return v27;
 }
 
 - (id)_telephonySubscriptionContext
@@ -1022,10 +1063,10 @@ LABEL_36:
     v6 = _telephonyClient;
     if (!_telephonyClient)
     {
-LABEL_29:
+LABEL_31:
 
       telephonySubscriptionContext = *p_telephonySubscriptionContext;
-      goto LABEL_30;
+      goto LABEL_32;
     }
 
     v44 = 0;
@@ -1038,7 +1079,7 @@ LABEL_29:
       {
         v43 = v8;
         v10 = [v6 getActiveContexts:&v43];
-        v27 = v43;
+        v28 = v43;
 
         oSLogObject2 = +[SSLogConfig sharedStoreServicesConfig];
         if (!oSLogObject2)
@@ -1049,43 +1090,47 @@ LABEL_29:
         shouldLog = [oSLogObject2 shouldLog];
         if ([oSLogObject2 shouldLogToDisk])
         {
-          v30 = shouldLog | 2;
+          LODWORD(v31) = shouldLog | 2;
         }
 
         else
         {
-          v30 = shouldLog;
+          LODWORD(v31) = shouldLog;
         }
 
         oSLogObject = [oSLogObject2 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
         {
-          v30 &= 2u;
+          v31 = v31;
         }
 
-        if (v30)
+        else
         {
-          v32 = objc_opt_class();
-          v42 = v32;
+          v31 &= 2u;
+        }
+
+        if (v31)
+        {
+          v33 = objc_opt_class();
+          v42 = v33;
           subscriptions = [v10 subscriptions];
           v45 = 138543618;
-          v46 = v32;
+          v46 = v33;
           v47 = 2114;
           v48 = subscriptions;
-          LODWORD(v41) = 22;
-          v34 = _os_log_send_and_compose_impl();
+          v35 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Could not find a valid telephony subscription context. Available telephony subscription contexts: %{public}@.", &v45, 22);
 
-          if (!v34)
+          if (!v35)
           {
-            goto LABEL_27;
+            goto LABEL_29;
           }
 
-          oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:{4, &v45, v41}];
-          free(v34);
-          SSFileLog(oSLogObject2, @"%@", v35, v36, v37, v38, v39, v40, oSLogObject);
+          oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:4];
+          free(v35);
+          SSFileLog(oSLogObject2, @"%@", v36, v37, v38, v39, v40, v41, oSLogObject);
         }
 
-        goto LABEL_27;
+        goto LABEL_29;
       }
 
       objc_storeStrong(&self->_telephonySubscriptionContext, v7);
@@ -1098,33 +1143,38 @@ LABEL_29:
       shouldLog2 = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v17 = shouldLog2 | 2;
+        LODWORD(v18) = shouldLog2 | 2;
       }
 
       else
       {
-        v17 = shouldLog2;
+        LODWORD(v18) = shouldLog2;
       }
 
       oSLogObject2 = [v10 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v17 &= 2u;
+        v18 = v18;
       }
 
-      if (v17)
+      else
       {
-        v18 = objc_opt_class();
-        v15 = v18;
+        v18 &= 2u;
+      }
+
+      if (v18)
+      {
+        v19 = objc_opt_class();
+        v15 = v19;
         slotID = [v7 slotID];
         v45 = 138543874;
-        v46 = v18;
+        v46 = v19;
         v47 = 2114;
         v48 = v7;
         v49 = 2048;
         v50 = slotID;
-        LODWORD(v41) = 32;
-        goto LABEL_24;
+        v16 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "%{public}@: Found telephony subscription context %{public}@ at slot %ld as the user default voice one.", &v45, 32);
+        goto LABEL_26;
       }
     }
 
@@ -1139,16 +1189,21 @@ LABEL_29:
       shouldLog3 = [v10 shouldLog];
       if ([v10 shouldLogToDisk])
       {
-        v12 = shouldLog3 | 2;
+        LODWORD(v12) = shouldLog3 | 2;
       }
 
       else
       {
-        v12 = shouldLog3;
+        LODWORD(v12) = shouldLog3;
       }
 
       oSLogObject2 = [v10 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+      {
+        v12 = v12;
+      }
+
+      else
       {
         v12 &= 2u;
       }
@@ -1161,38 +1216,38 @@ LABEL_29:
         v47 = 2114;
         v48 = v9;
         v15 = v14;
-        LODWORD(v41) = 22;
-LABEL_24:
-        v20 = _os_log_send_and_compose_impl();
+        v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: Failed to get telephony user default voice subscription context with error: %{public}@.", &v45, 22);
+LABEL_26:
+        v21 = v16;
 
-        if (!v20)
+        if (!v21)
         {
-LABEL_28:
+LABEL_30:
 
-          goto LABEL_29;
+          goto LABEL_31;
         }
 
-        oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v45, v41}];
-        free(v20);
-        SSFileLog(v10, @"%@", v21, v22, v23, v24, v25, v26, oSLogObject2);
+        oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v21 encoding:4];
+        free(v21);
+        SSFileLog(v10, @"%@", v22, v23, v24, v25, v26, v27, oSLogObject2);
       }
     }
 
-    v27 = v9;
-LABEL_27:
+    v28 = v9;
+LABEL_29:
 
-    v9 = v27;
-    goto LABEL_28;
+    v9 = v28;
+    goto LABEL_30;
   }
 
-LABEL_30:
+LABEL_32:
 
   return telephonySubscriptionContext;
 }
 
 - (id)_phoneNumber
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_accessQueue);
   if (self->_hasTelephonyCapability && !self->_phoneNumber)
   {
@@ -1220,16 +1275,16 @@ LABEL_30:
     {
       telephonyClient = self->_telephonyClient;
       telephonySubscriptionContext = self->_telephonySubscriptionContext;
-      v29 = 0;
-      v9 = [(CoreTelephonyClient *)telephonyClient getPhoneNumber:telephonySubscriptionContext error:&v29];
-      v10 = v29;
+      v28 = 0;
+      v9 = [(CoreTelephonyClient *)telephonyClient getPhoneNumber:telephonySubscriptionContext error:&v28];
+      v10 = v28;
       v11 = v10;
       if (v9 || !v10)
       {
         number = [v9 number];
         v12 = self->_phoneNumber;
         self->_phoneNumber = number;
-        goto LABEL_24;
+        goto LABEL_25;
       }
 
       v12 = +[SSLogConfig sharedStoreServicesConfig];
@@ -1241,16 +1296,21 @@ LABEL_30:
       shouldLog = [v12 shouldLog];
       if ([v12 shouldLogToDisk])
       {
-        v14 = shouldLog | 2;
+        LODWORD(v14) = shouldLog | 2;
       }
 
       else
       {
-        v14 = shouldLog;
+        LODWORD(v14) = shouldLog;
       }
 
       oSLogObject = [v12 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v14 = v14;
+      }
+
+      else
       {
         v14 &= 2u;
       }
@@ -1258,31 +1318,30 @@ LABEL_30:
       if (v14)
       {
         v16 = objc_opt_class();
-        v30 = 138543618;
-        v31 = v16;
-        v32 = 2114;
-        v33 = v11;
+        v29 = 138543618;
+        v30 = v16;
+        v31 = 2114;
+        v32 = v11;
         v17 = v16;
-        LODWORD(v28) = 22;
-        v18 = _os_log_send_and_compose_impl();
+        v18 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to retrieve telephony phone number with error: %{public}@.", &v29, 22);
 
         if (!v18)
         {
-LABEL_24:
+LABEL_25:
 
-          goto LABEL_25;
+          goto LABEL_26;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v30, v28}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
         free(v18);
         SSFileLog(v12, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
       }
 
-      goto LABEL_24;
+      goto LABEL_25;
     }
   }
 
-LABEL_25:
+LABEL_26:
   v26 = self->_phoneNumber;
 
   return v26;
@@ -1330,7 +1389,7 @@ void __44__SSVTelephonyController__updatePhoneNumber__block_invoke(uint64_t a1)
 
 - (id)_operatorName
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_accessQueue);
   if (!self->_operatorName)
   {
@@ -1358,16 +1417,16 @@ void __44__SSVTelephonyController__updatePhoneNumber__block_invoke(uint64_t a1)
     {
       telephonyClient = self->_telephonyClient;
       telephonySubscriptionContext = self->_telephonySubscriptionContext;
-      v29 = 0;
-      v9 = [(CoreTelephonyClient *)telephonyClient getLocalizedOperatorName:telephonySubscriptionContext error:&v29];
-      v10 = v29;
+      v28 = 0;
+      v9 = [(CoreTelephonyClient *)telephonyClient getLocalizedOperatorName:telephonySubscriptionContext error:&v28];
+      v10 = v28;
       v11 = [v9 copy];
       v12 = self->_operatorName;
       self->_operatorName = v11;
 
       if (self->_operatorName || !v10)
       {
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
       v13 = +[SSLogConfig sharedStoreServicesConfig];
@@ -1379,16 +1438,21 @@ void __44__SSVTelephonyController__updatePhoneNumber__block_invoke(uint64_t a1)
       shouldLog = [v13 shouldLog];
       if ([v13 shouldLogToDisk])
       {
-        v15 = shouldLog | 2;
+        LODWORD(v15) = shouldLog | 2;
       }
 
       else
       {
-        v15 = shouldLog;
+        LODWORD(v15) = shouldLog;
       }
 
       oSLogObject = [v13 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v15 = v15;
+      }
+
+      else
       {
         v15 &= 2u;
       }
@@ -1396,32 +1460,31 @@ void __44__SSVTelephonyController__updatePhoneNumber__block_invoke(uint64_t a1)
       if (v15)
       {
         v17 = objc_opt_class();
-        v30 = 138543618;
-        v31 = v17;
-        v32 = 2114;
-        v33 = v10;
+        v29 = 138543618;
+        v30 = v17;
+        v31 = 2114;
+        v32 = v10;
         v18 = v17;
-        LODWORD(v28) = 22;
-        v19 = _os_log_send_and_compose_impl();
+        v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to retrieve telephony operator name with error: %{public}@.", &v29, 22);
 
         if (!v19)
         {
-LABEL_22:
-
 LABEL_23:
-          goto LABEL_24;
+
+LABEL_24:
+          goto LABEL_25;
         }
 
-        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v30, v28}];
+        oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
         free(v19);
         SSFileLog(v13, @"%@", v20, v21, v22, v23, v24, v25, oSLogObject);
       }
 
-      goto LABEL_22;
+      goto LABEL_23;
     }
   }
 
-LABEL_24:
+LABEL_25:
   v26 = self->_operatorName;
 
   return v26;
@@ -1455,21 +1518,21 @@ void __45__SSVTelephonyController__updateOperatorName__block_invoke(uint64_t a1)
 
 - (id)_registrationStatus
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_accessQueue);
   if (!self->_registrationStatus && [(SSVTelephonyController *)self _ensureTelephonyHandlesAreReady])
   {
     telephonyClient = self->_telephonyClient;
     telephonySubscriptionContext = self->_telephonySubscriptionContext;
-    v24 = 0;
-    v5 = [(CoreTelephonyClient *)telephonyClient copyRegistrationStatus:telephonySubscriptionContext error:&v24];
-    v6 = v24;
+    v23 = 0;
+    v5 = [(CoreTelephonyClient *)telephonyClient copyRegistrationStatus:telephonySubscriptionContext error:&v23];
+    v6 = v23;
     registrationStatus = self->_registrationStatus;
     self->_registrationStatus = v5;
 
     if (self->_registrationStatus || !v6)
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
     v8 = +[SSLogConfig sharedStoreServicesConfig];
@@ -1481,16 +1544,21 @@ void __45__SSVTelephonyController__updateOperatorName__block_invoke(uint64_t a1)
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -1498,31 +1566,30 @@ void __45__SSVTelephonyController__updateOperatorName__block_invoke(uint64_t a1)
     if (v10)
     {
       v12 = objc_opt_class();
-      v25 = 138543618;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v6;
+      v24 = 138543618;
+      v25 = v12;
+      v26 = 2114;
+      v27 = v6;
       v13 = v12;
-      LODWORD(v23) = 22;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to retrieve telephony registration status with error: %{public}@.", &v24, 22);
 
       if (!v14)
       {
-LABEL_16:
-
 LABEL_17:
-        goto LABEL_18;
+
+LABEL_18:
+        goto LABEL_19;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v25, v23}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-LABEL_18:
+LABEL_19:
   v21 = self->_registrationStatus;
 
   return v21;

@@ -11,50 +11,48 @@
 
 - (id)dictionaryMetrics
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v19 = @"text";
-  v20 = @"voice_asset_key";
+  v38 = *MEMORY[0x277D85DE8];
+  v18 = @"text";
+  v19 = @"voice_asset_key";
   resourceAssetKey = &stru_2879AE8E0;
-  v17 = vdupq_n_s64(&stru_2879AE8E0);
-  v29 = vbslq_s8(vceqzq_s64(*&self->_text), v17, *&self->_text);
+  v16 = vdupq_n_s64(&stru_2879AE8E0);
+  v28 = vbslq_s8(vceqzq_s64(*&self->_text), v16, *&self->_text);
   if (self->_resourceAssetKey)
   {
     resourceAssetKey = self->_resourceAssetKey;
   }
 
-  v30 = resourceAssetKey;
-  v4 = [MEMORY[0x277CCABB0] numberWithBool:{self->_isSpeechRequest, *&v17, v19, v20, @"resource_asset_key", @"is_speech_request"}];
-  v31 = v4;
-  v21 = @"error_code";
+  v29 = resourceAssetKey;
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:{self->_isSpeechRequest, *&v16, v18, v19, @"resource_asset_key", @"is_speech_request"}];
+  v30 = v4;
+  v20 = @"error_code";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_errorCode];
-  v32 = v5;
-  v22 = @"source_of_tts";
+  v31 = v5;
+  v21 = @"source_of_tts";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:self->_sourceOfTTS];
-  v33 = v6;
-  v23 = @"speak_latency";
+  v32 = v6;
+  v22 = @"speak_latency";
   v7 = MEMORY[0x277CCABB0];
   [(SFSSInstrumentMetrics *)self speakLatency];
   v8 = [v7 numberWithDouble:?];
-  v34 = v8;
-  v24 = @"synthesis_latency";
+  v33 = v8;
+  v23 = @"synthesis_latency";
   v9 = MEMORY[0x277CCABB0];
   [(SFSSInstrumentMetrics *)self synthesisLatency];
   v10 = [v9 numberWithDouble:?];
-  v35 = v10;
-  v25 = @"playback_duration";
+  v34 = v10;
+  v24 = @"playback_duration";
   v11 = MEMORY[0x277CCABB0];
   [(SFSSInstrumentMetrics *)self playbackDuration];
   v12 = [v11 numberWithDouble:?];
-  v36 = v12;
-  v26 = @"audio_duration";
+  v35 = v12;
+  v25 = @"audio_duration";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:self->_audioDuration];
-  v37 = v13;
-  v27 = @"audio_output_route";
-  v28 = @"client_bundle_identifier";
-  v38 = vbslq_s8(vceqzq_s64(*&self->_audioOutputRoute), v18, *&self->_audioOutputRoute);
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v19 count:12];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v36 = v13;
+  v26 = @"audio_output_route";
+  v27 = @"client_bundle_identifier";
+  v37 = vbslq_s8(vceqzq_s64(*&self->_audioOutputRoute), v17, *&self->_audioOutputRoute);
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v18 count:12];
 
   return v14;
 }

@@ -306,13 +306,12 @@ LABEL_19:
 
 - (id)_supplementActions
 {
-  v21 = *MEMORY[0x277D85DE8];
-  action = self->_action;
+  v19 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_action;
-    if ([(BCSAction *)v4 appLinkCount]>= 2 && (_bcs_isDeviceLocked() & 1) != 0 || ([(BCSAction *)self->_action clipMetadataRequest], v5 = objc_claimAutoreleasedReturnValue(), v5, v5))
+    v3 = self->_action;
+    if ([(BCSAction *)v3 appLinkCount]>= 2 && (_bcs_isDeviceLocked() & 1) != 0 || ([(BCSAction *)self->_action clipMetadataRequest], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
     {
 
       array = 0;
@@ -322,40 +321,39 @@ LABEL_19:
 
   actionPickerItems = [(BCSAction *)self->_action actionPickerItems];
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v8 = actionPickerItems;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v7 = actionPickerItems;
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v17;
+    v9 = v8;
+    v10 = *v15;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v11)
+        if (*v15 != v10)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v7);
         }
 
-        v13 = [(BCSNotification *)self _notificationActionFromActionPickerItem:*(*(&v16 + 1) + 8 * i), v16];
-        if (v13)
+        v12 = [(BCSNotification *)self _notificationActionFromActionPickerItem:*(*(&v14 + 1) + 8 * i), v14];
+        if (v12)
         {
-          [array addObject:v13];
+          [array addObject:v12];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
 LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -387,11 +385,9 @@ LABEL_17:
     actionURL = [locallyCopy actionURL];
     if (actionURL)
     {
-      action = self->_action;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v9 = self->_action;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -402,8 +398,8 @@ LABEL_17:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v10 = v5;
-          appLink = [v10 appLink];
+          v8 = v5;
+          appLink = [v8 appLink];
           if (appLink)
           {
             _bcs_isDataDetectorURL = 1;
@@ -411,7 +407,7 @@ LABEL_17:
 
           else
           {
-            actionURL2 = [v10 actionURL];
+            actionURL2 = [v8 actionURL];
             _bcs_isDataDetectorURL = [actionURL2 _bcs_isUPIURL];
           }
 
@@ -444,11 +440,10 @@ LABEL_15:
   actionURL = [itemCopy actionURL];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  action = self->_action;
   objc_opt_class();
-  v8 = objc_opt_isKindOfClass();
-  v9 = v8;
-  if (!actionURL && (isKindOfClass & 1) == 0 && (v8 & 1) == 0)
+  v7 = objc_opt_isKindOfClass();
+  v8 = v7;
+  if (!actionURL && (isKindOfClass & 1) == 0 && (v7 & 1) == 0)
   {
     goto LABEL_4;
   }
@@ -462,7 +457,7 @@ LABEL_15:
     if (!_contentIsPreviewable)
     {
 LABEL_4:
-      v10 = 0;
+      v9 = 0;
       goto LABEL_21;
     }
   }
@@ -471,20 +466,20 @@ LABEL_4:
   {
   }
 
-  v14 = [(BCSNotification *)self _shouldHandleActionPickerItemLocally:itemCopy];
+  v13 = [(BCSNotification *)self _shouldHandleActionPickerItemLocally:itemCopy];
   uUID = [MEMORY[0x277CCAD78] UUID];
   uUIDString = [uUID UUIDString];
 
-  if (v14)
+  if (v13)
   {
-    if ((isKindOfClass | v9))
+    if ((isKindOfClass | v8))
     {
-      v17 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v17 = 4;
+      v16 = 4;
     }
 
     [(NSMutableDictionary *)self->_localActions setObject:itemCopy forKey:uUIDString];
@@ -497,7 +492,7 @@ LABEL_4:
   }
 
   label2 = actionURL;
-  v17 = [(BCSNotification *)self _shouldManuallyRequireAuthenticationForURL:label2];
+  v16 = [(BCSNotification *)self _shouldManuallyRequireAuthenticationForURL:label2];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     [BCSNotification _notificationActionFromActionPickerItem:];
@@ -507,9 +502,9 @@ LABEL_4:
     }
 
 LABEL_19:
-    v21 = MEMORY[0x277CE1F80];
+    v20 = MEMORY[0x277CE1F80];
     label2 = [itemCopy label];
-    v10 = [v21 actionWithIdentifier:uUIDString title:label2 options:v17];
+    v9 = [v20 actionWithIdentifier:uUIDString title:label2 options:v16];
     goto LABEL_20;
   }
 
@@ -519,14 +514,14 @@ LABEL_19:
   }
 
 LABEL_17:
-  v19 = MEMORY[0x277CE1F80];
+  v18 = MEMORY[0x277CE1F80];
   label3 = [itemCopy label];
-  v10 = [v19 actionWithIdentifier:uUIDString title:label3 url:label2 options:v17];
+  v9 = [v18 actionWithIdentifier:uUIDString title:label3 url:label2 options:v16];
 
 LABEL_20:
 LABEL_21:
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)_contentIsPreviewable
@@ -598,32 +593,31 @@ LABEL_21:
       }
     }
 
-    action = self->_action;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = self->_action;
-      contact = [(BCSAction *)v14 contact];
+      v13 = self->_action;
+      contact = [(BCSAction *)v13 contact];
 
       if (contact)
       {
-        contact2 = [(BCSAction *)v14 contact];
+        contact2 = [(BCSAction *)v13 contact];
         [v6 encodeObject:contact2 forKey:BCSBarcodeNotificationPayloadContactKey];
       }
 
-      icsString = [(BCSAction *)v14 icsString];
+      icsString = [(BCSAction *)v13 icsString];
 
       if (icsString)
       {
-        icsString2 = [(BCSAction *)v14 icsString];
+        icsString2 = [(BCSAction *)v13 icsString];
         [v6 encodeObject:icsString2 forKey:BCSBarcodeNotificationPayloadICSStringKey];
       }
 
-      scannerResult = [(BCSAction *)v14 scannerResult];
+      scannerResult = [(BCSAction *)v13 scannerResult];
 
       if (scannerResult)
       {
-        scannerResult2 = [(BCSAction *)v14 scannerResult];
+        scannerResult2 = [(BCSAction *)v13 scannerResult];
         [v6 encodeObject:scannerResult2 forKey:BCSBarcodeNotificationPayloadScannerResultKey];
       }
     }
@@ -633,8 +627,8 @@ LABEL_21:
       [v6 encodeObject:_supplementActions forKey:BCSBarcodeNotificationPayloadActionsKey];
     }
 
-    v21 = [MEMORY[0x277CCABB0] numberWithBool:_contentIsPreviewable];
-    [v6 encodeObject:v21 forKey:BCSBarcodeNotificationPayloadContentIsPreviewableKey];
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:_contentIsPreviewable];
+    [v6 encodeObject:v20 forKey:BCSBarcodeNotificationPayloadContentIsPreviewableKey];
 
     encodedData = [v6 encodedData];
   }
@@ -670,7 +664,6 @@ LABEL_21:
 
 - (BOOL)canHandleActionLocally
 {
-  action = self->_action;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -678,12 +671,11 @@ LABEL_21:
 
     if (!clipMetadataRequest)
     {
-      v7 = self->_action;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v8 = self->_action;
-        if (([(BCSAction *)v8 mustOpenAppLinkInApp]& 1) != 0)
+        v6 = self->_action;
+        if (([(BCSAction *)v6 mustOpenAppLinkInApp]& 1) != 0)
         {
           _bcs_isUPIURL = 1;
 LABEL_15:
@@ -691,7 +683,7 @@ LABEL_15:
           return _bcs_isUPIURL;
         }
 
-        icsString = [(BCSAction *)v8 url];
+        icsString = [(BCSAction *)v6 url];
         _bcs_isUPIURL = [icsString _bcs_isUPIURL];
       }
 
@@ -703,8 +695,8 @@ LABEL_15:
           return 0;
         }
 
-        v8 = self->_action;
-        icsString = [(BCSAction *)v8 icsString];
+        v6 = self->_action;
+        icsString = [(BCSAction *)v6 icsString];
         if (icsString)
         {
           _bcs_isUPIURL = 1;
@@ -712,7 +704,7 @@ LABEL_15:
 
         else
         {
-          contact = [(BCSAction *)v8 contact];
+          contact = [(BCSAction *)v6 contact];
           _bcs_isUPIURL = contact != 0;
         }
       }
@@ -766,32 +758,32 @@ LABEL_15:
 
 void __53__BCSNotification__handleCalendarEventWithICSString___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v6 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v29 = @"ICS";
-  v30[0] = v5;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v28 = @"ICS";
+  v29[0] = v5;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
   v8 = v6;
   v9 = v7;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   v10 = getDDUIEventForResultsSymbolLoc_ptr;
-  v28 = getDDUIEventForResultsSymbolLoc_ptr;
+  v27 = getDDUIEventForResultsSymbolLoc_ptr;
   if (!getDDUIEventForResultsSymbolLoc_ptr)
   {
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __getDDUIEventForResultsSymbolLoc_block_invoke;
-    v24[3] = &unk_278CFE620;
-    v24[4] = &v25;
-    __getDDUIEventForResultsSymbolLoc_block_invoke(v24);
-    v10 = v26[3];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __getDDUIEventForResultsSymbolLoc_block_invoke;
+    v23[3] = &unk_278CFE620;
+    v23[4] = &v24;
+    __getDDUIEventForResultsSymbolLoc_block_invoke(v23);
+    v10 = v25[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v24, 8);
   if (!v10)
   {
     __53__BCSNotification__handleCalendarEventWithICSString___block_invoke_cold_3();
@@ -800,9 +792,9 @@ void __53__BCSNotification__handleCalendarEventWithICSString___block_invoke(uint
   v11 = v10(v8, 0, v9);
 
   v12 = *(a1 + 32);
-  v23 = 0;
-  v13 = [v12 saveEvent:v11 span:0 error:&v23];
-  v14 = v23;
+  v22 = 0;
+  v13 = [v12 saveEvent:v11 span:0 error:&v22];
+  v14 = v22;
   if (v14)
   {
     v15 = v13;
@@ -819,9 +811,9 @@ void __53__BCSNotification__handleCalendarEventWithICSString___block_invoke(uint
     v16 = [getLSApplicationWorkspaceClass() defaultWorkspace];
     v17 = [v11 externalURL];
     v18 = [*(a1 + 48) _fbOptionsHandlingUnlockIfNecessary];
-    v22 = 0;
-    v19 = [v16 openSensitiveURL:v17 withOptions:v18 error:&v22];
-    v20 = v22;
+    v21 = 0;
+    v19 = [v16 openSensitiveURL:v17 withOptions:v18 error:&v21];
+    v20 = v21;
 
     if ((v19 & 1) == 0)
     {
@@ -838,8 +830,6 @@ void __53__BCSNotification__handleCalendarEventWithICSString___block_invoke(uint
   {
     __53__BCSNotification__handleCalendarEventWithICSString___block_invoke_cold_1(v14);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)tempVCardFileURL
@@ -908,48 +898,47 @@ void __53__BCSNotification__handleCalendarEventWithICSString___block_invoke(uint
 
 void __38__BCSNotification__handleContactInfo___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     CNContactVCardSerializationClass = getCNContactVCardSerializationClass();
-    v17[0] = *(a1 + 32);
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v15[0] = *(a1 + 32);
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     v8 = [CNContactVCardSerializationClass dataWithContacts:v7 error:0];
 
-    v9 = *(a1 + 40);
-    v10 = [objc_opt_class() tempVCardFileURL];
-    if (!v10)
+    v9 = [objc_opt_class() tempVCardFileURL];
+    if (!v9)
     {
 LABEL_12:
 
       goto LABEL_13;
     }
 
-    [v8 writeToURL:v10 atomically:1];
-    v11 = [getLSApplicationProxyClass() applicationProxyForIdentifier:@"com.apple.MobileAddressBook"];
-    if ([v11 isInstalled] && (objc_msgSend(v11, "isRestricted") & 1) == 0)
+    [v8 writeToURL:v9 atomically:1];
+    v10 = [getLSApplicationProxyClass() applicationProxyForIdentifier:@"com.apple.MobileAddressBook"];
+    if ([v10 isInstalled] && (objc_msgSend(v10, "isRestricted") & 1) == 0)
     {
-      v12 = [getLSApplicationWorkspaceClass() defaultWorkspace];
-      v15 = [*(a1 + 40) _fbOptionsHandlingUnlockIfNecessary];
-      v13 = [v12 operationToOpenResource:v10 usingApplication:@"com.apple.MobileAddressBook" uniqueDocumentIdentifier:0 sourceIsManaged:0 userInfo:0 options:v15 delegate:0];
+      v11 = [getLSApplicationWorkspaceClass() defaultWorkspace];
+      v14 = [*(a1 + 40) _fbOptionsHandlingUnlockIfNecessary];
+      v12 = [v11 operationToOpenResource:v9 usingApplication:@"com.apple.MobileAddressBook" uniqueDocumentIdentifier:0 sourceIsManaged:0 userInfo:0 options:v14 delegate:0];
 
-      [v13 start];
+      [v12 start];
     }
 
     else
     {
-      v12 = [getLSApplicationProxyClass() applicationProxyForSystemPlaceholder:@"com.apple.MobileAddressBook"];
-      if (!v12)
+      v11 = [getLSApplicationProxyClass() applicationProxyForSystemPlaceholder:@"com.apple.MobileAddressBook"];
+      if (!v11)
       {
 LABEL_11:
 
         goto LABEL_12;
       }
 
-      v13 = [getLSApplicationWorkspaceClass() defaultWorkspace];
-      v14 = [v12 bundleIdentifier];
-      [v13 _LSFailedToOpenURL:0 withBundle:v14];
+      v12 = [getLSApplicationWorkspaceClass() defaultWorkspace];
+      v13 = [v11 bundleIdentifier];
+      [v12 _LSFailedToOpenURL:0 withBundle:v13];
     }
 
     goto LABEL_11;
@@ -961,8 +950,6 @@ LABEL_11:
   }
 
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performActionAfterUnlock:(id)unlock
@@ -1060,23 +1047,22 @@ uint64_t __45__BCSNotification__performActionAfterUnlock___block_invoke(uint64_t
       goto LABEL_14;
     }
 
-    action = self->_action;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = self->_action;
-      icsString = [(BCSAction *)v13 icsString];
+      v12 = self->_action;
+      icsString = [(BCSAction *)v12 icsString];
 
       if (icsString)
       {
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke;
-        v23[3] = &unk_278CFEE40;
-        v23[4] = self;
-        v24 = v13;
-        v13 = v13;
-        [(BCSNotification *)self _performActionAfterUnlock:v23];
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke;
+        v22[3] = &unk_278CFEE40;
+        v22[4] = self;
+        v23 = v12;
+        v12 = v12;
+        [(BCSNotification *)self _performActionAfterUnlock:v22];
 
 LABEL_13:
 LABEL_14:
@@ -1085,31 +1071,31 @@ LABEL_14:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v11 contact], (v15 = objc_claimAutoreleasedReturnValue()) != 0) || (-[BCSAction contact](v13, "contact"), (v15 = objc_claimAutoreleasedReturnValue()) != 0))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v11 contact], (v14 = objc_claimAutoreleasedReturnValue()) != 0) || (-[BCSAction contact](v12, "contact"), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke_2;
-        v21[3] = &unk_278CFEE40;
-        v21[4] = self;
-        v22 = v15;
-        v16 = v15;
-        [(BCSNotification *)self _performActionAfterUnlock:v21];
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke_2;
+        v20[3] = &unk_278CFEE40;
+        v20[4] = self;
+        v21 = v14;
+        v15 = v14;
+        [(BCSNotification *)self _performActionAfterUnlock:v20];
 
         goto LABEL_13;
       }
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke_3;
-    v17[3] = &unk_278CFEF98;
-    v18 = v11;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke_3;
+    v16[3] = &unk_278CFEF98;
+    v17 = v11;
     selfCopy = self;
-    v20 = dCopy;
-    [(BCSNotification *)self _performActionAfterUnlock:v17];
+    v19 = dCopy;
+    [(BCSNotification *)self _performActionAfterUnlock:v16];
 
-    v13 = v18;
+    v12 = v17;
     goto LABEL_13;
   }
 
@@ -1133,82 +1119,81 @@ void __75__BCSNotification_handleActionWithIdentifier_notificationResponseOrigin
   [v2 logBarcodeActivatedEventForAction:*(*(a1 + 32) + 8)];
 }
 
-void __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke_3(uint64_t a1)
+void __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v3 = *(*(a1 + 40) + 8), objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v4 = [*(a1 + 40) _fbOptionsHandlingUnlockIfNecessary];
-    v5 = [v4 mutableCopy];
+    v3 = [*(a1 + 40) _fbOptionsHandlingUnlockIfNecessary];
+    v4 = [v3 mutableCopy];
 
     if ([*(a1 + 48) length])
     {
-      v6 = *(a1 + 48);
-      v17 = 0;
-      v18 = &v17;
-      v19 = 0x2020000000;
-      v7 = getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_ptr;
-      v20 = getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_ptr;
+      v5 = *(a1 + 48);
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x2020000000;
+      v6 = getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_ptr;
+      v19 = getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_ptr;
       if (!getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_ptr)
       {
-        v12 = MEMORY[0x277D85DD0];
-        v13 = 3221225472;
-        v14 = __getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_block_invoke;
-        v15 = &unk_278CFE620;
-        v16 = &v17;
-        v8 = FrontBoardServicesLibrary();
-        v18[3] = dlsym(v8, "FBSOpenApplicationOptionKeyLaunchOrigin");
-        getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_ptr = *(v16[1] + 24);
-        v7 = v18[3];
+        v11 = MEMORY[0x277D85DD0];
+        v12 = 3221225472;
+        v13 = __getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_block_invoke;
+        v14 = &unk_278CFE620;
+        v15 = &v16;
+        v7 = FrontBoardServicesLibrary();
+        v17[3] = dlsym(v7, "FBSOpenApplicationOptionKeyLaunchOrigin");
+        getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_ptr = *(v15[1] + 24);
+        v6 = v17[3];
       }
 
-      _Block_object_dispose(&v17, 8);
-      if (!v7)
+      _Block_object_dispose(&v16, 8);
+      if (!v6)
       {
         __75__BCSNotification_handleActionWithIdentifier_notificationResponseOriginID___block_invoke_3_cold_1();
       }
 
-      [v5 setObject:v6 forKeyedSubscript:*v7];
+      [v4 setObject:v5 forKeyedSubscript:*v6];
     }
 
-    v9 = *(a1 + 32);
-    if (v9)
+    v8 = *(a1 + 32);
+    if (v8)
     {
-      [v9 performActionWithFBOptions:v5];
+      [v8 performActionWithFBOptions:v4];
     }
 
     else if ([*(a1 + 40) _shouldRequireUserToPickTargetApp])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSNotification: put up an alert to allow the user to choose app", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSNotification: put up an alert to allow the user to choose app", &v11, 2u);
       }
 
-      [*(a1 + 40) _showAppPickerAlertWithFBOptions:{v5, v12, v13, v14, v15}];
+      [*(a1 + 40) _showAppPickerAlertWithFBOptions:{v4, v11, v12, v13, v14}];
     }
 
     else
     {
-      [*(*(a1 + 40) + 8) performDefaultActionWithFBOptions:v5];
+      [*(*(a1 + 40) + 8) performDefaultActionWithFBOptions:v4];
     }
   }
 
   else
   {
-    v10 = *(a1 + 32);
-    if (v10)
+    v9 = *(a1 + 32);
+    if (v9)
     {
 
-      [v10 performAction];
+      [v9 performAction];
     }
 
     else
     {
-      v11 = *(*(a1 + 40) + 8);
+      v10 = *(*(a1 + 40) + 8);
 
-      [v11 performDefaultAction];
+      [v10 performDefaultAction];
     }
   }
 }
@@ -1272,7 +1257,7 @@ void __75__BCSNotification_handleActionWithIdentifier_notificationResponseOrigin
 
 - (id)_content
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CE1F60]);
   if ([(BCSNotification *)self _contentIsPreviewable])
   {
@@ -1288,9 +1273,9 @@ void __75__BCSNotification_handleActionWithIdentifier_notificationResponseOrigin
   _contentExtensionData = [(BCSNotification *)self _contentExtensionData];
   if ([_contentExtensionData length])
   {
-    v40 = BCSBarcodeNotificationPayloadKey;
-    v41[0] = _contentExtensionData;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v38 = BCSBarcodeNotificationPayloadKey;
+    v39[0] = _contentExtensionData;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     [v3 setUserInfo:v6];
   }
 
@@ -1382,9 +1367,9 @@ LABEL_19:
     v25 = MEMORY[0x277CE1F90];
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    v38 = 0;
-    v28 = [v25 attachmentWithIdentifier:uUIDString URL:_attachmentIconURL options:0 error:&v38];
-    v29 = v38;
+    v36 = 0;
+    v28 = [v25 attachmentWithIdentifier:uUIDString URL:_attachmentIconURL options:0 error:&v36];
+    v29 = v36;
 
     if (v29)
     {
@@ -1396,17 +1381,16 @@ LABEL_19:
 
     else if (v28)
     {
-      v39 = v28;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+      v37 = v28;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
       [v3 setAttachments:v30];
     }
   }
 
-  v31 = *p_action;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v32 = v3;
+    v31 = v3;
     goto LABEL_39;
   }
 
@@ -1423,7 +1407,7 @@ LABEL_19:
       [(BCSNotification *)&self->_action _content];
     }
 
-    v32 = 0;
+    v31 = 0;
     goto LABEL_38;
   }
 
@@ -1434,21 +1418,20 @@ LABEL_19:
   }
 
   defaultActionTargetApplicationBundleIdentifier = [(BCSAction *)self->_action defaultActionTargetApplicationBundleIdentifier];
-  v37 = [(BCSNotification *)self _shouldScheduleBackgroundActionForLaunchBundleID:defaultActionTargetApplicationBundleIdentifier];
+  v35 = [(BCSNotification *)self _shouldScheduleBackgroundActionForLaunchBundleID:defaultActionTargetApplicationBundleIdentifier];
 
-  if (v37)
+  if (v35)
   {
 LABEL_31:
     [v3 setShouldBackgroundDefaultAction:1];
   }
 
-  v32 = v3;
+  v31 = v3;
 LABEL_38:
 
 LABEL_39:
-  v34 = *MEMORY[0x277D85DE8];
 
-  return v32;
+  return v31;
 }
 
 - (UNNotificationRequest)request
@@ -1488,56 +1471,54 @@ LABEL_39:
 
 - (id)_fbOptionsHandlingUnlockIfNecessary
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v18[2] = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v2 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
-  v16 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
+  v15 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
   if (!getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr)
   {
     v3 = FrontBoardServicesLibrary();
-    v14[3] = dlsym(v3, "FBSOpenApplicationOptionKeyPromptUnlockDevice");
-    getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr = v14[3];
-    v2 = v14[3];
+    v13[3] = dlsym(v3, "FBSOpenApplicationOptionKeyPromptUnlockDevice");
+    getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr = v13[3];
+    v2 = v13[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
   if (!v2)
   {
     [BCSNotification _fbOptionsHandlingUnlockIfNecessary];
   }
 
   v4 = *v2;
-  v17 = v4;
+  v16 = v4;
   v5 = MEMORY[0x277CBEC38];
-  v19[0] = MEMORY[0x277CBEC38];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v18[0] = MEMORY[0x277CBEC38];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
   v6 = getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr;
-  v16 = getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr;
+  v15 = getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr;
   if (!getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr)
   {
     v7 = FrontBoardServicesLibrary();
-    v14[3] = dlsym(v7, "FBSOpenApplicationOptionKeyUnlockDevice");
-    getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr = v14[3];
-    v6 = v14[3];
+    v13[3] = dlsym(v7, "FBSOpenApplicationOptionKeyUnlockDevice");
+    getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr = v13[3];
+    v6 = v13[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
   if (!v6)
   {
     [BCSNotification _fbOptionsHandlingUnlockIfNecessary];
   }
 
-  v18 = *v6;
-  v19[1] = v5;
+  v17 = *v6;
+  v18[1] = v5;
   v8 = MEMORY[0x277CBEAC0];
-  v9 = v18;
-  v10 = [v8 dictionaryWithObjects:v19 forKeys:&v17 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = v17;
+  v10 = [v8 dictionaryWithObjects:v18 forKeys:&v16 count:2];
 
   return v10;
 }
@@ -1571,28 +1552,27 @@ LABEL_39:
 
 - (BOOL)_shouldRequireUserToPickTargetApp
 {
-  action = self->_action;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_action;
-    if ([(BCSAction *)v4 appLinkCount]< 2)
+    v3 = self->_action;
+    if ([(BCSAction *)v3 appLinkCount]< 2)
     {
-      LOBYTE(v5) = 0;
+      LOBYTE(v4) = 0;
     }
 
     else
     {
-      v5 = [(BCSAction *)v4 hasPreferredAppLink]^ 1;
+      v4 = [(BCSAction *)v3 hasPreferredAppLink]^ 1;
     }
   }
 
   else
   {
-    LOBYTE(v5) = 0;
+    LOBYTE(v4) = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)_pickerLabelForURLActionPickerItem:(id)item
@@ -1606,15 +1586,15 @@ LABEL_39:
 
 - (void)_showAppPickerAlertWithFBOptions:(id)options
 {
-  v28[7] = *MEMORY[0x277D85DE8];
+  v27[7] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   actionPickerItems = [(BCSAction *)self->_action actionPickerItems];
   if ([actionPickerItems count] >= 3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      LOWORD(v25[0]) = 0;
-      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSNotification: User has more than 2 apps to choose from.", v25, 2u);
+      LOWORD(v24[0]) = 0;
+      _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSNotification: User has more than 2 apps to choose from.", v24, 2u);
     }
 
     v6 = [(BCSNotification *)self _orderAppLinkActionsByRecency:actionPickerItems];
@@ -1628,10 +1608,10 @@ LABEL_39:
   v9 = [actionPickerItems objectAtIndexedSubscript:1];
   v10 = [(BCSNotification *)self _pickerLabelForURLActionPickerItem:v9];
 
-  v27[0] = *MEMORY[0x277CBF188];
+  v26[0] = *MEMORY[0x277CBF188];
   v11 = _BCSLocalizedString(@"Choose App to Open URL", &_BCSLocalizableStringsBundleOnceToken, &_BCSLocalizableStringsBundle);
-  v28[0] = v11;
-  v27[1] = *MEMORY[0x277CBF1E8];
+  v27[0] = v11;
+  v26[1] = *MEMORY[0x277CBF1E8];
   v12 = _BCSLocalizedString(@"Cancel", &_BCSLocalizableStringsBundleOnceToken, &_BCSLocalizableStringsBundle);
   v13 = v12;
   v14 = *MEMORY[0x277CBF1C0];
@@ -1645,11 +1625,11 @@ LABEL_39:
     v15 = &stru_2853953A0;
   }
 
-  v28[1] = v12;
-  v28[2] = v15;
+  v27[1] = v12;
+  v27[2] = v15;
   v16 = *MEMORY[0x277CBF218];
-  v27[2] = v14;
-  v27[3] = v16;
+  v26[2] = v14;
+  v26[3] = v16;
   if (v10)
   {
     v17 = v10;
@@ -1660,31 +1640,31 @@ LABEL_39:
     v17 = &stru_2853953A0;
   }
 
-  v27[4] = *MEMORY[0x277CBF1B0];
-  v27[5] = @"SBUserNotificationForcesModalAlertAppearance";
-  v28[3] = v17;
-  v28[4] = MEMORY[0x277CBEC38];
-  v27[6] = @"SBUserNotificationDisplayActionButtonOnLockScreen";
-  v28[5] = MEMORY[0x277CBEC38];
-  v28[6] = MEMORY[0x277CBEC38];
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:7];
+  v26[4] = *MEMORY[0x277CBF1B0];
+  v26[5] = @"SBUserNotificationForcesModalAlertAppearance";
+  v27[3] = v17;
+  v27[4] = MEMORY[0x277CBEC38];
+  v26[6] = @"SBUserNotificationDisplayActionButtonOnLockScreen";
+  v27[5] = MEMORY[0x277CBEC38];
+  v27[6] = MEMORY[0x277CBEC38];
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
 
   error = 0;
   v19 = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0x20uLL, &error, v18);
   if (v19)
   {
     v20 = v19;
-    v25[0] = 0;
-    CFUserNotificationReceiveResponse(v19, 0.0, v25);
+    v24[0] = 0;
+    CFUserNotificationReceiveResponse(v19, 0.0, v24);
     CFRelease(v20);
-    if (v25[0] == 1)
+    if (v24[0] == 1)
     {
       v21 = 0;
     }
 
     else
     {
-      if (v25[0] != 2)
+      if (v24[0] != 2)
       {
         goto LABEL_20;
       }
@@ -1702,39 +1682,37 @@ LABEL_39:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    [BCSNotification _showAppPickerAlertWithFBOptions:?];
+    [BCSNotification _showAppPickerAlertWithFBOptions:];
   }
 
 LABEL_20:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_orderAppLinkActionsByRecency:(id)recency
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   recencyCopy = recency;
   weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v5 = recencyCopy;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         appLink = [v10 appLink];
         targetApplicationProxy = [appLink targetApplicationProxy];
         bundleIdentifier = [targetApplicationProxy bundleIdentifier];
@@ -1743,22 +1721,20 @@ LABEL_20:
         [weakToStrongObjectsMapTable setObject:v14 forKey:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
 
   v15 = [v5 mutableCopy];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __49__BCSNotification__orderAppLinkActionsByRecency___block_invoke;
-  v19[3] = &unk_278CFEFC0;
-  v20 = weakToStrongObjectsMapTable;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __49__BCSNotification__orderAppLinkActionsByRecency___block_invoke;
+  v18[3] = &unk_278CFEFC0;
+  v19 = weakToStrongObjectsMapTable;
   v16 = weakToStrongObjectsMapTable;
-  [v15 sortUsingComparator:v19];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v15 sortUsingComparator:v18];
 
   return v15;
 }
@@ -1803,34 +1779,28 @@ uint64_t __49__BCSNotification__orderAppLinkActionsByRecency___block_invoke(uint
 
 - (void)_notificationActionFromActionPickerItem:.cold.1()
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BCSNotification: Setting up UNNotificationAction with URL %{private}@", v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BCSNotification: Setting up UNNotificationAction with URL %{private}@", v0, 0xCu);
 }
 
 - (void)_notificationActionFromActionPickerItem:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a2 targetApplicationBundleIdentifier];
-  v5 = 138478083;
-  v6 = a1;
-  v7 = 2113;
-  v8 = v3;
-  _os_log_debug_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BCSNotification: Setting up UNNotificationAction that will be handled locally with URL %{private}@ and target application %{private}@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138478083;
+  v5 = a1;
+  v6 = 2113;
+  v7 = v3;
+  _os_log_debug_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "BCSNotification: Setting up UNNotificationAction that will be handled locally with URL %{private}@ and target application %{private}@", &v4, 0x16u);
 }
 
 void __53__BCSNotification__handleCalendarEventWithICSString___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __53__BCSNotification__handleCalendarEventWithICSString___block_invoke_cold_3()
@@ -1844,22 +1814,17 @@ void __53__BCSNotification__handleCalendarEventWithICSString___block_invoke_cold
 
 + (void)tempVCardFileURL
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __38__BCSNotification__handleContactInfo___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performActionAfterUnlock:.cold.1()
@@ -1891,14 +1856,11 @@ void __75__BCSNotification_handleActionWithIdentifier_notificationResponseOrigin
 
 - (void)_content
 {
-  v8 = *MEMORY[0x277D85DE8];
   data = [*self data];
   [data type];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fbOptionsHandlingUnlockIfNecessary
@@ -1908,15 +1870,6 @@ void __75__BCSNotification_handleActionWithIdentifier_notificationResponseOrigin
   [currentHandler handleFailureInFunction:v1 file:@"BCSNotification.m" lineNumber:64 description:{@"%s", dlerror()}];
 
   __break(1u);
-}
-
-- (void)_showAppPickerAlertWithFBOptions:(int *)a1 .cold.1(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

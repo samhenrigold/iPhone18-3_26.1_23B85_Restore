@@ -31,12 +31,12 @@ LABEL_11:
   }
 
   v3 = _UIMainBundleIdentifier();
-  if ([v3 isEqualToString:@"com.apple.siri"] && !_os_feature_enabled_impl())
+  if (objc_msgSend_isEqualToString_(v3) && !_os_feature_enabled_impl())
   {
     v2 = 0;
   }
 
-  else if ([v3 isEqualToString:@"com.apple.mobilecal"])
+  else if (objc_msgSend_isEqualToString_(v3))
   {
     v2 = _os_feature_enabled_impl();
   }

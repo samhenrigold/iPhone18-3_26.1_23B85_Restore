@@ -21,13 +21,13 @@
   completionCopy = completion;
   if (!completionCopy)
   {
-    [PREditingDidDismissAction acceptChangesWithCompletion:a2];
+    [(PREditingDidDismissAction *)a2 acceptChangesWithCompletion:self];
   }
 
-  v5 = completionCopy;
-  v6 = [[PREditingDidDismissAction alloc] _initWithCompletion:completionCopy];
+  v6 = completionCopy;
+  v7 = [[PREditingDidDismissAction alloc] _initWithCompletion:completionCopy];
 
-  return v6;
+  return v7;
 }
 
 - (id)_initWithCompletion:(id)completion
@@ -117,12 +117,12 @@ void __49__PREditingDidDismissAction__initWithCompletion___block_invoke(uint64_t
   NSClassFromString(&cfstr_Prmutableposte.isa);
   if (!v9)
   {
-    [PREditingDidDismissAction sendResponseWithUpdatedConfiguration:a2 updatedProperties:?];
+    [PREditingDidDismissAction sendResponseWithUpdatedConfiguration:a2 updatedProperties:self];
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [PREditingDidDismissAction sendResponseWithUpdatedConfiguration:a2 updatedProperties:?];
+    [PREditingDidDismissAction sendResponseWithUpdatedConfiguration:a2 updatedProperties:self];
   }
 
   _path = [v9 _path];
@@ -219,36 +219,36 @@ void __49__PREditingDidDismissAction__initWithCompletion___block_invoke(uint64_t
   return v7;
 }
 
-+ (void)acceptChangesWithCompletion:(const char *)a1 .cold.1(const char *a1)
++ (void)acceptChangesWithCompletion:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"completion"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"completion", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)sendResponseWithUpdatedConfiguration:(const char *)a1 updatedProperties:.cold.1(const char *a1)
+- (void)sendResponseWithUpdatedConfiguration:(const char *)a1 updatedProperties:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRMutablePosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:PRMutablePosterConfigurationClass]", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -263,19 +263,19 @@ void __49__PREditingDidDismissAction__initWithCompletion___block_invoke(uint64_t
   _os_log_error_impl(&dword_1A8AA7000, a2, OS_LOG_TYPE_ERROR, "%{public}@: cannot send updatedConfiguration back to server due to sandbox extension error", &v5, 0xCu);
 }
 
-- (void)sendResponseWithUpdatedConfiguration:(const char *)a1 updatedProperties:.cold.3(const char *a1)
+- (void)sendResponseWithUpdatedConfiguration:(const char *)a1 updatedProperties:(uint64_t)a2 .cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -16,7 +16,7 @@
 
 - (void)videoStream:(id)stream didGetLastDecodedFrame:(id)frame
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   frameCopy = frame;
   [HMDCameraStreamSnapshotCapture setCaptureCurrentFrameTimer:?];
@@ -26,15 +26,13 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v11;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Received last decoded frame", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v11;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Received last decoded frame", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDCameraStreamSnapshotCapture *)selfCopy _callSnapshotDelegate:frameCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCaptureCurrentFrameTimer:(uint64_t)timer
@@ -47,7 +45,7 @@
 
 - (void)_callSnapshotDelegate:(_BYTE *)delegate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (delegate)
   {
@@ -59,9 +57,9 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = HMFGetLogIdentifier();
-        LODWORD(v24) = 138543362;
-        *(&v24 + 4) = v7;
-        _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Captured the last frame, sending stop stream", &v24, 0xCu);
+        LODWORD(v23) = 138543362;
+        *(&v23 + 4) = v7;
+        _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Captured the last frame, sending stop stream", &v23, 0xCu);
       }
 
       objc_autoreleasePoolPop(v4);
@@ -79,9 +77,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        LODWORD(v24) = 138543362;
-        *(&v24 + 4) = v13;
-        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Calling delegate streamSnapshotCapture:didGetNewSnapshot", &v24, 0xCu);
+        LODWORD(v23) = 138543362;
+        *(&v23 + 4) = v13;
+        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Calling delegate streamSnapshotCapture:didGetNewSnapshot", &v23, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -89,14 +87,14 @@
       if (objc_opt_respondsToSelector())
       {
         v15 = *(delegateCopy2 + 5);
-        *&v24 = MEMORY[0x277D85DD0];
-        *(&v24 + 1) = 3221225472;
-        v25 = __57__HMDCameraStreamSnapshotCapture__callDidGetNewSnapshot___block_invoke;
-        v26 = &unk_279734960;
-        v27 = WeakRetained;
-        v28 = delegateCopy2;
-        v29 = v9;
-        dispatch_async(v15, &v24);
+        *&v23 = MEMORY[0x277D85DD0];
+        *(&v23 + 1) = 3221225472;
+        v24 = __57__HMDCameraStreamSnapshotCapture__callDidGetNewSnapshot___block_invoke;
+        v25 = &unk_279734960;
+        v26 = WeakRetained;
+        v27 = delegateCopy2;
+        v28 = v9;
+        dispatch_async(v15, &v23);
       }
     }
 
@@ -112,9 +110,9 @@
         if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
           v20 = HMFGetLogIdentifier();
-          LODWORD(v24) = 138543362;
-          *(&v24 + 4) = v20;
-          _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Calling delegate streamSnapshotCapture:didGetLastSnapshot", &v24, 0xCu);
+          LODWORD(v23) = 138543362;
+          *(&v23 + 4) = v20;
+          _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Calling delegate streamSnapshotCapture:didGetLastSnapshot", &v23, 0xCu);
         }
 
         objc_autoreleasePoolPop(v17);
@@ -122,25 +120,23 @@
         if (objc_opt_respondsToSelector())
         {
           v22 = *(delegateCopy3 + 5);
-          *&v24 = MEMORY[0x277D85DD0];
-          *(&v24 + 1) = 3221225472;
-          v25 = __58__HMDCameraStreamSnapshotCapture__callDidGetLastSnapshot___block_invoke;
-          v26 = &unk_279734960;
-          v27 = v21;
-          v28 = delegateCopy3;
-          v29 = v16;
-          dispatch_async(v22, &v24);
+          *&v23 = MEMORY[0x277D85DD0];
+          *(&v23 + 1) = 3221225472;
+          v24 = __58__HMDCameraStreamSnapshotCapture__callDidGetLastSnapshot___block_invoke;
+          v25 = &unk_279734960;
+          v26 = v21;
+          v27 = delegateCopy3;
+          v28 = v16;
+          dispatch_async(v22, &v23);
         }
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   if (self)
   {
@@ -163,16 +159,14 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Timed out capturing frame from stream", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Timed out capturing frame from stream", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     [(HMDCameraStreamSnapshotCapture *)selfCopy _callSnapshotDelegate:?];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)captureLastFrame
@@ -197,7 +191,7 @@
 
 void __50__HMDCameraStreamSnapshotCapture_captureLastFrame__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -210,59 +204,55 @@ void __50__HMDCameraStreamSnapshotCapture_captureLastFrame__block_invoke(uint64_
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Capturing last frame", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Capturing last frame", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDCameraStreamSnapshotCapture *)*(a1 + 32) _captureFrame];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_captureFrame
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v14 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-LABEL_6:
-    v6 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (self[7])
-  {
-    v2 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v4 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (self[7])
     {
-      v5 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v5;
-      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Not capturing current frame because a current frame capture is in progress", &v14, 0xCu);
+      v2 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v4 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      {
+        v5 = HMFGetLogIdentifier();
+        v12 = 138543362;
+        v13 = v5;
+        _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Not capturing current frame because a current frame capture is in progress", &v12, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v2);
     }
 
-    objc_autoreleasePoolPop(v2);
-    goto LABEL_6;
+    else
+    {
+      v6 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:0 options:2.0];
+      v7 = self[7];
+      self[7] = v6;
+
+      [self[7] setDelegate:self];
+      v8 = self[7];
+      v9 = self[3];
+      [v8 setDelegateQueue:v9];
+
+      videoStreamInterface = [self videoStreamInterface];
+      [videoStreamInterface captureSnapshot];
+
+      v11 = self[7];
+
+      [v11 resume];
+    }
   }
-
-  v7 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:0 options:2.0];
-  v8 = self[7];
-  self[7] = v7;
-
-  [self[7] setDelegate:self];
-  v9 = self[7];
-  v10 = self[3];
-  [v9 setDelegateQueue:v10];
-
-  videoStreamInterface = [self videoStreamInterface];
-  [videoStreamInterface captureSnapshot];
-
-  v12 = self[7];
-  v13 = *MEMORY[0x277D85DE8];
-
-  [v12 resume];
 }
 
 - (void)captureCurrentFrame
@@ -287,7 +277,7 @@ LABEL_6:
 
 void __53__HMDCameraStreamSnapshotCapture_captureCurrentFrame__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -300,14 +290,13 @@ void __53__HMDCameraStreamSnapshotCapture_captureCurrentFrame__block_invoke(uint
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Capturing current frame", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Capturing current frame", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDCameraStreamSnapshotCapture *)*(a1 + 32) _captureFrame];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -373,12 +362,11 @@ void __53__HMDCameraStreamSnapshotCapture_captureCurrentFrame__block_invoke(uint
 
 uint64_t __45__HMDCameraStreamSnapshotCapture_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_149111;
-  logCategory__hmf_once_v1_149111 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_149111;
+  logCategory__hmf_once_v1_149111 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

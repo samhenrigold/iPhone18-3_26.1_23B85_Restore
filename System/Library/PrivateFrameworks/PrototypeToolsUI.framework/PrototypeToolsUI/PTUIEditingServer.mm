@@ -146,28 +146,28 @@
 
 - (id)domainIDForRootSettings:(id)settings
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allKeys = [(NSMutableDictionary *)self->_rootSettingsByDomainID allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_rootSettingsByDomainID objectForKeyedSubscript:v10];
 
         if (v11 == settingsCopy)
@@ -177,7 +177,7 @@
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -189,8 +189,6 @@
 
   v12 = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -363,28 +361,24 @@ uint64_t __46__PTUIEditingServer_testRecipeIDsForDomainID___block_invoke_2(uint6
 
 - (id)testRecipeSelectionModule
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   _testRecipeSection = [(PTUIEditingServer *)self _testRecipeSection];
   v3 = MEMORY[0x277D43218];
-  v8[0] = _testRecipeSection;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = _testRecipeSection;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [v3 moduleWithTitle:0 contents:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)settingsEditingModule
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   _settingsSection = [(PTUIEditingServer *)self _settingsSection];
   v3 = MEMORY[0x277D43218];
-  v8[0] = _settingsSection;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = _settingsSection;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [v3 moduleWithTitle:0 contents:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -486,44 +480,42 @@ void __57__PTUIEditingServer__loadRootSettingsOrProxyForDomainID___block_invoke(
 
 - (id)_testRecipeSection
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __39__PTUIEditingServer__testRecipeSection__block_invoke;
-  v18[3] = &unk_279ACAAA8;
-  v18[4] = self;
-  v3 = MEMORY[0x2666F6670](v18, a2);
+  v18[1] = *MEMORY[0x277D85DE8];
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
-  v17[2] = __39__PTUIEditingServer__testRecipeSection__block_invoke_2;
-  v17[3] = &unk_279ACAAD0;
+  v17[2] = __39__PTUIEditingServer__testRecipeSection__block_invoke;
+  v17[3] = &unk_279ACAAA8;
   v17[4] = self;
-  v4 = MEMORY[0x2666F6670](v17);
+  v3 = MEMORY[0x2666F6670](v17, a2);
   v16[0] = MEMORY[0x277D85DD0];
   v16[1] = 3221225472;
-  v16[2] = __39__PTUIEditingServer__testRecipeSection__block_invoke_3;
-  v16[3] = &unk_279ACAAF8;
+  v16[2] = __39__PTUIEditingServer__testRecipeSection__block_invoke_2;
+  v16[3] = &unk_279ACAAD0;
   v16[4] = self;
-  v5 = MEMORY[0x2666F6670](v16);
+  v4 = MEMORY[0x2666F6670](v16);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __39__PTUIEditingServer__testRecipeSection__block_invoke_3;
+  v15[3] = &unk_279ACAAF8;
+  v15[4] = self;
+  v5 = MEMORY[0x2666F6670](v15);
   v6 = [MEMORY[0x277D431B8] rowWithTitle:@"Test Recipe" valueGetter:v3 valueSetter:v4];
   [v6 setDataSource:self];
   v7 = MEMORY[0x277D43218];
-  v19[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v9 = [v7 sectionWithRows:v8];
 
   [v9 setFooterTextGetter:v5];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:v9 selector:sel_reloadSection name:*MEMORY[0x277D432C0] object:0];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __39__PTUIEditingServer__testRecipeSection__block_invoke_4;
-  v14[3] = &unk_279ACAB20;
-  v15 = defaultCenter;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __39__PTUIEditingServer__testRecipeSection__block_invoke_4;
+  v13[3] = &unk_279ACAB20;
+  v14 = defaultCenter;
   v11 = defaultCenter;
-  [v9 setUnregisterBlock:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v9 setUnregisterBlock:v13];
 
   return v9;
 }
@@ -586,40 +578,38 @@ id __39__PTUIEditingServer__testRecipeSection__block_invoke_3(uint64_t a1)
 
 - (id)_settingsSection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   domainGroupNames = [(PTUIEditingServer *)self domainGroupNames];
-  v5 = [domainGroupNames countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [domainGroupNames countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(domainGroupNames);
         }
 
-        v9 = [(PTUIEditingServer *)self _settingsGroupRow:*(*(&v13 + 1) + 8 * i)];
+        v9 = [(PTUIEditingServer *)self _settingsGroupRow:*(*(&v12 + 1) + 8 * i)];
         [array addObject:v9];
       }
 
-      v6 = [domainGroupNames countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [domainGroupNames countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [MEMORY[0x277D43218] sectionWithRows:array title:@"Settings"];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -659,33 +649,33 @@ id __39__PTUIEditingServer__settingsGroupRow___block_invoke(uint64_t a1, void *a
 
 - (id)_settingsDomainGroupModule:(id)module
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   moduleCopy = module;
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = [(PTUIEditingServer *)self domainIDsInGroup:moduleCopy, 0];
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(PTUIEditingServer *)self _settingsDomainRow:*(*(&v18 + 1) + 8 * i)];
+        v11 = [(PTUIEditingServer *)self _settingsDomainRow:*(*(&v17 + 1) + 8 * i)];
         [array addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v8);
@@ -693,11 +683,9 @@ id __39__PTUIEditingServer__settingsGroupRow___block_invoke(uint64_t a1, void *a
 
   v12 = MEMORY[0x277D43218];
   v13 = [MEMORY[0x277D43218] sectionWithRows:array];
-  v22 = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+  v21 = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
   v15 = [v12 moduleWithTitle:moduleCopy contents:v14];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -846,13 +834,13 @@ void __47__PTUIEditingServer_choiceRow_titleForSection___block_invoke(void *a1, 
   return v7;
 }
 
-uint64_t __53__PTUIEditingServer_choiceRow_numberOfRowsInSection___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
+void *__53__PTUIEditingServer_choiceRow_numberOfRowsInSection___block_invoke(void *result, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
 {
-  if (++*(*(*(result + 32) + 8) + 24) == *(result + 48))
+  if (++*(*(result[4] + 8) + 24) == result[6])
   {
     v6 = result;
     result = [a4 count];
-    *(*(*(v6 + 40) + 8) + 24) = result;
+    *(*(v6[5] + 8) + 24) = result;
     *a5 = 1;
   }
 
@@ -892,66 +880,66 @@ uint64_t __53__PTUIEditingServer_choiceRow_numberOfRowsInSection___block_invoke(
 
 - (void)_enumerateDomainsWithOneOrMoreTestRecipesUsingBlock:(id)block
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   domainGroupNames = [(PTUIEditingServer *)self domainGroupNames];
-  v18 = [domainGroupNames countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v18)
+  v17 = [domainGroupNames countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v17)
   {
-    v6 = *v27;
-    v20 = domainGroupNames;
-    v17 = *v27;
+    v6 = *v26;
+    v19 = domainGroupNames;
+    v16 = *v26;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(domainGroupNames);
         }
 
-        v19 = v7;
-        v8 = *(*(&v26 + 1) + 8 * v7);
+        v18 = v7;
+        v8 = *(*(&v25 + 1) + 8 * v7);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         v9 = [(PTUIEditingServer *)self domainIDsInGroup:v8];
-        v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v23;
+          v12 = *v22;
           while (2)
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v23 != v12)
+              if (*v22 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v22 + 1) + 8 * i);
+              v14 = *(*(&v21 + 1) + 8 * i);
               v15 = [(PTUIEditingServer *)self testRecipeIDsForDomainID:v14];
               if ([v15 count])
               {
-                v21 = 0;
-                blockCopy[2](blockCopy, v8, v14, v15, &v21);
-                if (v21)
+                v20 = 0;
+                blockCopy[2](blockCopy, v8, v14, v15, &v20);
+                if (v20)
                 {
 
-                  domainGroupNames = v20;
+                  domainGroupNames = v19;
                   goto LABEL_19;
                 }
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v11)
             {
               continue;
@@ -961,21 +949,19 @@ uint64_t __53__PTUIEditingServer_choiceRow_numberOfRowsInSection___block_invoke(
           }
         }
 
-        v7 = v19 + 1;
-        domainGroupNames = v20;
-        v6 = v17;
+        v7 = v18 + 1;
+        domainGroupNames = v19;
+        v6 = v16;
       }
 
-      while (v19 + 1 != v18);
-      v18 = [v20 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      while (v18 + 1 != v17);
+      v17 = [v19 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
 LABEL_19:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_recipeIDForRow:(int64_t)row inSection:(int64_t)section

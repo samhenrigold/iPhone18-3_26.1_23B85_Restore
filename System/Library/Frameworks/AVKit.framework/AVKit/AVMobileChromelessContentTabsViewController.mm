@@ -1,7 +1,7 @@
 @interface AVMobileChromelessContentTabsViewController
 - (AVMobileChromelessContentTabsViewController)init;
 - (AVMobileChromelessContentTabsViewControllerDelegate)delegate;
-- (void)_activeContentTab;
+- (id)_activeContentTab;
 - (void)_detachViewControllerIfNeeded:(uint64_t)needed;
 - (void)_didChangeContentTabTo:(id)to;
 - (void)_invalidateContentViewScrollViewAnimator;
@@ -95,24 +95,24 @@
 
 - (void)_invalidateContentViewScrollViewAnimator
 {
-  if (self)
+  if (result)
   {
-    v2 = *(self + 1040);
+    v2 = result[130];
     if (v2)
     {
       [v2 stopAnimation:1];
-      [*(self + 1040) finishAnimationAtPosition:2];
-      v3 = *(self + 1040);
-      *(self + 1040) = 0;
+      [result[130] finishAnimationAtPosition:2];
+      v3 = result[130];
+      result[130] = 0;
 
-      v4 = *(self + 1032);
+      v4 = result[129];
 
-      [(AVMobileChromelessContentTabsViewController *)self _detachViewControllerIfNeeded:v4];
+      [(AVMobileChromelessContentTabsViewController *)result _detachViewControllerIfNeeded:v4];
     }
   }
 }
 
-- (void)_activeContentTab
+- (id)_activeContentTab
 {
   selfCopy = self;
   if (self)

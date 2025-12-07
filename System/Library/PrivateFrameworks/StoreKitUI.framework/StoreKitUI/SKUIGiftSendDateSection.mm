@@ -5,6 +5,8 @@
 - (id)tableViewCellForTableView:(id)view indexPath:(id)path;
 - (int64_t)numberOfRowsInSection;
 - (void)giftDateTableViewCell:(id)cell didChangeDate:(id)date;
+- (void)headerInsets;
+- (void)numberOfRowsInSection;
 - (void)setHeaderInsets:(UIEdgeInsets)insets;
 - (void)setSendDate:(id)date;
 @end
@@ -179,6 +181,30 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)headerInsets
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftSendDateSection headerInsets]";
+}
+
+- (void)setHeaderInsets:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftSendDateSection setHeaderInsets:]";
+}
+
+- (void)setSendDate:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftSendDateSection setSendDate:]";
+}
+
+- (void)numberOfRowsInSection
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftSendDateSection numberOfRowsInSection]";
 }
 
 @end

@@ -1,4 +1,5 @@
 @interface AppleAOPAudioStream
+- (AppleAOPAudioStream)initWithDirection:(unsigned int)direction owningDevice:(id)device plugin:(id)plugin formats:(id)formats;
 - (BOOL)changePhysicalFormat:(id)format;
 - (basic_string<char,)dumpToString;
 - (double)getSampleRateHz;
@@ -9,6 +10,8 @@
 - (unsigned)getFramesPerPacket;
 - (void)notifyStreamPropertiesChanged;
 - (void)setBytesPerSample:(unsigned int)sample;
+- (void)setChannelsPerFrame:(unsigned int)frame;
+- (void)setFramesPerPacket:(unsigned int)packet;
 - (void)setSampleRateHz:(double)hz;
 - (void)startStream;
 - (void)stopStream;
@@ -119,6 +122,36 @@ LABEL_5:
   [physicalFormat5 setBytesPerPacket:bytesPerPacket];
 }
 
+- (AppleAOPAudioStream)initWithDirection:(unsigned int)direction owningDevice:(id)device plugin:(id)plugin formats:(id)formats
+{
+  v7 = *&direction;
+  pluginCopy = plugin;
+  formatsCopy = formats;
+  v20.receiver = self;
+  v20.super_class = AppleAOPAudioStream;
+  v11 = [(AppleAOPAudioStream *)&v20 initWithDirection:v7 withPlugin:pluginCopy];
+  if (v11)
+  {
+    v12 = [formatsCopy objectAtIndexedSubscript:0];
+    [(AppleAOPAudioStream *)v11 setPhysicalFormat:v12];
+
+    [(AppleAOPAudioStream *)v11 setPhysicalFormats:formatsCopy];
+    v13 = [formatsCopy objectAtIndexedSubscript:0];
+    bytesPerFrame = [v13 bytesPerFrame];
+    physicalFormat = [(AppleAOPAudioStream *)v11 physicalFormat];
+    [physicalFormat setBytesPerFrame:bytesPerFrame];
+
+    v16 = [formatsCopy objectAtIndexedSubscript:0];
+    bytesPerPacket = [v16 bytesPerPacket];
+    physicalFormat2 = [(AppleAOPAudioStream *)v11 physicalFormat];
+    [physicalFormat2 setBytesPerPacket:bytesPerPacket];
+
+    [(AppleAOPAudioStream *)v11 setStartingChannel:1];
+  }
+
+  return v11;
+}
+
 - (BOOL)changePhysicalFormat:(id)format
 {
   formatCopy = format;
@@ -165,6 +198,35 @@ LABEL_5:
   v6 = [(AppleAOPAudioStream *)self getFramesPerPacket]* v5;
   physicalFormat4 = [(AppleAOPAudioStream *)self physicalFormat];
   [physicalFormat4 setBytesPerPacket:v6];
+}
+
+- (void)setChannelsPerFrame:(unsigned int)frame
+{
+  v3 = *&frame;
+  getBytesPerSample = [(AppleAOPAudioStream *)self getBytesPerSample];
+  getFramesPerPacket = [(AppleAOPAudioStream *)self getFramesPerPacket];
+  physicalFormat = [(AppleAOPAudioStream *)self physicalFormat];
+  [physicalFormat setChannelsPerFrame:v3];
+
+  v7 = [(AppleAOPAudioStream *)self getChannelsPerFrame]* getBytesPerSample;
+  physicalFormat2 = [(AppleAOPAudioStream *)self physicalFormat];
+  [physicalFormat2 setBytesPerFrame:v7];
+
+  v8 = [(AppleAOPAudioStream *)self getBytesPerFrame]* getFramesPerPacket;
+  physicalFormat3 = [(AppleAOPAudioStream *)self physicalFormat];
+  [physicalFormat3 setBytesPerPacket:v8];
+}
+
+- (void)setFramesPerPacket:(unsigned int)packet
+{
+  v3 = *&packet;
+  physicalFormat = [(AppleAOPAudioStream *)self physicalFormat];
+  [physicalFormat setFramesPerPacket:v3];
+
+  LODWORD(v3) = [(AppleAOPAudioStream *)self getBytesPerFrame];
+  v5 = [(AppleAOPAudioStream *)self getFramesPerPacket]* v3;
+  physicalFormat2 = [(AppleAOPAudioStream *)self physicalFormat];
+  [physicalFormat2 setBytesPerPacket:v5];
 }
 
 - (basic_string<char,)dumpToString

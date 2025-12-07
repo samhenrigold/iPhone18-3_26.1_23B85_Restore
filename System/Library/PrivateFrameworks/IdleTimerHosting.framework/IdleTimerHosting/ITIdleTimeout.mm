@@ -57,17 +57,15 @@ ITIdleTimeout *__49__ITIdleTimeout_timeoutGeneratorUsingIdentifier___block_invok
   equalCopy = equal;
   if (equalCopy && (v5 = objc_opt_class(), v5 == objc_opt_class()) && equalCopy[2] == self->_identifier)
   {
-    v6 = equalCopy[1];
-    duration = self->_duration;
-    v8 = BSFloatEqualToFloat();
+    v6 = BSFloatEqualToFloat();
   }
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  return v8;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -8,7 +8,7 @@
 
 + (void)sendActivationEvent:(BOOL)event developerAppCount:(unint64_t)count
 {
-  if (CoreAnalyticsLibraryCore())
+  if (CoreAnalyticsLibraryCore(0))
   {
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
@@ -22,23 +22,21 @@
 
 id __58__HTHangsAnalytics_sendActivationEvent_developerAppCount___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"isEnabled";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"isEnabled";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v7[1] = @"developerAppCount";
-  v8[0] = v2;
+  v6[1] = @"developerAppCount";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 + (void)sendHangThresholdChangedEvent:(unint64_t)event
 {
-  if (CoreAnalyticsLibraryCore())
+  if (CoreAnalyticsLibraryCore(0))
   {
     v4[0] = MEMORY[0x277D85DD0];
     v4[1] = 3221225472;
@@ -51,20 +49,18 @@ id __58__HTHangsAnalytics_sendActivationEvent_developerAppCount___block_invoke(u
 
 id __50__HTHangsAnalytics_sendHangThresholdChangedEvent___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"hangThresholdMS";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"hangThresholdMS";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 + (void)sendLogSharedEvent
 {
-  if (CoreAnalyticsLibraryCore())
+  if (CoreAnalyticsLibraryCore(0))
   {
 
     HTAnalyticsSendEventLazy(@"com.apple.hangtracer.thirdpartyhangdetection.logshared.v1", &__block_literal_global_0);

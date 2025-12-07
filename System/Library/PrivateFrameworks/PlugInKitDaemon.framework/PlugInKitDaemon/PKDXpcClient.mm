@@ -404,19 +404,19 @@ void __42__PKDXpcClient_initWithConnection_server___block_invoke(uint64_t a1, vo
 - (void)initWithConnection:(void *)a1 server:.cold.5(void *a1)
 {
   [a1 pid];
-  v1 = __error();
-  OUTLINED_FUNCTION_3_0(v1);
+  __error();
+  OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xEu);
+  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0xEu);
 }
 
 - (void)initWithConnection:(void *)a1 server:.cold.6(void *a1)
 {
   [a1 pid];
-  v1 = __error();
-  OUTLINED_FUNCTION_3_0(v1);
+  __error();
+  OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_2_3();
-  _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xEu);
+  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0xEu);
 }
 
 - (void)initWithConnection:server:.cold.7()

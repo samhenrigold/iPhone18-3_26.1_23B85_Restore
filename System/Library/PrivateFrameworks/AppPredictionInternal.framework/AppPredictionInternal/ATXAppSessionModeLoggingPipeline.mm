@@ -64,10 +64,10 @@
 
 - (unint64_t)lastKnownActivityFromStore
 {
-  v2 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v3 = [v2 initWithSuiteName:*MEMORY[0x277CEBD00]];
-  v4 = [v3 objectForKey:@"modeAppSessionPipelineLastKnownModeKey"];
-  if (!v4)
+  v3 = objc_alloc(MEMORY[0x277CBEBD0]);
+  v4 = [v3 initWithSuiteName:*MEMORY[0x277CEBD00]];
+  v5 = [v4 objectForKey:@"modeAppSessionPipelineLastKnownModeKey"];
+  if (!v5)
   {
 LABEL_7:
     unsignedIntegerValue = 14;
@@ -75,18 +75,19 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v6 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_metrics(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [ATXAppSessionModeLoggingPipeline lastKnownActivityFromStore];
+      [(ATXAppSessionModeLoggingPipeline *)self lastKnownActivityFromStore];
     }
 
     goto LABEL_7;
   }
 
-  unsignedIntegerValue = [v4 unsignedIntegerValue];
+  unsignedIntegerValue = [v5 unsignedIntegerValue];
 LABEL_8:
 
   return unsignedIntegerValue;
@@ -94,68 +95,67 @@ LABEL_8:
 
 - (void)logAppSessionMetricsWithXPCActivity:(id)activity
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   notificationEventPublisher = self->_notificationEventPublisher;
-  v30[0] = self->_appLaunchPublisher;
-  v30[1] = notificationEventPublisher;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x2020000000;
-  v29 = 0;
-  v7 = objc_opt_new();
+  v29[0] = self->_appLaunchPublisher;
+  v29[1] = notificationEventPublisher;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   v27[0] = 0;
   v27[1] = v27;
-  lastEventTimestamp = self->_lastEventTimestamp;
   v27[2] = 0x2020000000;
-  *&v27[3] = lastEventTimestamp;
+  v28 = 0;
+  v7 = objc_opt_new();
   v26[0] = 0;
   v26[1] = v26;
+  lastEventTimestamp = self->_lastEventTimestamp;
   v26[2] = 0x2020000000;
+  *&v26[3] = lastEventTimestamp;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x2020000000;
   modeTransitionPublisher = self->_modeTransitionPublisher;
-  v26[3] = self->_lastActivityType;
+  v25[3] = self->_lastActivityType;
   v10 = [(ATXAppSessionModeLoggingPipeline *)self timeMergedPublisherFromEventPublishers:v6 modeTransitionPublisher:modeTransitionPublisher];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke;
-  v21[3] = &unk_278598858;
-  v21[4] = self;
-  v23 = v28;
-  v22 = v7;
-  v24 = v27;
-  v25 = v26;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30;
-  v15[3] = &unk_278598880;
-  v15[4] = self;
-  v18 = v27;
-  v19 = v26;
-  v11 = v22;
-  v16 = v11;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke;
+  v20[3] = &unk_278598858;
+  v20[4] = self;
+  v22 = v27;
+  v21 = v7;
+  v23 = v26;
+  v24 = v25;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30;
+  v14[3] = &unk_278598880;
+  v14[4] = self;
+  v17 = v26;
+  v18 = v25;
+  v11 = v21;
+  v15 = v11;
   v12 = activityCopy;
-  v17 = v12;
-  v20 = v28;
-  v13 = [v10 sinkWithCompletion:v21 shouldContinue:v15];
+  v16 = v12;
+  v19 = v27;
+  v13 = [v10 sinkWithCompletion:v20 shouldContinue:v14];
 
+  _Block_object_dispose(v25, 8);
   _Block_object_dispose(v26, 8);
-  _Block_object_dispose(v27, 8);
 
-  _Block_object_dispose(v28, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v27, 8);
 }
 
 void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 error];
 
   if (v4)
   {
-    v5 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_metrics(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_cold_1(a1, v3);
     }
@@ -165,15 +165,14 @@ void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity_
   {
     if (*(*(*(a1 + 48) + 8) + 24) == 1)
     {
-      v6 = __atxlog_handle_metrics();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = __atxlog_handle_metrics(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v7 = *(a1 + 32);
         v8 = objc_opt_class();
         v9 = NSStringFromClass(v8);
-        v11 = 138412290;
-        v12 = v9;
-        _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "%@ - Terminating due to XPC deferral", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v9;
+        _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "%@ - Terminating due to XPC deferral", &v10, 0xCu);
       }
     }
 
@@ -182,8 +181,6 @@ void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity_
     *(*(a1 + 32) + 16) = *(*(*(a1 + 64) + 8) + 24);
     [*(a1 + 32) persistState];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30(uint64_t a1, void *a2)
@@ -213,22 +210,22 @@ uint64_t __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActiv
       else
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v9 = [ATXModeDimensionSet alloc];
-          v10 = *(*(*(a1 + 64) + 8) + 24);
+          v10 = [ATXModeDimensionSet alloc];
           v11 = ATXActivityTypeToString();
-          v12 = [(ATXModeDimensionSet *)v9 initWithMode:v11];
+          v12 = [(ATXModeDimensionSet *)v10 initWithMode:v11];
 
           [*(a1 + 40) handleNextAppLaunch:v4 dimensionSet:v12];
         }
 
         else
         {
-          v12 = __atxlog_handle_metrics();
+          v12 = __atxlog_handle_metrics(isKindOfClass);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30_cold_1(a1);
+            __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30_cold_1(a1, v4);
           }
         }
       }
@@ -244,7 +241,7 @@ uint64_t __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActiv
 
   else
   {
-    v7 = __atxlog_handle_metrics();
+    v7 = __atxlog_handle_metrics(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30_cold_2(a1);
@@ -277,36 +274,6 @@ uint64_t __99__ATXAppSessionModeLoggingPipeline_timeMergedPublisherFromEventPubl
 
 - (void)lastKnownActivityFromStore
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_cold_1(uint64_t a1, void *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = [a2 error];
-  OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x16u);
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30_cold_1(uint64_t a1)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   v4 = objc_opt_class();
@@ -314,20 +281,35 @@ void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity_
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_3();
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_cold_1(uint64_t a1, void *a2)
+{
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [a2 error];
+  OUTLINED_FUNCTION_0_5();
+  OUTLINED_FUNCTION_2_3();
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
+}
+
+void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30_cold_1(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  OUTLINED_FUNCTION_0_5();
+  OUTLINED_FUNCTION_2_3();
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void __72__ATXAppSessionModeLoggingPipeline_logAppSessionMetricsWithXPCActivity___block_invoke_30_cold_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v9 = NSStringFromClass(v2);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

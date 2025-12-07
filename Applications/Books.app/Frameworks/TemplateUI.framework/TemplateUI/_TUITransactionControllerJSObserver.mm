@@ -47,7 +47,7 @@
 
 - (void)transactionControllerWillProcessUpdate:(id)update
 {
-  v4 = TUIDefaultLog();
+  v4 = TUIDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136446210;
@@ -65,7 +65,7 @@
 
 - (void)transactionControllerDidProcessUpdate:(id)update
 {
-  v4 = TUIDefaultLog();
+  v4 = TUIDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136446210;

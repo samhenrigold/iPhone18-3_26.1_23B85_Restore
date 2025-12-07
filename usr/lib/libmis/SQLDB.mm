@@ -28,35 +28,35 @@
 
 - (unint64_t)tableRowCount:(id)count
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   countCopy = count;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_1B9DC4C18;
-  v21 = sub_1B9DC4C28;
-  v22 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_1B9DC4C18;
+  v20 = sub_1B9DC4C28;
+  v21 = 0;
   v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v5, @"SELECT COUNT(*) FROM %@", countCopy);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1B9DC4C30;
-  v16[3] = &unk_1E7ED8570;
-  v16[4] = &v17;
-  v10 = objc_msgSend_executeQuery_withBind_withResults_(self, v7, v6, 0, v16);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1B9DC4C30;
+  v15[3] = &unk_1E7ED8570;
+  v15[4] = &v16;
+  v10 = objc_msgSend_executeQuery_withBind_withResults_(self, v7, v6, 0, v15);
   if (v10)
   {
     v11 = sub_1B9D98960();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v24 = countCopy;
-      v25 = 1024;
-      v26 = v10;
+      v23 = countCopy;
+      v24 = 1024;
+      v25 = v10;
       _os_log_error_impl(&dword_1B9D96000, v11, OS_LOG_TYPE_ERROR, "Unable to table row count for %{public}@: %d", buf, 0x12u);
     }
   }
 
-  v12 = v18[5];
+  v12 = v17[5];
   if (v12)
   {
     v13 = objc_msgSend_unsignedIntegerValue(v12, v8, v9);
@@ -67,8 +67,7 @@
     v13 = 0;
   }
 
-  _Block_object_dispose(&v17, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
   return v13;
 }
 
@@ -163,7 +162,7 @@
 
 - (int)executeQuery:(id)query withBind:(id)bind withCancellableResults:(id)results
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   bindCopy = bind;
   resultsCopy = results;
@@ -178,17 +177,17 @@
     v18 = sub_1B9D98960();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v56 = sqlite3_errmsg(self->_db);
+      v55 = sqlite3_errmsg(self->_db);
       selfCopy = self;
-      v58 = bindCopy;
-      v59 = v56;
-      v60 = sqlite3_errcode(selfCopy->_db);
+      v57 = bindCopy;
+      v58 = v55;
+      v59 = sqlite3_errcode(selfCopy->_db);
       *buf = 136446466;
-      *v74 = v59;
-      bindCopy = v58;
+      *v73 = v58;
+      bindCopy = v57;
       self = selfCopy;
-      *&v74[8] = 1024;
-      *&v74[10] = v60;
+      *&v73[8] = 1024;
+      *&v73[10] = v59;
       _os_log_error_impl(&dword_1B9D96000, v18, OS_LOG_TYPE_ERROR, "SQL error '%{public}s' (%1d)", buf, 0x12u);
     }
 
@@ -196,9 +195,9 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109378;
-      *v74 = v17;
-      *&v74[4] = 2114;
-      *&v74[6] = queryCopy;
+      *v73 = v17;
+      *&v73[4] = 2114;
+      *&v73[6] = queryCopy;
       _os_log_error_impl(&dword_1B9D96000, v19, OS_LOG_TYPE_ERROR, "Prepare error (%d) on query: %{public}@", buf, 0x12u);
     }
 
@@ -220,8 +219,8 @@ LABEL_40:
       v20 = objc_msgSend_dictionaryWithCapacity_(MEMORY[0x1E695DF90], v23, 2 * v22);
       if (v24 >= 1)
       {
-        v69 = bindCopy;
-        v70 = queryCopy;
+        v68 = bindCopy;
+        v69 = queryCopy;
         v25 = 0;
         do
         {
@@ -255,8 +254,8 @@ LABEL_40:
         }
 
         while (v24 != v25);
-        bindCopy = v69;
-        queryCopy = v70;
+        bindCopy = v68;
+        queryCopy = v69;
       }
     }
 
@@ -274,14 +273,14 @@ LABEL_40:
         v48 = sub_1B9D98960();
         if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
-          v66 = bindCopy;
-          v67 = sqlite3_errmsg(selfCopy2->_db);
-          v68 = sqlite3_errcode(selfCopy2->_db);
+          v65 = bindCopy;
+          v66 = sqlite3_errmsg(selfCopy2->_db);
+          v67 = sqlite3_errcode(selfCopy2->_db);
           *buf = 136446466;
-          *v74 = v67;
-          bindCopy = v66;
-          *&v74[8] = 1024;
-          *&v74[10] = v68;
+          *v73 = v66;
+          bindCopy = v65;
+          *&v73[8] = 1024;
+          *&v73[10] = v67;
           _os_log_error_impl(&dword_1B9D96000, v48, OS_LOG_TYPE_ERROR, "SQL error '%{public}s' (%1d)", buf, 0x12u);
         }
 
@@ -290,9 +289,9 @@ LABEL_40:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          *v74 = v17;
-          *&v74[4] = 2114;
-          *&v74[6] = queryCopy;
+          *v73 = v17;
+          *&v73[4] = 2114;
+          *&v73[6] = queryCopy;
           _os_log_error_impl(&dword_1B9D96000, v19, OS_LOG_TYPE_ERROR, "Step error (%d) on query: %{public}@", buf, 0x12u);
         }
 
@@ -337,16 +336,16 @@ LABEL_40:
       v50 = sub_1B9D98960();
       if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
-        v61 = sqlite3_errmsg(self->_db);
+        v60 = sqlite3_errmsg(self->_db);
         selfCopy3 = self;
-        v63 = bindCopy;
-        v64 = v61;
-        v65 = sqlite3_errcode(selfCopy3->_db);
+        v62 = bindCopy;
+        v63 = v60;
+        v64 = sqlite3_errcode(selfCopy3->_db);
         *buf = 136446466;
-        *v74 = v64;
-        bindCopy = v63;
-        *&v74[8] = 1024;
-        *&v74[10] = v65;
+        *v73 = v63;
+        bindCopy = v62;
+        *&v73[8] = 1024;
+        *&v73[10] = v64;
         _os_log_error_impl(&dword_1B9D96000, v50, OS_LOG_TYPE_ERROR, "SQL error '%{public}s' (%1d)", buf, 0x12u);
       }
 
@@ -354,9 +353,9 @@ LABEL_40:
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109378;
-        *v74 = v49;
-        *&v74[4] = 2114;
-        *&v74[6] = queryCopy;
+        *v73 = v49;
+        *&v73[4] = 2114;
+        *&v73[6] = queryCopy;
         _os_log_error_impl(&dword_1B9D96000, v51, OS_LOG_TYPE_ERROR, "Finalize error (%d) on query: %{public}@", buf, 0x12u);
       }
     }
@@ -382,7 +381,6 @@ LABEL_40:
     v53 = v49;
   }
 
-  v54 = *MEMORY[0x1E69E9840];
   return v53;
 }
 
@@ -483,11 +481,11 @@ LABEL_40:
 - (SQLDB)initWithDatabaseURL:(id)l asReadOnly:(BOOL)only
 {
   onlyCopy = only;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v33.receiver = self;
-  v33.super_class = SQLDB;
-  v8 = [(SQLDB *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = SQLDB;
+  v8 = [(SQLDB *)&v32 init];
   v9 = v8;
   if (v8)
   {
@@ -524,7 +522,7 @@ LABEL_40:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v36 = v21;
+        v35 = v21;
         _os_log_error_impl(&dword_1B9D96000, v24, OS_LOG_TYPE_ERROR, "Error opening DB: %d", buf, 8u);
       }
     }
@@ -539,26 +537,23 @@ LABEL_16:
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (id)databaseWithURL:(id)l
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = sub_1B9D98960();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = lCopy;
-    _os_log_impl(&dword_1B9D96000, v5, OS_LOG_TYPE_DEFAULT, "DB being loaded from %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = lCopy;
+    _os_log_impl(&dword_1B9D96000, v5, OS_LOG_TYPE_DEFAULT, "DB being loaded from %{public}@", &v10, 0xCu);
   }
 
   v6 = [self alloc];
   v8 = objc_msgSend_initWithDatabaseURL_(v6, v7, lCopy);
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

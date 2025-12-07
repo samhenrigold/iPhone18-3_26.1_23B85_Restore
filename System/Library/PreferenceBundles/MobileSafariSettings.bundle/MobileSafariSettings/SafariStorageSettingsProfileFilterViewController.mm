@@ -95,9 +95,7 @@ id __63__SafariStorageSettingsProfileFilterViewController_viewDidLoad__block_inv
   profiles = self->_profiles;
   v12 = [pathCopy row];
 
-  v13 = [(NSArray *)profiles objectAtIndexedSubscript:v12];
-  selectedProfile = self->_selectedProfile;
-  self->_selectedProfile = v13;
+  self->_selectedProfile = [(NSArray *)profiles objectAtIndexedSubscript:v12];
 
   _objc_release_x1();
 }

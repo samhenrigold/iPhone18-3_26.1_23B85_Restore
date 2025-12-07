@@ -3,7 +3,6 @@
 - (MTRBleConnection)init;
 - (MTRBleConnection)initWithDelegate:(BleScannerDelegate *)delegate prewarm:(BOOL)prewarm;
 - (MTRBleConnection)initWithDiscriminators:(const void *)discriminators;
-- (NSString)description;
 - (id).cxx_construct;
 - (void)addPeripheralToCache:(id)cache data:(id)data;
 - (void)centralManager:(id)manager didConnectPeripheral:(id)peripheral;
@@ -94,7 +93,7 @@
   v4 = [(MTRBleConnection *)self init];
   if (v4)
   {
-    sub_23948A0F8(&v7, *discriminators, *discriminators + 4 * *(discriminators + 1));
+    sub_23948A0F8(&v7, *discriminators, (*discriminators + 4 * *(discriminators + 1)));
     begin = v4->_desiredDiscriminators.__begin_;
     if (begin)
     {
@@ -181,7 +180,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(2u, 1);
+        sub_2393D5320(2, 1, "We should only have a peripheral without a discriminator if the NewConnection entrypoint took a BLE_CONNECTION_OBJECT, and in that case we would not be using onConnectionCompleteWithDiscriminator.");
       }
 
       abort();
@@ -220,7 +219,7 @@
 
         if (sub_2393D5398(3u))
         {
-          goto LABEL_28;
+          sub_2393D5320(2, 3, "CBManagerState: Unauthorized");
         }
 
         break;
@@ -234,7 +233,7 @@
 
         if (sub_2393D5398(3u))
         {
-          sub_2393D5320(2u, 3);
+          sub_2393D5320(2, 3, "CBManagerState: OFF");
         }
 
         [(MTRBleConnection *)self stop];
@@ -250,7 +249,7 @@
 
         if (sub_2393D5398(3u))
         {
-          sub_2393D5320(2u, 3);
+          sub_2393D5320(2, 3, "CBManagerState: ON");
         }
 
         [(MTRBleConnection *)self start];
@@ -271,7 +270,7 @@
 
       if (sub_2393D5398(3u))
       {
-        goto LABEL_28;
+        sub_2393D5320(2, 3, "CBManagerState: RESETTING");
       }
     }
 
@@ -286,8 +285,7 @@
 
       if (sub_2393D5398(3u))
       {
-LABEL_28:
-        sub_2393D5320(2u, 3);
+        sub_2393D5320(2, 3, "CBManagerState: UNSUPPORTED");
       }
     }
   }
@@ -303,14 +301,14 @@ LABEL_28:
 
     if (sub_2393D5398(3u))
     {
-      goto LABEL_28;
+      sub_2393D5320(2, 3, "CBManagerState: UNKNOWN");
     }
   }
 }
 
 - (void)centralManager:(id)manager didDiscoverPeripheral:(id)peripheral advertisementData:(id)data RSSI:(id)i
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   peripheralCopy = peripheral;
   dataCopy = data;
@@ -323,9 +321,9 @@ LABEL_28:
   {
     v14 = [dataCopy objectForKey:*MEMORY[0x277CBDCF0]];
     *buf = 1;
-    *&v40[4] = "dwnpm_ble_discovered_peripheral";
-    *&v40[12] = [v14 BOOLValue];
-    v40[16] = 1;
+    *&v37[4] = "dwnpm_ble_discovered_peripheral";
+    *&v37[12] = [v14 BOOLValue];
+    v37[16] = 1;
     sub_23948BD20(buf);
     if ([v14 BOOLValue])
     {
@@ -344,27 +342,25 @@ LABEL_28:
             if ([(MTRBleConnection *)self checkDiscriminator:v30])
             {
               *buf = 0;
-              *&v40[4] = "dwnpm_ble_discovered_matching_peripheral";
-              v40[16] = 0;
+              *&v37[4] = "dwnpm_ble_discovered_matching_peripheral";
+              v37[16] = 0;
               sub_23948BD20(buf);
               v31 = sub_2393D9044(2u);
               if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 134218240;
-                *v40 = peripheralCopy;
-                *&v40[8] = 1024;
-                *&v40[10] = v30;
+                *v37 = peripheralCopy;
+                *&v37[8] = 1024;
+                *&v37[10] = v30;
                 _os_log_impl(&dword_238DAE000, v31, OS_LOG_TYPE_DEFAULT, "Connecting to device %p with discriminator: %d", buf, 0x12u);
               }
 
               if (sub_2393D5398(2u))
               {
-                v35 = peripheralCopy;
-                uTF8String2 = v30;
-                sub_2393D5320(2u, 2);
+                sub_2393D5320(2, 2, "Connecting to device %p with discriminator: %d", peripheralCopy, v30);
               }
 
-              v32 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{v30, v35, uTF8String2, managerCopy, iCopy}];
+              v32 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:v30];
               [(MTRBleConnection *)self connect:peripheralCopy withLongDiscriminator:v32];
 
               [(MTRBleConnection *)self stopScanning];
@@ -376,20 +372,20 @@ LABEL_28:
               if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
                 *buf = 134218240;
-                *v40 = peripheralCopy;
-                *&v40[8] = 1024;
-                *&v40[10] = v30;
+                *v37 = peripheralCopy;
+                *&v37[8] = 1024;
+                *&v37[10] = v30;
                 _os_log_impl(&dword_238DAE000, v33, OS_LOG_TYPE_ERROR, "A device (%p) with a matching Matter UUID has been discovered but the service data discriminator not match our expectation (discriminator = %u).", buf, 0x12u);
               }
 
               if (sub_2393D5398(1u))
               {
-                sub_2393D5320(2u, 1);
+                sub_2393D5320(2, 1, "A device (%p) with a matching Matter UUID has been discovered but the service data discriminator not match our expectation (discriminator = %u).", peripheralCopy, v30);
               }
 
               *buf = 2;
-              *&v40[4] = "dwnpm_ble_mismatched_discriminator";
-              v40[16] = 0;
+              *&v37[4] = "dwnpm_ble_mismatched_discriminator";
+              v37[16] = 0;
               sub_23948BD20(buf);
             }
           }
@@ -406,21 +402,21 @@ LABEL_28:
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218240;
-            *v40 = peripheralCopy;
-            *&v40[8] = 1024;
-            *&v40[10] = v17;
+            *v37 = peripheralCopy;
+            *&v37[8] = 1024;
+            *&v37[10] = v17;
             _os_log_impl(&dword_238DAE000, v18, OS_LOG_TYPE_ERROR, "A device (%p) with a matching Matter UUID has been discovered but the service data opCode not match our expectation (opCode = %u).", buf, 0x12u);
           }
 
           if (sub_2393D5398(1u))
           {
-            sub_2393D5320(2u, 1);
+            sub_2393D5320(2, 1, "A device (%p) with a matching Matter UUID has been discovered but the service data opCode not match our expectation (opCode = %u).", peripheralCopy, v17);
           }
 
           *buf = 2;
-          *&v40[4] = "dwnpm_ble_bad_opcode";
-          *&v40[12] = v17;
-          v40[16] = 2;
+          *&v37[4] = "dwnpm_ble_bad_opcode";
+          *&v37[12] = v17;
+          v37[16] = 2;
           sub_23948BD20(buf);
         }
       }
@@ -440,25 +436,23 @@ LABEL_28:
           v24 = v20;
           uTF8String = [v20 UTF8String];
           *buf = 134218242;
-          *v40 = peripheralCopy;
-          *&v40[8] = 2080;
-          *&v40[10] = uTF8String;
+          *v37 = peripheralCopy;
+          *&v37[8] = 2080;
+          *&v37[10] = uTF8String;
           _os_log_impl(&dword_238DAE000, v23, OS_LOG_TYPE_ERROR, "A device (%p) with a matching Matter UUID has been discovered but the service data len does not match our expectation (serviceData = %s)", buf, 0x16u);
         }
 
         if (sub_2393D5398(1u))
         {
           v26 = v20;
-          v35 = peripheralCopy;
-          uTF8String2 = [v20 UTF8String];
-          sub_2393D5320(2u, 1);
+          sub_2393D5320(2, 1, "A device (%p) with a matching Matter UUID has been discovered but the service data len does not match our expectation (serviceData = %s)", peripheralCopy, [v20 UTF8String]);
         }
 
         v27 = [v13 length];
         *buf = 2;
-        *&v40[4] = "dwnpm_ble_bad_service_data";
-        *&v40[12] = v27;
-        v40[16] = 2;
+        *&v37[4] = "dwnpm_ble_bad_service_data";
+        *&v37[12] = v27;
+        v37[16] = 2;
         sub_23948BD20(buf);
       }
     }
@@ -469,18 +463,16 @@ LABEL_28:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 134217984;
-        *v40 = peripheralCopy;
+        *v37 = peripheralCopy;
         _os_log_impl(&dword_238DAE000, v19, OS_LOG_TYPE_ERROR, "A device (%p) with a matching Matter UUID has been discovered but it is not connectable.", buf, 0xCu);
       }
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(2u, 1);
+        sub_2393D5320(2, 1, "A device (%p) with a matching Matter UUID has been discovered but it is not connectable.", peripheralCopy);
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)checkDiscriminator:(unsigned __int16)discriminator
@@ -527,7 +519,7 @@ LABEL_28:
 
 - (void)peripheral:(id)peripheral didDiscoverServices:(id)services
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   servicesCopy = services;
   sub_23947632C("src/platform/Darwin/BleConnectionDelegateImpl.mm", 491);
@@ -537,42 +529,41 @@ LABEL_28:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v28 = servicesCopy;
+      *v26 = servicesCopy;
       _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "Failed to discover services: %@", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      v21 = servicesCopy;
-      sub_2393D5320(2u, 1);
+      sub_2393D5320(2, 1, "Failed to discover services: %@", servicesCopy);
     }
   }
 
   code = [servicesCopy code];
   *buf = 1;
-  *&v28[4] = "dwnpm_ble_discovered_svs";
-  v29 = code & 0xFFFFFF | 0x1000000;
-  v30 = 3;
+  *&v26[4] = "dwnpm_ble_discovered_svs";
+  v27 = code & 0xFFFFFF | 0x1000000;
+  v28 = 3;
   sub_23948BD20(buf);
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   services = [peripheralCopy services];
-  v11 = [services countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [services countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
-    v12 = *v23;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(services);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         uUID = [v14 UUID];
         if ([uUID isEqual:self->_chipServiceUUID])
         {
@@ -581,8 +572,8 @@ LABEL_28:
           if (!found)
           {
             *buf = 0;
-            *&v28[4] = "dwnpm_ble_discovered_chrs";
-            v30 = 0;
+            *&v26[4] = "dwnpm_ble_discovered_chrs";
+            v28 = 0;
             sub_23948BD20(buf);
             [peripheralCopy discoverCharacteristics:0 forService:v14];
             [(MTRBleConnection *)self setFound:1];
@@ -595,7 +586,7 @@ LABEL_28:
         }
       }
 
-      v11 = [services countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [services countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -625,30 +616,28 @@ LABEL_17:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(2u, 1);
+      sub_2393D5320(2, 1, "Matter Service not found on the device");
     }
 
     *buf = 2;
-    *&v28[4] = "dwnpm_ble_discovered_svs";
-    v29 = 3;
-    v30 = 3;
+    *&v26[4] = "dwnpm_ble_discovered_svs";
+    v27 = 3;
+    v28 = 3;
     sub_23948BD20(buf);
     [(MTRBleConnection *)self dispatchConnectionError:0x1FF00000003, "src/platform/Darwin/BleConnectionDelegateImpl.mm"];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   errorCopy = error;
   sub_23947632C("src/platform/Darwin/BleConnectionDelegateImpl.mm", 517);
   *buf = 1;
-  *&v13[4] = "dwnpm_ble_discovered_chrs";
-  v14 = [errorCopy code] & 0xFFFFFF | 0x1000000;
-  v15 = 3;
+  *&v11[4] = "dwnpm_ble_discovered_chrs";
+  v12 = [errorCopy code] & 0xFFFFFF | 0x1000000;
+  v13 = 3;
   sub_23948BD20(buf);
   if (errorCopy)
   {
@@ -656,25 +645,22 @@ LABEL_17:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v13 = errorCopy;
+      *v11 = errorCopy;
       _os_log_impl(&dword_238DAE000, v9, OS_LOG_TYPE_ERROR, "Failed to discover characteristics: %@", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      v11 = errorCopy;
-      sub_2393D5320(2u, 1);
+      sub_2393D5320(2, 1, "Failed to discover characteristics: %@", errorCopy);
     }
   }
 
-  [(MTRBleConnection *)self dispatchConnectionComplete:peripheralCopy, v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(MTRBleConnection *)self dispatchConnectionComplete:peripheralCopy];
 }
 
 - (void)peripheral:(id)peripheral didWriteValueForCharacteristic:(id)characteristic error:(id)error
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   characteristicCopy = characteristic;
   errorCopy = error;
@@ -691,13 +677,13 @@ LABEL_17:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(2u, 1);
+      sub_2393D5320(2, 1, "Failed to write characteristic: %@", errorCopy);
     }
 
     LODWORD(buf) = 2;
     *(&buf + 1) = "dwnpm_ble_write_chr_val_failed";
-    v19 = 1031;
-    v20 = 3;
+    v18 = 1031;
+    v19 = 3;
     sub_23948BD20(&buf);
     sub_2393CE200(self->_bleLayer, peripheralCopy, 0x21D00000407, "src/platform/Darwin/BleConnectionDelegateImpl.mm");
   }
@@ -710,18 +696,16 @@ LABEL_17:
     *(&buf + 1) = v14;
 
     uUID2 = [characteristicCopy UUID];
-    v21[0] = sub_23948A894(uUID2);
-    v21[1] = v16;
+    v20[0] = sub_23948A894(uUID2);
+    v20[1] = v16;
 
-    sub_2393CD74C(self->_bleLayer, peripheralCopy, &buf, v21);
+    sub_2393CD74C(self->_bleLayer, peripheralCopy, &buf, v20);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didUpdateNotificationStateForCharacteristic:(id)characteristic error:(id)error
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   characteristicCopy = characteristic;
   errorCopy = error;
@@ -742,24 +726,23 @@ LABEL_17:
     {
       localizedDescription2 = [errorCopy localizedDescription];
       v15 = localizedDescription2;
-      [localizedDescription2 UTF8String];
-      sub_2393D5320(2u, 1);
+      sub_2393D5320(2, 1, "BLE:Error subscribing/unsubcribing some characteristic on the device: [%s]", [localizedDescription2 UTF8String]);
     }
 
     LODWORD(buf) = 2;
     *(&buf + 1) = "dwnpm_ble_chr_nfy_state_failed";
     if (isNotifying)
     {
-      v25 = 1031;
-      v26 = 3;
+      v24 = 1031;
+      v25 = 3;
       sub_23948BD20(&buf);
       v16 = 0x23800000406;
     }
 
     else
     {
-      v25 = 1029;
-      v26 = 3;
+      v24 = 1029;
+      v25 = 3;
       sub_23948BD20(&buf);
       v16 = 0x23C00000405;
     }
@@ -775,27 +758,25 @@ LABEL_17:
     *(&buf + 1) = v19;
 
     uUID2 = [characteristicCopy UUID];
-    v27[0] = sub_23948A894(uUID2);
-    v27[1] = v21;
+    v26[0] = sub_23948A894(uUID2);
+    v26[1] = v21;
 
     bleLayer = self->_bleLayer;
     if (isNotifying)
     {
-      sub_2393CDCC4(bleLayer, peripheralCopy, &buf, v27);
+      sub_2393CDCC4(bleLayer, peripheralCopy, &buf, v26);
     }
 
     else
     {
-      sub_2393CE048(bleLayer, peripheralCopy, &buf, v27);
+      sub_2393CE048(bleLayer, peripheralCopy, &buf, v26);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   characteristicCopy = characteristic;
   errorCopy = error;
@@ -806,19 +787,19 @@ LABEL_17:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v23 = errorCopy;
+      *v22 = errorCopy;
       _os_log_impl(&dword_238DAE000, v11, OS_LOG_TYPE_ERROR, "Failed to receive characteristic indication: %@", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(2u, 1);
+      sub_2393D5320(2, 1, "Failed to receive characteristic indication: %@", errorCopy);
     }
 
     *buf = 2;
-    *&v23[4] = "dwnpm_ble_upd_chr_val_failed";
-    v24 = 1032;
-    v25 = 3;
+    *&v22[4] = "dwnpm_ble_upd_chr_val_failed";
+    v23 = 1032;
+    v24 = 3;
     sub_23948BD20(buf);
     sub_2393CE200(self->_bleLayer, peripheralCopy, 0x25C00000408, "src/platform/Darwin/BleConnectionDelegateImpl.mm");
   }
@@ -827,18 +808,18 @@ LABEL_17:
   {
     service = [characteristicCopy service];
     uUID = [service UUID];
-    v27[0] = sub_23948A894(uUID);
-    v27[1] = v14;
+    v26[0] = sub_23948A894(uUID);
+    v26[1] = v14;
 
     uUID2 = [characteristicCopy UUID];
-    v26[0] = sub_23948A894(uUID2);
-    v26[1] = v16;
+    v25[0] = sub_23948A894(uUID2);
+    v25[1] = v16;
 
     value = [characteristicCopy value];
-    sub_2393D9E54([value bytes], objc_msgSend(value, "length"), 0, 0x26u, &v21);
-    if (v21)
+    sub_2393D9E54([value bytes], objc_msgSend(value, "length"), 0, 0x26u, &v20);
+    if (v20)
     {
-      if (!sub_2393CD478(self->_bleLayer, peripheralCopy, v27, v26, &v21))
+      if (!sub_2393CD478(self->_bleLayer, peripheralCopy, v26, v25, &v20))
       {
         v18 = sub_2393D9044(2u);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -849,13 +830,13 @@ LABEL_17:
 
         if (sub_2393D5398(1u))
         {
-          sub_2393D5320(2u, 1);
+          sub_2393D5320(2, 1, "Failed to handle incoming BLE data");
         }
 
         *buf = 2;
-        *&v23[4] = "dwnpm_ble_upd_chr_val_failed";
+        *&v22[4] = "dwnpm_ble_upd_chr_val_failed";
+        v23 = 3;
         v24 = 3;
-        v25 = 3;
         sub_23948BD20(buf);
       }
     }
@@ -871,24 +852,22 @@ LABEL_17:
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(2u, 1);
+        sub_2393D5320(2, 1, "Failed to allocate buffer for incoming BLE data");
       }
 
       *buf = 2;
-      *&v23[4] = "dwnpm_ble_upd_chr_val_failed";
-      v24 = 11;
-      v25 = 3;
+      *&v22[4] = "dwnpm_ble_upd_chr_val_failed";
+      v23 = 11;
+      v24 = 3;
       sub_23948BD20(buf);
       sub_2393CE200(self->_bleLayer, peripheralCopy, 0x2520000000BLL, "src/platform/Darwin/BleConnectionDelegateImpl.mm");
     }
 
-    if (v21)
+    if (v20)
     {
-      sub_2393D96C8(v21);
+      sub_2393D96C8(v20);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -917,7 +896,6 @@ LABEL_17:
   [(MTRBleConnection *)self removePeripheralsFromCache];
   if (self->_peripheral)
   {
-    bleLayer = self->_bleLayer;
     sub_2393CC984();
     peripheral = self->_peripheral;
     self->_peripheral = 0;
@@ -927,11 +905,11 @@ LABEL_17:
   if (centralManager)
   {
     [(CBCentralManager *)centralManager setDelegate:0];
-    v6 = self->_centralManager;
+    v5 = self->_centralManager;
     self->_centralManager = 0;
   }
 
-  v7 = qword_27DF7C078;
+  v6 = qword_27DF7C078;
   if (qword_27DF7C078 == self)
   {
     qword_27DF7C078 = 0;
@@ -940,32 +918,30 @@ LABEL_17:
 
 - (void)startScanning
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (self->_centralManager)
   {
-    v7 = 0;
-    v8 = "dwnpm_ble_scan";
-    v9 = 0;
-    sub_23948BD20(&v7);
-    v7 = 0;
-    v8 = "dwnpm_ble_discovered_peripheral";
-    v9 = 0;
-    sub_23948BD20(&v7);
-    v7 = 0;
-    v8 = "dwnpm_ble_discovered_matching_peripheral";
-    v9 = 0;
-    sub_23948BD20(&v7);
+    v6 = 0;
+    v7 = "dwnpm_ble_scan";
+    v8 = 0;
+    sub_23948BD20(&v6);
+    v6 = 0;
+    v7 = "dwnpm_ble_discovered_peripheral";
+    v8 = 0;
+    sub_23948BD20(&v6);
+    v6 = 0;
+    v7 = "dwnpm_ble_discovered_matching_peripheral";
+    v8 = 0;
+    sub_23948BD20(&v6);
     [(MTRBleConnection *)self _resetCounters];
-    v11 = *MEMORY[0x277CBDDB0];
-    v12[0] = MEMORY[0x277CBEC38];
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CBDDB0];
+    v11[0] = MEMORY[0x277CBEC38];
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     centralManager = self->_centralManager;
     chipServiceUUID = self->_chipServiceUUID;
     v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&chipServiceUUID count:1];
     [(CBCentralManager *)centralManager scanForPeripheralsWithServices:v5 options:v3];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScanning
@@ -1015,38 +991,38 @@ LABEL_17:
 - (void)updateWithDelegate:(BleScannerDelegate *)delegate prewarm:(BOOL)prewarm
 {
   prewarmCopy = prewarm;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(MTRBleConnection *)self detachScannerDelegate];
   if (delegate)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = self->_cachedPeripherals;
-    v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           v11 = [(NSMutableDictionary *)self->_cachedPeripherals objectForKeyedSubscript:v10];
           v12 = [v11 objectForKeyedSubscript:@"data"];
 
           v13 = v12;
-          v16 = *[v12 bytes];
-          (*(delegate->var0 + 2))(delegate, v10, &v16);
+          v15 = *[v12 bytes];
+          (*(delegate->var0 + 2))(delegate, v10, &v15);
         }
 
-        v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -1066,15 +1042,13 @@ LABEL_17:
     self->_currentMode = 1;
     [(MTRBleConnection *)self clearTimer];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithDiscriminators:(const void *)discriminators
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [(MTRBleConnection *)self detachScannerDelegate];
-  sub_23948A0F8(buf, *discriminators, *discriminators + 4 * *(discriminators + 1));
+  sub_23948A0F8(buf, *discriminators, (*discriminators + 4 * *(discriminators + 1)));
   begin = self->_desiredDiscriminators.__begin_;
   if (begin)
   {
@@ -1086,27 +1060,27 @@ LABEL_17:
   }
 
   *&self->_desiredDiscriminators.__begin_ = *buf;
-  self->_desiredDiscriminators.__cap_ = v25;
+  self->_desiredDiscriminators.__cap_ = v23;
   self->_currentMode = 3;
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v6 = self->_cachedPeripherals;
-  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v20;
+    v8 = *v18;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v20 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_cachedPeripherals objectForKeyedSubscript:v10];
         v12 = [v11 objectForKeyedSubscript:@"data"];
 
@@ -1121,7 +1095,7 @@ LABEL_17:
         }
       }
 
-      v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v7)
       {
         continue;
@@ -1139,7 +1113,7 @@ LABEL_13:
   {
     *buf = 0;
     *&buf[8] = "dwnpm_ble_discovered_matching_peripheral";
-    BYTE4(v25) = 0;
+    BYTE4(v23) = 0;
     sub_23948BD20(buf);
     v16 = sub_2393D9044(2u);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -1151,54 +1125,48 @@ LABEL_13:
 
     if (sub_2393D5398(2u))
     {
-      v18 = v15;
-      sub_2393D5320(2u, 2);
+      sub_2393D5320(2, 2, "Connecting to cached device: %p", v15);
     }
 
-    [(MTRBleConnection *)self connect:v15 withLongDiscriminator:v7, v18];
+    [(MTRBleConnection *)self connect:v15 withLongDiscriminator:v7];
   }
 
   else
   {
     [(MTRBleConnection *)self setupTimer:60];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithPeripheral:(id)peripheral
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   [(MTRBleConnection *)self detachScannerDelegate];
   self->_currentMode = 3;
   *buf = 0;
-  *&v9[4] = "dwnpm_ble_discovered_matching_peripheral";
-  v10 = 0;
+  *&v7[4] = "dwnpm_ble_discovered_matching_peripheral";
+  v8 = 0;
   sub_23948BD20(buf);
   v5 = sub_2393D9044(2u);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    *v9 = peripheralCopy;
+    *v7 = peripheralCopy;
     _os_log_impl(&dword_238DAE000, v5, OS_LOG_TYPE_DEFAULT, "Connecting to device: %p", buf, 0xCu);
   }
 
   if (sub_2393D5398(2u))
   {
-    v7 = peripheralCopy;
-    sub_2393D5320(2u, 2);
+    sub_2393D5320(2, 2, "Connecting to device: %p", peripheralCopy);
   }
 
-  [(MTRBleConnection *)self connect:peripheralCopy withLongDiscriminator:0, v7];
+  [(MTRBleConnection *)self connect:peripheralCopy withLongDiscriminator:0];
   [(MTRBleConnection *)self stopScanning];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addPeripheralToCache:(id)cache data:(id)data
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   dataCopy = data;
   v8 = [(NSMutableDictionary *)self->_cachedPeripherals objectForKey:cacheCopy];
@@ -1221,12 +1189,11 @@ LABEL_13:
 
       if (sub_2393D5398(2u))
       {
-        v29 = cacheCopy;
-        sub_2393D5320(2u, 2);
+        sub_2393D5320(2, 2, "Updating peripheral %p from the cache", cacheCopy);
       }
     }
 
-    v13 = [(NSMutableDictionary *)self->_cachedPeripherals objectForKeyedSubscript:cacheCopy, v29];
+    v13 = [(NSMutableDictionary *)self->_cachedPeripherals objectForKeyedSubscript:cacheCopy];
     v14 = [v13 objectForKeyedSubscript:@"timer"];
 
     v15 = v11 ^ 1;
@@ -1244,8 +1211,7 @@ LABEL_13:
 
     if (sub_2393D5398(2u))
     {
-      v29 = cacheCopy;
-      sub_2393D5320(2u, 2);
+      sub_2393D5320(2, 2, "Adding peripheral %p to the cache", cacheCopy);
     }
 
     scannerDelegate = self->_scannerDelegate;
@@ -1262,7 +1228,7 @@ LABEL_13:
     handler[2] = sub_239489998;
     handler[3] = &unk_278A72298;
     handler[4] = self;
-    v31 = cacheCopy;
+    v29 = cacheCopy;
     dispatch_source_set_event_handler(v14, handler);
     dispatch_resume(v14);
 
@@ -1280,16 +1246,16 @@ LABEL_13:
     self->_totalDevicesAdded = v22;
     LODWORD(buf) = 2;
     *(&buf + 1) = "dwnpm_ble_peripheral_added";
-    v35 = v22;
-    v36 = 1;
+    v33 = v22;
+    v34 = 1;
     sub_23948BD20(&buf);
   }
 
-  v32[0] = @"data";
-  v32[1] = @"timer";
-  v33[0] = dataCopy;
-  v33[1] = v14;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:{2, v29}];
+  v30[0] = @"data";
+  v30[1] = @"timer";
+  v31[0] = dataCopy;
+  v31[1] = v14;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
   [(NSMutableDictionary *)self->_cachedPeripherals setObject:v23 forKeyedSubscript:cacheCopy];
 
   if (v15)
@@ -1306,7 +1272,7 @@ LABEL_13:
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(2u, 2);
+      sub_2393D5320(2, 2, "  - Version: %u", (v25 >> 20) & 0xF);
     }
 
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
@@ -1318,7 +1284,7 @@ LABEL_13:
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(2u, 2);
+      sub_2393D5320(2, 2, "  - Discriminator: %u", (v25 >> 8) & 0xFFF);
     }
 
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
@@ -1330,7 +1296,7 @@ LABEL_13:
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(2u, 2);
+      sub_2393D5320(2, 2, "  - VendorId: %u", (v25 >> 24));
     }
 
     v27 = v25 >> 40;
@@ -1343,16 +1309,14 @@ LABEL_13:
 
     if (sub_2393D5398(2u))
     {
-      sub_2393D5320(2u, 2);
+      sub_2393D5320(2, 2, "  - ProductId: %u", v27);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePeripheralFromCache:(id)cache
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   v5 = [(NSMutableDictionary *)self->_cachedPeripherals objectForKey:cacheCopy];
   if (v5)
@@ -1361,17 +1325,16 @@ LABEL_13:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v12 = cacheCopy;
+      v10 = cacheCopy;
       _os_log_impl(&dword_238DAE000, v6, OS_LOG_TYPE_DEFAULT, "Removing peripheral %p from the cache", buf, 0xCu);
     }
 
     if (sub_2393D5398(2u))
     {
-      v10 = cacheCopy;
-      sub_2393D5320(2u, 2);
+      sub_2393D5320(2, 2, "Removing peripheral %p from the cache", cacheCopy);
     }
 
-    v7 = [v5 objectForKeyedSubscript:{@"timer", v10}];
+    v7 = [v5 objectForKeyedSubscript:@"timer"];
     dispatch_source_cancel(v7);
 
     [(NSMutableDictionary *)self->_cachedPeripherals removeObjectForKey:cacheCopy];
@@ -1381,51 +1344,39 @@ LABEL_13:
       (*(scannerDelegate->var0 + 3))(scannerDelegate, cacheCopy);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePeripheralsFromCache
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allKeys = [(NSMutableDictionary *)self->_cachedPeripherals allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(MTRBleConnection *)self removePeripheralFromCache:*(*(&v8 + 1) + 8 * v6++)];
+        [(MTRBleConnection *)self removePeripheralFromCache:*(*(&v7 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [allKeys countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [allKeys countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (NSString)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  appState = self->_appState;
-  return [v3 stringWithFormat:@"<%@ %p mode=%d cbstate=%p peripheral=%@>", v4, self, self->_currentMode, appState, self->_peripheral];
 }
 
 - (void)setDesiredDiscriminators:()vector<chip:(std::allocator<chip::SetupDiscriminator>> *)chip :SetupDiscriminator

@@ -147,7 +147,7 @@
 
 - (void)applyToMutableListData:(id)data
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (self)
   {
@@ -187,44 +187,43 @@
   }
 
   [(STListData *)objectsRemoved objects];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v13 = v23 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = v22 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [v11 indexOfObject:{*(*(&v20 + 1) + 8 * i), v20}];
+        v18 = [v11 indexOfObject:{*(*(&v19 + 1) + 8 * i), v19}];
         if (v18 != 0x7FFFFFFFFFFFFFFFLL)
         {
           [v11 removeObjectAtIndex:v18];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
   }
 
   [dataCopy setObjects:v11];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)diffByApplyingDiff:(id)diff
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -278,8 +277,8 @@
 
     v16 = v15;
 
-    v41 = v5;
-    v42 = diffCopy;
+    v40 = v5;
+    v41 = diffCopy;
     if (v5)
     {
       v17 = v5[1];
@@ -292,30 +291,30 @@
       v18 = 0;
     }
 
-    v39 = v18;
-    objects = [v39 objects];
+    v38 = v18;
+    objects = [v38 objects];
     v20 = [objects mutableCopy];
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v21 = v20;
-    v22 = [v21 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v48;
+      v24 = *v47;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v48 != v24)
+          if (*v47 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v47 + 1) + 8 * i);
+          v26 = *(*(&v46 + 1) + 8 * i);
           objects2 = [(STListData *)v11 objects];
           if ([objects2 indexOfObject:v26] == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -328,36 +327,36 @@
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v23);
     }
 
-    v40 = v17;
+    v39 = v17;
     objects3 = [v17 objects];
     v29 = [objects3 mutableCopy];
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v30 = v29;
-    v31 = [v30 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v44;
+      v33 = *v43;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v44 != v33)
+          if (*v43 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = *(*(&v43 + 1) + 8 * j);
+          v35 = *(*(&v42 + 1) + 8 * j);
           objects4 = [(STListData *)v16 objects];
           if ([objects4 indexOfObject:v35] == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -370,7 +369,7 @@
           }
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
       while (v32);
@@ -382,7 +381,7 @@
       v11 = 0;
     }
 
-    diffCopy = v42;
+    diffCopy = v41;
     if (![(STListData *)v16 count])
     {
 
@@ -396,8 +395,6 @@
   {
     v10 = 0;
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

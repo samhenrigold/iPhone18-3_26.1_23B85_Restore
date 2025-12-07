@@ -102,8 +102,6 @@ uint64_t __37__SUSUIServiceManager_sharedInstance__block_invoke()
       objc_storeStrong(&oslog, 0);
     }
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)registerServiceWithName:(id)name forServiceClass:(Class)class
@@ -160,7 +158,6 @@ uint64_t __37__SUSUIServiceManager_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isServiceRegistered:(id)registered
@@ -306,7 +303,6 @@ uint64_t __37__SUSUIServiceManager_sharedInstance__block_invoke()
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(v34, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)mockedServicesMap
@@ -343,7 +339,6 @@ uint64_t __37__SUSUIServiceManager_sharedInstance__block_invoke()
   MEMORY[0x277D82BD8](v13);
   MEMORY[0x277D82BD8](v14);
   MEMORY[0x277D82BD8](v15);
-  *MEMORY[0x277D85DE8];
 
   return v10;
 }

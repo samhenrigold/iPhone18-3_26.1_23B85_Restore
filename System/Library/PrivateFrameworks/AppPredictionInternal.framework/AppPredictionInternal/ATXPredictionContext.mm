@@ -82,22 +82,23 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  if (v6 == objc_opt_class())
+  v7 = objc_opt_class();
+  if (v6 == v7)
   {
     p_deviceStateContext = &self->_userContext;
     goto LABEL_14;
   }
 
-  v7 = __atxlog_handle_default();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = __atxlog_handle_default(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [(ATXPredictionContext *)v6 updateWithInjectedContext:v7];
+    [(ATXPredictionContext *)v6 updateWithInjectedContext:v8];
   }
 
-  v8 = MEMORY[0x277CBEAD8];
-  v9 = *MEMORY[0x277CBE658];
-  v10 = [v6 description];
-  [v8 raise:v9 format:{@"Unexpected context injected %@", v10}];
+  v9 = MEMORY[0x277CBEAD8];
+  v10 = *MEMORY[0x277CBE658];
+  v11 = [v6 description];
+  [v9 raise:v10 format:{@"Unexpected context injected %@", v11}];
 
 LABEL_15:
 }
@@ -151,40 +152,41 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v23 = __atxlog_handle_default();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v24 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
-      [(ATXMinimalAction *)self initWithProto:v23];
+      [(ATXMinimalAction *)self initWithProto:v24];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  v6 = [ATXPredictionDeviceStateContext alloc];
-  deviceStateContext = [v5 deviceStateContext];
-  v8 = [(ATXPredictionDeviceStateContext *)v6 initWithProto:deviceStateContext];
+  v6 = protoCopy;
+  v7 = [ATXPredictionDeviceStateContext alloc];
+  deviceStateContext = [v6 deviceStateContext];
+  v9 = [(ATXPredictionDeviceStateContext *)v7 initWithProto:deviceStateContext];
 
-  v9 = [ATXPredictionTimeContext alloc];
-  timeContext = [v5 timeContext];
-  v11 = [(ATXPredictionTimeContext *)v9 initWithProto:timeContext];
+  v10 = [ATXPredictionTimeContext alloc];
+  timeContext = [v6 timeContext];
+  v12 = [(ATXPredictionTimeContext *)v10 initWithProto:timeContext];
 
-  v12 = [ATXPredictionLocationMotionContext alloc];
-  locationMotionContext = [v5 locationMotionContext];
-  v14 = [(ATXPredictionLocationMotionContext *)v12 initWithProto:locationMotionContext];
+  v13 = [ATXPredictionLocationMotionContext alloc];
+  locationMotionContext = [v6 locationMotionContext];
+  v15 = [(ATXPredictionLocationMotionContext *)v13 initWithProto:locationMotionContext];
 
-  v15 = [ATXPredictionAmbientLightContext alloc];
-  ambientLightContext = [v5 ambientLightContext];
-  v17 = [(ATXPredictionAmbientLightContext *)v15 initWithProto:ambientLightContext];
+  v16 = [ATXPredictionAmbientLightContext alloc];
+  ambientLightContext = [v6 ambientLightContext];
+  v18 = [(ATXPredictionAmbientLightContext *)v16 initWithProto:ambientLightContext];
 
-  v18 = [ATXPredictionUserContext alloc];
-  userContext = [v5 userContext];
-  v20 = [(ATXPredictionUserContext *)v18 initWithProto:userContext];
+  v19 = [ATXPredictionUserContext alloc];
+  userContext = [v6 userContext];
+  v21 = [(ATXPredictionUserContext *)v19 initWithProto:userContext];
 
-  isOverridden = [v5 isOverridden];
-  self = [(ATXPredictionContext *)self initWithDeviceStateContext:v8 timeContext:v11 locationMotionContext:v14 ambientLightContext:v17 userContext:v20 isOverridden:isOverridden];
+  isOverridden = [v6 isOverridden];
+  self = [(ATXPredictionContext *)self initWithDeviceStateContext:v9 timeContext:v12 locationMotionContext:v15 ambientLightContext:v18 userContext:v21 isOverridden:isOverridden];
 
   selfCopy = self;
 LABEL_8:
@@ -225,20 +227,20 @@ LABEL_8:
 
 - (id)jsonDict
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v19[0] = @"deviceStateContext";
+  v24 = *MEMORY[0x277D85DE8];
+  v18[0] = @"deviceStateContext";
   jsonDict = [(ATXPredictionDeviceStateContext *)self->_deviceStateContext jsonDict];
-  v20[0] = jsonDict;
-  v19[1] = @"timeContext";
+  v19[0] = jsonDict;
+  v18[1] = @"timeContext";
   jsonDict2 = [(ATXPredictionTimeContext *)self->_timeContext jsonDict];
-  v20[1] = jsonDict2;
-  v19[2] = @"locationMotionContext";
+  v19[1] = jsonDict2;
+  v18[2] = @"locationMotionContext";
   jsonDict3 = [(ATXPredictionLocationMotionContext *)self->_locationMotionContext jsonDict];
-  v20[2] = jsonDict3;
-  v19[3] = @"ambientLightContext";
+  v19[2] = jsonDict3;
+  v18[3] = @"ambientLightContext";
   jsonDict4 = [(ATXPredictionAmbientLightContext *)self->_ambientLightContext jsonDict];
-  v20[3] = jsonDict4;
-  v19[4] = @"userContext";
+  v19[3] = jsonDict4;
+  v18[4] = @"userContext";
   jsonDict5 = [(ATXPredictionUserContext *)self->_userContext jsonDict];
   v8 = jsonDict5;
   v9 = @"nil";
@@ -251,16 +253,16 @@ LABEL_8:
     v13 = @"YES";
   }
 
-  v20[4] = jsonDict5;
-  v20[5] = v13;
-  v19[5] = @"isOverridden";
-  v19[6] = @"candidateIdentifiersLaunchAge";
-  v19[7] = @"inferredModeEvent";
-  v19[8] = @"userFocusComputedModeEvent";
-  v21 = v11;
-  v22 = v12;
-  v19[9] = @"poiCategory";
-  v19[10] = @"bluetoothEvent";
+  v19[4] = jsonDict5;
+  v19[5] = v13;
+  v18[5] = @"isOverridden";
+  v18[6] = @"candidateIdentifiersLaunchAge";
+  v18[7] = @"inferredModeEvent";
+  v18[8] = @"userFocusComputedModeEvent";
+  v20 = v11;
+  v21 = v12;
+  v18[9] = @"poiCategory";
+  v18[10] = @"bluetoothEvent";
   microlocationVisitEvent = self->_microlocationVisitEvent;
   bluetoothEvent = self->_bluetoothEvent;
   if (!bluetoothEvent)
@@ -268,17 +270,15 @@ LABEL_8:
     bluetoothEvent = @"nil";
   }
 
-  v19[11] = @"microlocationVisitEvent";
+  v18[11] = @"microlocationVisitEvent";
   if (microlocationVisitEvent)
   {
     v9 = microlocationVisitEvent;
   }
 
-  v23 = bluetoothEvent;
-  v24 = v9;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:12];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v22 = bluetoothEvent;
+  v23 = v9;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:12];
 
   return v16;
 }
@@ -294,7 +294,7 @@ LABEL_8:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -311,11 +311,11 @@ LABEL_8:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -326,7 +326,6 @@ LABEL_8:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -491,13 +490,11 @@ LABEL_20:
 
 - (void)updateWithInjectedContext:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unexpected context injected %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Unexpected context injected %@", &v4, 0xCu);
 }
 
 @end

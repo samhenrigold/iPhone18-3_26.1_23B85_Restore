@@ -79,7 +79,7 @@ uint64_t __28__ISURLBagCache_sharedCache__block_invoke(uint64_t a1)
 
 + (id)URLWithBagContext:(id)context
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   bagType = [context bagType];
   v4 = *MEMORY[0x277D6A708];
   if (bagType == 1)
@@ -124,7 +124,7 @@ LABEL_7:
   v15 = *MEMORY[0x277CBF010];
   if (!deviceIsAudioAccessory)
   {
-    goto LABEL_35;
+    goto LABEL_37;
   }
 
   v16 = CFPreferencesCopyValue(@"AppleLocaleSetup", *MEMORY[0x277CBF008], *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
@@ -140,16 +140,21 @@ LABEL_7:
     shouldLog = [mEMORY[0x277D69B38]2 shouldLog];
     if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v20) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v20) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
@@ -159,28 +164,27 @@ LABEL_7:
       v22 = objc_opt_class();
       v23 = v22;
       v24 = SSHashIfNeeded();
-      *v36 = 138543618;
-      *&v36[4] = v22;
-      *&v36[12] = 2114;
-      *&v36[14] = v24;
-      LODWORD(v35) = 22;
-      v34 = v36;
-      v25 = _os_log_send_and_compose_impl();
+      v35 = 138543618;
+      v36 = v22;
+      v37 = 2114;
+      v38 = v24;
+      LODWORD(v34) = 22;
+      v25 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%{public}@: Using the value stored in AppleLocaleSetup, %{public}@", &v35, v34);
 
       if (!v25)
       {
-LABEL_22:
+LABEL_23:
 
-        goto LABEL_36;
+        goto LABEL_38;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v25 encoding:{4, v36, v35}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v25 encoding:4];
       free(v25);
-      v34 = oSLogObject;
+      v33 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   if (!mEMORY[0x277D69B38])
@@ -191,53 +195,55 @@ LABEL_22:
   shouldLog2 = [mEMORY[0x277D69B38]2 shouldLog];
   if ([mEMORY[0x277D69B38]2 shouldLogToDisk])
   {
-    v27 = shouldLog2 | 2;
+    LODWORD(v27) = shouldLog2 | 2;
   }
 
   else
   {
-    v27 = shouldLog2;
+    LODWORD(v27) = shouldLog2;
   }
 
   oSLogObject2 = [mEMORY[0x277D69B38]2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v27 = v27;
+  }
+
+  else
   {
     v27 &= 2u;
   }
 
   if (!v27)
   {
-    goto LABEL_33;
+    goto LABEL_35;
   }
 
-  *v36 = 138543362;
-  *&v36[4] = objc_opt_class();
-  v29 = *&v36[4];
-  LODWORD(v35) = 12;
-  v34 = v36;
-  v30 = _os_log_send_and_compose_impl();
+  v35 = 138543362;
+  v36 = objc_opt_class();
+  v29 = v36;
+  LODWORD(v34) = 12;
+  v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%{public}@: There's no value stored in AppleLocaleSetup.", &v35, v34);
 
   if (v30)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v30 encoding:{4, v36, v35, *v36}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v30 encoding:4];
     free(v30);
-    v34 = oSLogObject2;
+    v33 = oSLogObject2;
     SSFileLog();
-LABEL_33:
+LABEL_35:
   }
 
-LABEL_35:
+LABEL_37:
   v16 = CFPreferencesCopyValue(@"AppleLocale", v13, v14, v15);
-LABEL_36:
+LABEL_38:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     [v7 appendFormat:@"&%@=%@", @"locale", v16];
   }
 
-  v31 = [MEMORY[0x277CBEBC0] URLWithString:{v7, v34}];
-
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = [MEMORY[0x277CBEBC0] URLWithString:{v7, v33}];
 
   return v31;
 }
@@ -273,49 +279,50 @@ void __27__ISURLBagCache_addURLBag___block_invoke(uint64_t a1)
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
     v7 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-      v8 = *(a1 + 40);
-      *v13 = 138412546;
-      *&v13[4] = objc_opt_class();
-      *&v13[12] = 2112;
-      *&v13[14] = v3;
-      v9 = *&v13[4];
-      LODWORD(v12) = 22;
-      v10 = _os_log_send_and_compose_impl();
+      v10 = 138412546;
+      v11 = objc_opt_class();
+      v12 = 2112;
+      v13 = v3;
+      v8 = v11;
+      v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_275BC3000, v7, 2, "%@: Cached URL bag with cache key: %@", &v10, 22);
 
-      if (!v10)
+      if (!v9)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v7 = [MEMORY[0x277CCACA8] stringWithCString:v10 encoding:{4, v13, v12, *v13, *&v13[16]}];
-      free(v10);
+      v7 = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:4];
+      free(v9);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
-
-  v11 = *MEMORY[0x277D85DE8];
+LABEL_15:
 }
 
 - (void)invalidateAllURLBags
@@ -423,7 +430,7 @@ void __44__ISURLBagCache_invalidateURLBagForContext___block_invoke_2(uint64_t a1
 
 void __34__ISURLBagCache_URLBagForContext___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) ignoresCaches] & 1) == 0)
   {
     v2 = [*(a1 + 32) cacheKey];
@@ -435,7 +442,7 @@ void __34__ISURLBagCache_URLBagForContext___block_invoke(uint64_t a1)
     v6 = *(*(*(a1 + 48) + 8) + 40);
     if (!v6 || ([v6 isValid] & 1) != 0 || (objc_msgSend(*(a1 + 32), "allowsExpiredBags") & 1) != 0)
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
     v7 = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
@@ -447,56 +454,56 @@ void __34__ISURLBagCache_URLBagForContext___block_invoke(uint64_t a1)
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v11 = *(a1 + 40);
-      LODWORD(v18) = 138412290;
-      *(&v18 + 4) = objc_opt_class();
-      v12 = *(&v18 + 4);
-      LODWORD(v17) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      v15 = 138412290;
+      v16 = objc_opt_class();
+      v11 = v16;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_275BC3000, v10, 0, "%@: Our cached bag is expired, and the context doesn't allow expired bags. Returning nil.", &v15, 12);
 
-      if (!v13)
+      if (!v12)
       {
-LABEL_16:
-
-        v14 = *(*(a1 + 48) + 8);
-        v15 = *(v14 + 40);
-        *(v14 + 40) = 0;
-
 LABEL_17:
-        goto LABEL_18;
+
+        v13 = *(*(a1 + 48) + 8);
+        v14 = *(v13 + 40);
+        *(v13 + 40) = 0;
+
+LABEL_18:
+        return;
       }
 
-      v10 = [MEMORY[0x277CCACA8] stringWithCString:v13 encoding:{4, &v18, v17, v18}];
-      free(v13);
+      v10 = [MEMORY[0x277CCACA8] stringWithCString:v12 encoding:4];
+      free(v12);
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
-
-LABEL_18:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_storeFrontChangedNotification:(id)notification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -506,41 +513,44 @@ LABEL_18:
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v12) = 138412290;
-  *(&v12 + 4) = objc_opt_class();
-  v8 = *(&v12 + 4);
-  LODWORD(v11) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v10 = 138412290;
+  v11 = objc_opt_class();
+  v8 = v11;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "%@: Invalidating URL bags after storefront change", &v10, 12);
 
   if (v9)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:{4, &v12, v11, v12}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [(ISURLBagCache *)self invalidateAllURLBags];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newRequestWithURLBagContext:(id)context

@@ -1,6 +1,7 @@
 @interface NRPowerAssertion
 + (id)sharedInstance;
 + (unsigned)takeAssertionWithSuffix:(id)suffix;
++ (void)releaseAssertion:(unsigned int)assertion;
 - (BOOL)containsProcessGroup;
 - (NRPowerAssertion)init;
 - (id)addActivityWithName:(id)name;
@@ -275,6 +276,29 @@ LABEL_11:
   v13 = AssertionID;
 
   return v13;
+}
+
++ (void)releaseAssertion:(unsigned int)assertion
+{
+  if (assertion)
+  {
+    v3 = *&assertion;
+    IOPMAssertionRelease(assertion);
+    v4 = nr_daemon_log();
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+
+    if (v5)
+    {
+      v6 = nr_daemon_log();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = [NSNumber numberWithUnsignedInt:v3];
+        v8 = 138412290;
+        v9 = v7;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "NRPowerAssertion power assertion %@ released", &v8, 0xCu);
+      }
+    }
+  }
 }
 
 - (void)takeAssertion

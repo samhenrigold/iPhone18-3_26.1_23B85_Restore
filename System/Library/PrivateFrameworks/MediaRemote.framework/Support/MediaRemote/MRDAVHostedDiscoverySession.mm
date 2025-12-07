@@ -177,7 +177,7 @@
     connection = v9->_connection;
     if (connection)
     {
-      [(NSXPCConnection *)connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -271,7 +271,7 @@
     }
 
     [v8 timeIntervalSinceDate:self->_lastDesiredDiscoveryModeEnableDate];
-    v36 = [NSString stringWithFormat:@"desired discovery enabled at: %@ (%.0f s ago) until: %@ (duration %.0f s)", lastDesiredDiscoveryModeEnableDate, *&v7, lastDesiredDiscoveryModeDisableDate, v10];
+    v32 = [NSString stringWithFormat:@"desired discovery enabled at: %@ (%.0f s ago) until: %@ (duration %.0f s)", lastDesiredDiscoveryModeEnableDate, *&v7, lastDesiredDiscoveryModeDisableDate, v10];
     if (v4 <= 0.0)
     {
     }
@@ -279,7 +279,7 @@
 
   else
   {
-    v36 = @"desired discovery never enabled";
+    v32 = @"desired discovery never enabled";
   }
 
   if (self->_lastEffectiveDiscoveryModeEnableDate)
@@ -302,7 +302,7 @@
     }
 
     [v16 timeIntervalSinceDate:self->_lastEffectiveDiscoveryModeEnableDate];
-    v35 = [NSString stringWithFormat:@"effective discovery enabled at: %@ (%.0f s ago) until: %@ (duration %.0f s)", lastEffectiveDiscoveryModeEnableDate, *&v15, lastEffectiveDiscoveryModeDisableDate, v18];
+    v31 = [NSString stringWithFormat:@"effective discovery enabled at: %@ (%.0f s ago) until: %@ (duration %.0f s)", lastEffectiveDiscoveryModeEnableDate, *&v15, lastEffectiveDiscoveryModeDisableDate, v18];
     if (v12 <= 0.0)
     {
     }
@@ -310,26 +310,22 @@
 
   else
   {
-    v35 = @"effective discovery never enabled";
+    v31 = @"effective discovery never enabled";
   }
 
   v19 = objc_opt_class();
   v20 = NSStringFromClass(v19);
-  effectiveDiscoveryMode = self->_effectiveDiscoveryMode;
+  v21 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
   v22 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-  desiredDiscoveryMode = self->_desiredDiscoveryMode;
-  v24 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
   connection = self->_connection;
   processIdentifier = [(NSXPCConnection *)connection processIdentifier];
   bundleIdentifier = self->_bundleIdentifier;
   processSuspended = self->_processSuspended;
-  discoveryTracker = self->_discoveryTracker;
-  v30 = MRCreateIndentedDebugDescriptionFromObject();
-  connectionMonitor = self->_connectionMonitor;
-  v32 = MRCreateIndentedDebugDescriptionFromObject();
-  v33 = [NSString stringWithFormat:@"%@ %p {\n    effective discovery mode = %@, %@\n    desired discovery mode = %@, %@\n    xpc connection = %@\n    pid = %d\n    bundle id = %@\n    isProcessSuspended = %u\n    discoveryTracker = %@\n    connection monitor = %@\n}", v20, self, v22, v35, v24, v36, connection, processIdentifier, bundleIdentifier, processSuspended, v30, v32];
+  v27 = MRCreateIndentedDebugDescriptionFromObject();
+  v28 = MRCreateIndentedDebugDescriptionFromObject();
+  v29 = [NSString stringWithFormat:@"%@ %p {\n    effective discovery mode = %@, %@\n    desired discovery mode = %@, %@\n    xpc connection = %@\n    pid = %d\n    bundle id = %@\n    isProcessSuspended = %u\n    discoveryTracker = %@\n    connection monitor = %@\n}", v20, self, v21, v31, v22, v32, connection, processIdentifier, bundleIdentifier, processSuspended, v27, v28];
 
-  return v33;
+  return v29;
 }
 
 - (void)setDiscoveryMode:(unsigned int)mode
@@ -340,28 +336,27 @@
     v5 = MRLogCategoryDiscovery();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      desiredDiscoveryMode = self->_desiredDiscoveryMode;
+      v6 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
       v7 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-      v8 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
       *buf = 138412802;
       selfCopy = self;
-      v16 = 2114;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v8;
+      v15 = 2114;
+      v16 = v6;
+      v17 = 2114;
+      v18 = v7;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[HostedDiscoverySession] %@ setting desired discoveryMode from %{public}@ to %{public}@", buf, 0x20u);
     }
 
     self->_desiredDiscoveryMode = mode;
-    v9 = +[NSDate now];
-    v10 = 136;
+    v8 = +[NSDate now];
+    v9 = 136;
     if (!mode)
     {
-      v10 = 144;
+      v9 = 144;
     }
 
-    v11 = *(&self->super.isa + v10);
-    *(&self->super.isa + v10) = v9;
+    v10 = *(&self->super.isa + v9);
+    *(&self->super.isa + v9) = v8;
 
     [(MRDAVHostedDiscoverySession *)self _reevaluateEffectiveDiscoveryMode];
     serialQueue = self->_serialQueue;
@@ -426,51 +421,50 @@
     v5 = MRLogCategoryDiscovery();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      effectiveDiscoveryMode = self->_effectiveDiscoveryMode;
+      v6 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
       v7 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
-      v8 = MRMediaRemoteCopyRouteDiscoveryModeDescription();
       *buf = 138412802;
       selfCopy = self;
-      v34 = 2114;
-      v35 = v7;
-      v36 = 2114;
-      v37 = v8;
+      v33 = 2114;
+      v34 = v6;
+      v35 = 2114;
+      v36 = v7;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[HostedDiscoverySession] %@ setting effective discoveryMode from %{public}@ to %{public}@", buf, 0x20u);
     }
 
     if (!self->_discoveryTracker)
     {
-      v9 = self->_bundleIdentifier;
-      v10 = [NSString alloc];
+      v8 = self->_bundleIdentifier;
+      v9 = [NSString alloc];
       [(MRAVRoutingDiscoverySessionConfiguration *)self->_configuration features];
-      v11 = MRMediaRemoteEndpointFeaturesDescription();
-      v12 = [v10 initWithFormat:@"Hosted.%@", v11];
+      v10 = MRMediaRemoteEndpointFeaturesDescription();
+      v11 = [v9 initWithFormat:@"Hosted.%@", v10];
 
-      v13 = [MRRollingWindowActivityTracker alloc];
-      v14 = +[MRUserSettings currentSettings];
-      [v14 persistantDiscoveryModeDetectionDuration];
-      v16 = v15;
-      v17 = +[MRUserSettings currentSettings];
-      [v17 persistantDiscoveryModeDetectionWindowDuration];
-      v19 = v18;
-      v29[0] = _NSConcreteStackBlock;
-      v29[1] = 3221225472;
-      v29[2] = sub_1000A1060;
-      v29[3] = &unk_1004B68F0;
-      v30 = v12;
-      v31 = v9;
-      v20 = v9;
-      v21 = v12;
-      v22 = [v13 initWithActivityName:v21 maxAllowedTime:v29 windowDuration:v16 handler:v19];
+      v12 = [MRRollingWindowActivityTracker alloc];
+      v13 = +[MRUserSettings currentSettings];
+      [v13 persistantDiscoveryModeDetectionDuration];
+      v15 = v14;
+      v16 = +[MRUserSettings currentSettings];
+      [v16 persistantDiscoveryModeDetectionWindowDuration];
+      v18 = v17;
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_1000A1060;
+      v28[3] = &unk_1004B68F0;
+      v29 = v11;
+      v30 = v8;
+      v19 = v8;
+      v20 = v11;
+      v21 = [v12 initWithActivityName:v20 maxAllowedTime:v28 windowDuration:v15 handler:v18];
       discoveryTracker = self->_discoveryTracker;
-      self->_discoveryTracker = v22;
+      self->_discoveryTracker = v21;
     }
 
-    v24 = +[NSDate now];
+    v23 = +[NSDate now];
     if (mode)
     {
       lastEffectiveDiscoveryModeEnableDate = self->_lastEffectiveDiscoveryModeEnableDate;
-      self->_lastEffectiveDiscoveryModeEnableDate = v24;
+      self->_lastEffectiveDiscoveryModeEnableDate = v23;
 
       [(MRActivityTracker *)self->_discoveryTracker startActivityTracking];
     }
@@ -478,7 +472,7 @@
     else
     {
       lastEffectiveDiscoveryModeDisableDate = self->_lastEffectiveDiscoveryModeDisableDate;
-      self->_lastEffectiveDiscoveryModeDisableDate = v24;
+      self->_lastEffectiveDiscoveryModeDisableDate = v23;
 
       [(MRActivityTracker *)self->_discoveryTracker stopActivityTracking];
     }

@@ -325,7 +325,7 @@ void __117__WBSOnDeviceSearchSuggestionsModelDownloader_downloadOnDeviceSearchSu
   v7 = [a3 checksumString];
   [a3 sizeInBytes];
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_9(&dword_1BB6F3000, v8, v9, "Model for locale: %{private}@ with checksum: %{public}@ reports size: %ld which exceeds maximum (10 MB)", v10, v11, v12, v13, v14);
+  OUTLINED_FUNCTION_1_9(&dword_1BB6F3000, v8, v9, "Model for locale: %{private}@ with checksum: %{public}@ reports size: %ld which exceeds maximum (10 MB)", v10, v11, v12, v13);
 }
 
 void __82__WBSOnDeviceSearchSuggestionsModelDownloader__downloadModelAtEndpoint_forLocale___block_invoke_cold_1(uint64_t a1, void **a2, void *a3)
@@ -349,7 +349,7 @@ void __82__WBSOnDeviceSearchSuggestionsModelDownloader__downloadModelAtEndpoint_
   v6 = [*(a1 + 40) checksumString];
   [*(a1 + 40) sizeInBytes];
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_1_9(&dword_1BB6F3000, v7, v8, "Downloaded model for locale: %{private}@ with checksum: %{public}@ has size: %ld which exceeds maximum (10 MB)", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_1_9(&dword_1BB6F3000, v7, v8, "Downloaded model for locale: %{private}@ with checksum: %{public}@ has size: %ld which exceeds maximum (10 MB)", v9, v10, v11, v12);
 }
 
 @end

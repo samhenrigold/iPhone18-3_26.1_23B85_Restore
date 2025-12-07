@@ -10,17 +10,16 @@
 {
   v2 = type metadata accessor for URL();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
 
   sub_10007C37C();
 
-  URL._bridgeToObjectiveC()(v7);
-  v9 = v8;
-  (*(v3 + 8))(v6, v2);
+  URL._bridgeToObjectiveC()(v6);
+  v8 = v7;
+  (*(v3 + 8))(v5, v2);
 
-  return v9;
+  return v8;
 }
 
 - (NSString)name

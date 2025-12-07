@@ -31,8 +31,8 @@
     clearColor = [MEMORY[0x1E69DC888] clearColor];
     [(UILabel *)self->_recurrenceLabel setBackgroundColor:clearColor];
 
-    contentView = [(EKEventDetailRecurrenceCell *)self contentView];
-    [contentView addSubview:self->_recurrenceLabel];
+    v10 = objc_msgSend_contentView(self);
+    [v10 addSubview:self->_recurrenceLabel];
 
     recurrenceLabel = self->_recurrenceLabel;
   }

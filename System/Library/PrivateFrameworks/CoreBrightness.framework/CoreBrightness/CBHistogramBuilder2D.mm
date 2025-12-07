@@ -129,11 +129,4 @@ uint64_t __48__CBHistogramBuilder2D_enumerateBinsUsingBlock___block_invoke(void 
   return [v18 enumerateBinsUsingBlock:?];
 }
 
-uint64_t __48__CBHistogramBuilder2D_enumerateBinsUsingBlock___block_invoke_2(void *a1)
-{
-  v1 = a1[6];
-  v2 = a1[4];
-  return (*(a1[5] + 16))();
-}
-
 @end

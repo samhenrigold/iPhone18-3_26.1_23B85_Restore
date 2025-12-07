@@ -9,13 +9,13 @@
 
 - (id)ikdt_prototype
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ([self isObject])
   {
     _ikdt_globalObject = [self _ikdt_globalObject];
     v3 = [_ikdt_globalObject objectForKeyedSubscript:@"getPrototypeOf"];
-    v8[0] = self;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = self;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     v5 = [v3 callWithArguments:v4];
   }
 
@@ -23,8 +23,6 @@
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

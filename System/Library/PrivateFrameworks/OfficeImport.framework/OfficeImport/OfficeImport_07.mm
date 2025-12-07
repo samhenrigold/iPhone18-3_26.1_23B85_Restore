@@ -55,7 +55,7 @@ double EshShapeProperties::setCoordBottom(EshShapeProperties *this, unsigned int
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0x143u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 323, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -148,7 +148,7 @@ void EshDataTablePropVal<unsigned char>::resize(uint64_t a1, unsigned int a2)
   if (a2 != -1)
   {
     *(a1 + 16) = a2;
-    operator new[](a2);
+    operator new[](a2, 0x1000C8077774924);
   }
 
   exception = __cxa_allocate_exception(4uLL);
@@ -601,7 +601,7 @@ uint64_t *XlChartBinaryReader::setDataPointFormat(uint64_t *this, int a2, int a3
       if (v6 >= v4)
       {
         v9 = &v8;
-        this = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((this + 238), &v8);
+        this = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((this + 238), &v8, &std::piecewise_construct, &v9);
         v7 = *(this + 8);
         goto LABEL_8;
       }
@@ -751,12 +751,12 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartAttached
   return XlParserVisitor::endRead(this, a2);
 }
 
-void XlChartBinaryReader::read(XlChartBinaryReader *this, XlChartTextFrame *a2)
+void XlChartBinaryReader::read(uint64_t (***this)(XlParserVisitor **), XlChartTextFrame *a2)
 {
   v5 = *(a2 + 108) | (*(a2 + 110) << 16);
   v6 = &v5;
-  v4 = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 1824, &v5);
-  XlChartBinaryReader::readTextFrame(this, a2, *(v4 + 8));
+  v4 = std::__tree<std::__value_type<unsigned int,int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,int>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((this + 228), &v5, &std::piecewise_construct, &v6);
+  XlChartBinaryReader::readTextFrame(this, a2, *(v4 + 8), 1);
 }
 
 void *XlChartDataSeries::takeCachedCustomLabel(void *this, XlChartCustomLabelText *a2)
@@ -814,14 +814,14 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartPie *a2)
 
 void XlChartPiePlot::~XlChartPiePlot(XlChartPiePlot *this)
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
   XlChartPlot::~XlChartPlot(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(this);
 }
@@ -855,7 +855,7 @@ void ELexer::ELexer(ELexer *this, const char *a2)
   operator new();
 }
 
-void yyFlexLexer::yy_flush_buffer(yyFlexLexer *this, uint64_t a2)
+void yyFlexLexer::yy_flush_buffer(yyFlexLexer *result, uint64_t a2)
 {
   if (a2)
   {
@@ -865,15 +865,15 @@ void yyFlexLexer::yy_flush_buffer(yyFlexLexer *this, uint64_t a2)
     *(a2 + 16) = *(a2 + 8);
     *(a2 + 48) = 1;
     *(a2 + 64) = 0;
-    v2 = *(this + 54);
+    v2 = *(result + 54);
     if (v2)
     {
-      v2 = *(v2 + 8 * *(this + 52));
+      v2 = *(v2 + 8 * *(result + 52));
     }
 
     if (v2 == a2)
     {
-      yyFlexLexer::yy_load_buffer_state(this);
+      yyFlexLexer::yy_load_buffer_state(result);
     }
   }
 }
@@ -1219,7 +1219,7 @@ LABEL_281:
   v241 = v25;
   switch(v20)
   {
-    case 2u:
+    case 2:
       v23 = *&v6->type;
       v132 = *&v6->type;
       v234 = v3;
@@ -1231,104 +1231,104 @@ LABEL_281:
       v1 = v133;
       v4 = v229;
       goto LABEL_208;
-    case 3u:
-    case 0x2Au:
+    case 3:
+    case 42:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 16;
       goto LABEL_181;
-    case 4u:
-    case 0x14u:
-    case 0x16u:
-    case 0x19u:
-    case 0x20u:
-    case 0x21u:
-    case 0x22u:
-    case 0x2Bu:
-    case 0x37u:
-    case 0x38u:
-    case 0x39u:
-    case 0x3Au:
-    case 0x3Bu:
-    case 0x5Fu:
-    case 0x65u:
-    case 0x66u:
-    case 0x6Cu:
+    case 4:
+    case 20:
+    case 22:
+    case 25:
+    case 32:
+    case 33:
+    case 34:
+    case 43:
+    case 55:
+    case 56:
+    case 57:
+    case 58:
+    case 59:
+    case 95:
+    case 101:
+    case 102:
+    case 108:
       goto LABEL_32;
-    case 5u:
+    case 5:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 11;
       goto LABEL_181;
-    case 6u:
+    case 6:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 14;
       goto LABEL_181;
-    case 7u:
+    case 7:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 9;
       goto LABEL_181;
-    case 8u:
+    case 8:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 10;
       goto LABEL_181;
-    case 9u:
+    case 9:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 13;
       goto LABEL_181;
-    case 0xAu:
+    case 10:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 12;
       goto LABEL_181;
-    case 0xBu:
+    case 11:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 8;
       goto LABEL_181;
-    case 0xCu:
+    case 12:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 3;
       goto LABEL_181;
-    case 0xDu:
+    case 13:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 4;
       goto LABEL_181;
-    case 0xEu:
+    case 14:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 5;
       goto LABEL_181;
-    case 0xFu:
+    case 15:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 6;
       goto LABEL_181;
-    case 0x10u:
+    case 16:
       v31 = *&v6[-6].type;
       v32 = *&v6->type;
       v33 = v2;
       v34 = 7;
       goto LABEL_181;
-    case 0x11u:
+    case 17:
       v232 = v1;
       v113 = v24;
       v234 = v3;
@@ -1341,7 +1341,7 @@ LABEL_281:
       v114 = v23;
       v115 = 20;
       goto LABEL_175;
-    case 0x12u:
+    case 18:
       v232 = v1;
       v113 = v24;
       v234 = v3;
@@ -1354,7 +1354,7 @@ LABEL_281:
       v114 = v23;
       v115 = 19;
       goto LABEL_175;
-    case 0x13u:
+    case 19:
       v232 = v1;
       v113 = v24;
       v234 = v3;
@@ -1370,19 +1370,19 @@ LABEL_175:
       [v114 addToken:v115 extendedDataLength:0];
       v3 = v234;
       goto LABEL_176;
-    case 0x15u:
+    case 21:
       v106 = *&v6[-2].type;
       goto LABEL_186;
-    case 0x17u:
+    case 23:
       v28 = *&v6[-2].type;
       goto LABEL_204;
-    case 0x18u:
+    case 24:
       type = v6[-2].type;
       v234 = v3;
       v35 = v24;
       v36 = intTokens(v2, type);
       goto LABEL_232;
-    case 0x1Au:
+    case 26:
       v230 = v24;
       v234 = v3;
       v23 = objc_alloc_init([(EFormula *)v2 formulaClass]);
@@ -1446,19 +1446,19 @@ LABEL_175:
 
       addErrorToken(v116, v117);
       goto LABEL_266;
-    case 0x1Bu:
-    case 0x5Au:
+    case 27:
+    case 90:
       goto LABEL_111;
-    case 0x1Cu:
-    case 0x4Cu:
+    case 28:
+    case 76:
       goto LABEL_92;
-    case 0x1Du:
+    case 29:
       v23 = v23 & 0xFFFFFFFF00000000 | 0x11;
       goto LABEL_233;
-    case 0x1Eu:
+    case 30:
       v23 = v23 & 0xFFFFFFFF00000000 | 0xF;
       goto LABEL_233;
-    case 0x1Fu:
+    case 31:
       v34 = v6[-2].type;
       v31 = *&v6[-4].type;
       v32 = *&v6->type;
@@ -1467,19 +1467,19 @@ LABEL_181:
       v234 = v3;
       v35 = v24;
       goto LABEL_182;
-    case 0x24u:
-    case 0x73u:
+    case 36:
+    case 115:
       v29 = v2;
       v30 = 1;
       goto LABEL_42;
-    case 0x25u:
+    case 37:
       v234 = v3;
       v230 = v24;
       v130 = [(EFormula *)v2 formulaHelper];
       v131 = @"TRUE";
       goto LABEL_206;
-    case 0x26u:
-    case 0x74u:
+    case 38:
+    case 116:
       v29 = v2;
       v30 = 0;
 LABEL_42:
@@ -1487,7 +1487,7 @@ LABEL_42:
       v35 = v24;
       v36 = BOOLTokens(v29, v30);
       goto LABEL_232;
-    case 0x27u:
+    case 39:
       v234 = v3;
       v230 = v24;
       v130 = [(EFormula *)v2 formulaHelper];
@@ -1503,7 +1503,7 @@ LABEL_206:
       v1 = v232;
       addFunction(v23, v171, 0);
       goto LABEL_207;
-    case 0x29u:
+    case 41:
       v159 = *&v6[-4].type;
       v234 = v3;
       v160 = v24;
@@ -1512,12 +1512,12 @@ LABEL_206:
       v3 = v234;
       v23 = *&v6[-4].type;
       goto LABEL_233;
-    case 0x2Cu:
-    case 0x2Du:
-    case 0x2Eu:
-    case 0x2Fu:
-    case 0x30u:
-    case 0x4Bu:
+    case 44:
+    case 45:
+    case 46:
+    case 47:
+    case 48:
+    case 75:
       v23 = *&v6[-2].type;
       *&v3 = *v6[-2].data;
       v24 = *&v6[-2].data[8];
@@ -1525,7 +1525,7 @@ LABEL_206:
       v242 = *&v6[-1].data[8];
       v241 = v26;
       goto LABEL_233;
-    case 0x31u:
+    case 49:
       v229 = v4;
       v230 = v24;
       v234 = v3;
@@ -1605,7 +1605,7 @@ LABEL_312:
       v4 = v229;
       v2 = v233;
       goto LABEL_266;
-    case 0x32u:
+    case 50:
       v23 = *&v6[-6].type;
       if (!v23)
       {
@@ -1629,7 +1629,7 @@ LABEL_312:
       }
 
       goto LABEL_240;
-    case 0x33u:
+    case 51:
       v23 = *&v6[-4].type;
       if (!v23)
       {
@@ -1653,28 +1653,28 @@ LABEL_312:
       }
 
       goto LABEL_240;
-    case 0x34u:
-    case 0x35u:
-    case 0x6Au:
+    case 52:
+    case 53:
+    case 106:
       v234 = v3;
       v232 = v1;
       v27 = v24;
       v23 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{*&v6->type, 0}];
 
       goto LABEL_201;
-    case 0x36u:
+    case 54:
       v234 = v3;
       v232 = v1;
       v27 = v24;
       v23 = objc_alloc_init([(EFormula *)v2 formulaClass]);
       [v23 addToken:22 extendedDataLength:0];
       goto LABEL_201;
-    case 0x3Cu:
+    case 60:
       v234 = v3;
       v35 = v24;
       v36 = refTokens(v2, v6);
       goto LABEL_232;
-    case 0x3Du:
+    case 61:
       v234 = v3;
       v35 = v24;
       v31 = refTokens(v2, v6 - 6);
@@ -1684,7 +1684,7 @@ LABEL_312:
 LABEL_182:
       v36 = operatorTokens(v33, v34, v31, v32);
       goto LABEL_232;
-    case 0x3Eu:
+    case 62:
       LOWORD(v3) = 0;
       if (LOBYTE(v6[-9].dataSize))
       {
@@ -1710,13 +1710,13 @@ LABEL_182:
       WORD2(v3) = v165 | *&v6[-10].data[8];
       WORD3(v3) = v166 | *&v6[-2].data[8];
       goto LABEL_220;
-    case 0x3Fu:
+    case 63:
       LOWORD(v3) = LOWORD(v6[-10].type) - 1;
       WORD1(v3) = LOWORD(v6[-2].type) - 1;
       WORD2(v3) = 0x8000;
       v128 = -32513;
       goto LABEL_219;
-    case 0x40u:
+    case 64:
       if (BYTE1(v6[-9].dataSize))
       {
         v176 = 0x8000;
@@ -1744,7 +1744,7 @@ LABEL_182:
 LABEL_219:
       WORD3(v3) = v128;
       goto LABEL_220;
-    case 0x41u:
+    case 65:
       LOWORD(v3) = *v6[-6].data;
       WORD1(v3) = *v6->data;
       WORD2(v3) = *&v6[-6].data[2];
@@ -1752,12 +1752,12 @@ LABEL_219:
 LABEL_220:
       v23 = 0x800000025;
       goto LABEL_233;
-    case 0x42u:
+    case 66:
       v23 = *&v6->type;
       *&v3 = *v6->data;
       v24 = *&v6->data[8];
       goto LABEL_233;
-    case 0x43u:
+    case 67:
       v232 = v1;
       v113 = v24;
       v234 = v3;
@@ -1778,7 +1778,7 @@ LABEL_241:
       v199 = v21;
       v192 = v245;
       goto LABEL_321;
-    case 0x44u:
+    case 68:
       if (v6[-1].type < 500001 && *&v6[-2].data[8] < 500001)
       {
         if (LOBYTE(v6[-1].dataSize))
@@ -1810,7 +1810,7 @@ LABEL_241:
       v210 = MEMORY[0x277CCACA8];
       v211 = "Reference out of bounds!";
       goto LABEL_316;
-    case 0x45u:
+    case 69:
       v70 = *&v6[-7].dataSize;
       if (v70 != -1)
       {
@@ -1820,7 +1820,7 @@ LABEL_241:
       v210 = MEMORY[0x277CCACA8];
       v211 = "label! but label is not a sheet name.";
       goto LABEL_316;
-    case 0x46u:
+    case 70:
       v232 = v1;
       v53 = v21;
       v54 = *&v6[-2].data[8];
@@ -1842,7 +1842,7 @@ LABEL_241:
       v214 = MEMORY[0x277CCACA8];
       v215 = "sheet!label but label is not a local name.";
       goto LABEL_320;
-    case 0x47u:
+    case 71:
       if (*&v6[-7].dataSize != -1)
       {
         goto LABEL_32;
@@ -1851,7 +1851,7 @@ LABEL_241:
       v210 = MEMORY[0x277CCACA8];
       v211 = "label!... but label is not a sheet name.";
       goto LABEL_316;
-    case 0x48u:
+    case 72:
       v232 = v1;
       v53 = v21;
       v124 = *&v6[-2].data[8];
@@ -1863,7 +1863,7 @@ LABEL_241:
       v214 = MEMORY[0x277CCACA8];
       v215 = "simple label but label is not a local name.";
       goto LABEL_320;
-    case 0x49u:
+    case 73:
       if (*&v6[-15].dataSize == -1 || *&v6[-7].dataSize == -1)
       {
         v210 = MEMORY[0x277CCACA8];
@@ -1878,7 +1878,7 @@ LABEL_241:
           v69 = *&v6[-8].type;
           v234 = v3;
           v35 = v24;
-          LOWORD(v70) = [(EFormula *)v2 resolveFirstSheet:v68 lastSheet:v69];
+          v70 = [(EFormula *)v2 resolveFirstSheet:v68 lastSheet:v69];
           v71 = v2;
           v72 = v6;
 LABEL_231:
@@ -1900,10 +1900,10 @@ LABEL_316:
       v199 = v21;
       v192 = v245;
       goto LABEL_326;
-    case 0x4Au:
+    case 74:
       v23 = *&v6[-2].type;
       goto LABEL_233;
-    case 0x4Du:
+    case 77:
       if (!*&v6[-2].type)
       {
 LABEL_32:
@@ -1914,7 +1914,7 @@ LABEL_32:
       v210 = MEMORY[0x277CCACA8];
       v211 = "should not have table name at all!";
       goto LABEL_316;
-    case 0x4Eu:
+    case 78:
       v227 = v21;
       if (*v6[-4].data == 278)
       {
@@ -1958,7 +1958,7 @@ LABEL_324:
       v2->mErrMsg = [v212 stringWithUTF8String:v213];
       v192 = v245;
       goto LABEL_325;
-    case 0x4Fu:
+    case 79:
       v230 = v24;
       v234 = v3;
       v227 = v21;
@@ -2006,7 +2006,7 @@ LABEL_324:
 
       v9 = v226;
       goto LABEL_252;
-    case 0x50u:
+    case 80:
       v230 = v24;
       v234 = v3;
       v227 = v21;
@@ -2031,7 +2031,7 @@ LABEL_323:
       v212 = MEMORY[0x277CCACA8];
       v213 = "cell is not in a table!";
       goto LABEL_324;
-    case 0x51u:
+    case 81:
       v230 = v24;
       v234 = v3;
       v227 = v21;
@@ -2064,7 +2064,7 @@ LABEL_323:
 
       v2->mErrMsg = [MEMORY[0x277CCACA8] stringWithUTF8String:"cell is not in a table!"];
       goto LABEL_304;
-    case 0x52u:
+    case 82:
       v234 = v3;
       v232 = v1;
       v27 = v24;
@@ -2077,7 +2077,7 @@ LABEL_201:
       v24 = v27;
       v1 = v232;
       goto LABEL_208;
-    case 0x58u:
+    case 88:
       v234 = v3;
       v230 = v24;
       v119 = [-[EFormula formulaHelper](v2 "formulaHelper")];
@@ -2094,7 +2094,7 @@ LABEL_207:
 LABEL_208:
       v3 = v234;
       goto LABEL_233;
-    case 0x59u:
+    case 89:
       if (*&v6[-2].type)
       {
         v104 = *&v6->type;
@@ -2119,7 +2119,7 @@ LABEL_111:
 
       v242 = v105;
       goto LABEL_233;
-    case 0x5Bu:
+    case 91:
       v150 = v1;
       v151 = v24;
       v234 = v3;
@@ -2149,7 +2149,7 @@ LABEL_111:
       v24 = v151;
       v1 = v232;
       goto LABEL_233;
-    case 0x5Cu:
+    case 92:
       v229 = v4;
       v230 = v24;
       v234 = v3;
@@ -2190,7 +2190,7 @@ LABEL_307:
       v192 = v245;
       v9 = v226;
       goto LABEL_312;
-    case 0x5Du:
+    case 93:
       v70 = *&v6[-2].type;
       if (v70 == -1)
       {
@@ -2208,7 +2208,7 @@ LABEL_229:
       v234 = v3;
       v35 = v24;
       goto LABEL_231;
-    case 0x5Eu:
+    case 94:
       v232 = v1;
       v53 = v21;
       v54 = *&v6->data[8];
@@ -2244,7 +2244,7 @@ LABEL_320:
 LABEL_321:
       v1 = v232;
       goto LABEL_326;
-    case 0x60u:
+    case 96:
       if (*&v6[-10].type)
       {
         goto LABEL_308;
@@ -2253,20 +2253,20 @@ LABEL_321:
 LABEL_92:
       v23 = 0;
       goto LABEL_233;
-    case 0x61u:
+    case 97:
       v23 = *&v6[-8].type;
       goto LABEL_233;
-    case 0x62u:
+    case 98:
       v23 = *&v6[1].dataSize;
       goto LABEL_233;
-    case 0x63u:
+    case 99:
       v177 = *&v6[-4].type;
       v178 = *&v6->type;
       v234 = v3;
       v35 = v24;
       v36 = [(EFormula *)v2 resolveFirstSheet:v177 lastSheet:v178];
       goto LABEL_232;
-    case 0x64u:
+    case 100:
       v232 = v1;
       v53 = v21;
       v124 = *&v6->data[8];
@@ -2288,7 +2288,7 @@ LABEL_240:
       v214 = MEMORY[0x277CCACA8];
       v215 = "extbook!TOK_NAME where TOK_NAME has to be a local name.";
       goto LABEL_320;
-    case 0x67u:
+    case 103:
       if (!*&v6[-6].type)
       {
         goto LABEL_233;
@@ -2298,7 +2298,7 @@ LABEL_308:
       v210 = MEMORY[0x277CCACA8];
       v211 = "External book reference not supported!";
       goto LABEL_316;
-    case 0x68u:
+    case 104:
       v230 = v24;
       v234 = v3;
       v227 = v21;
@@ -2527,14 +2527,14 @@ LABEL_327:
       }
 
       return v198;
-    case 0x69u:
+    case 105:
       v179 = *&v6[-6].type;
       v180 = *&v6->type;
       v234 = v3;
       v127 = v24;
       [v179 addObject:v180];
       goto LABEL_227;
-    case 0x6Bu:
+    case 107:
       v125 = *&v6[-6].type;
       v126 = *&v6->type;
       v234 = v3;
@@ -2546,18 +2546,18 @@ LABEL_227:
       v3 = v234;
       v23 = *&v6[-6].type;
       goto LABEL_233;
-    case 0x6Du:
-    case 0x6Fu:
+    case 109:
+    case 111:
       v28 = *&v6->type;
       goto LABEL_204;
-    case 0x6Eu:
+    case 110:
       v129 = *&v6->type;
       goto LABEL_203;
-    case 0x70u:
-    case 0x72u:
+    case 112:
+    case 114:
       v28 = *&v6->type;
       goto LABEL_204;
-    case 0x71u:
+    case 113:
       v129 = *&v6->type;
 LABEL_203:
       v28 = -v129;
@@ -2566,7 +2566,7 @@ LABEL_204:
       v35 = v24;
       v36 = numberTokens(v2, v28);
       goto LABEL_232;
-    case 0x75u:
+    case 117:
       v106 = *&v6->type;
 LABEL_186:
       v234 = v3;
@@ -3185,18 +3185,19 @@ uint64_t yyFlexLexer::yy_get_previous_state(yyFlexLexer *this)
   return v1;
 }
 
-id intTokens(EFormula *a1, unsigned int a2)
+id intTokens(EFormula *a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = objc_alloc_init([(EFormula *)a1 formulaClass]);
   v4 = v3;
-  if (HIWORD(a2))
+  if (HIWORD(v2))
   {
-    addNumberOperand(v3, a2);
+    addNumberOperand(v3, v2);
   }
 
   else
   {
-    addIntOperand(v3, a2);
+    addIntOperand(v3, v2);
   }
 
   return v4;
@@ -3324,7 +3325,7 @@ void yyFlexLexer::~yyFlexLexer(yyFlexLexer *this)
   JUMPOUT(0x25F897000);
 }
 
-uint64_t XlFunctionIdForName(const unsigned __int16 *a1)
+uint64_t XlFunctionIdForName(unsigned __int16 *a1)
 {
   ItemWithFunctionName = findItemWithFunctionName(a1);
   if (ItemWithFunctionName)
@@ -3338,7 +3339,7 @@ uint64_t XlFunctionIdForName(const unsigned __int16 *a1)
   }
 }
 
-const unsigned __int16 *findItemWithFunctionName(const unsigned __int16 *result)
+unsigned __int16 *findItemWithFunctionName(unsigned __int16 *result)
 {
   v13 = *MEMORY[0x277D85DE8];
   if (result)
@@ -3546,10 +3547,12 @@ uint64_t EshBasicTablePropVal<EshHandle>::operator[](uint64_t a1, unsigned int a
   return v2 + 68 * a2;
 }
 
-uint64_t EshPropValParserVisitor::parseValuePair(uint64_t a1, uint64_t a2, unsigned int a3, int a4, int a5, int a6)
+uint64_t EshPropValParserVisitor::parseValuePair(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a4)
   {
+    v7 = a6;
+    v8 = a5;
     v9 = a2 + 16 * a3;
     v10 = (*(**(a1 + 8) + 104))(*(a1 + 8));
     v11 = 1;
@@ -3572,7 +3575,7 @@ uint64_t EshPropValParserVisitor::parseValuePair(uint64_t a1, uint64_t a2, unsig
       LODWORD(v13) = v10;
     }
 
-    if (a5)
+    if (v8)
     {
       v13 = v13;
     }
@@ -3582,7 +3585,7 @@ uint64_t EshPropValParserVisitor::parseValuePair(uint64_t a1, uint64_t a2, unsig
       v13 = v10;
     }
 
-    if (a5)
+    if (v8)
     {
       v11 = v12;
     }
@@ -3609,7 +3612,7 @@ uint64_t EshPropValParserVisitor::parseValuePair(uint64_t a1, uint64_t a2, unsig
       LODWORD(v18) = result;
     }
 
-    if (a6)
+    if (v7)
     {
       v18 = v18;
     }
@@ -3619,7 +3622,7 @@ uint64_t EshPropValParserVisitor::parseValuePair(uint64_t a1, uint64_t a2, unsig
       v18 = result;
     }
 
-    if (a6)
+    if (v7)
     {
       v16 = v17;
     }
@@ -3629,7 +3632,7 @@ uint64_t EshPropValParserVisitor::parseValuePair(uint64_t a1, uint64_t a2, unsig
 
   else
   {
-    (*(**(a1 + 8) + 104))(*(a1 + 8));
+    (*(**(a1 + 8) + 104))(*(a1 + 8), a2, a3, a4, a5, a6);
     v20 = *(**(a1 + 8) + 104);
 
     return v20();
@@ -3660,12 +3663,12 @@ uint64_t EshPropValParserVisitor::parseElement(uint64_t a1, _DWORD *a2)
   }
 
   *a2 = (*(**(a1 + 8) + 64))(*(a1 + 8));
-  v4 = (a2 + 1);
+  v4 = a2 + 1;
   v5 = (*(**(a1 + 8) + 64))(*(a1 + 8));
   for (i = 0; i != 3; ++i)
   {
     result = EshPropValParserVisitor::parseFormulaArgument(a1, v4, ((v5 >> i) & 0x20) == 0);
-    v4 += 8;
+    v4 += 2;
   }
 
   return result;
@@ -3850,14 +3853,14 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartLine *a2
 
 void XlChartLinePlot::~XlChartLinePlot(XlChartLinePlot *this)
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
   XlChartPlot::~XlChartPlot(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(this);
 }
@@ -3948,7 +3951,7 @@ uint64_t TSUFlushableObjectInfo::compareFlushingOrder(TSUFlushableObjectInfo *th
   return v11 > v12;
 }
 
-uint64_t setBoolValueForEDCell(uint64_t result, char a2)
+_BYTE *setBoolValueForEDCell(_BYTE *result, char a2)
 {
   if (result)
   {
@@ -3956,12 +3959,12 @@ uint64_t setBoolValueForEDCell(uint64_t result, char a2)
     {
       if ((*result & 0x10000000) != 0)
       {
-        *(result + 12) = a2;
+        result[12] = a2;
       }
 
       else
       {
-        *(result + 8) = a2;
+        result[8] = a2;
       }
     }
 
@@ -4171,10 +4174,10 @@ LABEL_9:
   return result;
 }
 
-void WrdChpParser::applyCMajoritySPRM(WrdChpParser *this, WrdCharacterProperties *a2, WrdCharacterProperties *a3, const unsigned __int8 *a4, const unsigned __int8 *a5)
+void WrdChpParser::applyCMajoritySPRM(WrdChpParser *this, WrdCharacterProperties *a2, WrdCharacterProperties *a3, unsigned __int16 *a4, const unsigned __int8 *a5, unsigned int a6)
 {
-  v5 = (*(a2->var0 + 3))(a2);
-  (*(*v5 + 16))(v5);
+  v6 = (*(a2->var0 + 3))(a2);
+  (*(*v6 + 16))(v6);
   operator new();
 }
 
@@ -4390,7 +4393,7 @@ uint64_t PptParserVisitor::visit(PptParserVisitor *this, PptAnimChartBuildAtom *
   return 1;
 }
 
-uint64_t SsrwOOStream::readCsData(SsrwOOStream *this, CsData *a2, unsigned int a3)
+char *SsrwOOStream::readCsData(SsrwOOStream *this, CsData *a2, unsigned int a3)
 {
   v8 = a3;
   result = CsData::setLength(a2, a3);
@@ -4408,7 +4411,7 @@ uint64_t SsrwOOStream::readCsData(SsrwOOStream *this, CsData *a2, unsigned int a
   return result;
 }
 
-uint64_t CsData::setLength(CsData *this, unsigned int a2)
+char *CsData::setLength(CsData *this, unsigned int a2)
 {
   var1 = this->var1;
   if (var1)
@@ -4420,7 +4423,7 @@ uint64_t CsData::setLength(CsData *this, unsigned int a2)
   this->var0 = a2;
   if (a2)
   {
-    operator new[](a2);
+    operator new[](a2, 0x1000C8077774924);
   }
 
   result = 0;
@@ -4460,7 +4463,7 @@ LABEL_5:
 
   v10 = a2;
   v11 = &v10;
-  v8 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10)[5];
+  v8 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11)[5];
   if (v8)
   {
     CsData::~CsData(v8);
@@ -4470,7 +4473,7 @@ LABEL_5:
 LABEL_9:
   v10 = a2;
   v11 = &v10;
-  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10);
+  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11);
   result[5] = a3;
   result[6] = 0;
   return result;
@@ -4690,18 +4693,19 @@ _xmlNode *CXFirstChildNamed(_xmlNode *a1, xmlChar *str1)
   return i;
 }
 
-id link3DTokens(EFormula *a1, __int16 a2, const EFRefTok *a3)
+id link3DTokens(EFormula *a1, uint64_t a2, const EFRefTok *a3)
 {
+  v4 = a2;
   v5 = objc_alloc_init([(EFormula *)a1 formulaClass]);
   v6 = v5;
   if (a3->type == 37)
   {
-    addArea3DOperandWithSheet(v5, 1, a2, *a3->data, *&a3->data[2], *&a3->data[4], *&a3->data[6]);
+    addArea3DOperandWithSheet(v5, 1, v4, *a3->data, *&a3->data[2], *&a3->data[4], *&a3->data[6]);
   }
 
   else if (a3->type == 36)
   {
-    addRef3DOperandWithSheet(v5, 1, a2, *a3->data, *&a3->data[2], 0);
+    addRef3DOperandWithSheet(v5, 1, v4, *a3->data, *&a3->data[2], 0);
   }
 
   return v6;
@@ -5422,7 +5426,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlExternName *a2)
     v9 = (*(**(this + 2) + 72))(*(this + 2));
     if (v9)
     {
-      operator new[](v9);
+      operator new[](v9, 0x1000C8077774924);
     }
   }
 
@@ -5650,11 +5654,11 @@ void XlExternName::~XlExternName(XlExternName *this)
   }
 }
 
-void *XlExternName::clearOperands(void *this)
+XlOper *XlExternName::clearOperands(XlOper *this)
 {
   v1 = this;
-  v2 = this[8];
-  v3 = this[9];
+  v2 = *(this + 8);
+  v3 = *(this + 9);
   if (((v3 - v2) & 0x7FFFFFFF8) != 0)
   {
     v4 = 0;
@@ -5665,8 +5669,8 @@ void *XlExternName::clearOperands(void *this)
       {
         XlOper::~XlOper(this);
         this = MEMORY[0x25F897000]();
-        v2 = v1[8];
-        v3 = v1[9];
+        v2 = *(v1 + 8);
+        v3 = *(v1 + 9);
       }
 
       ++v4;
@@ -5675,7 +5679,7 @@ void *XlExternName::clearOperands(void *this)
     while (v4 < ((v3 - v2) >> 3));
   }
 
-  v1[9] = v2;
+  *(v1 + 9) = v2;
   return this;
 }
 
@@ -5713,14 +5717,14 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartSerAuxTr
 
 void XlChartTrendLine::~XlChartTrendLine(XlChartTrendLine *this)
 {
-  TSURectWithOriginAndSize(this + 200);
+  TSURectWithOriginAndSize();
   XlChartDataSeries::~XlChartDataSeries(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  TSURectWithOriginAndSize(this + 200);
+  TSURectWithOriginAndSize();
 
   XlChartDataSeries::~XlChartDataSeries(this);
 }
@@ -6140,6 +6144,19 @@ void XlArray::XlArray(XlArray *this, XlHeader *a2)
   *(v2 + 40) = 0;
 }
 
+void XlParserVisitor::visit(XlParserVisitor *this, XlArray *a2)
+{
+  operator new();
+}
+
+{
+  operator new();
+}
+
+{
+  operator new();
+}
+
 XlArray *XlFormulaInfo::takeArrayBase(XlFormulaInfo *this, XlArray *a2)
 {
   result = this->var7;
@@ -6219,7 +6236,7 @@ void XlStringExtractor::markHashTableAsCorrupted(XlStringExtractor *this)
   v8 = *(this + 40);
   *(this + 37) = 1;
   *(this + 38) = v8;
-  operator new[](32);
+  operator new[](32, 0x1010C8057418832);
 }
 
 uint64_t XlParserVisitor::currentRecordLocation(XlParserVisitor *this)
@@ -6241,11 +6258,11 @@ uint64_t XlParserVisitor::currentRecordLocation(XlParserVisitor *this)
   }
 }
 
-void *XlBinaryReader::findCellAHome(void *this, XlRowBlock *a2, int a3)
+XlCellRow *XlBinaryReader::findCellAHome(XlCellRow *this, XlRowBlock *a2, int a3)
 {
   v5 = this;
-  v6 = this[52];
-  v7 = this[53];
+  v6 = *(this + 52);
+  v7 = *(this + 53);
   do
   {
     if (((v7 - v6) & 0x7FFFFFFF8) == 0)
@@ -6268,23 +6285,23 @@ void *XlBinaryReader::findCellAHome(void *this, XlRowBlock *a2, int a3)
           if (v11 <= this)
           {
             this = XlRowBlock::takeCell(a2, v9);
-            v12 = v5[53];
-            v13 = v5[52] + 8 * v8;
+            v12 = *(v5 + 53);
+            v13 = *(v5 + 52) + 8 * v8;
             v14 = v12 - (v13 + 8);
             if (v12 != v13 + 8)
             {
               this = memmove(v13, (v13 + 8), v12 - (v13 + 8));
             }
 
-            v5[53] = v13 + v14;
+            *(v5 + 53) = v13 + v14;
             --v8;
           }
         }
       }
 
       ++v8;
-      v6 = v5[52];
-      v15 = (v5[53] - v6) >> 3;
+      v6 = *(v5 + 52);
+      v15 = (*(v5 + 53) - v6) >> 3;
       if (v8 >= v15)
       {
         if (!v15)
@@ -6307,29 +6324,29 @@ void *XlBinaryReader::findCellAHome(void *this, XlRowBlock *a2, int a3)
       break;
     }
 
-    this = (*(*v5[166] + 16))(v5[166], 5);
+    this = (*(**(v5 + 166) + 16))(*(v5 + 166), 5);
     if (this)
     {
       v17 = this;
-      v18 = this[1];
+      v18 = *(this + 1);
       *(v18 + 8) = v16->var1;
       *(v18 + 10) = 983295;
       *(v18 + 19) = 1;
       XlCellRow::takeCell(this, v16);
-      v20 = v5[52];
-      v19 = v5[53];
+      v20 = *(v5 + 52);
+      v19 = *(v5 + 53);
       v21 = v19 - (v20 + 8);
       if (v19 != v20 + 8)
       {
-        memmove(v5[52], (v20 + 8), v19 - (v20 + 8));
+        memmove(*(v5 + 52), (v20 + 8), v19 - (v20 + 8));
       }
 
-      v5[53] = v20 + v21;
+      *(v5 + 53) = v20 + v21;
       this = XlRowBlock::takeRow(a2, v17);
     }
 
-    v6 = v5[52];
-    v7 = v5[53];
+    v6 = *(v5 + 52);
+    v7 = *(v5 + 53);
   }
 
   while (((v7 - v6) & 0x7FFFFFFF8) != 0);
@@ -6403,11 +6420,11 @@ LABEL_5:
 
   v10 = a2;
   v11 = &v10;
-  if ((std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10)[5] & 1) == 0)
+  if ((std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11)[5] & 1) == 0)
   {
     v10 = a2;
     v11 = &v10;
-    v8 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10)[6];
+    v8 = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11)[6];
     if (v8)
     {
       (*(*v8 + 8))(v8);
@@ -6417,7 +6434,7 @@ LABEL_5:
 LABEL_10:
   v10 = a2;
   v11 = &v10;
-  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10);
+  result = std::__tree<std::__value_type<unsigned int,EshOpt::Value>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EshOpt::Value>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EshOpt::Value>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 32, &v10, &std::piecewise_construct, &v11);
   result[5] = 0;
   result[6] = a3;
   return result;
@@ -6564,19 +6581,19 @@ _DWORD *yyFlexLexer::yy_push_state(_DWORD *this, int a2)
       this = malloc_type_malloc(4 * v5, 0x43DA4E99uLL);
     }
 
-    *(v3 + 40) = this;
+    *(v3 + 5) = this;
     if (!this)
     {
       this = (*(*v3 + 112))(v3, "out of memory expanding start-condition stack");
     }
   }
 
-  v7 = (*(v3 + 404) - 1) / 2;
-  v8 = *(v3 + 40);
-  v9 = *(v3 + 32);
-  *(v3 + 32) = v9 + 1;
+  v7 = (v3[101] - 1) / 2;
+  v8 = *(v3 + 5);
+  v9 = v3[8];
+  v3[8] = v9 + 1;
   *(v8 + 4 * v9) = v7;
-  *(v3 + 404) = (2 * a2) | 1;
+  v3[101] = (2 * a2) | 1;
   return this;
 }
 
@@ -6862,14 +6879,14 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartSurface 
 
 void XlChartSurfacePlot::~XlChartSurfacePlot(XlChartSurfacePlot *this)
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
   XlChartPlot::~XlChartPlot(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(this);
 }
@@ -6953,14 +6970,14 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartRadar *a
 
 void XlChartRadarPlot::~XlChartRadarPlot(XlChartRadarPlot *this)
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
   XlChartPlot::~XlChartPlot(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(this);
 }
@@ -7041,7 +7058,7 @@ uint64_t PptParserVisitor::visit(PptParserVisitor *this, PptComment10Atom *a2)
   *(a2 + 12) = (*(**(this + 1) + 96))(*(this + 1));
   *(a2 + 52) = OcParser::parseSystemTimeFromStream(*(this + 1), v4);
   *(a2 + 30) = v5;
-  OcParser::parsePointI4FromStream(*(this + 1), v5, &v7);
+  OcParser::parsePointI4FromStream(&v7, *(this + 1), v5);
   *(a2 + 8) = v7;
   PptParserVisitor::endRead(this, a2);
   return 1;
@@ -7426,14 +7443,14 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartArea *a2
 
 void XlChartAreaPlot::~XlChartAreaPlot(XlChartAreaPlot *this)
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
   XlChartPlot::~XlChartPlot(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(this);
 }
@@ -7698,7 +7715,7 @@ uint64_t *WrdStyle::takeTableProps(uint64_t a1, unsigned int a2, uint64_t a3)
       {
         v11 = a2;
         v12 = &v11;
-        v8 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 128, &v11)[5];
+        v8 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 128, &v11, &std::piecewise_construct, &v12)[5];
         if (v8)
         {
           (*(*v8 + 8))(v8);
@@ -7706,7 +7723,7 @@ uint64_t *WrdStyle::takeTableProps(uint64_t a1, unsigned int a2, uint64_t a3)
 
         v11 = a2;
         v12 = &v11;
-        std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 128, &v11)[5] = 0;
+        std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 128, &v11, &std::piecewise_construct, &v12)[5] = 0;
         break;
       }
 
@@ -7716,7 +7733,7 @@ uint64_t *WrdStyle::takeTableProps(uint64_t a1, unsigned int a2, uint64_t a3)
 
   v11 = a2;
   v12 = &v11;
-  result = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 128, &v11);
+  result = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 128, &v11, &std::piecewise_construct, &v12);
   result[5] = a3;
   return result;
 }
@@ -7738,7 +7755,7 @@ uint64_t *WrdStyle::takeCharProps(uint64_t a1, unsigned int a2, uint64_t a3)
       {
         v11 = a2;
         v12 = &v11;
-        v8 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v11)[5];
+        v8 = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v11, &std::piecewise_construct, &v12)[5];
         if (v8)
         {
           (*(*v8 + 8))(v8);
@@ -7746,7 +7763,7 @@ uint64_t *WrdStyle::takeCharProps(uint64_t a1, unsigned int a2, uint64_t a3)
 
         v11 = a2;
         v12 = &v11;
-        std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v11)[5] = 0;
+        std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v11, &std::piecewise_construct, &v12)[5] = 0;
         break;
       }
 
@@ -7756,12 +7773,12 @@ uint64_t *WrdStyle::takeCharProps(uint64_t a1, unsigned int a2, uint64_t a3)
 
   v11 = a2;
   v12 = &v11;
-  result = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v11);
+  result = std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v11, &std::piecewise_construct, &v12);
   result[5] = a3;
   return result;
 }
 
-uint64_t WrdStyle::getCharPropsReference(uint64_t a1, unsigned int a2)
+uint64_t WrdStyle::getCharPropsReference(uint64_t a1, int a2)
 {
   if (*(a1 + 152) != 3 || (v2 = *(a1 + 112)) == 0)
   {
@@ -7794,7 +7811,7 @@ LABEL_6:
 
   v6 = a2;
   v7 = &v6;
-  return std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v6)[5];
+  return std::__tree<std::__value_type<unsigned int,XlChartEnteredData *>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,XlChartEnteredData *>,CsLess<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,XlChartEnteredData *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 104, &v6, &std::piecewise_construct, &v7)[5];
 }
 
 uint64_t WrdStyle::getTableProps(uint64_t a1, unsigned int a2)
@@ -8069,27 +8086,28 @@ uint64_t WrdAnnotationDateTimeTable::getDateTime(WrdAnnotationDateTimeTable *thi
   return *(v2 + 8 * a2);
 }
 
-void ChLogF(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void ChLogF(const char *a1, ...)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v9 = g_pFile;
+  va_start(va, a1);
+  v10 = *MEMORY[0x277D85DE8];
+  v1 = g_pFile;
   if (g_pFile)
   {
-    v11 = malloc_type_malloc(0x1F4uLL, 0x100004077774924uLL);
-    if (v11)
+    v3 = malloc_type_malloc(0x1F4uLL, 0x100004077774924uLL);
+    if (v3)
     {
-      v12 = v11;
-      v16 = 0;
-      time(&v16);
-      v13 = localtime(&v16);
-      snprintf(__str, 0x16uLL, "%02d/%02d/%04d-%02d:%02d:%02d; ", v13->tm_mday, v13->tm_mon, v13->tm_year + 1900, v13->tm_hour, v13->tm_min, v13->tm_sec);
-      v14 = strlen(__str);
-      fwrite(__str, 1uLL, v14, v9);
-      vsnprintf(v12, 0x1F4uLL, a1, &a9);
-      v15 = strlen(v12);
-      fwrite(v12, 1uLL, v15, v9);
-      fflush(v9);
-      free(v12);
+      v4 = v3;
+      v8 = 0;
+      time(&v8);
+      v5 = localtime(&v8);
+      snprintf(__str, 0x16uLL, "%02d/%02d/%04d-%02d:%02d:%02d; ", v5->tm_mday, v5->tm_mon, v5->tm_year + 1900, v5->tm_hour, v5->tm_min, v5->tm_sec);
+      v6 = strlen(__str);
+      fwrite(__str, 1uLL, v6, v1);
+      vsnprintf(v4, 0x1F4uLL, a1, va);
+      v7 = strlen(v4);
+      fwrite(v4, 1uLL, v7, v1);
+      fflush(v1);
+      free(v4);
     }
   }
 }
@@ -8232,15 +8250,15 @@ void XlOper::~XlOper(XlOper *this)
   *(this + 2) = 0;
 }
 
-uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartPivotTableReference *a2)
+uint64_t XlChartParserVisitor::visit(SsrwOOStream **this, XlChartPivotTableReference *a2)
 {
   XlParserVisitor::beginRead(this);
-  (*(**(this + 2) + 16))(*(this + 2), 2, 1);
-  (*(**(this + 2) + 96))(*(this + 2));
-  if ((*(**(this + 2) + 64))(*(this + 2)))
+  (*(this[2]->var0 + 2))(this[2], 2, 1);
+  (*(this[2]->var0 + 12))(this[2]);
+  if ((*(this[2]->var0 + 8))(this[2]))
   {
-    (*(**(this + 2) + 64))(*(this + 2));
-    if (!*(this + 4))
+    (*(this[2]->var0 + 8))(this[2]);
+    if (!this[4])
     {
       operator new();
     }
@@ -8302,14 +8320,14 @@ uint64_t XlChartParserVisitor::visit(XlChartParserVisitor *this, XlChartRadarAre
 
 void XlChartRadarAreaPlot::~XlChartRadarAreaPlot(XlChartRadarAreaPlot *this)
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
   XlChartPlot::~XlChartPlot(this);
 
   JUMPOUT(0x25F897000);
 }
 
 {
-  TSURectWithOriginAndSize(this + 144);
+  TSURectWithOriginAndSize();
 
   XlChartPlot::~XlChartPlot(this);
 }
@@ -8346,9 +8364,9 @@ uint64_t PptParserVisitor::visit(PptParserVisitor *this, PptTextBlockStyling11At
   return 1;
 }
 
-void PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom(PptTextBlockStyling11Atom *this)
+void PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom(PptTextBlockStyling11Atom *this, uint64_t a2)
 {
-  PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom(this);
+  PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom(this, a2);
 
   JUMPOUT(0x25F897000);
 }
@@ -8356,56 +8374,56 @@ void PptTextBlockStyling11Atom::~PptTextBlockStyling11Atom(PptTextBlockStyling11
 {
   *this = &unk_286EDF340;
   *(this + 4) = &unk_286EDF3E8;
-  PptTextBlockStyling11Atom::reset(this);
-  v2 = *(this + 6);
-  if (v2)
+  PptTextBlockStyling11Atom::reset(this, a2);
+  v3 = *(this + 6);
+  if (v3)
   {
-    *(this + 7) = v2;
-    operator delete(v2);
+    *(this + 7) = v3;
+    operator delete(v3);
   }
 }
 
-void *PptTextBlockStyling11Atom::reset(void *this)
+PptSpecialInfo11 *PptTextBlockStyling11Atom::reset(PptSpecialInfo11 *this, uint64_t a2)
 {
-  v1 = this;
-  v2 = this[6];
-  v3 = this[7] - v2;
-  if ((v3 & 0x7FFFFFFF8) != 0)
+  v2 = this;
+  v3 = *(this + 6);
+  v4 = *(this + 7) - v3;
+  if ((v4 & 0x7FFFFFFF8) != 0)
   {
-    v4 = 0;
-    v5 = (v3 >> 3);
+    v5 = 0;
+    v6 = (v4 >> 3);
     do
     {
-      v6 = v1[6];
-      v7 = v1[7] - v6;
-      if (v4 >= (v7 >> 3))
+      v7 = *(v2 + 6);
+      v8 = *(v2 + 7) - v7;
+      if (v5 >= (v8 >> 3))
       {
         goto LABEL_10;
       }
 
-      this = *(v6 + 8 * v4);
+      this = *(v7 + 8 * v5);
       if (this)
       {
         PptSpecialInfo11::~PptSpecialInfo11(this);
         this = MEMORY[0x25F897000]();
-        v6 = v1[6];
-        v7 = v1[7] - v6;
+        v7 = *(v2 + 6);
+        v8 = *(v2 + 7) - v7;
       }
 
-      if (v4 >= (v7 >> 3))
+      if (v5 >= (v8 >> 3))
       {
 LABEL_10:
         std::vector<TSU::UUIDData<TSP::UUIDData>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      *(v6 + 8 * v4++) = 0;
+      *(v7 + 8 * v5++) = 0;
     }
 
-    while (v5 != v4);
-    v2 = v1[6];
+    while (v6 != v5);
+    v3 = *(v2 + 6);
   }
 
-  v1[7] = v2;
+  *(v2 + 7) = v3;
   return this;
 }
 
@@ -9555,48 +9573,48 @@ void std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingO
   }
 }
 
-void *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeStampLess,std::allocator<TSUFlushableObjectInfo *>>::__emplace_unique_key_args<TSUFlushableObjectInfo *,TSUFlushableObjectInfo * const&>(uint64_t a1, uint64_t a2)
+void *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeStampLess,std::allocator<TSUFlushableObjectInfo *>>::__emplace_unique_key_args<TSUFlushableObjectInfo *,TSUFlushableObjectInfo * const&>(uint64_t a1, uint64_t a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *(*a2 + 20);
+  v4 = *(*a2 + 20);
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2[4] + 20);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3[4] + 20);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeStampLess,std::allocator<TSUFlushableObjectInfo *>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerTimeStampLess,std::allocator<TSUFlushableObjectInfo *>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -9622,12 +9640,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -9641,22 +9659,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -9690,13 +9708,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -9736,18 +9754,4 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   }
 
   return result;
-}
-
-uint64_t std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingOrderLess,std::allocator<TSUFlushableObjectInfo *>>::__erase_unique<TSUFlushableObjectInfo *>(uint64_t **a1, const TSUFlushableObjectInfo **a2)
-{
-  v3 = std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingOrderLess,std::allocator<TSUFlushableObjectInfo *>>::find<TSUFlushableObjectInfo *>(a1, a2);
-  if (a1 + 1 == v3)
-  {
-    return 0;
-  }
-
-  v4 = v3;
-  std::__tree<TSUFlushableObjectInfo *,TSUFlushableObjectInfoPointerFlushingOrderLess,std::allocator<TSUFlushableObjectInfo *>>::__remove_node_pointer(a1, v3);
-  operator delete(v4);
-  return 1;
 }

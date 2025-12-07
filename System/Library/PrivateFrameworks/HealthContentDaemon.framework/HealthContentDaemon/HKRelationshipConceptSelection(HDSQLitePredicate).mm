@@ -6,7 +6,7 @@
 
 - (id)predicateWithProfile:()HDSQLitePredicate
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D10B80];
   v5 = a3;
   v6 = objc_alloc_init(v4);
@@ -24,8 +24,8 @@
 
   v11 = [(HDSQLiteSchemaEntity *)HDSimpleGraphDatabaseRelationshipEntity disambiguatedSQLForProperty:*v10];
   v12 = MEMORY[0x277D10B18];
-  v22[0] = *MEMORY[0x277D10A40];
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = *MEMORY[0x277D10A40];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v14 = [v12 predicateWithProperty:v11 comparisonType:7 subqueryDescriptor:v6 subqueryProperties:v13];
 
   if ([self type] == -1)
@@ -37,13 +37,11 @@
   {
     v15 = MEMORY[0x277D10B20];
     v16 = HDSimpleGraphDatabaseNodeEntityPredicateForNodesWithRelationshipType([self type]);
-    v21[0] = v16;
-    v21[1] = v14;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = v16;
+    v20[1] = v14;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v18 = [v15 predicateMatchingAllPredicates:v17];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

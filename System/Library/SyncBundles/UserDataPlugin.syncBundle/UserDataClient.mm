@@ -229,34 +229,33 @@
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [&off_8BF8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v4 = [&off_8BF8 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(&off_8BF8);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
         *buf = 0;
-        v11 = ATGetUsageForPath();
+        v10 = ATGetUsageForPath();
         v7 += *buf;
-        v6 += v11;
+        v6 += v10;
       }
 
-      v5 = [&off_8BF8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v5 = [&off_8BF8 countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v5);
@@ -270,14 +269,14 @@
     v7 = 0;
   }
 
-  v12 = _ATLogCategorySyncBundle();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = _ATLogCategorySyncBundle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v19 = v7;
-    v20 = 2048;
-    v21 = v6;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "found %lld system data files, %lld bytes", buf, 0x16u);
+    v18 = v7;
+    v19 = 2048;
+    v20 = v6;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "found %lld system data files, %lld bytes", buf, 0x16u);
   }
 
   return result;

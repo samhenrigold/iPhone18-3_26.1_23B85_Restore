@@ -45,75 +45,73 @@
 
 void __30__FCFeedPrewarmResult_feedIDs__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = [*(a1 + 32) successfulRequests];
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       v8 = 0;
       do
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v21 + 1) + 8 * v8) feedID];
+        v9 = [*(*(&v20 + 1) + 8 * v8) feedID];
         [v3 addObject:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = [*(a1 + 32) failedRequests];
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v17 + 1) + 8 * v14) feedID];
+        v15 = [*(*(&v16 + 1) + 8 * v14) feedID];
         [v3 addObject:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

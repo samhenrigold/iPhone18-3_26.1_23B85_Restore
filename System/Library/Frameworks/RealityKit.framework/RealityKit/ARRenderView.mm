@@ -8,7 +8,7 @@
 
 + (Class)layerClass
 {
-  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for CAMetalLayer);
+  type metadata accessor for ARReferenceObject(0, &lazy cache variable for type metadata for CAMetalLayer, 0x1E69793E8);
 
   return swift_getObjCClassFromMetadata();
 }

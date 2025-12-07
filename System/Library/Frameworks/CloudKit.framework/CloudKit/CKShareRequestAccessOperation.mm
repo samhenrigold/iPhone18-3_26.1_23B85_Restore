@@ -52,7 +52,7 @@
 - (void)setPerShareAccessRequestCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -83,7 +83,7 @@ LABEL_9:
 
 - (id)perShareAccessRequestCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -120,7 +120,7 @@ LABEL_9:
 - (void)setShareRequestAccessCompletionBlockIVar:(id)var
 {
   varCopy = var;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -151,7 +151,7 @@ LABEL_9:
 
 - (id)shareRequestAccessCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -243,31 +243,31 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v5 = objc_msgSend_shareURLs(self, a2, run);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v25, v29, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v24, v28, 16);
   if (!v7)
   {
     goto LABEL_10;
   }
 
   v9 = v7;
-  v10 = *v26;
+  v10 = *v25;
   while (2)
   {
     v11 = 0;
     do
     {
-      if (*v26 != v10)
+      if (*v25 != v10)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v25 + 1) + 8 * v11);
+      v12 = *(*(&v24 + 1) + 8 * v11);
       if (!v12)
       {
         if (run)
@@ -278,7 +278,7 @@ LABEL_9:
 
 LABEL_17:
 
-        goto LABEL_18;
+        return 0;
       }
 
       objc_opt_class();
@@ -297,7 +297,7 @@ LABEL_17:
     }
 
     while (v9 != v11);
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v25, v29, 16);
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v24, v28, 16);
     if (v9)
     {
       continue;
@@ -313,32 +313,30 @@ LABEL_10:
 
   if (v18)
   {
-    v24.receiver = self;
-    v24.super_class = CKShareRequestAccessOperation;
-    result = [(CKOperation *)&v24 CKOperationShouldRun:run];
+    v23.receiver = self;
+    v23.super_class = CKShareRequestAccessOperation;
+    return [(CKOperation *)&v23 CKOperationShouldRun:run];
   }
 
   else if (run)
   {
-    v22 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v19, @"CKErrorDomain", 12, @"You must specify some share URLs to request access to.");
-    v23 = v22;
+    v21 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v19, @"CKErrorDomain", 12, @"You must specify some share URLs to request access to.");
+    v22 = v21;
     result = 0;
-    *run = v22;
+    *run = v21;
   }
 
   else
   {
-LABEL_18:
-    result = 0;
+    return 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)handleShareAccessRequestForURL:(id)l error:(id)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v9 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (self)
@@ -388,9 +386,9 @@ LABEL_18:
 
     if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
-      v45 = 138412290;
-      v46 = lCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v24, OS_SIGNPOST_EVENT, v34, "CKShareRequestAccessOperation", "Requested access for share: %@", &v45, 0xCu);
+      v44 = 138412290;
+      v45 = lCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v24, OS_SIGNPOST_EVENT, v34, "CKShareRequestAccessOperation", "Requested access for share: %@", &v44, 0xCu);
     }
 
     goto LABEL_23;
@@ -426,11 +424,11 @@ LABEL_18:
 
     if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      v45 = 138412546;
-      v46 = lCopy;
-      v47 = 2112;
-      v48 = v9;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v18, OS_SIGNPOST_EVENT, v23, "CKShareRequestAccessOperation", "Requested access for share: %@ with error: %@", &v45, 0x16u);
+      v44 = 138412546;
+      v45 = lCopy;
+      v46 = 2112;
+      v47 = v9;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v18, OS_SIGNPOST_EVENT, v23, "CKShareRequestAccessOperation", "Requested access for share: %@ with error: %@", &v44, 0x16u);
     }
   }
 
@@ -454,20 +452,18 @@ LABEL_24:
     v36 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v41 = v36;
-      v44 = objc_msgSend_operationID(self, v42, v43);
-      v45 = 138543618;
-      v46 = v44;
-      v47 = 2112;
-      v48 = v9;
-      _os_log_debug_impl(&dword_1883EA000, v41, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about requested access for share: %@", &v45, 0x16u);
+      v40 = v36;
+      v43 = objc_msgSend_operationID(self, v41, v42);
+      v44 = 138543618;
+      v45 = v43;
+      v46 = 2112;
+      v47 = v9;
+      _os_log_debug_impl(&dword_1883EA000, v40, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about requested access for share: %@", &v44, 0x16u);
     }
 
     v39 = objc_msgSend_perShareAccessRequestCompletionBlock(self, v37, v38);
     (v39)[2](v39, lCopy, v9);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
@@ -559,7 +555,7 @@ LABEL_24:
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super._signpost;
@@ -612,28 +608,26 @@ LABEL_24:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKShareRequestAccessOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKShareRequestAccessOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -677,13 +671,11 @@ LABEL_24:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKShareRequestAccessOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKShareRequestAccessOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

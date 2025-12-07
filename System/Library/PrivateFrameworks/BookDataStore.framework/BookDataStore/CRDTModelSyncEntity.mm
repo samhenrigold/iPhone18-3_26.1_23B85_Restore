@@ -36,7 +36,7 @@
   v8 = sub_1E46611DC(date, salt);
   swift_unknownObjectRelease();
 
-  return v8 & 1;
+  return v8;
 }
 
 - (void)resolveConflictsFromRecord:(id)record withResolvers:(id)resolvers
@@ -63,7 +63,7 @@
 - (_TtC13BookDataStore19CRDTModelSyncEntity)initWithEntity:(id)entity insertIntoManagedObjectContext:(id)context
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CRDTModelSyncEntity();
+  v7.super_class = type metadata accessor for CRDTModelSyncEntity(0);
   return [(CRDTModelSyncEntity *)&v7 initWithEntity:entity insertIntoManagedObjectContext:context];
 }
 
@@ -97,7 +97,7 @@
 - (NSString)debugDescription
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for CRDTModelSyncEntity();
+  v9.super_class = type metadata accessor for CRDTModelSyncEntity(0);
   v2 = v9.receiver;
   v3 = [(CRDTModelSyncEntity *)&v9 debugDescription];
   sub_1E470AF1C();

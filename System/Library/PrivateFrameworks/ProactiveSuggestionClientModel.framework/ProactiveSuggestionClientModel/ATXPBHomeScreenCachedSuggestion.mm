@@ -26,35 +26,35 @@
 - (uint64_t)addCachedTopOfStackLayouts:(uint64_t)layouts;
 - (uint64_t)addFallbackSuggestions:(uint64_t)suggestions;
 - (uint64_t)cachedAppPredictionPanelIds;
-- (uint64_t)cachedAppPredictionPanelIdsCount;
 - (uint64_t)cachedAppPredictionPanelLayouts;
-- (uint64_t)cachedAppPredictionPanelLayoutsCount;
 - (uint64_t)cachedSuggestedWidgetLayoutListKeys;
-- (uint64_t)cachedSuggestedWidgetLayoutListKeysCount;
 - (uint64_t)cachedSuggestedWidgetLayoutLists;
-- (uint64_t)cachedSuggestedWidgetLayoutListsCount;
 - (uint64_t)cachedSuggestionWidgetIds;
-- (uint64_t)cachedSuggestionWidgetIdsCount;
 - (uint64_t)cachedSuggestionWidgetLayouts;
-- (uint64_t)cachedSuggestionWidgetLayoutsCount;
 - (uint64_t)cachedTopOfStackLayoutKeys;
-- (uint64_t)cachedTopOfStackLayoutKeysCount;
 - (uint64_t)cachedTopOfStackLayouts;
-- (uint64_t)cachedTopOfStackLayoutsCount;
-- (uint64_t)clearCachedAppPredictionPanelIds;
-- (uint64_t)clearCachedAppPredictionPanelLayouts;
-- (uint64_t)clearCachedSuggestedWidgetLayoutListKeys;
-- (uint64_t)clearCachedSuggestedWidgetLayoutLists;
-- (uint64_t)clearCachedSuggestionWidgetIds;
-- (uint64_t)clearCachedSuggestionWidgetLayouts;
-- (uint64_t)clearCachedTopOfStackLayoutKeys;
-- (uint64_t)clearCachedTopOfStackLayouts;
-- (uint64_t)clearFallbackSuggestions;
 - (uint64_t)fallbackSuggestions;
-- (uint64_t)fallbackSuggestionsCount;
 - (uint64_t)uuidString;
 - (unint64_t)hash;
+- (void)cachedAppPredictionPanelIdsCount;
+- (void)cachedAppPredictionPanelLayoutsCount;
+- (void)cachedSuggestedWidgetLayoutListKeysCount;
+- (void)cachedSuggestedWidgetLayoutListsCount;
+- (void)cachedSuggestionWidgetIdsCount;
+- (void)cachedSuggestionWidgetLayoutsCount;
+- (void)cachedTopOfStackLayoutKeysCount;
+- (void)cachedTopOfStackLayoutsCount;
+- (void)clearCachedAppPredictionPanelIds;
+- (void)clearCachedAppPredictionPanelLayouts;
+- (void)clearCachedSuggestedWidgetLayoutListKeys;
+- (void)clearCachedSuggestedWidgetLayoutLists;
+- (void)clearCachedSuggestionWidgetIds;
+- (void)clearCachedSuggestionWidgetLayouts;
+- (void)clearCachedTopOfStackLayoutKeys;
+- (void)clearCachedTopOfStackLayouts;
+- (void)clearFallbackSuggestions;
 - (void)copyTo:(uint64_t)to;
+- (void)fallbackSuggestionsCount;
 - (void)mergeFrom:(uint64_t)from;
 - (void)setCachedAppPredictionPanelIds:(uint64_t)ids;
 - (void)setCachedAppPredictionPanelLayouts:(uint64_t)layouts;
@@ -106,7 +106,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = dictionary;
   uuidString = self->_uuidString;
@@ -124,30 +124,30 @@
   if ([(NSMutableArray *)self->_cachedSuggestionWidgetLayouts count])
   {
     v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_cachedSuggestionWidgetLayouts, "count")}];
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
     v8 = self->_cachedSuggestionWidgetLayouts;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v63 objects:v71 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v62 objects:v70 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v64;
+      v11 = *v63;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v64 != v11)
+          if (*v63 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation = [*(*(&v63 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v62 + 1) + 8 * i) dictionaryRepresentation];
           [v7 addObject:dictionaryRepresentation];
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v63 objects:v71 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v62 objects:v70 count:16];
       }
 
       while (v10);
@@ -165,30 +165,30 @@
   if ([(NSMutableArray *)self->_cachedTopOfStackLayouts count])
   {
     v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_cachedTopOfStackLayouts, "count")}];
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     v16 = self->_cachedTopOfStackLayouts;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v59 objects:v70 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v58 objects:v69 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v60;
+      v19 = *v59;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v60 != v19)
+          if (*v59 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation2 = [*(*(&v59 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v58 + 1) + 8 * j) dictionaryRepresentation];
           [v15 addObject:dictionaryRepresentation2];
         }
 
-        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v59 objects:v70 count:16];
+        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v58 objects:v69 count:16];
       }
 
       while (v18);
@@ -200,30 +200,30 @@
   if ([(NSMutableArray *)self->_fallbackSuggestions count])
   {
     v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_fallbackSuggestions, "count")}];
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     v23 = self->_fallbackSuggestions;
-    v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v55 objects:v69 count:16];
+    v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v54 objects:v68 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v56;
+      v26 = *v55;
       do
       {
         for (k = 0; k != v25; ++k)
         {
-          if (*v56 != v26)
+          if (*v55 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          dictionaryRepresentation3 = [*(*(&v55 + 1) + 8 * k) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v54 + 1) + 8 * k) dictionaryRepresentation];
           [v22 addObject:dictionaryRepresentation3];
         }
 
-        v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v55 objects:v69 count:16];
+        v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v54 objects:v68 count:16];
       }
 
       while (v25);
@@ -241,30 +241,30 @@
   if ([(NSMutableArray *)self->_cachedAppPredictionPanelLayouts count])
   {
     v30 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_cachedAppPredictionPanelLayouts, "count")}];
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     v31 = self->_cachedAppPredictionPanelLayouts;
-    v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v51 objects:v68 count:16];
+    v32 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v50 objects:v67 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v52;
+      v34 = *v51;
       do
       {
         for (m = 0; m != v33; ++m)
         {
-          if (*v52 != v34)
+          if (*v51 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          dictionaryRepresentation4 = [*(*(&v51 + 1) + 8 * m) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v50 + 1) + 8 * m) dictionaryRepresentation];
           [v30 addObject:dictionaryRepresentation4];
         }
 
-        v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v51 objects:v68 count:16];
+        v33 = [(NSMutableArray *)v31 countByEnumeratingWithState:&v50 objects:v67 count:16];
       }
 
       while (v33);
@@ -282,30 +282,30 @@
   if ([(NSMutableArray *)self->_cachedSuggestedWidgetLayoutLists count])
   {
     v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_cachedSuggestedWidgetLayoutLists, "count")}];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     v39 = self->_cachedSuggestedWidgetLayoutLists;
-    v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v47 objects:v67 count:16];
+    v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v46 objects:v66 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v48;
+      v42 = *v47;
       do
       {
         for (n = 0; n != v41; ++n)
         {
-          if (*v48 != v42)
+          if (*v47 != v42)
           {
             objc_enumerationMutation(v39);
           }
 
-          dictionaryRepresentation5 = [*(*(&v47 + 1) + 8 * n) dictionaryRepresentation];
+          dictionaryRepresentation5 = [*(*(&v46 + 1) + 8 * n) dictionaryRepresentation];
           [v38 addObject:dictionaryRepresentation5];
         }
 
-        v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v47 objects:v67 count:16];
+        v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v46 objects:v66 count:16];
       }
 
       while (v41);
@@ -314,644 +314,610 @@
     [v4 setObject:v38 forKey:@"cachedSuggestedWidgetLayoutLists"];
   }
 
-  v45 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v105 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_uuidString)
   {
     PBDataWriterWriteStringField();
   }
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
-  v93 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   v5 = self->_cachedSuggestionWidgetIds;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v92 objects:v104 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v82 objects:v94 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v93;
+    v8 = *v83;
     do
     {
       v9 = 0;
       do
       {
-        if (*v93 != v8)
+        if (*v83 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v92 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v92 objects:v104 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v82 objects:v94 count:16];
     }
 
     while (v7);
   }
 
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v11 = self->_cachedSuggestionWidgetLayouts;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v88 objects:v103 count:16];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = *v89;
-    do
-    {
-      v15 = 0;
-      do
-      {
-        if (*v89 != v14)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v16 = *(*(&v88 + 1) + 8 * v15);
-        PBDataWriterWriteSubmessage();
-        ++v15;
-      }
-
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v88 objects:v103 count:16];
-    }
-
-    while (v13);
-  }
-
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
-  v85 = 0u;
-  v17 = self->_cachedTopOfStackLayoutKeys;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v84 objects:v102 count:16];
-  if (v18)
-  {
-    v19 = v18;
-    v20 = *v85;
-    do
-    {
-      v21 = 0;
-      do
-      {
-        if (*v85 != v20)
-        {
-          objc_enumerationMutation(v17);
-        }
-
-        v22 = *(*(&v84 + 1) + 8 * v21);
-        PBDataWriterWriteStringField();
-        ++v21;
-      }
-
-      while (v19 != v21);
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v84 objects:v102 count:16];
-    }
-
-    while (v19);
-  }
-
-  v82 = 0u;
-  v83 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v23 = self->_cachedTopOfStackLayouts;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v80 objects:v101 count:16];
-  if (v24)
-  {
-    v25 = v24;
-    v26 = *v81;
-    do
-    {
-      v27 = 0;
-      do
-      {
-        if (*v81 != v26)
-        {
-          objc_enumerationMutation(v23);
-        }
-
-        v28 = *(*(&v80 + 1) + 8 * v27);
-        PBDataWriterWriteSubmessage();
-        ++v27;
-      }
-
-      while (v25 != v27);
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v80 objects:v101 count:16];
-    }
-
-    while (v25);
-  }
-
   v78 = 0u;
   v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v29 = self->_fallbackSuggestions;
-  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v76 objects:v100 count:16];
-  if (v30)
+  v10 = self->_cachedSuggestionWidgetLayouts;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v78 objects:v93 count:16];
+  if (v11)
   {
-    v31 = v30;
-    v32 = *v77;
+    v12 = v11;
+    v13 = *v79;
     do
     {
-      v33 = 0;
+      v14 = 0;
       do
       {
-        if (*v77 != v32)
+        if (*v79 != v13)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v10);
         }
 
-        v34 = *(*(&v76 + 1) + 8 * v33);
         PBDataWriterWriteSubmessage();
-        ++v33;
+        ++v14;
       }
 
-      while (v31 != v33);
-      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v76 objects:v100 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v78 objects:v93 count:16];
     }
 
-    while (v31);
+    while (v12);
   }
 
+  v76 = 0u;
+  v77 = 0u;
   v74 = 0u;
   v75 = 0u;
+  v15 = self->_cachedTopOfStackLayoutKeys;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v74 objects:v92 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v75;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v75 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteStringField();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v74 objects:v92 count:16];
+    }
+
+    while (v17);
+  }
+
   v72 = 0u;
   v73 = 0u;
-  v35 = self->_cachedAppPredictionPanelIds;
-  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v72 objects:v99 count:16];
+  v70 = 0u;
+  v71 = 0u;
+  v20 = self->_cachedTopOfStackLayouts;
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v70 objects:v91 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v71;
+    do
+    {
+      v24 = 0;
+      do
+      {
+        if (*v71 != v23)
+        {
+          objc_enumerationMutation(v20);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v24;
+      }
+
+      while (v22 != v24);
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v70 objects:v91 count:16];
+    }
+
+    while (v22);
+  }
+
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v25 = self->_fallbackSuggestions;
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v66 objects:v90 count:16];
+  if (v26)
+  {
+    v27 = v26;
+    v28 = *v67;
+    do
+    {
+      v29 = 0;
+      do
+      {
+        if (*v67 != v28)
+        {
+          objc_enumerationMutation(v25);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v29;
+      }
+
+      while (v27 != v29);
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v66 objects:v90 count:16];
+    }
+
+    while (v27);
+  }
+
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v30 = self->_cachedAppPredictionPanelIds;
+  v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v62 objects:v89 count:16];
+  if (v31)
+  {
+    v32 = v31;
+    v33 = *v63;
+    do
+    {
+      v34 = 0;
+      do
+      {
+        if (*v63 != v33)
+        {
+          objc_enumerationMutation(v30);
+        }
+
+        PBDataWriterWriteStringField();
+        ++v34;
+      }
+
+      while (v32 != v34);
+      v32 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v62 objects:v89 count:16];
+    }
+
+    while (v32);
+  }
+
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v35 = self->_cachedAppPredictionPanelLayouts;
+  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v58 objects:v88 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v73;
+    v38 = *v59;
     do
     {
       v39 = 0;
       do
       {
-        if (*v73 != v38)
+        if (*v59 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = *(*(&v72 + 1) + 8 * v39);
-        PBDataWriterWriteStringField();
+        PBDataWriterWriteSubmessage();
         ++v39;
       }
 
       while (v37 != v39);
-      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v72 objects:v99 count:16];
+      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v58 objects:v88 count:16];
     }
 
     while (v37);
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v41 = self->_cachedAppPredictionPanelLayouts;
-  v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v68 objects:v98 count:16];
-  if (v42)
+  v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v40 = self->_cachedSuggestedWidgetLayoutListKeys;
+  v41 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v54 objects:v87 count:16];
+  if (v41)
   {
-    v43 = v42;
-    v44 = *v69;
+    v42 = v41;
+    v43 = *v55;
     do
     {
-      v45 = 0;
+      v44 = 0;
       do
       {
-        if (*v69 != v44)
+        if (*v55 != v43)
         {
-          objc_enumerationMutation(v41);
+          objc_enumerationMutation(v40);
         }
 
-        v46 = *(*(&v68 + 1) + 8 * v45);
-        PBDataWriterWriteSubmessage();
-        ++v45;
-      }
-
-      while (v43 != v45);
-      v43 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v68 objects:v98 count:16];
-    }
-
-    while (v43);
-  }
-
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v47 = self->_cachedSuggestedWidgetLayoutListKeys;
-  v48 = [(NSMutableArray *)v47 countByEnumeratingWithState:&v64 objects:v97 count:16];
-  if (v48)
-  {
-    v49 = v48;
-    v50 = *v65;
-    do
-    {
-      v51 = 0;
-      do
-      {
-        if (*v65 != v50)
-        {
-          objc_enumerationMutation(v47);
-        }
-
-        v52 = *(*(&v64 + 1) + 8 * v51);
         PBDataWriterWriteStringField();
-        ++v51;
+        ++v44;
       }
 
-      while (v49 != v51);
-      v49 = [(NSMutableArray *)v47 countByEnumeratingWithState:&v64 objects:v97 count:16];
+      while (v42 != v44);
+      v42 = [(NSMutableArray *)v40 countByEnumeratingWithState:&v54 objects:v87 count:16];
     }
 
-    while (v49);
+    while (v42);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v53 = self->_cachedSuggestedWidgetLayoutLists;
-  v54 = [(NSMutableArray *)v53 countByEnumeratingWithState:&v60 objects:v96 count:16];
-  if (v54)
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v45 = self->_cachedSuggestedWidgetLayoutLists;
+  v46 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v50 objects:v86 count:16];
+  if (v46)
   {
-    v55 = v54;
-    v56 = *v61;
+    v47 = v46;
+    v48 = *v51;
     do
     {
-      v57 = 0;
+      v49 = 0;
       do
       {
-        if (*v61 != v56)
+        if (*v51 != v48)
         {
-          objc_enumerationMutation(v53);
+          objc_enumerationMutation(v45);
         }
 
-        v58 = *(*(&v60 + 1) + 8 * v57);
         PBDataWriterWriteSubmessage();
-        ++v57;
+        ++v49;
       }
 
-      while (v55 != v57);
-      v55 = [(NSMutableArray *)v53 countByEnumeratingWithState:&v60 objects:v96 count:16];
+      while (v47 != v49);
+      v47 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v50 objects:v86 count:16];
     }
 
-    while (v55);
+    while (v47);
   }
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_uuidString copyWithZone:zone];
   v7 = v5[10];
   v5[10] = v6;
 
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
   v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   v8 = self->_cachedSuggestionWidgetIds;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v96 objects:v108 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v95 objects:v107 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v97;
+    v11 = *v96;
     do
     {
       v12 = 0;
       do
       {
-        if (*v97 != v11)
+        if (*v96 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v96 + 1) + 8 * v12) copyWithZone:zone];
+        v13 = [*(*(&v95 + 1) + 8 * v12) copyWithZone:zone];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addCachedSuggestionWidgetIds:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v96 objects:v108 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v95 objects:v107 count:16];
     }
 
     while (v10);
   }
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
   v93 = 0u;
+  v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   v14 = self->_cachedSuggestionWidgetLayouts;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v92 objects:v107 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v91 objects:v106 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v93;
+    v17 = *v92;
     do
     {
       v18 = 0;
       do
       {
-        if (*v93 != v17)
+        if (*v92 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v92 + 1) + 8 * v18) copyWithZone:zone];
+        v19 = [*(*(&v91 + 1) + 8 * v18) copyWithZone:zone];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addCachedSuggestionWidgetLayouts:v19];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v92 objects:v107 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v91 objects:v106 count:16];
     }
 
     while (v16);
   }
 
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
   v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   v20 = self->_cachedTopOfStackLayoutKeys;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v88 objects:v106 count:16];
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v87 objects:v105 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v89;
+    v23 = *v88;
     do
     {
       v24 = 0;
       do
       {
-        if (*v89 != v23)
+        if (*v88 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [*(*(&v88 + 1) + 8 * v24) copyWithZone:zone];
+        v25 = [*(*(&v87 + 1) + 8 * v24) copyWithZone:zone];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addCachedTopOfStackLayoutKeys:v25];
 
         ++v24;
       }
 
       while (v22 != v24);
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v88 objects:v106 count:16];
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v87 objects:v105 count:16];
     }
 
     while (v22);
   }
 
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
   v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   v26 = self->_cachedTopOfStackLayouts;
-  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v84 objects:v105 count:16];
+  v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v83 objects:v104 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v85;
+    v29 = *v84;
     do
     {
       v30 = 0;
       do
       {
-        if (*v85 != v29)
+        if (*v84 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = [*(*(&v84 + 1) + 8 * v30) copyWithZone:zone];
+        v31 = [*(*(&v83 + 1) + 8 * v30) copyWithZone:zone];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addCachedTopOfStackLayouts:v31];
 
         ++v30;
       }
 
       while (v28 != v30);
-      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v84 objects:v105 count:16];
+      v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v83 objects:v104 count:16];
     }
 
     while (v28);
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v32 = self->_fallbackSuggestions;
-  v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v80 objects:v104 count:16];
+  v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v79 objects:v103 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v81;
+    v35 = *v80;
     do
     {
       v36 = 0;
       do
       {
-        if (*v81 != v35)
+        if (*v80 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = [*(*(&v80 + 1) + 8 * v36) copyWithZone:zone];
+        v37 = [*(*(&v79 + 1) + 8 * v36) copyWithZone:zone];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addFallbackSuggestions:v37];
 
         ++v36;
       }
 
       while (v34 != v36);
-      v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v80 objects:v104 count:16];
+      v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v79 objects:v103 count:16];
     }
 
     while (v34);
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v38 = self->_cachedAppPredictionPanelIds;
-  v39 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v76 objects:v103 count:16];
+  v39 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v75 objects:v102 count:16];
   if (v39)
   {
     v40 = v39;
-    v41 = *v77;
+    v41 = *v76;
     do
     {
       v42 = 0;
       do
       {
-        if (*v77 != v41)
+        if (*v76 != v41)
         {
           objc_enumerationMutation(v38);
         }
 
-        v43 = [*(*(&v76 + 1) + 8 * v42) copyWithZone:zone];
+        v43 = [*(*(&v75 + 1) + 8 * v42) copyWithZone:zone];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addCachedAppPredictionPanelIds:v43];
 
         ++v42;
       }
 
       while (v40 != v42);
-      v40 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v76 objects:v103 count:16];
+      v40 = [(NSMutableArray *)v38 countByEnumeratingWithState:&v75 objects:v102 count:16];
     }
 
     while (v40);
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v44 = self->_cachedAppPredictionPanelLayouts;
-  v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v72 objects:v102 count:16];
+  v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v71 objects:v101 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v73;
+    v47 = *v72;
     do
     {
       v48 = 0;
       do
       {
-        if (*v73 != v47)
+        if (*v72 != v47)
         {
           objc_enumerationMutation(v44);
         }
 
-        v49 = [*(*(&v72 + 1) + 8 * v48) copyWithZone:zone];
+        v49 = [*(*(&v71 + 1) + 8 * v48) copyWithZone:zone];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addCachedAppPredictionPanelLayouts:v49];
 
         ++v48;
       }
 
       while (v46 != v48);
-      v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v72 objects:v102 count:16];
+      v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v71 objects:v101 count:16];
     }
 
     while (v46);
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v50 = self->_cachedSuggestedWidgetLayoutListKeys;
-  v51 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v68 objects:v101 count:16];
+  v51 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v67 objects:v100 count:16];
   if (v51)
   {
     v52 = v51;
-    v53 = *v69;
+    v53 = *v68;
     do
     {
       v54 = 0;
       do
       {
-        if (*v69 != v53)
+        if (*v68 != v53)
         {
           objc_enumerationMutation(v50);
         }
 
-        v55 = [*(*(&v68 + 1) + 8 * v54) copyWithZone:zone];
+        v55 = [*(*(&v67 + 1) + 8 * v54) copyWithZone:zone];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addCachedSuggestedWidgetLayoutListKeys:v55];
 
         ++v54;
       }
 
       while (v52 != v54);
-      v52 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v68 objects:v101 count:16];
+      v52 = [(NSMutableArray *)v50 countByEnumeratingWithState:&v67 objects:v100 count:16];
     }
 
     while (v52);
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v56 = self->_cachedSuggestedWidgetLayoutLists;
-  v57 = [(NSMutableArray *)v56 countByEnumeratingWithState:&v64 objects:v100 count:16];
+  v57 = [(NSMutableArray *)v56 countByEnumeratingWithState:&v63 objects:v99 count:16];
   if (v57)
   {
     v58 = v57;
-    v59 = *v65;
+    v59 = *v64;
     do
     {
       v60 = 0;
       do
       {
-        if (*v65 != v59)
+        if (*v64 != v59)
         {
           objc_enumerationMutation(v56);
         }
 
-        v61 = [*(*(&v64 + 1) + 8 * v60) copyWithZone:{zone, v64}];
+        v61 = [*(*(&v63 + 1) + 8 * v60) copyWithZone:{zone, v63}];
         [(ATXPBHomeScreenCachedSuggestion *)v5 addCachedSuggestedWidgetLayoutLists:v61];
 
         ++v60;
       }
 
       while (v58 != v60);
-      v58 = [(NSMutableArray *)v56 countByEnumeratingWithState:&v64 objects:v100 count:16];
+      v58 = [(NSMutableArray *)v56 countByEnumeratingWithState:&v63 objects:v99 count:16];
     }
 
     while (v58);
   }
 
-  v62 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_22;
-  }
-
-  uuidString = self->_uuidString;
-  if (uuidString | equalCopy[10])
-  {
-    if (![(NSString *)uuidString isEqual:?])
-    {
-      goto LABEL_22;
-    }
-  }
-
-  cachedSuggestionWidgetIds = self->_cachedSuggestionWidgetIds;
-  if (cachedSuggestionWidgetIds | equalCopy[5] && ![(NSMutableArray *)cachedSuggestionWidgetIds isEqual:?])
-  {
-    goto LABEL_22;
-  }
-
-  if (((cachedSuggestionWidgetLayouts = self->_cachedSuggestionWidgetLayouts, !(cachedSuggestionWidgetLayouts | equalCopy[6])) || [(NSMutableArray *)cachedSuggestionWidgetLayouts isEqual:?]) && ((cachedTopOfStackLayoutKeys = self->_cachedTopOfStackLayoutKeys, !(cachedTopOfStackLayoutKeys | equalCopy[7])) || [(NSMutableArray *)cachedTopOfStackLayoutKeys isEqual:?]) && ((cachedTopOfStackLayouts = self->_cachedTopOfStackLayouts, !(cachedTopOfStackLayouts | equalCopy[8])) || [(NSMutableArray *)cachedTopOfStackLayouts isEqual:?]) && ((fallbackSuggestions = self->_fallbackSuggestions, !(fallbackSuggestions | equalCopy[9])) || [(NSMutableArray *)fallbackSuggestions isEqual:?]) && ((cachedAppPredictionPanelIds = self->_cachedAppPredictionPanelIds, !(cachedAppPredictionPanelIds | equalCopy[1])) || [(NSMutableArray *)cachedAppPredictionPanelIds isEqual:?]) && ((cachedAppPredictionPanelLayouts = self->_cachedAppPredictionPanelLayouts, !(cachedAppPredictionPanelLayouts | equalCopy[2])) || [(NSMutableArray *)cachedAppPredictionPanelLayouts isEqual:?]) && ((cachedSuggestedWidgetLayoutListKeys = self->_cachedSuggestedWidgetLayoutListKeys, !(cachedSuggestedWidgetLayoutListKeys | equalCopy[3])) || [(NSMutableArray *)cachedSuggestedWidgetLayoutListKeys isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((uuidString = self->_uuidString, !(uuidString | equalCopy[10])) || -[NSString isEqual:](uuidString, "isEqual:")) && ((cachedSuggestionWidgetIds = self->_cachedSuggestionWidgetIds, !(cachedSuggestionWidgetIds | equalCopy[5])) || -[NSMutableArray isEqual:](cachedSuggestionWidgetIds, "isEqual:")) && ((cachedSuggestionWidgetLayouts = self->_cachedSuggestionWidgetLayouts, !(cachedSuggestionWidgetLayouts | equalCopy[6])) || -[NSMutableArray isEqual:](cachedSuggestionWidgetLayouts, "isEqual:")) && ((cachedTopOfStackLayoutKeys = self->_cachedTopOfStackLayoutKeys, !(cachedTopOfStackLayoutKeys | equalCopy[7])) || -[NSMutableArray isEqual:](cachedTopOfStackLayoutKeys, "isEqual:")) && ((cachedTopOfStackLayouts = self->_cachedTopOfStackLayouts, !(cachedTopOfStackLayouts | equalCopy[8])) || -[NSMutableArray isEqual:](cachedTopOfStackLayouts, "isEqual:")) && ((fallbackSuggestions = self->_fallbackSuggestions, !(fallbackSuggestions | equalCopy[9])) || -[NSMutableArray isEqual:](fallbackSuggestions, "isEqual:")) && ((cachedAppPredictionPanelIds = self->_cachedAppPredictionPanelIds, !(cachedAppPredictionPanelIds | equalCopy[1])) || -[NSMutableArray isEqual:](cachedAppPredictionPanelIds, "isEqual:")) && ((cachedAppPredictionPanelLayouts = self->_cachedAppPredictionPanelLayouts, !(cachedAppPredictionPanelLayouts | equalCopy[2])) || -[NSMutableArray isEqual:](cachedAppPredictionPanelLayouts, "isEqual:")) && ((cachedSuggestedWidgetLayoutListKeys = self->_cachedSuggestedWidgetLayoutListKeys, !(cachedSuggestedWidgetLayoutListKeys | equalCopy[3])) || -[NSMutableArray isEqual:](cachedSuggestedWidgetLayoutListKeys, "isEqual:")))
   {
     cachedSuggestedWidgetLayoutLists = self->_cachedSuggestedWidgetLayoutLists;
     if (cachedSuggestedWidgetLayoutLists | equalCopy[4])
@@ -967,7 +933,6 @@
 
   else
   {
-LABEL_22:
     v15 = 0;
   }
 
@@ -998,7 +963,7 @@ LABEL_22:
   return result;
 }
 
-- (uint64_t)clearCachedSuggestionWidgetIds
+- (void)clearCachedSuggestionWidgetIds
 {
   if (result)
   {
@@ -1028,7 +993,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedSuggestionWidgetIdsCount
+- (void)cachedSuggestionWidgetIdsCount
 {
   if (result)
   {
@@ -1049,7 +1014,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearCachedSuggestionWidgetLayouts
+- (void)clearCachedSuggestionWidgetLayouts
 {
   if (result)
   {
@@ -1079,7 +1044,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedSuggestionWidgetLayoutsCount
+- (void)cachedSuggestionWidgetLayoutsCount
 {
   if (result)
   {
@@ -1100,7 +1065,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearCachedTopOfStackLayoutKeys
+- (void)clearCachedTopOfStackLayoutKeys
 {
   if (result)
   {
@@ -1130,7 +1095,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedTopOfStackLayoutKeysCount
+- (void)cachedTopOfStackLayoutKeysCount
 {
   if (result)
   {
@@ -1151,7 +1116,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearCachedTopOfStackLayouts
+- (void)clearCachedTopOfStackLayouts
 {
   if (result)
   {
@@ -1181,7 +1146,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedTopOfStackLayoutsCount
+- (void)cachedTopOfStackLayoutsCount
 {
   if (result)
   {
@@ -1202,7 +1167,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearFallbackSuggestions
+- (void)clearFallbackSuggestions
 {
   if (result)
   {
@@ -1232,7 +1197,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)fallbackSuggestionsCount
+- (void)fallbackSuggestionsCount
 {
   if (result)
   {
@@ -1253,7 +1218,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearCachedAppPredictionPanelIds
+- (void)clearCachedAppPredictionPanelIds
 {
   if (result)
   {
@@ -1283,7 +1248,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedAppPredictionPanelIdsCount
+- (void)cachedAppPredictionPanelIdsCount
 {
   if (result)
   {
@@ -1304,7 +1269,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearCachedAppPredictionPanelLayouts
+- (void)clearCachedAppPredictionPanelLayouts
 {
   if (result)
   {
@@ -1334,7 +1299,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedAppPredictionPanelLayoutsCount
+- (void)cachedAppPredictionPanelLayoutsCount
 {
   if (result)
   {
@@ -1355,7 +1320,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearCachedSuggestedWidgetLayoutListKeys
+- (void)clearCachedSuggestedWidgetLayoutListKeys
 {
   if (result)
   {
@@ -1385,7 +1350,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedSuggestedWidgetLayoutListKeysCount
+- (void)cachedSuggestedWidgetLayoutListKeysCount
 {
   if (result)
   {
@@ -1406,7 +1371,7 @@ LABEL_22:
   return index;
 }
 
-- (uint64_t)clearCachedSuggestedWidgetLayoutLists
+- (void)clearCachedSuggestedWidgetLayoutLists
 {
   if (result)
   {
@@ -1436,7 +1401,7 @@ LABEL_22:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)cachedSuggestedWidgetLayoutListsCount
+- (void)cachedSuggestedWidgetLayoutListsCount
 {
   if (result)
   {
@@ -1696,7 +1661,7 @@ LABEL_22:
 
 - (void)mergeFrom:(uint64_t)from
 {
-  v107 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (from)
@@ -1707,224 +1672,186 @@ LABEL_22:
       objc_storeStrong((from + 80), v5);
     }
 
-    v96 = 0u;
-    v97 = 0u;
-    v94 = 0u;
-    v95 = 0u;
+    memset(v60, 0, sizeof(v60));
     v6 = v4[5];
-    if ([v6 countByEnumeratingWithState:&v94 objects:v106 count:16])
+    if ([v6 countByEnumeratingWithState:v60 objects:v69 count:16])
     {
-      v7 = *v95;
       do
       {
-        OUTLINED_FUNCTION_10_0(v95);
-        if (!v8)
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
         {
           objc_enumerationMutation(v6);
         }
 
-        v9 = OUTLINED_FUNCTION_8_0(*(&v94 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v9 addCachedSuggestionWidgetIds:v10];
+        v8 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v8 addCachedSuggestionWidgetIds:v9];
         OUTLINED_FUNCTION_6_1();
       }
 
-      while (!v8 || OUTLINED_FUNCTION_22(v11, v12, &v94, v106));
+      while (!v7 || OUTLINED_FUNCTION_22(v10, v11, v60, v69));
     }
 
-    v92 = 0u;
-    v93 = 0u;
-    v90 = 0u;
-    v91 = 0u;
-    v13 = v4[6];
-    if ([v13 countByEnumeratingWithState:&v90 objects:v105 count:16])
+    memset(v59, 0, sizeof(v59));
+    v12 = v4[6];
+    if ([v12 countByEnumeratingWithState:v59 objects:v68 count:16])
     {
-      v14 = *v91;
       do
       {
-        OUTLINED_FUNCTION_10_0(v91);
-        if (!v8)
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v12);
         }
 
-        v15 = OUTLINED_FUNCTION_8_0(*(&v90 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v15 addCachedSuggestionWidgetLayouts:v16];
+        v13 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v13 addCachedSuggestionWidgetLayouts:v14];
         OUTLINED_FUNCTION_6_1();
       }
 
-      while (!v8 || OUTLINED_FUNCTION_22(v17, v18, &v90, v105));
+      while (!v7 || OUTLINED_FUNCTION_22(v15, v16, v59, v68));
     }
 
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
-    v19 = v4[7];
-    if ([v19 countByEnumeratingWithState:&v86 objects:v104 count:16])
+    memset(v58, 0, sizeof(v58));
+    v17 = v4[7];
+    if ([v17 countByEnumeratingWithState:v58 objects:v67 count:16])
     {
-      v20 = *v87;
       do
       {
-        OUTLINED_FUNCTION_10_0(v87);
-        if (!v8)
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v17);
         }
 
-        v21 = OUTLINED_FUNCTION_8_0(*(&v86 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v21 addCachedTopOfStackLayoutKeys:v22];
+        v18 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v18 addCachedTopOfStackLayoutKeys:v19];
         OUTLINED_FUNCTION_6_1();
       }
 
-      while (!v8 || OUTLINED_FUNCTION_22(v23, v24, &v86, v104));
+      while (!v7 || OUTLINED_FUNCTION_22(v20, v21, v58, v67));
     }
 
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
-    v83 = 0u;
-    v25 = v4[8];
-    if ([v25 countByEnumeratingWithState:&v82 objects:v103 count:16])
+    memset(v57, 0, sizeof(v57));
+    v22 = v4[8];
+    if ([v22 countByEnumeratingWithState:v57 objects:v66 count:16])
     {
-      v26 = *v83;
       do
       {
-        OUTLINED_FUNCTION_10_0(v83);
-        if (!v8)
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v22);
         }
 
-        v27 = OUTLINED_FUNCTION_8_0(*(&v82 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v27 addCachedTopOfStackLayouts:v28];
+        v23 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v23 addCachedTopOfStackLayouts:v24];
         OUTLINED_FUNCTION_6_1();
       }
 
-      while (!v8 || OUTLINED_FUNCTION_22(v29, v30, &v82, v103));
+      while (!v7 || OUTLINED_FUNCTION_22(v25, v26, v57, v66));
     }
 
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v31 = v4[9];
-    if ([v31 countByEnumeratingWithState:&v78 objects:v102 count:16])
+    memset(v56, 0, sizeof(v56));
+    v27 = v4[9];
+    if ([v27 countByEnumeratingWithState:v56 objects:v65 count:16])
     {
-      v32 = *v79;
       do
       {
-        OUTLINED_FUNCTION_10_0(v79);
-        if (!v8)
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
         {
-          objc_enumerationMutation(v31);
+          objc_enumerationMutation(v27);
         }
 
-        v33 = OUTLINED_FUNCTION_8_0(*(&v78 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v33 addFallbackSuggestions:v34];
+        v28 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v28 addFallbackSuggestions:v29];
         OUTLINED_FUNCTION_6_1();
       }
 
-      while (!v8 || OUTLINED_FUNCTION_22(v35, v36, &v78, v102));
+      while (!v7 || OUTLINED_FUNCTION_22(v30, v31, v56, v65));
     }
 
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
-    v75 = 0u;
-    v37 = v4[1];
-    if ([v37 countByEnumeratingWithState:&v74 objects:v101 count:16])
+    memset(v55, 0, sizeof(v55));
+    v32 = v4[1];
+    if ([v32 countByEnumeratingWithState:v55 objects:v64 count:16])
     {
-      v38 = *v75;
       do
       {
-        OUTLINED_FUNCTION_10_0(v75);
-        if (!v8)
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
+        {
+          objc_enumerationMutation(v32);
+        }
+
+        v33 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v33 addCachedAppPredictionPanelIds:v34];
+        OUTLINED_FUNCTION_6_1();
+      }
+
+      while (!v7 || OUTLINED_FUNCTION_22(v35, v36, v55, v64));
+    }
+
+    memset(v54, 0, sizeof(v54));
+    v37 = v4[2];
+    if ([v37 countByEnumeratingWithState:v54 objects:v63 count:16])
+    {
+      do
+      {
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
         {
           objc_enumerationMutation(v37);
         }
 
-        v39 = OUTLINED_FUNCTION_8_0(*(&v74 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v39 addCachedAppPredictionPanelIds:v40];
+        v38 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v38 addCachedAppPredictionPanelLayouts:v39];
         OUTLINED_FUNCTION_6_1();
       }
 
-      while (!v8 || OUTLINED_FUNCTION_22(v41, v42, &v74, v101));
+      while (!v7 || OUTLINED_FUNCTION_22(v40, v41, v54, v63));
     }
 
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v43 = v4[2];
-    if ([v43 countByEnumeratingWithState:&v70 objects:v100 count:16])
+    memset(v53, 0, sizeof(v53));
+    v42 = v4[3];
+    if ([v42 countByEnumeratingWithState:v53 objects:v62 count:16])
     {
-      v44 = *v71;
       do
       {
-        OUTLINED_FUNCTION_10_0(v71);
-        if (!v8)
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
         {
-          objc_enumerationMutation(v43);
+          objc_enumerationMutation(v42);
         }
 
-        v45 = OUTLINED_FUNCTION_8_0(*(&v70 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v45 addCachedAppPredictionPanelLayouts:v46];
+        v43 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v43 addCachedSuggestedWidgetLayoutListKeys:v44];
         OUTLINED_FUNCTION_6_1();
       }
 
-      while (!v8 || OUTLINED_FUNCTION_22(v47, v48, &v70, v100));
+      while (!v7 || OUTLINED_FUNCTION_22(v45, v46, v53, v62));
     }
 
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v49 = v4[3];
-    if ([v49 countByEnumeratingWithState:&v66 objects:v99 count:16])
+    memset(v52, 0, sizeof(v52));
+    v47 = v4[4];
+    if ([v47 countByEnumeratingWithState:v52 objects:v61 count:16])
     {
-      v50 = *v67;
       do
       {
-        OUTLINED_FUNCTION_10_0(v67);
-        if (!v8)
+        OUTLINED_FUNCTION_10_0();
+        if (!v7)
         {
-          objc_enumerationMutation(v49);
+          objc_enumerationMutation(v47);
         }
 
-        v51 = OUTLINED_FUNCTION_8_0(*(&v66 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v51 addCachedSuggestedWidgetLayoutListKeys:v52];
+        v48 = OUTLINED_FUNCTION_8_0();
+        [(ATXPBHomeScreenCachedSuggestion *)v48 addCachedSuggestedWidgetLayoutLists:v49];
         OUTLINED_FUNCTION_6_1();
       }
 
-      while (!v8 || OUTLINED_FUNCTION_22(v53, v54, &v66, v99));
-    }
-
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
-    v63 = 0u;
-    v55 = v4[4];
-    if ([v55 countByEnumeratingWithState:&v62 objects:v98 count:16])
-    {
-      v56 = *v63;
-      do
-      {
-        OUTLINED_FUNCTION_10_0(v63);
-        if (!v8)
-        {
-          objc_enumerationMutation(v55);
-        }
-
-        v57 = OUTLINED_FUNCTION_8_0(*(&v62 + 1));
-        [(ATXPBHomeScreenCachedSuggestion *)v57 addCachedSuggestedWidgetLayoutLists:v58];
-        OUTLINED_FUNCTION_6_1();
-      }
-
-      while (!v8 || OUTLINED_FUNCTION_22(v59, v60, &v62, v98));
+      while (!v7 || OUTLINED_FUNCTION_22(v50, v51, v52, v61));
     }
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)uuidString

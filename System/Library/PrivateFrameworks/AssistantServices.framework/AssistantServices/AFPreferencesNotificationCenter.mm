@@ -32,7 +32,7 @@
 
 - (void)removeObserver:(id)observer
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [(NSLock *)self->instanceLock lock];
   observerCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%p", observerCopy];
@@ -65,9 +65,9 @@
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v17 = "[AFPreferencesNotificationCenter removeObserver:]";
-        v18 = 2112;
-        v19 = v6;
+        v16 = "[AFPreferencesNotificationCenter removeObserver:]";
+        v17 = 2112;
+        v18 = v6;
         _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s Notification registration inconsistency detected for %@", buf, 0x16u);
       }
     }
@@ -76,11 +76,9 @@
   }
 
   [(NSLock *)self->instanceLock unlock];
-  v15.receiver = self;
-  v15.super_class = AFPreferencesNotificationCenter;
-  [(AFPreferencesNotificationCenter *)&v15 removeObserver:observerCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = AFPreferencesNotificationCenter;
+  [(AFPreferencesNotificationCenter *)&v14 removeObserver:observerCopy];
 }
 
 - (id)addObserverForDarwinName:(__CFString *)name usingBlock:(id)block

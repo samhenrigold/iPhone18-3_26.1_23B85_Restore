@@ -226,42 +226,42 @@ LABEL_20:
   _dispatch_sync(v3);
 }
 
-uint64_t __57__MFInvocationQueue__adjustThreadPrioritiesIsForeground___block_invoke(uint64_t a1)
+void *__57__MFInvocationQueue__adjustThreadPrioritiesIsForeground___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 64) = *(a1 + 40);
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(*(a1 + 32) + 56);
-  result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  result = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (result)
   {
     v4 = result;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) applyOverrideWhileForeground:*(a1 + 40)];
+        [*(*(&v7 + 1) + 8 * v6) applyOverrideWhileForeground:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
-      result = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      result = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       v4 = result;
     }
 
     while (result);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -429,7 +429,7 @@ LABEL_27:
   while (queue);
 }
 
-uint64_t __33__MFInvocationQueue__drainQueue___block_invoke()
+void *__33__MFInvocationQueue__drainQueue___block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x277CBEBD0] "standardUserDefaults")];
   _drainQueue__DebugInvocationThreads = result;
@@ -502,7 +502,7 @@ uint64_t __33__MFInvocationQueue__drainQueue___block_invoke()
   }
 }
 
-uint64_t __65__MFInvocationQueue_contentProtectionStateChanged_previousState___block_invoke(uint64_t a1)
+void *__65__MFInvocationQueue_contentProtectionStateChanged_previousState___block_invoke(uint64_t a1)
 {
   result = [MFUserAgent() isForeground];
   *(*(a1 + 32) + 64) = result;
@@ -511,7 +511,7 @@ uint64_t __65__MFInvocationQueue_contentProtectionStateChanged_previousState___b
 
 - (id)copyDiagnosticInformation
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   v4 = +[MFInvocationQueue sharedInvocationQueue];
   [v3 appendString:@"\n"];
@@ -531,29 +531,29 @@ uint64_t __65__MFInvocationQueue_contentProtectionStateChanged_previousState___b
   [(NSConditionLock *)self->_lock lock];
   if ([(NSMutableArray *)self->_items count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     items = self->_items;
-    v7 = [(NSMutableArray *)items countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSMutableArray *)items countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(items);
           }
 
-          [v3 appendFormat:@"  %@\n", *(*(&v13 + 1) + 8 * i)];
+          [v3 appendFormat:@"  %@\n", *(*(&v12 + 1) + 8 * i)];
         }
 
-        v8 = [(NSMutableArray *)items countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSMutableArray *)items countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -566,18 +566,16 @@ uint64_t __65__MFInvocationQueue_contentProtectionStateChanged_previousState___b
   }
 
   [(NSConditionLock *)self->_lock unlock];
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 void __40__MFInvocationQueue__processInvocation___block_invoke_cold_1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*a1 pthread];
-  v5 = 134217984;
-  v6 = v3;
-  _os_log_debug_impl(&dword_258BDA000, a2, OS_LOG_TYPE_DEBUG, "processing low pri invocation: qos override already existed for %p, just ending it", &v5, 0xCu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134217984;
+  v5 = v3;
+  _os_log_debug_impl(&dword_258BDA000, a2, OS_LOG_TYPE_DEBUG, "processing low pri invocation: qos override already existed for %p, just ending it", &v4, 0xCu);
 }
 
 @end

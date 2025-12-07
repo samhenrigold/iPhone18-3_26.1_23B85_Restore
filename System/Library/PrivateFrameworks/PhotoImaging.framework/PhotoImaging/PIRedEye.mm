@@ -29,13 +29,13 @@
 
   if (!v8 && (inputCorrectionInfo = self->_inputCorrectionInfo) != 0 && [(NSArray *)inputCorrectionInfo count])
   {
-    [v4 extent];
+    objc_msgSend_extent(v4);
     v11 = v10;
     *&rect[1] = v10;
     v13 = v12;
     v15 = v14;
     v17 = v16;
-    [v7 extent];
+    objc_msgSend_extent(v7);
     v19 = v18;
     *rect = v18;
     v21 = v20;

@@ -66,31 +66,31 @@
 
 - (void)enumerateDataAndStoragesUsingBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v18 = 0;
+  v17 = 0;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_newDataStorages;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v19, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v13, v18, 16);
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v15 != v9)
+      if (*v14 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v14 + 1) + 8 * v10);
-      v12 = objc_msgSend_objectForKey_(self->_newDataStorages, v7, v11, v14);
-      blockCopy[2](blockCopy, v11, v12, &v18);
-      LOBYTE(v11) = v18;
+      v11 = *(*(&v13 + 1) + 8 * v10);
+      v12 = objc_msgSend_objectForKey_(self->_newDataStorages, v7, v11, v13);
+      blockCopy[2](blockCopy, v11, v12, &v17);
+      LOBYTE(v11) = v17;
 
       if (v11)
       {
@@ -99,7 +99,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v14, v19, 16);
+        v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v13, v18, 16);
         if (v8)
         {
           goto LABEL_3;
@@ -109,42 +109,40 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateRemoteDataUsingBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v16 = 0;
+  v15 = 0;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_remoteData;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v17, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v11, v16, 16);
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v13 != v8)
+      if (*v12 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * v9), &v16);
-      if (v16)
+      blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9), &v15);
+      if (v15)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v10, &v12, v17, 16);
+        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v10, &v11, v16, 16);
         if (v7)
         {
           goto LABEL_3;
@@ -154,8 +152,6 @@ LABEL_3:
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willMigrateRemoteDataToTemporaryStorage:(id)storage

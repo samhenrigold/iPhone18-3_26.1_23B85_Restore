@@ -4,44 +4,45 @@
 + (void)attachmentAddedForType:(int64_t)type;
 + (void)attachmentAddedForUTType:(id)type;
 - (REMRegulatoryLogger)init;
-- (uint64_t)init;
+- (void)init;
 @end
 
 @implementation REMRegulatoryLogger
 
 - (REMRegulatoryLogger)init
 {
-  v9.receiver = self;
-  v9.super_class = REMRegulatoryLogger;
-  v2 = [(REMRegulatoryLogger *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = REMRegulatoryLogger;
+  v2 = [(REMRegulatoryLogger *)&v10 init];
   if (v2)
   {
     v3 = [*MEMORY[0x277D44908] cStringUsingEncoding:1];
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
     v4 = getct_green_tea_logger_createSymbolLoc_ptr;
-    v18 = getct_green_tea_logger_createSymbolLoc_ptr;
+    v19 = getct_green_tea_logger_createSymbolLoc_ptr;
     if (!getct_green_tea_logger_createSymbolLoc_ptr)
     {
-      v10 = MEMORY[0x277D85DD0];
-      v11 = 3221225472;
-      v12 = __getct_green_tea_logger_createSymbolLoc_block_invoke;
-      v13 = &unk_2788BC530;
-      v14 = &v15;
+      v11 = MEMORY[0x277D85DD0];
+      v12 = 3221225472;
+      v13 = __getct_green_tea_logger_createSymbolLoc_block_invoke;
+      v14 = &unk_2788BC530;
+      v15 = &v16;
       v5 = libCTGreenTeaLoggerLibrary();
       v6 = dlsym(v5, "ct_green_tea_logger_create");
-      *(v14[1] + 24) = v6;
-      getct_green_tea_logger_createSymbolLoc_ptr = *(v14[1] + 24);
-      v4 = v16[3];
+      *(v15[1] + 24) = v6;
+      getct_green_tea_logger_createSymbolLoc_ptr = *(v15[1] + 24);
+      v4 = v17[3];
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v16, 8);
     if (!v4)
     {
-      v8 = [REMRegulatoryLogger init];
-      _Block_object_dispose(&v15, 8);
-      _Unwind_Resume(v8);
+      [REMRegulatoryLogger init];
+      v9 = v8;
+      _Block_object_dispose(&v16, 8);
+      _Unwind_Resume(v9);
     }
 
     v2->_greenTeaLogger = v4(v3);
@@ -67,7 +68,7 @@
   return v2;
 }
 
-uint64_t __35__REMRegulatoryLogger_sharedLogger__block_invoke()
+uint64_t __35__REMRegulatoryLogger_sharedLogger__block_invoke(uint64_t a1)
 {
   sharedLogger_logger = objc_alloc_init(objc_opt_class());
 
@@ -200,11 +201,11 @@ LABEL_23:
 LABEL_24:
 }
 
-- (uint64_t)init
+- (void)init
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [REMRegulatoryLogger attachmentAddedForType:v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  +[REMRegulatoryLogger attachmentAddedForType:];
 }
 
 + (void)attachmentAddedForType:.cold.1()

@@ -69,7 +69,7 @@
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input, v41);
       }
 
       else
@@ -100,7 +100,7 @@
       [v9 getXValue:&v35 YValue:&v36 fromParm:6 atFxTime:info->var0.var1];
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       else

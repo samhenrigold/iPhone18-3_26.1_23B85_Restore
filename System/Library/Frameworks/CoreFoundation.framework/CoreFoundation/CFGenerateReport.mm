@@ -3,7 +3,7 @@
 
 @implementation CFGenerateReport
 
-uint64_t ____CFGenerateReport_block_invoke(uint64_t a1, uint64_t a2)
+BOOL ____CFGenerateReport_block_invoke(uint64_t a1, uint64_t a2)
 {
   v2 = *(*(a1 + 32) + 8);
   v3 = *(v2 + 24);

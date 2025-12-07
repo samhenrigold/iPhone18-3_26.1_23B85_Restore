@@ -20,10 +20,9 @@
 
 - (HMMLogEventDispatching)logEventDispatcher
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___HMDCameraRecordingEventObserver_logEventDispatcher);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setCountersManager:(id)manager
@@ -49,10 +48,9 @@
 
 - (HMDCurrentResidentDeviceDataSource)currentHomeDataSource
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___HMDCameraRecordingEventObserver_currentHomeDataSource);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (HMDCameraRecordingEventObserver)initWithLogEventDispatcher:(id)dispatcher countersManager:(id)manager dailyScheduler:(id)scheduler dateProvider:(id)provider currentHomeDataSource:(id)source
@@ -102,30 +100,28 @@
 {
   v4 = sub_22A4DB74C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB70C();
   selfCopy = self;
-  v10 = sub_2296BE2B4();
+  v9 = sub_2296BE2B4();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v10;
+  return v9;
 }
 
 - (void)deleteCountersBefore:(BOOL)before date:(id)date
 {
   v6 = sub_22A4DB74C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB70C();
   selfCopy = self;
-  sub_2296BE52C(before, v10);
+  sub_2296BE52C(before, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)observeEvent:(id)event

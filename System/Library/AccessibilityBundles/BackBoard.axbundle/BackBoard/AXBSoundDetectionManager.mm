@@ -174,7 +174,7 @@ void __52__AXBSoundDetectionManager__bootstrapSoundDetection__block_invoke_5(uin
 
 - (void)connectionWithServiceWasInterruptedForUserInterfaceClient:(id)client
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   soundDetectionClient = self->_soundDetectionClient;
   if (soundDetectionClient == client && soundDetectionClient != 0)
   {
@@ -182,15 +182,13 @@ void __52__AXBSoundDetectionManager__bootstrapSoundDetection__block_invoke_5(uin
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       mEMORY[0x29EDBDDB8] = [MEMORY[0x29EDBDDB8] sharedInstance];
-      v9[0] = 67109120;
-      v9[1] = [mEMORY[0x29EDBDDB8] ultronSupportEnabled];
-      _os_log_impl(&dword_29BBBD000, v6, OS_LOG_TYPE_INFO, "Ultron client interrupted, restart: %d", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = [mEMORY[0x29EDBDDB8] ultronSupportEnabled];
+      _os_log_impl(&dword_29BBBD000, v6, OS_LOG_TYPE_INFO, "Ultron client interrupted, restart: %d", v8, 8u);
     }
 
     [(AXBSoundDetectionManager *)self _startupSoundDetectionUIServer];
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_startupSoundDetectionUIServer
@@ -274,33 +272,33 @@ void __52__AXBSoundDetectionManager__bootstrapSoundDetection__block_invoke_5(uin
 
 - (BOOL)_shouldArmVoiceTriggers
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   if (_AXSAssistiveTouchScannerEnabled())
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     mEMORY[0x29EDBDFA0] = [MEMORY[0x29EDBDFA0] sharedInstance];
     assistiveTouchSwitches = [mEMORY[0x29EDBDFA0] assistiveTouchSwitches];
 
-    v4 = [assistiveTouchSwitches countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v4 = [assistiveTouchSwitches countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v19;
+      v6 = *v18;
       v7 = *MEMORY[0x29EDBDFE0];
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v19 != v6)
+          if (*v18 != v6)
           {
             objc_enumerationMutation(assistiveTouchSwitches);
           }
 
-          source = [*(*(&v18 + 1) + 8 * v8) source];
+          source = [*(*(&v17 + 1) + 8 * v8) source];
           v10 = [source isEqualToString:v7];
 
           if (v10)
@@ -318,7 +316,7 @@ void __52__AXBSoundDetectionManager__bootstrapSoundDetection__block_invoke_5(uin
         }
 
         while (v5 != v8);
-        v5 = [assistiveTouchSwitches countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v5 = [assistiveTouchSwitches countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v5)
         {
           continue;
@@ -355,7 +353,6 @@ LABEL_18:
     }
   }
 
-  v16 = *MEMORY[0x29EDCA608];
   return v11;
 }
 

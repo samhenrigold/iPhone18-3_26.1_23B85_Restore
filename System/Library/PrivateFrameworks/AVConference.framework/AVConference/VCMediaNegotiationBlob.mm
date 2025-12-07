@@ -1568,38 +1568,38 @@ LABEL_55:
 
 - (void)printBandwidthSettingsWithLogFile:(void *)file
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD60] stringWithFormat:@"Bandwidth Settings:"];
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   bandwidthSettings = self->_bandwidthSettings;
-  v6 = [(NSMutableArray *)bandwidthSettings countByEnumeratingWithState:&v47 objects:v46 count:16];
+  v6 = [(NSMutableArray *)bandwidthSettings countByEnumeratingWithState:&v41 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v48;
+    v8 = *v42;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v48 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(bandwidthSettings);
         }
 
-        v10 = *(*(&v47 + 1) + 8 * i);
-        configuration = [v10 configuration];
-        if (configuration)
+        v10 = *(*(&v41 + 1) + 8 * i);
+        v11 = objc_msgSend_configuration(v10);
+        if (v11)
         {
-          v12 = configuration;
+          v12 = v11;
           v13 = 1;
           do
           {
             if ((v12 & v13) != 0)
             {
-              -[VCMediaNegotiationBlob formatBandwidthConfig:maxBanxwidth:bandwidthString:](self, "formatBandwidthConfig:maxBanxwidth:bandwidthString:", [v10 configuration], objc_msgSend(v10, "maxBandwidth"), v4);
+              -[VCMediaNegotiationBlob formatBandwidthConfig:maxBanxwidth:bandwidthString:](self, "formatBandwidthConfig:maxBanxwidth:bandwidthString:", objc_msgSend_configuration(v10), [v10 maxBandwidth], v4);
             }
 
             v12 &= ~v13;
@@ -1610,32 +1610,32 @@ LABEL_55:
         }
       }
 
-      v7 = [(NSMutableArray *)bandwidthSettings countByEnumeratingWithState:&v47 objects:v46 count:16];
+      v7 = [(NSMutableArray *)bandwidthSettings countByEnumeratingWithState:&v41 objects:v40 count:16];
     }
 
     while (v7);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v14 = self->_bandwidthSettings;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v42 objects:v41 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v36 objects:v35 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v43;
+    v17 = *v37;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v43 != v17)
+        if (*v37 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v42 + 1) + 8 * j);
+        v19 = *(*(&v36 + 1) + 8 * j);
         configurationExtension = [v19 configurationExtension];
         if (configurationExtension)
         {
@@ -1656,7 +1656,7 @@ LABEL_55:
         }
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v42 objects:v41 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v36 objects:v35 count:16];
     }
 
     while (v16);
@@ -1665,28 +1665,28 @@ LABEL_55:
   v23 = [objc_msgSend(v4 stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @", ")), "UTF8String"}];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v30 = VRTraceErrorLogLevelToCSTR();
-    v31 = *MEMORY[0x1E6986650];
+    v24 = VRTraceErrorLogLevelToCSTR();
+    v25 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v34 = v30;
-      v35 = 2080;
-      v36 = "[VCMediaNegotiationBlob(Utils) printBandwidthSettingsWithLogFile:]";
-      v37 = 1024;
-      v38 = 65;
-      v39 = 2080;
-      v40 = v23;
-      _os_log_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - %s", buf, 0x26u);
+      v28 = v24;
+      v29 = 2080;
+      v30 = "[VCMediaNegotiationBlob(Utils) printBandwidthSettingsWithLogFile:]";
+      v31 = 1024;
+      v32 = 65;
+      v33 = 2080;
+      v34 = v23;
+      _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - %s", buf, 0x26u);
     }
   }
 
-  VRLogfilePrintWithTimestamp(file, "Media Blob - %s\n", v24, v25, v26, v27, v28, v29, v23);
+  VRLogfilePrintWithTimestamp(file, "Media Blob - %s\n", v23);
 }
 
 - (void)printCaptionsSettingsWithLogFile:(void *)file
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -1695,71 +1695,70 @@ LABEL_55:
     {
       canDisplayCaptions = [(VCMediaNegotiationBlobCaptionsSettings *)self->_captionsSettings canDisplayCaptions];
       *buf = 136315906;
-      v29 = v5;
-      v30 = 2080;
-      v31 = "[VCMediaNegotiationBlob(Utils) printCaptionsSettingsWithLogFile:]";
-      v32 = 1024;
-      v33 = 70;
-      v34 = 1024;
-      LODWORD(v35) = canDisplayCaptions;
+      v16 = v5;
+      v17 = 2080;
+      v18 = "[VCMediaNegotiationBlob(Utils) printCaptionsSettingsWithLogFile:]";
+      v19 = 1024;
+      v20 = 70;
+      v21 = 1024;
+      LODWORD(v22) = canDisplayCaptions;
       _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - Captions Settings: canDisplayCaptions=%d", buf, 0x22u);
     }
   }
 
-  canDisplayCaptions2 = [(VCMediaNegotiationBlobCaptionsSettings *)self->_captionsSettings canDisplayCaptions];
-  VRLogfilePrintWithTimestamp(file, "Media Blob - Captions Settings: canDisplayCaptions=%d\n", v9, v10, v11, v12, v13, v14, canDisplayCaptions2);
+  VRLogfilePrintWithTimestamp(file, "Media Blob - Captions Settings: canDisplayCaptions=%d\n", [(VCMediaNegotiationBlobCaptionsSettings *)self->_captionsSettings canDisplayCaptions]);
   if ([(VCMediaNegotiationBlobCaptionsSettings *)self->_captionsSettings hasSenderLanguages])
   {
-    v15 = [MEMORY[0x1E696AD60] stringWithFormat:@"Sender languages:"];
-    v16 = 1;
+    v8 = [MEMORY[0x1E696AD60] stringWithFormat:@"Sender languages:"];
+    v9 = 1;
     do
     {
-      v17 = v16;
-      if (([(VCMediaNegotiationBlobCaptionsSettings *)self->_captionsSettings senderLanguages]& v16) != 0)
+      v10 = v9;
+      if (([(VCMediaNegotiationBlobCaptionsSettings *)self->_captionsSettings senderLanguages]& v9) != 0)
       {
-        if ((v17 - 1) >= 3)
+        if ((v10 - 1) >= 3)
         {
-          v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v17];
+          v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", v10];
         }
 
         else
         {
-          v18 = off_1E85F9458[(v17 - 1)];
+          v11 = off_1E85F9458[(v10 - 1)];
         }
 
-        [v15 appendFormat:@" %@, ", v18];
+        [v8 appendFormat:@" %@, ", v11];
       }
 
-      v16 = (2 * v17);
+      v9 = (2 * v10);
     }
 
-    while ((v17 & 1) != 0);
-    v19 = [objc_msgSend(v15 stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @", ")), "UTF8String"}];
+    while ((v10 & 1) != 0);
+    v12 = [objc_msgSend(v8 stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @", ")), "UTF8String"}];
     if (VRTraceGetErrorLogLevelForModule() > 6)
     {
-      v26 = VRTraceErrorLogLevelToCSTR();
-      v27 = *MEMORY[0x1E6986650];
+      v13 = VRTraceErrorLogLevelToCSTR();
+      v14 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v29 = v26;
-        v30 = 2080;
-        v31 = "[VCMediaNegotiationBlob(Utils) printCaptionsSettingsWithLogFile:]";
-        v32 = 1024;
-        v33 = 82;
-        v34 = 2080;
-        v35 = v19;
-        _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
+        v16 = v13;
+        v17 = 2080;
+        v18 = "[VCMediaNegotiationBlob(Utils) printCaptionsSettingsWithLogFile:]";
+        v19 = 1024;
+        v20 = 82;
+        v21 = 2080;
+        v22 = v12;
+        _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
       }
     }
 
-    VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v20, v21, v22, v23, v24, v25, v19);
+    VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v12);
   }
 }
 
 - (void)printMomentsSettingsWithLogFile:(void *)file
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD60] stringWithFormat:@"Moments Settings:"];
   v5 = 1;
   do
@@ -1860,28 +1859,28 @@ LABEL_14:
   v14 = [objc_msgSend(v4 stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @", ")), "UTF8String"}];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
-    v21 = VRTraceErrorLogLevelToCSTR();
-    v22 = *MEMORY[0x1E6986650];
+    v15 = VRTraceErrorLogLevelToCSTR();
+    v16 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v25 = v21;
-      v26 = 2080;
-      v27 = "[VCMediaNegotiationBlob(Utils) printMomentsSettingsWithLogFile:]";
-      v28 = 1024;
-      v29 = 106;
-      v30 = 2080;
-      v31 = v14;
-      _os_log_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
+      v19 = v15;
+      v20 = 2080;
+      v21 = "[VCMediaNegotiationBlob(Utils) printMomentsSettingsWithLogFile:]";
+      v22 = 1024;
+      v23 = 106;
+      v24 = 2080;
+      v25 = v14;
+      _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob -     %s", buf, 0x26u);
     }
   }
 
-  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v15, v16, v17, v18, v19, v20, v14);
+  VRLogfilePrintWithTimestamp(file, "Media Blob -     %s\n", v14);
 }
 
 - (void)printMultiwayAudioStreamsWithLogFile:(void *)file
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -1890,53 +1889,52 @@ LABEL_14:
     {
       v7 = [(NSMutableArray *)self->_multiwayAudioStreams count];
       *buf = 136315906;
-      v26 = v5;
-      v27 = 2080;
-      v28 = "[VCMediaNegotiationBlob(Utils) printMultiwayAudioStreamsWithLogFile:]";
-      v29 = 1024;
-      v30 = 111;
-      v31 = 1024;
-      v32 = v7;
+      v19 = v5;
+      v20 = 2080;
+      v21 = "[VCMediaNegotiationBlob(Utils) printMultiwayAudioStreamsWithLogFile:]";
+      v22 = 1024;
+      v23 = 111;
+      v24 = 1024;
+      v25 = v7;
       _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - Multiway Audio: count=%d", buf, 0x22u);
     }
   }
 
-  v8 = [(NSMutableArray *)self->_multiwayAudioStreams count];
-  VRLogfilePrintWithTimestamp(file, "Media Blob - Multiway Audio: count=%d\n", v9, v10, v11, v12, v13, v14, v8);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  VRLogfilePrintWithTimestamp(file, "Media Blob - Multiway Audio: count=%d\n", [(NSMutableArray *)self->_multiwayAudioStreams count]);
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   multiwayAudioStreams = self->_multiwayAudioStreams;
-  v16 = [(NSMutableArray *)multiwayAudioStreams countByEnumeratingWithState:&v21 objects:v20 count:16];
-  if (v16)
+  v9 = [(NSMutableArray *)multiwayAudioStreams countByEnumeratingWithState:&v14 objects:v13 count:16];
+  if (v9)
   {
-    v17 = v16;
-    v18 = *v22;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      v19 = 0;
+      v12 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(multiwayAudioStreams);
         }
 
-        [*(*(&v21 + 1) + 8 * v19++) printWithLogFile:file];
+        [*(*(&v14 + 1) + 8 * v12++) printWithLogFile:file];
       }
 
-      while (v17 != v19);
-      v17 = [(NSMutableArray *)multiwayAudioStreams countByEnumeratingWithState:&v21 objects:v20 count:16];
+      while (v10 != v12);
+      v10 = [(NSMutableArray *)multiwayAudioStreams countByEnumeratingWithState:&v14 objects:v13 count:16];
     }
 
-    while (v17);
+    while (v10);
   }
 }
 
 - (void)printMultiwayVideoStreamsWithLogFile:(void *)file
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -1945,53 +1943,52 @@ LABEL_14:
     {
       v7 = [(NSMutableArray *)self->_multiwayVideoStreams count];
       *buf = 136315906;
-      v26 = v5;
-      v27 = 2080;
-      v28 = "[VCMediaNegotiationBlob(Utils) printMultiwayVideoStreamsWithLogFile:]";
-      v29 = 1024;
-      v30 = 119;
-      v31 = 1024;
-      v32 = v7;
+      v19 = v5;
+      v20 = 2080;
+      v21 = "[VCMediaNegotiationBlob(Utils) printMultiwayVideoStreamsWithLogFile:]";
+      v22 = 1024;
+      v23 = 119;
+      v24 = 1024;
+      v25 = v7;
       _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - Multiway Video: count=%d", buf, 0x22u);
     }
   }
 
-  v8 = [(NSMutableArray *)self->_multiwayVideoStreams count];
-  VRLogfilePrintWithTimestamp(file, "Media Blob - Multiway Video: count=%d\n", v9, v10, v11, v12, v13, v14, v8);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  VRLogfilePrintWithTimestamp(file, "Media Blob - Multiway Video: count=%d\n", [(NSMutableArray *)self->_multiwayVideoStreams count]);
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   multiwayVideoStreams = self->_multiwayVideoStreams;
-  v16 = [(NSMutableArray *)multiwayVideoStreams countByEnumeratingWithState:&v21 objects:v20 count:16];
-  if (v16)
+  v9 = [(NSMutableArray *)multiwayVideoStreams countByEnumeratingWithState:&v14 objects:v13 count:16];
+  if (v9)
   {
-    v17 = v16;
-    v18 = *v22;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      v19 = 0;
+      v12 = 0;
       do
       {
-        if (*v22 != v18)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(multiwayVideoStreams);
         }
 
-        [*(*(&v21 + 1) + 8 * v19++) printWithLogFile:file];
+        [*(*(&v14 + 1) + 8 * v12++) printWithLogFile:file];
       }
 
-      while (v17 != v19);
-      v17 = [(NSMutableArray *)multiwayVideoStreams countByEnumeratingWithState:&v21 objects:v20 count:16];
+      while (v10 != v12);
+      v10 = [(NSMutableArray *)multiwayVideoStreams countByEnumeratingWithState:&v14 objects:v13 count:16];
     }
 
-    while (v17);
+    while (v10);
   }
 }
 
 - (void)printWithTitle:(id)title blobSize:(unsigned int)size logFile:(void *)file
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@ (size=%u): UserAgent=%s", title, *&size, -[NSString UTF8String](self->_userAgent, "UTF8String")];
   if ([(VCMediaNegotiationBlob *)self hasBasebandCodec])
   {
@@ -2015,19 +2012,18 @@ LABEL_14:
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v18 = v8;
-      v19 = 2080;
-      v20 = "[VCMediaNegotiationBlob(Utils) printWithTitle:blobSize:logFile:]";
-      v21 = 1024;
-      v22 = 137;
-      v23 = 2080;
+      v11 = v8;
+      v12 = 2080;
+      v13 = "[VCMediaNegotiationBlob(Utils) printWithTitle:blobSize:logFile:]";
+      v14 = 1024;
+      v15 = 137;
+      v16 = 2080;
       uTF8String = [v7 UTF8String];
       _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Media Blob - %s", buf, 0x26u);
     }
   }
 
-  uTF8String2 = [v7 UTF8String];
-  VRLogfilePrintWithTimestamp(file, "Media Blob - %s\n", v11, v12, v13, v14, v15, v16, uTF8String2);
+  VRLogfilePrintWithTimestamp(file, "Media Blob - %s\n", [v7 UTF8String]);
   if ([(VCMediaNegotiationBlob *)self hasAudioSettings])
   {
     [(VCMediaNegotiationBlobAudioSettings *)self->_audioSettings printWithLogFile:file];

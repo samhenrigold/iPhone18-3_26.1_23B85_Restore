@@ -101,37 +101,35 @@
 
 - (id)commandLineOptions
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v18 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-n [frames]" description:@"Set the echo frame size"];
-  v20 = v18;
-  v21 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-r [repeats]" description:@"Set the number of frame repeats"];
-  v17 = v21;
+  v30 = *MEMORY[0x277D85DE8];
+  v17 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-n [frames]" description:@"Set the echo frame size"];
+  v19 = v17;
+  v20 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-r [repeats]" description:@"Set the number of frame repeats"];
+  v16 = v20;
   v2 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-d0 [delay]" description:@"Set the echo delay in msec for bit 0"];
-  v22 = v2;
+  v21 = v2;
   v3 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-d1 [delay]" description:@"Set the echo delay in msec for bit 1"];
-  v23 = v3;
+  v22 = v3;
   v4 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-s [seed]" description:@"Set the random number generator seed (32-bit non-zero unsigned integer)"];
-  v24 = v4;
+  v23 = v4;
   v5 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-t [threshold]" description:@"Set the threshold for sync detection in decoder"];
-  v25 = v5;
+  v24 = v5;
   v6 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-eg [echo gain ]" description:@"Set the echo gain in dB for the encoder"];
-  v26 = v6;
+  v25 = v6;
   v7 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-ng [noise gain]" description:@"Set the noise gain in dB for the encoder"];
-  v27 = v7;
+  v26 = v7;
   v8 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-f [freq]" description:@"Set the HPF cut-off frequency in Hz (16000 <= freq <= 20000)"];
-  v28 = v8;
+  v27 = v8;
   v9 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-alg [algorithm version]" description:@"Set the algorithm version number (100 or 110 (default))"];
-  v29 = v9;
+  v28 = v9;
   v10 = [AUPasscodeCodecCommandLineOption optionWithSyntax:@"-nf [0/1]" description:@"Enable noise filling in high band (0:disable, 1:enable (default))"];
-  v30 = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:11];
+  v29 = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:11];
 
-  v19.receiver = self;
-  v19.super_class = EchoCodecConfiguration;
-  commandLineOptions = [(AUPasscodeCodecConfiguration *)&v19 commandLineOptions];
+  v18.receiver = self;
+  v18.super_class = EchoCodecConfiguration;
+  commandLineOptions = [(AUPasscodeCodecConfiguration *)&v18 commandLineOptions];
   v13 = [commandLineOptions arrayByAddingObjectsFromArray:v11];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

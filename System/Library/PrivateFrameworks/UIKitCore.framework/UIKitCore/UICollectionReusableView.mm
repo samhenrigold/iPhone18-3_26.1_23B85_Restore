@@ -457,7 +457,7 @@
 - (void)_setBaseLayoutAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  if (![(UICollectionViewLayoutAttributes *)self->_layoutAttributes isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_layoutAttributes) & 1) == 0)
   {
     v4 = [attributesCopy copy];
     layoutAttributes = self->_layoutAttributes;
@@ -483,7 +483,7 @@
 - (void)_setLayoutAttributes:(id)attributes force:(BOOL)force
 {
   attributesCopy = attributes;
-  if (force || !-[UICollectionViewLayoutAttributes isEqual:](self->_layoutAttributes, "isEqual:", attributesCopy) || ([attributesCopy alpha], v9 = v8, -[UIView alpha](self, "alpha"), vabdd_f64(v9, v10) > 0.0001))
+  if (force || !objc_msgSend_isEqual_(self->_layoutAttributes) || ([attributesCopy alpha], v9 = v8, -[UIView alpha](self, "alpha"), vabdd_f64(v9, v10) > 0.0001))
   {
     [(UICollectionViewLayoutAttributes *)self->_layoutAttributes size];
     _existingListAttributes = [(UICollectionViewLayoutAttributes *)&self->_layoutAttributes->super.isa _existingListAttributes];
@@ -539,7 +539,7 @@
     [(UIView *)self setAlpha:?];
     if (attributesCopy)
     {
-      [attributesCopy transform3D];
+      objc_msgSend_transform3D(attributesCopy);
     }
 
     else if (dyld_program_sdk_at_least())
@@ -870,13 +870,13 @@ LABEL_23:
 LABEL_7:
 }
 
-void __59__UICollectionReusableView__updateMaskViewUsingAttributes___block_invoke(uint64_t a1)
+void __59__UICollectionReusableView__updateMaskViewUsingAttributes___block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [(UICollectionReusableView *)*(a1 + 40) _internalMaskView];
+  v2 = a1[4];
+  v3 = [(UICollectionReusableView *)a1[5] _internalMaskView];
   if (v2 == v3)
   {
-    v4 = *(a1 + 32);
+    v4 = a1[4];
     if (v4)
     {
       v5 = *(v4 + 408);
@@ -887,11 +887,11 @@ void __59__UICollectionReusableView__updateMaskViewUsingAttributes___block_invok
       v5 = 0;
     }
 
-    v6 = *(a1 + 48);
+    v6 = a1[6];
 
     if (v5 == v6)
     {
-      v7 = *(a1 + 40);
+      v7 = a1[5];
 
       [(UICollectionReusableView *)v7 _setInternalMaskView:?];
     }
@@ -1186,74 +1186,77 @@ LABEL_10:
 - (void)_updateDefaultLayoutMarginsUsingAttributes:(id)attributes
 {
   attributesCopy = attributes;
+  v5 = attributesCopy;
   reusableViewFlags = self->_reusableViewFlags;
-  v6 = reusableViewFlags & 0x4000;
+  v7 = reusableViewFlags & 0x4000;
   if (attributesCopy)
   {
-    v7 = (BYTE1(attributesCopy[9].top) >> 1) & 1;
+    v8 = (BYTE1(attributesCopy[9].top) >> 1) & 1;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (v7 == v6 >> 14)
+  if (v8 == v7 >> 14)
   {
     if ((reusableViewFlags & 0x4000) != 0)
     {
       if (attributesCopy)
       {
-        v8 = &UIEdgeInsetsZero;
+        v9 = &UIEdgeInsetsZero;
         p_bottom = &UIEdgeInsetsZero.bottom;
         p_left = &UIEdgeInsetsZero.left;
         p_right = &UIEdgeInsetsZero.right;
-        if ((BYTE1(attributesCopy[9].top) & 2) != 0)
+        v13 = BYTE1(attributesCopy[9].top);
+        attributesCopy += 10;
+        if ((v13 & 2) != 0)
         {
-          p_right = &attributesCopy[10].right;
-          p_left = &attributesCopy[10].left;
-          p_bottom = &attributesCopy[10].bottom;
-          v8 = attributesCopy + 10;
+          p_right = &v5[10].right;
+          p_left = &v5[10].left;
+          p_bottom = &v5[10].bottom;
+          v9 = v5 + 10;
         }
 
-        v13.f64[0] = v8->top;
-        v12.f64[0] = *p_bottom;
-        v12.f64[1] = *p_right;
-        v13.f64[1] = *p_left;
+        v15.f64[0] = v9->top;
+        v14.f64[0] = *p_bottom;
+        v14.f64[1] = *p_right;
+        v15.f64[1] = *p_left;
       }
 
       else
       {
-        v13 = 0uLL;
-        v12 = 0uLL;
+        v15 = 0uLL;
+        v14 = 0uLL;
       }
 
-      v6 = vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(*&self->_defaultLayoutMargins.top, v13), vceqq_f64(*&self->_defaultLayoutMargins.bottom, v12))))) & 1;
+      v7 = vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(*&self->_defaultLayoutMargins.top, v15), vceqq_f64(*&self->_defaultLayoutMargins.bottom, v14))))) & 1;
     }
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  if (v7)
+  if (v8)
   {
-    v14 = 0x4000;
+    v16 = 0x4000;
   }
 
   else
   {
-    v14 = 0;
+    v16 = 0;
   }
 
-  *&self->_reusableViewFlags = v14 | reusableViewFlags & 0xBFFF;
+  *&self->_reusableViewFlags = v16 | reusableViewFlags & 0xBFFF;
   p_defaultLayoutMargins = &self->_defaultLayoutMargins;
-  if (!v7)
+  if (!v8)
   {
     *&p_defaultLayoutMargins->top = 0u;
     *&self->_defaultLayoutMargins.bottom = 0u;
-    if (!v6)
+    if (!v7)
     {
       goto LABEL_23;
     }
@@ -1261,47 +1264,48 @@ LABEL_10:
     goto LABEL_22;
   }
 
-  if (attributesCopy)
+  if (v5)
   {
-    v16 = &UIEdgeInsetsZero;
-    v17 = &UIEdgeInsetsZero.bottom;
-    v18 = &UIEdgeInsetsZero.left;
-    v19 = &UIEdgeInsetsZero.right;
-    if ((BYTE1(attributesCopy[9].top) & 2) != 0)
+    v18 = &UIEdgeInsetsZero;
+    v19 = &UIEdgeInsetsZero.bottom;
+    v20 = &UIEdgeInsetsZero.left;
+    v21 = &UIEdgeInsetsZero.right;
+    attributesCopy = (v5 + 344);
+    if ((BYTE1(v5[9].top) & 2) != 0)
     {
-      v19 = &attributesCopy[10].right;
-      v18 = &attributesCopy[10].left;
-      v17 = &attributesCopy[10].bottom;
-      v16 = attributesCopy + 10;
+      v21 = &v5[10].right;
+      v20 = &v5[10].left;
+      v19 = &v5[10].bottom;
+      v18 = v5 + 10;
     }
 
-    top = v16->top;
-    v21 = *v17;
-    v22 = *v18;
+    top = v18->top;
     v23 = *v19;
+    v24 = *v20;
+    v25 = *v21;
   }
 
   else
   {
-    v22 = 0.0;
-    v21 = 0.0;
+    v24 = 0.0;
     v23 = 0.0;
+    v25 = 0.0;
     top = 0.0;
   }
 
   p_defaultLayoutMargins->top = top;
-  self->_defaultLayoutMargins.left = v22;
-  self->_defaultLayoutMargins.bottom = v21;
-  self->_defaultLayoutMargins.right = v23;
-  if (v6)
+  self->_defaultLayoutMargins.left = v24;
+  self->_defaultLayoutMargins.bottom = v23;
+  self->_defaultLayoutMargins.right = v25;
+  if (v7)
   {
 LABEL_22:
-    [(UIView *)self _updateInferredLayoutMargins];
+    attributesCopy = [(UIView *)self _updateInferredLayoutMargins];
   }
 
 LABEL_23:
 
-  MEMORY[0x1EEE66C38]();
+  MEMORY[0x1EEE66C38](attributesCopy);
 }
 
 - (void)_setAutomaticIntrinsicContentSizeInvalidationEnabled:(BOOL)enabled

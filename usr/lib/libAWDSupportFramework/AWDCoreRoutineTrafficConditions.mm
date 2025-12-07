@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)precisionRecallAsString:(int)string;
+- (id)trafficDensityAsString:(int)string;
 - (int)StringAsPrecisionRecall:(id)recall;
 - (int)StringAsTrafficDensity:(id)density;
 - (int)precisionRecall;
@@ -77,6 +79,19 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)trafficDensityAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32600[string];
+  }
+}
+
 - (int)StringAsTrafficDensity:(id)density
 {
   if ([density isEqualToString:@"CoreRoutineTrafficDensityUnknown"])
@@ -128,6 +143,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)precisionRecallAsString:(int)string
+{
+  if (string >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32620[string];
+  }
 }
 
 - (int)StringAsPrecisionRecall:(id)recall
@@ -257,7 +285,6 @@ LABEL_14:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -277,7 +304,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  vehicleConnected = self->_vehicleConnected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -289,7 +315,6 @@ LABEL_4:
     }
 
 LABEL_10:
-    trafficDensity = self->_trafficDensity;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -300,7 +325,6 @@ LABEL_10:
   }
 
 LABEL_9:
-  predictedLocationOfInterest = self->_predictedLocationOfInterest;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) != 0)
@@ -315,7 +339,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  precisionRecall = self->_precisionRecall;
 
   PBDataWriterWriteInt32Field();
 }
@@ -483,7 +506,6 @@ LABEL_6:
       goto LABEL_31;
     }
 
-    v6 = *(equal + 25);
     if (self->_vehicleConnected)
     {
       if ((*(equal + 25) & 1) == 0)
@@ -520,7 +542,6 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v7 = *(equal + 24);
   if (self->_predictedLocationOfInterest)
   {
     if ((*(equal + 24) & 1) == 0)

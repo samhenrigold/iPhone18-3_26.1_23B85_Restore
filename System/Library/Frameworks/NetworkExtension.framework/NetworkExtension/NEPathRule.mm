@@ -7,6 +7,7 @@
 - (NEPathRule)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (int64_t)cellularBehavior;
 - (int64_t)wifiBehavior;
 - (void)addCellularBehavior:(int64_t)behavior grade:(int64_t)grade;
@@ -106,18 +107,18 @@
 - (BOOL)isDefaultPathRule
 {
   matchSigningIdentifier = [(NEAppRule *)self matchSigningIdentifier];
-  if ([matchSigningIdentifier isEqualToString:@"PathRuleDefaultIdentifier"])
+  if (objc_msgSend_isEqualToString_(matchSigningIdentifier))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
     matchSigningIdentifier2 = [(NEAppRule *)self matchSigningIdentifier];
-    v4 = [matchSigningIdentifier2 isEqualToString:@"PathRuleDefaultNonSystemIdentifier"];
+    isEqualToString = objc_msgSend_isEqualToString_(matchSigningIdentifier2);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (int64_t)wifiBehavior
@@ -537,6 +538,28 @@ LABEL_39:
   return v3;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v12.receiver = self;
+  v12.super_class = NEPathRule;
+  v8 = [(NEAppRule *)&v12 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  [v9 appendPrettyInt:-[NEPathRule cellularBehavior](self withName:"cellularBehavior") andIndent:@"cellularBehavior" options:{v5, options}];
+  [v9 appendPrettyBOOL:-[NEPathRule denyCellularFallback](self withName:"denyCellularFallback") andIndent:@"denyCellularFallback" options:{v5, options}];
+  [v9 appendPrettyBOOL:-[NEPathRule denyMulticast](self withName:"denyMulticast") andIndent:@"denyMulticast" options:{v5, options}];
+  [v9 appendPrettyBOOL:-[NEPathRule multicastPreferenceSet](self withName:"multicastPreferenceSet") andIndent:@"multicastPreferenceSet" options:{v5, options}];
+  [v9 appendPrettyBOOL:-[NEPathRule isIdentifierExternal](self withName:"isIdentifierExternal") andIndent:@"isIdentifierExternal" options:{v5, options}];
+  [v9 appendPrettyInt:-[NEPathRule wifiBehavior](self withName:"wifiBehavior") andIndent:@"wifiBehavior" options:{v5, options}];
+  [v9 appendPrettyBOOL:-[NEPathRule denyAll](self withName:"denyAll") andIndent:@"denyAll" options:{v5, options}];
+  temporaryAllowMulticastNetworkName = [(NEPathRule *)self temporaryAllowMulticastNetworkName];
+  [v9 appendPrettyObject:temporaryAllowMulticastNetworkName withName:@"temporaryAllowMulticastNetworkName" andIndent:0 options:options];
+
+  return v9;
+}
+
 - (id)copyWithZone:(_NSZone *)zone
 {
   v15.receiver = self;
@@ -755,15 +778,15 @@ LABEL_19:
   {
     matchSigningIdentifier = [equalCopy matchSigningIdentifier];
     matchSigningIdentifier2 = [(NEAppRule *)self matchSigningIdentifier];
-    if ([matchSigningIdentifier isEqualToString:matchSigningIdentifier2])
+    if (objc_msgSend_isEqualToString_(matchSigningIdentifier))
     {
       matchPath = [equalCopy matchPath];
       matchPath2 = [(NEAppRule *)self matchPath];
-      if ([matchPath isEqualToString:matchPath2])
+      if (objc_msgSend_isEqualToString_(matchPath))
       {
         temporaryAllowMulticastNetworkName = [equalCopy temporaryAllowMulticastNetworkName];
         temporaryAllowMulticastNetworkName2 = [(NEPathRule *)self temporaryAllowMulticastNetworkName];
-        if ([temporaryAllowMulticastNetworkName isEqualToString:temporaryAllowMulticastNetworkName2] && (v13 = objc_msgSend(equalCopy, "cellularBehavior"), v13 == -[NEPathRule cellularBehavior](self, "cellularBehavior")) && (v14 = objc_msgSend(equalCopy, "wifiBehavior"), v14 == -[NEPathRule wifiBehavior](self, "wifiBehavior")) && (v15 = objc_msgSend(equalCopy, "isIdentifierExternal"), v15 == -[NEPathRule isIdentifierExternal](self, "isIdentifierExternal")) && (v16 = objc_msgSend(equalCopy, "denyMulticast"), v16 == -[NEPathRule denyMulticast](self, "denyMulticast")) && (v17 = objc_msgSend(equalCopy, "multicastPreferenceSet"), v17 == -[NEPathRule multicastPreferenceSet](self, "multicastPreferenceSet")))
+        if (objc_msgSend_isEqualToString_(temporaryAllowMulticastNetworkName) && (v13 = [equalCopy cellularBehavior], v13 == -[NEPathRule cellularBehavior](self, "cellularBehavior")) && (v14 = objc_msgSend(equalCopy, "wifiBehavior"), v14 == -[NEPathRule wifiBehavior](self, "wifiBehavior")) && (v15 = objc_msgSend(equalCopy, "isIdentifierExternal"), v15 == -[NEPathRule isIdentifierExternal](self, "isIdentifierExternal")) && (v16 = objc_msgSend(equalCopy, "denyMulticast"), v16 == -[NEPathRule denyMulticast](self, "denyMulticast")) && (v17 = objc_msgSend(equalCopy, "multicastPreferenceSet"), v17 == -[NEPathRule multicastPreferenceSet](self, "multicastPreferenceSet")))
         {
           denyAll = [equalCopy denyAll];
           v6 = denyAll ^ [(NEPathRule *)self denyAll]^ 1;

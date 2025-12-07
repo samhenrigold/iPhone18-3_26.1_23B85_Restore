@@ -33,16 +33,16 @@
       v5 = v4;
       v6 = [(HDClinicalIngestionFileImportOperation *)selfCopy debugDescription];
       *buf = 138543362;
-      v68 = v6;
+      v66 = v6;
       _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ file import beginning", buf, 0xCu);
     }
 
     readDataToEndOfFile = [(NSFileHandle *)selfCopy->_fileHandle readDataToEndOfFile];
     if (readDataToEndOfFile)
     {
-      v64 = 0;
-      v8 = [NSJSONSerialization hk_JSONObjectFromFHIRData:readDataToEndOfFile options:0 error:&v64];
-      v9 = v64;
+      v62 = 0;
+      v8 = [NSJSONSerialization hk_JSONObjectFromFHIRData:readDataToEndOfFile options:0 error:&v62];
+      v9 = v62;
     }
 
     else
@@ -52,7 +52,7 @@
     }
 
     objc_opt_class();
-    v63 = v9;
+    v61 = v9;
     v10 = HKSafeObject();
     v11 = v9;
 
@@ -60,7 +60,7 @@
     {
       v12 = +[NSMutableArray array];
       v13 = [v10 objectForKeyedSubscript:@"resourceType"];
-      v50 = v13;
+      v48 = v13;
       if (v13)
       {
         if ([v13 isEqualToString:@"Bundle"])
@@ -70,10 +70,10 @@
 
         else
         {
-          v75 = @"resource";
-          v76 = v10;
-          v38 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-          [v12 addObject:v38];
+          v73 = @"resource";
+          v74 = v10;
+          v36 = [NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+          [v12 addObject:v36];
 
           v14 = 0;
         }
@@ -81,12 +81,12 @@
 
       else
       {
-        v48 = v11;
-        v49 = readDataToEndOfFile;
-        v51 = selfCopy;
+        v46 = v11;
+        v47 = readDataToEndOfFile;
+        v49 = selfCopy;
         v15 = [v10 objectForKey:@"resources"];
         objc_opt_class();
-        v47 = v15;
+        v45 = v15;
         if (objc_opt_isKindOfClass())
         {
           v16 = v15;
@@ -99,145 +99,142 @@
 
         v17 = v16;
 
-        v61 = 0u;
-        v62 = 0u;
         v59 = 0u;
         v60 = 0u;
-        v46 = v17;
+        v57 = 0u;
+        v58 = 0u;
+        v44 = v17;
         obj = [v17 allValues];
-        v18 = [obj countByEnumeratingWithState:&v59 objects:v74 count:16];
+        v18 = [obj countByEnumeratingWithState:&v57 objects:v72 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v60;
-          v21 = &BiomeLibrary_ptr;
+          v20 = *v58;
           do
           {
-            v22 = 0;
-            v52 = v19;
+            v21 = 0;
+            v50 = v19;
             do
             {
-              if (*v60 != v20)
+              if (*v58 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v23 = *(*(&v59 + 1) + 8 * v22);
-              v24 = v21[258];
+              v22 = *(*(&v57 + 1) + 8 * v21);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v25 = v20;
-                v57 = 0u;
-                v58 = 0u;
+                v23 = v20;
                 v55 = 0u;
                 v56 = 0u;
-                v26 = v23;
-                v27 = [v26 countByEnumeratingWithState:&v55 objects:v73 count:16];
-                if (v27)
+                v53 = 0u;
+                v54 = 0u;
+                v24 = v22;
+                v25 = [v24 countByEnumeratingWithState:&v53 objects:v71 count:16];
+                if (v25)
                 {
-                  v28 = v27;
-                  v29 = *v56;
+                  v26 = v25;
+                  v27 = *v54;
                   do
                   {
-                    for (i = 0; i != v28; i = i + 1)
+                    for (i = 0; i != v26; i = i + 1)
                     {
-                      if (*v56 != v29)
+                      if (*v54 != v27)
                       {
-                        objc_enumerationMutation(v26);
+                        objc_enumerationMutation(v24);
                       }
 
-                      v31 = *(*(&v55 + 1) + 8 * i);
-                      v71 = @"resource";
-                      v72 = v31;
-                      v32 = [NSDictionary dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-                      [v12 addObject:v32];
+                      v29 = *(*(&v53 + 1) + 8 * i);
+                      v69 = @"resource";
+                      v70 = v29;
+                      v30 = [NSDictionary dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+                      [v12 addObject:v30];
                     }
 
-                    v28 = [v26 countByEnumeratingWithState:&v55 objects:v73 count:16];
+                    v26 = [v24 countByEnumeratingWithState:&v53 objects:v71 count:16];
                   }
 
-                  while (v28);
+                  while (v26);
                 }
 
-                v20 = v25;
-                v21 = &BiomeLibrary_ptr;
-                v19 = v52;
+                v20 = v23;
+                v19 = v50;
               }
 
               else
               {
                 _HKInitializeLogging();
-                v33 = HKLogHealthRecords;
+                v31 = HKLogHealthRecords;
                 if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
                 {
-                  v34 = v33;
-                  v35 = [(HDClinicalIngestionFileImportOperation *)v51 debugDescription];
-                  v36 = objc_opt_class();
+                  v32 = v31;
+                  v33 = [(HDClinicalIngestionFileImportOperation *)v49 debugDescription];
+                  v34 = objc_opt_class();
                   *buf = 138543618;
-                  v68 = v35;
-                  v69 = 2114;
-                  v70 = v36;
-                  v37 = v36;
-                  _os_log_error_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "%{public}@ invalid resource object array: %{public}@", buf, 0x16u);
+                  v66 = v33;
+                  v67 = 2114;
+                  v68 = v34;
+                  v35 = v34;
+                  _os_log_error_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "%{public}@ invalid resource object array: %{public}@", buf, 0x16u);
                 }
               }
 
-              v22 = v22 + 1;
+              v21 = v21 + 1;
             }
 
-            while (v22 != v19);
-            v19 = [obj countByEnumeratingWithState:&v59 objects:v74 count:16];
+            while (v21 != v19);
+            v19 = [obj countByEnumeratingWithState:&v57 objects:v72 count:16];
           }
 
           while (v19);
         }
 
         v14 = 0;
-        v8 = v46;
-        selfCopy = v51;
-        v11 = v48;
-        readDataToEndOfFile = v49;
+        v8 = v44;
+        selfCopy = v49;
+        v11 = v46;
+        readDataToEndOfFile = v47;
       }
 
       _HKInitializeLogging();
-      v39 = HKLogHealthRecords;
+      v37 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = v39;
-        v41 = [(HDClinicalIngestionFileImportOperation *)selfCopy debugDescription];
-        v42 = [v12 count];
+        v38 = v37;
+        v39 = [(HDClinicalIngestionFileImportOperation *)selfCopy debugDescription];
+        v40 = [v12 count];
         *buf = 138543618;
-        v68 = v41;
-        v69 = 2048;
-        v70 = v42;
-        _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "%{public}@ found %ld resources in file", buf, 0x16u);
+        v66 = v39;
+        v67 = 2048;
+        v68 = v40;
+        _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ found %ld resources in file", buf, 0x16u);
       }
 
       if (!v14 && v12)
       {
-        v65[0] = @"resourceType";
-        v65[1] = @"entry";
-        v66[0] = @"Bundle";
-        v66[1] = v12;
-        v14 = [NSDictionary dictionaryWithObjects:v66 forKeys:v65 count:2];
+        v63[0] = @"resourceType";
+        v63[1] = @"entry";
+        v64[0] = @"Bundle";
+        v64[1] = v12;
+        v14 = [NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:2];
       }
 
       if (v14)
       {
-        v54 = v11;
-        v43 = [NSJSONSerialization dataWithJSONObject:v14 options:0 error:&v54];
-        v44 = v54;
+        v52 = v11;
+        v41 = [NSJSONSerialization dataWithJSONObject:v14 options:0 error:&v52];
+        v42 = v52;
 
-        v11 = v44;
+        v11 = v42;
       }
 
       else
       {
-        v43 = 0;
+        v41 = 0;
       }
 
-      [(HDClinicalIngestionFileImportOperation *)selfCopy setDocumentData:v43];
+      [(HDClinicalIngestionFileImportOperation *)selfCopy setDocumentData:v41];
       documentData = [(HDClinicalIngestionFileImportOperation *)selfCopy documentData];
 
       if (!documentData)

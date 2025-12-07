@@ -547,7 +547,7 @@ LABEL_8:
 
 - (void)setAttributes:(id)attributes
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   v5 = [attributesCopy objectForKey:?];
 
@@ -590,31 +590,31 @@ LABEL_8:
   }
 
   [attributesCopy allKeys];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v13 = v26 = 0u;
-  v14 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v13 = v40 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (!v14)
   {
 
     goto LABEL_115;
   }
 
-  v23 = 0;
-  v24 = 0;
-  v15 = *v26;
+  v37 = 0;
+  v38 = 0;
+  v15 = *v40;
   do
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v26 != v15)
+      if (*v40 != v15)
       {
         objc_enumerationMutation(v13);
       }
 
-      v17 = *(*(&v25 + 1) + 8 * i);
-      v18 = [attributesCopy objectForKey:{v17, v21}];
+      v17 = *(*(&v39 + 1) + 8 * i);
+      v18 = [attributesCopy objectForKey:v17];
       if ([v17 isEqualToString:@"ids-stun-attribute-requestedtransport"])
       {
         -[IDSStunMessage _addUInt32Attribute:value:](self, "_addUInt32Attribute:value:", 25, [v18 unsignedCharValue] << 24);
@@ -637,7 +637,7 @@ LABEL_8:
           if ([v17 isEqualToString:@"ids-stun-attribute-messageintegrity"])
           {
             [(IDSStunMessage *)self setKey:v18];
-            v24 = 1;
+            v38 = 1;
           }
 
           else if ([v17 isEqualToString:@"ids-stun-attribute-data"])
@@ -703,7 +703,7 @@ LABEL_8:
             {
               v19 = v18;
 
-              v23 = v19;
+              v37 = v19;
             }
 
             else if ([v17 isEqualToString:@"ids-stun-attribute-generation-counter"])
@@ -850,10 +850,9 @@ LABEL_8:
 
               if (os_log_shim_legacy_logging_enabled())
               {
-                _IDSWarnV();
-                _IDSLogV(0, @"IDSFoundation", @"Warning", @"receive unknown stun attribute key %@ for QR stun message, ignore.");
-                v21 = v17;
-                _IDSLogTransport(@"Warning", @"IDS", @"receive unknown stun attribute key %@ for QR stun message, ignore.");
+                _IDSWarnV(@"IDSFoundation", @"receive unknown stun attribute key %@ for QR stun message, ignore.", v20, v21, v22, v23, v24, v25, v17);
+                _IDSLogV(0, @"IDSFoundation", @"Warning", @"receive unknown stun attribute key %@ for QR stun message, ignore.", v26, v27, v28, v29, v17);
+                _IDSLogTransport(@"Warning", @"IDS", @"receive unknown stun attribute key %@ for QR stun message, ignore.", v30, v31, v32, v33, v34, v17);
               }
             }
           }
@@ -861,15 +860,15 @@ LABEL_8:
       }
     }
 
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v39 objects:v44 count:16];
   }
 
   while (v14);
 
-  if (v23)
+  if (v37)
   {
     [(IDSStunMessage *)self _addBinaryDataAttribute:60934 value:?];
-    if ((v24 & 1) == 0)
+    if ((v38 & 1) == 0)
     {
       goto LABEL_116;
     }
@@ -877,17 +876,17 @@ LABEL_8:
     goto LABEL_114;
   }
 
-  if ((v24 & 1) == 0)
+  if ((v38 & 1) == 0)
   {
 LABEL_115:
-    v23 = 0;
+    v37 = 0;
     goto LABEL_116;
   }
 
 LABEL_114:
   memset(buf, 170, 20);
-  v20 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:{20, v21}];
-  [(IDSStunMessage *)self _addBinaryDataAttribute:8 value:v20];
+  v35 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:20];
+  [(IDSStunMessage *)self _addBinaryDataAttribute:8 value:v35];
 
 LABEL_116:
 }
@@ -1524,7 +1523,7 @@ LABEL_98:
         case 0xFFEE:
           attributes->i16[2] = 7;
           ++v23;
-          if (!readStunUINT16Attribute(attributes, &v45, v22, v20 - v22))
+          if (!readStunUINT16Attribute(attributes, &v45, v22, (v20 - v22)))
           {
             goto LABEL_99;
           }
@@ -1548,7 +1547,7 @@ LABEL_98:
             case '""':
 LABEL_75:
               attributes->i16[2] = 4;
-              StunErrorCodeAttribute = readStunUINT64Attribute(attributes, &v45, v22, v20 - v22);
+              StunErrorCodeAttribute = readStunUINT64Attribute(attributes, &v45, v22, (v20 - v22));
               goto LABEL_47;
             case '%':
               goto LABEL_36;
@@ -1607,7 +1606,7 @@ LABEL_75:
         {
 LABEL_78:
           attributes->i16[2] = 2;
-          StunErrorCodeAttribute = readStunXORAddressAttribute(attributes, &v45, self->_transactionID, v22, v20 - v22);
+          StunErrorCodeAttribute = readStunXORAddressAttribute(attributes, &v45, self->_transactionID, v22, (v20 - v22));
           goto LABEL_47;
         }
       }
@@ -1622,7 +1621,7 @@ LABEL_78:
         if (v29 == 9)
         {
           attributes->i16[2] = 6;
-          StunErrorCodeAttribute = readStunErrorCodeAttribute(attributes, &v45, v22, v20 - v22);
+          StunErrorCodeAttribute = readStunErrorCodeAttribute(attributes, &v45, v22, (v20 - v22));
           goto LABEL_47;
         }
       }
@@ -1667,7 +1666,7 @@ LABEL_47:
       {
 LABEL_36:
         attributes->i16[2] = 3;
-        StunErrorCodeAttribute = readStunUINT32Attribute(attributes, &v45, v22, v20 - v22);
+        StunErrorCodeAttribute = readStunUINT32Attribute(attributes, &v45, v22, (v20 - v22));
         goto LABEL_47;
       }
 

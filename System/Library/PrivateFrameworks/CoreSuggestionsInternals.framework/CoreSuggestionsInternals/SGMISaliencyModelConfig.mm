@@ -243,7 +243,7 @@ id __40__SGMISaliencyModelConfig_defaultConfig__block_invoke(uint64_t a1, void *
 
 + (id)rulesFromFeatures:(id)features lowerBounds:(id)bounds upperBounds:(id)upperBounds outputs:(id)outputs
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   boundsCopy = bounds;
   upperBoundsCopy = upperBounds;
@@ -303,8 +303,8 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v14 = [featuresCopy count];
-  if (v14 != [boundsCopy count] || v14 != objc_msgSend(upperBoundsCopy, "count") || v14 != objc_msgSend(v13, "count"))
+  v14 = objc_msgSend_count(featuresCopy);
+  if (v14 != objc_msgSend_count(boundsCopy) || v14 != objc_msgSend_count(upperBoundsCopy) || v14 != objc_msgSend_count(v13))
   {
     v15 = sgMailIntelligenceLogHandle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -319,7 +319,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v36 = v13;
+  v35 = v13;
   v15 = objc_opt_new();
   if (v14 < 1)
   {
@@ -332,11 +332,11 @@ LABEL_12:
   {
     v16 = 0;
     v17 = 0x278948000uLL;
-    v34 = v14;
-    v35 = upperBoundsCopy;
+    v33 = v14;
+    v34 = upperBoundsCopy;
     while (1)
     {
-      v18 = [featuresCopy objectAtIndex:{v16, v34}];
+      v18 = [featuresCopy objectAtIndex:{v16, v33}];
       allFeaturePrettyNames = [*(v17 + 3280) allFeaturePrettyNames];
       v20 = [allFeaturePrettyNames containsObject:v18];
 
@@ -350,7 +350,7 @@ LABEL_12:
       v22 = [prettyNamesReverseMapping objectForKeyedSubscript:v18];
       v23 = [boundsCopy objectAtIndex:v16];
       v24 = [upperBoundsCopy objectAtIndex:v16];
-      [v36 objectAtIndex:v16];
+      [v35 objectAtIndex:v16];
       v25 = featuresCopy;
       v27 = v26 = boundsCopy;
       v28 = [(SGMISaliencyModelConfigRule *)v21 initWithFeatureName:v22 strictLowerBound:v23 strictUpperBound:v24 output:v27];
@@ -359,30 +359,28 @@ LABEL_12:
       boundsCopy = v26;
       featuresCopy = v25;
 
-      upperBoundsCopy = v35;
+      upperBoundsCopy = v34;
       v17 = 0x278948000;
 
-      if (v34 == ++v16)
+      if (v33 == ++v16)
       {
         goto LABEL_12;
       }
     }
 
-    v33 = sgMailIntelligenceLogHandle();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = sgMailIntelligenceLogHandle();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v39 = v18;
-      _os_log_error_impl(&dword_231E60000, v33, OS_LOG_TYPE_ERROR, "SGMISaliencyModelConfig: Unexpected feature %@", buf, 0xCu);
+      v38 = v18;
+      _os_log_error_impl(&dword_231E60000, v32, OS_LOG_TYPE_ERROR, "SGMISaliencyModelConfig: Unexpected feature %@", buf, 0xCu);
     }
 
     v29 = 0;
   }
 
-  v13 = v36;
+  v13 = v35;
 LABEL_25:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

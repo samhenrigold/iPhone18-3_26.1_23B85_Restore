@@ -41,8 +41,7 @@
         {
           [(AFKEndpointInterface *)selfCopy->_endpoint setDispatchQueue:selfCopy->_epQueue];
           [(AFKEndpointInterface *)selfCopy->_endpoint activate:0];
-          v17 = selfCopy;
-          goto LABEL_18;
+          return selfCopy;
         }
 
         if (selfCopy->_logHandle)
@@ -75,14 +74,10 @@
 
     MEMORY[0x1E69E5920](selfCopy);
     selfCopy = 0;
-    v17 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
-  v17 = 0;
-LABEL_18:
-  *MEMORY[0x1E69E9840];
-  return v17;
+  return 0;
 }
 
 - (void)dealloc
@@ -121,7 +116,7 @@ LABEL_18:
 
 - (BOOL)setProperty:(id)property property:(id)a4
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (self->_logHandle)
   {
     logHandle = self->_logHandle;
@@ -144,132 +139,125 @@ LABEL_18:
 
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [objc_msgSend(objc_opt_class() "description")];
-    __os_log_helper_16_2_4_8_32_8_32_8_32_8_64(v28, v12, "-[CBAPEndpoint setProperty:property:]", [property UTF8String], a4);
-    _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "%s:%s called for key: %s, property: %@", v28, 0x2Au);
+    v11 = [objc_msgSend(objc_opt_class() "description")];
+    __os_log_helper_16_2_4_8_32_8_32_8_32_8_64(v27, v11, "-[CBAPEndpoint setProperty:property:]", [property UTF8String], a4);
+    _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "%s:%s called for key: %s, property: %@", v27, 0x2Au);
   }
 
-  if (property && a4)
+  if (!property || !a4)
   {
-    v19 = [property lengthOfBytesUsingEncoding:4];
-    if (v19 >= 0x40)
+    return 0;
+  }
+
+  v18 = [property lengthOfBytesUsingEncoding:4];
+  if (v18 >= 0x40)
+  {
+    [property UTF8String];
+    __strlcpy_chk();
+    if (self->_logHandle)
     {
-      [property UTF8String];
-      __strlcpy_chk();
-      if (self->_logHandle)
-      {
-        v11 = self->_logHandle;
-      }
-
-      else
-      {
-        v10 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-        v11 = v10;
-      }
-
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
-      {
-        __os_log_helper_16_2_2_8_32_8_32(v26, [property UTF8String], v27);
-        _os_log_debug_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEBUG, "WARNING: Property name is too long it will be truncated, %s -> %s\n", v26, 0x16u);
-      }
+      v10 = self->_logHandle;
     }
 
-    v18 = IOCFSerialize(a4, 1uLL);
-    if (v18)
+    else
     {
-      if ([(__CFData *)v18 length]< 486 - v19)
-      {
-        v17 = v19 + 1 + [(__CFData *)v18 length];
-        v16 = malloc_type_malloc(v17 + 4, 0x100004052888210uLL);
-        *v16 = v19 + 1;
-        [property UTF8String];
-        __strlcpy_chk();
-        v5 = v16 + *v16 + 4;
-        [(__CFData *)v18 bytes];
-        [(__CFData *)v18 length];
-        __memcpy_chk();
-        v15 = [(CBAPEndpoint *)self enqueueCommandSync:67 inputBuffer:v16 inputBufferSize:v17 + 4 responseObj:0 options:0];
-        if (v16)
-        {
-          free(v16);
-        }
+      v9 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+      v10 = v9;
+    }
 
-        MEMORY[0x1E69E5920](v18);
-        v23 = v15;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      __os_log_helper_16_2_2_8_32_8_32(v25, [property UTF8String], v26);
+      _os_log_debug_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_DEBUG, "WARNING: Property name is too long it will be truncated, %s -> %s\n", v25, 0x16u);
+    }
+  }
+
+  v17 = IOCFSerialize(a4, 1uLL);
+  if (v17)
+  {
+    if ([(__CFData *)v17 length]< 486 - v18)
+    {
+      v16 = v18 + 1 + [(__CFData *)v17 length];
+      v15 = malloc_type_malloc(v16 + 4, 0x100004052888210uLL);
+      *v15 = v18 + 1;
+      [property UTF8String];
+      __strlcpy_chk();
+      [(__CFData *)v17 bytes];
+      [(__CFData *)v17 length];
+      __memcpy_chk();
+      v14 = [(CBAPEndpoint *)self enqueueCommandSync:67 inputBuffer:v15 inputBufferSize:v16 + 4 responseObj:0 options:0];
+      if (v15)
+      {
+        free(v15);
       }
 
-      else
-      {
-        if (self->_logHandle)
-        {
-          v7 = self->_logHandle;
-        }
-
-        else
-        {
-          if (_COREBRIGHTNESS_LOG_DEFAULT)
-          {
-            v6 = _COREBRIGHTNESS_LOG_DEFAULT;
-          }
-
-          else
-          {
-            v6 = init_default_corebrightness_log();
-          }
-
-          v7 = v6;
-        }
-
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-        {
-          __os_log_helper_16_2_3_8_32_8_0_8_0(v24, [property UTF8String], 486 - v19, -[__CFData length](v18, "length"));
-          _os_log_error_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_ERROR, "Data for setting property %s is too long, max payload %lu, needed size %lu\n", v24, 0x20u);
-        }
-
-        MEMORY[0x1E69E5920](v18);
-        v23 = 0;
-      }
+      MEMORY[0x1E69E5920](v17);
+      return v14;
     }
 
     else
     {
       if (self->_logHandle)
       {
-        v9 = self->_logHandle;
+        v6 = self->_logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v8 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v5 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v8 = init_default_corebrightness_log();
+          v5 = init_default_corebrightness_log();
         }
 
-        v9 = v8;
+        v6 = v5;
       }
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_2_8_32_8_64(v25, [property UTF8String], a4);
-        _os_log_error_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_ERROR, "Could not encode value for setting property %s, value: %@\n", v25, 0x16u);
+        __os_log_helper_16_2_3_8_32_8_0_8_0(v23, [property UTF8String], 486 - v18, -[__CFData length](v17, "length"));
+        _os_log_error_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_ERROR, "Data for setting property %s is too long, max payload %lu, needed size %lu\n", v23, 0x20u);
       }
 
-      v23 = 0;
+      MEMORY[0x1E69E5920](v17);
+      return 0;
     }
   }
 
   else
   {
-    v23 = 0;
-  }
+    if (self->_logHandle)
+    {
+      v8 = self->_logHandle;
+    }
 
-  *MEMORY[0x1E69E9840];
-  return v23;
+    else
+    {
+      if (_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v7 = _COREBRIGHTNESS_LOG_DEFAULT;
+      }
+
+      else
+      {
+        v7 = init_default_corebrightness_log();
+      }
+
+      v8 = v7;
+    }
+
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      __os_log_helper_16_2_2_8_32_8_64(v24, [property UTF8String], a4);
+      _os_log_error_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_ERROR, "Could not encode value for setting property %s, value: %@\n", v24, 0x16u);
+    }
+
+    return 0;
+  }
 }
 
 - (id)copyProperty:(id)property
@@ -316,12 +304,12 @@ LABEL_18:
     v9 = 0;
     if ([(CBAPEndpoint *)selfCopy enqueueCommandSync:66 inputBuffer:__b inputBufferSize:64 responseObj:&v9 options:0])
     {
-      v18 = v9;
+      return v9;
     }
 
     else
     {
-      v18 = 0;
+      return 0;
     }
   }
 
@@ -355,54 +343,45 @@ LABEL_18:
       _os_log_error_impl(&dword_1DE8E5000, v12, v11, "Property name is too long, %s\n", v20, 0xCu);
     }
 
-    v18 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v18;
 }
 
 - (BOOL)sendCommand:(int)command inputBuffer:(const void *)buffer inputBufferSize:(unint64_t)size
 {
   v14 = *MEMORY[0x1E69E9840];
-  if (buffer && size)
+  if (!buffer || !size)
   {
-    if (self->_logHandle)
-    {
-      logHandle = self->_logHandle;
-    }
+    return 0;
+  }
 
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        inited = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        inited = init_default_corebrightness_log();
-      }
-
-      logHandle = inited;
-    }
-
-    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-    {
-      __os_log_helper_16_0_1_4_0(v13, command);
-      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Send command = 0x%x", v13, 8u);
-    }
-
-    v12 = [(CBAPEndpoint *)self enqueueCommandSync:command inputBuffer:buffer inputBufferSize:size responseObj:0 options:0];
+  if (self->_logHandle)
+  {
+    logHandle = self->_logHandle;
   }
 
   else
   {
-    v12 = 0;
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    logHandle = inited;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v12 & 1;
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+  {
+    __os_log_helper_16_0_1_4_0(v13, command);
+    _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Send command = 0x%x", v13, 8u);
+  }
+
+  return [(CBAPEndpoint *)self enqueueCommandSync:command inputBuffer:buffer inputBufferSize:size responseObj:0 options:0];
 }
 
 - (BOOL)sendOOBCommand:(int)command inputBuffer:(const void *)buffer inputBufferSize:(unint64_t)size
@@ -444,7 +423,6 @@ LABEL_18:
     v12 = 0;
   }
 
-  *MEMORY[0x1E69E9840];
   return v12 & 1;
 }
 
@@ -633,7 +611,6 @@ LABEL_18:
     _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "enqueueCommandSync", "0x%x, status: %d", v39, 0xEu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v24 & 1;
 }
 
@@ -691,7 +668,6 @@ LABEL_18:
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v9;
 }
 

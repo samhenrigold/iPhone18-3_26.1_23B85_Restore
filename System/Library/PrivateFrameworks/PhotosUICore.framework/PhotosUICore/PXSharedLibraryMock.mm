@@ -145,16 +145,16 @@
   }
 }
 
-void __62__PXSharedLibraryMock_moveAssetsToPersonalLibrary_completion___block_invoke(uint64_t a1)
+void __62__PXSharedLibraryMock_moveAssetsToPersonalLibrary_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Simulated Error: Move Assets to Personal Library Failed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Simulated Error: Move Assets to Personal Library Failed", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Move Assets to Personal Library Failed"];
+  v4 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Move Assets to Personal Library Failed"];
   (*(*(a1 + 32) + 16))();
 }
 
@@ -217,16 +217,16 @@ void __62__PXSharedLibraryMock_moveAssetsToPersonalLibrary_completion___block_in
   }
 }
 
-void __60__PXSharedLibraryMock_moveAssetsToSharedLibrary_completion___block_invoke(uint64_t a1)
+void __60__PXSharedLibraryMock_moveAssetsToSharedLibrary_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Simulated Error: Move Assets to Shared Library Failed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Simulated Error: Move Assets to Shared Library Failed", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Move Assets to Shared Library Failed"];
+  v4 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Move Assets to Shared Library Failed"];
   (*(*(a1 + 32) + 16))();
 }
 
@@ -363,16 +363,16 @@ LABEL_3:
   }
 }
 
-void __81__PXSharedLibraryMock_deleteParticipants_presentationEnvironment_withCompletion___block_invoke(uint64_t a1)
+void __81__PXSharedLibraryMock_deleteParticipants_presentationEnvironment_withCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Simulated Error: Deleting Participants Failed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Simulated Error: Deleting Participants Failed", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Deleting Participants Failed"];
+  v4 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Deleting Participants Failed"];
   (*(*(a1 + 32) + 16))();
 }
 
@@ -502,16 +502,16 @@ LABEL_5:
   }
 }
 
-void __109__PXSharedLibraryMock_addParticipantsWithEmailAddresses_phoneNumbers_presentationEnvironment_withCompletion___block_invoke(uint64_t a1)
+void __109__PXSharedLibraryMock_addParticipantsWithEmailAddresses_phoneNumbers_presentationEnvironment_withCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Simulated Error: Adding Participants Failed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Simulated Error: Adding Participants Failed", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Adding Participants Failed"];
+  v4 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Adding Participants Failed"];
   (*(*(a1 + 32) + 16))();
 }
 
@@ -562,16 +562,16 @@ void __109__PXSharedLibraryMock_addParticipantsWithEmailAddresses_phoneNumbers_p
   }
 }
 
-void __91__PXSharedLibraryMock_exitWithRetentionPolicy_presentationEnvironment_progress_completion___block_invoke(uint64_t a1)
+void __91__PXSharedLibraryMock_exitWithRetentionPolicy_presentationEnvironment_progress_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Simulated Error: Exit Failed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Simulated Error: Exit Failed", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Exit Failed"];
+  v4 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Exit Failed"];
   (*(*(a1 + 32) + 16))();
 }
 
@@ -610,16 +610,16 @@ void __91__PXSharedLibraryMock_exitWithRetentionPolicy_presentationEnvironment_p
   }
 }
 
-void __73__PXSharedLibraryMock_exitPreviewWithPresentationEnvironment_completion___block_invoke(uint64_t a1)
+void __73__PXSharedLibraryMock_exitPreviewWithPresentationEnvironment_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Simulated Error: Exit from Preview Failed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Simulated Error: Exit from Preview Failed", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Exit from Preview Failed"];
+  v4 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Exit from Preview Failed"];
   (*(*(a1 + 32) + 16))();
 }
 
@@ -659,16 +659,16 @@ void __73__PXSharedLibraryMock_exitPreviewWithPresentationEnvironment_completion
   }
 }
 
-void __85__PXSharedLibraryMock_publishPreviewWithPresentationEnvironment_progress_completion___block_invoke(uint64_t a1)
+void __85__PXSharedLibraryMock_publishPreviewWithPresentationEnvironment_progress_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Simulated Error: Publish Shared Library Preview Failed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Simulated Error: Publish Shared Library Preview Failed", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Publish Shared Library Preview Failed"];
+  v4 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Publish Shared Library Preview Failed"];
   (*(*(a1 + 32) + 16))();
 }
 
@@ -826,16 +826,16 @@ void __85__PXSharedLibraryMock_publishPreviewWithPresentationEnvironment_progres
   }
 }
 
-void __69__PXSharedLibraryMock_previewInvitationWithRule_progress_completion___block_invoke(uint64_t a1)
+void __69__PXSharedLibraryMock_previewInvitationWithRule_progress_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Simulated Error: Create Invitation Preview Failed", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Simulated Error: Create Invitation Preview Failed", v5, 2u);
   }
 
-  v3 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Create Invitation Preview Failed"];
+  v4 = [MEMORY[0x1E696ABC0] px_errorWithDomain:@"PXSharedLibraryErrorDomain" code:-1000 debugDescription:@"Simulated Error: Create Invitation Preview Failed"];
   (*(*(a1 + 32) + 16))();
 }
 

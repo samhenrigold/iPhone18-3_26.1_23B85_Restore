@@ -22,7 +22,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   gUID = [inputCopy GUID];
   v4 = IMOSLoggingEnabled();
@@ -47,7 +47,7 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = gUID;
+      v31 = gUID;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMRecoverJunkCommandProcessingPipelineComponent> Started processing recover junk command for message GUID: %@", buf, 0xCu);
     }
   }
@@ -60,7 +60,7 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v32 = gUID;
+        v31 = gUID;
         _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Ignoring recover junk command not from me for message: %@", buf, 0xCu);
       }
     }
@@ -80,7 +80,7 @@ LABEL_40:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = gUID;
+      v31 = gUID;
       _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Found chats for message guid: %@", buf, 0xCu);
     }
   }
@@ -91,30 +91,30 @@ LABEL_40:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = v8;
+      v31 = v8;
       _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Found chats: %@", buf, 0xCu);
     }
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v12)
   {
-    v13 = *v28;
+    v13 = *v27;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v28 != v13)
+        if (*v27 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v27 + 1) + 8 * i);
+        v15 = *(*(&v26 + 1) + 8 * i);
         if ([v15 isFiltered] == 2)
         {
           [v15 updateIsRecovered:1];
@@ -139,15 +139,15 @@ LABEL_40:
           {
             isFiltered = [v15 isFiltered];
             *buf = 134218242;
-            v32 = isFiltered;
-            v33 = 2112;
-            v34 = v15;
+            v31 = isFiltered;
+            v32 = 2112;
+            v33 = v15;
             _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Chat is already out of Junk: %lld, not recovering: %@", buf, 0x16u);
           }
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v12);
@@ -155,8 +155,6 @@ LABEL_40:
 
   v20 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
 LABEL_41:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

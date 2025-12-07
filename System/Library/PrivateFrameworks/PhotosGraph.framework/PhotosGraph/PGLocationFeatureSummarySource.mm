@@ -11,40 +11,40 @@
 
 - (id)summarizedCityOrCountyNodesForMomentNode:(id)node momentAddressNodesAsSet:(id)set
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   setCopy = set;
   selfCopy = self;
   locationHelper = [(PGTitleGenerationContext *)self->_titleGenerationContext locationHelper];
   v9 = [[PGIncompleteLocationResolver alloc] initWithAddressNodes:setCopy locationHelper:locationHelper];
-  v29 = [MEMORY[0x277CBEB98] setWithObject:nodeCopy];
-  v30 = v9;
-  v31 = locationHelper;
-  v32 = setCopy;
+  v28 = [MEMORY[0x277CBEB98] setWithObject:nodeCopy];
+  v29 = v9;
+  v30 = locationHelper;
+  v31 = setCopy;
   v10 = [PGLocationTitleUtility commonCityTitleComponentsFromMomentNodes:"commonCityTitleComponentsFromMomentNodes:addressNodes:incompleteLocationResolver:locationHelper:" addressNodes:? incompleteLocationResolver:? locationHelper:?];
-  v33 = nodeCopy;
+  v32 = nodeCopy;
   collection = [nodeCopy collection];
-  v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v11 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v39;
+    v13 = *v38;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v39 != v13)
+        if (*v38 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v38 + 1) + 8 * i);
+        v15 = *(*(&v37 + 1) + 8 * i);
         addressNodes = [v15 addressNodes];
         v17 = [addressNodes count];
 
@@ -61,19 +61,17 @@
           universalDateIntervals = [v21 universalDateIntervals];
           v26 = -[PGLocationSummarizedFeature initWithSubtype:intervalsPresent:numberOfAssets:isMandatoryForKeyAsset:locationNode:](v24, "initWithSubtype:intervalsPresent:numberOfAssets:isMandatoryForKeyAsset:locationNode:", v23, universalDateIntervals, [v21 numberOfAssets], 1, node);
 
-          [v37 addObject:v26];
+          [v36 addObject:v26];
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v12);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v37;
+  return v36;
 }
 
 - (id)summarizedDistrictNodesForMomentNode:(id)node momentAddressNodes:(id)nodes momentCityNodes:(id)cityNodes
@@ -170,40 +168,40 @@ void __106__PGLocationFeatureSummarySource_summarizedDistrictNodesForMomentNode_
 
 - (id)summarizedAreaNodesForMomentNode:(id)node momentAddressNodesAsSet:(id)set
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   setCopy = set;
   v8 = [MEMORY[0x277CBEB98] setWithObject:nodeCopy];
   v9 = [PGLocationTitleUtility containsAmusementParkPOIFromMomentNodes:v8];
   selfCopy = self;
   locationHelper = [(PGTitleGenerationContext *)self->_titleGenerationContext locationHelper];
-  v30 = v8;
-  v31 = setCopy;
+  v29 = v8;
+  v30 = setCopy;
   v11 = [PGLocationTitleUtility commonAOIComponentsForMomentNodes:v8 addressNodes:setCopy aoiDisplayType:3 containsAmusementParkPOI:v9 locationHelper:locationHelper];
 
-  v32 = nodeCopy;
+  v31 = nodeCopy;
   collection = [nodeCopy collection];
-  v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v12 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v38;
+    v14 = *v37;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v38 != v14)
+        if (*v37 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v37 + 1) + 8 * i);
+        v16 = *(*(&v36 + 1) + 8 * i);
         addressNodes = [v16 addressNodes];
         v18 = [addressNodes count];
 
@@ -220,55 +218,53 @@ void __106__PGLocationFeatureSummarySource_summarizedDistrictNodesForMomentNode_
           universalDateIntervals = [v22 universalDateIntervals];
           v27 = -[PGLocationSummarizedFeature initWithSubtype:intervalsPresent:numberOfAssets:isMandatoryForKeyAsset:locationNode:](v25, "initWithSubtype:intervalsPresent:numberOfAssets:isMandatoryForKeyAsset:locationNode:", v24, universalDateIntervals, [v22 numberOfAssets], 1, node);
 
-          [v36 addObject:v27];
+          [v35 addObject:v27];
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v13 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v13);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v35;
 }
 
 - (id)summarizedHomeWorkNodesForMomentNode:(id)node momentAddressNodes:(id)nodes
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   nodesCopy = nodes;
   selfCopy = self;
   serviceManager = [(PGTitleGenerationContext *)self->_titleGenerationContext serviceManager];
-  v29 = nodesCopy;
+  v28 = nodesCopy;
   v8 = [PGLocationTitleUtility peopleLocationTitleComponentsFromAddressNodes:nodesCopy peopleDisplayType:1 serviceManager:serviceManager];
 
-  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v9 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v37;
-    v30 = *v37;
+    v11 = *v36;
+    v29 = *v36;
     do
     {
       v12 = 0;
-      v34 = v10;
+      v33 = v10;
       do
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * v12);
+        v13 = *(*(&v35 + 1) + 8 * v12);
         addressNodes = [v13 addressNodes];
         v15 = [addressNodes count];
 
@@ -288,25 +284,23 @@ void __106__PGLocationFeatureSummarySource_summarizedDistrictNodesForMomentNode_
           v25 = [PGPeopleTitleUtility beautifiedLocationStringWithPersonNode:node peopleAddressEdge:edge titleComponent:v13 insertLineBreak:0 allowFamilyHome:0 serviceManager:serviceManager2];
 
           v26 = -[PGLocationSummarizedFeature initWithSubtype:intervalsPresent:numberOfAssets:isMandatoryForKeyAsset:locationNode:personNode:locationName:]([PGLocationSummarizedFeature alloc], "initWithSubtype:intervalsPresent:numberOfAssets:isMandatoryForKeyAsset:locationNode:personNode:locationName:", v22, universalDateIntervals, [v20 numberOfAssets], 1, anyObject, node, v25);
-          [v32 addObject:v26];
+          [v31 addObject:v26];
 
-          v11 = v30;
-          v10 = v34;
+          v11 = v29;
+          v10 = v33;
         }
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v10 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v10);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (id)summarizedFeaturesForMomentNodes:(id)nodes
@@ -343,7 +337,7 @@ void __106__PGLocationFeatureSummarySource_summarizedDistrictNodesForMomentNode_
 
 void __67__PGLocationFeatureSummarySource_summarizedFeaturesForMomentNodes___block_invoke(id *a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 anyNode];
   if (v5)
@@ -388,11 +382,11 @@ void __67__PGLocationFeatureSummarySource_summarizedFeaturesForMomentNodes___blo
               v13 = *(a1[5] + 1);
               if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
               {
-                v15 = v13;
-                v16 = [v5 localIdentifier];
+                v14 = v13;
+                v15 = [v5 localIdentifier];
                 *buf = 138412290;
-                v18 = v16;
-                _os_log_error_impl(&dword_22F0FC000, v15, OS_LOG_TYPE_ERROR, "[PGLocationFeatureSummarySource] No summarized location features found from momentNode %@", buf, 0xCu);
+                v17 = v15;
+                _os_log_error_impl(&dword_22F0FC000, v14, OS_LOG_TYPE_ERROR, "[PGLocationFeatureSummarySource] No summarized location features found from momentNode %@", buf, 0xCu);
               }
             }
           }
@@ -400,8 +394,6 @@ void __67__PGLocationFeatureSummarySource_summarizedFeaturesForMomentNodes___blo
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (PGLocationFeatureSummarySource)initWithLoggingConnection:(id)connection titleGenerationContext:(id)context graph:(id)graph

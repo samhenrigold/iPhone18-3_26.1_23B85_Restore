@@ -5,11 +5,10 @@
 
 - (void)fetchListRepresentationOfTemplateWithObjectID:()Templates error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "REMListsDataView: Requested to fetch list for non-existent template {templateobjectID: %{public}@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "REMListsDataView: Requested to fetch list for non-existent template {templateobjectID: %{public}@}", &v2, 0xCu);
 }
 
 @end

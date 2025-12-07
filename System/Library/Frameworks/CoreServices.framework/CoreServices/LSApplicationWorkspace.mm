@@ -6,6 +6,7 @@
 + (id)progressQueue;
 - (BOOL)_LSPrivateAskLSDToExitSafely:(double)safely completionHandler:(id)handler;
 - (BOOL)_LSPrivateDatabaseNeedsRebuild;
+- (BOOL)_LSPrivateRebuildApplicationDatabasesForSystemApps:(BOOL)apps internal:(BOOL)internal user:(BOOL)user uid:(unsigned int *)uid;
 - (BOOL)_LSPrivateRebuildDatabaseAtNextRestart:(id)restart;
 - (BOOL)_getBundleIdentifierForBundleAtURL:(id)l invokeUpdateBlockAndReregister:(id)reregister error:(id *)error;
 - (BOOL)allowsAlternateIcons;
@@ -21,6 +22,7 @@
 - (BOOL)installContainerizedApplicationArtifactAtURL:(id)l withOptions:(id)options returningRecordPromise:(id *)promise error:(id *)error progressBlock:(id)block;
 - (BOOL)installPhaseFinishedForProgress:(id)progress;
 - (BOOL)invalidateIconCache:(id)cache;
+- (BOOL)isApplicationAvailableToOpenURLCommon:(id)common includePrivateURLSchemes:(BOOL)schemes error:(id *)error;
 - (BOOL)isApplicationEligibleForReadOnlyDocumentOpenBehavior:(id)behavior;
 - (BOOL)isBundleEligibleForOpenDocumentViaOpenURL:(id)l;
 - (BOOL)isCurrentProcessEligibleForOpenDocumentViaOpenURL;
@@ -32,12 +34,14 @@
 - (BOOL)openURL:(id)l withOptions:(id)options error:(id *)error;
 - (BOOL)refreshUnbundledSystemExtensionPointsWithOperationUUID:(id)d requestContext:(id)context saveObserver:(id)observer registrationError:(id *)error;
 - (BOOL)registerApplication:(id)application;
+- (BOOL)registerApplicationDictionary:(id)dictionary withObserverNotification:(int)notification;
 - (BOOL)registerApplicationForRebuildWithInfoDictionaries:(id)dictionaries personaUniqueStrings:(id)strings requestContext:(id)context registrationError:(id *)error;
 - (BOOL)registerApplicationForRebuildWithInstallationRecord:(id)record extensionInstallationRecords:(id)records personaUniqueStrings:(id)strings requestContext:(id)context registrationError:(id *)error;
 - (BOOL)registerBuiltinApplicationWithInstallationRecord:(id)record extensionInstallationRecords:(id)records personaUniqueStrings:(id)strings operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer registrationError:(id *)error;
 - (BOOL)registerBuiltinStandaloneExtension:(id)extension personaUniqueStrings:(id)strings operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer registrationError:(id *)error;
 - (BOOL)registerPlugin:(id)plugin;
 - (BOOL)revertContainerizedApplicationWithIdentifier:(id)identifier options:(id)options returningRecordPromise:(id *)promise error:(id *)error progressBlock:(id)block;
+- (BOOL)sendNotificationOfType:(unsigned int)type forApplicationWithBundleIdentifier:(id)identifier requestContext:(id)context error:(id *)error;
 - (BOOL)setPersonaUniqueStrings:(id)strings forApplicationWithBundleIdentifier:(id)identifier operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer error:(id *)error;
 - (BOOL)setPersonaUniqueStrings:(id)strings forApplicationsWithBundleIdentifiers:(id)identifiers operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer error:(id *)error;
 - (BOOL)setPreferredAppMarketplaces:(id)marketplaces error:(id *)error;
@@ -48,9 +52,11 @@
 - (BOOL)unregisterApplicationsAtMountPoint:(id)point operationUUID:(id)d saveObserver:(id)observer requestContext:(id)context;
 - (BOOL)unregisterBuiltinApplicationAtURL:(id)l operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer error:(id *)error;
 - (BOOL)unregisterBuiltinStandaloneExtensionAtURL:(id)l operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer error:(id *)error;
+- (BOOL)unregisterContainerizedApplicationWithBundleIdentifier:(id)identifier operationUUID:(id)d unregistrationOperation:(unsigned int)operation precondition:(id)precondition requestContext:(id)context saveObserver:(id)observer unregistrationError:(id *)error;
 - (BOOL)unregisterPlugin:(id)plugin;
 - (BOOL)updatePlaceholderMetadataForApp:(id)app installType:(unint64_t)type failure:(unint64_t)failure underlyingError:(id)error source:(unint64_t)source outError:(id *)outError;
 - (BOOL)updatePlaceholderMetadataForApplicationWithIdentifier:(id)identifier operationUUID:(id)d requestContext:(id)context installType:(unint64_t)type failure:(unint64_t)failure saveObserver:(id)observer error:(id *)error;
+- (BOOL)updateRecordForApp:(id)app withSINF:(id)f iTunesMetadata:(id)metadata placeholderMetadata:(id)placeholderMetadata sendNotification:(int)notification operationUUID:(id)d outSaveToken:(id *)token error:(id *)self0;
 - (BOOL)updateSINFMetadataForApplicationWithIdentifier:(id)identifier operationUUID:(id)d requestContext:(id)context parsedSINFInfo:(id)info saveObserver:(id)observer error:(id *)error;
 - (BOOL)updateSINFWithData:(id)data forApplication:(id)application options:(id)options error:(id *)error;
 - (BOOL)updateSINFWithData:(id)data forApplicationAtURL:(id)l error:(id *)error;
@@ -63,7 +69,9 @@
 - (id)applicationForOpeningResource:(id)resource;
 - (id)applicationForUserActivityDomainName:(id)name;
 - (id)applicationForUserActivityType:(id)type;
+- (id)applicationProxiesWithPlistFlags:(unsigned int)flags bundleFlags:(unint64_t)bundleFlags;
 - (id)applicationsAvailableForHandlingURLScheme:(id)scheme;
+- (id)applicationsAvailableForOpeningURL:(id)l legacySPI:(BOOL)i;
 - (id)applicationsForUserActivityType:(id)type limit:(unint64_t)limit;
 - (id)applicationsOfType:(unint64_t)type;
 - (id)createDeviceIdentifierWithVendorName:(id)name bundleIdentifier:(id)identifier;
@@ -78,6 +86,7 @@
 - (id)legacyApplicationProxiesListWithType:(unint64_t)type;
 - (id)observerProxy;
 - (id)openURL:(id)l configuration:(id)configuration error:(id *)error;
+- (id)operationToOpenResource:(id)resource usingApplication:(id)application uniqueDocumentIdentifier:(id)identifier isContentManaged:(BOOL)managed sourceAuditToken:(id *)token userInfo:(id)info configuration:(id)configuration delegate:(id)self0;
 - (id)operationToOpenResource:(id)resource usingApplication:(id)application uniqueDocumentIdentifier:(id)identifier isContentManaged:(BOOL)managed sourceAuditToken:(id *)token userInfo:(id)info options:(id)options delegate:(id)self0;
 - (id)optionsFromOpenConfiguration:(id)configuration;
 - (id)pluginsMatchingQuery:(id)query applyFilter:(id)filter;
@@ -105,6 +114,8 @@
 - (void)clearCreatedProgressForBundleID:(id)d;
 - (void)commonClientOpenURL:(id)l options:(id)options configuration:(id)configuration synchronous:(BOOL)synchronous completionHandler:(id)handler;
 - (void)deviceIdentifierForVendorSeedData;
+- (void)enumerateApplicationsOfType:(unint64_t)type legacySPI:(BOOL)i block:(id)block;
+- (void)enumerateBundlesOfType:(unint64_t)type legacySPI:(BOOL)i block:(id)block;
 - (void)enumerateBundlesOfType:(unint64_t)type usingBlock:(id)block;
 - (void)enumeratePluginsMatchingQuery:(id)query withBlock:(id)block;
 - (void)getKnowledgeUUID:(id *)d andSequenceNumber:(id *)number;
@@ -116,6 +127,7 @@
 - (void)openUserActivityWithUUID:(id)d activityType:(id)type usingApplicationRecord:(id)record configuration:(id)configuration completionHandler:(id)handler;
 - (void)placeholderInstalledForIdentifier:(id)identifier filterDowngrades:(BOOL)downgrades;
 - (void)rebuildDatabaseContentForFrameworkAtURL:(id)l completionHandler:(id)handler;
+- (void)relaxApplicationTypeRequirements:(BOOL)requirements forApplicationRecord:(id)record completionHandler:(id)handler;
 - (void)removeAllDefaultApplicationPreferencesWithCompletionHandler:(id)handler;
 - (void)removeDeviceIdentifierForVendorName:(id)name bundleIdentifier:(id)identifier;
 - (void)removeObserver:(id)observer;
@@ -152,23 +164,24 @@
 
 - (id)remoteObserver
 {
-  if (![(LSApplicationWorkspace *)self establishConnection])
+  establishConnection = [(LSApplicationWorkspace *)self establishConnection];
+  if ((establishConnection & 1) == 0)
   {
-    v3 = _LSDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _LSDefaultLog(establishConnection);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "failed to establish connection to xpc service", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "failed to establish connection to xpc service", v11, 2u);
     }
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v5 = +[LSApplicationWorkspace _remoteObserver];
-  if (([v5 isObservinglsd] & 1) == 0)
+  v6 = +[LSApplicationWorkspace _remoteObserver];
+  if (([v6 isObservinglsd] & 1) == 0)
   {
-    v6 = +[LSApplicationWorkspace _remoteObserver];
-    currentObserverCount = [v6 currentObserverCount];
+    v7 = +[LSApplicationWorkspace _remoteObserver];
+    currentObserverCount = [v7 currentObserverCount];
 
     if (!currentObserverCount)
     {
@@ -176,16 +189,16 @@
     }
 
     [_sObserverProxy addObserver];
-    v5 = +[LSApplicationWorkspace _remoteObserver];
-    [v5 setObservinglsd:1];
+    v6 = +[LSApplicationWorkspace _remoteObserver];
+    [v6 setObservinglsd:1];
   }
 
 LABEL_9:
   objc_sync_exit(selfCopy);
 
-  v8 = +[LSApplicationWorkspace _remoteObserver];
+  v9 = +[LSApplicationWorkspace _remoteObserver];
 
-  return v8;
+  return v9;
 }
 
 void __42__LSApplicationWorkspace_defaultWorkspace__block_invoke(uint64_t a1)
@@ -246,50 +259,50 @@ void __45__LSApplicationWorkspace_establishConnection__block_invoke(uint64_t a1)
     if (_LSProcessCanAccessProgressPort_canAccessProgressPort == 1)
     {
       v2 = objc_alloc(MEMORY[0x1E696B0B8]);
-      v3 = [__LSDefaultsGetSharedInstance() serviceNameForConnectionType:5];
-      v4 = [v2 initWithMachServiceName:v3 options:4096];
+      v4 = [__LSDefaultsGetSharedInstance(v2 v3)];
+      v5 = [v2 initWithMachServiceName:v4 options:4096];
 
-      v5 = installProgressInterface();
-      [v4 setRemoteObjectInterface:v5];
+      v7 = installProgressInterface(v6);
+      [v5 setRemoteObjectInterface:v7];
 
-      v6 = workspaceObserverInterface();
-      [v4 setExportedInterface:v6];
+      v9 = workspaceObserverInterface(v8);
+      [v5 setExportedInterface:v9];
 
-      v7 = _sObserverConnection;
-      _sObserverConnection = v4;
+      v10 = _sObserverConnection;
+      _sObserverConnection = v5;
 
-      v8 = _LSProgressLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v12 = _LSProgressLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Establishing xpc connection to lsd", buf, 2u);
+        _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "Establishing xpc connection to lsd", buf, 2u);
       }
 
       if (_sObserverConnection)
       {
         [_sObserverConnection setInvalidationHandler:&__block_literal_global_191];
         [_sObserverConnection setInterruptionHandler:&__block_literal_global_196];
-        v9 = +[LSApplicationWorkspace _remoteObserver];
-        [_sObserverConnection setExportedObject:v9];
+        v13 = +[LSApplicationWorkspace _remoteObserver];
+        [_sObserverConnection setExportedObject:v13];
 
         [_sObserverConnection resume];
-        v10 = [_sObserverConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_205];
-        v11 = _sObserverProxy;
-        _sObserverProxy = v10;
+        v14 = [_sObserverConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_205];
+        v15 = _sObserverProxy;
+        _sObserverProxy = v14;
 
         [_sObserverProxy _lsPing:@"LSWorkspaceObserverPing" reply:&__block_literal_global_212];
       }
 
       else
       {
-        v12 = _LSProgressLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v16 = _LSProgressLog(0);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          *v14 = 0;
-          _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "Failed to establish xpc connection to lsd", v14, 2u);
+          *v18 = 0;
+          _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_DEFAULT, "Failed to establish xpc connection to lsd", v18, 2u);
         }
 
-        v13 = _sObserverProxy;
+        v17 = _sObserverProxy;
         _sObserverProxy = 0;
 
         *(*(*(a1 + 32) + 8) + 24) = 0;
@@ -319,74 +332,75 @@ void __41__LSApplicationWorkspace__remoteObserver__block_invoke()
 
 - (id)observerProxy
 {
-  if (![(LSApplicationWorkspace *)self establishConnection])
+  establishConnection = [(LSApplicationWorkspace *)self establishConnection];
+  if ((establishConnection & 1) == 0)
   {
-    v2 = _LSDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _LSDefaultLog(establishConnection);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "failed to establish connection to xpc service", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "failed to establish connection to xpc service", v6, 2u);
     }
   }
 
-  v3 = _sObserverProxy;
+  v4 = _sObserverProxy;
 
-  return v3;
+  return v4;
 }
 
 - (id)systemMode
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__4;
-  v18 = __Block_byref_object_dispose__4;
   v19 = 0;
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__4;
+  v23 = __Block_byref_object_dispose__4;
+  v24 = 0;
+  if ([__LSDefaultsGetSharedInstance(self a2)])
   {
     v2 = +[LSApplicationRestrictionsManager sharedInstance];
     systemMode = [(LSApplicationRestrictionsManager *)v2 systemMode];
-    v4 = v15[5];
-    v15[5] = systemMode;
+    v5 = v20[5];
+    v20[5] = systemMode;
   }
 
   else
   {
-    v11 = 0;
-    v12[0] = &v11;
-    v12[1] = 0x3032000000;
-    v12[2] = __Block_byref_object_copy__4;
-    v12[3] = __Block_byref_object_dispose__4;
     v13 = 0;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __36__LSApplicationWorkspace_systemMode__block_invoke;
-    v10[3] = &unk_1E6A198D0;
-    v10[4] = &v11;
-    v5 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v10];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __36__LSApplicationWorkspace_systemMode__block_invoke_2;
-    v9[3] = &unk_1E6A198F8;
-    v9[4] = &v11;
-    v9[5] = &v14;
-    [v5 getSystemModeWithCompletionHandler:v9];
-    if (*(v12[0] + 40))
+    v14 = &v13;
+    v15 = 0x3032000000;
+    v16 = __Block_byref_object_copy__4;
+    v17 = __Block_byref_object_dispose__4;
+    v18 = 0;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __36__LSApplicationWorkspace_systemMode__block_invoke;
+    v12[3] = &unk_1E6A198D0;
+    v12[4] = &v13;
+    v6 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __36__LSApplicationWorkspace_systemMode__block_invoke_2;
+    v11[3] = &unk_1E6A198F8;
+    v11[4] = &v13;
+    v11[5] = &v19;
+    v7 = [v6 getSystemModeWithCompletionHandler:v11];
+    if (v14[5])
     {
-      v6 = _LSDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = _LSDefaultLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(LSApplicationWorkspace *)v12 systemMode];
+        [LSApplicationWorkspace systemMode];
       }
     }
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v13, 8);
   }
 
-  v7 = v15[5];
-  _Block_object_dispose(&v14, 8);
+  v9 = v20[5];
+  _Block_object_dispose(&v19, 8);
 
-  return v7;
+  return v9;
 }
 
 void __36__LSApplicationWorkspace_systemMode__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -572,17 +586,17 @@ void __61__LSApplicationWorkspace_getKnowledgeUUID_andSequenceNumber___block_inv
   *(v9 + 40) = v6;
 }
 
-void __45__LSApplicationWorkspace_establishConnection__block_invoke_189()
+void __45__LSApplicationWorkspace_establishConnection__block_invoke_189(uint64_t a1)
 {
-  v0 = _LSDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _LSDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEFAULT, "progress connection invalidationHandler called", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEFAULT, "progress connection invalidationHandler called", v3, 2u);
   }
 
-  v1 = +[LSApplicationWorkspace progressQueue];
-  dispatch_sync(v1, &__block_literal_global_194);
+  v2 = +[LSApplicationWorkspace progressQueue];
+  dispatch_sync(v2, &__block_literal_global_194);
 }
 
 void __45__LSApplicationWorkspace_establishConnection__block_invoke_192()
@@ -594,17 +608,17 @@ void __45__LSApplicationWorkspace_establishConnection__block_invoke_192()
   [v1 setObservinglsd:0];
 }
 
-void __45__LSApplicationWorkspace_establishConnection__block_invoke_2()
+void __45__LSApplicationWorkspace_establishConnection__block_invoke_2(uint64_t a1)
 {
-  v0 = _LSDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _LSDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEFAULT, "interruptionHandler called, re-establishing connection to lsd", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEFAULT, "interruptionHandler called, re-establishing connection to lsd", v3, 2u);
   }
 
-  v1 = +[LSApplicationWorkspace progressQueue];
-  dispatch_sync(v1, &__block_literal_global_199);
+  v2 = +[LSApplicationWorkspace progressQueue];
+  dispatch_sync(v2, &__block_literal_global_199);
 }
 
 void __45__LSApplicationWorkspace_establishConnection__block_invoke_197()
@@ -618,85 +632,80 @@ void __45__LSApplicationWorkspace_establishConnection__block_invoke_197()
 
 void __45__LSApplicationWorkspace_establishConnection__block_invoke_2_200(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = a2;
-  v3 = _LSDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Error %@ trying to re-establish observing connection to lsd", &v6, 0xCu);
-  }
-
-  v4 = +[LSApplicationWorkspace _remoteObserver];
-  [v4 setObservinglsd:0];
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __45__LSApplicationWorkspace_establishConnection__block_invoke_203(uint64_t a1, void *a2)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = a2;
-  v3 = _LSDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Error %@ trying to establish observing connection to lsd", &v6, 0xCu);
-  }
-
-  v4 = +[LSApplicationWorkspace _remoteObserver];
-  [v4 setObservinglsd:0];
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __45__LSApplicationWorkspace_establishConnection__block_invoke_209(uint64_t a1, void *a2)
-{
   v7 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _LSProgressLog();
+  v3 = _LSDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
     v6 = v2;
-    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Received %@, xpc connection established", &v5, 0xCu);
+    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Error %@ trying to re-establish observing connection to lsd", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = +[LSApplicationWorkspace _remoteObserver];
+  [v4 setObservinglsd:0];
+}
+
+void __45__LSApplicationWorkspace_establishConnection__block_invoke_203(uint64_t a1, void *a2)
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = _LSDefaultLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Error %@ trying to establish observing connection to lsd", &v5, 0xCu);
+  }
+
+  v4 = +[LSApplicationWorkspace _remoteObserver];
+  [v4 setObservinglsd:0];
+}
+
+void __45__LSApplicationWorkspace_establishConnection__block_invoke_209(uint64_t a1, void *a2)
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = _LSProgressLog(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Received %@, xpc connection established", &v4, 0xCu);
+  }
 }
 
 - (id)syncObserverProxy
 {
-  if (![(LSApplicationWorkspace *)self establishConnection])
+  establishConnection = [(LSApplicationWorkspace *)self establishConnection];
+  if ((establishConnection & 1) == 0)
   {
-    v2 = _LSDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = _LSDefaultLog(establishConnection);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "failed to establish connection to xpc service", buf, 2u);
+      _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "failed to establish connection to xpc service", buf, 2u);
     }
   }
 
   *buf = 0;
-  v8 = buf;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__4;
-  v11 = __Block_byref_object_dispose__4;
-  v12 = 0;
-  v3 = +[LSApplicationWorkspace progressQueue];
+  v9 = buf;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__4;
+  v12 = __Block_byref_object_dispose__4;
+  v13 = 0;
+  v4 = +[LSApplicationWorkspace progressQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __43__LSApplicationWorkspace_syncObserverProxy__block_invoke;
   block[3] = &unk_1E6A19988;
   block[4] = buf;
-  dispatch_sync(v3, block);
+  dispatch_sync(v4, block);
 
-  v4 = *(v8 + 5);
+  v5 = *(v9 + 5);
   _Block_object_dispose(buf, 8);
 
-  return v4;
+  return v5;
 }
 
 void __43__LSApplicationWorkspace_syncObserverProxy__block_invoke(uint64_t a1)
@@ -709,17 +718,15 @@ void __43__LSApplicationWorkspace_syncObserverProxy__block_invoke(uint64_t a1)
 
 void __43__LSApplicationWorkspace_syncObserverProxy__block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _LSDefaultLog();
+  v3 = _LSDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Error %@ trying to establish observing connection to lsd", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Error %@ trying to establish observing connection to lsd", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer
@@ -727,23 +734,24 @@ void __43__LSApplicationWorkspace_syncObserverProxy__block_invoke_2(uint64_t a1,
   v18 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   v5 = shouldConnectToLSD(observerCopy);
-  v6 = _LSDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v6 = v5;
+  v7 = _LSDefaultLog(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     v15 = objc_opt_class();
     v16 = 2048;
     v17 = observerCopy;
-    v7 = v15;
-    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_INFO, "LSApplicationWorkspace: adding observer %@ @ %p", buf, 0x16u);
+    v8 = v15;
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "LSApplicationWorkspace: adding observer %@ @ %p", buf, 0x16u);
   }
 
   performWithLSAWDistributedNotificationNameBasedOnObserverConformance(observerCopy, subscribeToLSAWDistributedNotification);
   if (DeviceManagementLibrary_frameworkLibrary_0 || (DeviceManagementLibrary_frameworkLibrary_0 = dlopen("/System/Library/PrivateFrameworks/DeviceManagement.framework/DeviceManagement", 2)) != 0)
   {
     objc_opt_class();
-    v8 = (objc_opt_isKindOfClass() & 1) != 0 ? [objc_opt_class() actuallyOverridesDMFObserverMethod] : objc_opt_respondsToSelector();
-    if (v8)
+    v9 = (objc_opt_isKindOfClass() & 1) != 0 ? [objc_opt_class() actuallyOverridesDMFObserverMethod] : objc_opt_respondsToSelector();
+    if (v9)
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
@@ -764,7 +772,7 @@ void __43__LSApplicationWorkspace_syncObserverProxy__block_invoke_2(uint64_t a1,
     objc_sync_enter(selfCopy);
     [remoteObserver setObservinglsd:1];
     [remoteObserver addLocalObserver:observerCopy];
-    if (v5)
+    if (v6)
     {
       observerProxy = [(LSApplicationWorkspace *)selfCopy observerProxy];
       [observerProxy addObserver];
@@ -772,8 +780,6 @@ void __43__LSApplicationWorkspace_syncObserverProxy__block_invoke_2(uint64_t a1,
 
     objc_sync_exit(selfCopy);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __38__LSApplicationWorkspace_addObserver___block_invoke(uint64_t a1)
@@ -802,15 +808,16 @@ void __38__LSApplicationWorkspace_addObserver___block_invoke_2(uint64_t a1, void
   v20 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   v5 = shouldConnectToLSD(observerCopy);
-  v6 = _LSDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v6 = v5;
+  v7 = _LSDefaultLog(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v16 = 138412546;
     v17 = objc_opt_class();
     v18 = 2048;
     v19 = observerCopy;
-    v7 = v17;
-    _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_INFO, "LSApplicationWorkspace: removing observer %@ @ %p", &v16, 0x16u);
+    v8 = v17;
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "LSApplicationWorkspace: removing observer %@ @ %p", &v16, 0x16u);
   }
 
   selfCopy = self;
@@ -819,38 +826,55 @@ void __38__LSApplicationWorkspace_addObserver___block_invoke_2(uint64_t a1, void
   [remoteObserver removeLocalObserver:observerCopy];
 
   remoteObserver2 = [(LSApplicationWorkspace *)selfCopy remoteObserver];
-  v11 = [remoteObserver2 currentObserverCount] == 0;
+  v12 = [remoteObserver2 currentObserverCount] == 0;
 
-  if (v5)
+  if (v6)
   {
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  if (v12)
+  if (v13)
   {
     observerProxy = [(LSApplicationWorkspace *)selfCopy observerProxy];
     [observerProxy removeObserver];
 
-    v14 = +[LSApplicationWorkspace progressQueue];
-    dispatch_async(v14, &__block_literal_global_265);
+    v15 = +[LSApplicationWorkspace progressQueue];
+    dispatch_async(v15, &__block_literal_global_265);
   }
 
   performWithLSAWDistributedNotificationNameBasedOnObserverConformance(observerCopy, unsubscribeFromLSAWDistributedNotification);
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __71__LSApplicationWorkspace_applicationProxiesWithPlistFlags_bundleFlags___block_invoke(uint64_t result, uint64_t a2)
+- (id)applicationProxiesWithPlistFlags:(unsigned int)flags bundleFlags:(unint64_t)bundleFlags
+{
+  v5 = *&flags;
+  array = [MEMORY[0x1E695DF70] array];
+  v7 = [_LSApplicationProxiesWithFlagsQuery queryWithPlistFlags:v5 bundleFlags:bundleFlags];
+  if (v7)
+  {
+    v8 = +[_LSQueryContext defaultContext];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __71__LSApplicationWorkspace_applicationProxiesWithPlistFlags_bundleFlags___block_invoke;
+    v10[3] = &unk_1E6A199D8;
+    v11 = array;
+    [v8 enumerateResolvedResultsOfQuery:v7 withBlock:v10];
+  }
+
+  return array;
+}
+
+id *__71__LSApplicationWorkspace_applicationProxiesWithPlistFlags_bundleFlags___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -858,7 +882,7 @@ uint64_t __71__LSApplicationWorkspace_applicationProxiesWithPlistFlags_bundleFla
 
 - (id)applicationsForUserActivityType:(id)type limit:(unint64_t)limit
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!type)
   {
     type = &stru_1EEF65710;
@@ -868,26 +892,26 @@ uint64_t __71__LSApplicationWorkspace_applicationProxiesWithPlistFlags_bundleFla
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v4, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          compatibilityObject = [*(*(&v16 + 1) + 8 * i) compatibilityObject];
+          compatibilityObject = [*(*(&v15 + 1) + 8 * i) compatibilityObject];
           v12 = compatibilityObject;
           if (compatibilityObject)
           {
@@ -896,7 +920,7 @@ uint64_t __71__LSApplicationWorkspace_applicationProxiesWithPlistFlags_bundleFla
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v8);
@@ -909,8 +933,6 @@ uint64_t __71__LSApplicationWorkspace_applicationProxiesWithPlistFlags_bundleFla
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1048,7 +1070,7 @@ uint64_t __71__LSApplicationWorkspace_applicationProxiesWithPlistFlags_bundleFla
 
 - (void)_openUserActivity:(id)activity orUserActivityUUID:(id)d activityTypeForUUID:(id)iD withApplicationProxy:(id)proxy options:(id)options completionHandler:(id)handler
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   dCopy = d;
   iDCopy = iD;
@@ -1095,7 +1117,7 @@ LABEL_5:
 
     else
     {
-      v43 = iDCopy;
+      v42 = iDCopy;
       v22 = *MEMORY[0x1E695E480];
       _teamIdentifier = [activityCopy _teamIdentifier];
       activityType = [activityCopy activityType];
@@ -1111,7 +1133,7 @@ LABEL_5:
         proxyCopy = 0;
       }
 
-      iDCopy = v43;
+      iDCopy = v42;
     }
 
     v21 = 1;
@@ -1125,12 +1147,12 @@ LABEL_17:
     block[1] = 3221225472;
     block[2] = __130__LSApplicationWorkspace__openUserActivity_orUserActivityUUID_activityTypeForUUID_withApplicationProxy_options_completionHandler___block_invoke_3;
     block[3] = &unk_1E6A19A98;
-    v45 = activityCopy;
-    v46 = dCopy;
-    v47 = iDCopy;
-    v50 = handlerCopy;
-    v48 = proxyCopy;
-    v49 = optionsCopy;
+    v44 = activityCopy;
+    v45 = dCopy;
+    v46 = iDCopy;
+    v49 = handlerCopy;
+    v47 = proxyCopy;
+    v48 = optionsCopy;
     dispatch_async(v41, block);
   }
 
@@ -1160,9 +1182,9 @@ LABEL_17:
     if (dCopy && ([proxyCopy appState], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "isInstalled"), v32, (v33 & 1) == 0))
     {
       v39 = *MEMORY[0x1E696A768];
-      v53 = *MEMORY[0x1E696A278];
-      v54[0] = @"Application must be non-nil and installed.";
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+      v52 = *MEMORY[0x1E696A278];
+      v53[0] = @"Application must be non-nil and installed.";
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
       v36 = v39;
       v37 = v35;
       v38 = 1909;
@@ -1171,9 +1193,9 @@ LABEL_17:
     else
     {
       v34 = *MEMORY[0x1E696A768];
-      v51 = *MEMORY[0x1E696A278];
-      v52 = @"invalid input parameters";
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+      v50 = *MEMORY[0x1E696A278];
+      v51 = @"invalid input parameters";
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
       v36 = v34;
       v37 = v35;
       v38 = 1913;
@@ -1182,8 +1204,6 @@ LABEL_17:
     v40 = _LSMakeNSErrorImpl(v36, -50, v37, "[LSApplicationWorkspace _openUserActivity:orUserActivityUUID:activityTypeForUUID:withApplicationProxy:options:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", v38);
     (*(handlerCopy + 2))(handlerCopy, 0, v40);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __130__LSApplicationWorkspace__openUserActivity_orUserActivityUUID_activityTypeForUUID_withApplicationProxy_options_completionHandler___block_invoke_2()
@@ -1292,6 +1312,20 @@ LABEL_4:
   compatibilityObject = [recordCopy compatibilityObject];
   v17 = [(LSApplicationWorkspace *)self optionsFromOpenConfiguration:configurationCopy];
   [(LSApplicationWorkspace *)self _openUserActivity:0 orUserActivityUUID:dCopy activityTypeForUUID:typeCopy withApplicationProxy:compatibilityObject options:v17 completionHandler:handlerCopy];
+}
+
+- (id)operationToOpenResource:(id)resource usingApplication:(id)application uniqueDocumentIdentifier:(id)identifier isContentManaged:(BOOL)managed sourceAuditToken:(id *)token userInfo:(id)info configuration:(id)configuration delegate:(id)self0
+{
+  managedCopy = managed;
+  delegateCopy = delegate;
+  infoCopy = info;
+  identifierCopy = identifier;
+  applicationCopy = application;
+  resourceCopy = resource;
+  v22 = [(LSApplicationWorkspace *)self optionsFromOpenConfiguration:configuration];
+  v23 = [(LSApplicationWorkspace *)self operationToOpenResource:resourceCopy usingApplication:applicationCopy uniqueDocumentIdentifier:identifierCopy isContentManaged:managedCopy sourceAuditToken:token userInfo:infoCopy options:v22 delegate:delegateCopy];
+
+  return v23;
 }
 
 - (id)operationToOpenResource:(id)resource usingApplication:(id)application uniqueDocumentIdentifier:(id)identifier isContentManaged:(BOOL)managed sourceAuditToken:(id *)token userInfo:(id)info options:(id)options delegate:(id)self0
@@ -1462,12 +1496,12 @@ uint64_t __152__LSApplicationWorkspace_operationToOpenResource_usingApplication_
     if (clickAttribution)
     {
       v11 = clickAttribution;
-      v12 = getUISOpenApplicationOptionClickAttribution[0]();
+      UISOpenApplicationOptionClickAttribution = getUISOpenApplicationOptionClickAttribution();
 
-      if (v12)
+      if (UISOpenApplicationOptionClickAttribution)
       {
         clickAttribution2 = [configurationCopy clickAttribution];
-        [dictionary setObject:clickAttribution2 forKeyedSubscript:getUISOpenApplicationOptionClickAttribution[0]()];
+        [dictionary setObject:clickAttribution2 forKeyedSubscript:getUISOpenApplicationOptionClickAttribution()];
       }
     }
 
@@ -1475,12 +1509,12 @@ uint64_t __152__LSApplicationWorkspace_operationToOpenResource_usingApplication_
     if (pasteSharingToken)
     {
       v15 = pasteSharingToken;
-      v16 = getUISOpenApplicationOptionPasteSharingToken[0]();
+      UISOpenApplicationOptionPasteSharingToken = getUISOpenApplicationOptionPasteSharingToken();
 
-      if (v16)
+      if (UISOpenApplicationOptionPasteSharingToken)
       {
         pasteSharingToken2 = [configurationCopy pasteSharingToken];
-        [dictionary setObject:pasteSharingToken2 forKeyedSubscript:getUISOpenApplicationOptionPasteSharingToken[0]()];
+        [dictionary setObject:pasteSharingToken2 forKeyedSubscript:getUISOpenApplicationOptionPasteSharingToken()];
       }
     }
 
@@ -1560,59 +1594,64 @@ void __54__LSApplicationWorkspace_openURL_configuration_error___block_invoke(uin
 - (void)commonClientOpenURL:(id)l options:(id)options configuration:(id)configuration synchronous:(BOOL)synchronous completionHandler:(id)handler
 {
   synchronousCopy = synchronous;
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   lCopy = l;
   optionsCopy = options;
   configurationCopy = configuration;
   handlerCopy = handler;
+  v16 = handlerCopy;
   if (!lCopy)
   {
     [LSApplicationWorkspace commonClientOpenURL:options:configuration:synchronous:completionHandler:];
   }
 
-  v16 = _LSDefaultLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _LSDefaultLog(handlerCopy);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v29 = loggableURL(lCopy);
+    v30 = loggableURL(lCopy);
     *buf = 138478339;
-    v44 = v29;
-    v45 = 2113;
-    v46 = optionsCopy;
-    v47 = 1024;
-    v48 = synchronousCopy;
-    _os_log_debug_impl(&dword_18162D000, v16, OS_LOG_TYPE_DEBUG, "Opening URL %{private}@ with options dictionary %{private}@ synchronous: %u", buf, 0x1Cu);
+    v45 = v30;
+    v46 = 2113;
+    v47 = optionsCopy;
+    v48 = 1024;
+    v49 = synchronousCopy;
+    _os_log_debug_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEBUG, "Opening URL %{private}@ with options dictionary %{private}@ synchronous: %u", buf, 0x1Cu);
   }
 
-  v17 = openOptionsModifiedForOneTapOpen(lCopy, optionsCopy);
+  v18 = openOptionsModifiedForOneTapOpen(lCopy, optionsCopy);
 
-  if ([lCopy isFileURL] && !-[LSApplicationWorkspace isCurrentProcessEligibleForOpenDocumentViaOpenURL](self, "isCurrentProcessEligibleForOpenDocumentViaOpenURL"))
+  if ([lCopy isFileURL])
   {
-    v18 = _LSDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    isCurrentProcessEligibleForOpenDocumentViaOpenURL = [(LSApplicationWorkspace *)self isCurrentProcessEligibleForOpenDocumentViaOpenURL];
+    if ((isCurrentProcessEligibleForOpenDocumentViaOpenURL & 1) == 0)
     {
-      [LSApplicationWorkspace commonClientOpenURL:options:configuration:synchronous:completionHandler:];
-    }
+      v20 = _LSDefaultLog(isCurrentProcessEligibleForOpenDocumentViaOpenURL);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        [LSApplicationWorkspace commonClientOpenURL:options:configuration:synchronous:completionHandler:];
+      }
 
-    v19 = *MEMORY[0x1E696A768];
-    v41 = *MEMORY[0x1E696A278];
-    v42 = @"This process needs to be linked against Fall 2025 SDKs or later to open file: URLs with openURL interfaces.";
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-    v21 = _LSMakeNSErrorImpl(v19, -50, v20, "[LSApplicationWorkspace commonClientOpenURL:options:configuration:synchronous:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 2202);
+      v21 = *MEMORY[0x1E696A768];
+      v42 = *MEMORY[0x1E696A278];
+      v43 = @"This process needs to be linked against Fall 2025 SDKs or later to open file: URLs with openURL interfaces.";
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v23 = _LSMakeNSErrorImpl(v21, -50, v22, "[LSApplicationWorkspace commonClientOpenURL:options:configuration:synchronous:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 2202);
 
-    if (v21)
-    {
-      v22 = 0;
+      if (v23)
+      {
+        v24 = 0;
 LABEL_14:
-      handlerCopy[2](handlerCopy, 0, v21);
-      goto LABEL_17;
+        (v16)[2](v16, 0, v23);
+        goto LABEL_17;
+      }
     }
   }
 
-  v39 = 0;
   v40 = 0;
-  FileHandleForOpeningResourceIfNecessary = getFileHandleForOpeningResourceIfNecessary(lCopy, 0, v17, &v40, &v39);
-  v22 = v40;
-  v21 = v39;
+  v41 = 0;
+  FileHandleForOpeningResourceIfNecessary = getFileHandleForOpeningResourceIfNecessary(lCopy, 0, v18, &v41, &v40);
+  v24 = v41;
+  v23 = v40;
   if (!FileHandleForOpeningResourceIfNecessary)
   {
     goto LABEL_14;
@@ -1621,51 +1660,50 @@ LABEL_14:
   if (synchronousCopy)
   {
     _LSFaultIfRunningOnMainThreadOfShellApp();
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke;
-    v36[3] = &unk_1E6A19B38;
-    v24 = &v37;
-    v37 = lCopy;
-    v25 = &v38;
-    v38 = handlerCopy;
-    v26 = [(_LSDService *)_LSDOpenService synchronousXPCProxyWithErrorHandler:v36];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke;
+    v37[3] = &unk_1E6A19B38;
+    v26 = &v38;
+    v38 = lCopy;
+    v27 = &v39;
+    v39 = v16;
+    v28 = [(_LSDService *)_LSDOpenService synchronousXPCProxyWithErrorHandler:v37];
   }
 
   else
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_319;
-    v33[3] = &unk_1E6A19B38;
-    v24 = &v34;
-    v34 = lCopy;
-    v25 = &v35;
-    v35 = handlerCopy;
-    v26 = [(_LSDService *)_LSDOpenService XPCProxyWithErrorHandler:v33];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_319;
+    v34[3] = &unk_1E6A19B38;
+    v26 = &v35;
+    v35 = lCopy;
+    v27 = &v36;
+    v36 = v16;
+    v28 = [(_LSDService *)_LSDOpenService XPCProxyWithErrorHandler:v34];
   }
 
-  v27 = v26;
+  v29 = v28;
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_320;
-  v30[3] = &unk_1E6A18DC8;
-  v31 = lCopy;
-  v32 = handlerCopy;
-  [v27 openURL:v31 fileHandle:v22 options:v17 completionHandler:v30];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_320;
+  v31[3] = &unk_1E6A18DC8;
+  v32 = lCopy;
+  v33 = v16;
+  [v29 openURL:v32 fileHandle:v24 options:v18 completionHandler:v31];
 
 LABEL_17:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_cold_1(a1);
+    __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -1678,10 +1716,10 @@ void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_sync
 void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_319(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_319_cold_1(a1);
+    __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_319_cold_1();
   }
 
   v5 = *(a1 + 40);
@@ -1694,29 +1732,30 @@ void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_sync
 void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_320(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = _LSDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _LSDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_320_cold_1(a1);
+      __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_320_cold_1();
     }
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v8 = *(a1 + 40);
+  if (v8)
   {
     if (a2)
     {
-      v8 = MEMORY[0x1E695E0F8];
+      v9 = MEMORY[0x1E695E0F8];
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    (*(v7 + 16))(v7, v8, v5);
+    (*(v8 + 16))(v8, v9, v6);
   }
 }
 
@@ -1747,6 +1786,7 @@ void __42__LSApplicationWorkspace_installedPlugins__block_invoke(uint64_t a1, ui
 {
   v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     [*(a1 + 32) addObject:a2];
@@ -1754,16 +1794,14 @@ void __42__LSApplicationWorkspace_installedPlugins__block_invoke(uint64_t a1, ui
 
   else
   {
-    v6 = _LSDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _LSDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get all plugins: <%@>", &v8, 0xCu);
+      v9 = v6;
+      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Failed to get all plugins: <%@>", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pluginsWithIdentifiers:(id)identifiers protocols:(id)protocols version:(id)version applyFilter:(id)filter
@@ -1813,7 +1851,7 @@ LABEL_6:
 
 void __79__LSApplicationWorkspace_pluginsWithIdentifiers_protocols_version_applyFilter___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1824,19 +1862,17 @@ void __79__LSApplicationWorkspace_pluginsWithIdentifiers_protocols_version_apply
 
   else if (v6)
   {
-    v8 = _LSDefaultLog();
+    v8 = _LSDefaultLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 40);
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Failed to get plugins matching query %@: <%@>", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Failed to get plugins matching query %@: <%@>", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumeratePluginsMatchingQuery:(id)query withBlock:(id)block
@@ -1864,7 +1900,7 @@ void __79__LSApplicationWorkspace_pluginsWithIdentifiers_protocols_version_apply
 
 - (id)pluginsMatchingQuery:(id)query applyFilter:(id)filter
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   v6 = MEMORY[0x1E695DF70];
   filterCopy = filter;
@@ -1881,36 +1917,35 @@ void __79__LSApplicationWorkspace_pluginsWithIdentifiers_protocols_version_apply
 
   v10 = [LSPlugInQuery pluginQueryWithQueryDictionary:v9 applyFilter:filterCopy];
 
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __59__LSApplicationWorkspace_pluginsMatchingQuery_applyFilter___block_invoke;
-  v21 = &unk_1E6A19B88;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __59__LSApplicationWorkspace_pluginsMatchingQuery_applyFilter___block_invoke;
+  v20 = &unk_1E6A19B88;
   v11 = v8;
-  v22 = v11;
+  v21 = v11;
   v12 = queryCopy;
-  v23 = v12;
-  enumeratePluginsMatchingQuery(v10, &v18);
+  v22 = v12;
+  enumeratePluginsMatchingQuery(v10, &v17);
   if (![v11 count])
   {
-    v13 = _LSDefaultLog();
+    v13 = _LSDefaultLog(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v12;
+      v24 = v12;
       _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "No plugins found to match query %@", buf, 0xCu);
     }
   }
 
-  v14 = v23;
+  v14 = v22;
   v15 = v11;
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 void __59__LSApplicationWorkspace_pluginsMatchingQuery_applyFilter___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -1921,19 +1956,63 @@ void __59__LSApplicationWorkspace_pluginsMatchingQuery_applyFilter___block_invok
 
   else if (v6)
   {
-    v8 = _LSDefaultLog();
+    v8 = _LSDefaultLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a1 + 40);
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Failed to get plugins matching query %@: <%@>", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Failed to get plugins matching query %@: <%@>", &v10, 0x16u);
     }
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (void)enumerateBundlesOfType:(unint64_t)type legacySPI:(BOOL)i block:(id)block
+{
+  iCopy = i;
+  blockCopy = block;
+  if (blockCopy)
+  {
+    if (type == 6)
+    {
+      v8 = +[LSPlugInQuery pluginQuery];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __65__LSApplicationWorkspace_enumerateBundlesOfType_legacySPI_block___block_invoke;
+      v14[3] = &unk_1E6A19BB0;
+      v9 = &v15;
+      v15 = blockCopy;
+      enumeratePluginsMatchingQuery(v8, v14);
+    }
+
+    else
+    {
+      v10 = [_LSBundleProxiesOfTypeQuery queryWithType:type];
+      v8 = v10;
+      if (!v10)
+      {
+LABEL_7:
+
+        goto LABEL_8;
+      }
+
+      [v10 setLegacy:iCopy];
+      v11 = +[_LSQueryContext defaultContext];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __65__LSApplicationWorkspace_enumerateBundlesOfType_legacySPI_block___block_invoke_2;
+      v12[3] = &unk_1E6A19BD8;
+      v9 = &v13;
+      v13 = blockCopy;
+      [v11 enumerateResolvedResultsOfQuery:v8 withBlock:v12];
+    }
+
+    goto LABEL_7;
+  }
+
+LABEL_8:
 }
 
 uint64_t __65__LSApplicationWorkspace_enumerateBundlesOfType_legacySPI_block___block_invoke(uint64_t result, uint64_t a2)
@@ -1954,6 +2033,28 @@ void __65__LSApplicationWorkspace_enumerateBundlesOfType_legacySPI_block___block
     v4 = v3;
     (*(*(a1 + 32) + 16))();
     v3 = v4;
+  }
+}
+
+- (void)enumerateApplicationsOfType:(unint64_t)type legacySPI:(BOOL)i block:(id)block
+{
+  iCopy = i;
+  blockCopy = block;
+  if (blockCopy)
+  {
+    v8 = [_LSApplicationProxiesOfTypeQuery queryWithType:type];
+    v9 = v8;
+    if (v8)
+    {
+      [v8 setLegacy:iCopy];
+      v10 = +[_LSQueryContext defaultContext];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __70__LSApplicationWorkspace_enumerateApplicationsOfType_legacySPI_block___block_invoke;
+      v11[3] = &unk_1E6A19BD8;
+      v12 = blockCopy;
+      [v10 enumerateResolvedResultsOfQuery:v9 withBlock:v11];
+    }
   }
 }
 
@@ -2134,7 +2235,7 @@ void __160__LSApplicationWorkspace_registerContainerizedApplicationWithInfoDicti
 {
   selfCopy = self;
   errorCopy = error;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   recordsCopy = records;
   dCopy = d;
@@ -2144,30 +2245,30 @@ void __160__LSApplicationWorkspace_registerContainerizedApplicationWithInfoDicti
   legacyRecordDictionary = [recordCopy legacyRecordDictionary];
   [v18 addObject:legacyRecordDictionary];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v20 = recordsCopy;
-  v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v32;
+    v23 = *v31;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v32 != v23)
+        if (*v31 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        legacyRecordDictionary2 = [*(*(&v31 + 1) + 8 * i) legacyRecordDictionary];
+        legacyRecordDictionary2 = [*(*(&v30 + 1) + 8 * i) legacyRecordDictionary];
         [v18 addObject:legacyRecordDictionary2];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v22);
@@ -2175,9 +2276,65 @@ void __160__LSApplicationWorkspace_registerContainerizedApplicationWithInfoDicti
 
   v26 = [(LSApplicationWorkspace *)selfCopy registerContainerizedApplicationWithInfoDictionaries:v18 operationUUID:dCopy requestContext:contextCopy saveObserver:observerCopy registrationError:errorCopy];
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v26;
+}
+
+- (BOOL)unregisterContainerizedApplicationWithBundleIdentifier:(id)identifier operationUUID:(id)d unregistrationOperation:(unsigned int)operation precondition:(id)precondition requestContext:(id)context saveObserver:(id)observer unregistrationError:(id *)error
+{
+  v12 = *&operation;
+  identifierCopy = identifier;
+  dCopy = d;
+  preconditionCopy = precondition;
+  contextCopy = context;
+  observerCopy = observer;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = __Block_byref_object_copy__4;
+  v37 = __Block_byref_object_dispose__4;
+  v38 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__4;
+  v31 = __Block_byref_object_dispose__4;
+  v32 = 0;
+  v19 = objc_opt_class();
+  v20 = serviceDomainForRequestContext(contextCopy);
+  v21 = _LSDServiceGetXPCConnection(v19, v20);
+
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __180__LSApplicationWorkspace_unregisterContainerizedApplicationWithBundleIdentifier_operationUUID_unregistrationOperation_precondition_requestContext_saveObserver_unregistrationError___block_invoke;
+  v26[3] = &unk_1E6A198D0;
+  v26[4] = &v33;
+  v22 = [v21 synchronousRemoteObjectProxyWithErrorHandler:v26];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __180__LSApplicationWorkspace_unregisterContainerizedApplicationWithBundleIdentifier_operationUUID_unregistrationOperation_precondition_requestContext_saveObserver_unregistrationError___block_invoke_2;
+  v25[3] = &unk_1E6A19C28;
+  v25[4] = &v27;
+  v25[5] = &v33;
+  v25[6] = &v39;
+  [v22 performPostUninstallationUnregistrationOfBundleID:identifierCopy operationUUID:dCopy unregisterType:v12 precondition:preconditionCopy reply:v25];
+
+  handleSaveObserverBehavior(observerCopy, v28[5], dCopy, v34[5]);
+  v23 = *(v40 + 24);
+  if (error && (v40[3] & 1) == 0)
+  {
+    *error = v34[5];
+    v23 = *(v40 + 24);
+  }
+
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v33, 8);
+
+  _Block_object_dispose(&v39, 8);
+  return v23 & 1;
 }
 
 void __180__LSApplicationWorkspace_unregisterContainerizedApplicationWithBundleIdentifier_operationUUID_unregistrationOperation_precondition_requestContext_saveObserver_unregistrationError___block_invoke_2(void *a1, void *a2, void *a3)
@@ -2284,6 +2441,70 @@ void __135__LSApplicationWorkspace_setPersonaUniqueStrings_forApplicationsWithBu
   return error;
 }
 
+- (BOOL)sendNotificationOfType:(unsigned int)type forApplicationWithBundleIdentifier:(id)identifier requestContext:(id)context error:(id *)error
+{
+  v8 = *&type;
+  v33[1] = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  contextCopy = context;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__4;
+  v26 = __Block_byref_object_dispose__4;
+  v27 = 0;
+  if (v8 > 4)
+  {
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown notification type %d", v8];
+    syncObserverProxy = v14;
+    if (v14)
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v15 = @"invalid input parameters";
+    }
+
+    v32 = *MEMORY[0x1E696A278];
+    v33[0] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v17 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v16, "[LSApplicationWorkspace sendNotificationOfType:forApplicationWithBundleIdentifier:requestContext:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 2767);
+    v18 = v23[5];
+    v23[5] = v17;
+  }
+
+  else
+  {
+    v12 = dword_1817E8B70[v8];
+    syncObserverProxy = [(LSApplicationWorkspace *)self syncObserverProxy];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBundleIdentifier_requestContext_error___block_invoke;
+    v21[3] = &unk_1E6A19C50;
+    v21[4] = &v22;
+    v21[5] = &v28;
+    [syncObserverProxy sendNotification:v12 forApplicationWithBundleIdentifier:identifierCopy completion:v21];
+  }
+
+  v19 = *(v29 + 24);
+  if (error && (v29[3] & 1) == 0)
+  {
+    *error = v23[5];
+    v19 = *(v29 + 24);
+  }
+
+  _Block_object_dispose(&v22, 8);
+
+  _Block_object_dispose(&v28, 8);
+  return v19 & 1;
+}
+
 void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBundleIdentifier_requestContext_error___block_invoke(uint64_t a1, void *a2)
 {
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -2339,7 +2560,7 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
 
 - (BOOL)registerApplicationForRebuildWithInstallationRecord:(id)record extensionInstallationRecords:(id)records personaUniqueStrings:(id)strings requestContext:(id)context registrationError:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   recordsCopy = records;
   stringsCopy = strings;
@@ -2348,65 +2569,64 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
   legacyRecordDictionary = [recordCopy legacyRecordDictionary];
   [v15 addObject:legacyRecordDictionary];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v17 = recordsCopy;
-  v18 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v28;
+    v20 = *v27;
     do
     {
       v21 = 0;
       do
       {
-        if (*v28 != v20)
+        if (*v27 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        legacyRecordDictionary2 = [*(*(&v27 + 1) + 8 * v21) legacyRecordDictionary];
+        legacyRecordDictionary2 = [*(*(&v26 + 1) + 8 * v21) legacyRecordDictionary];
         [v15 addObject:legacyRecordDictionary2];
 
         ++v21;
       }
 
       while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v19);
   }
 
   v23 = [(LSApplicationWorkspace *)self registerApplicationForRebuildWithInfoDictionaries:v15 personaUniqueStrings:stringsCopy requestContext:contextCopy registrationError:error];
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 - (BOOL)updatePlaceholderMetadataForApplicationWithIdentifier:(id)identifier operationUUID:(id)d requestContext:(id)context installType:(unint64_t)type failure:(unint64_t)failure saveObserver:(id)observer error:(id *)error
 {
-  v32[2] = *MEMORY[0x1E69E9840];
-  v31[0] = @"LSInstallType";
+  v31[2] = *MEMORY[0x1E69E9840];
+  v30[0] = @"LSInstallType";
   v14 = MEMORY[0x1E696AD98];
   observerCopy = observer;
   dCopy = d;
   identifierCopy = identifier;
   v18 = [v14 numberWithUnsignedInteger:type];
-  v31[1] = @"PlaceholderFailureReason";
-  v32[0] = v18;
+  v30[1] = @"PlaceholderFailureReason";
+  v31[0] = v18;
   v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:failure];
-  v32[1] = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v31[1] = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
   v22 = type - 7 < 3 && failure != 0;
+  v28 = 0;
   v29 = 0;
-  v30 = 0;
-  v23 = [(LSApplicationWorkspace *)self updateRecordForApp:identifierCopy withSINF:0 iTunesMetadata:0 placeholderMetadata:v20 sendNotification:v22 operationUUID:dCopy outSaveToken:&v30 error:&v29];
+  v23 = [(LSApplicationWorkspace *)self updateRecordForApp:identifierCopy withSINF:0 iTunesMetadata:0 placeholderMetadata:v20 sendNotification:v22 operationUUID:dCopy outSaveToken:&v29 error:&v28];
 
-  v24 = v30;
-  v25 = v29;
+  v24 = v29;
+  v25 = v28;
 
   handleSaveObserverBehavior(observerCopy, v24, dCopy, v25);
   if (error && !v23)
@@ -2415,7 +2635,6 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
     *error = v25;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -2507,7 +2726,7 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
 
 - (BOOL)installApplication:(id)application withOptions:(id)options error:(id *)error usingBlock:(id)block
 {
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     [(LSApplicationWorkspace *)v7 installApplication:v8 withOptions:v9 error:v10 usingBlock:v11, v12, v13, v14];
@@ -2523,7 +2742,7 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
 
 - (BOOL)installContainerizedApplicationArtifactAtURL:(id)l withOptions:(id)options returningRecordPromise:(id *)promise error:(id *)error progressBlock:(id)block
 {
-  v8 = _LSInstallLog();
+  v8 = _LSInstallLog(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
   {
     [(LSApplicationWorkspace *)v8 installContainerizedApplicationArtifactAtURL:v9 withOptions:v10 returningRecordPromise:v11 error:v12 progressBlock:v13, v14, v15];
@@ -2539,7 +2758,7 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
 
 - (BOOL)uninstallContainerizedApplicationWithIdentifier:(id)identifier options:(id)options error:(id *)error progressBlock:(id)block
 {
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     [(LSApplicationWorkspace *)v7 uninstallContainerizedApplicationWithIdentifier:v8 options:v9 error:v10 progressBlock:v11, v12, v13, v14];
@@ -2555,7 +2774,7 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
 
 - (BOOL)downgradeApplicationToPlaceholder:(id)placeholder withOptions:(id)options error:(id *)error
 {
-  v6 = _LSInstallLog();
+  v6 = _LSInstallLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     [LSApplicationWorkspace downgradeApplicationToPlaceholder:withOptions:error:];
@@ -2573,7 +2792,7 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
 
 - (BOOL)uninstallApplication:(id)application withOptions:(id)options error:(id *)error usingBlock:(id)block
 {
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     [(LSApplicationWorkspace *)v7 uninstallApplication:v8 withOptions:v9 error:v10 usingBlock:v11, v12, v13, v14];
@@ -2632,26 +2851,25 @@ void __105__LSApplicationWorkspace_sendNotificationOfType_forApplicationWithBund
   handleSaveObserverBehavior(observerCopy, v26[5], dCopy, *(v32[0] + 40));
   if (*(v32[0] + 40))
   {
-    v15 = _LSDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _LSDefaultLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       absoluteString = [pointCopy absoluteString];
-      [LSApplicationWorkspace unregisterApplicationsAtMountPoint:absoluteString operationUUID:v32 saveObserver:v34 requestContext:v15];
+      [LSApplicationWorkspace unregisterApplicationsAtMountPoint:absoluteString operationUUID:v32 saveObserver:v34 requestContext:v16];
     }
 
-    v17 = *(v32[0] + 40) == 0;
+    v18 = *(v32[0] + 40) == 0;
   }
 
   else
   {
-    v17 = 1;
+    v18 = 1;
   }
 
   _Block_object_dispose(&v25, 8);
 
   _Block_object_dispose(&v31, 8);
-  v18 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v18;
 }
 
 void __103__LSApplicationWorkspace_unregisterApplicationsAtMountPoint_operationUUID_saveObserver_requestContext___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2671,51 +2889,53 @@ void __103__LSApplicationWorkspace_unregisterApplicationsAtMountPoint_operationU
 - (BOOL)unregisterApplication:(id)application
 {
   applicationCopy = application;
-  v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = __Block_byref_object_copy__4;
-  v13[3] = __Block_byref_object_dispose__4;
-  v14 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__4;
+  v17 = __Block_byref_object_dispose__4;
+  v18 = 0;
   uUID = [MEMORY[0x1E696AFB0] UUID];
   do
   {
-    v5 = *(v13[0] + 40);
-    *(v13[0] + 40) = 0;
+    v5 = v14[5];
+    v14[5] = 0;
 
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __48__LSApplicationWorkspace_unregisterApplication___block_invoke;
+    v12[3] = &unk_1E6A198D0;
+    v12[4] = &v13;
+    v6 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v12];
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
-    v11[2] = __48__LSApplicationWorkspace_unregisterApplication___block_invoke;
-    v11[3] = &unk_1E6A198D0;
-    v11[4] = &v12;
-    v6 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v11];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __48__LSApplicationWorkspace_unregisterApplication___block_invoke_2;
-    v10[3] = &unk_1E6A19CA0;
-    v10[4] = &v12;
-    [v6 unregisterApplicationAtURL:applicationCopy operationUUID:uUID reply:v10];
+    v11[2] = __48__LSApplicationWorkspace_unregisterApplication___block_invoke_2;
+    v11[3] = &unk_1E6A19CA0;
+    v11[4] = &v13;
+    [v6 unregisterApplicationAtURL:applicationCopy operationUUID:uUID reply:v11];
+
+    IsXPCConnectionInterrupted = _LSNSErrorIsXPCConnectionInterrupted(v14[5]);
   }
 
-  while (_LSNSErrorIsXPCConnectionInterrupted(*(v13[0] + 40)));
-  if (*(v13[0] + 40))
+  while (IsXPCConnectionInterrupted);
+  if (v14[5])
   {
-    v7 = _LSDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _LSDefaultLog(IsXPCConnectionInterrupted);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(LSApplicationWorkspace *)applicationCopy unregisterApplication:v13];
+      [LSApplicationWorkspace unregisterApplication:];
     }
 
-    v8 = *(v13[0] + 40) == 0;
+    v9 = v14[5] == 0;
   }
 
   else
   {
-    v8 = 1;
+    v9 = 1;
   }
 
-  _Block_object_dispose(&v12, 8);
-  return v8;
+  _Block_object_dispose(&v13, 8);
+  return v9;
 }
 
 void __48__LSApplicationWorkspace_unregisterApplication___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -2731,31 +2951,31 @@ void __48__LSApplicationWorkspace_unregisterApplication___block_invoke_2(uint64_
 
 - (BOOL)unregisterBuiltinApplicationAtURL:(id)l operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer error:(id *)error
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
   contextCopy = context;
   observerCopy = observer;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__4;
-  v43 = __Block_byref_object_dispose__4;
-  v44 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__4;
-  v37 = __Block_byref_object_dispose__4;
   v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__4;
+  v42 = __Block_byref_object_dispose__4;
+  v43 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__4;
+  v36 = __Block_byref_object_dispose__4;
+  v37 = 0;
   v10 = [FSNode alloc];
-  v11 = v40;
-  obj = v40[5];
-  v26 = [(FSNode *)v10 initWithURL:lCopy flags:0 error:&obj];
+  v11 = v39;
+  obj = v39[5];
+  v25 = [(FSNode *)v10 initWithURL:lCopy flags:0 error:&obj];
   objc_storeStrong(v11 + 5, obj);
-  if (v26)
+  if (v25)
   {
-    if ([(FSNode *)v26 isSecuredSystemContent])
+    if ([(FSNode *)v25 isSecuredSystemContent])
     {
       v12 = MEMORY[0x1E69E9820];
       do
@@ -2764,49 +2984,48 @@ void __48__LSApplicationWorkspace_unregisterApplication___block_invoke_2(uint64_
         v14 = serviceDomainForRequestContext(contextCopy);
         v15 = _LSDServiceGetXPCConnection(v13, v14);
 
-        v31[0] = v12;
-        v31[1] = 3221225472;
-        v31[2] = __108__LSApplicationWorkspace_unregisterBuiltinApplicationAtURL_operationUUID_requestContext_saveObserver_error___block_invoke;
-        v31[3] = &unk_1E6A198D0;
-        v31[4] = &v39;
-        v16 = [v15 synchronousRemoteObjectProxyWithErrorHandler:v31];
-        v30[0] = MEMORY[0x1E69E9820];
+        v30[0] = v12;
         v30[1] = 3221225472;
-        v30[2] = __108__LSApplicationWorkspace_unregisterBuiltinApplicationAtURL_operationUUID_requestContext_saveObserver_error___block_invoke_2;
-        v30[3] = &unk_1E6A19C78;
-        v30[4] = &v33;
-        v30[5] = &v39;
-        [v16 unregisterApplicationAtURL:lCopy operationUUID:dCopy reply:v30];
+        v30[2] = __108__LSApplicationWorkspace_unregisterBuiltinApplicationAtURL_operationUUID_requestContext_saveObserver_error___block_invoke;
+        v30[3] = &unk_1E6A198D0;
+        v30[4] = &v38;
+        v16 = [v15 synchronousRemoteObjectProxyWithErrorHandler:v30];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __108__LSApplicationWorkspace_unregisterBuiltinApplicationAtURL_operationUUID_requestContext_saveObserver_error___block_invoke_2;
+        v29[3] = &unk_1E6A19C78;
+        v29[4] = &v32;
+        v29[5] = &v38;
+        [v16 unregisterApplicationAtURL:lCopy operationUUID:dCopy reply:v29];
       }
 
-      while (_LSNSErrorIsXPCConnectionInterrupted(v40[5]));
+      while (_LSNSErrorIsXPCConnectionInterrupted(v39[5]));
     }
 
     else
     {
-      v45 = *MEMORY[0x1E696A278];
-      v46[0] = @"not a builtin application";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+      v44 = *MEMORY[0x1E696A278];
+      v45[0] = @"not a builtin application";
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
       v18 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v17, "[LSApplicationWorkspace unregisterBuiltinApplicationAtURL:operationUUID:requestContext:saveObserver:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 3298);
-      v19 = v40[5];
-      v40[5] = v18;
+      v19 = v39[5];
+      v39[5] = v18;
     }
   }
 
-  handleSaveObserverBehavior(observerCopy, v34[5], dCopy, v40[5]);
-  v20 = v40[5];
+  handleSaveObserverBehavior(observerCopy, v33[5], dCopy, v39[5]);
+  v20 = v39[5];
   if (error && v20)
   {
     *error = v20;
-    v20 = v40[5];
+    v20 = v39[5];
   }
 
   v21 = v20 == 0;
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -2826,31 +3045,31 @@ void __108__LSApplicationWorkspace_unregisterBuiltinApplicationAtURL_operationUU
 
 - (BOOL)unregisterBuiltinStandaloneExtensionAtURL:(id)l operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer error:(id *)error
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   dCopy = d;
   contextCopy = context;
   observerCopy = observer;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__4;
-  v43 = __Block_byref_object_dispose__4;
-  v44 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__4;
-  v37 = __Block_byref_object_dispose__4;
   v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__4;
+  v42 = __Block_byref_object_dispose__4;
+  v43 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__4;
+  v36 = __Block_byref_object_dispose__4;
+  v37 = 0;
   v10 = [FSNode alloc];
-  v11 = v40;
-  obj = v40[5];
-  v26 = [(FSNode *)v10 initWithURL:lCopy flags:0 error:&obj];
+  v11 = v39;
+  obj = v39[5];
+  v25 = [(FSNode *)v10 initWithURL:lCopy flags:0 error:&obj];
   objc_storeStrong(v11 + 5, obj);
-  if (v26)
+  if (v25)
   {
-    if ([(FSNode *)v26 isSecuredSystemContent])
+    if ([(FSNode *)v25 isSecuredSystemContent])
     {
       v12 = MEMORY[0x1E69E9820];
       do
@@ -2859,49 +3078,48 @@ void __108__LSApplicationWorkspace_unregisterBuiltinApplicationAtURL_operationUU
         v14 = serviceDomainForRequestContext(contextCopy);
         v15 = _LSDServiceGetXPCConnection(v13, v14);
 
-        v31[0] = v12;
-        v31[1] = 3221225472;
-        v31[2] = __116__LSApplicationWorkspace_unregisterBuiltinStandaloneExtensionAtURL_operationUUID_requestContext_saveObserver_error___block_invoke;
-        v31[3] = &unk_1E6A198D0;
-        v31[4] = &v39;
-        v16 = [v15 synchronousRemoteObjectProxyWithErrorHandler:v31];
-        v30[0] = MEMORY[0x1E69E9820];
+        v30[0] = v12;
         v30[1] = 3221225472;
-        v30[2] = __116__LSApplicationWorkspace_unregisterBuiltinStandaloneExtensionAtURL_operationUUID_requestContext_saveObserver_error___block_invoke_2;
-        v30[3] = &unk_1E6A19C78;
-        v30[4] = &v33;
-        v30[5] = &v39;
-        [v16 unregisterPluginAtURL:lCopy operationUUID:dCopy reply:v30];
+        v30[2] = __116__LSApplicationWorkspace_unregisterBuiltinStandaloneExtensionAtURL_operationUUID_requestContext_saveObserver_error___block_invoke;
+        v30[3] = &unk_1E6A198D0;
+        v30[4] = &v38;
+        v16 = [v15 synchronousRemoteObjectProxyWithErrorHandler:v30];
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __116__LSApplicationWorkspace_unregisterBuiltinStandaloneExtensionAtURL_operationUUID_requestContext_saveObserver_error___block_invoke_2;
+        v29[3] = &unk_1E6A19C78;
+        v29[4] = &v32;
+        v29[5] = &v38;
+        [v16 unregisterPluginAtURL:lCopy operationUUID:dCopy reply:v29];
       }
 
-      while (_LSNSErrorIsXPCConnectionInterrupted(v40[5]));
+      while (_LSNSErrorIsXPCConnectionInterrupted(v39[5]));
     }
 
     else
     {
-      v45 = *MEMORY[0x1E696A278];
-      v46[0] = @"not a builtin plugin";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+      v44 = *MEMORY[0x1E696A278];
+      v45[0] = @"not a builtin plugin";
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
       v18 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v17, "[LSApplicationWorkspace unregisterBuiltinStandaloneExtensionAtURL:operationUUID:requestContext:saveObserver:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 3336);
-      v19 = v40[5];
-      v40[5] = v18;
+      v19 = v39[5];
+      v39[5] = v18;
     }
   }
 
-  handleSaveObserverBehavior(observerCopy, v34[5], dCopy, v40[5]);
-  v20 = v40[5];
+  handleSaveObserverBehavior(observerCopy, v33[5], dCopy, v39[5]);
+  v20 = v39[5];
   if (error && v20)
   {
     *error = v20;
-    v20 = v40[5];
+    v20 = v39[5];
   }
 
   v21 = v20 == 0;
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -2921,63 +3139,63 @@ void __116__LSApplicationWorkspace_unregisterBuiltinStandaloneExtensionAtURL_ope
 
 - (BOOL)registerBuiltinApplicationWithInstallationRecord:(id)record extensionInstallationRecords:(id)records personaUniqueStrings:(id)strings operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer registrationError:(id *)error
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   recordsCopy = records;
   stringsCopy = strings;
   dCopy = d;
   contextCopy = context;
   observerCopy = observer;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = __Block_byref_object_copy__4;
-  v59 = __Block_byref_object_dispose__4;
-  v60 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__4;
-  v53 = __Block_byref_object_dispose__4;
   v54 = 0;
+  v55 = &v54;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy__4;
+  v58 = __Block_byref_object_dispose__4;
+  v59 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__4;
+  v52 = __Block_byref_object_dispose__4;
+  v53 = 0;
   v14 = [FSNode alloc];
   bundleURL = [recordCopy bundleURL];
-  v16 = (v56 + 5);
-  obj = v56[5];
-  v38 = [(FSNode *)v14 initWithURL:bundleURL flags:0 error:&obj];
+  v16 = (v55 + 5);
+  obj = v55[5];
+  v37 = [(FSNode *)v14 initWithURL:bundleURL flags:0 error:&obj];
   objc_storeStrong(v16, obj);
 
-  if (v38)
+  if (v37)
   {
-    if ([(FSNode *)v38 isSecuredSystemContent])
+    if ([(FSNode *)v37 isSecuredSystemContent])
     {
       v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(recordsCopy, "count") + 1}];
       legacyRecordDictionary = [recordCopy legacyRecordDictionary];
       [v17 addObject:legacyRecordDictionary];
 
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
       v45 = 0u;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
       v19 = recordsCopy;
-      v20 = [v19 countByEnumeratingWithState:&v44 objects:v63 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v43 objects:v62 count:16];
       if (v20)
       {
-        v21 = *v45;
+        v21 = *v44;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v45 != v21)
+            if (*v44 != v21)
             {
               objc_enumerationMutation(v19);
             }
 
-            legacyRecordDictionary2 = [*(*(&v44 + 1) + 8 * i) legacyRecordDictionary];
+            legacyRecordDictionary2 = [*(*(&v43 + 1) + 8 * i) legacyRecordDictionary];
             [v17 addObject:legacyRecordDictionary2];
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v44 objects:v63 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v43 objects:v62 count:16];
         }
 
         while (v20);
@@ -2990,49 +3208,48 @@ void __116__LSApplicationWorkspace_unregisterBuiltinStandaloneExtensionAtURL_ope
         v26 = serviceDomainForRequestContext(contextCopy);
         v27 = _LSDServiceGetXPCConnection(v25, v26);
 
-        v43[0] = v24;
-        v43[1] = 3221225472;
-        v43[2] = __185__LSApplicationWorkspace_registerBuiltinApplicationWithInstallationRecord_extensionInstallationRecords_personaUniqueStrings_operationUUID_requestContext_saveObserver_registrationError___block_invoke;
-        v43[3] = &unk_1E6A198D0;
-        v43[4] = &v55;
-        v28 = [v27 synchronousRemoteObjectProxyWithErrorHandler:v43];
-        v42[0] = MEMORY[0x1E69E9820];
+        v42[0] = v24;
         v42[1] = 3221225472;
-        v42[2] = __185__LSApplicationWorkspace_registerBuiltinApplicationWithInstallationRecord_extensionInstallationRecords_personaUniqueStrings_operationUUID_requestContext_saveObserver_registrationError___block_invoke_2;
-        v42[3] = &unk_1E6A19C78;
-        v42[4] = &v49;
-        v42[5] = &v55;
-        [v28 registerBuiltinApplication:v17 personaUniqueStrings:stringsCopy operationUUID:dCopy reply:v42];
+        v42[2] = __185__LSApplicationWorkspace_registerBuiltinApplicationWithInstallationRecord_extensionInstallationRecords_personaUniqueStrings_operationUUID_requestContext_saveObserver_registrationError___block_invoke;
+        v42[3] = &unk_1E6A198D0;
+        v42[4] = &v54;
+        v28 = [v27 synchronousRemoteObjectProxyWithErrorHandler:v42];
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __185__LSApplicationWorkspace_registerBuiltinApplicationWithInstallationRecord_extensionInstallationRecords_personaUniqueStrings_operationUUID_requestContext_saveObserver_registrationError___block_invoke_2;
+        v41[3] = &unk_1E6A19C78;
+        v41[4] = &v48;
+        v41[5] = &v54;
+        [v28 registerBuiltinApplication:v17 personaUniqueStrings:stringsCopy operationUUID:dCopy reply:v41];
       }
 
-      while (_LSNSErrorIsXPCConnectionInterrupted(v56[5]));
+      while (_LSNSErrorIsXPCConnectionInterrupted(v55[5]));
     }
 
     else
     {
-      v61 = *MEMORY[0x1E696A278];
-      v62 = @"not a builtin application";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+      v60 = *MEMORY[0x1E696A278];
+      v61 = @"not a builtin application";
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
       v29 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v17, "[LSApplicationWorkspace registerBuiltinApplicationWithInstallationRecord:extensionInstallationRecords:personaUniqueStrings:operationUUID:requestContext:saveObserver:registrationError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 3381);
-      v30 = v56[5];
-      v56[5] = v29;
+      v30 = v55[5];
+      v55[5] = v29;
     }
   }
 
-  handleSaveObserverBehavior(observerCopy, v50[5], dCopy, v56[5]);
-  v31 = v56[5];
+  handleSaveObserverBehavior(observerCopy, v49[5], dCopy, v55[5]);
+  v31 = v55[5];
   if (error && v31)
   {
     *error = v31;
-    v31 = v56[5];
+    v31 = v55[5];
   }
 
   v32 = v31 == 0;
 
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v54, 8);
 
-  v33 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
@@ -3052,34 +3269,34 @@ void __185__LSApplicationWorkspace_registerBuiltinApplicationWithInstallationRec
 
 - (BOOL)registerBuiltinStandaloneExtension:(id)extension personaUniqueStrings:(id)strings operationUUID:(id)d requestContext:(id)context saveObserver:(id)observer registrationError:(id *)error
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   stringsCopy = strings;
   dCopy = d;
   contextCopy = context;
   observerCopy = observer;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__4;
-  v48 = __Block_byref_object_dispose__4;
-  v49 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__4;
-  v42 = __Block_byref_object_dispose__4;
   v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__4;
+  v47 = __Block_byref_object_dispose__4;
+  v48 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__4;
+  v41 = __Block_byref_object_dispose__4;
+  v42 = 0;
   v12 = [FSNode alloc];
   bundleURL = [extensionCopy bundleURL];
-  v14 = v45;
-  obj = v45[5];
-  v31 = [(FSNode *)v12 initWithURL:bundleURL flags:0 error:&obj];
+  v14 = v44;
+  obj = v44[5];
+  v30 = [(FSNode *)v12 initWithURL:bundleURL flags:0 error:&obj];
   objc_storeStrong(v14 + 5, obj);
 
-  if (v31)
+  if (v30)
   {
-    if ([(FSNode *)v31 isSecuredSystemContent])
+    if ([(FSNode *)v30 isSecuredSystemContent])
     {
       v15 = MEMORY[0x1E69E9820];
       do
@@ -3088,50 +3305,49 @@ void __185__LSApplicationWorkspace_registerBuiltinApplicationWithInstallationRec
         v17 = serviceDomainForRequestContext(contextCopy);
         v18 = _LSDServiceGetXPCConnection(v16, v17);
 
-        v36[0] = v15;
-        v36[1] = 3221225472;
-        v36[2] = __142__LSApplicationWorkspace_registerBuiltinStandaloneExtension_personaUniqueStrings_operationUUID_requestContext_saveObserver_registrationError___block_invoke;
-        v36[3] = &unk_1E6A198D0;
-        v36[4] = &v44;
-        v19 = [v18 synchronousRemoteObjectProxyWithErrorHandler:v36];
-        legacyRecordDictionary = [extensionCopy legacyRecordDictionary];
-        v35[0] = MEMORY[0x1E69E9820];
+        v35[0] = v15;
         v35[1] = 3221225472;
-        v35[2] = __142__LSApplicationWorkspace_registerBuiltinStandaloneExtension_personaUniqueStrings_operationUUID_requestContext_saveObserver_registrationError___block_invoke_2;
-        v35[3] = &unk_1E6A19C78;
-        v35[4] = &v44;
-        v35[5] = &v38;
-        [v19 registerBuiltinAppex:legacyRecordDictionary operationUUID:dCopy reply:v35];
+        v35[2] = __142__LSApplicationWorkspace_registerBuiltinStandaloneExtension_personaUniqueStrings_operationUUID_requestContext_saveObserver_registrationError___block_invoke;
+        v35[3] = &unk_1E6A198D0;
+        v35[4] = &v43;
+        v19 = [v18 synchronousRemoteObjectProxyWithErrorHandler:v35];
+        legacyRecordDictionary = [extensionCopy legacyRecordDictionary];
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __142__LSApplicationWorkspace_registerBuiltinStandaloneExtension_personaUniqueStrings_operationUUID_requestContext_saveObserver_registrationError___block_invoke_2;
+        v34[3] = &unk_1E6A19C78;
+        v34[4] = &v43;
+        v34[5] = &v37;
+        [v19 registerBuiltinAppex:legacyRecordDictionary operationUUID:dCopy reply:v34];
       }
 
-      while (_LSNSErrorIsXPCConnectionInterrupted(v45[5]));
+      while (_LSNSErrorIsXPCConnectionInterrupted(v44[5]));
     }
 
     else
     {
-      v50 = *MEMORY[0x1E696A278];
-      v51[0] = @"not a builtin application";
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+      v49 = *MEMORY[0x1E696A278];
+      v50[0] = @"not a builtin application";
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
       v22 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v21, "[LSApplicationWorkspace registerBuiltinStandaloneExtension:personaUniqueStrings:operationUUID:requestContext:saveObserver:registrationError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 3420);
-      v23 = v45[5];
-      v45[5] = v22;
+      v23 = v44[5];
+      v44[5] = v22;
     }
   }
 
-  handleSaveObserverBehavior(observerCopy, v39[5], dCopy, v45[5]);
-  v24 = v45[5];
+  handleSaveObserverBehavior(observerCopy, v38[5], dCopy, v44[5]);
+  v24 = v44[5];
   if (error && v24)
   {
     *error = v24;
-    v24 = v45[5];
+    v24 = v44[5];
   }
 
   v25 = v24 == 0;
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v43, 8);
 
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -3209,6 +3425,66 @@ void __127__LSApplicationWorkspace_refreshUnbundledSystemExtensionPointsWithOper
   *(v6 + 40) = v5;
 }
 
+- (BOOL)updateRecordForApp:(id)app withSINF:(id)f iTunesMetadata:(id)metadata placeholderMetadata:(id)placeholderMetadata sendNotification:(int)notification operationUUID:(id)d outSaveToken:(id *)token error:(id *)self0
+{
+  v11 = *&notification;
+  appCopy = app;
+  fCopy = f;
+  metadataCopy = metadata;
+  placeholderMetadataCopy = placeholderMetadata;
+  dCopy = d;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__4;
+  v38 = __Block_byref_object_dispose__4;
+  v39 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy__4;
+  v32 = __Block_byref_object_dispose__4;
+  v33 = 0;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __139__LSApplicationWorkspace_updateRecordForApp_withSINF_iTunesMetadata_placeholderMetadata_sendNotification_operationUUID_outSaveToken_error___block_invoke;
+  v27[3] = &unk_1E6A198D0;
+  v27[4] = &v34;
+  v19 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __139__LSApplicationWorkspace_updateRecordForApp_withSINF_iTunesMetadata_placeholderMetadata_sendNotification_operationUUID_outSaveToken_error___block_invoke_2;
+  v26[3] = &unk_1E6A19CC8;
+  v26[4] = &v28;
+  v26[5] = &v40;
+  v26[6] = &v34;
+  LOBYTE(v24) = token != 0;
+  v20 = [v19 updateRecordForApp:appCopy withSINF:fCopy iTunesMetadata:metadataCopy placeholderMetadata:placeholderMetadataCopy sendNotification:v11 operationUUID:dCopy returnSaveToken:v24 completionHandler:v26];
+  _LSContextInvalidate(v20, v21);
+  v22 = *(v41 + 24);
+  if (token && (v41[3] & 1) != 0)
+  {
+    *token = v29[5];
+    v22 = *(v41 + 24);
+  }
+
+  if (error && (v22 & 1) == 0)
+  {
+    *error = v35[5];
+    v22 = *(v41 + 24);
+  }
+
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
+
+  _Block_object_dispose(&v40, 8);
+  return v22 & 1;
+}
+
 void __139__LSApplicationWorkspace_updateRecordForApp_withSINF_iTunesMetadata_placeholderMetadata_sendNotification_operationUUID_outSaveToken_error___block_invoke_2(void *a1, char a2, void *a3, void *a4)
 {
   v7 = a3;
@@ -3226,7 +3502,7 @@ void __139__LSApplicationWorkspace_updateRecordForApp_withSINF_iTunesMetadata_pl
 
 - (BOOL)updateSINFWithData:(id)data forApplication:(id)application options:(id)options error:(id *)error
 {
-  v7 = _LSDefaultLog();
+  v7 = _LSDefaultLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     [(LSApplicationWorkspace *)v7 updateSINFWithData:v8 forApplication:v9 options:v10 error:v11, v12, v13, v14];
@@ -3244,15 +3520,16 @@ void __139__LSApplicationWorkspace_updateRecordForApp_withSINF_iTunesMetadata_pl
 
 - (BOOL)_getBundleIdentifierForBundleAtURL:(id)l invokeUpdateBlockAndReregister:(id)reregister error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   reregisterCopy = reregister;
-  v23 = 0;
-  v9 = [[LSApplicationRecord alloc] initWithURL:lCopy allowPlaceholder:1 error:&v23];
-  v10 = v23;
+  v25 = 0;
+  v9 = [[LSApplicationRecord alloc] initWithURL:lCopy allowPlaceholder:1 error:&v25];
+  v10 = v25;
+  v11 = v10;
   if (!v9)
   {
-    bundleIdentifier = _LSDefaultLog();
+    bundleIdentifier = _LSDefaultLog(v10);
     if (os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_ERROR))
     {
       [LSApplicationWorkspace _getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:];
@@ -3264,25 +3541,25 @@ void __139__LSApplicationWorkspace_updateRecordForApp_withSINF_iTunesMetadata_pl
   bundleIdentifier = [(LSBundleRecord *)v9 bundleIdentifier];
   if (bundleIdentifier)
   {
-    v22 = v10;
-    v12 = reregisterCopy[2](reregisterCopy, lCopy, bundleIdentifier, &v22);
-    v13 = v22;
+    v24 = v11;
+    v13 = reregisterCopy[2](reregisterCopy, lCopy, bundleIdentifier, &v24);
+    v14 = v24;
 
-    if (v12)
+    if (v13)
     {
-      v14 = 1;
-      v15 = LSRegisterURL(lCopy, 1u);
-      v21 = v13;
-      v16 = _LSGetNSErrorFromOSStatusImpl(v15, &v21, 0, "[LSApplicationWorkspace _getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 3534);
-      v10 = v21;
+      v16 = 1;
+      v17 = LSRegisterURL(lCopy, 1u);
+      v23 = v14;
+      v18 = _LSGetNSErrorFromOSStatusImpl(v17, &v23, 0, "[LSApplicationWorkspace _getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 3534);
+      v11 = v23;
 
-      if (v16)
+      if (v18)
       {
         goto LABEL_15;
       }
 
-      v17 = _LSDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v20 = _LSDefaultLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [LSApplicationWorkspace _getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:];
       }
@@ -3290,8 +3567,8 @@ void __139__LSApplicationWorkspace_updateRecordForApp_withSINF_iTunesMetadata_pl
       goto LABEL_13;
     }
 
-    v17 = _LSDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = _LSDefaultLog(v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [LSApplicationWorkspace _getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:];
     }
@@ -3299,27 +3576,26 @@ void __139__LSApplicationWorkspace_updateRecordForApp_withSINF_iTunesMetadata_pl
 
   else
   {
-    v24 = *MEMORY[0x1E696A278];
-    v25[0] = @"provided bundle URL was not a bundle with a bundle identifier";
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-    v13 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 112, v17, "[LSApplicationWorkspace _getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 3545);
+    v26 = *MEMORY[0x1E696A278];
+    v27[0] = @"provided bundle URL was not a bundle with a bundle identifier";
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v14 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 112, v20, "[LSApplicationWorkspace _getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 3545);
   }
 
-  v10 = v13;
+  v11 = v14;
 LABEL_13:
 
 LABEL_14:
-  v14 = 0;
+  v16 = 0;
 LABEL_15:
 
   if (error)
   {
-    v18 = v10;
-    *error = v10;
+    v21 = v11;
+    *error = v11;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v16;
 }
 
 - (BOOL)updateSINFWithData:(id)data forApplicationAtURL:(id)l error:(id *)error
@@ -3334,7 +3610,7 @@ LABEL_15:
 
 - (BOOL)updateiTunesMetadataWithData:(id)data forApplication:(id)application options:(id)options error:(id *)error
 {
-  v7 = _LSDefaultLog();
+  v7 = _LSDefaultLog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     [(LSApplicationWorkspace *)v7 updateiTunesMetadataWithData:v8 forApplication:v9 options:v10 error:v11, v12, v13, v14];
@@ -3352,7 +3628,7 @@ LABEL_15:
 
 - (BOOL)updateiTunesMetadataWithData:(id)data forApplicationAtURL:(id)l error:(id *)error
 {
-  v6 = _LSDefaultLog();
+  v6 = _LSDefaultLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     [(LSApplicationWorkspace *)v6 updateiTunesMetadataWithData:v7 forApplicationAtURL:v8 error:v9, v10, v11, v12, v13];
@@ -3379,35 +3655,35 @@ LABEL_15:
   v39 = v17;
   _LSLogStepStart(11, 0, appCopy, @"Updating PlaceholderMetadata for %@ with failure %@ <LSInstallType %@, underlyingError (%@), source %@>", v18, v19, v20, v21, appCopy);
 
-  v22 = (softLinkMobileInstallationUpdatePlaceholderMetadata[0])(appCopy, type, failure, errorCopy, source);
+  v22 = softLinkMobileInstallationUpdatePlaceholderMetadata(appCopy, type, failure, errorCopy, source);
 
   if (v22)
   {
-    observerProxy = _LSDefaultLog();
+    observerProxy = _LSDefaultLog(v23);
     if (os_log_type_enabled(observerProxy, OS_LOG_TYPE_ERROR))
     {
       [LSApplicationWorkspace updatePlaceholderMetadataForApp:installType:failure:underlyingError:source:outError:];
     }
 
-    v24 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v26 = type - 7 < 3 && failure != 0;
+    v27 = type - 7 < 3 && failure != 0;
     v44[0] = @"LSInstallType";
-    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
+    v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
     v44[1] = @"PlaceholderFailureReason";
-    v45[0] = v27;
-    v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:failure];
-    v45[1] = v28;
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
+    v45[0] = v28;
+    v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:failure];
+    v45[1] = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
     uUID = [MEMORY[0x1E696AFB0] UUID];
     v43 = 0;
-    v24 = [(LSApplicationWorkspace *)self updateRecordForApp:appCopy withSINF:0 iTunesMetadata:0 placeholderMetadata:v29 sendNotification:v26 operationUUID:uUID outSaveToken:0 error:&v43, v39, v40, v41];
+    v25 = [(LSApplicationWorkspace *)self updateRecordForApp:appCopy withSINF:0 iTunesMetadata:0 placeholderMetadata:v30 sendNotification:v27 operationUUID:uUID outSaveToken:0 error:&v43, v39, v40, v41];
     v22 = v43;
 
-    if (!v26)
+    if (!v27)
     {
       outErrorCopy2 = outError;
       goto LABEL_14;
@@ -3420,15 +3696,14 @@ LABEL_15:
   outErrorCopy2 = outError;
 
 LABEL_14:
-  _LSLogStepFinished(11, v24, appCopy, @"Updated PlaceholderMetadata for app with error %@", v31, v32, v33, v34, v22);
-  if (outErrorCopy2 && !v24)
+  _LSLogStepFinished(11, v25, appCopy, @"Updated PlaceholderMetadata for app with error %@", v32, v33, v34, v35, v22);
+  if (outErrorCopy2 && !v25)
   {
-    v36 = v22;
+    v37 = v22;
     *outErrorCopy2 = v22;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-  return v24;
+  return v25;
 }
 
 - (BOOL)initiateProgressForApp:(id)app withType:(unint64_t)type
@@ -3460,13 +3735,14 @@ LABEL_14:
 - (BOOL)unregisterPlugin:(id)plugin
 {
   pluginCopy = plugin;
-  v8 = 0;
-  v4 = _LSUnregisterPluginsAtURL(pluginCopy, &v8);
-  v5 = v8;
+  v9 = 0;
+  v4 = _LSUnregisterPluginsAtURL(pluginCopy, &v9);
+  v5 = v9;
+  v6 = v5;
   if ((v4 & 1) == 0)
   {
-    v6 = _LSDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _LSDefaultLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [LSApplicationWorkspace unregisterPlugin:];
     }
@@ -3477,7 +3753,7 @@ LABEL_14:
 
 - (BOOL)allowsAlternateIcons
 {
-  SharedInstance = __LSDefaultsGetSharedInstance();
+  SharedInstance = __LSDefaultsGetSharedInstance(self, a2);
 
   return [SharedInstance allowsAlternateIcons];
 }
@@ -3521,7 +3797,7 @@ LABEL_14:
 
 - (BOOL)isVersion:(id)version greaterThanOrEqualToVersion:(id)toVersion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   toVersionCopy = toVersion;
   v7 = toVersionCopy;
@@ -3544,19 +3820,12 @@ LABEL_5:
   }
 
 LABEL_3:
-  v15 = 0u;
-  v16 = 0u;
-  _LSVersionNumberMakeWithString(&v15, versionCopy);
-  v13 = 0u;
-  v14 = 0u;
-  _LSVersionNumberMakeWithString(&v13, v7);
-  v12[0] = v15;
-  v12[1] = v16;
-  v11[0] = v13;
-  v11[1] = v14;
-  v8 = _LSVersionNumberCompare(v12, v11) != -1;
+  _LSVersionNumberMakeWithString();
+  _LSVersionNumberMakeWithString();
+  memset(v11, 0, sizeof(v11));
+  memset(v10, 0, sizeof(v10));
+  v8 = _LSVersionNumberCompare(v11, v10) != -1;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -3565,7 +3834,7 @@ LABEL_3:
   cacheCopy = cache;
   if (IconServicesLibrary_frameworkLibrary_0 || (IconServicesLibrary_frameworkLibrary_0 = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2)) != 0)
   {
-    (softLink_ISInvalidateCacheEntriesForBundleIdentifier[0])(cacheCopy);
+    softLink_ISInvalidateCacheEntriesForBundleIdentifier(cacheCopy);
     v4 = 1;
   }
 
@@ -3643,7 +3912,7 @@ id __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke(uin
 void __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke_2_cold_1();
@@ -3659,7 +3928,7 @@ void __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke_3
   v3 = a2;
   if (!v3)
   {
-    v4 = _LSDefaultLog();
+    v4 = _LSDefaultLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke_373_cold_1();
@@ -3674,7 +3943,7 @@ void __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke_3
 void __51__LSApplicationWorkspace_deviceIdentifierForVendor__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __51__LSApplicationWorkspace_deviceIdentifierForVendor__block_invoke_2_cold_1();
@@ -3690,7 +3959,7 @@ void __51__LSApplicationWorkspace_deviceIdentifierForVendor__block_invoke_376(ui
   v3 = a2;
   if (!v3)
   {
-    v4 = _LSDefaultLog();
+    v4 = _LSDefaultLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __51__LSApplicationWorkspace_deviceIdentifierForVendor__block_invoke_376_cold_1();
@@ -3755,10 +4024,10 @@ id __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___bloc
 void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _LSDefaultLog();
+  v4 = _LSDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___block_invoke_2_cold_1(a1);
+    __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___block_invoke_2_cold_1();
   }
 
   v5 = *(*(a1 + 40) + 8);
@@ -3800,32 +4069,32 @@ void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___bl
 
 - (id)deviceIdentifierForVendorSeedData
 {
-  v15[2] = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__4;
-  v13 = __Block_byref_object_dispose__4;
-  v14 = 0;
+  v14[2] = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__4;
+  v12 = __Block_byref_object_dispose__4;
+  v13 = 0;
   v2 = [(_LSDService *)_LSDDeviceIdentifierService synchronousXPCProxyWithErrorHandler:?];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __59__LSApplicationWorkspace_deviceIdentifierForVendorSeedData__block_invoke;
-  v8[3] = &unk_1E6A19CF8;
-  v8[4] = &v9;
-  [v2 getIdentifierOfType:2 completionHandler:v8];
-  v3 = v10[5];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __59__LSApplicationWorkspace_deviceIdentifierForVendorSeedData__block_invoke;
+  v7[3] = &unk_1E6A19CF8;
+  v7[4] = &v8;
+  [v2 getIdentifierOfType:2 completionHandler:v7];
+  v3 = v9[5];
   if (v3)
   {
-    v15[0] = 0;
-    v15[1] = 0;
-    [v3 getUUIDBytes:v15];
-    v4 = [MEMORY[0x1E695DEF0] dataWithBytes:v15 length:16];
+    v14[0] = 0;
+    v14[1] = 0;
+    [v3 getUUIDBytes:v14];
+    v4 = [MEMORY[0x1E695DEF0] dataWithBytes:v14 length:16];
   }
 
   else
   {
-    v5 = _LSDefaultLog();
+    v5 = _LSDefaultLog(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [LSApplicationWorkspace deviceIdentifierForVendorSeedData];
@@ -3834,8 +4103,7 @@ void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___bl
     v4 = 0;
   }
 
-  _Block_object_dispose(&v9, 8);
-  v6 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v8, 8);
 
   return v4;
 }
@@ -3843,7 +4111,7 @@ void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___bl
 - (id)installProgressForBundleID:(id)d makeSynchronous:(unsigned __int8)synchronous
 {
   dCopy = d;
-  v6 = _LSProgressLog();
+  v6 = _LSProgressLog(dCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspace installProgressForBundleID:makeSynchronous:];
@@ -3860,7 +4128,7 @@ void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___bl
   dispatch_sync(v7, &v12);
 
   selfCopy = [(LSInstallProgressList *)self->_observedInstallProgresses progressForBundleID:v8, v12, v13, v14, v15, selfCopy];
-  v10 = _LSProgressLog();
+  v10 = _LSProgressLog(selfCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspace installProgressForBundleID:selfCopy makeSynchronous:?];
@@ -3871,7 +4139,7 @@ void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___bl
 
 void __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = *(*(a1 + 32) + 16);
   if (!v3)
@@ -3892,103 +4160,100 @@ void __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___b
     goto LABEL_6;
   }
 
-  v9 = [*(*v2 + 16) subscriberForBundleID:*v6 andPublishingKey:*v6];
+  v10 = [*(*v2 + 16) subscriberForBundleID:*v6 andPublishingKey:*v6];
 
-  if (v9)
+  if (v10)
   {
 LABEL_6:
-    v10 = _LSProgressLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _LSProgressLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_cold_1(v6);
+      __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_cold_1();
     }
 
     goto LABEL_8;
   }
 
-  v12 = _LSProgressLog();
+  v12 = _LSProgressLog(v9);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_cold_2(v6);
+    __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_cold_2();
   }
 
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_380;
-  v22 = &unk_1E6A19DC0;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_380;
+  v23 = &unk_1E6A19DC0;
   v13 = *v6;
   v14 = *v2;
-  v23 = v13;
-  v24 = v14;
-  v15 = MEMORY[0x1865D71B0](&v19);
-  v16 = [MEMORY[0x1E696AE38] _addSubscriberForCategory:*v6 usingPublishingHandler:{v15, v19, v20, v21, v22}];
+  v24 = v13;
+  v25 = v14;
+  v15 = MEMORY[0x1865D71B0](&v20);
+  v16 = [MEMORY[0x1E696AE38] _addSubscriberForCategory:*v6 usingPublishingHandler:{v15, v20, v21, v22, v23}];
+  v17 = v16;
   if (v16)
   {
-    [*(*v2 + 16) addSubscriber:v16 forPublishingKey:*v6 andBundleID:*v6];
+    v16 = [*(*v2 + 16) addSubscriber:v16 forPublishingKey:*v6 andBundleID:*v6];
   }
 
-  v17 = _LSProgressLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = _LSProgressLog(v16);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = *v6;
+    v19 = *v6;
     *buf = 138412290;
-    v26 = v18;
-    _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEFAULT, "Subscribing to progress for app %@, ", buf, 0xCu);
+    v27 = v19;
+    _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEFAULT, "Subscribing to progress for app %@, ", buf, 0xCu);
   }
 
-  v10 = v23;
+  v11 = v24;
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 id __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_380(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _LSProgressLog();
+  v4 = _LSProgressLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 _LSDescription];
     v6 = *(a1 + 32);
     *buf = 138412546;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v6;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Got progress %@ for app %@, ", buf, 0x16u);
   }
 
   [*(*(a1 + 40) + 16) setProgress:v3 forBundleID:*(a1 + 32)];
   v7 = [*(a1 + 40) remoteObserver];
-  v18 = *(a1 + 32);
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v17 = *(a1 + 32);
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
   [v7 applicationInstallsDidChange:v8];
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_381;
-  v15[3] = &unk_1E6A18F50;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_381;
+  v14[3] = &unk_1E6A18F50;
   v9 = *(a1 + 32);
   v10 = *(a1 + 40);
-  v16 = v9;
-  v17 = v10;
-  v11 = [v15 copy];
+  v15 = v9;
+  v16 = v10;
+  v11 = [v14 copy];
   v12 = MEMORY[0x1865D71B0]();
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 void __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_381(int8x16_t *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = _LSProgressLog();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = _LSProgressLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[2].i64[0];
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_18162D000, v2, OS_LOG_TYPE_DEFAULT, "Unpublishing progress block called for app %@", buf, 0xCu);
   }
 
@@ -3997,12 +4262,10 @@ void __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___b
   block[1] = 3221225472;
   block[2] = __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_382;
   block[3] = &unk_1E6A18F50;
-  v7 = a1[2];
-  v5 = v7.i64[0];
-  v9 = vextq_s8(v7, v7, 8uLL);
+  v6 = a1[2];
+  v5 = v6.i64[0];
+  v8 = vextq_s8(v6, v6, 8uLL);
   dispatch_async(v4, block);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void *__69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_382(uint64_t a1)
@@ -4044,7 +4307,8 @@ void *__69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___
     v14 = [(NSMutableDictionary *)createdInstallProgresses objectForKeyedSubscript:v9];
     if (!v14)
     {
-      if ([v7 isPlaceholder])
+      isPlaceholder = [v7 isPlaceholder];
+      if (isPlaceholder)
       {
         v14 = [MEMORY[0x1E696AE38] childProgressForBundleID:bundleIdentifier andPhase:phase];
         syncObserverProxy = [(LSApplicationWorkspace *)selfCopy syncObserverProxy];
@@ -4063,27 +4327,26 @@ void *__69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___
         v22 = bundleIdentifier;
         [v14 setCancellationHandler:v21];
         [(NSMutableDictionary *)selfCopy->_createdInstallProgresses setObject:v14 forKeyedSubscript:v9];
-        [v14 _publish];
-        v16 = _LSProgressLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = _LSProgressLog([v14 _publish]);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           _LSDescription = [v14 _LSDescription];
           *buf = 138412290;
           v26 = _LSDescription;
-          _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_DEFAULT, "Published install progress %@", buf, 0xCu);
+          _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEFAULT, "Published install progress %@", buf, 0xCu);
         }
 
-        v18 = v24;
+        v19 = v24;
       }
 
       else
       {
-        v18 = _LSProgressLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = _LSProgressLog(isPlaceholder);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           v26 = v7;
-          _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEFAULT, "App %@ is not a placeholder so cannot have progress", buf, 0xCu);
+          _os_log_impl(&dword_18162D000, v19, OS_LOG_TYPE_DEFAULT, "App %@ is not a placeholder so cannot have progress", buf, 0xCu);
         }
 
         v14 = 0;
@@ -4098,20 +4361,19 @@ void *__69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___
     v14 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 void __66__LSApplicationWorkspace_installProgressForApplication_withPhase___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  v3 = v2;
+  if (v2)
   {
-    v4 = _LSProgressLog();
+    v4 = _LSProgressLog(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __66__LSApplicationWorkspace_installProgressForApplication_withPhase___block_invoke_cold_1(a1);
+      __66__LSApplicationWorkspace_installProgressForApplication_withPhase___block_invoke_cold_1();
     }
   }
 }
@@ -4131,25 +4393,26 @@ void __66__LSApplicationWorkspace_installProgressForApplication_withPhase___bloc
 
   v7 = [v6 substringToIndex:{objc_msgSend(v6, "rangeOfString:options:", @".", 4)}];
   installState = [progressCopy installState];
+  v9 = installState;
   if (installState == 4)
   {
-    v9 = _LSDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _LSDefaultLog(4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       _LSDescription = [progressCopy _LSDescription];
       v16 = 138412546;
       v17 = v6;
       v18 = 2112;
       v19 = _LSDescription;
-      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "installPhaseFinishedForProgress: %@ - %@ called", &v16, 0x16u);
+      _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, "installPhaseFinishedForProgress: %@ - %@ called", &v16, 0x16u);
     }
 
     syncObserverProxy = [(LSApplicationWorkspace *)self syncObserverProxy];
     [syncObserverProxy installationFailedForApplication:v7 reply:&__block_literal_global_393];
   }
 
-  v12 = _LSDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _LSDefaultLog(installState);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [LSApplicationWorkspace installPhaseFinishedForProgress:];
   }
@@ -4164,64 +4427,136 @@ void __66__LSApplicationWorkspace_installProgressForApplication_withPhase___bloc
 
   objc_sync_exit(selfCopy);
 
-  v14 = *MEMORY[0x1E69E9840];
-  return installState != 4;
+  return v9 != 4;
 }
 
 - (void)clearCreatedProgressForBundleID:(id)d
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   [(NSMutableDictionary *)selfCopy->_createdInstallProgresses allKeys];
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v6 = v16 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v14 = 0u;
+  v6 = v15 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v7)
   {
-    v9 = *v16;
+    v9 = *v15;
     *&v8 = 138412290;
-    v14 = v8;
+    v13 = v8;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        if ([v11 hasPrefix:{dCopy, v14, v15}])
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if ([v11 hasPrefix:{dCopy, v13, v14}])
         {
-          [(NSMutableDictionary *)selfCopy->_createdInstallProgresses removeObjectForKey:v11];
-          v12 = _LSProgressLog();
+          v12 = _LSProgressLog([(NSMutableDictionary *)selfCopy->_createdInstallProgresses removeObjectForKey:v11]);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v14;
-            v20 = v11;
+            *buf = v13;
+            v19 = v11;
             _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "Clearing progress for key %@ from cache", buf, 0xCu);
           }
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
+}
+
+- (BOOL)_LSPrivateRebuildApplicationDatabasesForSystemApps:(BOOL)apps internal:(BOOL)internal user:(BOOL)user uid:(unsigned int *)uid
+{
+  userCopy = user;
+  internalCopy = internal;
+  appsCopy = apps;
+  v31 = *MEMORY[0x1E69E9840];
+  v10 = _LSDefaultLog(self);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, "Rebuilding LS database.", buf, 2u);
+  }
+
+  *buf = 0;
+  v26 = buf;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v11 = objc_autoreleasePoolPush();
+  v12 = +[_LSDServiceDomain defaultServiceDomain];
+  v13 = v12;
+  if (uid)
+  {
+    if (*uid)
+    {
+      v14 = [[_LSDServiceDomain alloc] initWithUID:?];
+    }
+
+    else
+    {
+      v14 = +[_LSDServiceDomain systemSessionDomain];
+    }
+
+    v15 = v14;
+  }
+
+  else
+  {
+    v15 = v12;
+  }
+
+  v16 = objc_opt_class();
+  v17 = _LSDServiceGetXPCConnection(v16, v15);
+  v18 = [v17 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_396];
+
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __95__LSApplicationWorkspace__LSPrivateRebuildApplicationDatabasesForSystemApps_internal_user_uid___block_invoke_397;
+  v24[3] = &unk_1E6A19A00;
+  v24[4] = buf;
+  [v18 rebuildApplicationDatabasesForSystem:appsCopy internal:internalCopy user:userCopy completionHandler:v24];
+
+  objc_autoreleasePoolPop(v11);
+  v20 = _LSDefaultLog(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v26[24])
+    {
+      v21 = "SUCCESS";
+    }
+
+    else
+    {
+      v21 = "FAILED";
+    }
+
+    *v29 = 136315138;
+    v30 = v21;
+    _os_log_impl(&dword_18162D000, v20, OS_LOG_TYPE_DEFAULT, "%s Finished rebuilding LS database.", v29, 0xCu);
+  }
+
+  v22 = v26[24];
+  _Block_object_dispose(buf, 8);
+  return v22;
 }
 
 void __95__LSApplicationWorkspace__LSPrivateRebuildApplicationDatabasesForSystemApps_internal_user_uid___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _LSDefaultLog();
+  v3 = _LSDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __95__LSApplicationWorkspace__LSPrivateRebuildApplicationDatabasesForSystemApps_internal_user_uid___block_invoke_cold_1();
@@ -4307,17 +4642,18 @@ uint64_t __84__LSApplicationWorkspace_rebuildDatabaseContentForFrameworkAtURL_co
 - (BOOL)_LSPrivateDatabaseNeedsRebuild
 {
   v2 = _LSGetStatus();
+  v3 = v2;
   if ((v2 & 0x200) != 0)
   {
-    v3 = _LSDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _LSDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_18162D000, v3, OS_LOG_TYPE_DEFAULT, "Incomplete database seed detected, _LSPrivateDatabaseNeedsRebuild = YES", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Incomplete database seed detected, _LSPrivateDatabaseNeedsRebuild = YES", v7, 2u);
     }
   }
 
-  return (v2 >> 9) & 1;
+  return (v3 >> 9) & 1;
 }
 
 - (BOOL)_LSPrivateRebuildDatabaseAtNextRestart:(id)restart
@@ -4450,7 +4786,7 @@ void __73__LSApplicationWorkspace__LSPrivateAskLSDToExitSafely_completionHandler
 void __55__LSApplicationWorkspace__LSPrivateNoteMigratorRunning__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _LSDefaultLog();
+  v3 = _LSDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__LSApplicationWorkspace__LSPrivateNoteMigratorRunning__block_invoke_cold_1();
@@ -4460,10 +4796,11 @@ void __55__LSApplicationWorkspace__LSPrivateNoteMigratorRunning__block_invoke(ui
 void __55__LSApplicationWorkspace__LSPrivateNoteMigratorRunning__block_invoke_402(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _LSDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _LSDefaultLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __55__LSApplicationWorkspace__LSPrivateNoteMigratorRunning__block_invoke_402_cold_1();
     }
@@ -4472,54 +4809,50 @@ void __55__LSApplicationWorkspace__LSPrivateNoteMigratorRunning__block_invoke_40
 
 - (void)_LSFailedToOpenURL:(id)l withBundle:(id)bundle
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   lCopy = l;
   bundleCopy = bundle;
-  v7 = _LSDefaultLog();
+  v7 = _LSDefaultLog(bundleCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138478083;
-    v14 = lCopy;
-    v15 = 2113;
-    v16 = bundleCopy;
+    v13 = lCopy;
+    v14 = 2113;
+    v15 = bundleCopy;
     _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "_LSFailedToOpenURL:%{private}@ withBundle:%{private}@", buf, 0x16u);
   }
 
   v8 = [(_LSDService *)_LSDOpenService XPCProxyWithErrorHandler:?];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __56__LSApplicationWorkspace__LSFailedToOpenURL_withBundle___block_invoke;
-  v11[3] = &unk_1E6A19888;
-  v12 = bundleCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __56__LSApplicationWorkspace__LSFailedToOpenURL_withBundle___block_invoke;
+  v10[3] = &unk_1E6A19888;
+  v11 = bundleCopy;
   v9 = bundleCopy;
-  [v8 failedToOpenApplication:v9 withURL:lCopy completionHandler:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [v8 failedToOpenApplication:v9 withURL:lCopy completionHandler:v10];
 }
 
 void __56__LSApplicationWorkspace__LSFailedToOpenURL_withBundle___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _LSDefaultLog();
+  v6 = _LSDefaultLog(v5);
   v7 = v6;
   if (a2)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v8 = *(a1 + 32);
-      v10 = 138477827;
-      v11 = v8;
-      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "Finished presenting restoration prompt for %{private}@.", &v10, 0xCu);
+      v9 = 138477827;
+      v10 = v8;
+      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "Finished presenting restoration prompt for %{private}@.", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __56__LSApplicationWorkspace__LSFailedToOpenURL_withBundle___block_invoke_cold_1(a1);
+    __56__LSApplicationWorkspace__LSFailedToOpenURL_withBundle___block_invoke_cold_1();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_LSClearSchemaCaches
@@ -4538,62 +4871,60 @@ void __56__LSApplicationWorkspace__LSFailedToOpenURL_withBundle___block_invoke(u
 
 - (void)sendExtensionNotificationsForSystemModeChangeFrom:(id)from to:(id)to
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
-  v7 = _LSExtensionsLog();
+  v7 = _LSExtensionsLog(toCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v22 = fromCopy;
-    v23 = 2112;
-    v24 = toCopy;
+    v21 = fromCopy;
+    v22 = 2112;
+    v23 = toCopy;
     _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_INFO, "Begin updating extensions for mode change %@ -> %@", buf, 0x16u);
   }
 
   v8 = objc_opt_new();
   v9 = objc_opt_new();
   v10 = _LSServer_DatabaseExecutionContext();
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __79__LSApplicationWorkspace_sendExtensionNotificationsForSystemModeChangeFrom_to___block_invoke;
-  v16[3] = &unk_1E6A19E80;
-  v17 = toCopy;
-  v18 = v8;
-  v19 = fromCopy;
-  v20 = v9;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __79__LSApplicationWorkspace_sendExtensionNotificationsForSystemModeChangeFrom_to___block_invoke;
+  v15[3] = &unk_1E6A19E80;
+  v16 = toCopy;
+  v17 = v8;
+  v18 = fromCopy;
+  v19 = v9;
   v11 = v9;
   v12 = fromCopy;
   v13 = v8;
   v14 = toCopy;
-  [(LSDBExecutionContext *)v10 syncRead:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(LSDBExecutionContext *)v10 syncRead:v15];
 }
 
 void __79__LSApplicationWorkspace_sendExtensionNotificationsForSystemModeChangeFrom_to___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
-  v46 = 0u;
+  v58 = *MEMORY[0x1E69E9840];
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
   obj = +[LSExtensionPointRecord enumerator];
-  v2 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
+  v2 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v47;
+    v4 = *v48;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v47 != v4)
+        if (*v48 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v46 + 1) + 8 * i);
+        v6 = *(*(&v47 + 1) + 8 * i);
         v7 = [v6 SDKDictionary];
         v8 = objc_opt_class();
         v9 = [v7 objectForKey:@"LSExtensionRestrictedSystemModes" ofClass:v8 valuesOfClass:objc_opt_class()];
@@ -4609,7 +4940,7 @@ void __79__LSApplicationWorkspace_sendExtensionNotificationsForSystemModeChangeF
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v46 objects:v56 count:16];
+      v3 = [obj countByEnumeratingWithState:&v47 objects:v57 count:16];
     }
 
     while (v3);
@@ -4620,31 +4951,31 @@ void __79__LSApplicationWorkspace_sendExtensionNotificationsForSystemModeChangeF
   v11 = [*(a1 + 56) mutableCopy];
   [v11 minusSet:*(a1 + 40)];
   v12 = objc_opt_new();
-  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v42 objects:v55 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v43 objects:v56 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v43;
+    v16 = *v44;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v43 != v16)
+        if (*v44 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [LSApplicationExtensionRecord enumeratorWithExtensionPointRecord:*(*(&v42 + 1) + 8 * j) options:0];
+        v18 = [LSApplicationExtensionRecord enumeratorWithExtensionPointRecord:*(*(&v43 + 1) + 8 * j) options:0];
         v19 = [v18 allObjects];
         [v12 addObjectsFromArray:v19];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v42 objects:v55 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v43 objects:v56 count:16];
     }
 
     while (v15);
@@ -4653,77 +4984,77 @@ void __79__LSApplicationWorkspace_sendExtensionNotificationsForSystemModeChangeF
   obja = v13;
 
   v20 = objc_opt_new();
-  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
   v21 = v10;
-  v22 = [v21 countByEnumeratingWithState:&v38 objects:v54 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v39 objects:v55 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v39;
+    v24 = *v40;
     do
     {
       for (k = 0; k != v23; ++k)
       {
-        if (*v39 != v24)
+        if (*v40 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = [LSApplicationExtensionRecord enumeratorWithExtensionPointRecord:*(*(&v38 + 1) + 8 * k) options:0];
+        v26 = [LSApplicationExtensionRecord enumeratorWithExtensionPointRecord:*(*(&v39 + 1) + 8 * k) options:0];
         v27 = [v26 allObjects];
         [v20 addObjectsFromArray:v27];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v38 objects:v54 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v39 objects:v55 count:16];
     }
 
     while (v23);
   }
 
-  if ([v12 count])
+  v28 = [v12 count];
+  if (v28)
   {
-    v28 = _LSExtensionsLog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = _LSExtensionsLog(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v51 = v12;
-      _os_log_impl(&dword_18162D000, v28, OS_LOG_TYPE_DEFAULT, "Sending system mode unrestricted app extension installedNotifications for %@", buf, 0xCu);
+      v52 = v12;
+      _os_log_impl(&dword_18162D000, v29, OS_LOG_TYPE_DEFAULT, "Sending system mode unrestricted app extension installedNotifications for %@", buf, 0xCu);
     }
 
-    v29 = +[_LSInstallProgressService sharedInstance];
-    [v29 detachAndSendNotification:@"com.apple.LaunchServices.pluginsregistered" forApplicationExtensionRecords:v12];
+    v30 = +[_LSInstallProgressService sharedInstance];
+    [v30 detachAndSendNotification:@"com.apple.LaunchServices.pluginsregistered" forApplicationExtensionRecords:v12];
   }
 
-  if ([v20 count])
+  v31 = [v20 count];
+  if (v31)
   {
-    v30 = _LSExtensionsLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v32 = _LSExtensionsLog(v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v51 = v20;
-      _os_log_impl(&dword_18162D000, v30, OS_LOG_TYPE_DEFAULT, "Sending system mode restricted app extension uninstalledNotifications for %@", buf, 0xCu);
+      v52 = v20;
+      _os_log_impl(&dword_18162D000, v32, OS_LOG_TYPE_DEFAULT, "Sending system mode restricted app extension uninstalledNotifications for %@", buf, 0xCu);
     }
 
-    v31 = +[_LSInstallProgressService sharedInstance];
-    [v31 detachAndSendNotification:@"com.apple.LaunchServices.pluginsunregistered" forApplicationExtensionRecords:v20];
+    v33 = +[_LSInstallProgressService sharedInstance];
+    [v33 detachAndSendNotification:@"com.apple.LaunchServices.pluginsunregistered" forApplicationExtensionRecords:v20];
   }
 
-  v32 = _LSExtensionsLog();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v34 = _LSExtensionsLog(v31);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
-    v33 = *(a1 + 48);
-    v34 = *(a1 + 32);
+    v35 = *(a1 + 48);
+    v36 = *(a1 + 32);
     *buf = 138412546;
-    v51 = v33;
-    v52 = 2112;
-    v53 = v34;
-    _os_log_impl(&dword_18162D000, v32, OS_LOG_TYPE_INFO, "Done updating extensions for mode change %@ -> %@", buf, 0x16u);
+    v52 = v35;
+    v53 = 2112;
+    v54 = v36;
+    _os_log_impl(&dword_18162D000, v34, OS_LOG_TYPE_INFO, "Done updating extensions for mode change %@ -> %@", buf, 0x16u);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendExtensionNotificationsForExtensionBundleIdentifier:(id)identifier changingRestrictionStateTo:(BOOL)to
@@ -4748,53 +5079,52 @@ void __108__LSApplicationWorkspace_sendExtensionNotificationsForExtensionBundleI
   v14 = 0;
   v4 = [(LSApplicationExtensionRecord *)v2 initWithBundleIdentifier:v3 error:&v14];
   v5 = v14;
+  v6 = v5;
   if (v4)
   {
     if (*(a1 + 40))
     {
-      v6 = @"com.apple.LaunchServices.pluginsunregistered";
+      v7 = @"com.apple.LaunchServices.pluginsunregistered";
     }
 
     else
     {
-      v6 = @"com.apple.LaunchServices.pluginsregistered";
+      v7 = @"com.apple.LaunchServices.pluginsregistered";
     }
 
-    v7 = v6;
-    v8 = _LSInstallLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = v7;
+    v9 = _LSInstallLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v16 = v7;
+      v16 = v8;
       v17 = 2112;
       v18[0] = v4;
-      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "Sending %@ for %@", buf, 0x16u);
+      _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_DEFAULT, "Sending %@ for %@", buf, 0x16u);
     }
 
-    v9 = +[_LSInstallProgressService sharedInstance];
+    v10 = +[_LSInstallProgressService sharedInstance];
     v19[0] = v4;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
-    [v9 detachAndSendNotification:v7 forApplicationExtensionRecords:v10];
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    [v10 detachAndSendNotification:v8 forApplicationExtensionRecords:v11];
   }
 
   else
   {
-    v7 = _LSInstallLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _LSInstallLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
       *buf = 138412802;
-      v16 = v11;
+      v16 = v12;
       v17 = 1024;
-      LODWORD(v18[0]) = v12;
+      LODWORD(v18[0]) = v13;
       WORD2(v18[0]) = 2112;
-      *(v18 + 6) = v5;
-      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "no record for %@, could not change restriction state to %d: %@", buf, 0x1Cu);
+      *(v18 + 6) = v6;
+      _os_log_impl(&dword_18162D000, v8, OS_LOG_TYPE_DEFAULT, "no record for %@, could not change restriction state to %d: %@", buf, 0x1Cu);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendApplicationStateChangedNotificationsFor:(id)for stateProvider:(id)provider completion:(id)completion
@@ -4802,34 +5132,35 @@ void __108__LSApplicationWorkspace_sendExtensionNotificationsForExtensionBundleI
   forCopy = for;
   providerCopy = provider;
   completionCopy = completion;
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  v11 = [__LSDefaultsGetSharedInstance(completionCopy v10)];
+  if (v11)
   {
-    v10 = _LSServer_DatabaseExecutionContext();
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke;
-    v25[3] = &unk_1E6A19680;
-    v11 = forCopy;
-    v26 = v11;
-    [(LSDBExecutionContext *)v10 syncWrite:v25];
-
     v12 = _LSServer_DatabaseExecutionContext();
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke_2;
-    v21[3] = &unk_1E6A19860;
-    v22 = v11;
-    v23 = providerCopy;
-    v24 = completionCopy;
-    [(LSDBExecutionContext *)v12 syncRead:v21];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke;
+    v27[3] = &unk_1E6A19680;
+    v13 = forCopy;
+    v28 = v13;
+    [(LSDBExecutionContext *)v12 syncWrite:v27];
+
+    v14 = _LSServer_DatabaseExecutionContext();
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke_2;
+    v23[3] = &unk_1E6A19860;
+    v24 = v13;
+    v25 = providerCopy;
+    v26 = completionCopy;
+    [(LSDBExecutionContext *)v14 syncRead:v23];
   }
 
   else
   {
-    v13 = _LSDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v15 = _LSDefaultLog(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [(LSApplicationWorkspace *)v13 sendApplicationStateChangedNotificationsFor:v14 stateProvider:v15 completion:v16, v17, v18, v19, v20];
+      [(LSApplicationWorkspace *)v15 sendApplicationStateChangedNotificationsFor:v16 stateProvider:v17 completion:v18, v19, v20, v21, v22];
     }
 
     if (completionCopy)
@@ -4841,68 +5172,68 @@ void __108__LSApplicationWorkspace_sendExtensionNotificationsForExtensionBundleI
 
 void __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v6 = v2;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v1);
         }
 
-        _LSServer_UpdateDatabaseWithInfo(*(*(&v10 + 1) + 8 * v8++), 0, 0, 0, 1, v3, v4, v5);
+        _LSServer_UpdateDatabaseWithInfo(*(*(&v9 + 1) + 8 * v8++), 0, 0, 0, 1, v3, v4, v5);
       }
 
       while (v6 != v8);
-      v6 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   _LSArmSaveTimer(1);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke_2(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v11 = 0;
   v12 = 0;
-  inited = _LSContextInitReturningError(&v12, &v11);
-  v8 = v11;
+  v13 = 0;
+  inited = _LSContextInitReturningError(&v13, &v12);
+  v8 = v12;
+  v9 = v8;
   if (inited)
   {
-    _LSServer_SendStateChangedNotificationsForBundlesWithIdentifiers(&v12, *(a1 + 32), *(a1 + 40));
-    _LSContextDestroy(&v12);
+    _LSServer_SendStateChangedNotificationsForBundlesWithIdentifiers(&v13, a1[4], a1[5]);
+    _LSContextDestroy(&v13);
   }
 
   else
   {
-    v9 = _LSDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _LSDefaultLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke_2_cold_1();
     }
   }
 
-  v10 = *(a1 + 48);
-  if (v10)
+  v11 = a1[6];
+  if (v11)
   {
-    (*(v10 + 16))();
+    (*(v11 + 16))();
   }
 }
 
@@ -4912,19 +5243,19 @@ void __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_st
   toRankCopy = toRank;
   exceptionsCopy = exceptions;
   v11 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(v11 v12)])
   {
-    v12 = _LSServer_DatabaseExecutionContext();
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __83__LSApplicationWorkspace_scanForApplicationStateChangesFromRank_toRank_exceptions___block_invoke;
-    v14[3] = &unk_1E6A19EF8;
-    v14[4] = self;
-    v15 = exceptionsCopy;
-    v16 = rankCopy;
-    v17 = toRankCopy;
-    v18 = v11;
-    [(LSDBExecutionContext *)v12 syncRead:v14];
+    v13 = _LSServer_DatabaseExecutionContext();
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __83__LSApplicationWorkspace_scanForApplicationStateChangesFromRank_toRank_exceptions___block_invoke;
+    v15[3] = &unk_1E6A19EF8;
+    v15[4] = self;
+    v16 = exceptionsCopy;
+    v17 = rankCopy;
+    v18 = toRankCopy;
+    v19 = v11;
+    [(LSDBExecutionContext *)v13 syncRead:v15];
   }
 
   return v11;
@@ -4977,17 +5308,17 @@ void __83__LSApplicationWorkspace_scanForApplicationStateChangesFromRank_toRank_
 {
   allowlistCopy = allowlist;
   v5 = [MEMORY[0x1E695DFA8] setWithCapacity:0];
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(v5 v6)])
   {
-    v6 = _LSServer_DatabaseExecutionContext();
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __70__LSApplicationWorkspace_scanForApplicationStateChangesWithAllowlist___block_invoke;
-    v8[3] = &unk_1E6A19F48;
-    v8[4] = self;
-    v9 = allowlistCopy;
-    v10 = v5;
-    [(LSDBExecutionContext *)v6 syncRead:v8];
+    v7 = _LSServer_DatabaseExecutionContext();
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __70__LSApplicationWorkspace_scanForApplicationStateChangesWithAllowlist___block_invoke;
+    v9[3] = &unk_1E6A19F48;
+    v9[4] = self;
+    v10 = allowlistCopy;
+    v11 = v5;
+    [(LSDBExecutionContext *)v7 syncRead:v9];
   }
 
   return v5;
@@ -5024,16 +5355,16 @@ void __70__LSApplicationWorkspace_scanForApplicationStateChangesWithAllowlist___
 - (id)scanForForDeletableSystemApps
 {
   v3 = objc_opt_new();
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(v3 v4)])
   {
-    v4 = _LSServer_DatabaseExecutionContext();
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __55__LSApplicationWorkspace_scanForForDeletableSystemApps__block_invoke;
-    v6[3] = &unk_1E6A19F98;
-    v6[4] = self;
-    v7 = v3;
-    [(LSDBExecutionContext *)v4 syncRead:v6];
+    v5 = _LSServer_DatabaseExecutionContext();
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __55__LSApplicationWorkspace_scanForForDeletableSystemApps__block_invoke;
+    v7[3] = &unk_1E6A19F98;
+    v7[4] = self;
+    v8 = v3;
+    [(LSDBExecutionContext *)v5 syncRead:v7];
   }
 
   return v3;
@@ -5065,16 +5396,16 @@ void __55__LSApplicationWorkspace_scanForForDeletableSystemApps__block_invoke_2(
 {
   listCopy = list;
   v4 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(listCopy, "count")}];
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(v4 v5)])
   {
-    v5 = _LSServer_DatabaseExecutionContext();
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __64__LSApplicationWorkspace_scanForAppsInRatingRankExceptionsList___block_invoke;
-    v7[3] = &unk_1E6A19F98;
-    v8 = listCopy;
-    v9 = v4;
-    [(LSDBExecutionContext *)v5 syncRead:v7];
+    v6 = _LSServer_DatabaseExecutionContext();
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __64__LSApplicationWorkspace_scanForAppsInRatingRankExceptionsList___block_invoke;
+    v8[3] = &unk_1E6A19F98;
+    v9 = listCopy;
+    v10 = v4;
+    [(LSDBExecutionContext *)v6 syncRead:v8];
   }
 
   return v4;
@@ -5082,128 +5413,129 @@ void __55__LSApplicationWorkspace_scanForForDeletableSystemApps__block_invoke_2(
 
 void __64__LSApplicationWorkspace_scanForAppsInRatingRankExceptionsList___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v16 = a2;
-  v17 = a3;
-  v26 = 0;
+  v34 = *MEMORY[0x1E69E9840];
+  v17 = a2;
+  v18 = a3;
   v27 = 0;
-  LODWORD(a3) = _LSContextInitReturningError(&v27, &v26);
-  v18 = v26;
+  v28 = 0;
+  LODWORD(a3) = _LSContextInitReturningError(&v28, &v27);
+  v4 = v27;
+  v19 = v4;
   if (a3)
   {
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     obj = *(a1 + 32);
-    v4 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
-    if (!v4)
+    v5 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
+    if (!v5)
     {
       goto LABEL_15;
     }
 
-    v5 = *v23;
+    v6 = *v24;
     while (1)
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v5)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
-        v8 = [LSApplicationRecord alloc];
-        v21 = 0;
-        v9 = [(LSApplicationRecord *)v8 _initWithNode:0 bundleIdentifier:v7 placeholderBehavior:1 systemPlaceholder:0 itemID:0 forceInBundleContainer:0 context:&v27 error:&v21];
-        v10 = v21;
-        if (v9)
+        v8 = *(*(&v23 + 1) + 8 * i);
+        v9 = [LSApplicationRecord alloc];
+        v22 = 0;
+        v10 = [(LSApplicationRecord *)v9 _initWithNode:0 bundleIdentifier:v8 placeholderBehavior:1 systemPlaceholder:0 itemID:0 forceInBundleContainer:0 context:&v28 error:&v22];
+        v11 = v22;
+        v12 = v11;
+        if (v10)
         {
-          v11 = [v9 bundleIdentifier];
+          v13 = [v10 bundleIdentifier];
 
-          if (!v11)
+          if (!v13)
           {
             goto LABEL_13;
           }
 
-          v12 = *(a1 + 40);
-          v13 = [v9 bundleIdentifier];
-          [v12 addObject:v13];
+          v14 = *(a1 + 40);
+          v15 = [v10 bundleIdentifier];
+          [v14 addObject:v15];
         }
 
         else
         {
-          v13 = _LSDefaultLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v15 = _LSDefaultLog(v11);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v29 = v7;
-            v30 = 2112;
-            v31 = v10;
-            _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "App %@ on rating rank exceptions list does not appear to be installed (this may be expected): %@", buf, 0x16u);
+            v30 = v8;
+            v31 = 2112;
+            v32 = v12;
+            _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_DEFAULT, "App %@ on rating rank exceptions list does not appear to be installed (this may be expected): %@", buf, 0x16u);
           }
         }
 
 LABEL_13:
       }
 
-      v4 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
-      if (!v4)
+      v5 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
+      if (!v5)
       {
 LABEL_15:
 
-        _LSContextDestroy(&v27);
+        _LSContextDestroy(&v28);
         goto LABEL_19;
       }
     }
   }
 
-  v14 = _LSDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = _LSDefaultLog(v4);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     __64__LSApplicationWorkspace_scanForAppsInRatingRankExceptionsList___block_invoke_cold_1();
   }
 
 LABEL_19:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)forceDatabaseSaveForTestingWithError:(id *)error
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__4;
-  v13 = __Block_byref_object_dispose__4;
-  v14 = 0;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __63__LSApplicationWorkspace_forceDatabaseSaveForTestingWithError___block_invoke;
-  v8[3] = &unk_1E6A198D0;
-  v8[4] = &v9;
-  v4 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v8];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __63__LSApplicationWorkspace_forceDatabaseSaveForTestingWithError___block_invoke_2;
-  v7[3] = &unk_1E6A19C50;
-  v7[4] = &v9;
-  v7[5] = &v15;
-  [v4 forceSaveForTestingWithCompletion:v7];
-  _LSContextInvalidate();
-  v5 = *(v16 + 24);
-  if (error && (v16[3] & 1) == 0)
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__4;
+  v15 = __Block_byref_object_dispose__4;
+  v16 = 0;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __63__LSApplicationWorkspace_forceDatabaseSaveForTestingWithError___block_invoke;
+  v10[3] = &unk_1E6A198D0;
+  v10[4] = &v11;
+  v4 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __63__LSApplicationWorkspace_forceDatabaseSaveForTestingWithError___block_invoke_2;
+  v9[3] = &unk_1E6A19C50;
+  v9[4] = &v11;
+  v9[5] = &v17;
+  v5 = [v4 forceSaveForTestingWithCompletion:v9];
+  _LSContextInvalidate(v5, v6);
+  v7 = *(v18 + 24);
+  if (error && (v18[3] & 1) == 0)
   {
-    *error = v10[5];
-    v5 = *(v16 + 24);
+    *error = v12[5];
+    v7 = *(v18 + 24);
   }
 
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v15, 8);
-  return v5 & 1;
+  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v17, 8);
+  return v7 & 1;
 }
 
 void __63__LSApplicationWorkspace_forceDatabaseSaveForTestingWithError___block_invoke_2(uint64_t a1, void *a2)
@@ -5215,7 +5547,7 @@ void __63__LSApplicationWorkspace_forceDatabaseSaveForTestingWithError___block_i
 
 - (void)ls_testWithCleanDatabaseWithError:(id *)error
 {
-  if (![__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if (![__LSDefaultsGetSharedInstance(self a2)])
   {
     v5 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -5500, 0, "[LSApplicationWorkspace ls_testWithCleanDatabaseWithError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4468);
     v6 = 0;
@@ -5261,10 +5593,10 @@ LABEL_10:
   v25[1] = *MEMORY[0x1E69E9840];
   declarationCopy = declaration;
   databaseCopy = database;
-  if (![__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if (![__LSDefaultsGetSharedInstance(databaseCopy v9)])
   {
-    v13 = 0;
     v14 = 0;
+    v15 = 0;
     if (!error)
     {
       goto LABEL_17;
@@ -5275,65 +5607,64 @@ LABEL_10:
 
   if (declarationCopy && databaseCopy)
   {
-    v9 = [declarationCopy objectForKeyedSubscript:@"UTTypeDescription"];
-    v10 = v9;
-    if (v9)
+    v10 = [declarationCopy objectForKeyedSubscript:@"UTTypeDescription"];
+    v11 = v10;
+    if (v10)
     {
-      v23 = v9;
-      v24 = v9;
+      v23 = v10;
+      v24 = v10;
       v22 = @"LSDefaultLocalizedValue";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-      v25[0] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    v16 = _UTTypeAddWithDeclarationDictionary();
-    v14 = v16 == 0;
-    if (v16)
-    {
-      v13 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v16, 0, "[LSApplicationWorkspace ls_injectUTTypeWithDeclaration:inDatabase:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4496);
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v25[0] = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     }
 
     else
     {
       v13 = 0;
     }
+
+    v17 = _UTTypeAddWithDeclarationDictionary(databaseCopy);
+    v15 = v17 == 0;
+    if (v17)
+    {
+      v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v17, 0, "[LSApplicationWorkspace ls_injectUTTypeWithDeclaration:inDatabase:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4496);
+    }
+
+    else
+    {
+      v14 = 0;
+    }
   }
 
   else
   {
-    v15 = *MEMORY[0x1E696A768];
+    v16 = *MEMORY[0x1E696A768];
     v20 = *MEMORY[0x1E696A278];
     v21 = @"invalid input parameters";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v13 = _LSMakeNSErrorImpl(v15, -50, v12, "[LSApplicationWorkspace ls_injectUTTypeWithDeclaration:inDatabase:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4500);
-    v14 = 0;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v14 = _LSMakeNSErrorImpl(v16, -50, v13, "[LSApplicationWorkspace ls_injectUTTypeWithDeclaration:inDatabase:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4500);
+    v15 = 0;
   }
 
   if (error)
   {
 LABEL_15:
-    if (!v14)
+    if (!v15)
     {
-      v17 = v13;
-      *error = v13;
+      v18 = v14;
+      *error = v14;
     }
   }
 
 LABEL_17:
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v15;
 }
 
 - (void)ls_resetTestingDatabase
 {
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if ([__LSDefaultsGetSharedInstance(self a2)])
   {
     v2 = 0;
     if (!_LSContextInit(&v2))
@@ -5441,48 +5772,47 @@ void __55__LSApplicationWorkspace_DefaultApps___defaultAppQueue__block_invoke()
   dispatch_async(_defaultAppQueue, v15);
 }
 
-void __83__LSApplicationWorkspace_DefaultApps__setDefaultURLHandlerForScheme_to_completion___block_invoke(uint64_t a1)
+void __83__LSApplicationWorkspace_DefaultApps__setDefaultURLHandlerForScheme_to_completion___block_invoke(id *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v2 = [*(a1 + 32) claimRecords];
-  v3 = [v2 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v2 = [a1[4] claimRecords];
+  v3 = [v2 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v20;
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v22 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v21 + 1) + 8 * v6) URLSchemes];
-        v8 = [*(a1 + 40) lowercaseString];
+        v7 = [*(*(&v19 + 1) + 8 * v6) URLSchemes];
+        v8 = [a1[5] lowercaseString];
         v9 = [v7 containsObject:v8];
 
         if (v9)
         {
 
-          v14 = *(a1 + 48);
-          v15 = [objc_opt_class() _defaultAppQueue];
+          v14 = [objc_opt_class() _defaultAppQueue];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __83__LSApplicationWorkspace_DefaultApps__setDefaultURLHandlerForScheme_to_completion___block_invoke_2;
           block[3] = &unk_1E6A1A030;
-          v18 = *(a1 + 40);
-          v19 = *(a1 + 32);
-          v20 = *(a1 + 56);
-          dispatch_async(v15, block);
+          v16 = a1[5];
+          v17 = a1[4];
+          v18 = a1[7];
+          dispatch_async(v14, block);
 
-          v12 = v18;
+          v12 = v16;
           goto LABEL_12;
         }
 
@@ -5490,7 +5820,7 @@ void __83__LSApplicationWorkspace_DefaultApps__setDefaultURLHandlerForScheme_to_
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v4)
       {
         continue;
@@ -5500,55 +5830,51 @@ void __83__LSApplicationWorkspace_DefaultApps__setDefaultURLHandlerForScheme_to_
     }
   }
 
-  v10 = *(a1 + 56);
+  v10 = a1[7];
   if (v10)
   {
     v11 = *MEMORY[0x1E696A768];
-    v25 = *MEMORY[0x1E696A278];
-    v26 = @"scheme";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v23 = *MEMORY[0x1E696A278];
+    v24 = @"scheme";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v13 = _LSMakeNSErrorImpl(v11, -50, v12, "[LSApplicationWorkspace(DefaultApps) setDefaultURLHandlerForScheme:to:completion:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4661);
-    (*(v10 + 16))(v10, 0, v13);
+    v10[2](v10, 0, v13);
 
 LABEL_12:
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __83__LSApplicationWorkspace_DefaultApps__setDefaultURLHandlerForScheme_to_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) bundleIdentifier];
   v4 = *(a1 + 40);
   if (v4)
   {
-    [v4 _bundleVersion];
+    objc_msgSend__bundleVersion(v4);
   }
 
   else
   {
-    memset(v11, 0, sizeof(v11));
+    memset(v10, 0, sizeof(v10));
   }
 
-  v5 = _LSSetSchemeHandler(v2, v3, v11);
-  v10 = 0;
-  v6 = _LSGetNSErrorFromOSStatusImpl(v5, &v10, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultURLHandlerForScheme:to:completion:]_block_invoke_2", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4655);
-  v7 = v10;
+  v5 = _LSSetSchemeHandler(v2, v3, v10);
+  v9 = 0;
+  v6 = _LSGetNSErrorFromOSStatusImpl(v5, &v9, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultURLHandlerForScheme:to:completion:]_block_invoke_2", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4655);
+  v7 = v9;
 
   v8 = *(a1 + 48);
   if (v8)
   {
     (*(v8 + 16))(v8, v6, v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDefaultWebBrowserToApplicationRecord:(id)record completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   recordCopy = record;
   handlerCopy = handler;
   if (!_os_feature_enabled_impl())
@@ -5563,9 +5889,9 @@ void __83__LSApplicationWorkspace_DefaultApps__setDefaultURLHandlerForScheme_to_
         }
 
         v13 = *MEMORY[0x1E696A768];
-        v21 = *MEMORY[0x1E696A278];
-        v22[0] = @"input application record was not a web browser";
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        v20 = *MEMORY[0x1E696A278];
+        v21[0] = @"input application record was not a web browser";
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
         v14 = _LSMakeNSErrorImpl(v13, -50, v12, "[LSApplicationWorkspace(DefaultApps) setDefaultWebBrowserToApplicationRecord:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4679);
         handlerCopy[2](handlerCopy, 0, v14);
 
@@ -5574,8 +5900,8 @@ LABEL_10:
       }
 
       bundleIdentifier = [recordCopy bundleIdentifier];
-      [recordCopy _bundleVersion];
-      v9 = _LSVersionNumberGetStringRepresentation(&v20);
+      objc_msgSend__bundleVersion(recordCopy);
+      v9 = _LSVersionNumberGetStringRepresentation(&v19);
     }
 
     else
@@ -5585,33 +5911,31 @@ LABEL_10:
     }
 
     _defaultAppQueue = [objc_opt_class() _defaultAppQueue];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __97__LSApplicationWorkspace_DefaultApps__setDefaultWebBrowserToApplicationRecord_completionHandler___block_invoke;
-    v16[3] = &unk_1E6A1A030;
-    v17 = bundleIdentifier;
-    v18 = v9;
-    v19 = handlerCopy;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __97__LSApplicationWorkspace_DefaultApps__setDefaultWebBrowserToApplicationRecord_completionHandler___block_invoke;
+    v15[3] = &unk_1E6A1A030;
+    v16 = bundleIdentifier;
+    v17 = v9;
+    v18 = handlerCopy;
     v11 = v9;
     v12 = bundleIdentifier;
-    dispatch_async(_defaultAppQueue, v16);
+    dispatch_async(_defaultAppQueue, v15);
 
     goto LABEL_10;
   }
 
   [(LSApplicationWorkspace *)self setDefaultApplicationForCategory:1 toApplicationRecord:recordCopy completionHandler:handlerCopy];
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void __97__LSApplicationWorkspace_DefaultApps__setDefaultWebBrowserToApplicationRecord_completionHandler___block_invoke(uint64_t a1)
+void __97__LSApplicationWorkspace_DefaultApps__setDefaultWebBrowserToApplicationRecord_completionHandler___block_invoke(void *a1)
 {
-  v2 = _LSSetDefaultWebBrowserWithBundleIdentifierAndVersion(*(a1 + 32), *(a1 + 40));
+  v2 = _LSSetDefaultWebBrowserWithBundleIdentifierAndVersion(a1[4], a1[5]);
   v6 = 0;
   v3 = _LSGetNSErrorFromOSStatusImpl(v2, &v6, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultWebBrowserToApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4691);
   v4 = v6;
-  v5 = *(a1 + 48);
+  v5 = a1[6];
   if (v5)
   {
     (*(v5 + 16))(v5, v3, v4);
@@ -5620,7 +5944,7 @@ void __97__LSApplicationWorkspace_DefaultApps__setDefaultWebBrowserToApplication
 
 - (void)setDefaultMailClientToApplicationRecord:(id)record completionHandler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   recordCopy = record;
   handlerCopy = handler;
   if (!_os_feature_enabled_impl())
@@ -5635,9 +5959,9 @@ void __97__LSApplicationWorkspace_DefaultApps__setDefaultWebBrowserToApplication
         }
 
         v11 = *MEMORY[0x1E696A768];
-        v21 = *MEMORY[0x1E696A278];
-        v22[0] = @"input application record was not a mail client";
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        v20 = *MEMORY[0x1E696A278];
+        v21[0] = @"input application record was not a mail client";
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
         v12 = _LSMakeNSErrorImpl(v11, -50, v10, "[LSApplicationWorkspace(DefaultApps) setDefaultMailClientToApplicationRecord:completionHandler:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4713);
         handlerCopy[2](handlerCopy, 0, v12);
 
@@ -5646,57 +5970,80 @@ LABEL_10:
       }
 
       bundleIdentifier = [recordCopy bundleIdentifier];
+      v18 = 0u;
       v19 = 0u;
-      v20 = 0u;
-      [recordCopy _bundleVersion];
+      objc_msgSend__bundleVersion(recordCopy);
     }
 
     else
     {
       bundleIdentifier = 0;
-      v19 = kLSVersionNumberNull;
-      v20 = unk_1817E90C0;
+      v18 = kLSVersionNumberNull;
+      v19 = unk_1817E90C0;
     }
 
     _defaultAppQueue = [objc_opt_class() _defaultAppQueue];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __97__LSApplicationWorkspace_DefaultApps__setDefaultMailClientToApplicationRecord_completionHandler___block_invoke;
-    v14[3] = &unk_1E6A1A080;
-    v15 = bundleIdentifier;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __97__LSApplicationWorkspace_DefaultApps__setDefaultMailClientToApplicationRecord_completionHandler___block_invoke;
+    v13[3] = &unk_1E6A1A080;
+    v14 = bundleIdentifier;
+    v16 = v18;
     v17 = v19;
-    v18 = v20;
-    v16 = handlerCopy;
+    v15 = handlerCopy;
     v10 = bundleIdentifier;
-    dispatch_async(_defaultAppQueue, v14);
+    dispatch_async(_defaultAppQueue, v13);
 
     goto LABEL_10;
   }
 
   [(LSApplicationWorkspace *)self setDefaultApplicationForCategory:2 toApplicationRecord:recordCopy completionHandler:handlerCopy];
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __97__LSApplicationWorkspace_DefaultApps__setDefaultMailClientToApplicationRecord_completionHandler___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 64);
-  v10[0] = *(a1 + 48);
-  v10[1] = v3;
-  v4 = _LSSetSchemeHandler(@"mailto", v2, v10);
-  v9 = 0;
-  v5 = _LSGetNSErrorFromOSStatusImpl(v4, &v9, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultMailClientToApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4720);
-  v6 = v9;
+  v9[0] = *(a1 + 48);
+  v9[1] = v3;
+  v4 = _LSSetSchemeHandler(@"mailto", v2, v9);
+  v8 = 0;
+  v5 = _LSGetNSErrorFromOSStatusImpl(v4, &v8, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultMailClientToApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4720);
+  v6 = v8;
   v7 = *(a1 + 40);
   if (v7)
   {
     (*(v7 + 16))(v7, v5, v6);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)relaxApplicationTypeRequirements:(BOOL)requirements forApplicationRecord:(id)record completionHandler:(id)handler
+{
+  requirementsCopy = requirements;
+  recordCopy = record;
+  handlerCopy = handler;
+  if (!recordCopy)
+  {
+    [LSApplicationWorkspace(DefaultApps) relaxApplicationTypeRequirements:forApplicationRecord:completionHandler:];
+  }
+
+  bundleIdentifier = [recordCopy bundleIdentifier];
+  v10 = &__block_literal_global_676;
+  if (handlerCopy)
+  {
+    v10 = handlerCopy;
+  }
+
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __111__LSApplicationWorkspace_DefaultApps__relaxApplicationTypeRequirements_forApplicationRecord_completionHandler___block_invoke_2;
+  v13[3] = &unk_1E6A19A70;
+  v14 = v10;
+  v11 = v10;
+  v12 = [(_LSDService *)_LSDModifyService XPCProxyWithErrorHandler:v13];
+  [v12 relaxApplicationTypeRequirements:requirementsCopy forBundleIdentifier:bundleIdentifier completionHandler:v11];
 }
 
 - (void)removeAllDefaultApplicationPreferencesWithCompletionHandler:(id)handler
@@ -5731,46 +6078,49 @@ void __97__LSApplicationWorkspace_DefaultApps__setDefaultMailClientToApplication
 
 void __110__LSApplicationWorkspace_DefaultApps__setDefaultApplicationForCategory_toApplicationRecord_completionHandler___block_invoke(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = *(LSGetDefaultAppCategoryInfoForCategory(a1[6]) + 1);
-  if (!_os_feature_enabled_impl())
+  v3 = _os_feature_enabled_impl();
+  if (!v3)
   {
-    v5 = (a1 + 4);
+    v7 = (a1 + 4);
     if (a1[4])
     {
-      v10 = -4;
+      v15 = -4;
       goto LABEL_17;
     }
 
 LABEL_13:
-    v11 = _LSRemoveDefaultRoleHandlerForContentType(v2, 0xFFFFFFFFLL);
-    if (v11)
+    v13 = _LSRemoveDefaultRoleHandlerForContentType(v2, 0xFFFFFFFFLL);
+    if (v13)
     {
-      v7 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v11, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4836);
+      v13 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v13, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4836);
+      v9 = v13;
     }
 
     else
     {
-      v7 = 0;
+      v9 = 0;
     }
 
     goto LABEL_29;
   }
 
-  v3 = _LSGetAuditTokenForSelf();
-  v4 = _LSCheckEntitlementForChangingDefaultHandler(v3, 0, v2);
-  v5 = (a1 + 4);
+  v5 = _LSGetAuditTokenForSelf(v3, v4);
+  v6 = _LSCheckEntitlementForChangingDefaultHandler(v5, 0, v2);
+  v7 = (a1 + 4);
   if (!a1[4])
   {
     goto LABEL_13;
   }
 
-  if (!v4)
+  if (!v6)
   {
-    v10 = -54;
+    v15 = -54;
 LABEL_17:
-    v7 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v10, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4804);
-    if (v7)
+    v13 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v15, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4804);
+    v9 = v13;
+    if (v13)
     {
       goto LABEL_29;
     }
@@ -5778,65 +6128,67 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  *&v19 = 0;
-  v17 = 0;
-  inited = _LSContextInitReturningError(&v19, &v17);
-  v7 = v17;
-  if (inited && !_LSCanBundleHandleNodeOrSchemeOrUTI(&v19, [*v5 unitID], 0, 0, v2, 14))
+  *&v22 = 0;
+  v20 = 0;
+  inited = _LSContextInitReturningError(&v22, &v20);
+  v9 = v20;
+  if (inited)
   {
-    v8 = _LSDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = _LSCanBundleHandleNodeOrSchemeOrUTI(&v22, [*v7 unitID], 0, 0, v2, 14);
+    if (!v10)
     {
-      __110__LSApplicationWorkspace_DefaultApps__setDefaultApplicationForCategory_toApplicationRecord_completionHandler___block_invoke_cold_1([*v5 unitID], v2, v21, v8);
+      v11 = _LSDefaultLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        __110__LSApplicationWorkspace_DefaultApps__setDefaultApplicationForCategory_toApplicationRecord_completionHandler___block_invoke_cold_1([*v7 unitID], v2, v24, v11);
+      }
+
+      v12 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", -105, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4799);
+
+      v9 = v12;
     }
-
-    v9 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", -105, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4799);
-
-    v7 = v9;
   }
 
-  if (!v7)
+  if (!v9)
   {
 LABEL_18:
-    if (!*v5 || ([*v5 bundleIdentifier], v12 = objc_claimAutoreleasedReturnValue(), v13 = v12 == 0, v12, !v13) || (_LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 118, 0, "-[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4811), (v7 = objc_claimAutoreleasedReturnValue()) == 0))
+    if (!*v7 || ([*v7 bundleIdentifier], v16 = objc_claimAutoreleasedReturnValue(), v17 = v16 == 0, v16, !v17) || (_LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 118, 0, "-[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4811), v13 = objc_claimAutoreleasedReturnValue(), (v9 = v13) == 0))
     {
-      v14 = [*v5 bundleIdentifier];
-      v19 = 0u;
-      v20 = 0u;
-      if (*v5)
+      v18 = [*v7 bundleIdentifier];
+      v22 = 0u;
+      v23 = 0u;
+      if (*v7)
       {
-        [*v5 _bundleVersion];
+        objc_msgSend__bundleVersion(*v7);
       }
 
-      if (*v5)
+      if (*v7)
       {
-        v18[0] = v19;
-        v18[1] = v20;
-        v15 = _LSSetContentTypeHandler(v2, 0xFFFFFFFFLL, v14, v18);
-      }
-
-      else
-      {
-        v15 = _LSRemoveDefaultRoleHandlerForContentType(v2, 0xFFFFFFFFLL);
-      }
-
-      if (v15)
-      {
-        v7 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v15, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4829);
+        v21[0] = v22;
+        v21[1] = v23;
+        v19 = _LSSetContentTypeHandler(v2, 0xFFFFFFFFLL, v18, v21);
       }
 
       else
       {
-        v7 = 0;
+        v19 = _LSRemoveDefaultRoleHandlerForContentType(v2, 0xFFFFFFFFLL);
+      }
+
+      if (v19)
+      {
+        v9 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v19, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultApplicationForCategory:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 4829);
+      }
+
+      else
+      {
+        v9 = 0;
       }
     }
   }
 
 LABEL_29:
-  _LSContextInvalidate();
-  (*(a1[5] + 16))(a1[5], v7 == 0, v7);
-
-  v16 = *MEMORY[0x1E69E9840];
+  _LSContextInvalidate(v13, v14);
+  (*(a1[5] + 16))(a1[5], v9 == 0, v9);
 }
 
 - (id)defaultApplicationForCategory:(unint64_t)category error:(id *)error
@@ -6028,7 +6380,8 @@ void __108__LSApplicationWorkspace_DefaultApps__setDefaultHandlerForTypeRecord_t
     v9 = _LSRemoveDefaultRoleHandlerForContentType([*(a1 + 40) identifier], 0xFFFFFFFFLL);
     if (v9)
     {
-      v8 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v9, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultHandlerForTypeRecord:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5027);
+      v9 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v9, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultHandlerForTypeRecord:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5027);
+      v8 = v9;
     }
 
     else
@@ -6040,8 +6393,8 @@ void __108__LSApplicationWorkspace_DefaultApps__setDefaultHandlerForTypeRecord_t
   }
 
   v19 = 0;
-  v20 = 0;
-  inited = _LSContextInitReturningError(&v20, &v19);
+  v20.db = 0;
+  inited = _LSContextInitReturningError(&v20.db, &v19);
   v3 = v19;
   v4 = v3;
   if (!inited)
@@ -6061,17 +6414,17 @@ void __108__LSApplicationWorkspace_DefaultApps__setDefaultHandlerForTypeRecord_t
     {
       if (_LSClaimFlagsAreWildcard(*(*(&v25 + 1) + 8)))
       {
-        v10 = 4986;
-        v11 = 120;
+        v11 = 4986;
+        v12 = 120;
 LABEL_12:
-        v8 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", v11, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultHandlerForTypeRecord:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", v10);
+        v8 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", v12, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultHandlerForTypeRecord:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", v11);
         goto LABEL_13;
       }
 
       if (*(&v25 + 1) && !*(*(&v25 + 1) + 12))
       {
-        v10 = 4990;
-        v11 = 121;
+        v11 = 4990;
+        v12 = 121;
         goto LABEL_12;
       }
     }
@@ -6089,32 +6442,32 @@ LABEL_12:
 LABEL_13:
 
 LABEL_17:
-  _LSContextDestroy(&v20);
+  _LSContextDestroy(&v20.db);
 
 LABEL_18:
   if (!v8)
   {
-    v12 = [*(a1 + 32) bundleIdentifier];
-    v13 = v12 == 0;
+    v13 = [*(a1 + 32) bundleIdentifier];
+    v14 = v13 == 0;
 
-    if (!v13 || (_LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 118, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultHandlerForTypeRecord:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5005), (v8 = objc_claimAutoreleasedReturnValue()) == 0))
+    if (!v14 || (_LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 118, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultHandlerForTypeRecord:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5005), (v8 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v14 = [*(a1 + 32) bundleIdentifier];
+      v15 = [*(a1 + 32) bundleIdentifier];
       v24 = 0u;
       v25 = 0u;
-      v15 = *(a1 + 32);
-      if (v15)
+      v16 = *(a1 + 32);
+      if (v16)
       {
-        [v15 _bundleVersion];
+        objc_msgSend__bundleVersion(v16);
       }
 
-      v16 = [*(a1 + 40) identifier];
+      v17 = [*(a1 + 40) identifier];
       v21[0] = v24;
       v21[1] = v25;
-      v17 = _LSSetContentTypeHandler(v16, 0xFFFFFFFFLL, v14, v21);
-      if (v17)
+      v18 = _LSSetContentTypeHandler(v17, 0xFFFFFFFFLL, v15, v21);
+      if (v18)
       {
-        v8 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v17, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultHandlerForTypeRecord:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5020);
+        v8 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v18, 0, "[LSApplicationWorkspace(DefaultApps) setDefaultHandlerForTypeRecord:toApplicationRecord:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5020);
       }
 
       else
@@ -6125,10 +6478,8 @@ LABEL_18:
   }
 
 LABEL_29:
-  _LSContextInvalidate();
+  _LSContextInvalidate(v9, v10);
   (*(*(a1 + 48) + 16))(*(a1 + 48), v8 == 0, v8);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPreferenceForNoHandlerForCategory:(unint64_t)category completionHandler:(id)handler
@@ -6153,18 +6504,17 @@ void __94__LSApplicationWorkspace_DefaultApps__setPreferenceForNoHandlerForCateg
   v3 = _LSSetContentTypeHandler(v2, 0xFFFFFFFFLL, @"com.apple.coreservices.nohandler$BF6A2FC2-EAE7-4116-BEF3-495EAA007C85", v6);
   if (v3)
   {
-    v4 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v3, 0, "[LSApplicationWorkspace(DefaultApps) setPreferenceForNoHandlerForCategory:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5056);
+    v3 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v3, 0, "[LSApplicationWorkspace(DefaultApps) setPreferenceForNoHandlerForCategory:completionHandler:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5056);
+    v5 = v3;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  _LSContextInvalidate();
-  (*(*(a1 + 32) + 16))(*(a1 + 32), v4 == 0, v4);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _LSContextInvalidate(v3, v4);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), v5 == 0, v5);
 }
 
 - (BOOL)setPreferredAppMarketplaces:(id)marketplaces error:(id *)error
@@ -6259,6 +6609,169 @@ void __77__LSApplicationWorkspace_Marketplaces__getPreferredAppMarketplacesWithE
   *(v9 + 40) = v6;
 }
 
+- (id)applicationsAvailableForOpeningURL:(id)l legacySPI:(BOOL)i
+{
+  iCopy = i;
+  v37 = *MEMORY[0x1E69E9840];
+  lCopy = l;
+  v6 = objc_autoreleasePoolPush();
+  if (lCopy && ([lCopy isFileURL] & 1) == 0)
+  {
+    v8 = [_LSCanOpenURLManager queryForApplicationsAvailableForOpeningURL:lCopy];
+    v9 = v8;
+    if (v8)
+    {
+      v27 = v6;
+      [v8 setLegacy:iCopy];
+      v10 = +[_LSQueryContext defaultContext];
+      v26 = v9;
+      v11 = [MEMORY[0x1E695DFD8] setWithObject:v9];
+      v12 = [v10 resolveQueries:v11 error:0];
+      allValues = [v12 allValues];
+      firstObject = [allValues firstObject];
+
+      if (firstObject)
+      {
+        v15 = firstObject;
+      }
+
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v7 = firstObject;
+      v16 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      if (v16)
+      {
+        v17 = v16;
+        v18 = *v29;
+        do
+        {
+          v19 = 0;
+          do
+          {
+            if (*v29 != v18)
+            {
+              objc_enumerationMutation(v7);
+            }
+
+            v20 = *(*(&v28 + 1) + 8 * v19);
+            v21 = _LSDefaultLog(v16);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+            {
+              bundleIdentifier = [v20 bundleIdentifier];
+              [lCopy scheme];
+              v24 = v23 = lCopy;
+              *buf = 138478083;
+              v33 = bundleIdentifier;
+              v34 = 2113;
+              v35 = v24;
+              _os_log_impl(&dword_18162D000, v21, OS_LOG_TYPE_DEFAULT, "Found application: %{private}@ to handle url scheme: %{private}@", buf, 0x16u);
+
+              lCopy = v23;
+            }
+
+            ++v19;
+          }
+
+          while (v17 != v19);
+          v16 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v17 = v16;
+        }
+
+        while (v16);
+      }
+
+      v9 = v26;
+      v6 = v27;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  objc_autoreleasePoolPop(v6);
+
+  return v7;
+}
+
+- (BOOL)isApplicationAvailableToOpenURLCommon:(id)common includePrivateURLSchemes:(BOOL)schemes error:(id *)error
+{
+  schemesCopy = schemes;
+  v32[1] = *MEMORY[0x1E69E9840];
+  commonCopy = common;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__4;
+  v25 = __Block_byref_object_dispose__4;
+  v26 = 0;
+  scheme = [commonCopy scheme];
+  v10 = scheme;
+  if (scheme)
+  {
+    if ([__LSDefaultsGetSharedInstance(scheme v9)])
+    {
+      v11 = +[_LSCanOpenURLManager sharedManager];
+      v12 = (v22 + 5);
+      obj = v22[5];
+      v13 = [v11 canOpenURL:commonCopy publicSchemes:1 privateSchemes:schemesCopy XPCConnection:0 error:&obj];
+      objc_storeStrong(v12, obj);
+      *(v28 + 24) = v13;
+    }
+
+    else
+    {
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __107__LSApplicationWorkspace_URLQueries__isApplicationAvailableToOpenURLCommon_includePrivateURLSchemes_error___block_invoke;
+      v19[3] = &unk_1E6A198D0;
+      v19[4] = &v21;
+      v11 = [(_LSDService *)_LSDOpenService synchronousXPCProxyWithErrorHandler:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __107__LSApplicationWorkspace_URLQueries__isApplicationAvailableToOpenURLCommon_includePrivateURLSchemes_error___block_invoke_2;
+      v18[3] = &unk_1E6A19A28;
+      v18[4] = &v27;
+      v18[5] = &v21;
+      [v11 canOpenURL:commonCopy publicSchemes:1 privateSchemes:schemesCopy completionHandler:v18];
+    }
+  }
+
+  else
+  {
+    v31 = *MEMORY[0x1E696A578];
+    v32[0] = @"Invalid input URL";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v14 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", -105, v11, "[LSApplicationWorkspace(URLQueries) isApplicationAvailableToOpenURLCommon:includePrivateURLSchemes:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSApplicationWorkspace.m", 5220);
+    v15 = v22[5];
+    v22[5] = v14;
+  }
+
+  v16 = *(v28 + 24);
+  if (error && (v28[3] & 1) == 0)
+  {
+    *error = v22[5];
+    v16 = *(v28 + 24);
+  }
+
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
+
+  return v16 & 1;
+}
+
 - (id)applicationForOpeningResource:(id)resource
 {
   v3 = [(LSApplicationWorkspace *)self applicationsAvailableForOpeningURL:resource legacySPI:1];
@@ -6298,7 +6811,7 @@ void __77__LSApplicationWorkspace_Marketplaces__getPreferredAppMarketplacesWithE
 
 - (id)publicURLSchemes
 {
-  v2 = _LSDefaultLog();
+  v2 = _LSDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [LSApplicationWorkspace(DeprecatedURLQueries) publicURLSchemes];
@@ -6309,7 +6822,7 @@ void __77__LSApplicationWorkspace_Marketplaces__getPreferredAppMarketplacesWithE
 
 - (id)privateURLSchemes
 {
-  v2 = _LSDefaultLog();
+  v2 = _LSDefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [LSApplicationWorkspace(DeprecatedURLQueries) publicURLSchemes];
@@ -6320,7 +6833,7 @@ void __77__LSApplicationWorkspace_Marketplaces__getPreferredAppMarketplacesWithE
 
 - (BOOL)isApplicationEligibleForReadOnlyDocumentOpenBehavior:(id)behavior
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   behaviorCopy = behavior;
   v4 = &ReadOnlyDocumentOpenCheckList;
   v5 = 48;
@@ -6334,21 +6847,21 @@ void __77__LSApplicationWorkspace_Marketplaces__getPreferredAppMarketplacesWithE
     {
       if (behaviorCopy)
       {
-        [behaviorCopy execSDKVersion];
+        objc_msgSend_execSDKVersion(behaviorCopy);
       }
 
       else
       {
+        v11 = 0u;
         v12 = 0u;
-        v13 = 0u;
       }
 
-      _LSVersionNumberMakeWithDYLDVersion(*(v4 + 3), v11);
-      v15[0] = v12;
-      v15[1] = v13;
-      v14[0] = v11[0];
-      v14[1] = v11[1];
-      if (_LSVersionNumberCompare(v15, v14) == -1)
+      _LSVersionNumberMakeWithDYLDVersion(*(v4 + 3), v10);
+      v14[0] = v11;
+      v14[1] = v12;
+      v13[0] = v10[0];
+      v13[1] = v10[1];
+      if (_LSVersionNumberCompare(v14, v13) == -1)
       {
         break;
       }
@@ -6363,7 +6876,6 @@ void __77__LSApplicationWorkspace_Marketplaces__getPreferredAppMarketplacesWithE
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4 == off_1E6A1C9F8;
 }
 
@@ -6378,7 +6890,7 @@ void __77__LSApplicationWorkspace_Marketplaces__getPreferredAppMarketplacesWithE
 
 - (BOOL)isBundleEligibleForOpenDocumentViaOpenURL:(id)l
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   lCopy = l;
   bundleIdentifier = [lCopy bundleIdentifier];
   v5 = strcmp([bundleIdentifier UTF8String], "org.reactjs.native.Popspedia");
@@ -6390,21 +6902,21 @@ void __77__LSApplicationWorkspace_Marketplaces__getPreferredAppMarketplacesWithE
 
   if (lCopy)
   {
-    [lCopy execSDKVersion];
+    objc_msgSend_execSDKVersion(lCopy);
   }
 
   else
   {
+    v9 = 0u;
     v10 = 0u;
-    v11 = 0u;
   }
 
-  _LSVersionNumberMakeWithDYLDVersion(1703936, v9);
-  v13[0] = v10;
-  v13[1] = v11;
-  v12[0] = v9[0];
-  v12[1] = v9[1];
-  if (_LSVersionNumberCompare(v13, v12) == -1)
+  _LSVersionNumberMakeWithDYLDVersion(1703936, v8);
+  v12[0] = v9;
+  v12[1] = v10;
+  v11[0] = v8[0];
+  v11[1] = v8[1];
+  if (_LSVersionNumberCompare(v12, v11) == -1)
   {
     v6 = 0;
   }
@@ -6415,7 +6927,6 @@ LABEL_7:
     v6 = 1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -6442,20 +6953,72 @@ LABEL_7:
   return v3;
 }
 
-- (BOOL)registerApplication:(id)application
+- (BOOL)registerApplicationDictionary:(id)dictionary withObserverNotification:(int)notification
 {
-  v3 = LSRegisterURL(application, 0);
-  if (!v3)
+  v4 = *&notification;
+  v20[1] = *MEMORY[0x1E69E9840];
+  dictionaryCopy = dictionary;
+  v7 = [dictionaryCopy objectForKeyedSubscript:@"IsPlaceholder"];
+  bOOLValue = [v7 BOOLValue];
+
+  v9 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E695E4F0]];
+  if (!v9)
   {
-    v4 = _LSInstallLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v10 = 0;
+LABEL_11:
+    v14 = 0;
+    goto LABEL_9;
+  }
+
+  v10 = [dictionaryCopy objectForKeyedSubscript:@"Path"];
+  if (!v10 || registerApplicationWithDictionary(dictionaryCopy, 1u))
+  {
+    goto LABEL_11;
+  }
+
+  v11 = [LSApplicationProxy applicationProxyForIdentifier:v9 placeholder:bOOLValue];
+  if (v11)
+  {
+    observerProxy = [(LSApplicationWorkspace *)self observerProxy];
+    v20[0] = v11;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    [observerProxy sendNotification:v4 forApplications:v13 withPlugins:0];
+  }
+
+  else
+  {
+    observerProxy = _LSProgressLog(0);
+    if (os_log_type_enabled(observerProxy, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_18162D000, v4, OS_LOG_TYPE_DEFAULT, "Not sending applicationsDidInstall notification, please file a bug with Purple LaunchServices if you need this", v6, 2u);
+      v16 = 138412546;
+      v17 = v9;
+      v18 = 1024;
+      v19 = 0;
+      _os_log_error_impl(&dword_18162D000, observerProxy, OS_LOG_TYPE_ERROR, "Failed to create application proxy for %@, regustration result was %d", &v16, 0x12u);
     }
   }
 
-  return v3 == 0;
+  v14 = 1;
+LABEL_9:
+
+  return v14;
+}
+
+- (BOOL)registerApplication:(id)application
+{
+  v3 = LSRegisterURL(application, 0);
+  v4 = v3;
+  if (!v3)
+  {
+    v5 = _LSInstallLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      *v7 = 0;
+      _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEFAULT, "Not sending applicationsDidInstall notification, please file a bug with Purple LaunchServices if you need this", v7, 2u);
+    }
+  }
+
+  return v4 == 0;
 }
 
 - (BOOL)registerPlugin:(id)plugin
@@ -6474,12 +7037,10 @@ LABEL_7:
 
 - (void)systemMode
 {
-  OUTLINED_FUNCTION_17(self, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 40);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)openUserActivity:usingApplicationRecord:configuration:completionHandler:.cold.1()
@@ -6529,55 +7090,52 @@ LABEL_7:
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_12_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_319_cold_1(uint64_t a1)
+void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_319_cold_1()
 {
-  OUTLINED_FUNCTION_12_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_12_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_320_cold_1(uint64_t a1)
+void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_synchronous_completionHandler___block_invoke_320_cold_1()
 {
-  OUTLINED_FUNCTION_12_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_12_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)installApplication:(uint64_t)a3 withOptions:(uint64_t)a4 error:(uint64_t)a5 usingBlock:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "this process is using %{public}s to install applications, which is not supported. Use InstallCoordination to install and uninstall applications on this platform.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[LSApplicationWorkspace installApplication:withOptions:error:usingBlock:]";
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "this process is using %{public}s to install applications, which is not supported. Use InstallCoordination to install and uninstall applications on this platform.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)installContainerizedApplicationArtifactAtURL:(uint64_t)a3 withOptions:(uint64_t)a4 returningRecordPromise:(uint64_t)a5 error:(uint64_t)a6 progressBlock:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "this process is using %{public}s to install applications, which is not supported. Use InstallCoordination to install and uninstall applications on this platform.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[LSApplicationWorkspace installContainerizedApplicationArtifactAtURL:withOptions:returningRecordPromise:error:progressBlock:]";
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "this process is using %{public}s to install applications, which is not supported. Use InstallCoordination to install and uninstall applications on this platform.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)uninstallContainerizedApplicationWithIdentifier:(uint64_t)a3 options:(uint64_t)a4 error:(uint64_t)a5 progressBlock:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "this process is using %{public}s to uninstall applications, which is not supported. Use InstallCoordination to install and uninstall applications on this platform.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[LSApplicationWorkspace uninstallContainerizedApplicationWithIdentifier:options:error:progressBlock:]";
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "this process is using %{public}s to uninstall applications, which is not supported. Use InstallCoordination to install and uninstall applications on this platform.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)downgradeApplicationToPlaceholder:withOptions:error:.cold.1()
@@ -6589,9 +7147,9 @@ void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_sync
 
 - (void)uninstallApplication:(uint64_t)a3 withOptions:(uint64_t)a4 error:(uint64_t)a5 usingBlock:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "this process is using %{public}s to uninstall applications, which is not supported. Use InstallCoordination to install and uninstall applications on this platform.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[LSApplicationWorkspace uninstallApplication:withOptions:error:usingBlock:]";
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "this process is using %{public}s to uninstall applications, which is not supported. Use InstallCoordination to install and uninstall applications on this platform.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)unregisterApplicationsAtMountPoint:(void *)a1 operationUUID:(uint64_t)a2 saveObserver:(uint64_t)a3 requestContext:(NSObject *)a4 .cold.1(void *a1, uint64_t a2, uint64_t a3, NSObject *a4)
@@ -6604,80 +7162,67 @@ void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_sync
   OUTLINED_FUNCTION_15_0(&dword_18162D000, a4, a3, "Unable to unregister applications at mount point: %@: %@", a3);
 }
 
-- (void)unregisterApplication:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
+- (void)unregisterApplication:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(*a2 + 40);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)updateSINFWithData:(uint64_t)a3 forApplication:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "%s is no longer supported. Adopt InstallCoordination to update iTMD and SINF.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[LSApplicationWorkspace updateSINFWithData:forApplication:options:error:]";
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "%s is no longer supported. Adopt InstallCoordination to update iTMD and SINF.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getBundleIdentifierForBundleAtURL:invokeUpdateBlockAndReregister:error:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateiTunesMetadataWithData:(uint64_t)a3 forApplication:(uint64_t)a4 options:(uint64_t)a5 error:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "%s is no longer supported. Adopt InstallCoordination to update iTMD and SINF.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[LSApplicationWorkspace updateiTunesMetadataWithData:forApplication:options:error:]";
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "%s is no longer supported. Adopt InstallCoordination to update iTMD and SINF.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updateiTunesMetadataWithData:(uint64_t)a3 forApplicationAtURL:(uint64_t)a4 error:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "%s is no longer supported. Adopt InstallCoordination to update iTMD and SINF.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[LSApplicationWorkspace updateiTunesMetadataWithData:forApplicationAtURL:error:]";
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "%s is no longer supported. Adopt InstallCoordination to update iTMD and SINF.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updatePlaceholderMetadataForApp:installType:failure:underlyingError:source:outError:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterPlugin:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isVersion:greaterThanOrEqualToVersion:.cold.1()
@@ -6698,11 +7243,9 @@ void __98__LSApplicationWorkspace_commonClientOpenURL_options_configuration_sync
 
 void __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke_373_cold_1()
@@ -6714,11 +7257,9 @@ void __56__LSApplicationWorkspace_deviceIdentifierForAdvertising__block_invoke_3
 
 void __51__LSApplicationWorkspace_deviceIdentifierForVendor__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __51__LSApplicationWorkspace_deviceIdentifierForVendor__block_invoke_376_cold_1()
@@ -6728,14 +7269,13 @@ void __51__LSApplicationWorkspace_deviceIdentifierForVendor__block_invoke_376_co
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___block_invoke_2_cold_1(uint64_t a1)
+void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_12_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_12_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)deviceIdentifierForVendorSeedData
@@ -6745,120 +7285,86 @@ void __68__LSApplicationWorkspace_urlContainsDeviceIdentifierForAdvertising___bl
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)installProgressForBundleID:makeSynchronous:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_4_0();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Getting installProgress for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)installProgressForBundleID:(void *)a1 makeSynchronous:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   v1 = [a1 _LSDescription];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_cold_1(uint64_t *a1)
+void __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(*v1 + 16);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_3(&dword_18162D000, v3, v4, "NOT subscribing to progress for %@, existing subscriptions %@");
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_18162D000, v0, v1, "NOT subscribing to progress for %@, existing subscriptions %@");
 }
 
-void __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_cold_2(uint64_t *a1)
+void __69__LSApplicationWorkspace_installProgressForBundleID_makeSynchronous___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_1(&dword_18162D000, v1, v2, "Attempting subscribe to progress for %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_18162D000, v0, v1, "Attempting subscribe to progress for %@", v2, v3, v4, v5);
 }
 
-void __66__LSApplicationWorkspace_installProgressForApplication_withPhase___block_invoke_cold_1(uint64_t a1)
+void __66__LSApplicationWorkspace_installProgressForApplication_withPhase___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_12_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)installPhaseFinishedForProgress:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3(&dword_18162D000, v0, v1, "installPhaseFinishedForProgress: %@ - %@ called, removing progress from cache");
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __95__LSApplicationWorkspace__LSPrivateRebuildApplicationDatabasesForSystemApps_internal_user_uid___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __55__LSApplicationWorkspace__LSPrivateNoteMigratorRunning__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __55__LSApplicationWorkspace__LSPrivateNoteMigratorRunning__block_invoke_402_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __56__LSApplicationWorkspace__LSFailedToOpenURL_withBundle___block_invoke_cold_1(uint64_t a1)
+void __56__LSApplicationWorkspace__LSFailedToOpenURL_withBundle___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_12_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_12_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)sendApplicationStateChangedNotificationsFor:(uint64_t)a3 stateProvider:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "Called %s but not in the database server. Please file a bug.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[LSApplicationWorkspace sendApplicationStateChangedNotificationsFor:stateProvider:completion:]";
+  OUTLINED_FUNCTION_7_0(&dword_18162D000, a1, a3, "Called %s but not in the database server. Please file a bug.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __95__LSApplicationWorkspace_sendApplicationStateChangedNotificationsFor_stateProvider_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __64__LSApplicationWorkspace_scanForAppsInRatingRankExceptionsList___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_19();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __110__LSApplicationWorkspace_DefaultApps__setDefaultApplicationForCategory_toApplicationRecord_completionHandler___block_invoke_cold_1(unsigned int a1, uint64_t a2, uint64_t a3, NSObject *a4)

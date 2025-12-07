@@ -21,6 +21,7 @@
 - (void)diagnosticsWithCompletion:(id)completion;
 - (void)displayAlertWithHeader:(id)header message:(id)message buttonStrings:(id)strings completion:(id)completion;
 - (void)displayInstructions:(id)instructions style:(int)style imageLocators:(id)locators title:(id)title subtitle:(id)subtitle iconLocator:(id)locator options:(id)options navigationBarActions:(id)self0 completion:(id)self1;
+- (void)enableVolumeHUD:(BOOL)d;
 - (void)getAsset:(id)asset completion:(id)completion;
 - (void)hideStatusBar;
 - (void)request:(id)request dismissViewController:(id)controller completion:(id)completion;
@@ -28,6 +29,7 @@
 - (void)request:(id)request presentViewController:(id)controller completion:(id)completion responderChainUpdateHandler:(id)handler;
 - (void)requestPluginReloadOnFinishWithCompletion:(id)completion;
 - (void)requestSessionAccessoryIdentifierWithCompletion:(id)completion;
+- (void)setScreenToBrightness:(float)brightness animate:(BOOL)animate;
 - (void)setStatusBarStyle:(int64_t)style;
 - (void)showStatusBar;
 - (void)unpairSessionAccessoryOnTestCompletion;
@@ -97,25 +99,25 @@
 
 void __75__DKDiagnosticManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke(uint64_t a1)
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) adapterForIdentifier:*(a1 + 40)];
   v4 = MEMORY[0x24C1E6340](*(a1 + 56));
   objc_initWeak(&location, *(a1 + 32));
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __75__DKDiagnosticManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_2;
-  v31[3] = &unk_278F6C420;
-  v32 = *(a1 + 56);
-  objc_copyWeak(&v33, &location);
-  v5 = MEMORY[0x24C1E6340](v31);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __75__DKDiagnosticManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_2;
+  v30[3] = &unk_278F6C420;
+  v31 = *(a1 + 56);
+  objc_copyWeak(&v32, &location);
+  v5 = MEMORY[0x24C1E6340](v30);
 
   if (!v3)
   {
     v23 = MEMORY[0x277CCA9B8];
-    v39 = *MEMORY[0x277CCA450];
+    v38 = *MEMORY[0x277CCA450];
     v24 = DKErrorLocalizedDescriptionForCode(-1000);
-    v40[0] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v39[0] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v9 = [v23 errorWithDomain:@"DKErrorDomain" code:-1000 userInfo:v25];
 
     if (v9)
@@ -127,9 +129,9 @@ void __75__DKDiagnosticManager_beginDiagnosticWithIdentifier_parameters_completi
   v6 = *(a1 + 32);
   v7 = [v3 extensionAttributes];
   v8 = *(a1 + 48);
-  v30 = 0;
-  [v6 _checkPrerequisitesForDiagnostic:v7 parameters:v8 error:&v30];
-  v9 = v30;
+  v29 = 0;
+  [v6 _checkPrerequisitesForDiagnostic:v7 parameters:v8 error:&v29];
+  v9 = v29;
 
   if (v9)
   {
@@ -141,7 +143,7 @@ void __75__DKDiagnosticManager_beginDiagnosticWithIdentifier_parameters_completi
   {
     v11 = [*(a1 + 40) longValue];
     *buf = 134217984;
-    v38 = v11;
+    v37 = v11;
     _os_log_impl(&dword_248B9D000, v10, OS_LOG_TYPE_DEFAULT, "Found diagnostic for ID: %ld", buf, 0xCu);
   }
 
@@ -152,10 +154,10 @@ void __75__DKDiagnosticManager_beginDiagnosticWithIdentifier_parameters_completi
   if (!v13)
   {
     v26 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
+    v34 = *MEMORY[0x277CCA450];
     v27 = DKErrorLocalizedDescriptionForCode(-1001);
-    v36 = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v35 = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     v9 = [v26 errorWithDomain:@"DKErrorDomain" code:-1001 userInfo:v28];
 
     if (!v9)
@@ -195,10 +197,9 @@ LABEL_15:
 
   v9 = 0;
 LABEL_16:
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
 
   objc_destroyWeak(&location);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __75__DKDiagnosticManager_beginDiagnosticWithIdentifier_parameters_completion___block_invoke_2(uint64_t a1)
@@ -516,6 +517,33 @@ void __49__DKDiagnosticManager_diagnosticsWithCompletion___block_invoke(uint64_t
   }
 }
 
+- (void)setScreenToBrightness:(float)brightness animate:(BOOL)animate
+{
+  animateCopy = animate;
+  brightnessResponder = [(DKDiagnosticManager *)self brightnessResponder];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    brightnessResponder2 = [(DKDiagnosticManager *)self brightnessResponder];
+    *&v9 = brightness;
+    [brightnessResponder2 setScreenToBrightness:animateCopy animate:v9];
+  }
+}
+
+- (void)enableVolumeHUD:(BOOL)d
+{
+  dCopy = d;
+  volumeHUDResponder = [(DKDiagnosticManager *)self volumeHUDResponder];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    volumeHUDResponder2 = [(DKDiagnosticManager *)self volumeHUDResponder];
+    [volumeHUDResponder2 enableVolumeHUD:dCopy];
+  }
+}
+
 - (void)requestPluginReloadOnFinishWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -546,7 +574,7 @@ void __49__DKDiagnosticManager_diagnosticsWithCompletion___block_invoke(uint64_t
 
 - (BOOL)_checkPrerequisitesForDiagnostic:(id)diagnostic parameters:(id)parameters error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   diagnosticCopy = diagnostic;
   specifications = [parameters specifications];
   if (!specifications || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -577,10 +605,10 @@ LABEL_8:
   if (error && !v12)
   {
     v14 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA450];
+    v24 = *MEMORY[0x277CCA450];
     v15 = DKErrorLocalizedDescriptionForCode(-1005);
-    v26[0] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v25[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     *error = [v14 errorWithDomain:@"DKErrorDomain" code:-1005 userInfo:v16];
   }
 
@@ -593,10 +621,10 @@ LABEL_8:
       if ((v17 & 1) == 0)
       {
         v18 = MEMORY[0x277CCA9B8];
-        v23 = *MEMORY[0x277CCA450];
+        v22 = *MEMORY[0x277CCA450];
         v19 = DKErrorLocalizedDescriptionForCode(-1007);
-        v24 = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v23 = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
         *error = [v18 errorWithDomain:@"DKErrorDomain" code:-1007 userInfo:v20];
 
         v13 = 0;
@@ -604,37 +632,35 @@ LABEL_8:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_isDeviceLocked
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = MGGetBoolAnswer();
   v3 = DiagnosticsKitLogHandleForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = v2;
-    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "Device lock status: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v2;
+    _os_log_impl(&dword_248B9D000, v3, OS_LOG_TYPE_DEFAULT, "Device lock status: %d", v5, 8u);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (BOOL)_freeSpaceAvailable:(id)available
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/private/var"];
-  v14 = 0;
-  v5 = *MEMORY[0x277CBEA00];
   v13 = 0;
-  [v4 getResourceValue:&v14 forKey:v5 error:&v13];
-  v6 = v14;
-  v7 = v13;
+  v5 = *MEMORY[0x277CBEA00];
+  v12 = 0;
+  [v4 getResourceValue:&v13 forKey:v5 error:&v12];
+  v6 = v13;
+  v7 = v12;
   v8 = DiagnosticsKitLogHandleForCategory(1);
   v9 = v8;
   if (v6)
@@ -642,9 +668,9 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v16 = availableCopy;
-      v17 = 2112;
-      v18 = v6;
+      v15 = availableCopy;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_248B9D000, v9, OS_LOG_TYPE_DEFAULT, "Free space required by diagnostic: %@, available space: %@", buf, 0x16u);
     }
 
@@ -661,7 +687,6 @@ LABEL_8:
     v10 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -732,11 +757,10 @@ void __75__DKDiagnosticManager_beginDiagnosticWithIdentifier_parameters_completi
 
 - (void)_freeSpaceAvailable:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Unable to check available disk space prior to running diagnostic with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248B9D000, a2, OS_LOG_TYPE_ERROR, "Unable to check available disk space prior to running diagnostic with error: %@", &v2, 0xCu);
 }
 
 @end

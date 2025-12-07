@@ -657,29 +657,29 @@ LABEL_8:
 
 - (void)mediaView:(id)view playbackStateDidChange:(int64_t)change
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   viewCopy = view;
-  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
   v7 = self->_columnViews;
-  v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v8 = [(NSMapTable *)v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v32;
+    v10 = *v33;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v32 != v10)
+      if (*v33 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v31 + 1) + 8 * v11);
-      metricsController = [(NSMapTable *)self->_columnViews objectForKey:v12, v31];
+      v12 = *(*(&v32 + 1) + 8 * v11);
+      metricsController = [(NSMapTable *)self->_columnViews objectForKey:v12, v32];
       if ([viewCopy isDescendantOfView:metricsController])
       {
         break;
@@ -687,7 +687,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [(NSMapTable *)v7 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v9 = [(NSMapTable *)v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -733,27 +733,27 @@ LABEL_23:
     if ([metricsController canRecordEventWithType:*MEMORY[0x277D6A488]])
     {
       v21 = objc_alloc_init(MEMORY[0x277D69BA8]);
-      v22 = SKUIMetricsMediaEventTypeForPlaybackState(change);
-      [v21 setMediaEventType:v22];
+      v23 = SKUIMetricsMediaEventTypeForPlaybackState(change, v22);
+      [v21 setMediaEventType:v23];
 
       pageComponent2 = [(SKUIStorePageSection *)self pageComponent];
-      v24 = [metricsController locationWithPageComponent:pageComponent2];
+      v25 = [metricsController locationWithPageComponent:pageComponent2];
 
-      v25 = [metricsController locationWithPosition:v16 type:@"Column" fieldData:0];
-      v26 = v25;
-      if (v24 && v25)
+      v26 = [metricsController locationWithPosition:v16 type:@"Column" fieldData:0];
+      v27 = v26;
+      if (v25 && v26)
       {
-        v35[0] = v25;
-        v35[1] = v24;
-        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
-        [v21 setLocationWithEventLocations:v27];
+        v36[0] = v26;
+        v36[1] = v25;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+        [v21 setLocationWithEventLocations:v28];
       }
 
       mediaIdentifier = [(NSMapTable *)selectedMediaComponent mediaIdentifier];
       if (mediaIdentifier)
       {
-        v29 = [MEMORY[0x277CCABB0] numberWithLongLong:mediaIdentifier];
-        [v21 setItemIdentifier:v29];
+        v30 = [MEMORY[0x277CCABB0] numberWithLongLong:mediaIdentifier];
+        [v21 setItemIdentifier:v30];
       }
 
       mediaURLString = [(NSMapTable *)selectedMediaComponent mediaURLString];
@@ -995,7 +995,7 @@ void __72__SKUIRowSection_missingItemLoader_didLoadItems_invalidItemIdentifiers_
   return v7;
 }
 
-uint64_t __48__SKUIRowSection__cellContentHeightForRowWidth___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void *__48__SKUIRowSection__cellContentHeightForRowWidth___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   result = [*(a1 + 32) _heightForComponent:a2 columnIndex:a3 rowWidth:*(a1 + 48)];
   v6 = *(*(a1 + 40) + 8);
@@ -1250,7 +1250,7 @@ LABEL_8:
 
       v19 = 0uLL;
       v20 = 0;
-      [(SKUIRowSection *)self _lockupStyleForComponent:lockupCopy columnIndex:index];
+      objc_msgSend__lockupStyleForComponent_columnIndex_(self);
       [context portraitPageWidth];
       [(SKUIRowSection *)self _columnWidthForColumnIndex:index rowWidth:?];
       v17 = v19;
@@ -1473,7 +1473,7 @@ LABEL_14:
   editorial = [componentCopy editorial];
   v24 = 0uLL;
   v25 = 0;
-  [(SKUIRowSection *)self _lockupStyleForComponent:componentCopy columnIndex:index];
+  objc_msgSend__lockupStyleForComponent_columnIndex_(self);
   item = [componentCopy item];
   parentViewController = [context parentViewController];
   clientContext = [parentViewController clientContext];
@@ -1625,7 +1625,7 @@ LABEL_6:
   item = [componentCopy item];
   if (componentCopy)
   {
-    [componentCopy lockupStyle];
+    objc_msgSend_lockupStyle(componentCopy);
   }
 
   v13 = SKUILockupImageSizeForLockupSize(0, [item itemKind]);
@@ -1662,7 +1662,7 @@ LABEL_12:
   item = [componentCopy item];
   if (componentCopy)
   {
-    [componentCopy lockupStyle];
+    objc_msgSend_lockupStyle(componentCopy);
     v6 = v11;
   }
 
@@ -1688,7 +1688,7 @@ LABEL_12:
   v16 = indexCopy;
   if (indexCopy)
   {
-    [indexCopy lockupStyle];
+    objc_msgSend_lockupStyle(indexCopy);
     indexCopy = v16;
   }
 
@@ -1915,7 +1915,7 @@ LABEL_13:
   v23 = 0;
   v24 = 0;
   v25 = 0;
-  [(SKUIRowSection *)self _lockupStyleForComponent:componentCopy columnIndex:index];
+  objc_msgSend__lockupStyleForComponent_columnIndex_(self);
   [layout setLayoutStyle:v24];
   [layout setVisibleFields:v25];
   item = [(SKUILockupComponent *)componentCopy item];
@@ -1957,7 +1957,7 @@ LABEL_13:
   v19 = 0;
   v20 = 0;
   v21 = 0;
-  [(SKUIRowSection *)self _lockupStyleForComponent:componentCopy columnIndex:index];
+  objc_msgSend__lockupStyleForComponent_columnIndex_(self);
   [layout setClientContext:self->_clientContext];
   [(SKUIRowSection *)self _edgeInsetsForColumnIndex:index];
   [layout setContentInsets:?];
@@ -2094,31 +2094,31 @@ LABEL_9:
   }
 }
 
-uint64_t __53__SKUIRowSection__selectLockupComponent_columnIndex___block_invoke(uint64_t result, char a2)
+void *__53__SKUIRowSection__selectLockupComponent_columnIndex___block_invoke(void *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
     v3 = result;
-    v4 = *(result + 32);
+    v4 = result[4];
     if (!*(v4 + 168))
     {
-      v5 = [[SKUIProductPageOverlayController alloc] initWithParentViewController:*(result + 40)];
-      v6 = *(v3 + 32);
+      v5 = [[SKUIProductPageOverlayController alloc] initWithParentViewController:result[5]];
+      v6 = v3[4];
       v7 = *(v6 + 168);
       *(v6 + 168) = v5;
 
-      v8 = *(*(v3 + 32) + 168);
-      v9 = [*(v3 + 40) clientContext];
+      v8 = *(v3[4] + 168);
+      v9 = [v3[5] clientContext];
       [v8 setClientContext:v9];
 
-      [*(*(v3 + 32) + 168) setDelegate:?];
-      v4 = *(v3 + 32);
+      [*(v3[4] + 168) setDelegate:?];
+      v4 = v3[4];
     }
 
-    objc_storeStrong((v4 + 176), *(v3 + 48));
-    [*(*(v3 + 32) + 168) showWithInitialItem:*(v3 + 56)];
-    v10 = *(v3 + 40);
-    v11 = *(*(v3 + 32) + 168);
+    objc_storeStrong((v4 + 176), v3[6]);
+    [*(v3[4] + 168) showWithInitialItem:v3[7]];
+    v10 = v3[5];
+    v11 = *(v3[4] + 168);
 
     return [v10 _setActiveProductPageOverlayController:v11];
   }

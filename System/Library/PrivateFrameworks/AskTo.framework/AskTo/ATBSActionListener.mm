@@ -102,7 +102,7 @@ SEL __28__ATBSActionListener__uiApp__block_invoke()
 
 - (id)handleBSActions:(id)actions
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   v4 = _BSActionListenerLogger;
   if (os_log_type_enabled(_BSActionListenerLogger, OS_LOG_TYPE_DEFAULT))
@@ -113,26 +113,26 @@ SEL __28__ATBSActionListener__uiApp__block_invoke()
 
   array = [MEMORY[0x277CBEB18] array];
   v6 = [MEMORY[0x277CBEB58] set];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v7 = actionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         info = [v12 info];
         v14 = [info objectForSetting:483941];
 
@@ -150,7 +150,7 @@ SEL __28__ATBSActionListener__uiApp__block_invoke()
             v17 = _BSActionListenerLogger;
             if (os_log_type_enabled(_BSActionListenerLogger, OS_LOG_TYPE_ERROR))
             {
-              [(ATBSActionListener *)&v24 handleBSActions:v25, v17];
+              [(ATBSActionListener *)&v23 handleBSActions:v24, v17];
             }
           }
         }
@@ -161,13 +161,13 @@ SEL __28__ATBSActionListener__uiApp__block_invoke()
           if (os_log_type_enabled(_BSActionListenerLogger, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v31 = v12;
+            v30 = v12;
             _os_log_impl(&dword_2258D2000, v16, OS_LOG_TYPE_DEFAULT, "Failed to derive response data from BSAction: %@", buf, 0xCu);
           }
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v9);
@@ -188,8 +188,6 @@ SEL __28__ATBSActionListener__uiApp__block_invoke()
 
   v20 = [v7 mutableCopy];
   [v20 minusSet:v6];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

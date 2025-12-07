@@ -64,24 +64,24 @@ LABEL_5:
 {
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
   v1 = [mEMORY[0x277D262A0] effectiveValueForSetting:*MEMORY[0x277D26020]];
-  v2 = v1;
+  v3 = v1;
   if (v1)
   {
     [v1 floatValue];
-    v4 = v3;
+    v5 = v4;
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCookiePolicy();
-    v4 = 1.5;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCookiePolicy(0, v2);
+    v5 = 1.5;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(NSHTTPCookieStorage(WebUIExtras) *)v5 _safariCookieAcceptPolicyFloatValue];
+      [(NSHTTPCookieStorage(WebUIExtras) *)v6 _safariCookieAcceptPolicyFloatValue];
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (uint64_t)webui_safariCookieAcceptPolicyEnumValue

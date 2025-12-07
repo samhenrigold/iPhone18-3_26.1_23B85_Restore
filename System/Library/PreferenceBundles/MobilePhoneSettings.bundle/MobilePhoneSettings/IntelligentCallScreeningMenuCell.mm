@@ -24,7 +24,7 @@
 
 - (void)setUpViews
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   if (!self->_mainStackView)
   {
     v3 = objc_alloc_init(MEMORY[0x277D756B8]);
@@ -58,17 +58,17 @@
     LODWORD(v13) = 1144750080;
     [(UILabel *)self->_secondaryLabel setContentCompressionResistancePriority:0 forAxis:v13];
     v14 = objc_alloc(MEMORY[0x277D75A68]);
-    v62[0] = self->_primaryLabel;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
+    v61[0] = self->_primaryLabel;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
     v16 = [v14 initWithArrangedSubviews:v15];
     labelsStackView = self->_labelsStackView;
     self->_labelsStackView = v16;
 
     [(UIStackView *)self->_labelsStackView setAxis:1];
     [(UIStackView *)self->_labelsStackView setSpacing:2.0];
-    v59 = [MEMORY[0x277D755D0] configurationWithWeight:6];
+    v58 = [MEMORY[0x277D755D0] configurationWithWeight:6];
     v18 = objc_alloc(MEMORY[0x277D755E8]);
-    v19 = [MEMORY[0x277D755B8] systemImageNamed:@"checkmark" withConfiguration:v59];
+    v19 = [MEMORY[0x277D755B8] systemImageNamed:@"checkmark" withConfiguration:v58];
     v20 = [v18 initWithImage:v19];
     checkmarkView = self->_checkmarkView;
     self->_checkmarkView = v20;
@@ -88,9 +88,9 @@
     [(UIView *)self->_trailingContainerView setContentCompressionResistancePriority:0 forAxis:v27];
     v28 = objc_alloc(MEMORY[0x277D75A68]);
     v29 = self->_trailingContainerView;
-    v61[0] = self->_labelsStackView;
-    v61[1] = v29;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+    v60[0] = self->_labelsStackView;
+    v60[1] = v29;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
     v31 = [v28 initWithArrangedSubviews:v30];
     mainStackView = self->_mainStackView;
     self->_mainStackView = v31;
@@ -101,44 +101,42 @@
     contentView = [(IntelligentCallScreeningMenuCell *)self contentView];
     [contentView addSubview:self->_mainStackView];
 
-    v48 = MEMORY[0x277CCAAD0];
+    v47 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(UIStackView *)self->_mainStackView leadingAnchor];
     contentView2 = [(IntelligentCallScreeningMenuCell *)self contentView];
     layoutMarginsGuide = [contentView2 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
-    v54 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v60[0] = v54;
+    v53 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v59[0] = v53;
     trailingAnchor = [(UIStackView *)self->_mainStackView trailingAnchor];
     contentView3 = [(IntelligentCallScreeningMenuCell *)self contentView];
     layoutMarginsGuide2 = [contentView3 layoutMarginsGuide];
     trailingAnchor2 = [layoutMarginsGuide2 trailingAnchor];
-    v49 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v60[1] = v49;
+    v48 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v59[1] = v48;
     topAnchor = [(UIStackView *)self->_mainStackView topAnchor];
     contentView4 = [(IntelligentCallScreeningMenuCell *)self contentView];
     layoutMarginsGuide3 = [contentView4 layoutMarginsGuide];
     topAnchor2 = [layoutMarginsGuide3 topAnchor];
     v35 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v60[2] = v35;
+    v59[2] = v35;
     bottomAnchor = [(UIStackView *)self->_mainStackView bottomAnchor];
     contentView5 = [(IntelligentCallScreeningMenuCell *)self contentView];
     layoutMarginsGuide4 = [contentView5 layoutMarginsGuide];
     bottomAnchor2 = [layoutMarginsGuide4 bottomAnchor];
     v40 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v60[3] = v40;
+    v59[3] = v40;
     widthAnchor = [(UIView *)self->_trailingContainerView widthAnchor];
     v42 = [widthAnchor constraintEqualToConstant:20.0];
-    v60[4] = v42;
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:5];
-    [v48 activateConstraints:v43];
+    v59[4] = v42;
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:5];
+    [v47 activateConstraints:v43];
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateViews
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   [(UILabel *)self->_primaryLabel setText:self->_primaryText];
   [(UILabel *)self->_secondaryLabel setText:self->_secondaryText];
   text = [(UILabel *)self->_secondaryLabel text];
@@ -160,31 +158,31 @@
 
   if (visibleTrailingViewForState != firstObject)
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     subviews2 = [(UIView *)self->_trailingContainerView subviews];
-    v9 = [subviews2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v9 = [subviews2 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v34;
+      v11 = *v33;
       do
       {
         v12 = 0;
         do
         {
-          if (*v34 != v11)
+          if (*v33 != v11)
           {
             objc_enumerationMutation(subviews2);
           }
 
-          [*(*(&v33 + 1) + 8 * v12++) removeFromSuperview];
+          [*(*(&v32 + 1) + 8 * v12++) removeFromSuperview];
         }
 
         while (v10 != v12);
-        v10 = [subviews2 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v10 = [subviews2 countByEnumeratingWithState:&v32 objects:v37 count:16];
       }
 
       while (v10);
@@ -198,33 +196,31 @@
       LODWORD(v14) = 1148846080;
       [visibleTrailingViewForState setContentCompressionResistancePriority:0 forAxis:v14];
       [(UIView *)self->_trailingContainerView addSubview:visibleTrailingViewForState];
-      v26 = MEMORY[0x277CCAAD0];
+      v25 = MEMORY[0x277CCAAD0];
       leadingAnchor = [visibleTrailingViewForState leadingAnchor];
       leadingAnchor2 = [(UIView *)self->_trailingContainerView leadingAnchor];
-      v30 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
-      v37[0] = v30;
+      v29 = [leadingAnchor constraintGreaterThanOrEqualToAnchor:leadingAnchor2];
+      v36[0] = v29;
       trailingAnchor = [visibleTrailingViewForState trailingAnchor];
       trailingAnchor2 = [(UIView *)self->_trailingContainerView trailingAnchor];
-      v27 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
-      v37[1] = v27;
+      v26 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
+      v36[1] = v26;
       centerXAnchor = [visibleTrailingViewForState centerXAnchor];
       centerXAnchor2 = [(UIView *)self->_trailingContainerView centerXAnchor];
       v16 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-      v37[2] = v16;
+      v36[2] = v16;
       topAnchor = [visibleTrailingViewForState topAnchor];
       topAnchor2 = [(UIView *)self->_trailingContainerView topAnchor];
       v19 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v37[3] = v19;
+      v36[3] = v19;
       bottomAnchor = [visibleTrailingViewForState bottomAnchor];
       bottomAnchor2 = [(UIView *)self->_trailingContainerView bottomAnchor];
       v22 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v37[4] = v22;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:5];
-      [v26 activateConstraints:v23];
+      v36[4] = v22;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:5];
+      [v25 activateConstraints:v23];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)visibleTrailingViewForState

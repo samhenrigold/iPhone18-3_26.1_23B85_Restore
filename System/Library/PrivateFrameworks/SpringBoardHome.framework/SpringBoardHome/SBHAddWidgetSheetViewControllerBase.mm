@@ -21,23 +21,10 @@
   providerCopy = provider;
   mainScreen = [v11 mainScreen];
   [mainScreen scale];
-  v16 = v15;
 
-  if (style)
-  {
-    v17 = 32.0;
-    v18 = 10.0;
-  }
-
-  else
-  {
-    v17 = 48.0;
-    v18 = 12.0;
-  }
-
-  v19 = SBIconImageInfoMake(v17, v17, v16, v18);
-  v23 = [[SBHAddWidgetSheetAppCollectionViewCellConfigurator alloc] initWithIconImageInfo:v19, v20, v21, v22];
-  style = [(SBHAddWidgetSheetViewControllerBase *)self initWithListLayoutProvider:providerCopy iconViewProvider:viewProviderCopy allowedWidgets:families appCellConfigurator:v7 addWidgetSheetStyle:v23, style];
+  SBIconImageInfoMake();
+  v19 = [[SBHAddWidgetSheetAppCollectionViewCellConfigurator alloc] initWithIconImageInfo:v15, v16, v17, v18];
+  style = [(SBHAddWidgetSheetViewControllerBase *)self initWithListLayoutProvider:providerCopy iconViewProvider:viewProviderCopy allowedWidgets:families appCellConfigurator:v7 addWidgetSheetStyle:v19, style];
 
   return style;
 }

@@ -58,7 +58,7 @@
 
 - (id)_featureInputForContact:(id)contact
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   result = [(_PASLazyResult *)self->_reusableEventDictsState result];
   task = [(_PSFamilyFeatureExtractor *)self task];
@@ -70,30 +70,30 @@
     goto LABEL_22;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   featureSet = [(_PSFamilyFeatureExtractor *)self featureSet];
-  v9 = [featureSet countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v9 = [featureSet countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v9)
   {
     v10 = v9;
-    v20 = result;
-    v21 = contactCopy;
+    v19 = result;
+    v20 = contactCopy;
     v11 = 0;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(featureSet);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
-        v15 = [v7 objectForKeyedSubscript:{v14, v20, v21}];
+        v14 = *(*(&v21 + 1) + 8 * i);
+        v15 = [v7 objectForKeyedSubscript:{v14, v19, v20}];
 
         if (!v15)
         {
@@ -101,7 +101,7 @@
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v27 = v14;
+            v26 = v14;
             _os_log_debug_impl(&dword_1B5ED1000, v16, OS_LOG_TYPE_DEBUG, "feature %{public}@ not found in feature set", buf, 0xCu);
           }
 
@@ -114,22 +114,22 @@
         }
       }
 
-      v10 = [featureSet countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v10 = [featureSet countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v10);
 
     if (!v11)
     {
-      result = v20;
-      contactCopy = v21;
+      result = v19;
+      contactCopy = v20;
       goto LABEL_21;
     }
 
     featureSet = v7;
     v7 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v11];
-    result = v20;
-    contactCopy = v21;
+    result = v19;
+    contactCopy = v20;
   }
 
   else
@@ -141,7 +141,6 @@ LABEL_21:
   v17 = v7;
 
 LABEL_22:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -167,45 +166,44 @@ LABEL_22:
 
 - (id)featureInputsForContacts:(id)contacts
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   contactsCopy = contacts;
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(contactsCopy, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = contactsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
-        v13 = [(_PSFamilyFeatureExtractor *)self _featureInputForContact:v11, v18];
+        v13 = [(_PSFamilyFeatureExtractor *)self _featureInputForContact:v11, v17];
         identifier = [v11 identifier];
         [v5 setObject:v13 forKeyedSubscript:identifier];
 
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [v5 copy];
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

@@ -7,6 +7,7 @@
 - (id)_createSessionIdentifier;
 - (id)_getBulkSendSessionForSessionIdentifier:(id)identifier;
 - (id)accessory;
+- (void)_cancelSessionWithIdentifier:(id)identifier reason:(unsigned __int16)reason hadReceivedEof:(BOOL)eof;
 - (void)_closeAllSessionsWithError:(id)error;
 - (void)_handleCloseMessage:(id)message;
 - (void)_handleDataMessage:(id)message;
@@ -15,8 +16,12 @@
 - (void)_openSessionForFileType:(id)type reason:(id)reason metadata:(id)metadata queue:(id)queue callback:(id)callback;
 - (void)_pumpMessage:(id)message session:(id)session;
 - (void)_pumpReceiveFailure:(id)failure session:(id)session;
+- (void)_rejectSessionCandidate:(id)candidate status:(unsigned __int16)status;
 - (void)_removeBulkSendSessionForSessionIdentifier:(id)identifier;
 - (void)_sendAckMessageWithIdentifier:(id)identifier;
+- (void)_sendCloseMessageWithIdentifier:(id)identifier reason:(unsigned __int16)reason;
+- (void)_sendOpenResponseWithRequestHeader:(id)header bulkSendStatus:(unsigned __int16)status;
+- (void)_sendOpenResponseWithRequestHeader:(id)header payload:(id)payload status:(unsigned __int16)status;
 - (void)_sendOpenResponseWithRequestHeader:(id)header streamIdentifier:(id)identifier;
 - (void)_startSessionCandidate:(id)candidate queue:(id)queue callback:(id)callback;
 - (void)addListener:(id)listener fileType:(id)type;
@@ -52,31 +57,31 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   queue = [(HMDDataStreamBulkSendProtocol *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   pendingBulkSendSessionContextBySessionIdentifier = [(HMDDataStreamBulkSendProtocol *)self pendingBulkSendSessionContextBySessionIdentifier];
-  v7 = [pendingBulkSendSessionContextBySessionIdentifier countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v7 = [pendingBulkSendSessionContextBySessionIdentifier countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v38;
+    v9 = *v37;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v38 != v9)
+      if (*v37 != v9)
       {
         objc_enumerationMutation(pendingBulkSendSessionContextBySessionIdentifier);
       }
 
-      v11 = *(*(&v37 + 1) + 8 * v10);
+      v11 = *(*(&v36 + 1) + 8 * v10);
       pendingBulkSendSessionContextBySessionIdentifier2 = [(HMDDataStreamBulkSendProtocol *)self pendingBulkSendSessionContextBySessionIdentifier];
       v13 = [pendingBulkSendSessionContextBySessionIdentifier2 objectForKey:v11];
 
@@ -96,9 +101,9 @@ LABEL_3:
 
         v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v42 = v20;
-        v43 = 2112;
-        v44 = v16;
+        v41 = v20;
+        v42 = 2112;
+        v43 = v16;
         v21 = "%{public}@Session with identifier: %@ open request response timer has expired";
         goto LABEL_15;
       }
@@ -112,7 +117,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [pendingBulkSendSessionContextBySessionIdentifier countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v8 = [pendingBulkSendSessionContextBySessionIdentifier countByEnumeratingWithState:&v36 objects:v44 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -134,9 +139,9 @@ LABEL_3:
 
     v20 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v42 = v20;
-    v43 = 2112;
-    v44 = v16;
+    v41 = v20;
+    v42 = 2112;
+    v43 = v16;
     v21 = "%{public}@Session with identifier: %@ send event close timer has expired";
 LABEL_15:
     _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, v21, buf, 0x16u);
@@ -161,7 +166,7 @@ LABEL_16:
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v42 = v28;
+        v41 = v28;
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Skipping invoking the session start callback since handle response timer hasn't expired", buf, 0xCu);
       }
 
@@ -190,21 +195,19 @@ LABEL_21:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v32;
-      v43 = 2112;
-      v44 = 0;
+      v41 = v32;
+      v42 = 2112;
+      v43 = 0;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Could not find expired timer for session with identifier: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v29);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_openSessionForFileType:(id)type reason:(id)reason metadata:(id)metadata queue:(id)queue callback:(id)callback
 {
-  v54[4] = *MEMORY[0x277D85DE8];
+  v53[4] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   reasonCopy = reason;
   metadataCopy = metadata;
@@ -214,17 +217,17 @@ LABEL_21:
   dispatch_assert_queue_V2(queue);
 
   _createSessionIdentifier = [(HMDDataStreamBulkSendProtocol *)self _createSessionIdentifier];
-  v53[0] = @"type";
-  v53[1] = @"streamId";
-  v41 = reasonCopy;
-  v42 = typeCopy;
-  v54[0] = typeCopy;
-  v54[1] = _createSessionIdentifier;
-  v53[2] = @"target";
-  v53[3] = @"reason";
-  v54[2] = @"controller";
-  v54[3] = reasonCopy;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:4];
+  v52[0] = @"type";
+  v52[1] = @"streamId";
+  v40 = reasonCopy;
+  v41 = typeCopy;
+  v53[0] = typeCopy;
+  v53[1] = _createSessionIdentifier;
+  v52[2] = @"target";
+  v52[3] = @"reason";
+  v53[2] = @"controller";
+  v53[3] = reasonCopy;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:4];
   v20 = [v19 mutableCopy];
 
   if (metadataCopy && [metadataCopy count])
@@ -265,35 +268,33 @@ LABEL_21:
   {
     v35 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v48 = v35;
-    v49 = 2112;
-    v50 = _createSessionIdentifier;
-    v51 = 2112;
-    v52 = metadataCopy;
+    v47 = v35;
+    v48 = 2112;
+    v49 = _createSessionIdentifier;
+    v50 = 2112;
+    v51 = metadataCopy;
     _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Starting bulk session with identifier: %@ and metadata: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v32);
   dataStream = [(HMDDataStreamBulkSendProtocol *)selfCopy dataStream];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __88__HMDDataStreamBulkSendProtocol__openSessionForFileType_reason_metadata_queue_callback___block_invoke;
-  v43[3] = &unk_27972C290;
-  v43[4] = selfCopy;
-  v44 = _createSessionIdentifier;
-  v45 = queueCopy;
-  v46 = callbackCopy;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __88__HMDDataStreamBulkSendProtocol__openSessionForFileType_reason_metadata_queue_callback___block_invoke;
+  v42[3] = &unk_27972C290;
+  v42[4] = selfCopy;
+  v43 = _createSessionIdentifier;
+  v44 = queueCopy;
+  v45 = callbackCopy;
   v37 = queueCopy;
   v38 = callbackCopy;
   v39 = _createSessionIdentifier;
-  [dataStream sendRequestForProtocol:@"dataSend" topic:@"open" payload:v20 completion:v43];
-
-  v40 = *MEMORY[0x277D85DE8];
+  [dataStream sendRequestForProtocol:@"dataSend" topic:@"open" payload:v20 completion:v42];
 }
 
 void __88__HMDDataStreamBulkSendProtocol__openSessionForFileType_reason_metadata_queue_callback___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -314,11 +315,11 @@ void __88__HMDDataStreamBulkSendProtocol__openSessionForFileType_reason_metadata
       v17 = HMFGetLogIdentifier();
       v18 = *(a1 + 40);
       *buf = 138543874;
-      v61 = v17;
-      v62 = 2112;
-      v63 = v18;
-      v64 = 2112;
-      v65 = v7;
+      v60 = v17;
+      v61 = 2112;
+      v62 = v18;
+      v63 = 2112;
+      v64 = v7;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Received bulk send open response for session with identifier: %@ error: %@", buf, 0x20u);
     }
 
@@ -336,9 +337,9 @@ void __88__HMDDataStreamBulkSendProtocol__openSessionForFileType_reason_metadata
         v23 = HMFGetLogIdentifier();
         v24 = *(a1 + 40);
         *buf = 138543618;
-        v61 = v23;
-        v62 = 2112;
-        v63 = v24;
+        v60 = v23;
+        v61 = 2112;
+        v62 = v24;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Session with identifier: %@ has timed out, sending close event to accessory", buf, 0x16u);
       }
 
@@ -366,7 +367,7 @@ void __88__HMDDataStreamBulkSendProtocol__openSessionForFileType_reason_metadata
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v61 = v37;
+        v60 = v37;
         _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Could not find a status in header", buf, 0xCu);
       }
 
@@ -376,7 +377,7 @@ void __88__HMDDataStreamBulkSendProtocol__openSessionForFileType_reason_metadata
       goto LABEL_31;
     }
 
-    v59 = v28;
+    v58 = v28;
     v29 = [v28 integerValue];
     if (!v29)
     {
@@ -393,7 +394,7 @@ void __88__HMDDataStreamBulkSendProtocol__openSessionForFileType_reason_metadata
       v44 = [[HMDDataStreamBulkSendOpenSessionResult alloc] initWithSession:v31 payload:v9];
       (*(*(a1 + 56) + 16))();
 
-      v25 = v59;
+      v25 = v58;
 LABEL_31:
 
 LABEL_32:
@@ -403,7 +404,7 @@ LABEL_32:
     v30 = v29;
     v31 = [MEMORY[0x277CCA9B8] hmErrorWithCode:23];
     v32 = [v9 hmf_numberForKey:@"status"];
-    v58 = v32;
+    v57 = v32;
     if (!v32)
     {
       context = objc_autoreleasePoolPush();
@@ -414,27 +415,27 @@ LABEL_32:
         v47 = HMFGetLogIdentifier();
         v48 = HMDStringFromDataStreamMessageStatus(v30);
         *buf = 138543874;
-        v61 = v47;
-        v62 = 2112;
-        v63 = v48;
-        v64 = 2112;
-        v65 = v31;
+        v60 = v47;
+        v61 = 2112;
+        v62 = v48;
+        v63 = 2112;
+        v64 = v31;
         _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_ERROR, "%{public}@Received non-success status in header: %@, mapped error: %@", buf, 0x20u);
       }
 
-      v25 = v59;
+      v25 = v58;
       goto LABEL_30;
     }
 
-    v56 = [v32 integerValue];
-    if (v56 == 2)
+    v55 = [v32 integerValue];
+    if (v55 == 2)
     {
       v33 = 14;
     }
 
     else
     {
-      if (v56 != 9)
+      if (v55 != 9)
       {
         goto LABEL_28;
       }
@@ -449,25 +450,25 @@ LABEL_28:
     context = objc_autoreleasePoolPush();
     v45 = *(a1 + 32);
     v46 = HMFGetOSLogHandle();
-    v25 = v59;
+    v25 = v58;
     if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      v54 = HMFGetLogIdentifier();
-      v55 = v45;
+      v53 = HMFGetLogIdentifier();
+      v54 = v45;
       v50 = HMDStringFromDataStreamMessageStatus(v30);
-      v51 = HMDStringFromDataStreamBulkSendResponsePayloadStatus(v56);
+      v51 = HMDStringFromDataStreamBulkSendResponsePayloadStatus(v55);
       *buf = 138544130;
-      v61 = v54;
-      v62 = 2112;
-      v63 = v50;
-      v64 = 2112;
-      v65 = v51;
+      v60 = v53;
+      v61 = 2112;
+      v62 = v50;
+      v63 = 2112;
+      v64 = v51;
       v52 = v51;
-      v66 = 2112;
-      v67 = v31;
+      v65 = 2112;
+      v66 = v31;
       _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_ERROR, "%{public}@Received non-success status in header: %@, payload status: %@, mapped error: %@", buf, 0x2Au);
 
-      v45 = v55;
+      v45 = v54;
     }
 
 LABEL_30:
@@ -483,17 +484,15 @@ LABEL_30:
     v26 = HMFGetLogIdentifier();
     v27 = *(a1 + 40);
     *buf = 138543618;
-    v61 = v26;
-    v62 = 2112;
-    v63 = v27;
+    v60 = v26;
+    v61 = 2112;
+    v62 = v27;
     _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Could not find pending bulk send session context for session identifier: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
   [*(a1 + 32) _sendCloseMessageWithIdentifier:*(a1 + 40) reason:6];
 LABEL_33:
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openSessionForFileType:(id)type reason:(id)reason metadata:(id)metadata queue:(id)queue callback:(id)callback
@@ -524,34 +523,84 @@ LABEL_33:
 
 - (void)_sendAckMessageWithIdentifier:(id)identifier
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dataStream = [(HMDDataStreamBulkSendProtocol *)self dataStream];
   if (dataStream)
   {
-    v16[0] = @"streamId";
-    v16[1] = @"endOfStream";
-    v17[0] = identifierCopy;
-    v17[1] = MEMORY[0x277CBEC38];
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = @"streamId";
+    v15[1] = @"endOfStream";
+    v16[0] = identifierCopy;
+    v16[1] = MEMORY[0x277CBEC38];
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v7 = objc_autoreleasePoolPush();
     selfCopy = self;
     v9 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = identifierCopy;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Sending 'ack' for sid=%@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = identifierCopy;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Sending 'ack' for sid=%@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     [dataStream sendEventForProtocol:@"dataSend" topic:@"ack" payload:v6 completion:&__block_literal_global_46_124492];
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)_sendCloseMessageWithIdentifier:(id)identifier reason:(unsigned __int16)reason
+{
+  reasonCopy = reason;
+  v21[2] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  dataStream = [(HMDDataStreamBulkSendProtocol *)self dataStream];
+  if (dataStream)
+  {
+    v20[0] = @"streamId";
+    v20[1] = @"reason";
+    v21[0] = identifierCopy;
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:reasonCopy];
+    v21[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+
+    v10 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v13 = HMFGetLogIdentifier();
+      v14 = 138543874;
+      v15 = v13;
+      v16 = 2112;
+      v17 = identifierCopy;
+      v18 = 1024;
+      v19 = reasonCopy;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Sending 'close' for sid=%@ with reason %d", &v14, 0x1Cu);
+    }
+
+    objc_autoreleasePoolPop(v10);
+    [dataStream sendEventForProtocol:@"dataSend" topic:@"close" payload:v9 completion:&__block_literal_global_44_124496];
+  }
+}
+
+- (void)_cancelSessionWithIdentifier:(id)identifier reason:(unsigned __int16)reason hadReceivedEof:(BOOL)eof
+{
+  eofCopy = eof;
+  reasonCopy = reason;
+  identifierCopy = identifier;
+  [(HMDDataStreamBulkSendProtocol *)self _removeBulkSendSessionForSessionIdentifier:?];
+  if (reasonCopy || !eofCopy)
+  {
+    [(HMDDataStreamBulkSendProtocol *)self _sendCloseMessageWithIdentifier:identifierCopy reason:reasonCopy];
+  }
+
+  else
+  {
+    [(HMDDataStreamBulkSendProtocol *)self _sendAckMessageWithIdentifier:identifierCopy];
+  }
 }
 
 - (void)_pumpReceiveFailure:(id)failure session:(id)session
@@ -565,7 +614,7 @@ LABEL_33:
 
 - (void)_pumpMessage:(id)message session:(id)session
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   sessionCopy = session;
   v8 = [messageCopy objectForKeyedSubscript:@"packets"];
@@ -636,20 +685,18 @@ LABEL_15:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     v20 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v20;
-    _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Received message with no packets", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v20;
+    _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Received message with no packets", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v17);
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDataMessage:(id)message
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = [messageCopy objectForKeyedSubscript:@"streamId"];
   objc_opt_class();
@@ -681,11 +728,11 @@ LABEL_19:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543618;
-        v19 = v16;
-        v20 = 2112;
-        v21 = v7;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Data packet for streamIdentifier=%@ dropped because no session is active", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v16;
+        v19 = 2112;
+        v20 = v7;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Data packet for streamIdentifier=%@ dropped because no session is active", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -700,20 +747,18 @@ LABEL_19:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Data packet dropped because no session identifier was present", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Data packet dropped because no session identifier was present", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCloseMessage:(id)message
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = [messageCopy objectForKeyedSubscript:@"streamId"];
   objc_opt_class();
@@ -757,9 +802,9 @@ LABEL_19:
 
     v11 = MEMORY[0x277CCA9B8];
     v12 = *MEMORY[0x277CCFD28];
-    v31 = @"reason";
-    v32[0] = v10;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = @"reason";
+    v31[0] = v10;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v14 = [v11 errorWithDomain:v12 code:1054 userInfo:v13];
 
     v15 = [(HMDDataStreamBulkSendProtocol *)self _getBulkSendSessionForSessionIdentifier:v7];
@@ -772,11 +817,11 @@ LABEL_19:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v20 = HMFGetLogIdentifier();
-        v27 = 138543618;
-        v28 = v20;
-        v29 = 2112;
-        v30 = v7;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Received close packet for stream identifier: %@", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v20;
+        v28 = 2112;
+        v29 = v7;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Received close packet for stream identifier: %@", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -788,11 +833,11 @@ LABEL_19:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         v25 = HMFGetLogIdentifier();
-        v27 = 138543618;
-        v28 = v25;
-        v29 = 2112;
-        v30 = v7;
-        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Close packet for streamIdentifier=%@ dropped because no session is active", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v25;
+        v28 = 2112;
+        v29 = v7;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Close packet for streamIdentifier=%@ dropped because no session is active", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -807,20 +852,18 @@ LABEL_19:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v24;
-      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Close dropped because streamIdentifier was not included", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v24;
+      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Close dropped because streamIdentifier was not included", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleOpenWithRequestHeader:(id)header payload:(id)payload
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   headerCopy = header;
   payloadCopy = payload;
   v8 = [payloadCopy objectForKeyedSubscript:@"type"];
@@ -879,11 +922,11 @@ LABEL_19:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         v23 = HMFGetLogIdentifier();
-        v32 = 138543618;
-        v33 = v23;
-        v34 = 2112;
-        v35 = v10;
-        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Received 'open' with type=%@; passing to listener", &v32, 0x16u);
+        v31 = 138543618;
+        v32 = v23;
+        v33 = 2112;
+        v34 = v10;
+        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Received 'open' with type=%@; passing to listener", &v31, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -897,11 +940,11 @@ LABEL_19:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v30 = HMFGetLogIdentifier();
-        v32 = 138543618;
-        v33 = v30;
-        v34 = 2112;
-        v35 = v10;
-        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Received 'open' for type=%@ but no active listener accepted it", &v32, 0x16u);
+        v31 = 138543618;
+        v32 = v30;
+        v33 = 2112;
+        v34 = v10;
+        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Received 'open' for type=%@ but no active listener accepted it", &v31, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -918,20 +961,18 @@ LABEL_19:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       v29 = HMFGetLogIdentifier();
-      v32 = 138543874;
-      v33 = v29;
-      v34 = 2112;
-      v35 = v10;
-      v36 = 2112;
-      v37 = v13;
-      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Dropping 'open' because it is missing required keys (type=%@, target=%@)", &v32, 0x20u);
+      v31 = 138543874;
+      v32 = v29;
+      v33 = 2112;
+      v34 = v10;
+      v35 = 2112;
+      v36 = v13;
+      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Dropping 'open' because it is missing required keys (type=%@, target=%@)", &v31, 0x20u);
     }
 
     objc_autoreleasePoolPop(v26);
     [(HMDDataStreamBulkSendProtocol *)selfCopy2 _sendOpenResponseWithRequestHeader:headerCopy status:4];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeBulkSendSessionForSessionIdentifier:(id)identifier
@@ -950,38 +991,45 @@ LABEL_19:
   return v6;
 }
 
+- (void)_rejectSessionCandidate:(id)candidate status:(unsigned __int16)status
+{
+  statusCopy = status;
+  requestHeader = [candidate requestHeader];
+  [(HMDDataStreamBulkSendProtocol *)self _sendOpenResponseWithRequestHeader:requestHeader bulkSendStatus:statusCopy];
+}
+
 - (void)_startSessionCandidate:(id)candidate queue:(id)queue callback:(id)callback
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   queueCopy = queue;
   callbackCopy = callback;
   v11 = [(HMDDataStreamBulkSendProtocol *)self _createSessionFromCandidate:candidateCopy queue:queueCopy];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   pendingReads = [candidateCopy pendingReads];
-  v13 = [pendingReads countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v13 = [pendingReads countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v26;
+    v15 = *v25;
     do
     {
       v16 = 0;
       do
       {
-        if (*v26 != v15)
+        if (*v25 != v15)
         {
           objc_enumerationMutation(pendingReads);
         }
 
-        [(HMDDataStreamBulkSendProtocol *)self _pumpMessage:*(*(&v25 + 1) + 8 * v16++) session:v11];
+        [(HMDDataStreamBulkSendProtocol *)self _pumpMessage:*(*(&v24 + 1) + 8 * v16++) session:v11];
       }
 
       while (v14 != v16);
-      v14 = [pendingReads countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [pendingReads countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v14);
@@ -995,17 +1043,15 @@ LABEL_19:
     [(HMDDataStreamBulkSendProtocol *)self _pumpReceiveFailure:receivedFailure2 session:v11];
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __71__HMDDataStreamBulkSendProtocol__startSessionCandidate_queue_callback___block_invoke;
-  v22[3] = &unk_279735738;
-  v23 = v11;
-  v24 = callbackCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __71__HMDDataStreamBulkSendProtocol__startSessionCandidate_queue_callback___block_invoke;
+  v21[3] = &unk_279735738;
+  v22 = v11;
+  v23 = callbackCopy;
   v19 = v11;
   v20 = callbackCopy;
-  dispatch_async(queueCopy, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  dispatch_async(queueCopy, v21);
 }
 
 - (id)_createSessionIdentifier
@@ -1017,9 +1063,44 @@ LABEL_19:
   return [v3 numberWithUnsignedInt:nextSessionIdentifier];
 }
 
+- (void)_sendOpenResponseWithRequestHeader:(id)header payload:(id)payload status:(unsigned __int16)status
+{
+  statusCopy = status;
+  v23 = *MEMORY[0x277D85DE8];
+  headerCopy = header;
+  payloadCopy = payload;
+  dataStream = [(HMDDataStreamBulkSendProtocol *)self dataStream];
+  if (dataStream)
+  {
+    v11 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v13 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      v14 = HMFGetLogIdentifier();
+      v15 = HMDStringFromDataStreamMessageStatus(statusCopy);
+      *buf = 138543874;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2048;
+      v22 = statusCopy;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Sending open response with status %@ (%ld)", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v11);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __83__HMDDataStreamBulkSendProtocol__sendOpenResponseWithRequestHeader_payload_status___block_invoke;
+    v16[3] = &unk_2797359D8;
+    v16[4] = selfCopy;
+    [dataStream sendResponseForRequestHeader:headerCopy payload:payloadCopy status:statusCopy completion:v16];
+  }
+}
+
 void __83__HMDDataStreamBulkSendProtocol__sendOpenResponseWithRequestHeader_payload_status___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1030,24 +1111,24 @@ void __83__HMDDataStreamBulkSendProtocol__sendOpenResponseWithRequestHeader_payl
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Failed to send open response: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Sent open response";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -1056,26 +1137,38 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_sendOpenResponseWithRequestHeader:(id)header bulkSendStatus:(unsigned __int16)status
+{
+  statusCopy = status;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = @"status";
+  v6 = MEMORY[0x277CCABB0];
+  headerCopy = header;
+  v8 = [v6 numberWithUnsignedShort:statusCopy];
+  v11[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+
+  [(HMDDataStreamBulkSendProtocol *)self _sendOpenResponseWithRequestHeader:headerCopy payload:v9 status:6];
 }
 
 - (void)_sendOpenResponseWithRequestHeader:(id)header streamIdentifier:(id)identifier
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v11 = @"streamId";
-  v12[0] = identifier;
+  v11[1] = *MEMORY[0x277D85DE8];
+  v10 = @"streamId";
+  v11[0] = identifier;
   v6 = MEMORY[0x277CBEAC0];
   identifierCopy = identifier;
   headerCopy = header;
-  v9 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v9 = [v6 dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   [(HMDDataStreamBulkSendProtocol *)self _sendOpenResponseWithRequestHeader:headerCopy payload:v9 status:0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createSessionFromCandidate:(id)candidate queue:(id)queue
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   queueCopy = queue;
   _createSessionIdentifier = [(HMDDataStreamBulkSendProtocol *)self _createSessionIdentifier];
@@ -1089,11 +1182,11 @@ LABEL_6:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     v15 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v15;
-    v22 = 2112;
-    v23 = _createSessionIdentifier;
-    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Creating new receive session with streamIdentifier=%@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v15;
+    v21 = 2112;
+    v22 = _createSessionIdentifier;
+    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Creating new receive session with streamIdentifier=%@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -1103,14 +1196,12 @@ LABEL_6:
   requestHeader = [candidateCopy requestHeader];
   [(HMDDataStreamBulkSendProtocol *)selfCopy _sendOpenResponseWithRequestHeader:requestHeader streamIdentifier:_createSessionIdentifier];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)_createSessionCandidateWithRequestHeader:(id)header metadata:(id)metadata
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   headerCopy = header;
   metadataCopy = metadata;
   v8 = objc_autoreleasePoolPush();
@@ -1119,17 +1210,15 @@ LABEL_6:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v11;
-    v17 = 2112;
-    v18 = headerCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Creating new receive candidate session (header %@)", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v11;
+    v16 = 2112;
+    v17 = headerCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Creating new receive candidate session (header %@)", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [[HMDDataStreamBulkSendSessionCandidate alloc] initWithProtocol:selfCopy requestHeader:headerCopy metadata:metadataCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1187,7 +1276,7 @@ LABEL_6:
 
 - (void)dataStream:(id)stream didReceiveRequest:(id)request header:(id)header payload:(id)payload
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   requestCopy = request;
   headerCopy = header;
@@ -1207,23 +1296,21 @@ LABEL_6:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         v17 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v17;
-        v21 = 2112;
-        v22 = requestCopy;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@DataSend received unexpected request '%@'", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v17;
+        v20 = 2112;
+        v21 = requestCopy;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@DataSend received unexpected request '%@'", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v14);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStream:(id)stream didReceiveEvent:(id)event header:(id)header payload:(id)payload
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   eventCopy = event;
   headerCopy = header;
@@ -1242,15 +1329,15 @@ LABEL_7:
     }
 
     v17 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v17;
-    v24 = 2112;
-    v25 = eventCopy;
+    v21 = 138543618;
+    v22 = v17;
+    v23 = 2112;
+    v24 = eventCopy;
     v18 = "%{public}@BulkSend dropping message because it is not running (topic=%@).";
     v19 = v16;
     v20 = OS_LOG_TYPE_DEBUG;
 LABEL_6:
-    _os_log_impl(&dword_2531F8000, v19, v20, v18, &v22, 0x16u);
+    _os_log_impl(&dword_2531F8000, v19, v20, v18, &v21, 0x16u);
 
     goto LABEL_7;
   }
@@ -1272,10 +1359,10 @@ LABEL_6:
     }
 
     v17 = HMFGetLogIdentifier();
-    v22 = 138543618;
-    v23 = v17;
-    v24 = 2112;
-    v25 = eventCopy;
+    v21 = 138543618;
+    v22 = v17;
+    v23 = 2112;
+    v24 = eventCopy;
     v18 = "%{public}@DataSend received unexpected event '%@'";
     v19 = v16;
     v20 = OS_LOG_TYPE_INFO;
@@ -1284,13 +1371,11 @@ LABEL_6:
 
   [(HMDDataStreamBulkSendProtocol *)self _handleDataMessage:payloadCopy];
 LABEL_8:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamDidOpen:(id)open
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   openCopy = open;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1299,35 +1384,35 @@ LABEL_8:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v8;
+    v23 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@DataStream did open; connected.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDDataStreamBulkSendProtocol *)selfCopy setIsConnected:1];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   listeners = [(HMDDataStreamBulkSendProtocol *)selfCopy listeners];
   objectEnumerator = [listeners objectEnumerator];
 
-  v11 = [objectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       v14 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * v14);
+        v15 = *(*(&v17 + 1) + 8 * v14);
         if (v15)
         {
           accessory = [(HMDDataStreamBulkSendProtocol *)selfCopy accessory];
@@ -1338,18 +1423,16 @@ LABEL_8:
       }
 
       while (v12 != v14);
-      v12 = [objectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [objectEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamDidClose:(id)close
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1357,20 +1440,18 @@ LABEL_8:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@DataStream closed; cleaning up", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@DataStream closed; cleaning up", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDDataStreamBulkSendProtocol *)selfCopy _closeAllSessionsWithError:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStreamInitiatedClose:(id)close
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   closeCopy = close;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1378,18 +1459,17 @@ LABEL_8:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@DataStream initiated closing...", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@DataStream initiated closing...", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataStream:(id)stream didFailWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -1398,17 +1478,15 @@ LABEL_8:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@DataStream failed with error; cleaning up. (%@)", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@DataStream failed with error; cleaning up. (%@)", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDDataStreamBulkSendProtocol *)selfCopy _closeAllSessionsWithError:errorCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isActive
@@ -1421,7 +1499,7 @@ LABEL_8:
 
 - (void)_closeAllSessionsWithError:(id)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1433,11 +1511,11 @@ LABEL_8:
     v10 = [listeners count];
     activeBulkSendSessions = [(HMDDataStreamBulkSendProtocol *)selfCopy activeBulkSendSessions];
     *buf = 138543874;
-    v44 = v8;
-    v45 = 2048;
-    v46 = v10;
-    v47 = 2048;
-    v48 = [activeBulkSendSessions count];
+    v43 = v8;
+    v44 = 2048;
+    v45 = v10;
+    v46 = 2048;
+    v47 = [activeBulkSendSessions count];
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Session closed; removing %lu listeners and closing %lu sessions", buf, 0x20u);
   }
 
@@ -1445,9 +1523,9 @@ LABEL_8:
   [(HMDDataStreamBulkSendProtocol *)selfCopy setIsConnected:0];
   if (errorCopy)
   {
-    v41 = *MEMORY[0x277CCA7E8];
-    v42 = errorCopy;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x277CCA7E8];
+    v41 = errorCopy;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
   }
 
   else
@@ -1457,29 +1535,29 @@ LABEL_8:
 
   v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA738] code:-1005 userInfo:v12];
   accessory = [(HMDDataStreamBulkSendProtocol *)selfCopy accessory];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   activeBulkSendSessions2 = [(HMDDataStreamBulkSendProtocol *)selfCopy activeBulkSendSessions];
   objectEnumerator = [activeBulkSendSessions2 objectEnumerator];
 
-  v17 = [objectEnumerator countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v17 = [objectEnumerator countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v36;
+    v19 = *v35;
     do
     {
       v20 = 0;
       do
       {
-        if (*v36 != v19)
+        if (*v35 != v19)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v21 = *(*(&v35 + 1) + 8 * v20);
+        v21 = *(*(&v34 + 1) + 8 * v20);
         if (v21)
         {
           [v21 asyncHandleRemoteCloseWithError:v13];
@@ -1489,39 +1567,39 @@ LABEL_8:
       }
 
       while (v18 != v20);
-      v18 = [objectEnumerator countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v18 = [objectEnumerator countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v18);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   listeners2 = [(HMDDataStreamBulkSendProtocol *)selfCopy listeners];
   objectEnumerator2 = [listeners2 objectEnumerator];
 
-  v24 = [objectEnumerator2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v24 = [objectEnumerator2 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v32;
+    v26 = *v31;
     do
     {
       v27 = 0;
       do
       {
-        if (*v32 != v26)
+        if (*v31 != v26)
         {
           objc_enumerationMutation(objectEnumerator2);
         }
 
-        [*(*(&v31 + 1) + 8 * v27++) accessory:accessory didCloseDataStreamWithError:errorCopy];
+        [*(*(&v30 + 1) + 8 * v27++) accessory:accessory didCloseDataStreamWithError:errorCopy];
       }
 
       while (v25 != v27);
-      v25 = [objectEnumerator2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v25 = [objectEnumerator2 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v25);
@@ -1532,13 +1610,11 @@ LABEL_8:
 
   activeBulkSendSessions3 = [(HMDDataStreamBulkSendProtocol *)selfCopy activeBulkSendSessions];
   [activeBulkSendSessions3 removeAllObjects];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyActiveStatusChangedFromPreviousValue:(BOOL)value
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(HMDDataStreamBulkSendProtocol *)self isActive]!= value)
   {
     v4 = objc_autoreleasePoolPush();
@@ -1549,48 +1625,46 @@ LABEL_8:
       v7 = HMFGetLogIdentifier();
       [(HMDDataStreamBulkSendProtocol *)selfCopy isActive];
       v8 = HMFBooleanToString();
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@BulkSend protocol changes active to %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@BulkSend protocol changes active to %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     dataStream = [(HMDDataStreamBulkSendProtocol *)selfCopy dataStream];
     [dataStream protocolDidUpdateActiveStatus:selfCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeListener:(id)listener
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   isActive = [(HMDDataStreamBulkSendProtocol *)self isActive];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   listeners = [(HMDDataStreamBulkSendProtocol *)self listeners];
   keyEnumerator = [listeners keyEnumerator];
 
-  v8 = [keyEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(keyEnumerator);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         listeners2 = [(HMDDataStreamBulkSendProtocol *)self listeners];
         v14 = [listeners2 objectForKey:v12];
 
@@ -1603,7 +1677,7 @@ LABEL_8:
         }
       }
 
-      v9 = [keyEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [keyEnumerator countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -1619,12 +1693,11 @@ LABEL_11:
   [listenerCopy accessory:accessory didCloseDataStreamWithError:0];
 
   [(HMDDataStreamBulkSendProtocol *)self _notifyActiveStatusChangedFromPreviousValue:isActive];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addListener:(id)listener fileType:(id)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   typeCopy = type;
   isActive = [(HMDDataStreamBulkSendProtocol *)self isActive];
@@ -1640,11 +1713,11 @@ LABEL_11:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = typeCopy;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Rejecting BulkSend registration for file type %@; handler already exists", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = typeCopy;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Rejecting BulkSend registration for file type %@; handler already exists", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -1663,8 +1736,6 @@ LABEL_11:
 
     [(HMDDataStreamBulkSendProtocol *)self _notifyActiveStatusChangedFromPreviousValue:isActive];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDataStreamBulkSendProtocol)initWithQueue:(id)queue accessory:(id)accessory logIdentifier:(id)identifier bulkSendSessionContextFactory:(id)factory
@@ -1699,7 +1770,7 @@ LABEL_11:
     pendingBulkSendSessionContextBySessionIdentifier = v16->_pendingBulkSendSessionContextBySessionIdentifier;
     v16->_pendingBulkSendSessionContextBySessionIdentifier = v23;
 
-    v25 = [identifierCopy copy];
+    v25 = objc_msgSend_copy(identifierCopy);
     logIdentifier = v16->_logIdentifier;
     v16->_logIdentifier = v25;
   }

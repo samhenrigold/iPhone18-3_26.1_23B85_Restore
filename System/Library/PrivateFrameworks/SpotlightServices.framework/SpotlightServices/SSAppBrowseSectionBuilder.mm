@@ -42,44 +42,42 @@ uint64_t __68__SSAppBrowseSectionBuilder_updateBundleIdToOnenessBundleIdMapping_
 
 + (id)appSectionWithTitle:(id)title identifier:(id)identifier style:(int)style appIdentities:(id)identities
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   titleCopy = title;
   identifierCopy = identifier;
   identitiesCopy = identities;
   v12 = objc_opt_new();
   _bundleIdToOnenessBundleId = [self _bundleIdToOnenessBundleId];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v14 = identitiesCopy;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [self _resultForAppIdentity:*(*(&v24 + 1) + 8 * i) bundleIdToOnenessBundleIdMapping:_bundleIdToOnenessBundleId];
+        v19 = [self _resultForAppIdentity:*(*(&v23 + 1) + 8 * i) bundleIdToOnenessBundleIdMapping:_bundleIdToOnenessBundleId];
         [v12 addObject:v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v16);
   }
 
   v20 = [self sectionWithTitle:titleCopy identifier:identifierCopy style:style results:v12];
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

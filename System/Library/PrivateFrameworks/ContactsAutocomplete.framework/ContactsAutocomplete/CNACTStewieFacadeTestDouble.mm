@@ -30,14 +30,12 @@
 
 - (id)terms
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   numbers = self->_numbers;
-  v7[0] = self->_phrases;
-  v7[1] = numbers;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = self->_phrases;
+  v6[1] = numbers;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   _cn_flatten = [v3 _cn_flatten];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return _cn_flatten;
 }

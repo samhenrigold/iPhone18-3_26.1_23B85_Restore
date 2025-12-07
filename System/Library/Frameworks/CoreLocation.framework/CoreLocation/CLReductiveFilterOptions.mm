@@ -6,10 +6,10 @@
 
 - (CLReductiveFilterOptions)initWithBeaconType:(unint64_t)type transmitPower:(double)power
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = CLReductiveFilterOptions;
-  v6 = [(CLReductiveFilterOptions *)&v14 init];
+  v24 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = CLReductiveFilterOptions;
+  v6 = [(CLReductiveFilterOptions *)&v13 init];
   v7 = v6;
   if (v6)
   {
@@ -26,15 +26,15 @@
       if (os_log_type_enabled(qword_1EAFE4770, OS_LOG_TYPE_FAULT))
       {
         *buf = 68289794;
-        v16 = 0;
-        v17 = 2082;
-        v18 = "";
-        v19 = 2050;
+        v15 = 0;
+        v16 = 2082;
+        v17 = "";
+        v18 = 2050;
         powerCopy2 = power;
-        v21 = 2050;
-        v22 = 0x4010000000000000;
-        v23 = 2050;
-        v24 = 0x4034000000000000;
+        v20 = 2050;
+        v21 = 0x4010000000000000;
+        v22 = 2050;
+        v23 = 0x4034000000000000;
         _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:transmitPower: invalid range of transmit power, transmitPower_dBm:%{public}.6f, min.TransmitPower_dBm:%{public}.6f, max.TransmitPower_dBm:%{public}.6f}", buf, 0x30u);
         if (qword_1EAFE4768 != -1)
         {
@@ -46,15 +46,15 @@
       if (os_signpost_enabled(qword_1EAFE4770))
       {
         *buf = 68289794;
-        v16 = 0;
-        v17 = 2082;
-        v18 = "";
-        v19 = 2050;
+        v15 = 0;
+        v16 = 2082;
+        v17 = "";
+        v18 = 2050;
         powerCopy2 = power;
-        v21 = 2050;
-        v22 = 0x4010000000000000;
-        v23 = 2050;
-        v24 = 0x4034000000000000;
+        v20 = 2050;
+        v21 = 0x4010000000000000;
+        v22 = 2050;
+        v23 = 0x4034000000000000;
         _os_signpost_emit_with_name_impl(&dword_19B873000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "transmitPower: invalid range of transmit power", "{msg%{public}.0s:transmitPower: invalid range of transmit power, transmitPower_dBm:%{public}.6f, min.TransmitPower_dBm:%{public}.6f, max.TransmitPower_dBm:%{public}.6f}", buf, 0x30u);
       }
 
@@ -70,7 +70,6 @@
     v7->_transmitPower = power;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

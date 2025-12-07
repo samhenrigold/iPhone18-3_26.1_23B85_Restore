@@ -109,23 +109,23 @@ uint64_t __37__BTServicesClient__ensureXPCStarted__block_invoke_2(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __30__BTServicesClient_invalidate__block_invoke(uint64_t result)
+void *__30__BTServicesClient_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 8) & 1) == 0)
   {
     v3 = result;
     *(v2 + 8) = 1;
-    if ((*(*(result + 32) + 9) & 1) == 0 && gLogCategory_BTServicesClient <= 30 && (gLogCategory_BTServicesClient != -1 || _LogCategory_Initialize()))
+    if ((*(result[4] + 9) & 1) == 0 && gLogCategory_BTServicesClient <= 30 && (gLogCategory_BTServicesClient != -1 || _LogCategory_Initialize()))
     {
       __30__BTServicesClient_invalidate__block_invoke_cold_1();
     }
 
-    v4 = *(v3 + 32);
+    v4 = v3[4];
     if (v4[2])
     {
       [v4[2] invalidate];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     return [v4 _invalidated];

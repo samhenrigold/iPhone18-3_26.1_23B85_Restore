@@ -248,14 +248,14 @@
 {
   insensitiveCopy = insensitive;
   senseCopy = sense;
-  v98[1] = *MEMORY[0x1E69E9840];
+  v100[1] = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   hypTokensCopy = hypTokens;
   symbolCopy = symbol;
   completionCopy = completion;
-  v97 = tokensCopy;
+  v99 = tokensCopy;
   v15 = [tokensCopy count];
-  v96 = hypTokensCopy;
+  v98 = hypTokensCopy;
   v16 = [hypTokensCopy count];
   if (!v15 || (v17 = v16) == 0)
   {
@@ -266,7 +266,7 @@ LABEL_11:
 
   for (i = 0; i != v15; ++i)
   {
-    v19 = [v97 objectAtIndexedSubscript:i];
+    v19 = [v99 objectAtIndexedSubscript:i];
 
     if (v19 == symbolCopy)
     {
@@ -277,7 +277,7 @@ LABEL_11:
   v20 = 0;
   do
   {
-    v21 = [v96 objectAtIndexedSubscript:v20];
+    v21 = [v98 objectAtIndexedSubscript:v20];
 
     if (v21 == symbolCopy)
     {
@@ -288,262 +288,262 @@ LABEL_11:
   }
 
   while (v17 != v20);
-  v88 = v15;
-  v98[0] = 0;
-  v22 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"\\\\\\S*$" options:0 error:v98];
-  v23 = v22;
-  if (v98[0])
+  v90 = v15;
+  v100[0] = 0;
+  v22 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"\\\\\\S*$" options:0 error:v100];
+  v25 = v22;
+  if (v100[0])
   {
     (*(completionCopy + 2))(completionCopy, &unk_1F2D54200, 0, 0);
     goto LABEL_67;
   }
 
-  v82[1] = v82;
-  MEMORY[0x1EEE9AC00](v22);
-  v25 = v82 - v24;
-  v26 = 0;
-  v89 = v27;
-  v90 = v25;
-  if (v27 > 1)
+  v84[1] = v84;
+  MEMORY[0x1EEE9AC00](v22, v23, v24);
+  v27 = v84 - v26;
+  v28 = 0;
+  v91 = v29;
+  v92 = v27;
+  if (v29 > 1)
   {
-    v28 = v17 + 1;
+    v30 = v17 + 1;
   }
 
   else
   {
-    v28 = 1;
+    v30 = 1;
   }
 
-  v29 = (v28 + 1) & 0xFFFFFFFFFFFFFFFELL;
-  v30 = vdupq_n_s64(v28 - 1);
-  v31 = v25 + 8;
-  v32 = xmmword_1B5AE0060;
-  v33 = vdupq_n_s64(2uLL);
+  v31 = (v30 + 1) & 0xFFFFFFFFFFFFFFFELL;
+  v32 = vdupq_n_s64(v30 - 1);
+  v33 = v27 + 8;
+  v34 = xmmword_1B5AE0060;
+  v35 = vdupq_n_s64(2uLL);
   do
   {
-    v34 = vmovn_s64(vcgeq_u64(v30, v32));
-    if (v34.i8[0])
+    v36 = vmovn_s64(vcgeq_u64(v32, v34));
+    if (v36.i8[0])
     {
-      *(v31 - 1) = v26;
+      *(v33 - 1) = v28;
     }
 
-    if (v34.i8[4])
+    if (v36.i8[4])
     {
-      *v31 = v26 + 1;
+      *v33 = v28 + 1;
     }
 
-    v26 += 2;
-    v32 = vaddq_s64(v32, v33);
-    v31 += 2;
+    v28 += 2;
+    v34 = vaddq_s64(v34, v35);
+    v33 += 2;
   }
 
-  while (v29 != v26);
-  v83 = completionCopy;
-  v85 = symbolCopy;
-  v35 = &v90[8 * v17 + 16];
-  v87 = 8 * v17 + 8;
-  v36 = (v90 + 8);
-  v37 = 1;
+  while (v31 != v28);
+  v85 = completionCopy;
+  v87 = symbolCopy;
+  v37 = &v92[8 * v17 + 16];
+  v89 = 8 * v17 + 8;
+  v38 = (v92 + 8);
+  v39 = 1;
   do
   {
-    v38 = v37 - 1;
-    v39 = *&v90[8 * (v37 - 1) * v89] + 1;
-    v91 = v37;
-    v92 = v36;
-    *&v90[8 * v37 * v89] = v39;
-    v93 = v35;
-    v40 = 1;
+    v40 = v39 - 1;
+    v41 = *&v92[8 * (v39 - 1) * v91] + 1;
+    v93 = v39;
+    v94 = v38;
+    *&v92[8 * v39 * v91] = v41;
+    v95 = v37;
+    v42 = 1;
     do
     {
-      v41 = [v96 objectAtIndexedSubscript:v40 - 1];
-      v42 = [v97 objectAtIndexedSubscript:v38];
+      v43 = [v98 objectAtIndexedSubscript:v42 - 1];
+      v44 = [v99 objectAtIndexedSubscript:v40];
       if (insensitiveCopy)
       {
-        lowercaseString = [v41 lowercaseString];
+        lowercaseString = [v43 lowercaseString];
 
-        lowercaseString2 = [v42 lowercaseString];
+        lowercaseString2 = [v44 lowercaseString];
 
-        v42 = lowercaseString2;
-        v41 = lowercaseString;
+        v44 = lowercaseString2;
+        v43 = lowercaseString;
       }
 
       if (senseCopy)
       {
-        v45 = [v23 stringByReplacingMatchesInString:v41 options:0 range:0 withTemplate:{objc_msgSend(v41, "length"), &stru_1F2D44B60}];
+        v47 = [v25 stringByReplacingMatchesInString:v43 options:0 range:0 withTemplate:{objc_msgSend(v43, "length"), &stru_1F2D44B60}];
 
-        v46 = [v23 stringByReplacingMatchesInString:v42 options:0 range:0 withTemplate:{objc_msgSend(v42, "length"), &stru_1F2D44B60}];
+        v48 = [v25 stringByReplacingMatchesInString:v44 options:0 range:0 withTemplate:{objc_msgSend(v44, "length"), &stru_1F2D44B60}];
 
-        v42 = v46;
-        v41 = v45;
+        v44 = v48;
+        v43 = v47;
       }
 
-      v47 = *(v36 - 1);
-      v48 = v47 + ([v41 isEqualToString:v42] ^ 1);
-      v49 = *v36++;
-      v50 = v49 + 1;
-      v51 = *(v35 - 1);
-      if (v49 + 1 >= v51 + 1)
+      v49 = *(v38 - 1);
+      v50 = v49 + ([v43 isEqualToString:v44] ^ 1);
+      v51 = *v38++;
+      v52 = v51 + 1;
+      v53 = *(v37 - 1);
+      if (v51 + 1 >= v53 + 1)
       {
-        v50 = v51 + 1;
+        v52 = v53 + 1;
       }
 
-      if (v48 >= v50)
+      if (v50 >= v52)
       {
-        v48 = v50;
+        v50 = v52;
       }
 
-      *v35 = v48;
-      v35 += 8;
+      *v37 = v50;
+      v37 += 8;
 
-      ++v40;
+      ++v42;
     }
 
-    while (v40 <= v17);
-    v37 = v91 + 1;
-    v35 = &v93[v87];
-    v36 = (v92 + v87);
+    while (v42 <= v17);
+    v39 = v93 + 1;
+    v37 = &v95[v89];
+    v38 = (v94 + v89);
   }
 
-  while (v91 + 1 <= v88);
-  v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v93 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v53 = v88;
-  v54 = v17;
-  symbolCopy = v85;
-  v55 = v52;
-  v84 = v52;
+  while (v93 + 1 <= v90);
+  v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v95 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v55 = v90;
+  v56 = v17;
+  symbolCopy = v87;
+  v57 = v54;
+  v86 = v54;
   do
   {
-    if (v53)
+    if (v55)
     {
-      if (!v54)
+      if (!v56)
       {
-        v64 = 0;
-        v63 = v53 - 1;
+        v66 = 0;
+        v65 = v55 - 1;
         goto LABEL_61;
       }
 
-      v91 = v54 - 1;
-      v56 = [v96 objectAtIndexedSubscript:?];
-      v57 = v53 - 1;
-      v58 = [v97 objectAtIndexedSubscript:v53 - 1];
-      v92 = v53;
+      v93 = v56 - 1;
+      v58 = [v98 objectAtIndexedSubscript:?];
+      v59 = v55 - 1;
+      v60 = [v99 objectAtIndexedSubscript:v55 - 1];
+      v94 = v55;
       if (insensitiveCopy)
       {
-        lowercaseString3 = [v56 lowercaseString];
+        lowercaseString3 = [v58 lowercaseString];
 
-        lowercaseString4 = [v58 lowercaseString];
+        lowercaseString4 = [v60 lowercaseString];
 
-        v56 = lowercaseString3;
-        v58 = lowercaseString4;
+        v58 = lowercaseString3;
+        v60 = lowercaseString4;
       }
 
       if (senseCopy)
       {
-        v61 = [v23 stringByReplacingMatchesInString:v56 options:0 range:0 withTemplate:{objc_msgSend(v56, "length"), &stru_1F2D44B60}];
+        v63 = [v25 stringByReplacingMatchesInString:v58 options:0 range:0 withTemplate:{objc_msgSend(v58, "length"), &stru_1F2D44B60}];
 
-        v62 = [v23 stringByReplacingMatchesInString:v58 options:0 range:0 withTemplate:{objc_msgSend(v58, "length"), &stru_1F2D44B60}];
+        v64 = [v25 stringByReplacingMatchesInString:v60 options:0 range:0 withTemplate:{objc_msgSend(v60, "length"), &stru_1F2D44B60}];
 
-        v56 = v61;
+        v58 = v63;
       }
 
       else
       {
-        v62 = v58;
+        v64 = v60;
       }
 
-      v65 = v89;
-      v66 = v90;
-      v67 = &v90[8 * v57 * v89];
-      v87 = v57;
-      v68 = v91;
-      v86 = *&v67[8 * v91];
-      v69 = [v56 isEqualToString:v62];
-      v70 = *&v67[8 * v54];
-      v53 = v92;
-      v71 = *&v66[8 * v92 * v65 + 8 * v68];
-      v72 = v70 + 1;
-      if (v70 + 1 >= v71 + 1)
+      v67 = v91;
+      v68 = v92;
+      v69 = &v92[8 * v59 * v91];
+      v89 = v59;
+      v70 = v93;
+      v88 = *&v69[8 * v93];
+      v71 = [v58 isEqualToString:v64];
+      v72 = *&v69[8 * v56];
+      v55 = v94;
+      v73 = *&v68[8 * v94 * v67 + 8 * v70];
+      v74 = v72 + 1;
+      if (v72 + 1 >= v73 + 1)
       {
-        v72 = v71 + 1;
+        v74 = v73 + 1;
       }
 
-      v73 = v70 <= v71;
-      if (v70 <= v71)
+      v75 = v72 <= v73;
+      if (v72 <= v73)
       {
-        v74 = v54;
+        v76 = v56;
       }
 
       else
       {
-        v74 = v68;
+        v76 = v70;
       }
 
-      v75 = v86 + (v69 ^ 1u);
-      if (v73 || v75 <= v72)
+      v77 = v88 + (v71 ^ 1u);
+      if (v75 || v77 <= v74)
       {
-        v63 = v87;
+        v65 = v89;
       }
 
       else
       {
-        v63 = v92;
+        v65 = v94;
       }
 
-      if (v75 <= v72)
+      if (v77 <= v74)
       {
-        v64 = v68;
+        v66 = v70;
       }
 
       else
       {
-        v64 = v74;
+        v66 = v76;
       }
 
-      v55 = v84;
-      symbolCopy = v85;
+      v57 = v86;
+      symbolCopy = v87;
     }
 
     else
     {
-      v63 = 0;
-      v64 = v54 - 1;
+      v65 = 0;
+      v66 = v56 - 1;
     }
 
-    if (v63 == v53)
+    if (v65 == v55)
     {
-      v77 = symbolCopy;
+      v79 = symbolCopy;
       goto LABEL_62;
     }
 
 LABEL_61:
-    v77 = [v97 objectAtIndexedSubscript:v63];
-    v53 = v63;
+    v79 = [v99 objectAtIndexedSubscript:v65];
+    v55 = v65;
 LABEL_62:
-    if (v64 == v54)
+    if (v66 == v56)
     {
-      v78 = symbolCopy;
+      v80 = symbolCopy;
     }
 
     else
     {
-      v78 = [v96 objectAtIndexedSubscript:v64];
+      v80 = [v98 objectAtIndexedSubscript:v66];
     }
 
-    v79 = v78;
-    [v55 addObject:v77];
-    [v93 addObject:v79];
+    v81 = v80;
+    [v57 addObject:v79];
+    [v95 addObject:v81];
 
-    v54 = v64;
+    v56 = v66;
   }
 
-  while (v53 | v64);
-  ReverseArray(v55);
-  v80 = v93;
-  ReverseArray(v93);
-  v81 = [MEMORY[0x1E696AD98] numberWithInteger:*&v90[8 * v89 * v88 + 8 * v17]];
-  completionCopy = v83;
-  v83[2](v83, v81, v55, v80);
+  while (v55 | v66);
+  ReverseArray(v57);
+  v82 = v95;
+  ReverseArray(v95);
+  v83 = [MEMORY[0x1E696AD98] numberWithInteger:*&v92[8 * v91 * v90 + 8 * v17]];
+  completionCopy = v85;
+  v85[2](v85, v83, v57, v82);
 
 LABEL_67:
 LABEL_12:

@@ -47,7 +47,7 @@
 
 - (id)fetchOtherGuestAccessCodesInHome:(id)home
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = +[_MKFGuestAccessCode fetchRequest];
   homeCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@)", @"home", homeCopy];
@@ -56,16 +56,16 @@
   v9 = [v7 predicateWithFormat:@"(%K != %@)", @"modelID", modelID];
 
   v10 = MEMORY[0x277CCA920];
-  v27[0] = homeCopy;
-  v27[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = homeCopy;
+  v26[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   v12 = [v10 andPredicateWithSubpredicates:v11];
   [v5 setPredicate:v12];
 
   managedObjectContext = [(_MKFHomeAccessCode *)self managedObjectContext];
-  v22 = 0;
-  v14 = [managedObjectContext executeFetchRequest:v5 error:&v22];
-  v15 = v22;
+  v21 = 0;
+  v14 = [managedObjectContext executeFetchRequest:v5 error:&v21];
+  v15 = v21;
 
   if (v15)
   {
@@ -76,23 +76,21 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v15;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v15;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch the guest accessCodes : %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)fetchOtherGuestUserAccessCodesInHome:(id)home
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = +[_MKFUserAccessCode fetchRequest];
   homeCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K.%K == %@)", @"guest", @"home", homeCopy];
@@ -101,16 +99,16 @@
   v9 = [v7 predicateWithFormat:@"(%K != %@)", @"modelID", modelID];
 
   v10 = MEMORY[0x277CCA920];
-  v27[0] = homeCopy;
-  v27[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = homeCopy;
+  v26[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   v12 = [v10 andPredicateWithSubpredicates:v11];
   [v5 setPredicate:v12];
 
   managedObjectContext = [(_MKFHomeAccessCode *)self managedObjectContext];
-  v22 = 0;
-  v14 = [managedObjectContext executeFetchRequest:v5 error:&v22];
-  v15 = v22;
+  v21 = 0;
+  v14 = [managedObjectContext executeFetchRequest:v5 error:&v21];
+  v15 = v21;
 
   if (v15)
   {
@@ -121,23 +119,21 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v15;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v15;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch the accessCodes for guest: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)fetchOtherUserAccessCodesInHome:(id)home
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = +[_MKFUserAccessCode fetchRequest];
   homeCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K.%K == %@)", @"user", @"home", homeCopy];
@@ -146,16 +142,16 @@
   v9 = [v7 predicateWithFormat:@"(%K != %@)", @"modelID", modelID];
 
   v10 = MEMORY[0x277CCA920];
-  v27[0] = homeCopy;
-  v27[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v26[0] = homeCopy;
+  v26[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
   v12 = [v10 andPredicateWithSubpredicates:v11];
   [v5 setPredicate:v12];
 
   managedObjectContext = [(_MKFHomeAccessCode *)self managedObjectContext];
-  v22 = 0;
-  v14 = [managedObjectContext executeFetchRequest:v5 error:&v22];
-  v15 = v22;
+  v21 = 0;
+  v14 = [managedObjectContext executeFetchRequest:v5 error:&v21];
+  v15 = v21;
 
   if (v15)
   {
@@ -166,16 +162,14 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = v15;
+      v23 = v19;
+      v24 = 2112;
+      v25 = v15;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch the accessCodes for user: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -252,7 +246,7 @@ LABEL_16:
 
 - (BOOL)validateAccessCodeForInsertOrUpdate:(id *)update
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -260,7 +254,7 @@ LABEL_16:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v45 = v8;
+    v44 = v8;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Validating access code for insert or update", buf, 0xCu);
   }
 
@@ -274,14 +268,12 @@ LABEL_16:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v22;
+      v44 = v22;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Validation failed in the super class", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
-LABEL_14:
-    v18 = 0;
-    goto LABEL_29;
+    return 0;
   }
 
   if (update)
@@ -301,7 +293,7 @@ LABEL_14:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v26;
+      v44 = v26;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Validation failed because the access code has zero length", buf, 0xCu);
     }
 
@@ -310,10 +302,10 @@ LABEL_14:
     {
       [MEMORY[0x277CCA9B8] hmd_validationErrorWithDescription:@"Access code must not be empty."];
       *update = v18 = 0;
-      goto LABEL_29;
+      return v18;
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   entity = [(_MKFHomeAccessCode *)selfCopy entity];
@@ -329,12 +321,12 @@ LABEL_14:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v17;
+      v44 = v17;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Not enforcing value uniqueness on access code because it is a RemovedUserAccessCode", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
-    v18 = 1;
+    return 1;
   }
 
   else
@@ -365,9 +357,9 @@ LABEL_14:
         v39 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
-          v42 = HMFGetLogIdentifier();
+          v41 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v45 = v42;
+          v44 = v41;
           _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@Validation failed because the access code conflicts with an existing access code", buf, 0xCu);
         }
 
@@ -382,8 +374,6 @@ LABEL_14:
     }
   }
 
-LABEL_29:
-  v40 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

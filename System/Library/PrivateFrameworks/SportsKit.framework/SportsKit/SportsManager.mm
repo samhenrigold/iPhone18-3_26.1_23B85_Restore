@@ -18,7 +18,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_26B66CD88();
+  sub_26B66CD88(delegate);
 }
 
 - (int64_t)activitiesCount

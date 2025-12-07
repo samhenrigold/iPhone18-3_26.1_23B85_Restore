@@ -1,12 +1,13 @@
-double geo::Pool<ggl::CommandBuffer>::construct<unsigned char &,char const*&>(uint64_t a1, char *a2, const char **a3)
+double geo::Pool<ggl::CommandBuffer>::construct<unsigned char &,char const*&>(uint64_t *a1, char *a2, const char **a3)
 {
-  v6 = *(a1 + 40);
+  v6 = a1[5];
   if (!v6)
   {
-    v7 = malloc_type_malloc(360 * *(a1 + 24), 0x10F204007069000uLL);
-    std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v7);
-    v6 = *(a1 + 40);
-    v8 = &v7[45 * *(a1 + 24) - 45];
+    v7 = malloc_type_malloc(360 * a1[3], 0x10F204007069000uLL);
+    v12 = v7;
+    std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v7, &v12);
+    v6 = a1[5];
+    v8 = &v7[45 * a1[3] - 45];
     if (v8 >= v7)
     {
       do
@@ -20,10 +21,10 @@ double geo::Pool<ggl::CommandBuffer>::construct<unsigned char &,char const*&>(ui
       v6 = (v8 + 45);
     }
 
-    *(a1 + 40) = v6;
+    a1[5] = v6;
   }
 
-  *(a1 + 40) = *v6;
+  a1[5] = *v6;
   v9 = *a2;
   v10 = *a3;
 
@@ -251,15 +252,16 @@ uint64_t std::__function::__value_func<void ()(md::ls::UniqueMaterialData const&
   return a1;
 }
 
-void geo::Pool<ggl::RenderQueue>::construct<unsigned long &>(uint64_t a1, unint64_t *a2)
+void geo::Pool<ggl::RenderQueue>::construct<unsigned long &>(uint64_t *a1, unint64_t *a2)
 {
-  v4 = *(a1 + 40);
+  v4 = a1[5];
   if (!v4)
   {
-    v5 = malloc_type_malloc(312 * *(a1 + 24), 0x10B2040CAC010F5uLL);
-    std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v5);
-    v4 = *(a1 + 40);
-    v6 = &v5[39 * *(a1 + 24) - 39];
+    v5 = malloc_type_malloc(312 * a1[3], 0x10B2040CAC010F5uLL);
+    v8 = v5;
+    std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v5, &v8);
+    v4 = a1[5];
+    v6 = &v5[39 * a1[3] - 39];
     if (v6 >= v5)
     {
       do
@@ -273,10 +275,10 @@ void geo::Pool<ggl::RenderQueue>::construct<unsigned long &>(uint64_t a1, unint6
       v4 = (v6 + 39);
     }
 
-    *(a1 + 40) = v4;
+    a1[5] = v4;
   }
 
-  *(a1 + 40) = *v4;
+  a1[5] = *v4;
   v7 = *a2;
 
   ggl::RenderQueue::RenderQueue(v4, v7);
@@ -311,27 +313,28 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::FinishedProcessingShadow>(ui
   return result;
 }
 
-uint64_t geo::Pool<md::RenderQueueBase>::allocateSlab(uint64_t a1)
+uint64_t *geo::Pool<md::RenderQueueBase>::allocateSlab(uint64_t *a1)
 {
-  v2 = malloc_type_malloc(40 * *(a1 + 24), 0xA2040546F02A0uLL);
-  result = std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v2);
-  v4 = *(a1 + 40);
-  v5 = &v2[40 * *(a1 + 24) - 40];
+  v2 = malloc_type_malloc(40 * a1[3], 0xA2040546F02A0uLL);
+  v7 = v2;
+  result = std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v2, &v7);
+  v4 = a1[5];
+  v5 = &v2[5 * a1[3] - 5];
   if (v5 >= v2)
   {
     do
     {
       v6 = v5;
       *v5 = v4;
-      v5 -= 40;
+      v5 -= 5;
       v4 = v6;
     }
 
     while (v5 >= v2);
-    v4 = v5 + 40;
+    v4 = (v5 + 5);
   }
 
-  *(a1 + 40) = v4;
+  a1[5] = v4;
   return result;
 }
 
@@ -380,135 +383,135 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::PendingProcessingShadow>(uin
   return result;
 }
 
-void *md::ita::CollectFlyoverMeshRenderables::operator()(uint64_t **a1)
+void *md::ita::CollectFlyoverMeshRenderables::operator()(uint64_t **a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v24 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_5;
     }
 
-    while (*v4 != 0x22D45F5AAD4BF408)
+    while (*v5 != 0x22D45F5AAD4BF408)
     {
-      v4 += 5;
-      if (v4 == v5)
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_5;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_5:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v6 = v4[4];
-      if (v6)
+      v3 = v5[3];
+      v7 = v5[4];
+      if (v7)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v7);
       }
     }
 
-    a1[1] = v2;
+    a1[1] = v3;
   }
 
-  v7 = (**v2)(v2);
-  v22 = md::LayoutContext::get<md::MeshRenderableContext>(*(v7 + 8));
-  v8 = a1[2];
-  if (!v8)
+  v8 = (**v3)(v3, a2);
+  v23 = md::LayoutContext::get<md::MeshRenderableContext>(*(v8 + 8));
+  v9 = a1[2];
+  if (!v9)
   {
-    v9 = **a1;
-    v10 = *v9;
-    v11 = *(v9 + 8);
-    if (v10 == v11)
+    v10 = **a1;
+    v11 = *v10;
+    v12 = *(v10 + 8);
+    if (v11 == v12)
     {
       goto LABEL_14;
     }
 
-    while (*v10 != 0x41D4E9297E100630)
+    while (*v11 != 0x41D4E9297E100630)
     {
-      v10 += 5;
-      if (v10 == v11)
+      v11 += 5;
+      if (v11 == v12)
       {
         goto LABEL_14;
       }
     }
 
-    if (v10 == v11)
+    if (v11 == v12)
     {
 LABEL_14:
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v8 = v10[3];
-      v12 = v10[4];
-      if (v12)
+      v9 = v11[3];
+      v13 = v11[4];
+      if (v13)
       {
-        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v13);
       }
     }
 
-    a1[2] = v8;
+    a1[2] = v9;
   }
 
-  v21 = v8;
-  v13 = a1[3];
-  if (!v13)
+  v22 = v9;
+  v14 = a1[3];
+  if (!v14)
   {
-    v14 = **a1;
-    v15 = *v14;
-    v16 = *(v14 + 8);
-    if (v15 == v16)
+    v15 = **a1;
+    v16 = *v15;
+    v17 = *(v15 + 8);
+    if (v16 == v17)
     {
       goto LABEL_23;
     }
 
-    while (*v15 != 0x348A0B0E758C07C2)
+    while (*v16 != 0x348A0B0E758C07C2)
     {
-      v15 += 5;
-      if (v15 == v16)
+      v16 += 5;
+      if (v16 == v17)
       {
         goto LABEL_23;
       }
     }
 
-    if (v15 == v16)
+    if (v16 == v17)
     {
 LABEL_23:
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v13 = v15[3];
-      v17 = v15[4];
-      if (v17)
+      v14 = v16[3];
+      v18 = v16[4];
+      if (v18)
       {
-        atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v17);
+        atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v18);
       }
     }
 
-    a1[3] = v13;
+    a1[3] = v14;
   }
 
-  v20 = v13;
-  result = md::LayoutContext::get<md::FlyoverCompleteTileDataContext>(*(v7 + 8));
-  v19 = result;
+  v21 = v14;
+  result = md::LayoutContext::get<md::FlyoverCompleteTileDataContext>(*(v8 + 8));
+  v20 = result;
   if (result)
   {
     operator new();
@@ -560,145 +563,145 @@ LABEL_5:
   }
 
   v7 = (*(*v2 + 8))(v2);
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  [v7 standardCommandBufferSelector];
+  objc_msgSend_standardCommandBufferSelector(v7);
   if (v16)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16);
@@ -754,8 +757,8 @@ LABEL_62:
       gdc::Camera::cameraFrame(v15);
     }
 
-    [v7 standardCommandBufferSelector];
-    [v7 standardCommandBufferSelector];
+    objc_msgSend_standardCommandBufferSelector(v7);
+    objc_msgSend_standardCommandBufferSelector(v7);
     operator new();
   }
 }
@@ -952,7 +955,7 @@ uint64_t md::ita::PrepareMainSliceWithCulled::operator()(uint64_t **a1, uint64_t
   v4 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
   LODWORD(v51[0]) = 7;
   v53[0] = v51;
-  v5 = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 1555, 7u);
+  v5 = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 1555, 7u, v53);
   v51[0] = &unk_1F29EB880;
   v51[1] = a1;
   v51[2] = v5 + 3;
@@ -971,7 +974,7 @@ uint64_t md::ita::PrepareMainSliceWithCulled::operator()(uint64_t **a1, uint64_t
   v53[3] = v10;
   do
   {
-    if (*(v53[v11] + 40) - *(v53[v11] + 32) < *(v12 + 40) - *(v12 + 32))
+    if (*(v53[v11] + 5) - *(v53[v11] + 4) < *(v12 + 5) - *(v12 + 4))
     {
       v12 = v53[v11];
       v13 = &v53[v11];
@@ -981,8 +984,8 @@ uint64_t md::ita::PrepareMainSliceWithCulled::operator()(uint64_t **a1, uint64_t
   }
 
   while (v11 != 4);
-  v15 = *(*v13 + 32);
-  v14 = *(*v13 + 40);
+  v15 = *(*v13 + 4);
+  v14 = *(*v13 + 5);
   v45 = v15;
   v46 = v14;
   v47 = v7;
@@ -1018,14 +1021,14 @@ uint64_t md::ita::PrepareMainSliceWithCulled::operator()(uint64_t **a1, uint64_t
       v25 = v16[1];
       v26 = (v25 >> 3) & 0x1FF8;
       v27 = v25 & 0x3F;
-      v28 = *(*(*(v17 + 8) + v26) + 4 * v27 + 2);
-      v29 = *(*(v17 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(*(*(v18 + 8) + v26) + 4 * v27 + 2);
-      v31 = *(*(v18 + 56) + ((v30 >> 3) & 0x1FF8));
-      v32 = *(v19 + 32);
-      v33 = *(*(*(v19 + 8) + v26) + 4 * v27 + 2);
-      v34 = *(v20 + 32);
-      v35 = *(*(*(v20 + 8) + v26) + 4 * v27 + 2);
+      v28 = *(*(*(v17 + 1) + v26) + 4 * v27 + 2);
+      v29 = *(*(v17 + 7) + ((v28 >> 3) & 0x1FF8));
+      v30 = *(*(*(v18 + 1) + v26) + 4 * v27 + 2);
+      v31 = *(*(v18 + 7) + ((v30 >> 3) & 0x1FF8));
+      v32 = *(v19 + 4);
+      v33 = *(*(*(v19 + 1) + v26) + 4 * v27 + 2);
+      v34 = *(v20 + 4);
+      v35 = *(*(*(v20 + 1) + v26) + 4 * v27 + 2);
       *(v21 + 104 * *v22 + 24) = *v16;
       if (!v52)
       {
@@ -1252,46 +1255,48 @@ void ecs2::BasicRegistry<void>::remove<md::ls::FrameGraphBuilder>(uint64_t a1, u
   *(a1 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::FrameGraphBuilder>(void)::metadata) = *(a1 + 4096);
 }
 
-uint64_t geo::Pool<md::FrameGraphRenderPass>::allocateSlab(uint64_t a1)
+uint64_t *geo::Pool<md::FrameGraphRenderPass>::allocateSlab(uint64_t *a1)
 {
-  v2 = malloc_type_malloc(240 * *(a1 + 24), 0x10320400C302FE2uLL);
-  result = std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v2);
-  v4 = *(a1 + 40);
-  v5 = &v2[240 * *(a1 + 24) - 240];
+  v2 = malloc_type_malloc(240 * a1[3], 0x10320400C302FE2uLL);
+  v7 = v2;
+  result = std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v2, &v7);
+  v4 = a1[5];
+  v5 = &v2[30 * a1[3] - 30];
   if (v5 >= v2)
   {
     do
     {
       v6 = v5;
       *v5 = v4;
-      v5 -= 240;
+      v5 -= 30;
       v4 = v6;
     }
 
     while (v5 >= v2);
-    v4 = v5 + 240;
+    v4 = (v5 + 30);
   }
 
-  *(a1 + 40) = v4;
+  a1[5] = v4;
   return result;
 }
 
 uint64_t md::ita::PrepareCulledDepthPrePassSlice::operator()(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v6 = ecs2::ExecutionTask<md::PassListProvider *,md::LayoutContextProvider *>::service<md::PassListProvider>(a1);
   v7 = *((*(*v6 + 16))(v6) + 24);
   v8 = ecs2::ExecutionTask<md::PassListProvider *,md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
-  LODWORD(v65) = 5;
-  v9 = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v8 + 1555, 5u);
+  LODWORD(v68) = 5;
+  *&v64 = &v68;
+  v9 = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v8 + 1555, 5u, &v64);
   result = md::FrameGraph::renderQueueForPass(*(v7 + 8), 3);
   if (result)
   {
     v11 = v9 + 3;
-    v68 = &unk_1F2A33A18;
-    v69 = a1;
-    v70 = v9 + 3;
-    v71 = &v68;
+    v71 = &unk_1F2A33A18;
+    v72 = a1;
+    v73 = v9 + 3;
+    v74 = &v71;
     v12 = *(a2 + 8);
     v13 = ecs2::BasicRegistry<void>::storage<md::ls::VisibilityGroupID>(v12);
     v14 = ecs2::BasicRegistry<void>::storage<md::ls::SliceAssignmentT<(md::SliceType)1>>(v12);
@@ -1307,17 +1312,20 @@ uint64_t md::ita::PrepareCulledDepthPrePassSlice::operator()(uint64_t **a1, uint
     }
 
     v17 = *(v16 + 40);
-    ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(&v65, *(v16 + 32), v17, v13, v14);
-    ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(v64, v17, v17, v13, v15);
-    v18 = v65;
-    v19 = v64[0];
-    if (v65 != v64[0])
+    ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(&v68, *(v16 + 32), v17, v13, v14);
+    ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(v67, v17, v17, v13, v15);
+    v18 = v68;
+    v66 = v70;
+    v64 = v68;
+    v65 = v69;
+    v19 = v67[0];
+    if (v68 != v67[0])
     {
-      v20 = v67;
+      v20 = v69;
       v21 = _ZTWN4ecs27Runtime11_localStateE();
       v22 = _ZTWN4ecs27Runtime11_stackIndexE();
       v23 = 0;
-      v24 = v66;
+      v24 = *(&v68 + 1);
       while (1)
       {
         v25 = v18[1];
@@ -1328,24 +1336,24 @@ uint64_t md::ita::PrepareCulledDepthPrePassSlice::operator()(uint64_t **a1, uint
         v30 = *(*(&v20 + 1) + 32);
         v31 = *(*(*(*(&v20 + 1) + 8) + v27) + 4 * v26 + 2);
         *(v21 + 104 * *v22 + 24) = *v18;
-        if (!v71)
+        if (!v74)
         {
           break;
         }
 
-        (*(*v71 + 6))(v71, v29 + 16 * (v28 & 0x3F), v30 + 4 * v31);
+        (*(*v74 + 6))(v74, v29 + 16 * (v28 & 0x3F), v30 + 4 * v31);
         ++v23;
         v32 = v18 + 2;
         do
         {
           v18 = v32;
-          v65 = v32;
+          *&v68 = v32;
           if (v32 == v24)
           {
             break;
           }
 
-          v33 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::RenderableMaterialData const>(&v65, *v32, v32[1]);
+          v33 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::RenderableMaterialData const>(&v68, *v32, v32[1]);
           v32 = v18 + 2;
         }
 
@@ -1377,11 +1385,11 @@ LABEL_14:
       *v37 = 0;
     }
 
-    std::__function::__value_func<void ()(md::ls::VisibilityGroupID const&,md::ls::SliceAssignmentT<(md::SliceType)1> const&)>::~__value_func[abi:nn200100](&v68);
-    v68 = &unk_1F2A33B10;
-    v69 = a1;
-    v70 = v11;
-    v71 = &v68;
+    std::__function::__value_func<void ()(md::ls::VisibilityGroupID const&,md::ls::SliceAssignmentT<(md::SliceType)1> const&)>::~__value_func[abi:nn200100](&v71);
+    v71 = &unk_1F2A33B10;
+    v72 = a1;
+    v73 = v11;
+    v74 = &v71;
     v39 = *(a3 + 8);
     v40 = ecs2::BasicRegistry<void>::storage<md::ls::VisibilityGroupID>(v39);
     v41 = ecs2::BasicRegistry<void>::storage<md::ls::SliceAssignmentT<(md::SliceType)8>>(v39);
@@ -1397,15 +1405,18 @@ LABEL_14:
     }
 
     v44 = *(v43 + 40);
-    ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(&v65, *(v43 + 32), v44, v40, v41);
-    ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(v64, v44, v44, v40, v42);
-    v45 = v65;
-    v46 = v64[0];
-    if (v65 != v64[0])
+    ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(&v68, *(v43 + 32), v44, v40, v41);
+    ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::ViewIterator(v67, v44, v44, v40, v42);
+    v45 = v68;
+    v66 = v70;
+    v64 = v68;
+    v65 = v69;
+    v46 = v67[0];
+    if (v68 != v67[0])
     {
       v47 = 0;
-      v48 = v67;
-      v49 = v66;
+      v48 = v69;
+      v49 = *(&v68 + 1);
       while (1)
       {
         v50 = v45[1];
@@ -1416,24 +1427,24 @@ LABEL_14:
         v55 = *(*(&v48 + 1) + 32);
         v56 = *(*(*(*(&v48 + 1) + 8) + v52) + 4 * v51 + 2);
         *(v21 + 104 * *v22 + 24) = *v45;
-        if (!v71)
+        if (!v74)
         {
           goto LABEL_32;
         }
 
-        (*(*v71 + 6))(v71, v54 + 16 * (v53 & 0x3F), v55 + 4 * v56);
+        (*(*v74 + 6))(v74, v54 + 16 * (v53 & 0x3F), v55 + 4 * v56);
         ++v47;
         v57 = v45 + 2;
         do
         {
           v45 = v57;
-          v65 = v57;
+          *&v68 = v57;
           if (v57 == v49)
           {
             break;
           }
 
-          v58 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::RenderableMaterialData const>(&v65, *v57, v57[1]);
+          v58 = ecs2::ViewIterator<void,std::tuple<md::ls::InView const&,md::ls::RenderableMaterialData const&>,std::tuple<>>::containsAll<md::ls::InView const,md::ls::RenderableMaterialData const>(&v68, *v57, v57[1]);
           v57 = v45 + 2;
         }
 
@@ -1460,7 +1471,7 @@ LABEL_28:
       *v62 = 0;
     }
 
-    return std::__function::__value_func<void ()(md::ls::VisibilityGroupID const&,md::ls::SliceAssignmentT<(md::SliceType)8> const&)>::~__value_func[abi:nn200100](&v68);
+    return std::__function::__value_func<void ()(md::ls::VisibilityGroupID const&,md::ls::SliceAssignmentT<(md::SliceType)8> const&)>::~__value_func[abi:nn200100](&v71);
   }
 
   return result;
@@ -1734,20 +1745,27 @@ uint64_t ecs2::BasicRegistry<void>::storage<md::ls::MarkForEntityDeletion>(uint6
   return result;
 }
 
-void md::ita::CreateTileClearRenderItemsForShadowPass::operator()(uint64_t **a1)
+void md::ita::CreateTileClearRenderItemsForShadowPass::operator()(uint64_t **a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
-  v2 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a1);
-  v6 = v2;
-  if (!*((*(*v2 + 48))(v2) + 2856))
+  v9 = *MEMORY[0x1E69E9840];
+  v8 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
+  v3 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a1);
+  v7 = v3;
+  if (!*((*(*v3 + 48))(v3) + 2856))
   {
-    v3 = (*(*v2 + 48))(v2);
-    md::DaVinciGroundRenderResources::buildShadowPlane(v3);
+    v4 = (*(*v3 + 48))(v3);
+    md::DaVinciGroundRenderResources::buildShadowPlane(v4);
   }
 
-  v4 = 0;
+  v5 = 0;
   operator new();
+}
+
+void sub_1B2A6C19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  std::__function::__value_func<void ()(md::ls::EnteringView const&,md::ls::SupportsShadows const&,md::ls::AssociationTileHandle const&,md::ls::BaseMapTileHandle const&,md::ls::TileViewConstantDataHandle const&,md::ls::TileTransformConstantDataHandle const&,md::ls::TileMatrix const&,md::ls::TileShadowConstantDataHandle const&)>::~__value_func[abi:nn200100](va);
+  _Unwind_Resume(a1);
 }
 
 uint64_t ecs2::BasicRegistry<void>::clear<md::ls::RampMaterialData>(uint64_t a1)
@@ -1928,9 +1946,9 @@ LABEL_21:
   return result;
 }
 
-void sub_1B2A6C60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B2A6C60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(md::ls::MeshRenderableID const&,md::ls::InView const&,md::ls::IntendedSceneLayer const&,md::ls::CheckIfRequiresDepthPeel const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -2064,7 +2082,7 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::RampMaterial
   }
 }
 
-uint64_t ecs2::Runtime::_entities<md::ita::PrepareCommandBuffers,md::ls::CommandBufferDescriptionCreation const&>(uint64_t a1, uint64_t **a2)
+char *ecs2::Runtime::_entities<md::ita::PrepareCommandBuffers,md::ls::CommandBufferDescriptionCreation const&>(uint64_t a1, uint64_t **a2)
 {
   v42 = *MEMORY[0x1E69E9840];
   v3 = ecs2::BasicRegistry<void>::storage<md::ls::CommandBufferDescriptionCreation>(a1);
@@ -2171,7 +2189,7 @@ LABEL_20:
       result = md::FrameGraph::renderQueueForPass(*(*(v21 + 24) + 8), *v20);
       if (result)
       {
-        v23 = *(*(result + 16) + 8 * v20[1]);
+        v23 = *(*(result + 2) + 8 * v20[1]);
         if (v23)
         {
           v24 = v20[2];
@@ -2553,7 +2571,7 @@ char *ecs2::Runtime::_entities<md::ita::PrepareTileElevatedStrokeDataHandle,md::
       v18 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a2);
       v38 = 1065353216;
       v39 = 0;
-      v19 = std::__hash_table<std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,std::__unordered_map_hasher<md::ElevatedStrokeCacheKey,std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,md::ElevatedStrokeCacheKeyHasher,std::equal_to<md::ElevatedStrokeCacheKey>,true>,std::__unordered_map_equal<md::ElevatedStrokeCacheKey,std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,std::equal_to<md::ElevatedStrokeCacheKey>,md::ElevatedStrokeCacheKeyHasher,true>,std::allocator<std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>>>::find<md::ElevatedStrokeCacheKey>(v18 + 1357, &v38);
+      v19 = std::__hash_table<std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,std::__unordered_map_hasher<md::ElevatedStrokeCacheKey,std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,md::ElevatedStrokeCacheKeyHasher,std::equal_to<md::ElevatedStrokeCacheKey>,true>,std::__unordered_map_equal<md::ElevatedStrokeCacheKey,std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,std::equal_to<md::ElevatedStrokeCacheKey>,md::ElevatedStrokeCacheKeyHasher,true>,std::allocator<std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>>>::find<md::ElevatedStrokeCacheKey>(&v18[1357], &v38);
       if (!v19 || (v20 = v19[4]) == 0)
       {
         v20 = md::VKMRenderResourcesStore::createConstantDataHandle<ggl::DaVinci::ElevatedStroke,md::ElevatedStrokeCacheKey>(v18, &v38);
@@ -3101,61 +3119,61 @@ LABEL_24:
   }
 }
 
-uint64_t *md::ita::PrepareCulledShadowSlice::operator()(uint64_t **a1)
+uint64_t *md::ita::PrepareCulledShadowSlice::operator()(uint64_t **a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
-  v11 = v2;
-  v3 = a1[2];
-  if (!v3)
+  v14[5] = *MEMORY[0x1E69E9840];
+  v3 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
+  v12 = v3;
+  v4 = a1[2];
+  if (!v4)
   {
-    v4 = **a1;
-    v5 = *v4;
-    v6 = *(v4 + 8);
-    if (v5 == v6)
+    v5 = **a1;
+    v6 = *v5;
+    v7 = *(v5 + 8);
+    if (v6 == v7)
     {
       goto LABEL_3;
     }
 
-    while (*v5 != 0x22D45F5AAD4BF408)
+    while (*v6 != 0x22D45F5AAD4BF408)
     {
-      v3 = 0;
-      v5 += 5;
-      if (v5 == v6)
+      v4 = 0;
+      v6 += 5;
+      if (v6 == v7)
       {
         goto LABEL_6;
       }
     }
 
-    if (v5 == v6)
+    if (v6 == v7)
     {
 LABEL_3:
-      v3 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v3 = v5[3];
-      v10 = v5[4];
-      if (v10)
+      v4 = v6[3];
+      v11 = v6[4];
+      if (v11)
       {
-        atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v11);
       }
     }
 
 LABEL_6:
-    a1[2] = v3;
+    a1[2] = v4;
   }
 
-  v7 = (**v3)(v3);
-  v8 = md::LayoutContext::get<md::LightingLogicContext>(*(v7 + 8));
-  v12 = 4;
-  v13 = &v12;
-  result = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v2 + 1555, 4u);
-  if (v8)
+  v8 = (**v4)(v4);
+  v9 = md::LayoutContext::get<md::LightingLogicContext>(*(v8 + 8));
+  v13 = 4;
+  v14[0] = &v13;
+  result = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v3 + 1555, 4u, v14);
+  if (v9)
   {
-    if ((*(v8 + 261) & 1) == 0)
+    if ((*(v9 + 261) & 1) == 0)
     {
       operator new();
     }
@@ -3227,203 +3245,203 @@ uint64_t std::__function::__value_func<void ()(md::ls::RegisterHandle const&,md:
   return a1;
 }
 
-void *md::ita::CollectDaVinciMeshRenderables::operator()(uint64_t **a1)
+void *md::ita::CollectDaVinciMeshRenderables::operator()(uint64_t **a1, uint64_t a2)
 {
-  v38[23] = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v39[23] = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_5;
     }
 
-    while (*v4 != 0x22D45F5AAD4BF408)
+    while (*v5 != 0x22D45F5AAD4BF408)
     {
-      v4 += 5;
-      if (v4 == v5)
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_5;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_5:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v6 = v4[4];
-      if (v6)
+      v3 = v5[3];
+      v7 = v5[4];
+      if (v7)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v7);
       }
     }
 
-    a1[1] = v2;
+    a1[1] = v3;
   }
 
-  v7 = (**v2)(v2);
-  v36 = v7;
-  v35 = md::LayoutContext::get<md::MeshRenderableContext>(*(v7 + 8));
-  v8 = a1[2];
-  if (!v8)
+  v8 = (**v3)(v3, a2);
+  v37 = v8;
+  v36 = md::LayoutContext::get<md::MeshRenderableContext>(*(v8 + 8));
+  v9 = a1[2];
+  if (!v9)
   {
-    v9 = **a1;
-    v10 = *v9;
-    v11 = *(v9 + 8);
-    if (v10 == v11)
+    v10 = **a1;
+    v11 = *v10;
+    v12 = *(v10 + 8);
+    if (v11 == v12)
     {
       goto LABEL_14;
     }
 
-    while (*v10 != 0x4EDAD23DFB014132)
+    while (*v11 != 0x4EDAD23DFB014132)
     {
-      v10 += 5;
-      if (v10 == v11)
+      v11 += 5;
+      if (v11 == v12)
       {
         goto LABEL_14;
       }
     }
 
-    if (v10 == v11)
+    if (v11 == v12)
     {
 LABEL_14:
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v8 = v10[3];
-      v12 = v10[4];
-      if (v12)
+      v9 = v11[3];
+      v13 = v11[4];
+      if (v13)
       {
-        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v12);
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v13);
       }
     }
 
-    a1[2] = v8;
+    a1[2] = v9;
   }
 
-  v34 = v8;
-  v13 = a1[3];
-  if (!v13)
+  v35 = v9;
+  v14 = a1[3];
+  if (!v14)
   {
-    v14 = **a1;
-    v15 = *v14;
-    v16 = *(v14 + 8);
-    if (v15 == v16)
+    v15 = **a1;
+    v16 = *v15;
+    v17 = *(v15 + 8);
+    if (v16 == v17)
     {
       goto LABEL_23;
     }
 
-    while (*v15 != 0x41D4E9297E100630)
+    while (*v16 != 0x41D4E9297E100630)
     {
-      v15 += 5;
-      if (v15 == v16)
+      v16 += 5;
+      if (v16 == v17)
       {
         goto LABEL_23;
       }
     }
 
-    if (v15 == v16)
+    if (v16 == v17)
     {
 LABEL_23:
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v13 = v15[3];
-      v17 = v15[4];
-      if (v17)
+      v14 = v16[3];
+      v18 = v16[4];
+      if (v18)
       {
-        atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v17);
+        atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v18);
       }
     }
 
-    a1[3] = v13;
+    a1[3] = v14;
   }
 
-  v33 = v13;
-  v18 = a1[4];
-  if (!v18)
+  v34 = v14;
+  v19 = a1[4];
+  if (!v19)
   {
-    v19 = **a1;
-    v20 = *v19;
-    v21 = *(v19 + 8);
-    if (v20 == v21)
+    v20 = **a1;
+    v21 = *v20;
+    v22 = *(v20 + 8);
+    if (v21 == v22)
     {
       goto LABEL_32;
     }
 
-    while (*v20 != 0x348A0B0E758C07C2)
+    while (*v21 != 0x348A0B0E758C07C2)
     {
-      v20 += 5;
-      if (v20 == v21)
+      v21 += 5;
+      if (v21 == v22)
       {
         goto LABEL_32;
       }
     }
 
-    if (v20 == v21)
+    if (v21 == v22)
     {
 LABEL_32:
-      v18 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v18 = v20[3];
-      v22 = v20[4];
-      if (v22)
+      v19 = v21[3];
+      v23 = v21[4];
+      if (v23)
       {
-        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v22);
+        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v23);
       }
     }
 
-    a1[4] = v18;
+    a1[4] = v19;
   }
 
-  v32 = v18;
-  v23 = +[VKDebugSettings sharedSettings];
-  md::TerrainDebugOptions::TerrainDebugOptions(v31, v23);
+  v33 = v19;
+  v24 = +[VKDebugSettings sharedSettings];
+  md::TerrainDebugOptions::TerrainDebugOptions(v32, v24);
 
-  v24 = *(v7 + 8);
-  result = md::LayoutContext::get<md::MaterialContext>(v24);
+  v25 = *(v8 + 8);
+  result = md::LayoutContext::get<md::MaterialContext>(v25);
   if (result)
   {
-    v26 = md::LayoutContext::get<md::CameraContext>(v24);
-    v27 = md::LayoutContext::get<md::ElevationContext>(v24);
-    v30 = gdc::ToCoordinateSystem(*(v26 + 3784));
-    if (*(v27 + 4) <= 0.01)
+    v27 = md::LayoutContext::get<md::CameraContext>(v25);
+    v28 = md::LayoutContext::get<md::ElevationContext>(v25);
+    v31 = gdc::ToCoordinateSystem(*(v27 + 3784));
+    if (*(v28 + 4) <= 0.01)
     {
-      v28 = *(v27 + 3);
+      v29 = *(v28 + 3);
     }
 
     else
     {
-      v28 = 0;
+      v29 = 0;
     }
 
-    v29 = v28 & 1;
+    v30 = v29 & 1;
+    v39[0] = &unk_1F2A40BB0;
+    v39[1] = filterRenderableCount;
+    v39[3] = v39;
+    v38[3] = v38;
     v38[0] = &unk_1F2A40BB0;
     v38[1] = filterRenderableCount;
-    v38[3] = v38;
-    v37[3] = v37;
-    v37[0] = &unk_1F2A40BB0;
-    v37[1] = filterRenderableCount;
-    std::__function::__value_func<BOOL ()(md::ls::RenderablesCount const&)>::~__value_func[abi:nn200100](v38);
+    std::__function::__value_func<BOOL ()(md::ls::RenderablesCount const&)>::~__value_func[abi:nn200100](v39);
     operator new();
   }
 
@@ -3525,7 +3543,7 @@ LABEL_14:
   if (v14)
   {
     v15 = (*(*v26 + 8))(v26);
-    [v15 standardCommandBufferSelector];
+    objc_msgSend_standardCommandBufferSelector(v15);
     v16 = *(v27[1] + 248);
     if (v28)
     {
@@ -3637,67 +3655,67 @@ uint64_t ecs2::BasicRegistry<void>::clear<md::ls::SliceAssignmentT<(md::SliceTyp
   return result;
 }
 
-void *md::ita::PrepareStyleConstantDataHandleForMercatorTilesInFlat::operator()(uint64_t **a1)
+void *md::ita::PrepareStyleConstantDataHandleForMercatorTilesInFlat::operator()(uint64_t **a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v19 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
-  v2 = a1[2];
-  if (!v2)
+  v21 = *MEMORY[0x1E69E9840];
+  v20 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
+  v3 = a1[2];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_3;
     }
 
-    while (*v4 != 0x22D45F5AAD4BF408)
+    while (*v5 != 0x22D45F5AAD4BF408)
     {
-      v2 = 0;
-      v4 += 5;
-      if (v4 == v5)
+      v3 = 0;
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_6;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_3:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v16 = v4[4];
-      if (v16)
+      v3 = v5[3];
+      v17 = v5[4];
+      if (v17)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v16);
+        atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v17);
       }
     }
 
 LABEL_6:
-    a1[2] = v2;
+    a1[2] = v3;
   }
 
-  v6 = *((**v2)(v2) + 8);
-  result = md::LayoutContext::get<md::LightingLogicContext>(v6);
+  v7 = *((**v3)(v3) + 8);
+  result = md::LayoutContext::get<md::LightingLogicContext>(v7);
   if (result)
   {
-    v8 = result;
-    v9 = md::LayoutContext::get<md::ElevationContext>(v6);
+    v9 = result;
+    v10 = md::LayoutContext::get<md::ElevationContext>(v7);
     for (i = 0; i != 4; ++i)
     {
-      _D0 = v8[i + 20];
+      _D0 = v9[i + 20];
       __asm { FCVT            H0, D0 }
 
-      v18[i] = _D0;
+      v19[i] = _D0;
     }
 
-    v17 = 1.0 / v9[3];
+    v18 = 1.0 / v10[3];
     operator new();
   }
 
@@ -3836,9 +3854,9 @@ LABEL_19:
   return std::__function::__value_func<void ()(md::ls::UniqueMaterialData const&,md::ls::UniqueGradientMaskDataHandle const&,md::ls::MaterialPendingProcessing const&)>::~__value_func[abi:nn200100](v49);
 }
 
-void sub_1B2A70190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B2A70190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__function::__value_func<void ()(md::ls::UniqueMaterialData const&,md::ls::UniqueGradientMaskDataHandle const&,md::ls::MaterialPendingProcessing const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -4171,7 +4189,7 @@ uint64_t md::ita::PrepareMainSlice::operator()(uint64_t **a1, uint64_t a2)
   v4 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
   LODWORD(v51[0]) = 7;
   v53[0] = v51;
-  v5 = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 1555, 7u);
+  v5 = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 1555, 7u, v53);
   v51[0] = &unk_1F29EB7C8;
   v51[1] = a1;
   v51[2] = v5 + 3;
@@ -4190,7 +4208,7 @@ uint64_t md::ita::PrepareMainSlice::operator()(uint64_t **a1, uint64_t a2)
   v53[3] = v10;
   do
   {
-    if (*(v53[v11] + 40) - *(v53[v11] + 32) < *(v12 + 40) - *(v12 + 32))
+    if (*(v53[v11] + 5) - *(v53[v11] + 4) < *(v12 + 5) - *(v12 + 4))
     {
       v12 = v53[v11];
       v13 = &v53[v11];
@@ -4200,8 +4218,8 @@ uint64_t md::ita::PrepareMainSlice::operator()(uint64_t **a1, uint64_t a2)
   }
 
   while (v11 != 4);
-  v15 = *(*v13 + 32);
-  v14 = *(*v13 + 40);
+  v15 = *(*v13 + 4);
+  v14 = *(*v13 + 5);
   v45 = v15;
   v46 = v14;
   v47 = v7;
@@ -4237,14 +4255,14 @@ uint64_t md::ita::PrepareMainSlice::operator()(uint64_t **a1, uint64_t a2)
       v25 = v16[1];
       v26 = (v25 >> 3) & 0x1FF8;
       v27 = v25 & 0x3F;
-      v28 = *(*(*(v17 + 8) + v26) + 4 * v27 + 2);
-      v29 = *(*(v17 + 56) + ((v28 >> 3) & 0x1FF8));
-      v30 = *(*(*(v18 + 8) + v26) + 4 * v27 + 2);
-      v31 = *(*(v18 + 56) + ((v30 >> 3) & 0x1FF8));
-      v32 = *(v19 + 32);
-      v33 = *(*(*(v19 + 8) + v26) + 4 * v27 + 2);
-      v34 = *(v20 + 32);
-      v35 = *(*(*(v20 + 8) + v26) + 4 * v27 + 2);
+      v28 = *(*(*(v17 + 1) + v26) + 4 * v27 + 2);
+      v29 = *(*(v17 + 7) + ((v28 >> 3) & 0x1FF8));
+      v30 = *(*(*(v18 + 1) + v26) + 4 * v27 + 2);
+      v31 = *(*(v18 + 7) + ((v30 >> 3) & 0x1FF8));
+      v32 = *(v19 + 4);
+      v33 = *(*(*(v19 + 1) + v26) + 4 * v27 + 2);
+      v34 = *(v20 + 4);
+      v35 = *(*(*(v20 + 1) + v26) + 4 * v27 + 2);
       *(v21 + 104 * *v22 + 24) = *v16;
       if (!v52)
       {
@@ -4746,6 +4764,13 @@ LABEL_41:
   }
 }
 
+void sub_1B2A71E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  std::__function::__value_func<void ()(md::ls::MeshRenderableID const&,md::ls::SliceAssignmentT<(md::SliceType)0> const&,md::ls::SharedRenderableDataHandle const&,md::ls::MeshRenderableBounds const&,md::BoundData &)>::~__value_func[abi:nn200100](va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t ecs2::BasicRegistry<void>::storage<md::ls::SliceAssignmentT<(md::SliceType)4>>(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
@@ -4963,7 +4988,7 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignm
   }
 }
 
-uint64_t md::RenderLayerProviderWrapper::getCommandBuffer(void *a1)
+unint64_t md::RenderLayerProviderWrapper::getCommandBuffer(void *a1)
 {
   result = (*(*a1 + 24))(a1);
   if (result)
@@ -5075,25 +5100,25 @@ uint64_t ecs2::BasicRegistry<void>::clear<md::ls::SliceAssignmentT<(md::SliceTyp
   return result;
 }
 
-void md::ita::ResolveMaterialEmissiveTexture::operator()(uint64_t **a1)
+void md::ita::ResolveMaterialEmissiveTexture::operator()(uint64_t **a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v2 = ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
-    a1[1] = v2;
+    v3 = ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
+    a1[1] = v3;
   }
 
-  v3 = (**v2)(v2);
-  v4 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a1);
-  v5 = md::LayoutContext::get<md::CameraContext>(*(v3 + 1));
-  v10 = fmaxf(*(v5 + 3080) + *(v5 + 3076), 1.0);
-  v9 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *,md::MaterialResourceStore *,mre::GGLResourceStore *>::service<md::MaterialResourceStore>(a1);
-  v8 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *,md::MaterialResourceStore *,mre::GGLResourceStore *>::service<mre::GGLResourceStore>(a1);
-  (*(*v4 + 48))(v4);
-  md::LayoutContext::frameState(v3);
-  v7 = *(v6 + 624);
+  v4 = (**v3)(v3, a2);
+  v5 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *>::service<md::RenderLayerProvider>(a1);
+  v6 = md::LayoutContext::get<md::CameraContext>(*(v4 + 1));
+  v11 = fmaxf(*(v6 + 3080) + *(v6 + 3076), 1.0);
+  v10 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *,md::MaterialResourceStore *,mre::GGLResourceStore *>::service<md::MaterialResourceStore>(a1);
+  v9 = ecs2::ExecutionTask<md::LayoutContextProvider *,md::RenderLayerProvider *,md::MaterialResourceStore *,mre::GGLResourceStore *>::service<mre::GGLResourceStore>(a1);
+  (*(*v5 + 48))(v5);
+  md::LayoutContext::frameState(v4);
+  v8 = *(v7 + 624);
   operator new();
 }
 
@@ -5169,63 +5194,63 @@ uint64_t ecs2::BasicRegistry<void>::clear<md::ls::SliceAssignmentT<(md::SliceTyp
   return result;
 }
 
-float md::ita::ProcessRenderableForStyleGroundOcclusion::operator()(uint64_t **a1)
+float md::ita::ProcessRenderableForStyleGroundOcclusion::operator()(uint64_t **a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v15 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
-  v2 = a1[2];
-  if (!v2)
+  v17 = *MEMORY[0x1E69E9840];
+  v16 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a1);
+  v3 = a1[2];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_3;
     }
 
-    while (*v4 != 0x22D45F5AAD4BF408)
+    while (*v5 != 0x22D45F5AAD4BF408)
     {
-      v2 = 0;
-      v4 += 5;
-      if (v4 == v5)
+      v3 = 0;
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_6;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_3:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v10 = v4[4];
-      if (v10)
+      v3 = v5[3];
+      v11 = v5[4];
+      if (v11)
       {
-        atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v11);
       }
     }
 
 LABEL_6:
-    a1[2] = v2;
+    a1[2] = v3;
   }
 
-  v6 = *((**v2)(v2) + 8);
-  v14 = md::LayoutContext::get<md::CameraContext>(v6);
-  v13 = fmaxf(*(v14 + 3080) + *(v14 + 3076), 1.0);
-  v7 = md::LayoutContext::get<md::LightingLogicContext>(v6);
-  if (v7)
+  v7 = *((**v3)(v3) + 8);
+  v15 = md::LayoutContext::get<md::CameraContext>(v7);
+  v14 = fmaxf(*(v15 + 3080) + *(v15 + 3076), 1.0);
+  v8 = md::LayoutContext::get<md::LightingLogicContext>(v7);
+  if (v8)
   {
-    v9 = *(v7 + 258);
-    result = v7[58];
-    v11 = *(v7 + 57);
-    v12 = result;
-    if (v9 == 1 && result >= 0.001)
+    v10 = *(v8 + 258);
+    result = v8[58];
+    v12 = *(v8 + 57);
+    v13 = result;
+    if (v10 == 1 && result >= 0.001)
     {
       operator new();
     }
@@ -5234,9 +5259,9 @@ LABEL_6:
   return result;
 }
 
-void sub_1B2A735E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B2A735E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::__function::__value_func<void ()(md::ls::MeshRenderableID const&,md::ls::UnitsPerMeter const&,md::ls::InView const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5251,26 +5276,27 @@ void ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::SliceAssignm
   }
 }
 
-uint64_t geo::Pool<ggl::RenderTarget>::allocateSlab(uint64_t a1)
+uint64_t *geo::Pool<ggl::RenderTarget>::allocateSlab(uint64_t *a1)
 {
-  v2 = malloc_type_malloc(352 * *(a1 + 24), 0x10F20402D49FE93uLL);
-  result = std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v2);
-  v4 = *(a1 + 40);
-  v5 = &v2[352 * *(a1 + 24) - 352];
+  v2 = malloc_type_malloc(352 * a1[3], 0x10F20402D49FE93uLL);
+  v6 = v2;
+  result = std::__tree<geo::Pool<gdc::FallbackNode>::Element *,std::less<geo::Pool<gdc::FallbackNode>::Element *>,std::allocator<geo::Pool<gdc::FallbackNode>::Element *>>::__emplace_unique_key_args<geo::Pool<gdc::FallbackNode>::Element *,geo::Pool<gdc::FallbackNode>::Element * const&>(a1, v2, &v6);
+  v4 = a1[5];
+  v5 = &v2[44 * a1[3] - 44];
   if (v5 >= v2)
   {
     do
     {
       *v5 = v4;
       v4 = v5;
-      v5 -= 352;
+      v5 -= 44;
     }
 
     while (v5 >= v2);
-    v4 = v5 + 352;
+    v4 = (v5 + 44);
   }
 
-  *(a1 + 40) = v4;
+  a1[5] = v4;
   return result;
 }
 
@@ -5588,7 +5614,7 @@ LABEL_6:
 
   LODWORD(v70[0]) = 2;
   v72[0] = v70;
-  result = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 1555, 2u);
+  result = std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v4 + 1555, 2u, v72);
   if (v11)
   {
     v70[0] = &unk_1F29EBA30;
@@ -5613,7 +5639,7 @@ LABEL_6:
     v72[5] = v19;
     do
     {
-      if (*(v72[v20] + 40) - *(v72[v20] + 32) < *(v21 + 40) - *(v21 + 32))
+      if (*(v72[v20] + 5) - *(v72[v20] + 4) < *(v21 + 5) - *(v21 + 4))
       {
         v21 = v72[v20];
         v22 = &v72[v20];
@@ -5623,8 +5649,8 @@ LABEL_6:
     }
 
     while (v20 != 6);
-    v24 = *(*v22 + 32);
-    v23 = *(*v22 + 40);
+    v24 = *(*v22 + 4);
+    v23 = *(*v22 + 5);
     v62 = v24;
     v63 = v23;
     v64 = v14;
@@ -5664,18 +5690,18 @@ LABEL_6:
         v34 = v25[1];
         v35 = v34 & 0x3F;
         v36 = (v34 >> 3) & 0x1FF8;
-        v37 = *(*(*(v26 + 8) + v36) + 4 * v35 + 2);
-        v38 = *(*(v26 + 56) + ((v37 >> 3) & 0x1FF8));
-        v39 = *(*(*(v27 + 8) + v36) + 4 * v35 + 2);
-        v40 = *(*(v27 + 56) + ((v39 >> 3) & 0x1FF8));
-        v41 = *(*(*(v28 + 8) + v36) + 4 * v35 + 2);
-        v42 = *(*(v28 + 56) + ((v41 >> 3) & 0x1FF8));
-        v43 = *(*(*(v29 + 8) + v36) + 4 * v35 + 2);
-        v44 = *(*(v29 + 56) + ((v43 >> 3) & 0x1FF8));
-        v45 = *(*(*(v31 + 8) + v36) + 4 * v35 + 2);
-        v46 = *(*(v31 + 56) + ((v45 >> 3) & 0x1FF8));
-        v47 = *(v30 + 32);
-        v48 = *(*(*(v30 + 8) + v36) + 4 * v35 + 2);
+        v37 = *(*(*(v26 + 1) + v36) + 4 * v35 + 2);
+        v38 = *(*(v26 + 7) + ((v37 >> 3) & 0x1FF8));
+        v39 = *(*(*(v27 + 1) + v36) + 4 * v35 + 2);
+        v40 = *(*(v27 + 7) + ((v39 >> 3) & 0x1FF8));
+        v41 = *(*(*(v28 + 1) + v36) + 4 * v35 + 2);
+        v42 = *(*(v28 + 7) + ((v41 >> 3) & 0x1FF8));
+        v43 = *(*(*(v29 + 1) + v36) + 4 * v35 + 2);
+        v44 = *(*(v29 + 7) + ((v43 >> 3) & 0x1FF8));
+        v45 = *(*(*(v31 + 1) + v36) + 4 * v35 + 2);
+        v46 = *(*(v31 + 7) + ((v45 >> 3) & 0x1FF8));
+        v47 = *(v30 + 4);
+        v48 = *(*(*(v30 + 1) + v36) + 4 * v35 + 2);
         *(v61 + 104 * *v60 + 24) = *v25;
         if (!v71)
         {
@@ -6494,7 +6520,7 @@ LABEL_6:
   }
 
   v8 = (**v4)(v4);
-  v9 = md::LayoutContext::camera(v8);
+  md::LayoutContext::camera(v8);
   gdc::CameraView::geocentricCameraView(v49, v9);
   geo::RigidTransform<double,double>::inverse(v57, &v50);
   geo::RigidTransform<double,double>::toMatrix(v48, v57);
@@ -6787,9 +6813,9 @@ LABEL_23:
   return std::__function::__value_func<void ()(md::ls::BaseMapTileHandle const&,md::ls::TileRenderableTypeT<md::DaVinciGroundRenderable> const&,md::ls::TileRenderableDataHandle const&)>::~__value_func[abi:nn200100](v53);
 }
 
-void sub_1B2A7688C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B2A7688C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__function::__value_func<void ()(md::ls::BaseMapTileHandle const&,md::ls::TileRenderableTypeT<md::DaVinciGroundRenderable> const&,md::ls::TileRenderableDataHandle const&)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -7029,120 +7055,120 @@ uint64_t _ZNKSt3__110__function6__funcIZN4ecs213BasicRegistryIvE7storageIN2md2ls
   return result;
 }
 
-void md::ita::PrepareRenderableData::operator()(uint64_t **a1)
+void md::ita::PrepareRenderableData::operator()(uint64_t **a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v36 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_5;
     }
 
-    while (*v4 != 0x22D45F5AAD4BF408)
+    while (*v5 != 0x22D45F5AAD4BF408)
     {
-      v4 += 5;
-      if (v4 == v5)
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_5;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_5:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v6 = v4[4];
-      if (v6)
+      v3 = v5[3];
+      v7 = v5[4];
+      if (v7)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v7);
       }
     }
 
-    a1[1] = v2;
+    a1[1] = v3;
   }
 
-  v7 = (**v2)(v2);
-  v8 = *(v7 + 8);
-  v9 = md::LayoutContext::get<md::CameraContext>(v8);
-  v10 = a1[2];
-  if (!v10)
+  v8 = (**v3)(v3, a2);
+  v9 = *(v8 + 8);
+  v10 = md::LayoutContext::get<md::CameraContext>(v9);
+  v11 = a1[2];
+  if (!v11)
   {
-    v11 = **a1;
-    v12 = *v11;
-    v13 = *(v11 + 8);
-    if (v12 == v13)
+    v12 = **a1;
+    v13 = *v12;
+    v14 = *(v12 + 8);
+    if (v13 == v14)
     {
       goto LABEL_12;
     }
 
-    while (*v12 != 0x41D4E9297E100630)
+    while (*v13 != 0x41D4E9297E100630)
     {
-      v10 = 0;
-      v12 += 5;
-      if (v12 == v13)
+      v11 = 0;
+      v13 += 5;
+      if (v13 == v14)
       {
         goto LABEL_15;
       }
     }
 
-    if (v12 == v13)
+    if (v13 == v14)
     {
 LABEL_12:
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v10 = v12[3];
-      v22 = v12[4];
-      if (v22)
+      v11 = v13[3];
+      v23 = v13[4];
+      if (v23)
       {
-        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v22);
+        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v23);
       }
     }
 
 LABEL_15:
-    a1[2] = v10;
-    v8 = *(v7 + 8);
+    a1[2] = v11;
+    v9 = *(v8 + 8);
   }
 
-  v34 = v10;
-  v14 = *(v9 + 5592);
-  if (!v14)
+  v35 = v11;
+  v15 = *(v10 + 5592);
+  if (!v15)
   {
-    v14 = v9;
+    v15 = v10;
   }
 
-  v15 = (v14 + 808);
-  v16 = v15[5];
-  v30 = v15[4];
-  v31 = v16;
-  v17 = v15[7];
-  v32 = v15[6];
-  v33 = v17;
-  v18 = v15[1];
-  v26 = *v15;
-  v27 = v18;
-  v19 = v15[3];
-  v28 = v15[2];
-  v29 = v19;
-  v25 = gdc::ToCoordinateSystem(*(v9 + 3784));
-  v20 = md::LayoutContext::get<md::ElevationContext>(v8);
-  v21 = *(v20 + 4);
-  v23 = *(v20 + 5);
-  v24 = v21;
+  v16 = (v15 + 808);
+  v17 = v16[5];
+  v31 = v16[4];
+  v32 = v17;
+  v18 = v16[7];
+  v33 = v16[6];
+  v34 = v18;
+  v19 = v16[1];
+  v27 = *v16;
+  v28 = v19;
+  v20 = v16[3];
+  v29 = v16[2];
+  v30 = v20;
+  v26 = gdc::ToCoordinateSystem(*(v10 + 3784));
+  v21 = md::LayoutContext::get<md::ElevationContext>(v9);
+  v22 = *(v21 + 4);
+  v24 = *(v21 + 5);
+  v25 = v22;
   operator new();
 }
 
@@ -7490,7 +7516,7 @@ void ecs2::Runtime::_entities<md::ita::PrepareRasterOverlayDataHandle,md::ls::Ra
       v24 = ecs2::ExecutionTask<md::VKMRenderResourcesStore *>::service<md::VKMRenderResourcesStore>(a2);
       v47 = 1065353216;
       v48 = 0;
-      v25 = std::__hash_table<std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,std::__unordered_map_hasher<md::ElevatedStrokeCacheKey,std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,md::ElevatedStrokeCacheKeyHasher,std::equal_to<md::ElevatedStrokeCacheKey>,true>,std::__unordered_map_equal<md::ElevatedStrokeCacheKey,std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,std::equal_to<md::ElevatedStrokeCacheKey>,md::ElevatedStrokeCacheKeyHasher,true>,std::allocator<std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>>>::find<md::ElevatedStrokeCacheKey>(v24 + 1357, &v47);
+      v25 = std::__hash_table<std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,std::__unordered_map_hasher<md::ElevatedStrokeCacheKey,std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,md::ElevatedStrokeCacheKeyHasher,std::equal_to<md::ElevatedStrokeCacheKey>,true>,std::__unordered_map_equal<md::ElevatedStrokeCacheKey,std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>,std::equal_to<md::ElevatedStrokeCacheKey>,md::ElevatedStrokeCacheKeyHasher,true>,std::allocator<std::__hash_value_type<md::ElevatedStrokeCacheKey,geo::handle<md::ConstantDataResource<ggl::DaVinci::ElevatedStroke>>>>>::find<md::ElevatedStrokeCacheKey>(&v24[1357], &v47);
       if (!v25 || (v26 = v25[4]) == 0)
       {
         v26 = md::VKMRenderResourcesStore::createConstantDataHandle<ggl::DaVinci::ElevatedStroke,md::ElevatedStrokeCacheKey>(v24, &v47);
@@ -7789,84 +7815,84 @@ LABEL_54:
   *(v55 + 8 * ecs2::ComponentMetadata::get<ecs2::BasicRegistry<void>,md::ls::PassToCommandBuffers>(void)::metadata) = *(v55 + 4096);
 }
 
-void md::ita::ResolveMaterialAlbedoTexture::operator()(uint64_t **a1)
+void md::ita::ResolveMaterialAlbedoTexture::operator()(uint64_t **a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = *ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
-  v3 = (*v2)();
-  v4 = ecs2::ExecutionTask<>::service<md::RenderLayerProvider>(***a1, *(**a1 + 8));
-  v5 = **a1;
-  v6 = *v5;
-  v7 = *(v5 + 8);
-  if (*v5 == v7)
+  v23 = *MEMORY[0x1E69E9840];
+  v3 = *ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
+  v4 = (*v3)();
+  v5 = ecs2::ExecutionTask<>::service<md::RenderLayerProvider>(***a1, *(**a1 + 8));
+  v6 = **a1;
+  v7 = *v6;
+  v8 = *(v6 + 8);
+  if (*v6 == v8)
   {
     goto LABEL_5;
   }
 
-  v8 = *v5;
-  while (*v8 != 0x4EDAD23DFB014132)
+  v9 = *v6;
+  while (*v9 != 0x4EDAD23DFB014132)
   {
-    v8 += 5;
-    if (v8 == v7)
+    v9 += 5;
+    if (v9 == v8)
     {
       goto LABEL_5;
     }
   }
 
-  if (v8 == v7)
+  if (v9 == v8)
   {
 LABEL_5:
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = v8[3];
-    v10 = v8[4];
-    if (v10)
+    v10 = v9[3];
+    v11 = v9[4];
+    if (v11)
     {
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::__shared_weak_count::__release_shared[abi:nn200100](v10);
-      v11 = **a1;
-      v6 = *v11;
-      v7 = *(v11 + 8);
+      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+      v12 = **a1;
+      v7 = *v12;
+      v8 = *(v12 + 8);
     }
   }
 
-  v21 = v9;
-  v20 = ecs2::ExecutionTask<>::service<mre::GGLResourceStore>(v6, v7);
-  v12 = ***a1;
-  if (*v12 != 0x41D4E9297E100630)
+  v22 = v10;
+  v21 = ecs2::ExecutionTask<>::service<mre::GGLResourceStore>(v7, v8);
+  v13 = ***a1;
+  if (*v13 != 0x41D4E9297E100630)
   {
-    v13 = v12 + 5;
+    v14 = v13 + 5;
     do
     {
-      v14 = *v13;
-      v13 += 5;
+      v15 = *v14;
+      v14 += 5;
     }
 
-    while (v14 != 0x41D4E9297E100630);
-    v12 = v13 - 5;
+    while (v15 != 0x41D4E9297E100630);
+    v13 = v14 - 5;
   }
 
-  v16 = v12[3];
-  v15 = v12[4];
-  if (v15)
+  v17 = v13[3];
+  v16 = v13[4];
+  if (v16)
   {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-    std::__shared_weak_count::__release_shared[abi:nn200100](v15);
+    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v16);
   }
 
-  v19 = *(v16 + 14324);
-  (*(*v4 + 48))(v4);
-  md::LayoutContext::frameState(v3);
-  v18 = *(v17 + 624);
+  v20 = *(v17 + 14324);
+  (*(*v5 + 48))(v5);
+  md::LayoutContext::frameState(v4);
+  v19 = *(v18 + 624);
   operator new();
 }
 
-void sub_1B2A78BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1B2A78BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   std::__function::__value_func<void ()(md::ls::UniqueMaterialData const&,md::ls::MaterialPendingProcessing const&,md::ls::UniqueMaterialAlbedoTexture &)>::~__value_func[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -8062,7 +8088,7 @@ LABEL_6:
   }
 
   v7 = (**v3)(v3);
-  v8 = md::LayoutContext::camera(v7);
+  md::LayoutContext::camera(v7);
   gdc::CameraView::geocentricCameraView(v46, v8);
   v9 = *(gdc::Context::get<md::StyleLogicContext>(*(v7 + 8)) + 72);
   FlyoverSharedConstantDataHandle = md::VKMRenderResourcesStore::getFlyoverSharedConstantDataHandle(v2);
@@ -9481,208 +9507,208 @@ LABEL_29:
   return v26(v15);
 }
 
-uint64_t md::ita::PrepareGradientParametersConstantDataHandle::operator()(uint64_t **a1)
+uint64_t md::ita::PrepareGradientParametersConstantDataHandle::operator()(uint64_t **a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v2 = a1[1];
-  if (!v2)
+  v42 = *MEMORY[0x1E69E9840];
+  v3 = a1[1];
+  if (!v3)
   {
-    v3 = **a1;
-    v4 = *v3;
-    v5 = *(v3 + 8);
-    if (v4 == v5)
+    v4 = **a1;
+    v5 = *v4;
+    v6 = *(v4 + 8);
+    if (v5 == v6)
     {
       goto LABEL_5;
     }
 
-    while (*v4 != 0xC94DD89A7B09BE9CLL)
+    while (*v5 != 0xC94DD89A7B09BE9CLL)
     {
-      v4 += 5;
-      if (v4 == v5)
+      v5 += 5;
+      if (v5 == v6)
       {
         goto LABEL_5;
       }
     }
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
 LABEL_5:
-      v2 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v2 = v4[3];
-      v6 = v4[4];
-      if (v6)
+      v3 = v5[3];
+      v7 = v5[4];
+      if (v7)
       {
-        atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v6);
+        atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v7);
       }
     }
 
-    a1[1] = v2;
+    a1[1] = v3;
   }
 
-  v7 = a1[2];
-  if (!v7)
+  v8 = a1[2];
+  if (!v8)
   {
-    v8 = **a1;
-    v9 = *v8;
-    v10 = *(v8 + 8);
-    if (v9 == v10)
+    v9 = **a1;
+    v10 = *v9;
+    v11 = *(v9 + 8);
+    if (v10 == v11)
     {
       goto LABEL_14;
     }
 
-    while (*v9 != 0x41D4E9297E100630)
+    while (*v10 != 0x41D4E9297E100630)
     {
-      v9 += 5;
-      if (v9 == v10)
+      v10 += 5;
+      if (v10 == v11)
       {
         goto LABEL_14;
       }
     }
 
-    if (v9 == v10)
+    if (v10 == v11)
     {
 LABEL_14:
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = v9[3];
-      v11 = v9[4];
-      if (v11)
+      v8 = v10[3];
+      v12 = v10[4];
+      if (v12)
       {
-        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v12);
       }
     }
 
-    a1[2] = v7;
+    a1[2] = v8;
   }
 
-  v40 = v7;
-  v12 = a1[3];
-  if (!v12)
+  v41 = v8;
+  v13 = a1[3];
+  if (!v13)
   {
-    v13 = **a1;
-    v14 = *v13;
-    v15 = *(v13 + 8);
-    if (v14 == v15)
+    v14 = **a1;
+    v15 = *v14;
+    v16 = *(v14 + 8);
+    if (v15 == v16)
     {
       goto LABEL_23;
     }
 
-    while (*v14 != 0x4EDAD23DFB014132)
+    while (*v15 != 0x4EDAD23DFB014132)
     {
-      v14 += 5;
-      if (v14 == v15)
+      v15 += 5;
+      if (v15 == v16)
       {
         goto LABEL_23;
       }
     }
 
-    if (v14 == v15)
+    if (v15 == v16)
     {
 LABEL_23:
-      v12 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v12 = v14[3];
-      v16 = v14[4];
-      if (v16)
+      v13 = v15[3];
+      v17 = v15[4];
+      if (v17)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v16);
+        atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v17);
       }
     }
 
-    a1[3] = v12;
+    a1[3] = v13;
   }
 
-  v39 = v12;
-  v17 = a1[4];
-  if (!v17)
+  v40 = v13;
+  v18 = a1[4];
+  if (!v18)
   {
-    v18 = **a1;
-    v19 = *v18;
-    v20 = *(v18 + 8);
-    if (v19 == v20)
+    v19 = **a1;
+    v20 = *v19;
+    v21 = *(v19 + 8);
+    if (v20 == v21)
     {
       goto LABEL_32;
     }
 
-    while (*v19 != 0x348A0B0E758C07C2)
+    while (*v20 != 0x348A0B0E758C07C2)
     {
-      v19 += 5;
-      if (v19 == v20)
+      v20 += 5;
+      if (v20 == v21)
       {
         goto LABEL_32;
       }
     }
 
-    if (v19 == v20)
+    if (v20 == v21)
     {
 LABEL_32:
-      v17 = 0;
+      v18 = 0;
     }
 
     else
     {
-      v17 = v19[3];
-      v21 = v19[4];
-      if (v21)
+      v18 = v20[3];
+      v22 = v20[4];
+      if (v22)
       {
-        atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
-        std::__shared_weak_count::__release_shared[abi:nn200100](v21);
+        atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v22);
       }
     }
 
-    a1[4] = v17;
+    a1[4] = v18;
   }
 
-  v38 = v17;
-  memset(v26, 0, sizeof(v26));
-  v27 = 1065353216;
-  memset(v28, 0, sizeof(v28));
-  v29 = 1065353216;
-  memset(v30, 0, sizeof(v30));
-  memset(v32, 0, sizeof(v32));
-  v31 = 1065353216;
-  v33 = 1065353216;
-  memset(v34, 0, sizeof(v34));
-  memset(v36, 0, sizeof(v36));
-  v35 = 1065353216;
-  v37 = 1065353216;
-  v22 = a1[5];
-  if (!v22)
+  v39 = v18;
+  memset(v27, 0, sizeof(v27));
+  v28 = 1065353216;
+  memset(v29, 0, sizeof(v29));
+  v30 = 1065353216;
+  memset(v31, 0, sizeof(v31));
+  memset(v33, 0, sizeof(v33));
+  v32 = 1065353216;
+  v34 = 1065353216;
+  memset(v35, 0, sizeof(v35));
+  memset(v37, 0, sizeof(v37));
+  v36 = 1065353216;
+  v38 = 1065353216;
+  v23 = a1[5];
+  if (!v23)
   {
-    v22 = ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
-    a1[5] = v22;
+    v23 = ecs2::RuntimeTaskContext::service<md::LayoutContextProvider>(***a1, *(**a1 + 8));
+    a1[5] = v23;
   }
 
-  v23 = (**v22)(v22);
-  v24 = *(v23 + 1);
-  md::LayoutContext::get<md::CameraContext>(v24);
-  if (md::LayoutContext::get<md::MaterialContext>(v24))
+  v24 = (**v23)(v23, a2);
+  v25 = *(v24 + 1);
+  md::LayoutContext::get<md::CameraContext>(v25);
+  if (md::LayoutContext::get<md::MaterialContext>(v25))
   {
-    atomic_load((gdc::Context::get<md::StyleLogicContext>(v24)[4] + 270));
-    md::LayoutContext::frameState(v23);
-    (*(*v2 + 48))(v2);
+    atomic_load((gdc::Context::get<md::StyleLogicContext>(v25)[4] + 270));
+    md::LayoutContext::frameState(v24);
+    (*(*v3 + 48))(v3);
     operator new();
   }
 
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v36);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v34);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v32);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v30);
-  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v28);
-  return std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v26);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v37);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v35);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v33);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v31);
+  std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v29);
+  return std::__hash_table<md::MuninJunction const*,std::hash<md::MuninJunction const*>,std::equal_to<md::MuninJunction const*>,std::allocator<md::MuninJunction const*>>::~__hash_table(v27);
 }
 
 void sub_1B2A7C9D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
@@ -9711,33 +9737,4 @@ void std::__hash_table<std::__hash_value_type<unsigned int,ecs2::sparse_set<md::
 
     while (v2);
   }
-}
-
-void *ecs2::sparse_set<md::VKMRenderResourcesStore::group_handle,64ul>::~sparse_set(void *a1)
-{
-  *a1 = &unk_1F2A33660;
-  v2 = a1[1];
-  for (i = a1[2]; v2 != i; ++v2)
-  {
-    if (*v2)
-    {
-      MEMORY[0x1B8C62190](*v2, 0x1000C409DBC6682);
-    }
-  }
-
-  v4 = a1[4];
-  if (v4)
-  {
-    a1[5] = v4;
-    operator delete(v4);
-  }
-
-  v5 = a1[1];
-  if (v5)
-  {
-    a1[2] = v5;
-    operator delete(v5);
-  }
-
-  return a1;
 }

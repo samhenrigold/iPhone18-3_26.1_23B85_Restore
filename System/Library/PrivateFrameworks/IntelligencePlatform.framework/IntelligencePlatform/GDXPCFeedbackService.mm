@@ -1,4 +1,5 @@
 @interface GDXPCFeedbackService
+- (BOOL)logWithFeedbackData:(id)data type:(id)type variant:(id)variant eventId:(int64_t)id withTimestamp:(id)timestamp shouldProcessImmediately:(BOOL)immediately error:(id *)error;
 - (GDXPCFeedbackService)init;
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
 - (void)dealloc;
@@ -6,6 +7,55 @@
 @end
 
 @implementation GDXPCFeedbackService
+
+- (BOOL)logWithFeedbackData:(id)data type:(id)type variant:(id)variant eventId:(int64_t)id withTimestamp:(id)timestamp shouldProcessImmediately:(BOOL)immediately error:(id *)error
+{
+  immediatelyCopy = immediately;
+  dataCopy = data;
+  typeCopy = type;
+  variantCopy = variant;
+  timestampCopy = timestamp;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = sub_1ABF111C8;
+  v31 = sub_1ABF111D8;
+  v32 = 0;
+  v19 = GDXPCLog();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1ABA78000, v19, OS_LOG_TYPE_DEFAULT, "GDXPCFeedbackService: logWithFeedbackData called.", buf, 2u);
+  }
+
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = sub_1ABF111E0;
+  v25[3] = &unk_1E79628C8;
+  v25[4] = &v27;
+  v20 = [(GDXPCFeedbackService *)self synchronousRemoteObjectProxyWithErrorHandler:v25];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_1ABF112AC;
+  v24[3] = &unk_1E79624F8;
+  v24[4] = &v27;
+  [v20 logFeedback:dataCopy ofType:typeCopy ofVariant:variantCopy forEvent:id withTimestamp:timestampCopy shouldProcessImmediately:immediatelyCopy completion:v24];
+
+  if (error && (v21 = v28[5]) != 0)
+  {
+    v22 = 0;
+    *error = v21;
+  }
+
+  else
+  {
+    v22 = 1;
+  }
+
+  _Block_object_dispose(&v27, 8);
+
+  return v22;
+}
 
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler
 {

@@ -42,7 +42,7 @@
 
 - (NSArray)specifiers
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   specifiers = self->_specifiers;
   if (specifiers)
   {
@@ -51,58 +51,58 @@
 
   selfCopy = self;
   currentLocale = [MEMORY[0x1E695DF58] currentLocale];
-  v76 = 0;
-  v63 = PSSecureBackupAccountInfo(&v76, 0);
-  v4 = v76;
-  v61 = v4;
+  v77 = 0;
+  v64 = PSSecureBackupAccountInfo(&v77, 0);
+  v4 = v77;
+  v62 = v4;
   if (!v4)
   {
-    v82 = 0;
-    v83 = &v82;
-    v84 = 0x2020000000;
+    v83 = 0;
+    v84 = &v83;
+    v85 = 0x2020000000;
     v5 = getkSecureBackupSMSTargetInfoKeySymbolLoc_ptr;
-    v85 = getkSecureBackupSMSTargetInfoKeySymbolLoc_ptr;
+    v86 = getkSecureBackupSMSTargetInfoKeySymbolLoc_ptr;
     if (!getkSecureBackupSMSTargetInfoKeySymbolLoc_ptr)
     {
-      v77 = MEMORY[0x1E69E9820];
-      v78 = 3221225472;
-      v79 = __getkSecureBackupSMSTargetInfoKeySymbolLoc_block_invoke;
-      v80 = &unk_1E71DBC78;
-      v81 = &v82;
+      v78 = MEMORY[0x1E69E9820];
+      v79 = 3221225472;
+      v80 = __getkSecureBackupSMSTargetInfoKeySymbolLoc_block_invoke;
+      v81 = &unk_1E71DBC78;
+      v82 = &v83;
       v6 = CloudServicesLibrary();
       v7 = dlsym(v6, "kSecureBackupSMSTargetInfoKey");
-      *(v81[1] + 24) = v7;
-      getkSecureBackupSMSTargetInfoKeySymbolLoc_ptr = *(v81[1] + 24);
-      v5 = v83[3];
+      *(v82[1] + 24) = v7;
+      getkSecureBackupSMSTargetInfoKeySymbolLoc_ptr = *(v82[1] + 24);
+      v5 = v84[3];
     }
 
-    _Block_object_dispose(&v82, 8);
+    _Block_object_dispose(&v83, 8);
     if (v5)
     {
-      v8 = [v63 objectForKey:*v5];
+      v8 = [v64 objectForKey:*v5];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v82 = 0;
-        v83 = &v82;
-        v84 = 0x2020000000;
+        v83 = 0;
+        v84 = &v83;
+        v85 = 0x2020000000;
         v9 = getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr;
-        v85 = getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr;
+        v86 = getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr;
         if (!getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr)
         {
-          v77 = MEMORY[0x1E69E9820];
-          v78 = 3221225472;
-          v79 = __getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_block_invoke;
-          v80 = &unk_1E71DBC78;
-          v81 = &v82;
+          v78 = MEMORY[0x1E69E9820];
+          v79 = 3221225472;
+          v80 = __getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_block_invoke;
+          v81 = &unk_1E71DBC78;
+          v82 = &v83;
           v10 = CloudServicesLibrary();
           v11 = dlsym(v10, "kSecureBackupSMSTargetPhoneNumberKey");
-          *(v81[1] + 24) = v11;
-          getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr = *(v81[1] + 24);
-          v9 = v83[3];
+          *(v82[1] + 24) = v11;
+          getkSecureBackupSMSTargetPhoneNumberKeySymbolLoc_ptr = *(v82[1] + 24);
+          v9 = v84[3];
         }
 
-        _Block_object_dispose(&v82, 8);
+        _Block_object_dispose(&v83, 8);
         if (!v9)
         {
           goto LABEL_47;
@@ -113,36 +113,36 @@
         phoneNumber = selfCopy->_phoneNumber;
         selfCopy->_phoneNumber = v13;
 
-        v82 = 0;
-        v83 = &v82;
-        v84 = 0x2020000000;
+        v83 = 0;
+        v84 = &v83;
+        v85 = 0x2020000000;
         v15 = getkSecureBackupCountryDialCodeKeySymbolLoc_ptr;
-        v85 = getkSecureBackupCountryDialCodeKeySymbolLoc_ptr;
+        v86 = getkSecureBackupCountryDialCodeKeySymbolLoc_ptr;
         if (!getkSecureBackupCountryDialCodeKeySymbolLoc_ptr)
         {
-          v77 = MEMORY[0x1E69E9820];
-          v78 = 3221225472;
-          v79 = __getkSecureBackupCountryDialCodeKeySymbolLoc_block_invoke;
-          v80 = &unk_1E71DBC78;
-          v81 = &v82;
+          v78 = MEMORY[0x1E69E9820];
+          v79 = 3221225472;
+          v80 = __getkSecureBackupCountryDialCodeKeySymbolLoc_block_invoke;
+          v81 = &unk_1E71DBC78;
+          v82 = &v83;
           v16 = CloudServicesLibrary();
           v17 = dlsym(v16, "kSecureBackupCountryDialCodeKey");
-          *(v81[1] + 24) = v17;
-          getkSecureBackupCountryDialCodeKeySymbolLoc_ptr = *(v81[1] + 24);
-          v15 = v83[3];
+          *(v82[1] + 24) = v17;
+          getkSecureBackupCountryDialCodeKeySymbolLoc_ptr = *(v82[1] + 24);
+          v15 = v84[3];
         }
 
-        _Block_object_dispose(&v82, 8);
+        _Block_object_dispose(&v83, 8);
         if (!v15)
         {
           goto LABEL_47;
         }
 
-        v62 = [v8 objectForKey:*v15];
+        v63 = [v8 objectForKey:*v15];
         v18 = getkSecureBackupCountryCodeKey();
-        v68 = [v8 objectForKey:v18];
+        v69 = [v8 objectForKey:v18];
 
-        if (v68)
+        if (v69)
         {
 LABEL_21:
 
@@ -152,34 +152,34 @@ LABEL_21:
 
       else
       {
-        v62 = 0;
+        v63 = 0;
       }
 
-      v82 = 0;
-      v83 = &v82;
-      v84 = 0x2020000000;
+      v83 = 0;
+      v84 = &v83;
+      v85 = 0x2020000000;
       v19 = getkSecureBackupMetadataKeySymbolLoc_ptr;
-      v85 = getkSecureBackupMetadataKeySymbolLoc_ptr;
+      v86 = getkSecureBackupMetadataKeySymbolLoc_ptr;
       if (!getkSecureBackupMetadataKeySymbolLoc_ptr)
       {
-        v77 = MEMORY[0x1E69E9820];
-        v78 = 3221225472;
-        v79 = __getkSecureBackupMetadataKeySymbolLoc_block_invoke;
-        v80 = &unk_1E71DBC78;
-        v81 = &v82;
+        v78 = MEMORY[0x1E69E9820];
+        v79 = 3221225472;
+        v80 = __getkSecureBackupMetadataKeySymbolLoc_block_invoke;
+        v81 = &unk_1E71DBC78;
+        v82 = &v83;
         v20 = CloudServicesLibrary();
         v21 = dlsym(v20, "kSecureBackupMetadataKey");
-        *(v81[1] + 24) = v21;
-        getkSecureBackupMetadataKeySymbolLoc_ptr = *(v81[1] + 24);
-        v19 = v83[3];
+        *(v82[1] + 24) = v21;
+        getkSecureBackupMetadataKeySymbolLoc_ptr = *(v82[1] + 24);
+        v19 = v84[3];
       }
 
-      _Block_object_dispose(&v82, 8);
+      _Block_object_dispose(&v83, 8);
       if (v19)
       {
-        v22 = [v63 objectForKey:*v19];
+        v22 = [v64 objectForKey:*v19];
         v23 = getkSecureBackupCountryCodeKey();
-        v68 = [v22 objectForKey:v23];
+        v69 = [v22 objectForKey:v23];
 
         goto LABEL_21;
       }
@@ -191,92 +191,92 @@ LABEL_47:
   }
 
   NSLog(&cfstr_Getaccountinfo.isa, v4);
-  v62 = 0;
-  v68 = 0;
+  v63 = 0;
+  v69 = 0;
 LABEL_22:
   v24 = MEMORY[0x1E695DF58];
   localeIdentifier = [currentLocale localeIdentifier];
   v26 = [v24 componentsFromLocaleIdentifier:localeIdentifier];
-  v65 = [v26 objectForKey:*MEMORY[0x1E695D978]];
+  v66 = [v26 objectForKey:*MEMORY[0x1E695D978]];
 
-  v27 = v68;
-  if (!v68)
+  v27 = v69;
+  if (!v69)
   {
-    v27 = v65;
+    v27 = v66;
   }
 
-  v66 = v27;
+  v67 = v27;
   if ([(NSString *)selfCopy->_phoneNumber length])
   {
-    v28 = PSPNCreateFormattedStringWithCountry(selfCopy->_phoneNumber, [v66 lowercaseString]);
+    v28 = PSPNCreateFormattedStringWithCountry(selfCopy->_phoneNumber, [v67 lowercaseString]);
     v29 = selfCopy->_phoneNumber;
     selfCopy->_phoneNumber = v28;
   }
 
   else
   {
-    v30 = v65;
-    v29 = v68;
-    v68 = v30;
+    v30 = v66;
+    v29 = v69;
+    v69 = v30;
   }
 
-  v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (PSIsRunningInAssistant() && ([MEMORY[0x1E69DC938] currentDevice], v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "userInterfaceIdiom") == 0, v31, v32))
+  v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  if (PSIsRunningInAssistant(v70, v31) && ([MEMORY[0x1E69DC938] currentDevice], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "userInterfaceIdiom") == 0, v32, v33))
   {
-    v67 = +[PSSpecifier emptyGroupSpecifier];
-    [(NSArray *)v69 addObject:v67];
+    v68 = +[PSSpecifier emptyGroupSpecifier];
+    [(NSArray *)v70 addObject:v68];
   }
 
   else
   {
     title = [(KeychainSyncPhoneSettingsFragment *)selfCopy title];
-    v67 = [PSSpecifier groupSpecifierWithName:title];
+    v68 = [PSSpecifier groupSpecifierWithName:title];
 
-    v34 = PS_LocalizedStringForKeychainSync(@"PHONE_NUMBER_DESCRIPTION");
-    [v67 setProperty:v34 forKey:@"footerText"];
+    v35 = PS_LocalizedStringForKeychainSync(@"PHONE_NUMBER_DESCRIPTION");
+    [v68 setProperty:v35 forKey:@"footerText"];
 
-    [(NSArray *)v69 addObject:v67];
+    [(NSArray *)v70 addObject:v68];
   }
 
   countryInfo = selfCopy->_countryInfo;
   selfCopy->_countryInfo = 0;
 
-  v36 = PS_LocalizedStringForKeychainSync(@"COUNTRY");
-  v37 = [PSSpecifier preferenceSpecifierNamed:v36 target:selfCopy set:sel_setDialingCountryInfo_forSpecifier_ get:sel_dialingCountryInfoForSpecifier_ detail:objc_opt_class() cell:2 edit:0];
+  v37 = PS_LocalizedStringForKeychainSync(@"COUNTRY");
+  v38 = [PSSpecifier preferenceSpecifierNamed:v37 target:selfCopy set:sel_setDialingCountryInfo_forSpecifier_ get:sel_dialingCountryInfoForSpecifier_ detail:objc_opt_class() cell:2 edit:0];
   countrySpecifier = selfCopy->_countrySpecifier;
-  selfCopy->_countrySpecifier = v37;
+  selfCopy->_countrySpecifier = v38;
 
   [(PSSpecifier *)selfCopy->_countrySpecifier setProperty:objc_opt_class() forKey:?];
   if (!selfCopy->_countryInfo)
   {
-    v39 = [KeychainSyncCountryInfo countryInfoForCountryCode:v68 dialingPrefix:v62];
-    v40 = selfCopy->_countryInfo;
-    selfCopy->_countryInfo = v39;
+    v40 = [KeychainSyncCountryInfo countryInfoForCountryCode:v69 dialingPrefix:v63];
+    v41 = selfCopy->_countryInfo;
+    selfCopy->_countryInfo = v40;
   }
 
-  v41 = +[KeychainSyncCountryInfo allCountries];
-  v42 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v41, "count")}];
-  v74 = 0u;
+  v42 = +[KeychainSyncCountryInfo allCountries];
+  v43 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v42, "count")}];
   v75 = 0u;
-  v72 = 0u;
+  v76 = 0u;
   v73 = 0u;
-  obj = v41;
-  v43 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
-  if (v43)
+  v74 = 0u;
+  obj = v42;
+  v44 = [obj countByEnumeratingWithState:&v73 objects:v87 count:16];
+  if (v44)
   {
-    v44 = *v73;
+    v45 = *v74;
     do
     {
-      for (i = 0; i != v43; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v73 != v44)
+        if (*v74 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v46 = *(*(&v72 + 1) + 8 * i);
-        localizedCountryName = [v46 localizedCountryName];
-        v48 = localizedCountryName;
+        v47 = *(*(&v73 + 1) + 8 * i);
+        localizedCountryName = [v47 localizedCountryName];
+        v49 = localizedCountryName;
         if (localizedCountryName)
         {
           countryName = localizedCountryName;
@@ -284,34 +284,34 @@ LABEL_22:
 
         else
         {
-          countryName = [v46 countryName];
+          countryName = [v47 countryName];
         }
 
-        v50 = countryName;
+        v51 = countryName;
 
-        v51 = MEMORY[0x1E696AEC0];
-        dialingPrefix = [v46 dialingPrefix];
-        v53 = [v51 stringWithFormat:@"\u202A+%@\u202C (%@)", dialingPrefix, v50];
+        v52 = MEMORY[0x1E696AEC0];
+        dialingPrefix = [v47 dialingPrefix];
+        v54 = [v52 stringWithFormat:@"\u202A+%@\u202C (%@)", dialingPrefix, v51];
 
-        [v42 addObject:v53];
+        [v43 addObject:v54];
       }
 
-      v43 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
+      v44 = [obj countByEnumeratingWithState:&v73 objects:v87 count:16];
     }
 
-    while (v43);
+    while (v44);
   }
 
-  [(PSSpecifier *)selfCopy->_countrySpecifier setValues:obj titles:v42];
-  [(NSArray *)v69 addObject:selfCopy->_countrySpecifier];
-  v54 = objc_alloc_init(PSPhoneNumberSpecifier);
+  [(PSSpecifier *)selfCopy->_countrySpecifier setValues:obj titles:v43];
+  [(NSArray *)v70 addObject:selfCopy->_countrySpecifier];
+  v55 = objc_alloc_init(PSPhoneNumberSpecifier);
   p_phoneNumberSpecifier = &selfCopy->_phoneNumberSpecifier;
   phoneNumberSpecifier = selfCopy->_phoneNumberSpecifier;
-  selfCopy->_phoneNumberSpecifier = v54;
+  selfCopy->_phoneNumberSpecifier = v55;
 
-  v57 = selfCopy->_phoneNumberSpecifier;
-  v58 = PS_LocalizedStringForKeychainSync(@"NUMBER");
-  [(PSSpecifier *)v57 setName:v58];
+  v58 = selfCopy->_phoneNumberSpecifier;
+  v59 = PS_LocalizedStringForKeychainSync(@"NUMBER");
+  [(PSSpecifier *)v58 setName:v59];
 
   objc_storeWeak(&selfCopy->_phoneNumberSpecifier->super.super.target, selfCopy);
   (*p_phoneNumberSpecifier)->super.super.setter = sel_setPhoneNumber_forSpecifier_;
@@ -319,12 +319,12 @@ LABEL_22:
   (*p_phoneNumberSpecifier)->super.super.detailControllerClass = 0;
   (*p_phoneNumberSpecifier)->super.super.cellType = 8;
   (*p_phoneNumberSpecifier)->super.super.editPaneClass = 0;
-  [(PSPhoneNumberSpecifier *)selfCopy->_phoneNumberSpecifier setCountryCode:v66];
+  [(PSPhoneNumberSpecifier *)selfCopy->_phoneNumberSpecifier setCountryCode:v67];
   [(PSSpecifier *)selfCopy->_phoneNumberSpecifier setKeyboardType:5 autoCaps:0 autoCorrection:1];
   [(PSPhoneNumberSpecifier *)selfCopy->_phoneNumberSpecifier setProperty:objc_opt_class() forKey:@"cellClass"];
-  [(NSArray *)v69 addObject:selfCopy->_phoneNumberSpecifier];
-  v59 = selfCopy->_specifiers;
-  selfCopy->_specifiers = v69;
+  [(NSArray *)v70 addObject:selfCopy->_phoneNumberSpecifier];
+  v60 = selfCopy->_specifiers;
+  selfCopy->_specifiers = v70;
 
   specifiers = selfCopy->_specifiers;
 LABEL_43:
@@ -389,25 +389,26 @@ LABEL_43:
 - (id)unformattedPhoneNumber
 {
   phoneNumber = [(KeychainSyncPhoneSettingsFragment *)self phoneNumber];
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v3 = get_PNCreateStringByStrippingFormattingAndNotVisiblyAllowableSymbolLoc_ptr;
-  v11 = get_PNCreateStringByStrippingFormattingAndNotVisiblyAllowableSymbolLoc_ptr;
+  v12 = get_PNCreateStringByStrippingFormattingAndNotVisiblyAllowableSymbolLoc_ptr;
   if (!get_PNCreateStringByStrippingFormattingAndNotVisiblyAllowableSymbolLoc_ptr)
   {
     v4 = PhoneNumbersLibrary();
-    v9[3] = dlsym(v4, "_PNCreateStringByStrippingFormattingAndNotVisiblyAllowable");
-    get_PNCreateStringByStrippingFormattingAndNotVisiblyAllowableSymbolLoc_ptr = v9[3];
-    v3 = v9[3];
+    v10[3] = dlsym(v4, "_PNCreateStringByStrippingFormattingAndNotVisiblyAllowable");
+    get_PNCreateStringByStrippingFormattingAndNotVisiblyAllowableSymbolLoc_ptr = v10[3];
+    v3 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v3)
   {
-    v7 = [PSContactsAuthorizationLevelController dealloc];
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v7);
+    [PSContactsAuthorizationLevelController dealloc];
+    v8 = v7;
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v8);
   }
 
   v5 = v3(phoneNumber);

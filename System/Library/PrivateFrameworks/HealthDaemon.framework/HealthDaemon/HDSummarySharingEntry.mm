@@ -20,7 +20,7 @@
   if (v11)
   {
     objc_storeStrong(&v11->_codableEntry, entry);
-    v13 = [identifierCopy copy];
+    v13 = objc_msgSend_copy(identifierCopy);
     CNContactIdentifier = v12->_CNContactIdentifier;
     v12->_CNContactIdentifier = v13;
 

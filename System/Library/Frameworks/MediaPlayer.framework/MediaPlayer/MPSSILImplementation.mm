@@ -10,12 +10,12 @@ id __50___MPSSILImplementation_orderedSectionIdentifiers__block_invoke(uint64_t 
   return v1;
 }
 
-uint64_t __34___MPSSILImplementation_itemCount__block_invoke(uint64_t a1)
+char *__34___MPSSILImplementation_itemCount__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 8);
   result = [*(v2 + 112) count];
-  *(*(*(a1 + 40) + 8) + 24) = result + v3;
+  *(*(*(a1 + 40) + 8) + 24) = &result[v3];
   return result;
 }
 

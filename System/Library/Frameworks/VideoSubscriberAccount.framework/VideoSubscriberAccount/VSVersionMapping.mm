@@ -25,9 +25,11 @@
 
 uint64_t __34__VSVersionMapping_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance___vs_lazy_init_variable_0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance___vs_lazy_init_variable_0;
+  sharedInstance___vs_lazy_init_variable_0 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (id)systemVersion
@@ -41,7 +43,7 @@ uint64_t __34__VSVersionMapping_sharedInstance__block_invoke(uint64_t a1)
 
   else
   {
-    v5 = VSErrorLogObject();
+    v5 = VSErrorLogObject(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       +[(VSVersionMapping *)v5];

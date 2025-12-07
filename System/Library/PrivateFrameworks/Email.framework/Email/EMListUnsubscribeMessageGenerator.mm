@@ -9,7 +9,7 @@
 
 + (id)messageHeadersWithCommand:(id)command headersFactory:(id)factory
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   commandCopy = command;
   factoryCopy = factory;
   if (!commandCopy)
@@ -43,19 +43,17 @@
   [mutableMessageHeaders setHeader:v13 forKey:*MEMORY[0x1E699B178]];
 
   address = [mailtoValues address];
-  v24[0] = address;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  v23[0] = address;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   [mutableMessageHeaders setAddressListForTo:v15];
 
   v16 = [self senderForCommand:commandCopy];
-  v23 = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v22 = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
   [mutableMessageHeaders setAddressListForSender:v17];
 
   dateString = [self dateString];
   [mutableMessageHeaders setHeader:dateString forKey:*MEMORY[0x1E699B0D8]];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return mutableMessageHeaders;
 }

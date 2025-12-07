@@ -109,7 +109,7 @@
     goto LABEL_15;
   }
 
-  if (!mixerCopy || ([mixerCopy weakActionTreeObject], (WeakRetained = *&v19[8]) == 0))
+  if (!mixerCopy || (objc_msgSend_weakActionTreeObject(mixerCopy), (WeakRetained = *&v19[8]) == 0))
   {
     v7 = 0;
     goto LABEL_11;
@@ -175,7 +175,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  if (!mixerCopy || ([mixerCopy weakActionTreeObject], (WeakRetained = *&v19[8]) == 0))
+  if (!mixerCopy || (objc_msgSend_weakActionTreeObject(mixerCopy), (WeakRetained = *&v19[8]) == 0))
   {
     v7 = 0;
     goto LABEL_11;

@@ -32,7 +32,7 @@
       v20 = [formCopy pathAtIndex:{i, selfCopy}];
       if (formCopy)
       {
-        [formCopy geometryCoordSpace];
+        objc_msgSend_geometryCoordSpace(formCopy);
         v21 = v35;
         v22 = SHIDWORD(v35);
       }
@@ -62,7 +62,7 @@
       memset(&v33, 0, sizeof(v33));
       if (v27)
       {
-        [(CMFreeFormShapeBuilder *)v27 affineTransform];
+        objc_msgSend_affineTransform(v27);
         if (!contextCopy)
         {
           goto LABEL_12;
@@ -80,7 +80,7 @@ LABEL_12:
         }
       }
 
-      [contextCopy currentTransform];
+      objc_msgSend_currentTransform(contextCopy);
 LABEL_13:
       CGAffineTransformConcat(&v33, &t1, &t2);
       t1 = v33;
@@ -108,7 +108,7 @@ LABEL_13:
   [(CMFreeFormShapeBuilder *)v17 setSpace:1.0, 1.0];
   if (contextCopy)
   {
-    [contextCopy currentTransform];
+    objc_msgSend_currentTransform(contextCopy);
   }
 
   else
@@ -141,11 +141,11 @@ LABEL_13:
   memset(&v23, 0, sizeof(v23));
   if (v19)
   {
-    [(CMShapeBuilder *)v19 affineTransform];
+    objc_msgSend_affineTransform(v19);
     if (contextCopy)
     {
 LABEL_3:
-      [contextCopy currentTransform];
+      objc_msgSend_currentTransform(contextCopy);
       goto LABEL_6;
     }
   }
@@ -188,11 +188,11 @@ LABEL_6:
   memset(&v25, 0, sizeof(v25));
   if (v21)
   {
-    [(CMCanonicalShapeBuilder *)v21 affineTransform];
+    objc_msgSend_affineTransform(v21);
     if (contextCopy)
     {
 LABEL_3:
-      [contextCopy currentTransform];
+      objc_msgSend_currentTransform(contextCopy);
       goto LABEL_6;
     }
   }

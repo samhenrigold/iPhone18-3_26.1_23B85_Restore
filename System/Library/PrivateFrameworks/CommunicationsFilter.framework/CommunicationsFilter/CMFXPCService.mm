@@ -83,11 +83,11 @@
 
 void __49__CMFXPCService__sendXPCRequest_completionBlock___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (![*(a1 + 32) _connect])
   {
-    v5 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D191A8] code:-1 userInfo:0];
-    v4 = 0;
+    v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D191A8] code:-1 userInfo:0];
+    v5 = 0;
     goto LABEL_22;
   }
 
@@ -97,39 +97,39 @@ void __49__CMFXPCService__sendXPCRequest_completionBlock___block_invoke(uint64_t
   {
     if (v3 == MEMORY[0x277D86468])
     {
-      v7 = CMFDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = CMFDefaultLog(v3, v4);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 32);
-        v14 = 134217984;
-        v15 = v8;
-        _os_log_impl(&dword_243BDE000, v7, OS_LOG_TYPE_DEFAULT, "Result back for request (%p)", &v14, 0xCu);
+        v9 = *(a1 + 32);
+        v17 = 134217984;
+        v18 = v9;
+        _os_log_impl(&dword_243BDE000, v8, OS_LOG_TYPE_DEFAULT, "Result back for request (%p)", &v17, 0xCu);
       }
 
-      v5 = IMGetXPCCodableFromDictionaryWithStandardAllowlist();
-      v4 = IMGetXPCDictionaryFromDictionary();
-      v9 = CMFDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        v10 = [v4 allKeys];
-        v14 = 138412290;
-        v15 = v10;
-        _os_log_impl(&dword_243BDE000, v9, OS_LOG_TYPE_DEFAULT, "Response: %@", &v14, 0xCu);
-      }
-
-      v11 = CMFDefaultLog();
+      v6 = IMGetXPCCodableFromDictionaryWithStandardAllowlist();
+      v5 = IMGetXPCDictionaryFromDictionary();
+      v11 = CMFDefaultLog(v5, v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 134217984;
-        v15 = v5;
-        _os_log_impl(&dword_243BDE000, v11, OS_LOG_TYPE_DEFAULT, "Error: %p", &v14, 0xCu);
+        v12 = [v5 allKeys];
+        v17 = 138412290;
+        v18 = v12;
+        _os_log_impl(&dword_243BDE000, v11, OS_LOG_TYPE_DEFAULT, "Response: %@", &v17, 0xCu);
+      }
+
+      v15 = CMFDefaultLog(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = 134217984;
+        v18 = v6;
+        _os_log_impl(&dword_243BDE000, v15, OS_LOG_TYPE_DEFAULT, "Error: %p", &v17, 0xCu);
       }
     }
 
     else
     {
-      v4 = 0;
       v5 = 0;
+      v6 = 0;
     }
 
     goto LABEL_21;
@@ -137,10 +137,10 @@ void __49__CMFXPCService__sendXPCRequest_completionBlock___block_invoke(uint64_t
 
   if (v2 == MEMORY[0x277D863F8])
   {
-    v6 = CMFDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMFDefaultLog(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __49__CMFXPCService__sendXPCRequest_completionBlock___block_invoke_cold_2(v6);
+      __49__CMFXPCService__sendXPCRequest_completionBlock___block_invoke_cold_2(v7);
     }
 
     goto LABEL_19;
@@ -148,27 +148,25 @@ void __49__CMFXPCService__sendXPCRequest_completionBlock___block_invoke(uint64_t
 
   if (v2 == MEMORY[0x277D863F0])
   {
-    v6 = CMFDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CMFDefaultLog(v3, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __49__CMFXPCService__sendXPCRequest_completionBlock___block_invoke_cold_1(v6);
+      __49__CMFXPCService__sendXPCRequest_completionBlock___block_invoke_cold_1(v7);
     }
 
 LABEL_19:
   }
 
-  v5 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D191A8] code:-1 userInfo:0];
-  v4 = 0;
+  v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D191A8] code:-1 userInfo:0];
+  v5 = 0;
 LABEL_21:
 
 LABEL_22:
-  v12 = *(a1 + 48);
-  if (v12)
+  v16 = *(a1 + 48);
+  if (v16)
   {
-    (*(v12 + 16))(v12, v4, v5);
+    (*(v16 + 16))(v16, v5, v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_connect
@@ -178,31 +176,30 @@ LABEL_22:
     return 1;
   }
 
-  v11 = v2;
-  v12 = v3;
-  v6 = CMFDefaultLog();
+  v10 = v2;
+  v11 = v3;
+  v6 = CMFDefaultLog(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_243BDE000, v6, OS_LOG_TYPE_DEFAULT, "Connecting to CMFSync Agent", v10, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_243BDE000, v6, OS_LOG_TYPE_DEFAULT, "Connecting to CMFSync Agent", v9, 2u);
   }
 
   v7 = IMXPCCreateConnectionForServiceWithQueue();
   connection = self->_connection;
   self->_connection = v7;
 
-  v9 = self->_connection;
   IMXPCConfigureConnection();
   return self->_connection != 0;
 }
 
-uint64_t __25__CMFXPCService__connect__block_invoke(uint64_t a1)
+uint64_t __25__CMFXPCService__connect__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CMFDefaultLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CMFDefaultLog(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_243BDE000, v2, OS_LOG_TYPE_DEFAULT, "com.apple.cmfsyncagent", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_243BDE000, v3, OS_LOG_TYPE_DEFAULT, "com.apple.cmfsyncagent", v5, 2u);
   }
 
   return [*(a1 + 32) _disconnected];
@@ -220,21 +217,21 @@ uint64_t __25__CMFXPCService__connect__block_invoke(uint64_t a1)
   return 1;
 }
 
-void __28__CMFXPCService__disconnect__block_invoke(uint64_t a1)
+void __28__CMFXPCService__disconnect__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(*(a1 + 32) + 8))
   {
-    v2 = CMFDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CMFDefaultLog(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_243BDE000, v2, OS_LOG_TYPE_DEFAULT, "Forcing a disconnect, terminating connection", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_243BDE000, v3, OS_LOG_TYPE_DEFAULT, "Forcing a disconnect, terminating connection", v6, 2u);
     }
 
     xpc_connection_cancel(*(*(a1 + 32) + 8));
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 8);
-    *(v3 + 8) = 0;
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 8);
+    *(v4 + 8) = 0;
   }
 }
 
@@ -249,21 +246,21 @@ void __28__CMFXPCService__disconnect__block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __30__CMFXPCService__disconnected__block_invoke(uint64_t a1)
+void __30__CMFXPCService__disconnected__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(*(a1 + 32) + 8))
   {
-    v2 = CMFDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CMFDefaultLog(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_243BDE000, v2, OS_LOG_TYPE_DEFAULT, "Clearing out _connection, we're disconnected", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_243BDE000, v3, OS_LOG_TYPE_DEFAULT, "Clearing out _connection, we're disconnected", v6, 2u);
     }
 
     xpc_connection_cancel(*(*(a1 + 32) + 8));
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 8);
-    *(v3 + 8) = 0;
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 8);
+    *(v4 + 8) = 0;
   }
 }
 

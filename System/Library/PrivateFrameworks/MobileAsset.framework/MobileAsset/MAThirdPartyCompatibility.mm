@@ -111,13 +111,13 @@
 
 + (id)defaultThirdPartyServerURLForAssetType:(id)type
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   if ([objc_opt_class() isThirdPartyAssetType:typeCopy])
   {
-    v11 = 0;
-    v4 = MAGetServerUrl(typeCopy, &v11);
-    v5 = v11;
+    v10 = 0;
+    v4 = MAGetServerUrl(typeCopy, &v10);
+    v5 = v10;
     v6 = v5;
     if (v4)
     {
@@ -125,9 +125,9 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v13 = typeCopy;
-        v14 = 2048;
-        v15 = v4;
+        v12 = typeCopy;
+        v13 = 2048;
+        v14 = v4;
         _os_log_impl(&dword_197AD5000, v7, OS_LOG_TYPE_ERROR, "Failed to retrieve server url for:(%@) from daemon. %ld", buf, 0x16u);
       }
 
@@ -144,8 +144,6 @@
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -167,7 +165,7 @@
 
 + (BOOL)__addTrustedSigningCertificateAuthority:(id)authority
 {
-  v58[2] = *MEMORY[0x1E69E9840];
+  v57[2] = *MEMORY[0x1E69E9840];
   authorityCopy = authority;
   if (os_variant_has_internal_content())
   {
@@ -176,22 +174,22 @@
     v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/usr/local/bin/dvdo"];
     [v5 setExecutableURL:v6];
 
-    v58[0] = @"/bin/cat";
-    v58[1] = @"/var/protected/trustd/private/ConstrainedTestAnchors.plist";
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
+    v57[0] = @"/bin/cat";
+    v57[1] = @"/var/protected/trustd/private/ConstrainedTestAnchors.plist";
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
     [v5 setArguments:v7];
 
     [v5 setStandardOutput:pipe];
-    v54 = 0;
-    LOBYTE(v7) = [v5 launchAndReturnError:&v54];
-    v8 = v54;
+    v53 = 0;
+    LOBYTE(v7) = [v5 launchAndReturnError:&v53];
+    v8 = v53;
     if ((v7 & 1) == 0)
     {
       v16 = _MAClientLog(@"V2");
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v57 = v8;
+        v56 = v8;
         _os_log_impl(&dword_197AD5000, v16, OS_LOG_TYPE_ERROR, "Unable to launch dvdo to get trusted anchors. %@", buf, 0xCu);
       }
 
@@ -204,8 +202,8 @@
 
     [v5 waitUntilExit];
     terminationStatus = [v5 terminationStatus];
-    v47 = readDataToEndOfFile;
-    v48 = v8;
+    v46 = readDataToEndOfFile;
+    v47 = v8;
     if (terminationStatus)
     {
       v12 = terminationStatus;
@@ -213,7 +211,7 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v57) = v12;
+        LODWORD(v56) = v12;
         _os_log_impl(&dword_197AD5000, v13, OS_LOG_TYPE_DEFAULT, "Getting trusted anchors failed with status: %d", buf, 8u);
       }
 
@@ -222,9 +220,9 @@
 
     else
     {
-      v53 = 0;
-      dictionary = [MEMORY[0x1E696AE40] propertyListWithData:readDataToEndOfFile options:2 format:0 error:&v53];
-      v17 = v53;
+      v52 = 0;
+      dictionary = [MEMORY[0x1E696AE40] propertyListWithData:readDataToEndOfFile options:2 format:0 error:&v52];
+      v17 = v52;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -232,7 +230,7 @@
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v57 = v17;
+          v56 = v17;
           _os_log_impl(&dword_197AD5000, v18, OS_LOG_TYPE_ERROR, "Unable to parse existing trusted anchors to property list, will replace: %@", buf, 0xCu);
         }
 
@@ -277,11 +275,11 @@
       [v20 removeAllObjects];
     }
 
-    v52 = 0;
-    v25 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:100 options:0 error:&v52];
-    v26 = v52;
-    v45 = v26;
-    v46 = v25;
+    v51 = 0;
+    v25 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:100 options:0 error:&v51];
+    v26 = v51;
+    v44 = v26;
+    v45 = v25;
     if (!v25)
     {
       v39 = v26;
@@ -289,7 +287,7 @@
       if (os_log_type_enabled(pipe2, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v57 = v39;
+        v56 = v39;
         _os_log_impl(&dword_197AD5000, pipe2, OS_LOG_TYPE_ERROR, "Unable to turn trusted anchors into Data. %@", buf, 0xCu);
       }
 
@@ -302,25 +300,25 @@
     v29 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/usr/local/bin/dvdo"];
     [v28 setExecutableURL:v29];
 
-    v55[0] = @"/usr/bin/tee";
-    v55[1] = @"/var/protected/trustd/private/ConstrainedTestAnchors.plist";
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+    v54[0] = @"/usr/bin/tee";
+    v54[1] = @"/var/protected/trustd/private/ConstrainedTestAnchors.plist";
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
     [v28 setArguments:v30];
 
     [v28 setStandardInput:pipe2];
     fileHandleWithNullDevice = [MEMORY[0x1E696AC00] fileHandleWithNullDevice];
     [v28 setStandardOutput:fileHandleWithNullDevice];
 
-    v51 = 0;
-    LOBYTE(fileHandleWithNullDevice) = [v28 launchAndReturnError:&v51];
-    v48 = v51;
+    v50 = 0;
+    LOBYTE(fileHandleWithNullDevice) = [v28 launchAndReturnError:&v50];
+    v47 = v50;
     if ((fileHandleWithNullDevice & 1) == 0)
     {
       fileHandleForWriting = _MAClientLog(@"V2");
       if (os_log_type_enabled(fileHandleForWriting, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v57 = v48;
+        v56 = v47;
         _os_log_impl(&dword_197AD5000, fileHandleForWriting, OS_LOG_TYPE_ERROR, "Unable to launch dvdo to set trusted anchors. %@", buf, 0xCu);
       }
 
@@ -329,14 +327,14 @@
     }
 
     fileHandleForWriting = [pipe2 fileHandleForWriting];
-    v50 = 0;
-    v33 = [fileHandleForWriting writeData:v25 error:&v50];
-    v34 = v50;
+    v49 = 0;
+    v33 = [fileHandleForWriting writeData:v25 error:&v49];
+    v34 = v49;
     if (v33)
     {
-      v49 = 0;
-      v35 = [fileHandleForWriting closeAndReturnError:&v49];
-      v44 = v49;
+      v48 = 0;
+      v35 = [fileHandleForWriting closeAndReturnError:&v48];
+      v43 = v48;
 
       if (v35)
       {
@@ -349,7 +347,7 @@
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            LODWORD(v57) = terminationStatus2;
+            LODWORD(v56) = terminationStatus2;
             _os_log_impl(&dword_197AD5000, v38, OS_LOG_TYPE_ERROR, "Launching dvdo to set trusted anchors failed with status: %d", buf, 8u);
           }
 
@@ -367,16 +365,16 @@
           v15 = 1;
         }
 
-        v34 = v44;
+        v34 = v43;
         goto LABEL_51;
       }
 
       v40 = _MAClientLog(@"V2");
-      v34 = v44;
+      v34 = v43;
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v57 = v44;
+        v56 = v43;
         v41 = "Unable to to write trusted anchors because pipe failed to close. %@";
         goto LABEL_45;
       }
@@ -388,7 +386,7 @@
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v57 = v34;
+        v56 = v34;
         v41 = "Unable to to write trusted anchors to pipe. %@";
 LABEL_45:
         _os_log_impl(&dword_197AD5000, v40, OS_LOG_TYPE_ERROR, v41, buf, 0xCu);
@@ -401,9 +399,9 @@ LABEL_51:
 
 LABEL_52:
 LABEL_53:
-    v16 = v47;
+    v16 = v46;
 
-    v8 = v48;
+    v8 = v47;
 LABEL_54:
 
     goto LABEL_55;
@@ -419,7 +417,6 @@ LABEL_54:
   v15 = 0;
 LABEL_55:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

@@ -137,7 +137,7 @@
   comparator = self->comparator_;
   if (self->root_)
   {
-    if (comparator == qword_100554EE8 && (v10 = JavaLangComparable_class_(), id))
+    if (comparator == qword_100554EE8 && (v10 = JavaLangComparable_class_(self, a2), id))
     {
       idCopy = id;
       if (([v10 isInstance:id] & 1) == 0)
@@ -287,7 +287,7 @@ LABEL_46:
     }
   }
 
-  if (comparator == qword_100554EE8 && ([JavaLangComparable_class_() isInstance:id] & 1) == 0)
+  if (comparator == qword_100554EE8 && ([JavaLangComparable_class_(self a2)] & 1) == 0)
   {
     if (id)
     {
@@ -643,7 +643,7 @@ LABEL_17:
     sub_1001E37B0();
   }
 
-  result = [(JavaUtilTreeMap *)self findWithId:id withJavaUtilTreeMap_RelationEnum:JavaUtilTreeMap_RelationEnum_values_];
+  result = [(JavaUtilTreeMap *)self findWithId:id withJavaUtilTreeMap_RelationEnum:JavaUtilTreeMap_RelationEnum_values_[0]];
   if (result)
   {
     v6 = new_JavaUtilAbstractMap_SimpleImmutableEntry_initWithJavaUtilMap_Entry_(result);
@@ -661,7 +661,7 @@ LABEL_17:
     sub_1001E37B0();
   }
 
-  result = [(JavaUtilTreeMap *)self findWithId:id withJavaUtilTreeMap_RelationEnum:JavaUtilTreeMap_RelationEnum_values_];
+  result = [(JavaUtilTreeMap *)self findWithId:id withJavaUtilTreeMap_RelationEnum:JavaUtilTreeMap_RelationEnum_values_[0]];
   if (result)
   {
 
@@ -850,7 +850,7 @@ LABEL_17:
     sub_1001E37BC();
   }
 
-  v11 = JavaUtilTreeMap_BoundEnum_values_;
+  v11 = JavaUtilTreeMap_BoundEnum_values_[0];
   v12 = qword_100558098;
   if ((atomic_load_explicit(JavaUtilTreeMap_BoundEnum__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -870,7 +870,7 @@ LABEL_17:
   v14 = &qword_100558098;
   if (withBooleanCopy)
   {
-    v14 = &JavaUtilTreeMap_BoundEnum_values_;
+    v14 = JavaUtilTreeMap_BoundEnum_values_;
   }
 
   v15 = *v14;
@@ -887,7 +887,7 @@ LABEL_17:
     sub_1001E37BC();
   }
 
-  v7 = JavaUtilTreeMap_BoundEnum_values_;
+  v7 = JavaUtilTreeMap_BoundEnum_values_[0];
   if ((atomic_load_explicit(JavaUtilTreeMap_BoundEnum__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_1001E37BC();
@@ -908,7 +908,7 @@ LABEL_17:
     sub_1001E37BC();
   }
 
-  v7 = JavaUtilTreeMap_BoundEnum_values_;
+  v7 = JavaUtilTreeMap_BoundEnum_values_[0];
   v8 = qword_100558098;
   if ((atomic_load_explicit(JavaUtilTreeMap_BoundEnum__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -960,7 +960,7 @@ LABEL_17:
     sub_1001E37BC();
   }
 
-  v7 = JavaUtilTreeMap_BoundEnum_values_;
+  v7 = JavaUtilTreeMap_BoundEnum_values_[0];
   v8 = qword_100558098;
   if ((atomic_load_explicit(JavaUtilTreeMap_BoundEnum__initialized, memory_order_acquire) & 1) == 0)
   {
@@ -991,7 +991,7 @@ LABEL_17:
     sub_1001E37BC();
   }
 
-  v5 = JavaUtilTreeMap_BoundEnum_values_;
+  v5 = JavaUtilTreeMap_BoundEnum_values_[0];
   if ((atomic_load_explicit(JavaUtilTreeMap_BoundEnum__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_1001E37BC();
@@ -1047,33 +1047,14 @@ LABEL_17:
 
 - (void)writeObjectWithJavaIoObjectOutputStream:(id)stream
 {
-  if (!stream)
-  {
-    goto LABEL_13;
-  }
-
-  putFields = [stream putFields];
-  if (!putFields)
-  {
-    goto LABEL_13;
-  }
-
-  [putFields putWithNSString:@"comparator" withId:{-[JavaUtilTreeMap comparator](self, "comparator")}];
-  [stream writeFields];
-  [stream writeIntWithInt:self->size_];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  entrySet = [(JavaUtilTreeMap *)self entrySet];
-  if (!entrySet)
+  if (!stream || (v5 = [stream putFields]) == 0 || (objc_msgSend(v5, "putWithNSString:withId:", @"comparator", -[JavaUtilTreeMap comparator](self, "comparator")), objc_msgSend(stream, "writeFields"), objc_msgSend(stream, "writeIntWithInt:", self->size_), v15 = 0u, v16 = 0u, v13 = 0u, v14 = 0u, (v6 = -[JavaUtilTreeMap entrySet](self, "entrySet", 0)) == 0))
   {
 LABEL_13:
     JreThrowNullPointerException();
   }
 
-  v7 = entrySet;
-  v8 = [entrySet countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = v6;
+  v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
@@ -1115,42 +1096,42 @@ LABEL_13:
   }
 
   v6 = [v5 getWithNSString:@"comparator" withId:0];
-  v7 = JavaUtilComparator_class_();
-  if (v6 && ([v7 isInstance:v6] & 1) == 0)
+  v8 = JavaUtilComparator_class_(v6, v7);
+  if (v6 && ([v8 isInstance:v6] & 1) == 0)
   {
     goto LABEL_14;
   }
 
-  JreStrongAssign(&self->comparator_, v6);
+  v9 = JreStrongAssign(&self->comparator_, v6);
   if (self->comparator_)
   {
     goto LABEL_9;
   }
 
-  v8 = qword_100554EE8;
-  v9 = JavaUtilComparator_class_();
-  if (v8)
+  v11 = qword_100554EE8;
+  v12 = JavaUtilComparator_class_(v9, v10);
+  if (v11)
   {
-    if (([v9 isInstance:v8] & 1) == 0)
+    if (([v12 isInstance:v11] & 1) == 0)
     {
 LABEL_14:
       JreThrowClassCastException();
     }
   }
 
-  JreStrongAssign(&self->comparator_, v8);
+  JreStrongAssign(&self->comparator_, v11);
 LABEL_9:
   readInt = [stream readInt];
   if (readInt >= 1)
   {
-    v11 = readInt;
+    v14 = readInt;
     do
     {
       -[JavaUtilTreeMap putInternalWithId:withId:](self, "putInternalWithId:withId:", [stream readObject], objc_msgSend(stream, "readObject"));
-      --v11;
+      --v14;
     }
 
-    while (v11);
+    while (v14);
   }
 }
 

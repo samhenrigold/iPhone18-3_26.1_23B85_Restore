@@ -5,6 +5,7 @@
 - (BOOL)posterViewControllerIsAuthenticated:(id)authenticated;
 - (NSObject)identifier;
 - (UIView)itemView;
+- (_BYTE)setTitleLabelVisible:(char)visible onTopEdge:;
 - (id)delegate;
 - (id)posterView;
 - (id)posterViewControllerRequestExtensionInstanceIdentifier:(id)identifier;
@@ -21,7 +22,7 @@
 - (void)posterViewController;
 - (void)posterViewController:(id)controller didRequestInlineAuthenticationWithUnlockDestination:(id)destination;
 - (void)posterViewController:(id)controller relinquishExtensionInstanceIdentifier:(id)identifier;
-- (void)setTitleLabelVisible:(char)visible onTopEdge:;
+- (void)posterViewController:(id)controller setChromeVisibility:(BOOL)visibility withAnimationSettings:(id)settings animationFence:(id)fence;
 - (void)switcher:(id)switcher didMoveToWindow:(id)window;
 - (void)switcher:(id)switcher updateItemForPresentationProgress:(double)progress;
 - (void)switcher:(id)switcher willMoveToWindow:(id)window;
@@ -71,13 +72,13 @@
 void __42__AMUIPosterCategorySwitcherItem_itemView__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v15 = 0;
-  v3 = [v2 amui_getConfiguredDisplayNameWithError:&v15];
-  v4 = *(a1 + 32);
   v14 = 0;
-  v5 = v15;
-  v6 = [v4 pr_loadAmbientConfigurationWithError:&v14];
-  v7 = v14;
+  v3 = [v2 amui_getConfiguredDisplayNameWithError:&v14];
+  v4 = *(a1 + 32);
+  v13 = 0;
+  v5 = v14;
+  v6 = [v4 pr_loadAmbientConfigurationWithError:&v13];
+  v7 = v13;
 
   v8 = [v6 displayNameSystemSymbolName];
   if (v8)
@@ -117,7 +118,6 @@ LABEL_8:
 LABEL_3:
   v11 = v3;
   v12 = *(a1 + 40);
-  v13 = *(a1 + 48);
   v9 = v3;
   v10 = v8;
   BSDispatchMain();
@@ -311,15 +311,14 @@ void __42__AMUIPosterCategorySwitcherItem_itemView__block_invoke_2(uint64_t a1)
   v5 = v4;
   if (configuration)
   {
-    v6 = *(configuration + 88);
-    v8 = v5;
+    v7 = v4;
     v4 = BSEqualObjects();
-    v5 = v8;
+    v5 = v7;
     if ((v4 & 1) == 0)
     {
       objc_storeStrong((configuration + 88), a2);
       v4 = [*(configuration + 96) updatePosterConfiguration:*(configuration + 88) withAnimationSettings:0];
-      v5 = v8;
+      v5 = v7;
     }
   }
 
@@ -361,16 +360,16 @@ void __42__AMUIPosterCategorySwitcherItem_itemView__block_invoke_2(uint64_t a1)
   }
 }
 
-- (void)setTitleLabelVisible:(char)visible onTopEdge:
+- (_BYTE)setTitleLabelVisible:(char)visible onTopEdge:
 {
-  if (self)
+  if (result)
   {
-    *(self + 80) = a2;
-    *(self + 81) = visible;
-    return [self _updateTitleLabelVisibility];
+    result[80] = a2;
+    result[81] = visible;
+    return [result _updateTitleLabelVisibility];
   }
 
-  return self;
+  return result;
 }
 
 - (id)titleLabelView
@@ -518,6 +517,24 @@ LABEL_5:
   [(AMUIPosterCategorySwitcherItem *)self _updateContentMode];
 }
 
+- (void)posterViewController:(id)controller setChromeVisibility:(BOOL)visibility withAnimationSettings:(id)settings animationFence:(id)fence
+{
+  visibilityCopy = visibility;
+  settingsCopy = settings;
+  fenceCopy = fence;
+  if (self)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  }
+
+  else
+  {
+    WeakRetained = 0;
+  }
+
+  [WeakRetained posterCategorySwitcherItem:self setChromeVisibility:visibilityCopy withAnimationSettings:settingsCopy animationFence:fenceCopy];
+}
+
 - (id)posterViewControllerRequestExtensionInstanceIdentifier:(id)identifier
 {
   if (self)
@@ -530,13 +547,12 @@ LABEL_5:
     WeakRetained = 0;
   }
 
-  lastInstanceIdentifier = self->_lastInstanceIdentifier;
-  v6 = [OUTLINED_FUNCTION_0_4() posterCategorySwitcherItemRequestInstanceIdentifier:? preferring:?];
+  v5 = [OUTLINED_FUNCTION_0_4() posterCategorySwitcherItemRequestInstanceIdentifier:? preferring:?];
 
-  v7 = self->_lastInstanceIdentifier;
+  lastInstanceIdentifier = self->_lastInstanceIdentifier;
   self->_lastInstanceIdentifier = 0;
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)posterViewControllerIsAuthenticated:(id)authenticated

@@ -167,32 +167,30 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    value = self->_value;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_unit)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -211,9 +209,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  version = self->_version;
   PBDataWriterWriteInt64Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -227,15 +224,13 @@ LABEL_10:
   }
 
 LABEL_17:
-  timestamp = self->_timestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_11:
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_12:

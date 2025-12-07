@@ -19,6 +19,7 @@
 - (id)prepareConvertWithError:(id *)error;
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
+- (void)setShouldValidateShadows:(BOOL)shadows;
 @end
 
 @implementation DIConvertParams
@@ -150,7 +151,7 @@ LABEL_6:
 
     std::string::basic_string[abi:ne200100]<0>(&__p, [uRLByDeletingLastPathComponent fileSystemRepresentation]);
     v5 = FileDescriptorWrapper::open_file(&__p, 0);
-    FileLocal::FileLocal(&v8, v5, 0);
+    FileLocal::FileLocal(&v8, v5, 0, 0);
   }
 
   return 0;
@@ -158,180 +159,213 @@ LABEL_6:
 
 - (BOOL)prepareParamsForSquashWithError:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    v6 = getDIOSLog();
-    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v38 = 51;
-    v39 = 2080;
-    v40 = "[DIConvertParams prepareParamsForSquashWithError:]";
-    LODWORD(v36) = 18;
-    v35 = buf;
-    v7 = _os_log_send_and_compose_impl();
-
-    if (v7)
+    v44 = 0;
+    v8 = getDIOSLog(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v7);
-      free(v7);
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    *buf = 68157954;
+    v46 = 51;
+    v47 = 2080;
+    v48 = "[DIConvertParams prepareParamsForSquashWithError:]";
+    LODWORD(v43) = 18;
+    v10 = _os_log_send_and_compose_impl(v9, &v44, 0, 0, &dword_248DE0000, v8, 0, "%.*s: Performing in-place squash optimization", buf, v43);
+
+    if (v10)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v10);
+      free(v10);
     }
   }
 
   else
   {
-    v8 = getDIOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = getDIOSLog(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
-      v38 = 51;
-      v39 = 2080;
-      v40 = "[DIConvertParams prepareParamsForSquashWithError:]";
-      _os_log_impl(&dword_248DE0000, v8, OS_LOG_TYPE_DEFAULT, "%.*s: Performing in-place squash optimization", buf, 0x12u);
+      v46 = 51;
+      v47 = 2080;
+      v48 = "[DIConvertParams prepareParamsForSquashWithError:]";
+      _os_log_impl(&dword_248DE0000, v11, OS_LOG_TYPE_DEFAULT, "%.*s: Performing in-place squash optimization", buf, 0x12u);
     }
   }
 
   *__error() = v5;
-  v9 = [(DIConvertParams *)self copyUpdatedOutputURLWithError:error];
-  if (!v9)
+  v12 = [(DIConvertParams *)self copyUpdatedOutputURLWithError:error];
+  if (!v12)
   {
-    goto LABEL_15;
+    goto LABEL_18;
   }
 
-  if (![DICreateParams eraseIfExistingWithURL:v9 error:error])
+  if (![DICreateParams eraseIfExistingWithURL:v12 error:error])
   {
-    v27 = *__error();
-    if (!DIForwardLogs())
+    v30 = *__error();
+    v31 = DIForwardLogs();
+    if (!v31)
     {
-      v30 = getDIOSLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v36 = getDIOSLog(v31, v32);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 68157954;
-        v38 = 51;
-        v39 = 2080;
-        v40 = "[DIConvertParams prepareParamsForSquashWithError:]";
-        _os_log_impl(&dword_248DE0000, v30, OS_LOG_TYPE_ERROR, "%.*s: Failed to erase output URL", buf, 0x12u);
+        v46 = 51;
+        v47 = 2080;
+        v48 = "[DIConvertParams prepareParamsForSquashWithError:]";
+        _os_log_impl(&dword_248DE0000, v36, OS_LOG_TYPE_ERROR, "%.*s: Failed to erase output URL", buf, 0x12u);
       }
 
-      goto LABEL_29;
+      goto LABEL_38;
     }
 
-    v28 = getDIOSLog();
-    os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
-    *buf = 68157954;
-    v38 = 51;
-    v39 = 2080;
-    v40 = "[DIConvertParams prepareParamsForSquashWithError:]";
-    v29 = _os_log_send_and_compose_impl();
-
-    if (v29)
+    v44 = 0;
+    v33 = getDIOSLog(v31, v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-LABEL_25:
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v29);
-      free(v29);
+      v34 = 3;
     }
 
-LABEL_29:
-    v26 = 0;
-    *__error() = v27;
-    goto LABEL_30;
+    else
+    {
+      v34 = 2;
+    }
+
+    *buf = 68157954;
+    v46 = 51;
+    v47 = 2080;
+    v48 = "[DIConvertParams prepareParamsForSquashWithError:]";
+    LODWORD(v43) = 18;
+    v35 = _os_log_send_and_compose_impl(v34, &v44, 0, 0, &dword_248DE0000, v33, 16, "%.*s: Failed to erase output URL", buf, v43);
+
+    if (v35)
+    {
+LABEL_34:
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v35);
+      free(v35);
+    }
+
+LABEL_38:
+    v29 = 0;
+    *__error() = v30;
+    goto LABEL_39;
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   inputURL = [(DIBaseParams *)self inputURL];
-  v12 = [defaultManager copyItemAtURL:inputURL toURL:v9 error:error];
-
-  if ((v12 & 1) == 0)
-  {
-    v27 = *__error();
-    if (!DIForwardLogs())
-    {
-      v32 = getDIOSLog();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 68157954;
-        v38 = 51;
-        v39 = 2080;
-        v40 = "[DIConvertParams prepareParamsForSquashWithError:]";
-        _os_log_impl(&dword_248DE0000, v32, OS_LOG_TYPE_ERROR, "%.*s: Failed to copy source disk image to temporary URL", buf, 0x12u);
-      }
-
-      goto LABEL_29;
-    }
-
-    v31 = getDIOSLog();
-    os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
-    *buf = 68157954;
-    v38 = 51;
-    v39 = 2080;
-    v40 = "[DIConvertParams prepareParamsForSquashWithError:]";
-    v29 = _os_log_send_and_compose_impl();
-
-    if (v29)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_29;
-  }
-
-  v13 = [[DIBaseParams alloc] initWithURL:v9 error:error];
-  [(DIConvertParams *)self setOutputParams:v13];
-
-  outputParams = [(DIConvertParams *)self outputParams];
-  v15 = [outputParams openExistingImageWithFlags:2 error:error];
+  v15 = [defaultManager copyItemAtURL:inputURL toURL:v12 error:error];
 
   if ((v15 & 1) == 0)
   {
-LABEL_15:
-    v26 = 0;
-    goto LABEL_30;
+    v30 = *__error();
+    v37 = DIForwardLogs();
+    if (!v37)
+    {
+      v41 = getDIOSLog(v37, v38);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 68157954;
+        v46 = 51;
+        v47 = 2080;
+        v48 = "[DIConvertParams prepareParamsForSquashWithError:]";
+        _os_log_impl(&dword_248DE0000, v41, OS_LOG_TYPE_ERROR, "%.*s: Failed to copy source disk image to temporary URL", buf, 0x12u);
+      }
+
+      goto LABEL_38;
+    }
+
+    v44 = 0;
+    v39 = getDIOSLog(v37, v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    {
+      v40 = 3;
+    }
+
+    else
+    {
+      v40 = 2;
+    }
+
+    *buf = 68157954;
+    v46 = 51;
+    v47 = 2080;
+    v48 = "[DIConvertParams prepareParamsForSquashWithError:]";
+    LODWORD(v43) = 18;
+    v35 = _os_log_send_and_compose_impl(v40, &v44, 0, 0, &dword_248DE0000, v39, 16, "%.*s: Failed to copy source disk image to temporary URL", buf, v43);
+
+    if (v35)
+    {
+      goto LABEL_34;
+    }
+
+    goto LABEL_38;
   }
 
-  v16 = [(NSArray *)self->_shadowURLs objectAtIndex:0];
-  v17 = [DIURL newDIURLWithNSURL:v16];
-  [(DIBaseParams *)self setInputURL:v17];
+  v16 = [[DIBaseParams alloc] initWithURL:v12 error:error];
+  [(DIConvertParams *)self setOutputParams:v16];
+
+  outputParams = [(DIConvertParams *)self outputParams];
+  v18 = [outputParams openExistingImageWithFlags:2 error:error];
+
+  if ((v18 & 1) == 0)
+  {
+LABEL_18:
+    v29 = 0;
+    goto LABEL_39;
+  }
+
+  v19 = [(NSArray *)self->_shadowURLs objectAtIndex:0];
+  v20 = [DIURL newDIURLWithNSURL:v19];
+  [(DIBaseParams *)self setInputURL:v20];
 
   inputURL2 = [(DIBaseParams *)self inputURL];
   path = [inputURL2 path];
   if (!path)
   {
 
-    goto LABEL_32;
+    goto LABEL_41;
   }
 
-  v20 = MEMORY[0x277CCACE0];
+  v23 = MEMORY[0x277CCACE0];
   inputURL3 = [(DIBaseParams *)self inputURL];
-  v22 = [v20 componentsWithURL:inputURL3 resolvingAgainstBaseURL:1];
-  LODWORD(v20) = v22 == 0;
+  v25 = [v23 componentsWithURL:inputURL3 resolvingAgainstBaseURL:1];
+  LODWORD(v23) = v25 == 0;
 
-  if (v20)
+  if (v23)
   {
-LABEL_32:
-    v26 = [DIError failWithPOSIXCode:22 description:@"Malformed URL format" error:error, v35, v36];
-    goto LABEL_30;
+LABEL_41:
+    v29 = [DIError failWithPOSIXCode:22 description:@"Malformed URL format" error:error];
+    goto LABEL_39;
   }
 
-  v23 = [MEMORY[0x277CBEB18] arrayWithArray:self->_shadowURLs];
-  [v23 removeObjectAtIndex:0];
+  v26 = [MEMORY[0x277CBEB18] arrayWithArray:self->_shadowURLs];
+  [v26 removeObjectAtIndex:0];
   shadowChain = [(DIBaseParams *)self shadowChain];
-  v25 = [shadowChain addShadowURLs:v23 error:error];
+  v28 = [shadowChain addShadowURLs:v26 error:error];
 
-  if (v25)
+  if (v28)
   {
     [(DIBaseParams *)self setDiskImageParamsXPC:0];
-    v26 = [(DIBaseParams *)self openExistingImageWithFlags:0 error:error];
+    v29 = [(DIBaseParams *)self openExistingImageWithFlags:0 error:error];
   }
 
   else
   {
-    v26 = 0;
+    v29 = 0;
   }
 
-LABEL_30:
-  v33 = *MEMORY[0x277D85DE8];
-  return v26;
+LABEL_39:
+  return v29;
 }
 
 - (BOOL)prepareParamsWithError:(id *)error
@@ -400,6 +434,13 @@ LABEL_3:
   return shouldValidate;
 }
 
+- (void)setShouldValidateShadows:(BOOL)shadows
+{
+  shadowsCopy = shadows;
+  shadowChain = [(DIBaseParams *)self shadowChain];
+  [shadowChain setShouldValidate:shadowsCopy];
+}
+
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
@@ -445,7 +486,7 @@ LABEL_3:
 
 - (id)copyUpdatedOutputURLWithError:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   inputURL = [(DIBaseParams *)self inputURL];
   if ([inputURL isFileURL])
   {
@@ -458,7 +499,7 @@ LABEL_3:
       fileSystemRepresentation = [objc_claimAutoreleasedReturnValue() fileSystemRepresentation];
       v8 = std::string::basic_string[abi:ne200100]<0>(buf, fileSystemRepresentation);
       v9 = FileDescriptorWrapper::open_file(v8, 0);
-      FileLocal::FileLocal(&v13, v9, 0);
+      FileLocal::FileLocal(&v11, v9, 0, 0);
     }
   }
 
@@ -466,14 +507,13 @@ LABEL_3:
   {
   }
 
-  outputURL2 = [(DIConvertParams *)self outputURL];
-  v11 = *MEMORY[0x277D85DE8];
-  return outputURL2;
+  [(DIConvertParams *)self outputURL];
+  return objc_claimAutoreleasedReturnValue();
 }
 
 - (BOOL)onConvertCompletionWithInError:(id)error outError:(id *)outError
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -482,35 +522,45 @@ LABEL_3:
     if (outputParams)
     {
       v8 = *__error();
-      if (DIForwardLogs())
+      v9 = DIForwardLogs();
+      if (v9)
       {
-        v9 = getDIOSLog();
-        os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-        *buf = 68157954;
-        v53 = 59;
-        v54 = 2080;
-        v55 = "[DIConvertParams onConvertCompletionWithInError:outError:]";
-        LODWORD(v50) = 18;
-        v49 = buf;
-        v10 = _os_log_send_and_compose_impl();
-
-        if (v10)
+        v57 = 0;
+        v11 = getDIOSLog(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v10);
-          free(v10);
+          v12 = 3;
+        }
+
+        else
+        {
+          v12 = 2;
+        }
+
+        *buf = 68157954;
+        v59 = 59;
+        v60 = 2080;
+        v61 = "[DIConvertParams onConvertCompletionWithInError:outError:]";
+        LODWORD(v55) = 18;
+        v13 = _os_log_send_and_compose_impl(v12, &v57, 0, 0, &dword_248DE0000, v11, 16, "%.*s: Due to the conversion error, erasing the output file", buf, v55);
+
+        if (v13)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+          free(v13);
         }
       }
 
       else
       {
-        v17 = getDIOSLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = getDIOSLog(v9, v10);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 68157954;
-          v53 = 59;
-          v54 = 2080;
-          v55 = "[DIConvertParams onConvertCompletionWithInError:outError:]";
-          _os_log_impl(&dword_248DE0000, v17, OS_LOG_TYPE_ERROR, "%.*s: Due to the conversion error, erasing the output file", buf, 0x12u);
+          v59 = 59;
+          v60 = 2080;
+          v61 = "[DIConvertParams onConvertCompletionWithInError:outError:]";
+          _os_log_impl(&dword_248DE0000, v20, OS_LOG_TYPE_ERROR, "%.*s: Due to the conversion error, erasing the output file", buf, 0x12u);
         }
       }
 
@@ -523,139 +573,138 @@ LABEL_3:
       {
         outputParams3 = [(DIConvertParams *)self outputParams];
         [outputParams3 onErrorCleanup];
-LABEL_17:
+LABEL_20:
 
-        goto LABEL_18;
+        goto LABEL_21;
       }
 
       outputURL = [(DIConvertParams *)self outputURL];
       outputParams4 = [(DIConvertParams *)self outputParams];
       inputURL = [outputParams4 inputURL];
-      v24 = [outputURL isEqual:inputURL];
+      v27 = [outputURL isEqual:inputURL];
 
-      if ((v24 & 1) == 0)
+      if ((v27 & 1) == 0)
       {
         outputParams3 = [MEMORY[0x277CCAA00] defaultManager];
         outputParams5 = [(DIConvertParams *)self outputParams];
         inputURL2 = [outputParams5 inputURL];
         [outputParams3 removeItemAtURL:inputURL2 error:0];
 
-        goto LABEL_17;
+        goto LABEL_20;
       }
     }
 
-LABEL_18:
-    v16 = [DIError failWithInError:errorCopy outError:outError, v49, v50];
-    goto LABEL_19;
+LABEL_21:
+    v19 = [DIError failWithInError:errorCopy outError:outError];
+    goto LABEL_22;
   }
 
   if ([(DIConvertParams *)self inPlaceConversion])
   {
-    goto LABEL_9;
+    goto LABEL_12;
   }
 
   outputParams6 = [(DIConvertParams *)self outputParams];
 
   if (!outputParams6)
   {
-    goto LABEL_9;
+    goto LABEL_12;
   }
 
   outputURL2 = [(DIConvertParams *)self outputURL];
   outputParams7 = [(DIConvertParams *)self outputParams];
   inputURL3 = [outputParams7 inputURL];
-  v15 = [outputURL2 isEqual:inputURL3];
+  v18 = [outputURL2 isEqual:inputURL3];
 
-  if (v15)
+  if (v18)
   {
-    goto LABEL_9;
+    goto LABEL_12;
   }
 
-  v51 = *__error();
-  if (DIForwardLogs())
+  v56 = *__error();
+  v31 = DIForwardLogs();
+  if (v31)
   {
-    v29 = getDIOSLog();
-    os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+    v57 = 0;
+    v33 = getDIOSLog(v31, v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    {
+      v34 = 3;
+    }
+
+    else
+    {
+      v34 = 2;
+    }
+
     outputParams8 = [(DIConvertParams *)self outputParams];
     inputURL4 = [outputParams8 inputURL];
     path = [inputURL4 path];
     outputURL3 = [(DIConvertParams *)self outputURL];
-    [outputURL3 path];
+    path2 = [outputURL3 path];
     *buf = 68158467;
-    v53 = 59;
-    v54 = 2080;
-    v55 = "[DIConvertParams onConvertCompletionWithInError:outError:]";
-    v56 = 2113;
-    v57 = path;
-    v59 = v58 = 2113;
-    v34 = _os_log_send_and_compose_impl();
+    v59 = 59;
+    v60 = 2080;
+    v61 = "[DIConvertParams onConvertCompletionWithInError:outError:]";
+    v62 = 2113;
+    v63 = path;
+    v64 = 2113;
+    v65 = path2;
+    v40 = _os_log_send_and_compose_impl(v34, &v57, 0, 0, &dword_248DE0000, v33, 0, "%.*s: Moving %{private}@ to %{private}@", buf, 38);
 
-    if (v34)
+    if (v40)
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v34);
-      free(v34);
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v40);
+      free(v40);
     }
   }
 
   else
   {
-    v35 = getDIOSLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v41 = getDIOSLog(v31, v32);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       outputParams9 = [(DIConvertParams *)self outputParams];
       inputURL5 = [outputParams9 inputURL];
-      path2 = [inputURL5 path];
+      path3 = [inputURL5 path];
       outputURL4 = [(DIConvertParams *)self outputURL];
-      path3 = [outputURL4 path];
+      path4 = [outputURL4 path];
       *buf = 68158467;
-      v53 = 59;
-      v54 = 2080;
-      v55 = "[DIConvertParams onConvertCompletionWithInError:outError:]";
-      v56 = 2113;
-      v57 = path2;
-      v58 = 2113;
-      v59 = path3;
-      _os_log_impl(&dword_248DE0000, v35, OS_LOG_TYPE_DEFAULT, "%.*s: Moving %{private}@ to %{private}@", buf, 0x26u);
+      v59 = 59;
+      v60 = 2080;
+      v61 = "[DIConvertParams onConvertCompletionWithInError:outError:]";
+      v62 = 2113;
+      v63 = path3;
+      v64 = 2113;
+      v65 = path4;
+      _os_log_impl(&dword_248DE0000, v41, OS_LOG_TYPE_DEFAULT, "%.*s: Moving %{private}@ to %{private}@", buf, 0x26u);
     }
   }
 
-  *__error() = v51;
+  *__error() = v56;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   outputURL5 = [(DIConvertParams *)self outputURL];
-  v43 = [defaultManager removeItemAtURL:outputURL5 error:outError];
+  v49 = [defaultManager removeItemAtURL:outputURL5 error:outError];
 
-  if ((v43 & 1) == 0)
+  if (v49 & 1) != 0 && ([MEMORY[0x277CCAA00] defaultManager], v50 = objc_claimAutoreleasedReturnValue(), -[DIConvertParams outputParams](self, "outputParams"), v51 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v51, "inputURL"), v52 = objc_claimAutoreleasedReturnValue(), -[DIConvertParams outputURL](self, "outputURL"), v53 = objc_claimAutoreleasedReturnValue(), v54 = objc_msgSend(v50, "moveItemAtURL:toURL:error:", v52, v53, outError), v53, v52, v51, v50, (v54))
   {
-    goto LABEL_28;
-  }
-
-  defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  outputParams10 = [(DIConvertParams *)self outputParams];
-  inputURL6 = [outputParams10 inputURL];
-  outputURL6 = [(DIConvertParams *)self outputURL];
-  v48 = [defaultManager2 moveItemAtURL:inputURL6 toURL:outputURL6 error:outError];
-
-  if (v48)
-  {
-LABEL_9:
-    v16 = 1;
+LABEL_12:
+    v19 = 1;
   }
 
   else
   {
-LABEL_28:
-    v16 = 0;
+    v19 = 0;
   }
 
-LABEL_19:
+LABEL_22:
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v19;
 }
 
 - (id)prepareConvertWithError:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if (![(DIConvertParams *)self prepareParamsWithError:?])
   {
     v6 = 0;
@@ -682,140 +731,147 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v10 = objc_alloc_init(DIClient2Controller_XPCHandler);
-  v11 = *__error();
-  if (DIForwardLogs())
+  v9 = objc_alloc_init(DIClient2Controller_XPCHandler);
+  v10 = *__error();
+  v11 = DIForwardLogs();
+  if (v11)
   {
-    v12 = getDIOSLog();
-    os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    *buf = 68158210;
-    v29 = 43;
-    v30 = 2080;
-    v31 = "[DIConvertParams prepareConvertWithError:]";
-    v32 = 2114;
-    selfCopy2 = self;
-    LODWORD(v27) = 28;
-    v26 = buf;
-    v13 = _os_log_send_and_compose_impl();
-
-    if (v13)
+    v28 = 0;
+    v13 = getDIOSLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
-      free(v13);
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    *buf = 68158210;
+    v30 = 43;
+    v31 = 2080;
+    v32 = "[DIConvertParams prepareConvertWithError:]";
+    v33 = 2114;
+    selfCopy2 = self;
+    v15 = _os_log_send_and_compose_impl(v14, &v28, 0, 0, &dword_248DE0000, v13, 0, "%.*s: entry: %{public}@", buf, 28);
+
+    if (v15)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v15);
+      free(v15);
     }
   }
 
   else
   {
-    v14 = getDIOSLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = getDIOSLog(v11, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68158210;
-      v29 = 43;
-      v30 = 2080;
-      v31 = "[DIConvertParams prepareConvertWithError:]";
-      v32 = 2114;
+      v30 = 43;
+      v31 = 2080;
+      v32 = "[DIConvertParams prepareConvertWithError:]";
+      v33 = 2114;
       selfCopy2 = self;
-      _os_log_impl(&dword_248DE0000, v14, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
+      _os_log_impl(&dword_248DE0000, v16, OS_LOG_TYPE_DEFAULT, "%.*s: entry: %{public}@", buf, 0x1Cu);
     }
   }
 
-  *__error() = v11;
-  if (![(DIClient2Controller_XPCHandler *)v10 connectWithError:error]|| ![(DIBaseParams *)self prepareImageWithXpcHandler:v10 fileMode:2 error:error])
+  *__error() = v10;
+  if (![(DIClient2Controller_XPCHandler *)v9 connectWithError:error]|| ![(DIBaseParams *)self prepareImageWithXpcHandler:v9 fileMode:2 error:error])
   {
-    goto LABEL_30;
+    goto LABEL_33;
   }
 
   if (![(DIConvertParams *)self conversionMethod])
   {
-    v15 = [(DIConvertParams *)self copyUpdatedOutputURLWithError:error];
-    if (v15)
+    v17 = [(DIConvertParams *)self copyUpdatedOutputURLWithError:error];
+    if (v17)
     {
       if ([(DIConvertParams *)self outputFormat]== 9)
       {
-        v16 = [(DICreateParams *)[DICreateUDSBParams alloc] initWithURL:v15 error:error];
-        if (!v16)
+        v18 = [(DICreateParams *)[DICreateUDSBParams alloc] initWithURL:v17 error:error];
+        if (!v18)
         {
-          goto LABEL_42;
+          goto LABEL_45;
         }
 
-        [(DICreateUDSBParams *)v16 setSparseBundleBandSize:[(DIConvertParams *)self sparseBundleBandSize]];
+        [(DICreateUDSBParams *)v18 setSparseBundleBandSize:[(DIConvertParams *)self sparseBundleBandSize]];
       }
 
       else
       {
         if ([(DIConvertParams *)self outputFormat]== 2)
         {
-          v17 = [(DICreateParams *)[DICreateASIFParams alloc] initWithURL:v15 error:error];
+          v19 = [(DICreateParams *)[DICreateASIFParams alloc] initWithURL:v17 error:error];
         }
 
         else
         {
-          v17 = [(DICreateParams *)[DICreateRAWParams alloc] initWithURL:v15 error:error];
+          v19 = [(DICreateParams *)[DICreateRAWParams alloc] initWithURL:v17 error:error];
         }
 
-        v16 = v17;
-        if (!v17)
+        v18 = v19;
+        if (!v19)
         {
-          goto LABEL_42;
+          goto LABEL_45;
         }
       }
 
-      [(DICreateParams *)v16 setEncryptionMethod:[(DIConvertParams *)self encryptionMethod:v26]];
-      [(DIBaseParams *)v16 setReadPassphraseFlags:[(DIBaseParams *)self readPassphraseFlags]];
+      [(DICreateParams *)v18 setEncryptionMethod:[(DIConvertParams *)self encryptionMethod]];
+      [(DIBaseParams *)v18 setReadPassphraseFlags:[(DIBaseParams *)self readPassphraseFlags]];
       shouldValidateShadows = [(DIConvertParams *)self shouldValidateShadows];
-      shadowChain = [(DIBaseParams *)v16 shadowChain];
+      shadowChain = [(DIBaseParams *)v18 shadowChain];
       [shadowChain setShouldValidate:shouldValidateShadows];
 
-      [(DICreateParams *)v16 setPassphrase:[(DIConvertParams *)self passphrase]];
+      [(DICreateParams *)v18 setPassphrase:[(DIConvertParams *)self passphrase]];
       publicKey = [(DIConvertParams *)self publicKey];
-      [(DICreateParams *)v16 setPublicKey:publicKey];
+      [(DICreateParams *)v18 setPublicKey:publicKey];
 
       certificate = [(DIConvertParams *)self certificate];
-      [(DICreateParams *)v16 setCertificate:certificate];
+      [(DICreateParams *)v18 setCertificate:certificate];
 
-      [(DIBaseParams *)v16 setBlockSize:[(DIBaseParams *)self blockSize]];
+      [(DIBaseParams *)v18 setBlockSize:[(DIBaseParams *)self blockSize]];
       temporaryPassphrase = [(DIConvertParams *)self temporaryPassphrase];
-      if (!temporaryPassphrase || (-[DIConvertParams temporaryPassphrase](self, "temporaryPassphrase"), v23 = objc_claimAutoreleasedReturnValue(), v24 = -[DICreateParams setPassphrase:encryptionMethod:error:](v16, "setPassphrase:encryptionMethod:error:", [v23 buf], -[DIConvertParams encryptionMethod](self, "encryptionMethod"), error), v23, temporaryPassphrase, v24))
+      if (!temporaryPassphrase || (-[DIConvertParams temporaryPassphrase](self, "temporaryPassphrase"), v25 = objc_claimAutoreleasedReturnValue(), v26 = -[DICreateParams setPassphrase:encryptionMethod:error:](v18, "setPassphrase:encryptionMethod:error:", [v25 buf], -[DIConvertParams encryptionMethod](self, "encryptionMethod"), error), v25, temporaryPassphrase, v26))
       {
         temporaryPassphrase = self->_temporaryPassphrase;
         self->_temporaryPassphrase = 0;
 
-        if (![(DICreateParams *)v16 validateBlockSizeSupport])
+        if (![(DICreateParams *)v18 validateBlockSizeSupport])
         {
           v6 = [DIError nilWithPOSIXCode:22 verboseInfo:@"Cannot create target image format with the block size of the source image" error:error];
-          goto LABEL_44;
+          goto LABEL_47;
         }
 
-        if ([(DICreateParams *)v16 createDiskImageParamsWithError:error]&& [(DICreateParams *)v16 createEncryptionWithXPCHandler:v10 error:error])
+        if ([(DICreateParams *)v18 createDiskImageParamsWithError:error]&& [(DICreateParams *)v18 createEncryptionWithXPCHandler:v9 error:error])
         {
-          [(DIConvertParams *)self setOutputParams:v16];
+          [(DIConvertParams *)self setOutputParams:v18];
 
-          goto LABEL_25;
+          goto LABEL_28;
         }
       }
 
-LABEL_42:
+LABEL_45:
       v6 = 0;
-LABEL_44:
+LABEL_47:
 
-      goto LABEL_31;
+      goto LABEL_34;
     }
 
-LABEL_30:
+LABEL_33:
     v6 = 0;
-    goto LABEL_31;
+    goto LABEL_34;
   }
 
-LABEL_25:
-  v6 = v10;
-LABEL_31:
+LABEL_28:
+  v6 = v9;
+LABEL_34:
 
 LABEL_7:
   v7 = self->_temporaryPassphrase;
   self->_temporaryPassphrase = 0;
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -850,44 +906,43 @@ LABEL_7:
 
 void __46__DIConvertParams_convertWithCompletionBlock___block_invoke(uint64_t a1)
 {
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = __Block_byref_object_copy__4;
+  v20[4] = __Block_byref_object_dispose__4;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__4;
-  v25 = __Block_byref_object_dispose__4;
-  v26 = 0;
   v2 = *(a1 + 32);
   obj = 0;
   v3 = [v2 prepareConvertWithError:&obj];
-  objc_storeStrong(&v26, obj);
+  objc_storeStrong(&v21, obj);
   if (v3)
   {
     v4 = [v3 remoteProxy];
     v5 = *(a1 + 32);
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __46__DIConvertParams_convertWithCompletionBlock___block_invoke_58;
-    v14 = &unk_278F80B88;
+    v10 = MEMORY[0x277D85DD0];
+    v11 = 3221225472;
+    v12 = __46__DIConvertParams_convertWithCompletionBlock___block_invoke_58;
+    v13 = &unk_278F80B88;
     v6 = v3;
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
-    v15 = v6;
-    v16 = v7;
-    v19 = &v21;
-    v17 = v8;
-    v18 = *(a1 + 48);
-    v9 = [v4 convertWithParams:v5 reply:&v11];
+    v14 = v6;
+    v15 = v7;
+    v18 = v20;
+    v16 = v8;
+    v17 = *(a1 + 48);
+    v9 = [v4 convertWithParams:v5 reply:&v10];
 
-    [*(a1 + 40) addChild:v9 withPendingUnitCount:{99, v11, v12, v13, v14}];
+    [*(a1 + 40) addChild:v9 withPendingUnitCount:{99, v10, v11, v12, v13}];
   }
 
   else
   {
-    v10 = v22[5];
     (*(*(a1 + 48) + 16))();
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(v20, 8);
 }
 
 void __46__DIConvertParams_convertWithCompletionBlock___block_invoke_58(uint64_t a1, void *a2)
@@ -904,7 +959,6 @@ void __46__DIConvertParams_convertWithCompletionBlock___block_invoke_58(uint64_t
     [*(a1 + 48) setCompletedUnitCount:100];
   }
 
-  v8 = *(*(*(a1 + 64) + 8) + 40);
   (*(*(a1 + 56) + 16))();
 }
 

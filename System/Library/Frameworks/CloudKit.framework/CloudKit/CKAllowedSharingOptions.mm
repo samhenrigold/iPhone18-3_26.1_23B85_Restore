@@ -94,7 +94,7 @@
 
 - (id)_uncachedCollaborationOptionsGroupsFromAllowedOptions
 {
-  v144[2] = *MEMORY[0x1E69E9840];
+  v143[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   v7 = objc_msgSend_allowedParticipantPermissionOptions(self, v5, v6);
@@ -102,10 +102,10 @@
   if ((v7 & 2) != 0)
   {
     v9 = objc_alloc(MEMORY[0x1E697B708]);
-    v16 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_RW", &stru_1EFA32970, v10, v11, v12, v13, v14, v15, v137);
+    v16 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_RW", &stru_1EFA32970, v10, v11, v12, v13, v14, v15, v136);
     v18 = objc_msgSend_initWithTitle_identifier_(v9, v17, v16, @"CKSharingPermissionCanMakeChangesOptionID");
 
-    v141 = v18;
+    v140 = v18;
     objc_msgSend_addObject_(v4, v19, v18);
     if ((v8 & 1) == 0)
     {
@@ -115,12 +115,12 @@
     goto LABEL_5;
   }
 
-  v141 = 0;
+  v140 = 0;
   if (v7)
   {
 LABEL_5:
     v20 = objc_alloc(MEMORY[0x1E697B708]);
-    v27 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_RO", &stru_1EFA32970, v21, v22, v23, v24, v25, v26, v137);
+    v27 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_RO", &stru_1EFA32970, v21, v22, v23, v24, v25, v26, v136);
     v29 = objc_msgSend_initWithTitle_identifier_(v20, v28, v27, @"CKSharingPermissionViewOnlyOptionID");
 
     objc_msgSend_addObject_(v4, v30, v29);
@@ -128,13 +128,13 @@ LABEL_5:
 
 LABEL_6:
   v31 = objc_alloc(MEMORY[0x1E697B718]);
-  v38 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_TITLE", &stru_1EFA32970, v32, v33, v34, v35, v36, v37, v137);
+  v38 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_TITLE", &stru_1EFA32970, v32, v33, v34, v35, v36, v37, v136);
   v40 = objc_msgSend_initWithTitle_identifier_footer_options_(v31, v39, v38, @"CKSharingPermissionGroupID", 0, v4);
 
   v41 = objc_opt_new();
   v44 = objc_msgSend_allowedParticipantAccessOptions(self, v42, v43);
   v45 = 0;
-  v140 = v4;
+  v139 = v4;
   if ((v44 & 2) != 0)
   {
     v46 = objc_alloc(MEMORY[0x1E697B708]);
@@ -143,18 +143,18 @@ LABEL_6:
 
     objc_msgSend_addObject_(v41, v56, v55);
     v45 = 0;
-    if (objc_msgSend_supportAllowingAddedParticipantsToInviteOthers(self, v57, v58) && v55 && v141)
+    if (objc_msgSend_supportAllowingAddedParticipantsToInviteOthers(self, v57, v58) && v55 && v140)
     {
       v59 = objc_alloc(MEMORY[0x1E697B708]);
       v66 = CKLocalizedString(@"COLLABORATION_OPTIONS_ADDING_PEOPLE_ALLOW_OTHERS", &stru_1EFA32970, v60, v61, v62, v63, v64, v65, selfCopy);
       v69 = objc_msgSend_identifier(v55, v67, v68);
-      v144[0] = v69;
-      objc_msgSend_identifier(v141, v70, v71);
+      v143[0] = v69;
+      objc_msgSend_identifier(v140, v70, v71);
       selfCopy = self;
       v72 = v41;
       v74 = v73 = v40;
-      v144[1] = v74;
-      v76 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v75, v144, 2);
+      v143[1] = v74;
+      v76 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v75, v143, 2);
       v45 = objc_msgSend_initWithTitle_identifier_subtitle_selected_requiredOptionsIdentifiers_(v59, v77, v66, @"CKSharingAllowOthersToInviteOptionID", 0, 1, v76);
 
       v40 = v73;
@@ -162,7 +162,7 @@ LABEL_6:
       self = selfCopy;
     }
 
-    v4 = v140;
+    v4 = v139;
   }
 
   if (v44)
@@ -184,7 +184,7 @@ LABEL_6:
   {
     if (objc_msgSend__optionsGroupsOnlyContainsSingleOptionInPermissionArrayAndWhoCanAccessArray_(self, v101, v3))
     {
-      v109 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_TITLE", &stru_1EFA32970, v103, v104, v105, v106, v107, v108, v139);
+      v109 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_TITLE", &stru_1EFA32970, v103, v104, v105, v106, v107, v108, v138);
     }
 
     else
@@ -193,23 +193,23 @@ LABEL_6:
     }
 
     v110 = objc_alloc(MEMORY[0x1E697B710]);
-    v143 = v45;
-    v112 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v111, &v143, 1);
+    v142 = v45;
+    v112 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v111, &v142, 1);
     v114 = objc_msgSend_initWithTitle_identifier_footer_options_(v110, v113, v109, @"CKSharingAllowOthersToInviteGroupID", 0, v112);
 
     objc_msgSend_addObject_(v3, v115, v114);
-    v4 = v140;
+    v4 = v139;
   }
 
   if (objc_msgSend_supportAllowingAccessRequests(self, v101, v102))
   {
     v118 = objc_alloc(MEMORY[0x1E697B708]);
-    v125 = CKLocalizedString(@"COLLABORATION_OPTIONS_ALLOW_ACCESS_REQUESTS_TITLE", &stru_1EFA32970, v119, v120, v121, v122, v123, v124, v139);
+    v125 = CKLocalizedString(@"COLLABORATION_OPTIONS_ALLOW_ACCESS_REQUESTS_TITLE", &stru_1EFA32970, v119, v120, v121, v122, v123, v124, v138);
     v127 = objc_msgSend_initWithTitle_identifier_selected_(v118, v126, v125, @"CKSharingAllowAccessRequestsOptionID", 0);
 
     v128 = objc_alloc(MEMORY[0x1E697B710]);
-    v142 = v127;
-    v130 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v129, &v142, 1);
+    v141 = v127;
+    v130 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v129, &v141, 1);
     v132 = objc_msgSend_initWithTitle_identifier_footer_options_(v128, v131, 0, @"CKSharingAllowAccessRequestsGroupID", 0, v130);
 
     objc_msgSend_addObject_(v3, v133, v132);
@@ -217,35 +217,33 @@ LABEL_6:
 
   v134 = objc_msgSend_copy(v3, v116, v117);
 
-  v135 = *MEMORY[0x1E69E9840];
-
   return v134;
 }
 
 - (BOOL)_optionsGroupsOnlyContainsSingleOptionInPermissionArrayAndWhoCanAccessArray:(id)array
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(arrayCopy, v4, &v31, v35, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(arrayCopy, v4, &v30, v34, 16);
   if (v7)
   {
     v8 = 0;
-    v30 = 0;
-    v9 = *v32;
+    v29 = 0;
+    v9 = *v31;
     while (1)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * i);
+        v11 = *(*(&v30 + 1) + 8 * i);
         v12 = objc_msgSend_identifier(v11, v5, v6);
         if (objc_msgSend_isEqualToString_(v12, v13, @"CKSharingPermissionGroupID"))
         {
@@ -254,7 +252,7 @@ LABEL_6:
 
           if (v19 == 1)
           {
-            v30 = 1;
+            v29 = 1;
             continue;
           }
         }
@@ -273,16 +271,15 @@ LABEL_6:
         }
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(arrayCopy, v5, &v31, v35, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(arrayCopy, v5, &v30, v34, 16);
       if (!v7)
       {
-        LOBYTE(v7) = v30 & v8;
+        LOBYTE(v7) = v29 & v8;
         break;
       }
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
@@ -308,7 +305,7 @@ LABEL_6:
 
 - (void)_resolveCollaborationOptionsGroupsForExistingShare:(id)share
 {
-  v99[1] = *MEMORY[0x1E69E9840];
+  v98[1] = *MEMORY[0x1E69E9840];
   shareCopy = share;
   v7 = objc_msgSend_shareOptions(self, v5, v6);
   v10 = objc_msgSend_optionsGroups(v7, v8, v9);
@@ -335,11 +332,11 @@ LABEL_6:
       else
       {
         v32 = objc_alloc(MEMORY[0x1E697B708]);
-        v39 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_MIXED", &stru_1EFA32970, v33, v34, v35, v36, v37, v38, v95);
+        v39 = CKLocalizedString(@"COLLABORATION_OPTIONS_PERMISSION_MIXED", &stru_1EFA32970, v33, v34, v35, v36, v37, v38, v94);
         v41 = objc_msgSend_initWithTitle_identifier_selected_(v32, v40, v39, @"CKSharingPermissionMixedOptionID", 1);
 
-        v99[0] = v41;
-        v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v42, v99, 1);
+        v98[0] = v41;
+        v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v42, v98, 1);
         objc_msgSend__addOptions_toExistingGroupWithID_inOptionsGroups_(self, v44, v43, @"CKSharingPermissionGroupID", v13);
       }
 
@@ -353,16 +350,16 @@ LABEL_6:
         else
         {
           v47 = objc_alloc(MEMORY[0x1E697B708]);
-          v54 = CKLocalizedString(@"COLLABORATION_OPTIONS_ADDING_PEOPLE_ONLY_YOU", &stru_1EFA32970, v48, v49, v50, v51, v52, v53, v95);
+          v54 = CKLocalizedString(@"COLLABORATION_OPTIONS_ADDING_PEOPLE_ONLY_YOU", &stru_1EFA32970, v48, v49, v50, v51, v52, v53, v94);
           v56 = objc_msgSend_initWithTitle_identifier_selected_(v47, v55, v54, @"CKSharingOnlyYouCanInviteOthersOptionID", 0);
 
           v57 = objc_alloc(MEMORY[0x1E697B708]);
-          v64 = CKLocalizedString(@"COLLABORATION_OPTIONS_ADDING_PEOPLE_MIXED", &stru_1EFA32970, v58, v59, v60, v61, v62, v63, v96);
+          v64 = CKLocalizedString(@"COLLABORATION_OPTIONS_ADDING_PEOPLE_MIXED", &stru_1EFA32970, v58, v59, v60, v61, v62, v63, v95);
           v66 = objc_msgSend_initWithTitle_identifier_selected_(v57, v65, v64, @"CKSharingAllowOthersToInviteMixedOptionID", 1);
 
-          v98[0] = v56;
-          v98[1] = v66;
-          v68 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v67, v98, 2);
+          v97[0] = v56;
+          v97[1] = v66;
+          v68 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v67, v97, 2);
           objc_msgSend__addOptions_toExistingGroupWithID_inOptionsGroups_(self, v69, v68, @"CKSharingAllowOthersToInviteGroupID", v13);
         }
       }
@@ -376,12 +373,12 @@ LABEL_6:
     if (objc_msgSend_supportAllowingAccessRequests(self, v23, v24))
     {
       v71 = objc_alloc(MEMORY[0x1E697B708]);
-      v78 = CKLocalizedString(@"COLLABORATION_OPTIONS_DISALLOW_ACCESS_REQUESTS_TITLE", &stru_1EFA32970, v72, v73, v74, v75, v76, v77, v95);
+      v78 = CKLocalizedString(@"COLLABORATION_OPTIONS_DISALLOW_ACCESS_REQUESTS_TITLE", &stru_1EFA32970, v72, v73, v74, v75, v76, v77, v94);
       v81 = objc_msgSend_allowsAccessRequests(shareCopy, v79, v80);
       v83 = objc_msgSend_initWithTitle_identifier_selected_(v71, v82, v78, @"CKSharingDisallowAccessRequestsOptionID", v81 ^ 1u);
 
-      v97 = v83;
-      v85 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v84, &v97, 1);
+      v96 = v83;
+      v85 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v84, &v96, 1);
       objc_msgSend__addOptions_toExistingGroupWithID_inOptionsGroups_(self, v86, v85, @"CKSharingAllowAccessRequestsGroupID", v13);
 
       if (objc_msgSend_allowsAccessRequests(shareCopy, v87, v88))
@@ -425,54 +422,53 @@ LABEL_6:
   selfCopy->_mutableShareOptions = 0;
 
   objc_sync_exit(selfCopy);
-  v94 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_selectOptionWithIdentifier:(id)identifier inGroups:(id)groups
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = groups;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v34, v39, 16);
-  if (v28)
+  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v6, &v33, v38, 16);
+  if (v27)
   {
-    v27 = *v35;
+    v26 = *v34;
     do
     {
       v9 = 0;
       do
       {
-        if (*v35 != v27)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v9;
-        v10 = *(*(&v34 + 1) + 8 * v9);
+        v28 = v9;
+        v10 = *(*(&v33 + 1) + 8 * v9);
+        v29 = 0u;
         v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
         v11 = objc_msgSend_options(v10, v7, v8);
-        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v30, v38, 16);
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v29, v37, 16);
         if (v13)
         {
           v16 = v13;
-          v17 = *v31;
+          v17 = *v30;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v31 != v17)
+              if (*v30 != v17)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v19 = *(*(&v30 + 1) + 8 * i);
+              v19 = *(*(&v29 + 1) + 8 * i);
               v20 = objc_msgSend_identifier(v19, v14, v15);
               isEqualToString = objc_msgSend_isEqualToString_(v20, v21, identifierCopy);
 
@@ -488,50 +484,48 @@ LABEL_6:
               }
             }
 
-            v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v30, v38, 16);
+            v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v29, v37, 16);
           }
 
           while (v16);
         }
 
-        v9 = v29 + 1;
+        v9 = v28 + 1;
       }
 
-      while (v29 + 1 != v28);
-      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v34, v39, 16);
+      while (v28 + 1 != v27);
+      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v33, v38, 16);
     }
 
-    while (v28);
+    while (v27);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeOptionGroupWithID:(id)d fromOptionsGroups:(id)groups
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   groupsCopy = groups;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(groupsCopy, v7, &v21, v25, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(groupsCopy, v7, &v20, v24, 16);
   if (v8)
   {
     v11 = v8;
     v12 = 0;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(groupsCopy);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         v16 = objc_msgSend_identifier(v15, v9, v10);
         isEqualToString = objc_msgSend_isEqualToString_(v16, v17, dCopy);
 
@@ -543,7 +537,7 @@ LABEL_6:
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(groupsCopy, v9, &v21, v25, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(groupsCopy, v9, &v20, v24, 16);
     }
 
     while (v11);
@@ -552,37 +546,35 @@ LABEL_6:
       objc_msgSend_removeObject_(groupsCopy, v9, v12);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addOptions:(id)options toExistingGroupWithID:(id)d inOptionsGroups:(id)groups
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   dCopy = d;
   groupsCopy = groups;
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(groupsCopy, v11, &v69, v74, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(groupsCopy, v11, &v68, v73, 16);
   if (v12)
   {
     v15 = v12;
-    v64 = optionsCopy;
+    v63 = optionsCopy;
     v16 = 0;
-    v17 = *v70;
+    v17 = *v69;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v70 != v17)
+        if (*v69 != v17)
         {
           objc_enumerationMutation(groupsCopy);
         }
 
-        v19 = *(*(&v69 + 1) + 8 * i);
+        v19 = *(*(&v68 + 1) + 8 * i);
         v20 = objc_msgSend_identifier(v19, v13, v14);
         isEqualToString = objc_msgSend_isEqualToString_(v20, v21, dCopy);
 
@@ -594,11 +586,11 @@ LABEL_6:
         }
       }
 
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(groupsCopy, v13, &v69, v74, 16);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(groupsCopy, v13, &v68, v73, 16);
     }
 
     while (v15);
-    optionsCopy = v64;
+    optionsCopy = v63;
     if (v16)
     {
       v24 = objc_msgSend_title(v16, v13, v14);
@@ -607,32 +599,32 @@ LABEL_6:
 
       if (v29 && (objc_msgSend__optionsGroupsOnlyContainsSingleOptionInPermissionArrayAndWhoCanAccessArray_(self, v30, groupsCopy) & 1) == 0)
       {
-        v37 = CKLocalizedString(@"COLLABORATION_OPTIONS_ADDING_PEOPLE_TITLE", &stru_1EFA32970, v31, v32, v33, v34, v35, v36, v63);
+        v37 = CKLocalizedString(@"COLLABORATION_OPTIONS_ADDING_PEOPLE_TITLE", &stru_1EFA32970, v31, v32, v33, v34, v35, v36, v62);
 
         v24 = v37;
       }
 
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
       v66 = 0u;
-      v38 = v64;
-      v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v65, v73, 16);
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v38 = v63;
+      v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v64, v72, 16);
       if (v40)
       {
         v43 = v40;
         v44 = 0;
-        v45 = *v66;
+        v45 = *v65;
         do
         {
           for (j = 0; j != v43; ++j)
           {
-            if (*v66 != v45)
+            if (*v65 != v45)
             {
               objc_enumerationMutation(v38);
             }
 
-            v47 = *(*(&v65 + 1) + 8 * j);
+            v47 = *(*(&v64 + 1) + 8 * j);
             if (objc_msgSend_isSelected(v47, v41, v42))
             {
               v48 = v47;
@@ -641,7 +633,7 @@ LABEL_6:
             }
           }
 
-          v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v41, &v65, v73, 16);
+          v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v41, &v64, v72, 16);
         }
 
         while (v43);
@@ -666,11 +658,9 @@ LABEL_6:
       objc_msgSend_removeObject_(groupsCopy, v57, v16);
       objc_msgSend_addObject_(groupsCopy, v61, v56);
 
-      optionsCopy = v64;
+      optionsCopy = v63;
     }
   }
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 + (id)resolvedOptionsFromOptions:(id)options forExistingShare:(id)share
@@ -711,10 +701,9 @@ LABEL_10:
 
 + (NSArray)readableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"UTCollaborationOptionsType";
-  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v5, 1);
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"UTCollaborationOptionsType";
+  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v4, 1);
 
   return v2;
 }
@@ -731,10 +720,9 @@ LABEL_10:
 
 + (NSArray)writableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"UTCollaborationOptionsType";
-  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v5, 1);
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"UTCollaborationOptionsType";
+  v2 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], a2, v4, 1);
 
   return v2;
 }

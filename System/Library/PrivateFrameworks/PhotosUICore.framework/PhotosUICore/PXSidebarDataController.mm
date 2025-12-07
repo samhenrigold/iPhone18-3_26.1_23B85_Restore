@@ -549,8 +549,8 @@ LABEL_6:
 
     if ([collection px_isUtilitiesFolder])
     {
-      v25 = ([(PXSidebarDataController *)self options]>> 3) & 1;
-      v26 = ([(PXSidebarDataController *)self options]>> 4) & 1;
+      v25 = (objc_msgSend_options(self) >> 3) & 1;
+      v26 = (objc_msgSend_options(self) >> 4) & 1;
       photoLibrary3 = [(PXSidebarDataController *)self photoLibrary];
       v7 = [PXSidebarDataManagerFactory makeUtilitiesDataSectionManagerWithLibrary:photoLibrary3 topLevelIdentifier:identifier2 forPicker:v25 excludeHiddenAlbum:v26];
 

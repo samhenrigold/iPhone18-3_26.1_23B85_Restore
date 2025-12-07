@@ -1,10 +1,10 @@
 @interface NSInvocation(NSXPCConnectionExtensions)
-- (uint64_t)_hasBlockArgument;
+- (unint64_t)_hasBlockArgument;
 @end
 
 @implementation NSInvocation(NSXPCConnectionExtensions)
 
-- (uint64_t)_hasBlockArgument
+- (unint64_t)_hasBlockArgument
 {
   methodSignature = [self methodSignature];
   result = [methodSignature numberOfArguments];

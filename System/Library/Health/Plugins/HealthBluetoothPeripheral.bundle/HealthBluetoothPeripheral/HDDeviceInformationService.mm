@@ -59,7 +59,7 @@
 
 + (id)implementedProperties
 {
-  v2 = _PropertyNamesToCharacteristicIdentifiers();
+  v2 = _PropertyNamesToCharacteristicIdentifiers(self);
   allKeys = [v2 allKeys];
 
   return allKeys;

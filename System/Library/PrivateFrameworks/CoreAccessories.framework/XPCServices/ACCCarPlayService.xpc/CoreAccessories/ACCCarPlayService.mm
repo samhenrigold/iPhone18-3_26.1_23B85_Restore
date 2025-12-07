@@ -2,6 +2,7 @@
 - (void)carPlayAppLinksStateForCertSerial:(id)serial withReply:(id)reply;
 - (void)carPlayIconStateForCertSerial:(id)serial andAppCategories:(unint64_t)categories withReply:(id)reply;
 - (void)carPlaySendConnectionTimeEvent:(unint64_t)event connectionType:(unint64_t)type eventTime:(id)time withReply:(id)reply;
+- (void)carPlayStartSessionForConnectionID:(unsigned int)d properties:(id)properties withReply:(id)reply;
 - (void)filterMatchingDigitalCarKeys:(id)keys forAccessory:(id)accessory withReply:(id)reply;
 - (void)isCarPlayPairedWithCertSerial:(id)serial withReply:(id)reply;
 - (void)isWirelessCarPlayAllowedForCertSerial:(id)serial withReply:(id)reply;
@@ -348,6 +349,57 @@ void __78__ACCCarPlayService_carPlayIconStateForCertSerial_andAppCategories_with
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v4 = a2;
   dispatch_semaphore_signal(*(a1 + 32));
+}
+
+- (void)carPlayStartSessionForConnectionID:(unsigned int)d properties:(id)properties withReply:(id)reply
+{
+  v6 = *&d;
+  propertiesCopy = properties;
+  replyCopy = reply;
+  if (gLogObjects)
+  {
+    v9 = gNumLogObjects < 7;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (v9)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      __54__ACCCarPlay_isCarPlayPairedWithCertSerial_withReply___block_invoke_cold_1();
+    }
+
+    v11 = &_os_log_default;
+    v10 = &_os_log_default;
+  }
+
+  else
+  {
+    v11 = *(gLogObjects + 48);
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = 138412290;
+    v13 = propertiesCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[#ACCCarPlayService] carPlayStartSessionForConnectionID: startSessionProperties %@", &v12, 0xCu);
+  }
+
+  if (carPlayStartSessionForConnectionID_properties_withReply__onceToken != -1)
+  {
+    [ACCCarPlayService carPlayStartSessionForConnectionID:properties:withReply:];
+  }
+
+  if (carPlayStartSessionForConnectionID_properties_withReply___CRHandleCarPlayConnectionRequest)
+  {
+    carPlayStartSessionForConnectionID_properties_withReply___CRHandleCarPlayConnectionRequest(v6, propertiesCopy);
+  }
+
+  replyCopy[2](replyCopy, 1, 0);
 }
 
 - (void)filterMatchingDigitalCarKeys:(id)keys forAccessory:(id)accessory withReply:(id)reply

@@ -9,16 +9,15 @@
 - (uint64_t)NSNumber
 {
   v4 = a2;
-  v6 = *(self + 32);
-  v5 = *(self + 40);
+  v5 = *(self + 32);
   if (a2)
   {
     type metadata accessor for NSError(0, &lazy cache variable for type metadata for NSNumber, NSNumber_ptr);
     v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  v7 = a3;
-  v6(v4, a3);
+  v6 = a3;
+  v5(v4, a3);
 }
 
 - (unint64_t)String

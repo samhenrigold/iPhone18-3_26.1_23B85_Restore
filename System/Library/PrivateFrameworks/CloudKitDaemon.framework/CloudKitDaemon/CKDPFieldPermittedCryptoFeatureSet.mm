@@ -123,55 +123,51 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v13 = toCopy;
+  v9 = toCopy;
   if (*&self->_has)
   {
-    minimumSchemaVersion = self->_minimumSchemaVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v13;
+    toCopy = v9;
   }
 
   if (self->_mmcsVersions.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_mmcsVersions.list[v6];
       PBDataWriterWriteInt32Field();
-      toCopy = v13;
-      ++v6;
+      toCopy = v9;
+      ++v5;
     }
 
-    while (v6 < self->_mmcsVersions.count);
+    while (v5 < self->_mmcsVersions.count);
   }
 
   if (self->_encryptedFieldContextTypes.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_encryptedFieldContextTypes.list[v8];
       PBDataWriterWriteInt32Field();
-      toCopy = v13;
-      ++v8;
+      toCopy = v9;
+      ++v6;
     }
 
-    while (v8 < self->_encryptedFieldContextTypes.count);
+    while (v6 < self->_encryptedFieldContextTypes.count);
   }
 
   p_assetKeyEncryptionTypes = &self->_assetKeyEncryptionTypes;
   if (p_assetKeyEncryptionTypes->count)
   {
-    v11 = 0;
+    v8 = 0;
     do
     {
-      v12 = p_assetKeyEncryptionTypes->list[v11];
       PBDataWriterWriteInt32Field();
-      toCopy = v13;
-      ++v11;
+      toCopy = v9;
+      ++v8;
     }
 
-    while (v11 < p_assetKeyEncryptionTypes->count);
+    while (v8 < p_assetKeyEncryptionTypes->count);
   }
 }
 
@@ -258,7 +254,6 @@
     goto LABEL_10;
   }
 
-  v7 = *(equalCopy + 84);
   if (*&self->_has)
   {
     if ((*(equalCopy + 84) & 1) == 0 || self->_minimumSchemaVersion != *(equalCopy + 20))

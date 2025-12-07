@@ -114,6 +114,7 @@
   {
     *&v105[40] = 0;
     memset(v105, 0, 24);
+    *&v105[32] = 0;
     v10 = 0;
     v11 = 0;
     memset(v104, 0, sizeof(v104));
@@ -126,7 +127,7 @@
     v17 = 0;
     v18 = 0;
     LOBYTE(self) = 0;
-    *&v105[24] = 1uLL;
+    *&v105[24] = 1;
     goto LABEL_68;
   }
 
@@ -1078,11 +1079,11 @@ LABEL_123:
 
 - (RFFactItemButtonCardSection)initWithProtobuf:(id)protobuf
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v57.receiver = self;
-  v57.super_class = RFFactItemButtonCardSection;
-  v5 = [(SFCardSection *)&v57 init];
+  v56.receiver = self;
+  v56.super_class = RFFactItemButtonCardSection;
+  v5 = [(SFCardSection *)&v56 init];
   if (v5)
   {
     text = [protobufCopy text];
@@ -1156,33 +1157,33 @@ LABEL_123:
       v31 = 0;
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     text_4s2 = [protobufCopy text_4s];
-    v33 = [text_4s2 countByEnumeratingWithState:&v53 objects:v58 count:16];
+    v33 = [text_4s2 countByEnumeratingWithState:&v52 objects:v57 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v54;
+      v35 = *v53;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v54 != v35)
+          if (*v53 != v35)
           {
             objc_enumerationMutation(text_4s2);
           }
 
-          v37 = [[RFTextProperty alloc] initWithProtobuf:*(*(&v53 + 1) + 8 * i)];
+          v37 = [[RFTextProperty alloc] initWithProtobuf:*(*(&v52 + 1) + 8 * i)];
           if (v37)
           {
             [v31 addObject:v37];
           }
         }
 
-        v34 = [text_4s2 countByEnumeratingWithState:&v53 objects:v58 count:16];
+        v34 = [text_4s2 countByEnumeratingWithState:&v52 objects:v57 count:16];
       }
 
       while (v34);
@@ -1227,7 +1228,6 @@ LABEL_123:
     v50 = v5;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

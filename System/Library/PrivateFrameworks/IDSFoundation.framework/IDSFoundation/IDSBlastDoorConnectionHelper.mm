@@ -57,32 +57,32 @@
       _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "BlastDoor: Disabled for framing messages", buf, 2u);
     }
 
-    if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog())
+    if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog(0))
     {
       goto LABEL_16;
     }
 
-    v20 = @"BlastDoor: Disabled for framing messages";
+    v24 = @"BlastDoor: Disabled for framing messages";
     goto LABEL_15;
   }
 
   if (!self->_idsBlastDoor || (objc_opt_respondsToSelector() & 1) == 0)
   {
-    v21 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v25 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "BlastDoor: Blastdoor object is null or does not respond to selector", buf, 2u);
+      _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "BlastDoor: Blastdoor object is null or does not respond to selector", buf, 2u);
     }
 
-    if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog())
+    if (!os_log_shim_legacy_logging_enabled() || !_IDSShouldLog(0))
     {
       goto LABEL_16;
     }
 
-    v20 = @"BlastDoor: Blastdoor object is null or does not respond to selector";
+    v24 = @"BlastDoor: Blastdoor object is null or does not respond to selector";
 LABEL_15:
-    _IDSLogV(0, @"IDSFoundation", @"IDSBlastDoorConnectionHelper", v20);
+    _IDSLogV(0, @"IDSFoundation", @"IDSBlastDoorConnectionHelper", v24, v20, v21, v22, v23, v26);
 LABEL_16:
     (*(blockCopy + 2))(blockCopy, payloadCopy, 0, 0);
     goto LABEL_17;
@@ -96,26 +96,26 @@ LABEL_16:
   v15 = [(IDSBlastDoorConnectionHelper *)self removeAllowlistedKey:@"i" fromPayload:v14];
   v16 = [(IDSBlastDoorConnectionHelper *)self removeAllowlistedKey:@"i" fromPayload:v14];
   idsBlastDoor = self->_idsBlastDoor;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = sub_1A7B24D20;
-  v22[3] = &unk_1E77DD350;
-  v27 = v13;
-  v23 = payloadCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = sub_1A7B24D20;
+  v27[3] = &unk_1E77DD350;
+  v32 = v13;
+  v28 = payloadCopy;
   selfCopy = self;
-  v26 = blockCopy;
-  v28 = v15;
-  v24 = v14;
-  v29 = v16;
+  v31 = blockCopy;
+  v33 = v15;
+  v29 = v14;
+  v34 = v16;
   v18 = v14;
-  [idsBlastDoor unpackPayloadDictionary:v18 resultHandler:v22];
+  [idsBlastDoor unpackPayloadDictionary:v18 resultHandler:v27];
 
 LABEL_17:
 }
 
 - (void)diffuseClientMessage:(id)message context:(id)context withCompletionBlock:(id)block
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   contextCopy = context;
   blockCopy = block;
@@ -124,26 +124,26 @@ LABEL_17:
   {
     dictionaryRepresentation = [contextCopy dictionaryRepresentation];
     *buf = 138412290;
-    v20 = dictionaryRepresentation;
+    v24 = dictionaryRepresentation;
     _os_log_impl(&dword_1A7AD9000, v11, OS_LOG_TYPE_DEFAULT, "Sending with context %@", buf, 0xCu);
   }
 
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
   {
     dictionaryRepresentation2 = [contextCopy dictionaryRepresentation];
-    _IDSLogV(0, @"IDSFoundation", @"IDSBlastDoorConnectionHelper", @"Sending with context %@");
+    _IDSLogV(0, @"IDSFoundation", @"IDSBlastDoorConnectionHelper", @"Sending with context %@", v14, v15, v16, v17, dictionaryRepresentation2);
   }
 
-  [(IDSBlastDoorConnectionHelper *)self writeBlastDoorPayloadToDiskIfNecessary:messageCopy withContext:contextCopy, dictionaryRepresentation2];
+  [(IDSBlastDoorConnectionHelper *)self writeBlastDoorPayloadToDiskIfNecessary:messageCopy withContext:contextCopy];
   idsBlastDoor = self->_idsBlastDoor;
   dictionaryRepresentation3 = [contextCopy dictionaryRepresentation];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_1A7B251D4;
-  v17[3] = &unk_1E77DD3A0;
-  v18 = blockCopy;
-  v15 = blockCopy;
-  [idsBlastDoor unpackClientMessage:messageCopy context:dictionaryRepresentation3 resultHandler:v17];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = sub_1A7B251D4;
+  v21[3] = &unk_1E77DD3A0;
+  v22 = blockCopy;
+  v20 = blockCopy;
+  [idsBlastDoor unpackClientMessage:messageCopy context:dictionaryRepresentation3 resultHandler:v21];
 }
 
 - (BOOL)removeAllowlistedKey:(id)key fromPayload:(id)payload
@@ -332,7 +332,7 @@ LABEL_17:
 
 - (BOOL)commandEnabledForBlastDoor:(id)door topic:(id)topic
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   doorCopy = door;
   topicCopy = topic;
   if ([topicCopy isEqualToString:@"com.apple.sps.push"])
@@ -620,13 +620,13 @@ LABEL_8:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v12 = doorCopy;
+          v16 = doorCopy;
           _os_log_impl(&dword_1A7AD9000, v10, OS_LOG_TYPE_DEFAULT, "BlastDoor: Command {%@} not handled in switch case, defaulting to NO", buf, 0xCu);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"commandEnabledForBlastDoor", @"BlastDoor: Command {%@} not handled in switch case, defaulting to NO");
+          _IDSLogV(0, @"IDSFoundation", @"commandEnabledForBlastDoor", @"BlastDoor: Command {%@} not handled in switch case, defaulting to NO", v11, v12, v13, v14, doorCopy);
         }
 
 LABEL_6:
@@ -640,7 +640,7 @@ LABEL_6:
 
 - (void)writeBlastDoorPayloadToDiskIfNecessary:(id)necessary withContext:(id)context
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   contextCopy = context;
   if (CUTIsInternalInstall() && [MEMORY[0x1E69A6180] isWriteBlastDoorPayloadsToDiskEnabled])
@@ -660,91 +660,91 @@ LABEL_6:
     v9 = MEMORY[0x1E696AEC0];
     command = [contextCopy command];
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    uUIDString = [uUID UUIDString];
-    v13 = [v9 stringWithFormat:@"%@-client-payload-%@.data", command, uUIDString];
+    [uUID UUIDString];
+    v44 = v43 = command;
+    v12 = [v9 stringWithFormat:@"%@-client-payload-%@.data"];
 
-    v14 = MEMORY[0x1E695DFF8];
-    v15 = [(__CFString *)writePushPayloadsToDiskPath2 stringByAppendingPathComponent:v13];
-    v16 = [v14 fileURLWithPath:v15];
+    v13 = MEMORY[0x1E695DFF8];
+    v14 = [(__CFString *)writePushPayloadsToDiskPath2 stringByAppendingPathComponent:v12];
+    v15 = [v13 fileURLWithPath:v14];
 
-    v17 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      absoluteString = [v16 absoluteString];
+      absoluteString = [v15 absoluteString];
       *buf = 138412546;
-      v33 = absoluteString;
-      v34 = 2112;
-      v35 = necessaryCopy;
-      _os_log_impl(&dword_1A7AD9000, v17, OS_LOG_TYPE_DEFAULT, "Writing BlastDoor payload to disk: {%@} message: %@", buf, 0x16u);
+      v49 = absoluteString;
+      v50 = 2112;
+      v51 = necessaryCopy;
+      _os_log_impl(&dword_1A7AD9000, v16, OS_LOG_TYPE_DEFAULT, "Writing BlastDoor payload to disk: {%@} message: %@", buf, 0x16u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      absoluteString2 = [v16 absoluteString];
-      v28 = necessaryCopy;
-      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Writing BlastDoor payload to disk: {%@} message: %@");
+      absoluteString2 = [v15 absoluteString];
+      _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Writing BlastDoor payload to disk: {%@} message: %@", v19, v20, v21, v22, absoluteString2);
     }
 
-    v31 = 0;
-    v19 = [MEMORY[0x1E696AE40] dataWithPropertyList:necessaryCopy format:200 options:0 error:{&v31, absoluteString2, v28}];
-    v20 = v31;
-    if (v19)
+    v47 = 0;
+    v23 = [MEMORY[0x1E696AE40] dataWithPropertyList:necessaryCopy format:200 options:0 error:&v47];
+    v24 = v47;
+    if (v23)
     {
       defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-      v22 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/var/mobile/Library/IdentityServices/" isDirectory:1];
-      v30 = v20;
-      [defaultManager createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:0 error:&v30];
-      v23 = v30;
+      v26 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/var/mobile/Library/IdentityServices/" isDirectory:1];
+      v46 = v24;
+      [defaultManager createDirectoryAtURL:v26 withIntermediateDirectories:1 attributes:0 error:&v46];
+      v27 = v46;
 
-      v29 = v23;
-      LODWORD(defaultManager) = [v19 writeToURL:v16 options:1 error:&v29];
-      v20 = v29;
+      v45 = v27;
+      LODWORD(defaultManager) = [v23 writeToURL:v15 options:1 error:&v45];
+      v24 = v45;
 
       if (defaultManager)
       {
-        v24 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v28 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "Write to disk: Successful", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v28, OS_LOG_TYPE_DEFAULT, "Write to disk: Successful", buf, 2u);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Write to disk: Successful");
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Write to disk: Successful", v29, v30, v31, v32, v43);
         }
       }
 
       else
       {
-        v26 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v38 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v33 = v20;
-          _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "Write to disk: Unsuccessful with error: %@", buf, 0xCu);
+          v49 = v24;
+          _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "Write to disk: Unsuccessful with error: %@", buf, 0xCu);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Write to disk: Unsuccessful with error: %@");
+          _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Write to disk: Unsuccessful with error: %@", v39, v40, v41, v42, v24);
         }
       }
     }
 
     else
     {
-      v25 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v33 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v33 = v20;
-        _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "Error while serializing BlastDoor payload %@", buf, 0xCu);
+        v49 = v24;
+        _os_log_impl(&dword_1A7AD9000, v33, OS_LOG_TYPE_DEFAULT, "Error while serializing BlastDoor payload %@", buf, 0xCu);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+      if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
       {
-        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Error while serializing BlastDoor payload %@");
+        _IDSLogV(0, @"IDSFoundation", @"IDSPushHandler", @"Error while serializing BlastDoor payload %@", v34, v35, v36, v37, v24);
       }
     }
   }

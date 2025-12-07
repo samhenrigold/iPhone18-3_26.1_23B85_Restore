@@ -101,7 +101,7 @@
 
                 else
                 {
-                  v22 = [v20 objectForKey:NSFileCreationDate];
+                  v22 = objc_msgSend_objectForKey_(v20);
                   if (v22)
                   {
                     [v10 setObject:stringByDeletingPathExtension forKey:v22];
@@ -153,14 +153,14 @@
           v30 = *v43;
           do
           {
-            for (i = 0; i != v29; i = i + 1)
+            for (i = 0; i != v29; ++i)
             {
               if (*v43 != v30)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v32 = [v10 objectForKey:{*(*(&v42 + 1) + 8 * i), v37}];
+              v32 = objc_msgSend_objectForKey_(v10, v37);
               if (v32)
               {
                 [v26 addObject:v32];

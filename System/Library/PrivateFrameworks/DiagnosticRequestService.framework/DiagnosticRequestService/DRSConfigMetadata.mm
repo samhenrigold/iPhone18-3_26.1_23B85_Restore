@@ -5,6 +5,7 @@
 + (unint64_t)_ON_CONTEXT_QUEUE_countForFilterPredicate:(id)predicate context:(id)context errorOut:(id *)out;
 - (BOOL)_updateContextWithMORepresentation:(id)representation errorOut:(id *)out;
 - (BOOL)isEqual:(id)equal;
+- (DRSConfigMetadata)initWithTeamID:(id)d configUUID:(id)iD state:(unsigned __int8)state completionType:(unint64_t)type receivedDate:(id)date appliedDate:(id)appliedDate completedDate:(id)completedDate completionDescription:(id)self0 config:(id)self1 logTelemetry:(BOOL)self2 reportToDecisionServer:(BOOL)self3;
 - (id)_ON_CONTEXT_QUEUE_initWithConfigMetadataMO:(id)o;
 - (id)_ON_CONTEXT_QUEUE_moRepresentationInContext:(id)context createIfMissing:(BOOL)missing errorOut:(id *)out;
 - (id)_uuidPredicate;
@@ -16,7 +17,7 @@
 + (BOOL)_isValidState:(unsigned __int8)state completionType:(unint64_t)type receivedDate:(id)date appliedDate:(id)appliedDate completedDate:(id)completedDate completionDescription:(id)description
 {
   stateCopy = state;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   appliedDateCopy = appliedDate;
   completedDateCopy = completedDate;
@@ -33,52 +34,52 @@
           case 3:
             if (!appliedDateCopy)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Missing applied date";
               goto LABEL_9;
             }
 
             if (!completedDateCopy)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Complete state must have a non-nil completed date";
               goto LABEL_9;
             }
 
             if ([appliedDateCopy compare:dateCopy] == -1)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(-1);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Applied date < received date";
               goto LABEL_9;
             }
 
             if ([completedDateCopy compare:appliedDateCopy] == -1)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(-1);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Completed date > applied date";
               goto LABEL_9;
             }
@@ -87,39 +88,39 @@
           case 2:
             if (!appliedDateCopy)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Missing applied date";
               goto LABEL_9;
             }
 
             if (completedDateCopy)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Active state must have a nil completed date";
               goto LABEL_9;
             }
 
             if ([appliedDateCopy compare:dateCopy] == -1)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(-1);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Applied date > received date";
               goto LABEL_9;
             }
@@ -128,26 +129,26 @@
           case 1:
             if (appliedDateCopy)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Waiting state must have nil applied date";
               goto LABEL_9;
             }
 
             if (completedDateCopy)
             {
-              v18 = DPLogHandle_ConfigPersistedStoreError();
+              v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
               if (!os_signpost_enabled(v18))
               {
                 goto LABEL_13;
               }
 
-              LOWORD(v25[0]) = 0;
+              LOWORD(v24[0]) = 0;
               v19 = "Waiting state must have nil completed date";
               goto LABEL_9;
             }
@@ -159,27 +160,27 @@
         goto LABEL_14;
       }
 
-      v18 = DPLogHandle_ConfigPersistedStoreError();
+      v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
       if (os_signpost_enabled(v18))
       {
-        LOWORD(v25[0]) = 0;
+        LOWORD(v24[0]) = 0;
         v19 = "Waiting state must have nil completion description";
 LABEL_9:
         v20 = v18;
         v21 = 2;
 LABEL_12:
-        _os_signpost_emit_with_name_impl(&dword_232906000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidMetadataConfiguration", v19, v25, v21);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidMetadataConfiguration", v19, v24, v21);
       }
     }
 
     else
     {
-      v18 = DPLogHandle_ConfigPersistedStoreError();
+      v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
       if (os_signpost_enabled(v18))
       {
-        v25[0] = 67109376;
-        v25[1] = stateCopy;
-        v26 = 2048;
+        v24[0] = 67109376;
+        v24[1] = stateCopy;
+        v25 = 2048;
         typeCopy = type;
         v19 = "State %u is incompatible with completion type: %llu";
         v20 = v18;
@@ -191,10 +192,10 @@ LABEL_12:
 
   else
   {
-    v18 = DPLogHandle_ConfigPersistedStoreError();
+    v18 = DPLogHandle_ConfigPersistedStoreError(descriptionCopy);
     if (os_signpost_enabled(v18))
     {
-      LOWORD(v25[0]) = 0;
+      LOWORD(v24[0]) = 0;
       v19 = "Missing received date";
       goto LABEL_9;
     }
@@ -205,8 +206,126 @@ LABEL_13:
   v22 = 0;
 LABEL_14:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
+}
+
+- (DRSConfigMetadata)initWithTeamID:(id)d configUUID:(id)iD state:(unsigned __int8)state completionType:(unint64_t)type receivedDate:(id)date appliedDate:(id)appliedDate completedDate:(id)completedDate completionDescription:(id)self0 config:(id)self1 logTelemetry:(BOOL)self2 reportToDecisionServer:(BOOL)self3
+{
+  stateCopy = state;
+  descriptionCopy = description;
+  configCopy = config;
+  completedDateCopy = completedDate;
+  v51 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  iDCopy = iD;
+  dateCopy = date;
+  appliedDateCopy = appliedDate;
+  completedDateCopy2 = completedDate;
+  descriptionCopy2 = description;
+  configCopy2 = config;
+  v23 = configCopy2;
+  if (!dCopy)
+  {
+    v28 = DPLogHandle_ConfigPersistedStoreError(configCopy2);
+    if (os_signpost_enabled(v28))
+    {
+      *buf = 0;
+      v29 = "Missing teamID";
+      goto LABEL_16;
+    }
+
+LABEL_17:
+
+LABEL_18:
+    v32 = 0;
+    selfCopy2 = self;
+    goto LABEL_19;
+  }
+
+  v39 = dCopy;
+  if (configCopy2 && ([configCopy2 teamID], v24 = v23, v25 = type, v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "isEqualToString:", dCopy), v26, type = v25, v23 = v24, configCopy = config, descriptionCopy = description, completedDateCopy = completedDate, (v27 & 1) == 0))
+  {
+    v30 = DPLogHandle_ConfigPersistedStoreError(configCopy2);
+    if (os_signpost_enabled(v30))
+    {
+      teamID = [v23 teamID];
+      *buf = 138543618;
+      v48 = v39;
+      v49 = 2114;
+      v50 = teamID;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v30, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidMetadataConfiguration", "teamID does not match config teamID (%{public}@ vs %{public}@)", buf, 0x16u);
+    }
+
+    v32 = 0;
+    dCopy = v39;
+    selfCopy2 = self;
+  }
+
+  else
+  {
+    if (!iDCopy)
+    {
+      v28 = DPLogHandle_ConfigPersistedStoreError(configCopy2);
+      dCopy = v39;
+      if (os_signpost_enabled(v28))
+      {
+        *buf = 0;
+        v29 = "Missing UUID";
+        goto LABEL_16;
+      }
+
+      goto LABEL_17;
+    }
+
+    dCopy = v39;
+    if (stateCopy != 3 && !v23)
+    {
+      v28 = DPLogHandle_ConfigPersistedStoreError(configCopy2);
+      if (os_signpost_enabled(v28))
+      {
+        *buf = 0;
+        v29 = "Waiting or active state must have config";
+LABEL_16:
+        _os_signpost_emit_with_name_impl(&dword_232906000, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidMetadataConfiguration", v29, buf, 2u);
+        goto LABEL_17;
+      }
+
+      goto LABEL_17;
+    }
+
+    if (![objc_opt_class() _isValidState:stateCopy completionType:type receivedDate:dateCopy appliedDate:appliedDateCopy completedDate:completedDateCopy2 completionDescription:descriptionCopy2])
+    {
+      goto LABEL_18;
+    }
+
+    typeCopy = type;
+    v46.receiver = self;
+    v46.super_class = DRSConfigMetadata;
+    v35 = [(DRSConfigMetadata *)&v46 init];
+    v36 = v35;
+    if (v35)
+    {
+      objc_storeStrong(&v35->_teamID, d);
+      objc_storeStrong(&v36->_configUUID, iD);
+      v36->_state = stateCopy;
+      v36->_completionType = typeCopy;
+      objc_storeStrong(&v36->_receivedDate, date);
+      objc_storeStrong(&v36->_appliedDate, appliedDate);
+      objc_storeStrong(&v36->_completedDate, completedDateCopy);
+      objc_storeStrong(&v36->_completionDescription, descriptionCopy);
+      objc_storeStrong(&v36->_config, configCopy);
+      v36->_logTelemetry = telemetry;
+      dCopy = v39;
+      v36->_reportToDecisionServer = server;
+    }
+
+    selfCopy2 = v36;
+    v32 = selfCopy2;
+  }
+
+LABEL_19:
+
+  return v32;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -229,138 +348,28 @@ LABEL_14:
   {
     v6 = v5;
     state = [(DRSConfigMetadata *)self state];
-    if (state != [(DRSConfigMetadata *)v6 state])
+    if (state == [(DRSConfigMetadata *)v6 state]
+      && (v8 = [(DRSConfigMetadata *)self completionType], v8 == [(DRSConfigMetadata *)v6 completionType])
+      && (v9 = [(DRSConfigMetadata *)self logTelemetry], v9 == [(DRSConfigMetadata *)v6 logTelemetry])
+      && (v10 = [(DRSConfigMetadata *)self reportToDecisionServer], v10 == [(DRSConfigMetadata *)v6 reportToDecisionServer])
+      && (-[DRSConfigMetadata teamID](self, "teamID"), v11 = objc_claimAutoreleasedReturnValue(), -[DRSConfigMetadata teamID](v6, "teamID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v11 isEqualToString:v12], v12, v11, v13)
+      && (-[DRSConfigMetadata configUUID](self, "configUUID"), v14 = objc_claimAutoreleasedReturnValue(), -[DRSConfigMetadata configUUID](v6, "configUUID"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v14 isEqual:v15], v15, v14, v16)
+      && (-[DRSConfigMetadata receivedDate](self, "receivedDate"), v17 = objc_claimAutoreleasedReturnValue(), -[DRSConfigMetadata receivedDate](v6, "receivedDate"), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v17 isEqualToDate:v18], v18, v17, v19)
+      && ([(DRSConfigMetadata *)self appliedDate], v20 = objc_claimAutoreleasedReturnValue(), [(DRSConfigMetadata *)v6 appliedDate], v21 = objc_claimAutoreleasedReturnValue(), IsNil = _oneIsNil(v20, v21), v21, v20, (IsNil & 1) == 0)
+      && ((-[DRSConfigMetadata appliedDate](self, "appliedDate"), (v23 = objc_claimAutoreleasedReturnValue()) == 0) || (v24 = v23, -[DRSConfigMetadata appliedDate](self, "appliedDate"), v25 = objc_claimAutoreleasedReturnValue(), -[DRSConfigMetadata appliedDate](v6, "appliedDate"), v26 = objc_claimAutoreleasedReturnValue(), v27 = [v25 isEqualToDate:v26], v26, v25, v24, v27))
+      && ([(DRSConfigMetadata *)self completedDate], v28 = objc_claimAutoreleasedReturnValue(), [(DRSConfigMetadata *)v6 completedDate], v29 = objc_claimAutoreleasedReturnValue(), v30 = _oneIsNil(v28, v29), v29, v28, (v30 & 1) == 0)
+      && ((-[DRSConfigMetadata completedDate](self, "completedDate"), (v31 = objc_claimAutoreleasedReturnValue()) == 0) || (v32 = v31, -[DRSConfigMetadata completedDate](self, "completedDate"), v33 = objc_claimAutoreleasedReturnValue(), -[DRSConfigMetadata completedDate](v6, "completedDate"), v34 = objc_claimAutoreleasedReturnValue(), v35 = [v33 isEqualToDate:v34], v34, v33, v32, v35))
+      && ([(DRSConfigMetadata *)self completionDescription], v36 = objc_claimAutoreleasedReturnValue(), [(DRSConfigMetadata *)v6 completionDescription], v37 = objc_claimAutoreleasedReturnValue(), v38 = _oneIsNil(v36, v37), v37, v36, (v38 & 1) == 0)
+      && ((-[DRSConfigMetadata completionDescription](self, "completionDescription"), (v39 = objc_claimAutoreleasedReturnValue()) == 0) || (v40 = v39, -[DRSConfigMetadata completionDescription](self, "completionDescription"), v41 = objc_claimAutoreleasedReturnValue(), -[DRSConfigMetadata completionDescription](v6, "completionDescription"), v42 = objc_claimAutoreleasedReturnValue(), v43 = [v41 isEqualToString:v42], v42, v41, v40, v43))
+      && ([(DRSConfigMetadata *)self config], v44 = objc_claimAutoreleasedReturnValue(), [(DRSConfigMetadata *)v6 config], v45 = objc_claimAutoreleasedReturnValue(), v46 = _oneIsNil(v44, v45), v45, v44, (v46 & 1) == 0))
     {
-      goto LABEL_21;
-    }
-
-    completionType = [(DRSConfigMetadata *)self completionType];
-    if (completionType != [(DRSConfigMetadata *)v6 completionType])
-    {
-      goto LABEL_21;
-    }
-
-    logTelemetry = [(DRSConfigMetadata *)self logTelemetry];
-    if (logTelemetry != [(DRSConfigMetadata *)v6 logTelemetry])
-    {
-      goto LABEL_21;
-    }
-
-    reportToDecisionServer = [(DRSConfigMetadata *)self reportToDecisionServer];
-    if (reportToDecisionServer != [(DRSConfigMetadata *)v6 reportToDecisionServer])
-    {
-      goto LABEL_21;
-    }
-
-    teamID = [(DRSConfigMetadata *)self teamID];
-    teamID2 = [(DRSConfigMetadata *)v6 teamID];
-    v13 = [teamID isEqualToString:teamID2];
-
-    if (!v13)
-    {
-      goto LABEL_21;
-    }
-
-    configUUID = [(DRSConfigMetadata *)self configUUID];
-    configUUID2 = [(DRSConfigMetadata *)v6 configUUID];
-    v16 = [configUUID isEqual:configUUID2];
-
-    if (!v16)
-    {
-      goto LABEL_21;
-    }
-
-    receivedDate = [(DRSConfigMetadata *)self receivedDate];
-    receivedDate2 = [(DRSConfigMetadata *)v6 receivedDate];
-    v19 = [receivedDate isEqualToDate:receivedDate2];
-
-    if (!v19)
-    {
-      goto LABEL_21;
-    }
-
-    appliedDate = [(DRSConfigMetadata *)self appliedDate];
-    appliedDate2 = [(DRSConfigMetadata *)v6 appliedDate];
-    IsNil = _oneIsNil(appliedDate, appliedDate2);
-
-    if (IsNil)
-    {
-      goto LABEL_21;
-    }
-
-    appliedDate3 = [(DRSConfigMetadata *)self appliedDate];
-    if (appliedDate3)
-    {
-      v24 = appliedDate3;
-      appliedDate4 = [(DRSConfigMetadata *)self appliedDate];
-      appliedDate5 = [(DRSConfigMetadata *)v6 appliedDate];
-      v27 = [appliedDate4 isEqualToDate:appliedDate5];
-
-      if (!v27)
+      config = [(DRSConfigMetadata *)self config];
+      if (config)
       {
-        goto LABEL_21;
-      }
-    }
-
-    completedDate = [(DRSConfigMetadata *)self completedDate];
-    completedDate2 = [(DRSConfigMetadata *)v6 completedDate];
-    v30 = _oneIsNil(completedDate, completedDate2);
-
-    if (v30)
-    {
-      goto LABEL_21;
-    }
-
-    completedDate3 = [(DRSConfigMetadata *)self completedDate];
-    if (completedDate3)
-    {
-      v32 = completedDate3;
-      completedDate4 = [(DRSConfigMetadata *)self completedDate];
-      completedDate5 = [(DRSConfigMetadata *)v6 completedDate];
-      v35 = [completedDate4 isEqualToDate:completedDate5];
-
-      if (!v35)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    completionDescription = [(DRSConfigMetadata *)self completionDescription];
-    completionDescription2 = [(DRSConfigMetadata *)v6 completionDescription];
-    v38 = _oneIsNil(completionDescription, completionDescription2);
-
-    if (v38)
-    {
-      goto LABEL_21;
-    }
-
-    completionDescription3 = [(DRSConfigMetadata *)self completionDescription];
-    if (completionDescription3)
-    {
-      v40 = completionDescription3;
-      completionDescription4 = [(DRSConfigMetadata *)self completionDescription];
-      completionDescription5 = [(DRSConfigMetadata *)v6 completionDescription];
-      v43 = [completionDescription4 isEqualToString:completionDescription5];
-
-      if (!v43)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    config = [(DRSConfigMetadata *)self config];
-    config2 = [(DRSConfigMetadata *)v6 config];
-    v46 = _oneIsNil(config, config2);
-
-    if ((v46 & 1) == 0)
-    {
-      config3 = [(DRSConfigMetadata *)self config];
-      if (config3)
-      {
-        v50 = config3;
-        config4 = [(DRSConfigMetadata *)self config];
-        config5 = [(DRSConfigMetadata *)v6 config];
-        v47 = [config4 isEqual:config5];
+        v50 = config;
+        config2 = [(DRSConfigMetadata *)self config];
+        config3 = [(DRSConfigMetadata *)v6 config];
+        v47 = [config2 isEqual:config3];
       }
 
       else
@@ -371,7 +380,6 @@ LABEL_14:
 
     else
     {
-LABEL_21:
       v47 = 0;
     }
   }
@@ -446,25 +454,26 @@ LABEL_25:
   {
     if ([v12 count])
     {
-      if ([v12 count] == 1)
+      v14 = [v12 count];
+      if (v14 == 1)
       {
         firstObject = [v12 firstObject];
         goto LABEL_10;
       }
 
-      v14 = DPLogHandle_ConfigPersistedStoreError();
-      if (os_signpost_enabled(v14))
+      v15 = DPLogHandle_ConfigPersistedStoreError(v14);
+      if (os_signpost_enabled(v15))
       {
         *buf = 138543362;
         v22 = dCopy;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataQueryFailed", "Found more than 1 ConfigMetadata with UUID %{public}@", buf, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataQueryFailed", "Found more than 1 ConfigMetadata with UUID %{public}@", buf, 0xCu);
       }
 
-      v15 = MEMORY[0x277CCA9B8];
+      v16 = MEMORY[0x277CCA9B8];
       v19 = *MEMORY[0x277CCA450];
       v20 = @"Duplicate UUIDs";
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-      *out = [v15 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v16];
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      *out = [v16 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v17];
     }
 
     firstObject = 0;
@@ -472,14 +481,12 @@ LABEL_25:
 
 LABEL_10:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 + (id)_ON_CONTEXT_QUEUE_configMetadataForFilterPredicate:(id)predicate context:(id)context sortDescriptors:(id)descriptors fetchLimit:(unint64_t)limit errorOut:(id *)out
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   descriptorsCopy = descriptors;
   predicateCopy = predicate;
@@ -492,19 +499,19 @@ LABEL_10:
     [v14 setFetchLimit:limit];
   }
 
-  v23 = 0;
-  v15 = [contextCopy executeFetchRequest:v14 error:&v23];
-  v16 = v23;
+  v22 = 0;
+  v15 = [contextCopy executeFetchRequest:v14 error:&v22];
+  v16 = v22;
   v17 = v16;
   if (v16)
   {
     v18 = v16;
     *out = v17;
-    v19 = DPLogHandle_ConfigPersistedStoreError();
+    v19 = DPLogHandle_ConfigPersistedStoreError(v18);
     if (os_signpost_enabled(v19))
     {
       *buf = 138543362;
-      v25 = v17;
+      v24 = v17;
       _os_signpost_emit_with_name_impl(&dword_232906000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataQueryFailed", "Failed due to error %{public}@", buf, 0xCu);
     }
 
@@ -516,40 +523,37 @@ LABEL_10:
     v20 = v15;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 + (unint64_t)_ON_CONTEXT_QUEUE_countForFilterPredicate:(id)predicate context:(id)context errorOut:(id *)out
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   predicateCopy = predicate;
   v9 = +[DRSConfigMetadataMO fetchRequest];
   [v9 setPredicate:predicateCopy];
 
-  v17 = 0;
-  v10 = [contextCopy countForFetchRequest:v9 error:&v17];
+  v16 = 0;
+  v10 = [contextCopy countForFetchRequest:v9 error:&v16];
 
-  v11 = v17;
+  v11 = v16;
   v12 = v11;
   if (v11)
   {
     v13 = v11;
     *out = v12;
-    v14 = DPLogHandle_ConfigPersistedStoreError();
+    v14 = DPLogHandle_ConfigPersistedStoreError(v13);
     if (os_signpost_enabled(v14))
     {
       *buf = 138543362;
-      v19 = v12;
+      v18 = v12;
       _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigMetadataCountQueryFailed", "Failed due to error %{public}@", buf, 0xCu);
     }
 
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -578,17 +582,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v25 = MEMORY[0x277CCACA8];
+      v24 = MEMORY[0x277CCACA8];
       configUUID2 = [(DRSConfigMetadata *)self configUUID];
-      v27 = [v25 stringWithFormat:@"Could not create DRSConfigMetadataMO instance for %@", configUUID2];
+      v26 = [v24 stringWithFormat:@"Could not create DRSConfigMetadataMO instance for %@", configUUID2];
 
-      v28 = MEMORY[0x277CCA9B8];
+      v27 = MEMORY[0x277CCA9B8];
       v34 = *MEMORY[0x277CCA450];
-      v35[0] = v27;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
-      *out = [v28 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v29];
+      v35[0] = v26;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+      *out = [v27 errorWithDomain:@"DRSConfigPersistenceError" code:0 userInfo:v28];
 
-      v30 = DPLogHandle_ConfigPersistedStoreError();
+      v30 = DPLogHandle_ConfigPersistedStoreError(v29);
       if (os_signpost_enabled(v30))
       {
         configUUID3 = [(DRSConfigMetadata *)self configUUID];
@@ -643,8 +647,6 @@ LABEL_4:
   v11 = v13;
   v12 = v11;
 LABEL_8:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -702,31 +704,31 @@ void __65__DRSConfigMetadata__updateContextWithMORepresentation_errorOut___block
 
 - (id)jsonDictionaryRepresentation
 {
-  v31[6] = *MEMORY[0x277D85DE8];
-  v30[0] = @"teamID";
+  v30[6] = *MEMORY[0x277D85DE8];
+  v29[0] = @"teamID";
   teamID = [(DRSConfigMetadata *)self teamID];
-  v31[0] = teamID;
-  v30[1] = @"configUUID";
+  v30[0] = teamID;
+  v29[1] = @"configUUID";
   configUUID = [(DRSConfigMetadata *)self configUUID];
   uUIDString = [configUUID UUIDString];
-  v31[1] = uUIDString;
-  v30[2] = @"receivedDate";
+  v30[1] = uUIDString;
+  v29[2] = @"receivedDate";
   v5 = MEMORY[0x277CCABB0];
   receivedDate = [(DRSConfigMetadata *)self receivedDate];
   [receivedDate timeIntervalSince1970];
   v7 = [v5 numberWithDouble:?];
-  v31[2] = v7;
-  v30[3] = @"state";
+  v30[2] = v7;
+  v29[3] = @"state";
   [(DRSConfigMetadata *)self state];
   v8 = DRConfigStringForState();
-  v31[3] = v8;
-  v30[4] = @"logTelemetry";
+  v30[3] = v8;
+  v29[4] = @"logTelemetry";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSConfigMetadata logTelemetry](self, "logTelemetry")}];
-  v31[4] = v9;
-  v30[5] = @"reportToDPDS";
+  v30[4] = v9;
+  v29[5] = @"reportToDPDS";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[DRSConfigMetadata reportToDecisionServer](self, "reportToDecisionServer")}];
-  v31[5] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:6];
+  v30[5] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
   v12 = [v11 mutableCopy];
 
   appliedDate = [(DRSConfigMetadata *)self appliedDate];
@@ -773,8 +775,6 @@ void __65__DRSConfigMetadata__updateContextWithMORepresentation_errorOut___block
     jsonDictRepresentation = [config2 jsonDictRepresentation];
     [v12 setObject:jsonDictRepresentation forKeyedSubscript:@"config"];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

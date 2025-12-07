@@ -68,14 +68,14 @@
   v3 = [v2 url];
   v4 = [v3 fm_preferencesPathURLForDomain:@"com.apple.icloud.findmydeviced.secureLocations.config"];
 
-  v5 = sub_1000029E0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_1000029E0(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = @"SecureLocationConfig";
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ archiverURL %@", &v7, 0x16u);
+    v8 = 138412546;
+    v9 = @"SecureLocationConfig";
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ archiverURL %@", &v8, 0x16u);
   }
 
   [v4 setResourceValue:&__kCFBooleanTrue forKey:NSURLIsExcludedFromBackupKey error:0];
@@ -111,7 +111,7 @@
 - (void)updateConfigData:(id)data
 {
   dataCopy = data;
-  v5 = sub_1000029E0();
+  v5 = sub_1000029E0(dataCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -134,26 +134,27 @@
 
 - (id)_dictionaryFromConfigData:(id)data
 {
-  v8 = 0;
-  v3 = [NSJSONSerialization JSONObjectWithData:data options:4 error:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [NSJSONSerialization JSONObjectWithData:data options:4 error:&v9];
+  v4 = v9;
+  v5 = v4;
   if (v4)
   {
-    v5 = sub_1000029E0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_1000029E0(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10022DB68();
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = v3;
+    v7 = v3;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)_parseConfigFile:(id)file
@@ -166,7 +167,7 @@
 
   else
   {
-    v6 = sub_1000029E0();
+    v6 = sub_1000029E0(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10022DBE4();
@@ -185,81 +186,81 @@
   publishPolicies = self->_publishPolicies;
   self->_publishPolicies = v5;
 
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
+  v27 = 0u;
   allKeys = [v4 allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v27;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v26 != v10)
+        if (*v27 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v26 + 1) + 8 * i);
         v13 = [v4 objectForKeyedSubscript:v12];
         v14 = [[FMDSecureLocationConfig alloc] initWithName:v12 values:v13];
         [(NSMutableDictionary *)self->_publishPolicies setObject:v14 forKey:v12];
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v9);
   }
 
-  v15 = sub_1000029E0();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_1000029E0(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     publishPolicies = [(FMDSecureLocationConfigManager *)self publishPolicies];
-    v17 = [publishPolicies count];
-    v18 = self->_publishPolicies;
+    v18 = [publishPolicies count];
+    v19 = self->_publishPolicies;
     *buf = 138412802;
-    v30 = @"SecureLocationConfig";
-    v31 = 2048;
-    v32 = v17;
-    v33 = 2112;
-    v34 = v18;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ Read %lu policies from config. Policies %@", buf, 0x20u);
+    v31 = @"SecureLocationConfig";
+    v32 = 2048;
+    v33 = v18;
+    v34 = 2112;
+    v35 = v19;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ Read %lu policies from config. Policies %@", buf, 0x20u);
   }
 
-  v19 = [(NSMutableDictionary *)self->_publishPolicies objectForKeyedSubscript:kFMDSecureLocationModeBackgroundProactive];
-  v20 = sub_1000029E0();
-  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-  if (v19)
+  v20 = [(NSMutableDictionary *)self->_publishPolicies objectForKeyedSubscript:kFMDSecureLocationModeBackgroundProactive];
+  v21 = sub_1000029E0(v20);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  if (v20)
   {
-    if (v21)
+    if (v22)
     {
-      policyName = [v19 policyName];
+      policyName = [v20 policyName];
       *buf = 138412546;
-      v30 = @"SecureLocationConfig";
-      v31 = 2112;
-      v32 = policyName;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ Setting defaultPolicy %@", buf, 0x16u);
+      v31 = @"SecureLocationConfig";
+      v32 = 2112;
+      v33 = policyName;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%@ Setting defaultPolicy %@", buf, 0x16u);
     }
 
-    v23 = v19;
+    v24 = v20;
   }
 
   else
   {
-    if (v21)
+    if (v22)
     {
       *buf = 138412290;
-      v30 = @"SecureLocationConfig";
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ Failed to read policy from config data", buf, 0xCu);
+      v31 = @"SecureLocationConfig";
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%@ Failed to read policy from config data", buf, 0xCu);
     }
   }
 
-  return v19;
+  return v20;
 }
 
 - (id)configForPolicy:(id)policy
@@ -268,111 +269,112 @@
   publishPolicies = [(FMDSecureLocationConfigManager *)self publishPolicies];
   v6 = [publishPolicies objectForKeyedSubscript:policyCopy];
 
-  v7 = sub_1000029E0();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = sub_1000029E0(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    if (v8)
+    if (v9)
     {
-      v16 = 138412546;
-      v17 = @"SecureLocationConfig";
-      v18 = 2112;
-      v19 = policyCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Found config for policy %@", &v16, 0x16u);
+      v18 = 138412546;
+      v19 = @"SecureLocationConfig";
+      v20 = 2112;
+      v21 = policyCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ Found config for policy %@", &v18, 0x16u);
     }
 
-    v9 = v6;
+    v10 = v6;
     goto LABEL_5;
   }
 
-  if (v8)
+  if (v9)
   {
-    v16 = 138412546;
-    v17 = @"SecureLocationConfig";
-    v18 = 2112;
-    v19 = policyCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ No config found with name %@ from server configs. Creating with default values if name matches", &v16, 0x16u);
+    v18 = 138412546;
+    v19 = @"SecureLocationConfig";
+    v20 = 2112;
+    v21 = policyCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ No config found with name %@ from server configs. Creating with default values if name matches", &v18, 0x16u);
   }
 
-  v11 = kFMDSecureLocationModeLive;
+  v12 = kFMDSecureLocationModeLive;
   if (![policyCopy caseInsensitiveCompare:kFMDSecureLocationModeLive])
   {
-    v13 = +[NSMutableDictionary dictionary];
-    [v13 setObject:@"1.0" forKeyedSubscript:@"minDistanceBetweenPublish"];
-    [v13 setObject:@"0.97" forKeyedSubscript:@"minTimeBetweenPublish"];
-    [v13 setObject:@"3600" forKeyedSubscript:@"expirationInterval"];
-    [v13 setObject:@"4" forKeyedSubscript:@"heartbeatPublish"];
-    [v13 setObject:@"5" forKeyedSubscript:@"priority"];
-    v14 = off_1002D0EE8;
+    v15 = +[NSMutableDictionary dictionary];
+    [v15 setObject:@"1.0" forKeyedSubscript:@"minDistanceBetweenPublish"];
+    [v15 setObject:@"0.97" forKeyedSubscript:@"minTimeBetweenPublish"];
+    [v15 setObject:@"3600" forKeyedSubscript:@"expirationInterval"];
+    [v15 setObject:@"4" forKeyedSubscript:@"heartbeatPublish"];
+    [v15 setObject:@"5" forKeyedSubscript:@"priority"];
+    v16 = off_1002D0EE8;
 LABEL_21:
-    [v13 setObject:*v14 forKeyedSubscript:@"desiredAccuracy"];
-    v10 = [[FMDSecureLocationConfig alloc] initWithName:v11 values:v13];
+    [v15 setObject:*v16 forKeyedSubscript:@"desiredAccuracy"];
+    v11 = [[FMDSecureLocationConfig alloc] initWithName:v12 values:v15];
 
     goto LABEL_22;
   }
 
-  v11 = kFMDSecureLocationModeProactiveShallow;
+  v12 = kFMDSecureLocationModeProactiveShallow;
   if (![policyCopy caseInsensitiveCompare:kFMDSecureLocationModeProactiveShallow])
   {
-    v13 = +[NSMutableDictionary dictionary];
-    [v13 setObject:@"25" forKeyedSubscript:@"minDistanceBetweenPublish"];
-    [v13 setObject:@"30" forKeyedSubscript:@"minTimeBetweenPublish"];
-    [v13 setObject:@"240" forKeyedSubscript:@"expirationInterval"];
-    [v13 setObject:@"50" forKeyedSubscript:@"heartbeatPublish"];
-    [v13 setObject:@"4" forKeyedSubscript:@"priority"];
-    v14 = off_1002D0EF8;
+    v15 = +[NSMutableDictionary dictionary];
+    [v15 setObject:@"25" forKeyedSubscript:@"minDistanceBetweenPublish"];
+    [v15 setObject:@"30" forKeyedSubscript:@"minTimeBetweenPublish"];
+    [v15 setObject:@"240" forKeyedSubscript:@"expirationInterval"];
+    [v15 setObject:@"50" forKeyedSubscript:@"heartbeatPublish"];
+    [v15 setObject:@"4" forKeyedSubscript:@"priority"];
+    v16 = off_1002D0EF8;
     goto LABEL_21;
   }
 
-  v11 = kFMDSecureLocationModeOwnerProactive;
+  v12 = kFMDSecureLocationModeOwnerProactive;
   if (![policyCopy caseInsensitiveCompare:kFMDSecureLocationModeOwnerProactive])
   {
-    v13 = +[NSMutableDictionary dictionary];
-    [v13 setObject:@"0.0" forKeyedSubscript:@"minDistanceBetweenPublish"];
-    [v13 setObject:@"3000" forKeyedSubscript:@"minTimeBetweenPublish"];
-    [v13 setObject:@"86400.0" forKeyedSubscript:@"expirationInterval"];
-    [v13 setObject:@"3000" forKeyedSubscript:@"heartbeatPublish"];
-    [v13 setObject:@"1" forKeyedSubscript:@"priority"];
-    v14 = off_1002D0F00;
+    v15 = +[NSMutableDictionary dictionary];
+    [v15 setObject:@"0.0" forKeyedSubscript:@"minDistanceBetweenPublish"];
+    [v15 setObject:@"3000" forKeyedSubscript:@"minTimeBetweenPublish"];
+    [v15 setObject:@"86400.0" forKeyedSubscript:@"expirationInterval"];
+    [v15 setObject:@"3000" forKeyedSubscript:@"heartbeatPublish"];
+    [v15 setObject:@"1" forKeyedSubscript:@"priority"];
+    v16 = off_1002D0F00;
     goto LABEL_21;
   }
 
   if (![policyCopy caseInsensitiveCompare:kFMDSecureLocationModeProactive])
   {
-    v9 = objc_alloc_init(FMDSecureLocationConfig);
+    v10 = objc_alloc_init(FMDSecureLocationConfig);
 LABEL_5:
-    v10 = v9;
+    v11 = v10;
     goto LABEL_22;
   }
 
-  v11 = kFMDSecureLocationModeBackgroundProactive;
-  if (![policyCopy caseInsensitiveCompare:kFMDSecureLocationModeBackgroundProactive])
+  v12 = kFMDSecureLocationModeBackgroundProactive;
+  v13 = [policyCopy caseInsensitiveCompare:kFMDSecureLocationModeBackgroundProactive];
+  if (!v13)
   {
-    v13 = +[NSMutableDictionary dictionary];
-    [v13 setObject:@"10000" forKeyedSubscript:@"minDistanceBetweenPublish"];
-    [v13 setObject:@"3600" forKeyedSubscript:@"minTimeBetweenPublish"];
-    [v13 setObject:@"86400.0" forKeyedSubscript:@"expirationInterval"];
-    [v13 setObject:@"900" forKeyedSubscript:@"minTimeBetweenVisitPublish"];
-    [v13 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldWakeDevice"];
-    [v13 setObject:@"0" forKeyedSubscript:@"priority"];
-    v14 = &off_1002D0F18;
+    v15 = +[NSMutableDictionary dictionary];
+    [v15 setObject:@"10000" forKeyedSubscript:@"minDistanceBetweenPublish"];
+    [v15 setObject:@"3600" forKeyedSubscript:@"minTimeBetweenPublish"];
+    [v15 setObject:@"86400.0" forKeyedSubscript:@"expirationInterval"];
+    [v15 setObject:@"900" forKeyedSubscript:@"minTimeBetweenVisitPublish"];
+    [v15 setObject:&__kCFBooleanFalse forKeyedSubscript:@"shouldWakeDevice"];
+    [v15 setObject:@"0" forKeyedSubscript:@"priority"];
+    v16 = &off_1002D0F18;
     goto LABEL_21;
   }
 
-  v12 = sub_1000029E0();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_1000029E0(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412546;
-    v17 = @"SecureLocationConfig";
-    v18 = 2112;
-    v19 = policyCopy;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ Invalid policy name specified %@", &v16, 0x16u);
+    v18 = 138412546;
+    v19 = @"SecureLocationConfig";
+    v20 = 2112;
+    v21 = policyCopy;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@ Invalid policy name specified %@", &v18, 0x16u);
   }
 
-  v10 = 0;
+  v11 = 0;
 LABEL_22:
 
-  return v10;
+  return v11;
 }
 
 - (void)requestMonitorWithContext:(id)context
@@ -415,20 +417,20 @@ LABEL_22:
   findMyId = [contextCopy findMyId];
   [v11 setObject:expirationCopy forKey:findMyId];
 
-  v15 = sub_1000029E0();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_1000029E0(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     mode3 = [contextCopy mode];
     findMyId2 = [contextCopy findMyId];
-    v18 = 138413058;
-    v19 = @"SecureLocationConfig";
-    v20 = 2112;
-    v21 = mode3;
-    v22 = 2112;
-    v23 = expirationCopy;
-    v24 = 2112;
-    v25 = findMyId2;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ Added policy %@ expiration to %@ for %@", &v18, 0x2Au);
+    v19 = 138413058;
+    v20 = @"SecureLocationConfig";
+    v21 = 2112;
+    v22 = mode3;
+    v23 = 2112;
+    v24 = expirationCopy;
+    v25 = 2112;
+    v26 = findMyId2;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ Added policy %@ expiration to %@ for %@", &v19, 0x2Au);
   }
 }
 
@@ -440,7 +442,7 @@ LABEL_22:
 
   delegate = [(FMDSecureLocationConfigManager *)self delegate];
   v7 = [(FMDSecureLocationConfigManager *)self configForPolicy:requestedCopy];
-  v8 = sub_1000029E0();
+  v8 = sub_1000029E0(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     activeConfig = [(FMDSecureLocationConfigManager *)self activeConfig];
@@ -471,7 +473,7 @@ LABEL_22:
 
   else
   {
-    v15 = sub_1000029E0();
+    v15 = sub_1000029E0(activeConfig2);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       activeConfig5 = [(FMDSecureLocationConfigManager *)self activeConfig];
@@ -523,7 +525,7 @@ LABEL_12:
   mode = [contextCopy mode];
   if (!mode || (v7 = mode, [contextCopy findMyId], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, !v8))
   {
-    v11 = sub_1000029E0();
+    v11 = sub_1000029E0(mode);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10022DCE4();
@@ -538,15 +540,15 @@ LABEL_12:
 
   if (!v11)
   {
-    v17 = sub_1000029E0();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_1000029E0(v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       mode3 = [contextCopy mode];
-      v21 = 138412546;
-      v22 = @"SecureLocationConfig";
-      v23 = 2114;
-      v24 = mode3;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@ No active contexts for mode %{public}@", &v21, 0x16u);
+      v23 = 138412546;
+      v24 = @"SecureLocationConfig";
+      v25 = 2114;
+      v26 = mode3;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%@ No active contexts for mode %{public}@", &v23, 0x16u);
     }
 
     lastObject = 0;
@@ -556,18 +558,18 @@ LABEL_12:
   findMyId = [contextCopy findMyId];
   [v11 removeObjectForKey:findMyId];
 
-  v13 = sub_1000029E0();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_1000029E0(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     findMyId2 = [contextCopy findMyId];
     mode4 = [contextCopy mode];
-    v21 = 138412802;
-    v22 = @"SecureLocationConfig";
-    v23 = 2114;
-    v24 = findMyId2;
+    v23 = 138412802;
+    v24 = @"SecureLocationConfig";
     v25 = 2114;
-    v26 = mode4;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@ Removed active sub for %{public}@ in mode %{public}@", &v21, 0x20u);
+    v26 = findMyId2;
+    v27 = 2114;
+    v28 = mode4;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ Removed active sub for %{public}@ in mode %{public}@", &v23, 0x20u);
   }
 
   if (![v11 count])
@@ -578,9 +580,9 @@ LABEL_10:
   }
 
   allValues = [v11 allValues];
-  v17 = [allValues sortedArrayUsingComparator:&stru_1002D0CF8];
+  v19 = [allValues sortedArrayUsingComparator:&stru_1002D0CF8];
 
-  lastObject = [v17 lastObject];
+  lastObject = [v19 lastObject];
 LABEL_14:
 
 LABEL_15:

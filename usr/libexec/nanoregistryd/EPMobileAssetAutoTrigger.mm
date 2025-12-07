@@ -8,6 +8,7 @@
 - (id)mobileAssetDownloadOptionsUserInitiated:(BOOL)initiated;
 - (int64_t)getFailureCount;
 - (void)dealloc;
+- (void)downloadAssetCatalogFor:(id)for userInitiated:(BOOL)initiated withCompletion:(id)completion;
 - (void)queryAndGetLatestAssetForAssetType:(id)type withAssetCompatibilityVersion:(id)version withCompletion:(id)completion;
 - (void)registerForNotifications;
 - (void)setLastAssetUpdateCheckDate:(id)date withSuccess:(BOOL)success;
@@ -144,55 +145,55 @@
     {
       [(EPMobileAssetAutoTrigger *)self getLastAssetUpdateCheckInterval];
       v6 = v5;
-      [(EPMobileAssetAutoTrigger *)self getRequiredCooldownIntervalForFailureCount:[(EPMobileAssetAutoTrigger *)self getFailureCount]];
-      v8 = v7;
-      v9 = sub_1000034AC();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+      v7 = [(EPMobileAssetAutoTrigger *)self getRequiredCooldownIntervalForFailureCount:[(EPMobileAssetAutoTrigger *)self getFailureCount]];
+      v9 = v8;
+      v10 = sub_1000034AC(v7);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-      if (v10)
+      if (v11)
       {
-        v11 = sub_1000034AC();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_1000034AC(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v20 = v6;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Last update check interval: %.0f seconds", buf, 0xCu);
+          v23 = v6;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Last update check interval: %.0f seconds", buf, 0xCu);
         }
       }
 
-      v12 = sub_1000034AC();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      v14 = sub_1000034AC(v12);
+      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-      if (v6 <= 0.0 || v6 >= v8)
+      if (v6 <= 0.0 || v6 >= v9)
       {
-        if (v13)
+        if (v15)
         {
-          v15 = sub_1000034AC();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_1000034AC(v16);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Cooldown elapsed; triggering scan", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Cooldown elapsed; triggering scan", buf, 2u);
           }
         }
 
-        v16 = +[NRQueue assetDownloadQueue];
-        queue = [v16 queue];
-        v18[0] = _NSConcreteStackBlock;
-        v18[1] = 3221225472;
-        v18[2] = sub_10000E630;
-        v18[3] = &unk_100175A10;
-        v18[4] = self;
-        [(EPMobileAssetAutoTrigger *)self updateCompatibilityIndexAssetOnQueue:queue userInitiated:1 withCompletion:v18];
+        v19 = +[NRQueue assetDownloadQueue];
+        queue = [v19 queue];
+        v21[0] = _NSConcreteStackBlock;
+        v21[1] = 3221225472;
+        v21[2] = sub_10000E630;
+        v21[3] = &unk_100175A10;
+        v21[4] = self;
+        [(EPMobileAssetAutoTrigger *)self updateCompatibilityIndexAssetOnQueue:queue userInitiated:1 withCompletion:v21];
       }
 
-      else if (v13)
+      else if (v15)
       {
-        v14 = sub_1000034AC();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_1000034AC(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v20 = v8 - v6;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Cooldown has not elapsed (%.0f seconds remaining); deferring scan", buf, 0xCu);
+          v23 = v9 - v6;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Cooldown has not elapsed (%.0f seconds remaining); deferring scan", buf, 0xCu);
         }
       }
     }
@@ -224,26 +225,26 @@
 {
   if (count <= 0)
   {
-    v13 = sub_1000034AC();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v14 = sub_1000034AC(self);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-    if (!v14)
+    if (!v15)
     {
       return 604800.0;
     }
 
-    v9 = sub_1000034AC();
+    v10 = sub_1000034AC(v16);
     v6 = 604800.0;
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_13;
     }
 
-    v16 = 67109120;
-    LODWORD(v17) = 604800;
-    v10 = "EPMobileAssetAutoTrigger: Using %d second interval for success or invalid failure count";
-    v11 = v9;
-    v12 = 8;
+    v18 = 67109120;
+    LODWORD(v19) = 604800;
+    v11 = "EPMobileAssetAutoTrigger: Using %d second interval for success or invalid failure count";
+    v12 = v10;
+    v13 = 8;
     goto LABEL_12;
   }
 
@@ -260,28 +261,28 @@
   }
 
   v6 = v5;
-  v7 = sub_1000034AC();
+  v7 = sub_1000034AC(self);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = sub_1000034AC();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000034AC(v9);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_13:
 
       return v6;
     }
 
-    v16 = 134218240;
-    v17 = v6;
-    v18 = 2048;
+    v18 = 134218240;
+    v19 = v6;
+    v20 = 2048;
     countCopy2 = count;
-    v10 = "EPMobileAssetAutoTrigger: Using backoff interval: %.0f seconds for failure count: %ld";
-    v11 = v9;
-    v12 = 22;
+    v11 = "EPMobileAssetAutoTrigger: Using backoff interval: %.0f seconds for failure count: %ld";
+    v12 = v10;
+    v13 = 22;
 LABEL_12:
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v10, &v16, v12);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v11, &v18, v13);
     goto LABEL_13;
   }
 
@@ -292,25 +293,25 @@ LABEL_12:
 {
   successCopy = success;
   dateCopy = date;
-  v7 = sub_1000034AC();
+  v7 = sub_1000034AC(dateCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = sub_1000034AC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_1000034AC(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = @"NO";
+      v11 = @"NO";
       if (successCopy)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
-      v20 = 138543618;
-      v21 = dateCopy;
-      v22 = 2112;
-      v23 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: setLastAssetUpdateCheckDate: %{public}@ withSuccess: %@", &v20, 0x16u);
+      v23 = 138543618;
+      v24 = dateCopy;
+      v25 = 2112;
+      v26 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: setLastAssetUpdateCheckDate: %{public}@ withSuccess: %@", &v23, 0x16u);
     }
   }
 
@@ -321,21 +322,21 @@ LABEL_12:
 
   else
   {
-    v11 = [(EPMobileAssetAutoTrigger *)self getFailureCount]+ 1;
-    v12 = [NSNumber numberWithInteger:v11];
-    [(NRPreferences *)self->_prefs setObject:v12 forKeyedSubscript:@"lastAssetUpdateFailureCount"];
+    v12 = [(EPMobileAssetAutoTrigger *)self getFailureCount]+ 1;
+    v13 = [NSNumber numberWithInteger:v12];
+    [(NRPreferences *)self->_prefs setObject:v13 forKeyedSubscript:@"lastAssetUpdateFailureCount"];
 
-    v13 = sub_1000034AC();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v15 = sub_1000034AC(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (v14)
+    if (v16)
     {
-      v15 = sub_1000034AC();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_1000034AC(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 134217984;
-        v21 = v11;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Update failed, failure count now: %ld", &v20, 0xCu);
+        v23 = 134217984;
+        v24 = v12;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Update failed, failure count now: %ld", &v23, 0xCu);
       }
     }
   }
@@ -343,17 +344,17 @@ LABEL_12:
   if (dateCopy)
   {
     [dateCopy timeIntervalSinceReferenceDate];
-    v16 = [NSNumber numberWithDouble:?];
+    v19 = [NSNumber numberWithDouble:?];
     prefs = self->_prefs;
     p_prefs = &self->_prefs;
-    [(NRPreferences *)prefs setObject:v16 forKeyedSubscript:@"lastAssetUpdateCheckDate"];
+    [(NRPreferences *)prefs setObject:v19 forKeyedSubscript:@"lastAssetUpdateCheckDate"];
   }
 
   else
   {
-    v19 = self->_prefs;
+    v22 = self->_prefs;
     p_prefs = &self->_prefs;
-    [(NRPreferences *)v19 setObject:0 forKeyedSubscript:@"lastAssetUpdateCheckDate"];
+    [(NRPreferences *)v22 setObject:0 forKeyedSubscript:@"lastAssetUpdateCheckDate"];
   }
 
   [(NRPreferences *)*p_prefs synchronize];
@@ -372,24 +373,24 @@ LABEL_12:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v6 doubleValue];
-      v9 = v8;
-      v10 = sub_1000034AC();
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+      doubleValue = [v6 doubleValue];
+      v10 = v9;
+      v11 = sub_1000034AC(doubleValue);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-      if (v11)
+      if (v12)
       {
-        v12 = sub_1000034AC();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_1000034AC(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = [NSDate dateWithTimeIntervalSinceReferenceDate:v9];
-          v15 = 138543362;
-          v16 = v13;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: getLastAssetUpdateCheckInterval: %{public}@", &v15, 0xCu);
+          v15 = [NSDate dateWithTimeIntervalSinceReferenceDate:v10];
+          v17 = 138543362;
+          v18 = v15;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: getLastAssetUpdateCheckInterval: %{public}@", &v17, 0xCu);
         }
       }
 
-      v7 = v5 - v9;
+      v7 = v5 - v10;
     }
   }
 
@@ -431,6 +432,37 @@ LABEL_12:
   }
 
   _Block_object_dispose(v22, 8);
+}
+
+- (void)downloadAssetCatalogFor:(id)for userInitiated:(BOOL)initiated withCompletion:(id)completion
+{
+  initiatedCopy = initiated;
+  forCopy = for;
+  completionCopy = completion;
+  v10 = nr_framework_log();
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+
+  if (v11)
+  {
+    v12 = nr_framework_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v20 = forCopy;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "EPMobileAssetAutoTrigger: Downloading asset catalog for %{public}@", buf, 0xCu);
+    }
+  }
+
+  v13 = [(EPMobileAssetAutoTrigger *)self mobileAssetDownloadOptionsUserInitiated:initiatedCopy];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10000FAE8;
+  v16[3] = &unk_100175B00;
+  v17 = forCopy;
+  v18 = completionCopy;
+  v14 = completionCopy;
+  v15 = forCopy;
+  [MAAsset startCatalogDownload:v15 options:v13 completionWithError:v16];
 }
 
 - (void)queryAndGetLatestAssetForAssetType:(id)type withAssetCompatibilityVersion:(id)version withCompletion:(id)completion

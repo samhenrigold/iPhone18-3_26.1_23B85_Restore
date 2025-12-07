@@ -173,75 +173,14 @@ LABEL_6:
 
 - (void)tintColorDidChange
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUICheckboxFieldSettingDescriptionView *)v3 tintColorDidChange:v4];
-      }
-    }
-  }
-
-  v11.receiver = self;
-  v11.super_class = SKUICheckboxFieldSettingDescriptionView;
-  [(SKUICheckboxFieldSettingDescriptionView *)&v11 tintColorDidChange];
-  [(SKUICheckboxFieldSettingDescriptionView *)self setNeedsLayout];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICheckboxFieldSettingDescriptionView tintColorDidChange]";
 }
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUICheckboxFieldSettingDescriptionView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v36.receiver = self;
-  v36.super_class = SKUICheckboxFieldSettingDescriptionView;
-  [(SKUICheckboxFieldSettingDescriptionView *)&v36 layoutSubviews];
-  [(SKUISettingDescriptionView *)self layoutMargins];
-  v12 = v11;
-  v14 = v13;
-  [(SKUICheckboxFieldSettingDescriptionView *)self bounds];
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  [(UISwitch *)self->_switch sizeThatFits:1.0, 1.0];
-  v24 = v23;
-  v26 = v25;
-  v37.origin.x = v16;
-  v37.origin.y = v18;
-  v37.size.width = v20;
-  v37.size.height = v22;
-  v27 = CGRectGetWidth(v37) - v14 - v24;
-  v38.origin.x = v16;
-  v38.origin.y = v18;
-  v38.size.width = v20;
-  v38.size.height = v22;
-  v28 = floor((CGRectGetHeight(v38) - v26) * 0.5);
-  [(UISwitch *)self->_switch setFrame:v27, v28, v24, v26];
-  v29 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76918]];
-  v39.origin.x = v27;
-  v39.origin.y = v28;
-  v39.size.width = v24;
-  v39.size.height = v26;
-  v30 = CGRectGetMinX(v39) - v12 + -16.0;
-  [v29 _scaledValueForValue:30.0];
-  v32 = v31;
-  [(UILabel *)self->_label _firstBaselineOffsetFromTop];
-  v34 = v32 - v33;
-  [(UILabel *)self->_label sizeThatFits:v30, 1.0];
-  [(UILabel *)self->_label setFrame:v12, v34, v30, v35];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICheckboxFieldSettingDescriptionView layoutSubviews]";
 }
 
 - (void)_switchValueChanged:(id)changed
@@ -302,6 +241,48 @@ LABEL_6:
   [(UISwitch *)self->_switch setOn:isSelected];
   [(UISwitch *)self->_switch addTarget:self action:sel__switchValueChanged_ forControlEvents:4096];
   [(SKUICheckboxFieldSettingDescriptionView *)self addSubview:self->_switch];
+}
+
++ (void)prefetchResourcesForSettingDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICheckboxFieldSettingDescriptionView prefetchResourcesForSettingDescription:reason:context:]";
+}
+
++ (void)preferredSizeForSettingDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICheckboxFieldSettingDescriptionView preferredSizeForSettingDescription:context:]";
+}
+
++ (void)requestLayoutForSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICheckboxFieldSettingDescriptionView requestLayoutForSettingDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICheckboxFieldSettingDescriptionView sizeThatFitsWidth:settingDescription:context:]";
+}
+
+- (void)reloadWithSettingDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICheckboxFieldSettingDescriptionView reloadWithSettingDescription:width:context:]";
+}
+
+- (void)setContentInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICheckboxFieldSettingDescriptionView setContentInset:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICheckboxFieldSettingDescriptionView setImage:forArtworkRequest:context:]";
 }
 
 @end

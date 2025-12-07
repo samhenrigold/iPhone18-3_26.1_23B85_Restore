@@ -3,6 +3,7 @@
 - (PUILocationUsageMixin)init;
 - (id)_authLevelStringForMask:(unint64_t)mask learnedRoutesAccess:(int)access visitHistoryAccess:(int)historyAccess;
 - (id)iconForUsage:(int)usage;
+- (void)setAuthLevel:(unint64_t)level learnedRoutesAccess:(int)access visitHistoryAccess:(int)historyAccess;
 - (void)setUsage:(int)usage;
 @end
 
@@ -66,6 +67,18 @@
   }
 }
 
+- (void)setAuthLevel:(unint64_t)level learnedRoutesAccess:(int)access visitHistoryAccess:(int)historyAccess
+{
+  v5 = *&historyAccess;
+  v6 = *&access;
+  [(PUILocationUsageMixin *)self setAuthLevel:level];
+  [(PUILocationUsageMixin *)self setLearnedRoutesAccess:v6];
+  [(PUILocationUsageMixin *)self setVisitHistoryAccess:v5];
+  self->_authLevelString = [(PUILocationUsageMixin *)self _authLevelStringForMask:[(PUILocationUsageMixin *)self authLevel] learnedRoutesAccess:[(PUILocationUsageMixin *)self learnedRoutesAccess] visitHistoryAccess:[(PUILocationUsageMixin *)self visitHistoryAccess]];
+
+  MEMORY[0x2821F96F8]();
+}
+
 - (CGSize)usageIndicatorSize
 {
   if (usageIndicatorSize_onceToken != -1)
@@ -80,7 +93,7 @@
   return result;
 }
 
-uint64_t __43__PUILocationUsageMixin_usageIndicatorSize__block_invoke()
+void *__43__PUILocationUsageMixin_usageIndicatorSize__block_invoke()
 {
   result = [locationFillSystemImage size];
   usageIndicatorSize_size_0 = v1;

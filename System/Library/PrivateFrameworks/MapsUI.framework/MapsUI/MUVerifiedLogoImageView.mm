@@ -57,7 +57,7 @@
 
 - (void)_setupCustomBorder
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   layer = [(MUVerifiedLogoImageView *)self layer];
   [layer setMasksToBounds:0];
 
@@ -92,11 +92,9 @@
   [(MUImageView *)self->_imageView setAccessibilityIdentifier:@"PlaceHeaderLogoImage"];
   [(MUVerifiedLogoImageView *)self _updateInnerRingFrame];
   [(MUVerifiedLogoImageView *)self _updateRingColors];
-  v17[0] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v15 = [(MUVerifiedLogoImageView *)self registerForTraitChanges:v14 withAction:sel__updateRingColors];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (MUVerifiedLogoImageView)initWithFrame:(CGRect)frame
@@ -105,10 +103,10 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v27[4] = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = MUVerifiedLogoImageView;
-  v7 = [(MUVerifiedLogoImageView *)&v26 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v26[4] = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = MUVerifiedLogoImageView;
+  v7 = [(MUVerifiedLogoImageView *)&v25 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   if (v7)
   {
     height = [[MUImageView alloc] initWithFrame:x, y, width, height];
@@ -117,30 +115,29 @@
 
     [(MUImageView *)v7->_imageView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(MUVerifiedLogoImageView *)v7 addSubview:v7->_imageView];
-    v21 = MEMORY[0x1E696ACD8];
+    v20 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(MUImageView *)v7->_imageView leadingAnchor];
     leadingAnchor2 = [(MUVerifiedLogoImageView *)v7 leadingAnchor];
-    v23 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v27[0] = v23;
+    v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v26[0] = v22;
     trailingAnchor = [(MUImageView *)v7->_imageView trailingAnchor];
     trailingAnchor2 = [(MUVerifiedLogoImageView *)v7 trailingAnchor];
     v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v27[1] = v11;
+    v26[1] = v11;
     topAnchor = [(MUImageView *)v7->_imageView topAnchor];
     topAnchor2 = [(MUVerifiedLogoImageView *)v7 topAnchor];
     v14 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v27[2] = v14;
+    v26[2] = v14;
     bottomAnchor = [(MUImageView *)v7->_imageView bottomAnchor];
     bottomAnchor2 = [(MUVerifiedLogoImageView *)v7 bottomAnchor];
     v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v27[3] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:4];
-    [v21 activateConstraints:v18];
+    v26[3] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:4];
+    [v20 activateConstraints:v18];
 
     [(MUVerifiedLogoImageView *)v7 _setupCustomBorder];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

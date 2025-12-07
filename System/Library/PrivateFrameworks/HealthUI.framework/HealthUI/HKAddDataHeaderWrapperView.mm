@@ -18,12 +18,14 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1C3D20104();
-  sub_1C3D20104();
+  v6 = sub_1C3D20104();
+  v8 = v7;
+  v9 = sub_1C3D20104();
+  v11 = v10;
   colorCopy = color;
-  v7 = sub_1C3C7EF38();
+  v13 = sub_1C3C7EF38(v6, v8, v9, v11, colorCopy);
 
-  return v7;
+  return v13;
 }
 
 - (HKAddDataHeaderWrapperView)initWithTitle:(id)title bundledIconImage:(id)image
@@ -36,11 +38,12 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1C3D20104();
+  v5 = sub_1C3D20104();
+  v7 = v6;
   imageCopy = image;
-  v6 = sub_1C3C7F090();
+  v9 = sub_1C3C7F090(v5, v7, imageCopy);
 
-  return v6;
+  return v9;
 }
 
 - (HKAddDataHeaderWrapperView)initWithDisplayType:(id)type

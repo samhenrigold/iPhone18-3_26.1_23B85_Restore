@@ -10,39 +10,33 @@
 
 - (void)createSandboxExtensionForXPC
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   serviceStateDirectory = self->_serviceStateDirectory;
-  if (!serviceStateDirectory || self->_serviceStateDirectorySandboxExtension)
+  if (serviceStateDirectory && !self->_serviceStateDirectorySandboxExtension)
   {
-LABEL_3:
-    v4 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  [(NSString *)serviceStateDirectory fileSystemRepresentation];
-  v5 = sandbox_extension_issue_file();
-  if (!v5)
-  {
-    v9 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    [(NSString *)serviceStateDirectory fileSystemRepresentation];
+    v4 = sandbox_extension_issue_file();
+    if (v4)
     {
-      v10 = self->_serviceStateDirectory;
-      *buf = 136315394;
-      v12 = "[CDMClientSetup createSandboxExtensionForXPC]";
-      v13 = 2112;
-      v14 = v10;
-      _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to create sandbox extension for %@", buf, 0x16u);
+      self->_serviceStateDirectorySandboxExtension = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v4 encoding:4];
+
+      MEMORY[0x1EEE66BB8]();
     }
 
-    goto LABEL_3;
+    else
+    {
+      v5 = CDMOSLoggerForCategory(0);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v6 = self->_serviceStateDirectory;
+        *buf = 136315394;
+        v8 = "[CDMClientSetup createSandboxExtensionForXPC]";
+        v9 = 2112;
+        v10 = v6;
+        _os_log_error_impl(&dword_1DC287000, v5, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to create sandbox extension for %@", buf, 0x16u);
+      }
+    }
   }
-
-  v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v5 encoding:4];
-  serviceStateDirectorySandboxExtension = self->_serviceStateDirectorySandboxExtension;
-  self->_serviceStateDirectorySandboxExtension = v6;
-  v8 = *MEMORY[0x1E69E9840];
-
-  MEMORY[0x1EEE66BB8]();
 }
 
 - (id)description

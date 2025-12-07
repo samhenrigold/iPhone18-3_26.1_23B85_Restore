@@ -247,7 +247,7 @@ LABEL_6:
 {
   *(&self->super.super.super.super.isa + OBJC_IVAR___NCPlatterView_glassMode) = mode;
   selfCopy = self;
-  sub_21E8BBD38();
+  sub_21E8BBD38(selfCopy);
 }
 
 - (void)updateWithGlassMode:(unint64_t)mode
@@ -263,7 +263,7 @@ LABEL_6:
 {
   lightEnabledCopy = lightEnabled;
   selfCopy = self;
-  sub_21E8BC1EC(enabled, lightEnabledCopy, duration);
+  sub_21E8BC1EC(enabled, lightEnabledCopy, duration, delay);
 }
 
 - (void)removeLightEffectsIfNeeded

@@ -1,10 +1,10 @@
 @interface _UIApplicationInfo(SplashBoard)
-- (uint64_t)xb_userInterfaceStyleForRequestedUserInterfaceStyle:()SplashBoard;
+- (void)xb_userInterfaceStyleForRequestedUserInterfaceStyle:()SplashBoard;
 @end
 
 @implementation _UIApplicationInfo(SplashBoard)
 
-- (uint64_t)xb_userInterfaceStyleForRequestedUserInterfaceStyle:()SplashBoard
+- (void)xb_userInterfaceStyleForRequestedUserInterfaceStyle:()SplashBoard
 {
   result = [self supportedUserInterfaceStyle];
   if (result == 1)

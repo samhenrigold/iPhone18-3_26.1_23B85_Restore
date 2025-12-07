@@ -10,6 +10,7 @@
 - (id)description;
 - (void)_updateSessionPreferences;
 - (void)setCellularDataAllowed:(BOOL)allowed;
+- (void)setCellularDataPreferred:(BOOL)preferred;
 - (void)setClientUUID:(id)d;
 - (void)setWiFiAllowed:(BOOL)allowed;
 @end
@@ -86,7 +87,7 @@
 - (void)setWiFiAllowed:(BOOL)allowed
 {
   allowedCopy = allowed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -115,7 +116,7 @@
 - (void)setCellularDataAllowed:(BOOL)allowed
 {
   allowedCopy = allowed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -139,6 +140,26 @@
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setCellularDataPreferred:(BOOL)preferred
+{
+  preferredCopy = preferred;
+  v5 = sub_100004778(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 138412546;
+    selfCopy = self;
+    v10 = 1024;
+    v11 = preferredCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "self: %@ cellularDataPreferred: %d", &v8, 0x12u);
+  }
+
+  v6 = [NSNumber numberWithBool:preferredCopy];
+  preferences = [(CSDIDSSession *)self preferences];
+  [preferences setObject:v6 forKeyedSubscript:IDSSessionPreferCellularForCallSetupKey];
+
+  [(CSDIDSSession *)self _updateSessionPreferences];
 }
 
 - (NSUUID)clientUUID
@@ -165,7 +186,7 @@
 - (void)setClientUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];

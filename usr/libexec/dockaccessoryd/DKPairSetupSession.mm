@@ -62,11 +62,10 @@
 
 - (BOOL)isSecureSession
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC14dockaccessoryd18DKPairSetupSession_clientQueue);
   selfCopy = self;
   OS_dispatch_queue.sync<A>(execute:)();
 
-  return v5;
+  return v4;
 }
 
 - (id)getCertificate

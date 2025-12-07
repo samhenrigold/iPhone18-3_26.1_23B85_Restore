@@ -6,6 +6,7 @@
 - (id)fillTerm;
 - (id)scanToTermLeafWithOrgApacheLuceneUtilBytesRef:(id)ref withBoolean:(BOOL)boolean;
 - (id)scanToTermNonLeafWithOrgApacheLuceneUtilBytesRef:(id)ref withBoolean:(BOOL)boolean;
+- (id)scanToTermWithOrgApacheLuceneUtilBytesRef:(id)ref withBoolean:(BOOL)boolean;
 - (int)getTermBlockOrd;
 - (void)__javaClone;
 - (void)dealloc;
@@ -695,6 +696,19 @@ LABEL_13:
   }
 }
 
+- (id)scanToTermWithOrgApacheLuceneUtilBytesRef:(id)ref withBoolean:(BOOL)boolean
+{
+  if (self->isLeafBlock_)
+  {
+    return [(OrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame *)self scanToTermLeafWithOrgApacheLuceneUtilBytesRef:ref withBoolean:boolean];
+  }
+
+  else
+  {
+    return [(OrgApacheLuceneCodecsBlocktreeSegmentTermsEnumFrame *)self scanToTermNonLeafWithOrgApacheLuceneUtilBytesRef:ref withBoolean:boolean];
+  }
+}
+
 - (id)scanToTermLeafWithOrgApacheLuceneUtilBytesRef:(id)ref withBoolean:(BOOL)boolean
 {
   booleanCopy = boolean;
@@ -803,7 +817,7 @@ LABEL_28:
           if (!v31)
           {
 LABEL_5:
-            v9 = &OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
+            v9 = OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
             if (atomic_load_explicit(OrgApacheLuceneIndexTermsEnum_SeekStatusEnum__initialized, memory_order_acquire))
             {
               return *v9;
@@ -904,7 +918,7 @@ LABEL_47:
     }
 
 LABEL_49:
-    v40 = &OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
+    v40 = OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
     if ((atomic_load_explicit(OrgApacheLuceneIndexTermsEnum_SeekStatusEnum__initialized, memory_order_acquire) & 1) == 0)
     {
       goto LABEL_61;

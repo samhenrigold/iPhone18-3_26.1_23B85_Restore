@@ -21,52 +21,54 @@
 - (void)requestDefaultScreenPauseEvent:(int64_t)event
 {
   BoolAnswer = AVGestaltGetBoolAnswer();
-  v6 = sub_100005368();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = BoolAnswer;
+  v7 = sub_100005368(BoolAnswer);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136316162;
-    v9 = "[ContinuityCaptureShieldUIBackgroundPauseManager requestDefaultScreenPauseEvent:]";
-    v10 = 2048;
+    v9 = 136316162;
+    v10 = "[ContinuityCaptureShieldUIBackgroundPauseManager requestDefaultScreenPauseEvent:]";
+    v11 = 2048;
     selfCopy = self;
-    v12 = 2048;
+    v13 = 2048;
     eventCopy = event;
-    v14 = 1024;
-    v15 = BoolAnswer;
-    v16 = 1024;
-    v17 = BoolAnswer;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: <%p> Called pauseEvent:%zu. Ignoring event: %d. supportsCCMultitasking:%d", &v8, 0x2Cu);
+    v15 = 1024;
+    v16 = v6;
+    v17 = 1024;
+    v18 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: <%p> Called pauseEvent:%zu. Ignoring event: %d. supportsCCMultitasking:%d", &v9, 0x2Cu);
   }
 
-  if ((BoolAnswer & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v7 = +[CMContinuityCaptureXPCClientCCD sharedInstance];
-    [v7 pauseSessionForEvent:event];
+    v8 = +[CMContinuityCaptureXPCClientCCD sharedInstance];
+    [v8 pauseSessionForEvent:event];
   }
 }
 
 - (void)requestDefaultScreenResumeEvent:(int64_t)event
 {
   BoolAnswer = AVGestaltGetBoolAnswer();
-  v6 = sub_100005368();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = BoolAnswer;
+  v7 = sub_100005368(BoolAnswer);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136316162;
-    v9 = "[ContinuityCaptureShieldUIBackgroundPauseManager requestDefaultScreenResumeEvent:]";
-    v10 = 2048;
+    v9 = 136316162;
+    v10 = "[ContinuityCaptureShieldUIBackgroundPauseManager requestDefaultScreenResumeEvent:]";
+    v11 = 2048;
     selfCopy = self;
-    v12 = 2048;
+    v13 = 2048;
     eventCopy = event;
-    v14 = 1024;
-    v15 = BoolAnswer;
-    v16 = 1024;
-    v17 = BoolAnswer;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: <%p> Called resumeEvent:%zu. Ignoring event: %d. supportsCCMultitasking:%d", &v8, 0x2Cu);
+    v15 = 1024;
+    v16 = v6;
+    v17 = 1024;
+    v18 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: <%p> Called resumeEvent:%zu. Ignoring event: %d. supportsCCMultitasking:%d", &v9, 0x2Cu);
   }
 
-  if ((BoolAnswer & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v7 = +[CMContinuityCaptureXPCClientCCD sharedInstance];
-    [v7 resumeStreamingForEvent:event];
+    v8 = +[CMContinuityCaptureXPCClientCCD sharedInstance];
+    [v8 resumeStreamingForEvent:event];
   }
 }
 

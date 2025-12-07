@@ -45,14 +45,14 @@
 - (void)warmUpForLocaleIdentifier:(id)identifier waitForCompletion:(BOOL)completion
 {
   completionCopy = completion;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = psg_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
-    v13 = identifierCopy;
-    _os_log_debug_impl(&dword_260D18000, v7, OS_LOG_TYPE_DEBUG, "[PSGWordBoundaryFSTGrammar] warming up for %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = identifierCopy;
+    _os_log_debug_impl(&dword_260D18000, v7, OS_LOG_TYPE_DEBUG, "[PSGWordBoundaryFSTGrammar] warming up for %@", &v11, 0xCu);
   }
 
   v8 = [(PSGWordBoundaryFSTGrammar *)self _getLMWrapper:identifierCopy];
@@ -67,17 +67,15 @@
   v10 = psg_default_log_handle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
-    v13 = v8;
-    _os_log_debug_impl(&dword_260D18000, v10, OS_LOG_TYPE_DEBUG, "[PSGWordBoundaryFSTGrammar] wrapper instance %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v8;
+    _os_log_debug_impl(&dword_260D18000, v10, OS_LOG_TYPE_DEBUG, "[PSGWordBoundaryFSTGrammar] wrapper instance %@", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)triggerAttributesForContext:(id)context localeIdentifier:(id)identifier
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   identifierCopy = identifier;
   whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
@@ -100,7 +98,7 @@
     _os_signpost_emit_with_name_impl(&dword_260D18000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "PSGWordBoundaryFSTGrammar_initialization", &unk_260D2DE82, buf, 2u);
   }
 
-  v52 = [(PSGWordBoundaryFSTGrammar *)self _getLMWrapper:identifierCopy];
+  v51 = [(PSGWordBoundaryFSTGrammar *)self _getLMWrapper:identifierCopy];
   v12 = psg_default_log_handle();
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
@@ -109,10 +107,10 @@
     _os_signpost_emit_with_name_impl(&dword_260D18000, v13, OS_SIGNPOST_INTERVAL_END, v9, "PSGWordBoundaryFSTGrammar_initialization", &unk_260D2DE82, buf, 2u);
   }
 
-  langModel = [v52 langModel];
+  langModel = [v51 langModel];
   if (langModel)
   {
-    lexicon = [v52 lexicon];
+    lexicon = [v51 lexicon];
     v15 = psg_default_log_handle();
     spid = os_signpost_id_generate(v15);
 
@@ -124,20 +122,20 @@
       _os_signpost_emit_with_name_impl(&dword_260D18000, v17, OS_SIGNPOST_INTERVAL_BEGIN, spid, "PSGWordBoundaryFSTGrammar_tokenization", &unk_260D2DE82, buf, 2u);
     }
 
+    v53 = 0;
     v54 = 0;
     v55 = 0;
-    v56 = 0;
     v18 = v7;
-    v50 = identifierCopy;
+    v49 = identifierCopy;
 
-    v61 = 0;
-    v62 = &v61;
-    v63 = 0x4812000000;
-    v64 = __Block_byref_object_copy__66;
-    v65 = __Block_byref_object_dispose__67;
-    v66 = "";
+    v60 = 0;
+    v61 = &v60;
+    v62 = 0x4812000000;
+    v63 = __Block_byref_object_copy__66;
+    v64 = __Block_byref_object_dispose__67;
+    v65 = "";
+    v67 = 0;
     v68 = 0;
-    v69 = 0;
     __p = 0;
     if (LMStreamTokenizerCreate())
     {
@@ -147,47 +145,47 @@
       if (v20 && v21)
       {
         SharedVocabulary = LMVocabularyGetSharedVocabulary();
-        v59[0] = 0;
-        v59[1] = v59;
-        v59[2] = 0x3032000000;
-        v59[3] = __Block_byref_object_copy_;
-        v59[4] = __Block_byref_object_dispose_;
-        v60 = 0;
-        v57[0] = 0;
-        v57[1] = v57;
-        v57[2] = 0x3032000000;
-        v57[3] = __Block_byref_object_copy_;
-        v57[4] = __Block_byref_object_dispose_;
-        v58 = 0;
-        v23 = [v50 hasPrefix:@"zh"];
+        v58[0] = 0;
+        v58[1] = v58;
+        v58[2] = 0x3032000000;
+        v58[3] = __Block_byref_object_copy_;
+        v58[4] = __Block_byref_object_dispose_;
+        v59 = 0;
+        v56[0] = 0;
+        v56[1] = v56;
+        v56[2] = 0x3032000000;
+        v56[3] = __Block_byref_object_copy_;
+        v56[4] = __Block_byref_object_dispose_;
+        v57 = 0;
+        v23 = [v49 hasPrefix:@"zh"];
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = ___ZL12tokenizeTextPvS_P8NSStringS1__block_invoke;
-        v71 = &unk_279ABCD28;
-        v76 = SharedVocabulary;
-        v77 = lexicon;
-        v78 = v23;
-        v72 = &v61;
-        v73 = v59;
-        v74 = v57;
-        v75 = langModel;
+        v70 = &unk_279ABCD28;
+        v75 = SharedVocabulary;
+        v76 = lexicon;
+        v77 = v23;
+        v71 = &v60;
+        v72 = v58;
+        v73 = v56;
+        v74 = langModel;
         LMStreamTokenizerPushBytes();
         LMStreamTokenizerRelease();
-        v24 = v62[6];
-        v25 = v62[7];
+        v24 = v61[6];
+        v25 = v61[7];
         if (v24 != v25 && *(v25 - 4) == 2)
         {
           v25 -= 4;
-          v62[7] = v25;
+          v61[7] = v25;
         }
 
+        v53 = 0;
         v54 = 0;
         v55 = 0;
-        v56 = 0;
-        std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v54, v24, v25, (v25 - v24) >> 2);
-        _Block_object_dispose(v57, 8);
+        std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v53, v24, v25, (v25 - v24) >> 2);
+        _Block_object_dispose(v56, 8);
 
-        _Block_object_dispose(v59, 8);
+        _Block_object_dispose(v58, 8);
         goto LABEL_29;
       }
 
@@ -205,20 +203,20 @@
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v50;
+        *&buf[4] = v49;
         _os_log_error_impl(&dword_260D18000, v28, OS_LOG_TYPE_ERROR, "Cannot create tokenizer for %@ locale.", buf, 0xCu);
       }
     }
 
-    v55 = 0;
-    v56 = 0;
     v54 = 0;
-    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v54, v62[6], v62[7], (v62[7] - v62[6]) >> 2);
+    v55 = 0;
+    v53 = 0;
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v53, v61[6], v61[7], (v61[7] - v61[6]) >> 2);
 LABEL_29:
-    _Block_object_dispose(&v61, 8);
+    _Block_object_dispose(&v60, 8);
     if (__p)
     {
-      v68 = __p;
+      v67 = __p;
       operator delete(__p);
     }
 
@@ -230,8 +228,8 @@ LABEL_29:
       _os_signpost_emit_with_name_impl(&dword_260D18000, v30, OS_SIGNPOST_INTERVAL_END, spid, "PSGWordBoundaryFSTGrammar_tokenization", &unk_260D2DE82, buf, 2u);
     }
 
-    v31 = v54;
-    v32 = v55;
+    v31 = v53;
+    v32 = v54;
     v33 = psg_default_log_handle();
     v34 = v33;
     if (v31 == v32)
@@ -255,7 +253,7 @@ LABEL_29:
         *&buf[12] = 2048;
         *&buf[14] = (v32 - v31) >> 2;
         *&buf[22] = 2112;
-        v71 = v50;
+        v70 = v49;
         _os_log_impl(&dword_260D18000, v34, OS_LOG_TYPE_DEFAULT, "Context length: %tu, #tokens: %lu, locale: %@", buf, 0x20u);
       }
 
@@ -360,14 +358,13 @@ LABEL_57:
 LABEL_65:
 
 LABEL_66:
-  v46 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 - (id)_getPrimingToken:(void *)token transientTokenID:(unsigned int)d
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   LMVocabularyGetSharedVocabulary();
   ClassForTokenID = LMVocabularyGetClassForTokenID();
   switch(ClassForTokenID)
@@ -392,20 +389,20 @@ LABEL_66:
   {
     v8 = *MEMORY[0x277D22FE0];
     v9 = *MEMORY[0x277D23028];
-    v18[0] = *MEMORY[0x277D23050];
-    v18[1] = v9;
+    v17[0] = *MEMORY[0x277D23050];
+    v17[1] = v9;
     v10 = *MEMORY[0x277D23040];
-    v19[0] = v8;
-    v19[1] = v10;
-    v18[2] = *MEMORY[0x277D22F30];
+    v18[0] = v8;
+    v18[1] = v10;
+    v17[2] = *MEMORY[0x277D22F30];
     null = [MEMORY[0x277CBEB68] null];
-    v19[2] = null;
-    v18[3] = *MEMORY[0x277D22FF8];
-    v16 = v6;
-    v17 = StringForTokenID;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v19[3] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+    v18[2] = null;
+    v17[3] = *MEMORY[0x277D22FF8];
+    v15 = v6;
+    v16 = StringForTokenID;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v18[3] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
     CFRelease(StringForTokenID);
     goto LABEL_11;
@@ -414,8 +411,6 @@ LABEL_66:
 LABEL_10:
   v13 = 0;
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -441,7 +436,7 @@ LABEL_11:
 
 void __43__PSGWordBoundaryFSTGrammar__getLMWrapper___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) objectForKey:*(a1 + 40)];
   if (!v2)
   {
@@ -461,27 +456,25 @@ void __43__PSGWordBoundaryFSTGrammar__getLMWrapper___block_invoke(uint64_t a1)
     v5 = psg_default_log_handle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = [(PSGLMWrapper *)v2 langModel];
-      v8 = [(PSGLMWrapper *)v2 lexicon];
-      v9 = *(a1 + 40);
-      v10 = 138413058;
-      v11 = v2;
-      v12 = 1024;
-      v13 = v7 != 0;
-      v14 = 1024;
-      v15 = v8 != 0;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_debug_impl(&dword_260D18000, v5, OS_LOG_TYPE_DEBUG, "[PSGWordBoundaryFSTGrammar] created wrapper instance %@ (model? %d; lexicon? %d) for %@", &v10, 0x22u);
+      v6 = [(PSGLMWrapper *)v2 langModel];
+      v7 = [(PSGLMWrapper *)v2 lexicon];
+      v8 = *(a1 + 40);
+      v9 = 138413058;
+      v10 = v2;
+      v11 = 1024;
+      v12 = v6 != 0;
+      v13 = 1024;
+      v14 = v7 != 0;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_debug_impl(&dword_260D18000, v5, OS_LOG_TYPE_DEBUG, "[PSGWordBoundaryFSTGrammar] created wrapper instance %@ (model? %d; lexicon? %d) for %@", &v9, 0x22u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createLexicon:(id)lexicon
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   lexiconCopy = lexicon;
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v5 = CFLocaleCreate(0, lexiconCopy);
@@ -492,22 +485,21 @@ void __43__PSGWordBoundaryFSTGrammar__getLMWrapper___block_invoke(uint64_t a1)
     v7 = psg_default_log_handle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = lexiconCopy;
-      _os_log_error_impl(&dword_260D18000, v7, OS_LOG_TYPE_ERROR, "Cannot create lexicon for %@ locale.", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = lexiconCopy;
+      _os_log_error_impl(&dword_260D18000, v7, OS_LOG_TYPE_ERROR, "Cannot create lexicon for %@ locale.", &v9, 0xCu);
     }
   }
 
   CFRelease(v5);
   CFRelease(Mutable);
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)_createLanguageModel:(id)model
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   v6 = CFLocaleCreate(0, modelCopy);
@@ -541,16 +533,15 @@ void __43__PSGWordBoundaryFSTGrammar__getLMWrapper___block_invoke(uint64_t a1)
     v12 = psg_default_log_handle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = modelCopy;
-      _os_log_error_impl(&dword_260D18000, v12, OS_LOG_TYPE_ERROR, "Cannot create language model for %@ locale.", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = modelCopy;
+      _os_log_error_impl(&dword_260D18000, v12, OS_LOG_TYPE_ERROR, "Cannot create language model for %@ locale.", &v14, 0xCu);
     }
   }
 
   CFRelease(v6);
   CFRelease(Mutable);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -642,13 +633,12 @@ void __58__PSGWordBoundaryFSTGrammar_getOTAPathForProactiveBundle___block_invoke
 
 void __43__PSGWordBoundaryFSTGrammar_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = +[PSGWordBoundaryFSTGrammar sharedInstance]::_pasExprOnceResult;
-  +[PSGWordBoundaryFSTGrammar sharedInstance]::_pasExprOnceResult = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = +[PSGWordBoundaryFSTGrammar sharedInstance]::_pasExprOnceResult;
+  +[PSGWordBoundaryFSTGrammar sharedInstance]::_pasExprOnceResult = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

@@ -34,9 +34,9 @@
 {
   identifierCopy = identifier;
   roleCopy = role;
-  v8 = identifierCopy;
+  v9 = identifierCopy;
   NSClassFromString(&cfstr_Nsstring.isa);
-  if (!v8)
+  if (!v9)
   {
     [PRMutablePosterDescriptor mutableDescriptorWithIdentifier:a2 role:?];
   }
@@ -48,14 +48,14 @@
 
   if ((PFPosterRoleIsValid() & 1) == 0)
   {
-    [PRMutablePosterDescriptor mutableDescriptorWithIdentifier:roleCopy role:a2];
+    [(PRMutablePosterDescriptor *)roleCopy mutableDescriptorWithIdentifier:a2 role:self];
   }
 
-  v9 = [MEMORY[0x1E69C5178] temporaryDescriptorPathWithIdentifier:v8 role:roleCopy];
-  v10 = [(PRPosterDescriptor *)[PRMutablePosterDescriptor alloc] _initWithPath:v9];
-  [v9 invalidate];
+  v10 = [MEMORY[0x1E69C5178] temporaryDescriptorPathWithIdentifier:v9 role:roleCopy];
+  v11 = [(PRPosterDescriptor *)[PRMutablePosterDescriptor alloc] _initWithPath:v10];
+  [v10 invalidate];
 
-  return v10;
+  return v11;
 }
 
 - (void)setDisplayNameLocalizationKey:(id)key
@@ -110,7 +110,7 @@ void __59__PRMutablePosterDescriptor_setDisplayNameLocalizationKey___block_invok
   roleCopy = role;
   if ((PFPosterRoleIsValid() & 1) == 0)
   {
-    [(PRMutablePosterDescriptor *)roleCopy setRole:a2];
+    [(PRMutablePosterDescriptor *)roleCopy setRole:a2, self];
   }
 
   role = [(PRPosterDescriptor *)self role];
@@ -359,7 +359,7 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
 
 + (void)mutableDescriptorWithIdentifier:(char *)a1 role:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -367,7 +367,7 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -375,30 +375,29 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
   __break(0);
 }
 
-+ (void)mutableDescriptorWithIdentifier:(uint64_t)a1 role:(const char *)a2 .cold.2(uint64_t a1, const char *a2)
++ (void)mutableDescriptorWithIdentifier:(uint64_t)a3 role:.cold.2(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v4 = MEMORY[0x1E696AEC0];
-  PFPosterRolesSupportedForCurrentDeviceClass();
-  v15 = v14 = a1;
-  v5 = [v4 stringWithFormat:@"invalid role: %@, supported roles for device class: %@"];
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = PFPosterRolesSupportedForCurrentDeviceClass();
+  v7 = [v5 stringWithFormat:@"invalid role: %@, supported roles for device class: %@", a1, v6];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = NSStringFromSelector(a2);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = NSStringFromSelector(a2);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15, v16);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17);
   }
 
-  [v5 UTF8String];
+  [v7 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 + (void)mutableDescriptorWithIdentifier:(char *)a1 role:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -406,7 +405,7 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -414,30 +413,29 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
   __break(0);
 }
 
-- (void)setRole:(uint64_t)a1 .cold.1(uint64_t a1, const char *a2)
+- (void)setRole:(uint64_t)a3 .cold.1(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v4 = MEMORY[0x1E696AEC0];
-  PFPosterRolesSupportedForCurrentDeviceClass();
-  v15 = v14 = a1;
-  v5 = [v4 stringWithFormat:@"invalid role: %@, supported roles for device class: %@"];
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = PFPosterRolesSupportedForCurrentDeviceClass();
+  v7 = [v5 stringWithFormat:@"invalid role: %@, supported roles for device class: %@", a1, v6];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = NSStringFromSelector(a2);
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = NSStringFromSelector(a2);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15, v16);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17);
   }
 
-  [v5 UTF8String];
+  [v7 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)setObject:(char *)a1 forUserInfoKey:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -445,7 +443,7 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -455,7 +453,7 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
 
 - (void)setObject:(char *)a1 forUserInfoKey:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[anObject conformsToProtocol:@protocol(NSCoding)] || !anObject"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -463,7 +461,7 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[anObject conformsToProtocol:@protocol(NSCoding)] || !anObject", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -473,7 +471,7 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
 
 - (void)setObject:(char *)a1 forUserInfoKey:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -481,7 +479,7 @@ void __53__PRMutablePosterDescriptor_setPreferredTitleColors___block_invoke(uint
     v3 = OUTLINED_FUNCTION_2();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_2(&dword_1A8AA7000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

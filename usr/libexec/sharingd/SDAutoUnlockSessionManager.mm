@@ -27,6 +27,7 @@
 - (void)armDevicesWaitingForUnlock;
 - (void)attemptAutoUnlock;
 - (void)attemptAutoUnlockForSiri;
+- (void)attemptAutoUnlockForType:(int64_t)type externalACMContext:(id)context preventRadarNotification:(BOOL)notification bundlePath:(id)path appName:(id)name navBarTitle:(id)title reply:(id)reply;
 - (void)attemptAutoUnlockWithoutNotifyingWatch;
 - (void)authPromptInfoWithCompletionHandler:(id)handler;
 - (void)autoUnlockStateWithCompletionHandler:(id)handler;
@@ -42,12 +43,15 @@
 - (void)cancelParallelRegistrationSessionsForDeviceID:(id)d newSessionID:(id)iD;
 - (void)cleanUpProxySessions;
 - (void)clearAllKeysWithTokens;
+- (void)clearPhoneAutoUnlockNotification:(BOOL)notification;
 - (void)completeAutoUnlockWithNotification:(BOOL)notification;
 - (void)completeSuccessfulAttempt;
+- (void)createKeySessionWithBLEDevice:(id)device sessionID:(id)d wrapper:(id)wrapper useEncryption:(BOOL)encryption;
 - (void)createLockSessionWithWatchDevice:(id)device;
 - (void)createPairingKeySessionWithIdentifier:(id)identifier deviceID:(id)d requestData:(id)data;
 - (void)createPairingLockSessionWithDevice:(id)device passcode:(id)passcode;
 - (void)createProxySessionWithDeviceID:(id)d;
+- (void)createRegistrationKeySessionWithIdentifier:(id)identifier deviceID:(id)d requestData:(id)data locallyGenerated:(BOOL)generated;
 - (void)createRegistrationLockSessionWithDeviceID:(id)d sessionID:(id)iD requestData:(id)data;
 - (void)decrementAttemptCount;
 - (void)disableAutoUnlockForAllWatches;
@@ -683,15 +687,16 @@ LABEL_30:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Dumping state", buf, 2u);
   }
 
-  NSAppendPrintF();
-  v4 = 0;
+  v24 = 0;
+  NSAppendPrintF(&v24, "\n");
+  v4 = v24;
   state = [(SDAutoUnlockSessionManager *)self state];
   v6 = state;
   if (state)
   {
-    v20 = state;
-    NSAppendPrintF();
-    v7 = v4;
+    v23 = v4;
+    NSAppendPrintF(&v23, "%@\n", state);
+    v7 = v23;
 
     v4 = v7;
   }
@@ -701,9 +706,9 @@ LABEL_30:
 
   if (state2)
   {
-    v21 = state2;
-    NSAppendPrintF();
-    v10 = v4;
+    v22 = v4;
+    NSAppendPrintF(&v22, "%@\n", state2);
+    v10 = v22;
 
     v4 = v10;
   }
@@ -713,14 +718,16 @@ LABEL_30:
 
   if (state3)
   {
-    NSAppendPrintF();
-    v13 = v4;
+    v21 = v4;
+    NSAppendPrintF(&v21, "%@\n", state3);
+    v13 = v21;
 
     v4 = v13;
   }
 
-  NSAppendPrintF();
-  v14 = v4;
+  v20 = v4;
+  NSAppendPrintF(&v20, "Auto Unlock State End\n");
+  v14 = v20;
 
   if (v14)
   {
@@ -748,130 +755,141 @@ LABEL_30:
 
 - (NSString)state
 {
+  v60 = 0;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v5 = 0;
+  NSAppendPrintF(&v60, "%@\n", v4);
+  v5 = v60;
 
-  NSAppendPrintF();
-  v6 = v5;
+  v59 = v5;
+  NSAppendPrintF(&v59, "-------------\n");
+  v6 = v59;
 
+  v58 = v6;
   v7 = objc_opt_new();
-  v37 = sub_100024974(v7);
-  NSAppendPrintF();
-  v8 = v6;
+  v8 = sub_100024974(v7);
+  NSAppendPrintF(&v58, "Current Date: %@\n", v8);
+  v9 = v58;
 
-  v9 = +[SDStatusMonitor sharedMonitor];
-  if ([v9 deviceSupportsRanging])
+  v57 = v9;
+  v10 = +[SDStatusMonitor sharedMonitor];
+  if ([v10 deviceSupportsRanging])
   {
-    v10 = @"YES";
+    v11 = @"YES";
   }
 
   else
   {
-    v10 = @"NO";
+    v11 = @"NO";
   }
 
-  v38 = v10;
-  NSAppendPrintF();
-  v11 = v8;
+  NSAppendPrintF(&v57, "Ranging Supported: %@\n", v11);
+  v12 = v57;
 
-  v12 = +[SDStatusMonitor sharedMonitor];
-  modelCode = [v12 modelCode];
-  NSAppendPrintF();
-  v13 = v11;
+  v56 = v12;
+  v13 = +[SDStatusMonitor sharedMonitor];
+  modelCode = [v13 modelCode];
+  NSAppendPrintF(&v56, "Model Identifier: %@\n", modelCode);
+  v15 = v56;
 
-  v14 = +[SDStatusMonitor sharedMonitor];
-  if ([v14 deviceKeyBagDisabled])
+  v55 = v15;
+  v16 = +[SDStatusMonitor sharedMonitor];
+  if ([v16 deviceKeyBagDisabled])
   {
-    v15 = @"NO";
+    v17 = @"NO";
   }
 
   else
   {
-    v15 = @"YES";
+    v17 = @"YES";
   }
 
-  v40 = v15;
-  NSAppendPrintF();
-  v16 = v13;
+  NSAppendPrintF(&v55, "Device Has Passcode: %@\n", v17);
+  v18 = v55;
 
-  v17 = +[SDStatusMonitor sharedMonitor];
-  if ([v17 deviceKeyBagUnlocked])
+  v54 = v18;
+  v19 = +[SDStatusMonitor sharedMonitor];
+  if ([v19 deviceKeyBagUnlocked])
   {
-    v18 = @"YES";
+    v20 = @"YES";
   }
 
   else
   {
-    v18 = @"NO";
+    v20 = @"NO";
   }
 
-  v41 = v18;
-  NSAppendPrintF();
-  v19 = v16;
+  NSAppendPrintF(&v54, "Unlocked: %@\n", v20);
+  v21 = v54;
 
+  v53 = v21;
   lockStateChangedDate = [(SDAutoUnlockSessionManager *)self lockStateChangedDate];
-  v42 = sub_100024974(lockStateChangedDate);
-  NSAppendPrintF();
-  v21 = v19;
+  v23 = sub_100024974(lockStateChangedDate);
+  NSAppendPrintF(&v53, "Lock State Changed: %@\n", v23);
+  v24 = v53;
 
-  NSAppendPrintF();
-  v22 = v21;
+  v52 = v24;
+  NSAppendPrintF(&v52, "\n");
+  v25 = v52;
 
-  attemptCount = [(SDAutoUnlockSessionManager *)self attemptCount];
-  NSAppendPrintF();
-  v23 = v22;
+  v51 = v25;
+  NSAppendPrintF(&v51, "Attempt Count: %d\n", [(SDAutoUnlockSessionManager *)self attemptCount]);
+  v26 = v51;
 
+  v50 = v26;
   lastUnlockDate = [(SDAutoUnlockSessionManager *)self lastUnlockDate];
   if (lastUnlockDate)
   {
-    v25 = @"YES";
+    v28 = @"YES";
   }
 
   else
   {
-    v25 = @"NO";
+    v28 = @"NO";
   }
 
-  v44 = v25;
-  NSAppendPrintF();
-  v26 = v23;
+  NSAppendPrintF(&v50, "Device Been Unlocked: %@\n", v28);
+  v29 = v50;
 
+  v49 = v29;
   advertisingChangedDate = [(SDAutoUnlockSessionManager *)self advertisingChangedDate];
-  v45 = sub_100024974(advertisingChangedDate);
-  NSAppendPrintF();
-  v28 = v26;
+  v31 = sub_100024974(advertisingChangedDate);
+  NSAppendPrintF(&v49, "Advertising Changed Date: %@\n", v31);
+  v32 = v49;
 
-  v29 = +[SDAutoUnlockTransport sharedTransport];
-  if ([v29 deviceNearby])
+  v48 = v32;
+  v33 = +[SDAutoUnlockTransport sharedTransport];
+  if ([v33 deviceNearby])
   {
-    v30 = @"YES";
+    v34 = @"YES";
   }
 
   else
   {
-    v30 = @"NO";
+    v34 = @"NO";
   }
 
-  v46 = v30;
-  NSAppendPrintF();
-  v31 = v28;
+  NSAppendPrintF(&v48, "Nearby: %@\n", v34);
+  v35 = v48;
 
+  v47 = v35;
   nearbyDeviceChangedDate = [(SDAutoUnlockSessionManager *)self nearbyDeviceChangedDate];
-  v47 = sub_100024974(nearbyDeviceChangedDate);
-  NSAppendPrintF();
-  v33 = v31;
+  v37 = sub_100024974(nearbyDeviceChangedDate);
+  NSAppendPrintF(&v47, "Nearby Devices Changed Date: %@\n", v37);
+  v38 = v47;
 
+  v46 = v38;
   lockRegistrationSessionsByDeviceID = [(SDAutoUnlockSessionManager *)self lockRegistrationSessionsByDeviceID];
-  NSAppendPrintF();
-  v34 = v33;
+  NSAppendPrintF(&v46, "Registration Sessions: %@\n", lockRegistrationSessionsByDeviceID);
+  v40 = v46;
 
+  v45 = v40;
   remotePeer = [(SDAutoUnlockSessionManager *)self remotePeer];
-  NSAppendPrintF();
-  v35 = v34;
+  NSAppendPrintF(&v45, "Remote Peer: %@\n", remotePeer);
+  v42 = v45;
+  v43 = v45;
 
-  return v34;
+  return v42;
 }
 
 + (id)sharedManager
@@ -1614,6 +1632,71 @@ LABEL_11:
   v15 = handlerCopy;
   v10 = handlerCopy;
   v11 = deviceCopy;
+  dispatch_async(sessionManagerQueue, block);
+}
+
+- (void)attemptAutoUnlockForType:(int64_t)type externalACMContext:(id)context preventRadarNotification:(BOOL)notification bundlePath:(id)path appName:(id)name navBarTitle:(id)title reply:(id)reply
+{
+  notificationCopy = notification;
+  replyCopy = reply;
+  titleCopy = title;
+  nameCopy = name;
+  pathCopy = path;
+  contextCopy = context;
+  v21 = auto_unlock_log();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    v22 = type == 2;
+    v32 = pathCopy;
+    v23 = replyCopy;
+    v24 = nameCopy;
+    v25 = contextCopy;
+    v26 = titleCopy;
+    typeCopy = type;
+    v28 = notificationCopy;
+    if (v22)
+    {
+      v29 = @"Approve with Apple Watch";
+    }
+
+    else
+    {
+      v29 = @"Auto Unlock";
+    }
+
+    v30 = sub_100118278(0);
+    *buf = 138412546;
+    v35 = v29;
+    notificationCopy = v28;
+    type = typeCopy;
+    titleCopy = v26;
+    contextCopy = v25;
+    nameCopy = v24;
+    replyCopy = v23;
+    pathCopy = v32;
+    v36 = 2112;
+    v37 = v30;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Begin %@: %@", buf, 0x16u);
+  }
+
+  kdebug_trace();
+  [(SDAutoUnlockSessionManager *)self setAttemptActivatedHandler:replyCopy];
+
+  [(SDAutoUnlockSessionManager *)self setAttemptType:type];
+  [(SDAutoUnlockSessionManager *)self setAttemptBundlePath:pathCopy];
+
+  [(SDAutoUnlockSessionManager *)self setAttemptAppName:nameCopy];
+  [(SDAutoUnlockSessionManager *)self setAttemptNavBarTitle:titleCopy];
+
+  [(SDAutoUnlockSessionManager *)self setAttemptExternalACMContext:contextCopy];
+  [(SDAutoUnlockSessionManager *)self setPreventRadarNotification:notificationCopy];
+  sessionManagerQueue = [(SDAutoUnlockSessionManager *)self sessionManagerQueue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_1000D5B88;
+  block[3] = &unk_1008CFD30;
+  block[4] = self;
+  block[5] = type;
   dispatch_async(sessionManagerQueue, block);
 }
 
@@ -2977,6 +3060,60 @@ LABEL_14:
   }
 }
 
+- (void)createKeySessionWithBLEDevice:(id)device sessionID:(id)d wrapper:(id)wrapper useEncryption:(BOOL)encryption
+{
+  encryptionCopy = encryption;
+  deviceCopy = device;
+  dCopy = d;
+  wrapperCopy = wrapper;
+  [(SDAutoUnlockSessionManager *)self invalidateExistingSessionsForBLEDevice:deviceCopy incomingSessionID:dCopy];
+  keyAuthSessions = [(SDAutoUnlockSessionManager *)self keyAuthSessions];
+  uUIDString = [dCopy UUIDString];
+  v15 = [keyAuthSessions objectForKeyedSubscript:uUIDString];
+
+  if (!v15)
+  {
+    v16 = [[SDAutoUnlockKeySession alloc] initWithBLEDevice:deviceCopy sessionID:dCopy];
+    [(SDAutoUnlockPairingSession *)v16 setDelegate:self];
+    [(SDAutoUnlockAuthSession *)v16 setUseEncryption:encryptionCopy];
+    keysWithAKSTokens = [(SDAutoUnlockSessionManager *)self keysWithAKSTokens];
+    identifier = [deviceCopy identifier];
+    -[SDAutoUnlockAuthSession setUseAKSToken:](v16, "setUseAKSToken:", [keysWithAKSTokens containsObject:identifier]);
+
+    [(SDAutoUnlockKeySession *)v16 setLocalDeviceNeedsArming:[(SDAutoUnlockSessionManager *)self needsArming]];
+    keysWithAKSTokens2 = [(SDAutoUnlockSessionManager *)self keysWithAKSTokens];
+    identifier2 = [deviceCopy identifier];
+    [keysWithAKSTokens2 removeObject:identifier2];
+
+    [(SDAutoUnlockKeySession *)v16 setWifiEnabled:[(SDAutoUnlockSessionManager *)self cachedWatchWiFiState]];
+    localDeviceController = [(SDAutoUnlockSessionManager *)self localDeviceController];
+    wakeGestureDates = [localDeviceController wakeGestureDates];
+    [(SDAutoUnlockKeySession *)v16 setWakeGestureDates:wakeGestureDates];
+
+    unlockedOnWristDate = [(SDAutoUnlockSessionManager *)self unlockedOnWristDate];
+    [(SDAutoUnlockKeySession *)v16 setUnlockedOnWristDate:unlockedOnWristDate];
+
+    [(SDAutoUnlockKeySession *)v16 setNeedsStrictMotionCheck:[(SDAutoUnlockSessionManager *)self needsStrictMotionCheck]];
+    [(SDAutoUnlockAuthSession *)v16 start];
+    [(SDAutoUnlockKeySession *)v16 handleMessageWithWrapper:wrapperCopy];
+    keyAuthSessions2 = [(SDAutoUnlockSessionManager *)self keyAuthSessions];
+    uUIDString2 = [dCopy UUIDString];
+    [keyAuthSessions2 setObject:v16 forKeyedSubscript:uUIDString2];
+
+    goto LABEL_5;
+  }
+
+  v16 = auto_unlock_log();
+  if (os_log_type_enabled(&v16->super.super.super, OS_LOG_TYPE_DEFAULT))
+  {
+    keyAuthSessions2 = [(SDAutoUnlockSessionManager *)self keyAuthSessions];
+    v26 = 138412290;
+    v27 = keyAuthSessions2;
+    _os_log_impl(&_mh_execute_header, &v16->super.super.super, OS_LOG_TYPE_DEFAULT, "Auth key session in progress %@", &v26, 0xCu);
+LABEL_5:
+  }
+}
+
 - (void)createProxySessionWithDeviceID:(id)d
 {
   dCopy = d;
@@ -3267,6 +3404,54 @@ LABEL_12:
   }
 
 LABEL_17:
+}
+
+- (void)createRegistrationKeySessionWithIdentifier:(id)identifier deviceID:(id)d requestData:(id)data locallyGenerated:(BOOL)generated
+{
+  generatedCopy = generated;
+  identifierCopy = identifier;
+  dCopy = d;
+  dataCopy = data;
+  if (dCopy)
+  {
+    keyRegistrationSessionsByDeviceID = [(SDAutoUnlockSessionManager *)self keyRegistrationSessionsByDeviceID];
+    v14 = [keyRegistrationSessionsByDeviceID objectForKeyedSubscript:dCopy];
+
+    if (v14)
+    {
+      v15 = auto_unlock_log();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        keyRegistrationSessionsByDeviceID2 = [(SDAutoUnlockSessionManager *)self keyRegistrationSessionsByDeviceID];
+        v21 = 138412290;
+        v22 = keyRegistrationSessionsByDeviceID2;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Registration key session in progress %@", &v21, 0xCu);
+      }
+    }
+
+    else
+    {
+      v19 = [(SDAutoUnlockPairingSession *)[SDAutoUnlockRegistrationKeySession alloc] initWithDevice:dCopy sessionID:identifierCopy];
+      [(SDAutoUnlockPairingSession *)v19 setDelegate:self];
+      [(SDAutoUnlockRegistrationKeySession *)v19 setRequestData:dataCopy];
+      [(SDAutoUnlockRegistrationKeySession *)v19 setLocallyGenerated:generatedCopy];
+      [(SDAutoUnlockRegistrationKeySession *)v19 start];
+      keyRegistrationSessionsByDeviceID3 = [(SDAutoUnlockSessionManager *)self keyRegistrationSessionsByDeviceID];
+      [keyRegistrationSessionsByDeviceID3 setObject:v19 forKeyedSubscript:dCopy];
+    }
+  }
+
+  else
+  {
+    v17 = auto_unlock_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000E3878();
+    }
+
+    v18 = +[SDAutoUnlockTransport sharedTransport];
+    [v18 logDevices];
+  }
 }
 
 - (void)createRegistrationLockSessionWithDeviceID:(id)d sessionID:(id)iD requestData:(id)data
@@ -4623,7 +4808,7 @@ LABEL_25:
       v22 = auto_unlock_log();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        sub_1000E3C08(&v30);
+        sub_1000E3C08();
       }
 
       v21 = objc_opt_new();
@@ -4719,6 +4904,26 @@ LABEL_25:
   [v9 handleKeyBagLockStateChanged];
 
   [(SDAutoUnlockSessionManager *)self handleLockStateChanged];
+}
+
+- (void)clearPhoneAutoUnlockNotification:(BOOL)notification
+{
+  notificationCopy = notification;
+  if (notification)
+  {
+    v4 = auto_unlock_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "User declined to enable Phone Auto Unlock", v7, 2u);
+    }
+
+    v5 = +[NSUserDefaults standardUserDefaults];
+    [v5 setBool:1 forKey:@"AutoUnlockDeclinedToEnablePAU"];
+  }
+
+  v6 = +[SDAutoUnlockNotificationsManager sharedManager];
+  [v6 clearPhoneAutoUnlockUpsellNotification:notificationCopy];
 }
 
 - (BOOL)behaviorChangedAfterUpgrade

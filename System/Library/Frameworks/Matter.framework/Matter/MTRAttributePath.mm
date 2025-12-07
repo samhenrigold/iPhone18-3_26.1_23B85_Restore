@@ -134,11 +134,11 @@
 
 - (MTRAttributePath)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = MTRAttributePath;
-  v5 = [(MTRClusterPath *)&v14 initWithCoder:coderCopy];
+  v12.receiver = self;
+  v12.super_class = MTRAttributePath;
+  v5 = [(MTRClusterPath *)&v12 initWithCoder:coderCopy];
   v6 = v5;
   if (v5)
   {
@@ -153,14 +153,13 @@
       {
         v10 = v6->_attribute;
         *buf = 138412290;
-        v16 = v10;
+        v14 = v10;
         _os_log_impl(&dword_238DAE000, v9, OS_LOG_TYPE_ERROR, "MTRAttributePath decoded %@ for attribute, not NSNumber.", buf, 0xCu);
       }
 
       if (sub_2393D5398(1u))
       {
-        v13 = v6->_attribute;
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "MTRAttributePath decoded %@ for attribute, not NSNumber.", v6->_attribute);
       }
 
       v5 = 0;
@@ -172,7 +171,6 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

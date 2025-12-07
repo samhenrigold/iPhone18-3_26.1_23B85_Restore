@@ -45,17 +45,17 @@
 - (int64_t)jet_textLength
 {
   selfCopy = self;
-  v3 = sub_24E01C5DC();
+  v4 = sub_24E01C5DC(v3);
 
-  return v3;
+  return v4;
 }
 
 - (UIFont)font
 {
   selfCopy = self;
-  v3 = sub_24E2D2410();
+  v4 = sub_24E2D2410(v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setFont:(id)font
@@ -68,9 +68,9 @@
 - (int64_t)textAlignment
 {
   selfCopy = self;
-  v3 = sub_24E2D25BC();
+  v4 = sub_24E2D25BC(v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setTextAlignment:(int64_t)alignment
@@ -92,21 +92,22 @@
   width = fitting.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_24E2D2AF0(in, width, height);
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
+  v9.n128_f64[0] = width;
+  sub_24E2D2AF0(in, v9, height);
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
   swift_unknownObjectRelease();
 
-  v17 = v10;
-  v18 = v12;
-  v19 = v14;
-  v20 = v16;
-  result.var3 = v20;
-  result.var2 = v19;
-  result.var1 = v18;
-  result.var0 = v17;
+  v18 = v11;
+  v19 = v13;
+  v20 = v15;
+  v21 = v17;
+  result.var3 = v21;
+  result.var2 = v20;
+  result.var1 = v19;
+  result.var0 = v18;
   return result;
 }
 

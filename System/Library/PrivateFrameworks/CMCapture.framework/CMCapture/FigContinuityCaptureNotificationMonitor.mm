@@ -45,23 +45,23 @@ FigContinuityCaptureNotificationMonitor *__57__FigContinuityCaptureNotificationM
     object = [notification object];
     if (dword_1ED8441B0)
     {
-      v23 = 0;
-      v22 = OS_LOG_TYPE_DEFAULT;
+      v21 = 0;
+      v20 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    if ([v5 isEqualToString:{@"ContinuityCaptureNotificationOnBoardingComplete", v12, v13}] && objc_msgSend(object, "isEqualToString:", @"YES"))
+    if (objc_msgSend_isEqualToString_(v5) && objc_msgSend_isEqualToString_(object))
     {
       v8 = [MEMORY[0x1E695DF00] now];
       if (dword_1ED8441B0)
       {
-        v23 = 0;
-        v22 = OS_LOG_TYPE_DEFAULT;
+        v21 = 0;
+        v20 = OS_LOG_TYPE_DEFAULT;
         v9 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v10 = v23;
-        if (os_log_type_enabled(v9, v22))
+        v10 = v21;
+        if (os_log_type_enabled(v9, v20))
         {
           v11 = v10;
         }
@@ -73,14 +73,14 @@ FigContinuityCaptureNotificationMonitor *__57__FigContinuityCaptureNotificationM
 
         if (v11)
         {
-          v14 = 136315906;
-          v15 = "[FigContinuityCaptureNotificationMonitor _handleContinuityCaptureNotification:]";
+          v12 = 136315906;
+          v13 = "[FigContinuityCaptureNotificationMonitor _handleContinuityCaptureNotification:]";
+          v14 = 2112;
+          v15 = @"com.apple.cameracapture.volatile";
           v16 = 2112;
-          v17 = @"com.apple.cameracapture.volatile";
+          v17 = @"ContinuityCaptureLastUsedDate";
           v18 = 2112;
-          v19 = @"ContinuityCaptureLastUsedDate";
-          v20 = 2112;
-          v21 = v8;
+          v19 = v8;
           _os_log_send_and_compose_impl();
         }
 

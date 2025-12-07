@@ -10,7 +10,7 @@
 - (void)launchQueryWithCancellerBlock:(id)block completionBlock:
 {
   v4 = v3;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990, &qword_22F991DD0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(block);
@@ -37,7 +37,7 @@
 
 - (void)launchPublicEventQueryWithCancellerBlock:(id)block completionBlock:(id)completionBlock
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990, &qword_22F991DD0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(block);
@@ -62,7 +62,7 @@
 
 - (void)cancel
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990, &qword_22F991DD0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v8 - v4;
   v6 = sub_22F989BE0();

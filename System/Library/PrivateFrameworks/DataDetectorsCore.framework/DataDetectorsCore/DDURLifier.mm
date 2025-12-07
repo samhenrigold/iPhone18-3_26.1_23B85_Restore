@@ -254,11 +254,11 @@ LABEL_5:
   return array;
 }
 
-uint64_t __51__DDURLifier_urlMatchesForString_phoneNumberTypes___block_invoke(uint64_t a1)
+uint64_t __51__DDURLifier_urlMatchesForString_phoneNumberTypes___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   result = objc_opt_class();
-  if (v1 == result)
+  if (v2 == result)
   {
     result = DDScannerCreateWithTypeAndLocale(1, 0, 0);
     _sharedURLifier = result;
@@ -267,7 +267,7 @@ uint64_t __51__DDURLifier_urlMatchesForString_phoneNumberTypes___block_invoke(ui
   return result;
 }
 
-CFArrayRef __51__DDURLifier_urlMatchesForString_phoneNumberTypes___block_invoke_3(uint64_t a1)
+uint64_t __51__DDURLifier_urlMatchesForString_phoneNumberTypes___block_invoke_3(uint64_t a1)
 {
   result = _sharedURLifier;
   if (_sharedURLifier)

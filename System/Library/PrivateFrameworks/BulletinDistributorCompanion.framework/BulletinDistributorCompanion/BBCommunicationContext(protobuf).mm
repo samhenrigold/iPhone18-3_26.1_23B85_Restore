@@ -77,17 +77,17 @@
   v3 = a3;
   if (![v3 hasContentURLData])
   {
-    v7 = 0;
+    v8 = 0;
     goto LABEL_12;
   }
 
   contentURLLocalFileLocation = [v3 contentURLLocalFileLocation];
   if (!contentURLLocalFileLocation)
   {
-    v8 = blt_general_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = blt_general_log(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(BBCommunicationContext(protobuf) *)v3 writeContentURLIfPossibleFromProtobuf:v8];
+      [(BBCommunicationContext(protobuf) *)v3 writeContentURLIfPossibleFromProtobuf:v9];
     }
 
     goto LABEL_10;
@@ -98,53 +98,53 @@
 
   if (!v6)
   {
-    v8 = blt_general_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = blt_general_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[BBCommunicationContext(protobuf) writeContentURLIfPossibleFromProtobuf:];
     }
 
 LABEL_10:
 
-    v7 = 0;
+    v8 = 0;
     goto LABEL_11;
   }
 
-  v7 = contentURLLocalFileLocation;
+  v8 = contentURLLocalFileLocation;
 LABEL_11:
 
 LABEL_12:
 
-  return v7;
+  return v8;
 }
 
 - (id)blt_protobuf
 {
   v24 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_new();
+  v3 = objc_opt_new();
   identifier = [self identifier];
-  [v2 setIdentifier:identifier];
+  [v3 setIdentifier:identifier];
 
-  [v2 setBundleIdentifier:&stru_285432190];
+  [v3 setBundleIdentifier:&stru_285432190];
   displayName = [self displayName];
-  [v2 setDisplayName:displayName];
+  [v3 setDisplayName:displayName];
 
-  [v2 setMentionsCurrentUser:{objc_msgSend(self, "mentionsCurrentUser")}];
-  [v2 setNotifyRecipientAnyway:{objc_msgSend(self, "notifyRecipientAnyway")}];
-  [v2 setReplyToCurrentUser:{objc_msgSend(self, "isReplyToCurrentUser")}];
-  [v2 setRecipientCount:{objc_msgSend(self, "recipientCount")}];
-  [v2 setSystemImage:{objc_msgSend(self, "systemImage")}];
+  [v3 setMentionsCurrentUser:{objc_msgSend(self, "mentionsCurrentUser")}];
+  [v3 setNotifyRecipientAnyway:{objc_msgSend(self, "notifyRecipientAnyway")}];
+  [v3 setReplyToCurrentUser:{objc_msgSend(self, "isReplyToCurrentUser")}];
+  [v3 setRecipientCount:{objc_msgSend(self, "recipientCount")}];
+  [v3 setSystemImage:{objc_msgSend(self, "systemImage")}];
   imageName = [self imageName];
-  [v2 setImageName:imageName];
+  [v3 setImageName:imageName];
 
-  [v2 setCapabilities:{objc_msgSend(self, "capabilities")}];
+  [v3 setCapabilities:{objc_msgSend(self, "capabilities")}];
   sender = [self sender];
 
   if (sender)
   {
     sender2 = [self sender];
     blt_protobuf = [sender2 blt_protobuf];
-    [v2 setSender:blt_protobuf];
+    [v3 setSender:blt_protobuf];
   }
 
   contentURL = [self contentURL];
@@ -152,7 +152,7 @@ LABEL_12:
   if (contentURL)
   {
     imageDataForContentURL = [self imageDataForContentURL];
-    [v2 setContentURLData:imageDataForContentURL];
+    [v3 setContentURLData:imageDataForContentURL];
   }
 
   v21 = 0u;
@@ -160,16 +160,16 @@ LABEL_12:
   v19 = 0u;
   v20 = 0u;
   recipients = [self recipients];
-  v12 = [recipients countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v12)
+  v13 = [recipients countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v20;
+    v14 = v13;
+    v15 = *v20;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v20 != v14)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(recipients);
         }
@@ -177,36 +177,25 @@ LABEL_12:
         blt_protobuf2 = [*(*(&v19 + 1) + 8 * i) blt_protobuf];
         if (blt_protobuf2)
         {
-          [v2 addRecipients:blt_protobuf2];
+          [v3 addRecipients:blt_protobuf2];
         }
       }
 
-      v13 = [recipients countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [recipients countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v2;
-}
-
-+ (void)writeContentURLIfPossibleFromProtobuf:()protobuf .cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0(&dword_241FB3000, v0, v1, "Error saving contentURLData to: %@ from protobuf %@");
-  v2 = *MEMORY[0x277D85DE8];
+  return v3;
 }
 
 + (void)writeContentURLIfPossibleFromProtobuf:()protobuf .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error generating contentURL fileName for protobuf %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "Error generating contentURL fileName for protobuf %@", &v2, 0xCu);
 }
 
 @end

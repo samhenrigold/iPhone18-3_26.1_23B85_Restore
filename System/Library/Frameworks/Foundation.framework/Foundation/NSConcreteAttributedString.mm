@@ -71,7 +71,7 @@
   if (attributes && v5)
   {
     v7 = [(NSRLEArray *)[NSMutableRLEArray allocWithZone:?]];
-    v8 = [_NSAttributeDictionaryClass() newWithDictionary:attributes];
+    v8 = [(objc_class *)_NSAttributeDictionaryClass() newWithDictionary:attributes];
     [(NSMutableRLEArray *)v7 insertObject:v8 range:0, [(NSConcreteAttributedString *)v6 length]];
     if ([(NSAttributedString *)v6 _willRequireIntentResolutionWhenContainingAttributes:v8])
     {
@@ -109,7 +109,7 @@
         {
           v13 = 0;
           v14 = 0;
-          v9 = [_NSAttributeDictionaryClass() newWithDictionary:{objc_msgSend(string, "attributesAtIndex:effectiveRange:", i, &v13)}];
+          v9 = -[objc_class newWithDictionary:](_NSAttributeDictionaryClass(), "newWithDictionary:", [string attributesAtIndex:i effectiveRange:&v13]);
           if (v14 + v13 <= v6)
           {
             v10 = v13 - i + v14;
@@ -178,7 +178,7 @@
 
     v8 = _NSAttributeDictionaryClass();
 
-    return [v8 emptyAttributeDictionary];
+    return [(objc_class *)v8 emptyAttributeDictionary];
   }
 }
 

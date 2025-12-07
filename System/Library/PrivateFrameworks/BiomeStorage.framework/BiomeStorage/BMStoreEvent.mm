@@ -1,4 +1,5 @@
 @interface BMStoreEvent
++ (id)eventWithEventType:(Class)type eventData:(id)data dataVersion:(unsigned int)version;
 - (BMStoreEvent)initWithCoder:(id)coder;
 - (BMStoreEvent)initWithEventBody:(id)body timestamp:(double)timestamp;
 - (BMStoreEvent)initWithFrame:(id)frame segmentName:(id)name error:(unsigned __int8)error eventCategory:(unint64_t)category metadata:(id)metadata dataType:(Class)type;
@@ -6,6 +7,7 @@
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code;
 - (BOOL)isEqual:(id)equal;
 - (id)bookmark;
+- (id)eventBodyKeepingBackingData:(BOOL)data;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -39,6 +41,151 @@ LABEL_5:
 LABEL_7:
 
   return v8;
+}
+
+- (id)eventBodyKeepingBackingData:(BOOL)data
+{
+  v40 = *MEMORY[0x1E69E9840];
+  eventBody = self->_eventBody;
+  if (!eventBody)
+  {
+    v8 = objc_autoreleasePoolPush();
+    if (self->_dataType)
+    {
+      if (objc_opt_respondsToSelector())
+      {
+        frame = self->_frame;
+        if (frame && [(BMFrame *)frame state]!= 1)
+        {
+          v17 = __biome_log_for_category();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          {
+            state = [(BMFrame *)self->_frame state];
+            if (state >= 6)
+            {
+              v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BMFrameStateUnknown(%lu)", state];
+            }
+
+            else
+            {
+              v19 = off_1E8338B48[state];
+            }
+
+            *buf = 138543362;
+            v31 = v19;
+            _os_log_impl(&dword_1C928A000, v17, OS_LOG_TYPE_INFO, "Frame is in state %{public}@, unable to decode", buf, 0xCu);
+          }
+
+          goto LABEL_26;
+        }
+
+        eventBodyData = self->_eventBodyData;
+        if (eventBodyData)
+        {
+          v11 = [(objc_class *)self->_dataType eventWithData:eventBodyData dataVersion:self->_eventBodyDataVersion];
+          v12 = self->_eventBody;
+          self->_eventBody = v11;
+
+          v13 = self->_eventBody;
+          if (v13)
+          {
+            if (!data)
+            {
+              v14 = self->_eventBodyData;
+              self->_eventBodyData = 0;
+
+              v13 = self->_eventBody;
+            }
+
+            v6 = v13;
+            goto LABEL_27;
+          }
+
+          v21 = __biome_log_for_category();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          {
+            segmentName = self->_segmentName;
+            offset = [(BMFrame *)self->_frame offset];
+            v27 = [(NSData *)self->_eventBodyData length];
+            dataType = self->_dataType;
+            eventBodyDataVersion = self->_eventBodyDataVersion;
+            *buf = 138544386;
+            v31 = segmentName;
+            v32 = 2048;
+            v33 = offset;
+            v34 = 2048;
+            v35 = v27;
+            v36 = 2114;
+            v37 = dataType;
+            v38 = 1024;
+            v39 = eventBodyDataVersion;
+            _os_log_error_impl(&dword_1C928A000, v21, OS_LOG_TYPE_ERROR, "Failed to deserialize event segment '%{public}@' offset '%lu' length '%lu' class '%{public}@' version '%u'", buf, 0x30u);
+          }
+
+          null = [MEMORY[0x1E695DFB0] null];
+          v23 = self->_eventBody;
+          self->_eventBody = null;
+
+          v24 = self->_eventBodyData;
+          self->_eventBodyData = 0;
+
+LABEL_26:
+          v6 = 0;
+LABEL_27:
+          objc_autoreleasePoolPop(v8);
+          goto LABEL_28;
+        }
+
+        v16 = __biome_log_for_category();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          [BMStoreEvent eventBodyKeepingBackingData:];
+        }
+      }
+
+      else
+      {
+        v16 = __biome_log_for_category();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          [BMStoreEvent eventBodyKeepingBackingData:];
+        }
+      }
+    }
+
+    else
+    {
+      v16 = __biome_log_for_category();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        [BMStoreEvent eventBodyKeepingBackingData:];
+      }
+    }
+
+    goto LABEL_26;
+  }
+
+  null2 = [MEMORY[0x1E695DFB0] null];
+
+  if (eventBody == null2)
+  {
+    v15 = __biome_log_for_category();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [BMStoreEvent eventBodyKeepingBackingData:];
+    }
+
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = self->_eventBody;
+  }
+
+LABEL_28:
+
+  return v6;
 }
 
 - (BMStoreEvent)initWithFrame:(id)frame segmentName:(id)name error:(unsigned __int8)error eventCategory:(unint64_t)category metadata:(id)metadata dataType:(Class)type
@@ -105,7 +252,7 @@ LABEL_7:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -123,9 +270,9 @@ LABEL_7:
     {
       v16 = MEMORY[0x1E696ABC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode key %@", keyCopy, *MEMORY[0x1E696A578]];
-      v23[0] = v17;
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 errorWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -136,13 +283,12 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BMStoreEvent)initWithCoder:(id)coder
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"segmentName"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"frameOffset"];
@@ -178,15 +324,15 @@ LABEL_7:
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        v47 = 16;
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __30__BMStoreEvent_initWithCoder___block_invoke_40;
-        v43[3] = &unk_1E8338B28;
-        v43[4] = buf;
+        v46 = 16;
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = __30__BMStoreEvent_initWithCoder___block_invoke_40;
+        v42[3] = &unk_1E8338B28;
+        v42[4] = buf;
         if (initWithCoder__onceToken_39 != -1)
         {
-          dispatch_once(&initWithCoder__onceToken_39, v43);
+          dispatch_once(&initWithCoder__onceToken_39, v42);
         }
 
         v17 = *(*&buf[8] + 24);
@@ -209,9 +355,9 @@ LABEL_14:
         if (!v12)
         {
           v19 = MEMORY[0x1E695DFD8];
-          v45[0] = objc_opt_class();
-          v45[1] = eventDataClass;
-          v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+          v44[0] = objc_opt_class();
+          v44[1] = eventDataClass;
+          v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
           v21 = [v19 setWithArray:v20];
 
           allowedClasses3 = [coderCopy allowedClasses];
@@ -223,7 +369,7 @@ LABEL_14:
         v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"eventBody"];
         if (![(BMStoreEvent *)self checkAndReportDecodingFailureIfNeededForid:v24 key:@"eventBody" coder:coderCopy errorDomain:@"com.apple.Biome.BMStoreEvent" errorCode:-1])
         {
-          v42 = v6;
+          v41 = v6;
           v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"eventDataVersion"];
           if ([(BMStoreEvent *)self checkAndReportDecodingFailureIfNeededForid:v25 key:@"eventDataVersion" coder:coderCopy errorDomain:@"com.apple.Biome.BMStoreEvent" errorCode:-1])
           {
@@ -232,26 +378,26 @@ LABEL_14:
 
           else
           {
-            v40 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"eventCategory"];
+            v39 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"eventCategory"];
             v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"timestamp"];
             [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"storeError"];
-            v29 = v41 = v25;
-            unsignedIntValue = [v42 unsignedIntValue];
-            unsignedIntValue2 = [v41 unsignedIntValue];
+            v29 = v40 = v25;
+            unsignedIntValue = [v41 unsignedIntValue];
+            unsignedIntValue2 = [v40 unsignedIntValue];
             v30 = v5;
-            unsignedIntValue3 = [v40 unsignedIntValue];
+            unsignedIntValue3 = [v39 unsignedIntValue];
             [v28 doubleValue];
             v33 = v32;
-            LOBYTE(v37) = [v29 unsignedIntValue];
-            v36 = unsignedIntValue3;
+            LOBYTE(v36) = [v29 unsignedIntValue];
+            v35 = unsignedIntValue3;
             v5 = v30;
-            self = [(BMStoreEvent *)self initWithFrame:0 segmentName:v30 frameOffset:unsignedIntValue eventBodyData:v24 eventBodyDataVersion:unsignedIntValue2 dataType:eventDataClass eventCategory:v33 timestamp:v36 metadata:v12 error:v37];
+            self = [(BMStoreEvent *)self initWithFrame:0 segmentName:v30 frameOffset:unsignedIntValue eventBodyData:v24 eventBodyDataVersion:unsignedIntValue2 dataType:eventDataClass eventCategory:v33 timestamp:v35 metadata:v12 error:v36];
 
-            v25 = v41;
+            v25 = v40;
             selfCopy = self;
           }
 
-          v6 = v42;
+          v6 = v41;
           goto LABEL_29;
         }
 
@@ -269,7 +415,7 @@ LABEL_29:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v47 = 16;
+      v46 = 16;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __30__BMStoreEvent_initWithCoder___block_invoke;
@@ -305,8 +451,30 @@ LABEL_24:
   selfCopy = 0;
 LABEL_30:
 
-  v34 = *MEMORY[0x1E69E9840];
   return selfCopy;
+}
+
++ (id)eventWithEventType:(Class)type eventData:(id)data dataVersion:(unsigned int)version
+{
+  v5 = *&version;
+  dataCopy = data;
+  if (objc_opt_respondsToSelector())
+  {
+    v8 = [(objc_class *)type eventWithData:dataCopy dataVersion:v5];
+  }
+
+  else
+  {
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [BMStoreEvent eventWithEventType:type eventData:v9 dataVersion:?];
+    }
+
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -465,32 +633,13 @@ LABEL_24:
   return v10;
 }
 
-- (void)eventBodyKeepingBackingData:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithCoder:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 + (void)eventWithEventType:(objc_class *)a1 eventData:(NSObject *)a2 dataVersion:.cold.1(objc_class *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromClass(a1);
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Event class - %@ doesn't - conform to BMStoreData protocol or Maybe the framework containing the event class isn't linked. We can't deserialize", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1C928A000, a2, OS_LOG_TYPE_ERROR, "Event class - %@ doesn't - conform to BMStoreData protocol or Maybe the framework containing the event class isn't linked. We can't deserialize", &v4, 0xCu);
 }
 
 @end

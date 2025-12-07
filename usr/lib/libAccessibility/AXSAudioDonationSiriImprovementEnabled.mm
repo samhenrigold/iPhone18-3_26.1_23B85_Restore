@@ -3,7 +3,7 @@
 
 @implementation AXSAudioDonationSiriImprovementEnabled
 
-uint64_t ___AXSAudioDonationSiriImprovementEnabled_block_invoke()
+void *___AXSAudioDonationSiriImprovementEnabled_block_invoke()
 {
   if (_kAXSCacheAudioDonationSiriImprovementDidChangeNotification && !_processIsResponsibleForPreferenceObserving())
   {

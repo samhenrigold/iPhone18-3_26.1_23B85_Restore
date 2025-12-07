@@ -54,7 +54,7 @@
 {
   length = range.length;
   location = range.location;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (!self->_requiresSinglePassVideoConversion)
   {
@@ -80,13 +80,11 @@
     v11 = status;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 134217984;
-      v16 = v11;
-      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Ignoring single pass video conversion status update for request in non-processing state %zd", &v15, 0xCu);
+      v14 = 134217984;
+      v15 = v11;
+      _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Ignoring single pass video conversion status update for request in non-processing state %zd", &v14, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableSinglePassVideoEncodingWithUpdateHandler:(id)handler
@@ -124,11 +122,11 @@
 
 - (void)padOutputFileToEstimatedLength
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   destination = [(PHMediaFormatConversionRequest *)self destination];
-  v16 = 0;
-  v4 = [destination padToLength:-[PHMediaFormatConversionRequest estimatedOutputFileLength](self error:{"estimatedOutputFileLength"), &v16}];
-  v5 = v16;
+  v15 = 0;
+  v4 = [destination padToLength:-[PHMediaFormatConversionRequest estimatedOutputFileLength](self error:{"estimatedOutputFileLength"), &v15}];
+  v5 = v15;
 
   if ((v4 & 1) == 0)
   {
@@ -137,32 +135,30 @@
       source = [(PHMediaFormatConversionRequest *)self source];
       fileType = [source fileType];
       destination2 = [(PHMediaFormatConversionRequest *)self destination];
-      v9 = [destination2 length];
+      v8 = [destination2 length];
       estimatedOutputFileLength = [(PHMediaFormatConversionRequest *)self estimatedOutputFileLength];
       source2 = [(PHMediaFormatConversionRequest *)self source];
       fileURL = [source2 fileURL];
       destination3 = [(PHMediaFormatConversionRequest *)self destination];
       fileURL2 = [destination3 fileURL];
       *buf = 138544642;
-      v18 = fileType;
-      v19 = 2048;
-      v20 = v9;
-      v21 = 2048;
-      v22 = estimatedOutputFileLength;
-      v23 = 2114;
-      v24 = v5;
-      v25 = 2112;
-      v26 = fileURL;
-      v27 = 2112;
-      v28 = fileURL2;
+      v17 = fileType;
+      v18 = 2048;
+      v19 = v8;
+      v20 = 2048;
+      v21 = estimatedOutputFileLength;
+      v22 = 2114;
+      v23 = v5;
+      v24 = 2112;
+      v25 = fileURL;
+      v26 = 2112;
+      v27 = fileURL2;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to pad output file (type %{public}@) of length %llu to estimated length %llu: %{public}@, %@ -> %@", buf, 0x3Eu);
     }
 
     [(PHMediaFormatConversionRequest *)self setStatus:5];
     [(PHMediaFormatConversionRequest *)self setError:v5];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)passthroughConversionAdditionalByteCount
@@ -180,7 +176,7 @@
 
 - (double)formatConversionExpansionFactor
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   formatConversionExpansionFactor = self->_formatConversionExpansionFactor;
   if (formatConversionExpansionFactor <= 0.0)
   {
@@ -196,7 +192,7 @@
     if (isVideo)
     {
       [(PHMediaFormatConversionRequest *)self requiresSinglePassVideoConversion];
-      formatConversionExpansionFactor = 2.2;
+      return 2.2;
     }
 
     else
@@ -214,44 +210,42 @@
       {
         source4 = [(PHMediaFormatConversionRequest *)self source];
         [source4 imageDimensions];
-        v18 = NSStringFromSize(v28);
+        v17 = NSStringFromSize(v27);
         source5 = [(PHMediaFormatConversionRequest *)self source];
-        v21 = 134218498;
-        v22 = formatConversionExpansionFactor;
-        v23 = 2112;
-        v24 = v18;
-        v25 = 2048;
-        v26 = [source5 length];
-        _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Calculated formatConversionExpansionFactor: %f (image dimensions: %@, file length: %llu)", &v21, 0x20u);
+        v20 = 134218498;
+        v21 = formatConversionExpansionFactor;
+        v22 = 2112;
+        v23 = v17;
+        v24 = 2048;
+        v25 = [source5 length];
+        _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Calculated formatConversionExpansionFactor: %f (image dimensions: %@, file length: %llu)", &v20, 0x20u);
       }
     }
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v21 = 134217984;
-    v22 = formatConversionExpansionFactor;
-    _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Explicit formatConversionExpansionFactor: %f", &v21, 0xCu);
-    formatConversionExpansionFactor = self->_formatConversionExpansionFactor;
+    v20 = 134217984;
+    v21 = formatConversionExpansionFactor;
+    _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Explicit formatConversionExpansionFactor: %f", &v20, 0xCu);
+    return self->_formatConversionExpansionFactor;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return formatConversionExpansionFactor;
 }
 
 - (void)setFormatConversionExpansionFactor:(double)factor
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     formatConversionExpansionFactor = self->_formatConversionExpansionFactor;
-    v7 = 134217984;
-    v8 = formatConversionExpansionFactor;
-    _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Setting explicit formatConversionExpansionFactor: %f", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = formatConversionExpansionFactor;
+    _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Setting explicit formatConversionExpansionFactor: %f", &v6, 0xCu);
   }
 
   self->_formatConversionExpansionFactor = factor;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)estimatedOutputFileLength
@@ -280,7 +274,7 @@
 
 - (NSString)outputFileType
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (![(PHMediaFormatConversionRequest *)self preflighted])
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -340,23 +334,22 @@ LABEL_12:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     source3 = [(PHMediaFormatConversionRequest *)self forcedOutputPathExtension];
-    v20 = 138412546;
-    v21 = source3;
-    v22 = 2114;
-    v23 = fileType;
-    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Forced path extension (%@) is not a known UTType. Falling back to %{public}@ as the output type identifier.", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = source3;
+    v21 = 2114;
+    v22 = fileType;
+    _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Forced path extension (%@) is not a known UTType. Falling back to %{public}@ as the output type identifier.", &v19, 0x16u);
     goto LABEL_12;
   }
 
 LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
 
   return fileType;
 }
 
 - (NSString)outputPathExtension
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (![(PHMediaFormatConversionRequest *)self preflighted])
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -408,11 +401,11 @@ LABEL_12:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       source3 = [(PHMediaFormatConversionRequest *)self forcedOutputPathExtension];
-      v17 = 138412546;
-      v18 = source3;
-      v19 = 2114;
-      v20 = @"jpg";
-      _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Forced path extension (%@) is not a known UTType. Falling back to %{public}@ as the output path extension.", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = source3;
+      v18 = 2114;
+      v19 = @"jpg";
+      _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Forced path extension (%@) is not a known UTType. Falling back to %{public}@ as the output path extension.", &v16, 0x16u);
       goto LABEL_12;
     }
   }
@@ -423,7 +416,6 @@ LABEL_12:
   }
 
 LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
 
   return pathExtension;
 }
@@ -572,7 +564,7 @@ LABEL_13:
 
 - (BOOL)destinationCapabilitiesHintsIndicateSupportForSource
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   destinationCapabilities = [(PHMediaFormatConversionRequest *)self destinationCapabilities];
   outOfBandHints = [destinationCapabilities outOfBandHints];
 
@@ -593,26 +585,26 @@ LABEL_13:
         if (v8)
         {
           firstVideoTrackCodec = [(PHMediaFormatConversionSource *)self->_source firstVideoTrackCodec];
+          v28 = 0u;
           v29 = 0u;
           v30 = 0u;
           v31 = 0u;
-          v32 = 0u;
           v10 = v8;
-          v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v30;
+            v13 = *v29;
             while (2)
             {
               for (i = 0; i != v12; ++i)
               {
-                if (*v30 != v13)
+                if (*v29 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                if ([*(*(&v29 + 1) + 8 * i) unsignedIntValue] == firstVideoTrackCodec)
+                if ([*(*(&v28 + 1) + 8 * i) unsignedIntValue] == firstVideoTrackCodec)
                 {
                   LOBYTE(v7) = 1;
                   v15 = v10;
@@ -620,7 +612,7 @@ LABEL_13:
                 }
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
               if (v12)
               {
                 continue;
@@ -654,27 +646,27 @@ LABEL_13:
 
       else
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         v19 = v15;
-        v20 = [v19 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v24 objects:v32 count:16];
         v7 = v20;
         if (v20)
         {
-          v21 = *v26;
+          v21 = *v25;
           while (2)
           {
             v22 = 0;
             do
             {
-              if (*v26 != v21)
+              if (*v25 != v21)
               {
                 objc_enumerationMutation(v19);
               }
 
-              if ([v10 conformsToType:{*(*(&v25 + 1) + 8 * v22), v25}])
+              if ([v10 conformsToType:{*(*(&v24 + 1) + 8 * v22), v24}])
               {
                 LOBYTE(v7) = 1;
                 goto LABEL_36;
@@ -684,7 +676,7 @@ LABEL_13:
             }
 
             while (v7 != v22);
-            v7 = [v19 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v7 = [v19 countByEnumeratingWithState:&v24 objects:v32 count:16];
             if (v7)
             {
               continue;
@@ -706,13 +698,12 @@ LABEL_37:
     LOBYTE(v7) = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)_calculateRequiresFormatConversion
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   if (![(PHMediaFormatConversionRequest *)self preflighted])
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -813,16 +804,16 @@ LABEL_19:
   }
 
 LABEL_20:
-  v49 = v20;
+  v48 = v20;
   if (([(PHMediaFormatConversionRequest *)self requiresLocationMetadataChange]|| [(PHMediaFormatConversionRequest *)self requiresAccessibilityDescriptionMetadataChange]|| [(PHMediaFormatConversionRequest *)self requiresCaptionMetadataChange]|| [(PHMediaFormatConversionRequest *)self requiresCreationDateMetadataChange]) && ![(PHMediaFormatConversionRequest *)self sourceSupportsPassthroughConversion])
   {
-    v48 = 1;
+    v47 = 1;
     v33 = 1;
   }
 
   else
   {
-    v48 = 0;
+    v47 = 0;
     v33 = v19 & (forceFormatConversion | (!useTransferBehaviorUserPreference || !userPreferenceProhibitsFormatConversion) & (v20 | v18));
   }
 
@@ -838,8 +829,8 @@ LABEL_20:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], v34))
   {
-    v46 = useTransferBehaviorUserPreference;
-    v47 = v18;
+    v45 = useTransferBehaviorUserPreference;
+    v46 = v18;
     v35 = userPreferenceProhibitsFormatConversion;
     v36 = [MEMORY[0x277D3B448] stringForSupport:v16];
     shouldExportAsHDR2 = [(PHMediaFormatConversionRequest *)self shouldExportAsHDR];
@@ -849,33 +840,32 @@ LABEL_20:
     v41 = v19;
     v42 = lastPathComponent;
     *buf = 67111939;
-    v51 = v33;
-    v52 = 1024;
-    v53 = v41;
-    v54 = 1024;
-    v55 = forceFormatConversion;
-    v56 = 1024;
-    v57 = v35;
-    v58 = 1024;
-    v59 = v46;
-    v60 = 1024;
-    v61 = v47;
-    v62 = 1024;
-    v63 = v49;
-    v64 = 2114;
-    v65 = v36;
-    v66 = 1024;
-    v67 = destinationCapabilitiesHintsIndicateSupportForSource;
-    v68 = 1024;
-    v69 = v48;
-    v70 = 1024;
-    v71 = shouldExportAsHDR2;
-    v72 = 2113;
-    v73 = lastPathComponent;
+    v50 = v33;
+    v51 = 1024;
+    v52 = v41;
+    v53 = 1024;
+    v54 = forceFormatConversion;
+    v55 = 1024;
+    v56 = v35;
+    v57 = 1024;
+    v58 = v45;
+    v59 = 1024;
+    v60 = v46;
+    v61 = 1024;
+    v62 = v48;
+    v63 = 2114;
+    v64 = v36;
+    v65 = 1024;
+    v66 = destinationCapabilitiesHintsIndicateSupportForSource;
+    v67 = 1024;
+    v68 = v47;
+    v69 = 1024;
+    v70 = shouldExportAsHDR2;
+    v71 = 2113;
+    v72 = lastPathComponent;
     _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], v34, "Media format conversion decision: result=%d containsModernFormat=%d forcedOnRequest=%d prohibitedByUserPreference=%d useTransferBehaviorUserChoice=%d destinationMissingSupport=%d, destinationMissingSupportForAsset=%d (assetSupport=%{public}@), destinationPlatformHintIndicatesSupport=%d, unsupportedUserModifiedMetadataPassthroughConversion=%d shouldExportAsHDR=%d filename=%{private}@", buf, 0x52u);
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -1050,31 +1040,31 @@ LABEL_20:
 
 - (BOOL)sourceSupportsPassthroughConversion
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CE1F10];
-  v21[0] = *MEMORY[0x277CE1DC0];
-  v21[1] = v3;
-  v21[2] = *MEMORY[0x277CE1E40];
-  [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  v20[0] = *MEMORY[0x277CE1DC0];
+  v20[1] = v3;
+  v20[2] = *MEMORY[0x277CE1E40];
+  [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = v19 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = v18 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = MEMORY[0x277CE1CB8];
         fileType = [(PHMediaFormatConversionContent *)self->_source fileType];
         v12 = [v10 typeWithIdentifier:fileType];
@@ -1087,7 +1077,7 @@ LABEL_20:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -1100,7 +1090,6 @@ LABEL_20:
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1143,7 +1132,7 @@ LABEL_11:
 
 - (void)preflightWithConversionManager:(id)manager
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   status = [(PHMediaFormatConversionRequest *)self status];
   if (status <= 5 && ((1 << status) & 0x31) != 0)
   {
@@ -1185,9 +1174,9 @@ LABEL_11:
   }
 
   source5 = [(PHMediaFormatConversionRequest *)self source];
-  v27 = 0;
-  v13 = [source5 preflightWithError:&v27];
-  v14 = v27;
+  v26 = 0;
+  v13 = [source5 preflightWithError:&v26];
+  v14 = v26;
 
   if (v13)
   {
@@ -1209,7 +1198,7 @@ LABEL_11:
           {
             source7 = [(PHMediaFormatConversionRequest *)self source];
             *buf = 138412290;
-            v29 = source7;
+            v28 = source7;
             v18 = MEMORY[0x277D86220];
             v19 = "Invalid request using single pass encoding option and metadata changes (like location stripping, custom location, custom creation date, custom description) for video source %@";
 LABEL_36:
@@ -1254,7 +1243,7 @@ LABEL_25:
     {
       source7 = [(PHMediaFormatConversionRequest *)self source];
       *buf = 138412290;
-      v29 = source7;
+      v28 = source7;
       v18 = MEMORY[0x277D86220];
       v19 = "Invalid request using single pass encoding option for non-video source %@";
       goto LABEL_36;
@@ -1272,8 +1261,6 @@ LABEL_33:
   [(PHMediaFormatConversionRequest *)self setStatus:5];
   [(PHMediaFormatConversionRequest *)self setError:v14];
 LABEL_34:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAsCancelled
@@ -1285,9 +1272,7 @@ LABEL_34:
 
 - (void)setupProgress
 {
-  v3 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:1];
-  progress = self->_progress;
-  self->_progress = v3;
+  self->_progress = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:1];
 
   MEMORY[0x2821F96F8]();
 }
@@ -1338,10 +1323,10 @@ LABEL_34:
 
 - (PHMediaFormatConversionRequest)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = PHMediaFormatConversionRequest;
-  v2 = [(PHMediaFormatConversionRequest *)&v12 init];
+  v16 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = PHMediaFormatConversionRequest;
+  v2 = [(PHMediaFormatConversionRequest *)&v11 init];
   if (v2)
   {
     uUID = [MEMORY[0x277CCAD78] UUID];
@@ -1357,17 +1342,16 @@ LABEL_34:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v10 = v2->_identifier;
-      v11 = v2->_livePhotoPairingIdentifier;
+      v9 = v2->_identifier;
+      v10 = v2->_livePhotoPairingIdentifier;
       *buf = 138543618;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v11;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v10;
       _os_log_debug_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Initial live photo pairing identifier for request %{public}@: %{public}@", buf, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1391,9 +1375,8 @@ LABEL_34:
 
 + (double)heifToJPEGFactorWithImageDimensions:(CGSize)dimensions fileLength:(unint64_t)length
 {
-  v4 = *MEMORY[0x277CBF3A8];
-  v5 = dimensions.height == *(MEMORY[0x277CBF3A8] + 8) && dimensions.width == *MEMORY[0x277CBF3A8];
-  if (!length || v5)
+  v4 = dimensions.height == *(MEMORY[0x277CBF3A8] + 8) && dimensions.width == *MEMORY[0x277CBF3A8];
+  if (!length || v4)
   {
     return 2.3;
   }

@@ -1,4 +1,5 @@
 @interface HTProcessExitFilteringConfiguration
++ (id)configurationAllowingAllProcesses:(BOOL)processes criticalProcesses:(BOOL)criticalProcesses processNames:(id)names reasons:(unint64_t)reasons subReasons:(id)subReasons;
 - (BOOL)isEqual:(id)equal;
 - (HTProcessExitFilteringConfiguration)initWithCoder:(id)coder;
 - (id)description;
@@ -7,6 +8,33 @@
 @end
 
 @implementation HTProcessExitFilteringConfiguration
+
++ (id)configurationAllowingAllProcesses:(BOOL)processes criticalProcesses:(BOOL)criticalProcesses processNames:(id)names reasons:(unint64_t)reasons subReasons:(id)subReasons
+{
+  criticalProcessesCopy = criticalProcesses;
+  processesCopy = processes;
+  subReasonsCopy = subReasons;
+  namesCopy = names;
+  v13 = objc_alloc_init(HTProcessExitFilteringConfiguration);
+  [(HTProcessExitFilteringConfiguration *)v13 setAllowsAllProcesses:processesCopy];
+  [(HTProcessExitFilteringConfiguration *)v13 setAllowsCriticalProcesses:criticalProcessesCopy];
+  if (namesCopy)
+  {
+    v14 = namesCopy;
+  }
+
+  else
+  {
+    v14 = MEMORY[0x277CBEBF8];
+  }
+
+  [(HTProcessExitFilteringConfiguration *)v13 setAllowedProcessNames:v14];
+
+  [(HTProcessExitFilteringConfiguration *)v13 setAllowedReasons:reasons];
+  [(HTProcessExitFilteringConfiguration *)v13 setAllowedSubReasons:subReasonsCopy];
+
+  return v13;
+}
 
 - (HTProcessExitFilteringConfiguration)initWithCoder:(id)coder
 {

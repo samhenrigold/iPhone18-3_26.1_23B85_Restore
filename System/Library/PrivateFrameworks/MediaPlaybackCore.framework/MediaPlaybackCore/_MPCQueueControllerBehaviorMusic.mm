@@ -81,6 +81,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)findFirstContentItemIDForItemIntersectingIdentifierSet:(id)set completion:(id)completion;
 - (void)getSharedQueueTracklistWithStartingContentItemID:(id)d completion:(id)completion;
+- (void)groupSession:(id)session didInvalidateWithError:(id)error;
 - (void)groupSession:(id)session didUpdateParticipants:(id)participants;
 - (void)groupSessionDidConnect:(id)connect;
 - (void)loadAdditionalUpcomingItems:(int64_t)items completion:(id)completion;
@@ -6290,6 +6291,13 @@ LABEL_23:
   host = [sessionCopy host];
 
   [(_MPCQueueControllerBehaviorMusic *)self _updateGroupSessionParticipants:participants localParticipant:host];
+}
+
+- (void)groupSession:(id)session didInvalidateWithError:(id)error
+{
+  activeGroupSession = self->_activeGroupSession;
+  self->_activeGroupSession = 0;
+  MEMORY[0x1EEE66BB8](self, activeGroupSession);
 }
 
 - (void)groupSessionDidConnect:(id)connect

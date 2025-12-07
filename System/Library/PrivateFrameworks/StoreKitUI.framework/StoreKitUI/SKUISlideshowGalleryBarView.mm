@@ -92,7 +92,7 @@ void __45__SKUISlideshowGalleryBarView_layoutSubviews__block_invoke(double *a1, 
   memset(&v11[1], 0, sizeof(CGAffineTransform));
   if (v5)
   {
-    [v5 transform];
+    objc_msgSend_transform(v5);
   }
 
   v11[0] = v11[1];

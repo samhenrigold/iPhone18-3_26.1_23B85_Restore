@@ -2,8 +2,8 @@
 - (uint64_t)_gkClearTarget;
 - (uint64_t)_gkInvokeOnce;
 - (uint64_t)_gkInvokeOnceWithTarget:()GKProxyHelpers;
+- (uint64_t)_gkPrepareForCallWithError:()GKProxyHelpers;
 - (uint64_t)_gkReplyHandlerInvocation;
-- (unint64_t)_gkPrepareForCallWithError:()GKProxyHelpers;
 - (void)_gkCallbackWithError:()GKProxyHelpers queue:;
 - (void)_gkClearCopiedArguments;
 - (void)_gkCopyArguments;
@@ -99,7 +99,7 @@
 
 - (void)_gkCallbackWithError:()GKProxyHelpers queue:
 {
-  [self _gkPrepareForCallWithError:?];
+  [self _gkPrepareForCallWithError:a3];
   [self retainArguments];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -109,7 +109,7 @@
   dispatch_async(a4, block);
 }
 
-- (unint64_t)_gkPrepareForCallWithError:()GKProxyHelpers
+- (uint64_t)_gkPrepareForCallWithError:()GKProxyHelpers
 {
   v14 = a3;
   methodSignature = [self methodSignature];

@@ -79,7 +79,7 @@ void __74__SBSAccidentalActivationMitigationSessionServiceClient__createConnecti
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogCameraCaptureAccidentalActivationMitigationSession();
+  v5 = SBLogCameraCaptureAccidentalActivationMitigationSession(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -98,7 +98,7 @@ void __74__SBSAccidentalActivationMitigationSessionServiceClient__createConnecti
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogCameraCaptureAccidentalActivationMitigationSession();
+  v5 = SBLogCameraCaptureAccidentalActivationMitigationSession(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -157,7 +157,7 @@ void __74__SBSAccidentalActivationMitigationSessionServiceClient__createConnecti
 {
   v8 = *MEMORY[0x1E69E9840];
   integerValue = [state integerValue];
-  v4 = SBLogCameraCaptureAccidentalActivationMitigationSession();
+  v4 = SBLogCameraCaptureAccidentalActivationMitigationSession(integerValue);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSBSAccidentalActivationMitigationSessionState(integerValue);

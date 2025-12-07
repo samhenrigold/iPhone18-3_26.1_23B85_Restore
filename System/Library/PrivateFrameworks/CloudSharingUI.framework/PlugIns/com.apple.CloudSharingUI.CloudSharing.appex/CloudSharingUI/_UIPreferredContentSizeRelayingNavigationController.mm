@@ -24,7 +24,7 @@
   height = size.height;
   width = size.width;
   selfCopy = self;
-  sub_100006DFC(width, height);
+  sub_100006DFC(selfCopy, v5, width, height);
 }
 
 - (_TtC37com_apple_CloudSharingUI_CloudSharing51_UIPreferredContentSizeRelayingNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass

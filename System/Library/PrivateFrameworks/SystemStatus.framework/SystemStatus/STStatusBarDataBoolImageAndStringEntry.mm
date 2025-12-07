@@ -1,4 +1,5 @@
 @interface STStatusBarDataBoolImageAndStringEntry
++ (id)entryWithImageNamed:(id)named BOOLValue:(BOOL)value stringValue:(id)stringValue;
 - (STStatusBarDataBoolImageAndStringEntry)initWithBSXPCCoder:(id)coder;
 - (STStatusBarDataBoolImageAndStringEntry)initWithCoder:(id)coder;
 - (id)_equalsBuilderWithObject:(id)object;
@@ -9,6 +10,19 @@
 @end
 
 @implementation STStatusBarDataBoolImageAndStringEntry
+
++ (id)entryWithImageNamed:(id)named BOOLValue:(BOOL)value stringValue:(id)stringValue
+{
+  valueCopy = value;
+  stringValueCopy = stringValue;
+  v9 = [self entryWithImageNamed:named BOOLValue:valueCopy];
+  v10 = [stringValueCopy copy];
+
+  v11 = v9[4];
+  v9[4] = v10;
+
+  return v9;
+}
 
 - (void)encodeWithCoder:(id)coder
 {

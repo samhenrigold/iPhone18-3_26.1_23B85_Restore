@@ -46,7 +46,6 @@
 {
   v5 = OBJC_IVAR___CPLCKPhotosSharedLibraryExitResponse_error;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = error;
   selfCopy = self;
   errorCopy = error;

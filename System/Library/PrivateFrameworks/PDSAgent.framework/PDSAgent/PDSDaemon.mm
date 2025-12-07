@@ -77,14 +77,14 @@
 
 void __18__PDSDaemon_start__block_invoke(uint64_t a1)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277D37AD8] setDisableXPC:1];
   v2 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v3 = [*(a1 + 32) configuration];
   v4 = [v3 workloop];
   v5 = dispatch_queue_create_with_target_V2("com.apple.pds.idsd.queue", v2, v4);
 
-  v48 = [[PDSDaemonRemoteVendor alloc] initWithQueue:v5 daemonListenerVendor:*(a1 + 32)];
+  v49 = [[PDSDaemonRemoteVendor alloc] initWithQueue:v5 daemonListenerVendor:*(a1 + 32)];
   [MEMORY[0x277D37AC8] registerGlobalVendor:?];
   v6 = [*(a1 + 32) configuration];
   v7 = [v6 workloop];
@@ -95,101 +95,100 @@ void __18__PDSDaemon_start__block_invoke(uint64_t a1)
   [v9 startBagLoad];
 
   v10 = pds_defaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    v11 = PDSCurrentServerEnvironment();
-    v12 = PDSStringForServerEnvironment(v11);
-    v13 = [*(a1 + 32) configuration];
+    v13 = PDSCurrentServerEnvironment(v11, v12);
+    v14 = PDSStringForServerEnvironment(v13);
+    v15 = [*(a1 + 32) configuration];
     *buf = 138412546;
-    v62 = v12;
-    v63 = 2112;
-    v64 = v13;
+    v63 = v14;
+    v64 = 2112;
+    v65 = v15;
     _os_log_impl(&dword_25DED8000, v10, OS_LOG_TYPE_DEFAULT, "Starting PDSAgent [Environment %@] [Configuration %@]", buf, 0x16u);
   }
 
-  v14 = [PDSCDCacheContainer alloc];
-  v15 = [*(a1 + 32) configuration];
-  v16 = [v15 daemonRootDirectory];
-  v17 = [(PDSCDCacheContainer *)v14 initWithContainingPath:v16];
-  [*(a1 + 32) setCacheContainer:v17];
+  v16 = [PDSCDCacheContainer alloc];
+  v17 = [*(a1 + 32) configuration];
+  v18 = [v17 daemonRootDirectory];
+  v19 = [(PDSCDCacheContainer *)v16 initWithContainingPath:v18];
+  [*(a1 + 32) setCacheContainer:v19];
 
-  v18 = objc_alloc_init(PDSUserTracker);
-  [*(a1 + 32) setUserTracker:v18];
+  v20 = objc_alloc_init(PDSUserTracker);
+  [*(a1 + 32) setUserTracker:v20];
 
-  v19 = [*(a1 + 32) configuration];
-  v20 = [v19 queue];
+  v21 = [*(a1 + 32) configuration];
+  v22 = [v21 queue];
 
   objc_initWeak(buf, *(a1 + 32));
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __18__PDSDaemon_start__block_invoke_61;
-  v59[3] = &unk_2799F83C8;
-  v50 = v20;
-  v60 = v50;
-  v52 = MEMORY[0x25F8A7090](v59);
-  v21 = objc_alloc(MEMORY[0x277D07DD0]);
-  v22 = [*(a1 + 32) bag];
-  v51 = [v21 initWithIDSServerBag:v22];
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __18__PDSDaemon_start__block_invoke_61;
+  v60[3] = &unk_2799F83C8;
+  v51 = v22;
+  v61 = v51;
+  v53 = MEMORY[0x25F8A7090](v60);
+  v23 = objc_alloc(MEMORY[0x277D07DD0]);
+  v24 = [*(a1 + 32) bag];
+  v52 = [v23 initWithIDSServerBag:v24];
 
-  v23 = [PDSRequestQueue alloc];
-  v24 = [*(a1 + 32) userTracker];
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __18__PDSDaemon_start__block_invoke_2;
-  v57[3] = &unk_2799F83F0;
-  objc_copyWeak(&v58, buf);
-  v25 = [(PDSRequestQueue *)v23 initWithMessageDelivery:v51 userTracker:v24 queue:v50 pushTokenBlock:v52 entryStoreBlock:v57];
-  [*(a1 + 32) setRequestQueue:v25];
+  v25 = [PDSRequestQueue alloc];
+  v26 = [*(a1 + 32) userTracker];
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __18__PDSDaemon_start__block_invoke_2;
+  v58[3] = &unk_2799F83F0;
+  objc_copyWeak(&v59, buf);
+  v27 = [(PDSRequestQueue *)v25 initWithMessageDelivery:v52 userTracker:v26 queue:v51 pushTokenBlock:v53 entryStoreBlock:v58];
+  [*(a1 + 32) setRequestQueue:v27];
 
-  v26 = MEMORY[0x277D18A00];
-  v27 = [*(a1 + 32) configuration];
-  v28 = [v27 pushHandlerPort];
-  v49 = [v26 sharedInstanceWithPortName:v28];
+  v28 = MEMORY[0x277D18A00];
+  v29 = [*(a1 + 32) configuration];
+  v30 = [v29 pushHandlerPort];
+  v50 = [v28 sharedInstanceWithPortName:v30];
 
-  v29 = [PDSCoordinator alloc];
-  v30 = [*(a1 + 32) configuration];
-  v31 = [v30 queue];
-  v32 = [*(a1 + 32) bag];
-  v33 = [*(a1 + 32) requestQueue];
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __18__PDSDaemon_start__block_invoke_3;
-  v55[3] = &unk_2799F8418;
-  objc_copyWeak(&v56, buf);
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __18__PDSDaemon_start__block_invoke_4;
-  v53[3] = &unk_2799F83F0;
-  objc_copyWeak(&v54, buf);
-  v34 = [MEMORY[0x277D192A8] sharedInstance];
-  v35 = [(PDSCoordinator *)v29 initWithQueue:v31 serverBag:v32 requestQueue:v33 kvStoreBlock:v55 entryStoreBlock:v53 pushTokenBlock:v52 systemMonitor:v34 pushHandler:v49];
-  [*(a1 + 32) setCoordinator:v35];
+  v31 = [PDSCoordinator alloc];
+  v32 = [*(a1 + 32) configuration];
+  v33 = [v32 queue];
+  v34 = [*(a1 + 32) bag];
+  v35 = [*(a1 + 32) requestQueue];
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __18__PDSDaemon_start__block_invoke_3;
+  v56[3] = &unk_2799F8418;
+  objc_copyWeak(&v57, buf);
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __18__PDSDaemon_start__block_invoke_4;
+  v54[3] = &unk_2799F83F0;
+  objc_copyWeak(&v55, buf);
+  v36 = [MEMORY[0x277D192A8] sharedInstance];
+  v37 = [(PDSCoordinator *)v31 initWithQueue:v33 serverBag:v34 requestQueue:v35 kvStoreBlock:v56 entryStoreBlock:v54 pushTokenBlock:v53 systemMonitor:v36 pushHandler:v50];
+  [*(a1 + 32) setCoordinator:v37];
 
-  v36 = [*(a1 + 32) coordinator];
-  [v36 registerIfNeeded];
+  v38 = [*(a1 + 32) coordinator];
+  [v38 registerIfNeeded];
 
-  v37 = [PDSXPCServer alloc];
-  v38 = [MEMORY[0x277D37AD8] defaultListenerVendor];
-  v39 = [MEMORY[0x277D37AD8] defaultInterfaceVendor];
-  v40 = *(a1 + 32);
-  v41 = [v40 configuration];
-  v42 = [v41 queue];
-  v43 = [*(a1 + 32) configuration];
-  v44 = [v43 workloop];
-  v45 = [(PDSXPCServer *)v37 initWithServiceName:*MEMORY[0x277D37B00] listenerVendor:v38 interfaceVendor:v39 daemonListenerVendor:v40 queue:v42 workloop:v44];
-  [*(a1 + 32) setXPCServer:v45];
+  v39 = [PDSXPCServer alloc];
+  v40 = [MEMORY[0x277D37AD8] defaultListenerVendor];
+  v41 = [MEMORY[0x277D37AD8] defaultInterfaceVendor];
+  v42 = *(a1 + 32);
+  v43 = [v42 configuration];
+  v44 = [v43 queue];
+  v45 = [*(a1 + 32) configuration];
+  v46 = [v45 workloop];
+  v47 = [(PDSXPCServer *)v39 initWithServiceName:*MEMORY[0x277D37B00] listenerVendor:v40 interfaceVendor:v41 daemonListenerVendor:v42 queue:v44 workloop:v46];
+  [*(a1 + 32) setXPCServer:v47];
 
-  v46 = [*(a1 + 32) XPCServer];
-  [v46 resume];
+  v48 = [*(a1 + 32) XPCServer];
+  [v48 resume];
 
   [*(a1 + 32) _setupSysdiagnoseDump];
-  objc_destroyWeak(&v54);
-  objc_destroyWeak(&v56);
+  objc_destroyWeak(&v55);
+  objc_destroyWeak(&v57);
 
-  objc_destroyWeak(&v58);
+  objc_destroyWeak(&v59);
   objc_destroyWeak(buf);
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 id __18__PDSDaemon_start__block_invoke_61(uint64_t a1, void *a2)
@@ -330,64 +329,64 @@ id __18__PDSDaemon_start__block_invoke_4(uint64_t a1)
 
 id __34__PDSDaemon__setupSysdiagnoseDump__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v1 = [*(a1 + 32) _entryStore];
   if (v1)
   {
     v2 = objc_alloc_init(MEMORY[0x277CCAB68]);
     [v2 appendString:@"Users:\n"];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v3 = [v1 users];
-    v4 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v20;
+      v6 = *v19;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v20 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v2 appendFormat:@"%@\n", *(*(&v19 + 1) + 8 * i)];
+          [v2 appendFormat:@"%@\n", *(*(&v18 + 1) + 8 * i)];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v5);
     }
 
     [v2 appendString:@"Entries:\n"];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v8 = [v1 entries];
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (j = 0; j != v10; ++j)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [v2 appendFormat:@"\t%@\n", *(*(&v15 + 1) + 8 * j)];
+          [v2 appendFormat:@"\t%@\n", *(*(&v14 + 1) + 8 * j)];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
       }
 
       while (v10);
@@ -398,8 +397,6 @@ id __34__PDSDaemon__setupSysdiagnoseDump__block_invoke(uint64_t a1)
   {
     v2 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -460,11 +457,10 @@ id __34__PDSDaemon__setupSysdiagnoseDump__block_invoke(uint64_t a1)
 
 - (void)_underlyingStorage
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_25DED8000, a2, OS_LOG_TYPE_ERROR, "Failed loading cache {error: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25DED8000, a2, OS_LOG_TYPE_ERROR, "Failed loading cache {error: %@}", &v2, 0xCu);
 }
 
 @end

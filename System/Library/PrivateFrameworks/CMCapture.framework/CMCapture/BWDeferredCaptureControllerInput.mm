@@ -210,11 +210,11 @@ LABEL_8:
 
 - (void)addSensorRawSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  v4 = &v38;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
+  v4 = &v45;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
   if (!buffer)
   {
     goto LABEL_39;
@@ -225,12 +225,12 @@ LABEL_8:
   if (!ImageBuffer)
   {
 LABEL_38:
-    v4 = v39;
+    v4 = v46;
 LABEL_39:
-    v28 = 0;
-    v29 = 0;
+    v35 = 0;
+    v36 = 0;
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
     *(v4 + 6) = -12780;
 
     goto LABEL_32;
@@ -239,22 +239,22 @@ LABEL_39:
   PixelFormatType = CVPixelBufferGetPixelFormatType(ImageBuffer);
   if (!FigCapturePixelFormatIsVersatileRaw(PixelFormatType))
   {
-    v28 = 0;
-    v29 = 0;
-    v30 = 0;
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
 LABEL_31:
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
 
     goto LABEL_32;
   }
 
   if (([(BWDeferredCaptureControllerInput *)self _shouldDropSampleBufferIfNecessary:buffer]& 1) != 0)
   {
-    v28 = 0;
-    v29 = 0;
-    v21 = 0;
-    v22 = 1;
+    v35 = 0;
+    v36 = 0;
+    v20 = 0;
+    v21 = 1;
   }
 
   else
@@ -262,21 +262,22 @@ LABEL_31:
     if (([(BWDeferredCaptureControllerInput *)self _stashSampleBufferIfNecessary:buffer]& 1) == 0)
     {
       v9 = *off_1E798A3C8;
-      v31 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-      if (v31)
+      v38 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+      if (v38)
       {
-        v23 = BWStillImageCaptureFrameFlagsForSampleBuffer(buffer);
-        v27 = [v31 objectForKeyedSubscript:*off_1E798B540];
-        v10 = [v27 isEqualToString:{-[BWStillImageProcessorControllerInput portType](self, "portType")}];
-        if (v10 & 1 | ([(BWStillImageCaptureSettings *)[(BWStillImageProcessorControllerInput *)self captureSettings] captureFlags]>> 38) & 1)
+        v30 = BWStillImageCaptureFrameFlagsForSampleBuffer(buffer);
+        v34 = [v38 objectForKeyedSubscript:*off_1E798B540];
+        [(BWStillImageProcessorControllerInput *)self portType];
+        isEqualToString = objc_msgSend_isEqualToString_(v34);
+        if (isEqualToString & 1 | ([(BWStillImageCaptureSettings *)[(BWStillImageProcessorControllerInput *)self captureSettings] captureFlags]>> 38) & 1)
         {
           buffer = CMGetAttachment(buffer, *off_1E798A458, 0);
-          v30 = CVBufferCopyAttachment(buffer, v9, 0);
-          v25 = CMGetAttachment(buffer, *off_1E798A3C0, 0);
-          v29 = CVBufferCopyAttachment(v25, v9, 0);
+          v37 = CVBufferCopyAttachment(buffer, v9, 0);
+          v32 = CMGetAttachment(buffer, *off_1E798A3C0, 0);
+          v36 = CVBufferCopyAttachment(v32, v9, 0);
           v11 = CMGetAttachment(buffer, *off_1E798A470, 0);
-          v28 = CVBufferCopyAttachment(v11, v9, 0);
-          v24 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
+          v35 = CVBufferCopyAttachment(v11, v9, 0);
+          v31 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
           v12 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
           if (buffer)
           {
@@ -288,7 +289,7 @@ LABEL_31:
             v13 = 0;
           }
 
-          if (v30)
+          if (v37)
           {
             v14 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
           }
@@ -298,7 +299,7 @@ LABEL_31:
             v14 = 0;
           }
 
-          if (v25)
+          if (v32)
           {
             v15 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
           }
@@ -308,7 +309,7 @@ LABEL_31:
             v15 = 0;
           }
 
-          if (v29)
+          if (v36)
           {
             v16 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
             if (v11)
@@ -316,7 +317,7 @@ LABEL_31:
 LABEL_19:
               v17 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
 LABEL_22:
-              if (v28)
+              if (v35)
               {
                 v18 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
               }
@@ -326,30 +327,31 @@ LABEL_22:
                 v18 = 0;
               }
 
-              if ((-[BWStillImageCaptureSettings captureFlags](-[BWStillImageProcessorControllerInput captureSettings](self, "captureSettings"), "captureFlags") & 4) != 0 && [objc_msgSend(v31 objectForKeyedSubscript:{*off_1E798B588), "intValue"}] == 1)
+              if ((-[BWStillImageCaptureSettings captureFlags](-[BWStillImageProcessorControllerInput captureSettings](self, "captureSettings"), "captureFlags") & 4) != 0 && [objc_msgSend(v38 objectForKeyedSubscript:{*off_1E798B588), "intValue"}] == 1)
               {
                 [(BWDeferredPipelineParameters *)[(BWDeferredCaptureControllerInput *)self pipelineParameters] setQuadraProcessingSupportEnabled:1];
               }
 
-              v19 = [(BWDeferredCaptureContainer *)self->_captureContainer commitBuffer:v7 tag:v24 bufferType:1 captureFrameFlags:v23 compressionProfile:self->_compressionProfile metadataTag:v12 rawThumbnailsBufferTag:v13 rawThumbnailsMetadataTag:v14 mainRawThumbnailBufferTag:v15 mainRawThumbnailMetadataTag:v16 sifrRawThumbnailBufferTag:v17 sifrRawThumbnailMetadataTag:v18 portType:v27];
-              *(v39 + 6) = v19;
-              if (v19 || (v20 = [(BWDeferredCaptureContainer *)self->_captureContainer commitMetadata:v31 tag:v12 bufferTag:v24], (*(v39 + 6) = v20) != 0))
+              v19 = [(BWDeferredCaptureContainer *)self->_captureContainer commitBuffer:v7 tag:v31 bufferType:1 captureFrameFlags:v30 compressionProfile:self->_compressionProfile metadataTag:v12 rawThumbnailsBufferTag:v13 rawThumbnailsMetadataTag:v14 mainRawThumbnailBufferTag:v15 mainRawThumbnailMetadataTag:v16 sifrRawThumbnailBufferTag:v17 sifrRawThumbnailMetadataTag:v18 portType:v34];
+              *(v46 + 6) = v19;
+              if (v19 || (v19 = [(BWDeferredCaptureContainer *)self->_captureContainer commitMetadata:v38 tag:v12 bufferTag:v31], (*(v46 + 6) = v19) != 0))
               {
-                FigDebugAssert3();
+                LODWORD(v22) = v19;
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v22, v29, v23, v24, v25, v26, v27, v28);
               }
 
               else
               {
-                v32[0] = MEMORY[0x1E69E9820];
-                v32[1] = 3221225472;
-                v33 = __61__BWDeferredCaptureControllerInput_addSensorRawSampleBuffer___block_invoke;
-                v34 = &unk_1E799DB88;
-                v37 = &v38;
+                v39[0] = MEMORY[0x1E69E9820];
+                v39[1] = 3221225472;
+                v40 = __61__BWDeferredCaptureControllerInput_addSensorRawSampleBuffer___block_invoke;
+                v41 = &unk_1E799DB88;
+                v44 = &v45;
                 selfCopy = self;
-                v36 = v27;
-                __61__BWDeferredCaptureControllerInput_addSensorRawSampleBuffer___block_invoke(v32, 37, buffer, v13, v30, v14);
-                v33(v32, 37, v25, v15, v29, v16);
-                v33(v32, 37, v11, v17, v28, v18);
+                v43 = v34;
+                __61__BWDeferredCaptureControllerInput_addSensorRawSampleBuffer___block_invoke(v39, 37, buffer, v13, v37, v14);
+                v40(v39, 37, v32, v15, v36, v16);
+                v40(v39, 37, v11, v17, v35, v18);
               }
 
               goto LABEL_31;
@@ -373,17 +375,17 @@ LABEL_22:
       goto LABEL_38;
     }
 
-    v28 = 0;
-    v29 = 0;
-    v22 = 0;
-    v21 = 1;
+    v35 = 0;
+    v36 = 0;
+    v21 = 0;
+    v20 = 1;
   }
 
 LABEL_32:
 
-  if (((v21 | v22) & 1) == 0)
+  if (((v20 | v21) & 1) == 0)
   {
-    if (*(v39 + 6))
+    if (*(v46 + 6))
     {
       [(BWDeferredCaptureControllerInput *)self encounteredProcessingError:?];
     }
@@ -394,10 +396,10 @@ LABEL_32:
     }
   }
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v45, 8);
 }
 
-uint64_t __61__BWDeferredCaptureControllerInput_addSensorRawSampleBuffer___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *__61__BWDeferredCaptureControllerInput_addSensorRawSampleBuffer___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v9 = result;
   if (!a3)
@@ -410,13 +412,13 @@ uint64_t __61__BWDeferredCaptureControllerInput_addSensorRawSampleBuffer___block
     goto LABEL_6;
   }
 
-  result = [*(*(result + 32) + 56) commitBuffer:a3 tag:a4 bufferType:a2 captureFrameFlags:0 compressionProfile:*(*(result + 32) + 64) metadataTag:a6 portType:*(result + 40)];
-  *(*(*(v9 + 48) + 8) + 24) = result;
-  if (a5 && !*(*(*(v9 + 48) + 8) + 24))
+  result = [*(result[4] + 56) commitBuffer:a3 tag:a4 bufferType:a2 captureFrameFlags:0 compressionProfile:*(result[4] + 64) metadataTag:a6 portType:result[5]];
+  *(*(v9[6] + 8) + 24) = result;
+  if (a5 && !*(*(v9[6] + 8) + 24))
   {
 LABEL_6:
-    result = [*(*(v9 + 32) + 56) commitMetadata:a5 tag:a6 bufferTag:a4];
-    *(*(*(v9 + 48) + 8) + 24) = result;
+    result = [*(v9[4] + 56) commitMetadata:a5 tag:a6 bufferTag:a4];
+    *(*(v9[6] + 8) + 24) = result;
   }
 
   return result;
@@ -578,21 +580,26 @@ LABEL_6:
         {
           if (dword_1EB58E320)
           {
-            v9 = OUTLINED_FUNCTION_1_131();
-            OUTLINED_FUNCTION_8_5(v9);
+            v16 = OUTLINED_FUNCTION_1_131();
+            OUTLINED_FUNCTION_8_5(v16);
             OUTLINED_FUNCTION_4_97();
             if (v2)
             {
 LABEL_15:
-              BWStillImageSampleBufferToDisplayString(v3);
+              BWStillImageSampleBufferToDisplayString(v3, v9);
+              LODWORD(v20) = 136315394;
               OUTLINED_FUNCTION_1_17();
               OUTLINED_FUNCTION_9_14();
-              _os_log_send_and_compose_impl();
+              v8 = _os_log_send_and_compose_impl();
+              v17 = v8;
+LABEL_18:
+              OUTLINED_FUNCTION_5_89(v8, v9, v10, v17, v11, v12, v13, v14, v18, v19, v20, v21, v22, v23, SBYTE2(v23), SHIBYTE(v23));
+              return v3;
             }
 
 LABEL_17:
-            OUTLINED_FUNCTION_5_89();
-            return v3;
+            v17 = 0;
+            goto LABEL_18;
           }
 
           return 1;
@@ -681,21 +688,26 @@ LABEL_17:
     necessary[11] = v9;
     if (dword_1EB58E320)
     {
-      v11 = OUTLINED_FUNCTION_1_131();
-      OUTLINED_FUNCTION_8_5(v11);
+      v18 = OUTLINED_FUNCTION_1_131();
+      OUTLINED_FUNCTION_8_5(v18);
       OUTLINED_FUNCTION_4_97();
       if (v2)
       {
 LABEL_19:
-        BWStillImageSampleBufferToDisplayString(v3);
+        BWStillImageSampleBufferToDisplayString(v3, v12);
+        LODWORD(v22) = 136315394;
         OUTLINED_FUNCTION_1_17();
         OUTLINED_FUNCTION_9_14();
-        _os_log_send_and_compose_impl();
+        v11 = _os_log_send_and_compose_impl();
+        v19 = v11;
+LABEL_22:
+        OUTLINED_FUNCTION_5_89(v11, v12, v13, v19, v14, v15, v16, v17, v20, v21, v22, v23, v24, v25, SBYTE2(v25), SHIBYTE(v25));
+        return v3;
       }
 
 LABEL_21:
-      OUTLINED_FUNCTION_5_89();
-      return v3;
+      v19 = 0;
+      goto LABEL_22;
     }
 
     return 1;
@@ -736,7 +748,7 @@ LABEL_21:
       if ([(BWDeferredCaptureContainer *)self->_captureContainer commitMetadata:metadata tag:v12 bufferTag:v11])
       {
         OUTLINED_FUNCTION_1_5();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v13, v14, v15, v16, v17, v18, v19, v20);
       }
     }
   }
@@ -765,24 +777,31 @@ LABEL_21:
 
 - (void)_showDeferredCaptureTapToRadarPromptIfNecessaryForProcessingError:(uint64_t)error
 {
-  if (error && FigDebugIsInternalBuild() && a2 != -73439 && a2 != -17401)
+  if (error)
   {
-    FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-    [objc_msgSend(OUTLINED_FUNCTION_8_63() "captureSettings")];
-    [objc_msgSend(OUTLINED_FUNCTION_8_63() "requestedSettings")];
-    v6 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(FrameworkRadarComponent, v6, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWDeferredCaptureController.m", 417, @"LastShownDate:BWDeferredCaptureController.m:417", @"LastShownBuild:BWDeferredCaptureController.m:417", 0);
-    free(v6);
+    v2 = a2;
+    if (FigDebugIsInternalBuild())
+    {
+      if (v2 != -73439 && v2 != -17401)
+      {
+        FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
+        os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+        fig_log_call_emit_and_clean_up_after_send_and_compose();
+        [objc_msgSend(OUTLINED_FUNCTION_8_63() "captureSettings")];
+        [objc_msgSend(OUTLINED_FUNCTION_8_63() "requestedSettings")];
+        v6 = _os_log_send_and_compose_impl();
+        FigCapturePleaseFileRadar(FrameworkRadarComponent, v6, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Nodes/BWDeferredCaptureController.m", 417, @"LastShownDate:BWDeferredCaptureController.m:417", @"LastShownBuild:BWDeferredCaptureController.m:417", 0);
+        free(v6);
+      }
+    }
   }
 }
 
 - (void)encounteredProcessingError:(int)error
 {
   v3 = *&error;
-  [(BWDeferredCaptureControllerInput *)self _showDeferredCaptureTapToRadarPromptIfNecessaryForProcessingError:error];
+  [(BWDeferredCaptureControllerInput *)self _showDeferredCaptureTapToRadarPromptIfNecessaryForProcessingError:?];
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -812,27 +831,27 @@ LABEL_21:
         }
 
         v12 = [MEMORY[0x1E695DFA8] set];
-        v61 = 0u;
-        v62 = 0u;
-        v63 = 0u;
         v64 = 0u;
-        v54 = v1;
+        v65 = 0u;
+        v66 = 0u;
+        v67 = 0u;
+        v57 = v1;
         intermediates = [v1[7] intermediates];
-        v14 = [intermediates countByEnumeratingWithState:&v61 objects:v60 count:16];
+        v14 = [intermediates countByEnumeratingWithState:&v64 objects:v63 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v62;
+          v16 = *v65;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v62 != v16)
+              if (*v65 != v16)
               {
                 objc_enumerationMutation(intermediates);
               }
 
-              v18 = *(*(&v61 + 1) + 8 * i);
+              v18 = *(*(&v64 + 1) + 8 * i);
               if ([v18 isMemberOfClass:objc_opt_class()])
               {
                 bufferType = [v18 bufferType];
@@ -846,7 +865,7 @@ LABEL_21:
               }
             }
 
-            v15 = [intermediates countByEnumeratingWithState:&v61 objects:v60 count:16];
+            v15 = [intermediates countByEnumeratingWithState:&v64 objects:v63 count:16];
           }
 
           while (v15);
@@ -854,7 +873,7 @@ LABEL_21:
 
         v20 = [v11 isEqualToSet:v12];
         v21 = 1;
-        v1 = v54;
+        v1 = v57;
       }
 
       else
@@ -862,34 +881,34 @@ LABEL_21:
         if ((v2 & 0x84) == 0x84)
         {
           v22 = [objc_msgSend(v1 "captureStreamSettings")];
-          v56 = 0u;
-          v57 = 0u;
-          v58 = 0u;
           v59 = 0u;
+          v60 = 0u;
+          v61 = 0u;
+          v62 = 0u;
           intermediates2 = [v1[7] intermediates];
-          v24 = [intermediates2 countByEnumeratingWithState:&v56 objects:v55 count:16];
+          v24 = [intermediates2 countByEnumeratingWithState:&v59 objects:v58 count:16];
           if (v24)
           {
             v25 = v24;
             v26 = 0;
-            v27 = *v57;
+            v27 = *v60;
             do
             {
               for (j = 0; j != v25; ++j)
               {
-                if (*v57 != v27)
+                if (*v60 != v27)
                 {
                   objc_enumerationMutation(intermediates2);
                 }
 
-                v29 = *(*(&v56 + 1) + 8 * j);
+                v29 = *(*(&v59 + 1) + 8 * j);
                 if ([v29 isMemberOfClass:objc_opt_class()])
                 {
                   v26 += ([v29 captureFrameFlags] >> 1) & 1;
                 }
               }
 
-              v25 = [intermediates2 countByEnumeratingWithState:&v56 objects:v55 count:16];
+              v25 = [intermediates2 countByEnumeratingWithState:&v59 objects:v58 count:16];
             }
 
             while (v25);
@@ -941,16 +960,17 @@ LABEL_21:
     }
 
     v31 = [objc_msgSend(v1 "captureStreamSettings")];
-    v45 = [objc_msgSend(v1 "captureStreamSettings")];
+    v47 = [objc_msgSend(v1 "captureStreamSettings")];
     if ((v2 & 0x200000000) != 0)
     {
       v32 = v1[9];
       if (!v32)
       {
-        v49 = 0;
+        v52 = 0;
 LABEL_45:
-        v48 = v30;
-        v47 = [objc_msgSend(v1 "captureSettings")];
+        v51 = v30;
+        v48 = v31;
+        v50 = [objc_msgSend(v1 "captureSettings")];
         if (bwdcc_learnedFusionErrorRecoveryPossible([v1 captureSettings]) && (v33 = v1[12]) != 0)
         {
           bOOLValue = [v33 BOOLValue];
@@ -969,62 +989,71 @@ LABEL_45:
           v36 = *(v1 + 69);
         }
 
-        v44 = v36;
-        v68 = 0u;
+        v46 = v36;
+        v71 = 0u;
+        v72 = 0u;
         v69 = 0u;
-        v66 = 0u;
-        v67 = 0u;
+        v70 = 0u;
         intermediates3 = [v1[7] intermediates];
-        v38 = [intermediates3 countByEnumeratingWithState:&v66 objects:v65 count:16];
+        v38 = [intermediates3 countByEnumeratingWithState:&v69 objects:v68 count:16];
         if (v38)
         {
           v39 = v38;
           OUTLINED_FUNCTION_7_81();
-          v40 = *v67;
+          v40 = *v70;
           do
           {
             for (k = 0; k != v39; ++k)
             {
-              if (*v67 != v40)
+              if (*v70 != v40)
               {
                 objc_enumerationMutation(intermediates3);
               }
 
-              v42 = *(*(&v66 + 1) + 8 * k);
+              v42 = *(*(&v69 + 1) + 8 * k);
               if ([v42 isMemberOfClass:objc_opt_class()])
               {
                 captureFrameFlags = [v42 captureFrameFlags];
-                if ([objc_msgSend(v1 "portType")])
+                v44 = v1;
+                portType = [v1 portType];
+                [v42 portType];
+                if (objc_msgSend_isEqualToString_(portType))
                 {
+                  v1 = v44;
                   if ((captureFrameFlags & 2) != 0)
                   {
-                    ++v53;
+                    ++v56;
                   }
 
                   else if ((captureFrameFlags & 8) != 0)
                   {
-                    ++v52;
+                    ++v55;
                   }
 
                   else if ((captureFrameFlags & 4) != 0)
                   {
-                    v50 = 1;
+                    v53 = 1;
                   }
 
                   else
                   {
-                    v51 |= [v42 bufferType] == 2001;
+                    v54 |= [v42 bufferType] == 2001;
                   }
                 }
 
-                else if ((captureFrameFlags & 0x14) != 0)
+                else
                 {
-                  ++v30;
+                  if ((captureFrameFlags & 0x14) != 0)
+                  {
+                    ++v30;
+                  }
+
+                  v1 = v44;
                 }
               }
             }
 
-            v39 = [intermediates3 countByEnumeratingWithState:&v66 objects:v65 count:16];
+            v39 = [intermediates3 countByEnumeratingWithState:&v69 objects:v68 count:16];
           }
 
           while (v39);
@@ -1036,18 +1065,18 @@ LABEL_45:
         }
 
         v20 = 0;
-        if (v53 == v48)
+        if (v56 == v51)
         {
-          v21 = v49;
-          if (!(((v47 & 0x100000) != 0) & bOOLValue) | v50 & 1 && v52 == v31)
+          v21 = v52;
+          if (!(((v50 & 0x100000) != 0) & bOOLValue) | v53 & 1 && v55 == v48)
           {
-            v20 = (v44 | v51) & (v30 == ((v45 >> 38) & 1));
+            v20 = (v46 | v54) & (v30 == ((v47 >> 38) & 1));
           }
         }
 
         else
         {
-          v21 = v49;
+          v21 = v52;
         }
 
 LABEL_83:
@@ -1065,7 +1094,7 @@ LABEL_83:
       v30 -= [v32 BOOLValue] ^ 1;
     }
 
-    v49 = 1;
+    v52 = 1;
     goto LABEL_45;
   }
 

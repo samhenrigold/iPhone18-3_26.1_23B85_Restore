@@ -71,15 +71,15 @@
   {
     config = [equalCopy config];
     config2 = [(_UIWindowSceneOrderedPlacement *)self config];
-    v7 = [config2 isEqual:config];
+    isEqual = objc_msgSend_isEqual_(config2);
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix

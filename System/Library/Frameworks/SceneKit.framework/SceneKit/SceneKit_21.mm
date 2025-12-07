@@ -1,20 +1,1337 @@
+uint64_t ___Z50C3DGeometrySubdivTopologyInfoInitCreasesAndCornersPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4)
+{
+  if (a4)
+  {
+    v4 = 0;
+    v5 = *(result + 40);
+    do
+    {
+      v6 = *(a3 + 4 * v4);
+      if (a4 - 1 == v4)
+      {
+        v7 = 0;
+      }
+
+      else
+      {
+        v7 = v4 + 1;
+      }
+
+      v8 = *(a3 + 4 * v7);
+      if (v5 == v6 && *(result + 44) == v8 || v5 == v8 && *(result + 44) == v6)
+      {
+        *(*(*(result + 32) + 8) + 24) = 1;
+      }
+
+      ++v4;
+    }
+
+    while (a4 != v4);
+  }
+
+  return result;
+}
+
+void C3DSubdivCreateRefiner(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 40);
+  if (!v3)
+  {
+    v4 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    {
+      C3DSubdivGetGPUPrimvarDataTypeHash(v4, v5, v6, v7, v8, v9, v10, v11);
+    }
+  }
+
+  v12 = *(a1 + 3);
+  if (v12 == 1)
+  {
+    v13 = 21;
+  }
+
+  else
+  {
+    v13 = 20;
+  }
+
+  if (v12 == 2)
+  {
+    v14 = 22;
+  }
+
+  else
+  {
+    v14 = v13;
+  }
+
+  v15 = *(a1 + 4);
+  v16 = v14 & 3 | 8;
+  v17 = v14 & 3 | 0xC;
+  v18 = v14 & 0x13;
+  if (v15 != 4)
+  {
+    v18 = v14;
+  }
+
+  if (v15 != 3)
+  {
+    v17 = v18;
+  }
+
+  if (v15 != 2)
+  {
+    v16 = v17;
+  }
+
+  v19 = v14 & 3;
+  if (v15 == 1)
+  {
+    v14 &= 7u;
+  }
+
+  if (!*(a1 + 4))
+  {
+    v14 = v19;
+  }
+
+  if (*(a1 + 4) > 1u)
+  {
+    v14 = v16;
+  }
+
+  OpenSubdiv::v3_1_1::Far::TopologyRefinerFactory<OpenSubdiv::v3_1_1::Far::TopologyDescriptor>::Create(v3 + 104, (v14 << 32) | 1, 0);
+}
+
+void C3DSubdivInitCPUPrimvarContext(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = a1;
+  *(&v48[2] + 4) = *MEMORY[0x277D85DE8];
+  v6 = *(a2 + 40);
+  if (!v6)
+  {
+    v7 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      C3DSubdivGetGPUPrimvarDataTypeHash(v7, v8, v9, v10, v11, v12, v13, v14);
+    }
+  }
+
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 0x40000000;
+  v46[2] = ___Z30C3DSubdivInitCPUPrimvarContextP26C3DSubdivCPUPrimvarContextPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke;
+  v46[3] = &__block_descriptor_tmp_15;
+  v46[4] = a2;
+  v46[5] = v5;
+  C3DMeshApplySources(a3, 0, v46);
+  v16 = *(v5 + 56) - *(v5 + 48);
+  v34 = (v16 >> 5);
+  if ((v16 >> 5))
+  {
+    if (!*(v6 + 196))
+    {
+      v17 = malloc_type_malloc((v16 >> 1) & 0xFF0, 0x105004037B82EA9uLL);
+      v18 = (v17 + 8);
+      v19 = v34;
+      do
+      {
+        v20 = *(v6 + 208);
+        *(v18 - 2) = v20;
+        *v18 = malloc_type_malloc(4 * v20, 0x100004052888210uLL);
+        v18 += 2;
+        --v19;
+      }
+
+      while (v19);
+      *(v6 + 196) = v34;
+      *(v6 + 200) = v17;
+    }
+
+    v21 = 0;
+    v33 = v5;
+    do
+    {
+      v22 = *(v5 + 48) + 32 * v21;
+      v24 = *(v22 + 8);
+      v23 = *(v22 + 16);
+      v45 = 0;
+      ElementsCount = C3DMeshGetElementsCount(a3, v15);
+      if (ElementsCount >= 1)
+      {
+        v26 = ElementsCount;
+        v27 = 0;
+        v28 = (v23 - v24) >> 3;
+        do
+        {
+          ElementAtIndex = C3DMeshGetElementAtIndex(a3, v27, 0);
+          Type = C3DMeshElementGetType(ElementAtIndex, v30);
+          ElementsCount = C3DMeshElementTypeDefinesSurface(Type);
+          if (ElementsCount)
+          {
+            v44 = 0;
+            v43 = 0u;
+            v42 = 0u;
+            C3DMeshElementGetFastIndexLookupInfo(ElementAtIndex, v15, &v42);
+            v35[0] = MEMORY[0x277D85DD0];
+            v35[1] = 0x40000000;
+            v35[2] = ___Z30C3DSubdivInitCPUPrimvarContextP26C3DSubdivCPUPrimvarContextPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke_2;
+            v35[3] = &__block_descriptor_tmp_16_1;
+            v35[4] = ElementAtIndex;
+            v35[5] = v28;
+            v36 = v42;
+            v37 = v43;
+            v38 = v44;
+            v35[6] = v22;
+            v41 = v21;
+            v39 = v6;
+            v40 = &v45;
+            ElementsCount = C3DMeshElementEnumeratePrimitiveIndicesByEvaluatingPrimitiveRanges(ElementAtIndex, v35);
+          }
+
+          ++v27;
+        }
+
+        while (v26 != v27);
+      }
+
+      if (v45 != *(v6 + 208))
+      {
+        v32 = scn_default_log(ElementsCount, v15);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+        {
+          C3DSubdivInitCPUPrimvarContext(v47, v48, v32);
+        }
+      }
+
+      ++v21;
+      v5 = v33;
+    }
+
+    while (v21 != v34);
+  }
+
+  else
+  {
+    *(v6 + 196) = 0;
+    *(v6 + 200) = 0;
+  }
+}
+
+void ___Z30C3DSubdivInitCPUPrimvarContextP26C3DSubdivCPUPrimvarContextPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = a5;
+  v10 = a3;
+  if (a3)
+  {
+    if ((a3 & 0xFFFFFFFE) == 2)
+    {
+      goto LABEL_5;
+    }
+
+    if (a3 != 4)
+    {
+      return;
+    }
+  }
+
+  if (a4)
+  {
+    return;
+  }
+
+LABEL_5:
+  v36 = 0u;
+  v37 = 0u;
+  C3DMeshSourceGetContent(a2, a2, &v36);
+  if (!v37)
+  {
+    return;
+  }
+
+  IsFloatingValue = C3DBaseTypeIsFloatingValue(BYTE4(v37), v13);
+  if (!IsFloatingValue)
+  {
+    return;
+  }
+
+  if (v10)
+  {
+    if ((v10 & 0xFFFFFFFE) == 2 || v10 == 4 && !a4)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  else if (!a4)
+  {
+    goto LABEL_24;
+  }
+
+  v16 = scn_default_log(IsFloatingValue, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  {
+    ___Z30C3DSubdivInitCPUPrimvarContextP26C3DSubdivCPUPrimvarContextPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke_cold_1();
+    if (!v10)
+    {
+      goto LABEL_24;
+    }
+
+LABEL_15:
+    v17 = *(a1 + 40);
+    v19 = *(v17 + 48);
+    v20 = *(v17 + 56);
+    v18 = (v17 + 48);
+    while (v19 != v20)
+    {
+      if (*v19 == v8)
+      {
+        v22 = (v19 + 8);
+        goto LABEL_25;
+      }
+
+      v19 += 32;
+    }
+
+    *__p = 0u;
+    v35 = 0u;
+    std::vector<C3DSubdivCPUFVarPrimvarInfo>::emplace_back<C3DSubdivCPUFVarPrimvarInfo>(v18, __p);
+    if (__p[1])
+    {
+      *&v35 = __p[1];
+      operator delete(__p[1]);
+    }
+
+    v21 = *(*(a1 + 40) + 56);
+    *(v21 - 32) = v8;
+    v22 = v21 - 24;
+    goto LABEL_25;
+  }
+
+  if (v10)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_24:
+  v22 = *(a1 + 40);
+LABEL_25:
+  v24 = *(v22 + 8);
+  v23 = *(v22 + 16);
+  if (v24 >= v23)
+  {
+    v26 = (v24 - *v22) >> 3;
+    if ((v26 + 1) >> 61)
+    {
+      std::string::__throw_length_error[abi:nn200100]();
+    }
+
+    v27 = v23 - *v22;
+    v28 = v27 >> 2;
+    if (v27 >> 2 <= (v26 + 1))
+    {
+      v28 = v26 + 1;
+    }
+
+    if (v27 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v29 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v29 = v28;
+    }
+
+    if (v29)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<C3DSubdivCPUPrimvarInfo>>(v22, v29);
+    }
+
+    v30 = (8 * v26);
+    *v30 = a2;
+    v25 = 8 * v26 + 8;
+    v31 = *(v22 + 8) - *v22;
+    v32 = v30 - v31;
+    memcpy(v30 - v31, *v22, v31);
+    v33 = *v22;
+    *v22 = v32;
+    *(v22 + 8) = v25;
+    *(v22 + 16) = 0;
+    if (v33)
+    {
+      operator delete(v33);
+    }
+  }
+
+  else
+  {
+    *v24 = a2;
+    v25 = (v24 + 1);
+  }
+
+  *(v22 + 8) = v25;
+}
+
+uint64_t C3DSubdivSourceGetPrimvarDataType(_BOOL8 PrimvarDataType, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+{
+  v6 = a3;
+  v8 = PrimvarDataType;
+  if (a3)
+  {
+    if (a3 & 0xFFFFFFFE) == 2 || a3 == 4 && !a4 && (a5)
+    {
+LABEL_9:
+      if (a5)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_14;
+    }
+  }
+
+  else if (!a4)
+  {
+    goto LABEL_9;
+  }
+
+  v9 = scn_default_log(PrimvarDataType, a2);
+  PrimvarDataType = os_log_type_enabled(v9, OS_LOG_TYPE_FAULT);
+  if (!PrimvarDataType)
+  {
+    goto LABEL_9;
+  }
+
+  C3DSubdivSourceGetPrimvarDataType();
+  if (a5)
+  {
+LABEL_10:
+    if (v6)
+    {
+      return 3;
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+LABEL_14:
+  v11 = *(v8 + 40);
+  if (!v11)
+  {
+    v12 = scn_default_log(PrimvarDataType, a2);
+    PrimvarDataType = os_log_type_enabled(v12, OS_LOG_TYPE_FAULT);
+    if (PrimvarDataType)
+    {
+      C3DSubdivGetGPUPrimvarDataTypeHash(v12, a2, v13, v14, v15, v16, v17, v18);
+    }
+  }
+
+  for (i = *(v11 + 80); i != *(v11 + 88); i += 16)
+  {
+    if (*i == a2)
+    {
+      return *(i + 12);
+    }
+  }
+
+  v20 = scn_default_log(PrimvarDataType, a2);
+  result = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    ___Z34C3DSubdivGetGPUPrimvarDataTypeHashPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke_cold_1();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t ___Z30C3DSubdivInitCPUPrimvarContextP26C3DSubdivCPUPrimvarContextPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke_2(uint64_t a1, unsigned int a2)
+{
+  v3 = a2;
+  result = C3DMeshElementGetVertexCountForPrimitiveAtIndex(*(a1 + 32), a2);
+  if (result >= 1)
+  {
+    v6 = result;
+    v7 = 0;
+    v8 = *(a1 + 40);
+    do
+    {
+      if (v8)
+      {
+        for (i = 0; i < v8; ++i)
+        {
+          Count = C3DMeshSourceGetCount(*(*(*(a1 + 48) + 8) + 8 * i), v5);
+          if (Count >= 0x80000000)
+          {
+            v11 = 0x80000000;
+          }
+
+          else
+          {
+            v11 = Count;
+          }
+
+          v12 = v11 - 1;
+          v13 = *(a1 + 72);
+          v16[0] = *(a1 + 56);
+          v16[1] = v13;
+          v17 = *(a1 + 88);
+          result = C3DMeshElementGetIndexUsingFastIndexLookupInfo(v16, v3, v7, **(a1 + 48));
+          v14 = result;
+          if (v12 < result)
+          {
+            v14 = v12;
+          }
+
+          v15 = *(a1 + 104);
+          *(*(*(*(a1 + 96) + 200) + 16 * *(a1 + 112) + 8) + 4 * *v15) = v14;
+          v8 = *(a1 + 40);
+        }
+      }
+
+      else
+      {
+        v15 = *(a1 + 104);
+      }
+
+      ++*v15;
+      ++v7;
+    }
+
+    while (v7 != v6);
+  }
+
+  return result;
+}
+
+void C3DSubdivFeedCPUPrimvar(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v11 = *a1;
+  v12 = *(a1 + 8);
+  while (v11 != v12)
+  {
+    v13 = *v11++;
+    __C3DSubdivFeedCPUPrimvar(a2, a3, v13, 0, a1 + 72, 0, a7, a8);
+  }
+
+  v14 = *(a1 + 24);
+  v15 = *(a1 + 32);
+  while (v14 != v15)
+  {
+    v16 = *v14++;
+    __C3DSubdivFeedCPUPrimvar(a2, a3, v16, 0, a1 + 144, 1, a7, a8);
+  }
+
+  v17 = *(a1 + 56) - *(a1 + 48);
+  v18 = (v17 >> 5);
+  std::vector<C3DSubdivCPUPrimvarDataGroup>::resize((a1 + 216), v18);
+  if ((v17 & 0x1FE0) != 0)
+  {
+    v21 = 0;
+    do
+    {
+      v22 = *(a1 + 48) + 32 * v21;
+      v23 = *(v22 + 8);
+      v24 = *(v22 + 16);
+      if (v23 != v24)
+      {
+        v25 = *(a1 + 216) + 72 * v21;
+        do
+        {
+          v26 = *v23++;
+          __C3DSubdivFeedCPUPrimvar(a2, a3, v26, v21, v25, 2, v19, v20);
+        }
+
+        while (v23 != v24);
+      }
+
+      ++v21;
+    }
+
+    while (v21 != v18);
+  }
+}
+
+void __C3DSubdivFeedCPUPrimvar(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v13 = *(a1 + 40);
+  if (!v13)
+  {
+    v14 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    {
+      C3DSubdivGetGPUPrimvarDataTypeHash(v14, a2, v15, v16, v17, v18, v19, v20);
+    }
+  }
+
+  v32 = 0u;
+  v33 = 0u;
+  Content = C3DMeshSourceGetContent(a3, a2, &v32);
+  if (BYTE4(v33) - 23 >= 2)
+  {
+    v25 = BYTE8(v33);
+  }
+
+  else
+  {
+    v25 = 4;
+  }
+
+  switch(v25)
+  {
+    case 4:
+      _ZN23C3DSubdivCPUPrimvarDataIDv3_fEC2EPK15__C3DMeshSourceP29C3DGeometrySubdivTopologyInfoPN10OpenSubdiv6v3_1_13Far15TopologyRefinerEh37C3DSubdivPrimvarDataInterpolationMode(v27, a3, v13, a2, a4, a6, v23, v24);
+      _ZNSt3__16vectorI23C3DSubdivCPUPrimvarDataIDv2_fENS_9allocatorIS3_EEE9push_backB8nn200100ERKS3_(a5 + 48, v27);
+      goto LABEL_13;
+    case 3:
+      _ZN23C3DSubdivCPUPrimvarDataIDv3_fEC2EPK15__C3DMeshSourceP29C3DGeometrySubdivTopologyInfoPN10OpenSubdiv6v3_1_13Far15TopologyRefinerEh37C3DSubdivPrimvarDataInterpolationMode(v27, a3, v13, a2, a4, a6, v23, v24);
+      _ZNSt3__16vectorI23C3DSubdivCPUPrimvarDataIDv2_fENS_9allocatorIS3_EEE9push_backB8nn200100ERKS3_(a5 + 24, v27);
+      goto LABEL_13;
+    case 2:
+      _ZN23C3DSubdivCPUPrimvarDataIDv2_fEC2EPK15__C3DMeshSourceP29C3DGeometrySubdivTopologyInfoPN10OpenSubdiv6v3_1_13Far15TopologyRefinerEh37C3DSubdivPrimvarDataInterpolationMode(v27, a3, v13, a2, a4, a6, v23, v24);
+      _ZNSt3__16vectorI23C3DSubdivCPUPrimvarDataIDv2_fENS_9allocatorIS3_EEE9push_backB8nn200100ERKS3_(a5, v27);
+LABEL_13:
+      if (__p)
+      {
+        v31 = __p;
+        operator delete(__p);
+      }
+
+      if (v28)
+      {
+        v29 = v28;
+        operator delete(v28);
+      }
+
+      if (v27[0])
+      {
+        v27[1] = v27[0];
+        operator delete(v27[0]);
+      }
+
+      return;
+  }
+
+  v26 = scn_default_log(Content, v22);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  {
+    __C3DSubdivFeedCPUPrimvar();
+  }
+}
+
+void std::vector<C3DSubdivCPUPrimvarDataGroup>::resize(char **result, unint64_t a2)
+{
+  v3 = result[1];
+  v4 = 0x8E38E38E38E38E39 * ((v3 - *result) >> 3);
+  v5 = a2 >= v4;
+  v6 = a2 - v4;
+  if (v6 != 0 && v5)
+  {
+
+    std::vector<C3DSubdivCPUPrimvarDataGroup>::__append(result, v6);
+  }
+
+  else if (!v5)
+  {
+    v7 = &(*result)[72 * a2];
+    while (v3 != v7)
+    {
+      v3 -= 9;
+      std::allocator_traits<std::allocator<C3DSubdivCPUPrimvarDataGroup>>::destroy[abi:nn200100]<C3DSubdivCPUPrimvarDataGroup,0>(result, v3);
+    }
+
+    result[1] = v7;
+  }
+}
+
+void C3DSubdivInterpolateCPUPrimvar(uint64_t a1, uint64_t a2, uint64_t a3, int **a4, double a5, float32x4_t a6, float32x4_t a7)
+{
+  __C3DSubdivInterpolateCPUPrimvar((a1 + 72), a3, a4, a5, a6, a7);
+  __C3DSubdivInterpolateCPUPrimvar((a1 + 144), a3, a4, v10, v11, v12);
+  v16 = *(a1 + 48);
+  if (((*(a1 + 56) - v16) >> 5))
+  {
+    v17 = 0;
+    v18 = 72 * ((*(a1 + 56) - v16) >> 5);
+    do
+    {
+      __C3DSubdivInterpolateCPUPrimvar((*(a1 + 216) + v17), a3, a4, v13, v14, v15);
+      v17 += 72;
+    }
+
+    while (v18 != v17);
+  }
+}
+
+void __C3DSubdivInterpolateCPUPrimvar(void *result, uint64_t a2, int **a3, double a4, float32x4_t a5, float32x4_t a6)
+{
+  if ((*(a2 + 8) & 0x3C) != 0)
+  {
+    v9 = 0;
+    do
+    {
+      v10 = result[1] - *result;
+      if (v10)
+      {
+        v11 = 0;
+        v12 = 0x6DB6DB6DB6DB6DB7 * (v10 >> 4);
+        if (v12 <= 1)
+        {
+          v13 = 1;
+        }
+
+        else
+        {
+          v13 = v12;
+        }
+
+        do
+        {
+          _ZN23C3DSubdivCPUPrimvarDataIDv2_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(*result + v11, (v9 + 1), a3, a2, a4, *a5.i64);
+          v11 += 112;
+          --v13;
+        }
+
+        while (v13);
+      }
+
+      v14 = result[4] - result[3];
+      if (v14)
+      {
+        v15 = 0;
+        v16 = 0x6DB6DB6DB6DB6DB7 * (v14 >> 4);
+        if (v16 <= 1)
+        {
+          v17 = 1;
+        }
+
+        else
+        {
+          v17 = v16;
+        }
+
+        do
+        {
+          _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(result[3] + v15, (v9 + 1), a3, a2, *&a4, *a5.i64, a6);
+          v15 += 112;
+          --v17;
+        }
+
+        while (v17);
+      }
+
+      v18 = result[7] - result[6];
+      if (v18)
+      {
+        v19 = 0;
+        v20 = 0x6DB6DB6DB6DB6DB7 * (v18 >> 4);
+        if (v20 <= 1)
+        {
+          v21 = 1;
+        }
+
+        else
+        {
+          v21 = v20;
+        }
+
+        do
+        {
+          _ZN23C3DSubdivCPUPrimvarDataIDv4_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(result[6] + v19, (v9 + 1), a3, a2, a4, a5);
+          v19 += 112;
+          --v21;
+        }
+
+        while (v21);
+      }
+
+      ++v9;
+    }
+
+    while (v9 < ((*(a2 + 8) >> 2) & 0xF));
+  }
+}
+
+void C3DSubdivInitGPUPrimvarDescriptor(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v99 = *MEMORY[0x277D85DE8];
+  v6 = *(a2 + 40);
+  if (!v6)
+  {
+    v7 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      C3DSubdivGetGPUPrimvarDataTypeHash(v7, v8, v9, v10, v11, v12, v13, v14);
+    }
+  }
+
+  *a1 = 0;
+  *(a1 + 56) = 0;
+  v92[0] = MEMORY[0x277D85DD0];
+  v92[1] = 0x40000000;
+  v92[2] = ___Z33C3DSubdivInitGPUPrimvarDescriptorP29C3DSubdivGPUPrimvarDescriptorPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke;
+  v92[3] = &__block_descriptor_tmp_18_1;
+  v92[4] = a2;
+  v92[5] = a1;
+  v84 = a3;
+  C3DMeshApplySources(a3, 0, v92);
+  v79 = *(a1 + 8);
+  v80 = *(a1 + 16);
+  v77 = *(a1 + 64);
+  v78 = *(a1 + 72);
+  std::vector<unsigned int>::reserve((a1 + 32), (*(v6 + 208) * *a1));
+  std::vector<unsigned int>::reserve((a1 + 88), (*(v6 + 208) * *(a1 + 56)));
+  v16 = *(a1 + 112);
+  v17 = *(a1 + 120);
+  while (v16 != v17)
+  {
+    std::vector<unsigned int>::reserve((v16 + 40), (*(v6 + 208) * *(v16 + 8)));
+    v16 += 64;
+  }
+
+  v82 = v6;
+  if (*(v6 + 104))
+  {
+    v18 = 0;
+    v19 = (v80 - v79) >> 4;
+    if (v19 <= 1)
+    {
+      v19 = 1;
+    }
+
+    v83 = v19;
+    if (((v78 - v77) >> 4) <= 1)
+    {
+      v20 = 1;
+    }
+
+    else
+    {
+      v20 = (v78 - v77) >> 4;
+    }
+
+    do
+    {
+      v81 = v18;
+      v21 = *(*(v6 + 32) + 4 * v18);
+      if (v80 != v79)
+      {
+        for (i = 0; i != v83; ++i)
+        {
+          v23 = *(a1 + 8) + 16 * i;
+          v24 = *(v23 + 4);
+          v25 = *(v23 + 8);
+          v93 = 0u;
+          v94 = 0u;
+          Content = C3DMeshSourceGetContent(v25, v15, &v93);
+          v31 = v93;
+          v32 = BYTE4(v94);
+          v33 = BYTE6(v94);
+          v34 = BYTE8(v94);
+          if (BYTE8(v94) >= 5u)
+          {
+            v35 = scn_default_log(Content, v27);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 136315394;
+              v96 = "srcContent.componentCount <= 4";
+              v97 = 1024;
+              v98 = v34;
+              _os_log_fault_impl(&dword_21BEF7000, v35, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Primvar data size is too big (cannot fit %d floats in a float4)", buf, 0x12u);
+            }
+          }
+
+          *v36.i64 = C3DConvertFloatingTypeToFloat4(v32, (v31 + (v21 * v33)), v28, v29, v30);
+          v38 = *&v36.i32[3];
+          if (v34 <= 3)
+          {
+            v38 = 1.0;
+          }
+
+          if (v34)
+          {
+            v37.i32[0] = v36.i32[0];
+          }
+
+          else
+          {
+            *v37.i32 = 0.0;
+          }
+
+          if (v24)
+          {
+            v39 = 0;
+            *v36.i8 = vand_s8(vext_s8(*v36.i8, *&vextq_s8(v36, v36, 8uLL), 4uLL), vcgt_u32(vdup_n_s32(v34), 0x200000001));
+            v40 = vextq_s8(vextq_s8(v37, v37, 4uLL), v36, 0xCuLL);
+            *&v40.i32[3] = v38;
+            v85 = v40;
+            do
+            {
+              v89 = v85;
+              *buf = *(&v89 & 0xFFFFFFFFFFFFFFF3 | (4 * (v39 & 3)));
+              std::vector<float>::push_back[abi:nn200100]((a1 + 32), buf);
+              ++v39;
+            }
+
+            while (v24 > v39);
+          }
+        }
+      }
+
+      if (v78 != v77)
+      {
+        v41 = 0;
+        do
+        {
+          v42 = *(a1 + 64) + 16 * v41;
+          v43 = *(v42 + 4);
+          v44 = *(v42 + 8);
+          v93 = 0u;
+          v94 = 0u;
+          v45 = C3DMeshSourceGetContent(v44, v15, &v93);
+          v50 = v93;
+          v51 = BYTE4(v94);
+          v52 = BYTE6(v94);
+          v53 = BYTE8(v94);
+          if (BYTE8(v94) >= 5u)
+          {
+            v54 = scn_default_log(v45, v46);
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 136315394;
+              v96 = "srcContent.componentCount <= 4";
+              v97 = 1024;
+              v98 = v53;
+              _os_log_fault_impl(&dword_21BEF7000, v54, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Primvar data size is too big (cannot fit %d floats in a float4)", buf, 0x12u);
+            }
+          }
+
+          *v55.i64 = C3DConvertFloatingTypeToFloat4(v51, (v50 + (v21 * v52)), v47, v48, v49);
+          v57 = *&v55.i32[3];
+          if (v53 <= 3)
+          {
+            v57 = 1.0;
+          }
+
+          if (v53)
+          {
+            v56.i32[0] = v55.i32[0];
+          }
+
+          else
+          {
+            *v56.i32 = 0.0;
+          }
+
+          if (v43)
+          {
+            v58 = 0;
+            *v55.i8 = vand_s8(vext_s8(*v55.i8, *&vextq_s8(v55, v55, 8uLL), 4uLL), vcgt_u32(vdup_n_s32(v53), 0x200000001));
+            v59 = vextq_s8(vextq_s8(v56, v56, 4uLL), v55, 0xCuLL);
+            *&v59.i32[3] = v57;
+            v86 = v59;
+            do
+            {
+              v88 = v86;
+              *buf = *(&v88 & 0xFFFFFFFFFFFFFFF3 | (4 * (v58 & 3)));
+              std::vector<float>::push_back[abi:nn200100]((a1 + 88), buf);
+              ++v58;
+            }
+
+            while (v43 > v58);
+          }
+
+          ++v41;
+        }
+
+        while (v41 != v20);
+      }
+
+      v6 = v82;
+      v18 = v81 + 1;
+    }
+
+    while (v81 + 1 < *(v82 + 104));
+  }
+
+  v60 = *(a1 + 120) - *(a1 + 112);
+  v87 = (v60 >> 6);
+  if ((v60 >> 6))
+  {
+    if (!*(v6 + 196))
+    {
+      v61 = malloc_type_malloc((v60 >> 2) & 0xFF0, 0x105004037B82EA9uLL);
+      v62 = (v61 + 8);
+      v63 = v87;
+      do
+      {
+        v64 = *(v6 + 208);
+        *(v62 - 2) = v64;
+        *v62 = malloc_type_malloc(4 * v64, 0x100004052888210uLL);
+        v62 += 2;
+        --v63;
+      }
+
+      while (v63);
+      *(v6 + 196) = v87;
+      *(v6 + 200) = v61;
+    }
+
+    v65 = 0;
+    do
+    {
+      v66 = *(a1 + 112) + (v65 << 6);
+      v68 = *(v66 + 16);
+      v67 = *(v66 + 24);
+      *buf = 0;
+      ElementsCount = C3DMeshGetElementsCount(v84, v15);
+      if (ElementsCount >= 1)
+      {
+        v70 = ElementsCount;
+        v71 = 0;
+        v72 = (v67 - v68) >> 4;
+        do
+        {
+          ElementAtIndex = C3DMeshGetElementAtIndex(v84, v71, 0);
+          Type = C3DMeshElementGetType(ElementAtIndex, v74);
+          ElementsCount = C3DMeshElementTypeDefinesSurface(Type);
+          if (ElementsCount)
+          {
+            v90[0] = MEMORY[0x277D85DD0];
+            v90[1] = 0x40000000;
+            v90[2] = ___Z33C3DSubdivInitGPUPrimvarDescriptorP29C3DSubdivGPUPrimvarDescriptorPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke_19;
+            v90[3] = &__block_descriptor_tmp_20_4;
+            v90[4] = ElementAtIndex;
+            v90[5] = v72;
+            v90[6] = v66;
+            v90[7] = v82;
+            v91 = v65;
+            v90[8] = buf;
+            ElementsCount = C3DMeshElementEnumeratePrimitiveIndicesByEvaluatingPrimitiveRanges(ElementAtIndex, v90);
+          }
+
+          ++v71;
+        }
+
+        while (v70 != v71);
+      }
+
+      if (*buf != *(v82 + 208))
+      {
+        v76 = scn_default_log(ElementsCount, v15);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
+        {
+          C3DSubdivInitGPUPrimvarDescriptor(&v93, (&v93 + 4), v76);
+        }
+      }
+
+      ++v65;
+    }
+
+    while (v65 != v87);
+  }
+
+  else
+  {
+    *(v6 + 196) = 0;
+    *(v6 + 200) = 0;
+  }
+}
+
+void ___Z33C3DSubdivInitGPUPrimvarDescriptorP29C3DSubdivGPUPrimvarDescriptorPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = a5;
+  if (a3)
+  {
+    if ((a3 & 0xFFFFFFFE) != 2)
+    {
+      return;
+    }
+  }
+
+  else if (a4)
+  {
+    return;
+  }
+
+  v41 = 0u;
+  v42 = 0u;
+  C3DMeshSourceGetContent(a2, a2, &v41);
+  if (v42)
+  {
+    IsFloatingValue = C3DBaseTypeIsFloatingValue(BYTE4(v42), v13);
+    if (IsFloatingValue)
+    {
+      if (a3)
+      {
+        if (a3 == 3)
+        {
+          v16 = 2;
+        }
+
+        else if (a3 == 2)
+        {
+          v16 = 4;
+        }
+
+        else
+        {
+          v17 = scn_default_log(IsFloatingValue, v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          {
+            ___Z33C3DSubdivInitGPUPrimvarDescriptorP29C3DSubdivGPUPrimvarDescriptorPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke_cold_1(a3, v17);
+          }
+
+          v16 = 0;
+        }
+      }
+
+      else
+      {
+        v16 = 3;
+      }
+
+      PrimvarDataType = C3DSubdivSourceGetPrimvarDataType(*(a1 + 32), a2, a3, a4, 0);
+      if (PrimvarDataType <= 1)
+      {
+        if (PrimvarDataType != 1)
+        {
+          ___Z33C3DSubdivInitGPUPrimvarDescriptorP29C3DSubdivGPUPrimvarDescriptorPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke_cold_2(v40, v19);
+        }
+
+        v20 = *(a1 + 40);
+      }
+
+      else if (PrimvarDataType == 2)
+      {
+        v20 = *(a1 + 40) + 56;
+      }
+
+      else
+      {
+        v21 = *(a1 + 40);
+        v23 = *(v21 + 112);
+        v24 = *(v21 + 120);
+        v22 = (v21 + 112);
+        while (1)
+        {
+          if (v23 == v24)
+          {
+            memset(v40, 0, sizeof(v40));
+            std::vector<C3DSubdivGPUFVarPrimvarData>::emplace_back<C3DSubdivGPUFVarPrimvarData>(v22, v40);
+            C3DSubdivGPUFVarPrimvarData::~C3DSubdivGPUFVarPrimvarData(v40);
+            v25 = *(*(a1 + 40) + 120);
+            *(v25 - 56) = 0;
+            v20 = v25 - 56;
+            *(v20 - 8) = v8;
+            goto LABEL_28;
+          }
+
+          if (*v23 == v8)
+          {
+            break;
+          }
+
+          v23 += 64;
+        }
+
+        v20 = (v23 + 8);
+      }
+
+LABEL_28:
+      v26 = *v20;
+      v27 = *(v20 + 16);
+      v28 = *(v20 + 24);
+      if (v27 >= v28)
+      {
+        v30 = *(v20 + 8);
+        v31 = (v27 - v30) >> 4;
+        v32 = v31 + 1;
+        if ((v31 + 1) >> 60)
+        {
+          std::string::__throw_length_error[abi:nn200100]();
+        }
+
+        v33 = v28 - v30;
+        if (v33 >> 3 > v32)
+        {
+          v32 = v33 >> 3;
+        }
+
+        if (v33 >= 0x7FFFFFFFFFFFFFF0)
+        {
+          v34 = 0xFFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v34 = v32;
+        }
+
+        if (v34)
+        {
+          std::__allocate_at_least[abi:nn200100]<std::allocator<C3DSubdivGPUPrimvarInfo>>(v20 + 8, v34);
+        }
+
+        v35 = 16 * v31;
+        *v35 = v26;
+        *(v35 + 4) = v16;
+        *(v35 + 8) = a2;
+        v29 = 16 * v31 + 16;
+        v36 = *(v20 + 8);
+        v37 = *(v20 + 16) - v36;
+        v38 = (16 * v31 - v37);
+        memcpy(v38, v36, v37);
+        v39 = *(v20 + 8);
+        *(v20 + 8) = v38;
+        *(v20 + 16) = v29;
+        *(v20 + 24) = 0;
+        if (v39)
+        {
+          operator delete(v39);
+        }
+      }
+
+      else
+      {
+        *v27 = v26;
+        *(v27 + 4) = v16;
+        v29 = v27 + 16;
+        *(v27 + 8) = a2;
+      }
+
+      *(v20 + 16) = v29;
+      *v20 += v16;
+    }
+  }
+}
+
+void ___Z33C3DSubdivInitGPUPrimvarDescriptorP29C3DSubdivGPUPrimvarDescriptorPK26C3DGeometrySubdivisionInfoP9__C3DMesh_block_invoke_19(uint64_t a1, unsigned int a2)
+{
+  v42 = *MEMORY[0x277D85DE8];
+  v33 = a2;
+  VertexCountForPrimitiveAtIndex = C3DMeshElementGetVertexCountForPrimitiveAtIndex(*(a1 + 32), a2);
+  if (VertexCountForPrimitiveAtIndex >= 1)
+  {
+    v4 = 0;
+    v5 = *(a1 + 40);
+    do
+    {
+      if (v5)
+      {
+        for (i = 0; i < v5; ++i)
+        {
+          Count = C3DMeshSourceGetCount(*(*(*(a1 + 48) + 16) + 16 * i + 8), v3);
+          v8 = 0x80000000;
+          if (Count < 0x80000000)
+          {
+            v8 = Count;
+          }
+
+          v9 = v8 - 1;
+          Index = C3DMeshElementGetIndex(*(a1 + 32), v33, v4, **(a1 + 48));
+          if (Index >= v9)
+          {
+            v12 = v9;
+          }
+
+          else
+          {
+            v12 = Index;
+          }
+
+          *(*(*(*(a1 + 56) + 200) + 16 * *(a1 + 72) + 8) + 4 * **(a1 + 64)) = **(a1 + 64);
+          v13 = *(*(a1 + 48) + 16) + 16 * i;
+          v14 = *(v13 + 4);
+          v15 = *(v13 + 8);
+          v36 = 0u;
+          v37 = 0u;
+          Content = C3DMeshSourceGetContent(v15, v11, &v36);
+          v21 = v36;
+          v22 = BYTE4(v37);
+          v23 = BYTE6(v37);
+          v24 = BYTE8(v37);
+          if (BYTE8(v37) >= 5u)
+          {
+            v25 = scn_default_log(Content, v17);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+            {
+              *buf = 136315394;
+              v39 = "srcContent.componentCount <= 4";
+              v40 = 1024;
+              v41 = v24;
+              _os_log_fault_impl(&dword_21BEF7000, v25, OS_LOG_TYPE_FAULT, "Assertion '%s' failed. Primvar data size is too big (cannot fit %d floats in a float4)", buf, 0x12u);
+            }
+          }
+
+          *v26.i64 = C3DConvertFloatingTypeToFloat4(v22, (v21 + (v12 * v23)), v18, v19, v20);
+          v28 = *&v26.i32[3];
+          if (v24 <= 3)
+          {
+            v28 = 1.0;
+          }
+
+          if (v24)
+          {
+            v27.i32[0] = v26.i32[0];
+          }
+
+          else
+          {
+            *v27.i32 = 0.0;
+          }
+
+          if (v14)
+          {
+            v29 = 0;
+            *v26.i8 = vand_s8(vext_s8(*v26.i8, *&vextq_s8(v26, v26, 8uLL), 4uLL), vcgt_u32(vdup_n_s32(v24), 0x200000001));
+            v30 = vextq_s8(vextq_s8(v27, v27, 4uLL), v26, 0xCuLL);
+            *&v30.i32[3] = v28;
+            v34 = v30;
+            do
+            {
+              v31 = *(a1 + 48);
+              v35 = v34;
+              *buf = *(&v35 & 0xFFFFFFFFFFFFFFF3 | (4 * (v29 & 3)));
+              std::vector<float>::push_back[abi:nn200100]((v31 + 40), buf);
+              ++v29;
+            }
+
+            while (v14 > v29);
+          }
+
+          v5 = *(a1 + 40);
+        }
+      }
+
+      ++**(a1 + 64);
+      ++v4;
+    }
+
+    while (v4 != VertexCountForPrimitiveAtIndex);
+  }
+}
+
 void C3DSubdivComputeElementToFaceRangeTable(OpenSubdiv::v3_1_1::Far::TopologyRefiner *a1, __C3DMesh *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = 0;
+  v11 = *MEMORY[0x277D85DE8];
+  v10 = 0;
   memset(__p, 0, sizeof(__p));
-  ElementsCount = C3DMeshGetElementsCount(a2);
+  ElementsCount = C3DMeshGetElementsCount(a2, a2);
   if (ElementsCount)
   {
     for (i = 0; i != ElementsCount; ++i)
     {
       ElementAtIndex = C3DMeshGetElementAtIndex(a2, i, 0);
-      Type = C3DMeshElementGetType(ElementAtIndex);
+      Type = C3DMeshElementGetType(ElementAtIndex, v6);
       if (C3DMeshElementTypeDefinesSurface(Type))
       {
         PrimitiveCountByEvaluatingPrimitiveRanges = C3DMeshElementGetPrimitiveCountByEvaluatingPrimitiveRanges(ElementAtIndex);
-        v9 += PrimitiveCountByEvaluatingPrimitiveRanges;
-        std::vector<int>::push_back[abi:nn200100](__p, &v9);
+        v10 += PrimitiveCountByEvaluatingPrimitiveRanges;
+        std::vector<int>::push_back[abi:nn200100](__p, &v10);
       }
     }
   }
@@ -81,17 +1398,17 @@ void std::vector<CFRange>::push_back[abi:nn200100](uint64_t a1, _OWORD *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t C3DSubdivComputeElementToPatchRangeTable(OpenSubdiv::v3_1_1::Far::TopologyRefiner *a1, const OpenSubdiv::v3_1_1::Far::PatchTable *a2, __C3DMesh *a3)
+uint64_t *C3DSubdivComputeElementToPatchRangeTable(OpenSubdiv::v3_1_1::Far::TopologyRefiner *a1, const OpenSubdiv::v3_1_1::Far::PatchTable *a2, __C3DMesh *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2000000000;
+  v32 = *MEMORY[0x277D85DE8];
   v28 = 0;
-  v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  ElementsCount = C3DMeshGetElementsCount(a3);
+  v29 = &v28;
+  v30 = 0x2000000000;
+  v31 = 0;
+  v25 = 0;
+  v26 = 0;
+  v27 = 0;
+  ElementsCount = C3DMeshGetElementsCount(a3, a2);
   if ((ElementsCount & 0xFE) == 0)
   {
     goto LABEL_19;
@@ -102,8 +1419,9 @@ uint64_t C3DSubdivComputeElementToPatchRangeTable(OpenSubdiv::v3_1_1::Far::Topol
   do
   {
     ElementAtIndex = C3DMeshGetElementAtIndex(a3, v6, 0);
-    Type = C3DMeshElementGetType(ElementAtIndex);
-    if (!C3DMeshElementTypeDefinesSurface(Type))
+    Type = C3DMeshElementGetType(ElementAtIndex, v9);
+    v11 = C3DMeshElementTypeDefinesSurface(Type);
+    if (!v11)
     {
       goto LABEL_12;
     }
@@ -113,30 +1431,30 @@ uint64_t C3DSubdivComputeElementToPatchRangeTable(OpenSubdiv::v3_1_1::Far::Topol
       if (Type == 4)
       {
         ChannelForSourceWithSemanticAtIndex = C3DMeshGetChannelForSourceWithSemanticAtIndex(a3, 0, 0);
-        v16 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         v17 = 0u;
-        v14 = 0u;
-        v15 = 0u;
-        C3DMeshElementGetContent(ElementAtIndex, ChannelForSourceWithSemanticAtIndex, &v14);
-        v21[0] = v14;
-        v21[1] = v15;
-        v21[2] = v16;
-        v21[3] = v17;
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 0x40000000;
-        v20[2] = ___Z40C3DSubdivComputeElementToPatchRangeTablePN10OpenSubdiv6v3_1_13Far15TopologyRefinerEPKNS1_10PatchTableEP9__C3DMesh_block_invoke;
-        v20[3] = &unk_2782FFBC8;
-        v20[4] = &v25;
-        C3DIndicesContentEnumeratePrimitivesByEvaluatingPrimitiveRanges(v21, v20, v16);
+        v18 = 0u;
+        C3DMeshElementGetContent(ElementAtIndex, ChannelForSourceWithSemanticAtIndex, &v17);
+        v24[0] = v17;
+        v24[1] = v18;
+        v24[2] = v19;
+        v24[3] = v20;
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 0x40000000;
+        v23[2] = ___Z40C3DSubdivComputeElementToPatchRangeTablePN10OpenSubdiv6v3_1_13Far15TopologyRefinerEPKNS1_10PatchTableEP9__C3DMesh_block_invoke;
+        v23[3] = &unk_2782FFBC8;
+        v23[4] = &v28;
+        C3DIndicesContentEnumeratePrimitivesByEvaluatingPrimitiveRanges(v24, v23, v19);
         goto LABEL_11;
       }
 
       if (Type != 5)
       {
-        v12 = scn_default_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v15 = scn_default_log(v11, v12);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          C3DSubdivComputeElementToPatchRangeTable(&buf, v19, v12);
+          C3DSubdivComputeElementToPatchRangeTable(&buf, v22, v15);
         }
 
         goto LABEL_11;
@@ -144,29 +1462,29 @@ uint64_t C3DSubdivComputeElementToPatchRangeTable(OpenSubdiv::v3_1_1::Far::Topol
     }
 
     PrimitiveCountByEvaluatingPrimitiveRanges = C3DMeshElementGetPrimitiveCountByEvaluatingPrimitiveRanges(ElementAtIndex);
-    *(v26 + 6) += 3 * PrimitiveCountByEvaluatingPrimitiveRanges;
+    *(v29 + 6) += 3 * PrimitiveCountByEvaluatingPrimitiveRanges;
 LABEL_11:
-    std::vector<int>::push_back[abi:nn200100](&v22, v26 + 6);
+    std::vector<int>::push_back[abi:nn200100](&v25, v29 + 6);
 LABEL_12:
     ++v6;
   }
 
   while (v7 != v6);
-  if (((v23 - v22) >> 2) >= 2)
+  if (((v26 - v25) >> 2) >= 2)
   {
-    OpenSubdiv::v3_1_1::Osd::CpuPatchTable::CpuPatchTable(&v14, a2);
-    std::vector<std::vector<CFRange>>::vector[abi:nn200100](v21, ((*(&v14 + 1) - v14) >> 4));
+    OpenSubdiv::v3_1_1::Osd::CpuPatchTable::CpuPatchTable(&v17, a2);
+    std::vector<std::vector<CFRange>>::vector[abi:nn200100](v24, ((*(&v17 + 1) - v17) >> 4));
     operator new();
   }
 
-  if (v22)
+  if (v25)
   {
-    v23 = v22;
-    operator delete(v22);
+    v26 = v25;
+    operator delete(v25);
   }
 
 LABEL_19:
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v28, 8);
   return 0;
 }
 
@@ -186,134 +1504,134 @@ uint64_t ___Z40C3DSubdivComputeElementToPatchRangeTablePN10OpenSubdiv6v3_1_13Far
   return result;
 }
 
-void C3DSubdivCreateMesh(void *a1, uint64_t a2, uint64_t a3, int **a4, __C3DMesh *a5)
+void C3DSubdivCreateMesh(void *a1, uint64_t a2, uint64_t a3, int **a4, __C3DMesh *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v10 = (*(a3 + 88) + 24 * ((*(a3 + 8) >> 2) & 0xF));
-  v25 = 0;
-  v26 = 0;
-  v27 = 0;
-  __C3DSubdivCreateMesh(a2, a4, v10, a1 + 9, 0, &v25);
-  __C3DSubdivCreateMesh(a2, a4, v10, a1 + 18, 0, &v25);
-  v12 = a1[27];
-  v13 = a1[28];
-  while (v12 != v13)
+  v35 = *MEMORY[0x277D85DE8];
+  v13 = (*(a3 + 88) + 24 * ((*(a3 + 8) >> 2) & 0xF));
+  v32 = 0;
+  v33 = 0;
+  v34 = 0;
+  __C3DSubdivCreateMesh(a2, a4, v13, a1 + 9, 0, &v32, a7, a8);
+  __C3DSubdivCreateMesh(a2, a4, v13, a1 + 18, 0, &v32, v14, v15);
+  v19 = a1[27];
+  v20 = a1[28];
+  while (v19 != v20)
   {
-    __C3DSubdivCreateMesh(a2, a4, v10, v12, 1, &v25);
-    v12 += 9;
+    __C3DSubdivCreateMesh(a2, a4, v13, v19, 1, &v32, v17, v18);
+    v19 += 9;
   }
 
-  v22[7] = v22;
-  v14 = (-85 * ((v26 - v25) >> 3));
-  MEMORY[0x28223BE20](v11);
-  v24 = v22 - v15;
-  v23 = *MEMORY[0x277CBECE8];
-  Mutable = CFArrayCreateMutable(v23, v14, MEMORY[0x277CBF128]);
-  if (v14)
+  v29[7] = v29;
+  v21 = (-85 * ((v33 - v32) >> 3));
+  MEMORY[0x28223BE20](v16);
+  v31 = v29 - v22;
+  v30 = *MEMORY[0x277CBECE8];
+  Mutable = CFArrayCreateMutable(v30, v21, MEMORY[0x277CBF128]);
+  if (v21)
   {
-    v17 = 0;
-    v18 = 24 * v14;
-    v19 = v24;
+    v24 = 0;
+    v25 = 24 * v21;
+    v26 = v31;
     do
     {
-      v20 = v25 + v17;
-      if (*(v25 + v17))
+      v27 = v32 + v24;
+      if (*(v32 + v24))
       {
-        v21 = *(v25 + v17 + 1) + 1;
+        v28 = *(v32 + v24 + 1) + 1;
       }
 
       else
       {
-        v21 = 0;
+        v28 = 0;
       }
 
-      *v19++ = v21;
-      CFArrayAppendValue(Mutable, *(v20 + 16));
-      CFRelease(*(v20 + 16));
-      v17 += 24;
+      *v26++ = v28;
+      CFArrayAppendValue(Mutable, *(v27 + 16));
+      CFRelease(*(v27 + 16));
+      v24 += 24;
     }
 
-    while (v18 != v17);
+    while (v25 != v24);
   }
 
   C3DSubdivComputeElementToFaceRangeTable(a3, a5);
 }
 
-void __C3DSubdivCreateMesh(uint64_t a1, int **a2, OpenSubdiv::v3_1_1::Vtr::internal::Level **a3, void *a4, int a5, uint64_t a6)
+void __C3DSubdivCreateMesh(uint64_t result, int **a2, OpenSubdiv::v3_1_1::Vtr::internal::Level **a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v12 = a4[1] - *a4;
-  if (v12)
+  v14 = a4[1] - *a4;
+  if (v14)
   {
-    v13 = 0;
-    v14 = 0x6DB6DB6DB6DB6DB7 * (v12 >> 4);
-    if (v14 <= 1)
+    v15 = 0;
+    v16 = 0x6DB6DB6DB6DB6DB7 * (v14 >> 4);
+    if (v16 <= 1)
     {
-      v15 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v15 = v14;
+      v17 = v16;
     }
 
     do
     {
-      _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(*a4 + v13, a3, a2, a5, a1 + 2, a6);
-      v13 += 112;
-      --v15;
+      _ZN23C3DSubdivCPUPrimvarDataIDv2_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(*a4 + v15, a3, a2, a5, result + 2, a6, a7, a8);
+      v15 += 112;
+      --v17;
     }
 
-    while (v15);
+    while (v17);
   }
 
-  v16 = a4[4] - a4[3];
-  if (v16)
+  v18 = a4[4] - a4[3];
+  if (v18)
   {
-    v17 = 0;
-    v18 = 0x6DB6DB6DB6DB6DB7 * (v16 >> 4);
-    if (v18 <= 1)
+    v19 = 0;
+    v20 = 0x6DB6DB6DB6DB6DB7 * (v18 >> 4);
+    if (v20 <= 1)
     {
-      v19 = 1;
+      v21 = 1;
     }
 
     else
     {
-      v19 = v18;
+      v21 = v20;
     }
 
     do
     {
-      _ZN23C3DSubdivCPUPrimvarDataIDv3_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(a4[3] + v17, a3, a2, a5, a1 + 2, a6);
-      v17 += 112;
-      --v19;
+      _ZN23C3DSubdivCPUPrimvarDataIDv3_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(a4[3] + v19, a3, a2, a5, result + 2, a6, a7, a8);
+      v19 += 112;
+      --v21;
     }
 
-    while (v19);
+    while (v21);
   }
 
-  v20 = a4[7] - a4[6];
-  if (v20)
+  v22 = a4[7] - a4[6];
+  if (v22)
   {
-    v21 = 0;
-    v22 = 0x6DB6DB6DB6DB6DB7 * (v20 >> 4);
-    if (v22 <= 1)
+    v23 = 0;
+    v24 = 0x6DB6DB6DB6DB6DB7 * (v22 >> 4);
+    if (v24 <= 1)
     {
-      v23 = 1;
+      v25 = 1;
     }
 
     else
     {
-      v23 = v22;
+      v25 = v24;
     }
 
     do
     {
-      _ZN23C3DSubdivCPUPrimvarDataIDv4_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(a4[6] + v21, a3, a2, a5, a1 + 2, a6);
-      v21 += 112;
-      --v23;
+      _ZN23C3DSubdivCPUPrimvarDataIDv4_fE17CreateMeshSourcesERKN10OpenSubdiv6v3_1_13Far13TopologyLevelEPNS4_14PrimvarRefinerEbPK22C3DSubdivisionSettingsP31C3DSubdivCPUMeshCreationContext(a4[6] + v23, a3, a2, a5, result + 2, a6, a7, a8);
+      v23 += 112;
+      --v25;
     }
 
-    while (v23);
+    while (v25);
   }
 }
 
@@ -408,7 +1726,7 @@ uint64_t _ZNSt3__16vectorI23C3DSubdivCPUPrimvarDataIDv2_fENS_9allocatorIS3_EEE9p
   return result;
 }
 
-uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv2_fEC2EPK15__C3DMeshSourceP29C3DGeometrySubdivTopologyInfoPN10OpenSubdiv6v3_1_13Far15TopologyRefinerEh37C3DSubdivPrimvarDataInterpolationMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, int a6)
+uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv2_fEC2EPK15__C3DMeshSourceP29C3DGeometrySubdivTopologyInfoPN10OpenSubdiv6v3_1_13Far15TopologyRefinerEh37C3DSubdivPrimvarDataInterpolationMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *(a1 + 64) = 0;
   *(a1 + 32) = 0u;
@@ -416,71 +1734,71 @@ uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv2_fEC2EPK15__C3DMeshSourceP29C3DGeometry
   *a1 = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 72) = a5;
-  v9 = (*(a4 + 8) >> 2) & 0xF;
-  *(a1 + 76) = v9;
+  v11 = (*(a4 + 8) >> 2) & 0xF;
+  *(a1 + 76) = v11;
   *(a1 + 80) = a2;
   *(a1 + 88) = a6;
-  v10 = *(a4 + 88);
-  v11 = &v10[3 * v9];
+  v12 = *(a4 + 88);
+  v13 = &v12[3 * v11];
   if (a6 == 2)
   {
-    v28 = 0uLL;
-    v29 = 0uLL;
-    C3DMeshSourceGetContent(a2, &v28);
-    v12 = v29;
-    NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*v11, *(a1 + 72));
+    v31 = 0uLL;
+    v32 = 0uLL;
+    C3DMeshSourceGetContent(a2, a2, &v31);
+    v14 = v32;
+    NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*v13, *(a1 + 72));
     NumFVarValuesTotal = OpenSubdiv::v3_1_1::Far::TopologyRefiner::GetNumFVarValuesTotal(a4, *(a1 + 72));
-    v15 = (NumFVarValuesTotal - OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*v10, *(a1 + 72))) - NumFVarValues;
-    std::vector<ClippedCorner>::resize(a1, v12);
-    if (v12)
+    v17 = (NumFVarValuesTotal - OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*v12, *(a1 + 72))) - NumFVarValues;
+    std::vector<ClippedCorner>::resize(a1, v14);
+    if (v14)
     {
-      v19 = 0;
+      v21 = 0;
       do
       {
-        *v16.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v29), (v28 + BYTE6(v29) * v19), v16, v17, v18);
-        *(*a1 + 8 * v19++) = v16.i64[0];
+        *v18.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v32), (v31 + BYTE6(v32) * v21), v18, v19, v20);
+        *(*a1 + 8 * v21++) = v18.i64[0];
       }
 
-      while (v12 != v19);
+      while (v14 != v21);
     }
   }
 
   else
   {
-    v21 = *(*v10 + 2);
-    NumFVarValues = *(*v11 + 2);
-    v15 = *(a4 + 20) - v21 - NumFVarValues;
-    std::vector<ClippedCorner>::resize(a1, v21);
-    v28 = 0u;
-    v29 = 0u;
-    C3DMeshSourceGetContent(a2, &v28);
-    if (v21)
+    v23 = *(*v12 + 2);
+    NumFVarValues = *(*v13 + 2);
+    v17 = *(a4 + 20) - v23 - NumFVarValues;
+    std::vector<ClippedCorner>::resize(a1, v23);
+    v31 = 0u;
+    v32 = 0u;
+    C3DMeshSourceGetContent(a2, v24, &v31);
+    if (v23)
     {
-      v25 = 0;
+      v28 = 0;
       do
       {
-        *v22.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v29), (v28 + *(*(a3 + 32) + 4 * v25) * BYTE6(v29)), v22, v23, v24);
-        *(*a1 + 8 * v25++) = v22.i64[0];
+        *v25.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v32), (v31 + *(*(a3 + 32) + 4 * v28) * BYTE6(v32)), v25, v26, v27);
+        *(*a1 + 8 * v28++) = v25.i64[0];
       }
 
-      while (v21 != v25);
+      while (v23 != v28);
     }
   }
 
-  std::vector<ClippedCorner>::resize((a1 + 24), v15);
+  std::vector<ClippedCorner>::resize((a1 + 24), v17);
   std::vector<ClippedCorner>::resize((a1 + 48), NumFVarValues);
   if (*(a1 + 32) == *(a1 + 24))
   {
-    v26 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v26 = *(a1 + 24);
+    v29 = *(a1 + 24);
   }
 
   *(a1 + 96) = *a1;
-  *(a1 + 104) = v26;
+  *(a1 + 104) = v29;
   return a1;
 }
 
@@ -595,7 +1913,7 @@ void _ZNSt3__119__allocate_at_leastB8nn200100INS_9allocatorI23C3DSubdivCPUPrimva
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void _ZNSt3__134__uninitialized_allocator_relocateB8nn200100INS_9allocatorI23C3DSubdivCPUPrimvarDataIDv2_fEEEPS4_EEvRT_T0_S9_S9_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void _ZNSt3__134__uninitialized_allocator_relocateB8nn200100INS_9allocatorI23C3DSubdivCPUPrimvarDataIDv2_fEEEPS4_EEvRT_T0_S9_S9_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -611,7 +1929,7 @@ void _ZNSt3__134__uninitialized_allocator_relocateB8nn200100INS_9allocatorI23C3D
     while (v8 != a3);
     while (v6 != a3)
     {
-      _ZNSt3__116allocator_traitsINS_9allocatorI23C3DSubdivCPUPrimvarDataIDv2_fEEEE7destroyB8nn200100IS4_Li0EEEvRS5_PT_(a1, v6);
+      _ZNSt3__116allocator_traitsINS_9allocatorI23C3DSubdivCPUPrimvarDataIDv2_fEEEE7destroyB8nn200100IS4_Li0EEEvRS5_PT_(result, v6);
       v6 += 112;
     }
   }
@@ -664,7 +1982,7 @@ void _ZNSt3__114__split_bufferI23C3DSubdivCPUPrimvarDataIDv2_fERNS_9allocatorIS3
   }
 }
 
-uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv3_fEC2EPK15__C3DMeshSourceP29C3DGeometrySubdivTopologyInfoPN10OpenSubdiv6v3_1_13Far15TopologyRefinerEh37C3DSubdivPrimvarDataInterpolationMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, int a6)
+uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv3_fEC2EPK15__C3DMeshSourceP29C3DGeometrySubdivTopologyInfoPN10OpenSubdiv6v3_1_13Far15TopologyRefinerEh37C3DSubdivPrimvarDataInterpolationMode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   *(a1 + 64) = 0;
   *(a1 + 32) = 0u;
@@ -672,117 +1990,117 @@ uint64_t _ZN23C3DSubdivCPUPrimvarDataIDv3_fEC2EPK15__C3DMeshSourceP29C3DGeometry
   *a1 = 0u;
   *(a1 + 16) = 0u;
   *(a1 + 72) = a5;
-  v9 = (*(a4 + 8) >> 2) & 0xF;
-  *(a1 + 76) = v9;
+  v11 = (*(a4 + 8) >> 2) & 0xF;
+  *(a1 + 76) = v11;
   *(a1 + 80) = a2;
   *(a1 + 88) = a6;
-  v10 = *(a4 + 88);
-  v11 = &v10[3 * v9];
+  v12 = *(a4 + 88);
+  v13 = &v12[3 * v11];
   if (a6 == 2)
   {
-    v28 = 0uLL;
-    v29 = 0uLL;
-    C3DMeshSourceGetContent(a2, &v28);
-    v12 = v29;
-    NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*v11, *(a1 + 72));
+    v31 = 0uLL;
+    v32 = 0uLL;
+    C3DMeshSourceGetContent(a2, a2, &v31);
+    v14 = v32;
+    NumFVarValues = OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*v13, *(a1 + 72));
     NumFVarValuesTotal = OpenSubdiv::v3_1_1::Far::TopologyRefiner::GetNumFVarValuesTotal(a4, *(a1 + 72));
-    v15 = (NumFVarValuesTotal - OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*v10, *(a1 + 72))) - NumFVarValues;
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(a1, v12);
-    if (v12)
+    v17 = (NumFVarValuesTotal - OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*v12, *(a1 + 72))) - NumFVarValues;
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(a1, v14);
+    if (v14)
     {
-      v19 = 0;
+      v21 = 0;
       do
       {
-        *v16.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v29), (v28 + BYTE6(v29) * v19), v16, v17, v18);
-        *(*a1 + 16 * v19++) = v16;
+        *v18.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v32), (v31 + BYTE6(v32) * v21), v18, v19, v20);
+        *(*a1 + 16 * v21++) = v18;
       }
 
-      while (v12 != v19);
+      while (v14 != v21);
     }
   }
 
   else
   {
-    v21 = *(*v10 + 2);
-    NumFVarValues = *(*v11 + 2);
-    v15 = *(a4 + 20) - v21 - NumFVarValues;
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(a1, v21);
-    v28 = 0u;
-    v29 = 0u;
-    C3DMeshSourceGetContent(a2, &v28);
-    if (v21)
+    v23 = *(*v12 + 2);
+    NumFVarValues = *(*v13 + 2);
+    v17 = *(a4 + 20) - v23 - NumFVarValues;
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(a1, v23);
+    v31 = 0u;
+    v32 = 0u;
+    C3DMeshSourceGetContent(a2, v24, &v31);
+    if (v23)
     {
-      v25 = 0;
+      v28 = 0;
       do
       {
-        *v22.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v29), (v28 + *(*(a3 + 32) + 4 * v25) * BYTE6(v29)), v22, v23, v24);
-        *(*a1 + 16 * v25++) = v22;
+        *v25.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v32), (v31 + *(*(a3 + 32) + 4 * v28) * BYTE6(v32)), v25, v26, v27);
+        *(*a1 + 16 * v28++) = v25;
       }
 
-      while (v21 != v25);
+      while (v23 != v28);
     }
   }
 
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm((a1 + 24), v15);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm((a1 + 24), v17);
   _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm((a1 + 48), NumFVarValues);
   if (*(a1 + 32) == *(a1 + 24))
   {
-    v26 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v26 = *(a1 + 24);
+    v29 = *(a1 + 24);
   }
 
   *(a1 + 96) = *a1;
-  *(a1 + 104) = v26;
+  *(a1 + 104) = v29;
   return a1;
 }
 
-void _ZN23C3DSubdivCPUPrimvarDataIDv2_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(uint64_t a1, int a2, int **a3, uint64_t a4, double a5, double a6)
+void _ZN23C3DSubdivCPUPrimvarDataIDv2_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(uint64_t result, uint64_t a2, int **a3, uint64_t a4, double a5, double a6)
 {
-  if (*(a1 + 76) < a2)
+  if (*(result + 76) < a2)
   {
-    v10 = scn_default_log();
+    v10 = scn_default_log(result, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       _ZN23C3DSubdivCPUPrimvarDataIDv2_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
     }
   }
 
-  v18 = *(a1 + 88);
-  if (*(a1 + 76) != a2)
+  v18 = *(result + 88);
+  if (*(result + 76) != a2)
   {
     if (v18 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fES7_EEviRKT_RT0_i(a3, a2, (a1 + 96), (a1 + 104), *(a1 + 72), *&a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fES7_EEviRKT_RT0_i(a3, a2, (result + 96), (result + 104), *(result + 72), *&a5);
     }
 
     else if (v18 == 1)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 104), a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 104), a5, a6);
     }
 
     else
     {
-      if (*(a1 + 88))
+      if (*(result + 88))
       {
 LABEL_20:
-        v19 = *(a1 + 104);
+        v19 = *(result + 104);
         v20 = v19 + 8 * *(*(*(a4 + 88) + 24 * a2) + 8);
-        *(a1 + 96) = v19;
-        *(a1 + 104) = v20;
+        *(result + 96) = v19;
+        *(result + 104) = v20;
         return;
       }
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 104), *&a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 104), *&a5);
     }
 
-    if (*(a1 + 88) == 2)
+    if (*(result + 88) == 2)
     {
-      *(a1 + 96) = *(a1 + 104);
-      *(a1 + 104) += 8 * OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*(*(a4 + 88) + 24 * a2), *(a1 + 72));
+      *(result + 96) = *(result + 104);
+      *(result + 104) += 8 * OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*(*(a4 + 88) + 24 * a2), *(result + 72));
       return;
     }
 
@@ -791,40 +2109,40 @@ LABEL_20:
 
   if (v18 == 2)
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(a3, a2, (a1 + 96), (a1 + 48), *(a1 + 72), *&a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(a3, a2, (result + 96), (result + 48), *(result + 72), *&a5);
   }
 
   else if (v18 == 1)
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 48), a5, a6);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 48), a5, a6);
   }
 
-  else if (!*(a1 + 88))
+  else if (!*(result + 88))
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 48), *&a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 48), *&a5);
   }
 
-  std::vector<ClippedCorner>::resize(a1, 0);
-  std::vector<ClippedCorner>::resize((a1 + 24), 0);
+  std::vector<ClippedCorner>::resize(result, 0);
+  std::vector<ClippedCorner>::resize((result + 24), 0);
 }
 
-void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(uint64_t a1, int a2, int **a3, uint64_t a4, int16x4_t a5, double a6, float32x4_t a7)
+void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(uint64_t result, uint64_t a2, int **a3, uint64_t a4, int16x4_t a5, double a6, float32x4_t a7)
 {
-  if (*(a1 + 76) < a2)
+  if (*(result + 76) < a2)
   {
-    v11 = scn_default_log();
+    v11 = scn_default_log(result, a2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       _ZN23C3DSubdivCPUPrimvarDataIDv2_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE_cold_1(v11, v12, v13, v14, v15, v16, v17, v18);
     }
   }
 
-  v19 = *(a1 + 88);
-  if (*(a1 + 76) != a2)
+  v19 = *(result + 88);
+  if (*(result + 76) != a2)
   {
     if (v19 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv3_fES7_EEviRKT_RT0_i(a3, a2, (a1 + 96), (a1 + 104), *(a1 + 72), a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv3_fES7_EEviRKT_RT0_i(a3, a2, (result + 96), (result + 104), *(result + 72), a5);
     }
 
     else if (v19 == 1)
@@ -847,7 +2165,7 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far
             v44 = *(v41 + 6);
             v45 = *(*(v41 + 3) + 8 * v42);
             v46 = *(*(v41 + 3) + 8 * v42 + 4);
-            *(*(a1 + 104) + 16 * v43) = 0uLL;
+            *(*(result + 104) + 16 * v43) = 0uLL;
             if (v45 >= 1)
             {
               v47 = (v44 + 4 * v46);
@@ -856,7 +2174,7 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far
               do
               {
                 v48 = *v47++;
-                *(*(a1 + 104) + 16 * v43) = vmlaq_f32(*(*(a1 + 104) + 16 * v43), *(*(a1 + 96) + 16 * v48), a7);
+                *(*(result + 104) + 16 * v43) = vmlaq_f32(*(*(result + 104) + 16 * v43), *(*(result + 96) + 16 * v48), a7);
                 --v45;
               }
 
@@ -883,9 +2201,9 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far
           if (v53 != -1)
           {
             v54 = (*(v41 + 15) + v50);
-            *(*(a1 + 104) + 16 * v53) = 0uLL;
-            *(*(a1 + 104) + 16 * v53) = vmlaq_f32(*(*(a1 + 104) + 16 * v53), v52, *(*(a1 + 96) + 16 * *v54));
-            *(*(a1 + 104) + 16 * v53) = vmlaq_f32(*(*(a1 + 104) + 16 * v53), v52, *(*(a1 + 96) + 16 * v54[1]));
+            *(*(result + 104) + 16 * v53) = 0uLL;
+            *(*(result + 104) + 16 * v53) = vmlaq_f32(*(*(result + 104) + 16 * v53), v52, *(*(result + 96) + 16 * *v54));
+            *(*(result + 104) + 16 * v53) = vmlaq_f32(*(*(result + 104) + 16 * v53), v52, *(*(result + 96) + 16 * v54[1]));
             v49 = v41[1];
           }
 
@@ -904,8 +2222,8 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far
           v57 = *(*(v40 + 240) + 4 * i);
           if (v57 != -1)
           {
-            *(*(a1 + 104) + 16 * v57) = 0uLL;
-            *(*(a1 + 104) + 16 * v57) = vaddq_f32(*(*(a1 + 96) + 16 * i), *(*(a1 + 104) + 16 * v57));
+            *(*(result + 104) + 16 * v57) = 0uLL;
+            *(*(result + 104) + 16 * v57) = vaddq_f32(*(*(result + 96) + 16 * i), *(*(result + 104) + 16 * v57));
             v55 = v41[2];
           }
         }
@@ -914,23 +2232,23 @@ void _ZN23C3DSubdivCPUPrimvarDataIDv3_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far
 
     else
     {
-      if (*(a1 + 88))
+      if (*(result + 88))
       {
 LABEL_60:
-        v58 = *(a1 + 104);
+        v58 = *(result + 104);
         v59 = v58 + 16 * *(*(*(a4 + 88) + 24 * a2) + 8);
-        *(a1 + 96) = v58;
-        *(a1 + 104) = v59;
+        *(result + 96) = v58;
+        *(result + 104) = v59;
         return;
       }
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 104), a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 104), a5);
     }
 
-    if (*(a1 + 88) == 2)
+    if (*(result + 88) == 2)
     {
-      *(a1 + 96) = *(a1 + 104);
-      *(a1 + 104) += 16 * OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*(*(a4 + 88) + 24 * a2), *(a1 + 72));
+      *(result + 96) = *(result + 104);
+      *(result + 104) += 16 * OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*(*(a4 + 88) + 24 * a2), *(result + 72));
       return;
     }
 
@@ -939,7 +2257,7 @@ LABEL_60:
 
   if (v19 == 2)
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(a3, a2, (a1 + 96), (a1 + 48), *(a1 + 72), a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(a3, a2, (result + 96), (result + 48), *(result + 72), a5);
   }
 
   else if (v19 == 1)
@@ -962,7 +2280,7 @@ LABEL_60:
           v25 = *(v22 + 6);
           v26 = *(*(v22 + 3) + 8 * v23);
           v27 = *(*(v22 + 3) + 8 * v23 + 4);
-          *(*(a1 + 48) + 16 * v24) = 0uLL;
+          *(*(result + 48) + 16 * v24) = 0uLL;
           if (v26 >= 1)
           {
             v28 = (v25 + 4 * v27);
@@ -971,7 +2289,7 @@ LABEL_60:
             do
             {
               v29 = *v28++;
-              *(*(a1 + 48) + 16 * v24) = vmlaq_f32(*(*(a1 + 48) + 16 * v24), *(*(a1 + 96) + 16 * v29), a7);
+              *(*(result + 48) + 16 * v24) = vmlaq_f32(*(*(result + 48) + 16 * v24), *(*(result + 96) + 16 * v29), a7);
               --v26;
             }
 
@@ -998,9 +2316,9 @@ LABEL_60:
         if (v34 != -1)
         {
           v35 = (*(v22 + 15) + v31);
-          *(*(a1 + 48) + 16 * v34) = 0uLL;
-          *(*(a1 + 48) + 16 * v34) = vmlaq_f32(*(*(a1 + 48) + 16 * v34), v33, *(*(a1 + 96) + 16 * *v35));
-          *(*(a1 + 48) + 16 * v34) = vmlaq_f32(*(*(a1 + 48) + 16 * v34), v33, *(*(a1 + 96) + 16 * v35[1]));
+          *(*(result + 48) + 16 * v34) = 0uLL;
+          *(*(result + 48) + 16 * v34) = vmlaq_f32(*(*(result + 48) + 16 * v34), v33, *(*(result + 96) + 16 * *v35));
+          *(*(result + 48) + 16 * v34) = vmlaq_f32(*(*(result + 48) + 16 * v34), v33, *(*(result + 96) + 16 * v35[1]));
           v30 = v22[1];
         }
 
@@ -1019,66 +2337,66 @@ LABEL_60:
         v38 = *(*(v21 + 240) + 4 * j);
         if (v38 != -1)
         {
-          *(*(a1 + 48) + 16 * v38) = 0uLL;
-          *(*(a1 + 48) + 16 * v38) = vaddq_f32(*(*(a1 + 96) + 16 * j), *(*(a1 + 48) + 16 * v38));
+          *(*(result + 48) + 16 * v38) = 0uLL;
+          *(*(result + 48) + 16 * v38) = vaddq_f32(*(*(result + 96) + 16 * j), *(*(result + 48) + 16 * v38));
           v36 = v22[2];
         }
       }
     }
   }
 
-  else if (!*(a1 + 88))
+  else if (!*(result + 88))
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 48), a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 48), a5);
   }
 
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(a1, 0);
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm((a1 + 24), 0);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(result, 0);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm((result + 24), 0);
 }
 
-void _ZN23C3DSubdivCPUPrimvarDataIDv4_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(uint64_t a1, int a2, int **a3, uint64_t a4, double a5, float32x4_t a6)
+void _ZN23C3DSubdivCPUPrimvarDataIDv4_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE(uint64_t result, uint64_t a2, int **a3, uint64_t a4, double a5, float32x4_t a6)
 {
-  if (*(a1 + 76) < a2)
+  if (*(result + 76) < a2)
   {
-    v10 = scn_default_log();
+    v10 = scn_default_log(result, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       _ZN23C3DSubdivCPUPrimvarDataIDv2_fE11InterpolateEiPN10OpenSubdiv6v3_1_13Far14PrimvarRefinerEPNS4_15TopologyRefinerE_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
     }
   }
 
-  v18 = *(a1 + 88);
-  if (*(a1 + 76) != a2)
+  v18 = *(result + 88);
+  if (*(result + 76) != a2)
   {
     if (v18 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv4_fES7_EEviRKT_RT0_i(a3, a2, (a1 + 96), (a1 + 104), *(a1 + 72), *&a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv4_fES7_EEviRKT_RT0_i(a3, a2, (result + 96), (result + 104), *(result + 72), *&a5);
     }
 
     else if (v18 == 1)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 104), a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 104), a5, a6);
     }
 
     else
     {
-      if (*(a1 + 88))
+      if (*(result + 88))
       {
 LABEL_20:
-        v19 = *(a1 + 104);
+        v19 = *(result + 104);
         v20 = v19 + 16 * *(*(*(a4 + 88) + 24 * a2) + 8);
-        *(a1 + 96) = v19;
-        *(a1 + 104) = v20;
+        *(result + 96) = v19;
+        *(result + 104) = v20;
         return;
       }
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 104), *&a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 104), *&a5);
     }
 
-    if (*(a1 + 88) == 2)
+    if (*(result + 88) == 2)
     {
-      *(a1 + 96) = *(a1 + 104);
-      *(a1 + 104) += 16 * OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*(*(a4 + 88) + 24 * a2), *(a1 + 72));
+      *(result + 96) = *(result + 104);
+      *(result + 104) += 16 * OpenSubdiv::v3_1_1::Vtr::internal::Level::getNumFVarValues(*(*(a4 + 88) + 24 * a2), *(result + 72));
       return;
     }
 
@@ -1087,26 +2405,26 @@ LABEL_20:
 
   if (v18 == 2)
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(a3, a2, (a1 + 96), (a1 + 48), *(a1 + 72), *&a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(a3, a2, (result + 96), (result + 48), *(result + 72), *&a5);
   }
 
   else if (v18 == 1)
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 48), a5, a6);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 48), a5, a6);
   }
 
-  else if (!*(a1 + 88))
+  else if (!*(result + 88))
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (a1 + 96), (a1 + 48), *&a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(a3, a2, (result + 96), (result + 48), *&a5);
   }
 
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(a1, 0);
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm((a1 + 24), 0);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(result, 0);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm((result + 24), 0);
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(uint64_t *a1, int a2, uint64_t *a3, uint64_t *a4, int16x4_t a5)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(int **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, int16x4_t a5)
 {
-  if (a2 < 1 || ((*(*a1 + 72) - *(*a1 + 64)) >> 3) < a2)
+  if (a2 < 1 || (v5 = a2, ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0__cold_1();
   }
@@ -1117,17 +2435,17 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
     if (v9 == 2)
     {
       _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, v10);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4, v10);
     }
 
     else if (v9 == 1)
     {
       _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
     }
   }
 
@@ -1135,7 +2453,7 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
     v11 = 0;
-    v12 = *(*(*a1 + 64) + 8 * a2 - 8);
+    v12 = *(*(*a1 + 8) + 8 * v5 - 8);
     v13 = *(v12 + 8);
     v14 = *(v13 + 16);
     __p = 0;
@@ -1169,7 +2487,7 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
 
     operator delete(v11);
     v20 = 0;
-    v21 = *(*(*a1 + 64) + 8 * a2 - 8);
+    v21 = *(*(*a1 + 8) + 8 * v5 - 8);
     v22 = *(v21 + 8);
     v27 = 0;
     if ((2 * *(v22 + 20)) >= 0x21)
@@ -1280,75 +2598,77 @@ uint64_t _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DS
   return result;
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(int **a1, int a2, uint64_t *a3, uint64_t *a4, int a5, int16x4_t a6)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(int **result, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, int16x4_t a6)
 {
-  if (a2 < 1 || ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2)
+  if (a2 < 1 || (v6 = a2, ((*(*result + 9) - *(*result + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i_cold_1();
   }
 
-  v11 = **a1;
+  v8 = a5;
+  v11 = **result;
   if (v11)
   {
     if (v11 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, v12);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8, v12);
     }
 
     else if (v11 == 1)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
     }
   }
 
   else
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
   }
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fES7_EEviRKT_RT0_i(int **a1, int a2, uint64_t *a3, uint64_t *a4, int a5, int16x4_t a6)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fES7_EEviRKT_RT0_i(int **result, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, int16x4_t a6)
 {
-  if (a2 < 1 || ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2)
+  if (a2 < 1 || (v6 = a2, ((*(*result + 9) - *(*result + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i_cold_1();
   }
 
-  v11 = **a1;
+  v8 = a5;
+  v11 = **result;
   if (v11)
   {
     if (v11 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5, v12);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv2_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8, v12);
     }
 
     else if (v11 == 1)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8);
     }
   }
 
   else
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv2_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv2_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8);
   }
 }
 
@@ -4896,9 +6216,9 @@ LABEL_19:
   operator delete(v60);
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(uint64_t *a1, int a2, uint64_t *a3, uint64_t *a4, int16x4_t a5)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(int **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, int16x4_t a5)
 {
-  if (a2 < 1 || ((*(*a1 + 72) - *(*a1 + 64)) >> 3) < a2)
+  if (a2 < 1 || (v5 = a2, ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0__cold_1();
   }
@@ -4909,17 +6229,17 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
     if (v9 == 2)
     {
       _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, v10);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4, v10);
     }
 
     else if (v9 == 1)
     {
       _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
     }
   }
 
@@ -4927,7 +6247,7 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
     v11 = 0;
-    v12 = *(*(*a1 + 64) + 8 * a2 - 8);
+    v12 = *(*(*a1 + 8) + 8 * v5 - 8);
     v13 = *(v12 + 8);
     v14 = *(v13 + 16);
     __p = 0;
@@ -4966,7 +6286,7 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
 
     operator delete(v11);
     v21 = 0;
-    v22 = *(*(*a1 + 64) + 8 * a2 - 8);
+    v22 = *(*(*a1 + 8) + 8 * v5 - 8);
     v23 = *(v22 + 8);
     v28 = 0;
     if ((2 * *(v23 + 20)) >= 0x21)
@@ -4996,75 +6316,77 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
   }
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(int **a1, int a2, uint64_t *a3, uint64_t *a4, int a5, int16x4_t a6)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(int **result, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, int16x4_t a6)
 {
-  if (a2 < 1 || ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2)
+  if (a2 < 1 || (v6 = a2, ((*(*result + 9) - *(*result + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i_cold_1();
   }
 
-  v11 = **a1;
+  v8 = a5;
+  v11 = **result;
   if (v11)
   {
     if (v11 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, v12);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8, v12);
     }
 
     else if (v11 == 1)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
     }
   }
 
   else
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
   }
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv3_fES7_EEviRKT_RT0_i(int **a1, int a2, uint64_t *a3, uint64_t *a4, int a5, int16x4_t a6)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv3_fES7_EEviRKT_RT0_i(int **result, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, int16x4_t a6)
 {
-  if (a2 < 1 || ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2)
+  if (a2 < 1 || (v6 = a2, ((*(*result + 9) - *(*result + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i_cold_1();
   }
 
-  v11 = **a1;
+  v8 = a5;
+  v11 = **result;
   if (v11)
   {
     if (v11 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5, v12);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv3_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8, v12);
     }
 
     else if (v11 == 1)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8);
     }
   }
 
   else
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv3_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv3_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv3_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8);
   }
 }
 
@@ -7403,9 +8725,9 @@ LABEL_19:
   operator delete(v62);
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(uint64_t *a1, int a2, uint64_t *a3, uint64_t *a4, int16x4_t a5)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_(int **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, int16x4_t a5)
 {
-  if (a2 < 1 || ((*(*a1 + 72) - *(*a1 + 64)) >> 3) < a2)
+  if (a2 < 1 || (v5 = a2, ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0__cold_1();
   }
@@ -7416,17 +8738,17 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
     if (v9 == 2)
     {
       _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, v10);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4, v10);
     }
 
     else if (v9 == 1)
     {
       _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, v5, a3, a4);
     }
   }
 
@@ -7434,7 +8756,7 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner15interpFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_(a1, a2, a3, a4, a5);
     v11 = 0;
-    v12 = *(*(*a1 + 64) + 8 * a2 - 8);
+    v12 = *(*(*a1 + 8) + 8 * v5 - 8);
     v13 = *(v12 + 8);
     v14 = *(v13 + 16);
     __p = 0;
@@ -7475,7 +8797,7 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner11InterpolateIP16C3DSubdivCPUDat
 
     operator delete(v11);
     v22 = 0;
-    v23 = *(*(*a1 + 64) + 8 * a2 - 8);
+    v23 = *(*(*a1 + 8) + 8 * v5 - 8);
     v24 = *(v23 + 8);
     v30 = 0;
     if ((2 * *(v24 + 20)) >= 0x21)
@@ -7600,75 +8922,77 @@ uint64_t _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner18InterpolateVaryingIP16C3DS
   return result;
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(int **a1, int a2, uint64_t *a3, uint64_t *a4, int a5, int16x4_t a6)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i(int **result, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, int16x4_t a6)
 {
-  if (a2 < 1 || ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2)
+  if (a2 < 1 || (v6 = a2, ((*(*result + 9) - *(*result + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i_cold_1();
   }
 
-  v11 = **a1;
+  v8 = a5;
+  v11 = **result;
   if (v11)
   {
     if (v11 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, v12);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8, v12);
     }
 
     else if (v11 == 1)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
     }
   }
 
   else
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
   }
 }
 
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv4_fES7_EEviRKT_RT0_i(int **a1, int a2, uint64_t *a3, uint64_t *a4, int a5, int16x4_t a6)
+void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv4_fES7_EEviRKT_RT0_i(int **result, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, int16x4_t a6)
 {
-  if (a2 < 1 || ((*(*a1 + 9) - *(*a1 + 8)) >> 3) < a2)
+  if (a2 < 1 || (v6 = a2, ((*(*result + 9) - *(*result + 8)) >> 3) < a2))
   {
     _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner22InterpolateFaceVaryingIP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS6_NS8_9allocatorIS6_EEEEEEviRKT_RT0_i_cold_1();
   }
 
-  v11 = **a1;
+  v8 = a5;
+  v11 = **result;
   if (v11)
   {
     if (v11 == 2)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5, v12);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8, v12);
     }
 
     else if (v11 == 1)
     {
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+      _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8);
     }
   }
 
   else
   {
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5, a6);
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromFacesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, a2, a3, a4, a5, a6);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(result, v6, a3, a4, v8);
 
-    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(a1, a2, a3, a4, a5);
+    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(result, v6, a3, a4, v8);
   }
 }
 
@@ -8530,1355 +9854,4 @@ void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc1
   }
 
   operator delete(v15);
-}
-
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
-{
-  v83 = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  v57 = *(*(*a1 + 64) + 8 * a2 - 8);
-  v68 = *(*a1 + 4);
-  v60 = v57[1];
-  v52 = v57[2];
-  v61 = *(*(v60 + 456) + 8 * a5);
-  v7 = (*(v61 + 12) & 1) != 0 || *v6 == 0;
-  v56 = v7;
-  v59 = *(v57[60] + 8 * a5);
-  v8 = *(*(v52 + 456) + 8 * a5);
-  v9 = *(v60 + 20);
-  v78 = &v81;
-  v79 = 2 * v9;
-  v80 = 32;
-  v82 = 0;
-  if (2 * v9 >= 0x21)
-  {
-    v82 = operator new(8 * v9);
-    v78 = v82;
-    v80 = 2 * v9;
-    v9 = *(v60 + 20);
-  }
-
-  v10 = 0;
-  v73 = &v76;
-  v74 = v9;
-  v75 = 16;
-  v77 = 0;
-  if (v9 >= 0x11)
-  {
-    v10 = operator new(4 * v9);
-    v77 = v10;
-    v73 = v10;
-    v75 = v9;
-  }
-
-  v63[0] = v60;
-  v63[1] = v52;
-  if (*(v60 + 8) >= 1)
-  {
-    v53 = v8;
-    v11 = 0;
-    v13 = v57;
-    v12 = a3;
-    v14 = v56;
-    v15 = v59;
-    do
-    {
-      v16 = *(v13[30] + 4 * v11);
-      if (v16 != -1)
-      {
-        v17 = *(*(v61 + 12) + 4 * v11);
-        v18 = (*(v61 + 18) + 4 * v17);
-        v19 = *(v53[12] + 4 * v16);
-        v20 = (v53[18] + 4 * v19);
-        v21 = *v20;
-        v22 = v53[21];
-        if ((*(v22 + v21) & 1) == 0 && v14)
-        {
-          v24 = (*a4 + 16 * v21);
-          *v24 = 0;
-          v24[1] = 0;
-          *(*a4 + 16 * *v20) = vaddq_f32(*(*v12 + 16 * *v18), *(*a4 + 16 * *v20));
-        }
-
-        else if (*(v22 + v21))
-        {
-          v38 = v53[9];
-          v39 = *(v38 + 2 * v16);
-          if (*(v38 + 2 * v16))
-          {
-            v40 = 0;
-            v41 = v22 + v19;
-            v54 = v41;
-            v55 = *(v61 + 21) + v17;
-            do
-            {
-              v42 = *(*(v15 + 5) + 2 * (*(*(*(v15 + 4) + 96) + 4 * v16) + v40));
-              if (v40 != v42)
-              {
-                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
-              }
-
-              v43 = v18[v42];
-              v44 = v20[v40];
-              v45 = (*a4 + 16 * v44);
-              *v45 = 0;
-              v45[1] = 0;
-              if (!v14 && (*(v41 + v40) & 8) != 0)
-              {
-                OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v61, v11, v42, v69);
-                if ((*(v55 + v42) & 0x10) != 0)
-                {
-                  if ((*(v55 + v42) & 0x20) != 0)
-                  {
-                    v49 = v42 == 0;
-                    v48 = v11;
-                  }
-
-                  else
-                  {
-                    v48 = v11;
-                    v49 = v42;
-                  }
-
-                  FractionalWeight = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v59, v48, v49, v16);
-                  v51 = 1.0 - FractionalWeight;
-                  v47 = FractionalWeight + ((1.0 - FractionalWeight) * 0.75);
-                  v46 = v51 * 0.125;
-                }
-
-                else
-                {
-                  v46 = 0.125;
-                  v47 = 0.75;
-                }
-
-                v13 = v57;
-                v12 = a3;
-                v14 = v56;
-                v15 = v59;
-                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v69[0]), v46);
-                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v69[1]), v46);
-                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v43), v47);
-                v41 = v54;
-              }
-
-              else
-              {
-                *(*a4 + 16 * v44) = vaddq_f32(*(*v12 + 16 * v43), *(*a4 + 16 * v44));
-              }
-
-              ++v40;
-            }
-
-            while (v39 != v40);
-          }
-        }
-
-        else
-        {
-          v25 = *(*(v60 + 336) + 8 * v11);
-          v62 = 0.0;
-          v26 = v78;
-          v27 = v78 + v25;
-          *v69 = &v62;
-          v70 = v78;
-          v71 = v27;
-          memset(v72, 0, 13);
-          v64 = v11;
-          v65 = v16;
-          v66 = *(*(v63[0] + 336) + 8 * v11);
-          v67 = *(*(v63[0] + 264) + 8 * v11);
-          OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::ComputeVertexVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v68, v63, v69, (*(*(v60 + 432) + 2 * v11) >> 7) & 0xF, (*(*(v52 + 432) + 2 * v16) >> 7) & 0xF);
-          v13 = v57;
-          v12 = a3;
-          v28 = *v18;
-          v29 = *v20;
-          v30 = (*a4 + 16 * v29);
-          *v30 = 0;
-          v30[1] = 0;
-          if (v72[2] >= 1)
-          {
-            if ((v72[3] & 1) == 0)
-            {
-              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
-            }
-
-            v31 = *(v60 + 264);
-            v32 = *(v31 + 8 * v11);
-            if (v32 >= 1)
-            {
-              v33 = (*(v60 + 288) + 4 * *(v31 + 4 * ((2 * v11) | 1)));
-              do
-              {
-                v34 = *v33++;
-                v35 = *(v57[21] + 4 * v34);
-                if (v35 == -1)
-                {
-                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_3();
-                }
-
-                v36 = *v27++;
-                *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*a4 + 16 * *(v53[12] + 4 * v35)), v36);
-                --v32;
-              }
-
-              while (v32);
-            }
-          }
-
-          if (v72[1] >= 1)
-          {
-            OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexEdgeValues(v61, v11, v73);
-            v13 = v57;
-            v12 = a3;
-            if (v25 >= 1)
-            {
-              for (i = 0; i != v25; ++i)
-              {
-                *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*a3 + 16 * v73[i]), *(v26 + i * 4));
-              }
-            }
-          }
-
-          *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*v12 + 16 * v28), v62);
-          v14 = v56;
-          v15 = v59;
-        }
-      }
-
-      ++v11;
-    }
-
-    while (v11 < *(v60 + 8));
-    v10 = v77;
-  }
-
-  operator delete(v10);
-  operator delete(v82);
-}
-
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, uint64_t *a3, uint64_t *a4, int a5)
-{
-  v62[1] = *MEMORY[0x277D85DE8];
-  v8 = *(*(*a1 + 64) + 8 * a2 - 8);
-  v54 = *(*a1 + 4);
-  v9 = v8[1];
-  v10 = *(v8[60] + 8 * a5);
-  v11 = *(*(v9 + 456) + 8 * a5);
-  v47 = v8[2];
-  v12 = *(*(v47 + 456) + 8 * a5);
-  v13 = *(v9 + 16);
-  v14 = v60;
-  v57 = v60;
-  v58 = v13;
-  v59 = 8;
-  __p = 0;
-  if (v13 < 9)
-  {
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = operator new(4 * v13);
-    __p = v15;
-    v57 = v15;
-    v59 = v13;
-    v14 = v15;
-  }
-
-  v53[0] = v62;
-  v53[1] = 0;
-  v53[2] = v14;
-  memset(&v53[3], 0, 13);
-  if ((*(v11 + 12) & 1) != 0 || !**a1)
-  {
-    LODWORD(v53[3]) = 2;
-    LODWORD(v53[4]) = 0;
-    v62[0] = 0x3F0000003F000000;
-    v48 = 1;
-  }
-
-  else
-  {
-    v48 = 0;
-  }
-
-  v51 = v9;
-  if (*(v9 + 4) >= 1)
-  {
-    v49 = v12;
-    v50 = v8;
-    v16 = 0;
-    do
-    {
-      v17 = *(v8[27] + 4 * v16);
-      if (v17 != -1)
-      {
-        v18 = (v49[18] + 4 * *(v49[12] + 4 * v17));
-        if (*(v49[21] + *v18))
-        {
-          v39 = v49[9];
-          v40 = *(v39 + 2 * v17);
-          if (*(v39 + 2 * v17))
-          {
-            v41 = 0;
-            do
-            {
-              v42 = *(*(v10 + 40) + 2 * (v41 + *(*(*(v10 + 32) + 96) + 4 * v17)));
-              if (v41 != v42)
-              {
-                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
-              }
-
-              OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getEdgeFaceValues(v11, v16, v42, &v55);
-              v43 = v18[v41];
-              v44 = (*a4 + 16 * v43);
-              *v44 = 0;
-              v44[1] = 0;
-              v45 = v56;
-              v46.i64[0] = 0x3F0000003F000000;
-              v46.i64[1] = 0x3F0000003F000000;
-              *(*a4 + 16 * v43) = vmlaq_f32(*(*a4 + 16 * v43), v46, *(*a3 + 16 * v55));
-              *(*a4 + 16 * v43) = vmlaq_f32(*(*a4 + 16 * v43), v46, *(*a3 + 16 * v45));
-              ++v41;
-            }
-
-            while (v40 != v41);
-          }
-        }
-
-        else
-        {
-          if ((v48 & 1) == 0)
-          {
-            v52 = v16;
-            if (*(*(v9 + 216) + 4 * v16) <= 0.0)
-            {
-              v19 = 1;
-            }
-
-            else
-            {
-              v19 = 4;
-            }
-
-            OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2>::ComputeEdgeVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::EdgeInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v54, &v51, v53, v19, (*(*(v47 + 432) + 2 * v17) >> 7) & 0xF);
-          }
-
-          OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getEdgeFaceValues(v11, v16, 0, &v55);
-          v20 = *v18;
-          v21 = (*a4 + 16 * v20);
-          *v21 = 0;
-          v21[1] = 0;
-          v22 = v56;
-          v23 = v62[0];
-          *(*a4 + 16 * v20) = vmlaq_n_f32(*(*a4 + 16 * v20), *(*a3 + 16 * v55), *v62);
-          *(*a4 + 16 * v20) = vmlaq_lane_f32(*(*a4 + 16 * v20), *(*a3 + 16 * v22), v23, 1);
-          if (SLODWORD(v53[4]) >= 1)
-          {
-            v24 = (*(v9 + 144) + 8 * v16);
-            v25 = *v24;
-            if (v25 >= 1)
-            {
-              v26 = 0;
-              v27 = *(v9 + 168) + 4 * v24[1];
-              do
-              {
-                v28 = *(v27 + 4 * v26);
-                if (BYTE4(v53[4]) == 1)
-                {
-                  v29 = *(v50[21] + 4 * v28);
-                  if (v29 == -1)
-                  {
-                    _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
-                  }
-
-                  v30 = (v49[12] + 4 * v29);
-                  v31 = *a4;
-                  v32 = *a4;
-                }
-
-                else
-                {
-                  v33 = (2 * v28) | 1;
-                  v34 = *(v9 + 24);
-                  v35 = (*(v9 + 72) + 4 * *(v34 + 4 * v33));
-                  v36 = *(v34 + 8 * v28);
-                  v37 = 1;
-                  do
-                  {
-                    v38 = *v35++;
-                    ++v37;
-                  }
-
-                  while (v16 != v38);
-                  if (v37 < v36)
-                  {
-                    v36 = 0;
-                  }
-
-                  v30 = (*(v11 + 24) + 4 * *(*(*v11 + 24) + 4 * v33) + 4 * (v37 - v36));
-                  v32 = *a4;
-                  v31 = *a3;
-                }
-
-                *(v32 + 16 * v20) = vmlaq_n_f32(*(v32 + 16 * v20), *(v31 + 16 * *v30), *&v57[4 * v26++]);
-              }
-
-              while (v26 != v25);
-            }
-          }
-        }
-      }
-
-      ++v16;
-      v8 = v50;
-    }
-
-    while (v16 < *(v9 + 4));
-    v15 = __p;
-  }
-
-  operator delete(v15);
-}
-
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5, float32x4_t a6)
-{
-  v83 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  v57 = *(*(*a1 + 64) + 8 * a2 - 8);
-  v68 = *(*a1 + 4);
-  v60 = v57[1];
-  v52 = v57[2];
-  v61 = *(*(v60 + 456) + 8 * a5);
-  v8 = (*(v61 + 12) & 1) != 0 || *v7 == 0;
-  v56 = v8;
-  v59 = *(v57[60] + 8 * a5);
-  v9 = *(*(v52 + 456) + 8 * a5);
-  v10 = *(v60 + 20);
-  v78 = &v81;
-  v79 = 2 * v10;
-  v80 = 32;
-  v82 = 0;
-  if (2 * v10 >= 0x21)
-  {
-    v82 = operator new(8 * v10);
-    v78 = v82;
-    v80 = 2 * v10;
-    v10 = *(v60 + 20);
-  }
-
-  v11 = 0;
-  v73 = &v76;
-  v74 = v10;
-  v75 = 16;
-  v77 = 0;
-  if (v10 >= 0x11)
-  {
-    v11 = operator new(4 * v10);
-    v77 = v11;
-    v73 = v11;
-    v75 = v10;
-  }
-
-  v63[0] = v60;
-  v63[1] = v52;
-  if (*(v60 + 8) >= 1)
-  {
-    v53 = v9;
-    v12 = 0;
-    v14 = v57;
-    v13 = a3;
-    v15 = v56;
-    v16 = v59;
-    do
-    {
-      v17 = *(v14[30] + 4 * v12);
-      if (v17 != -1)
-      {
-        v18 = *(*(v61 + 12) + 4 * v12);
-        v19 = (*(v61 + 18) + 4 * v18);
-        v20 = *(v53[12] + 4 * v17);
-        v21 = (v53[18] + 4 * v20);
-        v22 = *v21;
-        v23 = v53[21];
-        if ((*(v23 + v22) & 1) == 0 && v15)
-        {
-          v25 = (*a4 + 16 * v22);
-          *v25 = 0;
-          v25[1] = 0;
-          v26 = *v21;
-          a6 = vaddq_f32(*(*v13 + 16 * *v19), *(*a4 + 16 * v26));
-          *(*a4 + 16 * v26) = a6;
-        }
-
-        else if (*(v23 + v22))
-        {
-          v40 = v53[9];
-          v41 = *(v40 + 2 * v17);
-          if (*(v40 + 2 * v17))
-          {
-            v42 = 0;
-            v43 = v23 + v20;
-            v54 = v43;
-            v55 = *(v61 + 21) + v18;
-            do
-            {
-              v44 = *(*(v16 + 5) + 2 * (*(*(*(v16 + 4) + 96) + 4 * v17) + v42));
-              if (v42 != v44)
-              {
-                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
-              }
-
-              v45 = v19[v44];
-              v46 = v21[v42];
-              v47 = (*a4 + 16 * v46);
-              *v47 = 0;
-              v47[1] = 0;
-              if (!v15 && (*(v43 + v42) & 8) != 0)
-              {
-                OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v61, v12, v44, v69);
-                if ((*(v55 + v44) & 0x10) != 0)
-                {
-                  if ((*(v55 + v44) & 0x20) != 0)
-                  {
-                    v50 = v44 == 0;
-                    v49 = v12;
-                  }
-
-                  else
-                  {
-                    v49 = v12;
-                    v50 = v44;
-                  }
-
-                  a6.f32[0] = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v59, v49, v50, v17);
-                  v51 = 1.0 - a6.f32[0];
-                  a6.f32[0] = a6.f32[0] + ((1.0 - a6.f32[0]) * 0.75);
-                  v48 = v51 * 0.125;
-                }
-
-                else
-                {
-                  v48 = 0.125;
-                  a6.i32[0] = 0.75;
-                }
-
-                v14 = v57;
-                v13 = a3;
-                v15 = v56;
-                v16 = v59;
-                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v69[0]), v48);
-                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v69[1]), v48);
-                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v45), a6.f32[0]);
-                v43 = v54;
-              }
-
-              else
-              {
-                a6 = vaddq_f32(*(*v13 + 16 * v45), *(*a4 + 16 * v46));
-                *(*a4 + 16 * v46) = a6;
-              }
-
-              ++v42;
-            }
-
-            while (v41 != v42);
-          }
-        }
-
-        else
-        {
-          v27 = *(*(v60 + 336) + 8 * v12);
-          v62 = 0.0;
-          v28 = v78;
-          v29 = v78 + v27;
-          *v69 = &v62;
-          v70 = v78;
-          v71 = v29;
-          memset(v72, 0, 13);
-          v64 = v12;
-          v65 = v17;
-          v66 = *(*(v63[0] + 336) + 8 * v12);
-          v67 = *(*(v63[0] + 264) + 8 * v12);
-          OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2>::ComputeVertexVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v68, v63, v69, (*(*(v60 + 432) + 2 * v12) >> 7) & 0xF, (*(*(v52 + 432) + 2 * v17) >> 7) & 0xF, *a6.i64);
-          v14 = v57;
-          v13 = a3;
-          v30 = *v19;
-          v31 = *v21;
-          v32 = (*a4 + 16 * v31);
-          *v32 = 0;
-          v32[1] = 0;
-          if (v72[2] >= 1)
-          {
-            if ((v72[3] & 1) == 0)
-            {
-              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
-            }
-
-            v33 = *(v60 + 264);
-            v34 = *(v33 + 8 * v12);
-            if (v34 >= 1)
-            {
-              v35 = (*(v60 + 288) + 4 * *(v33 + 4 * ((2 * v12) | 1)));
-              do
-              {
-                v36 = *v35++;
-                v37 = *(v57[21] + 4 * v36);
-                if (v37 == -1)
-                {
-                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_3();
-                }
-
-                v38 = *v29++;
-                *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), *(*a4 + 16 * *(v53[12] + 4 * v37)), v38);
-                --v34;
-              }
-
-              while (v34);
-            }
-          }
-
-          if (v72[1] >= 1)
-          {
-            OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexEdgeValues(v61, v12, v73);
-            v14 = v57;
-            v13 = a3;
-            if (v27 >= 1)
-            {
-              for (i = 0; i != v27; ++i)
-              {
-                *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), *(*a3 + 16 * v73[i]), *(v28 + i * 4));
-              }
-            }
-          }
-
-          a6 = *(*v13 + 16 * v30);
-          *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), a6, v62);
-          v15 = v56;
-          v16 = v59;
-        }
-      }
-
-      ++v12;
-    }
-
-    while (v12 < *(v60 + 8));
-    v11 = v77;
-  }
-
-  operator delete(v11);
-  operator delete(v82);
-}
-
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
-{
-  v8 = 0;
-  v37 = *MEMORY[0x277D85DE8];
-  v28 = *(*(*a1 + 64) + 8 * a2 - 8);
-  v29 = v28[1];
-  v9 = *(v28[60] + 8 * a5);
-  v10 = *(*(v29 + 456) + 8 * a5);
-  v11 = *(*(v28[2] + 456) + 8 * a5);
-  v12 = *(v29 + 16);
-  v32 = &v35;
-  v33 = v12;
-  v34 = 8;
-  __p = 0;
-  if (v12 >= 9)
-  {
-    v8 = operator new(4 * v12);
-    __p = v8;
-    v32 = v8;
-    v34 = v12;
-  }
-
-  if (*(v29 + 4) >= 1)
-  {
-    v13 = 0;
-    do
-    {
-      v14 = *(v28[27] + 4 * v13);
-      if (v14 != -1)
-      {
-        v15 = (v11[18] + 4 * *(v11[12] + 4 * v14));
-        if (*(v11[21] + *v15))
-        {
-          v20 = v11[9];
-          v21 = *(v20 + 2 * v14);
-          if (*(v20 + 2 * v14))
-          {
-            v22 = 0;
-            do
-            {
-              v23 = *(*(v9 + 40) + 2 * (v22 + *(*(*(v9 + 32) + 96) + 4 * v14)));
-              if (v22 != v23)
-              {
-                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromEdgesILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
-              }
-
-              OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getEdgeFaceValues(v10, v13, v23, &v30);
-              v24 = v15[v22];
-              v25 = (*a4 + 16 * v24);
-              *v25 = 0;
-              v25[1] = 0;
-              v26 = v31;
-              v27.i64[0] = 0x3F0000003F000000;
-              v27.i64[1] = 0x3F0000003F000000;
-              *(*a4 + 16 * v24) = vmlaq_f32(*(*a4 + 16 * v24), v27, *(*a3 + 16 * v30));
-              *(*a4 + 16 * v24) = vmlaq_f32(*(*a4 + 16 * v24), v27, *(*a3 + 16 * v26));
-              ++v22;
-            }
-
-            while (v21 != v22);
-          }
-        }
-
-        else
-        {
-          OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getEdgeFaceValues(v10, v13, 0, &v30);
-          v16 = *v15;
-          v17 = (*a4 + 16 * v16);
-          *v17 = 0;
-          v17[1] = 0;
-          v18 = v31;
-          v19.i64[0] = 0x3F0000003F000000;
-          v19.i64[1] = 0x3F0000003F000000;
-          *(*a4 + 16 * v16) = vmlaq_f32(*(*a4 + 16 * v16), v19, *(*a3 + 16 * v30));
-          *(*a4 + 16 * v16) = vmlaq_f32(*(*a4 + 16 * v16), v19, *(*a3 + 16 * v18));
-        }
-      }
-
-      ++v13;
-    }
-
-    while (v13 < *(v29 + 4));
-    v8 = __p;
-  }
-
-  operator delete(v8);
-}
-
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE0EP16C3DSubdivCPUDataIDv4_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
-{
-  v65 = *MEMORY[0x277D85DE8];
-  v6 = *(*(*a1 + 64) + 8 * a2 - 8);
-  v7 = v6[2];
-  v51 = v6;
-  v52 = v6[1];
-  v8 = v6[60];
-  v9 = *(v7 + 456);
-  v53 = *(*(v52 + 456) + 8 * a5);
-  v10 = (*(v53 + 12) & 1) != 0 || **a1 == 0;
-  v46 = v10;
-  v11 = *(v8 + 8 * a5);
-  v45 = *(v9 + 8 * a5);
-  v12 = *(v52 + 20);
-  v60 = &v63;
-  v61 = 2 * v12;
-  v62 = 32;
-  v64 = 0;
-  if (2 * v12 >= 0x21)
-  {
-    v64 = operator new(8 * v12);
-    v60 = v64;
-    v62 = 2 * v12;
-    v12 = *(v52 + 20);
-  }
-
-  v13 = 0;
-  v55 = &v58;
-  v56 = v12;
-  v57 = 16;
-  __p = 0;
-  if (v12 >= 0x11)
-  {
-    v13 = operator new(4 * v12);
-    __p = v13;
-    v55 = v13;
-    v57 = v12;
-  }
-
-  if (*(v52 + 8) >= 1)
-  {
-    v14 = 0;
-    v15 = a3;
-    v16 = v46;
-    while (1)
-    {
-      v17 = *(v51[30] + 4 * v14);
-      if (v17 != -1)
-      {
-        v18 = *(*(v53 + 12) + 4 * v14);
-        v19 = (*(v53 + 18) + 4 * v18);
-        v20 = *(v45[12] + 4 * v17);
-        v21 = (v45[18] + 4 * v20);
-        v22 = *v21;
-        v23 = v45[21];
-        if ((*(v23 + v22) & 1) == 0 && v16)
-        {
-          v25 = (*a4 + 16 * v22);
-          *v25 = 0;
-          v25[1] = 0;
-          v26 = (*a4 + 16 * *v21);
-          v27 = *v19;
-        }
-
-        else
-        {
-          if (*(v23 + v22))
-          {
-            v29 = v45[9];
-            v30 = *(v29 + 2 * v17);
-            if (*(v29 + 2 * v17))
-            {
-              v31 = 0;
-              v49 = *(v53 + 21) + v18;
-              v50 = *(v29 + 2 * v17);
-              v32 = v23 + v20;
-              v48 = v23 + v20;
-              do
-              {
-                v33 = *(*(v11 + 5) + 2 * (*(*(*(v11 + 4) + 96) + 4 * v17) + v31));
-                if (v31 != v33)
-                {
-                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
-                }
-
-                v34 = v19[v33];
-                v35 = v21[v31];
-                v36 = (*a4 + 16 * v35);
-                *v36 = 0;
-                v36[1] = 0;
-                if (!v16 && (*(v32 + v31) & 8) != 0)
-                {
-                  OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v53, v14, v33, v54);
-                  if ((*(v49 + v33) & 0x10) != 0)
-                  {
-                    if ((*(v49 + v33) & 0x20) != 0)
-                    {
-                      v41 = v33 == 0;
-                      v39 = v11;
-                      v40 = v14;
-                    }
-
-                    else
-                    {
-                      v39 = v11;
-                      v40 = v14;
-                      v41 = v33;
-                    }
-
-                    FractionalWeight = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v39, v40, v41, v17);
-                    v43 = 1.0 - FractionalWeight;
-                    v38 = FractionalWeight + ((1.0 - FractionalWeight) * 0.75);
-                    v37 = v43 * 0.125;
-                  }
-
-                  else
-                  {
-                    v37 = 0.125;
-                    v38 = 0.75;
-                  }
-
-                  v15 = a3;
-                  v16 = v46;
-                  v30 = v50;
-                  v44 = v54[1];
-                  *(*a4 + 16 * v35) = vmlaq_n_f32(*(*a4 + 16 * v35), *(*a3 + 16 * v54[0]), v37);
-                  *(*a4 + 16 * v35) = vmlaq_n_f32(*(*a4 + 16 * v35), *(*a3 + 16 * v44), v37);
-                  *(*a4 + 16 * v35) = vmlaq_n_f32(*(*a4 + 16 * v35), *(*a3 + 16 * v34), v38);
-                  v32 = v48;
-                }
-
-                else
-                {
-                  *(*a4 + 16 * v35) = vaddq_f32(*(*v15 + 16 * v34), *(*a4 + 16 * v35));
-                }
-
-                ++v31;
-              }
-
-              while (v30 != v31);
-            }
-
-            goto LABEL_19;
-          }
-
-          v27 = *v19;
-          v28 = (*a4 + 16 * v22);
-          *v28 = 0;
-          v28[1] = 0;
-          v26 = (*a4 + 16 * v22);
-        }
-
-        *v26 = vaddq_f32(*(*v15 + 16 * v27), *v26);
-      }
-
-LABEL_19:
-      if (++v14 >= *(v52 + 8))
-      {
-        v13 = __p;
-        break;
-      }
-    }
-  }
-
-  operator delete(v13);
-  operator delete(v64);
-}
-
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5)
-{
-  v83 = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  v57 = *(*(*a1 + 64) + 8 * a2 - 8);
-  v68 = *(*a1 + 4);
-  v60 = v57[1];
-  v52 = v57[2];
-  v61 = *(*(v60 + 456) + 8 * a5);
-  v7 = (*(v61 + 12) & 1) != 0 || *v6 == 0;
-  v56 = v7;
-  v59 = *(v57[60] + 8 * a5);
-  v8 = *(*(v52 + 456) + 8 * a5);
-  v9 = *(v60 + 20);
-  v78 = &v81;
-  v79 = 2 * v9;
-  v80 = 32;
-  v82 = 0;
-  if (2 * v9 >= 0x21)
-  {
-    v82 = operator new(8 * v9);
-    v78 = v82;
-    v80 = 2 * v9;
-    v9 = *(v60 + 20);
-  }
-
-  v10 = 0;
-  v73 = &v76;
-  v74 = v9;
-  v75 = 16;
-  v77 = 0;
-  if (v9 >= 0x11)
-  {
-    v10 = operator new(4 * v9);
-    v77 = v10;
-    v73 = v10;
-    v75 = v9;
-  }
-
-  v63[0] = v60;
-  v63[1] = v52;
-  if (*(v60 + 8) >= 1)
-  {
-    v53 = v8;
-    v11 = 0;
-    v13 = v57;
-    v12 = a3;
-    v14 = v56;
-    v15 = v59;
-    do
-    {
-      v16 = *(v13[30] + 4 * v11);
-      if (v16 != -1)
-      {
-        v17 = *(*(v61 + 12) + 4 * v11);
-        v18 = (*(v61 + 18) + 4 * v17);
-        v19 = *(v53[12] + 4 * v16);
-        v20 = (v53[18] + 4 * v19);
-        v21 = *v20;
-        v22 = v53[21];
-        if ((*(v22 + v21) & 1) == 0 && v14)
-        {
-          v24 = (*a4 + 16 * v21);
-          *v24 = 0;
-          v24[1] = 0;
-          *(*a4 + 16 * *v20) = vaddq_f32(*(*v12 + 16 * *v18), *(*a4 + 16 * *v20));
-        }
-
-        else if (*(v22 + v21))
-        {
-          v38 = v53[9];
-          v39 = *(v38 + 2 * v16);
-          if (*(v38 + 2 * v16))
-          {
-            v40 = 0;
-            v41 = v22 + v19;
-            v54 = v41;
-            v55 = *(v61 + 21) + v17;
-            do
-            {
-              v42 = *(*(v15 + 5) + 2 * (*(*(*(v15 + 4) + 96) + 4 * v16) + v40));
-              if (v40 != v42)
-              {
-                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
-              }
-
-              v43 = v18[v42];
-              v44 = v20[v40];
-              v45 = (*a4 + 16 * v44);
-              *v45 = 0;
-              v45[1] = 0;
-              if (!v14 && (*(v41 + v40) & 8) != 0)
-              {
-                OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v61, v11, v42, v69);
-                if ((*(v55 + v42) & 0x10) != 0)
-                {
-                  if ((*(v55 + v42) & 0x20) != 0)
-                  {
-                    v49 = v42 == 0;
-                    v48 = v11;
-                  }
-
-                  else
-                  {
-                    v48 = v11;
-                    v49 = v42;
-                  }
-
-                  FractionalWeight = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v59, v48, v49, v16);
-                  v51 = 1.0 - FractionalWeight;
-                  v47 = FractionalWeight + ((1.0 - FractionalWeight) * 0.75);
-                  v46 = v51 * 0.125;
-                }
-
-                else
-                {
-                  v46 = 0.125;
-                  v47 = 0.75;
-                }
-
-                v13 = v57;
-                v12 = a3;
-                v14 = v56;
-                v15 = v59;
-                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v69[0]), v46);
-                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v69[1]), v46);
-                *(*a4 + 16 * v44) = vmlaq_n_f32(*(*a4 + 16 * v44), *(*a3 + 16 * v43), v47);
-                v41 = v54;
-              }
-
-              else
-              {
-                *(*a4 + 16 * v44) = vaddq_f32(*(*v12 + 16 * v43), *(*a4 + 16 * v44));
-              }
-
-              ++v40;
-            }
-
-            while (v39 != v40);
-          }
-        }
-
-        else
-        {
-          v25 = *(*(v60 + 336) + 8 * v11);
-          v62 = 0.0;
-          v26 = v78;
-          v27 = v78 + v25;
-          *v69 = &v62;
-          v70 = v78;
-          v71 = v27;
-          memset(v72, 0, 13);
-          v64 = v11;
-          v65 = v16;
-          v66 = *(*(v63[0] + 336) + 8 * v11);
-          v67 = *(*(v63[0] + 264) + 8 * v11);
-          OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)1>::ComputeVertexVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v68, v63, v69, (*(*(v60 + 432) + 2 * v11) >> 7) & 0xF, (*(*(v52 + 432) + 2 * v16) >> 7) & 0xF);
-          v13 = v57;
-          v12 = a3;
-          v28 = *v18;
-          v29 = *v20;
-          v30 = (*a4 + 16 * v29);
-          *v30 = 0;
-          v30[1] = 0;
-          if (v72[2] >= 1)
-          {
-            if ((v72[3] & 1) == 0)
-            {
-              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
-            }
-
-            v31 = *(v60 + 264);
-            v32 = *(v31 + 8 * v11);
-            if (v32 >= 1)
-            {
-              v33 = (*(v60 + 288) + 4 * *(v31 + 4 * ((2 * v11) | 1)));
-              do
-              {
-                v34 = *v33++;
-                v35 = *(v57[21] + 4 * v34);
-                if (v35 == -1)
-                {
-                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_3();
-                }
-
-                v36 = *v27++;
-                *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*a4 + 16 * *(v53[12] + 4 * v35)), v36);
-                --v32;
-              }
-
-              while (v32);
-            }
-          }
-
-          if (v72[1] >= 1)
-          {
-            OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexEdgeValues(v61, v11, v73);
-            v13 = v57;
-            v12 = a3;
-            if (v25 >= 1)
-            {
-              for (i = 0; i != v25; ++i)
-              {
-                *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*a3 + 16 * v73[i]), *(v26 + i * 4));
-              }
-            }
-          }
-
-          *(*a4 + 16 * v29) = vmlaq_n_f32(*(*a4 + 16 * v29), *(*v12 + 16 * v28), v62);
-          v14 = v56;
-          v15 = v59;
-        }
-      }
-
-      ++v11;
-    }
-
-    while (v11 < *(v60 + 8));
-    v10 = v77;
-  }
-
-  operator delete(v10);
-  operator delete(v82);
-}
-
-void _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE2EP16C3DSubdivCPUDataIDv4_fES9_EEviRKT0_RT1_i(uint64_t a1, int a2, void *a3, void *a4, int a5, float32x4_t a6)
-{
-  v83 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  v57 = *(*(*a1 + 64) + 8 * a2 - 8);
-  v68 = *(*a1 + 4);
-  v60 = v57[1];
-  v52 = v57[2];
-  v61 = *(*(v60 + 456) + 8 * a5);
-  v8 = (*(v61 + 12) & 1) != 0 || *v7 == 0;
-  v56 = v8;
-  v59 = *(v57[60] + 8 * a5);
-  v9 = *(*(v52 + 456) + 8 * a5);
-  v10 = *(v60 + 20);
-  v78 = &v81;
-  v79 = 2 * v10;
-  v80 = 32;
-  v82 = 0;
-  if (2 * v10 >= 0x21)
-  {
-    v82 = operator new(8 * v10);
-    v78 = v82;
-    v80 = 2 * v10;
-    v10 = *(v60 + 20);
-  }
-
-  v11 = 0;
-  v73 = &v76;
-  v74 = v10;
-  v75 = 16;
-  v77 = 0;
-  if (v10 >= 0x11)
-  {
-    v11 = operator new(4 * v10);
-    v77 = v11;
-    v73 = v11;
-    v75 = v10;
-  }
-
-  v63[0] = v60;
-  v63[1] = v52;
-  if (*(v60 + 8) >= 1)
-  {
-    v53 = v9;
-    v12 = 0;
-    v14 = v57;
-    v13 = a3;
-    v15 = v56;
-    v16 = v59;
-    do
-    {
-      v17 = *(v14[30] + 4 * v12);
-      if (v17 != -1)
-      {
-        v18 = *(*(v61 + 12) + 4 * v12);
-        v19 = (*(v61 + 18) + 4 * v18);
-        v20 = *(v53[12] + 4 * v17);
-        v21 = (v53[18] + 4 * v20);
-        v22 = *v21;
-        v23 = v53[21];
-        if ((*(v23 + v22) & 1) == 0 && v15)
-        {
-          v25 = (*a4 + 16 * v22);
-          *v25 = 0;
-          v25[1] = 0;
-          v26 = *v21;
-          a6 = vaddq_f32(*(*v13 + 16 * *v19), *(*a4 + 16 * v26));
-          *(*a4 + 16 * v26) = a6;
-        }
-
-        else if (*(v23 + v22))
-        {
-          v40 = v53[9];
-          v41 = *(v40 + 2 * v17);
-          if (*(v40 + 2 * v17))
-          {
-            v42 = 0;
-            v43 = v23 + v20;
-            v54 = v43;
-            v55 = *(v61 + 21) + v18;
-            do
-            {
-              v44 = *(*(v16 + 5) + 2 * (*(*(*(v16 + 4) + 96) + 4 * v17) + v42));
-              if (v42 != v44)
-              {
-                _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_1();
-              }
-
-              v45 = v19[v44];
-              v46 = v21[v42];
-              v47 = (*a4 + 16 * v46);
-              *v47 = 0;
-              v47[1] = 0;
-              if (!v15 && (*(v43 + v42) & 8) != 0)
-              {
-                OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexCreaseEndValues(v61, v12, v44, v69);
-                if ((*(v55 + v44) & 0x10) != 0)
-                {
-                  if ((*(v55 + v44) & 0x20) != 0)
-                  {
-                    v50 = v44 == 0;
-                    v49 = v12;
-                  }
-
-                  else
-                  {
-                    v49 = v12;
-                    v50 = v44;
-                  }
-
-                  a6.f32[0] = OpenSubdiv::v3_1_1::Vtr::internal::FVarRefinement::getFractionalWeight(v59, v49, v50, v17);
-                  v51 = 1.0 - a6.f32[0];
-                  a6.f32[0] = a6.f32[0] + ((1.0 - a6.f32[0]) * 0.75);
-                  v48 = v51 * 0.125;
-                }
-
-                else
-                {
-                  v48 = 0.125;
-                  a6.i32[0] = 0.75;
-                }
-
-                v14 = v57;
-                v13 = a3;
-                v15 = v56;
-                v16 = v59;
-                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v69[0]), v48);
-                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v69[1]), v48);
-                *(*a4 + 16 * v46) = vmlaq_n_f32(*(*a4 + 16 * v46), *(*a3 + 16 * v45), a6.f32[0]);
-                v43 = v54;
-              }
-
-              else
-              {
-                a6 = vaddq_f32(*(*v13 + 16 * v45), *(*a4 + 16 * v46));
-                *(*a4 + 16 * v46) = a6;
-              }
-
-              ++v42;
-            }
-
-            while (v41 != v42);
-          }
-        }
-
-        else
-        {
-          v27 = *(*(v60 + 336) + 8 * v12);
-          v62 = 0.0;
-          v28 = v78;
-          v29 = v78 + v27;
-          *v69 = &v62;
-          v70 = v78;
-          v71 = v29;
-          memset(v72, 0, 13);
-          v64 = v12;
-          v65 = v17;
-          v66 = *(*(v63[0] + 336) + 8 * v12);
-          v67 = *(*(v63[0] + 264) + 8 * v12);
-          OpenSubdiv::v3_1_1::Sdc::Scheme<(OpenSubdiv::v3_1_1::Sdc::SchemeType)2>::ComputeVertexVertexMask<OpenSubdiv::v3_1_1::Vtr::internal::VertexInterface,OpenSubdiv::v3_1_1::Far::PrimvarRefiner::Mask>(&v68, v63, v69, (*(*(v60 + 432) + 2 * v12) >> 7) & 0xF, (*(*(v52 + 432) + 2 * v17) >> 7) & 0xF, *a6.i64);
-          v14 = v57;
-          v13 = a3;
-          v30 = *v19;
-          v31 = *v21;
-          v32 = (*a4 + 16 * v31);
-          *v32 = 0;
-          v32[1] = 0;
-          if (v72[2] >= 1)
-          {
-            if ((v72[3] & 1) == 0)
-            {
-              _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_2();
-            }
-
-            v33 = *(v60 + 264);
-            v34 = *(v33 + 8 * v12);
-            if (v34 >= 1)
-            {
-              v35 = (*(v60 + 288) + 4 * *(v33 + 4 * ((2 * v12) | 1)));
-              do
-              {
-                v36 = *v35++;
-                v37 = *(v57[21] + 4 * v36);
-                if (v37 == -1)
-                {
-                  _ZNK10OpenSubdiv6v3_1_13Far14PrimvarRefiner19interpFVarFromVertsILNS0_3Sdc10SchemeTypeE1EP16C3DSubdivCPUDataIDv2_fENSt3__16vectorIS8_NSA_9allocatorIS8_EEEEEEviRKT0_RT1_i_cold_3();
-                }
-
-                v38 = *v29++;
-                *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), *(*a4 + 16 * *(v53[12] + 4 * v37)), v38);
-                --v34;
-              }
-
-              while (v34);
-            }
-          }
-
-          if (v72[1] >= 1)
-          {
-            OpenSubdiv::v3_1_1::Vtr::internal::FVarLevel::getVertexEdgeValues(v61, v12, v73);
-            v14 = v57;
-            v13 = a3;
-            if (v27 >= 1)
-            {
-              for (i = 0; i != v27; ++i)
-              {
-                *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), *(*a3 + 16 * v73[i]), *(v28 + i * 4));
-              }
-            }
-          }
-
-          a6 = *(*v13 + 16 * v30);
-          *(*a4 + 16 * v31) = vmlaq_n_f32(*(*a4 + 16 * v31), a6, v62);
-          v15 = v56;
-          v16 = v59;
-        }
-      }
-
-      ++v12;
-    }
-
-    while (v12 < *(v60 + 8));
-    v11 = v77;
-  }
-
-  operator delete(v11);
-  operator delete(v82);
 }

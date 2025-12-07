@@ -33,12 +33,12 @@ void __46__AXTwitterGlue_accessibilityInitializeBundle__block_invoke_3(uint64_t 
 {
   if (a3)
   {
-    NSLog(&cfstr_ErrorsValidati.isa, a3);
+    NSLog(&cfstr_ErrorsValidati.isa, a2, a3);
   }
 
   else
   {
-    NSLog(&cfstr_ValidatedAxtwi.isa);
+    NSLog(&cfstr_ValidatedAxtwi.isa, a2);
   }
 }
 

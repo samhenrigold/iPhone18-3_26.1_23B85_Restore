@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)partnerAsString:(int)string;
 - (int)StringAsPartner:(id)partner;
 - (int)partner;
 - (unint64_t)hash;
@@ -86,7 +87,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    partner = self->_partner;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -144,6 +144,29 @@ LABEL_7:
   else
   {
     v4 = [partnerCopy isEqualToString:@"GEN_AI_PARTNER_CHATGPT"];
+  }
+
+  return v4;
+}
+
+- (id)partnerAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"GEN_AI_PARTNER_CHATGPT";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"GEN_AI_PARTNER_UNSET";
   }
 
   return v4;

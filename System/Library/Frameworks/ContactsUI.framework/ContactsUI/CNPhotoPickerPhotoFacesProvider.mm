@@ -102,12 +102,12 @@
 
 - (id)getItemsFromPhotoLibraryWithItemDelegate:(id)delegate
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   array = [MEMORY[0x1E695DF70] array];
-  v48 = 0;
-  v4 = [CNPhotoLibraryProvider photoLibraryWithError:&v48];
-  v5 = v48;
+  v50 = 0;
+  v4 = [CNPhotoLibraryProvider photoLibraryWithError:&v50];
+  v5 = v50;
   if (v4)
   {
     v6 = objc_alloc_init(getPHFetchOptionsClass());
@@ -118,90 +118,90 @@
     if ((*(*MEMORY[0x1E6996570] + 16))())
     {
       PHPersonClass = getPHPersonClass();
-      v50 = identifier;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v50 count:1];
+      v52 = identifier;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
       v11 = [(objc_class *)PHPersonClass fetchPersonsForContactIdentifiers:v10 options:v6];
 
       firstObject = [v11 firstObject];
       if (firstObject)
       {
-        v31 = v11;
-        v32 = identifier;
+        v33 = v11;
+        v34 = identifier;
         selfCopy = self;
-        v33 = v5;
+        v35 = v5;
         v13 = objc_alloc_init(getPHFetchOptionsClass());
-        v34 = v4;
+        v36 = v4;
         [v13 setPhotoLibrary:v4];
-        [v13 setFetchLimit:4];
-        v29 = v13;
-        v30 = firstObject;
-        v28 = [(objc_class *)getPHFaceClass() fetchSuggestedFacesForPerson:firstObject options:v13];
-        fetchedObjects = [v28 fetchedObjects];
-        v15 = [(objc_class *)getPHAssetClass() fetchAssetsGroupedByFaceUUIDForFaces:fetchedObjects];
-        v44 = 0u;
-        v45 = 0u;
+        v14 = [v13 setFetchLimit:4];
+        v31 = v13;
+        v32 = firstObject;
+        v30 = [getPHFaceClass(v14) fetchSuggestedFacesForPerson:firstObject options:v13];
+        fetchedObjects = [v30 fetchedObjects];
+        v16 = [(objc_class *)getPHAssetClass() fetchAssetsGroupedByFaceUUIDForFaces:fetchedObjects];
         v46 = 0u;
         v47 = 0u;
+        v48 = 0u;
+        v49 = 0u;
         obj = fetchedObjects;
-        v16 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
-        if (v16)
+        v17 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+        if (v17)
         {
-          v17 = v16;
-          v18 = *v45;
+          v18 = v17;
+          v19 = *v47;
           do
           {
-            for (i = 0; i != v17; ++i)
+            for (i = 0; i != v18; ++i)
             {
-              if (*v45 != v18)
+              if (*v47 != v19)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v20 = *(*(&v44 + 1) + 8 * i);
-              uuid = [v20 uuid];
-              v22 = [v15 objectForKeyedSubscript:uuid];
+              v21 = *(*(&v46 + 1) + 8 * i);
+              uuid = [v21 uuid];
+              v23 = [v16 objectForKeyedSubscript:uuid];
 
-              if (v22)
+              if (v23)
               {
                 getPHImageRequestOptionsClass();
-                v23 = objc_opt_new();
-                [v23 setSynchronous:1];
-                [v23 setNetworkAccessAllowed:1];
-                [v23 setResizeMode:1];
-                defaultManager = [(objc_class *)getPHImageManagerClass() defaultManager];
-                v39[0] = MEMORY[0x1E69E9820];
-                v39[1] = 3221225472;
-                v39[2] = __76__CNPhotoPickerPhotoFacesProvider_getItemsFromPhotoLibraryWithItemDelegate___block_invoke;
-                v39[3] = &unk_1E74E5340;
-                v39[4] = selfCopy;
-                v25 = v22;
-                v40 = v25;
-                v41 = v20;
-                v42 = delegateCopy;
-                v43 = array;
-                [defaultManager requestImageDataAndOrientationForAsset:v25 options:v23 resultHandler:v39];
+                v24 = objc_opt_new();
+                [v24 setSynchronous:1];
+                [v24 setNetworkAccessAllowed:1];
+                v25 = [v24 setResizeMode:1];
+                defaultManager = [getPHImageManagerClass(v25) defaultManager];
+                v41[0] = MEMORY[0x1E69E9820];
+                v41[1] = 3221225472;
+                v41[2] = __76__CNPhotoPickerPhotoFacesProvider_getItemsFromPhotoLibraryWithItemDelegate___block_invoke;
+                v41[3] = &unk_1E74E5340;
+                v41[4] = selfCopy;
+                v27 = v23;
+                v42 = v27;
+                v43 = v21;
+                v44 = delegateCopy;
+                v45 = array;
+                [defaultManager requestImageDataAndOrientationForAsset:v27 options:v24 resultHandler:v41];
               }
             }
 
-            v17 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+            v18 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
           }
 
-          while (v17);
+          while (v18);
         }
 
-        v5 = v33;
-        v4 = v34;
-        identifier = v32;
-        firstObject = v30;
-        v11 = v31;
+        v5 = v35;
+        v4 = v36;
+        identifier = v34;
+        firstObject = v32;
+        v11 = v33;
       }
 
-      v26 = array;
+      v28 = array;
     }
 
     else
     {
-      v26 = MEMORY[0x1E695E0F0];
+      v28 = MEMORY[0x1E695E0F0];
     }
   }
 
@@ -211,14 +211,14 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v52 = v5;
+      v54 = v5;
       _os_log_error_impl(&dword_199A75000, v6, OS_LOG_TYPE_ERROR, "Unable to fetch faces from photo library %@", buf, 0xCu);
     }
 
-    v26 = MEMORY[0x1E695E0F0];
+    v28 = MEMORY[0x1E695E0F0];
   }
 
-  return v26;
+  return v28;
 }
 
 void __76__CNPhotoPickerPhotoFacesProvider_getItemsFromPhotoLibraryWithItemDelegate___block_invoke(uint64_t a1, void *a2)

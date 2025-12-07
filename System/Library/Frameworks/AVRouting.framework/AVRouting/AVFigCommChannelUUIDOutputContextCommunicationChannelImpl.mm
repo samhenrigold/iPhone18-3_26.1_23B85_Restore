@@ -27,7 +27,7 @@
 
 - (void)sendData:(id)data completionHandler:(id)handler
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B88)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -43,8 +43,6 @@
   {
     v11(routingContext, commChannelUUID, data, AVFigRoutingContextSendDataCompletion, v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (AVFigCommChannelUUIDOutputContextCommunicationChannelImpl)initWithRoutingContext:(OpaqueFigRoutingContext *)context commChannelUUID:(__CFString *)d

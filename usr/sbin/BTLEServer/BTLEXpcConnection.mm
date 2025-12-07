@@ -85,74 +85,73 @@
 
 - (id)bundleIdentifier
 {
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  connection = self->_connection;
   xpc_connection_get_audit_token();
   memset(&token, 0, sizeof(token));
-  v3 = SecTaskCreateWithAuditToken(0, &token);
-  if (v3)
+  v2 = SecTaskCreateWithAuditToken(0, &token);
+  if (v2)
   {
-    v4 = v3;
+    v3 = v2;
     *token.val = 0;
-    v5 = SecTaskCopySigningIdentifier(v3, &token);
-    v6 = v5;
+    v4 = SecTaskCopySigningIdentifier(v2, &token);
+    v5 = v4;
     if (*token.val)
     {
-      v7 = qword_1000DDBC8;
+      v6 = qword_1000DDBC8;
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Failed to copy signing ID - using framework-provided bundle identifier!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Failed to copy signing ID - using framework-provided bundle identifier!", buf, 2u);
       }
 
       CFRelease(*token.val);
-      if (!v6)
+      if (!v5)
       {
         goto LABEL_12;
       }
 
-      CFRelease(v6);
+      CFRelease(v5);
     }
 
     else
     {
-      if (v5)
+      if (v4)
       {
         goto LABEL_12;
       }
 
-      v11 = qword_1000DDBC8;
+      v10 = qword_1000DDBC8;
       if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Failed to retrieve signing ID - using framework-provided bundle identifier!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Failed to retrieve signing ID - using framework-provided bundle identifier!", buf, 2u);
       }
     }
 
-    v6 = 0;
+    v5 = 0;
 LABEL_12:
-    CFRelease(v4);
+    CFRelease(v3);
     goto LABEL_13;
   }
 
-  v8 = qword_1000DDBC8;
+  v7 = qword_1000DDBC8;
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(token.val[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Failed to allocate security task - using framework-provided bundle identifier!", &token, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Failed to allocate security task - using framework-provided bundle identifier!", &token, 2u);
   }
 
-  v6 = 0;
+  v5 = 0;
 LABEL_13:
-  if (![v6 length])
+  if (![v5 length])
   {
-    v9 = [NSString stringWithFormat:@"UNKNOWN-%0000x", arc4random_uniform(0xFFFFu)];
+    v8 = [NSString stringWithFormat:@"UNKNOWN-%0000x", arc4random_uniform(0xFFFFu)];
 
-    v6 = v9;
+    v5 = v8;
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)handleEvent:(id)event
@@ -641,7 +640,7 @@ LABEL_13:
   v8 = qword_1000DDBC8;
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
   {
-    sub_100074670(v8, v5, &length);
+    sub_100074670(v8, v5);
   }
 
   v9 = +[UARPServiceUARPControllerManager instance];

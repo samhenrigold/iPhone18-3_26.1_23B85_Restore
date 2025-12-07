@@ -338,55 +338,53 @@
 {
   allTips = [(STStoragePluginManager *)self allTips];
   v3 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [allTips count]);
-  v37 = [NSMutableArray arrayWithCapacity:4];
+  v35 = [NSMutableArray arrayWithCapacity:4];
+  v40 = 0u;
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
   v4 = allTips;
-  v5 = [v4 countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (!v5)
   {
     goto LABEL_32;
   }
 
   v6 = v5;
-  v7 = *v43;
-  v8 = &__objc_personality_v0_ptr;
-  v36 = v4;
+  v7 = *v41;
+  v34 = v4;
   do
   {
     for (i = 0; i != v6; i = i + 1)
     {
-      if (*v43 != v7)
+      if (*v41 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v10 = *(*(&v42 + 1) + 8 * i);
-      v11 = [v10 size];
-      v12 = v8[288];
+      v9 = *(*(&v40 + 1) + 8 * i);
+      v10 = [v9 size];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v13 = v10;
-        [v13 activationPercent];
-        if (v14 != 0.0)
+        v11 = v9;
+        [v11 activationPercent];
+        if (v12 != 0.0)
         {
-          [v13 activationPercent];
-          if (v15 < 1.0)
+          [v11 activationPercent];
+          if (v13 < 1.0)
           {
-            [v13 setSortSize:0];
-            [v37 addObject:v13];
+            [v11 setSortSize:0];
+            [v35 addObject:v11];
 
             continue;
           }
         }
 
-        if (!v11)
+        if (!v10)
         {
-          immediateGain = [v13 immediateGain];
-          v11 = immediateGain + [v13 eventualGain];
+          immediateGain = [v11 immediateGain];
+          v10 = immediateGain + [v11 eventualGain];
         }
       }
 
@@ -395,109 +393,108 @@
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v24 = objc_opt_class();
-          v25 = NSStringFromClass(v24);
-          NSLog(@"Unknown tip class in storage management: %@", v25);
+          v22 = objc_opt_class();
+          v23 = NSStringFromClass(v22);
+          NSLog(@"Unknown tip class in storage management: %@", v23);
 
           continue;
         }
 
-        v16 = v10;
-        if (!v11)
+        v14 = v9;
+        if (!v10)
         {
-          v17 = v3;
-          significantItems = [v16 significantItems];
+          v15 = v3;
+          significantItems = [v14 significantItems];
+          v36 = 0u;
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
-          v40 = 0u;
-          v41 = 0u;
-          v19 = [significantItems countByEnumeratingWithState:&v38 objects:v46 count:16];
-          if (v19)
+          v17 = [significantItems countByEnumeratingWithState:&v36 objects:v44 count:16];
+          if (v17)
           {
-            v20 = v19;
-            v11 = 0;
-            v21 = *v39;
+            v18 = v17;
+            v10 = 0;
+            v19 = *v37;
             do
             {
-              for (j = 0; j != v20; j = j + 1)
+              for (j = 0; j != v18; j = j + 1)
               {
-                if (*v39 != v21)
+                if (*v37 != v19)
                 {
                   objc_enumerationMutation(significantItems);
                 }
 
-                v11 += [*(*(&v38 + 1) + 8 * j) size];
+                v10 += [*(*(&v36 + 1) + 8 * j) size];
               }
 
-              v20 = [significantItems countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v18 = [significantItems countByEnumeratingWithState:&v36 objects:v44 count:16];
             }
 
-            while (v20);
+            while (v18);
           }
 
           else
           {
-            v11 = 0;
+            v10 = 0;
           }
 
-          v3 = v17;
-          v4 = v36;
-          v8 = &__objc_personality_v0_ptr;
+          v3 = v15;
+          v4 = v34;
         }
       }
 
-      [v10 setSortSize:v11];
-      if (v11)
+      [v9 setSortSize:v10];
+      if (v10)
       {
-        v26 = v11 < 50000001;
+        v24 = v10 < 50000001;
       }
 
       else
       {
-        v26 = 0;
+        v24 = 0;
       }
 
-      if (!v26)
+      if (!v24)
       {
-        [v3 addObject:v10];
+        [v3 addObject:v9];
       }
     }
 
-    v6 = [v4 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v6 = [v4 countByEnumeratingWithState:&v40 objects:v45 count:16];
   }
 
   while (v6);
 LABEL_32:
 
-  v27 = +[STStorageDiskMonitor sharedMonitor];
-  storageSpace = [v27 storageSpace];
+  v25 = +[STStorageDiskMonitor sharedMonitor];
+  storageSpace = [v25 storageSpace];
 
   if ([storageSpace availableBytes] >= 1000000000)
   {
-    v29 = &stru_2D1E0;
+    v27 = &stru_2D1E0;
   }
 
   else
   {
-    v29 = &stru_2D1C0;
+    v27 = &stru_2D1C0;
   }
 
-  [v3 sortUsingComparator:v29];
-  [v37 sortUsingComparator:&stru_2D200];
-  v30 = [v3 count];
+  [v3 sortUsingComparator:v27];
+  [v35 sortUsingComparator:&stru_2D200];
+  v28 = [v3 count];
   if (!self->_showAllTips)
   {
     tipsToShow = self->_tipsToShow;
-    v31 = &v30[-tipsToShow];
-    if (v30 > tipsToShow)
+    v29 = &v28[-tipsToShow];
+    if (v28 > tipsToShow)
     {
       [v3 removeObjectsInRange:?];
     }
   }
 
-  v33 = [v3 arrayByAddingObjectsFromArray:{v37, v31}];
+  v31 = [v3 arrayByAddingObjectsFromArray:{v35, v29}];
 
-  return v33;
+  return v31;
 }
 
 - (BOOL)applicationHasTips:(id)tips

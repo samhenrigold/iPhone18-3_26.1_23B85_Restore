@@ -1043,7 +1043,7 @@ void __54__ICDocCamScannedDocumentEditor_deletePagesAtIndexes___block_invoke(uin
   return v7;
 }
 
-uint64_t __66__ICDocCamScannedDocumentEditor_indexForAttachmentWithIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
+void *__66__ICDocCamScannedDocumentEditor_indexForAttachmentWithIdentifier___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 {
   result = [a3 isEqualToString:*(a1 + 32)];
   if (result)

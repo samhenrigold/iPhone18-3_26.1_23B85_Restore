@@ -235,14 +235,14 @@
 
 void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NMLogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Library Pins) Picked item: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Library Pins) Picked item: %{public}@", &v7, 0xCu);
   }
 
   v5 = [v3 anyObject];
@@ -259,23 +259,21 @@ void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__bloc
       __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_cold_1();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_218(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NMLogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 title];
-    v12 = 138412546;
-    v13 = v5;
-    v14 = 2050;
-    v15 = [v3 groupType];
-    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (ForYou) Section %@ with type: %{public}lu", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v5;
+    v13 = 2050;
+    v14 = [v3 groupType];
+    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (ForYou) Section %@ with type: %{public}lu", &v11, 0x16u);
   }
 
   if ([v3 groupType] == 6)
@@ -316,46 +314,42 @@ void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__bloc
     v10 = NMLogForCategory(5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = v3;
-      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (ForYou) Ignored section: %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v3;
+      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (ForYou) Ignored section: %{public}@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_223(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = NMLogForCategory(5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [v5 title];
     *buf = 138412546;
-    v14 = v7;
-    v15 = 2050;
-    v16 = [v5 sectionType];
+    v13 = v7;
+    v14 = 2050;
+    v15 = [v5 sectionType];
     _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Heavy Rotation) Section %@ with type: %{public}lu", buf, 0x16u);
   }
 
   v8 = [*(*(a1 + 32) + 40) results];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_224;
-  v11[3] = &unk_27993E1A8;
-  v11[4] = *(a1 + 32);
-  v12 = v5;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_224;
+  v10[3] = &unk_27993E1A8;
+  v10[4] = *(a1 + 32);
+  v11 = v5;
   v9 = v5;
-  [v8 enumerateItemsInSectionAtIndex:a3 usingBlock:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [v8 enumerateItemsInSectionAtIndex:a3 usingBlock:v10];
 }
 
 void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [*(*(a1 + 32) + 16) count];
   if (v7 >= [*(a1 + 32) minimumNumberOfRecentMusicModelObjects])
@@ -364,9 +358,9 @@ void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__bloc
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [*(a1 + 32) minimumNumberOfRecentMusicModelObjects];
-      v11 = 134217984;
-      v12 = v9;
-      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Library) Reached maximum of %lu items.", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = v9;
+      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Library) Reached maximum of %lu items.", &v10, 0xCu);
     }
 
     *a4 = 1;
@@ -376,43 +370,39 @@ void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__bloc
   {
     [*(a1 + 32) _processRecentMusicItem:v6 section:0 identifier:@"Library"];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_234(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = NMLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v7 title];
     *buf = 138412546;
-    v18 = v9;
-    v19 = 2050;
-    v20 = [v7 sectionType];
+    v17 = v9;
+    v18 = 2050;
+    v19 = [v7 sectionType];
     _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Editorial) Section %@ with type: %{public}lu", buf, 0x16u);
   }
 
   v10 = [*(*(a1 + 32) + 72) results];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_235;
-  v14[3] = &unk_27993E220;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_235;
+  v13[3] = &unk_27993E220;
   v11 = *(a1 + 32);
-  v15 = v7;
-  v16 = a4;
-  v14[4] = v11;
+  v14 = v7;
+  v15 = a4;
+  v13[4] = v11;
   v12 = v7;
-  [v10 enumerateItemsInSectionAtIndex:a3 usingBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v10 enumerateItemsInSectionAtIndex:a3 usingBlock:v13];
 }
 
 void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_235(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [*(*(a1 + 32) + 16) count];
   if (v7 >= [*(a1 + 32) minimumNumberOfRecentMusicModelObjects])
@@ -421,9 +411,9 @@ void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__bloc
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [*(a1 + 32) minimumNumberOfRecentMusicModelObjects];
-      v13 = 134217984;
-      v14 = v11;
-      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Editorial) Reached maximum of %lu items.", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = v11;
+      _os_log_impl(&dword_25B27B000, v10, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Editorial) Reached maximum of %lu items.", &v12, 0xCu);
     }
 
     *a4 = 1;
@@ -436,43 +426,39 @@ void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__bloc
     v9 = [v6 innerObject];
     [v8 _processRecentMusicItem:v9 section:*(a1 + 40) identifier:@"Editorial"];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_240(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = NMLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v7 title];
     *buf = 138412546;
-    v18 = v9;
-    v19 = 2050;
-    v20 = [v7 sectionType];
+    v17 = v9;
+    v18 = 2050;
+    v19 = [v7 sectionType];
     _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Starter Pack) Section %@ with type: %{public}lu", buf, 0x16u);
   }
 
   v10 = [*(*(a1 + 32) + 56) results];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_241;
-  v14[3] = &unk_27993E248;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_241;
+  v13[3] = &unk_27993E248;
   v11 = *(a1 + 32);
-  v15 = v7;
-  v16 = a4;
-  v14[4] = v11;
+  v14 = v7;
+  v15 = a4;
+  v13[4] = v11;
   v12 = v7;
-  [v10 enumerateItemsInSectionAtIndex:a3 usingBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v10 enumerateItemsInSectionAtIndex:a3 usingBlock:v13];
 }
 
 void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_241(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = [*(*(a1 + 32) + 16) count];
   if (v7 >= [*(a1 + 32) minimumNumberOfRecentMusicModelObjects])
@@ -481,9 +467,9 @@ void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__bloc
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [*(a1 + 32) minimumNumberOfRecentMusicModelObjects];
-      v11 = 134217984;
-      v12 = v9;
-      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Starter Pack) Reached maximum of %lu items.", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = v9;
+      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (Starter Pack) Reached maximum of %lu items.", &v10, 0xCu);
     }
 
     *a4 = 1;
@@ -494,8 +480,6 @@ void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__bloc
   {
     [*(a1 + 32) _processRecentMusicItem:v6 section:*(a1 + 40) identifier:@"Starter Pack"];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_recentMusicContainsModelObject:(id)object
@@ -537,7 +521,7 @@ void __73__NMSMusicRecommendationsRequestContext__recentMusicContainsModelObject
 
 - (void)_processRecentMusicItem:(id)item section:(id)section identifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   identifierCopy = identifier;
   objc_opt_class();
@@ -549,10 +533,10 @@ void __73__NMSMusicRecommendationsRequestContext__recentMusicContainsModelObject
       v9 = NMLogForCategory(5);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 138412546;
-        v16 = identifierCopy;
-        v17 = 2114;
-        v18 = itemCopy;
+        v14 = 138412546;
+        v15 = identifierCopy;
+        v16 = 2114;
+        v17 = itemCopy;
         v10 = "[Recommendation] (Processing) (Recent Music) (%@) Ignored unsupported item: %{public}@";
         goto LABEL_16;
       }
@@ -567,13 +551,13 @@ void __73__NMSMusicRecommendationsRequestContext__recentMusicContainsModelObject
     v9 = NMLogForCategory(5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
-      v16 = identifierCopy;
-      v17 = 2114;
-      v18 = itemCopy;
+      v14 = 138412546;
+      v15 = identifierCopy;
+      v16 = 2114;
+      v17 = itemCopy;
       v10 = "[Recommendation] (Processing) (Recent Music) (%@) Ignored smart playlist: %{public}@";
 LABEL_16:
-      _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_DEFAULT, v10, &v15, 0x16u);
+      _os_log_impl(&dword_25B27B000, v9, OS_LOG_TYPE_DEFAULT, v10, &v14, 0x16u);
       goto LABEL_17;
     }
 
@@ -585,10 +569,10 @@ LABEL_16:
     v9 = NMLogForCategory(5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412546;
-      v16 = identifierCopy;
-      v17 = 2114;
-      v18 = itemCopy;
+      v14 = 138412546;
+      v15 = identifierCopy;
+      v16 = 2114;
+      v17 = itemCopy;
       v10 = "[Recommendation] (Processing) (RecentMusic) (%@) Ignored item without any downloadable songs: %{public}@";
       goto LABEL_16;
     }
@@ -605,11 +589,11 @@ LABEL_17:
   {
     if (v13)
     {
-      v15 = 138412546;
-      v16 = identifierCopy;
-      v17 = 2114;
-      v18 = itemCopy;
-      _os_log_impl(&dword_25B27B000, v12, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (RecentMusic) (%@) Ignored duplicate item: %{public}@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = identifierCopy;
+      v16 = 2114;
+      v17 = itemCopy;
+      _os_log_impl(&dword_25B27B000, v12, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (RecentMusic) (%@) Ignored duplicate item: %{public}@", &v14, 0x16u);
     }
   }
 
@@ -617,24 +601,22 @@ LABEL_17:
   {
     if (v13)
     {
-      v15 = 138412546;
-      v16 = identifierCopy;
-      v17 = 2114;
-      v18 = itemCopy;
-      _os_log_impl(&dword_25B27B000, v12, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (%@) Picked item: %{public}@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = identifierCopy;
+      v16 = 2114;
+      v17 = itemCopy;
+      _os_log_impl(&dword_25B27B000, v12, OS_LOG_TYPE_DEFAULT, "[Recommendation] (Processing) (Recent Music) (%@) Picked item: %{public}@", &v14, 0x16u);
     }
 
     [(NSMutableOrderedSet *)self->_recentMusicModelObjects addObject:itemCopy];
   }
 
 LABEL_18:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_hasDownloadableSongsForModelObject:(id)object
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   identifiers = [objectCopy identifiers];
   library = [identifiers library];
@@ -657,12 +639,12 @@ LABEL_18:
     v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:persistentID];
     v14 = [v12 setWithObject:v13];
     v15 = [v8 predicateWithProperty:v11 values:v14];
-    v27[0] = v15;
+    v26[0] = v15;
     v16 = MEMORY[0x277D2B608];
     v17 = [MEMORY[0x277D2B5C0] predicateWithProperty:*MEMORY[0x277D2B500] equalToInt64:-1];
     v18 = [v16 predicateWithPredicate:v17];
-    v27[1] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[1] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v20 = [v7 predicateMatchingPredicates:v19];
 
     objc_opt_class();
@@ -688,16 +670,7 @@ LABEL_18:
     hasEntities = 1;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return hasEntities;
-}
-
-void __66__NMSMusicRecommendationsRequestContext__processResponsesIfNeeded__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "[Recommendation] (Processing) (Library Pins) Couldn't get MPModelObject from item: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

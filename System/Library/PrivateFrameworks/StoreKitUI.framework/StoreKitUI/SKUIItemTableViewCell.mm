@@ -30,42 +30,14 @@
 
 - (void)setCellLayoutNeedsLayout
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIItemTableViewCell *)v3 setCellLayoutNeedsLayout:v4];
-      }
-    }
-  }
-
-  self->_layoutNeedsLayout = 1;
-  [(SKUIItemTableViewCell *)self setNeedsLayout];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemTableViewCell setCellLayoutNeedsLayout]";
 }
 
 - (void)prepareForReuse
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIItemTableViewCell *)v3 prepareForReuse:v4];
-      }
-    }
-  }
-
-  layout = [(SKUIItemTableViewCell *)self layout];
-  [layout prepareForReuse];
-
-  v12.receiver = self;
-  v12.super_class = SKUIItemTableViewCell;
-  [(SKUITableViewCell *)&v12 prepareForReuse];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemTableViewCell prepareForReuse]";
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
@@ -118,32 +90,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIItemTableViewCell *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  contentView = [(SKUIItemTableViewCell *)self contentView];
-  [contentView frame];
-  v13 = v12;
-  v15 = v14;
-  v19.receiver = self;
-  v19.super_class = SKUIItemTableViewCell;
-  [(SKUITableViewCell *)&v19 layoutSubviews];
-  if (self->_layoutNeedsLayout || ([contentView frame], v18 != v13) || v17 != v15)
-  {
-    layout = [(SKUIItemTableViewCell *)self layout];
-    [layout layoutSubviews];
-  }
-
-  self->_layoutNeedsLayout = 0;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemTableViewCell layoutSubviews]";
 }
 
 - (void)setBackgroundColor:(id)color
@@ -167,6 +115,30 @@
   v14.receiver = self;
   v14.super_class = SKUIItemTableViewCell;
   [(SKUIItemTableViewCell *)&v14 setBackgroundColor:colorCopy];
+}
+
+- (void)configureForItem:(uint64_t)a3 rowIndex:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemTableViewCell configureForItem:rowIndex:]";
+}
+
+- (void)setHighlighted:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemTableViewCell setHighlighted:animated:]";
+}
+
+- (void)setSelected:(uint64_t)a3 animated:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemTableViewCell setSelected:animated:]";
+}
+
+- (void)setBackgroundColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemTableViewCell setBackgroundColor:]";
 }
 
 @end

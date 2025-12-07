@@ -88,38 +88,35 @@
   representedBundleID = [playerPath representedBundleID];
   -[MCDPCModel setCurrentPlayingApp:](self, "setCurrentPlayingApp:", [representedBundleID isEqualToString:self->_bundleID]);
 
-  v8 = MCDGeneralLogging();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = MCDGeneralLogging(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     bundleID = self->_bundleID;
     isCurrentPlayingApp = [(MCDPCModel *)self isCurrentPlayingApp];
-    v11 = @"NO";
+    v12 = @"NO";
     if (isCurrentPlayingApp)
     {
-      v11 = @"YES";
+      v12 = @"YES";
     }
 
     v13 = 138543618;
     v14 = bundleID;
     v15 = 2114;
-    v16 = v11;
-    _os_log_impl(&dword_25AD8E000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ is now playing app? %{public}@", &v13, 0x16u);
+    v16 = v12;
+    _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ is now playing app? %{public}@", &v13, 0x16u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForClientContent
 {
   objc_initWeak(&location, self);
-  bundleID = self->_bundleID;
-  v4 = MEMORY[0x277D85CD0];
-  v5 = MEMORY[0x277D85DD0];
-  objc_copyWeak(&v6, &location);
+  v3 = MEMORY[0x277D85CD0];
+  v4 = MEMORY[0x277D85DD0];
+  objc_copyWeak(&v5, &location);
   MRMediaRemoteGetSupportedBrowsableContentAPIs();
 
-  [(MCDPCModel *)self _registerNotifications:v5];
-  objc_destroyWeak(&v6);
+  [(MCDPCModel *)self _registerNotifications:v4];
+  objc_destroyWeak(&v5);
   objc_destroyWeak(&location);
 }
 
@@ -139,7 +136,6 @@ void __39__MCDPCModel__registerForClientContent__block_invoke(uint64_t a1, uint6
   [defaultCenter addObserver:self selector:sel__nowPlayingDidChangeNotification_ name:*MEMORY[0x277D27E20] object:0];
   [defaultCenter addObserver:self selector:sel__nowPlayingDidChangeNotification_ name:*MEMORY[0x277D27BC8] object:0];
   [defaultCenter addObserver:self selector:sel__nowPlayingDidChangeNotification_ name:*MEMORY[0x277D27B50] object:0];
-  mediaRemoteNotificationQueue = self->_mediaRemoteNotificationQueue;
   MRMediaRemoteRegisterForNowPlayingNotifications();
   playableContentPlaybackManager = [(MCDPCModel *)self playableContentPlaybackManager];
   [playableContentPlaybackManager beginRequestObservation];
@@ -162,31 +158,32 @@ void __39__MCDPCModel__registerForClientContent__block_invoke(uint64_t a1, uint6
 void __37__MCDPCModel__dataSourceInvalidated___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = MCDGeneralLogging();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = MCDGeneralLogging(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25AD8E000, v2, OS_LOG_TYPE_DEFAULT, "Data source invalidated", buf, 2u);
+      _os_log_impl(&dword_25AD8E000, v3, OS_LOG_TYPE_DEFAULT, "Data source invalidated", buf, 2u);
     }
 
-    v3 = WeakRetained[13];
+    v4 = v2[13];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __37__MCDPCModel__dataSourceInvalidated___block_invoke_39;
     block[3] = &unk_279923B08;
-    v7 = WeakRetained;
-    dispatch_sync(v3, block);
-    v4 = MCDGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v9 = v2;
+    dispatch_sync(v4, block);
+    v6 = MCDGeneralLogging(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25AD8E000, v4, OS_LOG_TYPE_DEFAULT, "Posting MCDPCDidInvalidateNotificationName", buf, 2u);
+      _os_log_impl(&dword_25AD8E000, v6, OS_LOG_TYPE_DEFAULT, "Posting MCDPCDidInvalidateNotificationName", buf, 2u);
     }
 
-    v5 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v5 postNotificationName:@"didInvalidate" object:0];
+    v7 = [MEMORY[0x277CCAB98] defaultCenter];
+    [v7 postNotificationName:@"didInvalidate" object:0];
   }
 }
 
@@ -198,9 +195,9 @@ void __37__MCDPCModel__dataSourceInvalidated___block_invoke_39(uint64_t a1)
 
 - (void)_contentItemsUpdated:(id)updated
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
-  v5 = MCDGeneralLogging();
+  v5 = MCDGeneralLogging(updatedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -215,64 +212,64 @@ void __37__MCDPCModel__dataSourceInvalidated___block_invoke_39(uint64_t a1)
 
   if (v9)
   {
-    v10 = [userInfo objectForKeyedSubscript:*MEMORY[0x277D27E68]];
-    if (v10)
+    v11 = [userInfo objectForKeyedSubscript:*MEMORY[0x277D27E68]];
+    if (v11)
     {
-      v11 = [(MCDPCModel *)self itemsFromMRContentItems:v10];
-      if ([v11 count])
+      v12 = [(MCDPCModel *)self itemsFromMRContentItems:v11];
+      v13 = [v12 count];
+      if (v13)
       {
-        v17 = @"items";
-        v18 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+        v18 = @"items";
+        v19 = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+        v14 = v13;
       }
 
       else
       {
-        v12 = 0;
+        v14 = 0;
       }
 
-      v14 = MCDGeneralLogging();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = MCDGeneralLogging(v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25AD8E000, v14, OS_LOG_TYPE_DEFAULT, "Posting MCDPCDidUpdateContentNotificationName", buf, 2u);
+        _os_log_impl(&dword_25AD8E000, v16, OS_LOG_TYPE_DEFAULT, "Posting MCDPCDidUpdateContentNotificationName", buf, 2u);
       }
 
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      [defaultCenter postNotificationName:@"didUpdateContent" object:self userInfo:v12];
+      [defaultCenter postNotificationName:@"didUpdateContent" object:self userInfo:v14];
     }
 
     else
     {
-      v11 = MCDGeneralLogging();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = MCDGeneralLogging(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25AD8E000, v11, OS_LOG_TYPE_DEFAULT, "Got content items updated notification, but no updated content items", buf, 2u);
+        _os_log_impl(&dword_25AD8E000, v12, OS_LOG_TYPE_DEFAULT, "Got content items updated notification, but no updated content items", buf, 2u);
       }
     }
   }
 
   else
   {
-    v10 = MCDGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = MCDGeneralLogging(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       bundleID2 = [(MCDPCModel *)self bundleID];
       *buf = 138543618;
-      v20 = bundleID2;
-      v21 = 2114;
-      v22 = v7;
-      _os_log_impl(&dword_25AD8E000, v10, OS_LOG_TYPE_DEFAULT, "Content items updated for wrong app, expected %{public}@, got %{public}@", buf, 0x16u);
+      v21 = bundleID2;
+      v22 = 2114;
+      v23 = v7;
+      _os_log_impl(&dword_25AD8E000, v11, OS_LOG_TYPE_DEFAULT, "Content items updated for wrong app, expected %{public}@, got %{public}@", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_nowPlayingDidChangeNotification:(id)notification
 {
-  v4 = MCDGeneralLogging();
+  v4 = MCDGeneralLogging(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -285,7 +282,7 @@ void __37__MCDPCModel__dataSourceInvalidated___block_invoke_39(uint64_t a1)
 
 - (void)_browsableContentDidRegisterNotification:(id)notification
 {
-  v4 = MCDGeneralLogging();
+  v4 = MCDGeneralLogging(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -325,15 +322,16 @@ void __37__MCDPCModel__dataSourceInvalidated___block_invoke_39(uint64_t a1)
   v38 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   completionCopy = completion;
-  v8 = ([(MCDPCModel *)self supportedAPIMask]& 1) == 0;
-  v9 = MCDGeneralLogging();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (v8)
+  supportedAPIMask = [(MCDPCModel *)self supportedAPIMask];
+  v9 = (supportedAPIMask & 1) == 0;
+  v10 = MCDGeneralLogging(supportedAPIMask);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
       *buf = 0;
-      _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "beginLoadingPlayableContent API is not implemented", buf, 2u);
+      _os_log_impl(&dword_25AD8E000, v10, OS_LOG_TYPE_DEFAULT, "beginLoadingPlayableContent API is not implemented", buf, 2u);
     }
 
     completionCopy[2](completionCopy, 0);
@@ -341,29 +339,27 @@ void __37__MCDPCModel__dataSourceInvalidated___block_invoke_39(uint64_t a1)
 
   else
   {
-    if (v10)
+    if (v11)
     {
       *buf = 138543362;
       v37 = pathCopy;
-      _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "Beginning to load item at index path: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_25AD8E000, v10, OS_LOG_TYPE_DEFAULT, "Beginning to load item at index path: %{public}@", buf, 0xCu);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:self selector:sel__finishBeginLoadingNotification_ name:*MEMORY[0x277D27A38] object:0];
 
-    v12 = _MCDCreateMediaRemoteIndexPath(pathCopy);
+    v13 = _MCDCreateMediaRemoteIndexPath(pathCopy);
     bundleID = [(MCDPCModel *)self bundleID];
-    v14 = *v12;
-    v15 = v12[1];
-    v16 = MRMediaRemoteBeginLoadingBrowsableContent();
+    v15 = MRMediaRemoteBeginLoadingBrowsableContent();
 
-    free(*v12);
-    free(v12);
-    v17 = MCDGeneralLogging();
+    free(*v13);
+    free(v13);
+    v17 = MCDGeneralLogging(v16);
     v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-    if (v16)
+    if (v15)
     {
-      if (v16 == 6)
+      if (v15 == 6)
       {
         if (v18)
         {
@@ -383,20 +379,20 @@ void __37__MCDPCModel__dataSourceInvalidated___block_invoke_39(uint64_t a1)
         if (v18)
         {
           *buf = 67109120;
-          LODWORD(v37) = v16;
+          LODWORD(v37) = v15;
           _os_log_impl(&dword_25AD8E000, v17, OS_LOG_TYPE_DEFAULT, "beginLoadingPlayableContent API error, code: %d", buf, 8u);
         }
 
         if (completionCopy)
         {
-          v25 = MEMORY[0x277CCA9B8];
+          v26 = MEMORY[0x277CCA9B8];
           v34 = *MEMORY[0x277CCA450];
-          v26 = MCDCarDisplayBundle();
-          v27 = [v26 localizedStringForKey:@"ERROR_LOADING_ITEM" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
-          v35 = v27;
-          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-          v29 = [v25 errorWithDomain:@"MCDError" code:v16 userInfo:v28];
-          (completionCopy)[2](completionCopy, v29);
+          v27 = MCDCarDisplayBundle(v25);
+          v28 = [v27 localizedStringForKey:@"ERROR_LOADING_ITEM" value:&stru_286C2B080 table:@"MusicCarDisplayUI"];
+          v35 = v28;
+          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+          v30 = [v26 errorWithDomain:@"MCDError" code:v15 userInfo:v29];
+          (completionCopy)[2](completionCopy, v30);
         }
       }
     }
@@ -435,19 +431,17 @@ void __37__MCDPCModel__dataSourceInvalidated___block_invoke_39(uint64_t a1)
       objc_destroyWeak(buf);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __53__MCDPCModel_beginLoadingItemAtIndexPath_completion___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = MCDGeneralLogging();
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = MCDGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v19 = v3;
+    v18 = v3;
     _os_log_impl(&dword_25AD8E000, v2, OS_LOG_TYPE_DEFAULT, "beginLoadingPlayableContent API timed out, completion block wasn't called for index path: %{public}@", buf, 0xCu);
   }
 
@@ -479,13 +473,12 @@ void __53__MCDPCModel_beginLoadingItemAtIndexPath_completion___block_invoke(uint
 
   v11 = objc_alloc(MEMORY[0x277CCAB88]);
   v12 = *MEMORY[0x277D27A38];
-  v16 = *MEMORY[0x277D27AE8];
-  v17 = v10;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v15 = *MEMORY[0x277D27AE8];
+  v16 = v10;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
   v14 = [v11 initWithName:v12 object:0 userInfo:v13];
 
   [WeakRetained _finishBeginLoadingNotification:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishBeginLoadingNotification:(id)notification
@@ -506,13 +499,14 @@ void __53__MCDPCModel_beginLoadingItemAtIndexPath_completion___block_invoke(uint
   beginLoadingBlocks = [(MCDPCModel *)self beginLoadingBlocks];
   v15 = [beginLoadingBlocks objectForKeyedSubscript:v13];
 
-  if ([v6 isEqualToNumber:&unk_286C30E30])
+  v16 = [v6 isEqualToNumber:&unk_286C30E30];
+  if (v16)
   {
-    v16 = MCDGeneralLogging();
-    beginLoadingBlocks2 = v16;
+    v17 = MCDGeneralLogging(v16);
+    beginLoadingBlocks2 = v17;
     if (v15)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         v26 = 138543362;
         v27 = v13;
@@ -524,7 +518,7 @@ void __53__MCDPCModel_beginLoadingItemAtIndexPath_completion___block_invoke(uint
       [beginLoadingBlocks2 setObject:0 forKeyedSubscript:v13];
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [(MCDPCModel *)v13 _finishBeginLoadingNotification:beginLoadingBlocks2];
     }
@@ -533,34 +527,34 @@ void __53__MCDPCModel_beginLoadingItemAtIndexPath_completion___block_invoke(uint
   }
 
   beginLoadingBlocks2 = [(MCDPCModel *)self _errorForNotification:notificationCopy];
-  v18 = MCDGeneralLogging();
-  beginLoadingBlocks3 = v18;
+  v19 = MCDGeneralLogging(beginLoadingBlocks2);
+  beginLoadingBlocks3 = v19;
   if (v15)
   {
-    v20 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v21 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     if (beginLoadingBlocks2)
     {
-      if (v20)
+      if (v21)
       {
         v26 = 138543618;
         v27 = v13;
         v28 = 2114;
         v29 = v6;
-        v21 = "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification for index path: %{public}@, beginLoadingPlayableContent API error: %{public}@";
-        v22 = beginLoadingBlocks3;
-        v23 = 22;
+        v22 = "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification for index path: %{public}@, beginLoadingPlayableContent API error: %{public}@";
+        v23 = beginLoadingBlocks3;
+        v24 = 22;
 LABEL_17:
-        _os_log_impl(&dword_25AD8E000, v22, OS_LOG_TYPE_DEFAULT, v21, &v26, v23);
+        _os_log_impl(&dword_25AD8E000, v23, OS_LOG_TYPE_DEFAULT, v22, &v26, v24);
       }
     }
 
-    else if (v20)
+    else if (v21)
     {
       v26 = 138543362;
       v27 = v13;
-      v21 = "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification without error for index path: %{public}@";
-      v22 = beginLoadingBlocks3;
-      v23 = 12;
+      v22 = "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification without error for index path: %{public}@";
+      v23 = beginLoadingBlocks3;
+      v24 = 12;
       goto LABEL_17;
     }
 
@@ -572,10 +566,10 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v24 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+  v25 = os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG);
   if (beginLoadingBlocks2)
   {
-    if (v24)
+    if (v25)
     {
       [(MCDPCModel *)v6 _finishBeginLoadingNotification:v13, beginLoadingBlocks3];
     }
@@ -583,7 +577,7 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  if (v24)
+  if (v25)
   {
     [(MCDPCModel *)v13 _finishBeginLoadingNotification:beginLoadingBlocks3];
   }
@@ -592,126 +586,115 @@ LABEL_19:
 LABEL_20:
 
   [(MCDPCModel *)self _invalidateBeginLoadingTimeoutTimer];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getChildrenSupportsPlaybackProgressForIndexPath:(id)path withCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   completionCopy = completion;
   supportedAPIMask = [(MCDPCModel *)self supportedAPIMask];
-  v9 = MCDGeneralLogging();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if ((supportedAPIMask & 2) != 0)
+  v9 = supportedAPIMask;
+  v10 = MCDGeneralLogging(supportedAPIMask);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if ((v9 & 2) != 0)
   {
-    if (v10)
+    if (v11)
     {
       *buf = 138543362;
-      v28 = pathCopy;
-      _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "Preparing to fetch if children support playback progress for index path: %{public}@", buf, 0xCu);
+      v25 = pathCopy;
+      _os_log_impl(&dword_25AD8E000, v10, OS_LOG_TYPE_DEFAULT, "Preparing to fetch if children support playback progress for index path: %{public}@", buf, 0xCu);
     }
 
-    v11 = _MCDCreateMediaRemoteIndexPath(pathCopy);
+    v12 = _MCDCreateMediaRemoteIndexPath(pathCopy);
     bundleID = [(MCDPCModel *)self bundleID];
-    mediaRemoteNotificationQueue = self->_mediaRemoteNotificationQueue;
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __77__MCDPCModel_getChildrenSupportsPlaybackProgressForIndexPath_withCompletion___block_invoke;
-    v23 = &unk_279923EA0;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __77__MCDPCModel_getChildrenSupportsPlaybackProgressForIndexPath_withCompletion___block_invoke;
+    v20 = &unk_279923EA0;
     selfCopy = self;
-    v25 = pathCopy;
-    v26 = completionCopy;
-    v14 = *v11;
-    v15 = v11[1];
+    v22 = pathCopy;
+    v23 = completionCopy;
     MRMediaRemoteBrowsableContentSupportsPlaybackProgress();
 
-    free(*v11);
-    free(v11);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __77__MCDPCModel_getChildrenSupportsPlaybackProgressForIndexPath_withCompletion___block_invoke_63;
-    v17[3] = &unk_279923EC8;
-    v18 = v25;
-    v19 = v26;
-    [(MCDPCModel *)self _setupPlaybackProgressTimeoutTimerWithCompletion:v17];
+    free(*v12);
+    free(v12);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __77__MCDPCModel_getChildrenSupportsPlaybackProgressForIndexPath_withCompletion___block_invoke_63;
+    v14[3] = &unk_279923EC8;
+    v15 = v22;
+    v16 = v23;
+    [(MCDPCModel *)self _setupPlaybackProgressTimeoutTimerWithCompletion:v14];
   }
 
   else
   {
-    if (v10)
+    if (v11)
     {
       *buf = 0;
-      _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "childItemsDisplayPlaybackProgress API is not implemented", buf, 2u);
+      _os_log_impl(&dword_25AD8E000, v10, OS_LOG_TYPE_DEFAULT, "childItemsDisplayPlaybackProgress API is not implemented", buf, 2u);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__MCDPCModel_getChildrenSupportsPlaybackProgressForIndexPath_withCompletion___block_invoke(uint64_t a1, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  [*(a1 + 32) _invalidatePlaybackProgressTimeoutTimer];
-  v4 = MCDGeneralLogging();
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = MCDGeneralLogging([*(a1 + 32) _invalidatePlaybackProgressTimeoutTimer]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_25AD8E000, v4, OS_LOG_TYPE_DEFAULT, "Fetched children supporting playback progress for index path: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_25AD8E000, v4, OS_LOG_TYPE_DEFAULT, "Fetched children supporting playback progress for index path: %{public}@", &v7, 0xCu);
   }
 
-  result = (*(*(a1 + 48) + 16))(*(a1 + 48), a2 != 0, 0);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))(*(a1 + 48), a2 != 0, 0);
 }
 
 uint64_t __77__MCDPCModel_getChildrenSupportsPlaybackProgressForIndexPath_withCompletion___block_invoke_63(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = MCDGeneralLogging();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = MCDGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25AD8E000, v2, OS_LOG_TYPE_DEFAULT, "Children support playback progress timed out for: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25AD8E000, v2, OS_LOG_TYPE_DEFAULT, "Children support playback progress timed out for: %{public}@", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)getNowPlayingIdentifiersWithCompletion:(id)completion
 {
   completionCopy = completion;
   supportedAPIMask = [(MCDPCModel *)self supportedAPIMask];
-  v6 = MCDGeneralLogging();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if ((supportedAPIMask & 4) != 0)
+  v6 = supportedAPIMask;
+  v7 = MCDGeneralLogging(supportedAPIMask);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if ((v6 & 4) != 0)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_25AD8E000, v6, OS_LOG_TYPE_DEFAULT, "Preparing to fetch now playing identifiers", buf, 2u);
+      _os_log_impl(&dword_25AD8E000, v7, OS_LOG_TYPE_DEFAULT, "Preparing to fetch now playing identifiers", buf, 2u);
     }
 
-    bundleID = self->_bundleID;
-    mediaRemoteNotificationQueue = self->_mediaRemoteNotificationQueue;
-    v10 = completionCopy;
+    v9 = completionCopy;
     MRMediaRemoteBrowsableContentGetNowPlayingContentIdentifiers();
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&dword_25AD8E000, v6, OS_LOG_TYPE_DEFAULT, "now playing identifiers API is not implemented", buf, 2u);
+      _os_log_impl(&dword_25AD8E000, v7, OS_LOG_TYPE_DEFAULT, "now playing identifiers API is not implemented", buf, 2u);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
@@ -720,7 +703,7 @@ uint64_t __77__MCDPCModel_getChildrenSupportsPlaybackProgressForIndexPath_withCo
 
 uint64_t __53__MCDPCModel_getNowPlayingIdentifiersWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = MCDGeneralLogging();
+  v2 = MCDGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -732,114 +715,99 @@ uint64_t __53__MCDPCModel_getNowPlayingIdentifiersWithCompletion___block_invoke(
 
 - (void)getCountOfChildrenAtIndexPath:(id)path withCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   completionCopy = completion;
-  v8 = MCDGeneralLogging();
+  v8 = MCDGeneralLogging(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = pathCopy;
+    v16 = pathCopy;
     _os_log_impl(&dword_25AD8E000, v8, OS_LOG_TYPE_DEFAULT, "Fetching count of children at index path: %@", buf, 0xCu);
   }
 
   v9 = _MCDCreateMediaRemoteIndexPath(pathCopy);
   bundleID = [(MCDPCModel *)self bundleID];
-  mediaRemoteNotificationQueue = self->_mediaRemoteNotificationQueue;
-  v17 = pathCopy;
-  v18 = completionCopy;
-  v12 = *v9;
-  v13 = v9[1];
+  v13 = pathCopy;
   v14 = completionCopy;
-  v15 = pathCopy;
+  v11 = completionCopy;
+  v12 = pathCopy;
   MRMediaRemoteGetCountOfBrowsableContentChildItems();
 
   free(*v9);
   free(v9);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__MCDPCModel_getCountOfChildrenAtIndexPath_withCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = MCDGeneralLogging();
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = MCDGeneralLogging(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2050;
-    v11 = a2;
-    _os_log_impl(&dword_25AD8E000, v4, OS_LOG_TYPE_DEFAULT, "Completed fetching count of children at index path: %{public}@, number of children: %{public}llu", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2050;
+    v10 = a2;
+    _os_log_impl(&dword_25AD8E000, v4, OS_LOG_TYPE_DEFAULT, "Completed fetching count of children at index path: %{public}@, number of children: %{public}llu", &v7, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)getChildrenAtIndexPath:(id)path inRange:(_NSRange)range completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   completionCopy = completion;
-  v9 = MCDGeneralLogging();
+  v9 = MCDGeneralLogging(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = pathCopy;
+    v17 = pathCopy;
     _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "Fetching children at index path: %{public}@", buf, 0xCu);
   }
 
   v10 = _MCDCreateMediaRemoteIndexPath(pathCopy);
   bundleID = [(MCDPCModel *)self bundleID];
-  mediaRemoteNotificationQueue = self->_mediaRemoteNotificationQueue;
-  v18 = pathCopy;
-  v19 = completionCopy;
-  v13 = *v10;
-  v14 = v10[1];
+  v14 = pathCopy;
   v15 = completionCopy;
-  v16 = pathCopy;
+  v12 = completionCopy;
+  v13 = pathCopy;
   MRMediaRemoteGetBrowsableContentChildItems();
 
   free(*v10);
   free(v10);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __56__MCDPCModel_getChildrenAtIndexPath_inRange_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) itemsFromMRContentItems:a2];
-  v4 = MCDGeneralLogging();
+  v4 = MCDGeneralLogging(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_25AD8E000, v4, OS_LOG_TYPE_DEFAULT, "Completed fetching children at index path: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_25AD8E000, v4, OS_LOG_TYPE_DEFAULT, "Completed fetching children at index path: %{public}@", &v7, 0xCu);
   }
 
   (*(*(a1 + 48) + 16))(*(a1 + 48), v3, *(a1 + 56), [v3 count], 0);
   if (([*(a1 + 32) didFinishInitialLoad] & 1) == 0)
   {
-    [*(a1 + 32) setDidFinishInitialLoad:1];
-    v6 = MCDGeneralLogging();
+    v6 = MCDGeneralLogging([*(a1 + 32) setDidFinishInitialLoad:1]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_25AD8E000, v6, OS_LOG_TYPE_DEFAULT, "Finishing initial load", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_25AD8E000, v6, OS_LOG_TYPE_DEFAULT, "Finishing initial load", &v7, 2u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initiatePlaybackAtIndexPath:(id)path completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   [(MCDPCModel *)self setPlaybackCompletion:completion];
   [(MCDPCModel *)self setSelectedIndexPath:pathCopy];
@@ -847,29 +815,25 @@ void __56__MCDPCModel_getChildrenAtIndexPath_inRange_completion___block_invoke(u
   [defaultCenter addObserver:self selector:sel__finishPlaybackNotification_ name:*MEMORY[0x277D27A40] object:0];
 
   v8 = _MCDCreateMediaRemoteIndexPath(pathCopy);
-  v9 = MCDGeneralLogging();
+  v9 = MCDGeneralLogging(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543362;
-    v15 = pathCopy;
-    _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "Asking MediaRemote to initialize playback for index path: %{public}@", &v14, 0xCu);
+    v11 = 138543362;
+    v12 = pathCopy;
+    _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "Asking MediaRemote to initialize playback for index path: %{public}@", &v11, 0xCu);
   }
 
   bundleID = [(MCDPCModel *)self bundleID];
-  v11 = *v8;
-  v12 = v8[1];
   MRMediaRemoteRequestPlaybackInitialization();
 
   free(*v8);
   free(v8);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishPlaybackNotification:(id)notification
 {
   v4 = [(MCDPCModel *)self _errorForNotification:notification];
-  v5 = MCDGeneralLogging();
+  v5 = MCDGeneralLogging(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -890,7 +854,7 @@ void __56__MCDPCModel_getChildrenAtIndexPath_inRange_completion___block_invoke(u
 
 - (id)_errorForNotification:(id)notification
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKey:*MEMORY[0x277D27A70]];
@@ -921,11 +885,11 @@ void __56__MCDPCModel_getChildrenAtIndexPath_inRange_completion___block_invoke(u
       integerValue = 1;
     }
 
-    v22[0] = *MEMORY[0x277CCA450];
-    v22[1] = @"model";
-    v23[0] = v6;
-    v23[1] = self;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v21[0] = *MEMORY[0x277CCA450];
+    v21[1] = @"model";
+    v22[0] = v6;
+    v22[1] = self;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
     v17 = [v16 mutableCopy];
 
     selectedIndexPath = [(MCDPCModel *)self selectedIndexPath];
@@ -943,8 +907,6 @@ void __56__MCDPCModel_getChildrenAtIndexPath_inRange_completion___block_invoke(u
   {
     v15 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1050,109 +1012,107 @@ void __63__MCDPCModel__setupPlaybackProgressTimeoutTimerWithCompletion___block_i
 void __38__MCDPCModel_itemsFromMRContentItems___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v35 = *MEMORY[0x277D85DE8];
-  v28 = 0u;
+  v36 = *MEMORY[0x277D85DE8];
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v2 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v29;
+    v4 = *v30;
     v5 = 0x279923000uLL;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v29 != v4)
+        if (*v30 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v28 + 1) + 8 * i);
+        v7 = *(*(&v29 + 1) + 8 * i);
         v8 = MRContentItemGetIdentifier();
         v9 = [objc_alloc(*(v5 + 1704)) _initWithModel:*(v1 + 40) MRContentItem:v7];
         v10 = [*(v1 + 40) items];
-        v27 = v8;
+        v28 = v8;
         [v10 setObject:v9 forKeyedSubscript:v8];
 
-        v11 = MCDGeneralLogging();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = MCDGeneralLogging(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v33 = v8;
-          _os_log_impl(&dword_25AD8E000, v11, OS_LOG_TYPE_DEFAULT, "Adding %{public}@ to items dictionary", buf, 0xCu);
+          v34 = v8;
+          _os_log_impl(&dword_25AD8E000, v12, OS_LOG_TYPE_DEFAULT, "Adding %{public}@ to items dictionary", buf, 0xCu);
         }
 
-        v12 = [v9 artworkData];
-        if (v12)
+        v13 = [v9 artworkData];
+        if (v13)
         {
-          v13 = [MEMORY[0x277D755B8] imageWithData:v12];
-          [v13 size];
-          if (v15 != 48.0 || v14 != 48.0)
+          v14 = [MEMORY[0x277D755B8] imageWithData:v13];
+          v15 = [v14 size];
+          if (v17 != 48.0 || v16 != 48.0)
           {
-            v17 = [v13 car_scaledImageWithSize:48.0, 48.0];
-            v18 = v1;
-            v19 = v3;
-            v20 = v4;
-            v21 = v5;
-            v22 = [v17 copy];
+            v19 = [v14 car_scaledImageWithSize:48.0, 48.0];
+            v20 = v1;
+            v21 = v3;
+            v22 = v4;
+            v23 = v5;
+            v24 = [v19 copy];
 
-            v13 = v22;
-            v5 = v21;
-            v4 = v20;
-            v3 = v19;
-            v1 = v18;
+            v14 = v24;
+            v5 = v23;
+            v4 = v22;
+            v3 = v21;
+            v1 = v20;
           }
 
-          v23 = MCDGeneralLogging();
-          v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-          if (v13)
+          v25 = MCDGeneralLogging(v15);
+          v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+          if (v14)
           {
-            if (v24)
+            if (v26)
             {
               *buf = 138543362;
-              v33 = v27;
-              _os_log_impl(&dword_25AD8E000, v23, OS_LOG_TYPE_DEFAULT, "Updating artwork to %{public}@", buf, 0xCu);
+              v34 = v28;
+              _os_log_impl(&dword_25AD8E000, v25, OS_LOG_TYPE_DEFAULT, "Updating artwork to %{public}@", buf, 0xCu);
             }
 
-            [v9 setArtworkImage:v13];
+            [v9 setArtworkImage:v14];
           }
 
           else
           {
-            if (v24)
+            if (v26)
             {
               *buf = 138543362;
-              v33 = v27;
-              _os_log_impl(&dword_25AD8E000, v23, OS_LOG_TYPE_DEFAULT, "Have artwork data, but artwork is nil for %{public}@", buf, 0xCu);
+              v34 = v28;
+              _os_log_impl(&dword_25AD8E000, v25, OS_LOG_TYPE_DEFAULT, "Have artwork data, but artwork is nil for %{public}@", buf, 0xCu);
             }
           }
         }
 
         else
         {
-          v13 = MCDGeneralLogging();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = MCDGeneralLogging(0);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v33 = v27;
-            _os_log_impl(&dword_25AD8E000, v13, OS_LOG_TYPE_DEFAULT, "Artwork is nil for %{public}@", buf, 0xCu);
+            v34 = v28;
+            _os_log_impl(&dword_25AD8E000, v14, OS_LOG_TYPE_DEFAULT, "Artwork is nil for %{public}@", buf, 0xCu);
           }
         }
 
         [*(v1 + 48) addObject:v9];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v3 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v3);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)imageSize
@@ -1166,31 +1126,28 @@ void __38__MCDPCModel_itemsFromMRContentItems___block_invoke(uint64_t a1)
 
 - (void)_finishBeginLoadingNotification:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_25AD8E000, log, OS_LOG_TYPE_DEBUG, "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification with error: %{public}@, but completion block is null for index path: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_25AD8E000, log, OS_LOG_TYPE_DEBUG, "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification with error: %{public}@, but completion block is null for index path: %{public}@", &v3, 0x16u);
 }
 
 - (void)_finishBeginLoadingNotification:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25AD8E000, a2, OS_LOG_TYPE_DEBUG, "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification, but completion block is null for index path: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25AD8E000, a2, OS_LOG_TYPE_DEBUG, "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification, but completion block is null for index path: %{public}@", &v2, 0xCu);
 }
 
 - (void)_finishBeginLoadingNotification:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25AD8E000, a2, OS_LOG_TYPE_DEBUG, "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification, beginLoadingPlayableContent API not implemented and null completion block for index path: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25AD8E000, a2, OS_LOG_TYPE_DEBUG, "Received kMRMediaRemoteApplicationFinishedLoadingContentNotification, beginLoadingPlayableContent API not implemented and null completion block for index path: %{public}@", &v2, 0xCu);
 }
 
 @end

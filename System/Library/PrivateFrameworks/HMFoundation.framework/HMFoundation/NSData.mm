@@ -5,9 +5,11 @@
 
 uint64_t __40__NSData_HMFoundation__shortDescription__block_invoke()
 {
-  _MergedGlobals_56 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"<>"];
+  v0 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"<>"];
+  v1 = _MergedGlobals_56;
+  _MergedGlobals_56 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t __36__NSData_HMFoundation__hmf_isZeroed__block_invoke(uint64_t result, unsigned __int8 *a2, uint64_t a3, uint64_t a4, _BYTE *a5)

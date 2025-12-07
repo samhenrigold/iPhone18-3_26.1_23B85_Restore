@@ -1,3 +1,216 @@
+id sub_100027C44(uint64_t a1)
+{
+  if (a1 >= 0x2B)
+  {
+    v2 = [NSString stringWithFormat:@"%d", a1];
+  }
+
+  else
+  {
+    v2 = *(&off_100056018 + a1);
+  }
+
+  return v2;
+}
+
+id sub_100027CB4(uint64_t a1)
+{
+  if (a1 - 4) < 0x27 && ((0x7789044BDDuLL >> (a1 - 4)))
+  {
+    v1 = *(&off_100056170 + (a1 - 4));
+  }
+
+  else
+  {
+    v2 = sub_100027C44(a1);
+    v1 = [v2 capitalizedString];
+  }
+
+  return v1;
+}
+
+id sub_100027D34(uint64_t a1)
+{
+  if ((a1 - 1) >= 0x1F)
+  {
+    v2 = [NSString stringWithFormat:@"SIG%d", a1];
+  }
+
+  else
+  {
+    v2 = *(&off_1000562A8 + (a1 - 1));
+  }
+
+  return v2;
+}
+
+__CFString *sub_100027DA8(uint64_t a1)
+{
+  v3 = a1;
+  v4 = @"invalid reason";
+  switch(v3)
+  {
+    case 0:
+      goto LABEL_19;
+    case 1:
+      v4 = @"generic";
+
+      break;
+    case 2:
+      v4 = @"memory highwater";
+
+      break;
+    case 3:
+      v4 = @"vnode shortage";
+
+      break;
+    case 4:
+      v4 = @"vm page shortage";
+
+      break;
+    case 5:
+      v4 = @"process thrashing";
+
+      break;
+    case 6:
+      v4 = @"filecache thrashing";
+
+      break;
+    case 7:
+      v4 = @"per-process limit reached";
+
+      break;
+    case 8:
+      v4 = @"disk space shortage";
+
+      break;
+    case 9:
+      v4 = @"idle exit";
+
+      break;
+    case 10:
+      v4 = @"zone map exhaustion";
+
+      break;
+    case 11:
+      v4 = @"vm compressor thrashing";
+
+      break;
+    case 12:
+      v4 = @"vm compressor space shortage";
+
+      break;
+    case 13:
+      v4 = @"swap space shortage";
+
+      break;
+    case 14:
+      v4 = @"sustained memory pressure";
+
+      break;
+    case 15:
+      v4 = @"vm pageout starvation";
+
+      break;
+    case 16:
+      v4 = @"conclave limit";
+
+      break;
+    case 17:
+      v4 = @"long idle exit";
+
+      break;
+    default:
+      if (a1 == 100)
+      {
+        v4 = @"cpu limit";
+      }
+
+      else
+      {
+        v4 = [NSString stringWithFormat:@"%d", a1];
+LABEL_19:
+      }
+
+      break;
+  }
+
+  return v4;
+}
+
+__CFString *sub_100027FE0(uint64_t a1)
+{
+  if (a1 > 10)
+  {
+    if (a1 > 14)
+    {
+      if (a1 == 15)
+      {
+        v1 = @"VM Pageout Starvation";
+        goto LABEL_21;
+      }
+
+      if (a1 == 100)
+      {
+        v1 = @"CPU Limit";
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      if (a1 == 11)
+      {
+        v1 = @"VM Compressor Thrashing";
+        goto LABEL_21;
+      }
+
+      if (a1 == 12)
+      {
+        v1 = @"VM Compressor Space Shortage";
+        goto LABEL_21;
+      }
+    }
+  }
+
+  else if (a1 > 5)
+  {
+    if (a1 == 6)
+    {
+      v1 = @"FileCache Thrashing";
+      goto LABEL_21;
+    }
+
+    if (a1 == 8)
+    {
+      v1 = @"Low Disk Space";
+      goto LABEL_21;
+    }
+  }
+
+  else
+  {
+    if (a1 == 2)
+    {
+      v1 = @"High-Water";
+      goto LABEL_21;
+    }
+
+    if (a1 == 4)
+    {
+      v1 = @"VM Page Shortage";
+      goto LABEL_21;
+    }
+  }
+
+  v2 = sub_100027DA8(a1);
+  v1 = [v2 capitalizedString];
+
+LABEL_21:
+
+  return v1;
+}
+
 __CFString *sub_1000280E4(uint64_t a1)
 {
   if (a1 > 3221229822)
@@ -842,7 +1055,7 @@ double sub_10002957C(double a1)
   return (a1 * 1000.0) / *&qword_100067BF0;
 }
 
-double sub_1000296CC()
+double sub_1000296CC(HUDLine *a1, const char *a2)
 {
   if (qword_100067C30 != -1)
   {
@@ -851,16 +1064,16 @@ double sub_1000296CC()
 
   if (byte_100067C38 == 1)
   {
-    v0 = +[CADisplay mainDisplay];
-    [v0 bounds];
-    if (v1 <= 1920.0)
+    v2 = +[CADisplay mainDisplay];
+    [v2 bounds];
+    if (v3 <= 1920.0)
     {
-      v2 = 28.0;
+      v4 = 28.0;
     }
 
     else
     {
-      v2 = 42.0;
+      v4 = 42.0;
     }
   }
 
@@ -873,8 +1086,8 @@ double sub_1000296CC()
 
     if (byte_100067C28 == 1)
     {
-      v3 = sub_1000297EC();
-      if (v3 > 170.0 || v3 < 1.0)
+      v5 = sub_1000297EC();
+      if (v5 > 170.0 || v5 < 1.0)
       {
         return 24.0;
       }
@@ -892,7 +1105,7 @@ double sub_1000296CC()
         sub_10003442C();
       }
 
-      v2 = 22.0;
+      v4 = 22.0;
       if ((byte_100067C48 & 1) == 0)
       {
         if ([HUDLine contentScaleForTexts]_0() == 3.0)
@@ -908,7 +1121,7 @@ double sub_1000296CC()
     }
   }
 
-  return v2;
+  return v4;
 }
 
 double sub_1000297EC()
@@ -939,12 +1152,12 @@ double sub_1000297EC()
   return result;
 }
 
-void sub_100029930()
+void sub_100029930(HUDLine *a1, const char *a2)
 {
   if (*&qword_100067C50 <= 0.0)
   {
-    v0 = sub_1000296CC();
-    qword_100067C50 = round(v0 / [HUDLine contentScaleForTexts]_0());
+    v2 = sub_1000296CC(a1, a2);
+    qword_100067C50 = round(v2 / [HUDLine contentScaleForTexts]_0());
   }
 }
 
@@ -1019,16 +1232,16 @@ LABEL_19:
           sub_100034404();
         }
 
-        v7 = byte_100067C38;
-        v8 = [HUDLine contentScaleForTexts]_0();
-        if (v7 == 1)
+        v8 = byte_100067C38;
+        v9 = [HUDLine contentScaleForTexts]_0();
+        if (v8 == 1)
         {
-          v3 = dbl_10003DB70[v8 > 1.0];
+          v3 = dbl_10003DB70[v9 > 1.0];
         }
 
         else
         {
-          v3 = v8 * 25.0;
+          v3 = v9 * 25.0;
         }
       }
     }
@@ -1037,17 +1250,17 @@ LABEL_19:
 LABEL_20:
   qword_100067C58 = *&v3;
   *&qword_100067C58 = v3 / [HUDLine contentScaleForTexts]_0();
-  v5 = sub_100003824();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = sub_100003824(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003447C(v2, v5);
+    sub_10003447C(v2, v6);
   }
 
   v0 = *&qword_100067C58;
   return v0;
 }
 
-void sub_100029BA0()
+void sub_100029BA0(uint64_t a1)
 {
   if (*&qword_100067C60 <= 0.0)
   {
@@ -1056,17 +1269,17 @@ void sub_100029BA0()
       sub_100034468();
     }
 
-    v0 = 25.0;
+    v1 = 25.0;
     if ((byte_100067C08 & 1) == 0)
     {
-      v0 = sub_10002997C();
+      v1 = sub_10002997C();
     }
 
-    qword_100067C60 = *&v0;
+    qword_100067C60 = *&v1;
   }
 }
 
-double sub_100029BFC()
+double sub_100029BFC(uint64_t a1)
 {
   result = *&qword_100067C68;
   if (*&qword_100067C68 <= 0.0)
@@ -1076,28 +1289,28 @@ double sub_100029BFC()
       sub_100034418();
     }
 
-    v1 = 5.0;
+    v2 = 5.0;
     if ((byte_100067C28 & 1) == 0)
     {
-      v2 = [HUDLine contentScaleForTexts]_0();
+      v3 = [HUDLine contentScaleForTexts]_0();
       if (qword_100067C10 != -1)
       {
-        v4 = v2;
+        v5 = v3;
         sub_100034440();
-        v2 = v4;
+        v3 = v5;
       }
 
-      v3 = 8.0;
+      v4 = 8.0;
       if (byte_100067C18)
       {
-        v3 = 10.0;
+        v4 = 10.0;
       }
 
-      v1 = v2 * v3;
+      v2 = v3 * v4;
     }
 
-    qword_100067C68 = *&v1;
-    result = v1 / [HUDLine contentScaleForTexts]_0();
+    qword_100067C68 = *&v2;
+    result = v2 / [HUDLine contentScaleForTexts]_0();
     qword_100067C68 = *&result;
   }
 
@@ -1138,12 +1351,12 @@ void sub_100029D44()
   {
     v0 = sub_1000297EC();
     v1 = fmin(v0, sub_100029CAC());
-    sub_100029BA0();
-    *&qword_100067C88 = v1 + v2 * -2.0;
+    sub_100029BA0(v2);
+    *&qword_100067C88 = v1 + v3 * -2.0;
   }
 }
 
-double sub_100029D98()
+double sub_100029D98(uint64_t a1, uint64_t a2)
 {
   if (qword_100067C90 != -1)
   {
@@ -1170,7 +1383,7 @@ void sub_100029DD0(id a1)
   *&qword_100067C98 = v1 / [HUDLine contentScaleForTexts]_0();
 }
 
-double sub_100029E34()
+double sub_100029E34(uint64_t a1, uint64_t a2)
 {
   if (qword_100067CA0 != -1)
   {
@@ -1220,35 +1433,35 @@ uint64_t sub_100029F30(void *a1, uint64_t a2, double a3)
 {
   v5 = a1;
   v6 = sub_1000024F8(a2 - [v5 receivedTimestamp]);
-  v7 = sub_100003824();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = sub_100003824(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003455C(v7, v6);
+    sub_10003455C(v8, v6);
   }
 
   if ([v5 hangEndTime] == 0x7FFFFFFFFFFFFFFFLL)
   {
     if (v6 <= a3)
     {
-      v8 = 1;
+      v9 = 1;
       goto LABEL_9;
     }
 
 LABEL_8:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_9;
   }
 
-  v9 = sub_1000024F8(a2 - [v5 hangEndTime]);
-  v8 = 1;
-  if (v9 >= 200.0 && v6 > a3)
+  v10 = sub_1000024F8(a2 - [v5 hangEndTime]);
+  v9 = 1;
+  if (v10 >= 200.0 && v6 > a3)
   {
     goto LABEL_8;
   }
 
 LABEL_9:
 
-  return v8;
+  return v9;
 }
 
 id sub_10002A004(void *a1, unsigned int a2)
@@ -1365,7 +1578,7 @@ int64_t sub_10002A1F0(id a1, HUDContentProtocol *a2, HUDContentProtocol *a3)
   }
 }
 
-uint64_t sub_10002A24C()
+uint64_t sub_10002A24C(uint64_t a1, uint64_t a2)
 {
   if (qword_100067CB0 != -1)
   {
@@ -1421,12 +1634,12 @@ uint64_t sub_10002A388()
   return *v0;
 }
 
-void sub_10002A41C(int a1)
+void sub_10002A41C(uint64_t a1)
 {
   v1 = a1;
   if (byte_1000677B8 != a1)
   {
-    v2 = sub_100003824();
+    v2 = sub_100003824(a1);
     v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
     if (v1)
     {
@@ -1458,29 +1671,31 @@ void sub_10002A41C(int a1)
 void sub_10002A504(id a1, NSError *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100003824();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100003824(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100034600(v2, v3);
+      sub_100034600(v3, v4);
     }
   }
 }
 
 void sub_10002A55C(id a1)
 {
-  byte_100067CD8 = SBSIsSystemApertureAvailable();
-  v1 = sub_100003824();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+  v1 = SBSIsSystemApertureAvailable();
+  byte_100067CD8 = v1;
+  v2 = sub_100003824(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v2[0] = 67109120;
-    v2[1] = byte_100067CD8;
-    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "New API was available, retrieved aperture available %{BOOL}i", v2, 8u);
+    v3[0] = 67109120;
+    v3[1] = byte_100067CD8;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "New API was available, retrieved aperture available %{BOOL}i", v3, 8u);
   }
 }
 
-BOOL sub_10002A60C()
+BOOL sub_10002A60C(uint64_t a1, uint64_t a2)
 {
   if (qword_100067D28 != -1)
   {
@@ -1493,6 +1708,7 @@ BOOL sub_10002A60C()
 void sub_10002A64C(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v18 = objc_autoreleasePoolPush();
+  v19 = v18;
   if (qword_100067D28 != -1)
   {
     sub_100034678();
@@ -1500,60 +1716,60 @@ void sub_10002A64C(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   if (!off_100067CE0)
   {
-    v26 = sub_100003824();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100003824(v18);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Tailspin dump symbol is missing!", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Tailspin dump symbol is missing!", buf, 2u);
     }
 
     goto LABEL_15;
   }
 
-  v28[0] = qword_100067CE8;
-  v28[1] = qword_100067CF0;
-  v29[0] = &__kCFBooleanTrue;
-  v29[1] = a4;
-  v28[2] = qword_100067CF8;
-  v29[2] = [NSNumber numberWithBool:a6];
-  v28[3] = qword_100067D00;
-  v29[3] = [NSNumber numberWithBool:a7];
-  v28[4] = qword_100067D08;
-  v29[4] = [NSNumber numberWithBool:a8];
-  v19 = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:5]];
+  v29[0] = qword_100067CE8;
+  v29[1] = qword_100067CF0;
+  v30[0] = &__kCFBooleanTrue;
+  v30[1] = a4;
+  v29[2] = qword_100067CF8;
+  v30[2] = [NSNumber numberWithBool:a6];
+  v29[3] = qword_100067D00;
+  v30[3] = [NSNumber numberWithBool:a7];
+  v29[4] = qword_100067D08;
+  v30[4] = [NSNumber numberWithBool:a8];
+  v20 = [NSMutableDictionary dictionaryWithDictionary:[NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:5]];
   if (a5)
   {
-    v20 = [NSNumber numberWithInt:a5];
-    [(NSMutableDictionary *)v19 setObject:v20 forKey:qword_100067D10];
+    v21 = [NSNumber numberWithInt:a5];
+    [(NSMutableDictionary *)v20 setObject:v21 forKey:qword_100067D10];
   }
 
   if (a2)
   {
-    v21 = [NSNumber numberWithUnsignedLongLong:a2];
-    [(NSMutableDictionary *)v19 setObject:v21 forKey:qword_100067D18];
+    v22 = [NSNumber numberWithUnsignedLongLong:a2];
+    [(NSMutableDictionary *)v20 setObject:v22 forKey:qword_100067D18];
   }
 
   if (a3)
   {
-    v22 = [NSNumber numberWithUnsignedLongLong:a3];
-    [(NSMutableDictionary *)v19 setObject:v22 forKey:qword_100067D20];
+    v23 = [NSNumber numberWithUnsignedLongLong:a3];
+    [(NSMutableDictionary *)v20 setObject:v23 forKey:qword_100067D20];
   }
 
-  v23 = off_100067CE0(a1, v19, a9, a10);
-  if (v23)
+  v24 = off_100067CE0(a1, v20, a9, a10);
+  if (v24)
   {
-    v24 = strerror(v23);
-    v25 = sub_100003824();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v25 = strerror(v24);
+    v26 = sub_100003824(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      sub_10003468C(v24, v25);
+      sub_10003468C(v25, v26);
     }
 
 LABEL_15:
     (*(a10 + 16))(a10, 0);
   }
 
-  objc_autoreleasePoolPop(v18);
+  objc_autoreleasePoolPop(v19);
 }
 
 void sub_10002A8D4(id a1)
@@ -1575,7 +1791,7 @@ void sub_10002A8D4(id a1)
 
   else
   {
-    v2 = sub_100003824();
+    v2 = sub_100003824(0);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v3 = 0;
@@ -1584,12 +1800,13 @@ void sub_10002A8D4(id a1)
   }
 }
 
-uint64_t sub_10002AA48(unint64_t a1, unint64_t a2, uint64_t a3, int a4)
+uint64_t sub_10002AA48(uint64_t a1, unint64_t a2, uint64_t a3, int a4)
 {
   v4 = a3;
-  v32 = 0;
+  v6 = a1;
+  v34 = 0;
   v7 = 0;
-  v30 = a2 - a1;
+  v32 = a2 - a1;
   *&v8 = a3 + 32;
   v9 = 10;
   do
@@ -1603,28 +1820,28 @@ uint64_t sub_10002AA48(unint64_t a1, unint64_t a2, uint64_t a3, int a4)
         v10 = *(v4 + 16);
       }
 
-      v11 = *(v4 + 8) <= a1 ? a1 : *(v4 + 8);
+      v11 = *(v4 + 8) <= v6 ? v6 : *(v4 + 8);
       v12 = v10 >= a2 ? a2 : v10;
       if (v12 > v11)
       {
-        v13 = sub_100003824();
+        v13 = sub_100003824(a1);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           v14 = *v4;
           v15 = *(v4 + 8);
           v16 = *(v4 + 24);
           *buf = 134219266;
-          v36 = v14;
-          v37 = 2080;
-          v38 = v8;
-          v39 = 2048;
-          v40 = v15;
+          v38 = v14;
+          v39 = 2080;
+          v40 = v8;
           v41 = 2048;
-          v42 = v16;
+          v42 = v15;
           v43 = 2048;
-          v44 = a1;
+          v44 = v16;
           v45 = 2048;
-          v46 = a2;
+          v46 = v6;
+          v47 = 2048;
+          v48 = a2;
           _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "HTAssertion: checkOverlap: hang overlaps with assertion, assertionid=%llu assertionname=(%s) start=%llu end=%llu, hangstart=%llu, hangend=%llu)", buf, 0x3Eu);
         }
 
@@ -1632,7 +1849,7 @@ uint64_t sub_10002AA48(unint64_t a1, unint64_t a2, uint64_t a3, int a4)
         {
           if (*(v4 + 24) < a2)
           {
-            v17 = sub_100003824();
+            v17 = sub_100003824(a1);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
@@ -1648,9 +1865,9 @@ LABEL_22:
             goto LABEL_23;
           }
 
-          if (*(v4 + 8) > a1)
+          if (*(v4 + 8) > v6)
           {
-            v17 = sub_100003824();
+            v17 = sub_100003824(a1);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
@@ -1664,35 +1881,35 @@ LABEL_23:
             goto LABEL_30;
           }
 
-          v21 = sub_1000024F8(v30);
-          v22 = sub_100003824();
-          v17 = v22;
+          v21 = sub_1000024F8(v32);
+          v23 = sub_100003824(v22);
+          v17 = v23;
           if (v21 >= 1000.0)
           {
-            if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            if (!os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               goto LABEL_23;
             }
 
-            v23 = sub_1000024F8(v30);
+            v24 = sub_1000024F8(v32);
             *buf = 134217984;
-            v36 = v23;
+            v38 = v24;
             v18 = v17;
             v19 = "HTAssertion: checkOverlap: not ignoring hang during screen off with duration %.0fms";
             v20 = 12;
             goto LABEL_22;
           }
 
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
-            sub_100034704(v33, v30, &v34, v17);
+            sub_100034704(v35, v32, &v36, v17);
           }
         }
 
-        v32 += v12 - v11;
+        v34 += v12 - v11;
         if (a4)
         {
-          AnalyticsSendEventLazy();
+          a1 = AnalyticsSendEventLazy();
         }
       }
     }
@@ -1706,34 +1923,34 @@ LABEL_30:
   while (v9);
   if (!v7)
   {
-    v28 = sub_100003824();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v30 = sub_100003824(a1);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000347B4(v28);
+      sub_1000347B4(v30);
     }
 
     goto LABEL_48;
   }
 
-  v24 = sub_1000024F8(v32);
-  v25 = sub_1000024F8(v30) - v24;
-  if (v25 >= 250.0)
+  v25 = sub_1000024F8(v34);
+  v27 = sub_1000024F8(v32) - v25;
+  if (v27 >= 250.0)
   {
-    v29 = sub_100003824();
-    v28 = v29;
-    if (v32)
+    v31 = sub_100003824(v26);
+    v30 = v31;
+    if (v34)
     {
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v36 = v25;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "HTAssertion: checkOverlap: hang partially overlaps assertions, since hangDurationWithoutOverlap=%fms does not qualify as assertion overlap", buf, 0xCu);
+        v38 = v27;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "HTAssertion: checkOverlap: hang partially overlaps assertions, since hangDurationWithoutOverlap=%fms does not qualify as assertion overlap", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      sub_100034770(v28);
+      sub_100034770(v30);
     }
 
 LABEL_48:
@@ -1741,16 +1958,16 @@ LABEL_48:
     return 0;
   }
 
-  v26 = sub_100003824();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v28 = sub_100003824(v26);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    v36 = v24;
-    v37 = 2048;
-    v38 = v32 * 100.0 / v30;
+    v38 = v25;
     v39 = 2048;
-    v40 = v25;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "HTAssertion: checkOverlap: hang overlaps assertion for %f ms (%f %%), hangDurationWithoutOverlap=%fms -> qualifies as assertion overlap", buf, 0x20u);
+    v40 = v34 * 100.0 / v32;
+    v41 = 2048;
+    v42 = v27;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "HTAssertion: checkOverlap: hang overlaps assertion for %f ms (%f %%), hangDurationWithoutOverlap=%fms -> qualifies as assertion overlap", buf, 0x20u);
   }
 
   if (a4)
@@ -1859,9 +2076,9 @@ id sub_10002B7C8(const __CFString *a1, void *a2, uint64_t a3)
   return v7;
 }
 
-void sub_10002BA8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002BA8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1877,39 +2094,40 @@ void sub_10002BABC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = [v6 unsignedIntValue] - 1;
-  v8 = sub_100003824();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v7 = [v6 unsignedIntValue];
+  v8 = (v7 - 1);
+  v9 = sub_100003824(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412802;
-    v15 = v5;
-    v16 = 1024;
-    v17 = [v6 unsignedIntValue];
-    v18 = 1024;
-    v19 = v7;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%@ Generated Logs count decreased %u -> %u", &v14, 0x18u);
+    v15 = 138412802;
+    v16 = v5;
+    v17 = 1024;
+    v18 = [v6 unsignedIntValue];
+    v19 = 1024;
+    v20 = v8;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%@ Generated Logs count decreased %u -> %u", &v15, 0x18u);
   }
 
-  if (v7)
+  if (v8)
   {
-    v9 = [NSNumber numberWithUnsignedInt:v7];
-    [qword_100067DA8 setObject:v9 forKeyedSubscript:v5];
+    v10 = [NSNumber numberWithUnsignedInt:v8];
+    [qword_100067DA8 setObject:v10 forKeyedSubscript:v5];
   }
 
   else
   {
-    v10 = *(*(*(a1 + 32) + 8) + 40);
-    if (!v10)
+    v11 = *(*(*(a1 + 32) + 8) + 40);
+    if (!v11)
     {
-      v11 = objc_alloc_init(NSMutableArray);
-      v12 = *(*(a1 + 32) + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = v11;
+      v12 = objc_alloc_init(NSMutableArray);
+      v13 = *(*(a1 + 32) + 8);
+      v14 = *(v13 + 40);
+      *(v13 + 40) = v12;
 
-      v10 = *(*(*(a1 + 32) + 8) + 40);
+      v11 = *(*(*(a1 + 32) + 8) + 40);
     }
 
-    [v10 addObject:v5];
+    [v11 addObject:v5];
   }
 }
 
@@ -1938,7 +2156,7 @@ void sub_10002D784(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v4 = sub_100003824();
+    v4 = sub_100003824(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_100034B00(a1, a2, v4);
@@ -1954,7 +2172,7 @@ void sub_10002D784(uint64_t a1, uint64_t a2)
 
 LABEL_13:
     v13 = [*(a1 + 48) objectForKeyedSubscript:off_1000676B0];
-    v14 = sub_100003824();
+    v14 = sub_100003824(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100034C08(v5);
@@ -1965,7 +2183,7 @@ LABEL_13:
     v20[0] = v13;
     v20[1] = v5;
     v15 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
-    v16 = sub_100003824();
+    v16 = sub_100003824(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
@@ -1981,7 +2199,7 @@ LABEL_13:
 
   ++dword_100067D98;
   ++dword_100067D9C;
-  v7 = sub_100003824();
+  v7 = sub_100003824(a1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = *(a1 + 32);
@@ -2006,7 +2224,7 @@ LABEL_13:
   }
 
   v5 = sub_10001990C(3, @"Failed to move tailspin to final path");
-  v12 = sub_100003824();
+  v12 = sub_100003824(v5);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     sub_100034B7C(v6);
@@ -2023,7 +2241,7 @@ LABEL_18:
 
 void sub_10002E1DC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100003824();
+  v4 = sub_100003824(a1);
   v5 = v4;
   if (a2)
   {
@@ -2043,25 +2261,26 @@ void sub_10002E1DC(uint64_t a1, uint64_t a2)
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
       *buf = 138543874;
-      v23 = v8;
-      v24 = 2114;
-      v25 = v9;
-      v26 = 2114;
-      v27 = @"/var/root/Library/Caches/hangtracerd/spool";
+      v24 = v8;
+      v25 = 2114;
+      v26 = v9;
+      v27 = 2114;
+      v28 = @"/var/root/Library/Caches/hangtracerd/spool";
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Moving tailspin %{public}@ to spool: %{public}@\n", buf, 0x20u);
     }
 
     v10 = *(a1 + 40);
-    v21 = 0;
-    v11 = [HTTailspin moveAndTrackTailspinToSpoolDirectory:v10 error:&v21];
-    v6 = v21;
+    v22 = 0;
+    v11 = [HTTailspin moveAndTrackTailspinToSpoolDirectory:v10 error:&v22];
+    v12 = v22;
+    v6 = v12;
     if (v11)
     {
       v7 = 0;
       goto LABEL_13;
     }
 
-    v5 = sub_100003824();
+    v5 = sub_100003824(v12);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100034CF0(a1, v6);
@@ -2073,10 +2292,10 @@ void sub_10002E1DC(uint64_t a1, uint64_t a2)
   unlink(*(a1 + 56));
 LABEL_13:
   [*(a1 + 48) setFailReason:v7];
-  v12 = sub_10001ADCC([*(a1 + 48) hangSubType]);
+  v13 = sub_10001ADCC([*(a1 + 48) hangSubType]);
   if (a2)
   {
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_20;
     }
@@ -2084,29 +2303,29 @@ LABEL_13:
 
   else
   {
-    if (!v12)
+    if (!v13)
     {
       [*(a1 + 48) hangDurationMS];
-      v15 = v14;
-      v16 = [*(a1 + 48) processName];
-      +[HTTailspin incrementAppGeneratedLogsCountForDuration:procName:isFirstPartyApp:](HTTailspin, "incrementAppGeneratedLogsCountForDuration:procName:isFirstPartyApp:", v16, [*(a1 + 48) isFirstPartyApp], v15);
+      v16 = v15;
+      v17 = [*(a1 + 48) processName];
+      +[HTTailspin incrementAppGeneratedLogsCountForDuration:procName:isFirstPartyApp:](HTTailspin, "incrementAppGeneratedLogsCountForDuration:procName:isFirstPartyApp:", v17, [*(a1 + 48) isFirstPartyApp], v16);
 
       [*(a1 + 48) hangDurationMS];
-      +[HTTailspin incrementDailyLogGenerationCountForDuration:isFirstPartyApp:](HTTailspin, "incrementDailyLogGenerationCountForDuration:isFirstPartyApp:", [*(a1 + 48) isFirstPartyApp], v17);
+      +[HTTailspin incrementDailyLogGenerationCountForDuration:isFirstPartyApp:](HTTailspin, "incrementDailyLogGenerationCountForDuration:isFirstPartyApp:", [*(a1 + 48) isFirstPartyApp], v18);
 LABEL_20:
-      v18 = [*(a1 + 48) isFirstPartyApp];
-      v19 = [*(a1 + 48) isThirdPartyDevSupportModeHang];
+      v19 = [*(a1 + 48) isFirstPartyApp];
+      v20 = [*(a1 + 48) isThirdPartyDevSupportModeHang];
       [*(a1 + 48) hangDurationMS];
-      v13 = sub_10001AE00(v18, v19, v20);
+      v14 = sub_10001AE00(v19, v20, v21);
       goto LABEL_21;
     }
 
     +[HTTailspin incrementDailyFenceLogGenerationCount];
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_21:
-  +[HTTailspin notifyHTTailSpinResult:failReason:hangSubType:htBugType:](HTTailspin, "notifyHTTailSpinResult:failReason:hangSubType:htBugType:", a2 == 0, [*(a1 + 48) failReason], objc_msgSend(*(a1 + 48), "hangSubType"), v13);
+  +[HTTailspin notifyHTTailSpinResult:failReason:hangSubType:htBugType:](HTTailspin, "notifyHTTailSpinResult:failReason:hangSubType:htBugType:", a2 == 0, [*(a1 + 48) failReason], objc_msgSend(*(a1 + 48), "hangSubType"), v14);
 }
 
 id sub_10002EBE4(uint64_t a1, int a2)
@@ -2139,33 +2358,33 @@ void sub_10002EC2C(uint64_t a1, unint64_t a2)
 
   if (!v5)
   {
-    v5 = &stru_100057080;
+    v6 = &stru_100057080;
+    v5 = v6;
   }
 
-  v6 = sub_100003824();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_100003824(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = [NSNumber numberWithBool:a2 == 0];
-    v11 = sub_10001AD74(*(a1 + 40));
-    v12 = sub_10001ADDC(a2);
+    v11 = [NSNumber numberWithBool:a2 == 0];
+    v12 = sub_10001AD74(*(a1 + 40));
+    v13 = sub_10001ADDC(a2);
     *buf = 138413314;
     v16 = @"EnablementType";
     v17 = 2112;
     v18 = v5;
     v19 = 2112;
-    v20 = v10;
+    v20 = v11;
     v21 = 2112;
-    v22 = v11;
+    v22 = v12;
     v23 = 2112;
-    v24 = v12;
-    _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "com.apple.hangtracer.tailspin_requests %@: %@, request_success: %@, request_type: %@, failure_reason: %@\n", buf, 0x34u);
+    v24 = v13;
+    _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "com.apple.hangtracer.tailspin_requests %@: %@, request_success: %@, request_type: %@, failure_reason: %@\n", buf, 0x34u);
   }
 
-  v13 = v5;
-  v14 = *(a1 + 40);
-  v7 = v5;
+  v14 = v5;
+  v8 = v5;
   AnalyticsSendEventLazy();
-  (*(*(a1 + 32) + 16))(*(a1 + 32), a2, v8, v9);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), a2, v9, v10);
   sub_100004420(@"Tailspin Request");
 }
 
@@ -2194,8 +2413,9 @@ void sub_10002EF6C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t sub_10002EFA4(uint64_t a1, int a2)
+uint64_t sub_10002EFA4(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = xpc_connection_copy_entitlement_value();
   v4 = v3;
   if (v3 && xpc_get_type(v3) == &_xpc_type_BOOL && xpc_BOOL_get_value(v4))
@@ -2205,8 +2425,8 @@ uint64_t sub_10002EFA4(uint64_t a1, int a2)
 
   else
   {
-    v6 = sub_10001B04C(a2);
-    v7 = sub_100003824();
+    v6 = sub_10001B04C(v2);
+    v7 = sub_100003824(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100034FC8();
@@ -2234,7 +2454,7 @@ uint64_t sub_10002F05C(uint64_t a1, uint64_t a2)
   v4 = !v3;
   if (v3)
   {
-    v5 = sub_100003824();
+    v5 = sub_100003824(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100035060();
@@ -2284,13 +2504,13 @@ void sub_10002F0D0(uint64_t a1, void *a2, void *a3, void *a4)
     }
   }
 
-  v17 = sub_100003824();
+  v17 = sub_100003824(reply);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = sub_100019BD4(v14);
-    v20 = 138412290;
-    v21 = v18;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Created XPC Dictionary for HTHangLogs Client response: %@", &v20, 0xCu);
+    v21 = 138412290;
+    v22 = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Created XPC Dictionary for HTHangLogs Client response: %@", &v21, 0xCu);
   }
 
   if (v16)
@@ -2300,8 +2520,8 @@ void sub_10002F0D0(uint64_t a1, void *a2, void *a3, void *a4)
 
   else
   {
-    v19 = sub_100003824();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = sub_100003824(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1000350E4(v14, v12);
     }
@@ -2310,12 +2530,16 @@ void sub_10002F0D0(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_10002F2A4(uint64_t a1)
 {
-  if (a1 != -1 && sandbox_extension_release() == -1)
+  if (a1 != -1)
   {
-    v1 = sub_100003824();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v1 = sandbox_extension_release();
+    if (v1 == -1)
     {
-      sub_1000351A0();
+      v2 = sub_100003824(v1);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000351A0();
+      }
     }
   }
 }
@@ -2367,42 +2591,44 @@ void sub_10002F3E4(uint64_t a1)
         {
           v5 = v4;
           v6 = [NSString stringWithUTF8String:xpc_dictionary_get_string(*(a1 + 40), "archiveSaveDirectory")];
+          v7 = v6;
           if (v6)
           {
-            v7 = sub_100003824();
-            if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+            v8 = sub_100003824(v6);
+            if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
             {
               sub_10003523C();
             }
 
             xpc_dictionary_get_BOOL(*(a1 + 40), "archiveCompressionBypass");
-            v8 = sub_1000183CC();
-            v9 = 0;
-            if (v8)
+            v9 = sub_1000183CC();
+            v10 = 0;
+            v11 = v10;
+            if (v9)
             {
               sub_10002F2A4(v5);
-              v10 = qword_100067DB8;
-              v11 = *(a1 + 32);
-              v12 = *(a1 + 40);
-              v13 = v9;
+              v12 = qword_100067DB8;
+              v13 = *(a1 + 32);
+              v14 = *(a1 + 40);
+              v15 = v11;
             }
 
             else
             {
-              v21 = sub_100003824();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v23 = sub_100003824(v10);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 sub_1000352B0();
               }
 
               sub_10002F2A4(v5);
-              v11 = *(a1 + 32);
-              v12 = *(a1 + 40);
-              v10 = 2;
-              v13 = 0;
+              v13 = *(a1 + 32);
+              v14 = *(a1 + 40);
+              v12 = 2;
+              v15 = 0;
             }
 
-            sub_10002F0D0(v10, v11, v12, v13);
+            sub_10002F0D0(v12, v13, v14, v15);
           }
 
           else
@@ -2414,43 +2640,43 @@ void sub_10002F3E4(uint64_t a1)
           goto LABEL_30;
         }
 
-        v20 = sub_100003824();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v22 = sub_100003824(-1);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_100035324();
         }
 
-        v17 = *(a1 + 32);
-        v18 = *(a1 + 40);
-        v19 = 10;
+        v19 = *(a1 + 32);
+        v20 = *(a1 + 40);
+        v21 = 10;
       }
 
       else
       {
-        v17 = *(a1 + 32);
-        v18 = *(a1 + 40);
-        v19 = 9;
+        v19 = *(a1 + 32);
+        v20 = *(a1 + 40);
+        v21 = 9;
       }
 
-      sub_10002F0D0(v19, v17, v18, 0);
+      sub_10002F0D0(v21, v19, v20, 0);
 LABEL_30:
 
       return;
     }
 
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v16 = 6;
+    v16 = *(a1 + 32);
+    v17 = *(a1 + 40);
+    v18 = 6;
   }
 
   else
   {
-    v14 = *(a1 + 32);
-    v15 = *(a1 + 40);
-    v16 = 3;
+    v16 = *(a1 + 32);
+    v17 = *(a1 + 40);
+    v18 = 3;
   }
 
-  sub_10002F0D0(v16, v14, v15, 0);
+  sub_10002F0D0(v18, v16, v17, 0);
 }
 
 void sub_10002F6A8(id a1)
@@ -2461,18 +2687,19 @@ void sub_10002F6A8(id a1)
   qword_100067D48 = v1;
 }
 
-void sub_10002F798()
+void sub_10002F798(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = sub_1000067BC(v0);
-  sub_100006808(&_mh_execute_header, v2, v3, "Value of %@ for key %@ is unexpected class %@. Values in %@ domain were modified", v4, v5, v6, v7, v8);
+  v1 = objc_opt_class();
+  v2 = sub_1000067BC(v1);
+  sub_100006808(&_mh_execute_header, v3, v4, "Value of %@ for key %@ is unexpected class %@. Values in %@ domain were modified", v5, v6, v7, v8);
 }
 
 void sub_10002F8A8(void *a1)
 {
   v1 = [a1 localizedDescription];
+  v8 = 136315394;
   sub_100006788();
-  sub_10000679C(&_mh_execute_header, v2, v3, "%s: %@", v4, v5, v6, v7, 2u);
+  sub_10000679C(&_mh_execute_header, v2, v3, "%s: %@", v4, v5, v6, v7, v8);
 }
 
 void sub_10002F938()
@@ -2518,6 +2745,20 @@ void sub_10002FE68(uint64_t a1, NSObject *a2)
   v4[0] = 67109120;
   v4[1] = v3;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "File for pid %d not found, tailspin generation likely failed", v4, 8u);
+}
+
+void sub_10002FF28(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000954C(&_mh_execute_header, a2, a3, "Notification dispatch failed: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10002FF94(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000954C(&_mh_execute_header, a2, a3, "Notification authorization error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100030014(uint64_t a1, uint8_t *buf, int a3, os_log_t log)
@@ -2700,6 +2941,29 @@ void sub_10003138C(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
+void sub_100031418()
+{
+  v6 = 136315394;
+  sub_100006788();
+  sub_10000FE30(&_mh_execute_header, v0, v1, "%s, Check for pending hangs request from %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10003148C()
+{
+  v6 = 136315394;
+  sub_100006788();
+  sub_10000FE30(&_mh_execute_header, v0, v1, "%s, No active pending hang block, adding workload for %@", v2, v3, v4, v5, v6);
+}
+
+void sub_100031500(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "checkForPendingHangsWrapper";
+  *&v8[12] = 2048;
+  *&v8[14] = a1;
+  sub_10000FE30(&_mh_execute_header, a2, a3, "%s: hangWaitTimeoutMS: %llu", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
+}
+
 void sub_100031580(os_log_t log)
 {
   v1 = 136315138;
@@ -2744,25 +3008,19 @@ void sub_1000319A0(void *a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Unable to create an LS application record from bundle id %@: %@", v6, 0x16u);
 }
 
+void sub_100031A4C(void *a1)
+{
+  [a1 HUD_background_opacity];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = v1;
+  sub_100013CE4(&_mh_execute_header, v2, v3, "HUD_background_opacity set to %f", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
 void sub_100031B48(void *a1)
 {
   [a1 count];
   sub_1000067FC();
-  sub_100013CE4(&_mh_execute_header, v1, v2, "Updating HUD with %lu hangs", v3, v4, v5, v6, v7);
-}
-
-void sub_100031BC0(uint64_t a1)
-{
-  v6 = *(a1 + 56);
-  sub_100013CD8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_100031C38(uint64_t a1)
-{
-  v6 = *(a1 + 56);
-  sub_100013CD8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  sub_100013CE4(&_mh_execute_header, v1, v2, "Updating HUD with %lu hangs", v3, v4, v5, v6);
 }
 
 void sub_100031CB0()
@@ -2795,6 +3053,63 @@ void sub_100031ED8(NSObject *a1)
   v6 = 2112;
   v7 = v3;
   _os_log_error_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "failed to lookup endpoint with machName=%@ service=%@", &v4, 0x16u);
+}
+
+void sub_100031FA0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient sendHangHUDInfo:completion:]";
+  sub_1000155D8(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100032018(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"launchingTarget is nil. connection is not active or remote interface is empty.";
+  sub_10000954C(&_mh_execute_header, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100032090(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient sendProcExitRecord:completion:]";
+  sub_1000155D8(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100032108(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient sendHudConfiguration:completion:]";
+  sub_1000155D8(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100032180(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient sendMonitoredStates:completion:]";
+  sub_1000155D8(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000321F8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HangHUDClient clearHUDWithCompletion:]";
+  sub_1000155D8(&_mh_execute_header, a1, a3, "%s called at Angel client", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000322FC(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 exitTimestamp];
+  sub_100013CE4(&_mh_execute_header, v1, v2, " * ProcExitHUDLine finishedUpdates! - exitTimestamp:%llu", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_100032378(void *a1)
+{
+  [a1 hangDurationMS];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = v1;
+  sub_100013CE4(&_mh_execute_header, v2, v3, " * HangHUDLine finishedUpdates! hangDurationMS: %f", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_1000323F4(uint64_t a1, NSObject *a2)
@@ -2871,12 +3186,12 @@ void sub_1000327AC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_10003285C()
+void sub_10003285C(uint64_t a1)
 {
   archive_errno();
   archive_error_string();
   sub_10000E7F8();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void sub_100032904()
@@ -2907,6 +3222,13 @@ void sub_100032BC8()
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Error handling url %@: %@", v2, 0x16u);
 }
 
+void sub_100032C4C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  sub_1000155D8(&_mh_execute_header, a1, a3, "TextAnimation: animation ended with duration %f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
 void sub_100032CBC(void *a1, NSObject *a2, double a3)
 {
   v5 = [a1 string];
@@ -2915,6 +3237,20 @@ void sub_100032CBC(void *a1, NSObject *a2, double a3)
   v8 = 2048;
   v9 = a3;
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "TextAnimation: duration layer's animation object initialized: text set as %@ for a given duration %f", &v6, 0x16u);
+}
+
+void sub_100032D6C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  sub_1000155D8(&_mh_execute_header, a1, a3, "TextAnimation: duration layer's animation object updated with toValue = %f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
+void sub_100032DDC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  sub_1000155D8(&_mh_execute_header, a1, a3, "TextAnimation: no need to update duraton since _hangDuration is equal to the input %f.", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 void sub_100032E4C(id *a1, NSObject *a2)
@@ -2944,21 +3280,21 @@ void sub_1000330D4(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_1000067FC();
-  sub_10001B168(&_mh_execute_header, v2, v3, "Failed to validate os log profile payload with error: %@", v4, v5, v6, v7, v8);
+  sub_10001B168(&_mh_execute_header, v2, v3, "Failed to validate os log profile payload with error: %@", v4, v5, v6, v7);
 }
 
 void sub_100033158(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_1000067FC();
-  sub_10001B168(&_mh_execute_header, v2, v3, "Failed to remove os log profile payload with error: %@", v4, v5, v6, v7, v8);
+  sub_10001B168(&_mh_execute_header, v2, v3, "Failed to remove os log profile payload with error: %@", v4, v5, v6, v7);
 }
 
 void sub_1000331DC(void *a1)
 {
   v1 = [a1 localizedDescription];
   sub_1000067FC();
-  sub_10001B168(&_mh_execute_header, v2, v3, "Failed to install os log profile payload with error: %@", v4, v5, v6, v7, v8);
+  sub_10001B168(&_mh_execute_header, v2, v3, "Failed to install os log profile payload with error: %@", v4, v5, v6, v7);
 }
 
 void sub_100033334(int *a1, NSObject *a2)
@@ -2991,36 +3327,34 @@ void sub_100033544(unint64_t a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void sub_1000335D0(uint64_t *a1, uint64_t a2)
+void sub_1000335D0(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(a2 + 60);
-  v4 = +[HTPrefs sharedPrefs];
-  v5 = v4;
-  if (v3)
+  v2 = *(a2 + 60);
+  v3 = +[HTPrefs sharedPrefs];
+  v4 = v3;
+  if (v2)
   {
-    [v4 runloopHangDurationThresholdMSec];
+    [v3 runloopHangDurationThresholdMSec];
   }
 
   else
   {
-    [v4 runloopHangThirdPartyDurationThresholdMSec];
+    [v3 runloopHangThirdPartyDurationThresholdMSec];
   }
 
   sub_10001E310();
   sub_10000E7F8();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
-void sub_1000336B0(uint64_t *a1)
+void sub_1000336B0()
 {
-  v2 = sub_1000043DC(2uLL);
-  v3 = *a1;
-  v4 = +[HTPrefs sharedPrefs];
-  [v4 runloopHangTimeoutDurationMSec];
+  v0 = sub_1000043DC(2uLL);
+  v1 = +[HTPrefs sharedPrefs];
+  [v1 runloopHangTimeoutDurationMSec];
   sub_10001E310();
   sub_10000E7F8();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_1000337BC(uint64_t a1, NSObject *a2)
@@ -3063,12 +3397,11 @@ void sub_1000339B8(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, " 🔚 A hang with ID %@ has ended!", &v2, 0xCu);
 }
 
-void sub_100033AC4(uint64_t a1, uint64_t *a2)
+void sub_100033AC4()
 {
-  v2 = *a2;
   sub_1000251AC();
   sub_10002519C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_100033B50()
@@ -3087,25 +3420,25 @@ void sub_100033BF4()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_100033C98(uint64_t a1)
+void sub_100033C98()
 {
-  v1 = *(a1 + 400);
+  v6 = 136315394;
   sub_1000251AC();
-  sub_10000FE30(&_mh_execute_header, v2, v3, "HTPrefs: %s: %@", v4, v5, v6, v7, 2u);
+  sub_10000FE30(&_mh_execute_header, v0, v1, "HTPrefs: %s: %@", v2, v3, v4, v5, v6);
 }
 
-void sub_100033D14(uint64_t a1)
+void sub_100033D14()
 {
-  v1 = *(a1 + 392);
+  v6 = 136315394;
   sub_1000251AC();
-  sub_10000FE30(&_mh_execute_header, v2, v3, "HTPrefs: %s: %@", v4, v5, v6, v7, 2u);
+  sub_10000FE30(&_mh_execute_header, v0, v1, "HTPrefs: %s: %@", v2, v3, v4, v5, v6);
 }
 
-void sub_100033D90(uint64_t *a1)
+void sub_100033D90()
 {
-  v1 = *a1;
+  v6 = 136315394;
   sub_1000251AC();
-  sub_10000FE30(&_mh_execute_header, v2, v3, "HTPrefs: %s is set to %@, treating as carry device", v4, v5, v6, v7, 2u);
+  sub_10000FE30(&_mh_execute_header, v0, v1, "HTPrefs: %s is set to %@, treating as carry device", v2, v3, v4, v5, v6);
 }
 
 void sub_100033E9C()
@@ -3143,13 +3476,13 @@ void sub_100034144(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "sendHangData did not complete. Error: %@", &v2, 0xCu);
 }
 
-void sub_100034344()
+void sub_100034344(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
-  v2 = sub_1000279EC(v1);
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  v4 = sub_1000279EC(v3);
   sub_10000E7F8();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void sub_10003447C(uint64_t a1, NSObject *a2)
@@ -3239,10 +3572,9 @@ void sub_100034C08(void *a1)
 
 void sub_100034CF0(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v8 = [a2 localizedDescription];
+  v7 = [a2 localizedDescription];
   sub_10000E7F8();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void sub_100034E94()

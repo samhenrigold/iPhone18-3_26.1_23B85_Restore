@@ -10,6 +10,7 @@
 - (int64_t)maxEncodedBytesPerChangeSetForSyncEntityClass:(Class)class;
 - (int64_t)maxEncodedBytesPerCodableChangeForSyncEntityClass:(Class)class;
 - (void)sendChanges:(id)changes completion:(id)completion;
+- (void)syncDidFinishWithSuccess:(BOOL)success error:(id)error;
 - (void)syncWillBegin;
 - (void)willSyncAnchorRanges:(id)ranges;
 @end
@@ -77,7 +78,7 @@
     calendar = v14->_calendar;
     v14->_calendar = currentCalendar;
 
-    v24 = [reasonCopy copy];
+    v24 = objc_msgSend_copy(reasonCopy);
     reason = v14->_reason;
     v14->_reason = v24;
 
@@ -170,6 +171,14 @@
   }
 
   return v9;
+}
+
+- (void)syncDidFinishWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained syncSession:self didFinishSuccessfully:successCopy error:errorCopy];
 }
 
 - (id)newChangeWithSyncEntityClass:(Class)class version:(id)version

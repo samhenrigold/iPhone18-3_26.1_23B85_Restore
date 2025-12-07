@@ -307,25 +307,16 @@ LABEL_19:
   identifier = [dCopy identifier];
   v9 = [identifier isEqualToString:@"NSFileProviderWorkingSetContainerItemIdentifier"];
 
-  if (v9)
+  if (v9 & 1) != 0 || ([dCopy identifier], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "hasPrefix:", @"NSFileProviderSearchContainerItemIdentifier"), v10, (v11) || (objc_msgSend(self, "_item:isCollectionRootForObservedItemID:", itemCopy, dCopy) & 1) != 0 || (objc_msgSend(dCopy, "providerID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "hasPrefix:", @"com.apple.Document"), v12, (v13))
   {
-    goto LABEL_5;
-  }
-
-  identifier2 = [dCopy identifier];
-  v11 = [identifier2 hasPrefix:@"NSFileProviderSearchContainerItemIdentifier"];
-
-  if (v11 & 1) != 0 || ([self _item:itemCopy isCollectionRootForObservedItemID:dCopy] & 1) != 0 || (objc_msgSend(dCopy, "providerID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "hasPrefix:", @"com.apple.Document"), v12, (v13))
-  {
-LABEL_5:
     v14 = 1;
   }
 
   else
   {
     parentItemIdentifier = [itemCopy parentItemIdentifier];
-    identifier3 = [dCopy identifier];
-    if ([parentItemIdentifier isEqualToString:identifier3])
+    identifier2 = [dCopy identifier];
+    if ([parentItemIdentifier isEqualToString:identifier2])
     {
       providerDomainID = [itemCopy providerDomainID];
       providerDomainID2 = [dCopy providerDomainID];
@@ -421,10 +412,26 @@ LABEL_5:
 
 - (void)_startMonitoringDomains
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@: wait for domain authentication", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  workingQueue = [(FPItemCollection *)self workingQueue];
+  dispatch_assert_queue_V2(workingQueue);
+
+  if (!self->_providerDomainMonitoringContext)
+  {
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      [FPExtensionCollection _startMonitoringDomains];
+    }
+
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __48__FPExtensionCollection__startMonitoringDomains__block_invoke;
+    v7[3] = &unk_1E793A498;
+    v7[4] = self;
+    v5 = [FPProviderDomain beginMonitoringProviderDomainChangesWithHandler:v7];
+    providerDomainMonitoringContext = self->_providerDomainMonitoringContext;
+    self->_providerDomainMonitoringContext = v5;
+  }
 }
 
 void __48__FPExtensionCollection__startMonitoringDomains__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -546,7 +553,7 @@ void __55__FPExtensionCollection__startMonitoringDSCopyProgress__block_invoke_3(
 
 void __55__FPExtensionCollection__startMonitoringDSCopyProgress__block_invoke_33(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = +[FPProgressManager defaultManager];
   v4 = [v3 removeCopyProgress:*(a1 + 32)];
@@ -554,18 +561,18 @@ void __55__FPExtensionCollection__startMonitoringDSCopyProgress__block_invoke_33
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = objc_loadWeakRetained((a1 + 48));
-    v9 = *(a1 + 32);
-    v10 = [*(a1 + 40) path];
-    v11 = 138413058;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v10;
-    _os_log_debug_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: DSCopy: Detaching progress %@ from %@ at %@", &v11, 0x2Au);
+    v7 = objc_loadWeakRetained((a1 + 48));
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) path];
+    v10 = 138413058;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_debug_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: DSCopy: Detaching progress %@ from %@ at %@", &v10, 0x2Au);
   }
 
   if (v4)
@@ -582,8 +589,6 @@ void __55__FPExtensionCollection__startMonitoringDSCopyProgress__block_invoke_33
   {
     [WeakRetained forceRefreshOfItemWithItemID:v4];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopObserving
@@ -629,73 +634,44 @@ void __55__FPExtensionCollection__startMonitoringDSCopyProgress__block_invoke_33
   return v5;
 }
 
-- (void)updateRootItem:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@ learned enumerated item identifier", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)updateRootItem:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] Enumerated URL changed, resetting %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)updateRootItem:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] %@ learned alternate identifier", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_failMonitoringWithError:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a2 fp_prettyDescription];
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: monitoring of domain failed with error %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: monitoring of domain failed with error %@", &v6, 0x16u);
 }
 
 void __48__FPExtensionCollection__startMonitoringDomains__block_invoke_2_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: domain %@ is authenticated, restart observation", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: domain %@ is authenticated, restart observation", &v4, 0x16u);
 }
 
 void __55__FPExtensionCollection__startMonitoringDSCopyProgress__block_invoke_3_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v7 = *(a1 + 40);
   v8 = [a2 itemID];
   v9 = [*(a1 + 48) path];
-  v11 = 138413058;
-  v12 = WeakRetained;
-  v13 = 2112;
-  v14 = v7;
-  v15 = 2112;
-  v16 = v8;
-  v17 = 2112;
-  v18 = v9;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: DSCopy: Attaching progress %@ to %@ at %@", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10 = 138413058;
+  v11 = WeakRetained;
+  v12 = 2112;
+  v13 = v7;
+  v14 = 2112;
+  v15 = v8;
+  v16 = 2112;
+  v17 = v9;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: DSCopy: Attaching progress %@ to %@ at %@", &v10, 0x2Au);
 }
 
 @end

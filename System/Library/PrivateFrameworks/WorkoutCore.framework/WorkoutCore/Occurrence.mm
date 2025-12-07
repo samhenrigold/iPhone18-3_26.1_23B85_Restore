@@ -38,7 +38,7 @@
     goto LABEL_8;
   }
 
-  type metadata accessor for Occurrence();
+  type metadata accessor for Occurrence(0);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_8:

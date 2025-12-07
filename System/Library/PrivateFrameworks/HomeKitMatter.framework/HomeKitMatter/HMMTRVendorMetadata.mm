@@ -124,7 +124,7 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   version = [(HMMTRVendorMetadata *)self version];
   [dictionary setObject:version forKeyedSubscript:@"Version"];
@@ -136,33 +136,33 @@
   vendors = [(HMMTRVendorMetadata *)self vendors];
   v8 = [v6 dictionaryWithCapacity:{objc_msgSend(vendors, "count")}];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   vendors2 = [(HMMTRVendorMetadata *)self vendors];
-  v10 = [vendors2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [vendors2 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(vendors2);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         dictionaryRepresentation = [v14 dictionaryRepresentation];
         identifier = [v14 identifier];
         stringValue = [identifier stringValue];
         [v8 setObject:dictionaryRepresentation forKeyedSubscript:stringValue];
       }
 
-      v11 = [vendors2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [vendors2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -170,8 +170,6 @@
 
   [dictionary setObject:v8 forKeyedSubscript:@"Vendors"];
   v18 = [dictionary copy];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -221,7 +219,7 @@ LABEL_7:
 
 - (HMMTRVendorMetadata)initWithDictionaryRepresentation:(id)representation
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   if (!representationCopy)
   {
@@ -238,35 +236,35 @@ LABEL_7:
       v8 = [v5 hmf_dictionaryForKey:@"Vendors"];
       if (v8)
       {
-        v41 = v6;
-        v42 = v5;
-        v40 = v7;
+        v40 = v6;
+        v41 = v5;
+        v39 = v7;
         selfCopy3 = [(HMMTRVendorMetadata *)self initWithVersion:v6 schemaVersion:v7];
         v9 = [(HMMTRVendorMetadata *)selfCopy3 mutableCopy];
+        v45 = 0u;
         v46 = 0u;
         v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
-        v39 = v8;
+        v38 = v8;
         v10 = v8;
-        v11 = [v10 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v45 objects:v49 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v47;
-          v43 = v9;
+          v13 = *v46;
+          v42 = v9;
           do
           {
             v14 = 0;
-            v45 = v12;
+            v44 = v12;
             do
             {
-              if (*v47 != v13)
+              if (*v46 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v46 + 1) + 8 * v14);
+              v15 = *(*(&v45 + 1) + 8 * v14);
               v16 = objc_autoreleasePoolPush();
               v17 = [v10 hmf_dictionaryForKey:v15];
               if (v17)
@@ -292,17 +290,17 @@ LABEL_7:
                   v25 = HMFGetLogIdentifier();
                   v26 = [v10 objectForKeyedSubscript:v15];
                   *buf = 138543618;
-                  v52 = v25;
-                  v53 = 2112;
-                  v54 = v26;
+                  v51 = v25;
+                  v52 = 2112;
+                  v53 = v26;
                   _os_log_impl(&dword_22AEAE000, v24, OS_LOG_TYPE_ERROR, "%{public}@Ignoring vendor value that is not a dictionary: %@", buf, 0x16u);
 
-                  v9 = v43;
+                  v9 = v42;
                 }
 
                 objc_autoreleasePoolPop(v22);
                 v13 = v21;
-                v12 = v45;
+                v12 = v44;
               }
 
               objc_autoreleasePoolPop(v16);
@@ -310,17 +308,17 @@ LABEL_7:
             }
 
             while (v12 != v14);
-            v12 = [v10 countByEnumeratingWithState:&v46 objects:v50 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v45 objects:v49 count:16];
           }
 
           while (v12);
         }
 
         v27 = [v9 copy];
-        v6 = v41;
-        v5 = v42;
-        v8 = v39;
-        v7 = v40;
+        v6 = v40;
+        v5 = v41;
+        v8 = v38;
+        v7 = v39;
       }
 
       else
@@ -332,9 +330,9 @@ LABEL_7:
         {
           v36 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v52 = v36;
-          v53 = 2112;
-          v54 = v5;
+          v51 = v36;
+          v52 = 2112;
+          v53 = v5;
           _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_ERROR, "%{public}@Could not find vendors in vendor metadata dictionary: %@", buf, 0x16u);
 
           v8 = 0;
@@ -354,9 +352,9 @@ LABEL_7:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v52 = v33;
-        v53 = 2112;
-        v54 = v5;
+        v51 = v33;
+        v52 = 2112;
+        v53 = v5;
         _os_log_impl(&dword_22AEAE000, v32, OS_LOG_TYPE_ERROR, "%{public}@Could not find schema version in vendor metadata dictionary: %@", buf, 0x16u);
       }
 
@@ -374,9 +372,9 @@ LABEL_7:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v52 = v30;
-      v53 = 2112;
-      v54 = v5;
+      v51 = v30;
+      v52 = 2112;
+      v53 = v5;
       _os_log_impl(&dword_22AEAE000, v29, OS_LOG_TYPE_ERROR, "%{public}@Could not find version in vendor metadata dictionary: %@", buf, 0x16u);
     }
 
@@ -384,7 +382,6 @@ LABEL_7:
     v27 = 0;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v27;
 }
 

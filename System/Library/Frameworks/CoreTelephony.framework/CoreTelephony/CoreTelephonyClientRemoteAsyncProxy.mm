@@ -48,22 +48,22 @@
 void __80__CoreTelephonyClientRemoteAsyncProxy_initWithXPCObject_userQueue_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CTLogClient();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CTLogClient(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __80__CoreTelephonyClientRemoteAsyncProxy_initWithXPCObject_userQueue_errorHandler___block_invoke_cold_1(v3, v4);
+    __80__CoreTelephonyClientRemoteAsyncProxy_initWithXPCObject_userQueue_errorHandler___block_invoke_cold_1(v3, v5);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __80__CoreTelephonyClientRemoteAsyncProxy_initWithXPCObject_userQueue_errorHandler___block_invoke_1;
-  v8[3] = &unk_1E6A459B0;
-  v5 = *(a1 + 32);
-  v9 = v3;
-  v10 = v5;
-  v6 = *(a1 + 40);
-  v7 = v3;
-  dispatch_async(v6, v8);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __80__CoreTelephonyClientRemoteAsyncProxy_initWithXPCObject_userQueue_errorHandler___block_invoke_1;
+  v9[3] = &unk_1E6A459B0;
+  v6 = *(a1 + 32);
+  v10 = v3;
+  v11 = v6;
+  v7 = *(a1 + 40);
+  v8 = v3;
+  dispatch_async(v7, v9);
 }
 
 - (void)forwardInvocation:(id)invocation
@@ -72,46 +72,47 @@ void __80__CoreTelephonyClientRemoteAsyncProxy_initWithXPCObject_userQueue_error
   invocationCopy = invocation;
   methodSignature = [invocationCopy methodSignature];
   numberOfArguments = [methodSignature numberOfArguments];
+  v8 = numberOfArguments;
   if (numberOfArguments < 3)
   {
     goto LABEL_7;
   }
 
-  v7 = 0x7FFFFFFFFFFFFFFDLL;
-  v8 = 2;
+  v9 = 0x7FFFFFFFFFFFFFFDLL;
+  v10 = 2;
   while (1)
   {
-    v9 = [methodSignature getArgumentTypeAtIndex:v8];
-    if (*v9 == 64 && v9[1] == 63 && !v9[2])
+    numberOfArguments = [methodSignature getArgumentTypeAtIndex:v10];
+    if (*numberOfArguments == 64 && numberOfArguments[1] == 63 && !numberOfArguments[2])
     {
       break;
     }
 
-    ++v8;
-    --v7;
-    if (numberOfArguments == v8)
+    ++v10;
+    --v9;
+    if (v8 == v10)
     {
       goto LABEL_7;
     }
   }
 
-  if (!v7)
+  if (!v9)
   {
 LABEL_7:
-    v10 = CTLogClient();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = CTLogClient(numberOfArguments, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v11 = NSStringFromSelector([invocationCopy selector]);
-      [(CoreTelephonyClientRemoteAsyncProxy *)v11 forwardInvocation:buf, v10];
+      v12 = NSStringFromSelector([invocationCopy selector]);
+      [(CoreTelephonyClientRemoteAsyncProxy *)v12 forwardInvocation:buf, v11];
     }
 
-    v8 = 0x7FFFFFFFFFFFFFFFLL;
+    v10 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   aBlock = 0;
-  [invocationCopy getArgument:&aBlock atIndex:v8];
+  [invocationCopy getArgument:&aBlock atIndex:v10];
   _Block_signature(aBlock);
-  v12 = [aBlock copy];
+  v13 = [aBlock copy];
   fObj = self->_userQueue.fObj.fObj;
   if (fObj)
   {
@@ -124,9 +125,9 @@ LABEL_7:
     dispatch_retain(fObj);
   }
 
-  v14 = v12;
+  v15 = v13;
   v17 = __NSMakeSpecialForwardingCaptureBlock();
-  [invocationCopy setArgument:&v17 atIndex:{v8, v16, 3321888768, __57__CoreTelephonyClientRemoteAsyncProxy_forwardInvocation___block_invoke, &unk_1EF012FA0}];
+  [invocationCopy setArgument:&v17 atIndex:{v10, v16, 3321888768, __57__CoreTelephonyClientRemoteAsyncProxy_forwardInvocation___block_invoke, &unk_1EF012FA0}];
   [invocationCopy invokeWithTarget:self->_target];
 
   if (fObj)
@@ -134,8 +135,6 @@ LABEL_7:
     dispatch_release(fObj);
     dispatch_release(fObj);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __57__CoreTelephonyClientRemoteAsyncProxy_forwardInvocation___block_invoke(uint64_t a1, void *a2)

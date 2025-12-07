@@ -239,7 +239,7 @@
     [_primaryMediaView convertPoint:self toView:{v7 + v6 * 0.5, v9 + v8 * 0.5}];
     v10 = [(UIPreviewTarget *)v5 initWithContainer:self center:?];
     v11 = objc_opt_new();
-    v12 = _UIBezierPathAroundViewAlpha(_primaryMediaView);
+    v12 = _UIBezierPathAroundViewAlpha(_primaryMediaView, 0.5, 1.0);
     if (v12)
     {
       [v11 setShadowPath:v12];
@@ -481,9 +481,9 @@ LABEL_9:
 {
   regionCopy = region;
   identifier = [regionCopy identifier];
-  v7 = [identifier isEqual:@"com.apple.documentproperties.header.drag"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v7)
+  if (isEqual)
   {
     _defaultDragPreview = [(_UIDocumentPropertiesHeaderView *)self _defaultDragPreview];
     v9 = [(UIPointerEffect *)UIPointerLiftEffect effectWithPreview:_defaultDragPreview];
@@ -495,7 +495,7 @@ LABEL_5:
   }
 
   identifier2 = [regionCopy identifier];
-  v12 = [identifier2 isEqual:@"com.apple.documentproperties.header.share"];
+  v12 = objc_msgSend_isEqual_(identifier2);
 
   if (v12)
   {

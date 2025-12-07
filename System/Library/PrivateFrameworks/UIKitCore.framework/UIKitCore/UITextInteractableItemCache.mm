@@ -22,15 +22,15 @@ LABEL_10:
     v6 = v15;
     if (v11 == v15)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v10 = 0;
+      isEqual = 0;
       if (v11 && v15)
       {
-        v10 = [v11 isEqual:v15];
+        isEqual = objc_msgSend_isEqual_(v11);
       }
     }
 
@@ -49,23 +49,23 @@ LABEL_10:
 
   if (!v9)
   {
-    v12 = [v6 isEqual:v7];
+    v12 = objc_msgSend_isEqual_(v6);
 
     if (!v12)
     {
-      v10 = 0;
+      isEqual = 0;
       goto LABEL_17;
     }
 
     goto LABEL_10;
   }
 
-  v10 = 0;
+  isEqual = 0;
   v11 = v7;
 LABEL_16:
 
 LABEL_17:
-  return v10;
+  return isEqual;
 }
 
 uint64_t __50___UITextInteractableItemCache_itemForLink_range___block_invoke(uint64_t a1, void *a2)
@@ -87,15 +87,15 @@ LABEL_10:
     v6 = v15;
     if (v11 == v15)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v10 = 0;
+      isEqual = 0;
       if (v11 && v15)
       {
-        v10 = [v11 isEqual:v15];
+        isEqual = objc_msgSend_isEqual_(v11);
       }
     }
 
@@ -114,23 +114,23 @@ LABEL_10:
 
   if (!v9)
   {
-    v12 = [v6 isEqual:v7];
+    v12 = objc_msgSend_isEqual_(v6);
 
     if (!v12)
     {
-      v10 = 0;
+      isEqual = 0;
       goto LABEL_17;
     }
 
     goto LABEL_10;
   }
 
-  v10 = 0;
+  isEqual = 0;
   v11 = v7;
 LABEL_16:
 
 LABEL_17:
-  return v10;
+  return isEqual;
 }
 
 uint64_t __49___UITextInteractableItemCache_itemForTag_range___block_invoke(uint64_t a1, void *a2)
@@ -152,15 +152,15 @@ LABEL_10:
     v6 = v15;
     if (v11 == v15)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
     {
-      v10 = 0;
+      isEqual = 0;
       if (v11 && v15)
       {
-        v10 = [v11 isEqual:v15];
+        isEqual = objc_msgSend_isEqual_(v11);
       }
     }
 
@@ -179,23 +179,23 @@ LABEL_10:
 
   if (!v9)
   {
-    v12 = [v6 isEqual:v7];
+    v12 = objc_msgSend_isEqual_(v6);
 
     if (!v12)
     {
-      v10 = 0;
+      isEqual = 0;
       goto LABEL_17;
     }
 
     goto LABEL_10;
   }
 
-  v10 = 0;
+  isEqual = 0;
   v11 = v7;
 LABEL_16:
 
 LABEL_17:
-  return v10;
+  return isEqual;
 }
 
 uint64_t __59___UITextInteractableItemCache__cachedItemInSet_predicate___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)

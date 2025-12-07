@@ -13,7 +13,7 @@
 
   time = *time;
   CMTimeGetSeconds(&time);
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   time = v15;
   v9 = (1.0 - v8) * (CMTimeGetSeconds(&time) * 0.5);
   event = [(PXStoryConcreteTransition *)self event];

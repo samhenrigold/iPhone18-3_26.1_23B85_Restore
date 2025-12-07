@@ -19,6 +19,7 @@
 - (void)unpairContinuityDevices:(id)devices;
 - (void)updateProgressBar;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DSEmergencyResetController
@@ -27,9 +28,11 @@
 {
   if (objc_opt_class() == self)
   {
-    DSLogSafetyResetAll = os_log_create("com.apple.DigitalSeparation", "DSEmergencyResetController");
+    v2 = os_log_create("com.apple.DigitalSeparation", "DSEmergencyResetController");
+    v3 = DSLogSafetyResetAll;
+    DSLogSafetyResetAll = v2;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v2, v3);
   }
 }
 
@@ -126,6 +129,14 @@ uint64_t __41__DSEmergencyResetController_viewDidLoad__block_invoke_2(uint64_t a
   return [v2 safetyResetAll];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  if (!self->_isFetching)
+  {
+    [(DSEmergencyResetController *)self hideProgressBar];
+  }
+}
+
 - (void)fetchSharingPermissions:(id)permissions
 {
   permissionsCopy = permissions;
@@ -151,7 +162,7 @@ uint64_t __41__DSEmergencyResetController_viewDidLoad__block_invoke_2(uint64_t a
 
 void __54__DSEmergencyResetController_fetchSharingPermissions___block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -161,29 +172,29 @@ void __54__DSEmergencyResetController_fetchSharingPermissions___block_invoke(uin
       __54__DSEmergencyResetController_fetchSharingPermissions___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v30 = v3;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v29 = v3;
     v11 = [v3 underlyingErrors];
-    v12 = [v11 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v32;
+      v14 = *v31;
       v15 = *MEMORY[0x277D05440];
       v16 = MEMORY[0x277D05430];
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * i);
+          v18 = *(*(&v30 + 1) + 8 * i);
           v19 = [v18 domain];
           v20 = [v19 isEqualToString:*v16];
 
@@ -198,30 +209,28 @@ void __54__DSEmergencyResetController_fetchSharingPermissions___block_invoke(uin
               v24 = v23;
               v25 = [v18 underlyingErrors];
               *buf = 138543618;
-              v36 = v22;
-              v37 = 2114;
-              v38 = v25;
+              v35 = v22;
+              v36 = 2114;
+              v37 = v25;
               _os_log_error_impl(&dword_248C7E000, v24, OS_LOG_TYPE_ERROR, "Failed to fetch permissions for source %{public}@, underlying errors: %{public}@", buf, 0x16u);
             }
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v13);
     }
 
-    a1 = v29;
-    WeakRetained = objc_loadWeakRetained((v29 + 40));
+    a1 = v28;
+    WeakRetained = objc_loadWeakRetained((v28 + 40));
     v27 = [WeakRetained resetErrors];
-    v3 = v30;
-    [v27 addObject:v30];
+    v3 = v29;
+    [v27 addObject:v29];
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)safetyResetAllPressed
@@ -258,7 +267,7 @@ void __54__DSEmergencyResetController_fetchSharingPermissions___block_invoke(uin
   [(DSEmergencyResetController *)self presentViewController:v5 animated:1 completion:0];
 }
 
-uint64_t __51__DSEmergencyResetController_safetyResetAllPressed__block_invoke_2(uint64_t a1)
+void *__51__DSEmergencyResetController_safetyResetAllPressed__block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) setUserDidPressReset:1];
   [*(a1 + 32) showProgressBar];
@@ -410,6 +419,31 @@ void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_inv
 
 void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_2_366(uint64_t a1, void *a2)
 {
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = DSLogSafetyResetAll;
+  if (os_log_type_enabled(DSLogSafetyResetAll, OS_LOG_TYPE_INFO))
+  {
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = [v5 appSharing];
+    *buf = 134217984;
+    v13 = v7;
+    _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "Emergency Reset: started resetting shortcuts automation timer. DSAppSharing: %p", buf, 0xCu);
+  }
+
+  v8 = [*(a1 + 32) appSharing];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_367;
+  v10[3] = &unk_278F754E0;
+  v11 = v3;
+  v9 = v3;
+  [v8 resetShortcutsAutomationTimer:MEMORY[0x277D85CD0] handler:v10];
+}
+
+void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_2_371(uint64_t a1, void *a2)
+{
   v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DSLogSafetyResetAll;
@@ -420,47 +454,18 @@ void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_inv
     v7 = [v5 appSharing];
     *buf = 134217984;
     v14 = v7;
-    _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "Emergency Reset: started resetting shortcuts automation timer. DSAppSharing: %p", buf, 0xCu);
-  }
-
-  v8 = [*(a1 + 32) appSharing];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_367;
-  v11[3] = &unk_278F754E0;
-  v12 = v3;
-  v9 = v3;
-  [v8 resetShortcutsAutomationTimer:MEMORY[0x277D85CD0] handler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_2_371(uint64_t a1, void *a2)
-{
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = DSLogSafetyResetAll;
-  if (os_log_type_enabled(DSLogSafetyResetAll, OS_LOG_TYPE_INFO))
-  {
-    v5 = *(a1 + 32);
-    v6 = v4;
-    v7 = [v5 appSharing];
-    *buf = 134217984;
-    v15 = v7;
     _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "Emergency Reset: started resetting background app refresh. DSAppSharing: %p", buf, 0xCu);
   }
 
   v8 = [*(a1 + 32) appSharing];
   v9 = [MEMORY[0x277D054D8] allUserVisibleApps];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_373;
-  v12[3] = &unk_278F75490;
-  v13 = v3;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_373;
+  v11[3] = &unk_278F75490;
+  v12 = v3;
   v10 = v3;
-  [v8 resetBackgroundAppRefresh:v9 queue:MEMORY[0x277D85CD0] handler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v8 resetBackgroundAppRefresh:v9 queue:MEMORY[0x277D85CD0] handler:v11];
 }
 
 void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_2_377(uint64_t a1, void *a2)
@@ -485,7 +490,7 @@ void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_inv
 
 void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_2_382(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DSLogSafetyResetAll;
   if (os_log_type_enabled(DSLogSafetyResetAll, OS_LOG_TYPE_INFO))
@@ -494,20 +499,18 @@ void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_inv
     v6 = v4;
     v7 = [v5 beaconManager];
     *buf = 134217984;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "Emergency Reset: started resetting FindMy acknowledgement. BeaconManager: %p", buf, 0xCu);
   }
 
   v8 = [*(a1 + 32) beaconManager];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_383;
-  v11[3] = &unk_278F75490;
-  v12 = v3;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_383;
+  v10[3] = &unk_278F75490;
+  v11 = v3;
   v9 = v3;
-  [v8 setUserHasAcknowledgedFindMy:0 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [v8 setUserHasAcknowledgedFindMy:0 completion:v10];
 }
 
 void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_invoke_383(uint64_t a1)
@@ -602,7 +605,7 @@ void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_inv
 
 - (void)safetyResetAll
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = DSLogSafetyResetAll;
   if (os_log_type_enabled(DSLogSafetyResetAll, OS_LOG_TYPE_INFO))
   {
@@ -618,36 +621,36 @@ void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_inv
   aBlock[3] = &unk_278F75508;
   aBlock[4] = self;
   v5 = v4;
-  v20 = v5;
+  v19 = v5;
   v6 = _Block_copy(aBlock);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = self->_emergencyResetSteps;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v22 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         dispatch_group_enter(v5);
         (*(v12 + 16))(v12, v6);
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v22 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v21 count:16];
     }
 
     while (v9);
@@ -660,13 +663,11 @@ void __61__DSEmergencyResetController_initializeEmergencyResetActions__block_inv
   block[3] = &unk_278F75408;
   block[4] = self;
   dispatch_group_notify(v5, MEMORY[0x277D85CD0], block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __44__DSEmergencyResetController_safetyResetAll__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) updateProgressBar];
   v4 = DSLogSafetyResetAll;
@@ -674,14 +675,12 @@ void __44__DSEmergencyResetController_safetyResetAll__block_invoke(uint64_t a1, 
   {
     v5 = v3;
     v6 = v4;
-    v8 = 136315138;
-    v9 = [v3 UTF8String];
-    _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = [v3 UTF8String];
+    _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "%s", &v7, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__DSEmergencyResetController_safetyResetAll__block_invoke_405(uint64_t a1)
@@ -832,7 +831,7 @@ uint64_t __44__DSEmergencyResetController_safetyResetAll__block_invoke_405(uint6
 
 - (void)handleErrorsAndMoveToNextPane
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   resetErrors = [(DSEmergencyResetController *)self resetErrors];
   v4 = [resetErrors count];
 
@@ -846,58 +845,58 @@ uint64_t __44__DSEmergencyResetController_safetyResetAll__block_invoke_405(uint6
 
       v8 = MEMORY[0x277D750F8];
       v9 = DSUILocStringForKey(@"OK");
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __59__DSEmergencyResetController_handleErrorsAndMoveToNextPane__block_invoke;
-      v30[3] = &unk_278F750A0;
-      v30[4] = self;
-      v10 = v30;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __59__DSEmergencyResetController_handleErrorsAndMoveToNextPane__block_invoke;
+      v28[3] = &unk_278F750A0;
+      v28[4] = self;
+      v10 = v28;
     }
 
     else
     {
       [(DSEmergencyResetController *)self resetErrors];
+      v29 = 0u;
+      v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      v12 = v34 = 0u;
-      v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
-      if (v13)
+      v11 = v32 = 0u;
+      v12 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      if (v12)
       {
-        v14 = v13;
-        v15 = *v32;
+        v13 = v12;
+        v14 = *v30;
         while (2)
         {
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v32 != v15)
+            if (*v30 != v14)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v11);
             }
 
-            v17 = *(*(&v31 + 1) + 8 * i);
-            if ([v17 code] == 7 || objc_msgSend(v17, "code") == 8 || objc_msgSend(v17, "code") == 6)
+            v16 = *(*(&v29 + 1) + 8 * i);
+            if ([v16 code] == 7 || objc_msgSend(v16, "code") == 8 || objc_msgSend(v16, "code") == 6)
             {
 
-              v21 = MEMORY[0x277D75110];
-              v22 = DSUILocStringForKey(@"RESET_ALL_FAILED_RESTRICTIONS_TITLE");
-              v23 = DSUILocStringForKey(@"RESET_ALL_FAILED_RESTRICTIONS");
-              v7 = [v21 alertControllerWithTitle:v22 message:v23 preferredStyle:1];
+              v20 = MEMORY[0x277D75110];
+              v21 = DSUILocStringForKey(@"RESET_ALL_FAILED_RESTRICTIONS_TITLE");
+              v22 = DSUILocStringForKey(@"RESET_ALL_FAILED_RESTRICTIONS");
+              v7 = [v20 alertControllerWithTitle:v21 message:v22 preferredStyle:1];
 
               v8 = MEMORY[0x277D750F8];
               v9 = DSUILocStringForKey(@"OK");
-              v29[0] = MEMORY[0x277D85DD0];
-              v29[1] = 3221225472;
-              v29[2] = __59__DSEmergencyResetController_handleErrorsAndMoveToNextPane__block_invoke_2;
-              v29[3] = &unk_278F750A0;
-              v29[4] = self;
-              v10 = v29;
+              v27[0] = MEMORY[0x277D85DD0];
+              v27[1] = 3221225472;
+              v27[2] = __59__DSEmergencyResetController_handleErrorsAndMoveToNextPane__block_invoke_2;
+              v27[3] = &unk_278F750A0;
+              v27[4] = self;
+              v10 = v27;
               goto LABEL_19;
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
-          if (v14)
+          v13 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          if (v13)
           {
             continue;
           }
@@ -906,37 +905,34 @@ uint64_t __44__DSEmergencyResetController_safetyResetAll__block_invoke_405(uint6
         }
       }
 
-      v18 = MEMORY[0x277D75110];
+      v17 = MEMORY[0x277D75110];
       resetErrors3 = [(DSEmergencyResetController *)self resetErrors];
       lastObject = [resetErrors3 lastObject];
-      v7 = [v18 ds_alertControllerWithStopSharingError:lastObject];
+      v7 = [v17 ds_alertControllerWithStopSharingError:lastObject];
 
       v8 = MEMORY[0x277D750F8];
       v9 = DSUILocStringForKey(@"OK");
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __59__DSEmergencyResetController_handleErrorsAndMoveToNextPane__block_invoke_3;
-      v28[3] = &unk_278F750A0;
-      v28[4] = self;
-      v10 = v28;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __59__DSEmergencyResetController_handleErrorsAndMoveToNextPane__block_invoke_3;
+      v26[3] = &unk_278F750A0;
+      v26[4] = self;
+      v10 = v26;
     }
 
 LABEL_19:
-    v24 = [v8 actionWithTitle:v9 style:1 handler:v10];
-    [v7 addAction:v24];
+    v23 = [v8 actionWithTitle:v9 style:1 handler:v10];
+    [v7 addAction:v23];
 
     [(DSEmergencyResetController *)self presentViewController:v7 animated:1 completion:0];
     resetErrors4 = [(DSEmergencyResetController *)self resetErrors];
     [resetErrors4 removeAllObjects];
-
-    v26 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     delegate = [(DSEmergencyResetController *)self delegate];
     [delegate pushNextPane];
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1129,7 +1125,7 @@ void __51__DSEmergencyResetController_resetAppDistribution___block_invoke(uint64
 
 void __54__DSEmergencyResetController_unpairContinuityDevices___block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1141,15 +1137,13 @@ void __54__DSEmergencyResetController_unpairContinuityDevices___block_invoke(uin
 
     v11 = [*(a1 + 32) resetErrors];
     v12 = MEMORY[0x277D05498];
-    v16[0] = v3;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v3;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
     v14 = [v12 errorWithCode:10 underlyingErrors:v13];
     [v11 addObject:v14];
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (DSNavigationDelegate)delegate
@@ -1161,23 +1155,23 @@ void __54__DSEmergencyResetController_unpairContinuityDevices___block_invoke(uin
 
 void __54__DSEmergencyResetController_fetchSharingPermissions___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to fetch permissions because %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to fetch permissions because %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __51__DSEmergencyResetController_resetAppDistribution___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to reset App Distribution because of error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to reset App Distribution because of error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __54__DSEmergencyResetController_unpairContinuityDevices___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to reset Continuity pairs because of error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_248C7E000, a2, a3, "Failed to reset Continuity pairs because of error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

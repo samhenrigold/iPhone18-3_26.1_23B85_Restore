@@ -11,9 +11,9 @@
     +[NSBundle(AppStoreComponents) asc_frameworkBundle];
   }
 
-  v1 = asc_frameworkBundle_appStoreComponents;
+  v2 = asc_frameworkBundle_appStoreComponents;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -75,9 +75,9 @@ LABEL_5:
 - (unint64_t)hash
 {
   getClass = [(OrgApacheLuceneIndexFilterLeafReader_CoreClosedListenerWrapper *)self getClass];
-  v6 = *&self->in_;
-  v3 = [IOSObjectArray arrayWithObjects:&getClass count:3 type:NSObject_class_()];
-  return OrgLukhnosPortmobileUtilObjects_hash__WithNSObjectArray_(v3);
+  v8 = *&self->in_;
+  v4 = [IOSObjectArray arrayWithObjects:&getClass count:3 type:NSObject_class_(getClass, v3)];
+  return OrgLukhnosPortmobileUtilObjects_hash__WithNSObjectArray_(v4, v5);
 }
 
 - (void)dealloc

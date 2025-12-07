@@ -39,7 +39,7 @@
   else
   {
     memset(&v20, 0, sizeof(v20));
-    [(PURedEyeIndicatorView *)self transform];
+    objc_msgSend_transform(self);
     CGAffineTransformScale(&v20, &v15, 3.0, 3.0);
     v10 = MEMORY[0x1E69DD250];
     v13[0] = MEMORY[0x1E69E9820];

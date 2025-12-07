@@ -1041,7 +1041,7 @@ LABEL_5:
     coordinates = [graphSeriesCoordinates coordinates];
     if (firstObject)
     {
-      [firstObject graphSeriesPointTransform];
+      objc_msgSend_graphSeriesPointTransform(firstObject);
     }
 
     else

@@ -114,7 +114,7 @@
 - (NSString)localizedSuggestionReason
 {
   v17 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_modes();
+  v3 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     activityType = self->_activityType;
@@ -138,7 +138,7 @@
 
   else
   {
-    v8 = __atxlog_handle_modes();
+    v8 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [ATXActivity localizedSuggestionReason];
@@ -155,7 +155,7 @@
   v2 = self->_origin + 1;
   if (v2 > 0x11)
   {
-    v4 = __atxlog_handle_modes();
+    v4 = __atxlog_handle_modes(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       [ATXActivity _suggestionReasonLocalizationKey];
@@ -256,13 +256,14 @@ LABEL_10:
     return @"FOCUS_SUGGESTION_REASON_Anchor_UpcomingCommuteFromWork";
   }
 
-  if ([(NSString *)*p_originAnchorType isEqualToString:@"GymArrivalAnchor"])
+  v4 = [(NSString *)*p_originAnchorType isEqualToString:@"GymArrivalAnchor"];
+  if (v4)
   {
     return @"FOCUS_SUGGESTION_REASON_Anchor_GymArrival";
   }
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v5 = __atxlog_handle_modes(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [ATXActivity _anchorSuggestionReasonLocalizationKey];
   }
@@ -276,7 +277,7 @@ LABEL_10:
   v4 = v3;
   if (!v3)
   {
-    v9 = __atxlog_handle_modes();
+    v9 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [ATXActivity _heuristicSuggestionReasonLocalizationKey];
@@ -298,7 +299,7 @@ LABEL_10:
       }
 
 LABEL_25:
-      v9 = __atxlog_handle_modes();
+      v9 = __atxlog_handle_modes(integerValue);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
         [(ATXActivity *)v6 _heuristicSuggestionReasonLocalizationKey:v9];
@@ -336,7 +337,7 @@ LABEL_42:
     }
 
 LABEL_39:
-    v19 = __atxlog_handle_modes();
+    v19 = __atxlog_handle_modes(integerValue);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       [ATXActivity _heuristicSuggestionReasonLocalizationKey];
@@ -607,11 +608,9 @@ LABEL_22:
 
 - (void)_heuristicSuggestionReasonLocalizationKey
 {
-  v5 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_10();
-  v3 = 2048;
-  v4 = v0;
-  _os_log_fault_impl(&dword_1BF549000, v1, OS_LOG_TYPE_FAULT, "Unexpected origin %ld found for DND semantic type: %ld", v2, 0x16u);
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_21(&dword_1BF549000, a2, a3, "_heuristicSuggestionReasonLocalizationKey: DNDModeSemanticType %lu not handled in switch statement", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

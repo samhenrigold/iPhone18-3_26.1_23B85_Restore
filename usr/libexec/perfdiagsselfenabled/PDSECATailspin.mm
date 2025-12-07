@@ -19,18 +19,18 @@
 
 + (BOOL)willEnableDiagnostics
 {
-  v2 = sub_10000B598();
+  v2 = sub_10000B598(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = @"PDSECATailspin";
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "PDSE: Enable HangTracer: set necessary settings with CA's Self-Enablement prefix = %@", &v6, 0xCu);
+    v7 = 138412290;
+    v8 = @"PDSECATailspin";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "PDSE: Enable HangTracer: set necessary settings with CA's Self-Enablement prefix = %@", &v7, 0xCu);
   }
 
   v3 = sub_100000F10(@"CATailspinEnable", @"PDSECATailspin");
   CFPreferencesSetValue(v3, kCFBooleanTrue, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
-  v4 = sub_10000B598();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = sub_10000B598(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10000BF68(@"CATailspinEnable", @"PDSECATailspin");
   }
@@ -42,8 +42,8 @@
 {
   v2 = sub_100000F10(@"CATailspinEnable", @"PDSECATailspin");
   CFPreferencesSetValue(v2, 0, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
-  v3 = sub_10000B598();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = sub_10000B598(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     sub_10000BFF0(@"CATailspinEnable", @"PDSECATailspin");
   }
@@ -62,7 +62,7 @@
 
   else
   {
-    v3 = sub_10000B598();
+    v3 = sub_10000B598(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10000C078(v3);

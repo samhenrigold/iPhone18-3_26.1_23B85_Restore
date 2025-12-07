@@ -96,10 +96,9 @@ void __58__ASDEphemeralRequest__callCompletionHandlerWithResponse___block_invoke
 
 void __55__ASDEphemeralRequest__failCompletionHandlerWithError___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-  v3 = +[ASDRequest _sharedBroker];
-  [(ASDRequestBroker *)v3 markRequestAsComplete:?];
+  v2 = +[ASDRequest _sharedBroker];
+  [(ASDRequestBroker *)v2 markRequestAsComplete:?];
 }
 
 - (void)_startWithCompletionHandler:(void *)result

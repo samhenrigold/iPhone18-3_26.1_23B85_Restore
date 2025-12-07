@@ -1,3 +1,463 @@
+void sub_1008575B8(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = *(*(a1 + 32) + 16);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10085769C;
+  block[3] = &unk_101661480;
+  objc_copyWeak(&v13, (a1 + 40));
+  v11 = v6;
+  v12 = v5;
+  v8 = v5;
+  v9 = v6;
+  dispatch_async(v7, block);
+
+  objc_destroyWeak(&v13);
+}
+
+void sub_10085769C(id *a1)
+{
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
+  if (WeakRetained)
+  {
+    if (a1[4])
+    {
+      v3 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      {
+        v4 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+        v5 = [NSString alloc];
+        v6 = [a1[4] localizedDescription];
+        v7 = [v5 initWithFormat:@"Received an error trying to fetch app store suggestions:, %@", v6];
+        *buf = 136315394;
+        v23 = v4;
+        v24 = 2112;
+        v25[0] = v7;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "{RBError}{%s}: %@", buf, 0x16u);
+      }
+    }
+
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v9 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+      v10 = [[NSString alloc] initWithFormat:@"App Store suggestions: %@", a1[5]];
+      *buf = 136315394;
+      v23 = v9;
+      v24 = 2112;
+      v25[0] = v10;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+    }
+
+    WeakRetained[8] = 0;
+    v11 = [a1[5] notInstalledSuggestions];
+    if (v11)
+    {
+      v12 = [a1[5] notInstalledSuggestions];
+      v13 = [v12 mutableCopy];
+      v14 = *(WeakRetained + 9);
+      *(WeakRetained + 9) = v13;
+    }
+
+    else
+    {
+      v16 = +[NSMutableArray array];
+      v12 = *(WeakRetained + 9);
+      *(WeakRetained + 9) = v16;
+    }
+
+    v17 = [a1[5] installedSuggestions];
+    if (v17)
+    {
+      v18 = [a1[5] installedSuggestions];
+      v19 = [v18 mutableCopy];
+      v20 = *(WeakRetained + 10);
+      *(WeakRetained + 10) = v19;
+    }
+
+    else
+    {
+      v21 = +[NSMutableArray array];
+      v18 = *(WeakRetained + 10);
+      *(WeakRetained + 10) = v21;
+    }
+
+    [WeakRetained _broadcastRideOptionStateDidChange];
+  }
+
+  else
+  {
+    v15 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      v23 = "RideBookingDataCoordinator.m";
+      v24 = 1026;
+      LODWORD(v25[0]) = 322;
+      WORD2(v25[0]) = 2082;
+      *(v25 + 6) = "[RideBookingDataCoordinator updateRideOptionStateForOrigin:destination:]_block_invoke_2";
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
+    }
+  }
+}
+
+void sub_100857BA4(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
+  if (WeakRetained)
+  {
+    [WeakRetained[8] removeObject:*(a1 + 32)];
+    v4 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      v5 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+      v6 = [[NSString alloc] initWithFormat:@"Removed observer: %@", *(a1 + 32)];
+      *buf = 136315394;
+      v12 = v5;
+      v13 = 2112;
+      v14[0] = v6;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+    }
+
+    if (![v3[8] count])
+    {
+      v7 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      {
+        v8 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+        v9 = [[NSString alloc] initWithFormat:@"Stopping ride options timer because the observers count is now zero"];
+        *buf = 136315394;
+        v12 = v8;
+        v13 = 2112;
+        v14[0] = v9;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+      }
+
+      [v3 _stopRefreshRideOptionsTimer];
+    }
+  }
+
+  else
+  {
+    v10 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      v12 = "RideBookingDataCoordinator.m";
+      v13 = 1026;
+      LODWORD(v14[0]) = 256;
+      WORD2(v14[0]) = 2082;
+      *(v14 + 6) = "[RideBookingDataCoordinator removeRideBookingDataCoordinatorRideOptionStateObserver:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
+    }
+  }
+}
+
+void sub_100857FE0(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
+  if (!WeakRetained)
+  {
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      v18 = "RideBookingDataCoordinator.m";
+      v19 = 1026;
+      LODWORD(v20[0]) = 231;
+      WORD2(v20[0]) = 2082;
+      *(v20 + 6) = "[RideBookingDataCoordinator addRideBookingDataCoordinatorRideOptionStateObserver:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
+    }
+
+    v7 = v8;
+    goto LABEL_19;
+  }
+
+  [WeakRetained[8] addObject:*(a1 + 32)];
+  v4 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  {
+    v5 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+    v6 = [[NSString alloc] initWithFormat:@"Added RideOption observer: %@", *(a1 + 32)];
+    *buf = 136315394;
+    v18 = v5;
+    v19 = 2112;
+    v20[0] = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+  }
+
+  if ([v3[3] readyToLoadApps] && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    v7 = [v3[11] copy];
+    if (v3[1])
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = [v3[9] copy];
+      if ((v3[1] & 1) == 0)
+      {
+        v9 = [v3[10] copy];
+        goto LABEL_14;
+      }
+    }
+
+    v9 = 0;
+LABEL_14:
+    v10 = [RideBookingRideOptionState stateWithRideOptionStatusMap:v7 appStoreSuggestions:v8 installedSuggestions:v9];
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v12 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+      v13 = [[NSString alloc] initWithFormat:@"appStoreSuggestions:%@ installedSuggestions:%@", v8, v9];
+      *buf = 136315394;
+      v18 = v12;
+      v19 = 2112;
+      v20[0] = v13;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+    }
+
+    v14 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v15 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+      v16 = [[NSString alloc] initWithFormat:@"Notifying observer %@ of ride option state change %@", *(a1 + 32), v10];
+      *buf = 136315394;
+      v18 = v15;
+      v19 = 2112;
+      v20[0] = v16;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+    }
+
+    [*(a1 + 32) rideOptionStateDidChange:v10];
+LABEL_19:
+  }
+}
+
+void sub_100858558(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  if (WeakRetained)
+  {
+    v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
+    v53 = a1;
+    obj = *(a1 + 32);
+    v3 = [obj countByEnumeratingWithState:&v61 objects:v66 count:16];
+    if (!v3)
+    {
+      goto LABEL_26;
+    }
+
+    v4 = v3;
+    v5 = *v62;
+    while (1)
+    {
+      for (i = 0; i != v4; i = i + 1)
+      {
+        if (*v62 != v5)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v7 = *(*(&v61 + 1) + 8 * i);
+        v8 = [v7 identifier];
+        if (!v8)
+        {
+          goto LABEL_15;
+        }
+
+        v9 = v8;
+        v10 = *(WeakRetained + 4);
+        v11 = [v7 identifier];
+        v12 = [v10 objectForKeyedSubscript:v11];
+
+        if (!v12)
+        {
+          goto LABEL_15;
+        }
+
+        v13 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        {
+          v14 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+          v15 = [NSString alloc];
+          v16 = [v7 identifier];
+          v17 = [v15 initWithFormat:@"Already have application %@. Skipping it.", v16];
+          *buf = 136315394;
+          v68 = v14;
+          v69 = 2112;
+          *v70 = v17;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+        }
+
+        v18 = [v7 identifier];
+        v19 = isExtensionHidden();
+
+        if (v19)
+        {
+          v20 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          {
+            v21 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+            v22 = [NSString alloc];
+            v23 = [v7 identifier];
+            v24 = [v22 initWithFormat:@"Application %@ is hidden. Skipping it.", v23];
+            *buf = 136315394;
+            v68 = v21;
+            v69 = 2112;
+            *v70 = v24;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+          }
+
+LABEL_15:
+          [v7 setDelegate:WeakRetained];
+          v25 = *(WeakRetained + 4);
+          v26 = [v7 identifier];
+          [v25 setObject:v7 forKey:v26];
+
+          v27 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          {
+            v28 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+            v29 = [[NSString alloc] initWithFormat:@"Origin is %@", *(WeakRetained + 5)];
+            *buf = 136315394;
+            v68 = v28;
+            v69 = 2112;
+            *v70 = v29;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+          }
+
+          v30 = *(WeakRetained + 5);
+          if (v30)
+          {
+            [WeakRetained _updateRideOptionStatusMapForOrigin:v30 destination:*(WeakRetained + 6) application:v7];
+          }
+
+          v31 = *(WeakRetained + 9);
+          v60[0] = _NSConcreteStackBlock;
+          v60[1] = 3221225472;
+          v60[2] = sub_100858D18;
+          v60[3] = &unk_10162BB78;
+          v60[4] = v7;
+          v32 = [NSPredicate predicateWithBlock:v60];
+          v33 = [v31 filteredArrayUsingPredicate:v32];
+
+          if ([v33 count])
+          {
+            v34 = GEOFindOrCreateLog();
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+            {
+              v35 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+              v36 = [[NSString alloc] initWithFormat:@"There are some old suggestions %@", v33];
+              *buf = 136315394;
+              v68 = v35;
+              v69 = 2112;
+              *v70 = v36;
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+            }
+
+            [*(WeakRetained + 9) removeObjectsInArray:v33];
+          }
+
+          continue;
+        }
+      }
+
+      v4 = [obj countByEnumeratingWithState:&v61 objects:v66 count:16];
+      if (!v4)
+      {
+LABEL_26:
+
+        v37 = sub_100021DB0(*(v53 + 32), &stru_10162BBB8);
+        v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
+        v38 = [*(WeakRetained + 4) allKeys];
+        v39 = [v38 countByEnumeratingWithState:&v56 objects:v65 count:16];
+        if (v39)
+        {
+          v40 = v39;
+          v41 = *v57;
+          v42 = DefaultLoggingSubsystem;
+          v54 = WeakRetained;
+          do
+          {
+            for (j = 0; j != v40; j = j + 1)
+            {
+              if (*v57 != v41)
+              {
+                objc_enumerationMutation(v38);
+              }
+
+              v44 = *(*(&v56 + 1) + 8 * j);
+              if (([v37 containsObject:v44]& 1) == 0)
+              {
+                v45 = GEOFindOrCreateLog();
+                if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+                {
+                  v46 = v40;
+                  v47 = v41;
+                  v48 = v37;
+                  v49 = v42;
+                  v50 = v38;
+                  v51 = basename("/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Ride Booking/RideBookingDataCoordinator.m");
+                  v52 = [[NSString alloc] initWithFormat:@"App Uninstalled: %@", v44];
+                  *buf = 136315394;
+                  v68 = v51;
+                  v38 = v50;
+                  v42 = v49;
+                  v37 = v48;
+                  v41 = v47;
+                  v40 = v46;
+                  WeakRetained = v54;
+                  v69 = 2112;
+                  *v70 = v52;
+                  _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "{RBInfo}{%s}: %@", buf, 0x16u);
+                }
+
+                [*(WeakRetained + 4) removeObjectForKey:v44];
+                [*(WeakRetained + 11) removeObjectForKey:v44];
+              }
+            }
+
+            v40 = [v38 countByEnumeratingWithState:&v56 objects:v65 count:16];
+          }
+
+          while (v40);
+        }
+
+        [WeakRetained _broadcastRideOptionStateDidChange];
+        goto LABEL_41;
+      }
+    }
+  }
+
+  v37 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136446722;
+    v68 = "RideBookingDataCoordinator.m";
+    v69 = 1026;
+    *v70 = 174;
+    *&v70[4] = 2082;
+    *&v70[6] = "[RideBookingDataCoordinator rideBookingApplicationsDidChange:]_block_invoke";
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
+  }
+
+LABEL_41:
+}
+
 id sub_100858D18(uint64_t a1, void *a2)
 {
   v3 = [a2 iOSBundleIdentifier];
@@ -375,11 +835,11 @@ void sub_10085D928(uint64_t a1, void *a2)
   }
 }
 
-void sub_10085DD48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10085DD48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 48), 8);
+  _Block_object_dispose((v13 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -405,9 +865,9 @@ id sub_10085DD6C(uint64_t a1, uint64_t a2, void *a3)
   return result;
 }
 
-void sub_10085DE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10085DE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -433,9 +893,9 @@ void sub_10085E16C(uint64_t a1, void *a2)
   }
 }
 
-void sub_10085E56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10085E56C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -461,9 +921,9 @@ void sub_10085E7C0(uint64_t a1)
   [WeakRetained _setDesiredIdleTimerState:*(a1 + 40) forReason:*(a1 + 48)];
 }
 
-void sub_10085EA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10085EA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -516,9 +976,9 @@ BOOL sub_10085FACC(id a1, SearchFieldItem *a2, unint64_t a3, BOOL *a4)
   return v7 ^ 1;
 }
 
-void sub_10085FC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10085FC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -535,9 +995,9 @@ void sub_10085FC7C(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_10085FFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10085FFC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -925,6 +1385,13 @@ void sub_100865628(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _dismiss];
+}
+
+void sub_1008680A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1008680CC(uint64_t a1, double a2, double a3, double a4, double a5)
@@ -1355,7 +1822,7 @@ uint64_t sub_10086CE24(uint64_t a1)
   }
 }
 
-uint64_t sub_10086CE48(uint64_t result)
+uint64_t sub_10086CE48(uint64_t result, uint64_t a2)
 {
   if (*(result + 32) == 1)
   {
@@ -1889,12 +2356,12 @@ BOOL sub_100871938(id a1, OfflineMapsSuggestionModelData *a2)
   return v2 ^ 1;
 }
 
-void sub_100871FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100871FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  objc_destroyWeak((v14 + 48));
+  va_start(va, a21);
+  objc_destroyWeak((v21 + 48));
   objc_destroyWeak(va);
-  objc_destroyWeak((v15 - 176));
+  objc_destroyWeak((v22 - 176));
   _Unwind_Resume(a1);
 }
 
@@ -3459,9 +3926,9 @@ id sub_10088A4A4(void *a1, uint64_t a2)
   return v4;
 }
 
-void sub_10088A5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10088A5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3473,7 +3940,7 @@ uint64_t sub_10088A5E8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_10088A600(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void sub_10088A600(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = sub_10088A4A4(a2, *(a1 + 40));
   v7 = *(*(a1 + 32) + 8);
@@ -4573,13 +5040,14 @@ void sub_100897428(uint64_t a1)
   [v1 postNotificationName:@"MapsExternalDeviceRepeatNavigationInstructionNotification" object:WeakRetained userInfo:0];
 }
 
-void sub_100897AF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location, char a32)
+void sub_100897AF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location, ...)
 {
-  objc_destroyWeak((v32 + 64));
+  va_start(va, location);
+  objc_destroyWeak((v31 + 64));
   objc_destroyWeak(&a30);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v33 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6097,7 +6565,7 @@ void sub_1008B9AB8(uint64_t a1, void *a2)
   v12 = 0u;
   v13 = 0u;
   v11 = 0u;
-  +[StartNavigationDetailsBuilder defaultNavigationDetailsOptions];
+  objc_msgSend_defaultNavigationDetailsOptions(StartNavigationDetailsBuilder);
   if ([*(a1 + 40) originIsWatch])
   {
     v6 = +[CarDisplayController sharedInstance];
@@ -7529,9 +7997,9 @@ NSString *__cdecl sub_1008C32B8(id a1, VGVehicle *a2, unint64_t a3)
   return v19;
 }
 
-void sub_1008C3B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1008C3B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8484,370 +8952,4 @@ LABEL_18:
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Cancelled image download for collection: %@", buf, 0xCu);
     }
   }
-}
-
-void sub_1008D033C(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  v2 = [*(a1 + 32) collectionImageView];
-  [v2 setImage:v1];
-}
-
-void sub_1008D038C(uint64_t a1)
-{
-  v2 = sub_1007982D8();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-  {
-    v3 = [*(a1 + 32) viewModel];
-    v4 = [v3 collectionTitle];
-    v5 = [v4 string];
-    v6 = +[NSDate date];
-    [v6 timeIntervalSinceDate:*(a1 + 40)];
-    v8 = 138412546;
-    v9 = v5;
-    v10 = 2048;
-    v11 = v7;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "[⌛]Finished showing header image for : %@ in %f", &v8, 0x16u);
-  }
-}
-
-id sub_1008D0BB0(uint64_t a1)
-{
-  v1 = 1.0;
-  if (*(a1 + 40) > 0.05)
-  {
-    v1 = 0.0;
-  }
-
-  return [*(*(a1 + 32) + 160) setAlpha:v1];
-}
-
-void sub_1008D1838(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
-{
-  objc_destroyWeak((v21 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1008D1860(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_1008D1B3C;
-  block[3] = &unk_101661480;
-  objc_copyWeak(&v8, (a1 + 40));
-  v6 = v3;
-  v7 = *(a1 + 32);
-  v4 = v3;
-  dispatch_async(&_dispatch_main_q, block);
-
-  objc_destroyWeak(&v8);
-}
-
-void sub_1008D192C(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  if (v9)
-  {
-    v10 = *(a1 + 40);
-    v11 = [Result resultWithError:v9];
-    (*(v10 + 16))(v10, v11);
-  }
-
-  else
-  {
-    if (v7)
-    {
-      v12 = v7;
-    }
-
-    else
-    {
-      v12 = v8;
-    }
-
-    if (v12)
-    {
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_1008D1AB0;
-      v16[3] = &unk_101657E40;
-      v13 = *(a1 + 32);
-      v17 = *(a1 + 40);
-      [UGCNearbyPhotosAvailibility numberOfPhotosTakenForMapItem:v13 lastVisitedDate:v12 completion:v16];
-
-      goto LABEL_9;
-    }
-
-    v11 = [NSError errorWithDomain:@"HomePhotoLookupDataProviderErrorDomain" code:2 userInfo:0];
-    v14 = *(a1 + 40);
-    v15 = [Result resultWithError:v11];
-    (*(v14 + 16))(v14, v15);
-  }
-
-LABEL_9:
-}
-
-void sub_1008D1AB0(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 32);
-  v4 = [NSNumber numberWithInt:a2 != 0];
-  v3 = [Result resultWithValue:v4];
-  (*(v2 + 16))(v2, v3);
-}
-
-void sub_1008D1B3C(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
-  [WeakRetained _setResult:*(a1 + 32) forEntry:*(a1 + 40)];
-}
-
-void sub_1008D1B8C(uint64_t a1, void *a2, void *a3)
-{
-  v7 = a2;
-  v5 = a3;
-  if (([*(*(a1 + 32) + 16) containsObject:v7] & 1) == 0)
-  {
-    v6 = [*(*(a1 + 32) + 24) valueForKey:v7];
-
-    if (!v6)
-    {
-      [*(a1 + 32) _startLookupForEntry:v5];
-    }
-  }
-}
-
-id sub_1008D1E68(uint64_t a1, void *a2)
-{
-  result = [a2 BOOLValue];
-  v4 = 1;
-  if (!result)
-  {
-    v4 = 2;
-  }
-
-  *(*(*(a1 + 32) + 8) + 24) = v4;
-  return result;
-}
-
-void sub_1008D2CDC(uint64_t a1)
-{
-  v3 = [*(a1 + 32) cardPresentationController];
-  [v3 cardHeight];
-  *(*(a1 + 32) + 152) = v2;
-}
-
-void sub_1008D2E6C(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v13 = WeakRetained;
-    v2 = [WeakRetained loadingView];
-    if (!v2)
-    {
-      v3 = [v13 apiController];
-      v4 = [v3 currentState];
-
-      WeakRetained = v13;
-      if (v4 != 1)
-      {
-        goto LABEL_6;
-      }
-
-      v5 = [LoadingModeView alloc];
-      v6 = +[NSBundle mainBundle];
-      v7 = [v6 localizedStringForKey:@"Loading ..." value:@"localized string not found" table:0];
-      v8 = [(LoadingModeView *)v5 initWithTitle:v7];
-      [v13 setLoadingView:v8];
-
-      v9 = [v13 loadingView];
-      [v9 setTranslatesAutoresizingMaskIntoConstraints:0];
-
-      v10 = [v13 contentView];
-      v11 = [v13 loadingView];
-      [v10 addSubview:v11];
-
-      v2 = [v13 loadingView];
-      v12 = [v13 titleHeaderView];
-      [v13 activateConstraintsForViewPinnedBelowHeader:v2 headerView:v12];
-    }
-
-    WeakRetained = v13;
-  }
-
-LABEL_6:
-}
-
-void sub_1008D36A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-id sub_1008D36CC(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = [WeakRetained dataSource];
-  v8 = [v7 sectionAtIndex:a2];
-
-  v9 = [v8 sectionTitle];
-
-  if (!v8 || ([v8 configuration], v33, !v34))
-  {
-    v17 = objc_loadWeakRetained((a1 + 32));
-    v18 = [v17 dataSource];
-    v13 = [v18 featuredGuideViewModel];
-
-    v19 = objc_loadWeakRetained((a1 + 32));
-    v20 = *(a1 + 40);
-    v21 = [v13 collectionLongTitle];
-    if (v21)
-    {
-      v16 = [v8 layoutSectionForFeaturedGuideUsingTraitsEnvironment:v19 usingWidth:v21 featuredGuideTitle:v20];
-    }
-
-    else
-    {
-      v22 = [v13 collectionTitle];
-      v16 = [v8 layoutSectionForFeaturedGuideUsingTraitsEnvironment:v19 usingWidth:v22 featuredGuideTitle:v20];
-    }
-
-    goto LABEL_10;
-  }
-
-  [v8 configuration];
-
-  if (v32 == 1)
-  {
-    v10 = v9 != 0;
-    v11 = objc_loadWeakRetained((a1 + 32));
-    v12 = [v11 dataSource];
-    v13 = [v12 filterViewModels];
-
-    v14 = objc_loadWeakRetained((a1 + 32));
-    v15 = [v8 layoutForFilterSectionUsingViewModels:v13 traitsEnvironment:v14 width:v10 shouldAddSupplementaryHeaderView:*(a1 + 40)];
-LABEL_5:
-    v16 = v15;
-
-    goto LABEL_10;
-  }
-
-  [v8 configuration];
-
-  if (v30 == 4)
-  {
-    v13 = objc_loadWeakRetained((a1 + 32));
-    v24 = [v13 dataSource];
-    v16 = [v8 layoutForCollectionsListSectionUsingLayoutEnvironment:v5 shouldAddSupplementaryHeaderView:v9 != 0 objectsCount:{objc_msgSend(v24, "guidesListCountAtIndex:", a2)}];
-  }
-
-  else
-  {
-    [v8 configuration];
-
-    v25 = objc_loadWeakRetained((a1 + 32));
-    v13 = v25;
-    if (v28 == 5)
-    {
-      v26 = v9 != 0;
-      v14 = [v25 dataSource];
-      v15 = [v8 layoutForPublishersListSectionUsingLayoutEnvironment:v5 shouldAddSupplementaryHeaderView:v26 objectsCount:{objc_msgSend(v14, "publishersListCountAtIndex:", a2)}];
-      goto LABEL_5;
-    }
-
-    v16 = [v8 layoutForSectionUsingTraitsEnvironment:v25 usingWidth:v9 != 0 shouldAddSupplementaryHeaderView:*(a1 + 40)];
-  }
-
-LABEL_10:
-
-  return v16;
-}
-
-void sub_1008D3D40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1008D3D5C(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v1 = [WeakRetained collectionView];
-  [v1 setAlpha:1.0];
-}
-
-id sub_1008D6784(uint64_t a1, void *a2)
-{
-  v3 = [a2 mutableCopy];
-  v4 = +[UIFont system28Bold];
-  [v3 setObject:v4 forKeyedSubscript:NSFontAttributeName];
-
-  v5 = [*(a1 + 32) apiController];
-  if ([v5 isCuratedGuidesHome])
-  {
-    +[UIColor whiteColor];
-  }
-
-  else
-  {
-    +[UIColor labelColor];
-  }
-  v6 = ;
-  [v3 setObject:v6 forKeyedSubscript:NSForegroundColorAttributeName];
-
-  v7 = [v3 copy];
-
-  return v7;
-}
-
-id sub_1008D6B88()
-{
-  if (qword_10195DC88 != -1)
-  {
-    dispatch_once(&qword_10195DC88, &stru_10162DB50);
-  }
-
-  v1 = qword_10195DC80;
-
-  return v1;
-}
-
-void sub_1008D6BDC(id a1)
-{
-  v1 = os_log_create("com.apple.Maps", "GuidesHomeViewController");
-  v2 = qword_10195DC80;
-  qword_10195DC80 = v1;
-}
-
-void sub_1008D6EE0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v3 - 56));
-  _Unwind_Resume(a1);
-}
-
-void sub_1008D6F04(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained collectionView];
-  [v3 setAlpha:0.0];
-
-  v5 = objc_loadWeakRetained((a1 + 32));
-  v4 = [v5 citySelectionView];
-  [v4 setAlpha:0.0];
-}
-
-void sub_1008D6F94(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v1 = [WeakRetained apiController];
-  [v1 fetchGuidesHomeViewFilteredBy:0 onCompletion:&stru_10162DB08];
 }

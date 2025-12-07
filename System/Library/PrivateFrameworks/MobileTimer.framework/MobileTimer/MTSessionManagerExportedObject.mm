@@ -26,7 +26,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -38,21 +38,20 @@
   defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
   [defaultCenter removeObserver:self name:@"com.apple.MTSessionServer.ready" object:0];
 
-  v6.receiver = self;
-  v6.super_class = MTSessionManagerExportedObject;
-  [(MTSessionManagerExportedObject *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MTSessionManagerExportedObject;
+  [(MTSessionManagerExportedObject *)&v5 dealloc];
 }
 
 - (void)_didReceiveSessionServerReadyNotification:(id)notification
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     sessionManager = [(MTSessionManagerExportedObject *)self sessionManager];
     *buf = 138543362;
-    v9 = sessionManager;
+    v8 = sessionManager;
     _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ received MTSessionServerReadyNotification", buf, 0xCu);
   }
 
@@ -62,7 +61,6 @@
   block[3] = &unk_1E7B0C9D8;
   block[4] = self;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __76__MTSessionManagerExportedObject__didReceiveSessionServerReadyNotification___block_invoke(uint64_t a1)

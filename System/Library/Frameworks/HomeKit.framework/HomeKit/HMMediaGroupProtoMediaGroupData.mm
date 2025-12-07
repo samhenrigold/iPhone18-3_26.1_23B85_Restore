@@ -14,7 +14,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 4))
   {
@@ -31,29 +31,29 @@
     [(HMMediaGroupProtoMediaGroupData *)self setParentIdentifier:?];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = *(fromCopy + 2);
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HMMediaGroupProtoMediaGroupData *)self addDestinationIdentifiers:*(*(&v13 + 1) + 8 * i), v13];
+        [(HMMediaGroupProtoMediaGroupData *)self addDestinationIdentifiers:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -84,8 +84,6 @@
     self->_isDefaultName = *(fromCopy + 56);
     *&self->_has |= 1u;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -204,7 +202,7 @@ LABEL_17:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_identifier copyWithZone:zone];
   v7 = *(v5 + 32);
@@ -218,34 +216,34 @@ LABEL_17:
   v11 = *(v5 + 48);
   *(v5 + 48) = v10;
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v12 = self->_destinationIdentifiers;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       v16 = 0;
       do
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v24 + 1) + 8 * v16) copyWithZone:{zone, v24}];
+        v17 = [*(*(&v23 + 1) + 8 * v16) copyWithZone:{zone, v23}];
         [v5 addDestinationIdentifiers:v17];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
@@ -265,7 +263,6 @@ LABEL_17:
     *(v5 + 60) |= 1u;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -323,7 +320,7 @@ LABEL_17:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_identifier)
   {
@@ -340,33 +337,32 @@ LABEL_17:
     PBDataWriterWriteStringField();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_destinationIdentifiers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -384,11 +380,8 @@ LABEL_17:
 
   if (*&self->_has)
   {
-    isDefaultName = self->_isDefaultName;
     PBDataWriterWriteBOOLField();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation

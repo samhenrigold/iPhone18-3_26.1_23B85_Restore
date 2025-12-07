@@ -10,24 +10,32 @@
 - (BOOL)driverDoesNotRecommendTd:(unint64_t)td;
 - (WiFiUsagePoorLinkSession)initWithInterfaceName:(id)name andCapabilities:(id)capabilities onQueue:(id)queue;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)eventDictionary:(BOOL)dictionary;
 - (void)dealloc;
 - (void)faultEventDetected:(unint64_t)detected event:(id)event;
 - (void)initializeTimer;
 - (void)joinStateDidChange:(id)change withReason:(unint64_t)reason lastDisconnectReason:(int64_t)disconnectReason lastJoinFailure:(int64_t)failure andNetworkDetails:(id)details;
 - (void)linkQualityDidChange:(id)change;
+- (void)linkStateDidChange:(BOOL)change isInvoluntary:(BOOL)involuntary linkChangeReason:(int64_t)reason linkChangeSubreason:(int64_t)subreason withNetworkDetails:(id)details;
 - (void)logUserImpactTimes;
 - (void)resetRxFrameImpact;
 - (void)roamingStateDidChange:(BOOL)change reason:(unint64_t)reason andStatus:(unint64_t)status andLatency:(unint64_t)latency andRoamData:(id)data andPingPongStats:(id)stats;
 - (void)sessionDidEnd:(int)end;
+- (void)sessionDidStart:(int)start;
 - (void)setLast_DecisionState:(id *)state;
 - (void)setLast_FastTdVotes:(id *)votes;
+- (void)startTimerWithTimeout:(unint64_t)timeout reason:(int)reason;
 - (void)stopTimer;
 - (void)summarizeSession;
 - (void)suspendTimer;
+- (void)tdLogic_alertedBy:(int)by;
 - (void)tdLogic_badRssi:(int64_t)rssi goodRSSI:(int64_t)goodLinkRssi;
 - (void)tdLogic_decisionState:(id *)state;
 - (void)tdLogic_deferJoin:(unint64_t)join perBSSID:(unint64_t)perBSSID_deferJoin;
+- (void)tdLogic_end:(int)logic_end evalTime:(double)time rssi:(int64_t)rssi roamTime:(double)roamTime;
+- (void)tdLogic_execState:(id)state;
 - (void)tdLogic_fastTdState:(id *)state;
+- (void)triggerDisconnectAlerted:(BOOL)alerted confirmed:(BOOL)confirmed executed:(BOOL)executed;
 - (void)updateRxFrameImpactWith:(id)with;
 - (void)updateWithScores:(id)scores;
 @end
@@ -398,6 +406,114 @@ LABEL_74:
   }
 }
 
+- (void)linkStateDidChange:(BOOL)change isInvoluntary:(BOOL)involuntary linkChangeReason:(int64_t)reason linkChangeSubreason:(int64_t)subreason withNetworkDetails:(id)details
+{
+  involuntaryCopy = involuntary;
+  changeCopy = change;
+  detailsCopy = details;
+  linkIsUp = self->_linkIsUp;
+  v14 = !changeCopy && linkIsUp;
+  self->_linkIsUp = changeCopy;
+  v31.receiver = self;
+  v31.super_class = WiFiUsagePoorLinkSession;
+  [(WiFiUsageSession *)&v31 linkStateDidChange:changeCopy isInvoluntary:involuntaryCopy linkChangeReason:reason linkChangeSubreason:subreason withNetworkDetails:detailsCopy];
+  if ([(WiFiUsageSession *)self isSessionActive]&& v14 && !self->_lastLinkDownAt)
+  {
+    v29 = [MEMORY[0x277CBEAA8] now];
+    lastLinkDownAt = self->_lastLinkDownAt;
+    self->_lastLinkDownAt = v29;
+  }
+
+  else if (!v14)
+  {
+    goto LABEL_6;
+  }
+
+  networkName = [detailsCopy networkName];
+  ssidAtLinkDown = self->_ssidAtLinkDown;
+  self->_ssidAtLinkDown = networkName;
+
+LABEL_6:
+  self->_assertiveTdDisabled = [detailsCopy assertiveTdDisabled];
+  isSessionActive = [(WiFiUsageSession *)self isSessionActive];
+  v18 = reason == 1000 && !changeCopy && linkIsUp;
+  if (isSessionActive && v18 && self->_timerReason == 3)
+  {
+    if (self->_perSSID_deferJoin <= self->_perBSSID_deferJoin)
+    {
+      perBSSID_deferJoin = self->_perBSSID_deferJoin;
+    }
+
+    else
+    {
+      perBSSID_deferJoin = self->_perSSID_deferJoin;
+    }
+
+    [(WiFiUsagePoorLinkSession *)self setRtAppAtSessionEnd:self->_lastIsTimeSensitiveAppRunning];
+    [(WiFiUsagePoorLinkSession *)self setFgAppAtSessionEnd:self->_lastIsAnyAppinFG];
+    [(WiFiUsagePoorLinkSession *)self setCellularFallbackEnabledAtLinkDown:self->_cellularFallbackEnabled];
+    [(WiFiUsagePoorLinkSession *)self startTimerWithTimeout:perBSSID_deferJoin + 30 reason:1];
+  }
+
+  isSessionActive2 = [(WiFiUsageSession *)self isSessionActive];
+  v21 = reason != 1000 && !changeCopy && linkIsUp;
+  if (isSessionActive2 && v21 && self->_timerReason == 3)
+  {
+    [(WiFiUsagePoorLinkSession *)self setRtAppAtSessionEnd:self->_lastIsTimeSensitiveAppRunning];
+    [(WiFiUsagePoorLinkSession *)self setFgAppAtSessionEnd:self->_lastIsAnyAppinFG];
+    [(WiFiUsagePoorLinkSession *)self setCellularFallbackEnabledAtLinkDown:self->_cellularFallbackEnabled];
+    [(WiFiUsagePoorLinkSession *)self startTimerWithTimeout:90 reason:2];
+  }
+
+  if ([(WiFiUsageSession *)self isSessionActive])
+  {
+    if (changeCopy && !linkIsUp && (self->_timerReason - 1) <= 1)
+    {
+      [(WiFiUsagePoorLinkSession *)self suspendTimer];
+      self->_toBeClosedAfterLQM = 1;
+      connectedBss = [detailsCopy connectedBss];
+      bssid = [connectedBss bssid];
+      v24 = [bssid isEqualToString:self->_bssidAtTD];
+
+      if (v24)
+      {
+        if (self->_lastLinkDownAt)
+        {
+          v25 = [MEMORY[0x277CBEAA8] now];
+          [v25 timeIntervalSinceDate:self->_lastLinkDownAt];
+          v27 = v26;
+
+          [(WiFiUsagePoorLinkSession *)self setNextLinkUpIsSameBSSID:1];
+          if (v27 != 9.22337204e18)
+          {
+            v28 = v27 < self->_perBSSID_deferJoin;
+LABEL_33:
+            [(WiFiUsagePoorLinkSession *)self setNextJoinWhileDeferJoin:v28];
+            goto LABEL_34;
+          }
+        }
+
+        else
+        {
+          [(WiFiUsagePoorLinkSession *)self setNextLinkUpIsSameBSSID:1];
+        }
+
+        v28 = 0;
+        goto LABEL_33;
+      }
+    }
+  }
+
+LABEL_34:
+  if ([(WiFiUsageSession *)self isSessionActive]&& !self->_timerReason)
+  {
+    self->_timerReason = 3;
+    [(WiFiUsagePoorLinkSession *)self suspendTimer];
+    NSLog(&cfstr_SLinkChangedWh.isa, "[WiFiUsagePoorLinkSession linkStateDidChange:isInvoluntary:linkChangeReason:linkChangeSubreason:withNetworkDetails:]");
+    [(WiFiUsagePoorLinkSession *)self sessionDidEnd:5];
+  }
+}
+
 - (void)joinStateDidChange:(id)change withReason:(unint64_t)reason lastDisconnectReason:(int64_t)disconnectReason lastJoinFailure:(int64_t)failure andNetworkDetails:(id)details
 {
   changeCopy = change;
@@ -493,6 +609,106 @@ LABEL_20:
   v13.receiver = self;
   v13.super_class = WiFiUsagePoorLinkSession;
   [WiFiUsageSession roamingStateDidChange:sel_roamingStateDidChange_reason_andStatus_andLatency_andRoamData_andPingPongStats_ reason:? andStatus:? andLatency:? andRoamData:? andPingPongStats:?];
+}
+
+- (void)triggerDisconnectAlerted:(BOOL)alerted confirmed:(BOOL)confirmed executed:(BOOL)executed
+{
+  if (self->_timerReason == 3 && !self->_toBeClosedAfterLQM)
+  {
+    executedCopy = executed;
+    confirmedCopy = confirmed;
+    alertedCopy = alerted;
+    v9 = [MEMORY[0x277CBEAA8] now];
+    if (alertedCopy && (!self->_alerted || self->_lastTdEval_EndedBy))
+    {
+      if ([(WiFiUsageSession *)self isSessionActive])
+      {
+        if (!self->_timerReason)
+        {
+          self->_timerReason = 3;
+          [(WiFiUsagePoorLinkSession *)self suspendTimer];
+          NSLog(&cfstr_SBadlinkSessio_7.isa, "[WiFiUsagePoorLinkSession triggerDisconnectAlerted:confirmed:executed:]");
+        }
+      }
+
+      else
+      {
+        NSLog(&cfstr_SBadlinkSessio_6.isa, "[WiFiUsagePoorLinkSession triggerDisconnectAlerted:confirmed:executed:]");
+        [(WiFiUsagePoorLinkSession *)self sessionDidStart:4];
+      }
+
+      self->_alerted = 1;
+      self->_tdConfirmed = 0;
+      self->_tdExecuted = 0;
+      lastTdEval_EndedBy = self->_lastTdEval_EndedBy;
+      self->_lastTdEval_EndedBy = 0;
+
+      [(WiFiUsagePoorLinkSession *)self setLastTDEval_AlertedAt:v9];
+    }
+
+    if (confirmedCopy && !self->_tdConfirmed)
+    {
+      [(WiFiUsagePoorLinkSession *)self setTdConfirmed:1];
+      [(WiFiUsagePoorLinkSession *)self setLastTDEval_ConfirmedAt:v9];
+      if (!self->_isFirstTDConfirmed)
+      {
+        self->_isFirstTDConfirmed = 1;
+        [(WiFiUsagePoorLinkSession *)self setRtAppAtFirstTDConfirmed:self->_lastIsTimeSensitiveAppRunning];
+        [(WiFiUsagePoorLinkSession *)self setFgAppAtFirstTDConfirmed:self->_lastIsAnyAppinFG];
+      }
+    }
+
+    v11 = &stru_28487EF20;
+    if (executedCopy)
+    {
+      if (!self->_tdExecuted)
+      {
+        self->_tdExecuted = 1;
+        [(WiFiUsagePoorLinkSession *)self setLastTDEval_ExecutedAt:v9];
+        networkDetails = [(WiFiUsageSession *)self networkDetails];
+        connectedBss = [networkDetails connectedBss];
+        bssid = [connectedBss bssid];
+        bssidAtTD = self->_bssidAtTD;
+        self->_bssidAtTD = bssid;
+
+        v16 = [(WiFiUsagePoorLinkSession *)self eventDictionary:0];
+        v17 = [(WiFiSoftError *)self->_tdSoftError updateHUDWithHost:@"triggerDisc" messageDict:v16];
+      }
+
+      v11 = @"Executed";
+    }
+
+    v18 = @"Alerted";
+    if (!alertedCopy)
+    {
+      v18 = &stru_28487EF20;
+    }
+
+    v19 = @"Confirmed";
+    if (!confirmedCopy)
+    {
+      v19 = &stru_28487EF20;
+    }
+
+    NSLog(&cfstr_S_2.isa, "[WiFiUsagePoorLinkSession triggerDisconnectAlerted:confirmed:executed:]", v18, v19, v11);
+    v20.receiver = self;
+    v20.super_class = WiFiUsagePoorLinkSession;
+    [(WiFiUsageSession *)&v20 triggerDisconnectAlerted:alertedCopy confirmed:confirmedCopy executed:executedCopy];
+  }
+}
+
+- (void)tdLogic_alertedBy:(int)by
+{
+  v3 = *&by;
+  if (!self->_lastTdEval_StartedBy || self->_lastTdEval_EndedBy)
+  {
+    v5 = [WiFiUsagePrivacyFilter getLabelForTDTrigger:*&by];
+    [(WiFiUsagePoorLinkSession *)self setLastTdEval_StartedBy:v5];
+  }
+
+  v6.receiver = self;
+  v6.super_class = WiFiUsagePoorLinkSession;
+  [(WiFiUsageSession *)&v6 tdLogic_alertedBy:v3];
 }
 
 - (void)tdLogic_decisionState:(id *)state
@@ -604,6 +820,157 @@ LABEL_20:
       [(WiFiUsagePoorLinkSession *)self setIsLastDecisionStateValid:1];
     }
   }
+}
+
+- (void)tdLogic_end:(int)logic_end evalTime:(double)time rssi:(int64_t)rssi roamTime:(double)roamTime
+{
+  v9 = *&logic_end;
+  v11 = [WiFiUsagePrivacyFilter getLabelForTDTrigger:?];
+  v12 = [WiFiUsagePrivacyFilter getLabelForTDTrigger:v9];
+  v13 = [MEMORY[0x277CCABB0] numberWithDouble:time];
+  v14 = [MEMORY[0x277CCABB0] numberWithInteger:rssi];
+  NSLog(&cfstr_STdevalEndedUp.isa, "[WiFiUsagePoorLinkSession tdLogic_end:evalTime:rssi:roamTime:]", v12, v13, v14, *&roamTime);
+
+  [(WiFiUsagePoorLinkSession *)self setLastTdEval_EndedBy:v11];
+  [(WiFiUsagePoorLinkSession *)self setLastTDEval_TDEvalDuration:time];
+  [(WiFiUsagePoorLinkSession *)self setLastTDEval_rssiAtTD:rssi];
+  v15.receiver = self;
+  v15.super_class = WiFiUsagePoorLinkSession;
+  [(WiFiUsageSession *)&v15 tdLogic_end:v9 evalTime:rssi rssi:time roamTime:roamTime];
+  self->_lastTDEval_waitOnRoamStatusDuration = roamTime;
+  self->_waitOnRoamStatusDurationCumulative = (self->_waitOnRoamStatusDurationCumulative + roamTime);
+  if (self->_toBeClosedAfterTdLogicEnd)
+  {
+    NSLog(&cfstr_SSessionWillEn.isa, "[WiFiUsagePoorLinkSession tdLogic_end:evalTime:rssi:roamTime:]", 10);
+    if (self->_timerReason == 3)
+    {
+      [(WiFiUsagePoorLinkSession *)self startTimerWithTimeout:10 reason:0];
+    }
+  }
+}
+
+- (void)tdLogic_execState:(id)state
+{
+  v3 = *&state.var8;
+  v4 = *&state.var0;
+  v6 = [MEMORY[0x277CBEAA8] now];
+  v7 = v6;
+  if (self->_lastSuppressAt)
+  {
+    [(NSDate *)v6 timeIntervalSinceDate:?];
+    if (self->_last_SuppressState.suppress_SymptomDataStallScoreGood)
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = 0.0;
+    }
+
+    self->_suppress_SymptomsNODataStall_Duration = self->_suppress_SymptomsNODataStall_Duration + v9;
+    if (self->_last_SuppressState.suppress_SymptomAppPolicyScore)
+    {
+      v10 = v8;
+    }
+
+    else
+    {
+      v10 = 0.0;
+    }
+
+    self->_suppress_SymptomsAppPolicy_Duration = self->_suppress_SymptomsAppPolicy_Duration + v10;
+    if (self->_last_SuppressState.suppress_FastCheapCellular)
+    {
+      v11 = v8;
+    }
+
+    else
+    {
+      v11 = 0.0;
+    }
+
+    self->_suppress_FastCheapCellular_Duration = self->_suppress_FastCheapCellular_Duration + v11;
+    if (self->_last_SuppressState.suppress_2dBGuard)
+    {
+      v12 = v8;
+    }
+
+    else
+    {
+      v12 = 0.0;
+    }
+
+    self->_suppress_2dBGuard = self->_suppress_2dBGuard + v12;
+    if (self->_last_SuppressState.suppress_NoFGnetwApp)
+    {
+      v13 = v8;
+    }
+
+    else
+    {
+      v13 = 0.0;
+    }
+
+    self->_suppress_NoFgNetwApp_Duration = self->_suppress_NoFgNetwApp_Duration + v13;
+    if (self->_last_SuppressState.suppress_TTR)
+    {
+      v14 = v8;
+    }
+
+    else
+    {
+      v14 = 0.0;
+    }
+
+    self->_suppress_TTR_Duration = self->_suppress_TTR_Duration + v14;
+    if (self->_last_SuppressState.suppress_UserInput)
+    {
+      v15 = v8;
+    }
+
+    else
+    {
+      v15 = 0.0;
+    }
+
+    self->_suppress_UserInput_Duration = self->_suppress_UserInput_Duration + v15;
+    if (self->_last_SuppressState.suppress_GoodAfterRoam)
+    {
+      v16 = v8;
+    }
+
+    else
+    {
+      v16 = 0.0;
+    }
+
+    self->_suppress_GoodAfterRoam_Duration = self->_suppress_GoodAfterRoam_Duration + v16;
+    if (self->_last_SuppressState.defer_roaming)
+    {
+      v17 = v8;
+    }
+
+    else
+    {
+      v17 = 0.0;
+    }
+
+    self->_suppress_Roam_Duration = self->_suppress_Roam_Duration + v17;
+    if (!self->_last_SuppressState.defer_activeProbing)
+    {
+      v8 = 0.0;
+    }
+
+    self->_suppress_ActiveProbing = self->_suppress_ActiveProbing + v8;
+  }
+
+  lastSuppressAt = self->_lastSuppressAt;
+  self->_lastSuppressAt = v7;
+
+  [(WiFiUsagePoorLinkSession *)self setLast_SuppressState:v4, v3 & 0xFFFFFFFFFFLL];
+
+  [(WiFiUsagePoorLinkSession *)self setIsLastSuppressStateValid:1];
 }
 
 - (void)tdLogic_fastTdState:(id *)state
@@ -1028,6 +1395,922 @@ LABEL_20:
   [(WiFiUsageSession *)&v9 sessionDidEnd];
 }
 
+- (void)sessionDidStart:(int)start
+{
+  v3 = *&start;
+  v5 = [WiFiUsagePoorLinkSession sessionStartedBy:?];
+  NSLog(&cfstr_S.isa, "[WiFiUsagePoorLinkSession sessionDidStart:]", v5);
+
+  v14.receiver = self;
+  v14.super_class = WiFiUsagePoorLinkSession;
+  [(WiFiUsageSession *)&v14 sessionDidStart];
+  date = [MEMORY[0x277CBEAA8] date];
+  [(WiFiUsagePoorLinkSession *)self setSessionStartedBy:v3];
+  if (self->_lastJoinAt)
+  {
+    [date timeIntervalSinceDate:?];
+    [(WiFiUsagePoorLinkSession *)self setTimeSinceJoinATStart:?];
+  }
+
+  self->_perSSID_deferJoin = 0x7FFFFFFFFFFFFFFFLL;
+  self->_perBSSID_deferJoin = 0x7FFFFFFFFFFFFFFFLL;
+  self->_lastTdRecommended = 0;
+  self->_alerted = 0;
+  self->_tdExecuted = 0;
+  self->_tdConfirmed = 0;
+  self->_toBeClosedAfterLQM = 0;
+  self->_toBeClosedAfterTdLogicEnd = 0;
+  bssidAtTD = self->_bssidAtTD;
+  self->_bssidAtTD = 0;
+
+  ssidAtLinkDown = self->_ssidAtLinkDown;
+  self->_ssidAtLinkDown = 0;
+
+  lastDecisionAt = self->_lastDecisionAt;
+  self->_lastDecisionAt = 0;
+
+  lastFastTDVotesAt = self->_lastFastTDVotesAt;
+  self->_lastFastTDVotesAt = 0;
+
+  lastSuppressAt = self->_lastSuppressAt;
+  self->_lastSuppressAt = 0;
+
+  lastLinkDownAt = self->_lastLinkDownAt;
+  self->_lastLinkDownAt = 0;
+
+  *&self->_last_DecisionState.decision_TxPER = 0u;
+  *&self->_last_DecisionState.appsUsingWiFi = 0u;
+  *&self->_last_SuppressState.suppress_FastCheapCellular = 0;
+  *&self->_last_SuppressState.aggressiveTDEnabled = 0;
+  *&self->_last_FastTdVotes.fastTD_vote_recommendation = 0;
+  *&self->_last_FastTdVotes.fastTD_RTApp = 0;
+  self->_last_FastTdVotes.fastTD_voteCount = 0;
+  self->_isLastDecisionStateValid = 0;
+  self->_isLastSuppressStateValid = 0;
+  self->_isLastFastTdVotesValid = 0;
+  self->_isFirstTDConfirmed = 0;
+  self->_firstLQMForSessionReceived = 0;
+  self->_timerActive = 0;
+  self->_timerReason = 3;
+  v13 = [WiFiUsageInterfaceStats statsForInterfaceName:self->_interface];
+  self->_sessionStartTxBytes = [v13 txBytes];
+  self->_sessionStartRxBytes = [v13 rxBytes];
+  [(WiFiUsagePoorLinkSession *)self setLast_RSSIMode:0];
+  [(WiFiUsagePoorLinkSession *)self setLastTDEval_ConfirmedAt:0];
+  [(WiFiUsagePoorLinkSession *)self setLastTDEval_ExecutedAt:0];
+  [(WiFiUsagePoorLinkSession *)self setLastTdEval_StartedBy:0];
+  [(WiFiUsagePoorLinkSession *)self setLastTdEval_EndedBy:0];
+  [(WiFiUsagePoorLinkSession *)self setLastTDEval_TDEvalDuration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setLastTDEval_rssiAtTD:0x7FFFFFFFFFFFFFFFLL];
+  [(WiFiUsagePoorLinkSession *)self setLastTDEval_waitOnRoamStatusDuration:9.22337204e18];
+  [(WiFiUsagePoorLinkSession *)self setTdEvalDurationCumulative:0.0];
+  [(WiFiUsagePoorLinkSession *)self setWaitOnRoamStatusDurationCumulative:0];
+  [(WiFiUsagePoorLinkSession *)self setNextJoinReason:0];
+  [(WiFiUsagePoorLinkSession *)self setNextJoinIsSameSSID:0];
+  [(WiFiUsagePoorLinkSession *)self setNextJoinWhileDeferJoin:0];
+  [(WiFiUsagePoorLinkSession *)self setTimeToNextJoin:9.22337204e18];
+  [(WiFiUsagePoorLinkSession *)self setNextLinkUpIsSameBSSID:0];
+  [(WiFiUsagePoorLinkSession *)self setRssiAtNextLinkUp:0x7FFFFFFFFFFFFFFFLL];
+  [(WiFiUsagePoorLinkSession *)self setTdRecommendAtNextLinkUp:0];
+  [date timeIntervalSinceDate:self->_lastJoinAt];
+  [(WiFiUsagePoorLinkSession *)self setTimeSinceJoinATStart:?];
+  [(WiFiUsagePoorLinkSession *)self setDecision_TxPER_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setDecision_FWTxPER_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setDecision_BeaconPER_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setDecision_GatewayARPFailure_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setDecision_SymptomsDNSError_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setDecision_AutoLeave_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setDecision_ActiveProbe_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setDecision_FastTD_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setVote_FastTD_TXPER_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setVote_FastTD_BeaconPER_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setVote_FastTD_FWTxPER_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setVote_FastTD_2GPoorLink_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setVote_FastTD_2GDataStall_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setVote_FastTD_HighLatency_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setVote_FastTD_InsufficientRxFrames_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setVote_FastTD_Recommendation_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_SymptomsNODataStall_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_SymptomsAppPolicy_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_FastCheapCellular_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_2dBGuard:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_NoFgNetwApp_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_TTR_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_UserInput_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_GoodAfterRoam_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_Roam_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setSuppress_ActiveProbing:0.0];
+  [(WiFiUsagePoorLinkSession *)self setPerCoreRSSI_NotUsed_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setPerCoreRSSI_Core0_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setPerCoreRSSI_Core1_Duration:0.0];
+  [(WiFiUsagePoorLinkSession *)self setRoamStatus_Succeeded_Count_WhileTDWait:0];
+  [(WiFiUsagePoorLinkSession *)self setRoamStatus_Failed_Count_WhileTDWait:0];
+  [(WiFiUsagePoorLinkSession *)self setRoamStatus_FailedFilteredOut_Count_WhileTDWait:0];
+  [(WiFiUsagePoorLinkSession *)self setRoamStatus_FailedNotFound_Count_WhileTDWait:0];
+  [(WiFiUsagePoorLinkSession *)self setRoamStatus_Succeeded_Count_BeforeTDWait:0];
+  [(WiFiUsagePoorLinkSession *)self setRoamStatus_Failed_Count_BeforeTDWait:0];
+  [(WiFiUsagePoorLinkSession *)self setRoamStatus_FailedFilteredOut_Count_BeforeTDWait:0];
+  [(WiFiUsagePoorLinkSession *)self setRoamStatus_FailedNotFound_Count_BeforeTDWait:0];
+  [(WiFiUsagePoorLinkSession *)self setRtAppAtFirstTDConfirmed:0];
+  [(WiFiUsagePoorLinkSession *)self setRtAppAtSessionEnd:0];
+  [(WiFiUsagePoorLinkSession *)self setFgAppAtFirstTDConfirmed:0];
+  [(WiFiUsagePoorLinkSession *)self setFgAppAtSessionEnd:0];
+  [(WiFiUsagePoorLinkSession *)self setCellularFallbackEnabledAtLinkDown:0];
+  [(WiFiUsagePoorLinkSession *)self setTotalSessionTime:0];
+  [(WiFiUsagePoorLinkSession *)self setLowModHighImpactTime:0];
+  [(WiFiUsagePoorLinkSession *)self setModHighImpactTime:0];
+  [(WiFiUsagePoorLinkSession *)self setHighImpactTime:0];
+  [(WiFiUsagePoorLinkSession *)self setUnifiedImpactTime:0];
+  [(WiFiUsagePoorLinkSession *)self setTxRxRateImpactTime:0];
+  [(WiFiUsagePoorLinkSession *)self setTxLatencyImpactTime:0];
+  [(WiFiUsagePoorLinkSession *)self setTxPerImpactTime:0];
+  [(WiFiUsagePoorLinkSession *)self setSessionTxBytes:0];
+  [(WiFiUsagePoorLinkSession *)self setSessionRxBytes:0];
+  [(WiFiUsagePoorLinkSession *)self setSessionTotalBytes:0];
+  [(WiFiUsagePoorLinkSession *)self resetRxFrameImpact];
+  [(WiFiUsagePoorLinkSession *)self setTotalSessionTimeAfterFirstTDConfirmed:0];
+  [(WiFiUsagePoorLinkSession *)self setLowModHighImpactTimeAfterFirstTDConfirmed:0];
+  [(WiFiUsagePoorLinkSession *)self setModHighImpactTimeAfterFirstTDConfirmed:0];
+  [(WiFiUsagePoorLinkSession *)self setHighImpactTimeAfterFirstTDConfirmed:0];
+}
+
+- (id)eventDictionary:(BOOL)dictionary
+{
+  v4 = MEMORY[0x277CBEB38];
+  v263.receiver = self;
+  v263.super_class = WiFiUsagePoorLinkSession;
+  v5 = [(WiFiUsageSession *)&v263 eventDictionary:dictionary];
+  v6 = [v4 dictionaryWithDictionary:v5];
+
+  if (self->_badLinkRssi != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v7 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    [v6 setObject:v7 forKeyedSubscript:@"BadLinkRssiThreshold"];
+  }
+
+  if (self->_goodLinkRssi != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    [v6 setObject:v8 forKeyedSubscript:@"GoodLinkRssiThreshold"];
+  }
+
+  if (self->_perSSID_deferJoin != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+    [v6 setObject:v9 forKeyedSubscript:@"PerSsidDeferJoinSeconds"];
+  }
+
+  if (self->_perBSSID_deferJoin != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+    [v6 setObject:v10 forKeyedSubscript:@"PerBssidDeferJoinSeconds"];
+  }
+
+  v11 = MEMORY[0x277CCABB0];
+  [(WiFiUsagePoorLinkSession *)self timeSinceJoinATStart];
+  *&v12 = v12;
+  v13 = [v11 numberWithFloat:v12];
+  [v6 setObject:v13 forKeyedSubscript:@"timeSinceJoinAtSessionStart"];
+
+  v14 = MEMORY[0x277CCABB0];
+  [(WiFiUsageSession *)self sessionDuration];
+  *&v15 = v15;
+  v16 = [v14 numberWithFloat:v15];
+  [v6 setObject:v16 forKeyedSubscript:@"SessionDuration"];
+
+  v17 = [WiFiUsagePoorLinkSession sessionStartedBy:[(WiFiUsagePoorLinkSession *)self sessionStartedBy]];
+  [v6 setObject:v17 forKeyedSubscript:@"TD_SessionStartedBy"];
+
+  v18 = [WiFiUsagePoorLinkSession sessionEndedBy:[(WiFiUsagePoorLinkSession *)self sessionEndedBy]];
+  [v6 setObject:v18 forKeyedSubscript:@"TD_SessionEndedBy"];
+
+  if (self->_alerted)
+  {
+    v19 = @"YES";
+  }
+
+  else
+  {
+    v19 = @"NO";
+  }
+
+  lastTDEval_AlertedAt = [(WiFiUsagePoorLinkSession *)self lastTDEval_AlertedAt];
+  lastJoinAt = self->_lastJoinAt;
+  lastTdEval_StartedBy = [(WiFiUsagePoorLinkSession *)self lastTdEval_StartedBy];
+  lastTdEval_EndedBy = [(WiFiUsagePoorLinkSession *)self lastTdEval_EndedBy];
+  NSLog(&cfstr_SAlertedLasttd.isa, "[WiFiUsagePoorLinkSession eventDictionary:]", v19, lastTDEval_AlertedAt, lastJoinAt, lastTdEval_StartedBy, lastTdEval_EndedBy);
+
+  if (self->_alerted)
+  {
+    v24 = MEMORY[0x277CCABB0];
+    lastTDEval_AlertedAt2 = [(WiFiUsagePoorLinkSession *)self lastTDEval_AlertedAt];
+    [lastTDEval_AlertedAt2 timeIntervalSinceDate:self->_lastJoinAt];
+    v27 = [v24 numberWithInteger:v26];
+    [v6 setObject:v27 forKeyedSubscript:@"TD_LastTDEval_TimeToAlert"];
+
+    v28 = MEMORY[0x277CCABB0];
+    [(WiFiUsagePoorLinkSession *)self lastTDEval_TDEvalDuration];
+    v30 = [v28 numberWithInteger:v29];
+    [v6 setObject:v30 forKeyedSubscript:@"TD_LastTDEval_EvalDuration"];
+
+    lastTdEval_StartedBy2 = [(WiFiUsagePoorLinkSession *)self lastTdEval_StartedBy];
+    [v6 setObject:lastTdEval_StartedBy2 forKeyedSubscript:@"TD_LastTDEval_StartedBy"];
+
+    lastTdEval_EndedBy2 = [(WiFiUsagePoorLinkSession *)self lastTdEval_EndedBy];
+    [v6 setObject:lastTdEval_EndedBy2 forKeyedSubscript:@"TD_LastTDEval_EvalEndedBy"];
+  }
+
+  v33 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession tdConfirmed](self, "tdConfirmed")}];
+  [v6 setObject:v33 forKeyedSubscript:@"TD_LastTDEval_Confirmed"];
+
+  if (self->_isLastDecisionStateValid)
+  {
+    v34 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v35 = [v34 numberWithBool:v262[0]];
+    [v6 setObject:v35 forKeyedSubscript:@"TD_Decision_TxPER"];
+
+    v36 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v37 = [v36 numberWithBool:v261];
+    [v6 setObject:v37 forKeyedSubscript:@"TD_Decision_FWTxPER"];
+
+    v38 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v39 = [v38 numberWithBool:v260];
+    [v6 setObject:v39 forKeyedSubscript:@"TD_Decision_BeaconPER"];
+
+    v40 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v41 = [v40 numberWithBool:v259];
+    [v6 setObject:v41 forKeyedSubscript:@"TD_Decision_GatewayARPFailure"];
+
+    v42 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v43 = [v42 numberWithBool:v258];
+    [v6 setObject:v43 forKeyedSubscript:@"TD_Decision_SymptomsDNSError"];
+
+    v44 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v45 = [v44 numberWithBool:v257];
+    [v6 setObject:v45 forKeyedSubscript:@"TD_Decision_AutoLeave"];
+
+    v46 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v47 = [v46 numberWithBool:v256];
+    [v6 setObject:v47 forKeyedSubscript:@"TD_Decision_ActiveProbe"];
+
+    v48 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v49 = [v48 numberWithBool:v255];
+    [v6 setObject:v49 forKeyedSubscript:@"TD_Decision_FastTD"];
+
+    v50 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v51 = [v50 numberWithInteger:v254];
+    [v6 setObject:v51 forKeyedSubscript:@"TD_AutoLeaveRSSIthreshold"];
+
+    objc_msgSend_last_DecisionState(self);
+    v52 = [WiFiUsagePrivacyFilter getLabelForTDMode:v253];
+    [v6 setObject:v52 forKeyedSubscript:@"TD_Mode"];
+
+    v53 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v54 = [v53 numberWithBool:v252];
+    [v6 setObject:v54 forKeyedSubscript:@"TD_EdgeBSS"];
+
+    v55 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v56 = [v55 numberWithBool:v251];
+    [v6 setObject:v56 forKeyedSubscript:@"TD_MotionDetected"];
+
+    v57 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v58 = [v57 numberWithBool:v250];
+    [v6 setObject:v58 forKeyedSubscript:@"TD_WalkoutDetected"];
+
+    v59 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v60 = [v59 numberWithBool:v249];
+    [v6 setObject:v60 forKeyedSubscript:@"TD_WaitForRoam"];
+
+    v61 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v62 = [v61 numberWithBool:v248];
+    [v6 setObject:v62 forKeyedSubscript:@"TD_AppsUsingWiFi"];
+
+    v63 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_DecisionState(self);
+    v64 = [v63 numberWithBool:v247];
+    [v6 setObject:v64 forKeyedSubscript:@"TD_monitorOnly"];
+  }
+
+  if (self->_isLastFastTdVotesValid)
+  {
+    v65 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v66 = [v65 numberWithBool:v246];
+    [v6 setObject:v66 forKeyedSubscript:@"TD_VoteFastTD_LinkRecommendation"];
+
+    v67 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v68 = [v67 numberWithBool:v245];
+    [v6 setObject:v68 forKeyedSubscript:@"TD_VoteFastTD_TXPER"];
+
+    v69 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v70 = [v69 numberWithBool:v244];
+    [v6 setObject:v70 forKeyedSubscript:@"TD_VoteFastTD_FWTXPER"];
+
+    v71 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v72 = [v71 numberWithBool:v243];
+    [v6 setObject:v72 forKeyedSubscript:@"TD_VoteFastTD_BeaconPER"];
+
+    v73 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v74 = [v73 numberWithBool:v242];
+    [v6 setObject:v74 forKeyedSubscript:@"TD_VoteFastTD_2GPoorLink"];
+
+    v75 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v76 = [v75 numberWithBool:v241];
+    [v6 setObject:v76 forKeyedSubscript:@"TD_VoteFastTD_2GDataStall"];
+
+    v77 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v78 = [v77 numberWithBool:v240];
+    [v6 setObject:v78 forKeyedSubscript:@"TD_VoteFastTD_HighLatency"];
+
+    v79 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v80 = [v79 numberWithBool:v239];
+    [v6 setObject:v80 forKeyedSubscript:@"TD_VoteFastTD_InsufficientRxFrames"];
+
+    v81 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v82 = [v81 numberWithInteger:v238[0]];
+    [v6 setObject:v82 forKeyedSubscript:@"TD_VoteFastTD_VoteCount"];
+
+    v83 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v84 = [v83 numberWithBool:v237];
+    [v6 setObject:v84 forKeyedSubscript:@"TD_StateFastTD_RTApp"];
+
+    v85 = MEMORY[0x277CCABB0];
+    objc_msgSend_last_FastTdVotes(self);
+    v86 = [v85 numberWithBool:v236];
+    [v6 setObject:v86 forKeyedSubscript:@"TD_StateFastTD_Cheap5G"];
+  }
+
+  if (self->_lastTDEval_ConfirmedAt)
+  {
+    v87 = MEMORY[0x277CCABB0];
+    lastTDEval_ConfirmedAt = [(WiFiUsagePoorLinkSession *)self lastTDEval_ConfirmedAt];
+    lastTDEval_AlertedAt3 = [(WiFiUsagePoorLinkSession *)self lastTDEval_AlertedAt];
+    [lastTDEval_ConfirmedAt timeIntervalSinceDate:lastTDEval_AlertedAt3];
+    v91 = [v87 numberWithInteger:v90];
+    [v6 setObject:v91 forKeyedSubscript:@"TD_LastTDEval_TimeToConfirm"];
+
+    if (self->_isLastSuppressStateValid)
+    {
+      v92 = [MEMORY[0x277CCABB0] numberWithBool:{(-[WiFiUsagePoorLinkSession last_SuppressState](self, "last_SuppressState") >> 24) & 1}];
+      [v6 setObject:v92 forKeyedSubscript:@"TD_Suppress_SymptomsNODataStall"];
+
+      v93 = [MEMORY[0x277CCABB0] numberWithBool:{(-[WiFiUsagePoorLinkSession last_SuppressState](self, "last_SuppressState") >> 32) & 1}];
+      [v6 setObject:v93 forKeyedSubscript:@"TD_Suppress_SymptomsAppPolicy"];
+
+      v94 = [MEMORY[0x277CCABB0] numberWithBool:{(-[WiFiUsagePoorLinkSession last_SuppressState](self, "last_SuppressState") >> 40) & 1}];
+      [v6 setObject:v94 forKeyedSubscript:@"TD_Suppress_FastCheapCellular"];
+
+      v95 = [MEMORY[0x277CCABB0] numberWithBool:{(-[WiFiUsagePoorLinkSession last_SuppressState](self, "last_SuppressState") >> 48) & 1}];
+      [v6 setObject:v95 forKeyedSubscript:@"TD_Suppress_2dBGuard"];
+
+      v96 = [MEMORY[0x277CCABB0] numberWithBool:{(-[WiFiUsagePoorLinkSession last_SuppressState](self, "last_SuppressState") >> 56) & 1}];
+      [v6 setObject:v96 forKeyedSubscript:@"TD_Suppress_NoFGnetwApp"];
+
+      v97 = MEMORY[0x277CCABB0];
+      [(WiFiUsagePoorLinkSession *)self last_SuppressState];
+      v99 = [v97 numberWithBool:v98 & 1];
+      [v6 setObject:v99 forKeyedSubscript:@"TD_Suppress_TTR"];
+
+      v100 = MEMORY[0x277CCABB0];
+      [(WiFiUsagePoorLinkSession *)self last_SuppressState];
+      v102 = [v100 numberWithBool:(v101 >> 8) & 1];
+      [v6 setObject:v102 forKeyedSubscript:@"TD_Suppress_UserInput"];
+
+      v103 = MEMORY[0x277CCABB0];
+      [(WiFiUsagePoorLinkSession *)self last_SuppressState];
+      v105 = [v103 numberWithBool:(v104 >> 16) & 1];
+      [v6 setObject:v105 forKeyedSubscript:@"TD_Suppress_GoodAfterRoam"];
+
+      v106 = MEMORY[0x277CCABB0];
+      [(WiFiUsagePoorLinkSession *)self last_SuppressState];
+      v108 = [v106 numberWithBool:(v107 >> 24) & 1];
+      [v6 setObject:v108 forKeyedSubscript:@"TD_Suppress_ActiveProbing"];
+
+      v109 = MEMORY[0x277CCABB0];
+      [(WiFiUsagePoorLinkSession *)self last_SuppressState];
+      v111 = [v109 numberWithBool:HIDWORD(v110) & 1];
+      [v6 setObject:v111 forKeyedSubscript:@"TD_Suppress_Roam"];
+
+      v112 = [MEMORY[0x277CCABB0] numberWithBool:{(-[WiFiUsagePoorLinkSession last_SuppressState](self, "last_SuppressState") >> 16) & 1}];
+      [v6 setObject:v112 forKeyedSubscript:@"TD_FastTDEvaluation"];
+
+      v113 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession last_SuppressState](self, "last_SuppressState") & 1}];
+      [v6 setObject:v113 forKeyedSubscript:@"TD_AggressiveTD"];
+
+      v114 = [MEMORY[0x277CCABB0] numberWithBool:{(-[WiFiUsagePoorLinkSession last_SuppressState](self, "last_SuppressState") >> 8) & 1}];
+      [v6 setObject:v114 forKeyedSubscript:@"TD_RNF_allowed"];
+    }
+
+    v235.receiver = self;
+    v235.super_class = WiFiUsagePoorLinkSession;
+    sessionEndTime = [(WiFiUsageSession *)&v235 sessionEndTime];
+    [sessionEndTime timeIntervalSinceDate:self->_lastTDEval_ConfirmedAt];
+
+    lastTDEval_ExecutedAt = self->_lastTDEval_ExecutedAt;
+    if (lastTDEval_ExecutedAt)
+    {
+      [(NSDate *)lastTDEval_ExecutedAt timeIntervalSinceDate:self->_lastTDEval_ConfirmedAt];
+    }
+
+    [(WiFiUsagePoorLinkSession *)self suppress_SymptomsNODataStall_Duration];
+    v117 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v117 forKeyedSubscript:@"TD_Suppress_SymptomsNODataStall_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_SymptomsAppPolicy_Duration];
+    v118 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v118 forKeyedSubscript:@"TD_Suppress_SymptomsAppPolicy_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_FastCheapCellular_Duration];
+    v119 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v119 forKeyedSubscript:@"TD_Suppress_FastCheapCellular_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_2dBGuard];
+    v120 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v120 forKeyedSubscript:@"TD_Suppress_2dBGuard_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_NoFgNetwApp_Duration];
+    v121 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v121 forKeyedSubscript:@"TD_Suppress_NoFGnetwApp_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_TTR_Duration];
+    v122 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v122 forKeyedSubscript:@"TD_Suppress_TTR_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_UserInput_Duration];
+    v123 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v123 forKeyedSubscript:@"TD_Suppress_UserInput_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_GoodAfterRoam_Duration];
+    v124 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v124 forKeyedSubscript:@"TD_Suppress_GoodAfterRoam_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_ActiveProbing];
+    v125 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v125 forKeyedSubscript:@"TD_Suppress_ActiveProbing_PercTimeToExecute"];
+
+    [(WiFiUsagePoorLinkSession *)self suppress_Roam_Duration];
+    v126 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+    [v6 setObject:v126 forKeyedSubscript:@"TD_Suppress_Roam_PercTimeToExecute"];
+  }
+
+  v127 = [WiFiUsagePrivacyFilter getLabelForCoreRssiMode:[(WiFiUsagePoorLinkSession *)self last_RSSIMode]];
+  [v6 setObject:v127 forKeyedSubscript:@"TD_perCoreRSSIinUse"];
+
+  if (self->_lastTDEval_waitOnRoamStatusDuration != 9.22337204e18)
+  {
+    v128 = MEMORY[0x277CCABB0];
+    [(WiFiUsagePoorLinkSession *)self lastTDEval_waitOnRoamStatusDuration];
+    v130 = [v128 numberWithUnsignedInteger:v129];
+    [v6 setObject:v130 forKeyedSubscript:@"TD_LastTDEval_WaitOnRoamStatusDuration"];
+  }
+
+  v131 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession waitOnRoamStatusDurationCumulative](self, "waitOnRoamStatusDurationCumulative")}];
+  [v6 setObject:v131 forKeyedSubscript:@"TD_WaitOnRoamStatus_CumulativeDuration"];
+
+  v132 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession tdExecuted](self, "tdExecuted")}];
+  [v6 setObject:v132 forKeyedSubscript:@"TD_LastTDEval_Executed"];
+
+  if (self->_tdExecuted)
+  {
+    v133 = MEMORY[0x277CCABB0];
+    lastTDEval_ExecutedAt = [(WiFiUsagePoorLinkSession *)self lastTDEval_ExecutedAt];
+    lastTDEval_ConfirmedAt2 = [(WiFiUsagePoorLinkSession *)self lastTDEval_ConfirmedAt];
+    [lastTDEval_ExecutedAt timeIntervalSinceDate:lastTDEval_ConfirmedAt2];
+    v137 = [v133 numberWithInteger:vcvtpd_u64_f64(v136)];
+    [v6 setObject:v137 forKeyedSubscript:@"TD_LastTDEval_TimeToExecute"];
+  }
+
+  v138 = self->_lastTDEval_ExecutedAt;
+  if (v138)
+  {
+    [(NSDate *)v138 timeIntervalSinceDate:self->_lastTDEval_AlertedAt];
+  }
+
+  if (self->_isFirstTDConfirmed)
+  {
+    v139 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession rtAppAtFirstTDConfirmed](self, "rtAppAtFirstTDConfirmed")}];
+    [v6 setObject:v139 forKeyedSubscript:@"RTAppAtFirstTDConfirmed"];
+
+    v140 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession fgAppAtFirstTDConfirmed](self, "fgAppAtFirstTDConfirmed")}];
+    [v6 setObject:v140 forKeyedSubscript:@"FGAppAtFirstTDConfirmed"];
+
+    v141 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession totalSessionTimeAfterFirstTDConfirmed](self, "totalSessionTimeAfterFirstTDConfirmed")}];
+    [v6 setObject:v141 forKeyedSubscript:@"TotalSessionTimeAfterFirstTDConfirmed"];
+
+    v142 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession lowModHighImpactTimeAfterFirstTDConfirmed](self, "lowModHighImpactTimeAfterFirstTDConfirmed")}];
+    [v6 setObject:v142 forKeyedSubscript:@"LowModHighImpactTimeAfterFirstTDConfirmed"];
+
+    v143 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession modHighImpactTimeAfterFirstTDConfirmed](self, "modHighImpactTimeAfterFirstTDConfirmed")}];
+    [v6 setObject:v143 forKeyedSubscript:@"ModHighImpactTimeAfterFirstTDConfirmed"];
+
+    v144 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession highImpactTimeAfterFirstTDConfirmed](self, "highImpactTimeAfterFirstTDConfirmed")}];
+    [v6 setObject:v144 forKeyedSubscript:@"HighImpactTimeAfterFirstTDConfirmed"];
+  }
+
+  [(WiFiUsagePoorLinkSession *)self decision_TxPER_Duration];
+  v145 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v146 = v145;
+  if (v145)
+  {
+    v147 = v145;
+  }
+
+  else
+  {
+    v147 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v147 forKeyedSubscript:@"TD_Decision_TxPER_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self decision_FWTxPER_Duration];
+  v148 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v149 = v148;
+  if (v148)
+  {
+    v150 = v148;
+  }
+
+  else
+  {
+    v150 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v150 forKeyedSubscript:@"TD_Decision_FWTxPER_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self decision_BeaconPER_Duration];
+  v151 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v152 = v151;
+  if (v151)
+  {
+    v153 = v151;
+  }
+
+  else
+  {
+    v153 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v153 forKeyedSubscript:@"TD_Decision_BeaconPER_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self decision_GatewayARPFailure_Duration];
+  v154 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v155 = v154;
+  if (v154)
+  {
+    v156 = v154;
+  }
+
+  else
+  {
+    v156 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v156 forKeyedSubscript:@"TD_Decision_GatewayARPFailure_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self decision_SymptomsDNSError_Duration];
+  v157 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v158 = v157;
+  if (v157)
+  {
+    v159 = v157;
+  }
+
+  else
+  {
+    v159 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v159 forKeyedSubscript:@"TD_Decision_SymptomsDNSError_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self decision_AutoLeave_Duration];
+  v160 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v161 = v160;
+  if (v160)
+  {
+    v162 = v160;
+  }
+
+  else
+  {
+    v162 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v162 forKeyedSubscript:@"TD_Decision_AutoLeave_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self decision_ActiveProbe_Duration];
+  v163 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v164 = v163;
+  if (v163)
+  {
+    v165 = v163;
+  }
+
+  else
+  {
+    v165 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v165 forKeyedSubscript:@"TD_Decision_ActiveProbe_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self decision_FastTD_Duration];
+  v166 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v167 = v166;
+  if (v166)
+  {
+    v168 = v166;
+  }
+
+  else
+  {
+    v168 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v168 forKeyedSubscript:@"TD_Decision_FastTD_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self vote_FastTD_Recommendation_Duration];
+  v169 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v170 = v169;
+  if (v169)
+  {
+    v171 = v169;
+  }
+
+  else
+  {
+    v171 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v171 forKeyedSubscript:@"TD_VoteFastTD_LinkRecommendation_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self vote_FastTD_TXPER_Duration];
+  v172 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v173 = v172;
+  if (v172)
+  {
+    v174 = v172;
+  }
+
+  else
+  {
+    v174 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v174 forKeyedSubscript:@"TD_VoteFastTD_TXPER_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self vote_FastTD_FWTxPER_Duration];
+  v175 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v176 = v175;
+  if (v175)
+  {
+    v177 = v175;
+  }
+
+  else
+  {
+    v177 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v177 forKeyedSubscript:@"TD_VoteFastTD_FWTXPER_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self vote_FastTD_BeaconPER_Duration];
+  v178 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v179 = v178;
+  if (v178)
+  {
+    v180 = v178;
+  }
+
+  else
+  {
+    v180 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v180 forKeyedSubscript:@"TD_VoteFastTD_BeaconPER_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self vote_FastTD_2GPoorLink_Duration];
+  v181 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v182 = v181;
+  if (v181)
+  {
+    v183 = v181;
+  }
+
+  else
+  {
+    v183 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v183 forKeyedSubscript:@"TD_VoteFastTD_2GPoorLink_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self vote_FastTD_2GDataStall_Duration];
+  v184 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v185 = v184;
+  if (v184)
+  {
+    v186 = v184;
+  }
+
+  else
+  {
+    v186 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v186 forKeyedSubscript:@"TD_VoteFastTD_2GDataStall_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self vote_FastTD_HighLatency_Duration];
+  v187 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v188 = v187;
+  if (v187)
+  {
+    v189 = v187;
+  }
+
+  else
+  {
+    v189 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v189 forKeyedSubscript:@"TD_VoteFastTD_HighLatency_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self vote_FastTD_InsufficientRxFrames_Duration];
+  v190 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v191 = v190;
+  if (v190)
+  {
+    v192 = v190;
+  }
+
+  else
+  {
+    v192 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v192 forKeyedSubscript:@"TD_VoteFastTD_InsufficientRxFrames_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self perCoreRSSI_Core0_Duration];
+  v193 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v194 = v193;
+  if (v193)
+  {
+    v195 = v193;
+  }
+
+  else
+  {
+    v195 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v195 forKeyedSubscript:@"TD_perCoreRSSICore0_PercTDEvalDuration"];
+
+  [(WiFiUsagePoorLinkSession *)self perCoreRSSI_Core1_Duration];
+  v196 = [WiFiUsagePrivacyFilter timePercentage:"timePercentage:overTotalDuration:" overTotalDuration:?];
+  v197 = v196;
+  if (v196)
+  {
+    v198 = v196;
+  }
+
+  else
+  {
+    v198 = &unk_2848BA298;
+  }
+
+  [v6 setObject:v198 forKeyedSubscript:@"TD_perCoreRSSICore1_PercTDEvalDuration"];
+
+  v199 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession rssiAtJoin](self, "rssiAtJoin")}];
+  [v6 setObject:v199 forKeyedSubscript:@"TD_rssiAtJoin"];
+
+  v200 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession tdRecommendAtNextLinkUp](self, "tdRecommendAtNextLinkUp")}];
+  [v6 setObject:v200 forKeyedSubscript:@"TD_TDRecommendAtJoin"];
+
+  if (self->_tdExecuted && self->_lastTDEval_rssiAtTD != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v201 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession lastTDEval_rssiAtTD](self, "lastTDEval_rssiAtTD")}];
+    [v6 setObject:v201 forKeyedSubscript:@"TD_rssiAtLastTD"];
+  }
+
+  if (self->_nextJoinReason)
+  {
+    v202 = MEMORY[0x277CCABB0];
+    [(WiFiUsagePoorLinkSession *)self timeToNextJoin];
+    *&v203 = v203;
+    v204 = [v202 numberWithFloat:v203];
+    [v6 setObject:v204 forKeyedSubscript:@"TD_timeToNextJoin"];
+
+    nextJoinReason = [(WiFiUsagePoorLinkSession *)self nextJoinReason];
+    [v6 setObject:nextJoinReason forKeyedSubscript:@"TD_nextJoinReason"];
+
+    v206 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession nextJoinIsSameSSID](self, "nextJoinIsSameSSID")}];
+    [v6 setObject:v206 forKeyedSubscript:@"TD_nextLinkUpWasSameSSID"];
+
+    v207 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession nextLinkUpIsSameBSSID](self, "nextLinkUpIsSameBSSID")}];
+    [v6 setObject:v207 forKeyedSubscript:@"TD_nextLinkUpWasSameBSSID"];
+
+    v208 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession nextJoinWhileDeferJoin](self, "nextJoinWhileDeferJoin")}];
+    [v6 setObject:v208 forKeyedSubscript:@"TD_nextJoinWhileDeferJoin"];
+
+    v209 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession rssiAtNextLinkUp](self, "rssiAtNextLinkUp")}];
+    [v6 setObject:v209 forKeyedSubscript:@"TD_RSSIatNextLinkUp"];
+
+    v210 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession tdRecommendAtNextLinkUp](self, "tdRecommendAtNextLinkUp")}];
+    [v6 setObject:v210 forKeyedSubscript:@"TD_TDRecommendAtNextLinkUp"];
+  }
+
+  v211 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession roamStatus_Succeeded_Count_WhileTDWait](self, "roamStatus_Succeeded_Count_WhileTDWait")}];
+  [v6 setObject:v211 forKeyedSubscript:@"TD_roamStatus_Succeeded_Count_WhileTDWait"];
+
+  v212 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession roamStatus_Failed_Count_WhileTDWait](self, "roamStatus_Failed_Count_WhileTDWait")}];
+  [v6 setObject:v212 forKeyedSubscript:@"TD_roamStatus_Failed_Count_WhileTDWait"];
+
+  v213 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession roamStatus_FailedFilteredOut_Count_WhileTDWait](self, "roamStatus_FailedFilteredOut_Count_WhileTDWait")}];
+  [v6 setObject:v213 forKeyedSubscript:@"TD_roamStatus_FailedFilteredOut_Count_WhileTDWait"];
+
+  v214 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession roamStatus_FailedNotFound_Count_WhileTDWait](self, "roamStatus_FailedNotFound_Count_WhileTDWait")}];
+  [v6 setObject:v214 forKeyedSubscript:@"TD_roamStatus_FailedNotFound_Count_WhileTDWait"];
+
+  v215 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession roamStatus_Succeeded_Count_BeforeTDWait](self, "roamStatus_Succeeded_Count_BeforeTDWait")}];
+  [v6 setObject:v215 forKeyedSubscript:@"TD_roamStatus_Succeeded_Count_BeforeTDWait"];
+
+  v216 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession roamStatus_Failed_Count_BeforeTDWait](self, "roamStatus_Failed_Count_BeforeTDWait")}];
+  [v6 setObject:v216 forKeyedSubscript:@"TD_roamStatus_Failed_Count_BeforeTDWait"];
+
+  v217 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession roamStatus_FailedFilteredOut_Count_BeforeTDWait](self, "roamStatus_FailedFilteredOut_Count_BeforeTDWait")}];
+  [v6 setObject:v217 forKeyedSubscript:@"TD_roamStatus_FailedFilteredOut_Count_BeforeTDWait"];
+
+  v218 = [MEMORY[0x277CCABB0] numberWithInteger:{-[WiFiUsagePoorLinkSession roamStatus_FailedNotFound_Count_BeforeTDWait](self, "roamStatus_FailedNotFound_Count_BeforeTDWait")}];
+  [v6 setObject:v218 forKeyedSubscript:@"TD_roamStatus_FailedNotFound_Count_BeforeTDWait"];
+
+  v219 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession rtAppAtSessionEnd](self, "rtAppAtSessionEnd")}];
+  [v6 setObject:v219 forKeyedSubscript:@"RTAppAtSessionEnd"];
+
+  v220 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession fgAppAtSessionEnd](self, "fgAppAtSessionEnd")}];
+  [v6 setObject:v220 forKeyedSubscript:@"FGAppAtSessionEnd"];
+
+  v221 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession cellularFallbackEnabledAtLinkDown](self, "cellularFallbackEnabledAtLinkDown")}];
+  [v6 setObject:v221 forKeyedSubscript:@"cellularFallbackEnabledAtLinkDown"];
+
+  v222 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession totalSessionTime](self, "totalSessionTime")}];
+  [v6 setObject:v222 forKeyedSubscript:@"TotalSessionTime"];
+
+  v223 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession lowModHighImpactTime](self, "lowModHighImpactTime")}];
+  [v6 setObject:v223 forKeyedSubscript:@"LowModHighImpactTime"];
+
+  v224 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession modHighImpactTime](self, "modHighImpactTime")}];
+  [v6 setObject:v224 forKeyedSubscript:@"ModHighImpactTime"];
+
+  v225 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession highImpactTime](self, "highImpactTime")}];
+  [v6 setObject:v225 forKeyedSubscript:@"HighImpactTime"];
+
+  v226 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession txRxRateImpactTime](self, "txRxRateImpactTime")}];
+  [v6 setObject:v226 forKeyedSubscript:@"TxRxRateImpactTime"];
+
+  v227 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession txLatencyImpactTime](self, "txLatencyImpactTime")}];
+  [v6 setObject:v227 forKeyedSubscript:@"TxLatencyImpactTime"];
+
+  v228 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession txPerImpactTime](self, "txPerImpactTime")}];
+  [v6 setObject:v228 forKeyedSubscript:@"TxPerImpactTime"];
+
+  v229 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession unifiedImpactTime](self, "unifiedImpactTime")}];
+  [v6 setObject:v229 forKeyedSubscript:@"UnifiedImpactTime"];
+
+  v230 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession sessionTxBytes](self, "sessionTxBytes")}];
+  [v6 setObject:v230 forKeyedSubscript:@"SessionTxBytes"];
+
+  v231 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession sessionRxBytes](self, "sessionRxBytes")}];
+  [v6 setObject:v231 forKeyedSubscript:@"SessionRxBytes"];
+
+  v232 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[WiFiUsagePoorLinkSession sessionTotalBytes](self, "sessionTotalBytes")}];
+  [v6 setObject:v232 forKeyedSubscript:@"SessionTotalBytes"];
+
+  v233 = [MEMORY[0x277CCABB0] numberWithBool:{-[WiFiUsagePoorLinkSession assertiveTdDisabled](self, "assertiveTdDisabled")}];
+  [v6 setObject:v233 forKeyedSubscript:@"AssertiveTdDisabled"];
+
+  return v6;
+}
+
 - (void)initializeTimer
 {
   v3 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, self->_queue);
@@ -1112,6 +2395,32 @@ LABEL_9:
     self->_endSessionTimer = 0;
 
     self->_timerActive = 0;
+  }
+}
+
+- (void)startTimerWithTimeout:(unint64_t)timeout reason:(int)reason
+{
+  if (!self->_timerActive && self->_timerReason == 3)
+  {
+    v5 = *&reason;
+    if ([(WiFiUsageSession *)self isSessionActive])
+    {
+      endSessionTimer = self->_endSessionTimer;
+      v8 = dispatch_time(0, 1000000000 * timeout);
+      dispatch_source_set_timer(endSessionTimer, v8, 0xFFFFFFFFFFFFFFFFLL, 0);
+      self->_timerActive = 1;
+      self->_timerReason = v5;
+      v9 = [WiFiUsagePoorLinkSession timerReason:v5];
+      NSLog(&cfstr_SStartTimerWai.isa, "[WiFiUsagePoorLinkSession startTimerWithTimeout:reason:]", v9, timeout);
+
+      if ((v5 - 1) <= 1)
+      {
+        v10 = [WiFiUsageInterfaceStats statsForInterfaceName:self->_interface];
+        -[WiFiUsagePoorLinkSession setSessionTxBytes:](self, "setSessionTxBytes:", [v10 txBytes] - self->_sessionStartTxBytes);
+        -[WiFiUsagePoorLinkSession setSessionRxBytes:](self, "setSessionRxBytes:", [v10 rxBytes] - self->_sessionStartRxBytes);
+        [(WiFiUsagePoorLinkSession *)self logUserImpactTimes];
+      }
+    }
   }
 }
 

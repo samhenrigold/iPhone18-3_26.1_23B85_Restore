@@ -18,9 +18,9 @@
   lCopy = l;
   languageCopy = language;
   versionCopy = version;
-  v46.receiver = self;
-  v46.super_class = _LTSpeechRecognizer;
-  v14 = [(_LTSpeechRecognizer *)&v46 init];
+  v48.receiver = self;
+  v48.super_class = _LTSpeechRecognizer;
+  v14 = [(_LTSpeechRecognizer *)&v48 init];
   v15 = v14;
   if (v14)
   {
@@ -38,7 +38,7 @@
     localeIdentifier = [languageCopy localeIdentifier];
     v22 = [lt_asrModels objectForKey:localeIdentifier];
     v23 = v22;
-    v45 = v18;
+    v47 = v18;
     if (v22)
     {
       path = v22;
@@ -67,50 +67,50 @@
 
     v30 = v29;
 
-    v31 = _LTOSLogSpeech();
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG);
+    v33 = _LTOSLogSpeech(v31, v32);
+    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
     if (v26)
     {
-      if (v32)
+      if (v34)
       {
-        [_LTSpeechRecognizer initWithModelURL:v31 language:? modelVersion:? taskHint:?];
+        [_LTSpeechRecognizer initWithModelURL:v33 language:? modelVersion:? taskHint:?];
       }
 
-      v33 = [objc_opt_class() instancesRespondToSelector:sel_initWithConfiguration_useQuasarFormatter_overrides_];
-      v34 = objc_alloc(MEMORY[0x277D07278]);
-      if (v33)
+      v35 = [objc_opt_class() instancesRespondToSelector:sel_initWithConfiguration_useQuasarFormatter_overrides_];
+      v36 = objc_alloc(MEMORY[0x277D07278]);
+      if (v35)
       {
-        v35 = [v34 initWithConfiguration:v25 useQuasarFormatter:1 overrides:v30];
+        v37 = [v36 initWithConfiguration:v25 useQuasarFormatter:1 overrides:v30];
       }
 
       else
       {
-        v35 = [v34 initWithConfiguration:v25 useQuasarFormatter:1];
+        v37 = [v36 initWithConfiguration:v25 useQuasarFormatter:1];
       }
 
       recognizer = v15->_recognizer;
-      v15->_recognizer = v35;
+      v15->_recognizer = v37;
     }
 
     else
     {
-      if (v32)
+      if (v34)
       {
-        [_LTSpeechRecognizer initWithModelURL:v31 language:? modelVersion:? taskHint:?];
+        [_LTSpeechRecognizer initWithModelURL:v33 language:? modelVersion:? taskHint:?];
       }
 
       path2 = [lCopy path];
       recognizer = [path2 stringByAppendingPathComponent:@"ncs"];
 
-      v38 = [recognizer stringByAppendingPathComponent:@"dispatch.voc"];
-      v39 = [recognizer stringByAppendingPathComponent:@"lexicon.enh"];
-      v40 = [recognizer stringByAppendingPathComponent:@"itn_s.enh"];
-      v41 = [objc_alloc(MEMORY[0x277D07278]) initWithConfiguration:v25 overrides:v30 overrideConfigFiles:0 generalVoc:v38 lexiconEnh:v39 itnEnh:v40];
-      v42 = v15->_recognizer;
-      v15->_recognizer = v41;
+      v40 = [recognizer stringByAppendingPathComponent:@"dispatch.voc"];
+      v41 = [recognizer stringByAppendingPathComponent:@"lexicon.enh"];
+      v42 = [recognizer stringByAppendingPathComponent:@"itn_s.enh"];
+      v43 = [objc_alloc(MEMORY[0x277D07278]) initWithConfiguration:v25 overrides:v30 overrideConfigFiles:0 generalVoc:v40 lexiconEnh:v41 itnEnh:v42];
+      v44 = v15->_recognizer;
+      v15->_recognizer = v43;
     }
 
-    v43 = v15;
+    v45 = v15;
   }
 
   return v15;

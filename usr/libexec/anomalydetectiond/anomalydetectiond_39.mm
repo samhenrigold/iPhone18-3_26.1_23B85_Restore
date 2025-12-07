@@ -1244,7 +1244,7 @@ uint64_t CMMsl::KappaPeakDetectorMapResult::KappaPeakDetectorMapResult(uint64_t 
   return a1;
 }
 
-CMMsl *CMMsl::KappaPeakDetectorMapResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaPeakDetectorMapResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3288,11 +3288,11 @@ uint64_t CMMsl::KappaPeakDetectorMapResult::hash_value(CMMsl::KappaPeakDetectorM
       v21 = 0;
     }
 
-    v39 = v21;
+    v35 = v21;
     if ((v2 & 8) != 0)
     {
 LABEL_3:
-      v38 = *(this + 10);
+      v34 = *(this + 10);
       if ((v2 & 0x800) != 0)
       {
         goto LABEL_4;
@@ -3304,18 +3304,18 @@ LABEL_3:
 
   else
   {
-    v39 = 0;
+    v35 = 0;
     if ((v2 & 8) != 0)
     {
       goto LABEL_3;
     }
   }
 
-  v38 = 0;
+  v34 = 0;
   if ((v2 & 0x800) != 0)
   {
 LABEL_4:
-    v37 = *(this + 32);
+    v33 = *(this + 32);
     if ((v2 & 0x10) != 0)
     {
       goto LABEL_5;
@@ -3325,32 +3325,32 @@ LABEL_4:
   }
 
 LABEL_35:
-  v37 = 0;
+  v33 = 0;
   if ((v2 & 0x10) != 0)
   {
 LABEL_5:
-    v36 = *(this + 11);
+    v32 = *(this + 11);
     if ((v2 & 0x4000) != 0)
     {
       goto LABEL_6;
     }
 
 LABEL_37:
-    v35 = 0;
+    v31 = 0;
     if ((v2 & 0x8000) != 0)
     {
       goto LABEL_9;
     }
 
 LABEL_38:
-    v34 = 0;
+    v30 = 0;
     if ((v2 & 0x200) != 0)
     {
       goto LABEL_12;
     }
 
 LABEL_39:
-    v33 = 0;
+    v29 = 0;
     if ((v2 & 0x400) != 0)
     {
       goto LABEL_15;
@@ -3367,7 +3367,7 @@ LABEL_40:
   }
 
 LABEL_36:
-  v36 = 0;
+  v32 = 0;
   if ((v2 & 0x4000) == 0)
   {
     goto LABEL_37;
@@ -3381,7 +3381,7 @@ LABEL_6:
     v4 = 0;
   }
 
-  v35 = v4;
+  v31 = v4;
   if ((v2 & 0x8000) == 0)
   {
     goto LABEL_38;
@@ -3395,7 +3395,7 @@ LABEL_9:
     v6 = 0;
   }
 
-  v34 = v6;
+  v30 = v6;
   if ((v2 & 0x200) == 0)
   {
     goto LABEL_39;
@@ -3409,7 +3409,7 @@ LABEL_12:
     v8 = 0;
   }
 
-  v33 = v8;
+  v29 = v8;
   if ((v2 & 0x400) == 0)
   {
     goto LABEL_40;
@@ -3541,49 +3541,45 @@ LABEL_28:
   }
 
 LABEL_48:
-  v22 = *(this + 1);
-  v23 = *(this + 2);
-  v24 = PBHashBytes();
-  v25 = *(this + 4);
-  v26 = *(this + 5);
-  v27 = PBHashBytes();
-  v28 = *(this + 38);
-  if ((v28 & 1) == 0)
+  v22 = PBHashBytes();
+  v23 = PBHashBytes();
+  v24 = *(this + 38);
+  if ((v24 & 1) == 0)
   {
-    v29 = 0;
-    if ((v28 & 2) != 0)
+    v25 = 0;
+    if ((v24 & 2) != 0)
     {
       goto LABEL_50;
     }
 
 LABEL_53:
-    v30 = 0;
-    if ((v28 & 0x20000) != 0)
+    v26 = 0;
+    if ((v24 & 0x20000) != 0)
     {
       goto LABEL_51;
     }
 
 LABEL_54:
-    v31 = 0;
-    return v38 ^ v39 ^ v37 ^ v36 ^ v35 ^ v34 ^ v33 ^ v10 ^ v11 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v19 ^ v24 ^ v27 ^ v29 ^ v30 ^ v31;
+    v27 = 0;
+    return v34 ^ v35 ^ v33 ^ v32 ^ v31 ^ v30 ^ v29 ^ v10 ^ v11 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v19 ^ v22 ^ v23 ^ v25 ^ v26 ^ v27;
   }
 
-  v29 = *(this + 7);
-  if ((v28 & 2) == 0)
+  v25 = *(this + 7);
+  if ((v24 & 2) == 0)
   {
     goto LABEL_53;
   }
 
 LABEL_50:
-  v30 = *(this + 8);
-  if ((v28 & 0x20000) == 0)
+  v26 = *(this + 8);
+  if ((v24 & 0x20000) == 0)
   {
     goto LABEL_54;
   }
 
 LABEL_51:
-  v31 = *(this + 149);
-  return v38 ^ v39 ^ v37 ^ v36 ^ v35 ^ v34 ^ v33 ^ v10 ^ v11 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v19 ^ v24 ^ v27 ^ v29 ^ v30 ^ v31;
+  v27 = *(this + 149);
+  return v34 ^ v35 ^ v33 ^ v32 ^ v31 ^ v30 ^ v29 ^ v10 ^ v11 ^ v13 ^ v14 ^ v15 ^ v16 ^ v17 ^ v19 ^ v22 ^ v23 ^ v25 ^ v26 ^ v27;
 }
 
 void CMMsl::KappaPulseDeltaV::~KappaPulseDeltaV(CMMsl::KappaPulseDeltaV *this)
@@ -4010,7 +4006,7 @@ float CMMsl::KappaPulseDeltaV::KappaPulseDeltaV(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaPulseDeltaV::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaPulseDeltaV::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7129,7 +7125,7 @@ double CMMsl::KappaPulseInertialHgAccel::KappaPulseInertialHgAccel(uint64_t a1, 
   return result;
 }
 
-CMMsl *CMMsl::KappaPulseInertialHgAccel::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaPulseInertialHgAccel::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9537,7 +9533,7 @@ float CMMsl::KappaPulseResult::KappaPulseResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaPulseResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaPulseResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

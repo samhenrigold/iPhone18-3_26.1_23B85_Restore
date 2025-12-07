@@ -3,20 +3,17 @@
 
 @implementation UIImage
 
-uint64_t __141__UIImage_PhotosUICore__px_extractPlayOverlayBackgroundImageFromLocation_inViewportWithSize_contentMode_contentsRect_asynchronously_handler___block_invoke_3(uint64_t a1)
+void __141__UIImage_PhotosUICore__px_extractPlayOverlayBackgroundImageFromLocation_inViewportWithSize_contentMode_contentsRect_asynchronously_handler___block_invoke_3(uint64_t a1)
 {
-  result = [*(a1 + 32) isCancelled];
-  if ((result & 1) == 0)
+  if (([*(a1 + 32) isCancelled] & 1) == 0)
   {
-    v2 = [MEMORY[0x1E69DCAB8] px_playOverlayImage:1];
+    v1 = [MEMORY[0x1E69DCAB8] px_playOverlayImage:1];
     [MEMORY[0x1E69DCAB8] px_playOverlayImage:0];
     objc_claimAutoreleasedReturnValue();
-    [v2 size];
-    UIGraphicsBeginImageContextWithOptions(v3, 0, 0.0);
+    [v1 size];
+    UIGraphicsBeginImageContextWithOptions(v2, 0, 0.0);
     PXSizeScale();
   }
-
-  return result;
 }
 
 uint64_t __141__UIImage_PhotosUICore__px_extractPlayOverlayBackgroundImageFromLocation_inViewportWithSize_contentMode_contentsRect_asynchronously_handler___block_invoke_2()

@@ -8,6 +8,7 @@
 - (id)recentNodes;
 - (void)addAirDropPerson:(__SFNode *)person;
 - (void)browseAfterDelay:(double)delay;
+- (void)buildNodesAndNotify:(BOOL)notify;
 - (void)combineRecentAndConnectedNodes:(BOOL)nodes;
 - (void)postNotification;
 - (void)removeAirDropPerson:(__SFNode *)person;
@@ -334,72 +335,71 @@ LABEL_32:
   recentNodes = [(SDConnectedBrowser *)self recentNodes];
   connectedNodes = [(SDConnectedBrowser *)selfCopy connectedNodes];
   v5 = objc_opt_new();
-  v30 = [connectedNodes count];
+  v28 = [connectedNodes count];
+  v38 = 0u;
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
   obj = connectedNodes;
-  v6 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-  v35 = selfCopy;
+  v6 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v33 = selfCopy;
   if (v6)
   {
     v7 = v6;
-    v8 = *v41;
+    v8 = *v39;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v41 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v40 + 1) + 8 * i);
-        v11 = SFNodeCopyRealName();
+        v10 = SFNodeCopyRealName();
         servers = selfCopy->_servers;
-        if (servers && ([(NSDictionary *)servers objectForKeyedSubscript:v11], v13 = objc_claimAutoreleasedReturnValue(), v13, v13))
+        if (servers && ([(NSDictionary *)servers objectForKeyedSubscript:v10], v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
         {
-          v14 = SFNodeCopyURL();
-          v15 = SFNodeCopyModel();
-          v16 = SFNodeCopyRealName();
+          v13 = SFNodeCopyURL();
+          v14 = SFNodeCopyModel();
+          v15 = SFNodeCopyRealName();
           SFNodeSetURL();
           SFNodeSetModel();
-          [v5 setObject:v13 forKeyedSubscript:v16];
-          if (v15)
-          {
-            CFRelease(v15);
-          }
-
+          [v5 setObject:v12 forKeyedSubscript:v15];
           if (v14)
           {
             CFRelease(v14);
           }
 
-          selfCopy = v35;
+          if (v13)
+          {
+            CFRelease(v13);
+          }
+
+          selfCopy = v33;
         }
 
         else
         {
           Copy = SFNodeCreateCopy();
-          v16 = SFNodeCopyRealName();
-          [v5 setObject:Copy forKeyedSubscript:v16];
+          v15 = SFNodeCopyRealName();
+          [v5 setObject:Copy forKeyedSubscript:v15];
           CFRelease(Copy);
         }
 
         SFNodeAddKind();
-        CFRelease(v11);
+        CFRelease(v10);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v7 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v7);
   }
 
-  if (v30 != selfCopy->_connectedCount)
+  if (v28 != selfCopy->_connectedCount)
   {
-    selfCopy->_connectedCount = v30;
+    selfCopy->_connectedCount = v28;
     selfCopy->_sendNotification = 1;
   }
 
@@ -408,79 +408,85 @@ LABEL_32:
     [(SDConnectedBrowser *)selfCopy addToRecents:v5];
   }
 
-  v32 = [recentNodes count];
+  v30 = [recentNodes count];
+  v34 = 0u;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v18 = recentNodes;
-  v19 = [v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
-  if (v19)
+  v17 = recentNodes;
+  v18 = [v17 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v18)
   {
-    v20 = v19;
-    v21 = *v37;
+    v19 = v18;
+    v20 = *v35;
     do
     {
-      for (j = 0; j != v20; j = j + 1)
+      for (j = 0; j != v19; ++j)
       {
-        if (*v37 != v21)
+        if (*v35 != v20)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v36 + 1) + 8 * j);
-        v24 = SFNodeCopyRealName();
-        v25 = [v5 objectForKeyedSubscript:v24];
+        v22 = SFNodeCopyRealName();
+        v23 = [v5 objectForKeyedSubscript:v22];
 
-        if (v25)
+        if (v23)
         {
           goto LABEL_26;
         }
 
-        v27 = v35->_servers;
-        if (v27)
+        v25 = v33->_servers;
+        if (v25)
         {
-          v25 = [(NSDictionary *)v27 objectForKeyedSubscript:v24];
+          v23 = [(NSDictionary *)v25 objectForKeyedSubscript:v22];
 
-          if (v25)
+          if (v23)
           {
-            v28 = SFNodeCopyURL();
+            v26 = SFNodeCopyURL();
             SFNodeSetURL();
             SFNodeRemoveKind();
-            if (v28)
+            if (v26)
             {
-              CFRelease(v28);
+              CFRelease(v26);
             }
 
 LABEL_26:
-            v26 = SFNodeCopyRealName();
-            [v5 setObject:v25 forKeyedSubscript:v26];
+            v24 = SFNodeCopyRealName();
+            [v5 setObject:v23 forKeyedSubscript:v24];
             goto LABEL_32;
           }
         }
 
-        v26 = SFNodeCreateCopy();
-        v29 = SFNodeCopyRealName();
-        [v5 setObject:v26 forKeyedSubscript:v29];
-        CFRelease(v29);
+        v24 = SFNodeCreateCopy();
+        v27 = SFNodeCopyRealName();
+        [v5 setObject:v24 forKeyedSubscript:v27];
+        CFRelease(v27);
 LABEL_32:
-        CFRelease(v26);
+        CFRelease(v24);
         SFNodeAddKind();
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
-    while (v20);
+    while (v19);
   }
 
-  if (v32 != v35->_recentsCount)
+  if (v30 != v33->_recentsCount)
   {
-    v35->_recentsCount = v32;
-    v35->_sendNotification = 1;
+    v33->_recentsCount = v30;
+    v33->_sendNotification = 1;
   }
 
-  [(SDConnectedBrowser *)v35 setServers:v5];
+  [(SDConnectedBrowser *)v33 setServers:v5];
+}
+
+- (void)buildNodesAndNotify:(BOOL)notify
+{
+  [(SDConnectedBrowser *)self combineRecentAndConnectedNodes:notify];
+
+  [(SDConnectedBrowser *)self postNotification];
 }
 
 - (void)addAirDropPerson:(__SFNode *)person

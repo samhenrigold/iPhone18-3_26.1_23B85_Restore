@@ -1067,13 +1067,13 @@ LABEL_22:
   return v2;
 }
 
-uint64_t __35__PUImportPPTDriver_sharedInstance__block_invoke()
+uint64_t __35__PUImportPPTDriver_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedInstance_sSharedInstance;
-  sharedInstance_sSharedInstance = v0;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance_sSharedInstance;
+  sharedInstance_sSharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8](v0, v1);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 @end

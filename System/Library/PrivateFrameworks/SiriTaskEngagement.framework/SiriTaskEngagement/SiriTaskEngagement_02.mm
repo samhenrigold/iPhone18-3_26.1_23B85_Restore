@@ -1,594 +1,3 @@
-uint64_t closure #5 in ProtoReminderTaskFeatureSet.decodeMessage<A>(decoder:)()
-{
-  v0 = *(type metadata accessor for ProtoReminderTaskFeatureSet(0) + 36);
-  type metadata accessor for ProtoDateTimeEntitySignal(0);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal);
-  return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-}
-
-uint64_t ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = closure #1 in ProtoAlarmTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoReminderTaskFeatureSet);
-  if (!v4)
-  {
-    closure #2 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoReminderTaskFeatureSet);
-    closure #3 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(v3);
-    closure #4 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3);
-    closure #5 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ProtoAlarmTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
-{
-  result = a5(0);
-  v7 = (a1 + *(result + 20));
-  if (v7[1])
-  {
-    v8 = *v7;
-    return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1)
-{
-  result = type metadata accessor for ProtoReminderTaskFeatureSet(0);
-  if (*(a1 + *(result + 28)) != 2)
-  {
-    return dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #4 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ProtoDateTimeEntitySignal(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + *(v14 + 32), v8, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return outlined destroy of DateInterval?(v8, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  }
-
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v8, v13, type metadata accessor for ProtoDateTimeEntitySignal);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of ProtoTaskFeatureSet(v13, type metadata accessor for ProtoDateTimeEntitySignal);
-}
-
-uint64_t closure #5 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ProtoDateTimeEntitySignal(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + *(v14 + 36), v8, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return outlined destroy of DateInterval?(v8, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  }
-
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v8, v13, type metadata accessor for ProtoDateTimeEntitySignal);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoDateTimeEntitySignal and conformance ProtoDateTimeEntitySignal, type metadata accessor for ProtoDateTimeEntitySignal);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of ProtoTaskFeatureSet(v13, type metadata accessor for ProtoDateTimeEntitySignal);
-}
-
-uint64_t protocol witness for Message.init() in conformance ProtoReminderTaskFeatureSet@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[6];
-  v5 = (a2 + a1[5]);
-  *v5 = 0;
-  v5[1] = 0;
-  *(a2 + v4) = 2;
-  v6 = a1[8];
-  *(a2 + a1[7]) = 2;
-  v7 = type metadata accessor for ProtoDateTimeEntitySignal(0);
-  v10 = *(*(v7 - 8) + 56);
-  (v10)((v7 - 8), a2 + v6, 1, 1, v7);
-  v8 = a2 + a1[9];
-
-  return v10(v8, 1, 1, v7);
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoReminderTaskFeatureSet(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoReminderTaskFeatureSet and conformance ProtoReminderTaskFeatureSet, type metadata accessor for ProtoReminderTaskFeatureSet);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoReminderTaskFeatureSet(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoReminderTaskFeatureSet and conformance ProtoReminderTaskFeatureSet, type metadata accessor for ProtoReminderTaskFeatureSet);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoReminderTaskFeatureSet()
-{
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoReminderTaskFeatureSet and conformance ProtoReminderTaskFeatureSet, type metadata accessor for ProtoReminderTaskFeatureSet);
-
-  return Message.hash(into:)();
-}
-
-uint64_t ProtoPlayMediaTaskFeatureSet.decodeMessage<A>(decoder:)()
-{
-  while (1)
-  {
-    result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v3 & 1) != 0)
-    {
-      return result;
-    }
-
-    if (result <= 2)
-    {
-      if (result == 1)
-      {
-        v6 = *(type metadata accessor for ProtoPlayMediaTaskFeatureSet(0) + 20);
-LABEL_16:
-        v0 = 0;
-        dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
-      }
-
-      else if (result == 2)
-      {
-        v4 = *(type metadata accessor for ProtoPlayMediaTaskFeatureSet(0) + 24);
-        goto LABEL_16;
-      }
-    }
-
-    else
-    {
-      switch(result)
-      {
-        case 3:
-          v1 = *(type metadata accessor for ProtoPlayMediaTaskFeatureSet(0) + 28);
-          goto LABEL_3;
-        case 4:
-          v5 = *(type metadata accessor for ProtoPlayMediaTaskFeatureSet(0) + 32);
-LABEL_3:
-          v0 = 0;
-          dispatch thunk of Decoder.decodeSingularStringField(value:)();
-          break;
-        case 5:
-          closure #5 in ProtoPlayMediaTaskFeatureSet.decodeMessage<A>(decoder:)();
-          break;
-      }
-    }
-  }
-}
-
-uint64_t closure #5 in ProtoPlayMediaTaskFeatureSet.decodeMessage<A>(decoder:)()
-{
-  v0 = *(type metadata accessor for ProtoPlayMediaTaskFeatureSet(0) + 36);
-  type metadata accessor for ProtoMediaEntitySignal(0);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoMediaEntitySignal and conformance ProtoMediaEntitySignal, type metadata accessor for ProtoMediaEntitySignal);
-  return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-}
-
-uint64_t ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = closure #1 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(v3);
-  if (!v4)
-  {
-    closure #1 in ProtoStartCallTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
-    closure #3 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
-    closure #4 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
-    closure #5 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1)
-{
-  result = type metadata accessor for ProtoPlayMediaTaskFeatureSet(0);
-  v3 = (a1 + *(result + 20));
-  if ((v3[1] & 1) == 0)
-  {
-    v4 = *v3;
-    return dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ProtoStartCallTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
-{
-  result = a5(0);
-  v7 = (a1 + *(result + 24));
-  if ((v7[1] & 1) == 0)
-  {
-    v8 = *v7;
-    return dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #5 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ProtoMediaEntitySignal(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ProtoPlayMediaTaskFeatureSet(0);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + *(v14 + 36), v8, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return outlined destroy of DateInterval?(v8, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-  }
-
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v8, v13, type metadata accessor for ProtoMediaEntitySignal);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoMediaEntitySignal and conformance ProtoMediaEntitySignal, type metadata accessor for ProtoMediaEntitySignal);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of ProtoTaskFeatureSet(v13, type metadata accessor for ProtoMediaEntitySignal);
-}
-
-uint64_t protocol witness for Message.init() in conformance ProtoPlayMediaTaskFeatureSet@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[6];
-  v5 = a2 + a1[5];
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = a2 + v4;
-  *v6 = 0;
-  *(v6 + 8) = 1;
-  v7 = a1[8];
-  v8 = (a2 + a1[7]);
-  *v8 = 0;
-  v8[1] = 0;
-  v9 = (a2 + v7);
-  *v9 = 0;
-  v9[1] = 0;
-  v10 = a1[9];
-  v11 = type metadata accessor for ProtoMediaEntitySignal(0);
-  v12 = *(*(v11 - 8) + 56);
-
-  return v12(a2 + v10, 1, 1, v11);
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoPlayMediaTaskFeatureSet(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoPlayMediaTaskFeatureSet and conformance ProtoPlayMediaTaskFeatureSet, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoPlayMediaTaskFeatureSet(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoPlayMediaTaskFeatureSet and conformance ProtoPlayMediaTaskFeatureSet, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoPlayMediaTaskFeatureSet()
-{
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoPlayMediaTaskFeatureSet and conformance ProtoPlayMediaTaskFeatureSet, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
-
-  return Message.hash(into:)();
-}
-
-uint64_t ProtoNavigationTaskFeatureSet.decodeMessage<A>(decoder:)()
-{
-  while (1)
-  {
-    result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 3:
-        closure #3 in ProtoNavigationTaskFeatureSet.decodeMessage<A>(decoder:)();
-        break;
-      case 2:
-        v4 = *(type metadata accessor for ProtoNavigationTaskFeatureSet(0) + 24);
-LABEL_10:
-        v0 = 0;
-        dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-        break;
-      case 1:
-        v3 = *(type metadata accessor for ProtoNavigationTaskFeatureSet(0) + 20);
-        goto LABEL_10;
-    }
-  }
-}
-
-uint64_t closure #3 in ProtoNavigationTaskFeatureSet.decodeMessage<A>(decoder:)()
-{
-  v0 = *(type metadata accessor for ProtoNavigationTaskFeatureSet(0) + 28);
-  type metadata accessor for ProtoNavigationUserFollowupContext(0);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationUserFollowupContext and conformance ProtoNavigationUserFollowupContext, type metadata accessor for ProtoNavigationUserFollowupContext);
-  return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-}
-
-uint64_t ProtoNavigationTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = closure #1 in ProtoNavigationTaskFeatureSet.traverse<A>(visitor:)(v3);
-  if (!v4)
-  {
-    closure #2 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationTaskFeatureSet);
-    closure #3 in ProtoNavigationTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ProtoNavigationTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1)
-{
-  result = type metadata accessor for ProtoNavigationTaskFeatureSet(0);
-  if (*(a1 + *(result + 20)) != 2)
-  {
-    return dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in ProtoReminderTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
-{
-  result = a5(0);
-  if (*(a1 + *(result + 24)) != 2)
-  {
-    return dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in ProtoNavigationTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ProtoNavigationUserFollowupContext(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ProtoNavigationTaskFeatureSet(0);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + *(v14 + 28), v8, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return outlined destroy of DateInterval?(v8, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
-  }
-
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v8, v13, type metadata accessor for ProtoNavigationUserFollowupContext);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationUserFollowupContext and conformance ProtoNavigationUserFollowupContext, type metadata accessor for ProtoNavigationUserFollowupContext);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of ProtoTaskFeatureSet(v13, type metadata accessor for ProtoNavigationUserFollowupContext);
-}
-
-uint64_t protocol witness for Message.init() in conformance ProtoNavigationTaskFeatureSet@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  v4 = a1[6];
-  *(a2 + a1[5]) = 2;
-  *(a2 + v4) = 2;
-  v5 = a1[7];
-  v6 = type metadata accessor for ProtoNavigationUserFollowupContext(0);
-  v7 = *(*(v6 - 8) + 56);
-
-  return v7(a2 + v5, 1, 1, v6);
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoNavigationTaskFeatureSet(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationTaskFeatureSet and conformance ProtoNavigationTaskFeatureSet, type metadata accessor for ProtoNavigationTaskFeatureSet);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoNavigationTaskFeatureSet(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationTaskFeatureSet and conformance ProtoNavigationTaskFeatureSet, type metadata accessor for ProtoNavigationTaskFeatureSet);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoNavigationTaskFeatureSet()
-{
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationTaskFeatureSet and conformance ProtoNavigationTaskFeatureSet, type metadata accessor for ProtoNavigationTaskFeatureSet);
-
-  return Message.hash(into:)();
-}
-
-uint64_t ProtoNavigationUserFollowupContext.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v4)
-  {
-    while (1)
-    {
-      if (v10)
-      {
-        return result;
-      }
-
-      if (result <= 2)
-      {
-        if (result != 1)
-        {
-          if (result != 2)
-          {
-            goto LABEL_5;
-          }
-
-          v11 = v4;
-          v13 = *(type metadata accessor for ProtoNavigationUserFollowupContext(0) + 24);
-          goto LABEL_16;
-        }
-
-        closure #1 in ProtoTaskEngagementFeatureSet.decodeMessage<A>(decoder:)(a1, v5, a2, a3, type metadata accessor for ProtoNavigationUserFollowupContext, lazy protocol witness table accessor for type ProtoNavigationFollowupType and conformance ProtoNavigationFollowupType);
-      }
-
-      else
-      {
-        v11 = v4;
-        switch(result)
-        {
-          case 3:
-            v14 = *(type metadata accessor for ProtoNavigationUserFollowupContext(0) + 28);
-LABEL_16:
-            v4 = v11;
-            dispatch thunk of Decoder.decodeSingularStringField(value:)();
-            break;
-          case 4:
-            closure #4 in ProtoNavigationUserFollowupContext.decodeMessage<A>(decoder:)();
-            break;
-          case 5:
-            v12 = *(type metadata accessor for ProtoNavigationUserFollowupContext(0) + 36);
-            dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
-            break;
-        }
-      }
-
-LABEL_5:
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ProtoTaskEngagementFeatureSet.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), void (*a6)(void))
-{
-  v7 = *(a5(0) + 20);
-  a6();
-  return dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-}
-
-uint64_t closure #4 in ProtoNavigationUserFollowupContext.decodeMessage<A>(decoder:)()
-{
-  v0 = *(type metadata accessor for ProtoNavigationUserFollowupContext(0) + 32);
-  type metadata accessor for ProtoLocationEntitySignal(0);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoLocationEntitySignal and conformance ProtoLocationEntitySignal, type metadata accessor for ProtoLocationEntitySignal);
-  return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-}
-
-uint64_t ProtoNavigationUserFollowupContext.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = closure #1 in ProtoNavigationUserFollowupContext.traverse<A>(visitor:)(v3);
-  if (!v4)
-  {
-    closure #1 in ProtoTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationUserFollowupContext);
-    closure #3 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationUserFollowupContext);
-    closure #4 in ProtoNavigationUserFollowupContext.traverse<A>(visitor:)(v3, a1, a2, a3);
-    closure #5 in ProtoNavigationUserFollowupContext.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationUserFollowupContext);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ProtoNavigationUserFollowupContext.traverse<A>(visitor:)(uint64_t a1)
-{
-  result = type metadata accessor for ProtoNavigationUserFollowupContext(0);
-  if (*(a1 + *(result + 20)) != 3)
-  {
-    v3 = *(a1 + *(result + 20));
-    lazy protocol witness table accessor for type ProtoNavigationFollowupType and conformance ProtoNavigationFollowupType();
-    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in ProtoTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
-{
-  result = a5(0);
-  v7 = (a1 + *(result + 24));
-  if (v7[1])
-  {
-    v8 = *v7;
-    return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #3 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
-{
-  result = a5(0);
-  v7 = (a1 + *(result + 28));
-  if (v7[1])
-  {
-    v8 = *v7;
-    return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #4 in ProtoNavigationUserFollowupContext.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for ProtoLocationEntitySignal(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for ProtoNavigationUserFollowupContext(0);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + *(v14 + 32), v8, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return outlined destroy of DateInterval?(v8, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
-  }
-
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v8, v13, type metadata accessor for ProtoLocationEntitySignal);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoLocationEntitySignal and conformance ProtoLocationEntitySignal, type metadata accessor for ProtoLocationEntitySignal);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of ProtoTaskFeatureSet(v13, type metadata accessor for ProtoLocationEntitySignal);
-}
-
 uint64_t protocol witness for Message.init() in conformance ProtoNavigationUserFollowupContext@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
 {
   UnknownStorage.init()();
@@ -611,31 +20,31 @@ uint64_t protocol witness for Message.init() in conformance ProtoNavigationUserF
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoNavigationUserFollowupContext(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationUserFollowupContext and conformance ProtoNavigationUserFollowupContext, type metadata accessor for ProtoNavigationUserFollowupContext);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationUserFollowupContext and conformance ProtoNavigationUserFollowupContext, type metadata accessor for ProtoNavigationUserFollowupContext, &protocol conformance descriptor for ProtoNavigationUserFollowupContext);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoNavigationUserFollowupContext(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationUserFollowupContext and conformance ProtoNavigationUserFollowupContext, type metadata accessor for ProtoNavigationUserFollowupContext);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationUserFollowupContext and conformance ProtoNavigationUserFollowupContext, type metadata accessor for ProtoNavigationUserFollowupContext, &protocol conformance descriptor for ProtoNavigationUserFollowupContext);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoNavigationUserFollowupContext()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoNavigationUserFollowupContext(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationUserFollowupContext and conformance ProtoNavigationUserFollowupContext, type metadata accessor for ProtoNavigationUserFollowupContext);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationUserFollowupContext and conformance ProtoNavigationUserFollowupContext, type metadata accessor for ProtoNavigationUserFollowupContext, &protocol conformance descriptor for ProtoNavigationUserFollowupContext);
 
   return Message.hash(into:)();
 }
 
-uint64_t ProtoNavigationFeatures.decodeMessage<A>(decoder:)()
+uint64_t ProtoNavigationFeatures.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v3 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       return result;
     }
@@ -645,35 +54,21 @@ uint64_t ProtoNavigationFeatures.decodeMessage<A>(decoder:)()
       switch(result)
       {
         case 4:
-          v1 = *(type metadata accessor for ProtoNavigationFeatures(0) + 32);
-          goto LABEL_3;
+          goto LABEL_2;
         case 5:
-          v8 = *(type metadata accessor for ProtoNavigationFeatures(0) + 36);
+          type metadata accessor for ProtoNavigationFeatures(0);
           dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
           break;
         case 6:
-          v5 = *(type metadata accessor for ProtoNavigationFeatures(0) + 40);
-          goto LABEL_3;
+          goto LABEL_2;
       }
     }
 
-    else
+    else if (result == 1 || result == 2 || result == 3)
     {
-      switch(result)
-      {
-        case 1:
-          v6 = *(type metadata accessor for ProtoNavigationFeatures(0) + 20);
-          goto LABEL_3;
-        case 2:
-          v7 = *(type metadata accessor for ProtoNavigationFeatures(0) + 24);
-LABEL_3:
-          v0 = 0;
-          dispatch thunk of Decoder.decodeSingularStringField(value:)();
-          break;
-        case 3:
-          v4 = *(type metadata accessor for ProtoNavigationFeatures(0) + 28);
-          goto LABEL_3;
-      }
+LABEL_2:
+      type metadata accessor for ProtoNavigationFeatures(0);
+      dispatch thunk of Decoder.decodeSingularStringField(value:)();
     }
   }
 }
@@ -683,11 +78,11 @@ uint64_t ProtoNavigationFeatures.traverse<A>(visitor:)(uint64_t a1, uint64_t a2,
   result = closure #1 in ProtoAlarmTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationFeatures);
   if (!v4)
   {
-    closure #1 in ProtoTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationFeatures);
+    closure #1 in ProtoTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationFeatures, 2);
     closure #3 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationFeatures);
     closure #4 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationFeatures);
     closure #5 in ProtoNavigationUserFollowupContext.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for ProtoNavigationFeatures);
-    closure #6 in ProtoNavigationFeatures.traverse<A>(visitor:)(v3);
+    closure #6 in ProtoNavigationFeatures.traverse<A>(visitor:)(v3, a1, a2, a3);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -697,10 +92,8 @@ uint64_t ProtoNavigationFeatures.traverse<A>(visitor:)(uint64_t a1, uint64_t a2,
 uint64_t closure #4 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   result = a5(0);
-  v7 = (a1 + *(result + 32));
-  if (v7[1])
+  if (*(a1 + *(result + 32) + 8))
   {
-    v8 = *v7;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
@@ -710,34 +103,30 @@ uint64_t closure #4 in ProtoPlayMediaTaskFeatureSet.traverse<A>(visitor:)(uint64
 uint64_t closure #5 in ProtoNavigationUserFollowupContext.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   result = a5(0);
-  v7 = (a1 + *(result + 36));
-  if ((v7[1] & 1) == 0)
+  if ((*(a1 + *(result + 36) + 8) & 1) == 0)
   {
-    v8 = *v7;
     return dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #6 in ProtoNavigationFeatures.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #6 in ProtoNavigationFeatures.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for ProtoNavigationFeatures(0);
-  v3 = (a1 + *(result + 40));
-  if (v3[1])
+  if (*(a1 + *(result + 40) + 8))
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
   return result;
 }
 
-Swift::Int ProtoTaskEngagementFeatureSet.hashValue.getter(void (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+Swift::Int ProtoTaskEngagementFeatureSet.hashValue.getter(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   Hasher.init(_seed:)();
   a1(0);
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(a2, a3);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(a2, a3, a4);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
@@ -771,21 +160,21 @@ uint64_t protocol witness for Message.init() in conformance ProtoNavigationFeatu
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance ProtoNavigationFeatures(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationFeatures and conformance ProtoNavigationFeatures, type metadata accessor for ProtoNavigationFeatures);
+  v4 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationFeatures and conformance ProtoNavigationFeatures, type metadata accessor for ProtoNavigationFeatures, &protocol conformance descriptor for ProtoNavigationFeatures);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ProtoNavigationFeatures(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationFeatures and conformance ProtoNavigationFeatures, type metadata accessor for ProtoNavigationFeatures);
+  v2 = lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationFeatures and conformance ProtoNavigationFeatures, type metadata accessor for ProtoNavigationFeatures, &protocol conformance descriptor for ProtoNavigationFeatures);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoNavigationFeatures()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ProtoNavigationFeatures(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationFeatures and conformance ProtoNavigationFeatures, type metadata accessor for ProtoNavigationFeatures);
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type ProtoNavigationFeatures and conformance ProtoNavigationFeatures, type metadata accessor for ProtoNavigationFeatures, &protocol conformance descriptor for ProtoNavigationFeatures);
 
   return Message.hash(into:)();
 }
@@ -825,248 +214,240 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(uint64_t a1, uint64_t a2)
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ18SiriTaskEngagement24ProtoContactEntitySignalV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for ProtoContactEntitySignal(0);
-  v5 = *(*(v4 - 1) + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = &v47 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v11 = &v47 - v10;
-  v12 = *(a1 + 16);
-  if (v12 == *(a2 + 16))
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = &v46 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v10 = &v46 - v9;
+  v11 = *(a1 + 16);
+  if (v11 == *(a2 + 16))
   {
-    if (v12 && a1 != a2)
+    if (v11 && a1 != a2)
     {
-      v13 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-      v14 = a1 + v13;
-      v15 = a2 + v13;
-      v16 = *(v9 + 72);
+      v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+      v13 = a1 + v12;
+      v14 = a2 + v12;
+      v15 = *(v8 + 72);
       while (1)
       {
-        outlined init with copy of ProtoTaskFeatureSet(v14, v11, type metadata accessor for ProtoContactEntitySignal);
-        outlined init with copy of ProtoTaskFeatureSet(v15, v8, type metadata accessor for ProtoContactEntitySignal);
-        v17 = v4[5];
-        v18 = &v11[v17];
-        v19 = *&v11[v17 + 8];
-        v20 = &v8[v17];
-        v21 = *(v20 + 1);
-        if (v19)
+        outlined init with copy of ProtoTaskFeatureSet(v13, v10, type metadata accessor for ProtoContactEntitySignal);
+        outlined init with copy of ProtoTaskFeatureSet(v14, v7, type metadata accessor for ProtoContactEntitySignal);
+        v16 = v4[5];
+        v17 = &v10[v16];
+        v18 = *&v10[v16 + 8];
+        v19 = &v7[v16];
+        v20 = *(v19 + 1);
+        if (v18)
         {
-          if (!v21 || (*v18 == *v20 ? (v22 = v19 == v21) : (v22 = 0), !v22 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
+          if (!v20 || (*v17 == *v19 ? (v21 = v18 == v20) : (v21 = 0), !v21 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0))
           {
 LABEL_50:
-            outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoContactEntitySignal);
-            outlined destroy of ProtoTaskFeatureSet(v11, type metadata accessor for ProtoContactEntitySignal);
+            outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoContactEntitySignal);
+            outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoContactEntitySignal);
             goto LABEL_51;
           }
         }
 
-        else if (v21)
+        else if (v20)
         {
           goto LABEL_50;
         }
 
-        v23 = v4[6];
-        v24 = &v11[v23];
-        v25 = *&v11[v23 + 8];
-        v26 = &v8[v23];
-        v27 = *(v26 + 1);
-        if (v25)
+        v22 = v4[6];
+        v23 = &v10[v22];
+        v24 = *&v10[v22 + 8];
+        v25 = &v7[v22];
+        v26 = *(v25 + 1);
+        if (v24)
         {
-          if (!v27)
+          if (!v26)
           {
             goto LABEL_50;
           }
 
-          v28 = *v24 == *v26 && v25 == v27;
-          if (!v28 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+          v27 = *v23 == *v25 && v24 == v26;
+          if (!v27 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
           {
             goto LABEL_50;
           }
         }
 
-        else if (v27)
+        else if (v26)
         {
           goto LABEL_50;
         }
 
-        v29 = v4[7];
-        v30 = &v11[v29];
-        v31 = *&v11[v29 + 8];
-        v32 = &v8[v29];
-        v33 = *(v32 + 1);
-        if (v31)
+        v28 = v4[7];
+        v29 = &v10[v28];
+        v30 = *&v10[v28 + 8];
+        v31 = &v7[v28];
+        v32 = *(v31 + 1);
+        if (v30)
         {
-          if (!v33)
+          if (!v32)
           {
             goto LABEL_50;
           }
 
-          v34 = *v30 == *v32 && v31 == v33;
-          if (!v34 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+          v33 = *v29 == *v31 && v30 == v32;
+          if (!v33 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
           {
             goto LABEL_50;
           }
         }
 
-        else if (v33)
+        else if (v32)
         {
           goto LABEL_50;
         }
 
-        v35 = v4[8];
-        v36 = &v11[v35];
-        v37 = *&v11[v35 + 8];
-        v38 = &v8[v35];
-        v39 = *(v38 + 1);
-        if (v37)
+        v34 = v4[8];
+        v35 = &v10[v34];
+        v36 = *&v10[v34 + 8];
+        v37 = &v7[v34];
+        v38 = *(v37 + 1);
+        if (v36)
         {
-          if (!v39 || (*v36 != *v38 || v37 != v39) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+          if (!v38 || (*v35 != *v37 || v36 != v38) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
           {
             goto LABEL_50;
           }
         }
 
-        else if (v39)
+        else if (v38)
         {
           goto LABEL_50;
         }
 
-        v40 = v4[9];
-        v41 = &v11[v40];
-        v42 = *&v11[v40 + 8];
-        v43 = &v8[v40];
-        v44 = *(v43 + 1);
-        if (v42)
+        v39 = v4[9];
+        v40 = &v10[v39];
+        v41 = *&v10[v39 + 8];
+        v42 = &v7[v39];
+        v43 = *(v42 + 1);
+        if (v41)
         {
-          if (!v44 || (*v41 != *v43 || v42 != v44) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+          if (!v43 || (*v40 != *v42 || v41 != v43) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
           {
             goto LABEL_50;
           }
         }
 
-        else if (v44)
+        else if (v43)
         {
           goto LABEL_50;
         }
 
         type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v45 = dispatch thunk of static Equatable.== infix(_:_:)();
-        outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoContactEntitySignal);
-        outlined destroy of ProtoTaskFeatureSet(v11, type metadata accessor for ProtoContactEntitySignal);
-        if (v45)
+        lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+        v44 = dispatch thunk of static Equatable.== infix(_:_:)();
+        outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoContactEntitySignal);
+        outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoContactEntitySignal);
+        if (v44)
         {
-          v15 += v16;
-          v14 += v16;
-          if (--v12)
+          v14 += v15;
+          v13 += v15;
+          if (--v11)
           {
             continue;
           }
         }
 
-        return v45 & 1;
+        return v44 & 1;
       }
     }
 
-    v45 = 1;
+    v44 = 1;
   }
 
   else
   {
 LABEL_51:
-    v45 = 0;
+    v44 = 0;
   }
 
-  return v45 & 1;
+  return v44 & 1;
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ18SiriTaskEngagement05ProtocD10FeatureSetV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-  v88 = *(v4 - 8);
-  v5 = *(v88 + 64);
+  v79 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v74 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v74 - v10;
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMR);
-  v12 = *(*(v83 - 8) + 64);
-  MEMORY[0x28223BE20](v83);
-  v84 = &v74 - v13;
-  v90 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v87 = *(v90 - 8);
-  v14 = *(v87 + 64);
-  MEMORY[0x28223BE20](v90);
-  v89 = &v74 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v74 - v18;
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMR);
-  v20 = *(*(v85 - 8) + 64);
-  MEMORY[0x28223BE20](v85);
-  v22 = &v74 - v21;
-  v91 = type metadata accessor for ProtoTaskEngagementFeatureSet(0);
-  v23 = *(*(v91 - 1) + 64);
-  v24 = MEMORY[0x28223BE20](v91);
-  v26 = &v74 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v24);
-  v29 = &v74 - v28;
-  v30 = *(a1 + 16);
-  if (v30 != *(a2 + 16))
+  v6 = &v65 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v65 - v8;
+  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMR);
+  MEMORY[0x28223BE20](v74);
+  v75 = &v65 - v10;
+  v81 = type metadata accessor for ProtoTaskFeatureSet(0);
+  v78 = *(v81 - 8);
+  MEMORY[0x28223BE20](v81);
+  v80 = &v65 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = &v65 - v13;
+  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMR);
+  MEMORY[0x28223BE20](v76);
+  v16 = &v65 - v15;
+  v82 = type metadata accessor for ProtoTaskEngagementFeatureSet(0);
+  v17 = MEMORY[0x28223BE20](v82);
+  v19 = &v65 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17);
+  v22 = &v65 - v21;
+  v23 = *(a1 + 16);
+  if (v23 != *(a2 + 16))
   {
     goto LABEL_42;
   }
 
-  if (!v30 || a1 == a2)
+  if (!v23 || a1 == a2)
   {
-    v72 = 1;
-    return v72 & 1;
+    v63 = 1;
+    return v63 & 1;
   }
 
-  v77 = v4;
-  v78 = v22;
-  v31 = (*(v27 + 80) + 32) & ~*(v27 + 80);
-  v32 = a1 + v31;
-  v33 = a2 + v31;
-  v81 = v19;
-  v82 = (v87 + 48);
-  v75 = v11;
-  v76 = (v88 + 48);
-  v34 = *(v27 + 72);
-  v79 = v26;
-  v80 = v34;
-  v74 = v7;
+  v68 = v4;
+  v69 = v16;
+  v24 = (*(v20 + 80) + 32) & ~*(v20 + 80);
+  v25 = a1 + v24;
+  v26 = a2 + v24;
+  v72 = v14;
+  v73 = (v78 + 48);
+  v66 = v9;
+  v67 = (v79 + 48);
+  v27 = *(v20 + 72);
+  v70 = v19;
+  v71 = v27;
+  v65 = v6;
   while (1)
   {
-    v86 = v32;
-    outlined init with copy of ProtoTaskFeatureSet(v32, v29, type metadata accessor for ProtoTaskEngagementFeatureSet);
-    outlined init with copy of ProtoTaskFeatureSet(v33, v26, type metadata accessor for ProtoTaskEngagementFeatureSet);
-    v35 = v91[5];
-    v36 = v29[v35];
-    v37 = v26[v35];
-    if (v36 == 14)
+    v77 = v25;
+    outlined init with copy of ProtoTaskFeatureSet(v25, v22, type metadata accessor for ProtoTaskEngagementFeatureSet);
+    outlined init with copy of ProtoTaskFeatureSet(v26, v19, type metadata accessor for ProtoTaskEngagementFeatureSet);
+    v28 = v82[5];
+    v29 = v22[v28];
+    v30 = v19[v28];
+    if (v29 == 14)
     {
-      if (v37 != 14)
+      if (v30 != 14)
       {
         goto LABEL_41;
       }
     }
 
-    else if (v36 != v37)
+    else if (v29 != v30)
     {
       goto LABEL_41;
     }
 
-    v38 = v91[6];
-    v39 = &v29[v38];
-    v40 = v29[v38 + 8];
-    v41 = &v26[v38];
-    v42 = v26[v38 + 8];
-    if (v40)
+    v31 = v82[6];
+    v32 = &v22[v31];
+    v33 = v22[v31 + 8];
+    v34 = &v19[v31];
+    v35 = v19[v31 + 8];
+    if (v33)
     {
-      if (!v42)
+      if (!v35)
       {
         goto LABEL_41;
       }
@@ -1074,85 +455,85 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ18SiriTaskEngagement05ProtocD10FeatureSet
 
     else
     {
-      if (*v39 != *v41)
+      if (*v32 != *v34)
       {
-        LOBYTE(v42) = 1;
+        LOBYTE(v35) = 1;
       }
 
-      if (v42)
+      if (v35)
       {
         goto LABEL_41;
       }
     }
 
-    v87 = v33;
-    v88 = v30;
-    v43 = v91[7];
-    v44 = *(v85 + 48);
-    outlined init with copy of ProtoSiriTaskInteractionType?(&v29[v43], v22, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-    outlined init with copy of ProtoSiriTaskInteractionType?(&v26[v43], &v22[v44], &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-    v45 = *v82;
-    v46 = v90;
-    if ((*v82)(v22, 1, v90) != 1)
+    v78 = v26;
+    v79 = v23;
+    v36 = v82[7];
+    v37 = *(v76 + 48);
+    outlined init with copy of ProtoSiriTaskInteractionType?(&v22[v36], v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+    outlined init with copy of ProtoSiriTaskInteractionType?(&v19[v36], &v16[v37], &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+    v38 = *v73;
+    v39 = v81;
+    if ((*v73)(v16, 1, v81) != 1)
     {
       break;
     }
 
-    if (v45(&v22[v44], 1, v46) != 1)
+    if (v38(&v16[v37], 1, v39) != 1)
     {
       goto LABEL_37;
     }
 
-    outlined destroy of DateInterval?(v22, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-    v48 = v87;
-    v47 = v88;
+    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+    v41 = v78;
+    v40 = v79;
 LABEL_32:
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v72 = dispatch thunk of static Equatable.== infix(_:_:)();
-    outlined destroy of ProtoTaskFeatureSet(v26, type metadata accessor for ProtoTaskEngagementFeatureSet);
-    outlined destroy of ProtoTaskFeatureSet(v29, type metadata accessor for ProtoTaskEngagementFeatureSet);
-    if (v72)
+    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    v63 = dispatch thunk of static Equatable.== infix(_:_:)();
+    outlined destroy of ProtoTaskFeatureSet(v19, type metadata accessor for ProtoTaskEngagementFeatureSet);
+    outlined destroy of ProtoTaskFeatureSet(v22, type metadata accessor for ProtoTaskEngagementFeatureSet);
+    if (v63)
     {
-      v33 = v48 + v80;
-      v32 = v86 + v80;
-      v30 = v47 - 1;
-      if (v30)
+      v26 = v41 + v71;
+      v25 = v77 + v71;
+      v23 = v40 - 1;
+      if (v23)
       {
         continue;
       }
     }
 
-    return v72 & 1;
+    return v63 & 1;
   }
 
-  v49 = v81;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v22, v81, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  if (v45(&v22[v44], 1, v46) == 1)
+  v42 = v72;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v16, v72, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  if (v38(&v16[v37], 1, v39) == 1)
   {
-    outlined destroy of ProtoTaskFeatureSet(v49, type metadata accessor for ProtoTaskFeatureSet);
-    v26 = v79;
+    outlined destroy of ProtoTaskFeatureSet(v42, type metadata accessor for ProtoTaskFeatureSet);
+    v19 = v70;
 LABEL_37:
-    outlined destroy of DateInterval?(v22, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMR);
+    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMR);
     goto LABEL_41;
   }
 
-  v50 = &v22[v44];
-  v51 = v46;
-  v52 = v89;
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v50, v89, type metadata accessor for ProtoTaskFeatureSet);
-  v53 = *(v51 + 24);
-  v54 = (v49 + v53);
-  v55 = *(v49 + v53 + 8);
-  v56 = (v52 + v53);
-  v57 = v56[1];
-  v58 = v49;
-  if (v55)
+  v43 = &v16[v37];
+  v44 = v39;
+  v45 = v80;
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v43, v80, type metadata accessor for ProtoTaskFeatureSet);
+  v46 = *(v44 + 24);
+  v47 = (v42 + v46);
+  v48 = *(v42 + v46 + 8);
+  v49 = (v45 + v46);
+  v50 = v49[1];
+  v51 = v42;
+  if (v48)
   {
-    v59 = v84;
-    v48 = v87;
-    v47 = v88;
-    if (!v57 || (*v54 != *v56 || v55 != v57) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    v52 = v75;
+    v41 = v78;
+    v40 = v79;
+    if (!v50 || (*v47 != *v49 || v48 != v50) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_40;
     }
@@ -1160,63 +541,61 @@ LABEL_37:
 
   else
   {
-    v59 = v84;
-    v48 = v87;
-    v47 = v88;
-    if (v57)
+    v52 = v75;
+    v41 = v78;
+    v40 = v79;
+    if (v50)
     {
       goto LABEL_40;
     }
   }
 
-  v60 = *(v83 + 48);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v49, v59, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v89, v59 + v60, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  v61 = v77;
-  v62 = *v76;
-  if ((*v76)(v59, 1, v77) == 1)
+  v53 = *(v74 + 48);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v42, v52, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v80, v52 + v53, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  v54 = v68;
+  v55 = *v67;
+  if ((*v67)(v52, 1, v68) == 1)
   {
-    if (v62(v59 + v60, 1, v61) != 1)
+    if (v55(v52 + v53, 1, v54) != 1)
     {
       goto LABEL_39;
     }
 
-    outlined destroy of DateInterval?(v59, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-    v58 = v81;
+    outlined destroy of DateInterval?(v52, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+    v51 = v72;
     goto LABEL_31;
   }
 
-  v63 = v59;
-  v64 = v59;
-  v65 = v75;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v63, v75, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  if (v62(v64 + v60, 1, v61) != 1)
+  v56 = v52;
+  v57 = v52;
+  v58 = v66;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v56, v66, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  if (v55(v57 + v53, 1, v54) != 1)
   {
-    v66 = v74;
-    _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v64 + v60, v74, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-    v67 = specialized static ProtoTaskFeatureSet.OneOf_ByTask.== infix(_:_:)(v65, v66);
-    outlined destroy of ProtoTaskFeatureSet(v66, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-    outlined destroy of ProtoTaskFeatureSet(v65, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-    outlined destroy of DateInterval?(v64, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-    v58 = v81;
-    if ((v67 & 1) == 0)
+    v59 = v65;
+    _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v57 + v53, v65, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+    v60 = specialized static ProtoTaskFeatureSet.OneOf_ByTask.== infix(_:_:)(v58, v59);
+    outlined destroy of ProtoTaskFeatureSet(v59, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+    outlined destroy of ProtoTaskFeatureSet(v58, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+    outlined destroy of DateInterval?(v57, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+    v51 = v72;
+    if ((v60 & 1) == 0)
     {
       goto LABEL_40;
     }
 
 LABEL_31:
-    v68 = v58;
-    v69 = *(v90 + 20);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v70 = v89;
-    v71 = dispatch thunk of static Equatable.== infix(_:_:)();
-    outlined destroy of ProtoTaskFeatureSet(v70, type metadata accessor for ProtoTaskFeatureSet);
-    outlined destroy of ProtoTaskFeatureSet(v68, type metadata accessor for ProtoTaskFeatureSet);
-    v22 = v78;
-    outlined destroy of DateInterval?(v78, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-    v26 = v79;
-    if ((v71 & 1) == 0)
+    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    v61 = v80;
+    v62 = dispatch thunk of static Equatable.== infix(_:_:)();
+    outlined destroy of ProtoTaskFeatureSet(v61, type metadata accessor for ProtoTaskFeatureSet);
+    outlined destroy of ProtoTaskFeatureSet(v51, type metadata accessor for ProtoTaskFeatureSet);
+    v16 = v69;
+    outlined destroy of DateInterval?(v69, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+    v19 = v70;
+    if ((v62 & 1) == 0)
     {
       goto LABEL_41;
     }
@@ -1224,22 +603,22 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  outlined destroy of ProtoTaskFeatureSet(v65, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-  v59 = v64;
+  outlined destroy of ProtoTaskFeatureSet(v58, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+  v52 = v57;
 LABEL_39:
-  outlined destroy of DateInterval?(v59, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMR);
-  v58 = v81;
+  outlined destroy of DateInterval?(v52, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMR);
+  v51 = v72;
 LABEL_40:
-  outlined destroy of ProtoTaskFeatureSet(v89, type metadata accessor for ProtoTaskFeatureSet);
-  outlined destroy of ProtoTaskFeatureSet(v58, type metadata accessor for ProtoTaskFeatureSet);
-  outlined destroy of DateInterval?(v78, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v26 = v79;
+  outlined destroy of ProtoTaskFeatureSet(v80, type metadata accessor for ProtoTaskFeatureSet);
+  outlined destroy of ProtoTaskFeatureSet(v51, type metadata accessor for ProtoTaskFeatureSet);
+  outlined destroy of DateInterval?(v69, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  v19 = v70;
 LABEL_41:
-  outlined destroy of ProtoTaskFeatureSet(v26, type metadata accessor for ProtoTaskEngagementFeatureSet);
-  outlined destroy of ProtoTaskFeatureSet(v29, type metadata accessor for ProtoTaskEngagementFeatureSet);
+  outlined destroy of ProtoTaskFeatureSet(v19, type metadata accessor for ProtoTaskEngagementFeatureSet);
+  outlined destroy of ProtoTaskFeatureSet(v22, type metadata accessor for ProtoTaskEngagementFeatureSet);
 LABEL_42:
-  v72 = 0;
-  return v72 & 1;
+  v63 = 0;
+  return v63 & 1;
 }
 
 uint64_t specialized static ProtoNavigationFeatures.== infix(_:_:)(uint64_t a1, uint64_t a2)
@@ -1401,7 +780,7 @@ uint64_t specialized static ProtoNavigationFeatures.== infix(_:_:)(uint64_t a1, 
 
 LABEL_48:
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -1417,42 +796,39 @@ uint64_t specialized static ProtoTaskEngagementFeatureSet.== infix(_:_:)(uint64_
 {
   v4 = type metadata accessor for ProtoTaskFeatureSet(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v34 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v34 - v15;
-  v17 = type metadata accessor for ProtoTaskEngagementFeatureSet(0);
-  v18 = v17[5];
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 14)
+  v7 = &v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v31 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v31 - v12;
+  v14 = type metadata accessor for ProtoTaskEngagementFeatureSet(0);
+  v15 = v14[5];
+  v16 = *(a1 + v15);
+  v17 = *(a2 + v15);
+  if (v16 == 14)
   {
-    if (v20 != 14)
+    if (v17 != 14)
     {
       goto LABEL_17;
     }
   }
 
-  else if (v19 != v20)
+  else if (v16 != v17)
   {
     goto LABEL_17;
   }
 
-  v21 = v17[6];
-  v22 = (a1 + v21);
-  v23 = *(a1 + v21 + 8);
-  v24 = (a2 + v21);
-  v25 = *(a2 + v21 + 8);
-  if (v23)
+  v18 = v14[6];
+  v19 = (a1 + v18);
+  v20 = *(a1 + v18 + 8);
+  v21 = (a2 + v18);
+  v22 = *(a2 + v18 + 8);
+  if (v20)
   {
-    if (!v25)
+    if (!v22)
     {
       goto LABEL_17;
     }
@@ -1460,80 +836,359 @@ uint64_t specialized static ProtoTaskEngagementFeatureSet.== infix(_:_:)(uint64_
 
   else
   {
-    if (*v22 != *v24)
+    if (*v19 != *v21)
     {
-      LOBYTE(v25) = 1;
+      LOBYTE(v22) = 1;
     }
 
-    if (v25)
+    if (v22)
     {
       goto LABEL_17;
     }
   }
 
-  v26 = v17[7];
-  v27 = *(v13 + 48);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v26, v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v28 = a2 + v26;
-  v29 = v27;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v28, &v16[v27], &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  v30 = *(v5 + 48);
-  if (v30(v16, 1, v4) == 1)
+  v23 = v14[7];
+  v24 = *(v11 + 48);
+  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v23, v13, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  v25 = a2 + v23;
+  v26 = v24;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v25, &v13[v24], &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  v27 = *(v5 + 48);
+  if (v27(v13, 1, v4) == 1)
   {
-    if (v30(&v16[v29], 1, v4) == 1)
+    if (v27(&v13[v26], 1, v4) == 1)
     {
-      outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+      outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
 LABEL_20:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v31 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v31 & 1;
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v28 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v28 & 1;
     }
 
     goto LABEL_16;
   }
 
-  outlined init with copy of ProtoSiriTaskInteractionType?(v16, v12, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  if (v30(&v16[v29], 1, v4) == 1)
+  outlined init with copy of ProtoSiriTaskInteractionType?(v13, v10, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  if (v27(&v13[v26], 1, v4) == 1)
   {
-    outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoTaskFeatureSet);
+    outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoTaskFeatureSet);
 LABEL_16:
-    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMR);
+    outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSg_ADtMR);
     goto LABEL_17;
   }
 
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v16[v29], v8, type metadata accessor for ProtoTaskFeatureSet);
-  v33 = specialized static ProtoTaskFeatureSet.== infix(_:_:)(v12, v8);
-  outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoTaskFeatureSet);
-  outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoTaskFeatureSet);
-  outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
-  if (v33)
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v13[v26], v7, type metadata accessor for ProtoTaskFeatureSet);
+  v30 = specialized static ProtoTaskFeatureSet.== infix(_:_:)(v10, v7);
+  outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoTaskFeatureSet);
+  outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoTaskFeatureSet);
+  outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetVSgMR);
+  if (v30)
   {
     goto LABEL_20;
   }
 
 LABEL_17:
-  v31 = 0;
-  return v31 & 1;
+  v28 = 0;
+  return v28 & 1;
 }
 
 uint64_t specialized static ProtoTaskFeatureSet.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = v31 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = v31 - v15;
-  v17 = type metadata accessor for ProtoTaskFeatureSet(0);
-  v18 = *(v17 + 24);
+  v7 = v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = v26 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = v26 - v12;
+  v14 = *(type metadata accessor for ProtoTaskFeatureSet(0) + 24);
+  v15 = (a1 + v14);
+  v16 = *(a1 + v14 + 8);
+  v17 = (a2 + v14);
+  v18 = v17[1];
+  if (v16)
+  {
+    if (!v18)
+    {
+      goto LABEL_16;
+    }
+
+    v19 = *v15 == *v17 && v16 == v18;
+    if (!v19 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else if (v18)
+  {
+    goto LABEL_16;
+  }
+
+  v20 = a1;
+  v21 = *(v11 + 48);
+  v26[0] = v20;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v20, v13, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  v26[1] = a2;
+  outlined init with copy of ProtoSiriTaskInteractionType?(a2, &v13[v21], &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  v22 = *(v5 + 48);
+  if (v22(v13, 1, v4) == 1)
+  {
+    if (v22(&v13[v21], 1, v4) == 1)
+    {
+      outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+LABEL_19:
+      type metadata accessor for UnknownStorage();
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v23 & 1;
+    }
+
+    goto LABEL_15;
+  }
+
+  outlined init with copy of ProtoSiriTaskInteractionType?(v13, v10, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  if (v22(&v13[v21], 1, v4) == 1)
+  {
+    outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+LABEL_15:
+    outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMR);
+    goto LABEL_16;
+  }
+
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v13[v21], v7, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+  v25 = specialized static ProtoTaskFeatureSet.OneOf_ByTask.== infix(_:_:)(v10, v7);
+  outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+  outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+  outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
+  if (v25)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_16:
+  v23 = 0;
+  return v23 & 1;
+}
+
+uint64_t specialized static ProtoTaskFeatureSet.OneOf_ByTask.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v59 = a1;
+  v60 = a2;
+  v2 = type metadata accessor for ProtoNavigationTaskFeatureSet(0);
+  MEMORY[0x28223BE20](v2 - 8);
+  v57 = &v51 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for ProtoPlayMediaTaskFeatureSet(0);
+  MEMORY[0x28223BE20](v4 - 8);
+  v56 = &v51 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v54 = &v51 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for ProtoAlarmTaskFeatureSet(0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v53 = &v51 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v52 = type metadata accessor for ProtoSendMessageTaskFeatureSet(0);
+  MEMORY[0x28223BE20](v52);
+  v55 = (&v51 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = type metadata accessor for ProtoStartCallTaskFeatureSet(0);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = (&v51 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
+  v15 = MEMORY[0x28223BE20](v14);
+  v17 = &v51 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x28223BE20](v15);
+  v20 = &v51 - v19;
+  v21 = MEMORY[0x28223BE20](v18);
+  v23 = &v51 - v22;
+  v24 = MEMORY[0x28223BE20](v21);
+  v26 = (&v51 - v25);
+  v27 = MEMORY[0x28223BE20](v24);
+  v58 = (&v51 - v28);
+  MEMORY[0x28223BE20](v27);
+  v30 = (&v51 - v29);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0O_AEtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0O_AEtMR);
+  v32 = MEMORY[0x28223BE20](v31 - 8);
+  v34 = &v51 - v33;
+  v35 = *(v32 + 56);
+  outlined init with copy of ProtoTaskFeatureSet(v59, &v51 - v33, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+  outlined init with copy of ProtoTaskFeatureSet(v60, &v34[v35], type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload > 2)
+  {
+    if (EnumCaseMultiPayload == 3)
+    {
+      outlined init with copy of ProtoTaskFeatureSet(v34, v23, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+      if (swift_getEnumCaseMultiPayload() != 3)
+      {
+        v43 = type metadata accessor for ProtoReminderTaskFeatureSet;
+        v44 = v23;
+        goto LABEL_28;
+      }
+
+      v45 = v54;
+      _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v34[v35], v54, type metadata accessor for ProtoReminderTaskFeatureSet);
+      v39 = specialized static ProtoReminderTaskFeatureSet.== infix(_:_:)(v23, v45);
+      v41 = type metadata accessor for ProtoReminderTaskFeatureSet;
+      outlined destroy of ProtoTaskFeatureSet(v45, type metadata accessor for ProtoReminderTaskFeatureSet);
+      v42 = v23;
+    }
+
+    else if (EnumCaseMultiPayload == 4)
+    {
+      outlined init with copy of ProtoTaskFeatureSet(v34, v20, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+      if (swift_getEnumCaseMultiPayload() != 4)
+      {
+        v43 = type metadata accessor for ProtoPlayMediaTaskFeatureSet;
+        v44 = v20;
+        goto LABEL_28;
+      }
+
+      v40 = v56;
+      _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v34[v35], v56, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
+      v39 = specialized static ProtoPlayMediaTaskFeatureSet.== infix(_:_:)(v20, v40);
+      v41 = type metadata accessor for ProtoPlayMediaTaskFeatureSet;
+      outlined destroy of ProtoTaskFeatureSet(v40, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
+      v42 = v20;
+    }
+
+    else
+    {
+      outlined init with copy of ProtoTaskFeatureSet(v34, v17, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+      if (swift_getEnumCaseMultiPayload() != 5)
+      {
+        v43 = type metadata accessor for ProtoNavigationTaskFeatureSet;
+        v44 = v17;
+        goto LABEL_28;
+      }
+
+      v47 = v57;
+      _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v34[v35], v57, type metadata accessor for ProtoNavigationTaskFeatureSet);
+      v39 = specialized static ProtoNavigationTaskFeatureSet.== infix(_:_:)(v17, v47);
+      v41 = type metadata accessor for ProtoNavigationTaskFeatureSet;
+      outlined destroy of ProtoTaskFeatureSet(v47, type metadata accessor for ProtoNavigationTaskFeatureSet);
+      v42 = v17;
+    }
+
+LABEL_20:
+    v48 = v41;
+LABEL_21:
+    outlined destroy of ProtoTaskFeatureSet(v42, v48);
+    outlined destroy of ProtoTaskFeatureSet(v34, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+    return v39 & 1;
+  }
+
+  if (!EnumCaseMultiPayload)
+  {
+    outlined init with copy of ProtoTaskFeatureSet(v34, v30, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+    if (!swift_getEnumCaseMultiPayload())
+    {
+      _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v34[v35], v13, type metadata accessor for ProtoStartCallTaskFeatureSet);
+      v39 = specialized static ProtoStartCallTaskFeatureSet.== infix(_:_:)(v30, v13);
+      outlined destroy of ProtoTaskFeatureSet(v13, type metadata accessor for ProtoStartCallTaskFeatureSet);
+      v42 = v30;
+      v48 = type metadata accessor for ProtoStartCallTaskFeatureSet;
+      goto LABEL_21;
+    }
+
+    v43 = type metadata accessor for ProtoStartCallTaskFeatureSet;
+    v44 = v30;
+LABEL_28:
+    outlined destroy of ProtoTaskFeatureSet(v44, v43);
+    outlined destroy of DateInterval?(v34, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0O_AEtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0O_AEtMR);
+LABEL_29:
+    v39 = 0;
+    return v39 & 1;
+  }
+
+  if (EnumCaseMultiPayload != 1)
+  {
+    outlined init with copy of ProtoTaskFeatureSet(v34, v26, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+    if (swift_getEnumCaseMultiPayload() != 2)
+    {
+      v49 = type metadata accessor for ProtoAlarmTaskFeatureSet;
+      goto LABEL_26;
+    }
+
+    v46 = v53;
+    _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v34[v35], v53, type metadata accessor for ProtoAlarmTaskFeatureSet);
+    v39 = specialized static ProtoAlarmTaskFeatureSet.== infix(_:_:)(v26, v46);
+    v41 = type metadata accessor for ProtoAlarmTaskFeatureSet;
+    outlined destroy of ProtoTaskFeatureSet(v46, type metadata accessor for ProtoAlarmTaskFeatureSet);
+    v42 = v26;
+    goto LABEL_20;
+  }
+
+  v26 = v58;
+  outlined init with copy of ProtoTaskFeatureSet(v34, v58, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    v49 = type metadata accessor for ProtoSendMessageTaskFeatureSet;
+LABEL_26:
+    v43 = v49;
+    v44 = v26;
+    goto LABEL_28;
+  }
+
+  v37 = v55;
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v34[v35], v55, type metadata accessor for ProtoSendMessageTaskFeatureSet);
+  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ18SiriTaskEngagement24ProtoContactEntitySignalV_Tt1g5(*v26, *v37) & 1) == 0)
+  {
+    outlined destroy of ProtoTaskFeatureSet(v37, type metadata accessor for ProtoSendMessageTaskFeatureSet);
+    goto LABEL_33;
+  }
+
+  type metadata accessor for UnknownStorage();
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v38 = dispatch thunk of static Equatable.== infix(_:_:)();
+  outlined destroy of ProtoTaskFeatureSet(v37, type metadata accessor for ProtoSendMessageTaskFeatureSet);
+  if ((v38 & 1) == 0)
+  {
+LABEL_33:
+    outlined destroy of ProtoTaskFeatureSet(v26, type metadata accessor for ProtoSendMessageTaskFeatureSet);
+    outlined destroy of ProtoTaskFeatureSet(v34, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+    goto LABEL_29;
+  }
+
+  outlined destroy of ProtoTaskFeatureSet(v26, type metadata accessor for ProtoSendMessageTaskFeatureSet);
+  outlined destroy of ProtoTaskFeatureSet(v34, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
+  v39 = 1;
+  return v39 & 1;
+}
+
+uint64_t specialized static ProtoNavigationUserFollowupContext.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for ProtoLocationEntitySignal(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v52 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v52 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoLocationEntitySignalVSg_ADtMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v52 - v12;
+  v14 = type metadata accessor for ProtoNavigationUserFollowupContext(0);
+  v15 = v14[5];
+  v16 = *(a1 + v15);
+  v17 = *(a2 + v15);
+  if (v16 == 3)
+  {
+    if (v17 != 3)
+    {
+      goto LABEL_42;
+    }
+  }
+
+  else if (v16 != v17)
+  {
+    goto LABEL_42;
+  }
+
+  v18 = v14[6];
   v19 = (a1 + v18);
   v20 = *(a1 + v18 + 8);
   v21 = (a2 + v18);
@@ -1542,434 +1197,138 @@ uint64_t specialized static ProtoTaskFeatureSet.== infix(_:_:)(uint64_t a1, uint
   {
     if (!v22)
     {
-      goto LABEL_16;
-    }
-
-    v23 = *v19 == *v21 && v20 == v22;
-    if (!v23 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-    {
-      goto LABEL_16;
-    }
-  }
-
-  else if (v22)
-  {
-    goto LABEL_16;
-  }
-
-  v24 = a1;
-  v25 = *(v13 + 48);
-  v31[0] = v24;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v24, v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  v31[1] = a2;
-  outlined init with copy of ProtoSiriTaskInteractionType?(a2, &v16[v25], &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  v26 = *(v5 + 48);
-  if (v26(v16, 1, v4) == 1)
-  {
-    if (v26(&v16[v25], 1, v4) == 1)
-    {
-      outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-LABEL_19:
-      v30 = *(v17 + 20);
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v27 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v27 & 1;
-    }
-
-    goto LABEL_15;
-  }
-
-  outlined init with copy of ProtoSiriTaskInteractionType?(v16, v12, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  if (v26(&v16[v25], 1, v4) == 1)
-  {
-    outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-LABEL_15:
-    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSg_AFtMR);
-    goto LABEL_16;
-  }
-
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v16[v25], v8, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-  v29 = specialized static ProtoTaskFeatureSet.OneOf_ByTask.== infix(_:_:)(v12, v8);
-  outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-  outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-  outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0OSgMR);
-  if (v29)
-  {
-    goto LABEL_19;
-  }
-
-LABEL_16:
-  v27 = 0;
-  return v27 & 1;
-}
-
-uint64_t specialized static ProtoTaskFeatureSet.OneOf_ByTask.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v68 = a1;
-  v69 = a2;
-  v2 = type metadata accessor for ProtoNavigationTaskFeatureSet(0);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v66 = &v60 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for ProtoPlayMediaTaskFeatureSet(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v65 = &v60 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v63 = &v60 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for ProtoAlarmTaskFeatureSet(0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v62 = &v60 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v61 = type metadata accessor for ProtoSendMessageTaskFeatureSet(0);
-  v14 = *(*(v61 - 8) + 64);
-  MEMORY[0x28223BE20](v61);
-  v64 = (&v60 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = type metadata accessor for ProtoStartCallTaskFeatureSet(0);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = (&v60 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v20 = type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask(0);
-  v21 = *(*(v20 - 8) + 64);
-  v22 = MEMORY[0x28223BE20](v20);
-  v24 = &v60 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = MEMORY[0x28223BE20](v22);
-  v27 = &v60 - v26;
-  v28 = MEMORY[0x28223BE20](v25);
-  v30 = &v60 - v29;
-  v31 = MEMORY[0x28223BE20](v28);
-  v33 = (&v60 - v32);
-  v34 = MEMORY[0x28223BE20](v31);
-  v67 = (&v60 - v35);
-  MEMORY[0x28223BE20](v34);
-  v37 = (&v60 - v36);
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0O_AEtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0O_AEtMR);
-  v39 = *(*(v38 - 8) + 64);
-  v40 = MEMORY[0x28223BE20](v38 - 8);
-  v42 = &v60 - v41;
-  v43 = *(v40 + 56);
-  outlined init with copy of ProtoTaskFeatureSet(v68, &v60 - v41, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-  outlined init with copy of ProtoTaskFeatureSet(v69, &v42[v43], type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 2)
-  {
-    if (EnumCaseMultiPayload == 3)
-    {
-      outlined init with copy of ProtoTaskFeatureSet(v42, v30, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-      if (swift_getEnumCaseMultiPayload() != 3)
-      {
-        v52 = type metadata accessor for ProtoReminderTaskFeatureSet;
-        v53 = v30;
-        goto LABEL_28;
-      }
-
-      v54 = v63;
-      _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v42[v43], v63, type metadata accessor for ProtoReminderTaskFeatureSet);
-      v48 = specialized static ProtoReminderTaskFeatureSet.== infix(_:_:)(v30, v54);
-      v50 = type metadata accessor for ProtoReminderTaskFeatureSet;
-      outlined destroy of ProtoTaskFeatureSet(v54, type metadata accessor for ProtoReminderTaskFeatureSet);
-      v51 = v30;
-    }
-
-    else if (EnumCaseMultiPayload == 4)
-    {
-      outlined init with copy of ProtoTaskFeatureSet(v42, v27, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-      if (swift_getEnumCaseMultiPayload() != 4)
-      {
-        v52 = type metadata accessor for ProtoPlayMediaTaskFeatureSet;
-        v53 = v27;
-        goto LABEL_28;
-      }
-
-      v49 = v65;
-      _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v42[v43], v65, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
-      v48 = specialized static ProtoPlayMediaTaskFeatureSet.== infix(_:_:)(v27, v49);
-      v50 = type metadata accessor for ProtoPlayMediaTaskFeatureSet;
-      outlined destroy of ProtoTaskFeatureSet(v49, type metadata accessor for ProtoPlayMediaTaskFeatureSet);
-      v51 = v27;
-    }
-
-    else
-    {
-      outlined init with copy of ProtoTaskFeatureSet(v42, v24, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-      if (swift_getEnumCaseMultiPayload() != 5)
-      {
-        v52 = type metadata accessor for ProtoNavigationTaskFeatureSet;
-        v53 = v24;
-        goto LABEL_28;
-      }
-
-      v56 = v66;
-      _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v42[v43], v66, type metadata accessor for ProtoNavigationTaskFeatureSet);
-      v48 = specialized static ProtoNavigationTaskFeatureSet.== infix(_:_:)(v24, v56);
-      v50 = type metadata accessor for ProtoNavigationTaskFeatureSet;
-      outlined destroy of ProtoTaskFeatureSet(v56, type metadata accessor for ProtoNavigationTaskFeatureSet);
-      v51 = v24;
-    }
-
-LABEL_20:
-    v57 = v50;
-LABEL_21:
-    outlined destroy of ProtoTaskFeatureSet(v51, v57);
-    outlined destroy of ProtoTaskFeatureSet(v42, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-    return v48 & 1;
-  }
-
-  if (!EnumCaseMultiPayload)
-  {
-    outlined init with copy of ProtoTaskFeatureSet(v42, v37, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-    if (!swift_getEnumCaseMultiPayload())
-    {
-      _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v42[v43], v19, type metadata accessor for ProtoStartCallTaskFeatureSet);
-      v48 = specialized static ProtoStartCallTaskFeatureSet.== infix(_:_:)(v37, v19);
-      outlined destroy of ProtoTaskFeatureSet(v19, type metadata accessor for ProtoStartCallTaskFeatureSet);
-      v51 = v37;
-      v57 = type metadata accessor for ProtoStartCallTaskFeatureSet;
-      goto LABEL_21;
-    }
-
-    v52 = type metadata accessor for ProtoStartCallTaskFeatureSet;
-    v53 = v37;
-LABEL_28:
-    outlined destroy of ProtoTaskFeatureSet(v53, v52);
-    outlined destroy of DateInterval?(v42, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0O_AEtMd, &_s18SiriTaskEngagement05ProtoB10FeatureSetV08OneOf_ByB0O_AEtMR);
-LABEL_29:
-    v48 = 0;
-    return v48 & 1;
-  }
-
-  if (EnumCaseMultiPayload != 1)
-  {
-    outlined init with copy of ProtoTaskFeatureSet(v42, v33, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-    if (swift_getEnumCaseMultiPayload() != 2)
-    {
-      v58 = type metadata accessor for ProtoAlarmTaskFeatureSet;
-      goto LABEL_26;
-    }
-
-    v55 = v62;
-    _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v42[v43], v62, type metadata accessor for ProtoAlarmTaskFeatureSet);
-    v48 = specialized static ProtoAlarmTaskFeatureSet.== infix(_:_:)(v33, v55);
-    v50 = type metadata accessor for ProtoAlarmTaskFeatureSet;
-    outlined destroy of ProtoTaskFeatureSet(v55, type metadata accessor for ProtoAlarmTaskFeatureSet);
-    v51 = v33;
-    goto LABEL_20;
-  }
-
-  v33 = v67;
-  outlined init with copy of ProtoTaskFeatureSet(v42, v67, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-  if (swift_getEnumCaseMultiPayload() != 1)
-  {
-    v58 = type metadata accessor for ProtoSendMessageTaskFeatureSet;
-LABEL_26:
-    v52 = v58;
-    v53 = v33;
-    goto LABEL_28;
-  }
-
-  v45 = v64;
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v42[v43], v64, type metadata accessor for ProtoSendMessageTaskFeatureSet);
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ18SiriTaskEngagement24ProtoContactEntitySignalV_Tt1g5(*v33, *v45) & 1) == 0)
-  {
-    outlined destroy of ProtoTaskFeatureSet(v45, type metadata accessor for ProtoSendMessageTaskFeatureSet);
-    goto LABEL_33;
-  }
-
-  v46 = *(v61 + 20);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v47 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of ProtoTaskFeatureSet(v45, type metadata accessor for ProtoSendMessageTaskFeatureSet);
-  if ((v47 & 1) == 0)
-  {
-LABEL_33:
-    outlined destroy of ProtoTaskFeatureSet(v33, type metadata accessor for ProtoSendMessageTaskFeatureSet);
-    outlined destroy of ProtoTaskFeatureSet(v42, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-    goto LABEL_29;
-  }
-
-  outlined destroy of ProtoTaskFeatureSet(v33, type metadata accessor for ProtoSendMessageTaskFeatureSet);
-  outlined destroy of ProtoTaskFeatureSet(v42, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask);
-  v48 = 1;
-  return v48 & 1;
-}
-
-uint64_t specialized static ProtoNavigationUserFollowupContext.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ProtoLocationEntitySignal(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v55 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoLocationEntitySignalVSg_ADtMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v55 - v15;
-  v17 = type metadata accessor for ProtoNavigationUserFollowupContext(0);
-  v18 = v17[5];
-  v19 = *(a1 + v18);
-  v20 = *(a2 + v18);
-  if (v19 == 3)
-  {
-    if (v20 != 3)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  else if (v19 != v20)
-  {
-    goto LABEL_42;
-  }
-
-  v21 = v17[6];
-  v22 = (a1 + v21);
-  v23 = *(a1 + v21 + 8);
-  v24 = (a2 + v21);
-  v25 = v24[1];
-  if (v23)
-  {
-    if (!v25)
-    {
       goto LABEL_42;
     }
 
-    if (*v22 != *v24 || v23 != v25)
+    if (*v19 != *v21 || v20 != v22)
     {
-      v26 = v17;
-      v27 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v26;
-      if ((v27 & 1) == 0)
+      v23 = v14;
+      v24 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v14 = v23;
+      if ((v24 & 1) == 0)
       {
         goto LABEL_42;
       }
     }
   }
 
-  else if (v25)
+  else if (v22)
   {
     goto LABEL_42;
   }
 
-  v28 = v17[7];
-  v29 = (a1 + v28);
-  v30 = *(a1 + v28 + 8);
-  v31 = (a2 + v28);
-  v32 = v31[1];
-  if (!v30)
+  v25 = v14[7];
+  v26 = (a1 + v25);
+  v27 = *(a1 + v25 + 8);
+  v28 = (a2 + v25);
+  v29 = v28[1];
+  if (!v27)
   {
-    if (!v32)
+    if (!v29)
     {
       goto LABEL_19;
     }
 
 LABEL_42:
-    v53 = 0;
-    return v53 & 1;
+    v50 = 0;
+    return v50 & 1;
   }
 
-  if (!v32)
+  if (!v29)
   {
     goto LABEL_42;
   }
 
-  if (*v29 != *v31 || v30 != v32)
+  if (*v26 != *v28 || v27 != v29)
   {
-    v33 = v17;
-    v34 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    v17 = v33;
-    if ((v34 & 1) == 0)
+    v30 = v14;
+    v31 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v14 = v30;
+    if ((v31 & 1) == 0)
     {
       goto LABEL_42;
     }
   }
 
 LABEL_19:
-  v56 = v17;
-  v35 = v17[8];
-  v36 = *(v13 + 48);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v35, v16, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
-  v37 = a2 + v35;
-  v38 = v36;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v37, &v16[v36], &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
-  v39 = *(v5 + 48);
-  if (v39(v16, 1, v4) == 1)
+  v53 = v14;
+  v32 = v14[8];
+  v33 = *(v11 + 48);
+  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v32, v13, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
+  v34 = a2 + v32;
+  v35 = v33;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v34, &v13[v33], &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
+  v36 = *(v5 + 48);
+  if (v36(v13, 1, v4) == 1)
   {
-    if (v39(&v16[v38], 1, v4) == 1)
+    if (v36(&v13[v35], 1, v4) == 1)
     {
-      outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
+      outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
       goto LABEL_22;
     }
 
     goto LABEL_27;
   }
 
-  outlined init with copy of ProtoSiriTaskInteractionType?(v16, v12, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
-  if (v39(&v16[v38], 1, v4) == 1)
+  outlined init with copy of ProtoSiriTaskInteractionType?(v13, v10, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
+  if (v36(&v13[v35], 1, v4) == 1)
   {
-    outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoLocationEntitySignal);
+    outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoLocationEntitySignal);
 LABEL_27:
-    v45 = &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSg_ADtMd;
-    v46 = &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSg_ADtMR;
+    v42 = &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSg_ADtMd;
+    v43 = &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSg_ADtMR;
 LABEL_41:
-    outlined destroy of DateInterval?(v16, v45, v46);
+    outlined destroy of DateInterval?(v13, v42, v43);
     goto LABEL_42;
   }
 
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v16[v38], v8, type metadata accessor for ProtoLocationEntitySignal);
-  v47 = *(v4 + 20);
-  v48 = &v12[v47];
-  v49 = *&v12[v47 + 8];
-  v50 = &v8[v47];
-  v51 = *(v50 + 1);
-  if (!v49)
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v13[v35], v7, type metadata accessor for ProtoLocationEntitySignal);
+  v44 = *(v4 + 20);
+  v45 = &v10[v44];
+  v46 = *&v10[v44 + 8];
+  v47 = &v7[v44];
+  v48 = *(v47 + 1);
+  if (!v46)
   {
-    if (!v51)
+    if (!v48)
     {
       goto LABEL_33;
     }
 
 LABEL_40:
-    outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoLocationEntitySignal);
-    outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoLocationEntitySignal);
-    v45 = &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd;
-    v46 = &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR;
+    outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoLocationEntitySignal);
+    outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoLocationEntitySignal);
+    v42 = &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd;
+    v43 = &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR;
     goto LABEL_41;
   }
 
-  if (!v51 || (*v48 != *v50 || v49 != v51) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if (!v48 || (*v45 != *v47 || v46 != v48) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     goto LABEL_40;
   }
 
 LABEL_33:
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v52 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoLocationEntitySignal);
-  outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoLocationEntitySignal);
-  outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
-  if ((v52 & 1) == 0)
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v49 = dispatch thunk of static Equatable.== infix(_:_:)();
+  outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoLocationEntitySignal);
+  outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoLocationEntitySignal);
+  outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoLocationEntitySignalVSgMR);
+  if ((v49 & 1) == 0)
   {
     goto LABEL_42;
   }
 
 LABEL_22:
-  v40 = v56[9];
-  v41 = (a1 + v40);
-  v42 = *(a1 + v40 + 8);
-  v43 = (a2 + v40);
-  v44 = *(a2 + v40 + 8);
-  if (v42)
+  v37 = v53[9];
+  v38 = (a1 + v37);
+  v39 = *(a1 + v37 + 8);
+  v40 = (a2 + v37);
+  v41 = *(a2 + v37 + 8);
+  if (v39)
   {
-    if (!v44)
+    if (!v41)
     {
       goto LABEL_42;
     }
@@ -1977,40 +1336,53 @@ LABEL_22:
 
   else
   {
-    if (*v41 != *v43)
+    if (*v38 != *v40)
     {
-      LOBYTE(v44) = 1;
+      LOBYTE(v41) = 1;
     }
 
-    if (v44)
+    if (v41)
     {
       goto LABEL_42;
     }
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v53 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v53 & 1;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v50 = dispatch thunk of static Equatable.== infix(_:_:)();
+  return v50 & 1;
 }
 
 uint64_t specialized static ProtoNavigationTaskFeatureSet.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for ProtoNavigationUserFollowupContext(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v32 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSg_ADtMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v32 - v15;
-  v17 = type metadata accessor for ProtoNavigationTaskFeatureSet(0);
-  v18 = v17[5];
+  v7 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v29 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSg_ADtMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v29 - v12;
+  v14 = type metadata accessor for ProtoNavigationTaskFeatureSet(0);
+  v15 = v14[5];
+  v16 = *(a1 + v15);
+  v17 = *(a2 + v15);
+  if (v16 == 2)
+  {
+    if (v17 != 2)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else if (v17 == 2 || ((v16 ^ v17) & 1) != 0)
+  {
+    goto LABEL_17;
+  }
+
+  v18 = v14[6];
   v19 = *(a1 + v18);
   v20 = *(a2 + v18);
   if (v19 == 2)
@@ -2026,79 +1398,62 @@ uint64_t specialized static ProtoNavigationTaskFeatureSet.== infix(_:_:)(uint64_
     goto LABEL_17;
   }
 
-  v21 = v17[6];
-  v22 = *(a1 + v21);
-  v23 = *(a2 + v21);
-  if (v22 == 2)
+  v21 = v14[7];
+  v22 = *(v11 + 48);
+  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v21, v13, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
+  v23 = a2 + v21;
+  v24 = v22;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v23, &v13[v22], &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
+  v25 = *(v5 + 48);
+  if (v25(v13, 1, v4) == 1)
   {
-    if (v23 != 2)
+    if (v25(&v13[v24], 1, v4) == 1)
     {
-      goto LABEL_17;
-    }
-  }
-
-  else if (v23 == 2 || ((v22 ^ v23) & 1) != 0)
-  {
-    goto LABEL_17;
-  }
-
-  v24 = v17[7];
-  v25 = *(v13 + 48);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v24, v16, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
-  v26 = a2 + v24;
-  v27 = v25;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v26, &v16[v25], &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
-  v28 = *(v5 + 48);
-  if (v28(v16, 1, v4) == 1)
-  {
-    if (v28(&v16[v27], 1, v4) == 1)
-    {
-      outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
+      outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
 LABEL_20:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v29 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v29 & 1;
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v26 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v26 & 1;
     }
 
     goto LABEL_16;
   }
 
-  outlined init with copy of ProtoSiriTaskInteractionType?(v16, v12, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
-  if (v28(&v16[v27], 1, v4) == 1)
+  outlined init with copy of ProtoSiriTaskInteractionType?(v13, v10, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
+  if (v25(&v13[v24], 1, v4) == 1)
   {
-    outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoNavigationUserFollowupContext);
+    outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoNavigationUserFollowupContext);
 LABEL_16:
-    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSg_ADtMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSg_ADtMR);
+    outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSg_ADtMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSg_ADtMR);
     goto LABEL_17;
   }
 
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v16[v27], v8, type metadata accessor for ProtoNavigationUserFollowupContext);
-  v31 = specialized static ProtoNavigationUserFollowupContext.== infix(_:_:)(v12, v8);
-  outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoNavigationUserFollowupContext);
-  outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoNavigationUserFollowupContext);
-  outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
-  if (v31)
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v13[v24], v7, type metadata accessor for ProtoNavigationUserFollowupContext);
+  v28 = specialized static ProtoNavigationUserFollowupContext.== infix(_:_:)(v10, v7);
+  outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoNavigationUserFollowupContext);
+  outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoNavigationUserFollowupContext);
+  outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMd, &_s18SiriTaskEngagement34ProtoNavigationUserFollowupContextVSgMR);
+  if (v28)
   {
     goto LABEL_20;
   }
 
 LABEL_17:
-  v29 = 0;
-  return v29 & 1;
+  v26 = 0;
+  return v26 & 1;
 }
 
 uint64_t specialized static ProtoStartCallTaskFeatureSet.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
 {
-  v4 = type metadata accessor for ProtoStartCallTaskFeatureSet(0);
-  v5 = *(v4 + 24);
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 8);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 8);
-  if (v7)
+  v4 = *(type metadata accessor for ProtoStartCallTaskFeatureSet(0) + 24);
+  v5 = (a1 + v4);
+  v6 = *(a1 + v4 + 8);
+  v7 = (a2 + v4);
+  v8 = *(a2 + v4 + 8);
+  if (v6)
   {
-    if (!v9)
+    if (!v8)
     {
       return 0;
     }
@@ -2106,12 +1461,12 @@ uint64_t specialized static ProtoStartCallTaskFeatureSet.== infix(_:_:)(uint64_t
 
   else
   {
-    if (*v6 != *v8)
+    if (*v5 != *v7)
     {
-      LOBYTE(v9) = 1;
+      LOBYTE(v8) = 1;
     }
 
-    if (v9)
+    if (v8)
     {
       return 0;
     }
@@ -2119,9 +1474,8 @@ uint64_t specialized static ProtoStartCallTaskFeatureSet.== infix(_:_:)(uint64_t
 
   if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ18SiriTaskEngagement24ProtoContactEntitySignalV_Tt1g5(*a1, *a2))
   {
-    v10 = *(v4 + 20);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -2132,26 +1486,23 @@ uint64_t specialized static ProtoPlayMediaTaskFeatureSet.== infix(_:_:)(uint64_t
 {
   v4 = type metadata accessor for ProtoMediaEntitySignal(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v50 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v50 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement22ProtoMediaEntitySignalVSg_ADtMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v50 - v15;
-  v17 = type metadata accessor for ProtoPlayMediaTaskFeatureSet(0);
-  v18 = v17[5];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 8);
-  v21 = (a2 + v18);
-  v22 = *(a2 + v18 + 8);
-  if (v20)
+  v7 = &v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v47 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement22ProtoMediaEntitySignalVSg_ADtMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v47 - v12;
+  v14 = type metadata accessor for ProtoPlayMediaTaskFeatureSet(0);
+  v15 = v14[5];
+  v16 = (a1 + v15);
+  v17 = *(a1 + v15 + 8);
+  v18 = (a2 + v15);
+  v19 = *(a2 + v15 + 8);
+  if (v17)
   {
-    if (!v22)
+    if (!v19)
     {
       goto LABEL_33;
     }
@@ -2159,25 +1510,25 @@ uint64_t specialized static ProtoPlayMediaTaskFeatureSet.== infix(_:_:)(uint64_t
 
   else
   {
-    if (*v19 != *v21)
+    if (*v16 != *v18)
     {
-      LOBYTE(v22) = 1;
+      LOBYTE(v19) = 1;
     }
 
-    if (v22)
+    if (v19)
     {
       goto LABEL_33;
     }
   }
 
-  v23 = v17[6];
-  v24 = (a1 + v23);
-  v25 = *(a1 + v23 + 8);
-  v26 = (a2 + v23);
-  v27 = *(a2 + v23 + 8);
-  if (v25)
+  v20 = v14[6];
+  v21 = (a1 + v20);
+  v22 = *(a1 + v20 + 8);
+  v23 = (a2 + v20);
+  v24 = *(a2 + v20 + 8);
+  if (v22)
   {
-    if (!v27)
+    if (!v24)
     {
       goto LABEL_33;
     }
@@ -2185,144 +1536,18 @@ uint64_t specialized static ProtoPlayMediaTaskFeatureSet.== infix(_:_:)(uint64_t
 
   else
   {
-    if (*v24 != *v26)
+    if (*v21 != *v23)
     {
-      LOBYTE(v27) = 1;
+      LOBYTE(v24) = 1;
     }
 
-    if (v27)
-    {
-      goto LABEL_33;
-    }
-  }
-
-  v28 = v17[7];
-  v29 = (a1 + v28);
-  v30 = *(a1 + v28 + 8);
-  v31 = (a2 + v28);
-  v32 = v31[1];
-  if (v30)
-  {
-    if (!v32)
+    if (v24)
     {
       goto LABEL_33;
     }
-
-    if (*v29 != *v31 || v30 != v32)
-    {
-      v33 = v17;
-      v34 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v33;
-      if ((v34 & 1) == 0)
-      {
-        goto LABEL_33;
-      }
-    }
   }
 
-  else if (v32)
-  {
-    goto LABEL_33;
-  }
-
-  v35 = v17[8];
-  v36 = (a1 + v35);
-  v37 = *(a1 + v35 + 8);
-  v38 = (a2 + v35);
-  v39 = v38[1];
-  if (v37)
-  {
-    if (!v39)
-    {
-      goto LABEL_33;
-    }
-
-    if (*v36 != *v38 || v37 != v39)
-    {
-      v40 = v17;
-      v41 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v40;
-      if ((v41 & 1) == 0)
-      {
-        goto LABEL_33;
-      }
-    }
-  }
-
-  else if (v39)
-  {
-    goto LABEL_33;
-  }
-
-  v42 = v17[9];
-  v43 = *(v13 + 48);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v42, v16, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-  v44 = a2 + v42;
-  v45 = v43;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v44, &v16[v43], &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-  v46 = *(v5 + 48);
-  if (v46(v16, 1, v4) == 1)
-  {
-    if (v46(&v16[v45], 1, v4) == 1)
-    {
-      outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-LABEL_36:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v47 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v47 & 1;
-    }
-
-    goto LABEL_32;
-  }
-
-  outlined init with copy of ProtoSiriTaskInteractionType?(v16, v12, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-  if (v46(&v16[v45], 1, v4) == 1)
-  {
-    outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoMediaEntitySignal);
-LABEL_32:
-    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSg_ADtMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSg_ADtMR);
-    goto LABEL_33;
-  }
-
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v16[v45], v8, type metadata accessor for ProtoMediaEntitySignal);
-  v49 = specialized static ProtoMediaEntitySignal.== infix(_:_:)(v12, v8);
-  outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoMediaEntitySignal);
-  outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoMediaEntitySignal);
-  outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
-  if (v49)
-  {
-    goto LABEL_36;
-  }
-
-LABEL_33:
-  v47 = 0;
-  return v47 & 1;
-}
-
-uint64_t specialized static ProtoReminderTaskFeatureSet.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ProtoDateTimeEntitySignal(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v64[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v7);
-  v11 = &v64[-v10];
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12 - 8);
-  v68 = &v64[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v14);
-  v17 = &v64[-v16];
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMR);
-  v19 = *(*(v18 - 8) + 64);
-  v20 = MEMORY[0x28223BE20](v18);
-  v69 = &v64[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v20);
-  v23 = &v64[-v22];
-  v24 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
-  v25 = v24[5];
+  v25 = v14[7];
   v26 = (a1 + v25);
   v27 = *(a1 + v25 + 8);
   v28 = (a2 + v25);
@@ -2331,24 +1556,163 @@ uint64_t specialized static ProtoReminderTaskFeatureSet.== infix(_:_:)(uint64_t 
   {
     if (!v29)
     {
-      goto LABEL_32;
+      goto LABEL_33;
     }
 
-    v30 = *v26 == *v28 && v27 == v29;
-    if (!v30 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    if (*v26 != *v28 || v27 != v29)
     {
-      goto LABEL_32;
+      v30 = v14;
+      v31 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v14 = v30;
+      if ((v31 & 1) == 0)
+      {
+        goto LABEL_33;
+      }
     }
   }
 
   else if (v29)
   {
-LABEL_32:
-    v45 = 0;
-    return v45 & 1;
+    goto LABEL_33;
   }
 
-  v31 = v24[6];
+  v32 = v14[8];
+  v33 = (a1 + v32);
+  v34 = *(a1 + v32 + 8);
+  v35 = (a2 + v32);
+  v36 = v35[1];
+  if (v34)
+  {
+    if (!v36)
+    {
+      goto LABEL_33;
+    }
+
+    if (*v33 != *v35 || v34 != v36)
+    {
+      v37 = v14;
+      v38 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v14 = v37;
+      if ((v38 & 1) == 0)
+      {
+        goto LABEL_33;
+      }
+    }
+  }
+
+  else if (v36)
+  {
+    goto LABEL_33;
+  }
+
+  v39 = v14[9];
+  v40 = *(v11 + 48);
+  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v39, v13, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
+  v41 = a2 + v39;
+  v42 = v40;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v41, &v13[v40], &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
+  v43 = *(v5 + 48);
+  if (v43(v13, 1, v4) == 1)
+  {
+    if (v43(&v13[v42], 1, v4) == 1)
+    {
+      outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
+LABEL_36:
+      type metadata accessor for UnknownStorage();
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v44 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v44 & 1;
+    }
+
+    goto LABEL_32;
+  }
+
+  outlined init with copy of ProtoSiriTaskInteractionType?(v13, v10, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
+  if (v43(&v13[v42], 1, v4) == 1)
+  {
+    outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoMediaEntitySignal);
+LABEL_32:
+    outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSg_ADtMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSg_ADtMR);
+    goto LABEL_33;
+  }
+
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v13[v42], v7, type metadata accessor for ProtoMediaEntitySignal);
+  v46 = specialized static ProtoMediaEntitySignal.== infix(_:_:)(v10, v7);
+  outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoMediaEntitySignal);
+  outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoMediaEntitySignal);
+  outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMd, &_s18SiriTaskEngagement22ProtoMediaEntitySignalVSgMR);
+  if (v46)
+  {
+    goto LABEL_36;
+  }
+
+LABEL_33:
+  v44 = 0;
+  return v44 & 1;
+}
+
+uint64_t specialized static ProtoReminderTaskFeatureSet.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for ProtoDateTimeEntitySignal(0);
+  v5 = *(v4 - 8);
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v61[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v6);
+  v10 = &v61[-v9];
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v65 = &v61[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v12);
+  v15 = &v61[-v14];
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMR);
+  v17 = MEMORY[0x28223BE20](v16);
+  v66 = &v61[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v17);
+  v20 = &v61[-v19];
+  v21 = type metadata accessor for ProtoReminderTaskFeatureSet(0);
+  v22 = v21[5];
+  v23 = (a1 + v22);
+  v24 = *(a1 + v22 + 8);
+  v25 = (a2 + v22);
+  v26 = v25[1];
+  if (v24)
+  {
+    if (!v26)
+    {
+      goto LABEL_32;
+    }
+
+    v27 = *v23 == *v25 && v24 == v26;
+    if (!v27 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    {
+      goto LABEL_32;
+    }
+  }
+
+  else if (v26)
+  {
+LABEL_32:
+    v42 = 0;
+    return v42 & 1;
+  }
+
+  v28 = v21[6];
+  v29 = *(a1 + v28);
+  v30 = *(a2 + v28);
+  if (v29 == 2)
+  {
+    if (v30 != 2)
+    {
+      goto LABEL_32;
+    }
+  }
+
+  else if (v30 == 2 || ((v29 ^ v30) & 1) != 0)
+  {
+    goto LABEL_32;
+  }
+
+  v31 = v21[7];
   v32 = *(a1 + v31);
   v33 = *(a2 + v31);
   if (v32 == 2)
@@ -2364,277 +1728,258 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  v34 = v24[7];
-  v35 = *(a1 + v34);
-  v36 = *(a2 + v34);
-  if (v35 == 2)
+  v34 = v21[8];
+  v63 = v8;
+  v64 = v34;
+  v35 = *(v16 + 48);
+  outlined init with copy of ProtoSiriTaskInteractionType?(&v34[a1], v20, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  v36 = &v64[a2];
+  v64 = v35;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v36, &v35[v20], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  v37 = *(v5 + 48);
+  if ((v37)(v20, 1, v4) == 1)
   {
-    if (v36 != 2)
+    if ((v37)(&v64[v20], 1, v4) == 1)
     {
-      goto LABEL_32;
-    }
-  }
-
-  else if (v36 == 2 || ((v35 ^ v36) & 1) != 0)
-  {
-    goto LABEL_32;
-  }
-
-  v37 = v24[8];
-  v66 = v9;
-  v67 = v37;
-  v38 = *(v18 + 48);
-  outlined init with copy of ProtoSiriTaskInteractionType?(&v37[a1], v23, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  v39 = &v67[a2];
-  v67 = v38;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v39, &v38[v23], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  v40 = *(v5 + 48);
-  if ((v40)(v23, 1, v4) == 1)
-  {
-    if ((v40)(&v67[v23], 1, v4) == 1)
-    {
-      v67 = v40;
-      outlined destroy of DateInterval?(v23, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+      v64 = v37;
+      outlined destroy of DateInterval?(v20, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
       goto LABEL_23;
     }
 
     goto LABEL_29;
   }
 
-  outlined init with copy of ProtoSiriTaskInteractionType?(v23, v17, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  if ((v40)(&v67[v23], 1, v4) == 1)
+  outlined init with copy of ProtoSiriTaskInteractionType?(v20, v15, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  if ((v37)(&v64[v20], 1, v4) == 1)
   {
-    outlined destroy of ProtoTaskFeatureSet(v17, type metadata accessor for ProtoDateTimeEntitySignal);
+    outlined destroy of ProtoTaskFeatureSet(v15, type metadata accessor for ProtoDateTimeEntitySignal);
 LABEL_29:
-    v46 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMd;
-    v47 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMR;
+    v43 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMd;
+    v44 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMR;
 LABEL_30:
-    v48 = v23;
+    v45 = v20;
 LABEL_31:
-    outlined destroy of DateInterval?(v48, v46, v47);
+    outlined destroy of DateInterval?(v45, v43, v44);
     goto LABEL_32;
   }
 
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v67[v23], v11, type metadata accessor for ProtoDateTimeEntitySignal);
-  v50 = *(v4 + 20);
-  v51 = &v17[v50];
-  v52 = v17[v50 + 8];
-  v53 = &v11[v50];
-  v54 = v11[v50 + 8];
-  if (v52)
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v64[v20], v10, type metadata accessor for ProtoDateTimeEntitySignal);
+  v47 = *(v4 + 20);
+  v48 = &v15[v47];
+  v49 = v15[v47 + 8];
+  v50 = &v10[v47];
+  v51 = v10[v47 + 8];
+  if (v49)
   {
-    if (!v54)
+    if (!v51)
     {
 LABEL_36:
-      outlined destroy of ProtoTaskFeatureSet(v11, type metadata accessor for ProtoDateTimeEntitySignal);
-      outlined destroy of ProtoTaskFeatureSet(v17, type metadata accessor for ProtoDateTimeEntitySignal);
-      v46 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd;
-      v47 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR;
+      outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoDateTimeEntitySignal);
+      outlined destroy of ProtoTaskFeatureSet(v15, type metadata accessor for ProtoDateTimeEntitySignal);
+      v43 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd;
+      v44 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR;
       goto LABEL_30;
     }
   }
 
   else
   {
-    if (*v51 != *v53)
+    if (*v48 != *v50)
     {
-      LOBYTE(v54) = 1;
+      LOBYTE(v51) = 1;
     }
 
-    if (v54)
+    if (v51)
     {
       goto LABEL_36;
     }
   }
 
-  v67 = v40;
+  v64 = v37;
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v65 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of ProtoTaskFeatureSet(v11, type metadata accessor for ProtoDateTimeEntitySignal);
-  outlined destroy of ProtoTaskFeatureSet(v17, type metadata accessor for ProtoDateTimeEntitySignal);
-  outlined destroy of DateInterval?(v23, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  if ((v65 & 1) == 0)
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v62 = dispatch thunk of static Equatable.== infix(_:_:)();
+  outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoDateTimeEntitySignal);
+  outlined destroy of ProtoTaskFeatureSet(v15, type metadata accessor for ProtoDateTimeEntitySignal);
+  outlined destroy of DateInterval?(v20, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  if ((v62 & 1) == 0)
   {
     goto LABEL_32;
   }
 
 LABEL_23:
-  v41 = v24[9];
-  v42 = *(v18 + 48);
-  v43 = v69;
-  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v41, v69, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  outlined init with copy of ProtoSiriTaskInteractionType?(a2 + v41, &v43[v42], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  v44 = v67;
-  if ((v67)(v43, 1, v4) == 1)
+  v38 = v21[9];
+  v39 = *(v16 + 48);
+  v40 = v66;
+  outlined init with copy of ProtoSiriTaskInteractionType?(a1 + v38, v66, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  outlined init with copy of ProtoSiriTaskInteractionType?(a2 + v38, &v40[v39], &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  v41 = v64;
+  if ((v64)(v40, 1, v4) == 1)
   {
-    if (v44(&v43[v42], 1, v4) == 1)
+    if (v41(&v40[v39], 1, v4) == 1)
     {
-      outlined destroy of DateInterval?(v43, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+      outlined destroy of DateInterval?(v40, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
       goto LABEL_26;
     }
 
     goto LABEL_39;
   }
 
-  v55 = v68;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v43, v68, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  if (v44(&v43[v42], 1, v4) == 1)
+  v52 = v65;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v40, v65, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  if (v41(&v40[v39], 1, v4) == 1)
   {
-    outlined destroy of ProtoTaskFeatureSet(v55, type metadata accessor for ProtoDateTimeEntitySignal);
+    outlined destroy of ProtoTaskFeatureSet(v52, type metadata accessor for ProtoDateTimeEntitySignal);
 LABEL_39:
-    v46 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMd;
-    v47 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMR;
-    v48 = v43;
+    v43 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMd;
+    v44 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSg_ADtMR;
+    v45 = v40;
     goto LABEL_31;
   }
 
-  v56 = &v43[v42];
-  v57 = v66;
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v56, v66, type metadata accessor for ProtoDateTimeEntitySignal);
-  v58 = *(v4 + 20);
-  v59 = &v55[v58];
-  v60 = v55[v58 + 8];
-  v61 = (v57 + v58);
-  v62 = *(v57 + v58 + 8);
-  if (v60)
+  v53 = &v40[v39];
+  v54 = v63;
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(v53, v63, type metadata accessor for ProtoDateTimeEntitySignal);
+  v55 = *(v4 + 20);
+  v56 = &v52[v55];
+  v57 = v52[v55 + 8];
+  v58 = (v54 + v55);
+  v59 = *(v54 + v55 + 8);
+  if (v57)
   {
-    if (!v62)
+    if (!v59)
     {
 LABEL_47:
-      outlined destroy of ProtoTaskFeatureSet(v57, type metadata accessor for ProtoDateTimeEntitySignal);
-      outlined destroy of ProtoTaskFeatureSet(v55, type metadata accessor for ProtoDateTimeEntitySignal);
-      v46 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd;
-      v47 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR;
-      v48 = v43;
+      outlined destroy of ProtoTaskFeatureSet(v54, type metadata accessor for ProtoDateTimeEntitySignal);
+      outlined destroy of ProtoTaskFeatureSet(v52, type metadata accessor for ProtoDateTimeEntitySignal);
+      v43 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd;
+      v44 = &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR;
+      v45 = v40;
       goto LABEL_31;
     }
   }
 
   else
   {
-    if (*v59 != *v61)
+    if (*v56 != *v58)
     {
-      LOBYTE(v62) = 1;
+      LOBYTE(v59) = 1;
     }
 
-    if (v62)
+    if (v59)
     {
       goto LABEL_47;
     }
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v63 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of ProtoTaskFeatureSet(v57, type metadata accessor for ProtoDateTimeEntitySignal);
-  outlined destroy of ProtoTaskFeatureSet(v55, type metadata accessor for ProtoDateTimeEntitySignal);
-  outlined destroy of DateInterval?(v43, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
-  if ((v63 & 1) == 0)
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v60 = dispatch thunk of static Equatable.== infix(_:_:)();
+  outlined destroy of ProtoTaskFeatureSet(v54, type metadata accessor for ProtoDateTimeEntitySignal);
+  outlined destroy of ProtoTaskFeatureSet(v52, type metadata accessor for ProtoDateTimeEntitySignal);
+  outlined destroy of DateInterval?(v40, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMd, &_s18SiriTaskEngagement25ProtoDateTimeEntitySignalVSgMR);
+  if ((v60 & 1) == 0)
   {
     goto LABEL_32;
   }
 
 LABEL_26:
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v45 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v45 & 1;
+  lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v42 = dispatch thunk of static Equatable.== infix(_:_:)();
+  return v42 & 1;
 }
 
 uint64_t specialized static ProtoAlarmTaskFeatureSet.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for ProtoDateComponentSignal(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = v34 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement24ProtoDateComponentSignalVSg_ADtMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = v34 - v15;
-  v17 = type metadata accessor for ProtoAlarmTaskFeatureSet(0);
-  v18 = *(v17 + 20);
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 8);
-  v21 = (a2 + v18);
-  v22 = v21[1];
-  if (v20)
+  v7 = v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = v31 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement24ProtoDateComponentSignalVSg_ADtMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = v31 - v12;
+  v14 = type metadata accessor for ProtoAlarmTaskFeatureSet(0);
+  v15 = *(v14 + 20);
+  v16 = (a1 + v15);
+  v17 = *(a1 + v15 + 8);
+  v18 = (a2 + v15);
+  v19 = v18[1];
+  if (v17)
   {
-    if (!v22)
+    if (!v19)
     {
       goto LABEL_16;
     }
 
-    if (*v19 != *v21 || v20 != v22)
+    if (*v16 != *v18 || v17 != v19)
     {
-      v24 = v17;
-      v25 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v24;
-      if ((v25 & 1) == 0)
+      v21 = v14;
+      v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v14 = v21;
+      if ((v22 & 1) == 0)
       {
         goto LABEL_16;
       }
     }
   }
 
-  else if (v22)
+  else if (v19)
   {
     goto LABEL_16;
   }
 
-  v26 = a1;
-  v27 = a2;
-  v28 = *(v17 + 24);
-  v29 = *(v13 + 48);
-  v34[1] = v26;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v26 + v28, v16, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v27 + v28, &v16[v29], &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
-  v30 = *(v5 + 48);
-  if (v30(v16, 1, v4) == 1)
+  v23 = a1;
+  v24 = a2;
+  v25 = *(v14 + 24);
+  v26 = *(v11 + 48);
+  v31[1] = v23;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v23 + v25, v13, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v24 + v25, &v13[v26], &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+  v27 = *(v5 + 48);
+  if (v27(v13, 1, v4) == 1)
   {
-    if (v30(&v16[v29], 1, v4) == 1)
+    if (v27(&v13[v26], 1, v4) == 1)
     {
-      outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+      outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
 LABEL_19:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v31 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v31 & 1;
+      lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v28 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v28 & 1;
     }
 
     goto LABEL_15;
   }
 
-  outlined init with copy of ProtoSiriTaskInteractionType?(v16, v12, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
-  if (v30(&v16[v29], 1, v4) == 1)
+  outlined init with copy of ProtoSiriTaskInteractionType?(v13, v10, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+  if (v27(&v13[v26], 1, v4) == 1)
   {
-    outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoDateComponentSignal);
+    outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoDateComponentSignal);
 LABEL_15:
-    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSg_ADtMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSg_ADtMR);
+    outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSg_ADtMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSg_ADtMR);
     goto LABEL_16;
   }
 
-  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v16[v29], v8, type metadata accessor for ProtoDateComponentSignal);
-  v33 = specialized static ProtoDateComponentSignal.== infix(_:_:)(v12, v8);
-  outlined destroy of ProtoTaskFeatureSet(v8, type metadata accessor for ProtoDateComponentSignal);
-  outlined destroy of ProtoTaskFeatureSet(v12, type metadata accessor for ProtoDateComponentSignal);
-  outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
-  if (v33)
+  _s18SiriTaskEngagement014ProtoStartCallB10FeatureSetVWObTm_0(&v13[v26], v7, type metadata accessor for ProtoDateComponentSignal);
+  v30 = specialized static ProtoDateComponentSignal.== infix(_:_:)(v10, v7);
+  outlined destroy of ProtoTaskFeatureSet(v7, type metadata accessor for ProtoDateComponentSignal);
+  outlined destroy of ProtoTaskFeatureSet(v10, type metadata accessor for ProtoDateComponentSignal);
+  outlined destroy of DateInterval?(v13, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMd, &_s18SiriTaskEngagement24ProtoDateComponentSignalVSgMR);
+  if (v30)
   {
     goto LABEL_19;
   }
 
 LABEL_16:
-  v31 = 0;
-  return v31 & 1;
+  v28 = 0;
+  return v28 & 1;
 }
 
-uint64_t lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type UnknownStorage and conformance UnknownStorage(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2650,7 +1995,7 @@ uint64_t lazy protocol witness table accessor for type UnknownStorage and confor
 uint64_t keypath_set_12Tm(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   v6 = *a1;
-  result = a5(0);
+  result = (a5)(0, a2, a3, a4);
   v8 = a2 + *(result + 24);
   *v8 = v6;
   *(v8 + 8) = 0;
@@ -2681,7 +2026,7 @@ uint64_t keypath_get_37Tm@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X3>, _BYT
 uint64_t keypath_set_38Tm(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   v6 = *a1;
-  result = a5(0);
+  result = (a5)(0, a2, a3, a4);
   *(a2 + *(result + 24)) = v6;
   return result;
 }
@@ -2707,26 +2052,26 @@ uint64_t keypath_get_69Tm@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X3>, void
 uint64_t keypath_set_70Tm(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
   v6 = *a1;
-  result = a5(0);
+  result = (a5)(0, a2, a3, a4);
   v8 = a2 + *(result + 36);
   *v8 = v6;
   *(v8 + 8) = 0;
   return result;
 }
 
-void type metadata completion function for ProtoTaskEngagementFeatureSet()
+void type metadata completion function for ProtoTaskEngagementFeatureSet(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for ProtoTaskEngagementType?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for ProtoTaskEngagementType?, &type metadata for ProtoTaskEngagementType);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?);
-      if (v2 <= 0x3F)
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?, MEMORY[0x277D84D38]);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for ProtoTaskFeatureSet?, type metadata accessor for ProtoTaskFeatureSet, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -2735,16 +2080,16 @@ void type metadata completion function for ProtoTaskEngagementFeatureSet()
   }
 }
 
-void type metadata completion function for ProtoTaskFeatureSet()
+void type metadata completion function for ProtoTaskFeatureSet(uint64_t a1)
 {
   type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for ProtoTaskFeatureSet.OneOf_ByTask?, type metadata accessor for ProtoTaskFeatureSet.OneOf_ByTask, MEMORY[0x277D83D88]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-      if (v2 <= 0x3F)
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -2765,25 +2110,25 @@ void type metadata accessor for ProtoTaskFeatureSet?(uint64_t a1, unint64_t *a2,
   }
 }
 
-uint64_t type metadata completion function for ProtoTaskFeatureSet.OneOf_ByTask()
+uint64_t type metadata completion function for ProtoTaskFeatureSet.OneOf_ByTask(uint64_t a1)
 {
   result = type metadata accessor for ProtoStartCallTaskFeatureSet(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for ProtoSendMessageTaskFeatureSet(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for ProtoAlarmTaskFeatureSet(319);
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         result = type metadata accessor for ProtoReminderTaskFeatureSet(319);
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           result = type metadata accessor for ProtoPlayMediaTaskFeatureSet(319);
-          if (v5 <= 0x3F)
+          if (v6 <= 0x3F)
           {
             result = type metadata accessor for ProtoNavigationTaskFeatureSet(319);
-            if (v6 <= 0x3F)
+            if (v7 <= 0x3F)
             {
               swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
               return 0;
@@ -2797,16 +2142,16 @@ uint64_t type metadata completion function for ProtoTaskFeatureSet.OneOf_ByTask(
   return result;
 }
 
-void type metadata completion function for ProtoStartCallTaskFeatureSet()
+void type metadata completion function for ProtoStartCallTaskFeatureSet(uint64_t a1)
 {
   type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for [ProtoContactEntitySignal], type metadata accessor for ProtoContactEntitySignal, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for Double?);
-      if (v2 <= 0x3F)
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for Double?, MEMORY[0x277D839F8]);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -2814,7 +2159,7 @@ void type metadata completion function for ProtoStartCallTaskFeatureSet()
   }
 }
 
-uint64_t __swift_get_extra_inhabitant_index_106Tm(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t __swift_get_extra_inhabitant_index_106Tm(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -2857,29 +2202,29 @@ void *__swift_store_extra_inhabitant_index_107Tm(void *result, uint64_t a2, int 
   return result;
 }
 
-void type metadata completion function for ProtoSendMessageTaskFeatureSet()
+void type metadata completion function for ProtoSendMessageTaskFeatureSet(uint64_t a1)
 {
   type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for [ProtoContactEntitySignal], type metadata accessor for ProtoContactEntitySignal, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UnknownStorage();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata completion function for ProtoAlarmTaskFeatureSet()
+void type metadata completion function for ProtoAlarmTaskFeatureSet(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for ProtoDateComponentSignal?, type metadata accessor for ProtoDateComponentSignal, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -2887,19 +2232,19 @@ void type metadata completion function for ProtoAlarmTaskFeatureSet()
   }
 }
 
-void type metadata completion function for ProtoReminderTaskFeatureSet()
+void type metadata completion function for ProtoReminderTaskFeatureSet(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?);
-      if (v2 <= 0x3F)
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0]);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for ProtoDateTimeEntitySignal?, type metadata accessor for ProtoDateTimeEntitySignal, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -2908,19 +2253,19 @@ void type metadata completion function for ProtoReminderTaskFeatureSet()
   }
 }
 
-void type metadata completion function for ProtoPlayMediaTaskFeatureSet()
+void type metadata completion function for ProtoPlayMediaTaskFeatureSet(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for Double?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for Double?, MEMORY[0x277D839F8]);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-      if (v2 <= 0x3F)
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for ProtoMediaEntitySignal?, type metadata accessor for ProtoMediaEntitySignal, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -2929,16 +2274,16 @@ void type metadata completion function for ProtoPlayMediaTaskFeatureSet()
   }
 }
 
-void type metadata completion function for ProtoNavigationTaskFeatureSet()
+void type metadata completion function for ProtoNavigationTaskFeatureSet(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0]);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for ProtoNavigationUserFollowupContext?, type metadata accessor for ProtoNavigationUserFollowupContext, MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -2946,22 +2291,22 @@ void type metadata completion function for ProtoNavigationTaskFeatureSet()
   }
 }
 
-void type metadata completion function for ProtoNavigationUserFollowupContext()
+void type metadata completion function for ProtoNavigationUserFollowupContext(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for ProtoNavigationFollowupType?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for ProtoNavigationFollowupType?, &type metadata for ProtoNavigationFollowupType);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-      if (v2 <= 0x3F)
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for ProtoTaskFeatureSet?(319, &lazy cache variable for type metadata for ProtoLocationEntitySignal?, type metadata accessor for ProtoLocationEntitySignal, MEMORY[0x277D83D88]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?);
-          if (v4 <= 0x3F)
+          type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?, MEMORY[0x277D84D38]);
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -2971,16 +2316,16 @@ void type metadata completion function for ProtoNavigationUserFollowupContext()
   }
 }
 
-void type metadata completion function for ProtoNavigationFeatures()
+void type metadata completion function for ProtoNavigationFeatures(uint64_t a1)
 {
   type metadata accessor for UnknownStorage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?);
-      if (v2 <= 0x3F)
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?, MEMORY[0x277D84D38]);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -4257,7 +3602,7 @@ LABEL_55:
   return v16 & 1;
 }
 
-Swift::Int specialized RawRepresentable<>.hashValue.getter()
+Swift::Int specialized RawRepresentable<>.hashValue.getter(unsigned __int8 a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4265,7 +3610,7 @@ Swift::Int specialized RawRepresentable<>.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)()
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, unsigned __int8 a2)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4437,7 +3782,7 @@ unint64_t TranscriptEventDataIssues.rawValue.getter()
   }
 }
 
-uint64_t specialized RawRepresentable<>.hash(into:)()
+uint64_t specialized RawRepresentable<>.hash(into:)(uint64_t a1, unsigned __int8 a2)
 {
   String.hash(into:)();
 }
@@ -4592,23 +3937,17 @@ unint64_t SiriUIEventDataIssues.rawValue.getter()
 
   if (*v0 <= 2u)
   {
-    result = v1;
+    return v1;
   }
 
   else
   {
-    result = v3;
+    return v3;
   }
-
-  *v0;
-  return result;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SiriUIEventDataIssues()
+uint64_t protocol witness for Hashable.hash(into:) in conformance SiriUIEventDataIssues(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
@@ -4718,10 +4057,8 @@ unint64_t SiriExecutionEventDataIssues.rawValue.getter()
   }
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SiriExecutionEventDataIssues()
+uint64_t protocol witness for Hashable.hash(into:) in conformance SiriExecutionEventDataIssues(uint64_t a1)
 {
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
@@ -4828,23 +4165,17 @@ unint64_t NowPlayingEventDataIssues.rawValue.getter()
 
   if (*v0 <= 2u)
   {
-    result = v1;
+    return v1;
   }
 
   else
   {
-    result = v3;
+    return v3;
   }
-
-  *v0;
-  return result;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NowPlayingEventDataIssues()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NowPlayingEventDataIssues(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
@@ -4917,94 +4248,87 @@ unint64_t MapsEventDataIssues.rawValue.getter()
 {
   if (*v0)
   {
-    result = 0xD00000000000001DLL;
+    return 0xD00000000000001DLL;
   }
 
   else
   {
-    result = 0xD000000000000018;
+    return 0xD000000000000018;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance MapsEventDataIssues(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0xD00000000000001DLL;
+    v3 = 0xD00000000000001DLL;
   }
 
   else
   {
-    v4 = 0xD000000000000018;
+    v3 = 0xD000000000000018;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = "missingValidPlayEventDonation";
+    v4 = "missingValidPlayEventDonation";
   }
 
   else
   {
-    v5 = "missingMapsEventDonation";
+    v4 = "missingMapsEventDonation";
   }
 
-  v6 = v5 | 0x8000000000000000;
+  v5 = v4 | 0x8000000000000000;
   if (*a2)
   {
-    v7 = 0xD00000000000001DLL;
+    v6 = 0xD00000000000001DLL;
   }
 
   else
   {
-    v7 = 0xD000000000000018;
+    v6 = 0xD000000000000018;
   }
 
   if (*a2)
   {
-    v8 = "missingMapsEventDonation";
+    v7 = "missingMapsEventDonation";
   }
 
   else
   {
-    v8 = "missingValidPlayEventDonation";
+    v7 = "missingValidPlayEventDonation";
   }
 
-  if (v4 == v7 && v6 == (v8 | 0x8000000000000000))
+  if (v3 == v6 && v5 == (v7 | 0x8000000000000000))
   {
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v10 & 1;
+  return v9 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance MapsEventDataIssues()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance MapsEventDataIssues()
+uint64_t protocol witness for Hashable.hash(into:) in conformance MapsEventDataIssues(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MapsEventDataIssues()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MapsEventDataIssues(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -5055,7 +4379,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance HomeKit
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance HomeKitClientAccessoryControlEventDataIssues()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance HomeKitClientAccessoryControlEventDataIssues(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -5066,93 +4390,86 @@ unint64_t AppLaunchEventDataIssues.rawValue.getter()
 {
   if (*v0)
   {
-    result = 0xD00000000000001FLL;
+    return 0xD00000000000001FLL;
   }
 
   else
   {
-    result = 0xD00000000000001ELL;
+    return 0xD00000000000001ELL;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AppLaunchEventDataIssues(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0xD00000000000001FLL;
+    v3 = 0xD00000000000001FLL;
   }
 
   else
   {
-    v4 = 0xD00000000000001ELL;
+    v3 = 0xD00000000000001ELL;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = "missingHomeKitEventDonation";
+    v4 = "missingHomeKitEventDonation";
   }
 
   else
   {
-    v5 = "appLaunchEventsExtractionError";
+    v4 = "appLaunchEventsExtractionError";
   }
 
   if (*a2)
   {
-    v6 = 0xD00000000000001FLL;
+    v5 = 0xD00000000000001FLL;
   }
 
   else
   {
-    v6 = 0xD00000000000001ELL;
+    v5 = 0xD00000000000001ELL;
   }
 
   if (*a2)
   {
-    v7 = "appLaunchEventsExtractionError";
+    v6 = "appLaunchEventsExtractionError";
   }
 
   else
   {
-    v7 = "missingHomeKitEventDonation";
+    v6 = "missingHomeKitEventDonation";
   }
 
-  if (v4 == v6 && (v5 | 0x8000000000000000) == (v7 | 0x8000000000000000))
+  if (v3 == v5 && (v4 | 0x8000000000000000) == (v6 | 0x8000000000000000))
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AppLaunchEventDataIssues()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AppLaunchEventDataIssues()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AppLaunchEventDataIssues(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AppLaunchEventDataIssues()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AppLaunchEventDataIssues(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -5211,38 +4528,30 @@ unint64_t AppIntentEventDataIssues.rawValue.getter()
 
   if (*v0 <= 1u)
   {
-    result = v2;
+    return v2;
   }
 
   else
   {
-    result = v1;
+    return v1;
   }
-
-  *v0;
-  return result;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AppIntentEventDataIssues()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AppIntentEventDataIssues()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AppIntentEventDataIssues(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AppIntentEventDataIssues()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AppIntentEventDataIssues(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -5314,16 +4623,13 @@ unint64_t AlarmEventDataIssues.rawValue.getter()
 
   if (*v0)
   {
-    result = v1;
+    return v1;
   }
 
   else
   {
-    result = 0xD00000000000001ALL;
+    return 0xD00000000000001ALL;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AlarmEventDataIssues(_BYTE *a1, _BYTE *a2)
@@ -5412,22 +4718,19 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Ala
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AlarmEventDataIssues()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AlarmEventDataIssues()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AlarmEventDataIssues(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AlarmEventDataIssues()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AlarmEventDataIssues(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -5541,28 +4844,25 @@ unint64_t EngagementSignalCollectionError.rawValue.getter()
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance EngagementSignalCollectionError(char *a1, char *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance EngagementSignalCollectionError()
 {
-  v10 = *a1;
-  v9 = *a2;
-  v2 = EngagementSignalCollectionError.rawValue.getter();
-  v4 = v3;
-  if (v2 == EngagementSignalCollectionError.rawValue.getter() && v4 == v5)
+  v0 = EngagementSignalCollectionError.rawValue.getter();
+  v2 = v1;
+  if (v0 == EngagementSignalCollectionError.rawValue.getter() && v2 == v3)
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v7 & 1;
+  return v5 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance EngagementSignalCollectionError()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   EngagementSignalCollectionError.rawValue.getter();
   String.hash(into:)();
@@ -5570,16 +4870,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Engagem
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance EngagementSignalCollectionError()
+uint64_t protocol witness for Hashable.hash(into:) in conformance EngagementSignalCollectionError(uint64_t a1)
 {
-  v2 = *v0;
   EngagementSignalCollectionError.rawValue.getter();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EngagementSignalCollectionError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EngagementSignalCollectionError(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   EngagementSignalCollectionError.rawValue.getter();
   String.hash(into:)();
@@ -5768,7 +5066,7 @@ uint64_t MisssingFeaturesFromProtoSiriTaskEngagement.rawValue.getter()
   }
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance EngagementFeaturizationError(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *, uint64_t))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance EngagementFeaturizationError(uint64_t a1, uint64_t a2, void (*a3)(void *, uint64_t))
 {
   v5 = *v3;
   Hasher.init(_seed:)();
@@ -5776,7 +5074,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Engagem
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EngagementFeaturizationError(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *, uint64_t))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EngagementFeaturizationError(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *, uint64_t))
 {
   v6 = *v4;
   Hasher.init(_seed:)();
@@ -5822,94 +5120,87 @@ unint64_t EncodingError.rawValue.getter()
 {
   if (*v0)
   {
-    result = 0xD00000000000001BLL;
+    return 0xD00000000000001BLL;
   }
 
   else
   {
-    result = 0xD000000000000016;
+    return 0xD000000000000016;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance EncodingError(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0xD00000000000001BLL;
+    v3 = 0xD00000000000001BLL;
   }
 
   else
   {
-    v4 = 0xD000000000000016;
+    v3 = 0xD000000000000016;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = "tedFollowupEngagements";
+    v4 = "tedFollowupEngagements";
   }
 
   else
   {
-    v5 = "jsonSerializationError";
+    v4 = "jsonSerializationError";
   }
 
-  v6 = v5 | 0x8000000000000000;
+  v5 = v4 | 0x8000000000000000;
   if (*a2)
   {
-    v7 = 0xD00000000000001BLL;
+    v6 = 0xD00000000000001BLL;
   }
 
   else
   {
-    v7 = 0xD000000000000016;
+    v6 = 0xD000000000000016;
   }
 
   if (*a2)
   {
-    v8 = "jsonSerializationError";
+    v7 = "jsonSerializationError";
   }
 
   else
   {
-    v8 = "tedFollowupEngagements";
+    v7 = "tedFollowupEngagements";
   }
 
-  if (v4 == v7 && v6 == (v8 | 0x8000000000000000))
+  if (v3 == v6 && v5 == (v7 | 0x8000000000000000))
   {
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v10 & 1;
+  return v9 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance EncodingError()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance EncodingError()
+uint64_t protocol witness for Hashable.hash(into:) in conformance EncodingError(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EncodingError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EncodingError(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -5983,7 +5274,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Decodin
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DecodingError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance DecodingError(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -7183,362 +6474,149 @@ LABEL_20:
 
 uint64_t static EngagementFeatureUtils.getRequestIds(taskId:)(uint64_t a1, uint64_t a2)
 {
-  v36 = a2;
+  v31 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v35 = &v34 - v5;
-  v6 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  v34 = *(v6 - 1);
-  v7 = *(v34 + 64);
-  MEMORY[0x28223BE20](v6);
-  v9 = (&v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v10 = type metadata accessor for ProtoSiriTaskEngagement(0);
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v16 = *(*(v15 - 8) + 64);
-  v17 = MEMORY[0x28223BE20](v15 - 8);
-  v19 = &v34 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v34 - v20;
-  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(a1, v36, 0xD000000000000012, 0x800000026923E630, &v34 - v20);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v21, v19, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  if ((*(v11 + 48))(v19, 1, v10) == 1)
+  v30 = &v29 - v4;
+  v5 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
+  v29 = *(v5 - 1);
+  MEMORY[0x28223BE20](v5);
+  v7 = (&v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = type metadata accessor for ProtoSiriTaskEngagement(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v13 = MEMORY[0x28223BE20](v12 - 8);
+  v15 = &v29 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v17 = &v29 - v16;
+  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(a1, v31, 0xD000000000000012, 0x800000026923E630, &v29 - v16);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v17, v15, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  if ((*(v9 + 48))(v15, 1, v8) == 1)
   {
-    outlined destroy of DateInterval?(v19, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
+    outlined destroy of DateInterval?(v15, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
     if (one-time initialization token for feature != -1)
     {
       swift_once();
     }
 
-    v22 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v22, static Logger.feature);
-    v37[0] = 417;
-    Logger.error(_:_:)(0xD000000000000037, 0x8000000269240AE0, v37);
-    outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
+    v18 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v18, static Logger.feature);
+    *v32 = 417;
+    Logger.error(_:_:)(0xD000000000000037, 0x8000000269240AE0, v32);
+    outlined destroy of DateInterval?(v17, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
     return 0;
   }
 
   else
   {
-    outlined init with take of ProtoSiriTaskEngagement(v19, v14, type metadata accessor for ProtoSiriTaskEngagement);
-    v24 = *&v14[*(v10 + 20)];
-    v25 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
+    outlined init with take of ProtoSiriTaskEngagement(v15, v11, type metadata accessor for ProtoSiriTaskEngagement);
+    v20 = *&v11[*(v8 + 20)];
+    v21 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
     swift_beginAccess();
-    v26 = v35;
-    outlined init with copy of ProtoSiriTaskInteractionType?(v24 + v25, v35, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-    v27 = *(v34 + 48);
-    if (v27(v26, 1, v6) == 1)
+    v22 = v30;
+    outlined init with copy of ProtoSiriTaskInteractionType?(v20 + v21, v30, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+    v23 = *(v29 + 48);
+    if (v23(v22, 1, v5) == 1)
     {
-      *v9 = MEMORY[0x277D84F90];
-      v28 = v9 + v6[5];
+      *v7 = MEMORY[0x277D84F90];
       UnknownStorage.init()();
-      outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      *(v9 + v6[6]) = 5;
-      *(v9 + v6[7]) = 5;
-      v29 = v6[8];
-      v30 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-      (*(*(v30 - 8) + 56))(v9 + v29, 1, 1, v30);
-      v31 = v9 + v6[9];
-      *v31 = 0;
-      v31[8] = 1;
-      v32 = v9 + v6[10];
-      *v32 = 0;
-      v32[8] = 1;
-      if (v27(v26, 1, v6) != 1)
+      outlined destroy of DateInterval?(v17, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      *(v7 + v5[6]) = 5;
+      *(v7 + v5[7]) = 5;
+      v24 = v5[8];
+      v25 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+      (*(*(v25 - 8) + 56))(v7 + v24, 1, 1, v25);
+      v26 = v7 + v5[9];
+      *v26 = 0;
+      v26[8] = 1;
+      v27 = v7 + v5[10];
+      *v27 = 0;
+      v27[8] = 1;
+      if (v23(v22, 1, v5) != 1)
       {
-        outlined destroy of DateInterval?(v26, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+        outlined destroy of DateInterval?(v22, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
       }
     }
 
     else
     {
-      outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      outlined init with take of ProtoSiriTaskEngagement(v26, v9, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+      outlined destroy of DateInterval?(v17, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      outlined init with take of ProtoSiriTaskEngagement(v22, v7, type metadata accessor for ProtoSiriTaskEvaluationSummary);
     }
 
-    outlined destroy of ProtoSiriTaskEngagement(v14, type metadata accessor for ProtoSiriTaskEngagement);
-    v23 = *v9;
+    outlined destroy of ProtoSiriTaskEngagement(v11, type metadata accessor for ProtoSiriTaskEngagement);
+    v19 = *v7;
 
-    outlined destroy of ProtoSiriTaskEngagement(v9, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+    outlined destroy of ProtoSiriTaskEngagement(v7, type metadata accessor for ProtoSiriTaskEvaluationSummary);
   }
 
-  return v23;
+  return v19;
 }
 
 uint64_t static EngagementFeatureUtils.getTaskSuccess(taskId:)(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v38 = a1;
+  v34 = a1;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v36 - v9;
-  v11 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  v37 = *(v11 - 1);
-  v12 = *(v37 + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = (&v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v16 = *(*(v15 - 8) + 64);
-  v17 = MEMORY[0x28223BE20](v15 - 8);
-  v19 = &v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v36 - v20;
-  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(a3, a4, 0xD000000000000012, 0x800000026923E630, &v36 - v20);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v21, v19, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v22 = type metadata accessor for ProtoSiriTaskEngagement(0);
-  v23 = *(v22 - 8);
-  if ((*(v23 + 48))(v19, 1, v22) == 1)
-  {
-    outlined destroy of DateInterval?(v19, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-    if (one-time initialization token for feature != -1)
-    {
-      swift_once();
-    }
-
-    v24 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v24, static Logger.feature);
-    v39[0] = 421;
-    Logger.error(_:_:)(0xD000000000000039, 0x8000000269240B20, v39);
-    outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-    *v38 = 5;
-    return (*(v23 + 56))(a2, 1, 1, v22);
-  }
-
-  else
-  {
-    outlined init with take of ProtoSiriTaskEngagement(v19, a2, type metadata accessor for ProtoSiriTaskEngagement);
-    v26 = *(a2 + *(v22 + 20));
-    v27 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
-    swift_beginAccess();
-    outlined init with copy of ProtoSiriTaskInteractionType?(v26 + v27, v10, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-    v28 = *(v37 + 48);
-    v29 = a2;
-    if (v28(v10, 1, v11) == 1)
-    {
-      *v14 = MEMORY[0x277D84F90];
-      v30 = v14 + v11[5];
-      UnknownStorage.init()();
-      outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      *(v14 + v11[6]) = 5;
-      *(v14 + v11[7]) = 5;
-      v31 = v11[8];
-      v32 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-      (*(*(v32 - 8) + 56))(v14 + v31, 1, 1, v32);
-      v33 = v14 + v11[9];
-      *v33 = 0;
-      v33[8] = 1;
-      v34 = v14 + v11[10];
-      *v34 = 0;
-      v34[8] = 1;
-      if (v28(v10, 1, v11) != 1)
-      {
-        outlined destroy of DateInterval?(v10, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-      }
-    }
-
-    else
-    {
-      outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      outlined init with take of ProtoSiriTaskEngagement(v10, v14, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-    }
-
-    v35 = *(v14 + v11[7]);
-    outlined destroy of ProtoSiriTaskEngagement(v14, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-    if (v35 == 5)
-    {
-      *v38 = 0;
-    }
-
-    else
-    {
-      *v38 = v35;
-    }
-
-    return (*(v23 + 56))(v29, 0, 1, v22);
-  }
-}
-
-uint64_t static EngagementFeatureUtils.getTaskCompletion(taskId:)(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v38 = a1;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v36 - v9;
-  v11 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  v37 = *(v11 - 1);
-  v12 = *(v37 + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = (&v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v16 = *(*(v15 - 8) + 64);
-  v17 = MEMORY[0x28223BE20](v15 - 8);
-  v19 = &v36 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v36 - v20;
-  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(a3, a4, 0xD000000000000012, 0x800000026923E630, &v36 - v20);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v21, v19, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v22 = type metadata accessor for ProtoSiriTaskEngagement(0);
-  v23 = *(v22 - 8);
-  if ((*(v23 + 48))(v19, 1, v22) == 1)
-  {
-    outlined destroy of DateInterval?(v19, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-    if (one-time initialization token for feature != -1)
-    {
-      swift_once();
-    }
-
-    v24 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v24, static Logger.feature);
-    v39[0] = 420;
-    Logger.error(_:_:)(0xD00000000000003CLL, 0x8000000269240B60, v39);
-    outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-    *v38 = 5;
-    return (*(v23 + 56))(a2, 1, 1, v22);
-  }
-
-  else
-  {
-    outlined init with take of ProtoSiriTaskEngagement(v19, a2, type metadata accessor for ProtoSiriTaskEngagement);
-    v26 = *(a2 + *(v22 + 20));
-    v27 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
-    swift_beginAccess();
-    outlined init with copy of ProtoSiriTaskInteractionType?(v26 + v27, v10, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-    v28 = *(v37 + 48);
-    v29 = a2;
-    if (v28(v10, 1, v11) == 1)
-    {
-      *v14 = MEMORY[0x277D84F90];
-      v30 = v14 + v11[5];
-      UnknownStorage.init()();
-      outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      *(v14 + v11[6]) = 5;
-      *(v14 + v11[7]) = 5;
-      v31 = v11[8];
-      v32 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-      (*(*(v32 - 8) + 56))(v14 + v31, 1, 1, v32);
-      v33 = v14 + v11[9];
-      *v33 = 0;
-      v33[8] = 1;
-      v34 = v14 + v11[10];
-      *v34 = 0;
-      v34[8] = 1;
-      if (v28(v10, 1, v11) != 1)
-      {
-        outlined destroy of DateInterval?(v10, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-      }
-    }
-
-    else
-    {
-      outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      outlined init with take of ProtoSiriTaskEngagement(v10, v14, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-    }
-
-    v35 = *(v14 + v11[6]);
-    outlined destroy of ProtoSiriTaskEngagement(v14, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-    if (v35 == 5)
-    {
-      *v38 = 0;
-    }
-
-    else
-    {
-      *v38 = v35;
-    }
-
-    return (*(v23 + 56))(v29, 0, 1, v22);
-  }
-}
-
-BOOL static EngagementFeatureUtils.isEntityResolutionPresent(taskId:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v52 = a2;
-  v53 = a3;
-  v54 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v50 = &v46 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v46 - v8;
+  v9 = &v32 - v8;
   v10 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  v47 = *(v10 - 1);
-  v11 = *(v47 + 64);
+  v33 = *(v10 - 1);
   MEMORY[0x28223BE20](v10);
-  v13 = (&v46 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v48 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-  v51 = *(v48 - 8);
-  v14 = *(v51 + 64);
-  MEMORY[0x28223BE20](v48);
-  v49 = &v46 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for ProtoSiriTaskEngagement(0);
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v46 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v22 = *(*(v21 - 8) + 64);
-  v23 = MEMORY[0x28223BE20](v21 - 8);
-  v25 = &v46 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v23);
-  v27 = &v46 - v26;
-  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(v52, v53, 0xD000000000000012, 0x800000026923E630, &v46 - v26);
-  outlined init with copy of ProtoSiriTaskInteractionType?(v27, v25, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v53 = v17;
-  if ((*(v17 + 48))(v25, 1, v16) == 1)
+  v12 = (&v32 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = &v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v32 - v17;
+  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(a3, a4, 0xD000000000000012, 0x800000026923E630, &v32 - v17);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v18, v16, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v19 = type metadata accessor for ProtoSiriTaskEngagement(0);
+  v20 = *(v19 - 8);
+  if ((*(v20 + 48))(v16, 1, v19) == 1)
   {
-    outlined destroy of DateInterval?(v25, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
+    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
     if (one-time initialization token for feature != -1)
     {
       swift_once();
     }
 
-    v28 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v28, static Logger.feature);
-    v55[0] = 422;
-    Logger.error(_:_:)(0xD000000000000056, 0x8000000269240BA0, v55);
-    outlined destroy of DateInterval?(v27, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-    v29 = 0;
-    v30 = 1;
-    v31 = v54;
+    v21 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v21, static Logger.feature);
+    *v35 = 421;
+    Logger.error(_:_:)(0xD000000000000039, 0x8000000269240B20, v35);
+    outlined destroy of DateInterval?(v18, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+    *v34 = 5;
+    return (*(v20 + 56))(a2, 1, 1, v19);
   }
 
   else
   {
-    outlined init with take of ProtoSiriTaskEngagement(v25, v20, type metadata accessor for ProtoSiriTaskEngagement);
-    v32 = *(v16 + 20);
-    v52 = v20;
-    v33 = *&v20[v32];
-    v34 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
+    outlined init with take of ProtoSiriTaskEngagement(v16, a2, type metadata accessor for ProtoSiriTaskEngagement);
+    v23 = *(a2 + *(v19 + 20));
+    v24 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
     swift_beginAccess();
-    outlined init with copy of ProtoSiriTaskInteractionType?(v33 + v34, v9, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-    v35 = *(v47 + 48);
-    if (v35(v9, 1, v10) == 1)
+    outlined init with copy of ProtoSiriTaskInteractionType?(v23 + v24, v9, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+    v25 = *(v33 + 48);
+    v26 = a2;
+    if (v25(v9, 1, v10) == 1)
     {
-      *v13 = MEMORY[0x277D84F90];
-      v36 = v13 + v10[5];
+      *v12 = MEMORY[0x277D84F90];
       UnknownStorage.init()();
-      *(v13 + v10[6]) = 5;
-      *(v13 + v10[7]) = 5;
-      v37 = v48;
-      (*(v51 + 56))(v13 + v10[8], 1, 1, v48);
-      v38 = v13 + v10[9];
-      *v38 = 0;
-      v38[8] = 1;
-      v39 = v13 + v10[10];
-      *v39 = 0;
-      v39[8] = 1;
-      v40 = v35(v9, 1, v10);
-      v31 = v54;
-      v41 = v49;
-      if (v40 != 1)
+      outlined destroy of DateInterval?(v18, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      *(v12 + v10[6]) = 5;
+      *(v12 + v10[7]) = 5;
+      v27 = v10[8];
+      v28 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+      (*(*(v28 - 8) + 56))(v12 + v27, 1, 1, v28);
+      v29 = v12 + v10[9];
+      *v29 = 0;
+      v29[8] = 1;
+      v30 = v12 + v10[10];
+      *v30 = 0;
+      v30[8] = 1;
+      if (v25(v9, 1, v10) != 1)
       {
         outlined destroy of DateInterval?(v9, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
       }
@@ -7546,56 +6624,249 @@ BOOL static EngagementFeatureUtils.isEntityResolutionPresent(taskId:)(uint64_t a
 
     else
     {
-      outlined init with take of ProtoSiriTaskEngagement(v9, v13, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-      v31 = v54;
-      v37 = v48;
-      v41 = v49;
+      outlined destroy of DateInterval?(v18, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      outlined init with take of ProtoSiriTaskEngagement(v9, v12, type metadata accessor for ProtoSiriTaskEvaluationSummary);
     }
 
-    v42 = v50;
-    outlined init with copy of ProtoSiriTaskInteractionType?(v13 + v10[8], v50, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
-    v43 = *(v51 + 48);
-    if (v43(v42, 1, v37) == 1)
+    v31 = *(v12 + v10[7]);
+    outlined destroy of ProtoSiriTaskEngagement(v12, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+    if (v31 == 5)
     {
+      *v34 = 0;
+    }
+
+    else
+    {
+      *v34 = v31;
+    }
+
+    return (*(v20 + 56))(v26, 0, 1, v19);
+  }
+}
+
+uint64_t static EngagementFeatureUtils.getTaskCompletion(taskId:)(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v34 = a1;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v32 - v8;
+  v10 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
+  v33 = *(v10 - 1);
+  MEMORY[0x28223BE20](v10);
+  v12 = (&v32 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = &v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v32 - v17;
+  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(a3, a4, 0xD000000000000012, 0x800000026923E630, &v32 - v17);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v18, v16, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v19 = type metadata accessor for ProtoSiriTaskEngagement(0);
+  v20 = *(v19 - 8);
+  if ((*(v20 + 48))(v16, 1, v19) == 1)
+  {
+    outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+    if (one-time initialization token for feature != -1)
+    {
+      swift_once();
+    }
+
+    v21 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v21, static Logger.feature);
+    *v35 = 420;
+    Logger.error(_:_:)(0xD00000000000003CLL, 0x8000000269240B60, v35);
+    outlined destroy of DateInterval?(v18, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+    *v34 = 5;
+    return (*(v20 + 56))(a2, 1, 1, v19);
+  }
+
+  else
+  {
+    outlined init with take of ProtoSiriTaskEngagement(v16, a2, type metadata accessor for ProtoSiriTaskEngagement);
+    v23 = *(a2 + *(v19 + 20));
+    v24 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
+    swift_beginAccess();
+    outlined init with copy of ProtoSiriTaskInteractionType?(v23 + v24, v9, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+    v25 = *(v33 + 48);
+    v26 = a2;
+    if (v25(v9, 1, v10) == 1)
+    {
+      *v12 = MEMORY[0x277D84F90];
       UnknownStorage.init()();
-      outlined destroy of ProtoSiriTaskEngagement(v13, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-      outlined destroy of DateInterval?(v27, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      *(v41 + v37[5]) = 2;
-      *(v41 + v37[6]) = 2;
-      *(v41 + v37[7]) = 2;
-      *(v41 + v37[8]) = 2;
-      if (v43(v42, 1, v37) != 1)
+      outlined destroy of DateInterval?(v18, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      *(v12 + v10[6]) = 5;
+      *(v12 + v10[7]) = 5;
+      v27 = v10[8];
+      v28 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+      (*(*(v28 - 8) + 56))(v12 + v27, 1, 1, v28);
+      v29 = v12 + v10[9];
+      *v29 = 0;
+      v29[8] = 1;
+      v30 = v12 + v10[10];
+      *v30 = 0;
+      v30[8] = 1;
+      if (v25(v9, 1, v10) != 1)
       {
-        outlined destroy of DateInterval?(v42, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+        outlined destroy of DateInterval?(v9, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
       }
     }
 
     else
     {
-      outlined destroy of ProtoSiriTaskEngagement(v13, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-      outlined destroy of DateInterval?(v27, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      outlined init with take of ProtoSiriTaskEngagement(v42, v41, type metadata accessor for ProtoSiriTaskInteractionType);
+      outlined destroy of DateInterval?(v18, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      outlined init with take of ProtoSiriTaskEngagement(v9, v12, type metadata accessor for ProtoSiriTaskEvaluationSummary);
     }
 
-    if (*(v41 + v37[5]) == 2)
+    v31 = *(v12 + v10[6]);
+    outlined destroy of ProtoSiriTaskEngagement(v12, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+    if (v31 == 5)
     {
-      v44 = v52;
-      v29 = *(v41 + v37[6]) != 2 || *(v41 + v37[7]) != 2 || *(v41 + v37[8]) != 2;
+      *v34 = 0;
     }
 
     else
     {
-      v29 = 1;
-      v44 = v52;
+      *v34 = v31;
     }
 
-    outlined destroy of ProtoSiriTaskEngagement(v41, type metadata accessor for ProtoSiriTaskInteractionType);
-    outlined init with take of ProtoSiriTaskEngagement(v44, v31, type metadata accessor for ProtoSiriTaskEngagement);
-    v30 = 0;
+    return (*(v20 + 56))(v26, 0, 1, v19);
+  }
+}
+
+BOOL static EngagementFeatureUtils.isEntityResolutionPresent(taskId:)(uint64_t a1, char *a2, uint64_t a3)
+{
+  v45 = a2;
+  v46 = a3;
+  v47 = a1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v43 = &v39 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v39 - v6;
+  v8 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
+  v40 = *(v8 - 1);
+  MEMORY[0x28223BE20](v8);
+  v10 = (&v39 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v41 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+  v44 = *(v41 - 8);
+  MEMORY[0x28223BE20](v41);
+  v42 = &v39 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for ProtoSiriTaskEngagement(0);
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = &v39 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v17 = MEMORY[0x28223BE20](v16 - 8);
+  v19 = &v39 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17);
+  v21 = &v39 - v20;
+  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(v45, v46, 0xD000000000000012, 0x800000026923E630, &v39 - v20);
+  outlined init with copy of ProtoSiriTaskInteractionType?(v21, v19, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v46 = v13;
+  if ((*(v13 + 48))(v19, 1, v12) == 1)
+  {
+    outlined destroy of DateInterval?(v19, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+    if (one-time initialization token for feature != -1)
+    {
+      swift_once();
+    }
+
+    v22 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v22, static Logger.feature);
+    *v48 = 422;
+    Logger.error(_:_:)(0xD000000000000056, 0x8000000269240BA0, v48);
+    outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+    v23 = 0;
+    v24 = 1;
+    v25 = v47;
   }
 
-  (*(v53 + 56))(v31, v30, 1, v16);
-  return v29;
+  else
+  {
+    outlined init with take of ProtoSiriTaskEngagement(v19, v15, type metadata accessor for ProtoSiriTaskEngagement);
+    v26 = *(v12 + 20);
+    v45 = v15;
+    v27 = *&v15[v26];
+    v28 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
+    swift_beginAccess();
+    outlined init with copy of ProtoSiriTaskInteractionType?(v27 + v28, v7, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+    v29 = *(v40 + 48);
+    if (v29(v7, 1, v8) == 1)
+    {
+      *v10 = MEMORY[0x277D84F90];
+      UnknownStorage.init()();
+      *(v10 + v8[6]) = 5;
+      *(v10 + v8[7]) = 5;
+      v30 = v41;
+      (*(v44 + 56))(v10 + v8[8], 1, 1, v41);
+      v31 = v10 + v8[9];
+      *v31 = 0;
+      v31[8] = 1;
+      v32 = v10 + v8[10];
+      *v32 = 0;
+      v32[8] = 1;
+      v33 = v29(v7, 1, v8);
+      v25 = v47;
+      v34 = v42;
+      if (v33 != 1)
+      {
+        outlined destroy of DateInterval?(v7, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+      }
+    }
+
+    else
+    {
+      outlined init with take of ProtoSiriTaskEngagement(v7, v10, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+      v25 = v47;
+      v30 = v41;
+      v34 = v42;
+    }
+
+    v35 = v43;
+    outlined init with copy of ProtoSiriTaskInteractionType?(v10 + v8[8], v43, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+    v36 = *(v44 + 48);
+    if (v36(v35, 1, v30) == 1)
+    {
+      UnknownStorage.init()();
+      outlined destroy of ProtoSiriTaskEngagement(v10, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+      outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      *(v34 + v30[5]) = 2;
+      *(v34 + v30[6]) = 2;
+      *(v34 + v30[7]) = 2;
+      *(v34 + v30[8]) = 2;
+      if (v36(v35, 1, v30) != 1)
+      {
+        outlined destroy of DateInterval?(v35, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMd, &_s18SiriTaskEngagement05ProtoaB15InteractionTypeVSgMR);
+      }
+    }
+
+    else
+    {
+      outlined destroy of ProtoSiriTaskEngagement(v10, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+      outlined destroy of DateInterval?(v21, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      outlined init with take of ProtoSiriTaskEngagement(v35, v34, type metadata accessor for ProtoSiriTaskInteractionType);
+    }
+
+    if (*(v34 + v30[5]) == 2)
+    {
+      v37 = v45;
+      v23 = *(v34 + v30[6]) != 2 || *(v34 + v30[7]) != 2 || *(v34 + v30[8]) != 2;
+    }
+
+    else
+    {
+      v23 = 1;
+      v37 = v45;
+    }
+
+    outlined destroy of ProtoSiriTaskEngagement(v34, type metadata accessor for ProtoSiriTaskInteractionType);
+    outlined init with take of ProtoSiriTaskEngagement(v37, v25, type metadata accessor for ProtoSiriTaskEngagement);
+    v24 = 0;
+  }
+
+  (*(v46 + 56))(v25, v24, 1, v12);
+  return v23;
 }
 
 uint64_t outlined destroy of ProtoSiriTaskEngagement(uint64_t a1, uint64_t (*a2)(void))
@@ -7612,68 +6883,60 @@ uint64_t outlined init with take of ProtoSiriTaskEngagement(uint64_t a1, uint64_
   return a2;
 }
 
-uint64_t static EngagementFeatureUtils.getASRHypothesesForTask(taskId:)(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t static EngagementFeatureUtils.getASRHypothesesForTask(taskId:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v120 = a3;
-  v116 = a2;
-  v108 = a1;
-  v111 = type metadata accessor for Siri_Nlu_External_TurnInput();
-  v119 = *(v111 - 8);
-  v3 = *(v119 + 64);
-  MEMORY[0x28223BE20](v111);
-  v110 = &v97 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for JSONDecodingOptions();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v114 = &v97 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0a18_Nlu_External_Cdm_C7RequestVSgMd, "X1");
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v115 = &v97 - v10;
-  v113 = type metadata accessor for Siri_Nlu_External_Cdm_NluRequest();
-  v118 = *(v113 - 8);
-  v11 = *(v118 + 64);
-  MEMORY[0x28223BE20](v113);
-  v109 = &v97 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v16 = &v97 - v15;
-  v17 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
-  v121 = *(v17 - 1);
-  v18 = *(v121 + 64);
+  v111 = a3;
+  v107 = a2;
+  v99 = a1;
+  v102 = type metadata accessor for Siri_Nlu_External_TurnInput();
+  v110 = *(v102 - 8);
+  MEMORY[0x28223BE20](v102);
+  v101 = &v88 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for JSONDecodingOptions();
+  MEMORY[0x28223BE20](v4 - 8);
+  v105 = &v88 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0a18_Nlu_External_Cdm_C7RequestVSgMd, "X1");
+  MEMORY[0x28223BE20](v6 - 8);
+  v106 = &v88 - v7;
+  v104 = type metadata accessor for Siri_Nlu_External_Cdm_NluRequest();
+  v109 = *(v104 - 8);
+  MEMORY[0x28223BE20](v104);
+  v100 = &v88 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v88 - v10;
+  v12 = type metadata accessor for ProtoSiriTaskEvaluationSummary(0);
+  v112 = *(v12 - 1);
+  MEMORY[0x28223BE20](v12);
+  v14 = (&v88 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = type metadata accessor for ProtoSiriTaskEngagement(0);
+  v16 = *(v15 - 8);
+  v17 = MEMORY[0x28223BE20](v15);
+  v113 = &v88 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v17);
-  v20 = (&v97 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v21 = type metadata accessor for ProtoSiriTaskEngagement(0);
-  v22 = *(v21 - 8);
-  v23 = *(v22 + 64);
-  v24 = MEMORY[0x28223BE20](v21);
-  v122 = &v97 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v24);
-  v27 = &v97 - v26;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v29 = *(*(v28 - 8) + 64);
-  v30 = MEMORY[0x28223BE20](v28 - 8);
-  v32 = &v97 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v30);
-  v34 = &v97 - v33;
-  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(v116, v120, 0xD000000000000012, 0x800000026923E630, &v97 - v33);
-  v106 = v34;
-  outlined init with copy of ProtoSiriTaskInteractionType?(v34, v32, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v107 = v22;
-  if ((*(v22 + 48))(v32, 1, v21) == 1)
+  v20 = &v88 - v19;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v22 = MEMORY[0x28223BE20](v21 - 8);
+  v24 = &v88 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v22);
+  v26 = &v88 - v25;
+  static SiriTaskEngagementRetriever.retrieveSiriTaskEngagementWithStreamId(taskId:streamId:)(v107, v111, 0xD000000000000012, 0x800000026923E630, &v88 - v25);
+  v97 = v26;
+  outlined init with copy of ProtoSiriTaskInteractionType?(v26, v24, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v98 = v16;
+  if ((*(v16 + 48))(v24, 1, v15) == 1)
   {
-    v35 = v21;
-    outlined destroy of DateInterval?(v32, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
+    v27 = v15;
+    outlined destroy of DateInterval?(v24, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
     if (one-time initialization token for feature == -1)
     {
 LABEL_3:
-      v36 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v36, static Logger.feature);
-      v126[0] = 423;
-      Logger.error(_:_:)(0xD000000000000059, 0x8000000269240C00, v126);
-      outlined destroy of DateInterval?(v106, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      (*(v107 + 56))(v108, 1, 1, v35);
+      v28 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v28, static Logger.feature);
+      *v117 = 423;
+      Logger.error(_:_:)(0xD000000000000059, 0x8000000269240C00, v117);
+      outlined destroy of DateInterval?(v97, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      (*(v98 + 56))(v99, 1, 1, v27);
       return 0;
     }
 
@@ -7682,51 +6945,50 @@ LABEL_45:
     goto LABEL_3;
   }
 
-  outlined init with take of ProtoSiriTaskEngagement(v32, v27, type metadata accessor for ProtoSiriTaskEngagement);
-  v103 = v21;
-  v37 = *&v27[*(v21 + 20)];
-  v38 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
+  outlined init with take of ProtoSiriTaskEngagement(v24, v20, type metadata accessor for ProtoSiriTaskEngagement);
+  v94 = v15;
+  v29 = *&v20[*(v15 + 20)];
+  v30 = OBJC_IVAR____TtCV18SiriTaskEngagement23ProtoSiriTaskEngagementP33_F3A832E830815955AC517C2682306D7C13_StorageClass__evaluationSummary;
   swift_beginAccess();
-  outlined init with copy of ProtoSiriTaskInteractionType?(v37 + v38, v16, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
-  v39 = *(v121 + 48);
-  v40 = v27;
-  if (v39(v16, 1, v17) == 1)
+  outlined init with copy of ProtoSiriTaskInteractionType?(v29 + v30, v11, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+  v31 = *(v112 + 48);
+  v32 = v20;
+  if (v31(v11, 1, v12) == 1)
   {
-    *v20 = MEMORY[0x277D84F90];
-    v41 = v20 + v17[5];
+    *v14 = MEMORY[0x277D84F90];
     UnknownStorage.init()();
-    *(v20 + v17[6]) = 5;
-    *(v20 + v17[7]) = 5;
-    v42 = v17[8];
-    v43 = type metadata accessor for ProtoSiriTaskInteractionType(0);
-    (*(*(v43 - 8) + 56))(v20 + v42, 1, 1, v43);
-    v44 = v20 + v17[9];
-    *v44 = 0;
-    v44[8] = 1;
-    v45 = v20 + v17[10];
-    *v45 = 0;
-    v45[8] = 1;
-    v46 = v39(v16, 1, v17);
-    v47 = v122;
-    if (v46 != 1)
+    *(v14 + v12[6]) = 5;
+    *(v14 + v12[7]) = 5;
+    v33 = v12[8];
+    v34 = type metadata accessor for ProtoSiriTaskInteractionType(0);
+    (*(*(v34 - 8) + 56))(v14 + v33, 1, 1, v34);
+    v35 = v14 + v12[9];
+    *v35 = 0;
+    v35[8] = 1;
+    v36 = v14 + v12[10];
+    *v36 = 0;
+    v36[8] = 1;
+    v37 = v31(v11, 1, v12);
+    v38 = v113;
+    if (v37 != 1)
     {
-      outlined destroy of DateInterval?(v16, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
+      outlined destroy of DateInterval?(v11, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMd, &_s18SiriTaskEngagement05ProtoaB17EvaluationSummaryVSgMR);
     }
   }
 
   else
   {
-    outlined init with take of ProtoSiriTaskEngagement(v16, v20, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-    v47 = v122;
+    outlined init with take of ProtoSiriTaskEngagement(v11, v14, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+    v38 = v113;
   }
 
-  v48 = *v20;
+  v39 = *v14;
 
-  outlined destroy of ProtoSiriTaskEngagement(v20, type metadata accessor for ProtoSiriTaskEvaluationSummary);
-  v49 = *(v48 + 16);
-  v50 = v103;
-  v104 = v27;
-  if (!v49)
+  outlined destroy of ProtoSiriTaskEngagement(v14, type metadata accessor for ProtoSiriTaskEvaluationSummary);
+  v40 = *(v39 + 16);
+  v41 = v94;
+  v95 = v20;
+  if (!v40)
   {
 
     if (one-time initialization token for feature != -1)
@@ -7734,125 +6996,125 @@ LABEL_45:
       swift_once();
     }
 
-    v81 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v81, static Logger.feature);
-    outlined init with copy of ProtoSiriTaskEngagement(v27, v47);
+    v72 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v72, static Logger.feature);
+    outlined init with copy of ProtoSiriTaskEngagement(v20, v38);
 
-    v82 = Logger.logObject.getter();
-    v83 = static os_log_type_t.debug.getter();
+    v73 = Logger.logObject.getter();
+    v74 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v82, v83))
+    if (os_log_type_enabled(v73, v74))
     {
-      v84 = swift_slowAlloc();
-      v85 = swift_slowAlloc();
-      v125[0] = v85;
-      *v84 = 136315394;
-      v86 = *(v47 + *(v50 + 20));
+      v75 = swift_slowAlloc();
+      v76 = swift_slowAlloc();
+      v116[0] = v76;
+      *v75 = 136315394;
+      v77 = *(v38 + *(v41 + 20));
       swift_beginAccess();
-      if (*(v86 + 40))
+      if (*(v77 + 40))
       {
-        v87 = *(v86 + 32);
-        v88 = *(v86 + 40);
+        v78 = *(v77 + 32);
+        v79 = *(v77 + 40);
       }
 
       else
       {
-        v87 = 0;
-        v88 = 0xE000000000000000;
+        v78 = 0;
+        v79 = 0xE000000000000000;
       }
 
-      outlined destroy of ProtoSiriTaskEngagement(v47, type metadata accessor for ProtoSiriTaskEngagement);
-      v92 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v87, v88, v125);
+      outlined destroy of ProtoSiriTaskEngagement(v38, type metadata accessor for ProtoSiriTaskEngagement);
+      v83 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v79, v116);
 
-      *(v84 + 4) = v92;
-      *(v84 + 12) = 2080;
-      *(v84 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v116, v120, v125);
-      _os_log_impl(&dword_2691F5000, v82, v83, "#EngagementFeatureUtils Empty requestID list, unable to fetch feature for task name: %s, taskId:  %s", v84, 0x16u);
+      *(v75 + 4) = v83;
+      *(v75 + 12) = 2080;
+      *(v75 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v107, v111, v116);
+      _os_log_impl(&dword_2691F5000, v73, v74, "#EngagementFeatureUtils Empty requestID list, unable to fetch feature for task name: %s, taskId:  %s", v75, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x26D634770](v85, -1, -1);
-      MEMORY[0x26D634770](v84, -1, -1);
+      MEMORY[0x26D634770](v76, -1, -1);
+      MEMORY[0x26D634770](v75, -1, -1);
 
-      outlined destroy of DateInterval?(v106, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      v50 = v103;
+      outlined destroy of DateInterval?(v97, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      v41 = v94;
     }
 
     else
     {
 
-      outlined destroy of DateInterval?(v106, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-      outlined destroy of ProtoSiriTaskEngagement(v47, type metadata accessor for ProtoSiriTaskEngagement);
+      outlined destroy of DateInterval?(v97, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+      outlined destroy of ProtoSiriTaskEngagement(v38, type metadata accessor for ProtoSiriTaskEngagement);
     }
 
-    v93 = v108;
-    outlined init with take of ProtoSiriTaskEngagement(v104, v108, type metadata accessor for ProtoSiriTaskEngagement);
-    (*(v107 + 56))(v93, 0, 1, v50);
+    v84 = v99;
+    outlined init with take of ProtoSiriTaskEngagement(v95, v99, type metadata accessor for ProtoSiriTaskEngagement);
+    (*(v98 + 56))(v84, 0, 1, v41);
     return 0;
   }
 
-  v123 = MEMORY[0x277D84FA0];
-  v51 = specialized Sequence.filter(_:)(v48);
+  v114 = MEMORY[0x277D84FA0];
+  v42 = specialized Sequence.filter(_:)(v39);
 
-  v112 = *(v51 + 16);
-  if (v112)
+  v103 = *(v42 + 16);
+  if (v103)
   {
-    v53 = 0;
-    v105 = "m ProtoSiriTaskEngagement";
-    v101 = (v118 + 56);
-    v100 = (v118 + 32);
-    v99 = (v119 + 8);
-    v98 = (v118 + 8);
-    v35 = (v51 + 40);
-    v54 = MEMORY[0x277D84F98];
-    *&v52 = 136315394;
-    v97 = v52;
-    while (v53 < *(v51 + 16))
+    v44 = 0;
+    v96 = "m ProtoSiriTaskEngagement";
+    v92 = (v109 + 56);
+    v91 = (v109 + 32);
+    v90 = (v110 + 8);
+    v89 = (v109 + 8);
+    v27 = (v42 + 40);
+    v45 = MEMORY[0x277D84F98];
+    *&v43 = 136315394;
+    v88 = v43;
+    while (v44 < *(v42 + 16))
     {
-      v55 = *(v35 - 1);
-      v56 = *v35;
-      v57 = HIBYTE(*v35) & 0xF;
-      if ((*v35 & 0x2000000000000000) == 0)
+      v46 = *(v27 - 1);
+      v47 = *v27;
+      v48 = HIBYTE(*v27) & 0xF;
+      if ((*v27 & 0x2000000000000000) == 0)
       {
-        v57 = v55 & 0xFFFFFFFFFFFFLL;
+        v48 = v46 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v57)
+      if (v48)
       {
-        v121 = v54;
-        v119 = v55;
-        v123 = v55;
-        v124 = v56;
+        v112 = v45;
+        v110 = v46;
+        v114 = v46;
+        v115 = v47;
         swift_bridgeObjectRetain_n();
         MEMORY[0x26D634000](12346, 0xE200000000000000);
-        v58 = v124;
-        v122 = v123;
+        v49 = v115;
+        v113 = v114;
         if (one-time initialization token for feature != -1)
         {
           swift_once();
         }
 
-        v59 = type metadata accessor for Logger();
-        v60 = __swift_project_value_buffer(v59, static Logger.feature);
+        v50 = type metadata accessor for Logger();
+        v51 = __swift_project_value_buffer(v50, static Logger.feature);
 
-        v102 = v60;
-        v61 = Logger.logObject.getter();
-        v62 = static os_log_type_t.debug.getter();
+        v93 = v51;
+        v52 = Logger.logObject.getter();
+        v53 = static os_log_type_t.debug.getter();
 
-        if (os_log_type_enabled(v61, v62))
+        if (os_log_type_enabled(v52, v53))
         {
-          v63 = swift_slowAlloc();
-          v64 = v58;
-          v65 = swift_slowAlloc();
-          v123 = v65;
-          *v63 = v97;
-          *(v63 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v122, v64, &v123);
-          *(v63 + 12) = 2080;
-          *(v63 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000014, v105 | 0x8000000000000000, &v123);
-          _os_log_impl(&dword_2691F5000, v61, v62, "#EngagementFeatureUtils Using first requestID: %s to query feature store: %s", v63, 0x16u);
+          v54 = swift_slowAlloc();
+          v55 = v49;
+          v56 = swift_slowAlloc();
+          v114 = v56;
+          *v54 = v88;
+          *(v54 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v113, v55, &v114);
+          *(v54 + 12) = 2080;
+          *(v54 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000014, v96 | 0x8000000000000000, &v114);
+          _os_log_impl(&dword_2691F5000, v52, v53, "#EngagementFeatureUtils Using first requestID: %s to query feature store: %s", v54, 0x16u);
           swift_arrayDestroy();
-          v66 = v65;
-          v58 = v64;
-          MEMORY[0x26D634770](v66, -1, -1);
-          MEMORY[0x26D634770](v63, -1, -1);
+          v57 = v56;
+          v49 = v55;
+          MEMORY[0x26D634770](v57, -1, -1);
+          MEMORY[0x26D634770](v54, -1, -1);
         }
 
         if (one-time initialization token for shared != -1)
@@ -7860,100 +7122,100 @@ LABEL_45:
           swift_once();
         }
 
-        v67 = PSEFeatureStoreManager.getStream(streamId:)(0xD000000000000014, v105 | 0x8000000000000000);
-        if (!v67)
+        v58 = PSEFeatureStoreManager.getStream(streamId:)(0xD000000000000014, v96 | 0x8000000000000000);
+        if (!v58)
         {
 
-          v123 = 0;
-          v124 = 0xE000000000000000;
+          v114 = 0;
+          v115 = 0xE000000000000000;
           _StringGuts.grow(_:)(100);
           MEMORY[0x26D634000](0xD000000000000047, 0x8000000269240C80);
-          MEMORY[0x26D634000](v116, v120);
+          MEMORY[0x26D634000](v107, v111);
           MEMORY[0x26D634000](0xD00000000000001BLL, 0x800000026923F740);
-          v90 = v123;
-          LOWORD(v123) = 325;
-          Logger.error(_:_:)(v90, v124, &v123);
+          v81 = v114;
+          LOWORD(v114) = 325;
+          Logger.error(_:_:)(v81, v115, &v114);
 
 LABEL_41:
-          outlined destroy of DateInterval?(v106, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-          v95 = v108;
-          outlined init with take of ProtoSiriTaskEngagement(v104, v108, type metadata accessor for ProtoSiriTaskEngagement);
-          (*(v107 + 56))(v95, 0, 1, v103);
+          outlined destroy of DateInterval?(v97, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+          v86 = v99;
+          outlined init with take of ProtoSiriTaskEngagement(v95, v99, type metadata accessor for ProtoSiriTaskEngagement);
+          (*(v98 + 56))(v86, 0, 1, v94);
           return 0;
         }
 
-        v68 = v67;
-        v69 = (*(*v67 + 160))(v122, v58);
-        if (!v69)
+        v59 = v58;
+        v60 = (*(*v58 + 160))(v113, v49);
+        if (!v60)
         {
 
-          v123 = 0;
-          v124 = 0xE000000000000000;
+          v114 = 0;
+          v115 = 0xE000000000000000;
           _StringGuts.grow(_:)(110);
           MEMORY[0x26D634000](0xD000000000000051, 0x8000000269240CD0);
-          MEMORY[0x26D634000](v122, v58);
+          MEMORY[0x26D634000](v113, v49);
 
           MEMORY[0x26D634000](0xD00000000000001BLL, 0x800000026923F740);
-          v91 = v123;
-          LOWORD(v123) = 419;
-          Logger.error(_:_:)(v91, v124, &v123);
+          v82 = v114;
+          LOWORD(v114) = 419;
+          Logger.error(_:_:)(v82, v115, &v114);
 LABEL_40:
 
           goto LABEL_41;
         }
 
-        v70 = v69;
-        v71 = [v69 json];
-        if (!v71)
+        v61 = v60;
+        v62 = [v60 json];
+        if (!v62)
         {
 
-          v123 = 0;
-          v124 = 0xE000000000000000;
+          v114 = 0;
+          v115 = 0xE000000000000000;
           _StringGuts.grow(_:)(62);
           MEMORY[0x26D634000](0xD00000000000003CLL, 0x8000000269240D30);
-          MEMORY[0x26D634000](v122, v58);
+          MEMORY[0x26D634000](v113, v49);
 
-          v94 = v123;
-          LOWORD(v123) = 322;
-          Logger.error(_:_:)(v94, v124, &v123);
+          v85 = v114;
+          LOWORD(v114) = 322;
+          Logger.error(_:_:)(v85, v115, &v114);
           swift_unknownObjectRelease();
           goto LABEL_40;
         }
 
-        v72 = v71;
-        v117 = v70;
-        v118 = v68;
-        v73 = v51;
+        v63 = v62;
+        v108 = v61;
+        v109 = v59;
+        v64 = v42;
         static String._unconditionallyBridgeFromObjectiveC(_:)();
 
         JSONDecodingOptions.init()();
         lazy protocol witness table accessor for type Siri_Nlu_External_Cdm_NluRequest and conformance Siri_Nlu_External_Cdm_NluRequest();
-        v74 = v115;
-        v75 = v113;
+        v65 = v106;
+        v66 = v104;
         Message.init(jsonString:options:)();
 
-        (*v101)(v74, 0, 1, v75);
-        v76 = v109;
-        (*v100)(v109, v74, v75);
-        v77 = v110;
+        (*v92)(v65, 0, 1, v66);
+        v67 = v100;
+        (*v91)(v100, v65, v66);
+        v68 = v101;
         Siri_Nlu_External_Cdm_NluRequest.currentTurnInput.getter();
-        v78 = Siri_Nlu_External_TurnInput.asrOutputs.getter();
-        (*v99)(v77, v111);
-        v79 = v121;
+        v69 = Siri_Nlu_External_TurnInput.asrOutputs.getter();
+        (*v90)(v68, v102);
+        v70 = v112;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v123 = v79;
-        specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v78, v119, v56, isUniquelyReferenced_nonNull_native);
+        v114 = v70;
+        specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v69, v110, v47, isUniquelyReferenced_nonNull_native);
         swift_unknownObjectRelease();
 
-        v54 = v123;
-        (*v98)(v76, v75);
-        v40 = v104;
-        v51 = v73;
+        v45 = v114;
+        (*v89)(v67, v66);
+        v32 = v95;
+        v42 = v64;
       }
 
-      ++v53;
-      v35 += 2;
-      if (v112 == v53)
+      ++v44;
+      v27 += 2;
+      if (v103 == v44)
       {
         goto LABEL_32;
       }
@@ -7963,335 +7225,319 @@ LABEL_40:
     goto LABEL_45;
   }
 
-  v54 = MEMORY[0x277D84F98];
+  v45 = MEMORY[0x277D84F98];
 LABEL_32:
 
-  outlined destroy of DateInterval?(v106, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\");
-  v89 = v108;
-  outlined init with take of ProtoSiriTaskEngagement(v40, v108, type metadata accessor for ProtoSiriTaskEngagement);
-  (*(v107 + 56))(v89, 0, 1, v103);
-  return v54;
+  outlined destroy of DateInterval?(v97, &_s18SiriTaskEngagement05ProtoabC0VSgMd, "h\"");
+  v80 = v99;
+  outlined init with take of ProtoSiriTaskEngagement(v32, v99, type metadata accessor for ProtoSiriTaskEngagement);
+  (*(v98 + 56))(v80, 0, 1, v94);
+  return v45;
 }
 
 uint64_t Sequence<>.dedupe()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
   v8 = *(a1 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](a1);
-  v11 = &v14[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = &v13[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   swift_getAssociatedTypeWitness();
-  v19 = Set.init()();
-  (*(v8 + 16))(v11, v4, a1);
-  v15 = a1;
-  v16 = a2;
-  v17 = a3;
-  v18 = &v19;
-  v12 = Sequence.filter(_:)();
+  v18 = Set.init()();
+  (*(v8 + 16))(v10, v4, a1);
+  v14 = a1;
+  v15 = a2;
+  v16 = a3;
+  v17 = &v18;
+  v11 = Sequence.filter(_:)();
 
-  return v12;
+  return v11;
 }
 
-uint64_t closure #1 in Sequence<>.dedupe()(uint64_t a1)
+uint64_t closure #1 in Sequence<>.dedupe()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v3 = *(AssociatedTypeWitness - 8);
-  v4 = *(v3 + 64);
-  v5 = MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v12 - v8;
-  (*(v3 + 16))(v7, a1, AssociatedTypeWitness);
+  v7 = *(AssociatedTypeWitness - 8);
+  v8 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = &v15 - v11;
+  (*(v7 + 16))(v10, a1, AssociatedTypeWitness);
   type metadata accessor for Set();
-  v10 = Set.insert(_:)();
-  (*(v3 + 8))(v9, AssociatedTypeWitness);
-  return v10 & 1;
+  v13 = Set.insert(_:)();
+  (*(v7 + 8))(v12, AssociatedTypeWitness);
+  return v13 & 1;
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS18SiriTaskEngagement22PSEFeatureStoreDonatorCGMd, &_ss18_DictionaryStorageCySS18SiriTaskEngagement22PSEFeatureStoreDonatorCGMR);
-  v38 = a2;
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v33 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + 8 * v21);
-      if ((v38 & 1) == 0)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + 8 * v20);
+      if ((v34 & 1) == 0)
       {
-        v26 = v22[1];
       }
 
-      v27 = *(v8 + 40);
       Hasher.init(_seed:)();
       String.hash(into:)();
       result = Hasher._finalize()();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v30 = 0;
+            v27 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + 8 * v16) = v25;
-      ++*(v8 + 16);
-      v5 = v37;
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + 8 * v15) = v24;
+      ++*(v7 + 16);
+      v5 = v33;
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
       }
     }
 
-    if ((v38 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
 
-      v3 = v36;
-      goto LABEL_35;
+      v3 = v2;
+      goto LABEL_33;
     }
 
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
     {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v35;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSay12SiriNLUTypes0C27_Nlu_External_AsrHypothesisVGGMd, &_ss18_DictionaryStorageCySSSay12SiriNLUTypes0C27_Nlu_External_AsrHypothesisVGGMR);
-  v38 = a2;
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v33 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + 8 * v21);
-      if ((v38 & 1) == 0)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + 8 * v20);
+      if ((v34 & 1) == 0)
       {
-        v26 = v22[1];
       }
 
-      v27 = *(v8 + 40);
       Hasher.init(_seed:)();
       String.hash(into:)();
       result = Hasher._finalize()();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v30 = 0;
+            v27 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + 8 * v16) = v25;
-      ++*(v8 + 16);
-      v5 = v37;
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + 8 * v15) = v24;
+      ++*(v7 + 16);
+      v5 = v33;
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
       }
     }
 
-    if ((v38 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
 
-      v3 = v36;
-      goto LABEL_35;
+      v3 = v2;
+      goto LABEL_33;
     }
 
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
     {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v35;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
@@ -8317,9 +7563,8 @@ uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1,
     if (v18 < v16 || (a4 & 1) != 0)
     {
       specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v16, a4 & 1);
-      v20 = *v5;
       v11 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-      if ((v17 & 1) != (v21 & 1))
+      if ((v17 & 1) != (v20 & 1))
       {
 LABEL_18:
         result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -8336,22 +7581,20 @@ LABEL_18:
     }
   }
 
-  v22 = *v5;
+  v21 = *v5;
   if (v17)
   {
-    v23 = v22[7];
-    v24 = *(v23 + 8 * v11);
-    *(v23 + 8 * v11) = a1;
+    *(v21[7] + 8 * v11) = a1;
   }
 
-  v22[(v11 >> 6) + 8] |= 1 << v11;
-  v26 = (v22[6] + 16 * v11);
-  *v26 = a2;
-  v26[1] = a3;
-  *(v22[7] + 8 * v11) = a1;
-  v27 = v22[2];
-  v15 = __OFADD__(v27, 1);
-  v28 = v27 + 1;
+  v21[(v11 >> 6) + 8] |= 1 << v11;
+  v23 = (v21[6] + 16 * v11);
+  *v23 = a2;
+  v23[1] = a3;
+  *(v21[7] + 8 * v11) = a1;
+  v24 = v21[2];
+  v15 = __OFADD__(v24, 1);
+  v25 = v24 + 1;
   if (v15)
   {
 LABEL_17:
@@ -8359,7 +7602,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v22[2] = v28;
+  v21[2] = v25;
 }
 
 {
@@ -8383,9 +7626,8 @@ LABEL_17:
     if (v18 < v16 || (a4 & 1) != 0)
     {
       specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v16, a4 & 1);
-      v20 = *v5;
       v11 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-      if ((v17 & 1) != (v21 & 1))
+      if ((v17 & 1) != (v20 & 1))
       {
 LABEL_18:
         result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -8402,22 +7644,20 @@ LABEL_18:
     }
   }
 
-  v22 = *v5;
+  v21 = *v5;
   if (v17)
   {
-    v23 = v22[7];
-    v24 = *(v23 + 8 * v11);
-    *(v23 + 8 * v11) = a1;
+    *(v21[7] + 8 * v11) = a1;
   }
 
-  v22[(v11 >> 6) + 8] |= 1 << v11;
-  v26 = (v22[6] + 16 * v11);
-  *v26 = a2;
-  v26[1] = a3;
-  *(v22[7] + 8 * v11) = a1;
-  v27 = v22[2];
-  v15 = __OFADD__(v27, 1);
-  v28 = v27 + 1;
+  v21[(v11 >> 6) + 8] |= 1 << v11;
+  v23 = (v21[6] + 16 * v11);
+  *v23 = a2;
+  v23[1] = a3;
+  *(v21[7] + 8 * v11) = a1;
+  v24 = v21[2];
+  v15 = __OFADD__(v24, 1);
+  v25 = v24 + 1;
   if (v15)
   {
 LABEL_17:
@@ -8425,7 +7665,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v22[2] = v28;
+  v21[2] = v25;
 }
 
 void *specialized _NativeDictionary.copy()()
@@ -8597,21 +7837,21 @@ LABEL_19:
   return result;
 }
 
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4)
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -8671,7 +7911,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -8785,35 +8025,34 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 uint64_t specialized Set._Variant.insert(_:)(Swift::Int *a1, Swift::Int a2, Swift::Int a3)
 {
   v7 = *v3;
-  v8 = *(*v3 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v9 = Hasher._finalize()();
-  v10 = -1 << *(v7 + 32);
-  v11 = v9 & ~v10;
-  if ((*(v7 + 56 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11))
+  v8 = Hasher._finalize()();
+  v9 = -1 << *(v7 + 32);
+  v10 = v8 & ~v9;
+  if ((*(v7 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
   {
-    v12 = ~v10;
+    v11 = ~v9;
     while (1)
     {
-      v13 = (*(v7 + 48) + 16 * v11);
-      v14 = *v13 == a2 && v13[1] == a3;
-      if (v14 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      v12 = (*(v7 + 48) + 16 * v10);
+      v13 = *v12 == a2 && v12[1] == a3;
+      if (v13 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
       {
         break;
       }
 
-      v11 = (v11 + 1) & v12;
-      if (((*(v7 + 56 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) == 0)
+      v10 = (v10 + 1) & v11;
+      if (((*(v7 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
       {
         goto LABEL_9;
       }
     }
 
-    v18 = (*(v7 + 48) + 16 * v11);
-    v19 = v18[1];
-    *a1 = *v18;
-    a1[1] = v19;
+    v16 = (*(v7 + 48) + 16 * v10);
+    v17 = v16[1];
+    *a1 = *v16;
+    a1[1] = v17;
 
     return 0;
   }
@@ -8821,140 +8060,132 @@ uint64_t specialized Set._Variant.insert(_:)(Swift::Int *a1, Swift::Int a2, Swif
   else
   {
 LABEL_9:
-    v15 = *v3;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v20 = *v3;
+    v18 = *v3;
 
-    specialized _NativeSet.insertNew(_:at:isUnique:)(a2, a3, v11, isUniquelyReferenced_nonNull_native);
-    *v3 = v20;
+    specialized _NativeSet.insertNew(_:at:isUnique:)(a2, a3, v10, isUniquelyReferenced_nonNull_native);
+    *v3 = v18;
     *a1 = a2;
     a1[1] = a3;
     return 1;
   }
 }
 
-uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1)
+Swift::Int specialized _NativeSet.resize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v31 = v2;
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
     {
-      v10 = ~(-1 << v9);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v10 = -1;
+      v9 = -1;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
     {
-      v16 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v19 = (*(v3 + 48) + 16 * (v16 | (v7 << 6)));
-      v20 = *v19;
-      v21 = v19[1];
-      v22 = *(v6 + 40);
+      v15 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
+LABEL_15:
+      v18 = (*(v3 + 48) + 16 * (v15 | (v6 << 6)));
+      v19 = *v18;
+      v20 = v18[1];
       Hasher.init(_seed:)();
       String.hash(into:)();
       result = Hasher._finalize()();
-      v23 = -1 << *(v6 + 32);
-      v24 = result & ~v23;
-      v25 = v24 >> 6;
-      if (((-1 << v24) & ~*(v13 + 8 * (v24 >> 6))) == 0)
+      v21 = -1 << *(v5 + 32);
+      v22 = result & ~v21;
+      v23 = v22 >> 6;
+      if (((-1 << v22) & ~*(v12 + 8 * (v22 >> 6))) == 0)
       {
-        v26 = 0;
-        v27 = (63 - v23) >> 6;
-        while (++v25 != v27 || (v26 & 1) == 0)
+        v24 = 0;
+        v25 = (63 - v21) >> 6;
+        while (++v23 != v25 || (v24 & 1) == 0)
         {
-          v28 = v25 == v27;
-          if (v25 == v27)
+          v26 = v23 == v25;
+          if (v23 == v25)
           {
-            v25 = 0;
+            v23 = 0;
           }
 
-          v26 |= v28;
-          v29 = *(v13 + 8 * v25);
-          if (v29 != -1)
+          v24 |= v26;
+          v27 = *(v12 + 8 * v23);
+          if (v27 != -1)
           {
-            v14 = __clz(__rbit64(~v29)) + (v25 << 6);
-            goto LABEL_9;
+            v13 = __clz(__rbit64(~v27)) + (v23 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_32:
+LABEL_30:
         __break(1u);
         return result;
       }
 
-      v14 = __clz(__rbit64((-1 << v24) & ~*(v13 + 8 * (v24 >> 6)))) | v24 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      v15 = (*(v6 + 48) + 16 * v14);
-      *v15 = v20;
-      v15[1] = v21;
-      ++*(v6 + 16);
+      v13 = __clz(__rbit64((-1 << v22) & ~*(v12 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      v14 = (*(v5 + 48) + 16 * v13);
+      *v14 = v19;
+      v14[1] = v20;
+      ++*(v5 + 16);
     }
 
-    v17 = v7;
+    v16 = v6;
     while (1)
     {
-      v7 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v6 = v16 + 1;
+      if (__OFADD__(v16, 1))
       {
         __break(1u);
-        goto LABEL_32;
+        goto LABEL_30;
       }
 
-      if (v7 >= v12)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v18 = v8[v7];
-      ++v17;
-      if (v18)
+      v17 = v7[v6];
+      ++v16;
+      if (v17)
       {
-        v16 = __clz(__rbit64(v18));
-        v11 = (v18 - 1) & v18;
-        goto LABEL_17;
+        v15 = __clz(__rbit64(v17));
+        v10 = (v17 - 1) & v17;
+        goto LABEL_15;
       }
     }
 
-    v30 = 1 << *(v3 + 32);
-    if (v30 >= 64)
+    v28 = 1 << *(v3 + 32);
+    if (v28 >= 64)
     {
-      bzero((v3 + 56), ((v30 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v3 + 56), ((v28 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v8 = -1 << v30;
+      *v7 = -1 << v28;
     }
 
-    v2 = v31;
+    v2 = v1;
     *(v3 + 16) = 0;
   }
 
-  *v2 = v6;
+  *v2 = v5;
   return result;
 }
 
@@ -8985,19 +8216,18 @@ Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, S
   }
 
   v10 = *v4;
-  v11 = *(*v4 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
   result = Hasher._finalize()();
-  v12 = -1 << *(v10 + 32);
-  a3 = result & ~v12;
+  v11 = -1 << *(v10 + 32);
+  a3 = result & ~v11;
   if ((*(v10 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3))
   {
-    v13 = ~v12;
+    v12 = ~v11;
     do
     {
-      v14 = (*(v10 + 48) + 16 * a3);
-      if (*v14 == v7 && v14[1] == a2)
+      v13 = (*(v10 + 48) + 16 * a3);
+      if (*v13 == v7 && v13[1] == a2)
       {
         goto LABEL_19;
       }
@@ -9008,24 +8238,24 @@ Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, S
         goto LABEL_19;
       }
 
-      a3 = (a3 + 1) & v13;
+      a3 = (a3 + 1) & v12;
     }
 
     while (((*(v10 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3) & 1) != 0);
   }
 
 LABEL_16:
-  v16 = *v4;
+  v15 = *v4;
   *(*v4 + 8 * (a3 >> 6) + 56) |= 1 << a3;
-  v17 = (*(v16 + 48) + 16 * a3);
-  *v17 = v7;
-  v17[1] = a2;
-  v18 = *(v16 + 16);
-  v19 = __OFADD__(v18, 1);
-  v20 = v18 + 1;
-  if (!v19)
+  v16 = (*(v15 + 48) + 16 * a3);
+  *v16 = v7;
+  v16[1] = a2;
+  v17 = *(v15 + 16);
+  v18 = __OFADD__(v17, 1);
+  v19 = v17 + 1;
+  if (!v18)
   {
-    *(v16 + 16) = v20;
+    *(v15 + 16) = v19;
     return result;
   }
 
@@ -9119,121 +8349,114 @@ LABEL_19:
   return result;
 }
 
-uint64_t specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
+Swift::Int specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v29 = v2;
-    v7 = 0;
-    v8 = 1 << *(v3 + 32);
-    if (v8 < 64)
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
     {
-      v9 = ~(-1 << v8);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v10 = v9 & *(v3 + 56);
-    v11 = (v8 + 63) >> 6;
-    v12 = result + 56;
-    while (v10)
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
     {
-      v15 = __clz(__rbit64(v10));
-      v10 &= v10 - 1;
-LABEL_17:
-      v18 = (*(v3 + 48) + 16 * (v15 | (v7 << 6)));
-      v19 = *v18;
-      v20 = v18[1];
-      v21 = *(v6 + 40);
+      v14 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
+LABEL_15:
+      v17 = (*(v3 + 48) + 16 * (v14 | (v6 << 6)));
+      v18 = *v17;
+      v19 = v17[1];
       Hasher.init(_seed:)();
 
       String.hash(into:)();
       result = Hasher._finalize()();
-      v22 = -1 << *(v6 + 32);
-      v23 = result & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v12 + 8 * (v23 >> 6))) == 0)
+      v20 = -1 << *(v5 + 32);
+      v21 = result & ~v20;
+      v22 = v21 >> 6;
+      if (((-1 << v21) & ~*(v11 + 8 * (v21 >> 6))) == 0)
       {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
+        v23 = 0;
+        v24 = (63 - v20) >> 6;
+        while (++v22 != v24 || (v23 & 1) == 0)
         {
-          v27 = v24 == v26;
-          if (v24 == v26)
+          v25 = v22 == v24;
+          if (v22 == v24)
           {
-            v24 = 0;
+            v22 = 0;
           }
 
-          v25 |= v27;
-          v28 = *(v12 + 8 * v24);
-          if (v28 != -1)
+          v23 |= v25;
+          v26 = *(v11 + 8 * v22);
+          if (v26 != -1)
           {
-            v13 = __clz(__rbit64(~v28)) + (v24 << 6);
-            goto LABEL_9;
+            v12 = __clz(__rbit64(~v26)) + (v22 << 6);
+            goto LABEL_7;
           }
         }
 
-        goto LABEL_30;
+        goto LABEL_28;
       }
 
-      v13 = __clz(__rbit64((-1 << v23) & ~*(v12 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
-      v14 = (*(v6 + 48) + 16 * v13);
-      *v14 = v19;
-      v14[1] = v20;
-      ++*(v6 + 16);
+      v12 = __clz(__rbit64((-1 << v21) & ~*(v11 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      v13 = (*(v5 + 48) + 16 * v12);
+      *v13 = v18;
+      v13[1] = v19;
+      ++*(v5 + 16);
     }
 
-    v16 = v7;
+    v15 = v6;
     while (1)
     {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
       {
         break;
       }
 
-      if (v7 >= v11)
+      if (v6 >= v10)
       {
 
-        v2 = v29;
-        goto LABEL_28;
+        v2 = v1;
+        goto LABEL_26;
       }
 
-      v17 = *(v3 + 56 + 8 * v7);
-      ++v16;
-      if (v17)
+      v16 = *(v3 + 56 + 8 * v6);
+      ++v15;
+      if (v16)
       {
-        v15 = __clz(__rbit64(v17));
-        v10 = (v17 - 1) & v17;
-        goto LABEL_17;
+        v14 = __clz(__rbit64(v16));
+        v9 = (v16 - 1) & v16;
+        goto LABEL_15;
       }
     }
 
     __break(1u);
-LABEL_30:
+LABEL_28:
     __break(1u);
   }
 
   else
   {
 
-LABEL_28:
-    *v2 = v6;
+LABEL_26:
+    *v2 = v5;
   }
 
   return result;
@@ -9334,72 +8557,61 @@ uint64_t outlined init with copy of ProtoSiriTaskEngagement(uint64_t a1, uint64_
   return a2;
 }
 
-uint64_t partial apply for closure #1 in Sequence<>.dedupe()(uint64_t a1)
-{
-  v2 = v1[2];
-  v3 = v1[3];
-  v5 = v1[4];
-  v4 = v1[5];
-  return closure #1 in Sequence<>.dedupe()(a1) & 1;
-}
-
 uint64_t specialized static FeatureExtractionUtils.normalizedAlarmIdentifier(from:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for URLQueryItem();
-  v48 = *(v4 - 8);
-  v5 = *(v48 + 64);
-  v6 = (MEMORY[0x28223BE20])();
-  v49 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x28223BE20](v6);
-  v50 = &v40 - v9;
-  v10 = MEMORY[0x28223BE20](v8);
-  v43 = &v40 - v11;
-  MEMORY[0x28223BE20](v10);
-  v13 = &v40 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation13URLComponentsVSgMd, &_s10Foundation13URLComponentsVSgMR);
-  v15 = (*(*(v14 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v14 - 8);
-  v17 = &v40 - v16;
+  v46 = *(v4 - 8);
+  v5 = MEMORY[0x28223BE20](v4);
+  v47 = &v38 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MEMORY[0x28223BE20](v5);
+  v48 = &v38 - v8;
+  v9 = MEMORY[0x28223BE20](v7);
+  v41 = &v38 - v10;
+  MEMORY[0x28223BE20](v9);
+  v12 = &v38 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation13URLComponentsVSgMd, &_s10Foundation13URLComponentsVSgMR);
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = &v38 - v14;
   URLComponents.init(string:)();
-  v18 = type metadata accessor for URLComponents();
-  v19 = *(v18 - 8);
-  if ((*(v19 + 48))(v17, 1, v18) == 1)
+  v16 = type metadata accessor for URLComponents();
+  v17 = *(v16 - 8);
+  if ((*(v17 + 48))(v15, 1, v16) == 1)
   {
-    outlined destroy of URLComponents?(v17);
+    outlined destroy of URLComponents?(v15);
     goto LABEL_23;
   }
 
-  v20 = URLComponents.queryItems.getter();
-  result = (*(v19 + 8))(v17, v18);
-  if (!v20)
+  v18 = URLComponents.queryItems.getter();
+  result = (*(v17 + 8))(v15, v16);
+  if (!v18)
   {
     goto LABEL_23;
   }
 
-  v40 = v13;
-  v41 = a1;
-  v42 = a2;
-  v47 = *(v20 + 16);
-  if (!v47)
+  v38 = v12;
+  v39 = a1;
+  v40 = a2;
+  v45 = *(v18 + 16);
+  if (!v45)
   {
-    v24 = MEMORY[0x277D84F90];
+    v22 = MEMORY[0x277D84F90];
 LABEL_19:
 
-    a1 = v41;
-    if (*(v24 + 16))
+    a1 = v39;
+    if (*(v22 + 16))
     {
-      v34 = v48;
-      v35 = v43;
-      (*(v48 + 16))(v43, v24 + ((*(v34 + 80) + 32) & ~*(v34 + 80)), v4);
+      v32 = v46;
+      v33 = v41;
+      (*(v46 + 16))(v41, v22 + ((*(v32 + 80) + 32) & ~*(v32 + 80)), v4);
 
-      v36 = v40;
-      (*(v34 + 32))(v40, v35, v4);
-      v37 = URLQueryItem.value.getter();
-      v39 = v38;
-      (*(v34 + 8))(v36, v4);
-      if (v39)
+      v34 = v38;
+      (*(v32 + 32))(v38, v33, v4);
+      v35 = URLQueryItem.value.getter();
+      v37 = v36;
+      (*(v32 + 8))(v34, v4);
+      if (v37)
       {
-        return v37;
+        return v35;
       }
     }
 
@@ -9412,56 +8624,56 @@ LABEL_23:
     return a1;
   }
 
-  v22 = 0;
-  v46 = v48 + 16;
-  v44 = (v48 + 8);
-  v23 = (v48 + 32);
-  v24 = MEMORY[0x277D84F90];
-  v45 = v4;
-  while (v22 < *(v20 + 16))
+  v20 = 0;
+  v44 = v46 + 16;
+  v42 = (v46 + 8);
+  v21 = (v46 + 32);
+  v22 = MEMORY[0x277D84F90];
+  v43 = v4;
+  while (v20 < *(v18 + 16))
   {
-    v25 = (*(v48 + 80) + 32) & ~*(v48 + 80);
-    v26 = *(v48 + 72);
-    (*(v48 + 16))(v50, v20 + v25 + v26 * v22, v4);
-    if (URLQueryItem.name.getter() == 25705 && v27 == 0xE200000000000000)
+    v23 = (*(v46 + 80) + 32) & ~*(v46 + 80);
+    v24 = *(v46 + 72);
+    (*(v46 + 16))(v48, v18 + v23 + v24 * v20, v4);
+    if (URLQueryItem.name.getter() == 25705 && v25 == 0xE200000000000000)
     {
 
 LABEL_13:
-      v29 = *v23;
-      (*v23)(v49, v50, v4);
+      v27 = *v21;
+      (*v21)(v47, v48, v4);
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v51 = v24;
+      v49 = v22;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v24 + 16) + 1, 1);
-        v24 = v51;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v22 + 16) + 1, 1);
+        v22 = v49;
       }
 
-      v32 = *(v24 + 16);
-      v31 = *(v24 + 24);
-      if (v32 >= v31 >> 1)
+      v30 = *(v22 + 16);
+      v29 = *(v22 + 24);
+      if (v30 >= v29 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v31 > 1, v32 + 1, 1);
-        v24 = v51;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1);
+        v22 = v49;
       }
 
-      *(v24 + 16) = v32 + 1;
-      v33 = v24 + v25 + v32 * v26;
-      v4 = v45;
-      result = (v29)(v33, v49, v45);
+      *(v22 + 16) = v30 + 1;
+      v31 = v22 + v23 + v30 * v24;
+      v4 = v43;
+      result = (v27)(v31, v47, v43);
       goto LABEL_7;
     }
 
-    v28 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v26 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v28)
+    if (v26)
     {
       goto LABEL_13;
     }
 
-    result = (*v44)(v50, v4);
+    result = (*v42)(v48, v4);
 LABEL_7:
-    if (v47 == ++v22)
+    if (v45 == ++v20)
     {
       goto LABEL_19;
     }
@@ -9473,100 +8685,93 @@ LABEL_7:
 
 Class specialized static FeatureExtractionUtils.normalizeDisplayDateString(from:)(void *a1, uint64_t a2)
 {
-  v59 = a1;
+  v52 = a1;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v54 = &v49 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v56 = &v49 - v8;
-  v9 = type metadata accessor for DateComponents();
-  v57 = *(v9 - 8);
-  v58 = v9;
-  v10 = *(v57 + 64);
-  MEMORY[0x28223BE20](v9);
-  v55 = &v49 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v53 = type metadata accessor for Calendar.Identifier();
-  v51 = *(v53 - 8);
-  v12 = *(v51 + 64);
-  MEMORY[0x28223BE20](v53);
-  v50 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Calendar.Component();
-  v15 = *(v14 - 8);
-  v16 = v15[8];
-  MEMORY[0x28223BE20](v14);
-  v18 = &v49 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = type metadata accessor for Date();
-  v61 = *(v19 - 8);
-  v62 = v19;
-  v20 = *(v61 + 64);
-  v21 = MEMORY[0x28223BE20](v19);
-  v23 = &v49 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = &v42 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v49 = &v42 - v6;
+  v7 = type metadata accessor for DateComponents();
+  v50 = *(v7 - 8);
+  v51 = v7;
+  MEMORY[0x28223BE20](v7);
+  v48 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v46 = type metadata accessor for Calendar.Identifier();
+  v44 = *(v46 - 8);
+  MEMORY[0x28223BE20](v46);
+  v43 = &v42 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for Calendar.Component();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v42 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for Date();
+  v54 = *(v14 - 8);
+  v55 = v14;
+  v15 = MEMORY[0x28223BE20](v14);
+  v17 = &v42 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v42 - v18;
+  v53 = type metadata accessor for Calendar();
+  v20 = *(v53 - 8);
+  v21 = MEMORY[0x28223BE20](v53);
+  v45 = &v42 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v21);
-  v25 = &v49 - v24;
-  v60 = type metadata accessor for Calendar();
-  v26 = *(v60 - 8);
-  v27 = *(v26 + 64);
-  v28 = MEMORY[0x28223BE20](v60);
-  v52 = &v49 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v28);
-  v31 = &v49 - v30;
-  v32 = [objc_allocWithZone(MEMORY[0x277CCA968]) init];
+  v24 = &v42 - v23;
+  v25 = [objc_allocWithZone(MEMORY[0x277CCA968]) init];
   static Calendar.current.getter();
-  v33 = MEMORY[0x26D633FA0](0x61206D6D3A68, 0xE600000000000000);
-  [v32 setDateFormat_];
+  v26 = MEMORY[0x26D633FA0](0x61206D6D3A68, 0xE600000000000000);
+  [v25 setDateFormat_];
 
-  v34 = MEMORY[0x26D633FA0](v59, a2);
-  v59 = v32;
-  v35 = [v32 dateFromString_];
+  v27 = MEMORY[0x26D633FA0](v52, a2);
+  v52 = v25;
+  v28 = [v25 dateFromString_];
 
-  if (v35)
+  if (v28)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-    (*(v61 + 32))(v25, v23, v62);
-    v36 = v15[13];
-    v36(v18, *MEMORY[0x277CC9980], v14);
-    v49 = Calendar.component(_:from:)();
-    v37 = v15[1];
-    v37(v18, v14);
-    v36(v18, *MEMORY[0x277CC99A0], v14);
+    (*(v54 + 32))(v19, v17, v55);
+    v29 = *(v11 + 104);
+    v29(v13, *MEMORY[0x277CC9980], v10);
+    v42 = Calendar.component(_:from:)();
+    v30 = *(v11 + 8);
+    v30(v13, v10);
+    v29(v13, *MEMORY[0x277CC99A0], v10);
     Calendar.component(_:from:)();
-    v37(v18, v14);
-    v39 = v50;
-    v38 = v51;
-    v40 = v53;
-    (*(v51 + 104))(v50, *MEMORY[0x277CC9830], v53);
-    v41 = v52;
+    v30(v13, v10);
+    v32 = v43;
+    v31 = v44;
+    v33 = v46;
+    (*(v44 + 104))(v43, *MEMORY[0x277CC9830], v46);
+    v34 = v45;
     Calendar.init(identifier:)();
-    (*(v38 + 8))(v39, v40);
-    v42 = v56;
-    v43 = v60;
-    (*(v26 + 16))(v56, v41, v60);
-    (*(v26 + 56))(v42, 0, 1, v43);
-    v44 = type metadata accessor for TimeZone();
-    (*(*(v44 - 8) + 56))(v54, 1, 1, v44);
-    v45 = v55;
+    (*(v31 + 8))(v32, v33);
+    v35 = v49;
+    v36 = v53;
+    (*(v20 + 16))(v49, v34, v53);
+    (*(v20 + 56))(v35, 0, 1, v36);
+    v37 = type metadata accessor for TimeZone();
+    (*(*(v37 - 8) + 56))(v47, 1, 1, v37);
+    v38 = v48;
     DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
-    v46.super.isa = DateComponents._bridgeToObjectiveC()().super.isa;
+    v39.super.isa = DateComponents._bridgeToObjectiveC()().super.isa;
 
-    (*(v57 + 8))(v45, v58);
-    v47 = *(v26 + 8);
-    v47(v41, v43);
-    (*(v61 + 8))(v25, v62);
-    v47(v31, v43);
+    (*(v50 + 8))(v38, v51);
+    v40 = *(v20 + 8);
+    v40(v34, v36);
+    (*(v54 + 8))(v19, v55);
+    v40(v24, v36);
   }
 
   else
   {
-    (*(v26 + 8))(v31, v60);
+    (*(v20 + 8))(v24, v53);
 
     return 0;
   }
 
-  return v46.super.isa;
+  return v39.super.isa;
 }
 
 uint64_t outlined destroy of URLComponents?(uint64_t a1)
@@ -10317,90 +9522,82 @@ LABEL_10:
 
 uint64_t objectdestroyTm()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[7];
 
   return MEMORY[0x2821FE8E8](v0, 64, 7);
 }
 
-uint64_t StringProtocol.endIndex<A>(of:options:)()
+uint64_t StringProtocol.endIndex<A>(of:options:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v1 = *(*(v0 - 8) + 64);
-  MEMORY[0x28223BE20](v0 - 8);
-  v3 = &v10 - v2;
-  v4 = type metadata accessor for Locale();
-  (*(*(v4 - 8) + 56))(v3, 1, 1, v4);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v15 - v7;
+  v9 = type metadata accessor for Locale();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
   StringProtocol.range<A>(of:options:range:locale:)();
-  v6 = v5;
-  v8 = v7;
-  outlined destroy of Locale?(v3);
-  if (v8)
+  v11 = v10;
+  v13 = v12;
+  outlined destroy of Locale?(v8);
+  if (v13)
   {
     return 0;
   }
 
   else
   {
-    return v6;
+    return v11;
   }
 }
 
-uint64_t StringProtocol.index<A>(of:options:)()
+uint64_t StringProtocol.index<A>(of:options:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v1 = *(*(v0 - 8) + 64);
-  MEMORY[0x28223BE20](v0 - 8);
-  v3 = &v9 - v2;
-  v4 = type metadata accessor for Locale();
-  (*(*(v4 - 8) + 56))(v3, 1, 1, v4);
-  v5 = StringProtocol.range<A>(of:options:range:locale:)();
-  v7 = v6;
-  outlined destroy of Locale?(v3);
-  if (v7)
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v14 - v7;
+  v9 = type metadata accessor for Locale();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v10 = StringProtocol.range<A>(of:options:range:locale:)();
+  v12 = v11;
+  outlined destroy of Locale?(v8);
+  if (v12)
   {
     return 0;
   }
 
   else
   {
-    return v5;
+    return v10;
   }
 }
 
-uint64_t specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(uint64_t a1)
+void specialized static SiriTaskEngagementUtils.convertDateTimeToUInt64(date:)(uint64_t a1)
 {
   v2 = type metadata accessor for Date();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = Date.timeIntervalSinceReferenceDate.getter();
-  v9 = round(v8 * 1000.0);
-  if (v9 >= 0.0)
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Date.timeIntervalSinceReferenceDate.getter();
+  v7 = round(v6 * 1000.0);
+  if (v7 >= 0.0)
   {
-    if ((*&v9 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+    if ((*&v7 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
     {
       __break(1u);
     }
 
-    else if (v9 > -1.0)
+    else if (v7 > -1.0)
     {
-      if (v9 < 1.84467441e19)
+      if (v7 < 1.84467441e19)
       {
-        return v9;
+        return;
       }
 
-      goto LABEL_14;
+LABEL_13:
+      __break(1u);
+      return;
     }
 
     __break(1u);
-LABEL_14:
-    __break(1u);
-    return result;
+    goto LABEL_13;
   }
 
   if (one-time initialization token for feature != -1)
@@ -10408,45 +9605,42 @@ LABEL_14:
     swift_once();
   }
 
-  v10 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v10, static Logger.feature);
-  (*(v3 + 16))(v6, a1, v2);
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v11, v12))
+  v8 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v8, static Logger.feature);
+  (*(v3 + 16))(v5, a1, v2);
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v9, v10))
   {
-    v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v20 = v14;
-    *v13 = 136315138;
+    v11 = swift_slowAlloc();
+    v12 = swift_slowAlloc();
+    v18 = v12;
+    *v11 = 136315138;
     lazy protocol witness table accessor for type Date and conformance Date();
-    v15 = dispatch thunk of CustomStringConvertible.description.getter();
-    v17 = v16;
-    (*(v3 + 8))(v6, v2);
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v17, &v20);
+    v13 = dispatch thunk of CustomStringConvertible.description.getter();
+    v15 = v14;
+    (*(v3 + 8))(v5, v2);
+    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v15, &v18);
 
-    *(v13 + 4) = v18;
-    _os_log_impl(&dword_2691F5000, v11, v12, "#SiriTaskEngagementUtils -The dataTime is truncated: %s", v13, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v14);
-    MEMORY[0x26D634770](v14, -1, -1);
-    MEMORY[0x26D634770](v13, -1, -1);
+    *(v11 + 4) = v16;
+    _os_log_impl(&dword_2691F5000, v9, v10, "#SiriTaskEngagementUtils -The dataTime is truncated: %s", v11, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v12);
+    MEMORY[0x26D634770](v12, -1, -1);
+    MEMORY[0x26D634770](v11, -1, -1);
   }
 
   else
   {
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
-
-  return 0;
 }
 
 uint64_t specialized static SiriTaskEngagementUtils.formulateSimplifiedReliabilityReasonDescription(reliabilityDescription:)(uint64_t a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = v27 - v6;
+  v6 = v26 - v5;
   if (!a2)
   {
     return 0;
@@ -10456,18 +9650,18 @@ uint64_t specialized static SiriTaskEngagementUtils.formulateSimplifiedReliabili
   {
     if ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
-      v27[2] = 17481;
-      v27[3] = 0xE200000000000000;
-      v27[0] = a1;
-      v27[1] = a2;
-      v8 = type metadata accessor for Locale();
-      (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+      v26[2] = 17481;
+      v26[3] = 0xE200000000000000;
+      v26[0] = a1;
+      v26[1] = a2;
+      v7 = type metadata accessor for Locale();
+      (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
       lazy protocol witness table accessor for type String and conformance String();
 
       StringProtocol.range<A>(of:options:range:locale:)();
-      v10 = v9;
-      outlined destroy of Locale?(v7);
-      if (v10)
+      v9 = v8;
+      outlined destroy of Locale?(v6);
+      if (v9)
       {
         if (String.count.getter() < 251)
         {
@@ -10479,17 +9673,17 @@ uint64_t specialized static SiriTaskEngagementUtils.formulateSimplifiedReliabili
           swift_once();
         }
 
-        v11 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v11, static Logger.feature);
-        v12 = Logger.logObject.getter();
-        v13 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v12, v13))
+        v10 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v10, static Logger.feature);
+        v11 = Logger.logObject.getter();
+        v12 = static os_log_type_t.debug.getter();
+        if (os_log_type_enabled(v11, v12))
         {
-          v14 = swift_slowAlloc();
-          *v14 = 134217984;
-          *(v14 + 4) = 250;
-          _os_log_impl(&dword_2691F5000, v12, v13, "#SiriTaskEngagementUtils - truncating string at char side %ld", v14, 0xCu);
-          MEMORY[0x26D634770](v14, -1, -1);
+          v13 = swift_slowAlloc();
+          *v13 = 134217984;
+          *(v13 + 4) = 250;
+          _os_log_impl(&dword_2691F5000, v11, v12, "#SiriTaskEngagementUtils - truncating string at char side %ld", v13, 0xCu);
+          MEMORY[0x26D634770](v13, -1, -1);
         }
 
         String.index(_:offsetBy:)();
@@ -10502,25 +9696,25 @@ uint64_t specialized static SiriTaskEngagementUtils.formulateSimplifiedReliabili
           swift_once();
         }
 
-        v15 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v15, static Logger.feature);
-        v16 = Logger.logObject.getter();
-        v17 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v16, v17))
+        v14 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v14, static Logger.feature);
+        v15 = Logger.logObject.getter();
+        v16 = static os_log_type_t.debug.getter();
+        if (os_log_type_enabled(v15, v16))
         {
-          v18 = swift_slowAlloc();
-          *v18 = 0;
-          _os_log_impl(&dword_2691F5000, v16, v17, "#SiriTaskEngagementUtils - truncating string at parse", v18, 2u);
-          MEMORY[0x26D634770](v18, -1, -1);
+          v17 = swift_slowAlloc();
+          *v17 = 0;
+          _os_log_impl(&dword_2691F5000, v15, v16, "#SiriTaskEngagementUtils - truncating string at parse", v17, 2u);
+          MEMORY[0x26D634770](v17, -1, -1);
         }
       }
 
-      v19 = String.subscript.getter();
-      v21 = v20;
-      v23 = v22;
-      v25 = v24;
+      v18 = String.subscript.getter();
+      v20 = v19;
+      v22 = v21;
+      v24 = v23;
 
-      a1 = MEMORY[0x26D633FC0](v19, v21, v23, v25);
+      a1 = MEMORY[0x26D633FC0](v18, v20, v22, v24);
 
       return a1;
     }

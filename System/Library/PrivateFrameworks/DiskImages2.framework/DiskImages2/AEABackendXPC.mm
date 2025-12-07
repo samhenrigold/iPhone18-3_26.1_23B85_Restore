@@ -37,7 +37,7 @@
     baseBackendXPC = v9->_baseBackendXPC;
     if (baseBackendXPC)
     {
-      [baseBackendXPC backend];
+      objc_msgSend_backend(baseBackendXPC);
     }
 
     std::allocate_shared[abi:ne200100]<AEA_backend,std::allocator<AEA_backend>,std::shared_ptr<Backend>,std::shared_ptr<unsigned char> &,0>();

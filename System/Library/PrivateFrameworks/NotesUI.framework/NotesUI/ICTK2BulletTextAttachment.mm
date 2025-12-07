@@ -21,9 +21,10 @@
 
 uint64_t __39__ICTK2BulletTextAttachment_imageCache__block_invoke()
 {
-  imageCache_imageCache_0 = [MEMORY[0x1E695DF90] dictionary];
+  v0 = [MEMORY[0x1E695DF90] dictionary];
+  imageCache_imageCache_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (ICTK2BulletTextAttachment)initWithMarker:(id)marker
@@ -75,7 +76,7 @@ uint64_t __39__ICTK2BulletTextAttachment_imageCache__block_invoke()
   width = bounds.size.width;
   imageCache = [objc_opt_class() imageCache];
   marker = [(ICTK2BulletTextAttachment *)self marker];
-  v11 = [imageCache objectForKeyedSubscript:marker];
+  v11 = objc_msgSend_objectForKeyedSubscript_(imageCache);
 
   if (v11)
   {

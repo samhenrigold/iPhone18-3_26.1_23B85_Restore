@@ -5,9 +5,11 @@
 - (BOOL)shouldAcceptXPCConnection:(id)connection;
 - (void)accessoryOOBBTPairingAttached:(id)attached accInfoDict:(id)dict;
 - (void)accessoryOOBBTPairingBTAccessoryInfo:(id)info oobBtPairingUID:(id)d accessoryMacAddr:(id)addr deviceClass:(unsigned int)class;
+- (void)accessoryOOBBTPairingCompletionStatus:(id)status oobBtPairingUID:(id)d accessoryMacAddr:(id)addr result:(unsigned __int8)result;
 - (void)accessoryOOBBTPairingDetached:(id)detached;
 - (void)dealloc;
 - (void)iterateAttachedConnectionsSync:(id)sync;
+- (void)legacyConnectionIDForAccessoryUID:(id)d connectionID:(unsigned int)iD;
 - (void)notifyOfProvider:(id)provider connection:(id)connection;
 @end
 
@@ -899,6 +901,153 @@ void __60__ACCOOBBTPairingServer_listener_shouldAcceptNewConnection___block_invo
 LABEL_52:
 }
 
+- (void)accessoryOOBBTPairingCompletionStatus:(id)status oobBtPairingUID:(id)d accessoryMacAddr:(id)addr result:(unsigned __int8)result
+{
+  resultCopy = result;
+  statusCopy = status;
+  dCopy = d;
+  addrCopy = addr;
+  if (gLogObjects)
+  {
+    v13 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v13 = 1;
+  }
+
+  if (v13)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v15 = &_os_log_default;
+    v14 = &_os_log_default;
+  }
+
+  else
+  {
+    v15 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v32 = 138413058;
+    v33 = statusCopy;
+    v34 = 2112;
+    v35 = dCopy;
+    v36 = 2112;
+    v37 = addrCopy;
+    v38 = 1024;
+    v39 = resultCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "OOBBTPairing server, accessoryOOBBTPairingCompletionStatus: %@, oobBtPairingUID=%@, accessoryMacAddr=%@, result=%d", &v32, 0x26u);
+  }
+
+  v16 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:statusCopy];
+  if (v16 && ([(_ACCOOBBTPairingProviderInfo *)self->_oobBtPairingProviderInfo remoteObject], (v17 = objc_claimAutoreleasedReturnValue()) != 0) && (v18 = v17, [(_ACCOOBBTPairingProviderInfo *)self->_oobBtPairingProviderInfo remoteObject], v19 = dCopy, v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_opt_respondsToSelector(), v20, dCopy = v19, v18, (v21 & 1) != 0))
+  {
+    if (gLogObjects && gNumLogObjects >= 5)
+    {
+      v22 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v22 = &_os_log_default;
+      v25 = &_os_log_default;
+    }
+
+    dCopy = v19;
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    {
+      oobBtPairingProviderInfo = self->_oobBtPairingProviderInfo;
+      v32 = 138412802;
+      v33 = statusCopy;
+      v34 = 2112;
+      v35 = v16;
+      v36 = 2112;
+      v37 = oobBtPairingProviderInfo;
+      _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "OOBBTPairing server, accessoryOOBBTPairingCompletionStatus: %@, accessory=%@ _oobBtPairingProviderInfo=%@", &v32, 0x20u);
+    }
+
+    remoteObject = [(_ACCOOBBTPairingProviderInfo *)self->_oobBtPairingProviderInfo remoteObject];
+    [remoteObject accessoryOOBBTPairingCompletionStatus:statusCopy oobBtPairingUID:v19 accessoryMacAddr:addrCopy result:resultCopy];
+
+    if (gLogObjects && gNumLogObjects >= 5)
+    {
+      v27 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v27 = &_os_log_default;
+      v28 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      v32 = 136315138;
+      v33 = "[ACCOOBBTPairingServer accessoryOOBBTPairingCompletionStatus:oobBtPairingUID:accessoryMacAddr:result:]";
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s Notifying clients about device OOBBT pairing completion_status", &v32, 0xCu);
+    }
+
+    if (addrCopy)
+    {
+      platform_externalAccessory_notifyClientsOOBBTPairingCompletionStatus(statusCopy, addrCopy, resultCopy);
+    }
+
+    else
+    {
+      accessoryMacAddress = [v16 accessoryMacAddress];
+      platform_externalAccessory_notifyClientsOOBBTPairingCompletionStatus(statusCopy, accessoryMacAddress, resultCopy);
+    }
+  }
+
+  else
+  {
+    if (gLogObjects && gNumLogObjects >= 5)
+    {
+      v23 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v23 = &_os_log_default;
+      v24 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    {
+      v30 = self->_oobBtPairingProviderInfo;
+      v32 = 138412802;
+      v33 = statusCopy;
+      v34 = 2112;
+      v35 = v16;
+      v36 = 2112;
+      v37 = v30;
+      _os_log_debug_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "OOBBTPairing server, accessoryOOBBTPairingCompletionStatus: %@, Invalid accessory=%@ _oobBtPairingProviderInfo=%@", &v32, 0x20u);
+    }
+  }
+}
+
 - (void)notifyOfProvider:(id)provider connection:(id)connection
 {
   providerCopy = provider;
@@ -950,6 +1099,112 @@ LABEL_52:
     if (v13)
     {
       [(_ACCOOBBTPairingProviderInfo *)self->_oobBtPairingProviderInfo setProviderUID:providerCopy];
+    }
+  }
+}
+
+- (void)legacyConnectionIDForAccessoryUID:(id)d connectionID:(unsigned int)iD
+{
+  v4 = *&iD;
+  dCopy = d;
+  if (gLogObjects)
+  {
+    v7 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
+  }
+
+  else
+  {
+    v9 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = 138412546;
+    v22 = dCopy;
+    v23 = 1024;
+    LODWORD(v24) = v4;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "OOBBTPairing server, legacyConnectionIDForAccessoryUID: %@ connectionID: %u", &v21, 0x12u);
+  }
+
+  v10 = [(NSMutableDictionary *)self->_registeredAccessoryConnections objectForKey:dCopy];
+  if (v10 && ([(_ACCOOBBTPairingProviderInfo *)self->_oobBtPairingProviderInfo remoteObject], (v11 = objc_claimAutoreleasedReturnValue()) != 0) && (v12 = v11, [(_ACCOOBBTPairingProviderInfo *)self->_oobBtPairingProviderInfo remoteObject], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_opt_respondsToSelector(), v13, v12, (v14 & 1) != 0))
+  {
+    if (gLogObjects && gNumLogObjects >= 5)
+    {
+      v15 = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v15 = &_os_log_default;
+      v19 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      oobBtPairingProviderInfo = self->_oobBtPairingProviderInfo;
+      v21 = 138412802;
+      v22 = dCopy;
+      v23 = 2112;
+      v24 = v10;
+      v25 = 2112;
+      v26 = oobBtPairingProviderInfo;
+      _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "OOBBTPairing server, legacyConnectionIDForAccessoryUID: %@, accessory=%@ _oobBtPairingProviderInfo=%@", &v21, 0x20u);
+    }
+
+    remoteObject = [(_ACCOOBBTPairingProviderInfo *)self->_oobBtPairingProviderInfo remoteObject];
+    [remoteObject legacyConnectionIDForAccessoryUID:dCopy connectionID:v4];
+  }
+
+  else
+  {
+    if (gLogObjects && gNumLogObjects >= 5)
+    {
+      remoteObject = *(gLogObjects + 32);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      remoteObject = &_os_log_default;
+      v17 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(remoteObject, OS_LOG_TYPE_DEBUG))
+    {
+      v18 = self->_oobBtPairingProviderInfo;
+      v21 = 138412802;
+      v22 = dCopy;
+      v23 = 2112;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v18;
+      _os_log_debug_impl(&_mh_execute_header, remoteObject, OS_LOG_TYPE_DEBUG, "OOBBTPairing server, legacyConnectionIDForAccessoryUID: %@, Invalid accessory=%@ _oobBtPairingProviderInfo=%@", &v21, 0x20u);
     }
   }
 }

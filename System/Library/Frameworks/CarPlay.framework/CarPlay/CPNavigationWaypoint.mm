@@ -2,6 +2,7 @@
 - ($1AB5FA073B851C12C2339EC22442E995)centerPoint;
 - (CPNavigationWaypoint)initWithCenterPoint:(id)point locationThreshold:(unsigned int)threshold name:(id)name address:(id)address entryPoints:(id *)points entryPointsCount:(unint64_t)count;
 - (CPNavigationWaypoint)initWithCoder:(id)coder;
+- (CPNavigationWaypoint)initWithMapItem:(id)item locationThreshold:(unsigned int)threshold entryPoints:(id *)points entryPointsCount:(unint64_t)count;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -51,6 +52,41 @@
   }
 
   return v19;
+}
+
+- (CPNavigationWaypoint)initWithMapItem:(id)item locationThreshold:(unsigned int)threshold entryPoints:(id *)points entryPointsCount:(unint64_t)count
+{
+  if (item)
+  {
+    v9 = *&threshold;
+    itemCopy = item;
+    location = [itemCopy location];
+    [location coordinate];
+    v13 = v12;
+
+    location2 = [itemCopy location];
+    [location2 coordinate];
+    v16 = v15;
+
+    location3 = [itemCopy location];
+    [location3 altitude];
+    v19 = v18;
+
+    name = [itemCopy name];
+    address = [itemCopy address];
+
+    fullAddress = [address fullAddress];
+    self = [(CPNavigationWaypoint *)self initWithCenterPoint:v9 locationThreshold:name name:fullAddress address:points entryPoints:count entryPointsCount:v13, v16, v19];
+
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (void)dealloc

@@ -81,9 +81,9 @@
       detailLabel4 = [headerView6 detailLabel];
       contentView2 = [(OBWelcomeController *)self contentView];
       v36[1] = contentView2;
-      v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
 
-      [(OBWelcomeController *)self _animatePushTransitionForViews:v32 transitionSubtype:v24];
+      [(OBWelcomeController *)self _animatePushTransitionForViews:v33 transitionSubtype:v24];
       goto LABEL_15;
     }
   }
@@ -92,8 +92,8 @@
   {
   }
 
-  v32 = _OBLoggingFacility();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v33 = _OBLoggingFacility(v29);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
   {
     headerView7 = [(OBWelcomeController *)self headerView];
     contentView3 = [(OBWelcomeController *)self contentView];
@@ -101,12 +101,10 @@
     v38 = headerView7;
     v39 = 2112;
     v40 = contentView3;
-    _os_log_impl(&dword_1B4FB6000, v32, OS_LOG_TYPE_DEFAULT, "Animating DetailText failed as prerequisite headerView and contentView was not fulfilled headerView:%@, contentView:%@", buf, 0x16u);
+    _os_log_impl(&dword_1B4FB6000, v33, OS_LOG_TYPE_DEFAULT, "Animating DetailText failed as prerequisite headerView and contentView was not fulfilled headerView:%@, contentView:%@", buf, 0x16u);
   }
 
 LABEL_15:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldAnimateEntireView

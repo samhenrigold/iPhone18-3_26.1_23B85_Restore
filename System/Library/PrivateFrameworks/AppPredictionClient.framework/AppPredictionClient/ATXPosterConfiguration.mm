@@ -252,7 +252,7 @@
 
   else
   {
-    v34 = __atxlog_handle_lock_screen();
+    v34 = __atxlog_handle_lock_screen(0);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [ATXPosterConfiguration initWithCoder:v34];

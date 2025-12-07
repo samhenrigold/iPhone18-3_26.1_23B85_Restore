@@ -1,1291 +1,3 @@
-uint64_t AirReflection::Node::node_as_WorldSpaceDirectionArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282631) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::WorldSpaceDirectionArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.WorldSpaceDirectionArg", 0x24u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_GeometryIDArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282632) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::GeometryIDArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.GeometryIDArg", 0x1Bu);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_UserInstanceIDArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282633) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::UserInstanceIDArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.UserInstanceIDArg", 0x1Fu);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_GeometryIntersectionFunctionTableOffsetArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282634) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::GeometryIntersectionFunctionTableOffsetArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.GeometryIntersectionFunctionTableOffsetArg", 0x38u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_InstanceIntersectionFunctionTableOffsetArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282635) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::InstanceIntersectionFunctionTableOffsetArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.InstanceIntersectionFunctionTableOffsetArg", 0x38u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_OpaquePrimitiveArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282636) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::OpaquePrimitiveArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.OpaquePrimitiveArg", 0x20u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_ObjectToWorldTransformArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282637) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::ObjectToWorldTransformArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.ObjectToWorldTransformArg", 0x27u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_WorldToObjectTransformArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282638) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::WorldToObjectTransformArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.WorldToObjectTransformArg", 0x27u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_TimeArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282639) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::TimeArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.TimeArg", 0x15u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_KeyFrameCountArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282640) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::KeyFrameCountArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.KeyFrameCountArg", 0x1Eu);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_MotionStartTimeArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282641) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::MotionStartTimeArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.MotionStartTimeArg", 0x20u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_MotionEndTimeArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282642) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::MotionEndTimeArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.MotionEndTimeArg", 0x1Eu);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_PrimitiveDataArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282643) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::PrimitiveDataArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.PrimitiveDataArg", 0x1Eu);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
-uint64_t AirReflection::Node::node_as_InstanceIDCountArg(AirReflection::Node *this)
-{
-  v1 = (this - *this);
-  v2 = *v1;
-  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 282644) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
-  {
-    return this + v4 + *(this + v4);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t AirReflection::InstanceIDCountArg::HashImpl(int *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "AirReflection.InstanceIDCountArg", 0x20u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOBYTE(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOBYTE(v5) = *(a1 + v5) != 0;
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 1u);
-  v6 = (a1 - *a1);
-  if (*v6 >= 7u && (v7 = v6[3]) != 0)
-  {
-    v8 = (a1 + v7);
-    v9 = *v8;
-    v10 = (v8 + v9 + 4);
-    v11 = *(v8 + v9);
-    v12 = c;
-  }
-
-  else
-  {
-    v24 = 0;
-    v10 = &v24;
-    v12 = c;
-    v11 = 4;
-  }
-
-  CC_SHA256_Update(v12, v10, v11);
-  v13 = (a1 - *a1);
-  if (*v13 >= 9u && (v14 = v13[4]) != 0)
-  {
-    v15 = (a1 + v14);
-    v16 = *v15;
-    v17 = (v15 + v16 + 4);
-    v18 = *(v15 + v16);
-    v19 = c;
-  }
-
-  else
-  {
-    v25 = 0;
-    v17 = &v25;
-    v19 = c;
-    v18 = 4;
-  }
-
-  CC_SHA256_Update(v19, v17, v18);
-  v20 = (a1 - *a1);
-  if (*v20 < 0xBu)
-  {
-    LOBYTE(v21) = 0;
-  }
-
-  else
-  {
-    v21 = v20[5];
-    if (v21)
-    {
-      LOBYTE(v21) = *(a1 + v21) != 0;
-    }
-  }
-
-  v26 = v21;
-  return CC_SHA256_Update(c, &v26, 1u);
-}
-
 uint64_t AirReflection::Node::node_as_UserInstanceIDCountArg(AirReflection::Node *this)
 {
   v1 = (this - *this);
@@ -9683,4 +8395,1260 @@ uint64_t AirReflection::RGB10A2Type::HashImpl(int *a1, CC_SHA256_CTX *c)
   }
 
   return CC_SHA256_Update(c, &data, 4u);
+}
+
+uint64_t AirReflection::Node::node_as_RG11B10FType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532515) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::RG11B10FType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.RG11B10FType", 0x1Au);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    CC_SHA256_Update(c, &data, 4u);
+    v11 = *v10;
+    if (v11)
+    {
+      v12 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v13 = *v12++;
+        data = v13;
+        CC_SHA256_Update(c, &data, 4u);
+        --v11;
+      }
+
+      while (v11);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    CC_SHA256_Update(c, &data, 4u);
+  }
+
+  v14 = (a1 - *a1);
+  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
+  {
+    v16 = v15;
+    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+    data = *(a1 + v16);
+  }
+
+  else
+  {
+    data = 0;
+  }
+
+  return CC_SHA256_Update(c, &data, 4u);
+}
+
+uint64_t AirReflection::Node::node_as_RGB9E5Type(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532516) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::RGB9E5Type::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.RGB9E5Type", 0x18u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    CC_SHA256_Update(c, &data, 4u);
+    v11 = *v10;
+    if (v11)
+    {
+      v12 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v13 = *v12++;
+        data = v13;
+        CC_SHA256_Update(c, &data, 4u);
+        --v11;
+      }
+
+      while (v11);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    CC_SHA256_Update(c, &data, 4u);
+  }
+
+  v14 = (a1 - *a1);
+  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
+  {
+    v16 = v15;
+    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+    data = *(a1 + v16);
+  }
+
+  else
+  {
+    data = 0;
+  }
+
+  return CC_SHA256_Update(c, &data, 4u);
+}
+
+uint64_t AirReflection::Node::node_as_CommandBufferType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532517) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::CommandBufferType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.CommandBufferType", 0x1Fu);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    result = CC_SHA256_Update(c, &data, 4u);
+    v12 = *v10;
+    if (v12)
+    {
+      v13 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v14 = *v13++;
+        data = v14;
+        result = CC_SHA256_Update(c, &data, 4u);
+        --v12;
+      }
+
+      while (v12);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    return CC_SHA256_Update(c, &data, 4u);
+  }
+
+  return result;
+}
+
+uint64_t AirReflection::Node::node_as_ComputePipelineStateType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532518) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::ComputePipelineStateType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.ComputePipelineStateType", 0x26u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    result = CC_SHA256_Update(c, &data, 4u);
+    v12 = *v10;
+    if (v12)
+    {
+      v13 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v14 = *v13++;
+        data = v14;
+        result = CC_SHA256_Update(c, &data, 4u);
+        --v12;
+      }
+
+      while (v12);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    return CC_SHA256_Update(c, &data, 4u);
+  }
+
+  return result;
+}
+
+uint64_t AirReflection::Node::node_as_RenderPipelineStateType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532519) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::RenderPipelineStateType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.RenderPipelineStateType", 0x25u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    result = CC_SHA256_Update(c, &data, 4u);
+    v12 = *v10;
+    if (v12)
+    {
+      v13 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v14 = *v13++;
+        data = v14;
+        result = CC_SHA256_Update(c, &data, 4u);
+        --v12;
+      }
+
+      while (v12);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    return CC_SHA256_Update(c, &data, 4u);
+  }
+
+  return result;
+}
+
+uint64_t AirReflection::Node::node_as_InterpolantType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532520) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::InterpolantType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.InterpolantType", 0x1Du);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    CC_SHA256_Update(c, &data, 4u);
+    v11 = *v10;
+    if (v11)
+    {
+      v12 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v13 = *v12++;
+        data = v13;
+        CC_SHA256_Update(c, &data, 4u);
+        --v11;
+      }
+
+      while (v11);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    CC_SHA256_Update(c, &data, 4u);
+  }
+
+  v14 = (a1 - *a1);
+  if (*v14 < 0xBu)
+  {
+    LOBYTE(v15) = 0;
+  }
+
+  else
+  {
+    v15 = v14[5];
+    if (v15)
+    {
+      LOBYTE(v15) = *(a1 + v15) != 0;
+    }
+  }
+
+  LOBYTE(data) = v15;
+  CC_SHA256_Update(c, &data, 1u);
+  v16 = (a1 - *a1);
+  if (*v16 >= 0xDu && (v17 = v16[6]) != 0)
+  {
+    v18 = v17;
+    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+    data = *(a1 + v18);
+  }
+
+  else
+  {
+    data = 0;
+  }
+
+  return CC_SHA256_Update(c, &data, 4u);
+}
+
+uint64_t AirReflection::Node::node_as_VisibleFunctionTableType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532521) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::VisibleFunctionTableType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.VisibleFunctionTableType", 0x26u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    CC_SHA256_Update(c, &data, 4u);
+    v11 = *v10;
+    if (v11)
+    {
+      v12 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v13 = *v12++;
+        data = v13;
+        CC_SHA256_Update(c, &data, 4u);
+        --v11;
+      }
+
+      while (v11);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    CC_SHA256_Update(c, &data, 4u);
+  }
+
+  v14 = (a1 - *a1);
+  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
+  {
+    v16 = v15;
+    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+    data = *(a1 + v16);
+  }
+
+  else
+  {
+    data = 0;
+  }
+
+  return CC_SHA256_Update(c, &data, 4u);
+}
+
+uint64_t AirReflection::Node::node_as_IntersectionFunctionTableType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532522) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::IntersectionFunctionTableType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.IntersectionFunctionTableType", 0x2Bu);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    CC_SHA256_Update(c, &data, 4u);
+    v11 = *v10;
+    if (v11)
+    {
+      v12 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v13 = *v12++;
+        data = v13;
+        CC_SHA256_Update(c, &data, 4u);
+        --v11;
+      }
+
+      while (v11);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    CC_SHA256_Update(c, &data, 4u);
+  }
+
+  v14 = (a1 - *a1);
+  if (*v14 < 0xBu)
+  {
+    LOBYTE(v15) = 0;
+  }
+
+  else
+  {
+    v15 = v14[5];
+    if (v15)
+    {
+      LOBYTE(v15) = *(a1 + v15) != 0;
+    }
+  }
+
+  LOBYTE(data) = v15;
+  CC_SHA256_Update(c, &data, 1u);
+  v16 = (a1 - *a1);
+  if (*v16 < 0xDu)
+  {
+    LOBYTE(v17) = 0;
+  }
+
+  else
+  {
+    v17 = v16[6];
+    if (v17)
+    {
+      LOBYTE(v17) = *(a1 + v17) != 0;
+    }
+  }
+
+  LOBYTE(data) = v17;
+  CC_SHA256_Update(c, &data, 1u);
+  v18 = (a1 - *a1);
+  if (*v18 < 0xFu)
+  {
+    LOBYTE(v19) = 0;
+  }
+
+  else
+  {
+    v19 = v18[7];
+    if (v19)
+    {
+      LOBYTE(v19) = *(a1 + v19) != 0;
+    }
+  }
+
+  LOBYTE(data) = v19;
+  CC_SHA256_Update(c, &data, 1u);
+  v20 = (a1 - *a1);
+  if (*v20 < 0x11u)
+  {
+    LOBYTE(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[8];
+    if (v21)
+    {
+      LOBYTE(v21) = *(a1 + v21) != 0;
+    }
+  }
+
+  LOBYTE(data) = v21;
+  CC_SHA256_Update(c, &data, 1u);
+  v22 = (a1 - *a1);
+  if (*v22 < 0x13u)
+  {
+    LOBYTE(v23) = 0;
+  }
+
+  else
+  {
+    v23 = v22[9];
+    if (v23)
+    {
+      LOBYTE(v23) = *(a1 + v23) != 0;
+    }
+  }
+
+  LOBYTE(data) = v23;
+  CC_SHA256_Update(c, &data, 1u);
+  v24 = (a1 - *a1);
+  if (*v24 < 0x15u)
+  {
+    LOBYTE(v25) = 0;
+  }
+
+  else
+  {
+    v25 = v24[10];
+    if (v25)
+    {
+      LOBYTE(v25) = *(a1 + v25) != 0;
+    }
+  }
+
+  LOBYTE(data) = v25;
+  CC_SHA256_Update(c, &data, 1u);
+  v26 = (a1 - *a1);
+  if (*v26 < 0x17u)
+  {
+    LOBYTE(v27) = 0;
+  }
+
+  else
+  {
+    v27 = v26[11];
+    if (v27)
+    {
+      LOBYTE(v27) = *(a1 + v27) != 0;
+    }
+  }
+
+  LOBYTE(data) = v27;
+  CC_SHA256_Update(c, &data, 1u);
+  v28 = (a1 - *a1);
+  if (*v28 < 0x19u)
+  {
+    LODWORD(v29) = 0;
+  }
+
+  else
+  {
+    v29 = v28[12];
+    if (v29)
+    {
+      LODWORD(v29) = *(a1 + v29);
+    }
+  }
+
+  data = v29;
+  return CC_SHA256_Update(c, &data, 4u);
+}
+
+uint64_t AirReflection::Node::node_as_AccelerationStructureType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532523) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::AccelerationStructureType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.AccelerationStructureType", 0x27u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    CC_SHA256_Update(c, &data, 4u);
+    v11 = *v10;
+    if (v11)
+    {
+      v12 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v13 = *v12++;
+        data = v13;
+        CC_SHA256_Update(c, &data, 4u);
+        --v11;
+      }
+
+      while (v11);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    CC_SHA256_Update(c, &data, 4u);
+  }
+
+  v14 = (a1 - *a1);
+  if (*v14 < 0xBu)
+  {
+    LOBYTE(v15) = 0;
+  }
+
+  else
+  {
+    v15 = v14[5];
+    if (v15)
+    {
+      LOBYTE(v15) = *(a1 + v15) != 0;
+    }
+  }
+
+  LOBYTE(data) = v15;
+  CC_SHA256_Update(c, &data, 1u);
+  v16 = (a1 - *a1);
+  if (*v16 < 0xDu)
+  {
+    LOBYTE(v17) = 0;
+  }
+
+  else
+  {
+    v17 = v16[6];
+    if (v17)
+    {
+      LOBYTE(v17) = *(a1 + v17) != 0;
+    }
+  }
+
+  LOBYTE(data) = v17;
+  CC_SHA256_Update(c, &data, 1u);
+  v18 = (a1 - *a1);
+  if (*v18 < 0xFu)
+  {
+    LOBYTE(v19) = 0;
+  }
+
+  else
+  {
+    v19 = v18[7];
+    if (v19)
+    {
+      LOBYTE(v19) = *(a1 + v19) != 0;
+    }
+  }
+
+  LOBYTE(data) = v19;
+  return CC_SHA256_Update(c, &data, 1u);
+}
+
+uint64_t AirReflection::Node::node_as_MeshType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532524) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::MeshType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.MeshType", 0x16u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    CC_SHA256_Update(c, &data, 4u);
+    v11 = *v10;
+    if (v11)
+    {
+      v12 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v13 = *v12++;
+        data = v13;
+        CC_SHA256_Update(c, &data, 4u);
+        --v11;
+      }
+
+      while (v11);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    CC_SHA256_Update(c, &data, 4u);
+  }
+
+  v14 = (a1 - *a1);
+  if (*v14 >= 0xBu && (v15 = v14[5]) != 0)
+  {
+    v16 = v15;
+    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+    data = *(a1 + v16);
+  }
+
+  else
+  {
+    data = 0;
+  }
+
+  CC_SHA256_Update(c, &data, 4u);
+  v17 = (a1 - *a1);
+  if (*v17 >= 0xDu && (v18 = v17[6]) != 0)
+  {
+    v19 = v18;
+    CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+    data = *(a1 + v19);
+  }
+
+  else
+  {
+    data = 0;
+  }
+
+  CC_SHA256_Update(c, &data, 4u);
+  v20 = (a1 - *a1);
+  if (*v20 < 0xFu)
+  {
+    LODWORD(v21) = 0;
+  }
+
+  else
+  {
+    v21 = v20[7];
+    if (v21)
+    {
+      LODWORD(v21) = *(a1 + v21);
+    }
+  }
+
+  data = v21;
+  CC_SHA256_Update(c, &data, 4u);
+  v22 = (a1 - *a1);
+  if (*v22 < 0x11u)
+  {
+    LODWORD(v23) = 0;
+  }
+
+  else
+  {
+    v23 = v22[8];
+    if (v23)
+    {
+      LODWORD(v23) = *(a1 + v23);
+    }
+  }
+
+  data = v23;
+  CC_SHA256_Update(c, &data, 4u);
+  v24 = (a1 - *a1);
+  if (*v24 < 0x13u)
+  {
+    LODWORD(v25) = 0;
+  }
+
+  else
+  {
+    v25 = v24[9];
+    if (v25)
+    {
+      LODWORD(v25) = *(a1 + v25);
+    }
+  }
+
+  data = v25;
+  return CC_SHA256_Update(c, &data, 4u);
+}
+
+uint64_t AirReflection::Node::node_as_MeshGridPropertiesType(AirReflection::Node *this)
+{
+  v1 = (this - *this);
+  v2 = *v1;
+  if (v2 >= 5 && v1[2] && (v2 >= 7 ? (v3 = *(this + v1[2]) == 532525) : (v3 = 0), v3 && (v4 = v1[3]) != 0))
+  {
+    return this + v4 + *(this + v4);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t AirReflection::MeshGridPropertiesType::HashImpl(int *a1, CC_SHA256_CTX *c)
+{
+  CC_SHA256_Update(c, "AirReflection.MeshGridPropertiesType", 0x24u);
+  v4 = (a1 - *a1);
+  if (*v4 < 5u)
+  {
+    LODWORD(v5) = 0;
+  }
+
+  else
+  {
+    v5 = v4[2];
+    if (v5)
+    {
+      LODWORD(v5) = *(a1 + v5);
+    }
+  }
+
+  data = v5;
+  CC_SHA256_Update(c, &data, 4u);
+  v6 = (a1 - *a1);
+  if (*v6 < 7u)
+  {
+    LODWORD(v7) = 0;
+  }
+
+  else
+  {
+    v7 = v6[3];
+    if (v7)
+    {
+      LODWORD(v7) = *(a1 + v7);
+    }
+  }
+
+  data = v7;
+  CC_SHA256_Update(c, &data, 4u);
+  v8 = (a1 - *a1);
+  if (*v8 >= 9u && (v9 = v8[4]) != 0)
+  {
+    v10 = (a1 + v9 + *(a1 + v9));
+    data = *v10;
+    result = CC_SHA256_Update(c, &data, 4u);
+    v12 = *v10;
+    if (v12)
+    {
+      v13 = (v10 + 1);
+      do
+      {
+        CC_SHA256_Update(c, "AirReflection.NodeId", 0x14u);
+        v14 = *v13++;
+        data = v14;
+        result = CC_SHA256_Update(c, &data, 4u);
+        --v12;
+      }
+
+      while (v12);
+    }
+  }
+
+  else
+  {
+    data = 0;
+    return CC_SHA256_Update(c, &data, 4u);
+  }
+
+  return result;
 }

@@ -367,7 +367,7 @@ void __67__SUUIImageCollectionViewCell_reloadWithViewElement_width_context___blo
     [(SUUIImageView *)v11 setImage:v14];
 
     v15 = self->_highlightImageView;
-    [(SUUIImageView *)firstObject transform];
+    objc_msgSend_transform(firstObject);
     [(SUUIImageView *)v15 setTransform:v23];
     contentView = [(SUUIImageCollectionViewCell *)self contentView];
     [contentView insertSubview:self->_highlightImageView aboveSubview:firstObject];

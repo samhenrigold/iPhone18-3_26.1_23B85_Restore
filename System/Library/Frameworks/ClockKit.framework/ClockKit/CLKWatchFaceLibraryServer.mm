@@ -28,9 +28,11 @@
 
 uint64_t __43__CLKWatchFaceLibraryServer_sharedInstance__block_invoke(uint64_t a1)
 {
-  sharedInstance___sharedServer = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance___sharedServer;
+  sharedInstance___sharedServer = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (void)dealloc
@@ -50,20 +52,20 @@ uint64_t __43__CLKWatchFaceLibraryServer_sharedInstance__block_invoke(uint64_t a
     self->_connection = v3;
 
     v5 = self->_connection;
-    v6 = CLKWatchFaceLibraryServerInterface();
-    [(NSXPCConnection *)v5 setRemoteObjectInterface:v6];
+    v7 = CLKWatchFaceLibraryServerInterface(v6);
+    [(NSXPCConnection *)v5 setRemoteObjectInterface:v7];
 
     objc_initWeak(&location, self);
-    v7 = self->_connection;
-    v8 = MEMORY[0x277D85DD0];
-    v9 = 3221225472;
-    v10 = __59__CLKWatchFaceLibraryServer__queue_setupConnectionIfNeeded__block_invoke;
-    v11 = &unk_278A1E700;
-    objc_copyWeak(&v12, &location);
-    [(NSXPCConnection *)v7 setInterruptionHandler:&v8];
-    [(NSXPCConnection *)self->_connection setInvalidationHandler:&__block_literal_global_0, v8, v9, v10, v11];
+    v8 = self->_connection;
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = __59__CLKWatchFaceLibraryServer__queue_setupConnectionIfNeeded__block_invoke;
+    v12 = &unk_278A1E700;
+    objc_copyWeak(&v13, &location);
+    [(NSXPCConnection *)v8 setInterruptionHandler:&v9];
+    [(NSXPCConnection *)self->_connection setInvalidationHandler:&__block_literal_global_0, v9, v10, v11, v12];
     [(NSXPCConnection *)self->_connection resume];
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(&location);
   }
 }

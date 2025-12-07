@@ -59,28 +59,25 @@ void __51__TPSCloudFindMyValidation_validateWithCompletion___block_invoke(uint64
     __51__TPSCloudFindMyValidation_validateWithCompletion___block_invoke_cold_1(v4, a1 + 56, v5);
   }
 
-  v6 = *(*(*(a1 + 56) + 8) + 24);
   (*(*(a1 + 40) + 16))();
-  v7 = *(*(a1 + 64) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = 0;
+  v6 = *(*(a1 + 64) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = 0;
 }
 
 void __51__TPSCloudFindMyValidation_validateWithCompletion___block_invoke_cold_1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = [*a1 name];
   v7 = [*a1 targetContext];
   v8 = *(*(*a2 + 8) + 24);
-  v10 = 138412802;
-  v11 = v6;
-  v12 = 2112;
-  v13 = v7;
-  v14 = 1024;
-  v15 = v8;
-  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Valid: %d", &v10, 0x1Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412802;
+  v10 = v6;
+  v11 = 2112;
+  v12 = v7;
+  v13 = 1024;
+  v14 = v8;
+  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - targetContext: %@. Valid: %d", &v9, 0x1Cu);
 }
 
 @end

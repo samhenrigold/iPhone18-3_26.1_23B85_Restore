@@ -177,11 +177,11 @@
 
 - (CUIPSDImageRef)initWithPath:(id)path
 {
-  v16.receiver = self;
-  v16.super_class = CUIPSDImageRef;
-  v4 = [(CUIPSDImageRef *)&v16 init];
-  v15 = 0;
-  if ([CUIPSDImageRef isValidPSDResourceAtPath:path withLayerCount:&v15])
+  v11.receiver = self;
+  v11.super_class = CUIPSDImageRef;
+  v4 = [(CUIPSDImageRef *)&v11 init];
+  v10 = 0;
+  if ([CUIPSDImageRef isValidPSDResourceAtPath:path withLayerCount:&v10])
   {
     v5 = [path copy];
     v4->_file = -1;
@@ -192,9 +192,9 @@
   else
   {
     v6 = __error();
-    strerror(*v6);
-    _CUILog(4, "[CUIPSDImageRef initWithPath:] - WARNING - invalid or nonexistent file at %@. Image ref not created. '[%s]'", v7, v8, v9, v10, v11, v12, path);
-    v13 = v4;
+    v7 = strerror(*v6);
+    _CUILog(4, "[CUIPSDImageRef initWithPath:] - WARNING - invalid or nonexistent file at %@. Image ref not created. '[%s]'", path, v7);
+    v8 = v4;
     return 0;
   }
 
@@ -821,7 +821,7 @@ LABEL_16:
 {
   if (self)
   {
-    [(CUIPSDImageRef *)self imageInfo];
+    objc_msgSend_imageInfo(self, a2);
     LODWORD(v3) = 0;
     LODWORD(v2) = 0;
     v4 = v2;
@@ -1450,60 +1450,60 @@ LABEL_13:
 
   else
   {
-    SRGB = _CUIColorSpaceGetSRGB();
+    SRGB = _CUIColorSpaceGetSRGB(0, v13);
   }
 
-  v15 = v10 >> 3;
-  v16 = malloc_type_calloc(v10 >> 3, 1uLL, 0x100004077774924uLL);
-  v17 = CGBitmapContextCreate(v16, 1uLL, 1uLL, 8uLL, v15, SRGB, 2u);
-  v28.origin.x = 0.0;
-  v28.origin.y = 0.0;
-  v28.size.width = 1.0;
-  v28.size.height = 1.0;
-  CGContextDrawImage(v17, v28, v5);
+  v16 = v10 >> 3;
+  v17 = malloc_type_calloc(v10 >> 3, 1uLL, 0x100004077774924uLL);
+  v18 = CGBitmapContextCreate(v17, 1uLL, 1uLL, 8uLL, v16, SRGB, 2u);
+  v29.origin.x = 0.0;
+  v29.origin.y = 0.0;
+  v29.size.width = 1.0;
+  v29.size.height = 1.0;
+  CGContextDrawImage(v18, v29, v5);
   CGImageRelease(v5);
-  Data = CGBitmapContextGetData(v17);
-  v19 = operator new[]();
-  v21 = v19;
+  Data = CGBitmapContextGetData(v18);
+  v20 = operator new[]();
+  v22 = v20;
   if (v11 >= 2)
   {
-    v22 = Data + 1;
-    v23 = v11 - 1;
-    v20 = 0x406FE00000000000;
-    v24 = v19;
+    v23 = Data + 1;
+    v24 = v11 - 1;
+    v21 = 0x406FE00000000000;
+    v25 = v20;
     do
     {
-      v25 = *v22++;
-      *v24++ = v25 / 255.0;
-      --v23;
+      v26 = *v23++;
+      *v25++ = v26 / 255.0;
+      --v24;
     }
 
-    while (v23);
+    while (v24);
   }
 
-  LOBYTE(v20) = *Data;
-  v19[v11 - 1] = v20 / 255.0;
-  v26 = CGColorCreate(SRGB, v19);
-  CGContextRelease(v17);
-  free(v16);
-  MEMORY[0x193AC64A0](v21, 0x1000C8000313F17);
+  LOBYTE(v21) = *Data;
+  v20[v11 - 1] = v21 / 255.0;
+  v27 = CGColorCreate(SRGB, v20);
+  CGContextRelease(v18);
+  free(v17);
+  MEMORY[0x193AC64A0](v22, 0x1000C8000313F17);
   if (v9)
   {
     (*(*v9 + 8))(v9);
   }
 
-  if (v26)
+  if (v27)
   {
-    v14 = [CUIColor colorWithCGColor:v26];
+    v15 = [CUIColor colorWithCGColor:v27];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  CGColorRelease(v26);
-  return v14;
+  CGColorRelease(v27);
+  return v15;
 }
 
 - (int)cgBlendModeForPSDLayerOrLayerEffectBlendMode:(unsigned int)mode
@@ -2006,7 +2006,7 @@ LABEL_12:
 
 - (id)colorFromDocumentColor:(double *)color
 {
-  GenericRGB = _CUIColorSpaceGetGenericRGB();
+  GenericRGB = _CUIColorSpaceGetGenericRGB(self, a2);
   v8 = vdivq_f64(*color, vdupq_n_s64(0x406FE00000000000uLL));
   v9 = color[2] / 255.0;
   v10 = 0x3FF0000000000000;

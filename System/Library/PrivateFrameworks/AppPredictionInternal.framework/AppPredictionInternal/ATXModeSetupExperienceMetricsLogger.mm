@@ -62,15 +62,16 @@
 
 - (void)writeBookmarkToFile:(id)file
 {
-  v6 = 0;
-  [file saveBookmarkWithError:&v6];
-  v4 = v6;
+  v7 = 0;
+  [file saveBookmarkWithError:&v7];
+  v4 = v7;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_modes(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(ATXModeSetupExperienceMetricsLogger *)self writeBookmarkToFile:v4, v5];
+      [(ATXModeSetupExperienceMetricsLogger *)self writeBookmarkToFile:v5, v6];
     }
   }
 }
@@ -116,15 +117,19 @@ void __49__ATXModeSetupExperienceMetricsLogger_logMetrics__block_invoke_2(uint64
   {
   }
 
-  else if (![v5 state])
+  else
   {
-    goto LABEL_7;
+    v8 = [v5 state];
+    if (!v8)
+    {
+      goto LABEL_7;
+    }
   }
 
-  v8 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = __atxlog_handle_modes(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __49__ATXModeSetupExperienceMetricsLogger_logMetrics__block_invoke_2_cold_1(v5, v8);
+    __49__ATXModeSetupExperienceMetricsLogger_logMetrics__block_invoke_2_cold_1(v5, v9);
   }
 
 LABEL_7:
@@ -164,27 +169,23 @@ void __49__ATXModeSetupExperienceMetricsLogger_logMetrics__block_invoke_17(uint6
 
 - (void)writeBookmarkToFile:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7 = 138412546;
-  v8 = objc_opt_class();
-  v9 = 2112;
-  v10 = a2;
-  v5 = v8;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@: Unable to save bookmark due to : %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = objc_opt_class();
+  v8 = 2112;
+  v9 = a2;
+  v5 = v7;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@: Unable to save bookmark due to : %@", &v6, 0x16u);
 }
 
 void __49__ATXModeSetupExperienceMetricsLogger_logMetrics__block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
   v4 = [v3 localizedDescription];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%@", &v5, 0xCu);
 }
 
 @end

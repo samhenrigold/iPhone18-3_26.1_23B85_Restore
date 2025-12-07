@@ -46,26 +46,28 @@
 
 - (void)setIsExpanded:(BOOL)expanded
 {
+  expandedCopy = expanded;
   selfCopy = self;
-  InCallControlsViewController.isExpanded.setter(expanded);
+  InCallControlsViewController.isExpanded.setter(expandedCopy);
 }
 
 - (void)setAudioIsEnabled:(BOOL)enabled
 {
   selfCopy = self;
-  InCallControlsViewController.audioIsEnabled.setter(enabled);
+  InCallControlsViewController.audioIsEnabled.setter(enabled, selfCopy);
 }
 
 - (void)setVideoIsEnabled:(BOOL)enabled
 {
   selfCopy = self;
-  InCallControlsViewController.videoIsEnabled.setter(enabled);
+  InCallControlsViewController.videoIsEnabled.setter(enabled, selfCopy);
 }
 
 - (void)setIsScreenSharing:(BOOL)sharing
 {
+  sharingCopy = sharing;
   selfCopy = self;
-  InCallControlsViewController.isScreenSharing.setter(sharing);
+  InCallControlsViewController.isScreenSharing.setter(sharingCopy);
 }
 
 - (void)setCinematicFramingIsAvailable:(BOOL)available
@@ -82,8 +84,9 @@
 
 - (void)setShouldShowLeaveButton:(BOOL)button
 {
+  buttonCopy = button;
   selfCopy = self;
-  InCallControlsViewController.shouldShowLeaveButton.setter(button);
+  InCallControlsViewController.shouldShowLeaveButton.setter(buttonCopy);
 }
 
 - (UIView)audioButton
@@ -169,7 +172,7 @@
 {
   buttonCopy = button;
   selfCopy = self;
-  InCallControlsViewController.didTapFlipCameraButton(_:)();
+  InCallControlsViewController.didTapFlipCameraButton(_:)(buttonCopy, "User tapped flip camera button in in-call controls", 50);
 }
 
 - (void)didTapJoinLeaveButton:(id)button
@@ -183,28 +186,28 @@
 {
   buttonCopy = button;
   selfCopy = self;
-  InCallControlsViewController.didTapFlipCameraButton(_:)();
+  InCallControlsViewController.didTapFlipCameraButton(_:)(buttonCopy, "User tapped toggle video button in in-call controls", 51);
 }
 
 - (void)didTapScreenShareButton:(id)button
 {
   buttonCopy = button;
   selfCopy = self;
-  InCallControlsViewController.didTapFlipCameraButton(_:)();
+  InCallControlsViewController.didTapFlipCameraButton(_:)(buttonCopy, "User tapped toggle screen share in in-call controls", 51);
 }
 
 - (void)didTapToggleCinematicFramingButton:(id)button
 {
   buttonCopy = button;
   selfCopy = self;
-  InCallControlsViewController.didTapFlipCameraButton(_:)();
+  InCallControlsViewController.didTapFlipCameraButton(_:)(buttonCopy, "User tapped toggle center stage button in in-call controls", 58);
 }
 
 - (void)didTapMuteButton:(id)button
 {
   buttonCopy = button;
   selfCopy = self;
-  InCallControlsViewController.didTapFlipCameraButton(_:)();
+  InCallControlsViewController.didTapFlipCameraButton(_:)(buttonCopy, "User tapped mute audio toggle button in in-call controls", 56);
 }
 
 - (void)updateControlsVisibilityForExpandedState:(BOOL)state

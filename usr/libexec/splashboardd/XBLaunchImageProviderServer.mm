@@ -48,7 +48,7 @@
 
 - (void)run
 {
-  v3 = sub_100001248();
+  v3 = sub_100001248(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -114,158 +114,160 @@
   dispatch_assert_queue_V2(*&self->BSBaseXPCServer_opaque[OBJC_IVAR___BSBaseXPCServer__queue]);
   xdict = imageCopy;
   v8 = BSDeserializeBSXPCEncodableObjectFromXPCDictionaryWithKey();
-  v34 = BSDeserializeBSXPCEncodableObjectFromXPCDictionaryWithKey();
+  v37 = BSDeserializeBSXPCEncodableObjectFromXPCDictionaryWithKey();
   LODWORD(v9) = xpc_dictionary_get_BOOL(imageCopy, XBLaunchImageProviderMessageKeyCreateCaptureInfo);
   connection = [clientCopy connection];
   BSPIDForXPCConnection();
   v11 = BSProcessDescriptionForPID();
 
-  v12 = sub_1000012D0();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_1000012D0(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = [v8 bundleIdentifier];
     *buf = 138543618;
     *&buf[4] = v11;
     *&buf[12] = 2112;
     *&buf[14] = bundleIdentifier;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Running image request from %{public}@ for %@", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Running image request from %{public}@ for %@", buf, 0x16u);
   }
 
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x2020000000;
-  v51 = XBInvalidContextId;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x2020000000;
+  v54 = XBInvalidContextId;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v54 = sub_100004D5C;
-  v55 = sub_100004D6C;
-  v56 = 0;
-  v48[0] = 0;
-  v48[1] = v48;
-  v48[2] = 0x3032000000;
-  v48[3] = sub_100004D5C;
-  v48[4] = sub_100004D6C;
-  v49 = 0;
+  v57 = sub_100004D5C;
+  v58 = sub_100004D6C;
+  v59 = 0;
+  v51[0] = 0;
+  v51[1] = v51;
+  v51[2] = 0x3032000000;
+  v51[3] = sub_100004D5C;
+  v51[4] = sub_100004D6C;
+  v52 = 0;
   connection2 = [clientCopy connection];
-  v15 = [BSAuditToken tokenFromXPCConnection:connection2];
+  v16 = [BSAuditToken tokenFromXPCConnection:connection2];
 
-  if ([v15 hasEntitlement:XBApplicationLaunchImageCaptureEntitlement])
+  if ([v16 hasEntitlement:XBApplicationLaunchImageCaptureEntitlement])
   {
     goto LABEL_8;
   }
 
-  if (v15)
+  if (v16)
   {
-    [v15 realToken];
+    objc_msgSend_realToken(v16);
   }
 
   else
   {
-    memset(v52, 0, sizeof(v52));
+    memset(v55, 0, sizeof(v55));
   }
 
-  if (BSAuditTokenRepresentsPlatformBinary())
+  v17 = BSAuditTokenRepresentsPlatformBinary();
+  if (v17)
   {
 LABEL_8:
-    v16 = v9;
+    v18 = v9;
     if (v9)
     {
-      LOBYTE(v9) = [v15 hasEntitlement:XBApplicationLaunchImageCaarCaptureEntitlement];
+      LOBYTE(v9) = [v16 hasEntitlement:XBApplicationLaunchImageCaarCaptureEntitlement];
     }
 
-    *v52 = 0;
-    *&v52[8] = 0;
+    *v55 = 0;
+    *&v55[8] = 0;
     pthread_dependency_init_np();
     Main = CFRunLoopGetMain();
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100004D74;
     block[3] = &unk_10000C780;
-    v46 = v16;
-    v47 = v9;
-    v42 = v50;
+    v49 = v18;
+    v50 = v9;
+    v45 = v53;
     block[4] = self;
-    v39 = clientCopy;
-    v40 = v34;
+    v42 = clientCopy;
+    v43 = v37;
     v9 = v8;
-    v41 = v9;
-    v43 = v48;
-    v44 = buf;
-    v45 = v52;
+    v44 = v9;
+    v46 = v51;
+    v47 = buf;
+    v48 = v55;
     CFRunLoopPerformBlock(Main, kCFRunLoopCommonModes, block);
-    v18 = CFRunLoopGetMain();
-    CFRunLoopWakeUp(v18);
+    v20 = CFRunLoopGetMain();
+    CFRunLoopWakeUp(v20);
     pthread_dependency_wait_np();
     memoryMonitor = self->_memoryMonitor;
     bundleIdentifier2 = [v9 bundleIdentifier];
     [(_XBMemoryMonitor *)memoryMonitor recordMemoryForBundleID:bundleIdentifier2];
 
-    LOBYTE(v9) = v16;
+    LOBYTE(v9) = v18;
   }
 
   else
   {
-    v21 = sub_1000012D0();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = sub_1000012D0(v17);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      sub_10000604C(v11, v21);
+      sub_10000604C(v11, v23);
     }
 
-    v22 = [XBLaunchImageError alloc];
+    v24 = [XBLaunchImageError alloc];
     bundleIdentifier3 = [v8 bundleIdentifier];
-    v24 = [v22 initWithCode:10 bundleID:bundleIdentifier3 reason:@"The client is unentitled" fatal:0];
-    v25 = *(*&buf[8] + 40);
-    *(*&buf[8] + 40) = v24;
+    v26 = [v24 initWithCode:10 bundleID:bundleIdentifier3 reason:@"The client is unentitled" fatal:0];
+    v27 = *(*&buf[8] + 40);
+    *(*&buf[8] + 40) = v26;
   }
 
-  v26 = [BSXPCReply replyForMessage:xdict];
-  v36[0] = _NSConcreteStackBlock;
-  v36[1] = 3221225472;
-  v36[2] = sub_100004E40;
-  v36[3] = &unk_10000C7A8;
-  v36[4] = v50;
-  v36[5] = buf;
-  v37 = v9;
-  v36[6] = v48;
-  [v26 sendReply:v36];
-  v27 = *(*&buf[8] + 40);
-  if (v27)
+  v28 = [BSXPCReply replyForMessage:xdict];
+  v39[0] = _NSConcreteStackBlock;
+  v39[1] = 3221225472;
+  v39[2] = sub_100004E40;
+  v39[3] = &unk_10000C7A8;
+  v39[4] = v53;
+  v39[5] = buf;
+  v40 = v9;
+  v39[6] = v51;
+  [v28 sendReply:v39];
+  v29 = *(*&buf[8] + 40);
+  if (v29)
   {
-    if ([v27 isFatal])
+    isFatal = [v29 isFatal];
+    if (isFatal)
     {
-      v31 = sub_1000012D0();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v34 = sub_1000012D0(isFatal);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         code = [*(*&buf[8] + 40) code];
         bundleIdentifier4 = [v8 bundleIdentifier];
-        *v52 = 134218242;
-        *&v52[4] = code;
-        *&v52[12] = 2114;
-        *&v52[14] = bundleIdentifier4;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "XBLaunchImageProviderServer encountered a fatal error with code: %ld during launch image generation for bundleID: %{public}@", v52, 0x16u);
+        *v55 = 134218242;
+        *&v55[4] = code;
+        *&v55[12] = 2114;
+        *&v55[14] = bundleIdentifier4;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "XBLaunchImageProviderServer encountered a fatal error with code: %ld during launch image generation for bundleID: %{public}@", v55, 0x16u);
       }
 
       exit(0);
     }
 
-    v28 = sub_1000012D0();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v31 = sub_1000012D0(isFatal);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       code2 = [*(*&buf[8] + 40) code];
       bundleIdentifier5 = [v8 bundleIdentifier];
-      *v52 = 134218242;
-      *&v52[4] = code2;
-      *&v52[12] = 2114;
-      *&v52[14] = bundleIdentifier5;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "XBLaunchImageProviderServer encountered an error with code: %ld during launch image generation for bundleID: %{public}@", v52, 0x16u);
+      *v55 = 134218242;
+      *&v55[4] = code2;
+      *&v55[12] = 2114;
+      *&v55[14] = bundleIdentifier5;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "XBLaunchImageProviderServer encountered an error with code: %ld during launch image generation for bundleID: %{public}@", v55, 0x16u);
     }
   }
 
-  _Block_object_dispose(v48, 8);
+  _Block_object_dispose(v51, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(v50, 8);
+  _Block_object_dispose(v53, 8);
 }
 
 - (unsigned)_onMain_createLaunchWindowForClient:(id)client withLaunchRequest:(id)request appInfo:(id)info captureInfo:(id *)captureInfo captureOptions:(int64_t)options error:(id *)error
@@ -274,24 +276,24 @@ LABEL_8:
   infoCopy = info;
   clientCopy = client;
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v17 = sub_1000012D0();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = sub_1000012D0(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
-    v32 = 67109376;
-    *v33 = qos_class_self();
-    *&v33[4] = 1024;
-    *&v33[6] = BSPthreadGetCurrentPriority();
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Running on main thread at QoS %d with priority %d.", &v32, 0xEu);
+    v33 = 67109376;
+    *v34 = qos_class_self();
+    *&v34[4] = 1024;
+    *&v34[6] = BSPthreadGetCurrentPriority();
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Running on main thread at QoS %d with priority %d.", &v33, 0xEu);
   }
 
-  v18 = +[NSDate date];
-  v19 = [(XBLaunchImageProviderServer *)self _transactionWorkForClient:clientCopy];
+  v19 = +[NSDate date];
+  v20 = [(XBLaunchImageProviderServer *)self _transactionWorkForClient:clientCopy];
 
-  contextWrapper = [v19 contextWrapper];
+  contextWrapper = [v20 contextWrapper];
   if (!contextWrapper)
   {
-    v21 = [XBLaunchImageContextWrapper contextWrapperForApplicationWithCompatibilityInfo:infoCopy launchRequest:requestCopy captureOptions:options];
-    [v19 setContextWrapper:v21];
+    v22 = [XBLaunchImageContextWrapper contextWrapperForApplicationWithCompatibilityInfo:infoCopy launchRequest:requestCopy captureOptions:options];
+    [v20 setContextWrapper:v22];
     if (!captureInfo)
     {
       goto LABEL_6;
@@ -300,52 +302,51 @@ LABEL_8:
     goto LABEL_5;
   }
 
-  v21 = contextWrapper;
+  v22 = contextWrapper;
   [contextWrapper updateLaunchRequest:requestCopy];
   if (captureInfo)
   {
 LABEL_5:
-    *captureInfo = [v21 captureInformation];
+    *captureInfo = [v22 captureInformation];
   }
 
 LABEL_6:
-  contextID = XBInvalidContextId;
-  error = [v21 error];
-  if (error || (v27 = [v21 contextID]) == 0 || contextID == v27)
+  LODWORD(contextID) = XBInvalidContextId;
+  error = [v22 error];
+  if (error || (v28 = [v22 contextID]) == 0 || contextID == v28)
   {
-    [v21 invalidate];
-    [v19 setContextWrapper:0];
-    v24 = sub_1000012D0();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    [v22 invalidate];
+    v25 = sub_1000012D0([v20 setContextWrapper:0]);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier = [infoCopy bundleIdentifier];
-      v32 = 138412546;
-      *v33 = bundleIdentifier;
-      *&v33[8] = 2112;
-      v34 = *&error;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[%@] launch image generation failed with error: %@", &v32, 0x16u);
+      v33 = 138412546;
+      *v34 = bundleIdentifier;
+      *&v34[8] = 2112;
+      v35 = *&error;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[%@] launch image generation failed with error: %@", &v33, 0x16u);
     }
 
     if (error && error)
     {
-      v26 = error;
+      v27 = error;
       *error = error;
     }
   }
 
   else
   {
-    contextID = [v21 contextID];
-    v28 = sub_1000012D0();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    contextID = [v22 contextID];
+    v29 = sub_1000012D0(contextID);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier2 = [infoCopy bundleIdentifier];
-      [v18 timeIntervalSinceNow];
-      v32 = 138412546;
-      *v33 = bundleIdentifier2;
-      *&v33[8] = 2048;
-      v34 = -v30;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[%@] launch image generation completed after %.3fs", &v32, 0x16u);
+      [v19 timeIntervalSinceNow];
+      v33 = 138412546;
+      *v34 = bundleIdentifier2;
+      *&v34[8] = 2048;
+      v35 = -v31;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "[%@] launch image generation completed after %.3fs", &v33, 0x16u);
     }
   }
 

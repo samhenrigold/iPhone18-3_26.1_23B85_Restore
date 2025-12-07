@@ -78,24 +78,24 @@
 
 - (void)addGPUVirtualAddress:(unint64_t)address forObjectId:(unint64_t)id
 {
-  v5[0] = id;
-  v5[2] = v5;
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_gpuVirtualAddressMap.__table_.__bucket_list_.__ptr_, v5)[3] = address;
+  idCopy = id;
+  v6 = &idCopy;
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_gpuVirtualAddressMap.__table_.__bucket_list_.__ptr_, &idCopy, &std::piecewise_construct, &v6)[3] = address;
   self->_recalculateVirtualAddress = 1;
 }
 
 - (void)addRenderPipelineStateUniqueIdentifier:(unint64_t)identifier forObjectId:(unint64_t)id
 {
-  v4[0] = identifier;
-  v4[2] = v4;
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_renderPipelineStateUniqueIdentifier.__table_.__bucket_list_.__ptr_, v4)[3] = id;
+  identifierCopy = identifier;
+  v5 = &identifierCopy;
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_renderPipelineStateUniqueIdentifier.__table_.__bucket_list_.__ptr_, &identifierCopy, &std::piecewise_construct, &v5)[3] = id;
 }
 
 - (void)addComputePipelineStateUniqueIdentifier:(unint64_t)identifier forObjectId:(unint64_t)id
 {
-  v4[0] = identifier;
-  v4[2] = v4;
-  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_computePipelineStateUniqueIdentifier.__table_.__bucket_list_.__ptr_, v4)[3] = id;
+  identifierCopy = identifier;
+  v5 = &identifierCopy;
+  std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(&self->_computePipelineStateUniqueIdentifier.__table_.__bucket_list_.__ptr_, &identifierCopy, &std::piecewise_construct, &v5)[3] = id;
 }
 
 - (void)_calculateGPUVirtualAddress
@@ -199,7 +199,7 @@
   v13 = DYMTLGetAssociatedObject(bufferCopy, 3u);
   v16 = 0;
   memset(v15, 0, sizeof(v15));
-  MakeDYMTLIndirectCommandBufferDescriptor(v12, [v13 maxKernelThreadgroupMemoryBindCount], v15);
+  MakeDYMTLIndirectCommandBufferDescriptor(v15, v12, [v13 maxKernelThreadgroupMemoryBindCount]);
   memset(v14, 0, sizeof(v14));
   GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(v15, v14);
   DYMTLDrawRenderCommandEncoder(commandCopy, index, data, v14, [(DYMTLFunctionPlayer *)self->_player objectMap], &self->_gpuVirtualAddressArray.__begin_);
@@ -216,7 +216,7 @@
   v14 = DYMTLGetAssociatedObject(bufferCopy, 3u);
   v20 = 0;
   memset(v19, 0, sizeof(v19));
-  MakeDYMTLIndirectCommandBufferDescriptor(v13, [v14 maxKernelThreadgroupMemoryBindCount], v19);
+  MakeDYMTLIndirectCommandBufferDescriptor(v19, v13, [v14 maxKernelThreadgroupMemoryBindCount]);
   memset(v18, 0, sizeof(v18));
   GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(v19, v18);
   v15 = [(DYMTLIndirectCommandBufferManager *)self saveRenderEncoder:commandsCopy withDescriptor:v13];
@@ -252,7 +252,7 @@
   v13 = DYMTLGetAssociatedObject(bufferCopy, 3u);
   v35 = 0;
   memset(v34, 0, sizeof(v34));
-  MakeDYMTLIndirectCommandBufferDescriptor(v12, [v13 maxKernelThreadgroupMemoryBindCount], v34);
+  MakeDYMTLIndirectCommandBufferDescriptor(v34, v12, [v13 maxKernelThreadgroupMemoryBindCount]);
   v33 = 0u;
   memset(v32, 0, sizeof(v32));
   GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(v34, v32);
@@ -327,7 +327,7 @@
   }
 
   [(DYMTLIndirectCommandBufferManager *)self _calculateGPUVirtualAddress];
-  MakeDYMTLIndirectCommandBufferDescriptor(v10, [v13 maxKernelThreadgroupMemoryBindCount], &v19);
+  MakeDYMTLIndirectCommandBufferDescriptor(&v19, v10, [v13 maxKernelThreadgroupMemoryBindCount]);
   v16 = DYMTLGetOriginalObject(v14);
   DYMTLEncodeIndirectCommandBuffer(v16, &v19, v11, data, [(DYMTLFunctionPlayer *)self->_player objectMap], self);
 
@@ -343,7 +343,7 @@
 
 - (void)restoreBuffer:(id)buffer optimizedRanges:(const char *)ranges commandQueue:(id)queue
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   queueCopy = queue;
   v10 = GPUTools::MTL::MakeIndirectCommandBufferOptimizedRangeList(ranges, v9);
@@ -351,32 +351,32 @@
   {
     commandBuffer = [queueCopy commandBuffer];
     blitCommandEncoder = [commandBuffer blitCommandEncoder];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v13 = v10;
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v14)
     {
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         v16 = 0;
         do
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          rangeValue = [*(*(&v20 + 1) + 8 * v16) rangeValue];
+          rangeValue = [*(*(&v19 + 1) + 8 * v16) rangeValue];
           [blitCommandEncoder optimizeIndirectCommandBuffer:bufferCopy withRange:{rangeValue, v18}];
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v14);
@@ -385,8 +385,6 @@
     [blitCommandEncoder endEncoding];
     [commandBuffer commit];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)setupRenderCommandEncoder:(id)encoder withData:(const char *)data atIndex:(unint64_t)index forIndirectCommandBuffer:(id)buffer
@@ -398,7 +396,7 @@
   v13 = DYMTLGetAssociatedObject(bufferCopy, 3u);
   v18 = 0;
   memset(v17, 0, sizeof(v17));
-  MakeDYMTLIndirectCommandBufferDescriptor(v12, [v13 maxKernelThreadgroupMemoryBindCount], v17);
+  MakeDYMTLIndirectCommandBufferDescriptor(v17, v12, [v13 maxKernelThreadgroupMemoryBindCount]);
   memset(v16, 0, sizeof(v16));
   GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(v17, v16);
   v14 = DYMTSetupRenderCommandEncoder(encoderCopy, v17, index, data, v16, [(DYMTLFunctionPlayer *)self->_player objectMap], self);
@@ -416,7 +414,7 @@
   v32 = 0;
   v31 = 0u;
   memset(v30, 0, sizeof(v30));
-  MakeDYMTLIndirectCommandBufferDescriptor(v27, [v12 maxKernelThreadgroupMemoryBindCount], v30);
+  MakeDYMTLIndirectCommandBufferDescriptor(v30, v27, [v12 maxKernelThreadgroupMemoryBindCount]);
   v29 = 0u;
   memset(v28, 0, sizeof(v28));
   GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(v30, v28);
@@ -761,7 +759,7 @@
   v14 = DYMTLGetAssociatedObject(v11, 3u);
   v21 = 0;
   memset(v20, 0, sizeof(v20));
-  MakeDYMTLIndirectCommandBufferDescriptor(v12, [v14 maxKernelThreadgroupMemoryBindCount], v20);
+  MakeDYMTLIndirectCommandBufferDescriptor(v20, v12, [v14 maxKernelThreadgroupMemoryBindCount]);
   v19 = 0u;
   memset(v18, 0, sizeof(v18));
   GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(v20, v18);

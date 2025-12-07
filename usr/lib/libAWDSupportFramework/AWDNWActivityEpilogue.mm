@@ -1,5 +1,6 @@
 @interface AWDNWActivityEpilogue
 - (BOOL)isEqual:(id)equal;
+- (id)completionReasonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -85,6 +86,19 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)completionReasonAsString:(int)string
+{
+  if (string >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32788[string];
+  }
 }
 
 - (int)StringAsCompletionReason:(id)reason
@@ -241,7 +255,6 @@ LABEL_15:
 {
   if ((*&self->_has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -253,7 +266,6 @@ LABEL_15:
   has = self->_has;
   if (has)
   {
-    durationMsecs = self->_durationMsecs;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -273,12 +285,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  fragmentsQuenched = self->_fragmentsQuenched;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_8:
-    completionReason = self->_completionReason;
     PBDataWriterWriteInt32Field();
   }
 
@@ -293,17 +303,15 @@ LABEL_9:
     PBDataWriterWriteSubmessage();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x20) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x20) != 0)
   {
-    underlyingErrorDomain = self->_underlyingErrorDomain;
     PBDataWriterWriteInt32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 0x10) != 0)
+  if ((v5 & 0x10) != 0)
   {
-    underlyingErrorCode = self->_underlyingErrorCode;
 
     PBDataWriterWriteInt32Field();
   }
@@ -450,7 +458,6 @@ LABEL_7:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 72);
     if ((has & 4) != 0)
     {
       if ((*(equal + 72) & 4) == 0 || self->_timestamp != *(equal + 3))
@@ -478,7 +485,6 @@ LABEL_38:
       has = self->_has;
     }
 
-    v9 = *(equal + 72);
     if (has)
     {
       if ((*(equal + 72) & 1) == 0 || self->_durationMsecs != *(equal + 1))

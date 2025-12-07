@@ -11,13 +11,13 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[4] = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = INLodgingReservation;
-  _dictionaryRepresentation = [(INReservation *)&v16 _dictionaryRepresentation];
+  v17[4] = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = INLodgingReservation;
+  _dictionaryRepresentation = [(INReservation *)&v15 _dictionaryRepresentation];
   v4 = [_dictionaryRepresentation mutableCopy];
 
-  v17[0] = @"lodgingBusinessLocation";
+  v16[0] = @"lodgingBusinessLocation";
   lodgingBusinessLocation = self->_lodgingBusinessLocation;
   null = lodgingBusinessLocation;
   if (!lodgingBusinessLocation)
@@ -25,8 +25,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
-  v17[1] = @"reservationDuration";
+  v17[0] = null;
+  v16[1] = @"reservationDuration";
   reservationDuration = self->_reservationDuration;
   null2 = reservationDuration;
   if (!reservationDuration)
@@ -34,8 +34,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v17[2] = @"numberOfAdults";
+  v17[1] = null2;
+  v16[2] = @"numberOfAdults";
   numberOfAdults = self->_numberOfAdults;
   null3 = numberOfAdults;
   if (!numberOfAdults)
@@ -43,8 +43,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null3;
-  v17[3] = @"numberOfChildren";
+  v17[2] = null3;
+  v16[3] = @"numberOfChildren";
   numberOfChildren = self->_numberOfChildren;
   null4 = numberOfChildren;
   if (!numberOfChildren)
@@ -52,8 +52,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
+  v17[3] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
   [v4 addEntriesFromDictionary:v13];
 
   if (numberOfChildren)
@@ -100,7 +100,6 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

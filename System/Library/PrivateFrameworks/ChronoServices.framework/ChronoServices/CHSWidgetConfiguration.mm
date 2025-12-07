@@ -210,35 +210,35 @@
 
 id __52__CHSWidgetConfiguration_succinctDescriptionBuilder__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = a1 + 40;
   v3 = [*(a1 + 32) appendUnsignedInteger:objc_msgSend(*(*(a1 + 40) + 8) withName:{"count"), @"containerCount"}];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = *(*v2 + 8);
   v5 = 0;
-  v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(&v22 + 1) + 8 * i) widgets];
+        v9 = [*(*(&v21 + 1) + 8 * i) widgets];
         v10 = [v9 count];
 
         v5 += v10;
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
@@ -256,16 +256,13 @@ id __52__CHSWidgetConfiguration_succinctDescriptionBuilder__block_invoke(uint64_
   v19 = *v15;
   if (*(*(v15 + 8) + 40))
   {
-    result = [v19 appendTimeInterval:@"expirationTimeout" withName:0 decomposeUnits:*(*(v15 + 8) + 48)];
+    return [v19 appendTimeInterval:@"expirationTimeout" withName:0 decomposeUnits:*(*(v15 + 8) + 48)];
   }
 
   else
   {
-    result = [v19 appendBool:0 withName:@"automaticallyOrphaned"];
+    return [v19 appendBool:0 withName:@"automaticallyOrphaned"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
@@ -295,37 +292,37 @@ id __52__CHSWidgetConfiguration_succinctDescriptionBuilder__block_invoke(uint64_
 
 id __64__CHSWidgetConfiguration_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = a1 + 40;
   v4 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 16) withName:@"metricsSpecification"];
   v5 = [*v2 appendUnsignedInteger:objc_msgSend(*(*v3 + 8) withName:{"count"), @"containerCount"}];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = *(*v3 + 8);
   v7 = 0;
-  v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v22 + 1) + 8 * i) widgets];
+        v11 = [*(*(&v21 + 1) + 8 * i) widgets];
         v12 = [v11 count];
 
         v7 += v12;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
@@ -340,16 +337,13 @@ id __64__CHSWidgetConfiguration_descriptionBuilderWithMultilinePrefix___block_in
   v19 = *v13;
   if (*(*v15 + 40))
   {
-    result = [v19 appendTimeInterval:@"expirationTimeout" withName:0 decomposeUnits:*(*v15 + 48)];
+    return [v19 appendTimeInterval:@"expirationTimeout" withName:0 decomposeUnits:*(*v15 + 48)];
   }
 
   else
   {
-    result = [v19 appendBool:0 withName:@"automaticallyOrphaned"];
+    return [v19 appendBool:0 withName:@"automaticallyOrphaned"];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -451,8 +445,8 @@ id __64__CHSWidgetConfiguration_descriptionBuilderWithMultilinePrefix___block_in
                     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
                     rateLimitIdentifier3 = [v17 rateLimitIdentifier];
 
-                    v25 = CHSLogChronoServices();
-                    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+                    v26 = CHSLogChronoServices(v25);
+                    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
                     {
                       rateLimitIdentifier4 = [v17 rateLimitIdentifier];
                       *buf = 138543618;
@@ -485,10 +479,8 @@ id __64__CHSWidgetConfiguration_descriptionBuilderWithMultilinePrefix___block_in
 
   [coderCopy encodeObject:selfCopy->_replicationPredicate forKey:@"replicationPredicate"];
   [coderCopy encodeBool:selfCopy->_automaticallyOrphaned forKey:@"automaticallyOrphaned"];
-  v28 = [MEMORY[0x1E696AD98] numberWithDouble:selfCopy->_expirationTimeout];
-  [coderCopy encodeObject:v28 forKey:@"expirationTimeout"];
-
-  v29 = *MEMORY[0x1E69E9840];
+  v29 = [MEMORY[0x1E696AD98] numberWithDouble:selfCopy->_expirationTimeout];
+  [coderCopy encodeObject:v29 forKey:@"expirationTimeout"];
 }
 
 - (CHSWidgetConfiguration)initWithCoder:(id)coder

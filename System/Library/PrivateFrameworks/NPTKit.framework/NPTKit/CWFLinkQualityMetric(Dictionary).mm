@@ -1,10 +1,10 @@
 @interface CWFLinkQualityMetric(Dictionary)
-- (id)dictionary;
+- (__int16)dictionary;
 @end
 
 @implementation CWFLinkQualityMetric(Dictionary)
 
-- (id)dictionary
+- (__int16)dictionary
 {
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   linkQualityMetricData = [self linkQualityMetricData];

@@ -326,7 +326,7 @@ LABEL_13:
   }
 }
 
-uint64_t __50__TSUNumberFormatter_Private__formatterForLocale___block_invoke(uint64_t a1, uint64_t a2)
+void *__50__TSUNumberFormatter_Private__formatterForLocale___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [MEMORY[0x277CCACC8] currentThread];
   v5 = *(a1 + 32);

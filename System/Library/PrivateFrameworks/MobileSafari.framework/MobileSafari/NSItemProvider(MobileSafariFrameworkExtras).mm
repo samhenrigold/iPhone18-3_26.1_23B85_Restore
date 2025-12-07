@@ -46,43 +46,43 @@
 
 - (void)safari_loadObjectOfClasses:()MobileSafariFrameworkExtras completionHandler:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
-  v20 = 0u;
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v23;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         if ([self canLoadObjectOfClass:v13])
         {
-          v18[0] = MEMORY[0x1E69E9820];
-          v18[1] = 3221225472;
-          v18[2] = __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasses_completionHandler___block_invoke;
-          v18[3] = &unk_1E721EE10;
-          v19 = v7;
-          v17 = [self loadObjectOfClass:v13 completionHandler:v18];
+          v20[0] = MEMORY[0x1E69E9820];
+          v20[1] = 3221225472;
+          v20[2] = __92__NSItemProvider_MobileSafariFrameworkExtras__safari_loadObjectOfClasses_completionHandler___block_invoke;
+          v20[3] = &unk_1E721EE10;
+          v21 = v7;
+          v19 = [self loadObjectOfClass:v13 completionHandler:v20];
 
           goto LABEL_13;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v28 count:16];
       if (v10)
       {
         continue;
@@ -92,14 +92,14 @@
     }
   }
 
-  v14 = WBS_LOG_CHANNEL_PREFIXItemProvider();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v16 = WBS_LOG_CHANNEL_PREFIXItemProvider(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v15 = v14;
-    v16 = [v8 componentsJoinedByString:{@", "}];
+    v17 = v16;
+    v18 = [v8 componentsJoinedByString:{@", "}];
     *buf = 138543362;
-    v25 = v16;
-    _os_log_impl(&dword_18B7AC000, v15, OS_LOG_TYPE_INFO, "Did not find object matching allowed classes: %{public}@", buf, 0xCu);
+    v27 = v18;
+    _os_log_impl(&dword_18B7AC000, v17, OS_LOG_TYPE_INFO, "Did not find object matching allowed classes: %{public}@", buf, 0xCu);
   }
 
   (*(v7 + 2))(v7, 0, 0);

@@ -435,7 +435,7 @@ LABEL_34:
   v25 = [MEMORY[0x1E695F688] vectorWithX:0.200000003 Y:v7 Z:v22];
   v26 = [MEMORY[0x1E695F688] vectorWithX:0.800000012 Y:v13 Z:v23];
   kernelFB3 = [objc_opt_class() kernelFB3];
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v29 = v28;
   v31 = v30;
   v33 = v32;
@@ -504,7 +504,7 @@ LABEL_34:
 
   imageByUnpremultiplyingAlpha = [(CIImage *)inputImage imageByUnpremultiplyingAlpha];
   kernelFB0 = [objc_opt_class() kernelFB0];
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v7 = v6;
   v9 = v8;
   v11 = v10;

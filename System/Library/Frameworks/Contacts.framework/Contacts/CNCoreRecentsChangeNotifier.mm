@@ -21,28 +21,29 @@
 {
   blockCopy = block;
   v4 = [CNCoreRecentsChangeNotifier alloc];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v5 = getCRAcceptedIntroductionsDidChangeNotificationSymbolLoc_ptr;
-  v13 = getCRAcceptedIntroductionsDidChangeNotificationSymbolLoc_ptr;
+  v14 = getCRAcceptedIntroductionsDidChangeNotificationSymbolLoc_ptr;
   if (!getCRAcceptedIntroductionsDidChangeNotificationSymbolLoc_ptr)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __getCRAcceptedIntroductionsDidChangeNotificationSymbolLoc_block_invoke;
-    v9[3] = &unk_1E7412110;
-    v9[4] = &v10;
-    __getCRAcceptedIntroductionsDidChangeNotificationSymbolLoc_block_invoke(v9);
-    v5 = v11[3];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __getCRAcceptedIntroductionsDidChangeNotificationSymbolLoc_block_invoke;
+    v10[3] = &unk_1E7412110;
+    v10[4] = &v11;
+    __getCRAcceptedIntroductionsDidChangeNotificationSymbolLoc_block_invoke(v10);
+    v5 = v12[3];
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
   if (!v5)
   {
-    MDItemUniqueIdentifier_cold_1 = getMDItemUniqueIdentifier_cold_1();
-    _Block_object_dispose(&v10, 8);
-    _Unwind_Resume(MDItemUniqueIdentifier_cold_1);
+    getMDItemUniqueIdentifier_cold_1();
+    v9 = v8;
+    _Block_object_dispose(&v11, 8);
+    _Unwind_Resume(v9);
   }
 
   v6 = [(CNCoreRecentsChangeNotifier *)v4 initWithNotification:*v5 block:blockCopy];

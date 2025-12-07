@@ -189,7 +189,7 @@ uint64_t __50__FCThreadSafeMutableArray_readWriteWithAccessor___block_invoke(uin
   return v3;
 }
 
-uint64_t __33__FCThreadSafeMutableArray_count__block_invoke(uint64_t a1)
+void *__33__FCThreadSafeMutableArray_count__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

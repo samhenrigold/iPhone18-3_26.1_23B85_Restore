@@ -16,7 +16,7 @@
 
 - (_SFPBCommandButtonItem)initWithFacade:(id)facade
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBCommandButtonItem *)self init];
   if (v5)
@@ -60,33 +60,33 @@
       v17 = 0;
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     previewButtonItems2 = [facadeCopy previewButtonItems];
-    v19 = [previewButtonItems2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v19 = [previewButtonItems2 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v28;
+      v21 = *v27;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v28 != v21)
+          if (*v27 != v21)
           {
             objc_enumerationMutation(previewButtonItems2);
           }
 
-          v23 = [[_SFPBButtonItem alloc] initWithFacade:*(*(&v27 + 1) + 8 * i)];
+          v23 = [[_SFPBButtonItem alloc] initWithFacade:*(*(&v26 + 1) + 8 * i)];
           if (v23)
           {
             [v17 addObject:v23];
           }
         }
 
-        v20 = [previewButtonItems2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v20 = [previewButtonItems2 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v20);
@@ -106,17 +106,16 @@
     v24 = v5;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBCommandButtonItem)initWithDictionary:(id)dictionary
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v31.receiver = self;
-  v31.super_class = _SFPBCommandButtonItem;
-  v5 = [(_SFPBCommandButtonItem *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = _SFPBCommandButtonItem;
+  v5 = [(_SFPBCommandButtonItem *)&v30 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"image"];
@@ -147,28 +146,28 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v25 = v10;
-      v26 = v6;
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
+      v24 = v10;
+      v25 = v6;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v28;
+        v16 = *v27;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v28 != v16)
+            if (*v27 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v27 + 1) + 8 * i);
+            v18 = *(*(&v26 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -177,14 +176,14 @@
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v15);
       }
 
-      v6 = v26;
-      v10 = v25;
+      v6 = v25;
+      v10 = v24;
     }
 
     v20 = [dictionaryCopy objectForKeyedSubscript:@"isDestructive"];
@@ -204,7 +203,6 @@
     v22 = v5;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -244,7 +242,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_command)
   {
@@ -287,26 +285,26 @@
   if ([(NSArray *)self->_previewButtonItems count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v12 = self->_previewButtonItems;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation3 = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation3)
           {
             [array addObject:dictionaryRepresentation3];
@@ -319,7 +317,7 @@
           }
         }
 
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v14);
@@ -340,8 +338,6 @@
     v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[_SFPBCommandButtonItem uniqueId](self, "uniqueId")}];
     [dictionary setObject:v21 forKeyedSubscript:@"uniqueId"];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -492,7 +488,7 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
   image = [(_SFPBCommandButtonItem *)self image];
   if (image)
@@ -513,32 +509,31 @@ LABEL_23:
   }
 
   previewButtonItems = [(_SFPBCommandButtonItem *)self previewButtonItems];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v9 = [previewButtonItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [previewButtonItems countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(previewButtonItems);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
         PBDataWriterWriteSubmessage();
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [previewButtonItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [previewButtonItems countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
@@ -553,8 +548,6 @@ LABEL_23:
   {
     PBDataWriterWriteUint64Field();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addPreviewButtonItems:(id)items
@@ -577,18 +570,14 @@ LABEL_23:
 
 - (void)setPreviewButtonItems:(id)items
 {
-  v4 = [items copy];
-  previewButtonItems = self->_previewButtonItems;
-  self->_previewButtonItems = v4;
+  self->_previewButtonItems = [items copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

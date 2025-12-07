@@ -33,7 +33,7 @@
 
 - (__HMDBundleApplicationInfo)initWithRecord:(id)record
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = recordCopy;
   if (recordCopy)
@@ -44,18 +44,18 @@
     {
       bundleIdentifier = [v5 bundleIdentifier];
       v8 = [v5 URL];
-      v18.receiver = self;
-      v18.super_class = __HMDBundleApplicationInfo;
-      v9 = [(HMDApplicationInfo *)&v18 initWithBundleIdentifier:bundleIdentifier bundleURL:v8];
+      v17.receiver = self;
+      v17.super_class = __HMDBundleApplicationInfo;
+      v9 = [(HMDApplicationInfo *)&v17 initWithBundleIdentifier:bundleIdentifier bundleURL:v8];
 
       if (v9)
       {
         entitlements = [v5 entitlements];
         v11 = MEMORY[0x277CBEB98];
-        v19[0] = @"com.apple.developer.homekit";
-        v19[1] = @"com.apple.private.homekit";
-        v19[2] = @"com.apple.homekit.private-spi-access";
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+        v18[0] = @"com.apple.developer.homekit";
+        v18[1] = @"com.apple.private.homekit";
+        v18[2] = @"com.apple.homekit.private-spi-access";
+        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
         v13 = [v11 setWithArray:v12];
         v14 = [entitlements objectsForKeys:v13];
         entitlements = v9->_entitlements;
@@ -72,7 +72,6 @@
     selfCopy = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

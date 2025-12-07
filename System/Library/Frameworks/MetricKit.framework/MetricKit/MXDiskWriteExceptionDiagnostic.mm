@@ -1,11 +1,38 @@
 @interface MXDiskWriteExceptionDiagnostic
 - (MXDiskWriteExceptionDiagnostic)initWithCoder:(id)coder;
+- (MXDiskWriteExceptionDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid totalWritesCaused:(id)caused stackTrace:(id)trace;
 - (MXDiskWriteExceptionDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version totalWritesCaused:(id)caused stackTrace:(id)trace;
 - (id)toDictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation MXDiskWriteExceptionDiagnostic
+
+- (MXDiskWriteExceptionDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version signpostData:(id)signpostData pid:(int)pid totalWritesCaused:(id)caused stackTrace:(id)trace
+{
+  v10 = *&pid;
+  causedCopy = caused;
+  traceCopy = trace;
+  v21.receiver = self;
+  v21.super_class = MXDiskWriteExceptionDiagnostic;
+  v17 = [(MXDiagnostic *)&v21 initWithMetaData:data applicationVersion:version signpostData:signpostData andPID:v10];
+  if (!v17)
+  {
+    goto LABEL_5;
+  }
+
+  [causedCopy doubleValue];
+  v19 = 0;
+  if (traceCopy && v18 > 0.0)
+  {
+    objc_storeStrong(&v17->_totalWritesCaused, caused);
+    objc_storeStrong(&v17->_callStackTree, trace);
+LABEL_5:
+    v19 = v17;
+  }
+
+  return v19;
+}
 
 - (MXDiskWriteExceptionDiagnostic)initWithMetaData:(id)data applicationVersion:(id)version totalWritesCaused:(id)caused stackTrace:(id)trace
 {

@@ -19,36 +19,36 @@ void NSSDestroyUserDefaultsDataWithItems(void *a1)
 
 void __NSSDestroyUserDefaultsDataWithItems_block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 stickyKeys];
   v4 = [v2 userDefaults];
   v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [v4 objectForKey:v11];
         [v5 fc_safelySetObjectAllowingNil:v12 forKey:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -57,21 +57,19 @@ void __NSSDestroyUserDefaultsDataWithItems_block_invoke(uint64_t a1, void *a2)
   v13 = [v2 domainName];
   [v4 removePersistentDomainForName:v13];
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __NSSDestroyUserDefaultsDataWithItems_block_invoke_2;
-  v16[3] = &unk_2799808F0;
-  v17 = v4;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __NSSDestroyUserDefaultsDataWithItems_block_invoke_2;
+  v15[3] = &unk_2799808F0;
+  v16 = v4;
   v14 = v4;
-  [v5 enumerateKeysAndObjectsUsingBlock:v16];
+  [v5 enumerateKeysAndObjectsUsingBlock:v15];
   [v14 synchronize];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id NSSDestroyDataContainersWithItems(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (!v1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -79,26 +77,26 @@ id NSSDestroyDataContainersWithItems(void *a1)
   }
 
   v2 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [v8 identifier];
         [v8 containerClass];
         container_create_or_lookup_for_current_user();
@@ -107,28 +105,27 @@ id NSSDestroyDataContainersWithItems(void *a1)
         [v2 setObject:v10 forKeyedSubscript:v11];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0x26u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x26u);
 }
 
-void sub_25BF0F270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_25BF0F270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 112), 8);
+  _Block_object_dispose((v24 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -139,86 +136,87 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x26u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x26u);
 }
 
-id NSSNewsWidgetMessageForStaticNewsSection()
+id NSSNewsWidgetMessageForStaticNewsSection(uint64_t a1)
 {
-  v0 = NSSBundleInternal();
-  v1 = [v0 localizedStringForKey:@"Editors’ Picks" value:&stru_286D8BB50 table:0];
+  v1 = NSSBundleInternal(a1);
+  v2 = [v1 localizedStringForKey:@"Editors’ Picks" value:&stru_286D8BB50 table:0];
 
-  return v1;
+  return v2;
 }
 
-id NSSNewsWidgetMessageForStaticNewsHeadlineTitle()
+id NSSNewsWidgetMessageForStaticNewsHeadlineTitle(uint64_t a1)
 {
-  v0 = NSSBundleInternal();
-  v1 = [v0 localizedStringForKey:@"New Planets Found" value:&stru_286D8BB50 table:0];
+  v1 = NSSBundleInternal(a1);
+  v2 = [v1 localizedStringForKey:@"New Planets Found" value:&stru_286D8BB50 table:0];
 
-  return v1;
+  return v2;
 }
 
-id NSSNewsTagWidgetPlaceholderName()
+id NSSNewsTagWidgetPlaceholderName(uint64_t a1)
 {
-  v0 = NSSBundleInternal();
-  v1 = [v0 localizedStringForKey:@"Topic" value:&stru_286D8BB50 table:0];
+  v1 = NSSBundleInternal(a1);
+  v2 = [v1 localizedStringForKey:@"Topic" value:&stru_286D8BB50 table:0];
 
-  return v1;
+  return v2;
 }
 
-id NSSNewsWidgetIntentsTopHitHeaderName()
+id NSSNewsWidgetIntentsTopHitHeaderName(uint64_t a1)
 {
-  v0 = NSSBundleInternal();
-  v1 = [v0 localizedStringForKey:@"Top Hit" value:&stru_286D8BB50 table:0];
+  v1 = NSSBundleInternal(a1);
+  v2 = [v1 localizedStringForKey:@"Top Hit" value:&stru_286D8BB50 table:0];
 
-  return v1;
+  return v2;
 }
 
-id NSSNewsWidgetIntentsTopicsHeaderName()
+id NSSNewsWidgetIntentsTopicsHeaderName(uint64_t a1)
 {
-  v0 = NSSBundleInternal();
-  v1 = [v0 localizedStringForKey:@"Topics" value:&stru_286D8BB50 table:0];
+  v1 = NSSBundleInternal(a1);
+  v2 = [v1 localizedStringForKey:@"Topics" value:&stru_286D8BB50 table:0];
 
-  return v1;
+  return v2;
 }
 
-id NSSNewsWidgetIntentsFollowingHeaderName()
+id NSSNewsWidgetIntentsFollowingHeaderName(uint64_t a1)
 {
-  v0 = NSSBundleInternal();
-  v1 = [v0 localizedStringForKey:@"Following" value:&stru_286D8BB50 table:0];
+  v1 = NSSBundleInternal(a1);
+  v2 = [v1 localizedStringForKey:@"Following" value:&stru_286D8BB50 table:0];
 
-  return v1;
+  return v2;
 }
 
-id NSSNewsWidgetIntentsSuggestedByNewsHeaderName()
+id NSSNewsWidgetIntentsSuggestedByNewsHeaderName(uint64_t a1)
 {
-  v0 = NSSBundleInternal();
-  v1 = [v0 localizedStringForKey:@"Suggested" value:&stru_286D8BB50 table:0];
+  v1 = NSSBundleInternal(a1);
+  v2 = [v1 localizedStringForKey:@"Suggested" value:&stru_286D8BB50 table:0];
 
-  return v1;
+  return v2;
 }
 
-id NSSNewsWidgetIntentsSuggestedBySiriHeaderName()
+id NSSNewsWidgetIntentsSuggestedBySiriHeaderName(uint64_t a1)
 {
-  v0 = NSSBundleInternal();
-  v1 = [v0 localizedStringForKey:@"Suggested by Siri" value:&stru_286D8BB50 table:0];
+  v1 = NSSBundleInternal(a1);
+  v2 = [v1 localizedStringForKey:@"Suggested by Siri" value:&stru_286D8BB50 table:0];
 
-  return v1;
+  return v2;
 }
 
-id NSSNewsAnalyticsPBEventAccumulatorLog()
+id NSSNewsAnalyticsPBEventAccumulatorLog(uint64_t a1)
 {
   if (NSSNewsAnalyticsPBEventAccumulatorLog_once != -1)
   {
     NSSNewsAnalyticsPBEventAccumulatorLog_cold_1();
   }
 
-  v1 = NSSNewsAnalyticsPBEventAccumulatorLog_result;
+  v2 = NSSNewsAnalyticsPBEventAccumulatorLog_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NSSNewsAnalyticsPBEventAccumulatorLog_block_invoke()
@@ -364,16 +362,16 @@ id NSSNTPBAnalyticsUserStorefrontIdValue()
   return v1;
 }
 
-id NSSBundleInternal()
+id NSSBundleInternal(uint64_t a1)
 {
   if (NSSBundleInternal_onceToken != -1)
   {
     NSSBundleInternal_cold_1();
   }
 
-  v1 = NSSBundleInternal_sNSSBundle;
+  v2 = NSSBundleInternal_sNSSBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __NSSBundleInternal_block_invoke()
@@ -385,22 +383,20 @@ uint64_t __NSSBundleInternal_block_invoke()
 
 void NSSTerminateNewsWithCompletion(void *a1)
 {
-  v3 = a1;
+  v2 = a1;
   SFKillProcessNamed();
-  v1 = *MEMORY[0x277D313F8];
   SFKillProcessNamed();
-  v2 = v3;
-  if (v3)
+  v1 = v2;
+  if (v2)
   {
-    (*(v3 + 2))(v3, 1, &__block_literal_global_2);
-    v2 = v3;
+    (*(v2 + 2))(v2, 1, &__block_literal_global_2);
+    v1 = v2;
   }
 }
 
 uint64_t __NSSTerminateNewsWithCompletion_block_invoke()
 {
   SFKillProcessNamed();
-  v0 = *MEMORY[0x277D313F8];
 
   return SFKillProcessNamed();
 }
@@ -473,7 +469,6 @@ void NSSTerminateNewsd(void *a1)
     NSSTerminateNewsd_cold_1();
   }
 
-  v2 = *MEMORY[0x277D313F8];
   SFKillProcessNamed();
   v1[2](v1, 1, &__block_literal_global_48);
 }
@@ -552,10 +547,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void __NSSTerminateNewsProcessesWithItems_block_invoke_2(uint64_t a1, void *a2)
+void __NSSTerminateNewsProcessesWithItems_block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   v9 = a2;
-  v3 = *(*(*(a1 + 32) + 8) + 40);
   v4 = FCBlockConjunction();
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
@@ -574,9 +568,8 @@ void __NSSTerminateNewsProcessesWithItems_block_invoke_2(uint64_t a1, void *a2)
   }
 }
 
-void __NSSTerminateNewsProcessesWithItems_block_invoke_63(uint64_t a1, char a2)
+void __NSSTerminateNewsProcessesWithItems_block_invoke_63(uint64_t a1, char a2, uint64_t a3)
 {
-  v4 = *(*(*(a1 + 32) + 8) + 40);
   v5 = FCBlockConjunction();
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
@@ -627,60 +620,55 @@ uint64_t NTPBExternalAnalyticsEventTypeFromExternalEventURLQueryParameter(void *
 
 void NSSDestroyUserDefaultsDataWithItems_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "items"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "items", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void NSSDestroyDataContainersWithItems_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "items"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "items", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void NSSTerminateAppsAndAllPluginsWithBundleIDs_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "bundleIDs"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "bundleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void NSSTerminateNewsd_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 void NSSTerminateNewsProcessesWithItems_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "items"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "items", v7, 2u);
+  OUTLINED_FUNCTION_3(&dword_25BF0A000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+CGRect CGRectIntegral(CGRect rect)
+{
+  MEMORY[0x2821115D0](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v4;
+  result.size.width = v3;
+  result.origin.y = v2;
+  result.origin.x = v1;
+  return result;
 }

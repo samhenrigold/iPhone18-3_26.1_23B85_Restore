@@ -202,24 +202,21 @@ LABEL_9:
   return result;
 }
 
-HGNode *HGNode::PreBuffering(HGNode *this, HGRenderer *a2)
+void HGNode::PreBuffering(HGNode *this, HGRenderer *a2)
 {
   v24 = *MEMORY[0x277D85DE8];
   if ((*(this + 105) & 1) == 0)
   {
-    v3 = this;
     *(this + 105) = 1;
-    this = (*(*a2 + 304))(a2);
-    if (this)
+    if ((*(*a2 + 304))(a2))
     {
-      this = HGRenderer::DepthManager(a2, 0);
-      if (*(this + 40) == 1)
+      if (*(HGRenderer::DepthManager(a2, 0) + 40) == 1)
       {
         v4 = (*(*a2 + 128))(a2, 1);
-        v5 = *(v3 + 42);
-        v6 = *(v3 + 43);
-        v7 = *(v3 + 44);
-        v8 = *(v3 + 45);
+        v5 = *(this + 42);
+        v6 = *(this + 43);
+        v7 = *(this + 44);
+        v8 = *(this + 45);
         HGTraceGuard::HGTraceGuard(v22, "depth", 1, "HGNode::BufferingNode");
         v11 = atomic_load(HGLogger::_enabled);
         if (v11)
@@ -239,49 +236,47 @@ HGNode *HGNode::PreBuffering(HGNode *this, HGRenderer *a2)
 
         v17 = HGObject::operator new(0x80uLL);
         HGBuffer::HGBuffer(v17, v12 | (v14 << 32), v13 | (v15 << 32), 28);
-        *(v3 + 12) = v17;
+        *(this + 12) = v17;
         v20 = atomic_load(HGLogger::_enabled);
         if (v20)
         {
-          HGLogger::log("depth", 1, "cached : %p\n", v18, v19, *(v3 + 12));
+          HGLogger::log("depth", 1, "cached : %p\n", v18, v19, *(this + 12));
         }
 
         *v23 = xmmword_260344BA0;
-        HGRenderUtils::BufferFiller::BufferFiller(v21);
+        HGRenderUtils::BufferFiller::BufferFiller(&v21);
       }
     }
   }
-
-  return this;
 }
 
-void sub_25FC8A838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC8A838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, void);
   HGRenderUtils::BufferFiller::~BufferFiller(va);
   HGTraceGuard::~HGTraceGuard(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8A854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FC8A854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8A868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_25FC8A868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, HGProfiler *a15)
 {
   HGObject::operator delete(v15);
   HGTraceGuard::~HGTraceGuard(&a15);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8A888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FC8A888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -306,7 +301,7 @@ uint64_t HGNode::PullTextures(HGNode *this, HGGPURenderer **a2, int a3)
   v6 = 0;
   v7 = 0;
   v8 = *(this + 71) + a3;
-  v9 = (a2 + 21);
+  v9 = a2 + 21;
   v21 = a2 + 36;
   do
   {
@@ -328,14 +323,14 @@ uint64_t HGNode::PullTextures(HGNode *this, HGGPURenderer **a2, int a3)
           else
           {
             v16 = v8 + v11;
-            if (!*&v9[8 * v16])
+            if (!v9[v16])
             {
               v17 = *(v12 + 144);
-              *&v9[8 * v16] = HGGPURenderer::GetNodeTexture(*a2, v17, *&v21[16 * v16], 0, 1u);
+              v9[v16] = HGGPURenderer::GetNodeTexture(*a2, v17, *&v21[16 * v16], 0, 1u);
               v20 = atomic_load(HGLogger::_enabled);
               if (v20)
               {
-                HGLogger::log("gpu", 1, "rendering leaf (%p, %x) to texture(%p, %d)\n", v18, v19, v17, *(v17 + 12), *&v9[8 * v16], v16);
+                HGLogger::log("gpu", 1, "rendering leaf (%p, %x) to texture(%p, %d)\n", v18, v19, v17, *(v17 + 12), v9[v16], v16);
               }
 
               v6 = (v6 + 1);
@@ -360,9 +355,9 @@ uint64_t HGNode::PullMetalTextures(HGNode *this, HGRenderer **a2, int a3)
     v6 = 0;
     v7 = 0;
     v8 = *(this + 71) + a3;
-    v9 = (a2 + 21);
+    v9 = a2 + 21;
     v32 = a2 + 36;
-    v29 = (a2 + 21);
+    v29 = a2 + 21;
     v30 = v8;
     while (1)
     {
@@ -384,7 +379,7 @@ uint64_t HGNode::PullMetalTextures(HGNode *this, HGRenderer **a2, int a3)
             else
             {
               v16 = v8 + v11;
-              if (!*&v9[8 * v16])
+              if (!v9[v16])
               {
                 Output = HGRenderer::GetOutput(*a2, v12);
                 v18 = &v32[16 * v16];
@@ -416,7 +411,7 @@ LABEL_20:
                 v23 = HGObject::operator new(0x80uLL);
                 HGTexture::HGTexture(v23, *v18, v21);
 LABEL_22:
-                *&v29[8 * v16] = v23;
+                v29[v16] = v23;
                 (*(*v21 + 24))(v21);
                 v24 = *(*NodeBitmap + 24);
                 v25 = NodeBitmap;
@@ -425,7 +420,7 @@ LABEL_22:
                 v28 = atomic_load(HGLogger::_enabled);
                 if (v28)
                 {
-                  HGLogger::log("gpu", 1, "rendering leaf (%p, %x) to texture(%p, %d)\n", v26, v27, Output, *(Output + 3), *&v29[8 * v16], v16);
+                  HGLogger::log("gpu", 1, "rendering leaf (%p, %x) to texture(%p, %d)\n", v26, v27, Output, *(Output + 3), v29[v16], v16);
                 }
 
                 v6 = (v6 + 1);
@@ -646,7 +641,7 @@ LABEL_37:
   return v11;
 }
 
-HGNode *HGNode::PageEnd(HGNode *this, HGPage *a2, int a3, HGHandler *a4)
+HGNode *HGNode::PageEnd(HGNode *this, HGPage *a2, uint64_t a3, HGHandler *a4)
 {
   if (a4)
   {
@@ -655,7 +650,7 @@ HGNode *HGNode::PageEnd(HGNode *this, HGPage *a2, int a3, HGHandler *a4)
       this = *(a2 + 30);
     }
 
-    (*(*this + 216))(this, a4);
+    (*(*this + 216))(this, a4, a3);
     v5 = *(**a2 + 392);
 
     return v5();
@@ -666,8 +661,8 @@ HGNode *HGNode::PageEnd(HGNode *this, HGPage *a2, int a3, HGHandler *a4)
 
 uint64_t HGNode::RenderPage(HGNode *this, HGRect *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v10 = a2;
+  v11 = *MEMORY[0x277D85DE8];
+  v9[2] = a2;
   if (this)
   {
     (*(*this + 472))(this, a2, 0);
@@ -715,8 +710,8 @@ void sub_25FC8BA44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t HGNode::RenderPageMetal(HGNode *this, HGPage *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = a2;
+  v14 = *MEMORY[0x277D85DE8];
+  v12[2] = a2;
   if (this)
   {
     (*(*this + 480))(this, a2, 0);
@@ -762,12 +757,12 @@ uint64_t HGNode::RenderPageMetal(HGNode *this, HGPage *a2)
   return v6;
 }
 
-void sub_25FC8BD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FC8BD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, HGProfiler *);
+  v16 = va_arg(va1, void);
   HGTraceGuard::~HGTraceGuard(va);
   HGPagePullMetalTexturesGuard::~HGPagePullMetalTexturesGuard(va1);
   _Unwind_Resume(a1);
@@ -1015,51 +1010,51 @@ LABEL_36:
   return result;
 }
 
-void sub_25FC8C210(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_25FC8C210(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (v9)
   {
-    (*(*v9 + 24))(v9);
+    (*(*v9 + 24))(v9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v16)
   {
-    (*(*v16 + 24))(v16);
+    (*(*v16 + 24))(v16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v15)
   {
-    (*(*v15 + 24))(v15);
+    (*(*v15 + 24))(v15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v14)
   {
-    (*(*v14 + 24))(v14);
+    (*(*v14 + 24))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v13)
   {
-    (*(*v13 + 24))(v13);
+    (*(*v13 + 24))(v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v12)
   {
-    (*(*v12 + 24))(v12);
+    (*(*v12 + 24))(v12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v11)
   {
-    (*(*v11 + 24))(v11);
+    (*(*v11 + 24))(v11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v10)
   {
-    (*(*v10 + 24))(v10);
+    (*(*v10 + 24))(v10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1261,7 +1256,7 @@ uint64_t HGNode::GetFilter(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t HGNode::BindTexture(HGNode *this, HGHandler *a2, int a3)
+uint64_t HGNode::BindTexture(HGNode *this, HGHandler *a2, uint64_t a3)
 {
   HGHandler::TexCoord(a2, a3, 0, 0, 0);
   if (!(*(**(a2 + 18) + 128))(*(a2 + 18), 46))
@@ -1403,12 +1398,12 @@ uint64_t HGNode3D::RenderTile(HGNode3D *this, int32x2_t *a2)
   return 0;
 }
 
-uint64_t HGNode::GetProgramDescriptor@<X0>(HGNode *this@<X0>, void *a2@<X8>)
+uint64_t *HGNode::GetProgramDescriptor@<X0>(uint64_t *__return_ptr a1@<X8>, HGNode *this@<X0>)
 {
   result = *(this + 50);
   if (result)
   {
-    *a2 = result;
+    *a1 = result;
 LABEL_9:
     v7 = *(*result + 16);
 
@@ -1455,7 +1450,7 @@ LABEL_9:
 
   (*(*this + 328))(this, v5);
   result = *(this + 50);
-  *a2 = result;
+  *a1 = result;
   if (result)
   {
     goto LABEL_9;
@@ -1683,61 +1678,61 @@ LABEL_27:
   HGObject::~HGObject(v9);
 }
 
-void *std::__hash_table<std::__hash_value_type<HGNode const*,BOOL>,std::__unordered_map_hasher<HGNode const*,std::__hash_value_type<HGNode const*,BOOL>,std::hash<HGNode const*>,std::equal_to<HGNode const*>,true>,std::__unordered_map_equal<HGNode const*,std::__hash_value_type<HGNode const*,BOOL>,std::equal_to<HGNode const*>,std::hash<HGNode const*>,true>,std::allocator<std::__hash_value_type<HGNode const*,BOOL>>>::__emplace_unique_key_args<HGNode const*,std::piecewise_construct_t const&,std::tuple<HGNode const* const&>,std::tuple<>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<HGNode const*,BOOL>,std::__unordered_map_hasher<HGNode const*,std::__hash_value_type<HGNode const*,BOOL>,std::hash<HGNode const*>,std::equal_to<HGNode const*>,true>,std::__unordered_map_equal<HGNode const*,std::__hash_value_type<HGNode const*,BOOL>,std::equal_to<HGNode const*>,std::hash<HGNode const*>,true>,std::allocator<std::__hash_value_type<HGNode const*,BOOL>>>::__emplace_unique_key_args<HGNode const*,std::piecewise_construct_t const&,std::tuple<HGNode const* const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = HIDWORD(*a2);
-  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-  v6 = a1[1];
-  if (!*&v6)
+  v4 = *a2;
+  v5 = HIDWORD(*a2);
+  v6 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_23;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
   {
-    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
-    if (v5 >= *&v6)
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+    if (v7 >= *&v8)
     {
-      v8 = v5 % *&v6;
+      v10 = v7 % *&v8;
     }
   }
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v10 = v7 & (*&v8 - 1);
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v7.u32[0] < 2uLL)
+  if (v9.u32[0] < 2uLL)
   {
     while (1)
     {
-      v12 = v10[1];
-      if (v12 == v5)
+      v14 = v12[1];
+      if (v14 == v7)
       {
-        if (v10[2] == v2)
+        if (v12[2] == v4)
         {
-          return v10;
+          return v12;
         }
       }
 
-      else if ((v12 & (*&v6 - 1)) != v8)
+      else if ((v14 & (*&v8 - 1)) != v10)
       {
         goto LABEL_23;
       }
 
-      v10 = *v10;
-      if (!v10)
+      v12 = *v12;
+      if (!v12)
       {
         goto LABEL_23;
       }
@@ -1746,42 +1741,42 @@ LABEL_23:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == v5)
+    v13 = v12[1];
+    if (v13 == v7)
     {
       break;
     }
 
-    if (v11 >= *&v6)
+    if (v13 >= *&v8)
     {
-      v11 %= *&v6;
+      v13 %= *&v8;
     }
 
-    if (v11 != v8)
+    if (v13 != v10)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v10 = *v10;
-    if (!v10)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_23;
     }
   }
 
-  if (v10[2] != v2)
+  if (v12[2] != v4)
   {
     goto LABEL_12;
   }
 
-  return v10;
+  return v12;
 }
 
-const void **std::deque<HGNode const*>::__add_front_capacity(uint64_t a1)
+void std::deque<HGNode const*>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -1793,15 +1788,15 @@ const void **std::deque<HGNode const*>::__add_front_capacity(uint64_t a1)
     v4 = ((v2 - v1) << 6) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x200)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x200)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -1809,17 +1804,17 @@ const void **std::deque<HGNode const*>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    if (!(v10 >> 61))
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -1827,10 +1822,10 @@ const void **std::deque<HGNode const*>::__add_front_capacity(uint64_t a1)
     std::__throw_bad_array_new_length[abi:ne200100]();
   }
 
-  *(a1 + 32) = v5 + 512;
-  v11 = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<HGNode **>::emplace_front<HGNode **>(a1, &v11);
+  a1[4] = (v5 + 512);
+  v10 = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<HGNode **>::emplace_front<HGNode **>(a1, &v10);
 }
 
 void sub_25FC8DA88(_Unwind_Exception *a1)
@@ -1840,7 +1835,7 @@ void sub_25FC8DA88(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::deque<HGNode const*>::__append(void *a1, unint64_t a2)
+void std::deque<HGNode const*>::__append(unint64_t *a1, unint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -1953,10 +1948,9 @@ LABEL_16:
   }
 }
 
-void *std::deque<HGNode const*>::__add_back_capacity(void *result, unint64_t a2)
+void std::deque<HGNode const*>::__add_back_capacity(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -1977,7 +1971,7 @@ void *std::deque<HGNode const*>::__add_back_capacity(void *result, unint64_t a2)
     v5 = v4 >> 9;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 >> 9)
   {
     v7 = v6 >> 9;
@@ -1990,19 +1984,19 @@ void *std::deque<HGNode const*>::__add_back_capacity(void *result, unint64_t a2)
 
   if (v5 <= v6 >> 9)
   {
-    for (result[4] = v6 - (v7 << 9); v7; --v7)
+    for (a1[4] = v6 - (v7 << 9); v7; --v7)
     {
-      v12 = v2[1];
+      v12 = a1[1];
       v14 = *v12;
-      v2[1] = v12 + 1;
-      result = std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(v2, &v14);
+      a1[1] = (v12 + 1);
+      std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v14);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     v10 = v3 >> 3;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
@@ -2031,7 +2025,7 @@ void *std::deque<HGNode const*>::__add_back_capacity(void *result, unint64_t a2)
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -2039,16 +2033,14 @@ void *std::deque<HGNode const*>::__add_back_capacity(void *result, unint64_t a2)
       operator new();
     }
 
-    for (result[4] -= v7 << 9; v7; --v7)
+    for (a1[4] -= v7 << 9; v7; --v7)
     {
-      v13 = v2[1];
+      v13 = a1[1];
       v14 = *v13;
-      v2[1] = v13 + 1;
-      result = std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(v2, &v14);
+      a1[1] = (v13 + 1);
+      std::__split_buffer<HGNode **>::emplace_back<HGNode **&>(a1, &v14);
     }
   }
-
-  return result;
 }
 
 void sub_25FC8E2F0(_Unwind_Exception *exception_object)
@@ -2192,7 +2184,7 @@ uint64_t HGComicColorStroke::GetROI(HGComicColorStroke *this, HGRenderer *a2, in
     *&v21.var0 = 0xFFFFFFF8FFFFFFF8;
     *&v21.var2 = 0x800000008;
     HGRect::Grow(&v18, v21);
-    v14 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v14 = HGRectMake4i(-1, -1, 1, 1);
     v16 = v15;
     *&v22.var0 = v14;
     *&v22.var2 = v16;
@@ -2212,7 +2204,7 @@ uint64_t HGComicColorStroke::GetROI(HGComicColorStroke *this, HGRenderer *a2, in
     *&v19.var0 = 0xFFFFFFF8FFFFFFF8;
     *&v19.var2 = 0x800000008;
     HGRect::Grow(&v18, v19);
-    v4 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v4 = HGRectMake4i(-1, -1, 1, 1);
     v6 = v5;
     *&v20.var0 = v4;
     *&v20.var2 = v6;
@@ -2512,7 +2504,7 @@ uint64_t *HGMetalFunctionCache::getFunctionWithSource(uint64_t a1, std::string *
     if (FunctionWithSource)
     {
       p_p = &__p;
-      std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::__unordered_map_hasher<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,HGMetalFunctionCache::InfoHash,std::equal_to<HGMetalFunctionCache::Info>,true>,std::__unordered_map_equal<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::equal_to<HGMetalFunctionCache::Info>,HGMetalFunctionCache::InfoHash,true>,std::allocator<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>>>::__emplace_unique_key_args<HGMetalFunctionCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalFunctionCache::Info const&>,std::tuple<>>((a1 + 8), &__p)[6] = FunctionWithSource;
+      std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::__unordered_map_hasher<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,HGMetalFunctionCache::InfoHash,std::equal_to<HGMetalFunctionCache::Info>,true>,std::__unordered_map_equal<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::equal_to<HGMetalFunctionCache::Info>,HGMetalFunctionCache::InfoHash,true>,std::allocator<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>>>::__emplace_unique_key_args<HGMetalFunctionCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalFunctionCache::Info const&>,std::tuple<>>((a1 + 8), &__p, &std::piecewise_construct, &p_p)[6] = FunctionWithSource;
     }
   }
 
@@ -2605,30 +2597,30 @@ uint64_t HGMetalFunctionCache::_createFunctionWithSource(id *a1, uint64_t *a2, u
   return v17;
 }
 
-void sub_25FC8F318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FC8F318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8F32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FC8F32C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8F340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FC8F340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8F354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FC8F354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -2672,7 +2664,7 @@ uint64_t *HGMetalFunctionCache::getFunctionWithLibrary(uint64_t a1, std::string 
     if (FunctionWithLibrary)
     {
       p_p = &__p;
-      std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::__unordered_map_hasher<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,HGMetalFunctionCache::InfoHash,std::equal_to<HGMetalFunctionCache::Info>,true>,std::__unordered_map_equal<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::equal_to<HGMetalFunctionCache::Info>,HGMetalFunctionCache::InfoHash,true>,std::allocator<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>>>::__emplace_unique_key_args<HGMetalFunctionCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalFunctionCache::Info const&>,std::tuple<>>((a1 + 8), &__p)[6] = FunctionWithLibrary;
+      std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::__unordered_map_hasher<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,HGMetalFunctionCache::InfoHash,std::equal_to<HGMetalFunctionCache::Info>,true>,std::__unordered_map_equal<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::equal_to<HGMetalFunctionCache::Info>,HGMetalFunctionCache::InfoHash,true>,std::allocator<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>>>::__emplace_unique_key_args<HGMetalFunctionCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalFunctionCache::Info const&>,std::tuple<>>((a1 + 8), &__p, &std::piecewise_construct, &p_p)[6] = FunctionWithLibrary;
     }
   }
 
@@ -2794,7 +2786,7 @@ LABEL_25:
   return v6;
 }
 
-uint64_t HGMetalRenderPipelineStateCache::Info::operator<(int *a1, int *a2)
+BOOL HGMetalRenderPipelineStateCache::Info::operator<(int *a1, int *a2)
 {
   v2 = *(a1 + 49);
   v3 = *(a2 + 49);
@@ -3126,7 +3118,7 @@ uint64_t HGMetalRenderPipelineStateCache::clear(HGMetalRenderPipelineStateCache 
   return pthread_mutex_unlock((this + 32));
 }
 
-void *HGMetalRenderPipelineStateCache::getRenderPipelineState(uint64_t a1, int *a2)
+void *HGMetalRenderPipelineStateCache::getRenderPipelineState(uint64_t a1, int32x2_t *a2)
 {
   pthread_mutex_lock((a1 + 32));
   v4 = *(a1 + 16);
@@ -3162,26 +3154,28 @@ void *HGMetalRenderPipelineStateCache::getRenderPipelineState(uint64_t a1, int *
   {
 LABEL_11:
     RenderPipelineState = HGMetalRenderPipelineStateCache::_createRenderPipelineState(a1, a2);
-    *(std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::__map_value_compare<HGMetalRenderPipelineStateCache::Info,std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::less<HGMetalRenderPipelineStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>>>::__emplace_unique_key_args<HGMetalRenderPipelineStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalRenderPipelineStateCache::Info const&>,std::tuple<>>(a1 + 8, a2) + 464) = RenderPipelineState;
+    v13 = a2;
+    std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::__map_value_compare<HGMetalRenderPipelineStateCache::Info,std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::less<HGMetalRenderPipelineStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>>>::__emplace_unique_key_args<HGMetalRenderPipelineStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalRenderPipelineStateCache::Info const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, &v13, &v12)[58] = RenderPipelineState;
   }
 
-  v9 = *(std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::__map_value_compare<HGMetalRenderPipelineStateCache::Info,std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::less<HGMetalRenderPipelineStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>>>::__emplace_unique_key_args<HGMetalRenderPipelineStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalRenderPipelineStateCache::Info const&>,std::tuple<>>(a1 + 8, a2) + 464);
+  v13 = a2;
+  v9 = std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::__map_value_compare<HGMetalRenderPipelineStateCache::Info,std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::less<HGMetalRenderPipelineStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>>>::__emplace_unique_key_args<HGMetalRenderPipelineStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalRenderPipelineStateCache::Info const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, &v13, &v12)[58];
   pthread_mutex_unlock((a1 + 32));
   v10 = v9;
   return v9;
 }
 
-void *HGMetalRenderPipelineStateCache::_createRenderPipelineState(id *a1, unsigned int *a2)
+void *HGMetalRenderPipelineStateCache::_createRenderPipelineState(id *a1, int32x2_t *a2)
 {
   HGTraceGuard::HGTraceGuard(v25, "mtl_utils", 2, "HGMetalRenderPipelineStateCache::_createRenderPipelineState()");
   v4 = objc_opt_new();
   [v4 setStencilAttachmentPixelFormat:0];
-  [v4 setRasterSampleCount:a2[96]];
-  [v4 setVertexFunction:*(a2 + 49)];
-  [v4 setFragmentFunction:*(a2 + 50)];
+  [v4 setRasterSampleCount:a2[48].u32[0]];
+  [v4 setVertexFunction:*&a2[49]];
+  [v4 setFragmentFunction:*&a2[50]];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v6 = *(a2 + 51);
-  for (i = *(a2 + 52); v6 != i; ++v6)
+  v6 = a2[51];
+  for (i = a2[52]; v6 != *&i; ++v6)
   {
     [v5 addObject:*v6];
   }
@@ -3198,7 +3192,7 @@ void *HGMetalRenderPipelineStateCache::_createRenderPipelineState(id *a1, unsign
   do
   {
     [objc_msgSend(objc_msgSend(v4 "colorAttachments")];
-    if (*(v10 + 40) == 1)
+    if (v10[5].i8[0] == 1)
     {
       [objc_msgSend(objc_msgSend(v4 "colorAttachments")];
       v13 = atomic_load(HGLogger::_enabled);
@@ -3207,7 +3201,7 @@ void *HGMetalRenderPipelineStateCache::_createRenderPipelineState(id *a1, unsign
         HGLogger::log("mtl_utils", 3, "[BLENDING ON] for unit: %d\n", v11, v12, v9);
       }
 
-      HGMetalBlendingInfo::HGMetalBlendingInfo(v24, (v10 + 2));
+      HGMetalBlendingInfo::HGMetalBlendingInfo(v24, v10 + 1);
       [objc_msgSend(objc_msgSend(v4 "colorAttachments")];
       [objc_msgSend(objc_msgSend(v4 "colorAttachments")];
       [objc_msgSend(objc_msgSend(v4 "colorAttachments")];
@@ -3222,11 +3216,11 @@ void *HGMetalRenderPipelineStateCache::_createRenderPipelineState(id *a1, unsign
     }
 
     ++v9;
-    v10 += 12;
+    v10 += 6;
   }
 
   while (v9 != 8);
-  if (*(a2 + 388))
+  if (a2[48].i8[4])
   {
     v15 = 252;
   }
@@ -3261,51 +3255,51 @@ void *HGMetalRenderPipelineStateCache::_createRenderPipelineState(id *a1, unsign
   return v16;
 }
 
-void sub_25FC8FEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FC8FEAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8FEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FC8FEC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8FED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FC8FED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8FEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FC8FEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8FEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FC8FEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8FF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FC8FF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC8FF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FC8FF24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -3320,7 +3314,7 @@ uint64_t HGMetalSamplerStateCache::HGMetalSamplerStateCache(uint64_t a1, uint64_
   return a1;
 }
 
-uint64_t *HGMetalSamplerStateCache::getSamplerState(uint64_t a1, uint64_t a2)
+void *HGMetalSamplerStateCache::getSamplerState(uint64_t a1, unint64_t *a2)
 {
   pthread_mutex_lock((a1 + 32));
   v4 = *(a1 + 16);
@@ -3330,8 +3324,8 @@ uint64_t *HGMetalSamplerStateCache::getSamplerState(uint64_t a1, uint64_t a2)
   }
 
   v6 = *a2;
-  v5 = *(a2 + 8);
-  v7 = *(a2 + 16);
+  v5 = a2[1];
+  v7 = a2[2];
   v8 = (a1 + 16);
   v9 = *(a2 + 24);
   do
@@ -3379,10 +3373,12 @@ LABEL_14:
   {
 LABEL_16:
     SamplerState = HGMetalSamplerStateCache::_createSamplerState(a1, a2);
-    std::__tree<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::__map_value_compare<HGMetalSamplerStateCache::Info,std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::less<HGMetalSamplerStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>>>::__emplace_unique_key_args<HGMetalSamplerStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalSamplerStateCache::Info const&>,std::tuple<>>(a1 + 8, a2)[8] = SamplerState;
+    v20 = a2;
+    std::__tree<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::__map_value_compare<HGMetalSamplerStateCache::Info,std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::less<HGMetalSamplerStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>>>::__emplace_unique_key_args<HGMetalSamplerStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalSamplerStateCache::Info const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, &v20)[8] = SamplerState;
   }
 
-  v15 = std::__tree<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::__map_value_compare<HGMetalSamplerStateCache::Info,std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::less<HGMetalSamplerStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>>>::__emplace_unique_key_args<HGMetalSamplerStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalSamplerStateCache::Info const&>,std::tuple<>>(a1 + 8, a2)[8];
+  v20 = a2;
+  v15 = std::__tree<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::__map_value_compare<HGMetalSamplerStateCache::Info,std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::less<HGMetalSamplerStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>>>::__emplace_unique_key_args<HGMetalSamplerStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalSamplerStateCache::Info const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, &v20)[8];
   pthread_mutex_unlock((a1 + 32));
   v16 = v15;
   return v15;
@@ -4087,16 +4083,16 @@ void HGMetalCommandBufferRef::waitUntilScheduled(id *this)
   HGTraceGuard::~HGTraceGuard(v2);
 }
 
-void sub_25FC90880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, __int16 a12, char a13)
+void sub_25FC90880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, HGProfiler *a12)
 {
   HGSignPost::EventScopeGuard::~EventScopeGuard(&a11);
-  HGTraceGuard::~HGTraceGuard(&a13);
+  HGTraceGuard::~HGTraceGuard(&a12);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC9089C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC9089C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
@@ -4110,27 +4106,27 @@ void HGMetalCommandBufferRef::waitUntilCompleted(id *this)
   HGTraceGuard::~HGTraceGuard(v2);
 }
 
-void sub_25FC90948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, __int16 a12, char a13)
+void sub_25FC90948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, HGProfiler *a12)
 {
   HGSignPost::EventScopeGuard::~EventScopeGuard(&a11);
-  HGTraceGuard::~HGTraceGuard(&a13);
+  HGTraceGuard::~HGTraceGuard(&a12);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC90964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC90964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   HGTraceGuard::~HGTraceGuard(va);
   _Unwind_Resume(a1);
 }
 
-std::string *HGMetalUtils::stringForMetalVertexOutputStruct@<X0>(HGMetalUtils *this@<X0>, char a2@<W1>, uint64_t a3@<X8>)
+std::string *HGMetalUtils::stringForMetalVertexOutputStruct@<X0>(std::string *__return_ptr a1@<X8>, HGMetalUtils *this@<X0>, char a3@<W1>)
 {
   v4 = this;
-  *(a3 + 23) = 0;
-  *a3 = 0;
-  std::string::append(a3, "struct VertexInOut {\n");
-  std::string::append(a3, "    float4 _position  [[ position ]];\n");
+  *(&a1->__r_.__value_.__s + 23) = 0;
+  a1->__r_.__value_.__s.__data_[0] = 0;
+  std::string::append(a1, "struct VertexInOut {\n");
+  std::string::append(a1, "    float4 _position  [[ position ]];\n");
   if (v4)
   {
     for (i = 0; v4 != i; ++i)
@@ -4198,7 +4194,7 @@ std::string *HGMetalUtils::stringForMetalVertexOutputStruct@<X0>(HGMetalUtils *t
         v16 = __p[1];
       }
 
-      std::string::append(a3, v15, v16);
+      std::string::append(a1, v15, v16);
       if (SHIBYTE(v22) < 0)
       {
         operator delete(__p[0]);
@@ -4254,12 +4250,12 @@ LABEL_26:
     }
   }
 
-  if (a2)
+  if (a3)
   {
-    std::string::append(a3, "    float4 _color     [[ user(primary) ]];\n");
+    std::string::append(a1, "    float4 _color     [[ user(primary) ]];\n");
   }
 
-  return std::string::append(a3, "};\n\n");
+  return std::string::append(a1, "};\n\n");
 }
 
 void sub_25FC90BF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
@@ -4273,13 +4269,13 @@ void sub_25FC90BF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *HGMetalUtils::stringForMetalVertexShader@<X0>(HGMetalUtils *this@<X0>, const char *a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
+std::string *HGMetalUtils::stringForMetalVertexShader@<X0>(std::string *__return_ptr a1@<X8>, HGMetalUtils *this@<X0>, const char *a3@<X1>, char a4@<W2>)
 {
-  v4 = a2;
-  *(a4 + 23) = 0;
-  *a4 = 0;
-  std::string::append(a4, "[[ vertex ]]\n");
-  std::string::append(a4, "VertexInOut ");
+  v4 = a3;
+  *(&a1->__r_.__value_.__s + 23) = 0;
+  a1->__r_.__value_.__s.__data_[0] = 0;
+  std::string::append(a1, "[[ vertex ]]\n");
+  std::string::append(a1, "VertexInOut ");
   v7 = strlen(this);
   if (v7 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4326,7 +4322,7 @@ std::string *HGMetalUtils::stringForMetalVertexShader@<X0>(HGMetalUtils *this@<X
     size = v53.__r_.__value_.__l.__size_;
   }
 
-  std::string::append(a4, v11, size);
+  std::string::append(a1, v11, size);
   if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v53.__r_.__value_.__l.__data_);
@@ -4343,8 +4339,8 @@ std::string *HGMetalUtils::stringForMetalVertexShader@<X0>(HGMetalUtils *this@<X
 
   operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_15:
-  std::string::append(a4, "    const device float4 *positions [[ buffer(1) ]], \n");
-  std::string::append(a4, "    const device float4 *colors [[ buffer(2) ]], \n");
+  std::string::append(a1, "    const device float4 *positions [[ buffer(1) ]], \n");
+  std::string::append(a1, "    const device float4 *colors [[ buffer(2) ]], \n");
   v13 = v4;
   if (v4)
   {
@@ -4422,7 +4418,7 @@ LABEL_15:
         v27 = v53.__r_.__value_.__l.__size_;
       }
 
-      std::string::append(a4, v26, v27);
+      std::string::append(a1, v26, v27);
       if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v53.__r_.__value_.__l.__data_);
@@ -4509,15 +4505,15 @@ LABEL_42:
     }
   }
 
-  std::string::append(a4, "    uint vid [[ vertex_id ]])\n{\n");
-  std::string::append(a4, "    constant float4x4 *projectionMatrix = matrices;\n");
+  std::string::append(a1, "    uint vid [[ vertex_id ]])\n{\n");
+  std::string::append(a1, "    constant float4x4 *projectionMatrix = matrices;\n");
   if (v4)
   {
-    std::string::append(a4, "    constant float4x4 *textureMatrices = matrices+1;\n");
+    std::string::append(a1, "    constant float4x4 *textureMatrices = matrices+1;\n");
   }
 
-  std::string::append(a4, "    VertexInOut vertices;\n");
-  std::string::append(a4, "    vertices._position  = *projectionMatrix * positions[vid];\n");
+  std::string::append(a1, "    VertexInOut vertices;\n");
+  std::string::append(a1, "    vertices._position  = *projectionMatrix * positions[vid];\n");
   if (v4)
   {
     v28 = 0;
@@ -4620,7 +4616,7 @@ LABEL_42:
         v44 = __dst.__r_.__value_.__l.__size_;
       }
 
-      std::string::append(a4, p_dst, v44);
+      std::string::append(a1, p_dst, v44);
       if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__dst.__r_.__value_.__l.__data_);
@@ -4718,13 +4714,13 @@ LABEL_48:
     }
   }
 
-  if (a3)
+  if (a4)
   {
-    std::string::append(a4, "    vertices._color = colors[vid]; \n");
+    std::string::append(a1, "    vertices._color = colors[vid]; \n");
   }
 
-  std::string::append(a4, "    return vertices;\n");
-  return std::string::append(a4, "}\n\n");
+  std::string::append(a1, "    return vertices;\n");
+  return std::string::append(a1, "}\n\n");
 }
 
 void sub_25FC912D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, void *__p, uint64_t a45, int a46, __int16 a47, char a48, char a49)
@@ -4747,12 +4743,12 @@ void sub_25FC912D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *HGMetalUtils::stringForMetalFragmentOutputStruct@<X0>(HGMetalUtils *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+std::string *HGMetalUtils::stringForMetalFragmentOutputStruct@<X0>(std::string *__return_ptr a1@<X8>, HGMetalUtils *this@<X0>, int a3@<W1>)
 {
   v4 = this;
-  *(a3 + 23) = 0;
-  *a3 = 0;
-  std::string::append(a3, "struct FragmentOut {\n");
+  *(&a1->__r_.__value_.__s + 23) = 0;
+  a1->__r_.__value_.__s.__data_[0] = 0;
+  std::string::append(a1, "struct FragmentOut {\n");
   if (v4)
   {
     v6 = 0;
@@ -4826,7 +4822,7 @@ std::string *HGMetalUtils::stringForMetalFragmentOutputStruct@<X0>(HGMetalUtils 
         v17 = __p[1];
       }
 
-      std::string::append(a3, v16, v17);
+      std::string::append(a1, v16, v17);
       if (SHIBYTE(v23) < 0)
       {
         operator delete(__p[0]);
@@ -4891,14 +4887,14 @@ LABEL_3:
     }
   }
 
-  std::string::append(a3, "    float4 color0 [[ color(0) ]];\n");
+  std::string::append(a1, "    float4 color0 [[ color(0) ]];\n");
 LABEL_30:
-  if (a2)
+  if (a3)
   {
-    std::string::append(a3, "    float  depth  [[ depth(any) ]];\n");
+    std::string::append(a1, "    float  depth  [[ depth(any) ]];\n");
   }
 
-  return std::string::append(a3, "};\n\n");
+  return std::string::append(a1, "};\n\n");
 }
 
 void sub_25FC91724(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
@@ -5295,10 +5291,10 @@ LABEL_2:
   while (v17 < v15);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::__unordered_map_hasher<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,HGMetalFunctionCache::InfoHash,std::equal_to<HGMetalFunctionCache::Info>,true>,std::__unordered_map_equal<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::equal_to<HGMetalFunctionCache::Info>,HGMetalFunctionCache::InfoHash,true>,std::allocator<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>>>::find<HGMetalFunctionCache::Info>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::__unordered_map_hasher<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,HGMetalFunctionCache::InfoHash,std::equal_to<HGMetalFunctionCache::Info>,true>,std::__unordered_map_equal<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::equal_to<HGMetalFunctionCache::Info>,HGMetalFunctionCache::InfoHash,true>,std::allocator<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>>>::find<HGMetalFunctionCache::Info>(void *a1, uint64_t *a2)
 {
   v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);
@@ -5318,12 +5314,12 @@ uint64_t **std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,H
   }
 
   v8 = v2[3];
-  v9 = (&v8[8 * v6 - 0xC3910C8D016B07DLL] + (v6 >> 2) - 3) ^ v6;
+  v9 = ((v6 << 6) + (v6 >> 2) + v8 - 0x61C8864680B583EBLL) ^ v6;
   v10 = vcnt_s8(v7);
   v10.i16[0] = vaddlv_u8(v10);
   if (v10.u32[0] > 1uLL)
   {
-    v11 = (&v8[8 * v6 - 0xC3910C8D016B07DLL] + (v6 >> 2) - 3) ^ v6;
+    v11 = ((v6 << 6) + (v6 >> 2) + v8 - 0x61C8864680B583EBLL) ^ v6;
     if (v9 >= *&v7)
     {
       v11 = v9 % *&v7;
@@ -5436,97 +5432,97 @@ uint64_t **std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,H
   return v13;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::__unordered_map_hasher<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,HGMetalFunctionCache::InfoHash,std::equal_to<HGMetalFunctionCache::Info>,true>,std::__unordered_map_equal<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::equal_to<HGMetalFunctionCache::Info>,HGMetalFunctionCache::InfoHash,true>,std::allocator<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>>>::__emplace_unique_key_args<HGMetalFunctionCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalFunctionCache::Info const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::__unordered_map_hasher<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,HGMetalFunctionCache::InfoHash,std::equal_to<HGMetalFunctionCache::Info>,true>,std::__unordered_map_equal<HGMetalFunctionCache::Info,std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>,std::equal_to<HGMetalFunctionCache::Info>,HGMetalFunctionCache::InfoHash,true>,std::allocator<std::__hash_value_type<HGMetalFunctionCache::Info,HGMTLFunctionType>>>::__emplace_unique_key_args<HGMetalFunctionCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalFunctionCache::Info const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2;
+  v6 = a2[1];
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v7 = v6;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v31, a2, v5);
-  v7 = v2[3];
-  v8 = (&v7[8 * v6 - 0xC3910C8D016B07DLL] + (v6 >> 2) - 3) ^ v6;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v33, a2, v7);
+  v9 = v4[3];
+  v10 = ((v8 << 6) + (v8 >> 2) + v9 - 0x61C8864680B583EBLL) ^ v8;
+  v11 = a1[1];
+  if (!*&v11)
   {
     goto LABEL_59;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  if (v10.u32[0] > 1uLL)
+  v12 = vcnt_s8(v11);
+  v12.i16[0] = vaddlv_u8(v12);
+  if (v12.u32[0] > 1uLL)
   {
-    v11 = (&v7[8 * v6 - 0xC3910C8D016B07DLL] + (v6 >> 2) - 3) ^ v6;
-    if (v8 >= *&v9)
+    v13 = ((v8 << 6) + (v8 >> 2) + v9 - 0x61C8864680B583EBLL) ^ v8;
+    if (v10 >= *&v11)
     {
-      v11 = v8 % *&v9;
+      v13 = v10 % *&v11;
     }
   }
 
   else
   {
-    v11 = (*&v9 - 1) & v8;
+    v13 = (*&v11 - 1) & v10;
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_59:
     operator new();
   }
 
-  v14 = *(v2 + 23);
-  if (v14 >= 0)
+  v16 = *(v4 + 23);
+  if (v16 >= 0)
   {
-    v15 = *(v2 + 23);
+    v17 = *(v4 + 23);
   }
 
   else
   {
-    v15 = v2[1];
+    v17 = v4[1];
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    v2 = *v2;
+    v4 = *v4;
   }
 
-  if (v10.u32[0] < 2uLL)
+  if (v12.u32[0] < 2uLL)
   {
     while (1)
     {
-      v16 = v13[1];
-      if (v16 == v8)
+      v18 = v15[1];
+      if (v18 == v10)
       {
-        if (v13[5] == v7)
+        if (v15[5] == v9)
         {
-          v17 = *(v13 + 39);
-          v18 = v17 >= 0 ? *(v13 + 39) : v13[3];
-          v19 = v17 >= 0 ? (v13 + 2) : v13[2];
-          v20 = v15 >= v18 ? v18 : v15;
-          v21 = memcmp(v19, v2, v20);
-          if (v15 == v18 && v21 == 0)
+          v19 = *(v15 + 39);
+          v20 = v19 >= 0 ? *(v15 + 39) : v15[3];
+          v21 = v19 >= 0 ? (v15 + 2) : v15[2];
+          v22 = v17 >= v20 ? v20 : v17;
+          v23 = memcmp(v21, v4, v22);
+          if (v17 == v20 && v23 == 0)
           {
-            return v13;
+            return v15;
           }
         }
       }
 
-      else if ((v16 & (*&v9 - 1)) != v11)
+      else if ((v18 & (*&v11 - 1)) != v13)
       {
         goto LABEL_59;
       }
 
-      v13 = *v13;
-      if (!v13)
+      v15 = *v15;
+      if (!v15)
       {
         goto LABEL_59;
       }
@@ -5535,58 +5531,58 @@ LABEL_59:
 
   while (1)
   {
-    v23 = v13[1];
-    if (v23 == v8)
+    v25 = v15[1];
+    if (v25 == v10)
     {
       break;
     }
 
-    if (v23 >= *&v9)
+    if (v25 >= *&v11)
     {
-      v23 %= *&v9;
+      v25 %= *&v11;
     }
 
-    if (v23 != v11)
+    if (v25 != v13)
     {
       goto LABEL_59;
     }
 
 LABEL_39:
-    v13 = *v13;
-    if (!v13)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_59;
     }
   }
 
-  if (v13[5] != v7)
+  if (v15[5] != v9)
   {
     goto LABEL_39;
   }
 
-  v24 = *(v13 + 39);
-  v25 = v24 >= 0 ? *(v13 + 39) : v13[3];
-  v26 = v24 >= 0 ? (v13 + 2) : v13[2];
-  v27 = v15 >= v25 ? v25 : v15;
-  v28 = memcmp(v26, v2, v27);
-  if (v15 != v25 || v28 != 0)
+  v26 = *(v15 + 39);
+  v27 = v26 >= 0 ? *(v15 + 39) : v15[3];
+  v28 = v26 >= 0 ? (v15 + 2) : v15[2];
+  v29 = v17 >= v27 ? v27 : v17;
+  v30 = memcmp(v28, v4, v29);
+  if (v17 != v27 || v30 != 0)
   {
     goto LABEL_39;
   }
 
-  return v13;
+  return v15;
 }
 
-void sub_25FC92728(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC92728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,BOOL>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,BOOL>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC9273C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FC9273C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,BOOL>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,BOOL>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5608,11 +5604,11 @@ void std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRe
   }
 }
 
-uint64_t std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::__map_value_compare<HGMetalRenderPipelineStateCache::Info,std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::less<HGMetalRenderPipelineStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>>>::__emplace_unique_key_args<HGMetalRenderPipelineStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalRenderPipelineStateCache::Info const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::__map_value_compare<HGMetalRenderPipelineStateCache::Info,std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::less<HGMetalRenderPipelineStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>>>::__emplace_unique_key_args<HGMetalRenderPipelineStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalRenderPipelineStateCache::Info const&>,std::tuple<>>(uint64_t **a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = (a1 + 8);
-  v2 = *(a1 + 8);
-  if (!v2)
+  v6 = a1 + 1;
+  v5 = a1[1];
+  if (!v5)
   {
     goto LABEL_7;
   }
@@ -5621,35 +5617,35 @@ uint64_t std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGM
   {
     while (1)
     {
-      v5 = v2;
-      if (!HGMetalRenderPipelineStateCache::Info::operator<(a2, v2 + 8))
+      v8 = v5;
+      if (!HGMetalRenderPipelineStateCache::Info::operator<(a2, v5 + 8))
       {
         break;
       }
 
-      v2 = *v5;
-      v3 = v5;
-      if (!*v5)
+      v5 = *v8;
+      v6 = v8;
+      if (!*v8)
       {
         goto LABEL_7;
       }
     }
 
-    if (!HGMetalRenderPipelineStateCache::Info::operator<(v5 + 8, a2))
+    if (!HGMetalRenderPipelineStateCache::Info::operator<(v8 + 8, a2))
     {
       break;
     }
 
-    v3 = v5 + 1;
-    v2 = v5[1];
-    if (!v2)
+    v6 = (v8 + 1);
+    v5 = v8[1];
+    if (!v5)
     {
       goto LABEL_7;
     }
   }
 
-  result = *v3;
-  if (!*v3)
+  result = *v6;
+  if (!*v6)
   {
 LABEL_7:
     std::__tree<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::__map_value_compare<HGMetalRenderPipelineStateCache::Info,std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>,std::less<HGMetalRenderPipelineStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalRenderPipelineStateCache::Info,HGMTLRenderPipelineStateType>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<HGMetalRenderPipelineStateCache::Info const&>,std::tuple<>>();
@@ -5698,61 +5694,61 @@ void **std::unique_ptr<std::__tree_node<std::__value_type<HGMetalRenderPipelineS
   return v1;
 }
 
-uint64_t **std::__tree<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::__map_value_compare<HGMetalSamplerStateCache::Info,std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::less<HGMetalSamplerStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>>>::__emplace_unique_key_args<HGMetalSamplerStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalSamplerStateCache::Info const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+uint64_t *std::__tree<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::__map_value_compare<HGMetalSamplerStateCache::Info,std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>,std::less<HGMetalSamplerStateCache::Info>,true>,std::allocator<std::__value_type<HGMetalSamplerStateCache::Info,HGMTLSamplerStateType>>>::__emplace_unique_key_args<HGMetalSamplerStateCache::Info,std::piecewise_construct_t const&,std::tuple<HGMetalSamplerStateCache::Info const&>,std::tuple<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_15:
     operator new();
   }
 
-  v3 = *a2;
-  v4 = a2[1];
-  v5 = a2[2];
-  v6 = *(a2 + 24);
+  v5 = *a2;
+  v6 = a2[1];
+  v7 = a2[2];
+  v8 = *(a2 + 24);
   while (1)
   {
     while (1)
     {
-      v7 = v2;
-      v8 = v2[4];
-      if (v3 < v8)
+      v9 = v4;
+      v10 = v4[4];
+      if (v5 < v10)
       {
         goto LABEL_3;
       }
 
-      if (v3 <= v8)
+      if (v5 <= v10)
       {
         break;
       }
 
 LABEL_6:
-      v2 = v7[1];
-      if (!v2)
+      v4 = v9[1];
+      if (!v4)
       {
         goto LABEL_15;
       }
     }
 
-    v9 = v7[5];
-    if (v4 >= v9)
+    v11 = v9[5];
+    if (v6 >= v11)
     {
-      if (v4 > v9)
+      if (v6 > v11)
       {
         goto LABEL_6;
       }
 
-      v10 = v7[6];
-      if (v5 >= v10)
+      v12 = v9[6];
+      if (v7 >= v12)
       {
-        if (v5 > v10)
+        if (v7 > v12)
         {
           goto LABEL_6;
         }
 
-        v11 = *(v7 + 56);
-        if (v6 >= v11)
+        v13 = *(v9 + 56);
+        if (v8 >= v13)
         {
           break;
         }
@@ -5760,19 +5756,19 @@ LABEL_6:
     }
 
 LABEL_3:
-    v2 = *v7;
-    if (!*v7)
+    v4 = *v9;
+    if (!*v9)
     {
       goto LABEL_15;
     }
   }
 
-  if (v11 < v6)
+  if (v13 < v8)
   {
     goto LABEL_6;
   }
 
-  return v7;
+  return v9;
 }
 
 HGComic *HGComicDesignerInterfaceImplementation::GenerateGraph(HGComicDesignerInterfaceImplementation *this, HGNode *a2)
@@ -6545,15 +6541,15 @@ void HGPBOBitmap::ReadTile(HGPBOBitmap *this, char *a2, HGRect a3, int a4)
   }
 }
 
-void HGCVGLTextureFactory::HGCVGLTextureFactory(HGObject *a1, PC_Sp_counted_base **a2)
+void HGCVGLTextureFactory::HGCVGLTextureFactory(HGObject *a1, PC_Sp_counted_base **a2, float a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   HGObject::HGObject(a1);
-  *v3 = &unk_28721AB10;
-  v3[2] = 0;
-  v3[3] = 0;
-  HGTraceGuard::HGTraceGuard(v5, "hgcv", 1, "CVOpenGLESTextureCacheCreate");
-  v4.var0 = *a2;
+  *v4 = &unk_28721AB10;
+  v4[2] = 0;
+  v4[3] = 0;
+  HGTraceGuard::HGTraceGuard(v6, "hgcv", 1, "CVOpenGLESTextureCacheCreate");
+  v5.var0 = *a2;
   HGGLContext::Create();
 }
 
@@ -6690,20 +6686,21 @@ void HGCVGLTextureFactory::_createTexture(uint64_t a1@<X0>, HGCVBitmap **a2@<X1>
   }
 }
 
-void sub_25FC94C18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, PCSharedCount a14, char a15)
+void sub_25FC94C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, PCSharedCount a14, ...)
 {
-  v17 = v15;
-  if (v17)
-  {
-    (*(*v17 + 24))(v17);
-  }
-
+  va_start(va, a14);
+  v16 = v14;
   if (v16)
   {
-    (*(*v16 + 24))(v16);
+    (*(*v16 + 24))(v16, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  HGGLSetCurrentContextGuard::~HGGLSetCurrentContextGuard(&a15);
+  if (v15)
+  {
+    (*(*v15 + 24))(v15, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  HGGLSetCurrentContextGuard::~HGGLSetCurrentContextGuard(va);
   if (*a12)
   {
     (*(**a12 + 24))(*a12);
@@ -6712,46 +6709,46 @@ void sub_25FC94C18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void HGGPUReadbackJob::HGGPUReadbackJob(HGObject *a1, uint64_t *a2, uint64_t *a3)
+void HGGPUReadbackJob::HGGPUReadbackJob(std::__shared_weak_count **a1, std::__shared_weak_count **a2, PC_Sp_counted_base **a3, uint64_t a4)
 {
   HGObject::HGObject(a1);
-  *v6 = &unk_28721AB60;
-  v6[2] = 0;
-  v6[3] = 0;
-  v6[4] = 0;
-  v8 = *a2;
-  v7 = a2[1];
-  if (v7)
+  *v7 = &unk_28721AB60;
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = 0;
+  v9 = *a2;
+  v8 = a2[1];
+  if (v8)
   {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-    v9 = *(a1 + 3);
-    *(a1 + 2) = v8;
-    *(a1 + 3) = v7;
-    if (v9)
+    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    v10 = a1[3];
+    a1[2] = v9;
+    a1[3] = v8;
+    if (v10)
     {
-      if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v9->__on_zero_shared)(v9);
-        std::__shared_weak_count::__release_weak(v9);
+        (v10->__on_zero_shared)(v10);
+        std::__shared_weak_count::__release_weak(v10);
       }
     }
   }
 
   else
   {
-    *(a1 + 2) = v8;
-    *(a1 + 3) = 0;
+    a1[2] = v9;
+    a1[3] = 0;
   }
 
-  v10 = *a3;
+  v11 = *a3;
   HGGLContext::Share();
 }
 
-void sub_25FC94EE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FC94EE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   PCSharedCount::PCSharedCount(&a9);
@@ -6803,48 +6800,48 @@ void HGGPUReadbackJob::~HGGPUReadbackJob(HGGPUReadbackJob *this)
   HGObject::operator delete(v1);
 }
 
-void HGGPUReadbackExecUnit::HGGPUReadbackExecUnit(uint64_t a1, uint64_t *a2, void *a3)
+void HGGPUReadbackExecUnit::HGGPUReadbackExecUnit(uint64_t a1, uint64_t *a2, PC_Sp_counted_base **a3, uint64_t a4)
 {
   *a1 = &unk_28721AB98;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   *(a1 + 48) = 0;
-  v5 = *a2;
-  v4 = a2[1];
-  if (v4)
+  v6 = *a2;
+  v5 = a2[1];
+  if (v5)
   {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-    v6 = *(a1 + 24);
-    *(a1 + 16) = v5;
-    *(a1 + 24) = v4;
-    if (v6)
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    v7 = *(a1 + 24);
+    *(a1 + 16) = v6;
+    *(a1 + 24) = v5;
+    if (v7)
     {
-      if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        v7 = a3;
-        (v6->__on_zero_shared)(v6);
-        std::__shared_weak_count::__release_weak(v6);
-        a3 = v7;
+        v8 = a3;
+        (v7->__on_zero_shared)(v7);
+        std::__shared_weak_count::__release_weak(v7);
+        a3 = v8;
       }
     }
   }
 
   else
   {
-    *(a1 + 16) = v5;
+    *(a1 + 16) = v6;
     *(a1 + 24) = 0;
   }
 
   *(a1 + 12) = 0;
-  v8 = *a3;
+  v9 = *a3;
   HGGLContext::Share();
 }
 
-void sub_25FC9526C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FC9526C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   PCSharedCount::PCSharedCount(&a9);
@@ -7169,16 +7166,16 @@ LABEL_64:
   return result;
 }
 
-void sub_25FC95AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -7190,16 +7187,16 @@ void sub_25FC95B10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -7211,9 +7208,9 @@ void sub_25FC95B54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -7225,53 +7222,53 @@ void sub_25FC95B84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC95BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   HGRenderUtils::BufferCopier::~BufferCopier(va);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95BF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FC95C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, HGSynchronizable *);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, HGSynchronizable *);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   HGSynchronizer::~HGSynchronizer(va);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va1);
   _Unwind_Resume(a1);
@@ -7287,16 +7284,16 @@ void sub_25FC95C28(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25FC95C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
 
-void sub_25FC95C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FC95C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   HGAutoReleasePoolScopeGuard::~HGAutoReleasePoolScopeGuard(va);
   _Unwind_Resume(a1);
 }
@@ -7968,19 +7965,19 @@ uint64_t HGComicImplementation::GenerateColorStrokeNode@<X0>(HGNode *a1@<X1>, HG
     (*(*a2 + 16))(a2);
   }
 
-  v9 = HGObject::operator new(0x1A0uLL);
-  HGComicColorStroke::HGComicColorStroke(v9);
-  (*(*v9 + 120))(v9, 0, a1);
-  (*(*v9 + 120))(v9, 1, a2);
-  (*(*v9 + 96))(v9, 0, a3, 0.0, 0.0, 0.0);
-  (*(*v9 + 16))(v9);
-  v10 = HGObject::operator new(0x1D0uLL);
-  HGTextureWrap::HGTextureWrap(v10);
-  (*(*v10 + 120))(v10, 0, v9);
-  HGTextureWrap::SetTextureWrapMode(v10, 1, v11);
-  *a4 = v10;
-  (*(*v9 + 24))(v9);
-  result = (*(*v9 + 24))(v9);
+  v8 = HGObject::operator new(0x1A0uLL);
+  HGComicColorStroke::HGComicColorStroke(v8);
+  (*(*v8 + 120))(v8, 0, a1);
+  (*(*v8 + 120))(v8, 1, a2);
+  (*(*v8 + 96))(v8, 0, a3, 0.0, 0.0, 0.0);
+  (*(*v8 + 16))(v8);
+  v9 = HGObject::operator new(0x1D0uLL);
+  HGTextureWrap::HGTextureWrap(v9);
+  (*(*v9 + 120))(v9, 0, v8);
+  HGTextureWrap::SetTextureWrapMode(v9, 1, v10);
+  *a4 = v9;
+  (*(*v8 + 24))(v8);
+  result = (*(*v8 + 24))(v8);
   if (a2)
   {
     result = (*(*a2 + 24))(a2);
@@ -8367,7 +8364,7 @@ HGXForm *HGComicImplementation::GenerateGraph(HGComicImplementation *this, HGRen
     {
       if (v24 == 17 || v24 == 24)
       {
-        HGComicImplementation::GenerateGraphStyleInk(this, v20, &v30, v31);
+        HGComicImplementation::GenerateGraphStyleInk(v31, this, v20, &v30);
         goto LABEL_37;
       }
     }
@@ -8376,13 +8373,13 @@ HGXForm *HGComicImplementation::GenerateGraph(HGComicImplementation *this, HGRen
     {
       if (v24 == 7)
       {
-        HGComicImplementation::GenerateGraphStylePosterParent(this, v20, &v30, a4, 0, 0, v31);
+        HGComicImplementation::GenerateGraphStylePosterParent(v31, this, v20, &v30, a4, 0, 0);
         goto LABEL_37;
       }
 
       if (v24 == 10)
       {
-        HGComicImplementation::GenerateGraphStylePosterParent(this, v20, &v30, 0, 0, 1, v31);
+        HGComicImplementation::GenerateGraphStylePosterParent(v31, this, v20, &v30, 0, 0, 1);
         goto LABEL_37;
       }
     }
@@ -8401,13 +8398,13 @@ LABEL_42:
 
   if ((v24 - 1) < 2)
   {
-    HGComicImplementation::GenerateGraphStylePosterParent(this, v20, &v30, a4, 1, 0, v31);
+    HGComicImplementation::GenerateGraphStylePosterParent(v31, this, v20, &v30, a4, 1, 0);
     goto LABEL_37;
   }
 
   if (!v24)
   {
-    HGComicImplementation::GenerateGraphStyleClassicParent(this, v20, &v30, 0, 1, v31);
+    HGComicImplementation::GenerateGraphStyleClassicParent(v31, this, v20, &v30, 0, 1);
     goto LABEL_37;
   }
 
@@ -8416,7 +8413,7 @@ LABEL_42:
     goto LABEL_42;
   }
 
-  HGComicImplementation::GenerateGraphStyleClassicParent(this, v20, &v30, a4, 0, v31);
+  HGComicImplementation::GenerateGraphStyleClassicParent(v31, this, v20, &v30, a4, 0);
 LABEL_37:
   v25 = v31[0];
   if (v12)
@@ -8520,31 +8517,32 @@ LABEL_58:
   return v28;
 }
 
-void sub_25FC994FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_25FC994FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  HGObject::operator delete(v13);
-  HGTransform::~HGTransform(&a11);
-  if (v12)
-  {
-    (*(*v12 + 24))(v12);
-  }
-
+  va_start(va, a10);
+  HGObject::operator delete(v12);
+  HGTransform::~HGTransform(va);
   if (v11)
   {
     (*(*v11 + 24))(v11);
   }
 
+  if (v10)
+  {
+    (*(*v10 + 24))(v10);
+  }
+
   _Unwind_Resume(a1);
 }
 
-HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t *this@<X0>, HGNode *a2@<X1>, HGRect *a3@<X2>, HGNode *a4@<X3>, int a5@<W4>, HGLegacyBlend **a6@<X8>)
+HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(uint64_t *__return_ptr a1@<X8>, float32x2_t *this@<X0>, HGNode *a3@<X1>, HGRect *a4@<X2>, HGNode *a5@<X3>, int a6@<W4>)
 {
   v12 = this[4].f32[1];
-  IsInfinite = HGRect::IsInfinite(a3);
+  IsInfinite = HGRect::IsInfinite(a4);
   v14 = 1.0;
   if (!IsInfinite)
   {
-    v15 = HGRect::IsInfinite(a3);
+    v15 = HGRect::IsInfinite(a4);
     v14 = 1.0;
     if (!v15)
     {
@@ -8552,7 +8550,7 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
       v17 = 1.0;
       if (v16 != 0.0)
       {
-        v18 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
+        v18 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
         v19 = v18 * 0.76;
         v17 = v16 / v18;
         if (v19 <= v16)
@@ -8579,14 +8577,14 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
     }
   }
 
-  HGComicImplementation::GenerateSobelGradients(this, a2, v12, v14, 1, &v61);
+  HGComicImplementation::GenerateSobelGradients(this, a3, v12, v14, 1, &v61);
   v21 = v61;
   v54 = v61;
-  v22 = HGRect::IsInfinite(a3);
+  v22 = HGRect::IsInfinite(a4);
   v23 = 1.0;
   if (!v22)
   {
-    v24 = HGRect::IsInfinite(a3);
+    v24 = HGRect::IsInfinite(a4);
     v23 = 1.0;
     v25 = 1.0;
     if (!v24)
@@ -8595,7 +8593,7 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
       v27 = 1.0;
       if (v26 != 0.0)
       {
-        v28 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
+        v28 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
         v29 = v28 * 0.76;
         v27 = v26 / v28;
         if (v29 <= v26)
@@ -8622,7 +8620,7 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
     }
   }
 
-  HGComicImplementation::GenerateBilateralXNode(this, a2, v21, v23, &v62);
+  HGComicImplementation::GenerateBilateralXNode(this, a3, v21, v23, &v62);
   v31 = v62;
   HGComicImplementation::GenerateBilateralYNode(this, v62, v21, &v60);
   if (v31)
@@ -8632,19 +8630,19 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
 
   v32 = v60;
   v55 = v60;
-  SmallToLargeScale = HGComicImplementation::GetSmallToLargeScale(this, a3);
+  SmallToLargeScale = HGComicImplementation::GetSmallToLargeScale(this, a4);
   HGComicImplementation::GenerateQuantizeNode(this, v32, SmallToLargeScale, &v62);
   v34 = v62;
-  LargeToSmallScale = HGComicImplementation::GetLargeToSmallScale(this, a3);
+  LargeToSmallScale = HGComicImplementation::GetLargeToSmallScale(this, a4);
   HGComicImplementation::GenerateSobelGradients(this, v34, 2.1875, LargeToSmallScale, 0, &v59);
   v36 = v59;
-  v37 = HGComicImplementation::GetLargeToSmallScale(this, a3);
+  v37 = HGComicImplementation::GetLargeToSmallScale(this, a4);
   HGComicImplementation::GenerateColorStrokeNode(v34, v36, v37, &v58);
-  v38 = a4;
+  v38 = a5;
   HGComicImplementation::GenerateEdgesNode(this, v55, v21, &v57);
   if (this[12].i8[0])
   {
-    v39 = a2;
+    v39 = a3;
   }
 
   else
@@ -8652,8 +8650,8 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
     v39 = 0;
   }
 
-  v40 = HGComicImplementation::GetLargeToSmallScale(this, a3);
-  v41 = HGRect::IsInfinite(a3);
+  v40 = HGComicImplementation::GetLargeToSmallScale(this, a4);
+  v41 = HGRect::IsInfinite(a4);
   v42 = 1.0;
   if (!v41)
   {
@@ -8661,7 +8659,7 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
     v44 = 1.0;
     if (v43 != 0.0)
     {
-      v45 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
+      v45 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
       v46 = v45 * 0.76;
       v44 = v43 / v45;
       if (v46 <= v43)
@@ -8676,11 +8674,11 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
     }
   }
 
-  v47 = a6;
+  v47 = a1;
   v48 = v57;
   v49 = v58;
   HGComicImplementation::GenerateStrokeAndBlendNode(this, v58, v57, v38, v39, 1.0 / v42, v40, 0, &v56);
-  if (!a5)
+  if (!a6)
   {
     *v47 = v56;
     v52 = v54;
@@ -8695,7 +8693,7 @@ HGNode *HGComicImplementation::GenerateGraphStyleClassicParent@<X0>(float32x2_t 
   v50 = HGObject::operator new(0x1C0uLL);
   HGLegacyBlend::HGLegacyBlend(v50);
   *v47 = v50;
-  (*(*v50 + 120))(v50, 0, a2);
+  (*(*v50 + 120))(v50, 0, a3);
   v51 = v56;
   (*(*v50 + 120))(v50, 1, v56);
   (*(*v50 + 96))(v50, 0, 8.0, 0.0, 0.0, 0.0);
@@ -8783,14 +8781,14 @@ void sub_25FC99D94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float32x2_t *this@<X0>, HGNode *a2@<X1>, HGRect *a3@<X2>, HGNode *a4@<X3>, int a5@<W4>, int a6@<W5>, HGLegacyBlend **a7@<X8>)
+uint64_t *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(HGLegacyBlend **__return_ptr a1@<X8>, float32x2_t *this@<X0>, HGNode *a3@<X1>, HGRect *a4@<X2>, HGNode *a5@<X3>, int a6@<W4>, int a7@<W5>)
 {
   v13 = this[4].f32[1];
-  IsInfinite = HGRect::IsInfinite(a3);
+  IsInfinite = HGRect::IsInfinite(a4);
   v15 = 1.0;
   if (!IsInfinite)
   {
-    v16 = HGRect::IsInfinite(a3);
+    v16 = HGRect::IsInfinite(a4);
     v15 = 1.0;
     if (!v16)
     {
@@ -8798,7 +8796,7 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
       v18 = 1.0;
       if (v17 != 0.0)
       {
-        v19 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
+        v19 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
         v20 = v19 * 0.76;
         v18 = v17 / v19;
         if (v20 <= v17)
@@ -8825,13 +8823,13 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
     }
   }
 
-  HGComicImplementation::GenerateSobelGradients(this, a2, v13, v15, 1, &v61);
+  HGComicImplementation::GenerateSobelGradients(this, a3, v13, v15, 1, &v61);
   v22 = v61;
-  v23 = HGRect::IsInfinite(a3);
+  v23 = HGRect::IsInfinite(a4);
   v24 = 1.0;
   if (!v23)
   {
-    v25 = HGRect::IsInfinite(a3);
+    v25 = HGRect::IsInfinite(a4);
     v24 = 1.0;
     v26 = 1.0;
     if (!v25)
@@ -8840,7 +8838,7 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
       v28 = 1.0;
       if (v27 != 0.0)
       {
-        v29 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
+        v29 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
         v30 = v29 * 0.76;
         v28 = v27 / v29;
         if (v30 <= v27)
@@ -8867,7 +8865,7 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
     }
   }
 
-  HGComicImplementation::GenerateBilateralXNode(this, a2, v22, v24, &v62);
+  HGComicImplementation::GenerateBilateralXNode(this, a3, v22, v24, &v62);
   v32 = v62;
   HGComicImplementation::GenerateBilateralYNode(this, v62, v22, &v60);
   if (v32)
@@ -8877,16 +8875,16 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
 
   v33 = v60;
   HGComicImplementation::GenerateEdgesNode(this, v60, v22, &v62);
-  SmallToLargeScale = HGComicImplementation::GetSmallToLargeScale(this, a3);
+  SmallToLargeScale = HGComicImplementation::GetSmallToLargeScale(this, a4);
   HGComicImplementation::GenerateQuantizeNode(this, v33, SmallToLargeScale, &v59);
-  v55 = a2;
-  v35 = a4;
+  v55 = a3;
+  v35 = a5;
   v36 = v59;
-  LargeToSmallScale = HGComicImplementation::GetLargeToSmallScale(this, a3);
+  LargeToSmallScale = HGComicImplementation::GetLargeToSmallScale(this, a4);
   HGComicImplementation::GenerateSobelGradients(this, v36, 2.1875, LargeToSmallScale, 0, &v58);
   v38 = v58;
   v53 = v58;
-  v39 = HGComicImplementation::GetLargeToSmallScale(this, a3);
+  v39 = HGComicImplementation::GetLargeToSmallScale(this, a4);
   HGComicImplementation::GenerateColorStrokeNode(v36, v38, v39, &v57);
   if (this[12].i8[0])
   {
@@ -8898,8 +8896,8 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
     v40 = 0;
   }
 
-  v41 = HGComicImplementation::GetLargeToSmallScale(this, a3);
-  v42 = HGRect::IsInfinite(a3);
+  v41 = HGComicImplementation::GetLargeToSmallScale(this, a4);
+  v42 = HGRect::IsInfinite(a4);
   v43 = 1.0;
   if (!v42)
   {
@@ -8907,7 +8905,7 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
     v45 = 1.0;
     if (v44 != 0.0)
     {
-      v46 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
+      v46 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
       v47 = v46 * 0.76;
       v45 = v44 / v46;
       if (v47 <= v44)
@@ -8924,15 +8922,15 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
 
   v48 = v57;
   v49 = v62;
-  HGComicImplementation::GenerateStrokeAndBlendNode(this, v57, v62, v35, v40, 1.0 / v43, v41, a6, &v56);
+  HGComicImplementation::GenerateStrokeAndBlendNode(this, v57, v62, v35, v40, 1.0 / v43, v41, a7, &v56);
   v50 = v56;
-  *a7 = v56;
+  *a1 = v56;
   if (v50)
   {
     (*(*v50 + 16))(v50);
   }
 
-  if (a5)
+  if (a6)
   {
     v51 = HGObject::operator new(0x1C0uLL);
     HGLegacyBlend::HGLegacyBlend(v51);
@@ -8947,7 +8945,7 @@ HGTextureWrap *HGComicImplementation::GenerateGraphStylePosterParent@<X0>(float3
         (*(*v50 + 24))(v50);
       }
 
-      *a7 = v51;
+      *a1 = v51;
       (*(*v51 + 16))(v51);
     }
 
@@ -9035,166 +9033,166 @@ void sub_25FC9A648(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t HGComicImplementation::GenerateGraphStyleInk@<X0>(float32x2_t *this@<X0>, HGNode *a2@<X1>, HGRect *a3@<X2>, HGTextureWrap **a4@<X8>)
+uint64_t *HGComicImplementation::GenerateGraphStyleInk@<X0>(HGTextureWrap **__return_ptr a1@<X8>, float32x2_t *this@<X0>, HGNode *a3@<X1>, HGRect *a4@<X2>)
 {
-  v9 = this[4].f32[1];
-  IsInfinite = HGRect::IsInfinite(a3);
-  v11 = 1.0;
+  v8 = this[4].f32[1];
+  IsInfinite = HGRect::IsInfinite(a4);
+  v10 = 1.0;
   if (!IsInfinite)
   {
-    v12 = HGRect::IsInfinite(a3);
-    v11 = 1.0;
-    if (!v12)
+    v11 = HGRect::IsInfinite(a4);
+    v10 = 1.0;
+    if (!v11)
     {
-      v13 = this[1].f32[1];
-      v14 = 1.0;
-      if (v13 != 0.0)
+      v12 = this[1].f32[1];
+      v13 = 1.0;
+      if (v12 != 0.0)
       {
-        v15 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
-        v16 = v15 * 0.76;
-        v14 = v13 / v15;
-        if (v16 <= v13)
+        v14 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
+        v15 = v14 * 0.76;
+        v13 = v12 / v14;
+        if (v15 <= v12)
         {
-          v14 = 0.76;
+          v13 = 0.76;
         }
       }
 
-      if (v14 <= 0.9)
+      if (v13 <= 0.9)
       {
-        v11 = v14;
+        v10 = v13;
       }
     }
 
-    v17 = this[2].f32[0];
-    if (v17 != 0.0)
+    v16 = this[2].f32[0];
+    if (v16 != 0.0)
     {
-      v11 = v11 * v17;
+      v10 = v10 * v16;
     }
 
-    if (v11 > 0.9)
+    if (v10 > 0.9)
     {
-      v11 = 1.0;
+      v10 = 1.0;
     }
   }
 
-  HGComicImplementation::GenerateSobelGradients(this, a2, v9, v11, 1, &v44);
-  v18 = v44;
-  v19 = HGRect::IsInfinite(a3);
-  v20 = 1.0;
-  if (!v19)
+  HGComicImplementation::GenerateSobelGradients(this, a3, v8, v10, 1, &v43);
+  v17 = v43;
+  v18 = HGRect::IsInfinite(a4);
+  v19 = 1.0;
+  if (!v18)
   {
-    v21 = HGRect::IsInfinite(a3);
-    v20 = 1.0;
-    v22 = 1.0;
-    if (!v21)
+    v20 = HGRect::IsInfinite(a4);
+    v19 = 1.0;
+    v21 = 1.0;
+    if (!v20)
     {
-      v23 = this[1].f32[1];
-      v24 = 1.0;
-      if (v23 != 0.0)
+      v22 = this[1].f32[1];
+      v23 = 1.0;
+      if (v22 != 0.0)
       {
-        v25 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
-        v26 = v25 * 0.76;
-        v24 = v23 / v25;
-        if (v26 <= v23)
+        v24 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
+        v25 = v24 * 0.76;
+        v23 = v22 / v24;
+        if (v25 <= v22)
         {
-          v24 = 0.76;
+          v23 = 0.76;
         }
       }
 
-      if (v24 <= 0.9)
+      if (v23 <= 0.9)
       {
-        v22 = v24;
+        v21 = v23;
       }
     }
 
-    v27 = this[2].f32[0];
-    if (v27 != 0.0)
+    v26 = this[2].f32[0];
+    if (v26 != 0.0)
     {
-      v22 = v22 * v27;
+      v21 = v21 * v26;
     }
 
-    if (v22 <= 0.9)
+    if (v21 <= 0.9)
     {
-      v20 = v22;
+      v19 = v21;
     }
   }
 
-  HGComicImplementation::GenerateBilateralXNode(this, a2, v18, v20, &v45);
-  v28 = v45;
-  HGComicImplementation::GenerateBilateralYNode(this, v45, v18, &v43);
-  if (v28)
+  HGComicImplementation::GenerateBilateralXNode(this, a3, v17, v19, &v44);
+  v27 = v44;
+  HGComicImplementation::GenerateBilateralYNode(this, v44, v17, &v42);
+  if (v27)
   {
-    (*(*v28 + 24))(v28);
+    (*(*v27 + 24))(v27);
   }
 
-  v29 = v43;
-  HGComicImplementation::GenerateEdgesNode(this, v43, v18, &v45);
-  v30 = this[12].u8[0];
-  v31 = v45;
-  v32 = HGRect::IsInfinite(a3);
-  v33 = 1.0;
-  if (!v32)
+  v28 = v42;
+  HGComicImplementation::GenerateEdgesNode(this, v42, v17, &v44);
+  v29 = this[12].u8[0];
+  v30 = v44;
+  v31 = HGRect::IsInfinite(a4);
+  v32 = 1.0;
+  if (!v31)
   {
-    v34 = HGRect::IsInfinite(a3);
-    v33 = 1.0;
-    v35 = 1.0;
-    if (!v34)
+    v33 = HGRect::IsInfinite(a4);
+    v32 = 1.0;
+    v34 = 1.0;
+    if (!v33)
     {
-      v36 = this[1].f32[1];
-      v37 = 1.0;
-      if (v36 != 0.0)
+      v35 = this[1].f32[1];
+      v36 = 1.0;
+      if (v35 != 0.0)
       {
-        v38 = fminf((a3->var2 - a3->var0), (a3->var3 - a3->var1));
-        v39 = v38 * 0.76;
-        v37 = v36 / v38;
-        if (v39 <= v36)
+        v37 = fminf((a4->var2 - a4->var0), (a4->var3 - a4->var1));
+        v38 = v37 * 0.76;
+        v36 = v35 / v37;
+        if (v38 <= v35)
         {
-          v37 = 0.76;
+          v36 = 0.76;
         }
       }
 
-      if (v37 <= 0.9)
+      if (v36 <= 0.9)
       {
-        v35 = v37;
+        v34 = v36;
       }
     }
 
-    v40 = this[2].f32[0];
-    if (v40 != 0.0)
+    v39 = this[2].f32[0];
+    if (v39 != 0.0)
     {
-      v35 = v35 * v40;
+      v34 = v34 * v39;
     }
 
-    if (v35 <= 0.9)
+    if (v34 <= 0.9)
     {
-      v33 = v35;
+      v32 = v34;
     }
-  }
-
-  if (v30)
-  {
-    v41 = a2;
-  }
-
-  else
-  {
-    v41 = 0;
-  }
-
-  result = HGComicImplementation::GenerateStrokeNode(this, v31, v41, 1.0 / v33, a4);
-  if (v31)
-  {
-    result = (*(*v31 + 24))(v31);
   }
 
   if (v29)
   {
-    result = (*(*v29 + 24))(v29);
+    v40 = a3;
   }
 
-  if (v18)
+  else
   {
-    return (*(*v18 + 24))(v18);
+    v40 = 0;
+  }
+
+  result = HGComicImplementation::GenerateStrokeNode(this, v30, v40, 1.0 / v32, a1);
+  if (v30)
+  {
+    result = (*(*v30 + 24))(v30);
+  }
+
+  if (v28)
+  {
+    result = (*(*v28 + 24))(v28);
+  }
+
+  if (v17)
+  {
+    return (*(*v17 + 24))(v17);
   }
 
   return result;
@@ -9477,7 +9475,7 @@ uint64_t HGComic::SetParameter(HGComic *this, int a2, float a3, float32_t a4, fl
   }
 }
 
-HGXForm *HGComic::GetOutput(HGNode *this, HGRenderer *a2)
+HGNode *HGComic::GetOutput(HGNode *this, HGRenderer *a2)
 {
   Input = HGRenderer::GetInput(a2, this, 0);
   if (!Input)
@@ -9485,7 +9483,7 @@ HGXForm *HGComic::GetOutput(HGNode *this, HGRenderer *a2)
     return Input;
   }
 
-  v5 = HGRenderer::GetInput(a2, this, 1u);
+  v5 = HGRenderer::GetInput(a2, this, 1);
   if (((*(*a2 + 304))(a2) & 1) == 0 && !(*(*a2 + 128))(a2, 43))
   {
     HGLogger::warning("No GLES support in HGComic - use Metal on iOS", v6, v7);

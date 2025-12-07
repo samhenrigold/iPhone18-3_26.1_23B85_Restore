@@ -56,7 +56,7 @@
 
 - (id)predictedLabelForString:(id)string
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if (!self->_mlModel || !self->_inputName || !self->_outputName)
   {
@@ -71,11 +71,11 @@ LABEL_7:
   v5 = objc_alloc(MEMORY[0x1E695FE48]);
   inputName = self->_inputName;
   v6 = [MEMORY[0x1E695FE60] featureValueWithString:stringCopy];
-  v21[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&inputName count:1];
-  v19 = 0;
-  v8 = [v5 initWithDictionary:v7 error:&v19];
-  v9 = v19;
+  v20[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&inputName count:1];
+  v18 = 0;
+  v8 = [v5 initWithDictionary:v7 error:&v18];
+  v9 = v18;
 
   if (!v8)
   {
@@ -84,9 +84,9 @@ LABEL_7:
   }
 
   mlModel = self->_mlModel;
-  v18 = v9;
-  v11 = [(MLModel *)mlModel predictionFromFeatures:v8 error:&v18];
-  v12 = v18;
+  v17 = v9;
+  v11 = [(MLModel *)mlModel predictionFromFeatures:v8 error:&v17];
+  v12 = v17;
 
   v13 = [v11 featureValueForName:self->_outputName];
   stringValue = [v13 stringValue];
@@ -95,7 +95,6 @@ LABEL_7:
 LABEL_8:
   v15 = stringValue;
 
-  v16 = *MEMORY[0x1E69E9840];
   return stringValue;
 }
 

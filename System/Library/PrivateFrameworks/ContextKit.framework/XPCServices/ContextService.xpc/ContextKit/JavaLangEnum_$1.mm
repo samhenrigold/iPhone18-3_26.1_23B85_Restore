@@ -28,15 +28,15 @@
     JreThrowNullPointerException();
   }
 
-  [v4 setAccessibleWithBoolean:1];
-  v6 = [v5 invokeWithId:0 withNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, NSObject_class_())}];
+  v6 = [v4 setAccessibleWithBoolean:1];
+  v8 = [v5 invokeWithId:0 withNSObjectArray:{+[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", 0, NSObject_class_(v6, v7))}];
   objc_opt_class();
-  if (v6 && (objc_opt_isKindOfClass() & 1) == 0)
+  if (v8 && (objc_opt_isKindOfClass() & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  return v6;
+  return v8;
 }
 
 @end

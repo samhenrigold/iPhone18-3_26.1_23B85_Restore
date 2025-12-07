@@ -41,42 +41,42 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v8 = self->_frame.size.width;
   v9 = self->_frame.size.height;
   self->_frame.origin.x = x;
   self->_frame.origin.y = y;
   self->_frame.size.width = frame.size.width;
   self->_frame.size.height = frame.size.height;
-  memset(&v23, 0, sizeof(v23));
-  CGAffineTransformMakeScale(&v23, frame.size.width / v8, frame.size.height / v9);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  memset(&v22, 0, sizeof(v22));
+  CGAffineTransformMakeScale(&v22, frame.size.width / v8, frame.size.height / v9);
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   sublayers = [(ISLayer *)self sublayers];
-  v11 = [sublayers countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v11 = [sublayers countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(sublayers);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
+        v15 = *(*(&v18 + 1) + 8 * i);
         [v15 frame];
-        v18 = v23;
-        v27 = CGRectApplyAffineTransform(v26, &v18);
-        [v15 setFrame:{v27.origin.x, v27.origin.y, v27.size.width, v27.size.height}];
+        v17 = v22;
+        v26 = CGRectApplyAffineTransform(v25, &v17);
+        [v15 setFrame:{v26.origin.x, v26.origin.y, v26.size.width, v26.size.height}];
       }
 
-      v12 = [sublayers countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v12 = [sublayers countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v12);
@@ -84,8 +84,6 @@
 
   mask = [(ISLayer *)self mask];
   [mask setFrame:{x, y, width, height}];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (CGRect)frame

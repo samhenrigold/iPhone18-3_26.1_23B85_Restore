@@ -8,7 +8,7 @@
 
 - (void)handleAppleMediaAccessoryDeviceIsReachableNotification:(id)notification
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -34,11 +34,11 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = HMFGetLogIdentifier();
-        v18 = 138543618;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v7;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling remote device is reachable notification with device: %@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v7;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling remote device is reachable notification with device: %@", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -55,22 +55,20 @@
     {
       v15 = HMFGetLogIdentifier();
       object2 = [notificationCopy object];
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2112;
-      v21 = object2;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get device from remote device is reachable notification object: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2112;
+      v20 = object2;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get device from remote device is reachable notification object: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAppleMediaAccessoryDeviceUpdatedNotification:(id)notification
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if ([(HMDMessageHandler *)self hasQueuedOutgoingMessages])
   {
@@ -80,23 +78,21 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = notificationCopy;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling apple media accessory device updated notification: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = notificationCopy;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling apple media accessory device updated notification: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     [(HMDMessageHandler *)selfCopy sendQueuedOutgoingMessages];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleMediaAccessoryMessageHandler)initWithMessageTargetUUID:(id)d messageDispatcher:(id)dispatcher notificationCenter:(id)center ownerPrivateRemoteMessages:(id)messages adminPrivateRemoteMessages:(id)remoteMessages internalMessages:(id)internalMessages notifications:(id)notifications notificationsToObject:(id)self0
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatcherCopy = dispatcher;
   centerCopy = center;
@@ -161,7 +157,7 @@ LABEL_17:
   }
 
   v25 = [notificationsCopy mutableCopy];
-  v38 = notificationsCopy;
+  v37 = notificationsCopy;
   v26 = internalMessagesCopy;
   v27 = remoteMessagesCopy;
   v28 = messagesCopy;
@@ -170,16 +166,15 @@ LABEL_17:
   v31 = dCopy;
   selfCopy = self;
   v33 = v25;
-  v40[0] = @"HMDAppleMediaAccessoryDeviceUpdatedNotification";
-  v40[1] = @"HMDAppleMediaAccessoryDeviceIsReachableNotification";
-  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+  v39[0] = @"HMDAppleMediaAccessoryDeviceUpdatedNotification";
+  v39[1] = @"HMDAppleMediaAccessoryDeviceIsReachableNotification";
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
   [v33 addObjectsFromArray:v34];
 
-  v39.receiver = selfCopy;
-  v39.super_class = HMDAppleMediaAccessoryMessageHandler;
-  v35 = [(HMDMessageHandler *)&v39 initWithMessageTargetUUID:v31 messageDispatcher:v30 notificationCenter:v29 ownerPrivateRemoteMessages:v28 adminPrivateRemoteMessages:v27 internalMessages:v26 notifications:v33 notificationsToObject:v24];
+  v38.receiver = selfCopy;
+  v38.super_class = HMDAppleMediaAccessoryMessageHandler;
+  v35 = [(HMDMessageHandler *)&v38 initWithMessageTargetUUID:v31 messageDispatcher:v30 notificationCenter:v29 ownerPrivateRemoteMessages:v28 adminPrivateRemoteMessages:v27 internalMessages:v26 notifications:v33 notificationsToObject:v24];
 
-  v36 = *MEMORY[0x277D85DE8];
   return v35;
 }
 

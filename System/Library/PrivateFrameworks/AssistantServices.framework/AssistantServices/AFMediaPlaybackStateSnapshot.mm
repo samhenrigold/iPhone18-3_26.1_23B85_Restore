@@ -285,9 +285,9 @@
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v14.receiver = self;
-  v14.super_class = AFMediaPlaybackStateSnapshot;
-  v5 = [(AFMediaPlaybackStateSnapshot *)&v14 description];
+  v13.receiver = self;
+  v13.super_class = AFMediaPlaybackStateSnapshot;
+  v5 = [(AFMediaPlaybackStateSnapshot *)&v13 description];
   playbackState = self->_playbackState;
   if (playbackState > 5)
   {
@@ -301,20 +301,19 @@
 
   v8 = v7;
   v9 = v8;
-  groupIdentifier = self->_groupIdentifier;
   if (self->_isProxyGroupPlayer)
   {
-    v11 = @"YES";
+    v10 = @"YES";
   }
 
   else
   {
-    v11 = @"NO";
+    v10 = @"NO";
   }
 
-  v12 = [v4 initWithFormat:@"%@ {playbackState = %@, nowPlayingTimestamp = %@, mediaType = %@, groupIdentifier = %@, isProxyGroupPlayer = %@}", v5, v8, *&self->_nowPlayingTimestamp, self->_groupIdentifier, v11];
+  v11 = [v4 initWithFormat:@"%@ {playbackState = %@, nowPlayingTimestamp = %@, mediaType = %@, groupIdentifier = %@, isProxyGroupPlayer = %@}", v5, v8, *&self->_nowPlayingTimestamp, self->_groupIdentifier, v10];
 
-  return v12;
+  return v11;
 }
 
 - (AFMediaPlaybackStateSnapshot)initWithPlaybackState:(int64_t)state nowPlayingTimestamp:(id)timestamp mediaType:(id)type groupIdentifier:(id)identifier isProxyGroupPlayer:(BOOL)player

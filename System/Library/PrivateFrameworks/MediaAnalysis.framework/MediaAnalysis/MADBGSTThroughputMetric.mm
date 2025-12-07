@@ -14,9 +14,9 @@
   categoryCopy = category;
   keysCopy = keys;
   systemTaskCopy = systemTask;
-  v25.receiver = self;
-  v25.super_class = MADBGSTThroughputMetric;
-  v14 = [(MADBGSTThroughputMetric *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = MADBGSTThroughputMetric;
+  v14 = [(MADBGSTThroughputMetric *)&v26 init];
   v15 = v14;
   if (v14)
   {
@@ -27,16 +27,16 @@
     v15->_sessionLogKey = v16;
 
     objc_storeStrong(&v15->_systemTask, systemTask);
-    v18 = MADTaskIdentifierForBackgroundTask(task);
-    categoryCopy = [NSString stringWithFormat:@"%@.%@", v18, categoryCopy];
+    v19 = MADTaskIdentifierForBackgroundTask(task, v18);
+    categoryCopy = [NSString stringWithFormat:@"%@.%@", v19, categoryCopy];
 
-    v20 = throughputMetricForTask(categoryCopy);
+    v21 = throughputMetricForTask(categoryCopy);
     metric = v15->_metric;
-    v15->_metric = v20;
+    v15->_metric = v21;
 
-    v22 = +[NSDate now];
+    v23 = +[NSDate now];
     startTime = v15->_startTime;
-    v15->_startTime = v22;
+    v15->_startTime = v23;
 
     objc_storeStrong(&v15->_keys, keys);
   }

@@ -17,13 +17,12 @@
 - (NSString)description
 {
   v3 = type metadata accessor for AlertIdentifier(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3);
-  sub_24A9DAA40(self + OBJC_IVAR____TtC24FaceTimeNotificationCore22WrappedAlertIdentifier_value, &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  sub_24A9DAA40(self + OBJC_IVAR____TtC24FaceTimeNotificationCore22WrappedAlertIdentifier_value, &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_24A9FEC70();
-  v6 = sub_24A9FEC30();
+  v5 = sub_24A9FEC30();
 
-  return v6;
+  return v5;
 }
 
 - (int64_t)hash

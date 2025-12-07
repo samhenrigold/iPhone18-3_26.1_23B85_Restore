@@ -43,18 +43,11 @@ uint64_t __82___GCAgentClientProxy_connectToGameIntentLauncherXPCProxyServiceWit
   {
     WeakRetained = objc_loadWeakRetained((a1[5] + 56));
     [WeakRetained agentCheckIn:a1[4] effectiveUserIdentifier:{objc_msgSend(*(a1[5] + 24), "peerEffectiveUserIdentifier")}];
-
-    v3 = a1[5];
   }
 
-  else
-  {
-    v5 = a1[6];
-  }
+  v3 = *(a1[6] + 16);
 
-  v4 = *(a1[6] + 16);
-
-  return v4();
+  return v3();
 }
 
 uint64_t __79___GCAgentClientProxy_connectToVideoRelocationXPCProxyServiceWithClient_reply___block_invoke(void *a1)

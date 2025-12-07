@@ -76,27 +76,26 @@
 
 - (id)_enumerationSettingsPredicate
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   objc_initWeak(&location, self);
   v3 = MEMORY[0x1E696AE18];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __51__FPSearchCollection__enumerationSettingsPredicate__block_invoke;
-  v12[3] = &unk_1E793EDE0;
-  objc_copyWeak(&v13, &location);
-  v4 = [v3 predicateWithBlock:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __51__FPSearchCollection__enumerationSettingsPredicate__block_invoke;
+  v11[3] = &unk_1E793EDE0;
+  objc_copyWeak(&v12, &location);
+  v4 = [v3 predicateWithBlock:v11];
   v5 = MEMORY[0x1E696AB28];
-  v15[0] = v4;
-  v11.receiver = self;
-  v11.super_class = FPSearchCollection;
-  _enumerationSettingsPredicate = [(FPQueryCollection *)&v11 _enumerationSettingsPredicate];
-  v15[1] = _enumerationSettingsPredicate;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = v4;
+  v10.receiver = self;
+  v10.super_class = FPSearchCollection;
+  _enumerationSettingsPredicate = [(FPQueryCollection *)&v10 _enumerationSettingsPredicate];
+  v14[1] = _enumerationSettingsPredicate;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v8 = [v5 andPredicateWithSubpredicates:v7];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -142,16 +141,16 @@ uint64_t __51__FPSearchCollection__enumerationSettingsPredicate__block_invoke(ui
 
 - (void)setSearchQuery:(id)query
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   queryCopy = query;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = MEMORY[0x1E696AB28];
   filenamePredicate = [queryCopy filenamePredicate];
-  v17[0] = filenamePredicate;
+  v16[0] = filenamePredicate;
   allowedContentTypesPredicate = [queryCopy allowedContentTypesPredicate];
-  v17[1] = allowedContentTypesPredicate;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[1] = allowedContentTypesPredicate;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v10 = [v6 andPredicateWithSubpredicates:v9];
   filterPredicate = selfCopy->_filterPredicate;
   selfCopy->_filterPredicate = v10;
@@ -165,7 +164,6 @@ uint64_t __51__FPSearchCollection__enumerationSettingsPredicate__block_invoke(ui
   [settings2 setAllowedFileTypes:allObjects];
 
   objc_sync_exit(selfCopy);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (NSFileProviderSearchQuery)searchQuery

@@ -288,11 +288,11 @@ LABEL_4:
   else
   {
     _assetsFromAssetCollection = [(PXPhotoKitAssetCollectionContentSyndicationRemoveSuggestionActionPerformer *)self _assetsFromAssetCollection];
-    v19[5] = 0;
-    v19[6] = 0;
-    v7 = PXContentSyndicationRemoveConfirmationTitleAndMessageLocalizedStrings(_assetsFromAssetCollection);
-    v8 = 0;
-    v9 = 0;
+    v20 = 0;
+    v21 = 0;
+    v7 = PXContentSyndicationRemoveConfirmationTitleAndMessageLocalizedStrings(_assetsFromAssetCollection, &v21, &v20);
+    v8 = v21;
+    v9 = v20;
     if (v7)
     {
       v10 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:v9 preferredStyle:0];

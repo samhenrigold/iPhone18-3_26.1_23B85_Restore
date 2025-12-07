@@ -214,7 +214,7 @@
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForAppEntity" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.notificationModeEntity" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -228,7 +228,7 @@
   {
     v11 = MEMORY[0x1E69C5D78];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_notification_management();
+    v13 = __atxlog_handle_notification_management(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForContactEntity" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.notificationModeEntity" errorCode:-1 logHandle:v13];
 
     error2 = [coderCopy error];
@@ -242,7 +242,7 @@
     {
       v16 = MEMORY[0x1E69C5D78];
       v17 = objc_opt_class();
-      v18 = __atxlog_handle_notification_management();
+      v18 = __atxlog_handle_notification_management(v17);
       v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"codingKeyForScoreMetadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.decode.notificationModeEntity" errorCode:-1 logHandle:v18];
 
       error3 = [coderCopy error];

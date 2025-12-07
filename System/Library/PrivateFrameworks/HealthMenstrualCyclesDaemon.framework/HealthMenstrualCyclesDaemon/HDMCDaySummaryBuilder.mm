@@ -504,31 +504,31 @@ uint64_t __52__HDMCDaySummaryBuilder__bleedingAfterPregnancyFlow__block_invoke(u
 
 - (unint64_t)_symptoms
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_symptomsSamples;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v5 |= [*(*(&v10 + 1) + 8 * i) hkmc_daySummarySymptom];
+        v5 |= [*(*(&v9 + 1) + 8 * i) hkmc_daySummarySymptom];
       }
 
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -539,7 +539,6 @@ uint64_t __52__HDMCDaySummaryBuilder__bleedingAfterPregnancyFlow__block_invoke(u
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

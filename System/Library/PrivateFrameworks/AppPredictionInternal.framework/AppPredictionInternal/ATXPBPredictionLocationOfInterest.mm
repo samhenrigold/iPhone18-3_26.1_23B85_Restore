@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278598ED8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -155,19 +171,18 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -186,15 +201,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  latitude = self->_latitude;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    longitude = self->_longitude;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:

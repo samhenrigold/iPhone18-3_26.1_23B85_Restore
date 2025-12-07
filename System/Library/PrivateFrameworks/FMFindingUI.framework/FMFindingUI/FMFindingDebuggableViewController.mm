@@ -2,6 +2,7 @@
 - (_TtC11FMFindingUI33FMFindingDebuggableViewController)initWithCoder:(id)coder;
 - (void)motionEnded:(int64_t)ended withEvent:(id)event;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FMFindingDebuggableViewController
@@ -19,10 +20,21 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FMFindingDebuggableViewController();
+  v3.super_class = type metadata accessor for FMFindingDebuggableViewController(0);
   v2 = v3.receiver;
   [(FMFindingViewController *)&v3 viewDidLoad];
   sub_24A62D238();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for FMFindingDebuggableViewController(0);
+  v4 = v6.receiver;
+  [(FMFindingViewController *)&v6 viewWillAppear:appearCopy];
+  v5 = *&v4[OBJC_IVAR____TtC11FMFindingUI33FMFindingDebuggableViewController_debugViewContainer];
+  [v5 setHidden_];
 }
 
 - (void)motionEnded:(int64_t)ended withEvent:(id)event

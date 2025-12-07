@@ -63,7 +63,6 @@
       }
 
 LABEL_26:
-      bitsPerValue = self->bitsPerValue_;
       v24 = JreStrcat("$I", v6, v7, v8, v9, v10, v11, v12, @"bitsPerValue too large: ");
       v25 = new_JavaLangAssertionError_initWithId_(v24);
       objc_exception_throw(v25);

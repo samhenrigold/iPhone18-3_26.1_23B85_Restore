@@ -12,7 +12,9 @@
 - (void)removeAccount:(id)account;
 - (void)removeAliases:(id)aliases account:(id)account;
 - (void)setAllowList:(id)list account:(id)account;
+- (void)setBlockIdleStatus:(BOOL)status account:(id)account;
 - (void)setBlockList:(id)list account:(id)account;
+- (void)setBlockingMode:(unsigned int)mode account:(id)account;
 - (void)unEnrollDeviceForSMSRelay:(id)relay account:(id)account;
 - (void)unregisterAccount:(id)account;
 - (void)unvalidateAliases:(id)aliases account:(id)account;
@@ -303,6 +305,54 @@ LABEL_7:
   }
 }
 
+- (void)setBlockingMode:(unsigned int)mode account:(id)account
+{
+  v4 = *&mode;
+  accountCopy = account;
+  v6 = +[IMDAccountController sharedAccountController];
+  v7 = [v6 sessionForAccount:accountCopy];
+
+  if (v7)
+  {
+    goto LABEL_7;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v15 = 138412290;
+      v16 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", &v15, 0xCu);
+    }
+  }
+
+  v9 = +[IMDAccountController sharedAccountController];
+  v10 = +[IMDAccountController sharedAccountController];
+  v11 = [v10 accountForAccountID:accountCopy];
+  service = [v11 service];
+  internalName = [service internalName];
+  v7 = [v9 anySessionForServiceName:internalName];
+
+  if (v7)
+  {
+LABEL_7:
+    [v7 setBlockingMode:v4];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v15 = 138412290;
+      v16 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v15, 0xCu);
+    }
+  }
+}
+
 - (void)setAllowList:(id)list account:(id)account
 {
   listCopy = list;
@@ -395,6 +445,54 @@ LABEL_7:
       v16 = 138412290;
       v17 = accountCopy;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v16, 0xCu);
+    }
+  }
+}
+
+- (void)setBlockIdleStatus:(BOOL)status account:(id)account
+{
+  statusCopy = status;
+  accountCopy = account;
+  v6 = +[IMDAccountController sharedAccountController];
+  v7 = [v6 sessionForAccount:accountCopy];
+
+  if (v7)
+  {
+    goto LABEL_7;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v15 = 138412290;
+      v16 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "FIND_SESSION: No session found for account, attempting to find ANYTHING for the service: %@", &v15, 0xCu);
+    }
+  }
+
+  v9 = +[IMDAccountController sharedAccountController];
+  v10 = +[IMDAccountController sharedAccountController];
+  v11 = [v10 accountForAccountID:accountCopy];
+  service = [v11 service];
+  internalName = [service internalName];
+  v7 = [v9 anySessionForServiceName:internalName];
+
+  if (v7)
+  {
+LABEL_7:
+    [v7 setBlockIdleStatus:statusCopy];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v15 = 138412290;
+      v16 = accountCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "FIND_SESSION: No session ever found for account: %@", &v15, 0xCu);
     }
   }
 }

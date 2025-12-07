@@ -34,40 +34,40 @@
 
 - (void)populateMaxColumnWidths:(__wrap_iter<double *>)widths
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   mColumnBoxes = self->mColumnBoxes;
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(mColumnBoxes, a2, &v13, v17, 16);
+  v5 = [(NSArray *)mColumnBoxes countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v9 = v5;
-    v10 = *v14;
+    v6 = v5;
+    v7 = *v11;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v10)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(mColumnBoxes);
         }
 
-        objc_msgSend_width(*(*(&v13 + 1) + 8 * i), v6, v7, v8);
-        if (*widths.var0 >= v12)
+        [*(*(&v10 + 1) + 8 * i) width];
+        if (*widths.var0 >= v9)
         {
-          v12 = *widths.var0;
+          v9 = *widths.var0;
         }
 
-        *widths.var0 = v12;
+        *widths.var0 = v9;
         widths.var0 += 8;
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(mColumnBoxes, v6, &v13, v17, 16);
+      v6 = [(NSArray *)mColumnBoxes countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v9);
+    while (v6);
   }
 }
 
@@ -76,11 +76,11 @@
   boxCopy = box;
   if (crossout)
   {
-    objc_msgSend_width(box, a2, box, *&crossout);
-    if (v11 != 0.0)
+    [box width];
+    if (v8 != 0.0)
     {
-      objc_msgSend_height(boxCopy, v8, v9, v10);
-      if (v12 != 0.0)
+      [(EQKitOverlayBox *)boxCopy height];
+      if (v9 != 0.0)
       {
         if ((crossout - 2) >= 3)
         {
@@ -92,30 +92,28 @@
           crossoutCopy = crossout;
         }
 
-        v14 = sub_275CA36B0(manager, boxCopy, crossoutCopy);
-        v15 = [EQKitPathBox alloc];
-        objc_msgSend_height(boxCopy, v16, v17, v18);
-        v20 = v19;
-        v21 = *(sub_275CA3150(manager) + 112);
-        v22 = sub_275CA3150(manager);
-        v24 = v22;
-        v25 = *(v22 + 88);
-        if (*(v22 + 120))
+        v11 = sub_275CA36B0(manager, boxCopy, crossoutCopy);
+        v12 = [EQKitPathBox alloc];
+        [(EQKitOverlayBox *)boxCopy height];
+        v14 = v13;
+        v15 = sub_275CA3150(manager)[14];
+        v16 = sub_275CA3150(manager);
+        v18 = v16;
+        v19 = v16[11];
+        if (v16[15])
         {
-          v23.n128_u64[0] = *(v22 + 128);
+          v17.n128_u64[0] = v16[16];
         }
 
         else
         {
-          v23.n128_f64[0] = sub_275CB80C0(v22);
+          v17.n128_f64[0] = sub_275CB80C0(v16);
         }
 
-        v26 = (*(*v25 + 40))(v25, 23, v24 + 8, v23);
-        v28 = objc_msgSend_initWithCGPath_height_cgColor_drawingMode_lineWidth_(v15, v27, v14, v21, 2, v20, v26);
-        v29 = [EQKitOverlayBox alloc];
-        boxCopy = objc_msgSend_initWithBox_overlayBox_(v29, v30, boxCopy, v28);
+        v20 = [(EQKitPathBox *)v12 initWithCGPath:v11 height:v15 cgColor:2 drawingMode:v14 lineWidth:(*(*v19 + 40))(v19, 23, v18 + 1, v17)];
+        boxCopy = [[EQKitOverlayBox alloc] initWithBox:boxCopy overlayBox:v20];
 
-        CGPathRelease(v14);
+        CGPathRelease(v11);
       }
     }
   }
@@ -125,7 +123,7 @@
 
 - (id)newBoxWithStackWidth:(double)width columnWidthIter:(__wrap_iter<double *>)iter iterMax:(__wrap_iter<double *>)max previousRow:(id)row layoutManager:(const void *)manager
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -134,60 +132,58 @@
   }
 
   mFirstColumnIndex = self->mFirstColumnIndex;
-  ColumnIndex = objc_msgSend_firstColumnIndex(row, v11, v12, v13);
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
+  firstColumnIndex = [row firstColumnIndex];
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   selfCopy = self;
   obj = self->mColumnBoxes;
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v60, v64, 16);
-  if (v17)
+  v13 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  if (v13)
   {
-    v20 = v17;
-    v21 = mFirstColumnIndex - ColumnIndex;
-    v59 = *v61;
+    v14 = v13;
+    v15 = mFirstColumnIndex - firstColumnIndex;
+    v30 = *v32;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v61 != v59)
+        if (*v32 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v60 + 1) + 8 * i);
-        v24 = *iter.var0;
-        if (row && (v21 & 0x8000000000000000) == 0)
+        v17 = *(*(&v31 + 1) + 8 * i);
+        v18 = *iter.var0;
+        if (row && (v15 & 0x8000000000000000) == 0)
         {
-          v25 = objc_msgSend_crossoutAtColumnIndex_(row, v18, v21, v19);
-          v23 = objc_msgSend_p_crossoutDigitBox_crossout_layoutManager_(selfCopy, v26, v23, v25, manager);
+          v17 = -[EQKitLayoutElementaryStackDigitRow p_crossoutDigitBox:crossout:layoutManager:](selfCopy, "p_crossoutDigitBox:crossout:layoutManager:", v17, [row crossoutAtColumnIndex:v15], manager);
         }
 
-        v27 = [EQKitHSpace alloc];
-        objc_msgSend_width(v23, v28, v29, v30);
-        v35 = objc_msgSend_initWithWidth_(v27, v32, v33, v34, (v24 - v31) * 0.5);
-        v36 = [EQKitHSpace alloc];
-        objc_msgSend_width(v23, v37, v38, v39);
-        v44 = objc_msgSend_initWithWidth_(v36, v41, v42, v43, (v24 - v40) * 0.5);
-        objc_msgSend_addObject_(v10, v45, v35, v46);
-        objc_msgSend_addObject_(v10, v47, v23, v48);
-        objc_msgSend_addObject_(v10, v49, v44, v50);
+        v19 = [EQKitHSpace alloc];
+        [v17 width];
+        v21 = [(EQKitHSpace *)v19 initWithWidth:(v18 - v20) * 0.5];
+        v22 = [EQKitHSpace alloc];
+        [v17 width];
+        v24 = [(EQKitHSpace *)v22 initWithWidth:(v18 - v23) * 0.5];
+        [v10 addObject:v21];
+        [v10 addObject:v17];
+        [v10 addObject:v24];
 
         iter.var0 += 8;
-        ++v21;
+        ++v15;
       }
 
-      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v18, &v60, v64, 16);
+      v14 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
-    while (v20);
+    while (v14);
   }
 
-  v51 = [EQKitHBox alloc];
-  v54 = objc_msgSend_initWithChildBoxes_(v51, v52, v10, v53);
+  v25 = [(EQKitCompoundBox *)[EQKitHBox alloc] initWithChildBoxes:v10];
 
-  return v54;
+  return v25;
 }
 
 @end

@@ -101,10 +101,10 @@ LABEL_6:
 
 - (id)descriptionDictionary
 {
-  v21[10] = *MEMORY[0x277D85DE8];
+  v20[10] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = [(TAVehicleStateNotification *)self vehicularState:@"EventType"];
   if (v5 > 2)
   {
@@ -116,26 +116,26 @@ LABEL_6:
     v6 = off_279DD1C20[v5];
   }
 
-  v21[1] = v6;
-  v20[2] = @"VehicularHints";
+  v20[1] = v6;
+  v19[2] = @"VehicularHints";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TAVehicleStateNotification vehicularHints](self, "vehicularHints")}];
-  v21[2] = v7;
-  v20[3] = @"MotionHint";
+  v20[2] = v7;
+  v19[3] = @"MotionHint";
   v8 = [MEMORY[0x277CCABB0] numberWithInt:{-[TAVehicleStateNotification vehicularHints](self, "vehicularHints") & 1}];
-  v21[3] = v8;
-  v20[4] = @"GPSHint";
+  v20[3] = v8;
+  v19[4] = @"GPSHint";
   v9 = [MEMORY[0x277CCABB0] numberWithInt:{(-[TAVehicleStateNotification vehicularHints](self, "vehicularHints") >> 1) & 1}];
-  v21[4] = v9;
-  v20[5] = @"BasebandHint";
+  v20[4] = v9;
+  v19[5] = @"BasebandHint";
   v10 = [MEMORY[0x277CCABB0] numberWithInt:{(-[TAVehicleStateNotification vehicularHints](self, "vehicularHints") >> 2) & 1}];
-  v21[5] = v10;
-  v20[6] = @"WifiHint";
+  v20[5] = v10;
+  v19[6] = @"WifiHint";
   v11 = [MEMORY[0x277CCABB0] numberWithInt:{(-[TAVehicleStateNotification vehicularHints](self, "vehicularHints") >> 3) & 1}];
-  v21[6] = v11;
-  v20[7] = @"BTHint";
+  v20[6] = v11;
+  v19[7] = @"BTHint";
   v12 = [MEMORY[0x277CCABB0] numberWithInt:{(-[TAVehicleStateNotification vehicularHints](self, "vehicularHints") >> 4) & 1}];
-  v21[7] = v12;
-  v20[8] = @"OperatorState";
+  v20[7] = v12;
+  v19[8] = @"OperatorState";
   operatorState = [(TAVehicleStateNotification *)self operatorState];
   if (operatorState > 2)
   {
@@ -147,14 +147,12 @@ LABEL_6:
     v14 = off_279DD1C38[operatorState];
   }
 
-  v21[8] = v14;
-  v20[9] = @"Date";
+  v20[8] = v14;
+  v19[9] = @"Date";
   date = [(TAVehicleStateNotification *)self date];
   getDateString = [date getDateString];
-  v21[9] = getDateString;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:10];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v20[9] = getDateString;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:10];
 
   return v17;
 }

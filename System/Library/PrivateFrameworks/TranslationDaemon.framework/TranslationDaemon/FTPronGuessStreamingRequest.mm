@@ -42,27 +42,12 @@
       bytes2 = [(NSData *)v10->_data bytes];
       v14 = [(NSData *)v10->_data length];
       root = v10->_root;
-      if (root < bytes2 || root > bytes2 + v14)
+      v16 = root < bytes2 || root > bytes2 + v14;
+      if (v16 || (v17 = [(NSData *)v10->_data bytes], v18 = [(NSData *)v10->_data length], v24 = v17, v25 = v18, v26 = xmmword_233005E20, v27 = 0, LOBYTE(v28) = 1, (v19 = v10->_root) != 0) && !siri::speech::qss_fb::PronGuessStreamingRequest::Verify(v19, &v24))
       {
-        goto LABEL_15;
-      }
-
-      bytes3 = [(NSData *)v10->_data bytes];
-      v18 = [(NSData *)v10->_data length];
-      v24 = bytes3;
-      v25 = v18;
-      v26 = xmmword_233005E20;
-      v27 = 0;
-      LOBYTE(v28) = 1;
-      v19 = v10->_root;
-      if (v19)
-      {
-        if (!siri::speech::qss_fb::PronGuessStreamingRequest::Verify(v19, &v24))
-        {
 LABEL_15:
-          v22 = 0;
-          goto LABEL_16;
-        }
+        v22 = 0;
+        goto LABEL_16;
       }
     }
 
@@ -258,16 +243,15 @@ LABEL_16:
 {
   if ((type - 1) > 3)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *off_2789B8AF8[type - 1];
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
-  return v5;
+  return v4;
 }
 
 + (int64_t)content_typeForImmutableObject:(id)object

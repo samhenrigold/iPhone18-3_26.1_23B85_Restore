@@ -7,7 +7,7 @@
 
 - (void)parseExpressions:(id)expressions targetDevice:(id)device reply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   expressionsCopy = expressions;
   deviceCopy = device;
   replyCopy = reply;
@@ -25,12 +25,12 @@
 
       [v11 setTargetDevice:deviceCopy];
       aceHandler = self->_aceHandler;
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __74___SVXRemoteExpressionParsingService_parseExpressions_targetDevice_reply___block_invoke;
-      v18[3] = &unk_279C66CF0;
-      v19 = replyCopy;
-      [(SVXAceCommandHandling *)aceHandler handleAceCommand:v11 reply:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __74___SVXRemoteExpressionParsingService_parseExpressions_targetDevice_reply___block_invoke;
+      v17[3] = &unk_279C66CF0;
+      v18 = replyCopy;
+      [(SVXAceCommandHandling *)aceHandler handleAceCommand:v11 reply:v17];
     }
 
     else
@@ -39,15 +39,13 @@
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v21 = "[_SVXRemoteExpressionParsingService parseExpressions:targetDevice:reply:]";
+        v20 = "[_SVXRemoteExpressionParsingService parseExpressions:targetDevice:reply:]";
         _os_log_impl(&dword_2695B9000, v16, OS_LOG_TYPE_INFO, "%s No parseable expressions - parsing failed", buf, 0xCu);
       }
 
       (*(replyCopy + 2))(replyCopy, 0, 0);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (_SVXRemoteExpressionParsingService)initWithAceHandler:(id)handler

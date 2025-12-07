@@ -47,30 +47,30 @@
 
 - (MCPeerID)initWithPID:(unsigned int)d displayName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = MCPeerID;
-  v6 = [(MCPeerID *)&v14 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = MCPeerID;
+  v6 = [(MCPeerID *)&v15 init];
   if (v6)
   {
     v7 = makebase36string(d);
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
     free(v7);
-    v6->_internal = [[MCPeerIDInternal alloc] initWithIDString:v8 pid64:d displayName:name];
-    v9 = mcpid_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v9 = [[MCPeerIDInternal alloc] initWithIDString:v8 pid64:d displayName:name];
+    v6->_internal = v9;
+    v11 = mcpid_log(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       idString = [(MCPeerID *)v6 idString];
       displayNameAndPID = [(MCPeerID *)v6 displayNameAndPID];
       *buf = 138412546;
-      v16 = idString;
-      v17 = 2112;
-      v18 = displayNameAndPID;
-      _os_log_impl(&dword_239FB7000, v9, OS_LOG_TYPE_DEFAULT, "Created new peerID with idString [%@], displayNameAndPID [%@].", buf, 0x16u);
+      v17 = idString;
+      v18 = 2112;
+      v19 = displayNameAndPID;
+      _os_log_impl(&dword_239FB7000, v11, OS_LOG_TYPE_DEFAULT, "Created new peerID with idString [%@], displayNameAndPID [%@].", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -130,10 +130,10 @@
 
 - (MCPeerID)initWithDisplayName:(NSString *)myDisplayName
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = MCPeerID;
-  v4 = [(MCPeerID *)&v18 init];
+  v24 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = MCPeerID;
+  v4 = [(MCPeerID *)&v19 init];
   if (v4)
   {
     if (!myDisplayName || ![(NSString *)myDisplayName length]|| [(NSString *)myDisplayName lengthOfBytesUsingEncoding:4]>= 0x40)
@@ -151,30 +151,30 @@
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
     free(v11);
     CFRelease(v8);
-    v4->_internal = [[MCPeerIDInternal alloc] initWithIDString:v12 pid64:v10 displayName:myDisplayName];
-    v13 = mcpid_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v13 = [[MCPeerIDInternal alloc] initWithIDString:v12 pid64:v10 displayName:myDisplayName];
+    v4->_internal = v13;
+    v15 = mcpid_log(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       idString = [(MCPeerID *)v4 idString];
       displayNameAndPID = [(MCPeerID *)v4 displayNameAndPID];
       *buf = 138412546;
-      v20 = idString;
-      v21 = 2112;
-      v22 = displayNameAndPID;
-      _os_log_impl(&dword_239FB7000, v13, OS_LOG_TYPE_DEFAULT, "Created new peerID with idString [%@], displayNameAndPID [%@].", buf, 0x16u);
+      v21 = idString;
+      v22 = 2112;
+      v23 = displayNameAndPID;
+      _os_log_impl(&dword_239FB7000, v15, OS_LOG_TYPE_DEFAULT, "Created new peerID with idString [%@], displayNameAndPID [%@].", buf, 0x16u);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (MCPeerID)initWithSerializedRepresentation:(id)representation
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = MCPeerID;
-  v4 = [(MCPeerID *)&v27 init];
+  v35 = *MEMORY[0x277D85DE8];
+  v28.receiver = self;
+  v28.super_class = MCPeerID;
+  v4 = [(MCPeerID *)&v28 init];
   if (v4)
   {
     v5 = [representation length];
@@ -195,10 +195,10 @@
       v13 = MEMORY[0x277CBEAD8];
       v14 = *MEMORY[0x277CBE660];
       v15 = objc_opt_class();
-      v26 = NSStringFromClass(v15);
+      v27 = NSStringFromClass(v15);
       v16 = v14;
       v6 = MEMORY[0x277CBE660];
-      [v13 raise:v16 format:{@"Invalid serialized representation passed to %@", v26}];
+      [v13 raise:v16 format:{@"Invalid serialized representation passed to %@", v27}];
     }
 
     v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:bytes + 9 length:v12 encoding:4];
@@ -215,20 +215,19 @@
     free(v21);
     v4->_internal = [[MCPeerIDInternal alloc] initWithIDString:v22 pid64:v11 displayName:v17];
 
-    v23 = mcpid_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v25 = mcpid_log(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
       representationCopy = representation;
-      v30 = 2112;
-      v31 = v22;
-      v32 = 2048;
-      v33 = v5 - v12 - 9;
-      _os_log_impl(&dword_239FB7000, v23, OS_LOG_TYPE_DEFAULT, "Created peerID from data[%@], idString[%@], leftover[%lu].", buf, 0x20u);
+      v31 = 2112;
+      v32 = v22;
+      v33 = 2048;
+      v34 = v5 - v12 - 9;
+      _os_log_impl(&dword_239FB7000, v25, OS_LOG_TYPE_DEFAULT, "Created peerID from data[%@], idString[%@], leftover[%lu].", buf, 0x20u);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

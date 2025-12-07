@@ -132,20 +132,20 @@ LABEL_14:
 
 - (void)pushPearlDepth:(double)depth pose:(double)pose depthCalibration:(double)calibration irToDepthTransform:(__n128)transform timestamp:(__n128)timestamp
 {
-  v29[1] = *MEMORY[0x277D85DE8];
-  v27[0] = transform;
-  v27[1] = timestamp;
-  v27[2] = a8;
-  v27[3] = a9;
-  v19 = a12;
-  v20 = ADCommonUtils::matrixNxMToArrayColumnFirst<4ul,4ul,simd_float4x4>(v27);
-  v28 = *(self + 48);
-  v29[0] = v20;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-  v22 = [*(self + 32) pushData:a11 streamIndex:1 timestamp:v19 pose:v21 calibration:a13 meta:{a2, depth, pose, calibration}];
-  if (v22)
+  v25[1] = *MEMORY[0x277D85DE8];
+  v23[0] = transform;
+  v23[1] = timestamp;
+  v23[2] = a8;
+  v23[3] = a9;
+  v15 = a12;
+  v16 = ADCommonUtils::matrixNxMToArrayColumnFirst<4ul,4ul,simd_float4x4>(v23);
+  v24 = *(self + 48);
+  v25[0] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v18 = [*(self + 32) pushData:a11 streamIndex:1 timestamp:v15 pose:v17 calibration:a13 meta:{a2, depth, pose, calibration}];
+  if (v18)
   {
-    [self handleMatch:v22];
+    [self handleMatch:v18];
   }
 }
 

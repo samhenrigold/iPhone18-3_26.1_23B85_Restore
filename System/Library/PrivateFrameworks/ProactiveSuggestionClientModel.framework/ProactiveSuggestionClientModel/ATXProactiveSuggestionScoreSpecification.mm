@@ -196,10 +196,11 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [ATXProactiveSuggestionUISpecification initWithProto:];
     }
@@ -207,51 +208,51 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v5 = protoCopy;
-  rawScore = [(ATXPBProactiveSuggestionScoreSpecification *)v5 rawScore];
-  suggestedConfidenceCategory = [(ATXPBProactiveSuggestionScoreSpecification *)v5 suggestedConfidenceCategory];
+  v6 = protoCopy;
+  rawScore = [(ATXPBProactiveSuggestionScoreSpecification *)v6 rawScore];
+  suggestedConfidenceCategory = [(ATXPBProactiveSuggestionScoreSpecification *)v6 suggestedConfidenceCategory];
   if (suggestedConfidenceCategory >= 5)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", suggestedConfidenceCategory];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", suggestedConfidenceCategory];
   }
 
   else
   {
-    v8 = off_1E86A4AA8[suggestedConfidenceCategory];
+    v9 = off_1E86A4AA8[suggestedConfidenceCategory];
   }
 
-  v11 = v8;
-  if (([(__CFString *)v11 isEqualToString:@"Unknown"]& 1) != 0)
+  v12 = v9;
+  if (([(__CFString *)v12 isEqualToString:@"Unknown"]& 1) != 0)
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  else if (([(__CFString *)v11 isEqualToString:@"Fallback"]& 1) != 0)
+  else if (([(__CFString *)v12 isEqualToString:@"Fallback"]& 1) != 0)
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  else if (([(__CFString *)v11 isEqualToString:@"LowConfidence"]& 1) != 0)
+  else if (([(__CFString *)v12 isEqualToString:@"LowConfidence"]& 1) != 0)
   {
-    v12 = 2;
+    v13 = 2;
   }
 
-  else if (([(__CFString *)v11 isEqualToString:@"MediumConfidence"]& 1) != 0)
+  else if (([(__CFString *)v12 isEqualToString:@"MediumConfidence"]& 1) != 0)
   {
-    v12 = 3;
+    v13 = 3;
   }
 
-  else if ([(__CFString *)v11 isEqualToString:@"HighConfidence"])
+  else if ([(__CFString *)v12 isEqualToString:@"HighConfidence"])
   {
-    v12 = 4;
+    v13 = 4;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  self = [(ATXProactiveSuggestionScoreSpecification *)self initWithRawScore:v12 suggestedConfidenceCategory:rawScore];
+  self = [(ATXProactiveSuggestionScoreSpecification *)self initWithRawScore:v13 suggestedConfidenceCategory:rawScore];
   selfCopy = self;
 LABEL_22:
 
@@ -260,7 +261,7 @@ LABEL_22:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededFordouble:(double)fordouble key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -277,11 +278,11 @@ LABEL_22:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -292,13 +293,12 @@ LABEL_22:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -315,11 +315,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -330,7 +330,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -352,16 +351,14 @@ LABEL_7:
 
 - (id)jsonRawData
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"rawScore";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"rawScore";
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_rawScore];
-  v8[1] = @"suggestedConfidence";
-  v9[0] = v3;
+  v7[1] = @"suggestedConfidence";
+  v8[0] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:self->_suggestedConfidenceCategory];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

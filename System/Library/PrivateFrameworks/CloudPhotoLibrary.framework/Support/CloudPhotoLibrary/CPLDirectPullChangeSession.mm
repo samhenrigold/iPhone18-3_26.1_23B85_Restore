@@ -13,28 +13,29 @@
   versionCopy = version;
   contextCopy = context;
   handlerCopy = handler;
-  if ([(CPLDirectChangeSession *)self tearedDown])
+  tearedDown = [(CPLDirectChangeSession *)self tearedDown];
+  if (tearedDown)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_100139904();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100139904(tearedDown);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = NSStringFromSelector(a2);
+        v14 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v41 = v13;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%@ was called while the session was already teared down", buf, 0xCu);
+        v42 = v14;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%@ was called while the session was already teared down", buf, 0xCu);
       }
     }
 
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_100139948;
-    v38[3] = &unk_100271E98;
-    v39 = handlerCopy;
-    v14 = handlerCopy;
-    [(CPLDirectChangeSession *)self dispatchCallback:v38];
-    v15 = v39;
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_100139948;
+    v39[3] = &unk_100271E98;
+    v40 = handlerCopy;
+    v15 = handlerCopy;
+    [(CPLDirectChangeSession *)self dispatchCallback:v39];
+    v16 = v40;
   }
 
   else
@@ -49,40 +50,40 @@
     store = [WeakRetained store];
     objc_storeWeak((&self->_engineLibrary + 1), store);
 
-    v22 = objc_loadWeakRetained((&self->_engineLibrary + 1));
-    scopes = [v22 scopes];
+    v23 = objc_loadWeakRetained((&self->_engineLibrary + 1));
+    scopes = [v23 scopes];
     objc_storeWeak((&self->_store + 1), scopes);
 
-    v24 = objc_loadWeakRetained((&self->_engineLibrary + 1));
-    pullQueue = [v24 pullQueue];
+    v25 = objc_loadWeakRetained((&self->_engineLibrary + 1));
+    pullQueue = [v25 pullQueue];
     objc_storeWeak((&self->_scopes + 1), pullQueue);
 
-    v26 = objc_loadWeakRetained((&self->_engineLibrary + 1));
-    idMapping = [v26 idMapping];
+    v27 = objc_loadWeakRetained((&self->_engineLibrary + 1));
+    idMapping = [v27 idMapping];
     objc_storeWeak((&self->_pullQueue + 1), idMapping);
 
-    v28 = objc_loadWeakRetained((&self->_lastSeenLibraryVersion + 1));
-    scheduler = [v28 scheduler];
+    v29 = objc_loadWeakRetained((&self->_lastSeenLibraryVersion + 1));
+    scheduler = [v29 scheduler];
     objc_storeWeak((&self->_idMapping + 1), scheduler);
 
-    v30 = objc_loadWeakRetained((&self->_engineLibrary + 1));
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_1001399AC;
-    v35[3] = &unk_1002797C0;
-    v35[4] = self;
-    v36 = versionCopy;
-    v37 = contextCopy;
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_100139BB0;
-    v33[3] = &unk_10027A198;
-    v33[4] = self;
-    v34 = handlerCopy;
-    v31 = handlerCopy;
-    v32 = [v30 performWriteTransactionWithBlock:v35 completionHandler:v33];
+    v31 = objc_loadWeakRetained((&self->_engineLibrary + 1));
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_1001399AC;
+    v36[3] = &unk_1002797C0;
+    v36[4] = self;
+    v37 = versionCopy;
+    v38 = contextCopy;
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_100139BB0;
+    v34[3] = &unk_10027A198;
+    v34[4] = self;
+    v35 = handlerCopy;
+    v32 = handlerCopy;
+    v33 = [v31 performWriteTransactionWithBlock:v36 completionHandler:v34];
 
-    v15 = v36;
+    v16 = v37;
   }
 }
 
@@ -90,61 +91,62 @@
 {
   handlerCopy = handler;
   [(CPLDirectChangeSession *)self discardTentativeResetReason];
-  if ([(CPLDirectChangeSession *)self tearedDown])
+  tearedDown = [(CPLDirectChangeSession *)self tearedDown];
+  if (tearedDown)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_100139904();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100139904(tearedDown);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v7 = NSStringFromSelector(a2);
+        v8 = NSStringFromSelector(a2);
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v7;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@ was called while the session was already teared down", &buf, 0xCu);
+        *(&buf + 4) = v8;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%@ was called while the session was already teared down", &buf, 0xCu);
       }
     }
 
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100139FB0;
-    v18[3] = &unk_100271E98;
-    v19 = handlerCopy;
-    [(CPLDirectChangeSession *)self dispatchCallback:v18];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100139FB0;
+    v19[3] = &unk_100271E98;
+    v20 = handlerCopy;
+    [(CPLDirectChangeSession *)self dispatchCallback:v19];
   }
 
   else
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v21 = 0x3032000000;
-    v22 = sub_100004560;
-    v23 = sub_100005394;
-    v24 = 0;
-    v16[0] = 0;
-    v16[1] = v16;
-    v16[2] = 0x2020000000;
-    v17 = 0;
+    v22 = 0x3032000000;
+    v23 = sub_100004560;
+    v24 = sub_100005394;
+    v25 = 0;
+    v17[0] = 0;
+    v17[1] = v17;
+    v17[2] = 0x2020000000;
+    v18 = 0;
     WeakRetained = objc_loadWeakRetained((&self->_engineLibrary + 1));
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10013A018;
-    v15[3] = &unk_10027AD00;
-    v15[4] = self;
-    v15[5] = &buf;
-    v15[6] = v16;
-    v15[7] = a2;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10013A89C;
-    v10[3] = &unk_10027AD50;
-    v10[4] = self;
-    v11 = handlerCopy;
-    v12 = v16;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10013A018;
+    v16[3] = &unk_10027AD00;
+    v16[4] = self;
+    v16[5] = &buf;
+    v16[6] = v17;
+    v16[7] = a2;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10013A89C;
+    v11[3] = &unk_10027AD50;
+    v11[4] = self;
+    v12 = handlerCopy;
+    v13 = v17;
     p_buf = &buf;
-    v14 = a2;
-    v9 = [WeakRetained performWriteTransactionWithBlock:v15 completionHandler:v10];
+    v15 = a2;
+    v10 = [WeakRetained performWriteTransactionWithBlock:v16 completionHandler:v11];
 
-    _Block_object_dispose(v16, 8);
+    _Block_object_dispose(v17, 8);
     _Block_object_dispose(&buf, 8);
   }
 }
@@ -153,53 +155,54 @@
 {
   batchCopy = batch;
   handlerCopy = handler;
-  if ([(CPLDirectChangeSession *)self tearedDown])
+  tearedDown = [(CPLDirectChangeSession *)self tearedDown];
+  if (tearedDown)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_100139904();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_100139904(tearedDown);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v10 = NSStringFromSelector(a2);
+        v11 = NSStringFromSelector(a2);
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v10;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%@ was called while the session was already teared down", &buf, 0xCu);
+        *(&buf + 4) = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%@ was called while the session was already teared down", &buf, 0xCu);
       }
     }
 
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_10013ADBC;
-    v20[3] = &unk_100271E98;
-    v21 = handlerCopy;
-    [(CPLDirectChangeSession *)self dispatchCallback:v20];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10013ADBC;
+    v21[3] = &unk_100271E98;
+    v22 = handlerCopy;
+    [(CPLDirectChangeSession *)self dispatchCallback:v21];
   }
 
   else
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v23 = 0x3032000000;
-    v24 = sub_100004560;
-    v25 = sub_100005394;
-    v26 = 0;
+    v24 = 0x3032000000;
+    v25 = sub_100004560;
+    v26 = sub_100005394;
+    v27 = 0;
     WeakRetained = objc_loadWeakRetained((&self->_engineLibrary + 1));
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10013AE24;
-    v16[3] = &unk_10027ADE8;
-    v16[4] = self;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10013AE24;
+    v17[3] = &unk_10027ADE8;
+    v17[4] = self;
     p_buf = &buf;
-    v19 = a2;
-    v17 = batchCopy;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10013B464;
-    v13[3] = &unk_10027AE10;
-    v15 = &buf;
-    v13[4] = self;
-    v14 = handlerCopy;
-    v12 = [WeakRetained performWriteTransactionWithBlock:v16 completionHandler:v13];
+    v20 = a2;
+    v18 = batchCopy;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10013B464;
+    v14[3] = &unk_10027AE10;
+    v16 = &buf;
+    v14[4] = self;
+    v15 = handlerCopy;
+    v13 = [WeakRetained performWriteTransactionWithBlock:v17 completionHandler:v14];
 
     _Block_object_dispose(&buf, 8);
   }
@@ -209,48 +212,49 @@
 {
   handlerCopy = handler;
   [(CPLDirectChangeSession *)self discardTentativeResetReason];
-  if ([(CPLDirectChangeSession *)self tearedDown])
+  tearedDown = [(CPLDirectChangeSession *)self tearedDown];
+  if (tearedDown)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_100139904();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100139904(tearedDown);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v7 = NSStringFromSelector(a2);
+        v8 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v19 = v7;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@ was called while the session was already teared down", buf, 0xCu);
+        v20 = v8;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%@ was called while the session was already teared down", buf, 0xCu);
       }
     }
 
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10013B904;
-    v16[3] = &unk_100271E98;
-    v17 = handlerCopy;
-    v8 = handlerCopy;
-    [(CPLDirectChangeSession *)self dispatchCallback:v16];
-    v9 = v17;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10013B904;
+    v17[3] = &unk_100271E98;
+    v18 = handlerCopy;
+    v9 = handlerCopy;
+    [(CPLDirectChangeSession *)self dispatchCallback:v17];
+    v10 = v18;
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained((&self->_engineLibrary + 1));
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10013B968;
-    v15[3] = &unk_100273588;
-    v15[4] = self;
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10013BAD4;
-    v13[3] = &unk_10027A198;
-    v13[4] = self;
-    v14 = handlerCopy;
-    v11 = handlerCopy;
-    v12 = [WeakRetained performWriteTransactionWithBlock:v15 completionHandler:v13];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10013B968;
+    v16[3] = &unk_100273588;
+    v16[4] = self;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10013BAD4;
+    v14[3] = &unk_10027A198;
+    v14[4] = self;
+    v15 = handlerCopy;
+    v12 = handlerCopy;
+    v13 = [WeakRetained performWriteTransactionWithBlock:v16 completionHandler:v14];
 
-    v9 = v14;
+    v10 = v15;
   }
 }
 

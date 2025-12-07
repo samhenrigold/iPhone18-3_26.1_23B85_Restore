@@ -581,7 +581,7 @@ int main(int argc, const char **argv, const char **envp)
         if (v6[1] == 112 && !v6[2])
         {
           sub_100001100();
-          if (v17)
+          if (v15)
           {
             syslog(1, "Will persist\n");
           }
@@ -598,7 +598,7 @@ int main(int argc, const char **argv, const char **envp)
         if (v6[1] == 120 && !v6[2])
         {
           sub_100001100();
-          if (v17)
+          if (v15)
           {
             syslog(1, "XPC support\n");
           }
@@ -616,7 +616,7 @@ int main(int argc, const char **argv, const char **envp)
         {
           puts("Routing debug output to syslog");
           sub_100001100();
-          if (v17)
+          if (v15)
           {
             syslog(1, "Routing debug output to syslog\n");
           }
@@ -634,15 +634,14 @@ int main(int argc, const char **argv, const char **envp)
       if (v3 == 2)
       {
         SystemEncoding = CFStringGetSystemEncoding();
-        v13 = CFStringCreateWithCString(kCFAllocatorDefault, v6, SystemEncoding);
-        if (v13)
+        v12 = CFStringCreateWithCString(kCFAllocatorDefault, v6, SystemEncoding);
+        if (v12)
         {
-          v14 = v13;
+          v13 = v12;
           Mutable = qword_100008010;
           if (qword_100008010 || (Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks), (qword_100008010 = Mutable) != 0))
           {
-            CFArrayAppendValue(Mutable, v14);
-            v16 = *v4;
+            CFArrayAppendValue(Mutable, v13);
             if (byte_100008000 == 1)
             {
               syslog(1, "Looking for controller %s\n", *v4);
@@ -654,7 +653,7 @@ int main(int argc, const char **argv, const char **envp)
             }
           }
 
-          CFRelease(v14);
+          CFRelease(v13);
         }
 
         v3 = 2;
@@ -670,8 +669,8 @@ int main(int argc, const char **argv, const char **envp)
           puts("\t[-p] persistent host detection");
           puts("\t[-s] route logging to syslog");
           puts("\t[-x] register xpc");
-          v26 = -1;
-          v18 = &byte_100008000;
+          v24 = -1;
+          v16 = &byte_100008000;
           goto LABEL_76;
         }
 
@@ -684,7 +683,6 @@ int main(int argc, const char **argv, const char **envp)
           if (qword_100008008 || (v10 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks), (qword_100008008 = v10) != 0))
           {
             CFArrayAppendValue(v10, v9);
-            v11 = *v4;
             if (byte_100008000 == 1)
             {
               syslog(1, "Looking for interface %s\n", *v4);
@@ -707,11 +705,11 @@ LABEL_33:
     }
   }
 
-  v18 = &byte_100008000;
+  v16 = &byte_100008000;
   if (!qword_100008008)
   {
     sub_100001100();
-    if (v17)
+    if (v15)
     {
       syslog(1, "Looking for all interfaces\n");
     }
@@ -725,7 +723,7 @@ LABEL_33:
   if (!qword_100008010)
   {
     sub_100001100();
-    if (v17)
+    if (v15)
     {
       syslog(1, "Looking for all controllers\n");
     }
@@ -741,19 +739,19 @@ LABEL_33:
     xpc_set_event_stream_handler("com.apple.iokit.matching", &_dispatch_main_q, &stru_100004260);
   }
 
-  v19 = getpid();
-  v20 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"addNetworkInterface-%d", v19);
-  if (v20)
+  v17 = getpid();
+  v18 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"addNetworkInterface-%d", v17);
+  if (v18)
   {
-    v21 = v20;
-    qword_100008018 = SCPreferencesCreate(kCFAllocatorDefault, v20, 0);
+    v19 = v18;
+    qword_100008018 = SCPreferencesCreate(kCFAllocatorDefault, v18, 0);
     if (!qword_100008018)
     {
       goto LABEL_79;
     }
 
     sub_100001100();
-    if (v17)
+    if (v15)
     {
       syslog(1, "Looking for network interfaces...\n");
     }
@@ -763,11 +761,11 @@ LABEL_33:
       puts("Looking for network interfaces...");
     }
 
-    v22 = IOServiceMatching("IONetworkInterface");
-    if (!v22)
+    v20 = IOServiceMatching("IONetworkInterface");
+    if (!v20)
     {
       sub_100001100();
-      if (v17)
+      if (v15)
       {
         syslog(1, "Can't create a service matching dictionary\n");
       }
@@ -782,11 +780,11 @@ LABEL_33:
 
     if (byte_100008001 == 1)
     {
-      MatchingServices = IOServiceAddMatchingNotification(qword_100008020, "IOServiceMatched", v22, sub_100000780, 0, &dword_100008004);
+      MatchingServices = IOServiceAddMatchingNotification(qword_100008020, "IOServiceMatched", v20, sub_100000780, 0, &dword_100008004);
       if (MatchingServices)
       {
         sub_100001100();
-        if (v17)
+        if (v15)
         {
           syslog(1, "IOServiceAddMatchingNotification failed: 0x%x\n");
         }
@@ -802,11 +800,11 @@ LABEL_33:
 
     else
     {
-      MatchingServices = IOServiceGetMatchingServices(kIOMasterPortDefault, v22, &dword_100008004);
+      MatchingServices = IOServiceGetMatchingServices(kIOMasterPortDefault, v20, &dword_100008004);
       if (MatchingServices)
       {
         sub_100001100();
-        if (v17)
+        if (v15)
         {
           syslog(1, "IOServiceGetMatchingServices failed: 0x%x\n");
         }
@@ -825,9 +823,9 @@ LABEL_71:
     if (byte_100008001 != 1)
     {
 LABEL_74:
-      v26 = 0;
+      v24 = 0;
 LABEL_75:
-      CFRelease(v21);
+      CFRelease(v19);
       goto LABEL_76;
     }
 
@@ -842,18 +840,18 @@ LABEL_75:
     }
 
 LABEL_79:
-    v26 = -1;
+    v24 = -1;
     goto LABEL_75;
   }
 
-  v26 = -1;
+  v24 = -1;
 LABEL_76:
-  if (v18[2] == 1)
+  if (v16[2] == 1)
   {
     dispatch_main();
   }
 
-  return v26;
+  return v24;
 }
 
 uint64_t sub_1000016D0(const __SCNetworkInterface *a1, const __SCNetworkService **a2)

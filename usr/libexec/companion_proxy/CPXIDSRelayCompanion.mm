@@ -3,6 +3,7 @@
 - (CPXIDSRelayCompanion)init;
 - (id)copyLockdownPortNumWithRequireHostIP:(id)p ipV6:(BOOL)v6;
 - (id)setupListeningSocket:(unsigned __int16)socket serviceName:(id)name requiredHostIP:(id)p ipV6:(BOOL)v6 isLowPriority:(BOOL)priority preferWifi:(BOOL)wifi;
+- (void)acceptConnection:(id)connection socket:(int)socket targetPort:(unint64_t)port serviceName:(id)name requiredHostIP:(id)p isLowPriority:(BOOL)priority preferWifi:(BOOL)wifi;
 - (void)acquirePort:(unint64_t)port isLowPriority:(BOOL)priority preferWifi:(BOOL)wifi;
 - (void)dealloc;
 - (void)handleIDSRelayConnectionResponse:(id)response fromID:(id)d UUID:(id)iD context:(id)context;
@@ -576,6 +577,130 @@ LABEL_17:
   {
     sub_10000A844();
   }
+}
+
+- (void)acceptConnection:(id)connection socket:(int)socket targetPort:(unint64_t)port serviceName:(id)name requiredHostIP:(id)p isLowPriority:(BOOL)priority preferWifi:(BOOL)wifi
+{
+  priorityCopy = priority;
+  connectionCopy = connection;
+  nameCopy = name;
+  pCopy = p;
+  *&v51.sa_len = 0;
+  *&v51.sa_data[6] = 0;
+  v44 = 16;
+  v43 = 0;
+  v18 = accept(socket, &v51, &v44);
+  if (!pCopy)
+  {
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_20;
+    }
+
+    *buf = 0;
+    v34 = "Must have a host IP to check against";
+LABEL_16:
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v34, buf, 2u);
+    goto LABEL_20;
+  }
+
+  v19 = v18;
+  v20 = sub_100007BD0(v18, &v43);
+  if (!v20)
+  {
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_20;
+    }
+
+    *buf = 0;
+    v34 = "createIPStringFromSocket failed";
+    goto LABEL_16;
+  }
+
+  v21 = v20;
+  if (port == 62078 || ([v20 isEqualToString:pCopy] & 1) != 0)
+  {
+    v35 = v21;
+    [(CPXIDSRelayCompanion *)self acquirePort:port isLowPriority:priorityCopy preferWifi:?];
+    v22 = +[NSUUID UUID];
+    uUIDString = [v22 UUIDString];
+
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v46 = nameCopy;
+      v47 = 1024;
+      *v48 = port;
+      *&v48[4] = 2112;
+      *&v48[6] = uUIDString;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Accepted a connection for service %@ with target port: %d and sending IDSRelayMessageConnect with UUID: %@", buf, 0x1Cu);
+    }
+
+    v24 = objc_opt_new();
+    [v24 setObject:&off_100015320 forKeyedSubscript:@"Type"];
+    [v24 setObject:uUIDString forKeyedSubscript:@"UUID"];
+    v25 = [NSNumber numberWithUnsignedInteger:port];
+    [v24 setObject:v25 forKeyedSubscript:@"Port"];
+
+    v26 = [NSNumber numberWithBool:priorityCopy];
+    [v24 setObject:v26 forKeyedSubscript:@"LowPriority"];
+
+    v27 = [NSNumber numberWithInt:v19];
+    [v24 setObject:v27 forKeyedSubscript:@"Socket"];
+
+    v28 = [NSNumber numberWithBool:wifi];
+    [v24 setObject:v28 forKeyedSubscript:@"PreferWifi"];
+
+    if (nameCopy)
+    {
+      [v24 setObject:nameCopy forKeyedSubscript:@"ServiceName"];
+    }
+
+    connectionMap = [(CPXIDSRelayCompanion *)self connectionMap];
+    [connectionMap setObject:v24 forKey:uUIDString];
+
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_100006C7C;
+    v36[3] = &unk_1000146A0;
+    v36[4] = self;
+    v30 = uUIDString;
+    v37 = v30;
+    portCopy = port;
+    v41 = priorityCopy;
+    wifiCopy = wifi;
+    v38 = nameCopy;
+    v40 = v19;
+    v31 = objc_retainBlock(v36);
+    queue = [(CPXIDSRelay *)self queue];
+    [(CPXIDSRelayCompanion *)self startTimerForUDID:v30 queue:queue timeout:35 withErrorCallback:v31];
+
+    v33 = [(CPXIDSRelay *)self sendMessage:connectionCopy messageDictionary:v24];
+    if (!v33)
+    {
+      [(CPXIDSRelayCompanion *)self stopTimerForUDID:v30];
+      (v31[2])(v31);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138413058;
+      v46 = v21;
+      v47 = 2112;
+      *v48 = pCopy;
+      *&v48[8] = 2112;
+      *&v48[10] = nameCopy;
+      v49 = 2048;
+      portCopy2 = port;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Denying host at %@, was expecting %@. Must be same IP that started %@ on %lu.", buf, 0x2Au);
+    }
+  }
+
+LABEL_20:
 }
 
 - (void)handleIDSRelayConnectionResponse:(id)response fromID:(id)d UUID:(id)iD context:(id)context

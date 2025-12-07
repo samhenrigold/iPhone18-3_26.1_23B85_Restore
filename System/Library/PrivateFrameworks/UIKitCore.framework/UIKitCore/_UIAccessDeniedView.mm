@@ -32,7 +32,7 @@
 - (void)setTitle:(id)title
 {
   titleCopy = title;
-  if (![(NSString *)self->_title isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_title) & 1) == 0)
   {
     v4 = [titleCopy copy];
     title = self->_title;
@@ -46,7 +46,7 @@
 - (void)setMessage:(id)message
 {
   messageCopy = message;
-  if (![(NSString *)self->_message isEqualToString:?])
+  if ((objc_msgSend_isEqualToString_(self->_message) & 1) == 0)
   {
     v4 = [messageCopy copy];
     message = self->_message;

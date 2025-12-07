@@ -318,7 +318,7 @@ LABEL_28:
   [(CRLPKStrokePathCompactData *)v24 setPointCount:v57 + 1];
   if (v58)
   {
-    [v58 transform];
+    objc_msgSend_transform(v58);
   }
 
   else

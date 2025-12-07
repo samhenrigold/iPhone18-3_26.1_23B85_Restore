@@ -2,7 +2,6 @@
 - (int)enqueueBufferForProcessing:(opaqueCMSampleBuffer *)processing;
 - (int)finishPendingProcessing;
 - (int)prepareToProcess;
-- (uint64_t)prepareToProcess;
 - (void)dealloc;
 - (void)didCompleteProcessingOfBuffer:(opaqueCMSampleBuffer *)buffer withStatus:(int)status;
 - (void)willStartProcessingBuffer:(opaqueCMSampleBuffer *)buffer withStatus:(int)status;
@@ -256,7 +255,7 @@ LABEL_21:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_1();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v9, v10, v11, v12, v13, vars0, vars8);
     }
 
     else
@@ -279,7 +278,7 @@ LABEL_21:
   if (finishProcessing)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", finishProcessing, v2, v6, v7, v8, v9, vars0, vars8);
   }
 
   else
@@ -288,13 +287,6 @@ LABEL_21:
   }
 
   return finishProcessing;
-}
-
-- (uint64_t)prepareToProcess
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 @end

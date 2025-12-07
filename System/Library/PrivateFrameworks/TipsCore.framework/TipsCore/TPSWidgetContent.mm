@@ -13,44 +13,43 @@
 
 - (id)titleContent
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = TPSWidgetContent;
-  titleContent = [(TPSContent *)&v17 titleContent];
+  v17 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = TPSWidgetContent;
+  titleContent = [(TPSContent *)&v15 titleContent];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_10:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_13;
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = titleContent;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v12;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         v7 &= objc_opt_isKindOfClass();
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v5);
@@ -65,12 +64,10 @@ LABEL_10:
   {
   }
 
-  v10 = v3;
+  v9 = v3;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v9;
 }
 
 - (int64_t)compare:(id)compare

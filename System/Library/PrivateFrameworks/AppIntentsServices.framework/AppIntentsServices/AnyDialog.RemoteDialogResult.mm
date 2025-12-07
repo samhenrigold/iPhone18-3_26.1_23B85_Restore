@@ -120,17 +120,18 @@
 
 - (NSDictionary)visualParameters
 {
-  if (sub_221B10810())
+  sub_221B10810();
+  if (v2)
   {
-    v2 = sub_221BCD278();
+    v3 = sub_221BCD278();
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)setVisualParameters:(id)parameters

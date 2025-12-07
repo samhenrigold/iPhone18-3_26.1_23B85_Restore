@@ -334,7 +334,7 @@ LABEL_18:
   [traitCollection displayScale];
 
   iconSideLength = self->_iconSideLength;
-  [v179 frame];
+  objc_msgSend_frame(v179);
   v26 = v25;
   v28 = v27;
   v196 = v4;
@@ -363,7 +363,7 @@ LABEL_18:
 
   v199 = spacingBetweenLeadingEdgeAndIcon;
   rect_16 = v6;
-  [v178 frame];
+  objc_msgSend_frame(v178);
   v202 = v32;
   v161 = v33;
   v35 = *MEMORY[0x277CBF3A0];
@@ -408,7 +408,7 @@ LABEL_18:
   v50 = v20;
   if (v16)
   {
-    [v16 frame];
+    objc_msgSend_frame(v16, v35, v34, v36);
     v46 = v51;
     v36 = v208;
   }
@@ -422,7 +422,7 @@ LABEL_18:
   v55 = v35;
   if (v19)
   {
-    [v19 frame];
+    objc_msgSend_frame(v19, v35, v34, v36, v37);
     v36 = v208;
   }
 
@@ -1113,7 +1113,7 @@ LABEL_18:
         }
 
         v16 = *(*(&v110 + 1) + 8 * i);
-        if (([v109 containsObject:v16] & 1) == 0)
+        if ((objc_msgSend_containsObject_(v109) & 1) == 0)
         {
           v17 = [(NSMutableDictionary *)self->_itemsToTitleLabels objectForKey:v16];
           v18 = v17;
@@ -1667,28 +1667,28 @@ LABEL_12:
 
   if ([(NSArray *)self->_titleItems count]< 2)
   {
-    v50 = 0;
+    v62 = 0;
   }
 
   else
   {
-    v50 = [(NSArray *)self->_titleItems objectAtIndex:1];
+    v62 = [(NSArray *)self->_titleItems objectAtIndex:1];
   }
 
   displayItem = [v4 displayItem];
-  displayItem2 = [v50 displayItem];
+  displayItem2 = [v62 displayItem];
   v7 = displayItem2;
   if (displayItem)
   {
-    v48 = [(NSMutableDictionary *)self->_itemsToIconImageViews objectForKey:displayItem];
-    v47 = [(NSMutableDictionary *)self->_itemsToTitleLabels objectForKey:displayItem];
+    v60 = [(NSMutableDictionary *)self->_itemsToIconImageViews objectForKey:displayItem];
+    v59 = [(NSMutableDictionary *)self->_itemsToTitleLabels objectForKey:displayItem];
     v8 = [(NSMutableDictionary *)self->_itemsToSubtitleLabelViews objectForKey:displayItem];
-    v45 = [(NSMutableDictionary *)self->_itemsToMultiWindowIndicatorViews objectForKey:displayItem];
+    v57 = [(NSMutableDictionary *)self->_itemsToMultiWindowIndicatorViews objectForKey:displayItem];
     if (v7)
     {
 LABEL_9:
       v9 = [(NSMutableDictionary *)self->_itemsToIconImageViews objectForKey:v7];
-      v46 = [(NSMutableDictionary *)self->_itemsToTitleLabels objectForKey:v7];
+      v58 = [(NSMutableDictionary *)self->_itemsToTitleLabels objectForKey:v7];
       v10 = [(NSMutableDictionary *)self->_itemsToSubtitleLabelViews objectForKey:v7];
       v11 = [(NSMutableDictionary *)self->_itemsToMultiWindowIndicatorViews objectForKey:v7];
       goto LABEL_12;
@@ -1697,9 +1697,9 @@ LABEL_9:
 
   else
   {
-    v45 = 0;
-    v47 = 0;
-    v48 = 0;
+    v57 = 0;
+    v59 = 0;
+    v60 = 0;
     v8 = 0;
     if (displayItem2)
     {
@@ -1708,7 +1708,7 @@ LABEL_9:
   }
 
   v11 = 0;
-  v46 = 0;
+  v58 = 0;
   v9 = 0;
   v10 = 0;
 LABEL_12:
@@ -1719,18 +1719,17 @@ LABEL_12:
   {
     if (v8)
     {
-      v16 = v8;
+      objc_msgSend_frame(v8);
     }
 
     else
     {
-      v16 = v47;
+      objc_msgSend_frame(v59);
     }
 
-    [v16 frame];
-    MinX = CGRectGetMinX(v53);
-    [v48 frame];
-    MaxX = CGRectGetMaxX(v54);
+    MinX = CGRectGetMinX(*&v16);
+    objc_msgSend_frame(v60);
+    MaxX = CGRectGetMaxX(v65);
     if (v7)
     {
       spacingBetweenTrailingEdgeAndLabels = self->_spacingBetweenLabelAndSecondIcon * 0.5;
@@ -1744,20 +1743,19 @@ LABEL_12:
     spacingBetweenLeadingEdgeAndIcon = self->_spacingBetweenLeadingEdgeAndIcon;
     if (v10)
     {
-      v26 = v10;
+      objc_msgSend_frame(v10);
     }
 
     else
     {
-      v26 = v46;
+      objc_msgSend_frame(v58);
     }
 
-    [v26 frame];
-    v30 = MaxX + spacingBetweenLeadingEdgeAndIcon;
-    v31 = MinX - spacingBetweenTrailingEdgeAndLabels;
-    v32 = CGRectGetMinX(v57) - self->_spacingBetweenTrailingEdgeAndLabels;
-    [v9 frame];
-    v33 = CGRectGetMaxX(v58) + self->_spacingBetweenLabelAndSecondIcon * 0.5;
+    v42 = MaxX + spacingBetweenLeadingEdgeAndIcon;
+    v43 = MinX - spacingBetweenTrailingEdgeAndLabels;
+    v44 = CGRectGetMinX(*&v32) - self->_spacingBetweenTrailingEdgeAndLabels;
+    objc_msgSend_frame(v9);
+    v45 = CGRectGetMaxX(v67) + self->_spacingBetweenLabelAndSecondIcon * 0.5;
     if (!v7)
     {
       goto LABEL_37;
@@ -1766,51 +1764,49 @@ LABEL_12:
 
   else
   {
-    v44 = v15;
-    [v48 frame];
-    v17 = CGRectGetMinX(v52);
-    v18 = self->_spacingBetweenLeadingEdgeAndIcon;
+    v56 = v15;
+    objc_msgSend_frame(v60);
+    v20 = CGRectGetMinX(v64);
+    v21 = self->_spacingBetweenLeadingEdgeAndIcon;
     if (v8)
     {
-      v19 = v8;
+      objc_msgSend_frame(v8);
     }
 
     else
     {
-      v19 = v47;
+      objc_msgSend_frame(v59);
     }
 
-    [v19 frame];
-    v23 = CGRectGetMaxX(v55);
+    v29 = CGRectGetMaxX(*&v22);
     if (v7)
     {
-      v24 = self->_spacingBetweenLabelAndSecondIcon * 0.5;
+      v30 = self->_spacingBetweenLabelAndSecondIcon * 0.5;
     }
 
     else
     {
-      v24 = self->_spacingBetweenTrailingEdgeAndLabels;
+      v30 = self->_spacingBetweenTrailingEdgeAndLabels;
     }
 
-    [v9 frame];
-    v27 = CGRectGetMinX(v56);
+    objc_msgSend_frame(v9);
+    v36 = CGRectGetMinX(v66);
     spacingBetweenLabelAndSecondIcon = self->_spacingBetweenLabelAndSecondIcon;
     if (v10)
     {
-      v29 = v10;
+      objc_msgSend_frame(v10);
     }
 
     else
     {
-      v29 = v46;
+      objc_msgSend_frame(v58);
     }
 
-    [v29 frame];
-    v31 = v17 - v18;
-    v30 = v23 + v24;
-    v32 = v27 + spacingBetweenLabelAndSecondIcon * -0.5;
-    v33 = CGRectGetMaxX(v59) + self->_spacingBetweenTrailingEdgeAndLabels;
-    v15 = v44;
+    v43 = v20 - v21;
+    v42 = v29 + v30;
+    v44 = v36 + spacingBetweenLabelAndSecondIcon * -0.5;
+    v45 = CGRectGetMaxX(*&v38) + self->_spacingBetweenTrailingEdgeAndLabels;
+    v15 = v56;
     if (!v7)
     {
 LABEL_37:
@@ -1819,14 +1815,14 @@ LABEL_37:
         goto LABEL_45;
       }
 
-      v36 = v31 <= v13 && v13 < v30;
-      v34 = v4;
-      if (!v36)
+      v48 = v43 <= v13 && v13 < v42;
+      v46 = v4;
+      if (!v48)
       {
-        v37 = [(SBFluidSwitcherItemContainerHeaderView *)self hitTest:0 withEvent:v13, v15];
+        v49 = [(SBFluidSwitcherItemContainerHeaderView *)self hitTest:0 withEvent:v13, v15];
 
-        v34 = v4;
-        if (v37 != v45)
+        v46 = v4;
+        if (v49 != v57)
         {
           goto LABEL_45;
         }
@@ -1836,31 +1832,31 @@ LABEL_37:
     }
   }
 
-  if (v32 > v13 || (v34 = v50, v13 >= v33))
+  if (v44 > v13 || (v46 = v62, v13 >= v45))
   {
-    v35 = [(SBFluidSwitcherItemContainerHeaderView *)self hitTest:0 withEvent:v13, v15];
+    v47 = [(SBFluidSwitcherItemContainerHeaderView *)self hitTest:0 withEvent:v13, v15];
 
-    v34 = v50;
-    if (v35 != v11)
+    v46 = v62;
+    if (v47 != v11)
     {
       goto LABEL_37;
     }
   }
 
 LABEL_43:
-  v38 = v34;
-  if (v38)
+  v50 = v46;
+  if (v50)
   {
-    v39 = v38;
-    v40 = v9;
-    v41 = v4;
-    v42 = v11;
+    v51 = v50;
+    v52 = v9;
+    v53 = v4;
+    v54 = v11;
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained itemContainerHeaderView:self didSelectTitleItem:v39];
+    [WeakRetained itemContainerHeaderView:self didSelectTitleItem:v51];
 
-    v11 = v42;
-    v4 = v41;
-    v9 = v40;
+    v11 = v54;
+    v4 = v53;
+    v9 = v52;
   }
 
 LABEL_45:

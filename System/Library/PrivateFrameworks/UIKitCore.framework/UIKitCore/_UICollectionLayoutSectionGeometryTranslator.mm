@@ -32,72 +32,72 @@
     return 0;
   }
 
-  v45.receiver = self;
-  v45.super_class = _UICollectionLayoutSectionGeometryTranslator;
-  v28 = objc_msgSendSuper2(&v45, sel_init);
-  v29 = v28;
-  if (v28)
+  v40.receiver = self;
+  v40.super_class = _UICollectionLayoutSectionGeometryTranslator;
+  v23 = objc_msgSendSuper2(&v40, sel_init);
+  v24 = v23;
+  if (v23)
   {
-    *(v28 + 1) = a2;
-    v28[16] = size;
+    *(v23 + 1) = a2;
+    v23[16] = size;
     if (size)
     {
-      v30 = a11;
+      v25 = a11;
     }
 
     else
     {
-      v30 = a9;
+      v25 = a9;
     }
 
     if (size)
     {
-      v31 = a9;
+      v26 = a9;
     }
 
     else
     {
-      v31 = a11;
+      v26 = a11;
     }
 
-    *(v28 + 5) = offset;
-    *(v28 + 6) = v30;
-    *(v28 + 7) = a10;
-    *(v28 + 8) = v31;
-    *(v28 + 3) = a12;
-    *(v28 + 4) = a13;
+    *(v23 + 5) = offset;
+    *(v23 + 6) = v25;
+    *(v23 + 7) = a10;
+    *(v23 + 8) = v26;
+    *(v23 + 3) = a12;
+    *(v23 + 4) = a13;
     if (a2)
     {
-      v32 = MEMORY[0x1E695EFF8];
-      v33 = *MEMORY[0x1E695EFF8];
-      v34 = *(MEMORY[0x1E695EFF8] + 8);
-      v35 = v30 + *MEMORY[0x1E695EFF8];
-      v36 = _UIPointValueForAxis(a2, a12, a13);
-      v37 = v35 + _UISetPointValueForAxis(*(v29 + 1), v33, v34, v36);
-      v39 = offset + v34 + v38;
-      v40 = _UITotalEdgeDimensionsForLayoutAxis(a2, *(v29 + 5), *(v29 + 6), *(v29 + 7), *(v29 + 8));
-      v41 = _UISetSizeValueForAxis(a2, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8), v40);
-      *(v29 + 9) = v37;
-      *(v29 + 10) = v39;
-      *(v29 + 11) = solutionSize;
-      *(v29 + 12) = axis;
-      *(v29 + 104) = *v32;
-      *(v29 + 15) = fmax(solutionSize + v41, l);
-      *(v29 + 16) = fmax(axis + v42, insets);
+      v27 = MEMORY[0x1E695EFF8];
+      v28 = *MEMORY[0x1E695EFF8];
+      v29 = *(MEMORY[0x1E695EFF8] + 8);
+      v30 = v25 + *MEMORY[0x1E695EFF8];
+      v31 = _UIPointValueForAxis(a2, a12, a13);
+      v32 = v30 + _UISetPointValueForAxis(*(v24 + 1), v28, v29, v31);
+      v34 = offset + v29 + v33;
+      v35 = _UITotalEdgeDimensionsForLayoutAxis(a2, *(v24 + 5), *(v24 + 6), *(v24 + 7), *(v24 + 8));
+      v36 = _UISetSizeValueForAxis(a2, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8), v35);
+      *(v24 + 9) = v32;
+      *(v24 + 10) = v34;
+      *(v24 + 11) = solutionSize;
+      *(v24 + 12) = axis;
+      *(v24 + 104) = *v27;
+      *(v24 + 15) = fmax(solutionSize + v36, l);
+      *(v24 + 16) = fmax(axis + v37, insets);
     }
 
     else
     {
-      v43 = *MEMORY[0x1E695EFF8];
-      *(v28 + 72) = *MEMORY[0x1E695EFF8];
-      *(v28 + 11) = solutionSize;
-      *(v28 + 12) = axis;
-      *(v28 + 104) = v43;
-      *(v28 + 120) = *(v28 + 88);
+      v38 = *MEMORY[0x1E695EFF8];
+      *(v23 + 72) = *MEMORY[0x1E695EFF8];
+      *(v23 + 11) = solutionSize;
+      *(v23 + 12) = axis;
+      *(v23 + 104) = v38;
+      *(v23 + 120) = *(v23 + 88);
     }
   }
 
-  return v29;
+  return v24;
 }
 
 - (double)contentRectForSectionRect:(CGFloat)rect

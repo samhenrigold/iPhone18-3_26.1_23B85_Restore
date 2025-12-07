@@ -14,7 +14,7 @@ uint64_t BlueFin::GlMeSrdAsicConfig::GetParam(BlueFin::GlMeSrdAsicConfig *this, 
   return result;
 }
 
-unint64_t BlueFin::GlDineCtrl::SetBlankingConfig(uint64_t a1, _DWORD *a2, int a3, int a4, int a5, int a6, int a7, int a8)
+uint64_t BlueFin::GlDineCtrl::SetBlankingConfig(uint64_t a1, _DWORD *a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
   v8 = a8;
   v9 = a7;
@@ -54,7 +54,7 @@ uint64_t BlueFin::GlMeSrdAsicConfig::SetGeofenceSupport(uint64_t this, int a2)
   return this;
 }
 
-unint64_t BlueFin::GlMeSrdCtrlSm::BlankingConfigUpdated(BlueFin::GlMeSrdCtrlSm *this)
+uint64_t BlueFin::GlMeSrdCtrlSm::BlankingConfigUpdated(BlueFin::GlMeSrdCtrlSm *this)
 {
   v4 = 37;
   v2 = *(this + 4);
@@ -134,7 +134,7 @@ uint64_t BlueFin::GlDineCtrl::SetLTEFilter(BlueFin::GlDineCtrl *this, int a2, in
   }
 }
 
-unint64_t BlueFin::GlMeSrdCtrlSm::LteFilterSettingsUpdated(BlueFin::GlMeSrdCtrlSm *this)
+uint64_t BlueFin::GlMeSrdCtrlSm::LteFilterSettingsUpdated(BlueFin::GlMeSrdCtrlSm *this)
 {
   v4 = 60;
   v2 = *(this + 4);
@@ -189,7 +189,7 @@ double BlueFin::GlDineCtrl::SetAdcCapture(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t BlueFin::GlMeSrdPacketManager::SendReliablePacket(unint64_t this, void (*a2)(void *, unsigned __int8), void *a3, char a4)
+uint64_t BlueFin::GlMeSrdPacketManager::SendReliablePacket(uint64_t this, void (*a2)(void *, unsigned __int8), void *a3, char a4)
 {
   if ((*(this + 13874) & 1) == 0)
   {
@@ -418,7 +418,7 @@ LABEL_18:
   v15 = this + 4240;
   if (*(this + 6516) == 1 && BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
   {
-    BlueFin::GlMeHost2SrdData::SerializeImpl(&v13);
+    BlueFin::GlMeHost2SrdData::SerializeImpl(&v13, 0);
   }
 
   (*(**(this + 16) + 24))(*(this + 16), this + 4240, v5);
@@ -562,104 +562,102 @@ uint64_t BlueFin::GlMeSrdAsicinit::BypassLteFilter(uint64_t a1, BlueFin::GlMeSrd
 
 uint64_t BlueFin::MinnowEswRpcTimEncImp::esw_tim_rpc_set_duty_cycling(BlueFin::MinnowEswRpcTimEncImp *this, BlueFin::GlMeSrdTransaction *a2, char a3, unsigned int a4, char a5)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if ((a3 & 0xFu) - 11 <= 0xFFFFFFF5)
   {
-    v14 = "((interval & 0x0F) > 0) && ((interval & 0x0F) <= MAX_DUTY_CYCLE_INTERVAL)";
+    v13 = "((interval & 0x0F) > 0) && ((interval & 0x0F) <= MAX_DUTY_CYCLE_INTERVAL)";
     DeviceFaultNotify("glmesrd_transaction_rpc_encoder_minnow.cpp", 399, "esw_tim_rpc_set_duty_cycling", "((interval & 0x0F) > 0) && ((interval & 0x0F) <= MAX_DUTY_CYCLE_INTERVAL)");
-    v15 = 399;
+    v14 = 399;
     goto LABEL_8;
   }
 
   v5 = a4;
   if (a4 >= 6)
   {
-    v14 = "min_active_blocks <= MAX_DUTY_CYCLE_MIN_ACTIVE_BLOCKS";
+    v13 = "min_active_blocks <= MAX_DUTY_CYCLE_MIN_ACTIVE_BLOCKS";
     DeviceFaultNotify("glmesrd_transaction_rpc_encoder_minnow.cpp", 400, "esw_tim_rpc_set_duty_cycling", "min_active_blocks <= MAX_DUTY_CYCLE_MIN_ACTIVE_BLOCKS");
-    v15 = 400;
+    v14 = 400;
     goto LABEL_8;
   }
 
   v8 = a2;
   v10 = (*(**(a2 + 3) + 40))(*(a2 + 3));
-  BlueFin::GlStream::GlStream(v16, v17, 1800, v10);
-  BlueFin::GlStream::PutU08(v16, a3);
-  BlueFin::GlStream::PutU08(v16, v5);
-  BlueFin::GlStream::PutU08(v16, a5);
-  Offset = BlueFin::GlStream::GetOffset(v16);
-  BlueFin::GlMeSrdTransaction::Add(v8, 3, 8u, v17, Offset);
+  BlueFin::GlStream::GlStream(v15, v16, 1800, v10);
+  BlueFin::GlStream::PutU08(v15, a3);
+  BlueFin::GlStream::PutU08(v15, v5);
+  BlueFin::GlStream::PutU08(v15, a5);
+  Offset = BlueFin::GlStream::GetOffset(v15);
+  BlueFin::GlMeSrdTransaction::Add(v8, 3, 8u, v16, Offset);
   LODWORD(v8) = v8[16];
   result = (*(**(this + 1) + 416))();
   if (result < v8)
   {
-    v14 = "pTransaction->GetTransLength() <= m_rAsicConfigIfc.GetMaxEswTransBufSize()";
+    v13 = "pTransaction->GetTransLength() <= m_rAsicConfigIfc.GetMaxEswTransBufSize()";
     DeviceFaultNotify("glmesrd_transaction_rpc_encoder_minnow.cpp", 410, "esw_tim_rpc_set_duty_cycling", "pTransaction->GetTransLength() <= m_rAsicConfigIfc.GetMaxEswTransBufSize()");
-    v15 = 410;
+    v14 = 410;
 LABEL_8:
-    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_transaction_rpc_encoder_minnow.cpp", v15, v14);
+    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_transaction_rpc_encoder_minnow.cpp", v14, v13);
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t BlueFin::CarpEswRpcTimEncImp::esw_tim_rpc_time_capture_arm(uint64_t a1, uint64_t a2, char *a3)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (*a3 >= 4)
   {
-    v10 = "capture->port <= CAPTURE_PORT_CNTIN";
+    v9 = "capture->port <= CAPTURE_PORT_CNTIN";
     DeviceFaultNotify("glmesrd_transaction_rpc_encoder_carp.cpp", 1118, "esw_tim_rpc_time_capture_arm", "capture->port <= CAPTURE_PORT_CNTIN");
-    v11 = 1118;
+    v10 = 1118;
     goto LABEL_6;
   }
 
   v4 = a2;
   v6 = (*(**(a2 + 24) + 40))(*(a2 + 24));
-  BlueFin::GlStream::GlStream(v12, v13, 1800, v6);
-  BlueFin::GlStream::PutU08(v12, *a3);
-  BlueFin::GlStream::PutU08(v12, a3[4]);
-  BlueFin::GlStream::PutU08(v12, a3[8]);
-  BlueFin::GlStream::PutU08(v12, a3[12]);
-  Offset = BlueFin::GlStream::GetOffset(v12);
-  BlueFin::GlMeSrdTransaction::Add(v4, 3, 0, v13, Offset);
+  BlueFin::GlStream::GlStream(v11, v12, 1800, v6);
+  BlueFin::GlStream::PutU08(v11, *a3);
+  BlueFin::GlStream::PutU08(v11, a3[4]);
+  BlueFin::GlStream::PutU08(v11, a3[8]);
+  BlueFin::GlStream::PutU08(v11, a3[12]);
+  Offset = BlueFin::GlStream::GetOffset(v11);
+  BlueFin::GlMeSrdTransaction::Add(v4, 3, 0, v12, Offset);
   LODWORD(v4) = v4[16];
   result = (*(**(a1 + 8) + 416))();
   if (result < v4)
   {
-    v10 = "pTransaction->GetTransLength() <= m_rAsicConfigIfc.GetMaxEswTransBufSize()";
+    v9 = "pTransaction->GetTransLength() <= m_rAsicConfigIfc.GetMaxEswTransBufSize()";
     DeviceFaultNotify("glmesrd_transaction_rpc_encoder_carp.cpp", 1131, "esw_tim_rpc_time_capture_arm", "pTransaction->GetTransLength() <= m_rAsicConfigIfc.GetMaxEswTransBufSize()");
-    v11 = 1131;
+    v10 = 1131;
 LABEL_6:
-    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_transaction_rpc_encoder_carp.cpp", v11, v10);
+    __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_transaction_rpc_encoder_carp.cpp", v10, v9);
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 unint64_t BlueFin::GlMeSrdRpcMiscAsicInit::gll_misc_rpc_echo_response(BlueFin::GlMeSrdRpcMiscAsicInit *this, int a2, unsigned __int8 *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v6 = (*(**(*(this + 1) + 120) + 80))(*(*(this + 1) + 120));
   v7 = (*(*v6 + 40))(v6);
-  BlueFin::GlStream::GlStream(v30, a3, a2, v7);
-  if (BlueFin::GlStream::GetU32(v30) != -87053062)
+  BlueFin::GlStream::GlStream(v29, a3, a2, v7);
+  if (BlueFin::GlStream::GetU32(v29) != -87053062)
   {
     goto LABEL_41;
   }
 
-  U32 = BlueFin::GlStream::GetU32(v30);
-  v9 = BlueFin::GlStream::GetU32(v30);
-  v10 = BlueFin::GlStream::GetU32(v30);
-  BlueFin::GlStream::GetU32(v30);
-  BlueFin::GlStream::GetU32(v30);
-  BlueFin::GlStream::GetU32(v30);
-  BlueFin::GlStream::GetU32(v30);
-  v11 = BlueFin::GlStream::GetU32(v30);
-  v12 = BlueFin::GlStream::GetU32(v30);
-  v13 = BlueFin::GlStream::GetU32(v30);
-  v14 = BlueFin::GlStream::GetU32(v30);
+  U32 = BlueFin::GlStream::GetU32(v29);
+  v9 = BlueFin::GlStream::GetU32(v29);
+  v10 = BlueFin::GlStream::GetU32(v29);
+  BlueFin::GlStream::GetU32(v29);
+  BlueFin::GlStream::GetU32(v29);
+  BlueFin::GlStream::GetU32(v29);
+  BlueFin::GlStream::GetU32(v29);
+  v11 = BlueFin::GlStream::GetU32(v29);
+  v12 = BlueFin::GlStream::GetU32(v29);
+  v13 = BlueFin::GlStream::GetU32(v29);
+  v14 = BlueFin::GlStream::GetU32(v29);
   if (((*(**(*(this + 1) + 128) + 184))(*(*(this + 1) + 128)) & 0xF100FFFE) != 0x31000014)
   {
     if (((*(**(*(this + 1) + 128) + 184))(*(*(this + 1) + 128)) & 0xF100FFFE) != 0x30000012 && ((*(**(*(this + 1) + 128) + 184))(*(*(this + 1) + 128)) & 0xF100FFFE) != 0x30000014)
@@ -686,7 +684,7 @@ LABEL_35:
 
     v15 = 0;
     v16 = 0;
-    v32 = 0;
+    v31 = 0;
     v17 = 16;
     while (1)
     {
@@ -710,7 +708,7 @@ LABEL_35:
 
       if (v19 == 37)
       {
-        *(v31 + v17 - 1) = 67;
+        *(v30 + v17 - 1) = 67;
         v20 = 66;
         v21 = -2;
         goto LABEL_21;
@@ -738,7 +736,7 @@ LABEL_20:
     v21 = -1;
 LABEL_21:
     v17 += v21;
-    *(v31 + v17) = v20;
+    *(v30 + v17) = v20;
     goto LABEL_22;
   }
 
@@ -764,25 +762,25 @@ LABEL_21:
   }
 
 LABEL_40:
-  v24 = BlueFin::GlStream::GetU32(v30);
+  v24 = BlueFin::GlStream::GetU32(v29);
   GlCustomLog(14, "CoreOtpData: 0x%08X\n", v24);
 LABEL_41:
-  v29 = 8;
+  v28 = 8;
   v25 = *(this + 1);
   v26 = *(v25 + 32);
   result = *(v25 + 8);
   *(v25 + 32) = result;
   do
   {
-    v31[0] = 0;
-    if (BlueFin::patch_dispatch(result, v25, &v29, v31))
+    v30[0] = 0;
+    if (BlueFin::patch_dispatch(result, v25, &v28, v30))
     {
-      result = v31[0];
+      result = v30[0];
     }
 
     else
     {
-      result = (*(v25 + 32))(v25, &v29);
+      result = (*(v25 + 32))(v25, &v28);
     }
 
     *(v25 + 32) = result;
@@ -790,19 +788,18 @@ LABEL_41:
 
   while (result);
   *(v25 + 32) = v26;
-  v28 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t BlueFin::GlMeSrdPacketManager::SendReliableElement(unsigned __int8 *a1, uint64_t a2)
+uint64_t BlueFin::GlMeSrdPacketManager::SendReliableElement(BlueFin::GlMeSrdPacketManager *a1, uint64_t a2)
 {
-  if (a1[13872] == 1)
+  if (*(a1 + 13872) == 1)
   {
     DeviceFaultNotify("glmesrd_packet_manager_reliable.cpp", 172, "SendReliableElement", "!m_bPacketStarted");
     __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glmesrd_packet_manager_reliable.cpp", 172, "!m_bPacketStarted");
   }
 
-  a1[13872] = 1;
+  *(a1 + 13872) = 1;
   v9[0] = 1;
   v9[1] = *(a2 + 48);
   BlueFin::GlMeSrdPacketManager::AppendData(a1, v9, 2);
@@ -819,8 +816,8 @@ uint64_t BlueFin::GlMeSrdPacketManager::SendReliableElement(unsigned __int8 *a1,
 
   BlueFin::GlMeSrdPacketManager::AppendData(a1, v5, v4);
   BlueFin::GlMeSrdPacketManager::SendPacket(a1);
-  GlCustomLog(15, "PacketMgr::Reliable Packet Sent with SeqId %u(Reliable SeqId %u)\n", (a1[6514] - 1), *(a2 + 48));
-  return (a1[6514] - 1);
+  GlCustomLog(15, "PacketMgr::Reliable Packet Sent with SeqId %u(Reliable SeqId %u)\n", (*(a1 + 6514) - 1), *(a2 + 48));
+  return (*(a1 + 6514) - 1);
 }
 
 uint64_t BlueFin::GlMeSrdPacketManager::ProcessAckedElement(void *a1, uint64_t a2)
@@ -862,17 +859,16 @@ uint64_t BlueFin::GlMeSrdPacketManager::ProcessAckedElement(void *a1, uint64_t a
 uint64_t BlueFin::GlMeSrdPacketManager::RemoveEventFromQueue(BlueFin::GlMeSrdPacketManager *this, int a2, int a3)
 {
   v6 = 0;
-  v21 = *MEMORY[0x29EDCA608];
-  memset(var10, 0, sizeof(var10));
+  memset(&var18_6[2], 0, 32);
   v7 = 31;
   do
   {
-    result = BlueFin::GlQueue::get(this + 40, &v18);
-    v9 = var10 + 2 * v6;
-    v10 = v18;
-    *v9 = v18;
-    v11 = v19;
-    v9[1] = v19;
+    result = BlueFin::GlQueue::get(var18_6, this + 5);
+    v9 = &var18_6[2 * v6 + 2];
+    v10 = var18_6[0];
+    *v9 = var18_6[0];
+    v11 = var18_6[1];
+    v9[1] = var18_6[1];
     if (!v10)
     {
       break;
@@ -890,7 +886,7 @@ uint64_t BlueFin::GlMeSrdPacketManager::RemoveEventFromQueue(BlueFin::GlMeSrdPac
   if (v6)
   {
     v13 = v6;
-    v14 = var10 + 1;
+    v14 = &var18_6[3];
     do
     {
       v15 = *(v14 - 1);
@@ -903,7 +899,6 @@ uint64_t BlueFin::GlMeSrdPacketManager::RemoveEventFromQueue(BlueFin::GlMeSrdPac
     while (v13);
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1306,93 +1301,91 @@ LABEL_7:
 
 double BlueFin::GlPeGpsEphemerisBase::ComputeAgeS(BlueFin::GlPeGpsEphemerisBase *this, const BlueFin::GlPeGnssTime *a2, int a3)
 {
-  v33 = &off_2A1F0B5F0;
-  v34 = 0;
-  Gps = BlueFin::GlPeGnssTime::GetGps(a2, &v33);
-  (v33[4])(&v33, Gps);
+  v32 = &off_2A1F0B5F0;
+  v33 = 0;
+  Gps = BlueFin::GlPeGnssTime::GetGps(a2, &v32);
+  (v32[4])(&v32, Gps);
   v6 = (*(*this + 192))(this, 28);
-  v7 = *this + 192;
   if (a3)
   {
-    v8 = 18;
+    v7 = 18;
   }
 
   else
   {
-    v8 = 7;
+    v7 = 7;
   }
 
-  v9 = (*(*this + 192))(this, v8);
-  v10 = (*(*this + 232))(this, v8);
-  v12 = v11 * v9;
-  *v10.i64 = v12;
-  v30 = &off_2A1F0B5F0;
-  *v13.i64 = v12 - trunc(v12);
-  v14.f64[0] = NAN;
-  v14.f64[1] = NAN;
-  v15 = *vbslq_s8(vnegq_f64(v14), v13, v10).i64;
-  if (v15 >= 1.0)
+  v8 = (*(*this + 192))(this, v7);
+  v9 = (*(*this + 232))(this, v7);
+  v11 = v10 * v8;
+  *v9.i64 = v11;
+  v29 = &off_2A1F0B5F0;
+  *v12.i64 = v11 - trunc(v11);
+  v13.f64[0] = NAN;
+  v13.f64[1] = NAN;
+  v14 = *vbslq_s8(vnegq_f64(v13), v12, v9).i64;
+  if (v14 >= 1.0)
   {
     DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
     __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_timepoint.h", 173, "dFracSec >= 0.0 && dFracSec < 1.0");
   }
 
-  v16 = v15 * 4294967300.0 + 0.5;
-  v17 = v16;
-  if (v16 >= 4294967300.0)
+  v15 = v14 * 4294967300.0 + 0.5;
+  v16 = v15;
+  if (v15 >= 4294967300.0)
   {
-    v17 = -1;
+    v16 = -1;
   }
 
-  v31 = v17;
-  v32 = v12 + 604800 * v6;
-  v30 = &off_2A1F0B5F0;
+  v30 = v16;
+  v31 = v11 + 604800 * v6;
+  v29 = &off_2A1F0B5F0;
   if ((*(*this + 80))(this))
   {
-    v18 = (v30[4])(&v30);
-    v36 = v31;
-    v37 = v18;
-    v19 = (v33[4])(&v33);
-    v35[0] = v34;
-    v35[1] = v19;
-    BlueFin::GlTimePoint::resolveAmbiguity(&v36, v35, 0x24EA0000u);
-    v20 = (v33[3])(&v33, v37);
-    v21 = v36;
+    v17 = (v29[4])(&v29);
+    v35 = __PAIR64__(v17, v30);
+    v18 = (v32[4])(&v32);
+    v34[0] = v33;
+    v34[1] = v18;
+    BlueFin::GlTimePoint::resolveAmbiguity(&v35, v34, 0x24EA0000u);
+    v19 = (v32[3])(&v32, HIDWORD(v35));
+    v20 = v35;
   }
 
   else
   {
-    v22 = (v30[4])(&v30);
-    LODWORD(v24) = v31;
-    *v25.i64 = v24 * 2.32830644e-10;
-    *v22.i64 = *v25.i64 + (v23 % 0x93A80);
-    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v33, v22, &v36, v25);
-    v21 = v36;
-    v20 = v37;
+    v21 = (v29[4])(&v29);
+    LODWORD(v23) = v30;
+    *v24.i64 = v23 * 2.32830644e-10;
+    *v21.i64 = *v24.i64 + (v22 % 0x93A80);
+    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v35, &v32, v21, v24);
+    v20 = v35;
+    v19 = HIDWORD(v35);
   }
 
-  v26 = v34;
-  v27 = HIDWORD(v34);
-  v28 = v20 | v21;
-  if (v20 | v21)
+  v25 = v33;
+  v26 = HIDWORD(v33);
+  v27 = v19 | v20;
+  if (v19 | v20)
   {
-    if (v34 < __PAIR64__(v20, v21))
+    if (v33 < __PAIR64__(v19, v20))
     {
-      v27 = (__PAIR64__(v20 - HIDWORD(v34), v21) - v34) >> 32;
-      v26 = v21 - v34;
-      v28 = 1;
+      v26 = (__PAIR64__(v19 - HIDWORD(v33), v20) - v33) >> 32;
+      v25 = v20 - v33;
+      v27 = 1;
     }
 
     else
     {
-      v28 = 0;
-      v27 = (v34 - __PAIR64__(v20, v21)) >> 32;
-      v26 = v34 - v21;
+      v27 = 0;
+      v26 = (v33 - __PAIR64__(v19, v20)) >> 32;
+      v25 = v33 - v20;
     }
   }
 
-  result = v26 * 2.32830644e-10 + v27;
-  if ((v28 & ((v27 | v26) != 0)) != 0)
+  result = v25 * 2.32830644e-10 + v26;
+  if ((v27 & ((v26 | v25) != 0)) != 0)
   {
     return -result;
   }
@@ -1431,16 +1424,16 @@ void BlueFin::GlMeSrdRfInit4777::ProgramNotchFilter4777x(BlueFin::GlMeSrdRfInit4
   }
 }
 
-void BlueFin::GlMeSrdRfInit4777::ProgramNotchFilter4777Band(void *a1, BlueFin::GlMeSrdTransaction *a2, int a3, _DWORD *a4, _DWORD *a5)
+void BlueFin::GlMeSrdRfInit4777::ProgramNotchFilter4777Band(void *a1, BlueFin::GlMeSrdTransaction *a2, uint64_t a3, _DWORD *a4, _DWORD *a5)
 {
-  v18[1] = *MEMORY[0x29EDCA608];
-  v18[0] = 0;
-  v17 = 0;
+  v7 = a3;
+  v17[1] = *MEMORY[0x29EDCA608];
+  v17[0] = 0;
   v16 = 0;
+  v15 = 0;
   v9 = (*(**a1 + 1072))(*a1);
-  BlueFin::GlMeSrdRfInit4777::GetNotchConfiguration(v9, v9, v18, &v17, &v16, a3);
-  BlueFin::GlMeSrdRfInit4777::ProgramNotchMinnow(v11, v12, v13, v14, v10, a2, v18, &v17, v16, a3, a4, a5);
-  v15 = *MEMORY[0x29EDCA608];
+  BlueFin::GlMeSrdRfInit4777::GetNotchConfiguration(v9, v9, v17, &v16, &v15, v7);
+  BlueFin::GlMeSrdRfInit4777::ProgramNotchMinnow(v10, a2, v17, &v16, v15, v7, a4, a5, v11, v12, v13, v14);
 }
 
 void BlueFin::GlMeSrdRfInit4777::GetNotchConfiguration(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, _BYTE *a5, int a6)
@@ -1558,24 +1551,24 @@ uint64_t BlueFin::EswRpcEnc::GetEswHrmRpcIf(BlueFin::EswRpcEnc *this)
 
 char *BlueFin::GlUtlGlSysLogEntryCodec::DecodeLine(BlueFin::GlUtlGlSysLogEntryCodec *this, char *__s1, const char *a3)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   result = strstr(__s1, "@^@");
   if (result)
   {
     v7 = result;
-    v33 = 0;
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
+    v32 = 0;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    *__source = 0u;
+    v25 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    *__source = 0u;
+    v21 = 0u;
     for (i = strlen(__s1); ; --i)
     {
       v10 = __s1[i - 1];
@@ -1597,34 +1590,33 @@ LABEL_18:
       GlCustomLog(11, "%s\n", __source);
       strlcat(v19, "  Error:", 0x100uLL);
       strlcat(v19, __source, 0x100uLL);
-LABEL_19:
-      result = 0;
+      return 0;
     }
 
     else
     {
       v13 = &unk_298A330B8;
       v14 = 131;
-      while (strncmp((v7 + 3), v13, 2uLL))
+      while (strncmp(v7 + 3, v13, 2uLL))
       {
         v13 += 8;
         if (!--v14)
         {
-          v16 = *(v7 + 3);
-          v17 = *(v7 + 4);
+          v16 = v7[3];
+          v17 = v7[4];
           if (v16 != 100 && v16 != 97 || v17 != 108)
           {
             BlueFin::GlFormat::glsnprintf(__source, 0xC8, "Error decoding SLOG entry. Unrecognized tag %c%c.", v15, v16, v17);
             goto LABEL_18;
           }
 
-          goto LABEL_19;
+          return 0;
         }
       }
 
-      if (!BlueFin::GlUtlGlSysLogEntryCodec::ParseEntry(this, (v7 + 5), (i - v12 - 5), a3))
+      if (!BlueFin::GlUtlGlSysLogEntryCodec::ParseEntry(this, v7 + 5, (i - v12 - 5), a3))
       {
-        goto LABEL_19;
+        return 0;
       }
 
       result = this + 264;
@@ -1635,7 +1627,6 @@ LABEL_19:
     }
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1649,66 +1640,66 @@ void std::__function::__func<FireMessageHandler::FireMessageHandler(BlueFin::GlE
   }
 
   (*(**(FireResourceMgr::fInstance + 24) + 64))(&__p);
-  FireDeviceLog::DeviceLogBase(6, "GlEngCbOnNvStgReadImpl,recall,size,%zu", v4, v5, v6, v7, v8, v9, v28 - __p);
-  v16 = __p;
-  if (__p != v28)
+  FireDeviceLog::DeviceLogBase(6, "GlEngCbOnNvStgReadImpl,recall,size,%zu", v16 - __p);
+  v4 = __p;
+  if (__p != v16)
   {
-    v17 = 0;
-    v18 = v28 - __p;
-    v19 = v28 - __p;
+    v5 = 0;
+    v6 = v16 - __p;
+    v7 = v16 - __p;
     do
     {
-      v17 += 256;
-      if (v18 >= v17)
+      v5 += 256;
+      if (v6 >= v5)
       {
-        v20 = 256;
+        v8 = 256;
       }
 
       else
       {
-        v20 = v19;
+        v8 = v7;
       }
 
-      (*(*v2 + 64))(v2, v16, v20);
-      v16 += 256;
-      v19 -= 256;
+      (*(*v2 + 64))(v2, v4, v8);
+      v4 += 256;
+      v7 -= 256;
     }
 
-    while (v18 > v17);
+    while (v6 > v5);
   }
 
-  FireDeviceLog::DeviceLogBase(6, "GlEngCbOnNvStgReadImpl,PRIVATE_DATA,recall,size,%zu", v10, v11, v12, v13, v14, v15, *(v3 + 1160) - *(v3 + 1152));
-  v21 = *(v3 + 1152);
-  v22 = *(v3 + 1160);
-  if (v21 != v22)
+  FireDeviceLog::DeviceLogBase(6, "GlEngCbOnNvStgReadImpl,PRIVATE_DATA,recall,size,%zu", *(v3 + 1160) - *(v3 + 1152));
+  v9 = *(v3 + 1152);
+  v10 = *(v3 + 1160);
+  if (v9 != v10)
   {
-    v23 = 0;
-    v24 = v22 - v21;
-    v25 = v22 - v21;
+    v11 = 0;
+    v12 = v10 - v9;
+    v13 = v10 - v9;
     do
     {
-      v23 += 256;
-      if (v24 >= v23)
+      v11 += 256;
+      if (v12 >= v11)
       {
-        v26 = 256;
+        v14 = 256;
       }
 
       else
       {
-        v26 = v25;
+        v14 = v13;
       }
 
-      (*(*v2 + 64))(v2, v21, v26);
-      v21 += 256;
-      v25 -= 256;
+      (*(*v2 + 64))(v2, v9, v14);
+      v9 += 256;
+      v13 -= 256;
     }
 
-    while (v24 > v23);
+    while (v12 > v11);
   }
 
   if (__p)
   {
-    v28 = __p;
+    v16 = __p;
     operator delete(__p);
   }
 }
@@ -1723,9 +1714,9 @@ void sub_29880F058(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_DWORD *BlueFin::GlCryptoMd5::final(uint64_t a1, uint64_t a2, unsigned int a3)
+_DWORD *BlueFin::GlCryptoMd5::final(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   BlueFin::GlCryptoMd5::update(a1, a2, a3);
   v4 = *(a1 + 104);
   *(a1 + 104) = v4 + 1;
@@ -1779,13 +1770,13 @@ LABEL_9:
   v16 = *(a1 + 36);
   do
   {
-    v21[v14] = v15 >> v13;
-    v21[(v14++ & 0xFFFFFFFB) + 4] = v16 >> v13;
+    v20[v14] = v15 >> v13;
+    v20[(v14++ & 0xFFFFFFFB) + 4] = v16 >> v13;
     v13 += 8;
   }
 
   while (v14 != 4);
-  result = BlueFin::GlCryptoMd5::update(a1, v21, 8u);
+  result = BlueFin::GlCryptoMd5::update(a1, v20, 8u);
   v18 = 0;
   for (i = 0; i != 4; ++i)
   {
@@ -1796,7 +1787,6 @@ LABEL_9:
     v18 += 8;
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1836,7 +1826,6 @@ uint64_t BlueFin::GlNvMemImpl::ChangeState(uint64_t a1, int a2)
       {
         if (*(a1 + 11892) == 1)
         {
-          v5 = *(a1 + 10) << 16;
           GlCustomLog(14, " NVMEM writing complete (Clear 0x%04x)\n");
         }
       }
@@ -1955,13 +1944,16 @@ uint64_t BlueFin::GlNvMemImpl::Read(BlueFin::GlNvMemImpl *this)
 
 uint64_t BlueFin::GlNvMemImpl::Serialize(uint64_t result, uint64_t a2)
 {
-  v3 = *(result + 11890);
-  v2 = *(result + 8);
-  v4 = *(result + 11892);
-  v5 = *(*(result + 24) + 2568);
+  v3 = &unk_2A1F11F88;
+  v4 = 1;
+  v6 = *(result + 11890);
+  v5 = *(result + 8);
+  v2 = *(*(result + 24) + 2568);
+  v7 = *(result + 11892);
+  v8 = v2;
   if (a2 || BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
   {
-    return BlueFin::GlNvMemImplData::SerializeImpl();
+    return BlueFin::GlNvMemImplData::SerializeImpl(&v3, a2);
   }
 
   return result;
@@ -2629,8 +2621,7 @@ uint64_t BlueFin::GlPeSvIdConverter::SetOrbitType(uint64_t a1, unsigned __int8 *
 
 BOOL BlueFin::GlPeStartupMgr::checkAsstAndRtoEph(BlueFin::GlPeStartupMgr *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, BlueFin::GlSetBase *a24)
 {
-  v30 = *MEMORY[0x29EDCA608];
-  BlueFin::GlGnssSet::operator|(*this + 120224, *this + 120608, &v29);
+  BlueFin::GlGnssSet::operator|(*this + 120224, *this + 120608, &v28);
   v24 = 0;
   v26 = 7;
   do
@@ -2641,9 +2632,7 @@ BOOL BlueFin::GlPeStartupMgr::checkAsstAndRtoEph(BlueFin::GlPeStartupMgr *this, 
   }
 
   while (v26);
-  result = v24 > 3u;
-  v28 = *MEMORY[0x29EDCA608];
-  return result;
+  return v24 > 3u;
 }
 
 uint64_t BlueFin::GlPeQzssEphemeris::GetCurveFitIntervalS(BlueFin::GlPeQzssEphemeris *this)
@@ -2663,32 +2652,32 @@ __n128 BlueFin::GlPeBdsEphMgr::validateCandidateEphemeris(BlueFin::GlPeBdsEphMgr
 {
   if ((*(a3 + 8) & 0xF) == 1)
   {
-    (*(*a3 + 136))(&v56, a3);
-    v6 = v56;
-    if ((v56 - 64) <= 0xC0u)
+    (*(*a3 + 136))(v56, a3);
+    v6 = v56[0];
+    if ((v56[0] - 64) <= 0xC0u)
     {
       DeviceFaultNotify("glpe_bdephmgr.cpp", 1301, "validateCandidateEphemeris", "IS_GNSS_ID(ucGnssId) && IS_BEIDOU_PRN(BEIDOU_GNSSID_TO_PRN(ucGnssId))");
       __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_bdephmgr.cpp", 1301, "IS_GNSS_ID(ucGnssId) && IS_BEIDOU_PRN(BEIDOU_GNSSID_TO_PRN(ucGnssId))");
     }
 
-    LOWORD(v56) = 0;
+    *v56 = 0;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     memset(v62, 0, sizeof(v62));
-    BlueFin::GlPeBdsEphemeris::GetBdUncmprsdEph(a3, &v56);
+    BlueFin::GlPeBdsEphemeris::GetBdUncmprsdEph(a3, v56);
     v7 = (v6 - 1) >= 5 && (v6 - 59) >= 5;
     v8 = !v7;
-    if (BlueFin::BdNavMsgMgr::EphRangeCheck(&v56, v8) <= 1)
+    if (BlueFin::BdNavMsgMgr::EphRangeCheck(v56, v8) <= 1)
     {
       v10 = this + 104 * v6 + 9520;
       v11 = (*(*a3 + 144))(a3);
       if ((v11 & 0xFFFFFFFD) == 1)
       {
-        (*(*v10 + 136))(&v56, this + 104 * v6 + 9520);
-        if (v56 - 64 > 0xFFFFFFC0)
+        (*(*v10 + 136))(v56, this + 104 * v6 + 9520);
+        if (v56[0] - 64 > 0xFFFFFFC0)
         {
           return result;
         }
@@ -2711,8 +2700,8 @@ LABEL_30:
         return result;
       }
 
-      (*(*v10 + 136))(&v56, this + 104 * v6 + 9520);
-      if (v56 - 1 >= 0x3F)
+      (*(*v10 + 136))(v56, this + 104 * v6 + 9520);
+      if (v56[0] - 1 >= 0x3F)
       {
         goto LABEL_30;
       }
@@ -2850,8 +2839,8 @@ LABEL_30:
 
       if (a2 && !(*(*a2 + 144))(a2) && ((*(*a2 + 184))(a2) & 1) == 0)
       {
-        LOBYTE(v56) = v6;
-        (*(*this + 288))(this, &v56, 0);
+        v56[0] = v6;
+        (*(*this + 288))(this, v56, 0);
       }
 
       if ((*(*v10 + 184))(this + 104 * v6 + 9520))
@@ -3202,10 +3191,10 @@ uint64_t BlueFin::GlPeAlmMgr::getAlmReference(uint64_t a1, unsigned int a2, unsi
   return v3 + 112 * a3 - 112;
 }
 
-uint64_t BlueFin::GlPeAlmanac::GetToa@<X0>(BlueFin::GlPeAlmanac *this@<X0>, const BlueFin::GlGpsTime *a2@<X1>, uint64_t a3@<X8>, int8x16_t a4@<Q0>, int8x16_t a5@<Q1>)
+uint64_t *BlueFin::GlPeAlmanac::GetToa@<X0>(uint64_t *__return_ptr a1@<X8>, BlueFin::GlPeAlmanac *this@<X0>, const BlueFin::GlGpsTime *a3@<X1>, int8x16_t a4@<Q0>, int8x16_t a5@<Q1>)
 {
-  v7 = *(a2 + 2);
-  v6 = *(a2 + 3);
+  v7 = *(a3 + 2);
+  v6 = *(a3 + 3);
   v17 = v7;
   v18 = v6;
   v16 = &off_2A1F0B5F0;
@@ -3260,9 +3249,9 @@ LABEL_10:
   v19[1] = v6;
   BlueFin::GlTimePoint::resolveAmbiguity(&v20, v19, 0x93A8000u);
   result = (v16[3])(&v16, v21);
-  *(a3 + 8) = v20;
-  *(a3 + 12) = result;
-  *a3 = &off_2A1F0B5F0;
+  *(a1 + 2) = v20;
+  *(a1 + 3) = result;
+  *a1 = &off_2A1F0B5F0;
   return result;
 }
 
@@ -3646,7 +3635,7 @@ BOOL BlueFin::GlPeAlmMgr::GetAlm(uint64_t a1, unsigned int a2, unsigned int a3, 
       v22 = &off_2A1F0B5F0;
       v23 = 0;
       *v14.i64 = BlueFin::GlPeGnssTime::GetGps(v21, &v22);
-      BlueFin::GlPeAlmanac::GetToa(v12, &v22, v21, v14, v15);
+      BlueFin::GlPeAlmanac::GetToa(v21, v12, &v22, v14, v15);
       v16 = v23;
       v17 = HIDWORD(v23);
       if (v21[0].n128_u64[1])
@@ -3713,91 +3702,90 @@ uint64_t BlueFin::GlPeQzssEphemeris::GetSrc(BlueFin::GlPeQzssEphemeris *this)
 
 double BlueFin::GlPeGalEphemeris::ComputeAgeS(BlueFin::GlPeGalEphemeris *this, const BlueFin::GlPeGnssTime *a2, int a3)
 {
-  v32 = &off_2A1F0E480;
-  v33 = 0;
-  Gal = BlueFin::GlPeGnssTime::GetGal(a2, &v32);
-  (v32[4])(&v32, Gal);
+  v31 = &off_2A1F0E480;
+  v32 = 0;
+  Gal = BlueFin::GlPeGnssTime::GetGal(a2, &v31);
+  (v31[4])(&v31, Gal);
   v6 = (*(*this + 192))(this, 28);
-  v7 = *this + 192;
   if (a3)
   {
-    v8 = 18;
+    v7 = 18;
   }
 
   else
   {
-    v8 = 7;
+    v7 = 7;
   }
 
-  v9 = (*(*this + 192))(this, v8);
-  v10 = (*(*this + 232))(this, v8);
-  v12 = v11 * v9;
-  *v10.i64 = v12;
-  v29 = &off_2A1F0E480;
-  *v13.i64 = v12 - trunc(v12);
-  v14.f64[0] = NAN;
-  v14.f64[1] = NAN;
-  v15 = *vbslq_s8(vnegq_f64(v14), v13, v10).i64;
-  if (v15 >= 1.0)
+  v8 = (*(*this + 192))(this, v7);
+  v9 = (*(*this + 232))(this, v7);
+  v11 = v10 * v8;
+  *v9.i64 = v11;
+  v28 = &off_2A1F0E480;
+  *v12.i64 = v11 - trunc(v11);
+  v13.f64[0] = NAN;
+  v13.f64[1] = NAN;
+  v14 = *vbslq_s8(vnegq_f64(v13), v12, v9).i64;
+  if (v14 >= 1.0)
   {
     DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
     __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_timepoint.h", 173, "dFracSec >= 0.0 && dFracSec < 1.0");
   }
 
-  v16 = v15 * 4294967300.0 + 0.5;
-  v17 = v16;
-  if (v16 >= 4294967300.0)
+  v15 = v14 * 4294967300.0 + 0.5;
+  v16 = v15;
+  if (v15 >= 4294967300.0)
   {
-    v17 = -1;
+    v16 = -1;
   }
 
-  v30 = v17;
-  v31 = v12 + 604800 * v6 + 619315200;
-  v29 = &off_2A1F0E480;
+  v29 = v16;
+  v30 = v11 + 604800 * v6 + 619315200;
+  v28 = &off_2A1F0E480;
   if ((*(*this + 80))(this))
   {
+    v17 = v29;
     v18 = v30;
-    v19 = v31;
   }
 
   else
   {
-    v20 = (v29[4])(&v29);
-    LODWORD(v22) = v30;
-    *v23.i64 = v22 * 2.32830644e-10;
-    *v20.i64 = *v23.i64 + (v21 % 0x93A80);
-    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v32, v20, v34, v23);
-    v18 = v34[0];
-    v19 = v34[1];
+    v19 = (v28[4])(&v28);
+    LODWORD(v21) = v29;
+    *v22.i64 = v21 * 2.32830644e-10;
+    *v19.i64 = *v22.i64 + (v20 % 0x93A80);
+    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v33, &v31, v19, v22);
+    v17 = v33;
+    v18 = HIDWORD(v33);
   }
 
-  v24 = v33;
-  v25 = HIDWORD(v33);
-  if (v19 | v18)
+  v23 = v32;
+  v24 = HIDWORD(v32);
+  if (v18 | v17)
   {
-    v27 = HIDWORD(v33) - v19;
-    if (v33 < __PAIR64__(v19, v18))
+    v26 = HIDWORD(v32) - v18;
+    if (v32 < __PAIR64__(v18, v17))
     {
-      v25 = (__PAIR64__(v19, v18) - v33) >> 32;
-      v24 = v18 - v33;
-      v26 = 1;
+      v24 = (__PAIR64__(v18, v17) - v32) >> 32;
+      v23 = v17 - v32;
+      v25 = 1;
     }
 
     else
     {
-      v26 = 0;
-      v25 = (__PAIR64__(v27, v33) - v18) >> 32;
-      v24 = v33 - v18;
+      v25 = 0;
+      v24 = (__PAIR64__(v26, v32) - v17) >> 32;
+      v23 = v32 - v17;
     }
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
-  result = v24 * 2.32830644e-10 + v25;
-  if ((v26 & ((v25 | v24) != 0)) != 0)
+  result = v23 * 2.32830644e-10 + v24;
+  if ((v25 & ((v24 | v23) != 0)) != 0)
   {
     return -result;
   }
@@ -3881,103 +3869,101 @@ __n128 BlueFin::GlPeAlmanac::operator=(uint64_t a1, uint64_t a2)
 
 double BlueFin::GlPeLtoEphemeris::ComputeAgeS(BlueFin::GlPeLtoEphemeris *this, const BlueFin::GlPeGnssTime *a2, int a3)
 {
-  v34 = &off_2A1F0B5F0;
-  v35 = 0;
-  Gps = BlueFin::GlPeGnssTime::GetGps(a2, &v34);
-  (v34[4])(&v34, Gps);
-  v6 = *this + 192;
+  v33 = &off_2A1F0B5F0;
+  v34 = 0;
+  Gps = BlueFin::GlPeGnssTime::GetGps(a2, &v33);
+  (v33[4])(&v33, Gps);
   if (a3)
   {
-    v7 = 28;
+    v6 = 28;
   }
 
   else
   {
-    v7 = 34;
+    v6 = 34;
   }
 
   if (a3)
   {
-    v8 = 18;
+    v7 = 18;
   }
 
   else
   {
-    v8 = 7;
+    v7 = 7;
   }
 
+  v8 = (*(*this + 192))(this, v6);
   v9 = (*(*this + 192))(this, v7);
-  v10 = (*(*this + 192))(this, v8);
-  v11 = (*(*this + 232))(this, v8);
-  v13 = v12 * v10;
-  *v11.i64 = v13;
-  v31 = &off_2A1F0B5F0;
-  *v14.i64 = v13 - trunc(v13);
-  v15.f64[0] = NAN;
-  v15.f64[1] = NAN;
-  v16 = *vbslq_s8(vnegq_f64(v15), v14, v11).i64;
-  if (v16 >= 1.0)
+  v10 = (*(*this + 232))(this, v7);
+  v12 = v11 * v9;
+  *v10.i64 = v12;
+  v30 = &off_2A1F0B5F0;
+  *v13.i64 = v12 - trunc(v12);
+  v14.f64[0] = NAN;
+  v14.f64[1] = NAN;
+  v15 = *vbslq_s8(vnegq_f64(v14), v13, v10).i64;
+  if (v15 >= 1.0)
   {
     DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
     __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_timepoint.h", 173, "dFracSec >= 0.0 && dFracSec < 1.0");
   }
 
-  v17 = v16 * 4294967300.0 + 0.5;
-  v18 = v17;
-  if (v17 >= 4294967300.0)
+  v16 = v15 * 4294967300.0 + 0.5;
+  v17 = v16;
+  if (v16 >= 4294967300.0)
   {
-    v18 = -1;
+    v17 = -1;
   }
 
-  v32 = v18;
-  v33 = v13 + 604800 * v9;
-  v31 = &off_2A1F0B5F0;
+  v31 = v17;
+  v32 = v12 + 604800 * v8;
+  v30 = &off_2A1F0B5F0;
   if ((*(*this + 80))(this))
   {
-    v19 = (v31[4])(&v31);
-    v37 = v32;
-    v38 = v19;
-    v20 = (v34[4])(&v34);
-    v36[0] = v35;
-    v36[1] = v20;
-    BlueFin::GlTimePoint::resolveAmbiguity(&v37, v36, 0x24EA0000u);
-    v21 = (v34[3])(&v34, v38);
-    v22 = v37;
+    v18 = (v30[4])(&v30);
+    v36 = __PAIR64__(v18, v31);
+    v19 = (v33[4])(&v33);
+    v35[0] = v34;
+    v35[1] = v19;
+    BlueFin::GlTimePoint::resolveAmbiguity(&v36, v35, 0x24EA0000u);
+    v20 = (v33[3])(&v33, HIDWORD(v36));
+    v21 = v36;
   }
 
   else
   {
-    v23 = (v31[4])(&v31);
-    LODWORD(v25) = v32;
-    *v26.i64 = v25 * 2.32830644e-10;
-    *v23.i64 = *v26.i64 + (v24 % 0x93A80);
-    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v34, v23, &v37, v26);
-    v22 = v37;
-    v21 = v38;
+    v22 = (v30[4])(&v30);
+    LODWORD(v24) = v31;
+    *v25.i64 = v24 * 2.32830644e-10;
+    *v22.i64 = *v25.i64 + (v23 % 0x93A80);
+    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v36, &v33, v22, v25);
+    v21 = v36;
+    v20 = HIDWORD(v36);
   }
 
-  v27 = v35;
-  v28 = HIDWORD(v35);
-  v29 = v21 | v22;
-  if (v21 | v22)
+  v26 = v34;
+  v27 = HIDWORD(v34);
+  v28 = v20 | v21;
+  if (v20 | v21)
   {
-    if (v35 < __PAIR64__(v21, v22))
+    if (v34 < __PAIR64__(v20, v21))
     {
-      v28 = (__PAIR64__(v21 - HIDWORD(v35), v22) - v35) >> 32;
-      v27 = v22 - v35;
-      v29 = 1;
+      v27 = (__PAIR64__(v20 - HIDWORD(v34), v21) - v34) >> 32;
+      v26 = v21 - v34;
+      v28 = 1;
     }
 
     else
     {
-      v29 = 0;
-      v28 = (v35 - __PAIR64__(v21, v22)) >> 32;
-      v27 = v35 - v22;
+      v28 = 0;
+      v27 = (v34 - __PAIR64__(v20, v21)) >> 32;
+      v26 = v34 - v21;
     }
   }
 
-  result = v27 * 2.32830644e-10 + v28;
-  if ((v29 & ((v28 | v27) != 0)) != 0)
+  result = v26 * 2.32830644e-10 + v27;
+  if ((v28 & ((v27 | v26) != 0)) != 0)
   {
     return -result;
   }
@@ -4156,12 +4142,12 @@ BOOL BlueFin::GlPeBdsEphemeris::GetPvt(uint64_t a1, BlueFin::GlPeGnssTime *a2, u
   return SatPos == 0;
 }
 
-uint64_t BlueFin::GlPeEphemeris::isExpired(_DWORD *a1, uint64_t a2)
+BOOL BlueFin::GlPeEphemeris::isExpired(_DWORD *a1, uint64_t a2)
 {
   v2 = a1[6];
   if (v2 == -7200001)
   {
-    return (*(*a1 + 248))(a1) == 0;
+    return (*(*a1 + 248))(a1, a2) == 0;
   }
 
   v4 = v2;
@@ -4284,7 +4270,7 @@ double BlueFin::BdNavMsgMgr::svd_computeSVSatate_D1(uint64_t a1, double *a2, dou
   return result;
 }
 
-uint64_t BlueFin::BdSvStateCompute::GetSatPos(int a1, uint64_t a2, unint64_t *a3, double *a4)
+uint64_t BlueFin::BdSvStateCompute::GetSatPos(int a1, uint64_t a2, double *a3, double *a4)
 {
   BlueFin::BdNavMsgMgr::UnpackEphPara(a2, v11);
   if (v11[0])
@@ -4568,91 +4554,90 @@ uint64_t BlueFin::BdNavMsgMgr::EphRangeCheck(_DWORD *a1, int a2)
 
 double BlueFin::GlPeBdsEphemeris::ComputeAgeS(BlueFin::GlPeBdsEphemeris *this, const BlueFin::GlPeGnssTime *a2, int a3)
 {
-  v32 = &off_2A1F0E4D0;
-  v33 = 0;
-  Bds = BlueFin::GlPeGnssTime::GetBds(a2, &v32);
-  (v32[4])(&v32, Bds);
+  v31 = &off_2A1F0E4D0;
+  v32 = 0;
+  Bds = BlueFin::GlPeGnssTime::GetBds(a2, &v31);
+  (v31[4])(&v31, Bds);
   v6 = (*(*this + 192))(this, 28);
-  v7 = *this + 192;
   if (a3)
   {
-    v8 = 18;
+    v7 = 18;
   }
 
   else
   {
-    v8 = 7;
+    v7 = 7;
   }
 
-  v9 = (*(*this + 192))(this, v8);
-  v10 = (*(*this + 232))(this, v8);
-  v12 = v11 * v9;
-  *v10.i64 = v12;
-  v29 = &off_2A1F0E4D0;
-  *v13.i64 = v12 - trunc(v12);
-  v14.f64[0] = NAN;
-  v14.f64[1] = NAN;
-  v15 = *vbslq_s8(vnegq_f64(v14), v13, v10).i64;
-  if (v15 >= 1.0)
+  v8 = (*(*this + 192))(this, v7);
+  v9 = (*(*this + 232))(this, v7);
+  v11 = v10 * v8;
+  *v9.i64 = v11;
+  v28 = &off_2A1F0E4D0;
+  *v12.i64 = v11 - trunc(v11);
+  v13.f64[0] = NAN;
+  v13.f64[1] = NAN;
+  v14 = *vbslq_s8(vnegq_f64(v13), v12, v9).i64;
+  if (v14 >= 1.0)
   {
     DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
     __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_timepoint.h", 173, "dFracSec >= 0.0 && dFracSec < 1.0");
   }
 
-  v16 = v15 * 4294967300.0 + 0.5;
-  v17 = v16;
-  if (v16 >= 4294967300.0)
+  v15 = v14 * 4294967300.0 + 0.5;
+  v16 = v15;
+  if (v15 >= 4294967300.0)
   {
-    v17 = -1;
+    v16 = -1;
   }
 
-  v30 = v17;
-  v31 = v12 + 604800 * v6 + 820108814;
-  v29 = &off_2A1F0E4D0;
+  v29 = v16;
+  v30 = v11 + 604800 * v6 + 820108814;
+  v28 = &off_2A1F0E4D0;
   if ((*(*this + 80))(this))
   {
+    v17 = v29;
     v18 = v30;
-    v19 = v31;
   }
 
   else
   {
-    v20 = (v29[4])(&v29);
-    LODWORD(v22) = v30;
-    *v23.i64 = v22 * 2.32830644e-10;
-    *v20.i64 = *v23.i64 + (v21 % 0x93A80);
-    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v32, v20, v34, v23);
-    v18 = v34[0];
-    v19 = v34[1];
+    v19 = (v28[4])(&v28);
+    LODWORD(v21) = v29;
+    *v22.i64 = v21 * 2.32830644e-10;
+    *v19.i64 = *v22.i64 + (v20 % 0x93A80);
+    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v33, &v31, v19, v22);
+    v17 = v33;
+    v18 = HIDWORD(v33);
   }
 
-  v24 = v33;
-  v25 = HIDWORD(v33);
-  if (v19 | v18)
+  v23 = v32;
+  v24 = HIDWORD(v32);
+  if (v18 | v17)
   {
-    v27 = HIDWORD(v33) - v19;
-    if (v33 < __PAIR64__(v19, v18))
+    v26 = HIDWORD(v32) - v18;
+    if (v32 < __PAIR64__(v18, v17))
     {
-      v25 = (__PAIR64__(v19, v18) - v33) >> 32;
-      v24 = v18 - v33;
-      v26 = 1;
+      v24 = (__PAIR64__(v18, v17) - v32) >> 32;
+      v23 = v17 - v32;
+      v25 = 1;
     }
 
     else
     {
-      v26 = 0;
-      v25 = (__PAIR64__(v27, v33) - v18) >> 32;
-      v24 = v33 - v18;
+      v25 = 0;
+      v24 = (__PAIR64__(v26, v32) - v17) >> 32;
+      v23 = v32 - v17;
     }
   }
 
   else
   {
-    v26 = 0;
+    v25 = 0;
   }
 
-  result = v24 * 2.32830644e-10 + v25;
-  if ((v26 & ((v25 | v24) != 0)) != 0)
+  result = v23 * 2.32830644e-10 + v24;
+  if ((v25 & ((v24 | v23) != 0)) != 0)
   {
     return -result;
   }
@@ -4776,7 +4761,7 @@ LABEL_24:
     *(v64 + 12) = *(a3 + 76);
     v60.n128_u64[0] = &unk_2A1F0DCC8;
     v28 = BlueFin::GlPeNicEphemeris::CompareEphSetFields(&v60, a2);
-    LOBYTE(v19) = v19 | (v28 | isExpired) ^ 1;
+    LOBYTE(v19) = v19 | (!v28 && !isExpired);
     if ((*(*this + 264))(this, &v65))
     {
       if (v28)
@@ -4814,43 +4799,7 @@ LABEL_24:
                             if (v38 == (*(v60.n128_u64[0] + 208))(&v60, 12))
                             {
                               v39 = (*(*a2 + 208))(a2, 13);
-                              if (v39 != (*(v60.n128_u64[0] + 208))(&v60, 13))
-                              {
-                                goto LABEL_59;
-                              }
-
-                              v40 = (*(*a2 + 208))(a2, 14);
-                              if (v40 != (*(v60.n128_u64[0] + 208))(&v60, 14))
-                              {
-                                goto LABEL_59;
-                              }
-
-                              v41 = (*(*a2 + 192))(a2, 15);
-                              if (v41 != (*(v60.n128_u64[0] + 192))(&v60, 15))
-                              {
-                                goto LABEL_59;
-                              }
-
-                              v42 = (*(*a2 + 208))(a2, 16);
-                              if (v42 != (*(v60.n128_u64[0] + 208))(&v60, 16))
-                              {
-                                goto LABEL_59;
-                              }
-
-                              v43 = (*(*a2 + 192))(a2, 17);
-                              if (v43 != (*(v60.n128_u64[0] + 192))(&v60, 17))
-                              {
-                                goto LABEL_59;
-                              }
-
-                              v44 = (*(*a2 + 192))(a2, 18);
-                              if (v44 != (*(v60.n128_u64[0] + 192))(&v60, 18))
-                              {
-                                goto LABEL_59;
-                              }
-
-                              v45 = (*(*a2 + 208))(a2, 19);
-                              if (v45 == (*(v60.n128_u64[0] + 208))(&v60, 19) && (v46 = (*(*a2 + 208))(a2, 20), v46 == (*(v60.n128_u64[0] + 208))(&v60, 20)) && (v47 = (*(*a2 + 208))(a2, 21), v47 == (*(v60.n128_u64[0] + 208))(&v60, 21)) && (v48 = (*(*a2 + 208))(a2, 22), v48 == (*(v60.n128_u64[0] + 208))(&v60, 22)) && (v49 = (*(*a2 + 208))(a2, 23), v49 == (*(v60.n128_u64[0] + 208))(&v60, 23)) && (v50 = (*(*a2 + 208))(a2, 24), v50 == (*(v60.n128_u64[0] + 208))(&v60, 24)) && (v51 = (*(*a2 + 208))(a2, 25), v51 == (*(v60.n128_u64[0] + 208))(&v60, 25)))
+                              if (v39 == (*(v60.n128_u64[0] + 208))(&v60, 13) && (v40 = (*(*a2 + 208))(a2, 14), v40 == (*(v60.n128_u64[0] + 208))(&v60, 14)) && (v41 = (*(*a2 + 192))(a2, 15), v41 == (*(v60.n128_u64[0] + 192))(&v60, 15)) && (v42 = (*(*a2 + 208))(a2, 16), v42 == (*(v60.n128_u64[0] + 208))(&v60, 16)) && (v43 = (*(*a2 + 192))(a2, 17), v43 == (*(v60.n128_u64[0] + 192))(&v60, 17)) && (v44 = (*(*a2 + 192))(a2, 18), v44 == (*(v60.n128_u64[0] + 192))(&v60, 18)) && (v45 = (*(*a2 + 208))(a2, 19), v45 == (*(v60.n128_u64[0] + 208))(&v60, 19)) && (v46 = (*(*a2 + 208))(a2, 20), v46 == (*(v60.n128_u64[0] + 208))(&v60, 20)) && (v47 = (*(*a2 + 208))(a2, 21), v47 == (*(v60.n128_u64[0] + 208))(&v60, 21)) && (v48 = (*(*a2 + 208))(a2, 22), v48 == (*(v60.n128_u64[0] + 208))(&v60, 22)) && (v49 = (*(*a2 + 208))(a2, 23), v49 == (*(v60.n128_u64[0] + 208))(&v60, 23)) && (v50 = (*(*a2 + 208))(a2, 24), v50 == (*(v60.n128_u64[0] + 208))(&v60, 24)) && (v51 = (*(*a2 + 208))(a2, 25), v51 == (*(v60.n128_u64[0] + 208))(&v60, 25)))
                               {
                                 v23 = a2;
                                 v52 = (*(*a2 + 208))(a2, 26);
@@ -4864,7 +4813,6 @@ LABEL_24:
 
                               else
                               {
-LABEL_59:
                                 v23 = a2;
                               }
                             }
@@ -4901,7 +4849,7 @@ LABEL_63:
   if ((v25 | isExpired))
   {
     (*(*this + 288))(this, &v65, 0);
-    LOBYTE(v19) = v19 & (isExpired ^ 1);
+    LOBYTE(v19) = v19 & !isExpired;
   }
 
   return v19 & 1;
@@ -5096,109 +5044,107 @@ BOOL BlueFin::GlPeNicEphemeris::isSimulated(BlueFin::GlPeNicEphemeris *this)
 
 double BlueFin::GlPeNicEphemeris::ComputeAgeS(BlueFin::GlPeNicEphemeris *this, const BlueFin::GlPeGnssTime *a2, int a3)
 {
-  v34 = &off_2A1F0DFC8;
-  v35 = 0;
-  Nic = BlueFin::GlPeGnssTime::GetNic(a2, &v34);
-  (v34[4])(&v34, Nic);
+  v33 = &off_2A1F0DFC8;
+  v34 = 0;
+  Nic = BlueFin::GlPeGnssTime::GetNic(a2, &v33);
+  (v33[4])(&v33, Nic);
   v6 = (*(*this + 192))(this, 28);
-  v7 = *this + 192;
   if (a3)
   {
-    v8 = 18;
+    v7 = 18;
   }
 
   else
   {
-    v8 = 7;
+    v7 = 7;
   }
 
-  v9 = (*(*this + 192))(this, v8);
-  v10 = (*(*this + 232))(this, v8);
-  v12 = v11 * v9;
-  *v10.i64 = v12;
-  v31 = &off_2A1F0DFC8;
-  *v13.i64 = v12 - trunc(v12);
-  v14.f64[0] = NAN;
-  v14.f64[1] = NAN;
-  v15 = *vbslq_s8(vnegq_f64(v14), v13, v10).i64;
-  if (v15 >= 1.0)
+  v8 = (*(*this + 192))(this, v7);
+  v9 = (*(*this + 232))(this, v7);
+  v11 = v10 * v8;
+  *v9.i64 = v11;
+  v30 = &off_2A1F0DFC8;
+  *v12.i64 = v11 - trunc(v11);
+  v13.f64[0] = NAN;
+  v13.f64[1] = NAN;
+  v14 = *vbslq_s8(vnegq_f64(v13), v12, v9).i64;
+  if (v14 >= 1.0)
   {
     DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
     __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_timepoint.h", 173, "dFracSec >= 0.0 && dFracSec < 1.0");
   }
 
-  v16 = v15 * 4294967300.0 + 0.5;
-  v17 = v16;
-  if (v16 >= 4294967300.0)
+  v15 = v14 * 4294967300.0 + 0.5;
+  v16 = v15;
+  if (v15 >= 4294967300.0)
   {
-    v17 = -1;
+    v16 = -1;
   }
 
-  v32 = v17;
-  v33 = v12 + 604800 * v6 + 619315200;
-  v31 = &off_2A1F0DFC8;
+  v31 = v16;
+  v32 = v11 + 604800 * v6 + 619315200;
+  v30 = &off_2A1F0DFC8;
   if ((*(*this + 80))(this))
   {
-    v18 = (v31[4])(&v31);
-    v37 = v32;
-    v38 = v18;
-    v19 = (v34[4])(&v34);
-    v36[0] = v35;
-    v36[1] = v19;
-    BlueFin::GlTimePoint::resolveAmbiguity(&v37, v36, 0x24EA0000u);
-    v20 = (v34[3])(&v34, v38);
-    v21 = v37;
+    v17 = (v30[4])(&v30);
+    v36 = __PAIR64__(v17, v31);
+    v18 = (v33[4])(&v33);
+    v35[0] = v34;
+    v35[1] = v18;
+    BlueFin::GlTimePoint::resolveAmbiguity(&v36, v35, 0x24EA0000u);
+    v19 = (v33[3])(&v33, HIDWORD(v36));
+    v20 = v36;
   }
 
   else
   {
-    v22 = (v31[4])(&v31);
-    LODWORD(v24) = v32;
-    *v25.i64 = v24 * 2.32830644e-10;
-    *v22.i64 = *v25.i64 + (v23 % 0x93A80);
-    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v34, v22, &v37, v25);
-    v21 = v37;
-    v20 = v38;
+    v21 = (v30[4])(&v30);
+    LODWORD(v23) = v31;
+    *v24.i64 = v23 * 2.32830644e-10;
+    *v21.i64 = *v24.i64 + (v22 % 0x93A80);
+    BlueFin::GlWeekTowTime::resolveTowAmbiguity(&v36, &v33, v21, v24);
+    v20 = v36;
+    v19 = HIDWORD(v36);
   }
 
-  v32 = v21;
-  v33 = v20;
-  v26 = v35;
-  v27 = HIDWORD(v35);
-  v28 = v20 | v21;
-  if (v20 | v21)
+  v31 = v20;
+  v32 = v19;
+  v25 = v34;
+  v26 = HIDWORD(v34);
+  v27 = v19 | v20;
+  if (v19 | v20)
   {
-    if (v35 < __PAIR64__(v20, v21))
+    if (v34 < __PAIR64__(v19, v20))
     {
-      v27 = (__PAIR64__(v20, v21) - v35) >> 32;
-      v26 = v21 - v35;
-      v28 = 1;
+      v26 = (__PAIR64__(v19, v20) - v34) >> 32;
+      v25 = v20 - v34;
+      v27 = 1;
     }
 
     else
     {
-      v28 = 0;
-      v27 = (v35 - __PAIR64__(v20, v21)) >> 32;
-      v26 = v35 - v21;
+      v27 = 0;
+      v26 = (v34 - __PAIR64__(v19, v20)) >> 32;
+      v25 = v34 - v20;
     }
   }
 
-  if ((v28 & ((v27 | v26) != 0)) != 0)
+  if ((v27 & ((v26 | v25) != 0)) != 0)
   {
-    v29 = -(v26 * 2.32830644e-10 + v27);
+    v28 = -(v25 * 2.32830644e-10 + v26);
   }
 
   else
   {
-    v29 = v26 * 2.32830644e-10 + v27;
+    v28 = v25 * 2.32830644e-10 + v26;
   }
 
-  if ((*(*this + 144))(this) == 3 && (*(*this + 192))(this, 32) && (*(*this + 192))(this, 5) <= 0x17 && v29 >= 7080.0)
+  if ((*(*this + 144))(this) == 3 && (*(*this + 192))(this, 32) && (*(*this + 192))(this, 5) <= 0x17 && v28 >= 7080.0)
   {
     (*(*this + 216))(this, 32, 1);
   }
 
-  return v29;
+  return v28;
 }
 
 uint64_t BlueFin::GlPeNicEphemeris::GetCurveFitIntervalS(BlueFin::GlPeNicEphemeris *this)
@@ -5349,7 +5295,7 @@ uint64_t BlueFin::GlSysLogEntry::GetS16(BlueFin::GlSysLogEntry *this)
   return (v4 | (*(v5 + v6) << 8));
 }
 
-uint64_t BlueFin::GlPeTimeManager::GetTime@<X0>(BlueFin::GlPeTimeManager *this@<X0>, const BlueFin::GlGpsTime *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+uint64_t *BlueFin::GlPeTimeManager::GetTime@<X0>(BlueFin::GlPeTimeManager *this@<X0>, const BlueFin::GlGpsTime *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
   v24 = 0.0;
   v8 = (*(*a2 + 32))(a2);
@@ -5767,8 +5713,8 @@ uint64_t BlueFin::GlPeAlmMgr::Eph2Alm(BlueFin::GlPeAlmMgr *this, const BlueFin::
         Time = BlueFin::GlPeTimeManager::GetTime(*(this + 56), 1, v24);
         if (v5 != 2 || (result = (*(*a2 + 152))(a2, Time), result == 3) && ((*(*(*(this + 54) + 120) + ((v6 >> 3) & 0x1C)) >> (v6 & 0x1F)) & 1) != 0)
         {
-          BlueFin::GlPeEphemeris::GetEphTime(a2, v24, v23);
-          BlueFin::GlPeEphemeris::GetEphTime(a2, v24, v22);
+          BlueFin::GlPeEphemeris::GetEphTime(v23, a2, v24);
+          BlueFin::GlPeEphemeris::GetEphTime(v22, a2, v24);
           v8 = BlueFin::GlPeGnssTime::operator-(v23, v22);
           AlmReference = BlueFin::GlPeAlmMgr::getAlmReference(this, v5, v6);
           v20 = &off_2A1F0B5F0;
@@ -5861,7 +5807,7 @@ BOOL BlueFin::GlPeAlmMgr::IsFresh(uint64_t a1, uint64_t a2)
   v12 = &off_2A1F0B5F0;
   v13 = 0;
   *v3.i64 = BlueFin::GlPeGnssTime::GetGps(v11, &v12);
-  BlueFin::GlPeAlmanac::GetToa(&v14, &v12, v11, v3, v4);
+  BlueFin::GlPeAlmanac::GetToa(v11, &v14, &v12, v3, v4);
   v5 = v13;
   v6 = HIDWORD(v13);
   if (v11[0].n128_u64[1])
@@ -5901,14 +5847,14 @@ BOOL BlueFin::GlPeAlmMgr::IsFresh(uint64_t a1, uint64_t a2)
   return v9 < 0x93A80;
 }
 
-unsigned int *BlueFin::GlPeEphemeris::GetEphTime@<X0>(BlueFin::GlPeEphemeris *this@<X0>, const BlueFin::GlPeGnssTime *a2@<X1>, uint64_t a3@<X8>)
+unsigned int *BlueFin::GlPeEphemeris::GetEphTime@<X0>(uint64_t *__return_ptr a1@<X8>, BlueFin::GlPeEphemeris *this@<X0>, const BlueFin::GlPeGnssTime *a3@<X1>)
 {
   (*(*this + 64))(this);
-  *a3 = *a2;
-  *(a3 + 8) = *(a2 + 2);
-  *(a3 + 16) = *(a2 + 1);
+  *a1 = *a3;
+  *(a1 + 2) = *(a3 + 2);
+  *(a1 + 1) = *(a3 + 1);
 
-  return BlueFin::GlPeGnssTime::operator-=(a3, v5);
+  return BlueFin::GlPeGnssTime::operator-=(a1, v5);
 }
 
 uint64_t BlueFin::GlPeGalEphMgr::MakeEphemerisObj(uint64_t a1, uint64_t a2, int a3)
@@ -6056,126 +6002,12 @@ LABEL_21:
         v62[3] = v26;
         v59.n128_u64[0] = &unk_2A1F0FBD0;
         v27 = BlueFin::GlPeGalEphemeris::CompareEphSetFields(&v59, a2);
-        v21 |= (v27 | isExpired) ^ 1;
+        v21 |= !v27 && !isExpired;
         if ((*(*this + 264))(this, &v63))
         {
           if (v27)
           {
-            if (!BlueFin::GlPeGalEphemeris::CompareEphSetFields(a2, &v59))
-            {
-              goto LABEL_68;
-            }
-
-            v28 = (*(*a2 + 192))(a2, 0);
-            if (v28 != (*(v59.n128_u64[0] + 192))(&v59, 0))
-            {
-              goto LABEL_68;
-            }
-
-            v29 = (*(*a2 + 192))(a2, 4);
-            if (v29 != (*(v59.n128_u64[0] + 192))(&v59, 4))
-            {
-              goto LABEL_68;
-            }
-
-            v30 = (*(*a2 + 192))(a2, 3);
-            if (v30 != (*(v59.n128_u64[0] + 192))(&v59, 3))
-            {
-              goto LABEL_68;
-            }
-
-            v31 = (*(*a2 + 208))(a2, 6);
-            if (v31 != (*(v59.n128_u64[0] + 208))(&v59, 6))
-            {
-              goto LABEL_68;
-            }
-
-            v32 = (*(*a2 + 192))(a2, 5);
-            if (v32 != (*(v59.n128_u64[0] + 192))(&v59, 5))
-            {
-              goto LABEL_68;
-            }
-
-            v33 = (*(*a2 + 192))(a2, 7);
-            if (v33 != (*(v59.n128_u64[0] + 192))(&v59, 7))
-            {
-              goto LABEL_68;
-            }
-
-            v34 = (*(*a2 + 208))(a2, 8);
-            if (v34 != (*(v59.n128_u64[0] + 208))(&v59, 8))
-            {
-              goto LABEL_68;
-            }
-
-            v35 = (*(*a2 + 208))(a2, 9);
-            if (v35 != (*(v59.n128_u64[0] + 208))(&v59, 9))
-            {
-              goto LABEL_68;
-            }
-
-            v36 = (*(*a2 + 208))(a2, 10);
-            if (v36 != (*(v59.n128_u64[0] + 208))(&v59, 10))
-            {
-              goto LABEL_68;
-            }
-
-            v37 = (*(*a2 + 208))(a2, 11);
-            if (v37 != (*(v59.n128_u64[0] + 208))(&v59, 11))
-            {
-              goto LABEL_68;
-            }
-
-            v38 = (*(*a2 + 208))(a2, 12);
-            if (v38 != (*(v59.n128_u64[0] + 208))(&v59, 12))
-            {
-              goto LABEL_68;
-            }
-
-            v39 = (*(*a2 + 208))(a2, 13);
-            if (v39 != (*(v59.n128_u64[0] + 208))(&v59, 13))
-            {
-              goto LABEL_68;
-            }
-
-            v40 = (*(*a2 + 208))(a2, 14);
-            if (v40 != (*(v59.n128_u64[0] + 208))(&v59, 14))
-            {
-              goto LABEL_68;
-            }
-
-            v41 = (*(*a2 + 192))(a2, 15);
-            if (v41 != (*(v59.n128_u64[0] + 192))(&v59, 15))
-            {
-              goto LABEL_68;
-            }
-
-            v42 = (*(*a2 + 208))(a2, 16);
-            if (v42 != (*(v59.n128_u64[0] + 208))(&v59, 16))
-            {
-              goto LABEL_68;
-            }
-
-            v43 = (*(*a2 + 192))(a2, 17);
-            if (v43 != (*(v59.n128_u64[0] + 192))(&v59, 17))
-            {
-              goto LABEL_68;
-            }
-
-            v44 = (*(*a2 + 192))(a2, 18);
-            if (v44 != (*(v59.n128_u64[0] + 192))(&v59, 18))
-            {
-              goto LABEL_68;
-            }
-
-            v45 = (*(*a2 + 208))(a2, 19);
-            if (v45 != (*(v59.n128_u64[0] + 208))(&v59, 19))
-            {
-              goto LABEL_68;
-            }
-
-            v46 = (*(*a2 + 208))(a2, 20);
-            if (v46 == (*(v59.n128_u64[0] + 208))(&v59, 20) && (v47 = (*(*a2 + 208))(a2, 21), v47 == (*(v59.n128_u64[0] + 208))(&v59, 21)) && (v48 = (*(*a2 + 208))(a2, 22), v48 == (*(v59.n128_u64[0] + 208))(&v59, 22)) && (v49 = (*(*a2 + 208))(a2, 23), v49 == (*(v59.n128_u64[0] + 208))(&v59, 23)) && (v50 = (*(*a2 + 208))(a2, 24), v50 == (*(v59.n128_u64[0] + 208))(&v59, 24)) && (v51 = (*(*a2 + 208))(a2, 25), v51 == (*(v59.n128_u64[0] + 208))(&v59, 25)) && (v52 = (*(*a2 + 208))(a2, 26), v52 == (*(v59.n128_u64[0] + 208))(&v59, 26)))
+            if (BlueFin::GlPeGalEphemeris::CompareEphSetFields(a2, &v59) && (v28 = (*(*a2 + 192))(a2, 0), v28 == (*(v59.n128_u64[0] + 192))(&v59, 0)) && (v29 = (*(*a2 + 192))(a2, 4), v29 == (*(v59.n128_u64[0] + 192))(&v59, 4)) && (v30 = (*(*a2 + 192))(a2, 3), v30 == (*(v59.n128_u64[0] + 192))(&v59, 3)) && (v31 = (*(*a2 + 208))(a2, 6), v31 == (*(v59.n128_u64[0] + 208))(&v59, 6)) && (v32 = (*(*a2 + 192))(a2, 5), v32 == (*(v59.n128_u64[0] + 192))(&v59, 5)) && (v33 = (*(*a2 + 192))(a2, 7), v33 == (*(v59.n128_u64[0] + 192))(&v59, 7)) && (v34 = (*(*a2 + 208))(a2, 8), v34 == (*(v59.n128_u64[0] + 208))(&v59, 8)) && (v35 = (*(*a2 + 208))(a2, 9), v35 == (*(v59.n128_u64[0] + 208))(&v59, 9)) && (v36 = (*(*a2 + 208))(a2, 10), v36 == (*(v59.n128_u64[0] + 208))(&v59, 10)) && (v37 = (*(*a2 + 208))(a2, 11), v37 == (*(v59.n128_u64[0] + 208))(&v59, 11)) && (v38 = (*(*a2 + 208))(a2, 12), v38 == (*(v59.n128_u64[0] + 208))(&v59, 12)) && (v39 = (*(*a2 + 208))(a2, 13), v39 == (*(v59.n128_u64[0] + 208))(&v59, 13)) && (v40 = (*(*a2 + 208))(a2, 14), v40 == (*(v59.n128_u64[0] + 208))(&v59, 14)) && (v41 = (*(*a2 + 192))(a2, 15), v41 == (*(v59.n128_u64[0] + 192))(&v59, 15)) && (v42 = (*(*a2 + 208))(a2, 16), v42 == (*(v59.n128_u64[0] + 208))(&v59, 16)) && (v43 = (*(*a2 + 192))(a2, 17), v43 == (*(v59.n128_u64[0] + 192))(&v59, 17)) && (v44 = (*(*a2 + 192))(a2, 18), v44 == (*(v59.n128_u64[0] + 192))(&v59, 18)) && (v45 = (*(*a2 + 208))(a2, 19), v45 == (*(v59.n128_u64[0] + 208))(&v59, 19)) && (v46 = (*(*a2 + 208))(a2, 20), v46 == (*(v59.n128_u64[0] + 208))(&v59, 20)) && (v47 = (*(*a2 + 208))(a2, 21), v47 == (*(v59.n128_u64[0] + 208))(&v59, 21)) && (v48 = (*(*a2 + 208))(a2, 22), v48 == (*(v59.n128_u64[0] + 208))(&v59, 22)) && (v49 = (*(*a2 + 208))(a2, 23), v49 == (*(v59.n128_u64[0] + 208))(&v59, 23)) && (v50 = (*(*a2 + 208))(a2, 24), v50 == (*(v59.n128_u64[0] + 208))(&v59, 24)) && (v51 = (*(*a2 + 208))(a2, 25), v51 == (*(v59.n128_u64[0] + 208))(&v59, 25)) && (v52 = (*(*a2 + 208))(a2, 26), v52 == (*(v59.n128_u64[0] + 208))(&v59, 26)))
             {
               v21 = 1;
               (*(v59.n128_u64[0] + 216))(&v59, 2, 1);
@@ -6183,7 +6015,6 @@ LABEL_21:
 
             else
             {
-LABEL_68:
               v56 = (*(*a2 + 184))(a2);
               v57 = BlueFin::GNSS2STR(*(this + 3));
               if (v56)
@@ -6206,7 +6037,7 @@ LABEL_68:
       if ((v22 | isExpired))
       {
         (*(*this + 288))(this, &v63, 0);
-        v21 &= isExpired ^ 1;
+        v21 &= !isExpired;
       }
     }
   }
@@ -6482,38 +6313,38 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
   v67 = byte_2A18BAB18;
   v68 = *(a2 + 2589);
   v4 = *(a2 + 648);
-  BlueFin::GlPeTimeManager::GetTime(a2, 1, &v72);
-  v80 = 0;
-  v79 = &unk_2A1F11310;
+  BlueFin::GlPeTimeManager::GetTime(a2, 1, &v71);
+  v79 = 0;
+  v78 = &unk_2A1F11310;
   v5 = 432000 - BlueFin::GlWeekTowTime::m_ucCurrentLs;
-  v81 = 1980;
-  v82 = v5 / 0x15180 + 1;
-  v83[0] = 1;
-  v83[1] = v5 / 0x15180 + 1;
-  v83[2] = v5 % 0x15180 / 0xE10;
-  v83[3] = (2185 * (v5 - 3600 * ((1193047 * v5) >> 32))) >> 17;
-  v83[4] = v5 - 60 * ((71582789 * v5) >> 32);
-  BlueFin::GlPeGnssTime::GetUtc(&v72, &v79);
-  v6 = BlueFin::GlPeTimeManager::GetTimeAtPreviousQuarter(BlueFin::GlPeGnssTime const&)const::aucQuarterMonths[(((21846 * v83[0] - 21846) >> 16) + ((21846 * v83[0] - 21846) >> 31))];
-  v75 = 0;
-  v74 = &unk_2A1F11310;
-  if (v81 <= 0x7BCu && (v83[0] < 4u || v81 != 1980))
+  v80 = 1980;
+  v81 = v5 / 0x15180 + 1;
+  v82[0] = 1;
+  v82[1] = v5 / 0x15180 + 1;
+  v82[2] = v5 % 0x15180 / 0xE10;
+  v82[3] = (2185 * (v5 - 3600 * ((1193047 * v5) >> 32))) >> 17;
+  v82[4] = v5 - 60 * ((71582789 * v5) >> 32);
+  BlueFin::GlPeGnssTime::GetUtc(&v71, &v78);
+  v6 = BlueFin::GlPeTimeManager::GetTimeAtPreviousQuarter(BlueFin::GlPeGnssTime const&)const::aucQuarterMonths[(((21846 * v82[0] - 21846) >> 16) + ((21846 * v82[0] - 21846) >> 31))];
+  v74 = 0;
+  v73 = &unk_2A1F11310;
+  if (v80 <= 0x7BCu && (v82[0] < 4u || v80 != 1980))
   {
     goto LABEL_93;
   }
 
-  v7 = v81 - 1980;
-  v8 = v81 - 1977;
+  v7 = v80 - 1980;
+  v8 = v80 - 1977;
   if (v7 >= 0)
   {
-    v8 = v81 - 1980;
+    v8 = v80 - 1980;
   }
 
   v9 = 86400 * BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * (v7 - (v8 & 0xFFFFFFFC)) - 1 + v6] + 126230400 * (v8 >> 2) - 432000;
   v10 = BlueFin::GlWeekTowTime::m_ulCtFctOfNextLsEvent - 1 >= v9 + BlueFin::GlWeekTowTime::m_ucCurrentLs ? BlueFin::GlWeekTowTime::m_ucCurrentLs : BlueFin::GlWeekTowTime::m_ucNextLs;
   v11 = v9 + v10;
-  HIDWORD(v75) = v11;
-  v74 = &unk_2A1F11310;
+  HIDWORD(v74) = v11;
+  v73 = &unk_2A1F11310;
   v12 = v11 == BlueFin::GlWeekTowTime::m_ulCtFctOfNextLsEvent && BlueFin::GlWeekTowTime::m_ulCtFctOfNextLsEvent != 0;
   v13 = BlueFin::GlWeekTowTime::m_ucNextLs >= BlueFin::GlWeekTowTime::m_ucCurrentLs && v12;
   v14 = BlueFin::GlWeekTowTime::m_ulCtFctOfNextLs - 1 >= v11 ? BlueFin::GlWeekTowTime::m_ucCurrentLs : BlueFin::GlWeekTowTime::m_ucNextLs;
@@ -6547,8 +6378,8 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
     v21 = v17 >= v20[3] ? 3 : 0;
   }
 
-  v76 = ((4 * (v15 / 0x7861F80)) | v19) + 1980;
-  v77 = v17 + 1 - *v20;
+  v75 = ((4 * (v15 / 0x7861F80)) | v19) + 1980;
+  v76 = v17 + 1 - *v20;
   if (v17 >= BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * v19 + v21 + 2])
   {
     v22 = 3;
@@ -6560,8 +6391,8 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
   }
 
   v23 = v22 + v21;
-  LOBYTE(v78[0]) = v23;
-  BYTE1(v78[0]) = v17 - BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * v19 + v23 - 1] + 1;
+  LOBYTE(v77[0]) = v23;
+  BYTE1(v77[0]) = v17 - BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * v19 + v23 - 1] + 1;
   if (v13)
   {
     LOBYTE(v24) = 59;
@@ -6576,27 +6407,27 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
     v26 = v15 % 0x3C;
   }
 
-  BYTE2(v78[0]) = v25;
-  HIBYTE(v78[0]) = v24;
-  LOBYTE(v78[1]) = v26;
-  BlueFin::GlPeTimeManager::GetTime(a2, &v74, 1, v70);
-  v80 = 0;
-  v79 = &unk_2A1F11310;
+  BYTE2(v77[0]) = v25;
+  HIBYTE(v77[0]) = v24;
+  LOBYTE(v77[1]) = v26;
+  BlueFin::GlPeTimeManager::GetTime(v70, a2, &v73, 1);
+  v79 = 0;
+  v78 = &unk_2A1F11310;
   v27 = 432000 - BlueFin::GlWeekTowTime::m_ucCurrentLs;
-  v81 = 1980;
-  v82 = v27 / 0x15180 + 1;
-  v83[0] = 1;
-  v83[1] = v27 / 0x15180 + 1;
-  v83[2] = v27 % 0x15180 / 0xE10;
-  v83[3] = (2185 * (v27 - 3600 * ((1193047 * v27) >> 32))) >> 17;
-  v83[4] = v27 - 60 * ((71582789 * v27) >> 32);
-  BlueFin::GlPeGnssTime::GetUtc(&v72, &v79);
-  v28 = (((21846 * v83[0] - 21846) >> 16) + ((21846 * v83[0] - 21846) >> 31));
-  v29 = v81 + BlueFin::GlPeTimeManager::GetTimeAtNextQuarter(BlueFin::GlPeGnssTime const&)const::aucRelQuarterYear[v28];
+  v80 = 1980;
+  v81 = v27 / 0x15180 + 1;
+  v82[0] = 1;
+  v82[1] = v27 / 0x15180 + 1;
+  v82[2] = v27 % 0x15180 / 0xE10;
+  v82[3] = (2185 * (v27 - 3600 * ((1193047 * v27) >> 32))) >> 17;
+  v82[4] = v27 - 60 * ((71582789 * v27) >> 32);
+  BlueFin::GlPeGnssTime::GetUtc(&v71, &v78);
+  v28 = (((21846 * v82[0] - 21846) >> 16) + ((21846 * v82[0] - 21846) >> 31));
+  v29 = v80 + BlueFin::GlPeTimeManager::GetTimeAtNextQuarter(BlueFin::GlPeGnssTime const&)const::aucRelQuarterYear[v28];
   v30 = BlueFin::GlPeTimeManager::GetTimeAtNextQuarter(BlueFin::GlPeGnssTime const&)const::aucQuarterMonths[v28];
-  v75 = 0;
-  v74 = &unk_2A1F11310;
-  if (v29 <= 0x7BCu && (v83[0] - 13 > 0xFFFFFFFC || v29 != 1980))
+  v74 = 0;
+  v73 = &unk_2A1F11310;
+  if (v29 <= 0x7BCu && (v82[0] - 13 > 0xFFFFFFFC || v29 != 1980))
   {
     goto LABEL_93;
   }
@@ -6621,8 +6452,8 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
   }
 
   v36 = v33 + v35;
-  HIDWORD(v75) = v36;
-  v74 = &unk_2A1F11310;
+  HIDWORD(v74) = v36;
+  v73 = &unk_2A1F11310;
   v37 = v36 == BlueFin::GlWeekTowTime::m_ulCtFctOfNextLsEvent && BlueFin::GlWeekTowTime::m_ulCtFctOfNextLsEvent != 0;
   v38 = BlueFin::GlWeekTowTime::m_ucNextLs >= BlueFin::GlWeekTowTime::m_ucCurrentLs && v37;
   if (BlueFin::GlWeekTowTime::m_ulCtFctOfNextLs - 1 < v36)
@@ -6670,8 +6501,8 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
     v45 = 0;
   }
 
-  v76 = ((4 * (v39 / 0x7861F80)) | v43) + 1980;
-  v77 = v41 + 1 - *v44;
+  v75 = ((4 * (v39 / 0x7861F80)) | v43) + 1980;
+  v76 = v41 + 1 - *v44;
   if (v41 >= BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * v43 + v45 + 2])
   {
     v46 = 3;
@@ -6688,8 +6519,8 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
   }
 
   v47 = v46 + v45;
-  LOBYTE(v78[0]) = v47;
-  BYTE1(v78[0]) = v41 - BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * v43 + v47 - 1] + 1;
+  LOBYTE(v77[0]) = v47;
+  BYTE1(v77[0]) = v41 - BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * v43 + v47 - 1] + 1;
   if (v38)
   {
     LOBYTE(v48) = 59;
@@ -6704,28 +6535,28 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
     v50 = v39 % 0x3C;
   }
 
-  BYTE2(v78[0]) = v49;
-  HIBYTE(v78[0]) = v48;
-  LOBYTE(v78[1]) = v50;
-  BlueFin::GlPeTimeManager::GetTime(a2, &v74, 1, v69);
-  v74 = &unk_2A1F11310;
-  v75 = 0;
+  BYTE2(v77[0]) = v49;
+  HIBYTE(v77[0]) = v48;
+  LOBYTE(v77[1]) = v50;
+  BlueFin::GlPeTimeManager::GetTime(v69, a2, &v73, 1);
+  v73 = &unk_2A1F11310;
+  v74 = 0;
   v51 = 432000 - BlueFin::GlWeekTowTime::m_ucCurrentLs;
-  v76 = 1980;
-  v77 = v51 / 0x15180 + 1;
-  LOBYTE(v78[0]) = 1;
-  BYTE1(v78[0]) = v51 / 0x15180 + 1;
-  BYTE2(v78[0]) = v51 % 0x15180 / 0xE10;
-  HIBYTE(v78[0]) = (2185 * (v51 - 3600 * ((1193047 * v51) >> 32))) >> 17;
-  LOBYTE(v78[1]) = v51 - 60 * ((71582789 * v51) >> 32);
-  v79 = &unk_2A1F11310;
-  v80 = 0;
-  v81 = 1980;
-  v82 = v77;
-  *v83 = __PAIR16__(BYTE1(v78[0]), 1);
-  v83[2] = BYTE2(v78[0]);
-  *&v83[3] = *(v78 + 3);
-  if (v73 - v71 >= 180000.0)
+  v75 = 1980;
+  v76 = v51 / 0x15180 + 1;
+  LOBYTE(v77[0]) = 1;
+  BYTE1(v77[0]) = v51 / 0x15180 + 1;
+  BYTE2(v77[0]) = v51 % 0x15180 / 0xE10;
+  HIBYTE(v77[0]) = (2185 * (v51 - 3600 * ((1193047 * v51) >> 32))) >> 17;
+  LOBYTE(v77[1]) = v51 - 60 * ((71582789 * v51) >> 32);
+  v78 = &unk_2A1F11310;
+  v79 = 0;
+  v80 = 1980;
+  v81 = v76;
+  *v82 = __PAIR16__(BYTE1(v77[0]), 1);
+  v82[2] = BYTE2(v77[0]);
+  *&v82[3] = *(v77 + 3);
+  if (v72 - *&v70[2] >= 180000.0)
   {
     v52 = v69;
   }
@@ -6735,16 +6566,16 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
     v52 = v70;
   }
 
-  Utc = BlueFin::GlPeGnssTime::GetUtc(v52, &v79);
-  v55 = v80;
-  v56 = HIDWORD(v80);
+  Utc = BlueFin::GlPeGnssTime::GetUtc(v52, &v78);
+  v55 = v79;
+  v56 = HIDWORD(v79);
+  v74 = v79;
   v75 = v80;
   v76 = v81;
-  v77 = v82;
-  LODWORD(Utc) = *v83;
+  LODWORD(Utc) = *v82;
   v57 = vmovl_u8(*&Utc);
-  v78[0] = vuzp1_s8(*v57.i8, *v57.i8).u32[0];
-  LOBYTE(v78[1]) = v83[4];
+  v77[0] = vuzp1_s8(*v57.i8, *v57.i8).u32[0];
+  LOBYTE(v77[1]) = v82[4];
   if (!v4)
   {
     if (v68)
@@ -6774,11 +6605,11 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
   if (v59 != v58)
   {
     BlueFin::GlWeekTowTime::m_ucCurrentLs = 0;
-    v79 = &unk_2A1F11310;
-    v80 = 0;
-    if (v81 > 0x7BCu || v57.u8[0] >= 2u && v81 == 1980)
+    v78 = &unk_2A1F11310;
+    v79 = 0;
+    if (v80 > 0x7BCu || v57.u8[0] >= 2u && v80 == 1980)
     {
-      v60 = BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * (v81 & 3) - 1 + v57.u8[0]];
+      v60 = BlueFin::GlWeekTowTime::s_aausSub4AndMonth2Nt[12 * (v80 & 3) - 1 + v57.u8[0]];
       BlueFin::GlWeekTowTime::m_ucCurrentLs = v58;
       v61 = v58 - 1;
       if (v59 > v58)
@@ -6787,7 +6618,7 @@ void BlueFin::GlPeSpecialTimeEvents::ScheduleTimeEvents(BlueFin::GlPeSpecialTime
       }
 
       BlueFin::GlWeekTowTime::m_ucNextLs = v61;
-      BlueFin::GlWeekTowTime::m_ulCtFctOfNextLs = 126230400 * ((v81 - 1980) >> 2) - 432000 + v61 + 86400 * v60;
+      BlueFin::GlWeekTowTime::m_ulCtFctOfNextLs = 126230400 * ((v80 - 1980) >> 2) - 432000 + v61 + 86400 * v60;
       BlueFin::GlWeekTowTime::m_ulCtFctOfNextLsEvent = (__PAIR64__(BlueFin::GlWeekTowTime::m_ulCtFctOfNextLs, v58) - v61) >> 32;
       goto LABEL_85;
     }
@@ -6829,191 +6660,171 @@ LABEL_85:
   *this = 1;
 }
 
-uint64_t BlueFin::GlPeAlmMgr::UseHardCodedData(BlueFin::GlPeTimeManager **this, int8x16_t a2, int8x16_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, __n128 a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, int a54, unsigned __int8 a55, int a56, unsigned __int8 a57, uint64_t a58, uint64_t a59, void (**a60)(BlueFin::GlGpsTime *__hidden this), unint64_t a61)
+uint64_t BlueFin::GlPeAlmMgr::UseHardCodedData(BlueFin::GlPeTimeManager **this, int8x16_t a2, int8x16_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __n128 a31, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, __n128 a32, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, int a54, unsigned __int8 a55, int a56, unsigned __int8 a57, uint64_t a58, uint64_t a59, void (**a60)(BlueFin::GlGpsTime *__hidden this), unint64_t a61, void (**arg180)(BlueFin::GlGpsTime *__hidden this), unint64_t a62)
 {
-  v61 = this;
+  v62 = this;
   STACK[0x5F8] = *MEMORY[0x29EDCA608];
-  v114 = &off_2A1F0B5F0;
-  v115 = 0;
-  v62 = this[56];
-  if (*(v62 + 644))
+  v113 = &off_2A1F0B5F0;
+  v114 = 0;
+  v63 = this[56];
+  if (*(v63 + 644))
   {
-    BlueFin::GlPeTimeManager::GetTime(v62, 1, &a31);
-    a61 = 0;
-    a60 = &off_2A1F0B5F0;
-    BlueFin::GlPeGnssTime::GetGps(&a31, &a60);
-    v115 = a61;
+    BlueFin::GlPeTimeManager::GetTime(v63, 1, &a32);
+    a62 = 0;
+    arg180 = &off_2A1F0B5F0;
+    BlueFin::GlPeGnssTime::GetGps(&a32, &arg180);
+    v114 = a62;
   }
 
   else
   {
     *a2.i64 = (BlueFin::GlSettingsImpl::m_ulActiveBuildFct % 0x93A80u);
-    a31.n128_u64[0] = &off_2A1F0B5F0;
+    a32.n128_u64[0] = &off_2A1F0B5F0;
     *a3.i64 = *a2.i64 - trunc(*a2.i64);
-    v63.f64[0] = NAN;
-    v63.f64[1] = NAN;
-    a2.i64[0] = vbslq_s8(vnegq_f64(v63), a3, a2).i64[0];
+    v64.f64[0] = NAN;
+    v64.f64[1] = NAN;
+    a2.i64[0] = vbslq_s8(vnegq_f64(v64), a3, a2).i64[0];
     if (*a2.i64 >= 1.0)
     {
       DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
       __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glpe_timepoint.h", 173, "dFracSec >= 0.0 && dFracSec < 1.0");
     }
 
-    v64 = *a2.i64 * 4294967300.0 + 0.5;
-    v65 = v64;
-    if (v64 >= 4294967300.0)
+    v65 = *a2.i64 * 4294967300.0 + 0.5;
+    v66 = v65;
+    if (v65 >= 4294967300.0)
     {
-      v65 = -1;
+      v66 = -1;
     }
 
-    v115 = __PAIR64__(BlueFin::GlSettingsImpl::m_ulActiveBuildFct, v65);
+    v114 = __PAIR64__(BlueFin::GlSettingsImpl::m_ulActiveBuildFct, v66);
   }
 
-  v66 = 0;
-  STACK[0x5C8] = &a60;
+  v67 = 0;
+  STACK[0x5C8] = &arg180;
   do
   {
-    v67 = STACK[0x5C8] + v66;
-    *(v67 + 12) = 0;
-    *v67 = v67 + 12;
-    *(v67 + 8) = 2;
-    v66 += 24;
+    v68 = STACK[0x5C8] + v67;
+    *(v68 + 12) = 0;
+    *v68 = v68 + 12;
+    *(v68 + 8) = 2;
+    v67 += 24;
   }
 
-  while (v66 != 168);
+  while (v67 != 168);
   for (i = 0; i != 168; i += 24)
   {
-    v69 = &v116 + i;
-    *(&v118 + i + 4) = 0;
-    *v69 = &v118 + i + 4;
-    v69[8] = 2;
+    v70 = &v115 + i;
+    *(&v117 + i + 4) = 0;
+    *v70 = &v117 + i + 4;
+    v70[8] = 2;
   }
 
   for (j = 0; j != 7; ++j)
   {
-    BlueFin::GlGnssSet::SetAll(&v116, j);
+    BlueFin::GlGnssSet::SetAll(&v115, j);
   }
 
-  BlueFin::GlGnssSetIterator::GlGnssSetIterator(&a31, &v116);
-  while (a54 != 6 || a55 != 14)
+  BlueFin::GlGnssSetIterator::GlGnssSetIterator(&a32, &v115);
+  while (a58 != 6 || BYTE4(a58) != 14)
   {
-    a56 = a54;
-    a57 = a55;
-    v116 = a54;
-    v117 = a55;
-    if (BlueFin::GlPeAlmMgr::GetDefaultAlm(&v116))
+    LODWORD(a59) = a58;
+    BYTE4(a59) = BYTE4(a58);
+    v115 = a58;
+    v116 = BYTE4(a58);
+    if (BlueFin::GlPeAlmMgr::GetDefaultAlm(&v115))
     {
-      a56 = a54;
-      a57 = a55;
-      v116 = a54;
-      v117 = a55;
-      BlueFin::GlGnssSet::Add(&a60, &v116);
+      LODWORD(a59) = a58;
+      BYTE4(a59) = BYTE4(a58);
+      v115 = a58;
+      v116 = BYTE4(a58);
+      BlueFin::GlGnssSet::Add(&arg180, &v115);
     }
 
-    BlueFin::GlGnssSetIterator::operator++(&a31);
+    BlueFin::GlGnssSetIterator::operator++(&a32);
   }
 
-  BlueFin::GlGnssSetIterator::GlGnssSetIterator(&a31, &a60);
-  v105 = v61;
+  BlueFin::GlGnssSetIterator::GlGnssSetIterator(&a32, &arg180);
+  v104 = v62;
   while (1)
   {
-    v72 = a54;
-    v73 = a55;
-    if (a54 == 6 && a55 == 14)
+    v73 = a58;
+    v74 = BYTE4(a58);
+    if (a58 == 6 && BYTE4(a58) == 14)
     {
       break;
     }
 
-    a56 = a54;
-    a57 = a55;
-    v112 = a54;
-    v113 = a55;
-    DefaultAlm = BlueFin::GlPeAlmMgr::GetDefaultAlm(&v112);
+    LODWORD(a59) = a58;
+    BYTE4(a59) = BYTE4(a58);
+    v111 = a58;
+    v112 = BYTE4(a58);
+    DefaultAlm = BlueFin::GlPeAlmMgr::GetDefaultAlm(&v111);
     if (DefaultAlm)
     {
-      v76 = *DefaultAlm;
-      LOWORD(v116) = *DefaultAlm;
-      v77 = DefaultAlm[1];
-      HIWORD(v116) = v77;
-      v78 = *(DefaultAlm + 1);
-      v118 = v78;
-      v79 = *(DefaultAlm + 4);
-      LODWORD(vars0) = v79;
-      v81 = *(DefaultAlm + 3);
+      v77 = *DefaultAlm;
+      LOWORD(v115) = *DefaultAlm;
+      v78 = DefaultAlm[1];
+      HIWORD(v115) = v78;
+      v79 = *(DefaultAlm + 1);
+      v117 = v79;
       v80 = *(DefaultAlm + 4);
-      vars8 = v81;
-      v107 = v80;
-      v82 = *(DefaultAlm + 5);
-      v83 = *(DefaultAlm + 6);
-      v84 = *(DefaultAlm + 7);
-      v85 = *(DefaultAlm + 8);
-      v86 = *(DefaultAlm + 9);
-      v87 = *(DefaultAlm + 10);
-      v88 = DefaultAlm[44];
-      v89 = *(DefaultAlm + 23);
-      v90 = *(DefaultAlm + 96);
-      AlmReference = BlueFin::GlPeAlmMgr::getAlmReference(v61, v72, v73);
-      if (((*(*(*(v61 + 54) + 48 * v72 + 24) + 4 * (v73 >> 5)) >> (v73 & 0x1F)) & 1) == 0)
-      {
-        goto LABEL_29;
-      }
-
+      LODWORD(vars0) = v80;
+      v82 = *(DefaultAlm + 3);
+      v81 = *(DefaultAlm + 4);
+      vars8 = v82;
       v106 = v81;
-      BlueFin::GlPeAlmanac::GetToa(&v116, &v114, &v110, v92, v93);
-      v94 = v78;
-      v95 = (*(v110 + 32))(&v110);
-      LODWORD(v78) = v111;
-      BlueFin::GlPeAlmanac::GetToa(AlmReference, &v114, &v108, v96, v97);
-      v98 = (*(v108 + 32))(&v108);
-      LODWORD(v99) = v109;
-      v100 = v78 * 2.32830644e-10 + v95 - (v99 * 2.32830644e-10 + v98);
-      v61 = v105;
-      v78 = v94;
-      v81 = v106;
-      if (v100 >= 604800.0)
+      v83 = *(DefaultAlm + 5);
+      v84 = *(DefaultAlm + 6);
+      v85 = *(DefaultAlm + 7);
+      v86 = *(DefaultAlm + 8);
+      v87 = *(DefaultAlm + 9);
+      v88 = *(DefaultAlm + 10);
+      v89 = DefaultAlm[44];
+      v90 = *(DefaultAlm + 23);
+      v91 = *(DefaultAlm + 96);
+      AlmReference = BlueFin::GlPeAlmMgr::getAlmReference(v62, v73, v74);
+      if (((*(*(v62[54] + 6 * v73 + 3) + 4 * (v74 >> 5)) >> (v74 & 0x1F)) & 1) == 0 || (v105 = v82, BlueFin::GlPeAlmanac::GetToa(&v109, &v115, &v113, v93, v94), v95 = v79, v96 = (*(v109 + 32))(&v109), LODWORD(v79) = v110, BlueFin::GlPeAlmanac::GetToa(&v107, AlmReference, &v113, v97, v98), v99 = (*(v107 + 32))(&v107), LODWORD(v100) = v108, v101 = v79 * 2.32830644e-10 + v96 - (v100 * 2.32830644e-10 + v99), v62 = v104, v79 = v95, v82 = v105, v101 >= 604800.0))
       {
-LABEL_29:
-        *(AlmReference + 104) = v72;
-        *(AlmReference + 108) = v73;
-        *AlmReference = v76;
-        *(AlmReference + 2) = v77;
-        *(AlmReference + 8) = v78;
-        *(AlmReference + 16) = v79;
-        *(AlmReference + 24) = v81;
-        *(AlmReference + 32) = v107;
-        *(AlmReference + 40) = v82;
-        *(AlmReference + 48) = v83;
-        *(AlmReference + 56) = v84;
-        *(AlmReference + 64) = v85;
-        *(AlmReference + 72) = v86;
-        *(AlmReference + 80) = v87;
-        *(AlmReference + 92) = v89;
-        *(AlmReference + 96) = v90;
-        *(AlmReference + 88) = v88;
-        if ((v73 - 64) <= 0xC0u)
+        *(AlmReference + 104) = v73;
+        *(AlmReference + 108) = v74;
+        *AlmReference = v77;
+        *(AlmReference + 2) = v78;
+        *(AlmReference + 8) = v79;
+        *(AlmReference + 16) = v80;
+        *(AlmReference + 24) = v82;
+        *(AlmReference + 32) = v106;
+        *(AlmReference + 40) = v83;
+        *(AlmReference + 48) = v84;
+        *(AlmReference + 56) = v85;
+        *(AlmReference + 64) = v86;
+        *(AlmReference + 72) = v87;
+        *(AlmReference + 80) = v88;
+        *(AlmReference + 92) = v90;
+        *(AlmReference + 96) = v91;
+        *(AlmReference + 88) = v89;
+        if ((v74 - 64) <= 0xC0u)
         {
           DeviceFaultNotify("glgnss.h", 115, "Add", "rtGnssId.ucGnssId >= MIN_GNSS_ID && rtGnssId.ucGnssId <= MAX_GNSS_ID");
           __assert_rtn(0xFFFFFFFFFFFFFFFFLL, "glgnss.h", 115, "rtGnssId.ucGnssId >= MIN_GNSS_ID && rtGnssId.ucGnssId <= MAX_GNSS_ID");
         }
 
-        v101 = *(v61 + 54) + 48 * v72;
-        *(*(v101 + 24) + 4 * (v73 >> 5)) |= 1 << (v73 & 0x1F);
-        BlueFin::GlSetBase::Remove(v101, v73);
+        v102 = v62[54] + 48 * v73;
+        *(*(v102 + 24) + 4 * (v74 >> 5)) |= 1 << (v74 & 0x1F);
+        BlueFin::GlSetBase::Remove(v102, v74);
       }
     }
 
-    BlueFin::GlGnssSetIterator::operator++(&a31);
+    BlueFin::GlGnssSetIterator::operator++(&a32);
   }
 
-  *(v61 + 36712) = 0;
-  v102 = STACK[0x5F8];
-  v103 = *MEMORY[0x29EDCA608];
+  *(v62 + 36712) = 0;
   return 1;
 }
 
-uint64_t BlueFin::GlPeLtoMgr::deserializeLtoUtc(BlueFin::GlPeLtoMgr *this, BlueFin::GlSysLogEntry *a2)
+uint64_t BlueFin::GlPeLtoMgr::deserializeLtoUtc(__n128 *this, BlueFin::GlSysLogEntry *a2)
 {
-  v3 = *(this + 6615);
+  v3 = this[1653].n128_u32[3];
   v14 = &unk_2A1F10448;
   v15 = 7;
   v16 = 0uLL;
@@ -7200,19 +7011,19 @@ uint64_t BlueFin::GlPeGpsUtcModel::Deserialize(BlueFin::GlPeGpsUtcModel *this, B
 
 void BlueFin::GlPeLtoMgr::UpdateGnssL5Health(uint64_t a1, int a2, uint64_t a3, int a4, int a5)
 {
-  v89 = *MEMORY[0x29EDCA608];
+  v88 = *MEMORY[0x29EDCA608];
   if (a3)
   {
     v7 = *(a1 + 88);
     if (*(v7 + 644))
     {
-      BlueFin::GlPeTimeManager::GetTime(v7, 1, v73);
+      BlueFin::GlPeTimeManager::GetTime(v7, 1, v72);
       if (a4)
       {
         v11 = 0;
         v12.f64[0] = NAN;
         v12.f64[1] = NAN;
-        v71 = vnegq_f64(v12);
+        v70 = vnegq_f64(v12);
         while (1)
         {
           v13 = (a3 + 12 * v11);
@@ -7224,7 +7035,7 @@ void BlueFin::GlPeLtoMgr::UpdateGnssL5Health(uint64_t a1, int a2, uint64_t a3, i
 LABEL_68:
           if (++v11 == a4)
           {
-            goto LABEL_69;
+            return;
           }
         }
 
@@ -7237,13 +7048,13 @@ LABEL_68:
             goto LABEL_49;
           }
 
-          v81 = &off_2A1F0B5F0;
-          v82 = 0;
-          BlueFin::GlPeGnssTime::GetGps(v73, &v81);
+          v80 = &off_2A1F0B5F0;
+          v81 = 0;
+          BlueFin::GlPeGnssTime::GetGps(v72, &v80);
           *v27.i64 = v15;
-          v79 = &off_2A1F0B5F0;
+          v78 = &off_2A1F0B5F0;
           *v28.i64 = v15 - trunc(v15);
-          v29 = *vbslq_s8(v71, v28, v27).i64;
+          v29 = *vbslq_s8(v70, v28, v27).i64;
           if (v29 >= 1.0)
           {
             DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
@@ -7257,17 +7068,17 @@ LABEL_68:
             v31 = -1;
           }
 
-          LODWORD(v80) = v31;
-          HIDWORD(v80) = v15 + 604800 * v14;
-          v79 = &off_2A1F0B5F0;
-          v76 = __PAIR64__(HIDWORD(v80), v31);
-          v32 = (v81[4])(&v81);
-          v74 = __PAIR64__(v32, v82);
-          BlueFin::GlTimePoint::resolveAmbiguity(&v76, &v74, 0x27500000u);
-          v33 = (v81[3])(&v81, HIDWORD(v76));
-          v80 = __PAIR64__(v33, v76);
-          *v25.i64 = (v79[4])(&v79);
-          v26.i32[0] = v80;
+          LODWORD(v79) = v31;
+          HIDWORD(v79) = v15 + 604800 * v14;
+          v78 = &off_2A1F0B5F0;
+          v75 = __PAIR64__(HIDWORD(v79), v31);
+          v32 = (v80[4])(&v80);
+          v73 = __PAIR64__(v32, v81);
+          BlueFin::GlTimePoint::resolveAmbiguity(&v75, &v73, 0x27500000u);
+          v33 = (v80[3])(&v80, HIDWORD(v75));
+          v79 = __PAIR64__(v33, v75);
+          *v25.i64 = (v78[4])(&v78);
+          v26.i32[0] = v79;
         }
 
         else
@@ -7275,13 +7086,13 @@ LABEL_68:
           switch(a2)
           {
             case 4:
-              v79 = &off_2A1F0E4D0;
-              v80 = 0;
-              BlueFin::GlPeGnssTime::GetBds(v73, &v79);
+              v78 = &off_2A1F0E4D0;
+              v79 = 0;
+              BlueFin::GlPeGnssTime::GetBds(v72, &v78);
               *v34.i64 = v15;
-              v76 = &off_2A1F0E4D0;
+              v75 = &off_2A1F0E4D0;
               *v35.i64 = v15 - trunc(v15);
-              v36 = *vbslq_s8(v71, v35, v34).i64;
+              v36 = *vbslq_s8(v70, v35, v34).i64;
               if (v36 >= 1.0)
               {
                 DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
@@ -7295,31 +7106,31 @@ LABEL_68:
                 v38 = -1;
               }
 
-              v77 = v38;
-              v78 = v15 + 604800 * v14 + 820108814;
-              v76 = &off_2A1F0E4D0;
-              LODWORD(v81) = v38;
-              HIDWORD(v81) = v15 + 604800 * v14;
-              v39 = (v79[4])(&v79);
-              v74 = __PAIR64__(v39, v80);
-              BlueFin::GlTimePoint::resolveAmbiguity(&v81, &v74, 0x27500000u);
-              v40 = (v79[3])(&v79, HIDWORD(v81));
-              v77 = v81;
-              v78 = v40;
-              BlueFin::GlPeTimeManager::GetTime(*(a1 + 88), &v76, 1, &v81);
-              v74 = &off_2A1F0B5F0;
-              v75 = 0;
-              Gps = BlueFin::GlPeGnssTime::GetGps(&v81, &v74);
-              v24 = (v74[4])(&v74, Gps);
+              v76 = v38;
+              v77 = v15 + 604800 * v14 + 820108814;
+              v75 = &off_2A1F0E4D0;
+              LODWORD(v80) = v38;
+              HIDWORD(v80) = v15 + 604800 * v14;
+              v39 = (v78[4])(&v78);
+              v73 = __PAIR64__(v39, v79);
+              BlueFin::GlTimePoint::resolveAmbiguity(&v80, &v73, 0x27500000u);
+              v40 = (v78[3])(&v78, HIDWORD(v80));
+              v76 = v80;
+              v77 = v40;
+              BlueFin::GlPeTimeManager::GetTime(&v80, *(a1 + 88), &v75, 1);
+              v73 = &off_2A1F0B5F0;
+              v74 = 0;
+              Gps = BlueFin::GlPeGnssTime::GetGps(&v80, &v73);
+              v24 = (v73[4])(&v73, Gps);
               break;
             case 5:
-              v79 = &off_2A1F0E480;
-              v80 = 0;
-              BlueFin::GlPeGnssTime::GetGal(v73, &v79);
+              v78 = &off_2A1F0E480;
+              v79 = 0;
+              BlueFin::GlPeGnssTime::GetGal(v72, &v78);
               *v42.i64 = v15;
-              v76 = &off_2A1F0E480;
+              v75 = &off_2A1F0E480;
               *v43.i64 = v15 - trunc(v15);
-              v44 = *vbslq_s8(v71, v43, v42).i64;
+              v44 = *vbslq_s8(v70, v43, v42).i64;
               if (v44 >= 1.0)
               {
                 DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
@@ -7333,31 +7144,31 @@ LABEL_68:
                 v46 = -1;
               }
 
-              v77 = v46;
-              v78 = v15 + 604800 * v14 + 619315200;
-              v76 = &off_2A1F0E480;
-              LODWORD(v81) = v46;
-              HIDWORD(v81) = v15 + 604800 * v14;
-              v47 = (v79[4])(&v79);
-              v74 = __PAIR64__(v47, v80);
-              BlueFin::GlTimePoint::resolveAmbiguity(&v81, &v74, 0x27500000u);
-              v48 = (v79[3])(&v79, HIDWORD(v81));
-              v77 = v81;
-              v78 = v48;
-              BlueFin::GlPeTimeManager::GetTime(*(a1 + 88), &v76, 1, &v81);
-              v74 = &off_2A1F0B5F0;
-              v75 = 0;
-              v49 = BlueFin::GlPeGnssTime::GetGps(&v81, &v74);
-              v24 = (v74[4])(&v74, v49);
+              v76 = v46;
+              v77 = v15 + 604800 * v14 + 619315200;
+              v75 = &off_2A1F0E480;
+              LODWORD(v80) = v46;
+              HIDWORD(v80) = v15 + 604800 * v14;
+              v47 = (v78[4])(&v78);
+              v73 = __PAIR64__(v47, v79);
+              BlueFin::GlTimePoint::resolveAmbiguity(&v80, &v73, 0x27500000u);
+              v48 = (v78[3])(&v78, HIDWORD(v80));
+              v76 = v80;
+              v77 = v48;
+              BlueFin::GlPeTimeManager::GetTime(&v80, *(a1 + 88), &v75, 1);
+              v73 = &off_2A1F0B5F0;
+              v74 = 0;
+              v49 = BlueFin::GlPeGnssTime::GetGps(&v80, &v73);
+              v24 = (v73[4])(&v73, v49);
               break;
             case 6:
-              v79 = &off_2A1F0DFC8;
-              v80 = 0;
-              BlueFin::GlPeGnssTime::GetNic(v73, &v79);
+              v78 = &off_2A1F0DFC8;
+              v79 = 0;
+              BlueFin::GlPeGnssTime::GetNic(v72, &v78);
               *v16.i64 = v15;
-              v76 = &off_2A1F0DFC8;
+              v75 = &off_2A1F0DFC8;
               *v17.i64 = v15 - trunc(v15);
-              v18 = *vbslq_s8(v71, v17, v16).i64;
+              v18 = *vbslq_s8(v70, v17, v16).i64;
               if (v18 >= 1.0)
               {
                 DeviceFaultNotify("glpe_timepoint.h", 173, "GlTimeFracSec", "dFracSec >= 0.0 && dFracSec < 1.0");
@@ -7371,34 +7182,34 @@ LABEL_68:
                 v20 = -1;
               }
 
-              v77 = v20;
-              v78 = v15 + 604800 * v14 + 619315200;
-              v76 = &off_2A1F0DFC8;
-              LODWORD(v81) = v20;
-              HIDWORD(v81) = v15 + 604800 * v14;
-              v21 = (v79[4])(&v79);
-              v74 = __PAIR64__(v21, v80);
-              BlueFin::GlTimePoint::resolveAmbiguity(&v81, &v74, 0x27500000u);
-              v22 = (v79[3])(&v79, HIDWORD(v81));
-              v77 = v81;
-              v78 = v22;
-              BlueFin::GlPeTimeManager::GetTime(*(a1 + 88), &v76, 1, &v81);
-              v74 = &off_2A1F0B5F0;
-              v75 = 0;
-              v23 = BlueFin::GlPeGnssTime::GetGps(&v81, &v74);
-              v24 = (v74[4])(&v74, v23);
+              v76 = v20;
+              v77 = v15 + 604800 * v14 + 619315200;
+              v75 = &off_2A1F0DFC8;
+              LODWORD(v80) = v20;
+              HIDWORD(v80) = v15 + 604800 * v14;
+              v21 = (v78[4])(&v78);
+              v73 = __PAIR64__(v21, v79);
+              BlueFin::GlTimePoint::resolveAmbiguity(&v80, &v73, 0x27500000u);
+              v22 = (v78[3])(&v78, HIDWORD(v80));
+              v76 = v80;
+              v77 = v22;
+              BlueFin::GlPeTimeManager::GetTime(&v80, *(a1 + 88), &v75, 1);
+              v73 = &off_2A1F0B5F0;
+              v74 = 0;
+              v23 = BlueFin::GlPeGnssTime::GetGps(&v80, &v73);
+              v24 = (v73[4])(&v73, v23);
               break;
             default:
               goto LABEL_49;
           }
 
           *v25.i64 = v24;
-          v26.i32[0] = v75;
+          v26.i32[0] = v74;
         }
 
         *v25.i64 = v26.u64[0] * 2.32830644e-10 + *v25.i64;
         *v26.i64 = *v25.i64 + trunc(*v25.i64 * 2.32830644e-10) * -4294967300.0;
-        v50 = vbslq_s8(v71, v26, v25);
+        v50 = vbslq_s8(v70, v26, v25);
         if (*v25.i64 > 4294967300.0)
         {
           v25.i64[0] = v50.i64[0];
@@ -7408,7 +7219,7 @@ LABEL_68:
         {
           *v50.i64 = -*v25.i64;
           *v25.i64 = -(*v25.i64 - trunc(*v25.i64 * -2.32830644e-10) * -4294967300.0);
-          *v25.i64 = -*vbslq_s8(v71, v25, v50).i64;
+          *v25.i64 = -*vbslq_s8(v70, v25, v50).i64;
         }
 
         if (*v25.i64 < 0.0)
@@ -7422,8 +7233,8 @@ LABEL_68:
         }
 
         v52 = *v13 + 1;
-        LODWORD(v79) = a2;
-        BYTE4(v79) = v52;
+        LODWORD(v78) = a2;
+        BYTE4(v78) = v52;
         if (a5)
         {
           v53 = *(a1 + 988 + 4 * a2);
@@ -7444,23 +7255,23 @@ LABEL_68:
           Mgr = BlueFin::GlPeGnssEphemerisMgr::GetMgr((*(a1 + 80) + 384), a2);
           if (Mgr)
           {
-            v56 = (*(*Mgr + 112))(Mgr, &v79 + 4, 1);
+            v56 = (*(*Mgr + 112))(Mgr, &v78 + 4, 1);
             v57 = v56;
             if (v56)
             {
               if ((*(*v56 + 144))(v56) == 3)
               {
-                v81 = &off_2A1F0B5F0;
-                v82 = 0;
-                v58 = BlueFin::GlPeGnssTime::GetGps(v73, &v81);
-                v59 = (v81[4])(&v81, v58);
-                LODWORD(v5) = v82;
-                v60 = (*(*v57 + 248))(v57, v73) + (v5 * 2.32830644e-10 + v59);
+                v80 = &off_2A1F0B5F0;
+                v81 = 0;
+                v58 = BlueFin::GlPeGnssTime::GetGps(v72, &v80);
+                v59 = (v80[4])(&v80, v58);
+                LODWORD(v5) = v81;
+                v60 = (*(*v57 + 248))(v57, v72) + (v5 * 2.32830644e-10 + v59);
                 v54 = v51 <= v60 ? v60 : v51;
                 if (v54)
                 {
 LABEL_41:
-                  BlueFin::GlPeSvHealthMgr::SetGnssSvL5Health(*(a1 + 120), &v79, v54, *(v13 + 1) == 0, a5);
+                  BlueFin::GlPeSvHealthMgr::SetGnssSvL5Health(*(a1 + 120), &v78, v54, *(v13 + 1) == 0, a5);
                 }
               }
             }
@@ -7477,18 +7288,18 @@ LABEL_49:
             if (v61 != 255 && v63 != -1)
             {
               v65 = 0;
-              v81 = (a1 + 20116);
-              v82 = 0xB00000000;
-              v83 = a1 + 20500;
-              v84 = 0xC00000003;
-              v85 = a1 + 20620;
-              v86 = 0xD00000004;
-              v87 = a1 + 21376;
-              v88 = 0xE00000005;
+              v80 = (a1 + 20116);
+              v81 = 0xB00000000;
+              v82 = a1 + 20500;
+              v83 = 0xC00000003;
+              v84 = a1 + 20620;
+              v85 = 0xD00000004;
+              v86 = a1 + 21376;
+              v87 = 0xE00000005;
               while (1)
               {
-                v66 = &(&v81)[v65];
-                if (LODWORD((&v81)[v65 + 1]) == a2)
+                v66 = &(&v80)[v65];
+                if (LODWORD((&v80)[v65 + 1]) == a2)
                 {
                   break;
                 }
@@ -7527,9 +7338,6 @@ LABEL_49:
       }
     }
   }
-
-LABEL_69:
-  v70 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t BlueFin::GlSysLogEntry::GetS32(BlueFin::GlSysLogEntry *this)
@@ -7689,7 +7497,7 @@ float BlueFin::GlSysLogEntry::GetF32(BlueFin::GlSysLogEntry *this)
   return v6;
 }
 
-uint64_t BlueFin::GlPeLtoReaderBase::FromLTOFileToGll(uint64_t this, const char *__src, unsigned int a3)
+_DWORD *BlueFin::GlPeLtoReaderBase::FromLTOFileToGll(_DWORD *this, const char *__src, unsigned int a3)
 {
   if (!__src)
   {
@@ -7702,10 +7510,10 @@ uint64_t BlueFin::GlPeLtoReaderBase::FromLTOFileToGll(uint64_t this, const char 
   v5 = this;
   if (*(this + 10784) == 1)
   {
-    v6 = *(this + 9748);
+    v6 = this[2437];
     if (v6 > 0x1B)
     {
-      v8 = (this + 9852);
+      v8 = this + 2463;
     }
 
     else
@@ -7717,7 +7525,7 @@ uint64_t BlueFin::GlPeLtoReaderBase::FromLTOFileToGll(uint64_t this, const char 
 
       v7 = 28 - v6;
       a3 -= v7;
-      v8 = (this + 9852);
+      v8 = this + 2463;
       __src += v7;
     }
 
@@ -7829,7 +7637,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t BlueFin::GlPeLtoMgr::UpdateEphemeris(BlueFin::GlPeLtoMgr *this, BlueFin::GlPeLtoEphemeris *a2, int a3, unsigned int a4, int a5)
+uint64_t BlueFin::GlPeLtoMgr::UpdateEphemeris(BlueFin::GlPeLtoMgr *this, BlueFin::GlPeLtoEphemeris *a2, int a3, unsigned int a4, signed int a5)
 {
   Mgr = BlueFin::GlPeGnssEphemerisMgr::GetMgr((*(this + 10) + 384), *(a2 + 8) >> 4);
   if (!Mgr)
@@ -7912,7 +7720,7 @@ uint64_t BlueFin::GlPeLtoSysTimeDataInterface::Deserialize(BlueFin::GlPeLtoSysTi
   return 0;
 }
 
-uint64_t BlueFin::GlPeSvHealthHelper::DeserializeHelper(BlueFin::GlPeSvHealthHelper *this, BlueFin::GlSysLogEntry *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, int a29, unsigned __int8 a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35)
+uint64_t BlueFin::GlPeSvHealthHelper::DeserializeHelper(BlueFin::GlPeSvHealthHelper *this, BlueFin::GlSysLogEntry *a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, int a29, unsigned __int8 a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35)
 {
   STACK[0x13F8] = *MEMORY[0x29EDCA608];
   if ((*(this + 2273) & 1) == 0)
@@ -7922,24 +7730,24 @@ uint64_t BlueFin::GlPeSvHealthHelper::DeserializeHelper(BlueFin::GlPeSvHealthHel
     v35 = BlueFin::GlPeSvHealthData::Deserialize(&a34, a2);
     if (!v35)
     {
-      goto LABEL_48;
+      return v35;
     }
 
     if (*(this + 2274))
     {
-      BlueFin::GlGnssSetIterator::GlGnssSetIterator(&v60, &BlueFin::GlPeSvHealthHelper::s_otAllSvs);
+      BlueFin::GlGnssSetIterator::GlGnssSetIterator(&v58, &BlueFin::GlPeSvHealthHelper::s_otAllSvs);
       while (a29 != 6 || a30 != 14)
       {
-        v58 = a29;
-        v59 = a30;
-        v40 = (*(*this + 40))(this, &v58);
-        State = BlueFin::GlPeSvHealthData::GetState(&a34, &v58);
+        v56 = a29;
+        v57 = a30;
+        v40 = (*(*this + 40))(this, &v56);
+        State = BlueFin::GlPeSvHealthData::GetState(&a34, &v56);
         if (v40 != 1 && State != 1)
         {
-          (*(*this + 32))(this, &v58, State);
+          (*(*this + 32))(this, &v56, State);
         }
 
-        BlueFin::GlGnssSetIterator::operator++(&v60);
+        BlueFin::GlGnssSetIterator::operator++(&v58);
       }
     }
 
@@ -7963,18 +7771,18 @@ uint64_t BlueFin::GlPeSvHealthHelper::DeserializeHelper(BlueFin::GlPeSvHealthHel
     }
 
     *(this + 94) = v45;
-    BlueFin::GlGnssSetIterator::GlGnssSetIterator(&v60, &BlueFin::GlPeSvHealthHelper::s_otAllSvs);
+    BlueFin::GlGnssSetIterator::GlGnssSetIterator(&v58, &BlueFin::GlPeSvHealthHelper::s_otAllSvs);
     while (1)
     {
       if (a29 == 6 && a30 == 14)
       {
         BlueFin::GlPeGnssL5HealthData::operator=(this + 380, &STACK[0xC9C]);
-        goto LABEL_48;
+        return v35;
       }
 
-      v58 = a29;
-      v59 = a30;
-      v47 = (*(*this + 40))(this, &v58);
+      v56 = a29;
+      v57 = a30;
+      v47 = (*(*this + 40))(this, &v56);
       v48 = *(*(this + 283) + 32);
       v49 = (v47 & 0xFFFFFFFD) == 1;
       if ((v48 & 0x40000) == 0)
@@ -7984,33 +7792,33 @@ uint64_t BlueFin::GlPeSvHealthHelper::DeserializeHelper(BlueFin::GlPeSvHealthHel
 
       if (v49)
       {
-        v50 = BlueFin::GNSS2STR(v58);
+        v50 = BlueFin::GNSS2STR(v56);
         v51 = (v48 & 0x40000) != 0 ? "un" : "";
-        GlCustomLog(11, "SVHM: Health(%s,%2d): Inconsistent state %d on %sconnected device!\n", v50, v59, v47, v51);
-        (*(*this + 32))(this, &v58, 0);
-        if (v58)
+        GlCustomLog(11, "SVHM: Health(%s,%2d): Inconsistent state %d on %sconnected device!\n", v50, v57, v47, v51);
+        (*(*this + 32))(this, &v56, 0);
+        if (v56)
         {
           break;
         }
       }
 
 LABEL_45:
-      BlueFin::GlPeSvHealthHelper::LogState(this, &v58);
-      BlueFin::GlGnssSetIterator::operator++(&v60);
+      BlueFin::GlPeSvHealthHelper::LogState(this, &v56);
+      BlueFin::GlGnssSetIterator::operator++(&v58);
     }
 
-    if (!(*(*this + 40))(this, &v58))
+    if (!(*(*this + 40))(this, &v56))
     {
       v52 = *(*this + 32);
       if ((*(*(this + 283) + 34) & 4) == 0)
       {
         v53 = 3;
 LABEL_39:
-        v52(this, &v58, v53);
+        v52(this, &v56, v53);
         goto LABEL_40;
       }
 
-      v52(this, &v58, 4);
+      v52(this, &v56, 4);
       v54 = *(this + 94);
       if (v54)
       {
@@ -8032,21 +7840,17 @@ LABEL_40:
     goto LABEL_45;
   }
 
-  v35 = 0;
-LABEL_48:
-  v55 = STACK[0x13F8];
-  v56 = *MEMORY[0x29EDCA608];
-  return v35;
+  return 0;
 }
 
 uint64_t BlueFin::GlPeLtoMgr::UpdateNonL1ClkErrTgd(uint64_t result, uint64_t a2, unsigned __int8 *a3, char a4, int a5)
 {
-  v24 = result;
-  v31 = *MEMORY[0x29EDCA608];
+  v23 = result;
+  v30 = *MEMORY[0x29EDCA608];
   if (a3)
   {
     v6 = a3;
-    v23 = result + 25340;
+    v22 = result + 25340;
     if (a5)
     {
       v7 = 1;
@@ -8066,16 +7870,16 @@ uint64_t BlueFin::GlPeLtoMgr::UpdateNonL1ClkErrTgd(uint64_t result, uint64_t a2,
       v12 = *v6;
       if (v12 <= 0x23 && *(v6 + 1) == 1)
       {
-        v26 = &unk_2A1F10778;
-        v27 = 5;
-        *&v29[27] = 0;
-        v30 = 0;
-        *&v29[12] = *(v6 + 12);
-        *v29 = *v6;
-        v28 = a4;
+        v25 = &unk_2A1F10778;
+        v26 = 5;
+        *&v28[27] = 0;
+        v29 = 0;
+        *&v28[12] = *(v6 + 12);
+        *v28 = *v6;
+        v27 = a4;
         if (BlueFin::GlUtils::m_pInstance && *(BlueFin::GlUtils::m_pInstance + 1122) == 1)
         {
-          result = v8(&v26);
+          result = v8(&v25, 0);
           v12 = *v6;
         }
 
@@ -8089,24 +7893,24 @@ uint64_t BlueFin::GlPeLtoMgr::UpdateNonL1ClkErrTgd(uint64_t result, uint64_t a2,
             v16 = v8;
             v17 = v10;
             v18 = v9;
-            *v25 = *v6;
-            *&v25[12] = *(v6 + 12);
-            v25[28] = a4;
-            if (v25[0] <= 0x23uLL)
+            *v24 = *v6;
+            *&v24[12] = *(v6 + 12);
+            v24[28] = a4;
+            if (v24[0] <= 0x23uLL)
             {
-              v19 = *(*(v24 + 80) + 7392) + 32 * v25[0] + 6616;
-              result = BlueFin::GlPeGalAltNavData::IsBetterThan(v25, v19);
+              v19 = *(*(v23 + 80) + 7392) + 32 * v24[0] + 6616;
+              result = BlueFin::GlPeGalAltNavData::IsBetterThan(v24, v19);
               if (result)
               {
-                *v19 = *v25;
-                *(v19 + 13) = *&v25[13];
+                *v19 = *v24;
+                *(v19 + 13) = *&v24[13];
               }
             }
 
             if ((a4 & 1) == 0 && *v6 <= 0x3EuLL && *(v6 + 1) == 1)
             {
-              v20 = (v23 + 28 * *v6);
-              *(v24 + 26464) |= 0x1000000u;
+              v20 = (v22 + 28 * *v6);
+              *(v23 + 26464) |= 0x1000000u;
               v21 = *v6;
               *(v20 + 12) = *(v6 + 12);
               *v20 = v21;
@@ -8127,20 +7931,16 @@ uint64_t BlueFin::GlPeLtoMgr::UpdateNonL1ClkErrTgd(uint64_t result, uint64_t a2,
     while (v7);
   }
 
-  v22 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t BlueFin::GlPeLtoMgr::MakeNvMemDataActive(BlueFin::GlPeLtoMgr *this, int a2)
 {
-  v31 = *MEMORY[0x29EDCA608];
   if (*(this + 100) == 0 || *(this + 136) == 0)
   {
     if (!a2)
     {
-LABEL_8:
-      result = 0;
-      goto LABEL_25;
+      return 0;
     }
   }
 
@@ -8149,7 +7949,7 @@ LABEL_8:
     v3 = *(this + 200) == *(this + 17) && *(this + 201) == *(this + 18);
     if (!v3 && (a2 & 1) == 0)
     {
-      goto LABEL_8;
+      return 0;
     }
   }
 
@@ -8174,18 +7974,18 @@ LABEL_8:
   {
     if ((v11 & 2) != 0)
     {
-      v26 = (*(this + 117) + 8);
-      v27 = 7;
+      v20 = (*(this + 117) + 8);
+      v21 = 7;
       do
       {
-        v28 = *(v26 - 1);
-        v29 = *v26;
-        v26 += 24;
-        bzero(v28, ((4 * v29 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
-        --v27;
+        v22 = *(v20 - 1);
+        v23 = *v20;
+        v20 += 24;
+        bzero(v22, ((4 * v23 + 0x3FFFFFFFCLL) & 0x3FFFFFFFCLL) + 4);
+        --v21;
       }
 
-      while (v27);
+      while (v21);
       BlueFin::GlSetBase::GetULong(*(this + 65), 0);
       BlueFin::GlSetBase::GetULong((*(this + 65) + 48), 0);
       BlueFin::GlSetBase::GetULong((*(this + 65) + 24), 0);
@@ -8220,21 +8020,18 @@ LABEL_8:
     }
 
     while (v17);
-    ULong = BlueFin::GlSetBase::GetULong(*(this + 41), 0);
-    v21 = BlueFin::GlSetBase::GetULong(*(this + 65), 0) | ULong;
-    v22 = BlueFin::GlSetBase::GetULong((*(this + 41) + 48), 0);
-    v23 = BlueFin::GlSetBase::GetULong((*(this + 65) + 48), 0) | v22;
-    v24 = BlueFin::GlSetBase::GetULong((*(this + 41) + 24), 0);
-    v25 = BlueFin::GlSetBase::GetULong((*(this + 65) + 24), 0) | v24;
+    BlueFin::GlSetBase::GetULong(*(this + 41), 0);
+    BlueFin::GlSetBase::GetULong(*(this + 65), 0);
+    BlueFin::GlSetBase::GetULong((*(this + 41) + 48), 0);
+    BlueFin::GlSetBase::GetULong((*(this + 65) + 48), 0);
+    BlueFin::GlSetBase::GetULong((*(this + 41) + 24), 0);
+    BlueFin::GlSetBase::GetULong((*(this + 65) + 24), 0);
     BlueFin::GlSetBase::GetULong((*(this + 41) + 72), 0);
     BlueFin::GlSetBase::GetULong((*(this + 65) + 72), 0);
     GlCustomLog(14, "LtoMgr: clearing bad SV flags  OrgFlags: G:%08x R:%07x S:%05x Q:%01x\n");
   }
 
-  result = 1;
-LABEL_25:
-  v30 = *MEMORY[0x29EDCA608];
-  return result;
+  return 1;
 }
 
 void BlueFin::GlPeLtoMgr::UpdateDigest(BlueFin::GlPeLtoMgr *a1)
@@ -8378,14 +8175,14 @@ uint64_t BlueFin::GlPeSvHealthHelper::LogState(uint64_t a1, uint64_t a2)
   return GlCustomLog(14, "\n");
 }
 
-BOOL BlueFin::GlPeLtoMgr::GetLtoDataAgeS(uint64_t a1, unsigned int a2, unsigned int a3, _DWORD *a4)
+BOOL BlueFin::GlPeLtoMgr::GetLtoDataAgeS(uint64_t a1, unsigned int a2, int a3, _DWORD *a4)
 {
   v5 = *(a1 + 88);
   v6 = v5[644];
   if (v6)
   {
     v8 = *(a1 + 4 * a2 + 960);
-    BlueFin::GlPeTimeManager::GetTime(v5, a3, 1, v13);
+    BlueFin::GlPeTimeManager::GetTime(v13, v5, a3, 1);
     v14 = &off_2A1F0B5F0;
     v15 = 0;
     Gps = BlueFin::GlPeGnssTime::GetGps(v13, &v14);
@@ -8488,198 +8285,194 @@ LABEL_9:
 
 uint64_t BlueFin::GlPeLtoData::Deserialize(BlueFin::GlPeLtoData *this, BlueFin::GlSysLogEntry *a2)
 {
-  v41 = *MEMORY[0x29EDCA608];
-  if (*(a2 + 2) == 44)
+  if (*(a2 + 2) != 44)
   {
-    v3 = *(a2 + 12);
-    if (v3 - 13 >= 0xFFFFFFF4)
-    {
-      if (v3 >= 5)
-      {
-        if (v3 >= 9)
-        {
-          if (v3 == 9)
-          {
-            U8 = 5;
-          }
+    return 0;
+  }
 
-          else
-          {
-            U8 = BlueFin::GlSysLogEntry::GetU8(a2);
-          }
+  v3 = *(a2 + 12);
+  if (v3 - 13 < 0xFFFFFFF4)
+  {
+    return 0;
+  }
+
+  if (v3 >= 5)
+  {
+    if (v3 >= 9)
+    {
+      if (v3 == 9)
+      {
+        U8 = 5;
+      }
+
+      else
+      {
+        U8 = BlueFin::GlSysLogEntry::GetU8(a2);
+      }
+    }
+
+    else
+    {
+      U8 = 4;
+    }
+  }
+
+  else
+  {
+    U8 = 1;
+  }
+
+  BlueFin::GlPeLtoData::GlPeLtoData(&v36);
+  BlueFin::GlPeLtoData::operator=(this, &v36);
+  v36 = &v38;
+  v37 = 3;
+  v38 = 0;
+  v39 = 0;
+  v7 = *(a2 + 12);
+  if (v7 >= 7)
+  {
+    if (U8)
+    {
+      for (i = 0; i != U8; ++i)
+      {
+        v12 = BlueFin::GlImplGnss::m_aucImplGnssTable[i];
+        BlueFin::GlSysLogEntry::GetGlSet(a2, &v36);
+        if (i == 4 || i == 8)
+        {
+          BlueFin::GlSysLogEntry::GetGlSet(a2, &v36);
         }
 
         else
         {
-          U8 = 4;
+          ULong = BlueFin::GlSetBase::GetULong(&v36, 1u);
+          v14 = BlueFin::GlSetBase::GetULong(&v36, 0);
+          BlueFin::GlGnssIdSet::GlGnssIdSet(&v33, ULong, v14);
+          v15 = BlueFin::GlGnssSet::operator()(this + 32, v12);
+          v16 = BlueFin::GlSetBase::operator=(v15, &v33);
+          *(v16 + 12) = v34;
+          BlueFin::GlSysLogEntry::GetGlSet(a2, &v36);
+          v17 = BlueFin::GlSetBase::GetULong(&v36, 1u);
+          v18 = BlueFin::GlSetBase::GetULong(&v36, 0);
+          BlueFin::GlGnssIdSet::GlGnssIdSet(&v33, v17, v18);
+          v19 = BlueFin::GlGnssSet::operator()(this + 224, v12);
+          v20 = BlueFin::GlSetBase::operator=(v19, &v33);
+          *(v20 + 12) = v34;
         }
       }
-
-      else
-      {
-        U8 = 1;
-      }
-
-      BlueFin::GlPeLtoData::GlPeLtoData(&v37);
-      BlueFin::GlPeLtoData::operator=(this, &v37);
-      v37 = &v39;
-      v38 = 3;
-      v39 = 0;
-      v40 = 0;
-      v7 = *(a2 + 12);
-      if (v7 >= 7)
-      {
-        if (U8)
-        {
-          for (i = 0; i != U8; ++i)
-          {
-            v12 = BlueFin::GlImplGnss::m_aucImplGnssTable[i];
-            BlueFin::GlSysLogEntry::GetGlSet(a2, &v37);
-            if (i == 4 || i == 8)
-            {
-              BlueFin::GlSysLogEntry::GetGlSet(a2, &v37);
-            }
-
-            else
-            {
-              ULong = BlueFin::GlSetBase::GetULong(&v37, 1u);
-              v14 = BlueFin::GlSetBase::GetULong(&v37, 0);
-              BlueFin::GlGnssIdSet::GlGnssIdSet(&v34, ULong, v14);
-              v15 = BlueFin::GlGnssSet::operator()(this + 32, v12);
-              v16 = BlueFin::GlSetBase::operator=(v15, &v34);
-              *(v16 + 12) = v35;
-              BlueFin::GlSysLogEntry::GetGlSet(a2, &v37);
-              v17 = BlueFin::GlSetBase::GetULong(&v37, 1u);
-              v18 = BlueFin::GlSetBase::GetULong(&v37, 0);
-              BlueFin::GlGnssIdSet::GlGnssIdSet(&v34, v17, v18);
-              v19 = BlueFin::GlGnssSet::operator()(this + 224, v12);
-              v20 = BlueFin::GlSetBase::operator=(v19, &v34);
-              *(v20 + 12) = v35;
-            }
-          }
-        }
-      }
-
-      else
-      {
-        if (v7 - 3 < 2)
-        {
-          BlueFin::GlSysLogEntry::GetGlSet(a2, &v37);
-          v21 = BlueFin::GlSetBase::GetULong(&v37, 1u);
-          v22 = BlueFin::GlSetBase::GetULong(&v37, 0);
-          BlueFin::GlGnssIdSet::GlGnssIdSet(&v34, v21, v22);
-          v10 = BlueFin::GlSetBase::operator=(*(this + 49), &v34);
-          goto LABEL_26;
-        }
-
-        if (v7 == 1)
-        {
-          BlueFin::GlSysLogEntry::GetGlSet64BitsObsolete(a2, &v34);
-          BlueFin::GlSetBase::operator=(&v37, &v34);
-          v39 = v35;
-          v40 = v36;
-          v23 = BlueFin::GlSetBase::GetULong(&v37, 1u);
-          v24 = BlueFin::GlSetBase::GetULong(&v37, 0);
-          BlueFin::GlGnssIdSet::GlGnssIdSet(&v34, v23, v24);
-          v10 = BlueFin::GlSetBase::operator=(*(this + 49), &v34);
-          goto LABEL_26;
-        }
-
-        if (v7 == 2)
-        {
-          BlueFin::GlSysLogEntry::GetGlSet96BitsObsolete(a2, &v34);
-          BlueFin::GlSetBase::operator=(&v37, &v34);
-          v39 = v35;
-          v40 = v36;
-          v8 = BlueFin::GlSetBase::GetULong(&v37, 1u);
-          v9 = BlueFin::GlSetBase::GetULong(&v37, 0);
-          BlueFin::GlGnssIdSet::GlGnssIdSet(&v34, v8, v9);
-          v10 = BlueFin::GlSetBase::operator=(*(this + 49), &v34);
-LABEL_26:
-          *(v10 + 12) = v35;
-          goto LABEL_27;
-        }
-
-        if (U8)
-        {
-          for (j = 0; j != U8; ++j)
-          {
-            v29 = BlueFin::GlImplGnss::m_aucImplGnssTable[j];
-            BlueFin::GlSysLogEntry::GetGlSet(a2, &v37);
-            if (j != 4 && j != 8)
-            {
-              v30 = BlueFin::GlSetBase::GetULong(&v37, 1u);
-              v31 = BlueFin::GlSetBase::GetULong(&v37, 0);
-              BlueFin::GlGnssIdSet::GlGnssIdSet(&v34, v30, v31);
-              v32 = BlueFin::GlGnssSet::operator()(this + 224, v29);
-              v33 = BlueFin::GlSetBase::operator=(v32, &v34);
-              *(v33 + 12) = v35;
-            }
-          }
-        }
-      }
-
-LABEL_27:
-      BlueFin::GlSysLogEntry::GetBuffer(a2, this + 8, 0x10u);
-      v25 = *(a2 + 12);
-      if (v25 - 4 <= 7)
-      {
-        BlueFin::GlSysLogEntry::GetU32(a2);
-        v25 = *(a2 + 12);
-        if (v25 < 6)
-        {
-LABEL_39:
-          BlueFin::GlSysLogEntry::CheckConsumed(a2, 3532);
-          result = 1;
-          goto LABEL_40;
-        }
-
-        if (U8 >= 2)
-        {
-          v26 = U8 - 1;
-          do
-          {
-            BlueFin::GlSysLogEntry::GetU32(a2);
-            --v26;
-          }
-
-          while (v26);
-          do
-          {
-LABEL_34:
-            BlueFin::GlSysLogEntry::GetU32(a2);
-            --U8;
-          }
-
-          while (U8);
-          v25 = *(a2 + 12);
-          goto LABEL_36;
-        }
-
-        if (U8)
-        {
-          goto LABEL_34;
-        }
-      }
-
-LABEL_36:
-      if (v25 >= 8)
-      {
-        *(this + 104) = BlueFin::GlSysLogEntry::GetU32(a2);
-        if (*(a2 + 12) == 11)
-        {
-          BlueFin::GlSysLogEntry::GetU32(a2);
-        }
-      }
-
-      goto LABEL_39;
     }
   }
 
-  result = 0;
-LABEL_40:
-  v27 = *MEMORY[0x29EDCA608];
-  return result;
+  else
+  {
+    if (v7 - 3 < 2)
+    {
+      BlueFin::GlSysLogEntry::GetGlSet(a2, &v36);
+      v21 = BlueFin::GlSetBase::GetULong(&v36, 1u);
+      v22 = BlueFin::GlSetBase::GetULong(&v36, 0);
+      BlueFin::GlGnssIdSet::GlGnssIdSet(&v33, v21, v22);
+      v10 = BlueFin::GlSetBase::operator=(*(this + 49), &v33);
+      goto LABEL_26;
+    }
+
+    if (v7 == 1)
+    {
+      BlueFin::GlSysLogEntry::GetGlSet64BitsObsolete(&v33, a2);
+      BlueFin::GlSetBase::operator=(&v36, &v33);
+      v38 = v34;
+      v39 = v35;
+      v23 = BlueFin::GlSetBase::GetULong(&v36, 1u);
+      v24 = BlueFin::GlSetBase::GetULong(&v36, 0);
+      BlueFin::GlGnssIdSet::GlGnssIdSet(&v33, v23, v24);
+      v10 = BlueFin::GlSetBase::operator=(*(this + 49), &v33);
+      goto LABEL_26;
+    }
+
+    if (v7 == 2)
+    {
+      BlueFin::GlSysLogEntry::GetGlSet96BitsObsolete(&v33, a2);
+      BlueFin::GlSetBase::operator=(&v36, &v33);
+      v38 = v34;
+      v39 = v35;
+      v8 = BlueFin::GlSetBase::GetULong(&v36, 1u);
+      v9 = BlueFin::GlSetBase::GetULong(&v36, 0);
+      BlueFin::GlGnssIdSet::GlGnssIdSet(&v33, v8, v9);
+      v10 = BlueFin::GlSetBase::operator=(*(this + 49), &v33);
+LABEL_26:
+      *(v10 + 12) = v34;
+      goto LABEL_27;
+    }
+
+    if (U8)
+    {
+      for (j = 0; j != U8; ++j)
+      {
+        v28 = BlueFin::GlImplGnss::m_aucImplGnssTable[j];
+        BlueFin::GlSysLogEntry::GetGlSet(a2, &v36);
+        if (j != 4 && j != 8)
+        {
+          v29 = BlueFin::GlSetBase::GetULong(&v36, 1u);
+          v30 = BlueFin::GlSetBase::GetULong(&v36, 0);
+          BlueFin::GlGnssIdSet::GlGnssIdSet(&v33, v29, v30);
+          v31 = BlueFin::GlGnssSet::operator()(this + 224, v28);
+          v32 = BlueFin::GlSetBase::operator=(v31, &v33);
+          *(v32 + 12) = v34;
+        }
+      }
+    }
+  }
+
+LABEL_27:
+  BlueFin::GlSysLogEntry::GetBuffer(a2, this + 8, 0x10u);
+  v25 = *(a2 + 12);
+  if (v25 - 4 > 7)
+  {
+    goto LABEL_36;
+  }
+
+  BlueFin::GlSysLogEntry::GetU32(a2);
+  v25 = *(a2 + 12);
+  if (v25 >= 6)
+  {
+    if (U8 >= 2)
+    {
+      v26 = U8 - 1;
+      do
+      {
+        BlueFin::GlSysLogEntry::GetU32(a2);
+        --v26;
+      }
+
+      while (v26);
+      do
+      {
+LABEL_34:
+        BlueFin::GlSysLogEntry::GetU32(a2);
+        --U8;
+      }
+
+      while (U8);
+      v25 = *(a2 + 12);
+      goto LABEL_36;
+    }
+
+    if (U8)
+    {
+      goto LABEL_34;
+    }
+
+LABEL_36:
+    if (v25 >= 8)
+    {
+      *(this + 104) = BlueFin::GlSysLogEntry::GetU32(a2);
+      if (*(a2 + 12) == 11)
+      {
+        BlueFin::GlSysLogEntry::GetU32(a2);
+      }
+    }
+  }
+
+  BlueFin::GlSysLogEntry::CheckConsumed(a2, 3532);
+  return 1;
 }
 
 uint64_t BlueFin::GlPeLtoAlmDataInterface::Deserialize(BlueFin::GlPeLtoAlmDataInterface *this, BlueFin::GlSysLogEntry *a2)
@@ -8768,14 +8561,14 @@ LABEL_11:
   return 1;
 }
 
-uint64_t BlueFin::GlPeTimeManager::GetTime@<X0>(BlueFin::GlPeTimeManager *this@<X0>, const BlueFin::GlUtcTime *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+uint64_t *BlueFin::GlPeTimeManager::GetTime@<X0>(uint64_t *__return_ptr a1@<X8>, BlueFin::GlPeTimeManager *this@<X0>, const BlueFin::GlUtcTime *a3@<X1>, int a4@<W2>)
 {
   v10 = 0.0;
-  v9 = *(a2 + 1);
+  v9 = *(a3 + 1);
   BlueFin::GlPeTimeManager::dateTimeToLms(this, 2, &v9, &v10);
   v7 = v10;
 
-  return BlueFin::GlPeTimeManager::commonGnssToLms(this, v7, a3, a4);
+  return BlueFin::GlPeTimeManager::commonGnssToLms(this, v7, a4, a1);
 }
 
 uint64_t BlueFin::GlPeLtoMgr::deserializeLtoAlm(BlueFin::GlPeLtoMgr *this, BlueFin::GlSysLogEntry *a2)
@@ -9001,7 +8794,7 @@ LABEL_23:
   return *(a2 + 12) > 1u;
 }
 
-uint64_t BlueFin::GlPeTimeManager::updateLeapSeconds(BlueFin::GlPeTimeManager *this, unsigned __int8 a2, int a3, unsigned int a4, int a5)
+uint64_t BlueFin::GlPeTimeManager::updateLeapSeconds(BlueFin::GlPeTimeManager *this, signed __int8 a2, int a3, unsigned int a4, int a5)
 {
   if (!a3)
   {
@@ -9381,7 +9174,7 @@ LABEL_47:
     v70 = v19;
     WORD1(v84[0]) = v25;
     v84[1] = v22;
-    BlueFin::GlPeTimeManager::GetTime(*(a1 + 448), &v95, 1, &v80);
+    BlueFin::GlPeTimeManager::GetTime(&v80, *(a1 + 448), &v95, 1);
     v83 = 0;
     v82 = &off_2A1F0B5F0;
     Gps = BlueFin::GlPeGnssTime::GetGps(&v80, &v82);
@@ -9755,35 +9548,35 @@ uint64_t BlueFin::GlDbgLTOFileReader::SetCbOnLtoFileGpsTimestampReport(uint64_t 
   return v3();
 }
 
-void std::__function::__func<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_5,std::allocator<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_5>,void ()(BlueFin::GlEngine *,BlueFin::GlLTOFileReader *,BOOL)>::operator()(uint64_t a1, uint64_t a2, uint64_t *a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void std::__function::__func<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_5,std::allocator<FireMessageHandler::FireMessageHandler(BlueFin::GlEngine *)::$_5>,void ()(BlueFin::GlEngine *,BlueFin::GlLTOFileReader *,BOOL)>::operator()(uint64_t a1, uint64_t a2, uint64_t *a3, _BYTE *a4)
 {
-  v9 = *a3;
+  v4 = *a3;
   if (*a3)
   {
-    v10 = *a4;
-    v11 = *(a1 + 8);
+    v5 = *a4;
+    v6 = *(a1 + 8);
     if (*a4)
     {
-      v12 = 3;
+      v7 = 3;
     }
 
     else
     {
-      v12 = 4;
+      v7 = 4;
     }
 
-    v29 = v12;
-    v30 = &v29;
-    v13 = std::__hash_table<std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::__unordered_map_hasher<gnss::SvPositionSource,std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::hash<gnss::SvPositionSource>,std::equal_to<gnss::SvPositionSource>,true>,std::__unordered_map_equal<gnss::SvPositionSource,std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::equal_to<gnss::SvPositionSource>,std::hash<gnss::SvPositionSource>,true>,std::allocator<std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>>>::__emplace_unique_key_args<gnss::SvPositionSource,std::piecewise_construct_t const&,std::tuple<gnss::SvPositionSource const&>,std::tuple<>>((v11 + 2152), &v29);
-    v27 = 0;
-    v28 = 0;
-    v26 = 0;
-    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v26, v13[3], v13[4], v13[4] - v13[3]);
-    if (v26 == v27)
+    v18 = v7;
+    v19 = &v18;
+    v8 = std::__hash_table<std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::__unordered_map_hasher<gnss::SvPositionSource,std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::hash<gnss::SvPositionSource>,std::equal_to<gnss::SvPositionSource>,true>,std::__unordered_map_equal<gnss::SvPositionSource,std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>,std::equal_to<gnss::SvPositionSource>,std::hash<gnss::SvPositionSource>,true>,std::allocator<std::__hash_value_type<gnss::SvPositionSource,std::vector<unsigned char>>>>::__emplace_unique_key_args<gnss::SvPositionSource,std::piecewise_construct_t const&,std::tuple<gnss::SvPositionSource const&>,std::tuple<>>((v6 + 2152), &v18, &std::piecewise_construct, &v19);
+    v16 = 0;
+    v17 = 0;
+    v15 = 0;
+    std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v15, v8[3], v8[4], v8[4] - v8[3]);
+    if (v15 == v16)
     {
-      FireDeviceLog::DeviceLogBase(6, "EngineLtoFileReadImpl,noData,bRTO,%d", v14, v15, v16, v17, v18, v19, v10);
-      v20 = v26;
-      if (!v26)
+      FireDeviceLog::DeviceLogBase(6, "EngineLtoFileReadImpl,noData,bRTO,%d", v5);
+      v9 = v15;
+      if (!v15)
       {
         return;
       }
@@ -9791,49 +9584,243 @@ void std::__function::__func<FireMessageHandler::FireMessageHandler(BlueFin::GlE
       goto LABEL_13;
     }
 
-    FireDeviceLog::DeviceLogBase(6, "EngineLtoFileReadImpl,size,%zu,bRTO,%d", v14, v15, v16, v17, v18, v19, v27 - v26);
-    (*(*v9 + 16))(v9, FireCallback::GlEngineOnLtoFileErrReport);
-    (*(*v9 + 8))(v9, FireCallback::GlLTOFileGpsPredictionTimestampReport);
-    v20 = v26;
-    v21 = v27 - v26;
-    if (v27 != v26)
+    FireDeviceLog::DeviceLogBase(6, "EngineLtoFileReadImpl,size,%zu,bRTO,%d", v16 - v15, v5);
+    (*(*v4 + 16))(v4, FireCallback::GlEngineOnLtoFileErrReport);
+    (*(*v4 + 8))(v4, FireCallback::GlLTOFileGpsPredictionTimestampReport);
+    v9 = v15;
+    v10 = v16 - v15;
+    if (v16 != v15)
     {
-      v22 = 0;
-      v23 = 0;
+      v11 = 0;
+      v12 = 0;
       do
       {
-        v24 = v21 + v22;
-        if (v24 >= 0x2000)
+        v13 = v10 + v11;
+        if (v13 >= 0x2000)
         {
-          v25 = 0x2000;
+          v14 = 0x2000;
         }
 
         else
         {
-          v25 = v24;
+          v14 = v13;
         }
 
-        (**v9)(v9, &v20[v23], v25);
-        v23 += 0x2000;
-        v20 = v26;
-        v21 = v27 - v26;
-        v22 -= 0x2000;
+        (**v4)(v4, &v9[v12], v14);
+        v12 += 0x2000;
+        v9 = v15;
+        v10 = v16 - v15;
+        v11 -= 0x2000;
       }
 
-      while (v23 < v27 - v26);
+      while (v12 < v16 - v15);
     }
 
-    if (v20)
+    if (v9)
     {
 LABEL_13:
-      v27 = v20;
-      operator delete(v20);
+      v16 = v9;
+      operator delete(v9);
     }
   }
 
   else
   {
 
-    FireDeviceLog::DeviceLogBase(2, "EngineLtoFileReadImpl,pLTOFileReader,nullptr", a3, a4, a5, a6, a7, a8, a9);
+    FireDeviceLog::DeviceLogBase(2, "EngineLtoFileReadImpl,pLTOFileReader,nullptr");
+  }
+}
+
+void sub_29881FF28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void FireCallback::GlEngCbOnLTOFileRead(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (FireCallback::pInstance)
+  {
+    v5 = *(FireCallback::pInstance + 632);
+    if (v5)
+    {
+      v9 = a1;
+      v8 = a2;
+      v7 = a3;
+      (*(*v5 + 48))(v5, &v9, &v8, &v7);
+      return;
+    }
+
+    v6 = "fcb,fEngCbOnLTOFileReadCb,nullptr";
+  }
+
+  else
+  {
+    v6 = "fcb,GlEngCbOnLTOFileRead,nullptr";
+  }
+
+  FireDeviceLog::DeviceLogBase(2, v6, a3);
+}
+
+BlueFin::GlDbgCodec *BlueFin::GlDbgProxyGlEngCbOnLTOFileRead(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = (*(*a1 + 656))(a1);
+
+  return BlueFin::GlDbgProxy::HalGlEngCbOnLTOFileRead(v5, a2, a3);
+}
+
+uint64_t BlueFin::GlPeLtoMgr::deserializeLtoGnssSigType(BlueFin::GlPeLtoMgr *this, BlueFin::GlSysLogEntry *a2)
+{
+  v9 = *MEMORY[0x29EDCA608];
+  v6 = &unk_2A1F10688;
+  v7 = 7;
+  memset(v8, 0, 62);
+  result = BlueFin::GlPeLtoGnssSignalTypeInterface::Deserialize(&v6, a2);
+  if (result)
+  {
+    AbbrevGnssName = BlueFin::GlGnss::GetAbbrevGnssName(v7);
+    GlCustomLog(14, "LtoMgr: read LTO %s Signal Type Info from NVMEM!\n", AbbrevGnssName);
+    v5 = v7;
+    if (v7 == 4)
+    {
+      (*(**(this + 14) + 248))(*(this + 14), v8, 63);
+      goto LABEL_6;
+    }
+
+    if (!v7)
+    {
+      (*(**(this + 14) + 240))(*(this + 14), v8, 32);
+LABEL_6:
+      BlueFin::GlPeLtoFileContentStorageMgr::UpdateLtoToStore(this + 1648, v5, v8);
+      return 1;
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t BlueFin::GlPeLtoGnssSignalTypeInterface::Deserialize(BlueFin::GlPeLtoGnssSignalTypeInterface *this, BlueFin::GlSysLogEntry *a2)
+{
+  if (*(a2 + 2) != 130 || *(a2 + 12) != 1)
+  {
+    return 0;
+  }
+
+  U8 = BlueFin::GlSysLogEntry::GetU8(a2);
+  v7 = BlueFin::GlImplGnss::m_aucImplGnssTable[U8];
+  *(this + 2) = v7;
+  if ((v7 | 4) != 4)
+  {
+    return 0;
+  }
+
+  if (U8 == 5)
+  {
+    v8 = 63;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  if (U8)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 32;
+  }
+
+  if (v9)
+  {
+    v10 = this + 12;
+    do
+    {
+      *v10++ = BlueFin::GlSysLogEntry::GetU8(a2);
+      --v9;
+    }
+
+    while (v9);
+  }
+
+  return 1;
+}
+
+uint64_t BlueFin::GlPeLtoMgr::DeserializeLto(BlueFin::GlPeLtoMgr *this, BlueFin::GlSysLogEntry *a2)
+{
+  v2 = *(a2 + 2);
+  if (v2 > 124)
+  {
+    if (v2 > 127)
+    {
+      switch(v2)
+      {
+        case 128:
+          return BlueFin::GlPeLtoMgr::deserializeLtoGnssAltNav(this, a2);
+        case 129:
+          return BlueFin::GlPeLtoMgr::deserializeLtoGpsQzsL1CaIscAltNav(this, a2);
+        case 130:
+          return BlueFin::GlPeLtoMgr::deserializeLtoGnssSigType(this, a2);
+      }
+
+      return 0;
+    }
+
+    if (v2 == 125)
+    {
+      return BlueFin::GlPeLtoMgr::deserializeLtoGnssGpsTimeoffs(this, a2);
+    }
+
+    else if (v2 == 126)
+    {
+      return BlueFin::GlPeLtoMgr::deserializeLtoGnssL5Health(this, a2);
+    }
+
+    else
+    {
+      return BlueFin::GlPeLtoMgr::deserializeLtoGnssL5HealthInfo(this, a2);
+    }
+  }
+
+  else
+  {
+    if (v2 <= 121)
+    {
+      switch(v2)
+      {
+        case 'w':
+          return BlueFin::GlPeLtoMgr::deserializeLtoSlice(this, a2);
+        case 'x':
+          return BlueFin::GlPeLtoFileContentStorageMgr::DeserializeLtoInfo((this + 1648), a2);
+        case 'y':
+          return BlueFin::GlPeLtoMgr::deserializeLtoAlm(this, a2);
+      }
+
+      return 0;
+    }
+
+    if (v2 == 122)
+    {
+      return BlueFin::GlPeLtoMgr::deserializeLtoUtc(this, a2);
+    }
+
+    else if (v2 == 123)
+    {
+      return BlueFin::GlPeLtoMgr::deserializeLtoSysTime(this, a2);
+    }
+
+    else
+    {
+      return BlueFin::GlPeLtoMgr::deserializeLtoIono(this, a2);
+    }
   }
 }

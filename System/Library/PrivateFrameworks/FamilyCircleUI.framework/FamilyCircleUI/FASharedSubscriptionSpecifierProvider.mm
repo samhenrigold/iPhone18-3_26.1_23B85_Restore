@@ -8,6 +8,7 @@
 - (NSArray)subscriptionsFamilyViewSpecifier;
 - (id)_iconURLStringForService:(id)service;
 - (id)_serviceSpecifiersFromArray:(id)array;
+- (id)_sharedSubscriptionSpecifierCell:(int)cell;
 - (id)_specifierNamed:(id)named;
 - (id)_valueForServiceSpecifier:(id)specifier;
 - (void)_addSharedSubscriptionsButtonWasTapped:(id)tapped;
@@ -48,9 +49,32 @@
   return v10;
 }
 
+- (id)_sharedSubscriptionSpecifierCell:(int)cell
+{
+  v3 = *&cell;
+  array = [MEMORY[0x277CBEB18] array];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"Shared Subscriptions" value:&stru_282D9AA68 table:@"Localizable"];
+
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%i Subscriptions", v3];
+  v9 = [MEMORY[0x277D755B8] systemImageNamed:@"arrow.clockwise"];
+  v10 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"SharedSubscriptions"];
+  v11 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:1 edit:0];
+  [array addObject:v10];
+  [v11 setProperty:v7 forKey:*MEMORY[0x277D40170]];
+  [v11 setProperty:v8 forKey:*MEMORY[0x277D40160]];
+  [v11 setProperty:v9 forKey:*MEMORY[0x277D3FFC0]];
+  [v11 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FF08]];
+  [v11 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
+  [v11 setButtonAction:sel__addSharedSubscriptionsButtonWasTapped_];
+  [array addObject:v11];
+
+  return array;
+}
+
 - (NSArray)specifiers
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (self->_updateSubsriptionSpecifiers || self->_isLoadingSpecifiers)
   {
@@ -67,18 +91,18 @@ LABEL_4:
   }
 
   services = [(FASharedServicesResponse *)self->_sharedSubscriptionResponse services];
-  v16 = [services count];
+  v15 = [services count];
 
-  if (!v16)
+  if (!v15)
   {
     _sharedSubscriptionGroupSpecifier2 = [(FASharedSubscriptionSpecifierProvider *)self _sharedSubscriptionGroupSpecifier];
     [v3 addObject:_sharedSubscriptionGroupSpecifier2];
 
     self->_specifierState = 2;
-    v32 = MEMORY[0x277D3FAD8];
-    v33 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v34 = [v33 localizedStringForKey:@"FAILED_TO_LOAD_SERVICES" value:&stru_282D9AA68 table:@"Localizable"];
-    services3 = [v32 preferenceSpecifierNamed:v34 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
+    v33 = MEMORY[0x277D3FAD8];
+    v34 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v35 = [v34 localizedStringForKey:@"FAILED_TO_LOAD_SERVICES" value:&stru_282D9AA68 table:@"Localizable"];
+    services3 = [v33 preferenceSpecifierNamed:v35 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
 
     [services3 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
     goto LABEL_4;
@@ -86,7 +110,7 @@ LABEL_4:
 
   p_specifiers = &self->_specifiers;
   specifiers = self->_specifiers;
-  if (!specifiers || ![(NSArray *)specifiers count]|| self->_specifierState != 3)
+  if (!specifiers || (v17 = [(NSArray *)specifiers count]) == 0 || self->_specifierState != 3)
   {
     self->_specifierState = 3;
     serviceGroups = [(FASharedServicesResponse *)self->_sharedSubscriptionResponse serviceGroups];
@@ -94,60 +118,60 @@ LABEL_4:
 
     if (v19)
     {
-      v42 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
+      v42 = 0u;
       obj = [(FASharedServicesResponse *)self->_sharedSubscriptionResponse serviceGroups];
-      v20 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-      if (v20)
+      v21 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      if (v21)
       {
-        v21 = v20;
-        v22 = *v41;
+        v22 = v21;
+        v23 = *v42;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v41 != v22)
+            if (*v42 != v23)
             {
               objc_enumerationMutation(obj);
             }
 
-            v24 = *(*(&v40 + 1) + 8 * i);
-            v25 = MEMORY[0x277D3FAD8];
-            headerText = [v24 headerText];
-            footerText = [v24 footerText];
-            v28 = [v25 groupSpecifierWithHeader:headerText footer:footerText];
-            [v3 addObject:v28];
+            v25 = *(*(&v41 + 1) + 8 * i);
+            v26 = MEMORY[0x277D3FAD8];
+            headerText = [v25 headerText];
+            footerText = [v25 footerText];
+            v29 = [v26 groupSpecifierWithHeader:headerText footer:footerText];
+            [v3 addObject:v29];
 
             ++self->_numberOfGroups;
-            services2 = [v24 services];
-            v30 = [(FASharedSubscriptionSpecifierProvider *)self _serviceSpecifiersFromArray:services2];
-            [v3 addObjectsFromArray:v30];
+            services2 = [v25 services];
+            v31 = [(FASharedSubscriptionSpecifierProvider *)self _serviceSpecifiersFromArray:services2];
+            [v3 addObjectsFromArray:v31];
           }
 
-          v21 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v22 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
         }
 
-        while (v21);
+        while (v22);
       }
 
       goto LABEL_6;
     }
 
-    v35 = _FALogSystem();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v36 = _FALogSystem(v20);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BB35000, v35, OS_LOG_TYPE_DEFAULT, "No groups, kickin it old school.", buf, 2u);
+      _os_log_impl(&dword_21BB35000, v36, OS_LOG_TYPE_DEFAULT, "No groups, kickin it old school.", buf, 2u);
     }
 
     _sharedSubscriptionGroupSpecifier3 = [(FASharedSubscriptionSpecifierProvider *)self _sharedSubscriptionGroupSpecifier];
     [v3 addObject:_sharedSubscriptionGroupSpecifier3];
 
     services3 = [(FASharedServicesResponse *)self->_sharedSubscriptionResponse services];
-    v37 = [(FASharedSubscriptionSpecifierProvider *)self _serviceSpecifiersFromArray:services3];
-    [v3 addObjectsFromArray:v37];
+    v38 = [(FASharedSubscriptionSpecifierProvider *)self _serviceSpecifiersFromArray:services3];
+    [v3 addObjectsFromArray:v38];
 
 LABEL_5:
 LABEL_6:
@@ -160,7 +184,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  p_super = _FALogSystem();
+  p_super = _FALogSystem(v17);
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -172,7 +196,6 @@ LABEL_7:
   v11 = *p_specifiers;
   v12 = *p_specifiers;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -221,7 +244,7 @@ id __69__FASharedSubscriptionSpecifierProvider__serviceSpecifiersFromArray___blo
 
 - (id)_iconURLStringForService:(id)service
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   view = [(PSListController *)self->_presenter view];
   window = [view window];
@@ -245,22 +268,20 @@ LABEL_7:
   }
 
   iconURLStringx32 = [serviceCopy iconURLStringx3];
-  v12 = _FALogSystem();
+  v12 = _FALogSystem(iconURLStringx32);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     [FASharedSubscriptionSpecifierProvider _iconURLStringForService:v12];
   }
 
 LABEL_11:
-  v13 = _FALogSystem();
+  v13 = _FALogSystem(iconURLStringx3);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v16[0] = 67109120;
-    v16[1] = v9;
-    _os_log_impl(&dword_21BB35000, v13, OS_LOG_TYPE_DEFAULT, "Returning service image at scale - %d", v16, 8u);
+    v15[0] = 67109120;
+    v15[1] = v9;
+    _os_log_impl(&dword_21BB35000, v13, OS_LOG_TYPE_DEFAULT, "Returning service image at scale - %d", v15, 8u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return iconURLStringx32;
 }
@@ -276,7 +297,7 @@ LABEL_11:
 {
   specifierCopy = specifier;
   userInfo = [specifierCopy userInfo];
-  v5 = _FALogSystem();
+  v5 = _FALogSystem(userInfo);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [FASharedSubscriptionSpecifierProvider _valueForServiceSpecifier:];
@@ -305,20 +326,20 @@ LABEL_11:
 
 void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke(uint64_t a1)
 {
-  v2 = _FASignpostLogSystem();
+  v2 = _FASignpostLogSystem(a1);
   v3 = _FASignpostCreate(v2);
   v5 = v4;
 
-  v6 = _FASignpostLogSystem();
-  v7 = v6;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+  v7 = _FASignpostLogSystem(v6);
+  v8 = v7;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_21BB35000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v3, "FetchFamilySubscriptions", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_21BB35000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v3, "FetchFamilySubscriptions", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v8 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = _FASignpostLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_cold_1();
   }
@@ -330,16 +351,16 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
   aBlock[5] = v3;
   aBlock[6] = v5;
   aBlock[4] = *(a1 + 32);
-  v9 = _Block_copy(aBlock);
-  v10 = objc_opt_new();
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_2;
-  v12[3] = &unk_2782F3498;
-  v12[4] = *(a1 + 32);
-  v13 = v9;
-  v11 = v9;
-  [v10 fetchAAURLConfigurationWithCompletion:v12];
+  v11 = _Block_copy(aBlock);
+  v12 = objc_opt_new();
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_2;
+  v14[3] = &unk_2782F3498;
+  v14[4] = *(a1 + 32);
+  v15 = v11;
+  v13 = v11;
+  [v12 fetchAAURLConfigurationWithCompletion:v14];
 }
 
 void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_108(void *a1, void *a2)
@@ -347,7 +368,7 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
   v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   Nanoseconds = _FASignpostGetNanoseconds(a1[5], a1[6]);
-  v5 = _FASignpostLogSystem();
+  v5 = _FASignpostLogSystem(Nanoseconds);
   v6 = v5;
   v7 = a1[5];
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
@@ -357,8 +378,8 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
     _os_signpost_emit_with_name_impl(&dword_21BB35000, v6, OS_SIGNPOST_INTERVAL_END, v7, "FetchFamilySubscriptions", " StatusCode=%{public,signpost.telemetry:number1,name=StatusCode}d ", buf, 8u);
   }
 
-  v8 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _FASignpostLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v11 = Nanoseconds / 1000000000.0;
     v12 = a1[5];
@@ -369,7 +390,7 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
     v19 = v11;
     v20 = 1026;
     v21 = v13;
-    _os_log_debug_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:FetchFamilySubscriptions  StatusCode=%{public,signpost.telemetry:number1,name=StatusCode}d ", buf, 0x1Cu);
+    _os_log_debug_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:FetchFamilySubscriptions  StatusCode=%{public,signpost.telemetry:number1,name=StatusCode}d ", buf, 0x1Cu);
   }
 
   v14[0] = MEMORY[0x277D85DD0];
@@ -378,49 +399,48 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
   v14[3] = &unk_2782F2AF8;
   v14[4] = a1[4];
   v15 = v3;
-  v9 = v3;
+  v10 = v3;
   dispatch_async(MEMORY[0x277D85CD0], v14);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = [a2 urlForEndpoint:@"getFamilySubscriptions"];
+  v4 = v3;
   if (!v3)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _FALogSystem(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_2_cold_1(v4);
+      __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_2_cold_1(v5);
     }
   }
 
-  v5 = _FALogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = _FALogSystem(v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_2_cold_2();
   }
 
-  v6 = [FASharedServicesRequest alloc];
-  v7 = *(*(a1 + 32) + 24);
-  v8 = [v3 absoluteString];
-  v9 = [(FASharedServicesRequest *)v6 initWithAppleAccount:v7 urlString:v8];
+  v7 = [FASharedServicesRequest alloc];
+  v8 = *(*(a1 + 32) + 24);
+  v9 = [v4 absoluteString];
+  v10 = [(FASharedServicesRequest *)v7 initWithAppleAccount:v8 urlString:v9];
 
-  v10 = [objc_alloc(MEMORY[0x277CEC840]) initWithRequest:v9 handler:*(a1 + 40)];
-  v11 = _FALogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = [objc_alloc(MEMORY[0x277CEC840]) initWithRequest:v10 handler:*(a1 + 40)];
+  v12 = _FALogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_21BB35000, v11, OS_LOG_TYPE_DEFAULT, "Fetching family subscriptions.", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_21BB35000, v12, OS_LOG_TYPE_DEFAULT, "Fetching family subscriptions.", v13, 2u);
   }
 
-  [*(*(a1 + 32) + 56) addOperation:v10];
+  [*(*(a1 + 32) + 56) addOperation:v11];
 }
 
 - (NSArray)subscriptionSpecifiers
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   p_subscriptionSpecifiers = &self->_subscriptionSpecifiers;
   if (![(NSArray *)self->_subscriptionSpecifiers count])
   {
@@ -429,29 +449,29 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
     v6 = v5;
     if (!self->_isLoadingSpecifiers)
     {
-      v20 = p_subscriptionSpecifiers;
-      v21 = v5;
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
+      v19 = p_subscriptionSpecifiers;
+      v20 = v5;
       v23 = 0u;
-      v19 = specifiers;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v18 = specifiers;
       v7 = specifiers;
-      v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v23;
+        v10 = *v22;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v23 != v10)
+            if (*v22 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v22 + 1) + 8 * i);
+            v12 = *(*(&v21 + 1) + 8 * i);
             identifier = [v12 identifier];
             if ([identifier isEqual:@"ICLOUD_STORAGE"])
             {
@@ -464,26 +484,25 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
 
               if ((v15 & 1) == 0)
               {
-                [v21 addObject:v12];
+                [v20 addObject:v12];
               }
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v9);
       }
 
-      p_subscriptionSpecifiers = v20;
-      v6 = v21;
-      objc_storeStrong(v20, v21);
-      specifiers = v19;
+      p_subscriptionSpecifiers = v19;
+      v6 = v20;
+      objc_storeStrong(v19, v20);
+      specifiers = v18;
     }
   }
 
   v16 = *p_subscriptionSpecifiers;
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -491,7 +510,7 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
 - (NSArray)subscriptionsFamilyViewSpecifier
 {
   selfCopy = self;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   subscriptionsFamilyViewSpecifier = self->_subscriptionsFamilyViewSpecifier;
   if (!subscriptionsFamilyViewSpecifier || ![(NSArray *)subscriptionsFamilyViewSpecifier count])
   {
@@ -499,31 +518,31 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
     v5 = specifiers;
     if (!selfCopy->_isLoadingSpecifiers)
     {
-      v24 = selfCopy;
+      v23 = selfCopy;
       v6 = [specifiers count] - selfCopy->_numberOfGroups;
-      v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       obj = v5;
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
-      v23 = v5;
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v22 = v5;
       if (v8)
       {
         v9 = v8;
-        v10 = *v27;
+        v10 = *v26;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v27 != v10)
+            if (*v26 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v26 + 1) + 8 * i);
+            v12 = *(*(&v25 + 1) + 8 * i);
             identifier = [v12 identifier];
             v14 = [identifier isEqual:@"ICLOUD_STORAGE"];
 
@@ -543,26 +562,25 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
             }
           }
 
-          v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v9);
       }
 
-      selfCopy = v24;
-      v17 = [(FASharedSubscriptionSpecifierProvider *)v24 _sharedSubscriptionSpecifierCell:v6];
-      [(NSArray *)v22 addObjectsFromArray:v17];
+      selfCopy = v23;
+      v17 = [(FASharedSubscriptionSpecifierProvider *)v23 _sharedSubscriptionSpecifierCell:v6];
+      [(NSArray *)v21 addObjectsFromArray:v17];
 
-      [(NSArray *)v22 addObjectsFromArray:v7];
-      v18 = v24->_subscriptionsFamilyViewSpecifier;
-      v24->_subscriptionsFamilyViewSpecifier = v22;
+      [(NSArray *)v21 addObjectsFromArray:v7];
+      v18 = v23->_subscriptionsFamilyViewSpecifier;
+      v23->_subscriptionsFamilyViewSpecifier = v21;
 
-      v5 = v23;
+      v5 = v22;
     }
   }
 
   v19 = selfCopy->_subscriptionsFamilyViewSpecifier;
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -572,58 +590,48 @@ void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__bloc
   v32 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   self->_isLoadingSpecifiers = 0;
-  if ([responseCopy statusCode] != 200)
+  statusCode = [responseCopy statusCode];
+  if (statusCode != 200)
   {
-    v6 = _FALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _FALogSystem(statusCode);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       error = [responseCopy error];
       *buf = 138412290;
       v29 = error;
-      _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get subscription services %@", buf, 0xCu);
+      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "Failed to get subscription services %@", buf, 0xCu);
     }
   }
 
-  v8 = _FALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _FALogSystem(statusCode);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     responseDictionary = [responseCopy responseDictionary];
     *buf = 138412546;
     v29 = responseCopy;
     v30 = 2112;
     v31 = responseDictionary;
-    _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "Received shared services response %@ - resourceDictionary: %@", buf, 0x16u);
+    _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "Received shared services response %@ - resourceDictionary: %@", buf, 0x16u);
   }
 
   services = [responseCopy services];
-  if (!services)
+  if (services && (v12 = services, -[FASharedServicesResponse services](self->_sharedSubscriptionResponse, "services"), v13 = objc_claimAutoreleasedReturnValue(), [responseCopy services], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqual:", v14), v14, v13, v12, v15))
   {
-    goto LABEL_11;
-  }
-
-  v11 = services;
-  services2 = [(FASharedServicesResponse *)self->_sharedSubscriptionResponse services];
-  services3 = [responseCopy services];
-  v14 = [services2 isEqual:services3];
-
-  if (v14)
-  {
-    v15 = _FALogSystem();
-    if (os_log_type_enabled(&v15->super, OS_LOG_TYPE_DEFAULT))
+    v16 = _FALogSystem(services);
+    if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BB35000, &v15->super, OS_LOG_TYPE_DEFAULT, "Response matches current subscription services; not reloading specifiers", buf, 2u);
+      _os_log_impl(&dword_21BB35000, &v16->super, OS_LOG_TYPE_DEFAULT, "Response matches current subscription services; not reloading specifiers", buf, 2u);
     }
   }
 
   else
   {
-LABEL_11:
-    v16 = _FALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = _FALogSystem(services);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21BB35000, v16, OS_LOG_TYPE_DEFAULT, "Response indicates changes to subscription services; reloading specifiers", buf, 2u);
+      _os_log_impl(&dword_21BB35000, v17, OS_LOG_TYPE_DEFAULT, "Response indicates changes to subscription services; reloading specifiers", buf, 2u);
     }
 
     objc_storeStrong(&self->_sharedSubscriptionResponse, response);
@@ -631,61 +639,61 @@ LABEL_11:
     v26 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v15 = self->_subscribers;
-    v17 = [(NSHashTable *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    if (v17)
+    v16 = self->_subscribers;
+    v18 = [(NSHashTable *)v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v19 = *v24;
+      v19 = v18;
+      v20 = *v24;
       do
       {
-        v20 = 0;
+        v21 = 0;
         do
         {
-          if (*v24 != v19)
+          if (*v24 != v20)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v23 + 1) + 8 * v20);
+          v22 = *(*(&v23 + 1) + 8 * v21);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v21 reloadSpecifiersForProvider:self oldSpecifiers:self->_subscriptionSpecifiers animated:{1, v23}];
+            [v22 reloadSpecifiersForProvider:self oldSpecifiers:self->_subscriptionSpecifiers animated:{1, v23}];
           }
 
-          ++v20;
+          ++v21;
         }
 
-        while (v18 != v20);
-        v18 = [(NSHashTable *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        while (v19 != v21);
+        v19 = [(NSHashTable *)v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
   }
 
   [(FASharedSubscriptionSpecifierProvider *)self _delayedLoadIfNeeded];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)handleURL:(id)l
 {
   lCopy = l;
   v6 = [(FASharedSubscriptionSpecifierProvider *)self _launchWithResourceDictionary:lCopy];
-  if (!v6)
+  v7 = v6;
+  if ((v6 & 1) == 0)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "FASharedSubscriptionSpecifierProvider doesn't have the specifier, will try again upon response.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "FASharedSubscriptionSpecifierProvider doesn't have the specifier, will try again upon response.", v10, 2u);
     }
 
     objc_storeStrong(&self->_cachedResourceDictionary, l);
   }
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)_launchWithResourceDictionary:(id)dictionary
@@ -695,65 +703,64 @@ LABEL_11:
   if (v4)
   {
     v5 = [(FASharedSubscriptionSpecifierProvider *)self _specifierNamed:v4];
+    v6 = v5;
     cachedResourceDictionary = self->_cachedResourceDictionary;
     if (cachedResourceDictionary)
     {
       v19 = @"HookContinuationParameters";
       v20[0] = cachedResourceDictionary;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-      [v5 setProperty:v7 forKey:@"FASharedServicesAdditionalParameters"];
-      v8 = _FALogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v9 = _FALogSystem([v6 setProperty:v8 forKey:@"FASharedServicesAdditionalParameters"]);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [FASharedSubscriptionSpecifierProvider _launchWithResourceDictionary:];
       }
     }
 
-    v9 = _FALogSystem();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v5)
+    v10 = _FALogSystem(v5);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v6)
     {
-      if (v10)
+      if (v11)
       {
         LOWORD(v15) = 0;
-        _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "We have the service specifier, tapping!", &v15, 2u);
+        _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "We have the service specifier, tapping!", &v15, 2u);
       }
 
-      [(FASharedSubscriptionSpecifierProvider *)self _serviceSpecifierWasTapped:v5];
-      v11 = 1;
+      [(FASharedSubscriptionSpecifierProvider *)self _serviceSpecifierWasTapped:v6];
+      v12 = 1;
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
         specifiers = self->_specifiers;
         v15 = 138412546;
         v16 = v4;
         v17 = 2112;
         v18 = specifiers;
-        _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "A specifier for %@ was not found in: %@", &v15, 0x16u);
+        _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "A specifier for %@ was not found in: %@", &v15, 0x16u);
       }
 
-      v11 = 0;
-      v5 = v9;
+      v12 = 0;
+      v6 = v10;
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (void)_delayedLoadIfNeeded
 {
   if (self->_cachedResourceDictionary)
   {
-    v3 = _FALogSystem();
+    v3 = _FALogSystem(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -768,27 +775,27 @@ LABEL_11:
 
 - (id)_specifierNamed:(id)named
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   namedCopy = named;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_specifiers;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqualToString:namedCopy];
 
@@ -799,7 +806,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -811,14 +818,12 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)reloadSpecifiers
 {
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -850,38 +855,6 @@ LABEL_11:
   WeakRetained = objc_loadWeakRetained(&self->_selectionHandler);
 
   return WeakRetained;
-}
-
-- (void)_valueForServiceSpecifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_21BB35000, v0, v1, "Value for service specifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_21BB35000, v0, v1, "BEGIN [%lld]: FetchFamilySubscriptions  enableTelemetry=YES ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__FASharedSubscriptionSpecifierProvider__loadSubscriptionServices__block_invoke_2_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_21BB35000, v0, v1, "Grabbed shared subscription URL string: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_launchWithResourceDictionary:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_21BB35000, v0, v1, "Adding hook continuation params %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

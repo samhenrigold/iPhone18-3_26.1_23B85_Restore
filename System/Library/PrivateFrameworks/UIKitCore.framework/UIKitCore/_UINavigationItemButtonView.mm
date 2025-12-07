@@ -640,7 +640,7 @@ LABEL_18:
     v40 = v43;
 LABEL_23:
     title = [(_UINavigationItemButtonView *)self title];
-    if (([title isEqualToString:&stru_1EFB14550] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(title) & 1) == 0)
     {
       [(_UINavigationItemView *)self _titleSize];
       v57 = v56;

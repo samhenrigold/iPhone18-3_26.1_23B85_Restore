@@ -1,3 +1,726 @@
+void sub_100D09C2C(id a1, RouteCollection *a2)
+{
+  v2 = +[IPCServer sharedServer];
+  [v2 navigationStateDidChangeTo:0 reason:@"The directions are now loaded and we're ready for nav"];
+}
+
+void sub_100D0AE54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100D0AE78(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v4 = WeakRetained;
+  if (WeakRetained)
+  {
+    [WeakRetained _handleInitialRouteLoaded:v5];
+  }
+}
+
+void sub_100D0B108(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v3 = WeakRetained;
+    v2 = +[NSNotificationCenter defaultCenter];
+    [v2 removeObserver:v3 name:VKMapViewDidBecomeFullyDrawnNotification object:0];
+
+    [v3 _createAuxiliaryTasksIfNecessaryForPreference:2];
+    WeakRetained = v3;
+  }
+}
+
+id sub_100D0B3F0(uint64_t a1)
+{
+  [*(a1 + 32) layoutIfNeeded];
+  [*(*(a1 + 32) + 8) setAlpha:0.0];
+  v2 = *(*(a1 + 32) + 24);
+
+  return [v2 setAlpha:0.0];
+}
+
+uint64_t sub_100D0B454(uint64_t a1)
+{
+  result = *(a1 + 32);
+  if (result)
+  {
+    return (*(result + 16))();
+  }
+
+  return result;
+}
+
+id sub_100D0B570(uint64_t a1)
+{
+  [*(a1 + 32) layoutIfNeeded];
+  [*(*(a1 + 32) + 8) setAlpha:1.0];
+  v2 = *(*(a1 + 32) + 24);
+
+  return [v2 setAlpha:1.0];
+}
+
+void sub_100D0C748(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v9 = [[SearchAddressBookOperationMatch alloc] initWithContact:v3 context:*(*(a1 + 32) + 24)];
+
+  if ([(SearchAddressBookOperationMatch *)v9 isGoodMatch])
+  {
+    [*(a1 + 40) addObject:v9];
+    v4 = [(SearchAddressBookOperationMatch *)v9 contact];
+    v5 = [v4 identifier];
+
+    if (v5)
+    {
+      [*(a1 + 48) setObject:v9 forKeyedSubscript:v5];
+    }
+
+    v6 = [(SearchAddressBookOperationMatch *)v9 contact];
+    v7 = [v6 iOSLegacyIdentifier];
+
+    if (v7 >= 1)
+    {
+      v8 = [NSString stringWithFormat:@"%d", v7];
+      [*(a1 + 56) setObject:v9 forKeyedSubscript:v8];
+    }
+  }
+}
+
+void sub_100D0C86C(uint64_t a1, void *a2)
+{
+  v16 = a2;
+  v3 = [v16 contact];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v4 = [v3 postalAddresses];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v18;
+    do
+    {
+      for (i = 0; i != v6; i = i + 1)
+      {
+        if (*v18 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v9 = *(*(&v17 + 1) + 8 * i);
+        v10 = [v9 value];
+        v11 = [v10 street];
+        v12 = [v11 length];
+
+        if (v12)
+        {
+          v13 = [[AddressBookAddress alloc] initWithContact:v3 addressValue:v9];
+          if ([(AddressBookAddress *)v13 isValid])
+          {
+            v14 = [v16 autocompleteMatchInfo];
+            [*(*(a1 + 32) + 24) setMatchInfo:v14 forObject:v13];
+            v15 = [[AutocompleteItem alloc] initWithLocalCompletion:v13 sourceType:4 sourceSubtype:0 matchInfo:v14];
+            [*(a1 + 40) addObject:v15];
+          }
+        }
+      }
+
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v6);
+  }
+}
+
+id sub_100D0D344(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = v3;
+  if (v3 && [v3 length])
+  {
+    v5 = [v4 stringByTrimmingCharactersInSet:*(a1 + 32)];
+
+    v6 = [v5 componentsSeparatedByCharactersInSet:*(a1 + 32)];
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = 0;
+      v10 = *v16;
+      do
+      {
+        for (i = 0; i != v8; i = i + 1)
+        {
+          if (*v16 != v10)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v12 = *(*(&v15 + 1) + 8 * i);
+          if ([v12 length])
+          {
+            if (!v9)
+            {
+              v9 = +[NSMutableArray array];
+            }
+
+            [v9 addObject:v12];
+          }
+        }
+
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v8);
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    v4 = v5;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v13 = [v9 copy];
+
+  return v13;
+}
+
+void sub_100D0D4E8(uint64_t a1, uint64_t a2)
+{
+  v3 = [*(a1 + 32) objectForKeyedSubscript:a2];
+  if (v3)
+  {
+    v4 = v3;
+    [*(a1 + 40) addObjectsFromArray:v3];
+    v3 = v4;
+  }
+}
+
+id sub_100D0DDDC(uint64_t a1)
+{
+  if (a1)
+  {
+    [MKRatingStringBuilder ratingColorForMapItem:a1];
+  }
+
+  else
+  {
+    +[UIColor systemOrangeColor];
+  }
+  v1 = ;
+
+  return v1;
+}
+
+void sub_100D0FB58(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v2 = WeakRetained;
+    [WeakRetained _fetchSuggestions];
+    WeakRetained = v2;
+  }
+}
+
+void sub_100D0FD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100D0FD8C(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_100D0FDB4(uint64_t a1)
+{
+  v2 = [*(a1 + 40) copy];
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 48);
+  *(v3 + 48) = v2;
+
+  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 56));
+  [WeakRetained shortcutsProviderUpdated:*(a1 + 32)];
+}
+
+void sub_100D0FF00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100D0FF1C(uint64_t a1, void *a2, void *a3)
+{
+  v8 = a2;
+  v5 = a3;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v7 = WeakRetained;
+  if (WeakRetained)
+  {
+    [WeakRetained _processTopSuggestions:v8 error:v5];
+  }
+}
+
+void sub_100D10104(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v2 = WeakRetained;
+    [WeakRetained setSinkAttached:0];
+    WeakRetained = v2;
+  }
+}
+
+void sub_100D101F0(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v3 = WeakRetained;
+  if (WeakRetained)
+  {
+    if (WeakRetained[1])
+    {
+      [WeakRetained setSinkAttached:1];
+    }
+
+    else
+    {
+      v4[0] = _NSConcreteStackBlock;
+      v4[1] = 3221225472;
+      v4[2] = sub_100D102C4;
+      v4[3] = &unk_1016514A8;
+      objc_copyWeak(&v5, (a1 + 32));
+      [v3 _createMapsSuggestionEngineWithCallBack:v4];
+      objc_destroyWeak(&v5);
+    }
+  }
+}
+
+void sub_100D102C4(uint64_t a1, void *a2)
+{
+  v6 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
+  if (WeakRetained)
+  {
+    objc_storeStrong(WeakRetained + 1, a2);
+    [v5 setSinkAttached:1];
+  }
+}
+
+BOOL sub_100D104F0(id a1, MapsSuggestionsEntry *a2)
+{
+  v2 = a2;
+  v3 = objc_alloc_init(MapsSuggestionsOfflineService);
+  v4 = [(MapsSuggestionsOfflineService *)v3 shouldKeepEntryWhenOffline:v2];
+
+  return v4;
+}
+
+void sub_100D116A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100D116C0(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_100D116D8(uint64_t a1, void *a2)
+{
+  v3 = [a2 locationDisplayString];
+  v4 = *(*(a1 + 32) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
+}
+
+void sub_100D12B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100D12B70(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_100D12B88(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+{
+  v7 = a2;
+  if ((*(*(a1 + 32) + 16))())
+  {
+    objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
+    *a4 = 1;
+  }
+}
+
+id sub_100D12CE0()
+{
+  v0 = MSPSharedTripServiceNameForRawServiceName();
+  if ([v0 isEqualToString:MSPSharedTripServiceSMS])
+  {
+    v1 = @"[Share ETA] SMS";
+LABEL_5:
+    v2 = +[NSBundle mainBundle];
+    v3 = [v2 localizedStringForKey:v1 value:@"localized string not found" table:0];
+
+    goto LABEL_7;
+  }
+
+  if ([v0 isEqualToString:MSPSharedTripServiceRCS])
+  {
+    v1 = @"[Share ETA] RCS";
+    goto LABEL_5;
+  }
+
+  v3 = 0;
+LABEL_7:
+
+  return v3;
+}
+
+void sub_100D133E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100D13410(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  [WeakRetained finishedTest];
+}
+
+void sub_100D13A04(uint64_t a1)
+{
+  v2 = [*(a1 + 32) mainMKMapView];
+  [v2 _setLocationPulseEnabled:0];
+
+  v3 = [*(a1 + 32) mainVKMapView];
+  v4 = *(a1 + 32);
+  if (*(a1 + 40))
+  {
+    [v4 performSelector:?];
+  }
+
+  else
+  {
+    [v3 _mapstest_jumpToCoords:*(v4 + 73) pitch:*(v4 + 104) yaw:*(v4 + 112) altitudeIsRegionSize:{*(v4 + 120), *(v4 + 88), *(v4 + 96)}];
+  }
+
+  [*(a1 + 32) startedTest];
+  [*(a1 + 32) startedSubTest:@"loadingScene"];
+  [v3 enableTestStatistics];
+  [v3 enableTileStatistics];
+  objc_initWeak(&location, *(a1 + 32));
+  v5 = *(a1 + 32);
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100D13B74;
+  v6[3] = &unk_101661B98;
+  objc_copyWeak(&v7, &location);
+  [v5 addFullyDrawnCallback:v6];
+  objc_destroyWeak(&v7);
+  objc_destroyWeak(&location);
+}
+
+void sub_100D13B58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100D13B74(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  [WeakRetained didFinishJumping];
+}
+
+id sub_100D1403C(uint64_t a1)
+{
+  v2 = [*(a1 + 32) fullyDrawnCallbacks];
+  v3 = [*(a1 + 40) copy];
+  v4 = objc_retainBlock(v3);
+  [v2 addObject:v4];
+
+  v5 = *(a1 + 32);
+
+  return [v5 setupFullyDrawnNotification:"onFullyDrawn:"];
+}
+
+void sub_100D141B4(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v2 - 24));
+  _Unwind_Resume(a1);
+}
+
+void sub_100D141D0(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  [WeakRetained finishedSubTest:@"extendedSwitch"];
+  [WeakRetained finishedTest];
+}
+
+void sub_100D143D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100D143EC(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  [WeakRetained didFinishJumping];
+}
+
+void sub_100D146F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_100D14718(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  if (WeakRetained)
+  {
+    v3 = WeakRetained;
+    [WeakRetained _accessoryButtonTapped:*(a1 + 32)];
+    WeakRetained = v3;
+  }
+}
+
+void sub_100D14AD8(uint64_t a1)
+{
+  v1 = [*(a1 + 32) registrationWithCellClass:objc_opt_class() configurationHandler:&stru_1016515A0];
+  v2 = qword_10195F018;
+  qword_10195F018 = v1;
+}
+
+void sub_100D14B38(id a1, SectionHeaderOutlineCell *a2, NSIndexPath *a3, MapsUIDiffableDataSourceOutlineNodeSnapshot *a4)
+{
+  v8 = a2;
+  v5 = [(MapsUIDiffableDataSourceOutlineNodeSnapshot *)a4 viewModel];
+  if ([v5 conformsToProtocol:&OBJC_PROTOCOL___SectionHeaderOutlineCellModel])
+  {
+    v6 = v5;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v7 = v6;
+
+  [(SectionHeaderOutlineCell *)v8 setCellModel:v7];
+}
+
+void sub_100D16110(uint64_t a1, void *a2)
+{
+  v11 = a2;
+  v3 = [v11 photo];
+
+  if (v3)
+  {
+    v4 = *(a1 + 32);
+    v5 = [v11 photo];
+    [v4 addPhoto:v5];
+
+    v6 = *(a1 + 40);
+    v7 = [v11 photo];
+    v8 = [v7 photo];
+    v9 = [v11 photo];
+    v10 = [v9 _maps_diffableDataSourceIdentifier];
+    [v6 addImage:v8 forIdentifier:v10];
+
+    [v11 clearSelectedPhoto];
+  }
+}
+
+void sub_100D1675C(uint64_t a1)
+{
+  v2 = [*(a1 + 32) tableView];
+  [v2 scrollToRowAtIndexPath:*(a1 + 40) atScrollPosition:1 animated:1];
+}
+
+void sub_100D167B8(uint64_t a1)
+{
+  v2 = [*(a1 + 32) tableView];
+  v3 = [v2 cellForRowAtIndexPath:*(a1 + 40)];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = v4;
+
+  [v5 beginEditingCommentIfPossible];
+}
+
+void sub_100D1741C(id a1, RAPCommentQuestion *a2, RAPReportComposerCommentSection *a3)
+{
+  v4 = a3;
+  v5 = a2;
+  v6 = [(RAPReportComposerCommentSection *)v4 headerView];
+  [v6 updateRemainingCharacters];
+
+  v11 = [NSIndexPath indexPathForRow:0 inSection:[(RAPTablePartSection *)v4 sectionIndex]];
+  v7 = [(RAPTablePartSection *)v4 tableView];
+
+  v8 = [v7 cellForRowAtIndexPath:v11];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = v9;
+
+  [v10 setPropertiesFromQuestion:v5];
+}
+
+void sub_100D18060(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100D18110;
+  block[3] = &unk_1016605F8;
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v8 = v3;
+  v9 = v4;
+  v10 = v5;
+  v6 = v3;
+  dispatch_async(&_dispatch_main_q, block);
+}
+
+void sub_100D18110(uint64_t a1)
+{
+  if (!*(a1 + 32))
+  {
+    v2 = +[NSMutableSet set];
+    [*(a1 + 40) setSelectedObjectSet:v2];
+  }
+
+  v3 = *(a1 + 48);
+  if (v3)
+  {
+    (*(v3 + 16))(v3, *(a1 + 32));
+  }
+
+  v4 = [*(a1 + 40) resultBlock];
+
+  if (v4)
+  {
+    v5 = [*(a1 + 40) resultBlock];
+    v5[2](v5, *(a1 + 32));
+  }
+}
+
+void sub_100D1882C(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (([*(a1 + 32) suppressAnalytics] & 1) == 0)
+  {
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v4 = [*(a1 + 32) selectedObjectSet];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v17;
+      do
+      {
+        v8 = 0;
+        do
+        {
+          if (*v17 != v7)
+          {
+            objc_enumerationMutation(v4);
+          }
+
+          [*(a1 + 32) _instrumentSaveOrRemoveFromCollectionWithMapItem:*(*(&v16 + 1) + 8 * v8) instrumentSave:0];
+          v8 = v8 + 1;
+        }
+
+        while (v6 != v8);
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      }
+
+      while (v6);
+    }
+  }
+
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100D18B3C;
+  block[3] = &unk_1016605F8;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v13 = v3;
+  v14 = v9;
+  v15 = v10;
+  v11 = v3;
+  dispatch_async(&_dispatch_main_q, block);
+}
+
 void sub_100D189C4(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -349,9 +1072,9 @@ LABEL_12:
   }
 }
 
-void sub_100D1A358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100D1A358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -381,7 +1104,8 @@ Class sub_100D1A370(uint64_t a1)
   _Block_object_dispose(&v7, 8);
   if (!v2)
   {
-    goto LABEL_8;
+    abort_report_np("%s", v4[0]);
+    goto LABEL_10;
   }
 
   if (v4[0])
@@ -393,8 +1117,8 @@ Class sub_100D1A370(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-LABEL_8:
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "TapToRadarService");
+LABEL_10:
     __break(1u);
   }
 
@@ -402,9 +1126,9 @@ LABEL_8:
   return result;
 }
 
-void sub_100D1A4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100D1A4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -529,9 +1253,9 @@ void sub_100D1C4F8(uint64_t a1, uint64_t a2, _BYTE *a3)
   }
 }
 
-void sub_100D1D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100D1D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2125,14 +2849,14 @@ uint64_t sub_100D3E178(uint64_t a1)
   return result;
 }
 
-void sub_100D3F870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100D3F870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3567,7 +4291,7 @@ void sub_100D47F78(id a1, MapsDebugTableSection *a2)
   }
 }
 
-uint64_t sub_100D480E0(uint64_t a1)
+BOOL sub_100D480E0(uint64_t a1)
 {
   if (*(a1 + 36))
   {
@@ -5652,9 +6376,9 @@ id sub_100D520BC(void *a1, void *a2)
   return v7;
 }
 
-void sub_100D5220C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100D5220C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6822,7 +7546,7 @@ void sub_100D6EEC8(uint64_t a1, void *a2, unint64_t a3)
     [*(a1 + 32) verticalScale];
     if (v6)
     {
-      [v6 _maps_transformScaledToTopAtScale:?];
+      objc_msgSend__maps_transformScaledToTopAtScale_(v6);
     }
 
     else
@@ -6857,9 +7581,9 @@ void sub_100D70580(id a1, RAPDirectionInstructionsIncorrectQuestion *a2, RAPRepo
   [(RAPReportComposerDirectionInstructionsIncorrectViewController *)v6 _reloadTableViews];
 }
 
-void sub_100D710DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100D710DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6955,9 +7679,9 @@ void sub_100D716BC(uint64_t a1, void *a2)
   }
 }
 
-void sub_100D71FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100D71FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7203,9 +7927,9 @@ LABEL_22:
 LABEL_26:
 }
 
-void sub_100D74E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100D74E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7226,9 +7950,9 @@ void sub_100D74E94(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_100D75270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100D75270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8301,512 +9025,4 @@ LABEL_42:
   }
 
 LABEL_44:
-}
-
-int64_t sub_100D81EC4(id a1, MNGuidanceEventFeedback *a2, MNGuidanceEventFeedback *a3)
-{
-  v4 = a2;
-  v5 = a3;
-  [(MNGuidanceEventFeedback *)v4 startTime];
-  v7 = v6;
-  [(MNGuidanceEventFeedback *)v5 startTime];
-  if (v7 >= v8)
-  {
-    [(MNGuidanceEventFeedback *)v4 startTime];
-    v11 = v10;
-    [(MNGuidanceEventFeedback *)v5 startTime];
-    v9 = v11 > v12;
-  }
-
-  else
-  {
-    v9 = -1;
-  }
-
-  return v9;
-}
-
-void sub_100D8234C(id a1)
-{
-  v3 = [[LSApplicationRecord alloc] initWithBundleIdentifier:@"com.apple.Maps" allowPlaceholder:0 error:0];
-  v1 = [v3 dataContainerURL];
-  v2 = qword_10195F120;
-  qword_10195F120 = v1;
-}
-
-void sub_100D82A80(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
-  {
-    (*(*(a1 + 32) + 16))();
-  }
-
-  else
-  {
-    v3 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v4 = NSStringFromSelector(*(a1 + 48));
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "NavigationFeedbackCollector was deallocated in %@ before executing feedback collection block.", &v5, 0xCu);
-    }
-  }
-}
-
-void sub_100D82CB0(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
-  {
-    (*(*(a1 + 32) + 16))();
-  }
-
-  else
-  {
-    v3 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v4 = NSStringFromSelector(*(a1 + 48));
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "NavigationFeedbackCollector was deallocated in %@ before executing feedback collection block.", &v5, 0xCu);
-    }
-  }
-}
-
-void sub_100D82EBC(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = [v3 currentRoute];
-  v5 = [v4 isEVRoute];
-
-  if (v5)
-  {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0x7FFFFFFFFFFFFFFFLL;
-    v6 = [v3 currentRoute];
-    v7 = [v6 chargingStationInfos];
-    v11 = _NSConcreteStackBlock;
-    v12 = 3221225472;
-    v13 = sub_100D830E4;
-    v14 = &unk_101653588;
-    v15 = *(a1 + 32);
-    v16 = &v17;
-    [v7 enumerateObjectsUsingBlock:&v11];
-
-    v8 = v18[3];
-    if (v8 == 0x7FFFFFFFFFFFFFFFLL || v8 >= [v3[12] count])
-    {
-      v9 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        v10 = [*(a1 + 32) shortDescription];
-        *buf = 138412290;
-        v22 = v10;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "_captureArrivalAtWaypoint: %@, couldn't find correct charging step", buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v9 = [v3[12] objectAtIndexedSubscript:v18[3]];
-      [v9 setArrivedAtChargeLocation:1];
-    }
-
-    _Block_object_dispose(&v17, 8);
-  }
-}
-
-void sub_100D830BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_100D830E4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
-{
-  v11 = a2;
-  v7 = [*(a1 + 32) chargingInfo];
-  if (v7 == v11)
-  {
-
-    goto LABEL_5;
-  }
-
-  v8 = [v11 muid];
-  v9 = [*(a1 + 32) chargingInfo];
-  v10 = [v9 muid];
-
-  if (v8 == v10)
-  {
-LABEL_5:
-    *(*(*(a1 + 40) + 8) + 24) = a3;
-    *a4 = 1;
-  }
-}
-
-void sub_100D831BC(id a1, NavigationFeedbackCollector *a2)
-{
-  v9 = a2;
-  v2 = [(NavigationFeedbackCollector *)v9 currentRoute];
-  v3 = [v2 chargingStationInfos];
-  v4 = [v3 count];
-
-  if (v4)
-  {
-    v5 = [(NavigationFeedbackCollector *)v9 currentRoute];
-    v6 = [v5 chargingStationInfos];
-    v7 = sub_100021DB0(v6, &stru_101653560);
-    chargingSteps = v9->_chargingSteps;
-    v9->_chargingSteps = v7;
-  }
-}
-
-GEOChargeLocationDetails *__cdecl sub_100D83274(id a1, GEOComposedRouteStep *a2, unint64_t a3)
-{
-  v3 = objc_alloc_init(GEOChargeLocationDetails);
-
-  return v3;
-}
-
-GEOWaypointInfo *__cdecl sub_100D83544(id a1, GEOComposedRouteLeg *a2, unint64_t a3)
-{
-  v3 = a2;
-  v4 = objc_alloc_init(GEOWaypointInfo);
-  v5 = [(GEOComposedRouteLeg *)v3 destination];
-  v6 = [v5 latLng];
-  [v4 setPosition:v6];
-
-  v7 = [(GEOComposedRouteLeg *)v3 chargingStationInfo];
-
-  if (v7)
-  {
-    [v4 setMuid:{objc_msgSend(v7, "muid")}];
-    v8 = [v7 name];
-    [v4 setName:v8];
-
-    v9 = objc_alloc_init(GEOEVChargingInfo);
-    [v7 batteryChargeAfterCharging];
-    [v9 setBatteryChargeAfterCharging:v10];
-    [v7 batteryPercentageAfterCharging];
-    [v9 setBatteryPercentageAfterCharging:v11];
-    [v7 chargingTime];
-    [v9 setChargingTime:v12];
-    [v4 setEvChargingInfo:v9];
-  }
-
-  return v4;
-}
-
-void sub_100D83680(id a1, NavigationFeedbackCollector *a2)
-{
-  v2 = a2;
-  v3 = [(NavigationFeedbackCollector *)v2 currentRoute];
-  v4 = [v3 isEVRoute];
-
-  if (v4)
-  {
-    [(NavigationEVBadTripFeedbackCollector *)v2->_badTripCollector startRecording];
-    v5 = [(NavigationFeedbackCollector *)v2 _stateOfChargeOfCurrentVehicle];
-    initialStateOfCharge = v2->_initialStateOfCharge;
-    v2->_initialStateOfCharge = v5;
-
-    v7 = [(NavigationFeedbackCollector *)v2 currentRoute];
-    v8 = [v7 steps];
-    v9 = [v8 lastObject];
-
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v10 = v9;
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    v11 = v10;
-
-    v12 = [v11 evInfo];
-
-    if (v12)
-    {
-      v13 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v12 remainingBatteryCharge]);
-      expectedFinalStateOfCharge = v2->_expectedFinalStateOfCharge;
-      v2->_expectedFinalStateOfCharge = v13;
-    }
-
-    else
-    {
-      v15 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-      {
-        *v16 = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "_saveExpectedFinalStateOfChargeIfNeeded: EV route didn't have a step info in the last step.", v16, 2u);
-      }
-    }
-  }
-}
-
-BOOL sub_100D839E0(id a1, GEOComposedWaypoint *a2, unint64_t a3, BOOL *a4)
-{
-  v5 = [(GEOComposedWaypoint *)a2 chargingInfo];
-
-  if (v5)
-  {
-    *a4 = 1;
-  }
-
-  return v5 != 0;
-}
-
-void sub_100D83AC4(uint64_t a1, void *a2)
-{
-  v13 = a2;
-  v3 = [*(a1 + 32) currentRoute];
-  v4 = [v3 waypoints];
-  v5 = [v4 count];
-  v6 = [*(a1 + 40) waypoints];
-  v7 = [v6 count];
-
-  if (v5 >= v7)
-  {
-    v11 = objc_opt_new();
-    v9 = v11;
-    if (*(a1 + 48))
-    {
-      v12 = 1;
-    }
-
-    else
-    {
-      v12 = 2;
-    }
-
-    [v11 setDodgeballAction:v12];
-    [v13[14] addObject:v9];
-  }
-
-  else
-  {
-    v8 = objc_opt_new();
-    v9 = v8;
-    if (*(a1 + 48))
-    {
-      v10 = 1;
-    }
-
-    else
-    {
-      v10 = 2;
-    }
-
-    [v8 setStopAddedAction:v10];
-    [v13[13] addObject:v9];
-    if (*(a1 + 48) == 1)
-    {
-      [v13[27] setChargingStopAdded:1];
-    }
-  }
-}
-
-void sub_100D83C00(id a1, NavigationFeedbackCollector *a2)
-{
-  a2->_batteryDied = 1;
-  v2 = [(NavigationFeedbackCollector *)a2 feedbackCollector];
-  [v2 setBatteryDied:1];
-}
-
-void sub_100D83C5C(id a1, NavigationFeedbackCollector *a2)
-{
-  v2 = a2;
-  [(GEOStepFeedback *)v2->_stepFeedback setRoutePaused:1];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v3 = v2->_chargingSteps;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = 0;
-    v7 = *v12;
-    while (2)
-    {
-      v8 = 0;
-      v9 = v6;
-      do
-      {
-        if (*v12 != v7)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v10 = *(*(&v11 + 1) + 8 * v8);
-        if (![v10 arrivedAtChargeLocation])
-        {
-          v6 = v9;
-          goto LABEL_12;
-        }
-
-        v6 = v10;
-
-        v8 = v8 + 1;
-        v9 = v6;
-      }
-
-      while (v5 != v8);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-      if (v5)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-LABEL_12:
-
-  [v6 setRoutePaused:1];
-}
-
-void sub_100D83F18(id a1, NavigationFeedbackCollector *a2)
-{
-  v2 = [(NavigationFeedbackCollector *)a2 feedbackCollector];
-  [v2 setUserDidLaunchFindMy:1];
-}
-
-void sub_100D83F6C(id a1, NavigationFeedbackCollector *a2)
-{
-  v2 = [(NavigationFeedbackCollector *)a2 feedbackCollector];
-  [v2 setDidSuggestFindMy:1];
-}
-
-void sub_100D83FC0(id a1, NavigationFeedbackCollector *a2)
-{
-  v2 = [(NavigationFeedbackCollector *)a2 feedbackCollector];
-  [v2 setUserDidAcceptWalkingRoute:1];
-}
-
-void sub_100D84014(id a1, NavigationFeedbackCollector *a2)
-{
-  v2 = [(NavigationFeedbackCollector *)a2 feedbackCollector];
-  [v2 setDidSuggestWalkingRoute:1];
-}
-
-void sub_100D8410C(id a1, NavigationFeedbackCollector *a2)
-{
-  v2 = [(NavigationFeedbackCollector *)a2 feedbackCollector];
-  [v2 setIsEVRoute:1];
-}
-
-void sub_100D8418C(id a1, NavigationFeedbackCollector *a2)
-{
-  v2 = a2;
-  v4 = [(NavigationFeedbackCollector *)v2 feedbackCollector];
-  wasEverConnectedToCarplay = v2->_wasEverConnectedToCarplay;
-
-  [v4 setWasEverConnectedToCarplay:wasEverConnectedToCarplay];
-}
-
-void sub_100D84288(uint64_t a1)
-{
-  v2 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:*(a1 + 40)];
-  if (v2)
-  {
-    v7 = v2;
-    v3 = *(*(a1 + 32) + 32);
-    if (!v3)
-    {
-      v4 = +[NSMutableSet set];
-      v5 = *(a1 + 32);
-      v6 = *(v5 + 32);
-      *(v5 + 32) = v4;
-
-      v3 = *(*(a1 + 32) + 32);
-    }
-
-    [v3 addObject:*(a1 + 40)];
-    v2 = v7;
-  }
-}
-
-id *sub_100D84A34(id *result, int a2)
-{
-  if (a2)
-  {
-    return [result[4] invokeCompletionWithOutcome:1];
-  }
-
-  return result;
-}
-
-id sub_100D84BDC(uint64_t a1, void *a2)
-{
-  v3 = [a2 canCreateSubmittableProblem];
-  v4 = *(a1 + 32);
-
-  return [v4 setEnabled:v3];
-}
-
-void sub_100D854D0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v2 - 112));
-  _Unwind_Resume(a1);
-}
-
-void sub_100D85508(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [RAPAnalyticsManager captureRAPAcknowledgementDoneActionFromReport:WeakRetained[1] forMuid:0];
-  [WeakRetained _invokeCompletionWithOutcome:*(a1 + 40)];
-}
-
-void sub_100D8557C(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = a3;
-  v5 = +[NSBundle mainBundle];
-  v6 = [v5 localizedStringForKey:@"Report an Issue" value:@"localized string not found" table:0];
-  v7 = +[NSBundle mainBundle];
-  v8 = [v7 localizedStringForKey:@"Reports may include location and contact information." value:@"localized string not found" table:0];
-
-  v9 = [UIAlertController alertControllerWithTitle:v6 message:v8 preferredStyle:1];
-
-  v10 = +[NSBundle mainBundle];
-  v11 = [v10 localizedStringForKey:@"RAP_Cancel" value:@"localized string not found" table:0];
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_100D85A8C;
-  v23[3] = &unk_101660728;
-  v12 = v4;
-  v24 = v12;
-  v13 = [UIAlertAction actionWithTitle:v11 style:1 handler:v23];
-  [v9 addAction:v13];
-
-  v14 = +[NSBundle mainBundle];
-  v15 = [v14 localizedStringForKey:@"OK" value:@"localized string not found" table:0];
-  v18 = _NSConcreteStackBlock;
-  v19 = 3221225472;
-  v20 = sub_100D85AA0;
-  v21 = &unk_101660728;
-  v22 = v12;
-  v16 = v12;
-  v17 = [UIAlertAction actionWithTitle:v15 style:0 handler:&v18];
-  [v9 addAction:{v17, v18, v19, v20, v21}];
-
-  [*(a1 + 32) presentViewController:v9 animated:1 completion:0];
 }

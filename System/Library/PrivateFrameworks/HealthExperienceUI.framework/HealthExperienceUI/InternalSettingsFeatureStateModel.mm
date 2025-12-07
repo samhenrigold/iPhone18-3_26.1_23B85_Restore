@@ -8,7 +8,7 @@
 - (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:(void *)completion
 {
   completionCopy = completion;
-  sub_1BA382848();
+  sub_1BA382848(v1);
 }
 
 - (_TtC18HealthExperienceUI33InternalSettingsFeatureStateModel)init

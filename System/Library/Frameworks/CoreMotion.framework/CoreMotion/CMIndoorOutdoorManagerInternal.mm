@@ -34,18 +34,17 @@
 
 - (void)_teardown
 {
-  connection = self->_connection;
   sub_19B428B50(&__p, "kCLConnectionMessageIndoorOutdoorUpdate");
   CLConnectionClient::setHandlerForMessage();
-  if (v6 < 0)
+  if (v5 < 0)
   {
     operator delete(__p);
   }
 
   if (self->_connection)
   {
-    v4 = MEMORY[0x19EAE71C0]();
-    MEMORY[0x19EAE76F0](v4, 0xB0C40BC2CC919);
+    v3 = MEMORY[0x19EAE71C0]();
+    MEMORY[0x19EAE76F0](v3, 0xB0C40BC2CC919);
   }
 
   self->_connection = 0;

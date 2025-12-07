@@ -288,11 +288,11 @@ LABEL_11:
   externalURL = [(IMPlayerChapterInfo *)self externalURL];
   [(IMPlayerChapterInfo *)self time];
   v9 = v8;
-  [(IMPlayerChapterInfo *)self duration];
+  objc_msgSend_duration(self);
   v11 = v10;
-  [(IMPlayerChapterInfo *)self mediaTimeRange];
+  objc_msgSend_mediaTimeRange(self);
   v12 = CMTimeRangeCopyDescription(0, &range);
-  [(IMPlayerChapterInfo *)self assetTimeRange];
+  objc_msgSend_assetTimeRange(self);
   v13 = CMTimeRangeCopyDescription(0, &range);
   v14 = [v3 stringWithFormat:@"<%p> type=%s metadata_type=%s title=%@ url=%@ time=%f duration=%f mediaTimeRange=%@ assetTimeRange=%@", self, v4, v5, title, externalURL, v9, v11, v12, v13];
 

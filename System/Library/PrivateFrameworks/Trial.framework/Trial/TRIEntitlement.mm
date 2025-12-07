@@ -36,7 +36,7 @@
 
 + (id)codeSignIdentifierWithAuditToken:(id *)token
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   error = 0;
   v3 = *MEMORY[0x277CBECE8];
   v4 = *&token->var0[4];
@@ -86,18 +86,16 @@
     _os_log_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_INFO, "code sign identifier from signature --> %@", &token, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)teamIdWithAuditToken:(id *)token
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = *&token->var0[4];
-  v16 = *token->var0;
-  v17 = v4;
-  v5 = [TRIEntitlement _teamIdFromSecTaskWithAuditToken:&v16];
+  v15 = *token->var0;
+  v16 = v4;
+  v5 = [TRIEntitlement _teamIdFromSecTaskWithAuditToken:&v15];
   v6 = v5;
   if (v5)
   {
@@ -107,9 +105,9 @@
   else
   {
     v8 = *&token->var0[4];
-    v16 = *token->var0;
-    v17 = v8;
-    v7 = [TRIEntitlement stringForEntitlement:@"com.apple.developer.team-identifier" withAuditToken:&v16];
+    v15 = *token->var0;
+    v16 = v8;
+    v7 = [TRIEntitlement stringForEntitlement:@"com.apple.developer.team-identifier" withAuditToken:&v15];
   }
 
   v9 = v7;
@@ -121,9 +119,9 @@
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v16) = 138412290;
-      *(&v16 + 4) = v9;
-      _os_log_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_INFO, "valid team id: %@", &v16, 0xCu);
+      LODWORD(v15) = 138412290;
+      *(&v15 + 4) = v9;
+      _os_log_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_INFO, "valid team id: %@", &v15, 0xCu);
     }
 
     v13 = v9;
@@ -133,22 +131,20 @@
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v16) = 138412290;
-      *(&v16 + 4) = v9;
-      _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "invalid teamId: %@", &v16, 0xCu);
+      LODWORD(v15) = 138412290;
+      *(&v15 + 4) = v9;
+      _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "invalid teamId: %@", &v15, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (id)_teamIdFromSecTaskWithAuditToken:(id *)token
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CBECE8];
   v4 = *&token->var0[4];
   *token.val = *token->var0;
@@ -180,8 +176,6 @@
     *&token.val[1] = v7;
     _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_INFO, "team id from signature --> %@", &token, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -298,7 +292,7 @@
 
 + (id)valueForEntitlement:(id)entitlement fromSecTask:(__SecTask *)task ofType:(unint64_t *)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   entitlementCopy = entitlement;
   error = 0;
   if (type)
@@ -327,9 +321,9 @@ LABEL_8:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v24 = entitlementCopy;
-        v25 = 2112;
-        v26 = error;
+        v23 = entitlementCopy;
+        v24 = 2112;
+        v25 = error;
         _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "SecTaskCopyValueForEntitlement failed for %@, error: %@", buf, 0x16u);
       }
     }
@@ -337,7 +331,7 @@ LABEL_8:
     else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v24 = entitlementCopy;
+      v23 = entitlementCopy;
       _os_log_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_INFO, "Entitlement %@ is not present.", buf, 0xCu);
     }
 
@@ -350,11 +344,11 @@ LABEL_8:
     v18 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromClass(v11);
+      v20 = NSStringFromClass(v11);
       *buf = 138412546;
-      v24 = v21;
-      v25 = 2112;
-      v26 = entitlementCopy;
+      v23 = v20;
+      v24 = 2112;
+      v25 = entitlementCopy;
       _os_log_error_impl(&dword_22EA6B000, v18, OS_LOG_TYPE_ERROR, "Unexpected entitlement class %@ for entitlement %@", buf, 0x16u);
     }
 
@@ -368,9 +362,9 @@ LABEL_21:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v24 = entitlementCopy;
-    v25 = 2112;
-    v26 = v14;
+    v23 = entitlementCopy;
+    v24 = 2112;
+    v25 = v14;
     _os_log_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_INFO, "Found entitlement: %@ --> %@", buf, 0x16u);
   }
 
@@ -380,8 +374,6 @@ LABEL_22:
   {
     CFRelease(error);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

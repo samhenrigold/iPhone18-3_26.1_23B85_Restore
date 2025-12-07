@@ -63,13 +63,13 @@
   sub_100007F14();
   sub_100007F98();
   sub_100008D38();
-  v14 = sub_100008048;
-  v15 = &unk_10064EB38;
-  v16 = v3;
-  [v4 performWhileLocked:v13];
+  v17 = sub_100008048;
+  v18 = &unk_10064EB38;
+  v19 = v3;
+  [v4 performWhileLocked:v16];
   sub_1000080DC();
   v6 = v5;
-  sub_100008D44(v6, v7, v8, v9, v10, v11);
+  sub_100008D44(v6, v7, v8, v9, v10, v11, v12, v13, v15, v16[0], v16[1], v17);
 
   return v2;
 }
@@ -126,13 +126,13 @@
   sub_100007F14();
   sub_100007F98();
   sub_100008D38();
-  v14 = sub_100008908;
-  v15 = &unk_10064EB38;
-  v16 = v3;
-  [v4 performWhileLocked:v13];
+  v17 = sub_100008908;
+  v18 = &unk_10064EB38;
+  v19 = v3;
+  [v4 performWhileLocked:v16];
   sub_1000080DC();
   v6 = v5;
-  sub_100008D44(v6, v7, v8, v9, v10, v11);
+  sub_100008D44(v6, v7, v8, v9, v10, v11, v12, v13, v15, v16[0], v16[1], v17);
 
   return v2;
 }
@@ -513,16 +513,16 @@ LABEL_20:
 - (BOOL)isEditing
 {
   sub_100008D2C();
-  v17 = 0x2020000000;
-  v18 = 0;
+  v20 = 0x2020000000;
+  v21 = 0;
   sub_100007F98();
   sub_100008D38();
-  v13 = sub_1000ACF40;
-  v14 = &unk_10064EB38;
-  v15 = v2;
-  v4 = [v3 performWhileLocked:v12];
-  v5 = *(v16 + 24);
-  sub_1000AEA60(v4, v6, v7, v8, v9, v10);
+  v16 = sub_1000ACF40;
+  v17 = &unk_10064EB38;
+  v18 = v2;
+  v4 = [v3 performWhileLocked:v15];
+  v5 = *(v19 + 24);
+  sub_1000AEA60(v4, v6, v7, v8, v9, v10, v11, v12, v14, v15[0], v15[1], v16);
   return v5;
 }
 
@@ -565,10 +565,10 @@ LABEL_20:
 - (BOOL)addItem:(id)item ordered:(BOOL)ordered
 {
   itemCopy = item;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   if (self)
   {
     state = self->_state;
@@ -582,18 +582,18 @@ LABEL_20:
   v8 = state;
   sub_100007868();
   sub_1000079EC();
-  v21 = sub_1000AD034;
-  v22 = &unk_10064EBE8;
-  v24 = &v26;
+  v22 = sub_1000AD034;
+  v23 = &unk_10064EBE8;
+  v25 = &v27;
   v9 = itemCopy;
-  v23 = v9;
-  orderedCopy = ordered;
-  [(EFLocked *)v8 performWhileLocked:v20];
+  v24 = v9;
+  LOBYTE(v26) = ordered;
+  [(EFLocked *)v8 performWhileLocked:v21];
 
-  if (*(v27 + 24) == 1)
+  if (*(v28 + 24) == 1)
   {
     sub_1000AD0A4(self, v9);
-    v10 = *(v27 + 24);
+    v10 = *(v28 + 24);
   }
 
   else
@@ -601,7 +601,7 @@ LABEL_20:
     v10 = 0;
   }
 
-  sub_100008F08(v11, v12, v13, v14, v15, v16, v17, v18);
+  sub_100008F08(v11, v12, v13, v14, v15, v16, v17, v18, v20, v21[0], v21[1], v22, v23, v24, v25, v26);
   return v10 & 1;
 }
 
@@ -609,8 +609,8 @@ LABEL_20:
 {
   itemCopy = item;
   sub_1000AEA78();
-  v21 = 0x2020000000;
-  v22 = 0;
+  v25 = 0x2020000000;
+  v26 = 0;
   if (self)
   {
     state = self->_state;
@@ -624,32 +624,32 @@ LABEL_20:
   v8 = state;
   sub_10000793C();
   sub_1000087F4();
-  v17[2] = sub_1000AD114;
-  v17[3] = &unk_10064EC10;
-  v18 = v3;
-  v19 = v4;
+  v20 = sub_1000AD114;
+  v21 = &unk_10064EC10;
+  v22 = v3;
+  v23 = v4;
   v9 = v3;
-  [(EFLocked *)v8 performWhileLocked:v17];
+  [(EFLocked *)v8 performWhileLocked:v19];
 
-  LOBYTE(v8) = *(v20 + 24);
-  sub_1000AEA60(v10, v11, v12, v13, v14, v15);
+  LOBYTE(v8) = *(v24 + 24);
+  sub_1000AEA60(v10, v11, v12, v13, v14, v15, v16, v17, v19[0], v19[1], v20, v21);
   return v8;
 }
 
 - (BOOL)addOrUpdateItem:(id)item replacedItem:(id *)replacedItem
 {
   itemCopy = item;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
   v46 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
   v42 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
   sub_100009984();
   sub_1000087D0();
   if (self)
@@ -665,43 +665,43 @@ LABEL_20:
   v8 = state;
   sub_10000793C();
   sub_1000087F4();
-  v29 = sub_1000AD180;
-  v30 = &unk_10064EC38;
-  v32 = &v35;
+  v30 = sub_1000AD180;
+  v31 = &unk_10064EC38;
+  v33 = &v36;
   v9 = itemCopy;
-  v31 = v9;
-  v33 = &v39;
-  v34 = &v43;
-  [(EFLocked *)v8 performWhileLocked:v28];
+  v32 = v9;
+  v34 = &v42;
+  v35 = &v46;
+  [(EFLocked *)v8 performWhileLocked:&v28];
 
   if (replacedItem)
   {
-    *replacedItem = v36[5];
+    *replacedItem = v37[5];
   }
 
-  if (*(v44 + 24) == 1)
+  if (*(v47 + 24) == 1)
   {
     [(FavoritesCollection *)self invalidateVisibleItems];
   }
 
-  else if (*(v40 + 24) == 1)
+  else if (*(v43 + 24) == 1)
   {
     sub_1000AD0A4(self, v9);
   }
 
-  if (v40[3])
+  if (v43[3])
   {
     v10 = 1;
   }
 
   else
   {
-    v10 = *(v44 + 24);
+    v10 = *(v47 + 24);
   }
 
-  sub_100008F08(v11, v12, v13, v14, v15, v16, v17, v18);
-  sub_100008800(v19, v20, v21, v22, v23, v24, v25, v26, v28[0], v28[1], v29, v30, v31, v32);
-  _Block_object_dispose(&v43, 8);
+  sub_100008F08(v11, v12, v13, v14, v15, v16, v17, v18, v28, v29, v30, v31, v32, v33, v34, v35);
+  sub_100008800(v19, v20, v21, v22, v23, v24, v25, v26, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41);
+  _Block_object_dispose(&v46, 8);
 
   return v10 & 1;
 }
@@ -709,17 +709,17 @@ LABEL_20:
 - (void)addOrUpdateExpandedItem:(id)item replacedItem:(id *)replacedItem
 {
   itemCopy = item;
-  v39[0] = 0;
-  v39[1] = v39;
-  v39[2] = 0x2020000000;
-  v40 = 0;
-  v37[0] = 0;
-  v37[1] = v37;
-  v37[2] = 0x2020000000;
-  v38 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x2020000000;
+  v43 = 0;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v41 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
   sub_100009984();
   sub_1000087D0();
   if (self)
@@ -735,31 +735,31 @@ LABEL_20:
   v8 = state;
   sub_10000793C();
   sub_1000087F4();
-  v27 = sub_1000AD20C;
-  v28 = &unk_10064EC38;
-  v30 = &v33;
+  v28 = sub_1000AD20C;
+  v29 = &unk_10064EC38;
+  v31 = &v34;
   v9 = itemCopy;
-  v29 = v9;
-  v31 = v37;
-  v32 = v39;
-  [(EFLocked *)v8 performWhileLocked:v26];
+  v30 = v9;
+  v32 = v40;
+  v33 = v42;
+  [(EFLocked *)v8 performWhileLocked:&v26];
 
   if (replacedItem)
   {
-    *replacedItem = v34[5];
+    *replacedItem = v35[5];
   }
 
-  sub_100008F08(v10, v11, v12, v13, v14, v15, v16, v17);
-  sub_100008800(v18, v19, v20, v21, v22, v23, v24, v25, v26[0], v26[1], v27, v28, v29, v30);
-  _Block_object_dispose(v39, 8);
+  sub_100008F08(v10, v11, v12, v13, v14, v15, v16, v17, v26, v27, v28, v29, v30, v31, v32, v33);
+  sub_100008800(v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39);
+  _Block_object_dispose(v42, 8);
 }
 
 - (id)removeItem:(id)item
 {
   itemCopy = item;
-  v29[0] = 0;
-  v29[1] = v29;
-  v29[2] = 0x3032000000;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
   sub_1000AEA38();
   sub_1000AEA4C();
   if (self)
@@ -775,12 +775,12 @@ LABEL_20:
   v6 = state;
   sub_10000793C();
   sub_1000087F4();
-  v25 = sub_1000AD3FC;
-  v26 = &unk_10064EC10;
-  v28 = v29;
+  v28 = sub_1000AD3FC;
+  v29 = &unk_10064EC10;
+  v31 = v32;
   v7 = itemCopy;
-  v27 = v7;
-  [(EFLocked *)v6 performWhileLocked:v24];
+  v30 = v7;
+  [(EFLocked *)v6 performWhileLocked:&v26];
 
   sub_1000080DC();
   if (v8)
@@ -790,8 +790,8 @@ LABEL_20:
   }
 
   v9 = v8;
-  sub_1000AEA88(v9, v10, v11, v12, v13, v14, v15, v16, v24[0], v24[1], v25, v26, v27);
-  sub_1000AEA60(v17, v18, v19, v20, v21, v22);
+  sub_1000AEA88(v9, v10, v11, v12, v13, v14, v15, v16, v26, v27, v28, v29, v30);
+  sub_1000AEA60(v17, v18, v19, v20, v21, v22, v23, v24, v26, v27, v28, v29);
 
   return self;
 }
@@ -800,7 +800,7 @@ LABEL_20:
 {
   itemCopy = item;
   sub_1000AEA78();
-  v31 = 0x3032000000;
+  v34 = 0x3032000000;
   sub_1000AEA38();
   sub_1000AEA4C();
   if (self)
@@ -816,17 +816,17 @@ LABEL_20:
   v8 = state;
   sub_10000793C();
   sub_1000087F4();
-  v27 = sub_1000AD4E4;
-  v28 = &unk_10064EC10;
-  v29 = v3;
-  v30 = v4;
+  v30 = sub_1000AD4E4;
+  v31 = &unk_10064EC10;
+  v32 = v3;
+  v33 = v4;
   v9 = v3;
-  [(EFLocked *)v8 performWhileLocked:v26];
+  [(EFLocked *)v8 performWhileLocked:&v28];
 
   sub_1000080DC();
   v11 = v10;
-  sub_1000AEA88(v11, v12, v13, v14, v15, v16, v17, v18, v26[0], v26[1], v27, v28, v29);
-  sub_1000AEA60(v19, v20, v21, v22, v23, v24);
+  sub_1000AEA88(v11, v12, v13, v14, v15, v16, v17, v18, v28, v29, v30, v31, v32);
+  sub_1000AEA60(v19, v20, v21, v22, v23, v24, v25, v26, v28, v29, v30, v31);
 
   return v8;
 }
@@ -834,9 +834,9 @@ LABEL_20:
 - (id)removeItemWithSyncKey:(id)key
 {
   keyCopy = key;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
   sub_1000AEA38();
   sub_1000AEA4C();
   if (self)
@@ -852,14 +852,14 @@ LABEL_20:
   v6 = state;
   sub_10000793C();
   sub_1000087F4();
-  v26 = sub_1000AD55C;
-  v27 = &unk_10064EC10;
-  v29 = &v30;
+  v29 = sub_1000AD55C;
+  v30 = &unk_10064EC10;
+  v32 = &v33;
   v7 = keyCopy;
-  v28 = v7;
-  [(EFLocked *)v6 performWhileLocked:v25];
+  v31 = v7;
+  [(EFLocked *)v6 performWhileLocked:&v27];
 
-  v8 = v31[5];
+  v8 = v34[5];
   if (v8)
   {
     sub_1000AD474(self, v8);
@@ -872,8 +872,8 @@ LABEL_20:
   }
 
   v10 = v9;
-  sub_1000AEA88(v10, v11, v12, v13, v14, v15, v16, v17, v25[0], v25[1], v26, v27, v28);
-  sub_1000AEA60(v18, v19, v20, v21, v22, v23);
+  sub_1000AEA88(v10, v11, v12, v13, v14, v15, v16, v17, v27, v28, v29, v30, v31);
+  sub_1000AEA60(v18, v19, v20, v21, v22, v23, v24, v25, v27, v28, v29, v30);
 
   return self;
 }
@@ -882,7 +882,7 @@ LABEL_20:
 {
   keyCopy = key;
   sub_1000AEA78();
-  v31 = 0x3032000000;
+  v34 = 0x3032000000;
   sub_1000AEA38();
   sub_1000AEA4C();
   if (self)
@@ -898,17 +898,17 @@ LABEL_20:
   v8 = state;
   sub_10000793C();
   sub_1000087F4();
-  v27 = sub_1000AD5D4;
-  v28 = &unk_10064EC10;
-  v29 = v3;
-  v30 = v4;
+  v30 = sub_1000AD5D4;
+  v31 = &unk_10064EC10;
+  v32 = v3;
+  v33 = v4;
   v9 = v3;
-  [(EFLocked *)v8 performWhileLocked:v26];
+  [(EFLocked *)v8 performWhileLocked:&v28];
 
   sub_1000080DC();
   v11 = v10;
-  sub_1000AEA88(v11, v12, v13, v14, v15, v16, v17, v18, v26[0], v26[1], v27, v28, v29);
-  sub_1000AEA60(v19, v20, v21, v22, v23, v24);
+  sub_1000AEA88(v11, v12, v13, v14, v15, v16, v17, v18, v28, v29, v30, v31, v32);
+  sub_1000AEA60(v19, v20, v21, v22, v23, v24, v25, v26, v28, v29, v30, v31);
 
   return v8;
 }
@@ -919,13 +919,13 @@ LABEL_20:
   sub_100007F14();
   sub_100007F98();
   sub_100008D38();
-  v14 = sub_1000AD64C;
-  v15 = &unk_10064EB38;
-  v16 = v3;
-  [v4 performWhileLocked:v13];
+  v17 = sub_1000AD64C;
+  v18 = &unk_10064EB38;
+  v19 = v3;
+  [v4 performWhileLocked:v16];
   sub_1000080DC();
   v6 = v5;
-  sub_100008D44(v6, v7, v8, v9, v10, v11);
+  sub_100008D44(v6, v7, v8, v9, v10, v11, v12, v13, v15, v16[0], v16[1], v17);
 
   return v2;
 }
@@ -936,34 +936,34 @@ LABEL_20:
   sub_100007F14();
   sub_100007F98();
   sub_100008D38();
-  v14 = sub_1000AD6D8;
-  v15 = &unk_10064EB38;
-  v16 = v3;
-  [v4 performWhileLocked:v13];
+  v17 = sub_1000AD6D8;
+  v18 = &unk_10064EB38;
+  v19 = v3;
+  [v4 performWhileLocked:v16];
   sub_1000080DC();
   v6 = v5;
-  sub_100008D44(v6, v7, v8, v9, v10, v11);
+  sub_100008D44(v6, v7, v8, v9, v10, v11, v12, v13, v15, v16[0], v16[1], v17);
 
   return v2;
 }
 
 - (NSArray)itemsIncludingSubItems
 {
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x3032000000;
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x3032000000;
   sub_1000AEA38();
-  v16[4] = sub_1000ACF38;
-  v17 = objc_alloc_init(NSMutableArray);
+  v19[4] = sub_1000ACF38;
+  v20 = objc_alloc_init(NSMutableArray);
   sub_100007868();
   sub_1000079EC();
-  v13 = sub_1000AE2DC;
-  v14 = &unk_10064EB38;
-  v15 = v16;
-  [v3 performWhileLocked:v12];
+  v16 = sub_1000AE2DC;
+  v17 = &unk_10064EB38;
+  v18 = v19;
+  [v3 performWhileLocked:v15];
   sub_1000080DC();
   v5 = v4;
-  sub_100008D44(v5, v6, v7, v8, v9, v10);
+  sub_100008D44(v5, v6, v7, v8, v9, v10, v11, v12, v14, v15[0], v15[1], v16);
 
   return self;
 }

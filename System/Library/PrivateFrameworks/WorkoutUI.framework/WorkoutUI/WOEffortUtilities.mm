@@ -42,7 +42,7 @@
   activityCopy = activity;
   storeCopy = store;
   specialized static EffortUtilities.save(quantity:workout:workoutActivity:healthStore:completion:)(quantity, workoutCopy, activity, storeCopy, v11, v12);
-  outlined consume of (@escaping @callee_guaranteed (@unowned Bool, @guaranteed Error?) -> ())?(v11);
+  outlined consume of (@escaping @callee_guaranteed (@unowned Bool, @guaranteed Error?) -> ())?(v11, v12);
 }
 
 + (id)fetchDemoExertionForWorkout:(id)workout
@@ -99,10 +99,10 @@
   v3 = type metadata accessor for URL();
   v4 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
-  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  specialized static EffortUtilities.sendDidViewTrainingLoadAnalytics(from:)();
-  (*(v4 + 8))(v6, v3);
+  v7 = specialized static EffortUtilities.sendDidViewTrainingLoadAnalytics(from:)(v6);
+  (*(v4 + 8))(v6, v3, v7);
 }
 
 + (void)sendPostWorkoutAnalyticsWithWorkout:(id)workout perceivedEffortQuantity:(id)quantity estimatedEffortQuantity:(id)effortQuantity healthStore:(id)store

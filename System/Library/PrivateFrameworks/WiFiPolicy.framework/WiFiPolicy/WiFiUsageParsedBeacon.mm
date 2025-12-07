@@ -1,10 +1,12 @@
 @interface WiFiUsageParsedBeacon
++ (id)isValidIE:(unsigned __int8)e ofLen:(unsigned __int8)len withIsExtended:(BOOL)extended;
 + (void)defaults;
 + (void)initialize;
 + (void)updateConfig;
 - (BOOL)parseApName:(char *)name length:(unint64_t)length endOfBuffer:(char *)buffer;
 - (BOOL)parseBeaconIE:(char *)e endOfBuffer:(char *)buffer;
 - (BOOL)parseDSSS:(char *)s length:(unint64_t)length endOfBuffer:(char *)buffer;
+- (BOOL)parseExtendedIE:(unsigned __int8)e from:(char *)from length:(unint64_t)length endOfBuffer:(char *)buffer;
 - (BOOL)parseHE6GHz:(char *)hz length:(unint64_t)length endOfBuffer:(char *)buffer;
 - (BOOL)parseHECapa:(char *)capa length:(unint64_t)length endOfBuffer:(char *)buffer;
 - (BOOL)parseHTCapa:(char *)capa length:(unint64_t)length endOfBuffer:(char *)buffer;
@@ -302,7 +304,7 @@ LABEL_41:
 
 - (id)dictionaryRepresentation
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = [WiFiUsagePrivacyFilter reformatMACAddress:self->_bssid];
   [dictionary setObject:v4 forKeyedSubscript:@"bssid"];
@@ -425,40 +427,40 @@ LABEL_41:
     [v29 addObject:@"2G"];
   }
 
-  v78 = v29;
+  v77 = v29;
   v30 = [v29 componentsJoinedByString:{@", "}];
   [dictionary setObject:v30 forKeyedSubscript:@"hasColocatedMLOs"];
 
   [dictionary addEntriesFromDictionary:self->_taggedIEList];
   [dictionary addEntriesFromDictionary:self->_vendorIEList];
-  v79 = dictionary;
+  v78 = dictionary;
   [dictionary addEntriesFromDictionary:self->_extendedIEList];
   v31 = objc_opt_new();
   v32 = objc_opt_new();
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
   selfCopy = self;
   allKeys = [(NSMutableDictionary *)self->_taggedIEList allKeys];
-  v34 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF ENDSWITH \"_isValid\""];
+  v34 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF ENDSWITH _isValid"];
   v35 = [allKeys filteredArrayUsingPredicate:v34];
 
-  v36 = [v35 countByEnumeratingWithState:&v97 objects:v105 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v96 objects:v104 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v98;
+    v38 = *v97;
     do
     {
       for (i = 0; i != v37; ++i)
       {
-        if (*v98 != v38)
+        if (*v97 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = *(*(&v97 + 1) + 8 * i);
+        v40 = *(*(&v96 + 1) + 8 * i);
         v41 = MEMORY[0x277CCABB0];
         v42 = +[WiFiUsageAccessPointProfile prefixForCA];
         v43 = [v40 substringFromIndex:{objc_msgSend(v42, "length")}];
@@ -466,64 +468,64 @@ LABEL_41:
         [v32 addObject:v44];
       }
 
-      v37 = [v35 countByEnumeratingWithState:&v97 objects:v105 count:16];
+      v37 = [v35 countByEnumeratingWithState:&v96 objects:v104 count:16];
     }
 
     while (v37);
   }
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   v45 = [v32 sortedArrayUsingSelector:?];
-  v46 = [v45 countByEnumeratingWithState:&v93 objects:v104 count:16];
+  v46 = [v45 countByEnumeratingWithState:&v92 objects:v103 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v94;
+    v48 = *v93;
     do
     {
       for (j = 0; j != v47; ++j)
       {
-        if (*v94 != v48)
+        if (*v93 != v48)
         {
           objc_enumerationMutation(v45);
         }
 
-        [v31 appendFormat:@"%@|", *(*(&v93 + 1) + 8 * j)];
+        [v31 appendFormat:@"%@|", *(*(&v92 + 1) + 8 * j)];
       }
 
-      v47 = [v45 countByEnumeratingWithState:&v93 objects:v104 count:16];
+      v47 = [v45 countByEnumeratingWithState:&v92 objects:v103 count:16];
     }
 
     while (v47);
   }
 
   [v32 removeAllObjects];
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
   allKeys2 = [(NSMutableDictionary *)selfCopy->_extendedIEList allKeys];
-  v51 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF ENDSWITH \"_isValid\""];
+  v51 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF ENDSWITH _isValid"];
   v52 = [allKeys2 filteredArrayUsingPredicate:v51];
 
-  v53 = [v52 countByEnumeratingWithState:&v89 objects:v103 count:16];
+  v53 = [v52 countByEnumeratingWithState:&v88 objects:v102 count:16];
   if (v53)
   {
     v54 = v53;
-    v55 = *v90;
+    v55 = *v89;
     do
     {
       for (k = 0; k != v54; ++k)
       {
-        if (*v90 != v55)
+        if (*v89 != v55)
         {
           objc_enumerationMutation(v52);
         }
 
-        v57 = *(*(&v89 + 1) + 8 * k);
+        v57 = *(*(&v88 + 1) + 8 * k);
         v58 = MEMORY[0x277CCABB0];
         v59 = +[WiFiUsageAccessPointProfile prefixForCA];
         v60 = [v57 substringFromIndex:{objc_msgSend(v59, "length") + 4}];
@@ -531,85 +533,83 @@ LABEL_41:
         [v32 addObject:v61];
       }
 
-      v54 = [v52 countByEnumeratingWithState:&v89 objects:v103 count:16];
+      v54 = [v52 countByEnumeratingWithState:&v88 objects:v102 count:16];
     }
 
     while (v54);
   }
 
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
   v86 = 0u;
+  v87 = 0u;
+  v84 = 0u;
+  v85 = 0u;
   v62 = [v32 sortedArrayUsingSelector:sel_compare_];
-  v63 = [v62 countByEnumeratingWithState:&v85 objects:v102 count:16];
+  v63 = [v62 countByEnumeratingWithState:&v84 objects:v101 count:16];
   if (v63)
   {
     v64 = v63;
-    v65 = *v86;
+    v65 = *v85;
     do
     {
       for (m = 0; m != v64; ++m)
       {
-        if (*v86 != v65)
+        if (*v85 != v65)
         {
           objc_enumerationMutation(v62);
         }
 
-        [v31 appendFormat:@"255_%@|", *(*(&v85 + 1) + 8 * m)];
+        [v31 appendFormat:@"255_%@|", *(*(&v84 + 1) + 8 * m)];
       }
 
-      v64 = [v62 countByEnumeratingWithState:&v85 objects:v102 count:16];
+      v64 = [v62 countByEnumeratingWithState:&v84 objects:v101 count:16];
     }
 
     while (v64);
   }
 
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
   v82 = 0u;
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
   allKeys3 = [(NSMutableDictionary *)selfCopy->_vendorIEList allKeys];
   v68 = [allKeys3 sortedArrayUsingSelector:sel_compare_];
 
-  v69 = [v68 countByEnumeratingWithState:&v81 objects:v101 count:16];
+  v69 = [v68 countByEnumeratingWithState:&v80 objects:v100 count:16];
   if (v69)
   {
     v70 = v69;
-    v71 = *v82;
+    v71 = *v81;
     do
     {
       for (n = 0; n != v70; ++n)
       {
-        if (*v82 != v71)
+        if (*v81 != v71)
         {
           objc_enumerationMutation(v68);
         }
 
-        v73 = *(*(&v81 + 1) + 8 * n);
+        v73 = *(*(&v80 + 1) + 8 * n);
         v74 = +[WiFiUsageAccessPointProfile prefixForCA];
         v75 = [v73 substringFromIndex:{objc_msgSend(v74, "length")}];
         [v31 appendFormat:@"%@|", v75];
       }
 
-      v70 = [v68 countByEnumeratingWithState:&v81 objects:v101 count:16];
+      v70 = [v68 countByEnumeratingWithState:&v80 objects:v100 count:16];
     }
 
     while (v70);
   }
 
-  [v79 setObject:v31 forKeyedSubscript:@"IEs_in_frame"];
-  [v79 setValue:0 forKey:@"BeaconInformationElement_221_isValid"];
-  [v79 setObject:selfCopy->_isBeaconAtHeRate forKeyedSubscript:@"isBeaconAtHeRate"];
+  [v78 setObject:v31 forKeyedSubscript:@"IEs_in_frame"];
+  [v78 setValue:0 forKey:@"BeaconInformationElement_221_isValid"];
+  [v78 setObject:selfCopy->_isBeaconAtHeRate forKeyedSubscript:@"isBeaconAtHeRate"];
 
-  v76 = *MEMORY[0x277D85DE8];
-
-  return v79;
+  return v78;
 }
 
 - (id)description
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCAB68];
   if (self->_parsingSuccessful)
   {
@@ -622,9 +622,9 @@ LABEL_41:
   }
 
   v7 = [WiFiUsagePrivacyFilter sanitizedOUI:self->_bssid];
-  v48 = v6;
+  v47 = v6;
   selfCopy = self;
-  v55 = [v5 stringWithFormat:@"Beacon parsing %@.\noui: %@\nBeaconInterval:%d\nCapabilities:0x%02X\nBand:%u\tChannel:%u", v48, v7, self->_beaconInterval, self->_capabilities, self->_band, self->_channel];
+  v54 = [v5 stringWithFormat:@"Beacon parsing %@.\noui: %@\nBeaconInterval:%d\nCapabilities:0x%02X\nBand:%u\tChannel:%u", v47, v7, self->_beaconInterval, self->_capabilities, self->_band, self->_channel];
 
   if (self->_colocated6Ghz)
   {
@@ -638,49 +638,49 @@ LABEL_41:
       v9 = @"NO";
     }
 
-    [v55 appendFormat:@"hasColocated6Ghz: YES onPSCchan:%@", v9];
+    [v54 appendFormat:@"hasColocated6Ghz: YES onPSCchan:%@", v9];
   }
 
   if (self->_apName)
   {
-    [v55 appendFormat:@"\napName:%@", self->_apName];
+    [v54 appendFormat:@"\napName:%@", self->_apName];
   }
 
   if (self->_hasHT)
   {
     if (self->_htInfo)
     {
-      [v55 appendFormat:@"\nHtInfo:0x%02X", self->_htInfo];
+      [v54 appendFormat:@"\nHtInfo:0x%02X", self->_htInfo];
     }
 
     if (self->_htAMPDUParams)
     {
-      [v55 appendFormat:@" HtAMPDUParams:0x%02X", self->_htAMPDUParams];
+      [v54 appendFormat:@" HtAMPDUParams:0x%02X", self->_htAMPDUParams];
     }
 
     if (self->_htExtendedCapabilities)
     {
-      [v55 appendFormat:@" HtExtendedCapabilities:0x%02X", self->_htExtendedCapabilities];
+      [v54 appendFormat:@" HtExtendedCapabilities:0x%02X", self->_htExtendedCapabilities];
     }
 
     if (self->_htTxBFCapabilities)
     {
-      [v55 appendFormat:@" HtTxBFCapabilities:0x%02X", self->_htTxBFCapabilities];
+      [v54 appendFormat:@" HtTxBFCapabilities:0x%02X", self->_htTxBFCapabilities];
     }
 
     if (self->_htAntennaSelection)
     {
-      [v55 appendFormat:@" HtAntennaSelection:0x%02X", self->_htAntennaSelection];
+      [v54 appendFormat:@" HtAntennaSelection:0x%02X", self->_htAntennaSelection];
     }
 
     if (self->_htRxNSS)
     {
-      [v55 appendFormat:@" HtRxNSS:%d", self->_htRxNSS];
+      [v54 appendFormat:@" HtRxNSS:%d", self->_htRxNSS];
     }
 
     if (self->_htTxNSS)
     {
-      [v55 appendFormat:@" HtTxNSS:%d", self->_htTxNSS];
+      [v54 appendFormat:@" HtTxNSS:%d", self->_htTxNSS];
     }
   }
 
@@ -688,37 +688,37 @@ LABEL_41:
   {
     if (self->_vhtInfo)
     {
-      [v55 appendFormat:@"\nVhtInfo:0x%02X", self->_vhtInfo];
+      [v54 appendFormat:@"\nVhtInfo:0x%02X", self->_vhtInfo];
     }
 
     if (self->_vhtRxMCSMap)
     {
-      [v55 appendFormat:@" VhtRxMCSMap:0x%02X", self->_vhtRxMCSMap];
+      [v54 appendFormat:@" VhtRxMCSMap:0x%02X", self->_vhtRxMCSMap];
     }
 
     if (self->_vhtRxMaxRate)
     {
-      [v55 appendFormat:@" VhtRxMaxRate:0x%02X", self->_vhtRxMaxRate];
+      [v54 appendFormat:@" VhtRxMaxRate:0x%02X", self->_vhtRxMaxRate];
     }
 
     if (self->_vhtTxMCSMap)
     {
-      [v55 appendFormat:@" VhtTxMCSMap:0x%02X", self->_vhtTxMCSMap];
+      [v54 appendFormat:@" VhtTxMCSMap:0x%02X", self->_vhtTxMCSMap];
     }
 
     if (self->_vhtTxMaxRate)
     {
-      [v55 appendFormat:@" VhtTxMaxRate:0x%02X", self->_vhtTxMaxRate];
+      [v54 appendFormat:@" VhtTxMaxRate:0x%02X", self->_vhtTxMaxRate];
     }
 
     if (self->_vhtRxNSS)
     {
-      [v55 appendFormat:@" VhtRxNSS:%d", self->_vhtRxNSS];
+      [v54 appendFormat:@" VhtRxNSS:%d", self->_vhtRxNSS];
     }
 
     if (self->_vhtTxNSS)
     {
-      [v55 appendFormat:@" VhtTxNSS:%d", self->_vhtTxNSS];
+      [v54 appendFormat:@" VhtTxNSS:%d", self->_vhtTxNSS];
     }
   }
 
@@ -726,22 +726,22 @@ LABEL_41:
   {
     if (self->_heMACInfo)
     {
-      [v55 appendFormat:@"\nHE MAC Info:%@", self->_heMACInfo];
+      [v54 appendFormat:@"\nHE MAC Info:%@", self->_heMACInfo];
     }
 
     if (self->_hePHYInfo)
     {
-      [v55 appendFormat:@" HE PHY Info:%@", self->_hePHYInfo];
+      [v54 appendFormat:@" HE PHY Info:%@", self->_hePHYInfo];
     }
 
     if (self->_heRxNSS)
     {
-      [v55 appendFormat:@" HeRxNSS:%d", self->_heRxNSS];
+      [v54 appendFormat:@" HeRxNSS:%d", self->_heRxNSS];
     }
 
     if (self->_heTxNSS)
     {
-      [v55 appendFormat:@" HeTxNSS:%d", self->_heTxNSS];
+      [v54 appendFormat:@" HeTxNSS:%d", self->_heTxNSS];
     }
   }
 
@@ -773,36 +773,36 @@ LABEL_41:
       v10 = @"YES";
     }
 
-    [v55 appendFormat:@"\ncolocatedMLD_2G:%@ colocatedMLD_5G:%@ colocatedMLD_6G:%@", v11, v12, v10];
+    [v54 appendFormat:@"\ncolocatedMLD_2G:%@ colocatedMLD_5G:%@ colocatedMLD_6G:%@", v11, v12, v10];
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   allKeys = [(NSMutableDictionary *)self->_taggedIEList allKeys];
-  v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF ENDSWITH \"_isValid\""];
+  v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF ENDSWITH _isValid"];
   v15 = [allKeys filteredArrayUsingPredicate:v14];
 
   obj = v15;
-  v16 = [v15 countByEnumeratingWithState:&v64 objects:v70 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v63 objects:v69 count:16];
   v17 = 0x277CCA000uLL;
-  v52 = v16;
-  v54 = selfCopy;
+  v51 = v16;
+  v53 = selfCopy;
   if (v16)
   {
-    v50 = *v65;
+    v49 = *v64;
     do
     {
       v18 = 0;
       do
       {
-        if (*v65 != v50)
+        if (*v64 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v64 + 1) + 8 * v18);
+        v19 = *(*(&v63 + 1) + 8 * v18);
         v20 = [(NSMutableDictionary *)selfCopy->_taggedIEList objectForKeyedSubscript:v19];
         taggedIEList = selfCopy->_taggedIEList;
         v22 = [*(v17 + 3240) stringWithFormat:@"%@_isValid", v19];
@@ -829,78 +829,78 @@ LABEL_41:
         }
 
         v26 = +[WiFiUsagePrivacyFilter toHEXString:length:](WiFiUsagePrivacyFilter, "toHEXString:length:", [v20 bytes], objc_msgSend(v20, "length"));
-        [v55 appendFormat:@"\n%@%@:(%@)", v19, v25, v26];
+        [v54 appendFormat:@"\n%@%@:(%@)", v19, v25, v26];
 
         if (v23)
         {
         }
 
         ++v18;
-        selfCopy = v54;
+        selfCopy = v53;
         v17 = 0x277CCA000;
       }
 
-      while (v52 != v18);
-      v52 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+      while (v51 != v18);
+      v51 = [obj countByEnumeratingWithState:&v63 objects:v69 count:16];
     }
 
-    while (v52);
+    while (v51);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   allKeys2 = [(NSMutableDictionary *)selfCopy->_vendorIEList allKeys];
-  v28 = [allKeys2 countByEnumeratingWithState:&v60 objects:v69 count:16];
+  v28 = [allKeys2 countByEnumeratingWithState:&v59 objects:v68 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v61;
+    v30 = *v60;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v61 != v30)
+        if (*v60 != v30)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v32 = *(*(&v60 + 1) + 8 * i);
+        v32 = *(*(&v59 + 1) + 8 * i);
         v33 = [(NSMutableDictionary *)selfCopy->_vendorIEList objectForKeyedSubscript:v32];
         bytes = [v33 bytes];
         v2 = +[WiFiUsagePrivacyFilter toHEXString:length:](WiFiUsagePrivacyFilter, "toHEXString:length:", bytes, [v33 length]);
-        [v55 appendFormat:@"\n%@:(%@)", v32, v2];
+        [v54 appendFormat:@"\n%@:(%@)", v32, v2];
       }
 
-      v29 = [allKeys2 countByEnumeratingWithState:&v60 objects:v69 count:16];
+      v29 = [allKeys2 countByEnumeratingWithState:&v59 objects:v68 count:16];
     }
 
     while (v29);
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   allKeys3 = [(NSMutableDictionary *)selfCopy->_extendedIEList allKeys];
-  v35 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF ENDSWITH \"_isValid\""];
+  v35 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (SELF ENDSWITH _isValid"];
   v36 = [allKeys3 filteredArrayUsingPredicate:v35];
 
-  v53 = [v36 countByEnumeratingWithState:&v56 objects:v68 count:16];
-  if (v53)
+  v52 = [v36 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  if (v52)
   {
-    v51 = *v57;
+    v50 = *v56;
     do
     {
-      for (j = 0; j != v53; ++j)
+      for (j = 0; j != v52; ++j)
       {
-        if (*v57 != v51)
+        if (*v56 != v50)
         {
           objc_enumerationMutation(v36);
         }
 
-        v38 = *(*(&v56 + 1) + 8 * j);
+        v38 = *(*(&v55 + 1) + 8 * j);
         v39 = [(NSMutableDictionary *)selfCopy->_extendedIEList objectForKeyedSubscript:v38];
         v40 = selfCopy->_taggedIEList;
         v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_isValid", v38];
@@ -927,24 +927,102 @@ LABEL_41:
         }
 
         v45 = +[WiFiUsagePrivacyFilter toHEXString:length:](WiFiUsagePrivacyFilter, "toHEXString:length:", [v39 bytes], objc_msgSend(v39, "length"));
-        [v55 appendFormat:@"\n%@%@:(%@)", v38, v44, v45];
+        [v54 appendFormat:@"\n%@%@:(%@)", v38, v44, v45];
 
         if (v42)
         {
         }
 
-        selfCopy = v54;
+        selfCopy = v53;
       }
 
-      v53 = [v36 countByEnumeratingWithState:&v56 objects:v68 count:16];
+      v52 = [v36 countByEnumeratingWithState:&v55 objects:v67 count:16];
     }
 
-    while (v53);
+    while (v52);
   }
 
-  v46 = *MEMORY[0x277D85DE8];
+  return v54;
+}
 
-  return v55;
++ (id)isValidIE:(unsigned __int8)e ofLen:(unsigned __int8)len withIsExtended:(BOOL)extended
+{
+  lenCopy = len;
+  v6 = &_elementsLenLimits;
+  if (extended)
+  {
+    v6 = &_extendedElementsLenLimits;
+  }
+
+  v7 = *v6;
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", e];
+  v9 = [v7 objectForKeyedSubscript:v8];
+
+  if (v9)
+  {
+    v10 = [v9 objectForKeyedSubscript:@"maxLen"];
+    if (v10)
+    {
+      v11 = [v9 objectForKeyedSubscript:@"maxLen"];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+
+      if (isKindOfClass)
+      {
+        v13 = MEMORY[0x277CCABB0];
+        v14 = [v9 objectForKeyedSubscript:@"maxLen"];
+        v10 = [v13 numberWithBool:{objc_msgSend(v14, "unsignedIntegerValue") >= lenCopy}];
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+    }
+
+    v15 = [v9 objectForKeyedSubscript:@"minLen"];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = [v9 objectForKeyedSubscript:@"minLen"];
+      objc_opt_class();
+      v18 = objc_opt_isKindOfClass();
+
+      if (v18)
+      {
+        v19 = MEMORY[0x277CCABB0];
+        v20 = [v9 objectForKeyedSubscript:@"minLen"];
+        v21 = [v19 numberWithBool:{objc_msgSend(v20, "unsignedIntegerValue") <= lenCopy}];
+
+        v10 = v21;
+      }
+    }
+
+    v22 = [v9 objectForKeyedSubscript:@"fixedLen"];
+    if (v22)
+    {
+      v23 = v22;
+      v24 = [v9 objectForKeyedSubscript:@"fixedLen"];
+      objc_opt_class();
+      v25 = objc_opt_isKindOfClass();
+
+      if (v25)
+      {
+        v26 = MEMORY[0x277CCABB0];
+        v27 = [v9 objectForKeyedSubscript:@"fixedLen"];
+        v28 = [v26 numberWithBool:{objc_msgSend(v27, "unsignedIntegerValue") == lenCopy}];
+
+        v10 = v28;
+      }
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
 }
 
 - (BOOL)parseNormalIE:(unsigned __int8)e from:(char *)from length:(unint64_t)length endOfBuffer:(char *)buffer
@@ -1000,9 +1078,52 @@ LABEL_41:
   }
 }
 
+- (BOOL)parseExtendedIE:(unsigned __int8)e from:(char *)from length:(unint64_t)length endOfBuffer:(char *)buffer
+{
+  if (length && &from[length] <= buffer)
+  {
+    if (e == 108)
+    {
+      v6 = [(WiFiUsageParsedBeacon *)self parseEHTCapa:from length:length endOfBuffer:buffer];
+      if (!v6)
+      {
+        return v6;
+      }
+
+      goto LABEL_13;
+    }
+
+    if (e != 59)
+    {
+      if (e != 35 || [(WiFiUsageParsedBeacon *)self parseHECapa:from length:length endOfBuffer:buffer])
+      {
+        goto LABEL_13;
+      }
+
+      goto LABEL_9;
+    }
+
+    if ([(WiFiUsageParsedBeacon *)self parseHE6GHz:from length:length endOfBuffer:buffer])
+    {
+LABEL_13:
+      LOBYTE(v6) = 1;
+      return v6;
+    }
+  }
+
+  else
+  {
+    NSLog(&cfstr_SReachedEndOfB_1.isa, a2, e, from, "[WiFiUsageParsedBeacon parseExtendedIE:from:length:endOfBuffer:]", e);
+  }
+
+LABEL_9:
+  LOBYTE(v6) = 0;
+  return v6;
+}
+
 - (BOOL)parseHTCapa:(char *)capa length:(unint64_t)length endOfBuffer:(char *)buffer
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (length)
   {
     v5 = capa + 26 > buffer;
@@ -1021,19 +1142,19 @@ LABEL_41:
 
   else
   {
-    *v13 = *capa;
-    *&v13[10] = *(capa + 10);
+    *v12 = *capa;
+    *&v12[10] = *(capa + 10);
     [(WiFiUsageParsedBeacon *)self setHasHT:1];
-    [(WiFiUsageParsedBeacon *)self setHtInfo:*v13];
-    [(WiFiUsageParsedBeacon *)self setHtAMPDUParams:v13[2]];
-    [(WiFiUsageParsedBeacon *)self setHtExtendedCapabilities:*&v13[19]];
-    [(WiFiUsageParsedBeacon *)self setHtAntennaSelection:v13[25]];
-    [(WiFiUsageParsedBeacon *)self setHtTxBFCapabilities:*&v13[21]];
+    [(WiFiUsageParsedBeacon *)self setHtInfo:*v12];
+    [(WiFiUsageParsedBeacon *)self setHtAMPDUParams:v12[2]];
+    [(WiFiUsageParsedBeacon *)self setHtExtendedCapabilities:*&v12[19]];
+    [(WiFiUsageParsedBeacon *)self setHtAntennaSelection:v12[25]];
+    [(WiFiUsageParsedBeacon *)self setHtTxBFCapabilities:*&v12[21]];
     v8 = 0;
     v9 = 0;
     do
     {
-      if (v13[v8 + 3])
+      if (v12[v8 + 3])
       {
         v9 = v8 + 1;
       }
@@ -1042,21 +1163,20 @@ LABEL_41:
     }
 
     while (v8 != 4);
-    if ((~v13[15] & 3) != 0)
+    if ((~v12[15] & 3) != 0)
     {
       v10 = v9;
     }
 
     else
     {
-      v10 = (v13[15] >> 2) & 3;
+      v10 = (v12[15] >> 2) & 3;
     }
 
     [(WiFiUsageParsedBeacon *)self setHtRxNSS:v9];
     [(WiFiUsageParsedBeacon *)self setHtTxNSS:v10];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1130,114 +1250,106 @@ LABEL_41:
 
 - (BOOL)parseHECapa:(char *)capa length:(unint64_t)length endOfBuffer:(char *)buffer
 {
-  v28 = *MEMORY[0x277D85DE8];
-  if (length)
+  v27 = *MEMORY[0x277D85DE8];
+  if (!length || (v7 = (capa + 21), capa + 21 > buffer))
   {
-    v7 = (capa + 21);
-    if (capa + 21 <= buffer)
-    {
-      *v27 = *capa;
-      *&v27[13] = *(capa + 13);
-      [(WiFiUsageParsedBeacon *)self setHasHE:1];
-      v12 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:6];
-      [(WiFiUsageParsedBeacon *)self setHeMACInfo:v12];
-
-      v13 = [MEMORY[0x277CBEA90] dataWithBytes:&v27[6] length:11];
-      [(WiFiUsageParsedBeacon *)self setHePHYInfo:v13];
-
-      [(WiFiUsageParsedBeacon *)self setHeRxMCSMap80MHz:*&v27[17]];
-      [(WiFiUsageParsedBeacon *)self setHeTxMCSMap80MHz:*&v27[19]];
-      v14 = 0;
-      v15 = 0;
-      v16 = 0;
-      v17 = v27[6];
-      do
-      {
-        if ((~(*&v27[17] >> v14) & 3) != 0)
-        {
-          v16 = v15 + 1;
-        }
-
-        ++v15;
-        v14 += 2;
-      }
-
-      while (v15 != 8);
-      v18 = 0;
-      v19 = 0;
-      v20 = 0;
-      do
-      {
-        if ((~(*&v27[19] >> v18) & 3) != 0)
-        {
-          v20 = v19 + 1;
-        }
-
-        ++v19;
-        v18 += 2;
-      }
-
-      while (v19 != 8);
-      v21 = length - 21;
-      [(WiFiUsageParsedBeacon *)self setHeRxNSS:v16];
-      [(WiFiUsageParsedBeacon *)self setHeTxNSS:v20];
-      if ((v17 & 4) != 0)
-      {
-        if (length == 21 || capa + 23 > buffer)
-        {
-          NSLog(&cfstr_SReachedEndOfB_4.isa, v22, v23, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
-          goto LABEL_4;
-        }
-
-        if (length == 23 || (v24 = capa + 25, capa + 25 > buffer))
-        {
-          NSLog(&cfstr_SReachedEndOfB_5.isa, v22, v23, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
-          goto LABEL_4;
-        }
-
-        v25 = *(capa + 23);
-        v21 = length - 25;
-        [(WiFiUsageParsedBeacon *)self setHeRxMCSMap160MHz:*v7];
-        [(WiFiUsageParsedBeacon *)self setHeTxMCSMap160MHz:v25];
-        v7 = v24;
-        if ((v17 & 8) == 0)
-        {
-LABEL_16:
-          result = 1;
-          goto LABEL_5;
-        }
-      }
-
-      else if ((v17 & 8) == 0)
-      {
-        goto LABEL_16;
-      }
-
-      if (!v21 || v7 + 1 > buffer)
-      {
-        NSLog(&cfstr_SReachedEndOfB_6.isa, v22, v23, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
-        goto LABEL_4;
-      }
-
-      if (v21 == 2 || v7 + 2 > buffer)
-      {
-        NSLog(&cfstr_SReachedEndOfB_7.isa, v22, v23, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
-        goto LABEL_4;
-      }
-
-      v26 = v7[1];
-      [(WiFiUsageParsedBeacon *)self setHeRxMCSMap8080MHz:*v7];
-      [(WiFiUsageParsedBeacon *)self setHeTxMCSMap8080MHz:v26];
-      goto LABEL_16;
-    }
+    NSLog(&cfstr_SReachedEndOfB_3.isa, a2, capa, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
+    return 0;
   }
 
-  NSLog(&cfstr_SReachedEndOfB_3.isa, a2, capa, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
-LABEL_4:
-  result = 0;
-LABEL_5:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  *v26 = *capa;
+  *&v26[13] = *(capa + 13);
+  [(WiFiUsageParsedBeacon *)self setHasHE:1];
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v26 length:6];
+  [(WiFiUsageParsedBeacon *)self setHeMACInfo:v11];
+
+  v12 = [MEMORY[0x277CBEA90] dataWithBytes:&v26[6] length:11];
+  [(WiFiUsageParsedBeacon *)self setHePHYInfo:v12];
+
+  [(WiFiUsageParsedBeacon *)self setHeRxMCSMap80MHz:*&v26[17]];
+  [(WiFiUsageParsedBeacon *)self setHeTxMCSMap80MHz:*&v26[19]];
+  v13 = 0;
+  v14 = 0;
+  v15 = 0;
+  v16 = v26[6];
+  do
+  {
+    if ((~(*&v26[17] >> v13) & 3) != 0)
+    {
+      v15 = v14 + 1;
+    }
+
+    ++v14;
+    v13 += 2;
+  }
+
+  while (v14 != 8);
+  v17 = 0;
+  v18 = 0;
+  v19 = 0;
+  do
+  {
+    if ((~(*&v26[19] >> v17) & 3) != 0)
+    {
+      v19 = v18 + 1;
+    }
+
+    ++v18;
+    v17 += 2;
+  }
+
+  while (v18 != 8);
+  v20 = length - 21;
+  [(WiFiUsageParsedBeacon *)self setHeRxNSS:v15];
+  [(WiFiUsageParsedBeacon *)self setHeTxNSS:v19];
+  if ((v16 & 4) == 0)
+  {
+    if ((v16 & 8) == 0)
+    {
+      return 1;
+    }
+
+    goto LABEL_23;
+  }
+
+  if (length == 21 || capa + 23 > buffer)
+  {
+    NSLog(&cfstr_SReachedEndOfB_4.isa, v21, v22, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
+    return 0;
+  }
+
+  if (length == 23 || (v23 = capa + 25, capa + 25 > buffer))
+  {
+    NSLog(&cfstr_SReachedEndOfB_5.isa, v21, v22, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
+    return 0;
+  }
+
+  v24 = *(capa + 23);
+  v20 = length - 25;
+  [(WiFiUsageParsedBeacon *)self setHeRxMCSMap160MHz:*v7];
+  [(WiFiUsageParsedBeacon *)self setHeTxMCSMap160MHz:v24];
+  v7 = v23;
+  if ((v16 & 8) != 0)
+  {
+LABEL_23:
+    if (!v20 || v7 + 1 > buffer)
+    {
+      NSLog(&cfstr_SReachedEndOfB_6.isa, v21, v22, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
+      return 0;
+    }
+
+    if (v20 == 2 || v7 + 2 > buffer)
+    {
+      NSLog(&cfstr_SReachedEndOfB_7.isa, v21, v22, "[WiFiUsageParsedBeacon parseHECapa:length:endOfBuffer:]", 35);
+      return 0;
+    }
+
+    v25 = v7[1];
+    [(WiFiUsageParsedBeacon *)self setHeRxMCSMap8080MHz:*v7];
+    [(WiFiUsageParsedBeacon *)self setHeTxMCSMap8080MHz:v25];
+  }
+
+  return 1;
 }
 
 - (BOOL)parseRNR:(char *)r length:(unint64_t)length endOfBuffer:(char *)buffer
@@ -1449,13 +1561,13 @@ LABEL_48:
 
 - (BOOL)parseApName:(char *)name length:(unint64_t)length endOfBuffer:(char *)buffer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (length > 0x1D)
   {
-    *v12 = *name;
-    *&v12[14] = *(name + 14);
+    *v11 = *name;
+    *&v11[14] = *(name + 14);
     v6 = objc_alloc(MEMORY[0x277CCACA8]);
-    v7 = strnlen((v12 | 0xA), 0x10uLL);
+    v7 = strnlen((v11 | 0xA), 0x10uLL);
     if (v7 >= 0x10)
     {
       v8 = 16;
@@ -1466,7 +1578,7 @@ LABEL_48:
       v8 = v7;
     }
 
-    v9 = [v6 initWithBytes:v12 | 0xA length:v8 encoding:1];
+    v9 = [v6 initWithBytes:v11 | 0xA length:v8 encoding:1];
     [(WiFiUsageParsedBeacon *)self setApName:v9];
   }
 
@@ -1475,7 +1587,6 @@ LABEL_48:
     NSLog(&cfstr_SIeDTooShortLu.isa, a2, name, "[WiFiUsageParsedBeacon parseApName:length:endOfBuffer:]", 133, length, 30);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1610,43 +1721,13 @@ LABEL_48:
   v3 = @"elements";
   v4 = [WiFiUsageBeaconParsingConfiguration getConfigForKey:@"elements"];
   obj = v4;
-  if (!v4)
-  {
-    goto LABEL_6;
-  }
-
-  objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v4 = obj;
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = _elementsLenLimits;
-  _elementsLenLimits = obj;
-  v7 = obj;
-
-  v3 = @"extendedElements";
-  obj = [WiFiUsageBeaconParsingConfiguration getConfigForKey:@"extendedElements"];
-
-  v4 = obj;
-  if (!obj)
-  {
-    goto LABEL_6;
-  }
-
-  objc_opt_class();
-  v8 = objc_opt_isKindOfClass();
-  v4 = obj;
-  if (v8)
+  if (v4 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v4 = obj, (isKindOfClass & 1) != 0) && (v6 = _elementsLenLimits, _elementsLenLimits = obj, v7 = obj, v6, v3 = @"extendedElements", [WiFiUsageBeaconParsingConfiguration getConfigForKey:@"extendedElements"], obj = objc_claimAutoreleasedReturnValue(), v7, (v4 = obj) != 0) && (objc_opt_class(), v8 = objc_opt_isKindOfClass(), v4 = obj, (v8 & 1) != 0))
   {
     objc_storeStrong(&_extendedElementsLenLimits, obj);
   }
 
   else
   {
-LABEL_6:
     NSLog(&cfstr_SImpossibleToP.isa, "+[WiFiUsageParsedBeacon updateConfig]", v3, v4);
     [self defaults];
   }

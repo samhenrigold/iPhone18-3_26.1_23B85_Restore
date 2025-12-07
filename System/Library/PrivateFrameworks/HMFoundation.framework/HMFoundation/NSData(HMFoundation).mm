@@ -86,9 +86,9 @@
 
 + (NSString)shortDescription
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 - (uint64_t)hmf_isZeroed
@@ -110,7 +110,7 @@
 
 - (id)hmf_initWithHexadecimalString:()HMFoundation options:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = v6;
   if (a4)
@@ -163,12 +163,12 @@ LABEL_36:
           v16 = v11 - v9;
         }
 
-        [v7 getCharacters:v29 range:{v9, v16}];
+        [v7 getCharacters:v28 range:{v9, v16}];
         if (v11 != v9)
         {
           for (i = 0; i < v16; i += 2)
           {
-            v18 = v29[i];
+            v18 = v28[i];
             v19 = v18 - 48;
             v20 = v18 - 65;
             if ((v18 - 97) >= 6)
@@ -192,7 +192,7 @@ LABEL_36:
               v22 = v19;
             }
 
-            v23 = v29[i + 1];
+            v23 = v28[i + 1];
             if ((v23 - 48) >= 0xA)
             {
               if ((v23 - 65) >= 6)
@@ -242,8 +242,6 @@ LABEL_35:
 
     v26 = [self initWithBytesNoCopy:v14 length:v12 freeWhenDone:1];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

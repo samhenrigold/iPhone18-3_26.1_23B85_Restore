@@ -122,62 +122,59 @@ LABEL_10:
 
 - ($153C3A5BC4E016D58A1B9CA554FFC462)layoutAttributesForItemAtHex:(Hex)hex
 {
-  v6 = v3;
+  v5 = v3;
   [(CSLOverviewHexLayout *)self updateConstants];
-  v7 = 0uLL;
-  *v6 = 0u;
-  *(v6 + 16) = 0u;
+  v6 = 0uLL;
+  *v5 = 0u;
+  *(v5 + 16) = 0u;
   uniformLayout = self->_uniformLayout;
   if (uniformLayout)
   {
-    [(CSLUniformHexLayout *)uniformLayout layoutAttributesForItemAtHex:hex];
-    v7 = *v6;
+    objc_msgSend_layoutAttributesForItemAtHex_(uniformLayout);
+    v6 = *v5;
   }
 
   else
   {
-    *(v6 + 16) = 0;
-    *(v6 + 24) = 0;
+    *(v5 + 16) = 0;
+    *(v5 + 24) = 0;
   }
 
-  v9 = vmulq_n_f32(v7, self->_scale);
-  *v6 = v9;
-  v10 = self->_diameterScale * v9.f32[2];
-  *(v6 + 8) = v10;
-  [(CSLHexLayout *)self scrolledPointFromContentPoint:vcvtq_f64_f32(*v9.f32)];
-  v12 = v11;
-  v14 = v13;
-  *&v11 = v11;
-  v15 = *v6;
-  *(v6 + 8) = *(v6 + 8);
-  v15.i32[0] = LODWORD(v11);
-  *&v11 = v14;
-  v15.i32[1] = LODWORD(v11);
-  *v6 = v15.i64[0];
-  v16.var0 = self->_falloffPercentage;
-  if (v16.var0 > 0.0 && v16.var0 < 1.0)
+  v8 = vmulq_n_f32(v6, self->_scale);
+  *v5 = v8;
+  v9 = self->_diameterScale * v8.f32[2];
+  *(v5 + 8) = v9;
+  [(CSLHexLayout *)self scrolledPointFromContentPoint:vcvtq_f64_f32(*v8.f32)];
+  v11 = v10;
+  v13 = v12;
+  *&v10 = v10;
+  *(v5 + 8) = *(v5 + 8);
+  LODWORD(v12) = LODWORD(v10);
+  *&v10 = v13;
+  HIDWORD(v12) = LODWORD(v10);
+  *v5 = v12;
+  v14.var0 = self->_falloffPercentage;
+  if (v14.var0 > 0.0 && v14.var0 < 1.0)
   {
-    width = self->_quadrantSize.width;
-    v19 = 0.0;
-    v20 = 0.0;
+    v16 = 0.0;
+    v17 = 0.0;
     if (CSLPRFGreater())
     {
-      v20 = fabs(v12) / self->_quadrantSize.width;
+      v17 = fabs(v11) / self->_quadrantSize.width;
     }
 
-    height = self->_quadrantSize.height;
     if (CSLPRFGreater())
     {
-      v19 = fabs(v14) / self->_quadrantSize.height;
+      v16 = fabs(v13) / self->_quadrantSize.height;
     }
 
-    v16.var0 = self->_falloffPercentage + (1.0 - self->_falloffPercentage) * (1.0 - sqrtf((v19 * v19) + (v20 * v20)));
-    *&v16.var0 = v16.var0;
-    *&v16.var0 = *(v6 + 8) * *&v16.var0;
-    *(v6 + 8) = LODWORD(v16.var0);
+    v14.var0 = self->_falloffPercentage + (1.0 - self->_falloffPercentage) * (1.0 - sqrtf((v16 * v16) + (v17 * v17)));
+    *&v14.var0 = v14.var0;
+    *&v14.var0 = *(v5 + 8) * *&v14.var0;
+    *(v5 + 8) = LODWORD(v14.var0);
   }
 
-  return v16;
+  return v14;
 }
 
 - (Hex)hexAtPoint:(CGPoint)point

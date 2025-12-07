@@ -700,14 +700,14 @@ void __156__CUIKSubscribedCalendarManager__updateAccount_inAccountStore_withCale
 {
   v1 = [*(a1 + 32) identifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_1CAB19000, v2, v3, "Failed to remove old subcal account %{public}@; %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1CAB19000, v2, v3, "Failed to remove old subcal account %{public}@; %@", v4, v5, v6, v7);
 }
 
 void __62__CUIKSubscribedCalendarManager__saveAccount_inStore_updated___block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) identifier];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_1CAB19000, v2, v3, "Failed to save subcal account %{public}@; %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1CAB19000, v2, v3, "Failed to save subcal account %{public}@; %@", v4, v5, v6, v7);
 }
 
 @end

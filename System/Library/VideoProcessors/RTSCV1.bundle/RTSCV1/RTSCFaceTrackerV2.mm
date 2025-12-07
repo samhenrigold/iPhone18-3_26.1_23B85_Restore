@@ -3,7 +3,10 @@
 - (RTSCFaceTrackerV2)initWithTimeConstant:(float)constant;
 - (__n128)_findPositionOfMatchedDetection:(uint64_t)detection bufferSize:(void *)size;
 - (double)predictFaceBoxAtTimeOffset:(uint64_t)offset;
-- (id)_updateFilterWithFaceBox:(float32x4_t)box facePose:(double)pose atTime:;
+- (float)_computeDominanceScoreForFace:(FRFaceInfo)face faceDetections:(id)detections headDetections:(id)headDetections bufferSize:;
+- (void)_updateFilterWithFaceBox:(float32x4_t)box facePose:(double)pose atTime:;
+- (void)_updateFilterWithHeadPosition:(float)position covarianceMultiplier:;
+- (void)_updateFilterWithPositionShift:(float)shift covarianceMultiplier:;
 - (void)_updateTrackedFacePose:(float32x4_t *)pose;
 - (void)_updateTrackingStateFromPrevFrame:(RTSCFaceTrackerV2 *)self atTime:(SEL)time bufferSize:(double)size;
 - (void)dealloc;
@@ -130,10 +133,10 @@ LABEL_6:
         v23 = sinf(v21) / v21;
       }
 
-      v24 = v23;
+      v24 = LODWORD(v23);
       v25 = vrecpe_f32(LODWORD(v23));
-      v26 = vmul_f32(v25, vrecps_f32(LODWORD(v24), v25));
-      LODWORD(v27) = vmul_f32(v26, vrecps_f32(LODWORD(v24), v26)).u32[0];
+      v26 = vmul_f32(v25, vrecps_f32(v24, v25));
+      LODWORD(v27) = vmul_f32(v26, vrecps_f32(v24, v26)).u32[0];
       if ((v15 * v21) != 0.0)
       {
         v40 = v27;
@@ -177,7 +180,7 @@ LABEL_6:
   }
 }
 
-- (id)_updateFilterWithFaceBox:(float32x4_t)box facePose:(double)pose atTime:
+- (void)_updateFilterWithFaceBox:(float32x4_t)box facePose:(double)pose atTime:
 {
   v5 = vmulq_f32(a2, a2);
   v6 = vmulq_f32(vmulq_n_f32(xmmword_11AE0, sqrtf(v5.f32[2] + v5.f32[3]) * 0.5), xmmword_11CD0);
@@ -203,6 +206,76 @@ LABEL_6:
   [*(self + 136) measurementCovariance];
 
   return [v20 updateWithPosition:v26 noiseCovariance:{v21, v22, v23, v24}];
+}
+
+- (void)_updateFilterWithHeadPosition:(float)position covarianceMultiplier:
+{
+  v4 = v3;
+  v18 = *&position;
+  [(RTSCFaceDataCovarianceEstimator *)self->_covarianceEstimator measurementCovariance];
+  v6 = 0;
+  v7 = vdupq_n_s32(0x3DB851ECu);
+  v21 = vmulq_f32(v10, v7);
+  v22 = vmulq_f32(v11, v7);
+  v19 = vmulq_n_f32(vmulq_f32(v8, v7), v4 / 0.3);
+  v20 = vmulq_n_f32(vmulq_f32(v9, v7), v4 / 0.3);
+  do
+  {
+    v12.i64[0] = vmulq_n_f32(*(&v19 + v6 * 8), v4 / 0.3).u64[0];
+    v12.i64[1] = v19.i64[v6 + 1];
+    *(&v19 + v6 * 8) = v12;
+    v6 += 2;
+  }
+
+  while (v6 != 6);
+  kalmanFilter = self->_kalmanFilter;
+  v14 = *v21.i64;
+  v15 = *v22.i64;
+  v16 = *v19.i64;
+  v17 = *v20.i64;
+
+  [(RTSCKalmanFilter4DOF *)kalmanFilter updateWithPosition:v18 noiseCovariance:v16, v17, v14, v15];
+}
+
+- (void)_updateFilterWithPositionShift:(float)shift covarianceMultiplier:
+{
+  v4 = v3;
+  v5 = *&shift;
+  frameTime = self->_frameTime;
+  v8 = 1.0;
+  if (frameTime > 0.0)
+  {
+    v9 = LODWORD(frameTime);
+    v10 = vrecpe_f32(LODWORD(frameTime));
+    *&shift = vmul_f32(v10, vrecps_f32(v9, v10));
+    LODWORD(v8) = vmul_f32(*&shift, vrecps_f32(v9, *&shift)).u32[0];
+  }
+
+  *&v11 = (v8 * 0.3) * (v8 * 0.3);
+  v26 = v8;
+  [(RTSCFaceDataCovarianceEstimator *)self->_covarianceEstimator measurementCovariance:v11];
+  v13 = 0;
+  v29 = vmulq_n_f32(v16, v25);
+  v30 = vmulq_n_f32(v17, v25);
+  v27 = vmulq_n_f32(vmulq_n_f32(v14, v25), v4 / 0.3);
+  v28 = vmulq_n_f32(vmulq_n_f32(v15, v25), v4 / 0.3);
+  do
+  {
+    v18.i64[0] = vmulq_n_f32(*(&v27 + v13 * 8), v4 / 0.3).u64[0];
+    v18.i64[1] = v27.i64[v13 + 1];
+    *(&v27 + v13 * 8) = v18;
+    v13 += 2;
+  }
+
+  while (v13 != 6);
+  v19 = *v27.i64;
+  v20 = COERCE_DOUBLE(vmul_n_f32(v5, v26));
+  kalmanFilter = self->_kalmanFilter;
+  v22 = *v29.i64;
+  v23 = *v30.i64;
+  v24 = *v28.i64;
+
+  [(RTSCKalmanFilter4DOF *)kalmanFilter updateWithVelocity:v20 noiseCovariance:v19, v24, v22, v23];
 }
 
 - (void)_updateTrackingStateFromPrevFrame:(RTSCFaceTrackerV2 *)self atTime:(SEL)time bufferSize:(double)size
@@ -303,10 +376,10 @@ LABEL_6:
   v11 = [v10 objectForKeyedSubscript:?];
 
   v12 = [v11 count];
-  *v76 = 0u;
+  v76[0] = 0u;
   memset(&v75, 0, sizeof(v75));
-  v76[0] = INFINITY;
-  *&v76[1] = -1;
+  LODWORD(v76[0]) = 2139095040;
+  *(v76 + 4) = -1;
   [(RTSCFaceDataCovarianceEstimator *)self->_covarianceEstimator measurementCovariance];
   v77.columns[0] = vaddq_f32(*self->_anon_90, v13);
   v77.columns[1] = vaddq_f32(*&self->_anon_90[16], v14);
@@ -347,16 +420,16 @@ LABEL_6:
         v29 = vmulq_f32(v28, vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v66, v28.f32[0]), v65, *v28.f32, 1), v64, v28, 2), v63, v28, 3));
         v30 = sqrtf(vaddv_f32(vadd_f32(*v29.i8, *&vextq_s8(v29, v29, 8uLL))));
         trackedGroupID = self->_trackedGroupID;
-        if (intValue == trackedGroupID || v30 < v76[0])
+        if (intValue == trackedGroupID || v30 < *v76)
         {
           v75.origin = v67;
-          *v76 = __PAIR64__(intValue, LODWORD(v30));
+          *&v76[0] = __PAIR64__(intValue, LODWORD(v30));
           v32 = [v11 objectAtIndexedSubscript:v17];
           v33 = [v32 objectForKeyedSubscript:v62];
 
           if (v33)
           {
-            LODWORD(v76[2]) = [v33 intValue];
+            DWORD2(v76[0]) = [v33 intValue];
           }
 
           v34 = [v11 objectAtIndexedSubscript:v17];
@@ -382,7 +455,7 @@ LABEL_13:
   v35 = [v61 objectForKeyedSubscript:kFigCaptureStreamDetectedObjectsInfoKey_HumanHeads];
   v36 = [v35 objectForKeyedSubscript:v60];
 
-  if ((LODWORD(v76[1]) & 0x80000000) != 0)
+  if ((DWORD1(v76[0]) & 0x80000000) != 0)
   {
     goto LABEL_22;
   }
@@ -396,7 +469,7 @@ LABEL_13:
 
   else
   {
-    if (LODWORD(v76[1]) != v37 && v76[0] >= 2.0)
+    if (DWORD1(v76[0]) != v37 && *v76 >= 2.0)
     {
       goto LABEL_22;
     }
@@ -407,7 +480,7 @@ LABEL_13:
   if (frame - startTrackTime < 0.25)
   {
     rect = v75;
-    v74 = *v76;
+    v74 = v76[0];
     [(RTSCFaceTrackerV2 *)self _computeDominanceScoreForFace:&rect faceDetections:v11 headDetections:v36 bufferSize:v6];
     if (v39 < 1.0)
     {
@@ -440,7 +513,7 @@ LABEL_22:
   *v48.i8 = vmul_f32(*v48.i8, vrsqrts_f32(v51.u32[0], vmul_f32(*v48.i8, *v48.i8)));
   *&self->_topOfFaceDirection[4] = vmul_n_f32(*v52.f32, vmul_f32(*v48.i8, vrsqrts_f32(v51.u32[0], vmul_f32(*v48.i8, *v48.i8))).f32[0]);
   [(RTSCFaceTrackerV2 *)self _updateFilterWithFaceBox:v75.origin.x facePose:v75.size.width atTime:frame];
-  *&self->_trackedGroupID = *&v76[1];
+  *&self->_trackedGroupID = *(v76 + 4);
   self->_latestTrackTime = frame;
   v40 = 1;
 LABEL_24:
@@ -537,6 +610,93 @@ LABEL_9:
   v26 = _Q1;
 
   return v26;
+}
+
+- (float)_computeDominanceScoreForFace:(FRFaceInfo)face faceDetections:(id)detections headDetections:(id)headDetections bufferSize:
+{
+  v38 = v5;
+  v7 = *&face.var1;
+  v8 = *&face.var3;
+  detectionsCopy = detections;
+  v10 = v7->f32[2] * v7->f32[3];
+  LODWORD(v39) = vmul_lane_f32(v38, v38, 1).u32[0];
+  v11 = [v8 count];
+  if (v11 < 1)
+  {
+    v16 = 2.0;
+  }
+
+  else
+  {
+    v12 = 0;
+    v13 = kFigCaptureStreamMetadata_FaceID;
+    v14 = kFigCaptureStreamMetadata_Rect;
+    v15 = v11 & 0x7FFFFFFF;
+    v16 = 2.0;
+    do
+    {
+      v17 = [v8 objectAtIndexedSubscript:v12];
+      v18 = [v17 objectForKeyedSubscript:v13];
+      intValue = [v18 intValue];
+
+      if (v7[2].i32[1] != intValue)
+      {
+        v20 = [v8 objectAtIndexedSubscript:v12];
+        v21 = [v20 objectForKeyedSubscript:v14];
+
+        size = CGRectNull.size;
+        rect.origin = CGRectNull.origin;
+        rect.size = size;
+        if (CGRectMakeWithDictionaryRepresentation(v21, &rect))
+        {
+          v23 = (rect.size.width + rect.size.width) * rect.size.height * v39;
+          v16 = fminf(v16, v10 / v23);
+        }
+      }
+
+      ++v12;
+    }
+
+    while (v15 != v12);
+  }
+
+  v24 = [detectionsCopy count];
+  if (v24 >= 1)
+  {
+    v25 = 0;
+    v26 = kFigCaptureStreamDetectedObjectKey_GroupID;
+    v27 = kFigCaptureStreamMetadata_Rect;
+    v28 = v24 & 0x7FFFFFFF;
+    do
+    {
+      v29 = [detectionsCopy objectAtIndexedSubscript:v25];
+      v30 = [v29 objectForKeyedSubscript:v26];
+      intValue2 = [v30 intValue];
+
+      if (v7[2].i32[2] != intValue2)
+      {
+        v32 = [detectionsCopy objectAtIndexedSubscript:v25];
+        v33 = [v32 objectForKeyedSubscript:v27];
+
+        v34 = CGRectNull.size;
+        rect.origin = CGRectNull.origin;
+        rect.size = v34;
+        if (CGRectMakeWithDictionaryRepresentation(v33, &rect))
+        {
+          v35 = rect.size.width * rect.size.height * v39;
+          v16 = fminf(v16, v10 / v35);
+        }
+      }
+
+      ++v25;
+    }
+
+    while (v28 != v25);
+  }
+
+  v36 = v16 * fminf(((fmaxf((vaddv_f32(*&vmulq_f32(v7[1], v7[1])) * 2.0) + -1.0, 0.0) + -0.5) * 1.3889) + 0.5, 1.0);
+
+  return v36;
 }
 
 - (BOOL)_getFaceOrientationInDictionary:(id)dictionary asQuaternion:(id *)quaternion

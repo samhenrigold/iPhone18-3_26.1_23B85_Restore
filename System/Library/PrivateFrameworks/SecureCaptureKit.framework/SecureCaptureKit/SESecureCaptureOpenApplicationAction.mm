@@ -22,22 +22,21 @@
 {
   v6 = sub_264F13014();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_264F13004();
-  v11 = objc_allocWithZone(MEMORY[0x277CF0C80]);
+  v10 = objc_allocWithZone(MEMORY[0x277CF0C80]);
   responderCopy = responder;
-  v13 = [v11 init];
-  v14 = sub_264F12FD4();
-  [v13 setObject:v14 forSetting:0];
+  v12 = [v10 init];
+  v13 = sub_264F12FD4();
+  [v12 setObject:v13 forSetting:0];
 
-  v17.receiver = self;
-  v17.super_class = SESecureCaptureOpenApplicationAction;
-  v15 = [(SESecureCaptureOpenApplicationAction *)&v17 initWithInfo:v13 responder:responderCopy];
+  v16.receiver = self;
+  v16.super_class = SESecureCaptureOpenApplicationAction;
+  v14 = [(SESecureCaptureOpenApplicationAction *)&v16 initWithInfo:v12 responder:responderCopy];
 
-  (*(v7 + 8))(v10, v6);
-  return v15;
+  (*(v7 + 8))(v9, v6);
+  return v14;
 }
 
 - (SESecureCaptureOpenApplicationAction)initWithUserActivity:(id)activity responder:(id)responder

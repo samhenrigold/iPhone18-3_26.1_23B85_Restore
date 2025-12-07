@@ -62,7 +62,7 @@
 
 - (WFContextualActionFile)initWithFileURL:(id)l type:(id)type
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   lCopy = l;
   typeCopy = type;
   if (([lCopy isFileURL] & 1) == 0)
@@ -71,9 +71,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"WFContextualActionFile.m" lineNumber:57 description:{@"Invalid parameter not satisfying: %@", @"fileURL.isFileURL"}];
   }
 
-  v32.receiver = self;
-  v32.super_class = WFContextualActionFile;
-  v10 = [(WFContextualActionFile *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = WFContextualActionFile;
+  v10 = [(WFContextualActionFile *)&v31 init];
   v11 = v10;
   if (v10)
   {
@@ -94,8 +94,8 @@ LABEL_18:
     if (!v12)
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-      v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"UTType * _Nonnull WFResolvedType(NSURL * _Nonnull __strong, UTType * _Nonnull __strong)"}];
-      [currentHandler2 handleFailureInFunction:v31 file:@"WFContextualActionFile.m" lineNumber:35 description:{@"Invalid parameter not satisfying: %@", @"fileURL"}];
+      v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"UTType * _Nonnull WFResolvedType(NSURL * _Nonnull __strong, UTType * _Nonnull __strong)"}];
+      [currentHandler2 handleFailureInFunction:v30 file:@"WFContextualActionFile.m" lineNumber:35 description:{@"Invalid parameter not satisfying: %@", @"fileURL"}];
     }
 
     identifier = [v13 identifier];
@@ -109,12 +109,12 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    v34 = 0;
-    v16 = *MEMORY[0x1E695DC68];
     v33 = 0;
-    [v12 getPromisedItemResourceValue:&v34 forKey:v16 error:&v33];
-    v17 = v34;
-    v18 = v33;
+    v16 = *MEMORY[0x1E695DC68];
+    v32 = 0;
+    [v12 getPromisedItemResourceValue:&v33 forKey:v16 error:&v32];
+    v17 = v33;
+    v18 = v32;
     v19 = getWFVoiceShortcutClientLogObject();
     v20 = v19;
     if (v18)
@@ -122,9 +122,9 @@ LABEL_17:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v36 = "WFResolvedType";
-        v37 = 2112;
-        v38 = v18;
+        v35 = "WFResolvedType";
+        v36 = 2112;
+        v37 = v18;
         v21 = "%s File was made with a side fault type -- error fetching real type: %@";
         v22 = v20;
         v23 = OS_LOG_TYPE_ERROR;
@@ -136,9 +136,9 @@ LABEL_15:
     else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v36 = "WFResolvedType";
-      v37 = 2112;
-      v38 = v17;
+      v35 = "WFResolvedType";
+      v36 = 2112;
+      v37 = v17;
       v21 = "%s WFContextualActionFile was made with a side fault -- deduced actual type: %@";
       v22 = v20;
       v23 = OS_LOG_TYPE_INFO;
@@ -152,7 +152,6 @@ LABEL_15:
 
 LABEL_19:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

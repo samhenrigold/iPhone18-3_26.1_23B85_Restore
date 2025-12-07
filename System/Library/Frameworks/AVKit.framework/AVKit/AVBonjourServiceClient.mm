@@ -358,48 +358,49 @@
   objc_destroyWeak(&location);
 }
 
-void __58__AVBonjourServiceClient__updatedAirPlayPairedDeviceAsync__block_invoke(uint64_t a1, int a2, uint64_t a3)
+void __58__AVBonjourServiceClient__updatedAirPlayPairedDeviceAsync__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v6 = _avairlog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v5 = a2;
+  v17 = *MEMORY[0x1E69E9840];
+  v7 = _avairlog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"SUCCESS";
+    v8 = @"SUCCESS";
     *buf = 136315650;
-    v11 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
-    v12 = 2112;
-    if (!a2)
+    v12 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
+    v13 = 2112;
+    if (!v5)
     {
-      v7 = @"FAIL";
+      v8 = @"FAIL";
     }
 
-    v13 = v7;
-    v14 = 2112;
-    v15 = a3;
-    _os_log_impl(&dword_18B49C000, v6, OS_LOG_TYPE_DEFAULT, "%s getActiveOrigin: %@, %@", buf, 0x20u);
+    v14 = v8;
+    v15 = 2112;
+    v16 = a3;
+    _os_log_impl(&dword_18B49C000, v7, OS_LOG_TYPE_DEFAULT, "%s getActiveOrigin: %@, %@", buf, 0x20u);
   }
 
-  v8 = MEMORY[0x1E69E96A0];
-  objc_copyWeak(&v9, (a1 + 32));
+  v9 = MEMORY[0x1E69E96A0];
+  objc_copyWeak(&v10, (a1 + 32));
   MRMediaRemoteGetDeviceInfo();
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
 }
 
-void __58__AVBonjourServiceClient__updatedAirPlayPairedDeviceAsync__block_invoke_35(uint64_t a1, const char *a2, const char *a3)
+void __58__AVBonjourServiceClient__updatedAirPlayPairedDeviceAsync__block_invoke_35(uint64_t a1, const char *a2, const char *a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v6 = _avairlog();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v23 = *MEMORY[0x1E69E9840];
+  v7 = _avairlog();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (!a2)
   {
-    if (v7)
+    if (v8)
     {
-      v20 = 138543362;
-      v21 = a3;
-      v14 = "_updateAirPlayPairedDeviceAsync failed; error = %{public}@";
+      v21 = 138543362;
+      v22 = a3;
+      v15 = "_updateAirPlayPairedDeviceAsync failed; error = %{public}@";
 LABEL_13:
-      _os_log_impl(&dword_18B49C000, v6, OS_LOG_TYPE_DEFAULT, v14, &v20, 0xCu);
+      _os_log_impl(&dword_18B49C000, v7, OS_LOG_TYPE_DEFAULT, v15, &v21, 0xCu);
     }
 
 LABEL_14:
@@ -408,175 +409,175 @@ LABEL_14:
     goto LABEL_22;
   }
 
-  if (v7)
+  if (v8)
   {
-    v20 = 136315138;
-    v21 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
-    _os_log_impl(&dword_18B49C000, v6, OS_LOG_TYPE_DEFAULT, "%s have device info and device. Getting more information...", &v20, 0xCu);
+    v21 = 136315138;
+    v22 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
+    _os_log_impl(&dword_18B49C000, v7, OS_LOG_TYPE_DEFAULT, "%s have device info and device. Getting more information...", &v21, 0xCu);
   }
 
-  v8 = MRPairedDeviceCopyGroupedDevices();
-  if (!v8)
+  v9 = MRPairedDeviceCopyGroupedDevices();
+  if (!v9)
   {
-    v6 = _avairlog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _avairlog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = a2;
-      v14 = "_updateAirPlayPairedDeviceAsync: no grouped devices: localDevice = %@";
+      v21 = 138412290;
+      v22 = a2;
+      v15 = "_updateAirPlayPairedDeviceAsync: no grouped devices: localDevice = %@";
       goto LABEL_13;
     }
 
     goto LABEL_14;
   }
 
-  v9 = v8;
-  if (CFArrayGetCount(v8) == 1)
+  v10 = v9;
+  if (CFArrayGetCount(v9) == 1)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v9, 0);
-    v11 = MEMORY[0x18CFF8250]();
-    v12 = _avairlog();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    if (v11 == 4)
+    ValueAtIndex = CFArrayGetValueAtIndex(v10, 0);
+    v12 = MEMORY[0x18CFF8250]();
+    v13 = _avairlog();
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v12 == 4)
     {
-      if (v13)
+      if (v14)
       {
-        v20 = 138412290;
-        v21 = ValueAtIndex;
-        _os_log_impl(&dword_18B49C000, v12, OS_LOG_TYPE_DEFAULT, "AppleTV pairedDeviceRef = %@", &v20, 0xCu);
+        v21 = 138412290;
+        v22 = ValueAtIndex;
+        _os_log_impl(&dword_18B49C000, v13, OS_LOG_TYPE_DEFAULT, "AppleTV pairedDeviceRef = %@", &v21, 0xCu);
       }
 
       goto LABEL_21;
     }
 
-    if (v13)
+    if (v14)
     {
-      v20 = 138412290;
-      v21 = ValueAtIndex;
-      v15 = "_updateAirPlayPairedDeviceAsync: first grouped device is not AppleTV (%@)";
-      v16 = v12;
-      v17 = 12;
+      v21 = 138412290;
+      v22 = ValueAtIndex;
+      v16 = "_updateAirPlayPairedDeviceAsync: first grouped device is not AppleTV (%@)";
+      v17 = v13;
+      v18 = 12;
       goto LABEL_19;
     }
   }
 
   else
   {
-    v12 = _avairlog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _avairlog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      v15 = "_updateAirPlayPairedDeviceAsync: grouped devices count != 1";
-      v16 = v12;
-      v17 = 2;
+      LOWORD(v21) = 0;
+      v16 = "_updateAirPlayPairedDeviceAsync: grouped devices count != 1";
+      v17 = v13;
+      v18 = 2;
 LABEL_19:
-      _os_log_impl(&dword_18B49C000, v16, OS_LOG_TYPE_DEFAULT, v15, &v20, v17);
+      _os_log_impl(&dword_18B49C000, v17, OS_LOG_TYPE_DEFAULT, v16, &v21, v18);
     }
   }
 
   ValueAtIndex = 0;
 LABEL_21:
 
-  CFRelease(v9);
+  CFRelease(v10);
 LABEL_22:
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setAirplayDeviceRef:ValueAtIndex];
-  v19 = _avairlog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = _avairlog();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136315138;
-    v21 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
-    _os_log_impl(&dword_18B49C000, v19, OS_LOG_TYPE_DEFAULT, "%s done.", &v20, 0xCu);
+    v21 = 136315138;
+    v22 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
+    _os_log_impl(&dword_18B49C000, v20, OS_LOG_TYPE_DEFAULT, "%s done.", &v21, 0xCu);
   }
 }
 
-void __58__AVBonjourServiceClient__updatedAirPlayPairedDeviceAsync__block_invoke_32(uint64_t a1, const char *a2)
+void __58__AVBonjourServiceClient__updatedAirPlayPairedDeviceAsync__block_invoke_32(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
     return;
   }
 
-  v4 = _avairlog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = _avairlog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
-    _os_log_impl(&dword_18B49C000, v4, OS_LOG_TYPE_DEFAULT, "%s have [active] device info. Getting more information...", &v16, 0xCu);
+    v18 = 136315138;
+    v19 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
+    _os_log_impl(&dword_18B49C000, v6, OS_LOG_TYPE_DEFAULT, "%s have [active] device info. Getting more information...", &v18, 0xCu);
   }
 
-  v5 = MRPairedDeviceCopyGroupedDevices();
-  if (!v5)
+  v7 = MRPairedDeviceCopyGroupedDevices();
+  if (!v7)
   {
     WeakRetained = _avairlog();
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = a2;
-      _os_log_impl(&dword_18B49C000, WeakRetained, OS_LOG_TYPE_DEFAULT, "[active] no grouped devices; activeDevice = %@", &v16, 0xCu);
+      v18 = 138412290;
+      v19 = a2;
+      _os_log_impl(&dword_18B49C000, WeakRetained, OS_LOG_TYPE_DEFAULT, "[active] no grouped devices; activeDevice = %@", &v18, 0xCu);
     }
 
     goto LABEL_15;
   }
 
-  v6 = v5;
-  if (CFArrayGetCount(v5) != 1)
+  v8 = v7;
+  if (CFArrayGetCount(v7) != 1)
   {
-    v9 = _avairlog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = _avairlog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      v13 = "[active] grouped devices count != 1";
-      v14 = v9;
-      v15 = 2;
+      LOWORD(v18) = 0;
+      v15 = "[active] grouped devices count != 1";
+      v16 = v11;
+      v17 = 2;
 LABEL_20:
-      _os_log_impl(&dword_18B49C000, v14, OS_LOG_TYPE_DEFAULT, v13, &v16, v15);
+      _os_log_impl(&dword_18B49C000, v16, OS_LOG_TYPE_DEFAULT, v15, &v18, v17);
     }
 
 LABEL_21:
 
-    CFRelease(v6);
+    CFRelease(v8);
     return;
   }
 
-  ValueAtIndex = CFArrayGetValueAtIndex(v6, 0);
-  v8 = MEMORY[0x18CFF8250]();
-  v9 = _avairlog();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-  if (v8 != 4)
+  ValueAtIndex = CFArrayGetValueAtIndex(v8, 0);
+  v10 = MEMORY[0x18CFF8250]();
+  v11 = _avairlog();
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v10 != 4)
   {
-    if (v10)
+    if (v12)
     {
-      v16 = 138412290;
-      v17 = ValueAtIndex;
-      v13 = "[active] first grouped device is not AppleTV (%@)";
-      v14 = v9;
-      v15 = 12;
+      v18 = 138412290;
+      v19 = ValueAtIndex;
+      v15 = "[active] first grouped device is not AppleTV (%@)";
+      v16 = v11;
+      v17 = 12;
       goto LABEL_20;
     }
 
     goto LABEL_21;
   }
 
-  if (v10)
+  if (v12)
   {
-    v16 = 138412290;
-    v17 = ValueAtIndex;
-    _os_log_impl(&dword_18B49C000, v9, OS_LOG_TYPE_DEFAULT, "[active] AppleTV pairedDeviceRef = %@", &v16, 0xCu);
+    v18 = 138412290;
+    v19 = ValueAtIndex;
+    _os_log_impl(&dword_18B49C000, v11, OS_LOG_TYPE_DEFAULT, "[active] AppleTV pairedDeviceRef = %@", &v18, 0xCu);
   }
 
-  CFRelease(v6);
+  CFRelease(v8);
   if (ValueAtIndex)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained setAirplayDeviceRef:ValueAtIndex];
-    v12 = _avairlog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = _avairlog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315138;
-      v17 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
-      _os_log_impl(&dword_18B49C000, v12, OS_LOG_TYPE_DEFAULT, "%s [active] done.", &v16, 0xCu);
+      v18 = 136315138;
+      v19 = "[AVBonjourServiceClient _updatedAirPlayPairedDeviceAsync]_block_invoke";
+      _os_log_impl(&dword_18B49C000, v14, OS_LOG_TYPE_DEFAULT, "%s [active] done.", &v18, 0xCu);
     }
 
 LABEL_15:

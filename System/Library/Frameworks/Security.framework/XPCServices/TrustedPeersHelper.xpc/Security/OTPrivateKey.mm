@@ -6,6 +6,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)keyTypeAsString:(int)string;
 - (void)mergeFrom:(id)from;
 - (void)writeTo:(id)to;
 @end
@@ -112,10 +113,8 @@
 
 - (void)writeTo:(id)to
 {
-  keyType = self->_keyType;
   toCopy = to;
   PBDataWriterWriteInt32Field();
-  keyData = self->_keyData;
   PBDataWriterWriteDataField();
 }
 
@@ -152,6 +151,21 @@
   v5 = [NSString stringWithFormat:@"%@ %@", v3, dictionaryRepresentation];
 
   return v5;
+}
+
+- (id)keyTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"EC_NIST_CURVES";
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 @end

@@ -466,42 +466,46 @@ LABEL_2:
         shouldLog = [v11 shouldLog];
         if ([v11 shouldLogToDisk])
         {
-          v13 = shouldLog | 2;
+          LODWORD(v13) = shouldLog | 2;
         }
 
         else
         {
-          v13 = shouldLog;
+          LODWORD(v13) = shouldLog;
         }
 
         oSLogObject = [v11 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        {
+          v13 = v13;
+        }
+
+        else
         {
           v13 &= 2u;
         }
 
         if (v13)
         {
-          LODWORD(v24) = 138543362;
-          *(&v24 + 4) = objc_opt_class();
-          v15 = *(&v24 + 4);
-          LODWORD(v23) = 12;
-          v16 = _os_log_send_and_compose_impl();
+          v23 = 138543362;
+          v24 = objc_opt_class();
+          v15 = v24;
+          v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: No store front identifier found, this could lead to problems", &v23, 12);
 
           if (!v16)
           {
-LABEL_21:
+LABEL_22:
 
             storeFrontIdentifier = 0;
             goto LABEL_4;
           }
 
-          oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v24, v23, v24}];
+          oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
           free(v16);
           SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
         }
 
-        goto LABEL_21;
+        goto LABEL_22;
       }
     }
   }

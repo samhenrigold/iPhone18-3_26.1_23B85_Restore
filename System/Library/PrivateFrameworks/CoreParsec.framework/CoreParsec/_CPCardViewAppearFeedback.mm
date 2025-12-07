@@ -100,7 +100,6 @@ LABEL_15:
   toCopy = to;
   if ([(_CPCardViewAppearFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -114,18 +113,16 @@ LABEL_15:
 
   if ([(_CPCardViewAppearFeedback *)self level])
   {
-    level = self->_level;
     PBDataWriterWriteUint32Field();
   }
 
-  v8 = [(_CPCardViewAppearFeedback *)self fbr];
+  v6 = [(_CPCardViewAppearFeedback *)self fbr];
 
-  v9 = toCopy;
-  if (v8)
+  v7 = toCopy;
+  if (v6)
   {
-    fbr = self->_fbr;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

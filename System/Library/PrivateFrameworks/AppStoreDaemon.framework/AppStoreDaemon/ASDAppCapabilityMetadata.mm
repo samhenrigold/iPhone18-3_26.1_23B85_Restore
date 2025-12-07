@@ -109,10 +109,9 @@
     v3 = &stru_1F30184F0;
   }
 
-  action = self->_action;
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@Action: %ld Features: %ld", v3, action, self->_features];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@Action: %ld Features: %ld", v3, self->_action, self->_features];
 
-  return v5;
+  return v4;
 }
 
 @end

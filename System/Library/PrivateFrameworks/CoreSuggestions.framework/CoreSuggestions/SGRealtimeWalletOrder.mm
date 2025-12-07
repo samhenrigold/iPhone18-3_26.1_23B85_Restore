@@ -22,13 +22,13 @@
 
 - (id)walletOrderDictionary
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   walletOrderDictData = self->_walletOrderDictData;
   if (walletOrderDictData)
   {
-    v11 = 0;
-    v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:walletOrderDictData options:0 error:&v11];
-    v4 = v11;
+    v10 = 0;
+    v3 = [MEMORY[0x1E696ACB0] JSONObjectWithData:walletOrderDictData options:0 error:&v10];
+    v4 = v10;
     if (!v4)
     {
       goto LABEL_7;
@@ -38,17 +38,16 @@
     v6 = sgLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       *buf = 138412290;
-      v13 = v10;
+      v12 = v9;
       _os_log_error_impl(&dword_1BA729000, v6, OS_LOG_TYPE_ERROR, "%@: Error encountered while retrieving string from NSData", buf, 0xCu);
     }
   }
 
   v3 = 0;
 LABEL_7:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -169,7 +168,7 @@ LABEL_14:
 
 - (id)initRealtimeWalletOrderForState:(int)state identifier:(id)identifier walletOrderDictionary:(id)dictionary walletOrderData:(id)data
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dictionaryCopy = dictionary;
   dataCopy = data;
@@ -211,20 +210,20 @@ LABEL_14:
   [currentHandler3 handleFailureInMethod:a2 object:self file:@"SGRealtimeWalletOrder.m" lineNumber:29 description:{@"Invalid parameter not satisfying: %@", @"walletOrderData"}];
 
 LABEL_4:
-  v29 = 0;
-  v15 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionaryCopy options:0 error:&v29];
-  v16 = v29;
+  v28 = 0;
+  v15 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionaryCopy options:0 error:&v28];
+  v16 = v28;
   if (v16)
   {
     v17 = sgLogHandle();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v22 = objc_opt_class();
+      v23 = NSStringFromClass(v22);
       *buf = 138412546;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v16;
+      v30 = v23;
+      v31 = 2112;
+      v32 = v16;
       _os_log_error_impl(&dword_1BA729000, v17, OS_LOG_TYPE_ERROR, "%@: Error encountered while retrieving NSData from dictionary: %@", buf, 0x16u);
     }
 
@@ -233,9 +232,9 @@ LABEL_4:
 
   else
   {
-    v28.receiver = self;
-    v28.super_class = SGRealtimeWalletOrder;
-    v19 = [(SGRealtimeWalletOrder *)&v28 init];
+    v27.receiver = self;
+    v27.super_class = SGRealtimeWalletOrder;
+    v19 = [(SGRealtimeWalletOrder *)&v27 init];
     v20 = v19;
     if (v19)
     {
@@ -250,7 +249,6 @@ LABEL_4:
     selfCopy = self;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

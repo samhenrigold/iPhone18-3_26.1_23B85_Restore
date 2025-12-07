@@ -21,7 +21,7 @@
 
 + (CWFEventID)eventIDWithType:(int64_t)type interfaceName:(id)name
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v6 = objc_alloc_init(CWFEventID);
   [(CWFEventID *)v6 setType:type];
@@ -31,12 +31,10 @@
   if (os_signpost_enabled(v7))
   {
     v8 = sub_1E0BC9038(type);
-    v11 = 138412290;
-    v12 = v8;
-    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CWFEventID eventIDWithType", "%@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v8;
+    _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CWFEventID eventIDWithType", "%@", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

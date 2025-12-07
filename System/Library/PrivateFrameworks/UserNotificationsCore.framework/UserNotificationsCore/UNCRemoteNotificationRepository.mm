@@ -13,6 +13,10 @@
 - (void)removeNotificationRecordsWithNonPushTriggerForBundleIdentifier:(id)identifier;
 - (void)removeSimilarNotificationRecords:(id)records bundleIdentifier:(id)identifier;
 - (void)removeStoreForBundleIdentifier:(id)identifier;
+- (void)saveNotificationRecord:(id)record shouldRepost:(BOOL)repost forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler;
+- (void)saveNotificationRecord:(id)record targetRevisionNumber:(id)number shouldRepost:(BOOL)repost forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler;
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost apsMessageTimestamp:(id)timestamp forBundleIdentifier:(id)identifier;
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost withMessage:(id)message forBundleIdentifier:(id)identifier;
 - (void)setBadgeCount:(int64_t)count forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler;
 - (void)setBadgeNumber:(id)number forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler;
 - (void)setBadgeString:(id)string forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler;
@@ -111,6 +115,46 @@ void __92__UNCRemoteNotificationRepository_notifyDidDiscoverContentOnFirstUnlock
   return v10;
 }
 
+- (void)saveNotificationRecord:(id)record shouldRepost:(BOOL)repost forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler
+{
+  repostCopy = repost;
+  handlerCopy = handler;
+  identifierCopy = identifier;
+  recordCopy = record;
+  v14 = [(UNCRemoteNotificationRepository *)self _coreServiceClientOrNilWithWarningForSelector:a2];
+  [v14 saveNotificationRecord:recordCopy targetRevisionNumber:0 shouldRepost:repostCopy forBundleIdentifier:identifierCopy completionHandler:handlerCopy];
+}
+
+- (void)saveNotificationRecord:(id)record targetRevisionNumber:(id)number shouldRepost:(BOOL)repost forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler
+{
+  repostCopy = repost;
+  handlerCopy = handler;
+  identifierCopy = identifier;
+  numberCopy = number;
+  recordCopy = record;
+  v17 = [(UNCRemoteNotificationRepository *)self _coreServiceClientOrNilWithWarningForSelector:a2];
+  [v17 saveNotificationRecord:recordCopy targetRevisionNumber:numberCopy shouldRepost:repostCopy forBundleIdentifier:identifierCopy completionHandler:handlerCopy];
+}
+
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost withMessage:(id)message forBundleIdentifier:(id)identifier
+{
+  repostCopy = repost;
+  identifierCopy = identifier;
+  requestCopy = request;
+  timestamp = [message timestamp];
+  [(UNCRemoteNotificationRepository *)self saveNotificationRequest:requestCopy shouldRepost:repostCopy apsMessageTimestamp:timestamp forBundleIdentifier:identifierCopy];
+}
+
+- (void)saveNotificationRequest:(id)request shouldRepost:(BOOL)repost apsMessageTimestamp:(id)timestamp forBundleIdentifier:(id)identifier
+{
+  repostCopy = repost;
+  identifierCopy = identifier;
+  timestampCopy = timestamp;
+  requestCopy = request;
+  v14 = [(UNCRemoteNotificationRepository *)self _coreServiceClientOrNilWithWarningForSelector:a2];
+  [v14 saveNotificationRequest:requestCopy shouldRepost:repostCopy apsMessageTimestamp:timestampCopy forBundleIdentifier:identifierCopy];
+}
+
 - (void)removeNotificationRecordsForIdentifiers:(id)identifiers bundleIdentifier:(id)identifier
 {
   serviceClient = self->_serviceClient;
@@ -192,22 +236,20 @@ void __92__UNCRemoteNotificationRepository_notifyDidDiscoverContentOnFirstUnlock
 
 - (id)_coreServiceClientOrNilWithWarningForSelector:(SEL)selector
 {
-  serviceClient = self->_serviceClient;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_serviceClient;
+    v5 = self->_serviceClient;
   }
 
   else
   {
-    v7 = *MEMORY[0x1E6983370];
-    v9 = NSStringFromSelector(selector);
+    v7 = NSStringFromSelector(selector);
     UNLogToDeveloper();
 
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 @end

@@ -252,7 +252,7 @@
   _assetsDataSource = [(PUOverOneUpPresentationSession *)self _assetsDataSource];
   v6 = [_assetsDataSource assetReferenceForAssetReference:referenceCopy];
 
-  if (!referenceCopy || ([v6 indexPath], v7 = objc_claimAutoreleasedReturnValue(), v8 = -[PUOverOneUpPresentationSession _globalIndexForIndexPath:](self, "_globalIndexForIndexPath:", v7), v7, v8 == 0x7FFFFFFFFFFFFFFFLL))
+  if (!referenceCopy || (objc_msgSend_indexPath(v6), v7 = objc_claimAutoreleasedReturnValue(), v8 = [(PUOverOneUpPresentationSession *)self _globalIndexForIndexPath:v7], v7, v8 == 0x7FFFFFFFFFFFFFFFLL))
   {
     v9 = PXAssertGetLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
@@ -483,15 +483,15 @@ LABEL_7:
       if (activitySharingController)
       {
         v16 = [(PUOverOneUpPresentationSession *)self _assetReferenceAtGlobalIndex:v13];
-        indexPath = [v16 indexPath];
+        v17 = objc_msgSend_indexPath(v16);
       }
 
       else
       {
-        indexPath = [MEMORY[0x1E696AC88] indexPathForItem:v13 inSection:0];
+        v17 = [MEMORY[0x1E696AC88] indexPathForItem:v13 inSection:0];
       }
 
-      v18 = [(PUOverOneUpPresentationSession *)self layoutAttributesForItemAtIndexPath:indexPath];
+      v18 = [(PUOverOneUpPresentationSession *)self layoutAttributesForItemAtIndexPath:v17];
       [v18 frame];
       v22.size.width = v12 - (v22.origin.x - v13 * v12);
       v23.origin.x = x;
@@ -691,9 +691,9 @@ LABEL_9:
 {
   referenceCopy = reference;
   _assetCollectionsDataSourceForCurrentModalViewController = [(PUOverOneUpPresentationSession *)self _assetCollectionsDataSourceForCurrentModalViewController];
-  indexPath = [referenceCopy indexPath];
+  v7 = objc_msgSend_indexPath(referenceCopy);
 
-  [(PUOverOneUpPresentationSession *)self _frameForItemAtIndexPath:indexPath inAssetCollectionsDataSource:_assetCollectionsDataSourceForCurrentModalViewController allowZoom:0];
+  [(PUOverOneUpPresentationSession *)self _frameForItemAtIndexPath:v7 inAssetCollectionsDataSource:_assetCollectionsDataSourceForCurrentModalViewController allowZoom:0];
   v9 = v8;
   v11 = v10;
 
@@ -751,8 +751,8 @@ LABEL_9:
 {
   referenceCopy = reference;
   _assetsDataSource = [(PUOverOneUpPresentationSession *)self _assetsDataSource];
-  indexPath = [referenceCopy indexPath];
-  v8 = [_assetsDataSource assetAtIndexPath:indexPath];
+  v7 = objc_msgSend_indexPath(referenceCopy);
+  v8 = [_assetsDataSource assetAtIndexPath:v7];
   v9 = [v8 isEqual:referenceCopy];
 
   v10 = referenceCopy;
@@ -770,8 +770,8 @@ LABEL_9:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PUOverOneUpPresentationSession.m" lineNumber:869 description:@"Missing layout"];
   }
 
-  indexPath2 = [v10 indexPath];
-  v15 = [layout layoutInfoForTileWithIndexPath:indexPath2 kind:@"PUTileKindItemContent"];
+  v14 = objc_msgSend_indexPath(v10);
+  v15 = [layout layoutInfoForTileWithIndexPath:v14 kind:@"PUTileKindItemContent"];
 
   if (v15)
   {
@@ -855,8 +855,8 @@ LABEL_9:
   else
   {
     v18 = [v15 objectAtIndex:{objc_msgSend(pathCopy, "item")}];
-    indexPath = [currentAssetReference indexPath];
-    if (indexPath)
+    v19 = objc_msgSend_indexPath(currentAssetReference);
+    if (v19)
     {
       uUID = [MEMORY[0x1E696AFB0] UUID];
       currentHandler2 = [uUID UUIDString];
@@ -869,8 +869,8 @@ LABEL_9:
 
     v25 = [PUAssetReference alloc];
     assetCollection = [currentAssetReference assetCollection];
-    indexPath2 = [currentAssetReference indexPath];
-    v24 = [(PUAssetReference *)v25 initWithAsset:v18 assetCollection:assetCollection indexPath:indexPath2 dataSourceIdentifier:currentHandler2];
+    v27 = objc_msgSend_indexPath(currentAssetReference);
+    v24 = [(PUAssetReference *)v25 initWithAsset:v18 assetCollection:assetCollection indexPath:v27 dataSourceIdentifier:currentHandler2];
   }
 
   activitySharingController = [(PUOverOneUpPresentationSession *)self activitySharingController];
@@ -1382,7 +1382,7 @@ void __124__PUOverOneUpPresentationSession_editController_didFinishPreparingForT
       if (_stashedAssetReference)
       {
         _stashedAssetReference2 = [(PUOverOneUpPresentationSession *)self _stashedAssetReference];
-        _stashedAssetReference = [_stashedAssetReference2 indexPath];
+        _stashedAssetReference = objc_msgSend_indexPath(_stashedAssetReference2);
       }
     }
 
@@ -2186,9 +2186,9 @@ LABEL_27:
   if (_viewModel && _tilingView)
   {
     currentAssetReference = [_viewModel currentAssetReference];
-    indexPath = [currentAssetReference indexPath];
+    v8 = objc_msgSend_indexPath(currentAssetReference);
     dataSourceIdentifier = [currentAssetReference dataSourceIdentifier];
-    v10 = [v5 presentedTileControllerWithIndexPath:indexPath kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
+    v10 = [v5 presentedTileControllerWithIndexPath:v8 kind:@"PUTileKindItemContent" dataSourceIdentifier:dataSourceIdentifier];
 
     v6 = v10;
   }

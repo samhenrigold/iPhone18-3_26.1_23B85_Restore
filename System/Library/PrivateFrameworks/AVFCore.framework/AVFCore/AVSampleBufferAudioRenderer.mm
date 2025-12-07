@@ -234,7 +234,7 @@ LABEL_4:
 
 - (void)_transitionToFailedStatusWithOSStatus:(int)status
 {
-  v4 = AVLocalizedErrorWithUnderlyingOSStatus(status, 0);
+  v4 = AVLocalizedErrorWithUnderlyingOSStatus(*&status, 0);
 
   [(AVSampleBufferAudioRenderer *)self _transitionToStatus:2 error:v4];
 }
@@ -509,7 +509,7 @@ LABEL_27:
 
   else
   {
-    v24 = -12782;
+    v24 = 4294954514;
   }
 
 LABEL_28:

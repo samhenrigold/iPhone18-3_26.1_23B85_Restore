@@ -26,25 +26,23 @@
 
 - (id)orderedProperties
 {
-  v9[12] = *MEMORY[0x277D85DE8];
-  v9[0] = @"note";
-  v9[1] = @"entered_in_error";
-  v9[2] = @"modified_date";
-  v9[3] = @"fhir_identifier";
-  v9[4] = @"original_fhir_resource_rowid";
-  v9[5] = @"original_signed_clinical_data_rowid";
-  v9[6] = @"locale";
-  v9[7] = @"extraction_version";
-  v9[8] = @"sort_date";
-  v9[9] = @"sort_date_key_path";
-  v9[10] = @"country";
-  v9[11] = @"state";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:12];
+  v8[12] = *MEMORY[0x277D85DE8];
+  v8[0] = @"note";
+  v8[1] = @"entered_in_error";
+  v8[2] = @"modified_date";
+  v8[3] = @"fhir_identifier";
+  v8[4] = @"original_fhir_resource_rowid";
+  v8[5] = @"original_signed_clinical_data_rowid";
+  v8[6] = @"locale";
+  v8[7] = @"extraction_version";
+  v8[8] = @"sort_date";
+  v8[9] = @"sort_date_key_path";
+  v8[10] = @"country";
+  v8[11] = @"state";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:12];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -58,7 +56,7 @@
 
 - (id)objectForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v9 = [(_HDMedicalRecordEntityEncoder *)self createBareObjectWithRow:row];
   if ([(_HDMedicalRecordEntityEncoder *)self applyPropertiesToObject:v9 persistentID:d row:row error:error])
   {
@@ -70,13 +68,13 @@ LABEL_36:
     }
 
     profile = [(HDEntityEncoder *)self profile];
-    v50 = 0;
+    v49 = 0;
     v11 = v9;
     v12 = profile;
     v13 = objc_opt_self();
-    v49 = v11;
+    v48 = v11;
     uUID = [v11 UUID];
-    v15 = [HDConceptIndexEntity conceptIndexEntriesForSampleUUID:uUID type:0 profile:v12 error:&v50];
+    v15 = [HDConceptIndexEntity conceptIndexEntriesForSampleUUID:uUID type:0 profile:v12 error:&v49];
 
     if (v15)
     {
@@ -85,59 +83,59 @@ LABEL_36:
       {
         if ([v15 count])
         {
-          v47 = [v15 hk_mapToSet:&__block_literal_global_174];
-          if ([v47 count] == 1)
+          v46 = [v15 hk_mapToSet:&__block_literal_global_174];
+          if ([v46 count] == 1)
           {
-            obja = [v47 anyObject];
+            obja = [v46 anyObject];
             v17 = MEMORY[0x277CBEB98];
             v18 = [v15 hk_map:&__block_literal_global_460];
             v19 = [v17 setWithArray:v18];
 
-            v62 = 0;
-            v63 = &v62;
-            v64 = 0x3032000000;
-            v65 = __Block_byref_object_copy__142;
-            v66 = __Block_byref_object_dispose__142;
-            v67 = 0;
-            internalContentDatabaseManager2 = [v12 internalContentDatabaseManager];
-            v60 = v13;
             v61 = 0;
-            v55[0] = MEMORY[0x277D85DD0];
-            v55[1] = 3221225472;
-            v55[2] = __74___HDMedicalRecordEntityEncoder__applyConceptIndexToObject_profile_error___block_invoke_3;
-            v55[3] = &unk_278626C80;
-            v59 = &v62;
-            v56 = v15;
-            v42 = v19;
-            v57 = v42;
-            v44 = obja;
-            v58 = v44;
-            LOBYTE(v18) = [internalContentDatabaseManager2 performTransactionWithError:&v61 transactionHandler:v55];
-            v43 = v61;
+            v62 = &v61;
+            v63 = 0x3032000000;
+            v64 = __Block_byref_object_copy__142;
+            v65 = __Block_byref_object_dispose__142;
+            v66 = 0;
+            internalContentDatabaseManager2 = [v12 internalContentDatabaseManager];
+            v59 = v13;
+            v60 = 0;
+            v54[0] = MEMORY[0x277D85DD0];
+            v54[1] = 3221225472;
+            v54[2] = __74___HDMedicalRecordEntityEncoder__applyConceptIndexToObject_profile_error___block_invoke_3;
+            v54[3] = &unk_278626C80;
+            v58 = &v61;
+            v55 = v15;
+            v41 = v19;
+            v56 = v41;
+            v43 = obja;
+            v57 = v43;
+            LOBYTE(v18) = [internalContentDatabaseManager2 performTransactionWithError:&v60 transactionHandler:v54];
+            v42 = v60;
 
             if (v18)
             {
-              v53 = 0u;
-              v54 = 0u;
-              v51 = 0u;
               v52 = 0u;
-              obj = v63[5];
-              v21 = [obj countByEnumeratingWithState:&v51 objects:buf count:16];
+              v53 = 0u;
+              v50 = 0u;
+              v51 = 0u;
+              obj = v62[5];
+              v21 = [obj countByEnumeratingWithState:&v50 objects:buf count:16];
               if (v21)
               {
-                v22 = *v52;
+                v22 = *v51;
 LABEL_13:
                 v23 = 0;
                 while (1)
                 {
-                  if (*v52 != v22)
+                  if (*v51 != v22)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v24 = *(*(&v51 + 1) + 8 * v23);
-                  v25 = [v63[5] objectForKeyedSubscript:{v24, v42}];
-                  v16 = [v49 applyConcepts:v25 forKeyPath:v24 error:&v50];
+                  v24 = *(*(&v50 + 1) + 8 * v23);
+                  v25 = [v62[5] objectForKeyedSubscript:{v24, v41}];
+                  v16 = [v48 applyConcepts:v25 forKeyPath:v24 error:&v49];
 
                   if (!v16)
                   {
@@ -146,7 +144,7 @@ LABEL_13:
 
                   if (v21 == ++v23)
                   {
-                    v21 = [obj countByEnumeratingWithState:&v51 objects:buf count:16];
+                    v21 = [obj countByEnumeratingWithState:&v50 objects:buf count:16];
                     LOBYTE(v16) = 1;
                     if (v21)
                     {
@@ -168,19 +166,19 @@ LABEL_13:
 
             else
             {
-              if ([v43 hk_isHealthKitErrorWithCode:1001])
+              if ([v42 hk_isHealthKitErrorWithCode:1001])
               {
-                [(_HDMedicalRecordEntityEncoder *)v13 _resetConceptIndexDueToError:v43 profile:v12];
+                [(_HDMedicalRecordEntityEncoder *)v13 _resetConceptIndexDueToError:v42 profile:v12];
               }
 
-              v30 = v43;
+              v30 = v42;
               if (v30)
               {
                 v31 = v30;
                 v32 = v30;
                 LOBYTE(v16) = 0;
                 v33 = v31;
-                v50 = v31;
+                v49 = v31;
               }
 
               else
@@ -190,8 +188,8 @@ LABEL_13:
               }
             }
 
-            _Block_object_dispose(&v62, 8);
-            v27 = v42;
+            _Block_object_dispose(&v61, 8);
+            v27 = v41;
           }
 
           else
@@ -205,14 +203,14 @@ LABEL_13:
               v29 = v27;
               LOBYTE(v16) = 0;
               v27 = v28;
-              v50 = v28;
-              v44 = v28;
+              v49 = v28;
+              v43 = v28;
             }
 
             else
             {
               LOBYTE(v16) = 0;
-              v44 = 0;
+              v43 = 0;
             }
           }
         }
@@ -225,7 +223,7 @@ LABEL_13:
 
       else
       {
-        [MEMORY[0x277CCA9B8] hk_assignError:&v50 code:3 format:@"Unable to lookup concepts without a ContentDatabaseManager"];
+        [MEMORY[0x277CCA9B8] hk_assignError:&v49 code:3 format:@"Unable to lookup concepts without a ContentDatabaseManager"];
         LOBYTE(v16) = 0;
       }
     }
@@ -235,7 +233,7 @@ LABEL_13:
       LOBYTE(v16) = 0;
     }
 
-    v34 = v50;
+    v34 = v49;
     if (v16)
     {
 
@@ -248,8 +246,8 @@ LABEL_13:
     {
       *buf = 134349314;
       dCopy = d;
-      v70 = 2114;
-      v71 = v34;
+      v69 = 2114;
+      v70 = v34;
       _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "Failed to apply concept index to medical record entity with persistent ID %{public}lld: %{public}@", buf, 0x16u);
     }
 
@@ -273,14 +271,12 @@ LABEL_13:
   v35 = 0;
 LABEL_45:
 
-  v40 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 + (void)_resetConceptIndexDueToError:(void *)error profile:
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   errorCopy = error;
   objc_opt_self();
@@ -288,21 +284,20 @@ LABEL_45:
   v6 = HKLogHealthOntology();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = HKSensitiveLogItem();
-    v10 = 138543362;
-    v11 = v9;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Resetting concept index due to error %{public}@", &v10, 0xCu);
+    v8 = HKSensitiveLogItem();
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Resetting concept index due to error %{public}@", &v9, 0xCu);
   }
 
   conceptIndexManager = [errorCopy conceptIndexManager];
 
   [conceptIndexManager resetWithReindex];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)applyPropertiesToObject:(id)object persistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   LODWORD(d) = [superclassEncoder applyPropertiesToObject:objectCopy persistentID:d row:row error:error];
@@ -318,10 +313,10 @@ LABEL_45:
 
     [objectCopy _setExtractionVersion:HDSQLiteColumnWithNameAsInt64()];
     v14 = HDSQLiteColumnWithNameAsString();
-    v40 = 0;
-    v15 = [MEMORY[0x277CCD3B8] FHIRIdentifierWithString:v14 error:&v40];
-    v16 = v40;
-    v39 = v16;
+    v39 = 0;
+    v15 = [MEMORY[0x277CCD3B8] FHIRIdentifierWithString:v14 error:&v39];
+    v16 = v39;
+    v38 = v16;
     if (v15)
     {
       v17 = [objc_alloc(MEMORY[0x277CCD600]) initWithFHIRIdentifier:v15];
@@ -372,17 +367,17 @@ LABEL_4:
     if (v27 < 1)
     {
       _HKInitializeLogging();
-      v34 = *MEMORY[0x277CCC2C0];
+      v33 = *MEMORY[0x277CCC2C0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_ERROR))
       {
-        v36 = v34;
-        v37 = objc_opt_class();
+        v35 = v33;
+        v36 = objc_opt_class();
         *buf = 138543618;
-        v42 = v37;
-        v43 = 2114;
-        v44 = v26;
-        v38 = v37;
-        _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "%{public}@ invalid origin identifier, error: %{public}@", buf, 0x16u);
+        v41 = v36;
+        v42 = 2114;
+        v43 = v26;
+        v37 = v36;
+        _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "%{public}@ invalid origin identifier, error: %{public}@", buf, 0x16u);
       }
 
       v18 = v26;
@@ -390,7 +385,7 @@ LABEL_4:
       {
         if (error)
         {
-          v35 = v18;
+          v34 = v18;
           v25 = 0;
           *error = v18;
 LABEL_18:
@@ -428,7 +423,6 @@ LABEL_18:
   v25 = 0;
 LABEL_19:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

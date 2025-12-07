@@ -81,25 +81,23 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"altitude";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"altitude";
   v3 = MEMORY[0x277CCABB0];
   [(CAFCoordinate *)self altitude];
   v4 = [v3 numberWithFloat:?];
-  v13[0] = v4;
-  v12[1] = @"latitude";
+  v12[0] = v4;
+  v11[1] = @"latitude";
   v5 = MEMORY[0x277CCABB0];
   [(CAFCoordinate *)self latitude];
   v6 = [v5 numberWithFloat:?];
-  v13[1] = v6;
-  v12[2] = @"longitude";
+  v12[1] = v6;
+  v11[2] = @"longitude";
   v7 = MEMORY[0x277CCABB0];
   [(CAFCoordinate *)self longitude];
   v8 = [v7 numberWithFloat:?];
-  v13[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   return v9;
 }

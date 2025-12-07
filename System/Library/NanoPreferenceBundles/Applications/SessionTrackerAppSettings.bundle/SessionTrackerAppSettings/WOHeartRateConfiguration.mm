@@ -9,23 +9,20 @@
 
 - (NSArray)zones
 {
-  v3 = OBJC_IVAR___WOHeartRateConfiguration_zones;
-  swift_beginAccess();
-  v4 = *(self + v3);
-  type metadata accessor for HeartRateZoneBridge();
+  v2 = swift_beginAccess();
+  type metadata accessor for HeartRateZoneBridge(v2, v3);
 
-  v5.super.isa = sub_228C4().super.isa;
+  v4.super.isa = sub_228C4().super.isa;
 
-  return v5.super.isa;
+  return v4.super.isa;
 }
 
 - (void)setZones:(id)zones
 {
-  type metadata accessor for HeartRateZoneBridge();
+  type metadata accessor for HeartRateZoneBridge(self, a2);
   v4 = sub_228D4();
   v5 = OBJC_IVAR___WOHeartRateConfiguration_zones;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -34,7 +31,7 @@
   zonesCopy = zones;
   if (zones)
   {
-    type metadata accessor for HeartRateZoneBridge();
+    type metadata accessor for HeartRateZoneBridge(self, a2);
     zonesCopy = sub_228D4();
   }
 

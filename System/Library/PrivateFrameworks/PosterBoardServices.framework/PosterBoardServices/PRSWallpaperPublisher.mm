@@ -73,8 +73,7 @@
 void __29__PRSWallpaperPublisher_init__block_invoke(uint64_t a1, void *a2)
 {
   v5 = a2;
-  [v5 setDomain:@"com.apple.posterboardservices"];
-  v3 = PRSWallpaperObserverInterface();
+  v3 = PRSWallpaperObserverInterface([v5 setDomain:@"com.apple.posterboardservices"]);
   v4 = [v3 identifier];
   [v5 setService:v4];
 
@@ -180,57 +179,51 @@ void __29__PRSWallpaperPublisher_init__block_invoke(uint64_t a1, void *a2)
   }
 
 LABEL_18:
-  v47 = v5;
+  v43 = v5;
   v25 = [MEMORY[0x1E696AD60] stringWithString:@"received invalid paths: {"];
   for (i = 0; i != 4; ++i)
   {
     v27 = paths[i];
     v28 = PRSWallpaperObserverLocationsFromIndex(i);
     v29 = PRSWallpaperObserverLocationsDescription(v28);
+    v30 = objc_opt_class();
+    NSStringFromClass(v30);
     if (v27)
-    {
-      v30 = paths[i];
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
-      v33 = paths[i];
-      identity4 = [v33 identity];
-      [v25 appendFormat:@"\n %i-%@: <%@:%p %@>", i, v29, v32, v33, identity4];
+      v31 = {;
+      v32 = paths[i];
+      identity4 = [v32 identity];
+      [v25 appendFormat:@"\n %i-%@: <%@:%p %@>", i, v29, v31, v32, identity4];
     }
 
     else
-    {
-      v35 = objc_opt_class();
-      v32 = NSStringFromClass(v35);
-      [v25 appendFormat:@"\n %i-%@: <%@:nil ->", i, v29, v32];
+      v31 = {;
+      [v25 appendFormat:@"\n %i-%@: <%@:nil ->", i, v29, v31];
     }
   }
 
   [v25 appendString:@"\n}\ncompared to previous: {"];
   for (j = 0; j != 4; ++j)
   {
-    v37 = lock_paths[j];
-    v38 = PRSWallpaperObserverLocationsFromIndex(j);
-    v39 = PRSWallpaperObserverLocationsDescription(v38);
-    if (v37)
-    {
+    v35 = lock_paths[j];
+    v36 = PRSWallpaperObserverLocationsFromIndex(j);
+    v37 = PRSWallpaperObserverLocationsDescription(v36);
+    v38 = objc_opt_class();
+    NSStringFromClass(v38);
+    if (v35)
+      v39 = {;
       v40 = lock_paths[j];
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
-      v43 = lock_paths[j];
-      identity5 = [(PFServerPosterPath *)v43 identity];
-      [v25 appendFormat:@"\n %i-%@: <%@:%p %@>", j, v39, v42, v43, identity5];
+      identity5 = [(PFServerPosterPath *)v40 identity];
+      [v25 appendFormat:@"\n %i-%@: <%@:%p %@>", j, v37, v39, v40, identity5];
     }
 
     else
-    {
-      v45 = objc_opt_class();
-      v42 = NSStringFromClass(v45);
-      [v25 appendFormat:@"\n %i-%@: <%@:nil ->", j, v39, v42];
+      v39 = {;
+      [v25 appendFormat:@"\n %i-%@: <%@:nil ->", j, v37, v39];
     }
   }
 
   [v25 appendString:@"\n}"];
-  v5 = v47;
+  v5 = v43;
 LABEL_29:
 
   return v25;
@@ -428,108 +421,108 @@ LABEL_19:
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
   remoteProcess = [connectionCopy remoteProcess];
-  if ([remoteProcess hasEntitlement:@"com.apple.posterboardservices.data-store.accessSwitcherConfiguration"])
+  v11 = [remoteProcess hasEntitlement:@"com.apple.posterboardservices.data-store.accessSwitcherConfiguration"];
+  if (v11)
   {
     objc_initWeak(&location, self);
-    v11 = objc_opt_class();
-    v39 = NSStringFromClass(v11);
-    v12 = objc_opt_new();
-    objc_storeWeak((v12 + 8), self);
-    objc_storeStrong((v12 + 16), connection);
-    *(v12 + 113) = [contextCopy decodeBoolForKey:@"needsSandboxExtensions"];
-    *(v12 + 104) = [contextCopy decodeUInt64ForKey:@"observedLocations"] & 0xF;
-    *(v12 + 114) = [contextCopy decodeBoolForKey:@"snapshotObservation"];
-    *(v12 + 115) = *(v12 + 104) != 0;
-    v13 = [contextCopy decodeBoolForKey:@"collectionObserving"];
-    *(v12 + 153) = v13;
-    if (v13)
+    v12 = objc_opt_class();
+    v40 = NSStringFromClass(v12);
+    v13 = objc_opt_new();
+    objc_storeWeak((v13 + 8), self);
+    objc_storeStrong((v13 + 16), connection);
+    *(v13 + 113) = [contextCopy decodeBoolForKey:@"needsSandboxExtensions"];
+    *(v13 + 104) = [contextCopy decodeUInt64ForKey:@"observedLocations"] & 0xF;
+    *(v13 + 114) = [contextCopy decodeBoolForKey:@"snapshotObservation"];
+    *(v13 + 115) = *(v13 + 104) != 0;
+    v14 = [contextCopy decodeBoolForKey:@"collectionObserving"];
+    *(v13 + 153) = v14;
+    if (v14)
     {
-      *(v12 + 152) = [contextCopy decodeBoolForKey:@"collectionObservingNeedsSandboxExtensions"];
-      v14 = objc_opt_self();
-      v15 = [contextCopy decodeObjectOfClass:v14 forKey:@"collectionObservingRole"];
-      v16 = *(v12 + 144);
-      *(v12 + 144) = v15;
+      *(v13 + 152) = [contextCopy decodeBoolForKey:@"collectionObservingNeedsSandboxExtensions"];
+      v15 = objc_opt_self();
+      v16 = [contextCopy decodeObjectOfClass:v15 forKey:@"collectionObservingRole"];
+      v17 = *(v13 + 144);
+      *(v13 + 144) = v16;
     }
 
-    v17 = [contextCopy decodeBoolForKey:@"roleObservation"];
-    *(v12 + 129) = v17;
-    if (v17)
+    v18 = [contextCopy decodeBoolForKey:@"roleObservation"];
+    *(v13 + 129) = v18;
+    if (v18)
     {
-      *(v12 + 128) = [contextCopy decodeBoolForKey:@"observedRolesNeedSandboxExtensions"];
-      v18 = objc_opt_self();
+      *(v13 + 128) = [contextCopy decodeBoolForKey:@"observedRolesNeedSandboxExtensions"];
       v19 = objc_opt_self();
-      v20 = [contextCopy decodeCollectionOfClass:v18 containingClass:v19 forKey:@"observedRoles"];
-      v21 = *(v12 + 120);
-      *(v12 + 120) = v20;
+      v20 = objc_opt_self();
+      v21 = [contextCopy decodeCollectionOfClass:v19 containingClass:v20 forKey:@"observedRoles"];
+      v22 = *(v13 + 120);
+      *(v13 + 120) = v21;
     }
 
-    v22 = [contextCopy decodeStringForKey:@"explanation"];
-    v23 = __clientDescription(remoteProcess, v22, connectionCopy, *(v12 + 104));
-    v24 = *(v12 + 32);
-    *(v12 + 32) = v23;
+    v23 = [contextCopy decodeStringForKey:@"explanation"];
+    v24 = __clientDescription(remoteProcess, v23, connectionCopy, *(v13 + 104));
+    v25 = *(v13 + 32);
+    *(v13 + 32) = v24;
 
-    v38 = v23;
-    if ((*(v12 + 115) & 1) != 0 || (*(v12 + 114) & 1) != 0 || (*(v12 + 129) & 1) != 0 || *(v12 + 153) == 1)
+    v39 = v24;
+    if ((*(v13 + 115) & 1) != 0 || (*(v13 + 114) & 1) != 0 || (*(v13 + 129) & 1) != 0 || *(v13 + 153) == 1)
     {
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __67__PRSWallpaperPublisher_listener_didReceiveConnection_withContext___block_invoke;
-      v41[3] = &unk_1E818D348;
-      v25 = v12;
-      v42 = v25;
-      objc_copyWeak(&v46, &location);
-      v26 = v39;
-      v43 = v26;
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __67__PRSWallpaperPublisher_listener_didReceiveConnection_withContext___block_invoke;
+      v42[3] = &unk_1E818D348;
+      v27 = v13;
+      v43 = v27;
+      objc_copyWeak(&v47, &location);
+      v28 = v40;
+      v44 = v28;
       selfCopy = self;
-      v27 = v38;
-      v45 = v27;
-      [connectionCopy configureConnection:v41];
-      v28 = PRSLogObserver();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = v39;
+      v46 = v29;
+      v30 = PRSLogObserver([connectionCopy configureConnection:v42]);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v49 = v26;
-        v50 = 2048;
+        v50 = v28;
+        v51 = 2048;
         selfCopy4 = self;
-        v52 = 2114;
-        v53 = v27;
-        _os_log_impl(&dword_1C26FF000, v28, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> client %{public}@ connected", buf, 0x20u);
+        v53 = 2114;
+        v54 = v29;
+        _os_log_impl(&dword_1C26FF000, v30, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> client %{public}@ connected", buf, 0x20u);
       }
 
       os_unfair_lock_lock(&self->_lock);
-      [(NSMutableSet *)self->_lock_clients addObject:v25];
+      [(NSMutableSet *)self->_lock_clients addObject:v27];
       if (self->_lock_activated)
       {
         [connectionCopy activate];
         remoteTarget = [connectionCopy remoteTarget];
-        v30 = v25[3];
-        v25[3] = remoteTarget;
+        v32 = v27[3];
+        v27[3] = remoteTarget;
       }
 
-      v31 = self->_lock_delegate;
+      v33 = self->_lock_delegate;
       os_unfair_lock_unlock(&self->_lock);
-      [(PRSWallpaperPublisherDelegate *)v31 wallpaperPublisherDidReceiveObserverConnection];
+      [(PRSWallpaperPublisherDelegate *)v33 wallpaperPublisherDidReceiveObserverConnection];
 
-      objc_destroyWeak(&v46);
+      objc_destroyWeak(&v47);
     }
 
     else
     {
-      v37 = PRSLogObserver();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v38 = PRSLogObserver(v26);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v49 = v39;
-        v50 = 2048;
+        v50 = v40;
+        v51 = 2048;
         selfCopy4 = self;
-        v52 = 2114;
-        v53 = v38;
-        _os_log_impl(&dword_1C26FF000, v37, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> rejecting client %{public}@ that doesn't want to observe anything", buf, 0x20u);
+        v53 = 2114;
+        v54 = v39;
+        _os_log_impl(&dword_1C26FF000, v38, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> rejecting client %{public}@ that doesn't want to observe anything", buf, 0x20u);
       }
 
       [connectionCopy invalidate];
@@ -540,25 +533,23 @@ LABEL_19:
 
   else
   {
-    v32 = PRSLogObserver();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v34 = PRSLogObserver(v11);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = objc_opt_class();
-      v34 = NSStringFromClass(v33);
-      v35 = __clientDescription(remoteProcess, @"?", connectionCopy, 0);
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
+      v37 = __clientDescription(remoteProcess, @"?", connectionCopy, 0);
       *buf = 138543874;
-      v49 = v34;
-      v50 = 2048;
+      v50 = v36;
+      v51 = 2048;
       selfCopy4 = self;
-      v52 = 2114;
-      v53 = v35;
-      _os_log_impl(&dword_1C26FF000, v32, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> rejecting client %{public}@ that isn't entitled", buf, 0x20u);
+      v53 = 2114;
+      v54 = v37;
+      _os_log_impl(&dword_1C26FF000, v34, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> rejecting client %{public}@ that isn't entitled", buf, 0x20u);
     }
 
     [connectionCopy invalidate];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __67__PRSWallpaperPublisher_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -567,44 +558,44 @@ void __67__PRSWallpaperPublisher_listener_didReceiveConnection_withContext___blo
   v4 = PRSDefaultServiceQuality();
   [v3 setServiceQuality:v4];
 
-  v5 = PRSWallpaperObserverInterface();
-  [v3 setInterface:v5];
+  v6 = PRSWallpaperObserverInterface(v5);
+  [v3 setInterface:v6];
 
   [v3 setInterfaceTarget:*(a1 + 32)];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __67__PRSWallpaperPublisher_listener_didReceiveConnection_withContext___block_invoke_2;
-  v10[3] = &unk_1E818D320;
-  objc_copyWeak(&v13, (a1 + 64));
-  v6 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  v7 = v9.i64[1];
-  v8.i64[0] = *(a1 + 32);
-  v8.i64[1] = v6;
-  v12 = vextq_s8(v9, v8, 8uLL);
-  v11 = vextq_s8(v8, v9, 8uLL);
-  [v3 setInvalidationHandler:v10];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__PRSWallpaperPublisher_listener_didReceiveConnection_withContext___block_invoke_2;
+  v11[3] = &unk_1E818D320;
+  objc_copyWeak(&v14, (a1 + 64));
+  v7 = *(a1 + 40);
+  v10 = *(a1 + 48);
+  v8 = v10.i64[1];
+  v9.i64[0] = *(a1 + 32);
+  v9.i64[1] = v7;
+  v13 = vextq_s8(v10, v9, 8uLL);
+  v12 = vextq_s8(v9, v10, 8uLL);
+  [v3 setInvalidationHandler:v11];
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v14);
 }
 
 void __67__PRSWallpaperPublisher_listener_didReceiveConnection_withContext___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v3 = PRSLogObserver();
+  v3 = PRSLogObserver(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
     v6 = *(a1 + 48);
-    v8 = 138543874;
-    v9 = v4;
-    v10 = 2048;
-    v11 = v5;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1C26FF000, v3, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> client %{public}@ invalidated remotely", &v8, 0x20u);
+    v7 = 138543874;
+    v8 = v4;
+    v9 = 2048;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_1C26FF000, v3, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> client %{public}@ invalidated remotely", &v7, 0x20u);
   }
 
   if (WeakRetained)
@@ -613,8 +604,6 @@ void __67__PRSWallpaperPublisher_listener_didReceiveConnection_withContext___blo
     [*(WeakRetained + 14) removeObject:*(a1 + 56)];
     os_unfair_lock_unlock(WeakRetained + 38);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeClient:(id)client withKnownIdentities:(id)identities knownRoles:(id)roles knownCollection:(id)collection
@@ -942,38 +931,39 @@ LABEL_72:
 
   if (*(clientCopy + 129) == 1)
   {
-    if ([obja count] || objc_msgSend(v96, "count"))
+    v70 = [obja count];
+    if (v70 || (v70 = [v96 count]) != 0)
     {
-      v70 = PRSLogObserver();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+      v71 = PRSLogObserver(v70);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
       {
-        v71 = objc_opt_class();
-        v72 = NSStringFromClass(v71);
-        v73 = clientCopy;
-        v74 = *(clientCopy + 4);
+        v72 = objc_opt_class();
+        v73 = NSStringFromClass(v72);
+        v74 = clientCopy;
+        v75 = *(clientCopy + 4);
         allKeys = [obja allKeys];
         *buf = 138544130;
-        v120 = v72;
+        v120 = v73;
         v121 = 2048;
         selfCopy5 = selfCopy;
         v123 = 2114;
-        v124 = v74;
-        clientCopy = v73;
+        v124 = v75;
+        clientCopy = v74;
         self = selfCopy;
         v125 = 2114;
         v126 = allKeys;
-        _os_log_impl(&dword_1C26FF000, v70, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> issuing initial update to client %{public}@; data was stale for roles %{public}@", buf, 0x2Au);
+        _os_log_impl(&dword_1C26FF000, v71, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> issuing initial update to client %{public}@; data was stale for roles %{public}@", buf, 0x2Au);
       }
 
-      v76 = *(clientCopy + 3);
-      v77 = [(PRSWallpaperPublisher *)self _lock_buildActivePosterObserverUpdatesForClient:clientCopy updatedRoles:obja clientSpecificSuggestionsToPosterUUID:v96];
-      [v76 notifyRoleActivePosterUpdates:v77];
+      v77 = *(clientCopy + 3);
+      v78 = [(PRSWallpaperPublisher *)self _lock_buildActivePosterObserverUpdatesForClient:clientCopy updatedRoles:obja clientSpecificSuggestionsToPosterUUID:v96];
+      [v77 notifyRoleActivePosterUpdates:v78];
     }
 
     else
     {
-      v77 = PRSLogObserver();
-      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+      v78 = PRSLogObserver(0);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
         v90 = objc_opt_class();
         v91 = NSStringFromClass(v90);
@@ -984,52 +974,52 @@ LABEL_72:
         selfCopy5 = self;
         v123 = 2114;
         v124 = v92;
-        _os_log_impl(&dword_1C26FF000, v77, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> bailing on initial update to client %{public}@; data was up-to-date", buf, 0x20u);
+        _os_log_impl(&dword_1C26FF000, v78, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> bailing on initial update to client %{public}@; data was up-to-date", buf, 0x20u);
       }
     }
   }
 
   if (*(clientCopy + 153) == 1)
   {
-    v78 = [v62 count];
-    v79 = PRSLogObserver();
-    v80 = os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT);
-    if (v78)
+    v79 = [v62 count];
+    v80 = PRSLogObserver(v79);
+    v81 = os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT);
+    if (v79)
     {
-      if (v80)
+      if (v81)
       {
-        v81 = objc_opt_class();
-        v82 = NSStringFromClass(v81);
-        v83 = *(clientCopy + 4);
-        v84 = *(clientCopy + 18);
+        v82 = objc_opt_class();
+        v83 = NSStringFromClass(v82);
+        v84 = *(clientCopy + 4);
+        v85 = *(clientCopy + 18);
         *buf = 138544130;
-        v120 = v82;
+        v120 = v83;
         v121 = 2048;
         selfCopy5 = self;
         v123 = 2114;
-        v124 = v83;
+        v124 = v84;
         v125 = 2114;
-        v126 = v84;
-        _os_log_impl(&dword_1C26FF000, v79, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> issuing initial update to client %{public}@; data was stale for poster collection role %{public}@", buf, 0x2Au);
+        v126 = v85;
+        _os_log_impl(&dword_1C26FF000, v80, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> issuing initial update to client %{public}@; data was stale for poster collection role %{public}@", buf, 0x2Au);
       }
 
-      v85 = *(clientCopy + 3);
-      v79 = [(PRSWallpaperPublisher *)self _lock_buildPosterCollectionUpdatesForClient:clientCopy role:*(clientCopy + 18) updatedPosterCollection:v62];
-      [v85 notifyRolePosterCollectionUpdates:v79];
+      v86 = *(clientCopy + 3);
+      v80 = [(PRSWallpaperPublisher *)self _lock_buildPosterCollectionUpdatesForClient:clientCopy role:*(clientCopy + 18) updatedPosterCollection:v62];
+      [v86 notifyRolePosterCollectionUpdates:v80];
     }
 
-    else if (v80)
+    else if (v81)
     {
-      v86 = objc_opt_class();
-      v87 = NSStringFromClass(v86);
-      v88 = *(clientCopy + 4);
+      v87 = objc_opt_class();
+      v88 = NSStringFromClass(v87);
+      v89 = *(clientCopy + 4);
       *buf = 138543874;
-      v120 = v87;
+      v120 = v88;
       v121 = 2048;
       selfCopy5 = self;
       v123 = 2114;
-      v124 = v88;
-      _os_log_impl(&dword_1C26FF000, v79, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> bailing on initial update to client %{public}@ for known poster collection; data was up-to-date", buf, 0x20u);
+      v124 = v89;
+      _os_log_impl(&dword_1C26FF000, v80, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> bailing on initial update to client %{public}@ for known poster collection; data was up-to-date", buf, 0x20u);
     }
 
     collectionCopy = v95;
@@ -1039,8 +1029,6 @@ LABEL_72:
 
 LABEL_90:
   os_unfair_lock_unlock(&self->_lock);
-
-  v89 = *MEMORY[0x1E69E9840];
 }
 
 void __90__PRSWallpaperPublisher__initializeClient_withKnownIdentities_knownRoles_knownCollection___block_invoke(void *a1, uint64_t a2)
@@ -1073,16 +1061,16 @@ void __90__PRSWallpaperPublisher__initializeClient_withKnownIdentities_knownRole
 
 - (void)_lock_sendStateToClient:(id)client
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   os_unfair_lock_assert_owner(&self->_lock);
   if (clientCopy[115] != 1)
   {
-    [PRSWallpaperPublisher _lock_sendStateToClient:a2];
+    [(PRSWallpaperPublisher *)a2 _lock_sendStateToClient:?];
   }
 
   v6 = 0;
-  v45 = 0;
+  v46 = 0;
   v7 = 0;
   v8 = 4;
   do
@@ -1113,7 +1101,7 @@ LABEL_11:
     else
     {
       v12[9] = v11;
-      v45 |= v9;
+      v46 |= v9;
       if (!v7)
       {
         goto LABEL_11;
@@ -1130,46 +1118,46 @@ LABEL_8:
   if ([v7 count])
   {
     v13 = 0;
-    v51 = 0;
-    memset(v68, 0, 32);
+    v52 = 0;
+    memset(v69, 0, 32);
     do
     {
       v14 = *&clientCopy[v13 + 40];
       if (v14)
       {
-        objc_storeStrong(&v68[v51++], v14);
+        objc_storeStrong(&v69[v52++], v14);
       }
 
       v13 += 8;
     }
 
     while (v13 != 32);
-    v49 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
-    v53 = 0u;
+    v50 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v42 = v7;
+    v57 = 0u;
+    v43 = v7;
     obj = v7;
-    v15 = v45;
+    v15 = v46;
     v16 = (clientCopy + 40);
-    v50 = [obj countByEnumeratingWithState:&v53 objects:v67 count:16];
-    if (v50)
+    v51 = [obj countByEnumeratingWithState:&v54 objects:v68 count:16];
+    if (v51)
     {
-      v48 = *v54;
+      v49 = *v55;
       do
       {
         v17 = 0;
         do
         {
-          if (*v54 != v48)
+          if (*v55 != v49)
           {
             objc_enumerationMutation(obj);
           }
 
           v18 = 0;
           v19 = 0;
-          v20 = *(*(&v53 + 1) + 8 * v17);
+          v20 = *(*(&v54 + 1) + 8 * v17);
           v21 = v16;
           do
           {
@@ -1185,7 +1173,7 @@ LABEL_8:
           }
 
           while (v18 != 4);
-          if (v51 < 1)
+          if (v52 < 1)
           {
 LABEL_31:
             v25 = objc_opt_new();
@@ -1196,9 +1184,10 @@ LABEL_31:
               v28 = auditToken;
               if (auditToken && ([auditToken isInvalid] & 1) == 0)
               {
-                v52 = 0;
-                v30 = [(PFServerPosterPath *)v20 extendContentsReadAccessToAuditToken:v28 error:&v52];
-                v46 = v52;
+                v53 = 0;
+                v30 = [(PFServerPosterPath *)v20 extendContentsReadAccessToAuditToken:v28 error:&v53];
+                v31 = v53;
+                v47 = v31;
                 if (v30)
                 {
                   [v25 setPath:v30];
@@ -1206,24 +1195,24 @@ LABEL_31:
 
                 else
                 {
-                  v31 = PRSLogObserver();
-                  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                  v32 = PRSLogObserver(v31);
+                  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                   {
-                    v34 = objc_opt_class();
-                    v44 = NSStringFromClass(v34);
+                    v35 = objc_opt_class();
+                    v45 = NSStringFromClass(v35);
                     identity = [(PFServerPosterPath *)v20 identity];
-                    v35 = *(clientCopy + 4);
+                    v36 = *(clientCopy + 4);
                     *buf = 138544386;
-                    v58 = v44;
-                    v59 = 2048;
+                    v59 = v45;
+                    v60 = 2048;
                     selfCopy2 = self;
-                    v61 = 2114;
-                    v62 = identity;
-                    v63 = 2114;
-                    v64 = v35;
-                    v65 = 2114;
-                    v66 = v28;
-                    _os_log_error_impl(&dword_1C26FF000, v31, OS_LOG_TYPE_ERROR, "<%{public}@:%p> failed to prepare update of %{public}@ for client %{public}@ due to bad auditToken %{public}@", buf, 0x34u);
+                    v62 = 2114;
+                    v63 = identity;
+                    v64 = 2114;
+                    v65 = v36;
+                    v66 = 2114;
+                    v67 = v28;
+                    _os_log_error_impl(&dword_1C26FF000, v32, OS_LOG_TYPE_ERROR, "<%{public}@:%p> failed to prepare update of %{public}@ for client %{public}@ due to bad auditToken %{public}@", buf, 0x34u);
                   }
                 }
 
@@ -1234,7 +1223,7 @@ LABEL_31:
                   [v25 setPath:v20];
                 }
 
-                v15 = v45;
+                v15 = v46;
               }
 
               else
@@ -1256,8 +1245,8 @@ LABEL_31:
 
           else
           {
-            v23 = v68;
-            v24 = v51;
+            v23 = v69;
+            v24 = v52;
             while (v20 != *v23)
             {
               ++v23;
@@ -1273,51 +1262,49 @@ LABEL_31:
           }
 
           [v25 setLocations:v19];
-          [v49 addObject:v25];
+          [v50 addObject:v25];
 
           ++v17;
         }
 
-        while (v17 != v50);
-        v50 = [obj countByEnumeratingWithState:&v53 objects:v67 count:16];
+        while (v17 != v51);
+        v51 = [obj countByEnumeratingWithState:&v54 objects:v68 count:16];
       }
 
-      while (v50);
+      while (v51);
     }
 
-    v36 = PRSLogObserver();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v38 = PRSLogObserver(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = objc_opt_class();
-      v38 = NSStringFromClass(v37);
-      v39 = *(clientCopy + 4);
+      v39 = objc_opt_class();
+      v40 = NSStringFromClass(v39);
+      v41 = *(clientCopy + 4);
       *buf = 138544130;
-      v58 = v38;
-      v59 = 2048;
+      v59 = v40;
+      v60 = 2048;
       selfCopy2 = self;
-      v61 = 2114;
-      v62 = v39;
-      v63 = 2114;
-      v64 = v49;
-      _os_log_impl(&dword_1C26FF000, v36, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> notifying client %{public}@ of updates=%{public}@", buf, 0x2Au);
+      v62 = 2114;
+      v63 = v41;
+      v64 = 2114;
+      v65 = v50;
+      _os_log_impl(&dword_1C26FF000, v38, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> notifying client %{public}@ of updates=%{public}@", buf, 0x2Au);
     }
 
-    [*(clientCopy + 3) notifyWallpaperUpdates:v49];
-    v40 = 3;
-    v7 = v42;
+    [*(clientCopy + 3) notifyWallpaperUpdates:v50];
+    v42 = 3;
+    v7 = v43;
     do
     {
     }
 
-    while (v40 != -1);
+    while (v42 != -1);
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_noteChanged:(unint64_t)changed
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_lock);
   if (changed)
   {
@@ -1339,115 +1326,117 @@ LABEL_31:
     while (!__CFADD__(v8++, 1));
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = self->_lock_clients;
-  v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
+        v15 = *(*(&v16 + 1) + 8 * v14);
         if (*(v15 + 112) == 1 && *(v15 + 115) == 1)
         {
-          [(PRSWallpaperPublisher *)self _lock_sendStateToClient:v17];
+          [(PRSWallpaperPublisher *)self _lock_sendStateToClient:v16];
         }
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [(NSMutableSet *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_noteSnapshotUpdateForPath:(id)path snapshotType:(id)type
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   typeCopy = type;
   os_unfair_lock_assert_owner(&self->_lock);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = self->_lock_clients;
-  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v22 objects:v35 count:16];
+  v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v21 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v11 = 0;
+      do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         if (*(v12 + 112) == 1 && *(v12 + 114) == 1)
         {
           if (!v9)
           {
-            v9 = [[PRSWallpaperObserverSnapshotUpdate alloc] initWithPath:pathCopy snapshotType:typeCopy];
+            v7 = [[PRSWallpaperObserverSnapshotUpdate alloc] initWithPath:pathCopy snapshotType:typeCopy];
+            v9 = v7;
           }
 
-          v13 = PRSLogObserver();
+          v13 = PRSLogObserver(v7);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             v14 = objc_opt_class();
             v15 = NSStringFromClass(v14);
             v16 = *(v12 + 32);
             *buf = 138544130;
-            v28 = v15;
-            v29 = 2048;
+            v27 = v15;
+            v28 = 2048;
             selfCopy = self;
-            v31 = 2114;
-            v32 = v16;
-            v33 = 2114;
-            v34 = v9;
+            v30 = 2114;
+            v31 = v16;
+            v32 = 2114;
+            v33 = v9;
             _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> notifying client %{public}@ of snapshot updates=%{public}@", buf, 0x2Au);
           }
 
           v17 = *(v12 + 24);
-          v26 = v9;
-          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+          v25 = v9;
+          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
           [v17 notifySnapshotUpdates:v18];
         }
+
+        v11 = (v11 + 1);
       }
 
-      v8 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v22 objects:v35 count:16];
+      while (v8 != v11);
+      v7 = [(NSMutableSet *)v6 countByEnumeratingWithState:&v21 objects:v34 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
 
   else
   {
     v9 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lock_issueUpdateForRoles:(id)roles suggestionsToPosterUUID:(id)d
@@ -1693,23 +1682,24 @@ LABEL_31:
           }
 
           v58 = [(PRSWallpaperPublisher *)selfCopy _lock_buildActivePosterObserverUpdatesForClient:v44 updatedRoles:v76 clientSpecificSuggestionsToPosterUUID:v45];
-          if ([v58 count])
+          v59 = [v58 count];
+          if (v59)
           {
-            v59 = PRSLogObserver();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+            v60 = PRSLogObserver(v59);
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
             {
-              v60 = objc_opt_class();
-              v61 = NSStringFromClass(v60);
-              v62 = *(v44 + 32);
+              v61 = objc_opt_class();
+              v62 = NSStringFromClass(v61);
+              v63 = *(v44 + 32);
               *buf = 138544130;
-              v101 = v61;
+              v101 = v62;
               v102 = 2048;
               v103 = selfCopy;
               v104 = 2114;
-              v105 = v62;
+              v105 = v63;
               v106 = 2114;
               v107 = v58;
-              _os_log_impl(&dword_1C26FF000, v59, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> notifying client %{public}@ of role observer updates=%{public}@", buf, 0x2Au);
+              _os_log_impl(&dword_1C26FF000, v60, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> notifying client %{public}@ of role observer updates=%{public}@", buf, 0x2Au);
 
               v42 = v71;
             }
@@ -1727,8 +1717,6 @@ LABEL_31:
       while (v41);
     }
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_lock_buildActivePosterObserverUpdatesForClient:(id)client updatedRoles:(id)roles clientSpecificSuggestionsToPosterUUID:(id)d
@@ -1790,28 +1778,29 @@ LABEL_31:
           remoteProcess = [*(clientCopy + 2) remoteProcess];
           auditToken = [remoteProcess auditToken];
           v25 = auditToken;
-          if (auditToken && ([auditToken isInvalid] & 1) == 0)
+          if (auditToken && (auditToken = [auditToken isInvalid], (auditToken & 1) == 0))
           {
             v54 = 0;
             v29 = [v19 extendContentsReadAccessToAuditToken:v25 error:&v54];
-            v26 = v54;
+            v30 = v54;
+            v26 = v30;
             v44 = v29;
             if (v29)
             {
-              v30 = v29;
-              v31 = v19;
-              v19 = v30;
+              v31 = v29;
+              v32 = v19;
+              v19 = v31;
             }
 
             else
             {
-              v31 = PRSLogObserver();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              v32 = PRSLogObserver(v30);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
               {
-                v34 = objc_opt_class();
-                v40 = NSStringFromClass(v34);
+                v35 = objc_opt_class();
+                v40 = NSStringFromClass(v35);
                 identity = [v19 identity];
-                v35 = *(clientCopy + 4);
+                v36 = *(clientCopy + 4);
                 *buf = v38;
                 v60 = v40;
                 v61 = 2048;
@@ -1821,10 +1810,10 @@ LABEL_31:
                 v65 = 2114;
                 v66 = v17;
                 v67 = 2114;
-                v68 = v35;
+                v68 = v36;
                 v69 = 2114;
                 v70 = v25;
-                _os_log_error_impl(&dword_1C26FF000, v31, OS_LOG_TYPE_ERROR, "<%{public}@:%p> failed to prepare role update of %{public}@/%{public}@ for client %{public}@ due to bad auditToken %{public}@", buf, 0x3Eu);
+                _os_log_error_impl(&dword_1C26FF000, v32, OS_LOG_TYPE_ERROR, "<%{public}@:%p> failed to prepare role update of %{public}@/%{public}@ for client %{public}@ due to bad auditToken %{public}@", buf, 0x3Eu);
               }
             }
 
@@ -1836,16 +1825,16 @@ LABEL_31:
             v51 = selfCopy;
             v52 = v17;
             v53 = clientCopy;
-            v32 = [v22 bs_mapNoNulls:v49];
+            v33 = [v22 bs_mapNoNulls:v49];
 
-            v22 = v32;
+            v22 = v33;
 LABEL_19:
             rolesCopy = v41;
           }
 
           else
           {
-            v26 = PRSLogObserver();
+            v26 = PRSLogObserver(auditToken);
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               v27 = objc_opt_class();
@@ -1871,14 +1860,14 @@ LABEL_19:
         }
 
         v14 = v18;
-        v33 = [[PRSRoleActivePosterObserverUpdate alloc] initWithRole:v17 activePath:v19 suggestionDescriptors:v22];
+        v34 = [[PRSRoleActivePosterObserverUpdate alloc] initWithRole:v17 activePath:v19 suggestionDescriptors:v22];
         v13 = v47;
         if (!v14)
         {
           v14 = objc_opt_new();
         }
 
-        [v14 addObject:v33];
+        [v14 addObject:v34];
 
         v15 = v46;
       }
@@ -1894,55 +1883,53 @@ LABEL_19:
 LABEL_29:
 
 LABEL_30:
-  v36 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 void *__124__PRSWallpaperPublisher__lock_buildActivePosterObserverUpdatesForClient_updatedRoles_clientSpecificSuggestionsToPosterUUID___block_invoke(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = a1[4];
-  v20 = 0;
-  v5 = [v3 extendContentsReadAccessToAuditToken:v4 error:&v20];
-  v6 = v20;
-  v7 = v5;
+  v19 = 0;
+  v5 = [v3 extendContentsReadAccessToAuditToken:v4 error:&v19];
+  v6 = v19;
+  v7 = v6;
+  v8 = v5;
   if (v6)
   {
-    v8 = PRSLogObserver();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PRSLogObserver(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = a1[5];
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      v15 = a1[5];
-      v16 = [v3 identity];
-      v17 = a1[6];
-      v18 = *(a1[7] + 32);
-      v19 = a1[4];
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v14 = a1[5];
+      v15 = [v3 identity];
+      v16 = a1[6];
+      v17 = *(a1[7] + 32);
+      v18 = a1[4];
       *buf = 138544642;
-      v22 = v14;
-      v23 = 2048;
-      v24 = v15;
-      v25 = 2114;
-      v26 = v16;
-      v27 = 2114;
-      v28 = v17;
-      v29 = 2114;
-      v30 = v18;
-      v31 = 2114;
-      v32 = v19;
-      _os_log_error_impl(&dword_1C26FF000, v8, OS_LOG_TYPE_ERROR, "<%{public}@:%p> failed to prepare suggestion descriptor sandbox extension for update of %{public}@/%{public}@ for client %{public}@ due to bad auditToken %{public}@", buf, 0x3Eu);
+      v21 = v13;
+      v22 = 2048;
+      v23 = v14;
+      v24 = 2114;
+      v25 = v15;
+      v26 = 2114;
+      v27 = v16;
+      v28 = 2114;
+      v29 = v17;
+      v30 = 2114;
+      v31 = v18;
+      _os_log_error_impl(&dword_1C26FF000, v9, OS_LOG_TYPE_ERROR, "<%{public}@:%p> failed to prepare suggestion descriptor sandbox extension for update of %{public}@/%{public}@ for client %{public}@ due to bad auditToken %{public}@", buf, 0x3Eu);
     }
 
-    v7 = v3;
+    v8 = v3;
   }
 
-  v9 = v7;
+  v10 = v8;
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v8;
 }
 
 - (void)_lock_issuePosterCollectionUpdate:(id)update
@@ -2072,24 +2059,25 @@ LABEL_14:
             v27 = [v20 objectForKeyedSubscript:v25];
             v28 = [(PRSWallpaperPublisher *)selfCopy _lock_buildPosterCollectionUpdatesForClient:v24 role:v25 updatedPosterCollection:v27];
 
-            if ([v28 count])
+            v29 = [v28 count];
+            if (v29)
             {
-              v29 = PRSLogObserver();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+              v30 = PRSLogObserver(v29);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
-                v30 = objc_opt_class();
-                v31 = NSStringFromClass(v30);
-                v32 = *(v24 + 32);
+                v31 = objc_opt_class();
+                v32 = NSStringFromClass(v31);
+                v33 = *(v24 + 32);
                 *buf = 138544130;
-                v54 = v31;
+                v54 = v32;
                 v55 = 2048;
                 v56 = selfCopy;
                 v20 = v39;
                 v57 = 2114;
-                v58 = v32;
+                v58 = v33;
                 v59 = 2114;
                 v60 = v28;
-                _os_log_impl(&dword_1C26FF000, v29, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> notifying client %{public}@ of poster collection role observer updates=%{public}@", buf, 0x2Au);
+                _os_log_impl(&dword_1C26FF000, v30, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> notifying client %{public}@ of poster collection role observer updates=%{public}@", buf, 0x2Au);
               }
 
               [*(v24 + 24) notifyRolePosterCollectionUpdates:v28];
@@ -2106,13 +2094,11 @@ LABEL_14:
     v17 = v20;
     updateCopy = v41;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_lock_buildPosterCollectionUpdatesForClient:(id)client role:(id)role updatedPosterCollection:(id)collection
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   roleCopy = role;
   collectionCopy = collection;
@@ -2122,40 +2108,40 @@ LABEL_14:
   auditToken = [remoteProcess auditToken];
   if (*(clientCopy + 112) == 1 && *(clientCopy + 153) == 1)
   {
-    v31 = remoteProcess;
-    v33 = roleCopy;
+    v30 = remoteProcess;
+    v32 = roleCopy;
     v13 = objc_opt_new();
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v32 = collectionCopy;
+    v31 = collectionCopy;
     v14 = collectionCopy;
-    v15 = [v14 countByEnumeratingWithState:&v38 objects:v55 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v37 objects:v54 count:16];
     if (!v15)
     {
       goto LABEL_21;
     }
 
     v16 = v15;
-    v17 = *v39;
+    v17 = *v38;
     while (1)
     {
       v18 = 0;
       do
       {
-        if (*v39 != v17)
+        if (*v38 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v38 + 1) + 8 * v18);
+        v19 = *(*(&v37 + 1) + 8 * v18);
         v20 = *(clientCopy + 152) != 1 || auditToken == 0;
         if (!v20 && ([auditToken isInvalid] & 1) == 0)
         {
-          v37 = 0;
-          v21 = [v19 extendContentsReadAccessToAuditToken:auditToken error:&v37];
-          v22 = v37;
+          v36 = 0;
+          v21 = [v19 extendContentsReadAccessToAuditToken:auditToken error:&v36];
+          v22 = v36;
           v23 = v22;
           if (v21)
           {
@@ -2163,49 +2149,49 @@ LABEL_14:
             goto LABEL_19;
           }
 
-          v24 = PRSLogObserver();
+          v24 = PRSLogObserver(v22);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             v25 = objc_opt_class();
-            v35 = NSStringFromClass(v25);
+            v34 = NSStringFromClass(v25);
             identity = [v19 identity];
             v26 = clientCopy[4];
             *buf = 138544642;
-            v44 = v35;
-            v45 = 2048;
-            v46 = selfCopy;
-            v47 = 2114;
-            v48 = identity;
-            v49 = 2114;
-            v50 = v33;
-            v51 = 2114;
-            v52 = v26;
-            v53 = 2114;
-            v54 = auditToken;
+            v43 = v34;
+            v44 = 2048;
+            v45 = selfCopy;
+            v46 = 2114;
+            v47 = identity;
+            v48 = 2114;
+            v49 = v32;
+            v50 = 2114;
+            v51 = v26;
+            v52 = 2114;
+            v53 = auditToken;
             _os_log_error_impl(&dword_1C26FF000, v24, OS_LOG_TYPE_ERROR, "<%{public}@:%p> failed to prepare role update of %{public}@/%{public}@ for client %{public}@ due to bad auditToken %{public}@", buf, 0x3Eu);
           }
         }
 
         v21 = v19;
 LABEL_19:
-        [v13 addObject:{v21, v31}];
+        [v13 addObject:{v21, v30}];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v38 objects:v55 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v37 objects:v54 count:16];
       if (!v16)
       {
 LABEL_21:
 
-        roleCopy = v33;
-        v27 = [[PRSPosterRoleCollectionObserverUpdate alloc] initWithRole:v33 posterCollection:v13];
-        v42 = v27;
-        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
+        roleCopy = v32;
+        v27 = [[PRSPosterRoleCollectionObserverUpdate alloc] initWithRole:v32 posterCollection:v13];
+        v41 = v27;
+        v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
 
-        remoteProcess = v31;
-        collectionCopy = v32;
+        remoteProcess = v30;
+        collectionCopy = v31;
         goto LABEL_23;
       }
     }
@@ -2213,8 +2199,6 @@ LABEL_21:
 
   v28 = 0;
 LABEL_23:
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -2225,19 +2209,19 @@ LABEL_23:
   os_unfair_lock_assert_owner(&self->_lock);
   if (!self->_lock_activated)
   {
-    v3 = PRSLogObserver();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PRSLogObserver(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v6 = [(NSMutableSet *)self->_lock_clients count];
+      v5 = objc_opt_class();
+      v6 = NSStringFromClass(v5);
+      v7 = [(NSMutableSet *)self->_lock_clients count];
       *buf = 138543874;
-      v26 = v5;
+      v26 = v6;
       v27 = 2048;
       selfCopy2 = self;
       v29 = 2048;
-      v30 = v6;
-      _os_log_impl(&dword_1C26FF000, v3, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Activating %lu clients", buf, 0x20u);
+      v30 = v7;
+      _os_log_impl(&dword_1C26FF000, v4, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Activating %lu clients", buf, 0x20u);
     }
 
     self->_lock_activated = 1;
@@ -2245,60 +2229,62 @@ LABEL_23:
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v7 = self->_lock_clients;
-    v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    if (v8)
+    v8 = self->_lock_clients;
+    v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v21;
+      v10 = v9;
+      v11 = *v21;
       do
       {
-        for (i = 0; i != v9; ++i)
+        v12 = 0;
+        do
         {
-          if (*v21 != v10)
+          if (*v21 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
-          if (!*(v12 + 24))
+          v13 = *(*(&v20 + 1) + 8 * v12);
+          if (!*(v13 + 24))
           {
-            v13 = PRSLogObserver();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v14 = PRSLogObserver(v9);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              v14 = objc_opt_class();
-              v15 = NSStringFromClass(v14);
-              v16 = *(v12 + 32);
+              v15 = objc_opt_class();
+              v16 = NSStringFromClass(v15);
+              v17 = *(v13 + 32);
               *buf = 138543874;
-              v26 = v15;
+              v26 = v16;
               v27 = 2048;
               selfCopy2 = self;
               v29 = 2112;
-              v30 = v16;
-              _os_log_impl(&dword_1C26FF000, v13, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Activating client that connected earlier: %@", buf, 0x20u);
+              v30 = v17;
+              _os_log_impl(&dword_1C26FF000, v14, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p> Activating client that connected earlier: %@", buf, 0x20u);
             }
 
-            [*(v12 + 16) activate];
-            remoteTarget = [*(v12 + 16) remoteTarget];
-            v18 = *(v12 + 24);
-            *(v12 + 24) = remoteTarget;
+            [*(v13 + 16) activate];
+            remoteTarget = [*(v13 + 16) remoteTarget];
+            v19 = *(v13 + 24);
+            *(v13 + 24) = remoteTarget;
           }
+
+          ++v12;
         }
 
-        v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        while (v10 != v12);
+        v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = v9;
       }
 
       while (v9);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initializeWithPaths:recentlyChanged:.cold.1()
 {
   OUTLINED_FUNCTION_6_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_8_0();
@@ -2306,14 +2292,12 @@ LABEL_23:
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)initializeWithPaths:(char *)a1 recentlyChanged:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"paths"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2321,7 +2305,7 @@ LABEL_23:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"paths", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2331,7 +2315,7 @@ LABEL_23:
 
 - (void)initializeRoles:(char *)a1 suggestions:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"suggestionsToPosterUUID"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2339,7 +2323,7 @@ LABEL_23:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"suggestionsToPosterUUID", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2349,7 +2333,7 @@ LABEL_23:
 
 - (void)initializeRoles:(char *)a1 suggestions:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"roles"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2357,7 +2341,7 @@ LABEL_23:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roles", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2368,7 +2352,6 @@ LABEL_23:
 - (void)updatePaths:.cold.1()
 {
   OUTLINED_FUNCTION_6_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_8_0();
@@ -2376,15 +2359,12 @@ LABEL_23:
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)updatePaths:.cold.2()
 {
   OUTLINED_FUNCTION_6_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_8_0();
@@ -2392,14 +2372,12 @@ LABEL_23:
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)updatePaths:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"paths"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2407,7 +2385,7 @@ LABEL_23:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"paths", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2417,7 +2395,7 @@ LABEL_23:
 
 - (void)noteSnapshotUpdateForPath:(char *)a1 snapshotType:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"snapshotUpdatedForPath"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2425,7 +2403,7 @@ LABEL_23:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"snapshotUpdatedForPath", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2435,7 +2413,7 @@ LABEL_23:
 
 - (void)initializePosterCollectionForRoles:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterCollectionToRole"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2443,7 +2421,7 @@ LABEL_23:
     v3 = OUTLINED_FUNCTION_2_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterCollectionToRole", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1C26FF000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2451,20 +2429,26 @@ LABEL_23:
   __break(0);
 }
 
-- (void)_lock_sendStateToClient:(char *)a1 .cold.1(char *a1)
+- (void)_lock_sendStateToClient:(char *)a1 .cold.1(char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Client is not observing changes for this abort"];;
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Client is not observing changes for this abort"];;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
     objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_2_0();
-    v9 = NSStringFromClass(v3);
+    v5 = OUTLINED_FUNCTION_2_0();
+    v6 = NSStringFromClass(v5);
+    *v12 = 138544642;
+    *&v12[4] = a1;
+    *&v12[12] = 2114;
+    *&v12[14] = v6;
+    *&v12[22] = 2048;
+    v13 = 2114;
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16], a2, v13);
   }
 
-  [v2 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -2472,7 +2456,6 @@ LABEL_23:
 - (void)_lock_issueUpdateForRoles:suggestionsToPosterUUID:.cold.1()
 {
   OUTLINED_FUNCTION_6_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_8_0();
@@ -2480,15 +2463,12 @@ LABEL_23:
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_lock_issuePosterCollectionUpdate:.cold.1()
 {
   OUTLINED_FUNCTION_6_0();
-  v11 = *MEMORY[0x1E69E9840];
   NSStringFromSelector(v1);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_8_0();
@@ -2496,9 +2476,7 @@ LABEL_23:
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1C26FF000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8);
 }
 
 @end

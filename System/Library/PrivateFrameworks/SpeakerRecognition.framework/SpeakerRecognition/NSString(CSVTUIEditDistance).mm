@@ -57,27 +57,27 @@
 
 - (id)_firstMatchesForRegularExpressions:()CSVTUIEditDistance
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = a3;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [self _firstMatchesForRegularExpression:{*(*(&v13 + 1) + 8 * i), v13}];
+        v9 = [self _firstMatchesForRegularExpression:{*(*(&v12 + 1) + 8 * i), v12}];
         if (v9)
         {
           v10 = v9;
@@ -85,7 +85,7 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -98,63 +98,54 @@
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (uint64_t)_caseInsensitiveHasMatchInEnumeration:()CSVTUIEditDistance
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v4 = a3;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
-    v8 = &selRef_setPageNumber_;
+    v7 = *v17;
     while (2)
     {
-      v9 = 0;
-      v10 = v8[131];
-      do
+      for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v9);
+        v9 = *(*(&v16 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v11 stringValue];
+          [v9 stringValue];
         }
 
         else
         {
-          [v11 description];
+          [v9 description];
         }
-        v12 = ;
-        lowercaseString = [v12 lowercaseString];
+        v10 = ;
+        lowercaseString = [v10 lowercaseString];
         lowercaseString2 = [self lowercaseString];
-        v15 = [lowercaseString isEqualToString:lowercaseString2];
+        v13 = [lowercaseString isEqualToString:lowercaseString2];
 
-        if (v15)
+        if (v13)
         {
-          v16 = 1;
+          v14 = 1;
           goto LABEL_14;
         }
-
-        ++v9;
       }
 
-      while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      v8 = &selRef_setPageNumber_;
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         continue;
@@ -164,11 +155,10 @@ LABEL_11:
     }
   }
 
-  v16 = 0;
+  v14 = 0;
 LABEL_14:
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v14;
 }
 
 - (BOOL)_matchesRegularExpression:()CSVTUIEditDistance

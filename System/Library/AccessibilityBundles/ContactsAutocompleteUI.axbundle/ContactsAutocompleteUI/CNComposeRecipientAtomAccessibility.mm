@@ -128,17 +128,17 @@ LABEL_13:
 
 - (id)accessibilityCustomActions
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   objc_initWeak(&location, self);
   v3 = objc_alloc(MEMORY[0x29EDC78E0]);
   v4 = accessibilityLocalizedString(@"show.alternate.addresses");
-  v9[0] = MEMORY[0x29EDCA5F8];
-  v9[1] = 3221225472;
-  v9[2] = __65__CNComposeRecipientAtomAccessibility_accessibilityCustomActions__block_invoke;
-  v9[3] = &unk_29F2B5328;
-  objc_copyWeak(&v10, &location);
-  v9[4] = self;
-  v5 = [v3 initWithName:v4 actionHandler:v9];
+  v8[0] = MEMORY[0x29EDCA5F8];
+  v8[1] = 3221225472;
+  v8[2] = __65__CNComposeRecipientAtomAccessibility_accessibilityCustomActions__block_invoke;
+  v8[3] = &unk_29F2B5328;
+  objc_copyWeak(&v9, &location);
+  v8[4] = self;
+  v5 = [v3 initWithName:v4 actionHandler:v8];
 
   if ([(CNComposeRecipientAtomAccessibility *)self _axIsScreenLocked])
   {
@@ -147,13 +147,12 @@ LABEL_13:
 
   else
   {
-    v12[0] = v5;
-    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
+    v11[0] = v5;
+    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
   }
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
@@ -161,10 +160,9 @@ LABEL_13:
 uint64_t __65__CNComposeRecipientAtomAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  objc_copyWeak(&v6, (a1 + 40));
-  v5 = *(a1 + 32);
+  objc_copyWeak(&v5, (a1 + 40));
   AXPerformSafeBlock();
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v5);
 
   return 1;
 }

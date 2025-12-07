@@ -1,8 +1,71 @@
+void TUI::Evaluation::Context::pushNamedElement(void *a1, unsigned int a2, int *a3, uint64_t a4)
+{
+  v4 = *a1 + 8;
+  v6 = *a3;
+  v5 = *(a3 + 2);
+  v7 = *(a3 + 1);
+  v8 = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(*v4 + 56))(v4, a2, a4, &v6);
+  if (v8)
+  {
+    sub_11420(v8);
+  }
+}
+
+void sub_FA9EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  if (a12)
+  {
+    sub_11420(a12);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void TUI::Evaluation::Context::pushNamedElement(void *a1, unsigned int a2, unsigned int a3, uint64_t a4)
+{
+  v6 = *a1;
+  (*(**a1 + 112))(v7, *a1, a3);
+  (*(*(v6 + 8) + 56))(v6 + 8, a2, a4, v7);
+  if (v8)
+  {
+    sub_11420(v8);
+  }
+}
+
+void sub_FAAAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+{
+  if (a12)
+  {
+    sub_11420(a12);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t TUI::Evaluation::Context::pushFunction(uint64_t a1, int a2)
+{
+  result = TUIDefinitionNotNil(a2);
+  if (result)
+  {
+    v4 = *(*(*a1 + 8) + 16);
+
+    return v4();
+  }
+
+  return result;
+}
+
 void TUI::Evaluation::Context::pushNamedElement(TUI::Instruction::Evaluation **a1, unsigned int a2, TUI::Instruction::Decoder *a3)
 {
   if (TUIValueNotNil(a3))
   {
-    TUI::Instruction::Evaluation::evaluate(&v15, a1[1], a3);
+    TUI::Instruction::Evaluation::evaluate(a1[1], a3, &v15);
     v6 = TUI::Evaluation::ResolvedValue::elementValue(&v15, a1);
 
     if (v6 && (~a2 & 0xFFFF0000) != 0 && a2 != 0xFFFFLL)
@@ -15,7 +78,7 @@ void TUI::Evaluation::Context::pushNamedElement(TUI::Instruction::Evaluation **a
         v9 = [v6 parsedElement];
         v15 = v9;
         LODWORD(v16) = TUIElementNodeNil;
-        [v6 closureAndCapture];
+        objc_msgSend_closureAndCapture(v6);
         (*(*v8 + 56))(v8, a2, &v15, v13);
         if (v14)
         {
@@ -28,7 +91,7 @@ void TUI::Evaluation::Context::pushNamedElement(TUI::Instruction::Evaluation **a
         v10 = [v6 node];
         v15 = 0;
         LODWORD(v16) = v10;
-        [v6 closureAndCapture];
+        objc_msgSend_closureAndCapture(v6);
         (*(*v8 + 56))(v8, a2, &v15, v11);
         if (v12)
         {
@@ -82,7 +145,7 @@ uint64_t TUI::Evaluation::Context::pushStyle(uint64_t *a1, int *a2)
   return result;
 }
 
-uint64_t TUI::Evaluation::Context::pushAnimation(void *a1, unsigned int a2)
+uint64_t TUI::Evaluation::Context::pushAnimation(void *a1, int a2)
 {
   v3 = a2;
   result = TUIDefinitionNotNil(a2);
@@ -107,7 +170,7 @@ uint64_t TUI::Evaluation::Context::pushAnimation(void *a1, unsigned int a2)
   return result;
 }
 
-uint64_t TUI::Evaluation::Context::pushDefinedElement(void *a1, unsigned int a2)
+uint64_t TUI::Evaluation::Context::pushDefinedElement(void *a1, int a2)
 {
   v3 = a2;
   result = TUIDefinitionNotNil(a2);
@@ -161,7 +224,7 @@ id TUI::Evaluation::Context::lastError(id *this)
   return v2;
 }
 
-void sub_FB2DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
+void sub_FB2DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
 {
   if (a12)
   {
@@ -251,13 +314,13 @@ void TUI::Evaluation::Context::evaluateWithSnapshot(uint64_t *a1, uint64_t **a2,
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v9 = (a1 + 31);
+  v9 = a1 + 31;
   v10 = *(a1 + 33);
   v60 = *(a1 + 31);
   v61 = v10;
   *(a1 + 31) = 0u;
   *(a1 + 33) = 0u;
-  v11 = (a1 + 35);
+  v11 = a1 + 35;
   v12 = *(a1 + 37);
   v62 = *(a1 + 35);
   v63 = v12;
@@ -266,7 +329,7 @@ void TUI::Evaluation::Context::evaluateWithSnapshot(uint64_t *a1, uint64_t **a2,
   memset(v64, 0, sizeof(v64));
   sub_28FD0((a1 + 39), v64);
   sub_28FD0((a1 + 44), v66);
-  v13 = (a1 + 49);
+  v13 = a1 + 49;
   v15 = *(a1 + 49);
   v14 = *(a1 + 51);
   v16 = v69;
@@ -274,7 +337,7 @@ void TUI::Evaluation::Context::evaluateWithSnapshot(uint64_t *a1, uint64_t **a2,
   *(a1 + 51) = v16;
   v68 = v15;
   v69 = v14;
-  v17 = (a1 + 53);
+  v17 = a1 + 53;
   v19 = *(a1 + 55);
   v72 = *(a1 + 53);
   v18 = v72;
@@ -424,7 +487,7 @@ id TUI::Evaluation::Context::locationForNode(uint64_t a1, unsigned int a2)
   return v14;
 }
 
-void TUI::Evaluation::Context::evaluateWithNodeIdentifier(uint64_t a1, unsigned int a2, void *a3)
+void TUI::Evaluation::Context::evaluateWithNodeIdentifier(uint64_t a1, int a2, void *a3)
 {
   v12 = a3;
   v5 = a2;
@@ -442,7 +505,7 @@ void TUI::Evaluation::Context::evaluateWithNodeIdentifier(uint64_t a1, unsigned 
     v10 = *(a1 + 608);
     *(a1 + 608) = v9;
 
-    (*(v12 + 2))();
+    v12[2]();
     v11 = *(a1 + 608);
     *(a1 + 608) = v8;
 
@@ -494,7 +557,7 @@ id TUI::Evaluation::Context::identifierWithNode(uint64_t a1, unsigned int a2)
   }
 
   v7 = *v6;
-  if (!TUIValueNotNil(*v6) || TUI::Instruction::Decoder::offsetKind(v7) == 7 || (TUI::Instruction::Evaluation::evaluate(v11, *(a1 + 8), v7), TUI::Evaluation::ResolvedValue::stringValue(v11, a1), v8 = objc_claimAutoreleasedReturnValue(), *&v11[1], !v8) || ([*(a1 + 608) tui_identifierByAppendingString:v8], v9 = objc_claimAutoreleasedReturnValue(), v8, !v9))
+  if (!TUIValueNotNil(*v6) || TUI::Instruction::Decoder::offsetKind(v7) == 7 || (TUI::Instruction::Evaluation::evaluate(*(a1 + 8), v7, v11), TUI::Evaluation::ResolvedValue::stringValue(v11, a1), v8 = objc_claimAutoreleasedReturnValue(), v12, !v8) || ([*(a1 + 608) tui_identifierByAppendingString:v8], v9 = objc_claimAutoreleasedReturnValue(), v8, !v9))
   {
     v9 = [*(a1 + 600) identifierWithNode:v4 baseIdentifier:*(a1 + 608)];
   }
@@ -548,14 +611,14 @@ void TUI::Evaluation::Context::evaluateEnumerator(void *a1, unint64_t a2, Entry 
   }
 }
 
-void sub_FBF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_FBF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   TUI::Evaluation::Enumerator::State::~State(&a9);
 
   _Unwind_Resume(a1);
 }
 
-void TUI::Evaluation::Context::enumerate(TUI::Symbol::Tab **a1, unint64_t a2, unint64_t a3, void *a4)
+void TUI::Evaluation::Context::enumerate(TUI::Instruction::Evaluation **a1, unint64_t a2, unint64_t a3, void *a4)
 {
   v56 = a4;
   if (!v56)
@@ -581,8 +644,8 @@ void TUI::Evaluation::Context::enumerate(TUI::Symbol::Tab **a1, unint64_t a2, un
     v18 = (**(*a1 + 1))(*a1 + 8, HIDWORD(v77[0]), v77);
     v20 = v19;
     TUI::Evaluation::Enumerator::State::~State(v77);
-    TUI::Instruction::Evaluation::evaluate(&v75, a1[1], v7);
-    obj = TUI::Evaluation::ResolvedValue::objectValue(&v75, a1);
+    TUI::Instruction::Evaluation::evaluate(a1[1], v7, v75);
+    obj = TUI::Evaluation::ResolvedValue::objectValue(v75, a1);
 
     if (HIWORD(a2) == 0xFFFF || (a2 & 0xFFFF00000000) == 0xFFFF00000000 || (objc_opt_respondsToSelector() & 1) == 0 || (objc_opt_respondsToSelector() & 1) == 0)
     {
@@ -756,8 +819,8 @@ LABEL_44:
 
   if (a2 == 1)
   {
-    TUI::Instruction::Evaluation::evaluate(&v75, a1[1], HIDWORD(a3));
-    obj = TUI::Evaluation::ResolvedValue::objectValue(&v75, a1);
+    TUI::Instruction::Evaluation::evaluate(a1[1], HIDWORD(a3), v75);
+    obj = TUI::Evaluation::ResolvedValue::objectValue(v75, a1);
 
     if (WORD1(a3) != 0xFFFF && a3 != 0xFFFF)
     {
@@ -813,7 +876,7 @@ uint64_t TUI::Evaluation::Context::Snapshot::Snapshot(uint64_t a1, uint64_t a2, 
   *(a1 + 40) = v8;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  sub_107504(a1 + 48, *(a2 + 656), *(a2 + 664), (*(a2 + 664) - *(a2 + 656)) >> 2);
+  sub_107504((a1 + 48), *(a2 + 656), *(a2 + 664), (*(a2 + 664) - *(a2 + 656)) >> 2);
   *(a1 + 80) = 0;
   *(a1 + 72) = 0;
   *(a1 + 96) = 0;
@@ -1019,7 +1082,7 @@ void TUI::Evaluation::Context::instantiateChildNode(uint64_t a1, unsigned int a2
 
   else
   {
-    log = TUIInstantiationLog();
+    log = TUIInstantiationLog(a1);
     v20 = os_log_type_enabled(log, OS_LOG_TYPE_ERROR);
     v21 = log;
     if (v20)
@@ -1058,7 +1121,7 @@ id TUI::Evaluation::Context::instantiateNodeWithEnumeration(uint64_t a1, unsigne
   v6 = a2;
   if (*(v5 + 216) <= a2 || (v7 = *(v5 + 208) + 28 * a2) == 0)
   {
-    v13 = TUIInstantiationLog();
+    v13 = TUIInstantiationLog(a1);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_19B7E8(v30, [*(a1 + 16) feedId], v6);
@@ -1378,7 +1441,7 @@ void TUI::Evaluation::Context::computeAttributes(uint64_t a1, uint64_t a2, int a
           goto LABEL_29;
         }
 
-        if (v15 >= 0x100 || (v23 = v14, v24 = v15 >> 6, v25 = 1 << v15, *(a4 + 8 * (v15 >> 6)) |= 1 << v15, v42 = &v46, *(sub_347B0((a4 + 64), &v46) + 5) = v13, v46 >= 0x100uLL))
+        if (v15 >= 0x100 || (v23 = v14, v24 = v15 >> 6, v25 = 1 << v15, *(a4 + 8 * (v15 >> 6)) |= 1 << v15, v42 = &v46, *(sub_347B0((a4 + 64), &v46, &std::piecewise_construct, &v42) + 5) = v13, v46 >= 0x100uLL))
         {
           sub_8BEBC("bitset set argument out of range");
         }
@@ -1402,11 +1465,11 @@ void TUI::Evaluation::Context::computeAttributes(uint64_t a1, uint64_t a2, int a
           goto LABEL_29;
         }
 
-        TUI::Instruction::Evaluation::evaluate(&v42, *(a1 + 8), v13);
+        TUI::Instruction::Evaluation::evaluate(*(a1 + 8), v13, &v42);
         v45 = v23;
         *(v32 + 8 * v24) |= v25;
         v46 = &v45;
-        v26 = sub_34D38((a4 + 104), &v45);
+        v26 = sub_34D38((a4 + 104), &v45, &std::piecewise_construct, &v46);
         *(v26 + 6) = v42;
         objc_storeStrong(v26 + 4, obj);
         v27 = obj;
@@ -1455,7 +1518,7 @@ NSObject *TUI::Evaluation::Context::instantiateNode(uint64_t a1, unsigned int a2
   v5 = a2;
   if (*(v4 + 216) <= a2 || (v6 = (*(v4 + 208) + 28 * a2)) == 0)
   {
-    v17 = TUIInstantiationLog();
+    v17 = TUIInstantiationLog(a1);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_19B7E8(buf, [*(a1 + 16) feedId], v5);
@@ -1481,26 +1544,26 @@ NSObject *TUI::Evaluation::Context::instantiateNode(uint64_t a1, unsigned int a2
 
   if (!*v12)
   {
-    v17 = TUIInstantiationLog();
+    v17 = TUIInstantiationLog(a1);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v82 = [*(a1 + 16) feedId];
-      v83 = *(a1 + 576);
-      v84 = *v6;
-      if (v83[55] <= v84)
+      v83 = [*(a1 + 16) feedId];
+      v84 = *(a1 + 576);
+      v85 = *v6;
+      if (v84[55] <= v85)
       {
-        v85 = 0;
+        v86 = 0;
       }
 
       else
       {
-        v85 = v83[54] + *(v83[56] + 4 * v84);
+        v86 = v84[54] + *(v84[56] + 4 * v85);
       }
 
       *buf = 134218242;
-      v103 = v82;
-      v104 = 2082;
-      v105 = v85;
+      v104 = v83;
+      v105 = 2082;
+      v106 = v86;
       _os_log_error_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "[fid:%lu] no registered instantiator class for: %{public}s", buf, 0x16u);
     }
 
@@ -1584,12 +1647,12 @@ LABEL_14:
 
   v33 = *(a1 + 168);
   v34 = *(a1 + 176);
-  v87 = *(v6 + 5);
-  v93 = *(v12 + 40);
-  v88 = v6[2];
-  if ((v93 & 6) == 0 && v6[2] != 0)
+  v88 = *(v6 + 5);
+  v94 = *(v12 + 40);
+  v89 = v6[2];
+  if ((v94 & 6) == 0 && v6[2] != 0)
   {
-    if (v32 && (v93 & 4) == 0 && (*(v12 + 43) & 0x10) != 0)
+    if (v32 && (v94 & 4) == 0 && (*(v12 + 43) & 0x10) != 0)
     {
       v37 = v32;
       *(a1 + 168) = v37;
@@ -1626,11 +1689,11 @@ LABEL_50:
   v41 = *(v12 + 40);
   if ((v41 & 8) != 0)
   {
-    v89 = v36;
+    v90 = v36;
     v42 = v34;
     v43 = v33;
-    v91 = v37;
-    v86 = *(v6 + 4);
+    v92 = v37;
+    v87 = *(v6 + 4);
     v44 = v6[1];
     sub_FD220(a1 + 248, (v41 >> 4) & 1);
     if (v44)
@@ -1659,15 +1722,15 @@ LABEL_50:
         *(a1 + 408) = v50;
       }
 
-      TUI::Evaluation::Context::computeAttributes(a1, v86 | (v44 << 32), 0, a1 + 248);
+      TUI::Evaluation::Context::computeAttributes(a1, v87 | (v44 << 32), 0, a1 + 248);
     }
 
     *(a1 + 244) = a2;
     LOWORD(v41) = *(v12 + 40);
-    v37 = v91;
+    v37 = v92;
     v33 = v43;
     v34 = v42;
-    v36 = v89;
+    v36 = v90;
   }
 
   if ((v41 & 0x400) != 0)
@@ -1695,7 +1758,7 @@ LABEL_50:
     [*v12 configureObject:v32 withNode:v5 attributes:*(a1 + 16) context:*(a1 + 16)];
   }
 
-  if ((v93 & 2) == 0 && (*(v12 + 40) & 4) != 0)
+  if ((v94 & 2) == 0 && (*(v12 + 40) & 4) != 0)
   {
     v55 = [*v12 builderWithNode:v5 object:v32 attributes:*(a1 + 16) context:*(a1 + 16)];
 
@@ -1774,11 +1837,11 @@ LABEL_50:
     [*v12 configureContainingBuilder:*(a1 + 168) withNode:v5 attributes:*(a1 + 16) context:*(a1 + 16)];
   }
 
-  v90 = v34;
+  v91 = v34;
   v63 = v33;
   *(a1 + 244) = TUIElementNodeNil;
   sub_F9510(a1 + 248);
-  v92 = *(a1 + 192);
+  v93 = *(a1 + 192);
   v64 = *(a1 + 208);
   if (v64 && (*(v64 + 42) & 0x20) != 0)
   {
@@ -1805,7 +1868,7 @@ LABEL_50:
       *(a1 + 184) = *(a1 + 184) & 0xFE | v67;
     }
 
-    if (v88)
+    if (v89)
     {
       v68 = v36;
     }
@@ -1838,7 +1901,7 @@ LABEL_50:
 
   else if ((*(v12 + 40) & 0x8000) != 0)
   {
-    if (v36 & 1 | ((v70 & 2) == 0) & (v93 >> 1) | ((*(v12 + 42) & 1) == 0))
+    if (v36 & 1 | ((v70 & 2) == 0) & (v94 >> 1) | ((*(v12 + 42) & 1) == 0))
     {
       v75 = v36 ^ 1;
       if ((*(v12 + 42) & 2) == 0)
@@ -1848,35 +1911,48 @@ LABEL_50:
 
       if (v75)
       {
-        if (v88)
+        if (v89)
         {
           if (objc_opt_respondsToSelector())
           {
-            [*(a1 + 168) onlyInstantiateFirstChildPassingConditionForEnumeratorChildren];
+            if ([*(a1 + 168) onlyInstantiateFirstChildPassingConditionForEnumeratorChildren])
+            {
+              v82 = 2;
+            }
+
+            else
+            {
+              v82 = 0;
+            }
           }
 
-          TUI::Evaluation::Context::instantiateChildren(a1, v87 | (v88 << 32));
+          else
+          {
+            v82 = 0;
+          }
+
+          TUI::Evaluation::Context::instantiateChildren(a1, v88 | (v89 << 32), v82);
         }
       }
 
-      else if (v88)
+      else if (v89)
       {
         v76 = *v12;
         v77 = *(a1 + 168);
         v78 = *(a1 + 16);
-        v94[0] = _NSConcreteStackBlock;
-        v94[1] = 3221225472;
-        v94[2] = sub_FF388;
-        v94[3] = &unk_261AA8;
-        v94[4] = a1;
-        v95 = v87;
+        v95[0] = _NSConcreteStackBlock;
+        v95[1] = 3221225472;
+        v95[2] = sub_FF388;
+        v95[3] = &unk_261AA8;
+        v95[4] = a1;
         v96 = v88;
-        v97 = 0;
-        [v76 instantiateChildrenOfNode:v5 object:v32 builder:v77 context:v78 block:v94];
+        v97 = v89;
+        v98 = 0;
+        [v76 instantiateChildrenOfNode:v5 object:v32 builder:v77 context:v78 block:v95];
       }
     }
 
-    else if (v88)
+    else if (v89)
     {
       if ((v70 & 2) == 0)
       {
@@ -1886,21 +1962,21 @@ LABEL_50:
       v79 = *v12;
       v80 = *(a1 + 168);
       v81 = *(a1 + 16);
-      v98[0] = _NSConcreteStackBlock;
-      v98[1] = 3221225472;
-      v98[2] = sub_FEE4C;
-      v98[3] = &unk_261A88;
-      v98[4] = a1;
-      v99 = v87;
+      v99[0] = _NSConcreteStackBlock;
+      v99[1] = 3221225472;
+      v99[2] = sub_FEE4C;
+      v99[3] = &unk_261A88;
+      v99[4] = a1;
       v100 = v88;
-      v101 = 0;
-      [v79 instantiateChildrenOfNode:v5 object:v32 containingBuilder:v80 context:v81 block:{v98, v86}];
+      v101 = v89;
+      v102 = 0;
+      [v79 instantiateChildrenOfNode:v5 object:v32 containingBuilder:v80 context:v81 block:{v99, v87}];
     }
   }
 
   *(a1 + 184) = v65;
   *(a1 + 208) = v64;
-  *(a1 + 192) = v92;
+  *(a1 + 192) = v93;
   v71 = v36 ^ 1;
   if (!v32)
   {
@@ -1923,7 +1999,7 @@ LABEL_50:
   }
 
   *(a1 + 168) = v63;
-  *(a1 + 176) = v90;
+  *(a1 + 176) = v91;
   if (*(a1 + 552) == 1 && TUILocationNotNil(*(v6 + 6)))
   {
     *(a1 + 664) -= 4;
@@ -1961,7 +2037,7 @@ uint64_t TUI::Evaluation::Context::closureForElement(uint64_t a1, uint64_t a2)
   return TUI::Evaluation::Context::closure(a1, v8);
 }
 
-id TUI::Evaluation::Context::instantiateEnumeratorWithNodes(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, void *a5, uint64_t a6)
+id TUI::Evaluation::Context::instantiateEnumeratorWithNodes(uint64_t a1, int a2, uint64_t a3, unsigned int a4, void *a5, uint64_t a6)
 {
   v11 = a5;
   if (*(a1 + 168) && (v12 = a2, TUIEnumeratorNotNil(a2)))
@@ -1980,7 +2056,7 @@ id TUI::Evaluation::Context::instantiateEnumeratorWithNodes(uint64_t a1, unsigne
     sub_8BE78(&v26, v14);
     v16 = v26;
     v17 = v27;
-    TUI::Instruction::Evaluation::evaluate(&v26, *(a1 + 8), HIDWORD(v27));
+    TUI::Instruction::Evaluation::evaluate(*(a1 + 8), HIDWORD(v27), &v26);
     v18 = TUI::Evaluation::ResolvedValue::objectValue(&v26, a1);
 
     if (objc_opt_respondsToSelector())
@@ -2178,7 +2254,7 @@ void TUI::Evaluation::Context::configureBox(uint64_t a1, void *a2, uint64_t a3, 
   if ((*(a1 + 306) & 4) != 0)
   {
     v35 = sub_11F88((a1 + 352), &v76);
-    TUI::Evaluation::ResolvedValue::transformValue((v35 + 3), a1, &v79);
+    TUI::Evaluation::ResolvedValue::transformValue(&v79, (v35 + 3), a1);
   }
 
   else
@@ -2197,7 +2273,7 @@ void TUI::Evaluation::Context::configureBox(uint64_t a1, void *a2, uint64_t a3, 
   if ((*(a1 + 301) & 8) != 0)
   {
     v37 = sub_11F88((a1 + 352), &v76);
-    TUI::Evaluation::ResolvedValue::transformValue((v37 + 3), a1, &v73);
+    TUI::Evaluation::ResolvedValue::transformValue(&v73, (v37 + 3), a1);
   }
 
   else
@@ -2429,11 +2505,11 @@ void TUI::Evaluation::Context::configureBox(uint64_t a1, void *a2, uint64_t a3, 
   }
 }
 
-uint64_t sub_FEE4C(uint64_t a1, uint64_t a2)
+void sub_FEE4C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
-  *(v2 + 168) = a2;
-  return TUI::Evaluation::Context::instantiateChildren(v2, *(a1 + 40));
+  v3 = *(a1 + 32);
+  *(v3 + 21) = a2;
+  TUI::Evaluation::Context::instantiateChildren(v3, *(a1 + 40), a3);
 }
 
 void TUI::Evaluation::Context::instantiateChildren(const TUI::Evaluation::Context *a1, uint64_t a2, char a3)
@@ -2448,7 +2524,7 @@ void TUI::Evaluation::Context::instantiateChildren(const TUI::Evaluation::Contex
       v7 = *(a1 + 72);
       if (*(v7 + 216) <= v5 || (v8 = (*(v7 + 208) + 28 * v5)) == 0)
       {
-        v25 = TUIInstantiationLog();
+        v25 = TUIInstantiationLog(a1);
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           v32 = [*(a1 + 2) feedId];
@@ -2483,7 +2559,7 @@ void TUI::Evaluation::Context::instantiateChildren(const TUI::Evaluation::Contex
         v16 = *(v14 + 32);
         if (!v16 || (v16 & ~*(a1 + 22)) != 0)
         {
-          v25 = TUIInstantiationLog();
+          v25 = TUIInstantiationLog(a1);
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             v26 = [*(a1 + 2) feedId];
@@ -2674,19 +2750,32 @@ LABEL_25:
   }
 }
 
-uint64_t sub_FF398(void *a1)
+void sub_FF398(void *a1)
 {
   v2 = a1[4];
   if (objc_opt_respondsToSelector())
   {
-    [*(v2 + 168) onlyInstantiateFirstChildPassingConditionForEnumeratorChildren];
+    if ([*(v2 + 168) onlyInstantiateFirstChildPassingConditionForEnumeratorChildren])
+    {
+      v3 = 2;
+    }
+
+    else
+    {
+      v3 = 0;
+    }
   }
 
-  v3 = *(v2 + 184);
-  *(v2 + 184) = v3 & 0xFE | ((a1[5] & 2) != 0);
-  result = TUI::Evaluation::Context::instantiateChildren(v2, a1[6]);
-  *(v2 + 184) = v3;
-  return result;
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = a1[5];
+  v5 = *(v2 + 184);
+  *(v2 + 184) = v5 & 0xFE | ((v4 & 2) != 0);
+  TUI::Evaluation::Context::instantiateChildren(v2, a1[6], v3 & 0xFB | (4 * (v4 & 1)));
+  *(v2 + 184) = v5;
 }
 
 id TUI::Evaluation::Context::instantiateEntry(id *a1, void *a2)
@@ -2827,7 +2916,7 @@ void TUI::Evaluation::Context::includeTemplate(uint64_t a1, void *a2)
   *v4 = v5;
 }
 
-uint64_t TUI::Evaluation::Context::evaluateEnumeratorWithNodes(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, char a8, void *a9, void *a10)
+uint64_t TUI::Evaluation::Context::evaluateEnumeratorWithNodes(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, char a8, void *a9, void *a10)
 {
   v38 = a3;
   v37 = a9;
@@ -2947,15 +3036,15 @@ uint64_t TUI::Evaluation::Context::evaluateEnumeratorWithBlock(void *a1, unint64
   return v18;
 }
 
-void sub_FFCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_FFCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t TUI::Evaluation::Context::evaluateBindingWithNodes(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, char a8, uint64_t a9, void *a10)
+uint64_t TUI::Evaluation::Context::evaluateBindingWithNodes(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, char a8, uint64_t a9, void *a10)
 {
   v17 = a3;
   v18 = a10;
@@ -3009,7 +3098,7 @@ uint64_t TUI::Evaluation::Context::evaluateBindingWithNodes(uint64_t a1, unsigne
   return v28;
 }
 
-void TUI::Evaluation::Context::evaluateEnumeratorWithNodes(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, void *a5, void *a6)
+void TUI::Evaluation::Context::evaluateEnumeratorWithNodes(uint64_t a1, int a2, void *a3, uint64_t a4, void *a5, void *a6)
 {
   v11 = a3;
   v12 = a5;
@@ -3061,7 +3150,7 @@ void sub_100068(uint64_t a1, uint64_t a2, uint64_t a3)
   TUI::Evaluation::Context::instantiateChildren(v4, v6, 0);
 }
 
-void TUI::Evaluation::Context::evaluateBindingWithNodes(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
+void TUI::Evaluation::Context::evaluateBindingWithNodes(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v10 = a3;
   v11 = a6;
@@ -3100,29 +3189,29 @@ void sub_100234(uint64_t a1, uint64_t a2, uint64_t a3)
   TUI::Evaluation::Context::instantiateChildren(v4, v6, 0);
 }
 
-id TUI::Evaluation::Context::instantiateAnimationReference(void *a1, unint64_t a2)
+NSMutableArray *TUI::Evaluation::Context::instantiateAnimationReference(void *a1, unint64_t a2)
 {
   if (TUIReferenceListNotNil(a2))
   {
-    v64 = a1[22];
-    v65 = a1[21];
+    v63 = a1[22];
+    v64 = a1[21];
     v4 = a1[72];
     v5 = HIDWORD(a2);
-    v66 = objc_opt_new();
+    v65 = objc_opt_new();
     if (!HIDWORD(a2))
     {
 LABEL_3:
-      v6 = v66;
-      [v66 sortUsingComparator:&stru_261B30];
-      a1[21] = v65;
-      a1[22] = v64;
+      v6 = v65;
+      [v65 sortUsingComparator:&stru_261B30];
+      a1[21] = v64;
+      a1[22] = v63;
       goto LABEL_5;
     }
 
     v8 = 0;
     v9 = a2;
-    v62 = a1 + 49;
-    v63 = a1 + 53;
+    v61 = a1 + 49;
+    v62 = a1 + 53;
     while (1)
     {
       if (v4[19] <= (v8 + v9))
@@ -3140,19 +3229,19 @@ LABEL_3:
       v12 = *(v10 + 8);
       v13 = *(v10 + 6);
       v14 = *(v10 + 4);
-      v69 = v11 | (v14 << 16);
+      v68 = v11 | (v14 << 16);
       if (v14 == 0xFFFF || v11 == 0xFFFF)
       {
         goto LABEL_59;
       }
 
-      if (!sub_26874(a1 + 62, &v69))
+      if (!sub_26874(a1 + 62, &v68))
       {
         break;
       }
 
-      v68 = v68 & 0xFFFFFFFF00000000 | v69;
-      v16 = TUI::Symbol::Tab::string(a1[70], v68);
+      v67 = v67 & 0xFFFFFFFF00000000 | v68;
+      v16 = TUI::Symbol::Tab::string(a1[70], v67);
       TUI::Evaluation::Context::reportError(a1, 1002, v16);
 
 LABEL_59:
@@ -3164,82 +3253,82 @@ LABEL_59:
 
     v17 = objc_alloc_init(TUIAnimationBuilder);
     v18 = *(a1[3] + 8);
-    v67 = v17;
+    v66 = v17;
     a1[21] = v17;
     a1[22] = v18;
-    sub_107580(a1 + 62, &v69);
-    v19 = (*(**a1 + 32))(*a1, v69);
+    sub_107580(a1 + 62, &v68, &v68);
+    v19 = (*(**a1 + 32))(*a1, v68);
     v21 = v19;
     v22 = v20;
     if (v20 == -1)
     {
-      v24 = TUIAnimationDefinitionNil;
-      v25 = unk_2E3DE4;
+      v23 = TUIAnimationDefinitionNil;
+      v24 = dword_2E3DE4;
     }
 
     else
     {
-      v23 = (*(*v19 + 56))(v19, v20);
-      v24 = v23;
-      v25 = HIDWORD(v23);
+      v19 = (*(*v19 + 56))(v19, v20);
+      v23 = v19;
+      v24 = HIDWORD(v19);
     }
 
-    if (v4[27] <= v25 || (v26 = v4[26], (v27 = (v26 + 28 * v25)) == 0))
+    if (v4[27] <= v24 || (v25 = v4[26], (v26 = (v25 + 28 * v24)) == 0))
     {
-      v44 = TUIInstantiationLog();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v43 = TUIInstantiationLog(v19);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        v54 = [a1[2] feedId];
+        v53 = [a1[2] feedId];
         *buf = 134217984;
-        v71 = v54;
-        _os_log_error_impl(&dword_0, v44, OS_LOG_TYPE_ERROR, "[fid:%lu] invalid animation defintion node", buf, 0xCu);
+        v70 = v53;
+        _os_log_error_impl(&dword_0, v43, OS_LOG_TYPE_ERROR, "[fid:%lu] invalid animation defintion node", buf, 0xCu);
       }
 
       goto LABEL_58;
     }
 
-    v60 = v25;
-    v61 = v26 + 28 * v25;
-    v28 = a1[3];
-    v29 = *v27;
-    v30 = *(v28 + 72);
-    v31 = 0xAAAAAAAAAAAAAAABLL * ((*(v28 + 80) - v30) >> 4);
-    v32 = v30 + 48 * v29;
-    v33 = v28 + 24;
-    if (v31 > v29)
+    v59 = v24;
+    v60 = v25 + 28 * v24;
+    v27 = a1[3];
+    v28 = *v26;
+    v29 = *(v27 + 72);
+    v30 = 0xAAAAAAAAAAAAAAABLL * ((*(v27 + 80) - v29) >> 4);
+    v31 = v29 + 48 * v28;
+    v32 = v27 + 24;
+    if (v30 > v28)
     {
-      v33 = v32;
+      v32 = v31;
     }
 
-    v58 = *v33;
-    v59 = *(v33 + 40);
-    if (!TUIDefinitionNotNil(v24))
+    v57 = *v32;
+    v58 = *(v32 + 40);
+    if (!TUIDefinitionNotNil(v23))
     {
-      v57 = v57 & 0xFFFFFFFF00000000 | v69;
-      v45 = TUI::Symbol::Tab::string(a1[70], v57);
-      TUI::Evaluation::Context::reportError(a1, 1006, v45);
+      v56 = v56 & 0xFFFFFFFF00000000 | v68;
+      v44 = TUI::Symbol::Tab::string(a1[70], v56);
+      TUI::Evaluation::Context::reportError(a1, 1006, v44);
 LABEL_57:
 
-      v53 = sub_26874(a1 + 62, &v69);
-      sub_34630(a1 + 62, v53);
+      v52 = sub_26874(a1 + 62, &v68);
+      sub_34630(a1 + 62, v52);
 LABEL_58:
 
       goto LABEL_59;
     }
 
-    if (v4[23] <= v24 || (v34 = v4[22] + 12 * v24) == 0 || (v35 = *(v34 + 8), v35 == -1))
+    if (v4[23] <= v23 || (v33 = v4[22] + 12 * v23) == 0 || (v34 = *(v33 + 8), v34 == -1))
     {
       if (v12 != -1)
       {
-        v56 = v56 & 0xFFFFFFFF00000000 | v69;
-        v46 = TUI::Symbol::Tab::string(a1[70], v56);
-        TUI::Evaluation::Context::reportError(a1, 1018, v46);
+        v55 = v55 & 0xFFFFFFFF00000000 | v68;
+        v45 = TUI::Symbol::Tab::string(a1[70], v55);
+        TUI::Evaluation::Context::reportError(a1, 1018, v45);
 
 LABEL_54:
-        v45 = [(TUIAnimationBuilder *)v67 finalizeAnimationWithContext:a1[2]];
-        if (v45)
+        v44 = [(TUIAnimationBuilder *)v66 finalizeAnimationWithContext:a1[2]];
+        if (v44)
         {
-          [v66 addObject:v45];
+          [v65 addObject:v44];
         }
 
         a1[21] = 0;
@@ -3248,75 +3337,75 @@ LABEL_54:
 
       (*(**a1 + 72))(*a1, 3);
       (*(**a1 + 136))(*a1, v21, v22);
-      if ((v59 & 8) != 0)
+      if ((v58 & 8) != 0)
       {
-        v36 = *(v61 + 16);
-        v37 = *(v61 + 2);
-        sub_FD220((a1 + 31), (v59 >> 5) & 1);
-        if (v37)
+        v35 = *(v60 + 16);
+        v36 = *(v60 + 2);
+        sub_FD220((a1 + 31), (v58 >> 5) & 1);
+        if (v36)
         {
-          if ((v59 & 0x200) != 0)
+          if ((v58 & 0x200) != 0)
           {
-            v47 = [v58 attributesToIgnoreWhenResolvingInvocation];
-            v48 = [v47 _bitset];
+            v46 = [v57 attributesToIgnoreWhenResolvingInvocation];
+            v47 = [v46 _bitset];
             for (i = 0; i != 4; ++i)
             {
-              v63[i] |= *&v48[i * 8];
+              v62[i] |= *&v47[i * 8];
             }
           }
 
-          if ((v59 & 0x80) != 0)
+          if ((v58 & 0x80) != 0)
           {
-            v50 = [v58 attributesToEvaluateForInvocation];
-            v51 = [v50 _bitset];
-            v52 = v51[1];
-            *v62 = *v51;
-            *(a1 + 51) = v52;
+            v49 = [v57 attributesToEvaluateForInvocation];
+            v50 = [v49 _bitset];
+            v51 = v50[1];
+            *v61 = *v50;
+            *(a1 + 51) = v51;
           }
 
           goto LABEL_51;
         }
 
 LABEL_52:
-        *(a1 + 61) = v60;
+        *(a1 + 61) = v59;
       }
     }
 
     else
     {
-      v55 = *(v34 + 6);
+      v54 = *(v33 + 6);
       (*(**a1 + 72))(*a1, 3);
       TUI::Evaluation::Context::evaluateParams(a1, v12 | (v13 << 32));
       (*(**a1 + 136))(*a1, v21, v22);
-      TUI::Evaluation::Context::evaluateParams(a1, v35 | (v55 << 32));
-      if ((v59 & 8) != 0)
+      TUI::Evaluation::Context::evaluateParams(a1, v34 | (v54 << 32));
+      if ((v58 & 8) != 0)
       {
-        v36 = *(v61 + 16);
-        v37 = *(v61 + 2);
-        sub_FD220((a1 + 31), (v59 >> 5) & 1);
-        if (v37)
+        v35 = *(v60 + 16);
+        v36 = *(v60 + 2);
+        sub_FD220((a1 + 31), (v58 >> 5) & 1);
+        if (v36)
         {
-          if ((v59 & 0x200) != 0)
+          if ((v58 & 0x200) != 0)
           {
-            v38 = [v58 attributesToIgnoreWhenResolvingInvocation];
-            v39 = [v38 _bitset];
+            v37 = [v57 attributesToIgnoreWhenResolvingInvocation];
+            v38 = [v37 _bitset];
             for (j = 0; j != 4; ++j)
             {
-              v63[j] |= *&v39[j * 8];
+              v62[j] |= *&v38[j * 8];
             }
           }
 
-          if ((v59 & 0x80) != 0)
+          if ((v58 & 0x80) != 0)
           {
-            v41 = [v58 attributesToEvaluateForInvocation];
-            v42 = [v41 _bitset];
-            v43 = v42[1];
-            *v62 = *v42;
-            *(a1 + 51) = v43;
+            v40 = [v57 attributesToEvaluateForInvocation];
+            v41 = [v40 _bitset];
+            v42 = v41[1];
+            *v61 = *v41;
+            *(a1 + 51) = v42;
           }
 
 LABEL_51:
-          TUI::Evaluation::Context::computeAttributes(a1, v36 | (v37 << 32), 0, (a1 + 31));
+          TUI::Evaluation::Context::computeAttributes(a1, v35 | (v36 << 32), 0, (a1 + 31));
           goto LABEL_52;
         }
 
@@ -3324,10 +3413,10 @@ LABEL_51:
       }
     }
 
-    [(TUIAnimationBuilder *)v67 configureWithNode:v60 attributes:a1[2]];
+    [(TUIAnimationBuilder *)v66 configureWithNode:v59 attributes:a1[2]];
     *(a1 + 61) = TUIElementNodeNil;
     sub_F9510((a1 + 31));
-    TUI::Evaluation::Context::instantiateChildren(a1, *(v61 + 20) | (*(v61 + 4) << 32), 0);
+    TUI::Evaluation::Context::instantiateChildren(a1, *(v60 + 20) | (*(v60 + 4) << 32), 0);
     (*(**a1 + 168))();
     (*(**a1 + 80))();
     goto LABEL_54;
@@ -3358,7 +3447,7 @@ int64_t sub_100A48(id a1, TUIAnimation *a2, TUIAnimation *a3)
   return v8;
 }
 
-void TUI::Evaluation::Context::instantiateElementReferenceWithChildrenOfNode(uint64_t a1, int a2, unsigned int a3)
+void TUI::Evaluation::Context::instantiateElementReferenceWithChildrenOfNode(uint64_t a1, int a2, int a3)
 {
   v4 = *(a1 + 576);
   if (*(v4 + 216) > a3 && (v6 = *(v4 + 208) + 28 * a3) != 0 && TUIElementReferenceNotNil(a2))
@@ -3442,14 +3531,14 @@ void sub_100BBC(uint64_t a1)
     while (v15);
   }
 
-  [*(v2 + 67) recordEvent:15];
+  objc_msgSend_recordEvent_(*(v2 + 67));
   v20 = (*(**v2 + 40))(*v2, v6 | v7);
   v22 = v20;
   v23 = v21;
   if (v21 == -1)
   {
     LODWORD(v24) = TUIElementDefinitionNil;
-    LODWORD(v25) = unk_2E3DEC;
+    LODWORD(v25) = dword_2E3DEC;
   }
 
   else
@@ -3727,7 +3816,7 @@ void sub_101374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void sub_101404(const void **a1, _DWORD *a2)
+void sub_101404(const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3782,10 +3871,10 @@ void sub_101404(const void **a1, _DWORD *a2)
   a1[1] = v6;
 }
 
-void TUI::Evaluation::Context::instantiateNamedElementReference(void *a1, unsigned int a2)
+void TUI::Evaluation::Context::instantiateNamedElementReference(void *a1, int a2)
 {
   v3 = a2;
-  if (!TUIElementReferenceNotNil(a2) || ((v4 = a1[72], *(v4 + 152) <= v3) || (v5 = *(v4 + 144) + 12 * v3) == 0 ? (v6 = 0, v9 = 0, v7 = 0xFFFFFFFFLL, v8 = 4294901760) : (v6 = *(v5 + 2), v7 = *(v5 + 8), v8 = *(v5 + 4) << 16, v9 = *(v5 + 6) << 32), [a1[67] recordEvent:15], v10 = (*(**a1 + 48))(*a1, v6 | v8), v11 == -1))
+  if (!TUIElementReferenceNotNil(a2) || ((v4 = a1[72], *(v4 + 152) <= v3) || (v5 = *(v4 + 144) + 12 * v3) == 0 ? (v6 = 0, v9 = 0, v7 = 0xFFFFFFFFLL, v8 = 4294901760) : (v6 = *(v5 + 2), v7 = *(v5 + 8), v8 = *(v5 + 4) << 16, v9 = *(v5 + 6) << 32), objc_msgSend_recordEvent_(a1[67]), v10 = (*(**a1 + 48))(*a1, v6 | v8), v11 == -1))
   {
     v16 = a1;
     v17 = 1011;
@@ -3820,7 +3909,7 @@ void TUI::Evaluation::Context::instantiateNamedElementReference(void *a1, unsign
   TUI::Evaluation::Context::reportError(v16, v17, 0);
 }
 
-id TUI::Evaluation::Context::debugDescribeAttributes(uint64_t a1, uint64_t a2)
+NSMutableString *TUI::Evaluation::Context::debugDescribeAttributes(uint64_t a1, uint64_t a2)
 {
   v4 = objc_opt_new();
   if (WORD2(a2))
@@ -3983,9 +4072,9 @@ LABEL_22:
               goto LABEL_51;
             }
 
-            sub_107580(a1 + 57, &v61);
+            sub_107580(a1 + 57, &v61, &v61);
             v31 = v61;
-            [*(a1 + 67) recordEvent:16];
+            objc_msgSend_recordEvent_(*(a1 + 67));
             v32 = (*(**a1 + 24))(*a1, v31);
             v34 = v32;
             v35 = v33;
@@ -4071,7 +4160,7 @@ LABEL_45:
 
             else
             {
-              [*(a1 + 67) recordEvent:15];
+              objc_msgSend_recordEvent_(*(a1 + 67));
               v24 = (*(**a1 + 48))(*a1, v21);
               if (v25 == -1)
               {
@@ -4268,7 +4357,7 @@ void sub_102248(uint64_t a1, uint64_t a2, uint64_t a3)
   *(v7 + 8) = (v8 == 0) | (2 * (v8 + 1 == v9)) | *(v7 + 8) & 0xFC;
   if (TUIValueNotNil(*(a1 + 80)))
   {
-    TUI::Instruction::Evaluation::evaluate(v14, v6[1], *(a1 + 80));
+    TUI::Instruction::Evaluation::evaluate(v6[1], *(a1 + 80), v14);
     v11 = TUI::Evaluation::ResolvedValue::stringValue(v14, v6);
 
     TUI::Evaluation::Context::evaluateWithUnmappedIdentifier(v6, v11, *(a1 + 40));
@@ -4317,7 +4406,7 @@ LABEL_8:
   TUI::Evaluation::Enumerator::State::~State(v14);
 }
 
-TUIMutableDynamicValue *TUI::Evaluation::Context::viewStateForNode(uint64_t a1, uint64_t a2, unsigned int a3)
+TUIMutableDynamicValue *TUI::Evaluation::Context::viewStateForNode(uint64_t a1, uint64_t a2, int a3)
 {
   v4 = a3;
   if (TUINameIsValid(a3))
@@ -4325,7 +4414,7 @@ TUIMutableDynamicValue *TUI::Evaluation::Context::viewStateForNode(uint64_t a1, 
     v5 = *(*a1 + 16);
     if (v5)
     {
-      [v5 model];
+      objc_msgSend_model(v5);
       v6 = [*(v18 + 88) viewStateForBinding:v4];
       if (v19)
       {
@@ -4582,7 +4671,7 @@ void TUI::Evaluation::Context::setEnvironment(id *this, TUIEnvironment *a2)
   (*(**this + 184))();
 }
 
-void TUI::Evaluation::Context::instantiateComponentWithChildrenOfNode(const TUI::Evaluation::Context *a1, unsigned int a2, unsigned int a3)
+void TUI::Evaluation::Context::instantiateComponentWithChildrenOfNode(const TUI::Evaluation::Context *a1, int a2, unsigned int a3)
 {
   v7 = a2;
   if (TUINameReferenceIsNil(a2))
@@ -4850,7 +4939,7 @@ LABEL_30:
     v66 = v112;
     if (v112)
     {
-      [(TUIComponent *)v112 model];
+      objc_msgSend_model(v112);
       v67 = v127[1];
       v68 = v127[2];
       if (v68)
@@ -4869,14 +4958,14 @@ LABEL_30:
         sub_11420(v128);
       }
 
-      [(TUIComponent *)v112 model];
+      objc_msgSend_model(v112);
       v70 = v127[10];
       if (v128)
       {
         sub_11420(v128);
       }
 
-      [(TUIComponent *)v112 model];
+      objc_msgSend_model(v112);
       v71 = *(v127 + 96);
       v72 = v117;
       if (v128)
@@ -4935,10 +5024,10 @@ LABEL_30:
         v129 = 0u;
         v128 = 0u;
         LODWORD(v127) = v134;
-        v82 = sub_106BE8((v76 + 8), &v127);
+        v82 = sub_106BE8((v76 + 8), &v127, &v127);
       }
 
-      v82[7] = (v82[7] + 1);
+      ++v82[7];
     }
 
     v83 = *(a1 + 96);
@@ -4971,10 +5060,10 @@ LABEL_30:
           v129 = 0u;
           v128 = 0u;
           LODWORD(v127) = v134;
-          v100 = sub_106BE8((v83 + 8), &v127);
+          v100 = sub_106BE8((v83 + 8), &v127, &v127);
         }
 
-        v100[8] = (v100[8] + 1);
+        ++v100[8];
       }
 
       operator new();
@@ -5009,10 +5098,10 @@ LABEL_30:
           v129 = 0u;
           v128 = 0u;
           LODWORD(v127) = v134;
-          v101 = sub_106BE8((v83 + 8), &v127);
+          v101 = sub_106BE8((v83 + 8), &v127, &v127);
         }
 
-        v101[9] = (v101[9] + 1);
+        ++v101[9];
       }
 
       operator new();
@@ -5046,10 +5135,10 @@ LABEL_30:
         v129 = 0u;
         v128 = 0u;
         LODWORD(v127) = v134;
-        v102 = sub_106BE8((v83 + 8), &v127);
+        v102 = sub_106BE8((v83 + 8), &v127, &v127);
       }
 
-      v102[10] = (v102[10] + 1);
+      ++v102[10];
     }
 
     else
@@ -5142,7 +5231,7 @@ void TUI::Evaluation::Context::evaluateComponentBindings(TUI::Evaluation::Contex
   v6 = v5;
   if (v5)
   {
-    [(TUIComponent *)v5 model];
+    objc_msgSend_model(v5);
     v7 = *(v30 + 40);
     if (v31)
     {
@@ -5165,7 +5254,7 @@ void TUI::Evaluation::Context::evaluateComponentBindings(TUI::Evaluation::Contex
     {
       v10 = *(this + 72);
       v11 = v6;
-      [(TUIComponent *)v11 model];
+      objc_msgSend_model(v11);
       v12 = *(*(v30 + 40) + 8);
       if (*(v10 + 184) > v12 && (v13 = *(v10 + 176) + 12 * v12) != 0)
       {
@@ -5196,10 +5285,10 @@ void TUI::Evaluation::Context::evaluateComponentBindings(TUI::Evaluation::Contex
         v33 = 0u;
         v31 = 0u;
         LODWORD(v30) = v37;
-        v17 = sub_106BE8((v9 + 8), &v30);
+        v17 = sub_106BE8((v9 + 8), &v30, &v30);
       }
 
-      v17[3] = (v17[3] + 1);
+      ++v17[3];
     }
 
     *(this + 88) = v6;
@@ -5236,7 +5325,7 @@ void TUI::Evaluation::Context::instantiateComponentBody(TUI::Evaluation::Context
   {
     v8 = *(this + 72);
     v9 = v5;
-    [(TUIComponent *)v9 model];
+    objc_msgSend_model(v9);
     v10 = *(v74[5] + 8);
     if (*(v8 + 184) > v10 && (v11 = *(v8 + 176) + 12 * v10) != 0)
     {
@@ -5267,10 +5356,10 @@ void TUI::Evaluation::Context::instantiateComponentBody(TUI::Evaluation::Context
       v76 = 0u;
       v75 = 0u;
       LODWORD(v74) = v72;
-      v15 = sub_106BE8((v7 + 8), &v74);
+      v15 = sub_106BE8((v7 + 8), &v74, &v74);
     }
 
-    v15[6] = (v15[6] + 1);
+    ++v15[6];
     *(v7 + 128 + 24 * *(v7 + 3200)) = v14;
     *(v7 + 128 + 24 * *(v7 + 3200) + 16) = 0;
     v16 = mach_absolute_time();
@@ -5295,7 +5384,7 @@ void TUI::Evaluation::Context::instantiateComponentBody(TUI::Evaluation::Context
   *(this + 84) = 0;
   if (a3)
   {
-    [(TUIComponent *)v6 model];
+    objc_msgSend_model(v6);
     v25 = v74[13];
     v24 = v74[14];
     if (v24)
@@ -5329,7 +5418,7 @@ void TUI::Evaluation::Context::instantiateComponentBody(TUI::Evaluation::Context
   v60 = v23;
   *(this + 21) = v29;
   *(this + 22) = **(this + 3);
-  [(TUIComponent *)v6 model];
+  objc_msgSend_model(v6);
   v30 = v72;
   v31 = *(this + 74);
   *(this + 74) = 0;
@@ -5430,7 +5519,7 @@ void TUI::Evaluation::Context::instantiateComponentBody(TUI::Evaluation::Context
     v51 = *v50;
     v52 = *(v50 + 8);
     v53 = mach_absolute_time();
-    *v81 = v51;
+    v81[0] = v51;
     v54 = sub_26874((v47 + 8), v81);
     if (!v54)
     {
@@ -5440,8 +5529,8 @@ void TUI::Evaluation::Context::instantiateComponentBody(TUI::Evaluation::Context
       v77 = 0u;
       v76 = 0u;
       v75 = 0u;
-      LODWORD(v74) = *v81;
-      v54 = sub_106BE8((v47 + 8), &v74);
+      LODWORD(v74) = v81[0];
+      v54 = sub_106BE8((v47 + 8), &v74, &v74);
     }
 
     v55 = v53 - v52;
@@ -5451,9 +5540,9 @@ void TUI::Evaluation::Context::instantiateComponentBody(TUI::Evaluation::Context
     }
 
     v56 = v54[11];
-    v54[12] = (v54[12] + v55);
+    v54[12] += v55;
     v57 = *(v47 + 3200);
-    v54[11] = (v56 + v55 - *(v49 + 24 * v57 + 16));
+    v54[11] = v55 - *(v49 + 24 * v57 + 16) + v56;
     if (v57)
     {
       *(v49 + 24 * v57 - 8) += v55;
@@ -5598,7 +5687,7 @@ void sub_1045B0(uint64_t a1)
 
   else
   {
-    [*(a1 + 40) model];
+    objc_msgSend_model(*(a1 + 40));
     v12 = *(v13 + 24);
     v11 = *(v13 + 32);
     if (v11)
@@ -5706,7 +5795,7 @@ BOOL TUI::Evaluation::Context::updateComponentGlobalsIfNeeded(TUI::Evaluation::C
   {
     v7 = *(this + 72);
     v8 = v4;
-    [(TUIComponent *)v8 model];
+    objc_msgSend_model(v8);
     v9 = *(v55[5] + 2);
     if (*(v7 + 184) > v9 && (v10 = *(v7 + 176) + 12 * v9) != 0)
     {
@@ -5737,10 +5826,10 @@ BOOL TUI::Evaluation::Context::updateComponentGlobalsIfNeeded(TUI::Evaluation::C
       v57 = 0u;
       v56 = 0u;
       LODWORD(v55) = v54[0];
-      v14 = sub_106BE8((v6 + 8), &v55);
+      v14 = sub_106BE8((v6 + 8), &v55, &v55);
     }
 
-    v14[4] = (v14[4] + 1);
+    ++v14[4];
     *(v6 + 3208 + 16 * *(v6 + 3224)) = v13;
     v15 = mach_absolute_time();
     v16 = *(v6 + 3224);
@@ -5748,7 +5837,7 @@ BOOL TUI::Evaluation::Context::updateComponentGlobalsIfNeeded(TUI::Evaluation::C
     *(v6 + 3224) = v16 + 1;
   }
 
-  [v5 model];
+  objc_msgSend_model(v5);
   v17 = v55;
   if (v56)
   {
@@ -5826,7 +5915,7 @@ BOOL TUI::Evaluation::Context::updateComponentGlobalsIfNeeded(TUI::Evaluation::C
     [v31 removeObject:v51];
   }
 
-  [(TUIComponent *)v51 model];
+  objc_msgSend_model(v51);
   v32 = v55[10];
   if (v56)
   {
@@ -5840,7 +5929,7 @@ BOOL TUI::Evaluation::Context::updateComponentGlobalsIfNeeded(TUI::Evaluation::C
     {
       v34 = *(this + 72);
       v35 = v51;
-      [(TUIComponent *)v35 model];
+      objc_msgSend_model(v35);
       v36 = *(v55[5] + 2);
       if (*(v34 + 184) > v36 && (v37 = *(v34 + 176) + 12 * v36) != 0)
       {
@@ -5871,10 +5960,10 @@ BOOL TUI::Evaluation::Context::updateComponentGlobalsIfNeeded(TUI::Evaluation::C
         v57 = 0u;
         v56 = 0u;
         LODWORD(v55) = v53;
-        v41 = sub_106BE8((v33 + 8), &v55);
+        v41 = sub_106BE8((v33 + 8), &v55, &v55);
       }
 
-      v41[5] = (v41[5] + 1);
+      ++v41[5];
     }
 
     operator new();
@@ -5900,7 +5989,7 @@ BOOL TUI::Evaluation::Context::updateComponentGlobalsIfNeeded(TUI::Evaluation::C
       v57 = 0u;
       v56 = 0u;
       LODWORD(v55) = v53;
-      v48 = sub_106BE8((v42 + 8), &v55);
+      v48 = sub_106BE8((v42 + 8), &v55, &v55);
     }
 
     v49 = v47 - v46;
@@ -5909,7 +5998,7 @@ BOOL TUI::Evaluation::Context::updateComponentGlobalsIfNeeded(TUI::Evaluation::C
       v49 = v46 - v47;
     }
 
-    v48[13] = (v48[13] + v49);
+    v48[13] += v49;
   }
 
   v55 = v54;
@@ -5926,7 +6015,7 @@ void sub_104FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
   _Unwind_Resume(a1);
 }
 
-void TUI::Evaluation::Context::instantiateComponentRender(id *a1, unsigned int a2, unsigned int a3)
+void TUI::Evaluation::Context::instantiateComponentRender(id *a1, int a2, unsigned int a3)
 {
   v6 = a1[72];
   v7 = a3;
@@ -5947,7 +6036,7 @@ void TUI::Evaluation::Context::instantiateComponentRender(id *a1, unsigned int a
     goto LABEL_10;
   }
 
-  [v9 model];
+  objc_msgSend_model(v9);
   shared_weak_owners = v80[1].__shared_weak_owners_;
   if (v81)
   {
@@ -6175,7 +6264,7 @@ LABEL_31:
       else
       {
         *v48 = v47;
-        v50 = v48 + 1;
+        v50 = v48 + 4;
       }
 
       a1[83] = v50;
@@ -6212,7 +6301,7 @@ LABEL_31:
 LABEL_10:
 }
 
-void TUI::Evaluation::Context::defineComponentBinding(uint64_t a1, Entry a2, void *a3)
+void TUI::Evaluation::Context::defineComponentBinding(uint64_t a1, unsigned int a2, void *a3)
 {
   v5 = a3;
   if (objc_opt_respondsToSelector())
@@ -6234,7 +6323,7 @@ void TUI::Evaluation::Context::defineComponentBinding(uint64_t a1, Entry a2, voi
   v9 = a2;
   TUI::Evaluation::Enumerator::State::State(v10, v8, v9);
   objc_storeStrong(&v11, v7);
-  (**(*a1 + 8))(*a1 + 8, *&a2, v10);
+  (**(*a1 + 8))(*a1 + 8, a2, v10);
   TUI::Evaluation::Enumerator::State::~State(v10);
 }
 
@@ -6290,18 +6379,18 @@ unint64_t TUI::Evaluation::Context::childrenOfNode(uint64_t a1, unsigned int a2)
   }
 }
 
-uint64_t TUI::Evaluation::Context::evaluateCconditionForNode(const TUI::Evaluation::Context *a1, unsigned int a2)
+id TUI::Evaluation::Context::evaluateCconditionForNode(const TUI::Evaluation::Context *a1, unsigned int a2)
 {
   v2 = *(a1 + 72);
   if (*(v2 + 216) <= a2)
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   v3 = *(v2 + 208) + 28 * a2;
   if (!v3)
   {
-    return 1;
+    return &dword_0 + 1;
   }
 
   TUI::Evaluation::Context::resolve(a1, *(v3 + 8), v7);
@@ -6310,7 +6399,7 @@ uint64_t TUI::Evaluation::Context::evaluateCconditionForNode(const TUI::Evaluati
   return v5;
 }
 
-uint64_t TUI::Evaluation::Context::evaluateAttributeForNode(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t TUI::Evaluation::Context::evaluateAttributeForNode(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   v5 = *(a1 + 576);
   if (v5[27] <= a3)
@@ -6373,8 +6462,8 @@ uint64_t TUI::Evaluation::Context::evaluateAttributeForNode(uint64_t a1, unsigne
     }
   }
 
-  TUI::Instruction::Evaluation::evaluate(&v20, *(a1 + 8), v16);
-  *a4 = LODWORD(v20);
+  TUI::Instruction::Evaluation::evaluate(*(a1 + 8), v16, &v20);
+  *a4 = v20;
   objc_storeStrong((a4 + 8), obj);
   v19 = obj;
   *(a4 + 16) = v22;
@@ -6382,7 +6471,7 @@ uint64_t TUI::Evaluation::Context::evaluateAttributeForNode(uint64_t a1, unsigne
   return 1;
 }
 
-id TUI::Evaluation::Context::snapForAttribute(uint64_t a1, unsigned int a2)
+id TUI::Evaluation::Context::snapForAttribute(const TUI::Evaluation::Context *a1, unsigned int a2)
 {
   v10 = a2;
   if (a2 == 0xFFFF)
@@ -6403,7 +6492,7 @@ LABEL_7:
 
   else
   {
-    v3 = sub_11F88((a1 + 352), &v10);
+    v3 = sub_11F88(a1 + 44, &v10);
     v4 = TUI::Evaluation::ResolvedValue::objectValue((v3 + 3), a1);
     if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -6520,7 +6609,7 @@ void TUI::Evaluation::Context::evaluateStates(void *a1, void *a2, void *a3)
   }
 }
 
-id TUI::Evaluation::Context::debugDumpEnvironmentContainerStructure(uint64_t a1, void *a2)
+NSMutableString *TUI::Evaluation::Context::debugDumpEnvironmentContainerStructure(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_opt_new();
@@ -6546,7 +6635,7 @@ void sub_10622C(uint64_t a1, void *a2, uint64_t a3, void *a4)
   {
     v12 = *(a1 + 560);
     v13 = *(a1 + 576);
-    [v28 model];
+    objc_msgSend_model(v28);
     v14 = TUI::Package::Buffer::nameForComponent(v13, *(v34 + 40));
     v15 = TUI::Symbol::Tab::string(v12, v14);
     [v7 appendFormat:@" %@", v15];
@@ -6787,9 +6876,9 @@ void sub_1069C0(void *a1, uint64_t a2)
   operator new();
 }
 
-void sub_106A40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_106A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_106A54(va);
   _Unwind_Resume(a1);
 }
@@ -6849,35 +6938,35 @@ void sub_106BA0(uint64_t a1, unint64_t a2)
   sub_3AAC();
 }
 
-uint64_t **sub_106BE8(void *a1, unsigned __int16 *a2)
+uint64_t **sub_106BE8(void *a1, unsigned __int16 *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = (v2 << 16) | v3;
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = *a2;
+  v4 = a2[1];
+  v5 = (v3 << 16) | v4;
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = (v2 << 16) | v3;
-    if (*&v5 <= v4)
+    v8 = (v3 << 16) | v4;
+    if (*&v6 <= v5)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -6885,47 +6974,47 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 9) != v3 || *(v9 + 8) != v2)
+  if (*(v10 + 9) != v4 || *(v10 + 8) != v3)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v10;
 }
 
-id sub_106E5C(char a1)
+NSMutableString *sub_106E5C(char a1)
 {
   v2 = objc_opt_new();
   objc_msgSend(v2, "appendString:", @"(");
@@ -6995,35 +7084,35 @@ LABEL_19:
   return v2;
 }
 
-uint64_t **sub_106F88(void *a1, unsigned __int16 *a2)
+uint64_t **sub_106F88(void *a1, unsigned __int16 *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = (v2 << 16) | v3;
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = *a2;
+  v5 = a2[1];
+  v6 = (v4 << 16) | v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = (v2 << 16) | v3;
-    if (*&v5 <= v4)
+    v9 = (v4 << 16) | v5;
+    if (*&v7 <= v6)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v9 = (*&v7 - 1) & v6;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_22:
     operator new();
@@ -7031,49 +7120,49 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 9) != v3 || *(v9 + 8) != v2)
+  if (*(v11 + 9) != v5 || *(v11 + 8) != v4)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v11;
 }
 
-void sub_1071EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1071EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_11F3C(va);
   _Unwind_Resume(a1);
 }
@@ -7085,9 +7174,9 @@ void sub_107200(void *a1, uint64_t a2)
   operator new();
 }
 
-void sub_107280(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_107280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_107294(va);
   _Unwind_Resume(a1);
 }
@@ -7137,7 +7226,7 @@ uint64_t sub_10735C(uint64_t a1, uint64_t a2)
   }
 }
 
-void *sub_10739C(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_10739C(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7212,7 +7301,7 @@ void *sub_10739C(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-void sub_1074C8(uint64_t a1, unint64_t a2)
+void sub_1074C8(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -7222,7 +7311,7 @@ void sub_1074C8(uint64_t a1, unint64_t a2)
   sub_4050();
 }
 
-uint64_t sub_107504(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_107504(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7244,35 +7333,35 @@ void sub_107564(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **sub_107580(void *a1, unsigned __int16 *a2)
+uint64_t **sub_107580(void *a1, unsigned __int16 *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = (v2 << 16) | v3;
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = *a2;
+  v4 = a2[1];
+  v5 = (v3 << 16) | v4;
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = (v2 << 16) | v3;
-    if (*&v5 <= v4)
+    v8 = (v3 << 16) | v4;
+    if (*&v6 <= v5)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v8 = (*&v6 - 1) & v5;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -7280,44 +7369,44 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 9) != v3 || *(v9 + 8) != v2)
+  if (*(v10 + 9) != v4 || *(v10 + 8) != v3)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v10;
 }
 
 void sub_10782C(_Unwind_Exception *exception_object)
@@ -7409,7 +7498,7 @@ void sub_108858(void *a1, void *a2, int a3)
   v17 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v10 = [v5 children];
+  v10 = objc_msgSend_children(v5, 0);
   v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v11)
   {
@@ -7423,7 +7512,7 @@ void sub_108858(void *a1, void *a2, int a3)
           objc_enumerationMutation(v10);
         }
 
-        sub_108858(*(*(&v14 + 1) + 8 * i), v6, (a3 + 1));
+        sub_108858(*(*(&v14 + 1) + 8 * i), v6, a3 + 1);
       }
 
       v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
@@ -7511,7 +7600,7 @@ LABEL_11:
   {
 LABEL_12:
     v22 = [*(a1 + 40) renderModelForLayout:*(a1 + 32) submodels:v11 kind:6];
-    v23 = [*(a1 + 32) box];
+    v23 = objc_msgSend_box(*(a1 + 32));
     v24 = [v23 identifier];
     v25 = [TUIContainerView renderModelWithSubviewsModel:v22 style:0 identifier:v24];
 
@@ -7542,17 +7631,17 @@ LABEL_13:
   }
 }
 
-uint64_t sub_10D404(uint64_t a1)
+uint64_t sub_10D404(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) computedTransformedSize];
-  memset(&v10, 0, sizeof(v10));
-  CGAffineTransformMakeTranslation(&v10, v2 * 0.5, v3 * 0.5);
-  v4 = *(a1 + 40);
-  v9 = v10;
-  return (*(v4 + 16))(v4, &v9, 0, v5, v6, v7);
+  objc_msgSend_computedTransformedSize(*(a1 + 32), a2);
+  memset(&v12, 0, sizeof(v12));
+  CGAffineTransformMakeTranslation(&v12, v4 * 0.5, v5 * 0.5);
+  v6 = *(a1 + 40);
+  v11 = v12;
+  return (*(v6 + 16))(v6, &v11, 0, v7, v8, v9);
 }
 
-id TUILayoutDump(void *a1, void *a2)
+NSMutableString *TUILayoutDump(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 componentsSeparatedByString:{@", "}];
@@ -7606,7 +7695,7 @@ void sub_10F314(void *a1, void *a2, uint64_t a3, uint64_t a4)
 
   if ((a3 & 4) != 0)
   {
-    v13 = [v8 box];
+    v13 = objc_msgSend_box(v8);
     v14 = [v13 identifier];
     v15 = [v14 tui_identifierToString];
     [v7 appendFormat:@" id=%@", v15];
@@ -7614,10 +7703,10 @@ void sub_10F314(void *a1, void *a2, uint64_t a3, uint64_t a4)
 
   if ((a3 & 2) != 0)
   {
-    v16 = [v8 box];
+    v16 = objc_msgSend_box(v8);
     v17 = objc_opt_class();
     v18 = NSStringFromClass(v17);
-    v19 = [v8 box];
+    v19 = objc_msgSend_box(v8);
     [v7 appendFormat:@" box=<%@ %p/>", v18, v19];
   }
 
@@ -7631,7 +7720,7 @@ void sub_10F314(void *a1, void *a2, uint64_t a3, uint64_t a4)
     }
   }
 
-  v22 = [v8 children];
+  v22 = objc_msgSend_children(v8);
   v23 = [v22 count];
 
   if (v23)
@@ -7641,7 +7730,7 @@ void sub_10F314(void *a1, void *a2, uint64_t a3, uint64_t a4)
     v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v24 = [v8 children];
+    v24 = objc_msgSend_children(v8);
     v25 = [v24 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v25)
     {
@@ -7770,7 +7859,7 @@ void sub_112D3C(uint64_t a1, void *a2)
     [*(a1 + 32) _updateStateBasedSubviewsAnimated:1];
     [*(a1 + 32) _updateStateBasedTapGestureRecognizers];
     v6 = *(a1 + 32);
-    [v6 currentTime];
+    objc_msgSend_currentTime(v6);
     v8 = v7;
     v9 = [*(*(a1 + 32) + 24) videoId];
     [v6 _reportEvent:5 mediaTimePlayed:v9 videoId:v8];
@@ -7796,7 +7885,7 @@ void sub_112EFC(uint64_t a1, void *a2)
     [*(a1 + 32) _updateStateBasedSubviewsAnimated:1];
     [*(a1 + 32) _updateStateBasedTapGestureRecognizers];
     v6 = *(a1 + 32);
-    [v6 currentTime];
+    objc_msgSend_currentTime(v6);
     v8 = v7;
     v9 = [*(*(a1 + 32) + 24) videoId];
     [v6 _reportEvent:6 mediaTimePlayed:v9 videoId:v8];
@@ -7811,20 +7900,20 @@ void sub_1130C0(uint64_t a1)
   [v1 flashPlaybackControlsWithDuration:100.0];
 }
 
-void sub_113D40(void *a1, unint64_t a2)
+void sub_113D40(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    sub_1154F0(a1, a2 - v2);
+    sub_1154F0(result, a2 - v2);
   }
 }
 
@@ -7902,7 +7991,7 @@ id TUIIdentifierIsEqualToIdentifier(void *a1, void *a2)
       {
         v13 = [v3 tui_identifierToString];
         v14 = [v5 tui_identifierToString];
-        v10 = [v13 isEqualToString:v14];
+        v10 = objc_msgSend_isEqualToString_(v13);
       }
     }
   }
@@ -8014,52 +8103,52 @@ void sub_116120(uint64_t a1)
   [*(*(a1 + 32) + 40) removeAllObjects];
   *(*(a1 + 32) + 8) &= ~1u;
   os_unfair_lock_unlock((*(a1 + 32) + 24));
-  v17 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
+  v19 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v16 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        (*(*(*(&v15 + 1) + 8 * i) + 16))();
+        (*(*(*(&v18 + 1) + 8 * i) + 16))();
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
   }
 
-  v8 = TUISignpostFeedViewController();
-  v9 = os_signpost_id_generate(v8);
+  v9 = TUISignpostFeedViewController(v8);
+  v10 = os_signpost_id_generate(v9);
 
-  v10 = TUISignpostFeedViewController();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = TUISignpostFeedViewController(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "RunLoopWaitForReadyAssertion", "", v14, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_0, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "RunLoopWaitForReadyAssertion", "", v17, 2u);
   }
 
-  dispatch_group_wait(*(*(a1 + 32) + 32), 0xFFFFFFFFFFFFFFFFLL);
-  v12 = TUISignpostFeedViewController();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v14 = dispatch_group_wait(*(*(a1 + 32) + 32), 0xFFFFFFFFFFFFFFFFLL);
+  v15 = TUISignpostFeedViewController(v14);
+  v16 = v15;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v13, OS_SIGNPOST_INTERVAL_END, v9, "RunLoopWaitForReadyAssertion", "", v14, 2u);
+    *v17 = 0;
+    _os_signpost_emit_with_name_impl(&dword_0, v16, OS_SIGNPOST_INTERVAL_END, v10, "RunLoopWaitForReadyAssertion", "", v17, 2u);
   }
 }
 
@@ -8398,9 +8487,9 @@ void sub_11E298(void *a1)
   _Block_object_dispose(&v25, 8);
 }
 
-void sub_11E4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_11E4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8414,7 +8503,7 @@ uint64_t sub_11E4C0(uint64_t result, uint64_t a2)
 
 uint64_t sub_11E4D8(void *a1)
 {
-  v2 = TUISignpostFeedViewController();
+  v2 = TUISignpostFeedViewController(a1);
   v3 = v2;
   v4 = a1[6];
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
@@ -8515,9 +8604,9 @@ void sub_11E918(uint64_t a1)
   _Block_object_dispose(&v20, 8);
 }
 
-void sub_11EB10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_11EB10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8596,7 +8685,7 @@ void sub_12102C(uint64_t a1, void *a2)
   }
 }
 
-BOOL _isLargePad(void)
+BOOL _isLargePad(uint64_t a1, uint64_t a2)
 {
   if (qword_2E6540 != -1)
   {
@@ -8695,33 +8784,33 @@ void sub_12416C(id a1)
   qword_2E6550 = v2;
 }
 
-uint64_t **sub_1241E0(void *a1, unsigned __int16 *a2)
+uint64_t **sub_1241E0(void *a1, unsigned __int16 *a2, _WORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % a1[1];
+      v6 = v3 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -8729,75 +8818,75 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v8 + 8) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t **sub_124414(void *a1, unsigned __int16 *a2)
+uint64_t **sub_124414(void *a1, unsigned __int16 *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = (v2 << 16) | v3;
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = *a2;
+  v5 = a2[1];
+  v6 = (v4 << 16) | v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = (v2 << 16) | v3;
-    if (*&v5 <= v4)
+    v9 = (v4 << 16) | v5;
+    if (*&v7 <= v6)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = (*&v5 - 1) & v4;
+    v9 = (*&v7 - 1) & v6;
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_22:
     operator new();
@@ -8805,49 +8894,49 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 9) != v3 || *(v9 + 8) != v2)
+  if (*(v11 + 9) != v5 || *(v11 + 8) != v4)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v11;
 }
 
-void sub_12467C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_12467C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_34CB0(va);
   _Unwind_Resume(a1);
 }
@@ -8874,9 +8963,9 @@ void sub_124B40(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   }
 }
 
-void sub_1258F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1258F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9015,7 +9104,7 @@ uint64_t TUI::Model::Component::Component(uint64_t a1, uint64_t a2, uint64_t *a3
   *(a1 + 40) = a2;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  sub_284C0(a1 + 48, *a5, a5[1], (a5[1] - *a5) >> 4);
+  sub_284C0((a1 + 48), *a5, a5[1], (a5[1] - *a5) >> 4);
   *(a1 + 72) = 0;
   *(a1 + 80) = a6;
   *(a1 + 88) = 0;
@@ -9124,7 +9213,7 @@ uint64_t TUI::Model::Component::Component(uint64_t a1, void *a2, int a3, uint64_
   *(a1 + 40) = v16;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  sub_284C0(a1 + 48, a2[6], a2[7], (a2[7] - a2[6]) >> 4);
+  sub_284C0((a1 + 48), a2[6], a2[7], (a2[7] - a2[6]) >> 4);
   v17 = a2[10];
   *(a1 + 72) = 0;
   *(a1 + 80) = v17;
@@ -9371,145 +9460,4 @@ uint64_t sub_128AEC(void *a1, unsigned int a2)
   }
 
   return result;
-}
-
-uint64_t sub_128BE0(void *a1, unsigned int a2)
-{
-  v3 = a2;
-  result = a1[3];
-  if (!result || (result = (*(*result + 48))(result, a2), v5 == -1))
-  {
-    v6 = a1[1];
-    if (!v6 || (result = (*(*v6 + 48))(a1[1], v3), v7 == -1))
-    {
-      v8 = a1[7];
-      if (a1[6] != v8)
-      {
-        do
-        {
-          v9 = *(v8 - 16);
-          v8 -= 16;
-          result = (*(*v9 + 48))(v9, v3);
-        }
-
-        while (v10 == -1 && v8 != a1[6]);
-      }
-    }
-  }
-
-  return result;
-}
-
-void sub_128CD4(uint64_t *a1)
-{
-  if (*a1)
-  {
-    sub_28724(a1);
-    operator delete(*a1);
-    *a1 = 0;
-    a1[1] = 0;
-    a1[2] = 0;
-  }
-}
-
-void sub_129978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, void *a18, void *a19, void *a20, void *a21, uint64_t a22, void *a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56)
-{
-  sub_11694(&a56);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_129C60(uint64_t a1)
-{
-  v16 = [*(a1 + 32) subviews];
-  if (![v16 count])
-  {
-    [*(a1 + 32) addSubview:*(a1 + 40)];
-    goto LABEL_22;
-  }
-
-  v2 = [v16 lastObject];
-  v3 = TUIProtocolCast(&OBJC_PROTOCOL___TUIReusableRenderView, v2);
-
-  if (v3)
-  {
-    v4 = [v3 layoutAttributes];
-    v5 = [v4 zIndex];
-    v6 = *(a1 + 64);
-
-    if (v5 <= v6)
-    {
-      [*(a1 + 32) addSubview:*(a1 + 40)];
-      goto LABEL_21;
-    }
-  }
-
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v7 = v16;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (!v8)
-  {
-    goto LABEL_15;
-  }
-
-  v9 = *v18;
-  while (2)
-  {
-    for (i = 0; i != v8; i = i + 1)
-    {
-      if (*v18 != v9)
-      {
-        objc_enumerationMutation(v7);
-      }
-
-      v11 = *(*(&v17 + 1) + 8 * i);
-      v12 = TUIProtocolCast(&OBJC_PROTOCOL___TUIReusableRenderView, v11);
-
-      v3 = v12;
-      if (v12 && v12 != *(a1 + 40))
-      {
-        v13 = [v12 layoutAttributes];
-        v14 = [v13 zIndex];
-
-        v15 = *(a1 + 64);
-        if (v15 < v14)
-        {
-          [*(a1 + 32) insertSubview:*(a1 + 40) belowSubview:v11];
-        }
-
-        else
-        {
-          if (v15 != v14)
-          {
-            continue;
-          }
-
-          [*(a1 + 32) insertSubview:*(a1 + 40) aboveSubview:v3];
-        }
-
-        goto LABEL_21;
-      }
-    }
-
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v8)
-    {
-      continue;
-    }
-
-    break;
-  }
-
-LABEL_15:
-
-  [*(a1 + 32) addSubview:*(a1 + 40)];
-LABEL_21:
-
-LABEL_22:
-  [*(a1 + 40) setSemanticContentAttribute:*(*(a1 + 48) + 168)];
-  sub_129F0C(*(a1 + 40));
-  TUIReusableSubviewApplyLayoutAttributes(*(a1 + 40), *(a1 + 56));
 }

@@ -17,7 +17,7 @@
 - (void)activateWithTime:(unint64_t)time repeat:(int64_t)repeat block:(id)block
 {
   blockCopy = block;
-  _CHDMonotonicNSEC(time);
+  _CHDMonotonicNSEC(time, "time");
   if (repeat < 0)
   {
     [CHDMonotonicTimer activateWithTime:repeat:block:];

@@ -205,20 +205,8 @@ LABEL_12:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if (((!diffCopy || (v5 = diffCopy[1]) == 0) && (!self ? (stewieActiveChangedValue = 0) : (stewieActiveChangedValue = self->_stewieActiveChangedValue), v5 = stewieActiveChangedValue, !diffCopy) || (v7 = diffCopy[2]) == 0) && (!self ? (stewieConnectedChangedValue = 0) : (stewieConnectedChangedValue = self->_stewieConnectedChangedValue), v7 = stewieConnectedChangedValue, !diffCopy) || (v9 = diffCopy[3]) == 0)
+    if ((((!diffCopy || (v5 = diffCopy[1]) == 0) && (!self ? (stewieActiveChangedValue = 0) : (stewieActiveChangedValue = self->_stewieActiveChangedValue), v5 = stewieActiveChangedValue, !diffCopy) || (v7 = diffCopy[2]) == 0) && (!self ? (stewieConnectedChangedValue = 0) : (stewieConnectedChangedValue = self->_stewieConnectedChangedValue), v7 = stewieConnectedChangedValue, !diffCopy) || (v9 = diffCopy[3]) == 0) && (!self ? (stewieSignalStrengthBarsChangedValue = 0) : (stewieSignalStrengthBarsChangedValue = self->_stewieSignalStrengthBarsChangedValue), v9 = stewieSignalStrengthBarsChangedValue, !diffCopy) || (v11 = diffCopy[4]) == 0)
     {
-      v10 = self ? self->_stewieSignalStrengthBarsChangedValue : 0;
-      v9 = v10;
-      if (!diffCopy)
-      {
-        goto LABEL_16;
-      }
-    }
-
-    v11 = diffCopy[4];
-    if (!v11)
-    {
-LABEL_16:
       if (self)
       {
         maxStewieSignalStrengthBarsChangedValue = self->_maxStewieSignalStrengthBarsChangedValue;

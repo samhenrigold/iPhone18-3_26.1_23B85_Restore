@@ -164,7 +164,7 @@ void __82__PLAssetsdResourceInternalService_asynchronousMasterThumbnailForAssetU
   v9 = PLGatekeeperXPCGetLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [jobsCopy count];
+    v10 = objc_msgSend_count(jobsCopy);
     *buf = 67109120;
     *v62 = v10;
     _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_DEFAULT, "Received batchSaveAssets:reply: with %d jobs", buf, 8u);
@@ -196,7 +196,7 @@ void __82__PLAssetsdResourceInternalService_asynchronousMasterThumbnailForAssetU
           v21 = PLGatekeeperXPCGetLog();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            v22 = [obj count];
+            v22 = objc_msgSend_count(obj);
             *buf = 67109120;
             *v62 = v22 - v12;
             _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEFAULT, "  [...and %d more]", buf, 8u);
@@ -245,7 +245,7 @@ LABEL_19:
   libraryServicesManager = [(PLAbstractLibraryServicesManagerService *)self libraryServicesManager];
   imageWriter = [libraryServicesManager imageWriter];
 
-  v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(obj, "count")}];
+  v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(obj)];
   v51[0] = MEMORY[0x1E69E9820];
   v51[1] = 3221225472;
   v51[2] = __61__PLAssetsdResourceInternalService_batchSaveAssetJobs_reply___block_invoke;
@@ -277,7 +277,7 @@ LABEL_19:
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     v37 = NSStringFromSelector(a2);
-    v38 = [v31 count];
+    v38 = objc_msgSend_count(v31);
     *buf = 138412802;
     *v62 = v37;
     *&v62[8] = 2112;
@@ -326,11 +326,11 @@ void __61__PLAssetsdResourceInternalService_batchSaveAssetJobs_reply___block_inv
 
   if (v7)
   {
-    if ([v18 count])
+    if (objc_msgSend_count(v18))
     {
       v8 = [v18 objectForKey:*MEMORY[0x1E69C0410]];
       v9 = [v18 objectForKey:*MEMORY[0x1E69C03D0]];
-      if ([v8 isEqualToString:*MEMORY[0x1E69C0458]])
+      if (objc_msgSend_isEqualToString_(v8))
       {
         v10 = *MEMORY[0x1E69C04C8];
         v11 = [v18 objectForKey:*MEMORY[0x1E69C04C8]];

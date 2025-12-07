@@ -1840,7 +1840,7 @@ void Backend::Google::readAdditions(uint64_t a1)
 
 uint64_t Backend::Google::HashListsBatchGetResponseParser::parseHashList(uint64_t a1)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v7 = (a1 + 440);
   v8 = a1 + 296;
   v9 = a1 + 328;
@@ -2061,7 +2061,7 @@ LABEL_29:
 
         if (*v14)
         {
-          v67 = 1;
+          v66 = 1;
           goto LABEL_125;
         }
 
@@ -2084,35 +2084,35 @@ LABEL_31:
           if (HIDWORD(v24))
           {
             std::__throw_bad_variant_access[abi:sn200100]();
-            v75 = v74;
-            Backend::Google::HashList::~HashList(v79);
+            v74 = v73;
+            Backend::Google::HashList::~HashList(v78);
             if (*(a1 + 288) == 1)
             {
-              v76 = *(a1 + 264);
-              if (v76)
+              v75 = *(a1 + 264);
+              if (v75)
               {
-                *(a1 + 272) = v76;
-                operator delete(v76);
+                *(a1 + 272) = v75;
+                operator delete(v75);
               }
             }
 
             if (*(a1 + 408) == 1)
             {
-              v77 = *(a1 + 400);
+              v76 = *(a1 + 400);
               *(a1 + 400) = 0;
-              if (v77)
+              if (v76)
               {
-                operator delete[](v77);
+                operator delete[](v76);
               }
             }
 
             if (*(a1 + 256) == 1)
             {
-              v78 = *(a1 + 232);
-              if (v78)
+              v77 = *(a1 + 232);
+              if (v77)
               {
-                *(a1 + 240) = v78;
-                operator delete(v78);
+                *(a1 + 240) = v77;
+                operator delete(v77);
               }
             }
 
@@ -2123,43 +2123,43 @@ LABEL_31:
 
             *a1 = 0;
             *(v7 + 98) = 10;
-            _Unwind_Resume(v75);
+            _Unwind_Resume(v74);
           }
 
           if (v24)
           {
-            BYTE8(v81) = 0;
-            LOBYTE(v84) = 0;
-            v86 = 0;
-            LOBYTE(v87.__begin_) = 0;
-            v88 = 0;
-            *v79 = 0u;
-            memset(v80, 0, sizeof(v80));
-            LOBYTE(v81) = 0;
+            BYTE8(v80) = 0;
+            LOBYTE(v83) = 0;
+            v85 = 0;
+            LOBYTE(v86.__begin_) = 0;
+            v87 = 0;
+            *v78 = 0u;
+            memset(v79, 0, sizeof(v79));
+            LOBYTE(v80) = 0;
             if (*(a1 + 224) == 1)
             {
-              std::string::operator=(v79, (a1 + 200));
+              std::string::operator=(v78, (a1 + 200));
             }
 
             if (*(a1 + 256))
             {
-              std::vector<unsigned char>::__assign_with_size[abi:sn200100]<unsigned char *,unsigned char *>(&v80[1], *(a1 + 232), *(a1 + 240), *(a1 + 240) - *(a1 + 232));
+              std::vector<unsigned char>::__assign_with_size[abi:sn200100]<unsigned char *,unsigned char *>(&v79[1], *(a1 + 232), *(a1 + 240), *(a1 + 240) - *(a1 + 232));
               if (*(a1 + 541))
               {
                 v53 = *(a1 + 542);
                 v54 = *(a1 + 540);
                 v55 = *(v7 + 2) | (*(v7 + 6) << 16);
                 v56 = *v7;
-                v82[0] = *(a1 + 539);
-                *&v82[1] = *v11;
-                *&v82[16] = *(v11 + 15);
-                *&v81 = (v56 << 8) | (v55 << 40) | v54;
-                BYTE8(v81) = v53;
+                v81[0] = *(a1 + 539);
+                *&v81[1] = *v11;
+                *&v81[16] = *(v11 + 15);
+                *&v80 = (v56 << 8) | (v55 << 40) | v54;
+                BYTE8(v80) = v53;
                 if (*(a1 + 408))
                 {
-                  v57 = v86;
+                  v57 = v85;
                   v58 = *(a1 + 400);
-                  v84 = *(a1 + 392);
+                  v83 = *(a1 + 392);
                   *(a1 + 400) = 0;
                   if (v57 == 1)
                   {
@@ -2174,71 +2174,71 @@ LABEL_31:
                   else
                   {
                     __p = v58;
-                    v86 = 1;
+                    v85 = 1;
                   }
 
                   if (*(a1 + 288) == 1)
                   {
-                    std::optional<std::vector<unsigned int>>::operator=[abi:sn200100]<std::vector<unsigned int>,void>(&v87, (a1 + 264));
+                    std::optional<std::vector<unsigned int>>::operator=[abi:sn200100]<std::vector<unsigned int>,void>(&v86, (a1 + 264));
                   }
 
-                  v83 = *(v7 + 106) & *(v7 + 105) & 1;
-                  *(a1 + 32) = *v79;
-                  *(a1 + 48) = v80[0];
+                  v82 = *(v7 + 106) & *(v7 + 105) & 1;
+                  *(a1 + 32) = *v78;
+                  *(a1 + 48) = v79[0];
+                  v78[0] = 0;
+                  v78[1] = 0;
                   v79[0] = 0;
-                  v79[1] = 0;
-                  v80[0] = 0;
-                  *(a1 + 56) = *&v80[1];
-                  *(a1 + 72) = v80[3];
-                  memset(&v80[1], 0, 24);
-                  v68 = v81;
-                  v69 = *v82;
-                  v70 = *&v82[16];
-                  *(a1 + 128) = v83;
-                  *(a1 + 96) = v69;
-                  *(a1 + 112) = v70;
-                  *(a1 + 80) = v68;
+                  *(a1 + 56) = *&v79[1];
+                  *(a1 + 72) = v79[3];
+                  memset(&v79[1], 0, 24);
+                  v67 = v80;
+                  v68 = *v81;
+                  v69 = *&v81[16];
+                  *(a1 + 128) = v82;
+                  *(a1 + 96) = v68;
+                  *(a1 + 112) = v69;
+                  *(a1 + 80) = v67;
                   *(a1 + 136) = 0;
                   *(a1 + 152) = 0;
-                  v71 = v86;
-                  if (v86 == 1)
+                  v70 = v85;
+                  if (v85 == 1)
                   {
-                    v72 = __p;
+                    v71 = __p;
                     __p = 0;
-                    *(a1 + 136) = v84;
-                    *(a1 + 144) = v72;
+                    *(a1 + 136) = v83;
+                    *(a1 + 144) = v71;
                     *(a1 + 152) = 1;
                   }
 
                   *(a1 + 160) = 0;
                   *(a1 + 184) = 0;
-                  if (v88 == 1)
+                  if (v87 == 1)
                   {
-                    *(a1 + 160) = v87;
-                    memset(&v87, 0, sizeof(v87));
+                    *(a1 + 160) = v86;
+                    memset(&v86, 0, sizeof(v86));
                     *(a1 + 184) = 1;
                   }
 
                   *(a1 + 192) = 1;
                   *(a1 + 24) = 1;
-                  if (v71)
+                  if (v70)
                   {
-                    v73 = __p;
+                    v72 = __p;
                     __p = 0;
-                    if (v73)
+                    if (v72)
                     {
-                      operator delete[](v73);
-                      if (v80[1])
+                      operator delete[](v72);
+                      if (v79[1])
                       {
-                        v80[2] = v80[1];
-                        operator delete(v80[1]);
+                        v79[2] = v79[1];
+                        operator delete(v79[1]);
                       }
                     }
                   }
 
-                  if (SHIBYTE(v80[0]) < 0)
+                  if (SHIBYTE(v79[0]) < 0)
                   {
-                    operator delete(v79[0]);
+                    operator delete(v78[0]);
                   }
 
                   goto LABEL_108;
@@ -2316,7 +2316,7 @@ LABEL_108:
 
           if (*v14)
           {
-            v67 = 2;
+            v66 = 2;
             goto LABEL_125;
           }
 
@@ -2335,7 +2335,7 @@ LABEL_108:
 
           if (*v14)
           {
-            v67 = 3;
+            v66 = 3;
             goto LABEL_125;
           }
 
@@ -2357,7 +2357,7 @@ LABEL_108:
 
         if (*v14)
         {
-          v67 = 4;
+          v66 = 4;
           goto LABEL_125;
         }
 
@@ -2404,7 +2404,7 @@ LABEL_47:
 
           if (*v14)
           {
-            v67 = 6;
+            v66 = 6;
             goto LABEL_125;
           }
 
@@ -2424,7 +2424,7 @@ LABEL_47:
 
         if (*v14)
         {
-          v67 = 5;
+          v66 = 5;
           goto LABEL_125;
         }
 
@@ -2449,7 +2449,7 @@ LABEL_47:
 
       if (*v14)
       {
-        v67 = 7;
+        v66 = 7;
         goto LABEL_125;
       }
 
@@ -2578,14 +2578,13 @@ LABEL_56:
     v2 = *v7 | ((*(v7 + 2) | (*(v7 + 6) << 16)) << 32);
   }
 
-  v67 = 8;
+  v66 = 8;
 LABEL_125:
-  *(v7 + 98) = v67;
+  *(v7 + 98) = v66;
   v14[2] = a1;
   v63 = *(a1 + 416);
 LABEL_121:
   v64 = *v63;
-  v65 = *MEMORY[0x277D85DE8];
 
   return v64();
 }
@@ -2719,7 +2718,7 @@ LABEL_36:
 
 uint64_t Backend::Google::HashListsBatchGetResponseParser::parseHashListsBatchGetResponse(uint64_t a1)
 {
-  v3 = a1 + 264;
+  v3 = (a1 + 264);
   v4 = a1 + 232;
   v5 = *(a1 + 324);
   if (v5 > 1)
@@ -2766,7 +2765,7 @@ LABEL_55:
   {
     *(a1 + 316) = v6;
     *(a1 + 325) = v5;
-    *(v3 + 48) = v1;
+    *(v3 + 24) = v1;
     *(v3 + 50) = BYTE2(v1);
     Backend::Google::ProtocolMessageReader::nextField(*(a1 + 304), (a1 + 288));
     v8 = *(a1 + 288);
@@ -2793,7 +2792,7 @@ LABEL_13:
     v12 = *v9 & 0xFFFFFFFF00000000;
     *(a1 + 326) = *v9;
     *(v3 + 58) = BYTE3(v10);
-    *(v3 + 56) = v11;
+    *(v3 + 28) = v11;
     v13 = *(a1 + 288);
     if (v13)
     {
@@ -2923,7 +2922,7 @@ LABEL_26:
     }
 
     LOBYTE(v5) = *(a1 + 326);
-    v1 = *(v3 + 56) | (*(v3 + 58) << 16);
+    v1 = *(v3 + 28) | (*(v3 + 58) << 16);
     v6 = 1;
   }
 
@@ -2946,8 +2945,8 @@ LABEL_26:
     std::vector<Backend::Google::HashList>::__vdeallocate(&v34);
     v25 = *(a1 + 280);
     v26 = *v3;
-    *(v3 + 8) = 0;
-    *(v3 + 16) = 0;
+    *(v3 + 1) = 0;
+    *(v3 + 2) = 0;
     *v3 = 0;
     *(a1 + 32) = v26;
     *(a1 + 48) = v25;
@@ -3097,21 +3096,20 @@ void Backend::Google::HashListsBatchGetResponseParser::HashListsBatchGetResponse
 {
   if ((*(__p + 17) & 1) == 0)
   {
-    v2 = __p[18];
     (*(__p[18] + 8))();
-    v3 = *__p[17];
-    if (v3)
+    v2 = *__p[17];
+    if (v2)
     {
-      std::__shared_weak_count::__release_shared[abi:sn200100](v3);
+      std::__shared_weak_count::__release_shared[abi:sn200100](v2);
     }
 
     std::__function::__value_func<void ()(std::optional<Backend::Google::HashListsBatchGetResponse> &&)>::~__value_func[abi:sn200100]((__p + 3));
   }
 
-  v4 = __p[16];
-  if (v4)
+  v3 = __p[16];
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v3);
   }
 
   operator delete(__p);
@@ -3126,36 +3124,35 @@ _DWORD *Backend::Google::SizeConstraints::SizeConstraints(_DWORD *this, int a2, 
 
 void *Backend::Google::FetchThreatListUpdatesResponseParser::FetchThreatListUpdatesResponseParser(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v4 = a2[1];
-  v7 = *a2;
-  v8 = v4;
+  v6 = *a2;
+  v7 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v9[0] = &unk_2838CD7D8;
-  v9[1] = a3;
-  v9[3] = v9;
-  CoroutineCaller<std::shared_ptr<ReadStream>>::CoroutineCaller(a1, &v7, v9);
-  std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](v9);
-  if (v8)
+  v8[0] = &unk_2838CD7D8;
+  v8[1] = a3;
+  v8[3] = v8;
+  CoroutineCaller<std::shared_ptr<ReadStream>>::CoroutineCaller(a1, &v6, v8);
+  std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](v8);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](v8);
+    std::__shared_weak_count::__release_shared[abi:sn200100](v7);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void sub_22560972C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_22560972C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<Task ()(std::shared_ptr<ReadStream>)>::~__value_func[abi:sn200100](va);
-  if (a4)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:sn200100](a4);
+    std::__shared_weak_count::__release_shared[abi:sn200100](a7);
   }
 
   _Unwind_Resume(a1);
@@ -3293,11 +3290,11 @@ void *Backend::Google::FetchThreatListUpdatesResponseParser::parseAddition@<X0>(
   return result;
 }
 
-uint64_t std::vector<Backend::Google::ListUpdateResponse::Addition>::push_back[abi:sn200100](uint64_t result, void *a2)
+char **std::vector<Backend::Google::ListUpdateResponse::Addition>::push_back[abi:sn200100](char **result, void *a2)
 {
   v2 = result;
-  v3 = *(result + 8);
-  if (v3 >= *(result + 16))
+  v3 = result[1];
+  if (v3 >= result[2])
   {
     result = std::vector<Backend::Google::ListUpdateResponse::Addition>::__emplace_back_slow_path<Backend::Google::ListUpdateResponse::Addition>(result, a2);
     goto LABEL_5;
@@ -3308,10 +3305,10 @@ uint64_t std::vector<Backend::Google::ListUpdateResponse::Addition>::push_back[a
     *v3 = *a2;
     v4 = a2[1];
     a2[1] = 0;
-    v3[1] = v4;
-    result = (v3 + 2);
+    *(v3 + 1) = v4;
+    result = (v3 + 16);
 LABEL_5:
-    *(v2 + 8) = result;
+    v2[1] = result;
     return result;
   }
 
@@ -3399,17 +3396,17 @@ void *Backend::Google::FetchThreatListUpdatesResponseParser::parseRawHashes@<X0>
   return result;
 }
 
-uint64_t Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResponse::Addition>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResponse::Addition>@<X0>(uint64_t a1@<X0>, void *a2@<X8>, uint64_t a3@<X1>)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>::__value_func[abi:sn200100](v9, a2);
-  v12 = 0;
+  v12 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>::__value_func[abi:sn200100](v8, a3);
+  v11 = 0;
   v5 = operator new(0x28uLL);
   *v5 = &unk_2838CD8B0;
-  v6 = v10;
-  if (v10)
+  v6 = v9;
+  if (v9)
   {
-    if (v10 == v9)
+    if (v9 == v8)
     {
       v5[4] = v5 + 1;
       (*(*v6 + 24))(v6);
@@ -3417,8 +3414,8 @@ uint64_t Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResp
 
     else
     {
-      v5[4] = v10;
-      v10 = 0;
+      v5[4] = v9;
+      v9 = 0;
     }
   }
 
@@ -3427,22 +3424,20 @@ uint64_t Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResp
     v5[4] = 0;
   }
 
-  v12 = v5;
-  Backend::Google::ProtocolMessageReader::readEmbeddedMessageField<Backend::Google::ListUpdateResponse::Addition>(a1, v11, a3);
-  std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(Backend::Google::ProtocolMessageReader &)>::~__value_func[abi:sn200100](v11);
-  result = std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>::~__value_func[abi:sn200100](v9);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v11 = v5;
+  Backend::Google::ProtocolMessageReader::readEmbeddedMessageField<Backend::Google::ListUpdateResponse::Addition>(a1, v10, a2);
+  std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(Backend::Google::ProtocolMessageReader &)>::~__value_func[abi:sn200100](v10);
+  return std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>::~__value_func[abi:sn200100](v8);
 }
 
-void sub_22560A088(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22560A088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(Backend::Google::ProtocolMessageReader &)>::~__value_func[abi:sn200100](va1);
   std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>::~__value_func[abi:sn200100](va);
   _Unwind_Resume(a1);
@@ -3733,8 +3728,7 @@ uint64_t std::__function::__func<Backend::Google::FetchThreatListUpdatesResponse
 void std::__function::__func<Backend::Google::FetchThreatListUpdatesResponseParser::FetchThreatListUpdatesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FetchThreatListUpdatesResponse> &&)>)::$_0,std::allocator<std::function<void ()(std::optional<Backend::Google::FetchThreatListUpdatesResponse> &&)>>,Task ()(std::shared_ptr<ReadStream>)>::operator()(uint64_t a1@<X0>, __int128 *a2@<X1>, void *a3@<X8>)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   Backend::Google::FetchThreatListUpdatesResponseParser::FetchThreatListUpdatesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FetchThreatListUpdatesResponse> &&)>)::$_0::operator()<std::shared_ptr<ReadStream>>((a1 + 8), &v4, a3);
   v3 = *(&v4 + 1);
   if (*(&v4 + 1))
@@ -3754,7 +3748,7 @@ void sub_22560A8E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Backend::Google::FetchThreatListUpdatesResponseParser::FetchThreatListUpdatesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FetchThreatListUpdatesResponse> &&)>)::$_0::operator()<std::shared_ptr<ReadStream>>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+uint64_t Backend::Google::FetchThreatListUpdatesResponseParser::FetchThreatListUpdatesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FetchThreatListUpdatesResponse> &&)>)::$_0::operator()<std::shared_ptr<ReadStream>>@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v6 = operator new(0xA8uLL);
   *v6 = Backend::Google::FetchThreatListUpdatesResponseParser::FetchThreatListUpdatesResponseParser(std::shared_ptr<ReadStream>,std::function<void ()(std::optional<Backend::Google::FetchThreatListUpdatesResponse> &&)>)::$_0::operator()<std::shared_ptr<ReadStream>>;
@@ -4276,9 +4270,9 @@ void *std::__function::__func<Lazy<std::optional<Backend::Google::ListUpdateResp
   return v2;
 }
 
-void std::__function::__func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResponse::Addition>(Backend::Google::ProtocolMessageReader &,std::function<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>)::{lambda(Backend::Google::ListUpdateResponse::Addition&)#1},std::allocator<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResponse::Addition>(Backend::Google::ProtocolMessageReader &,std::function<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>)::{lambda(Backend::Google::ListUpdateResponse::Addition&)#1}>,Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(Backend::Google::ProtocolMessageReader &)>::destroy_deallocate(void *a1)
+void std::__function::__func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResponse::Addition>(Backend::Google::ProtocolMessageReader &,std::function<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>)::{lambda(Backend::Google::ListUpdateResponse::Addition&)#1},std::allocator<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResponse::Addition>(Backend::Google::ProtocolMessageReader &,std::function<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>)::{lambda(Backend::Google::ListUpdateResponse::Addition&)#1}>,Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(Backend::Google::ProtocolMessageReader &)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>::~__value_func[abi:sn200100](a1 + 8);
+  std::__function::__value_func<Lazy<std::optional<Backend::Google::ListUpdateResponse::Addition>> ()(std::shared_ptr<RiceDecompressor>,unsigned int)>::~__value_func[abi:sn200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -4331,8 +4325,7 @@ void std::__function::__func<Lazy<std::optional<Backend::Google::ListUpdateRespo
 {
   v3 = *(a1 + 8);
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v3(&v4, *a3);
   if (*(&v4 + 1))
   {
@@ -7600,8 +7593,8 @@ LABEL_56:
       if (v34)
       {
         v8 = *(a1 + 54);
-        v26 = (a1 + 176);
-        v27 = (a1 + 168);
+        v26 = a1 + 176;
+        v27 = a1 + 168;
         goto LABEL_92;
       }
 
@@ -7676,8 +7669,8 @@ LABEL_69:
   }
 
   v8 = v4 + 1;
-  v26 = (a1 + 176);
-  v27 = (a1 + 168);
+  v26 = a1 + 176;
+  v27 = a1 + 168;
   v12 = *(a1 + 52);
   v13 = *(a1 + 53);
 LABEL_93:
@@ -7840,7 +7833,7 @@ LABEL_82:
             v47 = 3;
           }
 
-          v27 = (a1 + 184);
+          v27 = a1 + 184;
           v48 = *(a1 + 23);
           if (v48)
           {
@@ -7852,7 +7845,7 @@ LABEL_82:
             goto LABEL_103;
           }
 
-          v26 = (a1 + 192);
+          v26 = a1 + 192;
           v8 = *(a1 + 54);
 LABEL_92:
           v12 = *(a1 + 52);
@@ -7930,8 +7923,8 @@ LABEL_62:
       }
 
       v8 = *(a1 + 54);
-      v26 = (a1 + 176);
-      v27 = (a1 + 168);
+      v26 = a1 + 176;
+      v27 = a1 + 168;
       v12 = *(a1 + 52);
       v13 = v5;
       v6 = *(a1 + 19);
@@ -7976,8 +7969,8 @@ LABEL_41:
 
       v13 = *(a1 + 53);
       v8 = *(a1 + 54);
-      v26 = (a1 + 176);
-      v27 = (a1 + 168);
+      v26 = a1 + 176;
+      v27 = a1 + 168;
       v4 = *(a1 + 20);
       v12 = v6;
       v5 = *(a1 + 18);
@@ -8625,7 +8618,7 @@ LABEL_91:
         *(a1 + 128) = &unk_2838CDCA0;
         *(a1 + 136) = Backend::Google::readAdditions;
         *(a1 + 152) = v6;
-        Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResponse::Addition>(v21, v6, (a1 + 184));
+        Backend::Google::parseRiceDeltaEncoding<Backend::Google::ListUpdateResponse::Addition>(v21, (a1 + 184), v6);
         v8 = *(a1 + 184);
         *(a1 + 56) = v8;
         if (!v8)
@@ -9060,12 +9053,12 @@ LABEL_24:
 uint64_t Backend::Google::FetchThreatListUpdatesResponseParser::parseListUpdateResponse(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   v7 = a1;
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   v8 = a1 + 192;
   v9 = a1 + 256;
   v10 = a1 + 288;
   v11 = (a1 + 420);
-  v94 = a1 + 320;
+  v93 = a1 + 320;
   v12 = *(a1 + 451);
   if (v12 <= 4)
   {
@@ -9088,7 +9081,7 @@ uint64_t Backend::Google::FetchThreatListUpdatesResponseParser::parseListUpdateR
         v27 = a1 + 320;
         *(a1 + 336) = 0;
         v28 = 0uLL;
-        *v94 = 0u;
+        *v93 = 0u;
         *(a1 + 160) = 0;
         *(a1 + 184) = 0;
         goto LABEL_32;
@@ -9273,7 +9266,7 @@ LABEL_83:
       goto LABEL_126;
     }
 
-    std::vector<Backend::Google::ListUpdateResponse::Addition>::push_back[abi:sn200100](v94, (v7 + 224));
+    std::vector<Backend::Google::ListUpdateResponse::Addition>::push_back[abi:sn200100](v93, (v7 + 224));
     if (*(v7 + 240))
     {
       v54 = *(v7 + 232);
@@ -9385,7 +9378,7 @@ LABEL_32:
 
       if (*v14)
       {
-        v88 = 1;
+        v87 = 1;
         goto LABEL_137;
       }
 
@@ -9408,28 +9401,28 @@ LABEL_34:
         if (HIDWORD(v30))
         {
           std::__throw_bad_variant_access[abi:sn200100]();
-          v91 = v90;
+          v90 = v89;
           if (*(v7 + 184) == 1)
           {
-            v92 = *(v7 + 160);
-            if (v92)
+            v91 = *(v7 + 160);
+            if (v91)
             {
-              *(v7 + 168) = v92;
-              operator delete(v92);
+              *(v7 + 168) = v91;
+              operator delete(v91);
             }
           }
 
-          v93 = *(v7 + 368);
-          if (v93)
+          v92 = *(v7 + 368);
+          if (v92)
           {
-            operator delete(v93);
+            operator delete(v92);
           }
 
-          *&v95 = v94;
-          std::vector<Backend::Google::ListUpdateResponse::Addition>::__destroy_vector::operator()[abi:sn200100](&v95);
+          *&v94 = v93;
+          std::vector<Backend::Google::ListUpdateResponse::Addition>::__destroy_vector::operator()[abi:sn200100](&v94);
           *v7 = 0;
           *(v7 + 451) = 11;
-          _Unwind_Resume(v91);
+          _Unwind_Resume(v90);
         }
 
         if ((v30 & 1) == 0 || *(v7 + 453) != 1 || !*(v7 + 454) || !*(v7 + 457) || !*(v7 + 459) || *(v7 + 184) != 1 || (*(v7 + 461) & 1) == 0)
@@ -9449,20 +9442,20 @@ LABEL_34:
         v72 = *(v7 + 394);
         v73 = *(v7 + 404) << 8;
         v74 = *(v7 + 392);
-        v99 = 0;
-        *v98 = 0u;
-        v96 = 0u;
+        v98 = 0;
+        *v97 = 0u;
+        v95 = 0u;
         memset(__p, 0, sizeof(__p));
-        LODWORD(v95) = v73 | (v63 << 24) | v67;
-        DWORD1(v95) = (v74 << 8) | (v72 << 24) | v71;
-        DWORD2(v95) = (v70 << 8) | (v69 << 24) | v68;
-        HIDWORD(v95) = (v66 << 8) | (v65 << 24) | v64;
-        std::vector<Backend::Google::ListUpdateResponse::Addition>::__vdeallocate(&v96);
-        v96 = *(v7 + 320);
+        LODWORD(v94) = v73 | (v63 << 24) | v67;
+        DWORD1(v94) = (v74 << 8) | (v72 << 24) | v71;
+        DWORD2(v94) = (v70 << 8) | (v69 << 24) | v68;
+        HIDWORD(v94) = (v66 << 8) | (v65 << 24) | v64;
+        std::vector<Backend::Google::ListUpdateResponse::Addition>::__vdeallocate(&v95);
+        v95 = *(v7 + 320);
         __p[0] = *(v7 + 336);
-        *(v94 + 8) = 0;
-        *(v94 + 16) = 0;
-        *v94 = 0;
+        *(v93 + 8) = 0;
+        *(v93 + 16) = 0;
+        *v93 = 0;
         if (__p[1])
         {
           __p[2] = __p[1];
@@ -9478,10 +9471,10 @@ LABEL_34:
           __break(1u);
         }
 
-        if (v98[0])
+        if (v97[0])
         {
-          v98[1] = v98[0];
-          operator delete(v98[0]);
+          v97[1] = v97[0];
+          operator delete(v97[0]);
           v76 = *&__p[1];
           v75 = __p[3];
         }
@@ -9492,28 +9485,28 @@ LABEL_34:
         *(v7 + 160) = 0;
         *(v7 + 168) = 0;
         *(v7 + 176) = 0;
-        v100[0] = v77;
-        *&v100[1] = *v11;
-        *&v100[16] = *(v11 + 15);
-        v80 = v96;
-        *(v7 + 32) = v95;
+        v99[0] = v77;
+        *&v99[1] = *v11;
+        *&v99[16] = *(v11 + 15);
+        v80 = v95;
+        *(v7 + 32) = v94;
         *(v7 + 48) = v80;
         *(v7 + 64) = __p[0];
-        v96 = 0uLL;
+        v95 = 0uLL;
         *(v7 + 72) = v76;
         *(v7 + 88) = v75;
         memset(__p, 0, sizeof(__p));
         *(v7 + 96) = v79;
         *(v7 + 112) = v78;
-        v98[0] = 0;
-        v98[1] = 0;
-        v99 = 0;
-        v81 = *v100;
-        *(v7 + 136) = *&v100[16];
+        v97[0] = 0;
+        v97[1] = 0;
+        v98 = 0;
+        v81 = *v99;
+        *(v7 + 136) = *&v99[16];
         *(v7 + 120) = v81;
         *(v7 + 152) = 1;
         *(v7 + 24) = 1;
-        Backend::Google::ListUpdateResponse::~ListUpdateResponse(&v95);
+        Backend::Google::ListUpdateResponse::~ListUpdateResponse(&v94);
         v82 = 0;
         goto LABEL_127;
       }
@@ -9535,7 +9528,7 @@ LABEL_34:
 
             if (*v14)
             {
-              v88 = 8;
+              v87 = 8;
               goto LABEL_137;
             }
 
@@ -9555,9 +9548,9 @@ LABEL_103:
                 goto LABEL_105;
               }
 
-              v89 = 10;
+              v88 = 10;
 LABEL_147:
-              *(v7 + 451) = v89;
+              *(v7 + 451) = v88;
               v13[2] = v7;
               v84 = *(v7 + 344);
               goto LABEL_133;
@@ -9581,7 +9574,7 @@ LABEL_148:
 
           if (*v13)
           {
-            v89 = 9;
+            v88 = 9;
             goto LABEL_147;
           }
 
@@ -9644,7 +9637,7 @@ LABEL_69:
 
           if (*v13)
           {
-            v89 = 7;
+            v88 = 7;
             goto LABEL_147;
           }
 
@@ -9664,7 +9657,7 @@ LABEL_69:
 
         if (*v13)
         {
-          v89 = 6;
+          v88 = 6;
           goto LABEL_147;
         }
 
@@ -9685,9 +9678,9 @@ LABEL_69:
 
           if (*v14)
           {
-            v88 = 5;
+            v87 = 5;
 LABEL_137:
-            *(v7 + 451) = v88;
+            *(v7 + 451) = v87;
             v14[2] = v7;
             v84 = *(v7 + 224);
             goto LABEL_133;
@@ -9706,7 +9699,7 @@ LABEL_137:
 
         if (*v14)
         {
-          v88 = 4;
+          v87 = 4;
           goto LABEL_137;
         }
 
@@ -9763,7 +9756,7 @@ LABEL_93:
 
       if (*v14)
       {
-        v88 = 3;
+        v87 = 3;
         goto LABEL_137;
       }
 
@@ -9810,7 +9803,7 @@ LABEL_43:
 
     if (*v14)
     {
-      v88 = 2;
+      v87 = 2;
       goto LABEL_137;
     }
 
@@ -9868,14 +9861,13 @@ LABEL_127:
     operator delete(v82);
   }
 
-  *&v95 = v94;
-  std::vector<Backend::Google::ListUpdateResponse::Addition>::__destroy_vector::operator()[abi:sn200100](&v95);
+  *&v94 = v93;
+  std::vector<Backend::Google::ListUpdateResponse::Addition>::__destroy_vector::operator()[abi:sn200100](&v94);
   *v7 = 0;
   *(v7 + 451) = 11;
   v84 = *(v7 + 16);
 LABEL_133:
   v85 = *v84;
-  v86 = *MEMORY[0x277D85DE8];
 
   return v85();
 }

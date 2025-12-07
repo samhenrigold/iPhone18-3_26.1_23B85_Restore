@@ -32,9 +32,10 @@
 
 - (BOOL)isHidden
 {
-  v3.receiver = self;
-  v3.super_class = _s10PocketMaskCMa();
-  return [(UIView *)&v3 isHidden];
+  v3 = _s10PocketMaskCMa();
+  v6.receiver = self;
+  v6.super_class = v4;
+  return [(UIView *)&v6 isHidden];
 }
 
 - (void)setHidden:(BOOL)hidden
@@ -47,9 +48,10 @@
 
   else
   {
-    v5.receiver = selfCopy;
-    v5.super_class = _s10PocketMaskCMa();
-    [(UIView *)&v5 setHidden:hiddenCopy];
+    v4 = _s10PocketMaskCMa();
+    v7.receiver = selfCopy;
+    v7.super_class = v5;
+    [(UIView *)&v7 setHidden:hiddenCopy, v4];
   }
 }
 
@@ -75,7 +77,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_188FFD9C4();
+  sub_188FFD9C4(selfCopy);
 }
 
 @end

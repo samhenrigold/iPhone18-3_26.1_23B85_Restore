@@ -93,9 +93,9 @@
   [pageCopy boundsForBox:{objc_msgSend(propertiesCopy, "displayBox")}];
   v11 = *MEMORY[0x1E695EFF8];
   v12 = *(MEMORY[0x1E695EFF8] + 8);
-  v42.receiver = self;
-  v42.super_class = PDFPageView;
-  v13 = [(PDFPageView *)&v42 initWithFrame:v11, v12];
+  v43.receiver = self;
+  v43.super_class = PDFPageView;
+  v13 = [(PDFPageView *)&v43 initWithFrame:v11, v12];
   if (v13)
   {
     v14 = objc_alloc_init(PDFPageViewPrivate);
@@ -147,7 +147,10 @@
 
     [(CALayer *)v13->_private->backgroundLayer setMasksToBounds:1];
     v13->_private->backgroundQuality = 2;
-    [(CALayer *)v13->_private->backgroundLayer setFrame:PDFRectToCGRect([(PDFPageView *)v13 bounds])];
+    v35 = v13->_private->backgroundLayer;
+    [(PDFPageView *)v13 bounds];
+    PDFRectToCGRect();
+    [(CALayer *)v35 setFrame:?];
     [(CALayer *)v13->_private->backgroundLayer setName:@"backgroundLayer"];
     [(PDFPageLayer *)v16 addSublayer:v13->_private->backgroundLayer];
     [(CALayer *)v13->_private->backgroundLayer setZPosition:-900.0];
@@ -156,10 +159,10 @@
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter addObserver:v13 selector:sel__renderingPropertyUpdate_ name:@"PDFRenderingPropertiesChanged" object:propertiesCopy];
 
-    v36 = [PDFPageLayerEffect createPDFSelectionLayerEffectsForSelections:0 withLayer:v16];
-    v37 = v13->_private;
-    searchLayer = v37->searchLayer;
-    v37->searchLayer = v36;
+    v37 = [PDFPageLayerEffect createPDFSelectionLayerEffectsForSelections:0 withLayer:v16];
+    v38 = v13->_private;
+    searchLayer = v38->searchLayer;
+    v38->searchLayer = v37;
 
     [(PDFPageLayerEffect *)v13->_private->searchLayer setZPosition:-500.0];
     [(PDFPageView *)v13 _setupBookmarkLayer];
@@ -384,7 +387,7 @@
   if (WeakRetained)
   {
     v6 = WeakRetained;
-    [WeakRetained layerEffectTransform];
+    objc_msgSend_layerEffectTransform(WeakRetained);
     WeakRetained = v6;
   }
 
@@ -778,7 +781,10 @@ void __53__PDFPageView__beginObservingScrollViewMagnification__block_invoke(id *
       layer = [(PDFPageView *)self layer];
       [layer addSublayer:self->_private->detectedFormFieldBoundingBoxesLayer];
 
-      [(PDFHighlightDetectedFormFieldsEffectLayer *)self->_private->detectedFormFieldBoundingBoxesLayer setFrame:PDFRectToCGRect([(PDFPageView *)self bounds])];
+      v11 = self->_private->detectedFormFieldBoundingBoxesLayer;
+      [(PDFPageView *)self bounds];
+      PDFRectToCGRect();
+      [(PDFHighlightDetectedFormFieldsEffectLayer *)v11 setFrame:?];
       [(PDFHighlightDetectedFormFieldsEffectLayer *)self->_private->detectedFormFieldBoundingBoxesLayer setZPosition:0.0];
       detectedFormFieldBoundingBoxesLayer = self->_private->detectedFormFieldBoundingBoxesLayer;
     }
@@ -789,9 +795,9 @@ void __53__PDFPageView__beginObservingScrollViewMagnification__block_invoke(id *
   else if (detectedFormFieldBoundingBoxesLayer)
   {
     [(PDFHighlightDetectedFormFieldsEffectLayer *)detectedFormFieldBoundingBoxesLayer removeFromSuperlayer];
-    v11 = self->_private;
-    v12 = v11->detectedFormFieldBoundingBoxesLayer;
-    v11->detectedFormFieldBoundingBoxesLayer = 0;
+    v12 = self->_private;
+    v13 = v12->detectedFormFieldBoundingBoxesLayer;
+    v12->detectedFormFieldBoundingBoxesLayer = 0;
   }
 }
 
@@ -1431,19 +1437,20 @@ void __74__PDFPageView_populateFormFieldsWithAutoFillSuggestion_completionHandle
 {
   height = frame.size.height;
   width = frame.size.width;
-  v10.receiver = self;
-  v10.super_class = PDFPageView;
-  [(PDFPageView *)&v10 setFrame:frame.origin.x, frame.origin.y];
+  v11.receiver = self;
+  v11.super_class = PDFPageView;
+  [(PDFPageView *)&v11 setFrame:frame.origin.x, frame.origin.y];
   if (self->_private)
   {
     [MEMORY[0x1E6979518] begin];
     [MEMORY[0x1E6979518] setDisableActions:1];
-    v6 = PDFPointMake(0.0, 0.0);
-    v8 = v7;
+    PDFPointMake();
+    v7 = v6;
+    v9 = v8;
     WeakRetained = objc_loadWeakRetained(&self->_private->pageLayer);
-    [WeakRetained setFrame:{v6, v8, width, height}];
+    [WeakRetained setFrame:{v7, v9, width, height}];
 
-    [(CALayer *)self->_private->backgroundLayer setFrame:v6, v8, width, height];
+    [(CALayer *)self->_private->backgroundLayer setFrame:v7, v9, width, height];
     [MEMORY[0x1E6979518] commit];
     [(PDFPageView *)self setNeedsTilesUpdate];
   }
@@ -1511,7 +1518,8 @@ void __74__PDFPageView_populateFormFieldsWithAutoFillSuggestion_completionHandle
       v11->bookmarkLayer = v10;
 
       v13 = self->_private;
-      v13->bookmarkSize.width = PDFSizeMake(v14, 34.0, 44.0);
+      PDFSizeMake();
+      v13->bookmarkSize.width = v14;
       v13->bookmarkSize.height = v15;
       -[CALayer setContents:](self->_private->bookmarkLayer, "setContents:", [v9 CGImage]);
       [(CALayer *)self->_private->bookmarkLayer setZPosition:-700.0];
@@ -1587,8 +1595,8 @@ LABEL_9:
     if ((COERCE__INT64(v7 / v9) <= -1 || v11 >= 0x3FF) && (COERCE__INT64(v7 / v9) - 1) >= 0xFFFFFFFFFFFFFLL)
     {
       [view frame];
-      v23 = PDFRectToString(v19, v20, v21, v22);
-      NSLog(&cfstr_BookmarkBeingS.isa, v23);
+      v21 = PDFRectToString(v17, v18, v19, v20);
+      NSLog(&cfstr_BookmarkBeingS.isa, v21);
     }
 
     else
@@ -1597,12 +1605,11 @@ LABEL_9:
       [MEMORY[0x1E6979518] setDisableActions:1];
       [(CALayer *)self->_private->bookmarkLayer setFrame:v7 - v10 * self->_private->bookmarkSize.width + v10 * -8.0, 0.0, v10 * self->_private->bookmarkSize.width, v10 * self->_private->bookmarkSize.height];
       v14 = objc_loadWeakRetained(&self->_private->geometryInterface);
-      v15.n128_u64[0] = 0;
-      v16.n128_u64[0] = 0;
-      [v14 convertRectToRootView:v4 fromPageLayer:{PDFRectMake(v15, v16, self->_private->bookmarkSize.width, self->_private->bookmarkSize.height)}];
-      v18 = v17;
+      PDFRectMake();
+      [v14 convertRectToRootView:v4 fromPageLayer:?];
+      v16 = v15;
 
-      [(CALayer *)self->_private->bookmarkLayer setContentsScale:fmin(v18 / self->_private->bookmarkSize.width, 4.0)];
+      [(CALayer *)self->_private->bookmarkLayer setContentsScale:fmin(v16 / self->_private->bookmarkSize.width, 4.0)];
       [MEMORY[0x1E6979518] commit];
     }
   }
@@ -1743,7 +1750,7 @@ void __42__PDFPageView__setuppageAnnotationEffects__block_invoke(uint64_t a1, vo
   v25 = 0u;
   v26 = 0u;
   v24 = 0u;
-  [(PDFPageView *)self _rotationTransformForPageView];
+  objc_msgSend__rotationTransformForPageView(self);
   layer = [controlCopy layer];
   v19 = *(MEMORY[0x1E695EFD0] + 16);
   v21 = *MEMORY[0x1E695EFD0];
@@ -1763,43 +1770,34 @@ void __42__PDFPageView__setuppageAnnotationEffects__block_invoke(uint64_t a1, vo
 - (CGRect)convertRectToPageView:(CGRect)view
 {
   width = view.size.width;
-  CenterPoint = PDFRectGetCenterPoint(view.origin.x, view.origin.y, view.size.width);
-  v7 = v6;
+  PDFRectGetCenterPoint(view.origin.x, view.origin.y, view.size.width);
   WeakRetained = objc_loadWeakRetained(&self->_private->pageLayer);
-  v9 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained layerEffectTransform];
+    objc_msgSend_layerEffectTransform(WeakRetained, 0, 0, 0);
   }
 
-  else
-  {
-    v33 = 0u;
-    v34 = 0u;
-    v32 = 0u;
-  }
-
-  v10 = PDFPointToCGPoint(CenterPoint, v7);
-  v12 = vaddq_f64(v34, vmlaq_n_f64(vmulq_n_f64(v33, v11), v32, v10));
-  v13 = PDFPointFromCGPoint(v12.f64[0], v12.f64[1]);
-  v15 = PDFRectMakeFromCenter(v13, v14, width);
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  v22 = objc_loadWeakRetained(&self->_private->renderingProperties);
+  PDFPointToCGPoint();
+  PDFPointFromCGPoint();
+  v9 = PDFRectMakeFromCenter(v7, v8, width);
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v16 = objc_loadWeakRetained(&self->_private->renderingProperties);
   page = [(PDFPageView *)self page];
-  [page boundsForBox:{objc_msgSend(v22, "displayBox")}];
-  PDFRectRotate([page rotation], v24, v25);
-  v27 = v26 - v21 - v17;
+  [page boundsForBox:{objc_msgSend(v16, "displayBox")}];
+  PDFRectRotate([page rotation], v18, v19);
+  v21 = v20 - v15 - v11;
 
-  v28 = v15;
-  v29 = v27;
-  v30 = v19;
-  v31 = v21;
-  result.size.height = v31;
-  result.size.width = v30;
-  result.origin.y = v29;
-  result.origin.x = v28;
+  v22 = v9;
+  v23 = v21;
+  v24 = v13;
+  v25 = v15;
+  result.size.height = v25;
+  result.size.width = v24;
+  result.origin.y = v23;
+  result.origin.x = v22;
   return result;
 }
 
@@ -1819,54 +1817,58 @@ void __42__PDFPageView__setuppageAnnotationEffects__block_invoke(uint64_t a1, vo
 - (CGPoint)convertPointToPageView:(CGPoint)view
 {
   WeakRetained = objc_loadWeakRetained(&self->_private->page);
-  v5 = PDFRectToCGRect([WeakRetained boundsForBox:0]);
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v12 = objc_loadWeakRetained(&self->_private->renderingProperties);
-  v13 = PDFRectToCGRect([WeakRetained boundsForBox:{objc_msgSend(v12, "displayBox")}]);
+  [WeakRetained boundsForBox:0];
+  PDFRectToCGRect();
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v13 = objc_loadWeakRetained(&self->_private->renderingProperties);
+  [WeakRetained boundsForBox:{objc_msgSend(v13, "displayBox")}];
+  PDFRectToCGRect();
   v15 = v14;
   v17 = v16;
-  rect = v16;
   v19 = v18;
+  rect = v18;
+  v21 = v20;
 
-  v33.origin.x = v13;
-  v33.origin.y = v15;
-  v33.size.width = v17;
-  v33.size.height = v19;
-  MinX = CGRectGetMinX(v33);
-  v34.origin.x = v5;
-  v34.origin.y = v7;
-  v34.size.width = v9;
-  v34.size.height = v11;
-  v21 = MinX - CGRectGetMinX(v34);
-  v35.origin.x = v5;
-  v35.origin.y = v7;
-  v35.size.width = v9;
-  v35.size.height = v11;
-  v22 = v21 + CGRectGetMinX(v35);
-  v36.origin.x = v13;
-  v36.origin.y = v15;
-  v36.size.width = rect;
-  v36.size.height = v19;
-  MinY = CGRectGetMinY(v36);
-  v37.origin.x = v5;
-  v37.origin.y = v7;
-  v37.size.width = v9;
-  v37.size.height = v11;
-  v24 = MinY - CGRectGetMinY(v37);
-  v38.origin.x = v5;
-  v38.origin.y = v7;
-  v38.size.width = v9;
-  v38.size.height = v11;
-  v25 = v24 + CGRectGetMinY(v38);
+  v35.origin.x = v15;
+  v35.origin.y = v17;
+  v35.size.width = v19;
+  v35.size.height = v21;
+  MinX = CGRectGetMinX(v35);
+  v36.origin.x = v6;
+  v36.origin.y = v8;
+  v36.size.width = v10;
+  v36.size.height = v12;
+  v23 = MinX - CGRectGetMinX(v36);
+  v37.origin.x = v6;
+  v37.origin.y = v8;
+  v37.size.width = v10;
+  v37.size.height = v12;
+  v24 = v23 + CGRectGetMinX(v37);
+  v38.origin.x = v15;
+  v38.origin.y = v17;
+  v38.size.width = rect;
+  v38.size.height = v21;
+  MinY = CGRectGetMinY(v38);
+  v39.origin.x = v6;
+  v39.origin.y = v8;
+  v39.size.width = v10;
+  v39.size.height = v12;
+  v26 = MinY - CGRectGetMinY(v39);
+  v40.origin.x = v6;
+  v40.origin.y = v8;
+  v40.size.width = v10;
+  v40.size.height = v12;
+  v27 = v26 + CGRectGetMinY(v40);
   [(PDFPageView *)self frame];
-  v27 = v25 + v26 - view.y;
+  v29 = v27 + v28 - view.y;
 
-  v28 = view.x - v22;
-  v29 = v27;
-  result.y = v29;
-  result.x = v28;
+  v30 = view.x - v24;
+  v31 = v29;
+  result.y = v31;
+  result.x = v30;
   return result;
 }
 

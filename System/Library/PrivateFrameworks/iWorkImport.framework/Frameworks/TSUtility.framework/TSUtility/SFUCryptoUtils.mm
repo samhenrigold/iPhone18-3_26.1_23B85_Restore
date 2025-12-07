@@ -59,7 +59,7 @@
 + (id)generatePassphraseVerifierForKey:(id)key verifierVersion:(unsigned __int16)version
 {
   versionCopy = version;
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if ([key keyType])
   {
     v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[SFUCryptoUtils generatePassphraseVerifierForKey:verifierVersion:]"];
@@ -71,12 +71,12 @@
   else
   {
     data = [MEMORY[0x277CBEB28] data];
-    v30 = 0;
+    v31 = 0;
     v9 = [[SFUMemoryOutputStream alloc] initWithData:data];
-    v29 = versionCopy;
-    v28 = 1;
+    v30 = versionCopy;
+    v29 = 1;
+    [(SFUMemoryOutputStream *)v9 writeBuffer:&v30 size:2];
     [(SFUMemoryOutputStream *)v9 writeBuffer:&v29 size:2];
-    [(SFUMemoryOutputStream *)v9 writeBuffer:&v28 size:2];
     iterationCount = [key iterationCount];
     [(SFUMemoryOutputStream *)v9 writeBuffer:&iterationCount size:4];
     if (versionCopy >= 2)
@@ -85,56 +85,57 @@
     }
 
     v10 = [self ivLengthForKey:key];
-    MEMORY[0x28223BE20]();
-    v12 = &v25 - v11;
-    v13 = *MEMORY[0x277CDC540];
-    v14 = SecRandomCopyBytes(*MEMORY[0x277CDC540], v10, &v25 - v11);
-    v15 = MEMORY[0x277CBE648];
-    if (v14)
+    v11 = v10;
+    MEMORY[0x28223BE20](v10);
+    v13 = &v26 - v12;
+    v14 = *MEMORY[0x277CDC540];
+    v15 = SecRandomCopyBytes(*MEMORY[0x277CDC540], v11, &v26 - v12);
+    v16 = MEMORY[0x277CBE648];
+    if (v15)
     {
 
-      [MEMORY[0x277CBEAD8] raise:*v15 format:@"SFUCryptor failed to copy random bytes."];
+      [MEMORY[0x277CBEAD8] raise:*v16 format:@"SFUCryptor failed to copy random bytes."];
       v9 = 0;
     }
 
-    [(SFUMemoryOutputStream *)v9 writeBuffer:v12 size:v10];
-    if (SecRandomCopyBytes(v13, 0x20uLL, bytes))
+    [(SFUMemoryOutputStream *)v9 writeBuffer:v13 size:v11];
+    if (SecRandomCopyBytes(v14, 0x20uLL, bytes))
     {
 
-      [MEMORY[0x277CBEAD8] raise:*v15 format:@"SFUCryptor failed to copy random bytes."];
+      [MEMORY[0x277CBEAD8] raise:*v16 format:@"SFUCryptor failed to copy random bytes."];
       v9 = 0;
     }
 
-    v16 = [[SFUCryptor alloc] initWithKey:key operation:0 iv:v12 ivLength:v10 usePKCS7Padding:versionCopy == 1];
-    if (![(SFUCryptor *)v16 cryptDataFromBuffer:bytes length:32 toStream:v9 finished:0 error:&v30])
+    v17 = [[SFUCryptor alloc] initWithKey:key operation:0 iv:v13 ivLength:v11 usePKCS7Padding:versionCopy == 1];
+    if (![(SFUCryptor *)v17 cryptDataFromBuffer:bytes length:32 toStream:v9 finished:0 error:&v31])
     {
 
-      v17 = MEMORY[0x277CBEAD8];
-      v18 = *v15;
-      localizedDescription = [v30 localizedDescription];
-      [v17 raise:v18 format:{@"SFUCryptor failed. %@: %@", localizedDescription, objc_msgSend(v30, "localizedFailureReason")}];
+      v18 = MEMORY[0x277CBEAD8];
+      v19 = *v16;
+      localizedDescription = [v31 localizedDescription];
+      [v18 raise:v19 format:{@"SFUCryptor failed. %@: %@", localizedDescription, objc_msgSend(v31, "localizedFailureReason")}];
       v9 = 0;
-      v16 = 0;
+      v17 = 0;
     }
 
     if (CC_SHA256_Init(&c) && CC_SHA256_Update(&c, bytes, 0x20u) && CC_SHA256_Final(md, &c))
     {
-      if (![(SFUCryptor *)v16 cryptDataFromBuffer:md length:32 toStream:v9 finished:1 error:&v30])
+      if (![(SFUCryptor *)v17 cryptDataFromBuffer:md length:32 toStream:v9 finished:1 error:&v31])
       {
 
-        v20 = MEMORY[0x277CBEAD8];
-        v21 = *v15;
-        localizedDescription2 = [v30 localizedDescription];
-        [v20 raise:v21 format:{@"SFUCryptor failed. %@: %@", localizedDescription2, objc_msgSend(v30, "localizedFailureReason")}];
-        v16 = 0;
+        v21 = MEMORY[0x277CBEAD8];
+        v22 = *v16;
+        localizedDescription2 = [v31 localizedDescription];
+        [v21 raise:v22 format:{@"SFUCryptor failed. %@: %@", localizedDescription2, objc_msgSend(v31, "localizedFailureReason")}];
+        v17 = 0;
         v9 = 0;
       }
     }
 
     else
     {
-      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[SFUCryptoUtils generatePassphraseVerifierForKey:verifierVersion:]"];
-      +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v23, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/sf/SFUCryptoUtils.mm"], 157, 0, "CC_SHA256 failed");
+      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[SFUCryptoUtils generatePassphraseVerifierForKey:verifierVersion:]"];
+      +[TSUAssertionHandler handleFailureInFunction:file:lineNumber:isFatal:description:](TSUAssertionHandler, "handleFailureInFunction:file:lineNumber:isFatal:description:", v24, [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/utility/sf/SFUCryptoUtils.mm"], 157, 0, "CC_SHA256 failed");
       +[TSUAssertionHandler logBacktraceThrottled];
       data = 0;
     }

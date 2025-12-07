@@ -13,7 +13,7 @@
 - (id)initForTabIdentifier:(id)identifier replacementAppAdamId:(id)id title:(id)title subtitle:(id)subtitle artworkDictionary:(id)dictionary deeplinkUrl:(id)url purchasesUrl:(id)purchasesUrl wishlistButtonTitle:(id)self0 showWishlistButton:(BOOL)self1 clientContext:(id)self2
 {
   selfCopy = self;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F9F0F00);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F9F0F00, &qword_259FCC2B0);
   v18 = MEMORY[0x28223BE20](v17 - 8);
   v20 = v44 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v18);

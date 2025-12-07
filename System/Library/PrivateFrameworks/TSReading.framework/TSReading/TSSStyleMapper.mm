@@ -299,7 +299,7 @@ uint64_t __45__TSSStyleMapper__mappedStyleForStyle_depth___block_invoke(uint64_t
   return v4;
 }
 
-uint64_t __56__TSSStyleMapper_mappedStyleForStyle_inThemeStylesheet___block_invoke(uint64_t a1)
+void *__56__TSSStyleMapper_mappedStyleForStyle_inThemeStylesheet___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) mappedStyleForStyle:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 40) = result;

@@ -14,7 +14,7 @@
 
 - (id)parseResponseForArray:(unint64_t)array
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [(NSData *)self->_tlvData bytes];
   [(NSData *)self->_tlvData length];
   array = [MEMORY[0x277CBEB18] array];
@@ -41,18 +41,16 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v17 = v13;
-      v18 = 2048;
+      v16 = v13;
+      v17 = 2048;
       arrayCopy = array;
-      v20 = 2112;
-      v21 = v10;
+      v19 = 2112;
+      v20 = v10;
       _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse array for TLV: %tu %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -125,18 +123,17 @@
 
 - (id)parseResponseForNumber:(unint64_t)number
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   [(NSData *)self->_tlvData bytes];
   [(NSData *)self->_tlvData length];
   v4 = [MEMORY[0x277CCABB0] numberWithLongLong:TLV8GetUInt64()];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)parseResponseForData:(unint64_t)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(NSData *)self->_tlvData bytes];
   [(NSData *)self->_tlvData length];
   v5 = TLV8Get();
@@ -151,11 +148,11 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v16 = v11;
-      v17 = 2048;
+      v15 = v11;
+      v16 = 2048;
       dataCopy = data;
-      v19 = 2112;
-      v20 = v8;
+      v18 = 2112;
+      v19 = v8;
       _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse data for TLV: %tu %@", buf, 0x20u);
     }
 
@@ -167,8 +164,6 @@
   {
     v12 = [MEMORY[0x277CBEA90] dataWithBytes:0 length:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

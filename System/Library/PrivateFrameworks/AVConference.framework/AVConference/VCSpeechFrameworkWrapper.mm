@@ -594,35 +594,37 @@ LABEL_11:
     }
   }
 
-  -[VCSpeechFrameworkWrapper loadSpeechAssetsWithAssetType:withLanguage:withTaskIdentifier:withCompletionHandler:](self, "loadSpeechAssetsWithAssetType:withLanguage:withTaskIdentifier:withCompletionHandler:", +[VCSpeechFrameworkWrapper assetTypeForTaskHint:](VCSpeechFrameworkWrapper, "assetTypeForTaskHint:", hintCopy, *v19, *&v19[16], *v20, *&v20[16], v21, localeIdentifier), [locale languageIdentifier], identifier, handler);
+  -[VCSpeechFrameworkWrapper loadSpeechAssetsWithAssetType:withLanguage:withTaskIdentifier:withCompletionHandler:](self, "loadSpeechAssetsWithAssetType:withLanguage:withTaskIdentifier:withCompletionHandler:", +[VCSpeechFrameworkWrapper assetTypeForTaskHint:](VCSpeechFrameworkWrapper, "assetTypeForTaskHint:", hintCopy, *v19, *&v19[8], *v20, *&v20[16], v21, localeIdentifier), [locale languageIdentifier], identifier, handler);
 }
 
 - (void)loadSpeechAssetsWithAssetType:(unint64_t)type withLanguage:(id)language withTaskIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self->_isFrameworkLoaded)
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
     v15 = 0;
+    v16 = &v15;
+    v17 = 0x2020000000;
+    v18 = 0;
     v9 = [objc_alloc(NSClassFromString(&cfstr_Sfentitledasse.isa)) initWithLanguage:language assetType:type];
+    v11 = v9;
     if (v9)
     {
-      v13[3] = micro();
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLanguage_withTaskIdentifier_withCompletionHandler___block_invoke;
-      v11[3] = &unk_1E85F93F0;
-      v11[5] = &v12;
-      v11[6] = type;
-      v11[4] = handler;
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLanguage_withTaskIdentifier_withCompletionHandler___block_invoke_59;
-      v10[3] = &__block_descriptor_40_e8_v16__0Q8l;
-      v10[4] = type;
-      [NSClassFromString(&cfstr_Sfspeechassetm.isa) fetchAssetWithConfig:v9 clientIdentifier:identifier progress:v10 completion:v11];
+      v12 = micro(v9, v10);
+      v16[3] = v12;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLanguage_withTaskIdentifier_withCompletionHandler___block_invoke;
+      v14[3] = &unk_1E85F93F0;
+      v14[5] = &v15;
+      v14[6] = type;
+      v14[4] = handler;
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLanguage_withTaskIdentifier_withCompletionHandler___block_invoke_59;
+      v13[3] = &__block_descriptor_40_e8_v16__0Q8l;
+      v13[4] = type;
+      [NSClassFromString(&cfstr_Sfspeechassetm.isa) fetchAssetWithConfig:v11 clientIdentifier:identifier progress:v13 completion:v14];
     }
 
     else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -634,14 +636,14 @@ LABEL_11:
       }
     }
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v15, 8);
   }
 }
 
 uint64_t __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLanguage_withTaskIdentifier_withCompletionHandler___block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
   v30 = *MEMORY[0x1E69E9840];
-  v6 = micro();
+  v6 = micro(a1, a2);
   ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
   if (a2)
   {
@@ -652,7 +654,7 @@ uint64_t __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLangu
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         v10 = a1[6];
-        v11 = v6 - *(*(a1[5] + 8) + 24);
+        *&v11 = v6 - *(*(a1[5] + 8) + 24);
         v16 = 136316674;
         v17 = v8;
         v18 = 2080;
@@ -688,7 +690,7 @@ uint64_t __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLangu
       v22 = 2048;
       v23 = v15;
       v24 = 2112;
-      v25 = *&a3;
+      v25 = a3;
       _os_log_error_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_ERROR, " [%s] %s:%d Assets currently not deployed: assetType=%lu error=%@", &v16, 0x30u);
     }
   }
@@ -736,7 +738,7 @@ void __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLanguage_
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to find the Speech framework. Captions will not be available", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_1(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to find the Speech framework. Captions will not be available", v4, v5, v6, v7);
     }
   }
 
@@ -767,7 +769,7 @@ void __112__VCSpeechFrameworkWrapper_loadSpeechAssetsWithAssetType_withLanguage_
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to create SFSpeechAnalyzerSpeechDetectorOptions instance", v4, v5, v6, v7, v8);
+      OUTLINED_FUNCTION_1(&dword_1DB56E000, v2, v3, " [%s] %s:%d Failed to create SFSpeechAnalyzerSpeechDetectorOptions instance", v4, v5, v6, v7);
     }
   }
 

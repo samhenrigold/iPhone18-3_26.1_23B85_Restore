@@ -56,28 +56,28 @@ void __43__EKSyncStatusChangeListener__setupSources__block_invoke_2(uint64_t a1,
 
 - (void)_eventStoreChanged:(id)changed
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   eventSources = [(EKEventStore *)self->_eventStore eventSources];
-  v6 = [eventSources countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [eventSources countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(eventSources);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         objectID = [v10 objectID];
         v12 = [(NSMutableDictionary *)self->_sourceLastSyncingEndDates objectForKey:objectID];
         lastSyncEndDate = [v10 lastSyncEndDate];
@@ -89,7 +89,7 @@ void __43__EKSyncStatusChangeListener__setupSources__block_invoke_2(uint64_t a1,
         }
       }
 
-      v7 = [eventSources countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [eventSources countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -97,8 +97,6 @@ void __43__EKSyncStatusChangeListener__setupSources__block_invoke_2(uint64_t a1,
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained accountsSyncFinished:v4];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (EKSyncStatusChangeListenerDelegate)delegate

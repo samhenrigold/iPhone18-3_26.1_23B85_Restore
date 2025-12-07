@@ -128,10 +128,7 @@ uint64_t __40__TLContentProtectionStateObserver_init__block_invoke(uint64_t resu
 
 uint64_t __78__TLContentProtectionStateObserver_performBlockAfterProtectedContentUnlocked___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _performBlockAfterProtectedContentUnlocked:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _performBlockAfterProtectedContentUnlocked:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -192,11 +189,10 @@ uint64_t __78__TLContentProtectionStateObserver_performBlockAfterProtectedConten
 
 - (void)_assertRunningOnAccessQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessQueue = self->_accessQueue;
   if (accessQueue)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_assert_queue_V2(accessQueue);
   }
@@ -204,58 +200,56 @@ uint64_t __78__TLContentProtectionStateObserver_performBlockAfterProtectedConten
   else
   {
     label = dispatch_queue_get_label(0);
-    if (strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]))
+    v5 = strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]);
+    if (v5)
     {
-      v6 = TLLogGeneral();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+      v7 = TLLogGeneral(v5, v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-      if (v7)
+      if (v8)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLContentProtectionStateObserver.m"];
-        v9 = TLLogGeneral();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLContentProtectionStateObserver.m"];
+        v13 = TLLogGeneral(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v8 lastPathComponent];
+          lastPathComponent = [v11 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v14 = 136381443;
-          v15 = "[TLContentProtectionStateObserver _assertRunningOnAccessQueue]";
-          v16 = 2113;
-          v17 = lastPathComponent;
-          v18 = 2049;
-          v19 = 155;
-          v20 = 2113;
-          v21 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v14, 0x2Au);
+          v19 = 136381443;
+          v20 = "[TLContentProtectionStateObserver _assertRunningOnAccessQueue]";
+          v21 = 2113;
+          v22 = lastPathComponent;
+          v23 = 2049;
+          v24 = 155;
+          v25 = 2113;
+          v26 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v19, 0x2Au);
         }
       }
 
       else
       {
-        v8 = TLLogGeneral();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v11 = TLLogGeneral(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __85__TLVibrationPersistenceUtilities__objectIsValidUserGeneratedVibrationPattern_error___block_invoke_cold_1();
         }
       }
 
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = TLLogGeneral(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [TLAttentionAwarenessEffectProcessor _assertRunningOnAccessQueue];
       }
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)_assertNotRunningOnAccessQueue
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   accessQueue = self->_accessQueue;
   if (accessQueue)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_assert_queue_not_V2(accessQueue);
   }
@@ -263,69 +257,64 @@ uint64_t __78__TLContentProtectionStateObserver_performBlockAfterProtectedConten
   else
   {
     label = dispatch_queue_get_label(0);
-    if (!strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]))
+    v5 = strcmp(label, [(NSString *)self->_accessQueueLabel UTF8String]);
+    if (!v5)
     {
-      v6 = TLLogGeneral();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+      v7 = TLLogGeneral(v5, v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
 
-      if (v7)
+      if (v8)
       {
-        v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLContentProtectionStateObserver.m"];
-        v9 = TLLogGeneral();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Utilities/TLContentProtectionStateObserver.m"];
+        v13 = TLLogGeneral(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v8 lastPathComponent];
+          lastPathComponent = [v11 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v14 = 136381443;
-          v15 = "[TLContentProtectionStateObserver _assertNotRunningOnAccessQueue]";
-          v16 = 2113;
-          v17 = lastPathComponent;
-          v18 = 2049;
-          v19 = 163;
-          v20 = 2113;
-          v21 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v14, 0x2Au);
+          v19 = 136381443;
+          v20 = "[TLContentProtectionStateObserver _assertNotRunningOnAccessQueue]";
+          v21 = 2113;
+          v22 = lastPathComponent;
+          v23 = 2049;
+          v24 = 163;
+          v25 = 2113;
+          v26 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v13, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v19, 0x2Au);
         }
       }
 
       else
       {
-        v8 = TLLogGeneral();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v11 = TLLogGeneral(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           __85__TLVibrationPersistenceUtilities__objectIsValidUserGeneratedVibrationPattern_error___block_invoke_cold_1();
         }
       }
 
-      v12 = TLLogGeneral();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = TLLogGeneral(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [TLAttentionAwarenessEffectProcessor _assertNotRunningOnAccessQueue];
       }
     }
-
-    v13 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)_cancelFirstUnlockNotifyToken
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_registerFirstUnlockNotifyToken
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __67__TLContentProtectionStateObserver__registerFirstUnlockNotifyToken__block_invoke(uint64_t a1)
@@ -341,20 +330,19 @@ void __67__TLContentProtectionStateObserver__registerFirstUnlockNotifyToken__blo
 
 - (void)_handleFirstUnlockNotification
 {
-  v9 = *MEMORY[0x1E69E9840];
-  [(TLContentProtectionStateObserver *)self _assertRunningOnAccessQueue];
-  v3 = TLLogGeneral();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  _assertRunningOnAccessQueue = [(TLContentProtectionStateObserver *)self _assertRunningOnAccessQueue];
+  v5 = TLLogGeneral(_assertRunningOnAccessQueue, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v7 = 2082;
-    v8 = "com.apple.mobile.keybagd.first_unlock";
-    _os_log_impl(&dword_1D9356000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Notify block fired for topic named %{public}s; updating unlocked since boot status.", &v5, 0x16u);
+    v8 = 2082;
+    v9 = "com.apple.mobile.keybagd.first_unlock";
+    _os_log_impl(&dword_1D9356000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Notify block fired for topic named %{public}s; updating unlocked since boot status.", &v6, 0x16u);
   }
 
   [(TLContentProtectionStateObserver *)self _updateUnlockedSinceBootStatus];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateUnlockedSinceBootStatus
@@ -386,39 +374,37 @@ void __67__TLContentProtectionStateObserver__registerFirstUnlockNotifyToken__blo
 
 void __66__TLContentProtectionStateObserver__updateUnlockedSinceBootStatus__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadUnlockedSinceBootStatusIfNeeded
@@ -434,11 +420,9 @@ void __66__TLContentProtectionStateObserver__updateUnlockedSinceBootStatus__bloc
 
 - (void)_loadContentProtectionStatusIfNeeded
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_queryCurrentUnlockedSinceBootStatus
@@ -471,22 +455,22 @@ void __66__TLContentProtectionStateObserver__updateUnlockedSinceBootStatus__bloc
   }
 
   v7 = v3(v6);
-  v8 = v7;
+  v9 = v7;
   if (!v7)
   {
-    v10 = 0;
-    v9 = @"no";
+    v11 = 0;
+    v10 = @"no";
 LABEL_8:
-    v11 = TLLogGeneral();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = TLLogGeneral(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
       *&buf[4] = self;
       *&buf[12] = 1024;
-      *&buf[14] = v8;
+      *&buf[14] = v9;
       *&buf[18] = 2114;
-      *&buf[20] = v9;
-      _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: MKBDeviceUnlockedSinceBoot() returned %d; converted to unlockedSinceBootStatus = %{public}@.", buf, 0x1Cu);
+      *&buf[20] = v10;
+      _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: MKBDeviceUnlockedSinceBoot() returned %d; converted to unlockedSinceBootStatus = %{public}@.", buf, 0x1Cu);
     }
 
     goto LABEL_13;
@@ -494,31 +478,28 @@ LABEL_8:
 
   if (v7 == 1)
   {
-    v9 = @"yes";
-    v10 = 1;
+    v10 = @"yes";
+    v11 = 1;
     goto LABEL_8;
   }
 
-  v11 = TLLogGeneral();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = TLLogGeneral(v7, v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     [TLContentProtectionStateObserver _queryCurrentUnlockedSinceBootStatus];
   }
 
-  v10 = -1;
+  v11 = -1;
 LABEL_13:
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v11;
 }
 
 - (void)_queryCurrentUnlockedSinceBootStatus
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

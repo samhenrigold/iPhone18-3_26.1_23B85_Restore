@@ -48,7 +48,7 @@
 
 - (void)registerAceCommand:(id)command completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   completionCopy = completion;
   aceId = [commandCopy aceId];
@@ -58,11 +58,11 @@
   {
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315394;
-      v23 = "[SRUIFAceCommandRecords registerAceCommand:completion:]";
-      v24 = 2112;
-      v25 = aceId;
-      _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s #aceCommandRecord identifier=%@", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[SRUIFAceCommandRecords registerAceCommand:completion:]";
+      v23 = 2112;
+      v24 = aceId;
+      _os_log_impl(&dword_26951F000, v10, OS_LOG_TYPE_DEFAULT, "%s #aceCommandRecord identifier=%@", &v21, 0x16u);
     }
 
     v11 = [(SRUIFAceCommandRecords *)self aceCommandWithIdentifier:aceId];
@@ -97,15 +97,15 @@ LABEL_16:
       {
         v17 = 0x277D47218;
 LABEL_20:
-        v20 = objc_alloc_init(*v17);
-        _recordsByCommandIdentifier3 = v20;
-        if (completionCopy && v20)
+        v19 = objc_alloc_init(*v17);
+        _recordsByCommandIdentifier3 = v19;
+        if (completionCopy && v19)
         {
-          [v20 setRefId:aceId];
-          v21 = *v9;
+          [v19 setRefId:aceId];
+          v20 = *v9;
           if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
           {
-            [(SRUIFAceCommandRecords *)v11 registerAceCommand:v21 completion:v16];
+            [(SRUIFAceCommandRecords *)v11 registerAceCommand:v20 completion:v16];
           }
 
           completionCopy[2](completionCopy, _recordsByCommandIdentifier3);
@@ -142,8 +142,6 @@ LABEL_14:
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pendingAddViewsWithReflectionDialogPhaseWithRefId:(id)id
@@ -238,48 +236,44 @@ LABEL_8:
 
 - (void)recordActionStartedForAceCommand:(id)command
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SRUIFAceCommandRecords recordActionStartedForAceCommand:]";
-    v10 = 2112;
-    v11 = commandCopy;
-    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #aceCommandRecord aceCommand=%@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SRUIFAceCommandRecords recordActionStartedForAceCommand:]";
+    v9 = 2112;
+    v10 = commandCopy;
+    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #aceCommandRecord aceCommand=%@", &v7, 0x16u);
   }
 
   v6 = [(SRUIFAceCommandRecords *)self _recordForAceCommand:commandCopy];
   [v6 incrementNumberOfStartedActions];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordActionStoppedForAceCommand:(id)command
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SRUIFAceCommandRecords recordActionStoppedForAceCommand:]";
-    v10 = 2112;
-    v11 = commandCopy;
-    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #aceCommandRecord aceCommand=%@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SRUIFAceCommandRecords recordActionStoppedForAceCommand:]";
+    v9 = 2112;
+    v10 = commandCopy;
+    _os_log_impl(&dword_26951F000, v5, OS_LOG_TYPE_DEFAULT, "%s #aceCommandRecord aceCommand=%@", &v7, 0x16u);
   }
 
   v6 = [(SRUIFAceCommandRecords *)self _recordForAceCommand:commandCopy];
   [v6 incrementNumberOfStoppedActions];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordActionCompletedForAceCommand:(id)command success:(BOOL)success
 {
   successCopy = success;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   v7 = [(SRUIFAceCommandRecords *)self _recordForAceCommand:commandCopy];
   v8 = *MEMORY[0x277CEF098];
@@ -299,21 +293,21 @@ LABEL_8:
     }
 
     v12 = v11;
-    v14 = 136316674;
-    v15 = "[SRUIFAceCommandRecords recordActionCompletedForAceCommand:success:]";
-    v16 = 2112;
-    v17 = commandCopy;
-    v18 = 2112;
-    v19 = v12;
-    v20 = 2048;
+    v13 = 136316674;
+    v14 = "[SRUIFAceCommandRecords recordActionCompletedForAceCommand:success:]";
+    v15 = 2112;
+    v16 = commandCopy;
+    v17 = 2112;
+    v18 = v12;
+    v19 = 2048;
     numberOfStartedActions = [v7 numberOfStartedActions];
-    v22 = 2048;
+    v21 = 2048;
     numberOfStoppedActions = [v7 numberOfStoppedActions];
-    v24 = 2048;
+    v23 = 2048;
     numberOfSuccessfullyCompletedActions = [v7 numberOfSuccessfullyCompletedActions];
-    v26 = 2048;
+    v25 = 2048;
     numberOfUnsuccessfullyCompletedActions = [v7 numberOfUnsuccessfullyCompletedActions];
-    _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #aceCommandRecord aceCommand=%@ result=%@ StartedActions=%zd StoppedActions=%zd SuccessfulActions=%zd UnsuccessfulActions=%zd ", &v14, 0x48u);
+    _os_log_impl(&dword_26951F000, v9, OS_LOG_TYPE_DEFAULT, "%s #aceCommandRecord aceCommand=%@ result=%@ StartedActions=%zd StoppedActions=%zd SuccessfulActions=%zd UnsuccessfulActions=%zd ", &v13, 0x48u);
   }
 
   if (![v7 result])
@@ -328,8 +322,6 @@ LABEL_8:
       [v7 incrementNumberOfUnsuccessfullyCompletedActions];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)resultForAceCommand:(id)command
@@ -342,31 +334,28 @@ LABEL_8:
 
 - (void)registerAceCommand:(void *)a3 completion:.cold.1(void *a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a1 aceId];
-  v8 = 136315906;
-  v9 = "[SRUIFAceCommandRecords registerAceCommand:completion:]";
-  v10 = 2112;
-  v11 = a1;
-  v12 = 2112;
-  v13 = v6;
-  v14 = 2048;
-  v15 = [a3 result];
-  _os_log_error_impl(&dword_26951F000, v5, OS_LOG_TYPE_ERROR, "%s #aceCommandRecord Client received Ace Command %@ but aceId %@ was already in the registry with SRUIFAceCommandResult = %ld, running completion.", &v8, 0x2Au);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 136315906;
+  v8 = "[SRUIFAceCommandRecords registerAceCommand:completion:]";
+  v9 = 2112;
+  v10 = a1;
+  v11 = 2112;
+  v12 = v6;
+  v13 = 2048;
+  v14 = [a3 result];
+  _os_log_error_impl(&dword_26951F000, v5, OS_LOG_TYPE_ERROR, "%s #aceCommandRecord Client received Ace Command %@ but aceId %@ was already in the registry with SRUIFAceCommandResult = %ld, running completion.", &v7, 0x2Au);
 }
 
 - (void)registerAceCommand:(uint64_t)a1 completion:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[SRUIFAceCommandRecords registerAceCommand:completion:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s #aceCommandRecord Attempt to register Ace Command %@ with no aceId", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[SRUIFAceCommandRecords registerAceCommand:completion:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_26951F000, a2, OS_LOG_TYPE_ERROR, "%s #aceCommandRecord Attempt to register Ace Command %@ with no aceId", &v2, 0x16u);
 }
 
 @end

@@ -183,9 +183,10 @@
         if (!v5->_metaContent)
         {
           v16 = __biome_log_for_category();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+          if (v17)
           {
-            v19 = CCTypeIdentifierRegistryBridge();
+            v19 = CCTypeIdentifierRegistryBridge(v17);
             v20 = [v19 descriptionForTypeIdentifier:itemType];
             *buf = 138412802;
             v24 = v6;
@@ -228,7 +229,6 @@ LABEL_15:
   v15 = 0;
 LABEL_17:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

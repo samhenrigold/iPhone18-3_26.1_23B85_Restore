@@ -683,47 +683,45 @@ uint64_t __83__HKCloudSyncControl_disableCloudSyncAndDeleteAllCloudDataWithProgr
 {
   v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  _HKInitializeLogging();
-  v6 = HKLogSync;
+  _HKInitializeLogging(completionCopy, v6);
+  v7 = HKLogSync;
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
-    v8 = NSStringFromSelector(a2);
+    v8 = v7;
+    v9 = NSStringFromSelector(a2);
     *buf = 138543618;
     selfCopy = self;
     v19 = 2114;
-    v20 = v8;
-    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_INFO, "%{public}@ %{public}@", buf, 0x16u);
+    v20 = v9;
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_INFO, "%{public}@ %{public}@", buf, 0x16u);
   }
 
-  v9 = [(HKProxyProvider *)self->_proxyProvider clientQueueActionHandlerWithCompletion:completionCopy];
+  v10 = [(HKProxyProvider *)self->_proxyProvider clientQueueActionHandlerWithCompletion:completionCopy];
 
   proxyProvider = self->_proxyProvider;
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __55__HKCloudSyncControl_requestDataRefreshWithCompletion___block_invoke;
   v15[3] = &unk_1E7380840;
-  v16 = v9;
+  v16 = v10;
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = __55__HKCloudSyncControl_requestDataRefreshWithCompletion___block_invoke_2;
   v13[3] = &unk_1E7376820;
   v13[4] = self;
   v14 = v16;
-  v11 = v16;
+  v12 = v16;
   [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v15 errorHandler:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __55__HKCloudSyncControl_requestDataRefreshWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSync;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogSync;
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __55__HKCloudSyncControl_requestDataRefreshWithCompletion___block_invoke_2_cold_1(a1, v3, v4);
+    __55__HKCloudSyncControl_requestDataRefreshWithCompletion___block_invoke_2_cold_1(a1, v3, v5);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -875,14 +873,13 @@ void __55__HKCloudSyncControl_requestDataRefreshWithCompletion___block_invoke_2(
 
 void __55__HKCloudSyncControl_requestDataRefreshWithCompletion___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to call remote_requestDataRefreshWithCompletion, error: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to call remote_requestDataRefreshWithCompletion, error: %{public}@", &v4, 0x16u);
 }
 
 @end

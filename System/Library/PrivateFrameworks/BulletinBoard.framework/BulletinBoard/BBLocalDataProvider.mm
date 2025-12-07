@@ -161,7 +161,7 @@ void __92__BBLocalDataProvider__initWithDataProvider_sectionID_serverQueue_initi
 
 - (BBLocalDataProvider)initWithPrincipalClass:(Class)class serverQueue:(id)queue initializationCompletion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   completionCopy = completion;
   if (!queueCopy)
@@ -186,40 +186,40 @@ LABEL_9:
   }
 
   date = [MEMORY[0x277CBEAA8] date];
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__9;
-  v45 = __Block_byref_object_dispose__9;
-  v46 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__9;
-  v39 = __Block_byref_object_dispose__9;
   v40 = 0;
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy__9;
-  v33[4] = __Block_byref_object_dispose__9;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__9;
+  v44 = __Block_byref_object_dispose__9;
+  v45 = 0;
   v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__9;
+  v38 = __Block_byref_object_dispose__9;
+  v39 = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy__9;
+  v32[4] = __Block_byref_object_dispose__9;
+  v33 = 0;
   v11 = dispatch_semaphore_create(0);
   v12 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __83__BBLocalDataProvider_initWithPrincipalClass_serverQueue_initializationCompletion___block_invoke;
   block[3] = &unk_278D2B820;
-  v29 = v33;
-  v30 = &v35;
-  v31 = &v41;
+  v28 = v32;
+  v29 = &v34;
+  v30 = &v40;
   classCopy = class;
   selfCopy = self;
-  v25 = selfCopy;
-  v26 = queueCopy;
-  v28 = completionCopy;
+  v24 = selfCopy;
+  v25 = queueCopy;
+  v27 = completionCopy;
   v14 = v11;
-  v27 = v14;
+  v26 = v14;
   dispatch_async(v12, block);
 
   v15 = dispatch_time(0, 120000000000);
@@ -231,25 +231,24 @@ LABEL_9:
   v18 = BBLogGeneral;
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = v36[5];
+    v19 = v35[5];
     [date timeIntervalSinceNow];
     *buf = 138543618;
-    v48 = v19;
-    v49 = 2048;
-    v50 = -v20;
+    v47 = v19;
+    v48 = 2048;
+    v49 = -v20;
     _os_log_impl(&dword_241EFF000, v18, OS_LOG_TYPE_DEFAULT, "BBDataProvider: provider <%{public}@> loaded in %.2f sec", buf, 0x16u);
   }
 
-  v21 = v42[5];
+  v21 = v41[5];
   v17 = v21;
 
-  _Block_object_dispose(v33, 8);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v32, 8);
+  _Block_object_dispose(&v34, 8);
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v40, 8);
 LABEL_13:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -361,18 +360,18 @@ void __28__BBLocalDataProvider__ping__block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __28__BBLocalDataProvider__ping__block_invoke_3(uint64_t result)
+uint64_t __28__BBLocalDataProvider__ping__block_invoke_3(uint64_t result, uint64_t a2)
 {
   if ((*(*(result + 32) + 48) & 1) == 0)
   {
-    v1 = result;
+    v2 = result;
     result = BSIsBeingDebugged();
     if ((result & 1) == 0)
     {
-      *(*(v1 + 32) + 48) = 1;
-      v2 = *(v1 + 32);
+      *(*(v2 + 32) + 48) = 1;
+      v3 = *(v2 + 32);
 
-      return [v2 _watchdogFired];
+      return [v3 _watchdogFired];
     }
   }
 
@@ -401,17 +400,17 @@ uint64_t __28__BBLocalDataProvider__ping__block_invoke_3(uint64_t result)
   }
 }
 
-uint64_t __36__BBLocalDataProvider_startWatchdog__block_invoke(uint64_t result)
+uint64_t __36__BBLocalDataProvider_startWatchdog__block_invoke(uint64_t result, uint64_t a2)
 {
   if ((*(*(result + 32) + 48) & 1) == 0)
   {
-    v1 = result;
+    v2 = result;
     result = BSIsBeingDebugged();
     if ((result & 1) == 0)
     {
-      v2 = *(v1 + 32);
+      v3 = *(v2 + 32);
 
-      return [v2 _ping];
+      return [v3 _ping];
     }
   }
 
@@ -431,20 +430,19 @@ uint64_t __36__BBLocalDataProvider_startWatchdog__block_invoke(uint64_t result)
 
 void __42__BBLocalDataProvider_dataProviderDidLoad__block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(*(a1 + 32) + 32) _setDataProviderQueue:*(*(a1 + 32) + 24)];
   }
 
-  v3 = [*(a1 + 32) identity];
-  v4 = [v3 traits];
+  v2 = [*(a1 + 32) identity];
+  v3 = [v2 traits];
 
-  if ((v4 & 2) != 0)
+  if ((v3 & 2) != 0)
   {
-    v5 = *(*(a1 + 32) + 32);
+    v4 = *(*(a1 + 32) + 32);
 
-    [v5 dataProviderDidLoad];
+    [v4 dataProviderDidLoad];
   }
 }
 
@@ -844,7 +842,7 @@ uint64_t __74__BBLocalDataProvider_clearedInfoForBulletins_lastClearedInfo_compl
 
 - (void)deliverResponse:(id)response forBulletinRequest:(id)request withCompletion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   requestCopy = request;
   completionCopy = completion;
@@ -866,15 +864,15 @@ uint64_t __74__BBLocalDataProvider_clearedInfoForBulletins_lastClearedInfo_compl
     v16 = BBLogGeneral;
     if (os_log_type_enabled(BBLogGeneral, OS_LOG_TYPE_ERROR))
     {
-      v20 = v16;
+      v19 = v16;
       *buf = 138543874;
-      v30 = objc_opt_class();
-      v31 = 2114;
-      v32 = v11;
-      v33 = 1024;
-      v34 = v14;
-      v21 = v30;
-      _os_log_error_impl(&dword_241EFF000, v20, OS_LOG_TYPE_ERROR, "%{public}@ could not deliver response for action %{public}@\tcanDeliver=%d", buf, 0x1Cu);
+      v29 = objc_opt_class();
+      v30 = 2114;
+      v31 = v11;
+      v32 = 1024;
+      v33 = v14;
+      v20 = v29;
+      _os_log_error_impl(&dword_241EFF000, v19, OS_LOG_TYPE_ERROR, "%{public}@ could not deliver response for action %{public}@\tcanDeliver=%d", buf, 0x1Cu);
 
       if (!completionCopy)
       {
@@ -902,26 +900,25 @@ uint64_t __74__BBLocalDataProvider_clearedInfoForBulletins_lastClearedInfo_compl
   }
 
   remoteQueue = self->_remoteQueue;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __73__BBLocalDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke;
-  v22[3] = &unk_278D2AD50;
-  v23 = v11;
-  v24 = responseCopy;
-  v25 = v15;
-  v26 = identity;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __73__BBLocalDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke;
+  v21[3] = &unk_278D2AD50;
+  v22 = v11;
+  v23 = responseCopy;
+  v24 = v15;
+  v25 = identity;
   selfCopy = self;
-  v28 = completionCopy;
+  v27 = completionCopy;
   v18 = v15;
-  dispatch_async(remoteQueue, v22);
+  dispatch_async(remoteQueue, v21);
 
 LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__BBLocalDataProvider_deliverResponse_forBulletinRequest_withCompletion___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) deliverResponse:*(a1 + 40)];
   if (v2)
   {
@@ -949,29 +946,27 @@ LABEL_9:
   v4 = BBLogGeneral;
   if (os_log_type_enabled(BBLogGeneral, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 64);
-    v6 = v4;
-    v7 = objc_opt_class();
-    v8 = *(a1 + 32);
-    v12 = 138544130;
+    v5 = v4;
+    v6 = objc_opt_class();
+    v7 = *(a1 + 32);
+    v10 = 138544130;
+    v11 = v6;
+    v12 = 2114;
     v13 = v7;
-    v14 = 2114;
-    v15 = v8;
+    v14 = 1024;
+    v15 = v3;
     v16 = 1024;
-    v17 = v3;
-    v18 = 1024;
-    v19 = v2;
-    v9 = v7;
-    _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ delivered response for action %{public}@ with success=%d; delivered=%d", &v12, 0x22u);
+    v17 = v2;
+    v8 = v6;
+    _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ delivered response for action %{public}@ with success=%d; delivered=%d", &v10, 0x22u);
   }
 
   result = *(a1 + 72);
   if (result)
   {
-    result = (*(result + 16))(result, v3);
+    return (*(result + 16))(result, v3);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1012,7 +1007,7 @@ LABEL_9:
   return v10;
 }
 
-uint64_t __57__BBLocalDataProvider_migrateSectionInfo_oldSectionInfo___block_invoke(void *a1)
+void *__57__BBLocalDataProvider_migrateSectionInfo_oldSectionInfo___block_invoke(void *a1)
 {
   result = [*(a1[4] + 32) migrateSectionInfo:a1[5] oldSectionInfo:a1[6]];
   *(*(a1[7] + 8) + 24) = result;

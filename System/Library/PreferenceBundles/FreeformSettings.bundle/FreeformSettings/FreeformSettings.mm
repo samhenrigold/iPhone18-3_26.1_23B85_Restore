@@ -1,25 +1,25 @@
-id CRLAppBundleIdentifier()
+id CRLAppBundleIdentifier(uint64_t a1)
 {
   if (CRLAppBundleIdentifier_onceToken != -1)
   {
     CRLAppBundleIdentifier_cold_1();
   }
 
-  v1 = CRLAppBundleIdentifier_identifier;
+  v2 = CRLAppBundleIdentifier_identifier;
 
-  return v1;
+  return v2;
 }
 
-id CRLAppGroupIdentifier()
+id CRLAppGroupIdentifier(uint64_t a1)
 {
   if (CRLAppGroupIdentifier_onceToken != -1)
   {
     CRLAppGroupIdentifier_cold_1();
   }
 
-  v1 = CRLAppGroupIdentifier_identifier;
+  v2 = CRLAppGroupIdentifier_identifier;
 
-  return v1;
+  return v2;
 }
 
 unint64_t lazy protocol witness table accessor for type FreeformSettings and conformance FreeformSettings()
@@ -36,11 +36,11 @@ unint64_t lazy protocol witness table accessor for type FreeformSettings and con
 
 uint64_t closure #1 in FreeformSettings.body.getter(uint64_t a1)
 {
-  v2 = *(*(type metadata accessor for PreferencesControllerRecipe() - 8) + 64);
+  type metadata accessor for PreferencesControllerRecipe();
   __chkstk_darwin();
   type metadata accessor for CRLSettingsController();
-  v3 = [objc_allocWithZone(PSSpecifier) init];
-  [v3 setProperty:a1 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
+  v2 = [objc_allocWithZone(PSSpecifier) init];
+  [v2 setProperty:a1 forKey:PSListControllerCellHighlightingSelectionInvocationRelayKey];
   PreferencesControllerRecipe.init(viewControllerClass:specifier:)();
   return PreferencesControllerView.init(preferencesControllerRecipe:)();
 }
@@ -52,29 +52,23 @@ uint64_t closure #2 in FreeformSettings.body.getter(uint64_t a1, uint64_t a2, ui
   v3[2] = a1;
   v4 = type metadata accessor for NavigationPath();
   v3[5] = v4;
-  v5 = *(v4 - 8);
-  v3[6] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3[6] = *(v4 - 8);
   v3[7] = swift_task_alloc();
-  v7 = type metadata accessor for URL();
-  v3[8] = v7;
-  v8 = *(v7 - 8);
-  v3[9] = v8;
-  v9 = *(v8 + 64) + 15;
+  v5 = type metadata accessor for URL();
+  v3[8] = v5;
+  v3[9] = *(v5 - 8);
   v3[10] = swift_task_alloc();
-  v10 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation13URLComponentsVSgMd, &_s10Foundation13URLComponentsVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation13URLComponentsVSgMd, &_s10Foundation13URLComponentsVSgMR);
   v3[11] = swift_task_alloc();
-  v11 = type metadata accessor for URLComponents();
-  v3[12] = v11;
-  v12 = *(v11 - 8);
-  v3[13] = v12;
-  v13 = *(v12 + 64) + 15;
+  v6 = type metadata accessor for URLComponents();
+  v3[12] = v6;
+  v3[13] = *(v6 - 8);
   v3[14] = swift_task_alloc();
   type metadata accessor for MainActor();
   v3[15] = static MainActor.shared.getter();
-  v15 = dispatch thunk of Actor.unownedExecutor.getter();
+  v8 = dispatch thunk of Actor.unownedExecutor.getter();
 
-  return _swift_task_switch(closure #2 in FreeformSettings.body.getter, v15, v14);
+  return _swift_task_switch(closure #2 in FreeformSettings.body.getter, v8, v7);
 }
 
 uint64_t closure #2 in FreeformSettings.body.getter()
@@ -83,22 +77,17 @@ uint64_t closure #2 in FreeformSettings.body.getter()
   v2 = v0[13];
   v4 = v0 + 12;
   v3 = v0[12];
-  v5 = v0[15];
-  v7 = v0[10];
-  v6 = v0[11];
-  v8 = v0[8];
-  v9 = v0[9];
-  v10 = v0[3];
+  v6 = v0[10];
+  v5 = v0[11];
+  v7 = v0[8];
+  v8 = v0[9];
 
   SettingsExperienceOpenURLAction.Input.url.getter();
   URLComponents.init(url:resolvingAgainstBaseURL:)();
-  (*(v9 + 8))(v7, v8);
-  if ((*(v2 + 48))(v6, 1, v3) == 1)
+  (*(v8 + 8))(v6, v7);
+  if ((*(v2 + 48))(v5, 1, v3) == 1)
   {
-    v12 = v0 + 7;
-    v11 = v0[7];
-    v14 = v0[2];
-    v13 = v0[3];
+    v9 = v0 + 7;
     outlined destroy of URLComponents?(v0[11]);
     SettingsExperienceOpenURLAction.Input.navigationPath.getter();
     static SettingsExperienceOpenURLAction.Result.handled(_:)();
@@ -108,56 +97,49 @@ uint64_t closure #2 in FreeformSettings.body.getter()
 
   else
   {
-    v12 = v0 + 14;
+    v9 = v0 + 14;
     (*(v0[13] + 32))(v0[14], v0[11], v0[12]);
     URLComponents.fragment.getter();
-    if (v15)
+    if (v10)
     {
-      v16 = v0[4];
-      v17 = String._bridgeToObjectiveC()();
+      v11 = v0[4];
+      v12 = String._bridgeToObjectiveC()();
 
-      [v16 setSpecifierIdentifierToScrollAndHighlight:v17];
+      [v11 setSpecifierIdentifierToScrollAndHighlight:v12];
     }
 
-    v19 = v0[6];
-    v18 = v0[7];
-    v20 = v0[5];
-    v22 = v0[2];
-    v21 = v0[3];
+    v14 = v0[6];
+    v13 = v0[7];
+    v15 = v0[5];
     SettingsExperienceOpenURLAction.Input.navigationPath.getter();
     static SettingsExperienceOpenURLAction.Result.handled(_:)();
-    (*(v19 + 8))(v18, v20);
+    (*(v14 + 8))(v13, v15);
   }
 
-  v23 = v0[14];
-  v25 = v0[10];
-  v24 = v0[11];
-  v26 = v0[7];
-  (*(*v1 + 8))(*v12, *v4);
+  (*(*v1 + 8))(*v9, *v4);
 
-  v27 = v0[1];
+  v16 = v0[1];
 
-  return v27();
+  return v16();
 }
 
 uint64_t protocol witness for SettingsExperience.body.getter in conformance FreeformSettings()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Settings0A4PaneVy19PreferencesExtended0C14ControllerViewVGMd, &_s8Settings0A4PaneVy19PreferencesExtended0C14ControllerViewVGMR);
   v2 = *(v1 - 8);
-  v3 = (*(v2 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v5 = &v10 - v4;
-  v6 = *v0;
-  *(swift_allocObject() + 16) = v6;
+  v4 = &v9 - v3;
+  v5 = *v0;
+  *(swift_allocObject() + 16) = v5;
   type metadata accessor for PreferencesControllerView();
   lazy protocol witness table accessor for type PreferencesControllerView and conformance PreferencesControllerView();
-  v7 = v6;
+  v6 = v5;
   SettingsPane.init(makeContent:)();
-  *(swift_allocObject() + 16) = v7;
+  *(swift_allocObject() + 16) = v6;
   lazy protocol witness table accessor for type SettingsPane<PreferencesControllerView> and conformance SettingsPane<A>();
-  v8 = v7;
+  v7 = v6;
   SettingsExperienceContent.onSettingsExperienceOpenURL(perform:)();
-  return (*(v2 + 8))(v5, v1);
+  return (*(v2 + 8))(v4, v1);
 }
 
 id protocol witness for SettingsExperience.init() in conformance FreeformSettings@<X0>(void *a1@<X8>)
@@ -172,7 +154,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -212,12 +193,11 @@ uint64_t partial apply for closure #2 in FreeformSettings.body.getter(uint64_t a
 
 uint64_t partial apply for closure #2 in FreeformSettings.body.getter()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t lazy protocol witness table accessor for type SettingsPane<PreferencesControllerView> and conformance SettingsPane<A>()
@@ -238,7 +218,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

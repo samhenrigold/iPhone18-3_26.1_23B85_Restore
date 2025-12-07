@@ -1,9876 +1,9889 @@
-uint64_t gnss::GnssAdaptDevice::Ga10_00ProcessGPSMeasurements(uint64_t result, uint64_t a2, unint64_t a3)
+double SendStatusReport(int a1, int a2, __int128 *a3, __int128 *a4, __int128 *a5, int a6)
 {
-  v31 = *MEMORY[0x29EDCA608];
-  if (*(result + 16))
+  v20 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 4u, 0, 0))
   {
-    v5 = result;
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
+    bzero(__str, 0x410uLL);
+    v12 = mach_continuous_time();
+    v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SessionID,%u,statusCode,%u,reqHorizAcc,%u\n", (*&g_MacClockTicksToMsRelation * v12), "PSP", 73, "SendStatusReport", a1, a2, a6);
+    LbsOsaTrace_WriteLog(0x13u, __str, v13, 4, 1);
+  }
+
+  v14 = GNS_PospStatusReport(a1, a2, a3, a4, a5, a6);
+  if (v14 != 1)
+  {
+    v16 = v14;
+    if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
     {
       bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GPS Meas Avlbl\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 73, "Ga10_00ProcessGPSMeasurements");
-      LbsOsaTrace_WriteLog(0x18u, __str, v7, 4, 1);
-    }
-
-    v8 = HIDWORD(a3);
-    v9 = *(v5 + 37);
-    *(a2 + 7) = v9;
-    *a2 = *(v5 + 20);
-    *(a2 + 4) = 0;
-    *(a2 + 6) = -1;
-    v10 = *(v5 + 28);
-    if (v10 != 255)
-    {
-      *(a2 + 6) = v10;
-      if (v8 == 2)
-      {
-        v11 = ((pow(1.18, v10) + -1.0) * 0.0022 / 3000.0 * 3000.0);
-        *(a2 + 6) = (log(v11 + v11 + 1.0) / 0.131028262);
-      }
-    }
-
-    *(a2 + 392) = 0;
-    if (v9)
-    {
-      v12 = 0;
-      v13 = (v5 + 47);
-      v14 = (a2 + 28);
-      do
-      {
-        *(v14 - 14) = *(v13 - 9) + (v8 == 3);
-        *(v14 - 13) = *(v13 - 8);
-        *(v14 - 12) = *v13;
-        v15 = *(v13 - 7);
-        if (v8 == 2)
-        {
-          *&v16 = v15 * 0.951;
-          *(v14 - 10) = *&v16;
-          *v14 = 0;
-          *(a2 + 444) = 0;
-          v17 = *(v13 - 3);
-          LOWORD(v16) = *(v13 - 5);
-          v18 = v16;
-          if (v17 != 1024)
-          {
-            v18 = vcvtd_n_f64_u32(v17, 0xAuLL) + v18;
-          }
-
-          *(v14 - 1) = vcvtd_n_u64_f64(v18 / 1023.0, 0x15uLL);
-        }
-
-        else
-        {
-          *(v14 - 10) = v15;
-          *(v14 - 18) = *(v13 - 5);
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v20 = mach_continuous_time();
-            v21 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: WholeChips,%u,FracChips,%u\n", (*&g_MacClockTicksToMsRelation * v20), "ADP", 73, "Ga10_18AdjustGpsChipsforMeasurements", *(v14 - 9), *(v14 - 8));
-            LbsOsaTrace_WriteLog(0x18u, __str, v21, 4, 1);
-          }
-
-          LOWORD(v19) = *(v14 - 9);
-          v22 = (vcvts_n_f32_u32(*(v14 - 8), 0xAuLL) + v19) + -8.47922697;
-          if (v22 >= 1023.0)
-          {
-            v22 = v22 + -1023.0;
-          }
-
-          if (v22 < 0.0)
-          {
-            v22 = v22 + 1023.0;
-          }
-
-          *(v14 - 9) = v22;
-          *(v14 - 8) = vcvtd_n_s64_f64(v22 - v22, 0xAuLL);
-        }
-
-        v23 = *(v13 - 1);
-        if (v23 <= 4)
-        {
-          *(v14 - 2) = v23;
-        }
-
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v24 = mach_continuous_time();
-          v25 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: MeasSent Dop,%d,wholeChips,%u,fracChips,%u,satId,%u,cnR,%u,RmsErr,%u,MultiPath,%u,codePh,%u,intCodePh,%u\n", (*&g_MacClockTicksToMsRelation * v24), "ADP", 73, "Ga10_00ProcessGPSMeasurements", *(v14 - 10), *(v14 - 9), *(v14 - 8), *(v14 - 14), *(v14 - 13), *(v14 - 12), *(v14 - 2), *(v14 - 1), *v14);
-          LbsOsaTrace_WriteLog(0x18u, __str, v25, 4, 1);
-        }
-
-        if (v12 > 0xE)
-        {
-          break;
-        }
-
-        v13 += 10;
-        ++v12;
-        v14 += 24;
-      }
-
-      while (v12 < *(v5 + 37));
-    }
-
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v26 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
-      v27 = 70;
-      if (*(v5 + 36))
-      {
-        v27 = 84;
-      }
-
-      v28 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: gpsTow,%u,gpsWeek,%u,gpsTimeUnc,%u,MeasGpsTowFromFta,%c\n", v26, "ADP", 73, "Ga10_00ProcessGPSMeasurements", *a2, *(a2 + 4), *(a2 + 6), v27);
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v28, 4, 1);
+      v17 = mach_continuous_time();
+      v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx GNS_PospStatusReport call failed result,%u\n", (*&g_MacClockTicksToMsRelation * v17), "PSP", 69, "SendStatusReport", 770, v16);
+      LbsOsaTrace_WriteLog(0x13u, __str, v18, 0, 1);
     }
   }
 
-  v29 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t gnss::GnssAdaptDevice::Ga10_01SendMeasurementsReport()
+double send_assistance_req(unsigned int *a1, int a2)
 {
-  v0 = MEMORY[0x2A1C7C4A8]();
-  v2 = v1;
-  v3 = v0;
-  v193 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-  {
-    bzero(v188, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "ADP", 68, "Ga10_01SendMeasurementsReport");
-    LbsOsaTrace_WriteLog(0x18u, v188, v5, 5, 1);
-  }
-
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReport const&)>::__value_func[abi:ne200100](v189, v3 + 824);
-  *(v3 + 1024) = 0;
-  if (*(v3 + 120) == 1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-    {
-      bzero(v188, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate");
-      LbsOsaTrace_WriteLog(0x18u, v188, v7, 5, 1);
-    }
-
-    std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::__value_func[abi:ne200100](v191, v3 + 856);
-    if (!v192)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-      {
-        bzero(v188, 0x410uLL);
-        v30 = mach_continuous_time();
-        v31 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx MeasRepwithEstimate\n", (*&g_MacClockTicksToMsRelation * v30), "ADP", 69, "Ga10_28SendMeasurementsReportWithEstimate", 258);
-        LbsOsaTrace_WriteLog(0x18u, v188, v31, 0, 1);
-      }
-
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-      {
-        bzero(v188, 0x410uLL);
-        v32 = mach_continuous_time();
-        v33 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v32), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate");
-        LbsOsaTrace_WriteLog(0x18u, v188, v33, 5, 1);
-      }
-
-      goto LABEL_161;
-    }
-
-    v8 = 0;
-    LODWORD(v190[0]) = 0;
-    BYTE4(v190[0]) = 0;
-    *(&v190[1] + 4) = -1;
-    *(&v190[2] + 4) = -1;
-    do
-    {
-      v9 = &v190[v8];
-      *(v9 + 14) = 0x7FFF;
-      *(v9 + 30) = -1;
-      *(v9 + 33) = -1;
-      v9[5] = 0xFFFFFFFF00000004;
-      v8 += 3;
-      *(v9 + 48) = -1;
-    }
-
-    while (v8 != 48);
-    v190[52] = -1;
-    LODWORD(v190[53]) = 33619967;
-    WORD2(v190[53]) = -1;
-    HIDWORD(v190[56]) = -1;
-    LOBYTE(v190[57]) = -1;
-    memset(&v190[54], 255, 17);
-    BYTE4(v190[57]) = -1;
-    *(&v190[58] + 7) = -1;
-    v190[58] = -1;
-    v10 = (&v190[59] + 4);
-    LODWORD(v190[61]) = -1;
-    *(&v190[59] + 4) = -1;
-    *(&v190[60] + 3) = -1;
-    BYTE4(v190[61]) = 0;
-    *(&v190[61] + 6) = -1;
-    BYTE2(v190[62]) = -1;
-    BYTE4(v190[62]) = 0;
-    LODWORD(v190[63]) = -1;
-    WORD2(v190[63]) = -1;
-    LOBYTE(v190[64]) = 0;
-    WORD1(v190[64]) = -1;
-    BYTE4(v190[64]) = -1;
-    LODWORD(v190[65]) = 0;
-    BYTE4(v190[65]) = 0;
-    HIDWORD(v190[51]) = 0;
-    LODWORD(v190[1]) = 0;
-    if (!v2)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-      {
-        bzero(v188, 0x410uLL);
-        v40 = mach_continuous_time();
-        v41 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx Meas with Estimate Rep\n", (*&g_MacClockTicksToMsRelation * v40), "ADP", 69, "Ga10_28SendMeasurementsReportWithEstimate", 513);
-        LbsOsaTrace_WriteLog(0x18u, v188, v41, 0, 1);
-      }
-
-      LODWORD(v190[0]) = -2;
-      v42 = *(v3 + 296);
-      *__str = MEMORY[0x29EDCA5F8];
-      v183 = 1174405120;
-      v184 = ___ZN4gnss15GnssAdaptDevice41Ga10_28SendMeasurementsReportWithEstimateEPK15s_gnsCP_MeasRes_block_invoke;
-      v185 = &__block_descriptor_tmp_125;
-      std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::__value_func[abi:ne200100](v186, v191);
-      memcpy(v187, v190, sizeof(v187));
-      dispatch_async(v42, __str);
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-      {
-        bzero(v188, 0x410uLL);
-        v43 = mach_continuous_time();
-        v44 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v43), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate");
-        LbsOsaTrace_WriteLog(0x18u, v188, v44, 5, 1);
-      }
-
-LABEL_160:
-      std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::~__value_func[abi:ne200100](v186);
-LABEL_161:
-      std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::~__value_func[abi:ne200100](v191);
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-      {
-        bzero(v188, 0x410uLL);
-        v135 = mach_continuous_time();
-        v136 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v135), "ADP", 68, "Ga10_01SendMeasurementsReport");
-        LbsOsaTrace_WriteLog(0x18u, v188, v136, 5, 1);
-      }
-
-      goto LABEL_163;
-    }
-
-    v11 = *v2;
-    LODWORD(v190[0]) = 0;
-    LODWORD(v190[2]) = v11;
-    BYTE4(v190[65]) = *(v2 + 36);
-    v139 = 0xFFFFFFFF00000000;
-    v140 = -1;
-    v141 = 0;
-    memset(v143, 0, sizeof(v143));
-    v142 = 0;
-    v144 = 0xFFFFFFFF00000000;
-    v145 = 0;
-    v146 = -1;
-    v147 = 0;
-    v148 = -1;
-    v149 = 0;
-    v150 = xmmword_2997286D0;
-    v151 = 0;
-    memset(v152, 0, sizeof(v152));
-    v153 = -1;
-    v154 = 0;
-    v155 = 0;
-    v156 = -1;
-    v157 = 0;
-    v158 = -1;
-    v159 = -1;
-    *&v160[7] = -1;
-    *(&v160[3] + 1) = -1;
-    *v160 = -1;
-    *&v160[11] = 0x7FFFFFFFLL;
-    v161 = 0;
-    v162 = -1;
-    v163 = -COERCE_DOUBLE(0x8000000080000000);
-    v164 = 0;
-    v165 = 0;
-    if (gnss::GnssAdaptDevice::Ga11_23GetCPSession(*(v3 + 128), *(v3 + 136), v11, &v139))
-    {
-      HIDWORD(v190[1]) = HIDWORD(v144);
-      v12 = HIBYTE(v165);
-      if (HIBYTE(v165) != 1)
-      {
-        v12 = 2;
-      }
-
-      LODWORD(v190[65]) = v12;
-    }
-
-    else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(v188, 0x410uLL);
-      v45 = mach_continuous_time();
-      v46 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx SessionID,%u\n", (*&g_MacClockTicksToMsRelation * v45), "ADP", 69, "Ga10_28SendMeasurementsReportWithEstimate", 2052, LODWORD(v190[2]));
-      LbsOsaTrace_WriteLog(0x18u, v188, v46, 0, 1);
-    }
-
-    if ((v165 & 1) == 0)
-    {
-      if (*(v2 + 32) == 1)
-      {
-        if (*(v2 + 16))
-        {
-          BYTE4(v190[0]) |= 1u;
-          gnss::GnssAdaptDevice::Ga10_00ProcessGPSMeasurements(v2, &v190[2] + 4, v190[1]);
-        }
-      }
-
-      else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-      {
-        bzero(v188, 0x410uLL);
-        v74 = mach_continuous_time();
-        v75 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx Not enough Satellites,Err status,%u\n", (*&g_MacClockTicksToMsRelation * v74), "ADP", 69, "Ga10_28SendMeasurementsReportWithEstimate", 769, *(v2 + 32));
-        LbsOsaTrace_WriteLog(0x18u, v188, v75, 0, 1);
-      }
-    }
-
-    if (*(v2 + 165212) != 1)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-      {
-        bzero(v188, 0x410uLL);
-        v56 = mach_continuous_time();
-        v57 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx Not enough Satellites,Err status,%u\n", (*&g_MacClockTicksToMsRelation * v56), "ADP", 69, "Ga10_28SendMeasurementsReportWithEstimate", 769, *(v2 + 165212));
-        LbsOsaTrace_WriteLog(0x18u, v188, v57, 0, 1);
-      }
-
-      goto LABEL_135;
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-    {
-      bzero(v188, 0x410uLL);
-      v47 = mach_continuous_time();
-      v48 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: DBH Pos Avlbl\n", (*&g_MacClockTicksToMsRelation * v47), "ADP", 73, "Ga10_28SendMeasurementsReportWithEstimate");
-      LbsOsaTrace_WriteLog(0x18u, v188, v48, 4, 1);
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-    {
-      bzero(v188, 0x410uLL);
-      v49 = mach_continuous_time();
-      v50 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: GAD Lat,%u,Long,%d,Sign of Lat,%u,Altitude,%u,Alt Unc,%u, Semi Major,%u, SemiMinor,%u,AxisBearing,%u,Dir of Alt,%u,ShapeType,%u,VelocityType,%u\n", (*&g_MacClockTicksToMsRelation * v49), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate", *(v2 + 165228), *(v2 + 165232), *(v2 + 165224), *(v2 + 165236), *(v2 + 165248), *(v2 + 165238), *(v2 + 165239), *(v2 + 165240), *(v2 + 165244), *(v2 + 165220), *(v2 + 165260));
-      LbsOsaTrace_WriteLog(0x18u, v188, v50, 5, 1);
-    }
-
-    BYTE4(v190[0]) |= 2u;
-    v51 = *(v2 + 165228);
-    if (v51 >> 23)
-    {
-      v55.f64[0] = INFINITY;
-    }
-
-    else
-    {
-      v52 = 90 * v51;
-      v53 = vcvtd_n_f64_u32(v52, 0x17uLL);
-      v54 = -(v52 * 0.00000011920929);
-      if (*(v2 + 165224) != 2)
-      {
-        v54 = v53;
-      }
-
-      v55.f64[0] = v54 * 33554432.0;
-    }
-
-    v69 = *(v2 + 165232);
-    if ((v69 + 0x800000) >> 24)
-    {
-      v70 = INFINITY;
-    }
-
-    else
-    {
-      if ((v69 & 0x800000) != 0)
-      {
-        v69 |= 0xFF000000;
-      }
-
-      v70 = v69 * 360.0 * 0.0000000596046448 * 67108864.0;
-    }
-
-    v55.f64[1] = v70;
-    *&v55.f64[0] = vand_s8(vmovn_s64(vcvtq_s64_f64(vdivq_f64(v55, xmmword_299760F90))), 0x3FFFFFF01FFFFFFLL);
-    *(&v190[59] + 4) = *&v55.f64[0];
-    LOBYTE(v55.f64[0]) = *(v2 + 165240);
-    v55.f64[0] = *&v55.f64[0] / 11.25;
-    BYTE4(v190[60]) = v55.f64[0];
-    v72 = *(v2 + 165220);
-    if (v72 == 16 || v72 == 8)
-    {
-      if (*(v2 + 165244) == 2)
-      {
-        v73 = *(v2 + 165236);
-        if (v73 >= 0x1F5)
-        {
-          LOBYTE(v190[64]) = 0;
-          goto LABEL_98;
-        }
-
-        LOBYTE(v190[64]) = 1;
-        v76 = 500 - v73;
-      }
-
-      else
-      {
-        LOBYTE(v190[64]) = 1;
-        v76 = *(v2 + 165236) + 500;
-      }
-
-      WORD1(v190[64]) = v76;
-      LOBYTE(v55.f64[0]) = *(v2 + 165248);
-      v77 = pow(1.025, *&v55.f64[0]);
-      BYTE4(v190[64]) = gnss::GnssAdaptDevice::Ga10_27GetCDMAKValueForUncertanity(((v77 + -1.0) * 45.0));
-    }
-
-LABEL_98:
-    v78 = *(v2 + 165238);
-    v79 = &loc_299728000;
-    if (v78 != 255)
-    {
-      v10 = ((pow(1.1, v78) + -1.0) * 10.0);
-    }
-
-    v80 = *(v2 + 165239);
-    if (v80 != 255)
-    {
-      v79 = ((pow(1.1, v80) + -1.0) * 10.0);
-    }
-
-    BYTE5(v190[60]) = gnss::GnssAdaptDevice::Ga10_27GetCDMAKValueForUncertanity(v10);
-    BYTE6(v190[60]) = gnss::GnssAdaptDevice::Ga10_27GetCDMAKValueForUncertanity(v79);
-    v81 = *(v2 + 165216);
-    if (v81 == 1)
-    {
-      LODWORD(v190[61]) = 0;
-    }
-
-    else if (v81 == 2)
-    {
-      LODWORD(v190[61]) = 1;
-    }
-
-    else
-    {
-      LODWORD(v190[61]) = -1;
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 2, 0, 0))
-      {
-        bzero(v188, 0x410uLL);
-        v82 = mach_continuous_time();
-        v83 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx Fix Type,%u\n", (*&g_MacClockTicksToMsRelation * v82), "ADP", 87, "Ga10_28SendMeasurementsReportWithEstimate", 515, *(v2 + 165216));
-        LbsOsaTrace_WriteLog(0x18u, v188, v83, 2, 1);
-      }
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-    {
-      bzero(v188, 0x410uLL);
-      v85 = mach_continuous_time();
-      v86 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: 3GPP2 Lat,%u,Long,%d,Altitude,%u,Alt Unc,%u, locUncA,%u, locUncP,%u,AxisBearing,%u,Alt included,%u\n", (*&g_MacClockTicksToMsRelation * v85), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate", HIDWORD(v190[59]), LODWORD(v190[60]), WORD1(v190[64]), BYTE4(v190[64]), BYTE5(v190[60]), BYTE6(v190[60]), BYTE4(v190[60]), LOBYTE(v190[64]));
-      LbsOsaTrace_WriteLog(0x18u, v188, v86, 5, 1);
-    }
-
-    v87 = *(v2 + 165260);
-    if (v87 <= 1)
-    {
-      if (!v87)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(v188, 0x410uLL);
-          v102 = mach_continuous_time();
-          v103 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: VelInfo not avlbl\n", (*&g_MacClockTicksToMsRelation * v102), "ADP", 73, "Ga10_28SendMeasurementsReportWithEstimate");
-          LbsOsaTrace_WriteLog(0x18u, v188, v103, 4, 1);
-        }
-
-        goto LABEL_135;
-      }
-
-      if (v87 != 1)
-      {
-        goto LABEL_133;
-      }
-    }
-
-    else
-    {
-      if (v87 == 2)
-      {
-LABEL_114:
-        LOWORD(v84) = *(v2 + 165264);
-        BYTE4(v190[61]) = 1;
-        LOWORD(v190[62]) = (v84 * 360.0 / 1023.0);
-        v88 = *(v2 + 165266);
-        v89 = vcvtd_n_s64_f64(v88 * 0.277778, 2uLL);
-        if (v88 == 0xFFFF)
-        {
-          v90 = -1;
-        }
-
-        else
-        {
-          v90 = v89;
-        }
-
-        HIWORD(v190[61]) = v90;
-        v91 = *(v2 + 165270);
-        if (v91 == 0xFFFF)
-        {
-          v92 = -1;
-        }
-
-        else
-        {
-          v92 = (v91 * 0.277778 + v91 * 0.277778);
-        }
-
-        BYTE2(v190[62]) = v92;
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-        {
-          bzero(v188, 0x410uLL);
-          v93 = mach_continuous_time();
-          v94 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: GAD : Bearing,%u,HSpeed,%u,VSpeed,%u\n", (*&g_MacClockTicksToMsRelation * v93), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate", *(v2 + 165264), *(v2 + 165266), *(v2 + 165270));
-          LbsOsaTrace_WriteLog(0x18u, v188, v94, 5, 1);
-        }
-
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-        {
-          bzero(v188, 0x410uLL);
-          v95 = mach_continuous_time();
-          v96 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: 3GPP2 : Bearing,%u,HSpeed,%u,VSpeed,%u\n", (*&g_MacClockTicksToMsRelation * v95), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate", LOWORD(v190[62]), HIWORD(v190[61]), BYTE2(v190[62]));
-          LbsOsaTrace_WriteLog(0x18u, v188, v96, 5, 1);
-        }
-
-LABEL_135:
-        v106 = *(v3 + 296);
-        *__str = MEMORY[0x29EDCA5F8];
-        v183 = 1174405120;
-        v184 = ___ZN4gnss15GnssAdaptDevice41Ga10_28SendMeasurementsReportWithEstimateEPK15s_gnsCP_MeasRes_block_invoke_136;
-        v185 = &__block_descriptor_tmp_140;
-        std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::__value_func[abi:ne200100](v186, v191);
-        memcpy(v187, v190, sizeof(v187));
-        dispatch_async(v106, __str);
-        *&v107 = 0;
-        v108 = *(v2 + 165212);
-        *v166 = 0xFFFFFFFF00000000;
-        if (v108 == 9)
-        {
-          v109 = 3;
-        }
-
-        else
-        {
-          v109 = 19;
-        }
-
-        *&v166[8] = -1;
-        *&v166[12] = 0;
-        *(&v107 + 1) = 0;
-        if (v108 == 1)
-        {
-          v110 = 2;
-        }
-
-        else
-        {
-          v110 = v109;
-        }
-
-        *&v166[20] = v107;
-        *&v166[35] = 0;
-        *&v166[40] = 0xFFFFFFFF00000000;
-        LOBYTE(v167) = 0;
-        *(&v167 + 4) = -1;
-        BYTE12(v167) = 0;
-        *&v173[12] = -1;
-        *&v173[4] = -1;
-        v173[8] = -1;
-        *&v173[20] = 0x7FFFFFFFLL;
-        v173[28] = 0;
-        *&v173[30] = -1;
-        *&v174 = -COERCE_DOUBLE(0x8000000080000000);
-        v175 = 0;
-        HIDWORD(v174) = 0;
-        if (gnss::GnssAdaptDevice::Ga11_23GetCPSession(*(v3 + 128), *(v3 + 136), *v2, v166))
-        {
-          LODWORD(v168) = *v2;
-          BYTE4(v168) = *(v2 + 4);
-          BYTE5(v168) = *(v2 + 165204);
-          *(&v168 + 1) = *(v2 + 8);
-          v111 = *(v2 + 165224);
-          v169 = *(v2 + 165208);
-          v170 = v111;
-          v171 = *(v2 + 165240);
-          v112 = *(v2 + 165260);
-          LODWORD(v172) = *(v2 + 165256);
-          DWORD1(v172) = v112;
-          *(&v172 + 1) = *(v2 + 165264);
-          *v173 = *(v2 + 165272);
-          v113 = *&v166[40];
-          DWORD2(v174) = (*&g_MacClockTicksToMsRelation * mach_continuous_time()) - v113;
-          v114 = *v2;
-          v115 = *(v3 + 128);
-          v116 = *(v3 + 136) - v115;
-          if (v116)
-          {
-            v117 = v116 >> 2;
-            v118 = 0x7D6343EB1A1F58D1 * v117;
-            if ((0x7D6343EB1A1F58D1 * v117) <= 1)
-            {
-              v119 = 1;
-            }
-
-            else
-            {
-              v119 = 0x7D6343EB1A1F58D1 * v117;
-            }
-
-            if (*(v115 + 52) == v114)
-            {
-              v120 = 0;
-LABEL_148:
-              if (v120 < v118)
-              {
-                v121 = v167;
-                v122 = v115 + 196 * v120;
-                *(v122 + 32) = *&v166[32];
-                *(v122 + 48) = v121;
-                v123 = v171;
-                *(v122 + 96) = v170;
-                *(v122 + 112) = v123;
-                v124 = v169;
-                *(v122 + 64) = v168;
-                *(v122 + 80) = v124;
-                *(v122 + 192) = v175;
-                v125 = v174;
-                *(v122 + 160) = *&v173[16];
-                *(v122 + 176) = v125;
-                v126 = *v173;
-                *(v122 + 128) = v172;
-                *(v122 + 144) = v126;
-                v127 = *&v166[16];
-                *v122 = *v166;
-                *(v122 + 16) = v127;
-                v114 = *v2;
-              }
-            }
-
-            else
-            {
-              v120 = 0;
-              v130 = (v115 + 248);
-              v131 = v119 - 1;
-              while (v131 != v120)
-              {
-                v132 = *v130;
-                v130 += 49;
-                ++v120;
-                if (v132 == v114)
-                {
-                  if (v120 < v118)
-                  {
-                    goto LABEL_148;
-                  }
-
-                  break;
-                }
-              }
-            }
-          }
-
-          gnss::GnssAdaptDevice::Ga10_05SendSessionSummaryReport(v3, v114, 0, v110);
-        }
-
-        else
-        {
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-          {
-            bzero(v188, 0x410uLL);
-            v128 = mach_continuous_time();
-            v129 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx SessionID,%u\n", (*&g_MacClockTicksToMsRelation * v128), "ADP", 69, "Ga10_29InvokeDBHSummaryReport", 2052, *v2);
-            LbsOsaTrace_WriteLog(0x18u, v188, v129, 0, 1);
-          }
-
-          gnss::GnssAdaptDevice::Ga10_05SendSessionSummaryReport(v3, *v2, 0, v110);
-        }
-
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-        {
-          bzero(v188, 0x410uLL);
-          v133 = mach_continuous_time();
-          v134 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v133), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate");
-          LbsOsaTrace_WriteLog(0x18u, v188, v134, 5, 1);
-        }
-
-        goto LABEL_160;
-      }
-
-      if (v87 != 4)
-      {
-        if (v87 == 8)
-        {
-          goto LABEL_114;
-        }
-
-LABEL_133:
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-        {
-          bzero(v188, 0x410uLL);
-          v104 = mach_continuous_time();
-          v105 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx Velocity type,%u\n", (*&g_MacClockTicksToMsRelation * v104), "ADP", 69, "Ga10_28SendMeasurementsReportWithEstimate", 515, *(v2 + 165260));
-          LbsOsaTrace_WriteLog(0x18u, v188, v105, 0, 1);
-        }
-
-        goto LABEL_135;
-      }
-    }
-
-    BYTE4(v190[61]) = 1;
-    LOWORD(v84) = *(v2 + 165264);
-    LOWORD(v190[62]) = (v84 * 360.0 / 1023.0);
-    v97 = *(v2 + 165266);
-    v98 = vcvtd_n_s64_f64(v97 * 0.277778, 2uLL);
-    if (v97 == 0xFFFF)
-    {
-      v99 = -1;
-    }
-
-    else
-    {
-      v99 = v98;
-    }
-
-    HIWORD(v190[61]) = v99;
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-    {
-      bzero(v188, 0x410uLL);
-      v100 = mach_continuous_time();
-      v101 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: Bearing,%u,HSpeed,%u\n", (*&g_MacClockTicksToMsRelation * v100), "ADP", 68, "Ga10_28SendMeasurementsReportWithEstimate", LOWORD(v190[62]), HIWORD(v190[61]));
-      LbsOsaTrace_WriteLog(0x18u, v188, v101, 5, 1);
-    }
-
-    goto LABEL_135;
-  }
-
-  if (v189[3])
-  {
-    v13 = 0;
-    LODWORD(v188[0]) = 0;
-    BYTE4(v188[0]) = 0;
-    memset(&v188[1], 255, 20);
-    do
-    {
-      v14 = &v188[v13];
-      *(v14 + 14) = 0x7FFF;
-      *(v14 + 30) = -1;
-      *(v14 + 33) = -1;
-      v14[5] = 0xFFFFFFFF00000004;
-      v13 += 3;
-      *(v14 + 48) = -1;
-    }
-
-    while (v13 != 48);
-    v15 = 0;
-    HIDWORD(v188[51]) = 0;
-    v188[52] = -1;
-    LODWORD(v188[53]) = 33619967;
-    WORD2(v188[53]) = -1;
-    HIDWORD(v188[56]) = -1;
-    *(&v188[58] + 7) = -1;
-    LODWORD(v188[60]) = 4;
-    LOBYTE(v188[57]) = -1;
-    memset(&v188[54], 255, 17);
-    BYTE4(v188[57]) = -1;
-    v188[58] = -1;
-    *(&v188[60] + 4) = -1;
-    LODWORD(v188[62]) = 0;
-    HIDWORD(v188[65]) = -1;
-    v188[66] = -1;
-    memset(&v188[63], 255, 18);
-    LOBYTE(v188[67]) = -1;
-    HIDWORD(v188[68]) = -1;
-    v188[69] = -1;
-    *(&v188[67] + 2) = -1;
-    LOWORD(v188[70]) = -1;
-    HIDWORD(v188[70]) = -1;
-    LOWORD(v188[71]) = -1;
-    LODWORD(v188[74]) = -1;
-    *(&v188[71] + 4) = -1;
-    *(&v188[72] + 4) = -1;
-    WORD2(v188[73]) = -1;
-    WORD2(v188[74]) = -129;
-    LODWORD(v188[75]) = -1;
-    LOBYTE(v188[76]) = -1;
-    HIDWORD(v188[76]) = 5;
-    LOWORD(v188[77]) = -1;
-    BYTE2(v188[77]) = -1;
-    do
-    {
-      v16 = &v188[v15];
-      *(v16 + 155) = -32769;
-      *(v16 + 624) = -1;
-      *(&v188[v15 + 78] + 4) = 0xFF00000004;
-      *(v16 + 318) = -1;
-      *(v16 + 160) = -1;
-      v15 += 3;
-    }
-
-    while (v15 != 96);
-    BYTE4(v188[174]) = 0;
-    LODWORD(v188[174]) = -1;
-    LODWORD(v188[1]) = 0;
-    if (!v2)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v34 = mach_continuous_time();
-        v35 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx MSA Rep\n", (*&g_MacClockTicksToMsRelation * v34), "ADP", 69, "Ga10_01SendMeasurementsReport", 513);
-        LbsOsaTrace_WriteLog(0x18u, __str, v35, 0, 1);
-      }
-
-      LODWORD(v188[0]) = -2;
-      v36 = *(v3 + 296);
-      block[0] = MEMORY[0x29EDCA5F8];
-      block[1] = 1174405120;
-      block[2] = ___ZN4gnss15GnssAdaptDevice29Ga10_01SendMeasurementsReportEPK15s_gnsCP_MeasRes_block_invoke;
-      block[3] = &__block_descriptor_tmp_117_0;
-      v37 = v180;
-      std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReport const&)>::__value_func[abi:ne200100](v180, v189);
-      memcpy(v181, v188, sizeof(v181));
-      dispatch_async(v36, block);
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v38 = mach_continuous_time();
-        v39 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v38), "ADP", 68, "Ga10_01SendMeasurementsReport");
-        LbsOsaTrace_WriteLog(0x18u, __str, v39, 5, 1);
-      }
-
-      goto LABEL_81;
-    }
-
-    v17 = *v2;
-    LODWORD(v188[2]) = *v2;
-    v18 = *(v3 + 128);
-    v19 = *(v3 + 136) - v18;
-    if (v19)
-    {
-      v20 = 0x7D6343EB1A1F58D1 * (v19 >> 2);
-      if (v20 <= 1)
-      {
-        v21 = 1;
-      }
-
-      else
-      {
-        v21 = v20;
-      }
-
-      if (*(v18 + 52) == v17)
-      {
-        v22 = 0;
-LABEL_26:
-        if (v22 < v20)
-        {
-          v23 = v18 + 196 * v22;
-          v25 = *(v23 + 40);
-          v24 = *(v23 + 44);
-          *(*(v3 + 128) + 196 * v22 + 184) = (*&g_MacClockTicksToMsRelation * mach_continuous_time()) - v25;
-LABEL_67:
-          HIDWORD(v188[1]) = v24;
-          LODWORD(v188[174]) = 0;
-          if (*(v2 + 32) == 1)
-          {
-            if (*(v2 + 16))
-            {
-              BYTE4(v188[0]) = 1;
-              BYTE4(v188[174]) = *(v2 + 36);
-              gnss::GnssAdaptDevice::Ga10_00ProcessGPSMeasurements(v2, &v188[2] + 4, v188[1]);
-            }
-          }
-
-          else
-          {
-            if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-            {
-              bzero(__str, 0x410uLL);
-              v61 = mach_continuous_time();
-              v62 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Not enough Satellites,Err status,%u\n", (*&g_MacClockTicksToMsRelation * v61), "ADP", 69, "Ga10_01SendMeasurementsReport", 769, *(v2 + 32));
-              LbsOsaTrace_WriteLog(0x18u, __str, v62, 0, 1);
-            }
-
-            LODWORD(v188[0]) = -4;
-            BYTE4(v188[0]) |= 4u;
-          }
-
-          v63 = *(v3 + 296);
-          v176[0] = MEMORY[0x29EDCA5F8];
-          v176[1] = 1174405120;
-          v176[2] = ___ZN4gnss15GnssAdaptDevice29Ga10_01SendMeasurementsReportEPK15s_gnsCP_MeasRes_block_invoke_119;
-          v176[3] = &__block_descriptor_tmp_123;
-          v37 = v177;
-          std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReport const&)>::__value_func[abi:ne200100](v177, v189);
-          memcpy(v178, v188, sizeof(v178));
-          dispatch_async(v63, v176);
-          v64 = *(v2 + 32);
-          if (v64 == 9)
-          {
-            v65 = 3;
-          }
-
-          else
-          {
-            v65 = 18;
-          }
-
-          if (v64 == 1)
-          {
-            v66 = 2;
-          }
-
-          else
-          {
-            v66 = v65;
-          }
-
-          gnss::GnssAdaptDevice::Ga10_05SendSessionSummaryReport(v3, v188[2], 0, v66);
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v67 = mach_continuous_time();
-            v68 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v67), "ADP", 68, "Ga10_01SendMeasurementsReport");
-            LbsOsaTrace_WriteLog(0x18u, __str, v68, 5, 1);
-          }
-
-LABEL_81:
-          std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReport const&)>::~__value_func[abi:ne200100](v37);
-          goto LABEL_163;
-        }
-      }
-
-      else
-      {
-        v22 = 0;
-        v58 = (v18 + 248);
-        v59 = v21 - 1;
-        while (v59 != v22)
-        {
-          v60 = *v58;
-          v58 += 49;
-          ++v22;
-          if (v60 == v17)
-          {
-            if (v22 < v20)
-            {
-              goto LABEL_26;
-            }
-
-            break;
-          }
-        }
-      }
-    }
-
-    v24 = -1;
-    goto LABEL_67;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-  {
-    bzero(v188, 0x410uLL);
-    v26 = mach_continuous_time();
-    v27 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: #%04hx MeasRep\n", (*&g_MacClockTicksToMsRelation * v26), "ADP", 69, "Ga10_01SendMeasurementsReport", 258);
-    LbsOsaTrace_WriteLog(0x18u, v188, v27, 0, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-  {
-    bzero(v188, 0x410uLL);
-    v28 = mach_continuous_time();
-    v29 = snprintf(v188, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v28), "ADP", 68, "Ga10_01SendMeasurementsReport");
-    LbsOsaTrace_WriteLog(0x18u, v188, v29, 5, 1);
-  }
-
-LABEL_163:
-  result = std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReport const&)>::~__value_func[abi:ne200100](v189);
-  v138 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void sub_29969259C(_Unwind_Exception *a1)
-{
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::~__value_func[abi:ne200100](v1 - 136);
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReport const&)>::~__value_func[abi:ne200100](&STACK[0x16F8]);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice29Ga10_01SendMeasurementsReportEPK15s_gnsCP_MeasRes_block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v2 = *(*v1 + 48);
-  v3 = *MEMORY[0x29EDCA608];
-  v4 = *MEMORY[0x29EDCA608];
-  v5 = a1 + 64;
-  v6 = *(a1 + 56);
-
-  return v2(v6, v5);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice29Ga10_01SendMeasurementsReportEPK15s_gnsCP_MeasRes_block_invoke_119(uint64_t a1)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v2 = (*(*v1 + 48))(*(a1 + 56), a1 + 64);
-  result = LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0);
-  if (result)
+  v55 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 5u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: MeasRep Status,%u\n", (*&g_MacClockTicksToMsRelation * v4), "ADP", 73, "Ga10_01SendMeasurementsReport_block_invoke", v2);
-    result = LbsOsaTrace_WriteLog(0x18u, __str, v5, 4, 1);
+    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "PSP", 68, "send_assistance_req");
+    LbsOsaTrace_WriteLog(0x13u, __str, v5, 5, 1);
   }
 
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice41Ga10_28SendMeasurementsReportWithEstimateEPK15s_gnsCP_MeasRes_block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (!v1)
+  if (!a1)
   {
-    std::__throw_bad_function_call[abi:ne200100]();
+    if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+    {
+      goto LABEL_75;
+    }
+
+    bzero(__str, 0x410uLL);
+    mach_continuous_time();
+    v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n");
+    goto LABEL_74;
   }
 
-  v2 = *(*v1 + 48);
-  v3 = *MEMORY[0x29EDCA608];
-  v4 = *MEMORY[0x29EDCA608];
-  v5 = a1 + 64;
-  v6 = *(a1 + 56);
-
-  return v2(v6, v5);
-}
-
-uint64_t __copy_helper_block_e8_32c94_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency6Cplane29MeasurementReportWithEstimateEEEE(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 32;
-  v4 = a2 + 32;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::__value_func[abi:ne200100](v3, v4);
-}
-
-uint64_t __destroy_helper_block_e8_32c94_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency6Cplane29MeasurementReportWithEstimateEEEE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 32;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::~__value_func[abi:ne200100](v2);
-}
-
-uint64_t gnss::GnssAdaptDevice::Ga11_23GetCPSession(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
-{
-  v48 = *MEMORY[0x29EDCA608];
-  if (a2 == a1)
+  v45 = 0x8000000080000000;
+  v46 = 0xFFFF00007FFFFFFFLL;
+  v47 = 255;
+  v50 = -1;
+  v51 = -1;
+  v48 = -1;
+  v49 = -1;
+  v52 = 0u;
+  v53 = 0u;
+  session_info = gps_find_session_info(*a1);
+  v7 = *(a1 + 1);
+  if (v7)
   {
-    goto LABEL_13;
-  }
+    if (v7[1] == 1)
+    {
+      v8 = 32;
+      WORD2(v46) = 32;
+      v9 = 1;
+    }
 
-  v4 = 0x7D6343EB1A1F58D1 * ((a2 - a1) >> 2);
-  if (v4 <= 1)
-  {
-    v5 = 1;
+    else
+    {
+      v8 = 0;
+      v9 = 0;
+    }
+
+    if (*v7 == 1)
+    {
+      v8 |= 0x40u;
+      WORD2(v46) = v8;
+      v9 = 1;
+    }
+
+    if (v7[2] == 1)
+    {
+      v8 |= 4u;
+      WORD2(v46) = v8;
+      v9 = 1;
+    }
+
+    if (v7[3] == 1)
+    {
+      v11 = *(a1 + 2);
+      if (v11)
+      {
+        if (*v11 == 1)
+        {
+          if (*(v11 + 8) == 1)
+          {
+            v8 |= 0x80u;
+            WORD2(v46) = v8;
+          }
+
+          if (*(v11 + 4) == 1)
+          {
+            v8 |= 2u;
+            WORD2(v46) = v8;
+          }
+
+          if (*(v11 + 5) == 1)
+          {
+            v8 |= 0x100u;
+            WORD2(v46) = v8;
+          }
+
+          if (*(v11 + 6) == 1)
+          {
+            v8 |= 1u;
+            WORD2(v46) = v8;
+          }
+
+          if (*(v11 + 7) == 1)
+          {
+            v8 |= 8u;
+            WORD2(v46) = v8;
+          }
+
+          if (*(v11 + 9) == 1)
+          {
+            WORD2(v46) = v8 | 1;
+          }
+        }
+
+        v12 = *(v11 + 16);
+        if (v12)
+        {
+          HIWORD(v46) = v12 & 0x3FF;
+        }
+
+        if (session_info)
+        {
+          if (*(session_info + 8) == 2)
+          {
+            HIWORD(v46) = v12;
+          }
+        }
+
+        else if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+        {
+          bzero(__str, 0x410uLL);
+          v13 = mach_continuous_time();
+          v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SessionID,%u\n", (*&g_MacClockTicksToMsRelation * v13), "PSP", 69, "ConvertGnssAidReqToSdlAidReq", 2052, *a1);
+          LbsOsaTrace_WriteLog(0x13u, __str, v14, 0, 1);
+        }
+
+        v15 = *(a1 + 2);
+        LOBYTE(v47) = v15[18];
+        v16 = v15[20];
+        if (v16 >= 0x40)
+        {
+          v17 = 64;
+        }
+
+        else
+        {
+          v17 = v15[20];
+        }
+
+        HIBYTE(v47) = v17;
+        LOBYTE(v48) = v15[19];
+        if (v16 - 1 <= 0x3E)
+        {
+          v18 = 0;
+          v19 = &v53;
+          do
+          {
+            v20 = *(a1 + 2);
+            *(v19 - 16) = *(v20 + v18 + 21);
+            v21 = *(v20 + 2 * v18 + 86);
+            if (v21 > 0xFF)
+            {
+              if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+              {
+                bzero(__str, 0x410uLL);
+                v22 = mach_continuous_time();
+                v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx v_Iode,%u\n", (*&g_MacClockTicksToMsRelation * v22), "PSP", 69, "ConvertGnssAidReqToSdlAidReq", 772, *(*(a1 + 2) + 2 * v18 + 86));
+                LbsOsaTrace_WriteLog(0x13u, __str, v23, 0, 1);
+              }
+            }
+
+            else
+            {
+              *v19 = v21;
+            }
+
+            ++v18;
+            v19 = (v19 + 1);
+          }
+
+          while (v18 < v17);
+        }
+
+        v9 = 1;
+      }
+    }
   }
 
   else
   {
-    v5 = 0x7D6343EB1A1F58D1 * ((a2 - a1) >> 2);
+    v9 = 0;
   }
 
-  if (*(a1 + 52) != a3)
+  v24 = *(a1 + 2);
+  if (v24)
   {
-    v6 = 0;
-    v28 = (a1 + 248);
-    v29 = v5 - 1;
-    while (v29 != v6)
-    {
-      v30 = *v28;
-      v28 += 49;
-      ++v6;
-      if (v30 == a3)
-      {
-        if (v6 < v4)
-        {
-          goto LABEL_7;
-        }
+    free(v24);
+  }
 
-        goto LABEL_13;
-      }
+  *(a1 + 2) = 0;
+  v25 = *(a1 + 1);
+  if (v25)
+  {
+    free(v25);
+  }
+
+  *(a1 + 1) = 0;
+  v42 = 511;
+  v38 = 0;
+  v39 = 0;
+  v40 = 0;
+  v41 = 0;
+  v43 = &v38;
+  v26 = gps_find_session_info(*a1);
+  if (!v26)
+  {
+    if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+    {
+      goto LABEL_75;
     }
 
-    goto LABEL_13;
+    bzero(__str, 0x410uLL);
+    v36 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+    v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SessionID,%u\n", v36);
+    goto LABEL_74;
   }
 
-  v6 = 0;
-LABEL_7:
-  if (v6 >= v4)
+  if (v9)
   {
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
+    v27 = v26;
+    v28 = *(v26 + 20);
+    if (v28 == 1)
+    {
+      SendStatusReport(*a1, 20, 0, 0, 0, 255);
+      v28 = *(v27 + 20);
+    }
+
+    if (v28 == 2)
+    {
+      SendStatusReport(*a1, 21, 0, 0, 0, 255);
+      v28 = *(v27 + 20);
+    }
+
+    if (v28 == 3 && LbsOsaTrace_IsLoggingAllowed(0x13u, 2u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v29 = mach_continuous_time();
+      v30 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Assistance cannot be requested in StandAlone\n", (*&g_MacClockTicksToMsRelation * v29), "PSP", 87, "send_assistance_req", 770);
+      LbsOsaTrace_WriteLog(0x13u, __str, v30, 2, 1);
+    }
+
+    v31 = &v45;
   }
 
-  v7 = a1 + 196 * v6;
-  v42 = *(v7 + 4);
-  v43 = *(v7 + 8);
-  *v47 = *(v7 + 10);
-  *&v47[13] = *(v7 + 23);
-  v8 = *(v7 + 39);
-  v9 = *(v7 + 48);
-  v40 = *(v7 + 49);
-  v41 = *(v7 + 51);
-  v10 = *(v7 + 60);
-  v39 = *(v7 + 63);
-  v38 = *(v7 + 61);
-  v11 = *(v7 + 64);
-  v12 = *(v7 + 68);
-  *v46 = *(v7 + 88);
-  *&v46[14] = *(v7 + 102);
-  v13 = *(v7 + 110);
-  v14 = *(v7 + 112);
-  v36 = *(v7 + 113);
-  v37 = *(v7 + 115);
-  v15 = *(v7 + 116);
-  v16 = *(v7 + 120);
-  v17 = *(v7 + 136);
-  v18 = *(v7 + 140);
-  v45 = *(v7 + 149);
-  v44 = *(v7 + 141);
-  v35 = *(v7 + 155);
-  v34 = *(v7 + 153);
-  v19 = *(v7 + 156);
-  v20 = *(v7 + 172);
-  v33 = *(v7 + 192);
-  v32 = *(v7 + 184);
-  *a4 = *v7;
-  v21 = *(v7 + 176);
-  v22 = *(v7 + 164);
-  v23 = *(v7 + 128);
-  v24 = *(v7 + 72);
-  v25 = *(v7 + 52);
-  v26 = *(v7 + 40);
-  *(a4 + 8) = v43;
-  *(a4 + 4) = v42;
-  *(a4 + 10) = *v47;
-  *(a4 + 23) = *&v47[13];
-  *(a4 + 39) = v8;
-  *(a4 + 40) = v26;
-  *(a4 + 48) = v9;
-  *(a4 + 51) = v41;
-  *(a4 + 49) = v40;
-  *(a4 + 52) = v25;
-  *(a4 + 60) = v10;
-  *(a4 + 63) = v39;
-  *(a4 + 61) = v38;
-  *(a4 + 64) = v11;
-  *(a4 + 68) = v12;
-  *(a4 + 72) = v24;
-  *(a4 + 102) = *&v46[14];
-  *(a4 + 88) = *v46;
-  *(a4 + 110) = v13;
-  *(a4 + 112) = v14;
-  *(a4 + 115) = v37;
-  *(a4 + 113) = v36;
-  *(a4 + 116) = v15;
-  *(a4 + 120) = v16;
-  *(a4 + 128) = v23;
-  *(a4 + 136) = v17;
-  *(a4 + 140) = v18;
-  *(a4 + 149) = v45;
-  *(a4 + 141) = v44;
-  *(a4 + 155) = v35;
-  *(a4 + 153) = v34;
-  *(a4 + 156) = v19;
-  *(a4 + 164) = v22;
-  *(a4 + 172) = v20;
-  *(a4 + 176) = v21;
-  *(a4 + 192) = v33;
-  result = 1;
-  *(a4 + 184) = v32;
-LABEL_14:
-  v31 = *MEMORY[0x29EDCA608];
+  else
+  {
+    v31 = 0;
+  }
+
+  v38 = v31;
+  LOBYTE(v39) = v9;
+  v44 = *a1;
+  if (a2 == 2)
+  {
+    SuplLppExecutePosRsp(&v42);
+    goto LABEL_75;
+  }
+
+  if (a2)
+  {
+    if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+    {
+      goto LABEL_75;
+    }
+
+    bzero(__str, 0x410uLL);
+    mach_continuous_time();
+    v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Pos Protocol\n");
+    goto LABEL_74;
+  }
+
+  SuplRrlpExecutePosRsp(&v42);
+  v32 = gps_find_session_info(*a1);
+  if (v32)
+  {
+    *(v32 + 16) = 0;
+    goto LABEL_75;
+  }
+
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v37 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+    v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SessionId,%u\n", v37);
+LABEL_74:
+    LbsOsaTrace_WriteLog(0x13u, __str, v10, 0, 1);
+  }
+
+LABEL_75:
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 5u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v34 = mach_continuous_time();
+    v35 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v34), "PSP", 68, "send_assistance_req");
+    LbsOsaTrace_WriteLog(0x13u, __str, v35, 5, 1);
+  }
+
   return result;
 }
 
-uint64_t gnss::GnssAdaptDevice::Ga10_27GetCDMAKValueForUncertanity(gnss::GnssAdaptDevice *this)
+void send_api_status(unsigned int *a1, int a2, int a3, char a4)
 {
-  v1 = this;
+  v42 = *MEMORY[0x29EDCA608];
+  if (!a1)
+  {
+    if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+    {
+      return;
+    }
+
+    bzero(__str, 0x410uLL);
+    mach_continuous_time();
+    v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n");
+    goto LABEL_17;
+  }
+
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v8 = mach_continuous_time();
+    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Status,%u,API,%u\n", (*&g_MacClockTicksToMsRelation * v8), "PSP", 73, "send_api_status", a1[2], a1[1]);
+    LbsOsaTrace_WriteLog(0x13u, __str, v9, 4, 1);
+  }
+
+  v10 = a1[2];
+  if (v10 > 0xB)
+  {
+    goto LABEL_35;
+  }
+
+  v11 = 1;
+  if (((1 << v10) & 0xCC5) != 0)
+  {
+    v11 = 0;
+    v12 = 1;
+    v13 = 1;
+    goto LABEL_7;
+  }
+
+  if (v10 == 1)
+  {
+    v12 = 0;
+    v13 = 0;
+  }
+
+  else
+  {
+LABEL_35:
+    v11 = 0;
+    v12 = 0;
+    v13 = 4;
+  }
+
+LABEL_7:
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 3u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v14 = mach_continuous_time();
+    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SDL status,%u\n", (*&g_MacClockTicksToMsRelation * v14), "PSP", 77, "ConvertGnsStatusToSdlStatus", v13);
+    LbsOsaTrace_WriteLog(0x13u, __str, v15, 3, 1);
+  }
+
+  if (a1[1] != 1)
+  {
+    goto LABEL_22;
+  }
+
+  v16 = a1[2];
+  if (v16 == 9)
+  {
+    v20 = *a1;
+    v21 = 3;
+    goto LABEL_21;
+  }
+
+  if (v16 != 3)
+  {
+    goto LABEL_22;
+  }
+
+  session_info = gps_find_session_info(*a1);
+  if (session_info)
+  {
+    v18 = session_info;
+    v19 = *(session_info + 20);
+    if ((v19 - 2) < 2)
+    {
+      v20 = *a1;
+      v21 = 23;
+LABEL_21:
+      SendStatusReport(v20, v21, 0, 0, 0, 255);
+      goto LABEL_22;
+    }
+
+    if (v19 == 1)
+    {
+      v20 = *a1;
+      v21 = 22;
+      goto LABEL_21;
+    }
+
+    if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v29 = mach_continuous_time();
+      v30 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx locationinfo,%d\n", (*&g_MacClockTicksToMsRelation * v29), "PSP", 69, "send_api_status", 770, *(v18 + 20));
+      LbsOsaTrace_WriteLog(0x13u, __str, v30, 0, 1);
+    }
+
+LABEL_22:
+    if (v11)
+    {
+      return;
+    }
+
+    if (a1[1] != 1)
+    {
+      if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 2u, 0, 0))
+      {
+        return;
+      }
+
+      bzero(__str, 0x410uLL);
+      v27 = mach_continuous_time();
+      v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Handling for API,%d is not needed\n", (*&g_MacClockTicksToMsRelation * v27), "PSP", 87, "send_api_status", 770, a1[1]);
+      v24 = 2;
+      goto LABEL_33;
+    }
+
+    v25 = a3 & v12;
+    if ((a3 & v12) != 0)
+    {
+      v26 = 5;
+    }
+
+    else
+    {
+      v26 = v13;
+    }
+
+    v38[0] = -1;
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
+    v34 = v25;
+    v40 = *a1;
+    T_GNSS_POSITION_s::T_GNSS_POSITION_s(v32);
+    if (a4)
+    {
+      v28 = 2;
+    }
+
+    else
+    {
+      if ((a4 & 4) == 0)
+      {
+        if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+        {
+          return;
+        }
+
+        bzero(__str, 0x410uLL);
+        mach_continuous_time();
+        v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Positioning method\n");
+        goto LABEL_17;
+      }
+
+      v28 = 0;
+    }
+
+    v32[0] = v26;
+    v38[1] = v28;
+    v33 = v32;
+    v39 = &v33;
+    if (a2 == 2)
+    {
+      SuplLppExecutePosRsp(v38);
+      return;
+    }
+
+    if (!a2)
+    {
+      SuplRrlpExecutePosRsp(v38);
+      return;
+    }
+
+    if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      mach_continuous_time();
+      v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Pos Protocol\n");
+      goto LABEL_17;
+    }
+
+    return;
+  }
+
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v31 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+    v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SessionID,%u\n", v31);
+LABEL_17:
+    v23 = v22;
+    v24 = 0;
+LABEL_33:
+    LbsOsaTrace_WriteLog(0x13u, __str, v23, v24, 1);
+  }
+}
+
+double send_wlan_meas(uint64_t a1)
+{
+  v56 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 5u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "PSP", 68, "send_wlan_meas");
+    LbsOsaTrace_WriteLog(0x13u, __str, v3, 5, 1);
+  }
+
+  if (!a1)
+  {
+    if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+    {
+      return result;
+    }
+
+    bzero(__str, 0x410uLL);
+    v7 = mach_continuous_time();
+    v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v7), "PSP", 69, "send_wlan_meas", 513);
+    v9 = 0;
+LABEL_35:
+    LbsOsaTrace_WriteLog(0x13u, __str, v8, v9, 1);
+    return result;
+  }
+
+  v4 = 0;
+  v45 = 2;
+  v46 = 0;
+  v47 = 0;
+  v48 = -1;
+  v49 = 0xFFFF7FFFFFFFFFFFLL;
+  v50 = -1;
+  v51 = 0;
+  v52 = 0;
+  v53 = 0;
+  v41 = 0;
+  v42 = 0;
+  v38 = 1791;
+  v39 = &v41;
+  v43 = &v45;
+  v44 = 1;
+  v54 = 1;
+  v5 = *(a1 + 24);
+  if (v5 > 6)
+  {
+    if (v5 == 7 || v5 == 11)
+    {
+      v4 = 1;
+    }
+
+    else if (v5 != 14)
+    {
+LABEL_13:
+      if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+      {
+        bzero(__str, 0x410uLL);
+        v10 = mach_continuous_time();
+        v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Unexpected status,%u\n", (*&g_MacClockTicksToMsRelation * v10), "PSP", 69, "send_wlan_meas", 770, *(a1 + 24));
+        LbsOsaTrace_WriteLog(0x13u, __str, v11, 0, 1);
+      }
+
+      v53 = 0;
+      if (*(a1 + 24) == 1)
+      {
+        goto LABEL_38;
+      }
+
+LABEL_19:
+      v52 = 257;
+      goto LABEL_20;
+    }
+
+LABEL_18:
+    v53 = v4;
+    goto LABEL_19;
+  }
+
+  if (v5 != 1)
+  {
+    if (v5 != 2)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_18;
+  }
+
+  v54 = 0;
+LABEL_38:
+  v20 = *(a1 + 28);
+  v21 = operator new[](40 * v20, MEMORY[0x29EDC9418]);
+  if (!v21)
+  {
+    v47 = 0;
+    if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v36 = mach_continuous_time();
+      v37 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx WLAN meas list allocation failed\n", (*&g_MacClockTicksToMsRelation * v36), "PSP", 69, "send_wlan_meas", 1537);
+      LbsOsaTrace_WriteLog(0x13u, __str, v37, 0, 1);
+    }
+
+    goto LABEL_33;
+  }
+
+  if (v20)
+  {
+    v22 = v21;
+    do
+    {
+      *(v22 + 3) = 0;
+      *v22 = 0;
+      *(v22 + 4) = 0x7FFF;
+      v22[10] = 0;
+      *(v22 + 2) = -1;
+      *(v22 + 6) = 0;
+      *(v22 + 14) = 255;
+      v22[32] = 0;
+      *(v22 + 34) = 0xFFFF;
+      v22 += 40;
+    }
+
+    while (v22 != &v21[40 * v20]);
+    v23 = 0;
+    v24 = 0;
+    v47 = v21;
+    v25 = (a1 + 32);
+    do
+    {
+      v26 = a1 + 32 + 48 * v24;
+      v27 = v25;
+      v28 = v23;
+      v29 = 6;
+      do
+      {
+        v30 = *v27++;
+        v47[v28++] = v30;
+        --v29;
+      }
+
+      while (v29);
+      v31 = *(v26 + 40);
+      v32 = v47;
+      v33 = v46;
+      if (v31 != 0x7FFF)
+      {
+        v34 = &v47[40 * v46];
+        v34[6] = 1;
+        *(v34 + 4) = v31;
+      }
+
+      v35 = &v32[40 * v33];
+      v35[32] = 1;
+      *(v35 + 17) = *(v26 + 42);
+      if (*(v26 + 44) == 1)
+      {
+        *&v32[40 * v33 + 36] = 257;
+      }
+
+      v46 = v33 + 1;
+      if ((v33 + 1) > 0x3Fu)
+      {
+        break;
+      }
+
+      ++v24;
+      v23 += 40;
+      v25 += 48;
+    }
+
+    while (v24 < *(a1 + 28));
+  }
+
+  else
+  {
+    v47 = v21;
+  }
+
+LABEL_20:
+  v45 = 0;
+  wlan_session_info = find_wlan_session_info();
+  v40 = wlan_session_info;
+  session_info = gps_find_session_info(wlan_session_info);
+  if (session_info)
+  {
+    *(session_info + 188) = 0;
+    if (posp_IsTimerActive(wlan_session_info, 1))
+    {
+      posp_StopTimer(wlan_session_info, 1);
+    }
+
+    else if (LbsOsaTrace_IsLoggingAllowed(0x13u, 2u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v16 = mach_continuous_time();
+      v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx NoTmrActive\n", (*&g_MacClockTicksToMsRelation * v16), "PSP", 87, "send_wlan_meas", 2052);
+      LbsOsaTrace_WriteLog(0x13u, __str, v17, 2, 1);
+    }
+
+    v18.n128_f64[0] = SuplLppExecutePosRsp(&v38);
+    if (v47)
+    {
+      MEMORY[0x29C29EAF0](v47, 0x1000C80556990FFLL, v18.n128_f64[0]);
+      v47 = 0;
+    }
+
+    MEMORY[0x29C29EB20](a1, 0x1000C400624F575, v18);
+LABEL_33:
+    if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 5u, 0, 0))
+    {
+      return result;
+    }
+
+    bzero(__str, 0x410uLL);
+    v19 = mach_continuous_time();
+    v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v19), "PSP", 68, "send_wlan_meas");
+    v9 = 5;
+    goto LABEL_35;
+  }
+
+  if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v14 = mach_continuous_time();
+    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SessionID,%u\n", (*&g_MacClockTicksToMsRelation * v14), "PSP", 69, "send_wlan_meas", 2052, wlan_session_info);
+    LbsOsaTrace_WriteLog(0x13u, __str, v15, 0, 1);
+  }
+
+  if (v47)
+  {
+    MEMORY[0x29C29EAF0](v47, 0x1000C80556990FFLL);
+    v47 = 0;
+  }
+
+  MEMORY[0x29C29EB20](a1, 0x1000C400624F575);
+  return result;
+}
+
+uint64_t NV_Ram_Init(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  p_NV = result;
+  v4 = *(result + 4);
+  if (v4 != 22944 || *(result + 22936) != 14)
+  {
+    v5 = 0;
+    *(result + 8) = 0xFFFFFFFFLL;
+    *(result + 40) = 0xFFFFFFFFLL;
+    *(result + 64) = 0xFFFFFFFFLL;
+    *(result + 128) = 0xFFFFFFFFLL;
+    *(result + 152) = 0xFFFFFFFFLL;
+    *(result + 19200) = 0xFFFFFFFFLL;
+    *(result + 80) = 0xFFFFFFFFLL;
+    *(result + 19160) = 0xFFFFFFFFLL;
+    *(result + 7600) = 0xFFFFFFFFLL;
+    *(result + 12856) = 0xFFFFFFFFLL;
+    *(result + 5816) = 0xFFFFFFFFLL;
+    do
+    {
+      *(result + 1976 + v5) = 0xFFFFFFFFLL;
+      v5 += 120;
+    }
+
+    while (v5 != 3840);
+    for (i = 0; i != 1200; i += 120)
+    {
+      *(result + 6400 + i) = 0xFFFFFFFFLL;
+    }
+
+    for (j = 0; j != 1728; j += 72)
+    {
+      *(result + 20392 + j) = 0xFFFFFFFFLL;
+    }
+
+    for (k = 0; k != 3456; k += 96)
+    {
+      *(result + 9400 + k) = 0xFFFFFFFFLL;
+    }
+
+    v9 = (result + 15128);
+    v10 = xmmword_299728F20;
+    v11 = 38;
+    v12 = vdupq_n_s64(0x25uLL);
+    v13 = vdupq_n_s64(2uLL);
+    do
+    {
+      if (vmovn_s64(vcgtq_u64(v12, v10)).u8[0])
+      {
+        *(v9 - 14) = 0xFFFFFFFFLL;
+      }
+
+      if (vmovn_s64(vcgtq_u64(vdupq_n_s64(0x25uLL), *&v10)).i32[1])
+      {
+        *v9 = 0xFFFFFFFFLL;
+      }
+
+      v10 = vaddq_s64(v10, v13);
+      v9 += 28;
+      v11 -= 2;
+    }
+
+    while (v11);
+    for (m = 184; m != 1976; m += 56)
+    {
+      *(result + m) = 0xFFFFFFFFLL;
+    }
+
+    for (n = 0; n != 560; n += 56)
+    {
+      *(result + 5840 + n) = 0xFFFFFFFFLL;
+    }
+
+    for (ii = 0; ii != 1152; ii += 48)
+    {
+      *(result + 19240 + ii) = 0xFFFFFFFFLL;
+    }
+
+    for (jj = 0; jj != 1728; jj += 48)
+    {
+      *(result + 7672 + jj) = 0xFFFFFFFFLL;
+    }
+
+    v18 = (result + 13000);
+    v19 = xmmword_299728F20;
+    v20 = 38;
+    v21 = vdupq_n_s64(0x25uLL);
+    v22 = vdupq_n_s64(2uLL);
+    do
+    {
+      if (vmovn_s64(vcgtq_u64(v21, v19)).u8[0])
+      {
+        *(v18 - 7) = 0xFFFFFFFFLL;
+      }
+
+      if (vmovn_s64(vcgtq_u64(vdupq_n_s64(0x25uLL), *&v19)).i32[1])
+      {
+        *v18 = 0xFFFFFFFFLL;
+      }
+
+      v19 = vaddq_s64(v19, v22);
+      v18 += 14;
+      v20 -= 2;
+    }
+
+    while (v20);
+    do
+    {
+      *(result + 22120 + v20) = 0xFFFFFFFFLL;
+      v20 += 32;
+    }
+
+    while (v20 != 320);
+    *(result + 7648) = 0xFFFFFFFFLL;
+    *(result + 12912) = 0xFFFFFFFFLL;
+    EvCrt_nd("NV_Ram_Init: Invalid NV", 4, a3, *v19.i64, v4, 22944, *(result + 22936), 14);
+    result = p_NV;
+  }
+
+  v23 = 0;
+  *(result + 4) = 22944;
+  *(result + 22936) = 14;
+  p_NV_Sect = a2;
+  *a2 = xmmword_299761210;
+  *(a2 + 16) = xmmword_299761220;
+  *(a2 + 32) = xmmword_299761230;
+  *(a2 + 48) = xmmword_299761240;
+  *(a2 + 64) = xmmword_299761250;
+  *(a2 + 80) = 1470649960;
+  LODWORD(v24) = 42;
+  *(a2 + 192) = 42;
+  do
+  {
+    if (v24 - 1 == v23)
+    {
+      v25 = *(a2 + 2 * v23);
+      LOWORD(v26) = *(result + 4) - v25;
+    }
+
+    else
+    {
+      v27 = (a2 + 2 * v23);
+      v25 = *v27;
+      LOWORD(v26) = v27[1] - v25;
+    }
+
+    if (v26)
+    {
+      v28 = 0;
+      v29 = (result + v25);
+      v26 = v26;
+      do
+      {
+        v30 = *v29++;
+        v28 += v30;
+        --v26;
+      }
+
+      while (v26);
+    }
+
+    else
+    {
+      v28 = 0;
+    }
+
+    *(a2 + 128 + v23++) = v28;
+    v24 = *(a2 + 192);
+  }
+
+  while (v23 < v24);
+  return result;
+}
+
+uint64_t Core_Load_GPS_Eph(int a1, _OWORD *a2)
+{
+  if ((a1 - 1) > 0x1F)
+  {
+    return 0;
+  }
+
   v2 = 0;
-  v9 = *MEMORY[0x29EDCA608];
+  v3 = 0;
+  v4 = p_NV + 120 * (a1 - 1);
+  v5 = v4 + 1976;
+  v6 = v4 + 1984;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 112);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 8);
+  v10 = *(v5 + 40);
+  a2[1] = *(v5 + 24);
+  a2[2] = v10;
+  *a2 = v9;
+  v11 = *(v5 + 56);
+  v12 = *(v5 + 72);
+  v13 = *(v5 + 88);
+  *(a2 + 92) = *(v5 + 100);
+  a2[4] = v12;
+  a2[5] = v13;
+  a2[3] = v11;
+  return 1;
+}
+
+uint64_t Core_Load_QZSS_Eph(int a1, _OWORD *a2)
+{
+  if ((a1 - 193) > 9)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 120 * (a1 - 193);
+  v5 = v4 + 6400;
+  v6 = v4 + 6408;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 112);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 8);
+  v10 = *(v5 + 40);
+  a2[1] = *(v5 + 24);
+  a2[2] = v10;
+  *a2 = v9;
+  v11 = *(v5 + 56);
+  v12 = *(v5 + 72);
+  v13 = *(v5 + 88);
+  *(a2 + 92) = *(v5 + 100);
+  a2[4] = v12;
+  a2[5] = v13;
+  a2[3] = v11;
+  return 1;
+}
+
+uint64_t Core_Load_GLON_Eph(int a1, _OWORD *a2)
+{
+  if ((a1 - 1) > 0x17)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 72 * (a1 - 1);
+  v5 = v4 + 20392;
+  v6 = v4 + 20400;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 64);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 8);
+  v10 = *(v5 + 24);
+  v11 = *(v5 + 56);
+  a2[2] = *(v5 + 40);
+  a2[3] = v11;
+  *a2 = v9;
+  a2[1] = v10;
+  return 1;
+}
+
+uint64_t Core_Load_GAL_Eph(int a1, uint64_t a2)
+{
+  if ((a1 - 1) > 0x23)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 96 * (a1 - 1);
+  v5 = v4 + 9400;
+  v6 = v4 + 9408;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 88);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 24);
+  *a2 = *(v5 + 8);
+  *(a2 + 16) = v9;
+  v10 = *(v5 + 40);
+  v11 = *(v5 + 56);
+  v12 = *(v5 + 72);
+  *(a2 + 80) = *(v5 + 88);
+  *(a2 + 48) = v11;
+  *(a2 + 64) = v12;
+  *(a2 + 32) = v10;
+  return 1;
+}
+
+uint64_t Core_Load_BDS_Eph(int a1, uint64_t a2)
+{
+  if ((a1 - 1) > 0x24)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 112 * (a1 - 1);
+  v5 = v4 + 15016;
+  v6 = v4 + 15024;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 104);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 8);
+  v10 = *(v5 + 40);
+  *(a2 + 16) = *(v5 + 24);
+  *(a2 + 32) = v10;
+  *a2 = v9;
+  v11 = *(v5 + 56);
+  v12 = *(v5 + 72);
+  v13 = *(v5 + 88);
+  *(a2 + 96) = *(v5 + 104);
+  *(a2 + 64) = v12;
+  *(a2 + 80) = v13;
+  *(a2 + 48) = v11;
+  return 1;
+}
+
+uint64_t Core_Load_GPS_Alm(int a1, _OWORD *a2)
+{
+  if ((a1 - 1) > 0x1F)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 56 * (a1 - 1);
+  v5 = 55665;
+  do
+  {
+    v6 = *(v4 + 192 + v2) ^ BYTE1(v5);
+    v5 = 52845 * (v5 + v6) + 22719;
+    v3 += v6;
+    ++v2;
+  }
+
+  while (v2 != 48);
+  if (*(v4 + 184) != v3)
+  {
+    return 0;
+  }
+
+  v7 = *(v4 + 192);
+  v8 = *(v4 + 208);
+  *(a2 + 28) = *(v4 + 220);
+  *a2 = v7;
+  a2[1] = v8;
+  return 1;
+}
+
+uint64_t Core_Load_QZSS_Alm(int a1, _OWORD *a2)
+{
+  if ((a1 - 193) > 9)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 56 * (a1 - 193);
+  v5 = v4 + 5840;
+  v6 = v4 + 5848;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 48);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 8);
+  v10 = *(v5 + 24);
+  *(a2 + 28) = *(v5 + 36);
+  *a2 = v9;
+  a2[1] = v10;
+  return 1;
+}
+
+uint64_t Core_Load_GLON_Alm(int a1, uint64_t a2)
+{
+  if ((a1 - 1) > 0x17)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 48 * (a1 - 1);
+  v5 = v4 + 19240;
+  v6 = v4 + 19248;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 40);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 8);
+  v10 = *(v5 + 24);
+  *(a2 + 32) = *(v5 + 40);
+  *a2 = v9;
+  *(a2 + 16) = v10;
+  return 1;
+}
+
+uint64_t Core_Load_GAL_Alm(int a1, uint64_t a2)
+{
+  if ((a1 - 1) > 0x23)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 48 * (a1 - 1);
+  v5 = v4 + 7672;
+  v6 = v4 + 7680;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 40);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 8);
+  v10 = *(v5 + 24);
+  *(a2 + 32) = *(v5 + 40);
+  *a2 = v9;
+  *(a2 + 16) = v10;
+  return 1;
+}
+
+uint64_t Core_Load_BDS_Alm(int a1, _OWORD *a2)
+{
+  if ((a1 - 1) > 0x24)
+  {
+    return 0;
+  }
+
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV + 56 * (a1 - 1);
+  v5 = v4 + 12944;
+  v6 = v4 + 12952;
+  v7 = 55665;
+  do
+  {
+    v8 = *(v6 + v2) ^ BYTE1(v7);
+    v7 = 52845 * (v7 + v8) + 22719;
+    v3 += v8;
+    ++v2;
+  }
+
+  while (v2 != 48);
+  if (*v5 != v3)
+  {
+    return 0;
+  }
+
+  v9 = *(v5 + 8);
+  v10 = *(v5 + 24);
+  *(a2 + 28) = *(v5 + 36);
+  *a2 = v9;
+  a2[1] = v10;
+  return 1;
+}
+
+uint64_t Core_Load_Clk_Drift(int *a1, double *a2)
+{
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV;
+  v5 = 55665;
+  do
+  {
+    v6 = *(p_NV + 48 + v2) ^ BYTE1(v5);
+    v5 = 52845 * (v5 + v6) + 22719;
+    v3 += v6;
+    ++v2;
+  }
+
+  while (v2 != 16);
+  if (*(p_NV + 40) != v3)
+  {
+    return 0;
+  }
+
+  v7 = *(p_NV + 48);
+  *a1 = v7;
+  if (v7)
+  {
+    if ((v7 - 619315200) > 0x49D3FFFF)
+    {
+      return 0;
+    }
+  }
+
+  *a2 = *(v4 + 56);
+  return 1;
+}
+
+uint64_t Core_Load_ApxTime(uint64_t a1, _WORD *a2, void *a3, _DWORD *a4)
+{
+  v7 = 0;
+  v8 = 0;
+  v20[3] = *MEMORY[0x29EDCA608];
+  v19 = 0.0;
+  v9 = p_NV;
+  v10 = 55665;
+  do
+  {
+    v11 = *(p_NV + 16 + v7) ^ BYTE1(v10);
+    v10 = 52845 * (v10 + v11) + 22719;
+    v8 += v11;
+    ++v7;
+  }
+
+  while (v7 != 24);
+  if (*(p_NV + 8) != v8)
+  {
+    API_Get_UTC_Cor(1, &v19);
+    *(v9 + 8) = 0xFFFFFFFFLL;
+    *(v9 + 24) = 0;
+    *(v9 + 28) = 0;
+    v12 = -0.5;
+    if (v19 > 0.0)
+    {
+      v12 = 0.5;
+    }
+
+    v13 = v19 + v12;
+    if (v19 + v12 <= 2147483650.0)
+    {
+      if (v13 >= -2147483650.0)
+      {
+        v14 = v13;
+      }
+
+      else
+      {
+        LOWORD(v14) = 0;
+      }
+    }
+
+    else
+    {
+      LOWORD(v14) = -1;
+    }
+
+    *(v9 + 30) = v14;
+    *(v9 + 16) = 134217472;
+  }
+
+  *a2 = 0;
+  *a3 = 0;
+  *a4 = 0;
+  EvLog("GN_GPS_Read_UTC:  Failed");
+  API_Get_UTC_Cor(1, &v19);
+  *(v9 + 8) = 0xFFFFFFFFLL;
+  *(v9 + 24) = 0;
+  *(v9 + 28) = 0;
+  *(v9 + 16) = 134217472;
+  v15 = -0.5;
+  if (v19 > 0.0)
+  {
+    v15 = 0.5;
+  }
+
+  v16 = v19 + v15;
+  if (v19 + v15 <= 2147483650.0)
+  {
+    if (v16 >= -2147483650.0)
+    {
+      v17 = v16;
+    }
+
+    else
+    {
+      LOWORD(v17) = 0;
+    }
+  }
+
+  else
+  {
+    LOWORD(v17) = -1;
+  }
+
+  *(v9 + 30) = v17;
+  memset(v20, 0, 24);
+  Debug_Log_ApxTime(v20);
+  return 0;
+}
+
+uint64_t Core_Save_Clk_Drift(int a1, int a2, double a3)
+{
+  v3 = p_NV;
+  if (a1 && (!a2 || (a2 - 619315200) <= 0x49D3FFFF))
+  {
+    v5 = 0;
+    LODWORD(v6) = 0;
+    *(p_NV + 48) = a2;
+    *(v3 + 56) = a3;
+    v7 = 55665;
+    do
+    {
+      v8 = *(v3 + 48 + v5) ^ BYTE1(v7);
+      v7 = 52845 * (v7 + v8) + 22719;
+      v6 = (v6 + v8);
+      ++v5;
+    }
+
+    while (v5 != 16);
+    *(v3 + 40) = v6;
+    return 1;
+  }
+
+  else
+  {
+    result = 0;
+    *(p_NV + 40) = 0xFFFFFFFFLL;
+    *(v3 + 56) = 0;
+    *(v3 + 48) = 0;
+  }
+
+  return result;
+}
+
+uint64_t Core_Save_ApxTime(unsigned int a1, int a2, __int16 a3, int a4, double a5)
+{
+  v39[1] = *MEMORY[0x29EDCA608];
+  v39[0] = 0.0;
+  v5 = p_NV;
+  if (a2)
+  {
+    v6 = a1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6 != 1)
+  {
+    v18 = 0xFFFFFFFFLL;
+LABEL_39:
+    *(v5 + 8) = v18;
+    return v6;
+  }
+
+  API_Get_UTC_Cor(1, v39);
+  v11 = 0;
+  v12 = 0;
+  v13 = 55665;
+  do
+  {
+    v14 = *(v5 + 16 + v11) ^ BYTE1(v13);
+    v13 = 52845 * (v13 + v14) + 22719;
+    v12 += v14;
+    ++v11;
+  }
+
+  while (v11 != 24);
+  if (*(v5 + 8) != v12)
+  {
+    *(v5 + 8) = 0xFFFFFFFFLL;
+    *(v5 + 24) = 0;
+    *(v5 + 28) = 0;
+    v15 = -0.5;
+    if (v39[0] > 0.0)
+    {
+      v15 = 0.5;
+    }
+
+    v16 = v39[0] + v15;
+    if (v39[0] + v15 <= 2147483650.0)
+    {
+      if (v16 >= -2147483650.0)
+      {
+        v17 = v16;
+      }
+
+      else
+      {
+        LOWORD(v17) = 0;
+      }
+    }
+
+    else
+    {
+      LOWORD(v17) = -1;
+    }
+
+    *(v5 + 30) = v17;
+    *(v5 + 16) = 134217472;
+  }
+
+  if (a4)
+  {
+    v19 = *(v5 + 20);
+    if (v19)
+    {
+      *(v5 + 16) += (a4 - v19) / 50000;
+    }
+  }
+
+  v20 = TOW_stat_ms[a2];
+  if (v20 <= *(v5 + 16))
+  {
+    GPS_To_UTC_Time(&v32, &v33, &v34, &v35, &v36, &v37, v38, a3, a5, v39[0]);
+    v21 = 0;
+    LODWORD(v18) = 0;
+    v22 = -0.5;
+    if (a5 * 1000.0 <= 0.0)
+    {
+      v23 = -0.5;
+    }
+
+    else
+    {
+      v23 = 0.5;
+    }
+
+    v24 = a5 * 1000.0 + v23;
+    if (v24 >= -2147483650.0)
+    {
+      v25 = v24;
+    }
+
+    else
+    {
+      v25 = 0x80000000;
+    }
+
+    if (v24 > 2147483650.0)
+    {
+      v25 = 0x7FFFFFFF;
+    }
+
+    *(v5 + 24) = v25;
+    *(v5 + 28) = a3;
+    if (v39[0] > 0.0)
+    {
+      v22 = 0.5;
+    }
+
+    v26 = v39[0] + v22;
+    *(v5 + 16) = v20;
+    v27 = v26;
+    if (v26 < -2147483650.0)
+    {
+      LOWORD(v27) = 0;
+    }
+
+    if (v26 <= 2147483650.0)
+    {
+      v28 = v27;
+    }
+
+    else
+    {
+      v28 = -1;
+    }
+
+    *(v5 + 30) = v28;
+    *(v5 + 20) = a4;
+    v29 = 55665;
+    do
+    {
+      v30 = *(v5 + 16 + v21) ^ BYTE1(v29);
+      v29 = 52845 * (v29 + v30) + 22719;
+      v18 = (v18 + v30);
+      ++v21;
+    }
+
+    while (v21 != 24);
+    goto LABEL_39;
+  }
+
+  return 0;
+}
+
+uint64_t Core_Save_GPS_Eph(uint64_t a1, char a2, __int128 *a3)
+{
+  v3 = p_NV;
+  v4 = p_NV + 120 * a1 + 1856;
+  if (a2)
+  {
+    *v4 = 0xFFFFFFFFLL;
+    *(v4 + 8) = 0u;
+    *(v4 + 24) = 0u;
+    *(v4 + 40) = 0u;
+    *(v4 + 56) = 0u;
+    *(v4 + 72) = 0u;
+    *(v4 + 88) = 0u;
+    *(v4 + 100) = 0u;
+  }
+
+  else
+  {
+    v6 = a1;
+    v7 = 0;
+    LODWORD(v8) = 0;
+    v9 = *a3;
+    v10 = a3[1];
+    *(p_NV + 120 * a1 + 1896) = a3[2];
+    *(v4 + 24) = v10;
+    *(v4 + 8) = v9;
+    v11 = a3[3];
+    v12 = a3[4];
+    v13 = a3[5];
+    *(v4 + 100) = *(a3 + 92);
+    *(v4 + 88) = v13;
+    *(v4 + 72) = v12;
+    *(v4 + 56) = v11;
+    v14 = v3 + 120 * a1 + 1864;
+    v15 = 55665;
+    do
+    {
+      v16 = *(v14 + v7) ^ BYTE1(v15);
+      v15 = 52845 * (v15 + v16) + 22719;
+      v8 = (v8 + v16);
+      ++v7;
+    }
+
+    while (v7 != 112);
+    *v4 = v8;
+    if (Is_GPS_BinEph_Real(a3))
+    {
+      EE_Set_GPS_BinEph(v6, a3);
+    }
+  }
+
+  return 1;
+}
+
+uint64_t Core_Save_QZSS_Eph(uint64_t a1, char a2, __int128 *a3)
+{
+  v3 = p_NV;
+  v4 = p_NV + 120 * a1 - 16760;
+  if (a2)
+  {
+    *v4 = 0xFFFFFFFFLL;
+    *(v4 + 8) = 0u;
+    *(v4 + 24) = 0u;
+    *(v4 + 40) = 0u;
+    *(v4 + 56) = 0u;
+    *(v4 + 72) = 0u;
+    *(v4 + 88) = 0u;
+    *(v4 + 100) = 0u;
+  }
+
+  else
+  {
+    v6 = a1;
+    v7 = 0;
+    LODWORD(v8) = 0;
+    v9 = *a3;
+    v10 = a3[1];
+    *(p_NV + 120 * a1 - 16720) = a3[2];
+    *(v4 + 24) = v10;
+    *(v4 + 8) = v9;
+    v11 = a3[3];
+    v12 = a3[4];
+    v13 = a3[5];
+    *(v4 + 100) = *(a3 + 92);
+    *(v4 + 88) = v13;
+    *(v4 + 72) = v12;
+    *(v4 + 56) = v11;
+    v14 = v3 + 120 * a1 - 16752;
+    v15 = 55665;
+    do
+    {
+      v16 = *(v14 + v7) ^ BYTE1(v15);
+      v15 = 52845 * (v15 + v16) + 22719;
+      v8 = (v8 + v16);
+      ++v7;
+    }
+
+    while (v7 != 112);
+    *v4 = v8;
+    if (Is_GPS_BinEph_Real(a3))
+    {
+      EE_Set_GPS_BinEph(v6, a3);
+    }
+  }
+
+  return 1;
+}
+
+uint64_t Core_Save_GAL_Eph(uint64_t a1, char a2, __int128 *a3)
+{
+  v3 = p_NV;
+  v4 = p_NV + 96 * a1 + 9304;
+  if (a2)
+  {
+    *v4 = 0xFFFFFFFFLL;
+    *(v4 + 8) = 0u;
+    *(v4 + 24) = 0u;
+    *(v4 + 40) = 0u;
+    *(v4 + 56) = 0u;
+    *(v4 + 72) = 0u;
+    *(v4 + 87) = 0;
+  }
+
+  else
+  {
+    v6 = a1;
+    v7 = 0;
+    LODWORD(v8) = 0;
+    v9 = *a3;
+    *(p_NV + 96 * a1 + 9328) = a3[1];
+    *(v4 + 8) = v9;
+    v10 = a3[2];
+    v11 = a3[3];
+    v12 = a3[4];
+    *(v4 + 88) = *(a3 + 10);
+    *(v4 + 72) = v12;
+    *(v4 + 56) = v11;
+    *(v4 + 40) = v10;
+    v13 = v3 + 96 * a1 + 9312;
+    v14 = 55665;
+    do
+    {
+      v15 = *(v13 + v7) ^ BYTE1(v14);
+      v14 = 52845 * (v14 + v15) + 22719;
+      v8 = (v8 + v15);
+      ++v7;
+    }
+
+    while (v7 != 88);
+    *v4 = v8;
+    if (Is_GAL_IntEph_Real(a3))
+    {
+      EE_Set_GAL_IntEph(v6, a3);
+    }
+  }
+
+  return 1;
+}
+
+uint64_t Core_Save_BDS_Eph(uint64_t a1, char a2, __int128 *a3)
+{
+  v3 = p_NV;
+  v4 = p_NV + 112 * a1 + 14904;
+  if (a2)
+  {
+    *v4 = 0xFFFFFFFFLL;
+    *(v4 + 8) = 0u;
+    *(v4 + 24) = 0u;
+    *(v4 + 40) = 0u;
+    *(v4 + 56) = 0u;
+    *(v4 + 72) = 0u;
+    *(v4 + 88) = 0u;
+    *(v4 + 104) = 0;
+  }
+
+  else
+  {
+    v6 = a1;
+    v7 = 0;
+    LODWORD(v8) = 0;
+    v9 = *a3;
+    v10 = a3[1];
+    *(p_NV + 112 * a1 + 14944) = a3[2];
+    *(v4 + 24) = v10;
+    *(v4 + 8) = v9;
+    v11 = a3[3];
+    v12 = a3[4];
+    v13 = a3[5];
+    *(v4 + 104) = *(a3 + 24);
+    *(v4 + 88) = v13;
+    *(v4 + 72) = v12;
+    *(v4 + 56) = v11;
+    v14 = v3 + 112 * a1 + 14912;
+    v15 = 55665;
+    do
+    {
+      v16 = *(v14 + v7) ^ BYTE1(v15);
+      v15 = 52845 * (v15 + v16) + 22719;
+      v8 = (v8 + v16);
+      ++v7;
+    }
+
+    while (v7 != 104);
+    *v4 = v8;
+    if (Is_BDS_IntEph_Real(a3))
+    {
+      EE_Set_BDS_IntEph(v6, a3);
+    }
+  }
+
+  return 1;
+}
+
+BOOL Core_Load_SBAS_Apx(int a1, int *a2, int *a3)
+{
+  v3 = 0;
+  v4 = p_NV + 22128;
+  v5 = 1;
   while (1)
   {
-    v3 = dbl_299760FE0[v2];
-    if (v3 > this)
+    v6 = 0;
+    v7 = 0;
+    v8 = 55665;
+    v9 = p_NV + 22120 + 32 * v3;
+    do
+    {
+      v10 = *(v4 + v6) ^ BYTE1(v8);
+      v8 = 52845 * (v8 + v10) + 22719;
+      v7 += v10;
+      ++v6;
+    }
+
+    while (v6 != 24);
+    if (*v9 == v7 && *(v9 + 12) == a1)
     {
       break;
     }
 
-    if (++v2 == 30)
+    v5 = v3 < 9;
+    v4 += 32;
+    if (++v3 == 10)
     {
-      LOBYTE(v2) = 31;
-      goto LABEL_7;
+      return 0;
     }
   }
 
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GADUncInMts,%u,CDMAK,%d,PosUncMts,%f\n", (*&g_MacClockTicksToMsRelation * v4), "ADP", 73, "Ga10_27GetCDMAKValueForUncertanity", v1, v2, v3);
-    LbsOsaTrace_WriteLog(0x18u, __str, v5, 4, 1);
-  }
-
-LABEL_7:
-  v6 = *MEMORY[0x29EDCA608];
-  return v2;
+  *a2 = *(v9 + 8);
+  v11 = *(v9 + 16);
+  a3[2] = *(v9 + 24);
+  *a3 = v11;
+  return v5;
 }
 
-uint64_t ___ZN4gnss15GnssAdaptDevice41Ga10_28SendMeasurementsReportWithEstimateEPK15s_gnsCP_MeasRes_block_invoke_136(uint64_t a1)
+uint64_t Core_Save_SBAS_Apx(int a1, char a2, int a3, int *a4)
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v2 = (*(*v1 + 48))(*(a1 + 56), a1 + 64);
-  result = LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: MeasRepWithEstimate Status,%u\n", (*&g_MacClockTicksToMsRelation * v4), "ADP", 73, "Ga10_28SendMeasurementsReportWithEstimate_block_invoke", v2);
-    result = LbsOsaTrace_WriteLog(0x18u, __str, v5, 4, 1);
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t __copy_helper_block_e8_32c79_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency6Cplane14PositionReportEEEE(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 32;
-  v4 = a2 + 32;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::__value_func[abi:ne200100](v3, v4);
-}
-
-uint64_t __destroy_helper_block_e8_32c79_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency6Cplane14PositionReportEEEE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 32;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::~__value_func[abi:ne200100](v2);
-}
-
-uint64_t gnss::GnssAdaptDevice::Ga10_17InvokePVTMCbForE911(uint64_t a1, int *a2)
-{
-  v48 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::__value_func[abi:ne200100](v46, a1 + 312);
+  v4 = p_NV + 22120;
   if (a2)
   {
-    if (v47)
+    v5 = 0;
+    for (i = p_NV + 22128; ; i += 32)
     {
-      v4 = *(a2 + 76);
-      v5 = a2[18];
-      v6 = *(a2 + 7);
-      v7 = a2[13];
-      v8 = *(a2 + 48);
-      v9 = *(a2 + 23);
-      v10 = *a2;
-      v11 = a2[1];
-      v12 = a2[27];
-      v13 = *(a2 + 23);
-      v14 = *(a1 + 296);
-      block[0] = MEMORY[0x29EDCA5F8];
-      block[1] = 1174405120;
-      block[2] = ___ZN4gnss15GnssAdaptDevice26Ga10_17InvokePVTMCbForE911EPK15s_gnsCP_PosnRes_block_invoke;
-      block[3] = &__block_descriptor_tmp_306;
-      block[4] = a1;
-      v25[8] = v10;
-      v25[9] = v11;
-      v15 = *(a2 + 2);
-      *&v27[14] = *(a2 + 38);
-      v16 = *(a2 + 6);
-      v26 = v15;
-      *v27 = v16;
-      v28 = v9;
-      v29 = v8;
-      v17 = *(a2 + 49);
-      v31 = *(a2 + 51);
-      v30 = v17;
-      v32 = v7;
-      v33 = v6;
-      v34 = *(a2 + 8);
-      v35 = v5;
-      v36 = v4;
-      v37 = *(a2 + 77);
-      v38 = *(a2 + 85);
-      v39 = *(a2 + 89);
-      v40 = *(a2 + 91);
-      v41 = v13;
-      v42 = *(a2 + 25);
-      v43 = v12;
-      v44 = *(a2 + 14);
-      std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::__value_func[abi:ne200100](v25, v46);
-      dispatch_async(v14, block);
-      std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::~__value_func[abi:ne200100](v25);
+      v7 = 0;
+      v8 = 0;
+      v9 = 55665;
+      v10 = v4 + 32 * v5;
+      do
+      {
+        v11 = *(i + v7) ^ BYTE1(v9);
+        v9 = 52845 * (v9 + v11) + 22719;
+        v8 += v11;
+        ++v7;
+      }
+
+      while (v7 != 24);
+      if (*v10 == v8 && *(v10 + 12) == a1)
+      {
+        break;
+      }
+
+      if (++v5 == 10)
+      {
+        return 0;
+      }
     }
 
-    else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v20 = mach_continuous_time();
-      v21 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx PVTM Cb\n", (*&g_MacClockTicksToMsRelation * v20), "ADP", 87, "Ga10_17InvokePVTMCbForE911", 258);
-      LbsOsaTrace_WriteLog(0x18u, __str, v21, 2, 1);
-    }
+    *(v10 + 8) = 0;
+    *(v10 + 16) = 0;
+    *(v10 + 24) = 0;
+    *v10 = 0xFFFFFFFFLL;
+    return 1;
   }
 
-  else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+  v12 = 0;
+  v13 = (p_NV + 22128);
+  v14 = -1;
+  while (1)
   {
-    bzero(__str, 0x410uLL);
-    v18 = mach_continuous_time();
-    v19 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx p_GnsPosnFix\n", (*&g_MacClockTicksToMsRelation * v18), "ADP", 69, "Ga10_17InvokePVTMCbForE911", 513);
-    LbsOsaTrace_WriteLog(0x18u, __str, v19, 0, 1);
-  }
-
-  result = std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::~__value_func[abi:ne200100](v46);
-  v23 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice25Ga10_02SendPositionReportEPK15s_gnsCP_PosnRes_block_invoke_172(uint64_t a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  if ((*(*v1 + 48))(*(a1 + 56), a1 + 64) == 1)
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v3 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Fw Accepted MSB Rep\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 73, "Ga10_02SendPositionReport_block_invoke");
-      v5 = 4;
-LABEL_7:
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v4, v5, 1);
-    }
-  }
-
-  else
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Fw MSB Rep\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 69, "Ga10_02SendPositionReport_block_invoke", 770);
-      v5 = 0;
-      goto LABEL_7;
-    }
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice23Ga10_03SendAidingReportEP14s_gnsCP_AidReq_block_invoke(uint64_t a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  if ((*(*v1 + 48))(*(a1 + 56), a1 + 64) == 1)
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v3 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FWAccepted AidReq\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 73, "Ga10_03SendAidingReport_block_invoke");
-      v5 = 4;
-LABEL_7:
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v4, v5, 1);
-    }
-  }
-
-  else
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx FW rejected AidReq\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 69, "Ga10_03SendAidingReport_block_invoke", 515);
-      v5 = 0;
-      goto LABEL_7;
-    }
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t __copy_helper_block_e8_32c87_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency6Cplane22AssistanceNeededReportEEEE(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 32;
-  v4 = a2 + 32;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::__value_func[abi:ne200100](v3, v4);
-}
-
-uint64_t __destroy_helper_block_e8_32c87_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency6Cplane22AssistanceNeededReportEEEE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 32;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::~__value_func[abi:ne200100](v2);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
-  v2 = *MEMORY[0x29EDCA608];
-
-  return gnss::GnssAdaptDevice::Ga10_01SendMeasurementsReport();
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_2(uint64_t a1)
-{
-  v16 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::__value_func[abi:ne200100](v14, v1 + 760);
-  v13 = 0;
-  if (v15)
-  {
-    *&__src[1] = -1;
-    WORD4(__src[1]) = 0;
-    BYTE10(__src[1]) = -1;
-    *(&__src[1] + 12) = -1;
-    *(&__src[2] + 3) = -1;
-    *(&__src[2] + 12) = 0xFFFFFFFF00000004;
-    WORD2(__src[3]) = -1;
-    BYTE6(__src[3]) = -1;
-    DWORD2(__src[3]) = -1;
-    WORD6(__src[3]) = 0;
-    *&__src[4] = -NAN;
-    DWORD2(__src[4]) = 0x7FFFFFFF;
-    BYTE12(__src[4]) = -1;
-    __src[5] = xmmword_299760FA0;
-    *&__src[6] = 0xFFFFFFFF7FFFFFFFLL;
-    *(&__src[6] + 7) = -1;
-    *(&__src[6] + 12) = 0x8000000080000000;
-    WORD4(__src[7]) = -1;
-    DWORD1(__src[7]) = -1;
-    *&v2 = 0x8000000080000000;
-    *(&v2 + 1) = 0x8000000080000000;
-    *(&__src[7] + 12) = v2;
-    WORD6(__src[8]) = -1;
-    LOBYTE(__src[9]) = -1;
-    memset_pattern16(&__src[9] + 4, &unk_299760FD0, 0x78uLL);
-    BYTE12(__src[16]) = -1;
-    LODWORD(__src[17]) = 255;
-    *(&__src[18] + 4) = -1;
-    *(&__src[17] + 4) = -1;
-    *(&__src[17] + 11) = -1;
-    HIDWORD(__src[18]) = 0;
-    *&__src[19] = 0;
-    *&__src[0] = 4294967294;
-    *(&__src[0] + 1) = 0xFFFFFFFF00000000;
-    v3 = *(v1 + 296);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_3;
-    block[3] = &__block_descriptor_tmp_188;
-    std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::__value_func[abi:ne200100](v9, v14);
-    memcpy(v10, __src, sizeof(v10));
-    dispatch_async(v3, block);
-    std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::~__value_func[abi:ne200100](v9);
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-  {
-    bzero(__src, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__src, 0x40FuLL, "%10u %s%c %s: #%04hx PosRep\n", (*&g_MacClockTicksToMsRelation * v4), "ADP", 69, "Ga10_00HandleGnsCpStatusResponse_block_invoke_2", 258);
-    LbsOsaTrace_WriteLog(0x18u, __src, v5, 0, 1);
-  }
-
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::SummaryReport const&)>::~__value_func[abi:ne200100](v12);
-  result = std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::~__value_func[abi:ne200100](v14);
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void sub_29969387C(_Unwind_Exception *a1)
-{
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::SummaryReport const&)>::~__value_func[abi:ne200100](v1 - 120);
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::~__value_func[abi:ne200100](v1 - 88);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_3(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v2 = *(*v1 + 48);
-  v3 = *MEMORY[0x29EDCA608];
-  v4 = *MEMORY[0x29EDCA608];
-  v5 = a1 + 64;
-  v6 = *(a1 + 56);
-
-  return v2(v6, v5);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_190(uint64_t a1)
-{
-  __src[237] = *MEMORY[0x29EDCA608];
-  if (*(a1 + 64))
-  {
-    v2 = *(a1 + 32);
-    LODWORD(__src[0]) = 0;
-    BYTE4(__src[0]) = 0;
-    __src[1] = -1;
-    LODWORD(__src[2]) = -1;
-    WORD2(__src[2]) = 0;
-    *(&__src[2] + 6) = -1;
-    BYTE2(__src[3]) = -1;
-    *(&__src[3] + 3) = 0;
-    *(&__src[4] + 1) = 0;
-    BYTE1(__src[5]) = -1;
-    *(&__src[5] + 2) = 0;
-    __src[6] = 0;
-    v3 = &__src[14] + 4;
-    v4 = &__src[33];
-    LOBYTE(__src[7]) = -1;
-    v5 = 44;
-    BYTE4(__src[7]) = 0;
+    v15 = 0;
+    v16 = 0;
+    v17 = 55665;
+    v18 = v4 + 32 * v12;
     do
     {
-      v6 = &__src[7] + v5 + 4;
-      *v6 = 5;
-      *(v6 + 2) = 0;
-      v6[6] = -1;
-      v7 = v3;
-      v8 = 120;
-      do
-      {
-        *(v7 - 4) = -1;
-        *v7 = -1;
-        v7 += 2;
-        v8 -= 8;
-      }
-
-      while (v8);
-      *(v6 + 32) = -1;
-      *(v6 + 66) = -1;
-      *(v6 + 134) = -256;
-      *(v6 + 138) = 0;
-      *(v6 + 18) = 0;
-      *(v6 + 38) = -1;
-      v9 = v4;
-      v10 = 60;
-      v6[156] = -1;
-      do
-      {
-        *(v9 - 2) = -1;
-        *v9 = -1;
-        v9 += 2;
-        v10 -= 4;
-      }
-
-      while (v10);
-      *(v6 + 218) = -1;
-      v5 += 224;
-      v3 += 224;
-      v4 += 28;
+      v19 = v13[v15] ^ BYTE1(v17);
+      v17 = 52845 * (v17 + v19) + 22719;
+      v16 += v19;
+      ++v15;
     }
 
-    while (v5 != 1836);
-    __src[1] = 0xFFFFFFFF00000000;
-    LODWORD(__src[0]) = -2;
-    v11 = *(v2 + 296);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_2_192;
-    block[3] = &__block_descriptor_tmp_195;
-    std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::__value_func[abi:ne200100](v17, a1 + 40);
-    memcpy(v18, __src, sizeof(v18));
-    dispatch_async(v11, block);
-    result = std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::~__value_func[abi:ne200100](v17);
-  }
-
-  else
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0);
-    if (result)
+    while (v15 != 24);
+    if (*v18 == v16)
     {
-      bzero(__src, 0x410uLL);
-      v13 = mach_continuous_time();
-      v14 = snprintf(__src, 0x40FuLL, "%10u %s%c %s: #%04hx AidRep\n", (*&g_MacClockTicksToMsRelation * v13), "ADP", 69, "Ga10_00HandleGnsCpStatusResponse_block_invoke", 258);
-      result = LbsOsaTrace_WriteLog(0x18u, __src, v14, 0, 1);
+      break;
     }
-  }
 
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_2_192(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v2 = *(*v1 + 48);
-  v3 = *MEMORY[0x29EDCA608];
-  v4 = *MEMORY[0x29EDCA608];
-  v5 = a1 + 64;
-  v6 = *(a1 + 56);
-
-  return v2(v6, v5);
-}
-
-uint64_t __copy_helper_block_e8_40c87_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency6Cplane22AssistanceNeededReportEEEE(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 40;
-  v4 = a2 + 40;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::__value_func[abi:ne200100](v3, v4);
-}
-
-uint64_t __destroy_helper_block_e8_40c87_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency6Cplane22AssistanceNeededReportEEEE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 40;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::~__value_func[abi:ne200100](v2);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_199(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
-  v2 = *MEMORY[0x29EDCA608];
-
-  return gnss::GnssAdaptDevice::Ga10_01SendMeasurementsReport();
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_2_201(uint64_t a1)
-{
-  v150 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v3 = mach_continuous_time();
-    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 68, "Ga10_02SendPositionReport");
-    LbsOsaTrace_WriteLog(0x18u, __str, v4, 5, 1);
-  }
-
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::__value_func[abi:ne200100](v147, v2 + 760);
-  if (!v148)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+    v14 = v12;
+    if ((v12 & 0x80000000) == 0)
     {
-      bzero(__str, 0x410uLL);
-      v13 = mach_continuous_time();
-      v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx PosRep\n", (*&g_MacClockTicksToMsRelation * v13), "ADP", 69, "Ga10_02SendPositionReport", 258);
-      LbsOsaTrace_WriteLog(0x18u, __str, v14, 0, 1);
+      goto LABEL_23;
     }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v15 = mach_continuous_time();
-      v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v15), "ADP", 68, "Ga10_02SendPositionReport");
-      LbsOsaTrace_WriteLog(0x18u, __str, v16, 5, 1);
-    }
-
-    goto LABEL_190;
-  }
-
-  *__src = 0;
-  *&__src[16] = -1;
-  *&__src[24] = 0;
-  __src[26] = -1;
-  *&__src[28] = -1;
-  *&__src[35] = -1;
-  *&__src[44] = 0xFFFFFFFF00000004;
-  *&__src[52] = -1;
-  __src[54] = -1;
-  v5 = -1;
-  *&__src[56] = -1;
-  *&__src[60] = 0;
-  *&__src[64] = -NAN;
-  *&__src[72] = 0x7FFFFFFF;
-  __src[76] = -1;
-  *&__src[80] = xmmword_299760FA0;
-  *&__src[96] = 0xFFFFFFFF7FFFFFFFLL;
-  *&__src[103] = -1;
-  *&__src[108] = 0x8000000080000000;
-  *&__src[116] = -1;
-  *&__src[120] = -1;
-  *&v6 = 0x8000000080000000;
-  *(&v6 + 1) = 0x8000000080000000;
-  *&__src[124] = v6;
-  *&__src[140] = -1;
-  __src[144] = -1;
-  memset_pattern16(&__src[148], &unk_299760FD0, 0x78uLL);
-  __src[268] = -1;
-  *&__src[272] = 255;
-  *&__src[292] = -1;
-  *&__src[276] = -1;
-  *&__src[283] = -1;
-  *&__src[300] = 0;
-  *&__src[304] = 0;
-  *&__src[8] = 0xFFFFFFFF00000000;
-  v7 = *(v2 + 128);
-  v8 = *(v2 + 136) - v7;
-  if (v8)
-  {
-    v9 = *(a1 + 40);
-    v10 = 0x7D6343EB1A1F58D1 * (v8 >> 2);
-    if (v10 <= 1)
-    {
-      v11 = 1;
-    }
-
-    else
-    {
-      v11 = v10;
-    }
-
-    if (*(v7 + 52) == v9)
-    {
-      v12 = 0;
-LABEL_10:
-      if (v12 < v10)
-      {
-        v5 = *(v7 + 196 * v12 + 44);
-        goto LABEL_21;
-      }
-    }
-
-    else
-    {
-      v12 = 0;
-      v17 = (v7 + 248);
-      v18 = v11 - 1;
-      while (v18 != v12)
-      {
-        v19 = *v17;
-        v17 += 49;
-        ++v12;
-        if (v19 == v9)
-        {
-          if (v12 < v10)
-          {
-            goto LABEL_10;
-          }
-
-          break;
-        }
-      }
-    }
-
-    v5 = -1;
-  }
 
 LABEL_21:
-  *&__src[12] = v5;
-  if (*(a1 + 60) == 1)
-  {
-    gnss::GnssAdaptDevice::Ga10_17InvokePVTMCbForE911(v2, (a1 + 40));
-  }
-
-  if (!*(a1 + 44))
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
+    ++v12;
+    v13 += 32;
+    if (v12 == 10)
     {
-      bzero(__str, 0x410uLL);
-      v28 = mach_continuous_time();
-      v29 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v28), "ADP", 68, "Ga10_02SendPositionReport");
-      LbsOsaTrace_WriteLog(0x18u, __str, v29, 5, 1);
-    }
-
-    goto LABEL_190;
-  }
-
-  *(v2 + 1024) = 0;
-  *&__src[16] = *(a1 + 40);
-  if (*(a1 + 60) != 1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v30 = mach_continuous_time();
-      v31 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Not enough Satellites,Err status,%u\n", (*&g_MacClockTicksToMsRelation * v30), "ADP", 69, "Ga10_02SendPositionReport", 769, *(a1 + 60));
-      LbsOsaTrace_WriteLog(0x18u, __str, v31, 0, 1);
-    }
-
-    *__src = -4;
-    *&__src[4] |= 8u;
-    goto LABEL_172;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v20 = mach_continuous_time();
-    v21 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Pos Avlbl\n", (*&g_MacClockTicksToMsRelation * v20), "ADP", 73, "Ga10_02SendPositionReport");
-    LbsOsaTrace_WriteLog(0x18u, __str, v21, 4, 1);
-  }
-
-  *&__src[20] = *(a1 + 124);
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v22 = mach_continuous_time();
-    v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GPS ToW,%u\n", (*&g_MacClockTicksToMsRelation * v22), "ADP", 73, "Ga10_02SendPositionReport", *&__src[20]);
-    LbsOsaTrace_WriteLog(0x18u, __str, v23, 4, 1);
-  }
-
-  if (*(a1 + 128) != 255)
-  {
-    __src[26] = *(a1 + 128);
-  }
-
-  if (*&__src[12] == 2 && *(a1 + 144) == 1)
-  {
-    v24 = *(a1 + 132);
-    *&__src[32] = 1;
-    *&__src[36] = v24;
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v25 = mach_continuous_time();
-      v26 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GPS ToD,%u\n", (*&g_MacClockTicksToMsRelation * v25), "ADP", 73, "Ga10_02SendPositionReport", *&__src[36]);
-      LbsOsaTrace_WriteLog(0x18u, __str, v26, 4, 1);
-    }
-
-    if (*(a1 + 136) != 0xFFFF)
-    {
-      *&__src[40] = *(a1 + 136);
-    }
-
-    if (*(a1 + 138) != 255)
-    {
-      __src[42] = *(a1 + 138);
+      return 0;
     }
   }
 
-  v27 = *(a1 + 64);
-  if (v27 == 2)
+  v20 = *(v18 + 12);
+  if ((v20 - 159) < 0xFFFFFFD9 || v20 == a1)
   {
-    *&__src[28] = 1;
+    v14 = v12;
   }
 
-  else if (v27 == 1)
+  if (v14 < 0)
   {
-    *&__src[28] = 0;
+    goto LABEL_21;
+  }
+
+LABEL_23:
+  LODWORD(v23) = 0;
+  *(v18 + 8) = a3;
+  *(v18 + 12) = a1;
+  v24 = *a4;
+  *(v18 + 24) = a4[2];
+  *(v18 + 16) = v24;
+  v25 = 55665;
+  v26 = 24;
+  do
+  {
+    v27 = *v13++;
+    v28 = v27 ^ BYTE1(v25);
+    v25 = 52845 * (v25 + v28) + 22719;
+    v23 = (v23 + v28);
+    --v26;
+  }
+
+  while (v26);
+  *v18 = v23;
+  return 1;
+}
+
+uint64_t Core_Load_TTick_Cal(int a1, int a2, int a3, unsigned int *a4, unsigned __int8 *a5)
+{
+  v5 = 0;
+  v6 = 0;
+  v7 = p_NV;
+  v8 = p_NV + 20480;
+  v9 = p_NV + 22856;
+  *a4 = *(p_NV + 22856) - a3;
+  *a5 = -1;
+  v10 = 55665;
+  do
+  {
+    v11 = *(v9 + v5) ^ BYTE1(v10);
+    v10 = 52845 * (v10 + v11) + 22719;
+    v6 += v11;
+    ++v5;
+  }
+
+  while (v5 != 16);
+  if (*(v7 + 22848) != v6)
+  {
+    return 0;
+  }
+
+  v12 = *a4;
+  if ((*a4 & 0x80000000) != 0)
+  {
+    v12 = -v12;
+  }
+
+  if (v12 > 0x1388)
+  {
+    return 0;
+  }
+
+  v13 = 0;
+  v14 = a1 - *(v8 + 2380);
+  if (v14 < 14400000)
+  {
+    v15 = a2 - *(v8 + 2384);
+    if (v15 < 14400000)
+    {
+      v16 = v14 - v15;
+      if (v14 - v15 < 0)
+      {
+        v16 = v15 - v14;
+      }
+
+      if (v16 <= 0x1388)
+      {
+        *a5 = ((1172812403 * v14) >> 46) + (1172812403 * v14 < 0);
+        return 1;
+      }
+
+      return 0;
+    }
+  }
+
+  return v13;
+}
+
+uint64_t Core_Save_Inhib_EE(BOOL *a1, uint64_t a2)
+{
+  v2 = 0;
+  v3 = 0;
+  v4 = p_NV;
+  v5 = 1;
+  do
+  {
+    if (a1[v2])
+    {
+      v6 = v5;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    v3 |= v6;
+    v5 *= 2;
+    ++v2;
+  }
+
+  while (v2 != 32);
+  v7 = 0;
+  v8 = 0;
+  *(p_NV + 22880) = v3;
+  v9 = 1;
+  do
+  {
+    if (a1[v7 + 32])
+    {
+      v10 = v9;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v8 |= v10;
+    v9 *= 2;
+    ++v7;
+  }
+
+  while (v7 != 24);
+  v11 = 0;
+  v12 = 0;
+  v4[2861] = v8;
+  v13 = 1;
+  do
+  {
+    if (a1[v11 + 129])
+    {
+      v14 = v13;
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    v12 |= v14;
+    v13 *= 2;
+    ++v11;
+  }
+
+  while (v11 != 10);
+  v15 = 0;
+  v16 = 0;
+  v4[2862] = v12;
+  v17 = 1;
+  do
+  {
+    if (a1[v15 + 139])
+    {
+      v18 = v17;
+    }
+
+    else
+    {
+      v18 = 0;
+    }
+
+    v16 |= v18;
+    v17 *= 2;
+    ++v15;
+  }
+
+  while (v15 != 39);
+  v19 = 0;
+  v20 = 0;
+  v4[2863] = v16;
+  v21 = 1;
+  do
+  {
+    if (a1[v19 + 92])
+    {
+      v22 = v21;
+    }
+
+    else
+    {
+      v22 = 0;
+    }
+
+    v20 |= v22;
+    v21 *= 2;
+    ++v19;
+  }
+
+  while (v19 != 37);
+  v23 = 0;
+  v24 = 0;
+  v4[2864] = v20;
+  v25 = 1;
+  do
+  {
+    if (a1[v23 + 56])
+    {
+      v26 = v25;
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+
+    v24 |= v26;
+    v25 *= 2;
+    ++v23;
+  }
+
+  while (v23 != 36);
+  v4[2865] = v24;
+  v4[2866] = a2;
+  EvLog_v("Core_Save_Inhib_EE: Time 0x%X G %x R %x Q %x S %X B %X E %X", a2, v3, v8, v12, v16, v20, v24);
+  v27 = 0;
+  LODWORD(v28) = 0;
+  v29 = 55665;
+  do
+  {
+    v30 = *(v4 + v27 + 22880) ^ BYTE1(v29);
+    v29 = 52845 * (v29 + v30) + 22719;
+    v28 = (v28 + v30);
+    ++v27;
+  }
+
+  while (v27 != 56);
+  v4[2859] = v28;
+  return 1;
+}
+
+BOOL Core_Load_Inhib_EE(BOOL *a1, uint64_t *a2)
+{
+  v2 = 0;
+  LODWORD(v3) = 0;
+  v4 = p_NV;
+  v5 = 55665;
+  do
+  {
+    v6 = *(p_NV + 22880 + v2) ^ BYTE1(v5);
+    v5 = 52845 * (v5 + v6) + 22719;
+    v3 = (v3 + v6);
+    ++v2;
+  }
+
+  while (v2 != 56);
+  v7 = *(p_NV + 22872);
+  if (v7 == v3)
+  {
+    v8 = 0;
+    v9 = *(p_NV + 22880);
+    v10 = 1;
+    do
+    {
+      if ((v10 & v9) != 0)
+      {
+        a1[v8] = 1;
+      }
+
+      v10 *= 2;
+      ++v8;
+    }
+
+    while (v8 != 32);
+    v11 = 0;
+    v12 = *(v4 + 22888);
+    v13 = 1;
+    do
+    {
+      if ((v13 & v12) != 0)
+      {
+        a1[v11 + 32] = 1;
+      }
+
+      v13 *= 2;
+      ++v11;
+    }
+
+    while (v11 != 24);
+    v14 = 0;
+    v15 = *(v4 + 22896);
+    v16 = 1;
+    do
+    {
+      if ((v16 & v15) != 0)
+      {
+        a1[v14 + 129] = 1;
+      }
+
+      v16 *= 2;
+      ++v14;
+    }
+
+    while (v14 != 10);
+    v17 = 0;
+    v18 = *(v4 + 22904);
+    v19 = 1;
+    do
+    {
+      if ((v19 & v18) != 0)
+      {
+        a1[v17 + 139] = 1;
+      }
+
+      v19 *= 2;
+      ++v17;
+    }
+
+    while (v17 != 39);
+    v20 = 0;
+    v21 = *(v4 + 22912);
+    v22 = 1;
+    do
+    {
+      if ((v22 & v21) != 0)
+      {
+        a1[v20 + 92] = 1;
+      }
+
+      v22 *= 2;
+      ++v20;
+    }
+
+    while (v20 != 37);
+    v23 = 0;
+    v24 = *(v4 + 22920);
+    v25 = 1;
+    do
+    {
+      if ((v25 & v24) != 0)
+      {
+        a1[v23 + 56] = 1;
+      }
+
+      v25 *= 2;
+      ++v23;
+    }
+
+    while (v23 != 36);
+    v26 = *(v4 + 22928);
+    *a2 = v26;
+    EvLog_v("Core_Load_Inhib_EE: Time 0x%X G %x R %x Q %x S %X B %X E %X", v26, *(v4 + 22880), *(v4 + 22888), *(v4 + 22896), *(v4 + 22904), *(v4 + 22912), *(v4 + 22920));
+  }
+
+  return v7 == v3;
+}
+
+uint64_t GN_GPS_Clear_NV_Data(unsigned __int8 *a1, char *a2)
+{
+  result = 0;
+  v157 = *MEMORY[0x29EDCA608];
+  if (!a1)
+  {
+    return result;
+  }
+
+  v4 = a2;
+  if (!a2)
+  {
+    return result;
+  }
+
+  v5 = 0;
+  v6 = *(&xmmword_2A1926A40 + 1);
+  v8 = qword_2A1926950;
+  v7 = unk_2A1926958;
+  v9 = qword_2A1926930;
+  v10 = qword_2A1926938;
+  v11 = v156;
+  p_src = &__src;
+  v154 = &v157;
+  v152[1] = &__src;
+  __src = 10;
+  v12 = 42;
+  memset(v156, 0, sizeof(v156));
+  do
+  {
+    v152[0] = v11 + 1;
+    *v11 = v12;
+    v11 = v152[0];
+    if (v152[0] >= v154)
+    {
+      v11 = p_src;
+      v152[0] = p_src;
+    }
+
+    v12 = asc_2997BC75C[++v5];
+  }
+
+  while (v5 != 8);
+  v152[0] = v11 + 1;
+  *v11 = 10;
+  if (v152[0] >= v154)
+  {
+    v152[0] = p_src;
+  }
+
+  v13 = mach_continuous_time();
+  sprintf_10u(v152, (*&g_MacClockTicksToMsRelation * v13));
+  v14 = v152[0]++;
+  v15 = 32;
+  *v14 = 32;
+  if (v152[0] >= v154)
+  {
+    v16 = p_src;
   }
 
   else
   {
-    *&__src[28] = -1;
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 2, 0, 0))
+    v16 = v152[0];
+  }
+
+  v17 = 1u;
+  do
+  {
+    v152[0] = v16 + 1;
+    *v16 = v15;
+    v16 = v152[0];
+    if (v152[0] >= v154)
     {
-      bzero(__str, 0x410uLL);
-      v32 = mach_continuous_time();
-      v33 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Fix Type,%u\n", (*&g_MacClockTicksToMsRelation * v32), "ADP", 87, "Ga10_02SendPositionReport", 515, *(a1 + 64));
-      LbsOsaTrace_WriteLog(0x18u, __str, v33, 2, 1);
+      v16 = p_src;
+      v152[0] = p_src;
+    }
+
+    v15 = a0GnGpsClearNvD[v17++];
+  }
+
+  while (v17 != 31);
+  if (!strcmp("VHOT", v4) || !strcmp("HOT", v4))
+  {
+    v151 = 0;
+    v34 = 0;
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
+    v38 = 0;
+    v39 = 0;
+    v40 = 0;
+    v33 = 0;
+    goto LABEL_52;
+  }
+
+  if (!strcmp("HOST", v4))
+  {
+    v151 = 0;
+    v34 = 0;
+    v35 = 0;
+    v36 = 0;
+    v37 = 0;
+    v38 = 0;
+    v39 = 0;
+    v40 = 0;
+    v33 = 1;
+    goto LABEL_52;
+  }
+
+  v150 = v9;
+  if (!strcmp("WARM", v4))
+  {
+    v24 = 0;
+    v19 = 0;
+    v20 = 0;
+    v26 = 0;
+    v27 = 0;
+    v32 = 0;
+    v31 = 0;
+    v30 = 0;
+    v33 = 0;
+    goto LABEL_124;
+  }
+
+  if (!strcmp("COLD", v4))
+  {
+    v32 = 0;
+    v26 = 0;
+    v19 = 0;
+    *(v6 + 8) = 0;
+    v30 = 1;
+    v31 = 1;
+    v27 = 1;
+    v25 = 1;
+    v20 = 1;
+LABEL_122:
+    v24 = 1;
+LABEL_123:
+    *(v6 + 10) = 0;
+    *(v6 + 297) = 0;
+    *(v8 + 4) = 0;
+    v79 = vdupq_n_s64(0x4163125300000000uLL);
+    *(v8 + 800) = v79;
+    *(v8 + 816) = v79;
+    *(v8 + 832) = 0x4163125300000000;
+    *(v8 + 896) = v79;
+    *(v8 + 912) = 0;
+    *(v7 + 4) = 0;
+    *(v7 + 800) = v79;
+    *(v7 + 816) = v79;
+    *(v7 + 832) = 0x4163125300000000;
+    *(v7 + 896) = v79;
+    *(v7 + 912) = 0;
+    g_GN_GNSS_Nav_Data = 0;
+    v33 = 1;
+    if ((v25 & 1) == 0)
+    {
+      goto LABEL_155;
+    }
+
+    goto LABEL_124;
+  }
+
+  if (!strcmp("FACT", v4))
+  {
+    v30 = 1;
+    v31 = 1;
+    v32 = 1;
+    v27 = 1;
+    v26 = 1;
+    v25 = 1;
+    v20 = 1;
+    v19 = 1;
+    goto LABEL_122;
+  }
+
+  v18 = 0;
+  v19 = 0;
+  v20 = 0;
+  v21 = 0;
+  v22 = 0;
+  v23 = 0;
+  v24 = 0;
+  v25 = 0;
+  v26 = 0;
+  v27 = 0;
+  v28 = 0;
+  while (1)
+  {
+    v29 = v4[v18];
+    if (v29 > 0x48)
+    {
+      if (v4[v18] > 0x53u)
+      {
+        switch(v29)
+        {
+          case 'T':
+            v27 = 1;
+            break;
+          case 'U':
+            v22 = 1;
+            break;
+          case 'V':
+            v20 = 1;
+            break;
+          default:
+            goto LABEL_165;
+        }
+      }
+
+      else if (v29 == 73 || v29 == 75)
+      {
+        v23 = 1;
+      }
+
+      else
+      {
+        if (v29 != 80)
+        {
+          goto LABEL_165;
+        }
+
+        v28 = 1;
+      }
+
+      goto LABEL_47;
+    }
+
+    if (v4[v18] > 0x44u)
+    {
+      switch(v29)
+      {
+        case 'E':
+          v25 = 1;
+          break;
+        case 'F':
+          v26 = 1;
+          break;
+        case 'H':
+          v21 = 1;
+          break;
+        default:
+          goto LABEL_165;
+      }
+
+      goto LABEL_47;
+    }
+
+    if (v29 == 65)
+    {
+      v24 = 1;
+      goto LABEL_47;
+    }
+
+    if (v29 != 67)
+    {
+      break;
+    }
+
+    v19 = 1;
+LABEL_47:
+    if (++v18 == 16)
+    {
+      goto LABEL_48;
     }
   }
 
-  v34 = *(a1 + 68);
-  if (v34 <= 3)
+  if (v4[v18])
   {
-    switch(v34)
+LABEL_165:
+    v121 = 70;
+    v122 = 1u;
+    do
     {
-      case 0:
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v54 = mach_continuous_time();
-          v55 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: ShapeType Not avlbl\n", (*&g_MacClockTicksToMsRelation * v54), "ADP", 73, "Ga10_02SendPositionReport");
-          LbsOsaTrace_WriteLog(0x18u, __str, v55, 4, 1);
-        }
+      v152[0] = v16 + 1;
+      *v16 = v121;
+      v16 = v152[0];
+      if (v152[0] >= v154)
+      {
+        v16 = p_src;
+        v152[0] = p_src;
+      }
 
-        goto LABEL_103;
-      case 1:
-        v72 = *(a1 + 72);
-        v71 = *(a1 + 76);
-        *&__src[64] = 0;
-        *&__src[124] = v71;
-        if (v72 == 2)
-        {
-          *&__src[124] = v71 | 0x800000;
-        }
-
-        *&__src[128] = *(a1 + 80);
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v73 = mach_continuous_time();
-          v74 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: ShapeType Ellipsoid Pt\n", (*&g_MacClockTicksToMsRelation * v73), "ADP", 73, "Ga10_02SendPositionReport");
-          LbsOsaTrace_WriteLog(0x18u, __str, v74, 4, 1);
-        }
-
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-        {
-          bzero(__str, 0x410uLL);
-          v75 = mach_continuous_time();
-          v76 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Lat,%d,Long,%d\n", (*&g_MacClockTicksToMsRelation * v75), "ADP", 68, "Ga10_02SendPositionReport", *&__src[124], *&__src[128]);
-          LbsOsaTrace_WriteLog(0x18u, __str, v76, 5, 1);
-        }
-
-        goto LABEL_103;
-      case 2:
-        v43 = *(a1 + 72);
-        v42 = *(a1 + 76);
-        *&__src[64] = 1;
-        *&__src[68] = v42;
-        if (v43 == 2)
-        {
-          *&__src[68] = v42 | 0x800000;
-        }
-
-        *&__src[72] = *(a1 + 80);
-        __src[76] = *(a1 + 86);
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v44 = mach_continuous_time();
-          v45 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: ShapeType Ellipsoid Pt Uncert Circle\n", (*&g_MacClockTicksToMsRelation * v44), "ADP", 73, "Ga10_02SendPositionReport");
-          LbsOsaTrace_WriteLog(0x18u, __str, v45, 4, 1);
-        }
-
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-        {
-          bzero(__str, 0x410uLL);
-          v46 = mach_continuous_time();
-          v47 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Lat,%d,Long,%d,UncRad,%u\n", (*&g_MacClockTicksToMsRelation * v46), "ADP", 68, "Ga10_02SendPositionReport", *&__src[68], *&__src[72], __src[76]);
-          LbsOsaTrace_WriteLog(0x18u, __str, v47, 5, 1);
-        }
-
-        goto LABEL_103;
+      v121 = aFailedInvalidI[v122++];
     }
 
-LABEL_81:
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+    while (v122 != 27);
+    v123 = *v4;
+    if (*v4)
     {
-      bzero(__str, 0x410uLL);
-      v56 = mach_continuous_time();
-      v57 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Shape type,%u\n", (*&g_MacClockTicksToMsRelation * v56), "ADP", 69, "Ga10_02SendPositionReport", 515, *(a1 + 68));
-      LbsOsaTrace_WriteLog(0x18u, __str, v57, 0, 1);
+      v124 = (v4 + 1);
+      do
+      {
+        v152[0] = v16 + 1;
+        *v16 = v123;
+        v16 = v152[0];
+        if (v152[0] >= v154)
+        {
+          v16 = p_src;
+          v152[0] = p_src;
+        }
+
+        v125 = *v124++;
+        v123 = v125;
+      }
+
+      while (v125);
+    }
+
+    v126 = 34;
+    v127 = 1u;
+    do
+    {
+      v152[0] = v16 + 1;
+      *v16 = v126;
+      v16 = v152[0];
+      if (v152[0] >= v154)
+      {
+        v16 = p_src;
+        v152[0] = p_src;
+      }
+
+      v126 = asc_2997BC7A3[v127++];
+    }
+
+    while (v127 != 4);
+    v128 = *(&xmmword_2A1926A70 + 1);
+    v129 = v16 - p_src;
+    v130 = *(*(&xmmword_2A1926A70 + 1) + 24);
+    v131 = **(&xmmword_2A1926A70 + 1);
+    v132 = &__src;
+    do
+    {
+      v133 = v130 - v131;
+      if (v129 >= v133)
+      {
+        v134 = v133;
+      }
+
+      else
+      {
+        v134 = v129;
+      }
+
+      memcpy(v131, v132, v134);
+      v131 = (*v128 + v134);
+      *v128 = v131;
+      v130 = v128[3];
+      if (v131 >= v130)
+      {
+        v131 = v128[2];
+        *v128 = v131;
+      }
+
+      v132 += v134;
+      v64 = __OFSUB__(v129, v134);
+      v129 -= v134;
+    }
+
+    while (!((v129 < 0) ^ v64 | (v129 == 0)));
+    v135 = xmmword_2A1926A70;
+    v136 = LODWORD(v152[0]) - p_src;
+    v137 = *(xmmword_2A1926A70 + 24);
+    v138 = *xmmword_2A1926A70;
+    v139 = &__src;
+    do
+    {
+      v140 = v137 - v138;
+      if (v136 >= v140)
+      {
+        v141 = v140;
+      }
+
+      else
+      {
+        v141 = v136;
+      }
+
+      memcpy(v138, v139, v141);
+      v138 = (*v135 + v141);
+      *v135 = v138;
+      v137 = v135[3];
+      if (v138 >= v137)
+      {
+        v138 = v135[2];
+        *v135 = v138;
+      }
+
+      v139 += v141;
+      v64 = __OFSUB__(v136, v141);
+      v136 -= v141;
+    }
+
+    while (!((v136 < 0) ^ v64 | (v136 == 0)));
+    v142 = xmmword_2A1926A80;
+    v143 = LODWORD(v152[0]) - p_src;
+    v144 = *(xmmword_2A1926A80 + 24);
+    v145 = *xmmword_2A1926A80;
+    v146 = &__src;
+    do
+    {
+      v147 = v144 - v145;
+      if (v143 >= v147)
+      {
+        v148 = v147;
+      }
+
+      else
+      {
+        v148 = v143;
+      }
+
+      memcpy(v145, v146, v148);
+      v145 = (*v142 + v148);
+      *v142 = v145;
+      v144 = v142[3];
+      if (v145 >= v144)
+      {
+        v145 = v142[2];
+        *v142 = v145;
+      }
+
+      v146 += v148;
+      v64 = __OFSUB__(v143, v148);
+      v143 -= v148;
+    }
+
+    while (!((v143 < 0) ^ v64 | (v143 == 0)));
+    GNSS_Event_Log_Ctl(*(&xmmword_2A1926A70 + 1));
+    GNSS_Event_Log_Ctl(xmmword_2A1926A70);
+    GNSS_Event_Log_Ctl(xmmword_2A1926A80);
+    return 0;
+  }
+
+LABEL_48:
+  v30 = v24 & v21;
+  v31 = v24 & v22;
+  v32 = v24 & v23;
+  if (v28)
+  {
+    goto LABEL_123;
+  }
+
+  v33 = 0;
+  if ((v25 & 1) == 0)
+  {
+LABEL_155:
+    v35 = 0;
+    if ((v24 & 1) == 0)
+    {
+      goto LABEL_156;
+    }
+
+LABEL_135:
+    v100 = (v10 + 7016);
+    v101 = 184;
+    do
+    {
+      v102 = &a1[v101];
+      *(v102 + 12) = 0;
+      *(v102 + 1) = 0uLL;
+      *(v102 + 2) = 0uLL;
+      *v102 = 0uLL;
+      *(v100 + 28) = 0uLL;
+      v101 += 56;
+      *v100 = 0uLL;
+      v100[1] = 0uLL;
+      v100 = (v100 + 44);
+    }
+
+    while (v101 != 1976);
+    v103 = 0;
+    *(v6 + 63) = 0u;
+    *(v6 + 47) = 0u;
+    v104 = a1 + 5840;
+    do
+    {
+      *(v104 + 12) = 0;
+      *(v104 + 1) = 0uLL;
+      *(v104 + 2) = 0uLL;
+      *v104 = 0uLL;
+      v104 += 56;
+      v105 = (v10 + 10768 + v103);
+      *(v105 + 28) = 0uLL;
+      v103 += 44;
+      *v105 = 0uLL;
+      v105[1] = 0uLL;
+    }
+
+    while (v103 != 440);
+    v106 = 0;
+    *(v6 + 97) = 0;
+    *(v6 + 89) = 0;
+    v107 = a1 + 19240;
+    do
+    {
+      *(v107 + 28) = 0uLL;
+      *v107 = 0uLL;
+      *(v107 + 1) = 0uLL;
+      v107 += 48;
+      v108 = v10 + 15352 + v106;
+      *(v108 + 32) = 0;
+      v106 += 36;
+      *v108 = 0uLL;
+      *(v108 + 16) = 0uLL;
+    }
+
+    while (v106 != 864);
+    v109 = 0;
+    *(v6 + 131) = 0;
+    *(v6 + 123) = 0;
+    *(v6 + 139) = 0;
+    v110 = v10 + 23072;
+    do
+    {
+      v111 = &a1[v109 + 7672];
+      *(v111 + 28) = 0uLL;
+      *v111 = 0uLL;
+      *(v111 + 1) = 0uLL;
+      *(v110 + 31) = 0;
+      v109 += 48;
+      *v110 = 0uLL;
+      *(v110 + 16) = 0uLL;
+      v110 += 36;
+    }
+
+    while (v109 != 1728);
+    v112 = 0;
+    *(v6 + 218) = 0;
+    *(v6 + 202) = 0u;
+    *(v6 + 186) = 0u;
+    v113 = a1 + 12944;
+    do
+    {
+      *(v113 + 12) = 0;
+      *(v113 + 1) = 0uLL;
+      *(v113 + 2) = 0uLL;
+      *v113 = 0uLL;
+      v113 += 56;
+      v114 = (v10 + 31920 + v112);
+      *(v114 + 28) = 0uLL;
+      v112 += 44;
+      *v114 = 0uLL;
+      v114[1] = 0uLL;
+    }
+
+    while (v112 != 1628);
+    v115 = 0;
+    *(v6 + 289) = 0;
+    *(v6 + 260) = 0u;
+    *(v6 + 276) = 0u;
+    do
+    {
+      v116 = &a1[v115 + 22120];
+      *v116 = 0;
+      *(v116 + 1) = 0;
+      *(v116 + 6) = 0;
+      *(v116 + 2) = 0;
+      v115 += 32;
+    }
+
+    while (v115 != 320);
+    *(v6 + 148) = 0;
+    *(v10 + 37876) = 0;
+    *(v10 + 37844) = 0u;
+    *(v10 + 37860) = 0u;
+    *(v10 + 37812) = 0u;
+    *(v10 + 37828) = 0u;
+    *(v10 + 37780) = 0u;
+    *(v10 + 37796) = 0u;
+    *(v10 + 37748) = 0u;
+    *(v10 + 37764) = 0u;
+    *(v10 + 37716) = 0u;
+    *(v10 + 37732) = 0u;
+    *(v10 + 37700) = 0u;
+    v151 = 1;
+    if ((v32 & 1) == 0)
+    {
+      goto LABEL_148;
+    }
+
+LABEL_157:
+    *(a1 + 18) = 0;
+    *(a1 + 8) = 0u;
+    *(v6 + 13) = 0;
+    *(v10 + 8424) = 0u;
+    v38 = 1;
+    if ((v31 & 1) == 0)
+    {
+      goto LABEL_158;
+    }
+
+LABEL_149:
+    *(a1 + 168) = 0u;
+    *(a1 + 152) = 0u;
+    *(v6 + 14) = 0;
+    *(a1 + 4808) = 0;
+    *(a1 + 1201) = 0u;
+    *(a1 + 1200) = 0u;
+    *(v6 + 147) = 0;
+    *(a1 + 3234) = 0;
+    *(a1 + 1616) = 0;
+    *(a1 + 807) = 0u;
+    *(v6 + 222) = 0;
+    *(a1 + 958) = 0;
+    *(a1 + 478) = 0u;
+    *(v6 + 149) = 0;
+    *(v10 + 8440) = 0u;
+    *(v10 + 8456) = 0;
+    *(v10 + 16216) = 0;
+    *(v10 + 16224) = 0u;
+    *(v10 + 16240) = 0;
+    *(v10 + 24368) = 0;
+    *(v10 + 24374) = 0;
+    v117 = v10 + 33548;
+    *(v10 + 33548) = 0u;
+    v39 = 1;
+    *(v117 + 16) = 0;
+    if ((v30 & 1) == 0)
+    {
+      goto LABEL_150;
+    }
+
+LABEL_159:
+    *(a1 + 108) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 6) = 0u;
+    *(a1 + 19160) = 0u;
+    *(a1 + 19176) = 0u;
+    *(a1 + 4798) = 0;
+    *(a1 + 5816) = 0u;
+    *(a1 + 5830) = 0;
+    *(a1 + 475) = 0u;
+    *(a1 + 476) = 0u;
+    *(a1 + 477) = 0u;
+    *(a1 + 12856) = 0u;
+    *(a1 + 12872) = 0u;
+    *(a1 + 12888) = 0u;
+    a1[12904] = 0;
+    v40 = 1;
+    *(v6 + 297) = 0;
+    if ((v20 & 1) == 0)
+    {
+      goto LABEL_160;
+    }
+
+LABEL_151:
+    *(a1 + 22838) = 0;
+    *(a1 + 22808) = 0u;
+    *(a1 + 22824) = 0u;
+    *(a1 + 22776) = 0u;
+    *(a1 + 22792) = 0u;
+    *(a1 + 22744) = 0u;
+    *(a1 + 22760) = 0u;
+    *(a1 + 22712) = 0u;
+    *(a1 + 22728) = 0u;
+    *(a1 + 22680) = 0u;
+    *(a1 + 22696) = 0u;
+    *(a1 + 22648) = 0u;
+    *(a1 + 22664) = 0u;
+    *(a1 + 22616) = 0u;
+    *(a1 + 22632) = 0u;
+    *(a1 + 22584) = 0u;
+    *(a1 + 22600) = 0u;
+    *(a1 + 22552) = 0u;
+    *(a1 + 22568) = 0u;
+    *(a1 + 22520) = 0u;
+    *(a1 + 22536) = 0u;
+    *(a1 + 22488) = 0u;
+    *(a1 + 22504) = 0u;
+    *(a1 + 22456) = 0u;
+    *(a1 + 22472) = 0u;
+    v34 = 1;
+    *(a1 + 22440) = 0u;
+    if ((v26 & 1) == 0)
+    {
+      goto LABEL_152;
+    }
+
+LABEL_161:
+    *(a1 + 9) = 0;
+    *(a1 + 56) = 0u;
+    *(a1 + 40) = 0u;
+    *(v6 + 8) = 0;
+    v36 = 1;
+    if ((v27 & 1) == 0)
+    {
+      goto LABEL_162;
+    }
+
+LABEL_153:
+    v149 = v19;
+    *(a1 + 1) = 0;
+    *(a1 + 2) = 0;
+    *(a1 + 8) = 0;
+    *(a1 + 3) = 0;
+    *(v6 + 148) = 0;
+    *(v6 + 297) = 0;
+    *(v6 + 1) = 0;
+    *(v6 + 5) = 0;
+    v118 = v33;
+    v119 = v4;
+    v120 = v38;
+    mach_continuous_time();
+    v38 = v120;
+    v4 = v119;
+    v33 = v118;
+    *v150 = 0;
+    *(v150 + 4) = 0;
+    *(v150 + 64) = 0;
+    v37 = 1;
+    *(v150 + 60) = 0;
+    if (v149)
+    {
+      goto LABEL_163;
+    }
+
+    goto LABEL_52;
+  }
+
+LABEL_124:
+  v80 = 0;
+  v81 = v10;
+  do
+  {
+    v82 = &a1[v80 + 1976];
+    *(v82 + 28) = 0;
+    *(v82 + 5) = 0uLL;
+    *(v82 + 6) = 0uLL;
+    *(v82 + 3) = 0uLL;
+    *(v82 + 4) = 0uLL;
+    *(v82 + 1) = 0uLL;
+    *(v82 + 2) = 0uLL;
+    *v82 = 0uLL;
+    *(v81 + 196) = 0uLL;
+    *(v81 + 184) = 0uLL;
+    *(v81 + 168) = 0uLL;
+    *(v81 + 152) = 0uLL;
+    *(v81 + 136) = 0uLL;
+    *(v81 + 120) = 0uLL;
+    *(v81 + 104) = 0uLL;
+    v83 = v81 + 3560;
+    *(v81 + 3560) = 0uLL;
+    *(v81 + 3576) = 0uLL;
+    *(v81 + 3592) = 0uLL;
+    *(v81 + 3608) = 0uLL;
+    *(v81 + 3624) = 0uLL;
+    *(v81 + 3640) = 0uLL;
+    v80 += 120;
+    v81 += 108;
+    *(v83 + 92) = 0uLL;
+  }
+
+  while (v80 != 3840);
+  v84 = 0;
+  *(v6 + 31) = 0u;
+  *(v6 + 15) = 0u;
+  v85 = (v10 + 8608);
+  do
+  {
+    v86 = &a1[v84 + 6400];
+    *(v86 + 28) = 0;
+    *(v86 + 5) = 0uLL;
+    *(v86 + 6) = 0uLL;
+    *(v86 + 3) = 0uLL;
+    *(v86 + 4) = 0uLL;
+    *(v86 + 1) = 0uLL;
+    *(v86 + 2) = 0uLL;
+    *v86 = 0uLL;
+    *(v85 + 92) = 0uLL;
+    v85[4] = 0uLL;
+    v85[5] = 0uLL;
+    v85[2] = 0uLL;
+    v85[3] = 0uLL;
+    *v85 = 0uLL;
+    v85[1] = 0uLL;
+    v87 = v85 + 1080;
+    *(v85 + 1080) = 0uLL;
+    *(v85 + 1096) = 0uLL;
+    *(v85 + 1112) = 0uLL;
+    *(v85 + 1128) = 0uLL;
+    *(v85 + 1144) = 0uLL;
+    *(v85 + 1160) = 0uLL;
+    v84 += 120;
+    v85 = (v85 + 108);
+    *(v87 + 92) = 0uLL;
+  }
+
+  while (v84 != 1200);
+  v88 = 0;
+  *(v6 + 87) = 0;
+  *(v6 + 79) = 0;
+  v89 = (v10 + 11224);
+  v90 = (v10 + 12760);
+  do
+  {
+    v91 = &a1[v88 + 20392];
+    *(v91 + 8) = 0;
+    *(v91 + 2) = 0uLL;
+    *(v91 + 3) = 0uLL;
+    *v91 = 0uLL;
+    *(v91 + 1) = 0uLL;
+    *(v89 + 46) = 0uLL;
+    v89[1] = 0uLL;
+    v89[2] = 0uLL;
+    *v89 = 0uLL;
+    v89 += 4;
+    *(v90 + 92) = 0uLL;
+    v90[4] = 0uLL;
+    v90[5] = 0uLL;
+    v90[2] = 0uLL;
+    v90[3] = 0uLL;
+    v88 += 72;
+    *v90 = 0uLL;
+    v90[1] = 0uLL;
+    v90 = (v90 + 108);
+  }
+
+  while (v88 != 1728);
+  v92 = 0;
+  *(v6 + 107) = 0;
+  *(v6 + 99) = 0;
+  *(v6 + 115) = 0;
+  v93 = v10 + 16736;
+  do
+  {
+    v94 = &a1[v92 + 9400];
+    *(v94 + 4) = 0uLL;
+    *(v94 + 5) = 0uLL;
+    *(v94 + 2) = 0uLL;
+    *(v94 + 3) = 0uLL;
+    *v94 = 0uLL;
+    *(v94 + 1) = 0uLL;
+    *(v93 + 79) = 0;
+    *(v93 + 48) = 0uLL;
+    *(v93 + 64) = 0uLL;
+    *(v93 + 16) = 0uLL;
+    *(v93 + 32) = 0uLL;
+    *v93 = 0uLL;
+    v95 = v93 + 3168;
+    *(v93 + 3168) = 0uLL;
+    *(v93 + 3184) = 0uLL;
+    *(v93 + 3200) = 0uLL;
+    *(v93 + 3216) = 0uLL;
+    *(v93 + 3232) = 0uLL;
+    v92 += 96;
+    v93 += 88;
+    *(v95 + 79) = 0;
+  }
+
+  while (v92 != 3456);
+  *(v6 + 182) = 0;
+  *(v6 + 166) = 0u;
+  *(v6 + 150) = 0u;
+  v96 = a1 + 15016;
+  v97 = v10 + 28220;
+  v98 = 37;
+  do
+  {
+    *(v96 + 92) = 0uLL;
+    *(v96 + 4) = 0uLL;
+    *(v96 + 5) = 0uLL;
+    *(v96 + 2) = 0uLL;
+    *(v96 + 3) = 0uLL;
+    *v96 = 0uLL;
+    *(v96 + 1) = 0uLL;
+    v96 += 112;
+    v99 = v97 - 3700;
+    *(v99 + 96) = 0;
+    *(v99 + 64) = 0uLL;
+    *(v99 + 80) = 0uLL;
+    *(v99 + 32) = 0uLL;
+    *(v99 + 48) = 0uLL;
+    *v97 = 0uLL;
+    *(v97 + 16) = 0uLL;
+    *(v97 + 32) = 0uLL;
+    *(v97 + 48) = 0uLL;
+    *(v97 + 64) = 0uLL;
+    *(v97 + 80) = 0uLL;
+    *(v97 + 96) = 0;
+    v97 += 100;
+    *v99 = 0uLL;
+    *(v99 + 16) = 0uLL;
+    --v98;
+  }
+
+  while (v98);
+  *(v6 + 252) = 0;
+  *(v6 + 239) = 0u;
+  *(v6 + 223) = 0u;
+  *(v6 + 148) = 0;
+  *(v10 + 38928) = 0u;
+  *(v10 + 38912) = 0u;
+  *(v10 + 38896) = 0u;
+  *(v10 + 38880) = 0u;
+  *(v10 + 38864) = 0u;
+  *(v10 + 38848) = 0u;
+  *(v10 + 38832) = 0u;
+  *(v10 + 38816) = 0u;
+  *(v10 + 38800) = 0u;
+  *(v10 + 38784) = 0u;
+  *(v10 + 38768) = 0u;
+  *(v10 + 38944) = 0;
+  *(v10 + 39124) = 0u;
+  *(v10 + 39140) = 0u;
+  *(v10 + 39156) = 0u;
+  *(v10 + 39172) = 0u;
+  *(v10 + 39188) = 0u;
+  *(v10 + 39204) = 0u;
+  *(v10 + 39220) = 0u;
+  *(v10 + 39236) = 0u;
+  *(v10 + 39252) = 0u;
+  *(v10 + 39268) = 0u;
+  *(v10 + 39284) = 0u;
+  *(v10 + 39300) = 0;
+  *(v10 + 37696) = 0;
+  *(v10 + 37680) = 0u;
+  *(v10 + 37664) = 0u;
+  *(v10 + 37648) = 0u;
+  *(v10 + 37632) = 0u;
+  *(v10 + 37616) = 0u;
+  *(v10 + 37600) = 0u;
+  *(v10 + 37584) = 0u;
+  *(v10 + 37568) = 0u;
+  *(v10 + 37552) = 0u;
+  *(v10 + 37536) = 0u;
+  *(v10 + 37520) = 0u;
+  *(v10 + 37504) = 0u;
+  *(v10 + 37488) = 0u;
+  *(v10 + 37472) = 0u;
+  *(v10 + 37456) = 0u;
+  *(v10 + 37440) = 0u;
+  *(v10 + 37424) = 0u;
+  *(v10 + 37408) = 0u;
+  *(v10 + 37392) = 0u;
+  *(v10 + 37376) = 0u;
+  *(v10 + 37360) = 0u;
+  v35 = 1;
+  *(v10 + 37344) = 0u;
+  if (v24)
+  {
+    goto LABEL_135;
+  }
+
+LABEL_156:
+  v151 = 0;
+  if (v32)
+  {
+    goto LABEL_157;
+  }
+
+LABEL_148:
+  v38 = 0;
+  if (v31)
+  {
+    goto LABEL_149;
+  }
+
+LABEL_158:
+  v39 = 0;
+  if (v30)
+  {
+    goto LABEL_159;
+  }
+
+LABEL_150:
+  v40 = 0;
+  if (v20)
+  {
+    goto LABEL_151;
+  }
+
+LABEL_160:
+  v34 = 0;
+  if (v26)
+  {
+    goto LABEL_161;
+  }
+
+LABEL_152:
+  v36 = 0;
+  if (v27)
+  {
+    goto LABEL_153;
+  }
+
+LABEL_162:
+  v37 = 0;
+  if (v19)
+  {
+LABEL_163:
+    *(a1 + 1428) = 0u;
+    *(a1 + 5716) = 0;
+  }
+
+LABEL_52:
+  if (g_GncPStateInfo != 8)
+  {
+    v41 = v35;
+    v42 = a1;
+    v43 = v33;
+    v44 = v38;
+    GncP07_08WriteNVStore(0x59A0uLL, v42);
+    v38 = v44;
+    v35 = v41;
+    v33 = v43;
+  }
+
+  if (((v34 | v36 | v40 | v39 | v38 | v151 | v35 | v37 | v33) & 1) == 0)
+  {
+    goto LABEL_74;
+  }
+
+  if (g_GN_GPS_Data_p_list <= 5)
+  {
+    if ((g_GN_GPS_Data_p_list - 1) < 3)
+    {
+      goto LABEL_74;
+    }
+
+    if (g_GN_GPS_Data_p_list == 4)
+    {
+LABEL_71:
+      v45 = 1;
+      goto LABEL_73;
+    }
+
+    if (g_GN_GPS_Data_p_list == 5)
+    {
+      goto LABEL_69;
+    }
+
+    goto LABEL_120;
+  }
+
+  if (g_GN_GPS_Data_p_list > 8)
+  {
+    if (g_GN_GPS_Data_p_list == 9)
+    {
+      goto LABEL_72;
+    }
+
+    if (g_GN_GPS_Data_p_list == 10 || g_GN_GPS_Data_p_list == 11)
+    {
+      goto LABEL_69;
+    }
+
+LABEL_120:
+    EvCrt_Illegal_Default("GN_GPS_Clear_NV_Data", 3300);
+    goto LABEL_74;
+  }
+
+  if (g_GN_GPS_Data_p_list == 6)
+  {
+LABEL_72:
+    v45 = 3;
+    goto LABEL_73;
+  }
+
+  if (g_GN_GPS_Data_p_list == 7)
+  {
+    goto LABEL_71;
+  }
+
+  if (g_GN_GPS_Data_p_list != 8)
+  {
+    goto LABEL_120;
+  }
+
+LABEL_69:
+  v45 = 2;
+LABEL_73:
+  LODWORD(g_GN_GPS_Data_p_list) = v45;
+LABEL_74:
+  v46 = 73;
+  v47 = v152[0];
+  v48 = 1u;
+  do
+  {
+    v152[0] = v47 + 1;
+    *v47 = v46;
+    v47 = v152[0];
+    if (v152[0] >= v154)
+    {
+      v47 = p_src;
+      v152[0] = p_src;
+    }
+
+    v46 = aItems[v48++];
+  }
+
+  while (v48 != 10);
+  v49 = *v4;
+  if (*v4)
+  {
+    v50 = (v4 + 1);
+    do
+    {
+      v152[0] = v47 + 1;
+      *v47 = v49;
+      v47 = v152[0];
+      if (v152[0] >= v154)
+      {
+        v47 = p_src;
+        v152[0] = p_src;
+      }
+
+      v51 = *v50++;
+      v49 = v51;
+    }
+
+    while (v51);
+  }
+
+  v52 = 0;
+  v53 = 34;
+  do
+  {
+    v152[0] = v47 + 1;
+    *v47 = v53;
+    v47 = v152[0];
+    if (v152[0] >= v154)
+    {
+      v47 = p_src;
+      v152[0] = p_src;
+    }
+
+    v53 = asc_2997BC7C6[++v52];
+  }
+
+  while (v52 != 2);
+  v54 = 0;
+  v55 = 42;
+  do
+  {
+    v152[0] = v47 + 1;
+    *v47 = v55;
+    v47 = v152[0];
+    if (v152[0] >= v154)
+    {
+      v47 = p_src;
+      v152[0] = p_src;
+    }
+
+    v55 = asc_2997BC75C[++v54];
+  }
+
+  while (v54 != 8);
+  v152[0] = v47 + 1;
+  *v47 = 10;
+  v56 = v152[0];
+  if (v152[0] >= v154)
+  {
+    v152[0] = p_src;
+    v56 = p_src;
+  }
+
+  v57 = *(&xmmword_2A1926A70 + 1);
+  v58 = v56 - p_src;
+  v59 = *(*(&xmmword_2A1926A70 + 1) + 24);
+  v60 = **(&xmmword_2A1926A70 + 1);
+  v61 = &__src;
+  do
+  {
+    v62 = v59 - v60;
+    if (v58 >= v62)
+    {
+      v63 = v62;
+    }
+
+    else
+    {
+      v63 = v58;
+    }
+
+    memcpy(v60, v61, v63);
+    v60 = (*v57 + v63);
+    *v57 = v60;
+    v59 = v57[3];
+    if (v60 >= v59)
+    {
+      v60 = v57[2];
+      *v57 = v60;
+    }
+
+    v61 += v63;
+    v64 = __OFSUB__(v58, v63);
+    v58 -= v63;
+  }
+
+  while (!((v58 < 0) ^ v64 | (v58 == 0)));
+  v65 = xmmword_2A1926A70;
+  v66 = LODWORD(v152[0]) - p_src;
+  v67 = *(xmmword_2A1926A70 + 24);
+  v68 = *xmmword_2A1926A70;
+  v69 = &__src;
+  do
+  {
+    v70 = v67 - v68;
+    if (v66 >= v70)
+    {
+      v71 = v70;
+    }
+
+    else
+    {
+      v71 = v66;
+    }
+
+    memcpy(v68, v69, v71);
+    v68 = (*v65 + v71);
+    *v65 = v68;
+    v67 = v65[3];
+    if (v68 >= v67)
+    {
+      v68 = v65[2];
+      *v65 = v68;
+    }
+
+    v69 += v71;
+    v64 = __OFSUB__(v66, v71);
+    v66 -= v71;
+  }
+
+  while (!((v66 < 0) ^ v64 | (v66 == 0)));
+  v72 = xmmword_2A1926A80;
+  v73 = LODWORD(v152[0]) - p_src;
+  v74 = *(xmmword_2A1926A80 + 24);
+  v75 = *xmmword_2A1926A80;
+  v76 = &__src;
+  do
+  {
+    v77 = v74 - v75;
+    if (v73 >= v77)
+    {
+      v78 = v77;
+    }
+
+    else
+    {
+      v78 = v73;
+    }
+
+    memcpy(v75, v76, v78);
+    v75 = (*v72 + v78);
+    *v72 = v75;
+    v74 = v72[3];
+    if (v75 >= v74)
+    {
+      v75 = v72[2];
+      *v72 = v75;
+    }
+
+    v76 += v78;
+    v64 = __OFSUB__(v73, v78);
+    v73 -= v78;
+  }
+
+  while (!((v73 < 0) ^ v64 | (v73 == 0)));
+  GNSS_Event_Log_Ctl(*(&xmmword_2A1926A70 + 1));
+  GNSS_Nav_Debug_Ctl(xmmword_2A1926A70);
+  GNSS_GNB_Debug_Ctl(xmmword_2A1926A80);
+  return 1;
+}
+
+uint64_t Horz_Meas_Update(unsigned int a1, double *a2, double *a3, unsigned int a4, double *a5, _BOOL8 a6, _WORD *a7)
+{
+  v39[33] = *MEMORY[0x29EDCA608];
+  if (*(a5 + 1) >= 1 && (*(a5 + 16) = 0, *a5 == 1))
+  {
+    v35 = 0.0;
+    v11 = a5[8];
+    v39[0] = 0.0;
+    sinval = 0.0;
+    cosval = 1.0;
+    if (!R8_EQ(a5 + 8, v39))
+    {
+      v14 = __sincos_stret(v11);
+      cosval = v14.__cosval;
+      v39[0] = 1.57079633;
+      if (R8_EQ(a5 + 8, v39))
+      {
+        cosval = 0.0;
+        sinval = 1.0;
+      }
+
+      else
+      {
+        sinval = v14.__sinval;
+      }
+    }
+
+    v15 = *a2;
+    v16 = __sincos_stret(*a2);
+    v17 = 0;
+    v18 = 1.0 / sqrt(v16.__sinval * v16.__sinval * -0.00669437999 + 1.0);
+    v19 = a2[2];
+    v20 = v16.__cosval * (v19 + v18 * 6378137.0);
+    if (v20 < 1.0)
+    {
+      v20 = 1.0;
+    }
+
+    v21 = a5[4];
+    a5[11] = (v15 - a5[3]) * (v19 + v18 * (v18 * v18) * 6335439.33);
+    a5[12] = (a2[1] - v21) * v20;
+    v22 = 1;
+    v23 = a5 + 6;
+    do
+    {
+      v37 = 0;
+      memset(v36, 0, sizeof(v36));
+      v24 = a3[2];
+      v25 = a3[1];
+      *(v36 + a1) = sinval * a3[3] + cosval * *a3;
+      v26 = a3[5];
+      *(v36 + a1 + 1) = sinval * a3[4] + cosval * v25;
+      v27 = v22;
+      *(&v36[1] + a1) = sinval * v26 + cosval * v24;
+      *(v36 + a4) = sinval * a5[12] + cosval * a5[11];
+      umeas(a6, a4, v23[v17], v36, v39, v38, &v35, a5[13]);
+      v28 = v35;
+      if (v35 <= 0.0)
+      {
+        *a5 = 0;
+        *(a5 + 16) = 1;
+        ++*a7;
+      }
+
+      else
+      {
+        v28 = v23[v17] * (v35 * (v39[a4] * v39[a4]));
+      }
+
+      v22 = 0;
+      a5[v17 + 14] = v28;
+      v29 = -sinval;
+      v17 = 1;
+      sinval = cosval;
+      cosval = v29;
+    }
+
+    while ((v27 & 1) != 0);
+    v30 = *a5;
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  return v30 & 1;
+}
+
+void NK_Final_Check(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, double a7, double a8)
+{
+  v423 = *MEMORY[0x29EDCA608];
+  v12 = a2 + 22920;
+  *(a2 + 31296) = *(a2 + 800);
+  v13 = *(a2 + 816);
+  *(a2 + 31320) = *(a2 + 912);
+  *(a2 + 31312) = v13;
+  *(a2 + 31336) = *(a2 + 928);
+  v14 = *(a2 + 24777);
+  v15 = v14 - *(a2 + 24778);
+  v17 = v14 > 1 && v15 == 2;
+  v18 = v14 - v17;
+  v395 = *(a2 + 22992) == 1 && (*(a2 + 23000) - 3) < 2;
+  if (*(a2 + 964) > 1)
+  {
+    v25 = a1;
+    v26 = *(a1 + 11032);
+    v19 = v18;
+    if (v26 >= 0x3D)
+    {
+      if (v26 < 0x12D)
+      {
+        v27 = 2;
+      }
+
+      else
+      {
+        v27 = 1;
+      }
+
+      *(a2 + 964) = v27;
+      v19 = v18;
+    }
+  }
+
+  else
+  {
+    v19 = v14 - v17;
+    if (v18 <= 3)
+    {
+      v20 = 0;
+      v21 = 0;
+      v22 = a2 + 3056;
+      do
+      {
+        if (*(v22 + v20 - 96) == 1)
+        {
+          v23 = *(v22 + 4 * v20);
+          if ((v23 - 1) >= 0x1D)
+          {
+            if (v23)
+            {
+              v24 = v18;
+              EvCrt_Illegal_Default("Any_SV_Meas_Edit", 166);
+              v18 = v24;
+            }
+
+            else
+            {
+              ++v21;
+            }
+          }
+        }
+
+        ++v20;
+      }
+
+      while (v20 != 48);
+      v29 = v21 > 1 && v15 == 2;
+      v19 = v21 - v29;
+    }
+
+    v25 = a1;
+    if (v19 >= 4 && (*(a1 + 232) & 1) != 0)
+    {
+      goto LABEL_37;
+    }
+
+    if (*(v12 + 72) == 1 && *(v12 + 76) == 1)
+    {
+      v30 = !v395;
+      if (*(a2 + 23040) > 900000000.0)
+      {
+        v30 = 1;
+      }
+
+      if ((v30 & 1) == 0)
+      {
+LABEL_37:
+        *(a2 + 964) = 2;
+        *(a1 + 235) = 0;
+      }
+    }
+  }
+
+  v369 = v18;
+  v376 = v19;
+  if ((*(v25 + 128) & 1) == 0)
+  {
+    v31 = 0;
+    while (*(a2 + 24136 + v31) <= 1.0e18)
+    {
+      v31 += 8;
+      if (v31 == 88)
+      {
+        goto LABEL_46;
+      }
+    }
+
+    *(v25 + 128) = 1;
+    *(v25 + 132) = 80;
+  }
+
+LABEL_46:
+  v32 = *&ClkBiasOrigVar[*(a2 + 640)];
+  *(a2 + 25600) = v32;
+  v33 = (a2 + 24136);
+  *(v12 + 2672) = 0;
+  *(a2 + 25608) = 0;
+  *(v12 + 2676) = 255;
+  *&v417 = 0;
+  v385 = (a2 + 736);
+  if (R8_EQ((a2 + 736), &v417) || (v34 = *v33, *v33 >= v32))
+  {
+    v35 = 0;
+    v36 = 0.0;
+  }
+
+  else
+  {
+    v35 = 1;
+    *(v12 + 2672) = 1;
+    v36 = *(a2 + 736);
+    *(a2 + 25608) = v36;
+    *(v12 + 2676) = 0;
+    *(a2 + 25600) = v34;
+    v32 = v34;
+  }
+
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 744), &v417))
+  {
+    v37 = *(a2 + 24144);
+    if (v37 < v32)
+    {
+      v35 = 2;
+      *(v12 + 2672) = 2;
+      v36 = *(a2 + 744);
+      *(a2 + 25608) = v36;
+      *(v12 + 2676) = 1;
+      *(a2 + 25600) = v37;
+      v32 = v37;
+    }
+  }
+
+  *&v417 = 0;
+  if (R8_EQ((a2 + 752), &v417) || (v39 = *(a2 + 24152), v39 >= v32))
+  {
+    if (!v35)
+    {
+      v40 = a1;
+      goto LABEL_105;
+    }
+
+    *&v417 = 0;
+    v40 = a1;
+    if (R8_EQ((a2 + 25608), &v417))
+    {
+      goto LABEL_105;
+    }
+
+    if (v35 == 1)
+    {
+      v42 = 0.0;
+      goto LABEL_68;
+    }
+
+    v35 = 2;
+    v41 = 1;
+  }
+
+  else
+  {
+    *(v12 + 2672) = 4;
+    v36 = *(a2 + 752);
+    *(a2 + 25608) = v36;
+    *(v12 + 2676) = 2;
+    *(a2 + 25600) = v39;
+    *&v417 = 0;
+    v40 = a1;
+    if (R8_EQ((a2 + 25608), &v417))
+    {
+      goto LABEL_105;
+    }
+
+    v41 = 0;
+    v35 = 4;
+  }
+
+  *&v417 = 0;
+  v42 = 0.0;
+  if (!R8_EQ(v385, &v417))
+  {
+    v42 = vabdd_f64(v36, *v385);
+  }
+
+  if (v41)
+  {
+    v43 = 0.0;
+    v35 = 2;
+    v40 = a1;
+    goto LABEL_76;
+  }
+
+  v40 = a1;
+LABEL_68:
+  *&v417 = 0;
+  v43 = 0.0;
+  if (!R8_EQ((a2 + 744), &v417))
+  {
+    v43 = vabdd_f64(v36, *(a2 + 744));
+  }
+
+  if (v35 == 4)
+  {
+    *&v417 = 0;
+    if (R8_EQ(v385, &v417) || (v415[0] = 0.0, R8_EQ((a2 + 744), v415)))
+    {
+      *&v417 = 0;
+      if (R8_EQ(v385, &v417))
+      {
+        *&v417 = 0;
+        if (R8_EQ((a2 + 744), &v417))
+        {
+          goto LABEL_105;
+        }
+
+        goto LABEL_82;
+      }
+
+      goto LABEL_88;
+    }
+
+    v46 = v42 > v43;
+    v47 = 2;
+LABEL_97:
+    if (v46)
+    {
+      v48 = v47;
+    }
+
+    else
+    {
+      v48 = 1;
+    }
+
+    if (v46)
+    {
+      v49 = 1;
+    }
+
+    else
+    {
+      v49 = v47;
     }
 
     goto LABEL_103;
   }
 
-  if (v34 > 15)
+LABEL_76:
+  *&v417 = 0;
+  v44 = 0.0;
+  if (!R8_EQ((a2 + 752), &v417))
   {
-    if (v34 == 16)
+    v44 = vabdd_f64(v36, *(a2 + 752));
+  }
+
+  if (v35 == 2)
+  {
+    *&v417 = 0;
+    if (R8_EQ(v385, &v417) || (v415[0] = 0.0, R8_EQ((a2 + 752), v415)))
     {
-      v65 = *(a1 + 72);
-      v64 = *(a1 + 76);
-      *&__src[64] = 9;
-      *&__src[92] = v64;
-      if (v65 == 2)
+      *&v417 = 0;
+      if (R8_EQ(v385, &v417))
       {
-        *&__src[92] = v64 | 0x800000;
+        goto LABEL_86;
       }
 
-      *&__src[96] = *(a1 + 80);
-      *&__src[102] = *(a1 + 86);
-      __src[104] = *(a1 + 88) >> (*&__src[12] == 1);
-      __src[106] = *(a1 + 97);
-      v66 = *(a1 + 84);
-      *&__src[100] = v66;
-      if (*(a1 + 92) == 2)
-      {
-        *&__src[100] = v66 | 0x8000;
-      }
-
-      __src[105] = *(a1 + 96);
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v67 = mach_continuous_time();
-        v68 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: ShapeType Ellipsoid pt Alt & Unc Eclipse\n", (*&g_MacClockTicksToMsRelation * v67), "ADP", 73, "Ga10_02SendPositionReport");
-        LbsOsaTrace_WriteLog(0x18u, __str, v68, 4, 1);
-      }
-
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-      {
-        bzero(__str, 0x410uLL);
-        v69 = mach_continuous_time();
-        v70 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Lat,%d,Long,%d,SemiMajAxis,%u,SemiMinAxis,%u,OrientAngle,%u,Conf,%u,Alt,%u,UncAlt,%u\n", (*&g_MacClockTicksToMsRelation * v69), "ADP", 68, "Ga10_02SendPositionReport", *&__src[92], *&__src[96], __src[102], __src[103], __src[104], __src[106], *&__src[100], __src[105]);
-        LbsOsaTrace_WriteLog(0x18u, __str, v70, 5, 1);
-      }
-
-      goto LABEL_103;
+LABEL_88:
+      v45 = 1;
+      goto LABEL_104;
     }
 
-    if (v34 == 32)
+    v46 = v42 > v44;
+    v47 = 4;
+    goto LABEL_97;
+  }
+
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 744), &v417))
+  {
+    v415[0] = 0.0;
+    if (!R8_EQ((a2 + 752), v415))
     {
-      v49 = *(a1 + 72);
-      v48 = *(a1 + 76);
-      *&__src[64] = 10;
-      *&__src[108] = v48;
-      if (v49 == 2)
+      if (v43 <= v44)
       {
-        *&__src[108] = v48 | 0x800000;
+        v48 = 2;
       }
 
-      *&__src[112] = *(a1 + 80);
-      *&__src[116] = *(a1 + 100);
-      __src[120] = *(a1 + 98);
-      __src[119] = *(a1 + 99);
-      __src[118] = *(a1 + 86);
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
+      else
       {
-        bzero(__str, 0x410uLL);
-        v50 = mach_continuous_time();
-        v51 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: ShapeType Ellipsoid Arc\n", (*&g_MacClockTicksToMsRelation * v50), "ADP", 73, "Ga10_02SendPositionReport");
-        LbsOsaTrace_WriteLog(0x18u, __str, v51, 4, 1);
+        v48 = 4;
       }
 
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
+      if (v43 <= v44)
       {
-        bzero(__str, 0x410uLL);
-        v52 = mach_continuous_time();
-        v53 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Lat,%d,Long,%d,InnerRad,%u,IncludedAngle,%u,offsetAngle,%u,UncRad,%u\n", (*&g_MacClockTicksToMsRelation * v52), "ADP", 68, "Ga10_02SendPositionReport", *&__src[108], *&__src[112], *&__src[116], __src[120], __src[119], __src[118]);
-        LbsOsaTrace_WriteLog(0x18u, __str, v53, 5, 1);
+        v49 = 4;
       }
 
-      goto LABEL_103;
-    }
-
-    goto LABEL_81;
-  }
-
-  if (v34 != 4)
-  {
-    if (v34 == 8)
-    {
-      v36 = *(a1 + 72);
-      v35 = *(a1 + 76);
-      *&__src[64] = 8;
-      *&__src[132] = v35;
-      if (v36 == 2)
+      else
       {
-        *&__src[132] = v35 | 0x800000;
+        v49 = 2;
       }
-
-      *&__src[136] = *(a1 + 80);
-      v37 = *(a1 + 84);
-      *&__src[140] = v37;
-      if (*(a1 + 92) == 2)
-      {
-        *&__src[140] = v37 | 0x8000;
-      }
-
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v38 = mach_continuous_time();
-        v39 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: ShapeType Ellipsoid Pt Alt\n", (*&g_MacClockTicksToMsRelation * v38), "ADP", 73, "Ga10_02SendPositionReport");
-        LbsOsaTrace_WriteLog(0x18u, __str, v39, 4, 1);
-      }
-
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-      {
-        bzero(__str, 0x410uLL);
-        v40 = mach_continuous_time();
-        v41 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Lat,%d,Long,%d,Alt,%u\n", (*&g_MacClockTicksToMsRelation * v40), "ADP", 68, "Ga10_02SendPositionReport", *&__src[132], *&__src[136], *&__src[140]);
-        LbsOsaTrace_WriteLog(0x18u, __str, v41, 5, 1);
-      }
-
-      goto LABEL_103;
-    }
-
-    goto LABEL_81;
-  }
-
-  v59 = *(a1 + 72);
-  v58 = *(a1 + 76);
-  *&__src[64] = 3;
-  *&__src[80] = v58;
-  if (v59 == 2)
-  {
-    *&__src[80] = v58 | 0x800000;
-  }
-
-  *&__src[84] = *(a1 + 80);
-  *&__src[88] = *(a1 + 86);
-  __src[90] = *(a1 + 88) >> (*&__src[12] == 1);
-  __src[91] = *(a1 + 97);
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v60 = mach_continuous_time();
-    v61 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: ShapeType Ellipsoid Pt Unc Elipse\n", (*&g_MacClockTicksToMsRelation * v60), "ADP", 73, "Ga10_02SendPositionReport");
-    LbsOsaTrace_WriteLog(0x18u, __str, v61, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-  {
-    bzero(__str, 0x410uLL);
-    v62 = mach_continuous_time();
-    v63 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Lat,%d,Long,%d,SemiMajAxis,%u,SemiMinAxis,%u,OrientAngle,%u,Conf,%u\n", (*&g_MacClockTicksToMsRelation * v62), "ADP", 68, "Ga10_02SendPositionReport", *&__src[80], *&__src[84], __src[88], __src[89], __src[90], __src[91]);
-    LbsOsaTrace_WriteLog(0x18u, __str, v63, 5, 1);
-  }
 
 LABEL_103:
-  v77 = *(a1 + 108);
-  if (v77 <= 1)
+      NK_Final_Check_ClkBias(v48, v40, a2);
+      v45 = v49;
+      goto LABEL_104;
+    }
+  }
+
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 744), &v417))
   {
-    if (v77)
+LABEL_82:
+    v45 = 2;
+    goto LABEL_104;
+  }
+
+LABEL_86:
+  *&v417 = 0;
+  if (R8_EQ((a2 + 752), &v417))
+  {
+    goto LABEL_105;
+  }
+
+  v45 = 4;
+LABEL_104:
+  NK_Final_Check_ClkBias(v45, v40, a2);
+LABEL_105:
+  v50 = *(a2 + 760);
+  v372 = (a2 + 744);
+  if (fabs(v50) <= 0.000006)
+  {
+    if (*v12 == 1)
     {
-      if (v77 != 1)
+      v52 = (*(a2 + 22944) + v50 * -299792458.0) * (*(a2 + 22944) + v50 * -299792458.0);
+      v53 = *(a2 + 22960);
+      if (v52 / v53 > 25.0)
       {
-LABEL_141:
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+        if (*(v12 + 2229) < 4u || *(a2 + 977) < 0x1Au || *(v12 + 2249) != 1 || *(a2 + 24160) >= v53 || *(a2 + 964) < 2)
         {
-          bzero(__str, 0x410uLL);
-          v96 = mach_continuous_time();
-          v97 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Velocity type,%u\n", (*&g_MacClockTicksToMsRelation * v96), "ADP", 69, "Ga10_02SendPositionReport", 515, *(a1 + 108));
-          LbsOsaTrace_WriteLog(0x18u, __str, v97, 0, 1);
+          *(a2 + 760) = a7;
+          v386 = 1;
+          *(v40 + 128) = 1;
+          v51 = 71;
+          goto LABEL_107;
         }
 
-        goto LABEL_143;
-      }
-
-      *&__src[276] = *(a1 + 112);
-      *&__src[272] = 0;
-      *&__src[4] |= 4u;
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v82 = mach_continuous_time();
-        v83 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Vel Estimate is Hor\n", (*&g_MacClockTicksToMsRelation * v82), "ADP", 73, "Ga10_02SendPositionReport");
-        LbsOsaTrace_WriteLog(0x18u, __str, v83, 4, 1);
-      }
-
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-      {
-        bzero(__str, 0x410uLL);
-        v84 = mach_continuous_time();
-        v85 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Bearing,%u,HSpeed,%u\n", (*&g_MacClockTicksToMsRelation * v84), "ADP", 68, "Ga10_02SendPositionReport", *&__src[276], *&__src[278]);
-        LbsOsaTrace_WriteLog(0x18u, __str, v85, 5, 1);
+        *v12 = 0;
+        *(p_NA + 8) = 0;
+        EvCrt_v("NK_Final_Check: Ext ClkD is ignored in favor of PE estimated ClkD.");
       }
     }
 
-    else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
+    v386 = 0;
+    goto LABEL_117;
+  }
+
+  *(a2 + 760) = a7;
+  v386 = 1;
+  *(v40 + 128) = 1;
+  v51 = 81;
+LABEL_107:
+  *(v40 + 132) = v51;
+LABEL_117:
+  v400 = 1.0e12;
+  v401 = 0x426D1A94A2000000;
+  v54 = 0.0;
+  v55 = 0.0;
+  v56 = 0.0;
+  if ((v395 & *(v12 + 72)) == 1)
+  {
+    v57 = *(a2 + 23064);
+    v55 = 0.0;
+    if (v57 < 100000000.0)
     {
-      bzero(__str, 0x410uLL);
-      v94 = mach_continuous_time();
-      v95 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: VelInfo not avlbl\n", (*&g_MacClockTicksToMsRelation * v94), "ADP", 73, "Ga10_02SendPositionReport");
-      LbsOsaTrace_WriteLog(0x18u, __str, v95, 4, 1);
+      v58 = cos(*(a2 + 23056));
+      v59 = *(a2 + 23072);
+      v60 = v58 * v58 * (v57 - v59);
+      v61 = v59 + v60;
+      v62 = 1.0;
+      if (v61 < 1.0)
+      {
+        v61 = 1.0;
+      }
+
+      v63 = v57 - v60;
+      if (v63 >= 1.0)
+      {
+        v62 = v63;
+      }
+
+      v64 = v61 + 1000000.0;
+      v65 = v62 + 1000000.0;
+      v400 = v62 + 1000000.0;
+      v401 = *&v64;
+      v66 = *(a2 + 800) - *(a2 + 23016);
+      if (v66 >= 1.57079633)
+      {
+        v67 = 3.14159265;
+      }
+
+      else
+      {
+        if (v66 >= -1.57079633)
+        {
+          goto LABEL_128;
+        }
+
+        v67 = -3.14159265;
+      }
+
+      v66 = v67 - v66;
+LABEL_128:
+      v68 = v66 * 6378137.0 * (v66 * 6378137.0);
+      v69 = *(a2 + 808) - *(a2 + 23024);
+      if (v69 >= 3.14159265)
+      {
+        v70 = -6.28318531;
+      }
+
+      else
+      {
+        if (v69 >= -3.14159265)
+        {
+LABEL_133:
+          v55 = v68 / v64;
+          v56 = v69 * 6378137.0 * *(a2 + 904) * (v69 * 6378137.0 * *(a2 + 904)) / v65;
+          goto LABEL_134;
+        }
+
+        v70 = 6.28318531;
+      }
+
+      v69 = v69 + v70;
+      goto LABEL_133;
+    }
+  }
+
+LABEL_134:
+  if (*(v12 + 200) == 1)
+  {
+    v71 = *(a2 + 23160);
+    v72 = !v395;
+    if (v71 >= 250000.0)
+    {
+      v72 = 1;
+    }
+
+    if ((v72 & 1) == 0)
+    {
+      v73 = *(a2 + 816) - *(a2 + 23144);
+      v54 = v73 * v73 / (v71 + 100.0);
+    }
+  }
+
+  v74 = *(a2 + 816) - *(a2 + 824);
+  v75 = fmax(v55, v56) > 49.0;
+  if (v54 > 64.0)
+  {
+    v75 = 1;
+  }
+
+  v370 = v74 - 60001;
+  if ((v74 - 60001) < 0xFFFF0DCF)
+  {
+    v75 = 1;
+  }
+
+  v390 = v75;
+  if (v75)
+  {
+    EvLog_v("NKFC: KF Reset 83:  Position problem !  SVNum %d  LLH %f %f %d m   PosTest %f %f %f", *(v12 + 1857), *(a2 + 800) * 57.2957795, *(a2 + 808) * 57.2957795, v74, v55, v56, v54);
+    if (*(a2 + 960) == 1 && (v395 & *(v12 + 72)) == 1)
+    {
+      v76 = *(a2 + 23064);
+      if (v76 < 100000000.0)
+      {
+        *(a2 + 800) = *(v12 + 96);
+        *(a2 + 24176) = v76;
+        *(a2 + 24184) = v76;
+        *(a2 + 24264) = v76;
+        *(a2 + 24272) = v76;
+        v77 = sqrt(v76);
+        *(a2 + 24352) = v77;
+        *(a2 + 24360) = v77;
+      }
+    }
+
+    if (*(v12 + 200) == 1)
+    {
+      v78 = *(a2 + 23144);
+      v74 = v78 - *(a2 + 824);
+      v79 = *(a2 + 23160);
+      v80 = sqrt(v79);
+    }
+
+    else
+    {
+      v74 = 0;
+      v78 = *(a2 + 824);
+      v80 = 1000.0;
+      v79 = 1000000.0;
+    }
+
+    *(a2 + 816) = v78;
+    *(a2 + 24192) = v79;
+    *(a2 + 24280) = v79;
+    *(a2 + 24368) = v80;
+    v81 = 1;
+    *(v40 + 128) = 1;
+    *(v40 + 132) = 83;
+  }
+
+  else
+  {
+    v81 = *(v40 + 128);
+  }
+
+  v382 = *(a2 + 944);
+  v403 = 0u;
+  v404 = 0u;
+  memset(v405, 0, sizeof(v405));
+  v406 = 0u;
+  v407 = 0.0;
+  v82 = a8 * 99930819.3 * (a8 * 99930819.3);
+  v83 = &loc_299728000;
+  v384 = a3;
+  v371 = (a2 + 752);
+  if ((*v12 & 1) == 0)
+  {
+    v84 = (a2 + 24160);
+LABEL_159:
+    if (v81)
+    {
+      v373 = 0;
+      v378 = 0;
+      *v84 = v82;
+      goto LABEL_168;
+    }
+
+    goto LABEL_167;
+  }
+
+  v84 = (a2 + 24160);
+  if (*(v12 + 4) != 1)
+  {
+    goto LABEL_159;
+  }
+
+  v85 = *(a2 + 22960);
+  v86 = v85 + 225.0;
+  v87 = *(a2 + 22944);
+  v88 = (v87 - *(a2 + 760) * 299792458.0) * (v87 - *(a2 + 760) * 299792458.0);
+  v89 = v88 / (v85 + 225.0);
+  v90 = v85 + v88 * 0.1;
+  if (v81)
+  {
+    if (v89 > 11.0)
+    {
+      *(a2 + 24160) = v86;
+      EvCrt_v("NK_Final_Check: Clock drift check failed", v90);
+      v83 = &loc_299728000;
+      v378 = 0;
+      *(a2 + 760) = v87 / 299792458.0;
+      v373 = 1;
+      goto LABEL_168;
+    }
+
+    if (v89 > 1.0)
+    {
+LABEL_165:
+      v373 = 0;
+      v378 = 0;
+      *v84 = v90;
+      goto LABEL_168;
     }
   }
 
   else
   {
-    switch(v77)
+    if (v89 > 16.0)
     {
-      case 2:
-        *&__src[272] = 1;
-        *&__src[280] = *(a1 + 112);
-        if (*(a1 + 118) <= 0xFFu)
-        {
-          __src[284] = *(a1 + 118);
-        }
+      *(a2 + 24160) = v86;
+      *(&v404 + 1) = v85 + 225.0;
+      EvCrt_v("NK_Final_Check: Clock drift check failed", v90);
+      v83 = &loc_299728000;
+      *(a2 + 760) = v87 / 299792458.0;
+      *(v40 + 168) = 4;
+      v373 = 1;
+      v378 = 1;
+      goto LABEL_168;
+    }
 
-        if (*(a1 + 116) != 255)
-        {
-          __src[285] = *(a1 + 116);
-        }
-
-        *&__src[4] |= 4u;
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v86 = mach_continuous_time();
-          v87 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Vel Estimate is Hor with Ver\n", (*&g_MacClockTicksToMsRelation * v86), "ADP", 73, "Ga10_02SendPositionReport");
-          LbsOsaTrace_WriteLog(0x18u, __str, v87, 4, 1);
-        }
-
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-        {
-          bzero(__str, 0x410uLL);
-          v88 = mach_continuous_time();
-          v89 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Bearing,%u,HSpeed,%u,VSpeed,%u,VSpeedDir,%u\n", (*&g_MacClockTicksToMsRelation * v88), "ADP", 68, "Ga10_02SendPositionReport", *&__src[280], *&__src[282], __src[284], __src[285]);
-          LbsOsaTrace_WriteLog(0x18u, __str, v89, 5, 1);
-        }
-
-        break;
-      case 4:
-        *&__src[272] = 2;
-        *&__src[286] = *(a1 + 112);
-        if (*(a1 + 120) <= 0xFFu)
-        {
-          __src[290] = *(a1 + 120);
-        }
-
-        *&__src[4] |= 4u;
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v90 = mach_continuous_time();
-          v91 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Vel Estimate is Hor with Unc\n", (*&g_MacClockTicksToMsRelation * v90), "ADP", 73, "Ga10_02SendPositionReport");
-          LbsOsaTrace_WriteLog(0x18u, __str, v91, 4, 1);
-        }
-
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-        {
-          bzero(__str, 0x410uLL);
-          v92 = mach_continuous_time();
-          v93 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Bearing,%u,HSpeed,%u,UncSpeed,%u\n", (*&g_MacClockTicksToMsRelation * v92), "ADP", 68, "Ga10_02SendPositionReport", *&__src[286], *&__src[288], __src[290]);
-          LbsOsaTrace_WriteLog(0x18u, __str, v93, 5, 1);
-        }
-
-        break;
-      case 8:
-        *&__src[272] = 3;
-        *&__src[292] = *(a1 + 112);
-        if (*(a1 + 118) <= 0xFFu)
-        {
-          __src[296] = *(a1 + 118);
-        }
-
-        if (*(a1 + 116) != 255)
-        {
-          __src[297] = *(a1 + 116);
-        }
-
-        if (*(a1 + 120) <= 0xFFu)
-        {
-          __src[298] = *(a1 + 120);
-        }
-
-        if (*(a1 + 122) <= 0xFFu)
-        {
-          __src[299] = *(a1 + 122);
-        }
-
-        *&__src[4] |= 4u;
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v78 = mach_continuous_time();
-          v79 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Vel Estimate is Hor with Ver and Uncert\n", (*&g_MacClockTicksToMsRelation * v78), "ADP", 73, "Ga10_02SendPositionReport");
-          LbsOsaTrace_WriteLog(0x18u, __str, v79, 4, 1);
-        }
-
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 1))
-        {
-          bzero(__str, 0x410uLL);
-          v80 = mach_continuous_time();
-          v81 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Bearing,%u,HSpeed,%u,VSpeed,%u,VSpeedDir,%u,HUncSpeed,%u,VUncSpeed,%u\n", (*&g_MacClockTicksToMsRelation * v80), "ADP", 68, "Ga10_02SendPositionReport", *&__src[292], *&__src[294], __src[296], __src[297], __src[298], __src[299]);
-          LbsOsaTrace_WriteLog(0x18u, __str, v81, 5, 1);
-        }
-
-        break;
-      default:
-        goto LABEL_141;
+    if (*v84 > v90)
+    {
+      goto LABEL_165;
     }
   }
 
-LABEL_143:
-  v98 = *(a1 + 45);
-  if (v98)
+LABEL_167:
+  v373 = 0;
+  v378 = 0;
+LABEL_168:
+  v91 = *(v40 + 128);
+  if ((*v12 & 1) == 0)
   {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
+    if (*(v40 + 128))
     {
-      bzero(__str, 0x410uLL);
-      v99 = mach_continuous_time();
-      v100 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GPS Fix\n", (*&g_MacClockTicksToMsRelation * v99), "ADP", 73, "Ga10_02SendPositionReport");
-      LbsOsaTrace_WriteLog(0x18u, __str, v100, 4, 1);
+      goto LABEL_191;
     }
 
-    *&__src[300] |= 1u;
-    *&__src[4] |= 1u;
-    v98 = *(a1 + 45);
-  }
-
-  if ((v98 & 0x80) == 0)
-  {
-    goto LABEL_170;
-  }
-
-  v101 = *(v2 + 128);
-  v102 = *(v2 + 136) - v101;
-  if (!v102)
-  {
-    goto LABEL_160;
-  }
-
-  v103 = *(a1 + 40);
-  v104 = 0x7D6343EB1A1F58D1 * (v102 >> 2);
-  if (v104 <= 1)
-  {
-    v105 = 1;
-  }
-
-  else
-  {
-    v105 = v104;
-  }
-
-  if (*(v101 + 52) != v103)
-  {
-    v106 = 0;
-    v108 = (v101 + 248);
-    v109 = v105 - 1;
-    while (v109 != v106)
+    if (*v84 > v82 + v82)
     {
-      v110 = *v108;
-      v108 += 49;
-      ++v106;
-      if (v110 == v103)
+      if (*(a2 + 964) <= 1)
       {
-        if (v106 < v104)
-        {
-          goto LABEL_154;
-        }
-
-        goto LABEL_160;
+        v91 = 1;
+        *(v40 + 128) = 1;
+        v92 = 72;
+LABEL_184:
+        *(v40 + 132) = v92;
+        v95 = 1;
+LABEL_192:
+        v379 = v95;
+        goto LABEL_193;
       }
+
+      *(a2 + 760) = a7;
+      *(a2 + 24160) = v82;
+      *(&v404 + 1) = v82;
+      *(v40 + 168) = 5;
+      v378 = 1;
     }
 
-    goto LABEL_160;
-  }
-
-  v106 = 0;
-LABEL_154:
-  if (v106 >= v104)
-  {
-LABEL_160:
-    v107 = 0;
-    goto LABEL_161;
-  }
-
-  v107 = *(v101 + 196 * v106 + 48);
-LABEL_161:
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v111 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
-    if (v107)
+LABEL_176:
+    v93 = *(v40 + 20);
+    if (v93 > 8)
     {
-      v112 = 84;
+      v94 = 1000000000.0;
     }
 
     else
     {
-      v112 = 70;
+      v94 = dbl_2997612F0[v93];
     }
 
-    v113 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: HELO enabled,%c\n", v111, "ADP", 73, "Ga10_02SendPositionReport", v112);
-    LbsOsaTrace_WriteLog(0x18u, __str, v113, 4, 1);
-  }
-
-  if (v107)
-  {
-    *&__src[300] |= 2u;
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
+    if (*(a2 + 24200) <= v94 && *(a2 + 24208) <= v94 && *(a2 + 24216) <= v94)
     {
-      bzero(__str, 0x410uLL);
-      v114 = mach_continuous_time();
-      v115 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: HELO Fix\n", (*&g_MacClockTicksToMsRelation * v114), "ADP", 73, "Ga10_02SendPositionReport");
-      LbsOsaTrace_WriteLog(0x18u, __str, v115, 4, 1);
-    }
-  }
-
-  *&__src[4] |= 0x10u;
-LABEL_170:
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v116 = mach_continuous_time();
-    v117 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GnssMask,%u,RspType,%u\n", (*&g_MacClockTicksToMsRelation * v116), "ADP", 73, "Ga10_02SendPositionReport", *(a1 + 45), *&__src[4]);
-    LbsOsaTrace_WriteLog(0x18u, __str, v117, 4, 1);
-  }
-
-LABEL_172:
-  *&__src[304] = gnss::GnssAdaptDevice::Ga06_18GetGnssSpoofingFlag(v2, *(a1 + 48));
-  v118 = *(v2 + 296);
-  block[0] = MEMORY[0x29EDCA5F8];
-  block[1] = 1174405120;
-  block[2] = ___ZN4gnss15GnssAdaptDevice25Ga10_02SendPositionReportEPK15s_gnsCP_PosnRes_block_invoke_172;
-  block[3] = &__block_descriptor_tmp_177;
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::__value_func[abi:ne200100](v144, v147);
-  memcpy(v145, __src, sizeof(v145));
-  dispatch_async(v118, block);
-  v119 = *(v2 + 128);
-  v120 = *(v2 + 136) - v119;
-  if (v120)
-  {
-    v121 = 0x7D6343EB1A1F58D1 * (v120 >> 2);
-    if (v121 <= 1)
-    {
-      v122 = 1;
+      v91 = 0;
     }
 
     else
     {
-      v122 = v121;
-    }
-
-    if (*(v119 + 52) == *&__src[16])
-    {
-      v123 = 0;
-LABEL_178:
-      if (v123 < v121)
+      if (*(a2 + 964) < 2)
       {
-        v124 = *(v119 + 196 * v123 + 40);
-        v125 = mach_continuous_time();
-        v126 = *(v2 + 128) + 196 * v123;
-        *(v126 + 184) = (*&g_MacClockTicksToMsRelation * v125) - v124;
-        v127 = *(a1 + 40);
-        v128 = *(a1 + 56);
-        v129 = *(a1 + 88);
-        *(v126 + 96) = *(a1 + 72);
-        *(v126 + 112) = v129;
-        *(v126 + 64) = v127;
-        *(v126 + 80) = v128;
-        v130 = *(a1 + 104);
-        v131 = *(a1 + 120);
-        v132 = *(a1 + 136);
-        *(v126 + 176) = *(a1 + 152);
-        *(v126 + 144) = v131;
-        *(v126 + 160) = v132;
-        *(v126 + 128) = v130;
+        v91 = 1;
+        *(v40 + 128) = 1;
+        v92 = 73;
+        goto LABEL_184;
       }
 
-      v133 = *(a1 + 60);
-      if (v133 == 9)
-      {
-        v134 = 3;
-      }
-
-      else
-      {
-        v134 = 19;
-      }
-
-      if (v133 == 1)
-      {
-        v135 = 2;
-      }
-
-      else
-      {
-        v135 = v134;
-      }
-
-      gnss::GnssAdaptDevice::Ga10_05SendSessionSummaryReport(v2, *(a1 + 40), 0, v135);
-    }
-
-    else
-    {
-      v123 = 0;
-      v140 = (v119 + 248);
-      v141 = v122 - 1;
-      while (v141 != v123)
-      {
-        v142 = *v140;
-        v140 += 49;
-        ++v123;
-        if (v142 == *&__src[16])
-        {
-          if (v123 < v121)
-          {
-            goto LABEL_178;
-          }
-
-          break;
-        }
-      }
-    }
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v136 = mach_continuous_time();
-    v137 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v136), "ADP", 68, "Ga10_02SendPositionReport");
-    LbsOsaTrace_WriteLog(0x18u, __str, v137, 5, 1);
-  }
-
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::~__value_func[abi:ne200100](v144);
-LABEL_190:
-  result = std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::~__value_func[abi:ne200100](v147);
-  v139 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_3_203()
-{
-  v0 = MEMORY[0x2A1C7C4A8]();
-  v61 = *MEMORY[0x29EDCA608];
-  v1 = *(v0 + 40);
-  v2 = *(*(*(v0 + 32) + 8) + 24);
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v3 = mach_continuous_time();
-    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 68, "Ga10_03SendAidingReport");
-    LbsOsaTrace_WriteLog(0x18u, __str, v4, 5, 1);
-  }
-
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::__value_func[abi:ne200100](v59, (v1 + 99));
-  if (v60)
-  {
-    LODWORD(__src[0]) = 0;
-    BYTE4(__src[0]) = 0;
-    __src[1] = -1;
-    LODWORD(__src[2]) = -1;
-    WORD2(__src[2]) = 0;
-    *(&__src[2] + 6) = -1;
-    BYTE2(__src[3]) = -1;
-    *(&__src[3] + 3) = 0;
-    *(&__src[4] + 1) = 0;
-    BYTE1(__src[5]) = -1;
-    *(&__src[5] + 2) = 0;
-    __src[6] = 0;
-    v5 = &__src[14] + 4;
-    v6 = &__src[33];
-    LOBYTE(__src[7]) = -1;
-    v7 = 44;
-    BYTE4(__src[7]) = 0;
-    do
-    {
-      v8 = &__src[7] + v7 + 4;
-      *v8 = 5;
-      *(v8 + 2) = 0;
-      v8[6] = -1;
-      v9 = v5;
-      v10 = 120;
+      v96 = &v406;
+      v97 = 3;
+      v98 = a2;
       do
       {
-        *(v9 - 4) = -1;
-        *v9 = -1;
-        v9 += 2;
-        v10 -= 8;
+        v98[86] = 0.0;
+        v98[114] = 0.0;
+        v99 = 100000000.0;
+        v98[89] = 0.0;
+        if (v93 <= 8)
+        {
+          v99 = dbl_299761338[v93];
+        }
+
+        *v96++ = v99;
+        v98[3025] = v99;
+        ++v98;
+        --v97;
       }
 
-      while (v10);
-      *(v8 + 32) = -1;
-      *(v8 + 66) = -1;
-      *(v8 + 134) = -256;
-      *(v8 + 138) = 0;
-      *(v8 + 18) = 0;
-      *(v8 + 38) = -1;
-      v11 = v6;
-      v12 = 60;
-      v8[156] = -1;
+      while (v97);
+      v91 = 0;
+      *(a2 + 952) = 0;
+      *(a2 + 936) = 0u;
+      *(v40 + 168) = 6;
+      v378 = 1;
+    }
+
+LABEL_191:
+    v95 = v390;
+    goto LABEL_192;
+  }
+
+  v379 = v390;
+  if (!*(v40 + 128))
+  {
+    goto LABEL_176;
+  }
+
+LABEL_193:
+  if (v74 <= -501)
+  {
+    v100 = (v74 * v74) / *(a2 + 24192) / 9.0;
+    if (v100 > 1.2)
+    {
+      v101 = 0;
+      v102 = v100 + -1.0;
+      v103 = a2 + 24176;
       do
       {
-        *(v11 - 2) = -1;
-        *v11 = -1;
-        v11 += 2;
-        v12 -= 4;
+        v104 = *(v103 + v101 * 8);
+        v415[v101] = v102 * v104;
+        *(v103 + v101 * 8) = v104 + v102 * v104;
+        ++v101;
       }
 
-      while (v12);
-      *(v8 + 218) = -1;
-      v7 += 224;
-      v5 += 224;
-      v6 += 28;
-    }
-
-    while (v7 != 1836);
-    LODWORD(__src[1]) = 0;
-    if (!v2)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+      while (v101 != 3);
+      if (v74 > -1001)
       {
-        bzero(__str, 0x410uLL);
-        v25 = mach_continuous_time();
-        v26 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Aid Rep\n", (*&g_MacClockTicksToMsRelation * v25), "ADP", 69, "Ga10_03SendAidingReport", 513);
-        LbsOsaTrace_WriteLog(0x18u, __str, v26, 0, 1);
-      }
-
-      goto LABEL_35;
-    }
-
-    v13 = *v2;
-    LODWORD(__src[2]) = *v2;
-    v14 = v1[16];
-    v15 = v1[17] - v14;
-    if (v15)
-    {
-      v16 = 0x7D6343EB1A1F58D1 * (v15 >> 2);
-      if (v16 <= 1)
-      {
-        v17 = 1;
-      }
-
-      else
-      {
-        v17 = v16;
-      }
-
-      if (*(v14 + 52) == v13)
-      {
-        v18 = 0;
-LABEL_17:
-        if (v18 < v16)
+        *(a2 + 24400) = *(v40 + 7280) + (*(a2 + 24400) - *(v40 + 7280)) * v100;
+        v105 = (v40 + 7256);
+        v106 = (a2 + 24352);
+        v107 = 3;
+        do
         {
-          v19 = v14 + 196 * v18;
-          v20 = *(v19 + 44);
-          *(v19 + 60) = 1;
-LABEL_30:
-          HIDWORD(__src[1]) = v20;
-          v30 = *(v2 + 1);
-          if (v30)
+          v108 = *v105++;
+          v109 = *(v106 - 22) + v108;
+          *(v106 - 11) = v109;
+          *v106++ = sqrt(v109);
+          --v107;
+        }
+
+        while (v107);
+        if (!v91)
+        {
+          v422 = 0;
+          v420 = 0u;
+          v421 = 0u;
+          v418 = 0u;
+          v419 = 0u;
+          v417 = 0u;
+          v110 = v415[0];
+          if (v415[0] <= v415[1])
           {
-            LODWORD(__src[0]) = -8;
-            if (*v30 == 1)
-            {
-              v31 = 64;
-              WORD2(__src[2]) = 64;
-              BYTE4(__src[0]) = 1;
-            }
-
-            else
-            {
-              v31 = 0;
-            }
-
-            if (v30[1] == 1)
-            {
-              v31 |= 0x20u;
-              WORD2(__src[2]) = v31;
-              BYTE4(__src[0]) = 1;
-            }
-
-            if (v30[2] == 1)
-            {
-              v31 |= 4u;
-              WORD2(__src[2]) = v31;
-              BYTE4(__src[0]) = 1;
-            }
-
-            if (v30[3] == 1)
-            {
-              v34 = *(v2 + 2);
-              if (v34)
-              {
-                if (*(v34 + 7) == 1)
-                {
-                  v31 |= 8u;
-                  WORD2(__src[2]) = v31;
-                  if (v20 == 2)
-                  {
-                    v35 = *(v34 + 16);
-                  }
-
-                  else
-                  {
-                    v35 = *(v34 + 16) & 0x3FF;
-                  }
-
-                  HIWORD(__src[2]) = v35;
-                  LOBYTE(__src[3]) = *(v34 + 18);
-                  if (*(v34 + 20))
-                  {
-                    v36 = (v34 + 21);
-                    v37 = &__src[3] + 2;
-                    v38 = (v34 + 86);
-                    v39 = *(v34 + 20) - 1;
-                    if (v39 >= 0xE)
-                    {
-                      v39 = 14;
-                    }
-
-                    v40 = v39 + 1;
-                    do
-                    {
-                      v41 = *v36++;
-                      *v37 = v41;
-                      v42 = *v38;
-                      v38 += 2;
-                      v37[15] = v42;
-                      ++v37;
-                      --v40;
-                    }
-
-                    while (v40);
-                    v43 = v39 + 1;
-                  }
-
-                  else
-                  {
-                    v43 = 0;
-                  }
-
-                  BYTE1(__src[3]) = v43;
-                  LOBYTE(__src[7]) = *(v34 + 19);
-                  BYTE4(__src[0]) = 1;
-                }
-
-                if (*(v34 + 6) == 1)
-                {
-                  v31 |= 1u;
-                  WORD2(__src[2]) = v31;
-                  BYTE4(__src[0]) = 1;
-                }
-
-                if (*(v34 + 4) == 1)
-                {
-                  v31 |= 2u;
-                  WORD2(__src[2]) = v31;
-                  BYTE4(__src[0]) = 1;
-                }
-
-                if (*(v34 + 8) == 1)
-                {
-                  v31 |= 0x80u;
-                  WORD2(__src[2]) = v31;
-                  BYTE4(__src[0]) = 1;
-                }
-              }
-            }
-
-            if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-            {
-              bzero(__str, 0x410uLL);
-              v44 = mach_continuous_time();
-              v45 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: AidReqMask,%u\n", (*&g_MacClockTicksToMsRelation * v44), "ADP", 73, "Ga10_03SendAidingReport", v31);
-              LbsOsaTrace_WriteLog(0x18u, __str, v45, 4, 1);
-            }
-
-            goto LABEL_63;
+            v110 = v415[1];
           }
 
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+          if (v110 <= v415[2])
           {
-            bzero(__str, 0x410uLL);
-            v32 = mach_continuous_time();
-            v33 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Common Aid Rep\n", (*&g_MacClockTicksToMsRelation * v32), "ADP", 69, "Ga10_03SendAidingReport", 515);
-            LbsOsaTrace_WriteLog(0x18u, __str, v33, 0, 1);
-          }
-
-LABEL_35:
-          LODWORD(__src[0]) = -2;
-LABEL_63:
-          v46 = v1[37];
-          *__str = MEMORY[0x29EDCA5F8];
-          v53 = 1174405120;
-          v54 = ___ZN4gnss15GnssAdaptDevice23Ga10_03SendAidingReportEP14s_gnsCP_AidReq_block_invoke;
-          v55 = &__block_descriptor_tmp_184;
-          std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::__value_func[abi:ne200100](v56, v59);
-          memcpy(v57, __src, sizeof(v57));
-          dispatch_async(v46, __str);
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-          {
-            bzero(v51, 0x410uLL);
-            v47 = mach_continuous_time();
-            v48 = snprintf(v51, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v47), "ADP", 68, "Ga10_03SendAidingReport");
-            LbsOsaTrace_WriteLog(0x18u, v51, v48, 5, 1);
-          }
-
-          std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::~__value_func[abi:ne200100](v56);
-          goto LABEL_66;
-        }
-      }
-
-      else
-      {
-        v18 = 0;
-        v27 = (v14 + 248);
-        v28 = v17 - 1;
-        while (v28 != v18)
-        {
-          v29 = *v27;
-          v27 += 49;
-          ++v18;
-          if (v29 == v13)
-          {
-            if (v18 < v16)
-            {
-              goto LABEL_17;
-            }
-
-            break;
-          }
-        }
-      }
-    }
-
-    v20 = -1;
-    goto LABEL_30;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v21 = mach_continuous_time();
-    v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Aid Req\n", (*&g_MacClockTicksToMsRelation * v21), "ADP", 69, "Ga10_03SendAidingReport", 258);
-    LbsOsaTrace_WriteLog(0x18u, __str, v22, 0, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v23 = mach_continuous_time();
-    v24 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v23), "ADP", 68, "Ga10_03SendAidingReport");
-    LbsOsaTrace_WriteLog(0x18u, __str, v24, 5, 1);
-  }
-
-LABEL_66:
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::~__value_func[abi:ne200100](v59);
-  v49 = *(*(*(v0 + 32) + 8) + 24);
-  if (v49[2])
-  {
-    free(v49[2]);
-    *(*(*(*(v0 + 32) + 8) + 24) + 16) = 0;
-    v49 = *(*(*(v0 + 32) + 8) + 24);
-  }
-
-  if (!v49[1] || (free(v49[1]), *(*(*(*(v0 + 32) + 8) + 24) + 8) = 0, (v49 = *(*(*(v0 + 32) + 8) + 24)) != 0))
-  {
-    free(v49);
-    *(*(*(v0 + 32) + 8) + 24) = 0;
-  }
-
-  v50 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_4(uint64_t a1)
-{
-  v32 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v3 = mach_continuous_time();
-    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Api,%u,status,%u,id,%u\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 73, "Ga10_00HandleGnsCpStatusResponse_block_invoke_4", *(a1 + 44), *(a1 + 48), *(a1 + 40));
-    LbsOsaTrace_WriteLog(0x18u, __str, v4, 4, 1);
-  }
-
-  if (*(a1 + 44) > 1u)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx GNS CP API\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 69, "Ga10_00HandleGnsCpStatusResponse_block_invoke_4", 770);
-      LbsOsaTrace_WriteLog(0x18u, __str, v7, 0, 1);
-    }
-
-    v5 = 7;
-  }
-
-  else
-  {
-    v5 = gnss::GnssAdaptDevice::Ga07_16MapGnsRespToGnssResult(v2, *(a1 + 48));
-  }
-
-  v30 = 0;
-  v8 = v2 + 216;
-  v9 = *(v2 + 216);
-  if (!v9)
-  {
-    goto LABEL_41;
-  }
-
-  v10 = *(a1 + 40);
-  v11 = v2 + 216;
-  v12 = *(v2 + 216);
-  do
-  {
-    v13 = *(v12 + 32);
-    v14 = v13 >= v10;
-    v15 = v13 < v10;
-    if (v14)
-    {
-      v11 = v12;
-    }
-
-    v12 = *(v12 + 8 * v15);
-  }
-
-  while (v12);
-  if (v11 != v8 && v10 >= *(v11 + 32))
-  {
-    v18 = v2 + 216;
-    do
-    {
-      v19 = *(v9 + 32);
-      v14 = v19 >= v10;
-      v20 = v19 < v10;
-      if (v14)
-      {
-        v18 = v9;
-      }
-
-      v9 = *(v9 + 8 * v20);
-    }
-
-    while (v9);
-    if (v18 == v8 || v10 < *(v18 + 32))
-    {
-      v18 = v2 + 216;
-    }
-
-    std::function<void ()(gnss::Result)>::operator=(v29, v18 + 40);
-    std::__tree<std::__value_type<e_Gnm_Api,gnss::s_StatusCB>,std::__map_value_compare<e_Gnm_Api,std::__value_type<e_Gnm_Api,gnss::s_StatusCB>,std::less<e_Gnm_Api>,true>,std::allocator<std::__value_type<e_Gnm_Api,gnss::s_StatusCB>>>::__remove_node_pointer((v2 + 208), v11);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v11 + 40);
-    operator delete(v11);
-  }
-
-  else
-  {
-LABEL_41:
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v16 = mach_continuous_time();
-      v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx sessionID,%u\n", (*&g_MacClockTicksToMsRelation * v16), "ADP", 69, "Ga10_00HandleGnsCpStatusResponse_block_invoke_4", 770, *(a1 + 40));
-      LbsOsaTrace_WriteLog(0x18u, __str, v17, 0, 1);
-    }
-  }
-
-  if (v30)
-  {
-    v21 = *(v2 + 296);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_5;
-    block[3] = &__block_descriptor_tmp_208;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v28, v29);
-    v28[8] = v5;
-    dispatch_async(v21, block);
-    v22 = *(a1 + 44);
-    if (v22)
-    {
-      if (v22 != 1 || v5 != 1)
-      {
-        goto LABEL_37;
-      }
-    }
-
-    else if (v5 != 2 && v5 != 8)
-    {
-      goto LABEL_37;
-    }
-
-    gnss::GnssAdaptDevice::Ga10_05SendSessionSummaryReport(v2, *(a1 + 40), 0, 3);
-LABEL_37:
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v28);
-    goto LABEL_38;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v23 = mach_continuous_time();
-    v24 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx LutHdl Resp\n", (*&g_MacClockTicksToMsRelation * v23), "ADP", 69, "Ga10_00HandleGnsCpStatusResponse_block_invoke", 770);
-    LbsOsaTrace_WriteLog(0x18u, __str, v24, 0, 1);
-  }
-
-LABEL_38:
-  result = std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v29);
-  v26 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_5(uint64_t a1)
-{
-  v5 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 64);
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 32;
-
-  return std::function<void ()(gnss::Result)>::operator()(v3, v1);
-}
-
-uint64_t gnss::GnssAdaptDevice::Ga10_05CPECallAsyncEventCB(int a1, unsigned int a2)
-{
-  v27 = *MEMORY[0x29EDCA608];
-  IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-  if (IsLoggingAllowed)
-  {
-    bzero(__str, 0x410uLL);
-    v5 = mach_continuous_time();
-    v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v5), "ADP", 68, "Ga10_05CPECallAsyncEventCB");
-    IsLoggingAllowed = LbsOsaTrace_WriteLog(0x18u, __str, v6, 5, 1);
-  }
-
-  DeviceInstance = gnss::GnssAdaptDevice::Ga00_00GetDeviceInstance(IsLoggingAllowed);
-  if (DeviceInstance)
-  {
-    v8 = DeviceInstance;
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v9 = mach_continuous_time();
-      v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Api,%u,status,%u\n", (*&g_MacClockTicksToMsRelation * v9), "ADP", 68, "Ga10_06HandleCPEcallAsyncEventCB", a1, a2);
-      LbsOsaTrace_WriteLog(0x18u, __str, v10, 5, 1);
-    }
-
-    v11 = gnss::GnssAdaptDevice::Ga07_16MapGnsRespToGnssResult(v8, a2);
-    if (a1 == 1)
-    {
-      if (a2 == 4)
-      {
-        v14 = 1;
-      }
-
-      else
-      {
-        v14 = v11;
-      }
-
-      v13 = *(v8 + 288);
-      *__str = MEMORY[0x29EDCA5F8];
-      v22 = 0x40000000;
-      v23 = ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_2_221;
-      v24 = &__block_descriptor_tmp_231;
-      v25 = v8;
-      v26 = v14;
-      goto LABEL_13;
-    }
-
-    if (!a1)
-    {
-      v12 = *(v8 + 288);
-      *__str = MEMORY[0x29EDCA5F8];
-      v22 = 0x40000000;
-      v23 = ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke;
-      v24 = &__block_descriptor_tmp_220;
-      v25 = v8;
-      v26 = v11;
-      v13 = v12;
-LABEL_13:
-      dispatch_async(v13, __str);
-      goto LABEL_14;
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v19 = mach_continuous_time();
-      v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx GNS Ecall API,%u\n", (*&g_MacClockTicksToMsRelation * v19), "ADP", 69, "Ga10_06HandleCPEcallAsyncEventCB", 515, a1);
-      LbsOsaTrace_WriteLog(0x18u, __str, v20, 0, 1);
-    }
-  }
-
-LABEL_14:
-  result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v16 = mach_continuous_time();
-    v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v16), "ADP", 68, "Ga10_05CPECallAsyncEventCB");
-    result = LbsOsaTrace_WriteLog(0x18u, __str, v17, 5, 1);
-  }
-
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke(uint64_t a1)
-{
-  v20[4] = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v18, v2 + 600);
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v20, v2 + 632);
-  if (v19)
-  {
-    v3 = *(v2 + 296);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_2;
-    block[3] = &__block_descriptor_tmp_213;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v16, v18);
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v17, v20);
-    dispatch_async(v3, block);
-    std::__function::__value_func<void ()(gnss::Result)>::operator=[abi:ne200100](v2 + 600);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v17);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v16);
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx StartRespOnAccepted\n", (*&g_MacClockTicksToMsRelation * v4), "ADP", 69, "Ga10_06HandleCPEcallAsyncEventCB_block_invoke", 258);
-    LbsOsaTrace_WriteLog(0x18u, __str, v5, 0, 1);
-  }
-
-  if (v20[3])
-  {
-    v6 = *(v2 + 296);
-    v11[0] = MEMORY[0x29EDCA5F8];
-    v11[1] = 1174405120;
-    v11[2] = ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_2_215;
-    v11[3] = &__block_descriptor_tmp_218;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v12, v18);
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v13, v20);
-    v13[8] = *(a1 + 40);
-    dispatch_async(v6, v11);
-    std::__function::__value_func<void ()(gnss::Result)>::operator=[abi:ne200100](v2 + 632);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v13);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v12);
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v7 = mach_continuous_time();
-    v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx StartRespOnCompleted\n", (*&g_MacClockTicksToMsRelation * v7), "ADP", 69, "Ga10_06HandleCPEcallAsyncEventCB_block_invoke", 258);
-    LbsOsaTrace_WriteLog(0x18u, __str, v8, 0, 1);
-  }
-
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v20);
-  result = std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v18);
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void sub_299696EEC(_Unwind_Exception *a1)
-{
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v1 + 32);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v2 - 136);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_2(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 32;
-
-  return std::function<void ()(gnss::Result)>::operator()(v2, 1);
-}
-
-uint64_t __copy_helper_block_e8_32c23_ZTSN4gnss10s_StatusCBE(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](a1 + 32, a2 + 32);
-  result = std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](a1 + 64, a2 + 64);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t __destroy_helper_block_e8_32c23_ZTSN4gnss10s_StatusCBE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](a1 + 64);
-  v2 = *MEMORY[0x29EDCA608];
-
-  return std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](a1 + 32);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_2_215(uint64_t a1)
-{
-  v5 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 96);
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 64;
-
-  return std::function<void ()(gnss::Result)>::operator()(v3, v1);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_2_221(uint64_t a1)
-{
-  v20[4] = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v18, v2 + 664);
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v20, v2 + 696);
-  if (v19)
-  {
-    v3 = *(v2 + 296);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_3;
-    block[3] = &__block_descriptor_tmp_224;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v16, v18);
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v17, v20);
-    dispatch_async(v3, block);
-    std::__function::__value_func<void ()(gnss::Result)>::operator=[abi:ne200100](v2 + 664);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v17);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v16);
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx StopRespOnAccepted\n", (*&g_MacClockTicksToMsRelation * v4), "ADP", 69, "Ga10_06HandleCPEcallAsyncEventCB_block_invoke", 258);
-    LbsOsaTrace_WriteLog(0x18u, __str, v5, 0, 1);
-  }
-
-  if (v20[3])
-  {
-    v6 = *(v2 + 296);
-    v11[0] = MEMORY[0x29EDCA5F8];
-    v11[1] = 1174405120;
-    v11[2] = ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_2_226;
-    v11[3] = &__block_descriptor_tmp_229;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v12, v18);
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v13, v20);
-    v13[8] = *(a1 + 40);
-    dispatch_async(v6, v11);
-    std::__function::__value_func<void ()(gnss::Result)>::operator=[abi:ne200100](v2 + 696);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v13);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v12);
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v7 = mach_continuous_time();
-    v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx StopRespOnCompleted\n", (*&g_MacClockTicksToMsRelation * v7), "ADP", 69, "Ga10_06HandleCPEcallAsyncEventCB_block_invoke", 258);
-    LbsOsaTrace_WriteLog(0x18u, __str, v8, 0, 1);
-  }
-
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v20);
-  result = std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v18);
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void sub_2996973C8(_Unwind_Exception *a1)
-{
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v1 + 32);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v2 - 136);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_3(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 32;
-
-  return std::function<void ()(gnss::Result)>::operator()(v2, 1);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice32Ga10_06HandleCPEcallAsyncEventCBE14e_gnsEcall_Api11e_gnsStatus_block_invoke_2_226(uint64_t a1)
-{
-  v5 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 96);
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 64;
-
-  return std::function<void ()(gnss::Result)>::operator()(v3, v1);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice31Ga10_05SendSessionSummaryReportEjb18e_gnsPPDU_SessCode_block_invoke(uint64_t a1)
-{
-  v11 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v2 = (*(*v1 + 48))(*(a1 + 56), a1 + 64);
-  if (v2 == 1)
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v4 = mach_continuous_time();
-      v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SummaryRep sent to FW\n", (*&g_MacClockTicksToMsRelation * v4), "ADP", 73, "Ga10_05SendSessionSummaryReport_block_invoke");
-      v6 = 4;
-LABEL_7:
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v5, v6, 1);
-    }
-  }
-
-  else
-  {
-    v7 = v2;
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v8 = mach_continuous_time();
-      v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SummaryRep,%u\n", (*&g_MacClockTicksToMsRelation * v8), "ADP", 69, "Ga10_05SendSessionSummaryReport_block_invoke", 257, v7);
-      v6 = 0;
-      goto LABEL_7;
-    }
-  }
-
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t __copy_helper_block_e8_32c71_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency13SummaryReportEEEE(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 32;
-  v4 = a2 + 32;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::SummaryReport const&)>::__value_func[abi:ne200100](v3, v4);
-}
-
-uint64_t __destroy_helper_block_e8_32c71_ZTSNSt3__18functionIFN4gnss6ResultERKNS1_9Emergency13SummaryReportEEEE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 32;
-
-  return std::__function::__value_func<gnss::Result ()(gnss::Emergency::SummaryReport const&)>::~__value_func[abi:ne200100](v2);
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice26Ga10_07FTAssistanceRequestEv_block_invoke(uint64_t a1)
-{
-  v14 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
-  std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::__value_func[abi:ne200100](v12, v1 + 888);
-  if (v13)
-  {
-    v2 = *(v1 + 296);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice26Ga10_07FTAssistanceRequestEv_block_invoke_2;
-    block[3] = &__block_descriptor_tmp_248;
-    std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::__value_func[abi:ne200100](v10, v12);
-    v10[8] = 4;
-    dispatch_async(v2, block);
-    std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::~__value_func[abi:ne200100](v10);
-  }
-
-  else
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v3 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx FtaReportCb\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 69, "Ga10_07FTAssistanceRequest_block_invoke", 258);
-      LbsOsaTrace_WriteLog(0x18u, __str, v4, 0, 1);
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v5 = mach_continuous_time();
-      v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v5), "ADP", 68, "Ga10_07FTAssistanceRequest_block_invoke");
-      LbsOsaTrace_WriteLog(0x18u, __str, v6, 5, 1);
-    }
-  }
-
-  result = std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::~__value_func[abi:ne200100](v12);
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice26Ga10_07FTAssistanceRequestEv_block_invoke_2(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  if (!v1)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v2 = *(*v1 + 48);
-  v3 = *MEMORY[0x29EDCA608];
-  v4 = *MEMORY[0x29EDCA608];
-  v5 = a1 + 64;
-  v6 = *(a1 + 56);
-
-  return v2(v6, v5);
-}
-
-uint64_t __copy_helper_block_e8_32c77_ZTSNSt3__18functionIFvRKN4gnss9Emergency6Cplane23CellFTAssistanceRequestEEEE(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 32;
-  v4 = a2 + 32;
-
-  return std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::__value_func[abi:ne200100](v3, v4);
-}
-
-uint64_t __destroy_helper_block_e8_32c77_ZTSNSt3__18functionIFvRKN4gnss9Emergency6Cplane23CellFTAssistanceRequestEEEE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 32;
-
-  return std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::~__value_func[abi:ne200100](v2);
-}
-
-uint64_t gnss::GnssAdaptDevice::Ga10_08MapCdmaCodePhaseSearchWindow(gnss::GnssAdaptDevice *this)
-{
-  result = byte_2997610D0[this];
-  v2 = *MEMORY[0x29EDCA608];
-  *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t gnss::GnssAdaptDevice::Ga10_13RegisterGnsCpStatusResponse()
-{
-  v0 = MEMORY[0x2A1C7C4A8]();
-  v2 = v1;
-  v3 = v0;
-  v52 = *MEMORY[0x29EDCA608];
-  result = gnss::GnssAdaptDevice::Ga00_00GetDeviceInstance(v0);
-  if (!result)
-  {
-    goto LABEL_37;
-  }
-
-  v5 = result;
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 68, "Ga10_00HandleGnsCpStatusResponse");
-    LbsOsaTrace_WriteLog(0x18u, __str, v7, 5, 1);
-  }
-
-  if (v2)
-  {
-    if (v3 > 1)
-    {
-      if (v3 == 2)
-      {
-        *v42 = 0;
-        v43 = v42;
-        v44 = 0x2000000000;
-        v45 = gnssOsa_Calloc("Ga10_00HandleGnsCpStatusResponse", 2428, 1, 0x38uLL);
-        v18 = *(v43 + 3);
-        if (v18)
-        {
-          *v18 = *v2;
-          if (*(v2 + 8))
-          {
-            v19 = gnssOsa_Calloc("Ga10_00HandleGnsCpStatusResponse", 2437, 1, 8uLL);
-            *(*(v43 + 3) + 8) = v19;
-            v20 = *(*(v43 + 3) + 8);
-            if (v20)
-            {
-              *v20 = **(v2 + 8);
-            }
-          }
-
-          if (*(v2 + 16))
-          {
-            v21 = gnssOsa_Calloc("Ga10_00HandleGnsCpStatusResponse", 2445, 1, 0xD8uLL);
-            v22 = v43;
-            *(*(v43 + 3) + 16) = v21;
-            v23 = *(*(v22 + 3) + 16);
-            if (v23)
-            {
-              v24 = *(v2 + 16);
-              v25 = *(v24 + 16);
-              *v23 = *v24;
-              *(v23 + 16) = v25;
-              v26 = *(v24 + 32);
-              v27 = *(v24 + 48);
-              v28 = *(v24 + 80);
-              *(v23 + 64) = *(v24 + 64);
-              *(v23 + 80) = v28;
-              *(v23 + 32) = v26;
-              *(v23 + 48) = v27;
-              v29 = *(v24 + 96);
-              v30 = *(v24 + 112);
-              v31 = *(v24 + 144);
-              *(v23 + 128) = *(v24 + 128);
-              *(v23 + 144) = v31;
-              *(v23 + 96) = v29;
-              *(v23 + 112) = v30;
-              v32 = *(v24 + 160);
-              v33 = *(v24 + 176);
-              v34 = *(v24 + 192);
-              *(v23 + 206) = *(v24 + 206);
-              *(v23 + 176) = v33;
-              *(v23 + 192) = v34;
-              *(v23 + 160) = v32;
-            }
-          }
-        }
-
-        v35 = *(v5 + 288);
-        *__str = MEMORY[0x29EDCA5F8];
-        v47 = 0x40000000;
-        v48 = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_3_203;
-        v49 = &unk_29EF6B300;
-        *&v51[0] = v5;
-        v50 = v42;
-        dispatch_async(v35, __str);
-        _Block_object_dispose(v42, 8);
-        goto LABEL_35;
-      }
-
-      if (v3 == 3)
-      {
-        *&v51[0] = *v2;
-        DWORD2(v51[0]) = *(v2 + 8);
-        v11 = *(v5 + 288);
-        *__str = MEMORY[0x29EDCA5F8];
-        v47 = 0x40000000;
-        v12 = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_4;
-        v13 = &__block_descriptor_tmp_210;
-        goto LABEL_34;
-      }
-    }
-
-    else
-    {
-      if (!v3)
-      {
-        memcpy(v51, v2, 0x2859CuLL);
-        v11 = *(v5 + 288);
-        *__str = MEMORY[0x29EDCA5F8];
-        v47 = 0x40000000;
-        v12 = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_199;
-        v13 = &__block_descriptor_tmp_200;
-        goto LABEL_34;
-      }
-
-      if (v3 == 1)
-      {
-        v8 = *(v2 + 80);
-        v51[4] = *(v2 + 64);
-        v51[5] = v8;
-        v51[6] = *(v2 + 96);
-        v9 = *(v2 + 16);
-        v51[0] = *v2;
-        v51[1] = v9;
-        v10 = *(v2 + 48);
-        v51[2] = *(v2 + 32);
-        *&v51[7] = *(v2 + 112);
-        v51[3] = v10;
-        v11 = *(v5 + 288);
-        *__str = MEMORY[0x29EDCA5F8];
-        v47 = 0x40000000;
-        v12 = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_2_201;
-        v13 = &__block_descriptor_tmp_202;
-LABEL_34:
-        v48 = v12;
-        v49 = v13;
-        v50 = v5;
-        dispatch_async(v11, __str);
-        goto LABEL_35;
-      }
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v16 = mach_continuous_time();
-      v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx CP Type,%u\n", (*&g_MacClockTicksToMsRelation * v16), "ADP", 69, "Ga10_00HandleGnsCpStatusResponse", 515, v3);
-      LbsOsaTrace_WriteLog(0x18u, __str, v17, 0, 1);
-    }
-
-    goto LABEL_35;
-  }
-
-  if (v3 <= 1)
-  {
-    if (!v3)
-    {
-      v11 = *(v5 + 288);
-      *__str = MEMORY[0x29EDCA5F8];
-      v47 = 0x40000000;
-      v12 = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke;
-      v13 = &__block_descriptor_tmp_185;
-      goto LABEL_34;
-    }
-
-    if (v3 == 1)
-    {
-      v11 = *(v5 + 288);
-      *__str = MEMORY[0x29EDCA5F8];
-      v47 = 0x40000000;
-      v12 = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_2;
-      v13 = &__block_descriptor_tmp_189;
-      goto LABEL_34;
-    }
-
-LABEL_31:
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v36 = mach_continuous_time();
-      v37 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx CP Msg Type,%u\n", (*&g_MacClockTicksToMsRelation * v36), "ADP", 69, "Ga10_00HandleGnsCpStatusResponse", 515, v3);
-      LbsOsaTrace_WriteLog(0x18u, __str, v37, 0, 1);
-    }
-
-    goto LABEL_35;
-  }
-
-  if (v3 != 2)
-  {
-    if (v3 == 3)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v14 = mach_continuous_time();
-        v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx GNS API Status\n", (*&g_MacClockTicksToMsRelation * v14), "ADP", 69, "Ga10_00HandleGnsCpStatusResponse", 770);
-        LbsOsaTrace_WriteLog(0x18u, __str, v15, 0, 1);
-      }
-
-      goto LABEL_35;
-    }
-
-    goto LABEL_31;
-  }
-
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::__value_func[abi:ne200100](v42, v5 + 792);
-  v41 = *(v5 + 288);
-  *__str = MEMORY[0x29EDCA5F8];
-  v47 = 1174405120;
-  v48 = ___ZN4gnss15GnssAdaptDevice32Ga10_00HandleGnsCpStatusResponseE15e_gnsCP_MsgTypeP15u_gnsCP_MsgData_block_invoke_190;
-  v49 = &__block_descriptor_tmp_196;
-  v50 = v5;
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::__value_func[abi:ne200100](v51, v42);
-  dispatch_async(v41, __str);
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::~__value_func[abi:ne200100](v51);
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::~__value_func[abi:ne200100](v42);
-LABEL_35:
-  result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-  if (result)
-  {
-    bzero(v42, 0x410uLL);
-    v38 = mach_continuous_time();
-    v39 = snprintf(v42, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v38), "ADP", 68, "Ga10_00HandleGnsCpStatusResponse");
-    result = LbsOsaTrace_WriteLog(0x18u, v42, v39, 5, 1);
-  }
-
-LABEL_37:
-  v40 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void sub_299698250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t gnss::GnssAdaptDevice::Ga10_14RegisterGnsFtaStatusResponse()
-{
-  v5 = *MEMORY[0x29EDCA608];
-  result = LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v1 = mach_continuous_time();
-    v2 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FTA Req to Modem handled in posReq\n", (*&g_MacClockTicksToMsRelation * v1), "ADP", 73, "Ga10_14RegisterGnsFtaStatusResponse");
-    result = LbsOsaTrace_WriteLog(0x18u, __str, v2, 4, 1);
-  }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t gnss::GnssAdaptDevice::setNwAssistanceGpsAcquisition(uint64_t a1, const void *a2, uint64_t a3)
-{
-  v14 = *MEMORY[0x29EDCA608];
-  if (*(a3 + 24))
-  {
-    memcpy(__dst, a2, 0x178uLL);
-    v5 = *(a1 + 288);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice29setNwAssistanceGpsAcquisitionERKNS_9Emergency6Cplane16GpsAcqAssistanceENSt3__18functionIFvNS_6ResultEEEE_block_invoke;
-    block[3] = &__block_descriptor_tmp_280;
-    block[4] = a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v11, a3);
-    memcpy(v12, __dst, sizeof(v12));
-    dispatch_async(v5, block);
-    result = std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v11);
-  }
-
-  else
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0);
-    if (result)
-    {
-      bzero(__dst, 0x410uLL);
-      v7 = mach_continuous_time();
-      v8 = snprintf(__dst, 0x40FuLL, "%10u %s%c %s: #%04hx RespCB\n", (*&g_MacClockTicksToMsRelation * v7), "ADP", 69, "setNwAssistanceGpsAcquisition", 513);
-      result = LbsOsaTrace_WriteLog(0x18u, __dst, v8, 0, 1);
-    }
-  }
-
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice29setNwAssistanceGpsAcquisitionERKNS_9Emergency6Cplane16GpsAcqAssistanceENSt3__18functionIFvNS_6ResultEEEE_block_invoke(uint64_t a1)
-{
-  v108 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v3 = mach_continuous_time();
-    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 68, "setNwAssistanceGpsAcquisition_block_invoke");
-    LbsOsaTrace_WriteLog(0x18u, __str, v4, 5, 1);
-  }
-
-  if ((*(v2 + 88) & 1) == 0)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v11 = mach_continuous_time();
-      v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v11), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 1302);
-      LbsOsaTrace_WriteLog(0x18u, __str, v12, 0, 1);
-    }
-
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v106, a1 + 40);
-    gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 7, v106, "setNwAssistanceGpsAcquisition_block_invoke");
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v106);
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v13 = mach_continuous_time();
-      v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v13), "ADP", 68, "setNwAssistanceGpsAcquisition_block_invoke");
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v14, 5, 1);
-    }
-
-    goto LABEL_122;
-  }
-
-  v5 = *(a1 + 72);
-  if (v5 >= 0x240C8400)
-  {
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v105, a1 + 40);
-    gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v105, "setNwAssistanceGpsAcquisition_block_invoke");
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v105);
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx GPS Tow,%u\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *(a1 + 72));
-      LbsOsaTrace_WriteLog(0x18u, __str, v7, 0, 1);
-    }
-
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v9 = mach_continuous_time();
-      v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v9), "ADP", 68, "setNwAssistanceGpsAcquisition_block_invoke");
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v10, 5, 1);
-    }
-
-    goto LABEL_122;
-  }
-
-  v15 = *(a1 + 76);
-  if (v15 >= 0x11)
-  {
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v104, a1 + 40);
-    gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v104, "setNwAssistanceGpsAcquisition_block_invoke");
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v104);
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v16 = mach_continuous_time();
-      v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Sat Count,%u\n", (*&g_MacClockTicksToMsRelation * v16), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *(a1 + 76));
-      LbsOsaTrace_WriteLog(0x18u, __str, v17, 0, 1);
-    }
-
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v18 = mach_continuous_time();
-      v19 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v18), "ADP", 68, "setNwAssistanceGpsAcquisition_block_invoke");
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v19, 5, 1);
-    }
-
-    goto LABEL_122;
-  }
-
-  if (*(a1 + 440) != 3)
-  {
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v103, a1 + 40);
-    gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v103, "setNwAssistanceGpsAcquisition_block_invoke");
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v103);
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v84 = mach_continuous_time();
-      v85 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx PosProtocol,%u\n", (*&g_MacClockTicksToMsRelation * v84), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 515, *(a1 + 440));
-      LbsOsaTrace_WriteLog(0x18u, __str, v85, 0, 1);
-    }
-
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v86 = mach_continuous_time();
-      v87 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v86), "ADP", 68, "setNwAssistanceGpsAcquisition_block_invoke");
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v87, 5, 1);
-    }
-
-    goto LABEL_122;
-  }
-
-  v20 = 0;
-  v102 = 0;
-  memset(&v101[1], 0, 192);
-  do
-  {
-    v21 = v101 + v20;
-    v21[18] = -1;
-    *(v21 + 19) = 0;
-    v21[27] = 0;
-    *(v21 + 14) = -1;
-    v20 += 12;
-  }
-
-  while (v20 != 192);
-  LODWORD(v101[0]) = v5;
-  LOBYTE(v101[1]) = v15;
-  *(v101 + 4) = -NAN;
-  HIDWORD(v101[0]) = -1;
-  if (!v15)
-  {
-    goto LABEL_118;
-  }
-
-  v22 = 0;
-  v23 = 0;
-  v24 = (a1 + 125);
-  v25 = &v101[1] + 13;
-  do
-  {
-    v26 = *v24;
-    if (v26 > 0x3F)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v34 = mach_continuous_time();
-        v35 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Sat-ID Acq,%u\n", (*&g_MacClockTicksToMsRelation * v34), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-        LbsOsaTrace_WriteLog(0x18u, __str, v35, 0, 1);
-      }
-
-      goto LABEL_94;
-    }
-
-    *(v25 - 11) = v26;
-    v27 = *(a1 + 440);
-    if (v27 < 2 || v27 == 3)
-    {
-      v29 = *(v24 - 13);
-      if (v29 > 0x3FE)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v37 = mach_continuous_time();
-          v38 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId codePhase,%u\n", (*&g_MacClockTicksToMsRelation * v37), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-          LbsOsaTrace_WriteLog(0x18u, __str, v38, 0, 1);
-        }
-
-        goto LABEL_94;
-      }
-
-      *(v25 - 5) = v29;
-      v30 = *(v24 - 7);
-      if (v30 >= 0x14)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v39 = mach_continuous_time();
-          v40 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId intCodePhase Acq,%u\n", (*&g_MacClockTicksToMsRelation * v39), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-          LbsOsaTrace_WriteLog(0x18u, __str, v40, 0, 1);
-        }
-
-        goto LABEL_94;
-      }
-
-      *(v25 - 6) = v30;
-      v31 = *(v24 - 6);
-      if (v31 >= 4)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v44 = mach_continuous_time();
-          v45 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId gpsBitNumber Acq,%u\n", (*&g_MacClockTicksToMsRelation * v44), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-          LbsOsaTrace_WriteLog(0x18u, __str, v45, 0, 1);
-        }
-
-        goto LABEL_94;
-      }
-
-      *(v25 - 3) = v31;
-      v32 = *(v24 - 11);
-      if ((v32 + 2048) >= 0x1000u)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v55 = mach_continuous_time();
-          v56 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId Dop0 Acq,%u\n", (*&g_MacClockTicksToMsRelation * v55), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-          LbsOsaTrace_WriteLog(0x18u, __str, v56, 0, 1);
-        }
-
-        goto LABEL_94;
-      }
-
-      *(v25 - 9) = v32;
-      v33 = *(v24 - 9);
-      if (v33 >= 0x40)
-      {
-        *(v25 - 10) = 0;
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v61 = mach_continuous_time();
-          v62 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Dop1 set to Zero\n", (*&g_MacClockTicksToMsRelation * v61), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke");
-          LbsOsaTrace_WriteLog(0x18u, __str, v62, 4, 1);
-        }
-      }
-
-      else
-      {
-        *(v25 - 10) = v33;
-      }
-
-      v63 = *(v24 - 8);
-      if (v63 > 4)
-      {
-        *(v25 - 7) = 0;
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v64 = mach_continuous_time();
-          v65 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: DopUnc set to Zero\n", (*&g_MacClockTicksToMsRelation * v64), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke");
-          LbsOsaTrace_WriteLog(0x18u, __str, v65, 4, 1);
-        }
-      }
-
-      else
-      {
-        *(v25 - 7) = v63;
-      }
-
-      if (*(a1 + 440) == 3)
-      {
-        LOBYTE(v26) = v26 - 1;
-        *(v25 - 11) = v26;
-        v66 = *(v24 - 5);
-        if (v66 <= 0x1F)
-        {
-          LOBYTE(v67) = gnss::GnssAdaptDevice::Ga10_08MapCdmaCodePhaseSearchWindow(v66);
-LABEL_78:
-          *(v25 - 2) = v67;
-          v68 = *(v24 - 3);
-          if (v68 > 0x1F)
-          {
-            *(v25 - 1) = -1;
-            if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-            {
-              bzero(__str, 0x410uLL);
-              v77 = mach_continuous_time();
-              v78 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Azimuth Out of range\n", (*&g_MacClockTicksToMsRelation * v77), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke");
-              LbsOsaTrace_WriteLog(0x18u, __str, v78, 4, 1);
-            }
+            v111 = v415[2];
           }
 
           else
           {
-            *(v25 - 1) = v68;
+            v111 = v110;
           }
 
-          v79 = *(v24 - 1);
-          if (v79 > 7)
+          for (i = 5; i != 8; ++i)
           {
-            *v25 = -1;
-            if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
+            *(&v417 + i) = 0x3FF0000000000000;
+            if (v111 > 0.0)
             {
-              bzero(__str, 0x410uLL);
-              v80 = mach_continuous_time();
-              v81 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Elevation Out of Range\n", (*&g_MacClockTicksToMsRelation * v80), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke");
-              LbsOsaTrace_WriteLog(0x18u, __str, v81, 4, 1);
+              v113 = v83;
+              rnk1_core((a1 + 872), i, v111, &v417, v416);
+              v83 = v113;
             }
+
+            *(&v417 + i) = 0;
+          }
+
+          LOBYTE(v91) = *(a1 + 128);
+        }
+      }
+
+      else
+      {
+        *(a2 + 816) = *(a2 + 824);
+        if (*(a2 + 964) > 1)
+        {
+          if (v91)
+          {
+            LOBYTE(v390) = 1;
           }
 
           else
           {
-            *v25 = v79;
-          }
-
-          goto LABEL_105;
-        }
-
-        if (!LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-        {
-          goto LABEL_94;
-        }
-      }
-
-      else
-      {
-        v67 = *(v24 - 5);
-        if (v67 < 0x10)
-        {
-          goto LABEL_78;
-        }
-
-        if (!LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-        {
-          goto LABEL_94;
-        }
-      }
-
-      bzero(__str, 0x410uLL);
-      v74 = mach_continuous_time();
-      v75 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId codePhaseSearchWindow Acq,%u\n", (*&g_MacClockTicksToMsRelation * v74), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-      LbsOsaTrace_WriteLog(0x18u, __str, v75, 0, 1);
-      goto LABEL_94;
-    }
-
-    if (v27 == 2)
-    {
-      v36 = *(v24 - 3);
-      if (v36 > 0xFF)
-      {
-        *(v25 - 1) = -1;
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v41 = mach_continuous_time();
-          v42 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Azimuth set to UINT8_MAX\n", (*&g_MacClockTicksToMsRelation * v41), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke");
-          LbsOsaTrace_WriteLog(0x18u, __str, v42, 4, 1);
-        }
-      }
-
-      else
-      {
-        *(v25 - 1) = v36 >> 4;
-      }
-
-      v43 = *(v24 - 1);
-      if (v43 < 0)
-      {
-        *v25 = -1;
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v46 = mach_continuous_time();
-          v47 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Elevation set to UINT8_MAX\n", (*&g_MacClockTicksToMsRelation * v46), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke");
-          LbsOsaTrace_WriteLog(0x18u, __str, v47, 4, 1);
-        }
-      }
-
-      else
-      {
-        *v25 = v43 >> 4;
-      }
-
-      v48 = *(v24 - 13);
-      if (v48 >= 0x400)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v53 = mach_continuous_time();
-          v54 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId CodePhase,%u\n", (*&g_MacClockTicksToMsRelation * v53), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-          LbsOsaTrace_WriteLog(0x18u, __str, v54, 0, 1);
-        }
-      }
-
-      else
-      {
-        *(v25 - 5) = 1022 - ((1023 * v48) >> 10);
-        v49 = *(v24 - 7);
-        if ((v49 & 0x80) != 0)
-        {
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v57 = mach_continuous_time();
-            v58 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId intCodePhase,%u\n", (*&g_MacClockTicksToMsRelation * v57), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-            LbsOsaTrace_WriteLog(0x18u, __str, v58, 0, 1);
+            *(v405 + 8) = *(a2 + 24176);
+            *(&v405[1] + 1) = *(a2 + 24192);
+            *(v40 + 168) = 7;
+            LOBYTE(v390) = 1;
+            v378 = 1;
           }
         }
 
         else
         {
-          if (v49 <= 0x50)
+          LOBYTE(v91) = 1;
+          *(v40 + 128) = 1;
+          *(v40 + 132) = 74;
+          LOBYTE(v390) = 1;
+          v379 = 1;
+        }
+      }
+    }
+  }
+
+  v393 = a2 + 800;
+  if (*(a2 + 960))
+  {
+    v114 = 4.0e10;
+  }
+
+  else
+  {
+    v114 = 1.0e16;
+  }
+
+  if (*(v12 + 200))
+  {
+    v115 = (a2 + 24192);
+    if (*(v12 + 204) == 1 && v395)
+    {
+      v116 = *(a2 + 23160);
+      v117 = v116 * 2.25 + 5625.0;
+      v118 = *(a2 + 23144);
+      v119 = (v118 - *(a2 + 816)) * (v118 - *(a2 + 816));
+      v120 = v119 / v117;
+      v121 = v116 + v119 * v83[25];
+      if (v91)
+      {
+        if (v120 > 11.0)
+        {
+          v122 = v83;
+          *(a2 + 816) = v118;
+          v123 = (a2 + 24192);
+LABEL_226:
+          *v123 = v117;
+          EvCrt_v("NK_Final_Check: Vertical position check failed");
+          *v115 = *v115 / 2.25;
+          if (v91)
           {
-            v50 = 80;
+            v388 = 0;
           }
 
           else
           {
-            v50 = -96;
+            *(&v405[1] + 1) = *(&v405[1] + 1) / 2.25;
+            v388 = 1;
           }
 
-          v51 = v50 - v49;
-          *(v25 - 6) = v51 - 20 * ((((103 * v51) & 0x8000) != 0) + ((103 * v51) >> 11));
-          *(v25 - 3) = (((103 * v51) & 0x8000) != 0) + ((103 * v51) >> 11) - (((((103 * v51) & 0x8000) != 0) + ((103 * v51) >> 11) + ((((((103 * v51) >> 15) & 1) + ((103 * v51) >> 11)) & 0xC0) >> 6)) & 0xFC);
-          v52 = *(v24 - 5);
-          if (v52 >= 0x20)
-          {
-            if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-            {
-              bzero(__str, 0x410uLL);
-              v59 = mach_continuous_time();
-              v60 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId codePhaseSearchWindow,%u\n", (*&g_MacClockTicksToMsRelation * v59), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-              LbsOsaTrace_WriteLog(0x18u, __str, v60, 0, 1);
-            }
-          }
+          LOBYTE(v390) = 1;
+          v124 = a1;
+          v83 = v122;
+          goto LABEL_235;
+        }
 
-          else
-          {
-            if (v52 >= 3)
-            {
-              if (v52 >= 0xD)
-              {
-                LOBYTE(v52) = 0;
-              }
-
-              else
-              {
-                LOBYTE(v52) = v52 + 3;
-              }
-            }
-
-            else
-            {
-              v52 = (0x4027Fu >> (8 * (v52 & 0x1F))) & 0x7F;
-            }
-
-            *(v25 - 2) = v52;
-            v69 = *(v24 - 11);
-            if ((v69 + 2048) <= 0xFFFu)
-            {
-              *(v25 - 9) = v69;
-              v70 = *(v24 - 9);
-              if (v70 >= 0x40)
-              {
-                LOBYTE(v70) = 0;
-              }
-
-              *(v25 - 10) = v70;
-              v71 = *(v24 - 8);
-              if (v71 >= 5)
-              {
-                *(v25 - 7) = 0;
-              }
-
-              else
-              {
-                *(v25 - 7) = v71;
-              }
-
-              goto LABEL_105;
-            }
-
-            if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-            {
-              bzero(__str, 0x410uLL);
-              v72 = mach_continuous_time();
-              v73 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SatId Dop0,%u\n", (*&g_MacClockTicksToMsRelation * v72), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 772, *v24);
-              LbsOsaTrace_WriteLog(0x18u, __str, v73, 0, 1);
-            }
-          }
+        if (v120 > 1.0)
+        {
+LABEL_231:
+          v388 = 0;
+          *v115 = v121;
+          goto LABEL_234;
         }
       }
 
-LABEL_94:
-      ++v22;
-      goto LABEL_95;
-    }
+      else
+      {
+        if (v120 > 16.0)
+        {
+          v122 = v83;
+          v123 = &v405[1] + 1;
+          *(a2 + 816) = v118;
+          *(a2 + 24192) = v117;
+          goto LABEL_226;
+        }
 
-LABEL_105:
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
+        if (*v115 > v121)
+        {
+          goto LABEL_231;
+        }
+      }
+
+LABEL_233:
+      v388 = 0;
+      goto LABEL_234;
+    }
+  }
+
+  else
+  {
+    v115 = (a2 + 24192);
+  }
+
+  if ((v91 & 1) == 0)
+  {
+    goto LABEL_233;
+  }
+
+  v388 = 0;
+  *v115 = v114;
+LABEL_234:
+  v124 = a1;
+LABEL_235:
+  v125 = 0;
+  v126 = (a2 + 23016);
+  v127 = &v401;
+  v128 = 1;
+  v129 = v83[25];
+  do
+  {
+    v130 = v128;
+    if ((v128 & 1) == 0)
     {
-      bzero(__str, 0x410uLL);
-      v82 = mach_continuous_time();
-      v83 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SatId,%u,CodePh,%u,Dop0,%u,Dop1,%u,DopUnc,%u,IntCodePh,%u,GpsBitNum,%u,CodePhSrchWin,%u,Azm,%u,Elevation,%u\n", (*&g_MacClockTicksToMsRelation * v82), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke", v26, *(v25 - 5), *(v25 - 9), *(v25 - 10), *(v25 - 7), *(v25 - 6), *(v25 - 3), *(v25 - 2), *(v25 - 1), *v25);
-      LbsOsaTrace_WriteLog(0x18u, __str, v83, 4, 1);
+      if (*(v12 + 72))
+      {
+        v131 = *(v124 + 128);
+        v139 = 8 * v125 + 40;
+        v133 = (v33 + v139);
+        if (*(v12 + 76) == 1 && v395)
+        {
+          v134 = *v127;
+          v135 = v126[v125];
+          v136 = (&v403 + v139);
+          v138 = (v393 + 8 * v125);
+          v137 = cos(*v126) * 6378137.0;
+          if (v137 <= 0.0)
+          {
+            v145 = (v135 - *v138) * (v135 - *v138);
+            v143 = v145 / v134;
+            v144 = v134 + v145 * v129;
+            if (v131)
+            {
+LABEL_247:
+              if (v143 > 11.0)
+              {
+                *v138 = v135;
+                *v133 = v134;
+LABEL_258:
+                v33 = (a2 + 24136);
+                EvCrt_d("NK_Final_Check: Horizontal position check failed", v125);
+                LOBYTE(v390) = 1;
+                v124 = a1;
+                goto LABEL_263;
+              }
+
+              v146 = v143 <= 1.0;
+LABEL_261:
+              v124 = a1;
+              v33 = (a2 + 24136);
+              if (!v146)
+              {
+                *v133 = v144;
+              }
+
+              goto LABEL_263;
+            }
+
+LABEL_256:
+            if (v143 > 16.0)
+            {
+              *v138 = v135;
+              *v133 = v134;
+              v388 = 1;
+              *v136 = v134;
+              goto LABEL_258;
+            }
+
+            v146 = *v133 <= v144;
+            goto LABEL_261;
+          }
+
+LABEL_243:
+          v140 = v135 - *v138;
+          v141 = -6.28318531;
+          if (v140 >= 3.14159265 || (v141 = 6.28318531, v140 < -3.14159265))
+          {
+            v140 = v140 + v141;
+          }
+
+          v142 = v137 * v140 * (v137 * v140);
+          v143 = v142 / v134;
+          v144 = v134 + v142 * v129;
+          if (v131)
+          {
+            goto LABEL_247;
+          }
+
+          goto LABEL_256;
+        }
+
+LABEL_253:
+        if (!v131)
+        {
+          goto LABEL_263;
+        }
+      }
+
+      else
+      {
+        if ((*(v124 + 128) & 1) == 0)
+        {
+          break;
+        }
+
+LABEL_252:
+        v133 = &v33[v125 + 5];
+      }
+
+      *v133 = v114;
+      goto LABEL_263;
     }
 
-LABEL_95:
-    v76 = *(a1 + 76);
-    if (v23 > 0xE)
+    v131 = *(v124 + 128);
+    if (*(v12 + 72))
+    {
+      v132 = 8 * v125 + 40;
+      v133 = (v33 + v132);
+      if (*(v12 + 76) != 1 || !v395)
+      {
+        goto LABEL_253;
+      }
+
+      v134 = *v127;
+      v135 = v126[v125];
+      v136 = (&v403 + v132);
+      v137 = 6378137.0;
+      v138 = (v393 + 8 * v125);
+      goto LABEL_243;
+    }
+
+    if (v131)
+    {
+      goto LABEL_252;
+    }
+
+LABEL_263:
+    v128 = 0;
+    v127 = &v400;
+    v125 = 1;
+  }
+
+  while ((v130 & 1) != 0);
+  if (v388)
+  {
+    *(v124 + 168) = 8;
+    v147 = 1;
+    v148 = v386;
+    v150 = 4.0e10;
+    v149 = v382;
+    goto LABEL_268;
+  }
+
+  v148 = v386;
+  v150 = 4.0e10;
+  v149 = v382;
+  if (v378)
+  {
+    v147 = v379;
+LABEL_268:
+    if (*(v405 + 1) > 0.0 || *&v405[1] > 0.0 || *(&v405[1] + 1) > 0.0)
+    {
+      v152 = 0;
+      v153 = 0.0;
+      do
+      {
+        if (*(v405 + v152 + 8) > v153)
+        {
+          v153 = *(v405 + v152 + 8);
+        }
+
+        if (*(a2 + 24176 + v152) > v153)
+        {
+          v153 = *(a2 + 24176 + v152);
+        }
+
+        v152 += 8;
+      }
+
+      while (v152 != 24);
+      *(v405 + 1) = v153;
+      *&v405[1] = v153;
+      v151 = 1;
+      *(&v405[1] + 1) = v153;
+    }
+
+    else
+    {
+      v151 = 1;
+    }
+  }
+
+  else
+  {
+    v151 = 0;
+    v147 = v379;
+  }
+
+  if (v390)
+  {
+    Geo2ECEF(v393, &WGS84_Datum, (a2 + 664));
+    if (*(v124 + 128) == 1)
+    {
+      *(a2 + 688) = 0u;
+      *(a2 + 704) = 0u;
+      *(a2 + 912) = 0u;
+      *(a2 + 928) = 0u;
+      *(a2 + 944) = 0u;
+      v154 = 1;
+      goto LABEL_285;
+    }
+
+    v154 = 1;
+LABEL_293:
+    if (*(v124 + 236))
+    {
+      goto LABEL_294;
+    }
+
+    *(v124 + 236) = 1;
+    if ((v151 & 1) == 0)
+    {
+      goto LABEL_325;
+    }
+
+    goto LABEL_297;
+  }
+
+  if (*(v124 + 128))
+  {
+    v154 = 0;
+LABEL_285:
+    v155 = *(v124 + 20);
+    if (v155 > 8)
+    {
+      v156 = 100000000.0;
+    }
+
+    else
+    {
+      v156 = dbl_299761338[v155];
+    }
+
+    *(a2 + 24216) = v156;
+    *(a2 + 24208) = v156;
+    *(a2 + 24200) = v156;
+    v157 = (a2 + 24312);
+    v158 = 11;
+    do
+    {
+      v159 = *(v157 - 22);
+      *(v157 - 11) = v159;
+      *v157++ = sqrt(v159);
+      --v158;
+    }
+
+    while (v158);
+    goto LABEL_293;
+  }
+
+  v154 = 0;
+  if (v373)
+  {
+    goto LABEL_293;
+  }
+
+LABEL_294:
+  if (v151)
+  {
+LABEL_297:
+    v160 = *(v124 + 20);
+    if (v160 > 8)
+    {
+      v161 = 100000000.0;
+    }
+
+    else
+    {
+      v161 = dbl_299761338[v160];
+    }
+
+    *&v417 = 0;
+    if (R8_EQ(v405 + 1, &v417))
+    {
+      Comp_NEDvar_UDU(a1 + 872, 0xBu, 5, (a2 + 832), &v417);
+      Comp_ErrorEllipse(*&v417, *(&v417 + 1), v162, v415, &v415[1], &v415[2]);
+      v163 = v415[0] * v415[0];
+      if (*&v418 > v415[0] * v415[0])
+      {
+        v163 = *&v418;
+      }
+
+      v150 = v163 + v163;
+    }
+
+    *&v417 = 0;
+    if (R8_EQ(&v406, &v417))
+    {
+      v164 = *(a2 + 24200);
+      if (*(a2 + 24208) > v164)
+      {
+        v164 = *(a2 + 24208);
+      }
+
+      if (*(a2 + 24216) > v164)
+      {
+        v164 = *(a2 + 24216);
+      }
+
+      v161 = v164 * 1.2;
+    }
+
+    v165 = a1 + 872;
+    bzero((a1 + 872), 0x210uLL);
+    v166 = 0;
+    while (1)
+    {
+      v167 = *(&v403 + v166);
+      if (v167 <= 0.0)
+      {
+        if (v166 == 4)
+        {
+          v168 = *(a2 + 24168);
+          if (v168 >= 400.0)
+          {
+            v169 = v168 * 1.2;
+          }
+
+          else
+          {
+            v169 = v168 * 1.1;
+          }
+
+          *(a1 + 984) = v169;
+          goto LABEL_320;
+        }
+
+        if ((v166 - 5) <= 2)
+        {
+          *(v165 + 8 * (((v166 + 2 + (v166 + 2) * v166) >> 1) - 1)) = v150;
+          goto LABEL_320;
+        }
+
+        if (v166 >= 8)
+        {
+          *(v165 + 8 * (((v166 + 2 + (v166 + 2) * v166) >> 1) - 1)) = v161;
+          goto LABEL_320;
+        }
+
+        v167 = v33[v166] * 1.2;
+      }
+
+      *(v165 + 8 * (((v166 + 2 + (v166 + 2) * v166) >> 1) - 1)) = v167;
+LABEL_320:
+      if (++v166 == 11)
+      {
+        v148 = v386;
+        break;
+      }
+    }
+  }
+
+LABEL_325:
+  v396 = v148 | v147;
+  if ((v148 | v147) != 1)
+  {
+    goto LABEL_395;
+  }
+
+  v170 = *(a1 + 235);
+  v171 = v170 + 1;
+  *(a1 + 235) = v170 + 1;
+  if (*(a1 + 11028) == 1)
+  {
+    *(a1 + 11028) = 0;
+  }
+
+  v172 = *(a2 + 964);
+  if ((v172 > 1 || !*(a1 + 11048)) && ((v170 + 1) == 120 || (v170 + 1) >= 0xB4u))
+  {
+    if (*(a2 + 12) >= 10)
+    {
+      *(a2 + 12) = 9;
+    }
+
+    v178 = 0;
+    *(a1 + 6712) = 0u;
+    *(a1 + 6728) = 0u;
+    *(a1 + 6696) = 0u;
+    *(a2 + 972) = 2;
+    *(a4 + 412) = 1;
+    *&v179 = 0x101010101010101;
+    *(&v179 + 1) = 0x101010101010101;
+    *(a4 + 380) = v179;
+    *(a4 + 396) = v179;
+    *(a4 + 364) = v179;
+    v180 = vld1q_dup_f32(a2);
+    do
+    {
+      *(a4 + 416 + v178) = v180;
+      v178 += 16;
+    }
+
+    while (v178 != 192);
+    EvCrt_v("ChanReset ALL : NKFC1 %d %d %d ", *(a1 + 235), v147, v148);
+    v181 = ++*(a1 + 235);
+    if (v181 >= 0xB4)
+    {
+      *(a2 + 960) = 0;
+      *(a1 + 11048) = 0;
+      *(a1 + 235) = 0;
+      *(a1 + 232) = 256;
+      *(a2 + 964) = 0;
+      *(a2 + 16) = 0;
+      *v385 = 0.0;
+      *(a2 + 744) = 0;
+      if (*(a2 + 12) >= 6)
+      {
+        *(a2 + 12) = 5;
+      }
+    }
+
+    goto LABEL_395;
+  }
+
+  if (*(a4 + 4) || v370 >= 0xFFFF0DCF && (*(a1 + 233) & 1) == 0)
+  {
+    goto LABEL_395;
+  }
+
+  if (*(a2 + 12) >= 10)
+  {
+    *(a2 + 12) = 9;
+  }
+
+  if (v172 < 2)
+  {
+    if ((v147 & 1) == 0)
+    {
+      if ((v170 + 1) <= 9u)
+      {
+        *(a1 + 235) = 10;
+      }
+
+      *(a2 + 960) = 0;
+      *(a1 + 232) = 0;
+    }
+
+    goto LABEL_395;
+  }
+
+  v381 = v154;
+  if ((v170 + 1) > 5u)
+  {
+    v174 = 0;
+    v177 = a1;
+LABEL_365:
+    if ((*(v177 + 28) & 1) == 0 && *(a2 + 960) != 1)
+    {
+      v380 = v174;
+      v176 = 100;
+      goto LABEL_377;
+    }
+
+    *(v177 + 6712) = 0u;
+    *(v177 + 6728) = 0u;
+    *(v177 + 6696) = 0u;
+    v182 = -48;
+    v183 = a5;
+    do
+    {
+      v184 = *(v183 + 76);
+      if (Is_Legal(v184) && *(v183 + 412) >= 4)
+      {
+        *(a4 + 8 + GNSS_Id_To_Num_Prn_Idx(v184)) = 1;
+        *(a4 + 186 + GNSS_Id_To_Num_Prn_Idx(*(v183 + 76))) = v182 + 48;
+      }
+
+      v183 += 4;
+      v224 = __CFADD__(v182++, 1);
+    }
+
+    while (!v224);
+    v185 = 0;
+    *(a4 + 412) = 1;
+    *&v186 = 0x101010101010101;
+    *(&v186 + 1) = 0x101010101010101;
+    *(a4 + 380) = v186;
+    *(a4 + 396) = v186;
+    *(a4 + 364) = v186;
+    v187 = vld1q_dup_f32(a2);
+    do
+    {
+      *(a4 + 416 + v185) = v187;
+      v185 += 16;
+    }
+
+    while (v185 != 192);
+    EvCrt_v("ChanReset ALL : NKFC2 %d %d %d ", *(a1 + 235), v370 < 0xFFFF0DCF, *(a1 + 28));
+    *(a2 + 972) = 2;
+    *(a1 + 235) = 0;
+    *(a2 + 964) = 0;
+    v148 = v386;
+    v154 = v381;
+    goto LABEL_395;
+  }
+
+  if ((v170 + 1) == 5)
+  {
+    v171 = 4;
+  }
+
+  if (!*(a2 + 960))
+  {
+    v171 = v170;
+  }
+
+  v173 = *(v12 + 2444) >> 4;
+  v224 = v173 >= 0xC35;
+  v174 = v173 < 0xC35;
+  v175 = &BN_Tolerance;
+  if (v224)
+  {
+    v175 = &unk_2997612E5;
+  }
+
+  if (v171 <= 2u)
+  {
+    v174 = 0;
+  }
+
+  v176 = v175[v171];
+  v177 = a1;
+  if (v176 == 100)
+  {
+    goto LABEL_365;
+  }
+
+  v380 = v174;
+LABEL_377:
+  v188 = 0;
+  v189 = 0;
+  v190 = 0;
+  v191 = 0;
+  v192 = (a5 + 76);
+  v391 = v177 + 6696;
+  v383 = a4 + 186;
+  v387 = a4 + 416;
+  v389 = a4 + 8;
+  do
+  {
+    if (*(a2 + 2960 + v188) == 1)
+    {
+      v193 = *(a5 + v188 + 604);
+      if (v193 <= v190 || v190 == 0)
+      {
+        v191 = v188;
+        v190 = *(a5 + v188 + 604);
+      }
+
+      if (v193 < v176)
+      {
+        v195 = *v192;
+        v196 = Is_Legal(*v192);
+        v189 = 1;
+        if (v196)
+        {
+          v197 = GNSS_Id_To_Num_Prn_Idx(v195);
+          *(v391 + v188) = 0;
+          *(v389 + v197) = 1;
+          *(v383 + v197) = v188;
+          *(a4 + v188 + 365) |= 1u;
+          *(v387 + 4 * v188) = *a2;
+          EvCrt_v("ChanReset %d : NKFC3 %d %d %d   %d < %d", v188, v192[2], *v192, v197, v193, v176);
+          v189 = 1;
+        }
+      }
+    }
+
+    ++v188;
+    v192 += 4;
+  }
+
+  while (v188 != 48);
+  if (v380 && (v198 = v190, v190 >= v176))
+  {
+    v199 = (a5 + 76 + 4 * v191);
+    v200 = *v199;
+    v148 = v386;
+    v154 = v381;
+    if (Is_Legal(*v199))
+    {
+      v201 = GNSS_Id_To_Num_Prn_Idx(v200);
+      *(v391 + v191) = 0;
+      *(v389 + v201) = 1;
+      *(v383 + v201) = v191;
+      *(a4 + 365 + v191) |= 1u;
+      *(v387 + 4 * v191) = *a2;
+      EvCrt_v("ChanReset %d : NKFC4 %d %d %d   %d   %d >= %d", v191, v199[2], *v199, v201, 1, v198, v176);
+    }
+  }
+
+  else
+  {
+    v148 = v386;
+    v154 = v381;
+    if ((v189 & 1) == 0)
+    {
+      goto LABEL_395;
+    }
+  }
+
+  *(a2 + 972) = 1;
+LABEL_395:
+  v203 = a2 + 24576;
+  v202 = v384;
+  v204 = a1;
+  if (*(a2 + 24588) < 4 || *(a2 + 24592) < 4 || *a6 != 2)
+  {
+    goto LABEL_411;
+  }
+
+  v205 = *(a1 + 128);
+  if ((v205 & 1) == 0)
+  {
+    v206 = *(a2 + 24200) + *(a2 + 24208);
+    v208 = *(a1 + 20);
+    v207 = *(a1 + 24);
+    if (v206 >= 2.56)
+    {
+      if (v208 == 4 && v206 * 9.0 + v149 * v149 < 169.0)
+      {
+        goto LABEL_406;
+      }
+
+      if (v149 <= 26.0)
+      {
+        goto LABEL_411;
+      }
+    }
+
+    else if (v149 <= 13.0)
+    {
+      if (v149 <= 3.0)
+      {
+        if (v149 < 1.5)
+        {
+          v209 = 2;
+LABEL_409:
+          if (v209 != v208)
+          {
+            *(a1 + 20) = v209;
+            *&v417 = __PAIR64__(v207, v209);
+            NK_Set_Dynamics(&v417, a1 + 32);
+            NK_Set_XO_PN(v384, a1 + 32);
+          }
+        }
+
+LABEL_411:
+        v205 = *(a1 + 128);
+        goto LABEL_412;
+      }
+
+LABEL_406:
+      v209 = 3;
+      goto LABEL_409;
+    }
+
+    v209 = 4;
+    goto LABEL_409;
+  }
+
+LABEL_412:
+  if (!v205 && (*(a2 + 24352) >= 3000.0 || *(a2 + 24360) >= 3000.0 || *(a2 + 24368) >= 3000.0))
+  {
+    *(a1 + 233) = 1;
+  }
+
+  if (v154)
+  {
+    Geo2ECEF(v393, &WGS84_Datum, (a2 + 664));
+    v205 = *(a1 + 128);
+  }
+
+  if (!v205)
+  {
+    v212 = *(&v406 + 1);
+    v211 = v407;
+    v213 = *&v406;
+    v214 = (a2 + 24224);
+    v215 = -11;
+    v216 = &v403;
+    do
+    {
+      v217 = *v216;
+      if (*v216 > 0.0)
+      {
+        v218 = v215 + 11;
+        if (v215 + 11 <= 4)
+        {
+          if (v218 <= 2)
+          {
+            v217 = v217 + *(a1 + 7248);
+          }
+
+          else if (v215 == -8)
+          {
+            v217 = v217 + *(a2 + 656) * 0.01;
+          }
+
+          *v214 = v217;
+        }
+
+        else if (v218 > 7)
+        {
+          if (v215 == -3)
+          {
+            *(a2 + 24288) = v213 + *(a2 + 656) * 0.0001;
+          }
+
+          else if (v215 == -2)
+          {
+            *(a2 + 24296) = v212 + *(a2 + 656) * 0.0001;
+          }
+
+          else
+          {
+            *(a2 + 24304) = v211 + *(a2 + 656) * 0.0001;
+          }
+        }
+
+        else if (v215 == -6)
+        {
+          *(a2 + 24400) = *(a1 + 7280);
+          *(a2 + 24264) = *(a2 + 24176) + *(a1 + 7256);
+        }
+
+        else if (v215 == -5)
+        {
+          *(a2 + 24272) = *(a2 + 24184) + *(a1 + 7264);
+        }
+
+        else
+        {
+          *(a2 + 24280) = *(a2 + 24192) + *(a1 + 7272);
+        }
+
+        v214[11] = sqrt(*v214);
+      }
+
+      ++v214;
+      ++v216;
+      v224 = __CFADD__(v215++, 1);
+    }
+
+    while (!v224);
+  }
+
+  if ((*(a2 + 960) & 1) == 0 && *(v12 + 72) == 1 && *(v12 + 200) == 1 && ((*(v12 + 76) - 1) < 2 || *(a1 + 232) == 1))
+  {
+    *(a2 + 960) = 1;
+  }
+
+  v210 = *(a2 + 24352);
+  if (v210 <= *(a2 + 24360))
+  {
+    v210 = *(a2 + 24360);
+  }
+
+  if (v210 <= *(a2 + 24368))
+  {
+    v210 = *(a2 + 24368);
+  }
+
+  if (*(a1 + 235))
+  {
+    if (v205)
+    {
+      goto LABEL_522;
+    }
+
+    if (*(a1 + 11028) >= 4u && v210 <= 0xC7 && (*(a2 + 25171) & 1) != 0 && v369 >= 5)
+    {
+      *(a1 + 235) = 0;
+    }
+  }
+
+  else if (v205)
+  {
+    goto LABEL_522;
+  }
+
+  v219 = *(a2 + 964);
+  if (v219 > 2)
+  {
+    v220 = 1;
+  }
+
+  else
+  {
+    v220 = v154;
+  }
+
+  if (v220)
+  {
+    goto LABEL_523;
+  }
+
+  if ((*(a1 + 233) & 1) != 0 || *(a2 + 12) < 7 || *(a2 + 25171) != 1 || !v369)
+  {
+    goto LABEL_522;
+  }
+
+  v221 = *(a1 + 11028);
+  if ((v210 > 0x63 || v221 <= 3) && (v210 > 0x45 || v221 <= 2))
+  {
+    v224 = v210 <= 0x27 && v221 >= 2;
+    if (!v224)
+    {
+      goto LABEL_522;
+    }
+  }
+
+  v225 = 0;
+  v226 = 0;
+  v392 = 0;
+  v227 = 0;
+  v228 = 0;
+  v229 = a2 + 3056;
+  while (2)
+  {
+    v230 = *(v229 + 4 * v225);
+    if ((v230 - 1) >= 0x1D)
+    {
+      if (v230)
+      {
+        EvCrt_Illegal_Default("Any_SV_Meas_Edit", 166);
+        goto LABEL_484;
+      }
+
+      if (*(v229 + v225 - 96) == 1 && *(v229 + v225 - 3007) == 1)
+      {
+        v231 = *(a5 + 604 + v225);
+        if (v231 > 0x21)
+        {
+          ++v228;
+        }
+
+        if (v231 > 0x17)
+        {
+          ++v227;
+        }
+
+        v46 = v231 > 0xA;
+        v232 = v392;
+        if (v46)
+        {
+          v232 = v392 + 1;
+        }
+
+        v392 = v232;
+      }
+    }
+
+    else
+    {
+LABEL_484:
+      ++v226;
+    }
+
+    if (++v225 != 48)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+  v204 = a1;
+  v203 = a2 + 24576;
+  v202 = v384;
+  v148 = v386;
+  if (v226 > 2)
+  {
+    goto LABEL_522;
+  }
+
+  if (*(v12 + 72) != 1)
+  {
+    goto LABEL_509;
+  }
+
+  v233 = *(v12 + 76);
+  if (v233 == 2)
+  {
+    if (*(a2 + 23064) <= 900000000.0)
+    {
+      v235 = 1;
+      goto LABEL_510;
+    }
+
+    goto LABEL_509;
+  }
+
+  if (v233 != 1 || (v234 = *(a2 + 23064), v234 > 8100000000.0))
+  {
+LABEL_509:
+    v235 = 0;
+    goto LABEL_510;
+  }
+
+  if (v234 > 900000000.0)
+  {
+    v235 = 1;
+  }
+
+  else
+  {
+    v235 = 2;
+  }
+
+  if (v234 <= 9000000.0)
+  {
+    ++v235;
+  }
+
+LABEL_510:
+  v236 = *(a2 + 22848) == 1 && *(a2 + 22852) == 1 && *(a2 + 22880) <= 900000000.0 || *(a2 + 12) > 9;
+  v237 = v235 - v226 + v236;
+  v238 = v237 + v228;
+  v239 = v237 + v227;
+  v240 = v237 + v392;
+  if (v238 > 3 || v239 > 4 || v240 > 5)
+  {
+    v219 = 3;
+    goto LABEL_536;
+  }
+
+LABEL_522:
+  v219 = *(a2 + 964);
+LABEL_523:
+  if (v219 <= 2)
+  {
+    if (*(v204 + 128) == 1 && *(v204 + 11048))
+    {
+      *(v204 + 11048) = 0;
+    }
+
+    if (v219 == 1 && *(v204 + 235) > 2u)
+    {
+      goto LABEL_535;
+    }
+
+    v243 = v219 != 2 && v376 > 3;
+    v244 = v396;
+    if (!v243)
+    {
+      v244 = 0;
+    }
+
+    if (v244)
+    {
+LABEL_535:
+      v219 = 0;
+      goto LABEL_536;
+    }
+
+    if (!v219 && v376 >= 3)
+    {
+      if (*(v204 + 235) > 2u)
+      {
+        v219 = 0;
+      }
+
+      else
+      {
+        v219 = 1;
+LABEL_536:
+        *(a2 + 964) = v219;
+      }
+    }
+  }
+
+  if (v202[265] != -1)
+  {
+    if (v219 || *(v204 + 11032) < 0x258u)
+    {
+      if (v219 == 1 && v149 > 50.0)
+      {
+        v246 = "NK_Final_Check: Reverting to 'Sky Search' Windows due to low position confidence, and apparent high user speed";
+LABEL_548:
+        *(a2 + 960) = 0;
+        EvCrt_v(v246);
+      }
+    }
+
+    else if (*(v12 + 72) != 1 || (v245 = *(v12 + 76), v245 != 1) && (v245 != 2 || *(a2 + 23040) >= 2500000000.0))
+    {
+      v246 = "NK_Final_Check: Reverting to 'Sky Search' Windows due to No Fix within 10 min";
+      goto LABEL_548;
+    }
+  }
+
+  if (*(v203 + 12) >= 4 && *(a2 + 964) >= 1 && *(a2 + 24752) <= 100.0)
+  {
+    v202[267] = 0;
+  }
+
+  v247 = v202[265];
+  if (v247)
+  {
+    v248 = v202[267];
+    if (v248)
+    {
+      v249 = *(a2 + 4);
+      if (v249 < v248)
+      {
+        EvCrt_nd("NK_Final_Check: OS ms Time seems to have gone backwards", 2, v38, *(a2 + 4), v248);
+        goto LABEL_560;
+      }
+
+      if (v249 - v248 >= v247)
+      {
+        EvCrt_v("NK_Final_Check: Reverting to 'Sky Search' Windows due to No Fix within %d s", v247 / 0x3E8);
+        *(a2 + 960) = 0;
+        if ((*(a2 + 16) & 1) == 0)
+        {
+          *(a2 + 12) = 0;
+          *(a2 + 24136) = 0x42D7309374811100;
+          *(a2 + 24312) = 0x4163125300000000;
+          v250 = vdupq_n_s64(0x42D7309374811100uLL);
+          *(a2 + 24224) = v250;
+          *(a2 + 24144) = v250;
+          *(a2 + 24240) = 0x42D7309374811100;
+          *(a2 + 24320) = vdupq_n_s64(0x4163125300000000uLL);
+          *(a2 + 24168) = 0x42D7309374811100;
+          *(a2 + 24256) = 0x42D7309374811100;
+          *(a2 + 24344) = 0x4163125300000000;
+        }
+
+LABEL_560:
+        v202[267] = 0;
+      }
+    }
+  }
+
+  if (*(a2 + 16) == 1 && *(v204 + 11048) && *(v204 + 11032) >= 0x3Du && *(a2 + 24320) > 40000.0 && *(a2 + 24328) > 40000.0 && *(a2 + 24312) > 40000.0)
+  {
+    *(a2 + 16) = 0;
+  }
+
+  if (v148 && !*(a2 + 964))
+  {
+    *(v204 + 232) = 0;
+  }
+
+  if ((*(v203 + 12) < 4 || *(a2 + 964) < 1 || *(a2 + 24752) > 400.0) && *(v204 + 11032))
+  {
+    if (!v202[279])
+    {
+      v202[279] = *(a5 + 4);
+    }
+  }
+
+  else
+  {
+    v202[279] = 0;
+  }
+
+  memcpy((v204 + 344), (v204 + 872), 0x210uLL);
+  if (*(a2 + 25824) > 150.0)
+  {
+    return;
+  }
+
+  if (!*(a2 + 26008))
+  {
+    return;
+  }
+
+  v251 = *(a2 + 26024);
+  if (v251 < 2)
+  {
+    return;
+  }
+
+  if ((*(v204 + 11161) & 1) == 0)
+  {
+    v252 = *(v204 + 11152) <= 17.0 ? 3000 : 5000;
+    if (*a2 - *(v204 + 11248) < v252)
+    {
+      v253 = 11240;
+      goto LABEL_593;
+    }
+  }
+
+  if (*(v204 + 11188) < 2)
+  {
+    v254 = (a2 + 952);
+  }
+
+  else
+  {
+    v253 = 11192;
+LABEL_593:
+    v254 = (v204 + v253);
+  }
+
+  v255 = *v254;
+  v256 = *v254 * 0.0174532925;
+  ECEF2FSD_RotM((a2 + 832), v256, v408);
+  v257 = a2 + 664;
+  v258 = 4;
+  v259 = 16;
+  v260 = a2;
+  do
+  {
+    *(&v413 + v259) = *(v260 + 680) - *(v260 + 25736);
+    --v258;
+    v259 -= 8;
+    v260 -= 8;
+  }
+
+  while (v258 > 1);
+  v261 = 0;
+  v262 = v413;
+  v263 = v414;
+  v264 = &v408[2];
+  do
+  {
+    v265 = *(v264 - 1) * *(&v262 + 1) + *(v264 - 2) * *&v262;
+    v266 = *v264;
+    v264 += 3;
+    *(&v410 + v261) = v265 + v266 * v263;
+    v261 += 8;
+  }
+
+  while (v261 != 24);
+  v267 = v255;
+  v268 = *(v204 + 140);
+  if (v268 >= *(v204 + 144))
+  {
+    v268 = *(v204 + 144);
+  }
+
+  if (v268 >= *(v204 + 148))
+  {
+    v268 = *(v204 + 148);
+  }
+
+  v269 = v268 > 0xA;
+  v270 = *(v204 + 11032) <= *(v204 + 16) && *(a2 + 968) == 1;
+  v271 = v410;
+  v272 = v411;
+  EvLog_v("Lsq pos diff:  %3d (%d %3d %3d %3d)  %d%d  %d %f   F %4d %6d %8d    S %4d %6d %8d    D %4d %6d %8d    T %2d %3d   L %2d %f ", v255, *(v204 + 11188), *(v204 + 11240), *(v204 + 11192), *(a2 + 952), v269, v270, *(v204 + 11116), *(v204 + 11128), v410, *(a2 + 25976), *(v204 + 11480), v411, *(a2 + 25976), *(v204 + 11480), v412, *(a2 + 25984), *(v204 + 11488), *(v204 + 11636), *(v204 + 11640), v251, *(a2 + 26016));
+  v273 = *(v204 + 140);
+  if (v273 >= *(v204 + 144))
+  {
+    v273 = *(v204 + 144);
+  }
+
+  if (v273 >= *(v204 + 148))
+  {
+    v273 = *(v204 + 148);
+  }
+
+  if (v273 < 0xB || *(v204 + 11032) > *(v204 + 16) || *(a2 + 968) != 1)
+  {
+    goto LABEL_638;
+  }
+
+  if ((*(v204 + 11161) & 1) == 0)
+  {
+    if (v271 >= -5.0 || *(v204 + 11116) == 3)
+    {
+      goto LABEL_638;
+    }
+
+    v274 = 3;
+    v275 = 8;
+LABEL_620:
+    v276 = 0;
+    v277 = *(a1 + 11636);
+    if (v277 + 1 < v275)
+    {
+      v278 = v277 + 1;
+    }
+
+    else
+    {
+      v278 = v275;
+    }
+
+    *(a1 + 11636) = v278;
+    if (v271 < -25.0 && v278 >= v274)
+    {
+      v279 = *(a2 + 25976) / *(a1 + 11480);
+      v280 = 0.0;
+      v281 = 1.0;
+      if (v279 < 1.0)
+      {
+        v280 = 1.0;
+        if (v279 > 0.00000011920929)
+        {
+          NK_Get_Smooth_Excl_Weight(v279 * 0.5, 0.0, 1.0);
+          v280 = v282;
+          v278 = *(a1 + 11636);
+        }
+      }
+
+      v283 = v275 - v278;
+      if (v283)
+      {
+        NK_Get_Smooth_Excl_Weight(v283, 0.0, v275);
+        v281 = v284;
+      }
+
+      if (v280 * v281 > 0.00000011920929)
+      {
+        *v409 = *(a2 + 25976) / (v280 * v281);
+        *&v409[8] = vdupq_n_s64(0x412E848000000000uLL);
+        *(a1 + 1400) = 0u;
+        *(a1 + 1416) = 0u;
+        *(a1 + 1432) = 0u;
+        *(a1 + 1448) = 0u;
+        *(a1 + 1464) = 0u;
+        *(a1 + 1480) = 0;
+        NK_Body_Frame_Meas(5u, &v413, v409, (a2 + 832), v256, 0xBu, (a1 + 872));
+        v285 = 0;
+        v286 = *(a1 + 1400);
+        v287 = *(a1 + 1408);
+        v288 = *(a1 + 1416);
+        v413 = *(a1 + 1440);
+        v414 = *(a1 + 1456);
+        v289 = v413;
+        v290 = v414;
+        v291 = &v408[2];
+        do
+        {
+          v292 = *(v291 - 1) * *(&v289 + 1) + *(v291 - 2) * *&v289;
+          v293 = *v291;
+          v291 += 3;
+          *(&v410 + v285) = v292 + v293 * v290;
+          v285 += 8;
+        }
+
+        while (v285 != 24);
+        v294 = 0;
+        v411 = 0.0;
+        v412 = 0.0;
+        v295 = v410;
+        do
+        {
+          *(&v413 + v294 * 8) = v408[v294 + 3] * 0.0 + v408[v294] * v295 + v408[v294 + 6] * 0.0;
+          ++v294;
+        }
+
+        while (v294 != 3);
+        *(a1 + 1440) = v413;
+        *(a1 + 1456) = v414;
+        v204 = a1;
+        EvLog_v("Lsq pos meas: F  %2d %f %3d   %f %f   %6d %6d   Wt %f %f   ECEF %f %f %f", *(a1 + 11636), *(a1 + 11128), v267, v271, v295, *(a2 + 25976), *(a1 + 11480), v280, v281, *&v413, *(&v413 + 1), v414);
+        NK_Correct_State((a1 + 1400), (a2 + 25166), (a2 + 624));
+        v296 = 0;
+        *(a1 + 10472) = v286 + *(a1 + 10472);
+        *(a1 + 8280) = v287 + *(a1 + 8280);
+        *(a1 + 8296) = v288 + *(a1 + 8296);
+        v276 = 1;
+        v272 = 0.0;
+        do
+        {
+          *(a1 + 10480 + v296) = *(a1 + 10480 + v296) + *(&v413 + v296);
+          v296 += 8;
+        }
+
+        while (v296 != 24);
+        v271 = v295;
+        goto LABEL_639;
+      }
+
+      v276 = 0;
+    }
+
+    v204 = a1;
+    goto LABEL_639;
+  }
+
+  if (v271 < -5.0)
+  {
+    v274 = 18;
+    v275 = 48;
+    goto LABEL_620;
+  }
+
+LABEL_638:
+  v276 = 0;
+  *(v204 + 11636) = 0;
+LABEL_639:
+  v297 = *(v204 + 140);
+  if (v297 >= *(v204 + 144))
+  {
+    v297 = *(v204 + 144);
+  }
+
+  if (v297 >= *(v204 + 148))
+  {
+    v297 = *(v204 + 148);
+  }
+
+  if (v297 < 0xB || *(v204 + 11032) > *(v204 + 16) || *(a2 + 968) != 1)
+  {
+    goto LABEL_649;
+  }
+
+  if (*(v204 + 11161))
+  {
+    v298 = 120;
+    goto LABEL_656;
+  }
+
+  if (*(v204 + 11116) == 3)
+  {
+LABEL_649:
+    *(v204 + 11640) = 0;
+    if (v276)
+    {
+      goto LABEL_650;
+    }
+
+LABEL_685:
+    v308 = 0;
+    goto LABEL_686;
+  }
+
+  v298 = 20;
+LABEL_656:
+  v309 = a1;
+  v310 = *(a1 + 11640);
+  v311 = v310 > 0;
+  if (v272 < 0.0)
+  {
+    v312 = -1;
+  }
+
+  else
+  {
+    v311 = v310 < 0;
+    v312 = 1;
+  }
+
+  if (v311)
+  {
+    v310 = 0;
+  }
+
+  v313 = v310 + v312;
+  *(a1 + 11640) = v313;
+  v314 = v298;
+  if (v313 > v298)
+  {
+LABEL_665:
+    *(v309 + 11640) = v314;
+    v313 = v314;
+    goto LABEL_666;
+  }
+
+  if ((v313 + v298) < 0 != __OFADD__(v313, v298))
+  {
+    v314 = -v298;
+    v309 = a1;
+    goto LABEL_665;
+  }
+
+LABEL_666:
+  if (v313 >= 0)
+  {
+    v315 = v313;
+  }
+
+  else
+  {
+    v315 = -v313;
+  }
+
+  if (fabs(v272) <= 10.0 || v315 < v298 >> 2)
+  {
+    goto LABEL_684;
+  }
+
+  v316 = *(a2 + 25976) / *(a1 + 11480);
+  v317 = 0.0;
+  v318 = 1.0;
+  if (v316 < 1.0)
+  {
+    v317 = 1.0;
+    if (v316 > 0.00000011920929)
+    {
+      NK_Get_Smooth_Excl_Weight(v316 * 0.5, 0.0, 1.0);
+      v317 = v319;
+    }
+  }
+
+  if (v298 != v315)
+  {
+    NK_Get_Smooth_Excl_Weight((v298 - v315), 0.0, v298);
+    v318 = v320;
+  }
+
+  if (v317 * v318 <= 0.00000011920929)
+  {
+LABEL_684:
+    v204 = a1;
+    if (v276)
+    {
+      goto LABEL_650;
+    }
+
+    goto LABEL_685;
+  }
+
+  *v409 = 0x412E848000000000;
+  *&v409[8] = *(a2 + 25976) / (v317 * v318);
+  *&v409[16] = 0x412E848000000000;
+  v204 = a1;
+  *(a1 + 1480) = 0;
+  *(a1 + 1448) = 0u;
+  *(a1 + 1464) = 0u;
+  *(a1 + 1416) = 0u;
+  *(a1 + 1432) = 0u;
+  *(a1 + 1400) = 0u;
+  NK_Body_Frame_Meas(5u, &v413, v409, (a2 + 832), v256, 0xBu, (a1 + 872));
+  v321 = 0;
+  v322 = *(a1 + 1400);
+  v323 = *(a1 + 1408);
+  v324 = *(a1 + 1416);
+  v413 = *(a1 + 1440);
+  v414 = *(a1 + 1456);
+  v325 = v413;
+  v326 = v414;
+  v327 = &v408[2];
+  do
+  {
+    v328 = *(v327 - 1) * *(&v325 + 1) + *(v327 - 2) * *&v325;
+    v329 = *v327;
+    v327 += 3;
+    *(&v410 + v321) = v328 + v329 * v326;
+    v321 += 8;
+  }
+
+  while (v321 != 24);
+  v330 = 0;
+  v410 = 0.0;
+  v412 = 0.0;
+  v331 = v411;
+  do
+  {
+    *(&v413 + v330 * 8) = v408[v330 + 3] * v331 + v408[v330] * 0.0 + v408[v330 + 6] * 0.0;
+    ++v330;
+  }
+
+  while (v330 != 3);
+  *(a1 + 1440) = v413;
+  *(a1 + 1456) = v414;
+  EvLog_v("Lsq pos meas: S  %2d %f %3d   %f %f   %6d %6d   Wt %f %f   ECEF %f %f %f", *(a1 + 11640), *(a1 + 11128), v267, v272, v331, *(a2 + 25976), *(a1 + 11480), v317, v318, *&v413, *(&v413 + 1), v414);
+  NK_Correct_State((a1 + 1400), (a2 + 25166), (a2 + 624));
+  v332 = 0;
+  *(a1 + 10472) = v322 + *(a1 + 10472);
+  *(a1 + 8280) = v323 + *(a1 + 8280);
+  *(a1 + 8296) = v324 + *(a1 + 8296);
+  do
+  {
+    *(a1 + 10480 + v332) = *(a1 + 10480 + v332) + *(&v413 + v332);
+    v332 += 8;
+  }
+
+  while (v332 != 24);
+LABEL_650:
+  v299 = 4;
+  v300 = 16;
+  v301 = a2;
+  do
+  {
+    *(&v413 + v300) = *(v301 + 680) - *(v301 + 25736);
+    --v299;
+    v300 -= 8;
+    v301 -= 8;
+  }
+
+  while (v299 > 1);
+  v302 = 0;
+  v303 = v413;
+  v304 = v414;
+  v305 = &v408[2];
+  do
+  {
+    v306 = *(v305 - 1) * *(&v303 + 1) + *(v305 - 2) * *&v303;
+    v307 = *v305;
+    v305 += 3;
+    *(&v410 + v302) = v306 + v307 * v304;
+    v302 += 8;
+  }
+
+  while (v302 != 24);
+  v308 = 1;
+  v271 = v410;
+  v272 = v411;
+LABEL_686:
+  if ((*(v204 + 11116) & 0xFFFFFFFE) == 2)
+  {
+    v333 = 3.5;
+  }
+
+  else
+  {
+    v333 = 2.0;
+  }
+
+  v334 = v333 * *(a2 + 25976);
+  v335 = 9.9980001e13;
+  if (v272 * v272 + v271 * v271 <= v334 * v334 || v334 >= *(v204 + 11480))
+  {
+    v339 = 0;
+  }
+
+  else
+  {
+    *v409 = vdupq_n_s64(0x4049000000000000uLL);
+    *&v409[16] = 0x408F400000000000;
+    *(v204 + 1480) = 0;
+    *(v204 + 1400) = 0u;
+    *(v204 + 1416) = 0u;
+    *(v204 + 1432) = 0u;
+    *(v204 + 1448) = 0u;
+    *(v204 + 1464) = 0u;
+    NK_Body_Frame_Meas(5u, &v413, v409, (a2 + 832), v256, 0xBu, (v204 + 872));
+    v336 = *(v204 + 1400);
+    v397 = *(v204 + 1408);
+    v413 = *(v204 + 1440);
+    v414 = *(v204 + 1456);
+    EvLog_v("Lsq pos adj:  H  %4d %4d %4d   ARP  %6d %6d", v271, v272, v412, *(a2 + 25976), *(v204 + 11480));
+    for (j = 0; j != 24; j += 8)
+    {
+      *(v257 + j) = *(v257 + j) - *(&v413 + j);
+    }
+
+    v338 = 0;
+    *v385 = *v385 + v336 * -0.00000000333564095;
+    *v372 = vmlaq_f64(*v372, vdupq_n_s64(0xBE2CA726EB25F9DBLL), v397);
+    v204 = a1;
+    *(a1 + 10472) = v336 + *(a1 + 10472);
+    *(a1 + 8280) = v397.f64[0] + *(a1 + 8280);
+    *(a1 + 8296) = v397.f64[1] + *(a1 + 8296);
+    do
+    {
+      *(a1 + 10480 + v338) = *(a1 + 10480 + v338) + *(&v413 + v338);
+      v338 += 8;
+    }
+
+    while (v338 != 24);
+    ++*(a1 + 236);
+    v308 = 1;
+    v335 = 50.0;
+    v339 = 1;
+  }
+
+  v340 = v412;
+  v341 = v333 * *(a2 + 25984);
+  if (v340 * v340 > v341 * v341 && v341 < *(v204 + 11488))
+  {
+    *v409 = vdupq_n_s64(0x408F400000000000uLL);
+    *&v409[16] = 0x4049000000000000;
+    *(v204 + 1480) = 0;
+    *(v204 + 1400) = 0u;
+    *(v204 + 1416) = 0u;
+    *(v204 + 1432) = 0u;
+    *(v204 + 1448) = 0u;
+    *(v204 + 1464) = 0u;
+    NK_Body_Frame_Meas(5u, &v413, v409, (a2 + 832), v256, 0xBu, (v204 + 872));
+    v342 = *(v204 + 1400);
+    v398 = *(v204 + 1408);
+    v413 = *(v204 + 1440);
+    v414 = *(v204 + 1456);
+    EvLog_v("Lsq pos adj:  V  %4d %4d %4d   ARP  %6d %6d", v271, v272, v340, *(a2 + 25984), *(v204 + 11488));
+    for (k = 0; k != 24; k += 8)
+    {
+      *(v257 + k) = *(v257 + k) - *(&v413 + k);
+    }
+
+    v344 = 0;
+    *v385 = *v385 + v342 * -0.00000000333564095;
+    *v372 = vmlaq_f64(*v372, vdupq_n_s64(0xBE2CA726EB25F9DBLL), v398);
+    v204 = a1;
+    *(a1 + 10472) = v342 + *(a1 + 10472);
+    *(a1 + 8280) = v398.f64[0] + *(a1 + 8280);
+    *(a1 + 8296) = v398.f64[1] + *(a1 + 8296);
+    do
+    {
+      *(a1 + 10480 + v344) = *(a1 + 10480 + v344) + *(&v413 + v344);
+      v344 += 8;
+    }
+
+    while (v344 != 24);
+    ++*(a1 + 236);
+  }
+
+  if (!v339)
+  {
+    goto LABEL_757;
+  }
+
+  *(v204 + 1480) = 0;
+  *(v204 + 1448) = 0u;
+  *(v204 + 1464) = 0u;
+  *(v204 + 1416) = 0u;
+  *(v204 + 1432) = 0u;
+  *(v204 + 1400) = 0u;
+  *&v417 = 0;
+  if (R8_EQ(v385, &v417))
+  {
+    goto LABEL_718;
+  }
+
+  v345 = *(a2 + 736);
+  v346 = (a2 + 25664);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25664), &v417))
+  {
+    v348 = *(a2 + 25872) * *(a2 + 25872);
+    if (v348 >= v335)
+    {
+      v348 = v335;
+    }
+
+LABEL_717:
+    v350 = *v346;
+    v402 = 0.0;
+    memset(&v415[1], 0, 256);
+    v415[0] = 1.0;
+    v415[11] = v345 * 299792458.0 - v350;
+    umeas(v204 + 872, 0xBu, v348, v415, &v417, v416, &v402, 1.0e20);
+    goto LABEL_718;
+  }
+
+  v346 = (a2 + 25680);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25680), &v417))
+  {
+    v347 = *(a2 + 25880);
+LABEL_714:
+    v349 = v347 * v347;
+    if (v349 >= v335)
+    {
+      v349 = v335;
+    }
+
+    v348 = v349 + 25.0;
+    goto LABEL_717;
+  }
+
+  v346 = (a2 + 25696);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25696), &v417))
+  {
+    v347 = *(a2 + 25888);
+    goto LABEL_714;
+  }
+
+LABEL_718:
+  *&v417 = 0;
+  if (R8_EQ(v372->f64, &v417))
+  {
+    goto LABEL_731;
+  }
+
+  v351 = *(a2 + 744);
+  v352 = (a2 + 25680);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25680), &v417))
+  {
+    v354 = *(a2 + 25880) * *(a2 + 25880);
+    if (v354 >= v335)
+    {
+      v354 = v335;
+    }
+
+LABEL_730:
+    v356 = *v352;
+    v402 = 0.0;
+    memset(&v415[12], 0, 168);
+    v415[0] = 0.0;
+    memset(&v415[2], 0, 72);
+    v415[1] = 1.0;
+    v415[11] = v351 * 299792458.0 - v356;
+    umeas(v204 + 872, 0xBu, v354, v415, &v417, v416, &v402, 1.0e20);
+    goto LABEL_731;
+  }
+
+  v352 = (a2 + 25664);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25664), &v417))
+  {
+    v353 = *(a2 + 25872);
+LABEL_727:
+    v355 = v353 * v353;
+    if (v355 >= v335)
+    {
+      v355 = v335;
+    }
+
+    v354 = v355 + 25.0;
+    goto LABEL_730;
+  }
+
+  v352 = (a2 + 25696);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25696), &v417))
+  {
+    v353 = *(a2 + 25888);
+    goto LABEL_727;
+  }
+
+LABEL_731:
+  *&v417 = 0;
+  if (R8_EQ(v371, &v417))
+  {
+    goto LABEL_744;
+  }
+
+  v357 = *(a2 + 752);
+  v358 = (a2 + 25696);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25696), &v417))
+  {
+    v360 = *(a2 + 25888) * *(a2 + 25888);
+    if (v360 >= v335)
+    {
+      v360 = v335;
+    }
+
+LABEL_743:
+    v362 = *v358;
+    v402 = 0.0;
+    memset(&v415[12], 0, 168);
+    memset(v415, 0, 88);
+    v415[2] = 1.0;
+    v415[11] = v357 * 299792458.0 - v362;
+    umeas(v204 + 872, 0xBu, v360, v415, &v417, v416, &v402, 1.0e20);
+    goto LABEL_744;
+  }
+
+  v358 = (a2 + 25664);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25664), &v417))
+  {
+    v359 = *(a2 + 25872);
+LABEL_740:
+    v361 = v359 * v359;
+    if (v361 >= v335)
+    {
+      v361 = v335;
+    }
+
+    v360 = v361 + 25.0;
+    goto LABEL_743;
+  }
+
+  v358 = (a2 + 25680);
+  *&v417 = 0;
+  if (!R8_EQ((a2 + 25680), &v417))
+  {
+    v359 = *(a2 + 25880);
+    goto LABEL_740;
+  }
+
+LABEL_744:
+  v363 = *(v204 + 1400);
+  v399 = *(v204 + 1408);
+  v413 = *(v204 + 1440);
+  v414 = *(v204 + 1456);
+  *&v417 = 0;
+  if (R8_EQ(v385, &v417))
+  {
+    v364 = 0;
+  }
+
+  else
+  {
+    v364 = (*(a2 + 25664) - *(a2 + 736));
+  }
+
+  *&v417 = 0;
+  if (R8_EQ(v372->f64, &v417))
+  {
+    v365 = 0;
+  }
+
+  else
+  {
+    v365 = (*(a2 + 25680) - *(a2 + 744));
+  }
+
+  *&v417 = 0;
+  if (R8_EQ(v371, &v417))
+  {
+    v366 = 0;
+  }
+
+  else
+  {
+    v366 = (*(a2 + 25696) - *(a2 + 752));
+  }
+
+  EvLog_v("Lsq Clk adj:  C  %4d %4d %4d   ARP  %6d %6d", v364, v365, v366, *(a2 + 25992), *(a1 + 11496));
+  for (m = 0; m != 24; m += 8)
+  {
+    *(v257 + m) = *(v257 + m) - *(&v413 + m);
+  }
+
+  v368 = 0;
+  *v385 = *v385 + v363 * -0.00000000333564095;
+  *v372 = vmlaq_f64(*v372, vdupq_n_s64(0xBE2CA726EB25F9DBLL), v399);
+  *(a1 + 10472) = v363 + *(a1 + 10472);
+  *(a1 + 8280) = v399.f64[0] + *(a1 + 8280);
+  *(a1 + 8296) = v399.f64[1] + *(a1 + 8296);
+  do
+  {
+    *(a1 + 10480 + v368) = *(a1 + 10480 + v368) + *(&v413 + v368);
+    v368 += 8;
+  }
+
+  while (v368 != 24);
+LABEL_757:
+  if (v308)
+  {
+    ECEF2Geo(a2 + 664, &WGS84_Datum, v393);
+  }
+}
+
+void NK_Final_Check_ClkBias(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v49[1] = *MEMORY[0x29EDCA608];
+  v47 = 0;
+  v46 = 0;
+  if (a1 > 2)
+  {
+    if ((a1 - 5) < 2 || a1 == 3)
+    {
+      return;
+    }
+
+    v46 = 4;
+    v6 = 2;
+    v7 = 24152;
+    v8 = 752;
+  }
+
+  else
+  {
+    if (!a1)
+    {
+      return;
+    }
+
+    if (a1 == 1)
+    {
+      v6 = 0;
+      v46 = 1;
+      v7 = 24136;
+      v8 = 736;
+    }
+
+    else
+    {
+      v46 = 2;
+      v6 = 1;
+      v7 = 24144;
+      v8 = 744;
+    }
+  }
+
+  LOBYTE(v47) = v6;
+  v9 = *(a3 + v8);
+  v10 = *(a3 + v7);
+  v48 = v10;
+  v49[0] = v9;
+  v11 = *(a3 + 25596);
+  if (v11 == -1)
+  {
+    return;
+  }
+
+  v45 = 0.0;
+  if (R8_EQ((a3 + 25608), &v45))
+  {
+    return;
+  }
+
+  v44 = 0.0;
+  if (R8_EQ(v49, &v44))
+  {
+    return;
+  }
+
+  v13 = *(a3 + 25597);
+  if (v13 == 1)
+  {
+
+    NK_Final_Check_ClkBias_Reset(a1, a2, a3);
+    return;
+  }
+
+  v14 = (*(a3 + 25608) - v9) * 299792458.0;
+  if (v13 != 2)
+  {
+    v18 = *(a3 + 24536);
+    if (v18 >= 25000000.0)
+    {
+      goto LABEL_76;
+    }
+
+    v19 = *(a3 + 24544);
+    if (v19 >= 25000000.0)
+    {
+      goto LABEL_76;
+    }
+
+    v20 = *(a3 + 24552);
+    if (v20 >= 25000000.0)
+    {
+      goto LABEL_76;
+    }
+
+    v21 = *(a3 + 24496 + 8 * v11);
+    if (v21 >= 25000000.0 && *(a3 + 24496 + 8 * v6) >= 25000000.0)
+    {
+      goto LABEL_76;
+    }
+
+    v22 = 0;
+    v23 = (a3 + 25592);
+    v24 = v18 + 22500.0 + v19 + v20 + *(a3 + 24528);
+    v25 = 1;
+    v43 = (a3 + 25592);
+    while (1)
+    {
+      v26 = v22;
+      v27 = v25;
+      v28 = (v25 & 1) != 0 ? v23 : &v46;
+      v22 = *v28;
+      if (v22 > 6)
+      {
+        break;
+      }
+
+      if (((1 << v22) & 0x6A) != 0)
+      {
+        v22 = *(a3 + 24783);
+      }
+
+      else
+      {
+        if (v22 == 2)
+        {
+          v22 = *(a3 + 24788);
+          v29 = *(a3 + 24808);
+        }
+
+        else
+        {
+          if (v22 != 4)
+          {
+            break;
+          }
+
+          v22 = *(a3 + 24793);
+          v29 = *(a3 + 24812);
+        }
+
+        if (v29)
+        {
+          ++v22;
+        }
+      }
+
+LABEL_41:
+      v25 = 0;
+      if ((v27 & 1) == 0)
+      {
+        v30 = (v21 + v24) * 9.0;
+        if (v14 * v14 <= v30 && v10 < 2496542160.0 && (v26 < 2 || v22 || fabs(v14) < 150.0))
+        {
+          goto LABEL_75;
+        }
+
+        EvLog_nd("NKFC:  Constellation Clock Bias deviation event ! ", 4, v12, *v23, a1, v14, sqrt(v30));
+        if (*(a3 + 25600) > 2496542160.0)
+        {
+          *(a3 + 25608) = 0;
+          if (!*(a3 + 25597))
+          {
+            NK_Final_Check_ClkBias_Reset(*(a3 + 25592), a2, a3);
+            *(a3 + 25597) = 1;
+          }
+        }
+
+        if (v10 > 2496542160.0)
+        {
+          v49[0] = 0.0;
+          NK_Final_Check_ClkBias_Reset(a1, a2, a3);
+        }
+
+        v45 = 0.0;
+        if (R8_EQ((a3 + 25608), &v45))
+        {
+          goto LABEL_75;
+        }
+
+        v44 = 0.0;
+        if (R8_EQ(v49, &v44))
+        {
+          goto LABEL_75;
+        }
+
+        v31 = v14 * 0.333333333 * (v14 * 0.333333333);
+        if (*(a3 + 25597))
+        {
+          goto LABEL_68;
+        }
+
+        *(a2 + 128) = 1;
+        *(a2 + 132) = 70;
+        if (*(a3 + 12) >= 10)
+        {
+          *(a3 + 12) = 9;
+        }
+
+        NK_Final_Check_ClkBias_Reset(*v43, a2, a3);
+        v32 = *v43;
+        if (*v43 == 1)
+        {
+          v33 = 24312;
+          v34 = 24224;
+          v35 = 24136;
+        }
+
+        else
+        {
+          if (v32 != 4)
+          {
+            if (v32 == 2)
+            {
+              v33 = 24320;
+              v34 = 24232;
+              v35 = 24144;
+              goto LABEL_66;
+            }
+
+LABEL_67:
+            *(a3 + 25597) = 2;
+LABEL_68:
+            NK_Final_Check_ClkBias_Reset(a1, a2, a3);
+            switch(a1)
+            {
+              case 1:
+                v39 = 24312;
+                v40 = 24224;
+                v41 = 24136;
+                break;
+              case 4:
+                v39 = 24328;
+                v40 = 24240;
+                v41 = 24152;
+                break;
+              case 2:
+                v39 = 24320;
+                v40 = 24232;
+                v41 = 24144;
+                break;
+              default:
+LABEL_75:
+                if (!*(a3 + 25597))
+                {
+LABEL_76:
+                  *(a3 + 25597) = 3;
+                }
+
+                return;
+            }
+
+            *(a3 + v41) = v31 + *(a3 + v41);
+            v42 = v31 + *(a3 + v40);
+            *(a3 + v40) = v42;
+            *(a3 + v39) = sqrt(v42);
+            goto LABEL_75;
+          }
+
+          v33 = 24328;
+          v34 = 24240;
+          v35 = 24152;
+        }
+
+LABEL_66:
+        *(a3 + v35) = v31 + *(a3 + v35);
+        v38 = v31 + *(a3 + v34);
+        *(a3 + v34) = v38;
+        *(a3 + v33) = sqrt(v38);
+        goto LABEL_67;
+      }
+    }
+
+    if (v22)
+    {
+      EvCrt_Illegal_Default("NK_Final_Check_ClkBias", 3075);
+      v23 = (a3 + 25592);
+      v22 = 0;
+    }
+
+    goto LABEL_41;
+  }
+
+  NK_Final_Check_ClkBias_Reset(a1, a2, a3);
+  switch(a1)
+  {
+    case 1:
+      v15 = 24312;
+      v16 = 24224;
+      v17 = 24136;
+      break;
+    case 4:
+      v15 = 24328;
+      v16 = 24240;
+      v17 = 24152;
+      break;
+    case 2:
+      v15 = 24320;
+      v16 = 24232;
+      v17 = 24144;
+      break;
+    default:
+      return;
+  }
+
+  v36 = v14 * 0.333333333 * (v14 * 0.333333333);
+  *(a3 + v17) = v36 + *(a3 + v17);
+  v37 = v36 + *(a3 + v16);
+  *(a3 + v16) = v37;
+  *(a3 + v15) = sqrt(v37);
+}
+
+uint64_t NK_Final_Check_ClkBias_Reset(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  switch(result)
+  {
+    case 4:
+      *(a3 + 752) = 0;
+      *(a3 + 770) = 0;
+      *(a2 + 8296) = 0;
+      *(a2 + 8288) = 0;
+      break;
+    case 2:
+      *(a3 + 744) = 0;
+      *(a3 + 769) = 0;
+      *(a2 + 8280) = 0;
+      *(a2 + 8274) = 0;
+      break;
+    case 1:
+      *(a3 + 736) = 0;
+      *(a3 + 768) = 0;
+      *(a2 + 10472) = 0;
+      *(a2 + 8272) = 0;
+      break;
+  }
+
+  return result;
+}
+
+uint64_t asn1PD_PosPayLoadVer2(uint64_t a1, uint64_t a2)
+{
+  v13 = *MEMORY[0x29EDCA608];
+  v12 = 0;
+  Ver2Extension = Asn1Coder::DecodeChoiceExtension(a1, &v12);
+  v10 = 0;
+  v11 = 0;
+  if (Ver2Extension)
+  {
+    v5 = Ver2Extension;
+    v6 = *(a1 + 8);
+    v7 = *(a1 + 12);
+LABEL_7:
+    SuplAsn1Logger::TraceError(Ver2Extension, v6, v7);
+    return v5;
+  }
+
+  *a2 = v12 + 4;
+  Asn1Coder::DecodeOpenTypeFieldStart(a1, &v10);
+  if (Ver2Extension)
+  {
+    v5 = Ver2Extension;
+    v6 = *(a1 + 8);
+    v7 = *(a1 + 12);
+    goto LABEL_7;
+  }
+
+  Ver2Extension = asn1PD_PosPayLoadVer2Extension(a1, (a2 + 80));
+  if (Ver2Extension)
+  {
+    v5 = Ver2Extension;
+    v6 = *(a1 + 8);
+    v7 = *(a1 + 12);
+    goto LABEL_7;
+  }
+
+  if (*(a2 + 80))
+  {
+    *a2 = 4;
+  }
+
+  if (*(a2 + 81))
+  {
+    *a2 = 5;
+  }
+
+  v5 = 0;
+  v9 = v10.i32[0];
+  *(a1 + 8) = v11 + v10.i32[1];
+  *(a1 + 12) = v9;
+  return v5;
+}
+
+uint64_t asn1PD_PosPayLoadVer2Extension(uint64_t a1, uint64_t *a2)
+{
+  Asn1Coder::GetBitFromBuffer(a1);
+  lppPayload = *(a1 + 16);
+  if (*(a1 + 16))
+  {
+    v5 = *(a1 + 8);
+    v6 = *(a1 + 12);
+    v7 = *(a1 + 16);
+    goto LABEL_7;
+  }
+
+  *a2 = Asn1Coder::GetBitFromBuffer(a1);
+  lppPayload = *(a1 + 16);
+  if (*(a1 + 16))
+  {
+    v5 = *(a1 + 8);
+    v6 = *(a1 + 12);
+    v7 = *(a1 + 16);
+    goto LABEL_7;
+  }
+
+  BitFromBuffer = Asn1Coder::GetBitFromBuffer(a1);
+  *(a2 + 1) = BitFromBuffer;
+  lppPayload = *(a1 + 16);
+  if (*(a1 + 16))
+  {
+LABEL_6:
+    v5 = *(a1 + 8);
+    v6 = *(a1 + 12);
+    v7 = lppPayload;
+    goto LABEL_7;
+  }
+
+  if (*a2)
+  {
+    lppPayload = asn1PD_PosPayLoad_lppPayload(a1, a2 + 1);
+    if (lppPayload)
+    {
+      goto LABEL_6;
+    }
+
+    BitFromBuffer = *(a2 + 1);
+  }
+
+  if (!BitFromBuffer)
+  {
+    return 0;
+  }
+
+  lppPayload = 1;
+  *(a1 + 16) = 1;
+  SuplAsn1Logger::TraceError(1u, *(a1 + 8), *(a1 + 12));
+  v5 = *(a1 + 8);
+  v6 = *(a1 + 12);
+  v7 = 1;
+LABEL_7:
+  SuplAsn1Logger::TraceError(v7, v5, v6);
+  return lppPayload;
+}
+
+uint64_t asn1PD_PosPayLoad_lppPayload(uint64_t a1, uint64_t *a2)
+{
+  v15 = *MEMORY[0x29EDCA608];
+  v14 = 3;
+  v5 = Asn1Coder::DecodeInteger(a1, 1, 3, &v14);
+  std::vector<ASN1T_VER2_PosPayLoad_tia801payload>::clear[abi:ne200100](a2);
+  if (v5)
+  {
+    SuplAsn1Logger::TraceError(v5, *(a1 + 8), *(a1 + 12));
+  }
+
+  else
+  {
+    v6 = v14;
+    if (v14 < 1)
+    {
+LABEL_12:
+      LOBYTE(v5) = 0;
+    }
+
+    else
+    {
+      while (1)
+      {
+        v13 = 0;
+        v7 = Asn1Coder::DecodeInteger(a1, 1, 0xEA60u, &v13);
+        LOBYTE(v5) = v7;
+        if (v7)
+        {
+          SuplAsn1Logger::TraceError(v7, *(a1 + 8), *(a1 + 12));
+          return v5;
+        }
+
+        __p = 0;
+        v11 = 0;
+        v12 = 0;
+        Asn1Coder::GetBitStringFromBuffer(a1, 8 * v13, &__p, 0);
+        v8 = *(a1 + 16);
+        if (*(a1 + 16))
+        {
+          SuplAsn1Logger::TraceError(*(a1 + 16), *(a1 + 8), *(a1 + 12));
+          v2 = v8;
+        }
+
+        else
+        {
+          std::vector<ASN1T_PosPayLoad_lpppayload>::push_back[abi:ne200100](a2, &__p);
+        }
+
+        if (__p)
+        {
+          v11 = __p;
+          operator delete(__p);
+        }
+
+        if (v8)
+        {
+          break;
+        }
+
+        if (!--v6)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      LOBYTE(v5) = v2;
+    }
+  }
+
+  return v5;
+}
+
+uint64_t asn1PE_PosPayLoadVer2(uint64_t a1, _BYTE *a2)
+{
+  v11 = *MEMORY[0x29EDCA608];
+  v10 = *a2 - 4;
+  Ver2Extension = Asn1Coder::EncodeChoiceExtension(a1, &v10);
+  v9 = 0;
+  if (Ver2Extension)
+  {
+    v5 = Ver2Extension;
+    v6 = *(a1 + 8);
+    v7 = *(a1 + 12);
+  }
+
+  else
+  {
+    Ver2Extension = Asn1Coder::EncodeOpenTypeFieldStart(a1, &v9);
+    if (Ver2Extension)
+    {
+      v5 = Ver2Extension;
+      v6 = *(a1 + 8);
+      v7 = *(a1 + 12);
+    }
+
+    else
+    {
+      Ver2Extension = asn1PE_PosPayLoadVer2Extension(a1, a2 + 80);
+      if (!Ver2Extension)
+      {
+        return Asn1Coder::EncodeOpenTypeFieldEnd(a1, &v9);
+      }
+
+      v5 = Ver2Extension;
+      v6 = *(a1 + 8);
+      v7 = *(a1 + 12);
+    }
+  }
+
+  SuplAsn1Logger::TraceError(Ver2Extension, v6, v7);
+  return v5;
+}
+
+uint64_t asn1PE_PosPayLoadVer2Extension(uint64_t a1, unsigned __int8 *a2)
+{
+  Asn1Coder::AddBitToBuffer(a1, 0);
+  lppPayload = *(a1 + 16);
+  if (*(a1 + 16))
+  {
+    v5 = *(a1 + 8);
+    v6 = *(a1 + 12);
+    v7 = *(a1 + 16);
+  }
+
+  else
+  {
+    Asn1Coder::AddBitToBuffer(a1, *a2);
+    lppPayload = *(a1 + 16);
+    if (*(a1 + 16))
+    {
+      v5 = *(a1 + 8);
+      v6 = *(a1 + 12);
+      v7 = *(a1 + 16);
+    }
+
+    else
+    {
+      Asn1Coder::AddBitToBuffer(a1, a2[1]);
+      lppPayload = *(a1 + 16);
+      if (*(a1 + 16) || *a2 && (lppPayload = asn1PE_PosPayLoad_lppPayload(a1, a2 + 1), lppPayload))
+      {
+        v5 = *(a1 + 8);
+        v6 = *(a1 + 12);
+        v7 = lppPayload;
+      }
+
+      else
+      {
+        if (!a2[1])
+        {
+          return 0;
+        }
+
+        lppPayload = 1;
+        *(a1 + 16) = 1;
+        SuplAsn1Logger::TraceError(1u, *(a1 + 8), *(a1 + 12));
+        v5 = *(a1 + 8);
+        v6 = *(a1 + 12);
+        v7 = 1;
+      }
+    }
+  }
+
+  SuplAsn1Logger::TraceError(v7, v5, v6);
+  return lppPayload;
+}
+
+uint64_t asn1PE_PosPayLoad_lppPayload(uint64_t a1, void *a2)
+{
+  v4 = 0;
+  v5 = a2[1] - *a2;
+  if (v5)
+  {
+    v6 = 0xAAAAAAAAAAAAAAABLL * (v5 >> 3);
+    if (v6 <= 1)
+    {
+      v6 = 1;
+    }
+
+    v7 = (*a2 + 8);
+    do
+    {
+      if (*(v7 - 1) != *v7)
+      {
+        ++v4;
+      }
+
+      v7 += 3;
+      --v6;
+    }
+
+    while (v6);
+  }
+
+  v8 = Asn1Coder::EncodeInteger(a1, 1, 3, v4);
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *(a1 + 8);
+    v11 = *(a1 + 12);
+    goto LABEL_10;
+  }
+
+  v13 = *a2;
+  v12 = a2[1];
+  if (v12 == *a2)
+  {
+    return 0;
+  }
+
+  v14 = 0;
+  v15 = 0;
+  while (1)
+  {
+    v16 = *(v13 + v14);
+    v17 = *(v13 + v14 + 8);
+    if (v16 != v17)
     {
       break;
     }
 
-    ++v23;
-    v24 += 20;
-    v25 += 12;
-  }
-
-  while (v23 < v76);
-  if (v22 < v76)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
+LABEL_16:
+    ++v15;
+    v14 += 24;
+    if (v15 >= 0xAAAAAAAAAAAAAAABLL * ((v12 - v13) >> 3))
     {
-      bzero(__str, 0x410uLL);
-      v88 = mach_continuous_time();
-      v89 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: No of Acq Inj,%u\n", (*&g_MacClockTicksToMsRelation * v88), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke", *(a1 + 76) - v22);
-      LbsOsaTrace_WriteLog(0x18u, __str, v89, 4, 1);
+      return 0;
     }
-
-    GNS_AsstGpsAcqAsst(*(a1 + 444), 1, v101, 0);
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v90 = mach_continuous_time();
-      v91 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: AsstGpsAcqAsst invoked\n", (*&g_MacClockTicksToMsRelation * v90), "ADP", 73, "setNwAssistanceGpsAcquisition_block_invoke");
-      LbsOsaTrace_WriteLog(0x18u, __str, v91, 4, 1);
-    }
-
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v99, a1 + 40);
-    gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 1, v99, "setNwAssistanceGpsAcquisition_block_invoke");
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v99);
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v92 = mach_continuous_time();
-      v93 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v92), "ADP", 68, "setNwAssistanceGpsAcquisition_block_invoke");
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v93, 5, 1);
-    }
-
-    goto LABEL_122;
   }
 
-LABEL_118:
-  std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v100, a1 + 40);
-  gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v100, "setNwAssistanceGpsAcquisition_block_invoke");
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v100);
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+  v8 = Asn1Coder::EncodeOctetString(a1, 1, 60000, v17 - v16, (v13 + v14), 0, 0);
+  if (!v8)
   {
-    bzero(__str, 0x410uLL);
-    v94 = mach_continuous_time();
-    v95 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Acquisition\n", (*&g_MacClockTicksToMsRelation * v94), "ADP", 69, "setNwAssistanceGpsAcquisition_block_invoke", 770);
-    LbsOsaTrace_WriteLog(0x18u, __str, v95, 0, 1);
+    v13 = *a2;
+    v12 = a2[1];
+    goto LABEL_16;
   }
 
-  result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v96 = mach_continuous_time();
-    v97 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v96), "ADP", 68, "setNwAssistanceGpsAcquisition_block_invoke");
-    result = LbsOsaTrace_WriteLog(0x18u, __str, v97, 5, 1);
-  }
-
-LABEL_122:
-  v98 = *MEMORY[0x29EDCA608];
-  return result;
+  v9 = v8;
+  v10 = *(a1 + 8);
+  v11 = *(a1 + 12);
+LABEL_10:
+  SuplAsn1Logger::TraceError(v8, v10, v11);
+  return v9;
 }
 
-void sub_2996999D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void SuplInitRecd::SuplInitRecd(SuplInitRecd *this)
 {
-  va_start(va, a16);
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](va);
+  *this = 0;
+  *(this + 16) = 0;
+  *(this + 24) = 0u;
+  v2 = this + 24;
+  *(this + 40) = 0u;
+  *(this + 56) = 0u;
+  *(this + 72) = 0u;
+  *(this + 88) = 0u;
+  *(this + 104) = 0u;
+  *(this + 120) = 0u;
+  *(this + 136) = 0u;
+  *(this + 152) = 0u;
+  *(this + 168) = 0u;
+  *(this + 184) = 0u;
+  *(this + 200) = 0u;
+  *(this + 216) = 0u;
+  *(this + 232) = 0u;
+  *(this + 248) = 0u;
+  *(this + 264) = 0u;
+  *(this + 280) = 0u;
+  *(this + 296) = 0u;
+  *(this + 312) = 0u;
+  *(this + 328) = 0u;
+  *(this + 344) = 0u;
+  Instance = SuplVersionNegotiation::GetInstance(this);
+  v4 = atomic_load((Instance + 1));
+  v5 = v4 == 255;
+  v6 = 1;
+  if (v5)
+  {
+    v6 = 2;
+  }
+
+  v7 = atomic_load((Instance + v6));
+  *(this + 16) = -1;
+  *(this + 26) = v7;
+  *(this + 27) = 0;
+  *(this + 5) = 0;
+  ASN1T_SessionID::ASN1T_SessionID((this + 48));
+  *(this + 45) = 0;
+  *(this + 46) = 0;
+  *(this + 47) = 0;
+  std::vector<unsigned char>::vector[abi:ne200100](this + 48, 4);
+  *(this + 408) = 0u;
+  *(this + 408) = -1;
+  *(this + 63) = 0;
+  *(this + 17) = 0;
+  *(this + 424) = 0u;
+  *(this + 440) = 0u;
+  *(this + 456) = 0u;
+  *(this + 472) = 0u;
+  *(this + 485) = 0u;
+  *(this + 16) = 1;
+  v8 = operator new(0x238uLL, MEMORY[0x29EDC9418]);
+  if (v8)
+  {
+    *(v8 + 2) = 0;
+    v8[12] = 0;
+    *(v8 + 3) = 0;
+    *(v8 + 4) = 0;
+    *(v8 + 2) = 0;
+    *(v8 + 7) = 0;
+    *(v8 + 8) = 0;
+    *(v8 + 6) = 0;
+    *(v8 + 13) = -1;
+    v8[40] = -1;
+    *(v8 + 36) = 255;
+    *(v8 + 10) = 0;
+    *(v8 + 11) = 0;
+    v8[80] = -1;
+    *(v8 + 6) = 0u;
+    *(v8 + 7) = 0u;
+    *(v8 + 8) = 0u;
+    *(v8 + 9) = 0u;
+    *(v8 + 10) = 0u;
+    *(v8 + 22) = 0;
+    *(v8 + 70) = 0;
+    *(v8 + 33) = 0u;
+    *(v8 + 34) = 0u;
+    *(v8 + 31) = 0u;
+    *(v8 + 32) = 0u;
+    *(v8 + 29) = 0u;
+    *(v8 + 30) = 0u;
+    *(v8 + 27) = 0u;
+    *(v8 + 28) = 0u;
+    *(v8 + 25) = 0u;
+    *(v8 + 26) = 0u;
+    *(v8 + 23) = 0u;
+    *(v8 + 24) = 0u;
+    *(v8 + 21) = 0u;
+    *(v8 + 22) = 0u;
+    *(v8 + 19) = 0u;
+    *(v8 + 20) = 0u;
+    *(v8 + 17) = 0u;
+    *(v8 + 18) = 0u;
+    *(v8 + 15) = 0u;
+    *(v8 + 16) = 0u;
+    *(v8 + 13) = 0u;
+    *(v8 + 14) = 0u;
+    *(v8 + 12) = 0u;
+    v8[360] = -1;
+    *(v8 + 460) = 0;
+    *(v8 + 452) = 0;
+    *(v8 + 467) = 0;
+    *(v8 + 62) = 0;
+    *(v8 + 63) = 0;
+    *(v8 + 61) = 0;
+    *(v8 + 128) = 0;
+    *(v8 + 65) = 0;
+    *(v8 + 67) = 0;
+    *(v8 + 66) = 0;
+    v8[544] = 0;
+    *(v8 + 138) = 0;
+    *(v8 + 278) = 0;
+    *(v8 + 376) = 0u;
+    *(v8 + 392) = 0u;
+    *(v8 + 408) = 0u;
+    *(v8 + 424) = 0u;
+    *(v8 + 433) = 0u;
+    *(v8 + 2) = 2304;
+    *v8 = 0;
+    v8[184] = 0;
+  }
+
+  *(this + 5) = v8;
+  v9 = operator new(8uLL, MEMORY[0x29EDC9418]);
+  if (v9)
+  {
+    *v9 = v2;
+  }
+
+  *(this + 1) = v9;
+}
+
+void sub_2996B55CC(_Unwind_Exception *a1)
+{
+  v4 = *(v1 + 360);
+  if (v4)
+  {
+    *(v1 + 368) = v4;
+    operator delete(v4);
+  }
+
+  ASN1T_SuplMessage::~ASN1T_SuplMessage(v2);
   _Unwind_Resume(a1);
 }
 
-uint64_t gnss::GnssAdaptDevice::setFtAssistanceNeededReport(uint64_t a1, uint64_t a2, uint64_t a3)
+void SuplInitRecd::~SuplInitRecd(SuplInitRecd *this)
 {
-  v13 = *MEMORY[0x29EDCA608];
-  if (*(a3 + 24))
+  v2 = *(this + 1);
+  if (v2)
   {
-    v4 = *(a1 + 288);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice27setFtAssistanceNeededReportENSt3__18functionIFvRKNS_9Emergency6Cplane23CellFTAssistanceRequestEEEENS2_IFvNS_6ResultEEEE_block_invoke;
-    block[3] = &__block_descriptor_tmp_282;
-    block[4] = a1;
-    std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::__value_func[abi:ne200100](v10, a2);
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v11, a3);
-    dispatch_async(v4, block);
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v11);
-    result = std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::~__value_func[abi:ne200100](v10);
+    MEMORY[0x29C29EB20](v2, 0x20C4093837F09);
   }
 
-  else
+  *(this + 1) = 0;
+  LcsTimer::Release((this + 496));
+  v3 = *(this + 59);
+  if (v3)
   {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx RespCB\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 69, "setFtAssistanceNeededReport", 513);
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v7, 0, 1);
-    }
+    *(this + 60) = v3;
+    operator delete(v3);
   }
 
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  v4 = *(this + 56);
+  if (v4)
+  {
+    *(this + 57) = v4;
+    operator delete(v4);
+  }
+
+  v5 = *(this + 53);
+  if (v5)
+  {
+    *(this + 54) = v5;
+    operator delete(v5);
+  }
+
+  v6 = *(this + 48);
+  if (v6)
+  {
+    *(this + 49) = v6;
+    operator delete(v6);
+  }
+
+  v7 = *(this + 45);
+  if (v7)
+  {
+    *(this + 46) = v7;
+    operator delete(v7);
+  }
+
+  v8 = *(this + 42);
+  if (v8)
+  {
+    *(this + 43) = v8;
+    operator delete(v8);
+  }
+
+  v9 = *(this + 39);
+  if (v9)
+  {
+    *(this + 40) = v9;
+    operator delete(v9);
+  }
+
+  v10 = *(this + 36);
+  if (v10)
+  {
+    *(this + 37) = v10;
+    operator delete(v10);
+  }
+
+  v11 = *(this + 31);
+  if (v11)
+  {
+    *(this + 32) = v11;
+    operator delete(v11);
+  }
+
+  ASN1T_SETId::U::~U((this + 72));
+  ASN1T_UlpMessage::~ASN1T_UlpMessage((this + 32));
 }
 
-uint64_t ___ZN4gnss15GnssAdaptDevice27setFtAssistanceNeededReportENSt3__18functionIFvRKNS_9Emergency6Cplane23CellFTAssistanceRequestEEEENS2_IFvNS_6ResultEEEE_block_invoke(uint64_t a1)
+void sub_2996B5724(_Unwind_Exception *a1, int a2)
 {
-  v20[3] = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
+  if (!a2)
   {
-    bzero(__str, 0x410uLL);
-    v3 = mach_continuous_time();
-    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 68, "setFtAssistanceNeededReport_block_invoke");
-    LbsOsaTrace_WriteLog(0x18u, __str, v4, 5, 1);
+    _Unwind_Resume(a1);
   }
 
-  if (*(a1 + 64))
+  __clang_call_terminate(a1);
+}
+
+SuplVersionNegotiation *SuplInitRecd::FillHash(SimUtils *a1, uint64_t a2, uint64_t a3, int a4)
+{
+  v27 = *MEMORY[0x29EDCA608];
+  v22[0] = 0;
+  __p[1] = 0;
+  v24 = 0;
+  __p[0] = 0;
+  v25 = 7275;
+  Instance = SimUtils::GetInstance(a1);
+  SlpFqdn = SimUtils::GetSlpFqdn(Instance, v22, a3, a4);
+  v10 = SlpFqdn;
+  if (SlpFqdn)
   {
-    std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::__value_func[abi:ne200100](__str, a1 + 40);
-    v5 = v2 + 888;
-    if (__str != (v2 + 888))
-    {
-      v6 = v19;
-      v7 = *(v2 + 912);
-      if (v19 == __str)
-      {
-        if (v7 == v5)
-        {
-          (*(*v19 + 24))();
-          (*(*v19 + 32))(v19);
-          v19 = 0;
-          (*(**(v2 + 912) + 24))(*(v2 + 912), __str);
-          (*(**(v2 + 912) + 32))(*(v2 + 912));
-          *(v2 + 912) = 0;
-          v19 = __str;
-          (*(v20[0] + 24))(v20, v2 + 888);
-          (*(v20[0] + 32))(v20);
-        }
-
-        else
-        {
-          (*(*v19 + 24))();
-          (*(*v19 + 32))(v19);
-          v19 = *(v2 + 912);
-        }
-
-        *(v2 + 912) = v5;
-      }
-
-      else if (v7 == v5)
-      {
-        (*(*v7 + 24))(*(v2 + 912), __str);
-        (*(**(v2 + 912) + 32))(*(v2 + 912));
-        *(v2 + 912) = v19;
-        v19 = __str;
-      }
-
-      else
-      {
-        v19 = *(v2 + 912);
-        *(v2 + 912) = v6;
-      }
-    }
-
-    std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::~__value_func[abi:ne200100](__str);
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v16, a1 + 72);
-    gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 1, v16, "setFtAssistanceNeededReport_block_invoke");
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v16);
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v13 = mach_continuous_time();
-      v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v13), "ADP", 68, "setFtAssistanceNeededReport_block_invoke");
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v14, 5, 1);
-    }
-  }
-
-  else
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v8 = mach_continuous_time();
-      v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx FTARep\n", (*&g_MacClockTicksToMsRelation * v8), "ADP", 69, "setFtAssistanceNeededReport_block_invoke", 258);
-      LbsOsaTrace_WriteLog(0x18u, __str, v9, 0, 1);
-    }
-
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v17, a1 + 72);
-    gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v17, "setFtAssistanceNeededReport_block_invoke");
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v17);
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-    if (result)
+    if (LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0))
     {
       bzero(__str, 0x410uLL);
       v11 = mach_continuous_time();
-      v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v11), "ADP", 68, "setFtAssistanceNeededReport_block_invoke");
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v12, 5, 1);
+      v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v11), "SPL", 69, "FillHash", 515);
+      LbsOsaTrace_WriteLog(0x12u, __str, v12, 0, 1);
+    }
+
+    goto LABEL_14;
+  }
+
+  v13 = SuplVersionNegotiation::GetInstance(SlpFqdn);
+  v14 = atomic_load(v13 + 1);
+  v15 = v14 == 255;
+  v16 = 1;
+  if (v15)
+  {
+    v16 = 2;
+  }
+
+  v17 = atomic_load(&v13[v16]);
+  if (v17 == 1)
+  {
+    v18 = (a1 + 360);
+LABEL_9:
+    calculateHmac<SUPL_SHA_1>(__p, v18, a2);
+    goto LABEL_10;
+  }
+
+  v19 = SuplUtils::GetInstance(v13);
+  v18 = (a1 + 360);
+  if (*(v19 + 37))
+  {
+    goto LABEL_9;
+  }
+
+  calculateHmac<SUPL_SHA_256>(__p, v18, a2);
+LABEL_10:
+  v20 = *(a2 + 8) - *a2;
+  if (v20 > 7)
+  {
+    if (v20 != 8)
+    {
+      *(a2 + 8) = *a2 + 8;
     }
   }
 
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  else
+  {
+    std::vector<unsigned char>::__append(a2, 8 - v20);
+  }
+
+LABEL_14:
+  if (SHIBYTE(v24) < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v10;
 }
 
-void sub_29969A0B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19)
+void sub_2996B5908(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
-  if (a2)
+  if (a21 < 0)
   {
-    __clang_call_terminate(exception_object);
+    operator delete(__p);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t __copy_helper_block_e8_40c77_ZTSNSt3__18functionIFvRKN4gnss9Emergency6Cplane23CellFTAssistanceRequestEEEE72c40_ZTSNSt3__18functionIFvN4gnss6ResultEEEE(uint64_t a1, uint64_t a2)
+uint64_t SuplInitRecd::ProcessSuplInit(uint64_t a1, uint64_t a2, char **a3)
 {
-  v6 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::__value_func[abi:ne200100](a1 + 40, a2 + 40);
-  result = std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](a1 + 72, a2 + 72);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t __destroy_helper_block_e8_40c77_ZTSNSt3__18functionIFvRKN4gnss9Emergency6Cplane23CellFTAssistanceRequestEEEE72c40_ZTSNSt3__18functionIFvN4gnss6ResultEEEE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](a1 + 72);
-  v2 = *MEMORY[0x29EDCA608];
-
-  return std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::~__value_func[abi:ne200100](a1 + 40);
-}
-
-uint64_t gnss::GnssAdaptDevice::injectFTAssistance(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v15 = *MEMORY[0x29EDCA608];
-  if (*(a3 + 24))
+  v53 = *MEMORY[0x29EDCA608];
+  __p = 0;
+  v48 = 0;
+  v49 = 0;
+  v5 = a3 + 1;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&__p, *a3, a3[1], a3[1] - *a3);
+  v50[0] = &__p;
+  v50[1] = 0;
+  v51 = 0;
+  v46[0] = v50;
+  v46[1] = a1 + 24;
+  v6 = *a3;
+  v7 = *v5;
+  if (v6 == *v5)
   {
-    v3 = *(a2 + 16);
-    *__str = *a2;
-    v13 = v3;
-    v14 = *(a2 + 32);
-    v4 = *(a1 + 288);
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 1174405120;
-    block[2] = ___ZN4gnss15GnssAdaptDevice18injectFTAssistanceERKNS_9Emergency6Cplane16CellFTAssistanceENSt3__18functionIFvNS_6ResultEEEE_block_invoke;
-    block[3] = &__block_descriptor_tmp_292;
-    block[4] = a1;
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v10, a3);
-    v10[2] = *__str;
-    v10[3] = v13;
-    v11 = v14;
-    dispatch_async(v4, block);
-    result = std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v10);
+    if (LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v13 = mach_continuous_time();
+      v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v13), "SPL", 69, "ProcessSuplInit", 513);
+      LbsOsaTrace_WriteLog(0x12u, __str, v14, 0, 1);
+    }
   }
 
   else
   {
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0);
-    if (result)
+    v8 = v7 - v6;
+    v9 = *(a1 + 376);
+    v10 = *(a1 + 360);
+    if (v9 - v10 < v7 - v6)
     {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx RespCB\n", (*&g_MacClockTicksToMsRelation * v6), "ADP", 69, "injectFTAssistance", 513);
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v7, 0, 1);
-    }
-  }
-
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t ___ZN4gnss15GnssAdaptDevice18injectFTAssistanceERKNS_9Emergency6Cplane16CellFTAssistanceENSt3__18functionIFvNS_6ResultEEEE_block_invoke(uint64_t a1)
-{
-  v52 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 32);
-  if (*(v2 + 1024))
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v3 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v3), "ADP", 68, "injectFTAssistance_block_invoke");
-      LbsOsaTrace_WriteLog(0x18u, __str, v4, 5, 1);
-    }
-
-    if (*(v2 + 88))
-    {
-      LOWORD(v40) = 0;
-      v41 = xmmword_299760FB0;
-      v42 = 0;
-      if (*(a1 + 72) == 1)
+      if (v10)
       {
-        v5 = *(a1 + 76);
-        if (v5 < 4)
-        {
-          std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v44, a1 + 40);
-          v6 = v44;
-          gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v44, "injectFTAssistance_block_invoke");
-LABEL_8:
-          std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v6);
-          result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-          if (result)
-          {
-            bzero(__str, 0x410uLL);
-            v8 = mach_continuous_time();
-            v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v8), "ADP", 68, "injectFTAssistance_block_invoke");
-            result = LbsOsaTrace_WriteLog(0x18u, __str, v9, 5, 1);
-          }
+        *(a1 + 368) = v10;
+        operator delete(v10);
+        v9 = 0;
+        *(a1 + 360) = 0;
+        *(a1 + 368) = 0;
+        *(a1 + 376) = 0;
+      }
 
-          goto LABEL_22;
+      if ((v8 & 0x8000000000000000) == 0)
+      {
+        v11 = 2 * v9;
+        if (2 * v9 <= v8)
+        {
+          v11 = v7 - v6;
         }
 
-        if (v5 != 4)
+        if (v9 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v30 = mach_continuous_time();
-            v31 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx NetworkType,%u\n", (*&g_MacClockTicksToMsRelation * v30), "ADP", 69, "injectFTAssistance_block_invoke", 770, *(a1 + 76));
-            LbsOsaTrace_WriteLog(0x18u, __str, v31, 0, 1);
-          }
-
-          std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v43, a1 + 40);
-          v6 = v43;
-          gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v43, "injectFTAssistance_block_invoke");
-          goto LABEL_8;
-        }
-
-        if (*(a1 + 92) > 0x93A7Fu)
-        {
-          std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v47, a1 + 40);
-          gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v47, "injectFTAssistance_block_invoke");
-          std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v47);
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v32 = mach_continuous_time();
-            v33 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Int CDMA Fine Time,%u\n", (*&g_MacClockTicksToMsRelation * v32), "ADP", 69, "injectFTAssistance_block_invoke", 772, *(a1 + 92));
-            LbsOsaTrace_WriteLog(0x18u, __str, v33, 0, 1);
-          }
-
-          result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-          if (result)
-          {
-            bzero(__str, 0x410uLL);
-            v34 = mach_continuous_time();
-            v35 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v34), "ADP", 68, "injectFTAssistance_block_invoke");
-            result = LbsOsaTrace_WriteLog(0x18u, __str, v35, 5, 1);
-          }
+          v12 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          LODWORD(v41) = *(a1 + 92);
-          v23 = *(a1 + 96);
-          if (v23 < 0x3B9ACA00)
-          {
-            LOWORD(v40) = *(a1 + 100);
-            *(&v41 + 4) = v23 | 0xA00000000;
-            v42 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-            gnss::GnssAdaptDevice::Ga10_15AlterFTABasedOnGrouDelay(&v41, &v41 + 1, &v40, v24, *(v2 + 112));
-            if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-            {
-              bzero(__str, 0x410uLL);
-              v25 = mach_continuous_time();
-              v26 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: IntPart,%u,fracPart,%u,wkNum,%u,pulseUnc,%u\n", (*&g_MacClockTicksToMsRelation * v25), "ADP", 73, "injectFTAssistance_block_invoke", v41, DWORD1(v41), v40, DWORD2(v41));
-              LbsOsaTrace_WriteLog(0x18u, __str, v26, 4, 1);
-            }
-
-            GNS_FtaPulseInd(0, &v40);
-            if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-            {
-              bzero(__str, 0x410uLL);
-              v27 = mach_continuous_time();
-              v28 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FtaPulseInd invoked\n", (*&g_MacClockTicksToMsRelation * v27), "ADP", 73, "injectFTAssistance_block_invoke");
-              LbsOsaTrace_WriteLog(0x18u, __str, v28, 4, 1);
-            }
-
-            std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v45, a1 + 40);
-            v6 = v45;
-            gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 1, v45, "injectFTAssistance_block_invoke");
-            goto LABEL_8;
-          }
-
-          std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v46, a1 + 40);
-          gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v46, "injectFTAssistance_block_invoke");
-          std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v46);
-          if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v36 = mach_continuous_time();
-            v37 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Frac CDMA Fine Time,%u\n", (*&g_MacClockTicksToMsRelation * v36), "ADP", 69, "injectFTAssistance_block_invoke", 772, *(a1 + 96));
-            LbsOsaTrace_WriteLog(0x18u, __str, v37, 0, 1);
-          }
-
-          result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-          if (result)
-          {
-            bzero(__str, 0x410uLL);
-            v38 = mach_continuous_time();
-            v39 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v38), "ADP", 68, "injectFTAssistance_block_invoke");
-            result = LbsOsaTrace_WriteLog(0x18u, __str, v39, 5, 1);
-          }
+          v12 = v11;
         }
+
+        std::vector<unsigned char>::__vallocate[abi:ne200100]((a1 + 360), v12);
       }
 
-      else
+      std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
+    }
+
+    v15 = *(a1 + 368);
+    v16 = v15 - v10;
+    if (v15 - v10 >= v8)
+    {
+      memmove(*(a1 + 360), v6, v7 - v6);
+      v21 = &v10[v8];
+    }
+
+    else
+    {
+      v17 = &v6[v16];
+      if (v15 != v10)
       {
-        std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v48, a1 + 40);
-        gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 4, v48, "injectFTAssistance_block_invoke");
-        std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v48);
-        if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+        memmove(*(a1 + 360), v6, v16);
+        v15 = *(a1 + 368);
+      }
+
+      v18 = v15;
+      if (v17 != v7)
+      {
+        v18 = (&v7[v15] - v17);
+        v19 = v15;
+        do
         {
-          bzero(__str, 0x410uLL);
-          v18 = mach_continuous_time();
-          v19 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx FineTime,%u\n", (*&g_MacClockTicksToMsRelation * v18), "ADP", 69, "injectFTAssistance_block_invoke", 257, *(a1 + 72));
-          LbsOsaTrace_WriteLog(0x18u, __str, v19, 0, 1);
+          v20 = *v17++;
+          *v19++ = v20;
         }
 
-        result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-        if (result)
-        {
-          bzero(__str, 0x410uLL);
-          v20 = mach_continuous_time();
-          v21 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v20), "ADP", 68, "injectFTAssistance_block_invoke");
-          result = LbsOsaTrace_WriteLog(0x18u, __str, v21, 5, 1);
-        }
+        while (v17 != v7);
+      }
+
+      v21 = v18;
+    }
+
+    *(a1 + 368) = v21;
+  }
+
+  v22 = SuplMessage::Decode(v46);
+  if (*(a1 + 32) == 1)
+  {
+    if (v22)
+    {
+      IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0);
+      if (IsLoggingAllowed)
+      {
+        bzero(__str, 0x410uLL);
+        v24 = mach_continuous_time();
+        v25 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v24), "SPL", 69, "ProcessSuplInit", 770);
+        IsLoggingAllowed = LbsOsaTrace_WriteLog(0x12u, __str, v25, 0, 1);
+      }
+
+      v26 = 3;
+      goto LABEL_45;
+    }
+
+    v30 = *(a1 + 40);
+    LOBYTE(v31) = *(a1 + 26);
+    if (*(v30 + 247))
+    {
+      v31 = *(v30 + 560);
+    }
+
+    IsLoggingAllowed = SuplVersionNegotiation::Instance::NegotiateNetInitiated(*(a1 + 26), v31);
+    if (!IsLoggingAllowed)
+    {
+      IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0);
+      if (IsLoggingAllowed)
+      {
+        bzero(__str, 0x410uLL);
+        v34 = mach_continuous_time();
+        v35 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v34), "SPL", 69, "ProcessSuplInit", 515);
+        IsLoggingAllowed = LbsOsaTrace_WriteLog(0x12u, __str, v35, 0, 1);
+      }
+
+      v26 = 10;
+      goto LABEL_45;
+    }
+
+    if (*(a1 + 48))
+    {
+      IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0);
+      if (!IsLoggingAllowed)
+      {
+LABEL_37:
+        v26 = 12;
+LABEL_45:
+        *(a1 + 18) = v26;
+        goto LABEL_46;
       }
     }
 
     else
     {
-      std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v49, a1 + 40);
-      gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 7, v49, "injectFTAssistance_block_invoke");
-      std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v49);
-      if (LbsOsaTrace_IsLoggingAllowed(0x18u, 0, 0, 0))
+      if (*(v30 + 184))
       {
-        bzero(__str, 0x410uLL);
-        v14 = mach_continuous_time();
-        v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v14), "ADP", 69, "injectFTAssistance_block_invoke", 1302);
-        LbsOsaTrace_WriteLog(0x18u, __str, v15, 0, 1);
+        IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0);
+        if (IsLoggingAllowed)
+        {
+          bzero(__str, 0x410uLL);
+          v36 = mach_continuous_time();
+          v37 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v36), "SPL", 69, "ProcessSuplInit", 515);
+          IsLoggingAllowed = LbsOsaTrace_WriteLog(0x12u, __str, v37, 0, 1);
+        }
+
+        v26 = 13;
+        goto LABEL_45;
       }
 
-      result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-      if (result)
+      if (*(v30 + 5) == 9 && !*v30)
       {
-        bzero(__str, 0x410uLL);
-        v16 = mach_continuous_time();
-        v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v16), "ADP", 68, "injectFTAssistance_block_invoke");
-        result = LbsOsaTrace_WriteLog(0x18u, __str, v17, 5, 1);
+        IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0);
+        if (IsLoggingAllowed)
+        {
+          bzero(__str, 0x410uLL);
+          v42 = mach_continuous_time();
+          v43 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v42), "SPL", 69, "ProcessSuplInit", 515);
+          IsLoggingAllowed = LbsOsaTrace_WriteLog(0x12u, __str, v43, 0, 1);
+        }
+
+        v26 = 4;
+        goto LABEL_45;
+      }
+
+      if (*(a1 + 49))
+      {
+        if (!*(a1 + 8))
+        {
+          goto LABEL_47;
+        }
+
+        v40 = *(a1 + 40);
+        if (v40[5] - 11 > 1 || v40[246])
+        {
+          if (v40[245] != 1 || !v40[480])
+          {
+            goto LABEL_47;
+          }
+
+          v41 = 20;
+        }
+
+        else
+        {
+          v41 = 7;
+        }
+
+        *(a1 + 18) = v41;
+        IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0);
+        if (IsLoggingAllowed)
+        {
+          bzero(__str, 0x410uLL);
+          v44 = mach_continuous_time();
+          v45 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v44), "SPL", 69, "ProcessSuplInit", 515);
+          IsLoggingAllowed = LbsOsaTrace_WriteLog(0x12u, __str, v45, 0, 1);
+        }
+
+LABEL_46:
+        *(a1 + 17) = 1;
+LABEL_47:
+        Instance = SuplUtils::GetInstance(IsLoggingAllowed);
+        SuplUtils::CopySlpSessionId(Instance, a1 + 384, a1 + 24);
+        v29 = 0;
+        goto LABEL_48;
+      }
+
+      IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0);
+      if (!IsLoggingAllowed)
+      {
+        goto LABEL_37;
       }
     }
+
+    bzero(__str, 0x410uLL);
+    v32 = mach_continuous_time();
+    v33 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v32), "SPL", 69, "ProcessSuplInit", 515);
+    IsLoggingAllowed = LbsOsaTrace_WriteLog(0x12u, __str, v33, 0, 1);
+    goto LABEL_37;
   }
 
-  else
-  {
-    std::__function::__value_func<void ()(gnss::Result)>::__value_func[abi:ne200100](v51, a1 + 40);
-    gnss::GnssAdaptDevice::Ga07_07AdaptResponse(v2, 1, v51, "injectFTAssistance_block_invoke");
-    std::__function::__value_func<void ()(gnss::Result)>::~__value_func[abi:ne200100](v51);
-    if (LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v10 = mach_continuous_time();
-      v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Fta Response ignored as there is no ongoing Session\n", (*&g_MacClockTicksToMsRelation * v10), "ADP", 73, "injectFTAssistance_block_invoke");
-      LbsOsaTrace_WriteLog(0x18u, __str, v11, 4, 1);
-    }
-
-    result = LbsOsaTrace_IsLoggingAllowed(0x18u, 5, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v12 = mach_continuous_time();
-      v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v12), "ADP", 68, "injectFTAssistance_block_invoke");
-      result = LbsOsaTrace_WriteLog(0x18u, __str, v13, 5, 1);
-    }
-  }
-
-LABEL_22:
-  v22 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t gnss::GnssAdaptDevice::Ga10_15AlterFTABasedOnGrouDelay(gnss::GnssAdaptDevice *this, unsigned int *a2, unsigned int *a3, unsigned __int16 *a4, double a5)
-{
-  v16 = *MEMORY[0x29EDCA608];
-  v8 = a5 * 1000000.0 / 1023.0;
-  v9 = *a2 + 1000000000 * *this;
-  result = LbsOsaTrace_IsLoggingAllowed(0x18u, 4, 0, 0);
-  if (result)
+  if (LbsOsaTrace_IsLoggingAllowed(0x12u, 0, 0, 0))
   {
     bzero(__str, 0x410uLL);
-    v11 = mach_continuous_time();
-    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Total time NS,%llu,GroupDelay NS,%.7f\n", (*&g_MacClockTicksToMsRelation * v11), "ADP", 73, "Ga10_15AlterFTABasedOnGrouDelay", v9, v8);
-    result = LbsOsaTrace_WriteLog(0x18u, __str, v12, 4, 1);
+    v27 = mach_continuous_time();
+    v28 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v27), "SPL", 69, "ProcessSuplInit", 515);
+    LbsOsaTrace_WriteLog(0x12u, __str, v28, 0, 1);
   }
 
-  if (v8 >= 0.0)
+  v29 = -5;
+LABEL_48:
+  if (__p)
   {
-    v13 = v9 - v8;
-    if (v9 < v8)
-    {
-      --*a3;
-      v13 += 604800000000000;
-    }
+    v48 = __p;
+    operator delete(__p);
   }
 
-  else
-  {
-    v13 = v9 + fabs(v8);
-    if (v13 > 0x2260FF928FFFFLL)
-    {
-      ++*a3;
-      v13 -= 604800000000000;
-    }
-  }
-
-  *this = v13 / 0x3B9ACA00;
-  *a2 = v13 % 0x3B9ACA00;
-  v14 = *MEMORY[0x29EDCA608];
-  return result;
+  return v29;
 }
 
-BOOL gnss::GnssAdaptDevice::Ga11_21FindSUPLSession(gnss::GnssAdaptDevice *this, int a2, unint64_t *a3)
-{
-  v13 = *MEMORY[0x29EDCA608];
-  v3 = *(this + 16);
-  v4 = *(this + 17) - v3;
-  if (v4)
-  {
-    v5 = 0x7D6343EB1A1F58D1 * (v4 >> 2);
-    if (v5 <= 1)
-    {
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = v5;
-    }
-
-    if (*(v3 + 56) == a2)
-    {
-      v7 = 0;
-      result = 1;
-LABEL_12:
-      *a3 = v7;
-    }
-
-    else
-    {
-      v9 = (v3 + 252);
-      v10 = 1;
-      while (v6 != v10)
-      {
-        v11 = *v9;
-        v9 += 49;
-        ++v10;
-        if (v11 == a2)
-        {
-          v7 = v10 - 1;
-          result = v10 - 1 < v5;
-          goto LABEL_12;
-        }
-      }
-
-      result = v10 < v5;
-    }
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void ___ZN4gnss15GnssAdaptDevice26Ga10_17InvokePVTMCbForE911EPK15s_gnsCP_PosnRes_block_invoke(uint64_t a1)
-{
-  v2 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
-  operator new();
-}
-
-void sub_29969BA28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *__p, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, char *a35)
+void sub_2996B60DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17)
 {
   if (__p)
   {
     operator delete(__p);
   }
 
-  a35 = &a32;
-  std::vector<gnss::SvInfo>::__destroy_vector::operator()[abi:ne200100](&a35);
-  if (v36)
-  {
-    MEMORY[0x29C29EB20](v36, v35);
-  }
-
-  _Unwind_Resume(a1);
+  _Unwind_Resume(exception_object);
 }
 
-uint64_t **std::unique_ptr<gnss::TimeConversionInfo>::~unique_ptr[abi:ne200100](uint64_t **a1)
+uint64_t GLON_AlmBin2Int(uint64_t result, uint64_t a2)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
+  *a2 = *result;
+  *(a2 + 8) = *(result + 8);
+  v2 = *(result + 16);
+  *(a2 + 10) = (*(result + 12) >> 19) & 0x1F;
+  *(a2 + 11) = (*(result + 32) >> 20) & 0x1F;
+  v3 = (v2 >> 2) & 0x3FFFF;
+  if ((v2 & 0x80000) != 0)
   {
-    v3 = v2[4];
-    v2[4] = 0;
-    if (v3)
-    {
-      MEMORY[0x29C29EB20](v3, 0x1000C4095D96C66);
-    }
+    v3 = -((v2 >> 2) & 0x1FFFF);
+  }
 
-    v4 = v2[3];
-    v2[3] = 0;
-    if (v4)
-    {
-      MEMORY[0x29C29EB20](v4, 0x1000C4095D96C66);
-    }
+  *(a2 + 20) = v3;
+  v4 = *(result + 28);
+  if ((v4 & 0x200000) != 0)
+  {
+    v5 = -(v4 & 0x1FFFFF);
+  }
 
-    v5 = v2[2];
-    v2[2] = 0;
-    if (v5)
-    {
-      MEMORY[0x29C29EB20](v5, 0x1000C4095D96C66);
-    }
+  else
+  {
+    v5 = v4 & 0x3FFFFF;
+  }
 
-    v6 = v2[1];
-    v2[1] = 0;
-    if (v6)
-    {
-      MEMORY[0x29C29EB20](v6, 0x1000C40D315E998);
-    }
+  *(a2 + 24) = v5;
+  v6 = *(result + 32);
+  v7 = v6 >> 25;
+  if (v6 < 0)
+  {
+    v7 = -((v6 >> 25) & 0x3F);
+  }
 
-    v7 = *v2;
+  *(a2 + 28) = v7;
+  v9 = *(result + 24);
+  v8 = 32 * v9;
+  LOWORD(v9) = v9 >> 11;
+  if (((v8 >> 16) & 0x8000) != 0)
+  {
+    v9 = -(v9 & 0x7FFF);
+  }
+
+  *(a2 + 32) = v9;
+  v10 = *(result + 12);
+  v11 = *(result + 16);
+  v12 = (v10 >> 9) & 0x3FF;
+  if ((v10 & 0x40000) != 0)
+  {
+    v12 = -((v10 >> 9) & 0x1FF);
+  }
+
+  *(a2 + 34) = v12;
+  *(a2 + 36) = (v10 & 0x4000000) != 0;
+  *(a2 + 37) = HIBYTE(v10) & 3;
+  *(a2 + 38) = (v6 & 0x80000) != 0;
+  v13 = __PAIR64__(v10, v11) >> 20;
+  v14 = (__PAIR64__(v10, v11) >> 20) & 0x1FFFFF;
+  v15 = v13 & 0xFFFFF;
+  if ((v10 & 0x100) != 0)
+  {
+    v16 = -v15;
+  }
+
+  else
+  {
+    v16 = v14;
+  }
+
+  *(a2 + 12) = v16;
+  v17 = *(result + 24);
+  HIDWORD(v18) = *(result + 16);
+  LODWORD(v18) = *(result + 20);
+  v19 = (v18 >> 19) & 0x7FFF;
+  *(a2 + 16) = (v17 & 0x7FF) << 10;
+  HIDWORD(v18) = v17;
+  LODWORD(v18) = *(result + 28);
+  *(a2 + 30) = v19;
+  *(a2 + 16) = (v18 >> 22) & 0x1FFFFF;
+  return result;
+}
+
+uint64_t GLON_AlmInt2Bin(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 10);
+  *a2 = *result;
+  *(a2 + 8) = *(result + 8);
+  v3 = (((v2 - 1 - 5 * (((26215 * (v2 - 1)) >> 17) + ((26215 * (v2 - 1)) >> 31))) << 28) + 805306368) & 0x70000000;
+  v4 = ((v2 & 0x1F) << 19) & 0xFCFFFFFF | ((*(result + 37) & 3) << 24) | v3 | (*(result + 36) << 26);
+  v5 = *(result + 34);
+  if ((v5 & 0x200) != 0)
+  {
+    v5 = -v5 | 0x200;
+  }
+
+  v6 = v4 & 0xFFF801FF | ((v5 & 0x3FF) << 9);
+  *(a2 + 12) = v6;
+  v7 = *(result + 12);
+  if ((v7 & 0x100000) != 0)
+  {
+    v7 = -v7 | 0x100000;
+  }
+
+  *(a2 + 12) = v6 & 0xFFFFFE00 | (v7 >> 12) & 0x1FF;
+  *(a2 + 16) = v7 << 20;
+  v8 = *(result + 20);
+  if ((v8 & 0x20000) != 0)
+  {
+    v8 = -v8 | 0x20000;
+  }
+
+  v9 = *(result + 30);
+  *(a2 + 16) = (v9 >> 13) & 3 | (4 * (v8 & 0x3FFFF)) & 0xFFFFF | (v7 << 20);
+  *(a2 + 20) = v9 << 19;
+  v10 = *(result + 32);
+  if ((v10 & 0x8000) != 0)
+  {
+    v10 = -v10 | 0x8000;
+  }
+
+  v11 = v3 & 0xF80007FF | (v10 << 11) | 0x8000000;
+  *(a2 + 24) = v11;
+  *(a2 + 24) = v11 & 0xFFFFF800 | (*(result + 16) >> 10) & 0x7FF;
+  v12 = *(result + 16) << 22;
+  *(a2 + 28) = v12;
+  v13 = *(result + 24);
+  if ((v13 & 0x200000) != 0)
+  {
+    v13 = -v13 | 0x200000;
+  }
+
+  v14 = v12 & 0xFFC00000 | v13 & 0x3FFFFF;
+  v15 = *(result + 28);
+  if ((v15 & 0x40) != 0)
+  {
+    v15 = -v15 | 0x40;
+  }
+
+  v16 = ((*(result + 11) & 0x1F) << 20) | (v15 << 25) | (*(result + 38) << 19);
+  *(a2 + 28) = v14;
+  *(a2 + 32) = v16;
+  return result;
+}
+
+double lsim12_00TimersInit(void)
+{
+  v8 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v0 = mach_continuous_time();
+    v1 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v0), "LSM", 73, "lsim12_00TimersInit");
+    LbsOsaTrace_WriteLog(0xCu, __str, v1, 4, 1);
+  }
+
+  v2 = &qword_2A191FFA0;
+  v3 = 5;
+  do
+  {
+    *(v2 - 4) = 0;
     *v2 = 0;
-    if (v7)
-    {
-      MEMORY[0x29C29EB20](v7, 0x1000C4079AA8B5ELL);
-    }
-
-    MEMORY[0x29C29EB20](v2, 0x20C40769AC3DALL);
+    *(v2 + 2) = -1;
+    v2 += 3;
+    --v3;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-uint64_t *std::unique_ptr<gnss::MeasurementReport>::~unique_ptr[abi:ne200100](uint64_t *a1)
-{
-  v5[1] = *MEMORY[0x29EDCA608];
-  v2 = *a1;
-  *a1 = 0;
-  if (v2)
-  {
-    v5[0] = (v2 + 112);
-    std::vector<gnss::Measurement>::__destroy_vector::operator()[abi:ne200100](v5);
-    MEMORY[0x29C29EB20](v2, 0x1020C40B6788CC9);
-  }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-uint64_t __copy_helper_block_e8_40c304_ZTSNSt3__18functionIFvNS_10unique_ptrIN4gnss3FixENS_14default_deleteIS3_EEEENS1_INS2_17MeasurementReportENS4_IS7_EEEEONS_6vectorINS2_6SvInfoENS_9allocatorISB_EEEEONSA_INS2_23ReceiverBandCorrectionsENSC_ISG_EEEENS1_INS2_18TimeConversionInfoENS4_ISK_EEEENS1_INS2_24KlobucharModelParametersENS4_ISN_EEEEEEE(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v2 = *MEMORY[0x29EDCA608];
-  v3 = a1 + 40;
-  v4 = a2 + 40;
-
-  return std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::__value_func[abi:ne200100](v3, v4);
-}
-
-uint64_t __destroy_helper_block_e8_40c304_ZTSNSt3__18functionIFvNS_10unique_ptrIN4gnss3FixENS_14default_deleteIS3_EEEENS1_INS2_17MeasurementReportENS4_IS7_EEEEONS_6vectorINS2_6SvInfoENS_9allocatorISB_EEEEONSA_INS2_23ReceiverBandCorrectionsENSC_ISG_EEEENS1_INS2_18TimeConversionInfoENS4_ISK_EEEENS1_INS2_24KlobucharModelParametersENS4_ISN_EEEEEEE(uint64_t a1)
-{
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *MEMORY[0x29EDCA608];
-  v2 = a1 + 40;
-
-  return std::__function::__value_func<void ()(std::unique_ptr<gnss::Fix>,std::unique_ptr<gnss::MeasurementReport>,std::vector<gnss::SvInfo> &&,std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &&,std::unique_ptr<gnss::TimeConversionInfo,std::default_delete<std::vector<gnss::ReceiverBandCorrections,std::allocator<std::vector<gnss::SvInfo> &&>> &>>,std::unique_ptr<gnss::KlobucharModelParameters>)>::~__value_func[abi:ne200100](v2);
-}
-
-uint64_t gnss::Emergency::Cplane::MeasurementReport::MeasurementReport(uint64_t this)
-{
-  v1 = 0;
-  v6 = *MEMORY[0x29EDCA608];
-  *this = 0;
-  *(this + 4) = 0;
-  *(this + 8) = -1;
-  *(this + 16) = -1;
-  *(this + 24) = -1;
-  do
-  {
-    v2 = this + v1;
-    *(v2 + 28) = 0x7FFF;
-    *(v2 + 30) = -1;
-    *(v2 + 33) = -1;
-    *(v2 + 40) = 0xFFFFFFFF00000004;
-    v1 += 24;
-    *(v2 + 48) = -1;
-  }
-
-  while (v1 != 384);
-  v3 = 0;
-  *(this + 412) = 0;
-  *(this + 416) = -1;
-  *(this + 424) = 33619967;
-  *(this + 428) = -1;
-  *(this + 452) = -1;
-  *(this + 464) = -1;
-  *(this + 471) = -1;
-  *(this + 480) = 4;
-  *(this + 456) = -1;
-  *(this + 432) = -1;
-  *(this + 440) = -1;
-  *(this + 448) = -1;
-  *(this + 460) = -1;
-  *(this + 484) = -1;
-  *(this + 496) = 0;
-  *(this + 524) = -1;
-  *(this + 528) = -1;
-  *(this + 520) = -1;
-  *(this + 504) = -1;
-  *(this + 512) = -1;
-  *(this + 536) = -1;
-  *(this + 548) = -1;
-  *(this + 552) = -1;
-  *(this + 538) = -1;
-  *(this + 560) = -1;
-  *(this + 564) = -1;
-  *(this + 568) = -1;
-  *(this + 592) = -1;
-  *(this + 572) = -1;
-  *(this + 580) = -1;
-  *(this + 588) = -1;
-  *(this + 596) = -129;
-  *(this + 600) = -1;
-  *(this + 608) = -1;
-  *(this + 612) = 5;
-  *(this + 616) = -1;
-  *(this + 618) = -1;
-  do
-  {
-    v4 = this + v3;
-    *(v4 + 620) = -32769;
-    *(v4 + 624) = -1;
-    *(this + v3 + 628) = 0xFF00000004;
-    *(v4 + 636) = -1;
-    *(v4 + 640) = -1;
-    v3 += 24;
-  }
-
-  while (v3 != 768);
-  *(this + 1392) = -1;
-  *(this + 1396) = 0;
-  v5 = *MEMORY[0x29EDCA608];
-  return this;
-}
-
-uint64_t std::__function::__value_func<gnss::Result ()(gnss::Emergency::SummaryReport const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-uint64_t std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::PositionReport const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-uint64_t std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReport const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-uint64_t std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::MeasurementReportWithEstimate const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-uint64_t std::__function::__value_func<gnss::Result ()(gnss::Emergency::Cplane::AssistanceNeededReport const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(gnss::Emergency::Cplane::CellFTAssistanceRequest const&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
-  return a1;
-}
-
-double *Inc_Glon_TOD(double a1, double *result, __int16 *a3, unsigned __int16 *a4)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  v4 = *result + a1;
-  *result = v4;
-  LOWORD(v5) = *a3;
-  if (v4 >= 86400.0)
-  {
-    do
-    {
-      v4 = v4 + -86400.0;
-      LOWORD(v5) = v5 + 1;
-    }
-
-    while (v4 >= 86400.0);
-    *result = v4;
-    *a3 = v5;
-  }
-
-  if (v4 < 0.0)
-  {
-    do
-    {
-      v4 = v4 + 86400.0;
-      LOWORD(v5) = v5 - 1;
-    }
-
-    while (v4 < 0.0);
-    *result = v4;
-    *a3 = v5;
-  }
-
-  if (v5 >= 1462)
-  {
-    do
-    {
-      *a3 = v5 - 1461;
-      ++*a4;
-      v5 = *a3;
-    }
-
-    while (v5 > 1461);
-  }
-
-  if (v5 <= 0)
-  {
-    do
-    {
-      *a3 = v5 + 1461;
-      v6 = *a4 - 1;
-      *a4 = v6;
-      v5 = *a3;
-    }
-
-    while (v5 < 1);
-  }
-
-  else
-  {
-    v6 = *a4;
-  }
-
-  if (v6 >= 0x10u)
-  {
-    *a4 = 0;
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void MMSRelease(uint64_t a1)
-{
-  v6 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 720);
-  if (v1)
-  {
-    v3 = *(v1 + 16);
-    if (v3)
-    {
-      do
-      {
-        v4 = v3;
-        if (*v1)
-        {
-          free(*v1);
-        }
-
-        free(v1);
-        v3 = *(v4 + 16);
-        v1 = v4;
-      }
-
-      while (v3);
-    }
-
-    else
-    {
-      v4 = *(a1 + 720);
-    }
-
-    if (*v4)
-    {
-      free(*v4);
-    }
-
-    free(v4);
-    *(a1 + 720) = 0;
-  }
-
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void *MMSAlloc(uint64_t a1, size_t a2)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  v4 = gnssOsa_Calloc("posp_alloc", 18, 1, 0x18uLL);
-  if (!v4)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = v4;
-  v4[2] = *(a1 + 720);
-  result = gnssOsa_Calloc("posp_alloc", 18, 1, a2);
-  *v5 = result;
-  v5[1] = a2;
-  if (!result)
-  {
-    free(v5);
-LABEL_5:
-    CUCFErrorHandler(a1, 1);
-    result = 0;
-    goto LABEL_6;
-  }
-
-  *(a1 + 720) = v5;
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void MMSFree(uint64_t a1, void *a2, void *a3)
-{
-  v12 = *MEMORY[0x29EDCA608];
-  v4 = *(a1 + 720);
-  if (!v4)
-  {
-    goto LABEL_14;
-  }
-
-  if (*v4 == a2)
-  {
-    if (v4[1] != a3)
-    {
-      CUCFErrorHandler(a1, 15);
-    }
-
-    *(a1 + 720) = v4[2];
-    if (a2)
-    {
-      free(a2);
-    }
-
-    v8 = *MEMORY[0x29EDCA608];
-    v9 = v4;
-    goto LABEL_21;
-  }
-
-  v6 = v4[2];
-  if (!v6)
-  {
-LABEL_14:
-    CUCFErrorHandler(a1, 15);
-    v10 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  if (*v6 != a2)
-  {
-    while (1)
-    {
-      v7 = v6[2];
-      if (!v7)
-      {
-        goto LABEL_14;
-      }
-
-      v4 = v6;
-      v6 = v6[2];
-      if (*v7 == a2)
-      {
-        goto LABEL_16;
-      }
-    }
-  }
-
-  v7 = v4[2];
-LABEL_16:
-  if (v7[1] != a3)
-  {
-    CUCFErrorHandler(a1, 15);
-  }
-
-  v4[2] = v7[2];
-  if (a2)
-  {
-    free(a2);
-  }
-
-  v11 = *MEMORY[0x29EDCA608];
-  v9 = v7;
-LABEL_21:
-
-  free(v9);
-}
-
-void GLON_RealAlm2ECEF(uint64_t a1, uint64_t a2, double *a3, int a4, int a5)
-{
-  v30[1] = *MEMORY[0x29EDCA608];
-  v29 = 0.0;
-  v30[0] = 0.0;
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  memset(v22, 0, sizeof(v22));
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *a1 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  GLON_Alm_Calc_SemiMaj(a3);
-  v11 = v10;
-  GLON_Alm_Last_Asc_Pass(v30, &v29, a5, a3, a4, v10);
-  v12 = a3[7];
-  v13 = a3[8];
-  v14 = tan(v13 * -0.5);
-  v15 = atan(sqrt((1.0 - v12) / (v12 + 1.0)) * v14);
-  v16 = v15 + v15 - v12 * sin(v15 + v15);
-  GLON_Alm_Calc_Corrns(&v26, a3, v11, v13 + v16, 0.0);
-  v17 = a3[8] + v16;
-  v18 = v30[0];
-  v19 = a4 - v30[0];
-  v20 = v19 * 6.28318531 / (a3[5] + 43200.0) + v17;
-  GLON_Alm_Calc_Corrns(&v23, a3, v11, v20, v19);
-  v23 = vsubq_f64(v23, v26);
-  v24 = vsubq_f64(v24, v27);
-  v25 = vsubq_f64(v25, v28);
-  GLON_Alm_Apply_Corrns(&v23, a3, v22, v11, v29 + (v18 + -10800.0) * 0.00007292115, v20);
-  GLON_Alm_Calc_ECEF_PosVel(v22, a1, a2, a4);
-  v21 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t GncP09_21HandleSensDefnInd(uint64_t a1)
-{
-  v24 = *MEMORY[0x29EDCA608];
-  if (a1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v2 = mach_continuous_time();
-      v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_SENS_DEFN_IND Id,%u\n", (*&g_MacClockTicksToMsRelation * v2), "GNC", 73, "GncP09_21HandleSensDefnInd", *(a1 + 24));
-      LbsOsaTrace_WriteLog(8u, __str, v3, 4, 1);
-    }
-
-    v4 = *(a1 + 24);
-    v5 = *(a1 + 16);
-    if (v5)
-    {
-      if (*v5 == 1)
-      {
-        v6 = __dst;
-        memcpy_s("GncP09_08SetSensDefn", 168, __dst, 0x50u, v5 + 8, 0x50uLL);
-      }
-
-      else
-      {
-        v6 = 0;
-      }
-
-      if (v5[1] == 1)
-      {
-        v12 = v22;
-        memcpy_s("GncP09_08SetSensDefn", 177, v22, 0x50u, v5 + 88, 0x50uLL);
-      }
-
-      else
-      {
-        v12 = 0;
-      }
-
-      if (v5[2] == 1)
-      {
-        v13 = v21;
-        memcpy_s("GncP09_08SetSensDefn", 186, v21, 0x50u, v5 + 168, 0x50uLL);
-      }
-
-      else
-      {
-        v13 = 0;
-      }
-
-      if (GN_Sen_Set_Defin(v6, v12, v13))
-      {
-        v11 = 1;
-      }
-
-      else
-      {
-        IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0);
-        v11 = 0;
-        if (IsLoggingAllowed)
-        {
-          bzero(__str, 0x410uLL);
-          v15 = mach_continuous_time();
-          v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SensDefn\n", (*&g_MacClockTicksToMsRelation * v15), "GNC", 87, "GncP09_08SetSensDefn", 257);
-          LbsOsaTrace_WriteLog(8u, __str, v16, 2, 1);
-          v11 = 0;
-        }
-      }
-    }
-
-    else
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v9 = mach_continuous_time();
-        v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SensDefn\n", (*&g_MacClockTicksToMsRelation * v9), "GNC", 69, "GncP09_08SetSensDefn", 518);
-        LbsOsaTrace_WriteLog(8u, __str, v10, 0, 1);
-      }
-
-      v11 = 2;
-    }
-
-    GncP09_01SendApiStatus(v4, 1, v11);
-    v17 = *(a1 + 16);
-    if (v17)
-    {
-      free(v17);
-    }
-
-    *(a1 + 16) = 0;
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
+  while (v3);
+  g_LsimTmrArray = 8615942;
+  *(&qword_2A191FFA8 + 4) = 0x83790600000001;
+  unk_2A191FFC4 = 0x837A0600000002;
+  unk_2A191FFDC = 0x837B0600000003;
+  unk_2A191FFF4 = 0x837C0600000004;
+  dword_2A192000C = 5;
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
-    v7 = mach_continuous_time();
-    v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v7), "GNC", 69, "GncP09_21HandleSensDefnInd", 517);
-    LbsOsaTrace_WriteLog(8u, __str, v8, 0, 1);
-  }
-
-  v18 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t GncP09_22HandleSensAcclInd(uint64_t a1)
-{
-  v23 = *MEMORY[0x29EDCA608];
-  if (a1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v2 = mach_continuous_time();
-      v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_SENS_ACCL_IND Id,%u\n", (*&g_MacClockTicksToMsRelation * v2), "GNC", 73, "GncP09_22HandleSensAcclInd", *(a1 + 24));
-      LbsOsaTrace_WriteLog(8u, __str, v3, 4, 1);
-    }
-
-    v4 = *(a1 + 24);
-    v5 = *(a1 + 16);
-    if (v5)
-    {
-      v6 = gnssOsa_Calloc("GncP09_05SetAcclData", 58, *v5, 0x20uLL);
-      if (v6)
-      {
-        v7 = v6;
-        memcpy_s("GncP09_05SetAcclData", 67, v6, 32 * *v5, *(v5 + 1), 32 * *v5);
-        if (GN_Sen_Set_Accl(*v5, v7))
-        {
-          if (LbsOsaTrace_IsLoggingAllowed(8u, 5, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v8 = mach_continuous_time();
-            v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Set NumSample,%u\n", (*&g_MacClockTicksToMsRelation * v8), "GNC", 68, "GncP09_05SetAcclData", *v5);
-            v10 = 1;
-            LbsOsaTrace_WriteLog(8u, __str, v9, 5, 1);
-          }
-
-          else
-          {
-            v10 = 1;
-          }
-        }
-
-        else
-        {
-          v10 = 0;
-          if (LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v17 = mach_continuous_time();
-            v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Accl\n", (*&g_MacClockTicksToMsRelation * v17), "GNC", 87, "GncP09_05SetAcclData", 257);
-            LbsOsaTrace_WriteLog(8u, __str, v18, 2, 1);
-            v10 = 0;
-          }
-        }
-
-        GncP09_01SendApiStatus(v4, 2, v10);
-        free(v7);
-        goto LABEL_20;
-      }
-
-      v15 = v4;
-      v16 = 6;
-    }
-
-    else
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v13 = mach_continuous_time();
-        v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Accl\n", (*&g_MacClockTicksToMsRelation * v13), "GNC", 69, "GncP09_05SetAcclData", 518);
-        LbsOsaTrace_WriteLog(8u, __str, v14, 0, 1);
-      }
-
-      v15 = v4;
-      v16 = 2;
-    }
-
-    GncP09_01SendApiStatus(v15, 2, v16);
-LABEL_20:
-    v19 = *(a1 + 16);
-    if (v19[1])
-    {
-      free(v19[1]);
-      v19 = *(a1 + 16);
-    }
-
-    free(v19);
-    *(a1 + 16) = 0;
-    goto LABEL_23;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v11 = mach_continuous_time();
-    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v11), "GNC", 69, "GncP09_22HandleSensAcclInd", 517);
-    LbsOsaTrace_WriteLog(8u, __str, v12, 0, 1);
-  }
-
-LABEL_23:
-  v20 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t GncP09_23HandleSensGyroInd(uint64_t a1)
-{
-  v23 = *MEMORY[0x29EDCA608];
-  if (a1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v2 = mach_continuous_time();
-      v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_SENS_GYRO_IND Id,%u\n", (*&g_MacClockTicksToMsRelation * v2), "GNC", 73, "GncP09_23HandleSensGyroInd", *(a1 + 24));
-      LbsOsaTrace_WriteLog(8u, __str, v3, 4, 1);
-    }
-
-    v4 = *(a1 + 24);
-    v5 = *(a1 + 16);
-    if (v5)
-    {
-      v6 = gnssOsa_Calloc("GncP09_06SetGyroData", 91, *v5, 0x20uLL);
-      if (v6)
-      {
-        v7 = v6;
-        memcpy_s("GncP09_06SetGyroData", 100, v6, 32 * *v5, *(v5 + 1), 32 * *v5);
-        if (GN_Sen_Set_Gyro(*v5, v7))
-        {
-          if (LbsOsaTrace_IsLoggingAllowed(8u, 5, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v8 = mach_continuous_time();
-            v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Set NumSample,%u\n", (*&g_MacClockTicksToMsRelation * v8), "GNC", 68, "GncP09_06SetGyroData", *v5);
-            v10 = 1;
-            LbsOsaTrace_WriteLog(8u, __str, v9, 5, 1);
-          }
-
-          else
-          {
-            v10 = 1;
-          }
-        }
-
-        else
-        {
-          v10 = 0;
-          if (LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v17 = mach_continuous_time();
-            v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Gyro\n", (*&g_MacClockTicksToMsRelation * v17), "GNC", 87, "GncP09_06SetGyroData", 257);
-            LbsOsaTrace_WriteLog(8u, __str, v18, 2, 1);
-            v10 = 0;
-          }
-        }
-
-        GncP09_01SendApiStatus(v4, 3, v10);
-        free(v7);
-        goto LABEL_20;
-      }
-
-      v15 = v4;
-      v16 = 6;
-    }
-
-    else
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v13 = mach_continuous_time();
-        v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Gyro\n", (*&g_MacClockTicksToMsRelation * v13), "GNC", 69, "GncP09_06SetGyroData", 518);
-        LbsOsaTrace_WriteLog(8u, __str, v14, 0, 1);
-      }
-
-      v15 = v4;
-      v16 = 2;
-    }
-
-    GncP09_01SendApiStatus(v15, 3, v16);
-LABEL_20:
-    v19 = *(a1 + 16);
-    if (v19[1])
-    {
-      free(v19[1]);
-      v19 = *(a1 + 16);
-    }
-
-    free(v19);
-    *(a1 + 16) = 0;
-    goto LABEL_23;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v11 = mach_continuous_time();
-    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v11), "GNC", 69, "GncP09_23HandleSensGyroInd", 517);
-    LbsOsaTrace_WriteLog(8u, __str, v12, 0, 1);
-  }
-
-LABEL_23:
-  v20 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t GncP09_24HandleSensBaroInd(uint64_t a1)
-{
-  v28 = *MEMORY[0x29EDCA608];
-  if (a1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v2 = mach_continuous_time();
-      v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_SENS_BARO_IND Id,%u\n", (*&g_MacClockTicksToMsRelation * v2), "GNC", 73, "GncP09_24HandleSensBaroInd", *(a1 + 24));
-      LbsOsaTrace_WriteLog(8u, __str, v3, 4, 1);
-    }
-
-    v4 = *(a1 + 24);
-    v5 = *(a1 + 16);
-    if (v5)
-    {
-      v6 = gnssOsa_Calloc("GncP09_07SetBaroData", 125, *v5, 0x18uLL);
-      if (v6)
-      {
-        v7 = v6;
-        v8 = *v5;
-        if (*v5)
-        {
-          v9 = (*(v5 + 1) + 8);
-          v10 = v7 + 2;
-          v11 = *v5;
-          do
-          {
-            *(v10 - 1) = 0xC058F9999999999ALL;
-            *(v10 - 2) = *(v9 - 1);
-            v12 = *v9;
-            v9 += 4;
-            *v10 = v12;
-            v10 += 6;
-            --v11;
-          }
-
-          while (v11);
-        }
-
-        if (GN_Sen_Set_Baro(v8, v7))
-        {
-          if (LbsOsaTrace_IsLoggingAllowed(8u, 5, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v13 = mach_continuous_time();
-            v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Set NumSample,%u\n", (*&g_MacClockTicksToMsRelation * v13), "GNC", 68, "GncP09_07SetBaroData", *v5);
-            v15 = 1;
-            LbsOsaTrace_WriteLog(8u, __str, v14, 5, 1);
-          }
-
-          else
-          {
-            v15 = 1;
-          }
-        }
-
-        else
-        {
-          v15 = 0;
-          if (LbsOsaTrace_IsLoggingAllowed(8u, 2, 0, 0))
-          {
-            bzero(__str, 0x410uLL);
-            v22 = mach_continuous_time();
-            v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Baro\n", (*&g_MacClockTicksToMsRelation * v22), "GNC", 87, "GncP09_07SetBaroData", 257);
-            LbsOsaTrace_WriteLog(8u, __str, v23, 2, 1);
-            v15 = 0;
-          }
-        }
-
-        GncP09_01SendApiStatus(v4, 4, v15);
-        free(v7);
-        goto LABEL_23;
-      }
-
-      v20 = v4;
-      v21 = 6;
-    }
-
-    else
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v18 = mach_continuous_time();
-        v19 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Baro\n", (*&g_MacClockTicksToMsRelation * v18), "GNC", 69, "GncP09_07SetBaroData", 518);
-        LbsOsaTrace_WriteLog(8u, __str, v19, 0, 1);
-      }
-
-      v20 = v4;
-      v21 = 2;
-    }
-
-    GncP09_01SendApiStatus(v20, 4, v21);
-LABEL_23:
-    v24 = *(a1 + 16);
-    if (v24[1])
-    {
-      free(v24[1]);
-      v24 = *(a1 + 16);
-    }
-
-    free(v24);
-    *(a1 + 16) = 0;
-    goto LABEL_26;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(8u, 0, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v16 = mach_continuous_time();
-    v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v16), "GNC", 69, "GncP09_24HandleSensBaroInd", 517);
-    LbsOsaTrace_WriteLog(8u, __str, v17, 0, 1);
-  }
-
-LABEL_26:
-  v25 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-void GncP09_01SendApiStatus(int a1, int a2, int a3)
-{
-  v12 = *MEMORY[0x29EDCA608];
-  v6 = gnssOsa_Calloc("GncP09_01SendApiStatus", 30, 1, 0x18uLL);
-  if (v6)
-  {
-    v7 = v6;
-    v6[3] = a2;
-    v6[4] = a3;
-    v6[5] = a1;
-    if (LbsOsaTrace_IsLoggingAllowed(8u, 5, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v8 = mach_continuous_time();
-      v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_SENSAPI_IND =>LSIM Type,%u,ID,%u,Status,%u\n", (*&g_MacClockTicksToMsRelation * v8), "GNC", 68, "GncP09_01SendApiStatus", a2, a1, a3);
-      LbsOsaTrace_WriteLog(8u, __str, v9, 5, 1);
-    }
-
-    AgpsSendFsmMsg(134, 131, 8783363, v7);
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-}
-
-char **FPE_InterfaceLogger(char **result, unsigned __int8 *a2)
-{
-  v16 = *MEMORY[0x29EDCA608];
-  v15 = result;
-  if ((g_FPE_LogSeverity & 0x40) != 0)
-  {
-    LODWORD(v3) = __const__Z19FPE_InterfaceLogger13e_FpeMeasTypePv_measSizeTable[result];
-    v14 = v3;
-    v4 = g_p_CB_LCD_SA_Dbg;
-    if (g_p_CB_LCD_SA_Dbg)
-    {
-      v5 = *g_p_CB_LCD_SA_Dbg;
-      v6 = 36;
-      v7 = 1u;
-      do
-      {
-        *v4 = v5 + 1;
-        *v5 = v6;
-        v5 = *v4;
-        if (*v4 >= v4[3])
-        {
-          v5 = v4[2];
-          *v4 = v5;
-        }
-
-        v6 = str_84[v7++];
-      }
-
-      while (v7 != 11);
-      LCD_SA_Debug_Flush_Check(g_p_CB_LCD_SA_Dbg);
-      v4 = g_p_CB_LCD_SA_Dbg;
-      v8 = g_p_CB_LCD_SA_Dbg;
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    for (i = 0; i != 4; ++i)
-    {
-      if (v8)
-      {
-        sprintf_02x(v8, *(&v14 + i));
-        LCD_SA_Debug_Flush_Check(g_p_CB_LCD_SA_Dbg);
-        v4 = g_p_CB_LCD_SA_Dbg;
-        v8 = g_p_CB_LCD_SA_Dbg;
-      }
-    }
-
-    v10 = 0;
-    v11 = v4;
-    do
-    {
-      if (v11)
-      {
-        sprintf_02x(v11, *(&v15 + v10));
-        LCD_SA_Debug_Flush_Check(g_p_CB_LCD_SA_Dbg);
-        v4 = g_p_CB_LCD_SA_Dbg;
-        v11 = g_p_CB_LCD_SA_Dbg;
-      }
-
-      ++v10;
-    }
-
-    while (v10 != 4);
-    if (v3 <= 1)
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = v3;
-    }
-
-    result = v4;
-    do
-    {
-      if (result)
-      {
-        sprintf_02x(result, *a2);
-        LCD_SA_Debug_Flush_Check(g_p_CB_LCD_SA_Dbg);
-        v4 = g_p_CB_LCD_SA_Dbg;
-        result = g_p_CB_LCD_SA_Dbg;
-      }
-
-      ++a2;
-      --v3;
-    }
-
-    while (v3);
-    if (v4)
-    {
-      v12 = (*v4)++;
-      *v12 = 10;
-      if (*v4 >= v4[3])
-      {
-        *v4 = v4[2];
-      }
-    }
-  }
-
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t NK_Validate_Fix(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v11 = *MEMORY[0x29EDCA608];
-  v6 = a2 + 24576;
-  *(a2 + 24584) = 0;
-  result = API_Qual_Pos("default", 1, 0, 0, 0);
-  if (result)
-  {
-    *(v6 + 8) = 257;
-LABEL_4:
-    v8 = 1;
-    goto LABEL_5;
-  }
-
-  if (*(v6 + 9))
-  {
-    goto LABEL_4;
-  }
-
-  if (*(a2 + 968) != 1)
-  {
-    goto LABEL_14;
-  }
-
-  result = API_Qual_Pos("default", 0, 0, 0, 0);
-  if (result)
-  {
-    v8 = 1;
-    *(v6 + 9) = 1;
-  }
-
-  else
-  {
-    v8 = *(v6 + 9);
-  }
-
-LABEL_5:
-  if (*(v6 + 8) != 1)
-  {
-    if (v8)
-    {
-      v9 = 1;
-      if (*(v6 + 12) > 3)
-      {
-        goto LABEL_16;
-      }
-
-      goto LABEL_15;
-    }
-
-LABEL_14:
-    v9 = 0;
-LABEL_15:
-    ++*(a1 + 11044);
-    *(a1 + 11040) = 0;
-    goto LABEL_16;
-  }
-
-  if ((v8 & 1) == 0)
-  {
-    goto LABEL_14;
-  }
-
-  ++*(a1 + 11040);
-  *(a1 + 11044) = 0;
-  v9 = 1;
-LABEL_16:
-  if (v9)
-  {
-    if (!*(a2 + 968) && *(a1 + 11040) >= 0x1Eu && *(a2 + 964) >= 3 && *(v6 + 16) >= 4 && (*(a1 + 233) & 1) == 0 && *(a2 + 12) >= 8 && *(a2 + 24752) <= *(a3 + 968) && *(a2 + 24680) <= *(a3 + 984))
-    {
-      result = API_Get_Fix_Reliability();
-      if ((result - 2) <= 2)
-      {
-        *a3 = 1;
-      }
-    }
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void NK_Dopp_Outlier(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v82[96] = *MEMORY[0x29EDCA608];
-  v5 = a2 + 0x2000;
-  memset_pattern16(__b, &unk_299761150, 0x180uLL);
-  memset_pattern16(v82, &unk_29975C400, 0x180uLL);
-  if (*(v5 + 2970) != 1)
-  {
-    goto LABEL_96;
-  }
-
-  v6 = *a3 - *(a2 + 11248);
-  v7 = v6 / 1000;
-  if (*(a2 + 11152) <= 17.0)
-  {
-    v8 = 3;
-  }
-
-  else
-  {
-    v8 = 5;
-  }
-
-  if (*(v5 + 2896) == 1)
-  {
-    v9 = *(a2 + 11256);
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    v10 = 0x7D0u / v9 + v8;
-    if (v10 >= 0x96)
-    {
-      v10 = 150;
-    }
-
-    if (v7 > v10)
-    {
-      goto LABEL_96;
-    }
-
-    v75 = 1;
-    v76 = *a3;
-    v74 = *(a2 + 11096);
-    v11 = (a2 + 11104);
-  }
-
-  else
-  {
-    if (v7 > v8)
-    {
-      goto LABEL_96;
-    }
-
-    v75 = *(v5 + 2896);
-    v76 = *a3;
-    v74 = *(a3 + 760) * 299792458.0;
-    v11 = (a3 + 944);
-  }
-
-  v12 = 0;
-  v13 = v6 / -2000 + 85;
-  v73 = *v11;
-  v14 = a3 + 8536;
-  v15 = a3 + 14112;
-  v16 = (a2 + 2088);
-  v17 = a2 + 2112;
-  v78 = 0.0;
-  v18 = 76;
-  v19 = -0.5;
-  v20 = 0.5;
-  v77 = 0.0;
-  v21 = 0.0;
-  v22 = 0.0;
-  v23 = 0.0;
-  do
-  {
-    v82[v12 + 48] = 0;
-    v24 = *(v14 + v12);
-    if ((v24 & 1) != 0 || *(v15 + v12) == 1)
-    {
-      v25 = *(a2 + 11240);
-      v26 = *(v17 + 1928) - v25;
-      if (v26 <= 0.0)
-      {
-        v27 = v19;
-      }
-
-      else
-      {
-        v27 = v20;
-      }
-
-      v28 = v26 + v27;
-      if (v28 <= 2147483650.0)
-      {
-        if (v28 >= -2147483650.0)
-        {
-          v29 = v28;
-        }
-
-        else
-        {
-          v29 = 0x80000000;
-        }
-      }
-
-      else
-      {
-        v29 = 0x7FFFFFFF;
-      }
-
-      if (v29 < 0)
-      {
-        v29 = -v29;
-      }
-
-      if (v29 > 0x168)
-      {
-        v29 -= 360;
-      }
-
-      if (v29 > 180)
-      {
-        v29 -= 180;
-      }
-
-      if (v29 > 90)
-      {
-        v29 = 180 - v29;
-      }
-
-      if (v29 <= v13)
-      {
-        v30 = *(v17 + 1920) + v25 * -0.0174532925;
-        v31 = -6.28318531;
-        if (v30 >= 3.14159265 || (v31 = 6.28318531, v30 < -3.14159265))
-        {
-          v30 = v30 + v31;
-        }
-
-        v32 = *v17;
-        v33 = cos(v30);
-        v34 = cos(v32);
-        v35 = *(a3 + 26304 + 8 * v12);
-        v36 = -(v35 - *(a1 + 8 * v12 + 1616) * -0.190293673);
-        *&v82[v12] = v36;
-        if (v24)
-        {
-          v37 = *(v15 + 8 * v12 - 1688);
-          v20 = 0.5;
-        }
-
-        else
-        {
-          v20 = 0.5;
-          if (*(v15 + v12) != 1)
-          {
-LABEL_42:
-            v38 = -(v33 * v34);
-            *&v82[v12 + 48] = v38;
-            if (*(a1 + v18) != 6)
-            {
-              v39 = 1.0 / __b[v12];
-              v23 = v23 + v39;
-              v21 = v21 + v38 * v39;
-              v22 = v22 + v38 * v39 * v38;
-              v40 = v36 * v39;
-              v77 = v77 + v40;
-              v78 = v78 + v38 * v40;
-            }
-
-            v19 = -0.5;
-            goto LABEL_45;
-          }
-
-          v36 = *(a3 + 8 * v12 + 120) / *(a3 + 656) - v35;
-          *&v82[v12] = v36;
-          v37 = 0x3FA47AE147AE147CLL;
-        }
-
-        *&__b[v12] = v37;
-        goto LABEL_42;
-      }
-    }
-
-LABEL_45:
-    ++v12;
-    v18 += 4;
-    v17 += 40;
-  }
-
-  while (v12 != 48);
-  if (*(a2 + 11116) == 3)
-  {
-    v41 = v23 * (v22 + 10000.0) - v21 * v21;
-    if (v41 > 0.0001)
-    {
-      *&qword_2A1972018 = (v78 + 0.0) * (1.0 / v41 * -v21) + (v22 + 10000.0) * (1.0 / v41) * v77;
-      _MergedGlobals_7 = v76;
-    }
-
-    goto LABEL_96;
-  }
-
-  v42 = -v21;
-  v43 = v23 * v22 - v21 * v21;
-  v45 = v73;
-  v44 = v74;
-  if (v43 > 0.0001)
-  {
-    v46 = 1.0 / v43;
-    v47 = v22 * v46;
-    v48 = v23 * v46;
-    v49 = v46 * v42;
-    v44 = v78 * v49 + v47 * v77;
-    v45 = v78 * v48 + v49 * v77;
-  }
-
-  if (v75)
-  {
-    v50 = v76 - *(a2 + 11092);
-    if (v50 <= 90999)
-    {
-      v51 = (a2 + 11096);
-LABEL_55:
-      v52 = 1.0 / ((v50 / 1000 * (v50 / 1000)) * 0.0000308641975 + 0.0001);
-      v53 = (v23 + v52) * v22 - v21 * v21;
-      if (v53 > 0.0001)
-      {
-        v54 = v77 + v52 * *v51;
-        v55 = 1.0 / v53;
-        v56 = v55 * v42;
-        v44 = v78 * v56 + v22 * v55 * v54;
-        v45 = v78 * ((v23 + v52) * v55) + v56 * v54;
-      }
-    }
-  }
-
-  else
-  {
-    v51 = &qword_2A1972018;
-    v50 = v76 - _MergedGlobals_7;
-    if (v76 - _MergedGlobals_7 <= 179999)
-    {
-      goto LABEL_55;
-    }
-  }
-
-  v57 = 0;
-  v58 = 0;
-  v59 = 0;
-  memset(v80, 0, sizeof(v80));
-  v60 = fmax(fabs(v45) * 0.25, 2.5);
-  do
-  {
-    if ((*(v14 + v57) & 1) != 0 || *(v15 + v57) == 1)
-    {
-      v61 = *&v82[v57 + 48];
-      if (fabs(v61) > 0.05)
-      {
-        v62 = (*&v82[v57] - v44) / v61;
-        v63 = v62 < 0.0;
-        if (v45 <= v60)
-        {
-          v63 = 0;
-        }
-
-        if (v62 >= -v60 && !v63)
-        {
-          if (v62 > 0.0)
-          {
-            ++v58;
-          }
-        }
-
-        else
-        {
-          ++v59;
-          *(v80 + v57) = 1;
-        }
-      }
-    }
-
-    ++v57;
-  }
-
-  while (v57 != 48);
-  if (v75)
-  {
-    v65 = 70;
-  }
-
-  else
-  {
-    v65 = 50;
-  }
-
-  if (v75)
-  {
-    v66 = 40;
-  }
-
-  else
-  {
-    v66 = 36;
-  }
-
-  if (v59)
-  {
-    v67 = v59 < 4 ? v75 : 0;
-    if (v58 >= v59 || v67)
-    {
-      v68 = 0;
-      while (*(v80 + v68) != 1 || *v16 >= v65 || v66 <= *(a1 + 604 + v68) || *(v14 + 8 * v68 - 3704) >= 50.0)
-      {
-LABEL_95:
-        ++v68;
-        v16 += 10;
-        if (v68 == 48)
-        {
-          goto LABEL_96;
-        }
-      }
-
-      v69 = (v14 + v68);
-      if (*(v14 + v68))
-      {
-        v70 = 8632;
-        v71 = (a3 + 8387);
-        goto LABEL_92;
-      }
-
-      v69 = (v15 + v68);
-      if (*(v15 + v68) == 1)
-      {
-        v70 = 14208;
-        v71 = (a3 + 13963);
-LABEL_92:
-        *v69 = 0;
-        *(a3 + v70 + 4 * v68) = 10;
-        ++v71[1];
-        --*v71;
-      }
-
-      if (*(a3 + v68 + 2960) == 1)
-      {
-        *(a3 + v68 + 2960) = 0;
-        *(a3 + 4 * v68 + 3056) = 10;
-        ++*(a3 + 2812);
-        --*(a3 + 2811);
-      }
-
-      goto LABEL_95;
-    }
-  }
-
-LABEL_96:
-  v72 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t Decode_GPS_Health_Subframe(uint64_t result, BOOL *a2)
-{
-  v2 = 0;
-  v8 = *MEMORY[0x29EDCA608];
-  do
-  {
-    v3 = *(result + 12 + v2);
-    v4 = &v7[v2];
-    *v4 = (v3 >> 18) & 0x1F;
-    v4[1] = (v3 >> 12) & 0x1F;
-    v4[2] = (v3 >> 6) & 0x1F;
-    v2 += 4;
-    v4[3] = v3 & 0x1F;
-  }
-
-  while (v2 != 24);
-  for (i = 0; i != 24; ++i)
-  {
-    a2[i] = (0xE4FE7F3uLL >> v7[i]) & 1;
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-_DWORD *Decode_QZSS_Health_Subframe(_DWORD *result, BOOL *a2)
-{
-  v2 = 0;
-  v8 = *MEMORY[0x29EDCA608];
-  v3 = result[3];
-  v4 = result[4];
-  v7[0] = (v3 >> 18) & 0x1F;
-  v7[1] = (v3 >> 12) & 0x1F;
-  v7[2] = (v3 >> 6) & 0x1F;
-  v7[3] = v3 & 0x1F;
-  v7[4] = (v4 >> 18) & 0x1F;
-  v7[5] = (v4 >> 12) & 0x1F;
-  v7[6] = (v4 >> 6) & 0x1F;
-  v7[7] = v4 & 0x1F;
-  v5 = result[5];
-  v7[8] = (v5 >> 18) & 0x1F;
-  v7[9] = (v5 >> 12) & 0x1F;
-  do
-  {
-    a2[v2] = (0xE4FE7F3uLL >> v7[v2]) & 1;
-    ++v2;
-  }
-
-  while (v2 != 10);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-const char *Hal14_GetGnssHwStr(unsigned int a1)
-{
-  v7 = *MEMORY[0x29EDCA608];
-  if (a1 >= 5)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xDu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v3 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx ProdType,%u\n", (*&g_MacClockTicksToMsRelation * v3), "HAL", 87, "Hal14_GetGnssHwStr", 770, a1);
-      LbsOsaTrace_WriteLog(0xDu, __str, v4, 2, 1);
-    }
-
-    result = "Unknown";
-  }
-
-  else
-  {
-    result = off_29EF6B3A0[a1];
-  }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-double Get_GPS_Kep_Ephemeris(int a1, char a2, uint64_t a3, uint64_t a4)
-{
-  v28 = *MEMORY[0x29EDCA608];
-  *a4 = *a3;
-  *(a4 + 8) = a1;
-  *(a4 + 12) = a2;
-  v4 = *(a3 + 8);
-  *(a4 + 18) = (v4 >> 14) & 0x3FF;
-  *(a4 + 15) = BYTE1(v4) & 0xF;
-  *(a4 + 13) = (v4 >> 2) & 0x1F;
-  *(a4 + 56) = vcvtd_n_f64_s32(*(a3 + 24), 0x1FuLL);
-  *(a4 + 64) = 0u;
-  *(a4 + 80) = 0u;
-  v5 = *(a3 + 28);
-  *(a4 + 16) = BYTE2(v5);
-  *(a4 + 20) = 16 * v5;
-  v6 = (a3 + 32);
-  v7 = vld1_dup_f32(v6);
-  v8 = vshl_s32(vshl_u32(v7, 0x800000010), 0xFFFFFFE8FFFFFFF0);
-  v9.i64[0] = v8.i32[0];
-  v9.i64[1] = v8.i32[1];
-  *(a4 + 40) = vmulq_f64(vcvtq_f64_s64(v9), xmmword_299761180);
-  LODWORD(v6) = *(a3 + 44);
-  *&v10 = (*(a3 + 48) & 0xFFFFFF | (v6 << 24));
-  *(a4 + 32) = (((*(a3 + 36) << 8) >> 8) & 0xFFFFFFFC) * 1.16415322e-10;
-  v11.i32[0] = *(a3 + 40);
-  v11.i32[1] = *(a3 + 52);
-  v12 = vshr_n_s32(vshl_u32(v11, 0x800000010), 0x10uLL);
-  v9.i64[0] = v12.i32[0];
-  v9.i64[1] = v12.i32[1];
-  v13 = vmulq_f64(vcvtq_f64_s64(v9), xmmword_299761190);
-  v14 = *(a3 + 60);
-  v15 = vcvtd_n_f64_u32(*(a3 + 64) & 0xFFFFFF | (v14 << 24), 0x13uLL);
-  v16 = (*(a3 + 56) & 0xFFFFFF | (*(a3 + 52) << 24)) * 1.16415322e-10;
-  *(a4 + 160) = *&v10 * 0.00000000146291808;
-  *(a4 + 168) = v15;
-  *(a4 + 24) = 16 * *(a3 + 69);
-  v10.i32[0] = v14;
-  v10.i32[1] = *(a3 + 72);
-  *&v17 = (*(a3 + 76) & 0xFFFFFF | (v10.u8[4] << 24));
-  v18 = *(a3 + 80);
-  v19 = *(a3 + 84);
-  v20 = vcvtd_n_f64_s32((v18 >> 8), 0x1DuLL);
-  *(a4 + 14) = *(a3 + 68) >> 7;
-  v21 = vshr_n_s32(vshl_n_s32(v10, 8uLL), 0x10uLL);
-  v9.i64[0] = v21.i32[0];
-  v9.i64[1] = v21.i32[1];
-  *(a4 + 128) = vmulq_f64(vcvtq_f64_s64(v9), vdupq_n_s64(0x3E20000000000000uLL));
-  v22 = *&v17 * 0.00000000146291808;
-  v23 = (v19 & 0xFFFFFF | (v18 << 24)) * 0.00000000146291808;
-  v17.i32[0] = v6;
-  v24 = *(a3 + 92);
-  v17.i32[1] = *(a3 + 88);
-  *(a4 + 176) = v22;
-  *(a4 + 184) = v23;
-  v25 = vshr_n_s32(vshl_n_s32(v17, 8uLL), 0x10uLL);
-  v9.i64[0] = v25.i32[0];
-  v9.i64[1] = v25.i32[1];
-  *(a4 + 96) = vmulq_f64(vcvtq_f64_s64(v9), xmmword_2997611A0);
-  *(a4 + 112) = v13;
-  *(a4 + 192) = (v24 & 0xFFFFFF | (v17.u8[4] << 24)) * 0.00000000146291808;
-  *(a4 + 200) = v16;
-  *(a4 + 208) = (*(a3 + 96) << 8) * 1.3951474e-15;
-  result = (*(a3 + 100) & 0xFFFFFFFC) * 8.92894335e-14;
-  *(a4 + 144) = v20;
-  *(a4 + 152) = result;
-  v27 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t lsim05_21HandleAidStatusCnf(uint64_t a1)
-{
-  v44 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim05_21HandleAidStatusCnf");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_AID_STATUS_CNF,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_21HandleAidStatusCnf", *(a1 + 76));
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  v6 = 0;
-  v7 = 1;
-  while (1)
-  {
-    v8 = v7;
-    v9 = &g_SuplInstance + 296 * v6;
-    if (*(v9 + 1) == *(a1 + 76) && (v9[281] & 1) != 0)
-    {
-      break;
-    }
-
-    v7 = 0;
-    v6 = 1;
-    if ((v8 & 1) == 0)
-    {
-      v10 = *(a1 + 24);
-      if (v10)
-      {
-        free(v10);
-      }
-
-      *(a1 + 24) = 0;
-      v11 = *(a1 + 32);
-      if (v11)
-      {
-        free(v11);
-      }
-
-      *(a1 + 32) = 0;
-      v12 = *(a1 + 40);
-      if (v12)
-      {
-        free(v12);
-      }
-
-      *(a1 + 40) = 0;
-      v13 = *(a1 + 48);
-      if (v13)
-      {
-        free(v13);
-      }
-
-      *(a1 + 48) = 0;
-      v14 = *(a1 + 56);
-      if (v14)
-      {
-        free(v14);
-      }
-
-      *(a1 + 56) = 0;
-      v15 = *(a1 + 64);
-      if (v15)
-      {
-        free(v15);
-      }
-
-      *(a1 + 64) = 0;
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v16 = mach_continuous_time();
-        v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v16), "LSM", 87, "lsim05_21HandleAidStatusCnf", 2052, *(a1 + 76));
-        LbsOsaTrace_WriteLog(0xCu, __str, v17, 2, 1);
-      }
-
-      goto LABEL_59;
-    }
-  }
-
-  if (v9[282] == 1)
-  {
-    v38 = 0x700000000uLL;
-    *&v39 = 0;
-    *(&v39 + 6) = 0;
-    HIWORD(v39) = -1;
-    LOBYTE(v40) = 0;
-    DWORD1(v40) = 0;
-    v42 = 0;
-    memset(v41, 0, 18);
-    *(&v40 + 1) = -1;
-    v9[282] = 0;
-    if ((lsim12_02StopTimer(v6, 5) & 1) == 0 && LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v18 = mach_continuous_time();
-      v19 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v18), "LSM", 87, "lsim05_21HandleAidStatusCnf", 1545, *(a1 + 76));
-      LbsOsaTrace_WriteLog(0xCu, __str, v19, 2, 1);
-    }
-
-    if (*(a1 + 72) != 1)
-    {
-      goto LABEL_35;
-    }
-
-    *&__str[12] = 0;
-    lsim03_11PrintAidRequestParams((a1 + 16), "AID STATUS");
-    v20 = *(v9 + 72);
-    if (v20 == 2)
-    {
-      v21 = &g_LsimPltConfig;
-    }
-
-    else
-    {
-      if (v20 != 1)
-      {
-        __str[0] = qword_2A19267F6 | g_LsimPltConfig;
-        *&__str[10] = word_2A1926800 | word_2A19267F2;
-        *&__str[2] = vorr_s8(*(&qword_2A19267F6 + 2), *(&g_LsimPltConfig + 2));
-        goto LABEL_34;
-      }
-
-      v21 = &qword_2A19267F6;
-    }
-
-    *__str = *v21;
-    *&__str[6] = *(v21 + 6);
-LABEL_34:
-    lsim03_12UpdateAidReqParams(__str, (a1 + 16), v9[292], 0);
-LABEL_35:
-    if (*(a1 + 152) == 1)
-    {
-      v22 = *(a1 + 96);
-      v38 = *(a1 + 80);
-      v39 = v22;
-      v40 = *(a1 + 112);
-      *v41 = *(a1 + 128);
-      *&v41[4] = *(a1 + 132);
-      v42 = *(a1 + 148);
-      if (DWORD1(v38) == 1)
-      {
-        v23 = 0;
-      }
-
-      else
-      {
-        v23 = &v38;
-      }
-    }
-
-    else
-    {
-      v23 = 0;
-    }
-
-    if (GN_SUPL_AidRequest_In(*(a1 + 76), a1 + 16, v23))
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v24 = mach_continuous_time();
-        v25 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_AidRequest_In call successful,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v24), "LSM", 68, "lsim05_21HandleAidStatusCnf", *(a1 + 76));
-        LbsOsaTrace_WriteLog(0xCu, __str, v25, 5, 1);
-      }
-
-      GN_SUPL_Handler();
-    }
-
-    else if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v26 = mach_continuous_time();
-      v27 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_AidRequest_In call failed,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v26), "LSM", 87, "lsim05_21HandleAidStatusCnf", *(a1 + 76));
-      LbsOsaTrace_WriteLog(0xCu, __str, v27, 2, 1);
-    }
-  }
-
-  v28 = *(a1 + 24);
-  if (v28)
-  {
-    free(v28);
-  }
-
-  *(a1 + 24) = 0;
-  v29 = *(a1 + 32);
-  if (v29)
-  {
-    free(v29);
-  }
-
-  *(a1 + 32) = 0;
-  v30 = *(a1 + 40);
-  if (v30)
-  {
-    free(v30);
-  }
-
-  *(a1 + 40) = 0;
-  v31 = *(a1 + 48);
-  if (v31)
-  {
-    free(v31);
-  }
-
-  *(a1 + 48) = 0;
-  v32 = *(a1 + 56);
-  if (v32)
-  {
-    free(v32);
-  }
-
-  *(a1 + 56) = 0;
-  v33 = *(a1 + 64);
-  if (v33)
-  {
-    free(v33);
-  }
-
-  *(a1 + 64) = 0;
-LABEL_59:
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v34 = mach_continuous_time();
-    v35 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v34), "LSM", 73, "lsim05_21HandleAidStatusCnf");
-    LbsOsaTrace_WriteLog(0xCu, __str, v35, 4, 1);
-  }
-
-  v36 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t lsim05_22HandleSuplInit(uint64_t a1)
-{
-  v42 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim05_22HandleSuplInit");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNS_LSIM_SUPL_INIT_IND\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_22HandleSuplInit");
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Length,%u,pointer,%p\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "lsim05_22HandleSuplInit", *(a1 + 12), *(a1 + 16));
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (g_GnsDcCallback)
-  {
-    if ((byte_2A1920A81 & 1) == 0)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v16 = mach_continuous_time();
-        v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SimsInfo\n", (*&g_MacClockTicksToMsRelation * v16), "LSM", 87, "lsim05_22HandleSuplInit", 769);
-        LbsOsaTrace_WriteLog(0xCu, __str, v17, 2, 1);
-      }
-
-      lsim09_04SendConnApiStatus(-1, 0, 0);
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-        goto LABEL_48;
-      }
-
-      goto LABEL_49;
-    }
-
-    v8 = *(a1 + 12);
-    v9 = *(a1 + 16);
-    v10 = *(a1 + 24);
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v11 = mach_continuous_time();
-      v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 73, "lsim05_09SuplInitReq");
-      LbsOsaTrace_WriteLog(0xCu, __str, v12, 4, 1);
-    }
-
-    if (byte_2A18CCB41)
-    {
-      if (byte_2A18CCC69 == 1)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          mach_continuous_time();
-          v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n");
-LABEL_35:
-          LbsOsaTrace_WriteLog(0xCu, __str, v13, 2, 1);
-          goto LABEL_39;
-        }
-
-        goto LABEL_39;
-      }
-
-      v18 = 1;
-    }
-
-    else
-    {
-      v18 = 0;
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v19 = mach_continuous_time();
-      v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplInstanceIndex,%u\n", (*&g_MacClockTicksToMsRelation * v19), "LSM", 68, "lsim05_09SuplInitReq", v18);
-      LbsOsaTrace_WriteLog(0xCu, __str, v20, 5, 1);
-    }
-
-    if ((~dword_2A18CCEB4 & 0x88) != 0)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        mach_continuous_time();
-        v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SUPL or SUPLNI\n");
-        goto LABEL_35;
-      }
-    }
-
-    else
-    {
-      v21 = &g_SuplInstance + 296 * v18;
-      *(v21 + 281) = 1;
-      *(v21 + 71) = 2;
-      ++g_SuplInstanceCount;
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v22 = mach_continuous_time();
-        v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplInstanceCount,%u\n", (*&g_MacClockTicksToMsRelation * v22), "LSM", 68, "lsim05_09SuplInitReq", g_SuplInstanceCount);
-        LbsOsaTrace_WriteLog(0xCu, __str, v23, 5, 1);
-      }
-
-      if (GN_SUPL_Push_Delivery_In(&g_SuplInstance + 74 * v18, v8, v9, v10))
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v24 = mach_continuous_time();
-          v25 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_Push_Delivery_In successful\n", (*&g_MacClockTicksToMsRelation * v24), "LSM", 68, "lsim05_09SuplInitReq");
-          LbsOsaTrace_WriteLog(0xCu, __str, v25, 5, 1);
-        }
-
-        GN_SUPL_Handler();
-        v26 = *v21;
-        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v27 = mach_continuous_time();
-          v28 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v27), "LSM", 73, "lsim05_09SuplInitReq");
-          v29 = 1;
-          LbsOsaTrace_WriteLog(0xCu, __str, v28, 4, 1);
-        }
-
-        else
-        {
-          v29 = 1;
-        }
-
-        goto LABEL_44;
-      }
-
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v30 = mach_continuous_time();
-        v31 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_Push_Delivery_In Failed\n", (*&g_MacClockTicksToMsRelation * v30), "LSM", 87, "lsim05_09SuplInitReq");
-        LbsOsaTrace_WriteLog(0xCu, __str, v31, 2, 1);
-      }
-
-      lsim05_34DeleteSuplContext(v18);
-    }
-
-LABEL_39:
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v32 = mach_continuous_time();
-      v33 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v32), "LSM", 73, "lsim05_09SuplInitReq");
-      LbsOsaTrace_WriteLog(0xCu, __str, v33, 4, 1);
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v34 = mach_continuous_time();
-      v35 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SUPLINIT Rejected\n", (*&g_MacClockTicksToMsRelation * v34), "LSM", 87, "lsim05_22HandleSuplInit");
-      LbsOsaTrace_WriteLog(0xCu, __str, v35, 2, 1);
-    }
-
-    v29 = 0;
-    v26 = -1;
-LABEL_44:
-    lsim09_04SendConnApiStatus(v26, v29, 0);
-    v36 = *(a1 + 16);
-    if (v36)
-    {
-      free(v36);
-    }
-
-    *(a1 + 16) = 0;
-    goto LABEL_47;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v14 = mach_continuous_time();
-    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx DataConn\n", (*&g_MacClockTicksToMsRelation * v14), "LSM", 87, "lsim05_22HandleSuplInit", 258);
-    LbsOsaTrace_WriteLog(0xCu, __str, v15, 2, 1);
-  }
-
-LABEL_47:
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-LABEL_48:
-    bzero(__str, 0x410uLL);
-    v37 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    v38 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v37, "LSM", 73, "lsim05_22HandleSuplInit");
-    LbsOsaTrace_WriteLog(0xCu, __str, v38, 4, 1);
-  }
-
-LABEL_49:
-  v39 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t lsim05_23ReceiveDataInd(uint64_t a1)
-{
-  v27 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim05_23ReceiveDataInd");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNS_LSIM_RECEIVE_DATA_IND,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_23ReceiveDataInd", *(a1 + 12));
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (g_GnsDcCallback)
-  {
-    v6 = 0;
-    v7 = *(a1 + 12);
-    v8 = 1;
-    while (1)
-    {
-      v9 = v8;
-      v10 = (&g_SuplInstance + 296 * v6);
-      if (*v10 == v7 && v10[2] == 3 && (*(v10 + 281) & 1) != 0)
-      {
-        break;
-      }
-
-      v8 = 0;
-      v6 = 1;
-      if ((v9 & 1) == 0)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v11 = mach_continuous_time();
-          v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 87, "lsim05_23ReceiveDataInd", 2052, *(a1 + 12));
-          LbsOsaTrace_WriteLog(0xCu, __str, v12, 2, 1);
-        }
-
-        v13 = 4;
-        goto LABEL_14;
-      }
-    }
-
-    if (GN_SUPL_PDU_Delivery_In(v7, *(a1 + 16), *(a1 + 24)))
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v21 = mach_continuous_time();
-        v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_PDU_Delivery_In Successful,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v21), "LSM", 68, "lsim05_23ReceiveDataInd", *v10);
-        LbsOsaTrace_WriteLog(0xCu, __str, v22, 5, 1);
-      }
-
-      GN_SUPL_Handler();
-      v13 = 1;
-    }
-
-    else
-    {
-      IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0);
-      v13 = 0;
-      if (IsLoggingAllowed)
-      {
-        bzero(__str, 0x410uLL);
-        v24 = mach_continuous_time();
-        v25 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_PDU_Delivery_In Failed,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v24), "LSM", 87, "lsim05_23ReceiveDataInd", *v10);
-        LbsOsaTrace_WriteLog(0xCu, __str, v25, 2, 1);
-        v13 = 0;
-      }
-    }
-
-LABEL_14:
-    lsim09_04SendConnApiStatus(*(a1 + 12), v13, 1);
-    v14 = *(a1 + 24);
-    if (v14)
-    {
-      free(v14);
-    }
-
-    *(a1 + 24) = 0;
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v15 = mach_continuous_time();
-    v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx DataConn,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v15), "LSM", 87, "lsim05_23ReceiveDataInd", 258, *(a1 + 12));
-    LbsOsaTrace_WriteLog(0xCu, __str, v16, 2, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v17 = mach_continuous_time();
-    v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v17), "LSM", 73, "lsim05_23ReceiveDataInd");
-    LbsOsaTrace_WriteLog(0xCu, __str, v18, 4, 1);
-  }
-
-  v19 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t lsim05_24HandleSuplAbort(uint64_t a1)
-{
-  v27 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim05_24HandleSuplAbort");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNS_LSIM_SUPL_ABORT_REQ,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_24HandleSuplAbort", *(a1 + 12));
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (!g_GnsSuplCallback)
-  {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      goto LABEL_24;
-    }
-
-    bzero(__str, 0x410uLL);
-    v14 = mach_continuous_time();
-    v25 = *(a1 + 12);
-    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Supl,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v14));
-LABEL_23:
-    LbsOsaTrace_WriteLog(0xCu, __str, v15, 2, 1);
-    goto LABEL_24;
-  }
-
-  v6 = 0;
-  v7 = *(a1 + 12);
-  v8 = 1;
-  do
-  {
-    v9 = v8;
-    v10 = &g_SuplInstance + 296 * v6;
-    if (*v10 == v7 && (v10[281] & 1) != 0)
-    {
-      GN_SUPL_Abort(v7, 255);
-      GN_SUPL_Handler();
-      v13 = 1;
-      goto LABEL_16;
-    }
-
-    v8 = 0;
-    v6 = 1;
-  }
-
-  while ((v9 & 1) != 0);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v11 = mach_continuous_time();
-    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 87, "lsim05_24HandleSuplAbort", 2052, *(a1 + 12));
-    LbsOsaTrace_WriteLog(0xCu, __str, v12, 2, 1);
-  }
-
-  v13 = 4;
-LABEL_16:
-  if (!g_GnsSuplCallback)
-  {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      goto LABEL_24;
-    }
-
-    bzero(__str, 0x410uLL);
-    mach_continuous_time();
-    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SUPL\n");
-    goto LABEL_23;
-  }
-
-  v16 = *(a1 + 12);
-  v17 = gnssOsa_Calloc("lsim05_12SendSuplApiStatus", 397, 1, 0x348uLL);
-  if (v17)
-  {
-    v18 = v17;
-    v17[1] = 1;
-    v17[2] = v13;
-    *v17 = v16;
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v19 = mach_continuous_time();
-      v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:API_STATUS =>SuplCB,Api,%u,Status,%u,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v19), "LSM", 73, "lsim05_12SendSuplApiStatus", 1, v13, v16);
-      LbsOsaTrace_WriteLog(0xCu, __str, v20, 4, 1);
-    }
-
-    g_GnsSuplCallback(3, 840, v18);
-    free(v18);
-  }
-
-LABEL_24:
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v21 = mach_continuous_time();
-    v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v21), "LSM", 73, "lsim05_24HandleSuplAbort");
-    LbsOsaTrace_WriteLog(0xCu, __str, v22, 4, 1);
-  }
-
-  v23 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t lsim05_25HandleSuplSumRep(void *a1)
-{
-  v21 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim05_25HandleSuplSumRep");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNS_LSIM_SUPL_SUMM_REP,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_25HandleSuplSumRep", *(a1 + 4));
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (!g_GnsSuplCallback)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v12 = mach_continuous_time();
-      v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SUPL\n", (*&g_MacClockTicksToMsRelation * v12), "LSM", 87, "lsim05_25HandleSuplSumRep", 258);
-      LbsOsaTrace_WriteLog(0xCu, __str, v13, 2, 1);
-    }
-
-LABEL_17:
-    v14 = a1[3];
-    if (v14)
-    {
-      free(v14);
-    }
-
-    a1[3] = 0;
-    v15 = a1[4];
-    if (v15)
-    {
-      free(v15);
-    }
-
-    a1[4] = 0;
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      goto LABEL_22;
-    }
-
-    goto LABEL_23;
-  }
-
-  v6 = gnssOsa_Calloc("lsim05_25HandleSuplSumRep", 766, 1, 0x348uLL);
-  if (!v6)
-  {
-    goto LABEL_17;
-  }
-
-  v7 = v6;
-  memcpy_s("lsim05_25HandleSuplSumRep", 777, v6, 0x28u, a1 + 2, 0x28uLL);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:SUMM_REP =>SuplCB,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "lsim05_25HandleSuplSumRep", *v7);
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-  }
-
-  g_GnsSuplCallback(4, 840, v7);
-  v10 = a1[3];
-  if (v10)
-  {
-    free(v10);
-  }
-
-  a1[3] = 0;
-  v11 = a1[4];
-  if (v11)
-  {
-    free(v11);
-  }
-
-  a1[4] = 0;
-  free(v7);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-LABEL_22:
-    bzero(__str, 0x410uLL);
-    v16 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v16, "LSM", 73, "lsim05_25HandleSuplSumRep");
-    LbsOsaTrace_WriteLog(0xCu, __str, v17, 4, 1);
-  }
-
-LABEL_23:
-  v18 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t lsim05_26HandleSuplStatRep(uint64_t a1)
-{
-  v19 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim05_26HandleSuplStatRep");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNS_LSIM_SUPL_STAT_REP,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_26HandleSuplStatRep", *(a1 + 16));
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (!g_GnsSuplCallback)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v11 = mach_continuous_time();
-      v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SUPL\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 87, "lsim05_26HandleSuplStatRep", 258);
-      LbsOsaTrace_WriteLog(0xCu, __str, v12, 2, 1);
-    }
-
-LABEL_15:
-    v13 = *(a1 + 24);
-    if (v13)
-    {
-      free(v13);
-    }
-
-    *(a1 + 24) = 0;
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      goto LABEL_18;
-    }
-
-    goto LABEL_19;
-  }
-
-  v6 = gnssOsa_Calloc("lsim05_26HandleSuplStatRep", 812, 1, 0x348uLL);
-  if (!v6)
-  {
-    goto LABEL_15;
-  }
-
-  v7 = v6;
-  memcpy_s("lsim05_26HandleSuplStatRep", 822, v6, 0x38u, (a1 + 16), 0x38uLL);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:EVNT_INF =>SuplCB,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "lsim05_26HandleSuplStatRep", *v7);
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-  }
-
-  g_GnsSuplCallback(1, 840, v7);
-  v10 = *(a1 + 24);
-  if (v10)
-  {
-    free(v10);
-  }
-
-  *(a1 + 24) = 0;
-  free(v7);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-LABEL_18:
-    bzero(__str, 0x410uLL);
-    v14 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v14, "LSM", 73, "lsim05_26HandleSuplStatRep");
-    LbsOsaTrace_WriteLog(0xCu, __str, v15, 4, 1);
-  }
-
-LABEL_19:
-  v16 = *MEMORY[0x29EDCA608];
-  return 0;
-}
-
-uint64_t lsim05_31InitSupl(void)
-{
-  v15 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v0 = mach_continuous_time();
-    v1 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v0), "LSM", 73, "lsim05_31InitSupl");
-    LbsOsaTrace_WriteLog(0xCu, __str, v1, 4, 1);
-  }
-
-  GN_SUPL_Handler_Init();
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim05_01InitSuplConfig");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  v4 = 0;
-  v5 = 1;
-  do
-  {
-    v6 = &g_SuplInstance + 296 * v4;
-    *(v6 + 281) = 0;
-    *v6 = -1;
-    v7 = v5;
-    *(v6 + 2) = 0;
-    *(v6 + 139) = 0;
-    *(v6 + 68) = 0;
-    memset_s(v6 + 13, 0x100uLL, 0, 0x100uLL);
-    v5 = 0;
-    v6[280] = 0;
-    *(v6 + 284) = 0;
-    v6[292] = 0;
-    v4 = 1;
-  }
-
-  while ((v7 & 1) != 0);
-  g_SuplInstanceCount = 0;
-  memset_s(&g_LsimUserConfig, 0x244uLL, 0, 0x244uLL);
-  dword_2A18CCEAC = 2;
-  lsim13_02SuplConfig();
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "lsim05_01InitSuplConfig");
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-  }
-
-  result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v11 = mach_continuous_time();
-    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 73, "lsim05_31InitSupl");
-    result = LbsOsaTrace_WriteLog(0xCu, __str, v12, 4, 1);
-  }
-
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t lsim05_32DeInitSupl(void)
-{
-  v7 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v0 = mach_continuous_time();
-    v1 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v0), "LSM", 73, "lsim05_32DeInitSupl");
-    LbsOsaTrace_WriteLog(0xCu, __str, v1, 4, 1);
-  }
-
-  lsim05_43CloseOtherPospSessions(255, 0);
-  lsim05_42CloseSuplSessions(255, 1);
-  lsim09_50ConnMgmtDeInit();
-  g_GnsPospCallback = 0;
-  g_GnsPpduCallback = 0;
-  g_GnsSuplCallback = 0;
-  result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v3 = mach_continuous_time();
-    v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v3), "LSM", 73, "lsim05_32DeInitSupl");
-    result = LbsOsaTrace_WriteLog(0xCu, __str, v4, 4, 1);
-  }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t lsim05_43CloseOtherPospSessions(int a1, _DWORD *a2)
-{
-  v19 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_43CloseOtherPospSessions");
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (a1 == 4 || a1 == 255)
-  {
-    v6 = 0;
-    v7 = 1;
-    do
-    {
-      v8 = v7;
-      if (!a2 || *a2 != v6)
-      {
-        v17 = 0;
-        *__str = -1;
-        v16 = 0;
-        if (lsim11_05GnmGetSessionInfo(v6, __str, &v16, &v17 + 1, 0, &v17))
-        {
-          if ((v17 & 1) == 0 && ((a1 != 255) & HIBYTE(v17)) == 0)
-          {
-            if ((v16 & 0xFFFFFFFE) == 2)
-            {
-              lsim03_18GnssPosnResultInd(*__str, 0, 3);
-            }
-
-            else if (v16 == 1)
-            {
-              lsim03_17GnssMeasResultInd(*__str, 0, 3);
-            }
-
-            lsim03_16AbortInd(*__str, 3, 0);
-            lsim11_04GnmResetSession(v6);
-          }
-        }
-      }
-
-      v7 = 0;
-      v6 = 1;
-    }
-
-    while ((v8 & 1) != 0);
-    result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v10 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-      v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v10, "LSM", 73, "lsim05_43CloseOtherPospSessions");
-LABEL_23:
-      result = LbsOsaTrace_WriteLog(0xCu, __str, v11, 4, 1);
-    }
-  }
-
-  else
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v12 = mach_continuous_time();
-      v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Category,%u\n", (*&g_MacClockTicksToMsRelation * v12), "LSM", 73, "lsim05_43CloseOtherPospSessions", 515, a1);
-      LbsOsaTrace_WriteLog(0xCu, __str, v13, 4, 1);
-    }
-
-    result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v14 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-      v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v14, "LSM", 73, "lsim05_43CloseOtherPospSessions");
-      goto LABEL_23;
-    }
-  }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t lsim05_42CloseSuplSessions(int a1, int a2)
-{
-  v23 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_42CloseSuplSessions");
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (g_SuplInstanceCount)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: CategMask,%X,DeInitSupl,%u\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "lsim05_42CloseSuplSessions", a1, a2);
-      LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-    }
-
-    v8 = 0;
-    if (a1 == 255)
-    {
-      v9 = -1;
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-
-    if (a1 == 255)
-    {
-      v10 = -1;
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-
-    if ((a1 & 5) != 0)
-    {
-      v9 = v10;
-    }
-
-    v11 = a1 & 2;
-    if ((a1 & 8) != 0)
-    {
-      v11 = 2;
-    }
-
-    v12 = (v9 | v11);
-    v13 = 1;
-    do
-    {
-      v14 = v13;
-      v15 = (&g_SuplInstance + 296 * v8);
-      if (*(v15 + 281) == 1 && ((a1 & 0xC) != 0 || v15[71] != 1))
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v16 = mach_continuous_time();
-          v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Aborting SuplHandle,%u,Mask,%X\n", (*&g_MacClockTicksToMsRelation * v16), "LSM", 73, "lsim05_42CloseSuplSessions", *v15, v12);
-          LbsOsaTrace_WriteLog(0xCu, __str, v17, 4, 1);
-        }
-
-        GN_SUPL_Abort(*v15, v12);
-      }
-
-      v13 = 0;
-      v8 = 1;
-    }
-
-    while ((v14 & 1) != 0);
-    GN_SUPL_Handler();
-  }
-
-  if (a1 == 255 && a2)
-  {
-    GN_SUPL_Handler_DeInit();
-  }
-
-  result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v19 = mach_continuous_time();
-    v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v19), "LSM", 73, "lsim05_42CloseSuplSessions");
-    result = LbsOsaTrace_WriteLog(0xCu, __str, v20, 4, 1);
-  }
-
-  v21 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t lsim05_34DeleteSuplContext(unsigned int a1)
-{
-  v15 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim05_34DeleteSuplContext");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = a1;
-    v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_34DeleteSuplContext", *(&g_SuplInstance + 74 * a1));
+    v5 = mach_continuous_time();
+    v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v5), "LSM", 73, "lsim12_00TimersInit");
     LbsOsaTrace_WriteLog(0xCu, __str, v6, 4, 1);
   }
 
-  else
-  {
-    v5 = a1;
-  }
-
-  v7 = &g_SuplInstance + 296 * v5;
-  if (v7[281] == 1)
-  {
-    v7[282] = 0;
-    *(v7 + 2) = 0;
-    *v7 = -1;
-    *(v7 + 278) = 7275;
-    *(v7 + 68) = 0;
-    *(v7 + 284) = 0;
-    memset_s(v7 + 13, 0x100uLL, 0, 0x100uLL);
-    if (g_SuplInstanceCount)
-    {
-      --g_SuplInstanceCount;
-    }
-
-    else if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v8 = mach_continuous_time();
-      v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplInstanceCount Mismatch\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 87, "lsim05_34DeleteSuplContext");
-      LbsOsaTrace_WriteLog(0xCu, __str, v9, 2, 1);
-    }
-  }
-
-  result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v11 = mach_continuous_time();
-    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 73, "lsim05_34DeleteSuplContext");
-    result = LbsOsaTrace_WriteLog(0xCu, __str, v12, 4, 1);
-  }
-
-  v13 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t lsim05_37FillSuplLocIdFromLsimLocId(int *a1, int a2, int a3)
-{
-  v48 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "lsim05_37FillSuplLocIdFromLsimLocId");
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (!a1)
-  {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      goto LABEL_11;
-    }
-
-    bzero(__str, 0x410uLL);
-    mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n");
-    goto LABEL_10;
-  }
-
-  memset_s(a1, 0x184CuLL, 0, 0x184CuLL);
-  if (a3)
-  {
-    if (a3 != 1)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v10 = mach_continuous_time();
-        v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx MobInfoType,%u\n", (*&g_MacClockTicksToMsRelation * v10), "LSM", 87, "lsim05_37FillSuplLocIdFromLsimLocId", 515, a3);
-        LbsOsaTrace_WriteLog(0xCu, __str, v11, 2, 1);
-      }
-
-      if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-        goto LABEL_18;
-      }
-
-      goto LABEL_17;
-    }
-
-    if (*qword_2A1926810 == a2)
-    {
-      v8 = 0;
-    }
-
-    else
-    {
-      if (*(qword_2A1926810 + 6220) != a2)
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v46 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-          v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SimId,%d\n", v46);
-LABEL_10:
-          LbsOsaTrace_WriteLog(0xCu, __str, v9, 2, 1);
-        }
-
-LABEL_11:
-        if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-        {
-LABEL_18:
-          v14 = 0;
-          goto LABEL_19;
-        }
-
-LABEL_17:
-        bzero(__str, 0x410uLL);
-        v12 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-        v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v12, "LSM", 73, "lsim05_37FillSuplLocIdFromLsimLocId");
-        LbsOsaTrace_WriteLog(0xCu, __str, v13, 4, 1);
-        goto LABEL_18;
-      }
-
-      v8 = 1;
-    }
-
-    v17 = qword_2A1926810 + 6220 * v8;
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v18 = mach_continuous_time();
-      v19 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v18), "LSM", 73, "lsim05_07FillSuplLocIdCellularNwInfo");
-      LbsOsaTrace_WriteLog(0xCu, __str, v19, 4, 1);
-    }
-
-    v20 = *(v17 + 8);
-    if (v20 == 1)
-    {
-      v21 = 1;
-    }
-
-    else
-    {
-      v21 = 2 * (v20 == 2);
-    }
-
-    *a1 = v21;
-    v22 = *(v17 + 4);
-    if (v22 > 2)
-    {
-      if (v22 == 3)
-      {
-        a1[1] = 3;
-        v23 = a1 + 3;
-        v24 = (v17 + 12);
-        v25 = 6208;
-        goto LABEL_44;
-      }
-
-      if (v22 == 4)
-      {
-        a1[1] = 5;
-        v26 = *(v17 + 12);
-        v27 = *(v17 + 28);
-        v28 = *(v17 + 44);
-        *(a1 + 15) = *(v17 + 60);
-        *(a1 + 11) = v28;
-        *(a1 + 7) = v27;
-        *(a1 + 3) = v26;
-        v29 = *(v17 + 76);
-        v30 = *(v17 + 92);
-        v31 = *(v17 + 108);
-        *(a1 + 31) = *(v17 + 124);
-        *(a1 + 27) = v31;
-        *(a1 + 23) = v30;
-        *(a1 + 19) = v29;
-        v32 = *(v17 + 140);
-        v33 = *(v17 + 156);
-        v34 = *(v17 + 172);
-        *(a1 + 46) = *(v17 + 184);
-        *(a1 + 43) = v34;
-        *(a1 + 39) = v33;
-        *(a1 + 35) = v32;
-        goto LABEL_45;
-      }
-    }
-
-    else
-    {
-      if (v22 == 1)
-      {
-        a1[1] = 1;
-        *(a1 + 3) = *(v17 + 12);
-        v39 = *(v17 + 28);
-        v40 = *(v17 + 44);
-        v41 = *(v17 + 60);
-        *(a1 + 18) = *(v17 + 72);
-        *(a1 + 15) = v41;
-        *(a1 + 11) = v40;
-        *(a1 + 7) = v39;
-        goto LABEL_45;
-      }
-
-      if (v22 == 2)
-      {
-        a1[1] = 2;
-        v23 = a1 + 3;
-        v24 = (v17 + 12);
-        v25 = 3156;
-LABEL_44:
-        memcpy(v23, v24, v25);
-LABEL_45:
-        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v42 = mach_continuous_time();
-          v43 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v42), "LSM", 73, "lsim05_07FillSuplLocIdCellularNwInfo");
-          LbsOsaTrace_WriteLog(0xCu, __str, v43, 4, 1);
-        }
-
-        goto LABEL_47;
-      }
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v35 = mach_continuous_time();
-      v36 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx CellInfoType,%u\n", (*&g_MacClockTicksToMsRelation * v35), "LSM", 73, "lsim05_07FillSuplLocIdCellularNwInfo", 515, *(v17 + 4));
-      LbsOsaTrace_WriteLog(0xCu, __str, v36, 4, 1);
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v37 = mach_continuous_time();
-      v38 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v37), "LSM", 73, "lsim05_07FillSuplLocIdCellularNwInfo");
-      LbsOsaTrace_WriteLog(0xCu, __str, v38, 4, 1);
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      mach_continuous_time();
-      v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx CellInfo\n");
-      goto LABEL_10;
-    }
-
-    goto LABEL_11;
-  }
-
-  *a1 = 0;
-  LOBYTE(a2) = -1;
-LABEL_47:
-  *(a1 + 8) = a2;
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v44 = mach_continuous_time();
-    v45 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v44), "LSM", 73, "lsim05_37FillSuplLocIdFromLsimLocId");
-    v14 = 1;
-    LbsOsaTrace_WriteLog(0xCu, __str, v45, 4, 1);
-  }
-
-  else
-  {
-    v14 = 1;
-  }
-
-LABEL_19:
-  v15 = *MEMORY[0x29EDCA608];
-  return v14;
-}
-
-uint64_t lsim05_40SuplTimerExpiry(int a1, int a2)
-{
-  v17 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim05_40SuplTimerExpiry");
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: TimerID,%u,Type,%u\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "lsim05_40SuplTimerExpiry", a1, a2);
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (a2 == 4)
-  {
-    v8 = a1;
-    v9 = 1;
-  }
-
-  else
-  {
-    if (a2 != 3)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v11 = mach_continuous_time();
-        v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx TimerType,%u\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 87, "lsim05_40SuplTimerExpiry", 515, a2);
-        LbsOsaTrace_WriteLog(0xCu, __str, v12, 2, 1);
-      }
-
-      result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-      if (result)
-      {
-        goto LABEL_14;
-      }
-
-      goto LABEL_15;
-    }
-
-    v8 = a1;
-    v9 = 0;
-  }
-
-  Trace_GN_SUPL_TimerExpiry_In(v8, v9);
-  SUPL_indicate_trigger_UT_expiry(a1);
-  GN_SUPL_Handler();
-  result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-  if (result)
-  {
-LABEL_14:
-    bzero(__str, 0x410uLL);
-    v13 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v13, "LSM", 73, "lsim05_40SuplTimerExpiry");
-    result = LbsOsaTrace_WriteLog(0xCu, __str, v14, 4, 1);
-  }
-
-LABEL_15:
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t lsim10_05AidStatusTimerExpiry(unsigned int a1, int a2)
-{
-  v20 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim10_05AidStatusTimerExpiry");
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (a1 <= 1 && (v6 = (&g_SuplInstance + 296 * a1), (*(v6 + 281) & 1) != 0))
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v7 = mach_continuous_time();
-      v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v7), "LSM", 73, "lsim10_05AidStatusTimerExpiry", *v6);
-      LbsOsaTrace_WriteLog(0xCu, __str, v8, 4, 1);
-    }
-
-    if (a2 == 5 && *(v6 + 282) == 1)
-    {
-      *(v6 + 282) = 0;
-      if (GN_SUPL_AidRequest_In(*v6, 0, 0))
-      {
-        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5, 0, 0))
-        {
-          bzero(__str, 0x410uLL);
-          v9 = mach_continuous_time();
-          v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_AidRequest_In successful,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v9), "LSM", 68, "lsim10_05AidStatusTimerExpiry", *v6);
-          LbsOsaTrace_WriteLog(0xCu, __str, v10, 5, 1);
-        }
-
-        GN_SUPL_Handler();
-      }
-
-      else if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v14 = mach_continuous_time();
-        v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_AidRequest_In failed,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v14), "LSM", 87, "lsim10_05AidStatusTimerExpiry", *v6);
-        LbsOsaTrace_WriteLog(0xCu, __str, v15, 2, 1);
-      }
-    }
-
-    result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-    if (result)
-    {
-LABEL_20:
-      bzero(__str, 0x410uLL);
-      v16 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-      v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v16, "LSM", 73, "lsim10_05AidStatusTimerExpiry");
-      result = LbsOsaTrace_WriteLog(0xCu, __str, v17, 4, 1);
-    }
-  }
-
-  else
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v11 = mach_continuous_time();
-      v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplInstanceIndex,%u\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 73, "lsim10_05AidStatusTimerExpiry", 2052, a1);
-      LbsOsaTrace_WriteLog(0xCu, __str, v12, 4, 1);
-    }
-
-    result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-    if (result)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t lsim05_45SuplCbInit(uint64_t result)
-{
-  v1 = result;
-  v8 = *MEMORY[0x29EDCA608];
-  if (result)
-  {
-LABEL_2:
-    g_GnsSuplCallback = v1;
-    goto LABEL_3;
-  }
-
-  if (g_GnsSuplCallback)
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v3 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx DeRegistering\n", (*&g_MacClockTicksToMsRelation * v3), "LSM", 73, "lsim05_45SuplCbInit", 513);
-      result = LbsOsaTrace_WriteLog(0xCu, __str, v4, 4, 1);
-    }
-
-    goto LABEL_2;
-  }
-
-  result = LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v5 = mach_continuous_time();
-    v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx CbPtr\n", (*&g_MacClockTicksToMsRelation * v5), "LSM", 87, "lsim05_45SuplCbInit", 513);
-    result = LbsOsaTrace_WriteLog(0xCu, __str, v6, 2, 1);
-  }
-
-LABEL_3:
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t lsim05_46PospCbInit(uint64_t result)
-{
-  v1 = result;
-  v8 = *MEMORY[0x29EDCA608];
-  if (result)
-  {
-LABEL_2:
-    g_GnsPospCallback = v1;
-    goto LABEL_3;
-  }
-
-  if (g_GnsPospCallback)
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-    if (result)
-    {
-      bzero(__str, 0x410uLL);
-      v3 = mach_continuous_time();
-      v4 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx DeRegistering\n", (*&g_MacClockTicksToMsRelation * v3), "LSM", 73, "lsim05_46PospCbInit", 513);
-      result = LbsOsaTrace_WriteLog(0xCu, __str, v4, 4, 1);
-    }
-
-    goto LABEL_2;
-  }
-
-  result = LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v5 = mach_continuous_time();
-    v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx CbPtr\n", (*&g_MacClockTicksToMsRelation * v5), "LSM", 87, "lsim05_46PospCbInit", 513);
-    result = LbsOsaTrace_WriteLog(0xCu, __str, v6, 2, 1);
-  }
-
-LABEL_3:
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t GN_SUPL_Connect_Req_Out(uint64_t a1, unsigned __int8 *a2)
-{
-  v32 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "GN_SUPL_Connect_Req_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (a2)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v6 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
-      v7 = 78;
-      if (a2[268])
-      {
-        v7 = 89;
-      }
-
-      v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u,AddrType,%u,Addr,%s,Port,%dEmerPdn,%c,SimId,%u\n", v6, "LSM", 73, "GN_SUPL_Connect_Req_Out", a1, *(a2 + 65), a2 + 1, *(a2 + 133), v7, *a2);
-      LbsOsaTrace_WriteLog(0xCu, __str, v8, 4, 1);
-    }
-
-    v9 = 0;
-    v10 = 1;
-    while (1)
-    {
-      v11 = v10;
-      v12 = &g_SuplInstance + 296 * v9;
-      if (*v12 == a1 && (v12[281] & 1) != 0)
-      {
-        break;
-      }
-
-      v10 = 0;
-      v9 = 1;
-      if ((v11 & 1) == 0)
-      {
-        if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-        {
-          goto LABEL_18;
-        }
-
-        bzero(__str, 0x410uLL);
-        v27 = 2052;
-        v28 = a1;
-        v26 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-        v13 = "%10u %s%c %s: #%04hx SuplHandle,%u\n";
-        goto LABEL_16;
-      }
-    }
-
-    v20 = *(a2 + 65);
-    if ((v20 - 1) <= 2)
-    {
-      *(v12 + 68) = v20;
-      memset_s(v12 + 13, 0x100uLL, 0, 0x100uLL);
-      strncpy(v12 + 13, a2 + 1, 0x100uLL);
-      *(v12 + 139) = *(a2 + 133);
-      v12[12] = *a2;
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v21 = mach_continuous_time();
-        v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u,SuplInstanceIndex,%u,Addr,%s\n", (*&g_MacClockTicksToMsRelation * v21), "LSM", 73, "GN_SUPL_Connect_Req_Out", *v12, v9, v12 + 13);
-        LbsOsaTrace_WriteLog(0xCu, __str, v22, 4, 1);
-      }
-
-      lsim09_32ConnectSUPLSession(v9);
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v23 = mach_continuous_time();
-        v24 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v23), "LSM", 73, "GN_SUPL_Connect_Req_Out");
-        v17 = 1;
-        LbsOsaTrace_WriteLog(0xCu, __str, v24, 4, 1);
-      }
-
-      else
-      {
-        v17 = 1;
-      }
-
-      goto LABEL_21;
-    }
-
-    *(&g_SuplInstance + 74 * v9 + 68) = 0;
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      goto LABEL_18;
-    }
-
-    bzero(__str, 0x410uLL);
-    v25 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    v29 = *(a2 + 65);
-    v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SlpIpType,%u,SuplHandle,%u\n", v25);
-LABEL_17:
-    LbsOsaTrace_WriteLog(0xCu, __str, v14, 2, 1);
-    goto LABEL_18;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v27 = 513;
-    v26 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    v13 = "%10u %s%c %s: #%04hx ConnReqParams\n";
-LABEL_16:
-    v14 = snprintf(__str, 0x40FuLL, v13, v26, "LSM", 87, "GN_SUPL_Connect_Req_Out", v27, v28, v30);
-    goto LABEL_17;
-  }
-
-LABEL_18:
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v15 = mach_continuous_time();
-    v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v15), "LSM", 73, "GN_SUPL_Connect_Req_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v16, 4, 1);
-  }
-
-  v17 = 0;
-LABEL_21:
-  v18 = *MEMORY[0x29EDCA608];
-  return v17;
-}
-
-uint64_t GN_SUPL_Disconnect_Req_Out(int a1)
-{
-  v22 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "GN_SUPL_Disconnect_Req_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "GN_SUPL_Disconnect_Req_Out", a1);
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  v6 = 0;
-  v7 = 1;
-  while (1)
-  {
-    v8 = v7;
-    v9 = &g_SuplInstance + 296 * v6;
-    if (*v9 == a1 && (v9[281] & 1) != 0)
-    {
-      break;
-    }
-
-    v7 = 0;
-    v6 = 1;
-    if ((v8 & 1) == 0)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v10 = mach_continuous_time();
-        v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v10), "LSM", 87, "GN_SUPL_Disconnect_Req_Out", 2052, a1);
-        LbsOsaTrace_WriteLog(0xCu, __str, v11, 2, 1);
-      }
-
-      GN_SUPL_Disconnect_Ind_In(a1, 1);
-LABEL_12:
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v12 = mach_continuous_time();
-        v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v12), "LSM", 73, "GN_SUPL_Disconnect_Req_Out");
-        LbsOsaTrace_WriteLog(0xCu, __str, v13, 4, 1);
-      }
-
-      v14 = 0;
-      goto LABEL_15;
-    }
-  }
-
-  if (!*(v9 + 2))
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v19 = mach_continuous_time();
-      v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u,SuplInstanceIndex,%u\n", (*&g_MacClockTicksToMsRelation * v19), "LSM", 87, "GN_SUPL_Disconnect_Req_Out", 770, a1, v6);
-      LbsOsaTrace_WriteLog(0xCu, __str, v20, 2, 1);
-    }
-
-    GN_SUPL_Disconnect_Ind_In(a1, 16);
-    lsim05_34DeleteSuplContext(v6);
-    goto LABEL_12;
-  }
-
-  v14 = 1;
-  v9[280] = 1;
-  lsim09_31DisconnectSuplSession(v6);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v17 = mach_continuous_time();
-    v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v17), "LSM", 73, "GN_SUPL_Disconnect_Req_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v18, 4, 1);
-  }
-
-LABEL_15:
-  v15 = *MEMORY[0x29EDCA608];
-  return v14;
-}
-
-uint64_t GN_SUPL_PDU_Delivery_Out(int a1, int a2, unsigned __int8 *a3)
+uint64_t lsim12_01StartTimer(uint64_t a1, int a2, unsigned int a3, int a4)
 {
   v24 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GN_SUPL_PDU_Delivery_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u,Size,%u\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "GN_SUPL_PDU_Delivery_Out", a1, a2);
+    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "lsim12_01StartTimer");
     LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
   }
 
   v10 = 0;
-  v11 = 1;
-  do
+  v11 = &g_LsimTmrArray;
+  while (v11[5] != a4 || *(v11 + 4) == 1)
   {
-    v12 = v11;
-    v13 = &g_SuplInstance + 296 * v10;
-    if (*v13 == a1 && (v13[281] & 1) != 0)
+    --v10;
+    v11 += 6;
+    if (v10 == -5)
     {
-      lsim09_33SendDataReq(a1, a3, a2);
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 0, 0, 0))
       {
         bzero(__str, 0x410uLL);
-        v19 = mach_continuous_time();
-        v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v19), "LSM", 73, "GN_SUPL_PDU_Delivery_Out");
-        v16 = 1;
-        LbsOsaTrace_WriteLog(0xCu, __str, v20, 4, 1);
-      }
-
-      else
-      {
-        v16 = 1;
-      }
-
-      goto LABEL_16;
-    }
-
-    v11 = 0;
-    v10 = 1;
-  }
-
-  while ((v12 & 1) != 0);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v14 = mach_continuous_time();
-    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v14), "LSM", 87, "GN_SUPL_PDU_Delivery_Out", 2052, a1);
-    LbsOsaTrace_WriteLog(0xCu, __str, v15, 2, 1);
-  }
-
-  v16 = 0;
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v17 = mach_continuous_time();
-    v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v17), "LSM", 73, "GN_SUPL_PDU_Delivery_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v18, 4, 1);
-    v16 = 0;
-  }
-
-LABEL_16:
-  v21 = *MEMORY[0x29EDCA608];
-  return v16;
-}
-
-uint64_t GN_SUPL_AidRequest_Out(int a1, unsigned int a2, int a3, unsigned int a4)
-{
-  v36 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "GN_SUPL_AidRequest_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v10 = mach_continuous_time();
-    v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u,Timeout,%ums,PosM,%u,GnssMask,%X\n", (*&g_MacClockTicksToMsRelation * v10), "LSM", 73, "GN_SUPL_AidRequest_Out", a1, a2, a3, a4);
-    LbsOsaTrace_WriteLog(0xCu, __str, v11, 4, 1);
-  }
-
-  v12 = 0;
-  v13 = 1;
-  while (1)
-  {
-    v14 = v13;
-    v15 = &g_SuplInstance + 296 * v12;
-    if (*v15 == a1 && (v15[281] & 1) != 0)
-    {
-      break;
-    }
-
-    v13 = 0;
-    v12 = 1;
-    if ((v14 & 1) == 0)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v16 = mach_continuous_time();
-        v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v16), "LSM", 87, "GN_SUPL_AidRequest_Out", 2052, a1);
-        LbsOsaTrace_WriteLog(0xCu, __str, v17, 2, 1);
-      }
-
-      result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-      if (result)
-      {
-        goto LABEL_12;
-      }
-
-      goto LABEL_30;
-    }
-  }
-
-  v21 = gnssOsa_Calloc("GN_SUPL_AidRequest_Out", 1524, 1, 0x14uLL);
-  if (v21)
-  {
-    v22 = v21;
-    v23 = a3 - 2;
-    if (a3 - 2) < 0xF && ((0x7C1Fu >> v23))
-    {
-      v24 = dword_2997611B0[v23];
-    }
-
-    else
-    {
-      IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0);
-      v24 = 0;
-      if (IsLoggingAllowed)
-      {
-        bzero(__str, 0x410uLL);
-        v26 = mach_continuous_time();
-        v27 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx PosMethod,%u,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v26), "LSM", 87, "GN_SUPL_AidRequest_Out", 770, a3, a1);
-        LbsOsaTrace_WriteLog(0xCu, __str, v27, 2, 1);
-        v24 = 0;
-      }
-    }
-
-    *(&g_SuplInstance + 74 * v12 + 72) = v24;
-    if (a4 >= 0x100)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v28 = mach_continuous_time();
-        v29 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx AllowedGnssMask>UINT8_MAX,0x%X\n", (*&g_MacClockTicksToMsRelation * v28), "LSM", 87, "GN_SUPL_AidRequest_Out", 770, a4);
-        LOBYTE(a4) = 1;
-        LbsOsaTrace_WriteLog(0xCu, __str, v29, 2, 1);
-      }
-
-      else
-      {
-        LOBYTE(a4) = 1;
-      }
-    }
-
-    *(&g_SuplInstance + 296 * v12 + 292) = a4;
-    *(v15 + 1) = a1;
-    v22[3] = a2 / 0x3E8;
-    v22[4] = a1;
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v30 = mach_continuous_time();
-      v31 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_AID_STATUS_REQ =>GNM,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v30), "LSM", 73, "GN_SUPL_AidRequest_Out", a1);
-      LbsOsaTrace_WriteLog(0xCu, __str, v31, 4, 1);
-    }
-
-    AgpsSendFsmMsg(131, 128, 8591104, v22);
-    v15[282] = 1;
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v32 = mach_continuous_time();
-      v33 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v32), "LSM", 73, "GN_SUPL_AidRequest_Out");
-      LbsOsaTrace_WriteLog(0xCu, __str, v33, 4, 1);
-    }
-
-    result = lsim12_01StartTimer(lsim10_05AidStatusTimerExpiry, v12, a2 + 1000, 5);
-  }
-
-  else
-  {
-    result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-    if (result)
-    {
-LABEL_12:
-      bzero(__str, 0x410uLL);
-      v19 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-      v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v19, "LSM", 73, "GN_SUPL_AidRequest_Out");
-      LbsOsaTrace_WriteLog(0xCu, __str, v20, 4, 1);
-      result = 0;
-    }
-  }
-
-LABEL_30:
-  v34 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t GN_SUPL_Position_Resp_Out(int a1, int a2, __int128 *a3)
-{
-  v35 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GN_SUPL_Position_Resp_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u,Status,%u\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "GN_SUPL_Position_Resp_Out", a1, a2);
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-  }
-
-  v10 = 0;
-  v11 = 1;
-  while (1)
-  {
-    v12 = v11;
-    v13 = &g_SuplInstance + 296 * v10;
-    if (*v13 == a1 && (v13[281] & 1) != 0)
-    {
-      break;
-    }
-
-    v11 = 0;
-    v10 = 1;
-    if ((v12 & 1) == 0)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v14 = mach_continuous_time();
-        v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v14), "LSM", 87, "GN_SUPL_Position_Resp_Out", 2052, a1);
-        LbsOsaTrace_WriteLog(0xCu, __str, v15, 2, 1);
-      }
-
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-LABEL_12:
-        bzero(__str, 0x410uLL);
-        v16 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-        v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v16, "LSM", 73, "GN_SUPL_Position_Resp_Out");
-        LbsOsaTrace_WriteLog(0xCu, __str, v17, 4, 1);
-      }
-
-LABEL_13:
-      v18 = 0;
-      goto LABEL_14;
-    }
-  }
-
-  if (a3 && *(a3 + 1) == 1)
-  {
-    v21 = gnssOsa_Calloc("GN_SUPL_Position_Resp_Out", 1678, 1, 0x40uLL);
-    if (!v21)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
+        v12 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+        v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx MaxTmrIndex,SrcID,%u,SrcType,%u\n", v12);
         goto LABEL_12;
       }
 
       goto LABEL_13;
     }
+  }
 
-    v22 = v21;
-    v23 = *a3;
-    v24 = a3[1];
-    v25 = a3[2];
-    *(v21 + 15) = *(a3 + 12);
-    *(v21 + 44) = v25;
-    *(v21 + 28) = v24;
-    *(v21 + 12) = v23;
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+  if (AgpsFsmStartTimer(*v11, a3))
+  {
+    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 0, 0, 0))
     {
       bzero(__str, 0x410uLL);
-      v26 = mach_continuous_time();
-      v27 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCP_NETWORK_POS_IND =>GNCP,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v26), "LSM", 73, "GN_SUPL_Position_Resp_Out", a1);
-      LbsOsaTrace_WriteLog(0xCu, __str, v27, 4, 1);
+      v14 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+      v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx OsaTmr,Status,%hhu,TimerId,%u,SrcID,%u,SrcType,%u\n", v14, "LSM");
+LABEL_12:
+      LbsOsaTrace_WriteLog(0xCu, __str, v13, 0, 1);
     }
 
-    AgpsSendFsmMsg(131, 134, 8597507, v22);
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      goto LABEL_29;
-    }
-
-LABEL_30:
-    v18 = 1;
-    goto LABEL_14;
-  }
-
-  if (*(&g_SuplInstance + 74 * v10 + 72) == 2)
-  {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      goto LABEL_28;
-    }
-
-    bzero(__str, 0x410uLL);
-    v28 = mach_continuous_time();
-    v29 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx NIMSA PosData,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v28), "LSM", 87, "GN_SUPL_Position_Resp_Out", 513, a1);
-    v30 = 2;
-  }
-
-  else
-  {
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 5, 0, 0))
-    {
-      goto LABEL_28;
-    }
-
-    bzero(__str, 0x410uLL);
-    v31 = mach_continuous_time();
-    v29 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx NIMSB PosData,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v31), "LSM", 68, "GN_SUPL_Position_Resp_Out", 513, a1);
-    v30 = 5;
-  }
-
-  LbsOsaTrace_WriteLog(0xCu, __str, v29, v30, 1);
-LABEL_28:
-  if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    goto LABEL_30;
-  }
-
-LABEL_29:
-  bzero(__str, 0x410uLL);
-  v32 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-  v33 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v32, "LSM", 73, "GN_SUPL_Position_Resp_Out");
-  v18 = 1;
-  LbsOsaTrace_WriteLog(0xCu, __str, v33, 4, 1);
-LABEL_14:
-  v19 = *MEMORY[0x29EDCA608];
-  return v18;
-}
-
-uint64_t GN_SUPL_TimerStart_Out(int a1, int a2, unsigned int a3)
-{
-  v25 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GN_SUPL_TimerStart_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: TimerID,%u,Type,%u,Duration,%ums\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "GN_SUPL_TimerStart_Out", a1, a2, a3);
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-  }
-
-  if (a2 == 1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+LABEL_13:
+    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
     {
       bzero(__str, 0x410uLL);
       v15 = mach_continuous_time();
-      v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v15), "LSM", 73, "GN_SUPL_TimerStart_Out");
+      v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v15), "LSM", 73, "lsim12_01StartTimer");
       LbsOsaTrace_WriteLog(0xCu, __str, v16, 4, 1);
     }
 
-    v12 = a1;
-    v13 = a3;
-    v14 = 4;
-    goto LABEL_13;
+    return 0;
   }
 
-  if (!a2)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v10 = mach_continuous_time();
-      v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v10), "LSM", 73, "GN_SUPL_TimerStart_Out");
-      LbsOsaTrace_WriteLog(0xCu, __str, v11, 4, 1);
-    }
-
-    v12 = a1;
-    v13 = a3;
-    v14 = 3;
-LABEL_13:
-    result = lsim12_01StartTimer(lsim05_40SuplTimerExpiry, v12, v13, v14);
-    goto LABEL_14;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
+  *(v11 + 4) = 1;
+  *(v11 + 1) = a1;
+  v11[4] = a2;
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v19 = mach_continuous_time();
-    v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v19), "LSM", 87, "GN_SUPL_TimerStart_Out", 515);
-    LbsOsaTrace_WriteLog(0xCu, __str, v20, 2, 1);
-  }
-
-  IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-  result = 0;
-  if (IsLoggingAllowed)
-  {
-    bzero(__str, 0x410uLL);
-    v22 = mach_continuous_time();
-    v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v22), "LSM", 73, "GN_SUPL_TimerStart_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v23, 4, 1);
-    result = 0;
-  }
-
-LABEL_14:
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t GN_SUPL_TimerStop_Out(int a1, int a2)
-{
-  v22 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "GN_SUPL_TimerStop_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: TimerID,%u,Type,%u\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GN_SUPL_TimerStop_Out", a1, a2);
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (a2 == 1)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v12 = mach_continuous_time();
-      v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v12), "LSM", 73, "GN_SUPL_TimerStop_Out");
-      LbsOsaTrace_WriteLog(0xCu, __str, v13, 4, 1);
-    }
-
-    v10 = a1;
-    v11 = 4;
-    goto LABEL_13;
-  }
-
-  if (!a2)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v8 = mach_continuous_time();
-      v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "GN_SUPL_TimerStop_Out");
-      LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-    }
-
-    v10 = a1;
-    v11 = 3;
-LABEL_13:
-    result = lsim12_02StopTimer(v10, v11);
-    goto LABEL_14;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v16 = mach_continuous_time();
-    v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v16), "LSM", 87, "GN_SUPL_TimerStop_Out", 515);
-    LbsOsaTrace_WriteLog(0xCu, __str, v17, 2, 1);
-  }
-
-  IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-  result = 0;
-  if (IsLoggingAllowed)
-  {
-    bzero(__str, 0x410uLL);
-    v19 = mach_continuous_time();
-    v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v19), "LSM", 73, "GN_SUPL_TimerStop_Out");
+    v20 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: OsaTmr,Start,Timer,%u,Index,%u,duration,%ums,SrcID,%u,SrcType,%u\n", (*&g_MacClockTicksToMsRelation * v19), "LSM", 73, "lsim12_01StartTimer", *v11, -v10, a3, v11[4], v11[5]);
     LbsOsaTrace_WriteLog(0xCu, __str, v20, 4, 1);
-    result = 0;
   }
 
-LABEL_14:
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+  {
+    return 1;
+  }
+
+  bzero(__str, 0x410uLL);
+  v21 = mach_continuous_time();
+  v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v21), "LSM", 73, "lsim12_01StartTimer");
+  v17 = 1;
+  LbsOsaTrace_WriteLog(0xCu, __str, v22, 4, 1);
+  return v17;
 }
 
-uint64_t GN_SUPL_LocIdReq_Out(int a1, int a2)
-{
-  v13 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "GN_SUPL_LocIdReq_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: ReqMask,%X,SimId,%u\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GN_SUPL_LocIdReq_Out", a1, a2);
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  lsim15_02SendMobileInfoReq(a1, a2);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "GN_SUPL_LocIdReq_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-  return 1;
-}
-
-uint64_t GN_SUPL_EventNotif_Out(int a1, int a2, int a3, int a4, int a5, int a6, __int128 *a7)
-{
-  v44 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v14 = mach_continuous_time();
-    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v14), "LSM", 73, "GN_SUPL_EventNotif_Out");
-    LbsOsaTrace_WriteLog(0xCu, __str, v15, 4, 1);
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v16 = mach_continuous_time();
-    v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u,Event,%u,ConnStatus,%u,SuplMsg,%u,PosM,%u,Cause,%u\n", (*&g_MacClockTicksToMsRelation * v16), "LSM", 73, "GN_SUPL_EventNotif_Out", a1, a2, a3, a4, a5, a6);
-    LbsOsaTrace_WriteLog(0xCu, __str, v17, 4, 1);
-  }
-
-  if (g_GnsSuplCallback)
-  {
-    memset_s(&__s, 0x348uLL, 0, 0x348uLL);
-    __s = a1;
-    v42 = -1;
-    if (a2 == 2)
-    {
-      v38 = a3;
-      goto LABEL_17;
-    }
-
-    if (a2 != 1)
-    {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v31 = mach_continuous_time();
-        v32 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Event,%u,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v31), "LSM", 87, "GN_SUPL_EventNotif_Out", 515, a2, a1);
-        LbsOsaTrace_WriteLog(0xCu, __str, v32, 2, 1);
-      }
-
-      if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-        goto LABEL_28;
-      }
-
-      bzero(__str, 0x410uLL);
-      v33 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-      v26 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v33, "LSM", 73, "GN_SUPL_EventNotif_Out");
-      goto LABEL_27;
-    }
-
-    v39 = a4;
-    v40 = a5;
-    v41 = a6;
-    if (!a7)
-    {
-LABEL_17:
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v27 = mach_continuous_time();
-        v28 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:EVNT_INF =>SuplCB,Event,%u,SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v27), "LSM", 73, "GN_SUPL_EventNotif_Out", a2, __s);
-        LbsOsaTrace_WriteLog(0xCu, __str, v28, 4, 1);
-      }
-
-      g_GnsSuplCallback(1, 840, &__s);
-      if (v37)
-      {
-        free(v37);
-      }
-
-      v37 = 0;
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-      {
-        bzero(__str, 0x410uLL);
-        v29 = mach_continuous_time();
-        v30 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v29), "LSM", 73, "GN_SUPL_EventNotif_Out");
-        v24 = 1;
-        LbsOsaTrace_WriteLog(0xCu, __str, v30, 4, 1);
-      }
-
-      else
-      {
-        v24 = 1;
-      }
-
-      goto LABEL_30;
-    }
-
-    v18 = gnssOsa_Calloc("GN_SUPL_EventNotif_Out", 1859, 1, 0x78uLL);
-    v37 = v18;
-    if (v18)
-    {
-      v19 = *a7;
-      v20 = a7[1];
-      v21 = a7[2];
-      *(v18 + 16) = *(a7 + 12);
-      *(v18 + 2) = v20;
-      *(v18 + 3) = v21;
-      *(v18 + 1) = v19;
-      goto LABEL_17;
-    }
-
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-LABEL_28:
-      v24 = 0;
-      goto LABEL_30;
-    }
-
-    bzero(__str, 0x410uLL);
-    v25 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-LABEL_15:
-    v26 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v25, "LSM", 73, "GN_SUPL_EventNotif_Out");
-LABEL_27:
-    LbsOsaTrace_WriteLog(0xCu, __str, v26, 4, 1);
-    goto LABEL_28;
-  }
-
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v22 = mach_continuous_time();
-    v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Supl\n", (*&g_MacClockTicksToMsRelation * v22), "LSM", 87, "GN_SUPL_EventNotif_Out", 258);
-    LbsOsaTrace_WriteLog(0xCu, __str, v23, 2, 1);
-  }
-
-  v24 = 0;
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v25 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-    goto LABEL_15;
-  }
-
-LABEL_30:
-  v34 = *MEMORY[0x29EDCA608];
-  return v24;
-}
-
-BOOL GNS_PospInitialize(uint64_t a1)
-{
-  v11 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "GNS_PospInitialize");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  v4 = gnssOsa_Calloc("GNS_PospInitialize", 1900, 1, 0x18uLL);
-  v5 = v4;
-  if (v4)
-  {
-    v4[3] = 4;
-    *(v4 + 2) = a1;
-    AgpsSendFsmMsg(131, 131, 8635139, v4);
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GNS_PospInitialize");
-      LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-    }
-  }
-
-  result = v5 != 0;
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t GNS_ExecutePospCallback(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v15 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GNS_ExecutePospCallback");
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (g_GnsPospCallback)
-  {
-    g_GnsPospCallback(a1, a2, a3);
-  }
-
-  else if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx POSP\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 87, "GNS_ExecutePospCallback", 258);
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 2, 1);
-  }
-
-  result = LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0);
-  if (result)
-  {
-    bzero(__str, 0x410uLL);
-    v11 = mach_continuous_time();
-    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 73, "GNS_ExecutePospCallback");
-    result = LbsOsaTrace_WriteLog(0xCu, __str, v12, 4, 1);
-  }
-
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t GNS_PospLocReq(int a1, unsigned int *a2, char a3)
-{
-  v18 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v6 = mach_continuous_time();
-    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GNS_PospLocReq");
-    LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-  }
-
-  if (lsim03_13SendLocInfoReq(a1, a2, 3, a3))
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v8 = mach_continuous_time();
-      v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "GNS_PospLocReq");
-      v10 = 1;
-      LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
-    }
-
-    else
-    {
-      v10 = 1;
-    }
-  }
-
-  else
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v11 = mach_continuous_time();
-      v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx PospLocReq,SId,%u\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 87, "GNS_PospLocReq", 515, a1);
-      LbsOsaTrace_WriteLog(0xCu, __str, v12, 2, 1);
-    }
-
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v13 = mach_continuous_time();
-      v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v13), "LSM", 73, "GNS_PospLocReq");
-      LbsOsaTrace_WriteLog(0xCu, __str, v14, 4, 1);
-    }
-
-    v10 = 2;
-  }
-
-  v15 = *MEMORY[0x29EDCA608];
-  return v10;
-}
-
-uint64_t GNS_PospSummaryReport(int a1, char a2, __int128 *a3, __int128 *a4, int a5, int a6, int a7)
-{
-  v37 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v14 = mach_continuous_time();
-    v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v14), "LSM", 73, "GNS_PospSummaryReport");
-    LbsOsaTrace_WriteLog(0xCu, __str, v15, 4, 1);
-  }
-
-  v16 = gnssOsa_Calloc("GNS_PospSummaryReport", 2021, 1, 0x38uLL);
-  if (!v16)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-LABEL_20:
-      bzero(__str, 0x410uLL);
-      v32 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-      v33 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v32, "LSM", 73, "GNS_PospSummaryReport");
-      LbsOsaTrace_WriteLog(0xCu, __str, v33, 4, 1);
-    }
-
-LABEL_21:
-    v30 = 6;
-    goto LABEL_22;
-  }
-
-  v17 = v16;
-  if (!a3)
-  {
-    goto LABEL_7;
-  }
-
-  v18 = gnssOsa_Calloc("GNS_PospSummaryReport", 2031, 1, 0x28uLL);
-  v17[3] = v18;
-  if (!v18)
-  {
-    free(v17);
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      goto LABEL_20;
-    }
-
-    goto LABEL_21;
-  }
-
-  v19 = *a3;
-  v20 = a3[1];
-  *(v18 + 31) = *(a3 + 31);
-  *v18 = v19;
-  *(v18 + 1) = v20;
-LABEL_7:
-  if (!a4)
-  {
-    goto LABEL_10;
-  }
-
-  v21 = gnssOsa_Calloc("GNS_PospSummaryReport", 2045, 1, 0x78uLL);
-  v17[4] = v21;
-  if (!v21)
-  {
-    v31 = v17[3];
-    if (v31)
-    {
-      free(v31);
-    }
-
-    free(v17);
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      goto LABEL_21;
-    }
-
-    goto LABEL_20;
-  }
-
-  v22 = *a4;
-  v23 = a4[1];
-  v24 = a4[3];
-  v21[2] = a4[2];
-  v21[3] = v24;
-  *v21 = v22;
-  v21[1] = v23;
-  v25 = a4[4];
-  v26 = a4[5];
-  v27 = a4[6];
-  *(v21 + 14) = *(a4 + 14);
-  v21[5] = v26;
-  v21[6] = v27;
-  v21[4] = v25;
-LABEL_10:
-  *(v17 + 4) = a1;
-  *(v17 + 20) = a2;
-  *(v17 + 11) = a6;
-  *(v17 + 12) = a7;
-  *(v17 + 10) = a5;
-  AgpsSendFsmMsg(131, 131, 8636163, v17);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v28 = mach_continuous_time();
-    v29 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v28), "LSM", 73, "GNS_PospSummaryReport");
-    v30 = 1;
-    LbsOsaTrace_WriteLog(0xCu, __str, v29, 4, 1);
-  }
-
-  else
-  {
-    v30 = 1;
-  }
-
-LABEL_22:
-  v34 = *MEMORY[0x29EDCA608];
-  return v30;
-}
-
-uint64_t GNS_PospStatusReport(int a1, int a2, __int128 *a3, __int128 *a4, __int128 *a5, char a6)
-{
-  v45 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v12 = mach_continuous_time();
-    v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v12), "LSM", 73, "GNS_PospStatusReport");
-    LbsOsaTrace_WriteLog(0xCu, __str, v13, 4, 1);
-  }
-
-  v14 = gnssOsa_Calloc("GNS_PospStatusReport", 2102, 1, 0x48uLL);
-  if (!v14)
-  {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-LABEL_29:
-      bzero(__str, 0x410uLL);
-      v40 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
-      v41 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", v40, "LSM", 73, "GNS_PospStatusReport");
-      LbsOsaTrace_WriteLog(0xCu, __str, v41, 4, 1);
-    }
-
-LABEL_30:
-    v36 = 6;
-    goto LABEL_31;
-  }
-
-  v15 = v14;
-  if (!a3)
-  {
-    goto LABEL_7;
-  }
-
-  v16 = gnssOsa_Calloc("GNS_PospStatusReport", 2113, 1, 0x78uLL);
-  v15[3] = v16;
-  if (!v16)
-  {
-    free(v15);
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      goto LABEL_29;
-    }
-
-    goto LABEL_30;
-  }
-
-  v17 = *a3;
-  v18 = a3[1];
-  v19 = a3[3];
-  v16[2] = a3[2];
-  v16[3] = v19;
-  *v16 = v17;
-  v16[1] = v18;
-  v20 = a3[4];
-  v21 = a3[5];
-  v22 = a3[6];
-  *(v16 + 14) = *(a3 + 14);
-  v16[5] = v21;
-  v16[6] = v22;
-  v16[4] = v20;
-LABEL_7:
-  if (!a4)
-  {
-    goto LABEL_10;
-  }
-
-  v23 = gnssOsa_Calloc("GNS_PospStatusReport", 2127, 1, 0x7CuLL);
-  v15[4] = v23;
-  if (!v23)
-  {
-    v37 = v15[3];
-    if (v37)
-    {
-      free(v37);
-    }
-
-    free(v15);
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
-  }
-
-  v24 = *a4;
-  v25 = a4[1];
-  v26 = a4[3];
-  v23[2] = a4[2];
-  v23[3] = v26;
-  *v23 = v24;
-  v23[1] = v25;
-  v27 = a4[4];
-  v28 = a4[5];
-  v29 = a4[6];
-  *(v23 + 108) = *(a4 + 108);
-  v23[5] = v28;
-  v23[6] = v29;
-  v23[4] = v27;
-LABEL_10:
-  if (!a5)
-  {
-    goto LABEL_13;
-  }
-
-  v30 = gnssOsa_Calloc("GNS_PospStatusReport", 2142, 1, 0x34uLL);
-  v15[5] = v30;
-  if (!v30)
-  {
-    v38 = v15[3];
-    if (v38)
-    {
-      free(v38);
-    }
-
-    v15[3] = 0;
-    v39 = v15[4];
-    if (v39)
-    {
-      free(v39);
-    }
-
-    free(v15);
-    if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
-  }
-
-  v31 = *a5;
-  v32 = a5[1];
-  v33 = a5[2];
-  v30[12] = *(a5 + 12);
-  *(v30 + 1) = v32;
-  *(v30 + 2) = v33;
-  *v30 = v31;
-LABEL_13:
-  *(v15 + 4) = a1;
-  *(v15 + 12) = a2;
-  *(v15 + 64) = a6;
-  AgpsSendFsmMsg(131, 131, 8636419, v15);
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v34 = mach_continuous_time();
-    v35 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v34), "LSM", 73, "GNS_PospStatusReport");
-    v36 = 1;
-    LbsOsaTrace_WriteLog(0xCu, __str, v35, 4, 1);
-  }
-
-  else
-  {
-    v36 = 1;
-  }
-
-LABEL_31:
-  v42 = *MEMORY[0x29EDCA608];
-  return v36;
-}
-
-BOOL GNS_SuplInitialize(uint64_t a1)
-{
-  v11 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-  {
-    bzero(__str, 0x410uLL);
-    v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "GNS_SuplInitialize");
-    LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
-  }
-
-  v4 = gnssOsa_Calloc("GNS_SuplInitialize", 2183, 1, 0x18uLL);
-  v5 = v4;
-  if (v4)
-  {
-    v4[3] = 3;
-    *(v4 + 2) = a1;
-    AgpsSendFsmMsg(131, 131, 8635139, v4);
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v6 = mach_continuous_time();
-      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v6), "LSM", 73, "GNS_SuplInitialize");
-      LbsOsaTrace_WriteLog(0xCu, __str, v7, 4, 1);
-    }
-  }
-
-  result = v5 != 0;
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t GNS_SuplDecodeInit(uint64_t a1, unsigned __int8 *a2, unsigned int a3, const void *a4)
+uint64_t lsim12_02StopTimer(int a1, int a2)
 {
   v26 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
-    v8 = mach_continuous_time();
-    v9 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v8), "LSM", 73, "GNS_SuplDecodeInit");
-    LbsOsaTrace_WriteLog(0xCu, __str, v9, 4, 1);
+    v4 = mach_continuous_time();
+    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim12_02StopTimer");
+    LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
   }
 
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+  v6 = 0;
+  v7 = &qword_2A191FFA8;
+  while (1)
   {
-    bzero(__str, 0x410uLL);
-    v10 = mach_continuous_time();
-    v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Length,%u,pointer,%p,Handle,%u\n", (*&g_MacClockTicksToMsRelation * v10), "LSM", 73, "GNS_SuplDecodeInit", a3, a2, a1);
-    LbsOsaTrace_WriteLog(0xCu, __str, v11, 4, 1);
-  }
-
-  if (a2 && a3 && a4)
-  {
-    if (GN_SUPL_DecodeSuplInit_In(a1, a2, a3, a4))
+    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5u, 0, 0))
     {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+      bzero(__str, 0x410uLL);
+      v8 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+      if (*(v7 - 12))
       {
-        bzero(__str, 0x410uLL);
-        v12 = mach_continuous_time();
-        v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v12), "LSM", 73, "GNS_SuplDecodeInit");
-        v14 = 1;
-        LbsOsaTrace_WriteLog(0xCu, __str, v13, 4, 1);
+        v9 = "ACTIVE";
       }
 
       else
       {
-        v14 = 1;
+        v9 = "NOT USED";
       }
+
+      v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: TimerIndex,%u,Timer,%u,SrcID,%u,SourceType,%u,Status,%s\n", v8, "LSM", 68, "lsim12_02StopTimer", v6, *(v7 - 4), *v7, *(v7 + 1), v9);
+      LbsOsaTrace_WriteLog(0xCu, __str, v10, 5, 1);
     }
 
-    else
+    if (*(v7 - 12) == 1 && *v7 == a1 && *(v7 + 1) == a2)
     {
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
+      break;
+    }
+
+    ++v6;
+    v7 += 3;
+    if (v6 == 5)
+    {
+      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2u, 0, 0))
       {
         bzero(__str, 0x410uLL);
-        v21 = mach_continuous_time();
-        v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GN_SUPL_DecodeSuplInit_In Failed,Handle,%u\n", (*&g_MacClockTicksToMsRelation * v21), "LSM", 87, "GNS_SuplDecodeInit", a1);
-        LbsOsaTrace_WriteLog(0xCu, __str, v22, 2, 1);
+        v11 = mach_continuous_time();
+        v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SrcID,%u,SrcType,%u\n", (*&g_MacClockTicksToMsRelation * v11), "LSM", 87, "lsim12_02StopTimer", 770, a1, a2);
+        LbsOsaTrace_WriteLog(0xCu, __str, v12, 2, 1);
       }
 
-      v14 = 0;
-      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+LABEL_19:
+      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
       {
         bzero(__str, 0x410uLL);
-        v23 = mach_continuous_time();
-        v24 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v23), "LSM", 73, "GNS_SuplDecodeInit");
-        LbsOsaTrace_WriteLog(0xCu, __str, v24, 4, 1);
-        v14 = 0;
+        v17 = mach_continuous_time();
+        v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v17), "LSM", 73, "lsim12_02StopTimer");
+        LbsOsaTrace_WriteLog(0xCu, __str, v18, 4, 1);
       }
+
+      return 0;
     }
   }
 
-  else
+  v13 = AgpsFsmStopTimer(*(v7 - 4));
+  if (v13)
   {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2, 0, 0))
+    v14 = v13;
+    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 0, 0, 0))
     {
       bzero(__str, 0x410uLL);
       v15 = mach_continuous_time();
-      v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx Invalid Length,%u,DataPtr,%p,DecodedDataPtr,%p,Handle,%u\n", (*&g_MacClockTicksToMsRelation * v15), "LSM", 87, "GNS_SuplDecodeInit", 513, a3, a2, a4, a1);
-      LbsOsaTrace_WriteLog(0xCu, __str, v16, 2, 1);
+      v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx OsaTmr,Status,%hhu,TimerId,%u,SrcID,%u,SrcType,%u\n", (*&g_MacClockTicksToMsRelation * v15), "LSM", 69, "lsim12_02StopTimer", 1545, v14, *(v7 - 4), *v7, *(v7 + 1));
+      LbsOsaTrace_WriteLog(0xCu, __str, v16, 0, 1);
     }
 
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v17 = mach_continuous_time();
-      v18 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v17), "LSM", 73, "GNS_SuplDecodeInit");
-      LbsOsaTrace_WriteLog(0xCu, __str, v18, 4, 1);
-    }
-
-    v14 = 2;
+    *(v7 - 1) = 0;
+    *v7 = -1;
+    goto LABEL_19;
   }
 
-  v19 = *MEMORY[0x29EDCA608];
-  return v14;
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v21 = mach_continuous_time();
+    v22 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: OsaTmr,Stop,Timer,%u,SourceID,%u\n", (*&g_MacClockTicksToMsRelation * v21), "LSM", 73, "lsim12_02StopTimer", *(v7 - 4), *v7);
+    LbsOsaTrace_WriteLog(0xCu, __str, v22, 4, 1);
+  }
+
+  *(v7 - 12) = 0;
+  *(v7 - 1) = 0;
+  *v7 = -1;
+  if (!LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+  {
+    return 1;
+  }
+
+  bzero(__str, 0x410uLL);
+  v23 = mach_continuous_time();
+  v24 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v23), "LSM", 73, "lsim12_02StopTimer");
+  v19 = 1;
+  LbsOsaTrace_WriteLog(0xCu, __str, v24, 4, 1);
+  return v19;
 }
 
-uint64_t GNS_SuplAbortSession(int a1)
+void lsim12_04TimersDeinit(void)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+  v16 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v0 = mach_continuous_time();
+    v1 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v0), "LSM", 73, "lsim12_04TimersDeinit");
+    LbsOsaTrace_WriteLog(0xCu, __str, v1, 4, 1);
+  }
+
+  v2 = 0;
+  v3 = &qword_2A191FFA8;
+  do
+  {
+    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v4 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+      if (*(v3 - 12))
+      {
+        v5 = "ACTIVE";
+      }
+
+      else
+      {
+        v5 = "NOT USED";
+      }
+
+      v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: TimerIndex,%u,TimerId,%u,SrcID,%u,SrcType,%u,Status,%s\n", v4, "LSM", 68, "lsim12_04TimersDeinit", v2, *(v3 - 4), *v3, *(v3 + 1), v5);
+      LbsOsaTrace_WriteLog(0xCu, __str, v6, 5, 1);
+    }
+
+    if (*(v3 - 12) == 1)
+    {
+      v7 = AgpsFsmStopTimer(*(v3 - 4));
+      if (v7)
+      {
+        v8 = v7;
+        if (LbsOsaTrace_IsLoggingAllowed(0xCu, 0, 0, 0))
+        {
+          bzero(__str, 0x410uLL);
+          v9 = mach_continuous_time();
+          v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx OsaTmr,Status,%hhu,TimerId,%u,SrcID,%u,SrcType,%u\n", (*&g_MacClockTicksToMsRelation * v9), "LSM", 69, "lsim12_04TimersDeinit", 1545, v8, *(v3 - 4), *v3, *(v3 + 1));
+          v11 = 0;
+LABEL_15:
+          LbsOsaTrace_WriteLog(0xCu, __str, v10, v11, 1);
+        }
+      }
+
+      else if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+      {
+        bzero(__str, 0x410uLL);
+        v12 = mach_continuous_time();
+        v10 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: OsaTmr,DeInit,Timer,%u,SrcID,%u\n", (*&g_MacClockTicksToMsRelation * v12), "LSM", 73, "lsim12_04TimersDeinit", *(v3 - 4), *v3);
+        v11 = 4;
+        goto LABEL_15;
+      }
+
+      *(v3 - 12) = 0;
+      *(v3 - 1) = 0;
+      *v3 = 0xFFFFFFFFLL;
+      *(v3 - 4) = 0;
+    }
+
+    ++v2;
+    v3 += 3;
+  }
+
+  while (v2 != 5);
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v13 = mach_continuous_time();
+    v14 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v13), "LSM", 73, "lsim12_04TimersDeinit");
+    LbsOsaTrace_WriteLog(0xCu, __str, v14, 4, 1);
+  }
+}
+
+uint64_t lsim12_05TimerExpiry(uint64_t a1)
+{
+  v26 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v2 = mach_continuous_time();
-    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "GNS_SuplAbortSession");
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v2), "LSM", 73, "lsim12_05TimerExpiry");
     LbsOsaTrace_WriteLog(0xCu, __str, v3, 4, 1);
   }
 
-  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
   {
     bzero(__str, 0x410uLL);
     v4 = mach_continuous_time();
-    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: SuplHandle,%u\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "GNS_SuplAbortSession", a1);
+    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIMUP_TIMER_EXPIRY\n", (*&g_MacClockTicksToMsRelation * v4), "LSM", 73, "lsim12_05TimerExpiry");
     LbsOsaTrace_WriteLog(0xCu, __str, v5, 4, 1);
   }
 
-  v6 = gnssOsa_Calloc("GNS_SuplAbortSession", 2266, 1, 0x10uLL);
-  if (v6)
+  v6 = *(a1 + 4);
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
   {
-    v6[3] = a1;
-    AgpsSendFsmMsg(131, 131, 8635648, v6);
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
-    {
-      bzero(__str, 0x410uLL);
-      v7 = mach_continuous_time();
-      v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v7), "LSM", 73, "GNS_SuplAbortSession");
-      v9 = 1;
-      LbsOsaTrace_WriteLog(0xCu, __str, v8, 4, 1);
-    }
-
-    else
-    {
-      v9 = 1;
-    }
+    bzero(__str, 0x410uLL);
+    v7 = mach_continuous_time();
+    v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Entry\n", (*&g_MacClockTicksToMsRelation * v7), "LSM", 73, "lsim12_03TimerExpiry");
+    LbsOsaTrace_WriteLog(0xCu, __str, v8, 4, 1);
   }
 
-  else
+  v9 = 0;
+  v10 = &qword_2A191FFA8;
+  while (1)
   {
-    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4, 0, 0))
+    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 5u, 0, 0))
     {
       bzero(__str, 0x410uLL);
-      v10 = mach_continuous_time();
-      v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v10), "LSM", 73, "GNS_SuplAbortSession");
-      LbsOsaTrace_WriteLog(0xCu, __str, v11, 4, 1);
-    }
-
-    v9 = 6;
-  }
-
-  v12 = *MEMORY[0x29EDCA608];
-  return v9;
-}
-
-void *sprintf01da(void *result, unsigned int a2, _BYTE *a3, int a4)
-{
-  v12 = *MEMORY[0x29EDCA608];
-  if (a2 < 0xA)
-  {
-    if (a4)
-    {
-      *a3 = 45;
-      v5 = 1;
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    v6 = &a3[v5];
-    *v6 = a2 | 0x30;
-    v6[1] = 0;
-    v7 = *a3;
-    if (*a3)
-    {
-      v8 = *result;
-      v9 = a3 + 1;
-      do
+      v11 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+      if (*(v10 - 12))
       {
-        *result = v8 + 1;
-        *v8 = v7;
-        v8 = *result;
-        if (*result >= result[3])
-        {
-          v8 = result[2];
-          *result = v8;
-        }
-
-        v10 = *v9++;
-        v7 = v10;
+        v12 = "ACTIVE";
       }
 
-      while (v10);
+      else
+      {
+        v12 = "NOT USED";
+      }
+
+      v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: TimerIndex,%u,TimerId,%u,SrcID,%u,SourceType,%u,Status,%s\n", v11, "LSM", 68, "lsim12_03TimerExpiry", v9, *(v10 - 4), *v10, *(v10 + 1), v12);
+      LbsOsaTrace_WriteLog(0xCu, __str, v13, 5, 1);
     }
 
-    v11 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    v4 = *MEMORY[0x29EDCA608];
-
-    return nzet(result, a2, a3, 0, a4, 0);
-  }
-
-  return result;
-}
-
-uint64_t sprintf_02d(void *a1, unsigned int a2)
-{
-  v5 = *MEMORY[0x29EDCA608];
-  if ((a2 & 0x80000000) != 0)
-  {
-    result = sprintf01da(a1, -a2, v4, 1);
-  }
-
-  else
-  {
-    result = sprintf02da(a1, a2, v4, 0);
-  }
-
-  v3 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t sprintf02da(uint64_t a1, unsigned int a2, _BYTE *a3, int a4)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  if (a2 < 0x64)
-  {
-    if (a4)
+    if (*(v10 - 4) == v6)
     {
-      *a3 = 45;
-      v6 = 1;
+      break;
+    }
+
+    ++v9;
+    v10 += 3;
+    if (v9 == 5)
+    {
+      if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2u, 0, 0))
+      {
+        bzero(__str, 0x410uLL);
+        v14 = mach_continuous_time();
+        v15 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx TimerId,%u\n", (*&g_MacClockTicksToMsRelation * v14), "LSM", 87, "lsim12_03TimerExpiry", 2052, v6);
+        LbsOsaTrace_WriteLog(0xCu, __str, v15, 2, 1);
+      }
+
+      goto LABEL_24;
+    }
+  }
+
+  if (*(v10 - 1))
+  {
+    if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v16 = mach_continuous_time();
+      v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: TimerId,%u,TimerIndex,%u,SrcID,%u,SrcType,%u,Expired\n", (*&g_MacClockTicksToMsRelation * v16), "LSM", 73, "lsim12_03TimerExpiry", *(v10 - 4), v9, *v10, *(v10 + 1));
+      LbsOsaTrace_WriteLog(0xCu, __str, v17, 4, 1);
+    }
+
+    (*(v10 - 1))(*v10, *(v10 + 1));
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xCu, 2u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v18 = mach_continuous_time();
+    v19 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SrcID,%u,TimerId,%u,TimerIndex,%u\n", (*&g_MacClockTicksToMsRelation * v18), "LSM", 87, "lsim12_03TimerExpiry", 258, *v10, *(v10 - 4), v9);
+    LbsOsaTrace_WriteLog(0xCu, __str, v19, 2, 1);
+  }
+
+  *(v10 - 12) = 0;
+  *(v10 - 1) = 0;
+  *v10 = -1;
+LABEL_24:
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v20 = mach_continuous_time();
+    v21 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v20), "LSM", 73, "lsim12_03TimerExpiry");
+    LbsOsaTrace_WriteLog(0xCu, __str, v21, 4, 1);
+  }
+
+  if (LbsOsaTrace_IsLoggingAllowed(0xCu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v22 = mach_continuous_time();
+    v23 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Exit\n", (*&g_MacClockTicksToMsRelation * v22), "LSM", 73, "lsim12_05TimerExpiry");
+    LbsOsaTrace_WriteLog(0xCu, __str, v23, 4, 1);
+  }
+
+  return 0;
+}
+
+void ms_report_exception(int a1, int a2, int a3, char *a4)
+{
+  v28 = *MEMORY[0x29EDCA608];
+  std::string::basic_string[abi:ne200100]<0>(&__p, "NULLFileName");
+  if (a4)
+  {
+    std::string::basic_string[abi:ne200100]<0>(&__str, a4);
+    size = SHIBYTE(__str.__r_.__value_.__r.__words[2]);
+    p_str = __str.__r_.__value_.__r.__words[0];
+    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      p_str = &__str;
+    }
+
+    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      size = __str.__r_.__value_.__l.__size_;
+    }
+
+    v10 = &p_str[-1].__r_.__value_.__r.__words[2] + 7;
+    do
+    {
+      if (!size)
+      {
+        goto LABEL_14;
+      }
+
+      v11 = v10[size--];
+    }
+
+    while (v11 != 92 && v11 != 47);
+    if (size == -1)
+    {
+LABEL_14:
+      std::string::operator=(&__p, &__str);
+      goto LABEL_15;
+    }
+
+    std::string::basic_string(&v24, &__str, size + 1, 0xFFFFFFFFFFFFFFFFLL, &v26);
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    __p = v24;
+LABEL_15:
+    if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__str.__r_.__value_.__l.__data_);
+    }
+  }
+
+  switch(a1)
+  {
+    case 2:
+      if (a2 == 3)
+      {
+        if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+        {
+          bzero(&__str, 0x410uLL);
+          v15 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+          p_p = &__p;
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          {
+            p_p = __p.__r_.__value_.__r.__words[0];
+          }
+
+          v17 = snprintf(&__str, 0x40FuLL, "%10u %s%c %s: #%04hx file,%s,line,%d\n", v15, "PSP", 69, "ms_report_exception", 513, p_p, a3);
+          LbsOsaTrace_WriteLog(0x13u, &__str, v17, 0, 1);
+        }
+      }
+
+      else if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+      {
+        bzero(&__str, 0x410uLL);
+        v21 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+        v22 = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v22 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        v23 = snprintf(&__str, 0x40FuLL, "%10u %s%c %s: #%04hx file,%s,line,%d,Code,%u\n", v21, "PSP", 69, "ms_report_exception", 515, v22, a3, a2);
+        LbsOsaTrace_WriteLog(0x13u, &__str, v23, 0, 1);
+      }
+
+      break;
+    case 1:
+      if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+      {
+        bzero(&__str, 0x410uLL);
+        v12 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+        v13 = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v13 = __p.__r_.__value_.__r.__words[0];
+        }
+
+LABEL_23:
+        v14 = snprintf(&__str, 0x40FuLL, "%10u %s%c %s: #%04hx file,%s,line,%d,ErrCode,%u\n", v12, "PSP", 69, "ms_report_exception", 770, v13, a3, a2);
+        LbsOsaTrace_WriteLog(0x13u, &__str, v14, 0, 1);
+      }
+
+      break;
+    case 0:
+      if (!LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+      {
+        break;
+      }
+
+      bzero(&__str, 0x410uLL);
+      v12 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+      v13 = &__p;
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v13 = __p.__r_.__value_.__r.__words[0];
+      }
+
+      goto LABEL_23;
+    default:
+      if (LbsOsaTrace_IsLoggingAllowed(0x13u, 0, 0, 0))
+      {
+        bzero(&__str, 0x410uLL);
+        v18 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+        v19 = &__p;
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        {
+          v19 = __p.__r_.__value_.__r.__words[0];
+        }
+
+        v20 = snprintf(&__str, 0x40FuLL, "%10u %s%c %s: #%04hx file,%s,line,%d,Code,%u\n", v18, "PSP", 69, "ms_report_exception", 770, v19, a3, a2);
+        LbsOsaTrace_WriteLog(0x13u, &__str, v20, 0, 1);
+      }
+
+      break;
+  }
+
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_2996B7B70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+{
+  if (a26 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void Comp_ErrorEllipse(double a1, double a2, double a3, double *a4, double *a5, double *a6)
+{
+  v12 = a1 - a2;
+  if (a1 - a2 >= 0.0 && a1 - a2 <= 0.0 && fabs(a3) <= a1 * 0.0001)
+  {
+    *a6 = 0.0;
+    v24 = sqrt(a1);
+    *a4 = v24;
+    *a5 = v24;
+    return;
+  }
+
+  v13 = atan2(a3 + a3, v12) * 0.5;
+  v15 = __sincos_stret(v13);
+  cosval = v15.__cosval;
+  v16 = v13 * 57.2957795;
+  v17 = cosval * cosval;
+  v18 = v15.__sinval * (cosval + cosval) * a3;
+  v19 = a2 + cosval * cosval * v12 + v18;
+  v20 = a1 - v17 * v12 - v18;
+  if (v19 < 0.000001)
+  {
+    v19 = 0.000001;
+  }
+
+  if (v20 < 0.000001)
+  {
+    v20 = 0.000001;
+  }
+
+  if (v19 > v20)
+  {
+    v21 = v19;
+  }
+
+  else
+  {
+    v16 = v16 + 90.0;
+    v21 = v20;
+  }
+
+  if (v19 <= v20)
+  {
+    v20 = v19;
+  }
+
+  *a6 = v16;
+  *a4 = sqrt(v21);
+  *a5 = sqrt(v20);
+  v22 = *a6;
+  v23 = 180.0;
+  if (*a6 >= 180.0)
+  {
+    v23 = -180.0;
+    goto LABEL_17;
+  }
+
+  if (v22 < 0.0)
+  {
+LABEL_17:
+    *a6 = v22 + v23;
+  }
+}
+
+uint64_t NK_Comp_DR_Res(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = 0;
+  v7 = 0;
+  v8 = 0;
+  v20[1] = *MEMORY[0x29EDCA608];
+  *(a3 + 16736) = 0u;
+  *(a3 + 16720) = 0u;
+  *(a3 + 16704) = 0u;
+  *(a3 + 16688) = 0u;
+  *(a3 + 16672) = 0u;
+  *(a3 + 16656) = 0u;
+  *(a3 + 16640) = 0u;
+  *(a3 + 16624) = 0u;
+  *(a3 + 16608) = 0u;
+  *(a3 + 16592) = 0u;
+  *(a3 + 16576) = 0u;
+  *(a3 + 16560) = 0u;
+  *(a3 + 16544) = 0u;
+  *(a3 + 16528) = 0u;
+  *(a3 + 16512) = 0u;
+  *(a3 + 16496) = 0u;
+  *(a3 + 16480) = 0u;
+  *(a3 + 16464) = 0u;
+  *(a3 + 16448) = 0u;
+  *(a3 + 16432) = 0u;
+  v9 = a3 + 14016;
+  *(a3 + 16416) = 0u;
+  v19 = a3 + 19968;
+  *(a3 + 16400) = 0u;
+  v18 = a3 + 4448;
+  *(a3 + 0x4000) = 0u;
+  v17 = a3 + 26256;
+  *(a3 + 16368) = 0u;
+  v10 = a2 + 8696;
+  do
+  {
+    v11 = a1 + 4 * v8;
+    v12 = *(v11 + 76);
+    result = Is_Legal(v12);
+    if (result && *(v9 + v8) == 1 && *(a3 + 12) == 11 && (*(v19 + v8) & 1) == 0 && *(v10 + v8 + 1152) == 1)
+    {
+      if (v12 == 3 && *(a3 + 616) != *(a2 + 7344))
+      {
+        *(v10 + v6 + 1344) = *(v10 + v6 + 1344) + (*(a3 + 608) - *(a2 + 7336)) * 299792458.0;
+      }
+
+      v20[0] = 0.0;
+      result = NK_Comp_ith_DR_Res(v8, a3 + 1080, a3 + 13960, v20, *(a3 + 8 * v8 + 120), *(a3 + v6 + 19584), *(v18 + 8 * v8), *(a3 + 656), *(v10 + v6 + 1344));
+      *(a3 + v6 + 30912) = *(a3 + v6 + 30144) - *(v10 + v6 + 1808);
+      if (*(v9 + v8 + 96) == 1)
+      {
+        *(v17 + v8) = 1;
+      }
+    }
+
+    if (*(a3 + v8 + 2912) == 1)
+    {
+      *(v10 + v6 + 1344) = *(a3 + v6 + 19584);
+      *(v10 + v8 + 1152) = 1;
+      v14 = *(v11 + 412) >= 14 && *(a1 + v8 + 604) >= *(a2 + 4) && *(a1 + 2 * v8 + 1036) >= *(a2 + 14);
+      *(v10 + v8 + 1728) = v14;
+      *(v10 + v6 + 1808) = *(a3 + v6 + 30144);
     }
 
     else
     {
-      v6 = 0;
+      *(v10 + v6 + 1344) = 0;
+      v15 = v10 + v8;
+      *(v15 + 1152) = 0;
+      v16 = (v10 + v7);
+      *v16 = 0;
+      v16[1] = 0;
+      v16[2] = 0;
+      *(v15 + 1728) = 0;
     }
 
-    v7 = *MEMORY[0x29EDCA608];
-
-    return digit2(a1, a2, a3, v6, 0);
+    ++v8;
+    v7 += 24;
+    v6 += 8;
   }
 
-  else
-  {
-    v4 = *MEMORY[0x29EDCA608];
-
-    return nzet(a1, a2, a3, 0, a4, 0);
-  }
-}
-
-uint64_t sprintf_03d(uint64_t a1, unsigned int a2)
-{
-  v5 = *MEMORY[0x29EDCA608];
-  if ((a2 & 0x80000000) != 0)
-  {
-    result = sprintf02da(a1, -a2, v4, 1);
-  }
-
-  else
-  {
-    result = sprintf03da(a1, a2, v4, 0);
-  }
-
-  v3 = *MEMORY[0x29EDCA608];
+  while (v8 != 48);
+  *(a2 + 8304) = *(a3 + 656);
+  *(a2 + 7336) = *(a3 + 608);
+  *(a2 + 7344) = *(a3 + 616);
   return result;
 }
 
-uint64_t sprintf03da(uint64_t a1, unsigned int a2, _BYTE *a3, int a4)
+uint64_t Gnm08_02HandleRxData(uint64_t a1)
 {
-  v8 = *MEMORY[0x29EDCA608];
-  if (a2 < 0x3E8)
+  v45 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
   {
-    if (a4)
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNM_RX_DATA_IND\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm08_02HandleRxData");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (a1)
+  {
+    v4 = *(a1 + 16);
+    if (*v4 != 122 || v4[1] != 120)
     {
-      *a3 = 45;
-      v6 = 1;
+      if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+      {
+LABEL_16:
+        v15 = 0;
+LABEL_17:
+        free(v4);
+        return v15;
+      }
+
+      bzero(__str, 0x410uLL);
+      v12 = mach_continuous_time();
+      v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v12), "GNM", 87, "Gnm08_02HandleRxData", 770);
+      v14 = __str;
+LABEL_15:
+      LbsOsaTrace_WriteLog(0xBu, v14, v13, 2, 1);
+      goto LABEL_16;
+    }
+
+    v5 = *(a1 + 24);
+    v30 = 0;
+    memset_s(__str, 0x7FCuLL, 0, 0x7FCuLL);
+    v33 = 0;
+    v34 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    memset(v42, 0, sizeof(v42));
+    v28 = 0;
+    v29 = 0;
+    v6 = v4[2] - 79;
+    v7 = v6 > 7;
+    v8 = (1 << v6) & 0xA1;
+    if (!v7 && v8 != 0)
+    {
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+      {
+        bzero(v32, 0x410uLL);
+        v10 = mach_continuous_time();
+        v11 = snprintf(v32, 0x40FuLL, "%10u %s%c %s: Recvd MC,%u,MID,%u,MIDE,%u,Len,%u\n", (*&g_MacClockTicksToMsRelation * v10), "GNM", 73, "Gnm08_01HandleZxMesg", v4[2], v4[3], v4[4], v5);
+        LbsOsaTrace_WriteLog(0xBu, v32, v11, 4, 1);
+      }
+
+      Gnm06_01HandleTmZXData(v4, v5);
+      goto LABEL_16;
+    }
+
+    IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0);
+    PlcGnssHw = Gnm03_64GetPlcGnssHw();
+    plc00_03DecodeMsg(2, v4, v5, __str, &v30, &v33, &v28, PlcGnssHw);
+    if (v33)
+    {
+      if (IsLoggingAllowed == 1 && plc00_15GetExtErrAsString(&v33, __s, 0x104uLL) && LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+      {
+        bzero(v32, 0x410uLL);
+        v20 = mach_continuous_time();
+        v21 = snprintf(v32, 0x40FuLL, "%10u %s%c %s: #%04hx MC,%u,MID,%u,Err,%s\n", (*&g_MacClockTicksToMsRelation * v20), "GNM", 87, "Gnm08_01HandleZxMesg", 776, v28, HIBYTE(v28), __s);
+        LbsOsaTrace_WriteLog(0xBu, v32, v21, 2, 1);
+      }
+
+      if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+      {
+        goto LABEL_16;
+      }
+
+      bzero(v32, 0x410uLL);
+      v22 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+      v13 = snprintf(v32, 0x40FuLL, "%10u %s%c %s: #%04hx ZXHeader %X%X%X%X%X%X%X%X\n", v22, "GNM", 87, "Gnm08_01HandleZxMesg");
+LABEL_29:
+      v14 = v32;
+      goto LABEL_15;
+    }
+
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+    {
+      bzero(v32, 0x410uLL);
+      v24 = mach_continuous_time();
+      v25 = snprintf(v32, 0x40FuLL, "%10u %s%c %s: Recvd zx%c%c,%u\n", (*&g_MacClockTicksToMsRelation * v24), "GNM", 73, "Gnm08_01HandleZxMesg", v28, HIBYTE(v28), v29);
+      LbsOsaTrace_WriteLog(0xBu, v32, v25, 4, 1);
+    }
+
+    switch(v28)
+    {
+      case 'X':
+        v26 = Gnm26_21HandleXMessages(__str, &v28);
+        break;
+      case 'D':
+        v26 = Gnm35_31HandleDMessages(__str, &v28);
+        break;
+      case 'B':
+        v26 = Gnm38_02HandleBMessages(__str, &v28, v23);
+        break;
+      default:
+        if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+        {
+          goto LABEL_16;
+        }
+
+        bzero(v32, 0x410uLL);
+        v27 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+        v13 = snprintf(v32, 0x40FuLL, "%10u %s%c %s: #%04hx MC,%u\n", v27);
+        goto LABEL_29;
+    }
+
+    v15 = v26;
+    goto LABEL_17;
+  }
+
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v16 = mach_continuous_time();
+    v17 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v16), "GNM", 69, "Gnm08_02HandleRxData", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v17, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t KFSt_DMeas_Update(unsigned int a1, unsigned int a2, unsigned int a3, double *a4, double *a5, _WORD *a6, double a7)
+{
+  v19[33] = *MEMORY[0x29EDCA608];
+  if (*(a4 + 1) >= 1 && (*(a4 + 16) = 0, *a4 == 1))
+  {
+    v10 = a4[4];
+    v11 = a7 - a4[3];
+    memset(v16, 0, sizeof(v16));
+    v15 = 0.0;
+    a4[6] = v11;
+    v17 = 0;
+    *(v16 + a1) = 0x3FF0000000000000;
+    *(v16 + a2) = 0xBFF0000000000000;
+    *(v16 + a3) = v11;
+    umeas(a5, a3, v10, v16, v19, v18, &v15, a4[7]);
+    v12 = v15;
+    if (v15 <= 0.0)
+    {
+      v13 = 0;
+      *a4 = 0;
+      *(a4 + 16) = 1;
+      ++*a6;
     }
 
     else
     {
-      v6 = 0;
+      v12 = a4[4] * (v15 * (v19[a3] * v19[a3]));
+      v13 = *a4;
     }
 
-    v7 = *MEMORY[0x29EDCA608];
-
-    return digit3(a1, a2, a3, v6, 0);
+    a4[8] = v12;
   }
 
   else
   {
-    v4 = *MEMORY[0x29EDCA608];
-
-    return nzet(a1, a2, a3, 0, a4, 0);
+    v13 = 0;
   }
+
+  return v13 & 1;
+}
+
+double GLON_EphBin2Int(uint64_t a1, uint64_t a2, int32x4_t a3)
+{
+  *a2 = *a1;
+  *(a2 + 8) = *(a1 + 8);
+  v3 = *(a1 + 56);
+  *(a2 + 24) = *(a1 + 52) >> 27;
+  v4 = *(a1 + 16);
+  *(a2 + 25) = (*(a1 + 12) >> 23) & 3;
+  v5 = *(a1 + 20);
+  *(a2 + 26) = (*(a1 + 24) & 0x800000) != 0;
+  *(a2 + 27) = (v3 >> 19) & 3;
+  v6 = (__PAIR64__(v4, v5) >> 19) & 0x7FFFFFF;
+  if ((v4 & 0x2000) != 0)
+  {
+    LODWORD(v6) = -((__PAIR64__(v4, v5) >> 19) & 0x3FFFFFF);
+  }
+
+  *(a2 + 28) = v6;
+  v8 = *(a1 + 12);
+  v7 = *(a1 + 16);
+  v9 = (v7 >> 14) & 0x1F;
+  if ((v7 & 0x40000) != 0)
+  {
+    v9 = -((v7 >> 14) & 0xF);
+  }
+
+  *(a2 + 52) = v9;
+  v10 = __PAIR64__(v8, v7) >> 19;
+  v11 = v10 & 0xFFFFFF;
+  v12 = v10 & 0x7FFFFF;
+  if ((v8 & 0x400) != 0)
+  {
+    v13 = -v12;
+  }
+
+  else
+  {
+    v13 = v11;
+  }
+
+  *(a2 + 40) = v13;
+  HIDWORD(v14) = *(a1 + 28);
+  LODWORD(v14) = *(a1 + 32);
+  v15 = (v14 >> 19) & 0x7FFFFFF;
+  v16 = (v14 >> 19) & 0x3FFFFFF;
+  if ((v14 & 0x200000000000) != 0)
+  {
+    v17 = -v16;
+  }
+
+  else
+  {
+    v17 = v15;
+  }
+
+  *(a2 + 32) = v17;
+  v19 = *(a1 + 24);
+  v18 = *(a1 + 28);
+  v20 = (v18 >> 14) & 0x1F;
+  if ((v18 & 0x40000) != 0)
+  {
+    v20 = -((v18 >> 14) & 0xF);
+  }
+
+  *(a2 + 53) = v20;
+  v21 = __PAIR64__(v19, v18) >> 19;
+  v22 = v21 & 0xFFFFFF;
+  v23 = v21 & 0x7FFFFF;
+  if ((v19 & 0x400) != 0)
+  {
+    v24 = -v23;
+  }
+
+  else
+  {
+    v24 = v22;
+  }
+
+  *(a2 + 44) = v24;
+  HIDWORD(v25) = *(a1 + 40);
+  LODWORD(v25) = *(a1 + 44);
+  v26 = (v25 >> 19) & 0x7FFFFFF;
+  v27 = (v25 >> 19) & 0x3FFFFFF;
+  if ((v25 & 0x200000000000) != 0)
+  {
+    v28 = -v27;
+  }
+
+  else
+  {
+    v28 = v26;
+  }
+
+  *(a2 + 36) = v28;
+  v30 = *(a1 + 36);
+  v29 = *(a1 + 40);
+  v31 = (v29 >> 14) & 0x1F;
+  if ((v29 & 0x40000) != 0)
+  {
+    v31 = -((v29 >> 14) & 0xF);
+  }
+
+  v32 = __PAIR64__(v30, v29) >> 19;
+  *(a2 + 54) = v31;
+  v33 = v32 & 0xFFFFFF;
+  v34 = v32 & 0x7FFFFF;
+  if ((v30 & 0x400) != 0)
+  {
+    v35 = -v34;
+  }
+
+  else
+  {
+    v35 = v33;
+  }
+
+  *(a2 + 48) = v35;
+  v36 = *(a1 + 48);
+  if ((v36 & 0x4000000) != 0)
+  {
+    v37 = -((v36 >> 5) & 0x1FFFFF);
+  }
+
+  else
+  {
+    v37 = (v36 >> 5) & 0x3FFFFF;
+  }
+
+  *(a2 + 56) = v37;
+  v38 = *(a1 + 36);
+  v39 = (v38 >> 15) & 0x7FF;
+  if ((v38 & 0x2000000) != 0)
+  {
+    v39 = -((v38 >> 15) & 0x3FF);
+  }
+
+  *(a2 + 60) = v39;
+  v40 = *(a1 + 48);
+  if ((v40 & 0x10) != 0)
+  {
+    v40 = -(*(a1 + 48) & 0xF);
+  }
+
+  else
+  {
+    LOBYTE(v40) = v40 & 0x1F;
+  }
+
+  *(a2 + 55) = v40;
+  *(a2 + 14) = (*(a1 + 12) >> 11) & 0xFFF;
+  v41 = *(a1 + 24);
+  *(a2 + 13) = BYTE2(v41) & 0x7F;
+  a3.i64[0] = __PAIR64__(v38, v41);
+  v42 = vand_s8(vmovn_s32(vshlq_u32(vzip1q_s32(a3, vdupq_lane_s32(__PAIR64__(v38, v41), 1)), xmmword_2997613A0)), 0x1000300010007);
+  *a3.i8 = vuzp1_s8(v42, v42);
+  *(a2 + 18) = a3.i32[0];
+  v43 = *(a1 + 52);
+  v44 = *(a1 + 56);
+  *(a2 + 22) = (v43 & 0x1000) != 0;
+  *(a2 + 23) = BYTE1(v43) & 0xF;
+  *(a2 + 16) = (__PAIR64__(v43, v44) >> 26) & 0x7FF;
+  *(a2 + 12) = (v44 >> 21) & 0x1F;
+  return *a3.i64;
+}
+
+uint64_t GLON_EphInt2Bin(uint64_t result, uint64_t a2)
+{
+  *a2 = *result;
+  v2 = ((*(result + 14) & 0xFFF) << 11) & 0xFE7FFFFF | ((*(result + 25) & 3) << 23) | 0x8000000;
+  *(a2 + 8) = *(result + 8);
+  *(a2 + 12) = v2;
+  v3 = *(result + 40);
+  if ((v3 & 0x800000) != 0)
+  {
+    v3 = -v3 | 0x800000;
+  }
+
+  v4 = v2 & 0xFFFFF800 | (v3 >> 13) & 0x7FF;
+  v5 = v3 << 19;
+  v6 = *(result + 52);
+  if ((v6 & 0x10) != 0)
+  {
+    v6 = -v6 | 0x10;
+  }
+
+  v7 = v5 & 0xFFF83FFF | ((v6 & 0x1F) << 14);
+  *(a2 + 12) = v4;
+  *(a2 + 16) = v7;
+  v8 = *(result + 28);
+  if ((v8 & 0x4000000) != 0)
+  {
+    v8 = -v8 | 0x4000000;
+  }
+
+  *(a2 + 16) = v7 & 0xFFFFC000 | (v8 >> 13) & 0x3FFF;
+  *(a2 + 20) = v8 << 19;
+  v9 = (*(result + 26) << 23) & 0xF880FFFF | ((*(result + 18) & 7) << 24) | ((*(result + 13) & 0x7F) << 16) | 0x10000000;
+  *(a2 + 24) = v9;
+  v10 = *(result + 44);
+  if ((v10 & 0x800000) != 0)
+  {
+    v10 = -v10 | 0x800000;
+  }
+
+  v11 = v9 & 0xFFFFF800 | (v10 >> 13) & 0x7FF;
+  v12 = v10 << 19;
+  v13 = *(result + 53);
+  if ((v13 & 0x10) != 0)
+  {
+    v13 = -v13 | 0x10;
+  }
+
+  v14 = v12 & 0xFFF83FFF | ((v13 & 0x1F) << 14);
+  *(a2 + 24) = v11;
+  *(a2 + 28) = v14;
+  v15 = *(result + 32);
+  if ((v15 & 0x4000000) != 0)
+  {
+    v15 = -v15 | 0x4000000;
+  }
+
+  *(a2 + 28) = v14 & 0xFFFFC000 | (v15 >> 13) & 0x3FFF;
+  *(a2 + 32) = v15 << 19;
+  v16 = *(result + 60);
+  if ((v16 & 0x400) != 0)
+  {
+    v16 = -v16 | 0x400;
+  }
+
+  v17 = ((v16 & 0x7FF) << 15) | (*(result + 19) << 26) | ((*(result + 20) & 3) << 12) | (*(result + 21) << 11) | 0x18000000;
+  *(a2 + 36) = v17;
+  v18 = *(result + 48);
+  if ((v18 & 0x800000) != 0)
+  {
+    v18 = -v18 | 0x800000;
+  }
+
+  v19 = *(result + 54);
+  if ((v19 & 0x10) != 0)
+  {
+    v19 = -v19 | 0x10;
+  }
+
+  v20 = v17 & 0xFFFFF800 | (v18 >> 13) & 0x7FF;
+  v21 = (v18 << 19) | ((v19 & 0x1F) << 14);
+  *(a2 + 36) = v20;
+  *(a2 + 40) = v21;
+  v22 = *(result + 36);
+  if ((v22 & 0x4000000) != 0)
+  {
+    v22 = -v22 | 0x4000000;
+  }
+
+  *(a2 + 40) = v21 & 0xFFFFC000 | (v22 >> 13) & 0x3FFF;
+  *(a2 + 44) = v22 << 19;
+  *(a2 + 48) = 0x20000000;
+  v23 = *(result + 56);
+  if ((v23 & 0x200000) != 0)
+  {
+    v23 = -v23 | 0x200000;
+  }
+
+  v24 = *(result + 55);
+  if ((v24 & 0x10) != 0)
+  {
+    v24 = -v24 | 0x10;
+  }
+
+  v25 = v24 & 0x1F | (32 * (v23 & 0x3FFFFF)) | 0x20000000;
+  v26 = *(result + 16);
+  v27 = (*(result + 24) << 27) | (*(result + 22) << 12) | ((*(result + 23) & 0xF) << 8) | (v26 >> 6) & 0x1F;
+  *(a2 + 48) = v25;
+  *(a2 + 52) = v27;
+  *(a2 + 56) = (v26 << 26) | ((*(result + 12) & 0x1F) << 21) | ((*(result + 27) & 3) << 19);
+  return result;
+}
+
+uint64_t Gnm12_11RejectGnssMsaReq(uint64_t a1)
+{
+  v8 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_POSN_START_MSA_GNSS_REQ\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm12_11RejectGnssMsaReq");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (a1)
+  {
+    Gnm13_00SendGnssReqCnf(0, *(a1 + 12), 2);
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v4 = mach_continuous_time();
+    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v4), "GNM", 69, "Gnm12_11RejectGnssMsaReq", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v5, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t Gnm12_12ServiceGnssMsaReq(uint64_t a1)
+{
+  v19 = *MEMORY[0x29EDCA608];
+  v17[8] = 0;
+  *&v17[4] = 0;
+  *&v17[12] = 0;
+  v17[20] = 0;
+  memset(&v17[24], 0, 32);
+  *&v17[56] = 0xFFFF;
+  *&v17[60] = 0;
+  *&v17[64] = 0;
+  v17[69] = 0;
+  v16 = 0;
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 3u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_POSN_START_MSA_GNSS_REQ\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 77, "Gnm12_12ServiceGnssMsaReq");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 3, 1);
+  }
+
+  if (a1)
+  {
+    v4 = Gnm02_12ReqAssistInstn(*(a1 + 12), "LSIM_GNM_POSN_START_MSA_GNSS_REQ", 1, &v16);
+    if (v4)
+    {
+      v5 = v4;
+      if (*(v4 + 1))
+      {
+        if (*(v4 + 2) == 2)
+        {
+          *v17 = *(a1 + 12);
+          v17[5] = 1;
+          v17[68] = v16;
+          v6 = Gnm12_02FillGnssReqParams(v17, (a1 + 20));
+          v7 = v17[68];
+          if ((v6 & 1) == 0)
+          {
+            if (v17[68])
+            {
+              Gnm10_28StopPositioning(v5);
+            }
+
+            Gnm02_21DeleteInstn(v5);
+            v13 = *(a1 + 12);
+            v14 = 2;
+            goto LABEL_22;
+          }
+
+          if (v17[68] && v17[7] != *(*(v5 + 1) + 7))
+          {
+            goto LABEL_20;
+          }
+
+          v17[8] = *(a1 + 16);
+          if (v17[8] == 1)
+          {
+            Gnm02_24AbortAllNafSessions(8);
+          }
+
+          if (Gnm12_03SendAssistPosStart(v17, *v5))
+          {
+            v8 = *(v5 + 1);
+            v9 = *&v17[48];
+            *(v8 + 32) = *&v17[32];
+            *(v8 + 48) = v9;
+            *(v8 + 62) = *&v17[62];
+            v10 = *&v17[16];
+            *v8 = *v17;
+            *(v8 + 16) = v10;
+            return 0;
+          }
+
+          if (v7)
+          {
+LABEL_20:
+            Gnm10_28StopPositioning(v5);
+            Gnm02_21DeleteInstn(v5);
+          }
+        }
+      }
+    }
+
+    v13 = *(a1 + 12);
+    v14 = 0;
+LABEL_22:
+    Gnm13_00SendGnssReqCnf(v14, v13, 2);
+    return 0;
+  }
+
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v11 = mach_continuous_time();
+    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v11), "GNM", 69, "Gnm12_12ServiceGnssMsaReq", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v12, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t Gnm12_02FillGnssReqParams(uint64_t a1, int *a2)
+{
+  v26 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v4 = mach_continuous_time();
+    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: GnssID,%u,AsstAvail,%u\n", (*&g_MacClockTicksToMsRelation * v4), "GNM", 73, "Gnm12_02FillGnssReqParams", *(a2 + 36), *(a2 + 37));
+    LbsOsaTrace_WriteLog(0xBu, __str, v5, 4, 1);
+  }
+
+  if (*(a2 + 36))
+  {
+    v6 = *a2;
+    if ((*a2 - 1) < 3)
+    {
+      *(a1 + 20) = *(a2 + 36);
+      *(a1 + 58) = *(a2 + 37) == 0;
+      if (v6 == 3)
+      {
+        *(a1 + 58) = 0;
+        *(a1 + 12) = *(a2 + 7);
+      }
+
+      else
+      {
+        *(a1 + 12) = *(a2 + 7);
+        if (v6 == 1)
+        {
+          v9 = 18;
+          goto LABEL_16;
+        }
+      }
+
+      v9 = 20;
+LABEL_16:
+      *(a1 + 6) = v9;
+      *(a1 + 69) = *(a2 + 38);
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+      {
+        bzero(__str, 0x410uLL);
+        v10 = mach_continuous_time();
+        v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Qos PosRepType,%u RespTime,%u,EarlyRespTime,%u,AgeLimit,%u,HorAcc,%u,VertAcc,%u\n", (*&g_MacClockTicksToMsRelation * v10), "GNM", 73, "Gnm12_01PopulateQosParams", a2[4], a2[3], a2[6], a2[5], *(a2 + 6), *(a2 + 8));
+        LbsOsaTrace_WriteLog(0xBu, __str, v11, 4, 1);
+      }
+
+      *(a1 + 56) = *(a2 + 6);
+      *(a1 + 57) = *(a2 + 8);
+      v12 = a2[4];
+      if (v12 > 1)
+      {
+        if (v12 == 2)
+        {
+          v20 = a2[3];
+          *(a1 + 36) = v20;
+          *(a1 + 40) = 0;
+          *(a1 + 60) = *(a2 + 2);
+          *(a1 + 7) = 2;
+          *(a1 + 44) = 0;
+          *(a1 + 48) = 0;
+          if ((v20 - 7200001) >= 0xFF922300)
+          {
+            v8 = 1;
+            goto LABEL_51;
+          }
+
+          if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+          {
+            goto LABEL_48;
+          }
+
+          bzero(__str, 0x410uLL);
+          mach_continuous_time();
+          v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx RespTime\n");
+          goto LABEL_47;
+        }
+
+        if (v12 != 3)
+        {
+LABEL_21:
+          if (!LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+          {
+LABEL_48:
+            v8 = 0;
+            goto LABEL_51;
+          }
+
+          bzero(__str, 0x410uLL);
+          v24 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+          v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx PosRep,%u\n", v24);
+LABEL_47:
+          LbsOsaTrace_WriteLog(0xBu, __str, v13, 2, 1);
+          goto LABEL_48;
+        }
+      }
+
+      else
+      {
+        if (!v12)
+        {
+          *(a1 + 60) = 0;
+          *(a1 + 7) = 0;
+          *(a1 + 44) = 0;
+          v8 = 1;
+          *(a1 + 36) = 0;
+LABEL_51:
+          v21 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+          *(a1 + 24) = v21;
+          *(a1 + 52) = v21;
+          return v8;
+        }
+
+        if (v12 != 1)
+        {
+          goto LABEL_21;
+        }
+      }
+
+      v14 = HIWORD(dword_2A193B6D8);
+      if ((*(a1 + 6) & 4) != 0)
+      {
+        if ((*(a1 + 6) & 2) == 0 && a2[5])
+        {
+          goto LABEL_33;
+        }
+      }
+
+      else if ((*(a1 + 6) & 2) == 0)
+      {
+        goto LABEL_33;
+      }
+
+      if ((a2[3] - 7200001) < 0xFF922300)
+      {
+        v8 = 0;
+        if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+        {
+          bzero(__str, 0x410uLL);
+          v15 = mach_continuous_time();
+          v16 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx RespTime\n", (*&g_MacClockTicksToMsRelation * v15), "GNM", 87, "Gnm12_01PopulateQosParams", 514);
+          LbsOsaTrace_WriteLog(0xBu, __str, v16, 2, 1);
+          v8 = 0;
+        }
+
+LABEL_34:
+        v17 = a2[3];
+        if (v17 <= v14)
+        {
+          v18 = 0;
+        }
+
+        else
+        {
+          v18 = v14;
+        }
+
+        *(a1 + 40) = v17 - v18;
+        *(a1 + 60) = 1;
+        if (a2[4] == 3)
+        {
+          *(a1 + 44) = 0;
+        }
+
+        else
+        {
+          v19 = a2[6];
+          if (!v19 || v19 >= v17)
+          {
+            *(a1 + 7) = 1;
+            *(a1 + 44) = 0;
+            *(a1 + 36) = 0;
+            goto LABEL_50;
+          }
+
+          *(a1 + 44) = v19;
+        }
+
+        *(a1 + 7) = 4;
+        *(a1 + 36) = 1000;
+LABEL_50:
+        *(a1 + 48) = a2[5];
+        goto LABEL_51;
+      }
+
+LABEL_33:
+      v8 = 1;
+      goto LABEL_34;
+    }
+
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v23 = (*&g_MacClockTicksToMsRelation * mach_continuous_time());
+      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx LocType,%u\n", v23);
+      goto LABEL_11;
+    }
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    mach_continuous_time();
+    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx GnssID\n");
+LABEL_11:
+    LbsOsaTrace_WriteLog(0xBu, __str, v7, 2, 1);
+  }
+
+  return 0;
+}
+
+BOOL Gnm12_03SendAssistPosStart(uint64_t a1, __int16 a2)
+{
+  v30 = *MEMORY[0x29EDCA608];
+  v4 = gnssOsa_Calloc("Gnm12_03SendAssistPosStart", 259, 1, 0x38uLL);
+  v5 = v4;
+  if (!v4)
+  {
+    return v5 != 0;
+  }
+
+  *(v4 + 6) = a2;
+  v4[49] = *(a1 + 8);
+  v6 = *(a1 + 28);
+  v7.i64[0] = v6;
+  v7.i64[1] = HIDWORD(v6);
+  *(v4 + 20) = vmovn_s64(vcvtq_u64_f64(vmulq_f64(vcvtq_f64_u64(v7), vdupq_n_s64(0x3F50624DD2F1A9FCuLL))));
+  v8 = *(a1 + 48);
+  if (v8 > 0x5265C00)
+  {
+    v8 = 0;
+  }
+
+  *(v4 + 10) = v8;
+  v9 = *(a1 + 7);
+  if (v9 == 2)
+  {
+    v10 = 0;
+    *(v4 + 14) = *(a1 + 60);
+    *(v4 + 8) = *(a1 + 36);
+  }
+
+  else
+  {
+    *(v4 + 8) = *(a1 + 36);
+    if (v9 == 4)
+    {
+      v4[16] = (dword_2A192081C & 0x1000) == 0;
+      v10 = 2;
+    }
+
+    else if (v9 == 1)
+    {
+      v4[16] = (dword_2A192081C & 0x1000) == 0;
+      v10 = 1;
+    }
+
+    else
+    {
+      IsLoggingAllowed = LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0);
+      v10 = 0;
+      if (IsLoggingAllowed)
+      {
+        bzero(__str, 0x410uLL);
+        v12 = mach_continuous_time();
+        v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SessionType,%u\n", (*&g_MacClockTicksToMsRelation * v12), "GNM", 87, "Gnm12_03SendAssistPosStart", 770, *(a1 + 7));
+        LbsOsaTrace_WriteLog(0xBu, __str, v13, 2, 1);
+        v10 = 0;
+      }
+    }
+  }
+
+  v5[15] = v10;
+  v14 = *(a1 + 40);
+  v15 = v14 >= 0x32;
+  v16 = v14 - 50;
+  if (v15)
+  {
+    *(v5 + 9) = v16;
+  }
+
+  v17 = *(a1 + 56);
+  if (v17 == 255)
+  {
+    v18 = 0.0;
+  }
+
+  else
+  {
+    v18 = (pow(1.1, v17) + -1.0) * 10.0;
+  }
+
+  v19 = *(a1 + 57);
+  if (v19 == 255)
+  {
+    v21 = qword_2A1920830;
+    v20 = 0.0;
+    if (*&qword_2A1920830 <= 0.0)
+    {
+      goto LABEL_28;
+    }
+
+    goto LABEL_27;
+  }
+
+  v20 = (pow(1.025, v19) + -1.0) * 45.0;
+  v21 = qword_2A1920830;
+  if (*&qword_2A1920830 > 0.0)
+  {
+    if (v20 == 0.0 || (v20 > 0.0 ? (v22 = *&qword_2A1920830 < v20) : (v22 = 0), v22))
+    {
+LABEL_27:
+      v20 = *&v21;
+    }
+  }
+
+LABEL_28:
+  v23 = (v18 + 1.0);
+  if (v18 > 65535.0)
+  {
+    LOWORD(v23) = -1;
+  }
+
+  if (v18 <= 0.0)
+  {
+    LOWORD(v23) = 0;
+  }
+
+  *(v5 + 22) = v23;
+  v24 = (v20 + 1.0);
+  if (v20 > 65535.0)
+  {
+    LOWORD(v24) = -1;
+  }
+
+  if (v20 <= 0.0)
+  {
+    LOWORD(v24) = 0;
+  }
+
+  *(v5 + 23) = v24;
+  v5[54] = *(a1 + 69);
+  v5[48] = 0;
+  if ((*(a1 + 6) & 2) != 0)
+  {
+    v25 = 4;
+    goto LABEL_40;
+  }
+
+  if ((*(a1 + 6) & 4) != 0)
+  {
+    v25 = 2;
+LABEL_40:
+    v5[48] = v25;
+  }
+
+  v5[50] = *(a1 + 20);
+  v5[14] = -*(a1 + 68);
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v26 = mach_continuous_time();
+    v27 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNCS_START_POS_REQ =>GNCS Id,%u\n", (*&g_MacClockTicksToMsRelation * v26), "GNM", 73, "Gnm12_03SendAssistPosStart", *(v5 + 6));
+    LbsOsaTrace_WriteLog(0xBu, __str, v27, 4, 1);
+  }
+
+  AgpsSendFsmMsg(128, 130, 8519680, v5);
+  return v5 != 0;
+}
+
+uint64_t Gnm12_13RejectGnssMsbReq(uint64_t a1)
+{
+  v8 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_POSN_START_MSB_GNSS_REQ\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm12_13RejectGnssMsbReq");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (a1)
+  {
+    Gnm13_00SendGnssReqCnf(0, *(a1 + 12), 4);
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v4 = mach_continuous_time();
+    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v4), "GNM", 69, "Gnm12_13RejectGnssMsbReq", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v5, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t Gnm12_14ServiceGnssMsbReq(uint64_t a1)
+{
+  v19 = *MEMORY[0x29EDCA608];
+  v17[8] = 0;
+  *&v17[4] = 0;
+  *&v17[12] = 0;
+  v17[20] = 0;
+  memset(&v17[24], 0, 32);
+  *&v17[56] = 0xFFFF;
+  *&v17[60] = 0;
+  *&v17[64] = 0;
+  v17[69] = 0;
+  v16 = 0;
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 3u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_POSN_START_MSB_GNSS_REQ\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 77, "Gnm12_14ServiceGnssMsbReq");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 3, 1);
+  }
+
+  if (a1)
+  {
+    v4 = Gnm02_12ReqAssistInstn(*(a1 + 12), "LSIM_GNM_POSN_START_MSB_GNSS_REQ", 1, &v16);
+    if (v4)
+    {
+      v5 = v4;
+      if (*(v4 + 1))
+      {
+        if (*(v4 + 2) == 2)
+        {
+          *v17 = *(a1 + 12);
+          v17[5] = 1;
+          v17[68] = v16;
+          v6 = Gnm12_02FillGnssReqParams(v17, (a1 + 20));
+          v7 = v17[68];
+          if ((v6 & 1) == 0)
+          {
+            if (v17[68])
+            {
+              Gnm10_28StopPositioning(v5);
+            }
+
+            Gnm02_21DeleteInstn(v5);
+            v13 = *(a1 + 12);
+            v14 = 2;
+            goto LABEL_22;
+          }
+
+          if (v17[68] && v17[7] != *(*(v5 + 1) + 7))
+          {
+            goto LABEL_20;
+          }
+
+          v17[8] = *(a1 + 16);
+          if (v17[8] == 1)
+          {
+            Gnm02_24AbortAllNafSessions(8);
+          }
+
+          if (Gnm12_03SendAssistPosStart(v17, *v5))
+          {
+            v8 = *(v5 + 1);
+            v9 = *&v17[48];
+            *(v8 + 32) = *&v17[32];
+            *(v8 + 48) = v9;
+            *(v8 + 62) = *&v17[62];
+            v10 = *&v17[16];
+            *v8 = *v17;
+            *(v8 + 16) = v10;
+            return 0;
+          }
+
+          if (v7)
+          {
+LABEL_20:
+            Gnm10_28StopPositioning(v5);
+            Gnm02_21DeleteInstn(v5);
+          }
+        }
+      }
+    }
+
+    v13 = *(a1 + 12);
+    v14 = 0;
+LABEL_22:
+    Gnm13_00SendGnssReqCnf(v14, v13, 4);
+    return 0;
+  }
+
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v11 = mach_continuous_time();
+    v12 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v11), "GNM", 69, "Gnm12_14ServiceGnssMsbReq", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v12, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t Gnm12_15AbortReq(uint64_t a1)
+{
+  v16 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 3u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_POSN_ABORT_REQ\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 77, "Gnm12_15AbortReq");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 3, 1);
+  }
+
+  if (a1)
+  {
+    InstnFromAssistId = Gnm02_33GetInstnFromAssistId(*(a1 + 12), 1);
+    if (!InstnFromAssistId)
+    {
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+      {
+        bzero(__str, 0x410uLL);
+        v12 = mach_continuous_time();
+        v13 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx SessionID,%u\n", (*&g_MacClockTicksToMsRelation * v12), "GNM", 87, "Gnm12_15AbortReq", 2052, *(a1 + 12));
+        LbsOsaTrace_WriteLog(0xBu, __str, v13, 2, 1);
+      }
+
+      v8 = *(a1 + 12);
+      v9 = 4;
+      goto LABEL_14;
+    }
+
+    v5 = InstnFromAssistId;
+    if (!Gnm10_28StopPositioning(InstnFromAssistId))
+    {
+      if (LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+      {
+        bzero(__str, 0x410uLL);
+        v6 = mach_continuous_time();
+        v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: Stop Posn Failure\n", (*&g_MacClockTicksToMsRelation * v6), "GNM", 87, "Gnm12_15AbortReq");
+        LbsOsaTrace_WriteLog(0xBu, __str, v7, 2, 1);
+      }
+
+      Gnm02_21DeleteInstn(v5);
+      v8 = *(a1 + 12);
+      v9 = 0;
+LABEL_14:
+      Gnm13_03SendAbortCnf(v8, v9);
+    }
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v10 = mach_continuous_time();
+    v11 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v10), "GNM", 69, "Gnm12_15AbortReq", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v11, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t Gnm12_16RejectAidStatusReq(uint64_t a1)
+{
+  v8 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_AID_STATUS_REQ\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm12_16RejectAidStatusReq");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (a1)
+  {
+    Gnm13_08SendErrAssistStatus();
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v4 = mach_continuous_time();
+    v5 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v4), "GNM", 69, "Gnm12_16RejectAidStatusReq", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v5, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t Gnm12_17HandleAidStatusReq(uint64_t a1)
+{
+  v11 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:LSIM_GNM_AID_STATUS_REQ\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm12_17HandleAidStatusReq");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (a1)
+  {
+    v4 = *(a1 + 12);
+    if (v4)
+    {
+      if (v4 >= 5)
+      {
+        v4 = 5;
+      }
+
+      if (AgpsFsmStartTimer(8399366, 1000 * v4) && LbsOsaTrace_IsLoggingAllowed(0xBu, 2u, 0, 0))
+      {
+        bzero(__str, 0x410uLL);
+        v5 = mach_continuous_time();
+        v6 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v5), "GNM", 87, "Gnm12_17HandleAidStatusReq", 1544);
+        LbsOsaTrace_WriteLog(0xBu, __str, v6, 2, 1);
+      }
+    }
+
+    LOBYTE(g_AssistReq) = 1;
+    HIDWORD(g_AssistReq) = *(a1 + 16);
+    Gnm14_03SendPosEstimateReq();
+    Gnm17_13SendPollAssistStatus();
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v7 = mach_continuous_time();
+    v8 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v7), "GNM", 69, "Gnm12_17HandleAidStatusReq", 517);
+    LbsOsaTrace_WriteLog(0xBu, __str, v8, 0, 1);
+  }
+
+  return 0;
+}
+
+uint64_t Gnm12_18HandleAssistTimeout(uint64_t a1)
+{
+  v12 = *MEMORY[0x29EDCA608];
+  if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v2 = mach_continuous_time();
+    v3 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: FSM:GNM_ASSIST_STATUS_TIMER\n", (*&g_MacClockTicksToMsRelation * v2), "GNM", 73, "Gnm12_18HandleAssistTimeout");
+    LbsOsaTrace_WriteLog(0xBu, __str, v3, 4, 1);
+  }
+
+  if (a1)
+  {
+    if (g_AssistReq == 1)
+    {
+      Gnm13_07SendAidStatusCnf(0);
+      LOBYTE(g_AssistReq) = 0;
+    }
+
+    if (BYTE1(g_AssistReq) == 1)
+    {
+      Gnm13_13HandleAssistStatus(0);
+      BYTE1(g_AssistReq) = 0;
+    }
+
+    if (LbsOsaTrace_IsLoggingAllowed(0xBu, 4u, 0, 0))
+    {
+      bzero(__str, 0x410uLL);
+      v4 = *&g_MacClockTicksToMsRelation * mach_continuous_time();
+      v5 = 78;
+      if (g_AssistReq)
+      {
+        v6 = 89;
+      }
+
+      else
+      {
+        v6 = 78;
+      }
+
+      if (BYTE1(g_AssistReq))
+      {
+        v5 = 89;
+      }
+
+      v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: InternalReq,%c,ExternalReq,%c\n", v4, "GNM", 73, "Gnm12_18HandleAssistTimeout", v5, v6);
+      v8 = 4;
+      goto LABEL_17;
+    }
+  }
+
+  else if (LbsOsaTrace_IsLoggingAllowed(0xBu, 0, 0, 0))
+  {
+    bzero(__str, 0x410uLL);
+    v9 = mach_continuous_time();
+    v7 = snprintf(__str, 0x40FuLL, "%10u %s%c %s: #%04hx\n", (*&g_MacClockTicksToMsRelation * v9), "GNM", 69, "Gnm12_18HandleAssistTimeout", 517);
+    v8 = 0;
+LABEL_17:
+    LbsOsaTrace_WriteLog(0xBu, __str, v7, v8, 1);
+  }
+
+  return 0;
 }

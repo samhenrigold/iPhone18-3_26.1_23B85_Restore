@@ -910,13 +910,11 @@ LABEL_149:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPSearchResultForFeedback *)self topHit])
   {
-    topHit = self->_topHit;
     PBDataWriterWriteInt32Field();
   }
 
@@ -938,7 +936,6 @@ LABEL_149:
 
   if ([(_CPSearchResultForFeedback *)self type])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -954,26 +951,22 @@ LABEL_149:
 
   if (resultType)
   {
-    resultType = self->_resultType;
     PBDataWriterWriteStringField();
   }
 
   [(_CPSearchResultForFeedback *)self rankingScore];
-  if (v16 != 0.0)
+  if (v12 != 0.0)
   {
-    rankingScore = self->_rankingScore;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_CPSearchResultForFeedback *)self isStaticCorrection])
   {
-    isStaticCorrection = self->_isStaticCorrection;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self queryId])
   {
-    queryId = self->_queryId;
     PBDataWriterWriteUint64Field();
   }
 
@@ -981,7 +974,6 @@ LABEL_149:
 
   if (intendedQuery)
   {
-    intendedQuery = self->_intendedQuery;
     PBDataWriterWriteStringField();
   }
 
@@ -989,7 +981,6 @@ LABEL_149:
 
   if (correctedQuery)
   {
-    correctedQuery = self->_correctedQuery;
     PBDataWriterWriteStringField();
   }
 
@@ -997,27 +988,23 @@ LABEL_149:
 
   if (completedQuery)
   {
-    completedQuery = self->_completedQuery;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPSearchResultForFeedback *)self isLocalApplicationResult])
   {
-    isLocalApplicationResult = self->_isLocalApplicationResult;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self publiclyIndexable])
   {
-    publiclyIndexable = self->_publiclyIndexable;
     PBDataWriterWriteBOOLField();
   }
 
-  v28 = [(_CPSearchResultForFeedback *)self fbr];
+  v16 = [(_CPSearchResultForFeedback *)self fbr];
 
-  if (v28)
+  if (v16)
   {
-    fbr = self->_fbr;
     PBDataWriterWriteStringField();
   }
 
@@ -1025,31 +1012,26 @@ LABEL_149:
 
   if (userInput)
   {
-    userInput = self->_userInput;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPSearchResultForFeedback *)self isFuzzyMatch])
   {
-    isFuzzyMatch = self->_isFuzzyMatch;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self doNotFold])
   {
-    doNotFold = self->_doNotFold;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self blockId])
   {
-    blockId = self->_blockId;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPSearchResultForFeedback *)self hashedIdentifier])
   {
-    hashedIdentifier = self->_hashedIdentifier;
     PBDataWriterWriteUint64Field();
   }
 
@@ -1057,13 +1039,11 @@ LABEL_149:
 
   if (resultBundleId)
   {
-    resultBundleId = self->_resultBundleId;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPSearchResultForFeedback *)self knownResultBundleId])
   {
-    knownResultBundleId = self->_knownResultBundleId;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1071,13 +1051,11 @@ LABEL_149:
 
   if (sectionBundleIdentifier)
   {
-    sectionBundleIdentifier = self->_sectionBundleIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPSearchResultForFeedback *)self knownSectionBundleIdentifier])
   {
-    knownSectionBundleIdentifier = self->_knownSectionBundleIdentifier;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1085,13 +1063,11 @@ LABEL_149:
 
   if (applicationBundleIdentifier)
   {
-    applicationBundleIdentifier = self->_applicationBundleIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPSearchResultForFeedback *)self knownApplicationBundleIdentifier])
   {
-    knownApplicationBundleIdentifier = self->_knownApplicationBundleIdentifier;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1099,55 +1075,46 @@ LABEL_149:
 
   if (entityData)
   {
-    entityData = self->_entityData;
     PBDataWriterWriteDataField();
   }
 
   if ([(_CPSearchResultForFeedback *)self shouldUseCompactDisplay])
   {
-    shouldUseCompactDisplay = self->_shouldUseCompactDisplay;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self noGoTakeover])
   {
-    noGoTakeover = self->_noGoTakeover;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self preferTopPlatter])
   {
-    preferTopPlatter = self->_preferTopPlatter;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self wasCompact])
   {
-    wasCompact = self->_wasCompact;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self didTakeoverGo])
   {
-    didTakeoverGo = self->_didTakeoverGo;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self usesCompactDisplay])
   {
-    usesCompactDisplay = self->_usesCompactDisplay;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self isInstantAnswer])
   {
-    isInstantAnswer = self->_isInstantAnswer;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self shouldAutoNavigate])
   {
-    shouldAutoNavigate = self->_shouldAutoNavigate;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1177,25 +1144,21 @@ LABEL_149:
 
   if ([(_CPSearchResultForFeedback *)self containsPersonalResult])
   {
-    containsPersonalResult = self->_containsPersonalResult;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self didRerankPersonalResult])
   {
-    didRerankPersonalResult = self->_didRerankPersonalResult;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self coreSpotlightIndexUsed])
   {
-    coreSpotlightIndexUsed = self->_coreSpotlightIndexUsed;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPSearchResultForFeedback *)self coreSpotlightIndexUsedReason])
   {
-    coreSpotlightIndexUsedReason = self->_coreSpotlightIndexUsedReason;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1225,25 +1188,21 @@ LABEL_149:
 
   if ([(_CPSearchResultForFeedback *)self isVideoAssetFromPhotos])
   {
-    isVideoAssetFromPhotos = self->_isVideoAssetFromPhotos;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self isMailInstantAnswerUpdated])
   {
-    isMailInstantAnswerUpdated = self->_isMailInstantAnswerUpdated;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPSearchResultForFeedback *)self indexOfSectionWhenRanked])
   {
-    indexOfSectionWhenRanked = self->_indexOfSectionWhenRanked;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPSearchResultForFeedback *)self indexOfResultInSectionWhenRanked])
   {
-    indexOfResultInSectionWhenRanked = self->_indexOfResultInSectionWhenRanked;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1257,7 +1216,6 @@ LABEL_149:
 
   if ([(_CPSearchResultForFeedback *)self hasAppTopHitShortcut])
   {
-    hasAppTopHitShortcut = self->_hasAppTopHitShortcut;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1279,17 +1237,15 @@ LABEL_149:
 
   if ([(_CPSearchResultForFeedback *)self thirdPartyQueryCompletionMatched])
   {
-    thirdPartyQueryCompletionMatched = self->_thirdPartyQueryCompletionMatched;
     PBDataWriterWriteInt32Field();
   }
 
   [(_CPSearchResultForFeedback *)self thirdPartyNavigationIntentScore];
-  v83 = toCopy;
-  if (v84 != 0.0)
+  v40 = toCopy;
+  if (v41 != 0.0)
   {
-    thirdPartyNavigationIntentScore = self->_thirdPartyNavigationIntentScore;
     PBDataWriterWriteFloatField();
-    v83 = toCopy;
+    v40 = toCopy;
   }
 }
 

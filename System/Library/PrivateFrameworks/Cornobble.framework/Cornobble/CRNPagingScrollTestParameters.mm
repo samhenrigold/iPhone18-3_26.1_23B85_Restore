@@ -156,7 +156,7 @@ LABEL_11:
 
 - (RCPSyntheticEventStream)eventStream
 {
-  if (RecapLibraryCore_2())
+  if (RecapLibraryCore_2(0))
   {
     v9 = 0;
     v10 = &v9;

@@ -13,7 +13,7 @@
   threadDictionary = [currentThread threadDictionary];
   v11 = [threadDictionary objectForKeyedSubscript:@"HDWorkoutBuilderAssociatedSampleTemporaryTableEntityLocalTableKey"];
 
-  v12 = [nameCopy copy];
+  v12 = objc_msgSend_copy(nameCopy);
   currentThread2 = [MEMORY[0x277CCACC8] currentThread];
   threadDictionary2 = [currentThread2 threadDictionary];
   [threadDictionary2 setObject:v12 forKeyedSubscript:@"HDWorkoutBuilderAssociatedSampleTemporaryTableEntityLocalTableKey"];

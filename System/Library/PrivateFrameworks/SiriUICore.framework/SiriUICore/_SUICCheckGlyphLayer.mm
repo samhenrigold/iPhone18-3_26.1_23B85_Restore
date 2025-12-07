@@ -20,16 +20,16 @@
   v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v10 = [v9 URLForResource:@"glyph_check" withExtension:@"caar"];
   v11 = *MEMORY[0x1E6979EF0];
-  v28 = 0;
-  v12 = [v8 packageWithContentsOfURL:v10 type:v11 options:0 error:&v28];
-  v13 = v28;
+  v29 = 0;
+  v12 = [v8 packageWithContentsOfURL:v10 type:v11 options:0 error:&v29];
+  v13 = v29;
 
   rootLayer = [v12 rootLayer];
   if (rootLayer)
   {
-    v27.receiver = self;
-    v27.super_class = _SUICCheckGlyphLayer;
-    v15 = [(_SUICCheckGlyphLayer *)&v27 init];
+    v28.receiver = self;
+    v28.super_class = _SUICCheckGlyphLayer;
+    v15 = [(_SUICCheckGlyphLayer *)&v28 init];
     if (v15)
     {
       -[_SUICCheckGlyphLayer setGeometryFlipped:](v15, "setGeometryFlipped:", [v12 isGeometryFlipped]);
@@ -49,11 +49,12 @@
       [(CAShapeLayer *)v15->_checkPackageLayer bounds];
       v18 = v17;
       v20 = v19;
-      v29.origin.x = x;
-      v29.origin.y = y;
-      v29.size.width = width;
-      v29.size.height = height;
-      if (CGRectIsNull(v29))
+      v30.origin.x = x;
+      v30.origin.y = y;
+      v30.size.width = width;
+      v30.size.height = height;
+      IsNull = CGRectIsNull(v30);
+      if (IsNull)
       {
         x = *MEMORY[0x1E695EFF8];
         y = *(MEMORY[0x1E695EFF8] + 8);
@@ -61,13 +62,13 @@
         height = v20 * 0.5;
       }
 
-      v21 = _SUICLayerNullActions();
-      [(_SUICCheckGlyphLayer *)v15 setActions:v21];
+      v22 = _SUICLayerNullActions(IsNull);
+      [(_SUICCheckGlyphLayer *)v15 setActions:v22];
 
       checkPackageLayer = v15->_checkPackageLayer;
-      v23 = fmin(width / v18, height / v20);
-      CATransform3DMakeScale(&v26, v23, v23, 1.0);
-      [(CAShapeLayer *)checkPackageLayer setTransform:&v26];
+      v24 = fmin(width / v18, height / v20);
+      CATransform3DMakeScale(&v27, v24, v24, 1.0);
+      [(CAShapeLayer *)checkPackageLayer setTransform:&v27];
       [(_SUICCheckGlyphLayer *)v15 setFrame:x, y, width, height];
       [(_SUICCheckGlyphLayer *)v15 addSublayer:v15->_checkPackageLayer];
       if (v15->_checkPackageLayer)
@@ -138,7 +139,7 @@
 
 - (void)_createMask
 {
-  v40[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   whiteColor = [MEMORY[0x1E69DC888] whiteColor];
   cGColor = [whiteColor CGColor];
 
@@ -150,78 +151,78 @@
   self->_maskLayer = v7;
 
   v9 = self->_maskLayer;
-  v40[0] = cGColor2;
-  v40[1] = cGColor;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:2];
+  v41[0] = cGColor2;
+  v41[1] = cGColor;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
   [(CAGradientLayer *)v9 setColors:v10];
 
-  [(CAGradientLayer *)self->_maskLayer setAnchorPoint:1.0, 0.0];
-  v11 = self->_maskLayer;
-  v12 = _SUICLayerNullActions();
-  [(CAGradientLayer *)v11 setActions:v12];
+  v11 = [(CAGradientLayer *)self->_maskLayer setAnchorPoint:1.0, 0.0];
+  v12 = self->_maskLayer;
+  v13 = _SUICLayerNullActions(v11);
+  [(CAGradientLayer *)v12 setActions:v13];
 
   [(CAShapeLayer *)self->_checkPackageLayer setMask:self->_maskLayer];
   [(CAShapeLayer *)self->_checkPackageLayer bounds];
-  x = v41.origin.x;
-  y = v41.origin.y;
-  width = v41.size.width;
-  height = v41.size.height;
-  v17 = v41.size.width * 0.363636364;
-  MinY = CGRectGetMinY(v41);
-  v19 = (v17 - x) / 0.707106781;
-  v42.origin.x = x;
-  v42.origin.y = y;
-  v42.size.width = width;
-  v42.size.height = height;
-  v20 = (CGRectGetMaxX(v42) - v17) / 0.707106781;
-  v21 = v17 + v20 * 0.707106781 + v19 * -0.707106781;
-  v22 = MinY + v20 * 0.707106781 + v19 * 0.707106781;
-  v23 = sqrt((v21 - v17) * (v21 - v17) + (v22 - MinY) * (v22 - MinY));
-  [(CAGradientLayer *)self->_maskLayer setPosition:v21 + 2.82842712, v22 + 2.82842712];
-  v24 = fmax(v19, fmax(v20, v23)) + 8.0;
-  [(CAGradientLayer *)self->_maskLayer setBounds:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v24, v24];
+  x = v42.origin.x;
+  y = v42.origin.y;
+  width = v42.size.width;
+  height = v42.size.height;
+  v18 = v42.size.width * 0.363636364;
+  MinY = CGRectGetMinY(v42);
+  v20 = (v18 - x) / 0.707106781;
+  v43.origin.x = x;
+  v43.origin.y = y;
+  v43.size.width = width;
+  v43.size.height = height;
+  v21 = (CGRectGetMaxX(v43) - v18) / 0.707106781;
+  v22 = v18 + v21 * 0.707106781 + v20 * -0.707106781;
+  v23 = MinY + v21 * 0.707106781 + v20 * 0.707106781;
+  v24 = sqrt((v22 - v18) * (v22 - v18) + (v23 - MinY) * (v23 - MinY));
+  [(CAGradientLayer *)self->_maskLayer setPosition:v22 + 2.82842712, v23 + 2.82842712];
+  v25 = fmax(v20, fmax(v21, v24)) + 8.0;
+  [(CAGradientLayer *)self->_maskLayer setBounds:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v25, v25];
   [(CAGradientLayer *)self->_maskLayer setStartPoint:0.5, 0.0];
-  [(CAGradientLayer *)self->_maskLayer setEndPoint:0.5, 4.0 / v24];
+  [(CAGradientLayer *)self->_maskLayer setEndPoint:0.5, 4.0 / v25];
   p_uncoveredTransform = &self->_uncoveredTransform;
-  CATransform3DMakeRotation(&v39, 0.785398163, 0.0, 0.0, 1.0);
-  v26 = *&v39.m33;
-  *&self->_uncoveredTransform.m31 = *&v39.m31;
-  *&self->_uncoveredTransform.m33 = v26;
-  v27 = *&v39.m43;
-  *&self->_uncoveredTransform.m41 = *&v39.m41;
-  *&self->_uncoveredTransform.m43 = v27;
-  v28 = *&v39.m13;
-  *&self->_uncoveredTransform.m11 = *&v39.m11;
-  *&self->_uncoveredTransform.m13 = v28;
-  v29 = *&v39.m23;
-  *&self->_uncoveredTransform.m21 = *&v39.m21;
-  *&self->_uncoveredTransform.m23 = v29;
+  CATransform3DMakeRotation(&v40, 0.785398163, 0.0, 0.0, 1.0);
+  v27 = *&v40.m33;
+  *&self->_uncoveredTransform.m31 = *&v40.m31;
+  *&self->_uncoveredTransform.m33 = v27;
+  v28 = *&v40.m43;
+  *&self->_uncoveredTransform.m41 = *&v40.m41;
+  *&self->_uncoveredTransform.m43 = v28;
+  v29 = *&v40.m13;
+  *&self->_uncoveredTransform.m11 = *&v40.m11;
+  *&self->_uncoveredTransform.m13 = v29;
+  v30 = *&v40.m23;
+  *&self->_uncoveredTransform.m21 = *&v40.m21;
+  *&self->_uncoveredTransform.m23 = v30;
   self = (self + 200);
-  v30 = *&p_uncoveredTransform->m33;
-  *&v38.m31 = *&p_uncoveredTransform->m31;
-  *&v38.m33 = v30;
-  v31 = *&p_uncoveredTransform->m43;
-  *&v38.m41 = *&p_uncoveredTransform->m41;
-  *&v38.m43 = v31;
-  v32 = *&p_uncoveredTransform->m13;
-  *&v38.m11 = *&p_uncoveredTransform->m11;
-  *&v38.m13 = v32;
-  v33 = *&p_uncoveredTransform->m23;
-  *&v38.m21 = *&p_uncoveredTransform->m21;
-  *&v38.m23 = v33;
-  CATransform3DRotate(&v39, &v38, 1.57079633, 0.0, 0.0, 1.0);
-  v34 = *&v39.m33;
-  *&self->_covered = *&v39.m31;
-  *&self->_uncoveredTransform.m12 = v34;
-  v35 = *&v39.m43;
-  *&self->_uncoveredTransform.m14 = *&v39.m41;
-  *&self->_uncoveredTransform.m22 = v35;
-  v36 = *&v39.m13;
-  *&self->super.super.isa = *&v39.m11;
-  *&self->super._attr.layer = v36;
-  v37 = *&v39.m23;
-  *&self->super._wantsDynamicContentScaling = *&v39.m21;
-  *&self->_checkPackageLayer = v37;
+  v31 = *&p_uncoveredTransform->m33;
+  *&v39.m31 = *&p_uncoveredTransform->m31;
+  *&v39.m33 = v31;
+  v32 = *&p_uncoveredTransform->m43;
+  *&v39.m41 = *&p_uncoveredTransform->m41;
+  *&v39.m43 = v32;
+  v33 = *&p_uncoveredTransform->m13;
+  *&v39.m11 = *&p_uncoveredTransform->m11;
+  *&v39.m13 = v33;
+  v34 = *&p_uncoveredTransform->m23;
+  *&v39.m21 = *&p_uncoveredTransform->m21;
+  *&v39.m23 = v34;
+  CATransform3DRotate(&v40, &v39, 1.57079633, 0.0, 0.0, 1.0);
+  v35 = *&v40.m33;
+  *&self->_covered = *&v40.m31;
+  *&self->_uncoveredTransform.m12 = v35;
+  v36 = *&v40.m43;
+  *&self->_uncoveredTransform.m14 = *&v40.m41;
+  *&self->_uncoveredTransform.m22 = v36;
+  v37 = *&v40.m13;
+  *&self->super.super.isa = *&v40.m11;
+  *&self->super._attr.layer = v37;
+  v38 = *&v40.m23;
+  *&self->super._wantsDynamicContentScaling = *&v40.m21;
+  *&self->_checkPackageLayer = v38;
 }
 
 - (void)setPrimaryColor:(id)color animated:(BOOL)animated completion:(id)completion
@@ -337,7 +338,7 @@ LABEL_11:
   maskLayer = self->_maskLayer;
   if (maskLayer)
   {
-    [(CAGradientLayer *)maskLayer transform];
+    objc_msgSend_transform(maskLayer);
   }
 
   a = v27;

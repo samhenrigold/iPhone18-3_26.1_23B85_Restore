@@ -22,7 +22,7 @@
 
 - (void)downloadFinishedError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = DALoggingwithCategory();
   v6 = v5;
@@ -32,16 +32,16 @@
     if (os_log_type_enabled(v5, v7))
     {
       uuid = self->_uuid;
-      v18 = 138543618;
-      v19 = uuid;
-      v20 = 2112;
-      v21 = errorCopy;
+      v17 = 138543618;
+      v18 = uuid;
+      v19 = 2112;
+      v20 = errorCopy;
       v9 = "Error downloading an attachment %{public}@: %@";
       v10 = v6;
       v11 = v7;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2484B2000, v10, v11, v9, &v18, v12);
+      _os_log_impl(&dword_2484B2000, v10, v11, v9, &v17, v12);
     }
   }
 
@@ -51,8 +51,8 @@ LABEL_6:
     if (os_log_type_enabled(v5, v13))
     {
       v14 = self->_uuid;
-      v18 = 138543362;
-      v19 = v14;
+      v17 = 138543362;
+      v18 = v14;
       v9 = "Completed download of attachment %{public}@";
       v10 = v6;
       v11 = v13;
@@ -64,8 +64,6 @@ LABEL_6:
   retainedSelf = self->_retainedSelf;
   self->_retainedSelf = 0;
   v16 = retainedSelf;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

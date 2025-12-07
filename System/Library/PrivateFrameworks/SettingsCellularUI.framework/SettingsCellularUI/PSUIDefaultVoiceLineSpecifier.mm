@@ -156,7 +156,7 @@ LABEL_6:
 
 void __63__PSUIDefaultVoiceLineSpecifier_setDefaultVoiceLine_specifier___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [*(a1 + 32) getLogger];
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -165,23 +165,23 @@ void __63__PSUIDefaultVoiceLineSpecifier_setDefaultVoiceLine_specifier___block_i
     if (v7)
     {
       v8 = *(a1 + 40);
-      v14 = 138412290;
-      v15 = v8;
+      v13 = 138412290;
+      v14 = v8;
       v9 = "set default to: %@";
       v10 = v6;
       v11 = 12;
 LABEL_6:
-      _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
+      _os_log_impl(&dword_2658DE000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
     }
   }
 
   else if (v7)
   {
     v12 = *(a1 + 40);
-    v14 = 138412546;
-    v15 = v12;
-    v16 = 2112;
-    v17 = v5;
+    v13 = 138412546;
+    v14 = v12;
+    v15 = 2112;
+    v16 = v5;
     v9 = "failed to set default to: %@, error: %@";
     v10 = v6;
     v11 = 22;
@@ -189,33 +189,21 @@ LABEL_6:
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)planItemForListItem:(id)item
 {
   itemCopy = item;
-  if ([itemCopy cellType] != 3)
-  {
-    goto LABEL_3;
-  }
-
-  values = [itemCopy values];
-  firstObject = [values firstObject];
-  null = [MEMORY[0x277CBEB68] null];
-  v8 = [firstObject isEqual:null];
-
-  if ((v8 & 1) == 0)
+  if ([itemCopy cellType] == 3 && (objc_msgSend(itemCopy, "values"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "firstObject"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CBEB68], "null"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqual:", v7), v7, v6, v5, (v8 & 1) == 0))
   {
     cachedPlanItems = self->_cachedPlanItems;
-    values2 = [itemCopy values];
-    firstObject2 = [values2 firstObject];
-    v9 = -[NSArray objectAtIndexedSubscript:](cachedPlanItems, "objectAtIndexedSubscript:", [firstObject2 integerValue]);
+    values = [itemCopy values];
+    firstObject = [values firstObject];
+    v9 = -[NSArray objectAtIndexedSubscript:](cachedPlanItems, "objectAtIndexedSubscript:", [firstObject integerValue]);
   }
 
   else
   {
-LABEL_3:
     v9 = 0;
   }
 

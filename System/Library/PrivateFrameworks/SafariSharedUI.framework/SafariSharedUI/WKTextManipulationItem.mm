@@ -26,7 +26,7 @@ id __79___WKTextManipulationItem_SafariSharedExtras__safari_updateTranslationReq
   return v3;
 }
 
-uint64_t __105___WKTextManipulationItem_SafariSharedExtras__safari_isEqualToManipulationItem_includingContentEquality___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__105___WKTextManipulationItem_SafariSharedExtras__safari_isEqualToManipulationItem_includingContentEquality___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   result = [a2 safari_isEqualToManipulationToken:a3 includingContentEquality:*(a1 + 40)];
   if ((result & 1) == 0)

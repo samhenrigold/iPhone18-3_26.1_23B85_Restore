@@ -419,15 +419,15 @@ uint64_t __64__WBSTestController__runTestsAndStoreResultsIn_completionBlock___bl
   dispatch_async(internalQueue, block);
 }
 
-void __65__WBSTestController_runTestsAndStoreResultsIn_completionHandler___block_invoke(uint64_t a1)
+void __65__WBSTestController_runTestsAndStoreResultsIn_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 24) == 1)
+  v3 = *(a1 + 32);
+  if (*(v3 + 24) == 1)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXTest();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = WBS_LOG_CHANNEL_PREFIXTest(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      __65__WBSTestController_runTestsAndStoreResultsIn_completionHandler___block_invoke_cold_1(v3);
+      __65__WBSTestController_runTestsAndStoreResultsIn_completionHandler___block_invoke_cold_1(v4);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -435,16 +435,16 @@ void __65__WBSTestController_runTestsAndStoreResultsIn_completionHandler___block
 
   else
   {
-    *(v2 + 24) = 1;
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __65__WBSTestController_runTestsAndStoreResultsIn_completionHandler___block_invoke_10;
-    v6[3] = &unk_1E7FB81B8;
-    v6[4] = v4;
-    v7 = *(a1 + 48);
-    [v4 _runTestsAndStoreResultsIn:v5 completionBlock:v6];
+    *(v3 + 24) = 1;
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __65__WBSTestController_runTestsAndStoreResultsIn_completionHandler___block_invoke_10;
+    v7[3] = &unk_1E7FB81B8;
+    v7[4] = v5;
+    v8 = *(a1 + 48);
+    [v5 _runTestsAndStoreResultsIn:v6 completionBlock:v7];
   }
 }
 

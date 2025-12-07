@@ -21,13 +21,11 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"udc_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"udc_id";
   defaultForeignKey = [MEMORY[0x277D10920] defaultForeignKey];
-  v7[0] = defaultForeignKey;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = defaultForeignKey;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -58,7 +56,7 @@
 
 + (BOOL)willDeleteConcreteUserDomainConcept:(id)concept userDomainConceptID:(int64_t)d syncProvenance:(int64_t)provenance profile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   conceptCopy = concept;
   profileCopy = profile;
   transactionCopy = transaction;
@@ -90,8 +88,8 @@
     if (firstConceptIdentifier2)
     {
       firstConceptIdentifier3 = [conceptCopy firstConceptIdentifier];
-      v39[0] = firstConceptIdentifier3;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+      v38[0] = firstConceptIdentifier3;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
       v27 = HDDismissedPregnancyLactationInteractionPredicateForMedicationIdentifiersAndInteractionTypes(v26, 0);
 
       database2 = [transactionCopy database];
@@ -101,12 +99,12 @@
       {
         semanticIdentifier = [conceptCopy semanticIdentifier];
         stringValue = [semanticIdentifier stringValue];
-        v38 = stringValue;
-        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
-        v37 = HDDismissedRemoteScheduleUnavailableRecordsForMedicationSemanticIdentifiers(v32);
+        v37 = stringValue;
+        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+        v36 = HDDismissedRemoteScheduleUnavailableRecordsForMedicationSemanticIdentifiers(v32);
 
         database3 = [transactionCopy database];
-        v34 = [(HDHealthEntity *)HDDismissedRemoteScheduleUnavailableRecordEntity deleteEntitiesWithPredicate:v37 healthDatabase:database3 error:error];
+        v34 = [(HDHealthEntity *)HDDismissedRemoteScheduleUnavailableRecordEntity deleteEntitiesWithPredicate:v36 healthDatabase:database3 error:error];
 
         if (!v34)
         {
@@ -130,13 +128,12 @@ LABEL_7:
   LOBYTE(v34) = 0;
 LABEL_12:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
 + (id)predicateMatchingSemanticIdentifier:(id)identifier
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   uUID = [identifierCopy UUID];
 
@@ -151,15 +148,13 @@ LABEL_12:
     v7 = MEMORY[0x277D10B20];
     uUID2 = [identifierCopy typeIdentifier];
     v8 = HDUserDomainConceptEntityPredicateForConceptsWithTypeIdentifier();
-    v14[0] = v8;
+    v13[0] = v8;
     medicalCoding = [identifierCopy medicalCoding];
     v10 = HDUserDomainConceptEntityPredicateForMedicalCoding();
-    v14[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v6 = [v7 predicateMatchingAllPredicates:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -334,7 +329,7 @@ LABEL_12:
 + (id)predicateForHasSchedule:(BOOL)schedule
 {
   scheduleCopy = schedule;
-  v5 = +[HDMedicationUserDomainConceptEntity _queryDescriptorForNonDeletedSchedules];
+  v5 = +[(HDMedicationUserDomainConceptEntity *)self];
   v6 = [(HDMedicationUserDomainConceptEntity *)self _predicateForSemanticIdsInSchedulesWithSubqueryDescriptor:v5];
   v7 = [(HDMedicationUserDomainConceptEntity *)self _predicateForSchedulesWithAMedicationsUUIDWithSubqueryDescriptor:v5];
   v8 = [MEMORY[0x277D10B20] disjunctionWithPredicate:v6 otherPredicate:v7];
@@ -360,76 +355,72 @@ LABEL_12:
 + (id)_queryDescriptorForNonDeletedSchedules
 {
   objc_opt_self();
-  v0 = objc_alloc_init(MEMORY[0x277D10B80]);
-  [v0 setEntityClass:objc_opt_class()];
-  v1 = HDMedicationSchedulePredicateForDeleted(0, 1);
-  [v0 setPredicate:v1];
+  v1 = objc_alloc_init(MEMORY[0x277D10B80]);
+  [v1 setEntityClass:objc_opt_class()];
+  v2 = HDMedicationSchedulePredicateForDeleted(0, 1);
+  [v1 setPredicate:v2];
 
-  [v0 setReturnsDistinctEntities:1];
+  [v1 setReturnsDistinctEntities:1];
 
-  return v0;
+  return v1;
 }
 
 + (id)_predicateForSemanticIdsInSchedulesWithSubqueryDescriptor:(uint64_t)descriptor
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = *MEMORY[0x277D10520];
   v4 = *MEMORY[0x277D10518];
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"'medication' || ? || '0' || ? || %@ || ? || %@", *MEMORY[0x277D10520], *MEMORY[0x277D10518]];
   v6 = MEMORY[0x277D10B90];
-  v18[0] = v3;
-  v18[1] = v4;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-  v17[0] = *MEMORY[0x277CCCE50];
-  v17[1] = v17[0];
-  v17[2] = v17[0];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+  v17[0] = v3;
+  v17[1] = v4;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[0] = *MEMORY[0x277CCCE50];
+  v16[1] = v16[0];
+  v16[2] = v16[0];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
   v9 = [v6 predicateWithSQL:@"(1=1)" overProperties:v7 values:v8];
 
   v10 = MEMORY[0x277D10B18];
-  v16 = @"medication_identifier";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v15 = @"medication_identifier";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
   v12 = [v10 predicateWithProperty:v5 comparisonType:7 subqueryDescriptor:v2 subqueryProperties:v11];
 
   v13 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v12 otherPredicate:v9];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (id)_predicateForSchedulesWithAMedicationsUUIDWithSubqueryDescriptor:(uint64_t)descriptor
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = MEMORY[0x277D10B18];
   v4 = *MEMORY[0x277D10558];
-  v9[0] = @"medication_uuid";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = @"medication_uuid";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [v3 predicateWithProperty:v4 comparisonType:7 subqueryDescriptor:v2 subqueryProperties:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)predicateMatchingSemanticDuplicatesOf:(id)of
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   ofCopy = of;
   firstOntologyCoding = [ofCopy firstOntologyCoding];
   if (firstOntologyCoding && (HDUserDomainConceptEntityPredicateForMedicalCoding(), (v5 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v6 = v5;
-    v21 = MEMORY[0x277D10B20];
+    v20 = MEMORY[0x277D10B20];
     v7 = MEMORY[0x277D10B18];
     v8 = *MEMORY[0x277D10558];
     uUID = [ofCopy UUID];
     v9 = [v7 predicateWithProperty:v8 notEqualToValue:uUID];
-    v23[0] = v9;
+    v22[0] = v9;
     v10 = MEMORY[0x277D10B18];
     v11 = *MEMORY[0x277D10548];
     v12 = MEMORY[0x277CCABB0];
@@ -437,18 +428,16 @@ LABEL_12:
     typeIdentifier = [semanticIdentifier typeIdentifier];
     v15 = [v12 numberWithInteger:{objc_msgSend(typeIdentifier, "code")}];
     v16 = [v10 predicateWithProperty:v11 equalToValue:v15];
-    v23[1] = v16;
-    v23[2] = v6;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
-    falsePredicate = [v21 predicateMatchingAllPredicates:v17];
+    v22[1] = v16;
+    v22[2] = v6;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+    falsePredicate = [v20 predicateMatchingAllPredicates:v17];
   }
 
   else
   {
     falsePredicate = [MEMORY[0x277D10B70] falsePredicate];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return falsePredicate;
 }

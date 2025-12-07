@@ -24,10 +24,16 @@
   if (label)
   {
     sub_1D8190F14();
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
-  CardView.accessibilityLabel.setter();
+  CardView.accessibilityLabel.setter(selfCopy, v5);
 }
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer

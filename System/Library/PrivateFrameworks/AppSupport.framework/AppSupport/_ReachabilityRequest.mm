@@ -53,26 +53,26 @@
 
 - (void)reachabilityChangedWithFlags:(unsigned int)flags
 {
-  *&v15[4] = *MEMORY[0x1E69E9840];
-  v4 = &v14;
+  *&v14[4] = *MEMORY[0x1E69E9840];
+  v4 = &v13;
   if ((flags & 2) != 0)
   {
     if ((self->_flags & 2) != 0)
     {
-      v4 = v15;
-      v14 = flags & 0xFFFFFFFD;
+      v4 = v14;
+      v13 = flags & 0xFFFFFFFD;
       v5 = 2;
       goto LABEL_6;
     }
 
-    v4 = &v14;
+    v4 = &v13;
   }
 
   v5 = 1;
 LABEL_6:
   self->_flags = flags;
   *v4 = flags;
-  v6 = &v14;
+  v6 = &v13;
   v7 = *MEMORY[0x1E695E480];
   do
   {
@@ -108,7 +108,6 @@ LABEL_6:
   }
 
   while (v5);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer selector:(SEL)selector

@@ -87,7 +87,7 @@
 
 - (void)setObservedPhotoLibraries:(id)libraries
 {
-  sub_1A3C52C70(0, &qword_1EB144298);
+  sub_1A3C52C70(0, &qword_1EB144298, 0x1E69789D8);
   *(self + OBJC_IVAR___PXSharedCollectionsCollaborationViewManager_observedPhotoLibraries) = sub_1A524CA34();
 }
 

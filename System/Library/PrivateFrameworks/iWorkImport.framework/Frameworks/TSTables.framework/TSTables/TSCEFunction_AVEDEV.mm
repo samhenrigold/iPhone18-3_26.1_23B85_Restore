@@ -7,137 +7,137 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v92[0] = 0;
-  v75 = v7;
-  v9 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v7, v8, context, spec, 0, 1, v92);
-  v10 = v92[0];
-  v77 = v9;
+  v79[0] = 0;
+  v62 = v7;
+  v9 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v7, v8, context, spec, 0, 1, v79);
+  v10 = v79[0];
+  v64 = v9;
   if (v10)
   {
-    v14 = v10;
-    v15 = objc_msgSend_raiseErrorOrConvert_(context, v11, v10, v12, v13);
+    v13 = v10;
+    v14 = objc_msgSend_raiseErrorOrConvert_(context, v11, v10, v12);
   }
 
   else
   {
-    v76 = objc_msgSend_averageOfVector_functionSpec_argVector_argumentIndex_(TSCEFunction_AVERAGE, v11, context, spec, v9, 0);
-    v20 = objc_msgSend_count(v9, v16, v17, v18, v19);
-    v80 = objc_msgSend_zero(TSCENumberValue, v21, v22, v23, v24);
+    v63 = objc_msgSend_averageOfVector_functionSpec_argVector_argumentIndex_(TSCEFunction_AVERAGE, v11, context, spec, v9, 0);
+    v18 = objc_msgSend_count(v9, v15, v16, v17);
+    v67 = objc_msgSend_zero(TSCENumberValue, v19, v20, v21);
     contextCopy = context;
-    v86[0] = contextCopy;
-    v86[1] = spec;
-    v87 = 0;
-    v88[0] = 0;
-    *(v88 + 7) = 0;
-    v89 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-    v90 = 0;
-    v91 = 0;
-    if (v20)
+    v73[0] = contextCopy;
+    v73[1] = spec;
+    v74 = 0;
+    v75[0] = 0;
+    *(v75 + 7) = 0;
+    v76 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+    v77 = 0;
+    v78 = 0;
+    if (v18)
     {
-      v28 = 0;
-      v79 = 0;
-      v29 = 0;
+      v24 = 0;
+      v66 = 0;
+      v25 = 0;
       do
       {
-        v30 = objc_msgSend_valueAtIndex_accessContext_(v9, v25, v28, v86, v26);
-        if (objc_msgSend_isError(v30, v31, v32, v33, v34))
+        v26 = objc_msgSend_valueAtIndex_accessContext_(v9, v22, v24, v73);
+        if (objc_msgSend_isError(v26, v27, v28, v29))
         {
-          v74 = objc_msgSend_errorWithContext_(v30, v35, contextCopy, v37, v38);
-          v15 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v67, v74, v68, v69);
-          v14 = 0;
+          v61 = objc_msgSend_errorWithContext_(v26, v30, contextCopy, v32);
+          v14 = objc_msgSend_raiseErrorOrConvert_(contextCopy, v56, v61, v57);
+          v13 = 0;
           goto LABEL_23;
         }
 
-        if ((objc_msgSend_isNil(v30, v35, v36, v37, v38) & 1) == 0)
+        if ((objc_msgSend_isNil(v26, v30, v31, v32) & 1) == 0)
         {
-          v40 = objc_msgSend_computeSubtraction_functionSpec_left_leftArgumentIndex_right_rightArgumentIndex_(TSCEFunction_op_Subtract, v39, contextCopy, spec, v30, 0, v76, 0);
-          v85 = 0;
-          v78 = v40;
-          v41 = contextCopy;
-          v43 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v40, v42, contextCopy, spec, 0, &v85);
-          v44 = v85;
-          if (v44)
+          v34 = objc_msgSend_computeSubtraction_functionSpec_left_leftArgumentIndex_right_rightArgumentIndex_(TSCEFunction_op_Subtract, v33, contextCopy, spec, v26, 0, v63, 0);
+          v72 = 0;
+          v65 = v34;
+          v35 = contextCopy;
+          v37 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v34, v36, contextCopy, spec, 0, &v72);
+          v38 = v72;
+          if (v38)
           {
-            v14 = v44;
-            v15 = objc_msgSend_raiseErrorOrConvert_(v41, v45, v44, v47, v48);
+            v13 = v38;
+            v14 = objc_msgSend_raiseErrorOrConvert_(v35, v39, v38, v41);
 
-            v74 = v78;
+            v61 = v65;
             goto LABEL_23;
           }
 
-          v49 = objc_msgSend_abs(v43, v45, v46, v47, v48);
-          v51 = v49;
-          if (v29)
+          v42 = objc_msgSend_abs(v37, v39, v40, v41);
+          v44 = v42;
+          if (v25)
           {
-            v84 = 0;
-            v52 = objc_msgSend_add_functionSpec_outError_(v80, v50, v49, spec, &v84);
-            v53 = v84;
+            v71 = 0;
+            v45 = objc_msgSend_add_functionSpec_outError_(v67, v43, v42, spec, &v71);
+            v46 = v71;
 
-            if (v53)
+            if (v46)
             {
-              v15 = objc_msgSend_raiseErrorOrConvert_(v41, v54, v53, v55, v56);
+              v14 = objc_msgSend_raiseErrorOrConvert_(v35, v47, v46, v48);
 
-              v80 = v52;
-              v9 = v77;
-              v74 = v78;
-              v14 = v53;
+              v67 = v45;
+              v9 = v64;
+              v61 = v65;
+              v13 = v46;
               goto LABEL_23;
             }
           }
 
           else
           {
-            v52 = v49;
+            v45 = v42;
           }
 
-          ++v79;
+          ++v66;
 
-          v29 = 1;
-          v80 = v52;
-          v9 = v77;
-          contextCopy = v41;
+          v25 = 1;
+          v67 = v45;
+          v9 = v64;
+          contextCopy = v35;
         }
 
-        ++v28;
+        ++v24;
       }
 
-      while (v20 != v28);
+      while (v18 != v24);
     }
 
     TSUDecimal::operator=();
-    v30 = objc_msgSend_numberWithDecimal_(TSCENumberValue, v57, &v82, v58, v59);
-    v83 = 0;
-    v74 = objc_msgSend_divide_outError_(v80, v60, v30, &v83, v61);
-    v62 = contextCopy;
-    v14 = v83;
-    if (v14)
+    v26 = objc_msgSend_numberWithDecimal_(TSCENumberValue, v49, &v69, v50);
+    v70 = 0;
+    v61 = objc_msgSend_divide_outError_(v67, v51, v26, &v70);
+    v52 = contextCopy;
+    v13 = v70;
+    if (v13)
     {
-      v66 = objc_msgSend_raiseErrorOrConvert_(v62, v63, v14, v64, v65);
+      v55 = objc_msgSend_raiseErrorOrConvert_(v52, v53, v13, v54);
     }
 
     else
     {
       if (v9)
       {
-        objc_msgSend_formatWithContext_(v9, v63, v62, v64, v65);
+        objc_msgSend_formatWithContext_(v9, v53, v52, v54);
       }
 
       else
       {
-        memset(&v81, 0, sizeof(v81));
+        memset(&v68, 0, sizeof(v68));
       }
 
-      TSCEFormat::TSCEFormat(&v82, &v81);
-      objc_msgSend_setFormat_(v74, v70, &v82, v71, v72);
-      v66 = v74;
-      v74 = v66;
+      TSCEFormat::TSCEFormat(&v69, &v68);
+      objc_msgSend_setFormat_(v61, v58, &v69, v59);
+      v55 = v61;
+      v61 = v55;
     }
 
-    v15 = v66;
+    v14 = v55;
 LABEL_23:
   }
 
-  return v15;
+  return v14;
 }
 
 @end

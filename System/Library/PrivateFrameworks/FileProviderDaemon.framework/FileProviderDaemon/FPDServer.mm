@@ -128,7 +128,7 @@ void __17__FPDServer_init__block_invoke(uint64_t a1)
   dispatch_async(domainCachingQueue, block);
 }
 
-void __34__FPDServer_signalProviderChanges__block_invoke(uint64_t a1)
+void __34__FPDServer_signalProviderChanges__block_invoke(uint64_t a1, uint64_t a2)
 {
   v26 = *MEMORY[0x1E69E9840];
   if (_block_invoke_onceToken != -1)
@@ -138,85 +138,83 @@ void __34__FPDServer_signalProviderChanges__block_invoke(uint64_t a1)
 
   if (_block_invoke_path)
   {
-    v2 = [MEMORY[0x1E695DFF8] fileURLWithPath:_block_invoke_path isDirectory:0];
-    v3 = [*(*(a1 + 32) + 176) providerDomainsByID];
-    v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v3, "count")}];
+    v3 = [MEMORY[0x1E695DFF8] fileURLWithPath:_block_invoke_path isDirectory:0];
+    v4 = [*(*(a1 + 32) + 176) providerDomainsByID];
+    v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v4, "count")}];
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
     v22[2] = __34__FPDServer_signalProviderChanges__block_invoke_3;
     v22[3] = &unk_1E83BEF60;
-    v5 = v4;
-    v23 = v5;
-    [v3 enumerateKeysAndObjectsUsingBlock:v22];
-    v6 = MEMORY[0x1E696ACC8];
-    v7 = [v5 copy];
+    v6 = v5;
+    v23 = v6;
+    [v4 enumerateKeysAndObjectsUsingBlock:v22];
+    v7 = MEMORY[0x1E696ACC8];
+    v8 = [v6 copy];
     v21 = 0;
-    v8 = [v6 archivedDataWithRootObject:v7 requiringSecureCoding:1 error:&v21];
-    v9 = v21;
+    v9 = [v7 archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v21];
+    v10 = v21;
 
-    if (v8)
+    if (v9)
     {
-      v20 = v9;
-      v10 = [v8 writeToURL:v2 options:1 error:&v20];
-      v11 = v20;
+      v20 = v10;
+      v11 = [v9 writeToURL:v3 options:1 error:&v20];
+      v12 = v20;
 
-      if ((v10 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
-        v14 = fp_current_or_default_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = fp_current_or_default_log();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          __34__FPDServer_signalProviderChanges__block_invoke_cold_2(v11);
+          __34__FPDServer_signalProviderChanges__block_invoke_cold_2(v12);
         }
 
         goto LABEL_18;
       }
 
-      v12 = *MEMORY[0x1E695DB80];
-      v19 = v11;
-      v13 = [v2 setResourceValue:&unk_1F4C629E8 forKey:v12 error:&v19];
-      v9 = v19;
+      v13 = *MEMORY[0x1E695DB80];
+      v19 = v12;
+      v14 = [v3 setResourceValue:&unk_1F4C629E8 forKey:v13 error:&v19];
+      v10 = v19;
 
-      if (v13)
+      if (v14)
       {
         goto LABEL_19;
       }
 
-      v14 = fp_current_or_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = fp_current_or_default_log();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [v9 fp_prettyDescription];
+        v16 = [v10 fp_prettyDescription];
         *buf = 138412290;
-        v25 = v15;
-        _os_log_impl(&dword_1CEFC7000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed excluding cache from backup: %@", buf, 0xCu);
+        v25 = v16;
+        _os_log_impl(&dword_1CEFC7000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed excluding cache from backup: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v14 = fp_current_or_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = fp_current_or_default_log();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __34__FPDServer_signalProviderChanges__block_invoke_cold_3(v9);
+        __34__FPDServer_signalProviderChanges__block_invoke_cold_3(v10);
       }
     }
 
-    v11 = v9;
+    v12 = v10;
 LABEL_18:
 
-    v9 = v11;
+    v10 = v12;
 LABEL_19:
   }
 
-  v16 = fp_current_or_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = fp_current_or_default_log();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     __34__FPDServer_signalProviderChanges__block_invoke_cold_4();
   }
 
-  v17 = [@"com.apple.fileprovider.providers-changed" fp_libnotifyPerUserNotificationName];
-  notify_post([v17 UTF8String]);
-
-  v18 = *MEMORY[0x1E69E9840];
+  v18 = [@"com.apple.fileprovider.providers-changed" fp_libnotifyPerUserNotificationName];
+  notify_post([v18 UTF8String]);
 }
 
 void __34__FPDServer_signalProviderChanges__block_invoke_2()
@@ -482,7 +480,7 @@ uint64_t __19__FPDServer__setup__block_invoke_2(uint64_t a1)
 
 void __25__FPDServer__finishSetup__block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -493,12 +491,12 @@ void __25__FPDServer__finishSetup__block_invoke(uint64_t a1, void *a2)
     _finishSetup_isExpired = 0;
     objc_sync_exit(v6);
 
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __25__FPDServer__finishSetup__block_invoke_2;
-    v22[3] = &unk_1E83BE0B8;
-    objc_copyWeak(&v23, (a1 + 40));
-    [v3 setExpirationHandler:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __25__FPDServer__finishSetup__block_invoke_2;
+    v21[3] = &unk_1E83BE0B8;
+    objc_copyWeak(&v22, (a1 + 40));
+    [v3 setExpirationHandler:v21];
     v7 = fp_current_or_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
@@ -517,9 +515,9 @@ void __25__FPDServer__finishSetup__block_invoke(uint64_t a1, void *a2)
       objc_sync_enter(v12);
       if (_finishSetup_isExpired == 1)
       {
-        v21 = 0;
-        v13 = [v3 setTaskExpiredWithRetryAfter:&v21 error:0.0];
-        v14 = v21;
+        v20 = 0;
+        v13 = [v3 setTaskExpiredWithRetryAfter:&v20 error:0.0];
+        v14 = v20;
         if ((v13 & 1) == 0)
         {
           v15 = fp_current_or_default_log();
@@ -540,14 +538,14 @@ void __25__FPDServer__finishSetup__block_invoke(uint64_t a1, void *a2)
         objc_sync_exit(v12);
 
         v17 = +[FPDRequest requestForSelf];
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __25__FPDServer__finishSetup__block_invoke_86;
-        v19[3] = &unk_1E83BE068;
-        v20 = v3;
-        [v11 removeTrashedItemsOlderThanDate:v8 request:v17 completionHandler:v19];
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __25__FPDServer__finishSetup__block_invoke_86;
+        v18[3] = &unk_1E83BE068;
+        v19 = v3;
+        [v11 removeTrashedItemsOlderThanDate:v8 request:v17 completionHandler:v18];
 
-        v12 = v20;
+        v12 = v19;
       }
     }
 
@@ -560,15 +558,13 @@ void __25__FPDServer__finishSetup__block_invoke(uint64_t a1, void *a2)
       }
     }
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
   }
 
   else
   {
     [v3 setTaskCompleted];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __25__FPDServer__finishSetup__block_invoke_2(uint64_t a1)
@@ -579,10 +575,10 @@ void __25__FPDServer__finishSetup__block_invoke_2(uint64_t a1)
   objc_sync_exit(obj);
 }
 
-uint64_t __25__FPDServer__finishSetup__block_invoke_86(uint64_t a1)
+uint64_t __25__FPDServer__finishSetup__block_invoke_86(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __25__FPDServer__finishSetup__block_invoke_86_cold_1();
   }
@@ -592,22 +588,22 @@ uint64_t __25__FPDServer__finishSetup__block_invoke_86(uint64_t a1)
 
 - (void)_startXPCListener
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   section = __fp_create_section();
   v4 = fp_current_or_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v8 = getpid();
-    v9 = FPOSVersion();
-    v10 = FPVersion();
+    v7 = getpid();
+    v8 = FPOSVersion();
+    v9 = FPVersion();
     *buf = 134218754;
-    v12 = section;
-    v13 = 1024;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v10;
+    v11 = section;
+    v12 = 1024;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
     _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx starting up, welcome, pid:%d, os:%@, version:%@", buf, 0x26u);
   }
 
@@ -618,7 +614,6 @@ uint64_t __25__FPDServer__finishSetup__block_invoke_86(uint64_t a1)
   [(NSXPCListener *)self->_listener setDelegate:self];
   [(NSXPCListener *)self->_listener resume];
   __fp_leave_section_Debug();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_monitorUnlockedStatus
@@ -633,36 +628,32 @@ uint64_t __25__FPDServer__finishSetup__block_invoke_86(uint64_t a1)
 
 - (void)localeDidChange
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   autoupdatingCurrentLocale = [MEMORY[0x1E695DF58] autoupdatingCurrentLocale];
   localeIdentifier = [autoupdatingCurrentLocale localeIdentifier];
 
   if (([localeIdentifier isEqualToString:self->_locale] & 1) == 0)
   {
-    v5 = fp_current_or_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       locale = self->_locale;
       *buf = 138412546;
-      v9 = locale;
-      v10 = 2112;
-      v11 = localeIdentifier;
-      _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] current local did change (%@ -> %@), exiting...", buf, 0x16u);
+      v8 = locale;
+      v9 = 2112;
+      v10 = localeIdentifier;
+      _os_log_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEFAULT, "[NOTICE] current local did change (%@ -> %@), exiting...", buf, 0x16u);
     }
 
     [(FPDServer *)self exitWithCode:0];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __18__FPDServer_start__block_invoke(uint64_t a1)
@@ -681,11 +672,10 @@ void __18__FPDServer_start__block_invoke(uint64_t a1)
   dispatch_async(v3, v5);
 }
 
-uint64_t __18__FPDServer_start__block_invoke_2(uint64_t a1)
+uint64_t __18__FPDServer_start__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 40);
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __18__FPDServer_start__block_invoke_2_cold_1();
   }
@@ -704,7 +694,7 @@ uint64_t __18__FPDServer_start__block_invoke_2(uint64_t a1)
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   dispatch_sync(self->_makeSureSetupEnqueued, &__block_literal_global_126);
@@ -727,20 +717,20 @@ uint64_t __18__FPDServer_start__block_invoke_2(uint64_t a1)
       [(FPDXPCServicer *)v11 setConnection:connectionCopy];
       objc_initWeak(&location, connectionCopy);
       objc_initWeak(&from, v11);
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __48__FPDServer_listener_shouldAcceptNewConnection___block_invoke_137;
-      v25[3] = &unk_1E83BEFD8;
-      objc_copyWeak(&v26, &location);
-      objc_copyWeak(&v27, &from);
-      [connectionCopy setInvalidationHandler:v25];
-      v20 = MEMORY[0x1E69E9820];
-      v21 = 3221225472;
-      v22 = __48__FPDServer_listener_shouldAcceptNewConnection___block_invoke_2_138;
-      v23 = &unk_1E83BE0B8;
-      objc_copyWeak(&v24, &location);
-      [connectionCopy setInterruptionHandler:&v20];
-      [connectionCopy setExportedObject:{v11, v20, v21, v22, v23}];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __48__FPDServer_listener_shouldAcceptNewConnection___block_invoke_137;
+      v24[3] = &unk_1E83BEFD8;
+      objc_copyWeak(&v25, &location);
+      objc_copyWeak(&v26, &from);
+      [connectionCopy setInvalidationHandler:v24];
+      v19 = MEMORY[0x1E69E9820];
+      v20 = 3221225472;
+      v21 = __48__FPDServer_listener_shouldAcceptNewConnection___block_invoke_2_138;
+      v22 = &unk_1E83BE0B8;
+      objc_copyWeak(&v23, &location);
+      [connectionCopy setInterruptionHandler:&v19];
+      [connectionCopy setExportedObject:{v11, v19, v20, v21, v22}];
       v12 = MEMORY[0x1E69674B8];
       v13 = fp_default_log();
       [v12 setupWithLog:v13 forConnection:connectionCopy];
@@ -753,15 +743,15 @@ uint64_t __18__FPDServer_start__block_invoke_2(uint64_t a1)
         [connectionCopy processIdentifier];
         v16 = FPExecutableNameForProcessIdentifier();
         *buf = 67109378;
-        v32 = processIdentifier;
-        v33 = 2112;
-        v34 = v16;
+        v31 = processIdentifier;
+        v32 = 2112;
+        v33 = v16;
         _os_log_impl(&dword_1CEFC7000, v14, OS_LOG_TYPE_INFO, "[INFO] New connection from pid %d [%@]", buf, 0x12u);
       }
 
-      objc_destroyWeak(&v24);
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v23);
       objc_destroyWeak(&v26);
+      objc_destroyWeak(&v25);
       objc_destroyWeak(&from);
       objc_destroyWeak(&location);
 
@@ -791,7 +781,6 @@ uint64_t __18__FPDServer_start__block_invoke_2(uint64_t a1)
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -836,49 +825,30 @@ void __48__FPDServer_listener_shouldAcceptNewConnection___block_invoke_2_138(uin
 
 void __34__FPDServer_signalProviderChanges__block_invoke_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Failed writing domains cache: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Failed writing domains cache: %@", v4, v5, v6, v7);
 }
 
 void __34__FPDServer_signalProviderChanges__block_invoke_cold_3(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Failed archiving domains: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __34__FPDServer_signalProviderChanges__block_invoke_cold_4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Failed archiving domains: %@", v4, v5, v6, v7);
 }
 
 - (void)materializeURL:completion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_4();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __39__FPDServer_materializeURL_completion___block_invoke_2_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] materialization failed: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] materialization failed: %@", v4, v5, v6, v7);
 }
 
 void __25__FPDServer__finishSetup__block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)
@@ -890,14 +860,6 @@ void __25__FPDServer__finishSetup__block_invoke_cold_1(void *a1, uint8_t *buf, o
   _os_log_error_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_ERROR, "[ERROR] Error expiring task %@ : %@", buf, 0x16u);
 }
 
-void __25__FPDServer__finishSetup__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void __25__FPDServer__finishSetup__block_invoke_86_cold_1()
 {
   OUTLINED_FUNCTION_4();
@@ -907,11 +869,9 @@ void __25__FPDServer__finishSetup__block_invoke_86_cold_1()
 
 void __18__FPDServer_start__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()

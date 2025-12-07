@@ -19,7 +19,7 @@
 - (CGRect)frameForPositioning
 {
   v3 = CSFeatureEnabled();
-  [(UIView *)self->_contentView frame];
+  objc_msgSend_frame(self->_contentView);
   if (v3)
   {
     v7 = v7 * 0.5;
@@ -127,7 +127,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  [(SBCoverSheetPositionView *)self frame];
+  objc_msgSend_frame(self, a2);
   v9 = v8;
   v11 = v10;
   [(SBCoverSheetPositionView *)self frameForPositioning];
@@ -144,7 +144,7 @@
     [(UIView *)self->_contentView bounds];
     if (v13 != v17 || v15 != v16)
     {
-      [(UIView *)self->_contentView frame];
+      objc_msgSend_frame(self->_contentView);
       [(UIView *)self->_contentView setFrame:?];
     }
   }
@@ -377,7 +377,7 @@
     contentView = self->_contentView;
     if (contentView)
     {
-      [(UIView *)contentView transform];
+      objc_msgSend_transform(contentView);
     }
 
     else

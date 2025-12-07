@@ -16,7 +16,7 @@
 
 - (_SFPBContactImage)initWithFacade:(id)facade
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBContactImage *)self init];
   if (v5)
@@ -32,32 +32,32 @@
       v7 = 0;
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     contactIdentifiers2 = [facadeCopy contactIdentifiers];
-    v9 = [contactIdentifiers2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [contactIdentifiers2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(contactIdentifiers2);
           }
 
-          if (*(*(&v18 + 1) + 8 * i))
+          if (*(*(&v17 + 1) + 8 * i))
           {
             [v7 addObject:?];
           }
         }
 
-        v10 = [contactIdentifiers2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [contactIdentifiers2 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -80,44 +80,43 @@
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBContactImage)initWithDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = _SFPBContactImage;
-  v5 = [(_SFPBContactImage *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = _SFPBContactImage;
+  v5 = [(_SFPBContactImage *)&v23 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"contactIdentifiers"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v21;
+        v10 = *v20;
         do
         {
           v11 = 0;
           do
           {
-            if (*v21 != v10)
+            if (*v20 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v20 + 1) + 8 * v11);
+            v12 = *(*(&v19 + 1) + 8 * v11);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -129,14 +128,14 @@
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
         }
 
         while (v9);
       }
     }
 
-    v14 = [dictionaryCopy objectForKeyedSubscript:{@"threeDTouchEnabled", v20}];
+    v14 = [dictionaryCopy objectForKeyedSubscript:{@"threeDTouchEnabled", v19}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -154,7 +153,6 @@
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -310,35 +308,34 @@ LABEL_14:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   contactIdentifiers = [(_SFPBContactImage *)self contactIdentifiers];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v6 = [contactIdentifiers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [contactIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(contactIdentifiers);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [contactIdentifiers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [contactIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -354,15 +351,11 @@ LABEL_14:
   {
     PBDataWriterWriteStringField();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAppIconBadgeBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  appIconBadgeBundleIdentifier = self->_appIconBadgeBundleIdentifier;
-  self->_appIconBadgeBundleIdentifier = v4;
+  self->_appIconBadgeBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -387,9 +380,7 @@ LABEL_14:
 
 - (void)setContactIdentifiers:(id)identifiers
 {
-  v4 = [identifiers copy];
-  contactIdentifiers = self->_contactIdentifiers;
-  self->_contactIdentifiers = v4;
+  self->_contactIdentifiers = [identifiers copy];
 
   MEMORY[0x1EEE66BB8]();
 }

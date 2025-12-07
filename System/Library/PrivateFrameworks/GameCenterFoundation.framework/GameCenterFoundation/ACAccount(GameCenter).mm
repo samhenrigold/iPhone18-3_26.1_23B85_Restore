@@ -408,45 +408,18 @@ LABEL_26:
 
 - (void)_gkSetToken:()GameCenter forEnvironment:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_gkPlayerInternal
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
-  v4 = v0;
-  _os_log_error_impl(&dword_227904000, v1, OS_LOG_TYPE_ERROR, "error while decoding playerInternal archive:%@ and playerInternal:%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_gkCredentialsForEnvironment:()GameCenter .cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v0, v1, "LOADING ACCOUNT:%@: No auth tokens", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_gkCredentialsForEnvironment:()GameCenter .cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v0, v1, "LOADING ACCOUNT:%@: no player ID in this account", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_gkCredentialsForEnvironment:()GameCenter .cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_6(&dword_227904000, v0, v1, "LOADING ACCOUNT:%@: no credential", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_227904000, v1, OS_LOG_TYPE_ERROR, "error while decoding playerInternal archive:%@ and playerInternal:%@", v2, 0x16u);
 }
 
 @end

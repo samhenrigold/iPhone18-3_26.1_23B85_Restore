@@ -151,7 +151,7 @@
           }
 
           v8 = *(*(&v33 + 1) + 8 * v7);
-          v9 = [truthCopy objectForKey:v8];
+          v9 = objc_msgSend_objectForKey_(truthCopy);
           if (![v9 count])
           {
             v21 = AFSiriLogContextDaemon;
@@ -173,7 +173,7 @@
           v27 = v7;
           v28 = v9;
           v10 = [[NSSet alloc] initWithArray:v9];
-          v11 = [(NSMutableDictionary *)self->_appsCache objectForKey:v8];
+          v11 = objc_msgSend_objectForKey_(self->_appsCache);
           v12 = [v11 copy];
 
           v31 = 0u;
@@ -210,7 +210,7 @@
                     _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%s %@/%@ info is no longer on disk, removing from cache.", buf, 0x20u);
                   }
 
-                  v20 = [(NSMutableDictionary *)self->_appsCache objectForKey:v8];
+                  v20 = objc_msgSend_objectForKey_(self->_appsCache);
                   [v20 removeObjectForKey:v18];
 
                   v6 = 1;
@@ -264,8 +264,8 @@ LABEL_25:
       if (objc_opt_respondsToSelector())
       {
         v26 = AFSynapseSyncAnchorKey;
-        v8 = [v6 objectForKey:?];
-        v9 = [v6 objectForKey:@"Plugins"];
+        v8 = objc_msgSend_objectForKey_(v6);
+        v9 = objc_msgSend_objectForKey_(v6);
         v10 = objc_alloc_init(NSMutableDictionary);
         v28 = v10;
         if (objc_opt_respondsToSelector())
@@ -482,7 +482,7 @@ LABEL_27:
       v25 = genCopy;
       _af_preferredBundleID = [dataCopy _af_preferredBundleID];
       syncSlots = [dataCopy syncSlots];
-      v17 = [(NSMutableDictionary *)self->_appsCache objectForKey:_af_preferredBundleID];
+      v17 = objc_msgSend_objectForKey_(self->_appsCache);
       if (!v17)
       {
         v17 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(syncSlots, "count")}];

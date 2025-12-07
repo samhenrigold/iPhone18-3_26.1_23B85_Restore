@@ -130,8 +130,9 @@
   }
 }
 
-uint64_t __65__GKTurnBasedMatchmakerViewController__setupRemoteViewController__block_invoke(uint64_t a1, int a2)
+uint64_t __65__GKTurnBasedMatchmakerViewController__setupRemoteViewController__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     if (!*MEMORY[0x277D0C2A0])
@@ -146,7 +147,7 @@ uint64_t __65__GKTurnBasedMatchmakerViewController__setupRemoteViewController__b
     }
   }
 
-  return a2 ^ 1u;
+  return v2 ^ 1u;
 }
 
 void __65__GKTurnBasedMatchmakerViewController__setupRemoteViewController__block_invoke_46(uint64_t a1, void *a2, uint64_t a3)

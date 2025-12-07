@@ -167,94 +167,94 @@ id __50__MPModelPlaylistEntryKind_msv_initWithJSONValue___block_invoke(uint64_t 
 
 - (void)applyToView:(shared_ptr<mlcore:(id)view :LibraryView>)a3 withContext:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a3.var1;
+  v13 = 0;
   v14 = 0;
   v15 = 0;
-  v16 = 0;
-  memset(v25, 0, sizeof(v25));
+  memset(v24, 0, sizeof(v24));
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   kinds = [(MPModelPlaylistEntryKind *)self kinds];
-  isKindOfClass = [kinds countByEnumeratingWithState:&v21 objects:v28 count:16];
+  isKindOfClass = [kinds countByEnumeratingWithState:&v20 objects:v27 count:16];
   v8 = isKindOfClass;
   if (isKindOfClass)
   {
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(kinds);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
-        v12 = mlcore::PlaylistItemPropertyItemPersistentID(isKindOfClass);
+        v11 = *(*(&v20 + 1) + 8 * v10);
+        mlcore::PlaylistItemPropertyItemPersistentID(isKindOfClass);
         if (v11)
         {
-          [v11 predicateWithBaseProperty:v12];
+          objc_msgSend_predicateWithBaseProperty_(v11);
         }
 
         else
         {
+          v17 = 0;
           v18 = 0;
-          v19 = 0;
         }
 
-        std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](&v14, &v18);
-        if (v19)
+        std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](&v13, &v17);
+        if (v18)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
         }
 
         if (v11)
         {
-          [v11 predicateWithBaseProperty:0];
+          objc_msgSend_predicateWithBaseProperty_(v11);
         }
 
         else
         {
+          v17 = 0;
           v18 = 0;
-          v19 = 0;
         }
 
-        std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](v25, &v18);
-        if (v19)
+        std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](v24, &v17);
+        if (v18)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
         }
 
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         if (isKindOfClass)
         {
-          v13 = v11;
-          [v13 options];
+          v12 = v11;
+          [v12 options];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      isKindOfClass = [kinds countByEnumeratingWithState:&v21 objects:v28 count:16];
+      isKindOfClass = [kinds countByEnumeratingWithState:&v20 objects:v27 count:16];
       v8 = isKindOfClass;
     }
 
     while (isKindOfClass);
   }
 
-  memset(v17, 0, sizeof(v17));
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v17, v14, v15, (v15 - v14) >> 4);
+  memset(v16, 0, sizeof(v16));
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate>*,std::shared_ptr<mlcore::Predicate>*>(v16, v13, v14, (v14 - v13) >> 4);
   mlcore::CreateOrPredicate();
+  v17 = 0;
   v18 = 0;
   v19 = 0;
-  v20 = 0;
-  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate> const*,std::shared_ptr<mlcore::Predicate> const*>(&v18, &v26, &v27, 1uLL);
+  std::vector<std::shared_ptr<mlcore::Predicate>>::__init_with_size[abi:ne200100]<std::shared_ptr<mlcore::Predicate> const*,std::shared_ptr<mlcore::Predicate> const*>(&v17, &v25, &v26, 1uLL);
 }
 
 @end

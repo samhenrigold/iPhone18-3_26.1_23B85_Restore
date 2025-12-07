@@ -348,7 +348,7 @@
   [(SCNPhysicsWorld *)self _postCommandWithBlock:v3];
 }
 
-uint64_t __30__SCNPhysicsWorld_setGravity___block_invoke(uint64_t a1)
+void *__30__SCNPhysicsWorld_setGravity___block_invoke(uint64_t a1)
 {
   result = *(*(a1 + 32) + 8);
   if (result)
@@ -610,25 +610,25 @@ uint64_t __41__SCNPhysicsWorld_removeBehavior_unsafe___block_invoke(uint64_t a1)
   }
 
   v12 = scene;
-  btC3DRayResultCallback::btC3DRayResultCallback(v25, options, v8);
+  btC3DRayResultCallback::btC3DRayResultCallback(v27, options, v8);
   v13 = [v7 objectForKey:@"backfaceCulling"];
   if (!v13 || [v13 BOOLValue])
   {
-    v26 |= 1u;
+    v28 |= 1u;
   }
 
   v14 = [v7 objectForKey:@"results"];
-  if ([v14 isEqualToString:@"all"])
+  if (objc_msgSend_isEqualToString_(v14))
   {
     v15 = 2;
   }
 
   else
   {
-    v15 = [v14 isEqualToString:@"closest"] ^ 1;
+    v15 = objc_msgSend_isEqualToString_(v14) ^ 1;
   }
 
-  v27 = v15;
+  v29 = v15;
   v16 = [v7 objectForKey:@"collisionBitMask"];
   if (v16)
   {
@@ -640,22 +640,22 @@ uint64_t __41__SCNPhysicsWorld_removeBehavior_unsafe___block_invoke(uint64_t a1)
     unsignedIntegerValue = -1;
   }
 
-  v25[4] = unsignedIntegerValue;
-  C3DSceneLock(v12);
-  (*(*self->_world + 64))(self->_world, options, v8, v25);
-  C3DSceneUnlock(v12);
-  if (v27 == 2)
+  v27[4] = unsignedIntegerValue;
+  C3DSceneLock(v12, v17);
+  (*(*self->_world + 64))(self->_world, options, v8, v27);
+  C3DSceneUnlock(v12, v19);
+  if (v29 == 2)
   {
-    v18 = v30;
-    v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:v30];
-    if (v18 >= 1)
+    v20 = v32;
+    v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:v32];
+    if (v20 >= 1)
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        v21 = _hitTestResult(*(v31 + i), v39 + i, v35 + i);
-        if (v21)
+        v23 = _hitTestResult(*(v33 + i), v41 + i, v37 + i);
+        if (v23)
         {
-          [v19 addObject:v21];
+          [v21 addObject:v23];
         }
       }
     }
@@ -663,58 +663,58 @@ uint64_t __41__SCNPhysicsWorld_removeBehavior_unsafe___block_invoke(uint64_t a1)
 
   else
   {
-    v22 = _hitTestResult(v25[2], &v29, &v28);
-    if (!v22)
+    v24 = _hitTestResult(v27[2], &v31, &v30);
+    if (!v24)
     {
-      v19 = 0;
-      v23 = 0;
+      v21 = 0;
+      v25 = 0;
       goto LABEL_22;
     }
 
-    v19 = [MEMORY[0x277CBEA60] arrayWithObject:v22];
+    v21 = [MEMORY[0x277CBEA60] arrayWithObject:v24];
   }
 
-  v23 = 1;
+  v25 = 1;
 LABEL_22:
-  v25[0] = &unk_282DC57E0;
-  if (v43 && v44 == 1)
+  v27[0] = &unk_282DC57E0;
+  if (v45 && v46 == 1)
   {
-    btAlignedFreeInternal(v43);
+    btAlignedFreeInternal(v45);
   }
 
-  v44 = 1;
+  v46 = 1;
+  v45 = 0;
   v43 = 0;
+  v44 = 0;
+  if (v41 && v42 == 1)
+  {
+    btAlignedFreeInternal(v41);
+  }
+
+  v42 = 1;
   v41 = 0;
-  v42 = 0;
-  if (v39 && v40 == 1)
-  {
-    btAlignedFreeInternal(v39);
-  }
-
-  v40 = 1;
   v39 = 0;
+  v40 = 0;
+  if (v37 && v38 == 1)
+  {
+    btAlignedFreeInternal(v37);
+  }
+
+  v38 = 1;
   v37 = 0;
-  v38 = 0;
-  if (v35 && v36 == 1)
-  {
-    btAlignedFreeInternal(v35);
-  }
-
-  v36 = 1;
   v35 = 0;
-  v33 = 0;
-  v34 = 0;
-  if (v31 && v32 == 1)
+  v36 = 0;
+  if (v33 && v34 == 1)
   {
-    btAlignedFreeInternal(v31);
+    btAlignedFreeInternal(v33);
   }
 
-  if ((v23 & 1) == 0)
+  if ((v25 & 1) == 0)
   {
     return 0;
   }
 
-  return v19;
+  return v21;
 }
 
 - (NSArray)contactTestBetweenBody:(SCNPhysicsBody *)bodyA andBody:(SCNPhysicsBody *)bodyB options:(NSDictionary *)options
@@ -737,21 +737,21 @@ LABEL_22:
         unsignedIntegerValue = -1;
       }
 
-      v17 = &unk_282DC5810;
-      v18 = xmmword_21C281170;
-      v19 = xmmword_21C27F640;
-      v20 = unsignedIntegerValue;
-      v21 = 0;
-      C3DSceneLock(v11);
+      v19 = &unk_282DC5810;
+      v20 = xmmword_21C281170;
+      v21 = xmmword_21C27F640;
+      v22 = unsignedIntegerValue;
+      v23 = 0;
+      C3DSceneLock(v11, v13);
       _handle = [(SCNPhysicsBody *)bodyA _handle];
       _handle2 = [(SCNPhysicsBody *)bodyB _handle];
       if (_handle && _handle2)
       {
-        btCollisionWorld::contactPairTest(self->_world, _handle, _handle2, &v17);
+        btCollisionWorld::contactPairTest(self->_world, _handle, _handle2, &v19);
       }
 
-      C3DSceneUnlock(v11);
-      world = v21;
+      C3DSceneUnlock(v11, v17);
+      world = v23;
     }
   }
 
@@ -791,20 +791,20 @@ LABEL_22:
         unsignedIntegerValue = -1;
       }
 
-      v14 = &unk_282DC5810;
-      v15 = xmmword_21C281170;
-      v16 = xmmword_21C27F640;
-      v17 = unsignedIntegerValue;
-      v18 = 0;
-      C3DSceneLock(v9);
+      v16 = &unk_282DC5810;
+      v17 = xmmword_21C281170;
+      v18 = xmmword_21C27F640;
+      v19 = unsignedIntegerValue;
+      v20 = 0;
+      C3DSceneLock(v9, v11);
       _handle = [(SCNPhysicsBody *)body _handle];
       if (_handle)
       {
-        btCollisionWorld::contactTest(self->_world, _handle, &v14);
+        btCollisionWorld::contactTest(self->_world, _handle, &v16);
       }
 
-      C3DSceneUnlock(v9);
-      world = v18;
+      C3DSceneUnlock(v9, v14);
+      world = v20;
     }
   }
 
@@ -826,7 +826,7 @@ LABEL_22:
 
 - (NSArray)convexSweepTestWithShape:(SCNPhysicsShape *)shape fromTransform:(SCNMatrix4 *)from toTransform:(SCNMatrix4 *)to options:(NSDictionary *)options
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v11 = [-[SCNPhysicsWorld scene](self "scene")];
   if (!v11)
   {
@@ -861,26 +861,26 @@ LABEL_22:
     }
 
     v19 = [(NSDictionary *)options objectForKey:@"results"];
-    if ([v19 isEqualToString:@"all"])
+    if (objc_msgSend_isEqualToString_(v19))
     {
-      v20 = 2;
+      v21 = 2;
     }
 
     else
     {
-      v20 = [v19 isEqualToString:@"closest"] ^ 1;
+      v21 = objc_msgSend_isEqualToString_(v19) ^ 1;
     }
 
-    C3DSceneLock(v13);
+    C3DSceneLock(v13, v20);
     _handle = [(SCNPhysicsShape *)shape _handle];
     if (_handle)
     {
       if (_handle->var1 > 19)
       {
-        v41 = scn_default_log();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+        v43 = scn_default_log(_handle, _handle);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          [SCNPhysicsWorld convexSweepTestWithShape:v41 fromTransform:? toTransform:? options:?];
+          [SCNPhysicsWorld convexSweepTestWithShape:v43 fromTransform:? toTransform:? options:?];
         }
       }
 
@@ -895,71 +895,71 @@ LABEL_22:
         m32 = from->m32;
         m33 = from->m33;
         m43 = from->m43;
-        v46[0] = LODWORD(from->m11);
-        *&v46[1] = m21;
-        *&v46[2] = m31;
+        v48[0] = LODWORD(from->m11);
+        *&v48[1] = m21;
+        *&v48[2] = m31;
+        v48[3] = 0;
+        *&v48[4] = m12;
+        *&v48[5] = m22;
+        *&v48[6] = m32;
+        v48[7] = 0;
+        *&v48[8] = m13;
+        *&v48[9] = m23;
+        *&v48[10] = m33;
+        v48[11] = 0;
+        *&v49 = *&from->m41;
+        *(&v49 + 1) = LODWORD(m43);
+        v33 = to->m12;
+        v34 = to->m13;
+        v35 = to->m21;
+        v36 = to->m22;
+        v37 = to->m23;
+        v38 = to->m31;
+        v39 = to->m32;
+        v40 = to->m33;
+        v41 = to->m43;
+        v46[0] = LODWORD(to->m11);
+        *&v46[1] = v35;
+        *&v46[2] = v38;
         v46[3] = 0;
-        *&v46[4] = m12;
-        *&v46[5] = m22;
-        *&v46[6] = m32;
+        *&v46[4] = v33;
+        *&v46[5] = v36;
+        *&v46[6] = v39;
         v46[7] = 0;
-        *&v46[8] = m13;
-        *&v46[9] = m23;
-        *&v46[10] = m33;
+        *&v46[8] = v34;
+        *&v46[9] = v37;
+        *&v46[10] = v40;
         v46[11] = 0;
-        *&v47 = *&from->m41;
-        *(&v47 + 1) = LODWORD(m43);
-        v31 = to->m12;
-        v32 = to->m13;
-        v33 = to->m21;
-        v34 = to->m22;
-        v35 = to->m23;
-        v36 = to->m31;
-        v37 = to->m32;
-        v38 = to->m33;
-        v39 = to->m43;
-        v44[0] = LODWORD(to->m11);
-        *&v44[1] = v33;
-        *&v44[2] = v36;
-        v44[3] = 0;
-        *&v44[4] = v31;
-        *&v44[5] = v34;
-        *&v44[6] = v37;
-        v44[7] = 0;
-        *&v44[8] = v32;
-        *&v44[9] = v35;
-        *&v44[10] = v38;
-        v44[11] = 0;
-        *&v45 = *&to->m41;
-        *(&v45 + 1) = LODWORD(v39);
-        v49 = 1.0;
-        v50 = 1;
-        v51 = unsignedIntegerValue;
-        v52 = 0;
-        v53 = v47;
-        v54 = v45;
-        v56 = 0;
-        v59 = 0;
-        v48 = &unk_282DC5840;
-        v55 = v20;
-        btCollisionWorld::convexSweepTest(self->_world, _handle, v46, v44, &v48, v16);
-        if (v49 < 1.0)
+        *&v47 = *&to->m41;
+        *(&v47 + 1) = LODWORD(v41);
+        v51 = 1.0;
+        v52 = 1;
+        v53 = unsignedIntegerValue;
+        v54 = 0;
+        v55 = v49;
+        v56 = v47;
+        v58 = 0;
+        v61 = 0;
+        v50 = &unk_282DC5840;
+        v57 = v21;
+        btCollisionWorld::convexSweepTest(self->_world, _handle, v48, v46, &v50, v16);
+        if (v51 < 1.0)
         {
-          if (v20 == 2)
+          if (v21 == 2)
           {
-            v40 = v59;
+            v42 = v61;
             goto LABEL_21;
           }
 
-          v43 = __contact(v56, 0, &v58, &v57, 0.0, v49);
-          if (v43)
+          v45 = __contact(v58, 0, &v60, &v59, 0.0, v51);
+          if (v45)
           {
-            v40 = [MEMORY[0x277CBEA60] arrayWithObject:v43];
+            v42 = [MEMORY[0x277CBEA60] arrayWithObject:v45];
 LABEL_21:
-            C3DSceneUnlock(v13);
-            if (v40)
+            C3DSceneUnlock(v13, v23);
+            if (v42)
             {
-              return v40;
+              return v42;
             }
 
             return v12;
@@ -968,7 +968,7 @@ LABEL_21:
       }
     }
 
-    v40 = 0;
+    v42 = 0;
     goto LABEL_21;
   }
 
@@ -1183,52 +1183,52 @@ LABEL_3:
 
 - (void)_updatePhysicsFieldsTransforms
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   self->_hasActiveFields = 0;
-  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
   fields = self->_fields;
-  v4 = [(NSMutableArray *)fields countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [(NSMutableArray *)fields countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(fields);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         self->_hasActiveFields |= [v8 isActive];
         v9 = [objc_msgSend(v8 "_owner")];
         _handle = [v8 _handle];
-        WorldMatrix = C3DNodeGetWorldMatrix(v9);
-        C3DMatrix4x4Invert(WorldMatrix, &v19);
-        v12 = WorldMatrix[1];
-        v13 = WorldMatrix[2];
-        v14 = WorldMatrix[3];
-        v15 = v19.columns[0];
-        v16 = v19.columns[1];
-        v17 = v19.columns[2];
-        v18 = v19.columns[3];
+        WorldMatrix = C3DNodeGetWorldMatrix(v9, v11);
+        C3DMatrix4x4Invert(WorldMatrix, &v20);
+        v13 = *(WorldMatrix + 16);
+        v14 = *(WorldMatrix + 32);
+        v15 = *(WorldMatrix + 48);
+        v16 = v20.columns[0];
+        v17 = v20.columns[1];
+        v18 = v20.columns[2];
+        v19 = v20.columns[3];
         _handle[1] = *WorldMatrix;
-        _handle[2] = v12;
-        _handle[3] = v13;
-        _handle[4] = v14;
-        _handle[5] = v15;
-        _handle[6] = v16;
-        _handle[7] = v17;
-        _handle[8] = v18;
+        _handle[2] = v13;
+        _handle[3] = v14;
+        _handle[4] = v15;
+        _handle[5] = v16;
+        _handle[6] = v17;
+        _handle[7] = v18;
+        _handle[8] = v19;
         (*(*_handle + 40))(_handle);
       }
 
-      v5 = [(NSMutableArray *)fields countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [(NSMutableArray *)fields countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);

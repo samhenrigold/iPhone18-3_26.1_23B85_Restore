@@ -34,7 +34,7 @@
 
 + (id)cdvArrayWithIntegers:()CoreDAVExtensions
 {
-  v9 = [self _arrayWithIntArg:a3 additionalArgs:&a9];
+  v9 = [self _arrayWithIntArg:a3 additionalArgs:{&a9, a5, a6, a7, a8}];
 
   return v9;
 }

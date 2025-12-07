@@ -724,33 +724,29 @@ LABEL_6:
   mLayer = self->mLayer;
   if (mLayer)
   {
-    v8 = [(CALayer *)mLayer setContents:0];
-    v9.n128_u64[0] = *MEMORY[0x277CBF348];
-    v10.n128_u64[0] = *&self->mOriginalFrame.size.width;
-    v11.n128_u64[0] = *&self->mOriginalFrame.size.height;
-    [(CALayer *)self->mLayer setBounds:TSDRectWithOriginAndSize(v8, v9, *(MEMORY[0x277CBF348] + 8), v10, v11)];
+    [(CALayer *)mLayer setContents:0];
+    TSDRectWithOriginAndSize();
+    [(CALayer *)self->mLayer setBounds:?];
     superlayer = [(CALayer *)self->mLayer superlayer];
     [superlayer frame];
-    v14 = v13;
-    v16 = v15;
+    v10 = v9;
+    v12 = v11;
     [(CALayer *)self->mLayer frame];
-    v18 = TSDAddPoints(v14, v16, v17);
-    v20 = v19;
+    TSDAddPoints(v10, v12, v13);
 
-    frame = [(CALayer *)self->mLayer frame];
-    v22.n128_f64[0] = v18;
-    v48.origin.x = TSDRectWithOriginAndSize(frame, v22, v20, v23, v24);
-    x = v48.origin.x;
-    y = v48.origin.y;
-    v49 = CGRectIntegral(v48);
-    v27 = v49.origin.x;
-    v28 = v49.origin.y;
-    self->mSize.width = v49.size.width;
-    self->mSize.height = v49.size.height;
+    [(CALayer *)self->mLayer frame];
+    TSDRectWithOriginAndSize();
+    x = v33.origin.x;
+    y = v33.origin.y;
+    v34 = CGRectIntegral(v33);
+    v16 = v34.origin.x;
+    v17 = v34.origin.y;
+    self->mSize.width = v34.size.width;
+    self->mSize.height = v34.size.height;
     superlayer2 = [(CALayer *)self->mLayer superlayer];
     [superlayer2 frame];
-    self->mOffset.x = TSDSubtractPoints(v27, v28, v30);
-    self->mOffset.y = v31;
+    self->mOffset.x = TSDSubtractPoints(v16, v17, v19);
+    self->mOffset.y = v20;
 
     mBakedImage = self->mBakedImage;
     if (mBakedImage)
@@ -758,10 +754,10 @@ LABEL_6:
       CGImageRelease(mBakedImage);
     }
 
-    v33 = TSDSubtractPoints(x, y, v27);
-    v35 = [(TSDTexturedRectangle *)self p_newImageAndBufferWithAngle:angle scale:scale offset:v33, v34];
-    self->mBakedImage = v35;
-    [(CALayer *)self->mLayer setContents:v35];
+    v22 = TSDSubtractPoints(x, y, v16);
+    v24 = [(TSDTexturedRectangle *)self p_newImageAndBufferWithAngle:angle scale:scale offset:v22, v23];
+    self->mBakedImage = v24;
+    [(CALayer *)self->mLayer setContents:v24];
     if (angle != 0.0)
     {
       [(CALayer *)self->mLayer setValue:&unk_287DDDFF0 forKeyPath:@"transform.rotation.z"];
@@ -772,28 +768,26 @@ LABEL_6:
       [(CALayer *)self->mLayer setValue:&unk_287DDE000 forKeyPath:@"transform.scale.xy"];
     }
 
-    v36 = self->mLayer;
-    v37 = [MEMORY[0x277CCABB0] numberWithDouble:scale];
-    [(CALayer *)v36 setValue:v37 forKey:@"kTSDTextureLayerKeyBakedScale"];
+    v25 = self->mLayer;
+    v26 = [MEMORY[0x277CCABB0] numberWithDouble:scale];
+    [(CALayer *)v25 setValue:v26 forKey:@"kTSDTextureLayerKeyBakedScale"];
 
-    v38 = self->mLayer;
-    v39 = *(MEMORY[0x277CD9DE8] + 80);
-    v47[4] = *(MEMORY[0x277CD9DE8] + 64);
-    v47[5] = v39;
-    v40 = *(MEMORY[0x277CD9DE8] + 112);
-    v47[6] = *(MEMORY[0x277CD9DE8] + 96);
-    v47[7] = v40;
-    v41 = *(MEMORY[0x277CD9DE8] + 16);
-    v47[0] = *MEMORY[0x277CD9DE8];
-    v47[1] = v41;
-    v42 = *(MEMORY[0x277CD9DE8] + 48);
-    v47[2] = *(MEMORY[0x277CD9DE8] + 32);
-    v47[3] = v42;
-    v43 = [(CALayer *)v38 setTransform:v47];
-    v44.n128_u64[0] = *&self->mOffset.x;
-    v45.n128_u64[0] = *&self->mSize.width;
-    v46.n128_u64[0] = *&self->mSize.height;
-    [(CALayer *)self->mLayer setFrame:TSDRectWithOriginAndSize(v43, v44, self->mOffset.y, v45, v46)];
+    v27 = self->mLayer;
+    v28 = *(MEMORY[0x277CD9DE8] + 80);
+    v32[4] = *(MEMORY[0x277CD9DE8] + 64);
+    v32[5] = v28;
+    v29 = *(MEMORY[0x277CD9DE8] + 112);
+    v32[6] = *(MEMORY[0x277CD9DE8] + 96);
+    v32[7] = v29;
+    v30 = *(MEMORY[0x277CD9DE8] + 16);
+    v32[0] = *MEMORY[0x277CD9DE8];
+    v32[1] = v30;
+    v31 = *(MEMORY[0x277CD9DE8] + 48);
+    v32[2] = *(MEMORY[0x277CD9DE8] + 32);
+    v32[3] = v31;
+    [(CALayer *)v27 setTransform:v32];
+    TSDRectWithOriginAndSize();
+    [(CALayer *)self->mLayer setFrame:?];
   }
 }
 
@@ -809,7 +803,7 @@ LABEL_6:
     mLayer = self->mLayer;
     if (mLayer)
     {
-      [(CALayer *)mLayer transform];
+      objc_msgSend_transform(mLayer);
     }
 
     else
@@ -822,7 +816,7 @@ LABEL_6:
       v9 = self->mLayer;
       if (v9)
       {
-        [(CALayer *)v9 affineTransform];
+        objc_msgSend_affineTransform(v9);
       }
 
       else

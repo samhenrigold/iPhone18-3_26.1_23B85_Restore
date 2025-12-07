@@ -291,22 +291,22 @@ void __39__HMFNetworkService_updateWithService___block_invoke(uint64_t a1)
 
 void __75__HMFNetworkService__connectionWithPromise_parameters_receivedDataHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (a2 == 5)
   {
     v10 = objc_autoreleasePoolPush();
     v11 = WeakRetained;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = HMFGetOSLogHandle(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v13 = HMFGetLogIdentifier(v11);
+      v14 = HMFGetLogIdentifier(v11);
       *buf = 138543362;
-      v19 = v13;
-      v14 = "%{public}@Connection is cancelled";
+      v20 = v14;
+      v15 = "%{public}@Connection is cancelled";
 LABEL_9:
-      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEBUG, v14, buf, 0xCu);
+      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_DEBUG, v15, buf, 0xCu);
     }
 
 LABEL_10:
@@ -327,7 +327,7 @@ LABEL_10:
       completion[1] = 3221225472;
       completion[2] = __75__HMFNetworkService__connectionWithPromise_parameters_receivedDataHandler___block_invoke_12;
       completion[3] = &unk_2786E7778;
-      v17 = *(a1 + 48);
+      v18 = *(a1 + 48);
       nw_connection_receive(v9, 0, 0xFFFFFFFF, completion);
       [*(a1 + 40) fulfillWithNoValue];
 
@@ -336,13 +336,13 @@ LABEL_10:
 
     v10 = objc_autoreleasePoolPush();
     v11 = WeakRetained;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = HMFGetOSLogHandle(v11, v16);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v13 = HMFGetLogIdentifier(v11);
+      v14 = HMFGetLogIdentifier(v11);
       *buf = 138543362;
-      v19 = v13;
-      v14 = "%{public}@Reported a network path that cannot be resolved to an IP address - skipping";
+      v20 = v14;
+      v15 = "%{public}@Reported a network path that cannot be resolved to an IP address - skipping";
       goto LABEL_9;
     }
 
@@ -350,8 +350,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMFNetworkService__connectionWithPromise_parameters_receivedDataHandler___block_invoke_12(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
@@ -393,39 +391,38 @@ void __75__HMFNetworkService__connectionWithPromise_parameters_receivedDataHandl
       self->_port = nw_endpoint_get_port(v7);
       v10 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v12 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = HMFGetOSLogHandle(selfCopy, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v13 = HMFGetLogIdentifier(selfCopy);
+        v14 = HMFGetLogIdentifier(selfCopy);
         addressString = [(HMFNetAddress *)v9 addressString];
         port = self->_port;
         v19 = 138543874;
-        v20 = v13;
+        v20 = v14;
         v21 = 2114;
         v22 = addressString;
         v23 = 1024;
         v24 = port;
-        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@Resolved: %{public}@ %hu", &v19, 0x1Cu);
+        _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Resolved: %{public}@ %hu", &v19, 0x1Cu);
       }
 
       objc_autoreleasePoolPop(v10);
-      v16 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
     v7 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 - (id)description
@@ -463,9 +460,11 @@ void __75__HMFNetworkService__connectionWithPromise_parameters_receivedDataHandl
 
 uint64_t __32__HMFNetworkService_logCategory__block_invoke()
 {
-  qword_280AFC3A0 = HMFCreateOSLogHandle(@"HMFNetworkService", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"HMFNetworkService", @"com.apple.HMFoundation");
+  v1 = qword_280AFC3A0;
+  qword_280AFC3A0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

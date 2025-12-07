@@ -20,23 +20,23 @@
 
 - (id)destinationArrayDescriptorForSourceArrays:(id)arrays sourceState:(id)state
 {
-  v27[16] = *MEMORY[0x277D85DE8];
+  v26[16] = *MEMORY[0x277D85DE8];
   v6 = [arrays objectAtIndexedSubscript:{0, state}];
   v7 = [arrays objectAtIndexedSubscript:1];
   v8 = MEMORY[0x277CD73F0];
   v9 = *MEMORY[0x277CD73F0];
   if (self->_axis >= *(v6 + v9))
   {
-    v19 = v7;
-    v20 = MTLReportFailureTypeEnabled();
-    v7 = v19;
+    v18 = v7;
+    v19 = MTLReportFailureTypeEnabled();
+    v7 = v18;
     LODWORD(v9) = *v8;
-    if (v20)
+    if (v19)
     {
       axis = self->_axis;
-      v22 = *(v6 + v9);
+      v21 = *(v6 + v9);
       MTLReportFailure();
-      v7 = v19;
+      v7 = v18;
       LODWORD(v9) = *v8;
     }
   }
@@ -52,21 +52,19 @@
     v15 = *(v6 + v11 + 16);
     do
     {
-      v23 = v16;
-      v24 = v15;
-      v25 = v14;
-      v26 = v13;
-      v27[v12] = *(&v23 + (v12 & 0xF));
+      v22 = v16;
+      v23 = v15;
+      v24 = v14;
+      v25 = v13;
+      v26[v12] = *(&v22 + (v12 & 0xF));
       ++v12;
     }
 
     while (v10 != v12);
   }
 
-  v27[self->_axis] = *(v7 + v11);
-  result = [MEMORY[0x277CD7268] descriptorWithDataType:*(v6 + *MEMORY[0x277CD73C8]) dimensionCount:axis dimensionSizes:{v22, v23, v24, v25, v26}];
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  v26[self->_axis] = *(v7 + v11);
+  return [MEMORY[0x277CD7268] descriptorWithDataType:*(v6 + *MEMORY[0x277CD73C8]) dimensionCount:axis dimensionSizes:{v21, v22, v23, v24, v25}];
 }
 
 - (void)encodeToCommandBuffer:(id)buffer primarySourceArray:(id)array secondarySourceArray:(id)sourceArray destinationArray:(id)destinationArray
@@ -112,12 +110,11 @@
 
 - (id)encodeToCommandBuffer:(id)buffer primarySourceArray:(id)array secondarySourceArray:(id)sourceArray
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v12[0] = array;
-  v12[1] = sourceArray;
-  v9 = -[MPSNDArrayAllocator arrayForCommandBuffer:arrayDescriptor:kernel:](self->super.super.super._destinationArrayAllocator, "arrayForCommandBuffer:arrayDescriptor:kernel:", buffer, -[MPSNDArrayGather destinationArrayDescriptorForSourceArrays:sourceState:](self, "destinationArrayDescriptorForSourceArrays:sourceState:", [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2], 0), self);
+  v11[2] = *MEMORY[0x277D85DE8];
+  v11[0] = array;
+  v11[1] = sourceArray;
+  v9 = -[MPSNDArrayAllocator arrayForCommandBuffer:arrayDescriptor:kernel:](self->super.super.super._destinationArrayAllocator, "arrayForCommandBuffer:arrayDescriptor:kernel:", buffer, -[MPSNDArrayGather destinationArrayDescriptorForSourceArrays:sourceState:](self, "destinationArrayDescriptorForSourceArrays:sourceState:", [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2], 0), self);
   [(MPSNDArrayGather *)self encodeToCommandBuffer:buffer primarySourceArray:array secondarySourceArray:sourceArray destinationArray:v9];
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

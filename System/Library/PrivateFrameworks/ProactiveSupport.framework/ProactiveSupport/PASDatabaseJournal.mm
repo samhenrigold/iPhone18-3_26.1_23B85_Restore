@@ -19,27 +19,27 @@ uint64_t __38___PASDatabaseJournal_startJournaling__block_invoke(uint64_t result
 
 void __48___PASDatabaseJournal_deleteAllJournaledQueries__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
-    v9 = *(*(a1 + 32) + 16);
+    v8 = *(*(a1 + 32) + 16);
     *buf = 138412290;
-    v13 = v9;
+    v12 = v8;
     _os_log_debug_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Removing all journal files at %@", buf, 0xCu);
   }
 
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = *(*(a1 + 32) + 16);
-  v11 = 0;
-  [v2 removeItemAtPath:v3 error:&v11];
-  v4 = v11;
+  v10 = 0;
+  [v2 removeItemAtPath:v3 error:&v10];
+  v4 = v10;
 
   if (v4)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v4;
+      v12 = v4;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal unable to remove journal directory: %@", buf, 0xCu);
     }
 
@@ -48,28 +48,26 @@ void __48___PASDatabaseJournal_deleteAllJournaledQueries__block_invoke(uint64_t 
 
   v5 = [MEMORY[0x1E696AC08] defaultManager];
   v6 = *(*(a1 + 32) + 16);
-  v10 = v4;
-  [v5 createDirectoryAtPath:v6 withIntermediateDirectories:1 attributes:0 error:&v10];
-  v7 = v10;
+  v9 = v4;
+  [v5 createDirectoryAtPath:v6 withIntermediateDirectories:1 attributes:0 error:&v9];
+  v7 = v9;
 
   if (v7)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal unable to re-create directory for storing journals: %@", buf, 0xCu);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __48___PASDatabaseJournal_executeQueriesOnDatabase___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _closeCurrentFile];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
@@ -81,92 +79,91 @@ void __48___PASDatabaseJournal_executeQueriesOnDatabase___block_invoke(uint64_t 
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x2020000000;
-  v30 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
+  v28 = 0x2020000000;
+  v29 = 0;
   v23 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   sel_getName(*(a1 + 56));
   v2 = os_transaction_create();
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __48___PASDatabaseJournal_executeQueriesOnDatabase___block_invoke_67;
-  v9[3] = &unk_1E77F1D98;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __48___PASDatabaseJournal_executeQueriesOnDatabase___block_invoke_67;
+  v8[3] = &unk_1E77F1D98;
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v11 = &v20;
-  v9[4] = v4;
+  v10 = &v19;
+  v8[4] = v4;
   v5 = *(a1 + 48);
-  v12 = &v16;
-  v13 = v5;
-  v14 = &v24;
-  v10 = v3;
+  v11 = &v15;
+  v12 = v5;
+  v13 = &v23;
+  v9 = v3;
   p_buf = &buf;
-  [v10 writeTransaction:v9];
+  [v9 writeTransaction:v8];
 
   while (1)
   {
-    v7 = *(v25 + 6) + 1;
-    *(v25 + 6) = v7;
-    if (v7 >= *(v21 + 6))
+    v7 = *(v24 + 6) + 1;
+    *(v24 + 6) = v7;
+    if (v7 >= *(v20 + 6))
     {
       break;
     }
 
-    free(*(v17[3] + 8 * v7));
+    free(*(v16[3] + 8 * v7));
   }
 
-  free(v17[3]);
+  free(v16[3]);
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
   _Block_object_dispose(&buf, 8);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __48___PASDatabaseJournal_executeQueriesOnDatabase___block_invoke_67(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 16) UTF8String];
   *(*(*(a1 + 48) + 8) + 24) = scandir(v2, (*(*(a1 + 56) + 8) + 24), 0, MEMORY[0x1E69E9860]);
   if ((*(*(*(a1 + 48) + 8) + 24) & 0x80000000) != 0)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v14 = *__error();
-      v15 = __error();
-      v16 = strerror(*v15);
+      v13 = *__error();
+      v14 = __error();
+      v15 = strerror(*v14);
       *buf = 67109378;
-      v19 = v14;
-      v20 = 2080;
-      v21 = v16;
+      v18 = v13;
+      v19 = 2080;
+      v20 = v15;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal unable to open journal directory: errno(%i): %s", buf, 0x12u);
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
-    goto LABEL_21;
+    return;
   }
 
   *(*(*(a1 + 72) + 8) + 24) = 0;
   v4 = *(*(*(a1 + 72) + 8) + 24);
   if (v4 >= *(*(*(a1 + 48) + 8) + 24))
   {
-    goto LABEL_21;
+    return;
   }
 
   v5 = MEMORY[0x1E69E9C10];
   *&v3 = 67109120;
-  v17 = v3;
+  v16 = v3;
   while (1)
   {
     v6 = *(*(*(*(a1 + 56) + 8) + 24) + 8 * v4);
@@ -201,8 +198,8 @@ void __48___PASDatabaseJournal_executeQueriesOnDatabase___block_invoke_67(uint64
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         v11 = *(*(*(a1 + 80) + 8) + 24);
-        *buf = v17;
-        v19 = v11;
+        *buf = v16;
+        v18 = v11;
         _os_log_debug_impl(&dword_1A7F47000, v5, OS_LOG_TYPE_DEBUG, "journal execution checking lock state after %u files", buf, 8u);
       }
 
@@ -216,36 +213,33 @@ LABEL_14:
     v4 = ++*(*(*(a1 + 72) + 8) + 24);
     if (v4 >= *(*(*(a1 + 48) + 8) + 24))
     {
-      goto LABEL_21;
+      return;
     }
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
-    v13 = *(*(*(a1 + 80) + 8) + 24);
-    *buf = v17;
-    v19 = v13;
+    v12 = *(*(*(a1 + 80) + 8) + 24);
+    *buf = v16;
+    v18 = v12;
     _os_log_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "journal execution exiting early after %u files because device is locked", buf, 8u);
   }
 
 LABEL_20:
-
-LABEL_21:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __79___PASDatabaseJournal__executeNextRecordFromFile_onDb_becameLocked_deleteFile___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [*(a1 + 32) objectForKeyedSubscript:@"__query"];
-    v8 = 138412546;
-    v9 = v7;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal error when replaying query: %@: %@", &v8, 0x16u);
+    v6 = [*(a1 + 32) objectForKeyedSubscript:@"__query"];
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal error when replaying query: %@: %@", &v7, 0x16u);
   }
 
   if (_sqliteErrorIndicatesDeviceBecameLocked(v3))
@@ -258,13 +252,12 @@ uint64_t __79___PASDatabaseJournal__executeNextRecordFromFile_onDb_becameLocked_
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 void __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) substringToIndex:6];
   v3 = [v2 lowercaseString];
   v4 = [v3 isEqualToString:@"select"];
@@ -283,9 +276,9 @@ void __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke(uint64_t a1)
     v5 = [*(a1 + 40) mutableCopy];
     [v5 setObject:*(a1 + 32) forKeyedSubscript:@"__query"];
     v6 = objc_autoreleasePoolPush();
-    v18 = 0;
-    v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v17];
+    v8 = v17;
     if (v7)
     {
       v9 = [*(a1 + 48) _getCurrentFile];
@@ -301,18 +294,18 @@ void __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke(uint64_t a1)
       {
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v20 = 0x2020000000;
-        v21 = 1;
+        v19 = 0x2020000000;
+        v20 = 1;
         v10 = *(a1 + 56);
         v11 = *(a1 + 32);
         v12 = [_PASDatabaseJournal _binderForDictionary:*(a1 + 40)];
-        v15[0] = MEMORY[0x1E69E9820];
-        v15[1] = 3221225472;
-        v15[2] = __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke_36;
-        v15[3] = &unk_1E77F2638;
-        v16 = *(a1 + 32);
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke_36;
+        v14[3] = &unk_1E77F2638;
+        v15 = *(a1 + 32);
         p_buf = &buf;
-        [v10 prepAndRunQuery:v11 onPrep:v12 onRow:0 onError:v15];
+        [v10 prepAndRunQuery:v11 onPrep:v12 onRow:0 onError:v14];
 
         v13 = *(a1 + 48);
         if (*(*(&buf + 1) + 24) == 1)
@@ -341,39 +334,36 @@ void __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke(uint64_t a1)
       objc_autoreleasePoolPop(v6);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke_39(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2112;
-    v10 = a2;
-    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal error when immediately running query: %@: %@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = a2;
+    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal error when immediately running query: %@: %@", &v6, 0x16u);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke_36(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v6;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal error when immediately running query: %@: %@", &v7, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "_PASDatabaseJournal error when immediately running query: %@: %@", &v6, 0x16u);
   }
 
   if (_sqliteErrorIndicatesDeviceBecameLocked(v3))
@@ -381,7 +371,6 @@ uint64_t __44___PASDatabaseJournal_runQuery_values_onDb___block_invoke_36(uint64
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -400,43 +389,44 @@ void __44___PASDatabaseJournal__binderForDictionary___block_invoke(uint64_t a1, 
 
 void __44___PASDatabaseJournal__binderForDictionary___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (([v5 isEqualToString:@"__query"] & 1) == 0)
   {
     if ([v5 isEqualToString:@"qmarksSeparatedByCommas"])
     {
-      v20 = v6;
-      v21 = v5;
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
+      v19 = v6;
+      v20 = v5;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (!v8)
       {
         goto LABEL_15;
       }
 
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       v11 = 1;
       while (1)
       {
-        for (i = 0; i != v9; ++i)
+        v12 = 0;
+        do
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v13 = *(*(&v21 + 1) + 8 * v12);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = v11 + 1;
+            v14 = (v11 + 1);
             sqlite3_bind_int64([*(a1 + 32) stmt], v11, objc_msgSend(v13, "longLongValue"));
           }
 
@@ -445,23 +435,26 @@ void __44___PASDatabaseJournal__binderForDictionary___block_invoke_2(uint64_t a1
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              continue;
+              goto LABEL_13;
             }
 
-            v14 = v11 + 1;
+            v14 = (v11 + 1);
             _PAS_sqlite3_bind_nsstring([*(a1 + 32) stmt], v11, v13);
           }
 
           v11 = v14;
+LABEL_13:
+          ++v12;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        while (v9 != v12);
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (!v9)
         {
 LABEL_15:
 
-          v6 = v20;
-          v5 = v21;
+          v6 = v19;
+          v5 = v20;
           goto LABEL_21;
         }
       }
@@ -493,8 +486,6 @@ LABEL_15:
   }
 
 LABEL_21:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

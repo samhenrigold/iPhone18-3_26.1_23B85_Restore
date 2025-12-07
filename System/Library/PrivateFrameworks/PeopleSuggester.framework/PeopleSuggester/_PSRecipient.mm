@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (_PSRecipient)initWithCoder:(id)coder;
 - (_PSRecipient)initWithIdentifier:(id)identifier senderHandle:(id)handle handle:(id)a5 displayName:(id)name contact:(id)contact mostRecentTransportBundleId:(id)id;
+- (id)descriptionRedacted:(BOOL)redacted;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -216,6 +217,32 @@ LABEL_17:
 LABEL_18:
 
   return v16;
+}
+
+- (id)descriptionRedacted:(BOOL)redacted
+{
+  redactedCopy = redacted;
+  v22 = MEMORY[0x1E696AEC0];
+  v21 = objc_opt_class();
+  v5 = MEMORY[0x1E6997908];
+  identifier = [(_PSRecipient *)self identifier];
+  v6 = [v5 descriptionOfObject:identifier redacted:redactedCopy];
+  v7 = MEMORY[0x1E6997908];
+  senderHandle = [(_PSRecipient *)self senderHandle];
+  v8 = [v7 descriptionOfObject:senderHandle redacted:redactedCopy];
+  v9 = MEMORY[0x1E6997908];
+  handle = [(_PSRecipient *)self handle];
+  v11 = [v9 descriptionOfObject:handle redacted:redactedCopy];
+  v12 = MEMORY[0x1E6997908];
+  displayName = [(_PSRecipient *)self displayName];
+  v14 = [v12 descriptionOfObject:displayName redacted:redactedCopy];
+  v15 = MEMORY[0x1E6997908];
+  contact = [(_PSRecipient *)self contact];
+  v17 = [v15 descriptionOfObject:contact redacted:redactedCopy];
+  mostRecentTransportBundleId = [(_PSRecipient *)self mostRecentTransportBundleId];
+  v19 = [v22 stringWithFormat:@"<%@ %p> identifier: %@, senderHandle: %@, handle: %@, displayName: %@, contact: %@ mostRecentTransportBundleId: %@", v21, self, v6, v8, v11, v14, v17, mostRecentTransportBundleId];
+
+  return v19;
 }
 
 @end

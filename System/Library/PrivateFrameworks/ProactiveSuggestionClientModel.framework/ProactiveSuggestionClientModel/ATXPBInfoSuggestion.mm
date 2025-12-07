@@ -214,68 +214,66 @@ LABEL_24:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_appBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_widgetBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_widgetKind)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    layouts = self->_layouts;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_suggestionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_clientModelId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_archivedIntent)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_archivedMetadata)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_sourceIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    confidenceLevel = self->_confidenceLevel;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -294,9 +292,8 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  relevanceScore = self->_relevanceScore;
   PBDataWriterWriteDoubleField();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -310,28 +307,26 @@ LABEL_22:
   }
 
 LABEL_33:
-  startDate = self->_startDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_23:
-    endDate = self->_endDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_24:
   if (self->_criterion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_archivedIntentDescription)
   {
     PBDataWriterWriteDataField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -589,7 +584,6 @@ LABEL_8:
     }
   }
 
-  v8 = *(equalCopy + 128);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 128) & 4) == 0 || self->_layouts != *(equalCopy + 3))
@@ -601,7 +595,7 @@ LABEL_8:
   else if ((*(equalCopy + 128) & 4) != 0)
   {
 LABEL_47:
-    v17 = 0;
+    v15 = 0;
     goto LABEL_48;
   }
 
@@ -647,7 +641,6 @@ LABEL_47:
     }
   }
 
-  v14 = *(equalCopy + 128);
   if (*&self->_has)
   {
     if ((*(equalCopy + 128) & 1) == 0 || self->_confidenceLevel != *(equalCopy + 1))
@@ -709,17 +702,17 @@ LABEL_47:
   archivedIntentDescription = self->_archivedIntentDescription;
   if (archivedIntentDescription | *(equalCopy + 8))
   {
-    v17 = [(NSData *)archivedIntentDescription isEqual:?];
+    v15 = [(NSData *)archivedIntentDescription isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v15 = 1;
   }
 
 LABEL_48:
 
-  return v17;
+  return v15;
 }
 
 - (unint64_t)hash

@@ -145,7 +145,7 @@ void __43__CUSystemMonitorImp__systemUIMonitorStart__block_invoke(uint64_t a1, u
 
         else if (!v14 && gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemUIMonitorStart]_block_invoke", 0x1Eu, "SystemUI unknown identifier: '%@' / '%@'", v15, v16, v17, v18, v11);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemUIMonitorStart]_block_invoke", 30, "SystemUI unknown identifier: '%@' / '%@'", v15, v16, v17, v18, v11);
         }
       }
 
@@ -214,8 +214,8 @@ void *__46__CUSystemMonitorImp__screenStateMonitorStart__block_invoke_2(uint64_t
 
 void __34__CUSystemMonitorImp__manateeRead__block_invoke_2(uint64_t a1)
 {
-  v2 = objc_alloc(getCDPStateControllerClass[0]());
-  v3 = [getCDPContextClass[0]() contextForPrimaryAccount];
+  v2 = objc_alloc(getCDPStateControllerClass());
+  v3 = [(objc_class *)getCDPContextClass() contextForPrimaryAccount];
   v4 = [v2 initWithContext:v3];
 
   v12 = 0;
@@ -330,7 +330,7 @@ void __34__CUSystemMonitorImp__manateeRead__block_invoke_3(uint64_t a1)
           v29 = off_1E73A3EC0[v28];
         }
 
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manateeRead]_block_invoke_3", 0x1Eu, "Manatee read: %s, %{error}\n", v24, v25, v26, v27, v29);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manateeRead]_block_invoke_3", 30, "Manatee read: %s, %{error}\n", v24, v25, v26, v27, v29);
       }
 
       [*(a1 + 32) _invokeBlock:&__block_literal_global_187 passingTest:&__block_literal_global_189];
@@ -392,7 +392,7 @@ _BYTE *__47__CUSystemMonitorImp__forceManateeStateRefresh__block_invoke(uint64_t
         v9 = "yes";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedChanged]", 0xAu, "ScreenLocked unchanged (%s)\n", v5, v6, v7, v8, v9);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedChanged]", 10, "ScreenLocked unchanged (%s)\n", v5, v6, v7, v8, v9);
     }
   }
 
@@ -410,7 +410,7 @@ _BYTE *__47__CUSystemMonitorImp__forceManateeStateRefresh__block_invoke(uint64_t
         v10 = "no";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedChanged]", 0x1Eu, "ScreenLocked changed: %s -> %s\n", v5, v6, v7, v8, v10);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedChanged]", 30, "ScreenLocked changed: %s -> %s\n", v5, v6, v7, v8, v10);
     }
 
     [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_362 passingTest:&__block_literal_global_364];
@@ -581,13 +581,13 @@ BOOL __38__CUSystemMonitorImp__callInfoChanged__block_invoke_2(uint64_t a1, void
   {
     if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 0xAu, "Active calls unchanged (%d)\n", v11, v12, v13, v14, _activeCallCountUnached);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 10, "Active calls unchanged (%d)\n", v11, v12, v13, v14, _activeCallCountUnached);
     }
   }
 
   else if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 0x1Eu, "Active calls changed: %d -> %d\n", v11, v12, v13, v14, activeCallCount);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 30, "Active calls changed: %d -> %d\n", v11, v12, v13, v14, activeCallCount);
   }
 
   v16 = gLogCategory_CUSystemMonitor;
@@ -603,7 +603,7 @@ BOOL __38__CUSystemMonitorImp__callInfoChanged__block_invoke_2(uint64_t a1, void
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 0xAu, "Call info unchanged: incoming connected %d, incoming unconnected %d, outcoming connected %d, outcoming unconnected %d", v11, v12, v13, v14, callCountIncomingConnected);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 10, "Call info unchanged: incoming connected %d, incoming unconnected %d, outcoming connected %d, outcoming unconnected %d", v11, v12, v13, v14, callCountIncomingConnected);
     }
 
     v19 = _connectedCallCountUnached;
@@ -623,7 +623,7 @@ BOOL __38__CUSystemMonitorImp__callInfoChanged__block_invoke_2(uint64_t a1, void
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 0x1Eu, "Call info changed: incoming connected %d -> %d, incoming unconnected %d -> %d, outcoming connected %d -> %d, outcoming unconnected %d -> %d", v11, v12, v13, v14, callCountIncomingConnected);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 30, "Call info changed: incoming connected %d -> %d, incoming unconnected %d -> %d, outcoming connected %d -> %d, outcoming unconnected %d -> %d", v11, v12, v13, v14, callCountIncomingConnected);
     }
 
     v15 = 1;
@@ -638,7 +638,7 @@ LABEL_26:
   {
     if (v16 <= 10 && (v16 != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 0xAu, "Connected calls unchanged (%d)\n", v11, v12, v13, v14, v19);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 10, "Connected calls unchanged (%d)\n", v11, v12, v13, v14, v19);
     }
   }
 
@@ -646,7 +646,7 @@ LABEL_26:
   {
     if (v16 <= 30 && (v16 != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 0x1Eu, "Connected calls changed: %d -> %d\n", v11, v12, v13, v14, v17);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 30, "Connected calls changed: %d -> %d\n", v11, v12, v13, v14, v17);
     }
 
     v15 = 1;
@@ -656,7 +656,7 @@ LABEL_26:
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 0x1Eu, "Call flags changed: %#{flags} -> %#{flags}\n", v11, v12, v13, v14, v18);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 30, "Call flags changed: %#{flags} -> %#{flags}\n", v11, v12, v13, v14, v18);
     }
 
     goto LABEL_48;
@@ -664,7 +664,7 @@ LABEL_26:
 
   if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 0xAu, "Call flags unchanged: %#{flags}\n", v11, v12, v13, v14, _callFlagsUncached);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callInfoChanged]", 10, "Call flags unchanged: %#{flags}\n", v11, v12, v13, v14, _callFlagsUncached);
   }
 
   if (v15)
@@ -783,7 +783,7 @@ void __38__CUSystemMonitorImp__callInfoChanged__block_invoke(uint64_t a1, _BYTE 
           case 40:
             v15 = "Connected";
 LABEL_69:
-            LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStateChanged:]", 0xAu, "WiFi state unchanged: %s, %#{flags}\n", v9, v10, v11, v12, v15);
+            LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStateChanged:]", 10, "WiFi state unchanged: %s, %#{flags}\n", v9, v10, v11, v12, v15);
             return;
         }
       }
@@ -825,7 +825,7 @@ LABEL_69:
         case 40:
           v17 = "Connected";
 LABEL_73:
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStateChanged:]", 0x1Eu, "WiFi state initial: %s\n", v9, v10, v11, v12, v17);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStateChanged:]", 30, "WiFi state initial: %s\n", v9, v10, v11, v12, v17);
           return;
       }
     }
@@ -869,7 +869,7 @@ LABEL_73:
         case 40:
           v16 = "Connected";
 LABEL_71:
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStateChanged:]", 0x1Eu, "WiFi state initial: %s, %#{flags}\n", v9, v10, v11, v12, v16);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStateChanged:]", 30, "WiFi state initial: %s, %#{flags}\n", v9, v10, v11, v12, v16);
           goto LABEL_76;
       }
     }
@@ -908,7 +908,7 @@ LABEL_71:
         case 40:
           v14 = "Connected";
 LABEL_75:
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStateChanged:]", 0x1Eu, "WiFi state changed: %s -> %s, %#{flags}\n", v9, v10, v11, v12, v14);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStateChanged:]", 30, "WiFi state changed: %s -> %s, %#{flags}\n", v9, v10, v11, v12, v14);
           goto LABEL_76;
       }
     }
@@ -948,7 +948,7 @@ void __47__CUSystemMonitorImp__wifiMonitorStateChanged___block_invoke(uint64_t a
 {
   if (self->_wifiManager && gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStop]", 0x1Eu, "WiFi monitoring stop\n", v2, v3, v4, v5, v8);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStop]", 30, "WiFi monitoring stop\n", v2, v3, v4, v5, v8);
   }
 
   [(CUWiFiManager *)self->_wifiManager invalidate];
@@ -966,7 +966,7 @@ void __47__CUSystemMonitorImp__wifiMonitorStateChanged___block_invoke(uint64_t a
     v15[10] = v7;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStart]", 0x1Eu, "WiFi monitoring start\n", v2, v3, v4, v5, v14[0]);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStart]", 30, "WiFi monitoring start\n", v2, v3, v4, v5, v14[0]);
     }
 
     v11 = objc_alloc_init(CUWiFiManager);
@@ -997,7 +997,7 @@ void __39__CUSystemMonitorImp__wifiMonitorStart__block_invoke_2(uint64_t a1, voi
   v7 = a2;
   if (v7 && gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStart]_block_invoke_2", 0x5Au, "### WiFi monitoring start failed: %{error}\n", v3, v4, v5, v6, v7);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _wifiMonitorStart]_block_invoke_2", 90, "### WiFi monitoring start failed: %{error}\n", v3, v4, v5, v6, v7);
   }
 
   [*(a1 + 32) _wifiMonitorStateChanged:0];
@@ -1019,7 +1019,7 @@ void __39__CUSystemMonitorImp__wifiMonitorStart__block_invoke_2(uint64_t a1, voi
         v12 = "yes";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorCheck:]", 0x1Eu, "FirstUnlock initial: %s\n", v6, v7, v8, v9, v12);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorCheck:]", 30, "FirstUnlock initial: %s\n", v6, v7, v8, v9, v12);
     }
 
     if (v11 == 1)
@@ -1040,7 +1040,7 @@ LABEL_15:
       {
         if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorCheck:]", 0x1Eu, "FirstUnlock changed: No -> Yes\n", v13, v14, v15, v16, v22);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorCheck:]", 30, "FirstUnlock changed: No -> Yes\n", v13, v14, v15, v16, v22);
         }
 
         [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_536 passingTest:&__block_literal_global_538_8137];
@@ -1048,7 +1048,7 @@ LABEL_15:
 
       if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorCheck:]", 0x1Eu, "FirstUnlock monitoring stop after unlock\n", v13, v14, v15, v16, v22);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorCheck:]", 30, "FirstUnlock monitoring stop after unlock\n", v13, v14, v15, v16, v22);
       }
 
       firstUnlockToken = self->_firstUnlockToken;
@@ -1090,7 +1090,7 @@ LABEL_15:
     if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
     {
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorCheck:]", 0xAu, "FirstUnlock unchanged (No)\n", v6, v7, v8, v9, v25);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorCheck:]", 10, "FirstUnlock unchanged (No)\n", v6, v7, v8, v9, v25);
     }
   }
 }
@@ -1129,7 +1129,7 @@ void __47__CUSystemMonitorImp__firstUnlockMonitorCheck___block_invoke(uint64_t a
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorStop]", 0x1Eu, "FirstUnlock monitoring stop\n", v2, v3, v4, v5, v10);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorStop]", 30, "FirstUnlock monitoring stop\n", v2, v3, v4, v5, v10);
     }
 
     firstUnlockToken = self->_firstUnlockToken;
@@ -1157,7 +1157,7 @@ LABEL_7:
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorStart]", 0x1Eu, "FirstUnlock monitoring start\n", v2, v3, v4, v5, v9);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _firstUnlockMonitorStart]", 30, "FirstUnlock monitoring start\n", v2, v3, v4, v5, v9);
     }
 
     v7 = *MEMORY[0x1E69B1A70];
@@ -1179,7 +1179,7 @@ LABEL_7:
   {
     v10 = NSPrintF("%#{flags}", a2, *&flags, v3, v4, v5, v6, v7, v8);
     v23 = NSPrintF("%#{flags}", v11, v12, v13, v14, v15, v16, v17, self->_systemUIFlags ^ v8);
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemUIMonitorChangedFlags:]", 0x1Eu, "SystemUI changed: %@, diff %@", v18, v19, v20, v21, v10);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemUIMonitorChangedFlags:]", 30, "SystemUI changed: %@, diff %@", v18, v19, v20, v21, v10);
   }
 
   systemUIFlags = self->_systemUIFlags;
@@ -1219,7 +1219,7 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
 {
   if (self->_systemUIMonitor && gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemUIMonitorStop]", 0x1Eu, "SystemUI monitoring stop", v2, v3, v4, v5, v10);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemUIMonitorStop]", 30, "SystemUI monitoring stop", v2, v3, v4, v5, v10);
   }
 
   [(FBSDisplayLayoutMonitor *)self->_systemUIMonitor invalidate];
@@ -1239,60 +1239,60 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
 
 - (void)_systemUIMonitorStart
 {
-  v56[20] = *MEMORY[0x1E69E9840];
+  v57[20] = *MEMORY[0x1E69E9840];
   v3 = self->_systemUIIdentifierMap;
   if (!v3)
   {
     v4 = getFBSDisplayLayoutElementControlCenterIdentifier();
-    v50 = v4;
+    v51 = v4;
     v5 = @"com.apple.control-center";
     if (v4)
     {
       v5 = v4;
     }
 
-    v55[0] = v5;
-    v56[0] = &unk_1F06A2FF8;
+    v56[0] = v5;
+    v57[0] = &unk_1F06A2FF8;
     v6 = getFBSDisplayLayoutElementLockScreenIdentifier();
-    v49 = v6;
+    v50 = v6;
     v7 = @"com.apple.lock-screen";
     if (v6)
     {
       v7 = v6;
     }
 
-    v55[1] = v7;
-    v56[1] = &unk_1F06A3010;
+    v56[1] = v7;
+    v57[1] = &unk_1F06A3010;
     v8 = getFBSDisplayLayoutElementNotificationCenterIdentifier();
-    v48 = v8;
+    v49 = v8;
     v9 = @"com.apple.notification-center";
     if (v8)
     {
       v9 = v8;
     }
 
-    v55[2] = v9;
-    v56[2] = &unk_1F06A3028;
+    v56[2] = v9;
+    v57[2] = &unk_1F06A3028;
     v10 = getFBSDisplayLayoutElementSiriIdentifier();
-    v47 = v10;
+    v48 = v10;
     v11 = @"com.apple.Siri";
     if (v10)
     {
       v11 = v10;
     }
 
-    v55[3] = v11;
-    v56[3] = &unk_1F06A3040;
+    v56[3] = v11;
+    v57[3] = &unk_1F06A3040;
     v12 = getSBSDisplayLayoutElementAppSwitcherIdentifier();
-    v46 = v12;
+    v47 = v12;
     v13 = @"com.apple.springboard.app-switcher";
     if (v12)
     {
       v13 = v12;
     }
 
-    v55[4] = v13;
-    v56[4] = &unk_1F06A3058;
+    v56[4] = v13;
+    v57[4] = &unk_1F06A3058;
     v14 = getSBSDisplayLayoutElementCarPlayOEMIdentifier();
     v15 = v14;
     v16 = @"com.apple.carplay.oem";
@@ -1301,8 +1301,8 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
       v16 = v14;
     }
 
-    v55[5] = v16;
-    v56[5] = &unk_1F06A3070;
+    v56[5] = v16;
+    v57[5] = &unk_1F06A3070;
     v17 = getSBSDisplayLayoutElementHomeScreenIdentifier();
     v18 = v17;
     v19 = @"com.apple.springboard.home-screen";
@@ -1311,8 +1311,8 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
       v19 = v17;
     }
 
-    v55[6] = v19;
-    v56[6] = &unk_1F06A3088;
+    v56[6] = v19;
+    v57[6] = &unk_1F06A3088;
     v20 = getSBSDisplayLayoutElementLockScreenNavigationIdentifier();
     v21 = v20;
     v22 = @"com.apple.springboard.lockscreen.navigation";
@@ -1321,8 +1321,8 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
       v22 = v20;
     }
 
-    v55[7] = v22;
-    v56[7] = &unk_1F06A30A0;
+    v56[7] = v22;
+    v57[7] = &unk_1F06A30A0;
     v23 = getSBSDisplayLayoutElementLoginIdentifier();
     v24 = v23;
     v25 = @"com.apple.springboard.login";
@@ -1331,8 +1331,8 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
       v25 = v23;
     }
 
-    v55[8] = v25;
-    v56[8] = &unk_1F06A30B8;
+    v56[8] = v25;
+    v57[8] = &unk_1F06A30B8;
     v26 = getSBSDisplayLayoutElementNowPlayingIdentifier();
     v27 = v26;
     v28 = @"com.apple.now-playing";
@@ -1341,8 +1341,8 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
       v28 = v26;
     }
 
-    v55[9] = v28;
-    v56[9] = &unk_1F06A30D0;
+    v56[9] = v28;
+    v57[9] = &unk_1F06A30D0;
     v29 = getSBSDisplayLayoutElementPasscodeIdentifier();
     v30 = v29;
     v31 = @"com.apple.springboard.passcode";
@@ -1351,8 +1351,8 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
       v31 = v29;
     }
 
-    v55[10] = v31;
-    v56[10] = &unk_1F06A30E8;
+    v56[10] = v31;
+    v57[10] = &unk_1F06A30E8;
     v32 = getSBSDisplayLayoutElementSpotlightIdentifier();
     v33 = v32;
     v34 = @"com.apple.springboard.spotlight";
@@ -1361,8 +1361,8 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
       v34 = v32;
     }
 
-    v55[11] = v34;
-    v56[11] = &unk_1F06A3100;
+    v56[11] = v34;
+    v57[11] = &unk_1F06A3100;
     v35 = getSBSDisplayLayoutElementTodayViewIdentifier();
     v36 = v35;
     v37 = @"com.apple.springboard.today-view";
@@ -1371,23 +1371,23 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
       v37 = v35;
     }
 
-    v55[12] = v37;
-    v55[13] = @"com.apple.camera";
-    v56[12] = &unk_1F06A3118;
-    v56[13] = &unk_1F06A3130;
-    v55[14] = @"com.apple.CoreAuthUI";
-    v55[15] = @"com.apple.InCallService";
-    v56[14] = &unk_1F06A3148;
-    v56[15] = &unk_1F06A3160;
-    v55[16] = @"com.apple.LocalAuthenticationUIService";
-    v55[17] = @"com.apple.SharingViewService";
-    v56[16] = &unk_1F06A3148;
-    v56[17] = &unk_1F06A3178;
-    v55[18] = @"SBSpotlightAlert";
-    v55[19] = @"SBVoiceControlAlert";
-    v56[18] = &unk_1F06A3100;
-    v56[19] = &unk_1F06A3190;
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:{20, v46}];
+    v56[12] = v37;
+    v56[13] = @"com.apple.camera";
+    v57[12] = &unk_1F06A3118;
+    v57[13] = &unk_1F06A3130;
+    v56[14] = @"com.apple.CoreAuthUI";
+    v56[15] = @"com.apple.InCallService";
+    v57[14] = &unk_1F06A3148;
+    v57[15] = &unk_1F06A3160;
+    v56[16] = @"com.apple.LocalAuthenticationUIService";
+    v56[17] = @"com.apple.SharingViewService";
+    v57[16] = &unk_1F06A3148;
+    v57[17] = &unk_1F06A3178;
+    v56[18] = @"SBSpotlightAlert";
+    v56[19] = @"SBVoiceControlAlert";
+    v57[18] = &unk_1F06A3100;
+    v57[19] = &unk_1F06A3190;
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:{20, v47}];
 
     objc_storeStrong(&self->_systemUIIdentifierMap, v3);
   }
@@ -1395,22 +1395,23 @@ void __51__CUSystemMonitorImp__systemUIMonitorChangedFlags___block_invoke(uint64
   v38 = self->_systemUIMonitor;
   if (!v38)
   {
-    if (getFBSDisplayLayoutMonitorConfigurationClass[0]() && getFBSDisplayLayoutMonitorClass[0]())
+    FBSDisplayLayoutMonitorConfigurationClass = getFBSDisplayLayoutMonitorConfigurationClass(0);
+    if (FBSDisplayLayoutMonitorConfigurationClass && getFBSDisplayLayoutMonitorClass(FBSDisplayLayoutMonitorConfigurationClass))
     {
       if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemUIMonitorStart]", 0x1Eu, "SystemUI monitoring start", v39, v40, v41, v42, v45);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemUIMonitorStart]", 30, "SystemUI monitoring start", v40, v41, v42, v43, v46);
       }
 
-      configurationForDefaultMainDisplayMonitor = [getFBSDisplayLayoutMonitorConfigurationClass[0]() configurationForDefaultMainDisplayMonitor];
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = __43__CUSystemMonitorImp__systemUIMonitorStart__block_invoke;
-      v52[3] = &unk_1E73A3E50;
-      v53 = v3;
+      configurationForDefaultMainDisplayMonitor = [(objc_class *)(getFBSDisplayLayoutMonitorConfigurationClass)() configurationForDefaultMainDisplayMonitor];
+      v53[0] = MEMORY[0x1E69E9820];
+      v53[1] = 3221225472;
+      v53[2] = __43__CUSystemMonitorImp__systemUIMonitorStart__block_invoke;
+      v53[3] = &unk_1E73A3E50;
+      v54 = v3;
       selfCopy = self;
-      [configurationForDefaultMainDisplayMonitor setTransitionHandler:v52];
-      v38 = [getFBSDisplayLayoutMonitorClass[0]() monitorWithConfiguration:configurationForDefaultMainDisplayMonitor];
+      [configurationForDefaultMainDisplayMonitor setTransitionHandler:v53];
+      v38 = [(objc_class *)(getFBSDisplayLayoutMonitorClass)() monitorWithConfiguration:configurationForDefaultMainDisplayMonitor];
       objc_storeStrong(&self->_systemUIMonitor, v38);
     }
 
@@ -1492,7 +1493,7 @@ uint64_t __43__CUSystemMonitorImp__systemUIMonitorStart__block_invoke_3(uint64_t
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateUpdate:]", 0x1Eu, "SystemLockState initial: %s\n", v12, v13, v14, v15, off_1E73A3F28[v10]);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateUpdate:]", 30, "SystemLockState initial: %s\n", v12, v13, v14, v15, off_1E73A3F28[v10]);
     }
   }
 
@@ -1500,7 +1501,7 @@ uint64_t __43__CUSystemMonitorImp__systemUIMonitorStart__block_invoke_3(uint64_t
   {
     if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateUpdate:]", 0xAu, "SystemLockState unchanged: %s\n", v12, v13, v14, v15, off_1E73A3F28[v10]);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateUpdate:]", 10, "SystemLockState unchanged: %s\n", v12, v13, v14, v15, off_1E73A3F28[v10]);
     }
   }
 
@@ -1518,7 +1519,7 @@ uint64_t __43__CUSystemMonitorImp__systemUIMonitorStart__block_invoke_3(uint64_t
         v16 = off_1E73A3F28[systemLockState];
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateUpdate:]", 0x1Eu, "SystemLockState changed: %s -> %s\n", v12, v13, v14, v15, v16);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateUpdate:]", 30, "SystemLockState changed: %s -> %s\n", v12, v13, v14, v15, v16);
     }
 
     [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_422 passingTest:&__block_literal_global_424];
@@ -1564,7 +1565,7 @@ void __45__CUSystemMonitorImp__systemLockStateUpdate___block_invoke(uint64_t a1,
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateMonitorStop]", 0x1Eu, "SystemLockState monitoring stop\n", v2, v3, v4, v5, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateMonitorStop]", 30, "SystemLockState monitoring stop\n", v2, v3, v4, v5, v8);
     }
 
     systemLockStateToken = self->_systemLockStateToken;
@@ -1585,7 +1586,7 @@ LABEL_7:
     handler[8] = v7;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateMonitorStart]", 0x1Eu, "SystemLockState monitoring start\n", v2, v3, v4, v5, v11);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemLockStateMonitorStart]", 30, "SystemLockState monitoring start\n", v2, v3, v4, v5, v11);
     }
 
     v9 = *MEMORY[0x1E69B1A70];
@@ -1608,7 +1609,7 @@ LABEL_7:
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigSystemNameChanged:]", 0x1Eu, "SystemName initial: '%@'\n", v6, v7, v8, v9, obj);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigSystemNameChanged:]", 30, "SystemName initial: '%@'\n", v6, v7, v8, v9, obj);
     }
 
 LABEL_23:
@@ -1639,7 +1640,7 @@ LABEL_23:
 LABEL_14:
       if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigSystemNameChanged:]", 0x1Eu, "SystemName changed: '%@' -> '%@'\n", v15, v16, v17, v18, self->_systemName);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigSystemNameChanged:]", 30, "SystemName changed: '%@' -> '%@'\n", v15, v16, v17, v18, self->_systemName);
       }
 
       goto LABEL_23;
@@ -1655,7 +1656,7 @@ LABEL_14:
 
   if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigSystemNameChanged:]", 0xAu, "SystemName unchanged '%@'\n", v15, v16, v17, v18, v11);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigSystemNameChanged:]", 10, "SystemName unchanged '%@'\n", v15, v16, v17, v18, v11);
   }
 
 LABEL_25:
@@ -1691,7 +1692,7 @@ void __53__CUSystemMonitorImp__systemConfigSystemNameChanged___block_invoke(uint
     v11 = changedCopy;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigNetInterfaceChanged:initial:]", 0x1Eu, "NetInterfaces changed: %##@\n", v7, v8, v9, v10, v11);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigNetInterfaceChanged:initial:]", 30, "NetInterfaces changed: %##@\n", v7, v8, v9, v10, v11);
     }
 
     [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_406 passingTest:&__block_literal_global_408];
@@ -1760,7 +1761,7 @@ void __63__CUSystemMonitorImp__systemConfigNetInterfaceChanged_initial___block_i
 
         else if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigChanged:initial:]", 0x1Eu, "SystemConfig unknown key changed: '%@'\n", v14, v15, v16, v17, v13);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigChanged:initial:]", 30, "SystemConfig unknown key changed: '%@'\n", v14, v15, v16, v17, v13);
         }
       }
 
@@ -1848,7 +1849,7 @@ LABEL_8:
     {
       if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 0x1Eu, "SystemConfig monitoring stop\n", v12, v13, v14, v15, v60);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 30, "SystemConfig monitoring stop\n", v12, v13, v14, v15, v60);
       }
 
       SCDynamicStoreSetDispatchQueue(self->_scDynamicStore, 0);
@@ -1874,7 +1875,7 @@ LABEL_8:
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 0x1Eu, "SystemConfig monitoring start\n", v12, v13, v14, v15, v60);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 30, "SystemConfig monitoring start\n", v12, v13, v14, v15, v60);
     }
 
     v17 = getprogname();
@@ -1888,7 +1889,7 @@ LABEL_8:
       if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
       {
         v32 = SCError();
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 0x5Au, "### SCDynamicStoreCreate failed: %#m\n", v33, v34, v35, v36, v32);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 90, "### SCDynamicStoreCreate failed: %#m\n", v33, v34, v35, v36, v32);
       }
 
       goto LABEL_61;
@@ -1899,7 +1900,7 @@ LABEL_8:
     if (!SCDynamicStoreSetDispatchQueue(v26, self->_dispatchQueue) && gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
     {
       v27 = SCError();
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 0x5Au, "### SCDynamicStoreSetDispatchQueue failed: %#m\n", v28, v29, v30, v31, v27);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 90, "### SCDynamicStoreSetDispatchQueue failed: %#m\n", v28, v29, v30, v31, v27);
     }
   }
 
@@ -1970,7 +1971,7 @@ LABEL_57:
 LABEL_50:
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 0x1Eu, "SystemConfig watch: Keys %##@, Patterns %##@\n", v45, v46, v47, v48, v41);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 30, "SystemConfig watch: Keys %##@, Patterns %##@\n", v45, v46, v47, v48, v41);
   }
 
   if (SCDynamicStoreSetNotificationKeys(v16, v41, v6))
@@ -1983,7 +1984,7 @@ LABEL_50:
   if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
   {
     v55 = SCError();
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 0x5Au, "### SCDynamicStoreSetNotificationKeys failed: %#m\n", v56, v57, v58, v59, v55);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateNotifications]", 90, "### SCDynamicStoreSetNotificationKeys failed: %#m\n", v56, v57, v58, v59, v55);
   }
 
 LABEL_61:
@@ -2001,7 +2002,7 @@ LABEL_61:
     {
       if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateKeyPtr:name:enabled:creator:]", 0x1Eu, "SystemConfig monitoring add: %@\n", v10, v11, v12, v13, nameCopy);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateKeyPtr:name:enabled:creator:]", 30, "SystemConfig monitoring add: %@\n", v10, v11, v12, v13, nameCopy);
       }
 
       v17 = creatorCopy[2](creatorCopy);
@@ -2025,7 +2026,7 @@ LABEL_61:
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateKeyPtr:name:enabled:creator:]", 0x1Eu, "SystemConfig monitoring remove: %@\n", v10, v11, v12, v13, nameCopy);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _systemConfigUpdateKeyPtr:name:enabled:creator:]", 30, "SystemConfig monitoring remove: %@\n", v10, v11, v12, v13, nameCopy);
     }
 
     v16 = *ptr;
@@ -2062,7 +2063,7 @@ LABEL_61:
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorUpdateWithLayout:]", 0x1Eu, "ScreenState update no layout/backlight", v4, v5, v6, v7, v13);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorUpdateWithLayout:]", 30, "ScreenState update no layout/backlight", v4, v5, v6, v7, v13);
     }
 
     v9 = 0;
@@ -2099,7 +2100,7 @@ LABEL_61:
         case 40:
           v11 = @"ActiveOn";
 LABEL_27:
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorUpdateWithLayout:]", 0x1Eu, "ScreenState changed: %@ -> %@ (raw %d)", v4, v5, v6, v7, v11);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorUpdateWithLayout:]", 30, "ScreenState changed: %@ -> %@ (raw %d)", v4, v5, v6, v7, v11);
           goto LABEL_28;
       }
     }
@@ -2147,7 +2148,7 @@ void __58__CUSystemMonitorImp__screenStateMonitorUpdateWithLayout___block_invoke
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorStop]", 0x1Eu, "ScreenState monitor stop", v2, v3, v4, v5, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorStop]", 30, "ScreenState monitor stop", v2, v3, v4, v5, v8);
     }
 
     [(FBSDisplayLayoutMonitor *)self->_screenStateMonitor invalidate];
@@ -2162,38 +2163,42 @@ void __58__CUSystemMonitorImp__screenStateMonitorUpdateWithLayout___block_invoke
 {
   if (!self->_screenStateMonitor)
   {
-    v21[9] = v6;
-    v21[10] = v7;
-    if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
+    v22[9] = v6;
+    v22[10] = v7;
+    selfCopy = self;
+    if (gLogCategory_CUSystemMonitor <= 30)
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorStart]", 0x1Eu, "ScreenState monitor start", v2, v3, v4, v5, v20);
+      if (gLogCategory_CUSystemMonitor != -1 || (self = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu), self))
+      {
+        self = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorStart]", 30, "ScreenState monitor start", v2, v3, v4, v5, v21);
+      }
     }
 
-    configurationForDefaultMainDisplayMonitor = [getFBSDisplayLayoutMonitorConfigurationClass[0]() configurationForDefaultMainDisplayMonitor];
+    configurationForDefaultMainDisplayMonitor = [getFBSDisplayLayoutMonitorConfigurationClass(self) configurationForDefaultMainDisplayMonitor];
     v14 = configurationForDefaultMainDisplayMonitor;
     if (configurationForDefaultMainDisplayMonitor)
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __46__CUSystemMonitorImp__screenStateMonitorStart__block_invoke;
-      v21[3] = &unk_1E73A3E28;
-      v21[4] = self;
-      [configurationForDefaultMainDisplayMonitor setTransitionHandler:v21];
-      v19 = [getFBSDisplayLayoutMonitorClass[0]() monitorWithConfiguration:v14];
-      if (v19)
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __46__CUSystemMonitorImp__screenStateMonitorStart__block_invoke;
+      v22[3] = &unk_1E73A3E28;
+      v22[4] = selfCopy;
+      v15 = [configurationForDefaultMainDisplayMonitor setTransitionHandler:v22];
+      v20 = [getFBSDisplayLayoutMonitorClass(v15) monitorWithConfiguration:v14];
+      if (v20)
       {
-        objc_storeStrong(&self->_screenStateMonitor, v19);
+        objc_storeStrong(&selfCopy->_screenStateMonitor, v20);
       }
 
       else if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorStart]", 0x5Au, "### ScreenState no monitor", v15, v16, v17, v18, v20);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorStart]", 90, "### ScreenState no monitor", v16, v17, v18, v19, v21);
       }
     }
 
     else if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorStart]", 0x5Au, "### ScreenState no monitor config", v10, v11, v12, v13, v20);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenStateMonitorStart]", 90, "### ScreenState no monitor config", v10, v11, v12, v13, v21);
     }
   }
 }
@@ -2215,7 +2220,7 @@ void __58__CUSystemMonitorImp__screenStateMonitorUpdateWithLayout___block_invoke
         v10 = "on";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenChanged:]", 0xAu, "ScreenOn unchanged (%s)\n", v6, v7, v8, v9, v10);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenChanged:]", 10, "ScreenOn unchanged (%s)\n", v6, v7, v8, v9, v10);
     }
   }
 
@@ -2233,7 +2238,7 @@ void __58__CUSystemMonitorImp__screenStateMonitorUpdateWithLayout___block_invoke
         v11 = "off";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenChanged:]", 0x1Eu, "ScreenOn changed: %s -> %s\n", v6, v7, v8, v9, v11);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenChanged:]", 30, "ScreenOn changed: %s -> %s\n", v6, v7, v8, v9, v11);
     }
 
     [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_374 passingTest:&__block_literal_global_376];
@@ -2274,7 +2279,7 @@ void __37__CUSystemMonitorImp__screenChanged___block_invoke(uint64_t a1, _BYTE *
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenOnMonitorStop]", 0x1Eu, "ScreenOn monitoring stop\n", v2, v3, v4, v5, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenOnMonitorStop]", 30, "ScreenOn monitoring stop\n", v2, v3, v4, v5, v8);
     }
 
     screenBlankedToken = self->_screenBlankedToken;
@@ -2295,7 +2300,7 @@ LABEL_7:
     state64[8] = v7;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenOnMonitorStartiOS]", 0x1Eu, "ScreenOn monitoring start\n", v2, v3, v4, v5, v18);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenOnMonitorStartiOS]", 30, "ScreenOn monitoring start\n", v2, v3, v4, v5, v18);
     }
 
     dispatchQueue = self->_dispatchQueue;
@@ -2321,7 +2326,7 @@ LABEL_7:
         v17 = "on";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenOnMonitorStartiOS]", 0x1Eu, "ScreenOn initial: %s\n", v13, v14, v15, v16, v17);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenOnMonitorStartiOS]", 30, "ScreenOn initial: %s\n", v13, v14, v15, v16, v17);
     }
   }
 }
@@ -2360,7 +2365,7 @@ void __42__CUSystemMonitorImp__screenLockedChanged__block_invoke(uint64_t a1, _B
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedMonitorStop]", 0x1Eu, "ScreenLocked monitoring stop\n", v2, v3, v4, v5, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedMonitorStop]", 30, "ScreenLocked monitoring stop\n", v2, v3, v4, v5, v8);
     }
 
     screenLockedToken = self->_screenLockedToken;
@@ -2383,7 +2388,7 @@ LABEL_7:
     handler[10] = v7;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedMonitorStart]", 0x1Eu, "ScreenLocked monitoring start\n", v2, v3, v4, v5, v16);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedMonitorStart]", 30, "ScreenLocked monitoring start\n", v2, v3, v4, v5, v16);
     }
 
     dispatchQueue = self->_dispatchQueue;
@@ -2410,7 +2415,7 @@ LABEL_7:
         v15 = "yes";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedMonitorStart]", 0x1Eu, "ScreenLocked initial: %s\n", v11, v12, v13, v14, v15);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _screenLockedMonitorStart]", 30, "ScreenLocked initial: %s\n", v11, v12, v13, v14, v15);
     }
   }
 }
@@ -2430,7 +2435,7 @@ LABEL_7:
   {
     bytes2 = [(NSData *)v17 bytes];
     [v9 bytes];
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _rotatingIdentifierTimerFired]", 0x1Eu, "Rotating identifier changed timer: %.6a -> %.6a\n", v13, v14, v15, v16, bytes2);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _rotatingIdentifierTimerFired]", 30, "Rotating identifier changed timer: %.6a -> %.6a\n", v13, v14, v15, v16, bytes2);
   }
 
   [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_351 passingTest:&__block_literal_global_353];
@@ -2480,7 +2485,7 @@ LABEL_8:
 
   if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _rotatingIdentifierMonitorStop]", 0x1Eu, "Rotating identifier monitor stop\n", v2, v3, v4, v5, v10);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _rotatingIdentifierMonitorStop]", 30, "Rotating identifier monitor stop\n", v2, v3, v4, v5, v10);
   }
 
   v8 = self->_rotatingIdentifierTimer;
@@ -2507,7 +2512,7 @@ LABEL_8:
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
       bytes2 = [v11 bytes];
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _rotatingIdentifierMonitorStart]", 0x1Eu, "Rotating identifier monitor start: %.6a\n", v15, v16, v17, v18, bytes2);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _rotatingIdentifierMonitorStart]", 30, "Rotating identifier monitor start: %.6a\n", v15, v16, v17, v18, bytes2);
     }
 
     v19 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
@@ -2541,7 +2546,7 @@ LABEL_8:
         v9 = "(changed)";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationsOfInterestDidChange:]", 0x1Eu, "Region monitor LOI fetch start %s", v3, v4, v5, v6, v9);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationsOfInterestDidChange:]", 30, "Region monitor LOI fetch start %s", v3, v4, v5, v6, v9);
     }
   }
 
@@ -2565,7 +2570,7 @@ void __52__CUSystemMonitorImp__locationsOfInterestDidChange___block_invoke(uint6
   {
     if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationsOfInterestDidChange:]_block_invoke", 0x5Au, "### Region monitor LOI fetch failed: %{error}", v7, v8, v9, v10, v6);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationsOfInterestDidChange:]_block_invoke", 90, "### Region monitor LOI fetch failed: %{error}", v7, v8, v9, v10, v6);
     }
   }
 
@@ -2574,7 +2579,7 @@ void __52__CUSystemMonitorImp__locationsOfInterestDidChange___block_invoke(uint6
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
       v12 = [v11 count];
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationsOfInterestDidChange:]_block_invoke", 0x1Eu, "Region monitor LOI fetch completed: %d total", v13, v14, v15, v16, v12);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationsOfInterestDidChange:]_block_invoke", 30, "Region monitor LOI fetch completed: %d total", v13, v14, v15, v16, v12);
     }
 
     v17 = *(a1 + 32);
@@ -2600,7 +2605,7 @@ void __52__CUSystemMonitorImp__locationsOfInterestDidChange___block_invoke(uint6
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
       v7 = [legacyInfo count];
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp cellMonitorUpdate:info:]", 0x1Eu, "Region monitor cell update: %d items", v8, v9, v10, v11, v7);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp cellMonitorUpdate:info:]", 30, "Region monitor cell update: %d items", v8, v9, v10, v11, v7);
     }
 
     v29 = 0u;
@@ -2628,7 +2633,7 @@ void __52__CUSystemMonitorImp__locationsOfInterestDidChange___block_invoke(uint6
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v19 = [v18 objectForKeyedSubscript:getkCTCellMonitorMCC[0]()];
+            v19 = [v18 objectForKeyedSubscript:getkCTCellMonitorMCC()];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -2662,7 +2667,7 @@ void __52__CUSystemMonitorImp__locationsOfInterestDidChange___block_invoke(uint6
       {
         if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp cellMonitorUpdate:info:]", 0x1Eu, "Region monitor mapping %d -> null (update)", v21, v22, v23, v24, 0xFFFFLL);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp cellMonitorUpdate:info:]", 30, "Region monitor mapping %d -> null (update)", v21, v22, v23, v24, 0xFFFFLL);
         }
 
         [(CUSystemMonitorImp *)selfCopy _regionMonitorUpdateMCC:0];
@@ -2726,7 +2731,7 @@ LABEL_24:
   {
     v16 = getprogname();
     v24 = NSPrintF("com.apple.CUSystemMonitor.%s", v17, v18, v19, v20, v21, v22, v23, v16);
-    v25 = (softLink_CTServerConnectionCreateOnTargetQueue[0])(0, v24, self->_dispatchQueue, 0);
+    v25 = softLink_CTServerConnectionCreateOnTargetQueue(0, v24, self->_dispatchQueue, 0);
     if (v25)
     {
       regionCTServerCnx = v25;
@@ -2737,7 +2742,7 @@ LABEL_24:
 
     if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateMCC:]", 0x5Au, "### Region monitor CTServerConnectionCreate failed", v26, v27, v28, v29, v42);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateMCC:]", 90, "### Region monitor CTServerConnectionCreate failed", v26, v27, v28, v29, v42);
     }
 
     self->_regionCTServerCnx = 0;
@@ -2749,11 +2754,11 @@ LABEL_25:
 
 LABEL_15:
   v43 = 0;
-  (softLink_CTServerConnectionCopyISOForMCC[0])(regionCTServerCnx, v7, &v43);
+  softLink_CTServerConnectionCopyISOForMCC(regionCTServerCnx, v7, &v43);
   v14 = v43;
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateMCC:]", 0x1Eu, "Region monitor CopyISOForMCC: %@, ISO %@, error %d/%d", v30, v31, v32, v33, v7);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateMCC:]", 30, "Region monitor CopyISOForMCC: %@, ISO %@, error %d/%d", v30, v31, v32, v33, v7);
   }
 
 LABEL_26:
@@ -2788,7 +2793,7 @@ LABEL_26:
 LABEL_36:
       if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateMCC:]", 0x1Eu, "Region changed: MCC %@, ISO %@", v34, v35, v36, v37, v7);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateMCC:]", 30, "Region changed: MCC %@, ISO %@", v34, v35, v36, v37, v7);
       }
 
       [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_333 passingTest:&__block_literal_global_335];
@@ -2798,7 +2803,7 @@ LABEL_36:
 
   if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateMCC:]", 0xAu, "Region unchanged: MCC %@, ISO %@", v34, v35, v36, v37, v7);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateMCC:]", 10, "Region unchanged: MCC %@, ISO %@", v34, v35, v36, v37, v7);
   }
 
 LABEL_41:
@@ -2951,7 +2956,7 @@ void __46__CUSystemMonitorImp__regionMonitorUpdateMCC___block_invoke(uint64_t a1
       {
         if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateLocationsOfInterest:]", 0xAu, "Region routine unchanged: Country %@, State %@", v38, v39, v40, v41, v28);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateLocationsOfInterest:]", 10, "Region routine unchanged: Country %@, State %@", v38, v39, v40, v41, v28);
         }
 
 LABEL_47:
@@ -2974,7 +2979,7 @@ LABEL_36:
       pthread_mutex_unlock(&gCUSystemMonitorLock);
       if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateLocationsOfInterest:]", 0x1Eu, "Region routine changed: Country %@, State %@", v42, v43, v44, v45, v28);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateLocationsOfInterest:]", 30, "Region routine changed: Country %@, State %@", v42, v43, v44, v45, v28);
       }
 
       [(CUSystemMonitorImp *)selfCopy _invokeBlock:&__block_literal_global_324 passingTest:&__block_literal_global_326];
@@ -2988,7 +2993,7 @@ LABEL_36:
 
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateLocationsOfInterest:]", 0x1Eu, "Region monitor LOI none found", v18, v19, v20, v21, v46);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorUpdateLocationsOfInterest:]", 30, "Region monitor LOI none found", v18, v19, v20, v21, v46);
   }
 
   v7 = 0;
@@ -3021,7 +3026,7 @@ void __62__CUSystemMonitorImp__regionMonitorUpdateLocationsOfInterest___block_in
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]", 0x1Eu, "Region monitor get CT subscription context", v2, v3, v4, v5, v9[0]);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]", 30, "Region monitor get CT subscription context", v2, v3, v4, v5, v9[0]);
   }
 
   regionCTClient = self->_regionCTClient;
@@ -3047,7 +3052,7 @@ void __39__CUSystemMonitorImp__regionMonitorGet__block_invoke(uint64_t a1, void 
     {
       if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]_block_invoke", 0x5Au, "### Region monitor get CT subscription context failed: %{error}", v7, v8, v9, v10, v6);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]_block_invoke", 90, "### Region monitor get CT subscription context failed: %{error}", v7, v8, v9, v10, v6);
       }
     }
 
@@ -3055,7 +3060,7 @@ void __39__CUSystemMonitorImp__regionMonitorGet__block_invoke(uint64_t a1, void 
     {
       if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]_block_invoke", 0x1Eu, "Region monitor get MCC", v7, v8, v9, v10, v13);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]_block_invoke", 30, "Region monitor get MCC", v7, v8, v9, v10, v13);
       }
 
       v14[0] = MEMORY[0x1E69E9820];
@@ -3081,7 +3086,7 @@ void __39__CUSystemMonitorImp__regionMonitorGet__block_invoke_2(uint64_t a1, voi
     {
       if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]_block_invoke_2", 0x5Au, "### Region monitor get MCC failed: MCC %@, %{error}", v6, v7, v8, v9, v15);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]_block_invoke_2", 90, "### Region monitor get MCC failed: MCC %@, %{error}", v6, v7, v8, v9, v15);
       }
     }
 
@@ -3091,7 +3096,7 @@ void __39__CUSystemMonitorImp__regionMonitorGet__block_invoke_2(uint64_t a1, voi
       {
         if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]_block_invoke_2", 0x1Eu, "Region monitor mapping %@ -> null (get)", v10, v11, v12, v13, v15);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorGet]_block_invoke_2", 30, "Region monitor mapping %@ -> null (get)", v10, v11, v12, v13, v15);
         }
 
         v14 = 0;
@@ -3114,7 +3119,7 @@ void __39__CUSystemMonitorImp__regionMonitorGet__block_invoke_2(uint64_t a1, voi
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorStop]", 0x1Eu, "Region monitor stop", v2, v3, v4, v5, v15);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorStop]", 30, "Region monitor stop", v2, v3, v4, v5, v15);
     }
 
     regionCTClient = self->_regionCTClient;
@@ -3159,26 +3164,30 @@ void __39__CUSystemMonitorImp__regionMonitorGet__block_invoke_2(uint64_t a1, voi
 
 - (void)_regionMonitorStart
 {
-  v7 = self->_regionCTClient;
-  if (!v7)
+  v3 = self->_regionCTClient;
+  v8 = v3;
+  if (!v3)
   {
-    if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
+    if (gLogCategory_CUSystemMonitor <= 30)
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorStart]", 0x1Eu, "Region monitor start", v3, v4, v5, v6, v11);
+      if (gLogCategory_CUSystemMonitor != -1 || (v3 = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu), v3))
+      {
+        v3 = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _regionMonitorStart]", 30, "Region monitor start", v4, v5, v6, v7, v12);
+      }
     }
 
-    v7 = [objc_alloc(getCoreTelephonyClientClass[0]()) initWithQueue:self->_dispatchQueue];
+    v8 = [objc_alloc(getCoreTelephonyClientClass(v3)) initWithQueue:self->_dispatchQueue];
     regionCTClient = self->_regionCTClient;
-    self->_regionCTClient = v7;
+    self->_regionCTClient = v8;
 
-    [(CoreTelephonyClient *)v7 setDelegate:self];
+    [(CoreTelephonyClient *)v8 setDelegate:self];
     [(CUSystemMonitorImp *)self _regionMonitorGet];
   }
 
   defaultManager = self->_regionRoutineManager;
   if (!defaultManager)
   {
-    defaultManager = [getRTRoutineManagerClass[0]() defaultManager];
+    defaultManager = [(objc_class *)getRTRoutineManagerClass() defaultManager];
     objc_storeStrong(&self->_regionRoutineManager, defaultManager);
     if (self->_regionRoutineNotifyToken == -1)
     {
@@ -3198,122 +3207,123 @@ void __39__CUSystemMonitorImp__regionMonitorGet__block_invoke_2(uint64_t a1, voi
 - (void)_primaryAppleIDChanged2:(BOOL)changed2
 {
   changed2Copy = changed2;
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (!changed2)
   {
     v5 = logger_8205();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_191EAF000, v5, OS_LOG_TYPE_DEFAULT, "PrimaryAppleID change notification\n", &v24, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_191EAF000, v5, OS_LOG_TYPE_DEFAULT, "PrimaryAppleID change notification\n", &v25, 2u);
     }
   }
 
   _primaryAppleIDAccount = [(CUSystemMonitorImp *)self _primaryAppleIDAccount];
+  v7 = _primaryAppleIDAccount;
   primaryAppleIDActive = self->_primaryAppleIDActive;
   self->_primaryAppleIDActive = _primaryAppleIDAccount != 0;
   if (_primaryAppleIDAccount && !primaryAppleIDActive && self->_familyFailed)
   {
-    v8 = logger_8205();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = logger_8205();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v24) = 0;
-      _os_log_impl(&dword_191EAF000, v8, OS_LOG_TYPE_DEFAULT, "Family re-check on PrimaryAppleID active\n", &v24, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_191EAF000, v9, OS_LOG_TYPE_DEFAULT, "Family re-check on PrimaryAppleID active\n", &v25, 2u);
     }
 
-    [(CUSystemMonitorImp *)self _familyGetMembers:0];
+    _primaryAppleIDAccount = [(CUSystemMonitorImp *)self _familyGetMembers:0];
   }
 
-  sharedInstance = [getAKAccountManagerClass_8208[0]() sharedInstance];
-  v10 = [_primaryAppleIDAccount accountPropertyForKey:@"altDSID"];
-  if (v10 && ([sharedInstance authKitAccountWithAltDSID:v10 error:0], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
+  sharedInstance = [getAKAccountManagerClass_8208(_primaryAppleIDAccount) sharedInstance];
+  v11 = [v7 accountPropertyForKey:@"altDSID"];
+  if (v11 && ([sharedInstance authKitAccountWithAltDSID:v11 error:0], (v12 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v12 = v11;
-    v13 = [sharedInstance securityLevelForAccount:v11] == 4;
+    v13 = v12;
+    v14 = [sharedInstance securityLevelForAccount:v12] == 4;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  username = [_primaryAppleIDAccount username];
+  username = [v7 username];
   pthread_mutex_lock(&gCUSystemMonitorLock);
-  v15 = self->_primaryAppleID;
+  v16 = self->_primaryAppleID;
   objc_storeStrong(&self->_primaryAppleID, username);
   primaryAppleIDIsHSA2 = self->_primaryAppleIDIsHSA2;
-  self->_primaryAppleIDIsHSA2 = v13;
+  self->_primaryAppleIDIsHSA2 = v14;
   pthread_mutex_unlock(&gCUSystemMonitorLock);
   if (changed2Copy)
   {
-    v17 = logger_8205();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = logger_8205();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = "no";
-      if (v13)
+      v19 = "no";
+      if (v14)
       {
-        v18 = "yes";
+        v19 = "yes";
       }
 
-      v24 = 138412546;
-      v25 = username;
-      v26 = 2080;
-      v27 = v18;
-      _os_log_impl(&dword_191EAF000, v17, OS_LOG_TYPE_DEFAULT, "PrimaryAppleID initial: %@, HSA2 %s\n", &v24, 0x16u);
+      v25 = 138412546;
+      v26 = username;
+      v27 = 2080;
+      v28 = v19;
+      _os_log_impl(&dword_191EAF000, v18, OS_LOG_TYPE_DEFAULT, "PrimaryAppleID initial: %@, HSA2 %s\n", &v25, 0x16u);
     }
   }
 
   else
   {
-    v19 = logger_8205();
-    v20 = v19;
-    if (primaryAppleIDIsHSA2 == v13)
+    v20 = logger_8205();
+    v21 = v20;
+    if (primaryAppleIDIsHSA2 == v14)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v21 = "no";
-        if (v13)
+        v22 = "no";
+        if (v14)
         {
-          v21 = "yes";
+          v22 = "yes";
         }
 
-        v24 = 138412546;
-        v25 = username;
-        v26 = 2080;
-        v27 = v21;
-        _os_log_impl(&dword_191EAF000, v20, OS_LOG_TYPE_INFO, "PrimaryAppleID unchanged (%@, HSA2 %s)\n", &v24, 0x16u);
+        v25 = 138412546;
+        v26 = username;
+        v27 = 2080;
+        v28 = v22;
+        _os_log_impl(&dword_191EAF000, v21, OS_LOG_TYPE_INFO, "PrimaryAppleID unchanged (%@, HSA2 %s)\n", &v25, 0x16u);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = "no";
-        v24 = 138413058;
-        v25 = v15;
+        v23 = "no";
+        v25 = 138413058;
+        v26 = v16;
         if (primaryAppleIDIsHSA2)
         {
-          v23 = "yes";
+          v24 = "yes";
         }
 
         else
         {
-          v23 = "no";
+          v24 = "no";
         }
 
-        v26 = 2080;
-        v27 = v23;
-        if (v13)
+        v27 = 2080;
+        v28 = v24;
+        if (v14)
         {
-          v22 = "yes";
+          v23 = "yes";
         }
 
-        v28 = 2112;
-        v29 = username;
-        v30 = 2080;
-        v31 = v22;
-        _os_log_impl(&dword_191EAF000, v20, OS_LOG_TYPE_DEFAULT, "PrimaryAppleID changed: %@, HSA2 %s -> %@, HSA2 %s\n", &v24, 0x2Au);
+        v29 = 2112;
+        v30 = username;
+        v31 = 2080;
+        v32 = v23;
+        _os_log_impl(&dword_191EAF000, v21, OS_LOG_TYPE_DEFAULT, "PrimaryAppleID changed: %@, HSA2 %s -> %@, HSA2 %s\n", &v25, 0x2Au);
       }
 
       [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_307 passingTest:&__block_literal_global_309];
@@ -3361,7 +3371,7 @@ void __46__CUSystemMonitorImp__primaryAppleIDChanged2___block_invoke(uint64_t a1
     dispatch_once(&AppleAccountLibrary_sOnce_8228, &__block_literal_global_1273);
   }
 
-  defaultStore = [getACAccountStoreClass_8229[0]() defaultStore];
+  defaultStore = [(objc_class *)getACAccountStoreClass_8229() defaultStore];
   aa_primaryAppleAccount = [defaultStore aa_primaryAppleAccount];
 
   return aa_primaryAppleAccount;
@@ -3422,7 +3432,7 @@ void __46__CUSystemMonitorImp__primaryAppleIDChanged2___block_invoke(uint64_t a1
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStop]", 0x1Eu, "PowerUnlimited monitoring stop\n", v2, v3, v4, v5, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStop]", 30, "PowerUnlimited monitoring stop\n", v2, v3, v4, v5, v8);
     }
 
     powerSourceToken = self->_powerSourceToken;
@@ -3443,7 +3453,7 @@ LABEL_7:
     handler[10] = v7;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStart]", 0x1Eu, "PowerUnlimited monitoring start\n", v2, v3, v4, v5, v16);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStart]", 30, "PowerUnlimited monitoring start\n", v2, v3, v4, v5, v16);
     }
 
     dispatchQueue = self->_dispatchQueue;
@@ -3465,7 +3475,7 @@ LABEL_7:
         v15 = "yes";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStart]", 0x1Eu, "PowerUnlimited initial: %s\n", v11, v12, v13, v14, v15);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStart]", 30, "PowerUnlimited initial: %s\n", v11, v12, v13, v14, v15);
     }
   }
 }
@@ -3490,7 +3500,7 @@ uint64_t __49__CUSystemMonitorImp__powerUnlimitedMonitorStart__block_invoke(uint
           v10 = "yes";
         }
 
-        return LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStart]_block_invoke", 0xAu, "PowerUnlimited unchanged (%s)\n", v6, v7, v8, v9, v10);
+        return LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStart]_block_invoke", 10, "PowerUnlimited unchanged (%s)\n", v6, v7, v8, v9, v10);
       }
     }
   }
@@ -3509,7 +3519,7 @@ uint64_t __49__CUSystemMonitorImp__powerUnlimitedMonitorStart__block_invoke(uint
         v11 = "no";
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStart]_block_invoke", 0x1Eu, "PowerUnlimited changed: %s -> %s\n", v6, v7, v8, v9, v11);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _powerUnlimitedMonitorStart]_block_invoke", 30, "PowerUnlimited changed: %s -> %s\n", v6, v7, v8, v9, v11);
     }
 
     v12 = *(a1 + 32);
@@ -3650,7 +3660,7 @@ uint64_t __47__CUSystemMonitorImp__netInterfaceMonitorStart__block_invoke_3(uint
   v4 = *(v2 + 280);
   if (v4)
   {
-    [v4 primaryIPv4Addr];
+    objc_msgSend_primaryIPv4Addr(v4);
   }
 
   else
@@ -3665,7 +3675,7 @@ uint64_t __47__CUSystemMonitorImp__netInterfaceMonitorStart__block_invoke_3(uint
   v7 = *(v5 + 280);
   if (v7)
   {
-    [v7 primaryIPv6Addr];
+    objc_msgSend_primaryIPv6Addr(v7);
   }
 
   else
@@ -3776,9 +3786,9 @@ void __47__CUSystemMonitorImp__netInterfaceMonitorStart__block_invoke_3_271(uint
   v2 = [*(*(a1 + 32) + 280) flags];
   memset(v66, 0, 28);
   v3 = *(*(a1 + 32) + 280);
-  if (v3 && ([v3 primaryIPv4Addr], v4 = *(*(a1 + 32) + 280), memset(v65, 0, 28), v4))
+  if (v3 && (objc_msgSend_primaryIPv4Addr(v3), v4 = *(*(a1 + 32) + 280), memset(v65, 0, 28), v4))
   {
-    [v4 primaryIPv6Addr];
+    objc_msgSend_primaryIPv6Addr(v4);
     v5 = *(*(a1 + 32) + 280);
   }
 
@@ -4134,7 +4144,7 @@ void __47__CUSystemMonitorImp__netInterfaceMonitorStart__block_invoke_250(uint64
         v15 = off_1E73A3EF0[orientation];
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorOrientationChanged:]", 0xAu, "Motion orientation unchanged: %s", v4, v5, v6, v7, v15);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorOrientationChanged:]", 10, "Motion orientation unchanged: %s", v4, v5, v6, v7, v15);
     }
   }
 
@@ -4155,7 +4165,7 @@ void __47__CUSystemMonitorImp__netInterfaceMonitorStart__block_invoke_250(uint64
         v14 = off_1E73A3EF0[motionOrientation];
       }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorOrientationChanged:]", 0x1Eu, "Motion orientation: %s -> %s", v10, v11, v12, v13, v14);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorOrientationChanged:]", 30, "Motion orientation: %s -> %s", v10, v11, v12, v13, v14);
     }
 
     [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_242 passingTest:&__block_literal_global_244];
@@ -4220,7 +4230,7 @@ void __55__CUSystemMonitorImp__motionMonitorOrientationChanged___block_invoke(ui
     {
       v34 = NSPrintF("%#{flags}", v5, v6, v7, v8, v9, v10, v11, v12);
       [activityCopy confidence];
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorHandleActivity:]", 0xAu, "Motion unchanged: %@, confidence %s", v35, v36, v37, v38, v34);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorHandleActivity:]", 10, "Motion unchanged: %@, confidence %s", v35, v36, v37, v38, v34);
     }
   }
 
@@ -4234,7 +4244,7 @@ void __55__CUSystemMonitorImp__motionMonitorOrientationChanged___block_invoke(ui
       v21 = NSPrintF("%#{flags}", v14, v15, v16, v17, v18, v19, v20, motionFlags);
       v29 = NSPrintF("%#{flags}", v22, v23, v24, v25, v26, v27, v28, v12);
       [activityCopy confidence];
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorHandleActivity:]", 0x1Eu, "Motion changed: %@ -> %@, confidence %s", v30, v31, v32, v33, v21);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorHandleActivity:]", 30, "Motion changed: %@ -> %@, confidence %s", v30, v31, v32, v33, v21);
     }
 
     [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_236 passingTest:&__block_literal_global_238];
@@ -4269,7 +4279,7 @@ void __51__CUSystemMonitorImp__motionMonitorHandleActivity___block_invoke(uint64
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorStop]", 0x1Eu, "Motion monitor stop", v2, v3, v4, v5, v9);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorStop]", 30, "Motion monitor stop", v2, v3, v4, v5, v9);
     }
 
     [(CMMotionActivityManager *)self->_motionActivityManager stopActivityUpdates];
@@ -4288,38 +4298,42 @@ void __51__CUSystemMonitorImp__motionMonitorHandleActivity___block_invoke(uint64
 - (void)_motionMonitorStart
 {
   p_motionActivityManager = &self->_motionActivityManager;
-  v8 = self->_motionActivityManager;
+  v4 = self->_motionActivityManager;
+  v9 = v4;
   if (!*p_motionActivityManager)
   {
-    if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
+    if (gLogCategory_CUSystemMonitor <= 30)
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorStart]", 0x1Eu, "Motion monitor start", v4, v5, v6, v7, v14[0]);
+      if (gLogCategory_CUSystemMonitor != -1 || (v4 = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu), v4))
+      {
+        v4 = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorStart]", 30, "Motion monitor start", v5, v6, v7, v8, v16[0]);
+      }
     }
 
-    v9 = objc_alloc_init(getCMMotionActivityManagerClass[0]());
+    v10 = objc_alloc_init(getCMMotionActivityManagerClass(v4));
 
-    objc_storeStrong(p_motionActivityManager, v9);
-    v10 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-    [v10 setUnderlyingQueue:self->_dispatchQueue];
+    objc_storeStrong(p_motionActivityManager, v10);
+    v11 = objc_alloc_init(MEMORY[0x1E696ADC8]);
+    [v11 setUnderlyingQueue:self->_dispatchQueue];
     motionActivityManager = self->_motionActivityManager;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __41__CUSystemMonitorImp__motionMonitorStart__block_invoke;
-    v17[3] = &unk_1E73A3D60;
-    v8 = v9;
-    v18 = v8;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __41__CUSystemMonitorImp__motionMonitorStart__block_invoke;
+    v19[3] = &unk_1E73A3D60;
+    v9 = v10;
+    v20 = v9;
     selfCopy = self;
-    [(CMMotionActivityManager *)motionActivityManager startActivityUpdatesToQueue:v10 withHandler:v17];
-    v12 = objc_alloc_init(getCMDeviceOrientationManagerClass[0]());
-    objc_storeStrong(&self->_orientationManager, v12);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __41__CUSystemMonitorImp__motionMonitorStart__block_invoke_2;
-    v14[3] = &unk_1E73A3D88;
-    v15 = v12;
+    v13 = [(CMMotionActivityManager *)motionActivityManager startActivityUpdatesToQueue:v11 withHandler:v19];
+    v14 = objc_alloc_init(getCMDeviceOrientationManagerClass(v13));
+    objc_storeStrong(&self->_orientationManager, v14);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __41__CUSystemMonitorImp__motionMonitorStart__block_invoke_2;
+    v16[3] = &unk_1E73A3D88;
+    v17 = v14;
     selfCopy2 = self;
-    v13 = v12;
-    [v13 startDeviceOrientationUpdatesToQueue:v10 withHandler:v14];
+    v15 = v14;
+    [v15 startDeviceOrientationUpdatesToQueue:v11 withHandler:v16];
   }
 }
 
@@ -4350,7 +4364,7 @@ void __41__CUSystemMonitorImp__motionMonitorStart__block_invoke_2(uint64_t a1, v
     else if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
     {
       v14 = NSPrintF("%{error}", v6, v7, v8, v9, v10, v11, v12, v5);
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorStart]_block_invoke_2", 0x5Au, "### Motion orientation failed: %@", v15, v16, v17, v18, v14);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _motionMonitorStart]_block_invoke_2", 90, "### Motion orientation failed: %@", v15, v16, v17, v18, v14);
     }
   }
 }
@@ -4365,7 +4379,7 @@ void __41__CUSystemMonitorImp__motionMonitorStart__block_invoke_2(uint64_t a1, v
 
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceUpdate:]", 0x1Eu, "MeDevice updated: fml=<%.8@>, ids=<%.8@>, name='%@', isThisDevice=%s", v9, v10, v11, v12, findMyIdentifier);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceUpdate:]", 30, "MeDevice updated: fml=<%.8@>, ids=<%.8@>, name='%@', isThisDevice=%s", v9, v10, v11, v12, findMyIdentifier);
   }
 
   pthread_mutex_lock(&gCUSystemMonitorLock);
@@ -4425,7 +4439,7 @@ void __38__CUSystemMonitorImp__meDeviceUpdate___block_invoke(uint64_t a1, _BYTE 
       {
         if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceRetryTimerUpdate:]", 0x1Eu, "MeDevice retry timer start", v3, v4, v5, v6, v17);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceRetryTimerUpdate:]", 30, "MeDevice retry timer start", v3, v4, v5, v6, v17);
         }
 
         v9 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
@@ -4450,7 +4464,7 @@ void __38__CUSystemMonitorImp__meDeviceUpdate___block_invoke(uint64_t a1, _BYTE 
 
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceRetryTimerUpdate:]", 0x1Eu, "MeDevice retry timer disabled on unsupported device", v3, v4, v5, v6, v17);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceRetryTimerUpdate:]", 30, "MeDevice retry timer disabled on unsupported device", v3, v4, v5, v6, v17);
     }
   }
 
@@ -4474,7 +4488,7 @@ LABEL_27:
 
   if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceRetryTimerUpdate:]", 0x1Eu, "MeDevice retry timer stop", v3, v4, v5, v6, v17);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceRetryTimerUpdate:]", 30, "MeDevice retry timer stop", v3, v4, v5, v6, v17);
   }
 
   v15 = self->_meDeviceRetryTimer;
@@ -4488,7 +4502,7 @@ uint64_t __48__CUSystemMonitorImp__meDeviceRetryTimerUpdate___block_invoke(uint6
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceRetryTimerUpdate:]_block_invoke", 0x1Eu, "MeDevice retry timer fired", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceRetryTimerUpdate:]_block_invoke", 30, "MeDevice retry timer fired", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -4512,7 +4526,7 @@ uint64_t __48__CUSystemMonitorImp__meDeviceRetryTimerUpdate___block_invoke(uint6
     {
       if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
       {
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 0x5Au, "### MeDevice check failed: %{error}\n", v13, v14, v15, v16, errorCopy);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 90, "### MeDevice check failed: %{error}\n", v13, v14, v15, v16, errorCopy);
       }
 
       [(CUSystemMonitorImp *)self _meDeviceRetryTimerUpdate:1];
@@ -4521,7 +4535,7 @@ uint64_t __48__CUSystemMonitorImp__meDeviceRetryTimerUpdate___block_invoke(uint6
 
     if (gLogCategory_CUSystemMonitor <= 50 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x32u)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 0x32u, "MeDevice provided device info, but reported an error? : %{error}\n", v13, v14, v15, v16, errorCopy);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 50, "MeDevice provided device info, but reported an error? : %{error}\n", v13, v14, v15, v16, errorCopy);
     }
   }
 
@@ -4609,7 +4623,7 @@ LABEL_37:
           v34 = "MeDevice changed: FMF <%.8@>, IDS <%.8@>, Name '%@', Me %s\n";
         }
 
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 0x1Eu, v34, v22, v23, v24, v25, v18);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 30, v34, v22, v23, v24, v25, v18);
 LABEL_48:
         pthread_mutex_lock(&gCUSystemMonitorLock);
         objc_storeStrong(&self->_meDeviceFMFDeviceID, deviceId);
@@ -4641,13 +4655,13 @@ LABEL_30:
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 0x1Eu, "MeDevice initial: FMF <%.8@>, IDS <%.8@>, Name '%@', Me %s\n", v22, v23, v24, v25, v18);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 30, "MeDevice initial: FMF <%.8@>, IDS <%.8@>, Name '%@', Me %s\n", v22, v23, v24, v25, v18);
     }
   }
 
   else if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 0xAu, "MeDevice unchanged: FMF <%.8@>, IDS <%.8@>, Name '%@', Me %s\n", v22, v23, v24, v25, v18);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckCompletion:error:firstCheck:]", 10, "MeDevice unchanged: FMF <%.8@>, IDS <%.8@>, Name '%@', Me %s\n", v22, v23, v24, v25, v18);
   }
 
 LABEL_49:
@@ -4679,21 +4693,21 @@ void __64__CUSystemMonitorImp__meDeviceCheckCompletion_error_firstCheck___block_
 {
   if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckStart:]", 0xAu, "MeDevice check\n", v3, v4, v5, v6, v12);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceCheckStart:]", 10, "MeDevice check\n", v3, v4, v5, v6, v13);
   }
 
   v9 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-  [v9 setUnderlyingQueue:self->_dispatchQueue];
-  v10 = [objc_alloc(getFMFSessionClass[0]()) initWithDelegate:self delegateQueue:v9];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __42__CUSystemMonitorImp__meDeviceCheckStart___block_invoke;
-  v13[3] = &unk_1E73A3D38;
+  v10 = [v9 setUnderlyingQueue:self->_dispatchQueue];
+  v11 = [objc_alloc(getFMFSessionClass(v10)) initWithDelegate:self delegateQueue:v9];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __42__CUSystemMonitorImp__meDeviceCheckStart___block_invoke;
+  v14[3] = &unk_1E73A3D38;
   startCopy = start;
-  v13[4] = self;
-  v14 = v10;
-  v11 = v10;
-  [v11 getActiveLocationSharingDevice:v13];
+  v14[4] = self;
+  v15 = v11;
+  v12 = v11;
+  [v12 getActiveLocationSharingDevice:v14];
 }
 
 uint64_t __42__CUSystemMonitorImp__meDeviceCheckStart___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4716,7 +4730,7 @@ uint64_t __42__CUSystemMonitorImp__meDeviceCheckStart___block_invoke(uint64_t a1
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStopFMF]", 0x1Eu, "MeDevice monitoring stop\n", v2, v3, v4, v5, v13);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStopFMF]", 30, "MeDevice monitoring stop\n", v2, v3, v4, v5, v13);
     }
 
     meDeviceChangedToken = self->_meDeviceChangedToken;
@@ -4758,7 +4772,7 @@ LABEL_7:
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStop]", 0x1Eu, "MeDevice monitoring stop (FML)", v2, v3, v4, v5, v11);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStop]", 30, "MeDevice monitoring stop (FML)", v2, v3, v4, v5, v11);
     }
 
     [(CUFindMyLocateMeDeviceMonitor *)self->_meDeviceFindMyLocateMonitor invalidate];
@@ -4783,28 +4797,32 @@ LABEL_7:
 
 - (void)_meDeviceMonitorStart
 {
-  if (![(CUSystemMonitorImp *)self _meDeviceOverride])
+  _meDeviceOverride = [(CUSystemMonitorImp *)self _meDeviceOverride];
+  if ((_meDeviceOverride & 1) == 0)
   {
-    if ((self->_meDeviceUseFindMyLocate || (v3 = -[CUSystemMonitorImp _hasMonitorPassingTest:](self, "_hasMonitorPassingTest:", &__block_literal_global_194), self->_meDeviceUseFindMyLocate = v3, v3)) && [getCUFindMyLocateMeDeviceMonitorClass[0]() supported])
+    if ((self->_meDeviceUseFindMyLocate || (_meDeviceOverride = -[CUSystemMonitorImp _hasMonitorPassingTest:](self, "_hasMonitorPassingTest:", &__block_literal_global_194), self->_meDeviceUseFindMyLocate = _meDeviceOverride, _meDeviceOverride)) && (_meDeviceOverride = [getCUFindMyLocateMeDeviceMonitorClass(_meDeviceOverride) supported], _meDeviceOverride))
     {
-      [(CUSystemMonitorImp *)self _meDeviceMonitorStopFMF];
+      _meDeviceMonitorStopFMF = [(CUSystemMonitorImp *)self _meDeviceMonitorStopFMF];
       if (!self->_meDeviceFindMyLocateMonitor)
       {
-        if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
+        if (gLogCategory_CUSystemMonitor <= 30)
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]", 0x1Eu, "MeDevice monitoring start (FML)", v4, v5, v6, v7, v21[0]);
+          if (gLogCategory_CUSystemMonitor != -1 || (_meDeviceMonitorStopFMF = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu), _meDeviceMonitorStopFMF))
+          {
+            _meDeviceMonitorStopFMF = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]", 30, "MeDevice monitoring start (FML)", v5, v6, v7, v8, v22[0]);
+          }
         }
 
-        v19 = [objc_alloc(getCUFindMyLocateMeDeviceMonitorClass[0]()) initWithDispatchQueue:self->_dispatchQueue];
+        v20 = [objc_alloc(getCUFindMyLocateMeDeviceMonitorClass(_meDeviceMonitorStopFMF)) initWithDispatchQueue:self->_dispatchQueue];
         meDeviceFindMyLocateMonitor = self->_meDeviceFindMyLocateMonitor;
-        self->_meDeviceFindMyLocateMonitor = v19;
+        self->_meDeviceFindMyLocateMonitor = v20;
 
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_2;
-        v24[3] = &unk_1E73A3D10;
-        v24[4] = self;
-        [(CUFindMyLocateMeDeviceMonitor *)self->_meDeviceFindMyLocateMonitor setMeDeviceUpdatedHandler:v24];
+        v25[0] = MEMORY[0x1E69E9820];
+        v25[1] = 3221225472;
+        v25[2] = __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_2;
+        v25[3] = &unk_1E73A3D10;
+        v25[4] = self;
+        [(CUFindMyLocateMeDeviceMonitor *)self->_meDeviceFindMyLocateMonitor setMeDeviceUpdatedHandler:v25];
         [(CUFindMyLocateMeDeviceMonitor *)self->_meDeviceFindMyLocateMonitor activate];
       }
     }
@@ -4813,8 +4831,8 @@ LABEL_7:
     {
       if (self->_meDeviceChangedToken == -1)
       {
-        v8 = getFMFMeDeviceChangedNotification();
-        uTF8String = [v8 UTF8String];
+        v9 = getFMFMeDeviceChangedNotification();
+        uTF8String = [v9 UTF8String];
 
         if (!uTF8String)
         {
@@ -4823,7 +4841,7 @@ LABEL_7:
 
         if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]", 0x1Eu, "MeDevice monitoring start\n", v10, v11, v12, v13, v21[0]);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]", 30, "MeDevice monitoring start\n", v11, v12, v13, v14, v22[0]);
         }
 
         dispatchQueue = self->_dispatchQueue;
@@ -4833,37 +4851,37 @@ LABEL_7:
         handler[3] = &unk_1E73A4228;
         handler[4] = self;
         notify_register_dispatch(uTF8String, &self->_meDeviceChangedToken, dispatchQueue, handler);
-        [(CUSystemMonitorImp *)self _meDeviceCheckStart:1];
+        _meDeviceOverride = [(CUSystemMonitorImp *)self _meDeviceCheckStart:1];
       }
 
       if (self->_fmfDevicesChangedToken == -1)
       {
-        v15 = getFMFDevicesChangedNotification();
-        uTF8String2 = [v15 UTF8String];
+        v16 = getFMFDevicesChangedNotification(_meDeviceOverride);
+        uTF8String2 = [v16 UTF8String];
 
         if (!uTF8String2)
         {
           return;
         }
 
-        v17 = self->_dispatchQueue;
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_4;
-        v22[3] = &unk_1E73A4228;
-        v22[4] = self;
-        notify_register_dispatch(uTF8String2, &self->_fmfDevicesChangedToken, v17, v22);
+        v18 = self->_dispatchQueue;
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_4;
+        v23[3] = &unk_1E73A4228;
+        v23[4] = self;
+        notify_register_dispatch(uTF8String2, &self->_fmfDevicesChangedToken, v18, v23);
       }
 
       if (self->_meDeviceRetryToken == -1)
       {
-        v18 = self->_dispatchQueue;
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_5;
-        v21[3] = &unk_1E73A4228;
-        v21[4] = self;
-        notify_register_dispatch("com.apple.siri.personal.requests.companion.update", &self->_meDeviceRetryToken, v18, v21);
+        v19 = self->_dispatchQueue;
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_5;
+        v22[3] = &unk_1E73A4228;
+        v22[4] = self;
+        notify_register_dispatch("com.apple.siri.personal.requests.companion.update", &self->_meDeviceRetryToken, v19, v22);
       }
     }
   }
@@ -4873,7 +4891,7 @@ uint64_t __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_3(uint64_t
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]_block_invoke_3", 0x1Eu, "MeDevice me device changed\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]_block_invoke_3", 30, "MeDevice me device changed\n", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -4885,7 +4903,7 @@ uint64_t __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_4(uint64_t
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]_block_invoke_4", 0x1Eu, "MeDevice device list changed\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]_block_invoke_4", 30, "MeDevice device list changed\n", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -4897,7 +4915,7 @@ uint64_t __43__CUSystemMonitorImp__meDeviceMonitorStart__block_invoke_5(uint64_t
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]_block_invoke_5", 0x1Eu, "MeDevice device retry notification\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceMonitorStart]_block_invoke_5", 30, "MeDevice device retry notification\n", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -4924,7 +4942,7 @@ LABEL_8:
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manatreeUpdateRetryTimer:]", 0x1Eu, "Manatee retry timer cancel", v4, v5, v6, v7, v23);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manatreeUpdateRetryTimer:]", 30, "Manatee retry timer cancel", v4, v5, v6, v7, v23);
     }
 
     v11 = self->_manateeRetryTimer;
@@ -4940,7 +4958,7 @@ LABEL_9:
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
       v13 = NSPrintF("%{dur}", a2, timer, v3, v4, v5, v6, v7, 300);
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manatreeUpdateRetryTimer:]", 0x1Eu, "Manatee retry timer start: %@", v14, v15, v16, v17, v13);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manatreeUpdateRetryTimer:]", 30, "Manatee retry timer start: %@", v14, v15, v16, v17, v13);
     }
 
     v18 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
@@ -4961,15 +4979,15 @@ LABEL_9:
   }
 }
 
-uint64_t __48__CUSystemMonitorImp__manatreeUpdateRetryTimer___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__48__CUSystemMonitorImp__manatreeUpdateRetryTimer___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manatreeUpdateRetryTimer:]_block_invoke", 0x1Eu, "Manatee retry timer fired", a5, a6, a7, a8, v14);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manatreeUpdateRetryTimer:]_block_invoke", 30, "Manatee retry timer fired", a5, a6, a7, a8, v14);
   }
 
   result = *(a1 + 32);
-  v10 = *(result + 152);
+  v10 = result[19];
   if (v10)
   {
     v11 = v10;
@@ -5036,7 +5054,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
     self->_meDeviceOverride = 1;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceOverride]", 0x1Eu, "MeDevice override: IDS %@", v5, v6, v7, v8, v9);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _meDeviceOverride]", 30, "MeDevice override: IDS %@", v5, v6, v7, v8, v9);
     }
 
     pthread_mutex_lock(&gCUSystemMonitorLock);
@@ -5066,11 +5084,11 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manateeMonitorStop]", 0x1Eu, "Manatee monitoring stop\n", v2, v3, v4, v5, v11);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manateeMonitorStop]", 30, "Manatee monitoring stop\n", v2, v3, v4, v5, v11);
     }
 
     defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:getCDPManateeAvailabilityNotification[0]()];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:getCDPManateeAvailabilityNotification()];
     [defaultCenter removeObserver:self name:v8 object:0];
     self->_manateeObserving = 0;
   }
@@ -5091,11 +5109,11 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manateeMonitorStart]", 0x1Eu, "Manatee monitoring start\n", v2, v3, v4, v5, v9);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _manateeMonitorStart]", 30, "Manatee monitoring start\n", v2, v3, v4, v5, v9);
     }
 
     defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:getCDPManateeAvailabilityNotification[0]()];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:getCDPManateeAvailabilityNotification()];
     [defaultCenter addObserver:self selector:sel__manateeChanged_ name:v8 object:0];
     self->_manateeObserving = 1;
     [(CUSystemMonitorImp *)self _manateeRead];
@@ -5130,7 +5148,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
         }
 
         [_placeInference confidence];
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didVisit:]", 0x1Eu, "Location visited: %s, confidence %f", v13, v14, v15, v16, v12);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didVisit:]", 30, "Location visited: %s, confidence %f", v13, v14, v15, v16, v12);
       }
     }
 
@@ -5148,7 +5166,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
 
   if (locationManager == managerCopy && gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didFailWithError:]", 0x1Eu, "Location visit failed: %{error}", v9, v10, v11, v12, errorCopy);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didFailWithError:]", 30, "Location visit failed: %{error}", v9, v10, v11, v12, errorCopy);
   }
 }
 
@@ -5159,7 +5177,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
     v5 = [locationsCopy count];
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didUpdateLocations:]", 0x1Eu, "Location updated locations: %d", v6, v7, v8, v9, v5);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didUpdateLocations:]", 30, "Location updated locations: %d", v6, v7, v8, v9, v5);
   }
 }
 
@@ -5173,7 +5191,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
     if (gLogCategory_CUSystemMonitor != -1 || (v4 = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu), v5 = authorizationCopy, v4))
     {
       authorizationStatus = [(CLLocationManager *)v5 authorizationStatus];
-      v4 = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManagerDidChangeAuthorization:]", 0x1Eu, "Location authorization changed: %d", v7, v8, v9, v10, authorizationStatus);
+      v4 = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManagerDidChangeAuthorization:]", 30, "Location authorization changed: %d", v7, v8, v9, v10, authorizationStatus);
       v5 = authorizationCopy;
     }
   }
@@ -5210,7 +5228,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
         }
 
         [_placeInference confidence];
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didDepart:completion:]", 0x1Eu, "Location visit departed: %s, confidence %f", v16, v17, v18, v19, v15);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didDepart:completion:]", 30, "Location visit departed: %s, confidence %f", v16, v17, v18, v19, v15);
       }
     }
 
@@ -5253,7 +5271,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
         }
 
         [_placeInference confidence];
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didArrive:completion:]", 0x1Eu, "Location visit arrived: %s, confidence %f", v16, v17, v18, v19, v15);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp locationManager:didArrive:completion:]", 30, "Location visit arrived: %s, confidence %f", v16, v17, v18, v19, v15);
       }
     }
 
@@ -5299,7 +5317,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
   {
     if (gLogCategory_CUSystemMonitor <= 10 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitUpdate:arrived:]", 0xAu, "Location visit unchanged: %#{flags}", v7, v8, v9, v10, locationVisitsFlags);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitUpdate:arrived:]", 10, "Location visit unchanged: %#{flags}", v7, v8, v9, v10, locationVisitsFlags);
     }
   }
 
@@ -5310,7 +5328,7 @@ uint64_t __34__CUSystemMonitorImp__manateeRead__block_invoke()
     pthread_mutex_unlock(&gCUSystemMonitorLock);
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitUpdate:arrived:]", 0x1Eu, "Location visit changed: %#{flags} -> %#{flags}\n", v16, v17, v18, v19, locationVisitsFlags);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitUpdate:arrived:]", 30, "Location visit changed: %#{flags} -> %#{flags}\n", v16, v17, v18, v19, locationVisitsFlags);
     }
 
     [(CUSystemMonitorImp *)self _invokeBlock:&__block_literal_global_153 passingTest:&__block_literal_global_155_8320];
@@ -5350,7 +5368,7 @@ void __51__CUSystemMonitorImp__locationVisitUpdate_arrived___block_invoke(uint64
 
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitsMonitorStop]", 0x1Eu, "Location visit monitoring stop", v5, v6, v7, v8, v9);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitsMonitorStop]", 30, "Location visit monitoring stop", v5, v6, v7, v8, v9);
     }
 
     [(CLLocationManager *)v10 stopMonitoringVisits];
@@ -5363,45 +5381,48 @@ void __51__CUSystemMonitorImp__locationVisitUpdate_arrived___block_invoke(uint64
 
 - (void)_locationVisitsMonitorStart
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = self->_locationManager;
   if (!v3)
   {
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     v4 = self->_monitors;
-    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v5 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v23;
+      v7 = *v24;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v23 != v7)
+          if (*v24 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          locationVisitsBundle = [*(*(&v22 + 1) + 8 * i) locationVisitsBundle];
+          locationVisitsBundle = [*(*(&v23 + 1) + 8 * i) locationVisitsBundle];
           if (locationVisitsBundle)
           {
             v14 = locationVisitsBundle;
 
-            if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
+            if (gLogCategory_CUSystemMonitor <= 30)
             {
-              getkCLLocationAccuracyHundredMeters[0]();
-              LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitsMonitorStart]", 0x1Eu, "Location visit monitoring start: %f", v15, v16, v17, v18, v19);
+              if (gLogCategory_CUSystemMonitor != -1 || (v15 = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu), v15))
+              {
+                getkCLLocationAccuracyHundredMeters();
+                v15 = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitsMonitorStart]", 30, "Location visit monitoring start: %f", v16, v17, v18, v19, v20);
+              }
             }
 
-            v3 = [objc_alloc(getCLLocationManagerClass[0]()) initWithEffectiveBundle:v14 delegate:self onQueue:self->_dispatchQueue];
+            v3 = [objc_alloc(getCLLocationManagerClass(v15)) initWithEffectiveBundle:v14 delegate:self onQueue:self->_dispatchQueue];
             locationManager = self->_locationManager;
             self->_locationManager = v3;
 
-            getkCLLocationAccuracyHundredMeters[0]();
+            getkCLLocationAccuracyHundredMeters();
             [(CLLocationManager *)v3 setDesiredAccuracy:?];
             [(CLLocationManager *)v3 startMonitoringVisits];
 
@@ -5409,7 +5430,7 @@ void __51__CUSystemMonitorImp__locationVisitUpdate_arrived___block_invoke(uint64
           }
         }
 
-        v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v6 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v6)
         {
           continue;
@@ -5421,7 +5442,7 @@ void __51__CUSystemMonitorImp__locationVisitUpdate_arrived___block_invoke(uint64
 
     if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitsMonitorStart]", 0x5Au, "### Location visit no bundle", v10, v11, v12, v13, v21);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _locationVisitsMonitorStart]", 90, "### Location visit no bundle", v10, v11, v12, v13, v22);
     }
 
     v3 = 0;
@@ -5444,19 +5465,19 @@ LABEL_20:
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __37__CUSystemMonitorImp__familyUpdated___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__37__CUSystemMonitorImp__familyUpdated___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (*(*(result + 32) + 104) == 1)
+  if (*(result[4] + 104) == 1)
   {
     v10 = result;
-    if (*(result + 40) && gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
+    if (result[5] && gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyUpdated:]_block_invoke", 0x1Eu, "Family updated\n", a5, a6, a7, a8, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyUpdated:]_block_invoke", 30, "Family updated\n", a5, a6, a7, a8, v8);
     }
 
-    v11 = *(v10 + 32);
+    v11 = v10[4];
 
-    return [v11 _familyGetMembers:0];
+    return [v11 _familyGetMembers:{0, a4, a5, a6, a7, a8}];
   }
 
   return result;
@@ -5469,11 +5490,11 @@ uint64_t __37__CUSystemMonitorImp__familyUpdated___block_invoke(uint64_t result,
   {
     memset(v10, 0, sizeof(v10));
     v11 = 0;
-    [(CUSystemMonitor *)familyPrimaryIPMonitor primaryIPv4Addr];
+    objc_msgSend_primaryIPv4Addr(familyPrimaryIPMonitor, a2);
     v4 = self->_familyPrimaryIPMonitor;
     if (v4)
     {
-      [(CUSystemMonitor *)v4 primaryIPv6Addr];
+      objc_msgSend_primaryIPv6Addr(v4);
     }
 
     if (BYTE1(v10[0]) == 2)
@@ -5484,7 +5505,7 @@ uint64_t __37__CUSystemMonitorImp__familyUpdated___block_invoke(uint64_t result,
       {
         if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
         {
-          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyNetworkChanged]", 0x1Eu, "Family retry on network change: IPv4 %##a, IPv6 %##a\n", v6, v7, v8, v9, v10);
+          LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyNetworkChanged]", 30, "Family retry on network change: IPv4 %##a, IPv6 %##a\n", v6, v7, v8, v9, v10);
         }
 
         [(CUSystemMonitorImp *)self _familyGetMembers:0];
@@ -5496,40 +5517,44 @@ uint64_t __37__CUSystemMonitorImp__familyUpdated___block_invoke(uint64_t result,
 - (void)_familyGetMembers:(BOOL)members
 {
   membersCopy = members;
+  selfCopy = self;
   if (SetupAssistantLibrary_sOnce != -1)
   {
     dispatch_once(&SetupAssistantLibrary_sOnce, &__block_literal_global_1216);
   }
 
-  if (SetupAssistantLibrary_sLib && dlsym(SetupAssistantLibrary_sLib, "BYSetupAssistantNeedsToRun") && softLinkBYSetupAssistantNeedsToRun[0]())
+  if (SetupAssistantLibrary_sLib && (self = dlsym(SetupAssistantLibrary_sLib, "BYSetupAssistantNeedsToRun")) != 0 && (self = softLinkBYSetupAssistantNeedsToRun(), self))
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]", 0x1Eu, "Family get members skipped when setup needs to run\n", v3, v4, v5, v6, v14);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]", 30, "Family get members skipped when setup needs to run\n", v3, v4, v5, v6, v14);
     }
   }
 
   else
   {
-    if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
+    if (gLogCategory_CUSystemMonitor <= 30)
     {
-      v9 = "";
-      if (membersCopy)
+      if (gLogCategory_CUSystemMonitor != -1 || (self = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu), self))
       {
-        v9 = "(first)";
-      }
+        v9 = "";
+        if (membersCopy)
+        {
+          v9 = "(first)";
+        }
 
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]", 0x1Eu, "Family get members %s\n", v3, v4, v5, v6, v9);
+        self = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]", 30, "Family get members %s\n", v3, v4, v5, v6, v9);
+      }
     }
 
-    self->_familyFailed = 0;
-    v10 = objc_alloc_init(getFAFetchFamilyCircleRequestClass[0]());
+    selfCopy->_familyFailed = 0;
+    v10 = objc_alloc_init(getFAFetchFamilyCircleRequestClass(self));
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
     v11[2] = __40__CUSystemMonitorImp__familyGetMembers___block_invoke;
     v11[3] = &unk_1E73A3CC0;
-    v11[4] = self;
+    v11[4] = selfCopy;
     v12 = membersCopy;
     [v10 startRequestWithCompletionHandler:v11];
   }
@@ -5590,13 +5615,13 @@ void __40__CUSystemMonitorImp__familyGetMembers___block_invoke_2(uint64_t a1, ui
           }
 
           v18 = *(*(&v29 + 1) + 8 * i);
-          getFAFamilyMemberClass[0]();
+          getFAFamilyMemberClass();
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (gLogCategory_CUSystemMonitor <= 90 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x5Au)))
             {
-              LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]_block_invoke_2", 0x5Au, "### Family bad member type: %@\n", v19, v20, v21, v22, v18);
+              LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]_block_invoke_2", 90, "### Family bad member type: %@\n", v19, v20, v21, v22, v18);
             }
 
             goto LABEL_33;
@@ -5620,7 +5645,7 @@ void __40__CUSystemMonitorImp__familyGetMembers___block_invoke_2(uint64_t a1, ui
         v23 = "Family initial: %d family member(s)\n";
 LABEL_26:
         v24 = [v13 count];
-        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]_block_invoke_2", 0x1Eu, v23, v25, v26, v27, v28, v24);
+        LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]_block_invoke_2", 30, v23, v25, v26, v27, v28, v24);
       }
     }
 
@@ -5653,7 +5678,7 @@ LABEL_33:
   {
     v10 = *(a1 + 40);
 LABEL_5:
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]_block_invoke_2", 0x5Au, "### Family get members failed: %{error}\n", a5, a6, a7, a8, v10);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyGetMembers:]_block_invoke_2", 90, "### Family get members failed: %{error}\n", a5, a6, a7, a8, v10);
   }
 }
 
@@ -5703,7 +5728,7 @@ void __40__CUSystemMonitorImp__familyGetMembers___block_invoke_3(uint64_t a1, _B
 
     if (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyMonitorStop]", 0x1Eu, "Family monitoring stop\n", v4, v5, v6, v7, v10);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyMonitorStop]", 30, "Family monitoring stop\n", v4, v5, v6, v7, v10);
     }
 
     familyUpdatedToken = self->_familyUpdatedToken;
@@ -5718,58 +5743,59 @@ LABEL_9:
 
 - (void)_familyMonitorStart
 {
+  selfCopy = self;
   if (!self->_familyPrimaryIPMonitor)
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyMonitorStart]", 0x1Eu, "Family monitoring start\n", v2, v3, v4, v5, v13[0]);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyMonitorStart]", 30, "Family monitoring start\n", v2, v3, v4, v5, v13[0]);
     }
 
     v7 = objc_alloc_init(CUSystemMonitor);
-    familyPrimaryIPMonitor = self->_familyPrimaryIPMonitor;
-    self->_familyPrimaryIPMonitor = v7;
+    familyPrimaryIPMonitor = selfCopy->_familyPrimaryIPMonitor;
+    selfCopy->_familyPrimaryIPMonitor = v7;
 
-    [(CUSystemMonitor *)self->_familyPrimaryIPMonitor setDispatchQueue:self->_dispatchQueue];
+    [(CUSystemMonitor *)selfCopy->_familyPrimaryIPMonitor setDispatchQueue:selfCopy->_dispatchQueue];
     v16[0] = MEMORY[0x1E69E9820];
     v16[1] = 3221225472;
     v16[2] = __41__CUSystemMonitorImp__familyMonitorStart__block_invoke;
     v16[3] = &unk_1E73A4F68;
-    v16[4] = self;
-    [(CUSystemMonitor *)self->_familyPrimaryIPMonitor setPrimaryIPChangedHandler:v16];
-    v9 = self->_familyPrimaryIPMonitor;
+    v16[4] = selfCopy;
+    [(CUSystemMonitor *)selfCopy->_familyPrimaryIPMonitor setPrimaryIPChangedHandler:v16];
+    v9 = selfCopy->_familyPrimaryIPMonitor;
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
     v15[2] = __41__CUSystemMonitorImp__familyMonitorStart__block_invoke_2;
     v15[3] = &unk_1E73A4F68;
-    v15[4] = self;
-    [(CUSystemMonitor *)v9 activateWithCompletion:v15];
+    v15[4] = selfCopy;
+    self = [(CUSystemMonitor *)v9 activateWithCompletion:v15];
   }
 
-  if (self->_familyBuddyToken == -1)
+  if (selfCopy->_familyBuddyToken == -1)
   {
-    uTF8String = [getBYSetupAssistantFinishedDarwinNotification[0]() UTF8String];
-    if (uTF8String)
+    v10 = [getBYSetupAssistantFinishedDarwinNotification(self a2)];
+    if (v10)
     {
-      dispatchQueue = self->_dispatchQueue;
+      dispatchQueue = selfCopy->_dispatchQueue;
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __41__CUSystemMonitorImp__familyMonitorStart__block_invoke_3;
       handler[3] = &unk_1E73A4228;
-      handler[4] = self;
-      notify_register_dispatch(uTF8String, &self->_familyBuddyToken, dispatchQueue, handler);
+      handler[4] = selfCopy;
+      notify_register_dispatch(v10, &selfCopy->_familyBuddyToken, dispatchQueue, handler);
     }
   }
 
-  if (self->_familyUpdatedToken == -1)
+  if (selfCopy->_familyUpdatedToken == -1)
   {
-    v12 = self->_dispatchQueue;
+    v12 = selfCopy->_dispatchQueue;
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
     v13[2] = __41__CUSystemMonitorImp__familyMonitorStart__block_invoke_4;
     v13[3] = &unk_1E73A4228;
-    v13[4] = self;
-    notify_register_dispatch("com.apple.family.family_updated", &self->_familyUpdatedToken, v12, v13);
-    [(CUSystemMonitorImp *)self _familyGetMembers:1];
+    v13[4] = selfCopy;
+    notify_register_dispatch("com.apple.family.family_updated", &selfCopy->_familyUpdatedToken, v12, v13);
+    [(CUSystemMonitorImp *)selfCopy _familyGetMembers:1];
   }
 }
 
@@ -5779,7 +5805,7 @@ void *__41__CUSystemMonitorImp__familyMonitorStart__block_invoke_3(uint64_t a1, 
   {
     state64 = 0;
     notify_get_state(token, &state64);
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyMonitorStart]_block_invoke_3", 0x1Eu, "Family setup state changed: %llu\n", v4, v5, v6, v7, state64);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyMonitorStart]_block_invoke_3", 30, "Family setup state changed: %llu\n", v4, v5, v6, v7, state64);
   }
 
   result = *(a1 + 32);
@@ -5795,7 +5821,7 @@ uint64_t __41__CUSystemMonitorImp__familyMonitorStart__block_invoke_4(uint64_t a
 {
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyMonitorStart]_block_invoke_4", 0x1Eu, "Family updated\n", a5, a6, a7, a8, v11);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _familyMonitorStart]_block_invoke_4", 30, "Family updated\n", a5, a6, a7, a8, v11);
   }
 
   v9 = *(a1 + 32);
@@ -5814,17 +5840,17 @@ uint64_t __41__CUSystemMonitorImp__familyMonitorStart__block_invoke_4(uint64_t a
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __47__CUSystemMonitorImp__callCenterStatusChanged___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__47__CUSystemMonitorImp__callCenterStatusChanged___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (*(*(result + 32) + 80) == 1)
+  if (*(result[4] + 80) == 1)
   {
     v10 = result;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callCenterStatusChanged:]_block_invoke", 0x1Eu, "TUCallCenter changed\n", a5, a6, a7, a8, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callCenterStatusChanged:]_block_invoke", 30, "TUCallCenter changed\n", a5, a6, a7, a8, v8);
     }
 
-    v11 = *(v10 + 32);
+    v11 = v10[4];
 
     return [v11 _callInfoChanged];
   }
@@ -5836,7 +5862,7 @@ uint64_t __47__CUSystemMonitorImp__callCenterStatusChanged___block_invoke(uint64
 {
   if (self->_callCenter && gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callMonitorStop]", 0x1Eu, "Call monitoring stop\n", v2, v3, v4, v5, v15);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callMonitorStop]", 30, "Call monitoring stop\n", v2, v3, v4, v5, v16);
   }
 
   callCenter = self->_callCenter;
@@ -5857,19 +5883,19 @@ uint64_t __47__CUSystemMonitorImp__callCenterStatusChanged___block_invoke(uint64
 
     if (v10)
     {
-      v11 = getTUCallCenterCallConnectedNotification();
-      [defaultCenter removeObserver:self name:v11 object:0];
+      v12 = getTUCallCenterCallConnectedNotification();
+      [defaultCenter removeObserver:self name:v12 object:0];
     }
 
-    v12 = getTUCallCenterVideoCallStatusChangedNotification();
+    v13 = getTUCallCenterVideoCallStatusChangedNotification(v11);
 
-    v13 = defaultCenter;
-    if (v12)
+    v14 = defaultCenter;
+    if (v13)
     {
-      v14 = getTUCallCenterVideoCallStatusChangedNotification();
-      [defaultCenter removeObserver:self name:v14 object:0];
+      v15 = (getTUCallCenterVideoCallStatusChangedNotification)();
+      [defaultCenter removeObserver:self name:v15 object:0];
 
-      v13 = defaultCenter;
+      v14 = defaultCenter;
     }
 
     self->_callStatusObserving = 0;
@@ -5883,14 +5909,18 @@ uint64_t __47__CUSystemMonitorImp__callCenterStatusChanged___block_invoke(uint64
     return;
   }
 
-  if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
+  selfCopy = self;
+  if (gLogCategory_CUSystemMonitor <= 30)
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callMonitorStart]", 0x1Eu, "Call monitoring start\n", v2, v3, v4, v5, v27);
+    if (gLogCategory_CUSystemMonitor != -1 || (self = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu), self))
+    {
+      self = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callMonitorStart]", 30, "Call monitoring start\n", v2, v3, v4, v5, v28);
+    }
   }
 
-  v7 = [getTUCallCenterClass[0]() callCenterWithQueue:self->_dispatchQueue];
-  callCenter = self->_callCenter;
-  self->_callCenter = v7;
+  v7 = [getTUCallCenterClass(self) callCenterWithQueue:selfCopy->_dispatchQueue];
+  callCenter = selfCopy->_callCenter;
+  selfCopy->_callCenter = v7;
 
   v9 = getTUCallCenterCallStatusChangedNotification();
   if (v9)
@@ -5905,41 +5935,41 @@ LABEL_10:
     }
 
     v12 = v11;
-    v13 = getTUCallCenterVideoCallStatusChangedNotification();
+    v13 = getTUCallCenterVideoCallStatusChangedNotification(v11);
 
     if (v13)
     {
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       v14 = getTUCallCenterCallStatusChangedNotification();
-      [defaultCenter addObserver:self selector:sel__callCenterStatusChanged_ name:v14 object:0];
+      [defaultCenter addObserver:selfCopy selector:sel__callCenterStatusChanged_ name:v14 object:0];
 
       v15 = getTUCallCenterCallConnectedNotification();
-      [defaultCenter addObserver:self selector:sel__callCenterStatusChanged_ name:v15 object:0];
+      [defaultCenter addObserver:selfCopy selector:sel__callCenterStatusChanged_ name:v15 object:0];
 
-      v16 = getTUCallCenterVideoCallStatusChangedNotification();
-      [defaultCenter addObserver:self selector:sel__callCenterStatusChanged_ name:v16 object:0];
+      v17 = getTUCallCenterVideoCallStatusChangedNotification(v16);
+      [defaultCenter addObserver:selfCopy selector:sel__callCenterStatusChanged_ name:v17 object:0];
 
-      self->_callStatusObserving = 1;
+      selfCopy->_callStatusObserving = 1;
       goto LABEL_10;
     }
   }
 
 LABEL_11:
-  _activeCallCountUnached = [(CUSystemMonitorImp *)self _activeCallCountUnached];
-  _connectedCallCountUnached = [(CUSystemMonitorImp *)self _connectedCallCountUnached];
-  _callFlagsUncached = [(CUSystemMonitorImp *)self _callFlagsUncached];
-  _callInfoUncached = [(CUSystemMonitorImp *)self _callInfoUncached];
-  v22 = v21;
+  _activeCallCountUnached = [(CUSystemMonitorImp *)selfCopy _activeCallCountUnached];
+  _connectedCallCountUnached = [(CUSystemMonitorImp *)selfCopy _connectedCallCountUnached];
+  _callFlagsUncached = [(CUSystemMonitorImp *)selfCopy _callFlagsUncached];
+  _callInfoUncached = [(CUSystemMonitorImp *)selfCopy _callInfoUncached];
+  v23 = v22;
   pthread_mutex_lock(&gCUSystemMonitorLock);
-  self->_connectedCallCount = _connectedCallCountUnached;
-  self->_activeCallCount = _activeCallCountUnached;
-  self->_callFlags = _callFlagsUncached;
-  *&self->_callInfo.callCountIncomingConnected = _callInfoUncached;
-  *&self->_callInfo.callCountOutgoingConnected = v22;
+  selfCopy->_connectedCallCount = _connectedCallCountUnached;
+  selfCopy->_activeCallCount = _activeCallCountUnached;
+  selfCopy->_callFlags = _callFlagsUncached;
+  *&selfCopy->_callInfo.callCountIncomingConnected = _callInfoUncached;
+  *&selfCopy->_callInfo.callCountOutgoingConnected = v23;
   pthread_mutex_unlock(&gCUSystemMonitorLock);
   if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callMonitorStart]", 0x1Eu, "Calls initial: active %d, connected %d, call flags %#{flags}\n", v23, v24, v25, v26, _activeCallCountUnached);
+    LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _callMonitorStart]", 30, "Calls initial: active %d, connected %d, call flags %#{flags}\n", v24, v25, v26, v27, _activeCallCountUnached);
   }
 }
 
@@ -5949,7 +5979,7 @@ LABEL_11:
   {
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _bluetoothAddressMonitorStop]", 0x1Eu, "Bluetooth address monitor stop\n", v2, v3, v4, v5, v8);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _bluetoothAddressMonitorStop]", 30, "Bluetooth address monitor stop\n", v2, v3, v4, v5, v8);
     }
 
     [(CUBluetoothClient *)self->_bluetoothClient invalidate];
@@ -5966,7 +5996,7 @@ LABEL_11:
     v12[8] = v7;
     if (gLogCategory_CUSystemMonitor <= 30 && (gLogCategory_CUSystemMonitor != -1 || _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _bluetoothAddressMonitorStart]", 0x1Eu, "Bluetooth address monitor start\n", v2, v3, v4, v5, v11);
+      LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _bluetoothAddressMonitorStart]", 30, "Bluetooth address monitor start\n", v2, v3, v4, v5, v11);
     }
 
     v9 = objc_alloc_init(CUBluetoothClient);
@@ -6025,7 +6055,7 @@ LABEL_12:
           {
             v17 = [v16 bytes];
             [v7 bytes];
-            LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _bluetoothAddressMonitorStart]_block_invoke", 0x1Eu, "Bluetooth address changed: %.6a -> %.6a\n", v18, v19, v20, v21, v17);
+            LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _bluetoothAddressMonitorStart]_block_invoke", 30, "Bluetooth address changed: %.6a -> %.6a\n", v18, v19, v20, v21, v17);
           }
 
           memcpy((*(a1 + 32) + 24), [v7 bytes], objc_msgSend(v7, "length"));
@@ -6042,7 +6072,7 @@ LABEL_12:
         if (gLogCategory_CUSystemMonitor != -1 || (v4 = _LogCategory_Initialize(&gLogCategory_CUSystemMonitor, 0xAu), v5 = v23, v4))
         {
           v11 = [v7 bytes];
-          v4 = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _bluetoothAddressMonitorStart]_block_invoke", 0xAu, "Bluetooth address unchanged: %.6a\n", v12, v13, v14, v15, v11);
+          v4 = LogPrintF(&gLogCategory_CUSystemMonitor, "[CUSystemMonitorImp _bluetoothAddressMonitorStart]_block_invoke", 10, "Bluetooth address unchanged: %.6a\n", v12, v13, v14, v15, v11);
 LABEL_19:
           v5 = v23;
         }

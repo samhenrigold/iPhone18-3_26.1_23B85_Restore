@@ -136,21 +136,19 @@ uint64_t __68__WFOverridableLinkAction_inputParameterMetadataWithActionMetadata_
 
 + (id)overrideInputParameterNames
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   overrideInputParameterName = [self overrideInputParameterName];
   v3 = overrideInputParameterName;
   if (overrideInputParameterName)
   {
-    v7[0] = overrideInputParameterName;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = overrideInputParameterName;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -192,49 +190,43 @@ uint64_t __68__WFOverridableLinkAction_inputParameterMetadataWithActionMetadata_
 
 void __45__WFOverridableLinkAction_parameterOverrides__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
-  v10[0] = @"Label";
-  v10[1] = @"Placeholder";
-  v11[0] = a3;
-  v11[1] = a3;
+  v9[0] = @"Label";
+  v9[1] = @"Placeholder";
+  v10[0] = a3;
+  v10[1] = a3;
   v5 = MEMORY[0x1E695DF20];
   v6 = a3;
   v7 = a2;
-  v8 = [v5 dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v8 = [v5 dictionaryWithObjects:v10 forKeys:v9 count:2];
   WFAddEntriesToDictionary(v4, v7, v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45__WFOverridableLinkAction_parameterOverrides__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
-  v10 = @"DefaultValue";
-  v11[0] = a3;
+  v9 = @"DefaultValue";
+  v10[0] = a3;
   v5 = MEMORY[0x1E695DF20];
   v6 = a3;
   v7 = a2;
-  v8 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   WFAddEntriesToDictionary(v4, v7, v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45__WFOverridableLinkAction_parameterOverrides__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
-  v10 = @"KeyForSerialization";
-  v11[0] = a3;
+  v9 = @"KeyForSerialization";
+  v10[0] = a3;
   v5 = MEMORY[0x1E695DF20];
   v6 = a3;
   v7 = a2;
-  v8 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   WFAddEntriesToDictionary(v4, v7, v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

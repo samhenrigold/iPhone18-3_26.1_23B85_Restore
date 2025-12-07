@@ -8,7 +8,7 @@
 {
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR____TtCOO8Freeform15CRLUSDRendering6CoreRE23AppExCompressionBackend__backendState;
-  sub_1005B981C(&qword_101A152C8);
+  sub_1005B981C(&qword_101A152C8, &qword_1014A00B8);
   swift_allocObject();
   *(&self->super.isa + v4) = sub_10086453C(0, 0, 0, 0xC000000000000000);
   UUID.init()();

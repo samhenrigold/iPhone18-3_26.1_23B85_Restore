@@ -48,7 +48,7 @@
 
 + (id)passwordManagerURLWithDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v4 = objc_alloc_init(MEMORY[0x1E696AF20]);
   [v4 setScheme:@"https"];
@@ -57,34 +57,34 @@
   if ([dictionaryCopy count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v20 = dictionaryCopy;
+    v19 = dictionaryCopy;
     v6 = dictionaryCopy;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
+          v11 = *(*(&v20 + 1) + 8 * i);
           v12 = objc_alloc(MEMORY[0x1E696AF60]);
           v13 = [v6 objectForKeyedSubscript:v11];
           v14 = [v12 initWithName:v11 value:v13];
           [array addObject:v14];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v8);
@@ -95,12 +95,10 @@
     string = [v15 string];
     [v4 setPercentEncodedFragment:string];
 
-    dictionaryCopy = v20;
+    dictionaryCopy = v19;
   }
 
   v17 = [v4 URL];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -122,27 +120,25 @@
 
 + (NSURL)passwordManagerURLForRecentlyDeleted
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"recentlyDeleted";
-  v8[0] = @"true";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"recentlyDeleted";
+  v7[0] = @"true";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [self passwordManagerURLWithDictionary:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)urlForDetailViewOfSavedAccount:(id)account
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   stableIDString = [account stableIDString];
   v5 = stableIDString;
   if (stableIDString)
   {
-    v10 = @"showDetails";
-    v11[0] = stableIDString;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"showDetails";
+    v10[0] = stableIDString;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [self passwordManagerURLWithDictionary:v6];
   }
 
@@ -151,52 +147,44 @@
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)passwordManagerURLForGroupWithID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"sharingGroupID";
-  v11[0] = d;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"sharingGroupID";
+  v10[0] = d;
   v4 = MEMORY[0x1E695DF20];
   dCopy = d;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [self passwordManagerURLWithDictionary:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (NSURL)passwordManagerURLForGeneratedPasswords
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"generatedPasswords";
-  v8[0] = @"true";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"generatedPasswords";
+  v7[0] = @"true";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [self passwordManagerURLWithDictionary:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)passwordManagerURLWithOtpauthURL:(id)l
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"path";
-  v9[1] = @"url";
-  v10[0] = @"OTPAUTH_URL";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"path";
+  v8[1] = @"url";
+  v9[0] = @"OTPAUTH_URL";
   absoluteString = [l absoluteString];
-  v10[1] = absoluteString;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = absoluteString;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
   v6 = [self passwordManagerURLWithDictionary:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -263,7 +251,7 @@ LABEL_8:
 
 + (id)_resourceSpecifierDictionaryForURL:(id)l
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   lCopy = l;
   scheme = [lCopy scheme];
   lowercaseString = [scheme lowercaseString];
@@ -292,43 +280,43 @@ LABEL_30:
 
     if (v14)
     {
-      v44 = lowercaseString;
-      v46 = lCopy;
+      v43 = lowercaseString;
+      v45 = lCopy;
       dictionary = [MEMORY[0x1E695DF90] dictionary];
+      v51 = 0u;
       v52 = 0u;
       v53 = 0u;
       v54 = 0u;
-      v55 = 0u;
       percentEncodedQueryItems = [v12 percentEncodedQueryItems];
-      v17 = [percentEncodedQueryItems countByEnumeratingWithState:&v52 objects:v57 count:16];
+      v17 = [percentEncodedQueryItems countByEnumeratingWithState:&v51 objects:v56 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v53;
+        v19 = *v52;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v53 != v19)
+            if (*v52 != v19)
             {
               objc_enumerationMutation(percentEncodedQueryItems);
             }
 
-            v21 = *(*(&v52 + 1) + 8 * i);
+            v21 = *(*(&v51 + 1) + 8 * i);
             value = [v21 value];
             stringByRemovingPercentEncoding = [value stringByRemovingPercentEncoding];
             name = [v21 name];
             [dictionary setObject:stringByRemovingPercentEncoding forKeyedSubscript:name];
           }
 
-          v18 = [percentEncodedQueryItems countByEnumeratingWithState:&v52 objects:v57 count:16];
+          v18 = [percentEncodedQueryItems countByEnumeratingWithState:&v51 objects:v56 count:16];
         }
 
         while (v18);
       }
 
-      lowercaseString = v44;
-      lCopy = v46;
+      lowercaseString = v43;
+      lCopy = v45;
       goto LABEL_29;
     }
 
@@ -352,33 +340,33 @@ LABEL_29:
     }
   }
 
-  v45 = lowercaseString;
-  v47 = lCopy;
+  v44 = lowercaseString;
+  v46 = lCopy;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v43 = v6;
+  v42 = v6;
   resourceSpecifier = [v6 resourceSpecifier];
   v30 = [resourceSpecifier componentsSeparatedByString:@"&"];
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v31 = v30;
-  v32 = [v31 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v49;
+    v34 = *v48;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v49 != v34)
+        if (*v48 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = [*(*(&v48 + 1) + 8 * j) componentsSeparatedByString:@"="];
+        v36 = [*(*(&v47 + 1) + 8 * j) componentsSeparatedByString:@"="];
         if ([v36 count] == 2)
         {
           v37 = [v36 objectAtIndexedSubscript:0];
@@ -389,25 +377,23 @@ LABEL_29:
         }
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v33);
   }
 
-  lowercaseString = v45;
-  lCopy = v47;
-  v40 = v43;
+  lowercaseString = v44;
+  lCopy = v46;
+  v40 = v42;
 LABEL_31:
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 + (id)dictionaryWithPasswordManagerURL:(id)l
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = [self _resourceSpecifierDictionaryForURL:lCopy];
   LODWORD(self) = [self _urlIsPasswordManagerURL:lCopy resourceSpecifierDictionary:v5];
@@ -415,8 +401,8 @@ LABEL_31:
   if (self)
   {
     v6 = [v5 mutableCopy];
-    v10[0] = @"root";
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = @"root";
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     [v6 removeObjectsForKeys:v7];
   }
 
@@ -424,8 +410,6 @@ LABEL_31:
   {
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -495,13 +479,11 @@ LABEL_31:
 
 + (NSURL)passwordManagerSecurityRecommendationsURL
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"path";
-  v8[0] = @"SECURITY_RECOMMENDATIONS";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"path";
+  v7[0] = @"SECURITY_RECOMMENDATIONS";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [self passwordManagerURLWithDictionary:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

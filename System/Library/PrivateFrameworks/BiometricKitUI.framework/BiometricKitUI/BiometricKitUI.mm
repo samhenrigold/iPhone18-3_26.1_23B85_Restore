@@ -7,7 +7,6 @@ uint64_t sub_241B0C400()
 
 uint64_t sub_241B0C438()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
@@ -128,10 +127,11 @@ void sub_241B1316C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_241B14154(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location)
@@ -190,34 +190,35 @@ id getBYFlowSkipControllerClass()
   return v1;
 }
 
-void sub_241B1BDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241B1BDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id getBYFlowSkipIdentifierFaceID()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getBYFlowSkipIdentifierFaceIDSymbolLoc_ptr;
-  v8 = getBYFlowSkipIdentifierFaceIDSymbolLoc_ptr;
+  v9 = getBYFlowSkipIdentifierFaceIDSymbolLoc_ptr;
   if (!getBYFlowSkipIdentifierFaceIDSymbolLoc_ptr)
   {
     v1 = SetupAssistantLibrary();
-    v6[3] = dlsym(v1, "BYFlowSkipIdentifierFaceID");
-    getBYFlowSkipIdentifierFaceIDSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "BYFlowSkipIdentifierFaceID");
+    getBYFlowSkipIdentifierFaceIDSymbolLoc_ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    BYFlowSkipIdentifierFaceID_cold_1 = getBYFlowSkipIdentifierFaceID_cold_1();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(BYFlowSkipIdentifierFaceID_cold_1);
+    getBYFlowSkipIdentifierFaceID_cold_1();
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -264,45 +265,41 @@ Class __getBYFlowSkipControllerClass_block_invoke(uint64_t a1)
 
 uint64_t SetupAssistantLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!SetupAssistantLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __SetupAssistantLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278D09CA8;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __SetupAssistantLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278D09CA8;
+    v5 = 0;
     SetupAssistantLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = SetupAssistantLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!SetupAssistantLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __SetupAssistantLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SetupAssistantLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -315,16 +312,16 @@ void *__getBYFlowSkipIdentifierFaceIDSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-id _BKUILoggingFacility()
+id _BKUILoggingFacility(uint64_t a1)
 {
   if (_BKUILoggingFacility_onceToken != -1)
   {
     _BKUILoggingFacility_cold_1();
   }
 
-  v1 = _BKUILoggingFacility_oslog;
+  v2 = _BKUILoggingFacility_oslog;
 
-  return v1;
+  return v2;
 }
 
 void sub_241B23590(_Unwind_Exception *a1)
@@ -423,16 +420,18 @@ void *__LocalAuthenticationLibrary_block_invoke()
   return result;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_241B30B44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -442,7 +441,7 @@ void sub_241B30B44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _initalInterfaceOrientationFor(int a1, uint64_t a2)
+void *_initalInterfaceOrientationFor(int a1, void *a2)
 {
   v4 = [BKUIUtils activeInterfaceOrientationForView:0];
   result = [MEMORY[0x277D75D28] bkui_reverseLeftRight:v4];
@@ -518,9 +517,9 @@ id getBKDeviceClass()
   return v1;
 }
 
-void sub_241B33C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241B33C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -549,9 +548,9 @@ id getBKDeviceDescriptorClass()
   return v1;
 }
 
-void sub_241B33D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241B33D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -574,43 +573,38 @@ void __getBKDeviceClass_block_invoke(uint64_t a1)
 
 void BiometricKitLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!BiometricKitLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __BiometricKitLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_278D0A158;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __BiometricKitLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_278D0A158;
+    v3 = 0;
     BiometricKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!BiometricKitLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __BiometricKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiometricKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -626,7 +620,7 @@ BKUIFingerPrintPosedVideoPlayerView *__getBKDeviceDescriptorClass_block_invoke(u
 
   else
   {
-    v3 = __getBKDeviceDescriptorClass_block_invoke_cold_1();
+    __getBKDeviceDescriptorClass_block_invoke_cold_1();
     return [(BKUIFingerPrintPosedVideoPlayerView *)v3 initWithAssetName:v4 subdirectory:v5, v6];
   }
 
@@ -661,16 +655,16 @@ void sub_241B37D60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_241B38F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241B38F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241B39168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241B39168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -693,43 +687,38 @@ void __getBKDeviceClass_block_invoke_0(uint64_t a1)
 
 void BiometricKitLibrary_0()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!BiometricKitLibraryCore_frameworkLibrary_0)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __BiometricKitLibraryCore_block_invoke_0;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_278D0A258;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __BiometricKitLibraryCore_block_invoke_0;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_278D0A258;
+    v3 = 0;
     BiometricKitLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!BiometricKitLibraryCore_frameworkLibrary_0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __BiometricKitLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiometricKitLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -745,7 +734,7 @@ Class __getBKDeviceDescriptorClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getBKDeviceDescriptorClass_block_invoke_cold_1();
+    __getBKDeviceDescriptorClass_block_invoke_cold_1();
     return __getBMStreamsClass_block_invoke(v3);
   }
 
@@ -768,43 +757,38 @@ Class __getBMStreamsClass_block_invoke(uint64_t a1)
 
 void BiomeStreamsLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!BiomeStreamsLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __BiomeStreamsLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_278D0A270;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __BiomeStreamsLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_278D0A270;
+    v3 = 0;
     BiomeStreamsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!BiomeStreamsLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __BiomeStreamsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeStreamsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -877,10 +861,11 @@ void sub_241B3AE1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
 double _radiansForOrientations(uint64_t a1, uint64_t a2)
@@ -974,9 +959,9 @@ double _landscapeRightRadiansForOrientations(uint64_t a1)
   return result;
 }
 
-void sub_241B3E9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241B3E9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1026,31 +1011,31 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void sub_241B46988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241B46988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getLAUIPhysicalButtonViewClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!LocalAuthenticationPrivateUILibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __LocalAuthenticationPrivateUILibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278D0A448;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __LocalAuthenticationPrivateUILibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278D0A448;
+    v6 = 0;
     LocalAuthenticationPrivateUILibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (LocalAuthenticationPrivateUILibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -1058,7 +1043,7 @@ Class __getLAUIPhysicalButtonViewClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1073,17 +1058,13 @@ LABEL_4:
   }
 
   getLAUIPhysicalButtonViewClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __LocalAuthenticationPrivateUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LocalAuthenticationPrivateUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1168,33 +1149,30 @@ void sub_241B5B764(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t __DisplayAndBrightnessSettingsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   DisplayAndBrightnessSettingsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *__getMTLCreateSystemDefaultDeviceSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!MetalLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __MetalLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_278D0A940;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __MetalLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_278D0A940;
+    v7 = 0;
     MetalLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = MetalLibraryCore_frameworkLibrary;
     if (MetalLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -1202,7 +1180,7 @@ void *__getMTLCreateSystemDefaultDeviceSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1214,17 +1192,13 @@ LABEL_5:
   result = dlsym(v2, "MTLCreateSystemDefaultDevice");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMTLCreateSystemDefaultDeviceSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __MetalLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MetalLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1235,10 +1209,11 @@ void sub_241B60B1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_241B667A4()
@@ -1304,14 +1279,11 @@ uint64_t sub_241B669F0@<X0>(uint64_t a1@<X8>)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -1326,23 +1298,22 @@ id sub_241B66B18()
 
 uint64_t sub_241B66B58()
 {
-  v8 = sub_241B6AF90();
-  v0 = *(v8 - 8);
-  v1 = *(v0 + 64);
+  v5 = sub_241B6AF90();
+  v0 = *(v5 - 8);
   MEMORY[0x28223BE20]();
-  v3 = v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = *(*(sub_241B6AFC0() - 8) + 64);
+  v2 = v4 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_241B6AFC0();
   MEMORY[0x28223BE20]();
-  v5 = *(*(sub_241B6AF30() - 8) + 64);
+  sub_241B6AF30();
   MEMORY[0x28223BE20]();
-  v7[1] = sub_241B673A4(0, &qword_27EC67868, 0x277D85C90);
+  v4[1] = sub_241B673A4(0, &qword_27EC67868, 0x277D85C90);
   sub_241B6AF20();
-  v9 = MEMORY[0x277D84F90];
-  sub_241B67308(&qword_27EC67870, MEMORY[0x277D852D8]);
+  v6 = MEMORY[0x277D84F90];
+  sub_241B67308(&qword_27EC67870, MEMORY[0x277D852D8], MEMORY[0x277D852E0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EC67878, &qword_241B72FD0);
   sub_241B67350(&qword_27EC67880, &qword_27EC67878, &qword_241B72FD0);
   sub_241B6AFE0();
-  (*(v0 + 104))(v3, *MEMORY[0x277D85268], v8);
+  (*(v0 + 104))(v2, *MEMORY[0x277D85268], v5);
   return sub_241B6AFD0();
 }
 
@@ -1351,7 +1322,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1364,7 +1334,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1377,70 +1346,66 @@ uint64_t sub_241B66E40(int a1, int a2, uint64_t (*a3)(), uint64_t a4)
   v5 = v4;
   v10 = sub_241B6AF00();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x28223BE20]();
-  v14 = v31 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(*(sub_241B6AF30() - 8) + 64);
+  v13 = v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_241B6AF30();
   result = MEMORY[0x28223BE20]();
-  v19 = v31 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = &v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetState];
-  if ((v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetState + 4] & 1) != 0 || *v20 != a1 || (v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetStartState + 4] & 1) != 0 || *&v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetStartState] != a2)
+  v17 = v24 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = &v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetState];
+  if ((v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetState + 4] & 1) != 0 || *v18 != a1 || (v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetStartState + 4] & 1) != 0 || *&v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetStartState] != a2)
   {
-    *v20 = a1;
-    v20[4] = 0;
-    v21 = &v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetStartState];
-    *v21 = a2;
-    v21[4] = 0;
-    v33 = v17;
-    v34 = result;
+    *v18 = a1;
+    v18[4] = 0;
+    v19 = &v5[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetStartState];
+    *v19 = a2;
+    v19[4] = 0;
+    v26 = v15;
+    v27 = result;
     sub_241B6AF20();
-    v40 = a3;
-    v41 = a4;
+    v33 = a3;
+    v34 = a4;
     aBlock = MEMORY[0x277D85DD0];
-    v37 = 1107296256;
-    v31[3] = &v38;
-    v32 = v11;
-    v38 = sub_241B672AC;
-    v39 = &block_descriptor;
+    v30 = 1107296256;
+    v24[3] = &v31;
+    v25 = v11;
+    v31 = sub_241B672AC;
+    v32 = &block_descriptor;
     _Block_copy(&aBlock);
-    v35 = MEMORY[0x277D84F90];
-    v31[2] = sub_241B67308(&qword_27EC67898, MEMORY[0x277D85198]);
+    v28 = MEMORY[0x277D84F90];
+    v24[2] = sub_241B67308(&qword_27EC67898, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
 
-    v31[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EC678A0, &qword_241B72FD8);
+    v24[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EC678A0, &qword_241B72FD8);
     sub_241B67350(&qword_27EC678A8, &qword_27EC678A0, &qword_241B72FD8);
     sub_241B6AFE0();
-    v22 = sub_241B6AF70();
-    v23 = *(v22 + 48);
-    v24 = *(v22 + 52);
+    sub_241B6AF70();
     swift_allocObject();
     sub_241B6AF40();
 
     sub_241B673A4(0, &qword_27EC678B0, 0x277D85C78);
-    v25 = sub_241B6AFA0();
-    v26 = swift_allocObject();
+    v20 = sub_241B6AFA0();
+    v21 = swift_allocObject();
     swift_weakInit();
-    v27 = swift_allocObject();
-    *(v27 + 16) = v5;
-    *(v27 + 24) = v26;
-    v40 = sub_241B673EC;
-    v41 = v27;
+    v22 = swift_allocObject();
+    *(v22 + 16) = v5;
+    *(v22 + 24) = v21;
+    v33 = sub_241B673EC;
+    v34 = v22;
     aBlock = MEMORY[0x277D85DD0];
-    v37 = 1107296256;
-    v38 = sub_241B672AC;
-    v39 = &block_descriptor_6;
-    v28 = _Block_copy(&aBlock);
-    v29 = v5;
+    v30 = 1107296256;
+    v31 = sub_241B672AC;
+    v32 = &block_descriptor_6;
+    v23 = _Block_copy(&aBlock);
+    v5;
 
     sub_241B6AF10();
-    v35 = MEMORY[0x277D84F90];
+    v28 = MEMORY[0x277D84F90];
     sub_241B6AFE0();
     sub_241B6AF60();
-    _Block_release(v28);
+    _Block_release(v23);
 
-    (*(v32 + 8))(v14, v10);
-    (*(v33 + 8))(v19, v34);
+    (*(v25 + 8))(v13, v10);
+    (*(v26 + 8))(v17, v27);
 
-    v30 = *&v29[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_stateQueue];
     sub_241B6AFB0();
   }
 
@@ -1450,9 +1415,8 @@ uint64_t sub_241B66E40(int a1, int a2, uint64_t (*a3)(), uint64_t a4)
 uint64_t sub_241B672AC(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -1462,7 +1426,7 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_241B67308(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_241B67308(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1488,12 +1452,11 @@ uint64_t sub_241B67350(unint64_t *a1, uint64_t *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_241B673A4(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_241B673A4(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -1504,15 +1467,14 @@ uint64_t sub_241B673A4(uint64_t a1, unint64_t *a2, uint64_t *a3)
 
 uint64_t sub_241B673EC()
 {
-  v1 = *(v0 + 24);
-  v2 = *(*(v0 + 16) + OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_pendingOperations);
+  v1 = *(*(v0 + 16) + OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_pendingOperations);
   swift_beginAccess();
-  v3 = [v2 containsObject_];
+  v2 = [v1 containsObject_];
 
-  if (v3)
+  if (v2)
   {
     swift_beginAccess();
-    [v2 removeObject_];
+    [v1 removeObject_];
   }
 
   return result;
@@ -1542,7 +1504,7 @@ id sub_241B67550()
     while ((v5 & 0xC000000000000001) != 0)
     {
       MEMORY[0x245CF7E00](v7, v5);
-      v9 = v7 + 1;
+      v8 = v7 + 1;
       if (__OFADD__(v7, 1))
       {
         goto LABEL_11;
@@ -1552,7 +1514,7 @@ LABEL_7:
       sub_241B6AF50();
 
       ++v7;
-      if (v9 == i)
+      if (v8 == i)
       {
         goto LABEL_14;
       }
@@ -1563,9 +1525,7 @@ LABEL_7:
       goto LABEL_12;
     }
 
-    v8 = *(v5 + 8 * v7 + 32);
-
-    v9 = v7 + 1;
+    v8 = v7 + 1;
     if (!__OFADD__(v7, 1))
     {
       goto LABEL_7;
@@ -1594,37 +1554,36 @@ id sub_241B676FC()
 id sub_241B67730()
 {
   v1 = sub_241B6AF90();
-  v14 = *(v1 - 8);
-  v15 = v1;
-  v2 = *(v14 + 64);
+  v11 = *(v1 - 8);
+  v12 = v1;
   MEMORY[0x28223BE20]();
-  v4 = v12 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = *(*(sub_241B6AFC0() - 8) + 64);
+  v3 = v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_241B6AFC0();
   MEMORY[0x28223BE20]();
-  v6 = *(*(sub_241B6AF30() - 8) + 64);
+  sub_241B6AF30();
   MEMORY[0x28223BE20]();
-  v7 = &v0[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetState];
-  *v7 = 0;
-  v7[4] = 1;
-  v8 = &v0[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetStartState];
-  *v8 = 0;
-  v8[4] = 1;
-  v9 = OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_pendingOperations;
-  *&v0[v9] = [objc_opt_self() weakObjectsHashTable];
-  v13 = OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_stateQueue;
-  v12[1] = sub_241B673A4(0, &qword_27EC67868, 0x277D85C90);
+  v4 = &v0[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetState];
+  *v4 = 0;
+  v4[4] = 1;
+  v5 = &v0[OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_targetStartState];
+  *v5 = 0;
+  v5[4] = 1;
+  v6 = OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_pendingOperations;
+  *&v0[v6] = [objc_opt_self() weakObjectsHashTable];
+  v10 = OBJC_IVAR____TtC14BiometricKitUI35EnrollStateDispatchWorkItemsManager_stateQueue;
+  v9[1] = sub_241B673A4(0, &qword_27EC67868, 0x277D85C90);
   sub_241B6AF20();
-  v17 = MEMORY[0x277D84F90];
-  sub_241B67308(&qword_27EC67870, MEMORY[0x277D852D8]);
+  v14 = MEMORY[0x277D84F90];
+  sub_241B67308(&qword_27EC67870, MEMORY[0x277D852D8], MEMORY[0x277D852E0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EC67878, &qword_241B72FD0);
   sub_241B67350(&qword_27EC67880, &qword_27EC67878, &qword_241B72FD0);
   sub_241B6AFE0();
-  (*(v14 + 104))(v4, *MEMORY[0x277D85268], v15);
-  *&v0[v13] = sub_241B6AFD0();
-  v10 = type metadata accessor for EnrollStateDispatchWorkItemsManager();
-  v16.receiver = v0;
-  v16.super_class = v10;
-  return objc_msgSendSuper2(&v16, sel_init);
+  (*(v11 + 104))(v3, *MEMORY[0x277D85268], v12);
+  *&v0[v10] = sub_241B6AFD0();
+  v7 = type metadata accessor for EnrollStateDispatchWorkItemsManager();
+  v13.receiver = v0;
+  v13.super_class = v7;
+  return objc_msgSendSuper2(&v13, sel_init);
 }
 
 id sub_241B67A30()
@@ -1746,17 +1705,17 @@ uint64_t sub_241B68488()
   return sub_241B6AEC0();
 }
 
-uint64_t sub_241B686E8(uint64_t a1, uint64_t *a2)
+uint64_t sub_241B686E8(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = sub_241B6AED0();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = sub_241B6AED0();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   if (qword_27EC67B10 != -1)
   {
     swift_once();
   }
 
-  v4 = qword_27EC67B18;
+  v6 = qword_27EC67B18;
   return sub_241B6AEC0();
 }
 
@@ -1774,37 +1733,37 @@ uint64_t sub_241B687D4()
   return sub_241B6AEC0();
 }
 
-uint64_t sub_241B688A0(void *a1, uint64_t a2)
+uint64_t sub_241B688A0(void *a1, uint64_t a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v3 = sub_241B6AED0();
+  v4 = sub_241B6AED0();
 
-  return __swift_project_value_buffer(v3, a2);
+  return __swift_project_value_buffer(v4, a2);
 }
 
-uint64_t sub_241B68918@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_241B68918@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_241B6AED0();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_241B6AED0();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
-uint64_t getBYFlowSkipIdentifierFaceID_cold_1()
+void getBYFlowSkipIdentifierFaceID_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [BKUIPearlEnrollViewController(ButtonActionWithNavigation) updatePeriocularEnrollmentSettings:v0];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [(BKUIPearlEnrollViewController(ButtonActionWithNavigation) *)v1 updatePeriocularEnrollmentSettings:v2, v3];
 }
 
 CAFrameRateRange CAFrameRateRangeMake(float minimum, float maximum, float preferred)

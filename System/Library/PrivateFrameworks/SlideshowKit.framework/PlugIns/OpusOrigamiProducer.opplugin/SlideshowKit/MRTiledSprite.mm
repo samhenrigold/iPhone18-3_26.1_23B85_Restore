@@ -184,7 +184,7 @@
           v70 = *(&v149 + v69);
           v139 = *(&v147 + v69);
           v140 = v70;
-          v141 = *(&v151 + v69);
+          *v141 = *(&v151 + v69);
           [*(v28 + 31) addObject:{+[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", &v139, 48)}];
           v69 += 16;
         }
@@ -257,8 +257,8 @@
     *(&v139 + 1) = v90;
     *&v140 = v91;
     *(&v140 + 1) = v92;
-    *&v141 = v82;
-    *(&v141 + 1) = v84;
+    v141[0] = v82;
+    v141[1] = v84;
     [*(v28 + 15) addObject:{+[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", &v139, 48)}];
     v93 = 0;
     *(v28 + 23) = objc_alloc_init(NSMutableArray);

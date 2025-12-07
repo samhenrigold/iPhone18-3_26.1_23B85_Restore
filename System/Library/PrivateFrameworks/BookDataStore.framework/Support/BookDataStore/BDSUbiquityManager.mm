@@ -17,6 +17,9 @@
 - (void)mq_batchOfItemsDidBecomeAvailable:(id)available block:(BOOL)block notify:(BOOL)notify;
 - (void)mq_batchOfItemsDidBecomeUnAvailable:(id)available block:(BOOL)block notify:(BOOL)notify;
 - (void)mq_batchOfItemsDidChange:(id)change block:(BOOL)block notify:(BOOL)notify;
+- (void)mq_itemsDidBecomeAvailable:(id)available block:(BOOL)block notify:(BOOL)notify;
+- (void)mq_itemsDidBecomeUnavailable:(id)unavailable block:(BOOL)block notify:(BOOL)notify;
+- (void)mq_itemsDidChange:(id)change block:(BOOL)block notify:(BOOL)notify;
 - (void)setEnableUbiquityObserving:(BOOL)observing;
 - (void)ubiquityDocumentsObserver:(id)observer didLoadWithItems:(id)items;
 - (void)ubiquityDocumentsObserver:(id)observer itemsDidBecomeAvailable:(id)available;
@@ -60,7 +63,7 @@
 - (void)setEnableUbiquityObserving:(BOOL)observing
 {
   observingCopy = observing;
-  v5 = sub_10000DEB0();
+  v5 = sub_10000DEB0(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -175,7 +178,7 @@
 {
   identityCopy = identity;
   oldIdentityCopy = oldIdentity;
-  v8 = sub_10000DEB0();
+  v8 = sub_10000DEB0(oldIdentityCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -262,9 +265,7 @@
   self->_ubiquityStatusMonitor = v3;
 
   [(BDSUbiquityStatusMonitor *)self->_ubiquityStatusMonitor addObserver:self];
-  v5 = [[BDSUbiquityDocumentsObserver alloc] initWithDelegate:self ubquityStatusMonitor:self->_ubiquityStatusMonitor directoriesSubpath:0];
-  ubiquityDocumentsObserver = self->_ubiquityDocumentsObserver;
-  self->_ubiquityDocumentsObserver = v5;
+  self->_ubiquityDocumentsObserver = [[BDSUbiquityDocumentsObserver alloc] initWithDelegate:self ubquityStatusMonitor:self->_ubiquityStatusMonitor directoriesSubpath:0];
 
   _objc_release_x1();
 }
@@ -276,6 +277,42 @@
 
   ubiquityDocumentsObserver = self->_ubiquityDocumentsObserver;
   self->_ubiquityDocumentsObserver = 0;
+}
+
+- (void)mq_itemsDidBecomeAvailable:(id)available block:(BOOL)block notify:(BOOL)notify
+{
+  notifyCopy = notify;
+  blockCopy = block;
+  availableCopy = available;
+  dispatch_assert_queue_V2(self->_processMetadataQueryQueue);
+  v8 = [availableCopy count];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = 0;
+    v11 = v8;
+    do
+    {
+      v12 = v11 - 64;
+      if (v11 >= 0x40)
+      {
+        v13 = 64;
+      }
+
+      else
+      {
+        v13 = v11;
+      }
+
+      v14 = [availableCopy subarrayWithRange:{v10, v13}];
+      [(BDSUbiquityManager *)self mq_batchOfItemsDidBecomeAvailable:v14 block:blockCopy notify:notifyCopy];
+
+      v10 += 64;
+      v11 = v12;
+    }
+
+    while (v10 < v9);
+  }
 }
 
 - (void)mq_batchOfItemsDidBecomeAvailable:(id)available block:(BOOL)block notify:(BOOL)notify
@@ -311,6 +348,42 @@
   }
 }
 
+- (void)mq_itemsDidBecomeUnavailable:(id)unavailable block:(BOOL)block notify:(BOOL)notify
+{
+  notifyCopy = notify;
+  blockCopy = block;
+  unavailableCopy = unavailable;
+  dispatch_assert_queue_V2(self->_processMetadataQueryQueue);
+  v8 = [unavailableCopy count];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = 0;
+    v11 = v8;
+    do
+    {
+      v12 = v11 - 64;
+      if (v11 >= 0x40)
+      {
+        v13 = 64;
+      }
+
+      else
+      {
+        v13 = v11;
+      }
+
+      v14 = [unavailableCopy subarrayWithRange:{v10, v13}];
+      [(BDSUbiquityManager *)self mq_batchOfItemsDidBecomeUnAvailable:v14 block:blockCopy notify:notifyCopy];
+
+      v10 += 64;
+      v11 = v12;
+    }
+
+    while (v10 < v9);
+  }
+}
+
 - (void)mq_batchOfItemsDidBecomeUnAvailable:(id)available block:(BOOL)block notify:(BOOL)notify
 {
   blockCopy = block;
@@ -341,6 +414,49 @@
     v13 = availableCopy;
     notifyCopy2 = notify;
     dispatch_async(ivarQueue, v12);
+  }
+}
+
+- (void)mq_itemsDidChange:(id)change block:(BOOL)block notify:(BOOL)notify
+{
+  notifyCopy = notify;
+  blockCopy = block;
+  changeCopy = change;
+  v9 = sub_10000DEB0(changeCopy);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 134217984;
+    v18 = [changeCopy count];
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BDSUbiquityManager: mq_itemsDidChange: count: %lu", &v17, 0xCu);
+  }
+
+  v10 = [changeCopy count];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = 0;
+    v13 = v10;
+    do
+    {
+      v14 = v13 - 64;
+      if (v13 >= 0x40)
+      {
+        v15 = 64;
+      }
+
+      else
+      {
+        v15 = v13;
+      }
+
+      v16 = [changeCopy subarrayWithRange:{v12, v15}];
+      [(BDSUbiquityManager *)self mq_batchOfItemsDidChange:v16 block:blockCopy notify:notifyCopy];
+
+      v12 += 64;
+      v13 = v14;
+    }
+
+    while (v12 < v11);
   }
 }
 
@@ -384,49 +500,49 @@
   notifyCopy = notify;
   itemsCopy = items;
   dispatch_assert_queue_V2(self->_ivarQueue);
-  v6 = sub_10000DEB0();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_10000DEB0(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v33 = [itemsCopy count];
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BDSUbiquityManager: updating cache for %lu items", buf, 0xCu);
+    v34 = [itemsCopy count];
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BDSUbiquityManager: updating cache for %lu items", buf, 0xCu);
   }
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   obj = itemsCopy;
-  v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v7)
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v28;
+    v9 = v8;
+    v10 = *v29;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v28 != v9)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
-        v12 = [v11 url];
-        v13 = [(BDSUbiquityManager *)self _ubiquityMetadataForURL:v12];
+        v12 = *(*(&v28 + 1) + 8 * i);
+        v13 = [v12 url];
+        v14 = [(BDSUbiquityManager *)self _ubiquityMetadataForURL:v13];
 
-        v14 = [v13 objectForKeyedSubscript:@"com.apple.iBooks.assetID"];
-        v15 = [v13 objectForKeyedSubscript:@"com.apple.iBooks.isSupplementalContent"];
-        bOOLValue = [v15 BOOLValue];
+        v15 = [v14 objectForKeyedSubscript:@"com.apple.iBooks.assetID"];
+        v16 = [v14 objectForKeyedSubscript:@"com.apple.iBooks.isSupplementalContent"];
+        bOOLValue = [v16 BOOLValue];
 
         if ((bOOLValue & 1) == 0)
         {
-          if (v14)
+          if (v15)
           {
-            v17 = [(NSMutableDictionary *)self->_iq_urlFromAssetID objectForKey:v14];
+            v18 = [(NSMutableDictionary *)self->_iq_urlFromAssetID objectForKey:v15];
 
-            v18 = [v11 url];
-            [(NSMutableDictionary *)self->_iq_urlFromAssetID setObject:v18 forKeyedSubscript:v14];
+            v19 = [v12 url];
+            [(NSMutableDictionary *)self->_iq_urlFromAssetID setObject:v19 forKeyedSubscript:v15];
 
             if (notifyCopy)
             {
@@ -439,10 +555,10 @@
                 block[1] = 3221225472;
                 block[2] = sub_100017470;
                 block[3] = &unk_10023FB60;
-                v26 = v17 == 0;
+                v27 = v18 == 0;
                 block[4] = self;
-                v24 = v14;
-                v25 = v13;
+                v25 = v15;
+                v26 = v14;
                 dispatch_async(observerCallbackQueue, block);
               }
             }
@@ -450,10 +566,10 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 }
 
@@ -619,12 +735,13 @@
   lastObject = [v5 lastObject];
   if ([(__CFString *)lastObject isEqualToString:@"icloud"])
   {
-    if ([v5 count] < 2)
+    v7 = [v5 count];
+    if (v7 < 2)
     {
-      v8 = sub_10000DEB0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_10000DEB0(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_1001BDCB8(urlCopy, v8);
+        sub_1001BDCB8(urlCopy, v9);
       }
 
       lastObject = &stru_10024C800;
@@ -632,9 +749,9 @@
 
     else
     {
-      v7 = [v5 objectAtIndexedSubscript:{objc_msgSend(v5, "count") - 2}];
+      v8 = [v5 objectAtIndexedSubscript:{objc_msgSend(v5, "count") - 2}];
 
-      lastObject = v7;
+      lastObject = v8;
     }
   }
 

@@ -100,7 +100,7 @@
     v5->_sourceCenter.y = v29;
     if (coderCopy)
     {
-      [coderCopy decodeCGAffineTransformForKey:@"sourceTransform"];
+      objc_msgSend_decodeCGAffineTransformForKey_(coderCopy);
     }
 
     else
@@ -133,7 +133,7 @@
       [(UIView *)v5 setCenter:?];
       [(QLTransitionContext *)self sourceBounds];
       [(UIView *)v5 setBounds:?];
-      [(QLTransitionContext *)self sourceTransform];
+      objc_msgSend_sourceTransform(self);
       v9[0] = v9[3];
       v9[1] = v9[4];
       v9[2] = v9[5];
@@ -403,7 +403,7 @@ LABEL_14:
       v67 = sourceView9;
       if (sourceView9)
       {
-        [sourceView9 transform];
+        objc_msgSend_transform(sourceView9);
       }
 
       else
@@ -414,7 +414,7 @@ LABEL_14:
       t1 = v74;
       [(QLTransitionContext *)self setSourceTransform:&t1];
 
-      [(QLTransitionContext *)self sourceTransform];
+      objc_msgSend_sourceTransform(self);
       v68 = *(MEMORY[0x277CBF2C0] + 16);
       *&t2.a = *MEMORY[0x277CBF2C0];
       *&t2.c = v68;
@@ -535,7 +535,7 @@ LABEL_14:
 
 + (id)firstChildNavigationControllerFromViewController:(id)controller
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -545,26 +545,26 @@ LABEL_14:
 
   else
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     childViewControllers = [controllerCopy childViewControllers];
-    v6 = [childViewControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [childViewControllers countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(childViewControllers);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -574,7 +574,7 @@ LABEL_14:
           }
         }
 
-        v7 = [childViewControllers countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [childViewControllers countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -588,8 +588,6 @@ LABEL_14:
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

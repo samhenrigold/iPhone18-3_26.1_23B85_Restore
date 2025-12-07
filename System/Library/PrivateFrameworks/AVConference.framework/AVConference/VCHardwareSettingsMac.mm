@@ -279,7 +279,7 @@ LABEL_7:
   }
 }
 
-uint64_t __41__VCHardwareSettingsMac_setupMachineName__block_invoke(uint64_t a1, void *a2)
+void *__41__VCHardwareSettingsMac_setupMachineName__block_invoke(uint64_t a1, void *a2)
 {
   v4 = *(*(a1 + 32) + 80);
   v5 = [a2 rangeAtIndex:1];

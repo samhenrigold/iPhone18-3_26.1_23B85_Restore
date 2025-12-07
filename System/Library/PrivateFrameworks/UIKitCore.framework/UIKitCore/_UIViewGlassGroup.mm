@@ -26,7 +26,7 @@
   v3 = OBJC_IVAR____UIViewGlassGroup__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v3, v5);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   return v5[41];
 }
@@ -37,7 +37,7 @@
   swift_beginAccess();
   sub_188A53994(self + v5, &v7);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   backdropsCopy = backdrops;
   v10 = &type metadata for _GlassGroup;
@@ -48,7 +48,7 @@
   v8 = v15;
   v9 = v16;
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(self + v5);
+  __swift_destroy_boxed_opaque_existential_0Tm((&self->super.isa + v5));
   sub_188A5EBAC(&v7, self + v5);
   swift_endAccess();
 }
@@ -58,7 +58,7 @@
   v3 = OBJC_IVAR____UIViewGlassGroup__underlyingMaterial;
   swift_beginAccess();
   sub_188A53994(self + v3, v5);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   return v5[40];
 }
@@ -69,7 +69,7 @@
   swift_beginAccess();
   sub_188A53994(self + v5, &v7);
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA933ED0, &qword_18A654D10);
   swift_dynamicCast();
   foregroundCopy = foreground;
   v10 = &type metadata for _GlassGroup;
@@ -79,7 +79,7 @@
   v8 = v15;
   v9 = v16;
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_0Tm(self + v5);
+  __swift_destroy_boxed_opaque_existential_0Tm((&self->super.isa + v5));
   sub_188A5EBAC(&v7, self + v5);
   swift_endAccess();
 }

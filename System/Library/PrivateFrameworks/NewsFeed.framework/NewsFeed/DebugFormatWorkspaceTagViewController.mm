@@ -88,15 +88,15 @@
   v6 = sub_1D7258DBC();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1D69D8C50(viewCopy, v10);
+  v14 = sub_1D69D8C50(viewCopy, v10, v13);
 
   (*(v7 + 8))(v10, v6);
 
-  return v13;
+  return v14;
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section
@@ -124,11 +124,11 @@ LABEL_7:
   v6 = sub_1D7258DBC();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  sub_1D69D9C3C();
+  sub_1D69D9C3C(v13);
 
   (*(v7 + 8))(v10, v6);
 }

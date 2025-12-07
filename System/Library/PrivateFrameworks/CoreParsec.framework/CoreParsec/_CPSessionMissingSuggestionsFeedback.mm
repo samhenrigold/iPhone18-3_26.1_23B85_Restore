@@ -55,47 +55,43 @@ LABEL_9:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_CPSessionMissingSuggestionsFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_suggestions;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_suggestions;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addSuggestions:(id)suggestions
@@ -118,9 +114,7 @@ LABEL_9:
 
 - (void)setSuggestions:(id)suggestions
 {
-  v4 = [suggestions mutableCopy];
-  suggestions = self->_suggestions;
-  self->_suggestions = v4;
+  self->_suggestions = [suggestions mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }

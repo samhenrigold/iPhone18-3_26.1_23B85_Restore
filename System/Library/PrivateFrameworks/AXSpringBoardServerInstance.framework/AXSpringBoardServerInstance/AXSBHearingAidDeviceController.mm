@@ -8,6 +8,7 @@
 - (void)connectionWithServiceWasInterruptedForUserInterfaceClient:(id)client;
 - (void)dealloc;
 - (void)hearingServerDidDie:(id)die;
+- (void)showHearingAidControl:(BOOL)control;
 - (void)startServer;
 @end
 
@@ -120,6 +121,49 @@ uint64_t __49__AXSBHearingAidDeviceController_hearingUIClient__block_invoke(uint
   v3 = [server isScreenLockedWithPasscode:0];
 
   return v3;
+}
+
+- (void)showHearingAidControl:(BOOL)control
+{
+  controlCopy = control;
+  if (control)
+  {
+    mEMORY[0x277CE7E20] = [MEMORY[0x277CE7E20] sharedInstance];
+    if ([mEMORY[0x277CE7E20] allowHearingAidControlOnLockScreen])
+    {
+    }
+
+    else
+    {
+      isScreenLocked = [(AXSBHearingAidDeviceController *)self isScreenLocked];
+
+      if (isScreenLocked)
+      {
+        return;
+      }
+    }
+
+    server = [MEMORY[0x277CE7E40] server];
+    isControlCenterVisible = [server isControlCenterVisible];
+
+    if (isControlCenterVisible)
+    {
+      server2 = [MEMORY[0x277CE7E40] server];
+      [server2 showControlCenter:0];
+    }
+  }
+
+  hearingUIClient = [(AXSBHearingAidDeviceController *)self hearingUIClient];
+  v11 = MEMORY[0x277CBEAC0];
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:controlCopy];
+  v13 = [v11 dictionaryWithObject:v12 forKey:@"shouldShow"];
+  backgroundAccessQueue = [MEMORY[0x277CE6948] backgroundAccessQueue];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __56__AXSBHearingAidDeviceController_showHearingAidControl___block_invoke;
+  v15[3] = &unk_27842BB40;
+  v15[4] = self;
+  [hearingUIClient sendAsynchronousMessage:v13 withIdentifier:1 targetAccessQueue:backgroundAccessQueue completion:v15];
 }
 
 void __56__AXSBHearingAidDeviceController_showHearingAidControl___block_invoke(uint64_t a1, void *a2)

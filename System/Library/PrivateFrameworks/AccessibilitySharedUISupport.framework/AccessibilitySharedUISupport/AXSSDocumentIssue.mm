@@ -24,119 +24,114 @@
 
 - (id)description
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = AXSSDocumentIssue;
-  v3 = [(AXSSDocumentIssue *)&v21 description];
+  v22 = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = AXSSDocumentIssue;
+  v3 = [(AXSSDocumentIssue *)&v20 description];
   v4 = [v3 mutableCopy];
 
   offendingText = [(AXSSDocumentIssue *)self offendingText];
   string = [offendingText string];
   v7 = AXDocumentConsoleString(string);
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   suggestions = [(AXSSDocumentIssue *)self suggestions];
-  v9 = [suggestions countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v9 = [suggestions countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(suggestions);
         }
 
-        string2 = [*(*(&v17 + 1) + 8 * i) string];
+        string2 = [*(*(&v16 + 1) + 8 * i) string];
         v14 = AXDocumentConsoleString(string2);
       }
 
-      v10 = [suggestions countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v10 = [suggestions countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v10);
   }
 
   [v4 appendString:@"}"];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)_updateSuggestionStyleIfNeeded
 {
-  v28 = *MEMORY[0x277D85DE8];
-  if (![(AXSSDocumentIssue *)self autoMatchSuggestionAttributes])
+  v26 = *MEMORY[0x277D85DE8];
+  if ([(AXSSDocumentIssue *)self autoMatchSuggestionAttributes])
   {
-LABEL_14:
-    v19 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  suggestions = [(AXSSDocumentIssue *)self suggestions];
-  if ([suggestions count])
-  {
-    offendingText = [(AXSSDocumentIssue *)self offendingText];
-    v4 = [offendingText length];
-
-    if (v4)
+    suggestions = [(AXSSDocumentIssue *)self suggestions];
+    if ([suggestions count])
     {
-      offendingText2 = [(AXSSDocumentIssue *)self offendingText];
-      v6 = [offendingText2 attributesAtIndex:0 effectiveRange:0];
+      offendingText = [(AXSSDocumentIssue *)self offendingText];
+      v4 = [offendingText length];
 
-      v7 = objc_opt_new();
-      v23 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      selfCopy = self;
-      suggestions2 = [(AXSSDocumentIssue *)self suggestions];
-      v9 = [suggestions2 countByEnumeratingWithState:&v23 objects:v27 count:16];
-      if (v9)
+      if (v4)
       {
-        v10 = v9;
-        v11 = *v24;
-        do
+        offendingText2 = [(AXSSDocumentIssue *)self offendingText];
+        v6 = [offendingText2 attributesAtIndex:0 effectiveRange:0];
+
+        v7 = objc_opt_new();
+        v21 = 0u;
+        v22 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        selfCopy = self;
+        suggestions2 = [(AXSSDocumentIssue *)self suggestions];
+        v9 = [suggestions2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v9)
         {
-          for (i = 0; i != v10; ++i)
+          v10 = v9;
+          v11 = *v22;
+          do
           {
-            if (*v24 != v11)
+            for (i = 0; i != v10; ++i)
             {
-              objc_enumerationMutation(suggestions2);
+              if (*v22 != v11)
+              {
+                objc_enumerationMutation(suggestions2);
+              }
+
+              v13 = *(*(&v21 + 1) + 8 * i);
+              v14 = objc_alloc(MEMORY[0x277CCA898]);
+              string = [v13 string];
+              v16 = [v14 initWithString:string attributes:v6];
+
+              if (v16)
+              {
+                [v7 addObject:v16];
+              }
             }
 
-            v13 = *(*(&v23 + 1) + 8 * i);
-            v14 = objc_alloc(MEMORY[0x277CCA898]);
-            string = [v13 string];
-            v16 = [v14 initWithString:string attributes:v6];
-
-            if (v16)
-            {
-              [v7 addObject:v16];
-            }
+            v10 = [suggestions2 countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
-          v10 = [suggestions2 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          while (v10);
         }
 
-        while (v10);
+        v17 = [v7 copy];
+        suggestions = selfCopy->_suggestions;
+        selfCopy->_suggestions = v17;
       }
-
-      v17 = [v7 copy];
-      suggestions = selfCopy->_suggestions;
-      selfCopy->_suggestions = v17;
     }
 
-    goto LABEL_14;
+    else
+    {
+    }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSuggestions:(id)suggestions

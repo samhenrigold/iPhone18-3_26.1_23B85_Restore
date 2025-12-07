@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventDetailsAsString:(int)string;
+- (id)eventDetailsTypeAsString:(int)string;
+- (id)eventTypeAsString:(int)string;
 - (int)StringAsEventDetails:(id)details;
 - (int)StringAsEventDetailsType:(id)type;
 - (int)StringAsEventType:(id)type;
@@ -50,6 +53,157 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)eventTypeAsString:(int)string
+{
+  if (string > 101)
+  {
+    if (string > 201)
+    {
+      if (string <= 203)
+      {
+        if (string == 202)
+        {
+          v4 = @"TIME_SPENT_TYPE";
+        }
+
+        else
+        {
+          v4 = @"BINARY_TYPE";
+        }
+
+        return v4;
+      }
+
+      switch(string)
+      {
+        case 204:
+          v4 = @"QUANTITY_TYPE";
+
+          return v4;
+        case 205:
+          v4 = @"RANGE_TYPE";
+
+          return v4;
+        case 206:
+          v4 = @"ACTIVITY_STARTED_TYPE";
+
+          return v4;
+      }
+    }
+
+    else
+    {
+      if (string <= 103)
+      {
+        if (string == 102)
+        {
+          v4 = @"OPEN_ATTACHMENT_TYPE";
+        }
+
+        else
+        {
+          v4 = @"MARK_DONE_TYPE";
+        }
+
+        return v4;
+      }
+
+      switch(string)
+      {
+        case 104:
+          v4 = @"MARK_DONE_LATE_TYPE";
+
+          return v4;
+        case 105:
+          v4 = @"MARK_NOT_DONE_TYPE";
+
+          return v4;
+        case 201:
+          v4 = @"SCORE_TYPE";
+
+          return v4;
+      }
+    }
+
+LABEL_84:
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 4)
+  {
+    if (string <= 6)
+    {
+      if (string == 5)
+      {
+        v4 = @"CANCEL_TRY_AGAIN_TYPE";
+      }
+
+      else
+      {
+        v4 = @"CANCEL_REVIEW_ATTACHMENT_TYPE";
+      }
+
+      return v4;
+    }
+
+    switch(string)
+    {
+      case 7:
+        v4 = @"DELETE_HANDOUT_TYPE";
+
+        return v4;
+      case 8:
+        v4 = @"MARK_HANDOUT_DONE_TYPE";
+
+        return v4;
+      case 101:
+        v4 = @"OPEN_HANDOUT_TYPE";
+
+        return v4;
+    }
+
+    goto LABEL_84;
+  }
+
+  if (string > 1)
+  {
+    if (string == 2)
+    {
+      v4 = @"UPDATE_HANDOUT_TYPE";
+    }
+
+    else if (string == 3)
+    {
+      v4 = @"TRY_AGAIN_TYPE";
+    }
+
+    else
+    {
+      v4 = @"REVIEW_ATTACHMENT_TYPE";
+    }
+
+    return v4;
+  }
+
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ASSIGN_HANDOUT_TYPE";
+
+      return v4;
+    }
+
+    goto LABEL_84;
+  }
+
+  v4 = @"UNKNOWN_EVENT_TYPE";
+
+  return v4;
 }
 
 - (int)StringAsEventType:(id)type
@@ -209,6 +363,21 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)eventDetailsTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1002062F8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsEventDetailsType:(id)type
 {
   typeCopy = type;
@@ -281,6 +450,21 @@
   {
     return 0;
   }
+}
+
+- (id)eventDetailsAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100206318[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEventDetails:(id)details
@@ -624,7 +808,6 @@ LABEL_48:
 
   if ((*&self->_has & 4) != 0)
   {
-    eventType = self->_eventType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -638,41 +821,39 @@ LABEL_48:
     PBDataWriterWriteSubmessage();
   }
 
-  v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v6 = self->_extraInfos;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_extraInfos;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v14;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        v10 = v10 + 1;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    eventDetailsType = self->_eventDetailsType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -872,7 +1053,7 @@ LABEL_48:
     if (![(NSString *)objectId isEqual:?])
     {
 LABEL_32:
-      v15 = 0;
+      v14 = 0;
       goto LABEL_33;
     }
 
@@ -917,7 +1098,6 @@ LABEL_32:
     }
   }
 
-  v11 = *(equalCopy + 80);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 80) & 2) == 0 || self->_eventDetailsType != *(equalCopy + 9))
@@ -949,17 +1129,17 @@ LABEL_32:
   progressEventDetails = self->_progressEventDetails;
   if (progressEventDetails | *(equalCopy + 9))
   {
-    v15 = [(PDDPProgressEventDetails *)progressEventDetails isEqual:?];
+    v14 = [(PDDPProgressEventDetails *)progressEventDetails isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_33:
 
-  return v15;
+  return v14;
 }
 
 - (unint64_t)hash

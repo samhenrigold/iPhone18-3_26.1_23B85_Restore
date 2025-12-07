@@ -58,13 +58,13 @@
   return v8;
 }
 
-void __97__CNAvatarPosterPairCollectionViewControllerAccessibility_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
+void __97__CNAvatarPosterPairCollectionViewControllerAccessibility_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) safeSwiftValueForKey:@"centeredPosterButton"];
-  v3 = __UIAccessibilityCastAsClass();
+  v3 = [*(a1 + 32) safeSwiftValueForKey:@"centeredPosterButton"];
+  v4 = __UIAccessibilityCastAsClass();
 
-  [v3 sendActionsForControlEvents:0x2000];
+  [v4 sendActionsForControlEvents:0x2000];
 }
 
 @end

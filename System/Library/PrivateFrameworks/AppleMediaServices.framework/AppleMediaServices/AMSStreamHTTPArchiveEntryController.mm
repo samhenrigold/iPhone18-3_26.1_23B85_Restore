@@ -924,7 +924,7 @@ LABEL_16:
   return v8;
 }
 
-uint64_t __75__AMSStreamHTTPArchiveEntryController__writeData_enumeratingBytesToStream___block_invoke(uint64_t a1, uint64_t a2)
+void *__75__AMSStreamHTTPArchiveEntryController__writeData_enumeratingBytesToStream___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) write:a2 maxLength:?];
   if (!result)

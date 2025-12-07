@@ -10,9 +10,7 @@
 {
   if (self->super._stations != stations)
   {
-    v5 = [stations copy];
-    stations = self->super._stations;
-    self->super._stations = v5;
+    self->super._stations = [stations copy];
 
     MEMORY[0x2821F96F8]();
   }
@@ -22,9 +20,7 @@
 {
   if (self->super._localizedTitle != title)
   {
-    v5 = [title copy];
-    localizedTitle = self->super._localizedTitle;
-    self->super._localizedTitle = v5;
+    self->super._localizedTitle = [title copy];
 
     MEMORY[0x2821F96F8]();
   }

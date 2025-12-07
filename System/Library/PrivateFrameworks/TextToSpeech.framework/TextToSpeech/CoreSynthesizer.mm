@@ -22,6 +22,7 @@
 - (unsigned)audioQueueFlags;
 - (void)pauseSpeakingAt:(int64_t)at completionHandler:(id)handler;
 - (void)setAudioQueue:(id)queue;
+- (void)setAudioQueueFlags:(unsigned int)flags;
 - (void)setAudioSession:(id)session;
 - (void)setAudioSessionAutomaticallyDeactivatesAfterSpeaking:(BOOL)speaking;
 - (void)setAuxSessionCategory:(id)category;
@@ -61,18 +62,15 @@
 
 - (_TtC12TextToSpeech13VoiceResolver)_voiceResolver
 {
-  v3 = OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__voiceResolver;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  return v5;
+  return v2;
 }
 
 - (void)set_voiceResolver:(id)resolver
 {
   v5 = OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__voiceResolver;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = resolver;
 }
 
@@ -132,28 +130,25 @@
 - (void)setOfflineChain:(id)chain
 {
   sub_1A9387478(0, &qword_1EB386D70, 0x1E6958430);
-  v4 = sub_1A957C4C8();
-  v5 = *(self + OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer____lazy_storage___offlineChain);
-  *(self + OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer____lazy_storage___offlineChain) = v4;
+  *(self + OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer____lazy_storage___offlineChain) = sub_1A957C4C8();
 }
 
 - (NSString)_bundleIdentifier
 {
-  v2 = (self + OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__bundleIdentifier);
+  v2 = self + OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__bundleIdentifier;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_1A957C0C8();
+    v3 = sub_1A957C0C8();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)set_bundleIdentifier:(id)identifier
@@ -172,7 +167,6 @@
 
   v7 = (self + OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__bundleIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -184,22 +178,21 @@
   selfCopy = self;
   v4(KeyPath);
 
-  v6 = (selfCopy + OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__bundleIdentifier);
+  v6 = selfCopy + OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__bundleIdentifier;
   swift_beginAccess();
-  v8 = *v6;
-  v7 = v6[1];
+  v7 = *(v6 + 1);
 
   if (v7)
   {
-    v9 = sub_1A957C0C8();
+    v8 = sub_1A957C0C8();
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (void)setBundleIdentifier:(id)identifier
@@ -222,37 +215,33 @@
 
 - (NSArray)_effects
 {
-  v3 = OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__effects;
   swift_beginAccess();
-  v4 = *(self + v3);
   sub_1A957BA58();
 
-  v5 = sub_1A957C4B8();
+  v2 = sub_1A957C4B8();
 
-  return v5;
+  return v2;
 }
 
 - (void)set_effects:(id)set_effects
 {
   v4 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8, v6);
-  v8 = &v15 - v7;
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v12 - v5;
   sub_1A957BA58();
-  v9 = sub_1A957C4C8();
-  v10 = OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__effects;
+  v7 = sub_1A957C4C8();
+  v8 = OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__effects;
   swift_beginAccess();
-  v11 = *(self + v10);
-  *(self + v10) = v9;
+  *(self + v8) = v7;
   selfCopy = self;
 
-  v13 = sub_1A957C688();
-  (*(*(v13 - 8) + 56))(v8, 1, 1, v13);
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = selfCopy;
-  sub_1A938A404(0, 0, v8, &unk_1A958BE80, v14);
+  v10 = sub_1A957C688();
+  (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = selfCopy;
+  sub_1A938A404(0, 0, v6, &unk_1A958BE80, v11);
 }
 
 - (NSArray)effects
@@ -262,14 +251,12 @@
   selfCopy = self;
   v4(KeyPath);
 
-  v6 = OBJC_IVAR____TtC12TextToSpeech15CoreSynthesizer__effects;
   swift_beginAccess();
-  v7 = *(selfCopy + v6);
 
   sub_1A957BA58();
-  v8 = sub_1A957C4B8();
+  v6 = sub_1A957C4B8();
 
-  return v8;
+  return v6;
 }
 
 - (void)setEffects:(id)effects
@@ -345,135 +332,138 @@
   return audioQueueFlags;
 }
 
+- (void)setAudioQueueFlags:(unsigned int)flags
+{
+  v3 = *&flags;
+  v4 = *((*MEMORY[0x1E69E7D40] & *self) + 0x1F8);
+  selfCopy = self;
+  v5 = v4();
+  [v5 setAudioQueueFlags_];
+}
+
 - (_TtC12TextToSpeech15CoreSynthesizer)init
 {
   ObjectType = swift_getObjectType();
   sub_1A9387410();
   sub_1A937829C(&unk_1EB388360, qword_1A958B690);
-  sub_1A93B744C(&qword_1ED96FEB8, &unk_1EB388360, qword_1A958B690);
+  sub_1A93B744C(&qword_1ED96FEB8, &unk_1EB388360, qword_1A958B690, MEMORY[0x1E69E6328]);
   sub_1A957CE08();
   type metadata accessor for VoiceDatabaseClient();
-  v4 = sub_1A938983C();
-  v5 = VoiceDatabaseClient.__allocating_init(readOnly:)(v4 & 1);
-  v6 = sub_1A94102EC(v5, v10, 1, ObjectType);
-  v7 = *((*MEMORY[0x1E69E7D40] & *self) + 0x30);
-  v8 = *((*MEMORY[0x1E69E7D40] & *self) + 0x34);
+  v3 = sub_1A938983C();
+  v4 = VoiceDatabaseClient.__allocating_init(readOnly:)(v3 & 1);
+  v5 = sub_1A94102EC(v4, v7, 1, ObjectType);
   swift_deallocPartialClassInstance();
-  return v6;
+  return v5;
 }
 
 - (void)voiceWithIdentifier:(NSString *)identifier completionHandler:(id)handler
 {
   v7 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8, v9);
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
-  v13 = swift_allocObject();
-  v13[2] = identifier;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = sub_1A957C688();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1A958BE68;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_1A958BE70;
-  v16[5] = v15;
-  identifierCopy = identifier;
-  selfCopy = self;
-  sub_1A93CC8FC(0, 0, v11, &unk_1A958BE78, v16);
-}
-
-- (void)voiceWithLocale:(NSLocale *)locale completionHandler:(id)handler
-{
-  v7 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8, v9);
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
-  v13 = swift_allocObject();
-  v13[2] = locale;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = sub_1A957C688();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1A958BE40;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_1A958BE48;
-  v16[5] = v15;
-  localeCopy = locale;
-  selfCopy = self;
-  sub_1A93CC8FC(0, 0, v11, &unk_1A958BE50, v16);
-}
-
-- (void)writeWithSpeechPhrase:(NSString *)phrase toAudioFile:(NSURL *)file withAudioSettings:(NSDictionary *)settings completionHandler:(id)handler
-{
-  v11 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8, v13);
-  v15 = &v25 - v14;
-  v16 = _Block_copy(handler);
-  v17 = swift_allocObject();
-  v17[2] = phrase;
-  v17[3] = file;
-  v17[4] = settings;
-  v17[5] = v16;
-  v17[6] = self;
-  v18 = sub_1A957C688();
-  (*(*(v18 - 8) + 56))(v15, 1, 1, v18);
-  v19 = swift_allocObject();
-  v19[2] = 0;
-  v19[3] = 0;
-  v19[4] = &unk_1A958BE20;
-  v19[5] = v17;
-  v20 = swift_allocObject();
-  v20[2] = 0;
-  v20[3] = 0;
-  v20[4] = &unk_1A958BE28;
-  v20[5] = v19;
-  phraseCopy = phrase;
-  fileCopy = file;
-  settingsCopy = settings;
-  selfCopy = self;
-  sub_1A93CC8FC(0, 0, v15, &unk_1A958BE30, v20);
-}
-
-- (void)stopWithCompletionHandler:(id)handler
-{
-  v5 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8, v7);
-  v9 = &v16 - v8;
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  *(v11 + 24) = self;
+  v11[2] = identifier;
+  v11[3] = v10;
+  v11[4] = self;
   v12 = sub_1A957C688();
   (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_1A958BDE8;
+  v13[4] = &unk_1A958BE68;
   v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1A958BDF8;
+  v14[4] = &unk_1A958BE70;
   v14[5] = v13;
+  identifierCopy = identifier;
   selfCopy = self;
-  sub_1A93CC8FC(0, 0, v9, &unk_1A958BE08, v14);
+  sub_1A93CC8FC(0, 0, v9, &unk_1A958BE78, v14);
+}
+
+- (void)voiceWithLocale:(NSLocale *)locale completionHandler:(id)handler
+{
+  v7 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = locale;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1A957C688();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1A958BE40;
+  v13[5] = v11;
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_1A958BE48;
+  v14[5] = v13;
+  localeCopy = locale;
+  selfCopy = self;
+  sub_1A93CC8FC(0, 0, v9, &unk_1A958BE50, v14);
+}
+
+- (void)writeWithSpeechPhrase:(NSString *)phrase toAudioFile:(NSURL *)file withAudioSettings:(NSDictionary *)settings completionHandler:(id)handler
+{
+  v11 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v23 - v12;
+  v14 = _Block_copy(handler);
+  v15 = swift_allocObject();
+  v15[2] = phrase;
+  v15[3] = file;
+  v15[4] = settings;
+  v15[5] = v14;
+  v15[6] = self;
+  v16 = sub_1A957C688();
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = &unk_1A958BE20;
+  v17[5] = v15;
+  v18 = swift_allocObject();
+  v18[2] = 0;
+  v18[3] = 0;
+  v18[4] = &unk_1A958BE28;
+  v18[5] = v17;
+  phraseCopy = phrase;
+  fileCopy = file;
+  settingsCopy = settings;
+  selfCopy = self;
+  sub_1A93CC8FC(0, 0, v13, &unk_1A958BE30, v18);
+}
+
+- (void)stopWithCompletionHandler:(id)handler
+{
+  v5 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1A957C688();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1A958BDE8;
+  v11[5] = v9;
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_1A958BDF8;
+  v12[5] = v11;
+  selfCopy = self;
+  sub_1A93CC8FC(0, 0, v7, &unk_1A958BE08, v12);
 }
 
 - (BOOL)mixToTelephonyUplink
@@ -663,31 +653,30 @@
 - (void)speak:(AVSpeechUtterance *)speak synth:(AVSpeechSynthesizer *)synth completionHandler:(id)handler
 {
   v9 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8, v11);
-  v13 = &v22 - v12;
-  v14 = _Block_copy(handler);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = speak;
+  v13[3] = synth;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_1A957C688();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
   v15 = swift_allocObject();
-  v15[2] = speak;
-  v15[3] = synth;
-  v15[4] = v14;
-  v15[5] = self;
-  v16 = sub_1A957C688();
-  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_1A9595880;
-  v17[5] = v15;
-  v18 = swift_allocObject();
-  v18[2] = 0;
-  v18[3] = 0;
-  v18[4] = &unk_1A9595888;
-  v18[5] = v17;
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_1A9595880;
+  v15[5] = v13;
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = &unk_1A9595888;
+  v16[5] = v15;
   speakCopy = speak;
   synthCopy = synth;
   selfCopy = self;
-  sub_1A93CC8FC(0, 0, v13, &unk_1A9595890, v18);
+  sub_1A93CC8FC(0, 0, v11, &unk_1A9595890, v16);
 }
 
 - (void)write:(_TtC12TextToSpeech15CoreSynthesizer *)self toBufferCallback:(SEL)callback synth:(AVSpeechUtterance *)synth completionHandler:(id)handler
@@ -695,33 +684,32 @@
   v6 = v5;
   v7 = v4;
   v11 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8, v13);
-  v15 = &v25 - v14;
-  v16 = _Block_copy(handler);
-  v17 = _Block_copy(v6);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v23 - v12;
+  v14 = _Block_copy(handler);
+  v15 = _Block_copy(v6);
+  v16 = swift_allocObject();
+  v16[2] = synth;
+  v16[3] = v14;
+  v16[4] = v7;
+  v16[5] = v15;
+  v16[6] = self;
+  v17 = sub_1A957C688();
+  (*(*(v17 - 8) + 56))(v13, 1, 1, v17);
   v18 = swift_allocObject();
-  v18[2] = synth;
-  v18[3] = v16;
-  v18[4] = v7;
-  v18[5] = v17;
-  v18[6] = self;
-  v19 = sub_1A957C688();
-  (*(*(v19 - 8) + 56))(v15, 1, 1, v19);
-  v20 = swift_allocObject();
-  v20[2] = 0;
-  v20[3] = 0;
-  v20[4] = &unk_1A9595860;
-  v20[5] = v18;
-  v21 = swift_allocObject();
-  v21[2] = 0;
-  v21[3] = 0;
-  v21[4] = &unk_1A9595868;
-  v21[5] = v20;
+  v18[2] = 0;
+  v18[3] = 0;
+  v18[4] = &unk_1A9595860;
+  v18[5] = v16;
+  v19 = swift_allocObject();
+  v19[2] = 0;
+  v19[3] = 0;
+  v19[4] = &unk_1A9595868;
+  v19[5] = v18;
   synthCopy = synth;
-  v23 = v7;
+  v21 = v7;
   selfCopy = self;
-  sub_1A93CC8FC(0, 0, v15, &unk_1A9595870, v21);
+  sub_1A93CC8FC(0, 0, v13, &unk_1A9595870, v19);
 }
 
 - (void)write:(AVSpeechUtterance *)write toBufferCallback:(id)callback toMarkerCallback:synth:completionHandler:
@@ -730,35 +718,34 @@
   v8 = v5;
   v9 = v4;
   v13 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13 - 8, v15);
-  v17 = &v28 - v16;
-  v18 = _Block_copy(callback);
-  v19 = _Block_copy(v9);
-  v20 = _Block_copy(v7);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v15 = &v26 - v14;
+  v16 = _Block_copy(callback);
+  v17 = _Block_copy(v9);
+  v18 = _Block_copy(v7);
+  v19 = swift_allocObject();
+  v19[2] = write;
+  v19[3] = v16;
+  v19[4] = v17;
+  v19[5] = v8;
+  v19[6] = v18;
+  v19[7] = self;
+  v20 = sub_1A957C688();
+  (*(*(v20 - 8) + 56))(v15, 1, 1, v20);
   v21 = swift_allocObject();
-  v21[2] = write;
-  v21[3] = v18;
-  v21[4] = v19;
-  v21[5] = v8;
-  v21[6] = v20;
-  v21[7] = self;
-  v22 = sub_1A957C688();
-  (*(*(v22 - 8) + 56))(v17, 1, 1, v22);
-  v23 = swift_allocObject();
-  v23[2] = 0;
-  v23[3] = 0;
-  v23[4] = &unk_1A9595840;
-  v23[5] = v21;
-  v24 = swift_allocObject();
-  v24[2] = 0;
-  v24[3] = 0;
-  v24[4] = &unk_1A9595848;
-  v24[5] = v23;
+  v21[2] = 0;
+  v21[3] = 0;
+  v21[4] = &unk_1A9595840;
+  v21[5] = v19;
+  v22 = swift_allocObject();
+  v22[2] = 0;
+  v22[3] = 0;
+  v22[4] = &unk_1A9595848;
+  v22[5] = v21;
   writeCopy = write;
-  v26 = v8;
+  v24 = v8;
   selfCopy = self;
-  sub_1A93CC8FC(0, 0, v17, &unk_1A9595850, v24);
+  sub_1A93CC8FC(0, 0, v15, &unk_1A9595850, v22);
 }
 
 - (void)stopSpeakingAt:(int64_t)at completionHandler:(id)handler
@@ -774,45 +761,43 @@
 - (void)pauseSpeakingAt:(int64_t)at completionHandler:(id)handler
 {
   v7 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8, v9);
-  v11 = &v18 - v10;
-  v12 = _Block_copy(handler);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v16 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = at;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1A957C688();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
   v13 = swift_allocObject();
-  v13[2] = at;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = sub_1A957C688();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1A95957F8;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_1A9595808;
-  v16[5] = v15;
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1A95957F8;
+  v13[5] = v11;
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_1A9595808;
+  v14[5] = v13;
   selfCopy = self;
-  sub_1A93CC8FC(0, 0, v11, &unk_1A9595818, v16);
+  sub_1A93CC8FC(0, 0, v9, &unk_1A9595818, v14);
 }
 
 - (BOOL)continueSpeaking
 {
   v3 = sub_1A937829C(&qword_1EB388000, &qword_1A9587710);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8, v5);
-  v7 = &v13 - v6;
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v11 - v4;
   selfCopy = self;
   isPaused = [(CoreSynthesizer *)selfCopy isPaused];
-  v10 = sub_1A957C688();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = selfCopy;
-  sub_1A938A404(0, 0, v7, &unk_1A95957E8, v11);
+  v8 = sub_1A957C688();
+  (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = selfCopy;
+  sub_1A938A404(0, 0, v5, &unk_1A95957E8, v9);
 
   return isPaused;
 }

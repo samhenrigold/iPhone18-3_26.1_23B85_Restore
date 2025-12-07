@@ -78,116 +78,117 @@
   transactions2 = [(ASOctaneReceiptEncoder *)self transactions];
   bzero(v4, 8 * [transactions2 count] + 160);
 
-  memset(v56, 0, sizeof(v56));
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:coder type:0 version:1 UTF8String:"Xcode"];
-  *v4 = v56;
-  memset(v55, 0, sizeof(v55));
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:coder type:1 version:1 integer:0];
-  v4[1] = v55;
-  v54 = 0u;
   memset(v53, 0, sizeof(v53));
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:coder type:2 version:1 UTF8String:[(NSString *)self->_bundleID UTF8String]];
-  v4[2] = v53;
+  objc_msgSend__receiptAttributeWithCoder_type_version_UTF8String_(self);
+  *v4 = v53;
   memset(v52, 0, sizeof(v52));
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:coder type:3 version:1 UTF8String:[(NSString *)self->_bundleVersion UTF8String]];
-  v4[3] = v52;
-  v6 = arc4random();
-  v51 = arc4random() | (16 * v6);
-  v7 = 8;
-  v8 = [NSData dataWithBytes:&v51 length:8];
+  objc_msgSend__receiptAttributeWithCoder_type_version_integer_(self);
+  v4[1] = v52;
+  v51 = 0u;
   memset(v50, 0, sizeof(v50));
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:coder type:4 version:1 data:v8];
-  v4[4] = v50;
+  [(NSString *)self->_bundleID UTF8String];
+  objc_msgSend__receiptAttributeWithCoder_type_version_UTF8String_(self);
+  v4[2] = v50;
+  memset(v49, 0, sizeof(v49));
+  [(NSString *)self->_bundleVersion UTF8String];
+  objc_msgSend__receiptAttributeWithCoder_type_version_UTF8String_(self);
+  v4[3] = v49;
+  v6 = arc4random();
+  v48 = arc4random() | (16 * v6);
+  v7 = 8;
+  v8 = [NSData dataWithBytes:&v48 length:8];
+  memset(v47, 0, sizeof(v47));
+  objc_msgSend__receiptAttributeWithCoder_type_version_data_(self);
+  v4[4] = v47;
   deviceID = [(ASOctaneReceiptEncoder *)self deviceID];
   v10 = [deviceID stringByReplacingOccurrencesOfString:@"-" withString:&stru_100296B10];
 
-  v40 = v10;
+  v37 = v10;
   v11 = [NSMutableData oct_dataWithHexString:v10];
-  v41 = v8;
+  v38 = v8;
   [v11 appendData:v8];
-  v12 = [NSData dataWithBytes:*(&v54 + 1) length:v54];
+  v12 = [NSData dataWithBytes:*(&v51 + 1) length:v51];
   [v11 appendData:v12];
 
   CC_SHA1([v11 bytes], objc_msgSend(v11, "length"), md);
-  memset(v49, 0, sizeof(v49));
-  v13 = coder;
-  v14 = [NSData dataWithBytes:md length:20];
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:v13 type:5 version:1 data:v14];
+  memset(v46, 0, sizeof(v46));
+  v13 = [NSData dataWithBytes:md length:20];
+  objc_msgSend__receiptAttributeWithCoder_type_version_data_(self);
 
-  v4[5] = v49;
-  memset(v48, 0, sizeof(v48));
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:coder type:8 version:1 IA5String:""];
-  v4[6] = v48;
+  v4[5] = v46;
+  memset(v45, 0, sizeof(v45));
+  objc_msgSend__receiptAttributeWithCoder_type_version_IA5String_(self);
+  v4[6] = v45;
   _dateFormatter = [(ASOctaneReceiptEncoder *)self _dateFormatter];
-  memset(v47, 0, sizeof(v47));
-  v16 = coder;
-  v17 = +[NSDate now];
-  v18 = [_dateFormatter stringFromDate:v17];
-  -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:IA5String:](self, "_receiptAttributeWithCoder:type:version:IA5String:", v16, 12, 1, [v18 UTF8String]);
+  memset(v44, 0, sizeof(v44));
+  v15 = +[NSDate now];
+  v16 = [_dateFormatter stringFromDate:v15];
+  [v16 UTF8String];
+  objc_msgSend__receiptAttributeWithCoder_type_version_IA5String_(self);
 
-  v4[7] = v47;
+  v4[7] = v44;
   transactions3 = [(ASOctaneReceiptEncoder *)self transactions];
-  v20 = malloc_type_malloc(48 * [transactions3 count], 0x10100402F876B04uLL);
+  v18 = malloc_type_malloc(48 * [transactions3 count], 0x10100402F876B04uLL);
 
   transactions4 = [(ASOctaneReceiptEncoder *)self transactions];
-  v22 = [transactions4 count];
+  v20 = [transactions4 count];
 
-  if (v22)
+  if (v20)
   {
-    v39 = _dateFormatter;
-    v23 = 8;
-    v24 = v20;
+    v36 = _dateFormatter;
+    v21 = 8;
+    v22 = v18;
     do
     {
-      v25 = v23;
-      v26 = objc_autoreleasePoolPush();
+      v23 = v21;
+      v24 = objc_autoreleasePoolPush();
       transactions5 = [(ASOctaneReceiptEncoder *)self transactions];
-      v28 = [transactions5 objectAtIndexedSubscript:v23 - 8];
+      v26 = [transactions5 objectAtIndexedSubscript:v21 - 8];
 
-      v29 = [(ASOctaneReceiptEncoder *)self _encodePayloadForIAPReceipt:v28];
-      [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:coder type:17 version:1 data:v29];
-      v30 = v44;
-      v31 = v46;
-      v24[1] = v45;
-      v24[2] = v31;
-      *v24 = v30;
-      v4[v23++] = v24;
+      v27 = [(ASOctaneReceiptEncoder *)self _encodePayloadForIAPReceipt:v26];
+      objc_msgSend__receiptAttributeWithCoder_type_version_data_(self);
+      v28 = v41;
+      v29 = v43;
+      v22[1] = v42;
+      v22[2] = v29;
+      *v22 = v28;
+      v4[v21++] = v22;
 
-      objc_autoreleasePoolPop(v26);
+      objc_autoreleasePoolPop(v24);
       transactions6 = [(ASOctaneReceiptEncoder *)self transactions];
-      v33 = [transactions6 count];
+      v31 = [transactions6 count];
 
-      v24 += 3;
+      v22 += 3;
     }
 
-    while (v33 > v25 - 7);
-    v7 = v23;
-    _dateFormatter = v39;
+    while (v31 > v23 - 7);
+    v7 = v21;
+    _dateFormatter = v36;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v44 = 0u;
-  v34 = coder;
-  v35 = +[NSDate distantFuture];
-  v36 = [_dateFormatter stringFromDate:v35];
-  -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:IA5String:](self, "_receiptAttributeWithCoder:type:version:IA5String:", v34, 21, 1, [v36 UTF8String]);
+  v42 = 0u;
+  v43 = 0u;
+  v41 = 0u;
+  v32 = +[NSDate distantFuture];
+  v33 = [_dateFormatter stringFromDate:v32];
+  [v33 UTF8String];
+  objc_msgSend__receiptAttributeWithCoder_type_version_IA5String_(self);
 
-  v4[v7] = &v44;
+  v4[v7] = &v41;
   dest.Data = 0;
   src = v4;
   dest.Length = 0;
   SecAsn1EncodeItem(coder, &src, &unk_1002786B0, &dest);
-  v37 = [NSData dataWithBytes:dest.Data length:dest.Length];
+  v34 = [NSData dataWithBytes:dest.Data length:dest.Length];
   SecAsn1CoderRelease(coder);
-  if (v20)
+  if (v18)
   {
-    free(v20);
+    free(v18);
   }
 
   free(v4);
 
-  return v37;
+  return v34;
 }
 
 - (id)_encodePayloadForIAPReceipt:(id)receipt
@@ -196,112 +197,116 @@
   receiptCopy = receipt;
   SecAsn1CoderCreate(&coder);
   v5 = [receiptCopy objectForKeyedSubscript:@"quantity"];
-  integerValue = [v5 integerValue];
+  [v5 integerValue];
 
-  v7 = [receiptCopy objectForKeyedSubscript:@"productID"];
-  v8 = [receiptCopy objectForKeyedSubscript:@"transactionID"];
-  v9 = [receiptCopy objectForKeyedSubscript:@"originalTransactionDate"];
-  v10 = [receiptCopy objectForKeyedSubscript:@"originalTransactionID"];
-  v11 = [receiptCopy objectForKeyedSubscript:@"purchaseDate"];
-  v27 = [receiptCopy objectForKeyedSubscript:@"subscriptionExpirationDate"];
-  v26 = [receiptCopy objectForKeyedSubscript:@"introPeriod"];
-  v25 = [receiptCopy objectForKeyedSubscript:@"cancellationDate"];
+  v6 = [receiptCopy objectForKeyedSubscript:@"productID"];
+  v7 = [receiptCopy objectForKeyedSubscript:@"transactionID"];
+  v8 = [receiptCopy objectForKeyedSubscript:@"originalTransactionDate"];
+  v9 = [receiptCopy objectForKeyedSubscript:@"originalTransactionID"];
+  v10 = [receiptCopy objectForKeyedSubscript:@"purchaseDate"];
+  v22 = [receiptCopy objectForKeyedSubscript:@"subscriptionExpirationDate"];
+  v21 = [receiptCopy objectForKeyedSubscript:@"introPeriod"];
+  v20 = [receiptCopy objectForKeyedSubscript:@"cancellationDate"];
 
-  v44 = 0u;
-  v43 = 0u;
-  v42 = 0u;
-  memset(v39, 0, sizeof(v39));
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:coder type:1701 version:1 integer:integerValue];
-  v41[0] = v39;
-  memset(v38, 0, sizeof(v38));
-  v28 = v7;
-  -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:UTF8String:](self, "_receiptAttributeWithCoder:type:version:UTF8String:", coder, 1702, 1, [v7 UTF8String]);
-  v41[1] = v38;
-  memset(v37, 0, sizeof(v37));
-  -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:UTF8String:](self, "_receiptAttributeWithCoder:type:version:UTF8String:", coder, 1703, 1, [v8 UTF8String]);
-  v41[2] = v37;
+  v39 = 0u;
+  v38 = 0u;
+  v37 = 0u;
+  memset(v34, 0, sizeof(v34));
+  objc_msgSend__receiptAttributeWithCoder_type_version_integer_(self);
+  v36[0] = v34;
+  memset(v33, 0, sizeof(v33));
+  v23 = v6;
+  [v6 UTF8String];
+  objc_msgSend__receiptAttributeWithCoder_type_version_UTF8String_(self);
+  v36[1] = v33;
+  memset(v32, 0, sizeof(v32));
+  [v7 UTF8String];
+  objc_msgSend__receiptAttributeWithCoder_type_version_UTF8String_(self);
+  v36[2] = v32;
   _dateFormatter = [(ASOctaneReceiptEncoder *)self _dateFormatter];
-  memset(v36, 0, sizeof(v36));
-  v13 = coder;
-  v14 = [_dateFormatter stringFromDate:v9];
-  -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:IA5String:](self, "_receiptAttributeWithCoder:type:version:IA5String:", v13, 1704, 1, [v14 UTF8String]);
+  memset(v31, 0, sizeof(v31));
+  v12 = [_dateFormatter stringFromDate:v8];
+  [v12 UTF8String];
+  objc_msgSend__receiptAttributeWithCoder_type_version_IA5String_(self);
 
-  v41[3] = v36;
-  memset(v35, 0, sizeof(v35));
-  if (v10)
+  v36[3] = v31;
+  memset(v30, 0, sizeof(v30));
+  if (v9)
   {
-    -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:UTF8String:](self, "_receiptAttributeWithCoder:type:version:UTF8String:", coder, 1705, 1, [v10 UTF8String]);
-    *&v42 = v35;
-    v15 = 5;
+    [v9 UTF8String];
+    objc_msgSend__receiptAttributeWithCoder_type_version_UTF8String_(self);
+    *&v37 = v30;
+    v13 = 5;
   }
 
   else
   {
-    v15 = 4;
+    v13 = 4;
   }
 
-  memset(v34, 0, sizeof(v34));
-  if (v11)
+  memset(v29, 0, sizeof(v29));
+  if (v10)
   {
-    v16 = coder;
-    v17 = [_dateFormatter stringFromDate:v11];
-    -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:IA5String:](self, "_receiptAttributeWithCoder:type:version:IA5String:", v16, 1706, 1, [v17 UTF8String]);
+    v14 = [_dateFormatter stringFromDate:v10];
+    [v14 UTF8String];
+    objc_msgSend__receiptAttributeWithCoder_type_version_IA5String_(self);
 
-    v41[v15++] = v34;
+    v36[v13++] = v29;
   }
 
-  v18 = 0uLL;
-  memset(v33, 0, sizeof(v33));
-  if (v27)
+  v15 = 0uLL;
+  memset(v28, 0, sizeof(v28));
+  if (v22)
   {
-    v19 = coder;
-    v20 = [_dateFormatter stringFromDate:v27];
-    -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:IA5String:](self, "_receiptAttributeWithCoder:type:version:IA5String:", v19, 1708, 1, [v20 UTF8String]);
+    v16 = [_dateFormatter stringFromDate:v22];
+    [v16 UTF8String];
+    objc_msgSend__receiptAttributeWithCoder_type_version_IA5String_(self);
 
-    v18 = 0uLL;
-    v41[v15++] = v33;
+    v15 = 0uLL;
+    v36[v13++] = v28;
   }
 
-  v32[1] = v18;
-  v32[2] = v18;
-  v32[0] = v18;
-  if (v25)
+  v27[1] = v15;
+  v27[2] = v15;
+  v27[0] = v15;
+  if (v20)
   {
-    v21 = coder;
-    v22 = [_dateFormatter stringFromDate:v25];
-    -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:IA5String:](self, "_receiptAttributeWithCoder:type:version:IA5String:", v21, 1712, 1, [v22 UTF8String]);
+    v17 = [_dateFormatter stringFromDate:v20];
+    [v17 UTF8String];
+    objc_msgSend__receiptAttributeWithCoder_type_version_IA5String_(self);
 
-    v41[v15++] = v32;
+    v36[v13++] = v27;
   }
 
-  memset(v31, 0, sizeof(v31));
-  if (v26)
+  memset(v26, 0, sizeof(v26));
+  if (v21)
   {
-    -[ASOctaneReceiptEncoder _receiptAttributeWithCoder:type:version:integer:](self, "_receiptAttributeWithCoder:type:version:integer:", coder, 1719, 1, [v26 BOOLValue]);
-    v41[v15] = v31;
+    [v21 BOOLValue];
+    objc_msgSend__receiptAttributeWithCoder_type_version_integer_(self);
+    v36[v13] = v26;
   }
 
   dest.Data = 0;
-  src = v41;
+  src = v36;
   dest.Length = 0;
   SecAsn1EncodeItem(coder, &src, &unk_1002786B0, &dest);
-  v23 = [NSData dataWithBytes:dest.Data length:dest.Length];
+  v18 = [NSData dataWithBytes:dest.Data length:dest.Length];
   SecAsn1CoderRelease(coder);
 
-  return v23;
+  return v18;
 }
 
 - ($E570233E5C131744623CAF595F5D8D88)_receiptAttributeWithCoder:(SEL)coder type:(SecAsn1Coder *)type version:(int64_t)version IA5String:(int64_t)string
 {
   dest.Length = 0;
   dest.Data = 0;
-  v15.Length = 0;
-  v15.Data = 0;
-  v12 = strlen(a7);
-  SecAsn1AllocCopy(type, a7, v12, &dest);
-  SecAsn1EncodeItem(type, &dest, kSecAsn1IA5StringTemplate, &v15);
-  v13 = [NSData dataWithBytes:v15.Data length:v15.Length];
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:type type:version version:string data:v13];
+  v13.Length = 0;
+  v13.Data = 0;
+  v10 = strlen(a7);
+  SecAsn1AllocCopy(type, a7, v10, &dest);
+  SecAsn1EncodeItem(type, &dest, kSecAsn1IA5StringTemplate, &v13);
+  v11 = [NSData dataWithBytes:v13.Data length:v13.Length];
+  objc_msgSend__receiptAttributeWithCoder_type_version_data_(self);
 
   return result;
 }
@@ -310,13 +315,13 @@
 {
   dest.Length = 0;
   dest.Data = 0;
-  v15.Length = 0;
-  v15.Data = 0;
-  v12 = strlen(a7);
-  SecAsn1AllocCopy(type, a7, v12, &dest);
-  SecAsn1EncodeItem(type, &dest, kSecAsn1UTF8StringTemplate, &v15);
-  v13 = [NSData dataWithBytes:v15.Data length:v15.Length];
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:type type:version version:string data:v13];
+  v13.Length = 0;
+  v13.Data = 0;
+  v10 = strlen(a7);
+  SecAsn1AllocCopy(type, a7, v10, &dest);
+  SecAsn1EncodeItem(type, &dest, kSecAsn1UTF8StringTemplate, &v13);
+  v11 = [NSData dataWithBytes:v13.Data length:v13.Length];
+  objc_msgSend__receiptAttributeWithCoder_type_version_data_(self);
 
   return result;
 }
@@ -325,13 +330,13 @@
 {
   dest.Length = 0;
   dest.Data = 0;
-  v14.Length = 0;
-  v14.Data = 0;
-  v11 = [(ASOctaneReceiptEncoder *)self _smallestInt:a7];
-  SecAsn1AllocCopy(type, [v11 bytes], objc_msgSend(v11, "length"), &dest);
-  SecAsn1EncodeItem(type, &dest, kSecAsn1IntegerTemplate, &v14);
-  v12 = [NSData dataWithBytes:v14.Data length:v14.Length];
-  [(ASOctaneReceiptEncoder *)self _receiptAttributeWithCoder:type type:version version:integer data:v12];
+  v12.Length = 0;
+  v12.Data = 0;
+  v9 = [(ASOctaneReceiptEncoder *)self _smallestInt:a7];
+  SecAsn1AllocCopy(type, [v9 bytes], objc_msgSend(v9, "length"), &dest);
+  SecAsn1EncodeItem(type, &dest, kSecAsn1IntegerTemplate, &v12);
+  v10 = [NSData dataWithBytes:v12.Data length:v12.Length];
+  objc_msgSend__receiptAttributeWithCoder_type_version_data_(self);
 
   return result;
 }

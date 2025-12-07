@@ -9,14 +9,15 @@ SAAlarmObject *__cdecl sub_11C8(id a1, SAAlarmObject *a2)
   return v5;
 }
 
-void sub_1B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id location, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id location, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
-  objc_destroyWeak((v45 + 56));
+  va_start(va, a44);
+  objc_destroyWeak((v44 + 56));
   objc_destroyWeak(&location);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
-  _Block_object_dispose((v46 - 224), 8);
-  _Block_object_dispose((v46 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v45 - 224), 8);
+  _Block_object_dispose((v45 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -285,7 +286,7 @@ uint64_t MTAlarmRepeatDayFromSAAlarmDayOfWeek(unsigned int a1)
   }
 }
 
-id SAAlarmFrequencyFromRepeatSchedule(uint64_t a1)
+NSMutableArray *SAAlarmFrequencyFromRepeatSchedule(uint64_t a1)
 {
   v2 = objc_opt_new();
   v3 = v2;
@@ -314,7 +315,7 @@ void sub_4610(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t MTValidateAlarmRelativeOffsetMinutes(unint64_t a1, void *a2)
+BOOL MTValidateAlarmRelativeOffsetMinutes(unint64_t a1, void *a2)
 {
   if (a1 < 0x2D1)
   {

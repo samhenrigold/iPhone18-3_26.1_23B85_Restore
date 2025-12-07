@@ -1,3 +1,115 @@
+void sub_10028E2D0(uint64_t a1)
+{
+  v2 = +[NSProcessInfo processInfo];
+  [v2 systemUptime];
+  v4 = v3;
+  v5 = *(a1 + 96);
+
+  if (v4 >= v5)
+  {
+    v15 = AFSiriLogContextDaemon;
+    if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315138;
+      v23 = "[ADCommandCenter(Metrics) _metrics_processEventRecordsFromStore:batch:deliveryStream:eventStreamUID:streamSpeechId:untilLimit:uploadRecords:completion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%s Attempted to send analytics event stream when time limit is reached.", buf, 0xCu);
+    }
+
+    [*(a1 + 32) markFailedWithType:1];
+    (*(*(a1 + 80) + 16))();
+  }
+
+  else
+  {
+    v6 = *(a1 + 88);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10028E4D4;
+    v16[3] = &unk_100519388;
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v20 = *(a1 + 80);
+    *&v11 = *(a1 + 56);
+    *(&v11 + 1) = *(a1 + 64);
+    *&v12 = v9;
+    *(&v12 + 1) = v10;
+    v17 = v12;
+    v18 = v11;
+    v13 = *(a1 + 72);
+    v14 = *(a1 + 104);
+    v19 = v13;
+    v21 = v14;
+    (*(v6 + 16))(v6, v7, v8, v16);
+  }
+}
+
+void sub_10028E4D4(uint64_t a1, char a2)
+{
+  [*(a1 + 32) setProcessedCount:{objc_msgSend(*(a1 + 40), "count")}];
+  v4 = *(a1 + 32);
+  if (a2)
+  {
+    [v4 markSucceeded];
+    v5 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v6 = *(a1 + 40);
+    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v22;
+      do
+      {
+        for (i = 0; i != v8; i = i + 1)
+        {
+          if (*v22 != v9)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v11 = [*(*(&v21 + 1) + 8 * i) recordId];
+          [v5 addObject:v11];
+        }
+
+        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      }
+
+      while (v8);
+    }
+
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10028E73C;
+    v16[3] = &unk_100519360;
+    v12 = *(a1 + 48);
+    v16[4] = *(a1 + 56);
+    v19 = *(a1 + 72);
+    v17 = *(a1 + 40);
+    v13 = *(a1 + 64);
+    v14 = *(a1 + 80);
+    v18 = v13;
+    v20 = v14;
+    [v12 deleteEventRecordsWithRecordIDs:v5 completion:v16];
+  }
+
+  else
+  {
+    if (([v4 hasFailureType] & 1) == 0)
+    {
+      [*(a1 + 32) markFailedWithType:6];
+    }
+
+    v15 = *(*(a1 + 72) + 16);
+
+    v15();
+  }
+}
+
 void sub_10028E73C(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
@@ -572,13 +684,13 @@ void sub_10028FF20(uint64_t a1, void *a2, void *a3, void *a4)
         if (AFAnalyticsEventTypeIsValid())
         {
           v32 = AFAnalyticsEventTypeGetLegacyName();
-          v33 = [v87 objectForKey:v32];
+          v33 = objc_msgSend_objectForKey_(v87);
           v34 = [v33 unsignedIntegerValue];
 
           if (v34 == 1)
           {
-            v36 = [v23 objectForKey:v32];
-            v37 = [v24 objectForKey:v32];
+            v36 = objc_msgSend_objectForKey_(v23);
+            v37 = objc_msgSend_objectForKey_(v24);
             v38 = [NSString stringWithFormat:@"%@.%u", v32, 0];
             [v23 setObject:v36 forKey:v38];
             [v23 removeObjectForKey:v32];
@@ -1519,33 +1631,33 @@ void sub_100292EF0(uint64_t a1)
   [v4 logEventWithType:1702 contextProvider:v5];
 }
 
-id sub_10029310C(uint64_t a1)
+id sub_10029310C(uint64_t a1, uint64_t a2)
 {
-  if (AFIsInternalInstall() && (v2 = *(a1 + 32)) != 0)
+  if (AFIsInternalInstall() && (v3 = *(a1 + 32)) != 0)
   {
-    v12[0] = @"bestTextInterpretation";
-    v12[1] = @"resultId";
-    v3 = *(a1 + 40);
-    v13[0] = v2;
-    v13[1] = v3;
-    v4 = v13;
-    v5 = v12;
-    v6 = 2;
+    v13[0] = @"bestTextInterpretation";
+    v13[1] = @"resultId";
+    v4 = *(a1 + 40);
+    v14[0] = v3;
+    v14[1] = v4;
+    v5 = v14;
+    v6 = v13;
+    v7 = 2;
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    v10 = @"resultId";
-    v11 = v7;
-    v4 = &v11;
-    v5 = &v10;
-    v6 = 1;
+    v8 = *(a1 + 40);
+    v11 = @"resultId";
+    v12 = v8;
+    v5 = &v12;
+    v6 = &v11;
+    v7 = 1;
   }
 
-  v8 = [NSDictionary dictionaryWithObjects:v4 forKeys:v5 count:v6];
+  v9 = [NSDictionary dictionaryWithObjects:v5 forKeys:v6 count:v7];
 
-  return v8;
+  return v9;
 }
 
 __CFString *sub_10029381C(void *a1)
@@ -2070,7 +2182,7 @@ void sub_100297628(uint64_t a1)
   v4 = *(a1 + 32);
   v5 = *(v4 + 80);
   v6 = [NSNumber numberWithInteger:*(v4 + 64)];
-  v7 = [v5 objectForKey:v6];
+  v7 = objc_msgSend_objectForKey_(v5);
   v8 = *(a1 + 32);
   v9 = *(v8 + 56);
   *(v8 + 56) = v7;
@@ -2166,7 +2278,7 @@ void sub_100297E48(uint64_t a1, void *a2)
   }
 }
 
-void sub_100298060(void *a1, int a2, int a3)
+void sub_100298060(void *a1, const char *a2, int a3)
 {
   v4 = a1[6];
   if (v4 == 1)
@@ -2186,7 +2298,7 @@ void sub_100298060(void *a1, int a2, int a3)
       v6 = 0;
     }
 
-    v7 = [*(a1[4] + 72) objectForKey:*(a1[4] + 56)];
+    v7 = objc_msgSend_objectForKey_(*(a1[4] + 72));
     [v7 recordFeedbackOfType:v6 forSpeakable:a1[5]];
   }
 }
@@ -2346,7 +2458,7 @@ id sub_100298854(void *a1)
   if (a1)
   {
     v1 = a1;
-    v2 = [&off_1005342E8 objectForKey:v1];
+    v2 = objc_msgSend_objectForKey_(&off_1005342E8);
     v3 = v2;
     if (v2)
     {
@@ -3372,35 +3484,35 @@ void *sub_10029A974(void *a1)
   return v2;
 }
 
-id sub_10029A9C8()
+id sub_10029A9C8(uint64_t a1)
 {
   if ((AFIsHorseman() & 1) != 0 || AFIsATV())
   {
-    v2 = 0;
+    v3 = 0;
 LABEL_4:
-    [NSSet setWithObjects:@"User Identifier", @"Logging User Identifier", v2, v3, v4, v5, v6, v7];
+    [NSSet setWithObjects:@"User Identifier", @"Logging User Identifier", v3, v4, v5, v6, v7, v8];
     goto LABEL_5;
   }
 
   if (AFIsVision())
   {
-    v3 = kAFSpokenNotificationSkipTriggerlessReplyConfirmation;
-    v4 = 0;
-    v2 = kAFSpokenNotificationTemporaryMuteEndDateKey;
+    v4 = kAFSpokenNotificationSkipTriggerlessReplyConfirmation;
+    v5 = 0;
+    v3 = kAFSpokenNotificationTemporaryMuteEndDateKey;
     goto LABEL_4;
   }
 
   [NSSet setWithObjects:kAFOutputVoice, kAFSessionLanguage, @"User Identifier", @"Logging User Identifier", kAFSpokenNotificationTemporaryMuteEndDateKey, kAFSpokenNotificationSkipTriggerlessReplyConfirmation, @"MultiUser VoiceIdentification Enabled", 0];
-  v0 = LABEL_5:;
+  v1 = LABEL_5:;
 
-  return v0;
+  return v1;
 }
 
 id sub_10029AAC4()
 {
   v0 = _AFBackedUpPreferencesKeyList();
   v1 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v0 count]);
-  v2 = sub_10029A9C8();
+  v2 = sub_10029A9C8(v1);
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
@@ -3474,7 +3586,7 @@ id sub_10029AAC4()
 id sub_10029AD04()
 {
   v0 = [[NSMutableDictionary alloc] initWithCapacity:2];
-  v1 = sub_10029A9C8();
+  v1 = sub_10029A9C8(v0);
   if ([v1 containsObject:@"User Identifier"])
   {
     v2 = +[ADPreferences sharedPreferences];
@@ -3500,10 +3612,10 @@ id sub_10029AD04()
   return v0;
 }
 
-id sub_10029AE0C()
+NSMutableDictionary *sub_10029AE0C()
 {
   v0 = objc_opt_new();
-  v1 = sub_10029A9C8();
+  v1 = sub_10029A9C8(v0);
   sub_10029A974(kAFModificationDates);
   v2 = _AFBackedUpPreferencesValueForKey();
   objc_opt_class();
@@ -3531,7 +3643,7 @@ id sub_10029AE0C()
           v8 = *(*(&v11 + 1) + 8 * i);
           if ([v1 containsObject:{v8, v11}])
           {
-            v9 = [v3 objectForKey:v8];
+            v9 = objc_msgSend_objectForKey_(v3);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -3818,11 +3930,11 @@ void sub_10029DDF8(uint64_t a1, void *a2, int a3)
     v7 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v24 = 136315394;
-      v25 = "[ADCommandCenter(AMOS) _updateObjectFromService:sadIdentifier:completion:]_block_invoke";
-      v26 = 1026;
-      LODWORD(v27) = a3;
-      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s Failed to retrieve object from service. status: %{public}d", &v24, 0x12u);
+      v25 = 136315394;
+      v26 = "[ADCommandCenter(AMOS) _updateObjectFromService:sadIdentifier:completion:]_block_invoke";
+      v27 = 1026;
+      LODWORD(v28) = a3;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s Failed to retrieve object from service. status: %{public}d", &v25, 0x12u);
     }
 
     v8 = [[SACommandFailed alloc] initWithReason:@"Failed to retrieve object from service"];
@@ -3840,11 +3952,11 @@ void sub_10029DDF8(uint64_t a1, void *a2, int a3)
       v13 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
-        v24 = 136315394;
-        v25 = "[ADCommandCenter(AMOS) _updateObjectFromService:sadIdentifier:completion:]_block_invoke";
-        v26 = 2112;
-        v27 = v10;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s Successfully retrieved object from service %@", &v24, 0x16u);
+        v25 = 136315394;
+        v26 = "[ADCommandCenter(AMOS) _updateObjectFromService:sadIdentifier:completion:]_block_invoke";
+        v27 = 2112;
+        v28 = v10;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s Successfully retrieved object from service %@", &v25, 0x16u);
       }
 
       v14 = [*(a1 + 32) setFields];
@@ -3852,47 +3964,47 @@ void sub_10029DDF8(uint64_t a1, void *a2, int a3)
       v16 = [*(a1 + 32) removeFields];
       [v10 updateUsingSet:v14 add:v15 remove:v16];
 
-      v17 = sub_100214B58();
-      [v10 setIdentifier:v17];
-      v18 = AFSiriLogContextDaemon;
+      v18 = sub_100214B58(v17);
+      [v10 setIdentifier:v18];
+      v19 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
-        v24 = 136315394;
-        v25 = "[ADCommandCenter(AMOS) _updateObjectFromService:sadIdentifier:completion:]_block_invoke";
-        v26 = 2112;
-        v27 = v10;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s Updated retrieved object to %@", &v24, 0x16u);
+        v25 = 136315394;
+        v26 = "[ADCommandCenter(AMOS) _updateObjectFromService:sadIdentifier:completion:]_block_invoke";
+        v27 = 2112;
+        v28 = v10;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%s Updated retrieved object to %@", &v25, 0x16u);
       }
 
-      v19 = [*(a1 + 40) _domainObjectCache];
-      v20 = [v10 dictionary];
-      v21 = [v17 absoluteString];
-      [v19 setDomainObject:v20 withOldId:v12 forKey:v21];
+      v20 = [*(a1 + 40) _domainObjectCache];
+      v21 = [v10 dictionary];
+      v22 = [v18 absoluteString];
+      [v20 setDomainObject:v21 withOldId:v12 forKey:v22];
 
       v8 = objc_alloc_init(SADomainObjectUpdateCompleted);
-      [v8 setIdentifier:v17];
+      [v8 setIdentifier:v18];
     }
 
     else
     {
-      v22 = AFSiriLogContextDaemon;
+      v23 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
       {
-        v24 = 136315394;
-        v25 = "[ADCommandCenter(AMOS) _updateObjectFromService:sadIdentifier:completion:]_block_invoke";
-        v26 = 2112;
-        v27 = v9;
-        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%s Unexpected count of retrieved objects: %@", &v24, 0x16u);
+        v25 = 136315394;
+        v26 = "[ADCommandCenter(AMOS) _updateObjectFromService:sadIdentifier:completion:]_block_invoke";
+        v27 = 2112;
+        v28 = v9;
+        _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%s Unexpected count of retrieved objects: %@", &v25, 0x16u);
       }
 
       v8 = [[SACommandFailed alloc] initWithReason:@"Error retrieving object from service"];
     }
   }
 
-  v23 = *(a1 + 48);
-  if (v23)
+  v24 = *(a1 + 48);
+  if (v24)
   {
-    (*(v23 + 16))(v23, v8, 0);
+    (*(v24 + 16))(v24, v8, 0);
   }
 }
 
@@ -4520,14 +4632,14 @@ LABEL_12:
     v17 = *v27;
     while (2)
     {
-      for (i = 0; i != v16; i = i + 1)
+      for (i = 0; i != v16; ++i)
       {
         if (*v27 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(a1[4] + 200) objectForKey:{*(*(&v26 + 1) + 8 * i), v26}];
+        v19 = objc_msgSend_objectForKey_(*(a1[4] + 200), v26);
         v20 = [v19 companionIDSIdentifier];
         v21 = [v20 isEqualToString:a1[5]];
 
@@ -4609,14 +4721,14 @@ LABEL_6:
       v13 = *v24;
       while (2)
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v12; ++i)
         {
           if (*v24 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [*(*(a1 + 40) + 200) objectForKey:{*(*(&v23 + 1) + 8 * i), v23}];
+          v15 = objc_msgSend_objectForKey_(*(*(a1 + 40) + 200), v23);
           v16 = [v15 companionAssistantID];
           v17 = [v16 uppercaseString];
           v18 = [v17 isEqualToString:v2];
@@ -4728,7 +4840,7 @@ LABEL_8:
     }
 
 LABEL_7:
-    v7 = [*(v3 + 200) objectForKey:a1[5]];
+    v7 = objc_msgSend_objectForKey_(*(v3 + 200));
     goto LABEL_8;
   }
 
@@ -4775,26 +4887,26 @@ LABEL_5:
     }
 
 LABEL_7:
-    v7 = [*(v3 + 200) objectForKey:a1[5]];
+    v7 = objc_msgSend_objectForKey_(*(v3 + 200));
 LABEL_8:
     v8 = v7;
     if (v7)
     {
       v9 = [v7 settings];
-      v10 = [v9 objectForKey:SAHomeMemberSettingsTemperatureUnitPListKey];
+      v10 = objc_msgSend_objectForKey_(v9);
 
       v11 = [v8 settings];
-      v12 = [v11 objectForKey:SAHomeMemberSettingsTwentyFourHourTimeDisplayPListKey];
+      v12 = objc_msgSend_objectForKey_(v11);
       v13 = [v12 BOOLValue];
 
       v14 = [v8 settings];
-      v15 = [v14 objectForKey:SAHomeMemberSettingsRegionPListKey];
+      v15 = objc_msgSend_objectForKey_(v14);
 
       v16 = [v8 settings];
-      v17 = [v16 objectForKey:SAHomeMemberSettingsCountryCodePListKey];
+      v17 = objc_msgSend_objectForKey_(v16);
 
       v18 = [v8 settings];
-      v19 = [v18 objectForKey:SAHomeMemberSettingsPreferredLanguagePListKey];
+      v19 = objc_msgSend_objectForKey_(v18);
 
 LABEL_10:
       v20 = AFSiriLogContextDaemon;
@@ -4901,7 +5013,7 @@ void sub_1002A2BAC(uint64_t a1)
     else
     {
 LABEL_9:
-      v12 = [*(v5 + 200) objectForKey:v3];
+      v12 = objc_msgSend_objectForKey_(*(v5 + 200));
       v11 = v12;
       if (v12)
       {
@@ -5053,7 +5165,7 @@ void sub_1002A32EC(uint64_t a1)
     else
     {
 LABEL_9:
-      v12 = [*(v5 + 200) objectForKey:v3];
+      v12 = objc_msgSend_objectForKey_(*(v5 + 200));
       v11 = v12;
       if (v12)
       {
@@ -5201,7 +5313,7 @@ LABEL_13:
     else
     {
 LABEL_19:
-      v23 = [*(v16 + 200) objectForKey:v3];
+      v23 = objc_msgSend_objectForKey_(*(v16 + 200));
       v22 = v23;
       if (v23)
       {
@@ -5244,7 +5356,7 @@ LABEL_29:
 
 void sub_1002A3CA4(uint64_t a1)
 {
-  v34 = objc_alloc_init(NSMutableDictionary);
+  v33 = objc_alloc_init(NSMutableDictionary);
   v2 = *(a1 + 32);
   v3 = *(v2 + 208);
   if (v3)
@@ -5271,9 +5383,9 @@ void sub_1002A3CA4(uint64_t a1)
       }
 
       *buf = 136315394;
-      v43 = "[ADMultiUserService getRecognizableUsersConfromingSharedUserIds:]_block_invoke";
-      v44 = 2048;
-      v45 = v10;
+      v42 = "[ADMultiUserService getRecognizableUsersConfromingSharedUserIds:]_block_invoke";
+      v43 = 2048;
+      v44 = v10;
       v12 = "%s Primary user present. RmV enabled: %ld";
       goto LABEL_29;
     }
@@ -5306,9 +5418,9 @@ void sub_1002A3CA4(uint64_t a1)
       }
 
       *buf = 136315394;
-      v43 = "[ADMultiUserService getRecognizableUsersConfromingSharedUserIds:]_block_invoke";
-      v44 = 2048;
-      v45 = v10;
+      v42 = "[ADMultiUserService getRecognizableUsersConfromingSharedUserIds:]_block_invoke";
+      v43 = 2048;
+      v44 = v10;
       v12 = "%s Device Owner present. RmV enabled: %ld";
 LABEL_29:
       _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, v12, buf, 0x16u);
@@ -5325,68 +5437,67 @@ LABEL_12:
     }
 
 LABEL_11:
-    [v34 setObject:v9 forKey:v4];
+    [v33 setObject:v9 forKey:v4];
     goto LABEL_12;
   }
 
   v4 = 0;
 LABEL_13:
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = *(v2 + 200);
-  v18 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v18 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v18)
   {
     v19 = v18;
-    v36 = *v38;
+    v35 = *v37;
     v20 = kAFMultiUserSharedUserIdKey;
     v21 = kAFMultiUserConformingSharedUserIdKey;
     do
     {
-      for (i = 0; i != v19; i = i + 1)
+      for (i = 0; i != v19; ++i)
       {
         v23 = v4;
-        if (*v38 != v36)
+        if (*v37 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v37 + 1) + 8 * i);
         v4 = [*(*(a1 + 32) + 216) iCloudAltDSID];
 
-        v25 = a1;
-        v26 = [*(*(a1 + 32) + 200) objectForKey:v24];
-        v27 = [NSDictionary alloc];
-        v28 = [v26 sharedUserID];
-        v29 = [v26 loggableMusicSyncSharedUserID];
-        v30 = [v27 initWithObjectsAndKeys:{v28, v20, v29, v21, 0}];
+        v24 = a1;
+        v25 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200));
+        v26 = [NSDictionary alloc];
+        v27 = [v25 sharedUserID];
+        v28 = [v25 loggableMusicSyncSharedUserID];
+        v29 = [v26 initWithObjectsAndKeys:{v27, v20, v28, v21, 0}];
 
         if (v4 && ((AFIsHorseman() & 1) != 0 || _AFPreferencesSiriRMVSetting() == 1))
         {
-          [v34 setObject:v30 forKey:v4];
+          [v33 setObject:v29 forKey:v4];
         }
 
-        a1 = v25;
+        a1 = v24;
       }
 
-      v19 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v19 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v19);
   }
 
-  v31 = AFSiriLogContextDaemon;
+  v30 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
-    v32 = v31;
-    v33 = [v34 count];
+    v31 = v30;
+    v32 = [v33 count];
     *buf = 136315394;
-    v43 = "[ADMultiUserService getRecognizableUsersConfromingSharedUserIds:]_block_invoke";
-    v44 = 2048;
-    v45 = v33;
-    _os_log_debug_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "%s User count: %ld", buf, 0x16u);
+    v42 = "[ADMultiUserService getRecognizableUsersConfromingSharedUserIds:]_block_invoke";
+    v43 = 2048;
+    v44 = v32;
+    _os_log_debug_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "%s User count: %ld", buf, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -5479,7 +5590,7 @@ LABEL_13:
         }
 
         v24 = a1;
-        v25 = [*(*(a1 + 32) + 200) objectForKey:*(*(&v37 + 1) + 8 * v23)];
+        v25 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200));
         v26 = [NSDictionary alloc];
         v27 = [v25 sharedUserID];
         v28 = [v25 loggableMusicSyncSharedUserID];
@@ -5493,7 +5604,7 @@ LABEL_13:
           [v36 setObject:v29 forKey:v31];
         }
 
-        v23 = v23 + 1;
+        ++v23;
         a1 = v24;
       }
 
@@ -5519,88 +5630,88 @@ LABEL_13:
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_1002A47BC(void *a1)
+void sub_1002A47BC(void *a1, const char *a2)
 {
-  v2 = a1[4];
-  v3 = v2[26];
-  if (v3)
+  v3 = a1[4];
+  v4 = v3[26];
+  if (v4)
   {
-    v4 = AFSiriLogContextDaemon;
+    v5 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 136315138;
-      v20 = "[ADMultiUserService getConformingSharedUserIdForHomeUserId:completion:]_block_invoke";
-      _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s Primary user present", &v19, 0xCu);
-      v3 = *(a1[4] + 208);
+      v20 = 136315138;
+      v21 = "[ADMultiUserService getConformingSharedUserIdForHomeUserId:completion:]_block_invoke";
+      _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%s Primary user present", &v20, 0xCu);
+      v4 = *(a1[4] + 208);
     }
 
-    v5 = [v3 homeUserUUID];
-    v6 = [v5 isEqualToString:a1[5]];
+    v6 = [v4 homeUserUUID];
+    v7 = [v6 isEqualToString:a1[5]];
 
-    v2 = a1[4];
-    if (v6)
+    v3 = a1[4];
+    if (v7)
     {
-      v7 = a1[6];
-      v8 = [v2[26] sharedUserID];
-      v9 = *(a1[4] + 208);
+      v8 = a1[6];
+      v9 = [v3[26] sharedUserID];
+      v10 = *(a1[4] + 208);
 LABEL_11:
-      v14 = [v9 loggableMusicSyncSharedUserID];
-      (*(v7 + 16))(v7, v8, v14, 0);
+      v15 = [v10 loggableMusicSyncSharedUserID];
+      (*(v8 + 16))(v8, v9, v15, 0);
       goto LABEL_17;
     }
   }
 
   else
   {
-    v10 = v2[27];
-    if (v10)
+    v11 = v3[27];
+    if (v11)
     {
-      v11 = AFSiriLogContextDaemon;
+      v12 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
       {
-        v19 = 136315138;
-        v20 = "[ADMultiUserService getConformingSharedUserIdForHomeUserId:completion:]_block_invoke";
-        _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%s Device owner present", &v19, 0xCu);
-        v10 = *(a1[4] + 216);
+        v20 = 136315138;
+        v21 = "[ADMultiUserService getConformingSharedUserIdForHomeUserId:completion:]_block_invoke";
+        _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%s Device owner present", &v20, 0xCu);
+        v11 = *(a1[4] + 216);
       }
 
-      v12 = [v10 homeUserUUID];
-      v13 = [v12 isEqualToString:a1[5]];
+      v13 = [v11 homeUserUUID];
+      v14 = [v13 isEqualToString:a1[5]];
 
-      v2 = a1[4];
-      if (v13)
+      v3 = a1[4];
+      if (v14)
       {
-        v7 = a1[6];
-        v8 = [v2[27] sharedUserID];
-        v9 = *(a1[4] + 216);
+        v8 = a1[6];
+        v9 = [v3[27] sharedUserID];
+        v10 = *(a1[4] + 216);
         goto LABEL_11;
       }
     }
   }
 
-  v15 = [v2[33] objectForKey:a1[5]];
-  if (v15)
+  v16 = objc_msgSend_objectForKey_(v3[33]);
+  if (v16)
   {
-    v8 = v15;
-    v16 = a1[6];
-    v14 = [v15 sharedUserID];
-    v17 = [v8 loggableMusicSyncSharedUserID];
-    (*(v16 + 16))(v16, v14, v17, 0);
+    v9 = v16;
+    v17 = a1[6];
+    v15 = [v16 sharedUserID];
+    v18 = [v9 loggableMusicSyncSharedUserID];
+    (*(v17 + 16))(v17, v15, v18, 0);
   }
 
   else
   {
-    v18 = AFSiriLogContextDaemon;
+    v19 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315138;
-      v20 = "[ADMultiUserService getConformingSharedUserIdForHomeUserId:completion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%s Primary user not present or sharedUserId not found", &v19, 0xCu);
+      v20 = 136315138;
+      v21 = "[ADMultiUserService getConformingSharedUserIdForHomeUserId:completion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%s Primary user not present or sharedUserId not found", &v20, 0xCu);
     }
 
-    v14 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6001 userInfo:&__NSDictionary0__struct];
+    v15 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6001 userInfo:&__NSDictionary0__struct];
     (*(a1[6] + 16))();
-    v8 = 0;
+    v9 = 0;
   }
 
 LABEL_17:
@@ -5620,7 +5731,7 @@ void sub_1002A4BD4(void *a1)
 
   else
   {
-    v5 = [*(v4 + 200) objectForKey:a1[4]];
+    v5 = objc_msgSend_objectForKey_(*(v4 + 200));
   }
 
   v14 = v5;
@@ -5653,79 +5764,158 @@ void sub_1002A4BD4(void *a1)
   }
 }
 
-void sub_1002A4F40(void *a1)
+void sub_1002A4F40(void *a1, const char *a2)
 {
-  v2 = a1[4];
-  v3 = *(v2 + 208);
-  if (v3)
+  v3 = a1[4];
+  v4 = *(v3 + 208);
+  if (v4)
   {
-    v4 = AFSiriLogContextDaemon;
+    v5 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
     {
-      v18 = v4;
-      v19 = [v3 sharedUserID];
-      v22 = 136315395;
-      v23 = "[ADMultiUserService getSharedUserIdForHomeUserId:completion:]_block_invoke";
-      v24 = 2113;
-      v25 = v19;
-      _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "%s Primary user present with sharedUserId = %{private}@", &v22, 0x16u);
+      v19 = v5;
+      v20 = [v4 sharedUserID];
+      v23 = 136315395;
+      v24 = "[ADMultiUserService getSharedUserIdForHomeUserId:completion:]_block_invoke";
+      v25 = 2113;
+      v26 = v20;
+      _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "%s Primary user present with sharedUserId = %{private}@", &v23, 0x16u);
 
-      v3 = *(a1[4] + 208);
+      v4 = *(a1[4] + 208);
     }
 
-    v5 = [v3 homeUserUUID];
-    v6 = [v5 isEqualToString:a1[5]];
+    v6 = [v4 homeUserUUID];
+    v7 = [v6 isEqualToString:a1[5]];
 
-    v2 = a1[4];
-    if (v6)
+    v3 = a1[4];
+    if (v7)
     {
-      v7 = a1[6];
-      v8 = *(v2 + 208);
+      v8 = a1[6];
+      v9 = *(v3 + 208);
 LABEL_11:
-      v13 = [v8 sharedUserID];
-      (*(v7 + 16))(v7, v13, 0);
+      v14 = [v9 sharedUserID];
+      (*(v8 + 16))(v8, v14, 0);
       goto LABEL_18;
     }
   }
 
   else
   {
-    v9 = *(v2 + 216);
-    if (v9)
+    v10 = *(v3 + 216);
+    if (v10)
     {
-      v10 = AFSiriLogContextDaemon;
+      v11 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
       {
-        v20 = v10;
-        v21 = [v9 sharedUserID];
-        v22 = 136315395;
-        v23 = "[ADMultiUserService getSharedUserIdForHomeUserId:completion:]_block_invoke";
-        v24 = 2113;
-        v25 = v21;
-        _os_log_debug_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "%s Device owner present with sharedUserId = %{private}@", &v22, 0x16u);
+        v21 = v11;
+        v22 = [v10 sharedUserID];
+        v23 = 136315395;
+        v24 = "[ADMultiUserService getSharedUserIdForHomeUserId:completion:]_block_invoke";
+        v25 = 2113;
+        v26 = v22;
+        _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "%s Device owner present with sharedUserId = %{private}@", &v23, 0x16u);
 
-        v9 = *(a1[4] + 216);
+        v10 = *(a1[4] + 216);
       }
 
-      v11 = [v9 homeUserUUID];
-      v12 = [v11 isEqualToString:a1[5]];
+      v12 = [v10 homeUserUUID];
+      v13 = [v12 isEqualToString:a1[5]];
 
-      v2 = a1[4];
-      if (v12)
+      v3 = a1[4];
+      if (v13)
       {
-        v7 = a1[6];
-        v8 = *(v2 + 216);
+        v8 = a1[6];
+        v9 = *(v3 + 216);
         goto LABEL_11;
       }
     }
   }
 
-  v14 = [*(v2 + 264) objectForKey:a1[5]];
-  v13 = v14;
-  if (v14)
+  v15 = objc_msgSend_objectForKey_(*(v3 + 264));
+  v14 = v15;
+  if (v15)
   {
+    v16 = a1[6];
+    v17 = [v15 sharedUserID];
+    (*(v16 + 16))(v16, v17, 0);
+  }
+
+  else
+  {
+    v18 = AFSiriLogContextDaemon;
+    if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
+    {
+      v23 = 136315138;
+      v24 = "[ADMultiUserService getSharedUserIdForHomeUserId:completion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%s Primary user not present or sharedUserId not found", &v23, 0xCu);
+    }
+
+    v17 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6001 userInfo:&__NSDictionary0__struct];
+    (*(a1[6] + 16))(a1[6], 0, v17);
+  }
+
+LABEL_18:
+}
+
+void sub_1002A53FC(void *a1, const char *a2)
+{
+  v3 = *(a1[4] + 208);
+  if (v3)
+  {
+    v4 = AFSiriLogContextDaemon;
+    if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
+    {
+      v18 = 136315138;
+      v19 = "[ADMultiUserService getHomeUserIdForSharedUserId:completion:]_block_invoke";
+      _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s Primary user present", &v18, 0xCu);
+      v3 = *(a1[4] + 208);
+    }
+
+    v5 = [v3 sharedUserID];
+    v6 = [v5 isEqualToString:a1[5]];
+
+    if (v6)
+    {
+      v7 = a1[6];
+      v8 = *(a1[4] + 208);
+LABEL_12:
+      v13 = [v8 homeUserUUID];
+      (*(v7 + 16))(v7, v13, 0);
+      goto LABEL_19;
+    }
+  }
+
+  if (AFIsATV())
+  {
+    v9 = *(a1[4] + 216);
+    if (v9)
+    {
+      v10 = AFSiriLogContextDaemon;
+      if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
+      {
+        v18 = 136315138;
+        v19 = "[ADMultiUserService getHomeUserIdForSharedUserId:completion:]_block_invoke";
+        _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%s Platform is ATV and not primary user. Checking device owner", &v18, 0xCu);
+        v9 = *(a1[4] + 216);
+      }
+
+      v11 = [v9 sharedUserID];
+      v12 = [v11 isEqualToString:a1[5]];
+
+      if (v12)
+      {
+        v7 = a1[6];
+        v8 = *(a1[4] + 216);
+        goto LABEL_12;
+      }
+    }
+  }
+
+  if (a1[5] && (objc_msgSend_objectForKey_(*(a1[4] + 200)), (v14 = objc_claimAutoreleasedReturnValue()) != 0))
+  {
+    v13 = v14;
     v15 = a1[6];
-    v16 = [v14 sharedUserID];
+    v16 = [v14 homeUserUUID];
     (*(v15 + 16))(v15, v16, 0);
   }
 
@@ -5734,100 +5924,21 @@ LABEL_11:
     v17 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v22 = 136315138;
-      v23 = "[ADMultiUserService getSharedUserIdForHomeUserId:completion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s Primary user not present or sharedUserId not found", &v22, 0xCu);
+      v18 = 136315138;
+      v19 = "[ADMultiUserService getHomeUserIdForSharedUserId:completion:]_block_invoke";
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s Primary user not present or home userId not found", &v18, 0xCu);
     }
 
-    v16 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6001 userInfo:&__NSDictionary0__struct];
-    (*(a1[6] + 16))(a1[6], 0, v16);
-  }
-
-LABEL_18:
-}
-
-void sub_1002A53FC(void *a1)
-{
-  v2 = *(a1[4] + 208);
-  if (v2)
-  {
-    v3 = AFSiriLogContextDaemon;
-    if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
-    {
-      v17 = 136315138;
-      v18 = "[ADMultiUserService getHomeUserIdForSharedUserId:completion:]_block_invoke";
-      _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%s Primary user present", &v17, 0xCu);
-      v2 = *(a1[4] + 208);
-    }
-
-    v4 = [v2 sharedUserID];
-    v5 = [v4 isEqualToString:a1[5]];
-
-    if (v5)
-    {
-      v6 = a1[6];
-      v7 = *(a1[4] + 208);
-LABEL_12:
-      v12 = [v7 homeUserUUID];
-      (*(v6 + 16))(v6, v12, 0);
-      goto LABEL_19;
-    }
-  }
-
-  if (AFIsATV())
-  {
-    v8 = *(a1[4] + 216);
-    if (v8)
-    {
-      v9 = AFSiriLogContextDaemon;
-      if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
-      {
-        v17 = 136315138;
-        v18 = "[ADMultiUserService getHomeUserIdForSharedUserId:completion:]_block_invoke";
-        _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%s Platform is ATV and not primary user. Checking device owner", &v17, 0xCu);
-        v8 = *(a1[4] + 216);
-      }
-
-      v10 = [v8 sharedUserID];
-      v11 = [v10 isEqualToString:a1[5]];
-
-      if (v11)
-      {
-        v6 = a1[6];
-        v7 = *(a1[4] + 216);
-        goto LABEL_12;
-      }
-    }
-  }
-
-  if (a1[5] && ([*(a1[4] + 200) objectForKey:?], (v13 = objc_claimAutoreleasedReturnValue()) != 0))
-  {
-    v12 = v13;
-    v14 = a1[6];
-    v15 = [v13 homeUserUUID];
-    (*(v14 + 16))(v14, v15, 0);
-  }
-
-  else
-  {
-    v16 = AFSiriLogContextDaemon;
-    if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
-    {
-      v17 = 136315138;
-      v18 = "[ADMultiUserService getHomeUserIdForSharedUserId:completion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%s Primary user not present or home userId not found", &v17, 0xCu);
-    }
-
-    v12 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6001 userInfo:&__NSDictionary0__struct];
-    (*(a1[6] + 16))(a1[6], 0, v12);
+    v13 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6001 userInfo:&__NSDictionary0__struct];
+    (*(a1[6] + 16))(a1[6], 0, v13);
   }
 
 LABEL_19:
 }
 
-void sub_1002A579C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1002A579C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5848,7 +5959,7 @@ void sub_1002A57B4(uint64_t a1)
   v6 = *(a1 + 32);
   if (!v5)
   {
-    v9 = [*(v6 + 200) objectForKey:v3];
+    v9 = objc_msgSend_objectForKey_(*(v6 + 200));
     v10 = v9;
     if (v9)
     {
@@ -5907,54 +6018,54 @@ LABEL_12:
 LABEL_10:
 }
 
-void sub_1002A5B3C(void *a1)
+void sub_1002A5B3C(void *a1, const char *a2)
 {
-  v2 = a1[4];
-  v3 = *(v2 + 208);
-  if (v3)
+  v3 = a1[4];
+  v4 = *(v3 + 208);
+  if (v4)
   {
-    v4 = [v3 homeUserUUID];
-    v5 = [v4 isEqualToString:a1[5]];
+    v5 = [v4 homeUserUUID];
+    v6 = [v5 isEqualToString:a1[5]];
 
-    if ((v5 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
       goto LABEL_8;
     }
 
-    v6 = 208;
+    v7 = 208;
     goto LABEL_7;
   }
 
-  v7 = *(v2 + 216);
-  if (v7)
+  v8 = *(v3 + 216);
+  if (v8)
   {
-    v8 = [v7 homeUserUUID];
-    v9 = [v8 isEqualToString:a1[5]];
+    v9 = [v8 homeUserUUID];
+    v10 = [v9 isEqualToString:a1[5]];
 
-    if (v9)
+    if (v10)
     {
-      v6 = 216;
+      v7 = 216;
 LABEL_7:
-      v10 = [*(a1[4] + v6) sharedUserID];
-      v11 = [v10 copy];
-      v12 = *(a1[6] + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = v11;
+      v11 = [*(a1[4] + v7) sharedUserID];
+      v12 = [v11 copy];
+      v13 = *(a1[6] + 8);
+      v14 = *(v13 + 40);
+      *(v13 + 40) = v12;
     }
   }
 
 LABEL_8:
-  v14 = [*(a1[4] + 264) objectForKey:a1[5]];
-  if (v14)
+  v15 = objc_msgSend_objectForKey_(*(a1[4] + 264));
+  if (v15)
   {
-    v19 = v14;
-    v15 = [v14 sharedUserID];
-    v16 = [v15 copy];
-    v17 = *(a1[6] + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v16;
+    v20 = v15;
+    v16 = [v15 sharedUserID];
+    v17 = [v16 copy];
+    v18 = *(a1[6] + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
 
-    v14 = v19;
+    v15 = v20;
   }
 }
 
@@ -6002,23 +6113,23 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v10 = [*(v9 + 200) objectForKey:v12];
+  v10 = objc_msgSend_objectForKey_(*(v9 + 200));
   v11 = [v10 loggableMusicSyncSharedUserID];
   [*(a1 + 40) setObject:v11 forKeyedSubscript:v12];
 
 LABEL_7:
 }
 
-uint64_t sub_1002A6044(uint64_t result)
+void *sub_1002A6044(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (!v1)
   {
     return result;
   }
 
   v2 = result;
-  v3 = [*(*(result + 40) + 208) sharedUserID];
+  v3 = [*(result[5] + 208) sharedUserID];
   v4 = [v1 isEqualToString:v3];
 
   if (v4)
@@ -6035,7 +6146,7 @@ uint64_t sub_1002A6044(uint64_t result)
     v8 = v2[5];
     if (!v6)
     {
-      v15 = [*(v8 + 200) objectForKey:v2[4]];
+      v15 = objc_msgSend_objectForKey_(*(v8 + 200));
       v12 = [v15 loggableMusicSyncSharedUserID];
       v13 = *(v2[6] + 8);
       v14 = *(v13 + 40);
@@ -6104,7 +6215,7 @@ void sub_1002A6280(void *a1)
         }
 
         v15 = *(*(&v17 + 1) + 8 * v13);
-        v16 = [*(a1[4] + 200) objectForKey:{v15, v17}];
+        v16 = objc_msgSend_objectForKey_(*(a1[4] + 200), v17);
         v4 = [v16 shareOwnerName];
 
         if ([v4 isEqualToString:a1[5]])
@@ -6132,41 +6243,41 @@ void sub_1002A6280(void *a1)
 LABEL_15:
 }
 
-void sub_1002A65A0(uint64_t a1)
+void sub_1002A65A0(uint64_t a1, const char *a2)
 {
-  v2 = [*(*(a1 + 32) + 200) objectForKey:*(a1 + 40)];
-  v10 = v2;
-  if (v2)
+  v3 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200), a2, *(a1 + 40));
+  v11 = v3;
+  if (v3)
   {
-    [v2 setShareOwnerName:*(a1 + 48)];
-    [v10 testAndSetLoggingIsAllowed:*(a1 + 72)];
-    v3 = *(a1 + 56);
-    if (v3)
+    [v3 setShareOwnerName:*(a1 + 48)];
+    [v11 testAndSetLoggingIsAllowed:*(a1 + 72)];
+    v4 = *(a1 + 56);
+    if (v4)
     {
-      v4 = [v3 dictionary];
-      [v10 setSettings:v4];
+      v5 = [v4 dictionary];
+      [v11 setSettings:v5];
     }
 
     if (*(a1 + 64))
     {
-      [v10 setAudioAppSignals:?];
+      [v11 setAudioAppSignals:?];
     }
   }
 
   else
   {
-    v5 = [*(*(a1 + 32) + 208) sharedUserID];
-    v6 = [v5 isEqualToString:*(a1 + 40)];
+    v6 = [*(*(a1 + 32) + 208) sharedUserID];
+    v7 = [v6 isEqualToString:*(a1 + 40)];
 
-    if (v6)
+    if (v7)
     {
       [*(*(a1 + 32) + 208) setShareOwnerName:*(a1 + 48)];
-      v7 = *(a1 + 56);
-      if (v7)
+      v8 = *(a1 + 56);
+      if (v8)
       {
-        v8 = *(*(a1 + 32) + 208);
-        v9 = [v7 dictionary];
-        [v8 setSettings:v9];
+        v9 = *(*(a1 + 32) + 208);
+        v10 = [v8 dictionary];
+        [v9 setSettings:v10];
       }
 
       if (*(a1 + 64))
@@ -6179,68 +6290,68 @@ void sub_1002A65A0(uint64_t a1)
   }
 }
 
-void sub_1002A679C(void *a1)
+void sub_1002A679C(void *a1, const char *a2)
 {
-  v2 = [*(a1[4] + 264) objectForKey:a1[5]];
-  if (v2)
+  v3 = objc_msgSend_objectForKey_(*(a1[4] + 264), a2, a1[5]);
+  if (v3)
   {
-    v3 = v2;
-    [v2 setEnrollmentName:a1[6]];
-    v2 = v3;
+    v4 = v3;
+    [v3 setEnrollmentName:a1[6]];
+    v3 = v4;
   }
 }
 
-void sub_1002A6BF8(uint64_t a1)
+void sub_1002A6BF8(uint64_t a1, const char *a2)
 {
-  v2 = [*(*(a1 + 32) + 200) objectForKey:*(a1 + 40)];
-  v3 = v2;
-  if (!v2)
+  v3 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200), a2, *(a1 + 40));
+  v4 = v3;
+  if (!v3)
   {
-    v4 = [*(*(a1 + 32) + 208) sharedUserID];
-    v5 = [v4 isEqualToString:*(a1 + 40)];
+    v5 = [*(*(a1 + 32) + 208) sharedUserID];
+    v6 = [v5 isEqualToString:*(a1 + 40)];
 
-    if (!v5)
+    if (!v6)
     {
       goto LABEL_5;
     }
 
-    v3 = *(*(a1 + 32) + 208);
+    v4 = *(*(a1 + 32) + 208);
   }
 
-  v6 = *(*(a1 + 120) + 8);
-  v7 = v3;
-  v8 = *(v6 + 40);
-  *(v6 + 40) = v7;
+  v7 = *(*(a1 + 120) + 8);
+  v8 = v4;
+  v9 = *(v7 + 40);
+  *(v7 + 40) = v8;
 
 LABEL_5:
-  v9 = *(*(*(a1 + 120) + 8) + 40);
-  if (!v9)
+  v10 = *(*(*(a1 + 120) + 8) + 40);
+  if (!v10)
   {
-    v16 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6001 userInfo:&__NSDictionary0__struct];
-    v17 = 0;
+    v17 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6001 userInfo:&__NSDictionary0__struct];
+    v18 = 0;
     goto LABEL_49;
   }
 
-  v10 = *(a1 + 48);
-  v11 = [v9 companionAssistantID];
-  v12 = v10;
+  v11 = *(a1 + 48);
+  v12 = [v10 companionAssistantID];
   v13 = v11;
-  v14 = v13;
-  if (v12 == v13)
+  v14 = v12;
+  v15 = v14;
+  if (v13 == v14)
   {
 
     goto LABEL_15;
   }
 
-  if (!v12 || !v13)
+  if (!v13 || !v14)
   {
 
     goto LABEL_14;
   }
 
-  v15 = [v12 isEqual:v13];
+  v16 = [v13 isEqual:v14];
 
-  if ((v15 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
 LABEL_14:
     [*(*(*(a1 + 120) + 8) + 40) setCompanionAssistantID:*(a1 + 48)];
@@ -6263,22 +6374,22 @@ LABEL_15:
     [*(*(*(a1 + 120) + 8) + 40) setProductPrefix:?];
   }
 
-  v18 = *(a1 + 80);
-  v19 = [*(*(*(a1 + 120) + 8) + 40) aceHost];
-  v20 = v18;
+  v19 = *(a1 + 80);
+  v20 = [*(*(*(a1 + 120) + 8) + 40) aceHost];
   v21 = v19;
-  v22 = v21;
-  if (v20 == v21)
+  v22 = v20;
+  v23 = v22;
+  if (v21 == v22)
   {
   }
 
   else
   {
-    if (v20 && v21)
+    if (v21 && v22)
     {
-      v23 = [v20 isEqual:v21];
+      v24 = [v21 isEqual:v22];
 
-      if (v23)
+      if (v24)
       {
         goto LABEL_29;
       }
@@ -6293,8 +6404,8 @@ LABEL_15:
   }
 
 LABEL_29:
-  v24 = [*(*(*(a1 + 120) + 8) + 40) companionPeerToPeerHandoffCapable];
-  if (v24 != [*(a1 + 88) peerToPeerHandoffCapability])
+  v25 = [*(*(*(a1 + 120) + 8) + 40) companionPeerToPeerHandoffCapable];
+  if (v25 != [*(a1 + 88) peerToPeerHandoffCapability])
   {
     [*(*(*(a1 + 120) + 8) + 40) setCompanionPeerToPeerHandoffCapable:{objc_msgSend(*(a1 + 88), "peerToPeerHandoffCapability")}];
     *(*(*(a1 + 128) + 8) + 24) = 1;
@@ -6302,20 +6413,20 @@ LABEL_29:
 
   if (*(a1 + 96))
   {
-    v25 = [*(*(*(a1 + 120) + 8) + 40) companionName];
-    v26 = [v25 isEqualToString:*(a1 + 96)];
+    v26 = [*(*(*(a1 + 120) + 8) + 40) companionName];
+    v27 = [v26 isEqualToString:*(a1 + 96)];
 
-    if ((v26 & 1) == 0)
+    if ((v27 & 1) == 0)
     {
-      v27 = AFSiriLogContextDaemon;
+      v28 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
-        v28 = *(a1 + 96);
+        v29 = *(a1 + 96);
         *buf = 136315394;
-        v65 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
-        v66 = 2112;
-        v67 = v28;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "%s Updating companion Name: %@", buf, 0x16u);
+        v66 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
+        v67 = 2112;
+        v68 = v29;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s Updating companion Name: %@", buf, 0x16u);
       }
 
       [*(*(*(a1 + 120) + 8) + 40) setCompanionName:*(a1 + 96)];
@@ -6323,28 +6434,28 @@ LABEL_29:
     }
   }
 
-  v17 = [*(*(*(a1 + 120) + 8) + 40) homeUserUUID];
-  v29 = *(a1 + 32);
-  v30 = *(a1 + 104);
-  if (*(*(*(a1 + 120) + 8) + 40) == v29[26])
+  v18 = [*(*(*(a1 + 120) + 8) + 40) homeUserUUID];
+  v30 = *(a1 + 32);
+  v31 = *(a1 + 104);
+  if (*(*(*(a1 + 120) + 8) + 40) == v30[26])
   {
-    if (v30)
+    if (v31)
     {
       [*(a1 + 32) _setPrimaryUserSiriLanguage:?];
     }
 
     else
     {
-      v38 = +[AFPreferences sharedPreferences];
-      v39 = [v38 languageCode];
-      [v29 _setPrimaryUserSiriLanguage:v39];
+      v39 = +[AFPreferences sharedPreferences];
+      v40 = [v39 languageCode];
+      [v30 _setPrimaryUserSiriLanguage:v40];
 
-      v40 = AFSiriLogContextDaemon;
+      v41 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v65 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "%s siriLanguage unavailable. Setting it to the same language as HomePod.", buf, 0xCu);
+        v66 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "%s siriLanguage unavailable. Setting it to the same language as HomePod.", buf, 0xCu);
       }
     }
 
@@ -6354,35 +6465,35 @@ LABEL_29:
 
   else
   {
-    if (v30)
+    if (v31)
     {
-      [*(a1 + 32) _setSharedUserSiriLanguage:v30 forSharedUser:*(a1 + 40)];
-      v31 = AFSiriLogContextDaemon;
+      [*(a1 + 32) _setSharedUserSiriLanguage:v31 forSharedUser:*(a1 + 40)];
+      v32 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
-        v32 = *(*(a1 + 32) + 152);
-        v33 = v31;
-        v34 = [v32 count];
+        v33 = *(*(a1 + 32) + 152);
+        v34 = v32;
+        v35 = [v33 count];
         *buf = 136315394;
-        v65 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
-        v66 = 2048;
-        v67 = v34;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%s _sharedUsersSiriLanguageBySharedUserID: %lu", buf, 0x16u);
+        v66 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
+        v67 = 2048;
+        v68 = v35;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "%s _sharedUsersSiriLanguageBySharedUserID: %lu", buf, 0x16u);
       }
     }
 
     else
     {
-      v35 = +[AFPreferences sharedPreferences];
-      v36 = [v35 languageCode];
-      [v29 _setSharedUserSiriLanguage:v36 forSharedUser:*(a1 + 40)];
+      v36 = +[AFPreferences sharedPreferences];
+      v37 = [v36 languageCode];
+      [v30 _setSharedUserSiriLanguage:v37 forSharedUser:*(a1 + 40)];
 
-      v37 = AFSiriLogContextDaemon;
+      v38 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v65 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "%s siriLanguage unavailable for shared user. Setting it to the same language as HomePod.", buf, 0xCu);
+        v66 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "%s siriLanguage unavailable for shared user. Setting it to the same language as HomePod.", buf, 0xCu);
       }
     }
 
@@ -6390,123 +6501,123 @@ LABEL_29:
     [*(a1 + 32) _saveSharedUsers];
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_49:
   if (AFIsATV())
   {
-    v41 = AFSiriLogContextDaemon;
+    v42 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v65 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "%s #multi-user-atv skipping MU update since we cannot trust HomeKit settings on ATV", buf, 0xCu);
+      v66 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "%s #multi-user-atv skipping MU update since we cannot trust HomeKit settings on ATV", buf, 0xCu);
     }
 
     [*(a1 + 32) _updateVoiceProfileInfo];
     [*(a1 + 32) _updateSAMultiUserInfo];
     [*(a1 + 32) refreshHomeKitOnboardedUsers];
-    v42 = *(*(a1 + 112) + 16);
+    v43 = *(*(a1 + 112) + 16);
     goto LABEL_56;
   }
 
-  if (!v16)
+  if (!v17)
   {
-    v44 = *(a1 + 32);
-    if (!v44[4] || !v17)
+    v45 = *(a1 + 32);
+    if (!v45[4] || !v18)
     {
-      v49 = +[ADHomeInfoManager sharedInfoManager];
-      v61[0] = _NSConcreteStackBlock;
-      v61[1] = 3221225472;
-      v61[2] = sub_1002A7600;
-      v61[3] = &unk_100519A70;
-      v61[4] = *(a1 + 32);
-      v62 = v17;
-      v63 = *(a1 + 112);
-      [v49 settingsForMultiUserWithRefresh:0 completion:v61];
+      v50 = +[ADHomeInfoManager sharedInfoManager];
+      v62[0] = _NSConcreteStackBlock;
+      v62[1] = 3221225472;
+      v62[2] = sub_1002A7600;
+      v62[3] = &unk_100519A70;
+      v62[4] = *(a1 + 32);
+      v63 = v18;
+      v64 = *(a1 + 112);
+      [v50 settingsForMultiUserWithRefresh:0 completion:v62];
 
 LABEL_80:
-      v56 = *(*(*(a1 + 120) + 8) + 40);
-      if (v56 && *(*(*(a1 + 128) + 8) + 24) == 1)
+      v57 = *(*(*(a1 + 120) + 8) + 40);
+      if (v57 && *(*(*(a1 + 128) + 8) + 24) == 1)
       {
-        v57 = AFSiriLogContextDaemon;
+        v58 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
-          v58 = v57;
-          v59 = [v56 sharedUserID];
+          v59 = v58;
+          v60 = [v57 sharedUserID];
           *buf = 136315395;
-          v65 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
-          v66 = 2113;
-          v67 = v59;
-          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "%s Posting notification that companion device information/capabilities changed for sharedUserId: (%{private}@)", buf, 0x16u);
+          v66 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
+          v67 = 2113;
+          v68 = v60;
+          _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "%s Posting notification that companion device information/capabilities changed for sharedUserId: (%{private}@)", buf, 0x16u);
         }
 
-        v60 = +[NSNotificationCenter defaultCenter];
-        [v60 postNotificationName:@"ADMultiUserSharedUserCompanionInfoChangedNotification" object:*(*(*(a1 + 120) + 8) + 40)];
+        v61 = +[NSNotificationCenter defaultCenter];
+        [v61 postNotificationName:@"ADMultiUserSharedUserCompanionInfoChangedNotification" object:*(*(*(a1 + 120) + 8) + 40)];
       }
 
       goto LABEL_57;
     }
 
-    if ([v44 _updateHomeKitSettings:v17])
+    if ([v45 _updateHomeKitSettings:v18])
     {
-      v45 = [*(*(a1 + 32) + 32) objectForKey:v17];
-      if (v45)
+      v46 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 32));
+      if (v46)
       {
-        v46 = v45;
-        v47 = [v45 objectForKey:@"allowVoiceID"];
-        if ([v47 integerValue] == 1)
+        v47 = v46;
+        v48 = objc_msgSend_objectForKey_(v46);
+        if ([v48 integerValue] == 1)
         {
-          v48 = *(a1 + 112);
-          if (v48)
+          v49 = *(a1 + 112);
+          if (v49)
           {
-            (*(v48 + 16))(v48, 0);
+            (*(v49 + 16))(v49, 0);
           }
         }
 
         else
         {
-          v53 = AFSiriLogContextDaemon;
+          v54 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v65 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
-            _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "%s VoiceID disabled for existing user and we did not get a homeinfo change notification", buf, 0xCu);
+            v66 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
+            _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "%s VoiceID disabled for existing user and we did not get a homeinfo change notification", buf, 0xCu);
           }
 
-          [*(a1 + 32) removeUserWithHomeUUID:v17 completion:&stru_100519A28];
-          v54 = *(a1 + 112);
-          if (v54)
+          [*(a1 + 32) removeUserWithHomeUUID:v18 completion:&stru_100519A28];
+          v55 = *(a1 + 112);
+          if (v55)
           {
-            v55 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6010 userInfo:&__NSDictionary0__struct];
-            (*(v54 + 16))(v54, v55);
+            v56 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6010 userInfo:&__NSDictionary0__struct];
+            (*(v55 + 16))(v55, v56);
           }
         }
       }
 
       else
       {
-        v51 = AFSiriLogContextDaemon;
+        v52 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v65 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
-          _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "%s We should have a user setting. File a bug.", buf, 0xCu);
+          v66 = "[ADMultiUserService updateMultiUserWithSharedUserId:companionInfo:completion:]_block_invoke";
+          _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%s We should have a user setting. File a bug.", buf, 0xCu);
         }
 
-        v52 = *(a1 + 112);
-        if (v52)
+        v53 = *(a1 + 112);
+        if (v53)
         {
-          (*(v52 + 16))(v52, 0);
+          (*(v53 + 16))(v53, 0);
         }
 
-        v46 = 0;
+        v47 = 0;
       }
     }
 
     else
     {
-      v50 = *(a1 + 112);
-      if (!v50)
+      v51 = *(a1 + 112);
+      if (!v51)
       {
 LABEL_79:
         [*(a1 + 32) _updateVoiceProfileInfo];
@@ -6514,19 +6625,19 @@ LABEL_79:
         goto LABEL_80;
       }
 
-      v46 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6008 userInfo:&__NSDictionary0__struct];
-      (*(v50 + 16))(v50, v46);
+      v47 = [NSError errorWithDomain:kAFAssistantErrorDomain code:6008 userInfo:&__NSDictionary0__struct];
+      (*(v51 + 16))(v51, v47);
     }
 
     goto LABEL_79;
   }
 
-  v43 = *(a1 + 112);
-  if (v43)
+  v44 = *(a1 + 112);
+  if (v44)
   {
-    v42 = *(v43 + 16);
+    v43 = *(v44 + 16);
 LABEL_56:
-    v42();
+    v43();
   }
 
 LABEL_57:
@@ -6579,7 +6690,7 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  v3 = [*(*(a1 + 40) + 32) objectForKey:*(a1 + 48)];
+  v3 = objc_msgSend_objectForKey_(*(*(a1 + 40) + 32));
   v4 = v3;
   if (!v3)
   {
@@ -6589,7 +6700,7 @@ LABEL_6:
     goto LABEL_10;
   }
 
-  v5 = [v3 objectForKey:@"allowVoiceID"];
+  v5 = objc_msgSend_objectForKey_(v3);
   if ([v5 integerValue])
   {
 
@@ -6702,14 +6813,14 @@ uint64_t sub_1002A7D20(uint64_t a1)
     v6 = *v22;
     do
     {
-      for (i = 0; i != v4; i = i + 1)
+      for (i = 0; i != v4; ++i)
       {
         if (*v22 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = [*(a1 + 32) objectForKey:{*(*(&v21 + 1) + 8 * i), v21}];
+        v8 = objc_msgSend_objectForKey_(*(a1 + 32), v21);
         if ([v8 integerValue] == 1)
         {
           ++v5;
@@ -6808,7 +6919,7 @@ void sub_1002A8250(uint64_t a1, void *a2)
 
 void sub_1002A8760(uint64_t a1)
 {
-  if (*(a1 + 32) && ([*(a1 + 40) _allUsersBySharedUserID], v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v2, "objectForKey:", *(a1 + 32)), v3 = objc_claimAutoreleasedReturnValue(), v2, v3) || *(a1 + 48) && ((objc_msgSend(*(*(a1 + 40) + 208), "iCloudAltDSID"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", *(a1 + 48)), v4, v6 = *(a1 + 40), !v5) ? (objc_msgSend(*(v6 + 272), "objectForKey:", *(a1 + 48)), v7 = objc_claimAutoreleasedReturnValue()) : (v7 = *(v6 + 208)), (v3 = v7) != 0))
+  if (*(a1 + 32) && ([*(a1 + 40) _allUsersBySharedUserID], v2 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKey_(v2), v3 = objc_claimAutoreleasedReturnValue(), v2, v3) || *(a1 + 48) && ((objc_msgSend(*(*(a1 + 40) + 208), "iCloudAltDSID"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isEqualToString:", *(a1 + 48)), v4, v6 = *(a1 + 40), !v5) ? (objc_msgSend_objectForKey_(*(v6 + 272)), v7 = objc_claimAutoreleasedReturnValue()) : (v7 = *(v6 + 208)), (v3 = v7) != 0))
   {
     v8 = [v3 sharedUserID];
     v9 = [v3 companionAssistantID];
@@ -6987,159 +7098,160 @@ void sub_1002A9460(uint64_t a1, int a2)
   }
 }
 
-void sub_1002A9900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1002A9900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 160), 8);
+  _Block_object_dispose((v22 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1002A992C(uint64_t a1)
+void sub_1002A992C(uint64_t a1, const char *a2)
 {
-  v2 = *(*(a1 + 32) + 48);
-  if (v2)
+  v3 = *(*(a1 + 32) + 48);
+  if (v3)
   {
-    v3 = [v2 homeMembers];
-    *(*(*(a1 + 80) + 8) + 24) = [v3 count];
+    v4 = [v3 homeMembers];
+    *(*(*(a1 + 80) + 8) + 24) = [v4 count];
 
-    v4 = *(*(a1 + 80) + 8);
-    v5 = *(v4 + 24);
-    if (v5)
+    v5 = *(*(a1 + 80) + 8);
+    v6 = *(v5 + 24);
+    if (v6)
     {
-      *(v4 + 24) = v5 - 1;
+      *(v5 + 24) = v6 - 1;
     }
   }
 
   if (*(a1 + 40))
   {
-    v6 = [*(*(a1 + 32) + 200) objectForKey:?];
-    v7 = [*(*(a1 + 32) + 208) sharedUserID];
-    v8 = [v7 isEqualToString:*(a1 + 40)];
+    v7 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200), a2);
+    v8 = [*(*(a1 + 32) + 208) sharedUserID];
+    v9 = [v8 isEqualToString:*(a1 + 40)];
 
-    v9 = AFSiriLogContextDaemon;
-    v10 = os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG);
-    if ((v8 & 1) != 0 || v6)
+    v10 = AFSiriLogContextDaemon;
+    v11 = os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG);
+    if ((v9 & 1) != 0 || v7)
     {
-      if (v10)
+      if (v11)
       {
-        v48 = *(a1 + 40);
+        v49 = *(a1 + 40);
         *buf = 136315395;
-        v59 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
-        v60 = 2113;
-        v61 = v48;
-        _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%s classifiedUser %{private}@ is enrolled, no cleanup needed", buf, 0x16u);
+        v60 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
+        v61 = 2113;
+        v62 = v49;
+        _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%s classifiedUser %{private}@ is enrolled, no cleanup needed", buf, 0x16u);
       }
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
-        v49 = *(a1 + 40);
+        v50 = *(a1 + 40);
         *buf = 136315395;
-        v59 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
-        v60 = 2113;
-        v61 = v49;
-        _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%s classifiedUser %{private}@ is not enrolled, its voice profile will be removed", buf, 0x16u);
+        v60 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
+        v61 = 2113;
+        v62 = v50;
+        _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%s classifiedUser %{private}@ is not enrolled, its voice profile will be removed", buf, 0x16u);
       }
 
       [*(a1 + 32) _trackGhostVoiceProfile:*(a1 + 40)];
-      v11 = *(a1 + 96);
-      if (v11)
+      v12 = *(a1 + 96);
+      if (v12)
       {
-        *v11 = 1;
+        *v12 = 1;
       }
     }
   }
 
-  v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
+  v56 = 0u;
   obj = *(a1 + 48);
-  v12 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
-  if (v12)
+  v13 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+  if (v13)
   {
-    v14 = v12;
-    v15 = *v55;
-    *&v13 = 136315651;
-    v50 = v13;
+    v15 = v13;
+    v16 = *v56;
+    *&v14 = 136315651;
+    v51 = v14;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      v17 = 0;
+      do
       {
-        if (*v55 != v15)
+        if (*v56 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v54 + 1) + 8 * i);
-        v18 = [*(*(a1 + 32) + 200) objectForKey:{v17, v50}];
-        if (v18)
+        v18 = *(*(&v55 + 1) + 8 * v17);
+        v19 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200), v51);
+        if (v19)
         {
 
 LABEL_22:
-          v21 = +[NSMutableDictionary dictionary];
-          v22 = [*(*(a1 + 32) + 200) objectForKey:v17];
-          v23 = AFSiriLogContextDaemon;
-          v24 = os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG);
-          if (v22)
+          v22 = +[NSMutableDictionary dictionary];
+          v23 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200));
+          v24 = AFSiriLogContextDaemon;
+          v25 = os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG);
+          if (v23)
           {
-            if (v24)
+            if (v25)
             {
-              v25 = v23;
-              v26 = [v22 sharedUserID];
+              v26 = v24;
+              v27 = [v23 sharedUserID];
               *buf = 136315394;
-              v59 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
-              v60 = 2112;
-              v61 = v26;
-              _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "%s Using shared user %@.", buf, 0x16u);
+              v60 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
+              v61 = 2112;
+              v62 = v27;
+              _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "%s Using shared user %@.", buf, 0x16u);
             }
 
             goto LABEL_28;
           }
 
-          if (v24)
+          if (v25)
           {
-            v41 = *(*(a1 + 32) + 208);
-            v42 = v23;
-            v43 = [v41 sharedUserID];
+            v42 = *(*(a1 + 32) + 208);
+            v43 = v24;
+            v44 = [v42 sharedUserID];
             *buf = 136315394;
-            v59 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
-            v60 = 2112;
-            v61 = v43;
-            _os_log_debug_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "%s Using primary user %@.", buf, 0x16u);
+            v60 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
+            v61 = 2112;
+            v62 = v44;
+            _os_log_debug_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEBUG, "%s Using primary user %@.", buf, 0x16u);
           }
 
-          v22 = *(*(a1 + 32) + 208);
-          if (v22)
+          v23 = *(*(a1 + 32) + 208);
+          if (v23)
           {
 LABEL_28:
-            v27 = [v22 companionAssistantID];
+            v28 = [v23 companionAssistantID];
 
-            if (v27 && (v28 = *(a1 + 56), [v22 companionAssistantID], v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "objectForKey:", v29), v30 = objc_claimAutoreleasedReturnValue(), v29, v30) || (objc_msgSend(v22, "companionIDSIdentifier"), v31 = objc_claimAutoreleasedReturnValue(), v31, v31) && (v32 = *(a1 + 56), objc_msgSend(v22, "companionIDSIdentifier"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "objectForKey:", v33), v30 = objc_claimAutoreleasedReturnValue(), v33, v30))
+            if (v28 && (v29 = *(a1 + 56), [v23 companionAssistantID], v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKey_(v29), v31 = objc_claimAutoreleasedReturnValue(), v30, v31) || (objc_msgSend(v23, "companionIDSIdentifier"), v32 = objc_claimAutoreleasedReturnValue(), v32, v32) && (v33 = *(a1 + 56), objc_msgSend(v23, "companionIDSIdentifier"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKey_(v33), v31 = objc_claimAutoreleasedReturnValue(), v34, v31))
             {
-              if ([v30 count])
+              if ([v31 count])
               {
-                v34 = [v30 objectAtIndex:0];
-                [v21 setObject:v34 forKey:@"companion_device_score"];
+                v35 = [v31 objectAtIndex:0];
+                [v22 setObject:v35 forKey:@"companion_device_score"];
               }
 
               else
               {
-                v38 = AFSiriLogContextDaemon;
+                v39 = AFSiriLogContextDaemon;
                 if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
                 {
-                  log = v38;
-                  v51 = [v22 companionAssistantID];
-                  v44 = [v22 companionIDSIdentifier];
-                  *buf = v50;
-                  v59 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
-                  v60 = 2113;
-                  v61 = v51;
-                  v62 = 2113;
-                  v63 = v44;
+                  log = v39;
+                  v52 = [v23 companionAssistantID];
+                  v45 = [v23 companionIDSIdentifier];
+                  *buf = v51;
+                  v60 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
+                  v61 = 2113;
+                  v62 = v52;
+                  v63 = 2113;
+                  v64 = v45;
                   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s Empty Score array from assistantId %{private}@ idsIdentifier %{private}@", buf, 0x20u);
                 }
               }
@@ -7149,60 +7261,64 @@ LABEL_42:
 
             else
             {
-              v35 = [*(a1 + 56) objectForKey:v17];
-              if (v35)
+              v36 = objc_msgSend_objectForKey_(*(a1 + 56));
+              if (v36)
               {
-                v30 = v35;
-                [v21 setObject:v35 forKey:@"nearby_devices_scores"];
+                v31 = v36;
+                [v22 setObject:v36 forKey:@"nearby_devices_scores"];
                 goto LABEL_42;
               }
             }
           }
 
-          [*(a1 + 64) setObject:v21 forKey:v17];
-          v39 = *(a1 + 72);
-          v40 = [*(a1 + 48) objectForKey:v17];
-          [v39 setObject:v40 forKey:v17];
+          [*(a1 + 64) setObject:v22 forKey:v18];
+          v40 = *(a1 + 72);
+          v41 = objc_msgSend_objectForKey_(*(a1 + 48));
+          [v40 setObject:v41 forKey:v18];
 
-          continue;
+          goto LABEL_44;
         }
 
-        v19 = [*(*(a1 + 32) + 208) sharedUserID];
-        v20 = [v19 isEqualToString:v17];
+        v20 = [*(*(a1 + 32) + 208) sharedUserID];
+        v21 = [v20 isEqualToString:v18];
 
-        if (v20)
+        if (v21)
         {
           goto LABEL_22;
         }
 
-        v36 = AFSiriLogContextDaemon;
+        v37 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315395;
-          v59 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
-          v60 = 2113;
-          v61 = v17;
-          _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "%s Ghost voice profile detected for sharedUserID (%{private}@)", buf, 0x16u);
+          v60 = "[ADMultiUserService validateAndReturnScores:classifiedUser:donatedScores:unknownUserSharedId:totalUsers:ghostVoiceProfileDetected:]_block_invoke";
+          v61 = 2113;
+          v62 = v18;
+          _os_log_debug_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "%s Ghost voice profile detected for sharedUserID (%{private}@)", buf, 0x16u);
         }
 
-        [*(a1 + 32) _trackGhostVoiceProfile:v17];
-        v37 = *(a1 + 96);
-        if (v37)
+        [*(a1 + 32) _trackGhostVoiceProfile:v18];
+        v38 = *(a1 + 96);
+        if (v38)
         {
-          *v37 = 1;
+          *v38 = 1;
         }
+
+LABEL_44:
+        v17 = v17 + 1;
       }
 
-      v14 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+      while (v15 != v17);
+      v15 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
-  v45 = [*(*(a1 + 32) + 24) sharedUserId];
-  v46 = *(*(a1 + 88) + 8);
-  v47 = *(v46 + 40);
-  *(v46 + 40) = v45;
+  v46 = [*(*(a1 + 32) + 24) sharedUserId];
+  v47 = *(*(a1 + 88) + 8);
+  v48 = *(v47 + 40);
+  *(v47 + 40) = v46;
 }
 
 void sub_1002AA08C(uint64_t a1)
@@ -7227,7 +7343,7 @@ void sub_1002AA08C(uint64_t a1)
           objc_enumerationMutation(obj);
         }
 
-        v5 = [*(*(a1 + 32) + 200) objectForKey:*(*(&v18 + 1) + 8 * v4)];
+        v5 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200));
         v6 = [ADCommunalDeviceUser saRemoteDeviceForHomeMember:v5];
         v15[0] = _NSConcreteStackBlock;
         v15[1] = 3221225472;
@@ -7252,7 +7368,7 @@ void sub_1002AA08C(uint64_t a1)
           [*(a1 + 40) addObject:v7];
         }
 
-        v4 = v4 + 1;
+        ++v4;
       }
 
       while (v3 != v4);
@@ -7386,7 +7502,7 @@ void sub_1002AAF24(uint64_t a1)
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(a1 + 32) + 200) objectForKey:{*(*(&v12 + 1) + 8 * v9), v12}];
+        v10 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200), v12);
         v11 = [v10 sharedUserID];
 
         if (v11)
@@ -7394,7 +7510,7 @@ void sub_1002AAF24(uint64_t a1)
           [v4 addObject:v11];
         }
 
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
@@ -7477,7 +7593,7 @@ LABEL_6:
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(a1 + 32) + 200) objectForKey:{*(*(&v24 + 1) + 8 * v16), v24}];
+        v17 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200), v24);
         v18 = v17;
         if (v17)
         {
@@ -7490,7 +7606,7 @@ LABEL_6:
           [v2 setObject:v22 forKey:v23];
         }
 
-        v16 = v16 + 1;
+        ++v16;
       }
 
       while (v14 != v16);
@@ -7574,7 +7690,7 @@ void sub_1002AB570(uint64_t a1)
           objc_enumerationMutation(v13);
         }
 
-        v19 = [*(*(a1 + 32) + 200) objectForKey:{*(*(&v45 + 1) + 8 * v18), v38}];
+        v19 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200), v38);
         v20 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
@@ -7593,7 +7709,7 @@ void sub_1002AB570(uint64_t a1)
           [v40 addObject:v23];
         }
 
-        v18 = v18 + 1;
+        ++v18;
       }
 
       while (v16 != v18);
@@ -7627,7 +7743,7 @@ void sub_1002AB570(uint64_t a1)
             objc_enumerationMutation(v24);
           }
 
-          v30 = [*(*(a1 + 32) + 272) objectForKey:{*(*(&v41 + 1) + 8 * v29), v39}];
+          v30 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 272), v39);
           v31 = v30;
           if (v30)
           {
@@ -7655,7 +7771,7 @@ void sub_1002AB570(uint64_t a1)
             }
           }
 
-          v29 = v29 + 1;
+          ++v29;
         }
 
         while (v27 != v29);
@@ -7669,43 +7785,43 @@ void sub_1002AB570(uint64_t a1)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_1002AC084(uint64_t a1)
+void sub_1002AC084(uint64_t a1, const char *a2)
 {
-  v2 = [*(*(a1 + 32) + 200) objectForKey:*(a1 + 40)];
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v7 = 0;
-  [v3 _removeUser:v2 homeUserID:0 sharedUserID:v4 iCloudAltDSID:0 error:&v7];
-  v5 = v7;
-  if (!v5)
+  v3 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 200), a2, *(a1 + 40));
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v8 = 0;
+  [v4 _removeUser:v3 homeUserID:0 sharedUserID:v5 iCloudAltDSID:0 error:&v8];
+  v6 = v8;
+  if (!v6)
   {
     [*(a1 + 32) _postRemovalStateCleanup];
   }
 
-  v6 = *(a1 + 48);
-  if (v6)
+  v7 = *(a1 + 48);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v5);
+    (*(v7 + 16))(v7, v6);
   }
 }
 
-void sub_1002AC290(uint64_t a1)
+void sub_1002AC290(uint64_t a1, const char *a2)
 {
-  v2 = [*(*(a1 + 32) + 264) objectForKey:*(a1 + 40)];
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v7 = 0;
-  [v3 _removeUser:v2 homeUserID:v4 sharedUserID:0 iCloudAltDSID:0 error:&v7];
-  v5 = v7;
-  if (!v5)
+  v3 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 264), a2, *(a1 + 40));
+  v4 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v8 = 0;
+  [v4 _removeUser:v3 homeUserID:v5 sharedUserID:0 iCloudAltDSID:0 error:&v8];
+  v6 = v8;
+  if (!v6)
   {
     [*(a1 + 32) _postRemovalStateCleanup];
   }
 
-  v6 = *(a1 + 48);
-  if (v6)
+  v7 = *(a1 + 48);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v5);
+    (*(v7 + 16))(v7, v6);
   }
 }
 
@@ -7759,7 +7875,7 @@ void sub_1002ACF50(uint64_t a1)
         }
 
         v25 = v4;
-        v3 = [*(*(v24 + 32) + 264) objectForKey:*(*(&v34 + 1) + 8 * v4)];
+        v3 = objc_msgSend_objectForKey_(*(*(v24 + 32) + 264));
 
         v32 = 0u;
         v33 = 0u;
@@ -7973,7 +8089,7 @@ void sub_1002B0114(uint64_t a1)
   v2 = *(a1 + 40);
   if (v2 && [v2 count])
   {
-    v3 = [*(a1 + 40) objectForKey:*(a1 + 48)];
+    v3 = objc_msgSend_objectForKey_(*(a1 + 40));
     if (v3)
     {
       v4 = v3;
@@ -7997,7 +8113,7 @@ void sub_1002B0114(uint64_t a1)
         v4 = v7;
       }
 
-      v8 = [v4 objectForKey:@"allowVoiceID"];
+      v8 = objc_msgSend_objectForKey_(v4);
       v9 = v8;
       if (v8 && [v8 integerValue] == 1)
       {
@@ -8078,9 +8194,9 @@ LABEL_24:
   }
 }
 
-void sub_1002B2018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1002B2018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8394,9 +8510,9 @@ void sub_1002B7808(uint64_t a1)
       }
 
       v9 = *(*(&v30 + 1) + 8 * v8);
-      v10 = [*(*(a1 + 32) + 264) objectForKey:{v9, v25}];
-      v11 = [*(*(a1 + 32) + 32) objectForKey:v9];
-      v12 = [v11 objectForKey:@"allowVoiceID"];
+      v10 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 264), v25);
+      v11 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 32));
+      v12 = objc_msgSend_objectForKey_(v11);
       v13 = [*(a1 + 32) personalDomainSettingsDidChange:v10 newUserSettings:v11];
       if (([*(a1 + 32) _updateHomeKitSettings:v9] & 1) == 0 && !AFIsATV())
       {
@@ -8810,7 +8926,7 @@ void sub_1002B9524(uint64_t a1, void *a2)
   {
     v4 = *(a1 + 32);
     v5 = [v11 sharedUserId];
-    v6 = [v4 objectForKey:v5];
+    v6 = objc_msgSend_objectForKey_(v4);
     v7 = [v6 mutableCopy];
 
     if (!v7)
@@ -8899,7 +9015,7 @@ void sub_1002BA62C(uint64_t a1)
   else
   {
     v4 = [*(a1 + 40) identifier];
-    v5 = [*(*(a1 + 32) + 40) objectForKey:v4];
+    v5 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 40));
 
     if (v5)
     {
@@ -8936,120 +9052,5 @@ void sub_1002BA62C(uint64_t a1)
         _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "%s Read RSSI for peripheral that we didn't sign up for: %@", &v11, 0x16u);
       }
     }
-  }
-}
-
-void sub_1002BAFC0(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
-  [WeakRetained invoke];
-}
-
-void sub_1002BB20C(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (*(v2 + 24))
-  {
-    v3 = AFSiriLogContextDaemon;
-    if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315138;
-      v23 = "[ADCoreBluetoothManager _retrieveConnectedDevicesInfoOnServices:completion:]_block_invoke";
-      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s Fatal error: ADCoreBluetoothManager is designed for one-time use!", buf, 0xCu);
-    }
-
-    (*(*(a1 + 48) + 16))();
-  }
-
-  else
-  {
-    objc_storeStrong((v2 + 56), *(a1 + 40));
-    v4 = [AFSafetyBlock alloc];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1002BB494;
-    v18[3] = &unk_100519BD8;
-    v18[4] = *(a1 + 32);
-    v19 = *(a1 + 48);
-    v5 = [v4 initWithBlock:v18];
-    objc_storeWeak((*(a1 + 32) + 64), v5);
-    v6 = dispatch_time(0, 5000000000);
-    v7 = *(*(a1 + 32) + 8);
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_1002BB6A8;
-    block[3] = &unk_10051DFE8;
-    v17 = v5;
-    v8 = v5;
-    dispatch_after(v6, v7, block);
-    v9 = [CBCentralManager alloc];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 8);
-    v20 = CBCentralManagerOptionShowPowerAlertKey;
-    v21 = &__kCFBooleanFalse;
-    v12 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    v13 = [v9 initWithDelegate:v10 queue:v11 options:v12];
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 24);
-    *(v14 + 24) = v13;
-  }
-}
-
-void sub_1002BB494(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  [*(*(a1 + 32) + 24) setDelegate:v2];
-  v3 = *(a1 + 32);
-  if (*(v3 + 32) == 1)
-  {
-    (*(*(a1 + 40) + 16))();
-  }
-
-  else
-  {
-    v12 = v2;
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v4 = [*(v3 + 40) allValues];
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *v14;
-      do
-      {
-        for (i = 0; i != v6; i = i + 1)
-        {
-          if (*v14 != v7)
-          {
-            objc_enumerationMutation(v4);
-          }
-
-          v9 = *(*(&v13 + 1) + 8 * i);
-          v10 = AFSiriLogContextDaemon;
-          if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
-          {
-            *buf = 136315394;
-            v18 = "[ADCoreBluetoothManager _retrieveConnectedDevicesInfoOnServices:completion:]_block_invoke";
-            v19 = 2112;
-            v20 = v9;
-            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s Unable to read RSSI for peripheral %@ before timeout", buf, 0x16u);
-          }
-
-          v11 = [*(a1 + 32) _adCoreBluetoothDeviceForPeripheral:v9 RSSI:0];
-          [*(*(a1 + 32) + 48) addObject:v11];
-          [*(*(a1 + 32) + 24) cancelPeripheralConnection:v9];
-        }
-
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
-      }
-
-      while (v6);
-    }
-
-    (*(*(a1 + 40) + 16))();
-    v2 = v12;
   }
 }

@@ -8,68 +8,67 @@
 
 - (RELemmaEnumerator)init
 {
-  v25[2] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = RELemmaEnumerator;
-  v2 = [(RELemmaEnumerator *)&v15 init];
-  if (v2 && NaturalLanguageLibraryCore())
+  v24[2] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = RELemmaEnumerator;
+  v2 = [(RELemmaEnumerator *)&v14 init];
+  if (v2 && NaturalLanguageLibraryCore(0))
   {
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2020000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
     v3 = getNLTagSchemeLanguageSymbolLoc_ptr;
-    v24 = getNLTagSchemeLanguageSymbolLoc_ptr;
+    v23 = getNLTagSchemeLanguageSymbolLoc_ptr;
     if (!getNLTagSchemeLanguageSymbolLoc_ptr)
     {
-      v16 = MEMORY[0x277D85DD0];
-      v17 = 3221225472;
-      v18 = __getNLTagSchemeLanguageSymbolLoc_block_invoke;
-      v19 = &unk_2785F9BC0;
-      v20 = &v21;
+      v15 = MEMORY[0x277D85DD0];
+      v16 = 3221225472;
+      v17 = __getNLTagSchemeLanguageSymbolLoc_block_invoke;
+      v18 = &unk_2785F9BC0;
+      v19 = &v20;
       v4 = NaturalLanguageLibrary();
       v5 = dlsym(v4, "NLTagSchemeLanguage");
-      *(v20[1] + 24) = v5;
-      getNLTagSchemeLanguageSymbolLoc_ptr = *(v20[1] + 24);
-      v3 = v22[3];
+      *(v19[1] + 24) = v5;
+      getNLTagSchemeLanguageSymbolLoc_ptr = *(v19[1] + 24);
+      v3 = v21[3];
     }
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
     if (!v3)
     {
       [RELemmaEnumerator init];
       __break(1u);
     }
 
-    v25[0] = *v3;
-    v6 = v25[0];
+    v24[0] = *v3;
+    v6 = v24[0];
     v7 = getNLTagSchemeLemma();
-    v25[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[1] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
 
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x2050000000;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2050000000;
     v9 = getNLTaggerClass_softClass;
-    v24 = getNLTaggerClass_softClass;
+    v23 = getNLTaggerClass_softClass;
     if (!getNLTaggerClass_softClass)
     {
-      v16 = MEMORY[0x277D85DD0];
-      v17 = 3221225472;
-      v18 = __getNLTaggerClass_block_invoke;
-      v19 = &unk_2785F9BC0;
-      v20 = &v21;
-      __getNLTaggerClass_block_invoke(&v16);
-      v9 = v22[3];
+      v15 = MEMORY[0x277D85DD0];
+      v16 = 3221225472;
+      v17 = __getNLTaggerClass_block_invoke;
+      v18 = &unk_2785F9BC0;
+      v19 = &v20;
+      __getNLTaggerClass_block_invoke(&v15);
+      v9 = v21[3];
     }
 
     v10 = v9;
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
     v11 = [[v9 alloc] initWithTagSchemes:v8];
     tagger = v2->_tagger;
     v2->_tagger = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -141,9 +140,9 @@ void __55__RELemmaEnumerator_enumerateLemmasInString_withBlock___block_invoke(ui
 
 - (uint64_t)init
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getNLTaggerClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getNLTaggerClass_block_invoke_cold_1();
 }
 
 @end

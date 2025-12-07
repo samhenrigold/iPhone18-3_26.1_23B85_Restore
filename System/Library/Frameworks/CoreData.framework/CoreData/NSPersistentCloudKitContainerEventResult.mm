@@ -22,7 +22,7 @@
 
 - (NSPersistentCloudKitContainerEventResult)initWithSubresults:(id)subresults
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (!subresults || ![subresults count])
   {
     LogStream = _PFLogGetLogStream(17);
@@ -40,34 +40,34 @@
     }
   }
 
-  v30.receiver = self;
-  v30.super_class = NSPersistentCloudKitContainerEventResult;
-  v7 = [(NSPersistentCloudKitContainerEventResult *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = NSPersistentCloudKitContainerEventResult;
+  v7 = [(NSPersistentCloudKitContainerEventResult *)&v29 init];
   if (v7)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v25 = v7;
+    v24 = v7;
     v7->_resultType = [objc_msgSend(subresults "lastObject")];
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v9 = [subresults countByEnumeratingWithState:&v26 objects:v33 count:16];
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v9 = [subresults countByEnumeratingWithState:&v25 objects:v32 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v27;
+      v11 = *v26;
       do
       {
         v12 = 0;
         do
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(subresults);
           }
 
-          v13 = *(*(&v26 + 1) + 8 * v12);
+          v13 = *(*(&v25 + 1) + 8 * v12);
           resultType = [v13 resultType];
           if (resultType == 1)
           {
@@ -95,7 +95,7 @@
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v32 = v13;
+              v31 = v13;
               _os_log_error_impl(&dword_18565F000, v20, OS_LOG_TYPE_ERROR, "CoreData: fault: Unknown NSPersistentCloudKitContainerEventResultType in subResult: %@\n", buf, 0xCu);
             }
 
@@ -103,7 +103,7 @@
             if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
-              v32 = v13;
+              v31 = v13;
               _os_log_fault_impl(&dword_18565F000, v21, OS_LOG_TYPE_FAULT, "CoreData: Unknown NSPersistentCloudKitContainerEventResultType in subResult: %@", buf, 0xCu);
             }
           }
@@ -121,18 +121,17 @@
         }
 
         while (v10 != v12);
-        v22 = [subresults countByEnumeratingWithState:&v26 objects:v33 count:16];
+        v22 = [subresults countByEnumeratingWithState:&v25 objects:v32 count:16];
         v10 = v22;
       }
 
       while (v22);
     }
 
-    v7 = v25;
-    v25->_result = [v8 copy];
+    v7 = v24;
+    v24->_result = [v8 copy];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

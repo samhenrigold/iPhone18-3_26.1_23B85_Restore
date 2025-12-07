@@ -26,10 +26,12 @@ uint64_t __20__SPDASManager_init__block_invoke(uint64_t a1)
   v3 = *(a1 + 32);
   if (v3)
   {
+    v5 = v2;
     objc_setProperty_atomic(v3, v2, v2, 8);
+    v2 = v5;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v2);
 }
 
 - (void)setContext:(void *)context

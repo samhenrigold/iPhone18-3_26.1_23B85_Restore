@@ -11,7 +11,7 @@ void ___LoadWiFiDEAsync_block_invoke(uint64_t a1)
   v4 = [v3 extensionForIdentifier:@"com.apple.DiagnosticExtensions.WiFi"];
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "void _LoadWiFiDEAsync(AirPlayReceiverPlatform *)_block_invoke", 33554482, "Finished loading WiFiDiagnosticExtension.\n");
   }
 
   v5 = *(a1 + 32);

@@ -23,7 +23,7 @@
 
 - (void)setQueueWithPath:(id)path sessionID:(id)d completionHandler:(id)handler
 {
-  v37[3] = *MEMORY[0x1E69E9840];
+  v35[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   dCopy = d;
   handlerCopy = handler;
@@ -31,70 +31,67 @@
   radio = [identifiers radio];
   stationStringID = [radio stationStringID];
 
-  v13 = *MEMORY[0x1E695E480];
-  v14 = MRSystemAppPlaybackQueueCreate();
+  v13 = MRSystemAppPlaybackQueueCreate();
   MRSystemAppPlaybackQueueSetRadioStationIDType();
   MRSystemAppPlaybackQueueSetRadioStationStringIdentifier();
   MRSystemAppPlaybackQueueSetIsRequestingImmediatePlayback();
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2050000000;
-  v15 = getMPRemotePlaybackQueueClass_softClass;
-  v35 = getMPRemotePlaybackQueueClass_softClass;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2050000000;
+  v14 = getMPRemotePlaybackQueueClass_softClass;
+  v33 = getMPRemotePlaybackQueueClass_softClass;
   if (!getMPRemotePlaybackQueueClass_softClass)
   {
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __getMPRemotePlaybackQueueClass_block_invoke;
-    v31[3] = &unk_1E84C3838;
-    v31[4] = &v32;
-    __getMPRemotePlaybackQueueClass_block_invoke(v31);
-    v15 = v33[3];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __getMPRemotePlaybackQueueClass_block_invoke;
+    v29[3] = &unk_1E84C3838;
+    v29[4] = &v30;
+    __getMPRemotePlaybackQueueClass_block_invoke(v29);
+    v14 = v31[3];
   }
 
-  v16 = v15;
-  _Block_object_dispose(&v32, 8);
-  v17 = [v15 queueWithMediaRemotePlaybackQueue:v14];
-  v18 = v17;
-  [v17 _mediaRemotePlaybackQueue];
+  v15 = v14;
+  _Block_object_dispose(&v30, 8);
+  v16 = [v14 queueWithMediaRemotePlaybackQueue:v13];
+  v17 = v16;
+  [v16 _mediaRemotePlaybackQueue];
   [(MusicKit_RemotePlaybackQueue *)self mrReplaceIntentFromMusicKitReplaceQueueIntent:[(MusicKit_RemotePlaybackQueue *)self replaceQueueIntent]];
   MRSystemAppPlaybackQueueSetReplaceIntent();
   MRSystemAppPlaybackQueueSetIsRequestingImmediatePlayback();
-  v19 = dCopy;
-  v20 = v19;
-  if (!v19)
+  v18 = dCopy;
+  v19 = v18;
+  if (!v18)
   {
-    v21 = +[MusicKit_PlayerPathSessionManager sharedSessionManager];
-    v20 = [v21 sessionIDForPlayerPath:pathCopy];
+    v20 = +[MusicKit_PlayerPathSessionManager sharedSessionManager];
+    v19 = [v20 sessionIDForPlayerPath:pathCopy];
   }
 
   ExternalRepresentation = MRSystemAppPlaybackQueueCreateExternalRepresentation();
-  v23 = *MEMORY[0x1E69B10E8];
-  v36[0] = *MEMORY[0x1E69B1268];
-  v36[1] = v23;
-  v37[0] = ExternalRepresentation;
-  v37[1] = v20;
-  v36[2] = *MEMORY[0x1E69B1090];
-  v37[2] = MEMORY[0x1E695E118];
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:3];
-  v30 = 0;
-  v25 = [(MusicKit_RemotePlaybackQueue *)self mrPlayerPathFromPlaybackPath:pathCopy error:&v30];
-  v26 = v30;
-  if (v26)
+  v22 = *MEMORY[0x1E69B10E8];
+  v34[0] = *MEMORY[0x1E69B1268];
+  v34[1] = v22;
+  v35[0] = ExternalRepresentation;
+  v35[1] = v19;
+  v34[2] = *MEMORY[0x1E69B1090];
+  v35[2] = MEMORY[0x1E695E118];
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
+  v28 = 0;
+  v24 = [(MusicKit_RemotePlaybackQueue *)self mrPlayerPathFromPlaybackPath:pathCopy error:&v28];
+  v25 = v28;
+  if (v25)
   {
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, 0, v26);
+      handlerCopy[2](handlerCopy, 0, v25);
     }
   }
 
   else
   {
-    v29 = handlerCopy;
+    v27 = handlerCopy;
     MRMediaRemoteSendCommandToPlayerWithResult();
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 @end

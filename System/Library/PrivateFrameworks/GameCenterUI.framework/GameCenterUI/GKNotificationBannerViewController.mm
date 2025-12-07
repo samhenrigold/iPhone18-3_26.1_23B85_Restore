@@ -258,7 +258,7 @@ void __55__GKNotificationBannerViewController_showCurrentBanner__block_invoke(ui
   dispatch_after(v3, MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __55__GKNotificationBannerViewController_showCurrentBanner__block_invoke_2(uint64_t a1)
+void *__55__GKNotificationBannerViewController_showCurrentBanner__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) bannerVisible];
   if (result)

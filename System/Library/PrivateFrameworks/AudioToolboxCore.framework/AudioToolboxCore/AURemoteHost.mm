@@ -19,6 +19,8 @@
 - (void)dealloc;
 - (void)deleteUserPreset:(id)preset reply:(id)reply;
 - (void)destroyRenderPipe:(unsigned int)pipe reply:(id)reply;
+- (void)disableProfile:(id)profile cable:(unsigned __int8)cable onChannel:(unsigned __int8)channel reply:(id)reply;
+- (void)enableProfile:(id)profile cable:(unsigned __int8)cable onChannel:(unsigned __int8)channel reply:(id)reply;
 - (void)getBusses:(unsigned int)busses reply:(id)reply;
 - (void)getCustomMessageChannelFor:(id)for reply:(id)reply;
 - (void)getParameter:(unint64_t)parameter sequenceNumber:(unsigned int)number reply:(id)reply;
@@ -27,6 +29,7 @@
 - (void)initialize:(unint64_t)initialize reply:(id)reply;
 - (void)initialize:reply:;
 - (void)loadUserPresets:(id)presets;
+- (void)localCachingDisabled:(BOOL)disabled newValue:(BOOL)value reply:(id)reply;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)open:(AudioComponentDescription *)open instanceUUID:(id)d reply:(id)reply;
 - (void)openImpl:(id)impl reply:(id)reply;
@@ -35,6 +38,7 @@
 - (void)parameterValueFromString:(id)string address:(unint64_t)address reply:(id)reply;
 - (void)parametersForOverviewWithCount:(int64_t)count reply:(id)reply;
 - (void)presetStateFor:(id)for reply:(id)reply;
+- (void)profileStateForCable:(unsigned __int8)cable channel:(unsigned __int8)channel reply:(id)reply;
 - (void)removePropertyObserver:(id)observer context:(unint64_t)context reply:(id)reply;
 - (void)reset:(id)reset;
 - (void)retrieveInstanceUUID:(id)d;
@@ -42,10 +46,13 @@
 - (void)selectViewConfiguration:(id)configuration reply:(id)reply;
 - (void)setBlocks;
 - (void)setBusCount:(unint64_t)count scope:(unsigned int)scope reply:(id)reply;
+- (void)setBusFormat:(unsigned int)format scope:(unsigned int)scope format:(id)a5 reply:(id)reply;
+- (void)setBusName:(unsigned int)name scope:(unsigned int)scope name:(id)a5 reply:(id)reply;
 - (void)setValue:(id)value forKey:(id)key reply:(id)reply;
 - (void)setValue:(id)value forProperty:(id)property propagateError:(BOOL)error reply:(id)reply;
 - (void)startUserPresetFolderMonitoring;
 - (void)supportedViewConfigurations:(id)configurations reply:(id)reply;
+- (void)syncParameter:(unint64_t)parameter value:(float)value extOriginator:(unint64_t)originator hostTime:(unint64_t)time eventType:(unsigned int)type;
 - (void)synthesizeSpeechRequest:(id)request reply:(id)reply;
 - (void)uninitialize:(id)uninitialize;
 - (void)updateHostCallbacks:(unint64_t)callbacks reply:(id)reply;
@@ -74,7 +81,7 @@
   result = self->_remoteHostXPCConnection;
   if (result)
   {
-    return [($115C4C562B26FF47E01F9F4EA65B5887 *)result auditToken];
+    return objc_msgSend_auditToken(result, a3);
   }
 
   *retstr->var0 = 0u;
@@ -87,6 +94,40 @@
   v3 = [(NSXPCConnection *)self->_remoteHostXPCConnection valueForEntitlement:entitlement];
 
   return v3;
+}
+
+- (void)localCachingDisabled:(BOOL)disabled newValue:(BOOL)value reply:(id)reply
+{
+  valueCopy = value;
+  disabledCopy = disabled;
+  replyCopy = reply;
+  v12 = replyCopy;
+  if (!self->_replyWatchdogFactory.mDebugging)
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3321888768;
+    aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorbEEEU13block_pointerFvDpT_ES9_i_block_invoke;
+    aBlock[3] = &__block_descriptor_48_ea8_32c122_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorbEEEU13block_pointerFvDpT_ES9_iEUlS4_bE__e20_v20__0__NSError_8B16l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v13, &self->_replyWatchdogFactory);
+    v9 = _Block_copy(replyCopy);
+    v14 = v9;
+    v16 = v13;
+    v17 = _Block_copy(v9);
+    v12 = _Block_copy(aBlock);
+
+    v10 = v16;
+    v16 = 0;
+
+    v11 = v13;
+    v13 = 0;
+  }
+
+  if (disabledCopy)
+  {
+    [(AURemoteHost *)self setLocalCachingDisabled:valueCopy];
+  }
+
+  v12[2](v12, 0, [(AURemoteHost *)self localCachingDisabled]);
 }
 
 - (void)retrieveInstanceUUID:(id)d
@@ -280,7 +321,7 @@
 
 void __47__AURemoteHost_startUserPresetFolderMonitoring__block_invoke(uint64_t a1)
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -289,21 +330,19 @@ void __47__AURemoteHost_startUserPresetFolderMonitoring__block_invoke(uint64_t a
     WeakRetained[24] = 0;
 
     v4 = v2[2];
-    v10[0] = &unk_1F033F978;
-    v10[1] = &__block_literal_global_40;
-    v10[3] = v10;
-    caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(&v11, v4, v10);
-    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v10);
-    v5 = caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(&v11);
+    v9[0] = &unk_1F033F978;
+    v9[1] = &__block_literal_global_40;
+    v9[3] = v9;
+    caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(&v10, v4, v9);
+    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v9);
+    v5 = caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(&v10);
     v6 = MEMORY[0x1E695DEC8];
     v7 = [AUAudioUnitProperty propertyWithKey:@"userPresets"];
     v8 = [v6 arrayWithObjects:{v7, 0}];
     [v5 propertiesChanged:v8];
 
-    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v12);
+    _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v11);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presetStateFor:(id)for reply:(id)reply
@@ -317,34 +356,35 @@ void __47__AURemoteHost_startUserPresetFolderMonitoring__block_invoke(uint64_t a
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP12NSDictionaryIP8NSStringP11objc_objectEEEEU13block_pointerFvDpT_ESH_i_block_invoke;
     aBlock[3] = &__block_descriptor_48_ea8_32c174_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP12NSDictionaryIP8NSStringP11objc_objectEEEEU13block_pointerFvDpT_ESH_iEUlS4_SC_E__e34_v24__0__NSError_8__NSDictionary_16l;
-    caulk::xpc::reply_watchdog_factory::make_timer(&self->_replyWatchdogFactory);
-    v16 = _Block_copy(replyCopy);
-    v18 = v15;
-    v19 = _Block_copy(v16);
+    caulk::xpc::reply_watchdog_factory::make_timer(&v16, &self->_replyWatchdogFactory);
+    v9 = _Block_copy(replyCopy);
+    v17 = v9;
+    v19 = v16;
+    v20 = _Block_copy(v9);
     v8 = _Block_copy(aBlock);
 
-    v9 = v18;
-    v18 = 0;
+    v10 = v19;
+    v19 = 0;
 
-    v10 = v15;
-    v15 = 0;
+    v11 = v16;
+    v16 = 0;
   }
 
   audioUnit = self->_audioUnit;
   if (audioUnit)
   {
-    v14 = 0;
-    v12 = [(AUAudioUnit *)audioUnit presetStateFor:forCopy error:&v14];
-    v13 = v14;
+    v15 = 0;
+    v13 = [(AUAudioUnit *)audioUnit presetStateFor:forCopy error:&v15];
+    v14 = v15;
   }
 
   else
   {
-    v12 = 0;
     v13 = 0;
+    v14 = 0;
   }
 
-  v8[2](v8, v13, v12);
+  v8[2](v8, v14, v13);
 }
 
 - (void)deleteUserPreset:(id)preset reply:(id)reply
@@ -394,31 +434,35 @@ void __47__AURemoteHost_startUserPresetFolderMonitoring__block_invoke(uint64_t a
 - (void)loadUserPresets:(id)presets
 {
   presetsCopy = presets;
-  v11 = presetsCopy;
+  v13 = presetsCopy;
   if (!self->_replyWatchdogFactory.mDebugging)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP17AUAudioUnitPresetEEEEU13block_pointerFvDpT_ESF_i_block_invoke;
     aBlock[3] = &__block_descriptor_48_ea8_32c164_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP17AUAudioUnitPresetEEEEU13block_pointerFvDpT_ESF_iEUlS4_SA_E__e29_v24__0__NSError_8__NSArray_16l;
-    caulk::xpc::reply_watchdog_factory::make_timer(&self->_replyWatchdogFactory);
-    v13 = _Block_copy(presetsCopy);
-    v15 = v12;
-    v16 = _Block_copy(v13);
-    v11 = _Block_copy(aBlock);
+    caulk::xpc::reply_watchdog_factory::make_timer(&v14, &self->_replyWatchdogFactory);
+    v5 = _Block_copy(presetsCopy);
+    v15 = v5;
+    v17 = v14;
+    v18 = _Block_copy(v5);
+    v13 = _Block_copy(aBlock);
 
-    v5 = v15;
-    v15 = 0;
+    v6 = v17;
+    v17 = 0;
+
+    v7 = v14;
+    v14 = 0;
   }
 
   audioUnit = self->_audioUnit;
   if (audioUnit)
   {
     userPresets = [(AUAudioUnit *)audioUnit userPresets];
-    v8 = [userPresets mutableCopy];
+    v10 = [userPresets mutableCopy];
     userPresets = self->_userPresets;
     p_userPresets = &self->_userPresets;
-    *p_userPresets = v8;
+    *p_userPresets = v10;
   }
 
   else
@@ -426,7 +470,67 @@ void __47__AURemoteHost_startUserPresetFolderMonitoring__block_invoke(uint64_t a
     p_userPresets = &self->_userPresets;
   }
 
-  v11[2](v11, 0, *p_userPresets);
+  v13[2](v13, 0, *p_userPresets);
+}
+
+- (void)disableProfile:(id)profile cable:(unsigned __int8)cable onChannel:(unsigned __int8)channel reply:(id)reply
+{
+  channelCopy = channel;
+  cableCopy = cable;
+  profileCopy = profile;
+  replyCopy = reply;
+  v12 = caulk::xpc::reply_watchdog_factory::reply_with_timeout<NSError * {__strong}>(&self->_replyWatchdogFactory, replyCopy);
+
+  audioUnit = self->_audioUnit;
+  v15 = 0;
+  [(AUAudioUnit *)audioUnit disableProfile:profileCopy cable:cableCopy onChannel:channelCopy error:&v15];
+  v14 = v15;
+  (v12)[2](v12, v14);
+}
+
+- (void)enableProfile:(id)profile cable:(unsigned __int8)cable onChannel:(unsigned __int8)channel reply:(id)reply
+{
+  channelCopy = channel;
+  cableCopy = cable;
+  profileCopy = profile;
+  replyCopy = reply;
+  v12 = caulk::xpc::reply_watchdog_factory::reply_with_timeout<NSError * {__strong}>(&self->_replyWatchdogFactory, replyCopy);
+
+  audioUnit = self->_audioUnit;
+  v15 = 0;
+  [(AUAudioUnit *)audioUnit enableProfile:profileCopy cable:cableCopy onChannel:channelCopy error:&v15];
+  v14 = v15;
+  (v12)[2](v12, v14);
+}
+
+- (void)profileStateForCable:(unsigned __int8)cable channel:(unsigned __int8)channel reply:(id)reply
+{
+  channelCopy = channel;
+  cableCopy = cable;
+  replyCopy = reply;
+  v13 = replyCopy;
+  if (!self->_replyWatchdogFactory.mDebugging)
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3321888768;
+    aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP18MIDICIProfileStateEEEU13block_pointerFvDpT_ESC_i_block_invoke;
+    aBlock[3] = &__block_descriptor_48_ea8_32c154_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP18MIDICIProfileStateEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E__e40_v24__0__NSError_8__MIDICIProfileState_16l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v14, &self->_replyWatchdogFactory);
+    v9 = _Block_copy(replyCopy);
+    v15 = v9;
+    v17 = v14;
+    v18 = _Block_copy(v9);
+    v13 = _Block_copy(aBlock);
+
+    v10 = v17;
+    v17 = 0;
+
+    v11 = v14;
+    v14 = 0;
+  }
+
+  v12 = [(AUAudioUnit *)self->_audioUnit profileStateForCable:cableCopy channel:channelCopy];
+  v13[2](v13, 0, v12);
 }
 
 - (void)selectViewConfiguration:(id)configuration reply:(id)reply
@@ -450,18 +554,22 @@ void __47__AURemoteHost_startUserPresetFolderMonitoring__block_invoke(uint64_t a
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP10NSIndexSetEEEU13block_pointerFvDpT_ESC_i_block_invoke;
     aBlock[3] = &__block_descriptor_48_ea8_32c146_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP10NSIndexSetEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E__e32_v24__0__NSError_8__NSIndexSet_16l;
-    caulk::xpc::reply_watchdog_factory::make_timer(&self->_replyWatchdogFactory);
-    v12 = _Block_copy(replyCopy);
-    v14 = v11;
-    v15 = _Block_copy(v12);
+    caulk::xpc::reply_watchdog_factory::make_timer(&v13, &self->_replyWatchdogFactory);
+    v8 = _Block_copy(replyCopy);
+    v14 = v8;
+    v16 = v13;
+    v17 = _Block_copy(v8);
     v7 = _Block_copy(aBlock);
 
-    v8 = v14;
-    v14 = 0;
+    v9 = v16;
+    v16 = 0;
+
+    v10 = v13;
+    v13 = 0;
   }
 
-  v9 = [(AUAudioUnit *)self->_audioUnit supportedViewConfigurations:configurationsCopy];
-  v7[2](v7, 0, v9);
+  v11 = [(AUAudioUnit *)self->_audioUnit supportedViewConfigurations:configurationsCopy];
+  v7[2](v7, 0, v11);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -483,31 +591,31 @@ void __47__AURemoteHost_startUserPresetFolderMonitoring__block_invoke(uint64_t a
 
 void __63__AURemoteHost_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [AUAudioUnitProperty propertyWithKey:*(a1 + 32)];
   if ([*(a1 + 40) _identifyBus:*(a1 + 48) scope:v2 + 20 element:v2 + 24])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v3 = *(*(a1 + 40) + 296);
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v20 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v12 objects:v19 count:16];
     if (v4)
     {
-      v5 = *v14;
+      v5 = *v13;
       while (2)
       {
         v6 = 0;
         do
         {
-          if (*v14 != v5)
+          if (*v13 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v13 + 1) + 8 * v6);
-          if (*(v2 + 20) == *(v7 + 20) && *(v2 + 24) == *(v7 + 24) && ([*(v2 + 8) isEqualToString:{*(v7 + 8), v13}] & 1) != 0)
+          v7 = *(*(&v12 + 1) + 8 * v6);
+          if (*(v2 + 20) == *(v7 + 20) && *(v2 + 24) == *(v7 + 24) && ([*(v2 + 8) isEqualToString:{*(v7 + 8), v12}] & 1) != 0)
           {
 
             goto LABEL_16;
@@ -517,7 +625,7 @@ void __63__AURemoteHost_observeValueForKeyPath_ofObject_change_context___block_i
         }
 
         while (v4 != v6);
-        v4 = [v3 countByEnumeratingWithState:&v13 objects:v20 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v12 objects:v19 count:16];
         if (v4)
         {
           continue;
@@ -532,22 +640,20 @@ void __63__AURemoteHost_observeValueForKeyPath_ofObject_change_context___block_i
     if (!*(v8 + 284) && [*(v8 + 296) count])
     {
       v9 = *(*(a1 + 40) + 16);
-      v17[0] = &unk_1F033F978;
-      v17[1] = &__block_literal_global_37;
-      v17[3] = v17;
-      caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(&v18, v9, v17);
-      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v17);
-      v10 = caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(&v18);
+      v16[0] = &unk_1F033F978;
+      v16[1] = &__block_literal_global_37;
+      v16[3] = v16;
+      caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(&v17, v9, v16);
+      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v16);
+      v10 = caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(&v17);
       v11 = [*(a1 + 40) _fetchAndClearPendingChangedProperties];
       [v10 propertiesChanged:v11];
 
-      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v19);
+      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v18);
     }
   }
 
 LABEL_16:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_fetchAndClearPendingChangedProperties
@@ -705,52 +811,68 @@ LABEL_16:
   return std::unique_ptr<-[AURemoteHost getParameter:sequenceNumber:reply:]::$_4>::~unique_ptr[abi:ne200100](&selfCopy);
 }
 
+- (void)syncParameter:(unint64_t)parameter value:(float)value extOriginator:(unint64_t)originator hostTime:(unint64_t)time eventType:(unsigned int)type
+{
+  v7 = *&type;
+  parameterTree = [(AUAudioUnit *)self->_audioUnit parameterTree];
+  *&v12 = value;
+  [parameterTree remoteSyncParameter:parameter value:originator extOriginator:time hostTime:v7 eventType:v12];
+}
+
 - (void)parametersForOverviewWithCount:(int64_t)count reply:(id)reply
 {
   replyCopy = reply;
-  v9 = replyCopy;
+  v11 = replyCopy;
   if (!self->_replyWatchdogFactory.mDebugging)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP8NSNumberEEEEU13block_pointerFvDpT_ESF_i_block_invoke;
     aBlock[3] = &__block_descriptor_48_ea8_32c154_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP8NSNumberEEEEU13block_pointerFvDpT_ESF_iEUlS4_SA_E__e29_v24__0__NSError_8__NSArray_16l;
-    caulk::xpc::reply_watchdog_factory::make_timer(&self->_replyWatchdogFactory);
-    v11 = _Block_copy(replyCopy);
-    v13 = v10;
-    v14 = _Block_copy(v11);
-    v9 = _Block_copy(aBlock);
+    caulk::xpc::reply_watchdog_factory::make_timer(&v12, &self->_replyWatchdogFactory);
+    v7 = _Block_copy(replyCopy);
+    v13 = v7;
+    v15 = v12;
+    v16 = _Block_copy(v7);
+    v11 = _Block_copy(aBlock);
 
-    v7 = v13;
-    v13 = 0;
+    v8 = v15;
+    v15 = 0;
+
+    v9 = v12;
+    v12 = 0;
   }
 
-  v8 = [(AUAudioUnit *)self->_audioUnit parametersForOverviewWithCount:count];
-  v9[2](v9, 0, v8);
+  v10 = [(AUAudioUnit *)self->_audioUnit parametersForOverviewWithCount:count];
+  v11[2](v11, 0, v10);
 }
 
 - (void)getParameterTree:(id)tree
 {
   treeCopy = tree;
-  v7 = treeCopy;
+  v9 = treeCopy;
   if (!self->_replyWatchdogFactory.mDebugging)
   {
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP15AUParameterTreeEEEU13block_pointerFvDpT_ESC_i_block_invoke;
     aBlock[3] = &__block_descriptor_48_ea8_32c151_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP15AUParameterTreeEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E__e37_v24__0__NSError_8__AUParameterTree_16l;
-    caulk::xpc::reply_watchdog_factory::make_timer(&self->_replyWatchdogFactory);
-    v9 = _Block_copy(treeCopy);
-    v11 = v8;
-    v12 = _Block_copy(v9);
-    v7 = _Block_copy(aBlock);
+    caulk::xpc::reply_watchdog_factory::make_timer(&v10, &self->_replyWatchdogFactory);
+    v5 = _Block_copy(treeCopy);
+    v11 = v5;
+    v13 = v10;
+    v14 = _Block_copy(v5);
+    v9 = _Block_copy(aBlock);
 
-    v5 = v11;
-    v11 = 0;
+    v6 = v13;
+    v13 = 0;
+
+    v7 = v10;
+    v10 = 0;
   }
 
   currentParameterTree = [(AURemoteHost *)self currentParameterTree];
-  v7[2](v7, 0, currentParameterTree);
+  v9[2](v9, 0, currentParameterTree);
 }
 
 - (id)currentParameterTree
@@ -804,6 +926,73 @@ LABEL_7:
   (v9)[2](v9, v12, v13);
 
   PropertyNotificationDeferrer::~PropertyNotificationDeferrer(v16);
+}
+
+- (void)setBusName:(unsigned int)name scope:(unsigned int)scope name:(id)a5 reply:(id)reply
+{
+  v7 = *&scope;
+  v8 = *&name;
+  v10 = a5;
+  replyCopy = reply;
+  v12 = replyCopy;
+  if (!self->_replyWatchdogFactory.mDebugging)
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3321888768;
+    aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSArrayEEEU13block_pointerFvDpT_ES9_i_block_invoke;
+    aBlock[3] = &__block_descriptor_48_ea8_32c120_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSArrayEEEU13block_pointerFvDpT_ES9_iEUlS4_E__e17_v16__0__NSArray_8l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v20, &self->_replyWatchdogFactory);
+    v13 = _Block_copy(replyCopy);
+    v21 = v13;
+    v23 = v20;
+    v24 = _Block_copy(v13);
+    v12 = _Block_copy(aBlock);
+
+    v14 = v23;
+    v23 = 0;
+
+    v15 = v20;
+    v20 = 0;
+  }
+
+  PropertyNotificationDeferrer::PropertyNotificationDeferrer(aBlock, self);
+  v19 = 0;
+  v16 = [(AURemoteHost *)self _getBus:v8 scope:v7 error:&v19];
+  v17 = v19;
+  if (!v17)
+  {
+    [v16 setName:v10];
+  }
+
+  v18 = PropertyNotificationDeferrer::changedProperties(aBlock);
+  v12[2](v12, v18);
+
+  PropertyNotificationDeferrer::~PropertyNotificationDeferrer(aBlock);
+}
+
+- (void)setBusFormat:(unsigned int)format scope:(unsigned int)scope format:(id)a5 reply:(id)reply
+{
+  v7 = *&scope;
+  v8 = *&format;
+  v10 = a5;
+  replyCopy = reply;
+  v12 = caulk::xpc::reply_watchdog_factory::reply_with_timeout<NSError * {__strong},NSArray * {__strong}>(&self->_replyWatchdogFactory, replyCopy);
+
+  PropertyNotificationDeferrer::PropertyNotificationDeferrer(v18, self);
+  v17 = 0;
+  v13 = [(AURemoteHost *)self _getBus:v8 scope:v7 error:&v17];
+  v14 = v17;
+  if (!v14)
+  {
+    v16 = 0;
+    [v13 setFormat:v10 error:&v16];
+    v14 = v16;
+  }
+
+  v15 = PropertyNotificationDeferrer::changedProperties(v18);
+  (v12)[2](v12, v14, v15);
+
+  PropertyNotificationDeferrer::~PropertyNotificationDeferrer(v18);
 }
 
 - (void)removePropertyObserver:(id)observer context:(unint64_t)context reply:(id)reply
@@ -1016,7 +1205,7 @@ LABEL_7:
 
 - (void)createRenderPipe:(int)pipe formats:(id)formats maxFrames:(unsigned int)frames midiOutSizeHint:(unsigned int)hint resources:(id)resources reply:(id)reply
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   formatsCopy = formats;
   resourcesCopy = resources;
   replyCopy = reply;
@@ -1026,24 +1215,28 @@ LABEL_7:
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorjEEEU13block_pointerFvDpT_ES9_i_block_invoke;
     aBlock[3] = &__block_descriptor_48_ea8_32c122_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorjEEEU13block_pointerFvDpT_ES9_iEUlS4_jE__e20_v20__0__NSError_8I16l;
-    caulk::xpc::reply_watchdog_factory::make_timer(&self->_replyWatchdogFactory);
-    v24 = _Block_copy(replyCopy);
-    v26 = v23;
-    v27 = _Block_copy(v24);
+    caulk::xpc::reply_watchdog_factory::make_timer(&v25, &self->_replyWatchdogFactory);
+    v12 = _Block_copy(replyCopy);
+    v25.__r_.__value_.__l.__size_ = v12;
+    v27 = v25.__r_.__value_.__l.__data_;
+    v28 = _Block_copy(v12);
     _Block_copy(aBlock);
 
-    v12 = v26;
-    v26 = 0;
+    v13 = v27;
+    v27 = 0;
+
+    v14 = v25.__r_.__value_.__r.__words[0];
+    v25.__r_.__value_.__r.__words[0] = 0;
   }
 
   [formatsCopy bytes];
-  v13 = [formatsCopy length];
-  if (v13)
+  v15 = [formatsCopy length];
+  if (v15)
   {
-    v14 = 0xCCCCCCCCCCCCCCCDLL * (v13 >> 3);
-    if (v14 < 0x666666666666667)
+    v16 = 0xCCCCCCCCCCCCCCCDLL * (v15 >> 3);
+    if (v16 < 0x666666666666667)
     {
-      std::allocator<AudioStreamBasicDescription>::allocate_at_least[abi:ne200100](v14);
+      std::allocator<AudioStreamBasicDescription>::allocate_at_least[abi:ne200100](v16);
     }
 
     std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
@@ -1055,16 +1248,16 @@ LABEL_7:
   outputBusses = [(AUAudioUnit *)self->_audioUnit outputBusses];
   [outputBusses count];
 
-  v17 = resourcesCopy;
-  v18 = v17;
-  if (!v17)
+  v19 = resourcesCopy;
+  v20 = v19;
+  if (!v19)
   {
-    v18 = xpc_null_create();
+    v20 = xpc_null_create();
   }
 
-  v19 = v18;
-  v20 = v19;
-  if (!v19 || object_getClass(v19) != MEMORY[0x1E69E9E80])
+  v21 = v20;
+  v22 = v21;
+  if (!v21 || object_getClass(v21) != MEMORY[0x1E69E9E80])
   {
     xpc_null_create();
   }
@@ -1115,76 +1308,67 @@ LABEL_7:
 {
   initializeCopy = initialize;
   replyCopy = reply;
-  v40 = replyCopy;
+  v41 = replyCopy;
   if (!self->_replyWatchdogFactory.mDebugging)
   {
     aBlock = MEMORY[0x1E69E9820];
-    v46 = 3321888768;
-    v47 = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrormmmU8__strongP6NSDatabjEEEU13block_pointerFvDpT_ESC_i_block_invoke;
-    v48 = &__block_descriptor_48_ea8_32c151_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrormmmU8__strongP6NSDatabjEEEU13block_pointerFvDpT_ESC_iEUlS4_mmmS7_bjE__e43_v56__0__NSError_8Q16Q24Q32__NSData_40B48I52l;
-    caulk::xpc::reply_watchdog_factory::make_timer(&self->_replyWatchdogFactory);
-    v52 = _Block_copy(replyCopy);
-    p_renderServerUser = v51;
-    v50 = _Block_copy(v52);
-    v40 = _Block_copy(&aBlock);
+    v47 = 3321888768;
+    v48 = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrormmmU8__strongP6NSDatabjEEEU13block_pointerFvDpT_ESC_i_block_invoke;
+    v49 = &__block_descriptor_48_ea8_32c151_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrormmmU8__strongP6NSDatabjEEEU13block_pointerFvDpT_ESC_iEUlS4_mmmS7_bjE__e43_v56__0__NSError_8Q16Q24Q32__NSData_40B48I52l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v52, &self->_replyWatchdogFactory);
+    v7 = _Block_copy(replyCopy);
+    v53 = v7;
+    p_renderServerUser = v52;
+    v51 = _Block_copy(v7);
+    v41 = _Block_copy(&aBlock);
 
-    v7 = p_renderServerUser;
+    v8 = p_renderServerUser;
     p_renderServerUser = 0;
 
-    v8 = v51;
-    v51 = 0;
+    v9 = v52;
+    v52 = 0;
   }
 
-  PropertyNotificationDeferrer::PropertyNotificationDeferrer(v44, self);
+  PropertyNotificationDeferrer::PropertyNotificationDeferrer(v45, self);
   if (self->_renderServerUser.__engaged_)
   {
     AUOOPRenderingServerUser::~AUOOPRenderingServerUser(&self->_renderServerUser);
     self->_renderServerUser.__engaged_ = 0;
   }
 
-  v39 = self->_audioUnit;
+  v40 = self->_audioUnit;
   BaseOpaqueObject::BaseOpaqueObject(&self->_renderServerUser);
   self->_renderServerUser.var0.__val_.mRetainedRenderBlock = 0;
   self->_renderServerUser.var0.__val_._vptr$CAPrint = &unk_1F0336398;
-  self->_renderServerUser.var0.__val_.mAUAudioUnit = v39;
+  self->_renderServerUser.var0.__val_.mAUAudioUnit = v40;
   self->_renderServerUser.var0.__val_.mRenderBlock = 0;
-  v9 = v39;
-  if (![(AUAudioUnit *)v9 canProcessInPlace])
+  v10 = v40;
+  if (-[AUAudioUnit canProcessInPlace](v10, "canProcessInPlace", v40) && (-[AUAudioUnit inputBusses](v10, "inputBusses"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 count], -[AUAudioUnit outputBusses](v10, "outputBusses"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v11, v12 == v14))
   {
-    goto LABEL_11;
-  }
-
-  inputBusses = [(AUAudioUnit *)v9 inputBusses];
-  v11 = [inputBusses count];
-  outputBusses = [(AUAudioUnit *)v9 outputBusses];
-  v13 = [outputBusses count];
-
-  if (v11 == v13)
-  {
-    v14 = 0;
+    v15 = 0;
     while (1)
     {
-      inputBusses2 = [(AUAudioUnit *)v9 inputBusses];
-      v16 = [inputBusses2 count];
+      inputBusses = [(AUAudioUnit *)v10 inputBusses];
+      v17 = [inputBusses count];
 
-      v17 = v16 > v14;
-      v18 = v16 <= v14;
-      if (!v17)
+      v18 = v17 > v15;
+      v19 = v17 <= v15;
+      if (!v18)
       {
         break;
       }
 
-      inputBusses3 = [(AUAudioUnit *)v9 inputBusses];
-      v20 = [inputBusses3 objectAtIndexedSubscript:v14];
-      format = [v20 format];
+      inputBusses2 = [(AUAudioUnit *)v10 inputBusses];
+      v21 = [inputBusses2 objectAtIndexedSubscript:v15];
+      format = [v21 format];
 
-      outputBusses2 = [(AUAudioUnit *)v9 outputBusses];
-      v23 = [outputBusses2 objectAtIndexedSubscript:v14];
-      format2 = [v23 format];
+      outputBusses = [(AUAudioUnit *)v10 outputBusses];
+      v24 = [outputBusses objectAtIndexedSubscript:v15];
+      format2 = [v24 format];
 
-      LOBYTE(v23) = [format isEqual:format2];
-      ++v14;
-      if ((v23 & 1) == 0)
+      LOBYTE(v24) = [format isEqual:format2];
+      ++v15;
+      if ((v24 & 1) == 0)
       {
         goto LABEL_11;
       }
@@ -1194,14 +1378,14 @@ LABEL_7:
   else
   {
 LABEL_11:
-    v18 = 0;
+    v19 = 0;
   }
 
-  self->_renderServerUser.var0.__val_.mCanProcessInPlace = v18;
+  self->_renderServerUser.var0.__val_.mCanProcessInPlace = v19;
   objc_opt_class();
   self->_renderServerUser.var0.__val_.mIsV2AudioUnit = objc_opt_isKindOfClass() & 1;
   self->_renderServerUser.var0.__val_.mMIDIOutBaseSampleTime = 0;
-  self->_renderServerUser.var0.__val_.mEventSchedule = [(AUAudioUnit *)v9 eventSchedule];
+  self->_renderServerUser.var0.__val_.mEventSchedule = [(AUAudioUnit *)v10 eventSchedule];
   self->_renderServerUser.var0.__val_.mSharedBuffers = 0;
   self->_renderServerUser.var0.__val_.mRenderThreadId.var0.__null_state_ = 0;
   self->_renderServerUser.var0.__val_.mRenderThreadId.__engaged_ = 0;
@@ -1209,9 +1393,9 @@ LABEL_11:
   if ((initializeCopy & 4) != 0)
   {
     aBlock = MEMORY[0x1E69E9820];
-    v46 = 3221225472;
-    v47 = ___ZN24AUOOPRenderingServerUserC2EP11AUAudioUnitm_block_invoke;
-    v48 = &__block_descriptor_40_e18_i36__0q8C16q20r_28l;
+    v47 = 3221225472;
+    v48 = ___ZN24AUOOPRenderingServerUserC2EP11AUAudioUnitm_block_invoke;
+    v49 = &__block_descriptor_40_e18_i36__0q8C16q20r_28l;
     p_renderServerUser = &self->_renderServerUser;
     [self->_renderServerUser.var0.__val_.mAUAudioUnit setMIDIOutputEventBlock:&aBlock];
   }
@@ -1223,12 +1407,12 @@ LABEL_11:
 
   if ((initializeCopy & 8) != 0)
   {
-    v51 = MEMORY[0x1E69E9820];
-    v52 = 3221225472;
-    v53 = ___ZN24AUOOPRenderingServerUserC2EP11AUAudioUnitm_block_invoke_2;
-    v54 = &__block_descriptor_40_e61_i28__0q8C16r__MIDIEventList_iI_1_MIDIEventPacket_QI_64I____20l;
-    v55 = &self->_renderServerUser;
-    [self->_renderServerUser.var0.__val_.mAUAudioUnit setMIDIOutputEventListBlock:&v51];
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = ___ZN24AUOOPRenderingServerUserC2EP11AUAudioUnitm_block_invoke_2;
+    v55 = &__block_descriptor_40_e61_i28__0q8C16r__MIDIEventList_iI_1_MIDIEventPacket_QI_64I____20l;
+    v56 = &self->_renderServerUser;
+    [self->_renderServerUser.var0.__val_.mAUAudioUnit setMIDIOutputEventListBlock:&v52];
   }
 
   else
@@ -1243,95 +1427,95 @@ LABEL_11:
   self->_renderServerUser.var0.__val_.mRenderBlock = self->_renderServerUser.var0.__val_.mRetainedRenderBlock;
   self->_renderServerUser.__engaged_ = 1;
   audioUnit = self->_audioUnit;
+  v44 = 0;
+  [(AUAudioUnit *)audioUnit allocateRenderResourcesAndReturnError:&v44];
+  v29 = v44;
+  v52 = 0;
   v43 = 0;
-  [(AUAudioUnit *)audioUnit allocateRenderResourcesAndReturnError:&v43];
-  v28 = v43;
-  v51 = 0;
-  v42 = 0;
-  if (v28)
+  if (v29)
   {
-    v29 = 0;
     v30 = 0;
     v31 = 0;
+    v32 = 0;
     aBlock = 0;
   }
 
   else
   {
-    LODWORD(v31) = [(AUAudioUnit *)self->_audioUnit maximumFramesToRender];
-    inputBusses4 = [(AUAudioUnit *)self->_audioUnit inputBusses];
-    v51 = [inputBusses4 count];
+    LODWORD(v32) = [(AUAudioUnit *)self->_audioUnit maximumFramesToRender];
+    inputBusses3 = [(AUAudioUnit *)self->_audioUnit inputBusses];
+    v52 = [inputBusses3 count];
 
-    outputBusses3 = [(AUAudioUnit *)self->_audioUnit outputBusses];
-    v42 = [outputBusses3 count];
+    outputBusses2 = [(AUAudioUnit *)self->_audioUnit outputBusses];
+    v43 = [outputBusses2 count];
 
     aBlock = 0;
-    v46 = 0;
     v47 = 0;
+    v48 = 0;
     p_aBlock = &aBlock;
-    inputBusses5 = [(AUAudioUnit *)self->_audioUnit inputBusses];
-    [AURemoteHost initialize:reply:]::$_2::operator()(&p_aBlock, inputBusses5, &v51);
+    inputBusses4 = [(AUAudioUnit *)self->_audioUnit inputBusses];
+    [AURemoteHost initialize:reply:]::$_2::operator()(&p_aBlock, inputBusses4, &v52);
 
-    outputBusses4 = [(AUAudioUnit *)self->_audioUnit outputBusses];
-    [AURemoteHost initialize:reply:]::$_2::operator()(&p_aBlock, outputBusses4, &v42);
+    outputBusses3 = [(AUAudioUnit *)self->_audioUnit outputBusses];
+    [AURemoteHost initialize:reply:]::$_2::operator()(&p_aBlock, outputBusses3, &v43);
 
-    aBlock = [MEMORY[0x1E695DEF0] dataWithBytes:aBlock length:v46 - aBlock];
-    v37 = voucher_copy();
+    aBlock = [MEMORY[0x1E695DEF0] dataWithBytes:aBlock length:v47 - aBlock];
+    v38 = voucher_copy();
     initializationVoucher = self->_initializationVoucher;
-    self->_initializationVoucher = v37;
+    self->_initializationVoucher = v38;
 
     maintainWakeMonitor(1);
-    v31 = v31;
+    v32 = v32;
     if (aBlock)
     {
-      v46 = aBlock;
+      v47 = aBlock;
       operator delete(aBlock);
     }
 
-    v30 = v51;
-    v29 = v42;
+    v31 = v52;
+    v30 = v43;
   }
 
-  v40[2](v40, v28, v31, v30, v29, aBlock, [(AUAudioUnit *)self->_audioUnit canProcessInPlace], self->_renderServerUser.var0.__val_.mSerialNum);
+  v41[2](v41, v29, v32, v31, v30, aBlock, [(AUAudioUnit *)self->_audioUnit canProcessInPlace], self->_renderServerUser.var0.__val_.mSerialNum);
 
-  PropertyNotificationDeferrer::~PropertyNotificationDeferrer(v44);
+  PropertyNotificationDeferrer::~PropertyNotificationDeferrer(v45);
 }
 
 - (void)initialize:reply:
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   *a3 = [v5 count];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v6)
   {
-    v7 = *v31;
+    v7 = *v30;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
         format = [v9 format];
         v11 = format;
-        v29 = 0;
+        v28 = 0;
+        v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         if (format)
         {
           streamDescription = [format streamDescription];
-          v27 = *streamDescription;
-          v28 = *(streamDescription + 16);
-          v29 = *(streamDescription + 32);
+          v26 = *streamDescription;
+          v27 = *(streamDescription + 16);
+          v28 = *(streamDescription + 32);
         }
 
         v13 = *self;
@@ -1368,9 +1552,9 @@ LABEL_11:
           }
 
           v21 = 40 * v17;
-          *v21 = v27;
-          *(v21 + 16) = v28;
-          *(v21 + 32) = v29;
+          *v21 = v26;
+          *(v21 + 16) = v27;
+          *(v21 + 32) = v28;
           v16 = 40 * v17 + 40;
           v22 = *(v13 + 8) - *v13;
           v23 = 40 * v17 - v22;
@@ -1387,22 +1571,20 @@ LABEL_11:
 
         else
         {
-          *v14 = v27;
-          *(v14 + 16) = v28;
-          *(v14 + 32) = v29;
+          *v14 = v26;
+          *(v14 + 16) = v27;
+          *(v14 + 32) = v28;
           v16 = v14 + 40;
         }
 
         *(v13 + 8) = v16;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v6);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getBusses:(unsigned int)busses reply:(id)reply
@@ -1436,17 +1618,18 @@ LABEL_11:
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorbbU8__strongP7NSArrayS8_bbimmEEEU13block_pointerFvDpT_ESC_i_block_invoke;
     aBlock[3] = &__block_descriptor_48_ea8_32c162_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorbbU8__strongP7NSArrayS8_bbimmEEEU13block_pointerFvDpT_ESC_iEUlS4_bbS7_S7_bbimmE__e62_v68__0__NSError_8B16B20__NSArray_24__NSArray_32B40B44i48Q52Q60l;
-    caulk::xpc::reply_watchdog_factory::make_timer(&self->_replyWatchdogFactory);
-    v23 = _Block_copy(replyCopy);
-    v25 = v22;
-    v26 = _Block_copy(v23);
+    caulk::xpc::reply_watchdog_factory::make_timer(&v23, &self->_replyWatchdogFactory);
+    v11 = _Block_copy(replyCopy);
+    v24 = v11;
+    v26 = v23;
+    v27 = _Block_copy(v11);
     v10 = _Block_copy(aBlock);
 
-    v11 = v25;
-    v25 = 0;
+    v12 = v26;
+    v26 = 0;
 
-    v12 = v22;
-    v22 = 0;
+    v13 = v23;
+    v23 = 0;
   }
 
   audioUnitUUID = [(AURemoteHost *)self audioUnitUUID];
@@ -1465,19 +1648,19 @@ LABEL_11:
   {
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __40__AURemoteHost_open_instanceUUID_reply___block_invoke;
-  v18[3] = &unk_1E72BA8F0;
-  v20 = *&open->componentType;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __40__AURemoteHost_open_instanceUUID_reply___block_invoke;
+  v19[3] = &unk_1E72BA8F0;
+  v21 = *&open->componentType;
   componentFlagsMask = open->componentFlagsMask;
-  v18[4] = self;
-  v19 = v10;
-  v15 = _Block_copy(v18);
+  v19[4] = self;
+  v20 = v10;
+  v16 = _Block_copy(v19);
   processIdentifier = [(NSXPCConnection *)self->_remoteHostXPCConnection processIdentifier];
   if (processIdentifier == getpid())
   {
-    v15[2](v15);
+    v16[2](v16);
   }
 
   else
@@ -1486,12 +1669,12 @@ LABEL_11:
 
     if (currentConnection)
     {
-      [MEMORY[0x1E696B0B8] _handoffCurrentReplyToQueue:MEMORY[0x1E69E96A0] block:v15];
+      [MEMORY[0x1E696B0B8] _handoffCurrentReplyToQueue:MEMORY[0x1E69E96A0] block:v16];
     }
 
     else
     {
-      dispatch_async(MEMORY[0x1E69E96A0], v15);
+      dispatch_async(MEMORY[0x1E69E96A0], v16);
     }
   }
 
@@ -1531,7 +1714,6 @@ void __40__AURemoteHost_open_instanceUUID_reply___block_invoke_2(uint64_t a1, vo
 
 - (void)openImpl:(id)impl reply:(id)reply
 {
-  v8 = *MEMORY[0x1E69E9840];
   implCopy = impl;
   reply;
   objc_storeStrong(&self->_audioUnit, impl);
@@ -1567,39 +1749,37 @@ void __40__AURemoteHost_open_instanceUUID_reply___block_invoke_2(uint64_t a1, vo
 
 void __25__AURemoteHost_setBlocks__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v9 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v13[0] = &unk_1F033F978;
-  v13[1] = &__block_literal_global_22;
-  v13[3] = v13;
-  caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(&v14, WeakRetained, v13);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v13);
+  v12[0] = &unk_1F033F978;
+  v12[1] = &__block_literal_global_22;
+  v12[3] = v12;
+  caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(&v13, WeakRetained, v12);
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v12);
 
-  v11 = caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(&v14);
+  v11 = caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(&v13);
   [v11 MIDICIProfileChanged:a2 channel:a3 profile:v9 enabled:a5];
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v15);
-  v12 = *MEMORY[0x1E69E9840];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v14);
 }
 
 void __25__AURemoteHost_setBlocks__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v12[4] = *MEMORY[0x1E69E9840];
+  v11[4] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v10[0] = &unk_1F033F978;
-  v10[1] = &__block_literal_global_25;
-  v10[3] = v10;
-  caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(&v11, WeakRetained, v10);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v10);
+  v9[0] = &unk_1F033F978;
+  v9[1] = &__block_literal_global_25;
+  v9[3] = v9;
+  caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(&v10, WeakRetained, v9);
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v9);
 
-  v8 = caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(&v11);
+  v8 = caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(&v10);
   [v8 speechSynthesisMetadataAvailable:v5 speechRequest:v6];
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v12);
-  v9 = *MEMORY[0x1E69E9840];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v11);
 }
 
 - (void)dealloc
@@ -1699,23 +1879,22 @@ void __25__AURemoteHost_setBlocks__block_invoke_3(uint64_t a1, void *a2, void *a
 
 - (AURemoteHost)initWithConnection:(id)connection config:(id)config
 {
-  v7[4] = *MEMORY[0x1E69E9840];
-  v7[0] = &unk_1F0326C78;
-  v7[3] = v7;
-  v4 = [(AURemoteHost *)self initWithConnection:connection config:config timeOutHandler:v7];
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
-  v5 = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
+  v6[0] = &unk_1F0326C78;
+  v6[3] = v6;
+  v4 = [(AURemoteHost *)self initWithConnection:connection config:config timeOutHandler:v6];
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
   return v4;
 }
 
 - (AURemoteHost)initWithConnection:(id)connection config:(id)config timeOutHandler:(function<void)(
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   +[AURemoteHost _staticInit];
-  v23.receiver = self;
-  v23.super_class = AURemoteHost;
-  v9 = [(AURemoteHost *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = AURemoteHost;
+  v9 = [(AURemoteHost *)&v22 init];
   if (v9)
   {
     v10 = dispatch_queue_create("AUExtension.propertyObserver", 0);
@@ -1732,9 +1911,9 @@ void __25__AURemoteHost_setBlocks__block_invoke_3(uint64_t a1, void *a2, void *a
     v9->_audioUnitUUID = v14;
 
     {
-      if (v22)
+      if (v21)
       {
-        ServiceProcessGlobals::ServiceProcessGlobals(v22);
+        ServiceProcessGlobals::ServiceProcessGlobals(v21);
       }
     }
 
@@ -1753,19 +1932,18 @@ void __25__AURemoteHost_setBlocks__block_invoke_3(uint64_t a1, void *a2, void *a
       std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
     }
 
-    std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v24, a5);
+    std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v23, a5);
     caulk::xpc::reply_watchdog_factory::init2();
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v24);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v23);
     v19 = v9;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)_identifyBus:(id)bus scope:(unsigned int *)scope element:(unsigned int *)element
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   busCopy = bus;
   audioUnit = self->_audioUnit;
   if (audioUnit == busCopy)
@@ -1778,16 +1956,16 @@ LABEL_22:
 
   else
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     inputBusses = [(AUAudioUnit *)audioUnit inputBusses];
-    v11 = [inputBusses countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v11 = [inputBusses countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v11)
     {
       v12 = 0;
-      v13 = *v30;
+      v13 = *v29;
       while (2)
       {
         v14 = 0;
@@ -1795,12 +1973,12 @@ LABEL_22:
         v12 += v11;
         do
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(inputBusses);
           }
 
-          if (*(*(&v29 + 1) + 8 * v14) == busCopy)
+          if (*(*(&v28 + 1) + 8 * v14) == busCopy)
           {
             *scope = 1;
             *element = v15;
@@ -1813,7 +1991,7 @@ LABEL_22:
         }
 
         while (v11 != v14);
-        v11 = [inputBusses countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v11 = [inputBusses countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (v11)
         {
           continue;
@@ -1823,16 +2001,16 @@ LABEL_22:
       }
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     outputBusses = [(AUAudioUnit *)self->_audioUnit outputBusses];
-    v17 = [outputBusses countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v17 = [outputBusses countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v17)
     {
       v18 = 0;
-      v19 = *v26;
+      v19 = *v25;
       while (2)
       {
         v20 = 0;
@@ -1840,12 +2018,12 @@ LABEL_22:
         v18 += v17;
         do
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(outputBusses);
           }
 
-          if (*(*(&v25 + 1) + 8 * v20) == busCopy)
+          if (*(*(&v24 + 1) + 8 * v20) == busCopy)
           {
             *scope = 1;
             *element = v21;
@@ -1858,7 +2036,7 @@ LABEL_22:
         }
 
         while (v17 != v20);
-        v17 = [outputBusses countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v17 = [outputBusses countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v17)
         {
           continue;
@@ -1871,7 +2049,6 @@ LABEL_22:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 

@@ -3,6 +3,7 @@
 - (CKContainer)container;
 - (NSString)serviceName;
 - (NSURL)serviceInstanceURL;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)boxedDatabaseScope;
 - (id)initInternalWithImplementation:(id)implementation container:(id)container;
 - (void)addOperation:(id)operation;
@@ -33,6 +34,17 @@
   }
 
   return p_isa;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  expandCopy = expand;
+  privateCopy = private;
+  publicCopy = public;
+  v8 = objc_msgSend_implementation(self, a2, public);
+  v10 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(v8, v9, publicCopy, privateCopy, expandCopy);
+
+  return v10;
 }
 
 - (NSString)serviceName

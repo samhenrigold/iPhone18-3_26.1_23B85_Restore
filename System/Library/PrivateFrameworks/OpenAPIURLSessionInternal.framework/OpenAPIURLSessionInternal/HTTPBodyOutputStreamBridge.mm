@@ -10,7 +10,7 @@
 {
   ObjectType = swift_getObjectType();
   selfCopy = self;
-  nullsub_1(sub_25DDCE0C8);
+  nullsub_1();
   [*(&selfCopy->super.isa + OBJC_IVAR____TtC25OpenAPIURLSessionInternal26HTTPBodyOutputStreamBridge_outputStream) setDelegate_];
   v5.receiver = selfCopy;
   v5.super_class = ObjectType;

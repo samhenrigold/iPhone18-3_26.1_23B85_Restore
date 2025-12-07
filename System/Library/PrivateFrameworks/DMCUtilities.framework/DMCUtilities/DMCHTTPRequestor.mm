@@ -17,7 +17,7 @@
 
 - (void)startWithRequest:(id)request username:(id)username password:(id)password anchorCertificateRefs:(id)refs completionBlock:(id)block
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   blockCopy = block;
   refsCopy = refs;
@@ -45,75 +45,73 @@
   if (authenticator)
   {
     authenticator2 = [(DMCHTTPRequestor *)self authenticator];
-    v42 = 0;
-    v20 = [authenticator2 authenticateRequest:requestCopy error:&v42];
-    v21 = v42;
+    v47 = 0;
+    v20 = [authenticator2 authenticateRequest:requestCopy error:&v47];
+    v21 = v47;
 
     if ((v20 & 1) == 0)
     {
-      v22 = *DMCLogObjects();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = *DMCLogObjects(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
         selfCopy2 = v21;
-        _os_log_impl(&dword_1B1630000, v22, OS_LOG_TYPE_ERROR, "Failed to authenticate request with error: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_1B1630000, v24, OS_LOG_TYPE_ERROR, "Failed to authenticate request with error: %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v23 = [MEMORY[0x1E696AF78] sessionWithConfiguration:ephemeralSessionConfiguration delegate:self delegateQueue:0];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __93__DMCHTTPRequestor_startWithRequest_username_password_anchorCertificateRefs_completionBlock___block_invoke;
-  v38[3] = &unk_1E7ADCB48;
-  v24 = requestCopy;
-  v39 = v24;
+  v25 = [MEMORY[0x1E696AF78] sessionWithConfiguration:ephemeralSessionConfiguration delegate:self delegateQueue:0];
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __93__DMCHTTPRequestor_startWithRequest_username_password_anchorCertificateRefs_completionBlock___block_invoke;
+  v43[3] = &unk_1E7ADCB48;
+  v26 = requestCopy;
+  v44 = v26;
   selfCopy = self;
-  v25 = blockCopy;
-  v41 = v25;
-  v26 = [v23 dataTaskWithRequest:v24 completionHandler:v38];
+  v27 = blockCopy;
+  v46 = v27;
+  v28 = [v25 dataTaskWithRequest:v26 completionHandler:v43];
   authenticator3 = [(DMCHTTPRequestor *)self authenticator];
-  v28 = objc_opt_respondsToSelector();
+  v30 = objc_opt_respondsToSelector();
 
-  if (v28)
+  if (v30)
   {
     authenticator4 = [(DMCHTTPRequestor *)self authenticator];
-    v37 = 0;
-    v30 = [authenticator4 prepareTask:v26 error:&v37];
-    v31 = v37;
+    v42 = 0;
+    v34 = [authenticator4 prepareTask:v28 error:&v42];
+    v35 = v42;
 
-    if ((v30 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
-      v32 = *DMCLogObjects();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v38 = *DMCLogObjects(v36, v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        selfCopy2 = v31;
-        _os_log_impl(&dword_1B1630000, v32, OS_LOG_TYPE_ERROR, "Failed to prepare task with error: %{public}@", buf, 0xCu);
+        selfCopy2 = v35;
+        _os_log_impl(&dword_1B1630000, v38, OS_LOG_TYPE_ERROR, "Failed to prepare task with error: %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v33 = *DMCLogObjects();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v39 = *DMCLogObjects(v31, v32);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
   {
-    v34 = v33;
-    v35 = [v24 URL];
+    v40 = v39;
+    v41 = [v26 URL];
     *buf = 138543618;
     selfCopy2 = self;
-    v45 = 2114;
-    v46 = v35;
-    _os_log_impl(&dword_1B1630000, v34, OS_LOG_TYPE_INFO, "%{public}@ Starting request to %{public}@", buf, 0x16u);
+    v50 = 2114;
+    v51 = v41;
+    _os_log_impl(&dword_1B1630000, v40, OS_LOG_TYPE_INFO, "%{public}@ Starting request to %{public}@", buf, 0x16u);
   }
 
-  [v26 resume];
-
-  v36 = *MEMORY[0x1E69E9840];
+  [v28 resume];
 }
 
 void __93__DMCHTTPRequestor_startWithRequest_username_password_anchorCertificateRefs_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -133,23 +131,23 @@ void __93__DMCHTTPRequestor_startWithRequest_username_password_anchorCertificate
   v12 = v11;
   if (v11 && [v11 statusCode] == 403 && (objc_msgSend(v12, "MIMEType"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @"application/json"), v13, v14))
   {
-    v15 = [DMCHTTPRequestor jsonDictFromResponse:v7];
-    if (v15)
+    v16 = [DMCHTTPRequestor jsonDictFromResponse:v7];
+    if (v16)
     {
-      v58 = v9;
-      [DMCHTTPRequestor parse403ErrorWithResponseDictionary:v15 outError:&v58];
-      v16 = v58;
+      v62 = v9;
+      [DMCHTTPRequestor parse403ErrorWithResponseDictionary:v16 outError:&v62];
+      v17 = v62;
 
-      v9 = v16;
+      v9 = v17;
     }
 
     else
     {
-      v57 = *DMCLogObjects();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+      v61 = *DMCLogObjects(0, v15);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B1630000, v57, OS_LOG_TYPE_DEBUG, "Response from server could not be deserialized.", buf, 2u);
+        _os_log_impl(&dword_1B1630000, v61, OS_LOG_TYPE_DEBUG, "Response from server could not be deserialized.", buf, 2u);
       }
     }
   }
@@ -158,102 +156,106 @@ void __93__DMCHTTPRequestor_startWithRequest_username_password_anchorCertificate
   {
     if ([*(a1 + 40) didFailDueToMissingCredentials])
     {
-      v24 = MEMORY[0x1E696ABC0];
-      v25 = DMCErrorArray(@"HTTP_INVALID_USERNAME_PASSWORD", v17, v18, v19, v20, v21, v22, v23, 0);
-      v26 = [v24 DMCErrorWithDomain:@"DMCHTTPTransactionErrorDomain" code:23003 descriptionArray:v25 underlyingError:v9 errorType:@"DMCFatalError"];
+      v25 = MEMORY[0x1E696ABC0];
+      v26 = DMCErrorArray(@"HTTP_INVALID_USERNAME_PASSWORD", v18, v19, v20, v21, v22, v23, v24, 0);
+      v27 = [v25 DMCErrorWithDomain:@"DMCHTTPTransactionErrorDomain" code:23003 descriptionArray:v26 underlyingError:v9 errorType:@"DMCFatalError"];
 
-      if (v12 && [v12 statusCode] == 401)
+      if (v12)
       {
-        v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v7 encoding:4];
-        v28 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-        v29 = [v27 stringByTrimmingCharactersInSet:v28];
-
-        if ([v29 length])
+        v28 = [v12 statusCode];
+        if (v28 == 401)
         {
-          v30 = [v26 userInfo];
-          v31 = [v30 mutableCopy];
+          v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v7 encoding:4];
+          v31 = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
+          v32 = [v30 stringByTrimmingCharactersInSet:v31];
 
-          [v31 setObject:v29 forKeyedSubscript:@"loginPrompt"];
-          v32 = MEMORY[0x1E696ABC0];
-          v33 = [v26 domain];
-          v34 = [v32 errorWithDomain:v33 code:objc_msgSend(v26 userInfo:{"code"), v31}];
+          if ([v32 length])
+          {
+            v33 = [v27 userInfo];
+            v34 = [v33 mutableCopy];
 
-          v26 = v34;
+            [v34 setObject:v32 forKeyedSubscript:@"loginPrompt"];
+            v35 = MEMORY[0x1E696ABC0];
+            v36 = [v27 domain];
+            v37 = [v35 errorWithDomain:v36 code:objc_msgSend(v27 userInfo:{"code"), v34}];
+
+            v27 = v37;
+          }
         }
       }
     }
 
     else
     {
-      if (![*(a1 + 40) didFailDueToCertNotTrusted])
+      v28 = [*(a1 + 40) didFailDueToCertNotTrusted];
+      if (!v28)
       {
         goto LABEL_18;
       }
 
-      v35 = MEMORY[0x1E696ABC0];
-      v36 = [*(a1 + 32) URL];
-      v44 = DMCErrorArray(@"HTTP_ERROR_INVALID_SERVER_CERT_P_URL_%@", v37, v38, v39, v40, v41, v42, v43, v36);
-      v26 = [v35 DMCErrorWithDomain:@"DMCHTTPTransactionErrorDomain" code:23002 descriptionArray:v44 errorType:@"DMCFatalError"];
+      v38 = MEMORY[0x1E696ABC0];
+      v39 = [*(a1 + 32) URL];
+      v47 = DMCErrorArray(@"HTTP_ERROR_INVALID_SERVER_CERT_P_URL_%@", v40, v41, v42, v43, v44, v45, v46, v39);
+      v27 = [v38 DMCErrorWithDomain:@"DMCHTTPTransactionErrorDomain" code:23002 descriptionArray:v47 errorType:@"DMCFatalError"];
     }
 
-    v9 = v26;
+    v9 = v27;
   }
 
 LABEL_18:
-  v45 = *DMCLogObjects();
+  v48 = *DMCLogObjects(v28, v29);
   if (v9)
   {
-    if (!os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_26;
     }
 
-    v46 = *(a1 + 40);
-    v47 = v45;
-    v48 = [v9 DMCVerboseDescription];
+    v49 = *(a1 + 40);
+    v50 = v48;
+    v51 = [v9 DMCVerboseDescription];
     *buf = 138543618;
-    v60 = v46;
-    v61 = 2114;
-    v62 = v48;
-    _os_log_impl(&dword_1B1630000, v47, OS_LOG_TYPE_ERROR, "%{public}@ failed to communicate with the MDM server. Error: %{public}@", buf, 0x16u);
+    v64 = v49;
+    v65 = 2114;
+    v66 = v51;
+    _os_log_impl(&dword_1B1630000, v50, OS_LOG_TYPE_ERROR, "%{public}@ failed to communicate with the MDM server. Error: %{public}@", buf, 0x16u);
 
     goto LABEL_25;
   }
 
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+  v52 = os_log_type_enabled(v48, OS_LOG_TYPE_INFO);
+  if (v52)
   {
-    v49 = MEMORY[0x1E696AEC0];
-    v50 = v45;
-    v51 = [[v49 alloc] initWithData:v7 encoding:4];
+    v54 = MEMORY[0x1E696AEC0];
+    v55 = v48;
+    v56 = [[v54 alloc] initWithData:v7 encoding:4];
     *buf = 138543362;
-    v60 = v51;
-    _os_log_impl(&dword_1B1630000, v50, OS_LOG_TYPE_INFO, "%{public}@", buf, 0xCu);
+    v64 = v56;
+    _os_log_impl(&dword_1B1630000, v55, OS_LOG_TYPE_INFO, "%{public}@", buf, 0xCu);
   }
 
-  v52 = *DMCLogObjects();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+  v57 = *DMCLogObjects(v52, v53);
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
   {
-    v53 = *(a1 + 40);
-    v47 = v52;
-    v54 = [v7 length];
+    v58 = *(a1 + 40);
+    v50 = v57;
+    v59 = [v7 length];
     *buf = 138543618;
-    v60 = v53;
-    v61 = 2048;
-    v62 = v54;
-    _os_log_impl(&dword_1B1630000, v47, OS_LOG_TYPE_INFO, "%{public}@ finished communicating. Received %lu bytes.", buf, 0x16u);
+    v64 = v58;
+    v65 = 2048;
+    v66 = v59;
+    _os_log_impl(&dword_1B1630000, v50, OS_LOG_TYPE_INFO, "%{public}@ finished communicating. Received %lu bytes.", buf, 0x16u);
 LABEL_25:
   }
 
 LABEL_26:
-  v55 = *(a1 + 48);
-  if (v55)
+  v60 = *(a1 + 48);
+  if (v60)
   {
-    (*(v55 + 16))(v55, v7, v8, v9);
+    (*(v60 + 16))(v60, v7, v8, v9);
   }
 
   [*(a1 + 40) setSelfReference:0];
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_getServerErrorMessageFromResponseDictionary:(id)dictionary
@@ -261,22 +263,22 @@ LABEL_26:
   v3 = [dictionary objectForKeyedSubscript:@"message"];
   if ([v3 length])
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = *DMCLogObjects();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = *DMCLogObjects(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, "Server response did not contain message key.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_ERROR, "Server response did not contain message key.", v8, 2u);
     }
 
-    v4 = &stru_1F2860120;
+    v5 = &stru_1F2860120;
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)_getServerErrorCodeFromResponseDictionary:(id)dictionary
@@ -284,46 +286,47 @@ LABEL_26:
   v3 = [dictionary objectForKeyedSubscript:@"code"];
   if ([v3 length])
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = *DMCLogObjects();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = *DMCLogObjects(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, "Server response did not contain error key.", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_ERROR, "Server response did not contain error key.", v8, 2u);
     }
 
-    v4 = &stru_1F2860120;
+    v5 = &stru_1F2860120;
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)_getServerErrorDetailsFromResponseDictionary:(id)dictionary
 {
   v3 = [dictionary objectForKeyedSubscript:@"details"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v3 count])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) != 0 && (isKindOfClass = [v3 count]) != 0)
   {
-    v4 = v3;
+    v6 = v3;
   }
 
   else
   {
-    v5 = *DMCLogObjects();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = *DMCLogObjects(isKindOfClass, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, "Server response did not contain error details.", v7, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_ERROR, "Server response did not contain error details.", v9, 2u);
     }
 
-    v4 = MEMORY[0x1E695E0F8];
+    v6 = MEMORY[0x1E695E0F8];
   }
 
-  return v4;
+  return v6;
 }
 
 + (BOOL)parse403ErrorWithResponseDictionary:(id)dictionary outError:(id *)error
@@ -419,7 +422,7 @@ LABEL_12:
 
 + (BOOL)_parsePairingTokenMissingErrorWithMessage:(id)message details:(id)details outError:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v8 = [details objectForKeyedSubscript:@"security-token"];
   v16 = [v8 length];
@@ -427,24 +430,24 @@ LABEL_12:
   {
     if (error)
     {
-      v24 = MEMORY[0x1E696ABC0];
+      v23 = MEMORY[0x1E696ABC0];
       v17 = DMCErrorArray(@"HTTP_ERROR_403_RESPONSE_PAIRING_TOKEN_MISSING_%@", v9, v10, v11, v12, v13, v14, v15, messageCopy);
-      v28 = @"PairingParameters";
-      v26[0] = @"SecurityToken";
-      v26[1] = @"WatchUDID";
-      v27[0] = v8;
+      v27 = @"PairingParameters";
+      v25[0] = @"SecurityToken";
+      v25[1] = @"WatchUDID";
+      v26[0] = v8;
       v18 = +[DMCMobileGestalt deviceUDID];
-      v27[1] = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
-      v29[0] = v19;
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-      *error = [v24 DMCErrorWithDomain:@"DMCHTTPTransactionErrorDomain" code:23007 descriptionArray:v17 suggestion:0 USEnglishSuggestion:0 underlyingError:0 errorType:@"DMCFatalError" addtionalUserInfo:v20];
+      v26[1] = v18;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+      v28[0] = v19;
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      *error = [v23 DMCErrorWithDomain:@"DMCHTTPTransactionErrorDomain" code:23007 descriptionArray:v17 suggestion:0 USEnglishSuggestion:0 underlyingError:0 errorType:@"DMCFatalError" addtionalUserInfo:v20];
     }
   }
 
   else
   {
-    v21 = *DMCLogObjects();
+    v21 = *DMCLogObjects(0, v9);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -452,38 +455,37 @@ LABEL_12:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v16 != 0;
 }
 
 + (BOOL)_parseSoftwareUpdateRequiredErrorWithMessage:(id)message details:(id)details outError:(id *)error
 {
   detailsCopy = details;
-  v7 = [detailsCopy count];
-  if (v7)
+  v8 = [detailsCopy count];
+  if (v8)
   {
-    v8 = objc_opt_new();
-    [v8 setObject:detailsCopy forKeyedSubscript:@"SoftwareUpdateInfo"];
+    v9 = objc_opt_new();
+    [v9 setObject:detailsCopy forKeyedSubscript:@"SoftwareUpdateInfo"];
     if (error)
     {
-      v16 = MEMORY[0x1E696ABC0];
-      v17 = DMCErrorArray(@"HTTP_ERROR_403_RESPONSE_SOFTWARE_UPDATE_REQUIRED", v9, v10, v11, v12, v13, v14, v15, 0);
-      v18 = [v8 copy];
-      *error = [v16 DMCErrorWithDomain:@"DMCHTTPTransactionErrorDomain" code:23006 descriptionArray:v17 suggestion:0 USEnglishSuggestion:0 underlyingError:0 errorType:@"DMCFatalError" addtionalUserInfo:v18];
+      v17 = MEMORY[0x1E696ABC0];
+      v18 = DMCErrorArray(@"HTTP_ERROR_403_RESPONSE_SOFTWARE_UPDATE_REQUIRED", v10, v11, v12, v13, v14, v15, v16, 0);
+      v19 = [v9 copy];
+      *error = [v17 DMCErrorWithDomain:@"DMCHTTPTransactionErrorDomain" code:23006 descriptionArray:v18 suggestion:0 USEnglishSuggestion:0 underlyingError:0 errorType:@"DMCFatalError" addtionalUserInfo:v19];
     }
   }
 
   else
   {
-    v19 = *DMCLogObjects();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = *DMCLogObjects(0, v7);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1630000, v19, OS_LOG_TYPE_ERROR, "Response from server does not contain valid details dict.", buf, 2u);
+      _os_log_impl(&dword_1B1630000, v20, OS_LOG_TYPE_ERROR, "Response from server does not contain valid details dict.", buf, 2u);
     }
   }
 
-  return v7 != 0;
+  return v8 != 0;
 }
 
 + (BOOL)_parseUnrecognizedDeviceErrorWithMessage:(id)message details:(id)details outError:(id *)error
@@ -523,7 +525,7 @@ LABEL_12:
 
 + (BOOL)_parsePlatformSSORequiredErrorWithMessage:(id)message details:(id)details outError:(id *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   detailsCopy = details;
   if (error)
@@ -541,9 +543,9 @@ LABEL_12:
     v17 = ;
     if (detailsCopy)
     {
-      v21 = @"ErrorDetails";
-      v22[0] = detailsCopy;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = @"ErrorDetails";
+      v21[0] = detailsCopy;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     }
 
     else
@@ -557,27 +559,27 @@ LABEL_12:
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)URLSession:(id)session task:(id)task didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   challengeCopy = challenge;
   handlerCopy = handler;
   protectionSpace = [challengeCopy protectionSpace];
   authenticationMethod = [protectionSpace authenticationMethod];
 
-  v12 = *DMCLogObjects();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v14 = *DMCLogObjects(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
     selfCopy2 = authenticationMethod;
-    _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_INFO, "Handling challenge for protection space %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_1B1630000, v14, OS_LOG_TYPE_INFO, "Handling challenge for protection space %{public}@", buf, 0xCu);
   }
 
-  if ([challengeCopy previousFailureCount] < 1)
+  previousFailureCount = [challengeCopy previousFailureCount];
+  if (previousFailureCount < 1)
   {
     if ([(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A968]])
     {
@@ -590,105 +592,105 @@ LABEL_12:
       }
 
       selfCopy = self;
-      v51 = handlerCopy;
-      v17 = *DMCLogObjects();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      v69 = handlerCopy;
+      v27 = *DMCLogObjects(v25, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B1630000, v17, OS_LOG_TYPE_DEBUG, "Server Trust certificates:", buf, 2u);
+        _os_log_impl(&dword_1B1630000, v27, OS_LOG_TYPE_DEBUG, "Server Trust certificates:", buf, 2u);
       }
 
       trust = serverTrust;
-      v53 = 0u;
-      v54 = 0u;
-      v55 = 0u;
-      v56 = 0u;
-      v18 = SecTrustCopyCertificateChain(serverTrust);
-      v19 = [(__CFArray *)v18 countByEnumeratingWithState:&v53 objects:v61 count:16];
-      if (v19)
+      v71 = 0u;
+      v72 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v28 = SecTrustCopyCertificateChain(serverTrust);
+      v29 = [(__CFArray *)v28 countByEnumeratingWithState:&v71 objects:v79 count:16];
+      if (v29)
       {
-        v20 = v19;
-        v21 = *v54;
+        v30 = v29;
+        v31 = *v72;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v30; ++i)
           {
-            if (*v54 != v21)
+            if (*v72 != v31)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v28);
             }
 
-            v23 = SecCertificateCopySubjectSummary(*(*(&v53 + 1) + 8 * i));
-            if (v23)
+            v33 = SecCertificateCopySubjectSummary(*(*(&v71 + 1) + 8 * i));
+            if (v33)
             {
-              v24 = v23;
-              v25 = *DMCLogObjects();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+              v35 = v33;
+              v36 = *DMCLogObjects(v33, v34);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138543362;
-                selfCopy2 = v24;
-                _os_log_impl(&dword_1B1630000, v25, OS_LOG_TYPE_DEBUG, "  %{public}@", buf, 0xCu);
+                selfCopy2 = v35;
+                _os_log_impl(&dword_1B1630000, v36, OS_LOG_TYPE_DEBUG, "  %{public}@", buf, 0xCu);
               }
 
-              CFRelease(v24);
+              CFRelease(v35);
             }
           }
 
-          v20 = [(__CFArray *)v18 countByEnumeratingWithState:&v53 objects:v61 count:16];
+          v30 = [(__CFArray *)v28 countByEnumeratingWithState:&v71 objects:v79 count:16];
         }
 
-        while (v20);
+        while (v30);
       }
 
       self = selfCopy;
       anchorCertificateRefs = [(DMCHTTPRequestor *)selfCopy anchorCertificateRefs];
-      v27 = [anchorCertificateRefs count];
+      v38 = [anchorCertificateRefs count];
 
-      if (v27)
+      if (v38)
       {
         anchorCertificateRefs2 = [(DMCHTTPRequestor *)selfCopy anchorCertificateRefs];
-        v29 = SecTrustSetAnchorCertificates(trust, anchorCertificateRefs2);
+        v40 = SecTrustSetAnchorCertificates(trust, anchorCertificateRefs2);
 
-        if (v29)
+        if (v40)
         {
-          v30 = *DMCLogObjects();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v43 = *DMCLogObjects(v41, v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            LODWORD(selfCopy2) = v29;
-            v31 = "Could not set anchor certificates for trust evaluation. Status: %d";
+            LODWORD(selfCopy2) = v40;
+            v44 = "Could not set anchor certificates for trust evaluation. Status: %d";
 LABEL_39:
-            _os_log_impl(&dword_1B1630000, v30, OS_LOG_TYPE_ERROR, v31, buf, 8u);
+            _os_log_impl(&dword_1B1630000, v43, OS_LOG_TYPE_ERROR, v44, buf, 8u);
             goto LABEL_47;
           }
 
           goto LABEL_47;
         }
 
-        v38 = SecTrustSetAnchorCertificatesOnly(trust, 1u);
-        if (v38)
+        v53 = SecTrustSetAnchorCertificatesOnly(trust, 1u);
+        if (v53)
         {
-          v39 = v38;
-          v30 = *DMCLogObjects();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v55 = v53;
+          v43 = *DMCLogObjects(v53, v54);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            LODWORD(selfCopy2) = v39;
-            v31 = "Could not use exclude system default anchor certificates for trust evaluation. Status: %d";
+            LODWORD(selfCopy2) = v55;
+            v44 = "Could not use exclude system default anchor certificates for trust evaluation. Status: %d";
             goto LABEL_39;
           }
 
 LABEL_47:
 
-          handlerCopy = v51;
+          handlerCopy = v69;
 LABEL_48:
-          v47 = *DMCLogObjects();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+          v66 = *DMCLogObjects(v25, v26);
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            v33 = "Rejecting server trust. Canceling.";
-            v34 = v47;
-            v35 = OS_LOG_TYPE_INFO;
+            v48 = "Rejecting server trust. Canceling.";
+            v49 = v66;
+            v50 = OS_LOG_TYPE_INFO;
             goto LABEL_50;
           }
 
@@ -701,96 +703,102 @@ LABEL_52:
       error = 0;
       if (!SecTrustEvaluateWithError(trust, &error))
       {
-        v45 = CFErrorCopyDescription(error);
-        v46 = *DMCLogObjects();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v63 = CFErrorCopyDescription(error);
+        v65 = *DMCLogObjects(v63, v64);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          selfCopy2 = v45;
-          _os_log_impl(&dword_1B1630000, v46, OS_LOG_TYPE_ERROR, "Handle challenge, trust evaluation failed: %{public}@", buf, 0xCu);
+          selfCopy2 = v63;
+          _os_log_impl(&dword_1B1630000, v65, OS_LOG_TYPE_ERROR, "Handle challenge, trust evaluation failed: %{public}@", buf, 0xCu);
         }
 
         [(DMCHTTPRequestor *)selfCopy setDidFailDueToCertNotTrusted:1];
-        CFRelease(v45);
+        CFRelease(v63);
         CFRelease(error);
         goto LABEL_47;
       }
 
-      v40 = *DMCLogObjects();
-      handlerCopy = v51;
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      v58 = *DMCLogObjects(v56, v57);
+      handlerCopy = v69;
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B1630000, v40, OS_LOG_TYPE_INFO, "Accepting server trust.", buf, 2u);
+        _os_log_impl(&dword_1B1630000, v58, OS_LOG_TYPE_INFO, "Accepting server trust.", buf, 2u);
       }
     }
 
-    else if (([(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A960]]& 1) == 0 && ![(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A958]])
+    else if (([(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A960]]& 1) == 0)
     {
-      v32 = *DMCLogObjects();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v45 = [(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A958]];
+      if (!v45)
       {
-        *buf = 138543618;
-        selfCopy2 = self;
-        v59 = 2114;
-        v60 = authenticationMethod;
-        v33 = "%{public}@ cannot accept the authentication method %{public}@";
-        v34 = v32;
-        v35 = OS_LOG_TYPE_ERROR;
-        v36 = 22;
+        v47 = *DMCLogObjects(v45, v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138543618;
+          selfCopy2 = self;
+          v77 = 2114;
+          v78 = authenticationMethod;
+          v48 = "%{public}@ cannot accept the authentication method %{public}@";
+          v49 = v47;
+          v50 = OS_LOG_TYPE_ERROR;
+          v51 = 22;
 LABEL_51:
-        _os_log_impl(&dword_1B1630000, v34, v35, v33, buf, v36);
+          _os_log_impl(&dword_1B1630000, v49, v50, v48, buf, v51);
+          goto LABEL_52;
+        }
+
         goto LABEL_52;
+      }
+    }
+
+    v59 = MEMORY[0x1E696AF30];
+    username = [(DMCHTTPRequestor *)self username];
+    password = [(DMCHTTPRequestor *)self password];
+    v62 = [v59 credentialWithUser:username password:password persistence:0];
+
+    (handlerCopy)[2](handlerCopy, 0, v62);
+    goto LABEL_53;
+  }
+
+  v17 = *DMCLogObjects(previousFailureCount, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1B1630000, v17, OS_LOG_TYPE_ERROR, "We have failed too many times.", buf, 2u);
+  }
+
+  if (([(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A960]]& 1) == 0)
+  {
+    v18 = [(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A958]];
+    if (!v18)
+    {
+      v52 = *DMCLogObjects(v18, v19);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 0;
+        v48 = "Canceling the authentication challenge...";
+        v49 = v52;
+        v50 = OS_LOG_TYPE_DEBUG;
+LABEL_50:
+        v51 = 2;
+        goto LABEL_51;
       }
 
       goto LABEL_52;
     }
-
-    v41 = MEMORY[0x1E696AF30];
-    username = [(DMCHTTPRequestor *)self username];
-    password = [(DMCHTTPRequestor *)self password];
-    v44 = [v41 credentialWithUser:username password:password persistence:0];
-
-    (handlerCopy)[2](handlerCopy, 0, v44);
-    goto LABEL_53;
   }
 
-  v13 = *DMCLogObjects();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v20 = [(DMCHTTPRequestor *)self setDidFailDueToMissingCredentials:1];
+  v22 = *DMCLogObjects(v20, v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_ERROR, "We have failed too many times.", buf, 2u);
-  }
-
-  if (([(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A960]]& 1) == 0 && ![(DMCHTTPRequestor *)authenticationMethod isEqualToString:*MEMORY[0x1E696A958]])
-  {
-    v37 = *DMCLogObjects();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      v33 = "Canceling the authentication challenge...";
-      v34 = v37;
-      v35 = OS_LOG_TYPE_DEBUG;
-LABEL_50:
-      v36 = 2;
-      goto LABEL_51;
-    }
-
-    goto LABEL_52;
-  }
-
-  [(DMCHTTPRequestor *)self setDidFailDueToMissingCredentials:1];
-  v14 = *DMCLogObjects();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1B1630000, v14, OS_LOG_TYPE_DEBUG, "Continue without credential for authentication challenge...", buf, 2u);
+    _os_log_impl(&dword_1B1630000, v22, OS_LOG_TYPE_DEBUG, "Continue without credential for authentication challenge...", buf, 2u);
   }
 
   handlerCopy[2](handlerCopy, 0, 0);
 LABEL_53:
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 @end

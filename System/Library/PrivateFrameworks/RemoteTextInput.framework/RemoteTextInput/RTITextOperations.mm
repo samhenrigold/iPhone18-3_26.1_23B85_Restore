@@ -70,9 +70,8 @@
   editingActionSelector = self->_editingActionSelector;
   if (editingActionSelector)
   {
-    v11 = self->_editingActionSelector;
-    v12 = NSStringFromSelector(editingActionSelector);
-    [coderCopy encodeObject:v12 forKey:@"editingActionSelector"];
+    v11 = NSStringFromSelector(editingActionSelector);
+    [coderCopy encodeObject:v11 forKey:@"editingActionSelector"];
   }
 
   multilingualLanguages = self->_multilingualLanguages;
@@ -102,28 +101,28 @@
   textCheckingAnnotatedString = self->_textCheckingAnnotatedString;
   if (textCheckingAnnotatedString)
   {
-    v18 = +[RTIUtilities _textAnnotationAttributes];
-    v19 = [(NSAttributedString *)textCheckingAnnotatedString _ti_attributedStringByKeepingAttributes:v18];
+    v17 = +[RTIUtilities _textAnnotationAttributes];
+    v18 = [(NSAttributedString *)textCheckingAnnotatedString _ti_attributedStringByKeepingAttributes:v17];
 
-    [coderCopy encodeObject:v19 forKey:@"textCheckingAnnotatedString"];
+    [coderCopy encodeObject:v18 forKey:@"textCheckingAnnotatedString"];
   }
 
   if (self->_textCheckingAnnotationRange.location != 0x7FFFFFFFFFFFFFFFLL || self->_textCheckingAnnotationRange.length)
   {
-    v20 = [MEMORY[0x1E696B098] valueWithRange:?];
-    [coderCopy encodeObject:v20 forKey:@"textCheckingAnnotationRange"];
+    v19 = [MEMORY[0x1E696B098] valueWithRange:?];
+    [coderCopy encodeObject:v19 forKey:@"textCheckingAnnotationRange"];
   }
 
   if (self->_textCheckingReplacementRange.location != 0x7FFFFFFFFFFFFFFFLL || self->_textCheckingReplacementRange.length)
   {
-    v21 = [MEMORY[0x1E696B098] valueWithRange:?];
-    [coderCopy encodeObject:v21 forKey:@"textCheckingReplacementRange"];
+    v20 = [MEMORY[0x1E696B098] valueWithRange:?];
+    [coderCopy encodeObject:v20 forKey:@"textCheckingReplacementRange"];
   }
 
   if (self->_textCheckingAnnotationRemovalRange.location != 0x7FFFFFFFFFFFFFFFLL || self->_textCheckingAnnotationRemovalRange.length)
   {
-    v22 = [MEMORY[0x1E696B098] valueWithRange:?];
-    [coderCopy encodeObject:v22 forKey:@"textCheckingAnnotationRemovalRange"];
+    v21 = [MEMORY[0x1E696B098] valueWithRange:?];
+    [coderCopy encodeObject:v21 forKey:@"textCheckingAnnotationRemovalRange"];
   }
 
   textCheckingAnnotationToRemove = self->_textCheckingAnnotationToRemove;
@@ -149,11 +148,11 @@
   {
     if (self->_typeIdentifiers)
     {
-      v27 = [(NSMutableArray *)fileHandles count];
-      if (v27 == [(NSMutableArray *)self->_typeIdentifiers count])
+      v26 = [(NSMutableArray *)fileHandles count];
+      if (v26 == [(NSMutableArray *)self->_typeIdentifiers count])
       {
-        v28 = [(NSMutableArray *)self->_fileHandles count];
-        if (v28 == [(NSMutableArray *)self->_imageUserInfos count])
+        v27 = [(NSMutableArray *)self->_fileHandles count];
+        if (v27 == [(NSMutableArray *)self->_imageUserInfos count])
         {
           [coderCopy encodeObject:self->_fileHandles forKey:@"fileHandles"];
           [coderCopy encodeObject:self->_typeIdentifiers forKey:@"typeIdentifiers"];
@@ -170,11 +169,11 @@
     {
       if (self->_typeIdentifiers)
       {
-        v30 = [(NSMutableArray *)attachmentDatas count];
-        if (v30 == [(NSMutableArray *)self->_attachmentClasses count])
+        v29 = [(NSMutableArray *)attachmentDatas count];
+        if (v29 == [(NSMutableArray *)self->_attachmentClasses count])
         {
-          v31 = [(NSMutableArray *)self->_attachmentClasses count];
-          if (v31 == [(NSMutableArray *)self->_typeIdentifiers count])
+          v30 = [(NSMutableArray *)self->_attachmentClasses count];
+          if (v30 == [(NSMutableArray *)self->_typeIdentifiers count])
           {
             [coderCopy encodeObject:self->_attachmentDatas forKey:@"attachmentDatas"];
             [coderCopy encodeObject:self->_attachmentClasses forKey:@"attachmentClasses"];
@@ -1119,9 +1118,7 @@ uint64_t __41__RTITextOperations_customInfoDictionary__block_invoke()
 {
   if (!self->_attributedPlaceholders)
   {
-    v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
-    attributedPlaceholders = self->_attributedPlaceholders;
-    self->_attributedPlaceholders = v4;
+    self->_attributedPlaceholders = [MEMORY[0x1E695DF90] dictionaryWithCapacity:1];
 
     MEMORY[0x1EEE66BB8]();
   }
@@ -1129,12 +1126,12 @@ uint64_t __41__RTITextOperations_customInfoDictionary__block_invoke()
 
 - (void)insertAttributedText:(id)text
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"NSTextAlternatives";
-  v12[1] = @"NSTextAnimation";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"NSTextAlternatives";
+  v11[1] = @"NSTextAnimation";
   v4 = MEMORY[0x1E695DEC8];
   textCopy = text;
-  v6 = [v4 arrayWithObjects:v12 count:2];
+  v6 = [v4 arrayWithObjects:v11 count:2];
   v7 = [RTIUtilities _codableAttributedString:textCopy validAttributes:v6];
 
   [(RTITextOperations *)self _createAttributedPlaceholdersIfNecessary];
@@ -1144,8 +1141,6 @@ uint64_t __41__RTITextOperations_customInfoDictionary__block_invoke()
 
   keyboardOutput = [(RTITextOperations *)self keyboardOutput];
   [keyboardOutput insertText:string];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertAttributedText:(id)text replacementRange:(_NSRange)range
@@ -1501,13 +1496,12 @@ void __56__RTITextOperations_enumerateTextAttachmentsUsingBlock___block_invoke(u
 
 - (void)encodeWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[RTITextOperations encodeWithCoder:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_19A2A6000, a2, OS_LOG_TYPE_ERROR, "%s  RTITextOperations with textCheckingAnnotatedString: non-serializable string encountered: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[RTITextOperations encodeWithCoder:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_19A2A6000, a2, OS_LOG_TYPE_ERROR, "%s  RTITextOperations with textCheckingAnnotatedString: non-serializable string encountered: %@", &v2, 0x16u);
 }
 
 @end

@@ -45,24 +45,25 @@
 - (int)checkPropertyValue:(id)value
 {
   valueCopy = value;
-  v10.receiver = self;
-  v10.super_class = ASDTIOPAudioLPMicUInt32Property;
-  v5 = [(ASDTCustomProperty *)&v10 checkPropertyValue:valueCopy];
+  v12.receiver = self;
+  v12.super_class = ASDTIOPAudioLPMicUInt32Property;
+  v5 = [(ASDTCustomProperty *)&v12 checkPropertyValue:valueCopy];
   if (!v5)
   {
     v6 = valueCopy;
     v7 = [v6 length];
-    if (v7 == [(ASDTCustomProperty *)self propertyValueSize])
+    propertyValueSize = [(ASDTCustomProperty *)self propertyValueSize];
+    if (v7 == propertyValueSize)
     {
       v5 = 0;
     }
 
     else
     {
-      v8 = ASDTIOPLogType();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = ASDTIOPLogType(propertyValueSize, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(ASDTIOPAudioLPMicUInt32Property *)self checkPropertyValue:v6, v8];
+        [(ASDTIOPAudioLPMicUInt32Property *)self checkPropertyValue:v6, v10];
       }
 
       v5 = 3;
@@ -129,15 +130,13 @@ LABEL_11:
 
 - (void)checkPropertyValue:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 name];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2048;
-  v10 = [a2 length];
-  _os_log_error_impl(&dword_2416E9000, a3, OS_LOG_TYPE_ERROR, "%@: set: Bad property data length: %lu", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2048;
+  v9 = [a2 length];
+  _os_log_error_impl(&dword_2416E9000, a3, OS_LOG_TYPE_ERROR, "%@: set: Bad property data length: %lu", &v6, 0x16u);
 }
 
 @end

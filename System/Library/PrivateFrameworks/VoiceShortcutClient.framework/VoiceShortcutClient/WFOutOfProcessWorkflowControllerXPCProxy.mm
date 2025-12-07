@@ -4,6 +4,7 @@
 - (void)computeFinderResizedSizesForImages:(id)images inSizes:(id)sizes completion:(id)completion;
 - (void)extractVariableContentFromEncodedReference:(id)reference withResolutionRequest:(id)request completionHandler:(id)handler;
 - (void)fetchDisplayValueForRequest:(id)request completionHandler:(id)handler;
+- (void)fetchToolInvocationSummaryForInvocation:(id)invocation fetchingDefaultValues:(BOOL)values completionHandler:(id)handler;
 - (void)getCurrentProgressCompletedWithCompletionHandler:(id)handler;
 - (void)handleIncomingFileForRemoteExecutionWithURL:(id)l withIdentifier:(id)identifier;
 - (void)injectContentAsVariable:(id)variable completionHandler:(id)handler;
@@ -11,6 +12,7 @@
 - (void)performQuery:(id)query inValueSet:(id)set toolInvocation:(id)invocation options:(id)options completionHandler:(id)handler;
 - (void)prewarmRunnerWithCompletion:(id)completion;
 - (void)reindexToolKitDatabaseWithRequest:(id)request completionHandler:(id)handler;
+- (void)resignDialogHandlingIfNeededWithPersistentMode:(BOOL)mode;
 - (void)resolveContent:(id)content completionHandler:(id)handler;
 - (void)resolveDeferredValueFromEncodedStorage:(id)storage withResolutionRequest:(id)request completionHandler:(id)handler;
 - (void)resumeRunningFromContext:(id)context withRequest:(id)request completion:(id)completion;
@@ -36,6 +38,13 @@
   errorCopy = error;
   v5 = [(WFOutOfProcessWorkflowControllerXPCProxy *)self proxyWithErrorHandler:&__block_literal_global_63];
   [v5 stopWithError:errorCopy];
+}
+
+- (void)resignDialogHandlingIfNeededWithPersistentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v4 = [(WFOutOfProcessWorkflowControllerXPCProxy *)self proxyWithErrorHandler:&__block_literal_global_61];
+  [v4 resignDialogHandlingIfNeededWithPersistentMode:modeCopy];
 }
 
 - (void)runWorkflowWithDescriptor:(id)descriptor request:(id)request inEnvironment:(id)environment runningContext:(id)context completion:(id)completion
@@ -285,6 +294,27 @@
   v12 = v7;
   v10 = v7;
   [v9 transformAction:actionCopy completionHandler:v11];
+}
+
+- (void)fetchToolInvocationSummaryForInvocation:(id)invocation fetchingDefaultValues:(BOOL)values completionHandler:(id)handler
+{
+  valuesCopy = values;
+  handlerCopy = handler;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __124__WFOutOfProcessWorkflowControllerXPCProxy_fetchToolInvocationSummaryForInvocation_fetchingDefaultValues_completionHandler___block_invoke;
+  v15[3] = &unk_1E7B02940;
+  v9 = handlerCopy;
+  v16 = v9;
+  invocationCopy = invocation;
+  v11 = [(WFOutOfProcessWorkflowControllerXPCProxy *)self proxyWithErrorHandler:v15];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __124__WFOutOfProcessWorkflowControllerXPCProxy_fetchToolInvocationSummaryForInvocation_fetchingDefaultValues_completionHandler___block_invoke_2;
+  v13[3] = &unk_1E7B01690;
+  v14 = v9;
+  v12 = v9;
+  [v11 fetchToolInvocationSummaryForInvocation:invocationCopy fetchingDefaultValues:valuesCopy completionHandler:v13];
 }
 
 - (void)fetchDisplayValueForRequest:(id)request completionHandler:(id)handler

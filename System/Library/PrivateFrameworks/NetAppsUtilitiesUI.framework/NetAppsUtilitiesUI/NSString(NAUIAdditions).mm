@@ -14,8 +14,7 @@
   v2 = 0;
   do
   {
-    [self characterAtIndex:v2];
-    v3 = NAUIIsCJKCharacter();
+    v3 = NAUIIsCJKCharacter([self characterAtIndex:v2]);
     if (v3)
     {
       break;

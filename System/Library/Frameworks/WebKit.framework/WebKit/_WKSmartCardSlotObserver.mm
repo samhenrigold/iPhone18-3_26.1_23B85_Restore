@@ -38,7 +38,7 @@
   m_ptr = self->m_service.m_impl.m_ptr;
   if (m_ptr)
   {
-    atomic_fetch_add(m_ptr, 1u);
+    add = atomic_fetch_add(m_ptr, 1u);
   }
 
   if (change)
@@ -46,15 +46,15 @@
     changeCopy = change;
   }
 
-  v9 = WTF::fastMalloc(0x18);
-  *v9 = &unk_1F110B8F8;
-  v9[1] = m_ptr;
-  v9[2] = change;
-  v10 = v9;
+  v10 = WTF::fastMalloc(add, 0x18);
+  *v10 = &unk_1F110B8F8;
+  v10[1] = m_ptr;
+  v10[2] = change;
+  v11 = v10;
   WTF::callOnMainRunLoop();
-  if (v10)
+  if (v11)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v11 + 8))(v11);
   }
 }
 

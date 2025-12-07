@@ -1,6 +1,7 @@
 @interface CSISInterface
 + (BOOL)ResolveRSIWithSirk:(id)sirk withSirk:(id)withSirk;
 + (id)csisSdf:(id)sdf withSirk:(id)sirk;
+- (BOOL)setLock:(unsigned __int8)lock;
 - (CSISInterface)initWithPeripheral:(id)peripheral service:(id)service;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error;
@@ -291,29 +292,14 @@
       v36 = [v34 retrievePairingInfo:peripheral2];
 
       v37 = [v36 objectForKeyedSubscript:@"kCBMsgArgRemoteLTK"];
-      if (!*[v37 bytes])
+      if ((*[v37 bytes] || (objc_msgSend(v36, "objectForKeyedSubscript:", @"kCBMsgArgLocalLTK"), v38 = objc_claimAutoreleasedReturnValue(), v37, v37 = v38, *objc_msgSend(v38, "bytes"))) && (-[CSISInterface setIdentityResolvingKey](self, "setIdentityResolvingKey"), v39 = objc_claimAutoreleasedReturnValue(), +[CSISInterface csisSdf:withSirk:](CSISInterface, "csisSdf:withSirk:", v37, v39), v40 = objc_claimAutoreleasedReturnValue(), v39, v40))
       {
-        v38 = [v36 objectForKeyedSubscript:@"kCBMsgArgLocalLTK"];
-
-        v37 = v38;
-        if (!*[v38 bytes])
-        {
-          goto LABEL_27;
-        }
-      }
-
-      setIdentityResolvingKey2 = [(CSISInterface *)self setIdentityResolvingKey];
-      v40 = [CSISInterface csisSdf:v37 withSirk:setIdentityResolvingKey2];
-
-      if (v40)
-      {
-        setIdentityResolvingKey3 = [(CSISInterface *)self setIdentityResolvingKey];
-        [setIdentityResolvingKey3 setData:v40];
+        setIdentityResolvingKey2 = [(CSISInterface *)self setIdentityResolvingKey];
+        [setIdentityResolvingKey2 setData:v40];
       }
 
       else
       {
-LABEL_27:
         v45 = qword_1000A9FE0;
         if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
         {
@@ -327,8 +313,8 @@ LABEL_27:
     v60[0] = 0;
     v60[1] = 0;
     serviceEventHandler2 = objc_alloc_init(NSMutableString);
-    setIdentityResolvingKey4 = [(CSISInterface *)self setIdentityResolvingKey];
-    [setIdentityResolvingKey4 getBytes:v60 length:16];
+    setIdentityResolvingKey3 = [(CSISInterface *)self setIdentityResolvingKey];
+    [setIdentityResolvingKey3 getBytes:v60 length:16];
 
     for (i = 0; i != 16; ++i)
     {
@@ -471,6 +457,43 @@ LABEL_39:
       (serviceEventHandler2)[2](serviceEventHandler2, 24, v16);
     }
   }
+}
+
+- (BOOL)setLock:(unsigned __int8)lock
+{
+  lockCopy = lock;
+  setLock = [(CSISInterface *)self setLock];
+
+  if (!setLock)
+  {
+    goto LABEL_5;
+  }
+
+  if ((lockCopy - 3) > 0xFDu)
+  {
+    v8 = +[DataOutputStream outputStream];
+    [v8 writeUint8:lockCopy];
+    peripheral = [(ServiceInterface *)self peripheral];
+    data = [v8 data];
+    setLock2 = [(CSISInterface *)self setLock];
+    [peripheral writeValue:data forCharacteristic:setLock2 type:0];
+
+    LOBYTE(v7) = 1;
+    return v7;
+  }
+
+  v6 = qword_1000A9FE0;
+  v7 = os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT);
+  if (v7)
+  {
+    v13[0] = 67109120;
+    v13[1] = lockCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalid Lock Value requested %u", v13, 8u);
+LABEL_5:
+    LOBYTE(v7) = 0;
+  }
+
+  return v7;
 }
 
 @end

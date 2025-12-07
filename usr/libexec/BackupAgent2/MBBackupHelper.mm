@@ -35,7 +35,7 @@
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Drive returned error not in domain %@: %@", buf, 0x16u);
 
       domain3 = [errorCopy domain];
-      _MBLog();
+      _MBLog(@"Df", "Drive returned error not in domain %@: %@", @"MBErrorDomain", domain3);
     }
 
     goto LABEL_10;
@@ -53,14 +53,13 @@
     if (code != 4)
     {
 LABEL_17:
-      v15 = MBGetDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = MBGetDefaultLog();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
         code2 = [errorCopy code];
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Drive returned unexpected error code: %{MobileBackup:MBError.code}ld", buf, 0xCu);
-        [errorCopy code];
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Drive returned unexpected error code: %{MobileBackup:MBError.code}ld", buf, 0xCu);
+        _MBLog(@"Df", "Drive returned unexpected error code: %{MobileBackup:MBError.code}ld", [errorCopy code]);
       }
 
 LABEL_10:
@@ -87,9 +86,9 @@ LABEL_10:
 
   v10 = 205;
 LABEL_14:
-  v13 = [MBError errorWithCode:v10 error:errorCopy format:@"%@", descriptionCopy, domain3];
+  descriptionCopy = [MBError errorWithCode:v10 error:errorCopy format:@"%@", descriptionCopy];
 
-  return v13;
+  return descriptionCopy;
 }
 
 + (id)driveWriteError:(id)error description:(id)description
@@ -112,7 +111,7 @@ LABEL_14:
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Drive returned error not in domain %@: %@", buf, 0x16u);
 
       domain3 = [errorCopy domain];
-      _MBLog();
+      _MBLog(@"Df", "Drive returned error not in domain %@: %@", @"MBErrorDomain", domain3);
     }
 
     goto LABEL_11;
@@ -135,8 +134,7 @@ LABEL_14:
         *buf = 134217984;
         code2 = [errorCopy code];
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Drive returned unexpected error code: %{MobileBackup:MBError.code}ld", buf, 0xCu);
-        [errorCopy code];
-        _MBLog();
+        _MBLog(@"Df", "Drive returned unexpected error code: %{MobileBackup:MBError.code}ld", [errorCopy code]);
       }
 
 LABEL_11:
@@ -144,9 +142,9 @@ LABEL_11:
     }
   }
 
-  v14 = [MBError errorWithCode:v10 error:errorCopy format:@"%@", descriptionCopy, domain3];
+  descriptionCopy = [MBError errorWithCode:v10 error:errorCopy format:@"%@", descriptionCopy];
 
-  return v14;
+  return descriptionCopy;
 }
 
 + (id)errorForException:(id)exception
@@ -188,8 +186,7 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Unexpected error code from exception: %{MobileBackup:MBError.code}ld", buf, 0xCu);
 
     error3 = [exceptionCopy error];
-    code3 = [error3 code];
-    _MBLog();
+    _MBLog(@"Df", "Unexpected error code from exception: %{MobileBackup:MBError.code}ld", [error3 code]);
   }
 
   v6 = 1;
@@ -225,7 +222,7 @@ LABEL_12:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Reading status", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Reading status");
   }
 
   drive = [(MBDriveSettingsContext *)self->_settingsContext drive];
@@ -243,7 +240,7 @@ LABEL_12:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Status version is ambiguous", buf, 2u);
-        _MBLog();
+        _MBLog(@"Df", "Status version is ambiguous");
       }
 
       drive2 = [(MBDriveSettingsContext *)self->_settingsContext drive];
@@ -261,7 +258,7 @@ LABEL_12:
           *buf = 138412290;
           v24 = v16;
           _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Properties version is %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Properties version is %@", v16);
         }
 
         if (!v16)
@@ -271,7 +268,7 @@ LABEL_12:
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Overwriting status version to 1.0", buf, 2u);
-            _MBLog();
+            _MBLog(@"Df", "Overwriting status version to 1.0");
           }
 
           [v8 setVersion:1.0];
@@ -287,7 +284,7 @@ LABEL_12:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "No manifest properties found", buf, 2u);
-          _MBLog();
+          _MBLog(@"Df", "No manifest properties found");
         }
 
         v19 = v8;
@@ -312,7 +309,7 @@ LABEL_12:
         *buf = 138412290;
         v24 = v8;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Backup status: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "Backup status: %@", v8);
       }
 
       v19 = v8;
@@ -336,7 +333,7 @@ LABEL_12:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Reading backup properties", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Reading backup properties");
   }
 
   drive = [(MBDriveSettingsContext *)self->_settingsContext drive];
@@ -351,7 +348,7 @@ LABEL_12:
       *buf = 138412290;
       v13 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Backup properties: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Backup properties: %@", v8);
     }
 
     v10 = v8;
@@ -372,7 +369,7 @@ LABEL_12:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Reading backup database", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Reading backup database");
   }
 
   drive = [(MBDriveSettingsContext *)self->_settingsContext drive];
@@ -387,7 +384,7 @@ LABEL_12:
       *buf = 138412290;
       v13 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Backup database: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Backup database: %@", v8);
     }
 
     v10 = v8;
@@ -438,7 +435,7 @@ LABEL_12:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Decoding and unlocking backup keybag from manifest", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Decoding and unlocking backup keybag from manifest");
     }
 
     keybagData = [v6 keybagData];
@@ -518,7 +515,7 @@ LABEL_5:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Unlocking backup keybag from manifest", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Unlocking backup keybag from manifest");
   }
 
   keybag5 = [(MBDriveSettingsContext *)self->_settingsContext keybag];
@@ -556,7 +553,7 @@ LABEL_11:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Fetching new format backup manifest", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Fetching new format backup manifest");
   }
 
   drive = [(MBDriveSettingsContext *)self->_settingsContext drive];
@@ -597,7 +594,7 @@ LABEL_46:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Reading snapshot properties", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Reading snapshot properties");
   }
 
   drive = [(MBDriveSettingsContext *)self->_settingsContext drive];
@@ -612,7 +609,7 @@ LABEL_46:
       *buf = 138412290;
       v13 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Snapshot properties: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Snapshot properties: %@", v8);
     }
 
     v10 = v8;
@@ -633,7 +630,7 @@ LABEL_46:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Reading snapshot database", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Reading snapshot database");
   }
 
   drive = [(MBDriveSettingsContext *)self->_settingsContext drive];
@@ -648,7 +645,7 @@ LABEL_46:
       *buf = 138412290;
       v13 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Snapshot database: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Snapshot database: %@", v8);
     }
 
     v10 = v8;
@@ -669,7 +666,7 @@ LABEL_46:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Reading snapshot manifest database", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Reading snapshot manifest database");
   }
 
   v6 = [(MBBackupHelper *)self readSnapshotPropertiesWithError:error];
@@ -691,7 +688,7 @@ LABEL_46:
       *buf = 138412290;
       v15 = v9;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Snapshot manifest database: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Snapshot manifest database: %@", v9);
     }
 
     if (![v9 openWithError:error])
@@ -732,7 +729,7 @@ LABEL_15:
       {
         *v15 = 0;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Fetching new format snapshot manifest", v15, 2u);
-        _MBLog();
+        _MBLog(@"I ", "Fetching new format snapshot manifest");
       }
 
       drive = [(MBDriveSettingsContext *)self->_settingsContext drive];

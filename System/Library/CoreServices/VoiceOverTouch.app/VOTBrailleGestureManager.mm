@@ -1268,12 +1268,11 @@ LABEL_14:
     if (_shouldUseEightDotBraille != _shouldUseEightDotBraille2)
     {
       v19 = _shouldUseEightDotBraille2;
-      LOBYTE(v29) = 1;
-      _AXLogWithFacility();
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Toggled contractions, which toggled eight dot braille. Updating UI.");
       gestureTranslator = self->_gestureTranslator;
-      v21 = [(VOTBrailleGestureManager *)self typingMode:v29];
+      typingMode = [(VOTBrailleGestureManager *)self typingMode];
       v22 = sub_100051A04([(VOTBrailleGestureManager *)self keyboardOrientation]);
-      [(VOTBrailleGestureTranslator *)gestureTranslator setTypingMode:v21 keyboardSize:v19 shouldUseEightDotBraille:[(VOTBrailleGestureManager *)self _shouldReverseDots] shouldReverseDots:v22, v23];
+      [(VOTBrailleGestureTranslator *)gestureTranslator setTypingMode:typingMode keyboardSize:v19 shouldUseEightDotBraille:[(VOTBrailleGestureManager *)self _shouldReverseDots] shouldReverseDots:v22, v23];
       [(VOTBrailleGestureManager *)self _updateBrailleUI];
     }
 
@@ -1675,7 +1674,7 @@ LABEL_14:
   if (keyboardOrientation != 4)
   {
 LABEL_9:
-    _AXLogWithFacility();
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Unhandled orientation for Braille Gestures typing properties announcement");
     goto LABEL_19;
   }
 

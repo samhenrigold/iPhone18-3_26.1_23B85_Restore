@@ -8,24 +8,23 @@
 + (void)deliverScene:(id)scene forIdentifier:(id)identifier
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD95708, &qword_25F52D1D0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v17 - v7;
-  v9 = sub_25F52A460();
-  v11 = v10;
-  v12 = sub_25F52A550();
-  (*(*(v12 - 8) + 56))(v8, 1, 1, v12);
+  v7 = &v16 - v6;
+  v8 = sub_25F52A460();
+  v10 = v9;
+  v11 = sub_25F52A550();
+  (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
   sub_25F52A530();
   sceneCopy = scene;
-  v14 = sub_25F52A520();
-  v15 = swift_allocObject();
-  v16 = MEMORY[0x277D85700];
-  v15[2] = v14;
-  v15[3] = v16;
-  v15[4] = sceneCopy;
-  v15[5] = v9;
-  v15[6] = v11;
-  sub_25F526DF8(0, 0, v8, &unk_25F52D278, v15);
+  v13 = sub_25F52A520();
+  v14 = swift_allocObject();
+  v15 = MEMORY[0x277D85700];
+  v14[2] = v13;
+  v14[3] = v15;
+  v14[4] = sceneCopy;
+  v14[5] = v8;
+  v14[6] = v10;
+  sub_25F526DF8(0, 0, v7, &unk_25F52D278, v14);
 }
 
 - (_TtC19PreviewsOSSupportUI20UVAgentSceneRegistry)init

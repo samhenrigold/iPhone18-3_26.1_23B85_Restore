@@ -184,8 +184,8 @@
     v45 = v21;
     if (v21)
     {
-      v23 = [(__CFDictionary *)v21 objectForKeyedSubscript:*MEMORY[0x1E696DED8]];
-      v24 = [(__CFDictionary *)v22 objectForKeyedSubscript:*MEMORY[0x1E696DEC8]];
+      v23 = objc_msgSend_objectForKeyedSubscript_(v21);
+      v24 = objc_msgSend_objectForKeyedSubscript_(v22);
       v25 = v24;
       if (v23 && v24)
       {

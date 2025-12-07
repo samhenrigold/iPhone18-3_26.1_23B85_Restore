@@ -25,7 +25,7 @@
     v8 = v7;
     if (!v8)
     {
-      sub_10007A644();
+      sub_10007A644(v6);
     }
   }
 
@@ -38,42 +38,42 @@
 
   if (!pairingError)
   {
-    v11 = sub_10004C888();
-    v12 = [NSNumber numberWithInteger:step];
-    v13 = [v11 indexOfObject:v12];
+    v12 = sub_10004C888(v10);
+    v13 = [NSNumber numberWithInteger:step];
+    v14 = [v12 indexOfObject:v13];
 
-    if (v13 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v14 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v14 = HFLogForCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = HFLogForCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_10007A760(v14);
+        sub_10007A760(v15);
       }
     }
 
     else
     {
-      v15 = v13 + 1;
-      if (v15 < [v11 count])
+      v16 = v14 + 1;
+      if (v16 < [v12 count])
       {
-        v16 = [v11 objectAtIndexedSubscript:v15];
-        intValue = [v16 intValue];
+        v17 = [v12 objectAtIndexedSubscript:v16];
+        intValue = [v17 intValue];
 
         if (intValue >= 8)
         {
           [v8 setIsReadyToPair:1];
         }
 
-        v18 = [v11 objectAtIndexedSubscript:v15];
-        intValue2 = [v18 intValue];
+        v19 = [v12 objectAtIndexedSubscript:v16];
+        intValue2 = [v19 intValue];
 
         goto LABEL_20;
       }
 
-      v14 = HFLogForCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = HFLogForCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_10007A6DC(v14);
+        sub_10007A6DC(v15);
       }
     }
 
@@ -109,7 +109,7 @@ LABEL_21:
     v8 = v7;
     if (!v8)
     {
-      sub_10007A644();
+      sub_10007A644(v6);
     }
   }
 

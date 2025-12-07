@@ -61,17 +61,16 @@
 {
   if (*&self->typingIndicator[OBJC_IVAR___BlastDoorTypingIndicator_typingIndicator + 520])
   {
-    v2 = *&self->typingIndicator[OBJC_IVAR___BlastDoorTypingIndicator_typingIndicator + 520];
 
-    v3 = sub_2146D98E8();
+    v2 = sub_2146D98E8();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (BlastDoorTypingIndicator)init

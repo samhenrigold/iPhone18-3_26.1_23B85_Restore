@@ -1786,12 +1786,15 @@ void __40__PHChange_changeDetailsForFetchResult___block_invoke(uint64_t a1)
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
     v5 = [*(a1 + 40) changeHandlingKey];
+    v6 = v5;
     if (v5)
     {
-      v6 = [*(*(a1 + 32) + 96) objectForKey:v5];
-      if (v6)
+      v15 = v5;
+      v5 = [*(*(a1 + 32) + 96) objectForKey:v5];
+      v6 = v15;
+      if (v5)
       {
-        v7 = v6;
+        v7 = v5;
         v8 = *(a1 + 32);
         if (*(v8 + 104))
         {
@@ -1813,10 +1816,12 @@ void __40__PHChange_changeDetailsForFetchResult___block_invoke(uint64_t a1)
 
         [*(*(*(a1 + 48) + 8) + 40) calculateDiffs];
         [*(*(a1 + 32) + 80) setObject:*(*(*(a1 + 48) + 8) + 40) forKey:*(a1 + 40)];
+
+        v6 = v15;
       }
     }
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v5, v6);
   }
 }
 
@@ -1840,26 +1845,32 @@ void __40__PHChange_changeDetailsForFetchResult___block_invoke(uint64_t a1)
 uint64_t __35__PHChange_changeDetailsForObject___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) objectID];
+  v3 = v2;
   if (v2)
   {
-    v10 = v2;
-    v3 = [*(*(a1 + 40) + 72) objectForKey:v2];
-    v4 = *(*(a1 + 48) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    v11 = v2;
+    v4 = [*(*(a1 + 40) + 72) objectForKey:v2];
+    v5 = *(*(a1 + 48) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
 
-    if (!*(*(*(a1 + 48) + 8) + 40) && (([*(*(a1 + 40) + 24) containsObject:v10] & 1) != 0 || (objc_msgSend(*(*(a1 + 40) + 16), "containsObject:", v10) & 1) != 0 || *(*(a1 + 40) + 104) == 1))
+    v3 = v11;
+    if (!*(*(*(a1 + 48) + 8) + 40))
     {
-      v6 = [[PHObjectChangeDetails alloc] initWithPHObject:*(a1 + 32)];
-      v7 = *(*(a1 + 48) + 8);
-      v8 = *(v7 + 40);
-      *(v7 + 40) = v6;
+      if ([*(*(a1 + 40) + 24) containsObject:v11] & 1) != 0 || (v2 = objc_msgSend(*(*(a1 + 40) + 16), "containsObject:", v11), v3 = v11, (v2) || *(*(a1 + 40) + 104) == 1)
+      {
+        v7 = [[PHObjectChangeDetails alloc] initWithPHObject:*(a1 + 32)];
+        v8 = *(*(a1 + 48) + 8);
+        v9 = *(v8 + 40);
+        *(v8 + 40) = v7;
 
-      [*(*(a1 + 40) + 72) setObject:*(*(*(a1 + 48) + 8) + 40) forKey:v10];
+        v2 = [*(*(a1 + 40) + 72) setObject:*(*(*(a1 + 48) + 8) + 40) forKey:v11];
+        v3 = v11;
+      }
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (BOOL)deferredProcessingNeededChangedForPHAssetOID:(id)d
@@ -3511,9 +3522,11 @@ uint64_t __39__PHChange_publicPHObjectChangeClasses__block_invoke()
   v0 = objc_alloc(MEMORY[0x1E695DEC8]);
   v1 = objc_opt_class();
   v2 = objc_opt_class();
-  publicPHObjectChangeClasses_pl_once_object_29 = [v0 initWithObjects:{v1, v2, objc_opt_class(), 0}];
+  v3 = [v0 initWithObjects:{v1, v2, objc_opt_class(), 0}];
+  v4 = publicPHObjectChangeClasses_pl_once_object_29;
+  publicPHObjectChangeClasses_pl_once_object_29 = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 - (BOOL)membersOrAssetContainmentForSocialGroupChangedWithLocalIdentifier:(id)identifier

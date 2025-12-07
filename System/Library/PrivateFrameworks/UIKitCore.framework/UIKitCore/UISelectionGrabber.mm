@@ -111,7 +111,7 @@
 - (void)setCustomPath:(id)path
 {
   pathCopy = path;
-  if (([(UISelectionGrabberCustomPath *)self->_customPath isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_customPath) & 1) == 0)
   {
     objc_storeStrong(&self->_customPath, path);
     shapeLayer = [(UISelectionGrabber *)self shapeLayer];

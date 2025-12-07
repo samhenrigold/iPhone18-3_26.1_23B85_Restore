@@ -61,30 +61,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    creationDate = self->_creationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_compatibilityVersionRange)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_scheduleData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -158,7 +157,6 @@
     }
   }
 
-  v6 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_creationDate != *(equalCopy + 1))
@@ -170,7 +168,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_13:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -183,17 +181,17 @@ LABEL_13:
   scheduleData = self->_scheduleData;
   if (scheduleData | *(equalCopy + 3))
   {
-    v9 = [(NSData *)scheduleData isEqual:?];
+    v8 = [(NSData *)scheduleData isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_14:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

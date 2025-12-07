@@ -20,25 +20,25 @@
 
 - (_PFEvanescentData)initWithURL:(id)l
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v21.receiver = self;
-  v21.super_class = _PFEvanescentData;
-  v4 = [(_PFEvanescentData *)&v21 init];
+  v27 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = _PFEvanescentData;
+  v4 = [(_PFEvanescentData *)&v20 init];
   if (v4)
   {
     v5 = objc_alloc_init(MEMORY[0x1E696AAC8]);
     v4->_openfd = -1;
-    memset(&v20, 0, sizeof(v20));
+    memset(&v19, 0, sizeof(v19));
     v6 = [objc_msgSend(l "path")];
-    v7 = stat(v6, &v20);
+    v7 = stat(v6, &v19);
     v8 = __error();
     if (!v7)
     {
-      v4->_length = v20.st_size;
+      v4->_length = v19.st_size;
       v4->_fileURL = l;
 LABEL_10:
       [v5 drain];
-      goto LABEL_11;
+      return v4;
     }
 
     v9 = *v8;
@@ -60,14 +60,14 @@ LABEL_10:
       else if (v13)
       {
 LABEL_12:
-        v18 = objc_opt_class();
-        Name = class_getName(v18);
+        v17 = objc_opt_class();
+        Name = class_getName(v17);
         *buf = 136315650;
-        v23 = Name;
-        v24 = 2080;
-        v25 = v6;
-        v26 = 1024;
-        v27 = v9;
+        v22 = Name;
+        v23 = 2080;
+        v24 = v6;
+        v25 = 1024;
+        v26 = v9;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Unable to initialize %s.  stat() failed on '%s' with errno %d\n", buf, 0x1Cu);
       }
     }
@@ -81,8 +81,6 @@ LABEL_12:
     goto LABEL_10;
   }
 
-LABEL_11:
-  v16 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -131,10 +129,11 @@ LABEL_11:
   v4 = MEMORY[0x1E696AEC0];
   v5 = objc_opt_class();
   Name = class_getName(v5);
-  v7 = [v4 stringWithFormat:@"NSData [%s] with address %p backed by file at '%@'", Name, self, -[_PFEvanescentData url](&self->super.super.isa)];
+  v7 = [(_PFEvanescentData *)&self->super.super.isa url];
+  v8 = objc_msgSend_stringWithFormat_(v4, Name, self, v7);
   objc_autoreleasePoolPop(v3);
 
-  return v7;
+  return v8;
 }
 
 - (id)url

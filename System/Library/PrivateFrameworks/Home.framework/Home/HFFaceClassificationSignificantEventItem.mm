@@ -36,7 +36,7 @@ uint64_t __57__HFFaceClassificationSignificantEventItem_dateFormatter__block_inv
 
 - (HFFaceClassificationSignificantEventItem)initWithSignificantEvent:(id)event home:(id)home
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   homeCopy = home;
   faceClassification = [eventCopy faceClassification];
@@ -54,16 +54,15 @@ uint64_t __57__HFFaceClassificationSignificantEventItem_dateFormatter__block_inv
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = eventCopy;
+      v15 = eventCopy;
       _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Event %@ is missing a face classification", buf, 0xCu);
     }
   }
 
-  v14.receiver = self;
-  v14.super_class = HFFaceClassificationSignificantEventItem;
-  v11 = [(HFCameraClipSignificantEventItem *)&v14 initWithSignificantEvent:eventCopy home:homeCopy];
+  v13.receiver = self;
+  v13.super_class = HFFaceClassificationSignificantEventItem;
+  v11 = [(HFCameraClipSignificantEventItem *)&v13 initWithSignificantEvent:eventCopy home:homeCopy];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -71,8 +70,8 @@ uint64_t __57__HFFaceClassificationSignificantEventItem_dateFormatter__block_inv
 {
   v4 = [HFFaceClassificationSignificantEventItem alloc];
   event = [(HFCameraClipSignificantEventItem *)self event];
-  home = [(HFCameraClipSignificantEventItem *)self home];
-  v7 = [(HFFaceClassificationSignificantEventItem *)v4 initWithSignificantEvent:event home:home];
+  v6 = objc_msgSend_home(self);
+  v7 = [(HFFaceClassificationSignificantEventItem *)v4 initWithSignificantEvent:event home:v6];
 
   faceCropImage = [(HFFaceClassificationSignificantEventItem *)self faceCropImage];
   [(HFFaceClassificationSignificantEventItem *)v7 setFaceCropImage:faceCropImage];
@@ -99,54 +98,52 @@ uint64_t __57__HFFaceClassificationSignificantEventItem_dateFormatter__block_inv
 
 - (HMPersonManager)personManager
 {
-  home = [(HFCameraClipSignificantEventItem *)self home];
+  v3 = objc_msgSend_home(self, a2);
   faceClassification = [(HFFaceClassificationSignificantEventItem *)self faceClassification];
   personManagerUUID = [faceClassification personManagerUUID];
-  v6 = [home hf_personManagerWithIdentifier:personManagerUUID];
+  v6 = [v3 hf_personManagerWithIdentifier:personManagerUUID];
 
   return v6;
 }
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  home = [(HFCameraClipSignificantEventItem *)self home];
-  personManagerSettings = [home personManagerSettings];
+  v5 = objc_msgSend_home(self);
+  personManagerSettings = [v5 personManagerSettings];
   isFaceClassificationEnabled = [personManagerSettings isFaceClassificationEnabled];
 
   if (isFaceClassificationEnabled)
   {
     v8 = [optionsCopy objectForKeyedSubscript:HFItemUpdateOptionLogger];
     objc_initWeak(&location, self);
-    v20.receiver = self;
-    v20.super_class = HFFaceClassificationSignificantEventItem;
-    v9 = [(HFCameraClipSignificantEventItem *)&v20 _subclass_updateWithOptions:optionsCopy];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke;
-    v16[3] = &unk_277DFCAB0;
-    objc_copyWeak(&v19, &location);
-    v17 = optionsCopy;
+    v19.receiver = self;
+    v19.super_class = HFFaceClassificationSignificantEventItem;
+    v9 = [(HFCameraClipSignificantEventItem *)&v19 _subclass_updateWithOptions:optionsCopy];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke;
+    v15[3] = &unk_277DFCAB0;
+    objc_copyWeak(&v18, &location);
+    v16 = optionsCopy;
     v10 = v8;
-    v18 = v10;
-    v11 = [v9 flatMap:v16];
+    v17 = v10;
+    v11 = [v9 flatMap:v15];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
   else
   {
     v12 = MEMORY[0x277D2C900];
-    v22 = @"hidden";
-    v23[0] = MEMORY[0x277CBEC38];
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = @"hidden";
+    v22[0] = MEMORY[0x277CBEC38];
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v13 = [HFItemUpdateOutcome outcomeWithResults:v10];
     v11 = [v12 futureWithResult:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -173,21 +170,21 @@ id __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___
 
 void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_2(id *a1, void *a2)
 {
-  v74[2] = *MEMORY[0x277D85DE8];
-  v49 = a2;
+  v73[2] = *MEMORY[0x277D85DE8];
+  v48 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
-  v50 = [a1[4] mutableCopy];
+  v49 = [a1[4] mutableCopy];
   v4 = [WeakRetained faceClassification];
 
   if (!v4)
   {
-    v13 = v50;
-    [v50 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
-    [v49 finishWithResult:v50];
+    v13 = v49;
+    [v49 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
+    [v48 finishWithResult:v49];
     goto LABEL_20;
   }
 
-  v5 = [v50 objectForKeyedSubscript:@"dependentHomeKitObjects"];
+  v5 = [v49 objectForKeyedSubscript:@"dependentHomeKitObjects"];
   v6 = [v5 mutableCopy];
 
   v7 = objc_alloc_init(MEMORY[0x277D2C900]);
@@ -215,25 +212,25 @@ void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions_
 
     v15 = 0;
     v12 = 0;
-    v48 = v7;
+    v47 = v7;
     goto LABEL_13;
   }
 
 LABEL_4:
   v9 = [WeakRetained cameraProfile];
   v10 = [WeakRetained event];
-  v48 = [v9 hf_faceCropImageForSignificantEvent:v10];
+  v47 = [v9 hf_faceCropImageForSignificantEvent:v10];
 
   if (a1[6])
   {
     v11 = [MEMORY[0x277D2C938] mainThreadScheduler];
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_3;
-    v71[3] = &unk_277DF3370;
-    v72 = a1[6];
-    v73 = WeakRetained;
-    v12 = [v11 afterDelay:v71 performBlock:10.0];
+    v70[0] = MEMORY[0x277D85DD0];
+    v70[1] = 3221225472;
+    v70[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_3;
+    v70[3] = &unk_277DF3370;
+    v71 = a1[6];
+    v72 = WeakRetained;
+    v12 = [v11 afterDelay:v70 performBlock:10.0];
   }
 
   else
@@ -243,28 +240,28 @@ LABEL_4:
 
   v15 = 1;
 LABEL_13:
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_9;
-  v66[3] = &unk_277DFCA10;
-  objc_copyWeak(&v69, a1 + 7);
-  v70 = v15;
-  v19 = v50;
-  v67 = v19;
-  v46 = v6;
-  v68 = v46;
-  v20 = [v48 addCompletionBlock:v66];
-  v64[0] = MEMORY[0x277D85DD0];
-  v64[1] = 3221225472;
-  v64[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_12;
-  v64[3] = &unk_277DF70B0;
-  v45 = v12;
-  v65 = v45;
-  v21 = [v48 addCompletionBlock:v64];
-  v22 = [WeakRetained home];
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_9;
+  v65[3] = &unk_277DFCA10;
+  objc_copyWeak(&v68, a1 + 7);
+  v69 = v15;
+  v19 = v49;
+  v66 = v19;
+  v45 = v6;
+  v67 = v45;
+  v20 = [v47 addCompletionBlock:v65];
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_12;
+  v63[3] = &unk_277DF70B0;
+  v44 = v12;
+  v64 = v44;
+  v21 = [v47 addCompletionBlock:v63];
+  v22 = objc_msgSend_home(WeakRetained);
   v23 = [WeakRetained faceClassification];
   v24 = [v23 personManagerUUID];
-  v47 = [v22 hf_personManagerWithIdentifier:v24];
+  v46 = [v22 hf_personManagerWithIdentifier:v24];
 
   v25 = MEMORY[0x277CCABB0];
   objc_opt_class();
@@ -278,21 +275,21 @@ LABEL_13:
   if (v28)
   {
     v30 = [HFPersonItemUpdateRequest alloc];
-    v31 = [WeakRetained home];
-    v32 = [(HFPersonItemUpdateRequest *)v30 initWithPerson:v28 personManager:v47 home:v31];
+    v31 = objc_msgSend_home(WeakRetained);
+    v32 = [(HFPersonItemUpdateRequest *)v30 initWithPerson:v28 personManager:v46 home:v31];
 
     v33 = [a1[5] mutableCopy];
     [v33 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:HFPersonItemUpdateOptionSkipFaceCrop];
     if (a1[6])
     {
       v34 = [MEMORY[0x277D2C938] mainThreadScheduler];
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_2_17;
-      v61[3] = &unk_277DF3370;
-      v62 = a1[6];
-      v63 = WeakRetained;
-      v35 = [v34 afterDelay:v61 performBlock:10.0];
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_2_17;
+      v60[3] = &unk_277DF3370;
+      v61 = a1[6];
+      v62 = WeakRetained;
+      v35 = [v34 afterDelay:v60 performBlock:10.0];
     }
 
     else
@@ -301,15 +298,15 @@ LABEL_13:
     }
 
     v37 = [(HFPersonItemUpdateRequest *)v32 updateWithOptions:v33];
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_18;
-    v57[3] = &unk_277DFCA38;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_18;
+    v56[3] = &unk_277DFCA38;
     v36 = v35;
-    v58 = v36;
-    v59 = v19;
-    v60 = v46;
-    v38 = [v37 addCompletionBlock:v57];
+    v57 = v36;
+    v58 = v19;
+    v59 = v45;
+    v38 = [v37 addCompletionBlock:v56];
 
     v29 = v38;
   }
@@ -320,32 +317,30 @@ LABEL_13:
   }
 
   v39 = MEMORY[0x277D2C900];
-  v74[0] = v48;
-  v74[1] = v29;
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:2];
+  v73[0] = v47;
+  v73[1] = v29;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
   v41 = [v39 chainFutures:v40];
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_2_21;
-  v51[3] = &unk_277DFCA60;
-  v52 = v19;
-  v42 = v46;
-  v53 = v42;
-  v54 = v49;
-  v55 = a1[6];
-  v56 = WeakRetained;
-  v43 = [v41 addCompletionBlock:v51];
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_2_21;
+  v50[3] = &unk_277DFCA60;
+  v51 = v19;
+  v42 = v45;
+  v52 = v42;
+  v53 = v48;
+  v54 = a1[6];
+  v55 = WeakRetained;
+  v43 = [v41 addCompletionBlock:v50];
 
-  objc_destroyWeak(&v69);
-  v13 = v50;
+  objc_destroyWeak(&v68);
+  v13 = v49;
 LABEL_20:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -358,9 +353,9 @@ void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 40);
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Face crop update is taking more than 10 seconds: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Face crop update is taking more than 10 seconds: %@", &v8, 0xCu);
     }
 
     os_activity_scope_leave(&state);
@@ -368,22 +363,20 @@ void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions_
 
   else
   {
-    v7 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 40);
+      v7 = *(a1 + 40);
       LODWORD(state.opaque[0]) = 138412290;
-      *(state.opaque + 4) = v8;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Face crop update is taking more than 10 seconds: %@", &state, 0xCu);
+      *(state.opaque + 4) = v7;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Face crop update is taking more than 10 seconds: %@", &state, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_9(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -424,20 +417,18 @@ void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions_
     v23 = HFLogForCategory(0x13uLL);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v25 = 138412546;
-      v26 = v8;
-      v27 = 2112;
-      v28 = v6;
-      _os_log_error_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_ERROR, "%@: Unable to process face crop from significant event (error: %@)", &v25, 0x16u);
+      v24 = 138412546;
+      v25 = v8;
+      v26 = 2112;
+      v27 = v6;
+      _os_log_error_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_ERROR, "%@: Unable to process face crop from significant event (error: %@)", &v24, 0x16u);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_2_17(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -450,9 +441,9 @@ void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *(a1 + 40);
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Person update is taking more than 10 seconds: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Person update is taking more than 10 seconds: %@", &v8, 0xCu);
     }
 
     os_activity_scope_leave(&state);
@@ -460,17 +451,15 @@ void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions_
 
   else
   {
-    v7 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 40);
+      v7 = *(a1 + 40);
       LODWORD(state.opaque[0]) = 138412290;
-      *(state.opaque + 4) = v8;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Person update is taking more than 10 seconds: %@", &state, 0xCu);
+      *(state.opaque + 4) = v7;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Person update is taking more than 10 seconds: %@", &state, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_18(uint64_t a1, void *a2)
@@ -488,7 +477,7 @@ void __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions_
 
 uint64_t __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOptions___block_invoke_2_21(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setObject:*(a1 + 40) forKeyedSubscript:@"dependentHomeKitObjects"];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"HFPersonResultFaceCropImageKey"];
 
@@ -507,21 +496,21 @@ uint64_t __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOpti
 
   if (v5)
   {
-    v10 = *(a1 + 56);
-    if (v10)
+    v9 = *(a1 + 56);
+    if (v9)
     {
       state.opaque[0] = 0;
       state.opaque[1] = 0;
-      v11 = [v10 loggerActivity];
-      os_activity_scope_enter(v11, &state);
+      v10 = [v9 loggerActivity];
+      os_activity_scope_enter(v10, &state);
 
-      v12 = HFLogForCategory(0x13uLL);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = HFLogForCategory(0x13uLL);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = *(a1 + 64);
-        v17 = 138412290;
-        v18 = v13;
-        _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "Unable to display face crop or person: %@", &v17, 0xCu);
+        v12 = *(a1 + 64);
+        v15 = 138412290;
+        v16 = v12;
+        _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Unable to display face crop or person: %@", &v15, 0xCu);
       }
 
       os_activity_scope_leave(&state);
@@ -529,31 +518,27 @@ uint64_t __72__HFFaceClassificationSignificantEventItem__subclass_updateWithOpti
 
     else
     {
-      v15 = HFLogForCategory(0x13uLL);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v13 = HFLogForCategory(0x13uLL);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 64);
+        v14 = *(a1 + 64);
         LODWORD(state.opaque[0]) = 138412290;
-        *(state.opaque + 4) = v16;
-        _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_ERROR, "Unable to display face crop or person: %@", &state, 0xCu);
+        *(state.opaque + 4) = v14;
+        _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Unable to display face crop or person: %@", &state, 0xCu);
       }
     }
 
     [*(a1 + 32) setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"hidden"];
-    result = [*(a1 + 48) finishWithResult:*(a1 + 32)];
-    v14 = *MEMORY[0x277D85DE8];
+    return [*(a1 + 48) finishWithResult:*(a1 + 32)];
   }
 
   else
   {
     v6 = *(a1 + 48);
     v7 = *(a1 + 32);
-    v8 = *MEMORY[0x277D85DE8];
 
     return [v6 finishWithResult:v7];
   }
-
-  return result;
 }
 
 @end

@@ -1892,19 +1892,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_232(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"State of Mind event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"State of Mind event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_232_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_232_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -2064,19 +2063,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_242(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Workout event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Workout event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_242_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_242_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -2220,19 +2218,18 @@ id *__105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refresh
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_252(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Photo Memory event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Photo Memory event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_252_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_252_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -2376,19 +2373,18 @@ id *__105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refresh
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_262(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Contact event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Contact event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_262_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_262_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -2543,19 +2539,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_272(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Proximity event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Proximity event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_272_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_272_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -2710,19 +2705,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_282(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"People Density event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"People Density event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_282_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_282_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -2855,19 +2849,18 @@ id *__105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refresh
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_292(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Life Event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Life Event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_292_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_292_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -3082,19 +3075,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_305(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Visit training timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Visit training timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_305_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_305_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -3254,19 +3246,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_316(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Visit fetching timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Visit fetching timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_316_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_316_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -3410,19 +3401,18 @@ id *__105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refresh
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_326(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Media event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Media event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_326_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_326_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -3577,19 +3567,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_336(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Motion Activity event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Motion Activity event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_336_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_336_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -3740,19 +3729,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_346(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Screen Time event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Screen Time event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_346_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_346_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -3903,19 +3891,18 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
 
 void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_356(uint64_t a1)
 {
-  v7[0] = NSLocalizedDescriptionKey;
-  v7[1] = NSUnderlyingErrorKey;
-  v2 = a1 + 40;
-  v3 = *(*(*(a1 + 40) + 8) + 40);
-  v8[0] = @"Spotlight event collection timed out";
-  v8[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
-  v5 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v4];
+  v6[0] = NSLocalizedDescriptionKey;
+  v6[1] = NSUnderlyingErrorKey;
+  v2 = *(*(*(a1 + 40) + 8) + 40);
+  v7[0] = @"Spotlight event collection timed out";
+  v7[1] = v2;
+  v3 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v4 = [NSError errorWithDomain:@"MOErrorDomain" code:15 userInfo:v3];
 
-  v6 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_356_cold_1(v2);
+    __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_356_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
@@ -3960,17 +3947,17 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
       v13 = [*(a1 + 48) count];
       v14 = [*(a1 + 80) count];
       *buf = 138413570;
-      v38 = v9;
-      v39 = 2112;
-      v40 = v10;
+      v36 = v9;
+      v37 = 2112;
+      v38 = v10;
+      v39 = 2048;
+      v40 = v11;
       v41 = 2048;
-      v42 = v11;
+      v42 = v12;
       v43 = 2048;
-      v44 = v12;
+      v44 = v13;
       v45 = 2048;
-      v46 = v13;
-      v47 = 2048;
-      v48 = v14;
+      v46 = v14;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "done with fetching and rehydrating events, start date, %@, end date, %@, rehydrated events count, %lu, new events count, %lu, unrehydrated events count, %lu, stored events count, %lu", buf, 0x3Eu);
     }
 
@@ -4003,11 +3990,11 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
       v20 = [*(a1 + 88) cacheStartDate];
       v21 = [*(a1 + 88) cacheEndDate];
       *buf = 134218498;
-      v38 = v19;
+      v36 = v19;
+      v37 = 2112;
+      v38 = v20;
       v39 = 2112;
-      v40 = v20;
-      v41 = 2112;
-      v42 = v21;
+      v40 = v21;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "done with updating cache, event count, %lu, start date, %@, end date, %@", buf, 0x20u);
     }
 
@@ -4017,13 +4004,13 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
     {
       v24 = [*(a1 + 88) eventStore];
       v25 = *(a1 + 96);
-      v34[0] = _NSConcreteStackBlock;
-      v34[1] = 3221225472;
-      v34[2] = __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_361;
-      v34[3] = &unk_10033BE48;
-      v36 = *(a1 + 216);
-      v35 = v25;
-      [v24 removeEvents:v35 CompletionHandler:v34];
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_361;
+      v32[3] = &unk_10033BE48;
+      v34 = *(a1 + 216);
+      v33 = v25;
+      [v24 removeEvents:v33 CompletionHandler:v32];
 
       v23 = *(a1 + 216);
     }
@@ -4033,25 +4020,23 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
       v26 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_360_cold_1(a1 + 216);
+        __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_360_cold_1();
       }
 
-      v27 = *(*(*(a1 + 216) + 8) + 40);
-      v28 = *(a1 + 32);
       (*(*(a1 + 104) + 16))();
     }
 
     else
     {
-      v29 = [*(a1 + 88) eventStore];
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_365;
-      v30[3] = &unk_10033C2F0;
-      v33 = *(a1 + 104);
-      v31 = *(a1 + 32);
-      v32 = v16;
-      [v29 storeEvents:v32 CompletionHandler:v30];
+      v27 = [*(a1 + 88) eventStore];
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_365;
+      v28[3] = &unk_10033C2F0;
+      v31 = *(a1 + 104);
+      v29 = *(a1 + 32);
+      v30 = v16;
+      [v27 storeEvents:v30 CompletionHandler:v28];
     }
   }
 }
@@ -4113,25 +4098,23 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
       __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_365_cold_1();
     }
 
-    v6 = *(a1 + 32);
-    v7 = *(*(a1 + 48) + 16);
+    v6 = *(*(a1 + 48) + 16);
   }
 
   else
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v8 = [*(a1 + 40) count];
-      v10 = 134217984;
-      v11 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "saved new and unrehydrated events into database. %lu", &v10, 0xCu);
+      v7 = [*(a1 + 40) count];
+      v8 = 134217984;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "saved new and unrehydrated events into database. %lu", &v8, 0xCu);
     }
 
-    v9 = *(a1 + 32);
-    v7 = *(*(a1 + 48) + 16);
+    v6 = *(*(a1 + 48) + 16);
   }
 
-  v7();
+  v6();
 }
 
 - (void)storeEvents:(id)events handler:(id)handler
@@ -4563,7 +4546,7 @@ void __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invo
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invoke_2_cold_1(v2);
+      __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invoke_2_cold_1();
     }
 
     v6 = *(a1 + 64);
@@ -4612,9 +4595,9 @@ void __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invo
     v8 = [v5 count];
     v9 = [*(a1 + 32) count];
     *buf = 134218240;
-    v17 = v8;
-    v18 = 2048;
-    v19 = v9;
+    v16 = v8;
+    v17 = 2048;
+    v18 = v9;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "rehydrated events count, %lu, input, %lu", buf, 0x16u);
   }
 
@@ -4625,11 +4608,10 @@ void __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invo
 
   v10 = *(*(*(a1 + 56) + 8) + 40);
   v11 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:{objc_msgSend(*(a1 + 40), "ascending")}];
-  v15 = v11;
-  v12 = [NSArray arrayWithObjects:&v15 count:1];
+  v14 = v11;
+  v12 = [NSArray arrayWithObjects:&v14 count:1];
   v13 = [v10 sortedArrayUsingDescriptors:v12];
 
-  v14 = *(*(*(a1 + 56) + 8) + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -4677,7 +4659,7 @@ void __84__MOEventManager__fetchEventsFromDBAndRehydrateEventsWithOptions_Comple
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invoke_2_cold_1(v2);
+      __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invoke_2_cold_1();
     }
 
     v6 = *(a1 + 56);
@@ -4886,7 +4868,7 @@ void __69__MOEventManager__fetchEventsFromCacheWithOptions_CompletionHandler___b
   {
     v3 = [*(a1 + 32) count];
     *buf = 134217984;
-    v28 = v3;
+    v27 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "fetched analytics events from store %lu", buf, 0xCu);
   }
 
@@ -4903,12 +4885,12 @@ void __69__MOEventManager__fetchEventsFromCacheWithOptions_CompletionHandler___b
     v6 = [*(a1 + 48) dateInterval];
     v7 = [v6 endDate];
     v8 = [NSPredicate predicateWithFormat:@"startDate <= %@", v7];
-    v26[0] = v8;
+    v25[0] = v8;
     v9 = [*(a1 + 48) dateInterval];
     v10 = [v9 startDate];
     v11 = [NSPredicate predicateWithFormat:@"endDate >= %@", v10];
-    v26[1] = v11;
-    v12 = [NSArray arrayWithObjects:v26 count:2];
+    v25[1] = v11;
+    v12 = [NSArray arrayWithObjects:v25 count:2];
     v13 = [NSCompoundPredicate andPredicateWithSubpredicates:v12];
     [v4 addObject:v13];
   }
@@ -4930,8 +4912,8 @@ void __69__MOEventManager__fetchEventsFromCacheWithOptions_CompletionHandler___b
 
   v18 = *(a1 + 40);
   v19 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:{objc_msgSend(*(a1 + 48), "ascending")}];
-  v25 = v19;
-  v20 = [NSArray arrayWithObjects:&v25 count:1];
+  v24 = v19;
+  v20 = [NSArray arrayWithObjects:&v24 count:1];
   v21 = [v18 sortedArrayUsingDescriptors:v20];
 
   v22 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
@@ -4939,11 +4921,10 @@ void __69__MOEventManager__fetchEventsFromCacheWithOptions_CompletionHandler___b
   {
     v23 = [*(a1 + 40) count];
     *buf = 134217984;
-    v28 = v23;
+    v27 = v23;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "fetched events total count %lu", buf, 0xCu);
   }
 
-  v24 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
 }
 
@@ -5361,24 +5342,23 @@ id __47__MOEventManager__rehydrateEvents_withHandler___block_invoke_409(uint64_t
       v4 = [*(a1 + 40) count];
       v5 = [v2 count];
       v6 = *(*(*(a1 + 72) + 8) + 40);
-      v10 = 134218498;
-      v11 = v4;
-      v12 = 2048;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "_rehydrateEvents, DONE, all original events count, %lu, all rehydrated events count, %lu, error, %@", &v10, 0x20u);
+      v9 = 134218498;
+      v10 = v4;
+      v11 = 2048;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "_rehydrateEvents, DONE, all original events count, %lu, all rehydrated events count, %lu, error, %@", &v9, 0x20u);
     }
 
-    v7 = *(*(*(a1 + 72) + 8) + 40);
     (*(*(a1 + 56) + 16))();
   }
 
-  v8 = _mo_log_facility_get_os_log(&MOLogFacilityPerformance);
-  if (os_signpost_enabled(v8))
+  v7 = _mo_log_facility_get_os_log(&MOLogFacilityPerformance);
+  if (os_signpost_enabled(v7))
   {
-    LOWORD(v10) = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_END, 1uLL, "EventManagerRehydrateEvents", "", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_INTERVAL_END, 1uLL, "EventManagerRehydrateEvents", "", &v9, 2u);
   }
 
   return [*(a1 + 48) endSession];
@@ -6616,7 +6596,7 @@ void __62__MOEventManager__cleanUpEventsWithRefreshVariant_andHandler___block_in
     v8 = _mo_log_facility_get_os_log(&MOLogFacilityEventManager);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __62__MOEventManager__cleanUpEventsWithRefreshVariant_andHandler___block_invoke_511_cold_1(a1);
+      __62__MOEventManager__cleanUpEventsWithRefreshVariant_andHandler___block_invoke_511_cold_1();
     }
 
     v9 = *(*(a1 + 64) + 8);
@@ -7485,102 +7465,102 @@ void __60__MOEventManager_runAnalyticsWithRefreshVariant_andHandler___block_invo
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_232_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_232_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "State of Mind collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "State of Mind collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_242_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_242_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Workout collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Workout collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_252_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_252_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Photo Memory collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Photo Memory collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_262_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_262_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Contact collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Contact collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_272_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_272_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Proximity collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Proximity collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_282_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_282_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "People Density collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "People Density collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_292_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_292_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Life Event collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Life Event collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_305_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_305_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Visit training timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Visit training timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_316_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_316_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Visit fetching timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Visit fetching timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_326_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_326_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Media collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Media collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_336_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_336_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Motion Activity collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Motion Activity collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_346_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_346_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Screen Time collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Screen Time collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_356_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_356_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Spotlight collection timed out: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Spotlight collection timed out: %@", v2, v3, v4, v5);
 }
 
-void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_360_cold_1(uint64_t a1)
+void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refreshVariant_withStoredEvents_handler___block_invoke_360_cold_1()
 {
-  OUTLINED_FUNCTION_0_1(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_0_1(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "collecting new and unrehydrated events failed with error, %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "collecting new and unrehydrated events failed with error, %@", v2, v3, v4, v5);
 }
 
 - (void)storeEvents:handler:.cold.1()
@@ -7597,13 +7577,6 @@ void __105__MOEventManager__collectCompleteEventsBetweenStartDate_endDate_refres
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invoke_2_cold_1(uint64_t *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v2, v3, "fetch events from store hit error, %@", v4, v5, v6, v7, v8);
-}
-
 - (void)_rehydrateEventsBySingleSource:handler:.cold.1()
 {
   OUTLINED_FUNCTION_2_0();
@@ -7618,13 +7591,12 @@ void __60__MOEventManager__fetchEventsWithOptions_CompletionHandler___block_invo
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __62__MOEventManager__cleanUpEventsWithRefreshVariant_andHandler___block_invoke_511_cold_1(uint64_t a1)
+void __62__MOEventManager__cleanUpEventsWithRefreshVariant_andHandler___block_invoke_511_cold_1()
 {
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_5();
-  v5 = 2112;
-  v6 = v2;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "purge visit events before date, %@,  failed with error, %@", v4, 0x16u);
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "purge visit events before date, %@,  failed with error, %@", v2, 0x16u);
 }
 
 @end

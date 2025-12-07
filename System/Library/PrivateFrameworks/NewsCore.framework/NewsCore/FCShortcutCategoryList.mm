@@ -94,24 +94,24 @@ void __51__FCShortcutCategoryList_blockedShortcutCategories__block_invoke_2(uint
 
 - (void)addShortcutCategory:(id)category
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   [MEMORY[0x1E696AF00] isMainThread];
   if (categoryCopy)
   {
-    v24[0] = @"type";
+    v23[0] = @"type";
     v5 = NSStringFromShortcutCategoryType([categoryCopy type]);
     *&buf = v5;
-    v24[1] = @"categoryID";
+    v23[1] = @"categoryID";
     identifier = [categoryCopy identifier];
     *(&buf + 1) = identifier;
-    v24[2] = @"dateAdded";
+    v23[2] = @"dateAdded";
     dateAdded = [categoryCopy dateAdded];
-    v26 = dateAdded;
-    v24[3] = @"status";
+    v25 = dateAdded;
+    v23[3] = @"status";
     v8 = NSStringFromShortcutCategoryStatus([categoryCopy status]);
-    v27 = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:v24 count:4];
+    v26 = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&buf forKeys:v23 count:4];
 
     if (self)
     {
@@ -132,14 +132,14 @@ LABEL_3:
 
   itemsLock = 0;
 LABEL_4:
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __46__FCShortcutCategoryList_addShortcutCategory___block_invoke;
-  v21[3] = &unk_1E7C36C58;
-  v21[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __46__FCShortcutCategoryList_addShortcutCategory___block_invoke;
+  v20[3] = &unk_1E7C36C58;
+  v20[4] = self;
   v11 = categoryCopy;
-  v22 = v11;
-  [(FCMTWriterLock *)itemsLock performWriteSync:v21];
+  v21 = v11;
+  [(FCMTWriterLock *)itemsLock performWriteSync:v20];
   localStore = [(FCPrivateDataController *)self localStore];
   identifier2 = [v11 identifier];
   [localStore setObject:v9 forKey:identifier2];
@@ -155,12 +155,11 @@ LABEL_4:
   }
 
   v17 = [FCModifyShortcutCategoryListCommand alloc];
-  v23 = v11;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v22 = v11;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
   v19 = [(FCModifyShortcutCategoryListCommand *)v17 initWithShortcutCategories:v18 merge:0];
 
   [(FCPrivateDataController *)self addCommandToCommandQueue:v19];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __46__FCShortcutCategoryList_addShortcutCategory___block_invoke(uint64_t a1)
@@ -179,7 +178,7 @@ void __46__FCShortcutCategoryList_addShortcutCategory___block_invoke(uint64_t a1
 
 - (void)removeShortcutCategoryWithIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   [MEMORY[0x1E696AF00] isMainThread];
   if (identifierCopy)
@@ -209,14 +208,14 @@ void __46__FCShortcutCategoryList_addShortcutCategory___block_invoke(uint64_t a1
         itemsLock = 0;
       }
 
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __63__FCShortcutCategoryList_removeShortcutCategoryWithIdentifier___block_invoke;
-      v17[3] = &unk_1E7C36C58;
-      v17[4] = self;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __63__FCShortcutCategoryList_removeShortcutCategoryWithIdentifier___block_invoke;
+      v16[3] = &unk_1E7C36C58;
+      v16[4] = self;
       v9 = identifierCopy;
-      v18 = v9;
-      [(FCMTWriterLock *)itemsLock performWriteSync:v17];
+      v17 = v9;
+      [(FCMTWriterLock *)itemsLock performWriteSync:v16];
       localStore = [(FCPrivateDataController *)self localStore];
       [localStore removeObjectForKey:v9];
 
@@ -224,13 +223,13 @@ void __46__FCShortcutCategoryList_addShortcutCategory___block_invoke(uint64_t a1
       if (os_log_type_enabled(FCShortcutCategoryListLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v21 = v9;
+        v20 = v9;
         _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "Removing shortcut category <%{public}@>", buf, 0xCu);
       }
 
       v12 = [FCRemoveFromShortcutCategoryListCommand alloc];
-      v19 = v7;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+      v18 = v7;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
       v14 = [(FCRemoveFromShortcutCategoryListCommand *)v12 initWithShortcutCategories:v13];
 
       [(FCPrivateDataController *)self addCommandToCommandQueue:v14];
@@ -238,15 +237,15 @@ void __46__FCShortcutCategoryList_addShortcutCategory___block_invoke(uint64_t a1
 
     else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "shortcutCategory"];
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "shortcutCategory"];
       *buf = 136315906;
-      v21 = "[FCShortcutCategoryList removeShortcutCategoryWithIdentifier:]";
-      v22 = 2080;
-      v23 = "FCShortcutCategoryList.m";
-      v24 = 1024;
-      v25 = 106;
-      v26 = 2114;
-      v27 = v16;
+      v20 = "[FCShortcutCategoryList removeShortcutCategoryWithIdentifier:]";
+      v21 = 2080;
+      v22 = "FCShortcutCategoryList.m";
+      v23 = 1024;
+      v24 = 106;
+      v25 = 2114;
+      v26 = v15;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -257,18 +256,16 @@ void __46__FCShortcutCategoryList_addShortcutCategory___block_invoke(uint64_t a1
   {
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "identifier"];
     *buf = 136315906;
-    v21 = "[FCShortcutCategoryList removeShortcutCategoryWithIdentifier:]";
-    v22 = 2080;
-    v23 = "FCShortcutCategoryList.m";
-    v24 = 1024;
-    v25 = 102;
-    v26 = 2114;
-    v27 = v7;
+    v20 = "[FCShortcutCategoryList removeShortcutCategoryWithIdentifier:]";
+    v21 = 2080;
+    v22 = "FCShortcutCategoryList.m";
+    v23 = 1024;
+    v24 = 102;
+    v25 = 2114;
+    v26 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 LABEL_14:
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __63__FCShortcutCategoryList_removeShortcutCategoryWithIdentifier___block_invoke(uint64_t a1)
@@ -284,15 +281,15 @@ uint64_t __63__FCShortcutCategoryList_removeShortcutCategoryWithIdentifier___blo
 
 - (void)removeAllShortcutCategories
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__17;
-  v18 = __Block_byref_object_dispose__17;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__17;
+  v17 = __Block_byref_object_dispose__17;
   v3 = objc_alloc(MEMORY[0x1E695DF70]);
-  v19 = [v3 initWithArray:MEMORY[0x1E695E0F0]];
+  v18 = [v3 initWithArray:MEMORY[0x1E695E0F0]];
   if (self)
   {
     itemsLock = self->_itemsLock;
@@ -304,36 +301,35 @@ uint64_t __63__FCShortcutCategoryList_removeShortcutCategoryWithIdentifier___blo
   }
 
   v5 = itemsLock;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke;
-  v13[3] = &unk_1E7C3A3A0;
-  v13[4] = self;
-  v13[5] = &v14;
-  [(FCMTWriterLock *)v5 performWriteSync:v13];
-
-  v6 = v15[5];
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke_3;
-  v12[3] = &unk_1E7C393D0;
+  v12[2] = __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke;
+  v12[3] = &unk_1E7C3A3A0;
   v12[4] = self;
-  [v6 enumerateObjectsUsingBlock:v12];
+  v12[5] = &v13;
+  [(FCMTWriterLock *)v5 performWriteSync:v12];
+
+  v6 = v14[5];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke_3;
+  v11[3] = &unk_1E7C393D0;
+  v11[4] = self;
+  [v6 enumerateObjectsUsingBlock:v11];
   v7 = FCShortcutCategoryListLog;
   if (os_log_type_enabled(FCShortcutCategoryListLog, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v15[5];
+    v8 = v14[5];
     *buf = 138543362;
-    v21 = v8;
+    v20 = v8;
     _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Removing shortcut categories <%{public}@>", buf, 0xCu);
   }
 
   v9 = [FCRemoveFromShortcutCategoryListCommand alloc];
-  v10 = [(FCRemoveFromShortcutCategoryListCommand *)v9 initWithShortcutCategories:v15[5]];
+  v10 = [(FCRemoveFromShortcutCategoryListCommand *)v9 initWithShortcutCategories:v14[5]];
   [(FCPrivateDataController *)self addCommandToCommandQueue:v10];
 
-  _Block_object_dispose(&v14, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
 }
 
 uint64_t __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke(uint64_t a1)
@@ -385,29 +381,29 @@ void __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke_3(ui
 
 + (id)commandsToMergeLocalDataToCloud:(id)cloud privateDataDirectory:(id)directory
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   array = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [cloudCopy allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         if (([self isLocalStoreKeyInternal:v12] & 1) == 0)
         {
           v13 = [cloudCopy objectForKey:v12];
@@ -416,7 +412,7 @@ void __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke_3(ui
         }
       }
 
-      v9 = [allKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v9 = [allKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v9);
@@ -425,15 +421,13 @@ void __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke_3(ui
   v15 = FCShortcutCategoryListLog;
   if (os_log_type_enabled(FCShortcutCategoryListLog, OS_LOG_TYPE_DEFAULT))
   {
-    *v20 = 0;
-    _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "Merging shortcut category list data to icloud", v20, 2u);
+    *v19 = 0;
+    _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "Merging shortcut category list data to icloud", v19, 2u);
   }
 
   v16 = [[FCModifyShortcutCategoryListCommand alloc] initWithShortcutCategories:array merge:1];
-  v25 = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v24 = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
 
   return v17;
 }
@@ -475,38 +469,38 @@ void __53__FCShortcutCategoryList_removeAllShortcutCategories__block_invoke_3(ui
 void __74__FCShortcutCategoryList_handleSyncWithChangedRecords_deletedRecordNames___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v73[2] = *MEMORY[0x1E69E9840];
+  v72[2] = *MEMORY[0x1E69E9840];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   obj = *(a1 + 32);
-  v55 = v1;
-  v52 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
-  if (v52)
+  v54 = v1;
+  v51 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
+  if (v51)
   {
-    v51 = *v64;
+    v50 = *v63;
     *&v2 = 136315906;
-    v49 = v2;
+    v48 = v2;
     do
     {
       v3 = 0;
       do
       {
-        if (*v64 != v51)
+        if (*v63 != v50)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v63 + 1) + 8 * v3);
+        v4 = *(*(&v62 + 1) + 8 * v3);
         v5 = *(v1 + 40);
         v6 = *(v1 + 56);
-        v58 = *(v1 + 48);
+        v57 = *(v1 + 48);
         v7 = v6;
         if (v5)
         {
-          v54 = v5;
-          v56 = v3;
+          v53 = v5;
+          v55 = v3;
           v8 = v4;
           v9 = [v8 recordID];
           v10 = [v9 recordName];
@@ -517,10 +511,10 @@ void __74__FCShortcutCategoryList_handleSyncWithChangedRecords_deletedRecordName
           v14 = [v8 objectForKeyedSubscript:@"categoryID"];
           v15 = [v8 objectForKeyedSubscript:@"status"];
 
-          v57 = v15;
+          v56 = v15;
           if (v11)
           {
-            v53 = v11;
+            v52 = v11;
             v16 = [v11 mutableCopy];
             [v16 fc_safelySetObjectAllowingNil:v12 forKey:@"dateAdded"];
             [v16 fc_safelySetObjectAllowingNil:v13 forKey:@"type"];
@@ -530,13 +524,13 @@ void __74__FCShortcutCategoryList_handleSyncWithChangedRecords_deletedRecordName
             [v7 setObject:v16 forKey:v10];
             v18 = v14;
             v19 = v10;
-            v3 = v56;
+            v3 = v55;
             if (v19)
             {
               v20 = v14;
               v21 = [[FCShortcutCategory alloc] initWithIdentifier:v19 dictionaryRepresentation:v16];
-              [*(v54 + 88) setObject:v21 forKey:v19];
-              [v58 addObject:v21];
+              [*(v53 + 88) setObject:v21 forKey:v19];
+              [v57 addObject:v21];
               v22 = FCShortcutCategoryListLog;
               if (os_log_type_enabled(FCShortcutCategoryListLog, OS_LOG_TYPE_DEFAULT))
               {
@@ -549,7 +543,7 @@ void __74__FCShortcutCategoryList_handleSyncWithChangedRecords_deletedRecordName
             }
 
             v23 = v12;
-            v11 = v53;
+            v11 = v52;
             v7 = v17;
             goto LABEL_13;
           }
@@ -559,30 +553,30 @@ void __74__FCShortcutCategoryList_handleSyncWithChangedRecords_deletedRecordName
           if (!v10 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a shortcut category without an item ID"];
-            *buf = v49;
+            *buf = v48;
             *&buf[4] = "[FCShortcutCategoryList _syncShortcutCategories:localStore:record:]";
             *&buf[12] = 2080;
             *&buf[14] = "FCShortcutCategoryList.m";
             *&buf[22] = 1024;
-            LODWORD(v73[0]) = 317;
-            WORD2(v73[0]) = 2114;
-            *(v73 + 6) = v31;
+            LODWORD(v72[0]) = 317;
+            WORD2(v72[0]) = 2114;
+            *(v72 + 6) = v31;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
           v23 = v12;
-          v3 = v56;
+          v3 = v55;
           if (!v12 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a shortcut category without a date added"];
-            *buf = v49;
+            *buf = v48;
             *&buf[4] = "[FCShortcutCategoryList _syncShortcutCategories:localStore:record:]";
             *&buf[12] = 2080;
             *&buf[14] = "FCShortcutCategoryList.m";
             *&buf[22] = 1024;
-            LODWORD(v73[0]) = 318;
-            WORD2(v73[0]) = 2114;
-            *(v73 + 6) = v32;
+            LODWORD(v72[0]) = 318;
+            WORD2(v72[0]) = 2114;
+            *(v72 + 6) = v32;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
             if (!v13)
@@ -597,14 +591,14 @@ LABEL_23:
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
               v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a shortcut category without a category type value"];
-              *buf = v49;
+              *buf = v48;
               *&buf[4] = "[FCShortcutCategoryList _syncShortcutCategories:localStore:record:]";
               *&buf[12] = 2080;
               *&buf[14] = "FCShortcutCategoryList.m";
               *&buf[22] = 1024;
-              LODWORD(v73[0]) = 319;
-              WORD2(v73[0]) = 2114;
-              *(v73 + 6) = v33;
+              LODWORD(v72[0]) = 319;
+              WORD2(v72[0]) = 2114;
+              *(v72 + 6) = v33;
               _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
             }
           }
@@ -613,48 +607,48 @@ LABEL_23:
           if (!v25 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
             v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a shortcut category without a category id value"];
-            *buf = v49;
+            *buf = v48;
             *&buf[4] = "[FCShortcutCategoryList _syncShortcutCategories:localStore:record:]";
             *&buf[12] = 2080;
             *&buf[14] = "FCShortcutCategoryList.m";
             *&buf[22] = 1024;
-            LODWORD(v73[0]) = 320;
-            WORD2(v73[0]) = 2114;
-            *(v73 + 6) = v34;
+            LODWORD(v72[0]) = 320;
+            WORD2(v72[0]) = 2114;
+            *(v72 + 6) = v34;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
             v18 = 0;
           }
 
-          v24 = v57;
-          if (v57)
+          v24 = v56;
+          if (v56)
           {
             if (v19 && v12 && v13 && v18)
             {
-              v71[0] = @"dateAdded";
-              v71[1] = @"type";
+              v70[0] = @"dateAdded";
+              v70[1] = @"type";
               *buf = v12;
               *&buf[8] = v13;
-              v71[2] = @"categoryID";
-              v71[3] = @"status";
+              v70[2] = @"categoryID";
+              v70[3] = @"status";
               *&buf[16] = v18;
-              v73[0] = v57;
-              v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v71 count:4];
+              v72[0] = v56;
+              v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v70 count:4];
               v27 = [[FCShortcutCategory alloc] initWithIdentifier:v19 dictionaryRepresentation:v26];
-              [*(v54 + 88) setObject:v27 forKey:v19];
+              [*(v53 + 88) setObject:v27 forKey:v19];
               [v7 setObject:v26 forKey:v19];
-              [v58 addObject:v27];
+              [v57 addObject:v27];
               v28 = FCShortcutCategoryListLog;
               if (os_log_type_enabled(FCShortcutCategoryListLog, OS_LOG_TYPE_DEFAULT))
               {
-                *v69 = 138543362;
-                v70 = v19;
-                _os_log_impl(&dword_1B63EF000, v28, OS_LOG_TYPE_DEFAULT, "Adding shortcut category when handling sync <%{public}@>", v69, 0xCu);
+                *v68 = 138543362;
+                v69 = v19;
+                _os_log_impl(&dword_1B63EF000, v28, OS_LOG_TYPE_DEFAULT, "Adding shortcut category when handling sync <%{public}@>", v68, 0xCu);
               }
 
               v18 = v25;
 LABEL_13:
-              v24 = v57;
+              v24 = v56;
             }
           }
 
@@ -665,14 +659,14 @@ LABEL_13:
             if (v29)
             {
               v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"should never have a shortcut category without a category status value"];
-              *buf = v49;
+              *buf = v48;
               *&buf[4] = "[FCShortcutCategoryList _syncShortcutCategories:localStore:record:]";
               *&buf[12] = 2080;
               *&buf[14] = "FCShortcutCategoryList.m";
               *&buf[22] = 1024;
-              LODWORD(v73[0]) = 321;
-              WORD2(v73[0]) = 2114;
-              *(v73 + 6) = v30;
+              LODWORD(v72[0]) = 321;
+              WORD2(v72[0]) = 2114;
+              *(v72 + 6) = v30;
               _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
               v24 = 0;
@@ -680,42 +674,42 @@ LABEL_13:
             }
           }
 
-          v1 = v55;
+          v1 = v54;
         }
 
         ++v3;
       }
 
-      while (v52 != v3);
-      v35 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
-      v52 = v35;
+      while (v51 != v3);
+      v35 = [obj countByEnumeratingWithState:&v62 objects:v67 count:16];
+      v51 = v35;
     }
 
     while (v35);
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v36 = *(v1 + 64);
-  v37 = [v36 countByEnumeratingWithState:&v59 objects:v67 count:16];
+  v37 = [v36 countByEnumeratingWithState:&v58 objects:v66 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v60;
+    v39 = *v59;
     do
     {
       v40 = 0;
       do
       {
-        if (*v60 != v39)
+        if (*v59 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        v41 = *(*(&v59 + 1) + 8 * v40);
-        v42 = [*(v1 + 56) objectForKey:{v41, v49}];
+        v41 = *(*(&v58 + 1) + 8 * v40);
+        v42 = [*(v1 + 56) objectForKey:{v41, v48}];
         if (v42)
         {
           v43 = [[FCShortcutCategory alloc] initWithIdentifier:v41 dictionaryRepresentation:v42];
@@ -741,21 +735,19 @@ LABEL_13:
             _os_log_impl(&dword_1B63EF000, v46, OS_LOG_TYPE_DEFAULT, "Removing shortcut category when handling sync <%{public}@>", buf, 0xCu);
           }
 
-          v1 = v55;
+          v1 = v54;
         }
 
         ++v40;
       }
 
       while (v38 != v40);
-      v47 = [v36 countByEnumeratingWithState:&v59 objects:v67 count:16];
+      v47 = [v36 countByEnumeratingWithState:&v58 objects:v66 count:16];
       v38 = v47;
     }
 
     while (v47);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allKnownRecordNamesWithinRecordZoneWithID:(id)d
@@ -799,7 +791,7 @@ LABEL_13:
 
 void __50__FCShortcutCategoryList_loadLocalCachesFromStore__block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = *(a1 + 32);
   if (v3)
@@ -808,99 +800,90 @@ void __50__FCShortcutCategoryList_loadLocalCachesFromStore__block_invoke(uint64_
   }
 
   v4 = [*(a1 + 32) localStore];
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v5 = [v4 allKeys];
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
-    v9 = 0x1E695D000uLL;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
-        v12 = *(a1 + 32);
-        if (([objc_opt_class() isLocalStoreKeyInternal:v11] & 1) == 0)
+        v10 = *(*(&v22 + 1) + 8 * i);
+        if (([objc_opt_class() isLocalStoreKeyInternal:v10] & 1) == 0)
         {
-          v13 = *(v9 + 3872);
           objc_opt_class();
-          v14 = [v4 objectForKey:v11];
-          if (v14)
+          v11 = [v4 objectForKey:v10];
+          if (v11)
           {
             if (objc_opt_isKindOfClass())
             {
-              v15 = v14;
+              v12 = v11;
             }
 
             else
             {
-              v15 = 0;
+              v12 = 0;
             }
           }
 
           else
           {
-            v15 = 0;
+            v12 = 0;
           }
 
-          v16 = v15;
+          v13 = v12;
 
-          if (v16)
+          if (v13)
           {
-            v17 = [[FCShortcutCategory alloc] initWithIdentifier:v11 dictionaryRepresentation:v16];
-            if (v17)
+            v14 = [[FCShortcutCategory alloc] initWithIdentifier:v10 dictionaryRepresentation:v13];
+            if (v14)
             {
-              v18 = *(a1 + 32);
-              if (v18)
+              v15 = *(a1 + 32);
+              if (v15)
               {
-                v18 = v18[11];
+                v15 = v15[11];
               }
 
-              v19 = v18;
-              v20 = [v17 identifier];
-              [v19 setObject:v17 forKey:v20];
-
-              v9 = 0x1E695D000;
+              v16 = v15;
+              v17 = [v14 identifier];
+              [v16 setObject:v14 forKey:v17];
             }
           }
 
           else
           {
-            v21 = FCDefaultLog;
+            v18 = FCDefaultLog;
             if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
             {
-              v22 = v21;
-              v23 = objc_opt_class();
-              v24 = NSStringFromClass(v23);
+              v19 = v18;
+              v20 = objc_opt_class();
+              v21 = NSStringFromClass(v20);
               *buf = 138412546;
-              v31 = v24;
-              v32 = 2114;
-              v33 = v11;
-              _os_log_error_impl(&dword_1B63EF000, v22, OS_LOG_TYPE_ERROR, "ERROR: Object of type %@ is not dictionary for key %{public}@", buf, 0x16u);
-
-              v9 = 0x1E695D000;
+              v27 = v21;
+              v28 = 2114;
+              v29 = v10;
+              _os_log_error_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_ERROR, "ERROR: Object of type %@ is not dictionary for key %{public}@", buf, 0x16u);
             }
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v7);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)recordsForRestoringZoneName:(id)name

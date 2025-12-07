@@ -41,7 +41,7 @@ uint64_t __65__PPConnectionsServerRequestHandler_registerFeedback_completion___b
 
 - (void)recentLocationsForConsumer:(unint64_t)consumer criteria:(id)criteria limit:(unint64_t)limit explanationSet:(id)set client:(id)client queryId:(unint64_t)id
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   setCopy = set;
   clientCopy = client;
@@ -50,31 +50,29 @@ uint64_t __65__PPConnectionsServerRequestHandler_registerFeedback_completion___b
   {
     *buf = 134218498;
     consumerCopy = consumer;
-    v33 = 2112;
-    v34 = criteriaCopy;
-    v35 = 2048;
+    v32 = 2112;
+    v33 = criteriaCopy;
+    v34 = 2048;
     limitCopy = limit;
     _os_log_impl(&dword_23224A000, v17, OS_LOG_TYPE_DEFAULT, "PPConnectionsServer: recentLocationsForConsumer: %lu criteria: %@ limit: %lu", buf, 0x20u);
   }
 
   queryManager = self->_queryManager;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __109__PPConnectionsServerRequestHandler_recentLocationsForConsumer_criteria_limit_explanationSet_client_queryId___block_invoke;
-  v23[3] = &unk_278975C28;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __109__PPConnectionsServerRequestHandler_recentLocationsForConsumer_criteria_limit_explanationSet_client_queryId___block_invoke;
+  v22[3] = &unk_278975C28;
   consumerCopy2 = consumer;
   limitCopy2 = limit;
-  v24 = criteriaCopy;
-  v25 = setCopy;
+  v23 = criteriaCopy;
+  v24 = setCopy;
   idCopy = id;
   selfCopy = self;
-  v27 = clientCopy;
+  v26 = clientCopy;
   v19 = clientCopy;
   v20 = setCopy;
   v21 = criteriaCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v22];
 }
 
 void __109__PPConnectionsServerRequestHandler_recentLocationsForConsumer_criteria_limit_explanationSet_client_queryId___block_invoke(void *a1)
@@ -146,59 +144,56 @@ void __109__PPConnectionsServerRequestHandler_recentLocationsForConsumer_criteri
   }
 }
 
-uint64_t __109__PPConnectionsServerRequestHandler_recentLocationsForConsumer_criteria_limit_explanationSet_client_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
+void *__109__PPConnectionsServerRequestHandler_recentLocationsForConsumer_criteria_limit_explanationSet_client_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x1F4)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x1F4)
   {
-    v8 = 500;
+    v7 = 500;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x1F5;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x1F5;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 
 - (void)recentLocationDonationsSinceDate:(id)date client:(id)client queryId:(unint64_t)id
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   clientCopy = client;
   v10 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v21 = dateCopy;
-    v22 = 2112;
-    v23 = clientCopy;
-    v24 = 2048;
+    v20 = dateCopy;
+    v21 = 2112;
+    v22 = clientCopy;
+    v23 = 2048;
     idCopy = id;
     _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEFAULT, "PPConnectionsServer: recentLocationDonationsSinceDate: %@ client: %@ queryId: %llu", buf, 0x20u);
   }
 
   queryManager = self->_queryManager;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __85__PPConnectionsServerRequestHandler_recentLocationDonationsSinceDate_client_queryId___block_invoke;
-  v15[3] = &unk_278978628;
-  v16 = dateCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __85__PPConnectionsServerRequestHandler_recentLocationDonationsSinceDate_client_queryId___block_invoke;
+  v14[3] = &unk_278978628;
+  v15 = dateCopy;
   selfCopy = self;
-  v18 = clientCopy;
+  v17 = clientCopy;
   idCopy2 = id;
   v12 = clientCopy;
   v13 = dateCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v14];
 }
 
 void __85__PPConnectionsServerRequestHandler_recentLocationDonationsSinceDate_client_queryId___block_invoke(void *a1)
@@ -267,25 +262,24 @@ void __85__PPConnectionsServerRequestHandler_recentLocationDonationsSinceDate_cl
   }
 }
 
-uint64_t __85__PPConnectionsServerRequestHandler_recentLocationDonationsSinceDate_client_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
+void *__85__PPConnectionsServerRequestHandler_recentLocationDonationsSinceDate_client_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x1F4)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x1F4)
   {
-    v8 = 500;
+    v7 = 500;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x1F5;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x1F5;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 

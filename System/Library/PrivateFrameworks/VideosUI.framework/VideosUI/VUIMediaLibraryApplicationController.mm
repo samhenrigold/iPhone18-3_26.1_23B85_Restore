@@ -41,7 +41,7 @@ void __57__VUIMediaLibraryApplicationController_defaultController__block_invoke(
 
   else
   {
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [VUIMediaLibraryApplicationController settingsURL];
@@ -64,7 +64,7 @@ void __57__VUIMediaLibraryApplicationController_defaultController__block_invoke(
 
   else
   {
-    v6 = VUIDefaultLogObject();
+    v6 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [VUIMediaLibraryApplicationController isCellularDataForPlaybackEnabled];
@@ -82,7 +82,7 @@ void __57__VUIMediaLibraryApplicationController_defaultController__block_invoke(
   delegate = [(VUIMediaLibraryApplicationController *)self delegate];
   if (!delegate)
   {
-    mediaPlayerMediaItem = VUIDefaultLogObject();
+    mediaPlayerMediaItem = VUIDefaultLogObject(0);
     if (os_log_type_enabled(mediaPlayerMediaItem, OS_LOG_TYPE_ERROR))
     {
       [VUIMediaLibraryApplicationController shouldWarnAboutPlaybackQualityForRentalMediaItem:];
@@ -94,7 +94,7 @@ void __57__VUIMediaLibraryApplicationController_defaultController__block_invoke(
   mediaPlayerMediaItem = [itemCopy mediaPlayerMediaItem];
   if (!mediaPlayerMediaItem)
   {
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [VUIMediaLibraryApplicationController shouldWarnAboutPlaybackQualityForRentalMediaItem:];
@@ -122,7 +122,7 @@ LABEL_10:
 
   else
   {
-    v5 = VUIDefaultLogObject();
+    v5 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [VUIMediaLibraryApplicationController clearCellularPlaybackQualityOverrides];
@@ -144,7 +144,7 @@ LABEL_10:
 
     else
     {
-      v9 = VUIDefaultLogObject();
+      v9 = VUIDefaultLogObject(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [VUIMediaLibraryApplicationController overrideCellularPlaybackQuality:forMediaItem:];
@@ -154,7 +154,7 @@ LABEL_10:
 
   else
   {
-    mediaPlayerMediaItem = VUIDefaultLogObject();
+    mediaPlayerMediaItem = VUIDefaultLogObject(0);
     if (os_log_type_enabled(mediaPlayerMediaItem, OS_LOG_TYPE_ERROR))
     {
       [VUIMediaLibraryApplicationController shouldWarnAboutPlaybackQualityForRentalMediaItem:];
@@ -174,7 +174,7 @@ LABEL_10:
 
   else
   {
-    v7 = VUIDefaultLogObject();
+    v7 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [VUIMediaLibraryApplicationController assetTypeForRentalMediaItem:];
@@ -192,7 +192,7 @@ LABEL_10:
   aBlock[1] = 3221225472;
   aBlock[2] = __77__VUIMediaLibraryApplicationController_removeRentalMediaItem_withCompletion___block_invoke;
   aBlock[3] = &unk_1E872E470;
-  v14 = completionCopy;
+  v15 = completionCopy;
   v8 = completionCopy;
   v9 = _Block_copy(aBlock);
   delegate = [(VUIMediaLibraryApplicationController *)self delegate];
@@ -204,9 +204,9 @@ LABEL_10:
 
   else
   {
-    (*(v9 + 2))(v9, 0, 0);
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v12 = (*(v9 + 2))(v9, 0, 0);
+    v13 = VUIDefaultLogObject(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [VUIMediaLibraryApplicationController removeRentalMediaItem:withCompletion:];
     }

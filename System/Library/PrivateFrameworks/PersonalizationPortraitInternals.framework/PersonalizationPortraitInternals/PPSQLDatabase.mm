@@ -4,19 +4,28 @@
 + (id)createTempViewContainingRowsFromQuery:(id)query descriptiveTableName:(id)name txnWitness:(id)witness;
 + (id)nonMigratingToolsInstance;
 + (id)nonMigratingToolsInstanceWithParentDirectory:(id)directory;
++ (id)tableNameForTable:(unsigned __int8)table;
 + (void)dropTableWithName:(id)name txnWitness:(id)witness;
 + (void)dropViewWithName:(id)name txnWitness:(id)witness;
 - (BOOL)_handleCorruption;
 - (BOOL)_isCorruptionMarkerPresent;
 - (BOOL)_prepareDatabaseHandleForMigration;
 - (BOOL)_removeCorruptionMarker;
+- (BOOL)migrateToVersion:(unsigned int)version;
 - (BOOL)optimizeDatabaseWithShouldContinueBlock:(id)block;
 - (BOOL)unmigrate;
 - (BOOL)vacuumDatabaseWithShouldContinueBlock:(id)block;
+- (BOOL)writeTransactionWithClient:(unsigned __int8)client timeoutInSeconds:(double)seconds block:(id)block;
+- (PPSQLDatabase)initWithParentDirectory:(id)directory performMigrations:(BOOL)migrations;
+- (PPSQLDatabase)initWithTemporaryInMemoryDatabaseAndPerformMigrations:(BOOL)migrations;
+- (id)_acquireReadOnlyHandleWithClient:(unsigned __int8)client;
 - (id)_allTables;
+- (id)_initInStandardParentDirectoryWithPerformMigrations:(BOOL)migrations;
 - (id)_initWithPath:(id)path performMigrations:(BOOL)migrations;
+- (id)_nullableHandleWithClient:(unsigned __int8)client;
 - (id)_openFreshHandleForClient:(unsigned __int8)client;
 - (id)checkWithError:(id *)error;
+- (id)handleWithClient:(unsigned __int8)client;
 - (id)migrations;
 - (id)queriesToSkipFromEmptyToVersion:(unsigned int *)version;
 - (id)sourceStats:(unint64_t)stats;
@@ -27,6 +36,8 @@
 - (void)_disableQueryLoggingForHandle:(id)handle;
 - (void)_enableQueryLoggingForHandle:(id)handle;
 - (void)_releaseReadOnlyHandle:(id)handle client:(unsigned __int8)client;
+- (void)readTransactionWithClient:(unsigned __int8)client block:(id)block;
+- (void)writeTransactionWithClient:(unsigned __int8)client block:(id)block;
 @end
 
 @implementation PPSQLDatabase
@@ -43,173 +54,171 @@
 
 - (id)migrations
 {
-  v30[37] = *MEMORY[0x277D85DE8];
-  v29[0] = &unk_284783D80;
-  v28[0] = @"CREATE TABLE sources(   id INTEGER PRIMARY KEY AUTOINCREMENT,     ref_count INTEGER NOT NULL,     bundle_id TEXT NOT NULL,     group_id TEXT,     doc_id TEXT NOT NULL,     seconds_from_1970 REAL NOT NULL,     sha256 BLOB UNIQUE NOT NULL)";
-  v28[1] = @"CREATE INDEX ix_sources_ref_count ON sources (ref_count)";
-  v28[2] = @"CREATE INDEX ix_sources_bundle_id ON sources (bundle_id)";
-  v28[3] = @"CREATE INDEX ix_sources_bundle_id_group_id ON sources (bundle_id, group_id)";
-  v28[4] = @"CREATE INDEX ix_sources_bundle_id_group_id_doc_id ON sources (bundle_id, group_id, doc_id)";
-  v28[5] = @"CREATE INDEX ix_sources_seconds_from_1970 ON sources (seconds_from_1970)";
-  v28[6] = @"CREATE TABLE ne_records(   id INTEGER PRIMARY KEY AUTOINCREMENT,     name TEXT NOT NULL,     lc_name TEXT NOT NULL,     category INTEGER NOT NULL,     language TEXT NOT NULL,     algorithm INTEGER NOT NULL,     initial_score REAL NOT NULL,     decay_rate REAL NOT NULL,     extraction_os_build TEXT,     extraction_asset_version INTEGER,     source_id INTEGER NOT NULL REFERENCES sources (id),     is_remote INTEGER NOT NULL,     dk_event_id BLOB)";
-  v28[7] = @"CREATE INDEX ne_ix_records_lc_name ON ne_records (lc_name)";
-  v28[8] = @"CREATE INDEX ne_ix_records_category ON ne_records (category)";
-  v28[9] = @"CREATE INDEX ne_ix_records_source_id ON ne_records (source_id)";
-  v28[10] = @"CREATE INDEX ne_ix_records_dk_event_id ON ne_records (dk_event_id)";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:11];
-  v30[0] = v16;
-  v29[1] = &unk_284783DB0;
-  v27[0] = @"ALTER TABLE ne_records ADD COLUMN is_sync_eligible INTEGER NOT NULL DEFAULT 0";
-  v27[1] = @"CREATE TABLE kv_blobs(   id INTEGER PRIMARY KEY AUTOINCREMENT,     key TEXT UNIQUE NOT NULL,     value BLOB NOT NULL)";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
-  v30[1] = v15;
-  v30[2] = &unk_284785388;
-  v29[2] = &unk_284783DC8;
-  v29[3] = &unk_284783DE0;
-  v26[0] = @"CREATE TABLE tp_records(   id INTEGER PRIMARY KEY AUTOINCREMENT,     qid TEXT NOT NULL,     algorithm INTEGER NOT NULL,     initial_score REAL NOT NULL,     decay_rate REAL NOT NULL,     sentiment_score REAL NOT NULL,     extraction_os_build TEXT,     extraction_asset_version INTEGER,     source_id INTEGER NOT NULL REFERENCES sources (id),     is_remote INTEGER NOT NULL,     is_sync_eligible INTEGER NOT NULL,     dk_event_id BLOB)";
-  v26[1] = @"CREATE INDEX tp_ix_records_qid ON tp_records (qid)";
-  v26[2] = @"CREATE INDEX tp_ix_records_source_id ON tp_records (source_id)";
-  v26[3] = @"CREATE INDEX tp_ix_records_dk_event_id ON tp_records (dk_event_id)";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
-  v30[3] = v14;
-  v30[4] = &unk_2847853A0;
-  v29[4] = &unk_284783DF8;
-  v29[5] = &unk_284783E10;
-  v30[5] = &unk_2847853B8;
-  v29[6] = &unk_284783E28;
-  v25[0] = @"CREATE TABLE loc_records(   id INTEGER PRIMARY KEY AUTOINCREMENT,     clp_location BLOB,     cll_latitude_degrees REAL,     cll_longitude_degrees REAL,     clp_name TEXT,     clp_thoroughfare TEXT,     clp_subThoroughfare TEXT,     clp_locality TEXT,     clp_subLocality TEXT,     clp_administrativeArea TEXT,     clp_subAdministrativeArea TEXT,     clp_postalCode TEXT,     clp_ISOcountryCode TEXT,     clp_country TEXT,     clp_inlandWater TEXT,     clp_ocean TEXT,     uuid BLOB NOT NULL,     category INTEGER NOT NULL,     algorithm INTEGER NOT NULL,     initial_score REAL NOT NULL,     decay_rate REAL NOT NULL,     sentiment_score REAL NOT NULL,     extraction_os_build TEXT,     extraction_asset_version INTEGER,     source_id INTEGER NOT NULL REFERENCES sources (id),     is_remote INTEGER NOT NULL,     is_sync_eligible INTEGER NOT NULL,     dk_event_id BLOB)";
-  v25[1] = @"CREATE INDEX ix_loc_records_source_id ON loc_records (source_id)";
-  v25[2] = @"CREATE INDEX ix_loc_records_dk_event_id ON loc_records (dk_event_id)";
-  v25[3] = @"CREATE INDEX ix_loc_records_cll_latitude ON loc_records (cll_latitude_degrees)";
-  v25[4] = @"CREATE INDEX ix_loc_records_cll_longitude ON loc_records (cll_longitude_degrees)";
-  v25[5] = @"CREATE TABLE loc_records_clp_areasOfInterest(   id INTEGER PRIMARY KEY AUTOINCREMENT,     loc_id INTEGER NOT NULL REFERENCES loc_records (id),     name TEXT NOT NULL)";
-  v25[6] = @"CREATE INDEX ix_loc_records_clp_areasOfInterest_loc_id ON loc_records_clp_areasOfInterest (loc_id)";
-  v25[7] = @"CREATE TABLE loc_records_contextual_ne(   id INTEGER PRIMARY KEY AUTOINCREMENT,     loc_id INTEGER NOT NULL REFERENCES loc_records (id),     name TEXT NOT NULL)";
-  v25[8] = @"CREATE INDEX ix_loc_records_contextual_ne_loc_id ON loc_records_contextual_ne (loc_id)";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:9];
-  v30[6] = v13;
-  v30[7] = &unk_2847853D0;
-  v29[7] = &unk_284783E40;
-  v29[8] = &unk_284783E58;
-  v30[8] = &unk_2847853E8;
-  v30[9] = &unk_284785400;
-  v29[9] = &unk_284783E70;
-  v29[10] = &unk_284783E88;
-  v30[10] = &unk_284785418;
-  v30[11] = &unk_284785430;
-  v29[11] = &unk_284783EA0;
-  v29[12] = &unk_284783EB8;
-  v24[0] = @"CREATE TEMPORARY TABLE first_party_sources AS SELECT DISTINCT id AS source_id FROM sources WHERE bundle_id IN ('com.apple.mail',   'com.apple.mobilemail',                     'com.apple.iChat',  'com.apple.MobileSMS',                     'com.apple.Photos', 'com.apple.mobileslideshow',                     'com.apple.Notes',  'com.apple.mobilenotes',                     'com.apple.iCal',   'com.apple.mobilecal',                     'com.apple.camera', 'com.apple.reminders') ";
-  v24[1] = @"CREATE TEMPORARY TABLE invalid_ne_records AS SELECT ne.id, ne.source_id FROM ne_records AS ne JOIN first_party_sources USING (source_id) WHERE is_remote = 1";
-  v24[2] = @"CREATE TEMPORARY TABLE invalid_tp_records AS SELECT tp.id, tp.source_id FROM tp_records AS tp JOIN first_party_sources USING (source_id) WHERE is_remote = 1 ";
-  v24[3] = @"CREATE TEMPORARY TABLE invalid_ref_counts AS SELECT source_id, count(source_id) AS drop_count FROM (SELECT source_id FROM invalid_ne_records       UNION ALL       SELECT source_id FROM invalid_tp_records) GROUP BY source_id";
-  v24[4] = @"UPDATE sources    SET ref_count = (SELECT ref_count - drop_count                     FROM invalid_ref_counts AS ifc                     WHERE sources.id = ifc.source_id) WHERE EXISTS (SELECT *               FROM invalid_ref_counts AS ifc               WHERE sources.id = ifc.source_id)";
-  v24[5] = @"DELETE FROM ne_records WHERE id IN (SELECT id FROM invalid_ne_records)";
-  v24[6] = @"DELETE FROM tp_records WHERE id IN (SELECT id FROM invalid_tp_records)";
-  v24[7] = @"DELETE FROM sources WHERE ref_count <= 0";
-  v24[8] = @"DROP TABLE invalid_ref_counts";
-  v24[9] = @"DROP TABLE invalid_tp_records";
-  v24[10] = @"DROP TABLE invalid_ne_records";
-  v24[11] = @"DROP TABLE first_party_sources";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:12];
-  v30[12] = v2;
-  v29[13] = &unk_284783ED0;
-  v23[0] = @"CREATE TABLE fb_pending_records (id INTEGER PRIMARY KEY AUTOINCREMENT, seconds_from_1970 REAL NOT NULL, store_type INTEGER NOT NULL, client_bundleid TEXT NOT NULL, client_identifier TEXT NOT NULL, item_string TEXT NOT NULL, feedback_type INTEGER NOT NULL, mapping_id TEXT)";
-  v23[1] = @"CREATE INDEX ix_fb_pending_records_store_type ON fb_pending_records (store_type)";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
-  v30[13] = v3;
-  v30[14] = &unk_284785448;
-  v29[14] = &unk_284783EE8;
-  v29[15] = &unk_284783F00;
-  v30[15] = &unk_284785460;
-  v29[16] = &unk_284783F18;
-  v22[0] = @"CREATE TABLE new_loc_records(    id INTEGER PRIMARY KEY AUTOINCREMENT,     clp_location BLOB,     cll_latitude_degrees REAL,     cll_longitude_degrees REAL,     clp_name TEXT,     clp_thoroughfare TEXT,     clp_subThoroughfare TEXT,     clp_locality TEXT,     clp_subLocality TEXT,     clp_administrativeArea TEXT,     clp_subAdministrativeArea TEXT,     clp_postalCode TEXT,     clp_ISOcountryCode TEXT,     clp_country TEXT,     clp_inlandWater TEXT,     clp_ocean TEXT,     uuid BLOB NOT NULL,     category INTEGER NOT NULL,     algorithm INTEGER NOT NULL,     initial_score REAL NOT NULL,     decay_rate REAL NOT NULL,     sentiment_score REAL NOT NULL,     extraction_os_build TEXT,     extraction_asset_version INTEGER,     source_id INTEGER NOT NULL REFERENCES sources (id),     is_remote INTEGER NOT NULL,     is_sync_eligible INTEGER NOT NULL,     dk_event_id BLOB,     lc_description TEXT NOT NULL)";
-  v22[1] = @"INSERT INTO new_loc_records SELECT *, COALESCE(clp_name,                    clp_subThoroughfare || ' ' || clp_thoroughfare,                    clp_thoroughfare,                    clp_locality,                    clp_administrativeArea,                    hex(uuid)) AS lc_description FROM loc_records";
-  v22[2] = @"CREATE TABLE new_loc_records_clp_areasOfInterest(   id INTEGER PRIMARY KEY AUTOINCREMENT,     loc_id INTEGER NOT NULL REFERENCES new_loc_records (id),     name TEXT NOT NULL)";
-  v22[3] = @"INSERT INTO new_loc_records_clp_areasOfInterest SELECT * FROM loc_records_clp_areasOfInterest";
-  v22[4] = @"DROP TABLE loc_records_clp_areasOfInterest";
-  v22[5] = @"ALTER TABLE new_loc_records_clp_areasOfInterest RENAME TO loc_records_clp_areasOfInterest";
-  v22[6] = @"CREATE INDEX ix_loc_records_clp_areasOfInterest_loc_id ON loc_records_clp_areasOfInterest (loc_id)";
-  v22[7] = @"CREATE TABLE new_loc_records_contextual_ne(   id INTEGER PRIMARY KEY AUTOINCREMENT,     loc_id INTEGER NOT NULL REFERENCES new_loc_records (id),     name TEXT NOT NULL)";
-  v22[8] = @"INSERT INTO new_loc_records_contextual_ne SELECT * FROM loc_records_contextual_ne";
-  v22[9] = @"DROP TABLE loc_records_contextual_ne";
-  v22[10] = @"ALTER TABLE new_loc_records_contextual_ne RENAME TO loc_records_contextual_ne";
-  v22[11] = @"CREATE INDEX ix_loc_records_contextual_ne_loc_id ON loc_records_contextual_ne (loc_id)";
-  v22[12] = @"DROP TABLE loc_records";
-  v22[13] = @"ALTER TABLE new_loc_records RENAME TO loc_records";
-  v22[14] = @"migration_ConvertLocationDescriptionsToLowercase";
-  v22[15] = @"CREATE INDEX ix_loc_records_source_id ON loc_records (source_id)";
-  v22[16] = @"CREATE INDEX ix_loc_records_dk_event_id ON loc_records (dk_event_id)";
-  v22[17] = @"CREATE INDEX ix_loc_records_cll_latitude ON loc_records (cll_latitude_degrees)";
-  v22[18] = @"CREATE INDEX ix_loc_records_cll_longitude ON loc_records (cll_longitude_degrees)";
-  v22[19] = @"CREATE INDEX ix_loc_records_lc_description ON loc_records (lc_description)";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:20];
-  v30[16] = v4;
-  v29[17] = &unk_284783F30;
-  v21[0] = @"CREATE TABLE cn_handles(   id INTEGER PRIMARY KEY AUTOINCREMENT,     value TEXT NOT NULL)";
-  v21[1] = @"CREATE UNIQUE INDEX ix_cn_handles_value ON cn_handles (value)";
-  v21[2] = @"CREATE TABLE cn_handles_sources(   cn_handle_id INTEGER NOT NULL REFERENCES cn_handles (id),     source_id INTEGER NOT NULL REFERENCES sources (id))";
-  v21[3] = @"CREATE INDEX ix_cn_handles_sources_cn_handle_id ON cn_handles_sources (cn_handle_id)";
-  v21[4] = @"CREATE INDEX ix_cn_handles_sources_source_id ON cn_handles_sources (source_id)";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:5];
-  v30[17] = v5;
-  v30[18] = &unk_284785478;
-  v29[18] = &unk_284783F48;
-  v29[19] = &unk_284783F60;
-  v20 = @"CREATE TABLE cn_history_tokens(   client_identifier TEXT PRIMARY KEY,     token BLOB)";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
-  v30[19] = v6;
-  v29[20] = &unk_284783F78;
-  v19[0] = @"CREATE TABLE ft_records(    id INTEGER PRIMARY KEY AUTOINCREMENT,     name TEXT NOT NULL,     group_id TEXT,     bundle_id TEXT NOT NULL,     category INTEGER NOT NULL,     seconds_from_1970 REAL NOT NULL,     state INTEGER NOT NULL,     value TEXT) ";
-  v19[1] = @"CREATE INDEX ix_ft_record_bundle_group_name ON ft_records (bundle_id, group_id, name)";
-  v19[2] = @"CREATE INDEX ix_ft_record_date ON ft_records (seconds_from_1970)";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
-  v30[20] = v7;
-  v29[21] = &unk_284783F90;
-  v18[0] = @"CREATE TABLE tp_records_fb_pseudocounts(    id INTEGER PRIMARY KEY AUTOINCREMENT,     item_string TEXT NOT NULL,     feedback_type INTEGER NOT NULL,     last_update_seconds_from_1970 REAL NOT NULL,     pseudocount REAL NOT NULL DEFAULT 1.0,     UNIQUE(item_string, feedback_type))";
-  v18[1] = @"CREATE TABLE ne_records_fb_pseudocounts(    id INTEGER PRIMARY KEY AUTOINCREMENT,     item_string TEXT NOT NULL,     feedback_type INTEGER NOT NULL,     last_update_seconds_from_1970 REAL NOT NULL,     pseudocount REAL NOT NULL DEFAULT 1.0,     UNIQUE(item_string, feedback_type))";
-  v18[2] = @"CREATE TABLE loc_records_fb_pseudocounts(    id INTEGER PRIMARY KEY AUTOINCREMENT,     item_string TEXT NOT NULL,     feedback_type INTEGER NOT NULL,     last_update_seconds_from_1970 REAL NOT NULL,     pseudocount REAL NOT NULL DEFAULT 1.0,     UNIQUE(item_string, feedback_type))";
-  v18[3] = @"CREATE INDEX ix_tp_records_fb_pseudocounts_last_update_seconds_from_1970 ON tp_records_fb_pseudocounts (last_update_seconds_from_1970)";
-  v18[4] = @"CREATE INDEX ix_ne_records_fb_pseudocounts_last_update_seconds_from_1970 ON ne_records_fb_pseudocounts (last_update_seconds_from_1970)";
-  v18[5] = @"CREATE INDEX ix_loc_records_fb_pseudocounts_last_update_seconds_from_1970 ON loc_records_fb_pseudocounts (last_update_seconds_from_1970)";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:6];
-  v30[21] = v8;
-  v30[22] = &unk_284785490;
-  v29[22] = &unk_284783FA8;
-  v29[23] = &unk_284783FC0;
-  v30[23] = &unk_2847854A8;
-  v30[24] = &unk_2847854C0;
-  v29[24] = &unk_284783FD8;
-  v29[25] = &unk_284783FF0;
-  v30[25] = &unk_2847854D8;
-  v30[26] = &unk_2847854F0;
-  v29[26] = &unk_284784008;
-  v29[27] = &unk_284784020;
-  v17[0] = @"UPDATE loc_records SET lc_description = COALESCE(clp_name || ' ' || clp_subThoroughfare || ' ' || clp_thoroughfare,          clp_name || ' ' || clp_thoroughfare,          clp_name,          clp_subThoroughfare || ' ' || clp_thoroughfare,          clp_thoroughfare,          clp_locality,          clp_administrativeArea,          hex(uuid))";
-  v17[1] = @"migration_ConvertLocationDescriptionsToLowercase";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v30[27] = v9;
-  v30[28] = &unk_284785508;
-  v29[28] = &unk_284784038;
-  v29[29] = &unk_284784050;
-  v30[29] = &unk_284785520;
-  v30[30] = &unk_284785538;
-  v29[30] = &unk_284784068;
-  v29[31] = &unk_284784080;
-  v30[31] = &unk_284785550;
-  v30[32] = &unk_284785568;
-  v29[32] = &unk_284784098;
-  v29[33] = &unk_2847840B0;
-  v30[33] = &unk_284785580;
-  v30[34] = &unk_284785598;
-  v29[34] = &unk_2847840C8;
-  v29[35] = &unk_2847840E0;
-  v29[36] = &unk_2847840F8;
-  v30[35] = &unk_2847855B0;
-  v30[36] = &unk_2847855C8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:37];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v29[37] = *MEMORY[0x277D85DE8];
+  v28[0] = &unk_284783D80;
+  v27[0] = @"CREATE TABLE sources(   id INTEGER PRIMARY KEY AUTOINCREMENT,     ref_count INTEGER NOT NULL,     bundle_id TEXT NOT NULL,     group_id TEXT,     doc_id TEXT NOT NULL,     seconds_from_1970 REAL NOT NULL,     sha256 BLOB UNIQUE NOT NULL)";
+  v27[1] = @"CREATE INDEX ix_sources_ref_count ON sources (ref_count)";
+  v27[2] = @"CREATE INDEX ix_sources_bundle_id ON sources (bundle_id)";
+  v27[3] = @"CREATE INDEX ix_sources_bundle_id_group_id ON sources (bundle_id, group_id)";
+  v27[4] = @"CREATE INDEX ix_sources_bundle_id_group_id_doc_id ON sources (bundle_id, group_id, doc_id)";
+  v27[5] = @"CREATE INDEX ix_sources_seconds_from_1970 ON sources (seconds_from_1970)";
+  v27[6] = @"CREATE TABLE ne_records(   id INTEGER PRIMARY KEY AUTOINCREMENT,     name TEXT NOT NULL,     lc_name TEXT NOT NULL,     category INTEGER NOT NULL,     language TEXT NOT NULL,     algorithm INTEGER NOT NULL,     initial_score REAL NOT NULL,     decay_rate REAL NOT NULL,     extraction_os_build TEXT,     extraction_asset_version INTEGER,     source_id INTEGER NOT NULL REFERENCES sources (id),     is_remote INTEGER NOT NULL,     dk_event_id BLOB)";
+  v27[7] = @"CREATE INDEX ne_ix_records_lc_name ON ne_records (lc_name)";
+  v27[8] = @"CREATE INDEX ne_ix_records_category ON ne_records (category)";
+  v27[9] = @"CREATE INDEX ne_ix_records_source_id ON ne_records (source_id)";
+  v27[10] = @"CREATE INDEX ne_ix_records_dk_event_id ON ne_records (dk_event_id)";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:11];
+  v29[0] = v15;
+  v28[1] = &unk_284783DB0;
+  v26[0] = @"ALTER TABLE ne_records ADD COLUMN is_sync_eligible INTEGER NOT NULL DEFAULT 0";
+  v26[1] = @"CREATE TABLE kv_blobs(   id INTEGER PRIMARY KEY AUTOINCREMENT,     key TEXT UNIQUE NOT NULL,     value BLOB NOT NULL)";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v29[1] = v14;
+  v29[2] = &unk_284785388;
+  v28[2] = &unk_284783DC8;
+  v28[3] = &unk_284783DE0;
+  v25[0] = @"CREATE TABLE tp_records(   id INTEGER PRIMARY KEY AUTOINCREMENT,     qid TEXT NOT NULL,     algorithm INTEGER NOT NULL,     initial_score REAL NOT NULL,     decay_rate REAL NOT NULL,     sentiment_score REAL NOT NULL,     extraction_os_build TEXT,     extraction_asset_version INTEGER,     source_id INTEGER NOT NULL REFERENCES sources (id),     is_remote INTEGER NOT NULL,     is_sync_eligible INTEGER NOT NULL,     dk_event_id BLOB)";
+  v25[1] = @"CREATE INDEX tp_ix_records_qid ON tp_records (qid)";
+  v25[2] = @"CREATE INDEX tp_ix_records_source_id ON tp_records (source_id)";
+  v25[3] = @"CREATE INDEX tp_ix_records_dk_event_id ON tp_records (dk_event_id)";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+  v29[3] = v13;
+  v29[4] = &unk_2847853A0;
+  v28[4] = &unk_284783DF8;
+  v28[5] = &unk_284783E10;
+  v29[5] = &unk_2847853B8;
+  v28[6] = &unk_284783E28;
+  v24[0] = @"CREATE TABLE loc_records(   id INTEGER PRIMARY KEY AUTOINCREMENT,     clp_location BLOB,     cll_latitude_degrees REAL,     cll_longitude_degrees REAL,     clp_name TEXT,     clp_thoroughfare TEXT,     clp_subThoroughfare TEXT,     clp_locality TEXT,     clp_subLocality TEXT,     clp_administrativeArea TEXT,     clp_subAdministrativeArea TEXT,     clp_postalCode TEXT,     clp_ISOcountryCode TEXT,     clp_country TEXT,     clp_inlandWater TEXT,     clp_ocean TEXT,     uuid BLOB NOT NULL,     category INTEGER NOT NULL,     algorithm INTEGER NOT NULL,     initial_score REAL NOT NULL,     decay_rate REAL NOT NULL,     sentiment_score REAL NOT NULL,     extraction_os_build TEXT,     extraction_asset_version INTEGER,     source_id INTEGER NOT NULL REFERENCES sources (id),     is_remote INTEGER NOT NULL,     is_sync_eligible INTEGER NOT NULL,     dk_event_id BLOB)";
+  v24[1] = @"CREATE INDEX ix_loc_records_source_id ON loc_records (source_id)";
+  v24[2] = @"CREATE INDEX ix_loc_records_dk_event_id ON loc_records (dk_event_id)";
+  v24[3] = @"CREATE INDEX ix_loc_records_cll_latitude ON loc_records (cll_latitude_degrees)";
+  v24[4] = @"CREATE INDEX ix_loc_records_cll_longitude ON loc_records (cll_longitude_degrees)";
+  v24[5] = @"CREATE TABLE loc_records_clp_areasOfInterest(   id INTEGER PRIMARY KEY AUTOINCREMENT,     loc_id INTEGER NOT NULL REFERENCES loc_records (id),     name TEXT NOT NULL)";
+  v24[6] = @"CREATE INDEX ix_loc_records_clp_areasOfInterest_loc_id ON loc_records_clp_areasOfInterest (loc_id)";
+  v24[7] = @"CREATE TABLE loc_records_contextual_ne(   id INTEGER PRIMARY KEY AUTOINCREMENT,     loc_id INTEGER NOT NULL REFERENCES loc_records (id),     name TEXT NOT NULL)";
+  v24[8] = @"CREATE INDEX ix_loc_records_contextual_ne_loc_id ON loc_records_contextual_ne (loc_id)";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:9];
+  v29[6] = v12;
+  v29[7] = &unk_2847853D0;
+  v28[7] = &unk_284783E40;
+  v28[8] = &unk_284783E58;
+  v29[8] = &unk_2847853E8;
+  v29[9] = &unk_284785400;
+  v28[9] = &unk_284783E70;
+  v28[10] = &unk_284783E88;
+  v29[10] = &unk_284785418;
+  v29[11] = &unk_284785430;
+  v28[11] = &unk_284783EA0;
+  v28[12] = &unk_284783EB8;
+  v23[0] = @"CREATE TEMPORARY TABLE first_party_sources AS SELECT DISTINCT id AS source_id FROM sources WHERE bundle_id IN ('com.apple.mail',   'com.apple.mobilemail',                     'com.apple.iChat',  'com.apple.MobileSMS',                     'com.apple.Photos', 'com.apple.mobileslideshow',                     'com.apple.Notes',  'com.apple.mobilenotes',                     'com.apple.iCal',   'com.apple.mobilecal',                     'com.apple.camera', 'com.apple.reminders') ";
+  v23[1] = @"CREATE TEMPORARY TABLE invalid_ne_records AS SELECT ne.id, ne.source_id FROM ne_records AS ne JOIN first_party_sources USING (source_id) WHERE is_remote = 1";
+  v23[2] = @"CREATE TEMPORARY TABLE invalid_tp_records AS SELECT tp.id, tp.source_id FROM tp_records AS tp JOIN first_party_sources USING (source_id) WHERE is_remote = 1 ";
+  v23[3] = @"CREATE TEMPORARY TABLE invalid_ref_counts AS SELECT source_id, count(source_id) AS drop_count FROM (SELECT source_id FROM invalid_ne_records       UNION ALL       SELECT source_id FROM invalid_tp_records) GROUP BY source_id";
+  v23[4] = @"UPDATE sources    SET ref_count = (SELECT ref_count - drop_count                     FROM invalid_ref_counts AS ifc                     WHERE sources.id = ifc.source_id) WHERE EXISTS (SELECT *               FROM invalid_ref_counts AS ifc               WHERE sources.id = ifc.source_id)";
+  v23[5] = @"DELETE FROM ne_records WHERE id IN (SELECT id FROM invalid_ne_records)";
+  v23[6] = @"DELETE FROM tp_records WHERE id IN (SELECT id FROM invalid_tp_records)";
+  v23[7] = @"DELETE FROM sources WHERE ref_count <= 0";
+  v23[8] = @"DROP TABLE invalid_ref_counts";
+  v23[9] = @"DROP TABLE invalid_tp_records";
+  v23[10] = @"DROP TABLE invalid_ne_records";
+  v23[11] = @"DROP TABLE first_party_sources";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:12];
+  v29[12] = v2;
+  v28[13] = &unk_284783ED0;
+  v22[0] = @"CREATE TABLE fb_pending_records (id INTEGER PRIMARY KEY AUTOINCREMENT, seconds_from_1970 REAL NOT NULL, store_type INTEGER NOT NULL, client_bundleid TEXT NOT NULL, client_identifier TEXT NOT NULL, item_string TEXT NOT NULL, feedback_type INTEGER NOT NULL, mapping_id TEXT)";
+  v22[1] = @"CREATE INDEX ix_fb_pending_records_store_type ON fb_pending_records (store_type)";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v29[13] = v3;
+  v29[14] = &unk_284785448;
+  v28[14] = &unk_284783EE8;
+  v28[15] = &unk_284783F00;
+  v29[15] = &unk_284785460;
+  v28[16] = &unk_284783F18;
+  v21[0] = @"CREATE TABLE new_loc_records(    id INTEGER PRIMARY KEY AUTOINCREMENT,     clp_location BLOB,     cll_latitude_degrees REAL,     cll_longitude_degrees REAL,     clp_name TEXT,     clp_thoroughfare TEXT,     clp_subThoroughfare TEXT,     clp_locality TEXT,     clp_subLocality TEXT,     clp_administrativeArea TEXT,     clp_subAdministrativeArea TEXT,     clp_postalCode TEXT,     clp_ISOcountryCode TEXT,     clp_country TEXT,     clp_inlandWater TEXT,     clp_ocean TEXT,     uuid BLOB NOT NULL,     category INTEGER NOT NULL,     algorithm INTEGER NOT NULL,     initial_score REAL NOT NULL,     decay_rate REAL NOT NULL,     sentiment_score REAL NOT NULL,     extraction_os_build TEXT,     extraction_asset_version INTEGER,     source_id INTEGER NOT NULL REFERENCES sources (id),     is_remote INTEGER NOT NULL,     is_sync_eligible INTEGER NOT NULL,     dk_event_id BLOB,     lc_description TEXT NOT NULL)";
+  v21[1] = @"INSERT INTO new_loc_records SELECT *, COALESCE(clp_name,                    clp_subThoroughfare || ' ' || clp_thoroughfare,                    clp_thoroughfare,                    clp_locality,                    clp_administrativeArea,                    hex(uuid)) AS lc_description FROM loc_records";
+  v21[2] = @"CREATE TABLE new_loc_records_clp_areasOfInterest(   id INTEGER PRIMARY KEY AUTOINCREMENT,     loc_id INTEGER NOT NULL REFERENCES new_loc_records (id),     name TEXT NOT NULL)";
+  v21[3] = @"INSERT INTO new_loc_records_clp_areasOfInterest SELECT * FROM loc_records_clp_areasOfInterest";
+  v21[4] = @"DROP TABLE loc_records_clp_areasOfInterest";
+  v21[5] = @"ALTER TABLE new_loc_records_clp_areasOfInterest RENAME TO loc_records_clp_areasOfInterest";
+  v21[6] = @"CREATE INDEX ix_loc_records_clp_areasOfInterest_loc_id ON loc_records_clp_areasOfInterest (loc_id)";
+  v21[7] = @"CREATE TABLE new_loc_records_contextual_ne(   id INTEGER PRIMARY KEY AUTOINCREMENT,     loc_id INTEGER NOT NULL REFERENCES new_loc_records (id),     name TEXT NOT NULL)";
+  v21[8] = @"INSERT INTO new_loc_records_contextual_ne SELECT * FROM loc_records_contextual_ne";
+  v21[9] = @"DROP TABLE loc_records_contextual_ne";
+  v21[10] = @"ALTER TABLE new_loc_records_contextual_ne RENAME TO loc_records_contextual_ne";
+  v21[11] = @"CREATE INDEX ix_loc_records_contextual_ne_loc_id ON loc_records_contextual_ne (loc_id)";
+  v21[12] = @"DROP TABLE loc_records";
+  v21[13] = @"ALTER TABLE new_loc_records RENAME TO loc_records";
+  v21[14] = @"migration_ConvertLocationDescriptionsToLowercase";
+  v21[15] = @"CREATE INDEX ix_loc_records_source_id ON loc_records (source_id)";
+  v21[16] = @"CREATE INDEX ix_loc_records_dk_event_id ON loc_records (dk_event_id)";
+  v21[17] = @"CREATE INDEX ix_loc_records_cll_latitude ON loc_records (cll_latitude_degrees)";
+  v21[18] = @"CREATE INDEX ix_loc_records_cll_longitude ON loc_records (cll_longitude_degrees)";
+  v21[19] = @"CREATE INDEX ix_loc_records_lc_description ON loc_records (lc_description)";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:20];
+  v29[16] = v4;
+  v28[17] = &unk_284783F30;
+  v20[0] = @"CREATE TABLE cn_handles(   id INTEGER PRIMARY KEY AUTOINCREMENT,     value TEXT NOT NULL)";
+  v20[1] = @"CREATE UNIQUE INDEX ix_cn_handles_value ON cn_handles (value)";
+  v20[2] = @"CREATE TABLE cn_handles_sources(   cn_handle_id INTEGER NOT NULL REFERENCES cn_handles (id),     source_id INTEGER NOT NULL REFERENCES sources (id))";
+  v20[3] = @"CREATE INDEX ix_cn_handles_sources_cn_handle_id ON cn_handles_sources (cn_handle_id)";
+  v20[4] = @"CREATE INDEX ix_cn_handles_sources_source_id ON cn_handles_sources (source_id)";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
+  v29[17] = v5;
+  v29[18] = &unk_284785478;
+  v28[18] = &unk_284783F48;
+  v28[19] = &unk_284783F60;
+  v19 = @"CREATE TABLE cn_history_tokens(   client_identifier TEXT PRIMARY KEY,     token BLOB)";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v29[19] = v6;
+  v28[20] = &unk_284783F78;
+  v18[0] = @"CREATE TABLE ft_records(    id INTEGER PRIMARY KEY AUTOINCREMENT,     name TEXT NOT NULL,     group_id TEXT,     bundle_id TEXT NOT NULL,     category INTEGER NOT NULL,     seconds_from_1970 REAL NOT NULL,     state INTEGER NOT NULL,     value TEXT) ";
+  v18[1] = @"CREATE INDEX ix_ft_record_bundle_group_name ON ft_records (bundle_id, group_id, name)";
+  v18[2] = @"CREATE INDEX ix_ft_record_date ON ft_records (seconds_from_1970)";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+  v29[20] = v7;
+  v28[21] = &unk_284783F90;
+  v17[0] = @"CREATE TABLE tp_records_fb_pseudocounts(    id INTEGER PRIMARY KEY AUTOINCREMENT,     item_string TEXT NOT NULL,     feedback_type INTEGER NOT NULL,     last_update_seconds_from_1970 REAL NOT NULL,     pseudocount REAL NOT NULL DEFAULT 1.0,     UNIQUE(item_string, feedback_type))";
+  v17[1] = @"CREATE TABLE ne_records_fb_pseudocounts(    id INTEGER PRIMARY KEY AUTOINCREMENT,     item_string TEXT NOT NULL,     feedback_type INTEGER NOT NULL,     last_update_seconds_from_1970 REAL NOT NULL,     pseudocount REAL NOT NULL DEFAULT 1.0,     UNIQUE(item_string, feedback_type))";
+  v17[2] = @"CREATE TABLE loc_records_fb_pseudocounts(    id INTEGER PRIMARY KEY AUTOINCREMENT,     item_string TEXT NOT NULL,     feedback_type INTEGER NOT NULL,     last_update_seconds_from_1970 REAL NOT NULL,     pseudocount REAL NOT NULL DEFAULT 1.0,     UNIQUE(item_string, feedback_type))";
+  v17[3] = @"CREATE INDEX ix_tp_records_fb_pseudocounts_last_update_seconds_from_1970 ON tp_records_fb_pseudocounts (last_update_seconds_from_1970)";
+  v17[4] = @"CREATE INDEX ix_ne_records_fb_pseudocounts_last_update_seconds_from_1970 ON ne_records_fb_pseudocounts (last_update_seconds_from_1970)";
+  v17[5] = @"CREATE INDEX ix_loc_records_fb_pseudocounts_last_update_seconds_from_1970 ON loc_records_fb_pseudocounts (last_update_seconds_from_1970)";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:6];
+  v29[21] = v8;
+  v29[22] = &unk_284785490;
+  v28[22] = &unk_284783FA8;
+  v28[23] = &unk_284783FC0;
+  v29[23] = &unk_2847854A8;
+  v29[24] = &unk_2847854C0;
+  v28[24] = &unk_284783FD8;
+  v28[25] = &unk_284783FF0;
+  v29[25] = &unk_2847854D8;
+  v29[26] = &unk_2847854F0;
+  v28[26] = &unk_284784008;
+  v28[27] = &unk_284784020;
+  v16[0] = @"UPDATE loc_records SET lc_description = COALESCE(clp_name || ' ' || clp_subThoroughfare || ' ' || clp_thoroughfare,          clp_name || ' ' || clp_thoroughfare,          clp_name,          clp_subThoroughfare || ' ' || clp_thoroughfare,          clp_thoroughfare,          clp_locality,          clp_administrativeArea,          hex(uuid))";
+  v16[1] = @"migration_ConvertLocationDescriptionsToLowercase";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v29[27] = v9;
+  v29[28] = &unk_284785508;
+  v28[28] = &unk_284784038;
+  v28[29] = &unk_284784050;
+  v29[29] = &unk_284785520;
+  v29[30] = &unk_284785538;
+  v28[30] = &unk_284784068;
+  v28[31] = &unk_284784080;
+  v29[31] = &unk_284785550;
+  v29[32] = &unk_284785568;
+  v28[32] = &unk_284784098;
+  v28[33] = &unk_2847840B0;
+  v29[33] = &unk_284785580;
+  v29[34] = &unk_284785598;
+  v28[34] = &unk_2847840C8;
+  v28[35] = &unk_2847840E0;
+  v28[36] = &unk_2847840F8;
+  v29[35] = &unk_2847855B0;
+  v29[36] = &unk_2847855C8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:37];
 
   return v10;
 }
@@ -297,33 +306,31 @@ void __65__PPSQLDatabase_migration_ConvertLocationDescriptionsToLowercase__block
 
 uint64_t __65__PPSQLDatabase_migration_ConvertLocationDescriptionsToLowercase__block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = pp_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "Error updating location record during Location table migration: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "Error updating location record during Location table migration: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
 uint64_t __65__PPSQLDatabase_migration_ConvertLocationDescriptionsToLowercase__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = pp_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "Error reading location record during Location table migration: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "Error reading location record during Location table migration: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -345,15 +352,116 @@ uint64_t __65__PPSQLDatabase_migration_ConvertLocationDescriptionsToLowercase__b
 
 - (BOOL)unmigrate
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D42588]);
-  v8[0] = self;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = self;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [v3 initWithMigrationObjects:v4];
 
   LOBYTE(v4) = [v5 unmigrateDatabases] == 1;
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
+}
+
+- (BOOL)migrateToVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v21 = *MEMORY[0x277D85DE8];
+  v5 = ++self->_migrationCount;
+  v6 = pp_default_log_handle();
+  v7 = v6;
+  if (v5 >= 4)
+  {
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      migrationCount = self->_migrationCount;
+      *buf = 67109120;
+      v20 = migrationCount;
+      _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "PPSQLDatabase not migrating due to excessive migration attempts (%u)", buf, 8u);
+    }
+
+    goto LABEL_19;
+  }
+
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPSQLDatabase migrating db", buf, 2u);
+  }
+
+  v9 = objc_alloc(MEMORY[0x277D42588]);
+  selfCopy = self;
+  v10 = 1;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&selfCopy count:1];
+  v7 = [v9 initWithMigrationObjects:v11];
+
+  v12 = [v7 migrateDatabasesToVersion:v3];
+  v13 = v12;
+  if (v12 > 2)
+  {
+    if ((v12 - 4) >= 3)
+    {
+      if (v12 == 3)
+      {
+        v14 = pp_default_log_handle();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 0;
+          v15 = "PPSQLDatabase has a future schema version, cannot use database";
+LABEL_22:
+          _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, v15, buf, 2u);
+          goto LABEL_18;
+        }
+
+        goto LABEL_18;
+      }
+
+LABEL_19:
+      v10 = 0;
+      goto LABEL_20;
+    }
+
+    goto LABEL_14;
+  }
+
+  if (!v12)
+  {
+    v14 = pp_default_log_handle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      v15 = "PPSQLDatabase could not perform migrations (device locked?), try again later";
+      goto LABEL_22;
+    }
+
+LABEL_18:
+
+    goto LABEL_19;
+  }
+
+  if (v12 != 1)
+  {
+    if (v12 != 2)
+    {
+      goto LABEL_19;
+    }
+
+LABEL_14:
+    v16 = pp_default_log_handle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 67109120;
+      v20 = v13;
+      _os_log_fault_impl(&dword_23224A000, v16, OS_LOG_TYPE_FAULT, "PPSQLDatabase got an unexpected and unrecoverable migration result of %u. Database is considered corrupt and will be cleaned up accordingly.", buf, 8u);
+    }
+
+    [(PPSQLDatabase *)self _handleCorruption];
+    v10 = [(PPSQLDatabase *)self migrateToVersion:v3];
+    v7 = 0;
+  }
+
+LABEL_20:
+
+  return v10;
 }
 
 - (BOOL)_handleCorruption
@@ -403,35 +511,31 @@ uint64_t __65__PPSQLDatabase_migration_ConvertLocationDescriptionsToLowercase__b
 
 - (BOOL)_removeCorruptionMarker
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(PPSQLDatabase *)self isInMemory])
   {
-    v3 = 1;
+    return 1;
   }
 
-  else
-  {
-    v4 = [MEMORY[0x277D42630] corruptionMarkerPathForPath:self->_path];
-    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v10 = 0;
-    v3 = [defaultManager removeItemAtPath:v4 error:&v10];
-    v6 = v10;
+  v4 = [MEMORY[0x277D42630] corruptionMarkerPathForPath:self->_path];
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v9 = 0;
+  v3 = [defaultManager removeItemAtPath:v4 error:&v9];
+  v6 = v9;
 
-    if ((v3 & 1) == 0)
+  if ((v3 & 1) == 0)
+  {
+    v7 = pp_default_log_handle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = pp_default_log_handle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138412546;
-        v12 = v4;
-        v13 = 2112;
-        v14 = v6;
-        _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "Failed to remove corruption marker at %@: %@", buf, 0x16u);
-      }
+      *buf = 138412546;
+      v11 = v4;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "Failed to remove corruption marker at %@: %@", buf, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -497,12 +601,12 @@ LABEL_11:
 
 void __55__PPSQLDatabase_vacuumDatabaseWithShouldContinueBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [a2 db];
   v4 = *(a1 + 32);
-  v9 = 0;
-  v5 = [v3 vacuumWithShouldContinueBlock:v4 error:&v9];
-  v6 = v9;
+  v8 = 0;
+  v5 = [v3 vacuumWithShouldContinueBlock:v4 error:&v8];
+  v6 = v8;
 
   if ((v5 & 1) == 0)
   {
@@ -510,19 +614,17 @@ void __55__PPSQLDatabase_vacuumDatabaseWithShouldContinueBlock___block_invoke(ui
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v6;
+      v10 = v6;
       _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "PPSQLDatabase: unable to vacuum database: %@", buf, 0xCu);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)optimizeDatabaseWithShouldContinueBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if ([(PPSQLDatabase *)self isInMemory])
   {
@@ -538,9 +640,9 @@ void __55__PPSQLDatabase_vacuumDatabaseWithShouldContinueBlock___block_invoke(ui
     aBlock[3] = &unk_278974D28;
     aBlock[4] = self;
     v7 = blockCopy;
-    v27 = v7;
-    v19 = v6;
-    v26 = v19;
+    v26 = v7;
+    v18 = v6;
+    v25 = v18;
     v8 = _Block_copy(aBlock);
     objc_autoreleasePoolPop(objc_autoreleasePoolPush());
     if (v7[2](v7))
@@ -557,20 +659,20 @@ void __55__PPSQLDatabase_vacuumDatabaseWithShouldContinueBlock___block_invoke(ui
         v11 = pp_default_log_handle();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v12 = [v19 count];
+          v12 = [v18 count];
           *buf = 67109120;
-          v29 = v12;
+          v28 = v12;
           _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_INFO, "Optimizing database with read-only handle %u", buf, 8u);
         }
 
-        v22[0] = v9;
-        v22[1] = 3221225472;
-        v22[2] = __57__PPSQLDatabase_optimizeDatabaseWithShouldContinueBlock___block_invoke_175;
-        v22[3] = &unk_2789797E0;
+        v21[0] = v9;
+        v21[1] = 3221225472;
+        v21[2] = __57__PPSQLDatabase_optimizeDatabaseWithShouldContinueBlock___block_invoke_175;
+        v21[3] = &unk_2789797E0;
         v13 = v10;
-        v23 = v13;
-        v24 = @"PRAGMA optimize(0xFFF6)";
-        [v13 writeTransaction:v22];
+        v22 = v13;
+        v23 = @"PRAGMA optimize(0xFFF6)";
+        [v13 writeTransaction:v21];
 
         [(PPSQLDatabase *)self _releaseReadOnlyHandle:v13 client:0];
       }
@@ -594,18 +696,17 @@ void __55__PPSQLDatabase_vacuumDatabaseWithShouldContinueBlock___block_invoke(ui
         _os_log_impl(&dword_23224A000, v15, OS_LOG_TYPE_INFO, "Optimizing database with write handle", buf, 2u);
       }
 
-      v20[0] = v14;
-      v20[1] = 3221225472;
-      v20[2] = __57__PPSQLDatabase_optimizeDatabaseWithShouldContinueBlock___block_invoke_176;
-      v20[3] = &unk_278978B68;
-      v21 = @"PRAGMA optimize(0xFFF6)";
-      v16 = [(PPSQLDatabase *)self writeTransactionWithClient:0 timeoutInSeconds:v20 block:3.0];
+      v19[0] = v14;
+      v19[1] = 3221225472;
+      v19[2] = __57__PPSQLDatabase_optimizeDatabaseWithShouldContinueBlock___block_invoke_176;
+      v19[3] = &unk_278978B68;
+      v20 = @"PRAGMA optimize(0xFFF6)";
+      v16 = [(PPSQLDatabase *)self writeTransactionWithClient:0 timeoutInSeconds:v19 block:3.0];
     }
 
     while (!v16);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -684,17 +785,16 @@ uint64_t __27__PPSQLDatabase__allTables__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __27__PPSQLDatabase__allTables__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = pp_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "PPSQLDatabase: _allTables error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "PPSQLDatabase: _allTables error: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -771,46 +871,46 @@ uint64_t __32__PPSQLDatabase_checkWithError___block_invoke(uint64_t a1, void *a2
 
 uint64_t __32__PPSQLDatabase_checkWithError___block_invoke_3(uint64_t a1, void *a2)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getNSStringForColumn:0];
   v5 = [v3 getInt64AsNSNumberForColumn:1];
   v6 = [v3 getNSStringForColumn:2];
   v7 = [v3 getInt64AsNSNumberForColumn:3];
 
-  v16[0] = @"referencesTable";
+  v15[0] = @"referencesTable";
   v8 = v4;
   if (!v4)
   {
     v8 = [MEMORY[0x277CBEB68] null];
   }
 
-  v17[0] = v8;
-  v16[1] = @"rowid";
+  v16[0] = v8;
+  v15[1] = @"rowid";
   v9 = v5;
   if (!v5)
   {
     v9 = [MEMORY[0x277CBEB68] null];
   }
 
-  v17[1] = v9;
-  v16[2] = @"referredTable";
+  v16[1] = v9;
+  v15[2] = @"referredTable";
   v10 = v6;
   if (!v6)
   {
     v10 = [MEMORY[0x277CBEB68] null];
   }
 
-  v17[2] = v10;
-  v16[3] = @"constraintIndex";
+  v16[2] = v10;
+  v15[3] = @"constraintIndex";
   v11 = v7;
   if (!v7)
   {
     v11 = [MEMORY[0x277CBEB68] null];
   }
 
-  v17[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
   if (v7)
   {
     if (v6)
@@ -858,7 +958,6 @@ LABEL_13:
   v13 = [*(a1 + 32) objectForKeyedSubscript:@"foreign_key_check"];
   [v13 addObject:v12];
 
-  v14 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -886,10 +985,7 @@ LABEL_13:
 
 uint64_t __29__PPSQLDatabase_sourceStats___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [*(a1 + 32) sourceStats:*(a1 + 48) forTableWithName:0 txnWitness:a2];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) sourceStats:*(a1 + 48) forTableWithName:0 txnWitness:a2];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1166,7 +1262,7 @@ uint64_t __57__PPSQLDatabase_sourceStats_forTableWithName_txnWitness___block_inv
 
 - (id)stats
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = [(PPSQLDatabase *)self handleWithClient:0];
   v4 = objc_opt_new();
   v5 = v3;
@@ -1176,27 +1272,27 @@ uint64_t __57__PPSQLDatabase_sourceStats_forTableWithName_txnWitness___block_inv
   v7 = objc_opt_new();
   [v4 setObject:v7 forKeyedSubscript:@"rowCounts"];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   selfCopy = self;
   obj = [(PPSQLDatabase *)self _allTables];
-  v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v33;
+    v10 = *v32;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * i);
+        v12 = *(*(&v31 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v5, "numberOfRowsInTable:", v12)}];
         v15 = [v4 objectForKeyedSubscript:@"rowCounts"];
@@ -1205,7 +1301,7 @@ uint64_t __57__PPSQLDatabase_sourceStats_forTableWithName_txnWitness___block_inv
         objc_autoreleasePoolPop(v13);
       }
 
-      v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v9);
@@ -1220,9 +1316,9 @@ uint64_t __57__PPSQLDatabase_sourceStats_forTableWithName_txnWitness___block_inv
   aBlock[2] = __22__PPSQLDatabase_stats__block_invoke;
   aBlock[3] = &unk_278974C88;
   v18 = v5;
-  v30 = v18;
+  v29 = v18;
   v19 = v4;
-  v31 = v19;
+  v30 = v19;
   v20 = _Block_copy(aBlock);
   v21 = [PPSQLDatabase tableNameForTable:0];
   v20[2](v20, v21);
@@ -1234,8 +1330,6 @@ uint64_t __57__PPSQLDatabase_sourceStats_forTableWithName_txnWitness___block_inv
   v23 = [(PPSQLDatabase *)selfCopy sourceStats:-1];
   toDictionary = [v23 toDictionary];
   [v19 setObject:toDictionary forKeyedSubscript:@"sources"];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -1272,24 +1366,84 @@ uint64_t __22__PPSQLDatabase_stats__block_invoke_2(uint64_t a1, void *a2)
 
 uint64_t __22__PPSQLDatabase_stats__block_invoke_3(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = pp_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = v8;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_fault_impl(&dword_23224A000, v4, OS_LOG_TYPE_FAULT, "PPSQLDatabase stats failed querying remote record count in table %@: %@", &v9, 0x16u);
+    v7 = *(a1 + 32);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_fault_impl(&dword_23224A000, v4, OS_LOG_TYPE_FAULT, "PPSQLDatabase stats failed querying remote record count in table %@: %@", &v8, 0x16u);
   }
 
   v5 = [*(a1 + 40) objectForKeyedSubscript:@"remoteRecordCounts"];
   [v5 setObject:&unk_284783D98 forKeyedSubscript:*(a1 + 32)];
 
-  v6 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
+}
+
+- (BOOL)writeTransactionWithClient:(unsigned __int8)client timeoutInSeconds:(double)seconds block:(id)block
+{
+  clientCopy = client;
+  v18 = *MEMORY[0x277D85DE8];
+  blockCopy = block;
+  if (seconds < 0.0)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPSQLDatabase.m" lineNumber:385 description:{@"Invalid parameter not satisfying: %@", @"timeoutInSeconds >= 0"}];
+  }
+
+  v10 = objc_autoreleasePoolPush();
+  v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:seconds];
+  objc_autoreleasePoolPop(v10);
+  v12 = [(NSRecursiveLock *)self->_writeLock lockBeforeDate:v11];
+  if (v12)
+  {
+    [(PPSQLDatabase *)self writeTransactionWithClient:clientCopy block:blockCopy];
+    [(NSRecursiveLock *)self->_writeLock unlock];
+  }
+
+  else
+  {
+    v13 = pp_default_log_handle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109120;
+      v17 = clientCopy;
+      _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_INFO, "PPSQLDatabase: write transaction for client %d timed out.", buf, 8u);
+    }
+  }
+
+  return v12;
+}
+
+- (void)writeTransactionWithClient:(unsigned __int8)client block:(id)block
+{
+  clientCopy = client;
+  blockCopy = block;
+  [(NSRecursiveLock *)self->_writeLock lock];
+  currentThread = [MEMORY[0x277CCACC8] currentThread];
+  v7 = [(PPSQLDatabase *)self handleWithClient:clientCopy];
+  threadDictionary = [currentThread threadDictionary];
+  [threadDictionary setObject:v7 forKeyedSubscript:@"writeTxnOpenTLSKey"];
+
+  [PPTransaction writeTransactionWithHandle:v7 block:blockCopy];
+  threadDictionary2 = [currentThread threadDictionary];
+  [threadDictionary2 removeObjectForKey:@"writeTxnOpenTLSKey"];
+
+  [(NSRecursiveLock *)self->_writeLock unlock];
+}
+
+- (void)readTransactionWithClient:(unsigned __int8)client block:(id)block
+{
+  clientCopy = client;
+  blockCopy = block;
+  v6 = [(PPSQLDatabase *)self _acquireReadOnlyHandleWithClient:clientCopy];
+  [PPTransaction readTransactionWithHandle:v6 block:blockCopy];
+  [(PPSQLDatabase *)self _releaseReadOnlyHandle:v6 client:clientCopy];
 }
 
 - (void)_releaseReadOnlyHandle:(id)handle client:(unsigned __int8)client
@@ -1327,25 +1481,144 @@ uint64_t __22__PPSQLDatabase_stats__block_invoke_3(uint64_t a1, void *a2)
   }
 }
 
+- (id)_acquireReadOnlyHandleWithClient:(unsigned __int8)client
+{
+  clientCopy = client;
+  currentThread = [MEMORY[0x277CCACC8] currentThread];
+  threadDictionary = [currentThread threadDictionary];
+  v8 = [threadDictionary objectForKeyedSubscript:@"readOnlyHandleTLSKey"];
+
+  threadDictionary2 = [currentThread threadDictionary];
+  v10 = threadDictionary2;
+  if (v8)
+  {
+    v11 = [threadDictionary2 objectForKeyedSubscript:@"readOnlyHandleTLSKey"];
+
+    threadDictionary3 = [currentThread threadDictionary];
+    v13 = [threadDictionary3 objectForKeyedSubscript:@"readOnlyHandleCountTLSKey"];
+
+    v14 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v13, "intValue") + 1}];
+    threadDictionary4 = [currentThread threadDictionary];
+    [threadDictionary4 setObject:v14 forKeyedSubscript:@"readOnlyHandleCountTLSKey"];
+
+    v16 = v11;
+  }
+
+  else
+  {
+    v17 = [threadDictionary2 objectForKeyedSubscript:@"writeTxnOpenTLSKey"];
+
+    if (v17)
+    {
+      threadDictionary5 = [currentThread threadDictionary];
+      v19 = [threadDictionary5 objectForKeyedSubscript:@"writeTxnOpenTLSKey"];
+
+      threadDictionary6 = [currentThread threadDictionary];
+      [threadDictionary6 setObject:v19 forKeyedSubscript:@"readOnlyHandleTLSKey"];
+
+      threadDictionary7 = [currentThread threadDictionary];
+      [threadDictionary7 setObject:&unk_284783D80 forKeyedSubscript:@"readOnlyHandleCountTLSKey"];
+
+      v16 = v19;
+    }
+
+    else
+    {
+      [(NSCondition *)self->_handlePoolCond lock];
+      while (1)
+      {
+        lastObject = [(NSMutableArray *)self->_handlePool->availableReadOnlyHandles lastObject];
+        handlePool = self->_handlePool;
+        if (lastObject)
+        {
+          [(NSMutableArray *)handlePool->availableReadOnlyHandles removeLastObject];
+          v25 = lastObject;
+          goto LABEL_13;
+        }
+
+        totalReadOnlyHandles = handlePool->totalReadOnlyHandles;
+        if (totalReadOnlyHandles <= 2)
+        {
+          break;
+        }
+
+        [(NSCondition *)self->_handlePoolCond wait];
+      }
+
+      handlePool->totalReadOnlyHandles = totalReadOnlyHandles + 1;
+      v26 = [(PPSQLDatabase *)self _openFreshHandleForClient:clientCopy];
+      if (!v26)
+      {
+        currentHandler = [MEMORY[0x277CCA890] currentHandler];
+        [currentHandler handleFailureInMethod:a2 object:self file:@"PPSQLDatabase.m" lineNumber:304 description:@"_openFreshHandleForClient() failed on new read-only handle"];
+      }
+
+      v25 = v26;
+LABEL_13:
+      v16 = v25;
+      threadDictionary8 = [currentThread threadDictionary];
+      [threadDictionary8 setObject:v16 forKeyedSubscript:@"readOnlyHandleTLSKey"];
+
+      threadDictionary9 = [currentThread threadDictionary];
+      [threadDictionary9 setObject:&unk_284783D80 forKeyedSubscript:@"readOnlyHandleCountTLSKey"];
+
+      [(NSCondition *)self->_handlePoolCond unlock];
+    }
+  }
+
+  return v16;
+}
+
+- (id)handleWithClient:(unsigned __int8)client
+{
+  v5 = [(PPSQLDatabase *)self _nullableHandleWithClient:client];
+  if (!v5)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPSQLDatabase.m" lineNumber:272 description:@"handleWithClient failed to retrieve nonnull readwrite handle"];
+  }
+
+  return v5;
+}
+
+- (id)_nullableHandleWithClient:(unsigned __int8)client
+{
+  clientCopy = client;
+  [(NSCondition *)self->_handlePoolCond lock];
+  readWriteHandle = self->_handlePool->readWriteHandle;
+  if (!readWriteHandle)
+  {
+    v6 = [(PPSQLDatabase *)self _openFreshHandleForClient:clientCopy];
+    handlePool = self->_handlePool;
+    v8 = handlePool->readWriteHandle;
+    handlePool->readWriteHandle = v6;
+
+    readWriteHandle = self->_handlePool->readWriteHandle;
+  }
+
+  v9 = readWriteHandle;
+  [(NSCondition *)self->_handlePoolCond unlock];
+
+  return v9;
+}
+
 - (void)_disableQueryLoggingForHandle:(id)handle
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   [handleCopy disableQueryPlanLogging];
   v4 = pp_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = handleCopy;
-    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPSQLDatabase: disable EXPLAIN QUERY PLAN log for handle %p", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = handleCopy;
+    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPSQLDatabase: disable EXPLAIN QUERY PLAN log for handle %p", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_enableQueryLoggingForHandle:(id)handle
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v4 = objc_opt_new();
   [v4 setFormatOptions:51];
@@ -1368,7 +1641,7 @@ uint64_t __22__PPSQLDatabase_stats__block_invoke_3(uint64_t a1, void *a2)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_DEFAULT, "PPSQLDatabase: generating EXPLAIN QUERY PLAN log at %@", buf, 0xCu);
     }
   }
@@ -1376,57 +1649,55 @@ uint64_t __22__PPSQLDatabase_stats__block_invoke_3(uint64_t a1, void *a2)
   else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v17 = v12;
+    v16 = v12;
     _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, "PPSQLDatabase: unable to generate EXPLAIN QUERY PLAN log at %@", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_openFreshHandleForClient:(unsigned __int8)client
 {
   clientCopy = client;
-  v29 = *MEMORY[0x277D85DE8];
-  v24 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v23 = 0;
   v5 = MEMORY[0x277D42630];
   path = self->_path;
   v7 = objc_opt_new();
-  v8 = [v5 initializeDatabase:path withContentProtection:3 newDatabaseCreated:&v24 errorHandler:v7];
+  v8 = [v5 initializeDatabase:path withContentProtection:3 newDatabaseCreated:&v23 errorHandler:v7];
 
   if (v8)
   {
     [v8 prepAndRunNonDataQueries:&unk_284785370 onError:&__block_literal_global_12809];
-    if (v24 == 1)
+    if (v23 == 1)
     {
       v9 = pp_default_log_handle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = self->_path;
         *buf = 138412546;
-        v26 = v10;
-        v27 = 1024;
-        v28 = clientCopy;
+        v25 = v10;
+        v26 = 1024;
+        v27 = clientCopy;
         _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPSQLDatabase: creating new database at %@ for client %d", buf, 0x12u);
       }
     }
 
     objc_initWeak(buf, v8);
     objc_initWeak(&location, self);
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __43__PPSQLDatabase__openFreshHandleForClient___block_invoke_48;
-    v20 = &unk_278974C10;
-    objc_copyWeak(&v21, buf);
-    objc_copyWeak(&v22, &location);
-    v11 = _Block_copy(&v17);
-    v12 = [PPSettings sharedInstance:v17];
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __43__PPSQLDatabase__openFreshHandleForClient___block_invoke_48;
+    v19 = &unk_278974C10;
+    objc_copyWeak(&v20, buf);
+    objc_copyWeak(&v21, &location);
+    v11 = _Block_copy(&v16);
+    v12 = [PPSettings sharedInstance:v16];
     [v12 registerQueryPlanLoggingChangeHandler:v11];
 
     v11[2](v11);
     v13 = v8;
 
-    objc_destroyWeak(&v22);
     objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
@@ -1440,8 +1711,6 @@ uint64_t __22__PPSQLDatabase_stats__block_invoke_3(uint64_t a1, void *a2)
       _os_log_error_impl(&dword_23224A000, v14, OS_LOG_TYPE_ERROR, "Failed to instantiate new database handle", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1469,17 +1738,16 @@ void __43__PPSQLDatabase__openFreshHandleForClient___block_invoke_48(uint64_t a1
 
 uint64_t __43__PPSQLDatabase__openFreshHandleForClient___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = pp_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "Failed to enable foreign keys: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "Failed to enable foreign keys: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
@@ -1590,6 +1858,36 @@ LABEL_18:
   return selfCopy;
 }
 
+- (PPSQLDatabase)initWithParentDirectory:(id)directory performMigrations:(BOOL)migrations
+{
+  migrationsCopy = migrations;
+  directoryCopy = directory;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [directoryCopy stringByAppendingPathComponent:@"PPSQLDatabase.db"];
+  objc_autoreleasePoolPop(v7);
+  v9 = [(PPSQLDatabase *)self _initWithPath:v8 performMigrations:migrationsCopy];
+
+  return v9;
+}
+
+- (PPSQLDatabase)initWithTemporaryInMemoryDatabaseAndPerformMigrations:(BOOL)migrations
+{
+  migrationsCopy = migrations;
+  v5 = [MEMORY[0x277D42630] randomlyNamedInMemoryPathWithBaseName:@"PPSQLDatabase.db"];
+  v6 = [(PPSQLDatabase *)self _initWithPath:v5 performMigrations:migrationsCopy];
+
+  return v6;
+}
+
+- (id)_initInStandardParentDirectoryWithPerformMigrations:(BOOL)migrations
+{
+  migrationsCopy = migrations;
+  v5 = +[PPPaths topDirectory];
+  v6 = [(PPSQLDatabase *)self initWithParentDirectory:v5 performMigrations:migrationsCopy];
+
+  return v6;
+}
+
 + (id)createTempTableContainingRowsFromQuery:(id)query descriptiveTableName:(id)name txnWitness:(id)witness bind:(id)bind
 {
   bindCopy = bind;
@@ -1642,6 +1940,20 @@ uint64_t __93__PPSQLDatabase_createTempTableContainingRowsFromQuery_descriptiveT
   [v14 prepAndRunQuery:queryCopy onPrep:0 onRow:0 onError:0];
 
   return v13;
+}
+
++ (id)tableNameForTable:(unsigned __int8)table
+{
+  tableCopy = table;
+  if (table < 3u)
+  {
+    return off_278974E08[table];
+  }
+
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"PPSQLDatabase.m" lineNumber:1295 description:{@"Unrecognized table specifier %u", tableCopy}];
+
+  return result;
 }
 
 + (void)dropTableWithName:(id)name txnWitness:(id)witness

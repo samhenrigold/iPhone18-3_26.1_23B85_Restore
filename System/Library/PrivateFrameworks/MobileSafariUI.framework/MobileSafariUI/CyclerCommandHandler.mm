@@ -933,7 +933,7 @@ void __59__CyclerCommandHandler_syncBookmarksWithCompletionHandler___block_invok
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __60__CyclerCommandHandler_databaseLockAcquisitor_acquiredLock___block_invoke(uint64_t a1)
+void *__60__CyclerCommandHandler_databaseLockAcquisitor_acquiredLock___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v10 = 0u;

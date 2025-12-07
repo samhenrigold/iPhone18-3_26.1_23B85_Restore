@@ -73,37 +73,37 @@
 
 - (void)loadRTTConversations
 {
-  v3 = sub_100003B9C();
+  v3 = sub_100003B9C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting loadRTTConversations", buf, 2u);
   }
 
-  v4 = sub_10000F914();
-  if (v4)
+  v5 = sub_10000F914(v4);
+  if (v5)
   {
-    v5 = v4;
+    v6 = v5;
     objc_initWeak(buf, self);
     rttConversationsQueue = self->_rttConversationsQueue;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_10001E11C;
-    v8[3] = &unk_10010AFE0;
-    objc_copyWeak(v9, buf);
-    v9[1] = v5;
-    dispatch_async(rttConversationsQueue, v8);
-    objc_destroyWeak(v9);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10001E11C;
+    v9[3] = &unk_10010AFE0;
+    objc_copyWeak(v10, buf);
+    v10[1] = v6;
+    dispatch_async(rttConversationsQueue, v9);
+    objc_destroyWeak(v10);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v7 = sub_100003B9C();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100003B9C(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stopped loadRTTConversations because we could not find RTTUIUtilities", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Stopped loadRTTConversations because we could not find RTTUIUtilities", buf, 2u);
     }
   }
 }
@@ -128,7 +128,7 @@
 - (void)presentConversationForUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_10000F848();
+  v5 = sub_10000F848(dCopy);
   if (v5)
   {
     v6 = v5;
@@ -142,7 +142,7 @@
 
     else
     {
-      v10 = sub_100003B9C();
+      v10 = sub_100003B9C(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1000C44C8(v10);

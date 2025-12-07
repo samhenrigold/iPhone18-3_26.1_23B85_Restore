@@ -153,12 +153,12 @@
     [(NSMutableArray *)self->_entries sortUsingComparator:&__block_literal_global_11];
     v3 = malloc_type_malloc(2 * [(NSMutableArray *)self->_entries count], 0x1000040BDFB0063uLL);
     entries = self->_entries;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __33__SYBacklinkFilterCache_finalize__block_invoke_2;
-    v9[3] = &__block_descriptor_40_e25_v32__0__NSNumber_8Q16_B24l;
-    v9[4] = v3;
-    [(NSMutableArray *)entries enumerateObjectsUsingBlock:v9];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __33__SYBacklinkFilterCache_finalize__block_invoke_2;
+    v7[3] = &__block_descriptor_40_e25_v32__0__NSNumber_8Q16_B24l;
+    v7[4] = v3;
+    [(NSMutableArray *)entries enumerateObjectsUsingBlock:v7];
     v5 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v3 length:2 * -[NSMutableArray count](self->_entries freeWhenDone:{"count"), 1}];
     data = self->_data;
     self->_data = v5;
@@ -166,9 +166,7 @@
 
   else
   {
-    data = [MEMORY[0x277CBEA90] data];
-    v8 = self->_data;
-    self->_data = data;
+    self->_data = [MEMORY[0x277CBEA90] data];
 
     MEMORY[0x2821F96F8]();
   }
@@ -191,7 +189,7 @@ uint64_t __33__SYBacklinkFilterCache_finalize__block_invoke(uint64_t a1, void *a
   }
 }
 
-uint64_t __33__SYBacklinkFilterCache_finalize__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *__33__SYBacklinkFilterCache_finalize__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 unsignedShortValue];
   *(*(a1 + 32) + 2 * a3) = result;
@@ -211,73 +209,13 @@ uint64_t __33__SYBacklinkFilterCache_finalize__block_invoke_2(uint64_t a1, void 
   activityType = [itemCopy activityType];
   v8 = [activityTypes containsObject:activityType];
 
-  if (!v8)
+  v24 = 0;
+  if (v8)
   {
-    goto LABEL_13;
-  }
-
-  v9 = [(NSData *)self->_data length]>> 1;
-  persistentIdentifier = [itemCopy persistentIdentifier];
-
-  if (persistentIdentifier)
-  {
-    persistentIdentifier2 = [itemCopy persistentIdentifier];
-    v12 = [persistentIdentifier2 hash];
-
-    if ([(NSData *)self->_data _sy_containsUnsignedShort:v12 inRange:0, v9])
+    if ((v9 = -[NSData length](self->_data, "length") >> 1, [itemCopy persistentIdentifier], v10 = objc_claimAutoreleasedReturnValue(), v10, v10) && (objc_msgSend(itemCopy, "persistentIdentifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "hash"), v11, -[NSData _sy_containsUnsignedShort:inRange:](self->_data, "_sy_containsUnsignedShort:inRange:", v12, 0, v9)) || (objc_msgSend(itemCopy, "targetContentIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), v13, v13) && (objc_msgSend(itemCopy, "targetContentIdentifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "hash"), v14, -[NSData _sy_containsUnsignedShort:inRange:](self->_data, "_sy_containsUnsignedShort:inRange:", v15, 0, v9)) || (objc_msgSend(itemCopy, "canonicalURL"), v16 = objc_claimAutoreleasedReturnValue(), v16, v16) && (objc_msgSend(itemCopy, "canonicalURL"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "_lp_simplifiedURLStringForFuzzyMatching"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "hash"), v18, v17, -[NSData _sy_containsUnsignedShort:inRange:](self->_data, "_sy_containsUnsignedShort:inRange:", v19, 0, v9)) || (objc_msgSend(itemCopy, "webpageURL"), v20 = objc_claimAutoreleasedReturnValue(), v20, v20) && (objc_msgSend(itemCopy, "webpageURL"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "_lp_simplifiedURLStringForFuzzyMatching"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "hash"), v22, v21, -[NSData _sy_containsUnsignedShort:inRange:](self->_data, "_sy_containsUnsignedShort:inRange:", v23, 0, v9)))
     {
-      goto LABEL_12;
+      v24 = 1;
     }
-  }
-
-  targetContentIdentifier = [itemCopy targetContentIdentifier];
-
-  if (targetContentIdentifier)
-  {
-    targetContentIdentifier2 = [itemCopy targetContentIdentifier];
-    v15 = [targetContentIdentifier2 hash];
-
-    if ([(NSData *)self->_data _sy_containsUnsignedShort:v15 inRange:0, v9])
-    {
-      goto LABEL_12;
-    }
-  }
-
-  canonicalURL = [itemCopy canonicalURL];
-
-  if (canonicalURL)
-  {
-    canonicalURL2 = [itemCopy canonicalURL];
-    _lp_simplifiedURLStringForFuzzyMatching = [canonicalURL2 _lp_simplifiedURLStringForFuzzyMatching];
-    v19 = [_lp_simplifiedURLStringForFuzzyMatching hash];
-
-    if ([(NSData *)self->_data _sy_containsUnsignedShort:v19 inRange:0, v9])
-    {
-      goto LABEL_12;
-    }
-  }
-
-  webpageURL = [itemCopy webpageURL];
-
-  if (!webpageURL)
-  {
-    goto LABEL_13;
-  }
-
-  webpageURL2 = [itemCopy webpageURL];
-  _lp_simplifiedURLStringForFuzzyMatching2 = [webpageURL2 _lp_simplifiedURLStringForFuzzyMatching];
-  v23 = [_lp_simplifiedURLStringForFuzzyMatching2 hash];
-
-  if ([(NSData *)self->_data _sy_containsUnsignedShort:v23 inRange:0, v9])
-  {
-LABEL_12:
-    v24 = 1;
-  }
-
-  else
-  {
-LABEL_13:
-    v24 = 0;
   }
 
   return v24;
@@ -285,11 +223,10 @@ LABEL_13:
 
 - (void)containsMatchingEntriesForItem:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "containsMatchingEntriesForItem: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_225901000, a2, OS_LOG_TYPE_DEBUG, "containsMatchingEntriesForItem: %@", &v2, 0xCu);
 }
 
 @end

@@ -33,25 +33,26 @@
   rawOverrides = [(IFGraphicSymbolOverridesParser *)self rawOverrides];
   v4 = [rawOverrides _IF_numberForKey:@"version"];
 
-  if ([v4 intValue] == 2)
+  intValue = [v4 intValue];
+  if (intValue == 2)
   {
     rawOverrides2 = [(IFGraphicSymbolOverridesParser *)self rawOverrides];
-    v6 = [rawOverrides2 _IF_dictionaryForKey:@"symbols"];
-    v7 = [(IFGraphicSymbolOverridesParser *)self _parseSymbolContent:v6];
+    v7 = [rawOverrides2 _IF_dictionaryForKey:@"symbols"];
+    v8 = [(IFGraphicSymbolOverridesParser *)self _parseSymbolContent:v7];
   }
 
   else
   {
-    v8 = IFDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = IFDefaultLog(intValue);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [IFGraphicSymbolOverridesParser parse];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_parseSymbolContent:(id)content
@@ -204,35 +205,36 @@ LABEL_26:
   {
     if ([shapeCopy caseInsensitiveCompare:@"capsule"])
     {
-      if ([shapeCopy caseInsensitiveCompare:@"circle"])
+      v4 = [shapeCopy caseInsensitiveCompare:@"circle"];
+      if (v4)
       {
-        v4 = IFDefaultLog();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+        v5 = IFDefaultLog(v4);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
           [IFGraphicSymbolOverridesParser _parseShapeFromRawShape:];
         }
 
-        v5 = 0;
+        v6 = 0;
       }
 
       else
       {
-        v5 = 2;
+        v6 = 2;
       }
     }
 
     else
     {
-      v5 = 3;
+      v6 = 3;
     }
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  return v5;
+  return v6;
 }
 
 - (int64_t)_parseSymbolWeightFromRawItem:(id)item
@@ -243,69 +245,70 @@ LABEL_26:
   {
     if (![v3 caseInsensitiveCompare:@"Ultralight"])
     {
-      v6 = 1;
+      v7 = 1;
       goto LABEL_24;
     }
 
     if (![v4 caseInsensitiveCompare:@"Thin"])
     {
-      v6 = 2;
+      v7 = 2;
       goto LABEL_24;
     }
 
     if (![v4 caseInsensitiveCompare:@"Light"])
     {
-      v6 = 3;
+      v7 = 3;
       goto LABEL_24;
     }
 
     if (![v4 caseInsensitiveCompare:@"Regular"])
     {
-      v6 = 4;
+      v7 = 4;
       goto LABEL_24;
     }
 
     if (![v4 caseInsensitiveCompare:@"Medium"])
     {
-      v6 = 5;
+      v7 = 5;
       goto LABEL_24;
     }
 
     if (![v4 caseInsensitiveCompare:@"Semibold"])
     {
-      v6 = 6;
+      v7 = 6;
       goto LABEL_24;
     }
 
     if (![v4 caseInsensitiveCompare:@"Bold"])
     {
-      v6 = 7;
+      v7 = 7;
       goto LABEL_24;
     }
 
     if (![v4 caseInsensitiveCompare:@"Heavy"])
     {
-      v6 = 8;
+      v7 = 8;
       goto LABEL_24;
     }
 
-    if (![v4 caseInsensitiveCompare:@"Black"])
+    v5 = [v4 caseInsensitiveCompare:@"Black"];
+    if (!v5)
     {
-      v6 = 9;
+      v7 = 9;
       goto LABEL_24;
     }
 
-    v5 = IFDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = IFDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [IFGraphicSymbolOverridesParser _parseSymbolWeightFromRawItem:];
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_24:
 
-  return v6;
+  return v7;
 }
 
 - (unint64_t)_parseSymbolSizeFromRawItem:(id)item
@@ -316,33 +319,34 @@ LABEL_24:
   {
     if (![v3 caseInsensitiveCompare:@"Small"])
     {
-      v6 = 1;
+      v7 = 1;
       goto LABEL_12;
     }
 
     if (![v4 caseInsensitiveCompare:@"Medium"])
     {
-      v6 = 2;
+      v7 = 2;
       goto LABEL_12;
     }
 
-    if (![v4 caseInsensitiveCompare:@"Large"])
+    v5 = [v4 caseInsensitiveCompare:@"Large"];
+    if (!v5)
     {
-      v6 = 3;
+      v7 = 3;
       goto LABEL_12;
     }
 
-    v5 = IFDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = IFDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [IFGraphicSymbolOverridesParser _parseSymbolSizeFromRawItem:];
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_12:
 
-  return v6;
+  return v7;
 }
 
 - (float)_parseSymbolSizeAdjusterFromRawItem:(id)item
@@ -377,41 +381,41 @@ LABEL_12:
 
   if (v6 == 0.0 && v9 == 0.0)
   {
-    v10 = *MEMORY[0x1E695F060];
-    v11 = *(MEMORY[0x1E695F060] + 8);
+    v11 = *MEMORY[0x1E695F060];
+    v12 = *(MEMORY[0x1E695F060] + 8);
   }
 
   else
   {
-    v10 = v6;
+    v11 = v6;
     if (fabsf(v6) > 0.5)
     {
-      v12 = IFDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = IFDefaultLog(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        [(IFGraphicSymbolOverridesParser *)v12 _parseSymbolOffsetFromRawItem:v13, v14, v15, v16, v17, v18, v19];
-      }
-
-      v10 = 0.0;
-    }
-
-    v11 = v9;
-    if (fabsf(v9) > 0.5)
-    {
-      v20 = IFDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
-      {
-        [(IFGraphicSymbolOverridesParser *)v20 _parseSymbolOffsetFromRawItem:v21, v22, v23, v24, v25, v26, v27];
+        [(IFGraphicSymbolOverridesParser *)v13 _parseSymbolOffsetFromRawItem:v14, v15, v16, v17, v18, v19, v20, v6];
       }
 
       v11 = 0.0;
     }
+
+    v12 = v9;
+    if (fabsf(v9) > 0.5)
+    {
+      v21 = IFDefaultLog(v10);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      {
+        [(IFGraphicSymbolOverridesParser *)v21 _parseSymbolOffsetFromRawItem:v22, v23, v24, v25, v26, v27, v28, v9];
+      }
+
+      v12 = 0.0;
+    }
   }
 
-  v28 = v10;
   v29 = v11;
-  result.height = v29;
-  result.width = v28;
+  v30 = v12;
+  result.height = v30;
+  result.width = v29;
   return result;
 }
 
@@ -420,6 +424,13 @@ LABEL_12:
   v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(&dword_1B9DEC000, v0, OS_LOG_TYPE_ERROR, "Unknown override version: %@", v1, 0xCu);
+}
+
+- (void)_parseSymbolOffsetFromRawItem:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0_1(&dword_1B9DEC000, a1, a3, "Invalid offset %f", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 @end

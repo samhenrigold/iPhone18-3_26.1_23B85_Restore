@@ -19,8 +19,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"code";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"code";
   code = [(INSetRelationshipIntentResponse *)self code];
   v4 = code;
   if (code < 0xB)
@@ -35,8 +35,8 @@
     v6 = 0;
   }
 
-  v12[1] = @"meCard";
-  v13[0] = null;
+  v11[1] = @"meCard";
+  v12[0] = null;
   meCard = [(INSetRelationshipIntentResponse *)self meCard];
   null2 = meCard;
   if (!meCard)
@@ -44,8 +44,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   if (!meCard)
   {
   }
@@ -53,8 +53,6 @@
   if (v4 >= 0xB)
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -194,7 +192,7 @@
 
 - (INSetRelationshipIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -212,21 +210,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INSetRelationshipIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INSetRelationshipIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INSetRelationshipIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INSetRelationshipIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

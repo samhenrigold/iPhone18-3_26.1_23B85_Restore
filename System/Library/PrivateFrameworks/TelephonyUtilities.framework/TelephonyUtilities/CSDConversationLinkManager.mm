@@ -56,10 +56,9 @@
 {
   v11 = type metadata accessor for UUID();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11, v14);
-  v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = _Block_copy(handler);
+  __chkstk_darwin(v11);
+  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = _Block_copy(handler);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   if (handles)
   {
@@ -68,12 +67,12 @@
     static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  *(swift_allocObject() + 16) = v17;
+  *(swift_allocObject() + 16) = v15;
   handleCopy = handle;
   selfCopy = self;
   sub_100352264();
 
-  (*(v12 + 8))(v16, v11);
+  (*(v12 + 8))(v14, v11);
 }
 
 - (void)generateLinkWithInvitedHandles:(id)handles originatorHandle:(id)handle linkLifetimeScope:(int64_t)scope completionHandler:(id)handler
@@ -103,24 +102,23 @@
 - (id)activateLinkForPseudonym:(id)pseudonym updateGroupUUID:(id)d updateInvitedHandles:(id)handles
 {
   v8 = sub_10026D814(&unk_1006A3DD0, &unk_10057C9D0);
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8, v10);
-  v12 = &v19 - v11;
+  __chkstk_darwin(v8 - 8);
+  v10 = &v17 - v9;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = type metadata accessor for UUID();
-    v14 = 0;
+    v11 = type metadata accessor for UUID();
+    v12 = 0;
   }
 
   else
   {
-    v13 = type metadata accessor for UUID();
-    v14 = 1;
+    v11 = type metadata accessor for UUID();
+    v12 = 1;
   }
 
-  sub_10000AF74(v12, v14, 1, v13);
+  sub_10000AF74(v10, v12, 1, v11);
   if (handles)
   {
     sub_100006AF0(0, &qword_1006A2640, TUHandle_ptr);
@@ -130,11 +128,11 @@
 
   selfCopy = self;
   sub_100354A48();
-  v17 = v16;
+  v15 = v14;
 
-  sub_100009A04(v12, &unk_1006A3DD0, &unk_10057C9D0);
+  sub_100009A04(v10, &unk_1006A3DD0, &unk_10057C9D0);
 
-  return v17;
+  return v15;
 }
 
 - (id)getInactiveLinkForHandle:(id)handle
@@ -167,24 +165,23 @@
 
 - (void)invalidateLinkWithPseudonym:(id)pseudonym deleteReason:(int64_t)reason completionHandler:(id)handler
 {
-  v7 = _Block_copy(handler);
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
-  if (v7)
+  v6 = _Block_copy(handler);
+  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (v6)
   {
-    v11 = swift_allocObject();
-    *(v11 + 16) = v7;
-    v7 = sub_10036BE1C;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v6 = sub_10036BE1C;
   }
 
   else
   {
-    v11 = 0;
+    v7 = 0;
   }
 
   selfCopy = self;
-  sub_100358820(v8, v10, reason, v7, v11);
-  sub_1000051F8(v7);
+  sub_100358820();
+  sub_1000051F8(v6, v7);
 }
 
 - (void)removeLink:(id)link deleteReason:(int64_t)reason completionHandler:(id)handler
@@ -205,82 +202,78 @@
   linkCopy = link;
   selfCopy = self;
   sub_10035921C(linkCopy, reason, v8, v9);
-  sub_1000051F8(v8);
+  sub_1000051F8(v8, v9);
 }
 
 - (void)renewLinkWithPseudonym:(id)pseudonym expirationDate:(id)date completionHandler:(id)handler
 {
   v7 = type metadata accessor for Date();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7, v10);
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(handler);
-  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = v15;
+  __chkstk_darwin(v7);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(handler);
+  static String._unconditionallyBridgeFromObjectiveC(_:)();
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  if (v13)
+  if (v11)
   {
-    v17 = swift_allocObject();
-    *(v17 + 16) = v13;
-    v13 = sub_10036AC04;
+    v12 = swift_allocObject();
+    *(v12 + 16) = v11;
+    v11 = sub_10036AC04;
   }
 
   else
   {
-    v17 = 0;
+    v12 = 0;
   }
 
   selfCopy = self;
-  sub_100359550(v14, v16, v12, v13, v17);
-  sub_1000051F8(v13);
+  sub_100359550();
+  sub_1000051F8(v11, v12);
 
-  (*(v8 + 8))(v12, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)checkLinkValidityWithPseudonym:(id)pseudonym completionHandler:(id)handler
 {
   v5 = _Block_copy(handler);
-  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v8 = v7;
+  static String._unconditionallyBridgeFromObjectiveC(_:)();
   if (v5)
   {
-    v9 = swift_allocObject();
-    *(v9 + 16) = v5;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
     v5 = sub_10036ABFC;
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
-  sub_100359A7C(v6, v8, v5, v9);
-  sub_1000051F8(v5);
+  sub_100359A7C();
+  sub_1000051F8(v5, v6);
 }
 
 - (void)setLinkName:(id)name forLink:(id)link completionHandler:(id)handler
 {
   v7 = _Block_copy(handler);
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
+  static String._unconditionallyBridgeFromObjectiveC(_:)();
   if (v7)
   {
-    v11 = swift_allocObject();
-    *(v11 + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_10036ABE0;
   }
 
   else
   {
-    v11 = 0;
+    v8 = 0;
   }
 
   linkCopy = link;
   selfCopy = self;
-  sub_10035ACE8(v8, v10, linkCopy, v7, v11);
-  sub_1000051F8(v7);
+  sub_10035ACE8();
+  sub_1000051F8(v7, v8);
 }
 
 - (void)encryptLetMeInRequest:(id)request link:(id)link completionHandler:(id)handler
@@ -355,17 +348,18 @@
 
 - (void)recoverLinksForPseudonyms:(id)pseudonyms
 {
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_10035E268();
+  sub_10035E268(v4);
 }
 
 - (void)linkSyncStateWithIncludeLinks:(BOOL)links completion:(id)completion
 {
+  linksCopy = links;
   v6 = _Block_copy(completion);
   _Block_copy(v6);
   selfCopy = self;
-  sub_10035E2F8(links, selfCopy, v6);
+  sub_10035E2F8(linksCopy, selfCopy, v6);
   _Block_release(v6);
 }
 

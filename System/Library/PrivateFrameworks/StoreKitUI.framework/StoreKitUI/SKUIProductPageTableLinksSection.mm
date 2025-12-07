@@ -341,10 +341,10 @@ SKUIDeveloperInfoViewController *__77__SKUIProductPageTableLinksSection_initWith
   {
     v7 = [[SKUITableViewCell alloc] initWithStyle:0 reuseIdentifier:@"LK"];
     [(SKUITableViewCell *)v7 setAccessoryType:1];
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v8)
     {
-      [(SKUITableViewCell *)v7 setBottomBorderColor:primaryTextColor];
+      [(SKUITableViewCell *)v7 setBottomBorderColor:v8];
     }
 
     else

@@ -10,6 +10,7 @@
 - (void)setItemsPerRow:(int64_t)row;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WFChooseImageViewController
@@ -232,6 +233,35 @@ void __63__WFChooseImageViewController_tableView_cellForRowAtIndexPath___block_i
     p_lastFrame->size.width = v15;
     p_lastFrame->size.height = v16;
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = WFChooseImageViewController;
+  [(WFChooseImageViewController *)&v12 viewWillAppear:appear];
+  if ([(WFChooseImageViewController *)self maximumNumberOfItems]== 1)
+  {
+    v4 = @"Choose Image";
+  }
+
+  else
+  {
+    v4 = @"Choose Images";
+  }
+
+  v5 = WFLocalizedString(v4);
+  [(WFChooseImageViewController *)self setTitle:v5];
+
+  v6 = [(NSMutableSet *)self->_selectedItems count];
+  v7 = v6 >= [(WFChooseImageViewController *)self minimumNumberOfItems];
+  navigationItem = [(WFChooseImageViewController *)self navigationItem];
+  rightBarButtonItem = [navigationItem rightBarButtonItem];
+  [rightBarButtonItem setEnabled:v7];
+
+  tableView = [(WFChooseImageViewController *)self tableView];
+  [tableView contentSize];
+  [(WFChooseImageViewController *)self setItemsPerRow:vcvtmd_s64_f64(v11 / 80.0)];
 }
 
 - (void)setItemsPerRow:(int64_t)row

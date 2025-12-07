@@ -16,16 +16,18 @@
 - (void)updateDoneButton;
 - (void)updateNetworkPolicyState;
 - (void)updateNetworkPolicyStateIfNecessaryForCell:(id)cell;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation KSAddExtensionKeyboardController
 
 + (id)specifiersForExtensionInputMode:(id)mode parentSpecifier:(id)specifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (![mode isExtensionInputMode])
   {
-    goto LABEL_20;
+    return MEMORY[0x277CBEBF8];
   }
 
   array = [MEMORY[0x277CBEB18] array];
@@ -49,57 +51,52 @@
   }
 
   v10 = [v8 pathForResource:@"Root" ofType:@"plist"];
-  if (v10)
+  if (!v10)
   {
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v10];
-    v12 = [objc_msgSend(v11 objectForKey:{*MEMORY[0x277D40120]), "stringByDeletingPathExtension"}];
-    v13 = [v11 objectForKey:*MEMORY[0x277D40108]];
-    v23 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
-    v15 = MEMORY[0x277CBEBF8];
-    if (v14)
-    {
-      v16 = v14;
-      v17 = 0;
-      v18 = *v24;
-      do
-      {
-        for (i = 0; i != v16; ++i)
-        {
-          if (*v24 != v18)
-          {
-            objc_enumerationMutation(v13);
-          }
+    return MEMORY[0x277CBEBF8];
+  }
 
-          v20 = [MEMORY[0x277D3F950] specifiersFromDictionary:*(*(&v23 + 1) + 8 * i) stringsTable:v12 parentSpecifier:specifier target:0];
-          if (v20)
-          {
-            [array addObjectsFromArray:v20];
-            v17 = 1;
-          }
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v10];
+  v12 = [objc_msgSend(v11 objectForKey:{*MEMORY[0x277D40120]), "stringByDeletingPathExtension"}];
+  v13 = [v11 objectForKey:*MEMORY[0x277D40108]];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = MEMORY[0x277CBEBF8];
+  if (v14)
+  {
+    v16 = v14;
+    v17 = 0;
+    v18 = *v23;
+    do
+    {
+      for (i = 0; i != v16; ++i)
+      {
+        if (*v23 != v18)
+        {
+          objc_enumerationMutation(v13);
         }
 
-        v16 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v20 = [MEMORY[0x277D3F950] specifiersFromDictionary:*(*(&v22 + 1) + 8 * i) stringsTable:v12 parentSpecifier:specifier target:0];
+        if (v20)
+        {
+          [array addObjectsFromArray:v20];
+          v17 = 1;
+        }
       }
 
-      while (v16);
-      if (v17)
-      {
-        v15 = array;
-      }
+      v16 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    }
+
+    while (v16);
+    if (v17)
+    {
+      return array;
     }
   }
 
-  else
-  {
-LABEL_20:
-    v15 = MEMORY[0x277CBEBF8];
-  }
-
-  v21 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -140,7 +137,7 @@ LABEL_20:
   }
 }
 
-uint64_t __82__KSAddExtensionKeyboardController_setNetworkAccessSpecifierForKeyboardInputMode___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__82__KSAddExtensionKeyboardController_setNetworkAccessSpecifierForKeyboardInputMode___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 target];
   if (result)
@@ -155,32 +152,32 @@ uint64_t __82__KSAddExtensionKeyboardController_setNetworkAccessSpecifierForKeyb
 
 - (id)newSpecifiers
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = *MEMORY[0x277D85DE8];
+  v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   array = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = [-[KSAddExtensionKeyboardController specifier](self "specifier")];
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     LOBYTE(v6) = 0;
-    v7 = *v20;
+    v7 = *v19;
     v8 = *MEMORY[0x277D3FFB8];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:objc_msgSend(v10 target:"displayName") set:selfCopy get:sel_toggleInputMode_specifier_ detail:sel_fetchInputModeEnabled_ cell:0 edit:{6, 0}];
         [v11 setProperty:objc_msgSend(v10 forKey:{"identifier"), v8}];
         [array addObject:v11];
@@ -195,7 +192,7 @@ uint64_t __82__KSAddExtensionKeyboardController_setNetworkAccessSpecifierForKeyb
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -211,7 +208,7 @@ uint64_t __82__KSAddExtensionKeyboardController_setNetworkAccessSpecifierForKeyb
   selfCopy->_didRequestOpenAccess = v6;
   if (![obj count] || -[KSAddExtensionKeyboardController behavesAsModalForAddSheet](selfCopy, "behavesAsModalForAddSheet") || ((v6 ^ 1) & 1) != 0)
   {
-    v13 = v16;
+    v13 = v15;
     if (v12 >= 2)
     {
       goto LABEL_19;
@@ -221,18 +218,17 @@ uint64_t __82__KSAddExtensionKeyboardController_setNetworkAccessSpecifierForKeyb
   else
   {
     -[KSAddExtensionKeyboardController setNetworkAccessSpecifierForKeyboardInputMode:](selfCopy, "setNetworkAccessSpecifierForKeyboardInputMode:", [obj firstObject]);
-    v13 = v16;
-    [v16 addObject:{-[KSAddExtensionKeyboardController networkAccessSpecifier](selfCopy, "networkAccessSpecifier")}];
+    v13 = v15;
+    [v15 addObject:{-[KSAddExtensionKeyboardController networkAccessSpecifier](selfCopy, "networkAccessSpecifier")}];
     if (v12 >= 2)
     {
-      [v16 addObject:{objc_msgSend(MEMORY[0x277D3FAD8], "groupSpecifierWithName:", &stru_28679E3A8)}];
+      [v15 addObject:{objc_msgSend(MEMORY[0x277D3FAD8], "groupSpecifierWithName:", &stru_28679E3A8)}];
 LABEL_19:
       [v13 addObjectsFromArray:{-[KSAddExtensionKeyboardController moduleSpecifiers](selfCopy, "moduleSpecifiers")}];
     }
   }
 
   [(KSAddExtensionKeyboardController *)selfCopy trackExtensionsContainedInApp];
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -246,52 +242,47 @@ uint64_t __49__KSAddExtensionKeyboardController_newSpecifiers__block_invoke(uint
 
 - (void)trackExtensionsContainedInApp
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D6FAB0];
+  v14 = *MEMORY[0x277D85DE8];
   if (TIStatisticShouldSample())
   {
-    v4 = [-[KSAddExtensionKeyboardController specifier](self "specifier")];
-    v5 = *MEMORY[0x277D6FA98];
+    v3 = [-[KSAddExtensionKeyboardController specifier](self "specifier")];
     TIStatisticGetKey();
-    [v4 count];
+    [v3 count];
     TIStatisticScalarSetValue();
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v6)
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    if (v4)
     {
-      v7 = v6;
-      v8 = 0;
-      v9 = *v14;
+      v5 = v4;
+      v6 = 0;
+      v7 = *v10;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v9)
+          if (*v10 != v7)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v3);
           }
 
-          if ([objc_msgSend(objc_opt_class() specifiersForExtensionInputMode:*(*(&v13 + 1) + 8 * i) parentSpecifier:{-[KSAddExtensionKeyboardController specifier](self, "specifier")), "count"}])
+          if ([objc_msgSend(objc_opt_class() specifiersForExtensionInputMode:*(*(&v9 + 1) + 8 * i) parentSpecifier:{-[KSAddExtensionKeyboardController specifier](self, "specifier")), "count"}])
           {
-            ++v8;
+            ++v6;
           }
         }
 
-        v7 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
-      while (v7);
+      while (v5);
     }
 
-    v11 = *MEMORY[0x277D6FAB8];
     TIStatisticGetKey();
     TIStatisticScalarSetValue();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPrivacyAccess:(id)access forSpecifier:(id)specifier
@@ -361,7 +352,7 @@ uint64_t __49__KSAddExtensionKeyboardController_newSpecifiers__block_invoke(uint
   [(PSSystemPolicyForApp *)systemPolicy performSelector:v21 withObject:access withObject:specifier];
 }
 
-uint64_t __66__KSAddExtensionKeyboardController_setPrivacyAccess_forSpecifier___block_invoke(uint64_t a1, uint64_t a2)
+void *__66__KSAddExtensionKeyboardController_setPrivacyAccess_forSpecifier___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) specifierForWarning];
   if (result)
@@ -414,7 +405,7 @@ uint64_t __66__KSAddExtensionKeyboardController_setPrivacyAccess_forSpecifier___
 
 - (void)updateNetworkPolicyState
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([(KSAddExtensionKeyboardController *)self behavesAsModalForAddSheet])
   {
     LOBYTE(v3) = 0;
@@ -423,16 +414,16 @@ uint64_t __66__KSAddExtensionKeyboardController_setPrivacyAccess_forSpecifier___
 
   cf = CFBundleCreate(0, [objc_msgSend(objc_msgSend(objc_msgSend(-[KSAddExtensionKeyboardController specifier](self "specifier")]);
   v4 = TCCAccessCopyInformationForBundle();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
     v3 = 0;
-    v7 = *v19;
+    v7 = *v18;
     v8 = MEMORY[0x277D6C0E8];
     v9 = MEMORY[0x277D6C188];
     v10 = MEMORY[0x277D6C0D0];
@@ -440,19 +431,19 @@ uint64_t __66__KSAddExtensionKeyboardController_setPrivacyAccess_forSpecifier___
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         if ([objc_msgSend(v12 objectForKey:{*v8), "isEqualToString:", *v9}])
         {
           v3 |= [objc_msgSend(v12 objectForKey:{*v10), "BOOLValue"}];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -483,64 +474,59 @@ LABEL_16:
   v15 = [(PSSpecifier *)networkAccessSpecifier propertyForKey:*MEMORY[0x277D40148]];
   [v15 setValue:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithBool:", v3 & 1)}];
   [-[PSSpecifier propertyForKey:](-[KSAddExtensionKeyboardController networkAccessSpecifier](self "networkAccessSpecifier")];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNetworkPolicyValue:(id)value
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = [-[KSAddExtensionKeyboardController specifier](self "specifier")];
   v5 = CFBundleCreate(0, [objc_msgSend(objc_msgSend(v4 "firstObject")]);
-  v6 = *MEMORY[0x277D6C188];
   [value BOOLValue];
   TCCAccessSetForBundle();
   CFRelease(v5);
-  v20 = 0u;
-  v21 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   obj = v4;
-  v7 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v7)
+  v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v19;
-    v10 = MEMORY[0x277CBEC28];
+    v7 = v6;
+    v8 = *v16;
+    v9 = MEMORY[0x277CBEC28];
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v9)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        if ([objc_msgSend(objc_msgSend(objc_msgSend(v12 "extension")])
+        v11 = *(*(&v15 + 1) + 8 * i);
+        if ([objc_msgSend(objc_msgSend(objc_msgSend(v11 "extension")])
         {
           valueCopy = value;
         }
 
         else
         {
-          valueCopy = v10;
+          valueCopy = v9;
         }
 
-        v14 = CFBundleCreate(0, [objc_msgSend(objc_msgSend(v12 "extension")]);
-        v15 = *MEMORY[0x277D6C188];
+        v13 = CFBundleCreate(0, [objc_msgSend(objc_msgSend(v11 "extension")]);
         [valueCopy BOOLValue];
         TCCAccessSetForBundle();
-        CFRelease(v14);
-        [objc_msgSend(v12 "extension")];
+        CFRelease(v13);
+        [objc_msgSend(v11 "extension")];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchInputModeEnabled:(id)enabled
@@ -550,41 +536,64 @@ LABEL_16:
   return [v3 controlValue];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = KSAddExtensionKeyboardController;
+  [(PSAppListController *)&v6 viewWillAppear:appear];
+  if ([(KSAddExtensionKeyboardController *)self behavesAsModalForAddSheet])
+  {
+    navigationItem = [(KSAddExtensionKeyboardController *)self navigationItem];
+    specifier = [(KSAddExtensionKeyboardController *)self specifier];
+    [navigationItem setTitle:{objc_msgSend(specifier, "propertyForKey:", *MEMORY[0x277D40170])}];
+    [navigationItem setRightBarButtonItem:{objc_msgSend(objc_alloc(MEMORY[0x277D751E0]), "initWithBarButtonSystemItem:target:action:", 0, self, sel_doneButtonTapped)}];
+    [objc_msgSend(navigationItem "rightBarButtonItem")];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KSAddExtensionKeyboardController;
+  [(KSAddExtensionKeyboardController *)&v4 viewDidAppear:appear];
+  [(KSAddExtensionKeyboardController *)self updateDoneButton];
+}
+
 - (id)selectedInputModes
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if ([(NSArray *)[(KSAddExtensionKeyboardController *)self moduleSpecifiers] count]> 1)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     moduleSpecifiers = [(KSAddExtensionKeyboardController *)self moduleSpecifiers];
-    v6 = [(NSArray *)moduleSpecifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [(NSArray *)moduleSpecifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       v9 = *MEMORY[0x277D40148];
       v10 = *MEMORY[0x277D3FFB8];
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(moduleSpecifiers);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           if ([objc_msgSend(objc_msgSend(v12 propertyForKey:{v9), "controlValue"), "BOOLValue"}])
           {
             [array addObject:{objc_msgSend(v12, "propertyForKey:", v10)}];
           }
         }
 
-        v7 = [(NSArray *)moduleSpecifiers countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [(NSArray *)moduleSpecifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -597,7 +606,6 @@ LABEL_16:
     [array addObject:{objc_msgSend(firstObject, "propertyForKey:", *MEMORY[0x277D3FFB8])}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return array;
 }
 
@@ -608,17 +616,14 @@ LABEL_16:
   if ([selectedInputModes count])
   {
     +[KSKeyboardListController setInputModes:](KSKeyboardListController, "setInputModes:", [v3 arrayByAddingObjectsFromArray:selectedInputModes]);
-    v5 = *MEMORY[0x277D6FAB0];
     if (TIStatisticShouldSample())
     {
       if (self->_didRequestOpenAccess)
       {
-        v6 = *MEMORY[0x277D6FAA8];
         TIStatisticGetKey();
         TIStatisticScalarIncrement();
         if (self->_didGrantOpenAccess)
         {
-          v7 = *MEMORY[0x277D6FAA0];
           TIStatisticGetKey();
 
           TIStatisticScalarIncrement();

@@ -55,13 +55,12 @@
 
 - (int64_t)lookupTermWithOrgApacheLuceneUtilBytesRef:(id)ref
 {
-  v5 = self->val$binary_;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = self->val$binary_;
+    v5 = self->val$binary_;
     objc_opt_class();
-    if (!v6)
+    if (!v5)
     {
       JreThrowNullPointerException();
     }
@@ -71,26 +70,25 @@
       JreThrowClassCastException();
     }
 
-    return [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_LongBinaryDocValues *)v6 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
+    return [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_LongBinaryDocValues *)v5 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__10;
-    return [(OrgApacheLuceneIndexSortedSetDocValues *)&v8 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
+    v7.receiver = self;
+    v7.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__10;
+    return [(OrgApacheLuceneIndexSortedSetDocValues *)&v7 lookupTermWithOrgApacheLuceneUtilBytesRef:ref];
   }
 }
 
 - (id)termsEnum
 {
-  v3 = self->val$binary_;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->val$binary_;
+    v3 = self->val$binary_;
     objc_opt_class();
-    if (!v4)
+    if (!v3)
     {
       JreThrowNullPointerException();
     }
@@ -100,14 +98,14 @@
       JreThrowClassCastException();
     }
 
-    return [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_LongBinaryDocValues *)v4 getTermsEnum];
+    return [(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_LongBinaryDocValues *)v3 getTermsEnum];
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__10;
-    return [(OrgApacheLuceneIndexSortedSetDocValues *)&v6 termsEnum];
+    v5.receiver = self;
+    v5.super_class = OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer__10;
+    return [(OrgApacheLuceneIndexSortedSetDocValues *)&v5 termsEnum];
   }
 }
 

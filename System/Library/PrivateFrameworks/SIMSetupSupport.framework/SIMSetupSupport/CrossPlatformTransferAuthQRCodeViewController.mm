@@ -7,6 +7,7 @@
 - (void)dealloc;
 - (void)updateImage;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CrossPlatformTransferAuthQRCodeViewController
@@ -34,6 +35,14 @@
   v4.receiver = self;
   v4.super_class = CrossPlatformTransferAuthQRCodeViewController;
   [(CrossPlatformTransferAuthQRCodeViewController *)&v4 dealloc];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CrossPlatformTransferAuthQRCodeViewController;
+  [(CrossPlatformTransferAuthQRCodeViewController *)&v4 viewWillAppear:appear];
+  self->_isOtherButtonTapped = 0;
 }
 
 - (void)viewDidLoad

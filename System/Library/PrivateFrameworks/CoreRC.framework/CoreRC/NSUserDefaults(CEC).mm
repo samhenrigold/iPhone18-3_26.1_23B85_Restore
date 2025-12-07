@@ -17,7 +17,7 @@
 
 - (uint64_t)lastKnownPhysicalAddress
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   LOWORD(v2) = [self integerForKey:@"previousCECPhysicalAddress"];
   if (!v2)
   {
@@ -28,9 +28,9 @@
       v5 = v3;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v8 = 134217984;
-        v9 = v4;
-        _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Converting deprecated physical address: %lx", &v8, 0xCu);
+        v7 = 134217984;
+        v8 = v4;
+        _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Converting deprecated physical address: %lx", &v7, 0xCu);
       }
 
       v2 = v5 & 0xF | (16 * ((v5 >> 8) & 0xF));
@@ -44,7 +44,6 @@
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

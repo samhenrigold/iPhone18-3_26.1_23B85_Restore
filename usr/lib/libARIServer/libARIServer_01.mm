@@ -8,15 +8,15 @@ void sub_2962C3E84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AriHostRt::checkShouldDeregIndication_nl(unsigned int *a1, int **a2)
+void AriHostRt::checkShouldDeregIndication_nl(unsigned int *result, unsigned int **a2)
 {
   v2 = *a2;
   v3 = a2[1];
   if (*a2 != v3)
   {
-    v5 = a1 + 0x2000;
-    v6 = a1 + 8296;
-    v30 = a1 + 8300;
+    v5 = result + 0x2000;
+    v6 = (result + 8296);
+    v30 = result + 8300;
     do
     {
       memset(v34, 170, sizeof(v34));
@@ -29,12 +29,12 @@ void AriHostRt::checkShouldDeregIndication_nl(unsigned int *a1, int **a2)
         MEMORY[0x29C258610](*(v5 + 520) == 0, "valid == false", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 192);
         v9 = AriOsa::OsMutexTake(*(v5 + 64), 0xFFFFFFFFLL) == -1;
         MEMORY[0x29C258610](v9, "AriOsa::OsMutexTake(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 193);
-        isAlloc = IDMgr::isAlloc((a1 + 8306));
+        isAlloc = IDMgr::isAlloc((result + 8306));
         v11 = ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(v6, isAlloc ^ 1u);
         LODWORD(v35) = AriOsa::OsTimeStamp(v11);
         std::list<std::shared_ptr<Ari::AriClientProxy>>::list(&v36, v34);
         v31 = &v39;
-        v12 = std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v6, v8);
+        v12 = std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v6, v8, &v31);
         *(v12 + 6) = v35;
         std::list<std::shared_ptr<Ari::AriClientProxy>>::__move_assign(v12 + 4, &v36);
         std::__list_imp<std::shared_ptr<Ari::AriClientProxy>>::clear(&v36);
@@ -47,12 +47,12 @@ void AriHostRt::checkShouldDeregIndication_nl(unsigned int *a1, int **a2)
         v31 = 0x200000001;
         v32 = (*v2 & 0x3FF | (HIBYTE(*v2) >> 2 << 11)) << 15;
         v33 = 0;
-        AriHostRt::setMsgAttrib_nl(a1, &v31);
+        AriHostRt::setMsgAttrib_nl(result, &v31);
         v15 = *v2;
         MEMORY[0x29C258610](*(v5 + 520) == 0, "valid == false", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 235);
         v16 = AriOsa::OsMutexTake(*(v5 + 64), 0xFFFFFFFFLL) == -1;
         MEMORY[0x29C258610](v16, "AriOsa::OsMutexTake(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 236);
-        v17 = IDMgr::free((a1 + 8306));
+        v17 = IDMgr::free((result + 8306));
         ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(v6, v17 ^ 1);
         v18 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::find<int>(v6, v15);
         v19 = *(v5 + 106);
@@ -173,29 +173,29 @@ LABEL_23:
   }
 }
 
-void sub_2962C42F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2962C42F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  std::__list_imp<std::shared_ptr<Ari::AriClientProxy>>::clear((v5 + 8));
+  va_start(va, a9);
+  std::__list_imp<std::shared_ptr<Ari::AriClientProxy>>::clear((v9 + 8));
   std::__list_imp<std::shared_ptr<Ari::AriClientProxy>>::clear(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(uint64_t a1)
+uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(uint64_t a1, int a2)
 {
   MEMORY[0x29C258610](*(a1 + 104) == 0, "valid == false", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 259);
-  v2 = AriOsa::OsMutexTake(*(a1 + 96), 0xFFFFFFFFLL) == -1;
-  MEMORY[0x29C258610](v2, "AriOsa::OsMutexTake(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 261);
+  v3 = AriOsa::OsMutexTake(*(a1 + 96), 0xFFFFFFFFLL) == -1;
+  MEMORY[0x29C258610](v3, "AriOsa::OsMutexTake(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 261);
   isAlloc = IDMgr::isAlloc((a1 + 40));
-  v5 = AriOsa::OsMutexGive(*(a1 + 96), v4) == -1;
-  MEMORY[0x29C258610](v5, "AriOsa::OsMutexGive(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 263);
+  v6 = AriOsa::OsMutexGive(*(a1 + 96), v5) == -1;
+  MEMORY[0x29C258610](v6, "AriOsa::OsMutexGive(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 263);
   return isAlloc;
 }
 
 uint64_t AriHostRt::SetMsgTimeoutMultiplier(AriHostRt *this)
 {
   v1 = this;
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   Instance = AriHostRt::GetInstance(this);
   if (v1)
   {
@@ -205,7 +205,7 @@ uint64_t AriHostRt::SetMsgTimeoutMultiplier(AriHostRt *this)
     block[2] = ___ZN9AriHostRt23SetMsgTimeoutMultiplierEj_block_invoke;
     block[3] = &__block_descriptor_tmp_46;
     block[4] = &AriHostRt::GetInstance(void)::instance;
-    v12 = v1;
+    v11 = v1;
     dispatch_sync(qword_2A18C2418, block);
   }
 
@@ -218,22 +218,22 @@ uint64_t AriHostRt::SetMsgTimeoutMultiplier(AriHostRt *this)
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
       {
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetMsgTimeoutMultiplier", v5);
-        v10 = v14 >= 0 ? __p : __p[0];
+        v9 = v13 >= 0 ? __p : __p[0];
         *buf = 136315650;
         *&buf[4] = "ari";
-        v16 = 2080;
-        v17 = v10;
-        v18 = 1024;
-        v19 = 629;
+        v15 = 2080;
+        v16 = v9;
+        v17 = 1024;
+        v18 = 629;
         _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Invalid msgTimeoutMultiplier param: must be > 0", buf, 0x1Cu);
-        if (v14 < 0)
+        if (v13 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
       AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetMsgTimeoutMultiplier", v5);
-      if (v18 >= 0)
+      if (v17 >= 0)
       {
         v7 = buf;
       }
@@ -244,14 +244,13 @@ uint64_t AriHostRt::SetMsgTimeoutMultiplier(AriHostRt *this)
       }
 
       AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Invalid msgTimeoutMultiplier param: must be > 0", v6, v7, 629);
-      if (SHIBYTE(v18) < 0)
+      if (SHIBYTE(v17) < 0)
       {
         operator delete(*buf);
       }
     }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return 0xFFFFFFFFLL;
 }
 
@@ -267,7 +266,7 @@ void sub_2962C45A0(_Unwind_Exception *exception_object)
 
 void ___ZN9AriHostRt23SetMsgTimeoutMultiplierEj_block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   LogLevels = Ari::GetLogLevels(a1);
   if ((LogLevels & 0x20) != 0)
   {
@@ -275,28 +274,28 @@ void ___ZN9AriHostRt23SetMsgTimeoutMultiplierEj_block_invoke(uint64_t a1)
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetMsgTimeoutMultiplier_block_invoke", v4);
-      v5 = v12 >= 0 ? __p : __p[0];
+      v5 = v11 >= 0 ? __p : __p[0];
       v6 = *(*(a1 + 32) + 8);
       v7 = *(a1 + 40);
       *buf = 136316162;
       *&buf[4] = "ari";
-      v14 = 2080;
-      v15 = v5;
-      v16 = 1024;
-      v17 = 634;
-      v18 = 1024;
-      v19 = v6;
-      v20 = 1024;
-      v21 = v7;
+      v13 = 2080;
+      v14 = v5;
+      v15 = 1024;
+      v16 = 634;
+      v17 = 1024;
+      v18 = v6;
+      v19 = 1024;
+      v20 = v7;
       _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) AriHostRt msgTimeoutMultiplier: prev(%d) new(%d)", buf, 0x28u);
-      if (v12 < 0)
+      if (v11 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetMsgTimeoutMultiplier_block_invoke", v4);
-    if (v16 >= 0)
+    if (v15 >= 0)
     {
       v9 = buf;
     }
@@ -307,14 +306,13 @@ void ___ZN9AriHostRt23SetMsgTimeoutMultiplierEj_block_invoke(uint64_t a1)
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) AriHostRt msgTimeoutMultiplier: prev(%d) new(%d)", v8, v9, 634, *(*(a1 + 32) + 8), *(a1 + 40));
-    if (SHIBYTE(v16) < 0)
+    if (SHIBYTE(v15) < 0)
     {
       operator delete(*buf);
     }
   }
 
   *(*(a1 + 32) + 8) = *(a1 + 40);
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962C475C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -350,16 +348,16 @@ uint64_t AriHostRt::RegisterSniffer(AriHostRt *this, dispatch_queue_s *a2, int (
   return v7;
 }
 
-void sub_2962C4870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2962C4870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ___ZN9AriHostRt15RegisterSnifferEP16dispatch_queue_sPFiPhmEb_block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   Instance = AriHostRt::GetInstance(a1);
   v3 = atomic_load(&AriHostRt::GetInstance(void)::instance);
   if (v3 == 2)
@@ -385,7 +383,7 @@ void ___ZN9AriHostRt15RegisterSnifferEP16dispatch_queue_sPFiPhmEb_block_invoke(u
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
       {
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegisterSniffer_block_invoke", v10);
-        v11 = v22;
+        v11 = v21;
         v12 = __p[0];
         v13 = asString();
         *&buf[4] = "ari";
@@ -396,21 +394,21 @@ void ___ZN9AriHostRt15RegisterSnifferEP16dispatch_queue_sPFiPhmEb_block_invoke(u
           v14 = v12;
         }
 
-        v24 = 2080;
-        v25 = v14;
-        v26 = 1024;
-        v27 = 650;
-        v28 = 2080;
-        v29 = v13;
+        v23 = 2080;
+        v24 = v14;
+        v25 = 1024;
+        v26 = 650;
+        v27 = 2080;
+        v28 = v13;
         _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) AriHostRt in state(%s) unsuitable for RegisterSniffer", buf, 0x26u);
-        if (v22 < 0)
+        if (v21 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
       AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegisterSniffer_block_invoke", v10);
-      v15 = SHIBYTE(v26);
+      v15 = SHIBYTE(v25);
       v16 = *buf;
       v17 = asString();
       v19 = buf;
@@ -420,14 +418,12 @@ void ___ZN9AriHostRt15RegisterSnifferEP16dispatch_queue_sPFiPhmEb_block_invoke(u
       }
 
       AriOsa::LogToDefaultStringLogger(0x10, "(%s:%d) AriHostRt in state(%s) unsuitable for RegisterSniffer", v18, v19, 650, v17);
-      if (SHIBYTE(v26) < 0)
+      if (SHIBYTE(v25) < 0)
       {
         operator delete(*buf);
       }
     }
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962C4A58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -468,7 +464,7 @@ uint64_t AriHostRt::SendRaw(AriHostRt *this, unsigned __int8 *a2, int a3)
 void ___ZN9AriHostRt7SendRawEPhjj_block_invoke(uint64_t isAlloc)
 {
   v1 = isAlloc;
-  v52 = *MEMORY[0x29EDCA608];
+  v48 = *MEMORY[0x29EDCA608];
   v3 = (isAlloc + 56);
   v2 = *(isAlloc + 56);
   if (v2 != 0x8000 && (~v2 & 0x7F00) != 0 && *(isAlloc + 56) != 0)
@@ -477,7 +473,7 @@ void ___ZN9AriHostRt7SendRawEPhjj_block_invoke(uint64_t isAlloc)
     isAlloc = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::find<int>((v15 + 33328), v2);
     if (!isAlloc)
     {
-      isAlloc = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(v15 + 33040);
+      isAlloc = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(v15 + 33040, (v2 >> 8) & 0x7F);
       if (isAlloc)
       {
         memset(buf, 170, 16);
@@ -485,17 +481,14 @@ void ___ZN9AriHostRt7SendRawEPhjj_block_invoke(uint64_t isAlloc)
         v17 = *(v1 + 60);
         v18 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::operator[](*(v1 + 40) + 33040, (*(v1 + 56) >> 8) & 0x7F);
         v19 = v18[1];
-        v44 = *v18;
-        v45 = v19;
+        v41[0] = *v18;
+        v41[1] = v19;
         if (v19)
         {
           atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
         }
 
-        v20 = *(v1 + 40);
-        v21 = *(v20 + 24);
-        v22 = (*(v20 + 8) * *(v1 + 64));
-        AriHostRt::RtTransaction::create(v16, v17);
+        AriHostRt::RtTransaction::create(v16, v17, v41, *(*(v1 + 40) + 24), (*(*(v1 + 40) + 8) * *(v1 + 64)));
       }
     }
   }
@@ -540,84 +533,84 @@ void ___ZN9AriHostRt7SendRawEPhjj_block_invoke(uint64_t isAlloc)
                 OsLog = AriOsa::GetOsLog(LogLevels);
                 if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
                 {
-                  v36 = __p;
-                  AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SendRaw_block_invoke", v25);
-                  if (v43 < 0)
+                  v33 = __p;
+                  AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SendRaw_block_invoke", v22);
+                  if (v40 < 0)
                   {
-                    v36 = __p[0];
+                    v33 = __p[0];
                   }
 
-                  v37 = *(v1 + 40);
-                  v46 = v3;
-                  v38 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v37 + 33328), *(v1 + 56));
-                  AriHostRt::RtTransaction::asString(v40, v38[3]);
-                  if (v41 >= 0)
+                  v34 = *(v1 + 40);
+                  v42 = v3;
+                  v35 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v34 + 33328), *(v1 + 56), &v42);
+                  AriHostRt::RtTransaction::asString(v35[3], v37);
+                  if (v38 >= 0)
                   {
-                    v39 = v40;
+                    v36 = v37;
                   }
 
                   else
                   {
-                    v39 = v40[0];
+                    v36 = v37[0];
                   }
 
                   *buf = 136315906;
                   *&buf[4] = "ari";
                   *&buf[12] = 2080;
-                  *&buf[14] = v36;
-                  v48 = 1024;
-                  v49 = 701;
-                  v50 = 2080;
-                  v51 = v39;
+                  *&buf[14] = v33;
+                  v44 = 1024;
+                  v45 = 701;
+                  v46 = 2080;
+                  v47 = v36;
                   _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Fail to complete the transaction(%s), cancelling", buf, 0x26u);
-                  if (v41 < 0)
+                  if (v38 < 0)
                   {
-                    operator delete(v40[0]);
+                    operator delete(v37[0]);
                   }
 
-                  if (v43 < 0)
+                  if (v40 < 0)
                   {
                     operator delete(__p[0]);
                   }
                 }
 
-                v26 = buf;
-                AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SendRaw_block_invoke", v25);
-                if (v48 < 0)
+                v23 = buf;
+                AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SendRaw_block_invoke", v22);
+                if (v44 < 0)
                 {
-                  v26 = *buf;
+                  v23 = *buf;
                 }
 
-                v27 = *(v1 + 40);
-                v40[0] = v3;
-                v28 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v27 + 33328), *(v1 + 56));
-                AriHostRt::RtTransaction::asString(__p, v28[3]);
-                if (v43 >= 0)
+                v24 = *(v1 + 40);
+                v37[0] = v3;
+                v25 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v24 + 33328), *(v1 + 56), v37);
+                AriHostRt::RtTransaction::asString(v25[3], __p);
+                if (v40 >= 0)
                 {
-                  v30 = __p;
+                  v27 = __p;
                 }
 
                 else
                 {
-                  v30 = __p[0];
+                  v27 = __p[0];
                 }
 
-                AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Fail to complete the transaction(%s), cancelling", v29, v26, 701, v30);
-                if (v43 < 0)
+                AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Fail to complete the transaction(%s), cancelling", v26, v23, 701, v27);
+                if (v40 < 0)
                 {
                   operator delete(__p[0]);
                 }
 
-                if (SHIBYTE(v48) < 0)
+                if (SHIBYTE(v44) < 0)
                 {
                   operator delete(*buf);
                 }
               }
 
-              v31 = *(v1 + 40);
+              v28 = *(v1 + 40);
               *buf = v3;
-              v32 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v31 + 33328), *(v1 + 56));
-              AriHostRt::RtTransaction::cancel(v32[3], *(*(*(v1 + 32) + 8) + 24));
+              v29 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v28 + 33328), *(v1 + 56), buf);
+              AriHostRt::RtTransaction::cancel(v29[3], *(*(*(v1 + 32) + 8) + 24), v30);
               std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__erase_unique<int>((*(v1 + 40) + 33328), *(v1 + 56));
             }
 
@@ -626,14 +619,14 @@ void ___ZN9AriHostRt7SendRawEPhjj_block_invoke(uint64_t isAlloc)
               LODWORD(__p[0]) = 0;
               if (!AriMsg::GetBufSeq(*(v1 + 48), *(v1 + 60), __p, v7))
               {
-                v33 = *(v1 + 40);
+                v31 = *(v1 + 40);
                 *buf = v3;
-                v34 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v33 + 33328), *(v1 + 56));
-                AriMsg::SetBufSeq(**(v34[3] + 16), (*(*(v34[3] + 16) + 8) - **(v34[3] + 16)));
+                v32 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v31 + 33328), *(v1 + 56), buf);
+                AriMsg::SetBufSeq(**(v32[3] + 16), (*(*(v32[3] + 16) + 8) - **(v32[3] + 16)));
               }
             }
 
-            break;
+            return;
           }
         }
 
@@ -654,14 +647,12 @@ void ___ZN9AriHostRt7SendRawEPhjj_block_invoke(uint64_t isAlloc)
 
           if (v14 != v11)
           {
-            break;
+            return;
           }
         }
       }
     }
   }
-
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962C5034(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -679,16 +670,17 @@ void sub_2962C5034(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *ResMgr<std::shared_ptr<Ari::AriClientProxy>>::operator[](uint64_t a1, int a2)
+uint64_t *ResMgr<std::shared_ptr<Ari::AriClientProxy>>::operator[](uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = a2;
   MEMORY[0x29C258610](*(a1 + 104) == 0, "valid == false", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 166);
   v4 = AriOsa::OsMutexTake(*(a1 + 96), 0xFFFFFFFFLL) == -1;
   MEMORY[0x29C258610](v4, "AriOsa::OsMutexTake(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 167);
-  v5 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::find<int>(a1, a2) == 0;
+  v5 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::find<int>(a1, v2) == 0;
   ResMgr<std::shared_ptr<Ari::AriClientProxy>>::sw_dbug_trap(a1, v5);
   v11 = &v10;
-  v6 = std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1, a2);
+  v6 = std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1, v2, &v11);
   v8 = AriOsa::OsMutexGive(*(a1 + 96), v7) == -1;
   MEMORY[0x29C258610](v8, "AriOsa::OsMutexGive(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 172);
   return v6 + 4;
@@ -704,77 +696,72 @@ void ___ZN9AriHostRt18sendRawInternal_nlEPhj_block_invoke(uint64_t a1)
 
 uint64_t AriHostRt::RegIndication(AriHostRt *this, uint64_t a2)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   v4 = AriHostRt::Init(this);
   if (v4)
   {
-    v5 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  LogLevels = Ari::GetLogLevels(v4);
+  if ((LogLevels & 0x20) != 0)
   {
-    LogLevels = Ari::GetLogLevels(v4);
-    if ((LogLevels & 0x20) != 0)
+    OsLog = AriOsa::GetOsLog(LogLevels);
+    if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
-      OsLog = AriOsa::GetOsLog(LogLevels);
-      if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
+      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegIndication", v8);
+      v9 = v17 >= 0 ? __p : __p[0];
+      *buf = 136316162;
+      *&buf[4] = "ari";
+      *&buf[12] = 2080;
+      *&buf[14] = v9;
+      *&buf[22] = 1024;
+      v19 = 780;
+      v20 = 1024;
+      v21 = this;
+      v22 = 1024;
+      v23 = a2;
+      _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Registering indication gmid 0x%x triggered by cid 0x%x", buf, 0x28u);
+      if (v17 < 0)
       {
-        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegIndication", v8);
-        v9 = v18 >= 0 ? __p : __p[0];
-        *buf = 136316162;
-        *&buf[4] = "ari";
-        *&buf[12] = 2080;
-        *&buf[14] = v9;
-        *&buf[22] = 1024;
-        v20 = 780;
-        v21 = 1024;
-        v22 = this;
-        v23 = 1024;
-        v24 = a2;
-        _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Registering indication gmid 0x%x triggered by cid 0x%x", buf, 0x28u);
-        if (v18 < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-
-      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegIndication", v8);
-      if (buf[23] >= 0)
-      {
-        v11 = buf;
-      }
-
-      else
-      {
-        v11 = *buf;
-      }
-
-      LogLevels = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Registering indication gmid 0x%x triggered by cid 0x%x", v10, v11, 780, this, a2);
-      if ((buf[23] & 0x80000000) != 0)
-      {
-        operator delete(*buf);
+        operator delete(__p[0]);
       }
     }
 
-    AriHostRt::GetInstance(LogLevels);
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x2000000000;
-    v20 = -1;
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 0x40000000;
-    block[2] = ___ZN9AriHostRt13RegIndicationEjj_block_invoke;
-    block[3] = &unk_29EE30F68;
-    block[4] = buf;
-    block[5] = &AriHostRt::GetInstance(void)::instance;
-    v15 = this;
-    v16 = a2;
-    dispatch_sync(qword_2A18C2418, block);
-    v5 = *(*&buf[8] + 24);
-    _Block_object_dispose(buf, 8);
+    AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegIndication", v8);
+    if (buf[23] >= 0)
+    {
+      v11 = buf;
+    }
+
+    else
+    {
+      v11 = *buf;
+    }
+
+    LogLevels = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Registering indication gmid 0x%x triggered by cid 0x%x", v10, v11, 780, this, a2);
+    if ((buf[23] & 0x80000000) != 0)
+    {
+      operator delete(*buf);
+    }
   }
 
-  v12 = *MEMORY[0x29EDCA608];
+  AriHostRt::GetInstance(LogLevels);
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2000000000;
+  v19 = -1;
+  block[0] = MEMORY[0x29EDCA5F8];
+  block[1] = 0x40000000;
+  block[2] = ___ZN9AriHostRt13RegIndicationEjj_block_invoke;
+  block[3] = &unk_29EE30F68;
+  block[4] = buf;
+  block[5] = &AriHostRt::GetInstance(void)::instance;
+  v14 = this;
+  v15 = a2;
+  dispatch_sync(qword_2A18C2418, block);
+  v5 = *(*&buf[8] + 24);
+  _Block_object_dispose(buf, 8);
   return v5;
 }
 
@@ -811,23 +798,24 @@ uint64_t ___ZN9AriHostRt13RegIndicationEjj_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t AriHostRt::regIndication_nl(AriHostRt *this, int a2, uint64_t a3)
+uint64_t AriHostRt::regIndication_nl(AriHostRt *this, uint64_t a2, uint64_t a3)
 {
-  v90 = *MEMORY[0x29EDCA608];
+  v91 = *MEMORY[0x29EDCA608];
   v6 = this + 0x8000;
-  isAlloc = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(this + 33040);
+  isAlloc = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(this + 33040, a3);
   if (isAlloc)
   {
     v8 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::operator[](this + 33040, a3);
     v10 = *v8;
     v9 = v8[1];
     v74 = *v8;
+    v75 = v9;
     if (v9)
     {
       atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v11 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(this + 33184);
+    v11 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(this + 33184, a2);
     if (!v11)
     {
       LogLevels = Ari::GetLogLevels(v11);
@@ -836,177 +824,178 @@ uint64_t AriHostRt::regIndication_nl(AriHostRt *this, int a2, uint64_t a3)
         OsLog = AriOsa::GetOsLog(LogLevels);
         if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
         {
-          AriOsa::LogSrcInfo(v77, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v33);
-          v34 = SHIBYTE(v78);
-          v35 = v77[0];
-          v36 = (*(*v10 + 16))(v10);
-          v37 = v77;
-          if (v34 < 0)
-          {
-            v37 = v35;
-          }
-
-          if (*(v36 + 23) >= 0)
+          AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v34);
+          v35 = SHIBYTE(v79);
+          v36 = v78[0];
+          v37 = (*(*v10 + 16))(v10);
+          v38 = v78;
+          if (v35 < 0)
           {
             v38 = v36;
           }
 
+          if (*(v37 + 23) >= 0)
+          {
+            v39 = v37;
+          }
+
           else
           {
-            v38 = *v36;
+            v39 = *v37;
           }
 
           *__p = 136316674;
           *&__p[4] = "ari";
-          v80 = 2080;
-          v81 = v37;
-          v82 = 1024;
-          v83 = 952;
-          v84 = 2080;
-          *v85 = v38;
-          *&v85[8] = 1024;
-          *v86 = a3;
-          *&v86[4] = 1024;
-          v87 = a2 >> 10;
-          v88 = 1024;
-          v89 = a2 & 0x3FF;
+          v81 = 2080;
+          v82 = v38;
+          v83 = 1024;
+          v84 = 952;
+          v85 = 2080;
+          *v86 = v39;
+          *&v86[8] = 1024;
+          *v87 = a3;
+          *&v87[4] = 1024;
+          v88 = a2 >> 10;
+          v89 = 1024;
+          v90 = a2 & 0x3FF;
           _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) RegIndication: client(%s:0x%x) first to register indication(%d-0x%x)", __p, 0x38u);
-          if (SHIBYTE(v78) < 0)
+          if (SHIBYTE(v79) < 0)
           {
-            operator delete(v77[0]);
+            operator delete(v78[0]);
           }
         }
 
-        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v33);
-        v39 = SHIBYTE(v82);
-        v40 = *__p;
-        v41 = (*(*v10 + 16))(v10);
-        v43 = __p;
-        if (v39 < 0)
-        {
-          v43 = v40;
-        }
-
-        if (*(v41 + 23) >= 0)
+        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v34);
+        v40 = SHIBYTE(v83);
+        v41 = *__p;
+        v42 = (*(*v10 + 16))(v10);
+        v44 = __p;
+        if (v40 < 0)
         {
           v44 = v41;
         }
 
-        else
+        if (*(v42 + 23) >= 0)
         {
-          v44 = *v41;
+          v45 = v42;
         }
 
-        AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) RegIndication: client(%s:0x%x) first to register indication(%d-0x%x)", v42, v43, 952, v44, a3, a2 >> 10, a2 & 0x3FF, v74, v9);
-        if (SHIBYTE(v82) < 0)
+        else
+        {
+          v45 = *v42;
+        }
+
+        AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) RegIndication: client(%s:0x%x) first to register indication(%d-0x%x)", v43, v44, 952, v45, a3, a2 >> 10, a2 & 0x3FF, v74, v75);
+        if (SHIBYTE(v83) < 0)
         {
           operator delete(*__p);
         }
       }
 
-      v77[0] = v77;
-      v77[1] = v77;
-      v78 = 0;
+      v78[0] = v78;
+      v78[1] = v78;
+      v79 = 0;
       operator new();
     }
 
     v12 = ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::operator[](this + 33184, a2);
     v13 = v12;
+    v14 = v12;
     do
     {
-      v13 = v13[1];
-      if (v13 == v12)
+      v14 = v14[1];
+      if (v14 == v12)
       {
-        v51 = Ari::GetLogLevels(v12);
-        if ((v51 & 0x20) != 0)
+        v52 = Ari::GetLogLevels(v12);
+        if ((v52 & 0x20) != 0)
         {
-          v52 = AriOsa::GetOsLog(v51);
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+          v53 = AriOsa::GetOsLog(v52);
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
           {
-            AriOsa::LogSrcInfo(v77, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v53);
-            v54 = SHIBYTE(v78);
-            v55 = v77[0];
-            v56 = (*(*v10 + 16))(v10);
-            v57 = v77;
-            if (v54 < 0)
-            {
-              v57 = v55;
-            }
-
-            if (*(v56 + 23) >= 0)
+            AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v54);
+            v55 = SHIBYTE(v79);
+            v56 = v78[0];
+            v57 = (*(*v10 + 16))(v10);
+            v58 = v78;
+            if (v55 < 0)
             {
               v58 = v56;
             }
 
+            if (*(v57 + 23) >= 0)
+            {
+              v59 = v57;
+            }
+
             else
             {
-              v58 = *v56;
+              v59 = *v57;
             }
 
             *__p = 136316674;
             *&__p[4] = "ari";
-            v80 = 2080;
-            v81 = v57;
-            v82 = 1024;
-            v83 = 945;
-            v84 = 2080;
-            *v85 = v58;
-            *&v85[8] = 1024;
-            *v86 = a3;
-            *&v86[4] = 1024;
-            v87 = a2 >> 10;
-            v88 = 1024;
-            v89 = a2 & 0x3FF;
-            _os_log_impl(&dword_2962B3000, v52, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) RegIndication: Add client(%s:0x%x) as listening for indication(%d-0x%x)", __p, 0x38u);
-            if (SHIBYTE(v78) < 0)
+            v81 = 2080;
+            v82 = v58;
+            v83 = 1024;
+            v84 = 945;
+            v85 = 2080;
+            *v86 = v59;
+            *&v86[8] = 1024;
+            *v87 = a3;
+            *&v87[4] = 1024;
+            v88 = a2 >> 10;
+            v89 = 1024;
+            v90 = a2 & 0x3FF;
+            _os_log_impl(&dword_2962B3000, v53, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) RegIndication: Add client(%s:0x%x) as listening for indication(%d-0x%x)", __p, 0x38u);
+            if (SHIBYTE(v79) < 0)
             {
-              operator delete(v77[0]);
+              operator delete(v78[0]);
             }
           }
 
-          AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v53);
-          v59 = SHIBYTE(v82);
-          v60 = *__p;
-          v61 = (*(*v10 + 16))(v10);
-          v63 = __p;
-          if (v59 < 0)
-          {
-            v63 = v60;
-          }
-
-          if (*(v61 + 23) >= 0)
+          AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v54);
+          v60 = SHIBYTE(v83);
+          v61 = *__p;
+          v62 = (*(*v10 + 16))(v10);
+          v64 = __p;
+          if (v60 < 0)
           {
             v64 = v61;
           }
 
-          else
+          if (*(v62 + 23) >= 0)
           {
-            v64 = *v61;
+            v65 = v62;
           }
 
-          AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) RegIndication: Add client(%s:0x%x) as listening for indication(%d-0x%x)", v62, v63, 945, v64, a3, a2 >> 10, a2 & 0x3FF, v74, v9);
-          if (SHIBYTE(v82) < 0)
+          else
+          {
+            v65 = *v62;
+          }
+
+          AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) RegIndication: Add client(%s:0x%x) as listening for indication(%d-0x%x)", v63, v64, 945, v65, a3, a2 >> 10, a2 & 0x3FF, v74, v75);
+          if (SHIBYTE(v83) < 0)
           {
             operator delete(*__p);
           }
         }
 
-        std::list<std::shared_ptr<Ari::AriClientProxy>>::push_back();
+        std::list<std::shared_ptr<Ari::AriClientProxy>>::push_back(v13, &v74);
       }
     }
 
-    while (*(v13[2] + 8) != a3);
-    v14 = Ari::GetLogLevels(v12);
-    if ((v14 & 4) != 0)
+    while (*(v14[2] + 8) != a3);
+    v15 = Ari::GetLogLevels(v12);
+    if ((v15 & 4) != 0)
     {
-      v15 = AriOsa::GetOsLog(v14);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = AriOsa::GetOsLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        AriOsa::LogSrcInfo(v77, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v16);
-        v69 = SHIBYTE(v78);
-        v70 = v77[0];
+        AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v17);
+        v69 = SHIBYTE(v79);
+        v70 = v78[0];
         v71 = (*(*v10 + 16))(v10);
-        v72 = v77;
+        v72 = v78;
         if (v69 < 0)
         {
           v72 = v70;
@@ -1024,45 +1013,45 @@ uint64_t AriHostRt::regIndication_nl(AriHostRt *this, int a2, uint64_t a3)
 
         *__p = 136316418;
         *&__p[4] = "ari";
-        v80 = 2080;
-        v81 = v72;
-        v82 = 1024;
-        v83 = 940;
-        v84 = 2080;
-        *v85 = v73;
-        *&v85[8] = 1024;
-        *v86 = a2 >> 10;
-        *&v86[4] = 1024;
-        v87 = a2 & 0x3FF;
-        _os_log_debug_impl(&dword_2962B3000, v15, OS_LOG_TYPE_DEBUG, "%s: (%s:%d) RegIndication: Duplicated handler from client(%s) for indication(%d-0x%x), no-op", __p, 0x32u);
-        if (SHIBYTE(v78) < 0)
+        v81 = 2080;
+        v82 = v72;
+        v83 = 1024;
+        v84 = 940;
+        v85 = 2080;
+        *v86 = v73;
+        *&v86[8] = 1024;
+        *v87 = a2 >> 10;
+        *&v87[4] = 1024;
+        v88 = a2 & 0x3FF;
+        _os_log_debug_impl(&dword_2962B3000, v16, OS_LOG_TYPE_DEBUG, "%s: (%s:%d) RegIndication: Duplicated handler from client(%s) for indication(%d-0x%x), no-op", __p, 0x32u);
+        if (SHIBYTE(v79) < 0)
         {
-          operator delete(v77[0]);
+          operator delete(v78[0]);
         }
       }
 
-      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v16);
-      v17 = SHIBYTE(v82);
-      v18 = *__p;
-      v19 = (*(*v10 + 16))(v10);
-      v21 = __p;
-      if (v17 < 0)
-      {
-        v21 = v18;
-      }
-
-      if (*(v19 + 23) >= 0)
+      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v17);
+      v18 = SHIBYTE(v83);
+      v19 = *__p;
+      v20 = (*(*v10 + 16))(v10);
+      v22 = __p;
+      if (v18 < 0)
       {
         v22 = v19;
       }
 
-      else
+      if (*(v20 + 23) >= 0)
       {
-        v22 = *v19;
+        v23 = v20;
       }
 
-      AriOsa::LogToDefaultStringLogger(4, "(%s:%d) RegIndication: Duplicated handler from client(%s) for indication(%d-0x%x), no-op", v20, v21, 940, v22, a2 >> 10, a2 & 0x3FF);
-      if (SHIBYTE(v82) < 0)
+      else
+      {
+        v23 = *v20;
+      }
+
+      AriOsa::LogToDefaultStringLogger(4, "(%s:%d) RegIndication: Duplicated handler from client(%s) for indication(%d-0x%x), no-op", v21, v22, 940, v23, a2 >> 10, a2 & 0x3FF);
+      if (SHIBYTE(v83) < 0)
       {
         operator delete(*__p);
       }
@@ -1073,136 +1062,134 @@ uint64_t AriHostRt::regIndication_nl(AriHostRt *this, int a2, uint64_t a3)
       std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
-    goto LABEL_73;
+    return 0;
   }
 
-  v23 = Ari::GetLogLevels(isAlloc);
+  v24 = Ari::GetLogLevels(isAlloc);
   if (a3 == -1)
   {
-    if ((v23 & 8) != 0)
+    if ((v24 & 8) != 0)
     {
-      v45 = AriOsa::GetOsLog(v23);
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v46 = AriOsa::GetOsLog(v24);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(v77, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v46);
-        if (v78 >= 0)
+        AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v47);
+        if (v79 >= 0)
         {
-          v68 = v77;
+          v68 = v78;
         }
 
         else
         {
-          v68 = v77[0];
+          v68 = v78[0];
         }
 
-        v47 = a2 >> 10;
-        v48 = a2 & 0x3FF;
+        v48 = a2 >> 10;
+        v49 = a2 & 0x3FF;
         *__p = 136316162;
         *&__p[4] = "ari";
-        v80 = 2080;
-        v81 = v68;
-        v82 = 1024;
-        v83 = 918;
-        v84 = 1024;
-        *v85 = v47;
-        *&v85[4] = 1024;
-        *&v85[6] = v48;
-        _os_log_error_impl(&dword_2962B3000, v45, OS_LOG_TYPE_ERROR, "%s: (%s:%d) RegIndication: ARI_INVALID_CID for indication(%d-0x%x)", __p, 0x28u);
-        if (SHIBYTE(v78) < 0)
+        v81 = 2080;
+        v82 = v68;
+        v83 = 1024;
+        v84 = 918;
+        v85 = 1024;
+        *v86 = v48;
+        *&v86[4] = 1024;
+        *&v86[6] = v49;
+        _os_log_error_impl(&dword_2962B3000, v46, OS_LOG_TYPE_ERROR, "%s: (%s:%d) RegIndication: ARI_INVALID_CID for indication(%d-0x%x)", __p, 0x28u);
+        if (SHIBYTE(v79) < 0)
         {
-          operator delete(v77[0]);
+          operator delete(v78[0]);
         }
       }
 
       else
       {
-        v47 = a2 >> 10;
-        v48 = a2 & 0x3FF;
+        v48 = a2 >> 10;
+        v49 = a2 & 0x3FF;
       }
 
-      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v46);
-      if (v82 >= 0)
+      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v47);
+      if (v83 >= 0)
       {
-        v50 = __p;
+        v51 = __p;
       }
 
       else
       {
-        v50 = *__p;
+        v51 = *__p;
       }
 
-      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) RegIndication: ARI_INVALID_CID for indication(%d-0x%x)", v49, v50, 918, v47, v48);
-      if (SHIBYTE(v82) < 0)
+      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) RegIndication: ARI_INVALID_CID for indication(%d-0x%x)", v50, v51, 918, v48, v49);
+      if (SHIBYTE(v83) < 0)
       {
         operator delete(*__p);
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v75, "invalid cid with indication reg");
-    std::function<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::operator()(*(v6 + 94), 3, v75, 0, 0);
-    if (v76 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v76, "invalid cid with indication reg");
+    std::function<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::operator()(*(v6 + 94), 3, v76, 0, 0);
+    if (v77 < 0)
     {
-      v30 = v75[0];
+      v31 = v76[0];
       goto LABEL_53;
     }
   }
 
-  else if ((v23 & 8) != 0)
+  else if ((v24 & 8) != 0)
   {
-    v24 = AriOsa::GetOsLog(v23);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = AriOsa::GetOsLog(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo(v77, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v25);
-      if (v78 >= 0)
+      AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v26);
+      if (v79 >= 0)
       {
-        v67 = v77;
+        v67 = v78;
       }
 
       else
       {
-        v67 = v77[0];
+        v67 = v78[0];
       }
 
-      v26 = a2 >> 10;
-      v27 = a2 & 0x3FF;
+      v27 = a2 >> 10;
+      v28 = a2 & 0x3FF;
       *__p = 136316418;
       *&__p[4] = "ari";
-      v80 = 2080;
-      v81 = v67;
-      v82 = 1024;
-      v83 = 923;
-      v84 = 1024;
-      *v85 = a3;
-      *&v85[4] = 1024;
-      *&v85[6] = v26;
-      *v86 = 1024;
-      *&v86[2] = v27;
-      _os_log_error_impl(&dword_2962B3000, v24, OS_LOG_TYPE_ERROR, "%s: (%s:%d) RegIndication: No registered cid 0x%04X for indication(%d-0x%x)", __p, 0x2Eu);
-      if (SHIBYTE(v78) < 0)
+      v81 = 2080;
+      v82 = v67;
+      v83 = 1024;
+      v84 = 923;
+      v85 = 1024;
+      *v86 = a3;
+      *&v86[4] = 1024;
+      *&v86[6] = v27;
+      *v87 = 1024;
+      *&v87[2] = v28;
+      _os_log_error_impl(&dword_2962B3000, v25, OS_LOG_TYPE_ERROR, "%s: (%s:%d) RegIndication: No registered cid 0x%04X for indication(%d-0x%x)", __p, 0x2Eu);
+      if (SHIBYTE(v79) < 0)
       {
-        operator delete(v77[0]);
+        operator delete(v78[0]);
       }
     }
 
     else
     {
-      v26 = a2 >> 10;
-      v27 = a2 & 0x3FF;
+      v27 = a2 >> 10;
+      v28 = a2 & 0x3FF;
     }
 
-    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v25);
-    v29 = v82 >= 0 ? __p : *__p;
-    AriOsa::LogToDefaultStringLogger(8, "(%s:%d) RegIndication: No registered cid 0x%04X for indication(%d-0x%x)", v28, v29, 923, a3, v26, v27);
-    if (SHIBYTE(v82) < 0)
+    AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "regIndication_nl", v26);
+    v30 = v83 >= 0 ? __p : *__p;
+    AriOsa::LogToDefaultStringLogger(8, "(%s:%d) RegIndication: No registered cid 0x%04X for indication(%d-0x%x)", v29, v30, 923, a3, v27, v28);
+    if (SHIBYTE(v83) < 0)
     {
-      v30 = *__p;
+      v31 = *__p;
 LABEL_53:
-      operator delete(v30);
+      operator delete(v31);
     }
   }
 
-LABEL_73:
-  v65 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
@@ -1223,74 +1210,69 @@ void sub_2962C5EE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AriHostRt::RegAllIndications(AriHostRt *this)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v2 = AriHostRt::Init(this);
   if (v2)
   {
-    v3 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  LogLevels = Ari::GetLogLevels(v2);
+  if ((LogLevels & 0x20) != 0)
   {
-    LogLevels = Ari::GetLogLevels(v2);
-    if ((LogLevels & 0x20) != 0)
+    OsLog = AriOsa::GetOsLog(LogLevels);
+    if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
-      OsLog = AriOsa::GetOsLog(LogLevels);
-      if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
+      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications", v6);
+      v7 = v14 >= 0 ? __p : __p[0];
+      *buf = 136315906;
+      *&buf[4] = "ari";
+      *&buf[12] = 2080;
+      *&buf[14] = v7;
+      *&buf[22] = 1024;
+      v16 = 813;
+      v17 = 1024;
+      v18 = this;
+      _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Registering all indications triggered by cid 0x%x", buf, 0x22u);
+      if (v14 < 0)
       {
-        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications", v6);
-        v7 = v15 >= 0 ? __p : __p[0];
-        *buf = 136315906;
-        *&buf[4] = "ari";
-        *&buf[12] = 2080;
-        *&buf[14] = v7;
-        *&buf[22] = 1024;
-        v17 = 813;
-        v18 = 1024;
-        v19 = this;
-        _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Registering all indications triggered by cid 0x%x", buf, 0x22u);
-        if (v15 < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-
-      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications", v6);
-      if (buf[23] >= 0)
-      {
-        v9 = buf;
-      }
-
-      else
-      {
-        v9 = *buf;
-      }
-
-      LogLevels = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Registering all indications triggered by cid 0x%x", v8, v9, 813, this);
-      if ((buf[23] & 0x80000000) != 0)
-      {
-        operator delete(*buf);
+        operator delete(__p[0]);
       }
     }
 
-    AriHostRt::GetInstance(LogLevels);
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x2000000000;
-    v17 = -1;
-    block[0] = MEMORY[0x29EDCA5F8];
-    block[1] = 0x40000000;
-    block[2] = ___ZN9AriHostRt17RegAllIndicationsEj_block_invoke;
-    block[3] = &unk_29EE30F90;
-    v13 = this;
-    block[4] = buf;
-    block[5] = &AriHostRt::GetInstance(void)::instance;
-    dispatch_sync(qword_2A18C2418, block);
-    v3 = *(*&buf[8] + 24);
-    _Block_object_dispose(buf, 8);
+    AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications", v6);
+    if (buf[23] >= 0)
+    {
+      v9 = buf;
+    }
+
+    else
+    {
+      v9 = *buf;
+    }
+
+    LogLevels = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Registering all indications triggered by cid 0x%x", v8, v9, 813, this);
+    if ((buf[23] & 0x80000000) != 0)
+    {
+      operator delete(*buf);
+    }
   }
 
-  v10 = *MEMORY[0x29EDCA608];
+  AriHostRt::GetInstance(LogLevels);
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2000000000;
+  v16 = -1;
+  block[0] = MEMORY[0x29EDCA5F8];
+  block[1] = 0x40000000;
+  block[2] = ___ZN9AriHostRt17RegAllIndicationsEj_block_invoke;
+  block[3] = &unk_29EE30F90;
+  v12 = this;
+  block[4] = buf;
+  block[5] = &AriHostRt::GetInstance(void)::instance;
+  dispatch_sync(qword_2A18C2418, block);
+  v3 = *(*&buf[8] + 24);
+  _Block_object_dispose(buf, 8);
   return v3;
 }
 
@@ -1306,22 +1288,19 @@ void sub_2962C61CC(_Unwind_Exception *exception_object)
 
 void ___ZN9AriHostRt17RegAllIndicationsEj_block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 48);
-  isAlloc = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(*(a1 + 40) + 33040);
+  v33 = *MEMORY[0x29EDCA608];
+  isAlloc = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(*(a1 + 40) + 33040, *(a1 + 48));
   if (isAlloc)
   {
-    v4 = *(a1 + 40);
-    if (*(v4 + 4) == 1)
+    v3 = *(a1 + 40);
+    if (*(v3 + 4) == 1)
     {
-      v5 = atomic_load(v4);
-      if (v5 == 2)
+      v4 = atomic_load(v3);
+      if (v4 == 2)
       {
-        bzero(&v29[8], 0x7D4uLL);
-        *v29 = 0x200000001;
-        v36 = 0x7FFFFFFF;
-        v6 = *(a1 + 40);
-        v7 = *(a1 + 48);
+        bzero(&v25[8], 0x7D4uLL);
+        *v25 = 0x200000001;
+        v32 = 0x7FFFFFFF;
         operator new();
       }
     }
@@ -1332,30 +1311,30 @@ void ___ZN9AriHostRt17RegAllIndicationsEj_block_invoke(uint64_t a1)
       OsLog = AriOsa::GetOsLog(LogLevels);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications_block_invoke", v17);
-        v23 = v28 >= 0 ? buf : *buf;
-        v24 = *(a1 + 48);
-        *v29 = 136315906;
-        *&v29[4] = "ari";
-        v30 = 2080;
-        v31 = v23;
-        v32 = 1024;
-        v33 = 828;
-        v34 = 1024;
-        v35 = v24;
-        _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Unable to re-register indications using invalid cid 0x%x", v29, 0x22u);
-        if (SHIBYTE(v28) < 0)
+        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications_block_invoke", v14);
+        v19 = v24 >= 0 ? buf : *buf;
+        v20 = *(a1 + 48);
+        *v25 = 136315906;
+        *&v25[4] = "ari";
+        v26 = 2080;
+        v27 = v19;
+        v28 = 1024;
+        v29 = 828;
+        v30 = 1024;
+        v31 = v20;
+        _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Unable to re-register indications using invalid cid 0x%x", v25, 0x22u);
+        if (SHIBYTE(v24) < 0)
         {
           operator delete(*buf);
         }
       }
 
-      AriOsa::LogSrcInfo(v29, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications_block_invoke", v17);
-      v19 = v32 >= 0 ? v29 : *v29;
-      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Unable to re-register indications using invalid cid 0x%x", v18, v19, 828, *(a1 + 48));
-      if (SHIBYTE(v32) < 0)
+      AriOsa::LogSrcInfo(v25, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications_block_invoke", v14);
+      v16 = v28 >= 0 ? v25 : *v25;
+      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Unable to re-register indications using invalid cid 0x%x", v15, v16, 828, *(a1 + 48));
+      if (SHIBYTE(v28) < 0)
       {
-        v14 = *v29;
+        v11 = *v25;
         goto LABEL_21;
       }
     }
@@ -1363,60 +1342,58 @@ void ___ZN9AriHostRt17RegAllIndicationsEj_block_invoke(uint64_t a1)
 
   else
   {
-    v8 = Ari::GetLogLevels(isAlloc);
-    if ((v8 & 8) != 0)
+    v5 = Ari::GetLogLevels(isAlloc);
+    if ((v5 & 8) != 0)
     {
-      v9 = AriOsa::GetOsLog(v8);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v6 = AriOsa::GetOsLog(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications_block_invoke", v10);
-        v21 = v28 >= 0 ? buf : *buf;
-        v22 = *(a1 + 48);
-        *v29 = 136315906;
-        *&v29[4] = "ari";
-        v30 = 2080;
-        v31 = v21;
-        v32 = 1024;
-        v33 = 822;
-        v34 = 1024;
-        v35 = v22;
-        _os_log_error_impl(&dword_2962B3000, v9, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Unable to re-register indications using invalid cid 0x%x", v29, 0x22u);
-        if (SHIBYTE(v28) < 0)
+        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications_block_invoke", v7);
+        v17 = v24 >= 0 ? buf : *buf;
+        v18 = *(a1 + 48);
+        *v25 = 136315906;
+        *&v25[4] = "ari";
+        v26 = 2080;
+        v27 = v17;
+        v28 = 1024;
+        v29 = 822;
+        v30 = 1024;
+        v31 = v18;
+        _os_log_error_impl(&dword_2962B3000, v6, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Unable to re-register indications using invalid cid 0x%x", v25, 0x22u);
+        if (SHIBYTE(v24) < 0)
         {
           operator delete(*buf);
         }
       }
 
-      AriOsa::LogSrcInfo(v29, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications_block_invoke", v10);
-      if (v32 >= 0)
+      AriOsa::LogSrcInfo(v25, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "RegAllIndications_block_invoke", v7);
+      if (v28 >= 0)
       {
-        v12 = v29;
+        v9 = v25;
       }
 
       else
       {
-        v12 = *v29;
+        v9 = *v25;
       }
 
-      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Unable to re-register indications using invalid cid 0x%x", v11, v12, 822, *(a1 + 48));
-      if (SHIBYTE(v32) < 0)
+      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Unable to re-register indications using invalid cid 0x%x", v8, v9, 822, *(a1 + 48));
+      if (SHIBYTE(v28) < 0)
       {
-        operator delete(*v29);
+        operator delete(*v25);
       }
     }
 
-    v13 = *(a1 + 40);
-    std::string::basic_string[abi:ne200100]<0>(v25, "invalid cid with bulk indication reg");
-    std::function<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::operator()(*(v13 + 33520), 3, v25, 0, 0);
-    if (v26 < 0)
+    v10 = *(a1 + 40);
+    std::string::basic_string[abi:ne200100]<0>(v21, "invalid cid with bulk indication reg");
+    std::function<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::operator()(*(v10 + 33520), 3, v21, 0, 0);
+    if (v22 < 0)
     {
-      v14 = v25[0];
+      v11 = v21[0];
 LABEL_21:
-      operator delete(v14);
+      operator delete(v11);
     }
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962C67F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -1453,7 +1430,7 @@ void ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::doForEach(uint64_t
 
 uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
 {
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   v3 = a2[1004];
   LogLevels = Ari::GetLogLevels(a1);
   if (v3)
@@ -1464,7 +1441,7 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
       {
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v6);
-        v7 = v49 >= 0 ? __p : *__p;
+        v7 = v48 >= 0 ? __p : *__p;
         v8 = a2[1004];
         *buf = 136315906;
         *&buf[4] = "ari";
@@ -1475,7 +1452,7 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
         *&buf[28] = 1024;
         *&buf[30] = v8;
         _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Sending AriGrpMsgsAttribReq with %u gmids", buf, 0x22u);
-        if (SHIBYTE(v49) < 0)
+        if (SHIBYTE(v48) < 0)
         {
           operator delete(*__p);
         }
@@ -1499,11 +1476,11 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
       }
     }
 
-    v53 = 0xAAAAAAAAAAAAAAAALL;
+    v52 = 0xAAAAAAAAAAAAAAAALL;
     *&v11 = 0xAAAAAAAAAAAAAAAALL;
     *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
     *&buf[32] = v11;
-    v52 = v11;
+    v51 = v11;
     *buf = v11;
     *&buf[16] = v11;
     MEMORY[0x29C258730](buf, 67698688);
@@ -1517,23 +1494,23 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
         v15 = AriOsa::GetOsLog(v14);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          AriOsa::LogSrcInfo(v44, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v16);
-          v40 = v45 >= 0 ? v44 : v44[0];
+          AriOsa::LogSrcInfo(v43, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v16);
+          v39 = v44 >= 0 ? v43 : v43[0];
           *__p = 136315650;
           *&__p[4] = "ari";
-          v47 = 2080;
-          v48 = v40;
-          v49 = 1024;
-          v50 = 977;
+          v46 = 2080;
+          v47 = v39;
+          v48 = 1024;
+          v49 = 977;
           _os_log_error_impl(&dword_2962B3000, v15, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Unable to pack AriGrpMsgsAttribReq", __p, 0x1Cu);
-          if (v45 < 0)
+          if (v44 < 0)
           {
-            operator delete(v44[0]);
+            operator delete(v43[0]);
           }
         }
 
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v16);
-        if (v49 >= 0)
+        if (v48 >= 0)
         {
           v18 = __p;
         }
@@ -1544,7 +1521,7 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
         }
 
         AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Unable to pack AriGrpMsgsAttribReq", v17, v18, 977);
-        if (SHIBYTE(v49) < 0)
+        if (SHIBYTE(v48) < 0)
         {
           operator delete(*__p);
         }
@@ -1553,13 +1530,13 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
 
     else
     {
-      v43 = 0;
-      EncodedBuf = AriMsg::getEncodedBuf(buf, &v43);
+      v42 = 0;
+      EncodedBuf = AriMsg::getEncodedBuf(buf, &v42);
       v25 = EncodedBuf;
       if (EncodedBuf)
       {
         *(EncodedBuf + 2) = *(EncodedBuf + 2) & 0x1FFFF | 0xFE020000;
-        v26 = AriHostRt::sendRawInternal_nl(EncodedBuf, EncodedBuf, v43);
+        v26 = AriHostRt::sendRawInternal_nl(EncodedBuf, EncodedBuf, v42);
         v13 = v26;
         if (v26)
         {
@@ -1569,23 +1546,23 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
             v29 = AriOsa::GetOsLog(v28);
             if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
-              AriOsa::LogSrcInfo(v44, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v30);
-              v41 = v45 >= 0 ? v44 : v44[0];
+              AriOsa::LogSrcInfo(v43, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v30);
+              v40 = v44 >= 0 ? v43 : v43[0];
               *__p = 136315650;
               *&__p[4] = "ari";
-              v47 = 2080;
-              v48 = v41;
-              v49 = 1024;
-              v50 = 990;
+              v46 = 2080;
+              v47 = v40;
+              v48 = 1024;
+              v49 = 990;
               _os_log_error_impl(&dword_2962B3000, v29, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Failed to send AriGrpMsgsAttribReq", __p, 0x1Cu);
-              if (v45 < 0)
+              if (v44 < 0)
               {
-                operator delete(v44[0]);
+                operator delete(v43[0]);
               }
             }
 
             AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v30);
-            if (v49 >= 0)
+            if (v48 >= 0)
             {
               v32 = __p;
             }
@@ -1596,7 +1573,7 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
             }
 
             AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Failed to send AriGrpMsgsAttribReq", v31, v32, 990);
-            if (SHIBYTE(v49) < 0)
+            if (SHIBYTE(v48) < 0)
             {
               operator delete(*__p);
             }
@@ -1614,23 +1591,23 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
           v34 = AriOsa::GetOsLog(v33);
           if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            AriOsa::LogSrcInfo(v44, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v35);
-            v42 = v45 >= 0 ? v44 : v44[0];
+            AriOsa::LogSrcInfo(v43, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v35);
+            v41 = v44 >= 0 ? v43 : v43[0];
             *__p = 136315650;
             *&__p[4] = "ari";
-            v47 = 2080;
-            v48 = v42;
-            v49 = 1024;
-            v50 = 996;
+            v46 = 2080;
+            v47 = v41;
+            v48 = 1024;
+            v49 = 996;
             _os_log_error_impl(&dword_2962B3000, v34, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Unable to create payload.  Out of memory?", __p, 0x1Cu);
-            if (v45 < 0)
+            if (v44 < 0)
             {
-              operator delete(v44[0]);
+              operator delete(v43[0]);
             }
           }
 
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v35);
-          if (v49 >= 0)
+          if (v48 >= 0)
           {
             v37 = __p;
           }
@@ -1641,7 +1618,7 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
           }
 
           AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Unable to create payload.  Out of memory?", v36, v37, 996);
-          if (SHIBYTE(v49) < 0)
+          if (SHIBYTE(v48) < 0)
           {
             operator delete(*__p);
           }
@@ -1662,7 +1639,7 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "setGroupMsgAttrib_nl", v20);
-        v21 = v49 >= 0 ? __p : *__p;
+        v21 = v48 >= 0 ? __p : *__p;
         *buf = 136315650;
         *&buf[4] = "ari";
         *&buf[12] = 2080;
@@ -1670,7 +1647,7 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
         *&buf[22] = 1024;
         *&buf[24] = 966;
         _os_log_impl(&dword_2962B3000, v19, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Zero gmids provided", buf, 0x1Cu);
-        if (SHIBYTE(v49) < 0)
+        if (SHIBYTE(v48) < 0)
         {
           operator delete(*__p);
         }
@@ -1694,132 +1671,125 @@ uint64_t AriHostRt::setGroupMsgAttrib_nl(Ari *a1, unsigned __int16 *a2)
       }
     }
 
-    v13 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  v38 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 uint64_t AriHostRt::PushAllIndications(AriHostRt *a1, uint64_t a2)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v4 = AriHostRt::Init(a1);
   if (v4)
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
+  }
+
+  if (*(a2 + 16))
+  {
+    memset(v25, 170, sizeof(v25));
+    v6 = std::list<unsigned int>::list(v25, a2);
+    LogLevels = Ari::GetLogLevels(v6);
+    if ((LogLevels & 0x20) != 0)
+    {
+      OsLog = AriOsa::GetOsLog(LogLevels);
+      if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
+      {
+        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "PushAllIndications", v9);
+        v10 = v24 >= 0 ? __p : __p[0];
+        *buf = 136315906;
+        *&buf[4] = "ari";
+        v27 = 2080;
+        v28 = v10;
+        v29 = 1024;
+        v30 = 898;
+        v31 = 1024;
+        v32 = a1;
+        _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Updating RT with all indications pushed by cid 0x%x", buf, 0x22u);
+        if (v24 < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "PushAllIndications", v9);
+      if (v29 >= 0)
+      {
+        v12 = buf;
+      }
+
+      else
+      {
+        v12 = *buf;
+      }
+
+      LogLevels = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Updating RT with all indications pushed by cid 0x%x", v11, v12, 898, a1);
+      if (SHIBYTE(v29) < 0)
+      {
+        operator delete(*buf);
+      }
+    }
+
+    AriHostRt::GetInstance(LogLevels);
+    v13 = qword_2A18C2418;
+    block[0] = MEMORY[0x29EDCA5F8];
+    block[1] = 1174405120;
+    block[2] = ___ZN9AriHostRt18PushAllIndicationsEjRKNSt3__14listIjNS0_9allocatorIjEEEE_block_invoke;
+    block[3] = &__block_descriptor_tmp_69;
+    std::list<unsigned int>::list(v21, v25);
+    v21[3] = &AriHostRt::GetInstance(void)::instance;
+    v22 = a1;
+    dispatch_sync(v13, block);
+    std::__list_imp<unsigned int>::clear(v21);
+    std::__list_imp<unsigned int>::clear(v25);
   }
 
   else
   {
-    if (*(a2 + 16))
+    v14 = Ari::GetLogLevels(v4);
+    if ((v14 & 0x20) != 0)
     {
-      memset(v26, 170, sizeof(v26));
-      v6 = std::list<unsigned int>::list(v26, a2);
-      LogLevels = Ari::GetLogLevels(v6);
-      if ((LogLevels & 0x20) != 0)
+      v15 = AriOsa::GetOsLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        OsLog = AriOsa::GetOsLog(LogLevels);
-        if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
+        AriOsa::LogSrcInfo(v25, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "PushAllIndications", v16);
+        v17 = v25[2] >= 0 ? v25 : v25[0];
+        *buf = 136315906;
+        *&buf[4] = "ari";
+        v27 = 2080;
+        v28 = v17;
+        v29 = 1024;
+        v30 = 893;
+        v31 = 1024;
+        v32 = a1;
+        _os_log_impl(&dword_2962B3000, v15, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) No indications were pushed by cid 0x%x", buf, 0x22u);
+        if (SHIBYTE(v25[2]) < 0)
         {
-          AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "PushAllIndications", v9);
-          v10 = v25 >= 0 ? __p : __p[0];
-          *buf = 136315906;
-          *&buf[4] = "ari";
-          v28 = 2080;
-          v29 = v10;
-          v30 = 1024;
-          v31 = 898;
-          v32 = 1024;
-          v33 = a1;
-          _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Updating RT with all indications pushed by cid 0x%x", buf, 0x22u);
-          if (v25 < 0)
-          {
-            operator delete(__p[0]);
-          }
-        }
-
-        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "PushAllIndications", v9);
-        if (v30 >= 0)
-        {
-          v12 = buf;
-        }
-
-        else
-        {
-          v12 = *buf;
-        }
-
-        LogLevels = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Updating RT with all indications pushed by cid 0x%x", v11, v12, 898, a1);
-        if (SHIBYTE(v30) < 0)
-        {
-          operator delete(*buf);
+          operator delete(v25[0]);
         }
       }
 
-      AriHostRt::GetInstance(LogLevels);
-      v13 = qword_2A18C2418;
-      block[0] = MEMORY[0x29EDCA5F8];
-      block[1] = 1174405120;
-      block[2] = ___ZN9AriHostRt18PushAllIndicationsEjRKNSt3__14listIjNS0_9allocatorIjEEEE_block_invoke;
-      block[3] = &__block_descriptor_tmp_69;
-      std::list<unsigned int>::list(v22, v26);
-      v22[3] = &AriHostRt::GetInstance(void)::instance;
-      v23 = a1;
-      dispatch_sync(v13, block);
-      std::__list_imp<unsigned int>::clear(v22);
-      std::__list_imp<unsigned int>::clear(v26);
-    }
-
-    else
-    {
-      v14 = Ari::GetLogLevels(v4);
-      if ((v14 & 0x20) != 0)
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "PushAllIndications", v16);
+      if (v29 >= 0)
       {
-        v15 = AriOsa::GetOsLog(v14);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-        {
-          AriOsa::LogSrcInfo(v26, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "PushAllIndications", v16);
-          v17 = v26[2] >= 0 ? v26 : v26[0];
-          *buf = 136315906;
-          *&buf[4] = "ari";
-          v28 = 2080;
-          v29 = v17;
-          v30 = 1024;
-          v31 = 893;
-          v32 = 1024;
-          v33 = a1;
-          _os_log_impl(&dword_2962B3000, v15, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) No indications were pushed by cid 0x%x", buf, 0x22u);
-          if (SHIBYTE(v26[2]) < 0)
-          {
-            operator delete(v26[0]);
-          }
-        }
+        v19 = buf;
+      }
 
-        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "PushAllIndications", v16);
-        if (v30 >= 0)
-        {
-          v19 = buf;
-        }
+      else
+      {
+        v19 = *buf;
+      }
 
-        else
-        {
-          v19 = *buf;
-        }
-
-        AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) No indications were pushed by cid 0x%x", v18, v19, 893, a1);
-        if (SHIBYTE(v30) < 0)
-        {
-          operator delete(*buf);
-        }
+      AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) No indications were pushed by cid 0x%x", v18, v19, 893, a1);
+      if (SHIBYTE(v29) < 0)
+      {
+        operator delete(*buf);
       }
     }
-
-    result = 0;
   }
 
-  v20 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
 uint64_t ___ZN9AriHostRt18PushAllIndicationsEjRKNSt3__14listIjNS0_9allocatorIjEEEE_block_invoke(uint64_t result)
@@ -1842,16 +1812,17 @@ uint64_t ___ZN9AriHostRt18PushAllIndicationsEjRKNSt3__14listIjNS0_9allocatorIjEE
   return result;
 }
 
-uint64_t *ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::operator[](uint64_t a1, int a2)
+uint64_t *ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::operator[](uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = a2;
   MEMORY[0x29C258610](*(a1 + 104) == 0, "valid == false", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 166);
   v4 = AriOsa::OsMutexTake(*(a1 + 96), 0xFFFFFFFFLL) == -1;
   MEMORY[0x29C258610](v4, "AriOsa::OsMutexTake(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 167);
-  v5 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::find<int>(a1, a2) == 0;
+  v5 = std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::find<int>(a1, v2) == 0;
   ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(a1, v5);
   v11 = &v10;
-  v6 = std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1, a2);
+  v6 = std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(a1, v2, &v11);
   v8 = AriOsa::OsMutexGive(*(a1 + 96), v7) == -1;
   MEMORY[0x29C258610](v8, "AriOsa::OsMutexGive(mtx) == ARI_RESULT_ERR", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 172);
   return v6 + 4;
@@ -1859,7 +1830,7 @@ uint64_t *ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::operator[](ui
 
 uint64_t AriHostRt::processStartEvent_nl(uint64_t this)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   if ((*(this + 4) & 1) == 0)
   {
     v1 = this;
@@ -1878,22 +1849,22 @@ uint64_t AriHostRt::processStartEvent_nl(uint64_t this)
           if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
           {
             AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "processStartEvent_nl", v7);
-            v8 = v13 >= 0 ? __p : __p[0];
+            v8 = v12 >= 0 ? __p : __p[0];
             *buf = 136315650;
             *&buf[4] = "ari";
-            v16 = 2080;
-            v17 = v8;
-            v18 = 1024;
-            v19 = 1039;
+            v15 = 2080;
+            v16 = v8;
+            v17 = 1024;
+            v18 = 1039;
             _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Dispatched supervisory Started callback", buf, 0x1Cu);
-            if (v13 < 0)
+            if (v12 < 0)
             {
               operator delete(__p[0]);
             }
           }
 
           AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "processStartEvent_nl", v7);
-          if (v18 >= 0)
+          if (v17 >= 0)
           {
             v10 = buf;
           }
@@ -1904,7 +1875,7 @@ uint64_t AriHostRt::processStartEvent_nl(uint64_t this)
           }
 
           AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Dispatched supervisory Started callback", v9, v10, 1039);
-          if (SHIBYTE(v18) < 0)
+          if (SHIBYTE(v17) < 0)
           {
             operator delete(*buf);
           }
@@ -1912,13 +1883,12 @@ uint64_t AriHostRt::processStartEvent_nl(uint64_t this)
       }
     }
 
-    v14[0] = &unk_2A1D46BC0;
-    v14[3] = v14;
-    ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v1 + 33040, v14);
-    this = std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v14);
+    v13[0] = &unk_2A1D46BC0;
+    v13[3] = v13;
+    ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v1 + 33040, v13);
+    return std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v13);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -1977,155 +1947,147 @@ uint64_t AriHostRt::DeregIndication(AriHostRt *this, int a2)
 
 void ___ZN9AriHostRt15DeregIndicationEjj_block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 48);
-  isAlloc = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(*(a1 + 40) + 33040);
+  v38 = *MEMORY[0x29EDCA608];
+  isAlloc = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(*(a1 + 40) + 33040, *(a1 + 48));
   if (isAlloc)
   {
-    v4 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::operator[](*(a1 + 40) + 33040, *(a1 + 48));
-    v6 = *v4;
-    v5 = v4[1];
-    if (v5)
+    v3 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::operator[](*(a1 + 40) + 33040, *(a1 + 48))[1];
+    if (v3)
     {
-      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v7 = *(a1 + 52);
-    v8 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(*(a1 + 40) + 33184);
-    if (v8)
+    v4 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(*(a1 + 40) + 33184, *(a1 + 52));
+    if (v4)
     {
-      v9 = ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::operator[](*(a1 + 40) + 33184, *(a1 + 52));
-      v10 = v9[1];
-      if (v10 != v9)
+      v5 = ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::operator[](*(a1 + 40) + 33184, *(a1 + 52));
+      v6 = v5[1];
+      if (v6 != v5)
       {
         do
         {
-          v11 = v10[1];
-          if (*(v10[2] + 8) == *(a1 + 48))
+          v7 = v6[1];
+          if (*(v6[2] + 8) == *(a1 + 48))
           {
-            v12 = *v10;
-            *(v12 + 8) = v11;
-            *v11 = v12;
-            --v9[2];
-            v13 = v10[3];
-            if (v13)
+            v8 = *v6;
+            *(v8 + 8) = v7;
+            *v7 = v8;
+            --v5[2];
+            v9 = v6[3];
+            if (v9)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v9);
             }
 
-            operator delete(v10);
+            operator delete(v6);
           }
 
-          v10 = v11;
+          v6 = v7;
         }
 
-        while (v11 != v9);
+        while (v7 != v5);
       }
 
-      v14 = *(a1 + 40);
-      v15 = *(a1 + 52);
       operator new();
     }
 
-    LogLevels = Ari::GetLogLevels(v8);
+    LogLevels = Ari::GetLogLevels(v4);
     if ((LogLevels & 8) != 0)
     {
       OsLog = AriOsa::GetOsLog(LogLevels);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DeregIndication_block_invoke", v23);
-        v29 = v33 >= 0 ? __p : __p[0];
-        v31 = *(a1 + 48);
-        v30 = *(a1 + 52);
+        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DeregIndication_block_invoke", v17);
+        v22 = v26 >= 0 ? __p : __p[0];
+        v24 = *(a1 + 48);
+        v23 = *(a1 + 52);
         *buf = 136316418;
         *&buf[4] = "ari";
-        v35 = 2080;
-        v36 = v29;
-        v37 = 1024;
-        v38 = 1062;
-        v39 = 1024;
-        v40 = v30 >> 10;
-        v41 = 1024;
-        v42 = v30 & 0x3FF;
-        v43 = 1024;
-        v44 = v31;
+        v28 = 2080;
+        v29 = v22;
+        v30 = 1024;
+        v31 = 1062;
+        v32 = 1024;
+        v33 = v23 >> 10;
+        v34 = 1024;
+        v35 = v23 & 0x3FF;
+        v36 = 1024;
+        v37 = v24;
         _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) indication msgid(%d-0x%x) is not registered with any cid (cid 0x%x attempted deregister)", buf, 0x2Eu);
-        if (v33 < 0)
+        if (v26 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DeregIndication_block_invoke", v23);
-      if (v37 >= 0)
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DeregIndication_block_invoke", v17);
+      if (v30 >= 0)
       {
-        v25 = buf;
+        v19 = buf;
       }
 
       else
       {
-        v25 = *buf;
+        v19 = *buf;
       }
 
-      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) indication msgid(%d-0x%x) is not registered with any cid (cid 0x%x attempted deregister)", v24, v25, 1062, *(a1 + 52) >> 10, *(a1 + 52) & 0x3FF, *(a1 + 48));
-      if (SHIBYTE(v37) < 0)
+      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) indication msgid(%d-0x%x) is not registered with any cid (cid 0x%x attempted deregister)", v18, v19, 1062, *(a1 + 52) >> 10, *(a1 + 52) & 0x3FF, *(a1 + 48));
+      if (SHIBYTE(v30) < 0)
       {
         operator delete(*buf);
       }
     }
 
-    if (v5)
+    if (v3)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v3);
     }
   }
 
   else
   {
-    v16 = Ari::GetLogLevels(isAlloc);
-    if ((v16 & 8) != 0)
+    v10 = Ari::GetLogLevels(isAlloc);
+    if ((v10 & 8) != 0)
     {
-      v17 = AriOsa::GetOsLog(v16);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v11 = AriOsa::GetOsLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DeregIndication_block_invoke", v18);
-        v27 = v33 >= 0 ? __p : __p[0];
-        v28 = *(a1 + 48);
+        AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DeregIndication_block_invoke", v12);
+        v20 = v26 >= 0 ? __p : __p[0];
+        v21 = *(a1 + 48);
         *buf = 136315906;
         *&buf[4] = "ari";
-        v35 = 2080;
-        v36 = v27;
-        v37 = 1024;
-        v38 = 1055;
-        v39 = 1024;
-        v40 = v28;
-        _os_log_error_impl(&dword_2962B3000, v17, OS_LOG_TYPE_ERROR, "%s: (%s:%d) No registered cid 0x%04X", buf, 0x22u);
-        if (v33 < 0)
+        v28 = 2080;
+        v29 = v20;
+        v30 = 1024;
+        v31 = 1055;
+        v32 = 1024;
+        v33 = v21;
+        _os_log_error_impl(&dword_2962B3000, v11, OS_LOG_TYPE_ERROR, "%s: (%s:%d) No registered cid 0x%04X", buf, 0x22u);
+        if (v26 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DeregIndication_block_invoke", v18);
-      if (v37 >= 0)
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DeregIndication_block_invoke", v12);
+      if (v30 >= 0)
       {
-        v20 = buf;
+        v14 = buf;
       }
 
       else
       {
-        v20 = *buf;
+        v14 = *buf;
       }
 
-      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) No registered cid 0x%04X", v19, v20, 1055, *(a1 + 48));
-      if (SHIBYTE(v37) < 0)
+      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) No registered cid 0x%04X", v13, v14, 1055, *(a1 + 48));
+      if (SHIBYTE(v30) < 0)
       {
         operator delete(*buf);
       }
     }
   }
-
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962C7ED8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -2145,13 +2107,13 @@ void sub_2962C7ED8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN9AriHostRt12InboundMsgCBEPhm_block_invoke(uint64_t a1)
 {
-  v83 = *MEMORY[0x29EDCA608];
-  v72 = 0;
+  v81 = *MEMORY[0x29EDCA608];
+  v70 = 0;
   AriHostRt::GetInstance(a1);
   v2 = dword_2A18C240C;
-  BufSeq = AriMsg::GetBufSeq(**(a1 + 32), (*(*(a1 + 32) + 8) - **(a1 + 32)), &v72, v3);
+  BufSeq = AriMsg::GetBufSeq(**(a1 + 32), (*(*(a1 + 32) + 8) - **(a1 + 32)), &v70, v3);
   v5 = (v2 + 1) & 0x7FF;
-  if (v72 != v5)
+  if (v70 != v5)
   {
     BufSeq = AriHostRt::GetInstance(BufSeq);
     if (dword_2A18C240C != 2048)
@@ -2163,26 +2125,26 @@ void ___ZN9AriHostRt12InboundMsgCBEPhm_block_invoke(uint64_t a1)
         if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
         {
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundMsgCB_block_invoke", v7);
-          v8 = v71 >= 0 ? __p : __p[0];
+          v8 = v69 >= 0 ? __p : __p[0];
           *buf = 136316162;
           *&buf[4] = "ari";
-          v74 = 2080;
-          v75 = v8;
+          v72 = 2080;
+          v73 = v8;
+          v74 = 1024;
+          v75 = 1105;
           v76 = 1024;
-          v77 = 1105;
-          v78 = 1024;
-          *v79 = v5;
-          *&v79[4] = 1024;
-          *&v79[6] = v72;
+          *v77 = v5;
+          *&v77[4] = 1024;
+          *&v77[6] = v70;
           _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Missing expected BB.SEQ(0x%03x), got BB.SEQ(0x%03x)", buf, 0x28u);
-          if (v71 < 0)
+          if (v69 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
         AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundMsgCB_block_invoke", v7);
-        if (v76 >= 0)
+        if (v74 >= 0)
         {
           v10 = buf;
         }
@@ -2192,8 +2154,8 @@ void ___ZN9AriHostRt12InboundMsgCBEPhm_block_invoke(uint64_t a1)
           v10 = *buf;
         }
 
-        BufSeq = AriOsa::LogToDefaultStringLogger(0x10, "(%s:%d) Missing expected BB.SEQ(0x%03x), got BB.SEQ(0x%03x)", v9, v10, 1105, v5, v72);
-        if (SHIBYTE(v76) < 0)
+        BufSeq = AriOsa::LogToDefaultStringLogger(0x10, "(%s:%d) Missing expected BB.SEQ(0x%03x), got BB.SEQ(0x%03x)", v9, v10, 1105, v5, v70);
+        if (SHIBYTE(v74) < 0)
         {
           operator delete(*buf);
         }
@@ -2201,7 +2163,7 @@ void ___ZN9AriHostRt12InboundMsgCBEPhm_block_invoke(uint64_t a1)
     }
   }
 
-  v11 = v72;
+  v11 = v70;
   Instance = AriHostRt::GetInstance(BufSeq);
   dword_2A18C240C = v11;
   v13 = AriHostRt::GetInstance(Instance);
@@ -2211,14 +2173,14 @@ void ___ZN9AriHostRt12InboundMsgCBEPhm_block_invoke(uint64_t a1)
     LogLevels = Ari::GetLogLevels(v13);
     if ((LogLevels & 0x10) == 0)
     {
-      goto LABEL_59;
+      return;
     }
 
     v51 = AriOsa::GetOsLog(LogLevels);
     if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundMsgCB_block_invoke", v52);
-      v53 = v71;
+      v53 = v69;
       v54 = __p[0];
       v55 = asString();
       *&buf[4] = "ari";
@@ -2229,21 +2191,21 @@ void ___ZN9AriHostRt12InboundMsgCBEPhm_block_invoke(uint64_t a1)
         v56 = v54;
       }
 
-      v74 = 2080;
-      v75 = v56;
-      v76 = 1024;
-      v77 = 1112;
-      v78 = 2080;
-      *v79 = v55;
+      v72 = 2080;
+      v73 = v56;
+      v74 = 1024;
+      v75 = 1112;
+      v76 = 2080;
+      *v77 = v55;
       _os_log_impl(&dword_2962B3000, v51, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) AriHostRt in state(%s) unsuitable for InboundMsgCB", buf, 0x26u);
-      if (v71 < 0)
+      if (v69 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundMsgCB_block_invoke", v52);
-    v57 = SHIBYTE(v76);
+    v57 = SHIBYTE(v74);
     v58 = *buf;
     v59 = asString();
     v61 = buf;
@@ -2253,13 +2215,7 @@ void ___ZN9AriHostRt12InboundMsgCBEPhm_block_invoke(uint64_t a1)
     }
 
     AriOsa::LogToDefaultStringLogger(0x10, "(%s:%d) AriHostRt in state(%s) unsuitable for InboundMsgCB", v60, v61, 1112, v59);
-LABEL_48:
-    if (SHIBYTE(v76) < 0)
-    {
-      operator delete(*buf);
-    }
-
-    goto LABEL_59;
+    goto LABEL_48;
   }
 
   v15 = AriHostRt::GetInstance(v13);
@@ -2276,7 +2232,7 @@ LABEL_48:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v20 = AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundMsgCB_block_invoke", v19);
-      v21 = v71;
+      v21 = v69;
       v22 = __p[0];
       v23 = *(a1 + 32);
       v25 = *v23;
@@ -2292,25 +2248,25 @@ LABEL_48:
       label = dispatch_queue_get_label(qword_2A18CA6C8);
       *buf = 136316418;
       *&buf[4] = "ari";
-      v74 = 2080;
-      v75 = v22;
-      v76 = 1024;
-      v77 = 1120;
-      v78 = 2048;
-      *v79 = v27;
-      *&v79[8] = 1024;
-      v80 = v26;
-      v81 = 2080;
-      v82 = label;
+      v72 = 2080;
+      v73 = v22;
+      v74 = 1024;
+      v75 = 1120;
+      v76 = 2048;
+      *v77 = v27;
+      *&v77[8] = 1024;
+      v78 = v26;
+      v79 = 2080;
+      v80 = label;
       _os_log_impl(&dword_2962B3000, v18, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Inbound Msg sz%zu ctx(0x%08X) for sniffer (%s) ", buf, 0x36u);
-      if (v71 < 0)
+      if (v69 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     v29 = AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundMsgCB_block_invoke", v19);
-    v30 = SHIBYTE(v76);
+    v30 = SHIBYTE(v74);
     v31 = *buf;
     v32 = *(a1 + 32);
     v34 = *v32;
@@ -2325,7 +2281,7 @@ LABEL_48:
 
     v37 = dispatch_queue_get_label(qword_2A18CA6C8);
     v17 = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Inbound Msg sz%zu ctx(0x%08X) for sniffer (%s) ", v38, v31, 1120, v36, v35, v37);
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v74) < 0)
     {
       operator delete(*buf);
     }
@@ -2341,7 +2297,7 @@ LABEL_48:
   v40 = *(a1 + 40);
   block[4] = v16;
   block[5] = v41;
-  v69 = v40;
+  v67 = v40;
   if (v40)
   {
     atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -2350,10 +2306,10 @@ LABEL_48:
   dispatch_async(v39, block);
   AriHostRt::GetInstance(v42);
   v43 = byte_2A18CA6D0;
-  v15 = v69;
-  if (v69)
+  v15 = v67;
+  if (v67)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v69);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v67);
   }
 
   if (v43)
@@ -2365,29 +2321,29 @@ LABEL_32:
       v45 = Ari::GetLogLevels(v15);
       if ((v45 & 8) == 0)
       {
-        goto LABEL_59;
+        return;
       }
 
       v46 = AriOsa::GetOsLog(v45);
       if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundMsgCB_block_invoke", v47);
-        v65 = v71 >= 0 ? __p : __p[0];
+        v63 = v69 >= 0 ? __p : __p[0];
         *buf = 136315650;
         *&buf[4] = "ari";
-        v74 = 2080;
-        v75 = v65;
-        v76 = 1024;
-        v77 = 1132;
+        v72 = 2080;
+        v73 = v63;
+        v74 = 1024;
+        v75 = 1132;
         _os_log_error_impl(&dword_2962B3000, v46, OS_LOG_TYPE_ERROR, "%s: (%s:%d) GetBufCtx Invalid CTX", buf, 0x1Cu);
-        if (v71 < 0)
+        if (v69 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
       AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundMsgCB_block_invoke", v47);
-      if (v76 >= 0)
+      if (v74 >= 0)
       {
         v49 = buf;
       }
@@ -2398,44 +2354,46 @@ LABEL_32:
       }
 
       AriOsa::LogToDefaultStringLogger(8, "(%s:%d) GetBufCtx Invalid CTX", v48, v49, 1132);
-      goto LABEL_48;
-    }
-
-    v62 = *(a1 + 32);
-    if (v44)
-    {
-      v63 = *(a1 + 40);
-      v66[0] = *(a1 + 32);
-      v66[1] = v63;
-      if (v63)
+LABEL_48:
+      if (SHIBYTE(v74) < 0)
       {
-        atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
+        operator delete(*buf);
       }
 
-      AriHostRt::InboundRespCB(v66);
+      return;
+    }
+
+    if (v44)
+    {
+      v62 = *(a1 + 40);
+      v64[0] = *(a1 + 32);
+      v64[1] = v62;
+      if (v62)
+      {
+        atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      AriHostRt::InboundRespCB(v64);
     }
 
     else
     {
-      v63 = *(a1 + 40);
-      v67[0] = *(a1 + 32);
-      v67[1] = v63;
-      if (v63)
+      v62 = *(a1 + 40);
+      v65[0] = *(a1 + 32);
+      v65[1] = v62;
+      if (v62)
       {
-        atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v62->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      AriHostRt::InboundIndCB(v67);
+      AriHostRt::InboundIndCB(v65);
     }
 
-    if (v63)
+    if (v62)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v62);
     }
   }
-
-LABEL_59:
-  v64 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962C85F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -2470,11 +2428,11 @@ void __destroy_helper_block_e8_40c57_ZTSNSt3__110shared_ptrINS_6vectorIhNS_9allo
   }
 }
 
-uint64_t AriHostRt::InboundIndCB(AriHostRt *a1)
+uint64_t AriHostRt::InboundIndCB(std::__shared_weak_count **a1)
 {
-  v81 = *MEMORY[0x29EDCA608];
+  v76 = *MEMORY[0x29EDCA608];
   AriHostRt::GetInstance(a1);
-  BufGmid = AriMsg::GetBufGmid(**a1, (*(*a1 + 8) - **a1));
+  BufGmid = AriMsg::GetBufGmid((*a1)->__vftable, ((*a1)->__shared_owners_ - (*a1)->__vftable));
   v3 = BufGmid;
   if (BufGmid == 92700672)
   {
@@ -2520,26 +2478,26 @@ uint64_t AriHostRt::InboundIndCB(AriHostRt *a1)
     AriHostRt::processStartEvent_nl(&AriHostRt::GetInstance(void)::instance);
   }
 
-  v57 = (v3 >> 15) & 0x3FF;
-  v58 = v3 >> 26;
-  v10 = v57 | (v58 << 10);
-  if (ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(&unk_2A18CA5A0))
+  v52 = (v3 >> 15) & 0x3FF;
+  v53 = v3 >> 26;
+  v10 = v52 | (v53 << 10);
+  if (ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(&unk_2A18CA5A0, v52 | (v53 << 10)))
   {
-    v80 = 0xAAAAAAAAAAAAAAAALL;
+    v75 = 0xAAAAAAAAAAAAAAAALL;
     *&v11 = 0xAAAAAAAAAAAAAAAALL;
     *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v79[7] = v11;
-    v79[8] = v11;
-    v79[5] = v11;
-    v79[6] = v11;
-    v79[3] = v11;
-    v79[4] = v11;
-    v79[1] = v11;
-    v79[2] = v11;
-    v78 = v11;
-    v79[0] = v11;
-    *v76 = v11;
-    v77 = v11;
+    v74[7] = v11;
+    v74[8] = v11;
+    v74[5] = v11;
+    v74[6] = v11;
+    v74[3] = v11;
+    v74[4] = v11;
+    v74[1] = v11;
+    v74[2] = v11;
+    v73 = v11;
+    v74[0] = v11;
+    *v71 = v11;
+    v72 = v11;
     *&buf[32] = v11;
     *__src = v11;
     *buf = v11;
@@ -2587,19 +2545,19 @@ uint64_t AriHostRt::InboundIndCB(AriHostRt *a1)
 
       v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, v19, v20);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "-", 1);
-      v22 = *(a1 + 1);
-      v62 = *a1;
-      v63 = v22;
+      v22 = a1[1];
+      v57 = *a1;
+      v58 = v22;
       if (v22)
       {
         atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v23 = (*(*v15 + 40))(v15, &v62);
-      v24 = v63;
-      if (v63)
+      v23 = (*(*v15 + 40))(v15, &v57);
+      v24 = v58;
+      if (v58)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v63);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v58);
       }
 
       if (v23)
@@ -2610,11 +2568,11 @@ uint64_t AriHostRt::InboundIndCB(AriHostRt *a1)
           v26 = AriOsa::GetOsLog(v25);
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
-            AriOsa::LogSrcInfo(v60, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundIndCB", v27);
-            v30 = v60;
-            if (v61 < 0)
+            AriOsa::LogSrcInfo(v55, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundIndCB", v27);
+            v30 = v55;
+            if (v56 < 0)
             {
-              v30 = v60[0];
+              v30 = v55[0];
             }
 
             LODWORD(__p.__r_.__value_.__l.__data_) = 136316418;
@@ -2622,17 +2580,17 @@ uint64_t AriHostRt::InboundIndCB(AriHostRt *a1)
             WORD2(__p.__r_.__value_.__r.__words[1]) = 2080;
             *(&__p.__r_.__value_.__r.__words[1] + 6) = v30;
             HIWORD(__p.__r_.__value_.__r.__words[2]) = 1024;
-            v67 = 1303;
-            v68 = 1024;
-            v69 = v16;
-            v70 = 1024;
-            v71 = v58;
-            v72 = 1024;
-            v73 = v57;
+            v62 = 1303;
+            v63 = 1024;
+            v64 = v16;
+            v65 = 1024;
+            v66 = v53;
+            v67 = 1024;
+            v68 = v52;
             _os_log_error_impl(&dword_2962B3000, v26, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Error handling indication for CID 0x%x registered for gmid(%d-0x%x)", &__p, 0x2Eu);
-            if (v61 < 0)
+            if (v56 < 0)
             {
-              operator delete(v60[0]);
+              operator delete(v55[0]);
             }
           }
 
@@ -2643,7 +2601,7 @@ uint64_t AriHostRt::InboundIndCB(AriHostRt *a1)
             p_p = __p.__r_.__value_.__r.__words[0];
           }
 
-          AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Error handling indication for CID 0x%x registered for gmid(%d-0x%x)", v28, p_p, 1303, v16, v58, v57);
+          AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Error handling indication for CID 0x%x registered for gmid(%d-0x%x)", v28, p_p, 1303, v16, v53, v52);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
@@ -2660,50 +2618,50 @@ uint64_t AriHostRt::InboundIndCB(AriHostRt *a1)
     }
 
     memset(&__p, 170, sizeof(__p));
-    if ((BYTE8(v78) & 0x10) != 0)
+    if ((BYTE8(v73) & 0x10) != 0)
     {
-      v40 = v78;
-      if (v78 < __src[1])
+      v38 = v73;
+      if (v73 < __src[1])
       {
-        *&v78 = __src[1];
-        v40 = __src[1];
+        *&v73 = __src[1];
+        v38 = __src[1];
       }
 
-      v41 = __src[0];
+      v39 = __src[0];
     }
 
     else
     {
-      if ((BYTE8(v78) & 8) == 0)
+      if ((BYTE8(v73) & 8) == 0)
       {
-        v39 = 0;
+        v37 = 0;
         *(&__p.__r_.__value_.__s + 23) = 0;
         goto LABEL_68;
       }
 
-      v41 = *&buf[24];
-      v40 = *&buf[40];
+      v39 = *&buf[24];
+      v38 = *&buf[40];
     }
 
-    v39 = v40 - v41;
-    if ((v40 - v41) >= 0x7FFFFFFFFFFFFFF8)
+    v37 = v38 - v39;
+    if ((v38 - v39) >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v39 >= 0x17)
+    if (v37 >= 0x17)
     {
       operator new();
     }
 
-    *(&__p.__r_.__value_.__s + 23) = v40 - v41;
-    if (v39)
+    *(&__p.__r_.__value_.__s + 23) = v38 - v39;
+    if (v37)
     {
-      memmove(&__p, v41, v39);
+      memmove(&__p, v39, v37);
     }
 
 LABEL_68:
-    __p.__r_.__value_.__s.__data_[v39] = 0;
+    __p.__r_.__value_.__s.__data_[v37] = 0;
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
     {
       size = __p.__r_.__value_.__l.__size_;
@@ -2712,7 +2670,7 @@ LABEL_68:
         goto LABEL_89;
       }
 
-      v42 = __p.__r_.__value_.__r.__words[0];
+      v40 = __p.__r_.__value_.__r.__words[0];
     }
 
     else
@@ -2720,14 +2678,12 @@ LABEL_68:
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) <= 1)
       {
 LABEL_87:
-        v59 = __p;
+        v54 = __p;
 LABEL_90:
-        v52 = **a1;
-        v53 = *(*a1 + 8);
         Ari::LogTransportBuf();
-        if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v59.__r_.__value_.__l.__data_);
+          operator delete(v54.__r_.__value_.__l.__data_);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -2738,73 +2694,73 @@ LABEL_90:
         *buf = *MEMORY[0x29EDC9538];
         *&buf[*(*buf - 24)] = *(MEMORY[0x29EDC9538] + 24);
         *&buf[8] = MEMORY[0x29EDC9570] + 16;
-        if (SHIBYTE(v77) < 0)
+        if (SHIBYTE(v72) < 0)
         {
-          operator delete(v76[1]);
+          operator delete(v71[1]);
         }
 
         *&buf[8] = MEMORY[0x29EDC9568] + 16;
         std::locale::~locale(&buf[16]);
         std::ostream::~ostream();
-        MEMORY[0x29C2589B0](v79);
-        goto LABEL_97;
+        MEMORY[0x29C2589B0](v74);
+        return v13;
       }
 
-      v42 = &__p;
+      v40 = &__p;
       size = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
     }
 
-    v44 = v42 + size;
-    v45 = v42;
-    v46 = (v42 + size);
+    v42 = v40 + size;
+    v43 = v40;
+    v44 = (v40 + size);
     do
     {
-      v47 = v45;
-      v48 = v45;
+      v45 = v43;
+      v46 = v43;
       while (1)
       {
-        v49 = *v48++;
-        if (v49 == 45)
+        v47 = *v46++;
+        if (v47 == 45)
         {
           break;
         }
 
-        v47 = v48;
-        if (v48 == v44)
+        v45 = v46;
+        if (v46 == v42)
         {
-          v47 = v46;
+          v45 = v44;
           goto LABEL_79;
         }
       }
 
-      v45 = (&v47->__r_.__value_.__l.__data_ + 1);
-      v46 = v47;
+      v43 = (&v45->__r_.__value_.__l.__data_ + 1);
+      v44 = v45;
     }
 
-    while (v48 != v44);
+    while (v46 != v42);
 LABEL_79:
-    v50 = v47 - v42;
-    if (v47 == v44)
+    v48 = v45 - v40;
+    if (v45 == v42)
     {
-      v50 = -1;
+      v48 = -1;
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
-      if (__p.__r_.__value_.__l.__size_ >= v50)
+      if (__p.__r_.__value_.__l.__size_ >= v48)
       {
-        v51 = __p.__r_.__value_.__r.__words[0];
-        __p.__r_.__value_.__l.__size_ = v50;
+        v49 = __p.__r_.__value_.__r.__words[0];
+        __p.__r_.__value_.__l.__size_ = v48;
         goto LABEL_86;
       }
     }
 
-    else if (v50 <= SHIBYTE(__p.__r_.__value_.__r.__words[2]))
+    else if (v48 <= SHIBYTE(__p.__r_.__value_.__r.__words[2]))
     {
-      *(&__p.__r_.__value_.__s + 23) = v50;
-      v51 = &__p;
+      *(&__p.__r_.__value_.__s + 23) = v48;
+      v49 = &__p;
 LABEL_86:
-      v51->__r_.__value_.__s.__data_[v50] = 0;
+      v49->__r_.__value_.__s.__data_[v48] = 0;
       if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_87;
@@ -2812,61 +2768,59 @@ LABEL_86:
 
       size = __p.__r_.__value_.__l.__size_;
 LABEL_89:
-      std::string::__init_copy_ctor_external(&v59, __p.__r_.__value_.__l.__data_, size);
+      std::string::__init_copy_ctor_external(&v54, __p.__r_.__value_.__l.__data_, size);
       goto LABEL_90;
     }
 
     std::string::__throw_out_of_range[abi:ne200100]();
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v64, "client_not_registered");
-  v31 = **a1;
-  v32 = *(*a1 + 8);
-  v33 = Ari::LogTransportBuf();
-  if (v65 < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v59, "client_not_registered");
+  v31 = Ari::LogTransportBuf();
+  if (v60 < 0)
   {
-    operator delete(v64);
+    operator delete(v59);
   }
 
   if (!qword_2A18CA6C0)
   {
-    v34 = Ari::GetLogLevels(v33);
-    if ((v34 & 4) != 0)
+    v32 = Ari::GetLogLevels(v31);
+    if ((v32 & 4) != 0)
     {
-      v35 = AriOsa::GetOsLog(v34);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v33 = AriOsa::GetOsLog(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
-        AriOsa::LogSrcInfo(&__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundIndCB", v36);
-        v56 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+        AriOsa::LogSrcInfo(&__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundIndCB", v34);
+        v51 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
         *buf = 136316162;
         *&buf[4] = "ari";
         *&buf[12] = 2080;
-        *&buf[14] = v56;
+        *&buf[14] = v51;
         *&buf[22] = 1024;
         *&buf[24] = 1284;
         *&buf[28] = 1024;
         *&buf[30] = v3 >> 26;
         *&buf[34] = 1024;
         *&buf[36] = (v3 >> 15) & 0x3FF;
-        _os_log_debug_impl(&dword_2962B3000, v35, OS_LOG_TYPE_DEBUG, "%s: (%s:%d) No handler is registered for indication gmid(%d-0x%x)", buf, 0x28u);
+        _os_log_debug_impl(&dword_2962B3000, v33, OS_LOG_TYPE_DEBUG, "%s: (%s:%d) No handler is registered for indication gmid(%d-0x%x)", buf, 0x28u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
       }
 
-      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundIndCB", v36);
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundIndCB", v34);
       if (buf[23] >= 0)
       {
-        v38 = buf;
+        v36 = buf;
       }
 
       else
       {
-        v38 = *buf;
+        v36 = *buf;
       }
 
-      AriOsa::LogToDefaultStringLogger(4, "(%s:%d) No handler is registered for indication gmid(%d-0x%x)", v37, v38, 1284, v58, v57);
+      AriOsa::LogToDefaultStringLogger(4, "(%s:%d) No handler is registered for indication gmid(%d-0x%x)", v35, v36, 1284, v53, v52);
       if ((buf[23] & 0x80000000) != 0)
       {
         operator delete(*buf);
@@ -2874,10 +2828,7 @@ LABEL_89:
     }
   }
 
-  v13 = 0xFFFFFFFFLL;
-LABEL_97:
-  v54 = *MEMORY[0x29EDCA608];
-  return v13;
+  return 0xFFFFFFFFLL;
 }
 
 void sub_2962C8F6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, void *__p, uint64_t a49, int a50, __int16 a51, char a52, char a53)
@@ -2890,19 +2841,17 @@ void sub_2962C8F6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AriHostRt::InboundRespCB(AriHostRt *a1)
+uint64_t AriHostRt::InboundRespCB(std::__shared_weak_count **a1)
 {
-  v108 = *MEMORY[0x29EDCA608];
+  v93 = *MEMORY[0x29EDCA608];
   AriHostRt::GetInstance(a1);
-  BufCtx = AriMsg::GetBufCtx(**a1, (*(*a1 + 8) - **a1));
-  BufGmid = AriMsg::GetBufGmid(**a1, (*(*a1 + 8) - **a1));
+  BufCtx = AriMsg::GetBufCtx((*a1)->__vftable, ((*a1)->__shared_owners_ - (*a1)->__vftable));
+  BufGmid = AriMsg::GetBufGmid((*a1)->__vftable, ((*a1)->__shared_owners_ - (*a1)->__vftable));
   if (BufCtx == 32513)
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "arirt_internal_client");
-    v4 = **a1;
-    v5 = *(*a1 + 8);
-    v6 = Ari::LogTransportBuf();
-    if (v96 < 0)
+    v4 = Ari::LogTransportBuf();
+    if (v81 < 0)
     {
       operator delete(__p);
     }
@@ -2911,107 +2860,103 @@ uint64_t AriHostRt::InboundRespCB(AriHostRt *a1)
     {
       if (BufGmid == 68190208)
       {
-        v91 = 0xAAAAAAAAAAAAAAAALL;
-        v92 = 0xAAAAAAAAAAAAAAAALL;
-        v50 = **a1;
-        v51 = *(*a1 + 8);
-        v52 = ARI_AriMsgAttribResp_Extract();
-        LogLevels = Ari::GetLogLevels(v52);
+        v76 = 0xAAAAAAAAAAAAAAAALL;
+        v77 = 0xAAAAAAAAAAAAAAAALL;
+        v40 = ARI_AriMsgAttribResp_Extract();
+        LogLevels = Ari::GetLogLevels(v40);
         if ((LogLevels & 8) != 0)
         {
           OsLog = AriOsa::GetOsLog(LogLevels);
           if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
           {
-            AriOsa::LogSrcInfo(v93, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v55);
-            v81 = v94 >= 0 ? v93 : v93[0];
+            AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v43);
+            v66 = v79 >= 0 ? v78 : v78[0];
             *buf = 136315650;
             *&buf[4] = "ari";
-            v98 = 2080;
-            v99 = v81;
-            v100 = 1024;
-            v101 = 1187;
+            v83 = 2080;
+            v84 = v66;
+            v85 = 1024;
+            v86 = 1187;
             _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Error getting expected internal message AriMsgAttribResp", buf, 0x1Cu);
-            if (v94 < 0)
+            if (v79 < 0)
             {
-              operator delete(v93[0]);
+              operator delete(v78[0]);
             }
           }
 
-          AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v55);
-          if (v100 >= 0)
+          AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v43);
+          if (v85 >= 0)
           {
-            v57 = buf;
+            v45 = buf;
           }
 
           else
           {
-            v57 = *buf;
+            v45 = *buf;
           }
 
-          AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Error getting expected internal message AriMsgAttribResp", v56, v57, 1187);
+          AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Error getting expected internal message AriMsgAttribResp", v44, v45, 1187);
           goto LABEL_88;
         }
 
-        goto LABEL_90;
+        return 0;
       }
 
       if (BufGmid == 84312064)
       {
-        LODWORD(v91) = -1431655766;
-        v24 = **a1;
-        v25 = *(*a1 + 8);
-        v26 = ARI_CsiGetCurrentBootStateRspCb_Extract();
-        v27 = v26;
-        v61 = Ari::GetLogLevels(v26);
-        if ((v61 & 0x20) != 0)
+        LODWORD(v76) = -1431655766;
+        v18 = ARI_CsiGetCurrentBootStateRspCb_Extract();
+        v19 = v18;
+        v47 = Ari::GetLogLevels(v18);
+        if ((v47 & 0x20) != 0)
         {
-          v62 = AriOsa::GetOsLog(v61);
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+          v48 = AriOsa::GetOsLog(v47);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
-            AriOsa::LogSrcInfo(v93, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v63);
-            v64 = v94 >= 0 ? v93 : v93[0];
-            v65 = v27 ? "there was an error" : "BB is not ready";
+            AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v49);
+            v50 = v79 >= 0 ? v78 : v78[0];
+            v51 = v19 ? "there was an error" : "BB is not ready";
             *buf = 136315906;
             *&buf[4] = "ari";
-            v98 = 2080;
-            v99 = v64;
-            v100 = 1024;
-            v101 = 1177;
-            v102 = 2080;
-            *v103 = v65;
-            _os_log_impl(&dword_2962B3000, v62, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Received boot state, but %s", buf, 0x26u);
-            if (v94 < 0)
+            v83 = 2080;
+            v84 = v50;
+            v85 = 1024;
+            v86 = 1177;
+            v87 = 2080;
+            *v88 = v51;
+            _os_log_impl(&dword_2962B3000, v48, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Received boot state, but %s", buf, 0x26u);
+            if (v79 < 0)
             {
-              operator delete(v93[0]);
+              operator delete(v78[0]);
             }
           }
 
-          AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v63);
-          if (v100 >= 0)
+          AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v49);
+          if (v85 >= 0)
           {
-            v67 = buf;
+            v53 = buf;
           }
 
           else
           {
-            v67 = *buf;
+            v53 = *buf;
           }
 
-          if (v27)
+          if (v19)
           {
-            v68 = "there was an error";
+            v54 = "there was an error";
           }
 
           else
           {
-            v68 = "BB is not ready";
+            v54 = "BB is not ready";
           }
 
-          AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Received boot state, but %s", v66, v67, 1177, v68);
+          AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Received boot state, but %s", v52, v53, 1177, v54);
           goto LABEL_88;
         }
 
-        goto LABEL_90;
+        return 0;
       }
     }
 
@@ -3019,182 +2964,176 @@ uint64_t AriHostRt::InboundRespCB(AriHostRt *a1)
     {
       if (BufGmid == 67436544)
       {
-        v91 = 0xAAAAAAAAAAAAAAAALL;
-        v35 = **a1;
-        v36 = *(*a1 + 8);
-        v37 = ARI_AriACK_Extract();
-        if (!v37)
+        v76 = 0xAAAAAAAAAAAAAAAALL;
+        v27 = ARI_AriACK_Extract();
+        if (!v27)
         {
-          v38 = Ari::GetLogLevels(v37);
-          if ((v38 & 0x20) != 0)
+          v28 = Ari::GetLogLevels(v27);
+          if ((v28 & 0x20) != 0)
           {
-            v39 = AriOsa::GetOsLog(v38);
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+            v29 = AriOsa::GetOsLog(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              AriOsa::LogSrcInfo(v93, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v40);
-              v41 = v94;
-              v42 = v93[0];
-              v43 = asString();
-              v44 = v93;
-              if (v41 < 0)
+              AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v30);
+              v31 = v79;
+              v32 = v78[0];
+              v33 = asString();
+              v34 = v78;
+              if (v31 < 0)
               {
-                v44 = v42;
+                v34 = v32;
               }
 
               *buf = 136316674;
               *&buf[4] = "ari";
-              v98 = 2080;
-              v99 = v44;
-              v100 = 1024;
-              v101 = 1199;
-              v102 = 1024;
-              *v103 = v91 >> 26;
-              *&v103[4] = 1024;
-              *&v103[6] = (v91 >> 15) & 0x3FF;
-              v104 = 2080;
-              v105 = v43;
-              v106 = 1024;
-              v107 = HIDWORD(v91);
-              _os_log_impl(&dword_2962B3000, v39, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) ACK received for AriHostRt internal message(%d-0x%03X) with status(%s(%d))", buf, 0x38u);
-              if (v94 < 0)
+              v83 = 2080;
+              v84 = v34;
+              v85 = 1024;
+              v86 = 1199;
+              v87 = 1024;
+              *v88 = v76 >> 26;
+              *&v88[4] = 1024;
+              *&v88[6] = (v76 >> 15) & 0x3FF;
+              v89 = 2080;
+              v90 = v33;
+              v91 = 1024;
+              v92 = HIDWORD(v76);
+              _os_log_impl(&dword_2962B3000, v29, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) ACK received for AriHostRt internal message(%d-0x%03X) with status(%s(%d))", buf, 0x38u);
+              if (v79 < 0)
               {
-                operator delete(v93[0]);
+                operator delete(v78[0]);
               }
             }
 
-            AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v40);
-            v45 = SHIBYTE(v100);
-            v46 = *buf;
-            v47 = asString();
-            v49 = buf;
-            if (v45 < 0)
+            AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v30);
+            v35 = SHIBYTE(v85);
+            v36 = *buf;
+            v37 = asString();
+            v39 = buf;
+            if (v35 < 0)
             {
-              v49 = v46;
+              v39 = v36;
             }
 
-            AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) ACK received for AriHostRt internal message(%d-0x%03X) with status(%s(%d))", v48, v49, 1199, v91 >> 26, (v91 >> 15) & 0x3FF, v47, HIDWORD(v91));
+            AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) ACK received for AriHostRt internal message(%d-0x%03X) with status(%s(%d))", v38, v39, 1199, v76 >> 26, (v76 >> 15) & 0x3FF, v37, HIDWORD(v76));
             goto LABEL_88;
           }
         }
 
-        goto LABEL_90;
+        return 0;
       }
 
       if (BufGmid == 67600384)
       {
-        v91 = 0xAAAAAAAAAAAAAAAALL;
-        v7 = **a1;
-        v8 = *(*a1 + 8);
-        v9 = ARI_AriNACK_Extract();
-        if (!v9)
+        v76 = 0xAAAAAAAAAAAAAAAALL;
+        v5 = ARI_AriNACK_Extract();
+        if (!v5)
         {
-          v69 = Ari::GetLogLevels(v9);
-          if ((v69 & 8) != 0)
+          v55 = Ari::GetLogLevels(v5);
+          if ((v55 & 8) != 0)
           {
-            v70 = AriOsa::GetOsLog(v69);
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+            v56 = AriOsa::GetOsLog(v55);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
             {
-              AriOsa::LogSrcInfo(v93, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v71);
-              v82 = v94;
-              v83 = v93[0];
-              v84 = asString();
-              v85 = v93;
-              if (v82 < 0)
+              AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v57);
+              v67 = v79;
+              v68 = v78[0];
+              v69 = asString();
+              v70 = v78;
+              if (v67 < 0)
               {
-                v85 = v83;
+                v70 = v68;
               }
 
               *buf = 136316674;
               *&buf[4] = "ari";
-              v98 = 2080;
-              v99 = v85;
-              v100 = 1024;
-              v101 = 1219;
-              v102 = 1024;
-              *v103 = v91 >> 26;
-              *&v103[4] = 1024;
-              *&v103[6] = (v91 >> 15) & 0x3FF;
-              v104 = 2080;
-              v105 = v84;
-              v106 = 1024;
-              v107 = HIDWORD(v91);
-              _os_log_error_impl(&dword_2962B3000, v70, OS_LOG_TYPE_ERROR, "%s: (%s:%d) NACK received for AriHostRt internal message(%d-0x%03X) with status(%s(%d))", buf, 0x38u);
-              if (v94 < 0)
+              v83 = 2080;
+              v84 = v70;
+              v85 = 1024;
+              v86 = 1219;
+              v87 = 1024;
+              *v88 = v76 >> 26;
+              *&v88[4] = 1024;
+              *&v88[6] = (v76 >> 15) & 0x3FF;
+              v89 = 2080;
+              v90 = v69;
+              v91 = 1024;
+              v92 = HIDWORD(v76);
+              _os_log_error_impl(&dword_2962B3000, v56, OS_LOG_TYPE_ERROR, "%s: (%s:%d) NACK received for AriHostRt internal message(%d-0x%03X) with status(%s(%d))", buf, 0x38u);
+              if (v79 < 0)
               {
-                operator delete(v93[0]);
+                operator delete(v78[0]);
               }
             }
 
-            AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v71);
-            v72 = SHIBYTE(v100);
-            v73 = *buf;
-            v74 = asString();
-            v76 = buf;
-            if (v72 < 0)
+            AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v57);
+            v58 = SHIBYTE(v85);
+            v59 = *buf;
+            v60 = asString();
+            v62 = buf;
+            if (v58 < 0)
             {
-              v76 = v73;
+              v62 = v59;
             }
 
-            AriOsa::LogToDefaultStringLogger(8, "(%s:%d) NACK received for AriHostRt internal message(%d-0x%03X) with status(%s(%d))", v75, v76, 1219, v91 >> 26, (v91 >> 15) & 0x3FF, v74, HIDWORD(v91));
+            AriOsa::LogToDefaultStringLogger(8, "(%s:%d) NACK received for AriHostRt internal message(%d-0x%03X) with status(%s(%d))", v61, v62, 1219, v76 >> 26, (v76 >> 15) & 0x3FF, v60, HIDWORD(v76));
 LABEL_88:
-            if (SHIBYTE(v100) < 0)
+            if (SHIBYTE(v85) < 0)
             {
               operator delete(*buf);
             }
 
-            goto LABEL_90;
+            return 0;
           }
         }
 
-        goto LABEL_90;
+        return 0;
       }
     }
 
-    v28 = Ari::GetLogLevels(v6);
-    if ((v28 & 8) != 0)
+    v20 = Ari::GetLogLevels(v4);
+    if ((v20 & 8) != 0)
     {
-      v29 = AriOsa::GetOsLog(v28);
-      v31 = BufGmid >> 26;
-      v32 = (BufGmid >> 15) & 0x3FF;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v21 = AriOsa::GetOsLog(v20);
+      v23 = BufGmid >> 26;
+      v24 = (BufGmid >> 15) & 0x3FF;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(v93, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v30);
-        v79 = v94 >= 0 ? v93 : v93[0];
+        AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v22);
+        v64 = v79 >= 0 ? v78 : v78[0];
         *buf = 136316162;
         *&buf[4] = "ari";
-        v98 = 2080;
-        v99 = v79;
-        v100 = 1024;
-        v101 = 1227;
-        v102 = 1024;
-        *v103 = v31;
-        *&v103[4] = 1024;
-        *&v103[6] = v32;
-        _os_log_error_impl(&dword_2962B3000, v29, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Unexpected AriHostRt internal message(%d-0x%03X)", buf, 0x28u);
-        if (v94 < 0)
+        v83 = 2080;
+        v84 = v64;
+        v85 = 1024;
+        v86 = 1227;
+        v87 = 1024;
+        *v88 = v23;
+        *&v88[4] = 1024;
+        *&v88[6] = v24;
+        _os_log_error_impl(&dword_2962B3000, v21, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Unexpected AriHostRt internal message(%d-0x%03X)", buf, 0x28u);
+        if (v79 < 0)
         {
-          operator delete(v93[0]);
+          operator delete(v78[0]);
         }
       }
 
-      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v30);
-      if (v100 >= 0)
+      AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v22);
+      if (v85 >= 0)
       {
-        v34 = buf;
+        v26 = buf;
       }
 
       else
       {
-        v34 = *buf;
+        v26 = *buf;
       }
 
-      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Unexpected AriHostRt internal message(%d-0x%03X)", v33, v34, 1227, v31, v32);
+      AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Unexpected AriHostRt internal message(%d-0x%03X)", v25, v26, 1227, v23, v24);
       goto LABEL_88;
     }
 
-LABEL_90:
-    v23 = 0;
-    goto LABEL_91;
+    return 0;
   }
 
   if (std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::find<int>(qword_2A18CA630, BufCtx))
@@ -3212,120 +3151,114 @@ LABEL_90:
     AriDispatch::Semaphore::signal(qword_2A18CA680);
   }
 
-  if (ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(qword_2A18CA510))
+  if (ResMgr<std::shared_ptr<Ari::AriClientProxy>>::isAlloc(flt_2A18CA510, (BufCtx >> 8) & 0x7F))
   {
-    v10 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::operator[](qword_2A18CA510, (BufCtx >> 8) & 0x7F);
-    v11 = *v10;
-    v12 = v10[1];
-    if (v12)
+    v6 = ResMgr<std::shared_ptr<Ari::AriClientProxy>>::operator[](flt_2A18CA510, (BufCtx >> 8) & 0x7F);
+    v7 = *v6;
+    v8 = v6[1];
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v13 = (*(*v11 + 16))(v11);
-    if (*(v13 + 23) < 0)
+    v9 = (*(*v7 + 16))(v7);
+    if (*(v9 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v88, *v13, *(v13 + 8));
+      std::string::__init_copy_ctor_external(&v73, *v9, *(v9 + 8));
     }
 
     else
     {
-      v14 = *v13;
-      v88.__r_.__value_.__r.__words[2] = *(v13 + 16);
-      *&v88.__r_.__value_.__l.__data_ = v14;
+      v10 = *v9;
+      v73.__r_.__value_.__r.__words[2] = *(v9 + 16);
+      *&v73.__r_.__value_.__l.__data_ = v10;
     }
 
-    v58 = **a1;
-    v59 = *(*a1 + 8);
     Ari::LogTransportBuf();
-    if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v73.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v88.__r_.__value_.__l.__data_);
+      operator delete(v73.__r_.__value_.__l.__data_);
     }
 
-    v60 = *(a1 + 1);
-    v86 = *a1;
-    v87 = v60;
-    if (v60)
+    v46 = a1[1];
+    v71 = *a1;
+    v72 = v46;
+    if (v46)
     {
-      atomic_fetch_add_explicit(&v60->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v46->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v23 = (*(*v11 + 32))(v11, &v86);
-    if (v87)
+    v17 = (*(*v7 + 32))(v7, &v71);
+    if (v72)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v87);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v72);
     }
 
-    if (v12)
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(&v89, "client_not_registered");
-    v15 = **a1;
-    v16 = *(*a1 + 8);
-    v17 = Ari::LogTransportBuf();
-    if (v90 < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v74, "client_not_registered");
+    v11 = Ari::LogTransportBuf();
+    if (v75 < 0)
     {
-      operator delete(v89);
+      operator delete(v74);
     }
 
     if (!qword_2A18CA6C0)
     {
-      v18 = Ari::GetLogLevels(v17);
-      if ((v18 & 8) != 0)
+      v12 = Ari::GetLogLevels(v11);
+      if ((v12 & 8) != 0)
       {
-        v19 = AriOsa::GetOsLog(v18);
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v13 = AriOsa::GetOsLog(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          AriOsa::LogSrcInfo(v93, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v20);
-          v80 = v94 >= 0 ? v93 : v93[0];
+          AriOsa::LogSrcInfo(v78, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v14);
+          v65 = v79 >= 0 ? v78 : v78[0];
           *buf = 136316162;
           *&buf[4] = "ari";
-          v98 = 2080;
-          v99 = v80;
-          v100 = 1024;
-          v101 = 1249;
-          v102 = 1024;
-          *v103 = (BufCtx >> 8) & 0x7F;
-          *&v103[4] = 1024;
-          *&v103[6] = BufCtx;
-          _os_log_error_impl(&dword_2962B3000, v19, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Non-registered cid 0x%04X from buffer ctx 0x%08X", buf, 0x28u);
-          if (v94 < 0)
+          v83 = 2080;
+          v84 = v65;
+          v85 = 1024;
+          v86 = 1249;
+          v87 = 1024;
+          *v88 = (BufCtx >> 8) & 0x7F;
+          *&v88[4] = 1024;
+          *&v88[6] = BufCtx;
+          _os_log_error_impl(&dword_2962B3000, v13, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Non-registered cid 0x%04X from buffer ctx 0x%08X", buf, 0x28u);
+          if (v79 < 0)
           {
-            operator delete(v93[0]);
+            operator delete(v78[0]);
           }
         }
 
-        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v20);
-        if (v100 >= 0)
+        AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "InboundRespCB", v14);
+        if (v85 >= 0)
         {
-          v22 = buf;
+          v16 = buf;
         }
 
         else
         {
-          v22 = *buf;
+          v16 = *buf;
         }
 
-        AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Non-registered cid 0x%04X from buffer ctx 0x%08X", v21, v22, 1249, (BufCtx >> 8) & 0x7F, BufCtx);
-        if (SHIBYTE(v100) < 0)
+        AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Non-registered cid 0x%04X from buffer ctx 0x%08X", v15, v16, 1249, (BufCtx >> 8) & 0x7F, BufCtx);
+        if (SHIBYTE(v85) < 0)
         {
           operator delete(*buf);
         }
       }
     }
 
-    v23 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-LABEL_91:
-  v77 = *MEMORY[0x29EDCA608];
-  return v23;
+  return v17;
 }
 
 void sub_2962C9D78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -3362,31 +3295,31 @@ void __destroy_helper_block_e8_32c57_ZTSNSt3__110shared_ptrINS_6vectorIhNS_9allo
 
 void AriHostRt::CancelAllTransactions(AriHostRt *this)
 {
-  v9[4] = *MEMORY[0x29EDCA608];
+  v8[4] = *MEMORY[0x29EDCA608];
   AriHostRt::GetInstance(this);
+  v6 = 0xAAAAAAAAAAAAAAAALL;
   v7 = 0xAAAAAAAAAAAAAAAALL;
-  v8 = 0xAAAAAAAAAAAAAAAALL;
   std::string::basic_string[abi:ne200100]<0>(&__p, "cancel");
   AriDispatch::Semaphore::Create();
-  if (v6 < 0)
+  if (v5 < 0)
   {
     operator delete(__p);
   }
 
-  v3 = 0xAAAAAAAAAAAAAAAALL;
-  v4 = 0xAAAAAAAAAAAAAAAALL;
-  v2 = v7;
-  v1 = v8;
-  if (v8)
+  v3[0] = 0xAAAAAAAAAAAAAAAALL;
+  v3[1] = 0xAAAAAAAAAAAAAAAALL;
+  v2 = v6;
+  v1 = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v9[0] = &unk_2A1D46C50;
-  v9[1] = v2;
-  v9[2] = v1;
-  v9[3] = v9;
-  std::allocate_shared[abi:ne200100]<AriHostRt::ClientTransitionTracker,std::allocator<AriHostRt::ClientTransitionTracker>,std::function<void ()(void)> &,0>();
+  v8[0] = &unk_2A1D46C50;
+  v8[1] = v2;
+  v8[2] = v1;
+  v8[3] = v8;
+  std::allocate_shared[abi:ne200100]<AriHostRt::ClientTransitionTracker,std::allocator<AriHostRt::ClientTransitionTracker>,std::function<void ()(void)> &,0>(v3, v8);
 }
 
 void sub_2962CA414(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, std::__shared_weak_count *a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41)
@@ -3417,7 +3350,7 @@ void sub_2962CA414(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ___ZN9AriHostRt21CancelAllTransactionsEv_block_invoke(Ari *a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   *(*(a1 + 4) + 4) = 0;
   LogLevels = Ari::GetLogLevels(a1);
   if ((LogLevels & 0x20) != 0)
@@ -3426,22 +3359,22 @@ uint64_t ___ZN9AriHostRt21CancelAllTransactionsEv_block_invoke(Ari *a1)
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v4);
-      v5 = v12 >= 0 ? __p : __p[0];
+      v5 = v11 >= 0 ? __p : __p[0];
       *buf = 136315650;
       *&buf[4] = "ari";
-      v15 = 2080;
-      v16 = v5;
-      v17 = 1024;
-      v18 = 1340;
+      v14 = 2080;
+      v15 = v5;
+      v16 = 1024;
+      v17 = 1340;
       _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) notifying for all clients to stall (crash)", buf, 0x1Cu);
-      if (v12 < 0)
+      if (v11 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v4);
-    if (v17 >= 0)
+    if (v16 >= 0)
     {
       v7 = buf;
     }
@@ -3452,20 +3385,18 @@ uint64_t ___ZN9AriHostRt21CancelAllTransactionsEv_block_invoke(Ari *a1)
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) notifying for all clients to stall (crash)", v6, v7, 1340);
-    if (SHIBYTE(v17) < 0)
+    if (SHIBYTE(v16) < 0)
     {
       operator delete(*buf);
     }
   }
 
   v8 = *(a1 + 4);
-  v13[0] = &unk_2A1D46CE0;
-  v13[1] = a1 + 40;
-  v13[3] = v13;
-  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v8 + 33040, v13);
-  result = std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v13);
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  v12[0] = &unk_2A1D46CE0;
+  v12[1] = a1 + 40;
+  v12[3] = v12;
+  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v8 + 33040, v12);
+  return std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v12);
 }
 
 void sub_2962CA690(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -3509,17 +3440,17 @@ uint64_t ___ZN9AriHostRt21CancelAllTransactionsEv_block_invoke_110(Ari *a1)
     OsLog = AriOsa::GetOsLog(LogLevels);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
-      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v4);
-      v5 = v24 >= 0 ? __p : __p[0];
-      v6 = *(*(a1 + 4) + 33352);
+      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v5);
+      v6 = v24 >= 0 ? __p : __p[0];
+      v7 = *(*(a1 + 4) + 33352);
       *buf = 136315906;
       *&buf[4] = "ari";
       v27 = 2080;
-      v28 = v5;
+      v28 = v6;
       v29 = 1024;
       v30 = 1359;
       v31 = 1024;
-      v32 = v6;
+      v32 = v7;
       _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) canceling %u outstanding requests", buf, 0x22u);
       if (v24 < 0)
       {
@@ -3527,98 +3458,96 @@ uint64_t ___ZN9AriHostRt21CancelAllTransactionsEv_block_invoke_110(Ari *a1)
       }
     }
 
-    AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v4);
+    AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v5);
     if (v29 >= 0)
     {
-      v8 = buf;
+      v9 = buf;
     }
 
     else
     {
-      v8 = *buf;
+      v9 = *buf;
     }
 
-    AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) canceling %u outstanding requests", v7, v8, 1359, *(*(a1 + 4) + 33352));
+    AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) canceling %u outstanding requests", v8, v9, 1359, *(*(a1 + 4) + 33352));
     if (SHIBYTE(v29) < 0)
     {
       operator delete(*buf);
     }
   }
 
-  v9 = *(a1 + 4);
-  v10 = *(v9 + 33344);
-  if (v10)
+  v10 = *(a1 + 4);
+  v11 = *(v10 + 33344);
+  if (v11)
   {
     do
     {
-      v11 = v10[3];
-      v12 = v10[4];
-      if (v12)
+      v12 = v11[3];
+      v13 = v11[4];
+      if (v13)
       {
-        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      AriHostRt::RtTransaction::cancel(v11, 4294967211);
-      if (v12)
+      AriHostRt::RtTransaction::cancel(v12, 4294967211, v3);
+      if (v13)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v13);
       }
 
-      v10 = *v10;
+      v11 = *v11;
     }
 
-    while (v10);
-    v9 = *(a1 + 4);
+    while (v11);
+    v10 = *(a1 + 4);
   }
 
-  std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::clear(v9 + 33328);
-  v14 = Ari::GetLogLevels(v13);
-  if ((v14 & 0x20) != 0)
+  std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::clear(v10 + 33328);
+  v15 = Ari::GetLogLevels(v14);
+  if ((v15 & 0x20) != 0)
   {
-    v15 = AriOsa::GetOsLog(v14);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = AriOsa::GetOsLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v16);
-      v17 = v24 >= 0 ? __p : __p[0];
+      AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v17);
+      v18 = v24 >= 0 ? __p : __p[0];
       *buf = 136315650;
       *&buf[4] = "ari";
       v27 = 2080;
-      v28 = v17;
+      v28 = v18;
       v29 = 1024;
       v30 = 1367;
-      _os_log_impl(&dword_2962B3000, v15, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) notifying for all clients of end of cancellation", buf, 0x1Cu);
+      _os_log_impl(&dword_2962B3000, v16, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) notifying for all clients of end of cancellation", buf, 0x1Cu);
       if (v24 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v16);
+    AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "CancelAllTransactions_block_invoke", v17);
     if (v29 >= 0)
     {
-      v19 = buf;
+      v20 = buf;
     }
 
     else
     {
-      v19 = *buf;
+      v20 = *buf;
     }
 
-    AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) notifying for all clients of end of cancellation", v18, v19, 1367);
+    AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) notifying for all clients of end of cancellation", v19, v20, 1367);
     if (SHIBYTE(v29) < 0)
     {
       operator delete(*buf);
     }
   }
 
-  v20 = *(a1 + 4);
+  v21 = *(a1 + 4);
   v25[0] = &unk_2A1D46DE0;
   v25[1] = a1 + 40;
   v25[3] = v25;
-  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v20 + 33040, v25);
-  result = std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v25);
-  v22 = *MEMORY[0x29EDCA608];
-  return result;
+  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v21 + 33040, v25);
+  return std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v25);
 }
 
 void sub_2962CAA0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -3633,17 +3562,17 @@ void sub_2962CAA0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AriHostRt::commitLPM(AriHostRt *this, uint64_t a2)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   Instance = AriHostRt::GetInstance(this);
   if (a2 >= 0x1F5)
   {
+    v34 = 0xAAAAAAAAAAAAAAAALL;
     v35 = 0xAAAAAAAAAAAAAAAALL;
-    v36 = 0xAAAAAAAAAAAAAAAALL;
-    std::string::basic_string[abi:ne200100]<0>(&v33, "lpmDrainSignal");
+    std::string::basic_string[abi:ne200100]<0>(&v32, "lpmDrainSignal");
     AriDispatch::Semaphore::Create();
-    if (v34 < 0)
+    if (v33 < 0)
     {
-      operator delete(v33);
+      operator delete(v32);
     }
 
     v4 = qword_2A18C2418;
@@ -3651,17 +3580,17 @@ uint64_t AriHostRt::commitLPM(AriHostRt *this, uint64_t a2)
     block[1] = 1174405120;
     block[2] = ___ZN9AriHostRt9commitLPMEj_block_invoke;
     block[3] = &__block_descriptor_tmp_122;
-    v32 = a2;
+    v31 = a2;
     block[4] = &AriHostRt::GetInstance(void)::instance;
-    block[5] = v35;
-    v31 = v36;
-    if (v36)
+    block[5] = v34;
+    v30 = v35;
+    if (v35)
     {
-      atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v35->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     dispatch_async(v4, block);
-    v5 = v35;
+    v5 = v34;
     dispatch_walltime(0, 1000000 * a2);
     v6 = AriDispatch::Semaphore::wait(v5);
     if (v6)
@@ -3673,22 +3602,22 @@ uint64_t AriHostRt::commitLPM(AriHostRt *this, uint64_t a2)
         if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
         {
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM", v9);
-          v10 = v29 >= 0 ? __p : __p[0];
+          v10 = v28 >= 0 ? __p : __p[0];
           *buf = 136315650;
           *&buf[4] = "ari";
-          v38 = 2080;
-          v39 = v10;
-          v40 = 1024;
-          v41 = 1433;
+          v37 = 2080;
+          v38 = v10;
+          v39 = 1024;
+          v40 = 1433;
           _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) lpm-critical transaction draining complete", buf, 0x1Cu);
-          if (v29 < 0)
+          if (v28 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
         AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM", v9);
-        if (v40 >= 0)
+        if (v39 >= 0)
         {
           v12 = buf;
         }
@@ -3700,7 +3629,7 @@ uint64_t AriHostRt::commitLPM(AriHostRt *this, uint64_t a2)
 
         AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) lpm-critical transaction draining complete", v11, v12, 1433);
 LABEL_41:
-        if (SHIBYTE(v40) < 0)
+        if (SHIBYTE(v39) < 0)
         {
           operator delete(*buf);
         }
@@ -3716,24 +3645,24 @@ LABEL_41:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM", v21);
-          v22 = v29 >= 0 ? __p : __p[0];
+          v22 = v28 >= 0 ? __p : __p[0];
           *buf = 136315906;
           *&buf[4] = "ari";
-          v38 = 2080;
-          v39 = v22;
-          v40 = 1024;
-          v41 = 1429;
-          v42 = 1024;
-          v43 = a2;
+          v37 = 2080;
+          v38 = v22;
+          v39 = 1024;
+          v40 = 1429;
+          v41 = 1024;
+          v42 = a2;
           _os_log_impl(&dword_2962B3000, v20, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) timeout waiting %dms to drain lpm-critical transactions", buf, 0x22u);
-          if (v29 < 0)
+          if (v28 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
         AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM", v21);
-        if (v40 >= 0)
+        if (v39 >= 0)
         {
           v24 = buf;
         }
@@ -3748,14 +3677,14 @@ LABEL_41:
       }
     }
 
-    if (v31)
+    if (v30)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
     }
 
-    if (v36)
+    if (v35)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v35);
     }
 
     goto LABEL_47;
@@ -3768,24 +3697,24 @@ LABEL_41:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM", v15);
-      v16 = v29 >= 0 ? __p : __p[0];
+      v16 = v28 >= 0 ? __p : __p[0];
       *buf = 136315906;
       *&buf[4] = "ari";
-      v38 = 2080;
-      v39 = v16;
-      v40 = 1024;
-      v41 = 1438;
-      v42 = 1024;
-      v43 = a2;
+      v37 = 2080;
+      v38 = v16;
+      v39 = 1024;
+      v40 = 1438;
+      v41 = 1024;
+      v42 = a2;
       _os_log_impl(&dword_2962B3000, v14, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Skipping request-draining due to imminent LPM timeout in %dms", buf, 0x22u);
-      if (v29 < 0)
+      if (v28 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM", v15);
-    if (v40 >= 0)
+    if (v39 >= 0)
     {
       v18 = buf;
     }
@@ -3796,20 +3725,19 @@ LABEL_41:
     }
 
     AriOsa::LogToDefaultStringLogger(0x10, "(%s:%d) Skipping request-draining due to imminent LPM timeout in %dms", v17, v18, 1438, a2);
-    if (SHIBYTE(v40) < 0)
+    if (SHIBYTE(v39) < 0)
     {
       operator delete(*buf);
     }
   }
 
 LABEL_47:
-  v27[0] = MEMORY[0x29EDCA5F8];
-  v27[1] = 0x40000000;
-  v27[2] = ___ZN9AriHostRt9commitLPMEj_block_invoke_126;
-  v27[3] = &__block_descriptor_tmp_129;
-  v27[4] = &AriHostRt::GetInstance(void)::instance;
-  dispatch_async(qword_2A18C2418, v27);
-  v25 = *MEMORY[0x29EDCA608];
+  v26[0] = MEMORY[0x29EDCA5F8];
+  v26[1] = 0x40000000;
+  v26[2] = ___ZN9AriHostRt9commitLPMEj_block_invoke_126;
+  v26[3] = &__block_descriptor_tmp_129;
+  v26[4] = &AriHostRt::GetInstance(void)::instance;
+  dispatch_async(qword_2A18C2418, v26);
   return 0;
 }
 
@@ -3831,7 +3759,7 @@ void sub_2962CAF2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void ___ZN9AriHostRt9commitLPMEj_block_invoke(uint64_t a1)
 {
-  v73 = *MEMORY[0x29EDCA608];
+  v72 = *MEMORY[0x29EDCA608];
   LogLevels = Ari::GetLogLevels(a1);
   if ((LogLevels & 0x20) != 0)
   {
@@ -3839,28 +3767,28 @@ void ___ZN9AriHostRt9commitLPMEj_block_invoke(uint64_t a1)
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v3);
-      v4 = v64 >= 0 ? __p : __p[0];
+      v4 = v63 >= 0 ? __p : __p[0];
       v5 = *(*(a1 + 32) + 33352);
       v6 = *(a1 + 56);
       *buf = 136316162;
       *&buf[4] = "ari";
-      v66 = 2080;
-      v67 = v4;
-      v68 = 1024;
-      v69 = 1393;
-      v70 = 1024;
-      *v71 = v5;
-      *&v71[4] = 1024;
-      *&v71[6] = v6;
+      v65 = 2080;
+      v66 = v4;
+      v67 = 1024;
+      v68 = 1393;
+      v69 = 1024;
+      *v70 = v5;
+      *&v70[4] = 1024;
+      *&v70[6] = v6;
       _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) attempt to drain lpm-critical request based on %u outstanding requests with %dms timeout", buf, 0x28u);
-      if (v64 < 0)
+      if (v63 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v3);
-    if (v68 >= 0)
+    if (v67 >= 0)
     {
       v8 = buf;
     }
@@ -3871,7 +3799,7 @@ void ___ZN9AriHostRt9commitLPMEj_block_invoke(uint64_t a1)
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) attempt to drain lpm-critical request based on %u outstanding requests with %dms timeout", v7, v8, 1393, *(*(a1 + 32) + 33352), *(a1 + 56));
-    if (SHIBYTE(v68) < 0)
+    if (SHIBYTE(v67) < 0)
     {
       operator delete(*buf);
     }
@@ -3916,52 +3844,52 @@ void ___ZN9AriHostRt9commitLPMEj_block_invoke(uint64_t a1)
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v20);
-            v21 = v64;
+            v21 = v63;
             v22 = __p[0];
-            AriHostRt::RtTransaction::asString(v61, v17);
+            AriHostRt::RtTransaction::asString(v17, v60);
             v23 = __p;
             if (v21 < 0)
             {
               v23 = v22;
             }
 
-            v24 = v61;
-            if (v62 < 0)
+            v24 = v60;
+            if (v61 < 0)
             {
-              v24 = v61[0];
+              v24 = v60[0];
             }
 
             *buf = 136315906;
             *&buf[4] = "ari";
-            v66 = 2080;
-            v67 = v23;
-            v68 = 1024;
-            v69 = 1404;
-            v70 = 2080;
-            *v71 = v24;
+            v65 = 2080;
+            v66 = v23;
+            v67 = 1024;
+            v68 = 1404;
+            v69 = 2080;
+            *v70 = v24;
             _os_log_impl(&dword_2962B3000, v19, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) trx(%s) is lpm-critical", buf, 0x26u);
-            if (v62 < 0)
+            if (v61 < 0)
             {
-              operator delete(v61[0]);
+              operator delete(v60[0]);
             }
 
-            if (v64 < 0)
+            if (v63 < 0)
             {
               operator delete(__p[0]);
             }
           }
 
           AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v20);
-          v25 = SHIBYTE(v68);
+          v25 = SHIBYTE(v67);
           v26 = *buf;
-          AriHostRt::RtTransaction::asString(__p, v17);
+          AriHostRt::RtTransaction::asString(v17, __p);
           v28 = buf;
           if (v25 < 0)
           {
             v28 = v26;
           }
 
-          if (v64 >= 0)
+          if (v63 >= 0)
           {
             v29 = __p;
           }
@@ -3972,12 +3900,12 @@ void ___ZN9AriHostRt9commitLPMEj_block_invoke(uint64_t a1)
           }
 
           AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) trx(%s) is lpm-critical", v27, v28, 1404, v29);
-          if (v64 < 0)
+          if (v63 < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (SHIBYTE(v68) < 0)
+          if (SHIBYTE(v67) < 0)
           {
             operator delete(*buf);
           }
@@ -4075,48 +4003,48 @@ LABEL_75:
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v37);
-          v38 = v64;
+          v38 = v63;
           v39 = __p[0];
-          AriHostRt::RtTransaction::asString(v61, v17);
+          AriHostRt::RtTransaction::asString(v17, v60);
           v40 = __p;
           if (v38 < 0)
           {
             v40 = v39;
           }
 
-          v41 = v61;
-          if (v62 < 0)
+          v41 = v60;
+          if (v61 < 0)
           {
-            v41 = v61[0];
+            v41 = v60[0];
           }
 
           v42 = *(v17 + 48);
           *buf = 136316162;
           *&buf[4] = "ari";
-          v66 = 2080;
-          v67 = v40;
-          v68 = 1024;
-          v69 = 1410;
-          v70 = 2080;
-          *v71 = v41;
-          *&v71[8] = 2048;
-          v72 = v42;
+          v65 = 2080;
+          v66 = v40;
+          v67 = 1024;
+          v68 = 1410;
+          v69 = 2080;
+          *v70 = v41;
+          *&v70[8] = 2048;
+          v71 = v42;
           _os_log_impl(&dword_2962B3000, v36, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) NOT waiting for trx(%s) due to long timeout of %llums", buf, 0x30u);
-          if (v62 < 0)
+          if (v61 < 0)
           {
-            operator delete(v61[0]);
+            operator delete(v60[0]);
           }
 
-          if (v64 < 0)
+          if (v63 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
         AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v37);
-        v43 = SHIBYTE(v68);
+        v43 = SHIBYTE(v67);
         v44 = *buf;
-        AriHostRt::RtTransaction::asString(__p, v17);
+        AriHostRt::RtTransaction::asString(v17, __p);
         v46 = buf;
         if (v43 < 0)
         {
@@ -4124,18 +4052,18 @@ LABEL_75:
         }
 
         v47 = __p;
-        if (v64 < 0)
+        if (v63 < 0)
         {
           v47 = __p[0];
         }
 
         v13 = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) NOT waiting for trx(%s) due to long timeout of %llums", v45, v46, 1410, v47, *(v17 + 48));
-        if (v64 < 0)
+        if (v63 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v68) < 0)
+        if (SHIBYTE(v67) < 0)
         {
           operator delete(*buf);
         }
@@ -4165,24 +4093,24 @@ LABEL_79:
       if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v55);
-        v56 = v64 >= 0 ? __p : __p[0];
+        v56 = v63 >= 0 ? __p : __p[0];
         *buf = 136315906;
         *&buf[4] = "ari";
-        v66 = 2080;
-        v67 = v56;
-        v68 = 1024;
-        v69 = 1422;
-        v70 = 2048;
-        *v71 = v52;
+        v65 = 2080;
+        v66 = v56;
+        v67 = 1024;
+        v68 = 1422;
+        v69 = 2048;
+        *v70 = v52;
         _os_log_impl(&dword_2962B3000, v54, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) lpmDrainSet.size(): %zu", buf, 0x26u);
-        if (v64 < 0)
+        if (v63 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
       AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v55);
-      if (v68 >= 0)
+      if (v67 >= 0)
       {
         v58 = buf;
       }
@@ -4193,7 +4121,7 @@ LABEL_79:
       }
 
       AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) lpmDrainSet.size(): %zu", v57, v58, 1422, v52);
-      if (SHIBYTE(v68) < 0)
+      if (SHIBYTE(v67) < 0)
       {
         operator delete(*buf);
       }
@@ -4204,8 +4132,6 @@ LABEL_79:
   {
     AriDispatch::Semaphore::signal(*(v51 + 640));
   }
-
-  v59 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962CB868(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33)
@@ -4242,8 +4168,8 @@ void __destroy_helper_block_e8_40c51_ZTSNSt3__110shared_ptrIN11AriDispatch9Semap
 
 uint64_t ___ZN9AriHostRt9commitLPMEj_block_invoke_126(uint64_t LogLevels)
 {
-  v39 = *MEMORY[0x29EDCA608];
-  v25 = LogLevels;
+  v38 = *MEMORY[0x29EDCA608];
+  v24 = LogLevels;
   v1 = *(LogLevels + 32);
   v2 = *(v1 + 33384);
   if (v2)
@@ -4256,13 +4182,13 @@ uint64_t ___ZN9AriHostRt9commitLPMEj_block_invoke_126(uint64_t LogLevels)
         OsLog = AriOsa::GetOsLog(LogLevels);
         if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
         {
-          AriOsa::LogSrcInfo(v30, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v4);
-          v5 = v31;
-          v6 = v30[0];
-          AriHostRt::RtTransaction::asString(&__p, v2[3]);
+          AriOsa::LogSrcInfo(v29, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v4);
+          v5 = v30;
+          v6 = v29[0];
+          AriHostRt::RtTransaction::asString(v2[3], &__p);
           if (v5 >= 0)
           {
-            v7 = v30;
+            v7 = v29;
           }
 
           else
@@ -4271,35 +4197,35 @@ uint64_t ___ZN9AriHostRt9commitLPMEj_block_invoke_126(uint64_t LogLevels)
           }
 
           p_p = &__p;
-          if (v29 < 0)
+          if (v28 < 0)
           {
             p_p = __p;
           }
 
           *buf = 136315906;
           *&buf[4] = "ari";
-          v33 = 2080;
-          v34 = v7;
-          v35 = 1024;
-          v36 = 1447;
-          v37 = 2080;
-          v38 = p_p;
+          v32 = 2080;
+          v33 = v7;
+          v34 = 1024;
+          v35 = 1447;
+          v36 = 2080;
+          v37 = p_p;
           _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) trx(%s) not drained before lpm", buf, 0x26u);
-          if (v29 < 0)
+          if (v28 < 0)
           {
             operator delete(__p);
           }
 
-          if (v31 < 0)
+          if (v30 < 0)
           {
-            operator delete(v30[0]);
+            operator delete(v29[0]);
           }
         }
 
         AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v4);
-        v9 = SHIBYTE(v35);
+        v9 = SHIBYTE(v34);
         v10 = *buf;
-        AriHostRt::RtTransaction::asString(v30, v2[3]);
+        AriHostRt::RtTransaction::asString(v2[3], v29);
         if (v9 >= 0)
         {
           v12 = buf;
@@ -4310,23 +4236,23 @@ uint64_t ___ZN9AriHostRt9commitLPMEj_block_invoke_126(uint64_t LogLevels)
           v12 = v10;
         }
 
-        if (v31 >= 0)
+        if (v30 >= 0)
         {
-          v13 = v30;
+          v13 = v29;
         }
 
         else
         {
-          v13 = v30[0];
+          v13 = v29[0];
         }
 
         LogLevels = AriOsa::LogToDefaultStringLogger(0x10, "(%s:%d) trx(%s) not drained before lpm", v11, v12, 1447, v13);
-        if (v31 < 0)
+        if (v30 < 0)
         {
-          operator delete(v30[0]);
+          operator delete(v29[0]);
         }
 
-        if (SHIBYTE(v35) < 0)
+        if (SHIBYTE(v34) < 0)
         {
           operator delete(*buf);
         }
@@ -4336,7 +4262,7 @@ uint64_t ___ZN9AriHostRt9commitLPMEj_block_invoke_126(uint64_t LogLevels)
     }
 
     while (v2);
-    v1 = *(v25 + 32);
+    v1 = *(v24 + 32);
   }
 
   v14 = *(v1 + 33416);
@@ -4346,34 +4272,34 @@ uint64_t ___ZN9AriHostRt9commitLPMEj_block_invoke_126(uint64_t LogLevels)
     std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
-  std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::clear(*(v25 + 32) + 33368);
+  std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::clear(*(v24 + 32) + 33368);
   __p = 0x600000001;
-  v15 = *(*(v25 + 32) + 12);
-  v27 = 0xFFFF;
-  v28 = v15;
+  v15 = *(*(v24 + 32) + 12);
+  v26 = 0xFFFF;
+  v27 = v15;
   v17 = Ari::GetLogLevels(v16);
   if ((v17 & 0x20) != 0)
   {
     v18 = AriOsa::GetOsLog(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      AriOsa::LogSrcInfo(v30, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v19);
-      v20 = v31 >= 0 ? v30 : v30[0];
+      AriOsa::LogSrcInfo(v29, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v19);
+      v20 = v30 >= 0 ? v29 : v29[0];
       *buf = 136315650;
       *&buf[4] = "ari";
-      v33 = 2080;
-      v34 = v20;
-      v35 = 1024;
-      v36 = 1464;
+      v32 = 2080;
+      v33 = v20;
+      v34 = 1024;
+      v35 = 1464;
       _os_log_impl(&dword_2962B3000, v18, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Committing LPM to BB before AP sleep", buf, 0x1Cu);
-      if (v31 < 0)
+      if (v30 < 0)
       {
-        operator delete(v30[0]);
+        operator delete(v29[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "commitLPM_block_invoke", v19);
-    if (v35 >= 0)
+    if (v34 >= 0)
     {
       v22 = buf;
     }
@@ -4384,15 +4310,13 @@ uint64_t ___ZN9AriHostRt9commitLPMEj_block_invoke_126(uint64_t LogLevels)
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Committing LPM to BB before AP sleep", v21, v22, 1464);
-    if (SHIBYTE(v35) < 0)
+    if (SHIBYTE(v34) < 0)
     {
       operator delete(*buf);
     }
   }
 
-  result = AriHostRt::setMsgAttrib_nl(*(v25 + 32), &__p);
-  v24 = *MEMORY[0x29EDCA608];
-  return result;
+  return AriHostRt::setMsgAttrib_nl(*(v24 + 32), &__p);
 }
 
 void sub_2962CBCB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -4407,9 +4331,9 @@ void sub_2962CBCB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AriHostRt::SetOPMode(int a1, NSObject *a2, unsigned int a3)
 {
-  v50 = *MEMORY[0x29EDCA608];
-  memset(&v44, 170, sizeof(v44));
-  std::string::basic_string[abi:ne200100]<0>(&v44, &unk_2962D97AA);
+  v49 = *MEMORY[0x29EDCA608];
+  memset(&v43, 170, sizeof(v43));
+  std::string::basic_string[abi:ne200100]<0>(&v43, &unk_2962D97AA);
   v6.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
   Instance = AriHostRt::GetInstance(v6.__d_.__rep_);
   if (a1 == 1)
@@ -4420,23 +4344,23 @@ uint64_t AriHostRt::SetOPMode(int a1, NSObject *a2, unsigned int a3)
       OsLog = AriOsa::GetOsLog(LogLevels);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
       {
-        AriOsa::LogSrcInfo(v42, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v17);
-        v18 = v43 >= 0 ? v42 : v42[0];
+        AriOsa::LogSrcInfo(v41, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v17);
+        v18 = v42 >= 0 ? v41 : v41[0];
         *buf = 136315650;
         *&buf[4] = "ari";
-        v46 = 2080;
-        v47 = v18;
-        v48 = 1024;
-        v49 = 1500;
+        v45 = 2080;
+        v46 = v18;
+        v47 = 1024;
+        v48 = 1500;
         _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) notifying for all clients to enter LPM", buf, 0x1Cu);
-        if (v43 < 0)
+        if (v42 < 0)
         {
-          operator delete(v42[0]);
+          operator delete(v41[0]);
         }
       }
 
       AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v17);
-      if (v48 >= 0)
+      if (v47 >= 0)
       {
         v20 = buf;
       }
@@ -4447,32 +4371,32 @@ uint64_t AriHostRt::SetOPMode(int a1, NSObject *a2, unsigned int a3)
       }
 
       AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) notifying for all clients to enter LPM", v19, v20, 1500);
-      if (SHIBYTE(v48) < 0)
+      if (SHIBYTE(v47) < 0)
       {
         operator delete(*buf);
       }
     }
 
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      v44.__r_.__value_.__l.__size_ = 14;
-      v21 = v44.__r_.__value_.__r.__words[0];
+      v43.__r_.__value_.__l.__size_ = 14;
+      v21 = v43.__r_.__value_.__r.__words[0];
     }
 
     else
     {
-      *(&v44.__r_.__value_.__s + 23) = 14;
-      v21 = &v44;
+      *(&v43.__r_.__value_.__s + 23) = 14;
+      v21 = &v43;
     }
 
     strcpy(v21, "lpmEnterSignal");
     a3 >>= 1;
-    v41[0] = MEMORY[0x29EDCA5F8];
-    v41[1] = 0x40000000;
-    v41[2] = ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_invoke;
-    v41[3] = &__block_descriptor_tmp_133;
-    v41[4] = &AriHostRt::GetInstance(void)::instance;
-    dispatch_async(qword_2A18C2418, v41);
+    v40[0] = MEMORY[0x29EDCA5F8];
+    v40[1] = 0x40000000;
+    v40[2] = ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_invoke;
+    v40[3] = &__block_descriptor_tmp_133;
+    v40[4] = &AriHostRt::GetInstance(void)::instance;
+    dispatch_async(qword_2A18C2418, v40);
     v28 = 3;
     goto LABEL_43;
   }
@@ -4485,23 +4409,23 @@ uint64_t AriHostRt::SetOPMode(int a1, NSObject *a2, unsigned int a3)
       v9 = AriOsa::GetOsLog(v8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        AriOsa::LogSrcInfo(v42, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v10);
-        v11 = v43 >= 0 ? v42 : v42[0];
+        AriOsa::LogSrcInfo(v41, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v10);
+        v11 = v42 >= 0 ? v41 : v41[0];
         *buf = 136315650;
         *&buf[4] = "ari";
-        v46 = 2080;
-        v47 = v11;
-        v48 = 1024;
-        v49 = 1519;
+        v45 = 2080;
+        v46 = v11;
+        v47 = 1024;
+        v48 = 1519;
         _os_log_impl(&dword_2962B3000, v9, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) notifying for all clients to exit LPM", buf, 0x1Cu);
-        if (v43 < 0)
+        if (v42 < 0)
         {
-          operator delete(v42[0]);
+          operator delete(v41[0]);
         }
       }
 
       AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v10);
-      if (v48 >= 0)
+      if (v47 >= 0)
       {
         v13 = buf;
       }
@@ -4512,22 +4436,22 @@ uint64_t AriHostRt::SetOPMode(int a1, NSObject *a2, unsigned int a3)
       }
 
       AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) notifying for all clients to exit LPM", v12, v13, 1519);
-      if (SHIBYTE(v48) < 0)
+      if (SHIBYTE(v47) < 0)
       {
         operator delete(*buf);
       }
     }
 
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      v44.__r_.__value_.__l.__size_ = 13;
-      v14 = v44.__r_.__value_.__r.__words[0];
+      v43.__r_.__value_.__l.__size_ = 13;
+      v14 = v43.__r_.__value_.__r.__words[0];
     }
 
     else
     {
-      *(&v44.__r_.__value_.__s + 23) = 13;
-      v14 = &v44;
+      *(&v43.__r_.__value_.__s + 23) = 13;
+      v14 = &v43;
     }
 
     strcpy(v14, "lpmExitSignal");
@@ -4540,26 +4464,26 @@ uint64_t AriHostRt::SetOPMode(int a1, NSObject *a2, unsigned int a3)
     v28 = 4;
 LABEL_43:
     v29 = qword_2A18C2420;
-    v33[0] = MEMORY[0x29EDCA5F8];
-    v33[1] = 1174405120;
-    v33[2] = ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_invoke_139;
-    v33[3] = &__block_descriptor_tmp_156;
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    v32[0] = MEMORY[0x29EDCA5F8];
+    v32[1] = 1174405120;
+    v32[2] = ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_invoke_139;
+    v32[3] = &__block_descriptor_tmp_156;
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v44.__r_.__value_.__l.__data_, v44.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v44;
+      __p = v43;
     }
 
-    v37 = v28;
-    v38 = a3;
-    v39 = a1;
-    v35 = &AriHostRt::GetInstance(void)::instance;
+    v36 = v28;
+    v37 = a3;
+    v38 = a1;
+    v34 = &AriHostRt::GetInstance(void)::instance;
     rep = v6.__d_.__rep_;
-    dispatch_group_async(a2, v29, v33);
+    dispatch_group_async(a2, v29, v32);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4575,23 +4499,23 @@ LABEL_43:
     v23 = AriOsa::GetOsLog(v22);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo(v42, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v24);
-      v32 = v43 >= 0 ? v42 : v42[0];
+      AriOsa::LogSrcInfo(v41, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v24);
+      v31 = v42 >= 0 ? v41 : v41[0];
       *buf = 136315650;
       *&buf[4] = "ari";
-      v46 = 2080;
-      v47 = v32;
-      v48 = 1024;
-      v49 = 1537;
+      v45 = 2080;
+      v46 = v31;
+      v47 = 1024;
+      v48 = 1537;
       _os_log_error_impl(&dword_2962B3000, v23, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Setting unknown mode", buf, 0x1Cu);
-      if (v43 < 0)
+      if (v42 < 0)
       {
-        operator delete(v42[0]);
+        operator delete(v41[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode", v24);
-    if (v48 >= 0)
+    if (v47 >= 0)
     {
       v26 = buf;
     }
@@ -4602,7 +4526,7 @@ LABEL_43:
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Setting unknown mode", v25, v26, 1537);
-    if (SHIBYTE(v48) < 0)
+    if (SHIBYTE(v47) < 0)
     {
       operator delete(*buf);
     }
@@ -4610,12 +4534,11 @@ LABEL_43:
 
   v27 = 0xFFFFFFFFLL;
 LABEL_49:
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v44.__r_.__value_.__l.__data_);
+    operator delete(v43.__r_.__value_.__l.__data_);
   }
 
-  v30 = *MEMORY[0x29EDCA608];
   return v27;
 }
 
@@ -4631,39 +4554,39 @@ void sub_2962CC2D8(_Unwind_Exception *exception_object)
 
 void ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_invoke_139(uint64_t a1)
 {
-  v8[4] = *MEMORY[0x29EDCA608];
+  v7[4] = *MEMORY[0x29EDCA608];
+  v5 = 0xAAAAAAAAAAAAAAAALL;
   v6 = 0xAAAAAAAAAAAAAAAALL;
-  v7 = 0xAAAAAAAAAAAAAAAALL;
   if (*(a1 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v5, *(a1 + 32), *(a1 + 40));
+    std::string::__init_copy_ctor_external(&v4, *(a1 + 32), *(a1 + 40));
   }
 
   else
   {
-    v5 = *(a1 + 32);
+    v4 = *(a1 + 32);
   }
 
   AriDispatch::Semaphore::Create();
-  if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v4.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v5.__r_.__value_.__l.__data_);
+    operator delete(v4.__r_.__value_.__l.__data_);
   }
 
-  v3 = 0xAAAAAAAAAAAAAAAALL;
-  v4 = 0xAAAAAAAAAAAAAAAALL;
-  v2 = v6;
-  v1 = v7;
-  if (v7)
+  v3[0] = 0xAAAAAAAAAAAAAAAALL;
+  v3[1] = 0xAAAAAAAAAAAAAAAALL;
+  v2 = v5;
+  v1 = v6;
+  if (v6)
   {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v8[0] = &unk_2A1D46E60;
-  v8[1] = v2;
-  v8[2] = v1;
-  v8[3] = v8;
-  std::allocate_shared[abi:ne200100]<AriHostRt::ClientTransitionTracker,std::allocator<AriHostRt::ClientTransitionTracker>,std::function<void ()(void)> &,0>();
+  v7[0] = &unk_2A1D46E60;
+  v7[1] = v2;
+  v7[2] = v1;
+  v7[3] = v7;
+  std::allocate_shared[abi:ne200100]<AriHostRt::ClientTransitionTracker,std::allocator<AriHostRt::ClientTransitionTracker>,std::function<void ()(void)> &,0>(v3, v7);
 }
 
 void sub_2962CCD10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, std::__shared_weak_count *a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, std::__shared_weak_count *a47)
@@ -4704,29 +4627,27 @@ void sub_2962CCD10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_invoke_2(uint64_t a1)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
+  v4[4] = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 32);
   v2 = *(a1 + 56);
-  v5[0] = &unk_2A1D46EE0;
-  v5[1] = a1 + 40;
-  v5[2] = v2;
-  v5[3] = v5;
-  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v1 + 33040, v5);
-  result = std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
+  v4[0] = &unk_2A1D46EE0;
+  v4[1] = a1 + 40;
+  v4[2] = v2;
+  v4[3] = v4;
+  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v1 + 33040, v4);
+  return std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_2962CCEEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2962CCEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_invoke_2_148(Ari *a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   LogLevels = Ari::GetLogLevels(a1);
   if ((LogLevels & 0x20) != 0)
   {
@@ -4734,22 +4655,22 @@ uint64_t ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_i
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode_block_invoke_2", v4);
-      v5 = v12 >= 0 ? __p : __p[0];
+      v5 = v11 >= 0 ? __p : __p[0];
       *buf = 136315650;
       *&buf[4] = "ari";
-      v15 = 2080;
-      v16 = v5;
-      v17 = 1024;
-      v18 = 1584;
+      v14 = 2080;
+      v15 = v5;
+      v16 = 1024;
+      v17 = 1584;
       _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) notifying for all clients to stall (LPM enter)", buf, 0x1Cu);
-      if (v12 < 0)
+      if (v11 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SetOPMode_block_invoke", v4);
-    if (v17 >= 0)
+    if (v16 >= 0)
     {
       v7 = buf;
     }
@@ -4760,20 +4681,18 @@ uint64_t ___ZN9AriHostRt9SetOPModeENS_11ARI_OP_MODEEP16dispatch_group_sj_block_i
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) notifying for all clients to stall (LPM enter)", v6, v7, 1584);
-    if (SHIBYTE(v17) < 0)
+    if (SHIBYTE(v16) < 0)
     {
       operator delete(*buf);
     }
   }
 
   v8 = *(a1 + 4);
-  v13[0] = &unk_2A1D46FE0;
-  v13[1] = a1 + 40;
-  v13[3] = v13;
-  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v8 + 33040, v13);
-  result = std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v13);
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  v12[0] = &unk_2A1D46FE0;
+  v12[1] = a1 + 40;
+  v12[3] = v12;
+  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v8 + 33040, v12);
+  return std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v12);
 }
 
 void sub_2962CD0A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -4811,37 +4730,30 @@ void __destroy_helper_block_e8_32c66_ZTSNSt3__112basic_stringIcNS_11char_traitsI
 
 uint64_t AriHostRt::RegisterBasebandResetDelegate(AriHostRt *a1)
 {
-  v7[4] = *MEMORY[0x29EDCA608];
+  v6[4] = *MEMORY[0x29EDCA608];
   Instance = AriHostRt::GetInstance(a1);
   if (AriHostRt::Init(Instance))
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
-  {
-    v4 = qword_2A18C2418;
-    v6[0] = MEMORY[0x29EDCA5F8];
-    v6[1] = 1174405120;
-    v6[2] = ___ZN9AriHostRt29RegisterBasebandResetDelegateENSt3__18functionIFvNS_20ARI_CLIENT_ERROR_EVTENS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEijEEE_block_invoke;
-    v6[3] = &__block_descriptor_tmp_157;
-    v6[4] = &AriHostRt::GetInstance(void)::instance;
-    std::__function::__value_func<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::__value_func[abi:ne200100](v7, a1);
-    dispatch_sync(v4, v6);
-    std::__function::__value_func<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::~__value_func[abi:ne200100](v7);
-    result = 0;
-  }
-
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  v4 = qword_2A18C2418;
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 1174405120;
+  v5[2] = ___ZN9AriHostRt29RegisterBasebandResetDelegateENSt3__18functionIFvNS_20ARI_CLIENT_ERROR_EVTENS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEijEEE_block_invoke;
+  v5[3] = &__block_descriptor_tmp_157;
+  v5[4] = &AriHostRt::GetInstance(void)::instance;
+  std::__function::__value_func<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::__value_func[abi:ne200100](v6, a1);
+  dispatch_sync(v4, v5);
+  std::__function::__value_func<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::~__value_func[abi:ne200100](v6);
+  return 0;
 }
 
 void ___ZN9AriHostRt29RegisterBasebandResetDelegateENSt3__18functionIFvNS_20ARI_CLIENT_ERROR_EVTENS0_12basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEijEEE_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::__value_func[abi:ne200100](v3, a1 + 40);
-  v2 = *(a1 + 32);
-  std::__function::__value_func<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::__value_func[abi:ne200100](v4, v3);
+  v3 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::__value_func[abi:ne200100](v1, a1 + 40);
+  std::__function::__value_func<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::__value_func[abi:ne200100](v2, v1);
   operator new();
 }
 
@@ -4948,23 +4860,23 @@ void __destroy_helper_block_e8_40c66_ZTSNSt3__112basic_stringIcNS_11char_traitsI
 
 uint64_t ___ZN9AriHostRt24SendSensitiveLoggingInfoEv_block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   *&v1 = 0xAAAAAAAAAAAAAAAALL;
   *(&v1 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v27 = v1;
   v28 = v1;
-  v29 = v1;
-  v30 = 0xAAAAAAAAFFFFFFFFLL;
+  v29 = 0xAAAAAAAAFFFFFFFFLL;
   SdkGmidListSensitiveLogging();
-  if (*(&v29 + 1) >= 0x1F5uLL)
+  if (*(&v28 + 1) >= 0x1F5uLL)
   {
     __assert_rtn("SendSensitiveLoggingInfo_block_invoke", "ari_host_rt.cpp", 1672, "gmidList.size() <= ARI_MSG_SET_MAX");
   }
 
-  bzero(v25, 0x7D4uLL);
-  v24 = 0x900000001;
-  v27 = 0x7FFFFFFF;
-  v3 = v29;
-  if (v29)
+  bzero(v24, 0x7D4uLL);
+  v23 = 0x900000001;
+  v26 = 0x7FFFFFFF;
+  v3 = v28;
+  if (v28)
   {
     v4 = 0;
     do
@@ -4977,7 +4889,7 @@ uint64_t ___ZN9AriHostRt24SendSensitiveLoggingInfoEv_block_invoke(uint64_t a1)
         {
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SendSensitiveLoggingInfo_block_invoke", v6);
           v7 = __p;
-          if (v23 < 0)
+          if (v22 < 0)
           {
             v7 = __p[0];
           }
@@ -4985,21 +4897,21 @@ uint64_t ___ZN9AriHostRt24SendSensitiveLoggingInfoEv_block_invoke(uint64_t a1)
           v8 = *(v3 + 4);
           *buf = 136315906;
           *&buf[4] = "ari";
-          v32 = 2080;
-          v33 = v7;
-          v34 = 1024;
-          v35 = 1682;
-          v36 = 1024;
-          v37 = v8;
+          v31 = 2080;
+          v32 = v7;
+          v33 = 1024;
+          v34 = 1682;
+          v35 = 1024;
+          v36 = v8;
           _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Updating sensitive logging gmid: 0x%x", buf, 0x22u);
-          if (v23 < 0)
+          if (v22 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
         AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SendSensitiveLoggingInfo_block_invoke", v6);
-        if (v34 >= 0)
+        if (v33 >= 0)
         {
           v10 = buf;
         }
@@ -5010,14 +4922,14 @@ uint64_t ___ZN9AriHostRt24SendSensitiveLoggingInfoEv_block_invoke(uint64_t a1)
         }
 
         LogLevels = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Updating sensitive logging gmid: 0x%x", v9, v10, 1682, *(v3 + 4));
-        if (SHIBYTE(v34) < 0)
+        if (SHIBYTE(v33) < 0)
         {
           operator delete(*buf);
         }
       }
 
       v11 = v4 + 1;
-      v25[v4] = *(v3 + 4);
+      v24[v4] = *(v3 + 4);
       v3 = *v3;
       ++v4;
     }
@@ -5030,8 +4942,8 @@ uint64_t ___ZN9AriHostRt24SendSensitiveLoggingInfoEv_block_invoke(uint64_t a1)
     v11 = 0;
   }
 
-  v26 = v11;
-  v12 = AriHostRt::setGroupMsgAttrib_nl(LogLevels, &v24);
+  v25 = v11;
+  v12 = AriHostRt::setGroupMsgAttrib_nl(LogLevels, &v23);
   *(*(*(a1 + 32) + 8) + 24) = v12;
   if (*(*(*(a1 + 32) + 8) + 24))
   {
@@ -5042,22 +4954,22 @@ uint64_t ___ZN9AriHostRt24SendSensitiveLoggingInfoEv_block_invoke(uint64_t a1)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SendSensitiveLoggingInfo_block_invoke", v15);
-        v20 = v23 >= 0 ? __p : __p[0];
+        v19 = v22 >= 0 ? __p : __p[0];
         *buf = 136315650;
         *&buf[4] = "ari";
-        v32 = 2080;
-        v33 = v20;
-        v34 = 1024;
-        v35 = 1690;
+        v31 = 2080;
+        v32 = v19;
+        v33 = 1024;
+        v34 = 1690;
         _os_log_error_impl(&dword_2962B3000, v14, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Failed to send the sensitive logging info", buf, 0x1Cu);
-        if (v23 < 0)
+        if (v22 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
       AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "SendSensitiveLoggingInfo_block_invoke", v15);
-      if (v34 >= 0)
+      if (v33 >= 0)
       {
         v17 = buf;
       }
@@ -5068,21 +4980,19 @@ uint64_t ___ZN9AriHostRt24SendSensitiveLoggingInfoEv_block_invoke(uint64_t a1)
       }
 
       AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Failed to send the sensitive logging info", v16, v17, 1690);
-      if (SHIBYTE(v34) < 0)
+      if (SHIBYTE(v33) < 0)
       {
         operator delete(*buf);
       }
     }
   }
 
-  result = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&v28);
-  v19 = *MEMORY[0x29EDCA608];
-  return result;
+  return std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(&v27);
 }
 
 void AriHostRt::DumpState(AriHostRt *this)
 {
-  v10[4] = *MEMORY[0x29EDCA608];
+  v9[4] = *MEMORY[0x29EDCA608];
   AriHostRt::GetInstance(this);
   block[0] = MEMORY[0x29EDCA5F8];
   block[1] = 0x40000000;
@@ -5090,29 +5000,29 @@ void AriHostRt::DumpState(AriHostRt *this)
   block[3] = &__block_descriptor_tmp_169;
   block[4] = &AriHostRt::GetInstance(void)::instance;
   dispatch_sync(qword_2A18C2418, block);
+  v6 = 0xAAAAAAAAAAAAAAAALL;
   v7 = 0xAAAAAAAAAAAAAAAALL;
-  v8 = 0xAAAAAAAAAAAAAAAALL;
   std::string::basic_string[abi:ne200100]<0>(&__p, "dumptracker");
   AriDispatch::Semaphore::Create();
-  if (v6 < 0)
+  if (v5 < 0)
   {
     operator delete(__p);
   }
 
-  v3 = 0xAAAAAAAAAAAAAAAALL;
-  v4 = 0xAAAAAAAAAAAAAAAALL;
-  v2 = v7;
-  v1 = v8;
-  if (v8)
+  v3[0] = 0xAAAAAAAAAAAAAAAALL;
+  v3[1] = 0xAAAAAAAAAAAAAAAALL;
+  v2 = v6;
+  v1 = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v10[0] = &unk_2A1D471F0;
-  v10[1] = v2;
-  v10[2] = v1;
-  v10[3] = v10;
-  std::allocate_shared[abi:ne200100]<AriHostRt::ClientTransitionTracker,std::allocator<AriHostRt::ClientTransitionTracker>,std::function<void ()(void)> &,0>();
+  v9[0] = &unk_2A1D471F0;
+  v9[1] = v2;
+  v9[2] = v1;
+  v9[3] = v9;
+  std::allocate_shared[abi:ne200100]<AriHostRt::ClientTransitionTracker,std::allocator<AriHostRt::ClientTransitionTracker>,std::function<void ()(void)> &,0>(v3, v9);
 }
 
 void sub_2962CDCAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, uint64_t a33, std::__shared_weak_count *a34)
@@ -5138,7 +5048,7 @@ void sub_2962CDCAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
 {
   v1 = a1;
-  v81[4] = *MEMORY[0x29EDCA608];
+  v80[4] = *MEMORY[0x29EDCA608];
   LogLevels = Ari::GetLogLevels(a1);
   if ((LogLevels & 0x20) != 0)
   {
@@ -5146,22 +5056,22 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v4);
-      v5 = v64 >= 0 ? __p : __p[0];
+      v5 = v63 >= 0 ? __p : __p[0];
       *buf = 136315650;
       *&buf[4] = "ari";
-      v66 = 2080;
-      v67 = v5;
-      v68 = 1024;
-      v69 = 1702;
+      v65 = 2080;
+      v66 = v5;
+      v67 = 1024;
+      v68 = 1702;
       _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Client Resources:", buf, 0x1Cu);
-      if (v64 < 0)
+      if (v63 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v4);
-    if (v68 >= 0)
+    if (v67 >= 0)
     {
       v7 = buf;
     }
@@ -5172,17 +5082,17 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Client Resources:", v6, v7, 1702);
-    if (SHIBYTE(v68) < 0)
+    if (SHIBYTE(v67) < 0)
     {
       operator delete(*buf);
     }
   }
 
   v8 = *(v1 + 4);
-  v81[0] = &unk_2A1D470F0;
-  v81[3] = v81;
-  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v8 + 33040, v81);
-  v9 = std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v81);
+  v80[0] = &unk_2A1D470F0;
+  v80[3] = v80;
+  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v8 + 33040, v80);
+  v9 = std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v80);
   v10 = Ari::GetLogLevels(v9);
   if ((v10 & 0x20) != 0)
   {
@@ -5190,22 +5100,22 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v12);
-      v13 = v64 >= 0 ? __p : __p[0];
+      v13 = v63 >= 0 ? __p : __p[0];
       *buf = 136315650;
       *&buf[4] = "ari";
-      v66 = 2080;
-      v67 = v13;
-      v68 = 1024;
-      v69 = 1707;
+      v65 = 2080;
+      v66 = v13;
+      v67 = 1024;
+      v68 = 1707;
       _os_log_impl(&dword_2962B3000, v11, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Indication Resources:", buf, 0x1Cu);
-      if (v64 < 0)
+      if (v63 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v12);
-    if (v68 >= 0)
+    if (v67 >= 0)
     {
       v15 = buf;
     }
@@ -5216,17 +5126,17 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Indication Resources:", v14, v15, 1707);
-    if (SHIBYTE(v68) < 0)
+    if (SHIBYTE(v67) < 0)
     {
       operator delete(*buf);
     }
   }
 
   v16 = *(v1 + 4);
-  v80[0] = &unk_2A1D47170;
-  v80[3] = v80;
-  ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::doForEach(v16 + 33184, v80);
-  v17 = std::__function::__value_func<void ()(int,std::list<std::shared_ptr<Ari::AriClientProxy>> &)>::~__value_func[abi:ne200100](v80);
+  v79[0] = &unk_2A1D47170;
+  v79[3] = v79;
+  ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::doForEach(v16 + 33184, v79);
+  v17 = std::__function::__value_func<void ()(int,std::list<std::shared_ptr<Ari::AriClientProxy>> &)>::~__value_func[abi:ne200100](v79);
   if (*(*(v1 + 4) + 33352))
   {
     v17 = Ari::GetLogLevels(v17);
@@ -5236,22 +5146,22 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v19);
-        v20 = v64 >= 0 ? __p : __p[0];
+        v20 = v63 >= 0 ? __p : __p[0];
         *buf = 136315650;
         *&buf[4] = "ari";
-        v66 = 2080;
-        v67 = v20;
-        v68 = 1024;
-        v69 = 1718;
+        v65 = 2080;
+        v66 = v20;
+        v67 = 1024;
+        v68 = 1718;
         _os_log_impl(&dword_2962B3000, v18, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Transaction In-Flight:", buf, 0x1Cu);
-        if (v64 < 0)
+        if (v63 < 0)
         {
           operator delete(__p[0]);
         }
       }
 
       AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v19);
-      if (v68 >= 0)
+      if (v67 >= 0)
       {
         v22 = buf;
       }
@@ -5262,7 +5172,7 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
       }
 
       v17 = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Transaction In-Flight:", v21, v22, 1718);
-      if (SHIBYTE(v68) < 0)
+      if (SHIBYTE(v67) < 0)
       {
         operator delete(*buf);
       }
@@ -5271,7 +5181,7 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
     v23 = *(*(v1 + 4) + 33344);
     if (v23)
     {
-      v62 = v1;
+      v61 = v1;
       do
       {
         BufGmid = AriMsg::GetBufGmid(**(v23[3] + 16), (*(*(v23[3] + 16) + 8) - **(v23[3] + 16)));
@@ -5285,7 +5195,7 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v27);
-            if (v64 >= 0)
+            if (v63 >= 0)
             {
               v30 = __p;
             }
@@ -5336,40 +5246,40 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
 
             *buf = 136316930;
             *&buf[4] = "ari";
-            v66 = 2080;
-            v67 = v30;
-            v68 = 1024;
-            v69 = 1722;
-            v70 = 1024;
-            v71 = v31;
-            v72 = 1024;
-            v73 = v29;
-            v74 = 1024;
-            v75 = v28;
-            v76 = 1024;
-            v77 = v39;
-            v78 = 2080;
-            v79 = v41;
+            v65 = 2080;
+            v66 = v30;
+            v67 = 1024;
+            v68 = 1722;
+            v69 = 1024;
+            v70 = v31;
+            v71 = 1024;
+            v72 = v29;
+            v73 = 1024;
+            v74 = v28;
+            v75 = 1024;
+            v76 = v39;
+            v77 = 2080;
+            v78 = v41;
             _os_log_impl(&dword_2962B3000, v26, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Transaction ID: 0x%x, GMID: (%d-0x%x), Client ID: 0x%x(%s)", buf, 0x3Eu);
             if ((v35 & 1) == 0)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v38);
             }
 
-            v1 = v62;
+            v1 = v61;
             if (v34)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v34);
             }
 
-            if (v64 < 0)
+            if (v63 < 0)
             {
               operator delete(__p[0]);
             }
           }
 
           AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v27);
-          if (v68 >= 0)
+          if (v67 >= 0)
           {
             v42 = buf;
           }
@@ -5429,7 +5339,7 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
             std::__shared_weak_count::__release_shared[abi:ne200100](v46);
           }
 
-          if (SHIBYTE(v68) < 0)
+          if (SHIBYTE(v67) < 0)
           {
             operator delete(*buf);
           }
@@ -5449,22 +5359,22 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
     if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v57);
-      v58 = v64 >= 0 ? __p : __p[0];
+      v58 = v63 >= 0 ? __p : __p[0];
       *buf = 136315650;
       *&buf[4] = "ari";
-      v66 = 2080;
-      v67 = v58;
-      v68 = 1024;
-      v69 = 1729;
+      v65 = 2080;
+      v66 = v58;
+      v67 = 1024;
+      v68 = 1729;
       _os_log_impl(&dword_2962B3000, v56, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) XPC resources:", buf, 0x1Cu);
-      if (v64 < 0)
+      if (v63 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v57);
-    if (v68 >= 0)
+    if (v67 >= 0)
     {
       v60 = buf;
     }
@@ -5475,14 +5385,13 @@ void ___ZN9AriHostRt9DumpStateEv_block_invoke(Ari *a1)
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) XPC resources:", v59, v60, 1729);
-    if (SHIBYTE(v68) < 0)
+    if (SHIBYTE(v67) < 0)
     {
       operator delete(*buf);
     }
   }
 
   Ari::AriXpcServer::dumpState(*(*(v1 + 4) + 40));
-  v61 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962CE510(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
@@ -5497,7 +5406,7 @@ void sub_2962CE510(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ___ZN9AriHostRt9DumpStateEv_block_invoke_2(Ari *a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   LogLevels = Ari::GetLogLevels(a1);
   if ((LogLevels & 0x20) != 0)
   {
@@ -5505,22 +5414,22 @@ uint64_t ___ZN9AriHostRt9DumpStateEv_block_invoke_2(Ari *a1)
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke_2", v4);
-      v5 = v12 >= 0 ? __p : __p[0];
+      v5 = v11 >= 0 ? __p : __p[0];
       *buf = 136315650;
       *&buf[4] = "ari";
-      v15 = 2080;
-      v16 = v5;
-      v17 = 1024;
-      v18 = 1744;
+      v14 = 2080;
+      v15 = v5;
+      v16 = 1024;
+      v17 = 1744;
       _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) notifying for all clients to DumpState", buf, 0x1Cu);
-      if (v12 < 0)
+      if (v11 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "DumpState_block_invoke", v4);
-    if (v17 >= 0)
+    if (v16 >= 0)
     {
       v7 = buf;
     }
@@ -5531,20 +5440,18 @@ uint64_t ___ZN9AriHostRt9DumpStateEv_block_invoke_2(Ari *a1)
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) notifying for all clients to DumpState", v6, v7, 1744);
-    if (SHIBYTE(v17) < 0)
+    if (SHIBYTE(v16) < 0)
     {
       operator delete(*buf);
     }
   }
 
   v8 = *(a1 + 4);
-  v13[0] = &unk_2A1D47270;
-  v13[1] = a1 + 40;
-  v13[3] = v13;
-  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v8 + 33040, v13);
-  result = std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v13);
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  v12[0] = &unk_2A1D47270;
+  v12[1] = a1 + 40;
+  v12[3] = v12;
+  ResMgr<std::shared_ptr<Ari::AriClientProxy>>::doForEach(v8 + 33040, v12);
+  return std::__function::__value_func<void ()(std::shared_ptr<Ari::AriClientProxy> &)>::~__value_func[abi:ne200100](v12);
 }
 
 void sub_2962CE750(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -5942,12 +5849,12 @@ uint64_t std::__function::__value_func<void ()(void)>::~__value_func[abi:ne20010
   return a1;
 }
 
-void sub_2962CF058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2962CF058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
-  std::__shared_weak_count::~__shared_weak_count(v2);
-  operator delete(v4);
+  std::__shared_weak_count::~__shared_weak_count(v3);
+  operator delete(v5);
   _Unwind_Resume(a1);
 }
 
@@ -6128,9 +6035,9 @@ void std::__tree<IDMgr::Range>::destroy(void *a1)
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -6209,7 +6116,7 @@ void std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::li
   }
 }
 
-uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::~ResMgr(uint64_t a1, dispatch_semaphore_s *a2)
+void **ResMgr<std::shared_ptr<Ari::AriClientProxy>>::~ResMgr(uint64_t a1, dispatch_semaphore_s *a2)
 {
   if (*(a1 + 24))
   {
@@ -6240,9 +6147,9 @@ uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::~ResMgr(uint64_t a1, disp
   return std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::~__hash_table(a1);
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__deallocate_node(*(a1 + 16));
+  std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__deallocate_node(a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -6311,32 +6218,32 @@ uint64_t std::function<void ()(int,unsigned int,std::shared_ptr<Ari::AriClientPr
   return (*(*a1 + 48))(a1, &v5, &v4);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6344,44 +6251,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::pair<unsigned int,std::shared_ptr<Ari::AriClientProxy>>>,void *>>>::operator()[abi:ne200100](char a1, void *__p)
@@ -6544,41 +6451,41 @@ uint64_t std::__function::__value_func<int ()(int,std::list<std::shared_ptr<Ari:
   return a1;
 }
 
-uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::sw_dbug_trap(uint64_t result, int a2)
+void *ResMgr<std::shared_ptr<Ari::AriClientProxy>>::sw_dbug_trap(void *result, int a2)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     v2 = result;
-    v3 = IDMgr::dump((result + 40));
+    v3 = IDMgr::dump((result + 5));
     LogLevels = Ari::GetLogLevels(v3);
     if ((LogLevels & 8) != 0)
     {
       OsLog = AriOsa::GetOsLog(LogLevels);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(v22, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v6);
-        v20 = v23 >= 0 ? v22 : v22[0];
-        v21 = v2[3];
+        AriOsa::LogSrcInfo(v21, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v6);
+        v19 = v22 >= 0 ? v21 : v21[0];
+        v20 = v2[3];
         *__p = 136316162;
         *&__p[4] = "ari";
-        v25 = 2080;
-        v26 = v20;
-        v27 = 1024;
-        v28 = 274;
-        v29 = 2048;
-        *v30 = v2;
-        *&v30[8] = 2048;
-        v31 = v21;
+        v24 = 2080;
+        v25 = v19;
+        v26 = 1024;
+        v27 = 274;
+        v28 = 2048;
+        *v29 = v2;
+        *&v29[8] = 2048;
+        v30 = v20;
         _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) ResMgr(%p) dump total entries: %zu", __p, 0x30u);
-        if (v23 < 0)
+        if (v22 < 0)
         {
-          operator delete(v22[0]);
+          operator delete(v21[0]);
         }
       }
 
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v6);
-      if (v27 >= 0)
+      if (v26 >= 0)
       {
         v8 = __p;
       }
@@ -6589,7 +6496,7 @@ uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::sw_dbug_trap(uint64_t res
       }
 
       AriOsa::LogToDefaultStringLogger(8, "(%s:%d) ResMgr(%p) dump total entries: %zu", v7, v8, 274, v2, v2[3]);
-      if (SHIBYTE(v27) < 0)
+      if (SHIBYTE(v26) < 0)
       {
         operator delete(*__p);
       }
@@ -6611,36 +6518,36 @@ uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::sw_dbug_trap(uint64_t res
           v12 = AriOsa::GetOsLog(v11);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            AriOsa::LogSrcInfo(v22, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v13);
-            v16 = v22;
-            if (v23 < 0)
+            AriOsa::LogSrcInfo(v21, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v13);
+            v16 = v21;
+            if (v22 < 0)
             {
-              v16 = v22[0];
+              v16 = v21[0];
             }
 
             v17 = *(i + 4);
             v18 = *(i + 6);
             *__p = 136316418;
             *&__p[4] = "ari";
-            v25 = 2080;
-            v26 = v16;
-            v27 = 1024;
-            v28 = 284;
-            v29 = 1024;
-            *v30 = v17;
-            *&v30[4] = 1024;
-            *&v30[6] = v17;
-            LOWORD(v31) = 1024;
-            *(&v31 + 2) = v18;
+            v24 = 2080;
+            v25 = v16;
+            v26 = 1024;
+            v27 = 284;
+            v28 = 1024;
+            *v29 = v17;
+            *&v29[4] = 1024;
+            *&v29[6] = v17;
+            LOWORD(v30) = 1024;
+            *(&v30 + 2) = v18;
             _os_log_error_impl(&dword_2962B3000, v12, OS_LOG_TYPE_ERROR, "%s: (%s:%d) id(%08d-0x%08x) ts:%u", __p, 0x2Eu);
-            if (v23 < 0)
+            if (v22 < 0)
             {
-              operator delete(v22[0]);
+              operator delete(v21[0]);
             }
           }
 
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v13);
-          if (v27 >= 0)
+          if (v26 >= 0)
           {
             v15 = __p;
           }
@@ -6651,7 +6558,7 @@ uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::sw_dbug_trap(uint64_t res
           }
 
           AriOsa::LogToDefaultStringLogger(8, "(%s:%d) id(%08d-0x%08x) ts:%u", v14, v15, 284, *(i + 4), *(i + 4), *(i + 6));
-          if (SHIBYTE(v27) < 0)
+          if (SHIBYTE(v26) < 0)
           {
             operator delete(*__p);
           }
@@ -6660,10 +6567,9 @@ uint64_t ResMgr<std::shared_ptr<Ari::AriClientProxy>>::sw_dbug_trap(uint64_t res
     }
 
     AriOsa::OsSleep(0x7D0);
-    result = MEMORY[0x29C258610](1, "true", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 287);
+    return MEMORY[0x29C258610](1, "true", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 287);
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -6677,32 +6583,32 @@ void sub_2962D0384(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6710,44 +6616,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void std::__hash_table<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::shared_ptr<AriHostRt::RtTransaction>>>>::__rehash<true>(uint64_t a1, size_t __n)
@@ -6832,7 +6738,7 @@ __n128 _ZNKSt3__110__function6__funcIZZN9AriHostRt17RegAllIndicationsEjEUb0_E3__
 
 void _ZNSt3__110__function6__funcIZZN9AriHostRt17RegAllIndicationsEjEUb0_E3__1NS_9allocatorIS3_EEFviRNS_4listINS_10shared_ptrIN3Ari14AriClientProxyEEENS4_ISA_EEEEEEclEOiSD_(uint64_t a1, int *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v3 = *(a3 + 8);
   if (v3 != a3)
   {
@@ -6865,23 +6771,23 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt17RegAllIndicationsEjEUb0_E3__1NS
             OsLog = AriOsa::GetOsLog(LogLevels);
             if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
             {
-              AriOsa::LogSrcInfo(v20, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "operator()", v14);
-              v19 = v21 >= 0 ? v20 : v20[0];
+              AriOsa::LogSrcInfo(v19, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "operator()", v14);
+              v18 = v20 >= 0 ? v19 : v19[0];
               *__p = 136315650;
               *&__p[4] = "ari";
-              v23 = 2080;
-              v24 = v19;
-              v25 = 1024;
-              v26 = 859;
+              v22 = 2080;
+              v23 = v18;
+              v24 = 1024;
+              v25 = 859;
               _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Failed to register indications", __p, 0x1Cu);
-              if (v21 < 0)
+              if (v20 < 0)
               {
-                operator delete(v20[0]);
+                operator delete(v19[0]);
               }
             }
 
             AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "operator()", v14);
-            if (v25 >= 0)
+            if (v24 >= 0)
             {
               v16 = __p;
             }
@@ -6892,7 +6798,7 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt17RegAllIndicationsEjEUb0_E3__1NS
             }
 
             AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Failed to register indications", v15, v16, 859);
-            if (SHIBYTE(v25) < 0)
+            if (SHIBYTE(v24) < 0)
             {
               operator delete(*__p);
             }
@@ -6901,7 +6807,7 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt17RegAllIndicationsEjEUb0_E3__1NS
           v17 = *(a1 + 16);
           std::string::basic_string[abi:ne200100]<0>(__p, "Failed to send indication registration");
           std::function<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::operator()(*(v17 + 33520), 3, __p, 0, 0);
-          if (SHIBYTE(v25) < 0)
+          if (SHIBYTE(v24) < 0)
           {
             operator delete(*__p);
           }
@@ -6914,8 +6820,6 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt17RegAllIndicationsEjEUb0_E3__1NS
       **(a1 + 40) = 1;
     }
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962D0AE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -6957,54 +6861,54 @@ uint64_t std::__function::__value_func<void ()(int,std::list<std::shared_ptr<Ari
   return a1;
 }
 
-void *std::list<unsigned int>::list(void *result, uint64_t a2)
+uint64_t *std::list<unsigned int>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(uint64_t result, int a2)
+void *ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(void *result, int a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     v2 = result;
-    v3 = IDMgr::dump((result + 40));
+    v3 = IDMgr::dump((result + 5));
     LogLevels = Ari::GetLogLevels(v3);
     if ((LogLevels & 8) != 0)
     {
       OsLog = AriOsa::GetOsLog(LogLevels);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(v23, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v6);
-        v21 = v24 >= 0 ? v23 : v23[0];
-        v22 = v2[3];
+        AriOsa::LogSrcInfo(v22, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v6);
+        v20 = v23 >= 0 ? v22 : v22[0];
+        v21 = v2[3];
         *__p = 136316162;
         *&__p[4] = "ari";
-        v26 = 2080;
-        v27 = v21;
-        v28 = 1024;
-        v29 = 274;
-        v30 = 2048;
-        *v31 = v2;
-        *&v31[8] = 2048;
-        v32 = v22;
+        v25 = 2080;
+        v26 = v20;
+        v27 = 1024;
+        v28 = 274;
+        v29 = 2048;
+        *v30 = v2;
+        *&v30[8] = 2048;
+        v31 = v21;
         _os_log_error_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) ResMgr(%p) dump total entries: %zu", __p, 0x30u);
-        if (v24 < 0)
+        if (v23 < 0)
         {
-          operator delete(v23[0]);
+          operator delete(v22[0]);
         }
       }
 
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v6);
-      if (v28 >= 0)
+      if (v27 >= 0)
       {
         v8 = __p;
       }
@@ -7015,7 +6919,7 @@ uint64_t ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(u
       }
 
       AriOsa::LogToDefaultStringLogger(8, "(%s:%d) ResMgr(%p) dump total entries: %zu", v7, v8, 274, v2, v2[3]);
-      if (SHIBYTE(v28) < 0)
+      if (SHIBYTE(v27) < 0)
       {
         operator delete(*__p);
       }
@@ -7028,8 +6932,8 @@ uint64_t ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(u
       {
         v11 = *(i + 6);
         *__p = *(i + 4);
-        LODWORD(v23[0]) = v11;
-        (*(*v10 + 48))(v10, __p, v23, i + 4);
+        LODWORD(v22[0]) = v11;
+        (*(*v10 + 48))(v10, __p, v22, i + 4);
       }
 
       else
@@ -7040,36 +6944,36 @@ uint64_t ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(u
           v13 = AriOsa::GetOsLog(v12);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            AriOsa::LogSrcInfo(v23, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v14);
-            v17 = v23;
-            if (v24 < 0)
+            AriOsa::LogSrcInfo(v22, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v14);
+            v17 = v22;
+            if (v23 < 0)
             {
-              v17 = v23[0];
+              v17 = v22[0];
             }
 
             v18 = *(i + 4);
             v19 = *(i + 6);
             *__p = 136316418;
             *&__p[4] = "ari";
-            v26 = 2080;
-            v27 = v17;
-            v28 = 1024;
-            v29 = 284;
-            v30 = 1024;
-            *v31 = v18;
-            *&v31[4] = 1024;
-            *&v31[6] = v18;
-            LOWORD(v32) = 1024;
-            *(&v32 + 2) = v19;
+            v25 = 2080;
+            v26 = v17;
+            v27 = 1024;
+            v28 = 284;
+            v29 = 1024;
+            *v30 = v18;
+            *&v30[4] = 1024;
+            *&v30[6] = v18;
+            LOWORD(v31) = 1024;
+            *(&v31 + 2) = v19;
             _os_log_error_impl(&dword_2962B3000, v13, OS_LOG_TYPE_ERROR, "%s: (%s:%d) id(%08d-0x%08x) ts:%u", __p, 0x2Eu);
-            if (v24 < 0)
+            if (v23 < 0)
             {
-              operator delete(v23[0]);
+              operator delete(v22[0]);
             }
           }
 
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", "sw_dbug_trap", v14);
-          if (v28 >= 0)
+          if (v27 >= 0)
           {
             v16 = __p;
           }
@@ -7080,7 +6984,7 @@ uint64_t ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(u
           }
 
           AriOsa::LogToDefaultStringLogger(8, "(%s:%d) id(%08d-0x%08x) ts:%u", v15, v16, 284, *(i + 4), *(i + 4), *(i + 6));
-          if (SHIBYTE(v28) < 0)
+          if (SHIBYTE(v27) < 0)
           {
             operator delete(*__p);
           }
@@ -7089,10 +6993,9 @@ uint64_t ResMgr<std::list<std::shared_ptr<Ari::AriClientProxy>>>::sw_dbug_trap(u
     }
 
     AriOsa::OsSleep(0x7D0);
-    result = MEMORY[0x29C258610](1, "true", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 287);
+    return MEMORY[0x29C258610](1, "true", "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/common/inc/ari_utils.h", 287);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7106,32 +7009,32 @@ void sub_2962D0FF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -7139,49 +7042,49 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_2962D144C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2962D144C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::pair<unsigned int,std::list<std::shared_ptr<Ari::AriClientProxy>>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7225,17 +7128,18 @@ void std::list<std::shared_ptr<Ari::AriClientProxy>>::__move_assign(uint64_t *a1
   }
 }
 
-void *std::list<std::shared_ptr<Ari::AriClientProxy>>::list(void *result, uint64_t a2)
+uint64_t *std::list<std::shared_ptr<Ari::AriClientProxy>>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
-  if (*(a2 + 8) != a2)
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
+  v2 = *(a2 + 8);
+  if (v2 != a2)
   {
-    std::list<std::shared_ptr<Ari::AriClientProxy>>::push_back();
+    std::list<std::shared_ptr<Ari::AriClientProxy>>::push_back(a1, (v2 + 16));
   }
 
-  return result;
+  return a1;
 }
 
 void std::__function::__func<AriHostRt::processStartEvent_nl(void)::$_0,std::allocator<AriHostRt::processStartEvent_nl(void)::$_0>,void ()(std::shared_ptr<Ari::AriClientProxy> &)>::operator()(uint64_t a1, uint64_t *a2)
@@ -7882,7 +7786,7 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt29RegisterBasebandResetDelegateEN
   operator delete(a1);
 }
 
-void _ZNSt3__110__function6__funcIZZN9AriHostRt29RegisterBasebandResetDelegateENS_8functionIFvNS2_20ARI_CLIENT_ERROR_EVTENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEijEEEEUb7_E4__12NS8_ISD_EESB_EclEOS4_OSA_OiOj(uint64_t *a1, int *a2, uint64_t a3, int *a4, int *a5)
+void _ZNSt3__110__function6__funcIZZN9AriHostRt29RegisterBasebandResetDelegateENS_8functionIFvNS2_20ARI_CLIENT_ERROR_EVTENS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEijEEEEUb7_E4__12NS8_ISD_EESB_EclEOS4_OSA_OiOj(AriHostRt *a1, int *a2, uint64_t a3, int *a4, int *a5)
 {
   v6 = *a2;
   v7 = *a3;
@@ -7912,7 +7816,7 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt29RegisterBasebandResetDelegateEN
       *(&v13.__r_.__value_.__s + 23) = v9;
     }
 
-    std::function<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::operator()(a1[4], v6, &v13, v10, v11);
+    std::function<void ()(AriHostRt::ARI_CLIENT_ERROR_EVT,std::string,int,unsigned int)>::operator()(*(a1 + 4), v6, &v13, v10, v11);
     if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v13.__r_.__value_.__l.__data_);
@@ -7956,7 +7860,7 @@ uint64_t _ZNKSt3__110__function6__funcIZZN9AriHostRt29RegisterBasebandResetDeleg
 
 void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__13NS_9allocatorIS3_EEFvRNS_10shared_ptrIN3Ari14AriClientProxyEEEEEclESA_(Ari *a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v3 = *a2;
   v2 = *(a2 + 8);
   if (v2)
@@ -7971,7 +7875,7 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__13NS_9alloca
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
     {
       AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "operator()", v6);
-      v7 = v22;
+      v7 = v21;
       v8 = __p[0];
       v9 = v3[2];
       v10 = (*(*v3 + 16))(v3);
@@ -7993,24 +7897,24 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__13NS_9alloca
 
       *buf = 136316162;
       *&buf[4] = "ari";
-      v24 = 2080;
-      v25 = v11;
-      v26 = 0;
-      v27 = 4;
-      v28 = 1704;
-      v29 = 1024;
-      v30 = v9;
-      v31 = 2080;
-      v32 = v12;
+      v23 = 2080;
+      v24 = v11;
+      v25 = 0;
+      v26 = 4;
+      v27 = 1704;
+      v28 = 1024;
+      v29 = v9;
+      v30 = 2080;
+      v31 = v12;
       _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Client ID: 0x%x(%s)", buf, 0x2Cu);
-      if (v22 < 0)
+      if (v21 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
     AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "operator()", v6);
-    v13 = v27;
+    v13 = v26;
     v14 = *buf;
     v15 = v3[2];
     v16 = (*(*v3 + 16))(v3);
@@ -8031,7 +7935,7 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__13NS_9alloca
     }
 
     AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Client ID: 0x%x(%s)", v17, v18, 1704, v15, v19);
-    if (v27 < 0)
+    if (v26 < 0)
     {
       operator delete(*buf);
     }
@@ -8041,8 +7945,6 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__13NS_9alloca
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962D2C68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -8075,7 +7977,7 @@ uint64_t _ZNKSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__13NS_9a
 
 void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__14NS_9allocatorIS3_EEFviRNS_4listINS_10shared_ptrIN3Ari14AriClientProxyEEENS4_ISA_EEEEEEclEOiSD_(uint64_t LogLevels, _DWORD *a2, void *a3)
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   v3 = a3[1];
   if (v3 != a3)
   {
@@ -8097,7 +7999,7 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__14NS_9alloca
         if (os_log_type_enabled(OsLog, OS_LOG_TYPE_DEFAULT))
         {
           AriOsa::LogSrcInfo(__p, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "operator()", v10);
-          v11 = v26;
+          v11 = v25;
           v12 = __p[0];
           v13 = v8[2];
           v14 = (*(*v8 + 16))(v8);
@@ -8119,28 +8021,28 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__14NS_9alloca
 
           *buf = 136316674;
           *&buf[4] = "ari";
-          v28 = 2080;
-          v29 = v15;
-          v30 = 0;
-          v31 = 4;
-          v32 = 1712;
-          v33 = 1024;
-          v34 = v6;
-          v35 = 1024;
-          v36 = v5;
-          v37 = 1024;
-          v38 = v13;
-          v39 = 2080;
-          v40 = v16;
+          v27 = 2080;
+          v28 = v15;
+          v29 = 0;
+          v30 = 4;
+          v31 = 1712;
+          v32 = 1024;
+          v33 = v6;
+          v34 = 1024;
+          v35 = v5;
+          v36 = 1024;
+          v37 = v13;
+          v38 = 2080;
+          v39 = v16;
           _os_log_impl(&dword_2962B3000, OsLog, OS_LOG_TYPE_DEFAULT, "%s: (%s:%d) Indication ID: (%d-0x%x), Client ID or Actor ID: 0x%x(%s)", buf, 0x38u);
-          if (v26 < 0)
+          if (v25 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
         AriOsa::LogSrcInfo(buf, "/Library/Caches/com.apple.xbs/Sources/AppleRemoteInvocation/ari_host/src/ari_host_rt.cpp", "operator()", v10);
-        v17 = v31;
+        v17 = v30;
         v18 = *buf;
         v19 = v8[2];
         v20 = (*(*v8 + 16))(v8);
@@ -8152,7 +8054,7 @@ void _ZNSt3__110__function6__funcIZZN9AriHostRt9DumpStateEvEUb8_E4__14NS_9alloca
 
         v23 = *(v20 + 23) >= 0 ? v20 : *v20;
         LogLevels = AriOsa::LogToDefaultStringLogger(0x20, "(%s:%d) Indication ID: (%d-0x%x), Client ID or Actor ID: 0x%x(%s)", v21, v22, 1712, v6, v5, v19, v23);
-        if (v31 < 0)
+        if (v30 < 0)
         {
           break;
         }
@@ -8167,7 +8069,7 @@ LABEL_22:
       v3 = v3[1];
       if (v3 == a3)
       {
-        goto LABEL_26;
+        return;
       }
     }
 
@@ -8181,9 +8083,6 @@ LABEL_21:
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     goto LABEL_22;
   }
-
-LABEL_26:
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2962D2FF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)

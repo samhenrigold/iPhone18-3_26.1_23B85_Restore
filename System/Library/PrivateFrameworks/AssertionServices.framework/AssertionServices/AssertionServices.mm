@@ -1,13 +1,13 @@
-id RBSProcessLegacyStateDescriptor()
+id RBSProcessLegacyStateDescriptor(uint64_t a1)
 {
   if (RBSProcessLegacyStateDescriptor_onceToken != -1)
   {
     RBSProcessLegacyStateDescriptor_cold_1();
   }
 
-  v1 = RBSProcessLegacyStateDescriptor___LegacyDescriptor;
+  v2 = RBSProcessLegacyStateDescriptor___LegacyDescriptor;
 
-  return v1;
+  return v2;
 }
 
 void BKSProcessAssertionBackgroundTimeRemaining()
@@ -15,8 +15,6 @@ void BKSProcessAssertionBackgroundTimeRemaining()
   v0 = [MEMORY[0x277D46F48] currentProcess];
   v1 = [v0 activeLimitations];
   [v1 runTime];
-
-  *MEMORY[0x277D47080];
 }
 
 void sub_22EEB7D14(_Unwind_Exception *a1)
@@ -142,16 +140,16 @@ LABEL_9:
   return v4;
 }
 
-void sub_22EEBA744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22EEBA744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void BKSProcessAssertionSetExpirationHandler(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (!v4)
@@ -166,15 +164,15 @@ void BKSProcessAssertionSetExpirationHandler(void *a1, void *a2)
 
   v5 = objc_autoreleasePoolPush();
   v6 = MEMORY[0x277D46F48];
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __BKSProcessAssertionSetExpirationHandler_block_invoke_2;
-  v17 = &unk_278871BF0;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __BKSProcessAssertionSetExpirationHandler_block_invoke_2;
+  v16 = &unk_278871BF0;
   v7 = v4;
-  v19 = v7;
+  v18 = v7;
   v8 = v3;
-  v18 = v8;
-  v9 = [v6 observeForImminentAssertionsExpiration:&v14];
+  v17 = v8;
+  v9 = [v6 observeForImminentAssertionsExpiration:&v13];
   v10 = rbs_shim_log();
   v11 = v10;
   if (v9)
@@ -183,14 +181,14 @@ void BKSProcessAssertionSetExpirationHandler(void *a1, void *a2)
     {
       v12 = MEMORY[0x2318FA0F0](v7);
       *buf = 138412546;
-      v21 = v12;
-      v22 = 2112;
-      v23 = v9;
+      v20 = v12;
+      v21 = 2112;
+      v22 = v9;
       _os_log_impl(&dword_22EEB6000, v11, OS_LOG_TYPE_DEFAULT, "adding imminent expiration handler: %@, observer %@", buf, 0x16u);
     }
 
     os_unfair_lock_lock(&BKSProcessAssertionSetExpirationHandler_lock);
-    [BKSProcessAssertionSetExpirationHandler__observers addObject:{v9, v14, v15, v16, v17}];
+    [BKSProcessAssertionSetExpirationHandler__observers addObject:{v9, v13, v14, v15, v16}];
     os_unfair_lock_unlock(&BKSProcessAssertionSetExpirationHandler_lock);
   }
 
@@ -203,7 +201,6 @@ void BKSProcessAssertionSetExpirationHandler(void *a1, void *a2)
   }
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __BKSProcessAssertionSetExpirationHandler_block_invoke()
@@ -215,14 +212,14 @@ uint64_t __BKSProcessAssertionSetExpirationHandler_block_invoke()
 
 void __BKSProcessAssertionSetExpirationHandler_block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = rbs_shim_log();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = MEMORY[0x2318FA0F0](*(a1 + 40));
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_22EEB6000, v2, OS_LOG_TYPE_DEFAULT, "BKSProcessAssertionSetExpirationHandler fired: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_22EEB6000, v2, OS_LOG_TYPE_DEFAULT, "BKSProcessAssertionSetExpirationHandler fired: %@", &v6, 0xCu);
   }
 
   v4 = *(a1 + 32);
@@ -236,41 +233,40 @@ void __BKSProcessAssertionSetExpirationHandler_block_invoke_2(uint64_t a1)
   {
     v5[2](*(a1 + 40));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t BKSTerminationAssertionActiveEfficacyForBundleIdentifier(void *a1)
 {
   v1 = a1;
-  v2 = __observerManager();
+  v2 = __observerManager(v1);
   v3 = [v2 efficacyForBundleID:v1];
 
   return v3;
 }
 
-id __observerManager()
+id __observerManager(uint64_t a1)
 {
   if (__observerManager_onceToken != -1)
   {
     __observerManager_cold_1();
   }
 
-  v1 = __observerManager___manager;
+  v2 = __observerManager___manager;
 
-  return v1;
+  return v2;
 }
 
 uint64_t BKSTerminationAssertionHeldForBundleIdentifier(void *a1)
 {
   v1 = a1;
-  v2 = __observerManager();
+  v2 = __observerManager(v1);
   v3 = [v2 hasTerminationAssertionForBundleID:v1];
 
   return v3;
@@ -279,23 +275,23 @@ uint64_t BKSTerminationAssertionHeldForBundleIdentifier(void *a1)
 void BKSTerminationAssertionRegisterObserver(void *a1)
 {
   v1 = a1;
-  v2 = __observerManager();
+  v2 = __observerManager(v1);
   [v2 addObserver:v1];
 }
 
 void BKSTerminationAssertionUnregisterObserver(void *a1)
 {
   v1 = a1;
-  v2 = __observerManager();
+  v2 = __observerManager(v1);
   [v2 removeObserver:v1];
 }
 
-void sub_22EEBC08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22EEBC08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
-  _Block_object_dispose((v17 - 80), 8);
+  _Block_object_dispose((v24 - 128), 8);
+  _Block_object_dispose((v24 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -322,21 +318,19 @@ uint64_t ____observerManager_block_invoke()
 
 void __RBSProcessLegacyStateDescriptor_block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D46FB0] descriptor];
   v1 = RBSProcessLegacyStateDescriptor___LegacyDescriptor;
   RBSProcessLegacyStateDescriptor___LegacyDescriptor = v0;
 
   [RBSProcessLegacyStateDescriptor___LegacyDescriptor setValues:9];
   v2 = RBSProcessLegacyStateDescriptor___LegacyDescriptor;
-  v5[0] = *MEMORY[0x277D470D0];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = *MEMORY[0x277D470D0];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [v2 setEndowmentNamespaces:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t _BKSWatchdogAssertionGetTypeID()
+uint64_t _BKSWatchdogAssertionGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_BKSWatchdogAssertionGetTypeID_once != -1)
   {
@@ -359,19 +353,19 @@ void _BKSWatchdogAssertionDestroy(uint64_t a1)
 uint64_t BKSWatchdogAssertionCreateForPID(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D47008] targetWithPid:a2];
   v4 = objc_alloc(MEMORY[0x277D46DB8]);
   v5 = [MEMORY[0x277D46E28] grant];
-  v19[0] = v5;
+  v18[0] = v5;
   v6 = [MEMORY[0x277D46D78] attributeWithCompletionPolicy:0];
-  v19[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   v8 = [v4 initWithExplanation:@"BKSWatchdogAssertion" target:v3 attributes:v7];
 
-  v18 = 0;
-  LODWORD(v7) = [v8 acquireWithError:&v18];
-  v9 = v18;
+  v17 = 0;
+  LODWORD(v7) = [v8 acquireWithError:&v17];
+  v9 = v17;
   Instance = 0;
   if (v7)
   {
@@ -402,7 +396,6 @@ uint64_t BKSWatchdogAssertionCreateForPID(uint64_t a1, uint64_t a2)
     os_unfair_lock_unlock(&watchdogLock);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return Instance;
 }
 

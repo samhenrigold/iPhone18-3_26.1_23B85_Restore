@@ -140,7 +140,7 @@
   }
 }
 
-id __99__PUWallpaperPosterMigrator__handleSegmentationItem_imageSize_scale_options_error_completionBlock___block_invoke(uint64_t a1, void *a2)
+id __99__PUWallpaperPosterMigrator__handleSegmentationItem_imageSize_scale_options_error_completionBlock___block_invoke(double *a1, void *a2)
 {
   v2 = a2;
   [v2 deviceResolution];

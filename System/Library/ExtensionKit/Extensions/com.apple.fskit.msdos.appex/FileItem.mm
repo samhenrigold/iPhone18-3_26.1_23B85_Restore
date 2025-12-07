@@ -1,24 +1,116 @@
 @interface FileItem
 - (id)completeIOAtOffset:(int64_t)offset length:(unint64_t)length status:(int)status flags:(unint64_t)flags operationID:(unint64_t)d;
 - (id)getAttributes:(id)attributes;
+- (id)initInVolume:(id)volume inDir:(id)dir startingAt:(unsigned int)at withData:(id)data andName:(id)name;
+- (id)truncateTo:(unint64_t)to allowPartial:(BOOL)partial mustBeContig:(BOOL)contig;
 - (void)blockmapOffset:(int64_t)offset length:(unint64_t)length flags:(unint64_t)flags operationID:(unint64_t)d packer:(id)packer replyHandler:(id)handler;
 - (void)fetchFileExtentsFrom:(unint64_t)from to:(unint64_t)to usingBlocks:(id)blocks replyHandler:(id)handler;
+- (void)preallocate:(unint64_t)preallocate allowPartial:(BOOL)partial mustBeContig:(BOOL)contig replyHandler:(id)handler;
+- (void)setPreAllocated:(BOOL)allocated;
 - (void)updateModificationTime:(id)time;
 - (void)updatePreallocStatus;
 @end
 
 @implementation FileItem
 
+- (id)initInVolume:(id)volume inDir:(id)dir startingAt:(unsigned int)at withData:(id)data andName:(id)name
+{
+  v11.receiver = self;
+  v11.super_class = FileItem;
+  v7 = [(FATItem *)&v11 initInVolume:volume inDir:dir startingAt:*&at withData:data andName:name isRoot:0];
+  v8 = v7;
+  if (v7)
+  {
+    [v7 setIsPreAllocated:0];
+    v9 = +[NSMutableDictionary dictionary];
+    [v8 setBlockmapRequests:v9];
+
+    [v8 setWriteCounter:0];
+  }
+
+  return v8;
+}
+
+- (id)truncateTo:(unint64_t)to allowPartial:(BOOL)partial mustBeContig:(BOOL)contig
+{
+  contigCopy = contig;
+  partialCopy = partial;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1000151E4;
+  v27 = sub_1000151F4;
+  v28 = 0;
+  volume = [(FATItem *)self volume];
+  systemInfo = [volume systemInfo];
+  bytesPerCluster = [systemInfo bytesPerCluster];
+
+  if (to % bytesPerCluster)
+  {
+    v12 = bytesPerCluster - to % bytesPerCluster;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if ([(FileItem *)self maxFileSize]< to)
+  {
+    v13 = fs_errorForPOSIXError();
+    goto LABEL_12;
+  }
+
+  v14 = (v12 + to) / bytesPerCluster;
+  if ([(FATItem *)self numberOfClusters]< v14)
+  {
+    numberOfClusters = [(FATItem *)self numberOfClusters];
+    volume2 = [(FATItem *)self volume];
+    fatManager = [volume2 fatManager];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_1000151FC;
+    v22[3] = &unk_100050F98;
+    v22[4] = &v23;
+    [fatManager allocateClusters:v14 - numberOfClusters forItem:self allowPartial:partialCopy mustBeContig:contigCopy zeroFill:0 replyHandler:v22];
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+  if ([(FATItem *)self numberOfClusters]> v14)
+  {
+    numberOfClusters2 = [(FATItem *)self numberOfClusters];
+    volume2 = [(FATItem *)self volume];
+    fatManager = [volume2 fatManager];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_10001526C;
+    v21[3] = &unk_100050C58;
+    v21[4] = &v23;
+    [fatManager freeClusters:numberOfClusters2 - v14 ofItem:self replyHandler:v21];
+    goto LABEL_10;
+  }
+
+LABEL_11:
+  v13 = v24[5];
+LABEL_12:
+  v19 = v13;
+  _Block_object_dispose(&v23, 8);
+
+  return v19;
+}
+
 - (void)blockmapOffset:(int64_t)offset length:(unint64_t)length flags:(unint64_t)flags operationID:(unint64_t)d packer:(id)packer replyHandler:(id)handler
 {
   packerCopy = packer;
   handlerCopy = handler;
   v45 = 0;
-  v46[0] = &v45;
-  v46[1] = 0x3032000000;
-  v46[2] = sub_1000151E4;
-  v46[3] = sub_1000151F4;
-  v47 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = sub_1000151E4;
+  v49 = sub_1000151F4;
+  v50 = 0;
   volume = [(FATItem *)self volume];
   systemInfo = [volume systemInfo];
   bytesPerCluster = [systemInfo bytesPerCluster];
@@ -26,14 +118,14 @@
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
-    v49 = "[FileItem blockmapOffset:length:flags:operationID:packer:replyHandler:]";
-    v50 = 2048;
+    v52 = "[FileItem blockmapOffset:length:flags:operationID:packer:replyHandler:]";
+    v53 = 2048;
     offsetCopy = offset;
-    v52 = 2048;
+    v55 = 2048;
     lengthCopy = length;
-    v54 = 2048;
+    v57 = 2048;
     flagsCopy = flags;
-    v56 = 2048;
+    v59 = 2048;
     dCopy = d;
     _os_log_debug_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEBUG, "%s: offset: %llu, length: %zu, flags: %lu, operationID: %lu.\n", buf, 0x34u);
     if ((flags & 0x200) != 0)
@@ -122,14 +214,14 @@ LABEL_30:
         if (v17 > v23)
         {
           v26 = [(FileItem *)self truncateTo:length + offset allowPartial:1 mustBeContig:0];
-          v27 = *(v46[0] + 40);
-          *(v46[0] + 40) = v26;
+          v27 = v46[5];
+          v46[5] = v26;
 
-          if (*(v46[0] + 40))
+          if (v46[5])
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
             {
-              sub_100031288(v46);
+              sub_100031288();
             }
 
             goto LABEL_45;
@@ -171,7 +263,7 @@ LABEL_30:
     v44[3] = &unk_100050C58;
     v44[4] = &v45;
     [(FileItem *)self fetchFileExtentsFrom:offset to:v23 usingBlocks:packerCopy replyHandler:v44, getSize];
-    if (!*(v46[0] + 40))
+    if (!v46[5])
     {
       v31 = 0;
       if ((flags & 0x200) != 0 && FSOperationIDUnspecified != d)
@@ -202,7 +294,7 @@ LABEL_30:
     [entryData3 setSize:v41];
 
 LABEL_45:
-    v31 = *(v46[0] + 40);
+    v31 = v46[5];
 LABEL_51:
     handlerCopy[2](handlerCopy, v31);
     goto LABEL_31;
@@ -211,7 +303,7 @@ LABEL_51:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v49 = "[FileItem blockmapOffset:length:flags:operationID:packer:replyHandler:]";
+    v52 = "[FileItem blockmapOffset:length:flags:operationID:packer:replyHandler:]";
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s: Requested length = 0. Exit with SUCCESS and numOfExtentsFetched = 0.", buf, 0xCu);
   }
 
@@ -401,11 +493,11 @@ LABEL_41:
   blocksCopy = blocks;
   handlerCopy = handler;
   v55 = 0;
-  v56[0] = &v55;
-  v56[1] = 0x3032000000;
-  v56[2] = sub_1000151E4;
-  v56[3] = sub_1000151F4;
-  v57 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = sub_1000151E4;
+  v59 = sub_1000151F4;
+  v60 = 0;
   v51 = 0;
   v52 = &v51;
   v53 = 0x2020000000;
@@ -461,11 +553,11 @@ LABEL_41:
     v46[6] = &v51;
     [fatManager getContigClusterChainLengthStartingAt:firstClusterInLastAllocation replyHandler:v46];
 
-    if (*(v56[0] + 40))
+    if (v56[5])
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_1000318F0(v56);
+        sub_1000318F0();
       }
 
       break;
@@ -490,8 +582,8 @@ LABEL_13:
         }
 
         v39 = fs_errorForPOSIXError();
-        v40 = *(v56[0] + 40);
-        *(v56[0] + 40) = v39;
+        v40 = v56[5];
+        v56[5] = v39;
 
         break;
       }
@@ -606,6 +698,76 @@ LABEL_13:
   v12 = [(FATItem *)self numberOfClusters]!= (getSize / bytesPerCluster);
 
   [(FileItem *)self setPreAllocated:v12];
+}
+
+- (void)setPreAllocated:(BOOL)allocated
+{
+  allocatedCopy = allocated;
+  if ([(FileItem *)self isPreAllocated]!= allocated)
+  {
+    volume = [(FATItem *)self volume];
+    volume2 = volume;
+    if (allocatedCopy)
+    {
+      [volume incNumberOfPreallocatedFiles];
+    }
+
+    else
+    {
+      getNumberOfPreallocatedFiles = [volume getNumberOfPreallocatedFiles];
+
+      if (!getNumberOfPreallocatedFiles)
+      {
+        if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+        {
+          sub_100031A00();
+        }
+
+        goto LABEL_7;
+      }
+
+      volume2 = [(FATItem *)self volume];
+      [volume2 decNumberOfPreallocatedFiles];
+    }
+
+LABEL_7:
+    [(FileItem *)self setIsPreAllocated:allocatedCopy];
+  }
+}
+
+- (void)preallocate:(unint64_t)preallocate allowPartial:(BOOL)partial mustBeContig:(BOOL)contig replyHandler:(id)handler
+{
+  contigCopy = contig;
+  partialCopy = partial;
+  handlerCopy = handler;
+  volume = [(FATItem *)self volume];
+  systemInfo = [volume systemInfo];
+  bytesPerCluster = [systemInfo bytesPerCluster];
+
+  numberOfClusters = [(FATItem *)self numberOfClusters];
+  v14 = preallocate + numberOfClusters * bytesPerCluster;
+  numberOfClusters2 = [(FATItem *)self numberOfClusters];
+  if (HIDWORD(v14))
+  {
+    v16 = fs_errorForPOSIXError();
+    handlerCopy[2](handlerCopy, v16, 0);
+  }
+
+  else if (numberOfClusters2 == ((bytesPerCluster + v14 - 1) / bytesPerCluster))
+  {
+    handlerCopy[2](handlerCopy, 0, 0);
+  }
+
+  else
+  {
+    v17 = [(FileItem *)self truncateTo:v14 allowPartial:partialCopy mustBeContig:contigCopy];
+    if (!v17)
+    {
+      [(FileItem *)self updatePreallocStatus];
+    }
+
+    handlerCopy[2](handlerCopy, v17, ([(FATItem *)self numberOfClusters]- numberOfClusters) * bytesPerCluster);
+  }
 }
 
 - (id)getAttributes:(id)attributes

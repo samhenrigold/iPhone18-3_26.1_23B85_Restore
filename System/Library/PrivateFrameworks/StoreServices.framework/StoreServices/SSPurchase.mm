@@ -1781,7 +1781,7 @@ void __24__SSPurchase_tidHeaders__block_invoke(uint64_t a1)
 
 - (void)_addEntriesToDatabaseEncoding:(id)encoding
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   encodingCopy = encoding;
   v5 = encodingCopy;
   accountIdentifier = self->_accountIdentifier;
@@ -1907,15 +1907,15 @@ void __24__SSPurchase_tidHeaders__block_invoke(uint64_t a1)
   downloadPolicy = self->_downloadPolicy;
   if (downloadPolicy)
   {
-    v67 = 0;
-    v33 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:downloadPolicy requiringSecureCoding:1 error:&v67];
-    v34 = v67;
+    v66 = 0;
+    v33 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:downloadPolicy requiringSecureCoding:1 error:&v66];
+    v34 = v66;
     if (v33)
     {
       [v5 setObject:v33 forKey:@"6"];
-LABEL_44:
+LABEL_45:
 
-      goto LABEL_45;
+      goto LABEL_46;
     }
 
     v35 = +[SSLogConfig sharedStoreServicesConfig];
@@ -1927,16 +1927,21 @@ LABEL_44:
     shouldLog = [v35 shouldLog];
     if ([v35 shouldLogToDisk])
     {
-      v37 = shouldLog | 2;
+      LODWORD(v37) = shouldLog | 2;
     }
 
     else
     {
-      v37 = shouldLog;
+      LODWORD(v37) = shouldLog;
     }
 
     oSLogObject = [v35 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v37 = v37;
+    }
+
+    else
     {
       v37 &= 2u;
     }
@@ -1944,43 +1949,41 @@ LABEL_44:
     if (v37)
     {
       v39 = objc_opt_class();
-      v68 = 138543618;
-      v69 = v39;
-      v70 = 2114;
-      v71 = v34;
+      v67 = 138543618;
+      v68 = v39;
+      v69 = 2114;
+      v70 = v34;
       v40 = v39;
-      LODWORD(v65) = 22;
-      v64 = &v68;
-      v41 = _os_log_send_and_compose_impl();
+      v41 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to archive download policy. Error = %{public}@", &v67, 22);
 
       if (!v41)
       {
-LABEL_43:
+LABEL_44:
 
-        goto LABEL_44;
+        goto LABEL_45;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v41 encoding:{4, &v68, v65}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v41 encoding:4];
       free(v41);
       SSFileLog(v35, @"%@", v42, v43, v44, v45, v46, v47, oSLogObject);
     }
 
-    goto LABEL_43;
+    goto LABEL_44;
   }
 
-LABEL_45:
+LABEL_46:
   requestProperties = self->_requestProperties;
   if (requestProperties)
   {
-    v66 = 0;
-    v49 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:requestProperties requiringSecureCoding:1 error:&v66];
-    v50 = v66;
+    v65 = 0;
+    v49 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:requestProperties requiringSecureCoding:1 error:&v65];
+    v50 = v65;
     if (v49)
     {
       [v5 setObject:v49 forKey:@"D"];
-LABEL_60:
+LABEL_62:
 
-      goto LABEL_61;
+      goto LABEL_63;
     }
 
     v51 = +[SSLogConfig sharedStoreServicesConfig];
@@ -1992,16 +1995,21 @@ LABEL_60:
     shouldLog2 = [v51 shouldLog];
     if ([v51 shouldLogToDisk])
     {
-      v53 = shouldLog2 | 2;
+      LODWORD(v53) = shouldLog2 | 2;
     }
 
     else
     {
-      v53 = shouldLog2;
+      LODWORD(v53) = shouldLog2;
     }
 
     oSLogObject2 = [v51 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    {
+      v53 = v53;
+    }
+
+    else
     {
       v53 &= 2u;
     }
@@ -2009,30 +2017,30 @@ LABEL_60:
     if (v53)
     {
       v55 = objc_opt_class();
-      v68 = 138543618;
-      v69 = v55;
-      v70 = 2114;
-      v71 = v50;
+      v67 = 138543618;
+      v68 = v55;
+      v69 = 2114;
+      v70 = v50;
       v56 = v55;
-      LODWORD(v65) = 22;
-      v57 = _os_log_send_and_compose_impl();
+      LODWORD(v64) = 22;
+      v57 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: Failed to archive request properties. Error = %{public}@", &v67, v64);
 
       if (!v57)
       {
-LABEL_59:
+LABEL_61:
 
-        goto LABEL_60;
+        goto LABEL_62;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v57 encoding:{4, &v68, v65}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v57 encoding:4];
       free(v57);
       SSFileLog(v51, @"%@", v58, v59, v60, v61, v62, v63, oSLogObject2);
     }
 
-    goto LABEL_59;
+    goto LABEL_61;
   }
 
-LABEL_61:
+LABEL_63:
 }
 
 - (id)_buyParametersValueForKey:(id)key fromBuyParams:(id)params
@@ -2141,7 +2149,7 @@ LABEL_12:
 
 - (void)_setValuesUsingDatabaseEncoding:(id)encoding
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   encodingCopy = encoding;
   v5 = [encodingCopy objectForKey:@"0"];
   objc_opt_class();
@@ -2358,9 +2366,9 @@ LABEL_12:
   v44 = 0x1E696A000uLL;
   if (objc_opt_isKindOfClass())
   {
-    v81 = 0;
-    v45 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v43 error:&v81];
-    v78 = v81;
+    v80 = 0;
+    v45 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v43 error:&v80];
+    v77 = v80;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -2369,126 +2377,134 @@ LABEL_12:
       self->_downloadPolicy = v46;
 LABEL_58:
       v44 = 0x1E696A000;
-LABEL_69:
+LABEL_70:
 
-      goto LABEL_70;
+      goto LABEL_71;
     }
 
-    v76 = v32;
+    v75 = v32;
     downloadPolicy = +[SSLogConfig sharedStoreServicesConfig];
     if (!downloadPolicy)
     {
       downloadPolicy = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [downloadPolicy shouldLog];
+    LODWORD(v48) = [downloadPolicy shouldLog];
     if ([downloadPolicy shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v48) = v48 | 2;
     }
 
     oSLogObject = [downloadPolicy OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      shouldLog &= 2u;
+      v48 = v48;
     }
 
-    if (shouldLog)
+    else
+    {
+      v48 &= 2u;
+    }
+
+    if (v48)
     {
       v50 = objc_opt_class();
-      v82 = 138543618;
-      v83 = v50;
-      v84 = 2114;
-      v85 = v78;
-      LODWORD(v75) = 22;
-      v74 = &v82;
-      v51 = _os_log_send_and_compose_impl();
+      v81 = 138543618;
+      v82 = v50;
+      v83 = 2114;
+      v84 = v77;
+      v51 = _os_log_send_and_compose_impl(v48, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to unarchive download policy. Error = %{public}@", &v81, 22);
 
       if (!v51)
       {
-        v32 = v76;
+        v32 = v75;
         goto LABEL_58;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:{4, &v82, v75}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v51 encoding:4];
       free(v51);
       SSFileLog(downloadPolicy, @"%@", v52, v53, v54, v55, v56, v57, oSLogObject);
     }
 
     v44 = 0x1E696A000uLL;
 
-    v32 = v76;
-    goto LABEL_69;
+    v32 = v75;
+    goto LABEL_70;
   }
 
-LABEL_70:
-  v58 = [encodingCopy objectForKey:{@"D", v74}];
+LABEL_71:
+  v58 = [encodingCopy objectForKey:@"D"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v59 = *(v44 + 3280);
-    v80 = 0;
-    v60 = [v59 unarchivedObjectOfClass:objc_opt_class() fromData:v58 error:&v80];
-    v61 = v80;
+    v79 = 0;
+    v60 = [v59 unarchivedObjectOfClass:objc_opt_class() fromData:v58 error:&v79];
+    v61 = v79;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       v62 = v60;
       requestProperties = self->_requestProperties;
       self->_requestProperties = v62;
-LABEL_84:
+LABEL_86:
 
-      goto LABEL_85;
+      goto LABEL_87;
     }
 
-    v77 = v32;
-    v79 = v61;
+    v76 = v32;
+    v78 = v61;
     requestProperties = +[SSLogConfig sharedStoreServicesConfig];
     if (!requestProperties)
     {
       requestProperties = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [requestProperties shouldLog];
+    LODWORD(v64) = [requestProperties shouldLog];
     if ([requestProperties shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v64) = v64 | 2;
     }
 
     oSLogObject2 = [requestProperties OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      shouldLog2 &= 2u;
+      v64 = v64;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v64 &= 2u;
+    }
+
+    if (v64)
     {
       v66 = objc_opt_class();
-      v82 = 138543618;
-      v83 = v66;
-      v84 = 2114;
-      v85 = v79;
-      LODWORD(v75) = 22;
-      v67 = _os_log_send_and_compose_impl();
+      v81 = 138543618;
+      v82 = v66;
+      v83 = 2114;
+      v84 = v78;
+      LODWORD(v74) = 22;
+      v67 = _os_log_send_and_compose_impl(v64, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 16, "%{public}@: Failed to unarchive request properties. Error = %{public}@", &v81, v74);
 
       if (!v67)
       {
-LABEL_83:
-        v32 = v77;
-        v61 = v79;
-        goto LABEL_84;
+LABEL_85:
+        v32 = v76;
+        v61 = v78;
+        goto LABEL_86;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v67 encoding:{4, &v82, v75}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v67 encoding:4];
       free(v67);
       SSFileLog(requestProperties, @"%@", v68, v69, v70, v71, v72, v73, oSLogObject2);
     }
 
-    goto LABEL_83;
+    goto LABEL_85;
   }
 
-LABEL_85:
+LABEL_87:
 }
 
 - (SSPurchase)initWithCoder:(id)coder
@@ -2879,7 +2895,7 @@ void __27__SSPurchase_copyWithZone___block_invoke(void *a1)
   return v6;
 }
 
-uint64_t __29__SSPurchase_copyXPCEncoding__block_invoke(uint64_t a1)
+void __29__SSPurchase_copyXPCEncoding__block_invoke(uint64_t a1)
 {
   SSXPCDictionarySetObject(*(a1 + 32), "0", *(*(a1 + 40) + 8));
   SSXPCDictionarySetObject(*(a1 + 32), "1", *(*(a1 + 40) + 16));
@@ -2919,7 +2935,7 @@ uint64_t __29__SSPurchase_copyXPCEncoding__block_invoke(uint64_t a1)
   v6 = *(a1 + 32);
   v7 = *(*(a1 + 40) + 256);
 
-  return SSXPCDictionarySetObject(v6, "29", v7);
+  SSXPCDictionarySetObject(v6, "29", v7);
 }
 
 - (SSPurchase)initWithXPCEncoding:(id)encoding
@@ -3024,7 +3040,7 @@ uint64_t __29__SSPurchase_copyXPCEncoding__block_invoke(uint64_t a1)
 
     v50 = objc_opt_class();
     v51 = SSXPCDictionaryCopyObjectWithClass(v5, "9", v50);
-    v52 = [v51 mutableCopy];
+    v52 = [(__CFDate *)v51 mutableCopy];
     downloadProperties = _initSSPurchase->_downloadProperties;
     _initSSPurchase->_downloadProperties = v52;
 

@@ -1,10 +1,10 @@
 @interface NSMutableOrderedSet(NSMutableOrderedSetDiffing)
-- (uint64_t)applyDifference:()NSMutableOrderedSetDiffing;
+- (void)applyDifference:()NSMutableOrderedSetDiffing;
 @end
 
 @implementation NSMutableOrderedSet(NSMutableOrderedSetDiffing)
 
-- (uint64_t)applyDifference:()NSMutableOrderedSetDiffing
+- (void)applyDifference:()NSMutableOrderedSetDiffing
 {
   v15 = *MEMORY[0x1E69E9840];
   v11 = 0u;
@@ -37,7 +37,7 @@
           [self insertObject:objc_msgSend(v9 atIndex:{"object"), objc_msgSend(v9, "index")}];
         }
 
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);

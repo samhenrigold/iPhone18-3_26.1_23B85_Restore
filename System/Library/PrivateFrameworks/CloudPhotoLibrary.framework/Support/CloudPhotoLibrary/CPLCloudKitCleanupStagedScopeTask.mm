@@ -198,7 +198,7 @@
 {
   if (!self->_mainOperation)
   {
-    sub_1001ADEA8();
+    sub_1001ADEA8(a2);
   }
 
   libraryInfoRecordName = [(CPLCloudKitZoneIdentification *)self->_stagingZoneIdentification libraryInfoRecordName];

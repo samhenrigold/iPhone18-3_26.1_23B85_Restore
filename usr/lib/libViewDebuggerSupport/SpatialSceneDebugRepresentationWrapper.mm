@@ -39,7 +39,7 @@
   static SpatialSceneDebugRepresentationWrapper.fallback_debugHierarchyValueForProperty(withName:on:outOptions:)(v6, v8, v11, v12);
   __swift_destroy_boxed_opaque_existential_0(v11);
 
-  __swift_project_boxed_opaque_existential_0(v12, v12[3]);
+  __swift_project_boxed_opaque_existential_0(v12, v13);
   v9 = _bridgeAnythingToObjectiveC<A>(_:)();
   __swift_destroy_boxed_opaque_existential_0(v12);
 

@@ -11,30 +11,29 @@
 
 - (void)dealloc
 {
-  v15 = 0u;
-  v16 = 0u;
   v14 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
-  v4 = v15;
-  *(v15 + 8) = -15494;
-  v5 = BYTE9(v16);
-  if (BYTE9(v16) > 0x38uLL)
+  v15 = 0u;
+  v13 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v3 = v14;
+  *(v14 + 8) = -15494;
+  v4 = BYTE9(v15);
+  if (BYTE9(v15) > 0x38uLL)
   {
-    v7 = *(*(&v14 + 1) + 24);
-    v8 = BYTE10(v16);
-    ++BYTE10(v16);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v15 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v13 + 1) + 24);
+    v7 = BYTE10(v15);
+    ++BYTE10(v15);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v14 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v16));
-    BYTE9(v16) += 8;
+    v5 = (v3 + BYTE9(v15));
+    BYTE9(v15) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTLFunctionPrivateArgument *)self traceStream];
   if (traceStream)
   {
@@ -46,15 +45,15 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v16);
-  *(v15 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v15);
+  *(v14 + 15) |= 8u;
   GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
-  v13.receiver = self;
-  v13.super_class = CaptureMTLFunctionPrivateArgument;
-  [(CaptureMTLFunctionPrivateArgument *)&v13 dealloc];
+  v12.receiver = self;
+  v12.super_class = CaptureMTLFunctionPrivateArgument;
+  [(CaptureMTLFunctionPrivateArgument *)&v12 dealloc];
 }
 
 - (BOOL)conformsToProtocol:(id)protocol

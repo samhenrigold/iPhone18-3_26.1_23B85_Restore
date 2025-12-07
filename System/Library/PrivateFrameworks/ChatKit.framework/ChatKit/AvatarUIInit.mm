@@ -3,7 +3,7 @@
 
 @implementation AvatarUIInit
 
-void *___AvatarUIInit_block_invoke()
+uint64_t (*___AvatarUIInit_block_invoke())(void)
 {
   _CKAVTAvatarStore = MEMORY[0x193AF5EC0](@"AVTAvatarStore", @"AvatarUI");
   _CKAVTAvatarFetchRequest = MEMORY[0x193AF5EC0](@"AVTAvatarFetchRequest", @"AvatarUI");

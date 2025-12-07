@@ -123,7 +123,7 @@
   return v13 & 1;
 }
 
-uint64_t __77__CLKUIQuadView_renderSynchronouslyWithImageQueueDiscard_inGroup_completion___block_invoke(uint64_t a1)
+void *__77__CLKUIQuadView_renderSynchronouslyWithImageQueueDiscard_inGroup_completion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _sync_prepareAndRenderForTime:*(a1 + 40) inGroup:(*(a1 + 72) & 1) == 0 checkForDrawable:1 renderDiscontinuity:*(a1 + 48) completion:*(a1 + 64)];
   *(*(*(a1 + 56) + 8) + 24) = result;

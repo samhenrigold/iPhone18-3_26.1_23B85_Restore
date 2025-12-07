@@ -31,6 +31,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)mLBConfigAsString:(int)string;
 - (int)StringAsMLBConfig:(id)config;
 - (int)mLBConfig;
 - (unint64_t)hash;
@@ -446,6 +447,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)mLBConfigAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"kPPMNorthSouthSplitMLB";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"kPPMRegularMLB";
+  }
+
+  return v4;
 }
 
 - (int)StringAsMLBConfig:(id)config
@@ -942,7 +966,6 @@ LABEL_27:
     v4 = 0;
     do
     {
-      v5 = self->_agingCoeffForR0s.list[v4];
       PBDataWriterWriteFloatField();
       ++v4;
     }
@@ -952,80 +975,74 @@ LABEL_27:
 
   if (self->_agingCoeffForR0TemperatureCoeffs.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_agingCoeffForR0TemperatureCoeffs.list[v6];
       PBDataWriterWriteFloatField();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_agingCoeffForR0TemperatureCoeffs.count);
+    while (v5 < self->_agingCoeffForR0TemperatureCoeffs.count);
   }
 
   if (self->_agingCoeffForR1s.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_agingCoeffForR1s.list[v8];
       PBDataWriterWriteFloatField();
-      ++v8;
+      ++v6;
     }
 
-    while (v8 < self->_agingCoeffForR1s.count);
+    while (v6 < self->_agingCoeffForR1s.count);
   }
 
   if (self->_agingCoeffForR1TemperatureCoeffs.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_agingCoeffForR1TemperatureCoeffs.list[v10];
       PBDataWriterWriteFloatField();
-      ++v10;
+      ++v7;
     }
 
-    while (v10 < self->_agingCoeffForR1TemperatureCoeffs.count);
+    while (v7 < self->_agingCoeffForR1TemperatureCoeffs.count);
   }
 
   if (self->_agingCoeffForR2s.count)
   {
-    v12 = 0;
+    v8 = 0;
     do
     {
-      v13 = self->_agingCoeffForR2s.list[v12];
       PBDataWriterWriteFloatField();
-      ++v12;
+      ++v8;
     }
 
-    while (v12 < self->_agingCoeffForR2s.count);
+    while (v8 < self->_agingCoeffForR2s.count);
   }
 
   if (self->_agingCoeffForR2TemperatureCoeffs.count)
   {
-    v14 = 0;
+    v9 = 0;
     do
     {
-      v15 = self->_agingCoeffForR2TemperatureCoeffs.list[v14];
       PBDataWriterWriteFloatField();
-      ++v14;
+      ++v9;
     }
 
-    while (v14 < self->_agingCoeffForR2TemperatureCoeffs.count);
+    while (v9 < self->_agingCoeffForR2TemperatureCoeffs.count);
   }
 
   if (self->_baselineRdcs.count)
   {
-    v16 = 0;
+    v10 = 0;
     do
     {
-      v17 = self->_baselineRdcs.list[v16];
       PBDataWriterWriteFloatField();
-      ++v16;
+      ++v10;
     }
 
-    while (v16 < self->_baselineRdcs.count);
+    while (v10 < self->_baselineRdcs.count);
   }
 
   if (self->_baselineR0)
@@ -1038,19 +1055,17 @@ LABEL_27:
     PBDataWriterWriteSubmessage();
   }
 
-  chemID = self->_chemID;
   PBDataWriterWriteUint32Field();
   if (self->_gridOCVs.count)
   {
-    v19 = 0;
+    v11 = 0;
     do
     {
-      v20 = self->_gridOCVs.list[v19];
       PBDataWriterWriteFloatField();
-      ++v19;
+      ++v11;
     }
 
-    while (v19 < self->_gridOCVs.count);
+    while (v11 < self->_gridOCVs.count);
   }
 
   if (self->_baselineR3)
@@ -1059,12 +1074,11 @@ LABEL_27:
   }
 
   has = self->_has;
-  v22 = toCopy;
+  v13 = toCopy;
   if ((has & 8) != 0)
   {
-    maxRdcRatio = self->_maxRdcRatio;
     PBDataWriterWriteFloatField();
-    v22 = toCopy;
+    v13 = toCopy;
     has = self->_has;
     if ((has & 0x10) == 0)
     {
@@ -1083,367 +1097,342 @@ LABEL_49:
     goto LABEL_49;
   }
 
-  maxRdcRatioR2Extrap = self->_maxRdcRatioR2Extrap;
   PBDataWriterWriteFloatField();
-  v22 = toCopy;
+  v13 = toCopy;
   if (*&self->_has)
   {
 LABEL_50:
-    baselineWRdc = self->_baselineWRdc;
     PBDataWriterWriteFloatField();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
 LABEL_51:
   if (self->_slopeForR0Extraps.count)
   {
-    v24 = 0;
+    v14 = 0;
     do
     {
-      v25 = self->_slopeForR0Extraps.list[v24];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v24;
+      v13 = toCopy;
+      ++v14;
     }
 
-    while (v24 < self->_slopeForR0Extraps.count);
+    while (v14 < self->_slopeForR0Extraps.count);
   }
 
   if (self->_slopeForR1Extraps.count)
   {
-    v26 = 0;
+    v15 = 0;
     do
     {
-      v27 = self->_slopeForR1Extraps.list[v26];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v26;
+      v13 = toCopy;
+      ++v15;
     }
 
-    while (v26 < self->_slopeForR1Extraps.count);
+    while (v15 < self->_slopeForR1Extraps.count);
   }
 
   if (self->_slopeForR2Extraps.count)
   {
-    v28 = 0;
+    v16 = 0;
     do
     {
-      v29 = self->_slopeForR2Extraps.list[v28];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v28;
+      v13 = toCopy;
+      ++v16;
     }
 
-    while (v28 < self->_slopeForR2Extraps.count);
+    while (v16 < self->_slopeForR2Extraps.count);
   }
 
   if (self->_slopeForR3Extraps.count)
   {
-    v30 = 0;
+    v17 = 0;
     do
     {
-      v31 = self->_slopeForR3Extraps.list[v30];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v30;
+      v13 = toCopy;
+      ++v17;
     }
 
-    while (v30 < self->_slopeForR3Extraps.count);
+    while (v17 < self->_slopeForR3Extraps.count);
   }
 
   if (self->_r3)
   {
     PBDataWriterWriteSubmessage();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_rCFreq4)
   {
     PBDataWriterWriteSubmessage();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_baselineR4)
   {
     PBDataWriterWriteSubmessage();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_baselineRCFreq1)
   {
     PBDataWriterWriteSubmessage();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_baselineRCFreq2)
   {
     PBDataWriterWriteSubmessage();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_baselineRCFreq3)
   {
     PBDataWriterWriteSubmessage();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_baselineRCFreq4)
   {
     PBDataWriterWriteSubmessage();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_agingCoeffForR3s.count)
   {
-    v32 = 0;
+    v18 = 0;
     do
     {
-      v33 = self->_agingCoeffForR3s.list[v32];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v32;
+      v13 = toCopy;
+      ++v18;
     }
 
-    while (v32 < self->_agingCoeffForR3s.count);
+    while (v18 < self->_agingCoeffForR3s.count);
   }
 
   if (self->_agingCoeffForR3TemperatureCoeffs.count)
   {
-    v34 = 0;
+    v19 = 0;
     do
     {
-      v35 = self->_agingCoeffForR3TemperatureCoeffs.list[v34];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v34;
+      v13 = toCopy;
+      ++v19;
     }
 
-    while (v34 < self->_agingCoeffForR3TemperatureCoeffs.count);
+    while (v19 < self->_agingCoeffForR3TemperatureCoeffs.count);
   }
 
   if (self->_agingCoeffForRCFreq1s.count)
   {
-    v36 = 0;
+    v20 = 0;
     do
     {
-      v37 = self->_agingCoeffForRCFreq1s.list[v36];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v36;
+      v13 = toCopy;
+      ++v20;
     }
 
-    while (v36 < self->_agingCoeffForRCFreq1s.count);
+    while (v20 < self->_agingCoeffForRCFreq1s.count);
   }
 
   if (self->_agingCoeffForRCFreq2s.count)
   {
-    v38 = 0;
+    v21 = 0;
     do
     {
-      v39 = self->_agingCoeffForRCFreq2s.list[v38];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v38;
+      v13 = toCopy;
+      ++v21;
     }
 
-    while (v38 < self->_agingCoeffForRCFreq2s.count);
+    while (v21 < self->_agingCoeffForRCFreq2s.count);
   }
 
   if (self->_agingCoeffForRCFreq3s.count)
   {
-    v40 = 0;
+    v22 = 0;
     do
     {
-      v41 = self->_agingCoeffForRCFreq3s.list[v40];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v40;
+      v13 = toCopy;
+      ++v22;
     }
 
-    while (v40 < self->_agingCoeffForRCFreq3s.count);
+    while (v22 < self->_agingCoeffForRCFreq3s.count);
   }
 
   if (self->_agingCoeffForRCFreq4s.count)
   {
-    v42 = 0;
+    v23 = 0;
     do
     {
-      v43 = self->_agingCoeffForRCFreq4s.list[v42];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v42;
+      v13 = toCopy;
+      ++v23;
     }
 
-    while (v42 < self->_agingCoeffForRCFreq4s.count);
+    while (v23 < self->_agingCoeffForRCFreq4s.count);
   }
 
   if (self->_agingCoeffForRCFreq1TemperatureCoeffs.count)
   {
-    v44 = 0;
+    v24 = 0;
     do
     {
-      v45 = self->_agingCoeffForRCFreq1TemperatureCoeffs.list[v44];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v44;
+      v13 = toCopy;
+      ++v24;
     }
 
-    while (v44 < self->_agingCoeffForRCFreq1TemperatureCoeffs.count);
+    while (v24 < self->_agingCoeffForRCFreq1TemperatureCoeffs.count);
   }
 
   if (self->_agingCoeffForRCFreq2TemperatureCoeffs.count)
   {
-    v46 = 0;
+    v25 = 0;
     do
     {
-      v47 = self->_agingCoeffForRCFreq2TemperatureCoeffs.list[v46];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v46;
+      v13 = toCopy;
+      ++v25;
     }
 
-    while (v46 < self->_agingCoeffForRCFreq2TemperatureCoeffs.count);
+    while (v25 < self->_agingCoeffForRCFreq2TemperatureCoeffs.count);
   }
 
   if (self->_agingCoeffForRCFreq3TemperatureCoeffs.count)
   {
-    v48 = 0;
+    v26 = 0;
     do
     {
-      v49 = self->_agingCoeffForRCFreq3TemperatureCoeffs.list[v48];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v48;
+      v13 = toCopy;
+      ++v26;
     }
 
-    while (v48 < self->_agingCoeffForRCFreq3TemperatureCoeffs.count);
+    while (v26 < self->_agingCoeffForRCFreq3TemperatureCoeffs.count);
   }
 
   if (self->_agingCoeffForRCFreq4TemperatureCoeffs.count)
   {
-    v50 = 0;
+    v27 = 0;
     do
     {
-      v51 = self->_agingCoeffForRCFreq4TemperatureCoeffs.list[v50];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v50;
+      v13 = toCopy;
+      ++v27;
     }
 
-    while (v50 < self->_agingCoeffForRCFreq4TemperatureCoeffs.count);
+    while (v27 < self->_agingCoeffForRCFreq4TemperatureCoeffs.count);
   }
 
-  v52 = self->_has;
-  if ((v52 & 2) != 0)
+  v28 = self->_has;
+  if ((v28 & 2) != 0)
   {
-    mLBConfig = self->_mLBConfig;
     PBDataWriterWriteInt32Field();
-    v22 = toCopy;
-    v52 = self->_has;
+    v13 = toCopy;
+    v28 = self->_has;
   }
 
-  if ((v52 & 0x20) != 0)
+  if ((v28 & 0x20) != 0)
   {
-    wRdcRatioThresh = self->_wRdcRatioThresh;
     PBDataWriterWriteFloatField();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_gridWRdcRatios.count)
   {
-    v55 = 0;
+    v29 = 0;
     do
     {
-      v56 = self->_gridWRdcRatios.list[v55];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v55;
+      v13 = toCopy;
+      ++v29;
     }
 
-    while (v55 < self->_gridWRdcRatios.count);
+    while (v29 < self->_gridWRdcRatios.count);
   }
 
   if (self->_coeffSOCs.count)
   {
-    v57 = 0;
+    v30 = 0;
     do
     {
-      v58 = self->_coeffSOCs.list[v57];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v57;
+      v13 = toCopy;
+      ++v30;
     }
 
-    while (v57 < self->_coeffSOCs.count);
+    while (v30 < self->_coeffSOCs.count);
   }
 
   if (self->_coeffVs.count)
   {
-    v59 = 0;
+    v31 = 0;
     do
     {
-      v60 = self->_coeffVs.list[v59];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v59;
+      v13 = toCopy;
+      ++v31;
     }
 
-    while (v59 < self->_coeffVs.count);
+    while (v31 < self->_coeffVs.count);
   }
 
   if (self->_rdc)
   {
     PBDataWriterWriteSubmessage();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 
   if (self->_agingCoeffForRdcs.count)
   {
-    v61 = 0;
+    v32 = 0;
     do
     {
-      v62 = self->_agingCoeffForRdcs.list[v61];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v61;
+      v13 = toCopy;
+      ++v32;
     }
 
-    while (v61 < self->_agingCoeffForRdcs.count);
+    while (v32 < self->_agingCoeffForRdcs.count);
   }
 
   if (self->_agingCoeffForRdcTemperatureCoeffs.count)
   {
-    v63 = 0;
+    v33 = 0;
     do
     {
-      v64 = self->_agingCoeffForRdcTemperatureCoeffs.list[v63];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v63;
+      v13 = toCopy;
+      ++v33;
     }
 
-    while (v63 < self->_agingCoeffForRdcTemperatureCoeffs.count);
+    while (v33 < self->_agingCoeffForRdcTemperatureCoeffs.count);
   }
 
   if (self->_qmaxs.count)
   {
-    v65 = 0;
+    v34 = 0;
     do
     {
-      v66 = self->_qmaxs.list[v65];
       PBDataWriterWriteFloatField();
-      v22 = toCopy;
-      ++v65;
+      v13 = toCopy;
+      ++v34;
     }
 
-    while (v65 < self->_qmaxs.count);
+    while (v34 < self->_qmaxs.count);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    maxRdcR25Ratio = self->_maxRdcR25Ratio;
     PBDataWriterWriteFloatField();
-    v22 = toCopy;
+    v13 = toCopy;
   }
 }
 
@@ -2341,7 +2330,6 @@ LABEL_5:
     }
   }
 
-  v16 = *(equalCopy + 868);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 868) & 8) == 0 || self->_maxRdcRatio != *(equalCopy + 195))
@@ -2353,7 +2341,7 @@ LABEL_5:
   else if ((*(equalCopy + 868) & 8) != 0)
   {
 LABEL_99:
-    v26 = 0;
+    v24 = 0;
     goto LABEL_100;
   }
 
@@ -2471,7 +2459,6 @@ LABEL_99:
     goto LABEL_99;
   }
 
-  v24 = *(equalCopy + 868);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 868) & 2) == 0 || self->_mLBConfig != *(equalCopy + 193))
@@ -2534,17 +2521,17 @@ LABEL_99:
       goto LABEL_99;
     }
 
-    v26 = 1;
+    v24 = 1;
   }
 
   else
   {
-    v26 = (*(equalCopy + 868) & 4) == 0;
+    v24 = (*(equalCopy + 868) & 4) == 0;
   }
 
 LABEL_100:
 
-  return v26;
+  return v24;
 }
 
 - (unint64_t)hash

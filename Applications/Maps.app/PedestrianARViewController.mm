@@ -88,11 +88,11 @@
   changeCopy = change;
   if ([pathCopy isEqualToString:@"PedestrianARAutoFocusDistanceKey"] && (+[NSUserDefaults standardUserDefaults](NSUserDefaults, "standardUserDefaults"), v13 = objc_claimAutoreleasedReturnValue(), v13, v13 == objectCopy))
   {
-    configuration = [(PedestrianARViewController *)self configuration];
-    if (configuration)
+    v14 = objc_msgSend_configuration(self);
+    if (v14)
     {
-      configuration2 = [(PedestrianARViewController *)self configuration];
-      -[PedestrianARViewController setShouldUpdateCameraFocusLensPosition:](self, "setShouldUpdateCameraFocusLensPosition:", [configuration2 isAutoFocusEnabled] ^ 1);
+      v15 = objc_msgSend_configuration(self);
+      -[PedestrianARViewController setShouldUpdateCameraFocusLensPosition:](self, "setShouldUpdateCameraFocusLensPosition:", [v15 isAutoFocusEnabled] ^ 1);
     }
 
     else
@@ -387,8 +387,8 @@
 
   if ([(PedestrianARViewController *)self isARSessionBeingRecorded])
   {
-    configuration = [(PedestrianARViewController *)self configuration];
-    fileURL = [configuration fileURL];
+    v10 = objc_msgSend_configuration(self);
+    fileURL = [v10 fileURL];
     path = [fileURL path];
 
     v13 = sub_100C276B8();
@@ -400,15 +400,15 @@
     }
 
     objc_initWeak(buf, self);
-    configuration2 = [(PedestrianARViewController *)self configuration];
+    v14 = objc_msgSend_configuration(self);
     v18 = _NSConcreteStackBlock;
     v19 = 3221225472;
     v20 = sub_100C2834C;
     v21 = &unk_10165D288;
     objc_copyWeak(&v23, buf);
-    configuration3 = path;
-    v22 = configuration3;
-    [configuration2 finishRecordingWithHandler:&v18];
+    v15 = path;
+    v22 = v15;
+    [v14 finishRecordingWithHandler:&v18];
 
     objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
@@ -417,8 +417,8 @@
 
   if ([(PedestrianARViewController *)self isARSessionReplayingFromRecording])
   {
-    configuration3 = [(PedestrianARViewController *)self configuration];
-    [configuration3 setDelegate:0];
+    v15 = objc_msgSend_configuration(self);
+    [v15 setDelegate:0];
 LABEL_7:
   }
 
@@ -441,8 +441,8 @@ LABEL_7:
   objc_storeStrong(&self->_session, ownership);
   if ([(PedestrianARViewController *)self isARSessionBeingRecorded])
   {
-    configuration = [(PedestrianARViewController *)self configuration];
-    fileURL = [configuration fileURL];
+    v9 = objc_msgSend_configuration(self);
+    fileURL = [v9 fileURL];
     path = [fileURL path];
 
     navigationService = [(PedestrianARViewController *)self navigationService];
@@ -453,8 +453,8 @@ LABEL_7:
   {
     if ([(PedestrianARViewController *)self isARSessionReplayingFromRecording])
     {
-      configuration = [(PedestrianARViewController *)self configuration];
-      [configuration setDelegate:self];
+      v9 = objc_msgSend_configuration(self);
+      [v9 setDelegate:self];
       goto LABEL_6;
     }
 
@@ -463,7 +463,7 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    configuration = [(PedestrianARViewController *)self configuration];
+    v9 = objc_msgSend_configuration(self);
     GEOConfigGetDouble();
     v18 = v17;
     v19 = sub_100C276B8();
@@ -476,15 +476,15 @@ LABEL_7:
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "[%{public}p] Configuring VL with custom interval: %f", buf, 0x16u);
     }
 
-    [configuration setVisualLocalizationCallInterval:v18];
+    [v9 setVisualLocalizationCallInterval:v18];
     path = [(PedestrianARViewController *)self session];
-    [path runWithConfiguration:configuration];
+    [path runWithConfiguration:v9];
   }
 
 LABEL_6:
 LABEL_7:
-  configuration2 = [(PedestrianARViewController *)self configuration];
-  -[PedestrianARViewController setShouldUpdateCameraFocusLensPosition:](self, "setShouldUpdateCameraFocusLensPosition:", [configuration2 isAutoFocusEnabled] ^ 1);
+  v13 = objc_msgSend_configuration(self);
+  -[PedestrianARViewController setShouldUpdateCameraFocusLensPosition:](self, "setShouldUpdateCameraFocusLensPosition:", [v13 isAutoFocusEnabled] ^ 1);
 
   session = [(PedestrianARViewController *)self session];
   [session _addObserver:self];
@@ -774,7 +774,7 @@ LABEL_7:
 
 - (BOOL)isARSessionReplayingFromRecording
 {
-  configuration = [(PedestrianARViewController *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
@@ -783,7 +783,7 @@ LABEL_7:
 
 - (BOOL)isARSessionBeingRecorded
 {
-  configuration = [(PedestrianARViewController *)self configuration];
+  v2 = objc_msgSend_configuration(self, a2);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
@@ -793,9 +793,9 @@ LABEL_7:
 - (ARConfiguration)configuration
 {
   session = [(PedestrianARViewController *)self session];
-  configuration = [session configuration];
+  v3 = objc_msgSend_configuration(session);
 
-  return configuration;
+  return v3;
 }
 
 - (void)playFailureHaptic

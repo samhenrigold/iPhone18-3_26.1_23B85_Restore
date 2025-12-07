@@ -11,8 +11,9 @@
 - (_TtCV12SystemPlugin19SystemContactPicker33SystemContactPickerViewController)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v4 = sub_1F3F8();
-  return sub_1F570(v4);
+  sub_1F3F8();
+  sub_1F570();
+  return result;
 }
 
 - (void)viewDidLoad

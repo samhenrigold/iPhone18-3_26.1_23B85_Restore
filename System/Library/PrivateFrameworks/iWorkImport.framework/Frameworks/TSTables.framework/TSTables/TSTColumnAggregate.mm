@@ -99,46 +99,46 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [TSTColumnAggregate alloc];
-  v9 = objc_msgSend_columnAggregateUid(self, v5, v6, v7, v8);
-  v11 = v10;
-  v15 = objc_msgSend_columnUid(self, v10, v12, v13, v14);
-  v17 = v16;
+  v8 = objc_msgSend_columnAggregateUid(self, v5, v6, v7);
+  v10 = v9;
+  v13 = objc_msgSend_columnUid(self, v9, v11, v12);
+  v15 = v14;
   aggregateType = self->_aggregateType;
   level = self->_level;
   showAsType = self->_showAsType;
-  v24 = objc_msgSend_runningTotalGroupingColumnUid(self, v16, v21, v22, v23);
-  v27 = showAsType;
-  return objc_msgSend_initWithColumnAggregateUid_columnUid_aggregateType_level_showAsType_runningTotalGroupingColumnUid_(v4, v25, v9, v11, v15, v17, aggregateType, level, v27, v24, v25);
+  v21 = objc_msgSend_runningTotalGroupingColumnUid(self, v14, v19, v20);
+  v24 = showAsType;
+  return objc_msgSend_initWithColumnAggregateUid_columnUid_aggregateType_level_showAsType_runningTotalGroupingColumnUid_(v4, v22, v8, v10, v13, v15, aggregateType, level, v24, v21, v22);
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v8 = sub_221183128(self->_columnUid.var0._uuid);
+  v7 = sub_221183128(self->_columnUid.var0._uuid);
   level = self->_level;
   showAsType = self->_showAsType;
   if (*&self->_runningTotalGroupingColumnUid == 0)
   {
-    v20 = 0;
-    v21 = &stru_2834BADA0;
-    objc_msgSend_stringWithFormat_(v3, v5, @"%@ for column %@ at level %lu with show as type %lu %@", v6, v7, v4, v8, level, showAsType, &stru_2834BADA0);
+    v17 = 0;
+    v18 = &stru_2834BADA0;
+    objc_msgSend_stringWithFormat_(v3, v5, @"%@ for column %@ at level %lu with show as type %lu %@", v6, v4, v7, level, showAsType, &stru_2834BADA0);
   }
 
   else
   {
-    v11 = MEMORY[0x277CCACA8];
+    v10 = MEMORY[0x277CCACA8];
     self = sub_221183128(self->_runningTotalGroupingColumnUid.var0._uuid);
-    v21 = objc_msgSend_stringWithFormat_(v11, v12, @"(running total on: %@)", v13, v14, self);
-    v20 = 1;
-    objc_msgSend_stringWithFormat_(v3, v15, @"%@ for column %@ at level %lu with show as type %lu %@", v16, v17, v4, v8, level, showAsType, v21);
+    v18 = objc_msgSend_stringWithFormat_(v10, v11, @"(running total on: %@)", v12, self);
+    v17 = 1;
+    objc_msgSend_stringWithFormat_(v3, v13, @"%@ for column %@ at level %lu with show as type %lu %@", v14, v4, v7, level, showAsType, v18);
   }
-  v18 = ;
-  if (v20)
+  v15 = ;
+  if (v17)
   {
   }
 
-  return v18;
+  return v15;
 }
 
 - (TSTColumnAggregate)initWithArchive:(const void *)archive
@@ -280,78 +280,78 @@ LABEL_6:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v46 = 1;
+    v38 = 1;
     goto LABEL_20;
   }
 
   objc_opt_class();
-  v9 = TSUDynamicCast();
-  if (!v9)
+  v8 = TSUDynamicCast();
+  if (!v8)
   {
     goto LABEL_17;
   }
 
-  v10 = objc_msgSend_columnUid(self, v5, v6, v7, v8);
-  v12 = v11;
-  if (v10 != objc_msgSend_columnUid(v9, v11, v13, v14, v15) || v12 != v16)
+  v9 = objc_msgSend_columnUid(self, v5, v6, v7);
+  v11 = v10;
+  if (v9 != objc_msgSend_columnUid(v8, v10, v12, v13) || v11 != v14)
   {
     goto LABEL_17;
   }
 
   aggregateType = self->_aggregateType;
-  if (aggregateType != objc_msgSend_aggregateType(v9, v16, v17, v18, v19))
+  if (aggregateType != objc_msgSend_aggregateType(v8, v14, v15, v16))
   {
     goto LABEL_17;
   }
 
   level = self->_level;
-  if (level != objc_msgSend_level(v9, v22, v23, v24, v25))
+  if (level != objc_msgSend_level(v8, v19, v20, v21))
   {
     goto LABEL_17;
   }
 
   showAsType = self->_showAsType;
-  if (showAsType != objc_msgSend_showAsType(v9, v27, v28, v29, v30))
+  if (showAsType != objc_msgSend_showAsType(v8, v23, v24, v25))
   {
     goto LABEL_17;
   }
 
-  v36 = objc_msgSend_columnAggregateUid(self, v32, v33, v34, v35);
-  v38 = v37;
-  v46 = 0;
-  if (v36 != objc_msgSend_columnAggregateUid(v9, v37, v39, v40, v41))
+  v30 = objc_msgSend_columnAggregateUid(self, v27, v28, v29);
+  v32 = v31;
+  v38 = 0;
+  if (v30 != objc_msgSend_columnAggregateUid(v8, v31, v33, v34))
   {
     goto LABEL_18;
   }
 
-  if (v38 != v42)
+  if (v32 != v35)
   {
     goto LABEL_18;
   }
 
-  v47 = objc_msgSend_runningTotalGroupingColumnUid(self, v42, v43, v44, v45);
-  v49 = v48;
-  v46 = 0;
-  if (v47 != objc_msgSend_runningTotalGroupingColumnUid(v9, v48, v50, v51, v52) || v49 != v53)
+  v39 = objc_msgSend_runningTotalGroupingColumnUid(self, v35, v36, v37);
+  v41 = v40;
+  v38 = 0;
+  if (v39 != objc_msgSend_runningTotalGroupingColumnUid(v8, v40, v42, v43) || v41 != v44)
   {
     goto LABEL_18;
   }
 
-  if (self->_definedColumnAggregateUid == v9[72])
+  if (self->_definedColumnAggregateUid == v8[72])
   {
-    v46 = self->_definedRunningTotalGroupingColumnUid == v9[73];
+    v38 = self->_definedRunningTotalGroupingColumnUid == v8[73];
   }
 
   else
   {
 LABEL_17:
-    v46 = 0;
+    v38 = 0;
   }
 
 LABEL_18:
 
 LABEL_20:
-  return v46;
+  return v38;
 }
 
 - (id).cxx_construct

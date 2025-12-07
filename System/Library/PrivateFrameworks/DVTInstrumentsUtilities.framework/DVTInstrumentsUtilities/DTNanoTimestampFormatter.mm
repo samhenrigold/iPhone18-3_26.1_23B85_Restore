@@ -1,5 +1,6 @@
 @interface DTNanoTimestampFormatter
 + (id)stringForNanoseconds:(unint64_t)nanoseconds;
++ (id)stringForNanoseconds:(unint64_t)nanoseconds highestResolutionTimeEnabled:(BOOL)enabled;
 - (id)stringForObjectValue:(id)value;
 @end
 
@@ -7,7 +8,7 @@
 
 + (id)stringForNanoseconds:(unint64_t)nanoseconds
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (nanoseconds == 0x7FFFFFFFFFFFFFFFLL)
   {
     v3 = @"--:--.--";
@@ -28,9 +29,28 @@
     v3 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v4, __str, 4, v5);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
++ (id)stringForNanoseconds:(unint64_t)nanoseconds highestResolutionTimeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v18 = *MEMORY[0x277D85DE8];
+  v7 = objc_msgSend_stringForNanoseconds_(DTNanoTimestampFormatter, a2, nanoseconds, enabled, v4);
+  v8 = v7;
+  if (enabledCopy)
+  {
+    snprintf(__str, 0x11uLL, ".%03llu", nanoseconds % 0x3E8);
+    v11 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v9, __str, 4, v10);
+    v15 = objc_msgSend_stringByAppendingString_(v8, v12, v11, v13, v14);
+  }
+
+  else
+  {
+    v15 = v7;
+  }
+
+  return v15;
 }
 
 - (id)stringForObjectValue:(id)value

@@ -1,6 +1,6 @@
 @interface NSArray(MTStride)
-- (uint64_t)strideCountForSize:()MTStride;
 - (uint64_t)subarrayForStrideIndex:()MTStride withStrideSize:;
+- (unint64_t)strideCountForSize:()MTStride;
 - (void)concurrentMapWithStrideSize:()MTStride on:withBlock:;
 @end
 
@@ -39,7 +39,7 @@
   return [self subarrayWithRange:{v9, v8}];
 }
 
-- (uint64_t)strideCountForSize:()MTStride
+- (unint64_t)strideCountForSize:()MTStride
 {
   v4 = [self count];
   if (!a3)

@@ -89,7 +89,7 @@
 
   allowedEnvironmentModes = self->_allowedEnvironmentModes;
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SBPIPEnvironmentDependentOverrideAssertion _environmentModeForLayoutState:](self, "_environmentModeForLayoutState:", v10)}];
-  LOBYTE(allowedEnvironmentModes) = [(NSSet *)allowedEnvironmentModes containsObject:v8];
+  LOBYTE(allowedEnvironmentModes) = objc_msgSend_containsObject_(allowedEnvironmentModes);
 
   if ((allowedEnvironmentModes & 1) == 0)
   {

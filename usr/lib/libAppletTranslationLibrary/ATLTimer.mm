@@ -66,10 +66,9 @@ void __39__ATLTimer_initOnQueue_withTimerBlock___block_invoke(uint64_t a1)
     v2 = *(self + 24);
     if (v2 <= 0.0)
     {
-      v7 = *(self + 16);
-      v8 = *(*(self + 16) + 16);
+      v7 = *(*(self + 16) + 16);
 
-      v8();
+      v7();
     }
 
     else

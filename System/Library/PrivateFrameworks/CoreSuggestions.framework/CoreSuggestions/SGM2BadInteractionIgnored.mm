@@ -4,6 +4,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)reasonAsString:(int)string;
 - (int)StringAsReason:(id)reason;
 - (int)reason;
 - (unint64_t)hash;
@@ -118,18 +119,17 @@ LABEL_9:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    reason = self->_reason;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -193,6 +193,29 @@ LABEL_9:
   else
   {
     v4 = [reasonCopy isEqualToString:@"SGMInteractionIgnoredReasonNilInterIdent"];
+  }
+
+  return v4;
+}
+
+- (id)reasonAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SGMInteractionIgnoredReasonNilInterIdent";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SGMInteractionIgnoredReasonNilBundleId";
   }
 
   return v4;

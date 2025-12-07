@@ -12,6 +12,7 @@
 - (id)unifiedContactsInStore:(id)store keysToFetch:(id)fetch error:(id *)error;
 - (unint64_t)hash;
 - (void)CKDescribePropertiesUsing:(id)using;
+- (void)_stripPersonalInfoAndSerializeOwnerInfo:(BOOL)info;
 - (void)encodeWithCoder:(id)coder;
 - (void)setParticipantID_modelMutation:(id)mutation;
 - (void)setPermission:(CKShareParticipantPermission)permission;
@@ -507,6 +508,59 @@ LABEL_49:
   return v65;
 }
 
+- (void)_stripPersonalInfoAndSerializeOwnerInfo:(BOOL)info
+{
+  v40 = *MEMORY[0x1E69E9840];
+  if (info || objc_msgSend_role(self, a2, info) != 1)
+  {
+    if (!objc_msgSend_createdInProcess(self, a2, info) || objc_msgSend_role(self, v18, v19) != 1)
+    {
+      goto LABEL_12;
+    }
+
+    v13 = objc_msgSend_userIdentity(self, v18, v19);
+    v16 = objc_msgSend_lookupInfo(v13, v20, v21);
+    objc_msgSend__stripPersonalInfo(v16, v22, v23);
+  }
+
+  else
+  {
+    if (ck_log_initialization_predicate != -1)
+    {
+      dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+    }
+
+    v4 = ck_log_facility_ck;
+    if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
+    {
+      v29 = v4;
+      v32 = objc_msgSend_participantID(self, v30, v31);
+      v35 = objc_msgSend_shareID(self, v33, v34);
+      v36 = 138412546;
+      v37 = v32;
+      v38 = 2112;
+      v39 = v35;
+      _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Stripping name, email, and phone number for share owner participant: %@ on share: %@", &v36, 0x16u);
+    }
+
+    v7 = objc_msgSend_userIdentity(self, v5, v6);
+    v10 = objc_msgSend_lookupInfo(v7, v8, v9);
+    objc_msgSend__stripPersonalInfo(v10, v11, v12);
+
+    v13 = objc_opt_new();
+    v16 = objc_msgSend_userIdentity(self, v14, v15);
+    objc_msgSend_setNameComponents_(v16, v17, v13);
+  }
+
+LABEL_12:
+  if (objc_msgSend_acceptedInProcess(self, v18, v19))
+  {
+    v24 = objc_opt_new();
+    v27 = objc_msgSend_userIdentity(self, v25, v26);
+    objc_msgSend_setNameComponents_(v27, v28, v24);
+  }
+}
+
 - (CKShareParticipantType)type
 {
   v3 = objc_msgSend_role(self, a2, v2);
@@ -568,7 +622,7 @@ LABEL_49:
 
 - (id)unifiedContactsInStore:(id)store keysToFetch:(id)fetch error:(id *)error
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   fetchCopy = fetch;
   v11 = objc_msgSend_userIdentity(self, v9, v10);
@@ -587,31 +641,31 @@ LABEL_49:
     if (v28)
     {
       v30 = objc_msgSend_addObject_(v16, v29, v28);
-      v101 = 0;
-      v102 = &v101;
-      v103 = 0x2020000000;
+      v100 = 0;
+      v101 = &v100;
+      v102 = 0x2020000000;
       v33 = qword_1ED4B61F0;
-      v104 = qword_1ED4B61F0;
+      v103 = qword_1ED4B61F0;
       if (!qword_1ED4B61F0)
       {
-        v91 = MEMORY[0x1E69E9820];
-        v92 = 3221225472;
-        v93 = sub_18859B584;
-        v94 = &unk_1E70BBE90;
-        v95 = &v101;
+        v90 = MEMORY[0x1E69E9820];
+        v91 = 3221225472;
+        v92 = sub_18859B584;
+        v93 = &unk_1E70BBE90;
+        v94 = &v100;
         v34 = sub_18859B3BC(v30, v31, v32);
-        v102[3] = dlsym(v34, "CNContactEmailAddressesKey");
-        qword_1ED4B61F0 = *(*(v95 + 1) + 24);
-        v33 = v102[3];
+        v101[3] = dlsym(v34, "CNContactEmailAddressesKey");
+        qword_1ED4B61F0 = *(*(v94 + 1) + 24);
+        v33 = v101[3];
       }
 
-      _Block_object_dispose(&v101, 8);
+      _Block_object_dispose(&v100, 8);
       if (!v33)
       {
-        v76 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v35, v36);
-        v78 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v77, "NSString *getCNContactEmailAddressesKey(void)");
-        v79 = dlerror();
-        objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v76, v80, v78, @"CKShareParticipant.m", 28, @"%s", v79);
+        v75 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v35, v36);
+        v77 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v76, "NSString *getCNContactEmailAddressesKey(void)");
+        v78 = dlerror();
+        objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v75, v79, v77, @"CKShareParticipant.m", 28, @"%s", v78);
 
         goto LABEL_37;
       }
@@ -630,24 +684,24 @@ LABEL_49:
     goto LABEL_21;
   }
 
-  v101 = 0;
-  v102 = &v101;
-  v103 = 0x2050000000;
+  v100 = 0;
+  v101 = &v100;
+  v102 = 0x2050000000;
   v40 = qword_1ED4B61F8;
-  v104 = qword_1ED4B61F8;
+  v103 = qword_1ED4B61F8;
   if (!qword_1ED4B61F8)
   {
-    v91 = MEMORY[0x1E69E9820];
-    v92 = 3221225472;
-    v93 = sub_18859B5D4;
-    v94 = &unk_1E70BBE90;
-    v95 = &v101;
-    sub_18859B5D4(&v91, v38, v39);
-    v40 = v102[3];
+    v90 = MEMORY[0x1E69E9820];
+    v91 = 3221225472;
+    v92 = sub_18859B5D4;
+    v93 = &unk_1E70BBE90;
+    v94 = &v100;
+    sub_18859B5D4(&v90, v38, v39);
+    v40 = v101[3];
   }
 
   v41 = v40;
-  _Block_object_dispose(&v101, 8);
+  _Block_object_dispose(&v100, 8);
   v44 = objc_msgSend_phoneNumber(v14, v42, v43);
   v46 = objc_msgSend_phoneNumberWithStringValue_(v40, v45, v44);
 
@@ -663,26 +717,26 @@ LABEL_19:
     }
 
     v54 = objc_msgSend_addObject_(v16, v52, v53);
-    v101 = 0;
-    v102 = &v101;
-    v103 = 0x2020000000;
+    v100 = 0;
+    v101 = &v100;
+    v102 = 0x2020000000;
     v57 = qword_1ED4B6200;
-    v104 = qword_1ED4B6200;
+    v103 = qword_1ED4B6200;
     if (!qword_1ED4B6200)
     {
-      v91 = MEMORY[0x1E69E9820];
-      v92 = 3221225472;
-      v93 = sub_18859B69C;
-      v94 = &unk_1E70BBE90;
-      v95 = &v101;
+      v90 = MEMORY[0x1E69E9820];
+      v91 = 3221225472;
+      v92 = sub_18859B69C;
+      v93 = &unk_1E70BBE90;
+      v94 = &v100;
       v58 = sub_18859B3BC(v54, v55, v56);
       v59 = dlsym(v58, "CNContactPhoneNumbersKey");
-      *(*(v95 + 1) + 24) = v59;
-      qword_1ED4B6200 = *(*(v95 + 1) + 24);
-      v57 = v102[3];
+      *(*(v94 + 1) + 24) = v59;
+      qword_1ED4B6200 = *(*(v94 + 1) + 24);
+      v57 = v101[3];
     }
 
-    _Block_object_dispose(&v101, 8);
+    _Block_object_dispose(&v100, 8);
     if (v57)
     {
       if (*v57)
@@ -693,10 +747,10 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v81 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v60, v61);
-    v83 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v82, "NSString *getCNContactPhoneNumbersKey(void)");
-    v84 = dlerror();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v81, v85, v83, @"CKShareParticipant.m", 29, @"%s", v84);
+    v80 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v60, v61);
+    v82 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v81, "NSString *getCNContactPhoneNumbersKey(void)");
+    v83 = dlerror();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v80, v84, v82, @"CKShareParticipant.m", 29, @"%s", v83);
 
 LABEL_37:
     __break(1u);
@@ -706,60 +760,59 @@ LABEL_20:
 
 LABEL_21:
   v62 = objc_msgSend_mutableCopy(fetchCopy, v38, v39);
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
   v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   v63 = v15;
-  v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, &v97, v105, 16);
+  v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v64, &v96, v104, 16);
   if (v66)
   {
-    v67 = *v98;
+    v67 = *v97;
     do
     {
       for (i = 0; i != v66; ++i)
       {
-        if (*v98 != v67)
+        if (*v97 != v67)
         {
           objc_enumerationMutation(v63);
         }
 
-        v69 = *(*(&v97 + 1) + 8 * i);
+        v69 = *(*(&v96 + 1) + 8 * i);
         if ((objc_msgSend_containsObject_(v62, v65, v69) & 1) == 0)
         {
           objc_msgSend_addObject_(v62, v65, v69);
         }
       }
 
-      v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v65, &v97, v105, 16);
+      v66 = objc_msgSend_countByEnumeratingWithState_objects_count_(v63, v65, &v96, v104, 16);
     }
 
     while (v66);
   }
 
-  v91 = 0;
-  v92 = &v91;
-  v93 = 0x3032000000;
-  v94 = sub_1883ED8D0;
-  v95 = sub_1883EF5BC;
-  v96 = 0;
-  v87[0] = MEMORY[0x1E69E9820];
-  v87[1] = 3221225472;
-  v87[2] = sub_18859A844;
-  v87[3] = &unk_1E70BE440;
+  v90 = 0;
+  v91 = &v90;
+  v92 = 0x3032000000;
+  v93 = sub_1883ED8D0;
+  v94 = sub_1883EF5BC;
+  v95 = 0;
+  v86[0] = MEMORY[0x1E69E9820];
+  v86[1] = 3221225472;
+  v86[2] = sub_18859A844;
+  v86[3] = &unk_1E70BE440;
   v70 = storeCopy;
-  v88 = v70;
+  v87 = v70;
   v71 = v62;
-  v89 = v71;
-  v90 = &v91;
-  v73 = objc_msgSend_CKFlatMap_(v16, v72, v87);
+  v88 = v71;
+  v89 = &v90;
+  v73 = objc_msgSend_CKFlatMap_(v16, v72, v86);
   if (error)
   {
-    *error = *(v92 + 40);
+    *error = *(v91 + 40);
   }
 
-  _Block_object_dispose(&v91, 8);
-  v74 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v90, 8);
 
   return v73;
 }

@@ -48,11 +48,12 @@ intptr_t sub_1000022D4(intptr_t result)
   return result;
 }
 
-void sub_1000033F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
+void sub_1000033F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, ...)
 {
-  _Block_object_dispose(&a62, 8);
-  _Block_object_dispose((v62 - 248), 8);
-  _Block_object_dispose((v62 - 152), 8);
+  va_start(va, a61);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v61 - 248), 8);
+  _Block_object_dispose((v61 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -61,10 +62,7 @@ char *sub_100003478(uint64_t a1, void *a2)
   result = [a2 range];
   if (v4 == 3)
   {
-    v5 = [*(*(*(a1 + 32) + 8) + 40) stringByReplacingCharactersInRange:result + 1 withString:{1, @"״"}];
-    v6 = *(*(a1 + 32) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    *(*(*(a1 + 32) + 8) + 40) = [*(*(*(a1 + 32) + 8) + 40) stringByReplacingCharactersInRange:result + 1 withString:{1, @"״"}];
 
     return _objc_release_x1();
   }
@@ -188,7 +186,7 @@ void sub_100003A24(void *a1)
     *(v2 + 24) = 1;
     if (a1[4] && ![*(*(a1[10] + 8) + 40) count])
     {
-      v9 = 0;
+      v8 = 0;
     }
 
     else
@@ -197,10 +195,9 @@ void sub_100003A24(void *a1)
       v5 = a1[5];
       v6 = a1[6];
       v7 = [DDLookupQuery footerSectionForString:a1[7] queryId:a1[11]];
-      v9 = [v5 _rankFeedbackWithLocalSections:v4 remoteSections:v6 footerSection:v7];
+      v8 = [v5 _rankFeedbackWithLocalSections:v4 remoteSections:v6 footerSection:v7];
     }
 
-    v8 = a1[4];
     (*(a1[8] + 16))();
   }
 }
@@ -244,7 +241,7 @@ void sub_100003C5C(uint64_t a1)
     *(v2 + 24) = 1;
     if (*(a1 + 32) && ![*(*(*(a1 + 80) + 8) + 40) count])
     {
-      v9 = 0;
+      v8 = 0;
     }
 
     else
@@ -253,10 +250,9 @@ void sub_100003C5C(uint64_t a1)
       v5 = *(a1 + 40);
       v6 = [*(a1 + 48) sections];
       v7 = [DDLookupQuery footerSectionForString:*(a1 + 56) queryId:*(a1 + 88)];
-      v9 = [v5 _rankFeedbackWithLocalSections:v4 remoteSections:v6 footerSection:v7];
+      v8 = [v5 _rankFeedbackWithLocalSections:v4 remoteSections:v6 footerSection:v7];
     }
 
-    v8 = *(a1 + 32);
     (*(*(a1 + 64) + 16))();
   }
 }
@@ -646,14 +642,13 @@ void sub_1000075C4(uint64_t a1)
 
 uint64_t sub_100007AE4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    return [v4 updateStyle];
+    return [v3 updateStyle];
   }
 
   return result;
@@ -677,10 +672,11 @@ void sub_100008194(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100008580(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100008580(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100008664(uint64_t a1)
@@ -778,70 +774,70 @@ void sub_100008E2C(uint64_t a1)
   dispatch_group_leave(v2);
 }
 
-NSString *sub_1000094C8()
+NSString *sub_1000094C8(uint64_t a1)
 {
   Category = DDResultGetCategory();
   if (Category == 3)
   {
-    v1 = &CNContactPostalAddressesKey;
+    v2 = &CNContactPostalAddressesKey;
     goto LABEL_9;
   }
 
   if (Category == 2)
   {
-    v1 = &CNContactPhoneNumbersKey;
+    v2 = &CNContactPhoneNumbersKey;
     goto LABEL_9;
   }
 
   Type = DDResultGetType();
   if (CFEqual(Type, DDBinderEmailKey) || CFEqual(Type, DDBinderJabberOrEmailKey) || CFEqual(Type, DDBinderAIMOrEmailKey))
   {
-    v1 = &CNContactEmailAddressesKey;
+    v2 = &CNContactEmailAddressesKey;
     goto LABEL_9;
   }
 
   if (CFEqual(Type, DDBinderGenericURLKey))
   {
-    v5 = [DDResultGetMatchedString() lowercaseString];
-    if ([v5 hasPrefix:@"mailto:"])
+    v6 = [DDResultGetMatchedString() lowercaseString];
+    if ([v6 hasPrefix:@"mailto:"])
     {
-      v6 = CNContactEmailAddressesKey;
+      v7 = CNContactEmailAddressesKey;
     }
 
     else
     {
-      v7 = [NSURL URLWithString:v5];
-      v8 = dd_handleFromTelScheme();
+      v8 = [NSURL URLWithString:v6];
+      v9 = dd_handleFromTelScheme();
 
-      if (v8)
+      if (v9)
       {
-        v6 = CNContactPhoneNumbersKey;
+        v7 = CNContactPhoneNumbersKey;
       }
 
       else
       {
-        v6 = 0;
+        v7 = 0;
       }
     }
 
-    v3 = v6;
+    v4 = v7;
   }
 
   else
   {
     if (CFEqual(Type, DDBinderIMScreenNameKey))
     {
-      v1 = &CNContactInstantMessageAddressesKey;
+      v2 = &CNContactInstantMessageAddressesKey;
 LABEL_9:
-      v3 = *v1;
+      v4 = *v2;
 
-      return v3;
+      return v4;
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 void sub_1000096C8(uint64_t a1)
@@ -930,10 +926,11 @@ void sub_100009DD8(uint64_t a1)
   [v3 setStatusBarHidden:v2 duration:?];
 }
 
-void sub_10000A03C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A03C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_10000A1A8(uint64_t a1, int a2, void *a3)
@@ -952,134 +949,132 @@ void sub_10000A1A8(uint64_t a1, int a2, void *a3)
       [v9 setSourceAccountManagement:2 withBundleID:v10];
     }
 
-    v51 = 0;
-    v11 = *(a1 + 40);
+    v49 = 0;
     [*(a1 + 32) associatedResults];
-    v12 = [*(a1 + 32) context];
-    v13 = DDUIEventForResults();
+    v11 = [*(a1 + 32) context];
+    v12 = DDUIEventForResults();
 
-    v14 = *(a1 + 40);
     [*(a1 + 32) associatedResults];
-    v15 = [*(a1 + 32) context];
-    v16 = [*(a1 + 48) _hostApplicationBundleIdentifier];
-    v50 = 0;
-    v17 = DDUISuggestedEventForResults();
-    v18 = 0;
+    v13 = [*(a1 + 32) context];
+    v14 = [*(a1 + 48) _hostApplicationBundleIdentifier];
+    v48 = 0;
+    v15 = DDUISuggestedEventForResults();
+    v16 = 0;
 
-    if (!v17)
+    if (!v15)
     {
       goto LABEL_28;
     }
 
-    v19 = [v17 title];
-    v20 = [v19 length];
+    v17 = [v15 title];
+    v18 = [v17 length];
 
-    v21 = v20 != 0;
-    if (v20)
+    v19 = v18 != 0;
+    if (v18)
     {
-      v22 = [v17 title];
-      [v13 setTitle:v22];
+      v20 = [v15 title];
+      [v12 setTitle:v20];
     }
 
-    v23 = [v17 notes];
-    v24 = [v23 length];
+    v21 = [v15 notes];
+    v22 = [v21 length];
+
+    if (v22)
+    {
+      v23 = [v15 notes];
+      [v12 setNotes:v23];
+
+      v19 = 1;
+    }
+
+    v24 = [v15 URL];
 
     if (v24)
     {
-      v25 = [v17 notes];
-      [v13 setNotes:v25];
+      v25 = [v15 URL];
+      [v12 setURL:v25];
 
-      v21 = 1;
+      v19 = 1;
     }
 
-    v26 = [v17 URL];
+    v26 = [v15 location];
 
     if (v26)
     {
-      v27 = [v17 URL];
-      [v13 setURL:v27];
+      v27 = [v15 location];
+      [v12 setLocation:v27];
 
-      v21 = 1;
+      v19 = 1;
     }
 
-    v28 = [v17 location];
+    v28 = [v15 structuredLocation];
 
     if (v28)
     {
-      v29 = [v17 location];
-      [v13 setLocation:v29];
+      v29 = [v15 structuredLocation];
+      [v12 setStructuredLocation:v29];
 
-      v21 = 1;
+      v19 = 1;
     }
 
-    v30 = [v17 structuredLocation];
+    v30 = [v15 startDate];
 
     if (v30)
     {
-      v31 = [v17 structuredLocation];
-      [v13 setStructuredLocation:v31];
+      [v12 setAllDay:0];
+      v31 = [v15 startDate];
+      [v12 setStartDate:v31];
 
-      v21 = 1;
+      v32 = [v15 endDate];
+      [v12 setEndDate:v32];
+
+      v19 = 1;
     }
 
-    v32 = [v17 startDate];
-
-    if (v32)
-    {
-      [v13 setAllDay:0];
-      v33 = [v17 startDate];
-      [v13 setStartDate:v33];
-
-      v34 = [v17 endDate];
-      [v13 setEndDate:v34];
-
-      v21 = 1;
-    }
-
-    v35 = [v17 startDate];
-    if (v35 || ([v17 duration], v36 <= 0.0))
+    v33 = [v15 startDate];
+    if (v33 || ([v15 duration], v34 <= 0.0))
     {
     }
 
-    else if (([v13 isAllDay] & 1) == 0)
+    else if (([v12 isAllDay] & 1) == 0)
     {
-      v37 = [v13 startDate];
-      [v17 duration];
-      v38 = [v37 dateByAddingTimeInterval:?];
-      [v13 setEndDate:v38];
+      v35 = [v12 startDate];
+      [v15 duration];
+      v36 = [v35 dateByAddingTimeInterval:?];
+      [v12 setEndDate:v36];
 
       goto LABEL_26;
     }
 
-    if (!v21)
+    if (!v19)
     {
 LABEL_27:
       objc_storeStrong((*(a1 + 48) + 56), 0);
 LABEL_28:
-      v39 = [*(a1 + 32) hostApplication] == 1 || objc_msgSend(*(a1 + 32), "hostApplication") == 2;
-      *(*(a1 + 48) + 32) = v39;
-      v40 = sub_10000A684(v13, *(a1 + 40));
-      v41 = *(a1 + 48);
-      v42 = *(v41 + 48);
-      *(v41 + 48) = v40;
+      v37 = [*(a1 + 32) hostApplication] == 1 || objc_msgSend(*(a1 + 32), "hostApplication") == 2;
+      *(*(a1 + 48) + 32) = v37;
+      v38 = sub_10000A684(v12, *(a1 + 40));
+      v39 = *(a1 + 48);
+      v40 = *(v39 + 48);
+      *(v39 + 48) = v38;
 
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10000A7C8;
       block[3] = &unk_100018940;
-      v45 = *(a1 + 40);
-      v43 = v45.i64[0];
-      v47 = vextq_s8(v45, v45, 8uLL);
-      v48 = v13;
-      v49 = *(a1 + 32);
-      v44 = v13;
+      v43 = *(a1 + 40);
+      v41 = v43.i64[0];
+      v45 = vextq_s8(v43, v43, 8uLL);
+      v46 = v12;
+      v47 = *(a1 + 32);
+      v42 = v12;
       dispatch_async(&_dispatch_main_q, block);
 
       goto LABEL_32;
     }
 
 LABEL_26:
-    *(*(a1 + 48) + 40) = v51;
+    *(*(a1 + 48) + 40) = v49;
     goto LABEL_27;
   }
 
@@ -1197,26 +1192,25 @@ id sub_10000AF5C(void *a1, void *a2)
   if ([v3 count])
   {
     v6 = [v3 sortedArrayUsingFunction:&DDResultProximitySort context:{objc_msgSend(v3, "objectAtIndex:", 0)}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       v10 = DDBinderPhoneNumberKey;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
           Type = DDResultGetType();
           if (CFStringCompare(Type, v10, 0) == kCFCompareEqualTo)
           {
@@ -1224,22 +1218,22 @@ id sub_10000AF5C(void *a1, void *a2)
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
     }
   }
 
-  v14 = [v4 objectForKey:kDataDetectorsSelectedTextKey];
-  if (v14)
+  v13 = [v4 objectForKey:kDataDetectorsSelectedTextKey];
+  if (v13)
   {
-    [v5 addObject:v14];
+    [v5 addObject:v13];
   }
 
-  v15 = [v5 componentsJoinedByString:@"\n"];
+  v14 = [v5 componentsJoinedByString:@"\n"];
 
-  return v15;
+  return v14;
 }
 
 id sub_10000B174(void *a1, void *a2)
@@ -1249,49 +1243,47 @@ id sub_10000B174(void *a1, void *a2)
   if ([v3 count])
   {
     v5 = [v3 sortedArrayUsingFunction:&DDResultProximitySort context:{objc_msgSend(v3, "objectAtIndex:", 0)}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v17;
+      v9 = *v16;
       v10 = DDBinderFullAddressKey;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v7; ++i)
         {
           while (1)
           {
-            if (*v17 != v9)
+            if (*v16 != v9)
             {
               objc_enumerationMutation(v5);
             }
 
-            v12 = *(*(&v16 + 1) + 8 * i);
             Type = DDResultGetType();
             if (CFStringCompare(Type, v10, 0) == kCFCompareEqualTo)
             {
               break;
             }
 
-            i = i + 1;
-            if (v7 == i)
+            if (v7 == ++i)
             {
               goto LABEL_4;
             }
           }
 
-          v14 = DDResultGetMatchedString();
+          v13 = DDResultGetMatchedString();
 
-          v8 = v14;
+          v8 = v13;
         }
 
 LABEL_4:
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -1311,7 +1303,7 @@ LABEL_4:
   return v8;
 }
 
-id sub_10000B334(void *a1, void *a2, _BYTE *a3)
+id sub_10000B334(void *a1, void *a2, BOOL *a3)
 {
   v5 = a1;
   v6 = a2;

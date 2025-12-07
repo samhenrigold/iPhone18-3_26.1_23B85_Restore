@@ -52,34 +52,32 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_100015D04(v8);
+  sub_100015D04(v8, v9);
 }
 
 - (void)publishCellularSlicingEnabledAs:(BOOL)as
 {
   v5 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v18 - v7;
-  v9 = type metadata accessor for SFPlatform();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v16 - v6;
+  v8 = type metadata accessor for SFPlatform();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   static SFPlatform.iOS.getter();
-  v15 = static SFPlatform.isPlatform(_:)();
-  (*(v10 + 8))(v13, v9);
-  if (v15)
+  v13 = static SFPlatform.isPlatform(_:)();
+  (*(v9 + 8))(v11, v8);
+  if (v13)
   {
-    v16 = type metadata accessor for TaskPriority();
-    (*(*(v16 - 8) + 56))(v8, 1, 1, v16);
-    v17 = swift_allocObject();
-    *(v17 + 16) = 0;
-    *(v17 + 24) = 0;
-    *(v17 + 32) = selfCopy;
-    *(v17 + 40) = as;
-    sub_1002B3098(0, 0, v8, &unk_10080C7C8, v17);
+    v14 = type metadata accessor for TaskPriority();
+    (*(*(v14 - 8) + 56))(v7, 1, 1, v14);
+    v15 = swift_allocObject();
+    *(v15 + 16) = 0;
+    *(v15 + 24) = 0;
+    *(v15 + 32) = selfCopy;
+    *(v15 + 40) = as;
+    sub_1002B3098(0, 0, v7, &unk_10080C7C8, v15);
   }
 
   else
@@ -90,27 +88,25 @@
 - (void)subscribeForCellularSlicingAvailability
 {
   v3 = sub_10028088C(&qword_100976160, &qword_1007F8770);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v16 - v5;
-  v7 = type metadata accessor for SFPlatform();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v14 - v4;
+  v6 = type metadata accessor for SFPlatform();
+  v7 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   static SFPlatform.visionOS.getter();
-  v13 = static SFPlatform.isPlatform(_:)();
-  (*(v8 + 8))(v11, v7);
-  if (v13)
+  v11 = static SFPlatform.isPlatform(_:)();
+  (*(v7 + 8))(v9, v6);
+  if (v11)
   {
-    v14 = type metadata accessor for TaskPriority();
-    (*(*(v14 - 8) + 56))(v6, 1, 1, v14);
-    v15 = swift_allocObject();
-    v15[2] = 0;
-    v15[3] = 0;
-    v15[4] = selfCopy;
-    sub_1002B3098(0, 0, v6, &unk_10080C7A0, v15);
+    v12 = type metadata accessor for TaskPriority();
+    (*(*(v12 - 8) + 56))(v5, 1, 1, v12);
+    v13 = swift_allocObject();
+    v13[2] = 0;
+    v13[3] = 0;
+    v13[4] = selfCopy;
+    sub_1002B3098(0, 0, v5, &unk_10080C7A0, v13);
   }
 
   else

@@ -34,7 +34,7 @@
   presentingControllerCopy = presentingController;
   sourceControllerCopy = sourceController;
   selfCopy = self;
-  v12 = sub_1006C51AC();
+  v12 = sub_1006C51AC(1);
 
   return v12;
 }
@@ -43,7 +43,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  v6 = sub_1006C51AC();
+  v6 = sub_1006C51AC(0);
 
   return v6;
 }

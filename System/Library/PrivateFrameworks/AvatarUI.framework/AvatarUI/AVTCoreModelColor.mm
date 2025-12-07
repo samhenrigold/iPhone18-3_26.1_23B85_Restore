@@ -112,21 +112,22 @@
 
 - (NSString)description
 {
-  v9.receiver = self;
-  v9.super_class = AVTCoreModelColor;
-  v3 = [(AVTCoreModelColor *)&v9 description];
+  v11.receiver = self;
+  v11.super_class = AVTCoreModelColor;
+  v3 = [(AVTCoreModelColor *)&v11 description];
   v4 = [v3 mutableCopy];
 
   [v4 appendFormat:@" %lu", -[AVTCoreModelColor order](self, "order")];
   identifier = [(AVTCoreModelColor *)self identifier];
   [v4 appendFormat:@" identifier: %@", identifier];
 
-  v6 = AVTAvatarSettingKindDescription([(AVTCoreModelColor *)self settingKind]);
-  [v4 appendFormat:@" setting: %@", v6];
+  settingKind = [(AVTCoreModelColor *)self settingKind];
+  v8 = AVTAvatarSettingKindDescription(settingKind, v7);
+  [v4 appendFormat:@" setting: %@", v8];
 
-  v7 = [v4 copy];
+  v9 = [v4 copy];
 
-  return v7;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal

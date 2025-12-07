@@ -4,6 +4,10 @@
 - (WPNearby)init;
 - (WPNearby)initWithDelegate:(id)delegate queue:(id)queue;
 - (WPNearbyDelegate)delegate;
+- (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)advertisingPendingOfType:(unsigned __int8)type;
+- (void)advertisingStartedOfType:(unsigned __int8)type;
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error;
 - (void)bandwidthStateUpdated:(id)updated;
 - (void)central:(id)central subscribed:(BOOL)subscribed toCharacteristic:(id)characteristic inService:(id)service;
 - (void)clearDuplicatesForType:(int64_t)type;
@@ -16,20 +20,27 @@
 - (void)disconnectedDeviceOverLEPipe:(id)pipe withError:(id)error;
 - (void)discoveredCharacteristicsAndServices:(id)services forPeripheral:(id)peripheral;
 - (void)failedToStartTrackingPeer:(id)peer error:(id)error;
+- (void)foundPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)invalidate;
+- (void)lostPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)populateClientGATT:(id)t;
 - (void)receivedData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral;
 - (void)receivedData:(id)data fromEndpoint:(id)endpoint forPeripheral:(id)peripheral;
+- (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)scanningStartedOfType:(unsigned __int8)type;
+- (void)scanningStoppedOfType:(unsigned __int8)type;
 - (void)sendData:(id)data toPeer:(id)peer;
 - (void)sentData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral withError:(id)error;
 - (void)sentData:(id)data toEndpoint:(id)endpoint forPeripheral:(id)peripheral withError:(id)error;
 - (void)startAdvertisingOfType:(int64_t)type data:(id)data priority:(int64_t)priority mode:(int64_t)mode options:(id)options;
 - (void)startScanningForType:(int64_t)type data:(id)data mask:(id)mask peers:(id)peers scanMode:(int64_t)mode rssi:(id)rssi duplicates:(BOOL)duplicates scanCache:(BOOL)self0 useCaseList:(id)self1;
 - (void)startTrackingPeer:(id)peer forType:(int64_t)type;
+- (void)startedTrackingPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)stateDidChange:(int64_t)change;
 - (void)stopAdvertisingOfType:(int64_t)type;
 - (void)stopScanningForType:(int64_t)type;
 - (void)stopTrackingPeer:(id)peer forType:(int64_t)type;
+- (void)stoppedTrackingPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)updateAdvertisingRequest:(id)request withUpdate:(id)update;
 - (void)updatedNotificationState:(BOOL)state forCharacteristic:(id)characteristic inService:(id)service withPeripheral:(id)peripheral;
 @end
@@ -45,11 +56,11 @@
 
 - (WPNearby)initWithDelegate:(id)delegate queue:(id)queue
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v18.receiver = self;
-  v18.super_class = WPNearby;
-  v7 = [(WPClient *)&v18 initWithQueue:queue machName:0];
+  v17.receiver = self;
+  v17.super_class = WPNearby;
+  v7 = [(WPClient *)&v17 initWithQueue:queue machName:0];
   v8 = v7;
   if (v7)
   {
@@ -63,9 +74,9 @@
     v8->_leCapablePeers = 0;
 
     [(WPClient *)v8 setConnectionUseCase:8];
-    v17.receiver = v8;
-    v17.super_class = WPNearby;
-    [(WPClient *)&v17 listenToBandwidthNotifications];
+    v16.receiver = v8;
+    v16.super_class = WPNearby;
+    [(WPClient *)&v16 listenToBandwidthNotifications];
     v8->_nearbySignPostID = os_signpost_id_make_with_pointer(WiProxLog, v8);
   }
 
@@ -80,13 +91,12 @@
     v13 = v12;
     delegate = [(WPNearby *)v8 delegate];
     *buf = 134218240;
-    v20 = v8;
-    v21 = 2048;
-    v22 = delegate;
+    v19 = v8;
+    v20 = 2048;
+    v21 = delegate;
     _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "Nearby initWithDelegate self: %p, delegate: %p", buf, 0x16u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -172,7 +182,7 @@
 
 - (void)startAdvertisingOfType:(int64_t)type data:(id)data priority:(int64_t)priority mode:(int64_t)mode options:(id)options
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   optionsCopy = options;
   if (dataCopy && [dataCopy length] < 0x17)
@@ -197,19 +207,19 @@
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
-      v24 = dataCopy;
-      v25 = 2048;
+      v23 = dataCopy;
+      v24 = 2048;
       priorityCopy = priority;
-      v27 = 2048;
+      v26 = 2048;
       modeCopy = mode;
-      v29 = 2112;
-      v30 = optionsCopy;
+      v28 = 2112;
+      v29 = optionsCopy;
       _os_log_impl(&dword_274327000, v20, OS_LOG_TYPE_DEFAULT, "Nearby start advertising with data: %{public}@ priority %ld mode %ld options %@", buf, 0x2Au);
     }
 
-    v22.receiver = self;
-    v22.super_class = WPNearby;
-    [(WPClient *)&v22 startAdvertising:dataCopy];
+    v21.receiver = self;
+    v21.super_class = WPNearby;
+    [(WPClient *)&v21 startAdvertising:dataCopy];
   }
 
   else
@@ -226,9 +236,9 @@
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v31 = *MEMORY[0x277CCA450];
-    v32[0] = dataCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = *MEMORY[0x277CCA450];
+    v31[0] = dataCopy;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v17 = [v15 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v16];
 
     delegate = [(WPNearby *)self delegate];
@@ -240,13 +250,11 @@
       [delegate2 nearby:self didFailToStartAdvertisingOfType:type withError:v17];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAdvertisingRequest:(id)request withUpdate:(id)update
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   updateCopy = update;
   [requestCopy setUpdateTime:0.0];
@@ -274,19 +282,93 @@
   v8 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543362;
-    v11 = requestCopy;
-    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Nearby update advertising with data: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = requestCopy;
+    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Nearby update advertising with data: %{public}@", &v9, 0xCu);
   }
 
   updateCopy[2](updateCopy, requestCopy);
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)advertisingPendingOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v10 = *MEMORY[0x277D85DE8];
+  delegate = [(WPNearby *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPNearby advertisingPendingOfType:];
+    }
+
+    v7 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
+    {
+      v9[0] = 67109120;
+      v9[1] = typeCopy;
+      _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_INFO, "Nearby advertising pending of type: %d", v9, 8u);
+    }
+
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didDeferAdvertisingType:{+[WPNearby nearbyTypeFromClientType:](WPNearby, "nearbyTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)advertisingStartedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  delegate = [(WPNearby *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPNearby advertisingStartedOfType:];
+    }
+
+    v7 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
+    {
+      [(WPNearby *)typeCopy advertisingStartedOfType:v7];
+    }
+
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didStartAdvertisingType:{+[WPNearby nearbyTypeFromClientType:](WPNearby, "nearbyTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  startCopy = start;
+  delegate = [(WPNearby *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPNearby advertisingFailedToStart:ofType:];
+    }
+
+    v9 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [(WPNearby *)typeCopy advertisingFailedToStart:v9 ofType:startCopy];
+    }
+
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didFailToStartAdvertisingOfType:+[WPNearby nearbyTypeFromClientType:](WPNearby withError:{"nearbyTypeFromClientType:", typeCopy), startCopy}];
+  }
 }
 
 - (void)stopAdvertisingOfType:(int64_t)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [WPNearby clientTypeFromNearbyType:type];
   v5 = [WPAdvertisingRequest requestForClientType:v4];
   if (WPLogInitOnce != -1)
@@ -298,20 +380,85 @@
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v10 = v4;
+    v9 = v4;
     _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "Nearby stop advertising of type: %d", buf, 8u);
   }
 
-  v8.receiver = self;
-  v8.super_class = WPNearby;
-  [(WPClient *)&v8 stopAdvertising:v5];
+  v7.receiver = self;
+  v7.super_class = WPNearby;
+  [(WPClient *)&v7 stopAdvertising:v5];
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error
+{
+  typeCopy = type;
+  v20 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  if (WPLogInitOnce != -1)
+  {
+    [WPNearby advertisingStoppedOfType:withError:];
+  }
+
+  v7 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = 134218242;
+    v17 = typeCopy;
+    v18 = 2112;
+    v19 = errorCopy;
+    _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "Nearby advertising stopped of type: %ld with error: %@", &v16, 0x16u);
+  }
+
+  if (errorCopy)
+  {
+    if ([errorCopy code] == 28)
+    {
+      delegate = [(WPNearby *)self delegate];
+      v9 = objc_opt_respondsToSelector();
+
+      if (v9)
+      {
+        if (WPLogInitOnce != -1)
+        {
+          [WPNearby advertisingStoppedOfType:withError:];
+        }
+
+        v10 = WiProxLog;
+        if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+        {
+          v11 = v10;
+          localizedDescription = [errorCopy localizedDescription];
+          v16 = 134218242;
+          v17 = typeCopy;
+          v18 = 2112;
+          v19 = localizedDescription;
+          _os_log_impl(&dword_274327000, v11, OS_LOG_TYPE_DEFAULT, "[Privacy] Nearby advertising stopped of type: %ld with error: %@", &v16, 0x16u);
+        }
+
+        delegate2 = [(WPNearby *)self delegate];
+        [delegate2 nearby:self didStopAdvertisingType:+[WPNearby nearbyTypeFromClientType:](WPNearby withError:{"nearbyTypeFromClientType:", typeCopy), errorCopy}];
+        goto LABEL_15;
+      }
+    }
+  }
+
+  else
+  {
+    delegate3 = [(WPNearby *)self delegate];
+    v15 = objc_opt_respondsToSelector();
+
+    if (v15)
+    {
+      delegate2 = [(WPNearby *)self delegate];
+      [delegate2 nearby:self didStopAdvertisingType:{+[WPNearby nearbyTypeFromClientType:](WPNearby, "nearbyTypeFromClientType:", typeCopy)}];
+LABEL_15:
+    }
+  }
 }
 
 - (void)startScanningForType:(int64_t)type data:(id)data mask:(id)mask peers:(id)peers scanMode:(int64_t)mode rssi:(id)rssi duplicates:(BOOL)duplicates scanCache:(BOOL)self0 useCaseList:(id)self1
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   maskCopy = mask;
   peersCopy = peers;
@@ -350,8 +497,8 @@
     {
       if (type)
       {
-        v54 = [MEMORY[0x277CBEAD8] exceptionWithName:@"UnknownNearbyType" reason:@"The nearby type isn't valid" userInfo:0];
-        objc_exception_throw(v54);
+        v53 = [MEMORY[0x277CBEAD8] exceptionWithName:@"UnknownNearbyType" reason:@"The nearby type isn't valid" userInfo:0];
+        objc_exception_throw(v53);
       }
 
       v27 = listCopy;
@@ -389,7 +536,7 @@
 LABEL_46:
       *&buf = v29;
       *(&buf + 1) = v31;
-      v58 = 30;
+      v57 = 30;
       [v26 setScanningRates:&buf];
       if (dataCopy)
       {
@@ -442,9 +589,9 @@ LABEL_46:
         _os_log_impl(&dword_274327000, v52, OS_LOG_TYPE_DEFAULT, "Nearby start scanning with data: %{public}@", &buf, 0xCu);
       }
 
-      v56.receiver = selfCopy;
-      v56.super_class = WPNearby;
-      [(WPClient *)&v56 startScanning:v26];
+      v55.receiver = selfCopy;
+      v55.super_class = WPNearby;
+      [(WPClient *)&v55 startScanning:v26];
       goto LABEL_61;
     }
 
@@ -511,7 +658,7 @@ LABEL_38:
   }
 
   selfCopy2 = self;
-  v55 = maskCopy;
+  v54 = maskCopy;
   type = [MEMORY[0x277CCACA8] stringWithFormat:@"Nearby data (%ld bytes) or mask (%ld bytes) length is larger than the max length (22 bytes) for type: %ld", v23, v24, type];
   v34 = dataCopy;
   v35 = rssiCopy;
@@ -528,9 +675,9 @@ LABEL_38:
   }
 
   v38 = MEMORY[0x277CCA9B8];
-  v59 = *MEMORY[0x277CCA450];
-  v60[0] = type;
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:&v59 count:1];
+  v58 = *MEMORY[0x277CCA450];
+  v59[0] = type;
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
   v26 = [v38 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v39];
 
   delegate = [(WPNearby *)selfCopy2 delegate];
@@ -546,15 +693,51 @@ LABEL_38:
   rssiCopy = v35;
   v44 = v36;
   dataCopy = v34;
-  maskCopy = v55;
+  maskCopy = v54;
 LABEL_61:
+}
 
-  v53 = *MEMORY[0x277D85DE8];
+- (void)scanningStartedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  delegate = [(WPNearby *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didStartScanningForType:{+[WPNearby nearbyTypeFromClientType:](WPNearby, "nearbyTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  startCopy = start;
+  delegate = [(WPNearby *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    if (WPLogInitOnce != -1)
+    {
+      [WPNearby scanningFailedToStart:ofType:];
+    }
+
+    v9 = WiProxLog;
+    if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
+    {
+      [(WPNearby *)typeCopy scanningFailedToStart:v9 ofType:startCopy];
+    }
+
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didFailToStartScanningForType:+[WPNearby nearbyTypeFromClientType:](WPNearby withError:{"nearbyTypeFromClientType:", typeCopy), startCopy}];
+  }
 }
 
 - (void)stopScanningForType:(int64_t)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   [v5 setClientType:{+[WPNearby clientTypeFromNearbyType:](WPNearby, "clientTypeFromNearbyType:", type)}];
   if (WPLogInitOnce != -1)
@@ -566,20 +749,31 @@ LABEL_61:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = v5;
+    v9 = v5;
     _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "Nearby stop scanning: %{public}@", buf, 0xCu);
   }
 
-  v8.receiver = self;
-  v8.super_class = WPNearby;
-  [(WPClient *)&v8 stopScanning:v5];
+  v7.receiver = self;
+  v7.super_class = WPNearby;
+  [(WPClient *)&v7 stopScanning:v5];
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)scanningStoppedOfType:(unsigned __int8)type
+{
+  typeCopy = type;
+  delegate = [(WPNearby *)self delegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didStopScanningForType:{+[WPNearby nearbyTypeFromClientType:](WPNearby, "nearbyTypeFromClientType:", typeCopy)}];
+  }
 }
 
 - (void)clearDuplicatesForType:(int64_t)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   [v5 setClientType:{+[WPNearby clientTypeFromNearbyType:](WPNearby, "clientTypeFromNearbyType:", type)}];
   if (WPLogInitOnce != -1)
@@ -595,16 +789,14 @@ LABEL_61:
     _os_log_impl(&dword_274327000, v6, OS_LOG_TYPE_DEFAULT, "Nearby clear duplicate filter cache type %ld", buf, 0xCu);
   }
 
-  v8.receiver = self;
-  v8.super_class = WPNearby;
-  [(WPClient *)&v8 clearDuplicateFilterCache:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = WPNearby;
+  [(WPClient *)&v7 clearDuplicateFilterCache:v5];
 }
 
 - (void)deviceDiscovered:(id)discovered
 {
-  v48[6] = *MEMORY[0x277D85DE8];
+  v47[6] = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   v5 = [discoveredCopy objectForKeyedSubscript:@"kDevicePeripheralUUID"];
   v6 = [discoveredCopy objectForKeyedSubscript:@"kDeviceType"];
@@ -622,40 +814,40 @@ LABEL_61:
 
     if (v13)
     {
-      v39 = v9;
-      v40 = v11;
+      v38 = v9;
+      v39 = v11;
       v14 = [discoveredCopy objectForKeyedSubscript:@"kDeviceAddress"];
       v15 = [discoveredCopy objectForKeyedSubscript:@"kDeviceManufacturerData"];
       v16 = [discoveredCopy objectForKeyedSubscript:@"kDevicePaired"];
-      v47[0] = @"WPNearbyKeyDeviceAddress";
+      v46[0] = @"WPNearbyKeyDeviceAddress";
       data = v14;
       if (!v14)
       {
         data = [MEMORY[0x277CBEA90] data];
       }
 
-      v48[0] = data;
-      v48[1] = v15;
-      v38 = v15;
-      v47[1] = @"WPNearbyKeyManufacturerData";
-      v47[2] = @"WPNearbyKeyPaired";
+      v47[0] = data;
+      v47[1] = v15;
+      v37 = v15;
+      v46[1] = @"WPNearbyKeyManufacturerData";
+      v46[2] = @"WPNearbyKeyPaired";
       v18 = MEMORY[0x277CBEC28];
       if (v16)
       {
         v18 = v16;
       }
 
-      v48[2] = v18;
-      v47[3] = @"WPNearbyKeyRSSI";
+      v47[2] = v18;
+      v46[3] = @"WPNearbyKeyRSSI";
       v19 = [discoveredCopy objectForKeyedSubscript:@"kDeviceRSSI"];
-      v48[3] = v19;
-      v47[4] = @"kDeviceChannel";
+      v47[3] = v19;
+      v46[4] = @"kDeviceChannel";
       v20 = [discoveredCopy objectForKeyedSubscript:?];
-      v48[4] = v20;
-      v47[5] = @"WPNearbyKeyDeviceTime";
+      v47[4] = v20;
+      v46[5] = @"WPNearbyKeyDeviceTime";
       v21 = [discoveredCopy objectForKeyedSubscript:@"kDeviceTime"];
-      v48[5] = v21;
-      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:6];
+      v47[5] = v21;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:6];
 
       if (!v14)
       {
@@ -670,17 +862,17 @@ LABEL_61:
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
       {
         *buf = 134218498;
-        v42 = v40;
-        v43 = 2112;
-        v44 = v5;
-        v45 = 2112;
-        v46 = v22;
+        v41 = v39;
+        v42 = 2112;
+        v43 = v5;
+        v44 = 2112;
+        v45 = v22;
         _os_log_impl(&dword_274327000, v23, OS_LOG_TYPE_INFO, "Nearby didDiscoverType %ld UUID %@ info %@", buf, 0x20u);
       }
 
       delegate2 = [(WPNearby *)self delegate];
-      v9 = v39;
-      [delegate2 nearby:self didDiscoverType:v40 withData:v39 fromPeer:v5 peerInfo:v22];
+      v9 = v38;
+      [delegate2 nearby:self didDiscoverType:v39 withData:v38 fromPeer:v5 peerInfo:v22];
     }
 
     else
@@ -699,9 +891,9 @@ LABEL_61:
         if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_INFO))
         {
           *buf = 134218242;
-          v42 = v11;
-          v43 = 2112;
-          v44 = v5;
+          v41 = v11;
+          v42 = 2112;
+          v43 = v5;
           _os_log_impl(&dword_274327000, v35, OS_LOG_TYPE_INFO, "Nearby didDiscoverType %ld UUID %@", buf, 0x16u);
         }
 
@@ -724,13 +916,11 @@ LABEL_61:
       [(WPNearby *)v25 deviceDiscovered:v26, v27, v28, v29, v30, v31, v32];
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToPeer:(id)peer withOptions:(id)options
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   optionsCopy = options;
   if (!peerCopy)
@@ -747,9 +937,9 @@ LABEL_61:
     }
 
     v17 = MEMORY[0x277CCA9B8];
-    v37 = *MEMORY[0x277CCA450];
-    v38[0] = @"Nearby no peer was provided!";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v36 = *MEMORY[0x277CCA450];
+    v37[0] = @"Nearby no peer was provided!";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
     v19 = [v17 errorWithDomain:@"WPErrorDomain" code:6 userInfo:v18];
 
     delegate = [(WPNearby *)self delegate];
@@ -786,9 +976,9 @@ LABEL_21:
     }
 
     v25 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
-    v36 = v19;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35 = v19;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     delegate2 = [v25 errorWithDomain:@"WPErrorDomain" code:1 userInfo:v26];
 
     delegate3 = [(WPNearby *)self delegate];
@@ -812,24 +1002,22 @@ LABEL_21:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v32 = peerCopy;
-    v33 = 2112;
-    v34 = optionsCopy;
+    v31 = peerCopy;
+    v32 = 2112;
+    v33 = optionsCopy;
     _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Nearby connect to peer  %{public}@ with options %@", buf, 0x16u);
   }
 
-  v30.receiver = self;
-  v30.super_class = WPNearby;
-  [(WPClient *)&v30 connectToPeer:peerCopy withOptions:optionsCopy];
+  v29.receiver = self;
+  v29.super_class = WPNearby;
+  [(WPClient *)&v29 connectToPeer:peerCopy withOptions:optionsCopy];
 LABEL_22:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectedDevice:(id)device withError:(id)error shouldDiscover:(BOOL)discover
 {
   discoverCopy = discover;
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   if (discoverCopy)
@@ -843,18 +1031,18 @@ LABEL_22:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v19 = deviceCopy;
+      v18 = deviceCopy;
       _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "Nearby connected to device: %{public}@ over GATT", buf, 0xCu);
     }
 
-    v22 = @"9FA480E0-4967-4542-9390-D343DC5D04AE";
+    v21 = @"9FA480E0-4967-4542-9390-D343DC5D04AE";
     v11 = [MEMORY[0x277CBEB98] setWithObjects:{@"AF0BADB1-5B99-43CD-917A-A77BC549E3CC", 0}];
-    v23[0] = v11;
-    delegate2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v22[0] = v11;
+    delegate2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
 
-    v17.receiver = self;
-    v17.super_class = WPNearby;
-    [(WPClient *)&v17 discoverCharacteristicsAndServices:delegate2 forPeripheral:deviceCopy];
+    v16.receiver = self;
+    v16.super_class = WPNearby;
+    [(WPClient *)&v16 discoverCharacteristicsAndServices:delegate2 forPeripheral:deviceCopy];
     goto LABEL_13;
   }
 
@@ -867,9 +1055,9 @@ LABEL_22:
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = deviceCopy;
-    v20 = 2114;
-    v21 = errorCopy;
+    v18 = deviceCopy;
+    v19 = 2114;
+    v20 = errorCopy;
     _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "Nearby sending didConnectToPeer %@ with error %{public}@", buf, 0x16u);
   }
 
@@ -882,13 +1070,11 @@ LABEL_22:
     [delegate2 nearby:self didConnectToPeer:deviceCopy transport:1 error:errorCopy];
 LABEL_13:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectedDeviceOverLEPipe:(id)pipe
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   pipeCopy = pipe;
   if (WPLogInitOnce != -1)
   {
@@ -898,9 +1084,9 @@ LABEL_13:
   v5 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = pipeCopy;
-    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "Nearby sending didConnectToPeer %@ over LEPipe", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = pipeCopy;
+    _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "Nearby sending didConnectToPeer %@ over LEPipe", &v9, 0xCu);
   }
 
   delegate = [(WPNearby *)self delegate];
@@ -911,13 +1097,11 @@ LABEL_13:
     delegate2 = [(WPNearby *)self delegate];
     [delegate2 nearby:self didConnectToPeer:pipeCopy transport:2 error:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)discoveredCharacteristicsAndServices:(id)services forPeripheral:(id)peripheral
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   peripheralCopy = peripheral;
   v8 = [servicesCopy objectForKeyedSubscript:@"9FA480E0-4967-4542-9390-D343DC5D04AE"];
@@ -941,13 +1125,13 @@ LABEL_13:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v34 = 0;
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __63__WPNearby_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_321;
-    v31[3] = &unk_279ED7548;
-    v31[4] = buf;
-    [v8 enumerateObjectsUsingBlock:v31];
+    v33 = 0;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __63__WPNearby_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_321;
+    v30[3] = &unk_279ED7548;
+    v30[4] = buf;
+    [v8 enumerateObjectsUsingBlock:v30];
     if (*(*&buf[8] + 24) == 1)
     {
       if (WPLogInitOnce != -1)
@@ -958,13 +1142,13 @@ LABEL_13:
       v10 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        *v30 = 0;
-        _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "Nearby subscribing to characteristic", v30, 2u);
+        *v29 = 0;
+        _os_log_impl(&dword_274327000, v10, OS_LOG_TYPE_DEFAULT, "Nearby subscribing to characteristic", v29, 2u);
       }
 
-      v29.receiver = self;
-      v29.super_class = WPNearby;
-      [(WPClient *)&v29 shouldSubscribe:1 toPeer:peripheralCopy withCharacteristic:@"AF0BADB1-5B99-43CD-917A-A77BC549E3CC" inService:@"9FA480E0-4967-4542-9390-D343DC5D04AE"];
+      v28.receiver = self;
+      v28.super_class = WPNearby;
+      [(WPClient *)&v28 shouldSubscribe:1 toPeer:peripheralCopy withCharacteristic:@"AF0BADB1-5B99-43CD-917A-A77BC549E3CC" inService:@"9FA480E0-4967-4542-9390-D343DC5D04AE"];
     }
 
     else
@@ -980,9 +1164,9 @@ LABEL_13:
         [(WPNearby *)v19 discoveredCharacteristicsAndServices:v20 forPeripheral:v21, v22, v23, v24, v25, v26];
       }
 
-      v28.receiver = self;
-      v28.super_class = WPNearby;
-      [(WPClient *)&v28 disconnectFromPeer:peripheralCopy];
+      v27.receiver = self;
+      v27.super_class = WPNearby;
+      [(WPClient *)&v27 disconnectFromPeer:peripheralCopy];
     }
 
     _Block_object_dispose(buf, 8);
@@ -1001,15 +1185,13 @@ LABEL_13:
       [(WPNearby *)v11 discoveredCharacteristicsAndServices:v12 forPeripheral:v13, v14, v15, v16, v17, v18];
     }
 
-    v32.receiver = self;
-    v32.super_class = WPNearby;
-    [(WPClient *)&v32 disconnectFromPeer:peripheralCopy];
+    v31.receiver = self;
+    v31.super_class = WPNearby;
+    [(WPClient *)&v31 disconnectFromPeer:peripheralCopy];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __63__WPNearby_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_321(uint64_t a1, void *a2)
+void *__63__WPNearby_discoveredCharacteristicsAndServices_forPeripheral___block_invoke_321(uint64_t a1, void *a2)
 {
   result = [a2 isEqualToString:@"AF0BADB1-5B99-43CD-917A-A77BC549E3CC"];
   if (result)
@@ -1023,7 +1205,7 @@ uint64_t __63__WPNearby_discoveredCharacteristicsAndServices_forPeripheral___blo
 - (void)updatedNotificationState:(BOOL)state forCharacteristic:(id)characteristic inService:(id)service withPeripheral:(id)peripheral
 {
   stateCopy = state;
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   serviceCopy = service;
   peripheralCopy = peripheral;
@@ -1041,9 +1223,9 @@ uint64_t __63__WPNearby_discoveredCharacteristicsAndServices_forPeripheral___blo
     }
 
     v25 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
-    v36 = @"Nearby notification is disabled";
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35 = @"Nearby notification is disabled";
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     serviceCopy = [v25 errorWithDomain:@"WPErrorDomain" code:22 userInfo:v26];
 
     delegate = [(WPNearby *)self delegate];
@@ -1073,9 +1255,9 @@ uint64_t __63__WPNearby_discoveredCharacteristicsAndServices_forPeripheral___blo
     }
 
     v29 = MEMORY[0x277CCA9B8];
-    v37 = *MEMORY[0x277CCA450];
-    v38[0] = serviceCopy;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+    v36 = *MEMORY[0x277CCA450];
+    v37[0] = serviceCopy;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
     delegate2 = [v29 errorWithDomain:@"WPErrorDomain" code:20 userInfo:v30];
 
     delegate3 = [(WPNearby *)self delegate];
@@ -1113,13 +1295,11 @@ LABEL_22:
     [serviceCopy nearby:self didConnectToPeer:peripheralCopy transport:1 error:0];
 LABEL_23:
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendData:(id)data toPeer:(id)peer
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   peerCopy = peer;
   v8 = peerCopy;
@@ -1140,9 +1320,9 @@ LABEL_23:
     }
 
     v21 = MEMORY[0x277CCA9B8];
-    v44 = *MEMORY[0x277CCA450];
-    v45[0] = 60000;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+    v43 = *MEMORY[0x277CCA450];
+    v44[0] = 60000;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
     delegate5 = [v21 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v22];
 
     delegate = [(WPNearby *)self delegate];
@@ -1165,8 +1345,8 @@ LABEL_23:
     v9 = [dataCopy length];
     if ((v9 - 60001) > 0xFFFFFFFFFFFF159FLL)
     {
-      v39 = v9;
-      60000 = [MEMORY[0x277CBEB28] dataWithBytes:&v39 length:2];
+      v38 = v9;
+      60000 = [MEMORY[0x277CBEB28] dataWithBytes:&v38 length:2];
       [60000 appendData:dataCopy];
       delegate5 = objc_opt_new();
       [delegate5 setData:60000];
@@ -1185,9 +1365,9 @@ LABEL_23:
         [(WPNearby *)v36 sendData:60000 toPeer:v8];
       }
 
-      v38.receiver = self;
-      v38.super_class = WPNearby;
-      [(WPClient *)&v38 sendDataToCharacteristic:delegate5 inService:@"9FA480E0-4967-4542-9390-D343DC5D04AE" forPeer:v8];
+      v37.receiver = self;
+      v37.super_class = WPNearby;
+      [(WPClient *)&v37 sendDataToCharacteristic:delegate5 inService:@"9FA480E0-4967-4542-9390-D343DC5D04AE" forPeer:v8];
       goto LABEL_28;
     }
 
@@ -1203,9 +1383,9 @@ LABEL_23:
     }
 
     v11 = MEMORY[0x277CCA9B8];
-    v40 = *MEMORY[0x277CCA450];
-    v41 = 60000;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v39 = *MEMORY[0x277CCA450];
+    v40 = 60000;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
     delegate5 = [v11 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v12];
 
     delegate3 = [(WPNearby *)self delegate];
@@ -1240,9 +1420,9 @@ LABEL_16:
   }
 
   v32 = MEMORY[0x277CCA9B8];
-  v42 = *MEMORY[0x277CCA450];
-  v43 = @"Nearby no peer was provided";
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+  v41 = *MEMORY[0x277CCA450];
+  v42 = @"Nearby no peer was provided";
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
   60000 = [v32 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v33];
 
   delegate4 = [(WPNearby *)self delegate];
@@ -1256,13 +1436,11 @@ LABEL_16:
   }
 
 LABEL_29:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sentData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral withError:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -1280,9 +1458,9 @@ LABEL_29:
     {
       v18 = v17;
       localizedDescription = [errorCopy localizedDescription];
-      v29 = 138412290;
-      v30 = localizedDescription;
-      _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, "Nearby didSendData over GATT with error %@", &v29, 0xCu);
+      v28 = 138412290;
+      v29 = localizedDescription;
+      _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, "Nearby didSendData over GATT with error %@", &v28, 0xCu);
     }
 
     delegate = [(WPNearby *)self delegate];
@@ -1312,27 +1490,25 @@ LABEL_29:
     v24 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
     {
-      v26 = v24;
+      v25 = v24;
       uUIDString = [peripheralCopy UUIDString];
       localizedDescription2 = [errorCopy localizedDescription];
-      v29 = 138413058;
-      v30 = characteristicCopy;
-      v31 = 2112;
-      v32 = serviceCopy;
-      v33 = 2112;
-      v34 = uUIDString;
-      v35 = 2112;
-      v36 = localizedDescription2;
-      _os_log_error_impl(&dword_274327000, v26, OS_LOG_TYPE_ERROR, "Nearby Sent data to a characteristic: %@ or service: %@ to peer: %@ with error: %@ that isn't of type Nearby", &v29, 0x2Au);
+      v28 = 138413058;
+      v29 = characteristicCopy;
+      v30 = 2112;
+      v31 = serviceCopy;
+      v32 = 2112;
+      v33 = uUIDString;
+      v34 = 2112;
+      v35 = localizedDescription2;
+      _os_log_error_impl(&dword_274327000, v25, OS_LOG_TYPE_ERROR, "Nearby Sent data to a characteristic: %@ or service: %@ to peer: %@ with error: %@ that isn't of type Nearby", &v28, 0x2Au);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sentData:(id)data toEndpoint:(id)endpoint forPeripheral:(id)peripheral withError:(id)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   endpointCopy = endpoint;
   peripheralCopy = peripheral;
@@ -1348,9 +1524,9 @@ LABEL_29:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       v15 = v14;
-      v25 = 134217984;
-      v26 = [dataCopy length];
-      _os_log_impl(&dword_274327000, v15, OS_LOG_TYPE_DEFAULT, "WPPM: Nearby didSendData over LE pipe: %lu", &v25, 0xCu);
+      v24 = 134217984;
+      v25 = [dataCopy length];
+      _os_log_impl(&dword_274327000, v15, OS_LOG_TYPE_DEFAULT, "WPPM: Nearby didSendData over LE pipe: %lu", &v24, 0xCu);
     }
 
     delegate = [(WPNearby *)self delegate];
@@ -1380,25 +1556,23 @@ LABEL_29:
     v20 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
     {
-      v22 = v20;
+      v21 = v20;
       uUIDString = [peripheralCopy UUIDString];
       localizedDescription = [errorCopy localizedDescription];
-      v25 = 138412802;
-      v26 = endpointCopy;
-      v27 = 2112;
-      v28 = uUIDString;
-      v29 = 2112;
-      v30 = localizedDescription;
-      _os_log_error_impl(&dword_274327000, v22, OS_LOG_TYPE_ERROR, "Nearby Sent data to a endpoint: %@ to peer: %@ with error: %@ that isn't of type Nearby", &v25, 0x20u);
+      v24 = 138412802;
+      v25 = endpointCopy;
+      v26 = 2112;
+      v27 = uUIDString;
+      v28 = 2112;
+      v29 = localizedDescription;
+      _os_log_error_impl(&dword_274327000, v21, OS_LOG_TYPE_ERROR, "Nearby Sent data to a endpoint: %@ to peer: %@ with error: %@ that isn't of type Nearby", &v24, 0x20u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(id)data forCharacteristic:(id)characteristic inService:(id)service forPeripheral:(id)peripheral
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -1426,7 +1600,7 @@ LABEL_29:
     v19 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
     {
-      [WPNearby receivedData:dataCopy forCharacteristic:v19 inService:? forPeripheral:?];
+      [WPNearby receivedData:dataCopy forCharacteristic:v19 inService:peripheralCopy forPeripheral:?];
     }
 
     if ([v15 addNewData:dataCopy])
@@ -1442,9 +1616,9 @@ LABEL_29:
       {
         v21 = v20;
         currentReceivedData = [v15 currentReceivedData];
-        v29 = 134217984;
-        v30 = [currentReceivedData length];
-        _os_log_impl(&dword_274327000, v21, OS_LOG_TYPE_DEFAULT, "WPPM: Nearby didReceiveData data of length %ld", &v29, 0xCu);
+        v28 = 134217984;
+        v29 = [currentReceivedData length];
+        _os_log_impl(&dword_274327000, v21, OS_LOG_TYPE_DEFAULT, "WPPM: Nearby didReceiveData data of length %ld", &v28, 0xCu);
       }
 
       delegate = [(WPNearby *)self delegate];
@@ -1461,8 +1635,6 @@ LABEL_29:
       [v15 resetTransfer];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedData:(id)data fromEndpoint:(id)endpoint forPeripheral:(id)peripheral
@@ -1488,7 +1660,7 @@ LABEL_29:
 - (void)central:(id)central subscribed:(BOOL)subscribed toCharacteristic:(id)characteristic inService:(id)service
 {
   subscribedCopy = subscribed;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   centralCopy = central;
   characteristicCopy = characteristic;
   serviceCopy = service;
@@ -1504,9 +1676,9 @@ LABEL_29:
       v13 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138543362;
-        v20 = centralCopy;
-        _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "Nearby central connected to our device %{public}@, send Peripheral didConnect", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = centralCopy;
+        _os_log_impl(&dword_274327000, v13, OS_LOG_TYPE_DEFAULT, "Nearby central connected to our device %{public}@, send Peripheral didConnect", &v18, 0xCu);
       }
 
       delegate = [(WPNearby *)self delegate];
@@ -1526,11 +1698,11 @@ LABEL_29:
         [WPNearby central:subscribed:toCharacteristic:inService:];
       }
 
-      v18 = WiProxLog;
+      v17 = WiProxLog;
       if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_274327000, v18, OS_LOG_TYPE_DEFAULT, "Saw unsubscribe...disconnection pending", &v19, 2u);
+        LOWORD(v18) = 0;
+        _os_log_impl(&dword_274327000, v17, OS_LOG_TYPE_DEFAULT, "Saw unsubscribe...disconnection pending", &v18, 2u);
       }
     }
   }
@@ -1547,13 +1719,11 @@ LABEL_29:
       [WPNearby central:subscribed:toCharacteristic:inService:];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectFromPeer:(id)peer
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   if (peerCopy)
   {
@@ -1566,13 +1736,13 @@ LABEL_29:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = peerCopy;
+      v21 = peerCopy;
       _os_log_impl(&dword_274327000, v5, OS_LOG_TYPE_DEFAULT, "Nearby disconnect from peer: %{public}@", buf, 0xCu);
     }
 
-    v20.receiver = self;
-    v20.super_class = WPNearby;
-    [(WPClient *)&v20 disconnectFromPeer:peerCopy];
+    v19.receiver = self;
+    v19.super_class = WPNearby;
+    [(WPClient *)&v19 disconnectFromPeer:peerCopy];
   }
 
   else
@@ -1589,9 +1759,9 @@ LABEL_29:
     }
 
     v14 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = @"Nearby peer is null";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA450];
+    v23[0] = @"Nearby peer is null";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v16 = [v14 errorWithDomain:@"WPErrorDomain" code:7 userInfo:v15];
 
     delegate = [(WPNearby *)self delegate];
@@ -1603,13 +1773,11 @@ LABEL_29:
       [delegate2 nearby:self didDisconnectFromPeer:0 error:v16];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectedDevice:(id)device withError:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   errorCopy = error;
   if (errorCopy)
@@ -1628,7 +1796,7 @@ LABEL_29:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_274327000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ - send didDisconnect", buf, 0xCu);
     }
   }
@@ -1655,22 +1823,20 @@ LABEL_29:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v21 = deviceCopy;
-      v22 = 2112;
-      v23 = errorCopy;
+      v20 = deviceCopy;
+      v21 = 2112;
+      v22 = errorCopy;
       _os_log_impl(&dword_274327000, v17, OS_LOG_TYPE_DEFAULT, "Nearby sending didDisconnectFromPeer %@ with error %@", buf, 0x16u);
     }
 
     delegate2 = [(WPNearby *)self delegate];
     [delegate2 nearby:self didDisconnectFromPeer:deviceCopy error:errorCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectedDeviceOverLEPipe:(id)pipe withError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pipeCopy = pipe;
   errorCopy = error;
   if (WPLogInitOnce != -1)
@@ -1681,26 +1847,24 @@ LABEL_29:
   v8 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = pipeCopy;
-    v12 = 2112;
-    v13 = errorCopy;
-    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Nearby disconnected %@ over LE pipe with error %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = pipeCopy;
+    v11 = 2112;
+    v12 = errorCopy;
+    _os_log_impl(&dword_274327000, v8, OS_LOG_TYPE_DEFAULT, "Nearby disconnected %@ over LE pipe with error %@", &v9, 0x16u);
   }
 
   [(WPNearby *)self disconnectedDevice:pipeCopy withError:errorCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTrackingPeer:(id)peer forType:(int64_t)type
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   v7 = MEMORY[0x277CCA9B8];
-  v13 = *MEMORY[0x277CCA450];
-  v14[0] = @"Nearby peer traking is unsupported";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x277CCA450];
+  v13[0] = @"Nearby peer traking is unsupported";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v9 = [v7 errorWithDomain:@"WPErrorDomain" code:17 userInfo:v8];
 
   delegate = [(WPNearby *)self delegate];
@@ -1711,8 +1875,20 @@ LABEL_29:
     delegate2 = [(WPNearby *)self delegate];
     [delegate2 nearby:self didStartTrackingPeer:peerCopy type:type error:v9];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)startedTrackingPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  delegate = [(WPNearby *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didStartTrackingPeer:peerCopy type:+[WPNearby nearbyTypeFromClientType:](WPNearby error:{"nearbyTypeFromClientType:", typeCopy), 0}];
+  }
 }
 
 - (void)failedToStartTrackingPeer:(id)peer error:(id)error
@@ -1755,6 +1931,50 @@ LABEL_29:
   }
 }
 
+- (void)stoppedTrackingPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  delegate = [(WPNearby *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didStopTrackingPeer:peerCopy type:{+[WPNearby nearbyTypeFromClientType:](WPNearby, "nearbyTypeFromClientType:", typeCopy)}];
+  }
+}
+
+- (void)foundPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  delegate = [(WPNearby *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = [WPNearby nearbyTypeFromClientType:typeCopy];
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didFindPeer:peerCopy type:v8];
+  }
+}
+
+- (void)lostPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  peerCopy = peer;
+  delegate = [(WPNearby *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = [WPNearby nearbyTypeFromClientType:typeCopy];
+    delegate2 = [(WPNearby *)self delegate];
+    [delegate2 nearby:self didLosePeer:peerCopy type:v8];
+  }
+}
+
 - (void)bandwidthStateUpdated:(id)updated
 {
   v4 = [updated integerValue] < 2;
@@ -1775,11 +1995,11 @@ LABEL_29:
 
 - (void)stateDidChange:(int64_t)change
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   state = [(WPClient *)self state];
-  v15.receiver = self;
-  v15.super_class = WPNearby;
-  [(WPClient *)&v15 stateDidChange:change];
+  v14.receiver = self;
+  v14.super_class = WPNearby;
+  [(WPClient *)&v14 stateDidChange:change];
   if (WPLogInitOnce != -1)
   {
     [WPNearby stateDidChange:];
@@ -1792,10 +2012,10 @@ LABEL_29:
     state2 = [(WPClient *)self state];
     *buf = 134218496;
     changeCopy = change;
-    v18 = 2048;
-    v19 = state;
-    v20 = 2048;
-    v21 = state2;
+    v17 = 2048;
+    v18 = state;
+    v19 = 2048;
+    v20 = state2;
     _os_log_impl(&dword_274327000, v7, OS_LOG_TYPE_DEFAULT, "Nearby stateDidChange: %ld, old %ld, pipe state %ld", buf, 0x20u);
   }
 
@@ -1803,16 +2023,16 @@ LABEL_29:
   {
     if ([(WPClient *)self state]== 3)
     {
-      v14.receiver = self;
-      v14.super_class = WPNearby;
-      [(WPClient *)&v14 registerEndpoint:@"wp.nearby" requireAck:1 requireEncryption:0];
+      v13.receiver = self;
+      v13.super_class = WPNearby;
+      [(WPClient *)&v13 registerEndpoint:@"wp.nearby" requireAck:1 requireEncryption:0];
     }
 
     else
     {
-      v13.receiver = self;
-      v13.super_class = WPNearby;
-      [(WPClient *)&v13 unregisterEndpoint:@"wp.nearby"];
+      v12.receiver = self;
+      v12.super_class = WPNearby;
+      [(WPClient *)&v12 unregisterEndpoint:@"wp.nearby"];
     }
 
     delegate = [(WPNearby *)self delegate];
@@ -1824,120 +2044,103 @@ LABEL_29:
       [delegate2 nearbyDidUpdateState:self];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)advertisingStartedOfType:(unsigned __int8)a1 .cold.2(unsigned __int8 a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "Nearby advertising started of type: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_274327000, a2, OS_LOG_TYPE_DEBUG, "Nearby advertising started of type: %d", v2, 8u);
 }
 
 - (void)advertisingFailedToStart:(void *)a3 ofType:.cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 localizedDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_274327000, v6, v7, "Nearby advertising failed to start of type: %d with error: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_274327000, v6, v7, "Nearby advertising failed to start of type: %d with error: %@", v8, v9, v10, v11);
 }
 
 - (void)scanningFailedToStart:(void *)a3 ofType:.cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 localizedDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_5(&dword_274327000, v6, v7, "Nearby failed to start scanning of type: %d with error: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_274327000, v6, v7, "Nearby failed to start scanning of type: %d with error: %@", v8, v9, v10, v11);
 }
 
 - (void)connectToPeer:(uint64_t)a3 withOptions:(uint64_t)a4 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@ - send didConnect", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Nearby no peer was provided!";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@ - send didConnect", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updatedNotificationState:(uint64_t)a3 forCharacteristic:(uint64_t)a4 inService:(uint64_t)a5 withPeripheral:(uint64_t)a6 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "Nearby send Central didConnect with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updatedNotificationState:forCharacteristic:inService:withPeripheral:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_274327000, v0, v1, "Nearby send Central didConnect with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Nearby notification is disabled";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "Nearby send Central didConnect with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)sendData:(void *)a3 toPeer:.cold.2(void *a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  [a2 length];
-  v13 = [a3 UUIDString];
-  OUTLINED_FUNCTION_6(&dword_274327000, v6, v7, "Nearby send data size %lu: %@ peer: %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v6 = [a2 length];
+  v7 = [a3 UUIDString];
+  *v14 = 134218498;
+  *&v14[4] = v6;
+  *&v14[12] = 2112;
+  *&v14[14] = a2;
+  *&v14[22] = 2112;
+  OUTLINED_FUNCTION_6(&dword_274327000, v8, v9, "Nearby send data size %lu: %@ peer: %@", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16], v7);
 }
 
 - (void)sendData:(uint64_t)a3 toPeer:(uint64_t)a4 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Nearby no peer was provided";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-- (void)receivedData:(void *)a1 forCharacteristic:(void *)a2 inService:forPeripheral:.cold.2(void *a1, void *a2)
+- (void)receivedData:(uint64_t)a3 forCharacteristic:inService:forPeripheral:.cold.2(void *a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  [a1 length];
-  OUTLINED_FUNCTION_6(&dword_274327000, v4, v5, "Nearby received data %@ of length %ld from peer %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  *v12 = 138412802;
+  *&v12[4] = a1;
+  *&v12[12] = 2048;
+  *&v12[14] = [a1 length];
+  *&v12[22] = 2112;
+  OUTLINED_FUNCTION_6(&dword_274327000, v6, v7, "Nearby received data %@ of length %ld from peer %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16], a3);
 }
 
 - (void)central:subscribed:toCharacteristic:inService:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "Nearby received subscription notification of characteristic: %@, service: %@ is not of type Nearby", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_274327000, v1, OS_LOG_TYPE_ERROR, "Nearby received subscription notification of characteristic: %@, service: %@ is not of type Nearby", v2, 0x16u);
 }
 
 - (void)disconnectFromPeer:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@ - sending didDisconnect", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"Nearby peer is null";
+  OUTLINED_FUNCTION_0_0(&dword_274327000, a1, a3, "%@ - sending didDisconnect", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)failedToStartTrackingPeer:(void *)a3 error:.cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 localizedDescription];
-  v8 = 138412546;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "Nearby failed to start tracking peer: %@ with error: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_274327000, v5, OS_LOG_TYPE_ERROR, "Nearby failed to start tracking peer: %@ with error: %@", &v7, 0x16u);
 }
 
 @end

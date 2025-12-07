@@ -169,7 +169,7 @@ LABEL_8:
 {
   enableCopy = enable;
   v30 = *MEMORY[0x277D85DE8];
-  v9 = LA_LOG_LAUIAuthenticationCore();
+  v9 = LA_LOG_LAUIAuthenticationCore(self);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     delegate = [(LAUIAuthenticationCore *)self delegate];
@@ -261,7 +261,7 @@ void __50__LAUIAuthenticationCore__mechanism_enable_error___block_invoke(uint64_
   {
     mechanismsCopy = mechanisms;
     self->_enabledMechanisms = mechanisms;
-    v6 = LA_LOG_LAUIAuthenticationCore();
+    v6 = LA_LOG_LAUIAuthenticationCore(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       delegate = [(LAUIAuthenticationCore *)self delegate];
@@ -284,7 +284,7 @@ void __50__LAUIAuthenticationCore__mechanism_enable_error___block_invoke(uint64_
   {
     mechanismsCopy = mechanisms;
     self->_activeMechanisms = mechanisms;
-    v6 = LA_LOG_LAUIAuthenticationCore();
+    v6 = LA_LOG_LAUIAuthenticationCore(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       delegate = [(LAUIAuthenticationCore *)self delegate];
@@ -319,7 +319,7 @@ void __50__LAUIAuthenticationCore__mechanism_enable_error___block_invoke(uint64_
     [(LAUIAuthenticationCore *)self setContext:v4];
   }
 
-  v5 = LA_LOG_LAUIAuthenticationCore();
+  v5 = LA_LOG_LAUIAuthenticationCore(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     delegate = [(LAUIAuthenticationCore *)self delegate];
@@ -480,7 +480,7 @@ LABEL_12:
   v11 = *MEMORY[0x277D85DE8];
   if (self->_context && self->_usesInternalContext)
   {
-    v3 = LA_LOG_LAUIAuthenticationCore();
+    v3 = LA_LOG_LAUIAuthenticationCore(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       delegate = [(LAUIAuthenticationCore *)self delegate];
@@ -708,11 +708,11 @@ LABEL_10:
 
         if (integerValue == 11)
         {
-          v22 = LA_LOG_LAUIAuthenticationCore();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v23 = LA_LOG_LAUIAuthenticationCore(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            *v23 = 0;
-            _os_log_impl(&dword_2560E6000, v22, OS_LOG_TYPE_DEFAULT, "Face mask detected. Will shortcircuit bio-auth.", v23, 2u);
+            *v24 = 0;
+            _os_log_impl(&dword_2560E6000, v23, OS_LOG_TYPE_DEFAULT, "Face mask detected. Will shortcircuit bio-auth.", v24, 2u);
           }
 
           [(LAContext *)self->_context failProcessedEvent:event failureError:0 reply:&__block_literal_global_44];

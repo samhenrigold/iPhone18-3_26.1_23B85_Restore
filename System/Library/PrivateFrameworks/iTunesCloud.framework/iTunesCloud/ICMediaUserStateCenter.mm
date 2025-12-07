@@ -66,9 +66,11 @@
 
 uint64_t __32__ICMediaUserStateCenter_shared__block_invoke()
 {
-  shared_sShared = [[ICMediaUserStateCenter alloc] _initLazily:0];
+  v0 = [[ICMediaUserStateCenter alloc] _initLazily:0];
+  v1 = shared_sShared;
+  shared_sShared = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_establishClientConnection

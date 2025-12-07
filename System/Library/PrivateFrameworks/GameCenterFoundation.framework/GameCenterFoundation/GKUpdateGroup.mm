@@ -94,11 +94,10 @@
 
 void __38__GKUpdateGroup_performOnQueue_block___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  _Block_release(v3);
+  _Block_release(v2);
 }
 
 - (void)join:(id)join
@@ -149,54 +148,54 @@ uint64_t __39__GKUpdateGroup_joinApplyUpdatesAndDo___block_invoke(uint64_t a1)
 
 - (void)applyUpdates
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_lock lock];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   notifiers = self->_notifiers;
-  v4 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v4 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(notifiers);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         [objc_msgSend(v8 "lock")];
         if (!self->_error)
         {
-          v17 = 0u;
-          v18 = 0u;
-          v15 = 0u;
           v16 = 0u;
+          v17 = 0u;
+          v14 = 0u;
+          v15 = 0u;
           updateQueue = [v8 updateQueue];
-          v10 = [updateQueue countByEnumeratingWithState:&v15 objects:v23 count:16];
+          v10 = [updateQueue countByEnumeratingWithState:&v14 objects:v22 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v16;
+            v12 = *v15;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v16 != v12)
+                if (*v15 != v12)
                 {
                   objc_enumerationMutation(updateQueue);
                 }
 
-                (*(*(*(&v15 + 1) + 8 * j) + 16))();
+                (*(*(*(&v14 + 1) + 8 * j) + 16))();
               }
 
-              v11 = [updateQueue countByEnumeratingWithState:&v15 objects:v23 count:16];
+              v11 = [updateQueue countByEnumeratingWithState:&v14 objects:v22 count:16];
             }
 
             while (v11);
@@ -208,7 +207,7 @@ uint64_t __39__GKUpdateGroup_joinApplyUpdatesAndDo___block_invoke(uint64_t a1)
         [objc_msgSend(v8 "lock")];
       }
 
-      v5 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v5 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
@@ -217,40 +216,39 @@ uint64_t __39__GKUpdateGroup_joinApplyUpdatesAndDo___block_invoke(uint64_t a1)
   [(NSMutableArray *)self->_notifiers removeAllObjects];
   [(GKUpdateGroup *)self setError:0];
   [(NSLock *)self->_lock unlock];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelUpdates
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_lock lock];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   notifiers = self->_notifiers;
-  v4 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(notifiers);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [objc_msgSend(v8 "lock")];
         [objc_msgSend(v8 "updateQueue")];
         [v8 setGroup:0];
         [objc_msgSend(v8 "lock")];
       }
 
-      v5 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -259,34 +257,33 @@ uint64_t __39__GKUpdateGroup_joinApplyUpdatesAndDo___block_invoke(uint64_t a1)
   [(NSMutableArray *)self->_notifiers removeAllObjects];
   [(GKUpdateGroup *)self setError:0];
   [(NSLock *)self->_lock unlock];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)updateCount
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(NSLock *)self->_lock lock];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   notifiers = self->_notifiers;
-  v4 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(notifiers);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         [objc_msgSend(v9 "lock")];
         v6 += [objc_msgSend(v9 "updateQueue")];
         if ([v9 error])
@@ -297,7 +294,7 @@ uint64_t __39__GKUpdateGroup_joinApplyUpdatesAndDo___block_invoke(uint64_t a1)
         [objc_msgSend(v9 "lock")];
       }
 
-      v5 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)notifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -309,7 +306,6 @@ uint64_t __39__GKUpdateGroup_joinApplyUpdatesAndDo___block_invoke(uint64_t a1)
   }
 
   [(NSLock *)self->_lock unlock];
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

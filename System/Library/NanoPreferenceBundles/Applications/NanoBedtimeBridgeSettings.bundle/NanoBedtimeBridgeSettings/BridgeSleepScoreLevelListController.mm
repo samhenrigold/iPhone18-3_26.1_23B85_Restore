@@ -30,17 +30,16 @@
 {
   v3 = sub_1157C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*&self->PSListController_opaque[OBJC_IVAR____TtC25NanoBedtimeBridgeSettings35BridgeSleepScoreLevelListController_sleepHealthNotificationSettingsProvider])
   {
-    (*(v4 + 104))(v7, enum case for SleepHealthNotificationSettingsProvider.ObservableKey.sleepScoreNotificationLevels(_:), v3);
+    (*(v4 + 104))(v6, enum case for SleepHealthNotificationSettingsProvider.ObservableKey.sleepScoreNotificationLevels(_:), v3);
     selfCopy = self;
 
     sub_1159C();
 
-    (*(v4 + 8))(v7, v3);
+    (*(v4 + 8))(v6, v3);
   }
 
   else
@@ -48,10 +47,10 @@
     selfCopy2 = self;
   }
 
-  v10 = type metadata accessor for BridgeSleepScoreLevelListController();
-  v11.receiver = self;
-  v11.super_class = v10;
-  [(BridgeSleepScoreLevelListController *)&v11 dealloc];
+  v9 = type metadata accessor for BridgeSleepScoreLevelListController();
+  v10.receiver = self;
+  v10.super_class = v9;
+  [(BridgeSleepScoreLevelListController *)&v10 dealloc];
 }
 
 - (id)specifiers
@@ -90,7 +89,7 @@
   {
     sub_1186C();
     swift_unknownObjectRelease();
-    sub_112D4(&v10, &v11);
+    sub_112D4(v10, &v11);
     swift_dynamicCast();
 
     v9 = sub_116BC();
@@ -110,9 +109,8 @@
 {
   v6 = sub_1148C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_117CC();
   sub_117BC();
   sub_117AC();
@@ -124,18 +122,17 @@
   sub_1146C();
   viewCopy = view;
   selfCopy = self;
-  sub_F2B0(viewCopy, v10);
+  sub_F2B0(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path
 {
   v8 = sub_1148C();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_117CC();
   sub_117BC();
   sub_117AC();
@@ -150,7 +147,7 @@
   selfCopy = self;
   sub_10CEC(cellCopy);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (_TtC25NanoBedtimeBridgeSettings35BridgeSleepScoreLevelListController)initWithNibName:(id)name bundle:(id)bundle
@@ -240,7 +237,7 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_10AC4(&qword_1D510, type metadata accessor for NSKeyValueChangeKey);
+  sub_10AC4(&qword_1D510, type metadata accessor for NSKeyValueChangeKey, &unk_12640);
   v15 = sub_1167C();
 
 LABEL_8:

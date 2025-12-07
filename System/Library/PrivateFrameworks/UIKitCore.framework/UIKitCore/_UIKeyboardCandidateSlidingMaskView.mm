@@ -19,11 +19,11 @@
     [(UIImageView *)height setImage:extensionMaskImage];
     [(UIImageView *)height setContentMode:0];
     height2 = [[UIView alloc] initWithFrame:0.0, 0.0, width, height];
-    v13 = +[UIColor blackColor];
+    v13 = objc_msgSend_blackColor(UIColor);
     [(UIView *)height2 setBackgroundColor:v13];
 
     fadeHeight = [[UIView alloc] initWithFrame:0.0, -fadeHeight, width, fadeHeight];
-    v15 = +[UIColor blackColor];
+    v15 = objc_msgSend_blackColor(UIColor);
     [(UIView *)fadeHeight setBackgroundColor:v15];
 
     [(UIView *)v8 addSubview:height];

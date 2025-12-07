@@ -9,10 +9,10 @@
 
 - (MTLCountersCommandQueue)initWithCommandQueue:(id)queue device:(id)device
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = MTLCountersCommandQueue;
-  v5 = [(MTLToolsCommandQueue *)&v34 initWithBaseObject:queue parent:?];
+  v35 = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = MTLCountersCommandQueue;
+  v5 = [(MTLToolsCommandQueue *)&v33 initWithBaseObject:queue parent:?];
   if (v5)
   {
     v6 = getenv("MTL_XML_DUMP_COUNTERS");
@@ -45,10 +45,10 @@
     v14 = [v11 stringWithUTF8String:v13];
     v5->_tracePath = [objc_msgSend(v14 "stringByStandardizingPath")];
     objc_autoreleasePoolPop(v10);
-    v33 = 0;
+    v32 = 0;
     if (([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")] & 1) == 0)
     {
-      NSLog(&cfstr_ErrorCreatingD.isa, v5->_tracePath, [v33 localizedDescription]);
+      NSLog(&cfstr_ErrorCreatingD.isa, v5->_tracePath, [v32 localizedDescription]);
     }
 
     if (v7)
@@ -69,25 +69,25 @@
       v18 = [objc_msgSend(v15 stringWithUTF8String:{v17), "componentsSeparatedByString:", @", "}];
       availableCounters = [(MTLToolsCommandQueue *)v5 availableCounters];
       v20 = objc_opt_new();
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
-      v21 = [v18 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v21 = [v18 countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v30;
+        v23 = *v29;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v30 != v23)
+            if (*v29 != v23)
             {
               objc_enumerationMutation(v18);
             }
 
-            v25 = *(*(&v29 + 1) + 8 * i);
+            v25 = *(*(&v28 + 1) + 8 * i);
             if ([availableCounters containsObject:v25])
             {
               [v20 addObject:v25];
@@ -99,7 +99,7 @@
             }
           }
 
-          v22 = [v18 countByEnumeratingWithState:&v29 objects:v35 count:16];
+          v22 = [v18 countByEnumeratingWithState:&v28 objects:v34 count:16];
         }
 
         while (v22);
@@ -116,16 +116,15 @@
         [(MTLToolsCommandQueue *)v5 setStatOptions:1];
       }
 
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __55__MTLCountersCommandQueue_initWithCommandQueue_device___block_invoke;
-      v28[3] = &unk_2787B3A70;
-      v28[4] = v20;
-      [(MTLToolsCommandQueue *)v5 addPerfSampleHandler:v28];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __55__MTLCountersCommandQueue_initWithCommandQueue_device___block_invoke;
+      v27[3] = &unk_2787B3A70;
+      v27[4] = v20;
+      [(MTLToolsCommandQueue *)v5 addPerfSampleHandler:v27];
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

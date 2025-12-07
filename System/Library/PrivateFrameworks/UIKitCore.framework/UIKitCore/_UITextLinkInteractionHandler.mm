@@ -226,7 +226,7 @@ LABEL_11:
     _currentOpenApplicationEndpoint = [_windowHostingScene _currentOpenApplicationEndpoint];
 
     instance = [_currentOpenApplicationEndpoint instance];
-    v11 = [instance isEqualToString:@"com.apple.SpringBoard.continuity-display"];
+    isEqualToString = objc_msgSend_isEqualToString_(instance);
 
     v12 = _UIKitBundle();
     v13 = [v12 localizedStringForKey:@"Open Link" value:@"Open" table:@"Localizable"];
@@ -238,7 +238,7 @@ LABEL_11:
     v23 = actionCopy;
     v24 = textContentView;
     v15 = textContentView;
-    v16 = [(_UITextLinkInteractionHandler *)self _handlerRequiringUnlockedDevice:v11 ^ 1u handler:&v19];
+    v16 = [(_UITextLinkInteractionHandler *)self _handlerRequiringUnlockedDevice:isEqualToString ^ 1u handler:&v19];
     v17 = [UIAction actionWithTitle:v13 image:v14 identifier:0 handler:v16, v19, v20, v21, v22];
   }
 

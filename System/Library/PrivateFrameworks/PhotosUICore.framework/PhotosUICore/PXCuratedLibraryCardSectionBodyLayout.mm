@@ -8,7 +8,6 @@
 - (id)axContentInfoAtSpriteIndex:(unsigned int)index;
 - (id)axSelectedSpriteIndexes;
 - (id)axSpriteIndexes;
-- (id)axSpriteIndexesInRect:(CGRect)rect;
 - (id)axVisibleSpriteIndexes;
 - (id)displayAssetFetchResultForSpritesInRange:(_PXGSpriteIndexRange)range inLayout:(id)layout;
 - (id)objectReferenceForSpriteIndex:(unsigned int)index;
@@ -38,14 +37,6 @@
   *&retstr->dataSourceIdentifier = *&self[31].subitem;
   *&retstr->item = v3;
   return self;
-}
-
-- (id)axSpriteIndexesInRect:(CGRect)rect
-{
-  v4 = 0u;
-  v5 = 0u;
-  [(PXCuratedLibraryCardSectionBodyLayout *)self geometryForSpriteAtIndex:self->_assetSpriteIndexRange.location, 0, 0, 0, 0];
-  PXRectWithCenterAndSize();
 }
 
 - (unsigned)axSpriteIndexClosestToSpriteIndex:(unsigned int)index inDirection:(unint64_t)direction
@@ -95,7 +86,7 @@ LABEL_7:
     v5 = [(PXCuratedLibraryCardSectionBodyLayout *)self displayAssetFetchResultForSpritesInRange:index | 0x100000000 inLayout:self];
     if ([v5 count] >= 1)
     {
-      [(PXCuratedLibraryCardSectionBodyLayout *)self geometryForSpriteAtIndex:self->_assetSpriteIndexRange.location];
+      objc_msgSend_geometryForSpriteAtIndex_(self);
       PXRectWithCenterAndSize();
     }
 
@@ -139,80 +130,73 @@ LABEL_18:
   }
 
   skimmingIndexPaths = [(PXCuratedLibraryCardSectionBodyLayout *)self skimmingIndexPaths];
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v30[3] = [(PXCuratedLibraryCardSectionBodyLayout *)self currentSkimmingIndex];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x4010000000;
-  v27 = &unk_1A561E057;
+  v25[0] = 0;
+  v25[1] = v25;
+  v25[2] = 0x2020000000;
+  v25[3] = [(PXCuratedLibraryCardSectionBodyLayout *)self currentSkimmingIndex];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x4010000000;
+  v22 = &unk_1A561E057;
   v8 = *(off_1E7722228 + 1);
-  v28 = *off_1E7722228;
-  v29 = v8;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __91__PXCuratedLibraryCardSectionBodyLayout_displayAssetFetchResultForSpritesInRange_inLayout___block_invoke;
-  v23[3] = &unk_1E7733060;
-  v23[4] = v30;
-  v23[5] = &v24;
-  [skimmingIndexPaths enumerateSectionIndexPathsUsingBlock:v23];
-  v21 = *(off_1E7722228 + 8);
-  v22 = *(off_1E7722228 + 3);
-  v9 = (v25 + 4);
-  v10 = *off_1E7721F68;
-  if (v25[4] != *off_1E7721F68)
+  v23 = *off_1E7722228;
+  v24 = v8;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __91__PXCuratedLibraryCardSectionBodyLayout_displayAssetFetchResultForSpritesInRange_inLayout___block_invoke;
+  v18[3] = &unk_1E7733060;
+  v18[4] = v25;
+  v18[5] = &v19;
+  [skimmingIndexPaths enumerateSectionIndexPathsUsingBlock:v18];
+  v16 = *(off_1E7722228 + 8);
+  v17 = *(off_1E7722228 + 3);
+  v9 = *off_1E7721F68;
+  if (v20[4] != *off_1E7721F68)
   {
     if (location == 1000)
     {
       if (skimmingIndexPaths)
       {
-        v12 = *(v25 + 3);
-        v18 = *v9;
-        v19 = v12;
-        [skimmingIndexPaths indexPathLessThanIndexPath:&v18];
+        objc_msgSend_indexPathLessThanIndexPath_(skimmingIndexPaths, v20[4], v20[5], v20[6], v20[7]);
 LABEL_10:
-        v11 = *&v20[0];
+        v10 = *&v15[0];
 LABEL_12:
-        v21 = *(v20 + 8);
-        v22 = *(&v20[1] + 1);
+        v16 = *(v15 + 8);
+        v17 = *(&v15[1] + 1);
         goto LABEL_13;
       }
     }
 
     else if (skimmingIndexPaths)
     {
-      v13 = *(v25 + 3);
-      v18 = *v9;
-      v19 = v13;
-      [skimmingIndexPaths indexPathGreaterThanIndexPath:&v18];
+      objc_msgSend_indexPathGreaterThanIndexPath_(skimmingIndexPaths, v20[4], v20[5], v20[6], v20[7]);
       goto LABEL_10;
     }
 
-    v11 = 0;
-    memset(v20, 0, sizeof(v20));
+    v10 = 0;
+    memset(v15, 0, sizeof(v15));
     goto LABEL_12;
   }
 
-  v11 = *off_1E7722228;
+  v10 = *off_1E7722228;
 LABEL_13:
   dataSource = [(PXCuratedLibraryCardSectionBodyLayout *)self dataSource];
-  v15 = dataSource;
-  if (v11 == v10 || [dataSource identifier] != v11)
+  v12 = dataSource;
+  if (v10 == v9 || [dataSource identifier] != v10)
   {
     keyAssetsFetchResult = 0;
   }
 
   else
   {
-    *&v20[0] = v11;
-    *(v20 + 8) = v21;
-    *(&v20[1] + 1) = v22;
-    keyAssetsFetchResult = [v15 keyAssetsInSectionIndexPath:v20];
+    *&v15[0] = v10;
+    *(v15 + 8) = v16;
+    *(&v15[1] + 1) = v17;
+    keyAssetsFetchResult = [v12 keyAssetsInSectionIndexPath:v15];
   }
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(v30, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(v25, 8);
 
   if (!keyAssetsFetchResult)
   {
@@ -986,7 +970,7 @@ LABEL_7:
   if (!self->_keyAsset)
   {
     dataSource = [(PXCuratedLibraryCardSectionBodyLayout *)self dataSource];
-    [(PXCuratedLibraryCardSectionBodyLayout *)self sectionIndexPath];
+    objc_msgSend_sectionIndexPath(self);
     v8 = [dataSource assetCollectionAtSectionIndexPath:buf];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
@@ -1000,7 +984,7 @@ LABEL_7:
   PXSizeGetAspectRatio();
 }
 
-void __55__PXCuratedLibraryCardSectionBodyLayout__updateSprites__block_invoke(uint64_t a1, uint64_t a2, float32x2_t *a3, uint64_t a4, uint64_t a5)
+void __55__PXCuratedLibraryCardSectionBodyLayout__updateSprites__block_invoke(uint64_t a1, unint64_t a2, float32x2_t *a3, uint64_t a4, uint64_t a5)
 {
   v9 = *(a1 + 48);
   v10 = *(a1 + 56);
@@ -1074,7 +1058,7 @@ void __55__PXCuratedLibraryCardSectionBodyLayout__updateSprites__block_invoke(ui
   v29 = *(a1 + 40);
   if (v29)
   {
-    [v29 sectionIndexPath];
+    objc_msgSend_sectionIndexPath(v29);
   }
 
   PXGSectionedSpriteTagMake();

@@ -35,9 +35,11 @@
 - (id)localizedCompactNaturalScaleStringWithDistanceInMeters:(double)meters distanceType:(unint64_t)type unitStyle:(unint64_t)style usedUnit:(unint64_t *)unit;
 - (id)localizedDistanceByStrokeStyle:(id)style isPoolSwim:(BOOL)swim;
 - (id)localizedDistinguishingCadenceUnitStringWithMetricType:(unint64_t)type;
+- (id)localizedDistinguishingPaceUnitStringWithMetricType:(unint64_t)type distanceType:(unint64_t)distanceType distanceUnit:(unint64_t)unit paceFormat:(int64_t)format abbreviated:(BOOL)abbreviated multiline:(BOOL)multiline;
 - (id)localizedDistinguishingPowerStringWithMetricType:(unint64_t)type;
 - (id)localizedDistinguishingPowerUnitStringWithMetricType:(unint64_t)type;
 - (id)localizedGoalDescriptionForGoalType:(unint64_t)type goalValue:(double)value activityType:(id)activityType;
+- (id)localizedGoalDescriptionForWorkout:(id)workout withValue:(id *)value appendActivityType:(BOOL)type;
 - (id)localizedGoalUnitForWorkout:(id)workout;
 - (id)localizedGoalValueForWorkout:(id)workout;
 - (id)localizedHeartRateUnitString;
@@ -84,6 +86,7 @@
 - (id)localizedStringWithDistanceInMeters:(double)meters distanceUnit:(unint64_t)unit unitStyle:(unint64_t)style decimalPrecision:(unint64_t)precision roundingMode:(unint64_t)mode decimalTrimmingMode:(unint64_t)trimmingMode;
 - (id)localizedStringWithEnergy:(id)energy energyType:(unint64_t)type unitStyle:(unint64_t)style;
 - (id)localizedStringWithEnergyInCalories:(double)calories energyType:(unint64_t)type unitStyle:(unint64_t)style;
+- (id)localizedStringWithHeartRate:(id)rate unitStyle:(unint64_t)style requirePositiveValue:(BOOL)value;
 - (id)localizedStringWithMoveMinutes:(id)minutes;
 - (id)localizedStringWithMoveMinutes:(id)minutes unitStyle:(unint64_t)style;
 - (id)localizedStringWithMoveQuantity:(id)quantity activityMoveMode:(int64_t)mode;
@@ -264,7 +267,7 @@ LABEL_11:
 
 - (id)stringWithDuration:(double)duration durationFormat:(unint64_t)format
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if ((*&duration & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
     durationCopy = 0.0;
@@ -377,25 +380,25 @@ LABEL_22:
       v25 = objc_alloc_init(MEMORY[0x277CCA958]);
       [v25 setUnitsStyle:0];
       v26 = [v25 stringFromTimeInterval:100.0];
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
-      v27 = [&unk_285E6B0B8 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v27 = [&unk_285E6B0B8 countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v39;
+        v29 = *v38;
         while (2)
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v39 != v29)
+            if (*v38 != v29)
             {
               objc_enumerationMutation(&unk_285E6B0B8);
             }
 
-            v31 = *(*(&v38 + 1) + 8 * i);
+            v31 = *(*(&v37 + 1) + 8 * i);
             if ([v26 containsString:v31])
             {
               objc_storeStrong(&_DurationSeparator___durationSeparator, v31);
@@ -403,7 +406,7 @@ LABEL_22:
             }
           }
 
-          v28 = [&unk_285E6B0B8 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v28 = [&unk_285E6B0B8 countByEnumeratingWithState:&v37 objects:v41 count:16];
           if (v28)
           {
             continue;
@@ -439,8 +442,6 @@ LABEL_34:
 
 LABEL_42:
   os_unfair_lock_unlock(&__formatterLock);
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1150,6 +1151,494 @@ LABEL_21:
   return v8;
 }
 
+- (id)localizedDistinguishingPaceUnitStringWithMetricType:(unint64_t)type distanceType:(unint64_t)distanceType distanceUnit:(unint64_t)unit paceFormat:(int64_t)format abbreviated:(BOOL)abbreviated multiline:(BOOL)multiline
+{
+  multilineCopy = multiline;
+  if (type == 41)
+  {
+    v11 = FIFitnessUIBundle();
+    v12 = v11;
+    if (format == 4)
+    {
+      v13 = [v11 localizedStringForKey:@"SPEED_LABEL" value:&stru_285E60370 table:@"Localizable"];
+
+      v14 = [(FIFormattingManager *)self finalLocalizedKeyForKey:@"INTERVAL_SPEED_DISTINGUISHING" multiline:multilineCopy];
+      v15 = MEMORY[0x277CCACA8];
+      v16 = FIFitnessUIBundle();
+      v17 = [v16 localizedStringForKey:v14 value:&stru_285E60370 table:@"Localizable"];
+      v18 = [v15 stringWithFormat:v17, v13];
+      localizedUppercaseString = [v18 localizedUppercaseString];
+
+      v12 = v13;
+    }
+
+    else
+    {
+      v35 = [(FIFormattingManager *)self finalLocalizedKeyForKey:@"INTERVAL_PACE_DISTINGUISHING" multiline:multilineCopy];
+      localizedUppercaseString = [v12 localizedStringForKey:v35 value:&stru_285E60370 table:@"Localizable"];
+    }
+
+    goto LABEL_118;
+  }
+
+  abbreviatedCopy = abbreviated;
+  if (format != 4)
+  {
+    v37 = 2;
+    if (FIDistanceUnitIsMetric(unit))
+    {
+      v38 = 2;
+    }
+
+    else
+    {
+      v38 = 3;
+    }
+
+    if (FINumberOfUnitsInPaceForPaceFormat(format) < 2)
+    {
+      v37 = v38;
+    }
+
+    if (type <= 0x24 && ((1 << type) & 0x1000800110) != 0 && FINumberOfUnitsInPaceForPaceFormat(format) == 1)
+    {
+      v39 = FIFitnessUIBundle();
+      localizedUppercaseString2 = [v39 localizedStringForKey:@"PACE_LABEL" value:&stru_285E60370 table:@"Localizable"];
+    }
+
+    else
+    {
+      v39 = [(FIFormattingManager *)self localizedPaceUnitStringWithDistanceType:distanceType distanceUnit:unit unitStyle:v37];
+      localizedUppercaseString2 = [v39 localizedUppercaseString];
+    }
+
+    localizedUppercaseString = localizedUppercaseString2;
+
+    if (type <= 17)
+    {
+      switch(type)
+      {
+        case 4uLL:
+          IsMetric = FIDistanceUnitIsMetric(unit);
+          v42 = MEMORY[0x277CCACA8];
+          v12 = FIFitnessUIBundle();
+          if (abbreviatedCopy)
+          {
+            if (IsMetric)
+            {
+              v43 = @"CURRENT_PACE_DISTINGUISHING_SHORT_METRIC";
+            }
+
+            else
+            {
+              v43 = @"CURRENT_PACE_DISTINGUISHING_SHORT_IMPERIAL";
+            }
+          }
+
+          else if (IsMetric)
+          {
+            v43 = @"CURRENT_PACE_DISTINGUISHING_LONG_METRIC";
+          }
+
+          else
+          {
+            v43 = @"CURRENT_PACE_DISTINGUISHING_LONG_IMPERIAL";
+          }
+
+          break;
+        case 8uLL:
+          if (abbreviatedCopy)
+          {
+            v66 = MEMORY[0x277CCACA8];
+            v12 = FIFitnessUIBundle();
+            v67 = @"AVERAGE_PACE_DISTINGUISHING_SHORT";
+          }
+
+          else
+          {
+            v74 = FIDistanceUnitIsMetric(unit);
+            v66 = MEMORY[0x277CCACA8];
+            v12 = FIFitnessUIBundle();
+            if (v74)
+            {
+              v67 = @"AVERAGE_PACE_DISTINGUISHING_LONG_METRIC";
+            }
+
+            else
+            {
+              v67 = @"AVERAGE_PACE_DISTINGUISHING_LONG_IMPERIAL";
+            }
+          }
+
+          v59 = [(FIFormattingManager *)self finalLocalizedKeyForKey:v67 multiline:multilineCopy];
+          v63 = [v12 localizedStringForKey:v59 value:&stru_285E60370 table:@"Localizable"];
+          [v66 stringWithFormat:v63, localizedUppercaseString];
+          goto LABEL_116;
+        case 0xEuLL:
+          v46 = FIDistanceUnitIsMetric(unit);
+          v42 = MEMORY[0x277CCACA8];
+          v12 = FIFitnessUIBundle();
+          if (abbreviatedCopy)
+          {
+            if (v46)
+            {
+              v43 = @"ROLLING_PACE_DISTINGUISHING_SHORT_METRIC";
+            }
+
+            else
+            {
+              v43 = @"ROLLING_PACE_DISTINGUISHING_SHORT_IMPERIAL";
+            }
+          }
+
+          else if (v46)
+          {
+            v43 = @"ROLLING_PACE_DISTINGUISHING_LONG_METRIC";
+          }
+
+          else
+          {
+            v43 = @"ROLLING_PACE_DISTINGUISHING_LONG_IMPERIAL";
+          }
+
+          break;
+        default:
+          goto LABEL_119;
+      }
+    }
+
+    else if (type > 35)
+    {
+      if (type == 36)
+      {
+        v65 = FIDistanceUnitIsMetric(unit);
+        v42 = MEMORY[0x277CCACA8];
+        v12 = FIFitnessUIBundle();
+        if (abbreviatedCopy)
+        {
+          if (v65)
+          {
+            v43 = @"SPLIT_PACE_DISTINGUISHING_SHORT_METRIC";
+          }
+
+          else
+          {
+            v43 = @"SPLIT_PACE_DISTINGUISHING_SHORT_IMPERIAL";
+          }
+        }
+
+        else if (v65)
+        {
+          v43 = @"SPLIT_PACE_DISTINGUISHING_LONG_METRIC";
+        }
+
+        else
+        {
+          v43 = @"SPLIT_PACE_DISTINGUISHING_LONG_IMPERIAL";
+        }
+      }
+
+      else
+      {
+        if (type != 48)
+        {
+          goto LABEL_119;
+        }
+
+        v47 = FIDistanceUnitIsMetric(unit);
+        v42 = MEMORY[0x277CCACA8];
+        v12 = FIFitnessUIBundle();
+        if (abbreviatedCopy)
+        {
+          if (v47)
+          {
+            v43 = @"FASTEST_PACE_DISTINGUISHING_SHORT_METRIC";
+          }
+
+          else
+          {
+            v43 = @"FASTEST_PACE_DISTINGUISHING_SHORT_IMPERIAL";
+          }
+        }
+
+        else if (v47)
+        {
+          v43 = @"FASTEST_PACE_DISTINGUISHING_LONG_METRIC";
+        }
+
+        else
+        {
+          v43 = @"FASTEST_PACE_DISTINGUISHING_LONG_IMPERIAL";
+        }
+      }
+    }
+
+    else
+    {
+      if (type == 18)
+      {
+        v55 = FIFitnessUIBundle();
+        v56 = [v55 localizedStringForKey:@"PACE_LABEL" value:&stru_285E60370 table:@"Localizable"];
+
+        v57 = FIDistanceUnitIsMetric(unit);
+        v58 = MEMORY[0x277CCACA8];
+        v59 = FIFitnessUIBundle();
+        v60 = @"REQUIRED_PACE_DISTINGUISHING_SHORT_IMPERIAL";
+        if (v57)
+        {
+          v60 = @"REQUIRED_PACE_DISTINGUISHING_SHORT_METRIC";
+        }
+
+        v61 = @"REQUIRED_PACE_DISTINGUISHING_LONG_METRIC";
+        if (!v57)
+        {
+          v61 = @"REQUIRED_PACE_DISTINGUISHING_LONG_IMPERIAL";
+        }
+
+        if (abbreviatedCopy)
+        {
+          v62 = v60;
+        }
+
+        else
+        {
+          v62 = v61;
+        }
+
+        v63 = [(FIFormattingManager *)self finalLocalizedKeyForKey:v62 multiline:multilineCopy];
+        v64 = [v59 localizedStringForKey:v63 value:&stru_285E60370 table:@"Localizable"];
+        v12 = [v58 stringWithFormat:v64, v56];
+
+        goto LABEL_117;
+      }
+
+      if (type != 23)
+      {
+        goto LABEL_119;
+      }
+
+      v41 = FIDistanceUnitIsMetric(unit);
+      v42 = MEMORY[0x277CCACA8];
+      v12 = FIFitnessUIBundle();
+      if (abbreviatedCopy)
+      {
+        if (v41)
+        {
+          v43 = @"SEGMENT_PACE_DISTINGUISHING_SHORT_METRIC";
+        }
+
+        else
+        {
+          v43 = @"SEGMENT_PACE_DISTINGUISHING_SHORT_IMPERIAL";
+        }
+      }
+
+      else if (v41)
+      {
+        v43 = @"SEGMENT_PACE_DISTINGUISHING_LONG_METRIC";
+      }
+
+      else
+      {
+        v43 = @"SEGMENT_PACE_DISTINGUISHING_LONG_IMPERIAL";
+      }
+    }
+
+    v59 = [(FIFormattingManager *)self finalLocalizedKeyForKey:v43 multiline:multilineCopy];
+    v63 = [v12 localizedStringForKey:v59 value:&stru_285E60370 table:@"Localizable"];
+    [v42 stringWithFormat:v63, localizedUppercaseString];
+LABEL_116:
+    localizedUppercaseString = v64 = localizedUppercaseString;
+LABEL_117:
+
+    goto LABEL_118;
+  }
+
+  v23 = FIFitnessUIBundle();
+  v12 = [v23 localizedStringForKey:@"SPEED_LABEL" value:&stru_285E60370 table:@"Localizable"];
+
+  if (type > 22)
+  {
+    switch(type)
+    {
+      case 0x17uLL:
+        if (!abbreviatedCopy)
+        {
+          v68 = FIDistanceUnitIsMetric(unit);
+          v69 = MEMORY[0x277CCACA8];
+          v34 = FIFitnessUIBundle();
+          if (v68)
+          {
+            v70 = @"SEGMENT_SPEED_DISTINGUISHING_LONG_METRIC";
+          }
+
+          else
+          {
+            v70 = @"SEGMENT_SPEED_DISTINGUISHING_LONG_IMPERIAL";
+          }
+
+          goto LABEL_102;
+        }
+
+        v44 = MEMORY[0x277CCACA8];
+        v34 = FIFitnessUIBundle();
+        v45 = @"SEGMENT_SPEED_DISTINGUISHING_SHORT";
+        break;
+      case 0x24uLL:
+        if (abbreviatedCopy)
+        {
+          v44 = MEMORY[0x277CCACA8];
+          v34 = FIFitnessUIBundle();
+          v45 = @"SPLIT_SPEED_DISTINGUISHING_SHORT";
+          break;
+        }
+
+        v73 = FIDistanceUnitIsMetric(unit);
+        v69 = MEMORY[0x277CCACA8];
+        v34 = FIFitnessUIBundle();
+        if (v73)
+        {
+          v70 = @"SPLIT_SPEED_DISTINGUISHING_LONG_METRIC";
+        }
+
+        else
+        {
+          v70 = @"SPLIT_SPEED_DISTINGUISHING_LONG_IMPERIAL";
+        }
+
+        goto LABEL_102;
+      case 0x30uLL:
+        if (!abbreviatedCopy)
+        {
+          v71 = FIDistanceUnitIsMetric(unit);
+          v69 = MEMORY[0x277CCACA8];
+          v34 = FIFitnessUIBundle();
+          if (v71)
+          {
+            v70 = @"MAX_SPEED_DISTINGUISHING_LONG_METRIC";
+          }
+
+          else
+          {
+            v70 = @"MAX_SPEED_DISTINGUISHING_LONG_IMPERIAL";
+          }
+
+          goto LABEL_102;
+        }
+
+        v44 = MEMORY[0x277CCACA8];
+        v34 = FIFitnessUIBundle();
+        v45 = @"MAX_SPEED_DISTINGUISHING_SHORT";
+        break;
+      default:
+        goto LABEL_104;
+    }
+
+LABEL_59:
+    v28 = [(FIFormattingManager *)self finalLocalizedKeyForKey:v45 multiline:multilineCopy];
+    v51 = [v34 localizedStringForKey:v28 value:&stru_285E60370 table:@"Localizable"];
+    v52 = [v44 stringWithFormat:v51, v12];
+    localizedUppercaseString3 = [v52 localizedUppercaseString];
+
+    v12 = localizedUppercaseString3;
+LABEL_103:
+
+    goto LABEL_104;
+  }
+
+  switch(type)
+  {
+    case 4uLL:
+      v48 = FIDistanceUnitIsMetric(unit);
+      v49 = FIFitnessUIBundle();
+      v34 = v49;
+      if (v48)
+      {
+        v50 = @"KPH_SHORT";
+      }
+
+      else
+      {
+        v50 = @"MPH_SHORT";
+      }
+
+      [v49 localizedStringForKey:v50 value:&stru_285E60370 table:@"Localizable"];
+      v12 = v28 = v12;
+      goto LABEL_103;
+    case 8uLL:
+      if (abbreviatedCopy)
+      {
+        v44 = MEMORY[0x277CCACA8];
+        v34 = FIFitnessUIBundle();
+        v45 = @"AVERAGE_SPEED_DISTINGUISHING_SHORT";
+        goto LABEL_59;
+      }
+
+      v72 = FIDistanceUnitIsMetric(unit);
+      v69 = MEMORY[0x277CCACA8];
+      v34 = FIFitnessUIBundle();
+      if (v72)
+      {
+        v70 = @"AVERAGE_SPEED_DISTINGUISHING_LONG_METRIC";
+      }
+
+      else
+      {
+        v70 = @"AVERAGE_SPEED_DISTINGUISHING_LONG_IMPERIAL";
+      }
+
+LABEL_102:
+      v28 = [(FIFormattingManager *)self finalLocalizedKeyForKey:v70 multiline:multilineCopy];
+      v75 = [v34 localizedStringForKey:v28 value:&stru_285E60370 table:@"Localizable"];
+      v76 = [v69 stringWithFormat:v75, v12];
+
+      v12 = v76;
+      goto LABEL_103;
+    case 0x12uLL:
+      v24 = FIFitnessUIBundle();
+      v25 = [v24 localizedStringForKey:@"SPEED_LABEL" value:&stru_285E60370 table:@"Localizable"];
+
+      v26 = FIDistanceUnitIsMetric(unit);
+      v27 = MEMORY[0x277CCACA8];
+      v28 = FIFitnessUIBundle();
+      v29 = @"REQUIRED_PACE_DISTINGUISHING_SHORT_IMPERIAL";
+      if (v26)
+      {
+        v29 = @"REQUIRED_PACE_DISTINGUISHING_SHORT_METRIC";
+      }
+
+      v30 = @"REQUIRED_PACE_DISTINGUISHING_LONG_METRIC";
+      if (!v26)
+      {
+        v30 = @"REQUIRED_PACE_DISTINGUISHING_LONG_IMPERIAL";
+      }
+
+      if (abbreviatedCopy)
+      {
+        v31 = v29;
+      }
+
+      else
+      {
+        v31 = v30;
+      }
+
+      v32 = [(FIFormattingManager *)self finalLocalizedKeyForKey:v31 multiline:multilineCopy];
+      v33 = [v28 localizedStringForKey:v32 value:&stru_285E60370 table:@"Localizable"];
+      v34 = [v27 stringWithFormat:v33, v25];
+
+      goto LABEL_103;
+  }
+
+LABEL_104:
+  localizedUppercaseString = [v12 localizedUppercaseString];
+LABEL_118:
+
+LABEL_119:
+
+  return localizedUppercaseString;
+}
+
 - (id)localizedDistinguishingCadenceUnitStringWithMetricType:(unint64_t)type
 {
   v4 = [objc_opt_class() localizedShortCadenceUnitStringForActivityType:37];
@@ -1750,6 +2239,76 @@ LABEL_20:
   os_unfair_lock_unlock(&__formatterLock);
 
   return v10;
+}
+
+- (id)localizedGoalDescriptionForWorkout:(id)workout withValue:(id *)value appendActivityType:(BOOL)type
+{
+  typeCopy = type;
+  workoutCopy = workout;
+  metadata = [workoutCopy metadata];
+  v10 = [metadata objectForKeyedSubscript:*MEMORY[0x277CCC4C0]];
+  bOOLValue = [v10 BOOLValue];
+
+  v12 = FILocalizedNameForActivityType([workoutCopy workoutActivityType], objc_msgSend(workoutCopy, "fi_swimmingLocationType"), bOOLValue);
+  fi_activityType = [workoutCopy fi_activityType];
+  v14 = [(FIFormattingManager *)self _effectiveGoalTypeForWorkout:workoutCopy];
+  v15 = &stru_285E60370;
+  if (v14 > 1)
+  {
+    if (v14 == 2)
+    {
+      v25 = [(FIFormattingManager *)self _localizedTimeDescriptionForWorkout:workoutCopy withValue:value appendActivityType:typeCopy activityTypeString:v12];
+      goto LABEL_10;
+    }
+
+    if (v14 != 3)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_8:
+    v25 = [(FIFormattingManager *)self _localizedEnergyDescriptionForWorkout:workoutCopy withValue:value appendActivityType:typeCopy activityTypeString:v12];
+LABEL_10:
+    v15 = v25;
+    goto LABEL_13;
+  }
+
+  if (!v14)
+  {
+    goto LABEL_8;
+  }
+
+  if (v14 == 1)
+  {
+    totalDistance = [workoutCopy totalDistance];
+    v17 = FIDistanceTypeForActivityType(fi_activityType);
+    meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
+    [totalDistance doubleValueForUnit:meterUnit];
+    *value = [(FIFormattingManager *)self localizedStringWithDistanceInMeters:v17 distanceType:0 unitStyle:?];
+
+    v19 = [(FIFormattingManager *)self localizedShortUnitStringForDistanceType:v17];
+    localizedUppercaseString = [v19 localizedUppercaseString];
+
+    v21 = MEMORY[0x277CCACA8];
+    v22 = FIFitnessUIBundle();
+    v23 = v22;
+    if (typeCopy)
+    {
+      v24 = [v22 localizedStringForKey:@"DISTANCE_GOAL_FORMAT" value:&stru_285E60370 table:@"Localizable"];
+      [v21 stringWithFormat:v24, *value, localizedUppercaseString, v12];
+    }
+
+    else
+    {
+      v24 = [v22 localizedStringForKey:@"WORKOUT_STATISTICS_UNIT_FORMAT_NO_SPACE" value:&stru_285E60370 table:@"Localizable"];
+      [v21 stringWithFormat:v24, *value, localizedUppercaseString, v27];
+    }
+    v15 = ;
+  }
+
+LABEL_13:
+
+  return v15;
 }
 
 - (id)localizedGoalValueForWorkout:(id)workout
@@ -2418,6 +2977,34 @@ LABEL_47:
   return v18;
 }
 
+- (id)localizedStringWithHeartRate:(id)rate unitStyle:(unint64_t)style requirePositiveValue:(BOOL)value
+{
+  valueCopy = value;
+  v8 = MEMORY[0x277CCDAB0];
+  rateCopy = rate;
+  _countPerMinuteUnit = [v8 _countPerMinuteUnit];
+  [rateCopy doubleValueForUnit:_countPerMinuteUnit];
+  v12 = v11;
+
+  v13 = [(FIFormattingManager *)self localizedStringWithBeatsPerMinute:valueCopy requirePositiveValue:v12];
+  v14 = v13;
+  if (style)
+  {
+    v15 = MEMORY[0x277CCACA8];
+    v16 = FIFitnessUIBundle();
+    v17 = [v16 localizedStringForKey:@"HEART_RATE_FORMAT" value:&stru_285E60370 table:@"Localizable"];
+    localizedHeartRateUnitString = [(FIFormattingManager *)self localizedHeartRateUnitString];
+    v19 = [v15 stringWithFormat:v17, v14, localizedHeartRateUnitString];
+  }
+
+  else
+  {
+    v19 = v13;
+  }
+
+  return v19;
+}
+
 - (id)localizedStringWithBeatsPerMinute:(double)minute requirePositiveValue:(BOOL)value
 {
   if (minute <= 2.22044605e-16 && value)
@@ -2449,38 +3036,38 @@ LABEL_47:
 - (id)localizedDistanceByStrokeStyle:(id)style isPoolSwim:(BOOL)swim
 {
   swimCopy = swim;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   styleCopy = style;
   allKeys = [styleCopy allKeys];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __65__FIFormattingManager_localizedDistanceByStrokeStyle_isPoolSwim___block_invoke;
-  v33[3] = &unk_2790050D0;
-  v26 = styleCopy;
-  v34 = v26;
-  v6 = [allKeys sortedArrayUsingComparator:v33];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __65__FIFormattingManager_localizedDistanceByStrokeStyle_isPoolSwim___block_invoke;
+  v32[3] = &unk_2790050D0;
+  v25 = styleCopy;
+  v33 = v25;
+  v6 = [allKeys sortedArrayUsingComparator:v32];
 
   v7 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v8 = v6;
-  v27 = [v8 countByEnumeratingWithState:&v29 objects:v35 count:16];
-  if (v27)
+  v26 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
+  if (v26)
   {
-    v23 = *v30;
+    v22 = *v29;
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v26; ++i)
       {
-        if (*v30 != v23)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(v8);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
-        v11 = [v26 objectForKeyedSubscript:v10];
+        v10 = *(*(&v28 + 1) + 8 * i);
+        v11 = [v25 objectForKeyedSubscript:v10];
         v12 = FILocalizedStrokeStyleName([v10 integerValue]);
         if (swimCopy)
         {
@@ -2491,10 +3078,10 @@ LABEL_47:
 
         else
         {
-          v28 = 0;
+          v27 = 0;
           meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
           [v11 doubleValueForUnit:meterUnit];
-          [(FIFormattingManager *)self localizedNaturalScaleStringWithDistanceInMeters:4 distanceType:1 unitStyle:&v28 usedUnit:?];
+          [(FIFormattingManager *)self localizedNaturalScaleStringWithDistanceInMeters:4 distanceType:1 unitStyle:&v27 usedUnit:?];
         }
         v14 = ;
 
@@ -2514,14 +3101,13 @@ LABEL_47:
         [v7 appendString:v18];
       }
 
-      v27 = [v8 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v26 = [v8 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
   v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:v7];
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

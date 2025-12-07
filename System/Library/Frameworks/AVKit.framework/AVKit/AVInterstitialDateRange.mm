@@ -119,7 +119,7 @@
 
     if (primaryItem)
     {
-      [primaryItem currentTime];
+      objc_msgSend_currentTime(primaryItem);
     }
 
     else
@@ -141,10 +141,10 @@
       self->_mappedTimeRange.duration.epoch = *(v14 + 16);
       if (primaryItem)
       {
-        [primaryItem duration];
+        objc_msgSend_duration(primaryItem);
         if (v17)
         {
-          [primaryItem duration];
+          objc_msgSend_duration(primaryItem);
           v15 = (v16 & 0x10) == 0;
         }
 

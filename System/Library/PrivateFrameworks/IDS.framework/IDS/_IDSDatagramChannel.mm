@@ -6,10 +6,10 @@
 
 - (_IDSDatagramChannel)init
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = _IDSDatagramChannel;
-  v2 = [(_IDSDatagramChannel *)&v15 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = _IDSDatagramChannel;
+  v2 = [(_IDSDatagramChannel *)&v14 init];
   if (v2)
   {
     v2->_verboseFunctionalLogging = IMGetDomainBoolForKey();
@@ -29,7 +29,7 @@
       }
 
       *buf = 138412290;
-      v17 = v4;
+      v16 = v4;
       _os_log_impl(&dword_1959FF000, v3, OS_LOG_TYPE_DEFAULT, "IDSDatagramChannel verboseFunctionalLogging: %@", buf, 0xCu);
     }
 
@@ -47,7 +47,7 @@
       }
 
       *buf = 138412290;
-      v17 = v6;
+      v16 = v6;
       _os_log_impl(&dword_1959FF000, v5, OS_LOG_TYPE_DEFAULT, "IDSDatagramChannel hbhHalfThePackets: %@", buf, 0xCu);
     }
 
@@ -69,7 +69,7 @@
       }
 
       *buf = 138412290;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_1959FF000, v8, OS_LOG_TYPE_DEFAULT, "Packet timestamp logs enabled: %@", buf, 0xCu);
     }
 
@@ -88,7 +88,7 @@
       }
 
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_impl(&dword_1959FF000, v10, OS_LOG_TYPE_DEFAULT, "IDSDatagramChannel shouldForcePathMTUEvaluationPeriodically: %@", buf, 0xCu);
     }
 
@@ -97,7 +97,6 @@
     v12 = v2;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

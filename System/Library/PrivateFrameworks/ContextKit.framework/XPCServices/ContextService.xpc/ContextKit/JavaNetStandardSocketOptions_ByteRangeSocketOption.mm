@@ -50,10 +50,9 @@
   if (intValue >= 0x100)
   {
 LABEL_9:
-    name = self->super.name_;
-    v15 = JreStrcat("$$$@", v6, v7, v8, v9, v10, v11, v12, @"Unexpected value for option ");
-    v16 = new_JavaLangAssertionError_initWithId_(v15);
-    objc_exception_throw(v16);
+    v14 = JreStrcat("$$$@", v5, v6, v7, v8, v9, v10, v11, @"Unexpected value for option ");
+    v15 = new_JavaLangAssertionError_initWithId_(v14);
+    objc_exception_throw(v15);
   }
 
   return JavaLangInteger_valueOfWithInt_(intValue);

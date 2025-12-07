@@ -43,15 +43,15 @@ void std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -293,7 +293,7 @@ uint64_t MeCab::CharProperty::id(MeCab::CharProperty *this, const char *__s1)
 void MeCab::CharProperty::compile(MeCab::CharProperty *this, const char *a2, const char *a3, const char *a4)
 {
   v32 = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v30);
+  std::ifstream::basic_ifstream(v30, this, 8);
   std::string::basic_string[abi:ne200100]<0>(__p, "DEFAULT 1 0 0\nSPACE   0 1 0\n0x0020 SPACE\n");
   std::istringstream::basic_istringstream[abi:ne200100](&v24, __p, 8);
   if (v28 < 0)
@@ -321,7 +321,7 @@ void MeCab::CharProperty::compile(MeCab::CharProperty *this, const char *a2, con
     operator delete(__p[0]);
   }
 
-  std::ifstream::basic_ifstream(__p);
+  std::ifstream::basic_ifstream(__p, a2, 8);
   if ((v29[*(__p[0] - 3)] & 5) != 0)
   {
     v11 = strlen(a2);
@@ -335,7 +335,7 @@ void MeCab::CharProperty::compile(MeCab::CharProperty *this, const char *a2, con
     std::ostream::flush();
   }
 
-  std::ofstream::basic_ofstream(&v26);
+  std::ofstream::basic_ofstream(&v26, a3, 20);
   if ((*(&v26 + *(v26.__locale_ - 3) + 32) & 5) != 0)
   {
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/char_property.cpp", 67);
@@ -354,7 +354,7 @@ void MeCab::CharProperty::compile(MeCab::CharProperty *this, const char *a2, con
   operator new[]();
 }
 
-void sub_299151790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, unint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_299151790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, unint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
 {
   if (SLOBYTE(STACK[0x257]) < 0)
   {
@@ -557,8 +557,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -566,7 +565,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
   *(a1 + 8) = v7;
 }
 
-uint64_t MeCab::anonymous namespace::encode(void ****a1, uint64_t a2)
+uint64_t MeCab::anonymous namespace::encode(char **a1, uint64_t a2)
 {
   if (a1[1] == *a1)
   {
@@ -590,7 +589,7 @@ uint64_t MeCab::anonymous namespace::encode(void ****a1, uint64_t a2)
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "it != category->end()", 21);
     v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "] ", 2);
     v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "category [", 10);
-    v18 = *(*a1 + 23);
+    v18 = (*a1)[23];
     if (v18 >= 0)
     {
       v19 = *a1;
@@ -603,12 +602,12 @@ uint64_t MeCab::anonymous namespace::encode(void ****a1, uint64_t a2)
 
     if (v18 >= 0)
     {
-      v20 = *(*a1 + 23);
+      v20 = (*a1)[23];
     }
 
     else
     {
-      v20 = (*a1)[1];
+      v20 = *(*a1 + 1);
     }
 
     v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v19, v20);
@@ -635,7 +634,7 @@ uint64_t MeCab::anonymous namespace::encode(void ****a1, uint64_t a2)
         v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "] ", 2);
         v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "category [", 10);
         v34 = &(*a1)[v24];
-        v35 = *(v34 + 23);
+        v35 = v34[23];
         if (v35 >= 0)
         {
           v36 = &(*a1)[v24];
@@ -648,12 +647,12 @@ uint64_t MeCab::anonymous namespace::encode(void ****a1, uint64_t a2)
 
         if (v35 >= 0)
         {
-          v37 = *(v34 + 23);
+          v37 = v34[23];
         }
 
         else
         {
-          v37 = v34[1];
+          v37 = *(v34 + 1);
         }
 
         v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, v36, v37);
@@ -664,16 +663,16 @@ uint64_t MeCab::anonymous namespace::encode(void ****a1, uint64_t a2)
       v22 = v22 & 0xFFFC0000 | ((1 << (*(v26 + 56) >> 18)) + v22) & 0x3FFFF;
       ++v25;
       v23 = *a1;
-      v24 += 3;
+      v24 += 24;
     }
 
-    while (v25 < 0xAAAAAAAAAAAAAAABLL * (a1[1] - *a1));
+    while (v25 < 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3));
   }
 
   return v22;
 }
 
-void **std::vector<MeCab::anonymous namespace::Range>::~vector[abi:ne200100](void **a1)
+char **std::vector<MeCab::anonymous namespace::Range>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -814,7 +813,7 @@ const char *anonymous namespace::decode_charset_iconv(_anonymous_namespace_ *thi
   return "EUC-JP";
 }
 
-uint64_t MeCab::Iconv::convert(uint64_t a1, std::string *a2)
+BOOL MeCab::Iconv::convert(uint64_t a1, std::string *a2)
 {
   size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
   if ((size & 0x8000000000000000) != 0)
@@ -918,7 +917,7 @@ void MeCab::Iconv::~Iconv(MeCab::Iconv *this)
   JUMPOUT(0x29C29A380);
 }
 
-uint64_t *MeCab::get_char_category(unsigned int a1)
+uint64_t *MeCab::get_char_category(int a1)
 {
   v3 = a1;
   {
@@ -952,7 +951,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v1) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v1, &v215) + 5) = 2;
     v1 = v214 + 1;
     v214 = v1;
   }
@@ -963,7 +962,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v2) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v2, &v215) + 5) = 2;
     v2 = v214 + 1;
     v214 = v2;
   }
@@ -974,7 +973,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v3) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v3, &v215) + 5) = 1;
     v3 = v214 + 1;
     v214 = v3;
   }
@@ -985,7 +984,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v4) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v4, &v215) + 5) = 2;
     v4 = v214 + 1;
     v214 = v4;
   }
@@ -996,7 +995,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v5) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v5, &v215) + 5) = 2;
     v5 = v214 + 1;
     v214 = v5;
   }
@@ -1004,13 +1003,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v5 < 0x5F);
   v214 = 96;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x60u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x60u, &v215) + 5) = 2;
   v6 = 123;
   v214 = 123;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v6) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v6, &v215) + 5) = 2;
     v6 = v214 + 1;
     v214 = v6;
   }
@@ -1021,7 +1020,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v7) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v7, &v215) + 5) = 2;
     v7 = v214 + 1;
     v214 = v7;
   }
@@ -1032,7 +1031,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v8) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v8, &v215) + 5) = 2;
     v8 = v214 + 1;
     v214 = v8;
   }
@@ -1043,7 +1042,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v9) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v9, &v215) + 5) = 2;
     v9 = v214 + 1;
     v214 = v9;
   }
@@ -1054,7 +1053,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v10) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v10, &v215) + 5) = 1;
     v10 = v214 + 1;
     v214 = v10;
   }
@@ -1062,13 +1061,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v10 < 0xB4);
   v214 = 180;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xB4u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xB4u, &v215) + 5) = 2;
   v11 = 182;
   v214 = 182;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v11) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v11, &v215) + 5) = 2;
     v11 = v214 + 1;
     v214 = v11;
   }
@@ -1076,16 +1075,16 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v11 < 0xB9);
   v214 = 185;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xB9u) + 5) = 1;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xB9u, &v215) + 5) = 1;
   v214 = 187;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xBBu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xBBu, &v215) + 5) = 2;
   v12 = 188;
   v214 = 188;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v12) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v12, &v215) + 5) = 1;
     v12 = v214 + 1;
     v214 = v12;
   }
@@ -1093,19 +1092,19 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v12 < 0xBF);
   v214 = 191;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xBFu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xBFu, &v215) + 5) = 2;
   v214 = 215;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xD7u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xD7u, &v215) + 5) = 2;
   v214 = 247;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF7u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF7u, &v215) + 5) = 2;
   v13 = 706;
   v214 = 706;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v13) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v13, &v215) + 5) = 2;
     v13 = v214 + 1;
     v214 = v13;
   }
@@ -1116,7 +1115,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v14) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v14, &v215) + 5) = 2;
     v14 = v214 + 1;
     v214 = v14;
   }
@@ -1127,7 +1126,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v15) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v15, &v215) + 5) = 2;
     v15 = v214 + 1;
     v214 = v15;
   }
@@ -1135,13 +1134,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v15 < 0x2EC);
   v214 = 749;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2EDu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2EDu, &v215) + 5) = 2;
   v16 = 751;
   v214 = 751;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v16) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v16, &v215) + 5) = 2;
     v16 = v214 + 1;
     v214 = v16;
   }
@@ -1149,16 +1148,16 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v16 < 0x300);
   v214 = 885;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x375u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x375u, &v215) + 5) = 2;
   v214 = 894;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x37Eu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x37Eu, &v215) + 5) = 2;
   v17 = 900;
   v214 = 900;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v17) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v17, &v215) + 5) = 2;
     v17 = v214 + 1;
     v214 = v17;
   }
@@ -1166,19 +1165,19 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v17 < 0x386);
   v214 = 903;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x387u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x387u, &v215) + 5) = 2;
   v214 = 1014;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x3F6u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x3F6u, &v215) + 5) = 2;
   v214 = 1154;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x482u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x482u, &v215) + 5) = 2;
   v18 = 1370;
   v214 = 1370;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v18) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v18, &v215) + 5) = 2;
     v18 = v214 + 1;
     v214 = v18;
   }
@@ -1189,7 +1188,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v19) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v19, &v215) + 5) = 2;
     v19 = v214 + 1;
     v214 = v19;
   }
@@ -1200,7 +1199,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v20) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v20, &v215) + 5) = 2;
     v20 = v214 + 1;
     v214 = v20;
   }
@@ -1208,22 +1207,22 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v20 < 0x590);
   v214 = 1470;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x5BEu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x5BEu, &v215) + 5) = 2;
   v214 = 1472;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x5C0u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x5C0u, &v215) + 5) = 2;
   v214 = 1475;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x5C3u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x5C3u, &v215) + 5) = 2;
   v214 = 1478;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x5C6u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x5C6u, &v215) + 5) = 2;
   v21 = 1523;
   v214 = 1523;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v21) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v21, &v215) + 5) = 2;
     v21 = v214 + 1;
     v214 = v21;
   }
@@ -1234,7 +1233,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v22) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v22, &v215) + 5) = 2;
     v22 = v214 + 1;
     v214 = v22;
   }
@@ -1242,13 +1241,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v22 < 0x610);
   v214 = 1563;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x61Bu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x61Bu, &v215) + 5) = 2;
   v23 = 1565;
   v214 = 1565;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v23) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v23, &v215) + 5) = 2;
     v23 = v214 + 1;
     v214 = v23;
   }
@@ -1259,7 +1258,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v24) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v24, &v215) + 5) = 1;
     v24 = v214 + 1;
     v214 = v24;
   }
@@ -1270,7 +1269,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v25) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v25, &v215) + 5) = 2;
     v25 = v214 + 1;
     v214 = v25;
   }
@@ -1278,19 +1277,19 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v25 < 0x66E);
   v214 = 1748;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x6D4u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x6D4u, &v215) + 5) = 2;
   v214 = 1758;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x6DEu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x6DEu, &v215) + 5) = 2;
   v214 = 1769;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x6E9u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x6E9u, &v215) + 5) = 2;
   v26 = 1776;
   v214 = 1776;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v26) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v26, &v215) + 5) = 1;
     v26 = v214 + 1;
     v214 = v26;
   }
@@ -1301,7 +1300,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v27) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v27, &v215) + 5) = 2;
     v27 = v214 + 1;
     v214 = v27;
   }
@@ -1312,7 +1311,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v28) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v28, &v215) + 5) = 2;
     v28 = v214 + 1;
     v214 = v28;
   }
@@ -1323,7 +1322,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v29) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v29, &v215) + 5) = 1;
     v29 = v214 + 1;
     v214 = v29;
   }
@@ -1334,7 +1333,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v30) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v30, &v215) + 5) = 2;
     v30 = v214 + 1;
     v214 = v30;
   }
@@ -1345,7 +1344,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v31) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v31, &v215) + 5) = 2;
     v31 = v214 + 1;
     v214 = v31;
   }
@@ -1356,7 +1355,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v32) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v32, &v215) + 5) = 2;
     v32 = v214 + 1;
     v214 = v32;
   }
@@ -1364,16 +1363,16 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v32 < 0x83F);
   v214 = 2142;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x85Eu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x85Eu, &v215) + 5) = 2;
   v214 = 2184;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x888u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x888u, &v215) + 5) = 2;
   v33 = 2404;
   v214 = 2404;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v33) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v33, &v215) + 5) = 2;
     v33 = v214 + 1;
     v214 = v33;
   }
@@ -1384,7 +1383,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v34) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v34, &v215) + 5) = 1;
     v34 = v214 + 1;
     v214 = v34;
   }
@@ -1392,13 +1391,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v34 < 0x970);
   v214 = 2416;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x970u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x970u, &v215) + 5) = 2;
   v35 = 2534;
   v214 = 2534;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v35) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v35, &v215) + 5) = 1;
     v35 = v214 + 1;
     v214 = v35;
   }
@@ -1409,7 +1408,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v36) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v36, &v215) + 5) = 2;
     v36 = v214 + 1;
     v214 = v36;
   }
@@ -1420,7 +1419,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v37) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v37, &v215) + 5) = 1;
     v37 = v214 + 1;
     v214 = v37;
   }
@@ -1431,7 +1430,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v38) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v38, &v215) + 5) = 2;
     v38 = v214 + 1;
     v214 = v38;
   }
@@ -1439,13 +1438,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v38 < 0x9FC);
   v214 = 2557;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x9FDu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x9FDu, &v215) + 5) = 2;
   v39 = 2662;
   v214 = 2662;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v39) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v39, &v215) + 5) = 1;
     v39 = v214 + 1;
     v214 = v39;
   }
@@ -1453,13 +1452,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v39 < 0xA70);
   v214 = 2678;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA76u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA76u, &v215) + 5) = 2;
   v40 = 2790;
   v214 = 2790;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v40) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v40, &v215) + 5) = 1;
     v40 = v214 + 1;
     v214 = v40;
   }
@@ -1470,7 +1469,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v41) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v41, &v215) + 5) = 2;
     v41 = v214 + 1;
     v214 = v41;
   }
@@ -1481,7 +1480,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v42) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v42, &v215) + 5) = 1;
     v42 = v214 + 1;
     v214 = v42;
   }
@@ -1489,13 +1488,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v42 < 0xB70);
   v214 = 2928;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xB70u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xB70u, &v215) + 5) = 2;
   v43 = 2930;
   v214 = 2930;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v43) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v43, &v215) + 5) = 1;
     v43 = v214 + 1;
     v214 = v43;
   }
@@ -1506,7 +1505,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v44) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v44, &v215) + 5) = 1;
     v44 = v214 + 1;
     v214 = v44;
   }
@@ -1517,7 +1516,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v45) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v45, &v215) + 5) = 2;
     v45 = v214 + 1;
     v214 = v45;
   }
@@ -1528,7 +1527,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v46) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v46, &v215) + 5) = 1;
     v46 = v214 + 1;
     v214 = v46;
   }
@@ -1536,13 +1535,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v46 < 0xC70);
   v214 = 3191;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xC77u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xC77u, &v215) + 5) = 2;
   v47 = 3192;
   v214 = 3192;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v47) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v47, &v215) + 5) = 1;
     v47 = v214 + 1;
     v214 = v47;
   }
@@ -1550,16 +1549,16 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v47 < 0xC7F);
   v214 = 3199;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xC7Fu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xC7Fu, &v215) + 5) = 2;
   v214 = 3204;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xC84u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xC84u, &v215) + 5) = 2;
   v48 = 3302;
   v214 = 3302;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v48) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v48, &v215) + 5) = 1;
     v48 = v214 + 1;
     v214 = v48;
   }
@@ -1567,13 +1566,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v48 < 0xCF0);
   v214 = 3407;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xD4Fu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xD4Fu, &v215) + 5) = 2;
   v49 = 3416;
   v214 = 3416;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v49) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v49, &v215) + 5) = 1;
     v49 = v214 + 1;
     v214 = v49;
   }
@@ -1584,7 +1583,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v50) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v50, &v215) + 5) = 1;
     v50 = v214 + 1;
     v214 = v50;
   }
@@ -1592,13 +1591,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v50 < 0xD79);
   v214 = 3449;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xD79u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xD79u, &v215) + 5) = 2;
   v51 = 3558;
   v214 = 3558;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v51) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v51, &v215) + 5) = 1;
     v51 = v214 + 1;
     v214 = v51;
   }
@@ -1606,19 +1605,19 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v51 < 0xDF0);
   v214 = 3572;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xDF4u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xDF4u, &v215) + 5) = 2;
   v214 = 3647;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xE3Fu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xE3Fu, &v215) + 5) = 2;
   v214 = 3663;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xE4Fu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xE4Fu, &v215) + 5) = 2;
   v52 = 3664;
   v214 = 3664;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v52) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v52, &v215) + 5) = 1;
     v52 = v214 + 1;
     v214 = v52;
   }
@@ -1629,7 +1628,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v53) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v53, &v215) + 5) = 2;
     v53 = v214 + 1;
     v214 = v53;
   }
@@ -1640,7 +1639,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v54) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v54, &v215) + 5) = 1;
     v54 = v214 + 1;
     v214 = v54;
   }
@@ -1651,7 +1650,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v55) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v55, &v215) + 5) = 2;
     v55 = v214 + 1;
     v214 = v55;
   }
@@ -1662,7 +1661,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v56) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v56, &v215) + 5) = 2;
     v56 = v214 + 1;
     v214 = v56;
   }
@@ -1673,7 +1672,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v57) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v57, &v215) + 5) = 1;
     v57 = v214 + 1;
     v214 = v57;
   }
@@ -1681,19 +1680,19 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v57 < 0xF34);
   v214 = 3892;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF34u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF34u, &v215) + 5) = 2;
   v214 = 3894;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF36u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF36u, &v215) + 5) = 2;
   v214 = 3896;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF38u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF38u, &v215) + 5) = 2;
   v58 = 3898;
   v214 = 3898;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v58) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v58, &v215) + 5) = 2;
     v58 = v214 + 1;
     v214 = v58;
   }
@@ -1701,13 +1700,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v58 < 0xF3E);
   v214 = 3973;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF85u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF85u, &v215) + 5) = 2;
   v59 = 4030;
   v214 = 4030;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v59) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v59, &v215) + 5) = 2;
     v59 = v214 + 1;
     v214 = v59;
   }
@@ -1718,7 +1717,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v60) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v60, &v215) + 5) = 2;
     v60 = v214 + 1;
     v214 = v60;
   }
@@ -1729,7 +1728,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v61) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v61, &v215) + 5) = 2;
     v61 = v214 + 1;
     v214 = v61;
   }
@@ -1740,7 +1739,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v62) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v62, &v215) + 5) = 1;
     v62 = v214 + 1;
     v214 = v62;
   }
@@ -1751,7 +1750,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v63) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v63, &v215) + 5) = 2;
     v63 = v214 + 1;
     v214 = v63;
   }
@@ -1762,7 +1761,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v64) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v64, &v215) + 5) = 1;
     v64 = v214 + 1;
     v214 = v64;
   }
@@ -1773,7 +1772,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v65) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v65, &v215) + 5) = 2;
     v65 = v214 + 1;
     v214 = v65;
   }
@@ -1781,13 +1780,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v65 >> 5 < 0x85);
   v214 = 4347;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x10FBu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x10FBu, &v215) + 5) = 2;
   v66 = 4960;
   v214 = 4960;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v66) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v66, &v215) + 5) = 2;
     v66 = v214 + 1;
     v214 = v66;
   }
@@ -1798,7 +1797,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v67) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v67, &v215) + 5) = 1;
     v67 = v214 + 1;
     v214 = v67;
   }
@@ -1809,7 +1808,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v68) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v68, &v215) + 5) = 2;
     v68 = v214 + 1;
     v214 = v68;
   }
@@ -1817,13 +1816,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v68 >> 1 < 0x9CD);
   v214 = 5120;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x1400u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x1400u, &v215) + 5) = 2;
   v69 = 5741;
   v214 = 5741;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v69) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v69, &v215) + 5) = 2;
     v69 = v214 + 1;
     v214 = v69;
   }
@@ -1834,7 +1833,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v70) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v70, &v215) + 5) = 2;
     v70 = v214 + 1;
     v214 = v70;
   }
@@ -1845,7 +1844,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v71) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v71, &v215) + 5) = 2;
     v71 = v214 + 1;
     v214 = v71;
   }
@@ -1856,7 +1855,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v72) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v72, &v215) + 5) = 1;
     v72 = v214 + 1;
     v214 = v72;
   }
@@ -1867,7 +1866,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v73) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v73, &v215) + 5) = 2;
     v73 = v214 + 1;
     v214 = v73;
   }
@@ -1878,7 +1877,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v74) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v74, &v215) + 5) = 2;
     v74 = v214 + 1;
     v214 = v74;
   }
@@ -1889,7 +1888,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v75) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v75, &v215) + 5) = 2;
     v75 = v214 + 1;
     v214 = v75;
   }
@@ -1900,7 +1899,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v76) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v76, &v215) + 5) = 1;
     v76 = v214 + 1;
     v214 = v76;
   }
@@ -1911,7 +1910,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v77) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v77, &v215) + 5) = 1;
     v77 = v214 + 1;
     v214 = v77;
   }
@@ -1922,7 +1921,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v78) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v78, &v215) + 5) = 2;
     v78 = v214 + 1;
     v214 = v78;
   }
@@ -1933,7 +1932,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v79) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v79, &v215) + 5) = 1;
     v79 = v214 + 1;
     v214 = v79;
   }
@@ -1941,13 +1940,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v79 >> 1 < 0xC0D);
   v214 = 6464;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x1940u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x1940u, &v215) + 5) = 2;
   v80 = 6468;
   v214 = 6468;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v80) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v80, &v215) + 5) = 2;
     v80 = v214 + 1;
     v214 = v80;
   }
@@ -1958,7 +1957,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v81) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v81, &v215) + 5) = 1;
     v81 = v214 + 1;
     v214 = v81;
   }
@@ -1969,7 +1968,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v82) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v82, &v215) + 5) = 1;
     v82 = v214 + 1;
     v214 = v82;
   }
@@ -1980,7 +1979,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v83) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v83, &v215) + 5) = 2;
     v83 = v214 + 1;
     v214 = v83;
   }
@@ -1991,7 +1990,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v84) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v84, &v215) + 5) = 2;
     v84 = v214 + 1;
     v214 = v84;
   }
@@ -2002,7 +2001,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v85) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v85, &v215) + 5) = 1;
     v85 = v214 + 1;
     v214 = v85;
   }
@@ -2013,7 +2012,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v86) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v86, &v215) + 5) = 1;
     v86 = v214 + 1;
     v214 = v86;
   }
@@ -2024,7 +2023,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v87) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v87, &v215) + 5) = 2;
     v87 = v214 + 1;
     v214 = v87;
   }
@@ -2035,7 +2034,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v88) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v88, &v215) + 5) = 2;
     v88 = v214 + 1;
     v214 = v88;
   }
@@ -2046,7 +2045,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v89) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v89, &v215) + 5) = 2;
     v89 = v214 + 1;
     v214 = v89;
   }
@@ -2057,7 +2056,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v90) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v90, &v215) + 5) = 1;
     v90 = v214 + 1;
     v214 = v90;
   }
@@ -2068,7 +2067,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v91) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v91, &v215) + 5) = 2;
     v91 = v214 + 1;
     v214 = v91;
   }
@@ -2079,7 +2078,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v92) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v92, &v215) + 5) = 2;
     v92 = v214 + 1;
     v214 = v92;
   }
@@ -2090,7 +2089,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v93) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v93, &v215) + 5) = 1;
     v93 = v214 + 1;
     v214 = v93;
   }
@@ -2101,7 +2100,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v94) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v94, &v215) + 5) = 2;
     v94 = v214 + 1;
     v214 = v94;
   }
@@ -2112,7 +2111,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v95) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v95, &v215) + 5) = 2;
     v95 = v214 + 1;
     v214 = v95;
   }
@@ -2123,7 +2122,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v96) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v96, &v215) + 5) = 1;
     v96 = v214 + 1;
     v214 = v96;
   }
@@ -2134,7 +2133,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v97) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v97, &v215) + 5) = 1;
     v97 = v214 + 1;
     v214 = v97;
   }
@@ -2145,7 +2144,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v98) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v98, &v215) + 5) = 2;
     v98 = v214 + 1;
     v214 = v98;
   }
@@ -2156,7 +2155,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v99) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v99, &v215) + 5) = 2;
     v99 = v214 + 1;
     v214 = v99;
   }
@@ -2164,16 +2163,16 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v99 >> 3 < 0x399);
   v214 = 7379;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x1CD3u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x1CD3u, &v215) + 5) = 2;
   v214 = 8125;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x1FBDu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x1FBDu, &v215) + 5) = 2;
   v100 = 8127;
   v214 = 8127;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v100) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v100, &v215) + 5) = 2;
     v100 = v214 + 1;
     v214 = v100;
   }
@@ -2184,7 +2183,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v101) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v101, &v215) + 5) = 2;
     v101 = v214 + 1;
     v214 = v101;
   }
@@ -2195,7 +2194,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v102) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v102, &v215) + 5) = 2;
     v102 = v214 + 1;
     v214 = v102;
   }
@@ -2206,7 +2205,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v103) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v103, &v215) + 5) = 2;
     v103 = v214 + 1;
     v214 = v103;
   }
@@ -2217,7 +2216,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v104) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v104, &v215) + 5) = 2;
     v104 = v214 + 1;
     v214 = v104;
   }
@@ -2228,7 +2227,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v105) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v105, &v215) + 5) = 2;
     v105 = v214 + 1;
     v214 = v105;
   }
@@ -2239,7 +2238,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v106) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v106, &v215) + 5) = 2;
     v106 = v214 + 1;
     v214 = v106;
   }
@@ -2247,13 +2246,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v106 < 0x205F);
   v214 = 8304;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2070u) + 5) = 1;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2070u, &v215) + 5) = 1;
   v107 = 8308;
   v214 = 8308;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v107) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v107, &v215) + 5) = 1;
     v107 = v214 + 1;
     v214 = v107;
   }
@@ -2264,7 +2263,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v108) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v108, &v215) + 5) = 2;
     v108 = v214 + 1;
     v214 = v108;
   }
@@ -2275,7 +2274,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v109) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v109, &v215) + 5) = 1;
     v109 = v214 + 1;
     v214 = v109;
   }
@@ -2286,7 +2285,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v110) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v110, &v215) + 5) = 2;
     v110 = v214 + 1;
     v214 = v110;
   }
@@ -2297,7 +2296,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v111) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v111, &v215) + 5) = 2;
     v111 = v214 + 1;
     v214 = v111;
   }
@@ -2308,7 +2307,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v112) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v112, &v215) + 5) = 2;
     v112 = v214 + 1;
     v214 = v112;
   }
@@ -2319,7 +2318,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v113) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v113, &v215) + 5) = 2;
     v113 = v214 + 1;
     v214 = v113;
   }
@@ -2330,7 +2329,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v114) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v114, &v215) + 5) = 2;
     v114 = v214 + 1;
     v214 = v114;
   }
@@ -2338,13 +2337,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v114 < 0x210A);
   v214 = 8468;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2114u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2114u, &v215) + 5) = 2;
   v115 = 8470;
   v214 = 8470;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v115) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v115, &v215) + 5) = 2;
     v115 = v214 + 1;
     v214 = v115;
   }
@@ -2355,7 +2354,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v116) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v116, &v215) + 5) = 2;
     v116 = v214 + 1;
     v214 = v116;
   }
@@ -2363,22 +2362,22 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v116 >> 2 < 0x849);
   v214 = 8485;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2125u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2125u, &v215) + 5) = 2;
   v214 = 8487;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2127u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2127u, &v215) + 5) = 2;
   v214 = 8489;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2129u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2129u, &v215) + 5) = 2;
   v214 = 8494;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x212Eu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x212Eu, &v215) + 5) = 2;
   v117 = 8506;
   v214 = 8506;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v117) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v117, &v215) + 5) = 2;
     v117 = v214 + 1;
     v214 = v117;
   }
@@ -2389,7 +2388,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v118) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v118, &v215) + 5) = 2;
     v118 = v214 + 1;
     v214 = v118;
   }
@@ -2400,7 +2399,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v119) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v119, &v215) + 5) = 2;
     v119 = v214 + 1;
     v214 = v119;
   }
@@ -2408,13 +2407,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v119 < 0x214E);
   v214 = 8527;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x214Fu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x214Fu, &v215) + 5) = 2;
   v120 = 8528;
   v214 = 8528;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v120) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v120, &v215) + 5) = 1;
     v120 = v214 + 1;
     v214 = v120;
   }
@@ -2425,7 +2424,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v121) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v121, &v215) + 5) = 1;
     v121 = v214 + 1;
     v214 = v121;
   }
@@ -2436,7 +2435,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v122) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v122, &v215) + 5) = 2;
     v122 = v214 + 1;
     v214 = v122;
   }
@@ -2447,7 +2446,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v123) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v123, &v215) + 5) = 2;
     v123 = v214 + 1;
     v214 = v123;
   }
@@ -2458,7 +2457,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v124) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v124, &v215) + 5) = 2;
     v124 = v214 + 1;
     v214 = v124;
   }
@@ -2469,7 +2468,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v125) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v125, &v215) + 5) = 1;
     v125 = v214 + 1;
     v214 = v125;
   }
@@ -2480,7 +2479,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v126) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v126, &v215) + 5) = 2;
     v126 = v214 + 1;
     v214 = v126;
   }
@@ -2491,7 +2490,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v127) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v127, &v215) + 5) = 1;
     v127 = v214 + 1;
     v214 = v127;
   }
@@ -2502,7 +2501,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v128) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v128, &v215) + 5) = 2;
     v128 = v214 + 1;
     v214 = v128;
   }
@@ -2513,7 +2512,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v129) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v129, &v215) + 5) = 1;
     v129 = v214 + 1;
     v214 = v129;
   }
@@ -2524,7 +2523,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v130) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v130, &v215) + 5) = 2;
     v130 = v214 + 1;
     v214 = v130;
   }
@@ -2535,7 +2534,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v131) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v131, &v215) + 5) = 2;
     v131 = v214 + 1;
     v214 = v131;
   }
@@ -2546,7 +2545,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v132) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v132, &v215) + 5) = 2;
     v132 = v214 + 1;
     v214 = v132;
   }
@@ -2557,7 +2556,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v133) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v133, &v215) + 5) = 2;
     v133 = v214 + 1;
     v214 = v133;
   }
@@ -2568,7 +2567,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v134) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v134, &v215) + 5) = 2;
     v134 = v214 + 1;
     v214 = v134;
   }
@@ -2576,13 +2575,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v134 < 0x2CFD);
   v214 = 11517;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2CFDu) + 5) = 1;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2CFDu, &v215) + 5) = 1;
   v135 = 11518;
   v214 = 11518;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v135) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v135, &v215) + 5) = 2;
     v135 = v214 + 1;
     v214 = v135;
   }
@@ -2590,13 +2589,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v135 >> 8 < 0x2D);
   v214 = 11632;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2D70u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x2D70u, &v215) + 5) = 2;
   v136 = 11776;
   v214 = 11776;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v136) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v136, &v215) + 5) = 2;
     v136 = v214 + 1;
     v214 = v136;
   }
@@ -2607,7 +2606,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v137) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v137, &v215) + 5) = 2;
     v137 = v214 + 1;
     v214 = v137;
   }
@@ -2618,7 +2617,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v138) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v138, &v215) + 5) = 2;
     v138 = v214 + 1;
     v214 = v138;
   }
@@ -2629,7 +2628,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v139) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v139, &v215) + 5) = 2;
     v139 = v214 + 1;
     v214 = v139;
   }
@@ -2640,7 +2639,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v140) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v140, &v215) + 5) = 2;
     v140 = v214 + 1;
     v214 = v140;
   }
@@ -2651,7 +2650,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v141) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v141, &v215) + 5) = 2;
     v141 = v214 + 1;
     v214 = v141;
   }
@@ -2662,7 +2661,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v142) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v142, &v215) + 5) = 2;
     v142 = v214 + 1;
     v214 = v142;
   }
@@ -2670,13 +2669,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v142 < 0x3005);
   v214 = 12295;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x3007u) + 5) = 1;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x3007u, &v215) + 5) = 1;
   v143 = 12296;
   v214 = 12296;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v143) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v143, &v215) + 5) = 2;
     v143 = v214 + 1;
     v214 = v143;
   }
@@ -2687,7 +2686,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v144) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v144, &v215) + 5) = 1;
     v144 = v214 + 1;
     v214 = v144;
   }
@@ -2695,13 +2694,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v144 < 0x302A);
   v214 = 12336;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x3030u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x3030u, &v215) + 5) = 2;
   v145 = 12342;
   v214 = 12342;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v145) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v145, &v215) + 5) = 2;
     v145 = v214 + 1;
     v214 = v145;
   }
@@ -2712,7 +2711,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v146) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v146, &v215) + 5) = 1;
     v146 = v214 + 1;
     v214 = v146;
   }
@@ -2723,7 +2722,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v147) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v147, &v215) + 5) = 2;
     v147 = v214 + 1;
     v214 = v147;
   }
@@ -2734,7 +2733,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v148) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v148, &v215) + 5) = 2;
     v148 = v214 + 1;
     v214 = v148;
   }
@@ -2742,16 +2741,16 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v148 < 0x309D);
   v214 = 12448;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x30A0u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x30A0u, &v215) + 5) = 2;
   v214 = 12539;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x30FBu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x30FBu, &v215) + 5) = 2;
   v149 = 12688;
   v214 = 12688;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v149) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v149, &v215) + 5) = 2;
     v149 = v214 + 1;
     v214 = v149;
   }
@@ -2762,7 +2761,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v150) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v150, &v215) + 5) = 1;
     v150 = v214 + 1;
     v214 = v150;
   }
@@ -2773,7 +2772,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v151) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v151, &v215) + 5) = 2;
     v151 = v214 + 1;
     v214 = v151;
   }
@@ -2784,7 +2783,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v152) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v152, &v215) + 5) = 2;
     v152 = v214 + 1;
     v214 = v152;
   }
@@ -2792,13 +2791,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v152 < 0x31E6);
   v214 = 12783;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x31EFu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x31EFu, &v215) + 5) = 2;
   v153 = 12800;
   v214 = 12800;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v153) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v153, &v215) + 5) = 2;
     v153 = v214 + 1;
     v214 = v153;
   }
@@ -2809,7 +2808,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v154) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v154, &v215) + 5) = 1;
     v154 = v214 + 1;
     v214 = v154;
   }
@@ -2820,7 +2819,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v155) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v155, &v215) + 5) = 2;
     v155 = v214 + 1;
     v214 = v155;
   }
@@ -2831,7 +2830,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v156) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v156, &v215) + 5) = 1;
     v156 = v214 + 1;
     v214 = v156;
   }
@@ -2839,13 +2838,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v156 >> 4 < 0x325);
   v214 = 12880;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x3250u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0x3250u, &v215) + 5) = 2;
   v157 = 12881;
   v214 = 12881;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v157) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v157, &v215) + 5) = 1;
     v157 = v214 + 1;
     v214 = v157;
   }
@@ -2856,7 +2855,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v158) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v158, &v215) + 5) = 2;
     v158 = v214 + 1;
     v214 = v158;
   }
@@ -2867,7 +2866,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v159) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v159, &v215) + 5) = 1;
     v159 = v214 + 1;
     v214 = v159;
   }
@@ -2878,7 +2877,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v160) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v160, &v215) + 5) = 2;
     v160 = v214 + 1;
     v214 = v160;
   }
@@ -2889,7 +2888,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v161) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v161, &v215) + 5) = 1;
     v161 = v214 + 1;
     v214 = v161;
   }
@@ -2900,7 +2899,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v162) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v162, &v215) + 5) = 2;
     v162 = v214 + 1;
     v214 = v162;
   }
@@ -2911,7 +2910,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v163) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v163, &v215) + 5) = 2;
     v163 = v214 + 1;
     v214 = v163;
   }
@@ -2922,7 +2921,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v164) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v164, &v215) + 5) = 2;
     v164 = v214 + 1;
     v214 = v164;
   }
@@ -2933,7 +2932,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v165) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v165, &v215) + 5) = 2;
     v165 = v214 + 1;
     v214 = v165;
   }
@@ -2944,7 +2943,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v166) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v166, &v215) + 5) = 2;
     v166 = v214 + 1;
     v214 = v166;
   }
@@ -2955,7 +2954,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v167) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v167, &v215) + 5) = 1;
     v167 = v214 + 1;
     v214 = v167;
   }
@@ -2963,16 +2962,16 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v167 < 0xA62A);
   v214 = 42611;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA673u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA673u, &v215) + 5) = 2;
   v214 = 42622;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA67Eu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA67Eu, &v215) + 5) = 2;
   v168 = 42726;
   v214 = 42726;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v168) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v168, &v215) + 5) = 1;
     v168 = v214 + 1;
     v214 = v168;
   }
@@ -2983,7 +2982,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v169) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v169, &v215) + 5) = 2;
     v169 = v214 + 1;
     v214 = v169;
   }
@@ -2994,7 +2993,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v170) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v170, &v215) + 5) = 2;
     v170 = v214 + 1;
     v214 = v170;
   }
@@ -3005,7 +3004,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v171) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v171, &v215) + 5) = 2;
     v171 = v214 + 1;
     v214 = v171;
   }
@@ -3016,7 +3015,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v172) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v172, &v215) + 5) = 2;
     v172 = v214 + 1;
     v214 = v172;
   }
@@ -3027,7 +3026,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v173) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v173, &v215) + 5) = 2;
     v173 = v214 + 1;
     v214 = v173;
   }
@@ -3038,7 +3037,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v174) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v174, &v215) + 5) = 1;
     v174 = v214 + 1;
     v214 = v174;
   }
@@ -3049,7 +3048,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v175) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v175, &v215) + 5) = 2;
     v175 = v214 + 1;
     v214 = v175;
   }
@@ -3060,7 +3059,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v176) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v176, &v215) + 5) = 2;
     v176 = v214 + 1;
     v214 = v176;
   }
@@ -3071,7 +3070,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v177) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v177, &v215) + 5) = 2;
     v177 = v214 + 1;
     v214 = v177;
   }
@@ -3082,7 +3081,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v178) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v178, &v215) + 5) = 1;
     v178 = v214 + 1;
     v214 = v178;
   }
@@ -3093,7 +3092,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v179) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v179, &v215) + 5) = 2;
     v179 = v214 + 1;
     v214 = v179;
   }
@@ -3101,13 +3100,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v179 < 0xA8FB);
   v214 = 43260;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA8FCu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA8FCu, &v215) + 5) = 2;
   v180 = 43264;
   v214 = 43264;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v180) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v180, &v215) + 5) = 1;
     v180 = v214 + 1;
     v214 = v180;
   }
@@ -3118,7 +3117,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v181) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v181, &v215) + 5) = 2;
     v181 = v214 + 1;
     v214 = v181;
   }
@@ -3126,13 +3125,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v181 >> 4 < 0xA93);
   v214 = 43359;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA95Fu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xA95Fu, &v215) + 5) = 2;
   v182 = 43457;
   v214 = 43457;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v182) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v182, &v215) + 5) = 2;
     v182 = v214 + 1;
     v214 = v182;
   }
@@ -3143,7 +3142,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v183) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v183, &v215) + 5) = 1;
     v183 = v214 + 1;
     v214 = v183;
   }
@@ -3154,7 +3153,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v184) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v184, &v215) + 5) = 2;
     v184 = v214 + 1;
     v214 = v184;
   }
@@ -3165,7 +3164,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v185) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v185, &v215) + 5) = 1;
     v185 = v214 + 1;
     v214 = v185;
   }
@@ -3176,7 +3175,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v186) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v186, &v215) + 5) = 1;
     v186 = v214 + 1;
     v214 = v186;
   }
@@ -3187,7 +3186,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v187) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v187, &v215) + 5) = 2;
     v187 = v214 + 1;
     v214 = v187;
   }
@@ -3198,7 +3197,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v188) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v188, &v215) + 5) = 2;
     v188 = v214 + 1;
     v214 = v188;
   }
@@ -3209,7 +3208,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v189) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v189, &v215) + 5) = 2;
     v189 = v214 + 1;
     v214 = v189;
   }
@@ -3220,7 +3219,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v190) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v190, &v215) + 5) = 2;
     v190 = v214 + 1;
     v214 = v190;
   }
@@ -3228,13 +3227,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v190 < 0xAAF2);
   v214 = 43867;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xAB5Bu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xAB5Bu, &v215) + 5) = 2;
   v191 = 43882;
   v214 = 43882;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v191) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v191, &v215) + 5) = 2;
     v191 = v214 + 1;
     v214 = v191;
   }
@@ -3242,13 +3241,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v191 < 0xAB6C);
   v214 = 44011;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xABEBu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xABEBu, &v215) + 5) = 2;
   v192 = 44016;
   v214 = 44016;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v192) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v192, &v215) + 5) = 1;
     v192 = v214 + 1;
     v214 = v192;
   }
@@ -3259,7 +3258,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v193) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v193, &v215) + 5) = 2;
     v193 = v214 + 1;
     v214 = v193;
   }
@@ -3270,7 +3269,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v194) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v194, &v215) + 5) = 2;
     v194 = v214 + 1;
     v214 = v194;
   }
@@ -3278,16 +3277,16 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v194 < 0xF882);
   v214 = 63619;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF883u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF883u, &v215) + 5) = 2;
   v214 = 63648;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF8A0u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xF8A0u, &v215) + 5) = 2;
   v195 = 63649;
   v214 = 63649;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v195) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v195, &v215) + 5) = 1;
     v195 = v214 + 1;
     v214 = v195;
   }
@@ -3298,7 +3297,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v196) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v196, &v215) + 5) = 2;
     v196 = v214 + 1;
     v214 = v196;
   }
@@ -3309,7 +3308,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v197) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v197, &v215) + 5) = 2;
     v197 = v214 + 1;
     v214 = v197;
   }
@@ -3320,7 +3319,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v198) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v198, &v215) + 5) = 2;
     v198 = v214 + 1;
     v214 = v198;
   }
@@ -3328,13 +3327,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v198 >> 8 < 0xF9);
   v214 = 64297;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xFB29u) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xFB29u, &v215) + 5) = 2;
   v199 = 64434;
   v214 = 64434;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v199) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v199, &v215) + 5) = 2;
     v199 = v214 + 1;
     v214 = v199;
   }
@@ -3345,7 +3344,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v200) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v200, &v215) + 5) = 2;
     v200 = v214 + 1;
     v214 = v200;
   }
@@ -3353,13 +3352,13 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   while (v200 >> 4 < 0xFD5);
   v214 = 64975;
   v215 = &v214;
-  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xFDCFu) + 5) = 2;
+  *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(0xFDCFu, &v215) + 5) = 2;
   v201 = 65020;
   v214 = 65020;
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v201) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v201, &v215) + 5) = 2;
     v201 = v214 + 1;
     v214 = v201;
   }
@@ -3370,7 +3369,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v202) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v202, &v215) + 5) = 2;
     v202 = v214 + 1;
     v214 = v202;
   }
@@ -3381,7 +3380,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v203) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v203, &v215) + 5) = 2;
     v203 = v214 + 1;
     v214 = v203;
   }
@@ -3392,7 +3391,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v204) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v204, &v215) + 5) = 2;
     v204 = v214 + 1;
     v214 = v204;
   }
@@ -3403,7 +3402,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v205) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v205, &v215) + 5) = 2;
     v205 = v214 + 1;
     v214 = v205;
   }
@@ -3414,7 +3413,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v206) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v206, &v215) + 5) = 2;
     v206 = v214 + 1;
     v214 = v206;
   }
@@ -3425,7 +3424,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v207) + 5) = 1;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v207, &v215) + 5) = 1;
     v207 = v214 + 1;
     v214 = v207;
   }
@@ -3436,7 +3435,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v208) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v208, &v215) + 5) = 2;
     v208 = v214 + 1;
     v214 = v208;
   }
@@ -3447,7 +3446,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v209) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v209, &v215) + 5) = 2;
     v209 = v214 + 1;
     v214 = v209;
   }
@@ -3458,7 +3457,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v210) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v210, &v215) + 5) = 2;
     v210 = v214 + 1;
     v214 = v210;
   }
@@ -3469,7 +3468,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v211) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v211, &v215) + 5) = 2;
     v211 = v214 + 1;
     v214 = v211;
   }
@@ -3480,7 +3479,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v212) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(v212, &v215) + 5) = 2;
     v212 = v214 + 1;
     v214 = v212;
   }
@@ -3491,7 +3490,7 @@ uint64_t MeCab::new_char_category_map(MeCab *this)
   do
   {
     v215 = &v214;
-    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(result) + 5) = 2;
+    *(std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(result, &v215) + 5) = 2;
     result = (v214 + 1);
     v214 = result;
   }
@@ -3525,31 +3524,31 @@ uint64_t std::unordered_map<char32_t,MeCab::UnicodeCharCategory>::~unordered_map
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(unsigned int a1)
+uint64_t *std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t const&>,std::tuple<>>(unsigned int a1, _DWORD **a2)
 {
   if (!*(&MeCab::new_char_category_map(void)::m + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&MeCab::new_char_category_map(void)::m + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v2 = vcnt_s8(*(&MeCab::new_char_category_map(void)::m + 8));
+  v2.i16[0] = vaddlv_u8(v2);
+  if (v2.u32[0] > 1uLL)
   {
-    v2 = a1;
+    v3 = a1;
     if (*(&MeCab::new_char_category_map(void)::m + 1) <= a1)
     {
-      v2 = a1 % DWORD2(MeCab::new_char_category_map(void)::m);
+      v3 = a1 % DWORD2(MeCab::new_char_category_map(void)::m);
     }
   }
 
   else
   {
-    v2 = (DWORD2(MeCab::new_char_category_map(void)::m) - 1) & a1;
+    v3 = (DWORD2(MeCab::new_char_category_map(void)::m) - 1) & a1;
   }
 
-  v3 = *(MeCab::new_char_category_map(void)::m + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v4 = *(MeCab::new_char_category_map(void)::m + 8 * v3);
+  if (!v4 || (v5 = *v4) == 0)
   {
 LABEL_18:
     operator new();
@@ -3557,44 +3556,44 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == a1)
+    v6 = v5[1];
+    if (v6 == a1)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v2.u32[0] > 1uLL)
     {
-      if (v5 >= *(&MeCab::new_char_category_map(void)::m + 1))
+      if (v6 >= *(&MeCab::new_char_category_map(void)::m + 1))
       {
-        v5 %= *(&MeCab::new_char_category_map(void)::m + 1);
+        v6 %= *(&MeCab::new_char_category_map(void)::m + 1);
       }
     }
 
     else
     {
-      v5 &= *(&MeCab::new_char_category_map(void)::m + 1) - 1;
+      v6 &= *(&MeCab::new_char_category_map(void)::m + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v6 != v3)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v5 = *v5;
+    if (!v5)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != a1)
+  if (*(v5 + 4) != a1)
   {
     goto LABEL_17;
   }
 
-  return v4;
+  return v5;
 }
 
 void std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__rehash<true>(size_t __n)
@@ -3666,31 +3665,31 @@ LABEL_6:
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(unsigned int a1)
+uint64_t *std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::__emplace_unique_key_args<char32_t,std::piecewise_construct_t const&,std::tuple<char32_t &&>,std::tuple<>>(unsigned int a1, _DWORD **a2)
 {
   if (!*(&MeCab::new_char_category_map(void)::m + 1))
   {
     goto LABEL_18;
   }
 
-  v1 = vcnt_s8(*(&MeCab::new_char_category_map(void)::m + 8));
-  v1.i16[0] = vaddlv_u8(v1);
-  if (v1.u32[0] > 1uLL)
+  v2 = vcnt_s8(*(&MeCab::new_char_category_map(void)::m + 8));
+  v2.i16[0] = vaddlv_u8(v2);
+  if (v2.u32[0] > 1uLL)
   {
-    v2 = a1;
+    v3 = a1;
     if (*(&MeCab::new_char_category_map(void)::m + 1) <= a1)
     {
-      v2 = a1 % DWORD2(MeCab::new_char_category_map(void)::m);
+      v3 = a1 % DWORD2(MeCab::new_char_category_map(void)::m);
     }
   }
 
   else
   {
-    v2 = (DWORD2(MeCab::new_char_category_map(void)::m) - 1) & a1;
+    v3 = (DWORD2(MeCab::new_char_category_map(void)::m) - 1) & a1;
   }
 
-  v3 = *(MeCab::new_char_category_map(void)::m + 8 * v2);
-  if (!v3 || (v4 = *v3) == 0)
+  v4 = *(MeCab::new_char_category_map(void)::m + 8 * v3);
+  if (!v4 || (v5 = *v4) == 0)
   {
 LABEL_18:
     operator new();
@@ -3698,44 +3697,44 @@ LABEL_18:
 
   while (1)
   {
-    v5 = v4[1];
-    if (v5 == a1)
+    v6 = v5[1];
+    if (v6 == a1)
     {
       break;
     }
 
-    if (v1.u32[0] > 1uLL)
+    if (v2.u32[0] > 1uLL)
     {
-      if (v5 >= *(&MeCab::new_char_category_map(void)::m + 1))
+      if (v6 >= *(&MeCab::new_char_category_map(void)::m + 1))
       {
-        v5 %= *(&MeCab::new_char_category_map(void)::m + 1);
+        v6 %= *(&MeCab::new_char_category_map(void)::m + 1);
       }
     }
 
     else
     {
-      v5 &= *(&MeCab::new_char_category_map(void)::m + 1) - 1;
+      v6 &= *(&MeCab::new_char_category_map(void)::m + 1) - 1;
     }
 
-    if (v5 != v2)
+    if (v6 != v3)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v4 = *v4;
-    if (!v4)
+    v5 = *v5;
+    if (!v5)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v4 + 4) != a1)
+  if (*(v5 + 4) != a1)
   {
     goto LABEL_17;
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::__unordered_map_hasher<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::hash<char32_t>,std::equal_to<char32_t>,true>,std::__unordered_map_equal<char32_t,std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>,std::equal_to<char32_t>,std::hash<char32_t>,true>,std::allocator<std::__hash_value_type<char32_t,MeCab::UnicodeCharCategory>>>::find<char32_t>(void *a1, unsigned int *a2)
@@ -3805,7 +3804,7 @@ uint64_t *std::__hash_table<std::__hash_value_type<char32_t,MeCab::UnicodeCharCa
   return result;
 }
 
-uint64_t MeCab::NBestGenerator::set(uint64_t *a1, uint64_t a2)
+uint64_t MeCab::NBestGenerator::set(void *a1, uint64_t a2)
 {
   v5 = a1 + 1;
   v4 = a1[1];
@@ -3917,155 +3916,154 @@ BOOL MeCab::NBestGenerator::next(MeCab::NBestGenerator *this)
 {
   do
   {
-    v2 = *(this + 8);
-    v3 = *(this + 2);
-    v4 = *(this + 1);
-    if (v4 == v3)
+    v2 = *(this + 2);
+    v3 = *(this + 1);
+    if (v3 == v2)
     {
       break;
     }
 
-    v5 = *v4;
-    v6 = v3 - v4;
-    if (v6 >= 2)
+    v4 = *v3;
+    v5 = v2 - v3;
+    if (v5 >= 2)
     {
-      v7 = 0;
-      v8 = *(this + 1);
+      v6 = 0;
+      v7 = *(this + 1);
       do
       {
-        v9 = &v8[v7 + 1];
-        v10 = (2 * v7) | 1;
-        v11 = 2 * v7 + 2;
-        if (v11 < v6)
+        v8 = &v7[v6 + 1];
+        v9 = (2 * v6) | 1;
+        v10 = 2 * v6 + 2;
+        if (v10 < v5)
         {
-          v12 = *(*v9 + 16);
-          v13 = *(v9[1] + 16);
-          v9 += v12 > v13;
-          if (v12 > v13)
+          v11 = *(*v8 + 16);
+          v12 = *(v8[1] + 16);
+          v8 += v11 > v12;
+          if (v11 > v12)
           {
-            v10 = v11;
+            v9 = v10;
           }
         }
 
-        *v8 = *v9;
-        v8 = v9;
-        v7 = v10;
+        *v7 = *v8;
+        v7 = v8;
+        v6 = v9;
       }
 
-      while (v10 <= ((v6 - 2) >> 1));
-      v14 = v3 - 1;
-      if (v3 - 1 == v9)
+      while (v9 <= ((v5 - 2) >> 1));
+      v13 = v2 - 1;
+      if (v2 - 1 == v8)
       {
-        *v9 = v5;
+        *v8 = v4;
       }
 
       else
       {
-        *v9 = *v14;
-        *v14 = v5;
-        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MeCab::NBestGenerator::QueueElementComp &,std::__wrap_iter<MeCab::NBestGenerator::QueueElement **>>(v4, (v9 + 1), &v38, v9 + 1 - v4);
+        *v8 = *v13;
+        *v13 = v4;
+        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MeCab::NBestGenerator::QueueElementComp &,std::__wrap_iter<MeCab::NBestGenerator::QueueElement **>>(v3, (v8 + 1), &v37, v8 + 1 - v3);
       }
     }
 
     *(this + 2) -= 8;
-    v15 = *v5;
-    v16 = *(*v5 + 91);
-    if (v16 == 2)
+    v14 = *v4;
+    v15 = *(*v4 + 91);
+    if (v15 == 2)
     {
-      v17 = v5[1];
-      if (!v17)
+      v16 = v4[1];
+      if (!v16)
       {
-        return v4 != v3;
+        return v3 != v2;
       }
 
       do
       {
-        v18 = *v17;
-        v15[1] = *v17;
-        *v18 = v15;
-        v17 = *(v17 + 8);
-        v15 = v18;
+        v17 = *v16;
+        v14[1] = *v16;
+        *v17 = v14;
+        v16 = *(v16 + 8);
+        v14 = v17;
       }
 
-      while (v17);
+      while (v16);
     }
 
     else
     {
-      for (i = v15[5]; i; i = *(i + 16))
+      for (i = v14[5]; i; i = *(i + 16))
       {
         MeCab::FreeList<MeCab::NBestGenerator::QueueElement>::alloc(this + 5);
-        v21 = *(i + 8);
-        v22 = *(i + 24);
-        v20[3] = v5[3] + v22;
-        v23 = *(v21 + 96) + v22 + v5[3];
-        v20[1] = v5;
-        v20[2] = v23;
-        *v20 = v21;
-        v25 = *(this + 2);
-        v24 = *(this + 3);
-        if (v25 >= v24)
+        v20 = *(i + 8);
+        v21 = *(i + 24);
+        v19[3] = v4[3] + v21;
+        v22 = *(v20 + 96) + v21 + v4[3];
+        v19[1] = v4;
+        v19[2] = v22;
+        *v19 = v20;
+        v24 = *(this + 2);
+        v23 = *(this + 3);
+        if (v24 >= v23)
         {
-          v27 = *(this + 1);
-          v28 = (v25 - v27) >> 3;
-          if ((v28 + 1) >> 61)
+          v26 = *(this + 1);
+          v27 = (v24 - v26) >> 3;
+          if ((v27 + 1) >> 61)
           {
             std::vector<MeCab::NBestGenerator::QueueElement *>::__throw_length_error[abi:ne200100]();
           }
 
-          v29 = v24 - v27;
-          v30 = v29 >> 2;
-          if (v29 >> 2 <= (v28 + 1))
+          v28 = v23 - v26;
+          v29 = v28 >> 2;
+          if (v28 >> 2 <= (v27 + 1))
           {
-            v30 = v28 + 1;
+            v29 = v27 + 1;
           }
 
-          if (v29 >= 0x7FFFFFFFFFFFFFF8)
+          if (v28 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v31 = 0x1FFFFFFFFFFFFFFFLL;
+            v30 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v31 = v30;
+            v30 = v29;
           }
 
-          if (v31)
+          if (v30)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<MeCab::NBestGenerator::QueueElement *>>(this + 8, v31);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<MeCab::NBestGenerator::QueueElement *>>(this + 8, v30);
           }
 
-          v32 = (8 * v28);
-          *v32 = v20;
-          v26 = 8 * v28 + 8;
-          v33 = *(this + 1);
-          v34 = *(this + 2) - v33;
-          v35 = v32 - v34;
-          memcpy(v32 - v34, v33, v34);
-          v36 = *(this + 1);
-          *(this + 1) = v35;
-          *(this + 2) = v26;
+          v31 = (8 * v27);
+          *v31 = v19;
+          v25 = 8 * v27 + 8;
+          v32 = *(this + 1);
+          v33 = *(this + 2) - v32;
+          v34 = v31 - v33;
+          memcpy(v31 - v33, v32, v33);
+          v35 = *(this + 1);
+          *(this + 1) = v34;
+          *(this + 2) = v25;
           *(this + 3) = 0;
-          if (v36)
+          if (v35)
           {
-            operator delete(v36);
+            operator delete(v35);
           }
         }
 
         else
         {
-          *v25 = v20;
-          v26 = (v25 + 1);
+          *v24 = v19;
+          v25 = (v24 + 1);
         }
 
-        *(this + 2) = v26;
-        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MeCab::NBestGenerator::QueueElementComp &,std::__wrap_iter<MeCab::NBestGenerator::QueueElement **>>(*(this + 1), v26, &v39, (v26 - *(this + 1)) >> 3);
+        *(this + 2) = v25;
+        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MeCab::NBestGenerator::QueueElementComp &,std::__wrap_iter<MeCab::NBestGenerator::QueueElement **>>(*(this + 1), v25, &v38, (v25 - *(this + 1)) >> 3);
       }
     }
   }
 
-  while (v16 != 2);
-  return v4 != v3;
+  while (v15 != 2);
+  return v3 != v2;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<MeCab::NBestGenerator::QueueElement *>>(uint64_t a1, unint64_t a2)
@@ -5358,8 +5356,9 @@ LABEL_76:
   return this;
 }
 
-BOOL mecab_cost_train(int a1, char **a2)
+BOOL mecab_cost_train(uint64_t a1, char **a2)
 {
+  v3 = a1;
   MEMORY[0x29C29A2E0](&v15);
   MeCab::Param::Param(v18);
   {
@@ -5435,18 +5434,18 @@ void sub_29915803C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t MeCab::anonymous namespace::CRFLearner::run(MeCab::_anonymous_namespace_::CRFLearner *this, MeCab::Param *a2)
 {
-  v49 = *MEMORY[0x29EDCA608];
-  MeCab::Param::get<std::string>(this, "dicdir", &v46);
-  std::string::basic_string[abi:ne200100]<0>(&v47, "dicrc");
-  MeCab::create_filename(&v46, &v47, v26);
-  if ((v26[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v48 = *MEMORY[0x29EDCA608];
+  MeCab::Param::get<std::string>(this, "dicdir", &v45);
+  std::string::basic_string[abi:ne200100]<0>(&v46, "dicrc");
+  MeCab::create_filename(&v45, &v46, v25);
+  if ((v25[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v3 = v26;
+    v3 = v25;
   }
 
   else
   {
-    v3 = v26[0].__r_.__value_.__r.__words[0];
+    v3 = v25[0].__r_.__value_.__r.__words[0];
   }
 
   if (!MeCab::Param::load(this, v3))
@@ -5458,9 +5457,9 @@ uint64_t MeCab::anonymous namespace::CRFLearner::run(MeCab::_anonymous_namespace
     v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "param->load(DCONF(DICRC))", 25);
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "] ", 2);
     v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "no such file or directory: ", 27);
-    std::string::basic_string[abi:ne200100]<0>(&v23, "dicrc");
+    std::string::basic_string[abi:ne200100]<0>(&v22, "dicrc");
     v11 = __p;
-    MeCab::create_filename(&v46, &v23, __p);
+    MeCab::create_filename(&v45, &v22, __p);
     if ((__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
       v11 = __p[0].__r_.__value_.__r.__words[0];
@@ -5473,22 +5472,22 @@ uint64_t MeCab::anonymous namespace::CRFLearner::run(MeCab::_anonymous_namespace
       operator delete(__p[0].__r_.__value_.__l.__data_);
     }
 
-    if (v24 < 0)
+    if (v23 < 0)
     {
-      operator delete(v23.__locale_);
+      operator delete(v22.__locale_);
     }
 
-    MeCab::die::~die(&v25);
+    MeCab::die::~die(&v24);
   }
 
-  if (SHIBYTE(v26[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v25[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26[0].__r_.__value_.__l.__data_);
+    operator delete(v25[0].__r_.__value_.__l.__data_);
   }
 
-  if (v48 < 0)
+  if (v47 < 0)
   {
-    operator delete(v47.__locale_);
+    operator delete(v46.__locale_);
   }
 
   v13 = *(this + 4);
@@ -5496,49 +5495,49 @@ uint64_t MeCab::anonymous namespace::CRFLearner::run(MeCab::_anonymous_namespace
   {
     if (*(v13 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v45, *v13, *(v13 + 1));
+      std::string::__init_copy_ctor_external(&v44, *v13, *(v13 + 1));
       v13 = *(this + 4);
     }
 
     else
     {
       v14 = *v13;
-      v45.__r_.__value_.__r.__words[2] = *(v13 + 2);
-      *&v45.__r_.__value_.__l.__data_ = v14;
+      v44.__r_.__value_.__r.__words[2] = *(v13 + 2);
+      *&v44.__r_.__value_.__l.__data_ = v14;
     }
 
     if (*(v13 + 47) < 0)
     {
-      std::string::__init_copy_ctor_external(&v44, *(v13 + 3), *(v13 + 4));
+      std::string::__init_copy_ctor_external(&v43, *(v13 + 3), *(v13 + 4));
     }
 
     else
     {
-      v44 = *(v13 + 1);
+      v43 = *(v13 + 1);
     }
 
-    MeCab::Param::get<std::string>(this, "old-model", &v43);
+    MeCab::Param::get<std::string>(this, "old-model", &v42);
     MeCab::FeatureIndex::FeatureIndex(__p);
+    v40[1] = 0;
+    v40[0] = 0;
+    __p[0].__r_.__value_.__r.__words[0] = &unk_2A1F352A0;
+    v39 = v40;
     v41[1] = 0;
     v41[0] = 0;
-    __p[0].__r_.__value_.__r.__words[0] = &unk_2A1F352A0;
-    v40 = v41;
-    v42[1] = 0;
-    v42[0] = 0;
-    v41[2] = v42;
-    v37 = 0;
+    v40[2] = v41;
     v36 = 0;
-    v38 = 0;
-    v34 = 0;
-    v33 = 0;
     v35 = 0;
-    v31 = 0;
-    v30 = 0;
+    v37 = 0;
+    v33 = 0;
     v32 = 0;
-    v28 = 0;
-    v27 = 0;
+    v34 = 0;
+    v30 = 0;
     v29 = 0;
-    MeCab::Tokenizer<mecab_learner_node_t,mecab_learner_path_t>::Tokenizer(v26);
+    v31 = 0;
+    v27 = 0;
+    v26 = 0;
+    v28 = 0;
+    MeCab::Tokenizer<mecab_learner_node_t,mecab_learner_path_t>::Tokenizer(v25);
   }
 
   v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], "Usage: ", 7);
@@ -5552,17 +5551,16 @@ uint64_t MeCab::anonymous namespace::CRFLearner::run(MeCab::_anonymous_namespace
   v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v16, v17);
   v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " corpus model", 13);
   std::ios_base::getloc((v19 + *(*v19 - 24)));
-  v20 = std::locale::use_facet(v26, MEMORY[0x29EDC93D0]);
+  v20 = std::locale::use_facet(v25, MEMORY[0x29EDC93D0]);
   (v20->__vftable[2].~facet_0)(v20, 10);
-  std::locale::~locale(v26);
+  std::locale::~locale(v25);
   std::ostream::put();
   std::ostream::flush();
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v46.__r_.__value_.__l.__data_);
+    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
-  v21 = *MEMORY[0x29EDCA608];
   return 0xFFFFFFFFLL;
 }
 
@@ -5581,7 +5579,7 @@ void sub_29915A5E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5595,13 +5593,13 @@ const void *std::ostringstream::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -5777,24 +5775,24 @@ void sub_29915B0A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
-void **std::vector<MeCab::anonymous namespace::learner_thread>::~vector[abi:ne200100](void **a1)
+char **std::vector<MeCab::anonymous namespace::learner_thread>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -6528,7 +6526,7 @@ void MeCab::FreeList<mecab_dictionary_info_t>::~FreeList(void *a1)
   JUMPOUT(0x29C29A380);
 }
 
-void sub_29915D810(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, std::locale a27)
+void sub_29915D810(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, std::locale a27)
 {
   if (__p)
   {
@@ -6542,20 +6540,10 @@ void sub_29915D810(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a25)
   {
-    MEMORY[0x29C29A350](a25, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a25, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void MeCab::scoped_string::reset_string(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 23) < 0)
-  {
-    v2 = *(a2 + 8);
-  }
-
-  operator new[]();
 }
 
 uint64_t MeCab::LearnerTagger::lookup(MeCab::LearnerTagger *this, uint64_t a2, double a3)
@@ -6593,26 +6581,7 @@ uint64_t MeCab::EncoderLearnerTagger::eval(MeCab::EncoderLearnerTagger *this, un
       if (v11 == v10)
       {
         v14 = *(v7 + 76);
-        if (v14 != *(v13 + 76))
-        {
-          goto LABEL_12;
-        }
-
-        v16 = *(this + 15);
-        v15 = *(this + 16);
-        if (strncmp(*(v7 + 56), *(v13 + 56), v14))
-        {
-          goto LABEL_12;
-        }
-
-        v28 = v12;
-        v17 = *(v7 + 64);
-        v18 = *(v13 + 64);
-        v19 = *(v13 + 87) == 1 ? v15 : v16;
-        v20 = strlen(v17);
-        v21 = MeCab::repeat_find_if<char const*,char>(v17, &v17[v20], 44, v19);
-        v22 = strlen(v18);
-        if (v21 - v17 == MeCab::repeat_find_if<char const*,char>(v18, &v18[v22], 44, v19) - v18 && !strncmp(v17, v18, v21 - v17))
+        if (v14 == *(v13 + 76) && (v16 = *(this + 15), v15 = *(this + 16), !strncmp(*(v7 + 56), *(v13 + 56), v14)) && ((v28 = v12, v17 = *(v7 + 64), v18 = *(v13 + 64), *(v13 + 87) != 1) ? (v19 = v16) : (v19 = v15), (v20 = strlen(v17), v21 = MeCab::repeat_find_if<char const*,char>(v17, &v17[v20], 44, v19), v22 = strlen(v18), v21 - v17 == MeCab::repeat_find_if<char const*,char>(v18, &v18[v22], 44, v19) - v18) && !strncmp(v17, v18, v21 - v17)))
         {
           ++*a2;
           v12 = v28;
@@ -6620,7 +6589,6 @@ uint64_t MeCab::EncoderLearnerTagger::eval(MeCab::EncoderLearnerTagger *this, un
 
         else
         {
-LABEL_12:
           v12 = 1;
         }
 
@@ -6784,10 +6752,10 @@ uint64_t MeCab::LearnerTagger::connect(uint64_t result, uint64_t a2, uint64_t a3
   return result;
 }
 
-void std::vector<mecab_learner_node_t *>::resize(uint64_t a1, unint64_t a2)
+void std::vector<mecab_learner_node_t *>::resize(uint64_t *a1, unint64_t a2)
 {
   v3 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v5 = (v4 - *a1) >> 3;
   if (a2 <= v5)
   {
@@ -6802,7 +6770,7 @@ void std::vector<mecab_learner_node_t *>::resize(uint64_t a1, unint64_t a2)
   else
   {
     v6 = a2 - v5;
-    v7 = *(a1 + 16);
+    v7 = a1[2];
     if (v6 > (v7 - v4) >> 3)
     {
       if (!(a2 >> 61))
@@ -6830,11 +6798,11 @@ void std::vector<mecab_learner_node_t *>::resize(uint64_t a1, unint64_t a2)
       std::vector<MeCab::RewritePattern>::__throw_length_error[abi:ne200100]();
     }
 
-    bzero(*(a1 + 8), 8 * v6);
+    bzero(a1[1], 8 * v6);
     v11 = v4 + 8 * v6;
   }
 
-  *(a1 + 8) = v11;
+  a1[1] = v11;
 }
 
 double MeCab::EncoderLearnerTagger::gradient(MeCab::EncoderLearnerTagger *this, double *a2, double a3)
@@ -7389,59 +7357,60 @@ uint64_t MeCab::internal::encodeChar(int a1)
   return v1;
 }
 
-uint64_t mecab_dict_index(int a1, char **a2)
+uint64_t mecab_dict_index(uint64_t a1, char **a2)
 {
-  MEMORY[0x29C29A2E0](&v70);
-  MeCab::Param::Param(v87);
-  if (MeCab::Param::open(v87, a1, a2, &MeCab::DictionaryComplier::run(int,char **)::long_options))
+  v3 = a1;
+  MEMORY[0x29C29A2E0](&v72);
+  MeCab::Param::Param(v89);
+  if (MeCab::Param::open(v89, v3, a2, &MeCab::DictionaryComplier::run(int,char **)::long_options))
   {
-    if (!MeCab::Param::help_version(v87))
+    if (!MeCab::Param::help_version(v89))
     {
-LABEL_123:
+LABEL_129:
       v32 = 0;
-      goto LABEL_124;
+      goto LABEL_130;
     }
 
-    MeCab::Param::get<std::string>(v87, "dicdir", &v86);
-    MeCab::Param::get<std::string>(v87, "outdir", &v85);
-    v4 = MeCab::Param::get<BOOL>(v87, "build-unknown");
-    v5 = MeCab::Param::get<BOOL>(v87, "build-matrix");
-    v6 = MeCab::Param::get<BOOL>(v87, "quantize");
-    v7 = MeCab::Param::get<BOOL>(v87, "compress-feature");
-    MeCab::Param::get<std::string>(v87, "language", &v84);
-    v8 = MeCab::Param::get<BOOL>(v87, "build-charcategory");
-    v9 = MeCab::Param::get<BOOL>(v87, "build-sysdic");
-    v10 = MeCab::Param::get<BOOL>(v87, "build-model");
-    v11 = MeCab::Param::get<BOOL>(v87, "assign-user-dictionary-costs");
-    MeCab::Param::get<std::string>(v87, "userdic", &v83);
-    v82 = 0;
-    WORD2(v82) = 0;
-    BYTE6(v82) = 0;
+    MeCab::Param::get<std::string>(v89, "dicdir", &v88);
+    MeCab::Param::get<std::string>(v89, "outdir", &v87);
+    v4 = MeCab::Param::get<BOOL>(v89, "build-unknown");
+    v5 = MeCab::Param::get<BOOL>(v89, "build-matrix");
+    v6 = MeCab::Param::get<BOOL>(v89, "quantize");
+    v7 = MeCab::Param::get<BOOL>(v89, "compress-feature");
+    MeCab::Param::get<std::string>(v89, "language", &v86);
+    v8 = MeCab::Param::get<BOOL>(v89, "build-charcategory");
+    v9 = MeCab::Param::get<BOOL>(v89, "build-sysdic");
+    v10 = MeCab::Param::get<BOOL>(v89, "build-model");
+    v11 = MeCab::Param::get<BOOL>(v89, "assign-user-dictionary-costs");
+    MeCab::Param::get<std::string>(v89, "userdic", &v85);
+    v84 = 0;
+    WORD2(v84) = 0;
+    BYTE6(v84) = 0;
     if (v6)
     {
-      BYTE4(v82) = 1;
+      BYTE4(v84) = 1;
     }
 
     if (v7)
     {
-      *(&v82 + 5) = 257;
+      *(&v84 + 5) = 257;
     }
 
-    v81 = 0;
-    v80 = v81;
-    std::string::basic_string[abi:ne200100]<0>(&v77, "dicrc");
-    MeCab::create_filename(&v86, &v77, &v91);
-    if (SHIBYTE(v91.__end_) >= 0)
+    v83 = 0;
+    v82 = v83;
+    std::string::basic_string[abi:ne200100]<0>(&v79, "dicrc");
+    MeCab::create_filename(&v88, &v79, &v93);
+    if (SHIBYTE(v93.__end_) >= 0)
     {
-      first = &v91;
+      first = &v93;
     }
 
     else
     {
-      first = v91.__first_;
+      first = v93.__first_;
     }
 
-    if (!MeCab::Param::load(v87, first))
+    if (!MeCab::Param::load(v89, first))
     {
       v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_compiler.cpp", 73);
       v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "(", 1);
@@ -7450,9 +7419,9 @@ LABEL_123:
       v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "param.load(DCONF(DICRC))", 24);
       v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "] ", 2);
       v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "no such file or directory: ", 27);
-      std::string::basic_string[abi:ne200100]<0>(&v75, "dicrc");
+      std::string::basic_string[abi:ne200100]<0>(&v77, "dicrc");
       p_p = &__p;
-      MeCab::create_filename(&v86, &v75, &__p);
+      MeCab::create_filename(&v88, &v77, &__p);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
         p_p = __p.__r_.__value_.__r.__words[0];
@@ -7465,41 +7434,41 @@ LABEL_123:
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v75.__r_.__value_.__l.__data_);
+        operator delete(v77.__r_.__value_.__l.__data_);
       }
 
-      MeCab::die::~die(v73);
+      MeCab::die::~die(v75);
     }
 
-    if (SHIBYTE(v91.__end_) < 0)
+    if (SHIBYTE(v93.__end_) < 0)
     {
-      operator delete(v91.__first_);
+      operator delete(v93.__first_);
     }
 
-    if (SHIBYTE(v79) < 0)
+    if (SHIBYTE(v81) < 0)
     {
-      operator delete(v77);
+      operator delete(v79);
     }
 
-    v77 = 0;
-    v78 = 0;
     v79 = 0;
-    size = HIBYTE(v83.__r_.__value_.__r.__words[2]);
-    if ((v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v80 = 0;
+    v81 = 0;
+    size = HIBYTE(v85.__r_.__value_.__r.__words[2]);
+    if ((v85.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v83.__r_.__value_.__l.__size_;
+      size = v85.__r_.__value_.__l.__size_;
     }
 
     if (size)
     {
-      if (v89 != v88)
+      if (v91 != v90)
       {
-        v23 = 0xAAAAAAAAAAAAAAABLL * ((v89 - v88) >> 3);
+        v23 = 0xAAAAAAAAAAAAAAABLL * ((v91 - v90) >> 3);
         if (v23 <= 0xAAAAAAAAAAAAAAALL)
         {
-          std::vector<std::string>::__vallocate[abi:ne200100](&v77, v23);
+          std::vector<std::string>::__vallocate[abi:ne200100](&v79, v23);
         }
 
         std::vector<MeCab::RewritePattern>::__throw_length_error[abi:ne200100]();
@@ -7508,28 +7477,28 @@ LABEL_123:
 
     else
     {
-      if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v88.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v33 = &v86;
+        v33 = &v88;
       }
 
       else
       {
-        v33 = v86.__r_.__value_.__r.__words[0];
+        v33 = v88.__r_.__value_.__r.__words[0];
       }
 
-      MeCab::enum_csv_dictionaries(v33, &v77);
+      MeCab::enum_csv_dictionaries(v33, &v79);
     }
 
-    v34 = HIBYTE(v83.__r_.__value_.__r.__words[2]);
-    if ((v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v34 = HIBYTE(v85.__r_.__value_.__r.__words[2]);
+    if ((v85.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v34 = v83.__r_.__value_.__l.__size_;
+      v34 = v85.__r_.__value_.__l.__size_;
     }
 
     if (v34)
     {
-      if (v78 == v77)
+      if (v80 == v79)
       {
         v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_compiler.cpp", 73);
         v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "(", 1);
@@ -7538,64 +7507,74 @@ LABEL_123:
         v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "dic.size()", 10);
         v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "] ", 2);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "no dictionaries are specified", 29);
-        MeCab::die::~die(&v91);
+        MeCab::die::~die(&v93);
       }
 
-      LODWORD(v91.__first_) = 1;
-      MeCab::Param::set<int>(v87, "type", &v91, 1);
-      if (v11)
+      LODWORD(v93.__first_) = 1;
+      MeCab::Param::set<int>(v89, "type", &v93, 1);
+      if ((v85.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        MeCab::Dictionary::assignUserDictionaryCosts(v87);
-      }
-
-      MeCab::Dictionary::compile();
-    }
-
-    if (v4)
-    {
-LABEL_49:
-      std::string::basic_string[abi:ne200100]<0>(&__p, "char.def");
-      v41 = &v91;
-      MeCab::create_filename(&v86, &__p, &v91);
-      if (SHIBYTE(v91.__end_) < 0)
-      {
-        v41 = v91.__first_;
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(v73, "unk.def");
-      v42 = &v75;
-      MeCab::create_filename(&v86, v73, &v75);
-      if ((v75.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v42 = v75.__r_.__value_.__r.__words[0];
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(v71, "char.bin");
-      MeCab::create_filename(&v85, v71, &v72);
-      if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v44 = &v72;
+        v41 = &v85;
       }
 
       else
       {
-        v44 = v72.__r_.__value_.__r.__words[0];
+        v41 = v85.__r_.__value_.__r.__words[0];
       }
 
-      MeCab::CharProperty::compile(v41, v42, v44, v43);
+      if (v11)
+      {
+        MeCab::Dictionary::assignUserDictionaryCosts(v89, &v79, v41);
+      }
+
+      MeCab::Dictionary::compile(v89, &v79, v41);
+    }
+
+    if (v4)
+    {
+LABEL_52:
+      std::string::basic_string[abi:ne200100]<0>(&__p, "char.def");
+      v42 = &v93;
+      MeCab::create_filename(&v88, &__p, &v93);
+      if (SHIBYTE(v93.__end_) < 0)
+      {
+        v42 = v93.__first_;
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(v75, "unk.def");
+      v43 = &v77;
+      MeCab::create_filename(&v88, v75, &v77);
+      if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v43 = v77.__r_.__value_.__r.__words[0];
+      }
+
+      std::string::basic_string[abi:ne200100]<0>(v73, "char.bin");
+      MeCab::create_filename(&v87, v73, &v74);
+      if ((v74.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v45 = &v74;
+      }
+
+      else
+      {
+        v45 = v74.__r_.__value_.__r.__words[0];
+      }
+
+      MeCab::CharProperty::compile(v42, v43, v45, v44);
     }
 
     if (v5)
     {
       if (v8)
       {
-        goto LABEL_49;
+        goto LABEL_52;
       }
 
-      v56 = 1;
+      v57 = 1;
       if ((v10 & 1) == 0)
       {
-        goto LABEL_90;
+        goto LABEL_93;
       }
     }
 
@@ -7603,80 +7582,80 @@ LABEL_49:
     {
       if ((v8 & 1) != 0 || ((v9 | v10) & 1) == 0)
       {
-        goto LABEL_49;
+        goto LABEL_52;
       }
 
-      v56 = 0;
+      v57 = 0;
       if (!(v10 & 1 | ((v9 & 1) == 0)))
       {
-LABEL_90:
+LABEL_93:
         if (v9)
         {
-          goto LABEL_91;
+          goto LABEL_94;
         }
 
-LABEL_84:
-        if (v56)
+LABEL_87:
+        if (v57)
         {
           if (!v6)
           {
             std::string::basic_string[abi:ne200100]<0>(&__p, "matrix.def");
-            v66 = &v91;
-            MeCab::create_filename(&v86, &__p, &v91);
-            if (SHIBYTE(v91.__end_) < 0)
+            v68 = &v93;
+            MeCab::create_filename(&v88, &__p, &v93);
+            if (SHIBYTE(v93.__end_) < 0)
             {
-              v66 = v91.__first_;
+              v68 = v93.__first_;
             }
 
-            std::string::basic_string[abi:ne200100]<0>(v73, "matrix.bin");
-            MeCab::create_filename(&v85, v73, &v75);
-            if ((v75.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::string::basic_string[abi:ne200100]<0>(v75, "matrix.bin");
+            MeCab::create_filename(&v87, v75, &v77);
+            if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v68 = &v75;
+              v70 = &v77;
             }
 
             else
             {
-              v68 = v75.__r_.__value_.__r.__words[0];
+              v70 = v77.__r_.__value_.__r.__words[0];
             }
 
-            MeCab::Connector::compile(v66, v68, v67);
+            MeCab::Connector::compile(v68, v70, v69);
           }
 
           std::string::basic_string[abi:ne200100]<0>(&__p, "matrix.def");
-          v63 = &v91;
-          MeCab::create_filename(&v86, &__p, &v91);
-          if (SHIBYTE(v91.__end_) < 0)
+          v65 = &v93;
+          MeCab::create_filename(&v88, &__p, &v93);
+          if (SHIBYTE(v93.__end_) < 0)
           {
-            v63 = v91.__first_;
+            v65 = v93.__first_;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(v73, "matrix.bin");
-          MeCab::create_filename(&v85, v73, &v75);
-          if ((v75.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          std::string::basic_string[abi:ne200100]<0>(v75, "matrix.bin");
+          MeCab::create_filename(&v87, v75, &v77);
+          if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v65 = &v75;
+            v67 = &v77;
           }
 
           else
           {
-            v65 = v75.__r_.__value_.__r.__words[0];
+            v67 = v77.__r_.__value_.__r.__words[0];
           }
 
-          MeCab::QuantizedConnector::compile(v63, v65, v64);
-          if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
+          MeCab::QuantizedConnector::compile(v65, v67, v66);
+          if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v75.__r_.__value_.__l.__data_);
+            operator delete(v77.__r_.__value_.__l.__data_);
           }
 
-          if (v74 < 0)
+          if (v76 < 0)
           {
-            operator delete(v73[0]);
+            operator delete(v75[0]);
           }
 
-          if (SHIBYTE(v91.__end_) < 0)
+          if (SHIBYTE(v93.__end_) < 0)
           {
-            operator delete(v91.__first_);
+            operator delete(v93.__first_);
           }
 
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7686,18 +7665,8 @@ LABEL_84:
         }
 
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], "\ndone!\n", 7);
-        v91.__first_ = &v77;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v91);
-        if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v83.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v84.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v84.__r_.__value_.__l.__data_);
-        }
-
+        v93.__first_ = &v79;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v93);
         if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v85.__r_.__value_.__l.__data_);
@@ -7708,26 +7677,36 @@ LABEL_84:
           operator delete(v86.__r_.__value_.__l.__data_);
         }
 
-        goto LABEL_123;
+        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v87.__r_.__value_.__l.__data_);
+        }
+
+        if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v88.__r_.__value_.__l.__data_);
+        }
+
+        goto LABEL_129;
       }
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "model.def");
-    MeCab::create_filename(&v86, &__p, &v91);
-    if (SHIBYTE(v91.__end_) >= 0)
+    MeCab::create_filename(&v88, &__p, &v93);
+    if (SHIBYTE(v93.__end_) >= 0)
     {
-      v46 = &v91;
+      v47 = &v93;
     }
 
     else
     {
-      v46 = v91.__first_;
+      v47 = v93.__first_;
     }
 
-    v47 = MeCab::file_exists(v46, v45);
-    if (SHIBYTE(v91.__end_) < 0)
+    v48 = MeCab::file_exists(v47, v46);
+    if (SHIBYTE(v93.__end_) < 0)
     {
-      operator delete(v91.__first_);
+      operator delete(v93.__first_);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7735,51 +7714,51 @@ LABEL_84:
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v47)
+    if (v48)
     {
       std::string::basic_string[abi:ne200100]<0>(&__p, "model.def");
-      v48 = &v91;
-      MeCab::create_filename(&v86, &__p, &v91);
-      if (SHIBYTE(v91.__end_) < 0)
+      v49 = &v93;
+      MeCab::create_filename(&v88, &__p, &v93);
+      if (SHIBYTE(v93.__end_) < 0)
       {
-        v48 = v91.__first_;
+        v49 = v93.__first_;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v73, "model.bin");
-      MeCab::create_filename(&v85, v73, &v75);
-      if ((v75.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      std::string::basic_string[abi:ne200100]<0>(v75, "model.bin");
+      MeCab::create_filename(&v87, v75, &v77);
+      if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v50 = &v75;
+        v51 = &v77;
       }
 
       else
       {
-        v50 = v75.__r_.__value_.__r.__words[0];
+        v51 = v77.__r_.__value_.__r.__words[0];
       }
 
-      MeCab::FeatureIndex::compile(v87, v48, v50, v49);
+      MeCab::FeatureIndex::compile(v89, v49, v51, v50);
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "model.def");
-    v51 = &v91;
-    MeCab::create_filename(&v86, &__p, &v91);
-    if (SHIBYTE(v91.__end_) < 0)
+    v52 = &v93;
+    MeCab::create_filename(&v88, &__p, &v93);
+    if (SHIBYTE(v93.__end_) < 0)
     {
-      v51 = v91.__first_;
+      v52 = v93.__first_;
     }
 
-    v52 = strlen(v51);
-    v53 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], v51, v52);
-    v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v53, " is not found. skipped.", 23);
-    std::ios_base::getloc((v54 + *(*v54 - 24)));
-    v55 = std::locale::use_facet(&v75, MEMORY[0x29EDC93D0]);
-    (v55->__vftable[2].~facet_0)(v55, 10);
-    std::locale::~locale(&v75);
+    v53 = strlen(v52);
+    v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], v52, v53);
+    v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, " is not found. skipped.", 23);
+    std::ios_base::getloc((v55 + *(*v55 - 24)));
+    v56 = std::locale::use_facet(&v77, MEMORY[0x29EDC93D0]);
+    (v56->__vftable[2].~facet_0)(v56, 10);
+    std::locale::~locale(&v77);
     std::ostream::put();
     std::ostream::flush();
-    if (SHIBYTE(v91.__end_) < 0)
+    if (SHIBYTE(v93.__end_) < 0)
     {
-      operator delete(v91.__first_);
+      operator delete(v93.__first_);
     }
 
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -7789,49 +7768,59 @@ LABEL_84:
 
     if (v9)
     {
-LABEL_91:
-      if (v78 == v77)
+LABEL_94:
+      if (v80 == v79)
       {
-        v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_compiler.cpp", 73);
-        v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, "(", 1);
-        v59 = MEMORY[0x29C29A250](v58, 174);
-        v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v59, ") [", 3);
-        v61 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v60, "dic.size()", 10);
-        v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v61, "] ", 2);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, "no dictionaries are specified", 29);
-        MeCab::die::~die(&v91);
+        v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_compiler.cpp", 73);
+        v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, "(", 1);
+        v60 = MEMORY[0x29C29A250](v59, 174);
+        v61 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v60, ") [", 3);
+        v62 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v61, "dic.size()", 10);
+        v63 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v62, "] ", 2);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v63, "no dictionaries are specified", 29);
+        MeCab::die::~die(&v93);
       }
 
-      LODWORD(v91.__first_) = 0;
-      MeCab::Param::set<int>(v87, "type", &v91, 1);
+      LODWORD(v93.__first_) = 0;
+      MeCab::Param::set<int>(v89, "type", &v93, 1);
       std::string::basic_string[abi:ne200100]<0>(&__p, "sys.dic");
-      MeCab::create_filename(&v85, &__p, &v91);
-      MeCab::Dictionary::compile();
+      MeCab::create_filename(&v87, &__p, &v93);
+      if (SHIBYTE(v93.__end_) >= 0)
+      {
+        v64 = &v93;
+      }
+
+      else
+      {
+        v64 = v93.__first_;
+      }
+
+      MeCab::Dictionary::compile(v89, &v79, v64);
     }
 
-    goto LABEL_84;
+    goto LABEL_87;
   }
 
-  v24 = MeCab::whatlog::str(&v90);
-  std::string::basic_string[abi:ne200100]<0>(&v91, v24);
-  if (SHIBYTE(v91.__end_) >= 0)
+  v24 = MeCab::whatlog::str(&v92);
+  std::string::basic_string[abi:ne200100]<0>(&v93, v24);
+  if (SHIBYTE(v93.__end_) >= 0)
   {
-    v25 = &v91;
-  }
-
-  else
-  {
-    v25 = v91.__first_;
-  }
-
-  if (SHIBYTE(v91.__end_) >= 0)
-  {
-    end_high = HIBYTE(v91.__end_);
+    v25 = &v93;
   }
 
   else
   {
-    end_high = v91.__begin_;
+    v25 = v93.__first_;
+  }
+
+  if (SHIBYTE(v93.__end_) >= 0)
+  {
+    end_high = HIBYTE(v93.__end_);
+  }
+
+  else
+  {
+    end_high = v93.__begin_;
   }
 
   v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], v25, end_high);
@@ -7839,24 +7828,24 @@ LABEL_91:
   v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "MeCab: Yet Another Part-of-Speech and Morphological Analyzer\n\nCopyright(C) 2001-2012 Taku Kudo \nCopyright(C) 2004-2008 Nippon Telegraph and Telephone Corporation\n", 162);
   v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "\ntry '--help' for more information.", 35);
   std::ios_base::getloc((v30 + *(*v30 - 24)));
-  v31 = std::locale::use_facet(&v86, MEMORY[0x29EDC93D0]);
+  v31 = std::locale::use_facet(&v88, MEMORY[0x29EDC93D0]);
   (v31->__vftable[2].~facet_0)(v31, 10);
-  std::locale::~locale(&v86);
+  std::locale::~locale(&v88);
   std::ostream::put();
   std::ostream::flush();
-  if (SHIBYTE(v91.__end_) < 0)
+  if (SHIBYTE(v93.__end_) < 0)
   {
-    operator delete(v91.__first_);
+    operator delete(v93.__first_);
   }
 
   v32 = 0xFFFFFFFFLL;
-LABEL_124:
-  MeCab::Param::~Param(v87);
-  std::ios_base::Init::~Init(&v70);
+LABEL_130:
+  MeCab::Param::~Param(v89);
+  std::ios_base::Init::~Init(&v72);
   return v32;
 }
 
-void sub_29915F7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, __int16 a10, char a11, char a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, std::locale a61, uint64_t a62, int a63)
+void sub_29915F7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, __int16 a10, char a11, char a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void **a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, std::locale a61, uint64_t a62, int a63)
 {
   if (a30 < 0)
   {
@@ -7868,7 +7857,7 @@ void sub_29915F7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a19);
   }
 
-  if (*(v67 - 105) < 0)
+  if (*(v66 - 105) < 0)
   {
     operator delete(STACK[0x2B0]);
   }
@@ -7895,12 +7884,12 @@ void sub_29915F7D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a55);
   }
 
-  if (a66 < 0)
+  if (a65 < 0)
   {
     operator delete(a61.__locale_);
   }
 
-  MeCab::Param::~Param(&a67);
+  MeCab::Param::~Param(&a66);
   std::ios_base::Init::~Init(&a12);
   _Unwind_Resume(a1);
 }
@@ -7991,9 +7980,9 @@ void sub_29915FE9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MeCab::anonymous namespace::toLanguage(void **a1)
+uint64_t MeCab::anonymous namespace::toLanguage(char *a1)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A145E0E0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A145E0E0))
   {
     operator new();
@@ -8027,16 +8016,13 @@ LABEL_9:
 
   if (_MergedGlobals + 8 == v4)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = *(v4 + 56);
+    return *(v4 + 56);
   }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 void sub_2991600D4(_Unwind_Exception *a1)
@@ -8066,59 +8052,57 @@ void sub_2991600D4(_Unwind_Exception *a1)
 
 void MeCab::Param::set<int>(uint64_t a1, char *a2, unsigned int *a3, char a4)
 {
-  v28[2] = *MEMORY[0x29EDCA608];
-  std::string::basic_string[abi:ne200100]<0>(v18, a2);
-  if ((a4 & 1) != 0 || a1 + 16 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a1 + 8, v18))
+  v27[2] = *MEMORY[0x29EDCA608];
+  std::string::basic_string[abi:ne200100]<0>(v17, a2);
+  if ((a4 & 1) != 0 || a1 + 16 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a1 + 8, v17))
   {
     v7 = *a3;
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v22);
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v21);
     __p = 0;
-    v21 = 0uLL;
-    v8 = MEMORY[0x29C29A250](&v23, v7);
-    if ((*(v8 + *(*v8 - 24) + 32) & 5) != 0 || (v9 = std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v22, &__p), (*(v9 + *(*v9 - 24) + 32) & 5) != 0) || (v10 = std::ws[abi:ne200100]<char,std::char_traits<char>>(v22), (*(v10 + *(*v10 - 24) + 32) & 2) == 0))
+    v20 = 0uLL;
+    v8 = MEMORY[0x29C29A250](&v22, v7);
+    if ((*(v8 + *(*v8 - 24) + 32) & 5) != 0 || (v9 = std::operator>>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p), (*(v9 + *(*v9 - 24) + 32) & 5) != 0) || (v10 = std::ws[abi:ne200100]<char,std::char_traits<char>>(v21), (*(v10 + *(*v10 - 24) + 32) & 2) == 0))
     {
       operator new();
     }
 
-    v16 = __p;
-    v28[0] = v21;
-    *(v28 + 7) = *(&v21 + 7);
-    v17 = HIBYTE(v21);
-    v22[0] = *MEMORY[0x29EDC9528];
+    v15 = __p;
+    v27[0] = v20;
+    *(v27 + 7) = *(&v20 + 7);
+    v16 = HIBYTE(v20);
+    v21[0] = *MEMORY[0x29EDC9528];
     v11 = *(MEMORY[0x29EDC9528] + 72);
-    *(v22 + *(v22[0] - 24)) = *(MEMORY[0x29EDC9528] + 64);
-    v23 = v11;
-    v24 = MEMORY[0x29EDC9570] + 16;
-    if (v26 < 0)
+    *(v21 + *(v21[0] - 24)) = *(MEMORY[0x29EDC9528] + 64);
+    v22 = v11;
+    v23 = MEMORY[0x29EDC9570] + 16;
+    if (v25 < 0)
     {
-      operator delete(v25[7].__locale_);
+      operator delete(v24[7].__locale_);
     }
 
-    v24 = MEMORY[0x29EDC9568] + 16;
-    std::locale::~locale(v25);
+    v23 = MEMORY[0x29EDC9568] + 16;
+    std::locale::~locale(v24);
     std::iostream::~basic_iostream();
-    MEMORY[0x29C29A320](&v27);
-    v22[0] = v18;
-    v12 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 8, v18);
+    MEMORY[0x29C29A320](&v26);
+    v21[0] = v17;
+    v12 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), v17, &std::piecewise_construct, v21, &__p);
     v13 = v12;
     if (*(v12 + 79) < 0)
     {
-      operator delete(*(v12 + 56));
+      operator delete(v12[7]);
     }
 
-    v14 = v28[0];
-    *(v13 + 56) = v16;
-    *(v13 + 64) = v14;
-    *(v13 + 71) = *(v28 + 7);
-    *(v13 + 79) = v17;
+    v14 = v27[0];
+    v13[7] = v15;
+    v13[8] = v14;
+    *(v13 + 71) = *(v27 + 7);
+    *(v13 + 79) = v16;
   }
 
-  if (v19 < 0)
+  if (v18 < 0)
   {
-    operator delete(v18[0]);
+    operator delete(v17[0]);
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void sub_2991604BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23)
@@ -8155,16 +8139,16 @@ void MeCab::scoped_ptr<BOOL>::~scoped_ptr(void *a1)
   JUMPOUT(0x29C29A380);
 }
 
-void *std::map<std::string,MeCab::Language>::map[abi:ne200100](void *a1, void **a2, uint64_t a3)
+uint64_t **std::map<std::string,MeCab::Language>::map[abi:ne200100](uint64_t **a1, char *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a2;
-    v6 = &a2[4 * a3];
+    v6 = &a2[32 * a3];
     do
     {
       v7 = a1[1];
@@ -8181,7 +8165,7 @@ void *std::map<std::string,MeCab::Language>::map[abi:ne200100](void *a1, void **
           do
           {
             v9 = v7;
-            v7 = *(v7 + 8);
+            v7 = v7[1];
           }
 
           while (v7);
@@ -8211,7 +8195,7 @@ void *std::map<std::string,MeCab::Language>::map[abi:ne200100](void *a1, void **
               while (1)
               {
                 v13 = v7;
-                if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5, (v7 + 32)) & 0x80) == 0)
+                if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5, v7 + 32) & 0x80) == 0)
                 {
                   break;
                 }
@@ -8253,7 +8237,7 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v5 += 4;
+      v5 += 32;
     }
 
     while (v5 != v6);
@@ -8391,7 +8375,6 @@ void sub_299160A08(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
   if ((*(v9 + *(v11 - 24) + 36) & 1) == 0)
   {
     __cxa_end_catch();
-    v12 = *v9;
     JUMPOUT(0x2991609C8);
   }
 
@@ -8426,38 +8409,38 @@ void sub_299160B2C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MeCab::Dictionary::~Dictionary(MeCab::Dictionary *this)
+void MeCab::Dictionary::~Dictionary(std::locale *this)
 {
-  *this = &unk_2A1F357B0;
-  btrie_close(*(this + 45));
-  *(this + 45) = 0;
-  MeCab::Mmap<char>::close(this + 8);
-  marisa::Trie::~Trie((this + 728));
-  if (*(this + 719) < 0)
+  this->__locale_ = &unk_2A1F357B0;
+  btrie_close(this[45].__locale_);
+  this[45].__locale_ = 0;
+  MeCab::Mmap<char>::close(&this[1]);
+  marisa::Trie::~Trie(&this[91].__locale_);
+  if (SHIBYTE(this[89].__locale_) < 0)
   {
-    operator delete(*(this + 87));
+    operator delete(this[87].__locale_);
   }
 
   v2 = MEMORY[0x29EDC9538];
   v3 = *MEMORY[0x29EDC9538];
-  *(this + 54) = *MEMORY[0x29EDC9538];
-  *(this + *(v3 - 24) + 432) = *(v2 + 24);
-  *(this + 55) = MEMORY[0x29EDC9570] + 16;
-  if (*(this + 527) < 0)
+  this[54].__locale_ = *MEMORY[0x29EDC9538];
+  *(this + *(v3 - 24) + 432) = v2[3];
+  this[55].__locale_ = (MEMORY[0x29EDC9570] + 16);
+  if (SHIBYTE(this[65].__locale_) < 0)
   {
-    operator delete(*(this + 63));
+    operator delete(this[63].__locale_);
   }
 
-  *(this + 55) = MEMORY[0x29EDC9568] + 16;
+  this[55].__locale_ = (MEMORY[0x29EDC9568] + 16);
   std::locale::~locale(this + 56);
   std::ostream::~ostream();
-  MEMORY[0x29C29A320](this + 544);
-  if (*(this + 431) < 0)
+  MEMORY[0x29C29A320](&this[68]);
+  if (SHIBYTE(this[53].__locale_) < 0)
   {
-    operator delete(*(this + 51));
+    operator delete(this[51].__locale_);
   }
 
-  MeCab::Mmap<char>::~Mmap(this + 8);
+  MeCab::Mmap<char>::~Mmap(&this[1]);
 }
 
 {
@@ -8466,7 +8449,7 @@ void MeCab::Dictionary::~Dictionary(MeCab::Dictionary *this)
   JUMPOUT(0x29C29A380);
 }
 
-int *MeCab::Dictionary::commonPrefixSearch(uint64_t a1, unsigned __int8 *a2, unsigned int a3, uint64_t a4, unint64_t a5, uint8x8_t a6)
+unsigned int *MeCab::Dictionary::commonPrefixSearch(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, unint64_t a5, int8x8_t a6)
 {
   result = *(a1 + 360);
   if (result)
@@ -8656,62 +8639,62 @@ LABEL_12:
   return 1;
 }
 
-void MeCab::Dictionary::assignUserDictionaryCosts(const MeCab::Param *a1)
+void MeCab::Dictionary::assignUserDictionaryCosts(const MeCab::Param *a1, void *a2, const char *a3)
 {
-  v58 = *MEMORY[0x29EDCA608];
-  MeCab::Connector::Connector(v55);
-  v54[1] = 0;
-  v54[0] = 0;
-  memset(v51, 0, sizeof(v51));
+  v60 = *MEMORY[0x29EDCA608];
+  MeCab::Connector::Connector(v57);
+  v56[1] = 0;
+  v56[0] = 0;
+  memset(v53, 0, sizeof(v53));
+  v54 = 0;
+  v55 = v56;
+  MeCab::FeatureIndex::FeatureIndex(v50);
+  v50[0] = &unk_2A1F352E8;
+  MeCab::Mmap<char>::Mmap(v51);
   v52 = 0;
-  v53 = v54;
-  MeCab::FeatureIndex::FeatureIndex(v48);
-  v48[0] = &unk_2A1F352E8;
-  MeCab::Mmap<char>::Mmap(v49);
-  v50 = 0;
-  *&v49[344] = 0u;
-  v43[0] = 0;
-  v42 = v43;
-  v44[1] = 0;
-  v44[0] = 0;
-  v43[1] = 0;
-  v43[2] = v44;
-  v45 = 0u;
-  v46 = 0u;
+  *&v51[344] = 0u;
+  v45[0] = 0;
+  v44 = v45;
+  v46[1] = 0;
+  v46[0] = 0;
+  v45[1] = 0;
+  v45[2] = v46;
   v47 = 0u;
-  MeCab::CharProperty::CharProperty(v41);
-  MeCab::Param::get<std::string>(a1, "dicdir", &v40);
+  v48 = 0u;
+  v49 = 0u;
+  MeCab::CharProperty::CharProperty(v43);
+  MeCab::Param::get<std::string>(a1, "dicdir", &v42);
   std::string::basic_string[abi:ne200100]<0>(__p, "matrix.def");
-  MeCab::create_filename(&v40, __p, &v39);
-  if (v57 < 0)
+  MeCab::create_filename(&v42, __p, &v41);
+  if (v59 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "matrix.bin");
-  MeCab::create_filename(&v40, __p, &v38);
-  if (v57 < 0)
+  MeCab::create_filename(&v42, __p, &v40);
+  if (v59 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "left-id.def");
-  MeCab::create_filename(&v40, __p, &v37);
-  if (v57 < 0)
+  MeCab::create_filename(&v42, __p, &v39);
+  if (v59 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "right-id.def");
-  MeCab::create_filename(&v40, __p, &v36);
-  if (v57 < 0)
+  MeCab::create_filename(&v42, __p, &v38);
+  if (v59 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "rewrite.def");
-  MeCab::create_filename(&v40, __p, &v35);
-  if (v57 < 0)
+  MeCab::create_filename(&v42, __p, &v37);
+  if (v59 < 0)
   {
     operator delete(__p[0]);
   }
@@ -8719,56 +8702,56 @@ void MeCab::Dictionary::assignUserDictionaryCosts(const MeCab::Param *a1)
   MeCab::Param::get<std::string>(a1, "dictionary-charset", &__str);
   if (MeCab::Param::get<int>(a1, "cost-factor") <= 0)
   {
-    v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
-    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "(", 1);
-    v4 = MEMORY[0x29C29A250](v3, 257);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ") [", 3);
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "factor > 0", 10);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "cost factor needs to be positive value", 38);
+    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
+    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "(", 1);
+    v6 = MEMORY[0x29C29A250](v5, 257);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ") [", 3);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "factor > 0", 10);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "cost factor needs to be positive value", 38);
     MeCab::die::~die(__p);
   }
 
-  MeCab::Param::get<std::string>(a1, "config-charset", &v33);
-  size = HIBYTE(v33.__r_.__value_.__r.__words[2]);
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  MeCab::Param::get<std::string>(a1, "config-charset", &v35);
+  size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v33.__r_.__value_.__l.__size_;
+    size = v35.__r_.__value_.__l.__size_;
   }
 
   if (!size)
   {
-    std::string::operator=(&v33, &__str);
+    std::string::operator=(&v35, &__str);
   }
 
-  v9 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+  v11 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v9 = __str.__r_.__value_.__l.__size_;
+    v11 = __str.__r_.__value_.__l.__size_;
   }
 
-  if (!v9)
+  if (!v11)
   {
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "(", 1);
-    v12 = MEMORY[0x29C29A250](v11, 264);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ") [", 3);
-    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "!from.empty()", 13);
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "input dictionary charset is empty", 33);
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "(", 1);
+    v14 = MEMORY[0x29C29A250](v13, 264);
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ") [", 3);
+    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "!from.empty()", 13);
+    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "input dictionary charset is empty", 33);
     MeCab::die::~die(__p);
   }
 
-  v32[0] = &unk_2A1F35220;
-  v32[1] = 0;
-  if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v34[0] = &unk_2A1F35220;
+  v34[1] = 0;
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v33;
+    v18 = &v35;
   }
 
   else
   {
-    v16 = v33.__r_.__value_.__r.__words[0];
+    v18 = v35.__r_.__value_.__r.__words[0];
   }
 
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -8781,73 +8764,73 @@ void MeCab::Dictionary::assignUserDictionaryCosts(const MeCab::Param *a1)
     p_str = __str.__r_.__value_.__r.__words[0];
   }
 
-  if (!MeCab::Iconv::open(v32, v16, p_str))
+  if (!MeCab::Iconv::open(v34, v18, p_str))
   {
-    v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "(", 1);
-    v20 = MEMORY[0x29C29A250](v19, 267);
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, ") [", 3);
-    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "config_iconv.open(config_charset.c_str(), from.c_str())", 55);
-    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "] ", 2);
-    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "iconv_open() failed with from=", 30);
-    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
+    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "(", 1);
+    v22 = MEMORY[0x29C29A250](v21, 267);
+    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ") [", 3);
+    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "config_iconv.open(config_charset.c_str(), from.c_str())", 55);
+    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "] ", 2);
+    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "iconv_open() failed with from=", 30);
+    if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v25 = &v33;
+      v27 = &v35;
     }
 
     else
     {
-      v25 = v33.__r_.__value_.__r.__words[0];
+      v27 = v35.__r_.__value_.__r.__words[0];
     }
 
-    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v26 = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+      v28 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v26 = v33.__r_.__value_.__l.__size_;
+      v28 = v35.__r_.__value_.__l.__size_;
     }
 
-    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v25, v26);
-    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, " to=", 4);
+    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, v27, v28);
+    v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, " to=", 4);
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v29 = &__str;
+      v31 = &__str;
     }
 
     else
     {
-      v29 = __str.__r_.__value_.__r.__words[0];
+      v31 = __str.__r_.__value_.__r.__words[0];
     }
 
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v30 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+      v32 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v30 = __str.__r_.__value_.__l.__size_;
+      v32 = __str.__r_.__value_.__l.__size_;
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, v29, v30);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, v31, v32);
     MeCab::die::~die(__p);
   }
 
-  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v31 = &v35;
+    v33 = &v37;
   }
 
   else
   {
-    v31 = v35.__r_.__value_.__r.__words[0];
+    v33 = v37.__r_.__value_.__r.__words[0];
   }
 
-  MeCab::DictionaryRewriter::open(v51, v31, v32);
-  MeCab::DecoderFeatureIndex::open(v48, a1);
+  MeCab::DictionaryRewriter::open(v53, v33, v34);
+  MeCab::DecoderFeatureIndex::open(v50, a1);
 }
 
 void sub_299162534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, void *a49, uint64_t a50, int a51, __int16 a52, char a53, char a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, void *a61, uint64_t a62, int a63)
@@ -8872,27 +8855,27 @@ void sub_299162534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a55);
   }
 
-  if (a66 < 0)
+  if (a65 < 0)
   {
     operator delete(a61);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
   {
-    operator delete(a67);
+    operator delete(a66);
   }
 
-  if (a74 < 0)
+  if (a69 < 0)
   {
-    operator delete(a73);
+    operator delete(a68);
   }
 
-  if (a76 < 0)
+  if (a71 < 0)
   {
-    operator delete(a75);
+    operator delete(a70);
   }
 
-  MeCab::CharProperty::~CharProperty(&a77);
+  MeCab::CharProperty::~CharProperty(&a72);
   if (SLOBYTE(STACK[0x4A7]) < 0)
   {
     operator delete(STACK[0x490]);
@@ -8913,7 +8896,7 @@ void sub_299162534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   MeCab::Mmap<char>::~Mmap(&STACK[0x600]);
   MeCab::FeatureIndex::~FeatureIndex(&STACK[0x4A8]);
-  std::__tree<std::__value_type<std::string,MeCab::FeatureSet>,std::__map_value_compare<std::string,std::__value_type<std::string,MeCab::FeatureSet>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MeCab::FeatureSet>>>::destroy(v77 + 72, STACK[0x7D0]);
+  std::__tree<std::__value_type<std::string,MeCab::FeatureSet>,std::__map_value_compare<std::string,std::__value_type<std::string,MeCab::FeatureSet>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MeCab::FeatureSet>>>::destroy(v72 + 72, STACK[0x7D0]);
   STACK[0x4A8] = &STACK[0x7B0];
   std::vector<MeCab::RewritePattern>::__destroy_vector::operator()[abi:ne200100](&STACK[0x4A8]);
   STACK[0x4A8] = &STACK[0x798];
@@ -8924,7 +8907,7 @@ void sub_299162534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MeCab::anonymous namespace::calcCost(unsigned __int8 *a1, void **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void MeCab::anonymous namespace::calcCost(unsigned __int8 *a1, char *a2, int a3, uint64_t a4, uint64_t *a5, uint64_t a6)
 {
   if (a4)
   {
@@ -8932,99 +8915,109 @@ void MeCab::anonymous namespace::calcCost(unsigned __int8 *a1, void **a2, uint64
     {
       if (!a6)
       {
-        v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
-        v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "(", 1);
-        v18 = MEMORY[0x29C29A250](v17, 83);
-        v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ") [", 3);
-        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "property", 8);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "] ", 2);
-        MeCab::die::~die(v33);
+        v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
+        v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "(", 1);
+        v19 = MEMORY[0x29C29A250](v18, 83);
+        v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, ") [", 3);
+        v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "property", 8);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "] ", 2);
+        MeCab::die::~die(v35);
       }
 
-      v32 = 0;
-      v36 = 0;
-      v34 = v37;
-      v31 = v37;
-      v37[2] = &v30;
-      v37[0] = v33;
-      v21 = a1[23];
-      v22 = *(a1 + 1);
-      v23 = v21 < 0;
-      if (v21 >= 0)
+      v34 = 0;
+      v38 = 0;
+      v36 = v39;
+      v33 = v39;
+      v39[2] = &v32;
+      v39[0] = v35;
+      v22 = a1[23];
+      v23 = *(a1 + 1);
+      v24 = v22 < 0;
+      if (v22 >= 0)
       {
-        v24 = a1;
+        v25 = a1;
       }
 
       else
       {
-        v24 = *a1;
+        v25 = *a1;
       }
 
-      if (!v23)
+      if (!v24)
       {
-        v22 = a1[23];
+        v23 = a1[23];
       }
 
       if ((*(a6 + 384) - 3) > 2)
       {
-        v26 = *v24;
-        if (*v24 < 0)
+        v27 = *v25;
+        if (*v25 < 0)
         {
-          if (v22 >= 2 && (v26 & 0xE0) == 0xC0)
+          if (v23 >= 2 && (v27 & 0xE0) == 0xC0)
           {
-            v25 = v24[1] & 0x3F | ((v26 & 0x1F) << 6);
+            v26 = v25[1] & 0x3F | ((v27 & 0x1F) << 6);
           }
 
           else
           {
-            v25 = 0;
-            if (v22 >= 3 && (v26 & 0xF0) == 0xE0)
+            v26 = 0;
+            if (v23 >= 3 && (v27 & 0xF0) == 0xE0)
             {
-              v25 = (v26 << 12) | ((v24[1] & 0x3F) << 6) | v24[2] & 0x3F;
+              v26 = (v27 << 12) | ((v25[1] & 0x3F) << 6) | v25[2] & 0x3F;
             }
           }
         }
 
         else
         {
-          v25 = *v24;
+          v26 = *v25;
         }
       }
 
-      else if (v22 < 2)
+      else if (v23 < 2)
       {
-        v25 = 0;
+        v26 = 0;
       }
 
       else
       {
-        v25 = *v24;
+        v26 = *v25;
       }
 
-      v35 = *(*(a6 + 376) + 4 * v25) >> 18;
-      memset(&v29, 0, sizeof(v29));
-      memset(&v28, 0, sizeof(v28));
+      v37 = *(*(a6 + 376) + 4 * v26) >> 18;
+      memset(&v31, 0, sizeof(v31));
+      memset(&v30, 0, sizeof(v30));
       memset(&__p, 0, sizeof(__p));
-      MeCab::DictionaryRewriter::rewrite2(a5, a2, &v29, &v28, &__p);
-      MeCab::FeatureIndex::buildUnigramFeature();
+      MeCab::DictionaryRewriter::rewrite2(a5, a2, &v31, &v30, &__p);
+      if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v28 = &v31;
+      }
+
+      else
+      {
+        v28 = v31.__r_.__value_.__r.__words[0];
+      }
+
+      MeCab::FeatureIndex::buildUnigramFeature(a4, v39, v28);
     }
 
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
-    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "(", 1);
-    v13 = MEMORY[0x29C29A250](v12, 82);
-    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, ") [", 3);
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "rewriter", 8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "] ", 2);
-    MeCab::die::~die(v33);
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "(", 1);
+    v14 = MEMORY[0x29C29A250](v13, 82);
+    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ") [", 3);
+    v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "rewriter", 8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "] ", 2);
+    MeCab::die::~die(v35);
   }
 
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "(", 1);
-  v8 = MEMORY[0x29C29A250](v7, 81);
-  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") [", 3);
-  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "fi", 2);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "] ", 2);
-  MeCab::die::~die(v33);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "(", 1);
+  v9 = MEMORY[0x29C29A250](v8, 81);
+  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ") [", 3);
+  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "fi", 2);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "] ", 2);
+  MeCab::die::~die(v35);
 }
 
 void sub_299162D98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
@@ -9047,86 +9040,84 @@ void sub_299162D98(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MeCab::Dictionary::compile()
+void MeCab::Dictionary::compile(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = MEMORY[0x2A1C7C4A8]();
-  v2 = v1;
-  v3 = v0;
-  v106 = *MEMORY[0x29EDCA608];
-  MeCab::Connector::Connector(v102);
-  v100 = &unk_2A1F35620;
-  v101 = 0;
-  v98 = &unk_2A1F35640;
-  v99 = 0;
-  v96 = &unk_2A1F35D18;
-  v97 = 0;
-  v94 = &unk_2A1F355C0;
-  v95 = 0;
-  v92 = &unk_2A1F35600;
-  v93 = 0;
-  v90 = &unk_2A1F35D78;
-  v91 = 0;
-  v88 = &unk_2A1F35680;
-  v89 = 0;
-  v86 = &unk_2A1F35D48;
-  v87 = 0;
-  MeCab::Param::get<std::string>(v3, "dicdir", &v85);
+  v3 = MEMORY[0x2A1C7C4A8](a1, a2, a3);
+  v103 = *MEMORY[0x29EDCA608];
+  MeCab::Connector::Connector(v99);
+  v97 = &unk_2A1F35620;
+  v98 = 0;
+  v95 = &unk_2A1F35640;
+  v96 = 0;
+  v93 = &unk_2A1F35D18;
+  v94 = 0;
+  v91 = &unk_2A1F355C0;
+  v92 = 0;
+  v89 = &unk_2A1F35600;
+  v90 = 0;
+  v87 = &unk_2A1F35D78;
+  v88 = 0;
+  v85 = &unk_2A1F35680;
+  v86 = 0;
+  v83 = &unk_2A1F35D48;
+  v84 = 0;
+  MeCab::Param::get<std::string>(v3, "dicdir", &v82);
   std::string::basic_string[abi:ne200100]<0>(&__dst, "matrix.def");
-  MeCab::create_filename(&v85, &__dst, &v84);
-  if (v105 < 0)
+  MeCab::create_filename(&v82, &__dst, &v81);
+  if (v102 < 0)
   {
     operator delete(__dst.__locale_);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__dst, "matrix.bin");
-  MeCab::create_filename(&v85, &__dst, &v83);
-  if (v105 < 0)
+  MeCab::create_filename(&v82, &__dst, &v80);
+  if (v102 < 0)
   {
     operator delete(__dst.__locale_);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__dst, "left-id.def");
-  MeCab::create_filename(&v85, &__dst, &v82);
-  if (v105 < 0)
+  MeCab::create_filename(&v82, &__dst, &v79);
+  if (v102 < 0)
   {
     operator delete(__dst.__locale_);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__dst, "right-id.def");
-  MeCab::create_filename(&v85, &__dst, &v81);
-  if (v105 < 0)
+  MeCab::create_filename(&v82, &__dst, &v78);
+  if (v102 < 0)
   {
     operator delete(__dst.__locale_);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__dst, "rewrite.def");
-  MeCab::create_filename(&v85, &__dst, &v80);
-  if (v105 < 0)
+  MeCab::create_filename(&v82, &__dst, &v77);
+  if (v102 < 0)
   {
     operator delete(__dst.__locale_);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__dst, "pos-id.def");
-  MeCab::create_filename(&v85, &__dst, &v79);
-  if (v105 < 0)
+  MeCab::create_filename(&v82, &__dst, &v76);
+  if (v102 < 0)
   {
     operator delete(__dst.__locale_);
   }
 
-  v77 = 0;
-  v78 = 0;
-  v73 = 0;
   v74 = 0;
   v75 = 0;
-  v76 = 0;
+  v70 = 0;
+  v71 = 0;
   v72 = 0;
-  memset(&v71, 0, sizeof(v71));
-  memset(&v70, 0, sizeof(v70));
+  v73 = 0;
+  v69 = 0;
+  memset(&v68, 0, sizeof(v68));
+  memset(&v67, 0, sizeof(v67));
   MeCab::Param::get<std::string>(v3, "dictionary-charset", &__str);
-  MeCab::Param::get<std::string>(v3, "charset", &v68);
+  MeCab::Param::get<std::string>(v3, "charset", &v65);
   MeCab::Param::get<BOOL>(v3, "wakati");
-  v67 = MeCab::Param::get<int>(v3, "type");
-  MeCab::Param::get<std::string>(v3, "node-format", &v66);
+  v64 = MeCab::Param::get<int>(v3, "type");
+  MeCab::Param::get<std::string>(v3, "node-format", &v63);
   if (MeCab::Param::get<int>(v3, "cost-factor") <= 0)
   {
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
@@ -9139,16 +9130,16 @@ void MeCab::Dictionary::compile()
     MeCab::die::~die(&__dst);
   }
 
-  MeCab::Param::get<std::string>(v3, "config-charset", &v65);
-  size = HIBYTE(v65.__r_.__value_.__r.__words[2]);
-  if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  MeCab::Param::get<std::string>(v3, "config-charset", &v62);
+  size = HIBYTE(v62.__r_.__value_.__r.__words[2]);
+  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v65.__r_.__value_.__l.__size_;
+    size = v62.__r_.__value_.__l.__size_;
   }
 
   if (!size)
   {
-    std::string::operator=(&v65, &__str);
+    std::string::operator=(&v62, &__str);
   }
 
   v11 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
@@ -9169,10 +9160,10 @@ void MeCab::Dictionary::compile()
     MeCab::die::~die(&__dst);
   }
 
-  v18 = HIBYTE(v68.__r_.__value_.__r.__words[2]);
-  if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v18 = HIBYTE(v65.__r_.__value_.__r.__words[2]);
+  if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v18 = v68.__r_.__value_.__l.__size_;
+    v18 = v65.__r_.__value_.__l.__size_;
   }
 
   if (!v18)
@@ -9187,17 +9178,10 @@ void MeCab::Dictionary::compile()
     MeCab::die::~die(&__dst);
   }
 
-  v25 = *v2;
-  v26 = v2[4];
-  if (v2[5] == 1)
-  {
-    v27 = v2[6] == 1;
-  }
-
-  marisa::Trie::Trie(&v63);
-  marisa::Agent::Agent(&v64);
-  v62[0] = &unk_2A1F35220;
-  memset(&v62[1], 0, 32);
+  marisa::Trie::Trie(&v60);
+  marisa::Agent::Agent(&v61);
+  v59[0] = &unk_2A1F35220;
+  memset(&v59[1], 0, 32);
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_str = &__str;
@@ -9208,175 +9192,175 @@ void MeCab::Dictionary::compile()
     p_str = __str.__r_.__value_.__r.__words[0];
   }
 
-  if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v29 = &v68;
+    v26 = &v65;
   }
 
   else
   {
-    v29 = v68.__r_.__value_.__r.__words[0];
+    v26 = v65.__r_.__value_.__r.__words[0];
   }
 
-  if (!MeCab::Iconv::open(v62, p_str, v29))
+  if (!MeCab::Iconv::open(v59, p_str, v26))
   {
-    v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
-    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "(", 1);
-    v32 = MEMORY[0x29C29A250](v31, 385);
-    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, ") [", 3);
-    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, "iconv.open(from.c_str(), to.c_str())", 36);
-    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "] ", 2);
-    v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "iconv_open() failed with from=", 30);
+    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
+    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "(", 1);
+    v29 = MEMORY[0x29C29A250](v28, 385);
+    v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, ") [", 3);
+    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "iconv.open(from.c_str(), to.c_str())", 36);
+    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "] ", 2);
+    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "iconv_open() failed with from=", 30);
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v37 = &__str;
+      v34 = &__str;
     }
 
     else
     {
-      v37 = __str.__r_.__value_.__r.__words[0];
+      v34 = __str.__r_.__value_.__r.__words[0];
     }
 
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v38 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+      v35 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v38 = __str.__r_.__value_.__l.__size_;
+      v35 = __str.__r_.__value_.__l.__size_;
     }
 
-    v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, v37, v38);
-    v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, " to=", 4);
-    if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, v34, v35);
+    v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, " to=", 4);
+    if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v41 = &v68;
+      v38 = &v65;
     }
 
     else
     {
-      v41 = v68.__r_.__value_.__r.__words[0];
+      v38 = v65.__r_.__value_.__r.__words[0];
     }
 
-    if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v42 = HIBYTE(v68.__r_.__value_.__r.__words[2]);
+      v39 = HIBYTE(v65.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v42 = v68.__r_.__value_.__l.__size_;
+      v39 = v65.__r_.__value_.__l.__size_;
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, v41, v42);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, v38, v39);
     MeCab::die::~die(&__dst);
   }
 
-  v61[0] = &unk_2A1F35220;
-  v61[1] = 0;
-  if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v58[0] = &unk_2A1F35220;
+  v58[1] = 0;
+  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v43 = &v65;
+    v40 = &v62;
   }
 
   else
   {
-    v43 = v65.__r_.__value_.__r.__words[0];
+    v40 = v62.__r_.__value_.__r.__words[0];
   }
 
   if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v44 = &__str;
+    v41 = &__str;
   }
 
   else
   {
-    v44 = __str.__r_.__value_.__r.__words[0];
+    v41 = __str.__r_.__value_.__r.__words[0];
   }
 
-  if (!MeCab::Iconv::open(v61, v43, v44))
+  if (!MeCab::Iconv::open(v58, v40, v41))
   {
-    v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
-    v46 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, "(", 1);
-    v47 = MEMORY[0x29C29A250](v46, 389);
-    v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, ") [", 3);
-    v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, "config_iconv.open(config_charset.c_str(), from.c_str())", 55);
-    v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, "] ", 2);
-    v51 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, "iconv_open() failed with from=", 30);
-    if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary.cpp", 64);
+    v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "(", 1);
+    v44 = MEMORY[0x29C29A250](v43, 389);
+    v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, ") [", 3);
+    v46 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, "config_iconv.open(config_charset.c_str(), from.c_str())", 55);
+    v47 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v46, "] ", 2);
+    v48 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v47, "iconv_open() failed with from=", 30);
+    if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v52 = &v65;
+      v49 = &v62;
     }
 
     else
     {
-      v52 = v65.__r_.__value_.__r.__words[0];
+      v49 = v62.__r_.__value_.__r.__words[0];
     }
 
-    if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v53 = HIBYTE(v65.__r_.__value_.__r.__words[2]);
+      v50 = HIBYTE(v62.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v53 = v65.__r_.__value_.__l.__size_;
+      v50 = v62.__r_.__value_.__l.__size_;
     }
 
-    v54 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, v52, v53);
-    v55 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, " to=", 4);
+    v51 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, v49, v50);
+    v52 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, " to=", 4);
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v56 = &__str;
+      v53 = &__str;
     }
 
     else
     {
-      v56 = __str.__r_.__value_.__r.__words[0];
+      v53 = __str.__r_.__value_.__r.__words[0];
     }
 
     if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v57 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+      v54 = HIBYTE(__str.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v57 = __str.__r_.__value_.__l.__size_;
+      v54 = __str.__r_.__value_.__l.__size_;
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, v56, v57);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v52, v53, v54);
     MeCab::die::~die(&__dst);
   }
 
-  v58 = HIBYTE(v66.__r_.__value_.__r.__words[2]);
-  if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v55 = HIBYTE(v63.__r_.__value_.__r.__words[2]);
+  if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v58 = v66.__r_.__value_.__l.__size_;
+    v55 = v63.__r_.__value_.__l.__size_;
   }
 
-  if (v58)
+  if (v55)
   {
     operator new();
   }
 
-  if ((v84.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v81.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v59 = &v84;
+    v56 = &v81;
   }
 
   else
   {
-    v59 = v84.__r_.__value_.__r.__words[0];
+    v56 = v81.__r_.__value_.__r.__words[0];
   }
 
-  if (!MeCab::Connector::openText(v102, v59))
+  if (!MeCab::Connector::openText(v99, v56))
   {
-    v60 = (v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v83 : v83.__r_.__value_.__r.__words[0];
-    if ((MeCab::Connector::open(v102, v60, "r") & 1) == 0)
+    v57 = (v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v80 : v80.__r_.__value_.__r.__words[0];
+    if ((MeCab::Connector::open(v99, v57, "r") & 1) == 0)
     {
-      v103 = 65537;
+      v100 = 65537;
     }
   }
 
@@ -9385,7 +9369,7 @@ void MeCab::Dictionary::compile()
 
 void sub_299166954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62, void **a63)
 {
-  MEMORY[0x29C29A220](&STACK[0x800]);
+  MEMORY[0x29C29A220](&STACK[0x800], a2, a3, a4, a5, a6, a7, a8);
   std::ofstream::~ofstream(&STACK[0x810], MEMORY[0x29EDC9520]);
   MEMORY[0x29C29A320](&STACK[0x9B0]);
   if (a42 < 0)
@@ -9393,9 +9377,9 @@ void sub_299166954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (*(v75 + 23) < 0)
+  if (*(v70 + 23) < 0)
   {
-    operator delete(*v75);
+    operator delete(*v70);
   }
 
   if (a48)
@@ -9421,15 +9405,15 @@ void sub_299166954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   a63 = *MEMORY[0x29EDC9530];
   *(&a63 + *(a63 - 3)) = *(MEMORY[0x29EDC9530] + 24);
   a65 = MEMORY[0x29EDC9570] + 16;
-  if (a73 < 0)
+  if (a68 < 0)
   {
-    operator delete(a72);
+    operator delete(a67);
   }
 
   a65 = MEMORY[0x29EDC9568] + 16;
   std::locale::~locale(&a66);
   std::istream::~istream();
-  MEMORY[0x29C29A320](&a74);
+  MEMORY[0x29C29A320](&a69);
   MeCab::Iconv::~Iconv(&STACK[0x298]);
   MeCab::Iconv::~Iconv(&STACK[0x2A8]);
   a63 = &STACK[0x2B8];
@@ -9505,40 +9489,40 @@ void sub_299166954(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x468]);
   }
 
-  v74[14] = a18;
-  v77 = v74[15];
-  if (v77)
+  v69[14] = a18;
+  v72 = v69[15];
+  if (v72)
   {
-    (*(*v77 + 8))(v77);
+    (*(*v72 + 8))(v72);
   }
 
-  v74[16] = a14;
-  v78 = v74[17];
-  if (v78)
+  v69[16] = a14;
+  v73 = v69[17];
+  if (v73)
   {
-    (*(*v78 + 8))(v78);
+    (*(*v73 + 8))(v73);
   }
 
-  v74[18] = a15;
-  v79 = v74[19];
-  if (v79)
+  v69[18] = a15;
+  v74 = v69[19];
+  if (v74)
   {
-    (*(*v79 + 312))(v79);
+    (*(*v74 + 312))(v74);
   }
 
-  v74[20] = a16;
-  v80 = v74[21];
-  if (v80)
+  v69[20] = a16;
+  v75 = v69[21];
+  if (v75)
   {
-    (*(*v80 + 8))(v80);
+    (*(*v75 + 8))(v75);
   }
 
   MeCab::scoped_ptr<MeCab::ContextID>::~scoped_ptr(&STACK[0x530]);
-  v74[24] = a17;
-  v81 = v74[25];
-  if (v81)
+  v69[24] = a17;
+  v76 = v69[25];
+  if (v76)
   {
-    (*(*v81 + 40))(v81);
+    (*(*v76 + 40))(v76);
   }
 
   MeCab::scoped_ptr<MeCab::POSIDGenerator>::~scoped_ptr(&STACK[0x550]);
@@ -9578,7 +9562,7 @@ uint64_t MeCab::scoped_ptr<MeCab::DictionaryRewriter>::reset(uint64_t result, ui
   return result;
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -9627,13 +9611,13 @@ void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-void std::vector<unsigned int>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+void std::vector<unsigned int>::push_back[abi:ne200100](uint64_t a1, int *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -9786,7 +9770,7 @@ void marisa::Keyset::~Keyset(marisa::Keyset *this)
   marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(this);
 }
 
-void std::vector<std::pair<std::string,mecab_token_t *>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::pair<std::string,mecab_token_t *>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -9904,4 +9888,16 @@ void *MeCab::scoped_ptr<MeCab::ContextID>::~scoped_ptr(void *a1)
   }
 
   return a1;
+}
+
+void MeCab::scoped_ptr<MeCab::Writer>::~scoped_ptr(void *a1)
+{
+  *a1 = &unk_2A1F35600;
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 8))(v1);
+  }
+
+  JUMPOUT(0x29C29A380);
 }

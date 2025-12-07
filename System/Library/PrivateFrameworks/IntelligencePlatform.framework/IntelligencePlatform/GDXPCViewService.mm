@@ -1,8 +1,11 @@
 @interface GDXPCViewService
+- (BOOL)performUpdateForViewNames:(id)names useCase:(id)case includeDependencies:(BOOL)dependencies error:(id *)error;
 - (BOOL)reportSQLiteErrorForViewName:(id)name sqliteErrorCode:(int64_t)code useCase:(id)case error:(id *)error;
 - (BOOL)reportUnknownErrorForViewName:(id)name useCase:(id)case error:(id *)error;
 - (GDXPCViewService)init;
 - (id)accessInfoForViewName:(id)name useCase:(id)case error:(id *)error;
+- (id)accessTokenForFeaturesWithIsSandboxed:(BOOL)sandboxed useCase:(id)case error:(id *)error;
+- (id)accessTokenForViewName:(id)name isSandboxed:(BOOL)sandboxed useCase:(id)case error:(id *)error;
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
 - (void)dealloc;
 - (void)locked_establishConnection;
@@ -27,8 +30,273 @@
 
 - (BOOL)reportSQLiteErrorForViewName:(id)name sqliteErrorCode:(int64_t)code useCase:(id)case error:(id *)error
 {
+  v32 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  caseCopy = case;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_1ABF20110;
+  v22 = sub_1ABF20120;
+  v23 = 0;
+  v12 = GDXPCLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v29 = nameCopy;
+    v30 = 2048;
+    codeCopy = code;
+    _os_log_impl(&dword_1ABA78000, v12, OS_LOG_TYPE_DEFAULT, "GDXPCViewService: reportSQLiteErrorForViewName called (viewName=%@) (code=%lld).", buf, 0x16u);
+  }
+
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1ABF20128;
+  v17[3] = &unk_1E79628C8;
+  v17[4] = &v18;
+  v13 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF201F4;
+  v16[3] = &unk_1E79628A0;
+  v16[4] = &v24;
+  v16[5] = &v18;
+  [v13 reportSQLiteErrorForViewName:nameCopy sqliteErrorCode:code useCase:caseCopy completion:v16];
+
+  v14 = *(v25 + 24);
+  if (error && (v25[3] & 1) == 0)
+  {
+    *error = v19[5];
+    v14 = *(v25 + 24);
+  }
+
+  _Block_object_dispose(&v18, 8);
+
+  _Block_object_dispose(&v24, 8);
+  return v14 & 1;
+}
+
+- (BOOL)reportUnknownErrorForViewName:(id)name useCase:(id)case error:(id *)error
+{
+  v28 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  caseCopy = case;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_1ABF20110;
+  v20 = sub_1ABF20120;
+  v21 = 0;
+  v10 = GDXPCLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v27 = nameCopy;
+    _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCViewService: reportUnknownErrorForViewName called (viewName=%@).", buf, 0xCu);
+  }
+
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1ABF20474;
+  v15[3] = &unk_1E79628C8;
+  v15[4] = &v16;
+  v11 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1ABF20540;
+  v14[3] = &unk_1E79628A0;
+  v14[4] = &v22;
+  v14[5] = &v16;
+  [v11 reportUnknownErrorForViewName:nameCopy useCase:caseCopy completion:v14];
+
+  v12 = *(v23 + 24);
+  if (error && (v23[3] & 1) == 0)
+  {
+    *error = v17[5];
+    v12 = *(v23 + 24);
+  }
+
+  _Block_object_dispose(&v16, 8);
+
+  _Block_object_dispose(&v22, 8);
+  return v12 & 1;
+}
+
+- (id)accessTokenForFeaturesWithIsSandboxed:(BOOL)sandboxed useCase:(id)case error:(id *)error
+{
+  sandboxedCopy = sandboxed;
+  caseCopy = case;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1ABF20110;
+  v27 = sub_1ABF20120;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1ABF20110;
+  v21 = sub_1ABF20120;
+  v22 = 0;
+  v9 = GDXPCLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_debug_impl(&dword_1ABA78000, v9, OS_LOG_TYPE_DEBUG, "GDXPCViewService: accessTokenForFeaturesWithIsSandboxed called.", buf, 2u);
+  }
+
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1ABF207BC;
+  v15[3] = &unk_1E79628C8;
+  v15[4] = &v17;
+  v10 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1ABF20888;
+  v14[3] = &unk_1E79628F0;
+  v14[4] = &v23;
+  v14[5] = &v17;
+  [v10 accessTokenForFeaturesWithIsSandboxed:sandboxedCopy useCase:caseCopy completion:v14];
+
+  v11 = v24[5];
+  if (error && !v11)
+  {
+    *error = v18[5];
+    v11 = v24[5];
+  }
+
+  v12 = v11;
+  _Block_object_dispose(&v17, 8);
+
+  _Block_object_dispose(&v23, 8);
+
+  return v12;
+}
+
+- (id)accessInfoForViewName:(id)name useCase:(id)case error:(id *)error
+{
   v33 = *MEMORY[0x1E69E9840];
   nameCopy = name;
+  caseCopy = case;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1ABF20110;
+  v27 = sub_1ABF20120;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1ABF20110;
+  v21 = sub_1ABF20120;
+  v22 = 0;
+  v10 = GDXPCLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v30 = nameCopy;
+    v31 = 2112;
+    v32 = caseCopy;
+    _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCViewService: accessInfoForViewName called (viewName=%@) useCase: %@", buf, 0x16u);
+  }
+
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF20BBC;
+  v16[3] = &unk_1E79628C8;
+  v16[4] = &v17;
+  v11 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1ABF20C88;
+  v15[3] = &unk_1E7962918;
+  v15[4] = &v23;
+  v15[5] = &v17;
+  [v11 accessInfoForViewName:nameCopy useCase:caseCopy completion:v15];
+
+  v12 = v24[5];
+  if (error && !v12)
+  {
+    *error = v18[5];
+    v12 = v24[5];
+  }
+
+  v13 = v12;
+  _Block_object_dispose(&v17, 8);
+
+  _Block_object_dispose(&v23, 8);
+
+  return v13;
+}
+
+- (id)accessTokenForViewName:(id)name isSandboxed:(BOOL)sandboxed useCase:(id)case error:(id *)error
+{
+  sandboxedCopy = sandboxed;
+  v33 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  caseCopy = case;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_1ABF20110;
+  v29 = sub_1ABF20120;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_1ABF20110;
+  v23 = sub_1ABF20120;
+  v24 = 0;
+  v12 = GDXPCLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v32 = nameCopy;
+    _os_log_impl(&dword_1ABA78000, v12, OS_LOG_TYPE_DEFAULT, "GDXPCViewService: accessTokenForViewName called (viewName=%@).", buf, 0xCu);
+  }
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = sub_1ABF20FBC;
+  v18[3] = &unk_1E79628C8;
+  v18[4] = &v19;
+  v13 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1ABF21088;
+  v17[3] = &unk_1E79628F0;
+  v17[4] = &v25;
+  v17[5] = &v19;
+  [v13 accessTokenForViewName:nameCopy isSandboxed:sandboxedCopy useCase:caseCopy completion:v17];
+
+  v14 = v26[5];
+  if (error && !v14)
+  {
+    *error = v20[5];
+    v14 = v26[5];
+  }
+
+  v15 = v14;
+  _Block_object_dispose(&v19, 8);
+
+  _Block_object_dispose(&v25, 8);
+
+  return v15;
+}
+
+- (BOOL)performUpdateForViewNames:(id)names useCase:(id)case includeDependencies:(BOOL)dependencies error:(id *)error
+{
+  dependenciesCopy = dependencies;
+  namesCopy = names;
   caseCopy = case;
   v25 = 0;
   v26 = &v25;
@@ -43,26 +311,24 @@
   v12 = GDXPCLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 138412546;
-    v30 = nameCopy;
-    v31 = 2048;
-    codeCopy = code;
-    _os_log_impl(&dword_1ABA78000, v12, OS_LOG_TYPE_DEFAULT, "GDXPCViewService: reportSQLiteErrorForViewName called (viewName=%@) (code=%lld).", buf, 0x16u);
+    *buf = 0;
+    _os_log_impl(&dword_1ABA78000, v12, OS_LOG_TYPE_DEFAULT, "GDXPCViewService: runUpdateWithViewName called.", buf, 2u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1ABF20128;
-  v18[3] = &unk_1E79628C8;
-  v18[4] = &v19;
-  v13 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
-  v17[2] = sub_1ABF201F4;
-  v17[3] = &unk_1E79628A0;
-  v17[4] = &v25;
-  v17[5] = &v19;
-  [v13 reportSQLiteErrorForViewName:nameCopy sqliteErrorCode:code useCase:caseCopy completion:v17];
+  v17[2] = sub_1ABF21348;
+  v17[3] = &unk_1E7962878;
+  v17[4] = &v19;
+  v17[5] = &v25;
+  v13 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF2142C;
+  v16[3] = &unk_1E79628A0;
+  v16[4] = &v25;
+  v16[5] = &v19;
+  [v13 performUpdateForViewNames:namesCopy useCase:caseCopy includeDependencies:dependenciesCopy completion:v16];
 
   v14 = *(v26 + 24);
   if (error && (v26[3] & 1) == 0)
@@ -74,116 +340,7 @@
   _Block_object_dispose(&v19, 8);
 
   _Block_object_dispose(&v25, 8);
-  v15 = *MEMORY[0x1E69E9840];
   return v14 & 1;
-}
-
-- (BOOL)reportUnknownErrorForViewName:(id)name useCase:(id)case error:(id *)error
-{
-  v29 = *MEMORY[0x1E69E9840];
-  nameCopy = name;
-  caseCopy = case;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_1ABF20110;
-  v21 = sub_1ABF20120;
-  v22 = 0;
-  v10 = GDXPCLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v28 = nameCopy;
-    _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCViewService: reportUnknownErrorForViewName called (viewName=%@).", buf, 0xCu);
-  }
-
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1ABF20474;
-  v16[3] = &unk_1E79628C8;
-  v16[4] = &v17;
-  v11 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v16];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1ABF20540;
-  v15[3] = &unk_1E79628A0;
-  v15[4] = &v23;
-  v15[5] = &v17;
-  [v11 reportUnknownErrorForViewName:nameCopy useCase:caseCopy completion:v15];
-
-  v12 = *(v24 + 24);
-  if (error && (v24[3] & 1) == 0)
-  {
-    *error = v18[5];
-    v12 = *(v24 + 24);
-  }
-
-  _Block_object_dispose(&v17, 8);
-
-  _Block_object_dispose(&v23, 8);
-  v13 = *MEMORY[0x1E69E9840];
-  return v12 & 1;
-}
-
-- (id)accessInfoForViewName:(id)name useCase:(id)case error:(id *)error
-{
-  v34 = *MEMORY[0x1E69E9840];
-  nameCopy = name;
-  caseCopy = case;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_1ABF20110;
-  v28 = sub_1ABF20120;
-  v29 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_1ABF20110;
-  v22 = sub_1ABF20120;
-  v23 = 0;
-  v10 = GDXPCLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412546;
-    v31 = nameCopy;
-    v32 = 2112;
-    v33 = caseCopy;
-    _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCViewService: accessInfoForViewName called (viewName=%@) useCase: %@", buf, 0x16u);
-  }
-
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = sub_1ABF20BBC;
-  v17[3] = &unk_1E79628C8;
-  v17[4] = &v18;
-  v11 = [(GDXPCViewService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_1ABF20C88;
-  v16[3] = &unk_1E7962918;
-  v16[4] = &v24;
-  v16[5] = &v18;
-  [v11 accessInfoForViewName:nameCopy useCase:caseCopy completion:v16];
-
-  v12 = v25[5];
-  if (error && !v12)
-  {
-    *error = v19[5];
-    v12 = v25[5];
-  }
-
-  v13 = v12;
-  _Block_object_dispose(&v18, 8);
-
-  _Block_object_dispose(&v24, 8);
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
 }
 
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler

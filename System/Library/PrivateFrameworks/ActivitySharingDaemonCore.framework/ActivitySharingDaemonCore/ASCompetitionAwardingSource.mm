@@ -27,7 +27,7 @@
 
 - (id)earnedInstancesForIncrementalInterval:(id)interval
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FC0];
@@ -40,16 +40,16 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__10;
-  v17 = __Block_byref_object_dispose__10;
-  v18 = 0;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__10;
+  v16 = __Block_byref_object_dispose__10;
+  v17 = 0;
   serialQueue = self->_serialQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval___block_invoke;
   block[3] = &unk_278C4BAD0;
-  v12 = intervalCopy;
+  v11 = intervalCopy;
   p_buf = &buf;
   block[4] = self;
   v7 = intervalCopy;
@@ -57,54 +57,50 @@
   v8 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_earnedInstancesForInterval:*(a1 + 40) selectingCompetitionsUsingFilter:&__block_literal_global_14];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_earnedInstancesForInterval:*(a1 + 40) selectingCompetitionsUsingFilter:&__block_literal_global_14];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)_queue_earnedInstancesForInterval:(id)interval selectingCompetitionsUsingFilter:(id)filter
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   filterCopy = filter;
   _allCompetitionsOrderedByEndDate = [(ASCompetitionAwardingSource *)self _allCompetitionsOrderedByEndDate];
-  v63 = [MEMORY[0x277CBEB58] set];
+  v62 = [MEMORY[0x277CBEB58] set];
   WeakRetained = objc_loadWeakRetained(&self->_dataProvider);
   friends = [WeakRetained friends];
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   obj = friends;
-  v55 = [obj countByEnumeratingWithState:&v68 objects:v73 count:16];
-  if (v55)
+  v54 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+  if (v54)
   {
-    v53 = *v69;
-    v60 = *MEMORY[0x277CE8FB8];
-    v61 = *MEMORY[0x277CCE1D0];
+    v52 = *v68;
+    v59 = *MEMORY[0x277CE8FB8];
+    v60 = *MEMORY[0x277CCE1D0];
     do
     {
       v8 = 0;
       do
       {
-        if (*v69 != v53)
+        if (*v68 != v52)
         {
           objc_enumerationMutation(obj);
         }
 
-        v57 = v8;
-        v9 = *(*(&v68 + 1) + 8 * v8);
+        v56 = v8;
+        v9 = *(*(&v67 + 1) + 8 * v8);
         context = objc_autoreleasePoolPush();
         ASLoggingInitialize();
         v10 = *MEMORY[0x277CE8FC0];
@@ -120,7 +116,7 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
           _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "Collecting completed competitions for %{public}@ - %@", buf, 0x16u);
         }
 
-        v58 = v9;
+        v57 = v9;
         completedCompetitions = [v9 completedCompetitions];
         v15 = [completedCompetitions hk_filter:filterCopy];
 
@@ -135,26 +131,26 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
           _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "Found %lu completed competitions", buf, 0xCu);
         }
 
-        v66 = 0u;
-        v67 = 0u;
-        v64 = 0u;
         v65 = 0u;
-        v59 = v15;
-        v19 = [v59 countByEnumeratingWithState:&v64 objects:v72 count:16];
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        v58 = v15;
+        v19 = [v58 countByEnumeratingWithState:&v63 objects:v71 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v65;
+          v21 = *v64;
           do
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v65 != v21)
+              if (*v64 != v21)
               {
-                objc_enumerationMutation(v59);
+                objc_enumerationMutation(v58);
               }
 
-              v23 = *(*(&v64 + 1) + 8 * i);
+              v23 = *(*(&v63 + 1) + 8 * i);
               ASLoggingInitialize();
               v24 = *MEMORY[0x277CE8FC0];
               if (os_log_type_enabled(*MEMORY[0x277CE8FC0], OS_LOG_TYPE_DEFAULT))
@@ -168,20 +164,20 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
                 *&buf[12] = 2048;
                 *&buf[14] = myTotalScore;
                 *&buf[22] = 2048;
-                v75 = opponentTotalScore;
+                v74 = opponentTotalScore;
                 _os_log_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_DEFAULT, "Building earned instance for competition participation: %{public}@, %lu - %lu", buf, 0x20u);
               }
 
               hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
               endDate = [v23 endDate];
-              v31 = [hk_gregorianCalendar components:v61 fromDate:endDate];
+              v31 = [hk_gregorianCalendar components:v60 fromDate:endDate];
 
               v32 = v23;
               *buf = MEMORY[0x277D85DD0];
               *&buf[8] = 3221225472;
               *&buf[16] = ___IndexOfCompetitionInAllCompetitions_block_invoke;
-              v75 = &unk_278C4CFE0;
-              v76 = v32;
+              v74 = &unk_278C4CFE0;
+              v75 = v32;
               v33 = v32;
               v34 = [_allCompetitionsOrderedByEndDate indexOfObjectPassingTest:buf];
 
@@ -196,7 +192,7 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
               }
 
               v37 = objc_alloc_init(MEMORY[0x277CE8D38]);
-              [v37 setTemplateUniqueName:v60];
+              [v37 setTemplateUniqueName:v59];
               [v37 setEarnedDateComponents:v31];
               [v37 setCreatedDate:date];
               v38 = MEMORY[0x277CCD7E8];
@@ -204,7 +200,7 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
               v40 = [v38 quantityWithUnit:countUnit doubleValue:v34];
               [v37 setValue:v40];
 
-              [v63 addObject:v37];
+              [v62 addObject:v37];
               if ([v33 isParticipantWinning:0])
               {
                 ASLoggingInitialize();
@@ -216,7 +212,7 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
                 }
 
                 v42 = objc_alloc_init(MEMORY[0x277CE8D38]);
-                uUID3 = [v58 UUID];
+                uUID3 = [v57 UUID];
                 v44 = ASCompetitionVictoryTemplateNameForFriend();
                 [v42 setTemplateUniqueName:v44];
 
@@ -227,49 +223,48 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
                 v47 = [v45 quantityWithUnit:countUnit2 doubleValue:{objc_msgSend(v33, "victoryBadgeStyle")}];
                 [v42 setValue:v47];
 
-                [v63 addObject:v42];
+                [v62 addObject:v42];
               }
             }
 
-            v20 = [v59 countByEnumeratingWithState:&v64 objects:v72 count:16];
+            v20 = [v58 countByEnumeratingWithState:&v63 objects:v71 count:16];
           }
 
           while (v20);
         }
 
         objc_autoreleasePoolPop(context);
-        v8 = v57 + 1;
+        v8 = v56 + 1;
       }
 
-      while (v57 + 1 != v55);
-      v55 = [obj countByEnumeratingWithState:&v68 objects:v73 count:16];
+      while (v56 + 1 != v54);
+      v54 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
     }
 
-    while (v55);
+    while (v54);
   }
 
-  v48 = [v63 copy];
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = [v62 copy];
 
   return v48;
 }
 
 - (id)_allCompetitionsOrderedByEndDate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_dataProvider);
   friends = [WeakRetained friends];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = friends;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     v8 = MEMORY[0x277CBEBF8];
     do
     {
@@ -277,12 +272,12 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
       v10 = v8;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        completedCompetitions = [*(*(&v15 + 1) + 8 * v9) completedCompetitions];
+        completedCompetitions = [*(*(&v14 + 1) + 8 * v9) completedCompetitions];
         v8 = [v10 arrayByAddingObjectsFromArray:completedCompetitions];
 
         ++v9;
@@ -290,7 +285,7 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -302,8 +297,6 @@ uint64_t __69__ASCompetitionAwardingSource_earnedInstancesForIncrementalInterval
   }
 
   v12 = ASCompetitionsSortedByEndDate();
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

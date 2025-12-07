@@ -59,11 +59,11 @@
 
 - (MAAutoAssetUpdatePolicy)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = MAAutoAssetUpdatePolicy;
-  v5 = [(MAAutoAssetUpdatePolicy *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = MAAutoAssetUpdatePolicy;
+  v5 = [(MAAutoAssetUpdatePolicy *)&v23 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"updatePolicyName"];
@@ -75,9 +75,9 @@
     v5->_assetType = v8;
 
     v10 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v26[0] = objc_opt_class();
-    v26[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[0] = objc_opt_class();
+    v25[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
     v12 = [v10 initWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"categoryList"];
     categoryList = v5->_categoryList;
@@ -105,15 +105,15 @@
     v5->_defaultPreventGarbageCollectionSecs = [coderCopy decodeIntegerForKey:@"defaultPreventGarbageCollectionSecs"];
     v5->_maximumPreventGarbageCollectionSecs = [coderCopy decodeIntegerForKey:@"maximumPreventGarbageCollectionSecs"];
     v15 = MEMORY[0x1E695DFD8];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v25[2] = objc_opt_class();
-    v25[3] = objc_opt_class();
-    v25[4] = objc_opt_class();
-    v25[5] = objc_opt_class();
-    v25[6] = objc_opt_class();
-    v25[7] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:8];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v24[2] = objc_opt_class();
+    v24[3] = objc_opt_class();
+    v24[4] = objc_opt_class();
+    v24[5] = objc_opt_class();
+    v24[6] = objc_opt_class();
+    v24[7] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:8];
     v17 = [v15 setWithArray:v16];
 
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"additionalUpdatePolicyControl"];
@@ -138,7 +138,6 @@
     v5->_assetAudienceUUID = v20;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

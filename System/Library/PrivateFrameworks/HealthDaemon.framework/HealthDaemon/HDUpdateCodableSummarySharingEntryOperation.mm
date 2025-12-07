@@ -29,20 +29,20 @@
   v16 = [(HDUpdateCodableSummarySharingEntryOperation *)&v26 init];
   if (v16)
   {
-    v17 = [dCopy copy];
+    v17 = objc_msgSend_copy(dCopy);
     invitationUUID = v16->_invitationUUID;
     v16->_invitationUUID = v17;
 
     v16->_status = status;
-    v19 = [modifiedCopy copy];
+    v19 = objc_msgSend_copy(modifiedCopy);
     dateModified = v16->_dateModified;
     v16->_dateModified = v19;
 
-    v21 = [acceptedCopy copy];
+    v21 = objc_msgSend_copy(acceptedCopy);
     dateAccepted = v16->_dateAccepted;
     v16->_dateAccepted = v21;
 
-    v23 = [participantCopy copy];
+    v23 = objc_msgSend_copy(participantCopy);
     ownerParticipant = v16->_ownerParticipant;
     v16->_ownerParticipant = v23;
   }
@@ -52,7 +52,7 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   transactionCopy = transaction;
   v10 = HDSummarySharingEntryPredicateForInvitationUUID(self->_invitationUUID);
@@ -70,14 +70,13 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v19 = HKStringForSharingStatus();
-        v20 = self->_status;
-        v21 = HKStringForSharingStatus();
+        v20 = HKStringForSharingStatus();
         *buf = 138543874;
         *&buf[4] = self;
         *&buf[12] = 2114;
         *&buf[14] = v19;
         *&buf[22] = 2114;
-        v29 = v21;
+        v27 = v20;
         _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Entry not updated because current status %{public}@ takes precedence over new status %{public}@", buf, 0x20u);
       }
 
@@ -89,19 +88,19 @@
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v29 = __Block_byref_object_copy__45;
-      v30 = __Block_byref_object_dispose__45;
-      v31 = 0;
+      v27 = __Block_byref_object_copy__45;
+      v28 = __Block_byref_object_dispose__45;
+      v29 = 0;
       sharingEntryManager2 = [profileCopy sharingEntryManager];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __84__HDUpdateCodableSummarySharingEntryOperation_performWithProfile_transaction_error___block_invoke;
-      v24[3] = &unk_27861A1A8;
-      v27 = buf;
-      v24[4] = self;
-      v25 = v10;
-      v26 = profileCopy;
-      v16 = [sharingEntryManager2 enumerateCodableEntriesWithPredicate:v25 error:error handler:v24];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __84__HDUpdateCodableSummarySharingEntryOperation_performWithProfile_transaction_error___block_invoke;
+      v22[3] = &unk_27861A1A8;
+      v25 = buf;
+      v22[4] = self;
+      v23 = v10;
+      v24 = profileCopy;
+      v16 = [sharingEntryManager2 enumerateCodableEntriesWithPredicate:v23 error:error handler:v22];
 
       if (v16)
       {
@@ -118,11 +117,10 @@ LABEL_11:
   v17 = 0;
 LABEL_12:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-uint64_t __84__HDUpdateCodableSummarySharingEntryOperation_performWithProfile_transaction_error___block_invoke(void *a1, void *a2, void *a3)
+BOOL __84__HDUpdateCodableSummarySharingEntryOperation_performWithProfile_transaction_error___block_invoke(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = [v5 sharingEntry];

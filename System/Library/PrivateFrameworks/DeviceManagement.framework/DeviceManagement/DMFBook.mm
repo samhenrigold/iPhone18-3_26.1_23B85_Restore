@@ -275,42 +275,40 @@
 
 void __22__DMFBook_description__block_invoke()
 {
-  v8[3] = *MEMORY[0x1E69E9840];
-  v7[0] = &unk_1F57B6C28;
-  v7[1] = &unk_1F57B6C40;
-  v8[0] = @"PDF";
-  v8[1] = @"EPUB";
-  v7[2] = &unk_1F57B6C58;
-  v8[2] = @"iBooks";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
+  v7[3] = *MEMORY[0x1E69E9840];
+  v6[0] = &unk_1F57B6C28;
+  v6[1] = &unk_1F57B6C40;
+  v7[0] = @"PDF";
+  v7[1] = @"EPUB";
+  v6[2] = &unk_1F57B6C58;
+  v7[2] = @"iBooks";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
   v1 = description_typeMap;
   description_typeMap = v0;
 
-  v5[0] = &unk_1F57B6C58;
-  v5[1] = &unk_1F57B6C28;
-  v6[0] = @"Unknown";
-  v6[1] = @"Queued";
-  v5[2] = &unk_1F57B6C40;
-  v5[3] = &unk_1F57B6C70;
-  v6[2] = @"Prompting for login";
-  v6[3] = @"Updating";
-  v5[4] = &unk_1F57B6C88;
-  v5[5] = &unk_1F57B6CA0;
-  v6[4] = @"Installing";
-  v6[5] = @"Installed";
-  v5[6] = &unk_1F57B6CB8;
-  v5[7] = &unk_1F57B6CD0;
-  v6[6] = @"Uninstalled";
-  v6[7] = @"Managed";
-  v5[8] = &unk_1F57B6CE8;
-  v5[9] = &unk_1F57B6D00;
-  v6[8] = @"Managed but uninstalled";
-  v6[9] = @"Failed";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:10];
+  v4[0] = &unk_1F57B6C58;
+  v4[1] = &unk_1F57B6C28;
+  v5[0] = @"Unknown";
+  v5[1] = @"Queued";
+  v4[2] = &unk_1F57B6C40;
+  v4[3] = &unk_1F57B6C70;
+  v5[2] = @"Prompting for login";
+  v5[3] = @"Updating";
+  v4[4] = &unk_1F57B6C88;
+  v4[5] = &unk_1F57B6CA0;
+  v5[4] = @"Installing";
+  v5[5] = @"Installed";
+  v4[6] = &unk_1F57B6CB8;
+  v4[7] = &unk_1F57B6CD0;
+  v5[6] = @"Uninstalled";
+  v5[7] = @"Managed";
+  v4[8] = &unk_1F57B6CE8;
+  v4[9] = &unk_1F57B6D00;
+  v5[8] = @"Managed but uninstalled";
+  v5[9] = @"Failed";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:10];
   v3 = description_stateMap;
   description_stateMap = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

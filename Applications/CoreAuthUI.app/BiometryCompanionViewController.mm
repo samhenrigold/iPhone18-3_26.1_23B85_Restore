@@ -24,7 +24,7 @@
   {
     v5 = v4;
     v6 = swift_allocObject();
-    v6[2] = v5;
+    *(v6 + 16) = v5;
     v7 = sub_10002AA4C;
   }
 
@@ -36,7 +36,7 @@
 
   selfCopy = self;
   sub_10004E034(v7, v6);
-  sub_10002AA04(v7);
+  sub_10002AA04(v7, v6);
 }
 
 - (_TtC10CoreAuthUI31BiometryCompanionViewController)initWithRequestID:(id)d endpoint:(id)endpoint
@@ -44,8 +44,8 @@
   ObjectType = swift_getObjectType();
   dCopy = d;
   endpointCopy = endpoint;
-  v10 = *sub_10004FFDC();
-  sub_10004FFF4();
+  v10 = sub_10004FFDC();
+  sub_10004FFF4(*v10);
   *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC10CoreAuthUI31BiometryCompanionViewController_biometryType] = 0;
   v13.receiver = self;
   v13.super_class = ObjectType;
@@ -59,8 +59,8 @@
   ObjectType = swift_getObjectType();
   dCopy = d;
   endpointCopy = endpoint;
-  v12 = *sub_10004FFDC();
-  sub_10004FFF4();
+  v12 = sub_10004FFDC();
+  sub_10004FFF4(*v12);
   *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC10CoreAuthUI31BiometryCompanionViewController_biometryType] = 0;
   v15.receiver = self;
   v15.super_class = ObjectType;
@@ -77,8 +77,8 @@
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v12 = *sub_10004FFDC();
-  sub_10004FFF4();
+  v12 = sub_10004FFDC();
+  sub_10004FFF4(*v12);
   *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC10CoreAuthUI31BiometryCompanionViewController_biometryType] = 0;
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
@@ -102,8 +102,8 @@
   }
 
   bundleCopy = bundle;
-  v10 = *sub_10004FFDC();
-  sub_10004FFF4();
+  v10 = sub_10004FFDC();
+  sub_10004FFF4(*v10);
   *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC10CoreAuthUI31BiometryCompanionViewController_biometryType] = 0;
   if (name)
   {
@@ -126,8 +126,8 @@
 {
   ObjectType = swift_getObjectType();
   coderCopy = coder;
-  v7 = *sub_10004FFDC();
-  sub_10004FFF4();
+  v7 = sub_10004FFDC();
+  sub_10004FFF4(*v7);
   *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC10CoreAuthUI31BiometryCompanionViewController_biometryType] = 0;
   v10.receiver = self;
   v10.super_class = ObjectType;
@@ -147,8 +147,8 @@
   swift_unknownObjectRetain();
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  v6 = *sub_10004FFDC();
-  sub_10004FFF4();
+  v6 = sub_10004FFDC();
+  sub_10004FFF4(*v6);
   *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC10CoreAuthUI31BiometryCompanionViewController_biometryType] = 0;
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 

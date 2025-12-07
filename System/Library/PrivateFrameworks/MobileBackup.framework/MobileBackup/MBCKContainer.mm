@@ -142,7 +142,7 @@
       v44 = 2112;
       v45 = v31;
       _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Failed to fetch persona attributes for %@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "Failed to fetch persona attributes for %@: %@", personaIdentifier2, v31);
     }
   }
 

@@ -26,13 +26,12 @@
   beginCopy = begin;
   v5 = si_tracing_current_span();
   v6 = *(v5 + 16);
-  v62 = *v5;
-  v63 = v6;
-  v64 = *(v5 + 32);
+  v55 = *v5;
+  v56 = v6;
+  v57 = *(v5 + 32);
   v7 = *v5;
   spanid = si_tracing_calc_next_spanid();
   v9 = *(v5 + 8);
-  v10 = *(v5 + 24);
   *v5 = v7;
   *(v5 + 8) = spanid;
   *(v5 + 16) = v9;
@@ -41,174 +40,168 @@
   si_tracing_log_span_begin();
   queryContext = [beginCopy queryContext];
   getTrimmedSearchString = [queryContext getTrimmedSearchString];
-  v13 = [getTrimmedSearchString mutableCopy];
+  v12 = [getTrimmedSearchString mutableCopy];
 
-  v14 = SSEnableSpotlightTopHitPersonalizedRanking();
+  v13 = SSEnableSpotlightTopHitPersonalizedRanking();
   objc_initWeak(&location, beginCopy);
   disabledBundles = [queryContext disabledBundles];
-  v16 = PRSRankingSafariBundleString;
+  v15 = PRSRankingSafariBundleString;
   if ([disabledBundles containsObject:PRSRankingSafariBundleString])
   {
 
 LABEL_6:
-    v19 = +[SDController workQueue];
-    v59[1] = _NSConcreteStackBlock;
-    v59[2] = 3221225472;
-    v59[3] = sub_10002D540;
-    v59[4] = &unk_100091E58;
-    objc_copyWeak(&v60, &location);
-    v59[5] = self;
+    v18 = +[SDController workQueue];
+    v52[1] = _NSConcreteStackBlock;
+    v52[2] = 3221225472;
+    v52[3] = sub_10002D540;
+    v52[4] = &unk_100091E58;
+    objc_copyWeak(&v53, &location);
+    v52[5] = self;
     md_tracing_dispatch_async_propagating();
 
-    objc_destroyWeak(&v60);
+    objc_destroyWeak(&v53);
     goto LABEL_24;
   }
 
-  v17 = looksLikeURL();
+  v16 = looksLikeURL();
 
-  if ((v17 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
     goto LABEL_6;
   }
 
-  if ([v13 containsString:@"://"])
+  if ([v12 containsString:@"://"])
   {
-    v18 = v13;
+    v17 = v12;
   }
 
   else
   {
-    v18 = [NSString stringWithFormat:@"https://%@", v13];
+    v17 = [NSString stringWithFormat:@"https://%@", v12];
   }
 
-  v20 = v18;
-  v56 = [NSURL URLWithString:v18];
-  v55 = v20;
-  if (v56 && ([v56 scheme], (v21 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend(v56, "host"), v22 = objc_claimAutoreleasedReturnValue(), v23 = v22 == 0, v22, v21, !v23))
+  v19 = v17;
+  v49 = [NSURL URLWithString:v17];
+  v48 = v19;
+  if (v49 && ([v49 scheme], (v20 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend(v49, "host"), v21 = objc_claimAutoreleasedReturnValue(), v22 = v21 == 0, v21, v20, !v22))
   {
-    v24 = objc_opt_new();
-    v54 = objc_opt_new();
-    v53 = objc_opt_new();
-    [v53 setIconType:1];
-    [v54 setThumbnail:v53];
-    v25 = [SFRichText textWithString:v13];
-    [v54 setTitle:v25];
+    v23 = objc_opt_new();
+    v47 = objc_opt_new();
+    v46 = objc_opt_new();
+    [v46 setIconType:1];
+    [v47 setThumbnail:v46];
+    v24 = [SFRichText textWithString:v12];
+    [v47 setTitle:v24];
 
-    v26 = [SFPunchout punchoutWithURL:v56];
-    v68 = v26;
-    v27 = [NSArray arrayWithObjects:&v68 count:1];
-    [v54 setPunchoutOptions:v27];
+    v25 = [SFPunchout punchoutWithURL:v49];
+    v61 = v25;
+    v26 = [NSArray arrayWithObjects:&v61 count:1];
+    [v47 setPunchoutOptions:v26];
 
-    v28 = [SFRichText textWithString:v13];
-    v67 = v28;
-    v29 = [NSArray arrayWithObjects:&v67 count:1];
-    [v54 setDescriptions:v29];
+    v27 = [SFRichText textWithString:v12];
+    v60 = v27;
+    v28 = [NSArray arrayWithObjects:&v60 count:1];
+    [v47 setDescriptions:v28];
 
-    v30 = objc_opt_new();
-    [v24 setInlineCard:v30];
+    v29 = objc_opt_new();
+    [v23 setInlineCard:v29];
 
-    v66 = v54;
-    v31 = [NSArray arrayWithObjects:&v66 count:1];
-    inlineCard = [v24 inlineCard];
-    [inlineCard setCardSections:v31];
+    v59 = v47;
+    v30 = [NSArray arrayWithObjects:&v59 count:1];
+    inlineCard = [v23 inlineCard];
+    [inlineCard setCardSections:v30];
 
-    [v24 setContentURL:v55];
-    [v24 setApplicationBundleIdentifier:v16];
-    [v24 setSectionBundleIdentifier:v16];
-    [v24 setResultBundleId:PRSRankingUserTypedURLBundleString];
-    [v24 setType:2];
-    [v24 setQueryId:{objc_msgSend(beginCopy, "queryIdent")}];
-    v33 = [@"userTypedURL-" stringByAppendingString:v13];
-    [v24 setIdentifier:v33];
+    [v23 setContentURL:v48];
+    [v23 setApplicationBundleIdentifier:v15];
+    [v23 setSectionBundleIdentifier:v15];
+    [v23 setResultBundleId:PRSRankingUserTypedURLBundleString];
+    [v23 setType:2];
+    [v23 setQueryId:{objc_msgSend(beginCopy, "queryIdent")}];
+    v32 = [@"userTypedURL-" stringByAppendingString:v12];
+    [v23 setIdentifier:v32];
 
-    [v24 setProtectionClass:NSFileProtectionCompleteUntilFirstUserAuthentication];
-    if ((v14 & 1) == 0)
+    [v23 setProtectionClass:NSFileProtectionCompleteUntilFirstUserAuthentication];
+    if ((v13 & 1) == 0)
     {
-      [v24 setIsSafariTopHit:1];
-      [v24 setTopHit:SSSetTopHitWithReasonString()];
+      [v23 setIsSafariTopHit:1];
+      [v23 setTopHit:SSSetTopHitWithReasonString()];
     }
 
-    [v24 setForceNoTopHit:0];
-    host = [v56 host];
-    [v24 setCompletion:host];
+    [v23 setForceNoTopHit:0];
+    host = [v49 host];
+    [v23 setCompletion:host];
 
-    v35 = SSCompactRankingAttrsAlloc();
+    v34 = SSCompactRankingAttrsAlloc();
     SSCompactRankingAttrsUpdateValue();
     SSCompactRankingAttrsUpdateValue();
     SSCompactRankingAttrsUpdateValue();
-    v36 = [[PRSRankingItem alloc] initWithAttrs:v35];
-    [v24 setRankingItem:v36];
+    v35 = [[PRSRankingItem alloc] initWithAttrs:v34];
+    [v23 setRankingItem:v35];
 
-    if (v14)
+    if (v13)
     {
-      rankingItem = [v24 rankingItem];
+      rankingItem = [v23 rankingItem];
       [rankingItem setBundleIDType:{objc_msgSend(rankingItem, "bundleIDType") | 0x80}];
     }
 
-    v38 = objc_opt_new();
-    [v38 setMaxInitiallyVisibleResults:1];
-    [v38 setBundleIdentifier:v16];
-    v39 = [LSApplicationProxy applicationProxyForIdentifier:v16];
-    localizedName = [v39 localizedName];
-    [v38 setTitle:localizedName];
+    v37 = objc_opt_new();
+    [v37 setMaxInitiallyVisibleResults:1];
+    [v37 setBundleIdentifier:v15];
+    v38 = [LSApplicationProxy applicationProxyForIdentifier:v15];
+    localizedName = [v38 localizedName];
+    [v37 setTitle:localizedName];
 
-    v65 = v24;
-    v41 = [NSArray arrayWithObjects:&v65 count:1];
-    [v38 setResults:v41];
+    v58 = v23;
+    v40 = [NSArray arrayWithObjects:&v58 count:1];
+    [v37 setResults:v40];
 
-    if (v14)
+    if (v13)
     {
-      [v38 setDomain:1];
+      [v37 setDomain:1];
     }
 
     if (!self->_cancelled)
     {
-      v42 = +[SDController workQueue];
-      objc_copyWeak(v58, &location);
-      v57 = v38;
+      v41 = +[SDController workQueue];
+      objc_copyWeak(v51, &location);
+      v50 = v37;
       md_tracing_dispatch_async_propagating();
 
-      objc_destroyWeak(v58);
+      objc_destroyWeak(v51);
     }
   }
 
   else
   {
-    v43 = +[SDController workQueue];
-    v58[1] = _NSConcreteStackBlock;
-    v58[2] = 3221225472;
-    v58[3] = sub_10002D598;
-    v58[4] = &unk_100091E58;
-    objc_copyWeak(v59, &location);
-    v58[5] = self;
+    v42 = +[SDController workQueue];
+    v51[1] = _NSConcreteStackBlock;
+    v51[2] = 3221225472;
+    v51[3] = sub_10002D598;
+    v51[4] = &unk_100091E58;
+    objc_copyWeak(v52, &location);
+    v51[5] = self;
     md_tracing_dispatch_async_propagating();
 
-    v44 = SPLogForSPLogCategoryDefault();
-    v45 = gSPLogInfoAsDefault;
-    if (os_log_type_enabled(v44, ((gSPLogInfoAsDefault & 1) == 0)))
+    v43 = SPLogForSPLogCategoryDefault();
+    v44 = gSPLogInfoAsDefault;
+    if (os_log_type_enabled(v43, ((gSPLogInfoAsDefault & 1) == 0)))
     {
       *buf = 138412290;
-      v70 = v20;
-      _os_log_impl(&_mh_execute_header, v44, ((v45 & 1) == 0), "Failed to create URL from query %@", buf, 0xCu);
+      v63 = v19;
+      _os_log_impl(&_mh_execute_header, v43, ((v44 & 1) == 0), "Failed to create URL from query %@", buf, 0xCu);
     }
 
-    objc_destroyWeak(v59);
+    objc_destroyWeak(v52);
   }
 
 LABEL_24:
   objc_destroyWeak(&location);
 
-  v46 = *v5;
-  v47 = *(v5 + 8);
-  v48 = *(v5 + 16);
-  v49 = *(v5 + 24);
-  v50 = *(v5 + 28);
-  v51 = *(v5 + 32);
   si_tracing_log_span_end();
-  v52 = v63;
-  *v5 = v62;
-  *(v5 + 16) = v52;
-  *(v5 + 32) = v64;
+  v45 = v56;
+  *v5 = v55;
+  *(v5 + 16) = v45;
+  *(v5 + 32) = v57;
 }
 
 @end

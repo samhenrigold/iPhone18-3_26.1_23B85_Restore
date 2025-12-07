@@ -4,6 +4,15 @@
 - (id)getProperty:(id)property;
 - (int)get:(unint64_t)get options:(unsigned int)options sample:(__IOGCFastPathSample *)sample;
 - (int)queryInterface:(id)interface outInterface:(void *)outInterface;
+- (int)sample:(const __IOGCFastPathSample *)sample getSequenceID:(unint64_t *)d maxID:(unint64_t *)iD;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field domain:(unsigned int)domain options:(unsigned int)options timestamp:(unint64_t *)timestamp uncertainty:(unint64_t *)uncertainty flags:(unsigned int *)self0;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options double:(double *)double;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options integer:(int64_t *)integer;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample flags:(unsigned int *)flags;
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsampleCount:(unsigned int *)count;
+- (int)sample:(const __IOGCFastPathSample *)sample setSubsample:(unsigned int)subsample field:(unsigned int)field domain:(unsigned int)domain options:(unsigned int)options timestamp:(unint64_t)timestamp tolerance:(unint64_t)tolerance flags:(unsigned int)self0;
+- (int)sample:(const __IOGCFastPathSample *)sample setSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options double:(double)double;
+- (int)sample:(const __IOGCFastPathSample *)sample setSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options integer:(int64_t)integer;
 - (int)sampleDestroy:(__IOGCFastPathSample *)destroy;
 - (void)dealloc;
 @end
@@ -12,9 +21,9 @@
 
 - (PSVR2FastPathKernelHapticsControlQueue)initWithClient:(id)client options:(id)options
 {
-  v19.receiver = self;
-  v19.super_class = PSVR2FastPathKernelHapticsControlQueue;
-  v6 = [(PSVR2FastPathKernelHapticsControlQueue *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = PSVR2FastPathKernelHapticsControlQueue;
+  v6 = [(PSVR2FastPathKernelHapticsControlQueue *)&v18 init];
   *(v6 + 1) = IOGCFastPathControlQueueInterfacePrepareObjCVtbl();
   *(v6 + 2) = IOGCFastPathSampleContainerInterfacePrepareObjCVtbl();
   *(v6 + 3) = client;
@@ -34,16 +43,16 @@
       return 0;
     }
 
-    v18 = 0;
-    if (sub_7870(*(v6 + 3), *(v6 + 8), &off_10CF8, &v18))
+    v17 = 0;
+    if (sub_7870(*(v6 + 3), *(v6 + 8), &off_10CF8, &v17))
     {
       sub_861C();
     }
 
     else
     {
-      v8 = v18;
-      v9 = [v18 objectForKeyedSubscript:@"QueueID"];
+      v8 = v17;
+      v9 = [v17 objectForKeyedSubscript:@"QueueID"];
       v10 = [v8 objectForKeyedSubscript:@"QueueGuard"];
       v11 = [v8 objectForKeyedSubscript:@"QueueMemorySize"];
       v12 = [v8 objectForKeyedSubscript:@"QueueEntrySize"];
@@ -72,7 +81,6 @@
             [v11 unsignedIntValue];
             [v12 unsignedIntValue];
 
-            v14 = *(v6 + 6);
             if (!IOGCCircularControlQueueInit())
             {
               return v6;
@@ -82,8 +90,8 @@
             goto LABEL_2;
           }
 
-          v17 = sub_F0C();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v16 = sub_F0C();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             sub_877C();
           }
@@ -91,8 +99,8 @@
 
         else
         {
-          v16 = sub_F0C();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v15 = sub_F0C();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             sub_8714();
           }
@@ -101,8 +109,8 @@
 
       else
       {
-        v15 = sub_F0C();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v14 = sub_F0C();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           sub_86AC();
         }
@@ -202,6 +210,113 @@ LABEL_5:
   destroy->var1[0] = 0;
   destroy->var1[1] = 0;
   return 0;
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSequenceID:(unint64_t *)d maxID:(unint64_t *)iD
+{
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_3EC4;
+  v6[3] = &unk_10698;
+  v6[4] = d;
+  v6[5] = sample;
+  return sub_3D40(self, sample, v6);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsampleCount:(unsigned int *)count
+{
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_3F48;
+  v5[3] = &unk_106B8;
+  v5[4] = count;
+  return sub_3D40(self, sample, v5);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample flags:(unsigned int *)flags
+{
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_3FCC;
+  v6[3] = &unk_106B8;
+  v6[4] = flags;
+  return sub_3D40(self, sample, v6);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field domain:(unsigned int)domain options:(unsigned int)options timestamp:(unint64_t *)timestamp uncertainty:(unint64_t *)uncertainty flags:(unsigned int *)self0
+{
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_4078;
+  v11[3] = &unk_10718;
+  fieldCopy = field;
+  domainCopy = domain;
+  optionsCopy = options;
+  v11[4] = timestamp;
+  v11[5] = uncertainty;
+  v11[6] = flags;
+  return sub_3D40(self, sample, v11);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample setSubsample:(unsigned int)subsample field:(unsigned int)field domain:(unsigned int)domain options:(unsigned int)options timestamp:(unint64_t)timestamp tolerance:(unint64_t)tolerance flags:(unsigned int)self0
+{
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_4158;
+  v11[3] = &unk_10738;
+  fieldCopy = field;
+  domainCopy = domain;
+  optionsCopy = options;
+  v11[4] = timestamp;
+  return sub_3D40(self, sample, v11);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options integer:(int64_t *)integer
+{
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_4214;
+  v8[3] = &unk_10698;
+  fieldCopy = field;
+  optionsCopy = options;
+  v8[4] = integer;
+  return sub_3D40(self, sample, v8);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample getSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options double:(double *)double
+{
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_42F8;
+  v8[3] = &unk_10698;
+  fieldCopy = field;
+  optionsCopy = options;
+  v8[4] = double;
+  return sub_3D40(self, sample, v8);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample setSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options integer:(int64_t)integer
+{
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_43B8;
+  v8[3] = &unk_10698;
+  fieldCopy = field;
+  optionsCopy = options;
+  v8[4] = integer;
+  return sub_3D40(self, sample, v8);
+}
+
+- (int)sample:(const __IOGCFastPathSample *)sample setSubsample:(unsigned int)subsample field:(unsigned int)field options:(unsigned int)options double:(double)double
+{
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_44A4;
+  v8[3] = &unk_10698;
+  fieldCopy = field;
+  optionsCopy = options;
+  *&v8[4] = double;
+  return sub_3D40(self, sample, v8);
 }
 
 - (BOOL)sample:(const __IOGCFastPathSample *)sample getTraceProviderID:(unint64_t *)d queueID:(unint64_t *)iD channel:(unsigned int *)channel position:(unint64_t *)position

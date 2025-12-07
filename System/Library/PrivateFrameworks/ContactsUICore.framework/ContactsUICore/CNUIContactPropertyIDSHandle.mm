@@ -28,25 +28,26 @@
   countryCode = [numberCopy countryCode];
   v6 = digits;
   v7 = countryCode;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v8 = getIDSCopyIDForPhoneNumberWithOptionsSymbolLoc_ptr;
-  v16 = getIDSCopyIDForPhoneNumberWithOptionsSymbolLoc_ptr;
+  v17 = getIDSCopyIDForPhoneNumberWithOptionsSymbolLoc_ptr;
   if (!getIDSCopyIDForPhoneNumberWithOptionsSymbolLoc_ptr)
   {
     v9 = IDSLibrary_0();
-    v14[3] = dlsym(v9, "IDSCopyIDForPhoneNumberWithOptions");
-    getIDSCopyIDForPhoneNumberWithOptionsSymbolLoc_ptr = v14[3];
-    v8 = v14[3];
+    v15[3] = dlsym(v9, "IDSCopyIDForPhoneNumberWithOptions");
+    getIDSCopyIDForPhoneNumberWithOptionsSymbolLoc_ptr = v15[3];
+    v8 = v15[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v8)
   {
-    v12 = +[CNUIIDSRequest IDSServiceForService:];
-    _Block_object_dispose(&v13, 8);
-    _Unwind_Resume(v12);
+    +[CNUIIDSRequest IDSServiceForService:];
+    v13 = v12;
+    _Block_object_dispose(&v14, 8);
+    _Unwind_Resume(v13);
   }
 
   v10 = v8(v6, v7, 1);
@@ -57,25 +58,26 @@
 + (id)idsIDForEmail:(id)email
 {
   emailCopy = email;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v4 = getIDSCopyIDForEmailAddressSymbolLoc_ptr;
-  v12 = getIDSCopyIDForEmailAddressSymbolLoc_ptr;
+  v13 = getIDSCopyIDForEmailAddressSymbolLoc_ptr;
   if (!getIDSCopyIDForEmailAddressSymbolLoc_ptr)
   {
     v5 = IDSLibrary_0();
-    v10[3] = dlsym(v5, "IDSCopyIDForEmailAddress");
-    getIDSCopyIDForEmailAddressSymbolLoc_ptr = v10[3];
-    v4 = v10[3];
+    v11[3] = dlsym(v5, "IDSCopyIDForEmailAddress");
+    getIDSCopyIDForEmailAddressSymbolLoc_ptr = v11[3];
+    v4 = v11[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v4)
   {
-    v8 = +[CNUIIDSRequest IDSServiceForService:];
-    _Block_object_dispose(&v9, 8);
-    _Unwind_Resume(v8);
+    +[CNUIIDSRequest IDSServiceForService:];
+    v9 = v8;
+    _Block_object_dispose(&v10, 8);
+    _Unwind_Resume(v9);
   }
 
   v6 = v4(emailCopy);

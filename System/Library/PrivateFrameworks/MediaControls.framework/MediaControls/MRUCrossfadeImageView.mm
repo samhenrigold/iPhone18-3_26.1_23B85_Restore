@@ -29,14 +29,14 @@
 - (int64_t)contentMode
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for CrossfadeImageView();
+  v3.super_class = type metadata accessor for CrossfadeImageView(self, a2);
   return [(MRUCrossfadeImageView *)&v3 contentMode];
 }
 
 - (void)setContentMode:(int64_t)mode
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CrossfadeImageView();
+  v5.super_class = type metadata accessor for CrossfadeImageView(self, a2);
   v4 = v5.receiver;
   [(MRUCrossfadeImageView *)&v5 setContentMode:mode];
   [*&v4[OBJC_IVAR___MRUCrossfadeImageView_primaryImageView] setContentMode_];
@@ -57,7 +57,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CrossfadeImageView();
+  v5.super_class = type metadata accessor for CrossfadeImageView(self, a2);
   v2 = v5.receiver;
   [(MRUCrossfadeImageView *)&v5 layoutSubviews];
   v3 = *&v2[OBJC_IVAR___MRUCrossfadeImageView_primaryImageView];

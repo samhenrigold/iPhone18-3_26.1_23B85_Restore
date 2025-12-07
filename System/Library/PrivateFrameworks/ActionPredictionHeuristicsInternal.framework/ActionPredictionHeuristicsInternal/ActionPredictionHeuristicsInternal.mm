@@ -10,23 +10,23 @@ id __atxlog_handle_heuristic()
   return v1;
 }
 
-id __atxlog_handle_gi()
+id __atxlog_handle_gi(uint64_t a1)
 {
   if (__atxlog_handle_gi_onceToken != -1)
   {
     __atxlog_handle_gi_cold_1();
   }
 
-  v1 = __atxlog_handle_gi_log;
+  v2 = __atxlog_handle_gi_log;
 
-  return v1;
+  return v2;
 }
 
-void sub_23E3ED528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23E3ED528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 176), 8);
+  _Block_object_dispose((v15 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -44,16 +44,18 @@ void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -62,9 +64,9 @@ void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_debug_impl(a1, v4, OS_LOG_TYPE_DEBUG, a4, v5, 0xCu);
 }
 
-void sub_23E3F3EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E3F3EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -78,28 +80,28 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 Class __getATXSleepSuggestionServerClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!AppPredictionInternalLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __AppPredictionInternalLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278C3CCB8;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __AppPredictionInternalLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278C3CCB8;
+    v5 = 0;
     AppPredictionInternalLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!AppPredictionInternalLibraryCore_frameworkLibrary)
   {
-    __getATXSleepSuggestionServerClass_block_invoke_cold_2(v4);
+    __getATXSleepSuggestionServerClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("ATXSleepSuggestionServer");
@@ -110,25 +112,22 @@ Class __getATXSleepSuggestionServerClass_block_invoke(uint64_t a1)
   }
 
   getATXSleepSuggestionServerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AppPredictionInternalLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppPredictionInternalLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_23E3F5314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_23E3F5314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -143,7 +142,7 @@ id dataDetectorResultsToPlist(const __CFArray *a1, const __CFString *a2, CFTypeR
 {
   v52 = *MEMORY[0x277D85DE8];
   Count = CFArrayGetCount(a1);
-  v4 = __atxlog_handle_context_heuristic();
+  v4 = __atxlog_handle_context_heuristic(Count);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     dataDetectorResultsToPlist_cold_1(Count, v4);
@@ -167,7 +166,7 @@ id dataDetectorResultsToPlist(const __CFArray *a1, const __CFString *a2, CFTypeR
       v54.length = v9;
       v11 = CFStringCreateWithSubstring(0, a2, v54);
       v12 = DDResultGetType();
-      v13 = __atxlog_handle_context_heuristic();
+      v13 = __atxlog_handle_context_heuristic(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
@@ -241,14 +240,14 @@ LABEL_20:
             v34 = [MEMORY[0x277CCA900] URLQueryAllowedCharacterSet];
             v35 = [v33 stringByAddingPercentEncodingWithAllowedCharacters:v34];
 
-            v36 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+            v37 = __atxlog_handle_context_heuristic(v36);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               *buf = v40;
               v49 = v33;
               v50 = 2112;
               v51 = v32;
-              _os_log_debug_impl(&dword_23E3EA000, v36, OS_LOG_TYPE_DEBUG, "Found tracking number: %@ company: %@", buf, 0x16u);
+              _os_log_debug_impl(&dword_23E3EA000, v37, OS_LOG_TYPE_DEBUG, "Found tracking number: %@ company: %@", buf, 0x16u);
             }
 
             [v25 setObject:v32 forKeyedSubscript:@"companyName"];
@@ -321,20 +320,20 @@ LABEL_18:
   }
 
 LABEL_46:
-  v38 = *MEMORY[0x277D85DE8];
 
   return v41;
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_23E3F66DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E3F66DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -370,37 +369,37 @@ id ATXSoftMediaActionPrediction()
   return v1;
 }
 
-void sub_23E3F6B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E3F6B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getATXMediaActionPredictionClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!AppPredictionInternalLibraryCore_frameworkLibrary_0)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __AppPredictionInternalLibraryCore_block_invoke_0;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278C3CD60;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __AppPredictionInternalLibraryCore_block_invoke_0;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278C3CD60;
+    v5 = 0;
     AppPredictionInternalLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   if (!AppPredictionInternalLibraryCore_frameworkLibrary_0)
   {
-    __getATXMediaActionPredictionClass_block_invoke_cold_2(v4);
+    __getATXMediaActionPredictionClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("ATXMediaActionPrediction");
@@ -411,30 +410,28 @@ Class __getATXMediaActionPredictionClass_block_invoke(uint64_t a1)
   }
 
   getATXMediaActionPredictionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AppPredictionInternalLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppPredictionInternalLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_23E3F9204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_23E3F9204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
+  va_start(va, a46);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a47, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -445,10 +442,11 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E3FA43C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52)
+void sub_23E3FA43C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, ...)
 {
+  va_start(va, a51);
   _Block_object_dispose(&a46, 8);
-  _Block_object_dispose(&a52, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -477,32 +475,32 @@ id locDate(void *a1)
   return v3;
 }
 
-void sub_23E3FAD04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E3FAD04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E3FAF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E3FAF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E400820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E400820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -531,16 +529,16 @@ id getATXTripDuetEventClass()
   return v1;
 }
 
-void sub_23E400D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E400D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E400F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E400F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -561,40 +559,35 @@ Class __getATXUpcomingCommuteToWorkAnchorClass_block_invoke(uint64_t a1)
 
 void AppPredictionInternalLibrary()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1[0] = 0;
+  v3 = *MEMORY[0x277D85DE8];
+  v0[0] = 0;
   if (!AppPredictionInternalLibraryCore_frameworkLibrary_1)
   {
-    v1[1] = MEMORY[0x277D85DD0];
-    v1[2] = 3221225472;
-    v1[3] = __AppPredictionInternalLibraryCore_block_invoke_1;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_278C3CED0;
-    v3 = 0;
+    v0[1] = MEMORY[0x277D85DD0];
+    v0[2] = 3221225472;
+    v0[3] = __AppPredictionInternalLibraryCore_block_invoke_1;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_278C3CED0;
+    v2 = 0;
     AppPredictionInternalLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
 
   if (!AppPredictionInternalLibraryCore_frameworkLibrary_1)
   {
-    AppPredictionInternalLibrary_cold_1(v1);
+    AppPredictionInternalLibrary_cold_1(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __AppPredictionInternalLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppPredictionInternalLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -664,30 +657,30 @@ void sub_23E404B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ATXHeuristicCanLearnFromApp(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v14;
+    v4 = *v13;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * v5);
+        v6 = *(*(&v12 + 1) + 8 * v5);
         v7 = CFPreferencesCopyAppValue(@"SiriCanLearnFromAppBlacklist", @"com.apple.suggestions");
-        v8 = [v7 containsObject:{v6, v13}];
+        v8 = [v7 containsObject:{v6, v12}];
 
         if (v8)
         {
@@ -695,7 +688,7 @@ uint64_t ATXHeuristicCanLearnFromApp(void *a1)
           if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v18 = v6;
+            v17 = v6;
             _os_log_impl(&dword_23E3EA000, v10, OS_LOG_TYPE_INFO, "Bundle ID %@ is not learnable.", buf, 0xCu);
           }
 
@@ -707,7 +700,7 @@ uint64_t ATXHeuristicCanLearnFromApp(void *a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v12 objects:v18 count:16];
       if (v3)
       {
         continue;
@@ -720,13 +713,12 @@ uint64_t ATXHeuristicCanLearnFromApp(void *a1)
   v9 = 1;
 LABEL_13:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
-void sub_23E4069D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E4069D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -759,9 +751,9 @@ void sub_23E4090DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23E4094DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23E4094DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -773,10 +765,11 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_23E40AAFC(_Unwind_Exception *a1)
@@ -793,6 +786,13 @@ uint64_t __Block_byref_object_copy__7(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_23E40B7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -800,11 +800,11 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E40D1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23E40D1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -815,35 +815,34 @@ uint64_t __Block_byref_object_copy__9(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 id _PASValidatedFormat(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
-  v19[1] = &a9;
+  v20[1] = *MEMORY[0x277D85DE8];
+  v18[1] = &a9;
   v9 = MEMORY[0x277CCACA8];
   v10 = a1;
-  v19[0] = 0;
-  v11 = [[v9 alloc] initWithValidatedFormat:v10 validFormatSpecifiers:@"%@" locale:0 arguments:&a9 error:v19];
+  v18[0] = 0;
+  v11 = [[v9 alloc] initWithValidatedFormat:v10 validFormatSpecifiers:@"%@" locale:0 arguments:&a9 error:v18];
 
-  v12 = v19[0];
+  v12 = v18[0];
   if (!v11)
   {
     v13 = objc_alloc(MEMORY[0x277CBEAD8]);
     v14 = *MEMORY[0x277CBE660];
-    v20 = *MEMORY[0x277CCA7E8];
-    v21[0] = v12;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA7E8];
+    v20[0] = v12;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v16 = [v13 initWithName:v14 reason:@"An error occurred while formatting the string." userInfo:v15];
 
     [v16 raise];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -855,16 +854,16 @@ void sub_23E40EBC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23E40F408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E40F408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -884,9 +883,9 @@ void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
-void sub_23E410B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E410B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -898,16 +897,16 @@ uint64_t __Block_byref_object_copy__11(uint64_t result, uint64_t a2)
   return result;
 }
 
-id ATXHeuristicDataSourcesInterface()
+id ATXHeuristicDataSourcesInterface(uint64_t a1)
 {
   if (ATXHeuristicDataSourcesInterface_onceToken != -1)
   {
     ATXHeuristicDataSourcesInterface_cold_1();
   }
 
-  v1 = ATXHeuristicDataSourcesInterface_instance;
+  v2 = ATXHeuristicDataSourcesInterface_instance;
 
-  return v1;
+  return v2;
 }
 
 void __ATXHeuristicDataSourcesInterface_block_invoke()
@@ -1020,16 +1019,16 @@ void __ATXHeuristicDataSourcesInterface_block_invoke()
   [ATXHeuristicDataSourcesInterface_instance setClasses:v77 forSelector:sel_alarmsFromDate_toDate_completionHandler_ argumentIndex:0 ofReply:1];
 }
 
-id __atxlog_handle_default()
+id __atxlog_handle_default(uint64_t a1)
 {
   if (__atxlog_handle_default_onceToken != -1)
   {
     __atxlog_handle_default_cold_1();
   }
 
-  v1 = __atxlog_handle_default_log;
+  v2 = __atxlog_handle_default_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_default_block_invoke()
@@ -1039,16 +1038,16 @@ uint64_t ____atxlog_handle_default_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_xpc()
+id __atxlog_handle_xpc(uint64_t a1)
 {
   if (__atxlog_handle_xpc_onceToken != -1)
   {
     __atxlog_handle_xpc_cold_1();
   }
 
-  v1 = __atxlog_handle_xpc_log;
+  v2 = __atxlog_handle_xpc_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_xpc_block_invoke()
@@ -1065,16 +1064,16 @@ uint64_t ____atxlog_handle_heuristic_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notifications()
+id __atxlog_handle_notifications(uint64_t a1)
 {
   if (__atxlog_handle_notifications_onceToken != -1)
   {
     __atxlog_handle_notifications_cold_1();
   }
 
-  v1 = __atxlog_handle_notifications_log;
+  v2 = __atxlog_handle_notifications_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notifications_block_invoke()
@@ -1084,16 +1083,16 @@ uint64_t ____atxlog_handle_notifications_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_pmm()
+id __atxlog_handle_pmm(uint64_t a1)
 {
   if (__atxlog_handle_pmm_onceToken != -1)
   {
     __atxlog_handle_pmm_cold_1();
   }
 
-  v1 = __atxlog_handle_pmm_log;
+  v2 = __atxlog_handle_pmm_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_pmm_block_invoke()
@@ -1103,16 +1102,16 @@ uint64_t ____atxlog_handle_pmm_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_dailyroutines()
+id __atxlog_handle_dailyroutines(uint64_t a1)
 {
   if (__atxlog_handle_dailyroutines_onceToken != -1)
   {
     __atxlog_handle_dailyroutines_cold_1();
   }
 
-  v1 = __atxlog_handle_dailyroutines_log;
+  v2 = __atxlog_handle_dailyroutines_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_dailyroutines_block_invoke()
@@ -1122,16 +1121,16 @@ uint64_t ____atxlog_handle_dailyroutines_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_feedback()
+id __atxlog_handle_feedback(uint64_t a1)
 {
   if (__atxlog_handle_feedback_onceToken != -1)
   {
     __atxlog_handle_feedback_cold_1();
   }
 
-  v1 = __atxlog_handle_feedback_log;
+  v2 = __atxlog_handle_feedback_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_feedback_block_invoke()
@@ -1141,16 +1140,16 @@ uint64_t ____atxlog_handle_feedback_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_modes()
+id __atxlog_handle_modes(uint64_t a1)
 {
   if (__atxlog_handle_modes_onceToken != -1)
   {
     __atxlog_handle_modes_cold_1();
   }
 
-  v1 = __atxlog_handle_modes_log;
+  v2 = __atxlog_handle_modes_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_modes_block_invoke()
@@ -1160,16 +1159,16 @@ uint64_t ____atxlog_handle_modes_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_hero()
+id __atxlog_handle_hero(uint64_t a1)
 {
   if (__atxlog_handle_hero_onceToken != -1)
   {
     __atxlog_handle_hero_cold_1();
   }
 
-  v1 = __atxlog_handle_hero_log;
+  v2 = __atxlog_handle_hero_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_hero_block_invoke()
@@ -1179,16 +1178,16 @@ uint64_t ____atxlog_handle_hero_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_deletions()
+id __atxlog_handle_deletions(uint64_t a1)
 {
   if (__atxlog_handle_deletions_onceToken != -1)
   {
     __atxlog_handle_deletions_cold_1();
   }
 
-  v1 = __atxlog_handle_deletions_log;
+  v2 = __atxlog_handle_deletions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_deletions_block_invoke()
@@ -1205,16 +1204,16 @@ uint64_t ____atxlog_handle_gi_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_timeline()
+id __atxlog_handle_timeline(uint64_t a1)
 {
   if (__atxlog_handle_timeline_onceToken != -1)
   {
     __atxlog_handle_timeline_cold_1();
   }
 
-  v1 = __atxlog_handle_timeline_log;
+  v2 = __atxlog_handle_timeline_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_timeline_block_invoke()
@@ -1224,16 +1223,16 @@ uint64_t ____atxlog_handle_timeline_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_relevant_shortcut()
+id __atxlog_handle_relevant_shortcut(uint64_t a1)
 {
   if (__atxlog_handle_relevant_shortcut_onceToken != -1)
   {
     __atxlog_handle_relevant_shortcut_cold_1();
   }
 
-  v1 = __atxlog_handle_relevant_shortcut_log;
+  v2 = __atxlog_handle_relevant_shortcut_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_relevant_shortcut_block_invoke()
@@ -1243,16 +1242,16 @@ uint64_t ____atxlog_handle_relevant_shortcut_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_relevance_model()
+id __atxlog_handle_relevance_model(uint64_t a1)
 {
   if (__atxlog_handle_relevance_model_onceToken != -1)
   {
     __atxlog_handle_relevance_model_cold_1();
   }
 
-  v1 = __atxlog_handle_relevance_model_log;
+  v2 = __atxlog_handle_relevance_model_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_relevance_model_block_invoke()
@@ -1262,16 +1261,16 @@ uint64_t ____atxlog_handle_relevance_model_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_watch()
+id __atxlog_handle_watch(uint64_t a1)
 {
   if (__atxlog_handle_watch_onceToken != -1)
   {
     __atxlog_handle_watch_cold_1();
   }
 
-  v1 = __atxlog_handle_watch_log;
+  v2 = __atxlog_handle_watch_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_watch_block_invoke()
@@ -1281,16 +1280,16 @@ uint64_t ____atxlog_handle_watch_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_ui()
+id __atxlog_handle_ui(uint64_t a1)
 {
   if (__atxlog_handle_ui_onceToken != -1)
   {
     __atxlog_handle_ui_cold_1();
   }
 
-  v1 = __atxlog_handle_ui_log;
+  v2 = __atxlog_handle_ui_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_ui_block_invoke()
@@ -1300,16 +1299,16 @@ uint64_t ____atxlog_handle_ui_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending()
+id __atxlog_handle_blending(uint64_t a1)
 {
   if (__atxlog_handle_blending_onceToken != -1)
   {
     __atxlog_handle_blending_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_log;
+  v2 = __atxlog_handle_blending_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_block_invoke()
@@ -1319,16 +1318,16 @@ uint64_t ____atxlog_handle_blending_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending_internal_cache()
+id __atxlog_handle_blending_internal_cache(uint64_t a1)
 {
   if (__atxlog_handle_blending_internal_cache_onceToken != -1)
   {
     __atxlog_handle_blending_internal_cache_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_internal_cache_log;
+  v2 = __atxlog_handle_blending_internal_cache_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_internal_cache_block_invoke()
@@ -1338,16 +1337,16 @@ uint64_t ____atxlog_handle_blending_internal_cache_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_blending_ecosystem()
+id __atxlog_handle_blending_ecosystem(uint64_t a1)
 {
   if (__atxlog_handle_blending_ecosystem_onceToken != -1)
   {
     __atxlog_handle_blending_ecosystem_cold_1();
   }
 
-  v1 = __atxlog_handle_blending_ecosystem_log;
+  v2 = __atxlog_handle_blending_ecosystem_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_blending_ecosystem_block_invoke()
@@ -1357,16 +1356,16 @@ uint64_t ____atxlog_handle_blending_ecosystem_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_home_screen()
+id __atxlog_handle_home_screen(uint64_t a1)
 {
   if (__atxlog_handle_home_screen_onceToken != -1)
   {
     __atxlog_handle_home_screen_cold_1();
   }
 
-  v1 = __atxlog_handle_home_screen_log;
+  v2 = __atxlog_handle_home_screen_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_home_screen_block_invoke()
@@ -1376,16 +1375,16 @@ uint64_t ____atxlog_handle_home_screen_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_sleep_schedule()
+id __atxlog_handle_sleep_schedule(uint64_t a1)
 {
   if (__atxlog_handle_sleep_schedule_onceToken != -1)
   {
     __atxlog_handle_sleep_schedule_cold_1();
   }
 
-  v1 = __atxlog_handle_sleep_schedule_log;
+  v2 = __atxlog_handle_sleep_schedule_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_sleep_schedule_block_invoke()
@@ -1395,16 +1394,16 @@ uint64_t ____atxlog_handle_sleep_schedule_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_lock_screen()
+id __atxlog_handle_lock_screen(uint64_t a1)
 {
   if (__atxlog_handle_lock_screen_onceToken != -1)
   {
     __atxlog_handle_lock_screen_cold_1();
   }
 
-  v1 = __atxlog_handle_lock_screen_log;
+  v2 = __atxlog_handle_lock_screen_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_lock_screen_block_invoke()
@@ -1414,16 +1413,16 @@ uint64_t ____atxlog_handle_lock_screen_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_anchor()
+id __atxlog_handle_anchor(uint64_t a1)
 {
   if (__atxlog_handle_anchor_onceToken != -1)
   {
     __atxlog_handle_anchor_cold_1();
   }
 
-  v1 = __atxlog_handle_anchor_log;
+  v2 = __atxlog_handle_anchor_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_anchor_block_invoke()
@@ -1433,16 +1432,16 @@ uint64_t ____atxlog_handle_anchor_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_prediction()
+id __atxlog_handle_app_prediction(uint64_t a1)
 {
   if (__atxlog_handle_app_prediction_onceToken != -1)
   {
     __atxlog_handle_app_prediction_cold_1();
   }
 
-  v1 = __atxlog_handle_app_prediction_log;
+  v2 = __atxlog_handle_app_prediction_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_prediction_block_invoke()
@@ -1452,16 +1451,16 @@ uint64_t ____atxlog_handle_app_prediction_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_action_prediction()
+id __atxlog_handle_action_prediction(uint64_t a1)
 {
   if (__atxlog_handle_action_prediction_onceToken != -1)
   {
     __atxlog_handle_action_prediction_cold_1();
   }
 
-  v1 = __atxlog_handle_action_prediction_log;
+  v2 = __atxlog_handle_action_prediction_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_action_prediction_block_invoke()
@@ -1471,16 +1470,16 @@ uint64_t ____atxlog_handle_action_prediction_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_library()
+id __atxlog_handle_app_library(uint64_t a1)
 {
   if (__atxlog_handle_app_library_onceToken != -1)
   {
     __atxlog_handle_app_library_cold_1();
   }
 
-  v1 = __atxlog_handle_app_library_log;
+  v2 = __atxlog_handle_app_library_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_library_block_invoke()
@@ -1490,16 +1489,16 @@ uint64_t ____atxlog_handle_app_library_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_app_install()
+id __atxlog_handle_app_install(uint64_t a1)
 {
   if (__atxlog_handle_app_install_onceToken != -1)
   {
     __atxlog_handle_app_install_cold_1();
   }
 
-  v1 = __atxlog_handle_app_install_log;
+  v2 = __atxlog_handle_app_install_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_app_install_block_invoke()
@@ -1509,16 +1508,16 @@ uint64_t ____atxlog_handle_app_install_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_backup()
+id __atxlog_handle_backup(uint64_t a1)
 {
   if (__atxlog_handle_backup_onceToken != -1)
   {
     __atxlog_handle_backup_cold_1();
   }
 
-  v1 = __atxlog_handle_backup_log;
+  v2 = __atxlog_handle_backup_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_backup_block_invoke()
@@ -1528,16 +1527,16 @@ uint64_t ____atxlog_handle_backup_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_metrics()
+id __atxlog_handle_metrics(uint64_t a1)
 {
   if (__atxlog_handle_metrics_onceToken != -1)
   {
     __atxlog_handle_metrics_cold_1();
   }
 
-  v1 = __atxlog_handle_metrics_log;
+  v2 = __atxlog_handle_metrics_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_metrics_block_invoke()
@@ -1547,16 +1546,16 @@ uint64_t ____atxlog_handle_metrics_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_trial_assets()
+id __atxlog_handle_trial_assets(uint64_t a1)
 {
   if (__atxlog_handle_trial_assets_onceToken != -1)
   {
     __atxlog_handle_trial_assets_cold_1();
   }
 
-  v1 = __atxlog_handle_trial_assets_log;
+  v2 = __atxlog_handle_trial_assets_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_trial_assets_block_invoke()
@@ -1566,16 +1565,16 @@ uint64_t ____atxlog_handle_trial_assets_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notification_management()
+id __atxlog_handle_notification_management(uint64_t a1)
 {
   if (__atxlog_handle_notification_management_onceToken != -1)
   {
     __atxlog_handle_notification_management_cold_1();
   }
 
-  v1 = __atxlog_handle_notification_management_log;
+  v2 = __atxlog_handle_notification_management_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notification_management_block_invoke()
@@ -1585,16 +1584,16 @@ uint64_t ____atxlog_handle_notification_management_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_contextual_actions()
+id __atxlog_handle_contextual_actions(uint64_t a1)
 {
   if (__atxlog_handle_contextual_actions_onceToken != -1)
   {
     __atxlog_handle_contextual_actions_cold_1();
   }
 
-  v1 = __atxlog_handle_contextual_actions_log;
+  v2 = __atxlog_handle_contextual_actions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_contextual_actions_block_invoke()
@@ -1604,16 +1603,16 @@ uint64_t ____atxlog_handle_contextual_actions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_intents_helper()
+id __atxlog_handle_intents_helper(uint64_t a1)
 {
   if (__atxlog_handle_intents_helper_onceToken != -1)
   {
     __atxlog_handle_intents_helper_cold_1();
   }
 
-  v1 = __atxlog_handle_intents_helper_log;
+  v2 = __atxlog_handle_intents_helper_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_intents_helper_block_invoke()
@@ -1623,16 +1622,16 @@ uint64_t ____atxlog_handle_intents_helper_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_context_heuristic()
+id __atxlog_handle_context_heuristic(uint64_t a1)
 {
   if (__atxlog_handle_context_heuristic_onceToken != -1)
   {
     __atxlog_handle_context_heuristic_cold_1();
   }
 
-  v1 = __atxlog_handle_context_heuristic_log;
+  v2 = __atxlog_handle_context_heuristic_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_context_heuristic_block_invoke()
@@ -1642,16 +1641,16 @@ uint64_t ____atxlog_handle_context_heuristic_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_zkw_hide()
+id __atxlog_handle_zkw_hide(uint64_t a1)
 {
   if (__atxlog_handle_zkw_hide_onceToken != -1)
   {
     __atxlog_handle_zkw_hide_cold_1();
   }
 
-  v1 = __atxlog_handle_zkw_hide_log;
+  v2 = __atxlog_handle_zkw_hide_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_zkw_hide_block_invoke()
@@ -1661,16 +1660,16 @@ uint64_t ____atxlog_handle_zkw_hide_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_context_user_education_suggestions()
+id __atxlog_handle_context_user_education_suggestions(uint64_t a1)
 {
   if (__atxlog_handle_context_user_education_suggestions_onceToken != -1)
   {
     __atxlog_handle_context_user_education_suggestions_cold_1();
   }
 
-  v1 = __atxlog_handle_context_user_education_suggestions_log;
+  v2 = __atxlog_handle_context_user_education_suggestions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_context_user_education_suggestions_block_invoke()
@@ -1680,16 +1679,16 @@ uint64_t ____atxlog_handle_context_user_education_suggestions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_time_intelligence()
+id __atxlog_handle_time_intelligence(uint64_t a1)
 {
   if (__atxlog_handle_time_intelligence_onceToken != -1)
   {
     __atxlog_handle_time_intelligence_cold_1();
   }
 
-  v1 = __atxlog_handle_time_intelligence_log;
+  v2 = __atxlog_handle_time_intelligence_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_time_intelligence_block_invoke()
@@ -1699,16 +1698,16 @@ uint64_t ____atxlog_handle_time_intelligence_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_contextual_engine()
+id __atxlog_handle_contextual_engine(uint64_t a1)
 {
   if (__atxlog_handle_contextual_engine_onceToken != -1)
   {
     __atxlog_handle_contextual_engine_cold_1();
   }
 
-  v1 = __atxlog_handle_contextual_engine_log;
+  v2 = __atxlog_handle_contextual_engine_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_contextual_engine_block_invoke()
@@ -1718,16 +1717,16 @@ uint64_t ____atxlog_handle_contextual_engine_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_usage_insights()
+id __atxlog_handle_usage_insights(uint64_t a1)
 {
   if (__atxlog_handle_usage_insights_onceToken != -1)
   {
     __atxlog_handle_usage_insights_cold_1();
   }
 
-  v1 = __atxlog_handle_usage_insights_log;
+  v2 = __atxlog_handle_usage_insights_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_usage_insights_block_invoke()
@@ -1737,16 +1736,16 @@ uint64_t ____atxlog_handle_usage_insights_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_notification_categorization()
+id __atxlog_handle_notification_categorization(uint64_t a1)
 {
   if (__atxlog_handle_notification_categorization_onceToken != -1)
   {
     __atxlog_handle_notification_categorization_cold_1();
   }
 
-  v1 = __atxlog_handle_notification_categorization_log;
+  v2 = __atxlog_handle_notification_categorization_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_notification_categorization_block_invoke()
@@ -1756,16 +1755,16 @@ uint64_t ____atxlog_handle_notification_categorization_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_settings_actions()
+id __atxlog_handle_settings_actions(uint64_t a1)
 {
   if (__atxlog_handle_settings_actions_onceToken != -1)
   {
     __atxlog_handle_settings_actions_cold_1();
   }
 
-  v1 = __atxlog_handle_settings_actions_log;
+  v2 = __atxlog_handle_settings_actions_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_settings_actions_block_invoke()
@@ -1775,16 +1774,16 @@ uint64_t ____atxlog_handle_settings_actions_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_client_donations()
+id __atxlog_handle_client_donations(uint64_t a1)
 {
   if (__atxlog_handle_client_donations_onceToken != -1)
   {
     __atxlog_handle_client_donations_cold_1();
   }
 
-  v1 = __atxlog_handle_client_donations_log;
+  v2 = __atxlog_handle_client_donations_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_client_donations_block_invoke()
@@ -1794,16 +1793,16 @@ uint64_t ____atxlog_handle_client_donations_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_carPlay_widgets()
+id __atxlog_handle_carPlay_widgets(uint64_t a1)
 {
   if (__atxlog_handle_carPlay_widgets_onceToken != -1)
   {
     __atxlog_handle_carPlay_widgets_cold_1();
   }
 
-  v1 = __atxlog_handle_carPlay_widgets_log;
+  v2 = __atxlog_handle_carPlay_widgets_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_carPlay_widgets_block_invoke()
@@ -1813,16 +1812,16 @@ uint64_t ____atxlog_handle_carPlay_widgets_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_screen_entities()
+id __atxlog_handle_screen_entities(uint64_t a1)
 {
   if (__atxlog_handle_screen_entities_onceToken != -1)
   {
     __atxlog_handle_screen_entities_cold_1();
   }
 
-  v1 = __atxlog_handle_screen_entities_log;
+  v2 = __atxlog_handle_screen_entities_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_screen_entities_block_invoke()
@@ -1832,16 +1831,16 @@ uint64_t ____atxlog_handle_screen_entities_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_document_predictor()
+id __atxlog_handle_document_predictor(uint64_t a1)
 {
   if (__atxlog_handle_document_predictor_onceToken != -1)
   {
     __atxlog_handle_document_predictor_cold_1();
   }
 
-  v1 = __atxlog_handle_document_predictor_log;
+  v2 = __atxlog_handle_document_predictor_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_document_predictor_block_invoke()
@@ -1851,16 +1850,16 @@ uint64_t ____atxlog_handle_document_predictor_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_ml_inference()
+id __atxlog_handle_ml_inference(uint64_t a1)
 {
   if (__atxlog_handle_ml_inference_onceToken != -1)
   {
     __atxlog_handle_ml_inference_cold_1();
   }
 
-  v1 = __atxlog_handle_ml_inference_log;
+  v2 = __atxlog_handle_ml_inference_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_ml_inference_block_invoke()
@@ -1870,16 +1869,16 @@ uint64_t ____atxlog_handle_ml_inference_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id __atxlog_handle_menu_items()
+id __atxlog_handle_menu_items(uint64_t a1)
 {
   if (__atxlog_handle_menu_items_onceToken != -1)
   {
     __atxlog_handle_menu_items_cold_1();
   }
 
-  v1 = __atxlog_handle_menu_items_log;
+  v2 = __atxlog_handle_menu_items_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ____atxlog_handle_menu_items_block_invoke()
@@ -1889,9 +1888,9 @@ uint64_t ____atxlog_handle_menu_items_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_23E416A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E416A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1903,37 +1902,37 @@ uint64_t __Block_byref_object_copy__12(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E416F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E416F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getATXWebSuggestionsGeneratorClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!AppPredictionInternalLibraryCore_frameworkLibrary_2)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __AppPredictionInternalLibraryCore_block_invoke_2;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278C3D3F0;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __AppPredictionInternalLibraryCore_block_invoke_2;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278C3D3F0;
+    v5 = 0;
     AppPredictionInternalLibraryCore_frameworkLibrary_2 = _sl_dlopen();
   }
 
   if (!AppPredictionInternalLibraryCore_frameworkLibrary_2)
   {
-    __getATXWebSuggestionsGeneratorClass_block_invoke_cold_2(v4);
+    __getATXWebSuggestionsGeneratorClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("ATXWebSuggestionsGenerator");
@@ -1944,18 +1943,21 @@ Class __getATXWebSuggestionsGeneratorClass_block_invoke(uint64_t a1)
   }
 
   getATXWebSuggestionsGeneratorClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AppPredictionInternalLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppPredictionInternalLibraryCore_frameworkLibrary_2 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+void sub_23E417EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
@@ -1965,9 +1967,9 @@ uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E418748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23E418748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1979,6 +1981,13 @@ uint64_t __Block_byref_object_copy__14(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_23E41B2A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__15(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -1986,56 +1995,56 @@ uint64_t __Block_byref_object_copy__15(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E41B9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E41B9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E41BC54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E41BC54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E41C0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E41C0E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E41C960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E41C960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2046,31 +2055,31 @@ uint64_t __Block_byref_object_copy__16(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E41CC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E41CC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E41E838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23E41E838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2083,16 +2092,16 @@ uint64_t __Block_byref_object_copy__17(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E41ED24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E41ED24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E41F514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23E41F514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2117,11 +2126,10 @@ void __getATXSleepSuggestionServerClass_block_invoke_cold_2(void *a1)
 
 void dataDetectorResultsToPlist_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Number of results: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Number of results: %ld", &v2, 0xCu);
 }
 
 void __getATXMediaActionPredictionClass_block_invoke_cold_1()

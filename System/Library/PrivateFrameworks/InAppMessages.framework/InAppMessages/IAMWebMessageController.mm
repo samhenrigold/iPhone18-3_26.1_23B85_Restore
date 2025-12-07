@@ -130,11 +130,11 @@ LABEL_10:
 LABEL_11:
 }
 
-uint64_t __91__IAMWebMessageController_loadMessageFromMessageEntry_withWebArchiveURL_completionHandler___block_invoke(uint64_t result, uint64_t a2)
+id *__91__IAMWebMessageController_loadMessageFromMessageEntry_withWebArchiveURL_completionHandler___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setContentPages:a2];
+    return [result[4] setContentPages:a2];
   }
 
   return result;
@@ -181,53 +181,53 @@ uint64_t __91__IAMWebMessageController_loadMessageFromMessageEntry_withWebArchiv
 
 void __77__IAMWebMessageController__createJSOContentPages_fromMessageEntry_withBlock___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:*(a1 + 32) copyItems:1];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = v3;
-  v24 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  if (v23)
   {
-    v22 = v2;
-    v23 = *v32;
+    v21 = v2;
+    v22 = *v31;
     do
     {
-      for (i = 0; i != v24; ++i)
+      for (i = 0; i != v23; ++i)
       {
-        if (*v32 != v23)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v31 + 1) + 8 * i);
+        v5 = *(*(&v30 + 1) + 8 * i);
         if ([v5 imagesCount])
         {
-          v25 = v5;
-          v26 = i;
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
+          v24 = v5;
+          v25 = i;
           v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
           v6 = [v5 images];
-          v7 = [v6 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v7)
           {
             v8 = v7;
-            v9 = *v28;
+            v9 = *v27;
             do
             {
               for (j = 0; j != v8; ++j)
               {
-                if (*v28 != v9)
+                if (*v27 != v9)
                 {
                   objc_enumerationMutation(v6);
                 }
 
-                v11 = *(*(&v27 + 1) + 8 * j);
+                v11 = *(*(&v26 + 1) + 8 * j);
                 if ([v11 hasIdentifier] && objc_msgSend(v11, "hasURL"))
                 {
                   v12 = *(a1 + 40);
@@ -243,25 +243,25 @@ void __77__IAMWebMessageController__createJSOContentPages_fromMessageEntry_withB
                 }
               }
 
-              v8 = [v6 countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v8 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
             }
 
             while (v8);
           }
 
-          v2 = v22;
-          v5 = v25;
-          i = v26;
+          v2 = v21;
+          v5 = v24;
+          i = v25;
         }
 
         v17 = [v5 dictionaryRepresentationWithReportableMetricsEvents];
         [v2 addObject:v17];
       }
 
-      v24 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v23 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
   if (*(a1 + 48) && [v2 count])
@@ -270,8 +270,6 @@ void __77__IAMWebMessageController__createJSOContentPages_fromMessageEntry_withB
     v19 = [v2 copy];
     (*(v18 + 16))(v18, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkReadyForLoadCompletion

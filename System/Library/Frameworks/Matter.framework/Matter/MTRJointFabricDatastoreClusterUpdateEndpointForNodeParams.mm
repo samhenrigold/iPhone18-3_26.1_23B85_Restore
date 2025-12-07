@@ -68,14 +68,14 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  unsignedShortValue = 0;
+  LOWORD(v24) = 0;
   v26 = 0uLL;
   unsignedLongLongValue = 0;
   v23[0] = 0;
   v23[1] = 0;
   v22 = v23;
   endpointID = [(MTRJointFabricDatastoreClusterUpdateEndpointForNodeParams *)self endpointID];
-  unsignedShortValue = [endpointID unsignedShortValue];
+  LOWORD(v24) = [endpointID unsignedShortValue];
 
   nodeID = [(MTRJointFabricDatastoreClusterUpdateEndpointForNodeParams *)self nodeID];
   unsignedLongLongValue = [nodeID unsignedLongLongValue];
@@ -94,7 +94,7 @@
     v20 = 0;
     sub_238EA16C4(&v17, &v21, 0);
     sub_2393C7BF0(v16, &v17, 0xFFFFFFFF);
-    v8 = sub_238F1B7C0(&unsignedShortValue, v16, 0x100uLL);
+    v8 = sub_238F1B7C0(&v24, v16, 0x100uLL);
     v10 = v8;
     if (v8 || (v8 = sub_238DD2EFC(v16, &v21), v10 = v8, v8))
     {

@@ -19,6 +19,7 @@
 - (NSString)savedAccumulatorCountsDescription;
 - (NSString)savedCountsDescription;
 - (NSString)verboseDescription;
+- (NWStatsProtocolSnapshot)initWithDetails:(const nstat_msg_src_details_convenient *)details startTime:(double)time flowFlags:(unsigned int)flags previously:(details_subset_for_deltas *)previously peerEgressCellularCounts:(const nstat_interface_counts *)counts;
 - (id)_createNSUUIDForBytes:(unsigned __int8)bytes[16];
 - (id)_interfaceCellularViaFallbackConciseString;
 - (id)attributionReasonString;
@@ -46,6 +47,8 @@
 - (void)donateBytesToAccumulator;
 - (void)removeBytesFromAccumulator;
 - (void)runConsistencyChecks;
+- (void)setAppStateIsForeground:(BOOL)foreground screenStateOn:(BOOL)on startAppStateIsForeground:(BOOL)isForeground startScreenStateOn:(BOOL)stateOn;
+- (void)setDomainName:(id)name owner:(id)owner context:(id)context attributedBundleId:(id)id isTracker:(BOOL)tracker isNonAppInitiated:(BOOL)initiated isSilent:(BOOL)silent;
 - (xnu_activity_bitmap)networkActivityMapAlternate;
 - (xnu_activity_bitmap)networkActivityMapBT;
 - (xnu_activity_bitmap)networkActivityMapCell;
@@ -59,7 +62,7 @@
 
 - (void)runConsistencyChecks
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   _details_ptr = [(NWStatsProtocolSnapshot *)self _details_ptr];
   _details_delta_ptr = [(NWStatsProtocolSnapshot *)self _details_delta_ptr];
   if (_details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_rxpackets >= _details_delta_ptr->savedRxPackets && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_rxbytes >= _details_delta_ptr->savedRxBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_txpackets >= _details_delta_ptr->savedTxPackets && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_txbytes >= _details_delta_ptr->savedTxBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_cellular.ts_rxbytes >= _details_delta_ptr->savedRxCellularBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_cellular.ts_txbytes >= _details_delta_ptr->savedTxCellularBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_infra.ts_rxbytes >= _details_delta_ptr->savedRxWiFiInfraBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_infra.ts_txbytes >= _details_delta_ptr->savedTxWiFiInfraBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_non_infra.ts_rxbytes >= _details_delta_ptr->savedRxWiFiNonInfraBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_non_infra.ts_txbytes >= _details_delta_ptr->savedTxWiFiNonInfraBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wired.ts_rxbytes >= _details_delta_ptr->savedRxWiredBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wired.ts_txbytes >= _details_delta_ptr->savedTxWiredBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_bluetooth.ts_rxbytes >= _details_delta_ptr->savedRxCompanionLinkBluetoothBytes && _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_bluetooth.ts_txbytes >= _details_delta_ptr->savedTxCompanionLinkBluetoothBytes && _details_ptr->hdr.detailed_counts.nstat_rxduplicatebytes >= _details_delta_ptr->savedRxDuplicateBytes && _details_ptr->hdr.detailed_counts.nstat_rxoutoforderbytes >= _details_delta_ptr->savedRxOutOfOrderBytes && _details_ptr->hdr.detailed_counts.nstat_txretransmit >= _details_delta_ptr->savedTxRetransmittedBytes)
@@ -134,7 +137,7 @@ LABEL_26:
 
   if ((v10 & 0xF00) != 0)
   {
-    v11 = NStatGetLog();
+    v11 = NStatGetLog(failedSkywalkAction);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = self->_flags;
@@ -185,23 +188,21 @@ LABEL_26:
       }
 
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v20 = 138413570;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      v24 = 2112;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v13;
-      v30 = 2112;
-      v31 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v11, OS_LOG_TYPE_ERROR, "failed consistency checks %@%@%@%@%@ %@", &v20, 0x3Eu);
+      v19 = 138413570;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2112;
+      v24 = v16;
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v13;
+      v29 = 2112;
+      v30 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v11, OS_LOG_TYPE_ERROR, "failed consistency checks %@%@%@%@%@ %@", &v19, 0x3Eu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (xnu_activity_bitmap)networkActivityMapWiFiInfra
@@ -219,63 +220,61 @@ LABEL_26:
 
 - (unint64_t)deltaAccountingRxCellularBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaRxCellularBytes = [(NWStatsProtocolSnapshot *)self deltaRxCellularBytes];
   rxCellularBytes = self->_adjustment_bytes.rxCellularBytes;
   v5 = deltaRxCellularBytes >= rxCellularBytes;
   result = deltaRxCellularBytes - rxCellularBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaRxCellularBytes2 = [(NWStatsProtocolSnapshot *)self deltaRxCellularBytes];
       v9 = self->_adjustment_bytes.rxCellularBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaRxCellularBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxCellularBytes = %llu, adjustmentRxCellularBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaRxCellularBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxCellularBytes = %llu, adjustmentRxCellularBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingRxWiredBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaRxWiredBytes = [(NWStatsProtocolSnapshot *)self deltaRxWiredBytes];
   rxWiredBytes = self->_adjustment_bytes.rxWiredBytes;
   v5 = deltaRxWiredBytes >= rxWiredBytes;
   result = deltaRxWiredBytes - rxWiredBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaRxWiredBytes2 = [(NWStatsProtocolSnapshot *)self deltaRxWiredBytes];
       v9 = self->_adjustment_bytes.rxWiredBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaRxWiredBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxWiredBytes = %llu, adjustmentRxWiredBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaRxWiredBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxWiredBytes = %llu, adjustmentRxWiredBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -298,94 +297,91 @@ LABEL_26:
 
 - (unint64_t)deltaAccountingTxWiredBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaTxWiredBytes = [(NWStatsProtocolSnapshot *)self deltaTxWiredBytes];
   txWiredBytes = self->_adjustment_bytes.txWiredBytes;
   v5 = deltaTxWiredBytes >= txWiredBytes;
   result = deltaTxWiredBytes - txWiredBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaTxWiredBytes2 = [(NWStatsProtocolSnapshot *)self deltaTxWiredBytes];
       v9 = self->_adjustment_bytes.txWiredBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaTxWiredBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxWiredBytes = %llu, adjustmentTxWiredBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaTxWiredBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxWiredBytes = %llu, adjustmentTxWiredBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingRxWiFiInfraBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaRxWiFiInfraBytes = [(NWStatsProtocolSnapshot *)self deltaRxWiFiInfraBytes];
   rxWiFiInfraBytes = self->_adjustment_bytes.rxWiFiInfraBytes;
   v5 = deltaRxWiFiInfraBytes >= rxWiFiInfraBytes;
   result = deltaRxWiFiInfraBytes - rxWiFiInfraBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaRxWiFiInfraBytes2 = [(NWStatsProtocolSnapshot *)self deltaRxWiFiInfraBytes];
       v9 = self->_adjustment_bytes.rxWiFiInfraBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaRxWiFiInfraBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxWiFiInfraBytes = %llu, adjustmentRxWiFiInfraBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaRxWiFiInfraBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxWiFiInfraBytes = %llu, adjustmentRxWiFiInfraBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingTxCellularBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaTxCellularBytes = [(NWStatsProtocolSnapshot *)self deltaTxCellularBytes];
   txCellularBytes = self->_adjustment_bytes.txCellularBytes;
   v5 = deltaTxCellularBytes >= txCellularBytes;
   result = deltaTxCellularBytes - txCellularBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaTxCellularBytes2 = [(NWStatsProtocolSnapshot *)self deltaTxCellularBytes];
       v9 = self->_adjustment_bytes.txCellularBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaTxCellularBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxCellularBytes = %llu, adjustmentTxCellularBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaTxCellularBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxCellularBytes = %llu, adjustmentTxCellularBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -398,156 +394,151 @@ LABEL_26:
 
 - (unint64_t)deltaAccountingTxCompanionLinkBluetoothBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaTxCompanionLinkBluetoothBytes = [(NWStatsProtocolSnapshot *)self deltaTxCompanionLinkBluetoothBytes];
   txCompanionLinkBluetoothBytes = self->_adjustment_bytes.txCompanionLinkBluetoothBytes;
   v5 = deltaTxCompanionLinkBluetoothBytes >= txCompanionLinkBluetoothBytes;
   result = deltaTxCompanionLinkBluetoothBytes - txCompanionLinkBluetoothBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaTxCompanionLinkBluetoothBytes2 = [(NWStatsProtocolSnapshot *)self deltaTxCompanionLinkBluetoothBytes];
       v9 = self->_adjustment_bytes.txCompanionLinkBluetoothBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaTxCompanionLinkBluetoothBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxCompanionLinkBluetoothBytes = %llu, adjustmentTxCompanionLinkBluetoothBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaTxCompanionLinkBluetoothBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxCompanionLinkBluetoothBytes = %llu, adjustmentTxCompanionLinkBluetoothBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingRxCompanionLinkBluetoothBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaRxCompanionLinkBluetoothBytes = [(NWStatsProtocolSnapshot *)self deltaRxCompanionLinkBluetoothBytes];
   rxCompanionLinkBluetoothBytes = self->_adjustment_bytes.rxCompanionLinkBluetoothBytes;
   v5 = deltaRxCompanionLinkBluetoothBytes >= rxCompanionLinkBluetoothBytes;
   result = deltaRxCompanionLinkBluetoothBytes - rxCompanionLinkBluetoothBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaRxCompanionLinkBluetoothBytes2 = [(NWStatsProtocolSnapshot *)self deltaRxCompanionLinkBluetoothBytes];
       v9 = self->_adjustment_bytes.rxCompanionLinkBluetoothBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaRxCompanionLinkBluetoothBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "adjustment counts > actual deltas in the snapshot. deltaRxCompanionLinkBluetoothBytes = %llu, adjustmentRxCompanionLinkBluetoothBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaRxCompanionLinkBluetoothBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "adjustment counts > actual deltas in the snapshot. deltaRxCompanionLinkBluetoothBytes = %llu, adjustmentRxCompanionLinkBluetoothBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingTxWiFiNonInfraBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaTxWiFiNonInfraBytes = [(NWStatsProtocolSnapshot *)self deltaTxWiFiNonInfraBytes];
   txWiFiNonInfraBytes = self->_adjustment_bytes.txWiFiNonInfraBytes;
   v5 = deltaTxWiFiNonInfraBytes >= txWiFiNonInfraBytes;
   result = deltaTxWiFiNonInfraBytes - txWiFiNonInfraBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaTxWiFiNonInfraBytes2 = [(NWStatsProtocolSnapshot *)self deltaTxWiFiNonInfraBytes];
       v9 = self->_adjustment_bytes.txWiFiNonInfraBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaTxWiFiNonInfraBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxWiFiNonInfraBytes = %llu, adjustmentTxWiFiNonInfraBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaTxWiFiNonInfraBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxWiFiNonInfraBytes = %llu, adjustmentTxWiFiNonInfraBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingRxWiFiNonInfraBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaRxWiFiNonInfraBytes = [(NWStatsProtocolSnapshot *)self deltaRxWiFiNonInfraBytes];
   rxWiFiNonInfraBytes = self->_adjustment_bytes.rxWiFiNonInfraBytes;
   v5 = deltaRxWiFiNonInfraBytes >= rxWiFiNonInfraBytes;
   result = deltaRxWiFiNonInfraBytes - rxWiFiNonInfraBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaRxWiFiNonInfraBytes2 = [(NWStatsProtocolSnapshot *)self deltaRxWiFiNonInfraBytes];
       v9 = self->_adjustment_bytes.rxWiFiNonInfraBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaRxWiFiNonInfraBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxWiFiNonInfraBytes = %llu, adjustmentRxWiFiNonInfraBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaRxWiFiNonInfraBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxWiFiNonInfraBytes = %llu, adjustmentRxWiFiNonInfraBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingTxWiFiInfraBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaTxWiFiInfraBytes = [(NWStatsProtocolSnapshot *)self deltaTxWiFiInfraBytes];
   txWiFiInfraBytes = self->_adjustment_bytes.txWiFiInfraBytes;
   v5 = deltaTxWiFiInfraBytes >= txWiFiInfraBytes;
   result = deltaTxWiFiInfraBytes - txWiFiInfraBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaTxWiFiInfraBytes2 = [(NWStatsProtocolSnapshot *)self deltaTxWiFiInfraBytes];
       v9 = self->_adjustment_bytes.txWiFiInfraBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaTxWiFiInfraBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxWiFiInfraBytes = %llu, adjustmentTxWiFiInfraBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaTxWiFiInfraBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxWiFiInfraBytes = %llu, adjustmentTxWiFiInfraBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -829,33 +820,25 @@ LABEL_26:
 - (NSString)countsDescription
 {
   _details_ptr = [(NWStatsProtocolSnapshot *)self _details_ptr];
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  ts_txbytes = _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_bluetooth.ts_txbytes;
-  v5 = _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_alternate.ts_txbytes;
-  v6 = [v3 initWithFormat:@"count rx/tx pkts %lld %lld bytes %lld %lld cell %lld %lld wifi-infra %lld %lld non-infra %lld %lld wired %lld %lld bt %lld %lld alternate %lld %lld dup %lld ooo %lld retx %lld", _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_rxpackets, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_txpackets, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_cellular.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_cellular.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_infra.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_infra.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_non_infra.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_non_infra.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wired.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wired.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_bluetooth.ts_rxbytes, ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_alternate.ts_rxbytes, v5, _details_ptr->hdr.detailed_counts.nstat_rxduplicatebytes, _details_ptr->hdr.detailed_counts.nstat_rxoutoforderbytes, _details_ptr->hdr.detailed_counts.nstat_txretransmit];
+  v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"count rx/tx pkts %lld %lld bytes %lld %lld cell %lld %lld wifi-infra %lld %lld non-infra %lld %lld wired %lld %lld bt %lld %lld alternate %lld %lld dup %lld ooo %lld retx %lld", _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_rxpackets, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_txpackets, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_total.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_cellular.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_cellular.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_infra.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_infra.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_non_infra.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wifi_non_infra.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wired.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_wired.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_bluetooth.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_bluetooth.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_alternate.ts_rxbytes, _details_ptr->hdr.detailed_counts.nstat_media_stats.ms_alternate.ts_txbytes, _details_ptr->hdr.detailed_counts.nstat_rxduplicatebytes, _details_ptr->hdr.detailed_counts.nstat_rxoutoforderbytes, _details_ptr->hdr.detailed_counts.nstat_txretransmit];
 
-  return v6;
+  return v3;
 }
 
 - (NSString)savedCountsDescription
 {
   _details_delta_ptr = [(NWStatsProtocolSnapshot *)self _details_delta_ptr];
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  savedTxCompanionLinkBluetoothBytes = _details_delta_ptr->savedTxCompanionLinkBluetoothBytes;
-  v5 = [v3 initWithFormat:@"saved rx/tx pkts %lld %lld bytes %lld %lld cell %lld %lld wifi-infra %lld %lld non-infra %lld %lld wired %lld %lld bt %lld %lld alternate %lld %lld dup %d ooo %d retx %d", _details_delta_ptr->savedRxPackets, _details_delta_ptr->savedTxPackets, _details_delta_ptr->savedRxBytes, _details_delta_ptr->savedTxBytes, _details_delta_ptr->savedRxCellularBytes, _details_delta_ptr->savedTxCellularBytes, _details_delta_ptr->savedRxWiFiInfraBytes, _details_delta_ptr->savedTxWiFiInfraBytes, _details_delta_ptr->savedRxWiFiNonInfraBytes, _details_delta_ptr->savedTxWiFiNonInfraBytes, _details_delta_ptr->savedRxWiredBytes, _details_delta_ptr->savedTxWiredBytes, _details_delta_ptr->savedRxCompanionLinkBluetoothBytes, savedTxCompanionLinkBluetoothBytes, _details_delta_ptr->savedRxAlternateBytes, _details_delta_ptr->savedTxAlternateBytes, _details_delta_ptr->savedRxDuplicateBytes, _details_delta_ptr->savedRxOutOfOrderBytes, _details_delta_ptr->savedTxRetransmittedBytes];
+  v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"saved rx/tx pkts %lld %lld bytes %lld %lld cell %lld %lld wifi-infra %lld %lld non-infra %lld %lld wired %lld %lld bt %lld %lld alternate %lld %lld dup %d ooo %d retx %d", _details_delta_ptr->savedRxPackets, _details_delta_ptr->savedTxPackets, _details_delta_ptr->savedRxBytes, _details_delta_ptr->savedTxBytes, _details_delta_ptr->savedRxCellularBytes, _details_delta_ptr->savedTxCellularBytes, _details_delta_ptr->savedRxWiFiInfraBytes, _details_delta_ptr->savedTxWiFiInfraBytes, _details_delta_ptr->savedRxWiFiNonInfraBytes, _details_delta_ptr->savedTxWiFiNonInfraBytes, _details_delta_ptr->savedRxWiredBytes, _details_delta_ptr->savedTxWiredBytes, _details_delta_ptr->savedRxCompanionLinkBluetoothBytes, _details_delta_ptr->savedTxCompanionLinkBluetoothBytes, _details_delta_ptr->savedRxAlternateBytes, _details_delta_ptr->savedTxAlternateBytes, _details_delta_ptr->savedRxDuplicateBytes, _details_delta_ptr->savedRxOutOfOrderBytes, _details_delta_ptr->savedTxRetransmittedBytes];
 
-  return v5;
+  return v3;
 }
 
 - (NSString)savedAccumulatorCountsDescription
 {
   _details_adjustment_bytes = [(NWStatsProtocolSnapshot *)self _details_adjustment_bytes];
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  rxCellularBytes = _details_adjustment_bytes->rxCellularBytes;
-  rxCompanionLinkBluetoothBytes = _details_adjustment_bytes->rxCompanionLinkBluetoothBytes;
-  v6 = [v3 initWithFormat:@"accumulator rx/tx cell %lld %lld wifi-infra %lld %lld non-infra %lld %lld wired %lld %lld bt %lld %lld", _details_adjustment_bytes->rxCellularBytes, _details_adjustment_bytes->txCellularBytes, _details_adjustment_bytes->rxWiFiInfraBytes, _details_adjustment_bytes->txWiFiInfraBytes, _details_adjustment_bytes->rxWiFiNonInfraBytes, _details_adjustment_bytes->txWiFiNonInfraBytes, _details_adjustment_bytes->rxWiredBytes, _details_adjustment_bytes->txWiredBytes, rxCompanionLinkBluetoothBytes, _details_adjustment_bytes->txCompanionLinkBluetoothBytes];
+  v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"accumulator rx/tx cell %lld %lld wifi-infra %lld %lld non-infra %lld %lld wired %lld %lld bt %lld %lld", _details_adjustment_bytes->rxCellularBytes, _details_adjustment_bytes->txCellularBytes, _details_adjustment_bytes->rxWiFiInfraBytes, _details_adjustment_bytes->txWiFiInfraBytes, _details_adjustment_bytes->rxWiFiNonInfraBytes, _details_adjustment_bytes->txWiFiNonInfraBytes, _details_adjustment_bytes->rxWiredBytes, _details_adjustment_bytes->txWiredBytes, _details_adjustment_bytes->rxCompanionLinkBluetoothBytes, _details_adjustment_bytes->txCompanionLinkBluetoothBytes];
 
-  return v6;
+  return v3;
 }
 
 - (NSString)verboseDescription
@@ -1008,7 +991,7 @@ LABEL_26:
 
 - (unint64_t)_deltaForCurrentBytes:(unint64_t)bytes packets:(unint64_t)packets prevBytes:(unint64_t)prevBytes prevPackets:(unint64_t)prevPackets
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (bytes < prevBytes)
   {
     bytes = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Flow anomaly: flow %lld has negative bytecount delta, old count %lld new count %lld", -[NWStatsProtocolSnapshot sourceIdentifier](self, "sourceIdentifier"), prevBytes, bytes];
@@ -1016,7 +999,7 @@ LABEL_5:
     v12 = bytes;
     [NWStatsProtocolSnapshot logFlowAnomaly:self anomaly:bytes];
 
-    goto LABEL_6;
+    return 0;
   }
 
   if (packets < prevPackets)
@@ -1025,97 +1008,91 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v15 = [(NWStatsProtocolSnapshot *)self _adjustedByteCount:bytes packets:packets];
-  v16 = [(NWStatsProtocolSnapshot *)self _adjustedByteCount:prevBytes packets:prevPackets];
-  v17 = v15 >= v16;
-  result = v15 - v16;
-  if (v17)
+  v14 = [(NWStatsProtocolSnapshot *)self _adjustedByteCount:bytes packets:packets];
+  v15 = [(NWStatsProtocolSnapshot *)self _adjustedByteCount:prevBytes packets:prevPackets];
+  v16 = v14 >= v15;
+  result = v14 - v15;
+  if (!v16)
   {
-    goto LABEL_7;
+    v17 = NStatGetLog(result);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134219008;
+      sourceIdentifier = [(NWStatsProtocolSnapshot *)self sourceIdentifier];
+      v20 = 2048;
+      bytesCopy = bytes;
+      v22 = 2048;
+      packetsCopy = packets;
+      v24 = 2048;
+      prevBytesCopy = prevBytes;
+      v26 = 2048;
+      prevPacketsCopy = prevPackets;
+      _os_log_impl(&dword_25BA3A000, v17, OS_LOG_TYPE_ERROR, "Inverted numbers in delta calculations for flow %lld, current bytes %lld pkts %lld when previous bytes %lld pkts %lld", buf, 0x34u);
+    }
+
+    return 0;
   }
 
-  v18 = NStatGetLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 134219008;
-    sourceIdentifier = [(NWStatsProtocolSnapshot *)self sourceIdentifier];
-    v21 = 2048;
-    bytesCopy = bytes;
-    v23 = 2048;
-    packetsCopy = packets;
-    v25 = 2048;
-    prevBytesCopy = prevBytes;
-    v27 = 2048;
-    prevPacketsCopy = prevPackets;
-    _os_log_impl(&dword_25BA3A000, v18, OS_LOG_TYPE_ERROR, "Inverted numbers in delta calculations for flow %lld, current bytes %lld pkts %lld when previous bytes %lld pkts %lld", buf, 0x34u);
-  }
-
-LABEL_6:
-  result = 0;
-LABEL_7:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingRxAlternateBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaRxAlternateBytes = [(NWStatsProtocolSnapshot *)self deltaRxAlternateBytes];
   rxAlternateBytes = self->_adjustment_bytes.rxAlternateBytes;
   v5 = deltaRxAlternateBytes >= rxAlternateBytes;
   result = deltaRxAlternateBytes - rxAlternateBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaRxAlternateBytes2 = [(NWStatsProtocolSnapshot *)self deltaRxAlternateBytes];
       txAlternateBytes = self->_adjustment_bytes.txAlternateBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaRxAlternateBytes2;
-      v14 = 2048;
-      v15 = txAlternateBytes;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxAlternateBytes = %llu, adjustmentRxAlternateBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaRxAlternateBytes2;
+      v13 = 2048;
+      v14 = txAlternateBytes;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaRxAlternateBytes = %llu, adjustmentRxAlternateBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)deltaAccountingTxAlternateBytes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deltaTxAlternateBytes = [(NWStatsProtocolSnapshot *)self deltaTxAlternateBytes];
   txAlternateBytes = self->_adjustment_bytes.txAlternateBytes;
   v5 = deltaTxAlternateBytes >= txAlternateBytes;
   result = deltaTxAlternateBytes - txAlternateBytes;
   if (!v5)
   {
-    v7 = NStatGetLog();
+    v7 = NStatGetLog(result);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       deltaTxAlternateBytes2 = [(NWStatsProtocolSnapshot *)self deltaTxAlternateBytes];
       v9 = self->_adjustment_bytes.txAlternateBytes;
       verboseDescription = [(NWStatsProtocolSnapshot *)self verboseDescription];
-      v12 = 134218498;
-      v13 = deltaTxAlternateBytes2;
-      v14 = 2048;
-      v15 = v9;
-      v16 = 2112;
-      v17 = verboseDescription;
-      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxAlternateBytes = %llu, adjustmentTxAlternateBytes = %llu\n%@", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = deltaTxAlternateBytes2;
+      v13 = 2048;
+      v14 = v9;
+      v15 = 2112;
+      v16 = verboseDescription;
+      _os_log_impl(&dword_25BA3A000, v7, OS_LOG_TYPE_ERROR, "Accounting adjustment counts > actual deltas in the snapshot. deltaTxAlternateBytes = %llu, adjustmentTxAlternateBytes = %llu\n%@", &v11, 0x20u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1281,16 +1258,90 @@ LABEL_18:
   return 0;
 }
 
+- (NWStatsProtocolSnapshot)initWithDetails:(const nstat_msg_src_details_convenient *)details startTime:(double)time flowFlags:(unsigned int)flags previously:(details_subset_for_deltas *)previously peerEgressCellularCounts:(const nstat_interface_counts *)counts
+{
+  v33 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = NWStatsProtocolSnapshot;
+  v10 = [(NWStatsProtocolSnapshot *)&v30 init:details];
+  v11 = v10;
+  if (v10)
+  {
+    v10->_flags = flags;
+    v13 = *&previously->savedTxPackets;
+    v12 = *&previously->savedRxCellularBytes;
+    *&v10->_prev_items.savedRxPackets = *&previously->savedRxPackets;
+    *&v10->_prev_items.savedTxPackets = v13;
+    *&v10->_prev_items.savedRxCellularBytes = v12;
+    v14 = *&previously->savedRxWiFiNonInfraBytes;
+    v16 = *&previously->savedRxCellularPackets;
+    v15 = *&previously->savedRxWiFiInfraBytes;
+    *&v10->_prev_items.savedRxWiFiInfraPackets = *&previously->savedRxWiFiInfraPackets;
+    *&v10->_prev_items.savedRxWiFiNonInfraBytes = v14;
+    *&v10->_prev_items.savedRxCellularPackets = v16;
+    *&v10->_prev_items.savedRxWiFiInfraBytes = v15;
+    v17 = *&previously->savedRxCompanionLinkBluetoothBytes;
+    v19 = *&previously->savedRxWiFiNonInfraPackets;
+    v18 = *&previously->savedRxWiredBytes;
+    *&v10->_prev_items.savedRxWiredPackets = *&previously->savedRxWiredPackets;
+    *&v10->_prev_items.savedRxCompanionLinkBluetoothBytes = v17;
+    *&v10->_prev_items.savedRxWiFiNonInfraPackets = v19;
+    *&v10->_prev_items.savedRxWiredBytes = v18;
+    v20 = *&previously->savedRxDuplicateBytes;
+    v22 = *&previously->savedRxCompanionLinkBluetoothPackets;
+    v21 = *&previously->savedRxAlternateBytes;
+    *&v10->_prev_items.savedRxAlternatePackets = *&previously->savedRxAlternatePackets;
+    *&v10->_prev_items.savedRxDuplicateBytes = v20;
+    *&v10->_prev_items.savedRxCompanionLinkBluetoothPackets = v22;
+    *&v10->_prev_items.savedRxAlternateBytes = v21;
+    v10->_isKnownVPNProvider = 0;
+    provider = details->hdr.provider;
+    if (provider <= 0xA)
+    {
+      if (((1 << provider) & 0x430) != 0)
+      {
+        p_nstat_details = &v10->_nstat_details;
+        detailsCopy2 = details;
+        v26 = 768;
+        goto LABEL_8;
+      }
+
+      if (((1 << provider) & 0xC) != 0 || provider == 8)
+      {
+        p_nstat_details = &v10->_nstat_details;
+        detailsCopy2 = details;
+        v26 = 832;
+LABEL_8:
+        memcpy(p_nstat_details, detailsCopy2, v26);
+        return v11;
+      }
+    }
+
+    v28 = NStatGetLog(v10);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      v29 = details->hdr.provider;
+      *buf = 67109120;
+      v32 = v29;
+      _os_log_impl(&dword_25BA3A000, v28, OS_LOG_TYPE_ERROR, "unknown provider %d type for snapshot", buf, 8u);
+    }
+
+    return 0;
+  }
+
+  return v11;
+}
+
 + (void)logFlowAnomaly:(id)anomaly anomaly:(id)a4
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   anomalyCopy = anomaly;
   v6 = a4;
   os_unfair_lock_lock(&flowsWithAnomaliesLock);
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(anomalyCopy, "sourceIdentifier")}];
   if ([anomalyCopy snapshotReason] == 2)
   {
-    [flowsWithAnomalies removeObject:v7];
+    v8 = [flowsWithAnomalies removeObject:v7];
   }
 
   else
@@ -1300,30 +1351,28 @@ LABEL_18:
       goto LABEL_10;
     }
 
-    [flowsWithAnomalies addObject:v7];
+    v8 = [flowsWithAnomalies addObject:v7];
   }
 
-  v8 = NStatGetLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v12 = 138543362;
-    v13 = v6;
-    _os_log_impl(&dword_25BA3A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@", &v12, 0xCu);
-  }
-
-  v9 = NStatGetLog();
+  v9 = NStatGetLog(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
+    v13 = 138543362;
+    v14 = v6;
+    _os_log_impl(&dword_25BA3A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@", &v13, 0xCu);
+  }
+
+  v11 = NStatGetLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
     verboseDescription = [anomalyCopy verboseDescription];
-    v12 = 138412290;
-    v13 = verboseDescription;
-    _os_log_impl(&dword_25BA3A000, v9, OS_LOG_TYPE_DEFAULT, "Flow details for anomalous flow condition: %{pubic}@", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = verboseDescription;
+    _os_log_impl(&dword_25BA3A000, v11, OS_LOG_TYPE_DEFAULT, "Flow details for anomalous flow condition: %{pubic}@", &v13, 0xCu);
   }
 
 LABEL_10:
   os_unfair_lock_unlock(&flowsWithAnomaliesLock);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_initializeTCPDescriptor:(nstat_tcp_descriptor *)descriptor fromDictionary:(id)dictionary
@@ -2178,8 +2227,8 @@ LABEL_17:
 
   if (v54)
   {
-    v55 = [dictionaryCopy objectForKeyedSubscript:@"_startStampUsecs"];
-    v53 = [v55 unsignedLongLongValue] / 1000000.0;
+    v56 = [dictionaryCopy objectForKeyedSubscript:@"_startStampUsecs"];
+    v53 = [v56 unsignedLongLongValue] / 1000000.0;
   }
 
   if (unsignedIntValue8 > 0xA)
@@ -2189,9 +2238,9 @@ LABEL_17:
 
   if (((1 << unsignedIntValue8) & 0x430) != 0)
   {
-    v56 = [v5 objectForKeyedSubscript:@"udp_descriptor"];
-    [self _initializeUDPDescriptor:v139 fromDictionary:v56];
-    v57 = off_27996D9C8;
+    v57 = [v5 objectForKeyedSubscript:@"udp_descriptor"];
+    [self _initializeUDPDescriptor:v139 fromDictionary:v57];
+    v58 = off_27996D9C8;
     goto LABEL_13;
   }
 
@@ -2199,103 +2248,103 @@ LABEL_17:
   {
     if (unsignedIntValue8 == 8)
     {
-      v56 = [v5 objectForKeyedSubscript:@"quic_descriptor"];
-      [self _initializeQUICDescriptor:v139 fromDictionary:v56];
-      v57 = off_27996D9A8;
+      v57 = [v5 objectForKeyedSubscript:@"quic_descriptor"];
+      [self _initializeQUICDescriptor:v139 fromDictionary:v57];
+      v58 = off_27996D9A8;
       goto LABEL_13;
     }
 
 LABEL_26:
-    v88 = NStatGetLog();
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+    v89 = NStatGetLog(v55);
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
       v113 = unsignedIntValue8;
-      _os_log_impl(&dword_25BA3A000, v88, OS_LOG_TYPE_ERROR, "unknown provider %d type for snapshot", buf, 8u);
+      _os_log_impl(&dword_25BA3A000, v89, OS_LOG_TYPE_ERROR, "unknown provider %d type for snapshot", buf, 8u);
     }
 
-    v60 = 0;
+    v61 = 0;
     goto LABEL_29;
   }
 
-  v56 = [v5 objectForKeyedSubscript:@"tcp_descriptor"];
-  [self _initializeTCPDescriptor:v139 fromDictionary:v56];
-  v57 = off_27996D9B8;
+  v57 = [v5 objectForKeyedSubscript:@"tcp_descriptor"];
+  [self _initializeTCPDescriptor:v139 fromDictionary:v57];
+  v58 = off_27996D9B8;
 LABEL_13:
 
-  v58 = objc_alloc(*v57);
-  v59 = [dictionaryCopy objectForKeyedSubscript:@"_flags"];
-  v60 = [v58 initWithDetails:&longLongValue7 startTime:objc_msgSend(v59 flowFlags:"unsignedIntValue") previously:v96 peerEgressCellularCounts:{0, v53}];
+  v59 = objc_alloc(*v58);
+  v60 = [dictionaryCopy objectForKeyedSubscript:@"_flags"];
+  v61 = [v59 initWithDetails:&longLongValue7 startTime:objc_msgSend(v60 flowFlags:"unsignedIntValue") previously:v96 peerEgressCellularCounts:{0, v53}];
 
-  if (!v60)
+  if (!v61)
   {
     goto LABEL_30;
   }
 
-  v61 = [dictionaryCopy objectForKeyedSubscript:@"snapshotReason"];
-  [v60 setSnapshotReason:{objc_msgSend(v61, "intValue")}];
+  v62 = [dictionaryCopy objectForKeyedSubscript:@"snapshotReason"];
+  [v61 setSnapshotReason:{objc_msgSend(v62, "intValue")}];
 
-  v62 = [dictionaryCopy objectForKeyedSubscript:@"attributedEntity"];
+  v63 = [dictionaryCopy objectForKeyedSubscript:@"attributedEntity"];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v64 = [dictionaryCopy objectForKeyedSubscript:@"attributedEntity"];
+    v65 = [dictionaryCopy objectForKeyedSubscript:@"attributedEntity"];
   }
 
   else
   {
-    v64 = @"<unknown>";
+    v65 = @"<unknown>";
   }
 
-  v65 = [dictionaryCopy objectForKeyedSubscript:@"delegateName"];
+  v66 = [dictionaryCopy objectForKeyedSubscript:@"delegateName"];
   objc_opt_class();
-  v66 = objc_opt_isKindOfClass();
+  v67 = objc_opt_isKindOfClass();
 
   v94 = v6;
   v95 = v5;
   v93 = v7;
-  if (v66)
+  if (v67)
   {
-    v67 = [dictionaryCopy objectForKeyedSubscript:@"delegateName"];
+    v68 = [dictionaryCopy objectForKeyedSubscript:@"delegateName"];
   }
 
   else
   {
-    v67 = 0;
+    v68 = 0;
   }
 
-  v68 = [dictionaryCopy objectForKeyedSubscript:@"attributionReason"];
-  intValue = [v68 intValue];
+  v69 = [dictionaryCopy objectForKeyedSubscript:@"attributionReason"];
+  intValue = [v69 intValue];
   [dictionaryCopy objectForKeyedSubscript:@"delegateAttributionReason"];
-  v71 = v70 = dictionaryCopy;
-  v91 = v67;
-  v92 = v64;
-  [v60 setAttribution:v64 derivation:intValue delegateName:v67 delegateDerivation:objc_msgSend(v71 extensionName:{"intValue"), 0}];
+  v72 = v71 = dictionaryCopy;
+  v91 = v68;
+  v92 = v65;
+  [v61 setAttribution:v65 derivation:intValue delegateName:v68 delegateDerivation:objc_msgSend(v72 extensionName:{"intValue"), 0}];
 
-  v72 = [v70 objectForKeyedSubscript:@"uiBackgroundAudioCapable"];
-  [v60 setIsUIBackgroundAudioCapable:{objc_msgSend(v72, "BOOLValue")}];
+  v73 = [v71 objectForKeyedSubscript:@"uiBackgroundAudioCapable"];
+  [v61 setIsUIBackgroundAudioCapable:{objc_msgSend(v73, "BOOLValue")}];
 
-  v73 = [v70 objectForKeyedSubscript:@"snapshotAppStateIsForeground"];
-  bOOLValue = [v73 BOOLValue];
-  v75 = [v70 objectForKeyedSubscript:@"snapshotScreenStateOn"];
-  bOOLValue2 = [v75 BOOLValue];
-  v77 = [v70 objectForKeyedSubscript:@"startAppStateIsForeground"];
-  bOOLValue3 = [v77 BOOLValue];
-  v79 = [v70 objectForKeyedSubscript:@"startScreenStateOn"];
-  bOOLValue4 = [v79 BOOLValue];
-  v81 = bOOLValue;
-  dictionaryCopy = v70;
-  [v60 setAppStateIsForeground:v81 screenStateOn:bOOLValue2 startAppStateIsForeground:bOOLValue3 startScreenStateOn:bOOLValue4];
+  v74 = [v71 objectForKeyedSubscript:@"snapshotAppStateIsForeground"];
+  bOOLValue = [v74 BOOLValue];
+  v76 = [v71 objectForKeyedSubscript:@"snapshotScreenStateOn"];
+  bOOLValue2 = [v76 BOOLValue];
+  v78 = [v71 objectForKeyedSubscript:@"startAppStateIsForeground"];
+  bOOLValue3 = [v78 BOOLValue];
+  v80 = [v71 objectForKeyedSubscript:@"startScreenStateOn"];
+  bOOLValue4 = [v80 BOOLValue];
+  v82 = bOOLValue;
+  dictionaryCopy = v71;
+  [v61 setAppStateIsForeground:v82 screenStateOn:bOOLValue2 startAppStateIsForeground:bOOLValue3 startScreenStateOn:bOOLValue4];
 
-  v82 = [v70 objectForKeyedSubscript:@"_snapStampUsecs"];
-  if (v82 && (v83 = v82, [v70 objectForKeyedSubscript:@"_snapStampUsecs"], v84 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v85 = objc_opt_isKindOfClass(), v84, v83, (v85 & 1) != 0))
+  v83 = [v71 objectForKeyedSubscript:@"_snapStampUsecs"];
+  if (v83 && (v84 = v83, [v71 objectForKeyedSubscript:@"_snapStampUsecs"], v85 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v86 = objc_opt_isKindOfClass(), v85, v84, (v86 & 1) != 0))
   {
-    v86 = [v70 objectForKeyedSubscript:@"_snapStampUsecs"];
-    v87 = [v86 unsignedLongLongValue] / 1000000.0;
+    v87 = [v71 objectForKeyedSubscript:@"_snapStampUsecs"];
+    v88 = [v87 unsignedLongLongValue] / 1000000.0;
 
-    [v60 setFlowSnapshotTimeIntervalSinceReferenceDate:v87];
+    [v61 setFlowSnapshotTimeIntervalSinceReferenceDate:v88];
     v6 = v94;
     v5 = v95;
     v7 = v93;
@@ -2312,15 +2361,14 @@ LABEL_13:
     }
   }
 
-  [v60 runConsistencyChecks];
+  [v61 runConsistencyChecks];
 
-  v88 = v92;
+  v89 = v92;
 LABEL_29:
 
 LABEL_30:
-  v89 = *MEMORY[0x277D85DE8];
 
-  return v60;
+  return v61;
 }
 
 + (id)snapshotWithDictionary:(id)dictionary
@@ -2427,11 +2475,94 @@ LABEL_21:
   return v14;
 }
 
+- (void)setDomainName:(id)name owner:(id)owner context:(id)context attributedBundleId:(id)id isTracker:(BOOL)tracker isNonAppInitiated:(BOOL)initiated isSilent:(BOOL)silent
+{
+  initiatedCopy = initiated;
+  trackerCopy = tracker;
+  nameCopy = name;
+  ownerCopy = owner;
+  contextCopy = context;
+  idCopy = id;
+  if (nameCopy)
+  {
+    v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:nameCopy];
+    [(NWStatsSnapshot *)self setDomainName:v18];
+
+    if (ownerCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    [(NWStatsSnapshot *)self setDomainName:0];
+    if (ownerCopy)
+    {
+LABEL_3:
+      v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:ownerCopy];
+      [(NWStatsSnapshot *)self setDomainOwner:v19];
+
+      if (contextCopy)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_8:
+      [(NWStatsSnapshot *)self setDomainTrackerContext:0];
+      if (idCopy)
+      {
+        goto LABEL_5;
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+  [(NWStatsSnapshot *)self setDomainOwner:0];
+  if (!contextCopy)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_4:
+  v20 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:contextCopy];
+  [(NWStatsSnapshot *)self setDomainTrackerContext:v20];
+
+  if (idCopy)
+  {
+LABEL_5:
+    v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:idCopy];
+    [(NWStatsSnapshot *)self setDomainAttributedBundleId:v21];
+
+    goto LABEL_10;
+  }
+
+LABEL_9:
+  [(NWStatsSnapshot *)self setDomainAttributedBundleId:0];
+LABEL_10:
+  [(NWStatsSnapshot *)self setIsTracker:trackerCopy];
+  [(NWStatsSnapshot *)self setIsNonAppInitiated:initiatedCopy];
+  [(NWStatsSnapshot *)self setIsSilent:silent];
+}
+
 - (id)attributionReasonString
 {
   attributionReason = [(NWStatsSnapshot *)self attributionReason];
 
   return attributionReasonString(attributionReason);
+}
+
+- (void)setAppStateIsForeground:(BOOL)foreground screenStateOn:(BOOL)on startAppStateIsForeground:(BOOL)isForeground startScreenStateOn:(BOOL)stateOn
+{
+  stateOnCopy = stateOn;
+  isForegroundCopy = isForeground;
+  onCopy = on;
+  [(NWStatsSnapshot *)self setSnapshotAppStateIsForeground:foreground];
+  [(NWStatsSnapshot *)self setSnapshotScreenStateOn:onCopy];
+  [(NWStatsSnapshot *)self setStartAppStateIsForeground:isForegroundCopy];
+
+  [(NWStatsSnapshot *)self setStartScreenStateOn:stateOnCopy];
 }
 
 + (double)_intervalWithContinuousTime:(unint64_t)time
@@ -2491,17 +2622,17 @@ LABEL_21:
 
 + (void)initialize
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = mach_timebase_info(&timebase_info_0);
   if (v2)
   {
     v3 = v2;
-    v4 = NStatGetLog();
+    v4 = NStatGetLog(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8[0] = 67109120;
-      v8[1] = v3;
-      _os_log_impl(&dword_25BA3A000, v4, OS_LOG_TYPE_ERROR, "mach_timebase_info failed %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v3;
+      _os_log_impl(&dword_25BA3A000, v4, OS_LOG_TYPE_ERROR, "mach_timebase_info failed %d", v7, 8u);
     }
   }
 
@@ -2510,7 +2641,6 @@ LABEL_21:
   flowsWithAnomalies = v5;
 
   flowsWithAnomaliesLock = 0;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

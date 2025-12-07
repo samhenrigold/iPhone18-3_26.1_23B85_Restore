@@ -107,32 +107,32 @@ LABEL_8:
 
 - (void)setInnerLabelProviders:(id)providers
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   objc_storeStrong(&self->_innerLabelProviders, providers);
   if ([(NSArray *)self->_innerLabelProviders count])
   {
-    v21 = providersCopy;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v20 = providersCopy;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = self->_innerLabelProviders;
-    v6 = [(NSArray *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v6 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v6)
     {
       v7 = v6;
-      v23 = *v26;
+      v22 = *v25;
 LABEL_4:
       v8 = 0;
       while (1)
       {
-        if (*v26 != v23)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * v8);
+        v9 = *(*(&v24 + 1) + 8 * v8);
         imageProvider = [v9 imageProvider];
         if ([imageProvider conformsToProtocol:&unk_285718B28])
         {
@@ -165,12 +165,12 @@ LABEL_4:
           [(CLKUICurvedColoringLabel *)self->_innerLabel setImagePadding:0.0];
         }
 
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __63__CDRichComplicationCornerBaseTextView_setInnerLabelProviders___block_invoke;
-        v24[3] = &unk_278DF3558;
-        v24[4] = self;
-        [MEMORY[0x277D75D18] performWithoutAnimation:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __63__CDRichComplicationCornerBaseTextView_setInnerLabelProviders___block_invoke;
+        v23[3] = &unk_278DF3558;
+        v23[4] = self;
+        [MEMORY[0x277D75D18] performWithoutAnimation:v23];
         isTextTruncated = [(CLKUICurvedColoringLabel *)self->_innerLabel isTextTruncated];
 
         if (!isTextTruncated)
@@ -180,7 +180,7 @@ LABEL_4:
 
         if (v7 == ++v8)
         {
-          v7 = [(NSArray *)obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v7 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v28 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -191,7 +191,7 @@ LABEL_4:
       }
     }
 
-    providersCopy = v21;
+    providersCopy = v20;
   }
 
   else
@@ -199,8 +199,6 @@ LABEL_4:
     [(CLKUICurvedColoringLabel *)self->_innerLabel setImageView:0];
     [(CLKUICurvedColoringLabel *)self->_innerLabel setTextProvider:0];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

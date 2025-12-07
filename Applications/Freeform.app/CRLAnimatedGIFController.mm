@@ -109,7 +109,7 @@
       [CRLAssertionHandler handleFailureInFunction:v10 file:v11 lineNumber:143 isFatal:0 description:"invalid nil value for '%{public}s'", "imageSource"];
     }
 
-    v44 = CGImageSourceGetType(v8->_imageSource);
+    v44 = CGImageSourceGetType(*(v8 + 16));
     if (([objc_opt_class() canInitWithDataType:v44] & 1) == 0)
     {
       +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -121,7 +121,7 @@
       v12 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10139A8FC(v12);
+        sub_10139A8FC(v12, v8);
       }
 
       if (qword_101AD5A10 != -1)
@@ -140,7 +140,7 @@
       [CRLAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:151 isFatal:0 description:"%@ can only play GIFs, PNGs or HEIC/Fs.", objc_opt_class()];
     }
 
-    if (CGImageSourceGetCount(v8->_imageSource) <= 1)
+    if (CGImageSourceGetCount(*(v8 + 16)) <= 1)
     {
       +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
@@ -151,7 +151,7 @@
       v16 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10139AAD0(v16);
+        sub_10139AAD0(v16, v8);
       }
 
       if (qword_101AD5A10 != -1)
@@ -170,16 +170,16 @@
       [CRLAssertionHandler handleFailureInFunction:v18 file:v19 lineNumber:152 isFatal:0 description:"%@ can only play GIFs, HEIFs or PNGs with multiple frames.", objc_opt_class()];
     }
 
-    objc_storeWeak(&v8->_delegate, delegateCopy);
+    objc_storeWeak((v8 + 8), delegateCopy);
     v20 = objc_alloc_init(NSMutableSet);
-    layers = v8->_layers;
-    v8->_layers = v20;
+    v21 = *(v8 + 32);
+    *(v8 + 32) = v20;
 
-    [(CRLAnimatedGIFController *)v8 p_prepareFrames];
-    v8->_timebaseLock._os_unfair_lock_opaque = 0;
+    [v8 p_prepareFrames];
+    *(v8 + 56) = 0;
     __dmb(0xBu);
     HostTimeClock = CMClockGetHostTimeClock();
-    v23 = CMTimebaseCreateWithSourceClock(kCFAllocatorDefault, HostTimeClock, &v8->_timebase);
+    v23 = CMTimebaseCreateWithSourceClock(kCFAllocatorDefault, HostTimeClock, (v8 + 64));
     if (v23)
     {
       +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -209,7 +209,7 @@
       [CRLAssertionHandler handleFailureInFunction:v25 file:v26 lineNumber:164 isFatal:0 description:"CMTimebaseCreateWithMasterClock failed (%d)", v23];
     }
 
-    if (!v8->_timebase)
+    if (!*(v8 + 64))
     {
       +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
@@ -239,19 +239,19 @@
     }
 
     v30 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
-    timebaseTimerSource = v8->_timebaseTimerSource;
-    v8->_timebaseTimerSource = v30;
+    v31 = *(v8 + 72);
+    *(v8 + 72) = v30;
 
     objc_initWeak(&location, v8);
-    v32 = v8->_timebaseTimerSource;
+    v32 = *(v8 + 72);
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_1005AC9D4;
     handler[3] = &unk_10183AF10;
     objc_copyWeak(&v47, &location);
     dispatch_source_set_event_handler(v32, handler);
-    dispatch_resume(v8->_timebaseTimerSource);
-    v33 = CMTimebaseAddTimerDispatchSource(v8->_timebase, v8->_timebaseTimerSource);
+    dispatch_resume(*(v8 + 72));
+    v33 = CMTimebaseAddTimerDispatchSource(*(v8 + 64), *(v8 + 72));
     if (v33)
     {
       v34 = +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -282,17 +282,17 @@
       [CRLAssertionHandler handleFailureInFunction:v37 file:v38 lineNumber:176 isFatal:0 description:"CMTimebaseAddTimerDispatchSource failed (%d)", v33];
     }
 
-    *&v8->_timebaseStartTime.value = *&kCMTimeZero.value;
-    v8->_timebaseStartTime.epoch = kCMTimeZero.epoch;
-    [(CRLAnimatedGIFController *)v8 absoluteDuration];
+    *(v8 + 80) = *&kCMTimeZero.value;
+    *(v8 + 96) = kCMTimeZero.epoch;
+    [v8 absoluteDuration];
     CMTimeMakeWithSeconds(&v45, v39, 1000000000);
-    *&v8->_timebaseEndTime.value = *&v45.value;
-    repeatMode = v8->_repeatMode;
-    v8->_timebaseEndTime.epoch = v45.epoch;
-    v8->_timebaseRepeatMode = repeatMode;
+    *(v8 + 104) = *&v45.value;
+    v40 = *(v8 + 184);
+    *(v8 + 120) = v45.epoch;
+    *(v8 + 128) = v40;
     v41 = objc_alloc_init(NSMutableSet);
-    observationTokens = v8->_observationTokens;
-    v8->_observationTokens = v41;
+    v42 = *(v8 + 136);
+    *(v8 + 136) = v41;
 
     objc_destroyWeak(&v47);
     objc_destroyWeak(&location);
@@ -566,13 +566,12 @@
 
 - (double)absoluteCurrentTime
 {
-  memset(&v9, 0, sizeof(v9));
+  memset(&v8, 0, sizeof(v8));
   HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v9, HostTimeClock);
+  CMClockGetTime(&v8, HostTimeClock);
   os_unfair_lock_lock(&self->_timebaseLock);
   Rate = CMTimebaseGetRate(self->_timebase);
-  v7 = v9;
-  [(CRLAnimatedGIFController *)self p_timebaseTimeForHostTime:&v7 rate:0 updatedRate:0 anchorTime:Rate];
+  objc_msgSend_p_timebaseTimeForHostTime_rate_updatedRate_anchorTime_(self, Rate, v8.value, *&v8.timescale, v8.epoch);
   Seconds = CMTimeGetSeconds(&time);
   os_unfair_lock_unlock(&self->_timebaseLock);
   return Seconds;
@@ -582,7 +581,7 @@
 {
   [(CRLAnimatedGIFController *)self absoluteDuration];
   v4 = v3;
-  [(CRLAnimatedGIFController *)self currentTime];
+  objc_msgSend_currentTime(self);
   return v4 - v5;
 }
 
@@ -818,7 +817,7 @@ LABEL_11:
   os_unfair_lock_lock(&self->_timebaseLock);
   Rate = CMTimebaseGetRate(self->_timebase);
   CMTimeMakeWithSeconds(&v8, time, 1000000000);
-  [(CRLAnimatedGIFController *)self p_timebaseTimeForHostTime:&v8 rate:0 updatedRate:0 anchorTime:Rate];
+  objc_msgSend_p_timebaseTimeForHostTime_rate_updatedRate_anchorTime_(self, Rate);
   Seconds = CMTimeGetSeconds(&time);
   os_unfair_lock_unlock(&self->_timebaseLock);
   return Seconds;
@@ -1476,106 +1475,95 @@ LABEL_16:
     [CRLAssertionHandler handleFailureInFunction:v4 file:v5 lineNumber:776 isFatal:0 description:"This operation must only be performed on the main thread."];
   }
 
-  memset(&v29, 0, sizeof(v29));
+  memset(&v27, 0, sizeof(v27));
   HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v29, HostTimeClock);
+  CMClockGetTime(&v27, HostTimeClock);
   os_unfair_lock_lock(&self->_timebaseLock);
   Rate = CMTimebaseGetRate(self->_timebase);
-  v28 = Rate;
-  v23 = *&kCMTimeInvalid.value;
-  *&v27.value = *&kCMTimeInvalid.value;
+  v21 = *&kCMTimeInvalid.value;
+  *&v25.value = *&kCMTimeInvalid.value;
   epoch = kCMTimeInvalid.epoch;
-  v27.epoch = epoch;
-  memset(&v26, 0, sizeof(v26));
-  fireTime = v29;
-  [(CRLAnimatedGIFController *)self p_timebaseTimeForHostTime:&fireTime rate:&v28 updatedRate:&v27 anchorTime:Rate];
+  v25.epoch = epoch;
+  memset(&v24, 0, sizeof(v24));
+  fireTime = v27;
+  objc_msgSend_p_timebaseTimeForHostTime_rate_updatedRate_anchorTime_(self, Rate);
   os_unfair_lock_unlock(&self->_timebaseLock);
-  if (v28 == Rate || v28 != 0.0)
+  if (v25.flags)
   {
-    if (v27.flags)
+    [(CRLAnimatedGIFController *)self willChangeValueForKey:@"rate", Rate];
+    os_unfair_lock_lock(&self->_timebaseLock);
+    timebase = self->_timebase;
+    timebaseTimerSource = self->_timebaseTimerSource;
+    *&fireTime.value = v21;
+    fireTime.epoch = epoch;
+    v10 = CMTimebaseSetTimerDispatchSourceNextFireTime(timebase, timebaseTimerSource, &fireTime, 0);
+    if (v10)
     {
-      [(CRLAnimatedGIFController *)self willChangeValueForKey:@"rate", v28];
-      os_unfair_lock_lock(&self->_timebaseLock);
-      timebase = self->_timebase;
-      timebaseTimerSource = self->_timebaseTimerSource;
-      *&fireTime.value = v23;
-      fireTime.epoch = epoch;
-      v12 = CMTimebaseSetTimerDispatchSourceNextFireTime(timebase, timebaseTimerSource, &fireTime, 0);
-      if (v12)
+      v11 = v10;
+      +[CRLAssertionHandler _atomicIncrementAssertCount];
+      if (qword_101AD5A10 != -1)
       {
-        v13 = v12;
-        +[CRLAssertionHandler _atomicIncrementAssertCount];
-        if (qword_101AD5A10 != -1)
-        {
-          sub_10139B988();
-        }
-
-        if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
-        {
-          sub_10139B9B0();
-        }
-
-        if (qword_101AD5A10 != -1)
-        {
-          sub_10139BA38();
-        }
-
-        v14 = off_1019EDA68;
-        if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
-        {
-          sub_10130DA10(v14);
-        }
-
-        v15 = [NSString stringWithUTF8String:"[CRLAnimatedGIFController p_timebaseTimeDidChangeToStartOrEndTime]"];
-        v16 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLAnimatedGIFController.m"];
-        [CRLAssertionHandler handleFailureInFunction:v15 file:v16 lineNumber:802 isFatal:0 description:"CMTimebaseSetTimerDispatchSourceNextFireTime failed (%d)", v13];
+        sub_10139B988();
       }
 
-      v17 = self->_timebase;
-      fireTime = v26;
-      immediateSourceTime = v27;
-      v18 = CMTimebaseSetRateAndAnchorTime(v17, v28, &fireTime, &immediateSourceTime);
-      if (v18)
+      if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        v19 = v18;
-        +[CRLAssertionHandler _atomicIncrementAssertCount];
-        if (qword_101AD5A10 != -1)
-        {
-          sub_10139BA60();
-        }
-
-        if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
-        {
-          sub_10139BA88();
-        }
-
-        if (qword_101AD5A10 != -1)
-        {
-          sub_10139BB10();
-        }
-
-        v20 = off_1019EDA68;
-        if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
-        {
-          sub_10130DA10(v20);
-        }
-
-        v21 = [NSString stringWithUTF8String:"[CRLAnimatedGIFController p_timebaseTimeDidChangeToStartOrEndTime]"];
-        v22 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLAnimatedGIFController.m"];
-        [CRLAssertionHandler handleFailureInFunction:v21 file:v22 lineNumber:806 isFatal:0 description:"CMTimebaseSetRateAndAnchorTime failed (%d)", v19];
+        sub_10139B9B0();
       }
 
-      [(CRLAnimatedGIFController *)self p_updateTimebaseTimerSourceNextFireTime];
-      os_unfair_lock_unlock(&self->_timebaseLock);
-      [(CRLAnimatedGIFController *)self didChangeValueForKey:@"rate"];
+      if (qword_101AD5A10 != -1)
+      {
+        sub_10139BA38();
+      }
+
+      v12 = off_1019EDA68;
+      if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
+      {
+        sub_10130DA10(v12);
+      }
+
+      v13 = [NSString stringWithUTF8String:"[CRLAnimatedGIFController p_timebaseTimeDidChangeToStartOrEndTime]"];
+      v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLAnimatedGIFController.m"];
+      [CRLAssertionHandler handleFailureInFunction:v13 file:v14 lineNumber:802 isFatal:0 description:"CMTimebaseSetTimerDispatchSourceNextFireTime failed (%d)", v11];
     }
-  }
 
-  else
-  {
-    [(CRLAnimatedGIFController *)self setPlaying:0];
-    delegate = [(CRLAnimatedGIFController *)self delegate];
-    [delegate playbackDidStopForPlayerController:self];
+    v15 = self->_timebase;
+    fireTime = v24;
+    immediateSourceTime = v25;
+    v16 = CMTimebaseSetRateAndAnchorTime(v15, Rate, &fireTime, &immediateSourceTime);
+    if (v16)
+    {
+      v17 = v16;
+      +[CRLAssertionHandler _atomicIncrementAssertCount];
+      if (qword_101AD5A10 != -1)
+      {
+        sub_10139BA60();
+      }
+
+      if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
+      {
+        sub_10139BA88();
+      }
+
+      if (qword_101AD5A10 != -1)
+      {
+        sub_10139BB10();
+      }
+
+      v18 = off_1019EDA68;
+      if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
+      {
+        sub_10130DA10(v18);
+      }
+
+      v19 = [NSString stringWithUTF8String:"[CRLAnimatedGIFController p_timebaseTimeDidChangeToStartOrEndTime]"];
+      v20 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLAnimatedGIFController.m"];
+      [CRLAssertionHandler handleFailureInFunction:v19 file:v20 lineNumber:806 isFatal:0 description:"CMTimebaseSetRateAndAnchorTime failed (%d)", v17];
+    }
+
+    [(CRLAnimatedGIFController *)self p_updateTimebaseTimerSourceNextFireTime];
+    os_unfair_lock_unlock(&self->_timebaseLock);
+    [(CRLAnimatedGIFController *)self didChangeValueForKey:@"rate"];
   }
 }
 

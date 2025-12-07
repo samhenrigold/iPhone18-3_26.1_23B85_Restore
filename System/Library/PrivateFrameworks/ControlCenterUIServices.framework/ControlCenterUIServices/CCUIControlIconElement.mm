@@ -29,37 +29,34 @@
 {
   if (*(self + OBJC_IVAR___CCUIControlIconElement_containerBundleIdentifier + 8))
   {
-    v2 = *(self + OBJC_IVAR___CCUIControlIconElement_containerBundleIdentifier);
-    v3 = *(self + OBJC_IVAR___CCUIControlIconElement_containerBundleIdentifier + 8);
 
-    v4 = sub_2442B4878();
+    v2 = sub_2442B4878();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)displayName
 {
-  v2 = (self + OBJC_IVAR___CCUIControlIconElement_displayName);
+  v2 = self + OBJC_IVAR___CCUIControlIconElement_displayName;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_2442B4878();
+    v3 = sub_2442B4878();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setDisplayName:(id)name
@@ -78,7 +75,6 @@
 
   v7 = (self + OBJC_IVAR___CCUIControlIconElement_displayName);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

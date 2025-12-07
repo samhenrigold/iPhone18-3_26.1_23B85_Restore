@@ -1,6 +1,6 @@
-void sub_2522BF9A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2522BF9A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -12,44 +12,38 @@ void sub_2522C0950(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2522C161C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2522C161C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2522C1960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2522C1960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t PingPongClientLibraryCore()
+uint64_t PingPongClientLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!PingPongClientLibraryCore_frameworkLibrary)
   {
     PingPongClientLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = PingPongClientLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return PingPongClientLibraryCore_frameworkLibrary;
 }
 
 uint64_t __PingPongClientLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PingPongClientLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-Class __getPPCExtensibleSSOAuthenticatorClass_block_invoke(uint64_t a1)
+Class __getPPCExtensibleSSOAuthenticatorClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   PingPongClientLibrary();
   result = objc_getClass("PPCExtensibleSSOAuthenticator");
@@ -70,11 +64,19 @@ Class __getPPCExtensibleSSOAuthenticatorClass_block_invoke(uint64_t a1)
 
 uint64_t PingPongClientLibrary()
 {
-  v0 = PingPongClientLibraryCore();
+  v3 = 0;
+  v0 = PingPongClientLibraryCore(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -105,9 +107,9 @@ void sub_2522C24D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2522C44C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2522C44C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -145,37 +147,43 @@ void sub_2522C9784(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t PingPongClientLibraryCore_0()
+uint64_t PingPongClientLibraryCore_0(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!PingPongClientLibraryCore_frameworkLibrary_0)
   {
     PingPongClientLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
-  result = PingPongClientLibraryCore_frameworkLibrary_0;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return PingPongClientLibraryCore_frameworkLibrary_0;
 }
 
 uint64_t __PingPongClientLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PingPongClientLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getPPCRedirectClass_block_invoke(uint64_t a1)
 {
-  if (!PingPongClientLibraryCore_0())
+  v8 = 0;
+  v2 = PingPongClientLibraryCore_0(&v8);
+  v3 = v8;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v8)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v8);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("PPCRedirect");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -185,8 +193,8 @@ Class __getPPCRedirectClass_block_invoke(uint64_t a1)
 
   else
   {
-    v4 = __getPPCRedirectClass_block_invoke_cold_1();
-    return [(HLPReachability *)v4 reachabilityWithHostName:v5, v6];
+    __getPPCRedirectClass_block_invoke_cold_1();
+    return [(HLPReachability *)v5 reachabilityWithHostName:v6, v7];
   }
 
   return result;
@@ -202,17 +210,15 @@ void ReachabilityCallback(uint64_t a1, uint64_t a2, void *a3)
 
 id _allowedClassesForIndexArchive()
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v4[2] = objc_opt_class();
-  v4[3] = objc_opt_class();
-  v4[4] = objc_opt_class();
-  v4[5] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
+  v3[6] = *MEMORY[0x277D85DE8];
+  v3[0] = objc_opt_class();
+  v3[1] = objc_opt_class();
+  v3[2] = objc_opt_class();
+  v3[3] = objc_opt_class();
+  v3[4] = objc_opt_class();
+  v3[5] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
   v1 = [MEMORY[0x277CBEB98] setWithArray:v0];
-
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
@@ -224,9 +230,9 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2522CE774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2522CE774(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -252,15 +258,16 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2522CFF88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_2522CFF88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
-  objc_destroyWeak((v19 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v18 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2522D04B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id location)
+void sub_2522D04B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id location)
 {
   objc_destroyWeak((v29 + 40));
   _Block_object_dispose(&a23, 8);
@@ -299,20 +306,21 @@ void sub_2522D2038(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2522D2644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_2522D2644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 120), 8);
+  _Block_object_dispose((v23 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2522D2E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, char a25)
+void sub_2522D2E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, ...)
 {
-  objc_destroyWeak((v25 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v24 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a25, 8);
-  _Block_object_dispose((v26 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -344,14 +352,14 @@ void sub_2522D6A1C(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_2522D81F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2522D81F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -434,9 +442,9 @@ uint64_t __HLPLogForCategory_block_invoke()
   return MEMORY[0x2821F96F8](v5, v6);
 }
 
-void sub_2522E23C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2522E23C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -448,9 +456,16 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2522E2AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2522E2AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2522E33E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -462,37 +477,43 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t PingPongClientLibraryCore_1()
+uint64_t PingPongClientLibraryCore_1(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!PingPongClientLibraryCore_frameworkLibrary_1)
   {
     PingPongClientLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
 
-  result = PingPongClientLibraryCore_frameworkLibrary_1;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return PingPongClientLibraryCore_frameworkLibrary_1;
 }
 
 uint64_t __PingPongClientLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PingPongClientLibraryCore_frameworkLibrary_1 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getPPCRedirectClass_block_invoke_0(uint64_t a1)
 {
-  if (!PingPongClientLibraryCore_1())
+  v7 = 0;
+  v2 = PingPongClientLibraryCore_1(&v7);
+  v3 = v7;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v7)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v7);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("PPCRedirect");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -502,8 +523,8 @@ Class __getPPCRedirectClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v4 = __getPPCRedirectClass_block_invoke_cold_1();
-    return [(HLPAnalyticsEventSearchUsed *)v4 eventName];
+    __getPPCRedirectClass_block_invoke_cold_1();
+    return [(HLPAnalyticsEventSearchUsed *)v5 eventName];
   }
 
   return result;

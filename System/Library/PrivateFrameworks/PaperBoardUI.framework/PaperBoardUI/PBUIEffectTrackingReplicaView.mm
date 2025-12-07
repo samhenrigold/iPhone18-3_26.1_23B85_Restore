@@ -8,13 +8,13 @@
 - (id)setNeedsReconfiguration;
 - (uint64_t)observesSnapshotValidity;
 - (uint64_t)portalView;
-- (uint64_t)setObservesSnapshotValidity:(uint64_t)result;
 - (uint64_t)snapshotViewStyle;
 - (uint64_t)snapshotsView;
 - (void)dealloc;
 - (void)invalidate;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)offsetWallpaperBy:(CGPoint)by;
+- (void)setObservesSnapshotValidity:(void *)result;
 - (void)setPortalProvider:(id)provider;
 - (void)setPortalView:(uint64_t)view;
 - (void)setReason:(id)reason;
@@ -149,7 +149,7 @@
   return WeakRetained;
 }
 
-- (uint64_t)setObservesSnapshotValidity:(uint64_t)result
+- (void)setObservesSnapshotValidity:(void *)result
 {
   if (result)
   {
@@ -157,7 +157,7 @@
     v3 = result;
     if (*(result + 410) != a2)
     {
-      v4 = *(result + 472);
+      v4 = result[59];
       if (a2)
       {
         result = [v4 addObserver:v3 forKeyPath:@"valid" options:1 context:&PrivateKVOContext];
@@ -200,7 +200,7 @@
     [result[60] requestStyle:{objc_msgSend(result, "style")}];
     if (*(v1 + 408) == 1)
     {
-      v2 = *(v1 + 440);
+      v2 = v1[55];
     }
 
     else
@@ -208,20 +208,20 @@
       v2 = 0;
     }
 
-    [*(v1 + 472) setEffectiveStyle:v2];
-    v3 = *(v1 + 409) & [*(v1 + 472) isValid];
-    [*(v1 + 472) setHidden:(v3 & 1) == 0];
+    [v1[59] setEffectiveStyle:v2];
+    v3 = *(v1 + 409) & [v1[59] isValid];
+    [v1[59] setHidden:(v3 & 1) == 0];
     if (v3)
     {
-      [*(v1 + 480) removeFromSuperview];
+      [v1[60] removeFromSuperview];
     }
 
     else
     {
-      [v1 addSubview:*(v1 + 480)];
+      [v1 addSubview:v1[60]];
     }
 
-    [*(v1 + 480) setHidden:v3 & 1];
+    [v1[60] setHidden:v3 & 1];
 
     return [(PBUIEffectTrackingReplicaView *)v1 setObservesSnapshotValidity:?];
   }

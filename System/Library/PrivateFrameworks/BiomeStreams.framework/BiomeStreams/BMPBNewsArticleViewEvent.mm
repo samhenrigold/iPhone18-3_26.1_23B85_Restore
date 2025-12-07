@@ -87,60 +87,59 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_uniqueId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_domainId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    absoluteTimestamp = self->_absoluteTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_content)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_summary)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_publication)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_contentProtection)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_personaId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -273,7 +272,6 @@
     }
   }
 
-  v7 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_absoluteTimestamp != *(equalCopy + 1))
@@ -285,7 +283,7 @@
   else if (*(equalCopy + 80))
   {
 LABEL_23:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_24;
   }
 
@@ -334,17 +332,17 @@ LABEL_23:
   personaId = self->_personaId;
   if (personaId | *(equalCopy + 5))
   {
-    v14 = [(NSString *)personaId isEqual:?];
+    v13 = [(NSString *)personaId isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_24:
 
-  return v14;
+  return v13;
 }
 
 - (unint64_t)hash

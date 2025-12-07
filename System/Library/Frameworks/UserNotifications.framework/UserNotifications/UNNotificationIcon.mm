@@ -1,8 +1,10 @@
 @interface UNNotificationIcon
 + (id)iconAtPath:(id)path;
++ (id)iconAtPath:(id)path shouldSuppressMask:(BOOL)mask;
 + (id)iconForApplicationIdentifier:(id)identifier;
 + (id)iconForSystemImageNamed:(id)named;
 + (id)iconNamed:(id)named;
++ (id)iconNamed:(id)named shouldSuppressMask:(BOOL)mask;
 + (id)iconWithData:(id)data;
 + (id)iconWithDateComponents:(id)components calendarIdentifier:(id)identifier format:(int64_t)format;
 + (id)iconWithUTI:(id)i;
@@ -60,21 +62,20 @@
 
 + (id)iconWithDateComponents:(id)components calendarIdentifier:(id)identifier format:(int64_t)format
 {
-  v17[3] = *MEMORY[0x1E69E9840];
-  v16[0] = @"NotificationIconDateComponents";
-  v16[1] = @"NotificationIconCalendarKey";
-  v17[0] = components;
-  v17[1] = identifier;
-  v16[2] = @"NotificationIconDateFormatKey";
+  v16[3] = *MEMORY[0x1E69E9840];
+  v15[0] = @"NotificationIconDateComponents";
+  v15[1] = @"NotificationIconCalendarKey";
+  v16[0] = components;
+  v16[1] = identifier;
+  v15[2] = @"NotificationIconDateFormatKey";
   v8 = MEMORY[0x1E696AD98];
   identifierCopy = identifier;
   componentsCopy = components;
   v11 = [v8 numberWithInteger:format];
-  v17[2] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[2] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
   v13 = [[self alloc] _initWithIconInfo:v12 type:7 shouldSuppressMask:0];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -256,7 +257,7 @@
 
 - (UNNotificationIcon)initWithCoder:(id)coder
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if ([coderCopy decodeIntegerForKey:@"codingVersion"] == 2)
   {
@@ -264,17 +265,17 @@
     if (v5 == 7)
     {
       v6 = MEMORY[0x1E695DFD8];
-      v24[0] = objc_opt_class();
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+      v23[0] = objc_opt_class();
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
       v8 = [v6 setWithArray:v7];
 
       v9 = MEMORY[0x1E695DFD8];
-      v23[0] = objc_opt_class();
-      v23[1] = objc_opt_class();
-      v23[2] = objc_opt_class();
-      v23[3] = objc_opt_class();
-      v23[4] = objc_opt_class();
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:5];
+      v22[0] = objc_opt_class();
+      v22[1] = objc_opt_class();
+      v22[2] = objc_opt_class();
+      v22[3] = objc_opt_class();
+      v22[4] = objc_opt_class();
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:5];
       v11 = [v9 setWithArray:v10];
 
       v12 = [coderCopy decodeDictionaryWithKeysOfClasses:v8 objectsOfClasses:v11 forKey:@"iconInfo"];
@@ -337,7 +338,6 @@
 
   v20 = [(UNNotificationIcon *)self _initWithIconInfo:v12 type:v5 shouldSuppressMask:v18];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -363,6 +363,24 @@
   v5 = [[self alloc] _initWithIconInfo:dataCopy type:5 shouldSuppressMask:0];
 
   return v5;
+}
+
++ (id)iconNamed:(id)named shouldSuppressMask:(BOOL)mask
+{
+  maskCopy = mask;
+  namedCopy = named;
+  v7 = [[self alloc] _initWithIconInfo:namedCopy type:1 shouldSuppressMask:maskCopy];
+
+  return v7;
+}
+
++ (id)iconAtPath:(id)path shouldSuppressMask:(BOOL)mask
+{
+  maskCopy = mask;
+  pathCopy = path;
+  v7 = [[self alloc] _initWithIconInfo:pathCopy type:2 shouldSuppressMask:maskCopy];
+
+  return v7;
 }
 
 @end

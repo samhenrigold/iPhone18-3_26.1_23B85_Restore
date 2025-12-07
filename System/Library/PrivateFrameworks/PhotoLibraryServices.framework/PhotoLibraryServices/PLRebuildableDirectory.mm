@@ -196,12 +196,12 @@ LABEL_37:
           }
         }
 
-        v33 = [importCopy count];
+        v33 = objc_msgSend_count(importCopy);
         [(PLRebuildableDirectory *)self _collectContentsOfDirectoryURL:v25 urlsToSkip:skipCopy forAddingToAlbum:v30 intoAssetsArray:importCopy assetsKind:v41 startTime:self->_startTime];
-        v34 = [importCopy count];
+        v34 = objc_msgSend_count(importCopy);
         if (!onlyCopy && v34 != v33)
         {
-          *countCopy = [importCopy count];
+          *countCopy = objc_msgSend_count(importCopy);
         }
 
 LABEL_38:

@@ -178,7 +178,7 @@ void __104__UIAccessibilityLoader__performInitialAccessibilityBundleLoad_monitor
   }
 }
 
-uint64_t __104__UIAccessibilityLoader__performInitialAccessibilityBundleLoad_monitorForFutureLoadEvents_trackingMode___block_invoke_301(uint64_t a1)
+void *__104__UIAccessibilityLoader__performInitialAccessibilityBundleLoad_monitorForFutureLoadEvents_trackingMode___block_invoke_301(uint64_t a1)
 {
   result = [*(a1 + 32) setShouldAutoloadAccessibilityCodeItems:*(a1 + 40)];
   if (*(a1 + 41) == 1)
@@ -233,14 +233,14 @@ LABEL_9:
   }
 }
 
-uint64_t __50__UIAccessibilityLoader__accessibilityStartServer__block_invoke(uint64_t a1)
+uint64_t __50__UIAccessibilityLoader__accessibilityStartServer__block_invoke(uint64_t a1, uint64_t a2)
 {
   _accessibilityServerStarted = 1;
-  v2 = AXLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = AXLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1A9B83000, v2, OS_LOG_TYPE_INFO, "AX Begin loading server", buf, 2u);
+    _os_log_impl(&dword_1A9B83000, v3, OS_LOG_TYPE_INFO, "AX Begin loading server", buf, 2u);
   }
 
   AXDevicePrimeDisplayManager();
@@ -255,11 +255,11 @@ uint64_t __50__UIAccessibilityLoader__accessibilityStartServer__block_invoke(uin
     return [*(a1 + 32) _performInitialAccessibilityBundleLoad:1 monitorForFutureLoadEvents:1 trackingMode:2];
   }
 
-  v3 = AXLogLoading();
-  if (os_signpost_enabled(v3))
+  v4 = AXLogLoading();
+  if (os_signpost_enabled(v4))
   {
-    *v5 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1A9B83000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "AXLaunchTime", &unk_1A9BFA3AD, v5, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1A9B83000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "AXLaunchTime", &unk_1A9BFA3AD, v6, 2u);
   }
 
   return +[UIAccessibilityLegacyLoader loadExtendedAccessibilityBundles];

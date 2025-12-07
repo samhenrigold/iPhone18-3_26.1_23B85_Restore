@@ -33,164 +33,161 @@
 - (id)approvedApps
 {
   selfCopy = self;
-  v62 = *MEMORY[0x277D85DE8];
-  v2 = sa_default_log();
+  v59 = *MEMORY[0x277D85DE8];
+  v2 = sa_default_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     [(SABundleManager *)selfCopy approvedApps];
   }
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy_;
-  v53 = __Block_byref_object_dispose_;
-  v54 = objc_opt_new();
-  service = selfCopy->_service;
-  options = selfCopy->_options;
-  server = selfCopy->_server;
-  v44 = MEMORY[0x277D85DD0];
-  v45 = 3221225472;
-  v46 = __31__SABundleManager_approvedApps__block_invoke;
-  v47 = &unk_278B67DB8;
-  v48 = &v49;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy_;
+  v50 = __Block_byref_object_dispose_;
+  v51 = objc_opt_new();
+  v41 = MEMORY[0x277D85DD0];
+  v42 = 3221225472;
+  v43 = __31__SABundleManager_approvedApps__block_invoke;
+  v44 = &unk_278B67DB8;
+  v45 = &v46;
   tcc_server_message_get_authorization_records_by_service();
-  if (![v50[5] count])
+  if (![v47[5] count])
   {
-    v30 = MEMORY[0x277CBEBF8];
+    v28 = MEMORY[0x277CBEBF8];
     goto LABEL_33;
   }
 
-  v6 = [v50[5] sortedArrayUsingComparator:&__block_literal_global_54];
-  v35 = +[SAAuthorization SASyncedBundleId];
-  v7 = objc_alloc(MEMORY[0x277CBEB18]);
-  v8 = [v7 initWithCapacity:{objc_msgSend(v50[5], "count") - 1}];
-  v42 = 0u;
-  v43 = 0u;
+  v3 = [v47[5] sortedArrayUsingComparator:&__block_literal_global_54];
+  v32 = +[SAAuthorization SASyncedBundleId];
+  v4 = objc_alloc(MEMORY[0x277CBEB18]);
+  v5 = [v4 initWithCapacity:{objc_msgSend(v47[5], "count") - 1}];
+  v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  obj = v6;
-  v9 = 0;
-  v10 = [obj countByEnumeratingWithState:&v40 objects:v61 count:16];
-  if (!v10)
+  v37 = 0u;
+  v38 = 0u;
+  obj = v3;
+  v6 = 0;
+  v7 = [obj countByEnumeratingWithState:&v37 objects:v58 count:16];
+  if (!v7)
   {
     goto LABEL_18;
   }
 
-  v11 = *v41;
+  v8 = *v38;
   do
   {
-    for (i = 0; i != v10; ++i)
+    for (i = 0; i != v7; ++i)
     {
-      if (*v41 != v11)
+      if (*v38 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v40 + 1) + 8 * i);
-      if (!v9)
+      v10 = *(*(&v37 + 1) + 8 * i);
+      if (!v6)
       {
-        v9 = v13;
+        v6 = v10;
         continue;
       }
 
-      bundleId = [*(*(&v40 + 1) + 8 * i) bundleId];
-      if ([bundleId isEqualToString:v35])
+      bundleId = [*(*(&v37 + 1) + 8 * i) bundleId];
+      if ([bundleId isEqualToString:v32])
       {
 
 LABEL_14:
-        [v8 addObject:{v9, selfCopy}];
-        v18 = v13;
+        [v5 addObject:{v6, selfCopy}];
+        v15 = v10;
 
-        v9 = v18;
+        v6 = v15;
         continue;
       }
 
-      bundleId2 = [v13 bundleId];
-      v16 = [(SABundleManager *)selfCopy pairedDeviceBundleIdForId:v35];
-      v17 = [bundleId2 isEqualToString:v16];
+      bundleId2 = [v10 bundleId];
+      v13 = [(SABundleManager *)selfCopy pairedDeviceBundleIdForId:v32];
+      v14 = [bundleId2 isEqualToString:v13];
 
-      if (v17)
+      if (v14)
       {
         goto LABEL_14;
       }
 
-      [v8 addObject:v9];
+      [v5 addObject:v6];
     }
 
-    v10 = [obj countByEnumeratingWithState:&v40 objects:v61 count:16];
+    v7 = [obj countByEnumeratingWithState:&v37 objects:v58 count:16];
   }
 
-  while (v10);
+  while (v7);
 LABEL_18:
 
-  v38 = 0u;
-  v39 = 0u;
+  v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v19 = v8;
-  v20 = [v19 countByEnumeratingWithState:&v36 objects:v60 count:16];
-  if (v20)
+  v33 = 0u;
+  v34 = 0u;
+  v16 = v5;
+  v17 = [v16 countByEnumeratingWithState:&v33 objects:v57 count:16];
+  v18 = v17;
+  if (v17)
   {
-    v21 = *v37;
+    v19 = *v34;
     do
     {
-      v22 = 0;
+      v20 = 0;
       do
       {
-        if (*v37 != v21)
+        if (*v34 != v19)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v16);
         }
 
-        v23 = *(*(&v36 + 1) + 8 * v22);
-        v24 = sa_default_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v21 = *(*(&v33 + 1) + 8 * v20);
+        v22 = sa_default_log(v17);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
         {
-          bundleId3 = [v23 bundleId];
+          bundleId3 = [v21 bundleId];
           *buf = 136315394;
-          v57 = "[SABundleManager approvedApps]";
-          v58 = 2112;
-          v59 = bundleId3;
-          _os_log_fault_impl(&dword_23AA4D000, v24, OS_LOG_TYPE_FAULT, "%s - Found more than one approved app for service, revoking access for duplicate app, bundleId: %@", buf, 0x16u);
+          v54 = "[SABundleManager approvedApps]";
+          v55 = 2112;
+          v56 = bundleId3;
+          _os_log_fault_impl(&dword_23AA4D000, v22, OS_LOG_TYPE_FAULT, "%s - Found more than one approved app for service, revoking access for duplicate app, bundleId: %@", buf, 0x16u);
         }
 
-        bundleId4 = [v23 bundleId];
-        v26 = TCCAccessSetForBundleId() == 0;
+        bundleId4 = [v21 bundleId];
+        v24 = TCCAccessSetForBundleId() == 0;
 
-        if (v26)
+        if (v24)
         {
-          v27 = sa_default_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v25 = sa_default_log(v17);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            bundleId5 = [v23 bundleId];
+            bundleId5 = [v21 bundleId];
             *buf = 136315394;
-            v57 = "[SABundleManager approvedApps]";
-            v58 = 2112;
-            v59 = bundleId5;
-            _os_log_error_impl(&dword_23AA4D000, v27, OS_LOG_TYPE_ERROR, "%s - Unable to revoke access for duplicate app, bundleId: %@", buf, 0x16u);
+            v54 = "[SABundleManager approvedApps]";
+            v55 = 2112;
+            v56 = bundleId5;
+            _os_log_error_impl(&dword_23AA4D000, v25, OS_LOG_TYPE_ERROR, "%s - Unable to revoke access for duplicate app, bundleId: %@", buf, 0x16u);
           }
         }
 
-        ++v22;
+        ++v20;
       }
 
-      while (v20 != v22);
-      v20 = [v19 countByEnumeratingWithState:&v36 objects:v60 count:16];
+      while (v18 != v20);
+      v17 = [v16 countByEnumeratingWithState:&v33 objects:v57 count:16];
+      v18 = v17;
     }
 
-    while (v20);
+    while (v17);
   }
 
-  v55 = v9;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+  v52 = v6;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
 
 LABEL_33:
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v46, 8);
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v28;
 }
 
 void __31__SABundleManager_approvedApps__block_invoke(uint64_t a1, void *a2)
@@ -225,9 +222,9 @@ uint64_t __40__SABundleManager_crashDetectionManager__block_invoke()
 
 - (SABundleManager)initWithServiceName:(__CFString *)name
 {
-  v15.receiver = self;
-  v15.super_class = SABundleManager;
-  v3 = [(SABundleManager *)&v15 init];
+  v13.receiver = self;
+  v13.super_class = SABundleManager;
+  v3 = [(SABundleManager *)&v13 init];
   if (v3)
   {
     v4 = objc_alloc_init(SAPhoneApplicationLauncher);
@@ -246,9 +243,7 @@ uint64_t __40__SABundleManager_crashDetectionManager__block_invoke()
     options = v3->_options;
     v3->_options = v10;
 
-    v12 = v3->_options;
     tcc_message_options_set_reply_handler_policy();
-    v13 = v3->_options;
     tcc_message_options_set_request_prompt_policy();
   }
 
@@ -257,8 +252,8 @@ uint64_t __40__SABundleManager_crashDetectionManager__block_invoke()
 
 + (id)approvedBundleIdsForService:(__CFString *)service
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v3 = sa_default_log();
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = sa_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[SABundleManager approvedBundleIdsForService:];
@@ -268,29 +263,29 @@ uint64_t __40__SABundleManager_crashDetectionManager__block_invoke()
   v5 = TCCAccessCopyInformation();
   if (v5)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       v10 = MEMORY[0x277D6C0C8];
       v11 = MEMORY[0x277D6C0D0];
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
-          v14 = [v13 objectForKeyedSubscript:{*v10, v21}];
+          v13 = *(*(&v20 + 1) + 8 * i);
+          v14 = [v13 objectForKeyedSubscript:{*v10, v20}];
 
           if (v14)
           {
@@ -305,7 +300,7 @@ uint64_t __40__SABundleManager_crashDetectionManager__block_invoke()
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v8);
@@ -313,8 +308,6 @@ uint64_t __40__SABundleManager_crashDetectionManager__block_invoke()
   }
 
   allObjects = [v4 allObjects];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }
@@ -337,7 +330,7 @@ uint64_t __31__SABundleManager_approvedApps__block_invoke_2(uint64_t a1, void *a
   v8 = 0u;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   v6[0] = v7;
@@ -373,7 +366,7 @@ uint64_t __31__SABundleManager_approvedApps__block_invoke_2(uint64_t a1, void *a
 
   else
   {
-    v10 = sa_default_log();
+    v10 = sa_default_log(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       +[SABundleManager bundleURLForAuditToken:];
@@ -387,9 +380,9 @@ uint64_t __31__SABundleManager_approvedApps__block_invoke_2(uint64_t a1, void *a
 
 - (void)wakeApprovedAppsWithReason:(int64_t)reason completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v7 = sa_default_log();
+  v7 = sa_default_log(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(SABundleManager *)self wakeApprovedAppsWithReason:reason completion:v7];
@@ -398,39 +391,39 @@ uint64_t __31__SABundleManager_approvedApps__block_invoke_2(uint64_t a1, void *a
   approvedApps = [(SABundleManager *)self approvedApps];
   if ([approvedApps count])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
-    v19 = approvedApps;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v18 = approvedApps;
     v9 = approvedApps;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (!v10)
     {
       goto LABEL_18;
     }
 
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (1)
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * v13);
-        v15 = sa_default_log();
+        v14 = *(*(&v19 + 1) + 8 * v13);
+        v15 = sa_default_log(v10);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           bundleId = [v14 bundleId];
           *buf = 136315394;
-          v25 = "[SABundleManager wakeApprovedAppsWithReason:completion:]";
-          v26 = 2112;
-          v27 = bundleId;
+          v24 = "[SABundleManager wakeApprovedAppsWithReason:completion:]";
+          v25 = 2112;
+          v26 = bundleId;
           _os_log_debug_impl(&dword_23AA4D000, v15, OS_LOG_TYPE_DEBUG, "%s - Need to wake app, app: %@", buf, 0x16u);
         }
 
@@ -456,12 +449,13 @@ LABEL_16:
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
-      if (!v11)
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v11 = v10;
+      if (!v10)
       {
 LABEL_18:
 
-        approvedApps = v19;
+        approvedApps = v18;
         goto LABEL_21;
       }
     }
@@ -473,15 +467,13 @@ LABEL_18:
   }
 
 LABEL_21:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openApplicationInBackgroundWithBundleId:(id)id withReason:(int64_t)reason completion:(id)completion
 {
   idCopy = id;
   completionCopy = completion;
-  v10 = sa_default_log();
+  v10 = sa_default_log(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [SABundleManager openApplicationInBackgroundWithBundleId:withReason:completion:];
@@ -492,9 +484,9 @@ LABEL_21:
 
 - (void)openApplicationInForegroundWithBundleId:(id)id withReason:(int64_t)reason completion:(id)completion
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v7 = sa_default_log();
+  v7 = sa_default_log(idCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [SABundleManager openApplicationInForegroundWithBundleId:withReason:completion:];
@@ -502,33 +494,31 @@ LABEL_21:
 
   v8 = [objc_opt_class() reasonToAttributeName:reason];
   v9 = objc_opt_new();
-  v17[0] = @"__LaunchOrigin";
-  v17[1] = @"__PromptUnlockDevice";
-  v18[0] = v8;
-  v18[1] = &unk_284DA9BC8;
-  v17[2] = @"__UnlockDevice ";
-  v18[2] = &unk_284DA9BC8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v16[0] = @"__LaunchOrigin";
+  v16[1] = @"__PromptUnlockDevice";
+  v17[0] = v8;
+  v17[1] = &unk_284DA9BC8;
+  v16[2] = @"__UnlockDevice ";
+  v17[2] = &unk_284DA9BC8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
   [v9 setFrontBoardOptions:v10];
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __81__SABundleManager_openApplicationInForegroundWithBundleId_withReason_completion___block_invoke;
-  v14[3] = &unk_278B67E00;
-  v15 = idCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __81__SABundleManager_openApplicationInForegroundWithBundleId_withReason_completion___block_invoke;
+  v13[3] = &unk_278B67E00;
+  v14 = idCopy;
   reasonCopy = reason;
   v12 = idCopy;
-  [defaultWorkspace openApplicationWithBundleIdentifier:v12 usingConfiguration:v9 completionHandler:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [defaultWorkspace openApplicationWithBundleIdentifier:v12 usingConfiguration:v9 completionHandler:v13];
 }
 
 void __81__SABundleManager_openApplicationInForegroundWithBundleId_withReason_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = sa_default_log();
+  v6 = sa_default_log(v5);
   v7 = v6;
   if (a2)
   {
@@ -536,22 +526,20 @@ void __81__SABundleManager_openApplicationInForegroundWithBundleId_withReason_co
     {
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
-      v11 = 136315650;
-      v12 = "[SABundleManager openApplicationInForegroundWithBundleId:withReason:completion:]_block_invoke";
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2048;
-      v16 = v9;
-      _os_log_impl(&dword_23AA4D000, v7, OS_LOG_TYPE_DEFAULT, "%s - Successfully launched bundle application in foreground, bundleId: %@, reason: %lu", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[SABundleManager openApplicationInForegroundWithBundleId:withReason:completion:]_block_invoke";
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v9;
+      _os_log_impl(&dword_23AA4D000, v7, OS_LOG_TYPE_DEFAULT, "%s - Successfully launched bundle application in foreground, bundleId: %@, reason: %lu", &v10, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __81__SABundleManager_openApplicationInForegroundWithBundleId_withReason_completion___block_invoke_cold_1(a1);
+    __81__SABundleManager_openApplicationInForegroundWithBundleId_withReason_completion___block_invoke_cold_1();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)getRemoteApplicationNameWithBundleId:(id)id withCompletion:(id)completion
@@ -583,18 +571,19 @@ void __71__SABundleManager_getRemoteApplicationNameWithBundleId_withCompletion__
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sa_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sa_default_log(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __71__SABundleManager_getRemoteApplicationNameWithBundleId_withCompletion___block_invoke_cold_1(a1);
+      __71__SABundleManager_getRemoteApplicationNameWithBundleId_withCompletion___block_invoke_cold_1();
     }
   }
 
-  v8 = *(a1 + 40);
-  v9 = [v5 applicationName];
-  (*(v8 + 16))(v8, v9);
+  v9 = *(a1 + 40);
+  v10 = [v5 applicationName];
+  (*(v9 + 16))(v9, v10);
 }
 
 + (id)remoteApplicationWithBundleId:(id)id error:(id *)error
@@ -606,45 +595,49 @@ void __71__SABundleManager_getRemoteApplicationNameWithBundleId_withCompletion__
   if (getActivePairedDevice)
   {
     mEMORY[0x277CEAF80] = [MEMORY[0x277CEAF80] sharedDeviceConnection];
-    v18 = 0;
-    v9 = [mEMORY[0x277CEAF80] applicationOnPairedDevice:getActivePairedDevice withBundleID:idCopy error:&v18];
-    v10 = v18;
-    v11 = v18;
+    v19 = 0;
+    v9 = [mEMORY[0x277CEAF80] applicationOnPairedDevice:getActivePairedDevice withBundleID:idCopy error:&v19];
+    v10 = v19;
+    v11 = v19;
 
-    if (v11 && [v11 code] != 19)
+    if (v11)
     {
-      v12 = sa_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      code = [v11 code];
+      if (code != 19)
       {
-        +[SABundleManager remoteApplicationWithBundleId:error:];
-      }
+        v13 = sa_default_log(code);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        {
+          +[SABundleManager remoteApplicationWithBundleId:error:];
+        }
 
-      objc_storeStrong(error, v10);
+        objc_storeStrong(error, v10);
+      }
     }
 
     if (v9)
     {
-      v13 = [[SABundleManagerApp alloc] initWithBundleId:idCopy deviceType:1];
+      v14 = [[SABundleManagerApp alloc] initWithBundleId:idCopy deviceType:1];
       companionAppBundleID = [v9 companionAppBundleID];
-      [(SABundleManagerApp *)v13 setPairedBundleId:companionAppBundleID];
+      [(SABundleManagerApp *)v14 setPairedBundleId:companionAppBundleID];
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v15 = [SAError errorWithCode:4];
-    v16 = *error;
-    *error = v15;
+    v16 = [SAError errorWithCode:4];
+    v17 = *error;
+    *error = v16;
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 + (id)locationBundle
@@ -692,108 +685,86 @@ void __33__SABundleManager_locationBundle__block_invoke()
   getActivePairedDevice = [mEMORY[0x277D2BCF8] getActivePairedDevice];
 
   mEMORY[0x277CEAF80] = [MEMORY[0x277CEAF80] sharedDeviceConnection];
-  v12 = 0;
-  v7 = [mEMORY[0x277CEAF80] locallyAvailableApplicationWithBundleID:idCopy forPairedDevice:getActivePairedDevice error:&v12];
-  v8 = v12;
+  v13 = 0;
+  v7 = [mEMORY[0x277CEAF80] locallyAvailableApplicationWithBundleID:idCopy forPairedDevice:getActivePairedDevice error:&v13];
+  v8 = v13;
 
   bundleIdentifier = [v7 bundleIdentifier];
+  v10 = bundleIdentifier;
   if (v8)
   {
-    v10 = sa_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sa_default_log(bundleIdentifier);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[SABundleManager remoteApplicationWithBundleId:error:];
     }
   }
 
-  return bundleIdentifier;
+  return v10;
 }
 
 + (void)approvedBundleIdsForService:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_23AA4D000, v0, v1, "%s, service: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_23AA4D000, v0, v1, "%s, service: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)approvedApps
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *(self + 24);
-  tcc_service_get_CF_name();
-  v5[0] = 136315394;
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_23AA4D000, a2, OS_LOG_TYPE_DEBUG, "%s, service: %@", v5, 0x16u);
   v4 = *MEMORY[0x277D85DE8];
+  tcc_service_get_CF_name();
+  v3[0] = 136315394;
+  OUTLINED_FUNCTION_0();
+  _os_log_debug_impl(&dword_23AA4D000, a2, OS_LOG_TYPE_DEBUG, "%s, service: %@", v3, 0x16u);
 }
 
 + (void)bundleURLForAuditToken:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_ERROR, "%s - unable to get bundle information for audit token, error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_ERROR, "%s - unable to get bundle information for audit token, error: %@", v1, 0x16u);
 }
 
 - (void)wakeApprovedAppsWithReason:(NSObject *)a3 completion:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 24);
-  v6 = 136315650;
-  v7 = "[SABundleManager wakeApprovedAppsWithReason:completion:]";
-  v8 = 2048;
-  v9 = a2;
-  v10 = 2112;
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = 136315650;
+  v5 = "[SABundleManager wakeApprovedAppsWithReason:completion:]";
+  v6 = 2048;
+  v7 = a2;
+  v8 = 2112;
   CF_name = tcc_service_get_CF_name();
-  _os_log_debug_impl(&dword_23AA4D000, a3, OS_LOG_TYPE_DEBUG, "%s, reason: %lu, service: %@", &v6, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23AA4D000, a3, OS_LOG_TYPE_DEBUG, "%s, reason: %lu, service: %@", &v4, 0x20u);
 }
 
 - (void)openApplicationInBackgroundWithBundleId:withReason:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_23AA4D000, v0, v1, "%s - attempting to launch app in background, bundleId: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_23AA4D000, v0, v1, "%s - attempting to launch app in background, bundleId: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)openApplicationInForegroundWithBundleId:withReason:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_23AA4D000, v0, v1, "%s - attempting to launch app in foreground, bundleId: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_23AA4D000, v0, v1, "%s - attempting to launch app in foreground, bundleId: %@", v2, v3, v4, v5, v6);
 }
 
-void __81__SABundleManager_openApplicationInForegroundWithBundleId_withReason_completion___block_invoke_cold_1(uint64_t a1)
+void __71__SABundleManager_getRemoteApplicationNameWithBundleId_withCompletion___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__SABundleManager_getRemoteApplicationNameWithBundleId_withCompletion___block_invoke_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 + (void)remoteApplicationWithBundleId:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

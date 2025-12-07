@@ -106,9 +106,11 @@
 - (void)_create_dateView
 {
   v3 = [STUIStatusBarStringView alloc];
-  self->_dateView = [(STUIStatusBarStringView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarStringView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  dateView = self->_dateView;
+  self->_dateView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, dateView);
 }
 
 - (id)applyUpdate:(id)update toDisplayItem:(id)item

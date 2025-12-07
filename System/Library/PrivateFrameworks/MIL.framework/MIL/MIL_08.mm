@@ -1,56 +1,3 @@
-void std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__rehash<false>(uint64_t a1, size_t __n)
-{
-  if (__n == 1)
-  {
-    prime = 2;
-  }
-
-  else
-  {
-    prime = __n;
-    if ((__n & (__n - 1)) != 0)
-    {
-      prime = std::__next_prime(__n);
-    }
-  }
-
-  v4 = *(a1 + 8);
-  if (prime > *&v4)
-  {
-    goto LABEL_6;
-  }
-
-  if (prime < *&v4)
-  {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
-    if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
-    {
-      v5 = std::__next_prime(v5);
-    }
-
-    else
-    {
-      v7 = 1 << -__clz(v5 - 1);
-      if (v5 >= 2)
-      {
-        v5 = v7;
-      }
-    }
-
-    if (prime <= v5)
-    {
-      prime = v5;
-    }
-
-    if (prime < *&v4)
-    {
-LABEL_6:
-
-      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__do_rehash<false>(a1, prime);
-    }
-  }
-}
-
 void std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__do_rehash<false>(uint64_t a1, unint64_t a2)
 {
   if (a2)
@@ -83,35 +30,35 @@ void sub_218015CA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -119,54 +66,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_218015FE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218015FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -239,22 +186,22 @@ void std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::Oper
   }
 }
 
-void std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__deallocate_node(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__deallocate_node(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -335,7 +282,7 @@ BOOL std::operator==[abi:ne200100]<std::string,std::unordered_map<std::shared_pt
       break;
     }
 
-    v11 = v7 >= 0 ? (v3 + 2) : v3[2];
+    v11 = v7 >= 0 ? v3 + 2 : v3[2];
     v12 = v10 >= 0 ? v6 + 2 : v6[2];
   }
 
@@ -404,45 +351,37 @@ void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::Ope
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v5 == v10)
     {
-      v10 = result[1];
-      if (v5 == v10)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -476,35 +415,35 @@ BOOL std::operator==[abi:ne200100]<std::shared_ptr<MIL::Builder::OperationBuilde
   return v4;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -512,49 +451,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_2180167FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180167FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -609,7 +548,7 @@ void sub_218016A58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **MIL::Builder::BlockBuilder::DataDependencyGraph::GetDataDependenciesForConsumerParam(uint64_t a1, uint64_t a2, const void **a3)
+const void **MIL::Builder::BlockBuilder::DataDependencyGraph::GetDataDependenciesForConsumerParam(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v8 = a2;
   v5 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::find<std::shared_ptr<MIL::Builder::OperationBuilder>>((a1 + 80), &v8);
@@ -664,7 +603,7 @@ uint64_t *std::unique_ptr<MIL::Builder::BlockBuilder::DataDependencyGraph>::rese
   *result = a2;
   if (v2)
   {
-    std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(v2 + 120);
+    std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table((v2 + 120));
     std::__hash_table<std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::__unordered_map_hasher<MIL::Builder::OperationBuilder *,std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::hash<MIL::Builder::OperationBuilder *>,std::equal_to<MIL::Builder::OperationBuilder *>,true>,std::__unordered_map_equal<MIL::Builder::OperationBuilder *,std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::equal_to<MIL::Builder::OperationBuilder *>,std::hash<MIL::Builder::OperationBuilder *>,true>,std::allocator<std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>>>::~__hash_table(v2 + 80);
     std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::OperationBuilder>,std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::~__hash_table(v2 + 40);
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v2);
@@ -705,7 +644,7 @@ void std::__hash_table<std::__hash_value_type<MIL::Builder::OperationBuilder *,s
   }
 }
 
-void *MIL::Builder::BlockBuilder::DataDependencyGraph::GetDataDependenciesByVariableName(void *a1, const void **a2)
+void *MIL::Builder::BlockBuilder::DataDependencyGraph::GetDataDependenciesByVariableName(void *a1, uint64_t *a2)
 {
   v3 = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>(a1, a2);
   if (!v3)
@@ -783,13 +722,13 @@ uint64_t std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>::un
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::shared_ptr<MIL::Builder::OperationBuilder> const&>(a1, i + 2);
+    std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::shared_ptr<MIL::Builder::OperationBuilder> const&>(a1, i + 2, i + 2);
   }
 
   return a1;
 }
 
-uint64_t std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<std::shared_ptr<MIL::Builder::OperationBuilder>>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -861,7 +800,7 @@ uint64_t *std::remove[abi:ne200100]<std::__wrap_iter<std::shared_ptr<MIL::Builde
   return v3;
 }
 
-uint64_t MIL::Builder::BlockBuilder::BlockBuilderImpl::OnOperationRemoved(uint64_t a1, MIL::Builder::OperationBuilder::OperationBuilderImpl ***a2, char a3)
+uint64_t MIL::Builder::BlockBuilder::BlockBuilderImpl::OnOperationRemoved(uint64_t a1, MIL::Builder::OperationBuilder **a2, char a3)
 {
   MIL::Builder::OperationBuilder::RemoveOwningBlock(*a2);
   v6 = *(a1 + 376);
@@ -906,8 +845,8 @@ uint64_t MIL::Builder::BlockBuilder::BlockBuilderImpl::OnOperationRemoved(uint64
     v13 = MIL::Builder::Variable::TryGetName(i[2]);
     if (v13)
     {
-      v19 = v13;
-      v14 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 112), v13);
+      v20 = v13;
+      v14 = std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 112), v13, &std::piecewise_construct, &v20, &v19);
       std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__erase_unique<std::shared_ptr<MIL::Builder::OperationBuilder>>(v14 + 5, a2);
     }
   }
@@ -915,16 +854,16 @@ uint64_t MIL::Builder::BlockBuilder::BlockBuilderImpl::OnOperationRemoved(uint64
   return std::__hash_table<MIL::IRValueType const*,std::hash<MIL::IRValueType const*>,std::equal_to<MIL::IRValueType const*>,std::allocator<MIL::IRValueType const*>>::~__hash_table(&v16);
 }
 
-uint64_t MIL::Builder::BlockBuilder::DataDependencyGraph::RemoveOperation(MIL::Builder::BlockBuilder::DataDependencyGraph *this, MIL::Builder::OperationBuilder::OperationBuilderImpl **a2)
+uint64_t MIL::Builder::BlockBuilder::DataDependencyGraph::RemoveOperation(MIL::Builder::BlockBuilder::DataDependencyGraph *this, MIL::Builder::OperationBuilder *a2)
 {
-  v16[0] = a2;
+  v16 = a2;
   if (MIL::Builder::OperationBuilder::GetNumOutputs(a2))
   {
     v4 = 0;
     do
     {
-      OutputName = MIL::Builder::OperationBuilder::GetOutputName(a2, v4);
-      MIL::Builder::BlockBuilder::DataDependencyGraph::GetProducerInfo(this, OutputName, &v14);
+      MIL::Builder::OperationBuilder::GetOutputName(a2, v4);
+      MIL::Builder::BlockBuilder::DataDependencyGraph::GetProducerInfo(this, v5, &v14);
       v6 = v14;
       v7 = v14[4];
       v14[3] = 0;
@@ -934,8 +873,8 @@ uint64_t MIL::Builder::BlockBuilder::DataDependencyGraph::RemoveOperation(MIL::B
         std::__shared_weak_count::__release_shared[abi:ne200100](v7);
       }
 
-      v16[2] = &v14;
-      if (!std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo> const&>,std::tuple<>>(this + 5, &v14)[7])
+      v17 = &v14;
+      if (!std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::piecewise_construct_t const&,std::tuple<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo> const&>,std::tuple<>>(this + 5, &v14, &std::piecewise_construct, &v17)[7])
       {
         std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__erase_unique<std::string>(this, v14);
         std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>>>::__erase_unique<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>(this + 5, &v14);
@@ -952,7 +891,7 @@ uint64_t MIL::Builder::BlockBuilder::DataDependencyGraph::RemoveOperation(MIL::B
     while (v4 < MIL::Builder::OperationBuilder::GetNumOutputs(a2));
   }
 
-  v8 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>>>::find<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>(this + 10, v16);
+  v8 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>>>::find<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>(this + 10, &v16);
   if (!v8)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -962,7 +901,7 @@ uint64_t MIL::Builder::BlockBuilder::DataDependencyGraph::RemoveOperation(MIL::B
   {
     for (j = i[7]; j; j = *j)
     {
-      MIL::Builder::DataDependency::GetProducerInfo(j + 2, &v14);
+      MIL::Builder::DataDependency::GetProducerInfo(&v14, j + 2);
       v11 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::__unordered_map_hasher<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>,std::equal_to<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,std::hash<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>,std::unordered_set<MIL::Builder::DataDependency>>>>::find<std::shared_ptr<MIL::Builder::DataDependency::ProducerInfo>>(this + 5, &v14);
       v12 = v11;
       if (!v11)
@@ -984,7 +923,7 @@ uint64_t MIL::Builder::BlockBuilder::DataDependencyGraph::RemoveOperation(MIL::B
     }
   }
 
-  return std::__hash_table<std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::__unordered_map_hasher<MIL::Builder::OperationBuilder *,std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::hash<MIL::Builder::OperationBuilder *>,std::equal_to<MIL::Builder::OperationBuilder *>,true>,std::__unordered_map_equal<MIL::Builder::OperationBuilder *,std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::equal_to<MIL::Builder::OperationBuilder *>,std::hash<MIL::Builder::OperationBuilder *>,true>,std::allocator<std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>>>::__erase_unique<MIL::Builder::OperationBuilder *>(this + 10, v16);
+  return std::__hash_table<std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::__unordered_map_hasher<MIL::Builder::OperationBuilder *,std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::hash<MIL::Builder::OperationBuilder *>,std::equal_to<MIL::Builder::OperationBuilder *>,true>,std::__unordered_map_equal<MIL::Builder::OperationBuilder *,std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>,std::equal_to<MIL::Builder::OperationBuilder *>,std::hash<MIL::Builder::OperationBuilder *>,true>,std::allocator<std::__hash_value_type<MIL::Builder::OperationBuilder *,std::unordered_map<std::string,std::unordered_set<MIL::Builder::DataDependency>>>>>::__erase_unique<MIL::Builder::OperationBuilder *>(this + 10, &v16);
 }
 
 void sub_2180172AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
@@ -1043,51 +982,43 @@ void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::Builder::Dat
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-uint64_t *std::__hash_table<MIL::Builder::DataDependency,std::hash<MIL::Builder::DataDependency>,std::equal_to<MIL::Builder::DataDependency>,std::allocator<MIL::Builder::DataDependency>>::__erase_unique<MIL::Builder::DataDependency>(void *a1, void *a2)
+uint64_t std::__hash_table<MIL::Builder::DataDependency,std::hash<MIL::Builder::DataDependency>,std::equal_to<MIL::Builder::DataDependency>,std::allocator<MIL::Builder::DataDependency>>::__erase_unique<MIL::Builder::DataDependency>(void *a1, void *a2)
 {
   result = std::__hash_table<MIL::Builder::DataDependency,std::hash<MIL::Builder::DataDependency>,std::equal_to<MIL::Builder::DataDependency>,std::allocator<MIL::Builder::DataDependency>>::find<MIL::Builder::DataDependency>(a1, a2);
   if (result)
@@ -1215,35 +1146,35 @@ uint64_t *std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std:
   return result;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -1251,49 +1182,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_218017890(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218017890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1362,41 +1293,41 @@ void std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std
   }
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(char *__s@<X1>, const void **a2@<X0>, void **a3@<X8>)
+uint64_t *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(uint64_t ***__return_ptr a1@<X8>, char *__s@<X1>, const void **a3@<X0>)
 {
-  if (*(a2 + 23) >= 0)
+  if (*(a3 + 23) >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = *(a3 + 23);
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = a3[1];
   }
 
   v7 = strlen(__s);
-  result = std::string::basic_string[abi:ne200100](a3, v6 + v7);
-  if (*(a3 + 23) < 0)
+  result = std::string::basic_string[abi:ne200100](a1, v6 + v7);
+  if (*(a1 + 23) < 0)
   {
-    a3 = *a3;
+    a1 = *a1;
   }
 
   if (v6)
   {
-    if (*(a2 + 23) >= 0)
+    if (*(a3 + 23) >= 0)
     {
-      v9 = a2;
+      v9 = a3;
     }
 
     else
     {
-      v9 = *a2;
+      v9 = *a3;
     }
 
-    result = memmove(a3, v9, v6);
+    result = memmove(a1, v9, v6);
   }
 
-  v10 = a3 + v6;
+  v10 = a1 + v6;
   if (v7)
   {
     result = memmove(v10, __s, v7);
@@ -1581,7 +1512,7 @@ void *std::shared_ptr<MIL::IRNamedValueType>::operator=[abi:ne200100]<MIL::IRNam
   return a1;
 }
 
-uint64_t MIL::Util::Span<unsigned long,18446744073709551615ul>::At(void *a1, unint64_t a2)
+unint64_t MIL::Util::Span<unsigned long,18446744073709551615ul>::At(void *a1, unint64_t a2)
 {
   if (a1[1] <= a2)
   {
@@ -1597,9 +1528,9 @@ void MIL::Builder::BlockBuilder::BlockBuilderImpl::~BlockBuilderImpl(MIL::Builde
 {
   std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>>::~__hash_table(this + 384);
   std::unique_ptr<MIL::Builder::BlockBuilder::DataDependencyGraph>::reset[abi:ne200100](this + 47, 0);
-  std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::~__hash_table(this + 336);
+  std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::~__hash_table(this + 42);
   std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::~__hash_table(this + 296);
-  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(this + 256);
+  std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(this + 32);
   v2 = *(this + 31);
   if (v2)
   {
@@ -1634,9 +1565,9 @@ void MIL::Builder::BlockBuilder::BlockBuilderImpl::~BlockBuilderImpl(MIL::Builde
   }
 }
 
-uint64_t std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -1670,27 +1601,26 @@ void std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<s
   }
 }
 
-void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImpl(uint64_t a1, void *a2, __int128 *a3)
+void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImpl(void *a1, void *a2, __int128 *a3, uint64_t a4)
 {
   *a1 = *a2;
-  v3 = a2[1];
-  *(a1 + 8) = v3;
-  if (v3)
+  v4 = a2[1];
+  a1[1] = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4 = *a3;
-  *(a1 + 32) = *(a3 + 2);
-  *(a1 + 16) = v4;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  v5 = *a3;
+  a1[4] = *(a3 + 2);
+  *(a1 + 1) = v5;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
-  memset(v8, 0, sizeof(v8));
-  v9 = 1065353216;
-  v5 = 0u;
+  memset(v9, 0, sizeof(v9));
+  v10 = 1065353216;
   v6 = 0u;
-  v7 = 1065353216;
+  v7 = 0u;
+  v8 = 1065353216;
   MIL::IRMutableScope::Make();
 }
 
@@ -1709,9 +1639,9 @@ void sub_218018188(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 LABEL_8:
       std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>>::~__hash_table(v23 + 384);
       std::unique_ptr<MIL::Builder::BlockBuilder::DataDependencyGraph>::reset[abi:ne200100](v27, 0);
-      std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::~__hash_table(v23 + 336);
+      std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::~__hash_table((v23 + 336));
       std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::~__hash_table(v26);
-      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(v23 + 256);
+      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table((v23 + 256));
       v32 = *(v23 + 248);
       if (v32)
       {
@@ -1757,21 +1687,20 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImpl(void *a1, void *a2, MIL::IRObject *this, __int128 *a4)
+void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImpl(void *a1, void *a2, MIL::IRObject *this, __int128 *a4, uint64_t a5, uint64_t a6)
 {
   *a1 = *a2;
-  v7 = a2[1];
-  a1[1] = v7;
-  if (v7)
+  v11 = a2[1];
+  a1[1] = v11;
+  if (v11)
   {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v8 = *a4;
+  v12 = *a4;
   a1[4] = *(a4 + 2);
-  *(a1 + 1) = v8;
-  *(a4 + 1) = 0;
-  *(a4 + 2) = 0;
+  *(a1 + 1) = v12;
+  *(a4 + 8) = 0uLL;
   *a4 = 0;
   *(a1 + 5) = 0u;
   *(a1 + 9) = 0u;
@@ -1788,11 +1717,11 @@ void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImpl(void *a1, vo
   std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map((a1 + 25), Attributes);
   LocationPtr = MIL::IRObject::GetLocationPtr(this);
   a1[30] = *LocationPtr;
-  v11 = LocationPtr[1];
-  a1[31] = v11;
-  if (v11)
+  v15 = LocationPtr[1];
+  a1[31] = v15;
+  if (v15)
   {
-    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
   }
 
   *(a1 + 16) = 0u;
@@ -1814,45 +1743,45 @@ void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImpl(void *a1, vo
     {
       if (MIL::IRCachedScope::IsCacheEnabled((this + 64)))
       {
-        v12 = a2[1];
-        v18[0] = *a2;
-        v18[1] = v12;
-        if (v12)
+        v16 = a2[1];
+        v22[0] = *a2;
+        v22[1] = v16;
+        if (v16)
         {
-          atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
         }
 
-        MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImplCommon(a1, v18, this);
+        MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImplCommon(a1, v22, this, a5, a6);
       }
 
-      (*(*this + 32))(&v20, this);
-      v13 = a2[1];
-      v19[0] = *a2;
-      v19[1] = v13;
-      if (v13)
+      (*(*this + 32))(&v24, this);
+      v17 = a2[1];
+      v23[0] = *a2;
+      v23[1] = v17;
+      if (v17)
       {
-        atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(v17 + 1, 1uLL, memory_order_relaxed);
       }
 
-      MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImplCommon(a1, v19, v20.__r_.__value_.__l.__data_);
+      MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImplCommon(a1, v23, v24.__r_.__value_.__l.__data_, a5, a6);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    v16 = std::string::append(&v20, " is not registered in the context.");
-    v17 = *&v16->__r_.__value_.__l.__data_;
-    v21.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-    *&v21.__r_.__value_.__l.__data_ = v17;
-    v16->__r_.__value_.__l.__size_ = 0;
-    v16->__r_.__value_.__r.__words[2] = 0;
-    v16->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v21);
+    v20 = std::string::append(&v24, " is not registered in the context.");
+    v21 = *&v20->__r_.__value_.__l.__data_;
+    v25.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+    *&v25.__r_.__value_.__l.__data_ = v21;
+    v20->__r_.__value_.__l.__size_ = 0;
+    v20->__r_.__value_.__r.__words[2] = 0;
+    v20->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v25);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v14 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v14, "Cannot initialize a BlockBuilder with an empty context.");
-  __cxa_throw(v14, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  v18 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v18, "Cannot initialize a BlockBuilder with an empty context.");
+  __cxa_throw(v18, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
 void sub_21801860C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -1870,9 +1799,9 @@ void sub_21801860C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 LABEL_8:
       std::__hash_table<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unordered_map<std::shared_ptr<MIL::Builder::OperationBuilder>,std::unordered_set<std::shared_ptr<MIL::Builder::OperationBuilder>>>>>>::~__hash_table(v25 + 384);
       std::unique_ptr<MIL::Builder::BlockBuilder::DataDependencyGraph>::reset[abi:ne200100](v28, 0);
-      std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::~__hash_table(v25 + 336);
+      std::__hash_table<std::unique_ptr<MIL::Builder::Variable const>,std::hash<std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::unique_ptr<MIL::Builder::Variable const>>,std::allocator<std::unique_ptr<MIL::Builder::Variable const>>>::~__hash_table((v25 + 336));
       std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::~__hash_table(v27);
-      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table(v25 + 256);
+      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::~__hash_table((v25 + 256));
       v33 = *(v25 + 248);
       if (v33)
       {
@@ -1918,20 +1847,20 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImplCommon(uint64_t a1, const void **a2, uint64_t a3)
+void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImplCommon(uint64_t *a1, const void **a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v4 = a3 + 64;
-  v5 = (*(*(a3 + 64) + 32))(a3 + 64);
-  std::unordered_map<std::string,MIL::IRValueType const*>::unordered_map(v11, v5);
-  if (v12)
+  v6 = a3 + 8;
+  v7 = (*(a3[8] + 32))(a3 + 8);
+  std::unordered_map<std::string,MIL::IRValueType const*>::unordered_map(v13, v7);
+  if (v14)
   {
-    v6 = *(v12 + 40);
-    if (!v7)
+    v8 = *(v14 + 40);
+    if (!v9)
     {
       __cxa_bad_cast();
     }
 
-    if (!MIL::MILContextImpl::TypeIsRegistered(v7, v6))
+    if (!MIL::MILContextImpl::TypeIsRegistered(v9, v8))
     {
       exception = __cxa_allocate_exception(0x10uLL);
       std::runtime_error::runtime_error(exception, "Cannot initialize a BlockBuilder using a different MILContext than the IRBlock.");
@@ -1939,12 +1868,12 @@ void MIL::Builder::BlockBuilder::BlockBuilderImpl::BlockBuilderImplCommon(uint64
     }
   }
 
-  v8 = (*(*v4 + 64))(v4);
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v10, v8);
+  v10 = (*(*v6 + 64))(v6);
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v12, v10);
   MIL::IRMutableScope::Make();
 }
 
-void sub_218018CAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_218018CAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28)
 {
   __cxa_free_exception(v28);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a28);
@@ -2085,37 +2014,36 @@ __n128 MIL::Builder::DataDependency::DataDependency(__n128 *a1, __n128 *a2)
 {
   result = *a2;
   *a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
-void MIL::Builder::DataDependency::MakeWithNonLexicalConsumer(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void MIL::Builder::DataDependency::MakeWithNonLexicalConsumer(void *a1, void *a2, uint64_t a3, int a4)
 {
-  v5 = *(a1 + 8);
-  if (v5)
-  {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v6 = *(a2 + 8);
+  v6 = a1[1];
   if (v6)
   {
     atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
+  v7 = a2[1];
+  if (v7)
+  {
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+  }
+
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v7, *a3, *(a3 + 8));
+    std::string::__init_copy_ctor_external(&v8, *a3, *(a3 + 8));
   }
 
   else
   {
-    v7 = *a3;
+    v8 = *a3;
   }
 
-  v8 = a4;
-  v9 = -1;
+  v9 = a4;
+  v10 = -1;
   operator new();
 }
 
@@ -2154,22 +2082,22 @@ void MIL::Builder::DataDependency::DataDependencyImpl::~DataDependencyImpl(void 
   }
 }
 
-void MIL::Builder::DataDependency::MakeWithBlockOutputConsumer(uint64_t a1)
+void MIL::Builder::DataDependency::MakeWithBlockOutputConsumer(uint64_t *a1)
 {
-  v1 = *(a1 + 8);
-  if (v1)
+  v2 = a1[1];
+  if (v2)
   {
-    atomic_fetch_add_explicit((v1 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
   operator new();
 }
 
-void **MIL::Builder::DataDependency::GetProducerInfo@<X0>(void **this@<X0>, void *a2@<X8>)
+uint64_t **MIL::Builder::DataDependency::GetProducerInfo@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t **this@<X0>)
 {
   v2 = (*this)[1];
-  *a2 = **this;
-  a2[1] = v2;
+  *a1 = **this;
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -2207,22 +2135,6 @@ void std::__shared_ptr_emplace<MIL::Builder::DataDependency::DataDependencyImpl>
   }
 }
 
-void MIL::Builder::FunctionBuilder::FunctionBuilder(void *a1)
-{
-  *a1 = &unk_2829E4A50;
-  std::make_unique[abi:ne200100]<MIL::Builder::FunctionBuilder::FunctionBuilderImpl,std::shared_ptr<MIL::MILContext> &,std::shared_ptr<MIL::IRFunction const> &,decltype(nullptr),0>();
-}
-
-{
-  *a1 = &unk_2829E4A50;
-  std::make_unique[abi:ne200100]<MIL::Builder::FunctionBuilder::FunctionBuilderImpl,std::shared_ptr<MIL::MILContext> &,std::shared_ptr<MIL::IRFunction const> &,decltype(nullptr),0>();
-}
-
-{
-  *a1 = &unk_2829E4A50;
-  operator new();
-}
-
 void sub_218019578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
 {
   if (a10)
@@ -2235,7 +2147,7 @@ void sub_218019578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
-  MEMORY[0x21CEAFEA0](v13, v12);
+  MEMORY[0x21CEAFEA0](v13, v12, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -2246,7 +2158,7 @@ void sub_2180196B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  MEMORY[0x21CEAFEA0](v11, v10);
+  MEMORY[0x21CEAFEA0](v11, v10, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -2268,7 +2180,7 @@ void MIL::Builder::FunctionBuilder::~FunctionBuilder(MIL::Builder::FunctionBuild
   JUMPOUT(0x21CEAFEA0);
 }
 
-const void **MIL::Builder::FunctionBuilder::GetBlock@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+const void **MIL::Builder::FunctionBuilder::GetBlock@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((*(a1 + 8) + 40), a2);
   if (!result)
@@ -2319,29 +2231,29 @@ void sub_21801997C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a13);
   }
 
-  MEMORY[0x21CEAFEA0](v14, v13);
+  MEMORY[0x21CEAFEA0](v14, v13, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::CreateFunction(MIL::Builder::FunctionBuilder::FunctionBuilderImpl *this)
 {
-  std::map<std::string,MIL::IRValueType const*>::map[abi:ne200100](&v10, this);
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v9, this + 168);
-  v8[0] = 0;
-  v8[1] = 0;
-  v7 = v8;
-  v2 = *(this + 7);
-  if (v2)
-  {
-    MIL::Builder::BlockBuilder::CreateBlock(*(v2 + 40));
-  }
-
-  v3 = *(this + 20);
-  v5 = *(this + 19);
-  v6 = v3;
+  std::map<std::string,MIL::IRValueType const*>::map[abi:ne200100](&v11, this);
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v10, this + 168);
+  v9[0] = 0;
+  v9[1] = 0;
+  v8 = v9;
+  v3 = *(this + 7);
   if (v3)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    MIL::Builder::BlockBuilder::CreateBlock(*(v3 + 40));
+  }
+
+  v4 = *(this + 20);
+  v6 = *(this + 19);
+  v7 = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
   if (*(this + 111) < 0)
@@ -2357,7 +2269,7 @@ void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::CreateFunction(MIL::Bui
   MIL::IRFunction::Make();
 }
 
-void sub_218019B08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, char a19, void *a20, uint64_t a21, char a22)
+void sub_218019B08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, char a22)
 {
   if (a17)
   {
@@ -2370,9 +2282,9 @@ void sub_218019B08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::FunctionBuilder::AddInput(uint64_t a1, uint64_t a2, uint64_t a3)
+const void *MIL::Builder::FunctionBuilder::AddInput(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a1 + 8);
+  v5 = *(a1 + 8);
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
@@ -2383,13 +2295,13 @@ uint64_t MIL::Builder::FunctionBuilder::AddInput(uint64_t a1, uint64_t a2, uint6
     __p = *a2;
   }
 
-  v5 = MIL::Builder::FunctionBuilder::FunctionBuilderImpl::AddInput(v4, &__p.__r_.__value_.__l.__data_, a3);
+  v6 = MIL::Builder::FunctionBuilder::FunctionBuilderImpl::AddInput(v5, &__p.__r_.__value_.__l.__data_, a3, a1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  return v5;
+  return v6;
 }
 
 void sub_218019C10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -2402,30 +2314,30 @@ void sub_218019C10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::Builder::FunctionBuilder::FunctionBuilderImpl::AddInput(uint64_t a1, const void **a2, uint64_t a3)
+const void *MIL::Builder::FunctionBuilder::FunctionBuilderImpl::AddInput(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  if (a1 + 8 != std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::find<std::string>(a1, a2))
+  if (a1 + 1 != std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::find<std::string>(a1, a2))
   {
     exception = __cxa_allocate_exception(0x20uLL);
-    v8 = a1;
-    v9 = exception;
-    v11 = *(v8 + 152);
-    v10 = *(v8 + 160);
-    v13[0] = v11;
-    v13[1] = v10;
-    if (v10)
+    v10 = a1;
+    v11 = exception;
+    v13 = v10[19];
+    v12 = v10[20];
+    v15[0] = v13;
+    v15[1] = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
     }
 
-    std::string::__init(&v12, "input already defined", 0x15uLL);
-    MIL::InvalidOperationError::InvalidOperationError(v9, v13, &v12);
+    std::string::__init(&v14, "input already defined", 0x15uLL);
+    MIL::InvalidOperationError::InvalidOperationError(v11, v15, &v14);
   }
 
-  (*(**(a1 + 80) + 80))(*(a1 + 80), a2, a3, 1);
-  v13[3] = a2;
-  *(std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2) + 56) = a3;
-  return MIL::Builder::FunctionBuilder::FunctionBuilderImpl::TryGetVariable(a1, a2);
+  (*(*a1[10] + 80))(a1[10], a2, a3, 1);
+  v17 = a2;
+  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1, a2, &std::piecewise_construct, &v17, &v16)[7] = a3;
+  return MIL::Builder::FunctionBuilder::FunctionBuilderImpl::TryGetVariable(a1, a2, a4);
 }
 
 void sub_218019D58(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, std::__shared_weak_count *a17)
@@ -2448,47 +2360,47 @@ void sub_218019D58(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::GetInputs(MIL::Builder::FunctionBuilder::FunctionBuilderImpl *this@<X0>, uint64_t a2@<X8>)
+void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::GetInputs(MIL::Builder::FunctionBuilder::FunctionBuilderImpl *this@<X0>, const MIL::Builder::FunctionBuilder *a2@<X1>, uint64_t a3@<X8>)
 {
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a2, *(this + 2));
-  v5 = *this;
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a3, *(this + 2));
+  v6 = *this;
   if (*this != (this + 8))
   {
     do
     {
-      Variable = MIL::Builder::FunctionBuilder::FunctionBuilderImpl::TryGetVariable(this, v5 + 32);
-      std::__hash_table<MIL::Builder::Variable const*,std::hash<MIL::Builder::Variable const*>,std::equal_to<MIL::Builder::Variable const*>,std::allocator<MIL::Builder::Variable const*>>::__emplace_unique_key_args<MIL::Builder::Variable const*,MIL::Builder::Variable const*>(a2, &Variable);
-      v6 = *(v5 + 8);
-      if (v6)
+      Variable = MIL::Builder::FunctionBuilder::FunctionBuilderImpl::TryGetVariable(this, v6 + 32, a2);
+      std::__hash_table<MIL::Builder::Variable const*,std::hash<MIL::Builder::Variable const*>,std::equal_to<MIL::Builder::Variable const*>,std::allocator<MIL::Builder::Variable const*>>::__emplace_unique_key_args<MIL::Builder::Variable const*,MIL::Builder::Variable const*>(a3, &Variable, &Variable);
+      v7 = *(v6 + 8);
+      if (v7)
       {
         do
         {
-          v7 = v6;
-          v6 = *v6;
+          v8 = v7;
+          v7 = *v7;
         }
 
-        while (v6);
+        while (v7);
       }
 
       else
       {
         do
         {
-          v7 = *(v5 + 16);
-          v8 = *v7 == v5;
-          v5 = v7;
+          v8 = *(v6 + 16);
+          v9 = *v8 == v6;
+          v6 = v8;
         }
 
-        while (!v8);
+        while (!v9);
       }
 
-      v5 = v7;
+      v6 = v8;
     }
 
-    while (v7 != (this + 8));
+    while (v8 != (this + 8));
   }
 }
 
@@ -2513,24 +2425,24 @@ void sub_218019F14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::AddBlock(uint64_t a1, uint64_t a2)
+void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::AddBlock(void *a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v4 = *(a1 + 24);
-  v5 = v2;
-  if (v2)
+  v3 = a1[4];
+  v5 = a1[3];
+  v6 = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v3, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v4, *a2, *(a2 + 8));
   }
 
   else
   {
-    v3 = *a2;
+    v4 = *a2;
   }
 
   MIL::Builder::BlockBuilder::Make();
@@ -2548,7 +2460,7 @@ void sub_21801A094(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 std::string *MIL::Builder::FunctionBuilder::FunctionBuilderImpl::SetSpecialization(uint64_t a1, std::string *a2)
 {
-  if (!std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 40), &a2->__r_.__value_.__l.__data_))
+  if (!std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 40), a2))
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
@@ -2596,8 +2508,7 @@ void MIL::Builder::FunctionBuilder::SetLocation(uint64_t a1, __int128 *a2)
 {
   v2 = *(a1 + 8);
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   MIL::Builder::FunctionBuilder::FunctionBuilderImpl::SetLocation(v2, &v3);
   if (*(&v3 + 1))
   {
@@ -2638,18 +2549,16 @@ void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::SetLocation(uint64_t a1
   }
 }
 
-void MIL::Builder::FunctionBuilder::SetAttribute(uint64_t a1, __int128 *a2, uint64_t a3)
+void MIL::Builder::FunctionBuilder::SetAttribute(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   v3 = *(a1 + 8);
   v4 = *a2;
   v7 = *(a2 + 2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v5 = *a3;
   *__p = v4;
-  *a3 = 0;
-  *(a3 + 8) = 0;
+  *a3 = 0uLL;
   MIL::Builder::FunctionBuilder::FunctionBuilderImpl::SetAttribute(v3, __p, &v5);
   if (*(&v5 + 1))
   {
@@ -2662,21 +2571,22 @@ void MIL::Builder::FunctionBuilder::SetAttribute(uint64_t a1, __int128 *a2, uint
   }
 }
 
-void sub_21801A410(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_21801A410(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::BlockBuilder::ReplaceUsesOfInputVariable(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::SetAttribute(uint64_t a1, const void **a2, __int128 *a3)
+void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::SetAttribute(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v4 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 168), a2);
+  v7 = a2;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 168), a2, &std::piecewise_construct, &v7);
   v5 = *a3;
   *a3 = 0;
   *(a3 + 1) = 0;
@@ -2688,7 +2598,7 @@ void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::SetAttribute(uint64_t a
   }
 }
 
-const void **MIL::Builder::FunctionBuilder::TryGetAttribute@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+const void **MIL::Builder::FunctionBuilder::TryGetAttribute@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((*(a1 + 8) + 168), a2);
   if (result)
@@ -2731,13 +2641,11 @@ void MIL::Builder::FunctionBuilder::AddBlock(uint64_t a1, __int128 *a2, __int128
   v3 = *(a1 + 8);
   v4 = *a2;
   v7 = *(a2 + 2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v5 = *a3;
   *__p = v4;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   MIL::Builder::FunctionBuilder::FunctionBuilderImpl::AddBlock(v3, __p, &v5);
   if (*(&v5 + 1))
   {
@@ -2750,12 +2658,12 @@ void MIL::Builder::FunctionBuilder::AddBlock(uint64_t a1, __int128 *a2, __int128
   }
 }
 
-void sub_21801A570(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_21801A570(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::BlockBuilder::ReplaceUsesOfInputVariable(va);
@@ -2814,7 +2722,7 @@ LABEL_23:
   }
 
   MIL::Builder::BlockBuilder::SetParent(*a3, *(a1 + 80));
-  result = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>>>::__emplace_unique_key_args<std::string,std::string&,std::shared_ptr<MIL::Builder::BlockBuilder>&>((a1 + 40), a2);
+  result = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>>>::__emplace_unique_key_args<std::string,std::string&,std::shared_ptr<MIL::Builder::BlockBuilder>&>((a1 + 40), a2, a2, a3);
   if ((v16 & 1) == 0)
   {
     v18 = __cxa_allocate_exception(0x10uLL);
@@ -2868,25 +2776,25 @@ void MIL::Builder::FunctionBuilder::ClearInputs(MIL::Builder::FunctionBuilder *t
   *(v1 + 8) = 0;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IRBlock>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__emplace_unique_key_args<std::string,std::string const&,std::unique_ptr<MIL::IRBlock>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__construct_node<std::string const&,std::unique_ptr<MIL::IRBlock>>();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t MIL::Builder::FunctionBuilder::FunctionBuilderImpl::TryGetVariable(uint64_t a1, uint64_t a2)
+const void *MIL::Builder::FunctionBuilder::FunctionBuilderImpl::TryGetVariable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = (*(**(a1 + 80) + 24))(*(a1 + 80), a2, 1);
   if (result)
   {
-    v8 = 0;
-    v5 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>>>::__emplace_unique_key_args<std::string,std::string const&,decltype(nullptr)>((a1 + 112), a2);
-    if (v6)
+    v9 = 0;
+    v6 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>>>::__emplace_unique_key_args<std::string,std::string const&,decltype(nullptr)>((a1 + 112), a2, a2, &v9);
+    if (v7)
     {
       if (*(a2 + 23) < 0)
       {
@@ -2901,7 +2809,7 @@ uint64_t MIL::Builder::FunctionBuilder::FunctionBuilderImpl::TryGetVariable(uint
       MIL::Builder::Variable::Make();
     }
 
-    return v5[5];
+    return v6[5];
   }
 
   return result;
@@ -2917,35 +2825,35 @@ void sub_21801AADC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<MIL::Builder::Variable const*,std::hash<MIL::Builder::Variable const*>,std::equal_to<MIL::Builder::Variable const*>,std::allocator<MIL::Builder::Variable const*>>::__emplace_unique_key_args<MIL::Builder::Variable const*,MIL::Builder::Variable const*>(void *a1, void *a2)
+void *std::__hash_table<MIL::Builder::Variable const*,std::hash<MIL::Builder::Variable const*>,std::equal_to<MIL::Builder::Variable const*>,std::allocator<MIL::Builder::Variable const*>>::__emplace_unique_key_args<MIL::Builder::Variable const*,MIL::Builder::Variable const*>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -2953,58 +2861,58 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-uint64_t *std::shared_ptr<MIL::Builder::BlockBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::BlockBuilder,std::default_delete<MIL::Builder::BlockBuilder>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<MIL::Builder::BlockBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::BlockBuilder,std::default_delete<MIL::Builder::BlockBuilder>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<MIL::Builder::BlockBuilder  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3037,35 +2945,35 @@ uint64_t std::__shared_ptr_pointer<MIL::Builder::BlockBuilder  *>::__get_deleter
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>>>::__emplace_unique_key_args<std::string,std::string&,std::shared_ptr<MIL::Builder::BlockBuilder>&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>>>::__emplace_unique_key_args<std::string,std::string&,std::shared_ptr<MIL::Builder::BlockBuilder>&>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>>>::__construct_node_hash<std::string&,std::shared_ptr<MIL::Builder::BlockBuilder>&>();
@@ -3073,80 +2981,80 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_21801B0D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21801B0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::FunctionBuilderImpl(uint64_t a1, void *a2, MIL::IRObject **a3)
+void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::FunctionBuilderImpl(uint64_t a1, void *a2, MIL::IRObject **a3, uint64_t a4)
 {
-  v6 = (*(**a3 + 128))();
-  std::map<std::string,MIL::IRValueType const*>::map[abi:ne200100](a1, v6);
+  v7 = (*(**a3 + 128))();
+  std::map<std::string,MIL::IRValueType const*>::map[abi:ne200100](a1, v7);
   *(a1 + 24) = *a2;
-  v7 = a2[1];
-  *(a1 + 32) = v7;
-  if (v7)
+  v8 = a2[1];
+  *(a1 + 32) = v8;
+  if (v8)
   {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
   }
 
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
   *(a1 + 72) = 1065353216;
   *(a1 + 80) = 0;
-  v8 = (*(**a3 + 32))();
-  if (*(v8 + 23) < 0)
+  v9 = (*(**a3 + 32))();
+  if (*(v9 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external((a1 + 88), *v8, *(v8 + 8));
+    std::string::__init_copy_ctor_external((a1 + 88), *v9, *(v9 + 8));
   }
 
   else
   {
-    v9 = *v8;
-    *(a1 + 104) = *(v8 + 16);
-    *(a1 + 88) = v9;
+    v10 = *v9;
+    *(a1 + 104) = *(v9 + 16);
+    *(a1 + 88) = v10;
   }
 
   *(a1 + 112) = 0u;
@@ -3154,23 +3062,23 @@ void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::FunctionBuilderImpl(uin
   *(a1 + 144) = 1065353216;
   LocationPtr = MIL::IRObject::GetLocationPtr(*a3);
   *(a1 + 152) = *LocationPtr;
-  v11 = LocationPtr[1];
-  *(a1 + 160) = v11;
-  if (v11)
+  v12 = LocationPtr[1];
+  *(a1 + 160) = v12;
+  if (v12)
   {
-    atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
   }
 
   Attributes = MIL::IRObject::GetAttributes(*a3);
   std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(a1 + 168, Attributes);
-  v13 = (*(*(*a3 + 8) + 32))();
-  std::unordered_map<std::string,MIL::IRValueType const*>::unordered_map(v16, v13);
-  v14 = (*(*(*a3 + 8) + 64))();
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v15, v14);
+  v14 = (*(*(*a3 + 8) + 32))();
+  std::unordered_map<std::string,MIL::IRValueType const*>::unordered_map(v17, v14);
+  v15 = (*(*(*a3 + 8) + 64))();
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v16, v15);
   MIL::IRMutableScope::Make();
 }
 
-void sub_21801B544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_21801B544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
 {
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(&a18);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a23);
@@ -3221,35 +3129,35 @@ void *std::shared_ptr<MIL::Builder::BlockBuilder>::operator=[abi:ne200100]<MIL::
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::BlockBuilder>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3257,49 +3165,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_21801B8F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21801B8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3336,28 +3244,28 @@ void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::~FunctionBuilderImpl(MI
   std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(this, *(this + 1));
 }
 
-void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::FunctionBuilderImpl(uint64_t a1, void *a2)
+void MIL::Builder::FunctionBuilder::FunctionBuilderImpl::FunctionBuilderImpl(uint64_t a1, void *a2, uint64_t a3)
 {
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *a1 = a1 + 8;
   *(a1 + 24) = *a2;
-  v2 = a2[1];
-  *(a1 + 32) = v2;
-  if (v2)
+  v3 = a2[1];
+  *(a1 + 32) = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
   *(a1 + 72) = 1065353216;
-  v6 = 0u;
   v7 = 0u;
-  v8 = 1065353216;
-  v3 = 0u;
+  v8 = 0u;
+  v9 = 1065353216;
   v4 = 0u;
-  v5 = 1065353216;
+  v5 = 0u;
+  v6 = 1065353216;
   MIL::IRMutableScope::Make();
 }
 
@@ -3416,33 +3324,12 @@ void MIL::Builder::OperationBuilder::~OperationBuilder(MIL::Builder::OperationBu
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilder(void *a1)
+void MIL::Builder::OperationBuilder::OperationBuilder(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2829E4AE0;
   std::make_unique[abi:ne200100]<MIL::Builder::OperationBuilder::OperationBuilderImpl,std::shared_ptr<MIL::IROperator const> &,std::shared_ptr<MIL::MILContext>,MIL::Builder::BlockBuilder *&,0>();
-}
-
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = &unk_2829E4AE0;
-  std::make_unique[abi:ne200100]<MIL::Builder::OperationBuilder::OperationBuilderImpl,std::shared_ptr<MIL::IROperation> &,std::shared_ptr<MIL::MILContext>,std::string,MIL::Builder::BlockBuilder *&,0>();
-}
-
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = &unk_2829E4AE0;
-  std::make_unique[abi:ne200100]<MIL::Builder::OperationBuilder::OperationBuilderImpl,std::shared_ptr<MIL::IROperation>,std::shared_ptr<MIL::MILContext>,std::string,MIL::IRScope const*&,MIL::Builder::BlockBuilder *&,0>();
-}
-
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = &unk_2829E4AE0;
-  std::make_unique[abi:ne200100]<MIL::Builder::OperationBuilder::OperationBuilderImpl,MIL::IROperation const,std::shared_ptr<MIL::MILContext>,std::string,MIL::IRScope const*&,MIL::Builder::BlockBuilder *&,0>();
 }
 
 void sub_21801BD50(_Unwind_Exception *exception_object)
@@ -3468,8 +3355,16 @@ void sub_21801BE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
-  MEMORY[0x21CEAFEA0](v13, v12);
+  MEMORY[0x21CEAFEA0](v13, v12, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
+}
+
+void MIL::Builder::OperationBuilder::OperationBuilder(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = &unk_2829E4AE0;
+  std::make_unique[abi:ne200100]<MIL::Builder::OperationBuilder::OperationBuilderImpl,std::shared_ptr<MIL::IROperation> &,std::shared_ptr<MIL::MILContext>,std::string,MIL::Builder::BlockBuilder *&,0>();
 }
 
 void sub_21801BEC0(_Unwind_Exception *exception_object)
@@ -3493,6 +3388,21 @@ void sub_21801BFD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   std::make_unique[abi:ne200100]<MIL::Builder::OperationBuilder::OperationBuilderImpl,std::shared_ptr<MIL::IROperation> &,std::shared_ptr<MIL::MILContext>,std::string,MIL::Builder::BlockBuilder *&,0>((v17 | 8), (v16 + 8));
   MEMORY[0x21CEAFEA0](v15, v14);
   _Unwind_Resume(a1);
+}
+
+void MIL::Builder::OperationBuilder::OperationBuilder(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = &unk_2829E4AE0;
+  std::make_unique[abi:ne200100]<MIL::Builder::OperationBuilder::OperationBuilderImpl,std::shared_ptr<MIL::IROperation>,std::shared_ptr<MIL::MILContext>,std::string,MIL::IRScope const*&,MIL::Builder::BlockBuilder *&,0>();
+}
+
+{
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = &unk_2829E4AE0;
+  std::make_unique[abi:ne200100]<MIL::Builder::OperationBuilder::OperationBuilderImpl,MIL::IROperation const,std::shared_ptr<MIL::MILContext>,std::string,MIL::IRScope const*&,MIL::Builder::BlockBuilder *&,0>();
 }
 
 void sub_21801C078(_Unwind_Exception *exception_object)
@@ -3529,7 +3439,7 @@ void sub_21801C22C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_21801C314(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
+void sub_21801C314(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
 {
   if (a14 < 0)
   {
@@ -3541,11 +3451,11 @@ void sub_21801C314(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     std::__shared_weak_count::__release_shared[abi:ne200100](a17);
   }
 
-  MEMORY[0x21CEAFEA0](v18, v17);
+  MEMORY[0x21CEAFEA0](v18, v17, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -3570,29 +3480,29 @@ void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(v8, v13, __p, v10);
 }
 
-void sub_21801C420(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_21801C420(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
-  if (a3)
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
-  MIL::Builder::OperationBuilder::AddInput(va, va1, v3);
+  MIL::Builder::OperationBuilder::AddInput(va, va1, v5);
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1, const void **a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t *a4)
 {
   if (*a4)
   {
     v7 = a2;
-    std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 16, a2);
+    std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 16), a2, &std::piecewise_construct, &v7);
     if (*(a3 + 23) < 0)
     {
       std::string::__init_copy_ctor_external(&v6, *a3, *(a3 + 8));
@@ -3611,7 +3521,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1,
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -3641,7 +3551,58 @@ void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>
     atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
   }
 
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(v8, &v13.__r_.__value_.__l.__data_, v12, v11);
+  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(v8, &v13, v12, v11);
+}
+
+{
+  v18 = *MEMORY[0x277D85DE8];
+  std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
+  v8 = *(a1 + 24);
+  if (*(a2 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v14, *a2, *(a2 + 8));
+  }
+
+  else
+  {
+    v14 = *a2;
+  }
+
+  v9 = a3[1];
+  v16 = *a3;
+  v17 = v9;
+  if (v9)
+  {
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  memset(v13, 0, sizeof(v13));
+  std::vector<std::shared_ptr<MIL::IRArgument>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRArgument> const*,std::shared_ptr<MIL::IRArgument> const*>(v13, &v16, &v18, 1uLL);
+  v10 = a4[1];
+  v11 = *a4;
+  v12 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(v8, &v14.__r_.__value_.__l.__data_, v13, &v11);
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  v15 = v13;
+  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v15);
+  if (v17)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+  }
+
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v14.__r_.__value_.__l.__data_);
+  }
 }
 
 void sub_21801C7DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -3655,13 +3616,14 @@ void sub_21801C7DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1, const void **a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1, _OWORD *a2, void *a3, void *a4)
 {
   if (*a3)
   {
     if (*a4)
     {
-      std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 16, a2);
+      v7 = a2;
+      std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 16), a2, &std::piecewise_construct, &v7);
       v5 = a3[1];
       if (v5)
       {
@@ -3684,7 +3646,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1,
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddOutput(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddOutput(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -3704,18 +3666,18 @@ void MIL::Builder::OperationBuilder::AddOutput(uint64_t a1@<X0>, uint64_t a2@<X1
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddOutput(v8, __p, a3, v10);
 }
 
-void sub_21801CAC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21801CAC4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddOutput(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddOutput(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (!*a4)
   {
@@ -3724,8 +3686,8 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddOutput(uint64_t a1
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
+  v6 = a1[5];
+  v7 = a1[6];
   if (v6 == v7)
   {
     goto LABEL_25;
@@ -3740,7 +3702,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddOutput(uint64_t a1
       atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    Name = MIL::IRNamedValueType::GetName(v8);
+    MIL::IRNamedValueType::GetName(v8);
     v11 = *(a2 + 23);
     if (v11 >= 0)
     {
@@ -3752,11 +3714,11 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddOutput(uint64_t a1
       v12 = *(a2 + 8);
     }
 
-    v13 = *(Name + 23);
+    v13 = *(v10 + 23);
     v14 = v13;
-    if ((v13 & 0x80u) != 0)
+    if (v13 < 0)
     {
-      v13 = *(Name + 8);
+      v13 = v10[1];
     }
 
     if (v12 == v13)
@@ -3781,7 +3743,7 @@ LABEL_21:
     {
       v6 = v7;
 LABEL_24:
-      v7 = *(a1 + 48);
+      v7 = a1[6];
 LABEL_25:
       if (v6 == v7)
       {
@@ -3824,12 +3786,12 @@ LABEL_25:
 
   if (v14 >= 0)
   {
-    v16 = Name;
+    v16 = v10;
   }
 
   else
   {
-    v16 = *Name;
+    v16 = *v10;
   }
 
   v17 = memcmp(v15, v16, v12) == 0;
@@ -3871,111 +3833,111 @@ LABEL_8:
 
 void MIL::Builder::OperationBuilder::OperationBuilderImpl::CreateOperation(MIL::Builder::OperationBuilder::OperationBuilderImpl *this)
 {
-  std::map<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>::map[abi:ne200100](&v23, this + 2);
-  memset(v22, 0, sizeof(v22));
-  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType>*,std::shared_ptr<MIL::IRNamedValueType>*>(v22, *(this + 5), *(this + 6), (*(this + 6) - *(this + 5)) >> 4);
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v21, this + 64);
+  std::map<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>::map[abi:ne200100](&v24, this + 2);
+  memset(v23, 0, sizeof(v23));
+  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType>*,std::shared_ptr<MIL::IRNamedValueType>*>(v23, *(this + 5), *(this + 6), (*(this + 6) - *(this + 5)) >> 4);
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v22, this + 64);
   __src = 0;
-  v19 = 0;
   v20 = 0;
+  v21 = 0;
   std::vector<std::shared_ptr<MIL::IROperation>>::reserve(&__src, (*(this + 21) - *(this + 20)) >> 4);
-  v2 = *(this + 20);
-  for (i = *(this + 21); v2 != i; v2 += 2)
+  v3 = *(this + 20);
+  for (i = *(this + 21); v3 != i; v3 += 2)
   {
-    MIL::Builder::BlockBuilder::CreateBlock(&v24, *v2);
-    if (v24)
+    MIL::Builder::BlockBuilder::CreateBlock(*v3);
+    if (v25)
     {
       operator new();
     }
 
-    v24 = 0;
-    v4 = v19;
-    if (v19 >= v20)
+    v25 = 0;
+    v5 = v20;
+    if (v20 >= v21)
     {
-      v5 = __src;
-      v6 = v19 - __src;
-      v7 = (v19 - __src) >> 4;
-      v8 = v7 + 1;
-      if ((v7 + 1) >> 60)
+      v6 = __src;
+      v7 = v20 - __src;
+      v8 = (v20 - __src) >> 4;
+      v9 = v8 + 1;
+      if ((v8 + 1) >> 60)
       {
         std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
       }
 
-      v9 = v20 - __src;
-      if ((v20 - __src) >> 3 > v8)
+      v10 = v21 - __src;
+      if ((v21 - __src) >> 3 > v9)
       {
-        v8 = v9 >> 3;
+        v9 = v10 >> 3;
       }
 
-      if (v9 >= 0x7FFFFFFFFFFFFFF0)
+      if (v10 >= 0x7FFFFFFFFFFFFFF0)
       {
-        v10 = 0xFFFFFFFFFFFFFFFLL;
+        v11 = 0xFFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v10 = v8;
+        v11 = v9;
       }
 
-      v25[4] = &__src;
-      if (v10)
+      v26[4] = &__src;
+      if (v11)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<MIL::IRBlock>>>(&__src, v10);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<MIL::IRBlock>>>(&__src, v11);
       }
 
-      v11 = (16 * v7);
-      *v11 = 0;
-      v11[1] = 0;
-      memcpy(0, v5, v6);
-      v12 = __src;
-      v13 = v20;
+      v12 = (16 * v8);
+      *v12 = 0;
+      v12[1] = 0;
+      memcpy(0, v6, v7);
+      v13 = __src;
+      v14 = v21;
       __src = 0;
-      v19 = (16 * v7 + 16);
-      v20 = 0;
-      v25[2] = v12;
-      v25[3] = v13;
-      v25[0] = v12;
-      v25[1] = v12;
-      std::__split_buffer<std::shared_ptr<MIL::IRBlock>>::~__split_buffer(v25);
-      v14 = v24;
-      v19 = (16 * v7 + 16);
-      v24 = 0;
-      if (v14)
+      v20 = (16 * v8 + 16);
+      v21 = 0;
+      v26[2] = v13;
+      v26[3] = v14;
+      v26[0] = v13;
+      v26[1] = v13;
+      std::__split_buffer<std::shared_ptr<MIL::IRBlock>>::~__split_buffer(v26);
+      v15 = v25;
+      v20 = (16 * v8 + 16);
+      v25 = 0;
+      if (v15)
       {
-        (*(*v14 + 8))(v14);
+        (*(*v15 + 8))(v15);
       }
     }
 
     else
     {
-      *v19 = 0;
-      *(v4 + 1) = 0;
-      v19 = v4 + 16;
+      *v20 = 0;
+      *(v5 + 1) = 0;
+      v20 = v5 + 16;
     }
   }
 
-  v15 = *(this + 23);
-  if (v15)
-  {
-    (*(*v15 + 16))(v15, this + 200);
-  }
-
-  v16 = *(this + 14);
+  v16 = *(this + 23);
   if (v16)
   {
-    atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
+    (*(*v16 + 16))(v16, this + 200);
   }
 
-  v17 = *(this + 1);
+  v17 = *(this + 14);
   if (v17)
   {
     atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
   }
 
+  v18 = *(this + 1);
+  if (v18)
+  {
+    atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
+  }
+
   MIL::IROperation::Make();
 }
 
-void sub_21801D260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, char a25, void *a26)
+void sub_21801D260(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, void **a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26)
 {
   *(v26 - 136) = &a14;
   std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100]((v26 - 136));
@@ -4001,159 +3963,159 @@ uint64_t MIL::Builder::OperationBuilder::GetNumArguments(uint64_t a1, const void
   }
 }
 
-uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::GetArgumentForParameter(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::GetArgumentForParameter(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
-  v6 = std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::find<std::string>(a1 + 16, a2);
-  if (a1 + 24 == v6)
+  v8 = std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::find<std::string>(a1 + 16, a2);
+  if (a1 + 24 == v8)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::operator+<char>();
-    v19 = std::string::append(&v49, ".");
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    v50.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-    *&v50.__r_.__value_.__l.__data_ = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v50);
+    v21 = std::string::append(&v51, ".");
+    v22 = *&v21->__r_.__value_.__l.__data_;
+    v52.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+    *&v52.__r_.__value_.__l.__data_ = v22;
+    v21->__r_.__value_.__l.__size_ = 0;
+    v21->__r_.__value_.__r.__words[2] = 0;
+    v21->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v52);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v7 = v6;
-  v8 = *(v6 + 56);
-  if (a3 >= ((*(v6 + 64) - v8) >> 4))
+  v9 = v8;
+  v10 = *(v8 + 56);
+  if (a3 >= ((*(v8 + 64) - v10) >> 4))
   {
-    v21 = __cxa_allocate_exception(0x10uLL);
-    v22 = a3;
-    v23 = v21;
-    std::to_string(&v44, v22);
-    v24 = std::string::insert(&v44, 0, "Requested argument ");
-    v25 = *&v24->__r_.__value_.__l.__data_;
-    v45.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-    *&v45.__r_.__value_.__l.__data_ = v25;
-    v24->__r_.__value_.__l.__size_ = 0;
-    v24->__r_.__value_.__r.__words[2] = 0;
-    v24->__r_.__value_.__r.__words[0] = 0;
-    v26 = std::string::append(&v45, " for parameter ");
+    v23 = __cxa_allocate_exception(0x10uLL);
+    v24 = a3;
+    v25 = v23;
+    std::to_string(&v46, v24);
+    v26 = std::string::insert(&v46, 0, "Requested argument ");
     v27 = *&v26->__r_.__value_.__l.__data_;
-    v46.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
-    *&v46.__r_.__value_.__l.__data_ = v27;
+    v47.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+    *&v47.__r_.__value_.__l.__data_ = v27;
     v26->__r_.__value_.__l.__size_ = 0;
     v26->__r_.__value_.__r.__words[2] = 0;
     v26->__r_.__value_.__r.__words[0] = 0;
-    v28 = *(a2 + 23);
-    if (v28 >= 0)
+    v28 = std::string::append(&v47, " for parameter ");
+    v29 = *&v28->__r_.__value_.__l.__data_;
+    v48.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
+    *&v48.__r_.__value_.__l.__data_ = v29;
+    v28->__r_.__value_.__l.__size_ = 0;
+    v28->__r_.__value_.__r.__words[2] = 0;
+    v28->__r_.__value_.__r.__words[0] = 0;
+    v30 = *(a2 + 23);
+    if (v30 >= 0)
     {
-      v29 = a2;
+      v31 = a2;
     }
 
     else
     {
-      v29 = *a2;
+      v31 = *a2;
     }
 
-    if (v28 >= 0)
+    if (v30 >= 0)
     {
-      v30 = *(a2 + 23);
+      v32 = *(a2 + 23);
     }
 
     else
     {
-      v30 = *(a2 + 8);
+      v32 = *(a2 + 8);
     }
 
-    v31 = std::string::append(&v46, v29, v30);
-    v32 = *&v31->__r_.__value_.__l.__data_;
-    v47.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
-    *&v47.__r_.__value_.__l.__data_ = v32;
-    v31->__r_.__value_.__l.__size_ = 0;
-    v31->__r_.__value_.__r.__words[2] = 0;
-    v31->__r_.__value_.__r.__words[0] = 0;
-    v33 = std::string::append(&v47, ", but only ");
+    v33 = std::string::append(&v48, v31, v32);
     v34 = *&v33->__r_.__value_.__l.__data_;
-    v48.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-    *&v48.__r_.__value_.__l.__data_ = v34;
+    v49.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
+    *&v49.__r_.__value_.__l.__data_ = v34;
     v33->__r_.__value_.__l.__size_ = 0;
     v33->__r_.__value_.__r.__words[2] = 0;
     v33->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v43, (*(v7 + 64) - *(v7 + 56)) >> 4);
-    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v35 = std::string::append(&v49, ", but only ");
+    v36 = *&v35->__r_.__value_.__l.__data_;
+    v50.__r_.__value_.__r.__words[2] = v35->__r_.__value_.__r.__words[2];
+    *&v50.__r_.__value_.__l.__data_ = v36;
+    v35->__r_.__value_.__l.__size_ = 0;
+    v35->__r_.__value_.__r.__words[2] = 0;
+    v35->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v45, (*(v9 + 64) - *(v9 + 56)) >> 4);
+    if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v35 = &v43;
+      v37 = &v45;
     }
 
     else
     {
-      v35 = v43.__r_.__value_.__r.__words[0];
+      v37 = v45.__r_.__value_.__r.__words[0];
     }
 
-    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v45.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v43.__r_.__value_.__l.__size_;
+      size = v45.__r_.__value_.__l.__size_;
     }
 
-    v37 = std::string::append(&v48, v35, size);
-    v38 = *&v37->__r_.__value_.__l.__data_;
-    v49.__r_.__value_.__r.__words[2] = v37->__r_.__value_.__r.__words[2];
-    *&v49.__r_.__value_.__l.__data_ = v38;
-    v37->__r_.__value_.__l.__size_ = 0;
-    v37->__r_.__value_.__r.__words[2] = 0;
-    v37->__r_.__value_.__r.__words[0] = 0;
-    v39 = std::string::append(&v49, " arguments are bound.");
+    v39 = std::string::append(&v50, v37, size);
     v40 = *&v39->__r_.__value_.__l.__data_;
-    v50.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
-    *&v50.__r_.__value_.__l.__data_ = v40;
+    v51.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
+    *&v51.__r_.__value_.__l.__data_ = v40;
     v39->__r_.__value_.__l.__size_ = 0;
     v39->__r_.__value_.__r.__words[2] = 0;
     v39->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(v23, &v50);
-    __cxa_throw(v23, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v41 = std::string::append(&v51, " arguments are bound.");
+    v42 = *&v41->__r_.__value_.__l.__data_;
+    v52.__r_.__value_.__r.__words[2] = v41->__r_.__value_.__r.__words[2];
+    *&v52.__r_.__value_.__l.__data_ = v42;
+    v41->__r_.__value_.__l.__size_ = 0;
+    v41->__r_.__value_.__r.__words[2] = 0;
+    v41->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(v25, &v52);
+    __cxa_throw(v25, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v9 = v8 + 16 * a3;
-  v11 = *v9;
-  v10 = *(v9 + 8);
-  if (v10)
+  v11 = v10 + 16 * a3;
+  v13 = *v11;
+  v12 = *(v11 + 8);
+  if (v12)
   {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (*(a1 + 152) && (*(*v11 + 16))(v11))
+  if (*(a1 + 152) && (*(*v13 + 16))(v13))
   {
-    v12 = *(a1 + 152);
-    Name = MIL::IRArgument::GetName(v11);
-    Variable = MIL::Builder::BlockBuilder::GetVariable(v12, Name);
+    v14 = *(a1 + 152);
+    Name = MIL::IRArgument::GetName(v13);
+    Variable = MIL::Builder::BlockBuilder::GetVariable(v14, Name);
 LABEL_10:
-    v16 = Variable;
+    v18 = Variable;
     goto LABEL_13;
   }
 
-  if ((*(*v11 + 16))(v11))
+  if ((*(*v13 + 16))(v13))
   {
-    v15 = MIL::IRArgument::GetName(v11);
-    Variable = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(a1, v15);
+    v17 = MIL::IRArgument::GetName(v13);
+    Variable = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(a1, v17, a4);
     goto LABEL_10;
   }
 
-  (*(*v11 + 48))(&v41, v11);
-  v16 = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(a1, &v41);
-  if (v42)
+  (*(*v13 + 48))(&v43, v13);
+  v18 = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(a1, &v43, a4);
+  if (v44)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
   }
 
 LABEL_13:
-  if (v10)
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 
-  return v16;
+  return v18;
 }
 
 void sub_21801D6F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -4212,18 +4174,18 @@ LABEL_20:
   goto LABEL_20;
 }
 
-const void **MIL::Builder::OperationBuilder::OperationBuilderImpl::GetParameterNames@<X0>(const void **this@<X0>, uint64_t a2@<X8>)
+const void **MIL::Builder::OperationBuilder::OperationBuilderImpl::GetParameterNames@<X0>(const void **this@<X0>, unint64_t a2@<X8>)
 {
   *a2 = 0u;
   *(a2 + 16) = 0u;
   *(a2 + 32) = 1065353216;
   v3 = this[2];
   v4 = this + 3;
-  if (v3 != this + 3)
+  if (v3 != (this + 3))
   {
     do
     {
-      this = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a2, v3 + 4);
+      this = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a2, v3 + 4, (v3 + 4));
       v5 = v3[1];
       if (v5)
       {
@@ -4274,7 +4236,7 @@ void MIL::Builder::OperationBuilder::Make()
   operator new();
 }
 
-void sub_21801D9D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
+void sub_21801D9D4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12)
 {
   if (a10)
   {
@@ -4288,7 +4250,7 @@ void sub_21801D9D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (v14)
   {
-    MEMORY[0x21CEAFEA0](v13, v12);
+    MEMORY[0x21CEAFEA0](v13, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4316,7 +4278,7 @@ void sub_21801DC34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_21801DD44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
+void sub_21801DD44(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17)
 {
   if (a14 < 0)
   {
@@ -4330,39 +4292,45 @@ void sub_21801DD44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (v19)
   {
-    MEMORY[0x21CEAFEA0](v18, v17);
+    MEMORY[0x21CEAFEA0](v18, v17, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::OperationBuilder::Make(uint64_t a1)
+void MIL::Builder::OperationBuilder::Make(uint64_t *a1)
 {
-  v1 = *(a1 + 8);
-  if (v1)
+  v2 = a1[1];
+  if (v2)
   {
-    atomic_fetch_add_explicit((v1 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
   MIL::Builder::OperationBuilder::Make();
 }
 
 {
-  v3 = OUTLINED_FUNCTION_3(a1);
-  if (v3)
+  v3 = (*(**a1 + 216))(*a1);
+  if (v3[1] == *v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+    v4 = *a1;
+    v5 = a1[1];
+    __p[5] = v4;
+    __p[6] = v5;
+    if (v5)
+    {
+      atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
+    }
+
+    __p[3] = 0;
+    __p[4] = 0;
+    std::string::basic_string[abi:ne200100]<0>(__p, "");
+    MIL::Builder::OperationBuilder::Make();
   }
 
-  if (*v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*v2);
-  }
-
-  if (v1)
-  {
-    OUTLINED_FUNCTION_1_0();
-  }
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "If the operation may have nested blocks, please use the other OperationBuilder Make API which takes IROperation, MILContext and OpsetName");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
 void sub_21801DE00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -4380,37 +4348,12 @@ void sub_21801DE00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::OperationBuilder::Make(void *a1)
+void MIL::Builder::OperationBuilder::Make(uint64_t *a1, void *a2, void *a3)
 {
-  v2 = (*(**a1 + 216))(*a1);
-  if (v2[1] == *v2)
+  v4 = a1[1];
+  if (v4)
   {
-    v3 = *a1;
-    v4 = a1[1];
-    __p[5] = v3;
-    __p[6] = v4;
-    if (v4)
-    {
-      atomic_fetch_add_explicit(v4 + 1, 1uLL, memory_order_relaxed);
-    }
-
-    __p[3] = 0;
-    __p[4] = 0;
-    std::string::basic_string[abi:ne200100]<0>(__p, "");
-    MIL::Builder::OperationBuilder::Make();
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "If the operation may have nested blocks, please use the other OperationBuilder Make API which takes IROperation, MILContext and OpsetName");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void MIL::Builder::OperationBuilder::Make(uint64_t a1, void *a2, void *a3)
-{
-  v3 = *(a1 + 8);
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
   *a2 = 0;
@@ -4518,123 +4461,123 @@ void *MIL::Builder::OperationBuilder::OperationBuilderImpl::GetOutput(MIL::Build
   if (a2 >= (*(this + 6) - v4) >> 4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::to_string(&v34, a2);
-    v15 = std::string::insert(&v34, 0, "Attempting to access output ");
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    v35.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&v35.__r_.__value_.__l.__data_ = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
-    v17 = std::string::append(&v35, " for ");
-    v18 = *&v17->__r_.__value_.__l.__data_;
-    v36.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-    *&v36.__r_.__value_.__l.__data_ = v18;
-    v17->__r_.__value_.__l.__size_ = 0;
-    v17->__r_.__value_.__r.__words[2] = 0;
-    v17->__r_.__value_.__r.__words[0] = 0;
-    v19 = (*(**this + 16))();
-    v20 = *(v19 + 23);
-    if (v20 >= 0)
+    std::to_string(&v35, a2);
+    v16 = std::string::insert(&v35, 0, "Attempting to access output ");
+    v17 = *&v16->__r_.__value_.__l.__data_;
+    v36.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+    *&v36.__r_.__value_.__l.__data_ = v17;
+    v16->__r_.__value_.__l.__size_ = 0;
+    v16->__r_.__value_.__r.__words[2] = 0;
+    v16->__r_.__value_.__r.__words[0] = 0;
+    v18 = std::string::append(&v36, " for ");
+    v19 = *&v18->__r_.__value_.__l.__data_;
+    v37.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
+    *&v37.__r_.__value_.__l.__data_ = v19;
+    v18->__r_.__value_.__l.__size_ = 0;
+    v18->__r_.__value_.__r.__words[2] = 0;
+    v18->__r_.__value_.__r.__words[0] = 0;
+    v20 = (*(**this + 16))();
+    v21 = *(v20 + 23);
+    if (v21 >= 0)
     {
-      v21 = v19;
+      v22 = v20;
     }
 
     else
     {
-      v21 = *v19;
+      v22 = *v20;
     }
 
-    if (v20 >= 0)
+    if (v21 >= 0)
     {
-      v22 = *(v19 + 23);
+      v23 = *(v20 + 23);
     }
 
     else
     {
-      v22 = *(v19 + 8);
+      v23 = *(v20 + 8);
     }
 
-    v23 = std::string::append(&v36, v21, v22);
-    v24 = *&v23->__r_.__value_.__l.__data_;
-    v37.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-    *&v37.__r_.__value_.__l.__data_ = v24;
-    v23->__r_.__value_.__l.__size_ = 0;
-    v23->__r_.__value_.__r.__words[2] = 0;
-    v23->__r_.__value_.__r.__words[0] = 0;
-    v25 = std::string::append(&v37, " operation, but only ");
-    v26 = *&v25->__r_.__value_.__l.__data_;
-    v38.__r_.__value_.__r.__words[2] = v25->__r_.__value_.__r.__words[2];
-    *&v38.__r_.__value_.__l.__data_ = v26;
-    v25->__r_.__value_.__l.__size_ = 0;
-    v25->__r_.__value_.__r.__words[2] = 0;
-    v25->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v33, (*(this + 6) - *(this + 5)) >> 4);
-    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v24 = std::string::append(&v37, v22, v23);
+    v25 = *&v24->__r_.__value_.__l.__data_;
+    v38.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+    *&v38.__r_.__value_.__l.__data_ = v25;
+    v24->__r_.__value_.__l.__size_ = 0;
+    v24->__r_.__value_.__r.__words[2] = 0;
+    v24->__r_.__value_.__r.__words[0] = 0;
+    v26 = std::string::append(&v38, " operation, but only ");
+    v27 = *&v26->__r_.__value_.__l.__data_;
+    v39.__r_.__value_.__r.__words[2] = v26->__r_.__value_.__r.__words[2];
+    *&v39.__r_.__value_.__l.__data_ = v27;
+    v26->__r_.__value_.__l.__size_ = 0;
+    v26->__r_.__value_.__r.__words[2] = 0;
+    v26->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v34, (*(this + 6) - *(this + 5)) >> 4);
+    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v27 = &v33;
+      v28 = &v34;
     }
 
     else
     {
-      v27 = v33.__r_.__value_.__r.__words[0];
+      v28 = v34.__r_.__value_.__r.__words[0];
     }
 
-    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v34.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v33.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v34.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v33.__r_.__value_.__l.__size_;
+      size = v34.__r_.__value_.__l.__size_;
     }
 
-    v29 = std::string::append(&v38, v27, size);
-    v30 = *&v29->__r_.__value_.__l.__data_;
-    v39.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
-    *&v39.__r_.__value_.__l.__data_ = v30;
-    v29->__r_.__value_.__l.__size_ = 0;
-    v29->__r_.__value_.__r.__words[2] = 0;
-    v29->__r_.__value_.__r.__words[0] = 0;
-    v31 = std::string::append(&v39, " outputs are defined.");
-    v32 = *&v31->__r_.__value_.__l.__data_;
-    v40.__r_.__value_.__r.__words[2] = v31->__r_.__value_.__r.__words[2];
-    *&v40.__r_.__value_.__l.__data_ = v32;
-    v31->__r_.__value_.__l.__size_ = 0;
-    v31->__r_.__value_.__r.__words[2] = 0;
-    v31->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v40);
+    v30 = std::string::append(&v39, v28, size);
+    v31 = *&v30->__r_.__value_.__l.__data_;
+    v40.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
+    *&v40.__r_.__value_.__l.__data_ = v31;
+    v30->__r_.__value_.__l.__size_ = 0;
+    v30->__r_.__value_.__r.__words[2] = 0;
+    v30->__r_.__value_.__r.__words[0] = 0;
+    v32 = std::string::append(&v40, " outputs are defined.");
+    v33 = *&v32->__r_.__value_.__l.__data_;
+    v41.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
+    *&v41.__r_.__value_.__l.__data_ = v33;
+    v32->__r_.__value_.__l.__size_ = 0;
+    v32->__r_.__value_.__r.__words[2] = 0;
+    v32->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v41);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v5 = v4 + 16 * a2;
-  v6 = *v5;
-  v7 = *(v5 + 8);
-  if (v7)
-  {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v8 = *(this + 19);
-  Name = MIL::IRNamedValueType::GetName(v6);
+  v6 = v4 + 16 * a2;
+  v7 = *v6;
+  v8 = *(v6 + 8);
   if (v8)
   {
-    Variable = MIL::Builder::BlockBuilder::GetVariable(v8, Name);
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v9 = *(this + 19);
+  MIL::IRNamedValueType::GetName(v7);
+  if (v9)
+  {
+    Variable = MIL::Builder::BlockBuilder::GetVariable(v9, v10);
   }
 
   else
   {
-    Variable = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(this, Name);
+    Variable = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(this, v10, a3);
   }
 
-  v11 = Variable;
-  if (v7)
+  v12 = Variable;
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_21801E494(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
@@ -4693,105 +4636,105 @@ LABEL_20:
   goto LABEL_20;
 }
 
-uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::GetOutputName(MIL::Builder::OperationBuilder::OperationBuilderImpl *this, unint64_t a2)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::GetOutputName(MIL::Builder::OperationBuilder::OperationBuilderImpl *this, unint64_t a2)
 {
   v2 = *(this + 5);
   if (a2 >= (*(this + 6) - v2) >> 4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::to_string(&v27, a2);
-    v8 = std::string::insert(&v27, 0, "Attempting to access output ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v28.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v28.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v10 = std::string::append(&v28, " for ");
-    v11 = *&v10->__r_.__value_.__l.__data_;
-    v29.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-    *&v29.__r_.__value_.__l.__data_ = v11;
-    v10->__r_.__value_.__l.__size_ = 0;
-    v10->__r_.__value_.__r.__words[2] = 0;
-    v10->__r_.__value_.__r.__words[0] = 0;
-    v12 = (*(**this + 16))();
-    v13 = *(v12 + 23);
-    if (v13 >= 0)
+    std::to_string(&v26, a2);
+    v7 = std::string::insert(&v26, 0, "Attempting to access output ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v27.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v27.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v9 = std::string::append(&v27, " for ");
+    v10 = *&v9->__r_.__value_.__l.__data_;
+    v28.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
+    *&v28.__r_.__value_.__l.__data_ = v10;
+    v9->__r_.__value_.__l.__size_ = 0;
+    v9->__r_.__value_.__r.__words[2] = 0;
+    v9->__r_.__value_.__r.__words[0] = 0;
+    v11 = (*(**this + 16))();
+    v12 = *(v11 + 23);
+    if (v12 >= 0)
     {
-      v14 = v12;
+      v13 = v11;
     }
 
     else
     {
-      v14 = *v12;
+      v13 = *v11;
     }
 
-    if (v13 >= 0)
+    if (v12 >= 0)
     {
-      v15 = *(v12 + 23);
+      v14 = *(v11 + 23);
     }
 
     else
     {
-      v15 = *(v12 + 8);
+      v14 = *(v11 + 8);
     }
 
-    v16 = std::string::append(&v29, v14, v15);
-    v17 = *&v16->__r_.__value_.__l.__data_;
-    v30.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-    *&v30.__r_.__value_.__l.__data_ = v17;
-    v16->__r_.__value_.__l.__size_ = 0;
-    v16->__r_.__value_.__r.__words[2] = 0;
-    v16->__r_.__value_.__r.__words[0] = 0;
-    v18 = std::string::append(&v30, " operation, but only ");
-    v19 = *&v18->__r_.__value_.__l.__data_;
-    v31.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-    *&v31.__r_.__value_.__l.__data_ = v19;
-    v18->__r_.__value_.__l.__size_ = 0;
-    v18->__r_.__value_.__r.__words[2] = 0;
-    v18->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v26, (*(this + 6) - *(this + 5)) >> 4);
-    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v15 = std::string::append(&v28, v13, v14);
+    v16 = *&v15->__r_.__value_.__l.__data_;
+    v29.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
+    *&v29.__r_.__value_.__l.__data_ = v16;
+    v15->__r_.__value_.__l.__size_ = 0;
+    v15->__r_.__value_.__r.__words[2] = 0;
+    v15->__r_.__value_.__r.__words[0] = 0;
+    v17 = std::string::append(&v29, " operation, but only ");
+    v18 = *&v17->__r_.__value_.__l.__data_;
+    v30.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+    *&v30.__r_.__value_.__l.__data_ = v18;
+    v17->__r_.__value_.__l.__size_ = 0;
+    v17->__r_.__value_.__r.__words[2] = 0;
+    v17->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v25, (*(this + 6) - *(this + 5)) >> 4);
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v20 = &v26;
+      v19 = &v25;
     }
 
     else
     {
-      v20 = v26.__r_.__value_.__r.__words[0];
+      v19 = v25.__r_.__value_.__r.__words[0];
     }
 
-    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v26.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v25.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v26.__r_.__value_.__l.__size_;
+      size = v25.__r_.__value_.__l.__size_;
     }
 
-    v22 = std::string::append(&v31, v20, size);
-    v23 = *&v22->__r_.__value_.__l.__data_;
-    v32.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-    *&v32.__r_.__value_.__l.__data_ = v23;
-    v22->__r_.__value_.__l.__size_ = 0;
-    v22->__r_.__value_.__r.__words[2] = 0;
-    v22->__r_.__value_.__r.__words[0] = 0;
-    v24 = std::string::append(&v32, " outputs are defined.");
-    v25 = *&v24->__r_.__value_.__l.__data_;
-    v33.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-    *&v33.__r_.__value_.__l.__data_ = v25;
-    v24->__r_.__value_.__l.__size_ = 0;
-    v24->__r_.__value_.__r.__words[2] = 0;
-    v24->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v33);
+    v21 = std::string::append(&v30, v19, size);
+    v22 = *&v21->__r_.__value_.__l.__data_;
+    v31.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+    *&v31.__r_.__value_.__l.__data_ = v22;
+    v21->__r_.__value_.__l.__size_ = 0;
+    v21->__r_.__value_.__r.__words[2] = 0;
+    v21->__r_.__value_.__r.__words[0] = 0;
+    v23 = std::string::append(&v31, " outputs are defined.");
+    v24 = *&v23->__r_.__value_.__l.__data_;
+    v32.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
+    *&v32.__r_.__value_.__l.__data_ = v24;
+    v23->__r_.__value_.__l.__size_ = 0;
+    v23->__r_.__value_.__r.__words[2] = 0;
+    v23->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v32);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   v3 = *(v2 + 16 * a2);
 
-  return MIL::IRNamedValueType::GetName(v3);
+  MIL::IRNamedValueType::GetName(v3);
 }
 
 void sub_21801E7B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40)
@@ -5007,7 +4950,7 @@ LABEL_20:
   goto LABEL_20;
 }
 
-void *MIL::Builder::OperationBuilder::OperationBuilderImpl::GetChildOperations@<X0>(void *this@<X0>, uint64_t a2@<X8>)
+void *MIL::Builder::OperationBuilder::OperationBuilderImpl::GetChildOperations@<X0>(void *this@<X0>, unint64_t a2@<X8>)
 {
   *a2 = 0u;
   *(a2 + 16) = 0u;
@@ -5025,11 +4968,11 @@ void *MIL::Builder::OperationBuilder::OperationBuilderImpl::GetChildOperations@<
   while (v4 != v5)
   {
     v6 = v3[19];
-    Name = MIL::IRNamedValueType::GetName(*v4);
-    this = MIL::Builder::BlockBuilder::GetOperationsByInput(v6, Name);
+    MIL::IRNamedValueType::GetName(*v4);
+    this = MIL::Builder::BlockBuilder::GetOperationsByInput(v6, v7);
     for (i = this[2]; i; i = *i)
     {
-      this = std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::shared_ptr<MIL::Builder::OperationBuilder> const&>(a2, i + 2);
+      this = std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder>>>::__emplace_unique_key_args<std::shared_ptr<MIL::Builder::OperationBuilder>,std::shared_ptr<MIL::Builder::OperationBuilder> const&>(a2, i + 2, i + 2);
     }
 
     v4 += 2;
@@ -5050,20 +4993,20 @@ const void **MIL::Builder::OperationBuilder::OperationBuilderImpl::GetConstChild
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v2 = this;
-  v3 = this[5];
-  v4 = this[6];
-  while (v3 != v4)
+  v3 = this;
+  v4 = this[5];
+  v5 = this[6];
+  while (v4 != v5)
   {
-    v5 = v2[19];
-    Name = MIL::IRNamedValueType::GetName(*v3);
-    this = MIL::Builder::BlockBuilder::GetOperationsByInput(v5, Name);
+    v6 = v3[19];
+    MIL::IRNamedValueType::GetName(*v4);
+    this = MIL::Builder::BlockBuilder::GetOperationsByInput(v6, v7);
     if (this[2])
     {
-      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder const>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder const>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder const>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder const>>>::__emplace_unique_impl<std::shared_ptr<MIL::Builder::OperationBuilder> const&>();
+      std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder const>,std::hash<std::shared_ptr<MIL::Builder::OperationBuilder const>>,std::equal_to<std::shared_ptr<MIL::Builder::OperationBuilder const>>,std::allocator<std::shared_ptr<MIL::Builder::OperationBuilder const>>>::__emplace_unique_impl<std::shared_ptr<MIL::Builder::OperationBuilder> const&>(a2);
     }
 
-    v3 += 2;
+    v4 += 2;
   }
 
   return this;
@@ -5305,58 +5248,58 @@ void sub_21801F204(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::GetInputArguments(MIL::Builder::OperationBuilder::OperationBuilderImpl *this@<X0>, uint64_t a2@<X8>)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::GetInputArguments(MIL::Builder::OperationBuilder::OperationBuilderImpl *this@<X0>, const MIL::Builder::OperationBuilder *a2@<X1>, uint64_t a3@<X8>)
 {
-  *a2 = 0u;
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a2, *(this + 4));
-  v5 = *(this + 2);
-  if (v5 != (this + 24))
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__rehash<true>(a3, *(this + 4));
+  v6 = *(this + 2);
+  if (v6 != (this + 24))
   {
     do
     {
-      if (*(v5 + 8) != *(v5 + 7))
+      if (*(v6 + 8) != *(v6 + 7))
       {
-        LODWORD(v6) = 0;
+        LODWORD(v7) = 0;
         do
         {
-          ArgumentForParameter = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetArgumentForParameter(this, v5 + 32, v6);
-          std::__hash_table<MIL::Builder::Variable const*,std::hash<MIL::Builder::Variable const*>,std::equal_to<MIL::Builder::Variable const*>,std::allocator<MIL::Builder::Variable const*>>::__emplace_unique_key_args<MIL::Builder::Variable const*,MIL::Builder::Variable const*>(a2, &ArgumentForParameter);
-          v6 = (v6 + 1);
+          ArgumentForParameter = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetArgumentForParameter(this, v6 + 32, v7, a2);
+          std::__hash_table<MIL::Builder::Variable const*,std::hash<MIL::Builder::Variable const*>,std::equal_to<MIL::Builder::Variable const*>,std::allocator<MIL::Builder::Variable const*>>::__emplace_unique_key_args<MIL::Builder::Variable const*,MIL::Builder::Variable const*>(a3, &ArgumentForParameter, &ArgumentForParameter);
+          v7 = (v7 + 1);
         }
 
-        while (v6 < (*(v5 + 8) - *(v5 + 7)) >> 4);
+        while (v7 < (*(v6 + 8) - *(v6 + 7)) >> 4);
       }
 
-      v7 = *(v5 + 1);
-      if (v7)
+      v8 = *(v6 + 1);
+      if (v8)
       {
         do
         {
-          v8 = v7;
-          v7 = *v7;
+          v9 = v8;
+          v8 = *v8;
         }
 
-        while (v7);
+        while (v8);
       }
 
       else
       {
         do
         {
-          v8 = *(v5 + 2);
-          v9 = *v8 == v5;
-          v5 = v8;
+          v9 = *(v6 + 2);
+          v10 = *v9 == v6;
+          v6 = v9;
         }
 
-        while (!v9);
+        while (!v10);
       }
 
-      v5 = v8;
+      v6 = v9;
     }
 
-    while (v8 != (this + 24));
+    while (v9 != (this + 24));
   }
 }
 
@@ -5446,7 +5389,7 @@ void sub_21801F4D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Builder::OperationBuilder::SetAttribute@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void *MIL::Builder::OperationBuilder::SetAttribute@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const void **a3@<X2>, void *a4@<X8>)
 {
   v6 = *(a1 + 24);
   *__p = *a2;
@@ -5454,7 +5397,7 @@ void *MIL::Builder::OperationBuilder::SetAttribute@<X0>(uint64_t a1@<X0>, uint64
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v7 = *(a3 + 8);
+  v7 = a3[1];
   v9 = *a3;
   v10 = v7;
   if (v7)
@@ -5476,21 +5419,22 @@ void *MIL::Builder::OperationBuilder::SetAttribute@<X0>(uint64_t a1@<X0>, uint64
   return std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
 }
 
-void sub_21801F590(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_21801F590(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::BlockBuilder::ReplaceUsesOfInputVariable(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::SetAttribute(uint64_t a1, const void **a2, const void **a3)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::SetAttribute(uint64_t a1, __int128 *a2, const void **a3)
 {
-  v4 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 64), a2);
+  v8 = a2;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 64), a2, &std::piecewise_construct, &v8);
   v6 = *a3;
   v5 = a3[1];
   if (v5)
@@ -5542,7 +5486,7 @@ uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::GetOutputType(uin
         atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      Name = MIL::IRNamedValueType::GetName(v5);
+      MIL::IRNamedValueType::GetName(v5);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
@@ -5553,11 +5497,11 @@ uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::GetOutputType(uin
         size = __p.__r_.__value_.__l.__size_;
       }
 
-      v9 = *(Name + 23);
+      v9 = *(v7 + 23);
       v10 = v9;
-      if ((v9 & 0x80u) != 0)
+      if (v9 < 0)
       {
-        v9 = *(Name + 8);
+        v9 = v7[1];
       }
 
       if (size == v9)
@@ -5597,12 +5541,12 @@ LABEL_26:
 
     if (v10 >= 0)
     {
-      v12 = Name;
+      v12 = v7;
     }
 
     else
     {
-      v12 = *Name;
+      v12 = *v7;
     }
 
     v13 = memcmp(p_p, v12, size) == 0;
@@ -5654,8 +5598,7 @@ void MIL::Builder::OperationBuilder::SetLocation(uint64_t a1, __int128 *a2)
 {
   v2 = *(a1 + 24);
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   MIL::Builder::OperationBuilder::OperationBuilderImpl::SetLocation(v2, &v3);
   if (*(&v3 + 1))
   {
@@ -5696,46 +5639,24 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::SetLocation(uint64_t 
   }
 }
 
-void MIL::Builder::OperationBuilder::AddBlock(uint64_t a1, uint64_t a2)
-{
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddBlock(*(a1 + 24), a2);
-}
-
-{
-  v2 = *(a1 + 24);
-  v3 = *(a2 + 8);
-  v4 = *a2;
-  v5 = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddBlock(v2, &v4);
-  if (v5)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-  }
-}
-
 void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddBlock(void *a1, uint64_t a2)
 {
-  v2 = a1[23];
-  if (v2)
+  v3 = a1[23];
+  if (v3)
   {
-    v5 = a1[19];
-    if (v5)
-    {
-      MIL::Builder::BlockBuilder::GetScopePtr(v5);
-      v2 = a1[23];
-    }
-
-    v6 = a1[24];
-    v9 = v2;
-    v10 = v6;
+    v6 = a1[19];
     if (v6)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      MIL::Builder::BlockBuilder::GetScopePtr(v6);
+      v3 = a1[23];
+    }
+
+    v7 = a1[24];
+    v10 = v3;
+    v11 = v7;
+    if (v7)
+    {
+      atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
     }
 
     if (*(a2 + 23) < 0)
@@ -5766,6 +5687,24 @@ void sub_21801FAA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
+void MIL::Builder::OperationBuilder::AddBlock(uint64_t a1, MIL::Builder::BlockBuilder **a2)
+{
+  v2 = *(a1 + 24);
+  v3 = a2[1];
+  v4 = *a2;
+  v5 = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddBlock(v2, &v4);
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+}
+
 void sub_21801FB60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
 {
   if (a10)
@@ -5789,21 +5728,20 @@ void **MIL::Builder::OperationBuilder::OperationBuilderImpl::AddBlock(uint64_t a
   return std::vector<std::shared_ptr<MIL::IRArgument>>::push_back[abi:ne200100]((a1 + 160), a2);
 }
 
-uint64_t MIL::Builder::OperationBuilder::GetBlocks@<X0>(MIL::Builder::OperationBuilder *this@<X0>, void *a2@<X8>)
+uint64_t *MIL::Builder::OperationBuilder::GetBlocks@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t a2@<X0>)
 {
-  v2 = *(this + 3);
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  return std::vector<std::shared_ptr<MIL::Builder::BlockBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::BlockBuilder>*,std::shared_ptr<MIL::Builder::BlockBuilder>*>(a2, *(v2 + 160), *(v2 + 168), (*(v2 + 168) - *(v2 + 160)) >> 4);
+  v2 = *(a2 + 24);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  return std::vector<std::shared_ptr<MIL::Builder::BlockBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::BlockBuilder>*,std::shared_ptr<MIL::Builder::BlockBuilder>*>(a1, *(v2 + 160), *(v2 + 168), (*(v2 + 168) - *(v2 + 160)) >> 4);
 }
 
 void MIL::Builder::OperationBuilder::SetContext(uint64_t a1, __int128 *a2)
 {
   v2 = *(a1 + 24);
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   MIL::Builder::OperationBuilder::OperationBuilderImpl::SetContext(v2, &v3);
   if (*(&v3 + 1))
   {
@@ -5870,7 +5808,7 @@ uint64_t MIL::Builder::OperationBuilder::GetContext@<X0>(uint64_t this@<X0>, voi
   return this;
 }
 
-void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>, MIL::Builder::Variable::VariableImpl **a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>, MIL::Builder::Variable *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -5880,28 +5818,28 @@ void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>
   *(a2 + 16) = 0;
   *a2 = 0;
   v9 = a4[1];
-  *&v10 = *a4;
-  *(&v10 + 1) = v9;
+  v10[0] = *a4;
+  v10[1] = v9;
   if (v9)
   {
     atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
   }
 
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(v8, __p, a3, &v10);
+  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(v8, __p, a3, v10);
 }
 
-void sub_21801FDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21801FDD4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1, __int128 *a2, MIL::Builder::Variable::VariableImpl **a3, __int128 *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1, __int128 *a2, MIL::Builder::Variable *a3, void *a4)
 {
   if (a3)
   {
@@ -5917,19 +5855,19 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1,
         *a2 = 0;
         if (*(Name + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v16, *Name, *(Name + 1));
+          std::string::__init_copy_ctor_external(&v16, *Name, *(Name + 8));
         }
 
         else
         {
           v9 = *Name;
-          v16.__r_.__value_.__r.__words[2] = *(Name + 2);
+          v16.__r_.__value_.__r.__words[2] = *(Name + 16);
           *&v16.__r_.__value_.__l.__data_ = v9;
         }
 
         v15 = *a4;
         *a4 = 0;
-        *(a4 + 1) = 0;
+        a4[1] = 0;
         MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(a1, &v17, &v16, &v15);
       }
 
@@ -5938,10 +5876,10 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1,
       *(a2 + 1) = 0;
       *(a2 + 2) = 0;
       *a2 = 0;
-      MIL::Builder::Variable::TryGetValueSharedPtr(a3, &v12);
+      MIL::Builder::Variable::TryGetValueSharedPtr(&v12, a3);
       v11 = *a4;
       *a4 = 0;
-      *(a4 + 1) = 0;
+      a4[1] = 0;
       MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(a1, &v13, &v12, &v11);
     }
 
@@ -5968,7 +5906,7 @@ void sub_21801FF9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::OperationBuilder::AddInputBool(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputBool(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -5988,69 +5926,25 @@ void MIL::Builder::OperationBuilder::AddInputBool(uint64_t a1@<X0>, uint64_t a2@
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<BOOL>(v8, __p, a3, v10);
 }
 
+void sub_2180200D0(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
-  v8 = *(a1 + 24);
-  *__p = *a2;
-  v12 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  v9 = a4[1];
-  v10[0] = *a4;
-  v10[1] = v9;
-  if (v9)
+  if (a5)
   {
-    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<BOOL>(v8, __p, a3, v10);
-}
-
-void sub_2180200D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
-{
-  if (a10)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<BOOL>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<BOOL>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
-  {
-    if (*a4)
-    {
-      MIL::IRTensorValueType::MakeScalar();
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Cannot add an input to a null OperationBuilder.");
-  }
-
-  else
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "This OperationBuilder needs a context in order to accept literal inputs.");
-  }
-
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-{
-  v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
   if (v4)
   {
     if (*a4)
     {
-      v7 = *(a3 + 8);
-      memset(__p, 0, sizeof(__p));
-      std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(__p, &v7, &v8, 1uLL);
-      MIL::IRTensorValueType::Make(v4, 2, __p);
+      MIL::IRTensorValueType::MakeScalar(v4, 2);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6066,7 +5960,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<BOOL>
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputString(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputString(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6112,13 +6006,14 @@ void sub_2180203C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<std::string>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<std::string>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 3);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6134,7 +6029,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<std::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputBFloat16(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int16 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputBFloat16(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int16 a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6154,24 +6049,25 @@ void MIL::Builder::OperationBuilder::AddInputBFloat16(uint64_t a1@<X0>, uint64_t
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Bf16>(v8, __p, a3, v10);
 }
 
-void sub_21802071C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21802071C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Bf16>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Bf16>(uint64_t a1, uint64_t a2, unsigned __int16 a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 7);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6187,7 +6083,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat16(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int16 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat16(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int16 a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6207,24 +6103,25 @@ void MIL::Builder::OperationBuilder::AddInputFloat16(uint64_t a1@<X0>, uint64_t 
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp16>(v8, __p, a3, v10);
 }
 
-void sub_2180209DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180209DC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp16>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp16>(uint64_t a1, uint64_t a2, unsigned __int16 a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 4);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6240,7 +6137,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat8E5M2(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat8E5M2(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6260,24 +6157,25 @@ void MIL::Builder::OperationBuilder::AddInputFloat8E5M2(uint64_t a1@<X0>, uint64
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E5M2>(v8, __p, a3, v10);
 }
 
-void sub_218020C9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218020C9C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E5M2>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E5M2>(uint64_t a1, uint64_t a2, unsigned __int8 a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 25);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6293,7 +6191,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat8E4M3FN(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat8E4M3FN(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6313,24 +6211,25 @@ void MIL::Builder::OperationBuilder::AddInputFloat8E4M3FN(uint64_t a1@<X0>, uint
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E4M3FN>(v8, __p, a3, v10);
 }
 
-void sub_218020F5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218020F5C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E4M3FN>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E4M3FN>(uint64_t a1, uint64_t a2, unsigned __int8 a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 24);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6346,44 +6245,45 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat32(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat32(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, float a4@<S0>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a3, (a1 + 8));
-  v6 = *(a1 + 24);
+  v8 = *(a1 + 24);
   *__p = *a2;
-  v10 = *(a2 + 16);
+  v12 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v7 = a3[1];
-  v8[0] = *a3;
-  v8[1] = v7;
-  if (v7)
+  v9 = a3[1];
+  v10[0] = *a3;
+  v10[1] = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
   }
 
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float>(v6, __p, v8);
+  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float>(v8, __p, v10, a4);
 }
 
-void sub_218021224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218021224(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float>(uint64_t a1, uint64_t a2, void *a3)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float>(uint64_t a1, uint64_t a2, uint64_t *a3, float a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a3)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 5);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6399,44 +6299,45 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat64(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat64(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>, double a4@<D0>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a3, (a1 + 8));
-  v6 = *(a1 + 24);
+  v8 = *(a1 + 24);
   *__p = *a2;
-  v10 = *(a2 + 16);
+  v12 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v7 = a3[1];
-  v8[0] = *a3;
-  v8[1] = v7;
-  if (v7)
+  v9 = a3[1];
+  v10[0] = *a3;
+  v10[1] = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
   }
 
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<double>(v6, __p, v8);
+  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<double>(v8, __p, v10, a4);
 }
 
-void sub_2180214F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180214F4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<double>(uint64_t a1, uint64_t a2, void *a3)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<double>(uint64_t a1, uint64_t a2, uint64_t *a3, double a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a3)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 6);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6452,7 +6353,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<doubl
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt4(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt4(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6472,24 +6373,25 @@ void MIL::Builder::OperationBuilder::AddInputInt4(uint64_t a1@<X0>, uint64_t a2@
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Int4>(v8, __p, a3, v10);
 }
 
-void sub_2180217BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180217BC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Int4>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Int4>(uint64_t a1, uint64_t a2, char a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 13);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6505,7 +6407,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt8(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt8(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6525,24 +6427,25 @@ void MIL::Builder::OperationBuilder::AddInputInt8(uint64_t a1@<X0>, uint64_t a2@
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<signed char>(v8, __p, a3, v10);
 }
 
-void sub_218021B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218021B1C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<signed char>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<signed char>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 9);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6558,7 +6461,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<signe
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt16(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt16(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6578,24 +6481,25 @@ void MIL::Builder::OperationBuilder::AddInputInt16(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<short>(v8, __p, a3, v10);
 }
 
-void sub_218021DDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218021DDC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<short>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<short>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 10);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6611,7 +6515,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<short
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt32(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt32(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6631,24 +6535,25 @@ void MIL::Builder::OperationBuilder::AddInputInt32(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<int>(v8, __p, a3, v10);
 }
 
-void sub_21802209C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21802209C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<int>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<int>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 11);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6664,7 +6569,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<int>(
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt64(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt64(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6684,24 +6589,25 @@ void MIL::Builder::OperationBuilder::AddInputInt64(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<long long>(v8, __p, a3, v10);
 }
 
-void sub_21802235C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21802235C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<long long>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<long long>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 12);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6717,7 +6623,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<long 
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt1(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt1(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6737,24 +6643,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt1(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt1>(v8, __p, a3, v10);
 }
 
-void sub_21802261C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21802261C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt1>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt1>(uint64_t a1, uint64_t a2, char a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 21);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6770,7 +6677,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt2(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt2(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6790,24 +6697,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt2(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt2>(v8, __p, a3, v10);
 }
 
-void sub_21802297C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21802297C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt2>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt2>(uint64_t a1, uint64_t a2, char a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 19);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6823,7 +6731,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt3(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt3(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6843,24 +6751,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt3(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt3>(v8, __p, a3, v10);
 }
 
-void sub_218022CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218022CDC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt3>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt3>(uint64_t a1, uint64_t a2, char a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 22);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6876,7 +6785,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt4(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt4(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6896,24 +6805,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt4(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt4>(v8, __p, a3, v10);
 }
 
-void sub_21802303C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21802303C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt4>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt4>(uint64_t a1, uint64_t a2, char a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 20);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6929,7 +6839,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt6(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt6(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -6949,24 +6859,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt6(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt6>(v8, __p, a3, v10);
 }
 
-void sub_21802339C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21802339C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt6>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt6>(uint64_t a1, uint64_t a2, char a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 23);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -6982,7 +6893,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt8(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt8(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7002,24 +6913,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt8(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned char>(v8, __p, a3, v10);
 }
 
-void sub_2180236FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180236FC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned char>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned char>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 14);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -7035,7 +6947,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsig
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt16(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt16(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7055,24 +6967,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt16(uint64_t a1@<X0>, uint64_t a
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned short>(v8, __p, a3, v10);
 }
 
-void sub_2180239BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180239BC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned short>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned short>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 15);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -7088,7 +7001,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsig
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt32(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt32(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7108,24 +7021,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt32(uint64_t a1@<X0>, uint64_t a
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned int>(v8, __p, a3, v10);
 }
 
-void sub_218023C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218023C7C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned int>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned int>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 16);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -7141,7 +7055,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsig
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt64(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt64(uint64_t a1@<X0>, uint64_t a2@<X1>, const MIL::IRTensorValueType *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7161,24 +7075,25 @@ void MIL::Builder::OperationBuilder::AddInputUInt64(uint64_t a1@<X0>, uint64_t a
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned long long>(v8, __p, a3, v10);
 }
 
-void sub_218023F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218023F3C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned long long>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned long long>(uint64_t a1, uint64_t a2, const MIL::IRTensorValueType *a3, uint64_t *a4)
 {
-  if (*(a1 + 184))
+  v4 = *(a1 + 184);
+  if (v4)
   {
     if (*a4)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(v4, 17);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -7194,18 +7109,65 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsig
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void sub_2180241FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void MIL::Builder::OperationBuilder::AddInputBool(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X8>)
 {
-  if (a10)
+  std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
+  v8 = *(a1 + 24);
+  *__p = *a2;
+  v12 = *(a2 + 16);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  v9 = a4[1];
+  v10[0] = *a4;
+  v10[1] = v9;
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<BOOL>(v8, __p, a3, v10);
+}
+
+void sub_2180241FC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
+{
+  if (a5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::AddInputString(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<BOOL>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 184);
+  if (v4)
+  {
+    if (*a4)
+    {
+      v7 = a3[1];
+      memset(__p, 0, sizeof(__p));
+      std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(__p, &v7, &v8, 1uLL);
+      MIL::IRTensorValueType::Make(v4, 2, __p);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Cannot add an input to a null OperationBuilder.");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "This OperationBuilder needs a context in order to accept literal inputs.");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void MIL::Builder::OperationBuilder::AddInputString(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7225,18 +7187,18 @@ void MIL::Builder::OperationBuilder::AddInputString(uint64_t a1@<X0>, uint64_t a
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<std::string>(v8, __p, a3, v10);
 }
 
-void sub_218024558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218024558(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<std::string>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<std::string>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7263,7 +7225,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<std::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputBFloat16(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputBFloat16(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7283,18 +7245,18 @@ void MIL::Builder::OperationBuilder::AddInputBFloat16(uint64_t a1@<X0>, uint64_t
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Bf16>(v8, __p, a3, v10);
 }
 
-void sub_2180248C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180248C8(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Bf16>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Bf16>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7321,7 +7283,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat16(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat16(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7341,18 +7303,18 @@ void MIL::Builder::OperationBuilder::AddInputFloat16(uint64_t a1@<X0>, uint64_t 
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp16>(v8, __p, a3, v10);
 }
 
-void sub_218024C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218024C2C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp16>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp16>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7379,7 +7341,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat8E5M2(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat8E5M2(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7399,18 +7361,18 @@ void MIL::Builder::OperationBuilder::AddInputFloat8E5M2(uint64_t a1@<X0>, uint64
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E5M2>(v8, __p, a3, v10);
 }
 
-void sub_218024F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218024F90(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E5M2>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E5M2>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7437,7 +7399,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat8E4M3FN(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat8E4M3FN(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7457,18 +7419,18 @@ void MIL::Builder::OperationBuilder::AddInputFloat8E4M3FN(uint64_t a1@<X0>, uint
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E4M3FN>(v8, __p, a3, v10);
 }
 
-void sub_2180252F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180252F0(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E4M3FN>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Fp8E4M3FN>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7495,7 +7457,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat32(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat32(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7515,18 +7477,18 @@ void MIL::Builder::OperationBuilder::AddInputFloat32(uint64_t a1@<X0>, uint64_t 
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float>(v8, __p, a3, v10);
 }
 
-void sub_218025650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218025650(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7553,7 +7515,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<float
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputFloat64(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputFloat64(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7573,18 +7535,18 @@ void MIL::Builder::OperationBuilder::AddInputFloat64(uint64_t a1@<X0>, uint64_t 
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<double>(v8, __p, a3, v10);
 }
 
-void sub_2180259B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180259B4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<double>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<double>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7611,7 +7573,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<doubl
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt4(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt4(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7631,18 +7593,18 @@ void MIL::Builder::OperationBuilder::AddInputInt4(uint64_t a1@<X0>, uint64_t a2@
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Int4>(v8, __p, a3, v10);
 }
 
-void sub_218025D18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218025D18(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Int4>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::Int4>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7669,7 +7631,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt8(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt8(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7689,18 +7651,18 @@ void MIL::Builder::OperationBuilder::AddInputInt8(uint64_t a1@<X0>, uint64_t a2@
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<signed char>(v8, __p, a3, v10);
 }
 
-void sub_2180260A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180260A0(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<signed char>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<signed char>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7727,7 +7689,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<signe
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt16(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt16(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7747,18 +7709,18 @@ void MIL::Builder::OperationBuilder::AddInputInt16(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<short>(v8, __p, a3, v10);
 }
 
-void sub_218026400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218026400(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<short>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<short>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7785,7 +7747,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<short
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt32(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt32(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7805,18 +7767,18 @@ void MIL::Builder::OperationBuilder::AddInputInt32(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<int>(v8, __p, a3, v10);
 }
 
-void sub_218026764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218026764(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<int>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<int>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7843,7 +7805,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<int>(
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputInt64(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputInt64(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7863,18 +7825,18 @@ void MIL::Builder::OperationBuilder::AddInputInt64(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<long long>(v8, __p, a3, v10);
 }
 
-void sub_218026AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218026AC8(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<long long>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<long long>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7901,7 +7863,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<long 
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt1(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt1(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7921,18 +7883,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt1(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt1>(v8, __p, a3, v10);
 }
 
-void sub_218026E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218026E2C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt1>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt1>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -7959,7 +7921,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt2(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt2(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -7979,18 +7941,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt2(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt2>(v8, __p, a3, v10);
 }
 
-void sub_2180271B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180271B4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt2>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt2>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -8017,7 +7979,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt3(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt3(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -8037,18 +7999,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt3(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt3>(v8, __p, a3, v10);
 }
 
-void sub_21802753C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_21802753C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt3>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt3>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -8075,7 +8037,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt4(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt4(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -8095,18 +8057,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt4(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt4>(v8, __p, a3, v10);
 }
 
-void sub_2180278C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180278C4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt4>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt4>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -8133,7 +8095,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt6(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt6(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -8153,18 +8115,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt6(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt6>(v8, __p, a3, v10);
 }
 
-void sub_218027C4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218027C4C(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt6>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::UInt6>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -8191,7 +8153,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<MIL::
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt8(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt8(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -8211,18 +8173,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt8(uint64_t a1@<X0>, uint64_t a2
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned char>(v8, __p, a3, v10);
 }
 
-void sub_218027FD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218027FD4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned char>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned char>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -8249,7 +8211,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsig
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt16(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt16(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -8269,18 +8231,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt16(uint64_t a1@<X0>, uint64_t a
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned short>(v8, __p, a3, v10);
 }
 
-void sub_218028334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218028334(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned short>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned short>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -8307,7 +8269,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsig
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt32(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt32(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -8327,18 +8289,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt32(uint64_t a1@<X0>, uint64_t a
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned int>(v8, __p, a3, v10);
 }
 
-void sub_218028698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_218028698(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned int>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned int>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -8365,7 +8327,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsig
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-void MIL::Builder::OperationBuilder::AddInputUInt64(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Builder::OperationBuilder::AddInputUInt64(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
   std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
   v8 = *(a1 + 24);
@@ -8385,18 +8347,18 @@ void MIL::Builder::OperationBuilder::AddInputUInt64(uint64_t a1@<X0>, uint64_t a
   MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned long long>(v8, __p, a3, v10);
 }
 
-void sub_2180289FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
+void sub_2180289FC(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  if (a10)
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::OperationBuilder::AddOutput();
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned long long>(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsigned long long>(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4)
 {
   v8 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 184);
@@ -8421,58 +8383,6 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInputLiteral<unsig
   }
 
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void MIL::Builder::OperationBuilder::AddInput(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X8>)
-{
-  v18 = *MEMORY[0x277D85DE8];
-  std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
-  v8 = *(a1 + 24);
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v14, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v14 = *a2;
-  }
-
-  v9 = a3[1];
-  v16 = *a3;
-  v17 = v9;
-  if (v9)
-  {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  memset(v13, 0, sizeof(v13));
-  std::vector<std::shared_ptr<MIL::IRArgument>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRArgument> const*,std::shared_ptr<MIL::IRArgument> const*>(v13, &v16, &v18, 1uLL);
-  v10 = a4[1];
-  v11 = *a4;
-  v12 = v10;
-  if (v10)
-  {
-    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(v8, &v14.__r_.__value_.__l.__data_, v13, &v11);
-  if (v12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-  }
-
-  v15 = v13;
-  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](&v15);
-  if (v17)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-  }
-
-  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v14.__r_.__value_.__l.__data_);
-  }
 }
 
 void sub_218028DF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -8517,9 +8427,9 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::AddInput(uint64_t a1,
         __cxa_throw(v16, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v24 = a2;
-      v11 = std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 16, a2);
-      std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100]((v11 + 56), &v23);
+      v25 = a2;
+      v11 = std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 16), a2, &std::piecewise_construct, &v25, &v24);
+      std::vector<std::shared_ptr<MIL::IROperation>>::push_back[abi:ne200100](v11 + 7, &v23);
       if (*(a1 + 152))
       {
         v12 = (*(*v23 + 32))(v23);
@@ -8654,10 +8564,10 @@ uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::RemoveInputs(uint
   {
     if (*(a1 + 152))
     {
-      v17 = a2;
-      v7 = std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 16, a2);
-      v8 = *(v7 + 56);
-      for (i = *(v7 + 64); v8 != i; v8 += 2)
+      v18 = a2;
+      v7 = std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 16), a2, &std::piecewise_construct, &v18, &v17);
+      v8 = v7[7];
+      for (i = v7[8]; v8 != i; v8 += 2)
       {
         v10 = (*(**v8 + 32))(*v8);
         if (v10)
@@ -8718,7 +8628,7 @@ void sub_218029368(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **MIL::Builder::OperationBuilder::TryGetAttribute@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+const void **MIL::Builder::OperationBuilder::TryGetAttribute@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((*(a1 + 24) + 64), a2);
   if (result)
@@ -8741,17 +8651,15 @@ const void **MIL::Builder::OperationBuilder::TryGetAttribute@<X0>(uint64_t a1@<X
   return result;
 }
 
-uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::TryGetConstant@<X0>(MIL::Builder::OperationBuilder::OperationBuilderImpl *this@<X0>, void *a2@<X8>)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::TryGetConstant(MIL::Builder::OperationBuilder::OperationBuilderImpl *this@<X0>, void *a2@<X8>)
 {
-  result = (*(**this + 104))(*this);
-  if (result)
+  if ((*(**this + 104))(*this))
   {
     MIL::Builder::OperationBuilder::OperationBuilderImpl::GetConstants(this);
   }
 
   *a2 = 0;
   a2[1] = 0;
-  return result;
 }
 
 void sub_2180294D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
@@ -8765,11 +8673,11 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::GetConstants(MIL::Bui
 {
   if ((*(**this + 104))(*this))
   {
-    std::map<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>::map[abi:ne200100](&v19, this + 2);
+    std::map<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>::map[abi:ne200100](&v18, this + 2);
     if (*(this + 19))
     {
-      v2 = v19;
-      if (v19 != v20)
+      v2 = v18;
+      if (v18 != v19)
       {
         do
         {
@@ -8784,23 +8692,23 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::GetConstants(MIL::Bui
               {
                 v6 = *(this + 19);
                 Name = MIL::IRArgument::GetName(*(v3 + v4));
-                MIL::Builder::BlockBuilder::GetValue(&v16, v6, Name);
-                v8 = v16;
-                if (v17)
+                MIL::Builder::BlockBuilder::GetValue(v6, Name, &v15);
+                v8 = v15;
+                if (v16)
                 {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+                  std::__shared_weak_count::__release_shared[abi:ne200100](v16);
                 }
 
                 if (v8)
                 {
                   v9 = *(this + 19);
                   v10 = MIL::IRArgument::GetName(*(v3 + v4));
-                  MIL::Builder::BlockBuilder::GetValue(&v16, v9, v10);
-                  v18[3] = v16;
-                  v18[4] = v17;
-                  if (v17)
+                  MIL::Builder::BlockBuilder::GetValue(v9, v10, &v15);
+                  v17[3] = v15;
+                  v17[4] = v16;
+                  if (v16)
                   {
-                    atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+                    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
                   }
 
                   MIL::IRArgument::Make();
@@ -8842,14 +8750,14 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::GetConstants(MIL::Bui
           v2 = v12;
         }
 
-        while (v12 != v20);
+        while (v12 != v19);
       }
     }
 
-    memset(v18, 0, 24);
-    std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType>*,std::shared_ptr<MIL::IRNamedValueType>*>(v18, *(this + 5), *(this + 6), (*(this + 6) - *(this + 5)) >> 4);
-    v14 = std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(&v16, this + 64);
-    MIL::UnknownLocation::Make(v14);
+    memset(v17, 0, 24);
+    std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType>*,std::shared_ptr<MIL::IRNamedValueType>*>(v17, *(this + 5), *(this + 6), (*(this + 6) - *(this + 5)) >> 4);
+    std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(&v15, this + 64);
+    MIL::UnknownLocation::Make();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -9039,19 +8947,19 @@ void sub_218029D94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::OperationBuilder::RenameOutput(uint64_t a1@<X0>, unint64_t a2@<X1>, std::string::size_type a3@<X2>, uint64_t *a4@<X8>)
+void MIL::Builder::OperationBuilder::RenameOutput(uint64_t a1@<X0>, unint64_t a2@<X1>, const void **a3@<X8>, std::string::size_type a4@<X2>)
 {
-  std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a4, (a1 + 8));
+  std::shared_ptr<MIL::Builder::OperationBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::OperationBuilder,0>(a3, (a1 + 8));
   v8 = *(a1 + 24);
-  v9 = a4[1];
-  v10[0] = *a4;
+  v9 = a3[1];
+  v10[0] = *a3;
   v10[1] = v9;
   if (v9)
   {
-    atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
   }
 
-  MIL::Builder::OperationBuilder::OperationBuilderImpl::RenameOutput(v8, a2, a3, v10);
+  MIL::Builder::OperationBuilder::OperationBuilderImpl::RenameOutput(v8, a2, a4, v10);
 }
 
 void sub_218029F50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -9070,12 +8978,12 @@ void sub_218029F50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::RenameOutput(MIL::Builder::OperationBuilder::OperationBuilderImpl *this, unint64_t a2, std::string::size_type a3, uint64_t *a4)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::RenameOutput(MIL::Builder::OperationBuilder::OperationBuilderImpl *this, unint64_t a2, std::string::size_type a3, const void **a4)
 {
   v7 = *(this + 19);
   if (v7)
   {
-    OutputName = MIL::Builder::OperationBuilder::OperationBuilderImpl::GetOutputName(this, a2);
+    MIL::Builder::OperationBuilder::OperationBuilderImpl::GetOutputName(this, a2);
     v10 = a4[1];
     v14 = *a4;
     v15 = v10;
@@ -9084,7 +8992,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::RenameOutput(MIL::Bui
       atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    MIL::Builder::BlockBuilder::RenameOpOutput(v7, OutputName, a3, &v14);
+    MIL::Builder::BlockBuilder::RenameOpOutput(v7, v9, a3, &v14);
     if (v15)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v15);
@@ -9122,22 +9030,22 @@ void sub_21802A080(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-const void *MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(uint64_t a1, uint64_t a2)
+const void *MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = 0;
-  v3 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::__emplace_unique_key_args<std::string,std::string const&,decltype(nullptr)>((a1 + 224), a2);
-  if (v4)
+  v8 = 0;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::__emplace_unique_key_args<std::string,std::string const&,decltype(nullptr)>((a1 + 224), a2, a2, &v8);
+  if (v5)
   {
     if (*(a2 + 23) < 0)
     {
@@ -9152,7 +9060,7 @@ const void *MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(ui
     MIL::Builder::Variable::Make();
   }
 
-  return v3[5];
+  return v4[5];
 }
 
 void sub_21802A2B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -9165,21 +9073,21 @@ void sub_21802A2B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(uint64_t a1, void *a2)
+uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::GetVariable(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v3 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>>>::__emplace_unique_key_args<std::shared_ptr<MIL::IRValue const>,std::shared_ptr<MIL::IRValue const>&,decltype(nullptr)>((a1 + 264), a2);
-  if (v4)
+  v4 = std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>>>::__emplace_unique_key_args<std::shared_ptr<MIL::IRValue const>,std::shared_ptr<MIL::IRValue const>&,decltype(nullptr)>((a1 + 264), a2, a2);
+  if (v5)
   {
-    v5 = a2[1];
-    if (v5)
+    v6 = a2[1];
+    if (v6)
     {
-      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
     }
 
     MIL::Builder::Variable::Make();
   }
 
-  return v3[4];
+  return v4[4];
 }
 
 void sub_21802A3C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
@@ -9192,10 +9100,94 @@ void sub_21802A3C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::__emplace_unique_key_args<std::string,std::string const&,decltype(nullptr)>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::__emplace_unique_key_args<std::string,std::string const&,decltype(nullptr)>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_18;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v6;
+    if (v6 >= *&v8)
+    {
+      v11 = v6 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v6;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_18:
+    std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::__construct_node_hash<std::string const&,decltype(nullptr)>();
+  }
+
+  while (1)
+  {
+    v14 = v13[1];
+    if (v14 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v14 >= *&v8)
+      {
+        v14 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v14 &= *&v8 - 1;
+    }
+
+    if (v14 != v11)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v13 = *v13;
+    if (!v13)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v13;
+}
+
+void sub_21802A628(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>>>::__emplace_unique_key_args<std::shared_ptr<MIL::IRValue const>,std::shared_ptr<MIL::IRValue const>&,decltype(nullptr)>(void *a1, void *a2, void *a3)
+{
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
   v6 = a1[1];
   if (!*&v6)
   {
@@ -9204,106 +9196,22 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::unique_pt
 
   v7 = vcnt_s8(v6);
   v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
   if (v7.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v9 = v4 % *&v6;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::__construct_node_hash<std::string const&,decltype(nullptr)>();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_21802A628(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void *std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>>>::__emplace_unique_key_args<std::shared_ptr<MIL::IRValue const>,std::shared_ptr<MIL::IRValue const>&,decltype(nullptr)>(void *a1, void *a2)
-{
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
-  {
-    goto LABEL_18;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
-    {
-      v7 = v4 % *&v5;
-    }
-  }
-
-  else
-  {
-    v7 = v4 & (*&v5 - 1);
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -9311,54 +9219,54 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void sub_21802A978(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21802A978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9498,7 +9406,7 @@ void *std::__hash_table<std::shared_ptr<MIL::Builder::OperationBuilder const>,st
   return 0;
 }
 
-uint64_t std::vector<std::shared_ptr<MIL::Builder::BlockBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::BlockBuilder>*,std::shared_ptr<MIL::Builder::BlockBuilder>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<MIL::Builder::BlockBuilder>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::Builder::BlockBuilder>*,std::shared_ptr<MIL::Builder::BlockBuilder>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9669,7 +9577,7 @@ void std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const
   }
 }
 
-void MIL::Builder::OperationBuilder::OperationBuilderImpl::OperationBuilderImpl(uint64_t a1, uint64_t a2)
+void MIL::Builder::OperationBuilder::OperationBuilderImpl::OperationBuilderImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *a1 = *a2;
   *a2 = 0;
@@ -9682,7 +9590,7 @@ void MIL::Builder::OperationBuilder::OperationBuilderImpl::OperationBuilderImpl(
   *(a1 + 72) = 0u;
   *(a1 + 88) = 0;
   *(a1 + 96) = 1065353216;
-  MIL::UnknownLocation::Make(a1);
+  MIL::UnknownLocation::Make();
 }
 
 void sub_21802B1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
@@ -9710,12 +9618,10 @@ void sub_21802B1A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::OperationBuilderImpl(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4, uint64_t a5)
 {
   v6 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v10 = *a3;
   v11 = v6;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   *__p = *a4;
   v9 = *(a4 + 16);
   *(a4 + 8) = 0;
@@ -9760,7 +9666,7 @@ uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::OperationBuilderI
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType>*,std::shared_ptr<MIL::IRNamedValueType>*>(a1 + 40, *v13, v13[1], (v13[1] - *v13) >> 4);
+  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType>*,std::shared_ptr<MIL::IRNamedValueType>*>((a1 + 40), *v13, v13[1], (v13[1] - *v13) >> 4);
   Attributes = MIL::IRObject::GetAttributes(*a2);
   std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(a1 + 64, Attributes);
   LocationPtr = MIL::IRObject::GetLocationPtr(*a2);
@@ -9799,41 +9705,41 @@ uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::OperationBuilderI
   return a1;
 }
 
-void sub_21802B46C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21802B46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>>>::~__hash_table(v3);
-  std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::~__hash_table(v2 + 224);
-  if (*(v2 + 223) < 0)
+  va_start(va, a3);
+  std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>>>::~__hash_table(v4);
+  std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::~__hash_table(v3 + 224);
+  if (*(v3 + 223) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v5);
   }
 
-  v6 = *(v2 + 192);
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-  }
-
-  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 143) < 0)
-  {
-    operator delete(*(v2 + 120));
-  }
-
-  v7 = *(v2 + 112);
+  v7 = *(v3 + 192);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v2 + 64);
   std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::destroy(v2 + 16, *(v2 + 24));
-  v8 = *(v2 + 8);
+  if (*(v3 + 143) < 0)
+  {
+    operator delete(*(v3 + 120));
+  }
+
+  v8 = *(v3 + 112);
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v3 + 64);
+  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](va);
+  std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::destroy(v3 + 16, *(v3 + 24));
+  v9 = *(v3 + 8);
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   _Unwind_Resume(a1);

@@ -42,8 +42,6 @@
     v4 = [v3 objectForKey:@"environment"];
     TvHUenoY6Ma3xE12 = self->TvHUenoY6Ma3xE12;
     self->TvHUenoY6Ma3xE12 = v4;
-
-    v6 = self->TvHUenoY6Ma3xE12;
   }
 
   NSSelectorFromString(@"integerValue");
@@ -52,9 +50,9 @@
     return 0;
   }
 
-  v7 = self->TvHUenoY6Ma3xE12;
+  v6 = self->TvHUenoY6Ma3xE12;
 
-  return [(NSNumber *)v7 integerValue];
+  return [(NSNumber *)v6 integerValue];
 }
 
 + (pNjRsniwrVEhiG7R)sharedInstance
@@ -183,16 +181,15 @@ LABEL_16:
 {
   if (y9dm > 2)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *off_100690570[y9dm];
-    v5 = objc_opt_new();
+    v4 = objc_opt_new();
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)zdkFgT82CObMtwJn:(char *)jn D2AyhLGEbXMCneo6:(unsigned int)cneo6
@@ -301,7 +298,7 @@ LABEL_7:
   v10 = dispatch_time(0, 400000000);
   if (dispatch_semaphore_wait(v9, v10))
   {
-    sub_1000313F4(-32007);
+    sub_1000313F4(4294935289);
   }
 
   v11 = v17[5];
@@ -574,7 +571,7 @@ LABEL_7:
     *buf = 0;
     v71 = 0;
     v72 = 0;
-    [v20 Xj38ZYkbLwtCgBTH];
+    objc_msgSend_Xj38ZYkbLwtCgBTH(v20);
     v83 = buf;
     *&v84 = 1;
     v31 = nonceCopy;

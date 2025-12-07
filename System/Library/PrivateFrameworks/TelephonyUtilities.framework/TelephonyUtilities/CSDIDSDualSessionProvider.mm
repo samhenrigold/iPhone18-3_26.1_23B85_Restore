@@ -12,17 +12,22 @@
 - (unsigned)endedReason;
 - (void)acceptInvitationWithData:(id)data;
 - (void)cancelInvitationWithData:(id)data;
+- (void)cancelInvitationWithRemoteEndedReasonOverride:(unsigned int)override;
 - (void)declineInvitationWithData:(id)data;
 - (void)end;
 - (void)reconnectSession;
 - (void)sendData:(id)data;
 - (void)sendData:(id)data toDestinations:(id)destinations;
+- (void)sendInvitationWithData:(id)data declineOnError:(BOOL)error;
 - (void)session:(id)session didReceiveReport:(id)report;
+- (void)session:(id)session invitationSentToTokens:(id)tokens shouldBreakBeforeMake:(BOOL)make;
 - (void)session:(id)session receivedInvitationAcceptFromID:(id)d withData:(id)data;
 - (void)session:(id)session receivedInvitationCancelFromID:(id)d withData:(id)data;
 - (void)session:(id)session receivedInvitationDeclineFromID:(id)d withData:(id)data;
 - (void)session:(id)session receivedSessionMessageFromID:(id)d withData:(id)data;
+- (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error;
 - (void)sessionStarted:(id)started;
+- (void)setAudioEnabled:(BOOL)enabled;
 - (void)setInvitationTimeout:(int64_t)timeout;
 - (void)setPreferences:(id)preferences;
 - (void)setStreamPreferences:(id)preferences;
@@ -111,6 +116,13 @@
   return isAudioEnabled;
 }
 
+- (void)setAudioEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  session = [(CSDIDSDualSessionProvider *)self session];
+  [session setIsAudioEnabled:enabledCopy];
+}
+
 - (int64_t)invitationTimeout
 {
   session = [(CSDIDSDualSessionProvider *)self session];
@@ -128,7 +140,7 @@
 - (void)setPreferences:(id)preferences
 {
   preferencesCopy = preferences;
-  v5 = sub_100004778();
+  v5 = sub_100004778(preferencesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -143,7 +155,7 @@
 - (void)setStreamPreferences:(id)preferences
 {
   preferencesCopy = preferences;
-  v5 = sub_100004778();
+  v5 = sub_100004778(preferencesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -170,6 +182,14 @@
   [session sendSessionMessage:dataCopy toDestinations:destinationsCopy];
 }
 
+- (void)sendInvitationWithData:(id)data declineOnError:(BOOL)error
+{
+  errorCopy = error;
+  dataCopy = data;
+  session = [(CSDIDSDualSessionProvider *)self session];
+  [session sendInvitationWithData:dataCopy declineOnError:errorCopy];
+}
+
 - (void)acceptInvitationWithData:(id)data
 {
   dataCopy = data;
@@ -182,6 +202,13 @@
   dataCopy = data;
   session = [(CSDIDSDualSessionProvider *)self session];
   [session cancelInvitationWithData:dataCopy];
+}
+
+- (void)cancelInvitationWithRemoteEndedReasonOverride:(unsigned int)override
+{
+  v3 = *&override;
+  session = [(CSDIDSDualSessionProvider *)self session];
+  [session cancelInvitationWithRemoteEndedReasonOverride:v3];
 }
 
 - (void)declineInvitationWithData:(id)data
@@ -227,6 +254,22 @@
   dCopy = d;
   delegate = [(CSDIDSDualSessionProvider *)self delegate];
   [delegate sessionProvider:self receivedSessionMessageFromID:dCopy withData:dataCopy];
+}
+
+- (void)session:(id)session invitationSentToTokens:(id)tokens shouldBreakBeforeMake:(BOOL)make
+{
+  makeCopy = make;
+  tokensCopy = tokens;
+  delegate = [(CSDIDSDualSessionProvider *)self delegate];
+  [delegate sessionProvider:self invitationSentToPushTokens:tokensCopy shouldBreakBeforeMake:makeCopy];
+}
+
+- (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error
+{
+  v5 = *&reason;
+  errorCopy = error;
+  delegate = [(CSDIDSDualSessionProvider *)self delegate];
+  [delegate sessionProvider:self endedWithReason:v5 error:errorCopy];
 }
 
 - (void)session:(id)session receivedInvitationAcceptFromID:(id)d withData:(id)data

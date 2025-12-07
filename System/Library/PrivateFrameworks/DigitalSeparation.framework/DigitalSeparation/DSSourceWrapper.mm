@@ -35,31 +35,31 @@
 
 + (id)wrapMultiSource:(id)source
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if ([DSSourceWrapper shouldEnumerateResourceNamesForSource:sourceCopy])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     obj = [sourceCopy resourceNames];
-    v5 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v5 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           v10 = [[DSSubSource alloc] init:sourceCopy withResourceName:v9];
           [dictionary setObject:v10 forKeyedSubscript:v9];
 
@@ -69,14 +69,14 @@
             v12 = v11;
             name = [sourceCopy name];
             *buf = 138543618;
-            v23 = v9;
-            v24 = 2114;
-            v25 = name;
+            v22 = v9;
+            v23 = 2114;
+            v24 = name;
             _os_log_impl(&dword_248C40000, v12, OS_LOG_TYPE_DEFAULT, "Adding sharing sub source for %{public}@ from %{public}@", buf, 0x16u);
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v6 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
       while (v6);
@@ -92,21 +92,17 @@
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 + (void)wrapMultiSource:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 name];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_248C40000, v3, OS_LOG_TYPE_ERROR, "%{public}@ does not satisfy constraints to use DSResourceName", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_248C40000, v3, OS_LOG_TYPE_ERROR, "%{public}@ does not satisfy constraints to use DSResourceName", &v5, 0xCu);
 }
 
 @end

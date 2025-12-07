@@ -7,28 +7,28 @@
 
 - (id)createControlItemsWithOptions:(id)options
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEB58] set];
   controlItemValueSourceForPrimaryService = [(HFServiceItem *)self controlItemValueSourceForPrimaryService];
-  v22 = @"controlItemPurpose";
-  v23[0] = &unk_282523C40;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v21 = @"controlItemPurpose";
+  v22[0] = &unk_282523C40;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   v7 = [[HFPowerStateControlItem alloc] initWithValueSource:controlItemValueSourceForPrimaryService displayResults:v6];
   [v4 addObject:v7];
-  service = [(HFServiceItem *)self service];
-  hf_childServices = [service hf_childServices];
+  v8 = objc_msgSend_service(self);
+  hf_childServices = [v8 hf_childServices];
   v10 = [hf_childServices na_filter:&__block_literal_global_67];
 
   if ([v10 count])
   {
-    service2 = [(HFServiceItem *)self service];
-    v12 = [v10 setByAddingObject:service2];
+    v11 = objc_msgSend_service(self);
+    v12 = [v10 setByAddingObject:v11];
 
     v13 = [(HFServiceItem *)self controlItemValueSourceForServices:v12];
     v14 = [HFTVInputControlItem alloc];
-    v20 = @"controlItemPurpose";
-    v21 = &unk_282523C58;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = @"controlItemPurpose";
+    v20 = &unk_282523C58;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v16 = [(HFTVInputControlItem *)v14 initWithValueSource:v13 displayResults:v15];
 
     [v4 addObject:v16];
@@ -36,8 +36,6 @@
   }
 
   v17 = [v4 copy];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -52,37 +50,35 @@ uint64_t __57__HFTelevisionServiceItem_createControlItemsWithOptions___block_inv
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = MEMORY[0x277CBEB98];
   v6 = *MEMORY[0x277CCF750];
-  v16[0] = *MEMORY[0x277CCF748];
-  v16[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = *MEMORY[0x277CCF748];
+  v15[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v8 = [v5 setWithArray:v7];
 
   v9 = [(HFServiceItem *)self performStandardUpdateWithCharacteristicTypes:v8 options:optionsCopy];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __55__HFTelevisionServiceItem__subclass_updateWithOptions___block_invoke;
-  v14[3] = &unk_277DF5578;
-  v14[4] = self;
-  v15 = optionsCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __55__HFTelevisionServiceItem__subclass_updateWithOptions___block_invoke;
+  v13[3] = &unk_277DF5578;
+  v13[4] = self;
+  v14 = optionsCopy;
   v10 = optionsCopy;
-  v11 = [v9 flatMap:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [v9 flatMap:v13];
 
   return v11;
 }
 
 id __55__HFTelevisionServiceItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 readResponse];
   v5 = *MEMORY[0x277CCF748];
-  v6 = [*(a1 + 32) service];
+  v6 = objc_msgSend_service(*(a1 + 32));
   v7 = [v4 responseForCharacteristicType:v5 inService:v6];
 
   v8 = [v7 valueWithExpectedClass:objc_opt_class()];
@@ -111,18 +107,18 @@ id __55__HFTelevisionServiceItem__subclass_updateWithOptions___block_invoke(uint
       v22 = [v21 responseForCharacteristicType:*MEMORY[0x277CCF750]];
       v23 = [v22 valueWithExpectedClass:objc_opt_class()];
 
-      v24 = [*(a1 + 32) service];
+      v24 = objc_msgSend_service(*(a1 + 32));
       v25 = [v24 hf_childServices];
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __55__HFTelevisionServiceItem__subclass_updateWithOptions___block_invoke_2;
-      v56[3] = &unk_277DF4020;
-      v55 = v23;
-      v57 = v55;
-      v26 = [v25 na_filter:v56];
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __55__HFTelevisionServiceItem__subclass_updateWithOptions___block_invoke_2;
+      v55[3] = &unk_277DF4020;
+      v54 = v23;
+      v56 = v54;
+      v26 = [v25 na_filter:v55];
 
       v27 = [*(a1 + 40) objectForKeyedSubscript:HFItemUpdateOptionLogger];
-      v52 = v27;
+      v51 = v27;
       if ([MEMORY[0x277CD1650] hf_isSuspendedStateSuspended:v11])
       {
         if (v27)
@@ -136,7 +132,7 @@ id __55__HFTelevisionServiceItem__subclass_updateWithOptions___block_invoke(uint
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v59 = v11;
+            v58 = v11;
             v30 = "HFTelevision is suspended with state %lu";
             v31 = v29;
             v32 = OS_LOG_TYPE_DEFAULT;
@@ -151,24 +147,24 @@ LABEL_23:
           goto LABEL_24;
         }
 
-        v47 = HFLogForCategory(0x2CuLL);
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v46 = HFLogForCategory(0x2CuLL);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(state.opaque[0]) = 134217984;
           *(state.opaque + 4) = v11;
-          v48 = "HFTelevision is suspended with state %lu";
-          v49 = v47;
-          v50 = OS_LOG_TYPE_DEFAULT;
-          v51 = 12;
+          v47 = "HFTelevision is suspended with state %lu";
+          v48 = v46;
+          v49 = OS_LOG_TYPE_DEFAULT;
+          v50 = 12;
 LABEL_45:
-          _os_log_impl(&dword_20D9BF000, v49, v50, v48, &state, v51);
+          _os_log_impl(&dword_20D9BF000, v48, v49, v47, &state, v50);
         }
 
 LABEL_46:
 
 LABEL_24:
         v36 = [v26 anyObject];
-        v54 = v26;
+        v53 = v26;
         if ([v8 BOOLValue] && v36)
         {
           v37 = [v36 name];
@@ -234,14 +230,14 @@ LABEL_21:
           goto LABEL_22;
         }
 
-        v47 = HFLogForCategory(0x2CuLL);
-        if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v46 = HFLogForCategory(0x2CuLL);
+        if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_46;
         }
 
         LOWORD(state.opaque[0]) = 0;
-        v48 = "HFTelevision should have only one input source but currently has more than one";
+        v47 = "HFTelevision should have only one input source but currently has more than one";
       }
 
       else
@@ -264,19 +260,19 @@ LABEL_21:
           goto LABEL_21;
         }
 
-        v47 = HFLogForCategory(0x2CuLL);
-        if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v46 = HFLogForCategory(0x2CuLL);
+        if (!os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_46;
         }
 
         LOWORD(state.opaque[0]) = 0;
-        v48 = "HFTelevision should have an input source but currently has none";
+        v47 = "HFTelevision should have an input source but currently has none";
       }
 
-      v49 = v47;
-      v50 = OS_LOG_TYPE_ERROR;
-      v51 = 2;
+      v48 = v46;
+      v49 = OS_LOG_TYPE_ERROR;
+      v50 = 2;
       goto LABEL_45;
     }
   }
@@ -286,10 +282,10 @@ LABEL_21:
     goto LABEL_35;
   }
 
-  v17 = [*(a1 + 32) service];
+  v17 = objc_msgSend_service(*(a1 + 32));
   if ([v17 hasSleepDiscoveryMode])
   {
-    v18 = [*(a1 + 32) service];
+    v18 = objc_msgSend_service(*(a1 + 32));
     v19 = [v18 lastKnownSleepDiscoveryMode];
 
     if (v19)
@@ -308,8 +304,6 @@ LABEL_35:
   v42 = MEMORY[0x277D2C900];
   v43 = [HFItemUpdateOutcome outcomeWithResults:v13];
   v44 = [v42 futureWithResult:v43];
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v44;
 }

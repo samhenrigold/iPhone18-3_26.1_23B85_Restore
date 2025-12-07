@@ -181,8 +181,7 @@ void __60__SBSSwitcherDemoCommands_updateHiddenApplicationBundleIDs___block_invo
   v12[2] = __60__SBSSwitcherDemoCommands__connectionQueue_setupAndActivate__block_invoke;
   v12[3] = &unk_1E735ED88;
   v12[4] = self;
-  [(BSServiceConnection *)v9 configureConnection:v12];
-  v10 = SBLogCommon();
+  v10 = SBLogCommon([(BSServiceConnection *)v9 configureConnection:v12]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = self->_connection;
@@ -214,7 +213,7 @@ void __60__SBSSwitcherDemoCommands__connectionQueue_setupAndActivate__block_invo
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogCommon();
+  v3 = SBLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138543362;
@@ -227,7 +226,7 @@ void __60__SBSSwitcherDemoCommands__connectionQueue_setupAndActivate__block_invo
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogCommon();
+  v3 = SBLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138543362;
@@ -242,7 +241,7 @@ void __60__SBSSwitcherDemoCommands__connectionQueue_setupAndActivate__block_invo
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogCommon();
+  v3 = SBLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138543362;
@@ -254,7 +253,7 @@ void __60__SBSSwitcherDemoCommands__connectionQueue_setupAndActivate__block_invo
 - (void)_connectionQueue_invalidate
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = SBLogCommon();
+  v3 = SBLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     connection = self->_connection;

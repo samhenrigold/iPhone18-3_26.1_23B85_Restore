@@ -34,9 +34,11 @@
   return v3;
 }
 
-void __42__HFStatusItemProvider__statusItemClasses__block_invoke_2()
+void __42__HFStatusItemProvider__statusItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v38 = MEMORY[0x277CBEB18];
+  v40 = MEMORY[0x277CBEB18];
+  v39 = objc_opt_class();
+  v38 = objc_opt_class();
   v37 = objc_opt_class();
   v36 = objc_opt_class();
   v35 = objc_opt_class();
@@ -61,10 +63,6 @@ void __42__HFStatusItemProvider__statusItemClasses__block_invoke_2()
   v16 = objc_opt_class();
   v15 = objc_opt_class();
   v14 = objc_opt_class();
-  v13 = objc_opt_class();
-  v12 = objc_opt_class();
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -73,15 +71,17 @@ void __42__HFStatusItemProvider__statusItemClasses__block_invoke_2()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v10 = [v38 arrayWithObjects:{v37, v36, v35, v34, v33, v32, v31, v30, v29, v28, v27, v26, v25, v24, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v12, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
-  [v10 addObject:objc_opt_class()];
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  v12 = [v40 arrayWithObjects:{v39, v38, v37, v36, v35, v34, v33, v32, v31, v30, v29, v28, v27, v26, v25, v24, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
+  [v12 addObject:objc_opt_class()];
   if (_os_feature_enabled_impl())
   {
-    [v10 addObject:objc_opt_class()];
+    [v12 addObject:objc_opt_class()];
   }
 
-  v11 = qword_280E022D8;
-  qword_280E022D8 = v10;
+  v13 = qword_280E022D8;
+  qword_280E022D8 = v12;
 }
 
 + (id)sortOrderForStatusItemCategory:(unint64_t)category
@@ -169,69 +169,61 @@ LABEL_18:
   return self;
 }
 
-void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_2()
+void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v3[5] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
-  v1 = qword_280E022E8;
-  qword_280E022E8 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
+  v3 = qword_280E022E8;
+  qword_280E022E8 = v2;
 }
 
-void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_4()
+void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v3[7] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:7];
-  v1 = qword_280E022F8;
-  qword_280E022F8 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[7] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:7];
+  v3 = qword_280E022F8;
+  qword_280E022F8 = v2;
 }
 
-void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_6()
+void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v3[13] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v3[11] = objc_opt_class();
-  v3[12] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:13];
-  v1 = qword_280E02308;
-  qword_280E02308 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[13] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v4[10] = objc_opt_class();
+  v4[11] = objc_opt_class();
+  v4[12] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:13];
+  v3 = qword_280E02308;
+  qword_280E02308 = v2;
 }
 
-void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_8()
+void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_8(uint64_t a1, uint64_t a2)
 {
-  v15 = MEMORY[0x277CBEB18];
+  v17 = MEMORY[0x277CBEB18];
+  v16 = objc_opt_class();
+  v15 = objc_opt_class();
   v14 = objc_opt_class();
-  v13 = objc_opt_class();
-  v12 = objc_opt_class();
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -240,31 +232,31 @@ void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_8(
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v10 = [v15 arrayWithObjects:{v14, v13, v12, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
-  [v10 addObject:objc_opt_class()];
-  v11 = qword_280E02318;
-  qword_280E02318 = v10;
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  v12 = [v17 arrayWithObjects:{v16, v15, v14, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
+  [v12 addObject:objc_opt_class()];
+  v13 = qword_280E02318;
+  qword_280E02318 = v12;
 }
 
-void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_11()
+void __55__HFStatusItemProvider_sortOrderForStatusItemCategory___block_invoke_11(uint64_t a1, uint64_t a2)
 {
-  v3[11] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:11];
-  v1 = qword_280E02328;
-  qword_280E02328 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[11] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v4[7] = objc_opt_class();
+  v4[8] = objc_opt_class();
+  v4[9] = objc_opt_class();
+  v4[10] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:11];
+  v3 = qword_280E02328;
+  qword_280E02328 = v2;
 }
 
 uint64_t __44__HFStatusItemProvider_statusItemComparator__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -406,11 +398,11 @@ uint64_t __44__HFStatusItemProvider_statusItemComparator__block_invoke(uint64_t 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFStatusItemProvider *)self home];
+  v5 = objc_msgSend_home(self);
   room = [(HFStatusItemProvider *)self room];
   valueSource = [(HFStatusItemProvider *)self valueSource];
   filter = [(HFStatusItemProvider *)self filter];
-  v9 = [v4 initWithHome:home room:room overrideValueSource:valueSource filter:filter];
+  v9 = [v4 initWithHome:v5 room:room overrideValueSource:valueSource filter:filter];
 
   return v9;
 }
@@ -502,7 +494,7 @@ id __74__HFStatusItemProvider__createStatusItemsForHome_room_valueSource_filter_
 void __62__HFStatusItemProvider__buildStatusItemsForGroupedStatusItem___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
-  v5 = [*(a1 + 40) home];
+  v5 = objc_msgSend_home(*(a1 + 40));
   v6 = [*(a1 + 40) room];
   v7 = [*(a1 + 40) valueSource];
   v8 = [v4 _buildStatusItemWithClass:a2 home:v5 room:v6 valueSource:v7];

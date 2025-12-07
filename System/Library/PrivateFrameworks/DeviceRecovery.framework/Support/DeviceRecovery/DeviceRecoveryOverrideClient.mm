@@ -79,100 +79,100 @@
 - (id)fetchOverride:(id)override
 {
   overrideCopy = override;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100011EC4;
-  v15 = sub_100011ED4;
-  v16 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_100011EC4;
+  v17 = sub_100011ED4;
+  v18 = 0;
   serviceConnection = [(DeviceRecoveryOverrideClient *)self serviceConnection];
 
   if (serviceConnection)
   {
     serviceConnection2 = [(DeviceRecoveryOverrideClient *)self serviceConnection];
-    v7 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&stru_1000351C8];
+    v8 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&stru_1000351C8];
 
-    if (v7)
+    if (v8)
     {
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_100011F30;
-      v10[3] = &unk_1000351F0;
-      v10[4] = &v11;
-      [v7 fetchOverride:overrideCopy callback:v10];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_100011F30;
+      v12[3] = &unk_1000351F0;
+      v12[4] = &v13;
+      [v8 fetchOverride:overrideCopy callback:v12];
       goto LABEL_4;
     }
 
-    sub_1000118BC();
+    sub_1000118BC(v9);
     objc_claimAutoreleasedReturnValue();
     sub_10002229C();
   }
 
   else
   {
-    sub_1000118BC();
+    sub_1000118BC(v6);
     objc_claimAutoreleasedReturnValue();
     sub_100022350();
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_4:
-  v8 = v12[5];
+  v10 = v14[5];
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v13, 8);
 
-  return v8;
+  return v10;
 }
 
 - (void)setOverride:(id)override value:(id)value
 {
   overrideCopy = override;
   valueCopy = value;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_100011EC4;
-  v22 = sub_100011ED4;
-  v23 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_100011EC4;
+  v28 = sub_100011ED4;
+  v29 = 0;
   serviceConnection = [(DeviceRecoveryOverrideClient *)self serviceConnection];
 
   if (!serviceConnection)
   {
-    v13 = sub_1000118BC();
-    sub_1000227CC(v13, &v24, &v25);
+    v18 = sub_1000118BC(v9);
+    sub_1000227CC(v18, &v30, &v31);
 LABEL_11:
-    v12 = v24;
-    v10 = v25;
+    v16 = v30;
+    v11 = v31;
 LABEL_12:
 
     goto LABEL_8;
   }
 
   serviceConnection2 = [(DeviceRecoveryOverrideClient *)self serviceConnection];
-  v10 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&stru_100035210];
+  v11 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&stru_100035210];
 
-  if (!v10)
+  if (!v11)
   {
-    v14 = sub_1000118BC();
-    sub_1000226F0(v14, &v24, &v25);
+    v19 = sub_1000118BC(v12);
+    sub_1000226F0(v19, &v30, &v31);
     goto LABEL_11;
   }
 
   if (valueCopy)
   {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100012244;
-    v16[3] = &unk_100035238;
-    v16[4] = &v18;
-    [v10 setOverride:overrideCopy value:valueCopy callback:v16];
-    if (v19[5])
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100012244;
+    v22[3] = &unk_100035238;
+    v22[4] = &v24;
+    v13 = [v11 setOverride:overrideCopy value:valueCopy callback:v22];
+    if (v25[5])
     {
-      v11 = sub_1000118BC();
-      sub_100022478(v11);
+      v14 = sub_1000118BC(v13);
+      sub_100022478(v14);
 
-      v12 = sub_1000118BC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = sub_1000118BC(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_100022534();
       }
@@ -183,19 +183,19 @@ LABEL_12:
 
   else
   {
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100012234;
-    v17[3] = &unk_100035238;
-    v17[4] = &v18;
-    [v10 removeOverride:overrideCopy callback:v17];
-    if (v19[5])
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100012234;
+    v23[3] = &unk_100035238;
+    v23[4] = &v24;
+    v17 = [v11 removeOverride:overrideCopy callback:v23];
+    if (v25[5])
     {
-      v15 = sub_1000118BC();
-      sub_1000225C0(v15);
+      v20 = sub_1000118BC(v17);
+      sub_1000225C0(v20);
 
-      v12 = sub_1000118BC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = sub_1000118BC(v21);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_10002267C();
       }
@@ -205,7 +205,7 @@ LABEL_12:
   }
 
 LABEL_8:
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 - (int)brainType
@@ -402,48 +402,48 @@ LABEL_8:
 
 - (NSDictionary)allOverrides
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = sub_100011EC4;
-  v13 = sub_100011ED4;
-  v14 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_100011EC4;
+  v15 = sub_100011ED4;
+  v16 = 0;
   serviceConnection = [(DeviceRecoveryOverrideClient *)self serviceConnection];
 
   if (serviceConnection)
   {
     serviceConnection2 = [(DeviceRecoveryOverrideClient *)self serviceConnection];
-    v5 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&stru_100035258];
+    v6 = [serviceConnection2 synchronousRemoteObjectProxyWithErrorHandler:&stru_100035258];
 
-    if (v5)
+    if (v6)
     {
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_100012AA0;
-      v8[3] = &unk_100035280;
-      v8[4] = &v9;
-      [v5 fetchOverrides:v8];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 3221225472;
+      v10[2] = sub_100012AA0;
+      v10[3] = &unk_100035280;
+      v10[4] = &v11;
+      [v6 fetchOverrides:v10];
       goto LABEL_4;
     }
 
-    sub_1000118BC();
+    sub_1000118BC(v7);
     objc_claimAutoreleasedReturnValue();
     sub_10002291C();
   }
 
   else
   {
-    sub_1000118BC();
+    sub_1000118BC(v4);
     objc_claimAutoreleasedReturnValue();
     sub_1000229D0();
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_4:
-  v6 = v10[5];
-  _Block_object_dispose(&v9, 8);
+  v8 = v12[5];
+  _Block_object_dispose(&v11, 8);
 
-  return v6;
+  return v8;
 }
 
 - (void)removeAllOverrides
@@ -452,7 +452,7 @@ LABEL_4:
 
   if (!serviceConnection)
   {
-    sub_100022BB8();
+    sub_100022BB8(&v6);
 LABEL_7:
     v5 = v6;
     goto LABEL_4;
@@ -463,7 +463,7 @@ LABEL_7:
 
   if (!v5)
   {
-    sub_100022AF8();
+    sub_100022AF8(&v6);
     goto LABEL_7;
   }
 

@@ -82,16 +82,16 @@
 {
   v6 = sub_257ECCEB0();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8, v9, v10, v11);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_257ECCE40();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_257C00874(viewCopy);
+  v16 = sub_257C00874(viewCopy);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v13, v6);
 
-  return v12;
+  return v16;
 }
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section
@@ -124,14 +124,14 @@
 {
   v6 = sub_257ECCEB0();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8, v9, v10, v11);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_257ECCE40();
   viewCopy = view;
   selfCopy = self;
   sub_257C00CB4(viewCopy);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v13, v6);
 }
 
 @end

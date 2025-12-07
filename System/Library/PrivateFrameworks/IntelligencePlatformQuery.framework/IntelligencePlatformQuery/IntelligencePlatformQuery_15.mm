@@ -1,200 +1,2129 @@
-unint64_t protocol witness for CodingKey.stringValue.getter in conformance SQLExpression.CodingKeys()
+void *SQLParseResult.plans(with:)(uint64_t *a1)
 {
-  v1 = *v0;
-  v2 = 0x79546E7275746572;
-  v3 = 0xD000000000000014;
-  v4 = 0x73676E69646E6962;
-  if (v1 != 3)
-  {
-    v4 = 7106931;
-  }
+  v3 = type metadata accessor for PlanResources(0);
+  v4 = v3 - 8;
+  MEMORY[0x28223BE20](v3);
+  v6 = &v21[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = type metadata accessor for SQLTokenInformation(0);
+  v8 = v7 - 8;
+  MEMORY[0x28223BE20](v7);
+  v10 = &v21[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v11 = *a1;
+  v12 = type metadata accessor for SQLParseResult(0);
+  outlined init with copy of PgQuery_ScanResult(v1 + v12[5], v10, type metadata accessor for PgQuery_ScanResult);
+  v13 = (v1 + v12[7]);
+  v14 = *v13;
+  v15 = v13[1];
+  v16 = &v10[*(v8 + 28)];
+  *v16 = v14;
+  v16[1] = v15;
+  outlined init with copy of PgQuery_ScanResult(v10, v6 + *(v4 + 28), type metadata accessor for SQLTokenInformation);
+  *v6 = v11;
+  v17 = *(v1 + 8);
+  v18 = *(v1 + v12[6]);
+  v22 = v10;
+  v23 = v6;
 
-  if (v1 != 2)
-  {
-    v3 = v4;
-  }
+  RawStmtVGSaySSGG_AH11LogicalPlanVsAE_pTg504_s14f11SQLParser15hi1_jk7VSSAA11lm3Vs5C33_pIgngrzo_AC_SStAEsAF_pIegnrzr_TRAJSSAOsAE_pIgngrzo_Tf1cn_n = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVySay14BiomeSQLParser15PgQuery_RawStmtVGSaySSGG_AH11LogicalPlanVsAE_pTg504_s14f11SQLParser15hi1_jk7VSSAA11lm3Vs5C33_pIgngrzo_AC_SStAEsAF_pIegnrzr_TRAJSSAOsAE_pIgngrzo_Tf1cn_n(v17, v18, partial apply for closure #1 in SQLParseResult.plans(with:), v21);
 
-  if (!*v0)
-  {
-    v2 = 0xD000000000000010;
-  }
+  outlined destroy of PgQuery_ParseResult(v6, type metadata accessor for PlanResources);
+  outlined destroy of PgQuery_ParseResult(v10, type metadata accessor for SQLTokenInformation);
+  return RawStmtVGSaySSGG_AH11LogicalPlanVsAE_pTg504_s14f11SQLParser15hi1_jk7VSSAA11lm3Vs5C33_pIgngrzo_AC_SStAEsAF_pIegnrzr_TRAJSSAOsAE_pIgngrzo_Tf1cn_n;
+}
 
-  if (*v0 <= 1u)
+uint64_t closure #1 in SQLParseResult.plans(with:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
+{
+  v111 = a5;
+  v123 = a4;
+  v104 = a6;
+  v105 = a3;
+  v103 = a2;
+  v129 = a1;
+  SelectStmt = type metadata accessor for PgQuery_SelectStmt(0);
+  v7 = MEMORY[0x28223BE20](SelectStmt - 8);
+  v110 = &v102 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v120 = &v102 - v9;
+  v10 = type metadata accessor for PlanResources(0);
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v109 = &v102 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v108 = &v102 - v13;
+  TableAsStmt = type metadata accessor for PgQuery_CreateTableAsStmt(0);
+  v15 = MEMORY[0x28223BE20](TableAsStmt - 8);
+  v106 = &v102 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v107 = &v102 - v17;
+  v131 = type metadata accessor for CharacterSet();
+  v128 = *(v131 - 8);
+  MEMORY[0x28223BE20](v131);
+  v130 = &v102 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  ScanToken = type metadata accessor for PgQuery_ScanToken(0);
+  v20 = *(ScanToken - 8);
+  v21 = MEMORY[0x28223BE20](ScanToken - 8);
+  v117 = &v102 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = (&v102 - v23);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  MEMORY[0x28223BE20](v25 - 8);
+  v27 = &v102 - v26;
+  Node = type metadata accessor for PgQuery_Node(0);
+  v29 = *(Node - 8);
+  MEMORY[0x28223BE20](Node);
+  v31 = &v102 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v32 = MEMORY[0x28223BE20](v113);
+  v112 = &v102 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34 = MEMORY[0x28223BE20](v32);
+  v115 = &v102 - v35;
+  v36 = MEMORY[0x28223BE20](v34);
+  v116 = &v102 - v37;
+  MEMORY[0x28223BE20](v36);
+  v122 = &v102 - v38;
+  v129 = *&v129[*(type metadata accessor for PgQuery_RawStmt(0) + 20)];
+  outlined init with copy of PgQuery_Alias?(&v129[OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmt], v27, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v39 = *(v29 + 48);
+  if ((v39)(v27, 1, Node) == 1)
   {
-    return v2;
+    UnknownStorage.init()();
+    v40 = *(Node + 20);
+    if (one-time initialization token for defaultInstance != -1)
+    {
+LABEL_55:
+      v101 = v40;
+      swift_once();
+      v40 = v101;
+    }
+
+    *&v40[v31] = static PgQuery_Node._StorageClass.defaultInstance;
+    v41 = (v39)(v27, 1, Node);
+
+    if (v41 != 1)
+    {
+      outlined destroy of URL?(v27, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    }
   }
 
   else
   {
-    return v3;
+    outlined init with take of PgQuery_ParseResult(v27, v31, type metadata accessor for PgQuery_Node);
   }
-}
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SQLExpression.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = specialized SQLExpression.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  outlined init with copy of PgQuery_Alias?(*(v31 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v122, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  outlined destroy of PgQuery_ParseResult(v31, type metadata accessor for PgQuery_Node);
+  v42 = *(v123 + 8);
+  v27 = *(v42 + 16);
+  if (!v27)
+  {
+LABEL_36:
+    v77 = 0;
+LABEL_37:
+    v78 = v116;
+    outlined init with copy of PgQuery_Alias?(v122, v116, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v79 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
+    if ((*(*(v79 - 8) + 48))(v78, 1, v79) == 1)
+    {
+      v80 = v78;
+
+LABEL_47:
+      v133[0]._countAndFlagsBits = 0;
+      v133[0]._object = 0xE000000000000000;
+      _StringGuts.grow(_:)(90);
+      MEMORY[0x259C32B90](0xD000000000000058, 0x80000002553B6980);
+      v93 = v122;
+      outlined init with copy of PgQuery_Alias?(v122, v112, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      v94 = String.init<A>(describing:)();
+      MEMORY[0x259C32B90](v94);
+
+      countAndFlagsBits = v133[0]._countAndFlagsBits;
+      object = v133[0]._object;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      *v97 = countAndFlagsBits;
+      *(v97 + 8) = object;
+      *(v97 + 16) = 0;
+      *(v97 + 24) = 0;
+      *(v97 + 32) = 1;
+      swift_willThrow();
+      v92 = v93;
+      goto LABEL_48;
+    }
+
+    v80 = v78;
+    outlined init with copy of PgQuery_Alias?(v78, v115, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload == 56)
+    {
+      v88 = v120;
+      outlined init with take of PgQuery_ParseResult(v115, v120, type metadata accessor for PgQuery_SelectStmt);
+      v89 = v110;
+      outlined init with copy of PgQuery_ScanResult(v88, v110, type metadata accessor for PgQuery_SelectStmt);
+      v90 = v109;
+      outlined init with copy of PgQuery_ScanResult(v111, v109, type metadata accessor for PlanResources);
+      v91 = v125;
+      SelectCore.init(select:resources:)(v89, v90, v133);
+      if (v91)
+      {
+
+        v86 = type metadata accessor for PgQuery_SelectStmt;
+        v87 = v88;
+        goto LABEL_45;
+      }
+
+      outlined destroy of PgQuery_ParseResult(v88, type metadata accessor for PgQuery_SelectStmt);
+      outlined destroy of URL?(v122, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      LOBYTE(v133[20]._object) = 0;
+    }
+
+    else
+    {
+      if (EnumCaseMultiPayload != 90)
+      {
+
+        outlined destroy of PgQuery_ParseResult(v115, type metadata accessor for PgQuery_Node.OneOf_Node);
+        goto LABEL_47;
+      }
+
+      v82 = v107;
+      outlined init with take of PgQuery_ParseResult(v115, v107, type metadata accessor for PgQuery_CreateTableAsStmt);
+      v83 = v106;
+      outlined init with copy of PgQuery_ScanResult(v82, v106, type metadata accessor for PgQuery_CreateTableAsStmt);
+      v84 = v108;
+      outlined init with copy of PgQuery_ScanResult(v111, v108, type metadata accessor for PlanResources);
+      v85 = v125;
+      MaterializedView.init(create:resources:)(v83, v84, v133);
+      if (v85)
+      {
+
+        v86 = type metadata accessor for PgQuery_CreateTableAsStmt;
+        v87 = v82;
+LABEL_45:
+        outlined destroy of PgQuery_ParseResult(v87, v86);
+        v92 = v122;
+LABEL_48:
+        outlined destroy of URL?(v92, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+        v98 = v80;
+        return outlined destroy of URL?(v98, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      }
+
+      outlined destroy of PgQuery_ParseResult(v82, type metadata accessor for PgQuery_CreateTableAsStmt);
+      outlined destroy of URL?(v122, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      LOBYTE(v133[20]._object) = 1;
+    }
+
+    v99 = v104;
+    memcpy(v104, v133, 0x149uLL);
+    v100 = v105;
+    v99[42] = v103;
+    v99[43] = v100;
+    v99[44] = v27;
+    v99[45] = v77;
+
+    v98 = v80;
+    return outlined destroy of URL?(v98, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  v31 = 0;
+  v40 = v129;
+  v43 = *&v129[OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLocation];
+  v126 = *(v123 + 8);
+  while (1)
+  {
+    if (v31 >= *(v42 + 16))
+    {
+      __break(1u);
+LABEL_54:
+      __break(1u);
+      goto LABEL_55;
+    }
+
+    Node = v42 + ((*(v20 + 80) + 32) & ~*(v20 + 80));
+    v39 = *(v20 + 72);
+    outlined init with copy of PgQuery_ScanResult(Node + v39 * v31, v24, type metadata accessor for PgQuery_ScanToken);
+    v44 = *v24;
+    outlined destroy of PgQuery_ParseResult(v24, type metadata accessor for PgQuery_ScanToken);
+    if (v44 >= v43)
+    {
+      break;
+    }
+
+    ++v31;
+    v42 = v126;
+    if (v27 == v31)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  v118 = v39;
+  v119 = Node;
+  v134 = MEMORY[0x277D84F90];
+  result = v126;
+  Node = *(v126 + 16);
+  v46 = v117;
+  if (Node >= v31)
+  {
+    v47 = v31;
+
+    if (Node != v31)
+    {
+      v129 = (v128 + 8);
+      v31 = v120;
+      v114 = Node;
+      while (1)
+      {
+        v124 = v47;
+        outlined init with copy of PgQuery_ScanResult(v119 + v47 * v118, v46, type metadata accessor for PgQuery_ScanToken);
+        v49 = *(v46 + 8);
+        if (*(v46 + 16) != 1 || (v49 - 37) >= 2)
+        {
+          break;
+        }
+
+        PgQuery_Token.rawValue.getter(v49, 1);
+        v51 = v123 + *(type metadata accessor for SQLTokenInformation(0) + 20);
+        v24 = *v51;
+        v27 = *(v51 + 8);
+        v20 = String.index(_:offsetBy:)();
+        if (String.index(_:offsetBy:)() >> 14 < v20 >> 14)
+        {
+          goto LABEL_54;
+        }
+
+        v52 = String.subscript.getter();
+        v53 = MEMORY[0x259C32B00](v52);
+        v55 = v54;
+
+        v133[0]._countAndFlagsBits = v53;
+        v133[0]._object = v55;
+        v56 = v130;
+        static CharacterSet.whitespaces.getter();
+        v128 = lazy protocol witness table accessor for type String and conformance String();
+        v57 = StringProtocol.trimmingCharacters(in:)();
+        v59 = v58;
+        v127 = *v129;
+        v127(v56, v131);
+
+        v133[0]._countAndFlagsBits = 10;
+        v133[0]._object = 0xE100000000000000;
+        MEMORY[0x28223BE20](v60);
+        *(&v102 - 2) = v133;
+        v61 = v125;
+        v39 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, partial apply for specialized closure #1 in Sequence<>.contains(_:), (&v102 - 4), v57, v59);
+        v62 = *(v39 + 16);
+        v125 = v61;
+        if (v62)
+        {
+          v132 = MEMORY[0x277D84F90];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v62, 0);
+          v63 = v132;
+          v121 = v39;
+          v64 = (v39 + 56);
+          do
+          {
+            v65 = *(v64 - 3);
+            v66 = *(v64 - 2);
+            v68 = *(v64 - 1);
+            v67 = *v64;
+
+            if (Substring.distance(from:to:)())
+            {
+              v133[0]._countAndFlagsBits = MEMORY[0x259C32B00](v65, v66, v68, v67);
+              v133[0]._object = v69;
+              v70 = v130;
+              static CharacterSet.whitespaces.getter();
+              v71 = StringProtocol.trimmingCharacters(in:)();
+              v73 = v72;
+
+              v127(v70, v131);
+            }
+
+            else
+            {
+
+              v73 = 0xE100000000000000;
+              v71 = 10;
+            }
+
+            v132 = v63;
+            v39 = *(v63 + 16);
+            v74 = *(v63 + 24);
+            if (v39 >= v74 >> 1)
+            {
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v74 > 1), v39 + 1, 1);
+              v63 = v132;
+            }
+
+            *(v63 + 16) = v39 + 1;
+            v75 = v63 + 16 * v39;
+            *(v75 + 32) = v71;
+            *(v75 + 40) = v73;
+            v64 += 4;
+            --v62;
+          }
+
+          while (v62);
+
+          v31 = v120;
+          v46 = v117;
+          Node = v114;
+        }
+
+        else
+        {
+
+          v63 = MEMORY[0x277D84F90];
+        }
+
+        v48 = v124 + 1;
+        specialized Array.append<A>(contentsOf:)(v63);
+        outlined destroy of PgQuery_ParseResult(v46, type metadata accessor for PgQuery_ScanToken);
+        v47 = v48;
+        if (v48 == Node)
+        {
+          goto LABEL_32;
+        }
+      }
+
+      outlined destroy of PgQuery_ParseResult(v46, type metadata accessor for PgQuery_ScanToken);
+    }
+
+LABEL_32:
+
+    if (*(v134 + 16))
+    {
+      v133[0]._countAndFlagsBits = v134;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+      lazy protocol witness table accessor for type [String] and conformance [A]();
+      v27 = BidirectionalCollection<>.joined(separator:)();
+      v77 = v76;
+
+      goto LABEL_37;
+    }
+
+LABEL_35:
+    v27 = 0;
+    goto LABEL_36;
+  }
+
+  __break(1u);
   return result;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SQLExpression.CodingKeys(uint64_t a1)
+void *_sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVySay14BiomeSQLParser15PgQuery_RawStmtVGSaySSGG_AH11LogicalPlanVsAE_pTg504_s14f11SQLParser15hi1_jk7VSSAA11lm3Vs5C33_pIgngrzo_AC_SStAEsAF_pIegnrzr_TRAJSSAOsAE_pIgngrzo_Tf1cn_n(uint64_t a1, unint64_t a2, void (*a3)(void *__return_ptr, char *, uint64_t, uint64_t), uint64_t a4)
 {
-  v2 = lazy protocol witness table accessor for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SQLExpression.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t SQLExpression.encode(to:)(void *a1)
-{
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser13SQLExpressionV10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser13SQLExpressionV10CodingKeysOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v16 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
-  lazy protocol witness table accessor for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11 = *(v3 + 40);
-  v12 = *(v3 + 48);
-  LOBYTE(v16) = 0;
-  KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v2)
+  v59 = a3;
+  v60 = a4;
+  RawStmt = type metadata accessor for PgQuery_RawStmt(0);
+  v61 = *(RawStmt - 8);
+  v7 = MEMORY[0x28223BE20](RawStmt - 8);
+  v9 = &v52 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v55 = &v52 - v10;
+  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser15PgQuery_RawStmtV_SStMd, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMR);
+  v11 = MEMORY[0x28223BE20](v58);
+  v13 = &v52 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v11);
+  v52 = &v52 - v15;
+  MEMORY[0x28223BE20](v14);
+  v54 = &v52 - v16;
+  v62 = a1;
+  v17 = *(a1 + 16);
+  v18 = *(a2 + 16);
+  if (v18 >= v17)
   {
-    LOBYTE(v16) = *(v3 + 56);
-    v17 = 1;
-    lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType();
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v16 = *(v3 + 64);
-    v17 = 2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser19AggregationFunctionVGMd, &_sSay14BiomeSQLParser19AggregationFunctionVGMR);
-    lazy protocol witness table accessor for type [AggregationFunction] and conformance <A> [A](&lazy protocol witness table cache variable for type [AggregationFunction] and conformance <A> [A], &_sSay14BiomeSQLParser19AggregationFunctionVGMd, &_sSay14BiomeSQLParser19AggregationFunctionVGMR, lazy protocol witness table accessor for type AggregationFunction and conformance AggregationFunction);
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v16 = *(v3 + 72);
-    v17 = 3;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser7BindingVGMd, &_sSay14BiomeSQLParser7BindingVGMR);
-    lazy protocol witness table accessor for type [AggregationFunction] and conformance <A> [A](&lazy protocol witness table cache variable for type [Binding] and conformance <A> [A], &_sSay14BiomeSQLParser7BindingVGMd, &_sSay14BiomeSQLParser7BindingVGMR, lazy protocol witness table accessor for type Binding and conformance Binding);
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v13 = *(v3 + 80);
-    v14 = *(v3 + 88);
-    LOBYTE(v16) = 4;
-    KeyedEncodingContainer.encode(_:forKey:)();
+    v19 = *(a1 + 16);
   }
 
-  return (*(v6 + 8))(v9, v5);
+  else
+  {
+    v19 = *(a2 + 16);
+  }
+
+  v66 = MEMORY[0x277D84F90];
+  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
+  v21 = v19;
+  v64 = v66;
+  v56 = v18;
+  v57 = v17;
+  v53 = a2;
+  if (v19)
+  {
+    v22 = 0;
+    v23 = (a2 + 40);
+    while (v17 != v22)
+    {
+      result = outlined init with copy of PgQuery_ScanResult(v62 + ((*(v61 + 80) + 32) & ~*(v61 + 80)) + *(v61 + 72) * v22, v9, type metadata accessor for PgQuery_RawStmt);
+      if (v18 == v22)
+      {
+        goto LABEL_30;
+      }
+
+      v24 = v9;
+      v25 = v21;
+      v26 = *(v23 - 1);
+      v27 = *v23;
+      v28 = &v13[*(v58 + 48)];
+      v29 = v24;
+      outlined init with take of PgQuery_ParseResult(v24, v13, type metadata accessor for PgQuery_RawStmt);
+      *v28 = v26;
+      *(v28 + 1) = v27;
+
+      v30 = v63;
+      v59(v65, v13, v26, v27);
+      v63 = v30;
+      if (v30)
+      {
+
+        return outlined destroy of URL?(v13, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMd, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMR);
+      }
+
+      outlined destroy of URL?(v13, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMd, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMR);
+      v31 = v64;
+      v66 = v64;
+      v33 = *(v64 + 16);
+      v32 = *(v64 + 24);
+      if (v33 >= v32 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
+        v31 = v66;
+      }
+
+      ++v22;
+      *(v31 + 16) = v33 + 1;
+      v64 = v31;
+      result = memcpy((v31 + 368 * v33 + 32), v65, 0x170uLL);
+      v23 += 2;
+      v21 = v25;
+      v34 = v25 == v22;
+      v18 = v56;
+      v17 = v57;
+      v9 = v29;
+      if (v34)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    __break(1u);
+LABEL_30:
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_13:
+    if (v17 <= v18)
+    {
+      return v64;
+    }
+
+    v35 = (v53 + 16 * v21 + 40);
+    v36 = &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMd;
+    v37 = v63;
+    while (v21 < v17)
+    {
+      result = outlined init with copy of PgQuery_ScanResult(v62 + ((*(v61 + 80) + 32) & ~*(v61 + 80)) + *(v61 + 72) * v21, v55, type metadata accessor for PgQuery_RawStmt);
+      if (__OFADD__(v21, 1))
+      {
+        goto LABEL_32;
+      }
+
+      if (v18 == v21)
+      {
+        outlined destroy of PgQuery_ParseResult(v55, type metadata accessor for PgQuery_RawStmt);
+        return v64;
+      }
+
+      if (v21 >= v18)
+      {
+        goto LABEL_33;
+      }
+
+      v53 = v21 + 1;
+      v63 = v21;
+      v39 = *(v35 - 1);
+      v38 = *v35;
+      v40 = v58;
+      v41 = v36;
+      v42 = v52;
+      v43 = (v52 + *(v58 + 48));
+      outlined init with take of PgQuery_ParseResult(v55, v52, type metadata accessor for PgQuery_RawStmt);
+      *v43 = v39;
+      v43[1] = v38;
+      v44 = v42;
+      v36 = v41;
+      v45 = v54;
+      outlined init with take of (PgQuery_RawStmt, String)(v44, v54, v41, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMR);
+      v46 = (v45 + *(v40 + 48));
+      v47 = *v46;
+      v48 = v46[1];
+
+      v59(v65, v45, v47, v48);
+      if (v37)
+      {
+        outlined destroy of URL?(v54, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMd, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMR);
+      }
+
+      outlined destroy of URL?(v54, v41, &_s14BiomeSQLParser15PgQuery_RawStmtV_SStMR);
+      v49 = v64;
+      v66 = v64;
+      v51 = *(v64 + 16);
+      v50 = *(v64 + 24);
+      if (v51 >= v50 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v50 > 1), v51 + 1, 1);
+        v49 = v66;
+      }
+
+      v21 = v63 + 1;
+      v35 += 2;
+      *(v49 + 16) = v51 + 1;
+      v64 = v49;
+      result = memcpy((v49 + 368 * v51 + 32), v65, 0x170uLL);
+      v17 = v57;
+      v37 = 0;
+      v18 = v56;
+      if (v53 == v57)
+      {
+        return v64;
+      }
+    }
+  }
+
+  __break(1u);
+LABEL_32:
+  __break(1u);
+LABEL_33:
+  __break(1u);
+  return result;
 }
 
-unint64_t lazy protocol witness table accessor for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys()
+void parse(sql:catalog:)(uint64_t a1, char *a2, uint64_t *a3)
 {
-  result = lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys)
+  v121 = type metadata accessor for CharacterSet();
+  v119 = *(v121 - 8);
+  MEMORY[0x28223BE20](v121);
+  v120 = &v102 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  ScanResult = type metadata accessor for PgQuery_ScanResult(0);
+  MEMORY[0x28223BE20](ScanResult);
+  v118 = &v102 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for BinaryDecodingOptions();
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v116 = &v102 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v123 = &v102 - v11;
+  ParseResult = type metadata accessor for PgQuery_ParseResult(0);
+  MEMORY[0x28223BE20](ParseResult);
+  v13 = &v102 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for SQLParseResult(0);
+  v15 = MEMORY[0x28223BE20](v14);
+  v17 = &v102 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x28223BE20](v15);
+  v20 = &v102 - v19;
+  v115 = *a3;
+  v21 = &v17[*(v18 + 28)];
+  *v21 = a1;
+  *(v21 + 1) = a2;
+  v125 = a1;
+  v22 = String.utf8CString.getter();
+  v129 = a2;
+
+  pg_query_parse_protobuf(v22 + 32, &v126);
+  v23 = v126;
+  v24 = *(&v126 + 1);
+  v25 = v127;
+
+  if (*(&v25 + 1))
+  {
+    if (**(&v25 + 1))
+    {
+      v26 = String.init(cString:)();
+      v28 = v27;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      v29 = v129;
+      *v30 = v125;
+      *(v30 + 8) = v29;
+      *(v30 + 16) = v26;
+      *(v30 + 24) = v28;
+      *(v30 + 32) = 0;
+      swift_willThrow();
+      return;
+    }
+
+    goto LABEL_44;
+  }
+
+  v113 = v17;
+  v114 = v23;
+  v110 = v25;
+  v111 = v20;
+  v112 = v14;
+  if (!v24)
+  {
+    goto LABEL_45;
+  }
+
+  v31 = v13;
+  v32 = v114;
+  v33 = specialized Data.init(bytes:count:)(v24, v114);
+  v35 = v34;
+  v128 = 0;
+  v126 = 0u;
+  v127 = 0u;
+  outlined copy of Data._Representation(v33, v34);
+  BinaryDecodingOptions.init()();
+  lazy protocol witness table accessor for type PgQuery_ParseResult and conformance PgQuery_ParseResult(&lazy protocol witness table cache variable for type PgQuery_ParseResult and conformance PgQuery_ParseResult, type metadata accessor for PgQuery_ParseResult, &protocol conformance descriptor for PgQuery_ParseResult);
+  v36 = v122;
+  Message.init(serializedData:extensions:partial:options:)();
+  v37 = v129;
+  if (v36)
+  {
+    outlined consume of Data._Representation(v33, v35);
+LABEL_31:
+
+    return;
+  }
+
+  v38 = v113;
+  outlined init with take of PgQuery_ParseResult(v31, v113, type metadata accessor for PgQuery_ParseResult);
+  deparse_protobuf = pg_query_deparse_protobuf(v32, v24);
+  if (v40)
+  {
+    if (!*v40)
+    {
+LABEL_48:
+      __break(1u);
+      goto LABEL_49;
+    }
+
+    v41 = String.init(cString:)();
+    v43 = v42;
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v44 = v125;
+    *(v44 + 8) = v37;
+    *(v44 + 16) = v41;
+    *(v44 + 24) = v43;
+    *(v44 + 32) = 0;
+    swift_willThrow();
+    goto LABEL_30;
+  }
+
+  v108 = 0;
+  if (!deparse_protobuf)
+  {
+LABEL_49:
+    __break(1u);
+    goto LABEL_50;
+  }
+
+  v45 = deparse_protobuf;
+  v109 = v35;
+  v107 = v24;
+  v46 = objc_allocWithZone(MEMORY[0x277CCACA8]);
+  v106 = v45;
+  v47 = [v46 initWithCString:v45 encoding:4];
+  if (!v47)
+  {
+LABEL_50:
+    __break(1u);
+    goto LABEL_51;
+  }
+
+  v48 = v47;
+  v49 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v51 = v50;
+
+  ParseResult = v51;
+  v52 = String.utf8CString.getter();
+  pg_query_split_with_parser((v52 + 32), &v126);
+  v53 = v126;
+  v54 = DWORD2(v126);
+  v55 = v127;
+
+  if (*(&v55 + 1))
+  {
+    v35 = v109;
+    if (!**(&v55 + 1))
+    {
+LABEL_51:
+      __break(1u);
+      goto LABEL_52;
+    }
+
+    v56 = String.init(cString:)();
+    v58 = v57;
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    v59 = v129;
+    *v60 = v125;
+    *(v60 + 8) = v59;
+    *(v60 + 16) = v56;
+    *(v60 + 24) = v58;
+    *(v60 + 32) = 0;
+    swift_willThrow();
+    v38 = v113;
+    goto LABEL_30;
+  }
+
+  v122 = v49;
+  v123 = v53;
+  v38 = v113;
+  if (*(*(v113 + 1) + 16) != v54)
+  {
+
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    v83 = v129;
+    *v84 = v125;
+    *(v84 + 8) = v83;
+    *(v84 + 16) = 0xD000000000000042;
+    *(v84 + 24) = 0x80000002553B68F0;
+    *(v84 + 32) = 0;
+    swift_willThrow();
+    v35 = v109;
+LABEL_30:
+
+    outlined consume of Data._Representation(v33, v35);
+    outlined destroy of PgQuery_ParseResult(v38, type metadata accessor for PgQuery_ParseResult);
+    goto LABEL_31;
+  }
+
+  v104 = 0;
+  if ((v54 & 0x80000000) != 0)
+  {
+LABEL_43:
+    __break(1u);
+LABEL_44:
+    __break(1u);
+LABEL_45:
+    __break(1u);
+LABEL_46:
+    __break(1u);
+LABEL_47:
+    __break(1u);
+    goto LABEL_48;
+  }
+
+  v105 = v33;
+  v61 = v123;
+  v102 = v55;
+  v103 = v54;
+  if (v54)
+  {
+    ++v119;
+    v62 = MEMORY[0x277D84F90];
+    v63 = v54;
+    v64 = v123;
+    while (v61)
+    {
+      v65 = *v64;
+      if (!*v64)
+      {
+        goto LABEL_46;
+      }
+
+      v66 = v65[1];
+      v67 = *v65;
+      v68 = String.index(_:offsetBy:)();
+      if (__OFADD__(v67, v66))
+      {
+        __break(1u);
+LABEL_42:
+        __break(1u);
+        goto LABEL_43;
+      }
+
+      if (String.index(_:offsetBy:)() >> 14 < v68 >> 14)
+      {
+        goto LABEL_42;
+      }
+
+      v69 = String.subscript.getter();
+      v70 = MEMORY[0x259C32B00](v69);
+      v72 = v71;
+
+      *&v126 = v70;
+      *(&v126 + 1) = v72;
+      v73 = v120;
+      static CharacterSet.whitespacesAndNewlines.getter();
+      lazy protocol witness table accessor for type String and conformance String();
+      v74 = StringProtocol.trimmingCharacters(in:)();
+      v75 = v73;
+      v76 = v74;
+      v78 = v77;
+      (*v119)(v75, v121);
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+        v62 = v81;
+      }
+
+      v79 = *(v62 + 16);
+      if (v79 >= *(v62 + 24) >> 1)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+        v62 = v82;
+      }
+
+      *(v62 + 16) = v79 + 1;
+      v80 = v62 + 16 * v79;
+      *(v80 + 32) = v76;
+      *(v80 + 40) = v78;
+      ++v64;
+      --v63;
+      v61 = v123;
+      if (!v63)
+      {
+        goto LABEL_33;
+      }
+    }
+
+    goto LABEL_47;
+  }
+
+  v62 = MEMORY[0x277D84F90];
+LABEL_33:
+  v85 = v113;
+  *&v113[*(v112 + 24)] = v62;
+  v86 = v125;
+  v87 = String.utf8CString.getter();
+
+  pg_query_scan(v87 + 32);
+  v88 = v126;
+  v89 = *(&v126 + 1);
+  v90 = v127;
+
+  if (*(&v90 + 1))
+  {
+    if (!**(&v90 + 1))
+    {
+LABEL_52:
+      __break(1u);
+      goto LABEL_53;
+    }
+
+    v91 = String.init(cString:)();
+    v93 = v92;
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    v94 = v129;
+    *v95 = v86;
+    *(v95 + 8) = v94;
+    *(v95 + 16) = v91;
+    *(v95 + 24) = v93;
+    *(v95 + 32) = 0;
+    swift_willThrow();
+
+    outlined consume of Data._Representation(v105, v109);
+    goto LABEL_39;
+  }
+
+  if (v89)
+  {
+
+    v96 = specialized Data.init(bytes:count:)(v89, v88);
+    v98 = v97;
+    v128 = 0;
+    v126 = 0u;
+    v127 = 0u;
+    outlined copy of Data._Representation(v96, v97);
+    BinaryDecodingOptions.init()();
+    lazy protocol witness table accessor for type PgQuery_ParseResult and conformance PgQuery_ParseResult(&lazy protocol witness table cache variable for type PgQuery_ScanResult and conformance PgQuery_ScanResult, type metadata accessor for PgQuery_ScanResult, &protocol conformance descriptor for PgQuery_ScanResult);
+    v99 = v118;
+    v100 = v104;
+    Message.init(serializedData:extensions:partial:options:)();
+    if (!v100)
+    {
+      outlined init with take of PgQuery_ParseResult(v99, v85 + *(v112 + 20), type metadata accessor for PgQuery_ScanResult);
+      LODWORD(v126) = v88;
+      *(&v126 + 1) = v89;
+      v127 = v90;
+      pg_query_free_scan_result(&v126);
+      *&v126 = v123;
+      DWORD2(v126) = v103;
+      v127 = v102;
+      pg_query_free_split_result(&v126);
+      pg_query_free_deparse_result(v106, v108);
+      LODWORD(v126) = v114;
+      *(&v126 + 1) = v107;
+      v127 = v110;
+      pg_query_free_protobuf_parse_result(&v126);
+      outlined consume of Data._Representation(v105, v109);
+      outlined consume of Data._Representation(*(&v90 + 1), v98);
+      v101 = v111;
+      outlined init with take of PgQuery_ParseResult(v85, v111, type metadata accessor for SQLParseResult);
+      *&v126 = v115;
+      SQLParseResult.plans(with:)(&v126);
+      outlined destroy of PgQuery_ParseResult(v101, type metadata accessor for SQLParseResult);
+      return;
+    }
+
+    outlined consume of Data._Representation(v105, v109);
+    outlined consume of Data._Representation(v96, v98);
+LABEL_39:
+    outlined destroy of PgQuery_ParseResult(v85, type metadata accessor for PgQuery_ParseResult);
+
+    goto LABEL_31;
+  }
+
+LABEL_53:
+  __break(1u);
+}
+
+void *specialized ContiguousArray.reserveCapacity(_:)(uint64_t a1)
+{
+  v3 = *v1;
+  result = swift_isUniquelyReferenced_nonNull_native();
+  *v1 = v3;
+  if (!result || a1 > *(v3 + 24) >> 1)
+  {
+    if (*(v3 + 16) <= a1)
+    {
+      v5 = a1;
+    }
+
+    else
+    {
+      v5 = *(v3 + 16);
+    }
+
+    return specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(result, v5, 0);
+  }
+
+  return result;
+}
+
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
+{
+  v3 = v2;
+  v4 = a2;
+  v5 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+  v34 = v4;
+  result = static _DictionaryStorage.resize(original:capacity:move:)();
+  v7 = result;
+  if (*(v5 + 16))
+  {
+    v33 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
+    {
+      v11 = ~(-1 << v10);
+    }
+
+    else
+    {
+      v11 = -1;
+    }
+
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
+    {
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + v20);
+      if ((v34 & 1) == 0)
+      {
+      }
+
+      Hasher.init(_seed:)();
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
+      {
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
+        {
+          v30 = v27 == v29;
+          if (v27 == v29)
+          {
+            v27 = 0;
+          }
+
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
+          {
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_35:
+        __break(1u);
+        return result;
+      }
+
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + v15) = v24;
+      ++*(v7 + 16);
+      v5 = v33;
+    }
+
+    v18 = v8;
+    while (1)
+    {
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
+      {
+        __break(1u);
+        goto LABEL_35;
+      }
+
+      if (v8 >= v13)
+      {
+        break;
+      }
+
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
+      {
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
+      }
+    }
+
+    if ((v34 & 1) == 0)
+    {
+
+      v3 = v2;
+      goto LABEL_33;
+    }
+
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
+    {
+      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v9 = -1 << v32;
+    }
+
+    *(v5 + 16) = 0;
+  }
+
+LABEL_33:
+  *v3 = v7;
+  return result;
+}
+
+{
+  v3 = v2;
+  v4 = a2;
+  v5 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
+  v34 = v4;
+  result = static _DictionaryStorage.resize(original:capacity:move:)();
+  v7 = result;
+  if (*(v5 + 16))
+  {
+    v33 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
+    {
+      v11 = ~(-1 << v10);
+    }
+
+    else
+    {
+      v11 = -1;
+    }
+
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
+    {
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + 8 * v20);
+      if ((v34 & 1) == 0)
+      {
+      }
+
+      Hasher.init(_seed:)();
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
+      {
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
+        {
+          v30 = v27 == v29;
+          if (v27 == v29)
+          {
+            v27 = 0;
+          }
+
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
+          {
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_35:
+        __break(1u);
+        return result;
+      }
+
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + 8 * v15) = v24;
+      ++*(v7 + 16);
+      v5 = v33;
+    }
+
+    v18 = v8;
+    while (1)
+    {
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
+      {
+        __break(1u);
+        goto LABEL_35;
+      }
+
+      if (v8 >= v13)
+      {
+        break;
+      }
+
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
+      {
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
+      }
+    }
+
+    if ((v34 & 1) == 0)
+    {
+
+      v3 = v2;
+      goto LABEL_33;
+    }
+
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
+    {
+      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v9 = -1 << v32;
+    }
+
+    *(v5 + 16) = 0;
+  }
+
+LABEL_33:
+  *v3 = v7;
+  return result;
+}
+
+{
+  v3 = v2;
+  v4 = a2;
+  v5 = *v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMR);
+  v37 = v4;
+  result = static _DictionaryStorage.resize(original:capacity:move:)();
+  v7 = result;
+  if (*(v5 + 16))
+  {
+    v35 = v2;
+    v36 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
+    {
+      v11 = ~(-1 << v10);
+    }
+
+    else
+    {
+      v11 = -1;
+    }
+
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
+    {
+      v18 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v21 = v18 | (v8 << 6);
+      v22 = (*(v5 + 48) + 16 * v21);
+      v23 = v22[1];
+      v24 = (*(v5 + 56) + 24 * v21);
+      v25 = v24[1];
+      v38 = *v24;
+      v39 = *v22;
+      v26 = v24[2];
+      if ((v37 & 1) == 0)
+      {
+      }
+
+      Hasher.init(_seed:)();
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v27 = -1 << *(v7 + 32);
+      v28 = result & ~v27;
+      v29 = v28 >> 6;
+      if (((-1 << v28) & ~*(v14 + 8 * (v28 >> 6))) == 0)
+      {
+        v30 = 0;
+        v31 = (63 - v27) >> 6;
+        while (++v29 != v31 || (v30 & 1) == 0)
+        {
+          v32 = v29 == v31;
+          if (v29 == v31)
+          {
+            v29 = 0;
+          }
+
+          v30 |= v32;
+          v33 = *(v14 + 8 * v29);
+          if (v33 != -1)
+          {
+            v15 = __clz(__rbit64(~v33)) + (v29 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_35:
+        __break(1u);
+        return result;
+      }
+
+      v15 = __clz(__rbit64((-1 << v28) & ~*(v14 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v39;
+      v16[1] = v23;
+      v17 = (*(v7 + 56) + 24 * v15);
+      *v17 = v38;
+      v17[1] = v25;
+      v17[2] = v26;
+      ++*(v7 + 16);
+      v5 = v36;
+    }
+
+    v19 = v8;
+    while (1)
+    {
+      v8 = v19 + 1;
+      if (__OFADD__(v19, 1))
+      {
+        __break(1u);
+        goto LABEL_35;
+      }
+
+      if (v8 >= v13)
+      {
+        break;
+      }
+
+      v20 = v9[v8];
+      ++v19;
+      if (v20)
+      {
+        v18 = __clz(__rbit64(v20));
+        v12 = (v20 - 1) & v20;
+        goto LABEL_15;
+      }
+    }
+
+    if ((v37 & 1) == 0)
+    {
+
+      v3 = v35;
+      goto LABEL_33;
+    }
+
+    v34 = 1 << *(v5 + 32);
+    v3 = v35;
+    if (v34 >= 64)
+    {
+      bzero(v9, ((v34 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+    }
+
+    else
+    {
+      *v9 = -1 << v34;
+    }
+
+    *(v5 + 16) = 0;
+  }
+
+LABEL_33:
+  *v3 = v7;
+  return result;
+}
+
+uint64_t specialized Set._Variant.insert(_:)(Swift::Int *a1, Swift::Int a2, Swift::Int a3)
+{
+  v7 = *v3;
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  v8 = Hasher._finalize()();
+  v9 = -1 << *(v7 + 32);
+  v10 = v8 & ~v9;
+  if ((*(v7 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
+  {
+    v11 = ~v9;
+    while (1)
+    {
+      v12 = (*(v7 + 48) + 16 * v10);
+      v13 = *v12 == a2 && v12[1] == a3;
+      if (v13 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      {
+        break;
+      }
+
+      v10 = (v10 + 1) & v11;
+      if (((*(v7 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    v16 = (*(v7 + 48) + 16 * v10);
+    v17 = v16[1];
+    *a1 = *v16;
+    a1[1] = v17;
+
+    return 0;
+  }
+
+  else
+  {
+LABEL_9:
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v18 = *v3;
+
+    specialized _NativeSet.insertNew(_:at:isUnique:)(a2, a3, v10, isUniquelyReferenced_nonNull_native);
+    *v3 = v18;
+    *a1 = a2;
+    a1[1] = a3;
+    return 1;
+  }
+}
+
+Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, Swift::Int a2, unint64_t a3, char a4)
+{
+  v5 = v4;
+  v8 = result;
+  v9 = *v4;
+  v10 = *(*v4 + 16);
+  v11 = *(*v4 + 24);
+  if (v11 > v10 && (a4 & 1) != 0)
+  {
+    v12 = *v4;
+    goto LABEL_83;
+  }
+
+  if (a4)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
+    v13 = static _SetStorage.resize(original:capacity:move:)();
+    v12 = v13;
+    if (*(v9 + 16))
+    {
+      v93 = v4;
+      v14 = v9;
+      v15 = 0;
+      v95 = v14;
+      v18 = *(v14 + 56);
+      v17 = (v14 + 56);
+      v16 = v18;
+      v19 = 1 << *(v17 - 24);
+      if (v19 < 64)
+      {
+        v20 = ~(-1 << v19);
+      }
+
+      else
+      {
+        v20 = -1;
+      }
+
+      v21 = v20 & v16;
+      v22 = (v19 + 63) >> 6;
+      v23 = v13 + 56;
+      while (v21)
+      {
+        v26 = __clz(__rbit64(v21));
+        v21 &= v21 - 1;
+LABEL_19:
+        v29 = (*(v95 + 48) + 16 * (v26 | (v15 << 6)));
+        v30 = *v29;
+        v31 = v29[1];
+        Hasher.init(_seed:)();
+        String.hash(into:)();
+        v32 = Hasher._finalize()();
+        v33 = -1 << *(v12 + 32);
+        v34 = v32 & ~v33;
+        v35 = v34 >> 6;
+        if (((-1 << v34) & ~*(v23 + 8 * (v34 >> 6))) == 0)
+        {
+          v36 = 0;
+          v37 = (63 - v33) >> 6;
+          while (++v35 != v37 || (v36 & 1) == 0)
+          {
+            v38 = v35 == v37;
+            if (v35 == v37)
+            {
+              v35 = 0;
+            }
+
+            v36 |= v38;
+            v39 = *(v23 + 8 * v35);
+            if (v39 != -1)
+            {
+              v24 = __clz(__rbit64(~v39)) + (v35 << 6);
+              goto LABEL_11;
+            }
+          }
+
+LABEL_86:
+          __break(1u);
+          goto LABEL_87;
+        }
+
+        v24 = __clz(__rbit64((-1 << v34) & ~*(v23 + 8 * (v34 >> 6)))) | v34 & 0x7FFFFFFFFFFFFFC0;
+LABEL_11:
+        *(v23 + ((v24 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v24;
+        v25 = (*(v12 + 48) + 16 * v24);
+        *v25 = v30;
+        v25[1] = v31;
+        ++*(v12 + 16);
+      }
+
+      v27 = v15;
+      while (1)
+      {
+        v15 = v27 + 1;
+        if (__OFADD__(v27, 1))
+        {
+          __break(1u);
+          goto LABEL_86;
+        }
+
+        if (v15 >= v22)
+        {
+          break;
+        }
+
+        v28 = v17[v15];
+        ++v27;
+        if (v28)
+        {
+          v26 = __clz(__rbit64(v28));
+          v21 = (v28 - 1) & v28;
+          goto LABEL_19;
+        }
+      }
+
+      v57 = 1 << *(v95 + 32);
+      if (v57 >= 64)
+      {
+        bzero(v17, ((v57 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      }
+
+      else
+      {
+        *v17 = -1 << v57;
+      }
+
+      v5 = v93;
+      *(v95 + 16) = 0;
+    }
+
+    goto LABEL_73;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
+  if (v11 <= v10)
+  {
+    v58 = static _SetStorage.resize(original:capacity:move:)();
+    v12 = v58;
+    if (!*(v9 + 16))
+    {
+LABEL_73:
+
+LABEL_75:
+      *v5 = v12;
+      Hasher.init(_seed:)();
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v85 = -1 << *(v12 + 32);
+      a3 = result & ~v85;
+      if ((*(v12 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3))
+      {
+        v86 = ~v85;
+        while (1)
+        {
+          v87 = (*(v12 + 48) + 16 * a3);
+          if (*v87 == v8 && v87[1] == a2)
+          {
+            goto LABEL_91;
+          }
+
+          result = _stringCompareWithSmolCheck(_:_:expecting:)();
+          if (result)
+          {
+            goto LABEL_91;
+          }
+
+          a3 = (a3 + 1) & v86;
+          if (((*(v12 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3) & 1) == 0)
+          {
+            goto LABEL_83;
+          }
+        }
+      }
+
+      goto LABEL_83;
+    }
+
+    v94 = v4;
+    v59 = v9;
+    v60 = 0;
+    v96 = v59;
+    v63 = *(v59 + 56);
+    v62 = v59 + 56;
+    v61 = v63;
+    v64 = 1 << *(v62 - 24);
+    if (v64 < 64)
+    {
+      v65 = ~(-1 << v64);
+    }
+
+    else
+    {
+      v65 = -1;
+    }
+
+    v66 = v65 & v61;
+    v67 = (v64 + 63) >> 6;
+    v68 = v58 + 56;
+    while (v66)
+    {
+      v71 = __clz(__rbit64(v66));
+      v66 &= v66 - 1;
+LABEL_60:
+      v74 = (*(v96 + 48) + 16 * (v71 | (v60 << 6)));
+      v75 = *v74;
+      v76 = v74[1];
+      Hasher.init(_seed:)();
+
+      String.hash(into:)();
+      v77 = Hasher._finalize()();
+      v78 = -1 << *(v12 + 32);
+      v79 = v77 & ~v78;
+      v80 = v79 >> 6;
+      if (((-1 << v79) & ~*(v68 + 8 * (v79 >> 6))) == 0)
+      {
+        v81 = 0;
+        v82 = (63 - v78) >> 6;
+        while (++v80 != v82 || (v81 & 1) == 0)
+        {
+          v83 = v80 == v82;
+          if (v80 == v82)
+          {
+            v80 = 0;
+          }
+
+          v81 |= v83;
+          v84 = *(v68 + 8 * v80);
+          if (v84 != -1)
+          {
+            v69 = __clz(__rbit64(~v84)) + (v80 << 6);
+            goto LABEL_52;
+          }
+        }
+
+        goto LABEL_89;
+      }
+
+      v69 = __clz(__rbit64((-1 << v79) & ~*(v68 + 8 * (v79 >> 6)))) | v79 & 0x7FFFFFFFFFFFFFC0;
+LABEL_52:
+      *(v68 + ((v69 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v69;
+      v70 = (*(v12 + 48) + 16 * v69);
+      *v70 = v75;
+      v70[1] = v76;
+      ++*(v12 + 16);
+    }
+
+    v72 = v60;
+    while (1)
+    {
+      v60 = v72 + 1;
+      if (__OFADD__(v72, 1))
+      {
+        break;
+      }
+
+      if (v60 >= v67)
+      {
+
+        v5 = v94;
+        goto LABEL_75;
+      }
+
+      v73 = *(v62 + 8 * v60);
+      ++v72;
+      if (v73)
+      {
+        v71 = __clz(__rbit64(v73));
+        v66 = (v73 - 1) & v73;
+        goto LABEL_60;
+      }
+    }
+  }
+
+  else
+  {
+    v40 = static _SetStorage.copy(original:)();
+    v12 = v40;
+    if (!*(v9 + 16))
+    {
+LABEL_70:
+
+      *v5 = v12;
+LABEL_83:
+      *(v12 + 8 * (a3 >> 6) + 56) |= 1 << a3;
+      v89 = (*(v12 + 48) + 16 * a3);
+      *v89 = v8;
+      v89[1] = a2;
+      v90 = *(v12 + 16);
+      v91 = __OFADD__(v90, 1);
+      v92 = v90 + 1;
+      if (!v91)
+      {
+        *(v12 + 16) = v92;
+        return result;
+      }
+
+      goto LABEL_90;
+    }
+
+    v41 = (v40 + 56);
+    v42 = v9 + 56;
+    v43 = ((1 << *(v12 + 32)) + 63) >> 6;
+    if (v12 != v9 || v41 >= v42 + 8 * v43)
+    {
+      memmove(v41, (v9 + 56), 8 * v43);
+    }
+
+    v44 = 0;
+    *(v12 + 16) = *(v9 + 16);
+    v45 = 1 << *(v9 + 32);
+    v46 = *(v9 + 56);
+    v47 = -1;
+    if (v45 < 64)
+    {
+      v47 = ~(-1 << v45);
+    }
+
+    v48 = v47 & v46;
+    v49 = (v45 + 63) >> 6;
+    if ((v47 & v46) != 0)
+    {
+      do
+      {
+        v50 = __clz(__rbit64(v48));
+        v48 &= v48 - 1;
+LABEL_42:
+        v53 = 16 * (v50 | (v44 << 6));
+        v54 = (*(v9 + 48) + v53);
+        v55 = v54[1];
+        v56 = (*(v12 + 48) + v53);
+        *v56 = *v54;
+        v56[1] = v55;
+      }
+
+      while (v48);
+    }
+
+    v51 = v44;
+    while (1)
+    {
+      v44 = v51 + 1;
+      if (__OFADD__(v51, 1))
+      {
+        break;
+      }
+
+      if (v44 >= v49)
+      {
+        goto LABEL_70;
+      }
+
+      v52 = *(v42 + 8 * v44);
+      ++v51;
+      if (v52)
+      {
+        v50 = __clz(__rbit64(v52));
+        v48 = (v52 - 1) & v52;
+        goto LABEL_42;
+      }
+    }
+
+LABEL_87:
+    __break(1u);
+  }
+
+  __break(1u);
+LABEL_89:
+  __break(1u);
+LABEL_90:
+  __break(1u);
+LABEL_91:
+  result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  __break(1u);
+  return result;
+}
+
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys;
+  if (!lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys);
+    atomic_store(result, &lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys);
   }
 
   return result;
 }
 
 {
-  result = lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys)
+  result = lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys;
+  if (!lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys);
+    atomic_store(result, &lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys);
   }
 
   return result;
 }
 
 {
-  result = lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys)
+  result = lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys;
+  if (!lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys);
+    atomic_store(result, &lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys);
   }
 
   return result;
 }
 
 {
-  result = lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys;
-  if (!lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys)
+  result = lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys;
+  if (!lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpression.CodingKeys and conformance SQLExpression.CodingKeys);
+    atomic_store(result, &lazy protocol witness table cache variable for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys);
   }
 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType()
+unint64_t lazy protocol witness table accessor for type Schema and conformance Schema()
 {
-  result = lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType;
-  if (!lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType)
+  result = lazy protocol witness table cache variable for type Schema and conformance Schema;
+  if (!lazy protocol witness table cache variable for type Schema and conformance Schema)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType;
-  if (!lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType);
+    atomic_store(result, &lazy protocol witness table cache variable for type Schema and conformance Schema);
   }
 
   return result;
 }
 
 {
-  result = lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType;
-  if (!lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType)
+  result = lazy protocol witness table cache variable for type Schema and conformance Schema;
+  if (!lazy protocol witness table cache variable for type Schema and conformance Schema)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType);
+    atomic_store(result, &lazy protocol witness table cache variable for type Schema and conformance Schema);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys;
+  if (!lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys);
   }
 
   return result;
 }
 
 {
-  result = lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType;
-  if (!lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType)
+  result = lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys;
+  if (!lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLDataType and conformance SQLDataType);
+    atomic_store(result, &lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys);
   }
 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type AggregationFunction and conformance AggregationFunction()
 {
-  result = lazy protocol witness table cache variable for type AggregationFunction and conformance AggregationFunction;
-  if (!lazy protocol witness table cache variable for type AggregationFunction and conformance AggregationFunction)
+  result = lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys;
+  if (!lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction and conformance AggregationFunction);
+    atomic_store(result, &lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys);
   }
 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [AggregationFunction] and conformance <A> [A](unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
+{
+  result = lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys;
+  if (!lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Schema.CodingKeys and conformance Schema.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type FromClause.CodingKeys and conformance FromClause.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys;
+  if (!lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys;
+  if (!lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys;
+  if (!lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys;
+  if (!lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type FromClause.CodingKeys and conformance FromClause.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys;
+  if (!lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys;
+  if (!lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys;
+  if (!lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys;
+  if (!lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type FromClause and conformance FromClause()
+{
+  result = lazy protocol witness table cache variable for type FromClause and conformance FromClause;
+  if (!lazy protocol witness table cache variable for type FromClause and conformance FromClause)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type FromClause and conformance FromClause);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type [Schema] and conformance <A> [A](unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
@@ -208,5435 +2137,1127 @@ uint64_t lazy protocol witness table accessor for type [AggregationFunction] and
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Binding and conformance Binding()
+unint64_t lazy protocol witness table accessor for type ResultColumn and conformance ResultColumn()
 {
-  result = lazy protocol witness table cache variable for type Binding and conformance Binding;
-  if (!lazy protocol witness table cache variable for type Binding and conformance Binding)
+  result = lazy protocol witness table cache variable for type ResultColumn and conformance ResultColumn;
+  if (!lazy protocol witness table cache variable for type ResultColumn and conformance ResultColumn)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Binding and conformance Binding);
+    atomic_store(result, &lazy protocol witness table cache variable for type ResultColumn and conformance ResultColumn);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys;
+  if (!lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys);
   }
 
   return result;
 }
 
 {
-  result = lazy protocol witness table cache variable for type Binding and conformance Binding;
-  if (!lazy protocol witness table cache variable for type Binding and conformance Binding)
+  result = lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys;
+  if (!lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Binding and conformance Binding);
+    atomic_store(result, &lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys);
   }
 
   return result;
 }
 
-uint64_t static SQLExpression.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 40) == *(a2 + 40) && *(a1 + 48) == *(a2 + 48);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (specialized == infix<A>(_:_:)(*(a1 + 56), *(a2 + 56)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(*(a1 + 64), *(a2 + 64)) & 1) == 0)
+  result = lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys;
+  if (!lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys)
   {
-    return 0;
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys);
   }
 
-  v5 = *(a1 + 72);
-  v6 = *(a2 + 72);
-
-  return _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v5, v6);
+  return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance SQLExpression(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 40) == *(a2 + 40) && *(a1 + 48) == *(a2 + 48);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (specialized == infix<A>(_:_:)(*(a1 + 56), *(a2 + 56)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(*(a1 + 64), *(a2 + 64)) & 1) == 0)
+  result = lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys;
+  if (!lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys)
   {
-    return 0;
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys);
   }
 
-  v5 = *(a1 + 72);
-  v6 = *(a2 + 72);
-
-  return _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v5, v6);
+  return result;
 }
 
-uint64_t Binding.name.getter()
+unint64_t lazy protocol witness table accessor for type SelectCore and conformance SelectCore()
 {
-  v1 = *v0;
-  v2 = v0[1];
-
-  return v1;
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance Binding.CodingKeys()
-{
-  if (*v0)
+  result = lazy protocol witness table cache variable for type SelectCore and conformance SelectCore;
+  if (!lazy protocol witness table cache variable for type SelectCore and conformance SelectCore)
   {
-    result = 0x6570795461746164;
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SelectCore and conformance SelectCore);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type MaterializedView and conformance MaterializedView()
+{
+  result = lazy protocol witness table cache variable for type MaterializedView and conformance MaterializedView;
+  if (!lazy protocol witness table cache variable for type MaterializedView and conformance MaterializedView)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MaterializedView and conformance MaterializedView);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys;
+  if (!lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys);
+  }
+
+  return result;
+}
+
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = a4[3];
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
   }
 
   else
   {
-    result = 1701667182;
+    v7 = a2;
   }
 
-  *v0;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Binding.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  v5 = a1 == 1701667182 && a2 == 0xE400000000000000;
-  if (v5 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  v8 = a4[2];
+  if (v7 <= v8)
   {
-
-    v8 = 0;
-  }
-
-  else if (a1 == 0x6570795461746164 && a2 == 0xE800000000000000)
-  {
-
-    v8 = 1;
+    v9 = a4[2];
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v9)
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-      v8 = 2;
-    }
+    v9 = v7;
   }
 
-  *a3 = v8;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Binding.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Binding.CodingKeys and conformance Binding.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Binding.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Binding.CodingKeys and conformance Binding.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t Binding.encode(to:)(void *a1)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser7BindingV10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser7BindingV10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v13 = *(v4 - 8);
-  v5 = *(v13 + 64);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v12 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v14 = *(v1 + 16);
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
-  lazy protocol witness table accessor for type Binding.CodingKeys and conformance Binding.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v17 = 0;
-  KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v2)
+  if (v9)
   {
-    v16 = v14;
-    v15 = 1;
-    lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType();
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pGMR);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    v10[2] = v8;
+    v10[3] = 2 * ((v11 - 32) / 40);
   }
 
-  return (*(v13 + 8))(v7, v4);
-}
-
-unint64_t lazy protocol witness table accessor for type Binding.CodingKeys and conformance Binding.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys)
+  else
   {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys);
+    v10 = MEMORY[0x277D84F90];
   }
 
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys)
+  if (v5)
   {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys;
-  if (!lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Binding.CodingKeys and conformance Binding.CodingKeys);
-  }
-
-  return result;
-}
-
-uint64_t Binding.hash(into:)()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 16);
-  String.hash(into:)();
-  String.hash(into:)();
-}
-
-Swift::Int Binding.hashValue.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 16);
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance Binding()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 16);
-  Hasher.init(_seed:)();
-  Binding.hash(into:)();
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Binding()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 16);
-  Hasher.init(_seed:)();
-  Binding.hash(into:)();
-  return Hasher._finalize()();
-}
-
-uint64_t static Binding.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  v3 = *(a2 + 16);
-  v4 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  return specialized == infix<A>(_:_:)(v2, v3);
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Binding(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  v3 = *(a2 + 16);
-  v4 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  return specialized == infix<A>(_:_:)(v2, v3);
-}
-
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySSSiG_SSs5NeverOTg5181_s14BiomeSQLParser14ColumnResolver33_B787555787B9EFBBEFB0C9C5225A4FB7LLV7schemasADSayAA6SchemaVG_tKcfcS2S3key_Si5valuet_tcfu_32a168a102879cc1a6a91172b0770f0c91SSAI_SiAJtSSTf3nnnpk_nTf1cn_n(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  v2 = MEMORY[0x277D84F90];
-  if (!v1)
-  {
-    return v2;
-  }
-
-  v26 = MEMORY[0x277D84F90];
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-  v2 = v26;
-  v4 = a1 + 64;
-  v5 = -1 << *(a1 + 32);
-  result = _HashTable.startBucket.getter();
-  v7 = result;
-  v8 = 0;
-  v25 = *(a1 + 36);
-  v23 = v1;
-  while ((v7 & 0x8000000000000000) == 0 && v7 < 1 << *(a1 + 32))
-  {
-    v10 = v7 >> 6;
-    if ((*(v4 + 8 * (v7 >> 6)) & (1 << v7)) == 0)
+    if (v10 != a4 || v10 + 4 >= &a4[5 * v8 + 4])
     {
-      goto LABEL_22;
+      memmove(v10 + 4, a4 + 4, 40 * v8);
     }
 
-    if (v25 != *(a1 + 36))
-    {
-      goto LABEL_23;
-    }
+    a4[2] = 0;
+  }
 
-    v11 = (*(a1 + 48) + 16 * v7);
-    v12 = v11[1];
-    v24 = *v11;
-    v13 = *(v26 + 16);
-    v14 = *(v26 + 24);
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pMR);
+    swift_arrayInitWithCopy();
+  }
 
-    if (v13 >= v14 >> 1)
-    {
-      result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v14 > 1, v13 + 1, 1);
-    }
+  return v10;
+}
 
-    *(v26 + 16) = v13 + 1;
-    v15 = v26 + 16 * v13;
-    *(v15 + 32) = v24;
-    *(v15 + 40) = v12;
-    v9 = 1 << *(a1 + 32);
-    if (v7 >= v9)
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = a4[3];
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
     {
-      goto LABEL_24;
-    }
-
-    v4 = a1 + 64;
-    v16 = *(a1 + 64 + 8 * v10);
-    if ((v16 & (1 << v7)) == 0)
-    {
-      goto LABEL_25;
-    }
-
-    if (v25 != *(a1 + 36))
-    {
-      goto LABEL_26;
-    }
-
-    v17 = v16 & (-2 << (v7 & 0x3F));
-    if (v17)
-    {
-      v9 = __clz(__rbit64(v17)) | v7 & 0x7FFFFFFFFFFFFFC0;
-    }
-
-    else
-    {
-      v18 = v10 << 6;
-      v19 = v10 + 1;
-      v20 = (a1 + 72 + 8 * v10);
-      while (v19 < (v9 + 63) >> 6)
+      if (v7 + 0x4000000000000000 < 0)
       {
-        v22 = *v20++;
-        v21 = v22;
-        v18 += 64;
-        ++v19;
-        if (v22)
-        {
-          result = outlined consume of [String : Int].Index._Variant(v7, v25, 0);
-          v9 = __clz(__rbit64(v21)) + v18;
-          goto LABEL_4;
-        }
+        __break(1u);
+        return result;
       }
 
-      result = outlined consume of [String : Int].Index._Variant(v7, v25, 0);
-    }
-
-LABEL_4:
-    ++v8;
-    v7 = v9;
-    if (v8 == v23)
-    {
-      return v2;
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
     }
   }
 
-  __break(1u);
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = a4[2];
+  if (v7 <= v8)
+  {
+    v9 = a4[2];
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_14BiomeSQLParser6SchemaVtGMd, &_ss23_ContiguousArrayStorageCySS_14BiomeSQLParser6SchemaVtGMR);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    v10[2] = v8;
+    v10[3] = 2 * ((v11 - 32) / 40);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x277D84F90];
+  }
+
+  if (v5)
+  {
+    if (v10 != a4 || v10 + 4 >= &a4[5 * v8 + 4])
+    {
+      memmove(v10 + 4, a4 + 4, 40 * v8);
+    }
+
+    a4[2] = 0;
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_14BiomeSQLParser6SchemaVtMd, &_sSS_14BiomeSQLParser6SchemaVtMR);
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
+}
+
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = a4[3];
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = a4[2];
+  if (v7 <= v8)
+  {
+    v9 = a4[2];
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay14BiomeSQLParser19AggregationFunctionVGGMd, &_ss23_ContiguousArrayStorageCySay14BiomeSQLParser19AggregationFunctionVGGMR);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    v12 = v11 - 32;
+    if (v11 < 32)
+    {
+      v12 = v11 - 25;
+    }
+
+    v10[2] = v8;
+    v10[3] = 2 * (v12 >> 3);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x277D84F90];
+  }
+
+  if (v5)
+  {
+    if (v10 != a4 || v10 + 4 >= &a4[v8 + 4])
+    {
+      memmove(v10 + 4, a4 + 4, 8 * v8);
+    }
+
+    a4[2] = 0;
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser19AggregationFunctionVGMd, &_sSay14BiomeSQLParser19AggregationFunctionVGMR);
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
+}
+
+char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4)
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = *(a4 + 3);
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = *(a4 + 2);
+  if (v7 <= v8)
+  {
+    v9 = *(a4 + 2);
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser11SQLDataTypeOGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser11SQLDataTypeOGMR);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    *(v10 + 2) = v8;
+    *(v10 + 3) = 2 * v11 - 64;
+  }
+
+  else
+  {
+    v10 = MEMORY[0x277D84F90];
+  }
+
+  v12 = v10 + 32;
+  v13 = a4 + 32;
+  if (v5)
+  {
+    if (v10 != a4 || v12 >= &v13[v8])
+    {
+      memmove(v12, v13, v8);
+    }
+
+    *(a4 + 2) = 0;
+  }
+
+  else
+  {
+    memcpy(v12, v13, v8);
+  }
+
+  return v10;
+}
+
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = *(a4 + 3);
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = *(a4 + 2);
+  if (v7 <= v8)
+  {
+    v9 = *(a4 + 2);
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser13SQLExpressionVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser13SQLExpressionVGMR);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    *(v10 + 2) = v8;
+    *(v10 + 3) = 2 * ((v11 - 32) / 96);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x277D84F90];
+  }
+
+  v12 = v10 + 32;
+  v13 = a4 + 32;
+  if (v5)
+  {
+    if (v10 != a4 || v12 >= &v13[96 * v8])
+    {
+      memmove(v12, v13, 96 * v8);
+    }
+
+    *(a4 + 2) = 0;
+  }
+
+  else
+  {
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
+}
+
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = *(a4 + 3);
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = *(a4 + 2);
+  if (v7 <= v8)
+  {
+    v9 = *(a4 + 2);
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser12ResultColumnVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser12ResultColumnVGMR);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    v12 = v11 - 32;
+    if (v11 < 32)
+    {
+      v12 = v11 + 95;
+    }
+
+    *(v10 + 2) = v8;
+    *(v10 + 3) = 2 * (v12 >> 7);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x277D84F90];
+  }
+
+  v13 = v10 + 32;
+  v14 = a4 + 32;
+  if (v5)
+  {
+    if (v10 != a4 || v13 >= &v14[128 * v8])
+    {
+      memmove(v13, v14, v8 << 7);
+    }
+
+    *(a4 + 2) = 0;
+  }
+
+  else
+  {
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
+}
+
+{
+  v5 = result;
+  if (a3)
+  {
+    v6 = *(a4 + 3);
+    v7 = v6 >> 1;
+    if ((v6 >> 1) < a2)
+    {
+      if (v7 + 0x4000000000000000 < 0)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      {
+        v7 = a2;
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a2;
+  }
+
+  v8 = *(a4 + 2);
+  if (v7 <= v8)
+  {
+    v9 = *(a4 + 2);
+  }
+
+  else
+  {
+    v9 = v7;
+  }
+
+  if (v9)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser11LogicalPlanVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser11LogicalPlanVGMR);
+    v10 = swift_allocObject();
+    v11 = _swift_stdlib_malloc_size(v10);
+    *(v10 + 2) = v8;
+    *(v10 + 3) = 2 * ((v11 - 32) / 368);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x277D84F90];
+  }
+
+  v12 = v10 + 32;
+  v13 = a4 + 32;
+  if (v5)
+  {
+    if (v10 != a4 || v12 >= &v13[368 * v8])
+    {
+      memmove(v12, v13, 368 * v8);
+    }
+
+    *(a4 + 2) = 0;
+  }
+
+  else
+  {
+    swift_arrayInitWithCopy();
+  }
+
+  return v10;
+}
+
+unint64_t specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = a2 - result;
+  if (__OFSUB__(a2, result))
+  {
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v9 = *v4;
+  v10 = v9 + 32 + 16 * result;
+  result = swift_arrayDestroy();
+  v11 = __OFSUB__(a3, v5);
+  v12 = a3 - v5;
+  if (v11)
+  {
+LABEL_20:
+    __break(1u);
+LABEL_21:
+    __break(1u);
 LABEL_22:
-  __break(1u);
-LABEL_23:
-  __break(1u);
-LABEL_24:
-  __break(1u);
-LABEL_25:
-  __break(1u);
-LABEL_26:
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SQLExpressionNode.sql()()
-{
-  v1 = v0;
-  v2 = SQLExpressionAExpr.expressionString.getter();
-  v4 = v3;
-  v30 = v2;
-  v31 = v3;
-  lazy protocol witness table accessor for type String and conformance String();
-  v5 = 0;
-  v6 = 0;
-  lazy protocol witness table accessor for type String and conformance String();
-  while (1)
-  {
-    v28 = v2;
-    v29 = v4;
-    v26 = 63;
-    v27 = 0xE100000000000000;
-    BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v23)
-    {
-      return v2;
-    }
-
-    outlined init with copy of PgQuery_Alias?(v1, v22, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v7 = v24;
-    if (v24)
-    {
-      v8 = v25;
-      __swift_project_boxed_opaque_existential_0(v22, v24);
-      v9 = (*(v8 + 32))(v7, v8);
-      __swift_destroy_boxed_opaque_existential_0(v22);
-    }
-
-    else
-    {
-      outlined destroy of URL?(v22, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-      v9 = MEMORY[0x277D84F90];
-    }
-
-    v10 = v1[8];
-    v11 = v1[9];
-    __swift_project_boxed_opaque_existential_0(v1 + 5, v10);
-    result = (*(v11 + 32))(v10, v11);
-    v13 = *(result + 16);
-    v14 = *(v9 + 16);
-    v15 = v14 + v13;
-    if (__OFADD__(v14, v13))
-    {
-      break;
-    }
-
-    v16 = result;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v15 <= *(v9 + 24) >> 1)
-    {
-      if (*(v16 + 16))
-      {
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      if (v14 <= v15)
-      {
-        v19 = v14 + v13;
-      }
-
-      else
-      {
-        v19 = v14;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v19, 1, v9);
-      v9 = result;
-      if (*(v16 + 16))
-      {
-LABEL_10:
-        if ((*(v9 + 24) >> 1) - *(v9 + 16) < v13)
-        {
-          goto LABEL_27;
-        }
-
-        swift_arrayInitWithCopy();
-
-        v17 = *(v9 + 16);
-        if (v13)
-        {
-          v18 = __OFADD__(v17, v13);
-          v17 += v13;
-          if (v18)
-          {
-            goto LABEL_28;
-          }
-
-          *(v9 + 16) = v17;
-        }
-
-        if (v6 >= v17)
-        {
-          goto LABEL_26;
-        }
-
-        goto LABEL_22;
-      }
-    }
-
-    if (v13)
-    {
-      goto LABEL_25;
-    }
-
-    if (v6 >= *(v9 + 16))
-    {
-      goto LABEL_26;
-    }
-
-LABEL_22:
-    v20 = *(v9 + v5 + 32);
-    v21 = *(v9 + v5 + 40);
-
-    v22[0] = v20;
-    v22[1] = v21;
-    String.replaceSubrange<A>(_:with:)();
-
-    ++v6;
-    v2 = v30;
-    v4 = v31;
-    v5 += 24;
+    __break(1u);
+    goto LABEL_23;
   }
 
-  __break(1u);
-LABEL_25:
-  __break(1u);
-LABEL_26:
-  __break(1u);
-LABEL_27:
-  __break(1u);
-LABEL_28:
-  __break(1u);
-  return result;
-}
-
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  __swift_project_boxed_opaque_existential_0(v0, v1);
-  v3 = (*(v2 + 8))(v1, v2);
-  v12 = v3;
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-  v4 = 0;
-  for (i = 0; ; ++i)
+  if (!v12)
   {
-    BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v11)
-    {
-      return v3;
-    }
-
-    v6 = v0[3];
-    v7 = v0[4];
-    __swift_project_boxed_opaque_existential_0(v0, v6);
-    result = (*(v7 + 32))(v6, v7);
-    if (i >= *(result + 16))
-    {
-      break;
-    }
-
-    v10 = *(result + v4 + 32);
-    v9 = *(result + v4 + 40);
-
-    String.replaceSubrange<A>(_:with:)();
-
-    v3 = v12;
-    v4 += 24;
+    goto LABEL_13;
   }
 
-  __break(1u);
-  return result;
-}
-
-{
-  v1 = SQLExpressionNullTest.expressionString.getter();
-  v10 = v1;
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-  v2 = 0;
-  for (i = 0; ; ++i)
+  v13 = *(v9 + 16);
+  v11 = __OFSUB__(v13, a2);
+  v14 = v13 - a2;
+  if (v11)
   {
-    BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v9)
-    {
-      return v1;
-    }
-
-    v4 = v0[3];
-    v5 = v0[4];
-    __swift_project_boxed_opaque_existential_0(v0, v4);
-    result = (*(v5 + 32))(v4, v5);
-    if (i >= *(result + 16))
-    {
-      break;
-    }
-
-    v8 = *(result + v2 + 32);
-    v7 = *(result + v2 + 40);
-
-    String.replaceSubrange<A>(_:with:)();
-
-    v1 = v10;
-    v2 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v1 = *v0;
-  v10 = *v0;
-  v11 = v0[1];
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v2 = 0;
-  for (i = 0; ; ++i)
-  {
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v9)
-    {
-      return v1;
-    }
-
-    v5 = v0[4];
-    if (i >= *(v5 + 16))
-    {
-      break;
-    }
-
-    v6 = v5 + v2;
-    v7 = *(v6 + 32);
-    v8 = *(v6 + 40);
-    String.replaceSubrange<A>(_:with:)();
-    v1 = v10;
-    v2 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v1 = *v0;
-  v10 = *v0;
-  v11 = v0[1];
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v2 = 0;
-  for (i = 0; ; ++i)
-  {
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v9)
-    {
-      return v1;
-    }
-
-    v5 = v0[3];
-    if (i >= *(v5 + 16))
-    {
-      break;
-    }
-
-    v6 = v5 + v2;
-    v7 = *(v6 + 32);
-    v8 = *(v6 + 40);
-    String.replaceSubrange<A>(_:with:)();
-    v1 = v10;
-    v2 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v10 = *v0;
-  lazy protocol witness table accessor for type String and conformance String();
-  v1 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  MEMORY[0x259C32B90](v1);
-
-  MEMORY[0x259C32B90](39, 0xE100000000000000);
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-  v2 = 0;
-  for (i = 0; ; ++i)
-  {
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v9)
-    {
-      return 39;
-    }
-
-    v5 = *(v0 + 4);
-    if (i >= *(v5 + 16))
-    {
-      break;
-    }
-
-    v6 = v5 + v2;
-    v7 = *(v6 + 32);
-    v8 = *(v6 + 40);
-    String.replaceSubrange<A>(_:with:)();
-    v2 += 24;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v2 = *(v0 + 208);
-  v16 = *(v0 + 200);
-  v1 = v16;
-  v17 = v2;
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-
-  v12 = v16;
-  v13 = v2;
-  v10 = 63;
-  v11 = 0xE100000000000000;
-  BidirectionalCollection<>.firstRange<A>(of:)();
-  if (v15)
-  {
-    return v1;
-  }
-
-  v3 = AggregationFunction.name()();
-  v4 = *(v0 + 193);
-  v8 = v3;
-  v9 = v4;
-
-  outlined destroy of Binding(&v8);
-  v14 = v3;
-  String.replaceSubrange<A>(_:with:)();
-
-  v1 = v16;
-  v12 = v16;
-  v13 = v17;
-  v10 = 63;
-  v11 = 0xE100000000000000;
-  BidirectionalCollection<>.firstRange<A>(of:)();
-  if (v15 == 1)
-  {
-    return v1;
-  }
-
-  v6 = AggregationFunction.name()();
-  result = v6._countAndFlagsBits;
-  v7 = *(v0 + 193);
-  v8 = v6;
-  v9 = v7;
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SQLExpressionNode.sql()(uint64_t result, uint64_t a2, char a3)
-{
-  v3 = result;
-  if ((a3 & 1) == 0)
-  {
-    v4 = 0;
-    v5 = 0xE000000000000000;
-    goto LABEL_22;
-  }
-
-  v4 = a2;
-  if (a2 <= 1)
-  {
-    if (!a2)
-    {
-      v5 = 0xE000000000000000;
-      goto LABEL_22;
-    }
-
-    v61 = 40;
-    v62 = 0xE100000000000000;
-    v17 = *(result + 16);
-    v7 = MEMORY[0x277D84F90];
-    if (v17)
-    {
-      v59 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v17, 0);
-      v7 = v59;
-      v18 = v3 + 32;
-      do
-      {
-        outlined init with copy of VirtualTable.Module(v18, &v52);
-        v19 = v55;
-        v20 = v56;
-        __swift_project_boxed_opaque_existential_0(&v52, v55);
-        v21 = (*(v20 + 8))(v19, v20);
-        v23 = v22;
-        __swift_destroy_boxed_opaque_existential_0(&v52);
-        v59 = v7;
-        v25 = *(v7 + 16);
-        v24 = *(v7 + 24);
-        if (v25 >= v24 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v24 > 1, v25 + 1, 1);
-          v7 = v59;
-        }
-
-        *(v7 + 16) = v25 + 1;
-        v26 = v7 + 16 * v25;
-        *(v26 + 32) = v21;
-        *(v26 + 40) = v23;
-        v18 += 40;
-        --v17;
-      }
-
-      while (v17);
-    }
-
     goto LABEL_21;
   }
 
-  if (a2 == 2)
+  result = v10 + 16 * a3;
+  v15 = (v9 + 32 + 16 * a2);
+  if (result != v15 || result >= v15 + 16 * v14)
   {
-    v61 = 40;
-    v62 = 0xE100000000000000;
-    v6 = *(result + 16);
-    v7 = MEMORY[0x277D84F90];
+    result = memmove(result, v15, 16 * v14);
+  }
+
+  v17 = *(v9 + 16);
+  v11 = __OFADD__(v17, v12);
+  v18 = v17 + v12;
+  if (v11)
+  {
+    goto LABEL_22;
+  }
+
+  *(v9 + 16) = v18;
+LABEL_13:
+  if (a3 < 1)
+  {
+    return result;
+  }
+
+  if (*(a4 + 16) != a3)
+  {
+LABEL_23:
+    __break(1u);
+    return result;
+  }
+
+  return swift_arrayInitWithCopy();
+}
+
+uint64_t specialized ResultColumn.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x6973736572707865 && a2 == 0xEA00000000006E6FLL;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x7361696C61 && a2 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0x746E656D75636F64 && a2 == 0xED00006E6F697461)
+  {
+
+    return 2;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
     if (v6)
     {
-      v59 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0);
-      v7 = v59;
-      v8 = v3 + 32;
-      do
-      {
-        outlined init with copy of VirtualTable.Module(v8, &v52);
-        v9 = v55;
-        v10 = v56;
-        __swift_project_boxed_opaque_existential_0(&v52, v55);
-        v11 = (*(v10 + 8))(v9, v10);
-        v13 = v12;
-        __swift_destroy_boxed_opaque_existential_0(&v52);
-        v59 = v7;
-        v15 = *(v7 + 16);
-        v14 = *(v7 + 24);
-        if (v15 >= v14 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v14 > 1, v15 + 1, 1);
-          v7 = v59;
-        }
-
-        *(v7 + 16) = v15 + 1;
-        v16 = v7 + 16 * v15;
-        *(v16 + 32) = v11;
-        *(v16 + 40) = v13;
-        v8 += 40;
-        --v6;
-      }
-
-      while (v6);
-    }
-
-LABEL_21:
-    v52 = v7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    lazy protocol witness table accessor for type [String] and conformance [A]();
-    v30 = BidirectionalCollection<>.joined(separator:)();
-    v32 = v31;
-
-    MEMORY[0x259C32B90](v30, v32);
-
-    MEMORY[0x259C32B90](41, 0xE100000000000000);
-    v4 = v61;
-    v5 = v62;
-    goto LABEL_22;
-  }
-
-  v52 = 0x20544F4E28;
-  v53 = 0xE500000000000000;
-  if (!*(result + 16))
-  {
-    goto LABEL_50;
-  }
-
-  v27 = *(result + 56);
-  v28 = *(result + 64);
-  __swift_project_boxed_opaque_existential_0((result + 32), v27);
-  v29 = (*(v28 + 8))(v27, v28);
-  MEMORY[0x259C32B90](v29);
-
-  MEMORY[0x259C32B90](41, 0xE100000000000000);
-  v4 = v52;
-  v5 = v53;
-LABEL_22:
-  v61 = v4;
-  v62 = v5;
-  lazy protocol witness table accessor for type String and conformance String();
-  v33 = 0;
-  v50 = v3 + 32;
-  lazy protocol witness table accessor for type String and conformance String();
-  for (i = v3; ; v3 = i)
-  {
-    v59 = v4;
-    v60 = v5;
-    v57 = 63;
-    v58 = 0xE100000000000000;
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v54)
-    {
-      return v4;
-    }
-
-    v34 = *(v3 + 16);
-    if (v34)
-    {
-      break;
-    }
-
-    v36 = MEMORY[0x277D84F90];
-LABEL_42:
-    if (v33 >= *(v36 + 16))
-    {
-      goto LABEL_49;
-    }
-
-    v47 = v36 + 24 * v33;
-    v49 = *(v47 + 32);
-    v48 = *(v47 + 40);
-
-    v52 = v49;
-    v53 = v48;
-    String.replaceSubrange<A>(_:with:)();
-
-    ++v33;
-    v4 = v61;
-    v5 = v62;
-  }
-
-  v35 = v50;
-  v36 = MEMORY[0x277D84F90];
-  while (1)
-  {
-    outlined init with copy of VirtualTable.Module(v35, &v52);
-    v38 = v55;
-    v37 = v56;
-    __swift_project_boxed_opaque_existential_0(&v52, v55);
-    v39 = (*(v37 + 32))(v38, v37);
-    result = __swift_destroy_boxed_opaque_existential_0(&v52);
-    v40 = *(v39 + 16);
-    v41 = *(v36 + 16);
-    v42 = v41 + v40;
-    if (__OFADD__(v41, v40))
-    {
-      break;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v42 <= *(v36 + 24) >> 1)
-    {
-      if (*(v39 + 16))
-      {
-        goto LABEL_37;
-      }
+      return 2;
     }
 
     else
     {
-      if (v41 <= v42)
-      {
-        v43 = v41 + v40;
-      }
-
-      else
-      {
-        v43 = v41;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v43, 1, v36);
-      v36 = result;
-      if (*(v39 + 16))
-      {
-LABEL_37:
-        if ((*(v36 + 24) >> 1) - *(v36 + 16) < v40)
-        {
-          goto LABEL_47;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v40)
-        {
-          v44 = *(v36 + 16);
-          v45 = __OFADD__(v44, v40);
-          v46 = v44 + v40;
-          if (v45)
-          {
-            goto LABEL_48;
-          }
-
-          *(v36 + 16) = v46;
-        }
-
-        goto LABEL_27;
-      }
-    }
-
-    if (v40)
-    {
-      goto LABEL_46;
-    }
-
-LABEL_27:
-    v35 += 40;
-    if (!--v34)
-    {
-      goto LABEL_42;
+      return 3;
     }
   }
-
-  __break(1u);
-LABEL_46:
-  __break(1u);
-LABEL_47:
-  __break(1u);
-LABEL_48:
-  __break(1u);
-LABEL_49:
-  __break(1u);
-LABEL_50:
-  __break(1u);
-  return result;
 }
 
-uint64_t specialized SQLExpressionNode.sql()(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t specialized SelectCore.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
 {
-  v4 = dispatch thunk of CustomStringConvertible.description.getter();
-  v11 = v4;
-  lazy protocol witness table accessor for type String and conformance String();
-  lazy protocol witness table accessor for type String and conformance String();
-  v5 = 0;
-  for (i = (a3 + 40); ; i += 3)
+  v3 = a1 == 1836020326 && a2 == 0xE400000000000000;
+  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v10)
-    {
-      return v4;
-    }
 
-    if (v5 >= *(a3 + 16))
-    {
-      break;
-    }
-
-    v8 = *(i - 1);
-    v9 = *i;
-    String.replaceSubrange<A>(_:with:)();
-    ++v5;
-    v4 = v11;
+    return 0;
   }
 
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SQLExpressionNode.sql()(char a1, uint64_t a2)
-{
-  v4 = *(a2 + 16);
-  v5 = MEMORY[0x277D84F90];
-  v41 = v4;
-  if (v4)
+  else if (a1 == 0x6572656877 && a2 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v48 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
-    v5 = v48;
-    v6 = a2 + 32;
-    v7 = v4;
-    do
-    {
-      outlined init with copy of VirtualTable.Module(v6, &v43);
-      v8 = v46;
-      v9 = v47;
-      __swift_project_boxed_opaque_existential_0(&v43, v46);
-      v10 = (*(v9 + 8))(v8, v9);
-      v12 = v11;
-      __swift_destroy_boxed_opaque_existential_0(&v43);
-      v48 = v5;
-      v14 = *(v5 + 16);
-      v13 = *(v5 + 24);
-      if (v14 >= v13 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v13 > 1, v14 + 1, 1);
-        v5 = v48;
-      }
 
-      *(v5 + 16) = v14 + 1;
-      v15 = v5 + 16 * v14;
-      *(v15 + 32) = v10;
-      *(v15 + 40) = v12;
-      v6 += 40;
-      --v7;
-    }
-
-    while (v7);
-    v4 = v41;
+    return 1;
   }
 
-  v43 = v5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-  lazy protocol witness table accessor for type [String] and conformance [A]();
-  v16 = BidirectionalCollection<>.joined(separator:)();
-  v18 = v17;
-
-  LOBYTE(v48) = a1;
-  v43 = SQLFunction.rawValue.getter();
-  v44 = v19;
-  MEMORY[0x259C32B90](40, 0xE100000000000000);
-  MEMORY[0x259C32B90](v16, v18);
-
-  MEMORY[0x259C32B90](41, 0xE100000000000000);
-  v20 = v43;
-  v48 = v43;
-  v49 = v44;
-  lazy protocol witness table accessor for type String and conformance String();
-  v21 = lazy protocol witness table accessor for type String and conformance String();
-  v42 = 0;
-  v40 = a2 + 32;
-  while (1)
+  else if (a1 == 0x794270756F7267 && a2 == 0xE700000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v22 = v21;
-    result = BidirectionalCollection<>.firstRange<A>(of:)();
-    if (v45)
-    {
-      return v20;
-    }
 
-    if (v4)
-    {
-      break;
-    }
-
-    v26 = MEMORY[0x277D84F90];
-LABEL_28:
-    if (v42 >= *(v26 + 16))
-    {
-      goto LABEL_35;
-    }
-
-    v37 = v26 + 24 * v42;
-    v39 = *(v37 + 32);
-    v38 = *(v37 + 40);
-
-    v43 = v39;
-    v44 = v38;
-    String.replaceSubrange<A>(_:with:)();
-
-    v21 = v22;
-    ++v42;
-    v20 = v48;
-    v4 = v41;
+    return 2;
   }
 
-  v24 = v40;
-  v25 = v4;
-  v26 = MEMORY[0x277D84F90];
-  while (1)
+  else if (a1 == 0x676E69766168 && a2 == 0xE600000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    outlined init with copy of VirtualTable.Module(v24, &v43);
-    v27 = v46;
-    v28 = v47;
-    __swift_project_boxed_opaque_existential_0(&v43, v46);
-    result = (*(v28 + 32))(v27, v28);
-    v29 = *(result + 16);
-    v30 = *(v26 + 16);
-    v31 = v30 + v29;
-    if (__OFADD__(v30, v29))
-    {
-      break;
-    }
 
-    v32 = result;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v31 <= *(v26 + 24) >> 1)
-    {
-      if (*(v32 + 16))
-      {
-        goto LABEL_22;
-      }
-    }
-
-    else
-    {
-      if (v30 <= v31)
-      {
-        v33 = v30 + v29;
-      }
-
-      else
-      {
-        v33 = v30;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v33, 1, v26);
-      v26 = result;
-      if (*(v32 + 16))
-      {
-LABEL_22:
-        if ((*(v26 + 24) >> 1) - *(v26 + 16) < v29)
-        {
-          goto LABEL_33;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v29)
-        {
-          v34 = *(v26 + 16);
-          v35 = __OFADD__(v34, v29);
-          v36 = v34 + v29;
-          if (v35)
-          {
-            goto LABEL_34;
-          }
-
-          *(v26 + 16) = v36;
-        }
-
-        goto LABEL_12;
-      }
-    }
-
-    if (v29)
-    {
-      goto LABEL_32;
-    }
-
-LABEL_12:
-    result = __swift_destroy_boxed_opaque_existential_0(&v43);
-    v24 += 40;
-    if (!--v25)
-    {
-      goto LABEL_28;
-    }
+    return 3;
   }
 
-  __break(1u);
-LABEL_32:
-  __break(1u);
-LABEL_33:
-  __break(1u);
-LABEL_34:
-  __break(1u);
-LABEL_35:
-  __break(1u);
-  return result;
-}
-
-uint64_t SQLExpressionConstString.expressionString.getter()
-{
-  v3 = *v0;
-  v4 = v0[1];
-  lazy protocol witness table accessor for type String and conformance String();
-  v1 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  MEMORY[0x259C32B90](v1);
-
-  MEMORY[0x259C32B90](39, 0xE100000000000000);
-  return 39;
-}
-
-uint64_t protocol witness for SQLExpressionNode.sql() in conformance SQLExpressionConstString()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 4);
-  return specialized SQLExpressionNode.sql()();
-}
-
-uint64_t protocol witness for SQLExpressionNode.sql() in conformance SQLExpressionColumnRef()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 4);
-  return specialized SQLExpressionNode.sql()();
-}
-
-uint64_t SQLExpressionAExpr.init(expr:schemas:columnResolver:tokenInformation:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v115 = a3;
-  v116 = a5;
-  v113 = a2;
-  v114 = a4;
-  v108 = a6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x28223BE20](v7 - 8);
-  v102 = &v97 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v101 = &v97 - v11;
-  String = type metadata accessor for PgQuery_String(0);
-  v12 = *(*(String - 8) + 64);
-  v13 = MEMORY[0x28223BE20](String);
-  v99 = (&v97 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v13);
-  v98 = (&v97 - v15);
-  Node = type metadata accessor for PgQuery_Node(0);
-  v17 = *(Node - 8);
-  v18 = *(v17 + 64);
-  v19 = MEMORY[0x28223BE20](Node);
-  v105 = &v97 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x28223BE20](v19);
-  v100 = &v97 - v22;
-  v23 = MEMORY[0x28223BE20](v21);
-  v107 = &v97 - v24;
-  MEMORY[0x28223BE20](v23);
-  v106 = &v97 - v25;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v27 = *(*(v26 - 8) + 64);
-  v28 = MEMORY[0x28223BE20](v26 - 8);
-  v110 = &v97 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = MEMORY[0x28223BE20](v28);
-  v32 = &v97 - v31;
-  MEMORY[0x28223BE20](v30);
-  v34 = &v97 - v33;
-  v35 = *(type metadata accessor for PgQuery_A_Expr(0) + 20);
-  v109 = a1;
-  v36 = *(a1 + v35);
-  v37 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__lexpr;
-  outlined init with copy of PgQuery_Alias?(v36 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__lexpr, v34, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v104 = v17;
-  v38 = *(v17 + 48);
-  v39 = v38(v34, 1, Node);
-  outlined destroy of URL?(v34, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v112 = v36;
-  if (v39 == 1)
+  else if (a1 == 0x7463656C6573 && a2 == 0xE600000000000000)
   {
-    v40 = v108;
-    *(v108 + 32) = 0;
-    *v40 = 0u;
-    *(v40 + 16) = 0u;
-    v41 = v110;
-    v42 = v111;
-    v43 = v115;
+
+    return 4;
   }
 
   else
   {
-    outlined init with copy of PgQuery_Alias?(v36 + v37, v32, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    v44 = v38(v32, 1, Node);
-    v45 = v38;
-    v97 = Node;
-    if (v44 == 1)
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
     {
-      v46 = v106;
-      UnknownStorage.init()();
-      v47 = Node;
-      v48 = *(Node + 20);
-      v41 = v110;
-      v49 = v111;
-      if (one-time initialization token for defaultInstance != -1)
-      {
-        swift_once();
-      }
-
-      *(v46 + v48) = static PgQuery_Node._StorageClass.defaultInstance;
-      v38 = v45;
-      v50 = v45(v32, 1, v47);
-
-      if (v50 != 1)
-      {
-        outlined destroy of URL?(v32, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-      }
+      return 4;
     }
 
     else
     {
-      v46 = v106;
-      outlined init with take of PgQuery_BitString(v32, v106, type metadata accessor for PgQuery_Node);
-      v41 = v110;
-      v49 = v111;
+      return 5;
     }
+  }
+}
 
-    v51 = v46;
-    v43 = v115;
-    v52 = v46;
-    v53 = v116;
-    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(&v117, v51, v113, v115, v114, v116);
-    if (v49)
-    {
+uint64_t specialized LogicalPlan.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v3 = a1 == 7106931 && a2 == 0xE300000000000000;
+  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
 
-      outlined destroy of PgQuery_Node.OneOf_Node(v53, type metadata accessor for SQLTokenInformation);
-      outlined destroy of PgQuery_Node.OneOf_Node(v52, type metadata accessor for PgQuery_Node);
-      return outlined destroy of PgQuery_Node.OneOf_Node(v109, type metadata accessor for PgQuery_A_Expr);
-    }
-
-    outlined destroy of PgQuery_Node.OneOf_Node(v52, type metadata accessor for PgQuery_Node);
-    v55 = v118;
-    v56 = v108;
-    *v108 = v117;
-    *(v56 + 16) = v55;
-    v40 = v56;
-    *(v56 + 32) = v119;
-    v42 = 0;
-    Node = v97;
+    return 0;
   }
 
-  v57 = v112;
-  outlined init with copy of PgQuery_Alias?(v112 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rexpr, v41, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v58 = v38;
-  if (v38(v41, 1, Node) == 1)
+  else if (a1 == 0x746E656D75636F64 && a2 == 0xED00006E6F697461 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v59 = v107;
-    UnknownStorage.init()();
-    v60 = Node;
-    v61 = *(Node + 20);
-    if (one-time initialization token for defaultInstance != -1)
-    {
-      swift_once();
-    }
 
-    *(v59 + v61) = static PgQuery_Node._StorageClass.defaultInstance;
-    v62 = v58(v41, 1, v60);
+    return 1;
+  }
 
-    v43 = v115;
-    Node = v60;
-    v63 = v59;
-    v57 = v112;
-    v64 = v113;
-    if (v62 != 1)
-    {
-      outlined destroy of URL?(v41, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    }
+  else if (a1 == 0xD000000000000010 && 0x80000002553B6960 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 2;
+  }
+
+  else if (a1 == 0x6F437463656C6573 && a2 == 0xEA00000000006572)
+  {
+
+    return 3;
   }
 
   else
   {
-    v63 = v107;
-    outlined init with take of PgQuery_BitString(v41, v107, type metadata accessor for PgQuery_Node);
-    v64 = v113;
-  }
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-  v65 = v116;
-  buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(&v117, v63, v64, v43, v114, v116);
-  if (v42)
-  {
-
-    outlined destroy of PgQuery_Node.OneOf_Node(v65, type metadata accessor for SQLTokenInformation);
-    outlined destroy of PgQuery_Node.OneOf_Node(v63, type metadata accessor for PgQuery_Node);
-    outlined destroy of PgQuery_Node.OneOf_Node(v109, type metadata accessor for PgQuery_A_Expr);
-    return outlined destroy of URL?(v40, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  }
-
-  outlined destroy of PgQuery_Node.OneOf_Node(v63, type metadata accessor for PgQuery_Node);
-
-  result = outlined init with take of SQLExpressionNode(&v117, v40 + 40);
-  if (*(v57 + 24) != 1 || (v66 = *(v57 + 16), ((1 << v66) & 0x1FDFD) != 0))
-  {
-    type metadata accessor for SQLExpressionError();
-    lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-    swift_allocError();
-    v67 = v109;
-    outlined init with copy of PgQuery_Node(v109, v68, type metadata accessor for PgQuery_A_Expr);
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-    outlined destroy of PgQuery_Node.OneOf_Node(v116, type metadata accessor for SQLTokenInformation);
-    outlined destroy of PgQuery_Node.OneOf_Node(v67, type metadata accessor for PgQuery_A_Expr);
-    outlined destroy of URL?(v40, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    return __swift_destroy_boxed_opaque_existential_0((v40 + 40));
-  }
-
-  if (v66 != 1)
-  {
-    v76 = *(v57 + 32);
-    if (!*(v76 + 16))
+    if (v6)
     {
-LABEL_50:
-      __break(1u);
-      return result;
-    }
-
-    v77 = v105;
-    outlined init with copy of PgQuery_Node(v76 + ((*(v104 + 80) + 32) & ~*(v104 + 80)), v105, type metadata accessor for PgQuery_Node);
-    v78 = *(v77 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-    v79 = v102;
-    outlined init with copy of PgQuery_Alias?(v78, v102, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v80 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-    if ((*(*(v80 - 8) + 48))(v79, 1, v80) == 1)
-    {
-      outlined destroy of URL?(v79, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-      v81 = v99;
-      v75 = v116;
+      return 3;
     }
 
     else
     {
-      EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-      v75 = v116;
-      if (EnumCaseMultiPayload == 222)
-      {
-        v81 = v99;
-        outlined init with take of PgQuery_BitString(v79, v99, type metadata accessor for PgQuery_String);
-LABEL_39:
-        v85 = 0x454B494C20544F4ELL;
-        outlined destroy of PgQuery_Node.OneOf_Node(v105, type metadata accessor for PgQuery_Node);
-        v88 = v81;
-        v90 = *v81;
-        v89 = v81[1];
-
-        outlined destroy of PgQuery_Node.OneOf_Node(v88, type metadata accessor for PgQuery_String);
-        if (v90 == 8289825 && v89 == 0xE300000000000000)
-        {
-
-          v86 = 0xE800000000000000;
-        }
-
-        else
-        {
-          v91 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-          if (v91)
-          {
-            v86 = 0xE800000000000000;
-          }
-
-          else
-          {
-            v85 = 1162561868;
-            v86 = 0xE400000000000000;
-          }
-        }
-
-        goto LABEL_45;
-      }
-
-      outlined destroy of PgQuery_Node.OneOf_Node(v79, type metadata accessor for PgQuery_Node.OneOf_Node);
-      v81 = v99;
+      return 4;
     }
+  }
+}
 
-    *v81 = 0;
-    v81[1] = 0xE000000000000000;
-    v87 = v81 + *(String + 20);
-    UnknownStorage.init()();
-    goto LABEL_39;
+uint64_t specialized Data.InlineData.init(_:)(_BYTE *__src, _BYTE *a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = a2 - __src;
+  if (__src)
+  {
+    v3 = a2 - __src;
   }
 
-  v69 = *(v57 + 32);
-  if (!*(v69 + 16))
+  else
+  {
+    v3 = 0;
+  }
+
+  if ((v3 & 0x8000000000000000) != 0)
   {
     __break(1u);
-    goto LABEL_50;
+LABEL_11:
+    __break(1u);
   }
 
-  v70 = v100;
-  outlined init with copy of PgQuery_Node(v69 + ((*(v104 + 80) + 32) & ~*(v104 + 80)), v100, type metadata accessor for PgQuery_Node);
-  v71 = *(v70 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-  v72 = v101;
-  outlined init with copy of PgQuery_Alias?(v71, v101, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v73 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  v74 = (*(*(v73 - 8) + 48))(v72, 1, v73);
-  v75 = v116;
-  if (v74 == 1)
+  if (v3 > 0xFF)
   {
-    outlined destroy of URL?(v72, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-LABEL_35:
-    v82 = v98;
-    *v98 = 0;
-    v82[1] = 0xE000000000000000;
-    v84 = v82 + *(String + 20);
-    UnknownStorage.init()();
-    goto LABEL_36;
+    goto LABEL_11;
   }
 
-  if (swift_getEnumCaseMultiPayload() != 222)
+  result = 0;
+  __dst = 0;
+  v9 = v3;
+  v8 = 0;
+  v7 = 0;
+  if (__src)
   {
-    outlined destroy of PgQuery_Node.OneOf_Node(v72, type metadata accessor for PgQuery_Node.OneOf_Node);
-    goto LABEL_35;
+    if (a2 != __src)
+    {
+      memcpy(&__dst, __src, v2);
+      return __dst;
+    }
   }
 
-  v82 = v98;
-  outlined init with take of PgQuery_BitString(v72, v98, type metadata accessor for PgQuery_String);
-LABEL_36:
-  outlined destroy of PgQuery_Node.OneOf_Node(v70, type metadata accessor for PgQuery_Node);
-  v85 = *v82;
-  v86 = v82[1];
-
-  outlined destroy of PgQuery_Node.OneOf_Node(v82, type metadata accessor for PgQuery_String);
-LABEL_45:
-  *(v40 + 80) = v85;
-  *(v40 + 88) = v86;
-
-  outlined init with copy of PgQuery_Alias?(v40, &v117, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  v92 = *(&v118 + 1);
-  if (*(&v118 + 1))
-  {
-    v93 = v119;
-    __swift_project_boxed_opaque_existential_0(&v117, *(&v118 + 1));
-    (*(v93 + 16))(&v120, v92, v93);
-    v94 = v120;
-    __swift_destroy_boxed_opaque_existential_0(&v117);
-  }
-
-  else
-  {
-    outlined destroy of URL?(&v117, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v94 = 8;
-  }
-
-  LOBYTE(v117) = v94;
-  v95 = *(v40 + 64);
-  v96 = *(v40 + 72);
-  __swift_project_boxed_opaque_existential_0((v40 + 40), v95);
-  (*(v96 + 16))(&v120, v95, v96);
-  static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:)(&v117, &v120, v85, v86, &v120 + 1);
-  outlined destroy of PgQuery_Node.OneOf_Node(v75, type metadata accessor for SQLTokenInformation);
-
-  result = outlined destroy of PgQuery_Node.OneOf_Node(v109, type metadata accessor for PgQuery_A_Expr);
-  *(v40 + 96) = BYTE1(v120);
   return result;
 }
 
-uint64_t static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:)@<X0>(_BYTE *a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
+unint64_t specialized Data.init(bytes:count:)(_BYTE *a1, unint64_t a2)
 {
-  v8 = *a1;
-  v9 = *a2;
-  if (v8 <= 3)
-  {
-    *a1;
-    goto LABEL_8;
-  }
-
-  if (*a1 <= 5u || v8 == 6)
-  {
-LABEL_8:
-    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v10)
-    {
-      goto LABEL_35;
-    }
-
-    if (v9 > 3 && v9 > 6)
-    {
-      goto LABEL_34;
-    }
-
-    v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v12)
-    {
-LABEL_35:
-      v13 = 7;
-      goto LABEL_36;
-    }
-
-    if (a3 == 31868 && a4 == 0xE200000000000000 || (result = _stringCompareWithSmolCheck(_:_:expecting:)(), (result & 1) != 0))
-    {
-      v13 = 2;
-LABEL_36:
-      *a5 = v13;
-      return result;
-    }
-
-    v29 = &v27;
-    v27 = a3;
-    v28 = a4;
-    MEMORY[0x28223BE20](result);
-    v26 = &v27;
-    v14 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v25, &outlined read-only object #0 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-    result = swift_arrayDestroy();
-    if (v14)
-    {
-      goto LABEL_54;
-    }
-
-    v29 = &v27;
-    v27 = a3;
-    v28 = a4;
-    MEMORY[0x28223BE20](result);
-    v26 = &v27;
-    v15 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v25, &outlined read-only object #1 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-    result = swift_arrayDestroy();
-    if (v15)
-    {
-      goto LABEL_54;
-    }
-
-    v29 = &v27;
-    v27 = a3;
-    v28 = a4;
-    MEMORY[0x28223BE20](result);
-    v26 = &v27;
-    v16 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v25, &outlined read-only object #2 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-    result = swift_arrayDestroy();
-    if ((v16 & 1) == 0)
-    {
-      goto LABEL_54;
-    }
-
-    v17 = v8;
-    if (!specialized Sequence<>.contains(_:)(v8, &outlined read-only object #3 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:)) || (v17 = v9, !specialized Sequence<>.contains(_:)(v9, &outlined read-only object #4 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:))))
-    {
-LABEL_38:
-      type metadata accessor for SQLExpressionError();
-      lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-      swift_allocError();
-      *v20 = a3;
-      *(v20 + 8) = a4;
-      *(v20 + 16) = v17;
-      swift_storeEnumTagMultiPayload();
-      swift_willThrow();
-    }
-
-    if (v8 == 3)
-    {
-      goto LABEL_41;
-    }
-
-    v21 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v21)
-    {
-LABEL_43:
-      v13 = 3;
-      goto LABEL_36;
-    }
-
-    if (v9 == 3)
-    {
-LABEL_41:
-
-      goto LABEL_43;
-    }
-
-    v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v22)
-    {
-      goto LABEL_43;
-    }
-
-    if (v8 > 1 || !v8)
-    {
-      v23 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      if (v23)
-      {
-LABEL_53:
-        v13 = 1;
-        goto LABEL_36;
-      }
-
-      if (v9 > 1 || !v9)
-      {
-        v24 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if ((v24 & 1) == 0)
-        {
-          goto LABEL_54;
-        }
-
-        goto LABEL_53;
-      }
-    }
-
-    goto LABEL_53;
-  }
-
-  if (v8 == 7)
-  {
-    goto LABEL_34;
-  }
-
-  if (*a2 <= 3u)
-  {
-    *a2;
-    goto LABEL_27;
-  }
-
-  if (*a2 > 5u && v9 != 6)
-  {
-LABEL_34:
-
-    goto LABEL_35;
-  }
-
-LABEL_27:
-  v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-  if (v18)
-  {
-    goto LABEL_35;
-  }
-
-  if (a3 != 126 || a4 != 0xE100000000000000)
-  {
-    result = _stringCompareWithSmolCheck(_:_:expecting:)();
-    if ((result & 1) == 0)
-    {
-      v27 = a3;
-      v28 = a4;
-      MEMORY[0x28223BE20](result);
-      v26 = &v27;
-      v19 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v25, &outlined read-only object #5 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-      result = swift_arrayDestroy();
-      if (v19)
-      {
-        result = specialized Sequence<>.contains(_:)(v9, &outlined read-only object #6 of static SQLExpressionAExpr.inferExprReturnType(lReturnType:rReturnType:op:));
-        if (result)
-        {
-          *a5 = v9;
-          return result;
-        }
-
-        v17 = v9;
-        goto LABEL_38;
-      }
-    }
-  }
-
-LABEL_54:
-  *a5 = 0;
-  return result;
-}
-
-BOOL specialized Sequence<>.contains(_:)(unsigned __int8 a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  v3 = (a2 + 32);
-  v4 = a1;
-  do
-  {
-    v6 = v2;
-    if (v2-- == 0)
-    {
-      break;
-    }
-
-    v8 = *v3;
-    if (v8 > 3)
-    {
-      if (*v3 > 5u)
-      {
-        v14 = 0xE400000000000000;
-        if (v8 == 6)
-        {
-          v13 = 1684632949;
-        }
-
-        else
-        {
-          v13 = 1819047278;
-        }
-      }
-
-      else
-      {
-        if (v8 == 4)
-        {
-          v13 = 1635017060;
-        }
-
-        else
-        {
-          v13 = 1852797802;
-        }
-
-        v14 = 0xE400000000000000;
-      }
-    }
-
-    else
-    {
-      if (v8 == 2)
-      {
-        v9 = 0x676E69727473;
-      }
-
-      else
-      {
-        v9 = 1702125924;
-      }
-
-      if (v8 == 2)
-      {
-        v10 = 0xE600000000000000;
-      }
-
-      else
-      {
-        v10 = 0xE400000000000000;
-      }
-
-      if (*v3)
-      {
-        v11 = 0x656C62756F64;
-      }
-
-      else
-      {
-        v11 = 0x72656765746E69;
-      }
-
-      if (*v3)
-      {
-        v12 = 0xE600000000000000;
-      }
-
-      else
-      {
-        v12 = 0xE700000000000000;
-      }
-
-      if (*v3 <= 1u)
-      {
-        v13 = v11;
-      }
-
-      else
-      {
-        v13 = v9;
-      }
-
-      if (*v3 <= 1u)
-      {
-        v14 = v12;
-      }
-
-      else
-      {
-        v14 = v10;
-      }
-    }
-
-    v15 = 1819047278;
-    if (v4 == 6)
-    {
-      v15 = 1684632949;
-    }
-
-    v16 = 1852797802;
-    if (v4 == 4)
-    {
-      v16 = 1635017060;
-    }
-
-    if (v4 <= 5)
-    {
-      v15 = v16;
-    }
-
-    if (v4 == 2)
-    {
-      v17 = 0x676E69727473;
-    }
-
-    else
-    {
-      v17 = 1702125924;
-    }
-
-    if (v4 == 2)
-    {
-      v18 = 0xE600000000000000;
-    }
-
-    else
-    {
-      v18 = 0xE400000000000000;
-    }
-
-    if (v4)
-    {
-      v19 = 0x656C62756F64;
-    }
-
-    else
-    {
-      v19 = 0x72656765746E69;
-    }
-
-    if (v4)
-    {
-      v20 = 0xE600000000000000;
-    }
-
-    else
-    {
-      v20 = 0xE700000000000000;
-    }
-
-    if (v4 <= 1)
-    {
-      v17 = v19;
-      v18 = v20;
-    }
-
-    if (v4 <= 3)
-    {
-      v21 = v17;
-    }
-
-    else
-    {
-      v21 = v15;
-    }
-
-    if (v4 <= 3)
-    {
-      v22 = v18;
-    }
-
-    else
-    {
-      v22 = 0xE400000000000000;
-    }
-
-    if (v13 == v21 && v14 == v22)
-    {
-
-      return v6 != 0;
-    }
-
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    ++v3;
-  }
-
-  while ((v5 & 1) == 0);
-  return v6 != 0;
-}
-
-uint64_t SQLExpressionAExpr.expressionString.getter()
-{
-  v1 = v0[8];
-  v2 = v0[9];
-  __swift_project_boxed_opaque_existential_0(v0 + 5, v1);
-  v3 = (*(v2 + 8))(v1, v2);
-  v5 = v4;
-  outlined init with copy of PgQuery_Alias?(v0, &v12, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  v6 = v14;
-  if (v14)
-  {
-    v7 = v15;
-    __swift_project_boxed_opaque_existential_0(&v12, v14);
-    v8 = (*(v7 + 8))(v6, v7);
-    v10 = v9;
-    __swift_destroy_boxed_opaque_existential_0(&v12);
-    v12 = 40;
-    v13 = 0xE100000000000000;
-    MEMORY[0x259C32B90](v8, v10);
-
-    MEMORY[0x259C32B90](32, 0xE100000000000000);
-  }
-
-  else
-  {
-    outlined destroy of URL?(&v12, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v12 = 40;
-    v13 = 0xE100000000000000;
-  }
-
-  MEMORY[0x259C32B90](v0[10], v0[11]);
-  MEMORY[0x259C32B90](32, 0xE100000000000000);
-  MEMORY[0x259C32B90](v3, v5);
-
-  MEMORY[0x259C32B90](41, 0xE100000000000000);
-  return v12;
-}
-
-uint64_t SQLExpressionAExpr.aggregationFunctions.getter()
-{
-  outlined init with copy of PgQuery_Alias?(v0, v8, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  v1 = v9;
-  if (v9)
-  {
-    v2 = v10;
-    __swift_project_boxed_opaque_existential_0(v8, v9);
-    v3 = (*(v2 + 24))(v1, v2);
-    __swift_destroy_boxed_opaque_existential_0(v8);
-  }
-
-  else
-  {
-    outlined destroy of URL?(v8, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v3 = MEMORY[0x277D84F90];
-  }
-
-  v4 = v0[8];
-  v5 = v0[9];
-  __swift_project_boxed_opaque_existential_0(v0 + 5, v4);
-  v6 = (*(v5 + 24))(v4, v5);
-  v8[0] = v3;
-  specialized Array.append<A>(contentsOf:)(v6);
-  return v8[0];
-}
-
-uint64_t SQLExpressionAExpr.bindings.getter()
-{
-  outlined init with copy of PgQuery_Alias?(v0, v8, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-  v1 = v9;
-  if (v9)
-  {
-    v2 = v10;
-    __swift_project_boxed_opaque_existential_0(v8, v9);
-    v3 = (*(v2 + 32))(v1, v2);
-    __swift_destroy_boxed_opaque_existential_0(v8);
-  }
-
-  else
-  {
-    outlined destroy of URL?(v8, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMd, &_s14BiomeSQLParser17SQLExpressionNode33_B787555787B9EFBBEFB0C9C5225A4FB7LL_pSgMR);
-    v3 = MEMORY[0x277D84F90];
-  }
-
-  v4 = v0[8];
-  v5 = v0[9];
-  __swift_project_boxed_opaque_existential_0(v0 + 5, v4);
-  v6 = (*(v5 + 32))(v4, v5);
-  v8[0] = v3;
-  specialized Array.append<A>(contentsOf:)(v6);
-  return v8[0];
-}
-
-uint64_t SQLExpressioBoolExpr.expressionString.getter()
-{
-  if (*(v0 + 16) != 1)
+  if (!a2)
   {
     return 0;
   }
 
-  v2 = *v0;
-  result = v0[1];
-  if (result > 1)
+  if (a2 <= 14)
   {
-    if (result != 2)
-    {
-      v35 = 0x20544F4E28;
-      v36 = 0xE500000000000000;
-      if (!*(v2 + 16))
-      {
-        __break(1u);
-        return result;
-      }
-
-      outlined init with copy of VirtualTable.Module(v2 + 32, v32);
-      v24 = v33;
-      v25 = v34;
-      __swift_project_boxed_opaque_existential_0(v32, v33);
-      v26 = (*(v25 + 8))(v24, v25);
-      MEMORY[0x259C32B90](v26);
-
-      __swift_destroy_boxed_opaque_existential_0(v32);
-LABEL_22:
-      MEMORY[0x259C32B90](41, 0xE100000000000000);
-      return v35;
-    }
-
-    v35 = 40;
-    v36 = 0xE100000000000000;
-    v3 = *(v2 + 16);
-    v4 = MEMORY[0x277D84F90];
-    if (v3)
-    {
-      v30 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
-      v4 = v30;
-      v5 = v2 + 32;
-      do
-      {
-        outlined init with copy of VirtualTable.Module(v5, v32);
-        v6 = v33;
-        v7 = v34;
-        __swift_project_boxed_opaque_existential_0(v32, v33);
-        v8 = (*(v7 + 8))(v6, v7);
-        v10 = v9;
-        __swift_destroy_boxed_opaque_existential_0(v32);
-        v12 = *(v30 + 16);
-        v11 = *(v30 + 24);
-        if (v12 >= v11 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v11 > 1, v12 + 1, 1);
-        }
-
-        *(v30 + 16) = v12 + 1;
-        v13 = v30 + 16 * v12;
-        *(v13 + 32) = v8;
-        *(v13 + 40) = v10;
-        v5 += 40;
-        --v3;
-      }
-
-      while (v3);
-    }
-
-LABEL_21:
-    v32[0] = v4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-    lazy protocol witness table accessor for type [String] and conformance [A]();
-    v27 = BidirectionalCollection<>.joined(separator:)();
-    v29 = v28;
-
-    MEMORY[0x259C32B90](v27, v29);
-
-    goto LABEL_22;
+    return specialized Data.InlineData.init(_:)(a1, &a1[a2]);
   }
 
-  if (result)
+  type metadata accessor for __DataStorage();
+  swift_allocObject();
+  __DataStorage.init(bytes:length:)();
+  if (a2 < 0x7FFFFFFF)
   {
-    v35 = 40;
-    v36 = 0xE100000000000000;
-    v14 = *(v2 + 16);
-    v4 = MEMORY[0x277D84F90];
-    if (v14)
-    {
-      v31 = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v14, 0);
-      v4 = v31;
-      v15 = v2 + 32;
-      do
-      {
-        outlined init with copy of VirtualTable.Module(v15, v32);
-        v16 = v33;
-        v17 = v34;
-        __swift_project_boxed_opaque_existential_0(v32, v33);
-        v18 = (*(v17 + 8))(v16, v17);
-        v20 = v19;
-        __swift_destroy_boxed_opaque_existential_0(v32);
-        v22 = *(v31 + 16);
-        v21 = *(v31 + 24);
-        if (v22 >= v21 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v21 > 1, v22 + 1, 1);
-        }
+    return a2 << 32;
+  }
 
-        *(v31 + 16) = v22 + 1;
-        v23 = v31 + 16 * v22;
-        *(v23 + 32) = v18;
-        *(v23 + 40) = v20;
-        v15 += 40;
-        --v14;
-      }
+  type metadata accessor for Data.RangeReference();
+  result = swift_allocObject();
+  *(result + 16) = 0;
+  *(result + 24) = a2;
+  return result;
+}
 
-      while (v14);
-    }
-
-    goto LABEL_21;
+uint64_t lazy protocol witness table accessor for type PgQuery_ParseResult and conformance PgQuery_ParseResult(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
   }
 
   return result;
 }
 
-char *SQLExpressioBoolExpr.aggregationFunctions.getter()
+uint64_t outlined init with take of PgQuery_ParseResult(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v1 = *(*v0 + 16);
-  if (!v1)
-  {
-    return MEMORY[0x277D84F90];
-  }
-
-  v2 = *v0 + 32;
-  v3 = MEMORY[0x277D84F90];
-  while (1)
-  {
-    outlined init with copy of VirtualTable.Module(v2, v15);
-    v5 = v16;
-    v6 = v17;
-    __swift_project_boxed_opaque_existential_0(v15, v16);
-    v7 = (*(v6 + 24))(v5, v6);
-    result = __swift_destroy_boxed_opaque_existential_0(v15);
-    v8 = *(v7 + 16);
-    v9 = *(v3 + 2);
-    v10 = v9 + v8;
-    if (__OFADD__(v9, v8))
-    {
-      break;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v10 <= *(v3 + 3) >> 1)
-    {
-      if (*(v7 + 16))
-      {
-        goto LABEL_14;
-      }
-    }
-
-    else
-    {
-      if (v9 <= v10)
-      {
-        v11 = v9 + v8;
-      }
-
-      else
-      {
-        v11 = v9;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
-      v3 = result;
-      if (*(v7 + 16))
-      {
-LABEL_14:
-        if ((*(v3 + 3) >> 1) - *(v3 + 2) < v8)
-        {
-          goto LABEL_22;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v8)
-        {
-          v12 = *(v3 + 2);
-          v13 = __OFADD__(v12, v8);
-          v14 = v12 + v8;
-          if (v13)
-          {
-            goto LABEL_23;
-          }
-
-          *(v3 + 2) = v14;
-        }
-
-        goto LABEL_4;
-      }
-    }
-
-    if (v8)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_4:
-    v2 += 40;
-    if (!--v1)
-    {
-      return v3;
-    }
-  }
-
-  __break(1u);
-LABEL_21:
-  __break(1u);
-LABEL_22:
-  __break(1u);
-LABEL_23:
-  __break(1u);
-  return result;
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
 }
 
-char *SQLExpressioBoolExpr.bindings.getter()
+uint64_t outlined destroy of PgQuery_ParseResult(uint64_t a1, uint64_t (*a2)(void))
 {
-  v1 = *(*v0 + 16);
-  if (!v1)
-  {
-    return MEMORY[0x277D84F90];
-  }
-
-  v2 = *v0 + 32;
-  v3 = MEMORY[0x277D84F90];
-  while (1)
-  {
-    outlined init with copy of VirtualTable.Module(v2, v15);
-    v5 = v16;
-    v6 = v17;
-    __swift_project_boxed_opaque_existential_0(v15, v16);
-    v7 = (*(v6 + 32))(v5, v6);
-    result = __swift_destroy_boxed_opaque_existential_0(v15);
-    v8 = *(v7 + 16);
-    v9 = *(v3 + 2);
-    v10 = v9 + v8;
-    if (__OFADD__(v9, v8))
-    {
-      break;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v10 <= *(v3 + 3) >> 1)
-    {
-      if (*(v7 + 16))
-      {
-        goto LABEL_14;
-      }
-    }
-
-    else
-    {
-      if (v9 <= v10)
-      {
-        v11 = v9 + v8;
-      }
-
-      else
-      {
-        v11 = v9;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
-      v3 = result;
-      if (*(v7 + 16))
-      {
-LABEL_14:
-        if ((*(v3 + 3) >> 1) - *(v3 + 2) < v8)
-        {
-          goto LABEL_22;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v8)
-        {
-          v12 = *(v3 + 2);
-          v13 = __OFADD__(v12, v8);
-          v14 = v12 + v8;
-          if (v13)
-          {
-            goto LABEL_23;
-          }
-
-          *(v3 + 2) = v14;
-        }
-
-        goto LABEL_4;
-      }
-    }
-
-    if (v8)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_4:
-    v2 += 40;
-    if (!--v1)
-    {
-      return v3;
-    }
-  }
-
-  __break(1u);
-LABEL_21:
-  __break(1u);
-LABEL_22:
-  __break(1u);
-LABEL_23:
-  __break(1u);
-  return result;
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
 }
 
-uint64_t SQLExpressionNullTest.expressionString.getter()
+unint64_t lazy protocol witness table accessor for type SQLRawDataType and conformance SQLRawDataType()
 {
-  if (*(v0 + 48) != 1)
+  result = lazy protocol witness table cache variable for type SQLRawDataType and conformance SQLRawDataType;
+  if (!lazy protocol witness table cache variable for type SQLRawDataType and conformance SQLRawDataType)
   {
-    return 0;
-  }
-
-  result = *(v0 + 40);
-  if (result)
-  {
-    if (result == 1)
-    {
-      v2 = *(v0 + 24);
-      v3 = *(v0 + 32);
-      __swift_project_boxed_opaque_existential_0(v0, v2);
-      v4 = (*(v3 + 8))(v2, v3);
-      MEMORY[0x259C32B90](v4);
-
-      v5 = 0x4C4C554E20534920;
-      v6 = 0xE900000000000029;
-    }
-
-    else
-    {
-      _StringGuts.grow(_:)(16);
-
-      v7 = *(v0 + 24);
-      v8 = *(v0 + 32);
-      __swift_project_boxed_opaque_existential_0(v0, v7);
-      v9 = (*(v8 + 8))(v7, v8);
-      MEMORY[0x259C32B90](v9);
-
-      v5 = 0x20544F4E20534920;
-      v6 = 0xED0000294C4C554ELL;
-    }
-
-    MEMORY[0x259C32B90](v5, v6);
-    return 40;
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SQLRawDataType and conformance SQLRawDataType);
   }
 
   return result;
 }
 
-uint64_t protocol witness for SQLExpressionNode.aggregationFunctions.getter in conformance SQLExpressionNullTest()
+uint64_t get_enum_tag_for_layout_string_14BiomeSQLParser0B5ErrorO(uint64_t a1)
 {
-  v1 = v0[3];
-  v2 = v0[4];
-  __swift_project_boxed_opaque_existential_0(v0, v1);
-  return (*(v2 + 24))(v1, v2);
-}
-
-uint64_t protocol witness for SQLExpressionNode.bindings.getter in conformance SQLExpressionNullTest()
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  __swift_project_boxed_opaque_existential_0(v0, v1);
-  return (*(v2 + 32))(v1, v2);
-}
-
-Swift::String __swiftcall AggregationFunction.name()()
-{
-  outlined init with copy of AggregationFunction.AggregationType(v0, &v23);
-  if (v35 > 3u)
+  if ((*(a1 + 32) & 0xFu) <= 8)
   {
-    if (v35 <= 5u)
-    {
-      v19 = v25;
-      v20 = v26;
-      v21 = v27;
-      v22 = v28;
-      v17 = v23;
-      v18 = v24;
-      if (v35 == 4)
-      {
-        v1 = 678324589;
-      }
-
-      else
-      {
-        v1 = 678262131;
-      }
-
-      goto LABEL_18;
-    }
-
-    if (v35 != 6)
-    {
-      v3 = 0xE800000000000000;
-      v2 = 0x292A28746E756F63;
-      goto LABEL_21;
-    }
-
-    v19 = v25;
-    v20 = v26;
-    v21 = v27;
-    v22 = v28;
-    v17 = v23;
-    v18 = v24;
-    v1 = 0x286C61746F74;
+    return *(a1 + 32) & 0xF;
   }
 
   else
   {
-    if (v35 > 1u)
-    {
-      if (v35 == 2)
-      {
-        v19 = v25;
-        v20 = v26;
-        v21 = v27;
-        v22 = v28;
-        v17 = v23;
-        v18 = v24;
-        v16[2] = v31;
-        v16[3] = v32;
-        v16[4] = v33;
-        v16[5] = v34;
-        v16[0] = v29;
-        v16[1] = v30;
-        outlined init with copy of PgQuery_Alias?(v16, &v8, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-        if (*(&v9 + 1))
-        {
-          v14[2] = v10;
-          v14[3] = v11;
-          v14[4] = v12;
-          v15 = v13;
-          v14[0] = v8;
-          v14[1] = v9;
-          *&v8 = 0;
-          *(&v8 + 1) = 0xE000000000000000;
-          _StringGuts.grow(_:)(20);
-
-          strcpy(&v8, "group_concat(");
-          HIWORD(v8) = -4864;
-          MEMORY[0x259C32B90](v22, *(&v22 + 1));
-          MEMORY[0x259C32B90](8236, 0xE200000000000000);
-          MEMORY[0x259C32B90](v15, *(&v15 + 1));
-          MEMORY[0x259C32B90](41, 0xE100000000000000);
-          v3 = *(&v8 + 1);
-          v2 = v8;
-          outlined destroy of SQLExpression(v14);
-        }
-
-        else
-        {
-          outlined destroy of URL?(&v8, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-          *&v14[0] = 0;
-          *(&v14[0] + 1) = 0xE000000000000000;
-          _StringGuts.grow(_:)(16);
-
-          strcpy(v14, "group_concat(");
-          HIWORD(v14[0]) = -4864;
-          MEMORY[0x259C32B90](v22, *(&v22 + 1));
-          MEMORY[0x259C32B90](41, 0xE100000000000000);
-          v3 = *(&v14[0] + 1);
-          v2 = *&v14[0];
-        }
-
-        outlined destroy of URL?(v16, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-        goto LABEL_20;
-      }
-
-      v19 = v25;
-      v20 = v26;
-      v21 = v27;
-      v22 = v28;
-      v17 = v23;
-      v18 = v24;
-      v1 = 678977901;
-      goto LABEL_18;
-    }
-
-    if (!v35)
-    {
-      v19 = v25;
-      v20 = v26;
-      v21 = v27;
-      v22 = v28;
-      v17 = v23;
-      v18 = v24;
-      v1 = 677869153;
-LABEL_18:
-      v4 = 0xE400000000000000;
-      goto LABEL_19;
-    }
-
-    v19 = v25;
-    v20 = v26;
-    v21 = v27;
-    v22 = v28;
-    v17 = v23;
-    v18 = v24;
-    v1 = 0x28746E756F63;
-  }
-
-  v4 = 0xE600000000000000;
-LABEL_19:
-  *&v16[0] = v1;
-  *(&v16[0] + 1) = v4;
-  MEMORY[0x259C32B90](v22, *(&v22 + 1));
-  MEMORY[0x259C32B90](41, 0xE100000000000000);
-  v3 = *(&v16[0] + 1);
-  v2 = *&v16[0];
-LABEL_20:
-  outlined destroy of SQLExpression(&v17);
-LABEL_21:
-  v5 = v2;
-  v6 = v3;
-  result._object = v6;
-  result._countAndFlagsBits = v5;
-  return result;
-}
-
-uint64_t protocol witness for SQLExpressionNode.expressionString.getter in conformance SQLExpressionAggregationFunction()
-{
-  v1 = *(v0 + 200);
-  v2 = *(v0 + 208);
-
-  return v1;
-}
-
-uint64_t protocol witness for SQLExpressionNode.aggregationFunctions.getter in conformance SQLExpressionAggregationFunction()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser19AggregationFunctionVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser19AggregationFunctionVGMR);
-  v1 = swift_allocObject();
-  *(v1 + 16) = xmmword_2552FE080;
-  outlined init with copy of AggregationFunction(v0, v1 + 32);
-  return v1;
-}
-
-uint64_t protocol witness for SQLExpressionNode.bindings.getter in conformance SQLExpressionAggregationFunction()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser7BindingVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser7BindingVGMR);
-  v1 = swift_allocObject();
-  *(v1 + 16) = xmmword_2552FE080;
-  v2 = AggregationFunction.name()();
-  v3 = *(v0 + 193);
-  *(v1 + 32) = v2;
-  *(v1 + 48) = v3;
-  return v1;
-}
-
-uint64_t SQLExpressionNonAggregationFunction.init(functionName:argList:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-
-  v8._countAndFlagsBits = a1;
-  v8._object = a2;
-  SQLFunction.init(rawValue:)(v8);
-  v9 = v23[0];
-  if (LOBYTE(v23[0]) == 98)
-  {
-
-    type metadata accessor for SQLExpressionError();
-    lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-    swift_allocError();
-    *v10 = a1;
-    v10[1] = a2;
-    swift_storeEnumTagMultiPayload();
-    return swift_willThrow();
-  }
-
-  else
-  {
-
-    BYTE1(v27) = v23[0];
-    v12 = *(a3 + 16);
-    v13._rawValue = MEMORY[0x277D84F90];
-    if (v12)
-    {
-      v22 = a4;
-      rawValue = MEMORY[0x277D84F90];
-
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
-      v13._rawValue = rawValue;
-      v14 = a3 + 32;
-      do
-      {
-        outlined init with copy of VirtualTable.Module(v14, v23);
-        v15 = v24;
-        v16 = v25;
-        __swift_project_boxed_opaque_existential_0(v23, v24);
-        (*(v16 + 16))(&v27, v15, v16);
-        __swift_destroy_boxed_opaque_existential_0(v23);
-        rawValue = v13._rawValue;
-        v18 = *(v13._rawValue + 2);
-        v17 = *(v13._rawValue + 3);
-        if (v18 >= v17 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v17 > 1), v18 + 1, 1);
-          v13._rawValue = rawValue;
-        }
-
-        v19 = v27;
-        *(v13._rawValue + 2) = v18 + 1;
-        *(v13._rawValue + v18 + 32) = v19;
-        v14 += 40;
-        --v12;
-      }
-
-      while (v12);
-
-      a4 = v22;
-    }
-
-    SQLFunction.returnType(argTypes:)(v13);
-    if (v20)
-    {
-    }
-
-    else
-    {
-
-      v21 = BYTE2(v27);
-      *a4 = v9;
-      *(a4 + 8) = a3;
-      *(a4 + 16) = v21;
-    }
-  }
-
-  return result;
-}
-
-uint64_t SQLExpressionNonAggregationFunction.expressionString.getter()
-{
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v2 + 16);
-  v4 = MEMORY[0x277D84F90];
-  if (v3)
-  {
-    v22 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
-    v4 = v22;
-    v5 = v2 + 32;
-    do
-    {
-      outlined init with copy of VirtualTable.Module(v5, v19);
-      v6 = v20;
-      v7 = v21;
-      __swift_project_boxed_opaque_existential_0(v19, v20);
-      v8 = (*(v7 + 8))(v6, v7);
-      v10 = v9;
-      __swift_destroy_boxed_opaque_existential_0(v19);
-      v22 = v4;
-      v12 = *(v4 + 16);
-      v11 = *(v4 + 24);
-      if (v12 >= v11 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v11 > 1, v12 + 1, 1);
-        v4 = v22;
-      }
-
-      *(v4 + 16) = v12 + 1;
-      v13 = v4 + 16 * v12;
-      *(v13 + 32) = v8;
-      *(v13 + 40) = v10;
-      v5 += 40;
-      --v3;
-    }
-
-    while (v3);
-  }
-
-  v19[0] = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-  lazy protocol witness table accessor for type [String] and conformance [A]();
-  v14 = BidirectionalCollection<>.joined(separator:)();
-  v16 = v15;
-
-  LOBYTE(v22) = v1;
-  v19[0] = SQLFunction.rawValue.getter();
-  v19[1] = v17;
-  MEMORY[0x259C32B90](40, 0xE100000000000000);
-  MEMORY[0x259C32B90](v14, v16);
-
-  MEMORY[0x259C32B90](41, 0xE100000000000000);
-  return v19[0];
-}
-
-uint64_t SQLExpressionNonAggregationFunction.aggregationFunctions.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v1 + 16);
-  if (!v2)
-  {
-    return MEMORY[0x277D84F90];
-  }
-
-  v3 = v1 + 32;
-  v4 = MEMORY[0x277D84F90];
-  while (1)
-  {
-    outlined init with copy of VirtualTable.Module(v3, v16);
-    v6 = v17;
-    v7 = v18;
-    __swift_project_boxed_opaque_existential_0(v16, v17);
-    result = (*(v7 + 24))(v6, v7);
-    v8 = *(result + 16);
-    v9 = *(v4 + 16);
-    v10 = v9 + v8;
-    if (__OFADD__(v9, v8))
-    {
-      break;
-    }
-
-    v11 = result;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v10 <= *(v4 + 24) >> 1)
-    {
-      if (*(v11 + 16))
-      {
-        goto LABEL_14;
-      }
-    }
-
-    else
-    {
-      if (v9 <= v10)
-      {
-        v12 = v9 + v8;
-      }
-
-      else
-      {
-        v12 = v9;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v4);
-      v4 = result;
-      if (*(v11 + 16))
-      {
-LABEL_14:
-        if ((*(v4 + 24) >> 1) - *(v4 + 16) < v8)
-        {
-          goto LABEL_22;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v8)
-        {
-          v13 = *(v4 + 16);
-          v14 = __OFADD__(v13, v8);
-          v15 = v13 + v8;
-          if (v14)
-          {
-            goto LABEL_23;
-          }
-
-          *(v4 + 16) = v15;
-        }
-
-        goto LABEL_4;
-      }
-    }
-
-    if (v8)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_4:
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    v3 += 40;
-    if (!--v2)
-    {
-      return v4;
-    }
-  }
-
-  __break(1u);
-LABEL_21:
-  __break(1u);
-LABEL_22:
-  __break(1u);
-LABEL_23:
-  __break(1u);
-  return result;
-}
-
-uint64_t SQLExpressionNonAggregationFunction.bindings.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v1 + 16);
-  if (!v2)
-  {
-    return MEMORY[0x277D84F90];
-  }
-
-  v3 = v1 + 32;
-  v4 = MEMORY[0x277D84F90];
-  while (1)
-  {
-    outlined init with copy of VirtualTable.Module(v3, v16);
-    v6 = v17;
-    v7 = v18;
-    __swift_project_boxed_opaque_existential_0(v16, v17);
-    result = (*(v7 + 32))(v6, v7);
-    v8 = *(result + 16);
-    v9 = *(v4 + 16);
-    v10 = v9 + v8;
-    if (__OFADD__(v9, v8))
-    {
-      break;
-    }
-
-    v11 = result;
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v10 <= *(v4 + 24) >> 1)
-    {
-      if (*(v11 + 16))
-      {
-        goto LABEL_14;
-      }
-    }
-
-    else
-    {
-      if (v9 <= v10)
-      {
-        v12 = v9 + v8;
-      }
-
-      else
-      {
-        v12 = v9;
-      }
-
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v4);
-      v4 = result;
-      if (*(v11 + 16))
-      {
-LABEL_14:
-        if ((*(v4 + 24) >> 1) - *(v4 + 16) < v8)
-        {
-          goto LABEL_22;
-        }
-
-        swift_arrayInitWithCopy();
-
-        if (v8)
-        {
-          v13 = *(v4 + 16);
-          v14 = __OFADD__(v13, v8);
-          v15 = v13 + v8;
-          if (v14)
-          {
-            goto LABEL_23;
-          }
-
-          *(v4 + 16) = v15;
-        }
-
-        goto LABEL_4;
-      }
-    }
-
-    if (v8)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_4:
-    __swift_destroy_boxed_opaque_existential_0(v16);
-    v3 += 40;
-    if (!--v2)
-    {
-      return v4;
-    }
-  }
-
-  __break(1u);
-LABEL_21:
-  __break(1u);
-LABEL_22:
-  __break(1u);
-LABEL_23:
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.AVGCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.AVGCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.COUNTCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.COUNTCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys@<X0>(_BYTE *a1@<X8>)
-{
-
-  *a1 = 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance SQLExpression.CodingKeys()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  MEMORY[0x259C33090](v1);
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance AggregationFunction.AggregationType.CodingKeys()
-{
-  v1 = *v0;
-  v2 = 4675137;
-  v3 = 5068115;
-  if (v1 != 6)
-  {
-    v3 = 0x4C41544F54;
-  }
-
-  v4 = 5783885;
-  if (v1 != 4)
-  {
-    v4 = 5130573;
-  }
-
-  if (*v0 <= 5u)
-  {
-    v3 = v4;
-  }
-
-  v5 = 0x54535F544E554F43;
-  if (v1 != 2)
-  {
-    v5 = 0x4F435F50554F5247;
-  }
-
-  if (*v0)
-  {
-    v2 = 0x544E554F43;
-  }
-
-  if (*v0 > 1u)
-  {
-    v2 = v5;
-  }
-
-  if (*v0 <= 3u)
-  {
-    return v2;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.AggregationType.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = specialized AggregationFunction.AggregationType.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys()
-{
-  if (*v0)
-  {
-    result = 0x6F74617261706573;
-  }
-
-  else
-  {
-    result = 0x6973736572707865;
-  }
-
-  *v0;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  v6 = a1 == 0x6973736572707865 && a2 == 0xEA00000000006E6FLL;
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    v8 = 0;
-  }
-
-  else if (a1 == 0x6F74617261706573 && a2 == 0xE900000000000072)
-  {
-
-    v8 = 1;
-  }
-
-  else
-  {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v9)
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-      v8 = 2;
-    }
-  }
-
-  *a3 = v8;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.MAXCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.MAXCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.MINCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.MINCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.SUMCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.SUMCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance AggregationFunction.AggregationType.AVGCodingKeys()
-{
-  Hasher.init(_seed:)();
-  MEMORY[0x259C33090](0);
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.AggregationType.AVGCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  if (a1 == 0x6973736572707865 && a2 == 0xEA00000000006E6FLL)
-  {
-
-    v7 = 0;
-  }
-
-  else
-  {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    v7 = v5 ^ 1;
-  }
-
-  *a3 = v7 & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.AggregationType.TOTALCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.AggregationType.TOTALCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t AggregationFunction.AggregationType.encode(to:)(void *a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO15TOTALCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO15TOTALCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v72 = *(v2 - 8);
-  v73 = v2;
-  v3 = *(v72 + 64);
-  MEMORY[0x28223BE20](v2);
-  v71 = &v52 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13SUMCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13SUMCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v69 = *(v5 - 8);
-  v70 = v5;
-  v6 = *(v69 + 64);
-  MEMORY[0x28223BE20](v5);
-  v68 = &v52 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13MINCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13MINCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v66 = *(v8 - 8);
-  v67 = v8;
-  v9 = *(v66 + 64);
-  MEMORY[0x28223BE20](v8);
-  v63 = &v52 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13MAXCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13MAXCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v60 = *(v11 - 8);
-  v61 = v11;
-  v12 = *(v60 + 64);
-  MEMORY[0x28223BE20](v11);
-  v59 = &v52 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO22GROUP_CONCATCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO22GROUP_CONCATCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v64 = *(v14 - 8);
-  v65 = v14;
-  v15 = *(v64 + 64);
-  MEMORY[0x28223BE20](v14);
-  v62 = &v52 - v16;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO20COUNT_STARCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO20COUNT_STARCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v55 = *(v17 - 8);
-  v56 = v17;
-  v18 = *(v55 + 64);
-  MEMORY[0x28223BE20](v17);
-  v54 = &v52 - v19;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO15COUNTCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO15COUNTCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v57 = *(v20 - 8);
-  v58 = v20;
-  v21 = *(v57 + 64);
-  MEMORY[0x28223BE20](v20);
-  v23 = &v52 - v22;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13AVGCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO13AVGCodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v53 = *(v24 - 8);
-  v25 = *(v53 + 64);
-  MEMORY[0x28223BE20](v24);
-  v27 = &v52 - v26;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV0F4TypeO10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v29 = *(v28 - 8);
-  v75 = v28;
-  v76 = v29;
-  v30 = *(v29 + 64);
-  MEMORY[0x28223BE20](v28);
-  v32 = &v52 - v31;
-  v33 = a1[4];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
-  lazy protocol witness table accessor for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys();
-  v34 = v32;
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  outlined init with copy of AggregationFunction.AggregationType(v74, &v85);
-  if (v97 > 3u)
-  {
-    if (v97 > 5u)
-    {
-      v35 = v75;
-      if (v97 != 6)
-      {
-        LOBYTE(v79) = 2;
-        lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys();
-        v51 = v54;
-        KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        (*(v55 + 8))(v51, v56);
-        return (*(v76 + 8))(v34, v35);
-      }
-
-      v81 = v87;
-      v82 = v88;
-      v83 = v89;
-      v84 = v90;
-      v79 = v85;
-      v80 = v86;
-      LOBYTE(v78[0]) = 7;
-      lazy protocol witness table accessor for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys();
-      v36 = v71;
-      KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-      v37 = v73;
-      KeyedEncodingContainer.encode<A>(_:forKey:)();
-      v38 = v72;
-    }
-
-    else
-    {
-      v35 = v75;
-      v81 = v87;
-      v82 = v88;
-      v83 = v89;
-      v84 = v90;
-      v79 = v85;
-      v80 = v86;
-      if (v97 == 4)
-      {
-        LOBYTE(v78[0]) = 5;
-        lazy protocol witness table accessor for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys();
-        v36 = v63;
-        KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-        v37 = v67;
-        KeyedEncodingContainer.encode<A>(_:forKey:)();
-        v38 = v66;
-      }
-
-      else
-      {
-        LOBYTE(v78[0]) = 6;
-        lazy protocol witness table accessor for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys();
-        v36 = v68;
-        KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-        v37 = v70;
-        KeyedEncodingContainer.encode<A>(_:forKey:)();
-        v38 = v69;
-      }
-    }
-
-    (*(v38 + 8))(v36, v37);
-LABEL_17:
-    outlined destroy of SQLExpression(&v79);
-    v47 = *(v76 + 8);
-    v48 = v34;
-    return v47(v48, v35);
-  }
-
-  if (v97 <= 1u)
-  {
-    if (v97)
-    {
-      v81 = v87;
-      v82 = v88;
-      v83 = v89;
-      v84 = v90;
-      v79 = v85;
-      v80 = v86;
-      LOBYTE(v78[0]) = 1;
-      lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys();
-      v45 = v75;
-      KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-      v46 = v58;
-      KeyedEncodingContainer.encode<A>(_:forKey:)();
-      (*(v57 + 8))(v23, v46);
-      outlined destroy of SQLExpression(&v79);
-      return (*(v76 + 8))(v34, v45);
-    }
-
-    v81 = v87;
-    v82 = v88;
-    v83 = v89;
-    v84 = v90;
-    v79 = v85;
-    v80 = v86;
-    LOBYTE(v78[0]) = 0;
-    lazy protocol witness table accessor for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys();
-    v35 = v75;
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    (*(v53 + 8))(v27, v24);
-    goto LABEL_17;
-  }
-
-  v39 = v98;
-  v40 = v32;
-  if (v97 != 2)
-  {
-    v81 = v87;
-    v82 = v88;
-    v83 = v89;
-    v84 = v90;
-    v79 = v85;
-    v80 = v86;
-    LOBYTE(v78[0]) = 4;
-    lazy protocol witness table accessor for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys();
-    v49 = v59;
-    v35 = v75;
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-    v50 = v61;
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-    (*(v60 + 8))(v49, v50);
-    outlined destroy of SQLExpression(&v79);
-    v47 = *(v76 + 8);
-    v48 = v40;
-    return v47(v48, v35);
-  }
-
-  v81 = v87;
-  v82 = v88;
-  v83 = v89;
-  v84 = v90;
-  v79 = v85;
-  v80 = v86;
-  v78[2] = v93;
-  v78[3] = v94;
-  v78[4] = v95;
-  v78[5] = v96;
-  v78[0] = v91;
-  v78[1] = v92;
-  v77 = 3;
-  lazy protocol witness table accessor for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys();
-  v41 = v62;
-  v42 = v75;
-  KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-  v77 = 0;
-  lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
-  v43 = v65;
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v39)
-  {
-    v77 = 1;
-    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-  }
-
-  (*(v64 + 8))(v41, v43);
-  outlined destroy of URL?(v78, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-  outlined destroy of SQLExpression(&v79);
-  return (*(v76 + 8))(v32, v42);
-}
-
-uint64_t AggregationFunction.init(functionName:args:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = a2;
-  v6 = a1;
-  if (a1 == 6780513 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v8 = *(a3 + 16);
-    if (v8)
-    {
-      if (v8 == 1)
-      {
-
-        if (*(a3 + 16))
-        {
-          outlined init with copy of VirtualTable.Module(a3 + 32, v127);
-
-          v9 = v128;
-          v10 = v129;
-          __swift_project_boxed_opaque_existential_0(v127, v128);
-          v11 = *((*(v10 + 24))(v9, v10) + 16);
-
-          if (v11)
-          {
-LABEL_8:
-            v12 = v128;
-            v13 = v129;
-            __swift_project_boxed_opaque_existential_0(v127, v128);
-            v14 = (*(v13 + 40))(v12, v13);
-            v16 = v15;
-            lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-            swift_allocError();
-            *v17 = v14;
-            *(v17 + 8) = v16;
-            *(v17 + 16) = 0;
-            *(v17 + 24) = 0;
-            *(v17 + 32) = 3;
-            swift_willThrow();
-            return __swift_destroy_boxed_opaque_existential_0(v127);
-          }
-
-          outlined init with copy of VirtualTable.Module(v127, v124);
-          SQLExpression.init(rootNode:)(v124, &v130);
-          v23 = 256;
-          goto LABEL_24;
-        }
-
-        __break(1u);
-        goto LABEL_95;
-      }
-
-      v143 = v6;
-      v121 = v5;
-      v124[0] = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v8, 0);
-      v24 = v124[0];
-      v25 = a3 + 32;
-      do
-      {
-        outlined init with copy of VirtualTable.Module(v25, v127);
-        v26 = v128;
-        v27 = v129;
-        __swift_project_boxed_opaque_existential_0(v127, v128);
-        v28 = (*(v27 + 40))(v26, v27);
-        v30 = v29;
-        __swift_destroy_boxed_opaque_existential_0(v127);
-        v124[0] = v24;
-        v32 = *(v24 + 16);
-        v31 = *(v24 + 24);
-        if (v32 >= v31 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v31 > 1, v32 + 1, 1);
-          v24 = v124[0];
-        }
-
-        *(v24 + 16) = v32 + 1;
-        v33 = v24 + 16 * v32;
-        *(v33 + 32) = v28;
-        *(v33 + 40) = v30;
-        v25 += 40;
-        --v8;
-      }
-
-      while (v8);
-      goto LABEL_57;
-    }
-
-LABEL_86:
-
-    v24 = MEMORY[0x277D84F90];
-    goto LABEL_87;
-  }
-
-  if (v6 == 0x746E756F63 && v5 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v19 = *(a3 + 16);
-    if (!v19)
-    {
-
-      v140 = 0u;
-      v141 = 0u;
-      v138 = 0u;
-      v139 = 0u;
-      v136 = 0u;
-      v137 = 0u;
-      v134 = 0u;
-      v135 = 0u;
-      v132 = 0u;
-      v133 = 0u;
-      v131 = 0u;
-      v130 = 0u;
-      v142 = 7;
-      goto LABEL_27;
-    }
-
-    if (v19 != 1)
-    {
-      v143 = v6;
-      v122 = v5;
-      v124[0] = MEMORY[0x277D84F90];
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19, 0);
-      v24 = v124[0];
-      v50 = a3 + 32;
-      do
-      {
-        outlined init with copy of VirtualTable.Module(v50, v127);
-        v51 = v128;
-        v52 = v129;
-        __swift_project_boxed_opaque_existential_0(v127, v128);
-        v53 = (*(v52 + 40))(v51, v52);
-        v55 = v54;
-        __swift_destroy_boxed_opaque_existential_0(v127);
-        v124[0] = v24;
-        v57 = *(v24 + 16);
-        v56 = *(v24 + 24);
-        if (v57 >= v56 >> 1)
-        {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v56 > 1, v57 + 1, 1);
-          v24 = v124[0];
-        }
-
-        *(v24 + 16) = v57 + 1;
-        v58 = v24 + 16 * v57;
-        *(v58 + 32) = v53;
-        *(v58 + 40) = v55;
-        v50 += 40;
-        --v19;
-      }
-
-      while (v19);
-
-      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-      swift_allocError();
-      *v59 = v143;
-      *(v59 + 8) = v122;
-      goto LABEL_88;
-    }
-
-    if (*(a3 + 16))
-    {
-      outlined init with copy of VirtualTable.Module(a3 + 32, v127);
-
-      v20 = v128;
-      v21 = v129;
-      __swift_project_boxed_opaque_existential_0(v127, v128);
-      v22 = *((*(v21 + 24))(v20, v21) + 16);
-
-      if (v22)
-      {
-        goto LABEL_8;
-      }
-
-      outlined init with copy of VirtualTable.Module(v127, v124);
-      SQLExpression.init(rootNode:)(v124, &v130);
-      v23 = 1;
-      goto LABEL_24;
-    }
-
-    __break(1u);
-LABEL_104:
-    v116 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    v117 = 0;
-    if (v116)
-    {
-LABEL_111:
-      HIBYTE(v142) = v117;
-      goto LABEL_25;
-    }
-
-    v118 = v128;
-    v119 = v129;
-    __swift_project_boxed_opaque_existential_0(v127, v128);
-    (*(v119 + 16))(v124, v118, v119);
-    if (LOBYTE(v124[0]) <= 6u)
-    {
-LABEL_110:
-      v120 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      v117 = (v120 & 1) == 0;
-      goto LABEL_111;
-    }
-
-LABEL_112:
-
-    HIBYTE(v142) = 0;
-    goto LABEL_25;
-  }
-
-  if (v6 == 0x6F635F70756F7267 && v5 == 0xEC0000007461636ELL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v42 = *(a3 + 16);
-    if (!v42)
-    {
-      goto LABEL_86;
-    }
-
-    if (v42 != 1)
-    {
-      if (v42 != 2)
-      {
-        v143 = v6;
-        v121 = v5;
-        v124[0] = MEMORY[0x277D84F90];
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v42, 0);
-        v24 = v124[0];
-        v69 = a3 + 32;
-        do
-        {
-          outlined init with copy of VirtualTable.Module(v69, v127);
-          v70 = v128;
-          v71 = v129;
-          __swift_project_boxed_opaque_existential_0(v127, v128);
-          v72 = (*(v71 + 40))(v70, v71);
-          v74 = v73;
-          __swift_destroy_boxed_opaque_existential_0(v127);
-          v124[0] = v24;
-          v76 = *(v24 + 16);
-          v75 = *(v24 + 24);
-          if (v76 >= v75 >> 1)
-          {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v75 > 1, v76 + 1, 1);
-            v24 = v124[0];
-          }
-
-          *(v24 + 16) = v76 + 1;
-          v77 = v24 + 16 * v76;
-          *(v77 + 32) = v72;
-          *(v77 + 40) = v74;
-          v69 += 40;
-          --v42;
-        }
-
-        while (v42);
-LABEL_57:
-
-        v5 = v121;
-        v6 = v143;
-LABEL_87:
-        lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-        swift_allocError();
-        *v59 = v6;
-        *(v59 + 8) = v5;
-LABEL_88:
-        *(v59 + 16) = v24;
-        *(v59 + 24) = 0;
-        *(v59 + 32) = 4;
-        return swift_willThrow();
-      }
-
-      v43 = *(a3 + 16);
-      if (v43)
-      {
-        outlined init with copy of VirtualTable.Module(a3 + 32, v127);
-        if (v43 != 1)
-        {
-          outlined init with copy of VirtualTable.Module(a3 + 72, v124);
-
-          v44 = v128;
-          v45 = v129;
-          __swift_project_boxed_opaque_existential_0(v127, v128);
-          v46 = *((*(v45 + 24))(v44, v45) + 16);
-
-          if (v46)
-          {
-            v47 = v128;
-            v48 = v129;
-            v49 = v127;
-          }
-
-          else
-          {
-            v78 = v125;
-            v79 = v126;
-            __swift_project_boxed_opaque_existential_0(v124, v125);
-            v80 = *((*(v79 + 24))(v78, v79) + 16);
-
-            if (!v80)
-            {
-              outlined init with copy of VirtualTable.Module(v127, v123);
-              SQLExpression.init(rootNode:)(v123, &v130);
-              outlined init with copy of VirtualTable.Module(v124, v123);
-              SQLExpression.init(rootNode:)(v123, &v136);
-              v142 = 514;
-              __swift_destroy_boxed_opaque_existential_0(v124);
-              goto LABEL_25;
-            }
-
-            v47 = v125;
-            v48 = v126;
-            v49 = v124;
-          }
-
-          __swift_project_boxed_opaque_existential_0(v49, v47);
-          v81 = (*(v48 + 40))(v47, v48);
-          v83 = v82;
-          lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-          swift_allocError();
-          *v84 = v81;
-          *(v84 + 8) = v83;
-          *(v84 + 16) = 0;
-          *(v84 + 24) = 0;
-          *(v84 + 32) = 3;
-          swift_willThrow();
-          __swift_destroy_boxed_opaque_existential_0(v124);
-          return __swift_destroy_boxed_opaque_existential_0(v127);
-        }
-
-        goto LABEL_109;
-      }
-
-LABEL_108:
-      __break(1u);
-LABEL_109:
-      __break(1u);
-      goto LABEL_110;
-    }
-
-    if (!*(a3 + 16))
-    {
-      __break(1u);
-      goto LABEL_108;
-    }
-
-    outlined init with copy of VirtualTable.Module(a3 + 32, v127);
-
-    v66 = v128;
-    v67 = v129;
-    __swift_project_boxed_opaque_existential_0(v127, v128);
-    v68 = *((*(v67 + 24))(v66, v67) + 16);
-
-    if (v68)
-    {
-      goto LABEL_8;
-    }
-
-    outlined init with copy of VirtualTable.Module(v127, v124);
-    SQLExpression.init(rootNode:)(v124, &v130);
-    v136 = 0u;
-    v137 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v140 = 0u;
-    v141 = 0u;
-    v23 = 514;
-LABEL_24:
-    v142 = v23;
-LABEL_25:
-    result = __swift_destroy_boxed_opaque_existential_0(v127);
-LABEL_27:
-    v34 = v139;
-    v35 = v141;
-    *(a4 + 160) = v140;
-    *(a4 + 176) = v35;
-    v36 = v135;
-    v37 = v137;
-    v38 = v138;
-    *(a4 + 96) = v136;
-    *(a4 + 112) = v37;
-    *(a4 + 128) = v38;
-    *(a4 + 144) = v34;
-    v39 = v131;
-    v40 = v133;
-    v41 = v134;
-    *(a4 + 32) = v132;
-    *(a4 + 48) = v40;
-    *(a4 + 192) = v142;
-    *(a4 + 64) = v41;
-    *(a4 + 80) = v36;
-    *a4 = v130;
-    *(a4 + 16) = v39;
-    return result;
-  }
-
-  if (v6 == 7889261 && v5 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    if (*(a3 + 16) == 1)
-    {
-      outlined init with copy of VirtualTable.Module(a3 + 32, v127);
-
-      v60 = v128;
-      v61 = v129;
-      __swift_project_boxed_opaque_existential_0(v127, v128);
-      v62 = *((*(v61 + 24))(v60, v61) + 16);
-
-      if (v62)
-      {
-        goto LABEL_8;
-      }
-
-      outlined init with copy of VirtualTable.Module(v127, v124);
-      SQLExpression.init(rootNode:)(v124, &v130);
-      v63 = 3;
-      goto LABEL_49;
-    }
-
-    goto LABEL_96;
-  }
-
-  if (v6 == 7235949 && v5 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    if (*(a3 + 16) == 1)
-    {
-      outlined init with copy of VirtualTable.Module(a3 + 32, v127);
-
-      v85 = v128;
-      v86 = v129;
-      __swift_project_boxed_opaque_existential_0(v127, v128);
-      v87 = *((*(v86 + 24))(v85, v86) + 16);
-
-      if (v87)
-      {
-        goto LABEL_8;
-      }
-
-      outlined init with copy of VirtualTable.Module(v127, v124);
-      SQLExpression.init(rootNode:)(v124, &v130);
-      v63 = 4;
-LABEL_49:
-      LOBYTE(v142) = v63;
-      v64 = v128;
-      v65 = v129;
-      __swift_project_boxed_opaque_existential_0(v127, v128);
-      (*(v65 + 16))(&v142 + 1, v64, v65);
-      goto LABEL_25;
-    }
-
-LABEL_96:
-
-    *(a4 + 160) = 0u;
-    *(a4 + 176) = 0u;
-    *(a4 + 128) = 0u;
-    *(a4 + 144) = 0u;
-    *(a4 + 96) = 0u;
-    *(a4 + 112) = 0u;
-    *(a4 + 64) = 0u;
-    *(a4 + 80) = 0u;
-    *(a4 + 32) = 0u;
-    *(a4 + 48) = 0u;
-    *a4 = 0u;
-    *(a4 + 16) = 0u;
-    *(a4 + 192) = 255;
-    return result;
-  }
-
-  if (v6 == 7173491 && v5 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v88 = *(a3 + 16);
-    if (!v88)
-    {
-      goto LABEL_86;
-    }
-
-    if (v88 == 1)
-    {
-
-      if (*(a3 + 16))
-      {
-        outlined init with copy of VirtualTable.Module(a3 + 32, v127);
-
-        v89 = v128;
-        v90 = v129;
-        __swift_project_boxed_opaque_existential_0(v127, v128);
-        v91 = *((*(v90 + 24))(v89, v90) + 16);
-
-        if (v91)
-        {
-          goto LABEL_8;
-        }
-
-        outlined init with copy of VirtualTable.Module(v127, v124);
-        SQLExpression.init(rootNode:)(v124, &v130);
-        LOBYTE(v142) = 5;
-        v92 = v128;
-        v93 = v129;
-        __swift_project_boxed_opaque_existential_0(v127, v128);
-        (*(v93 + 16))(v124, v92, v93);
-        if (LOBYTE(v124[0]) <= 3u && !LOBYTE(v124[0]))
-        {
-          goto LABEL_112;
-        }
-
-        goto LABEL_104;
-      }
-
-      __break(1u);
-      goto LABEL_114;
-    }
-
-    v143 = v6;
-    v124[0] = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v88, 0);
-    v24 = v124[0];
-    v98 = a3 + 32;
-    do
-    {
-      outlined init with copy of VirtualTable.Module(v98, v127);
-      v99 = v128;
-      v100 = v129;
-      __swift_project_boxed_opaque_existential_0(v127, v128);
-      v101 = (*(v100 + 40))(v99, v100);
-      v103 = v102;
-      __swift_destroy_boxed_opaque_existential_0(v127);
-      v124[0] = v24;
-      v105 = *(v24 + 16);
-      v104 = *(v24 + 24);
-      if (v105 >= v104 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v104 > 1, v105 + 1, 1);
-        v24 = v124[0];
-      }
-
-      *(v24 + 16) = v105 + 1;
-      v106 = v24 + 16 * v105;
-      *(v106 + 32) = v101;
-      *(v106 + 40) = v103;
-      v98 += 40;
-      --v88;
-    }
-
-    while (v88);
-LABEL_101:
-
-    v6 = v143;
-    goto LABEL_87;
-  }
-
-  if ((v6 != 0x6C61746F74 || v5 != 0xE500000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-LABEL_95:
-
-    goto LABEL_96;
-  }
-
-  v94 = *(a3 + 16);
-  if (!v94)
-  {
-    goto LABEL_86;
-  }
-
-  v143 = v6;
-  if (v94 != 1)
-  {
-    v124[0] = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v94, 0);
-    v24 = v124[0];
-    v107 = a3 + 32;
-    do
-    {
-      outlined init with copy of VirtualTable.Module(v107, v127);
-      v108 = v128;
-      v109 = v129;
-      __swift_project_boxed_opaque_existential_0(v127, v128);
-      v110 = (*(v109 + 40))(v108, v109);
-      v112 = v111;
-      __swift_destroy_boxed_opaque_existential_0(v127);
-      v124[0] = v24;
-      v114 = *(v24 + 16);
-      v113 = *(v24 + 24);
-      if (v114 >= v113 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v113 > 1, v114 + 1, 1);
-        v24 = v124[0];
-      }
-
-      *(v24 + 16) = v114 + 1;
-      v115 = v24 + 16 * v114;
-      *(v115 + 32) = v110;
-      *(v115 + 40) = v112;
-      v107 += 40;
-      --v94;
-    }
-
-    while (v94);
-    goto LABEL_101;
-  }
-
-  if (*(a3 + 16))
-  {
-    outlined init with copy of VirtualTable.Module(a3 + 32, v127);
-
-    v95 = v128;
-    v96 = v129;
-    __swift_project_boxed_opaque_existential_0(v127, v128);
-    v97 = *((*(v96 + 24))(v95, v96) + 16);
-
-    if (v97)
-    {
-      goto LABEL_8;
-    }
-
-    outlined init with copy of VirtualTable.Module(v127, v124);
-    SQLExpression.init(rootNode:)(v124, &v130);
-    v23 = 262;
-    goto LABEL_24;
-  }
-
-LABEL_114:
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance AggregationFunction.CodingKeys()
-{
-  if (*v0)
-  {
-    result = 0x79546E7275746572;
-  }
-
-  else
-  {
-    result = 0x7461676572676761;
-  }
-
-  *v0;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  v6 = a1 == 0x7461676572676761 && a2 == 0xEF657079546E6F69;
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    v8 = 0;
-  }
-
-  else if (a1 == 0x79546E7275746572 && a2 == 0xEA00000000006570)
-  {
-
-    v8 = 1;
-  }
-
-  else
-  {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v9)
-    {
-      v8 = 1;
-    }
-
-    else
-    {
-      v8 = 2;
-    }
-  }
-
-  *a3 = v8;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t AggregationFunction.encode(to:)(void *a1)
-{
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v12[-v8];
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
-  lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v12[15] = 0;
-  lazy protocol witness table accessor for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType();
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (!v2)
-  {
-    v12[14] = *(v3 + 193);
-    v12[13] = 1;
-    lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType();
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-  }
-
-  return (*(v6 + 8))(v9, v5);
-}
-
-uint64_t static AggregationFunction.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if ((specialized static AggregationFunction.AggregationType.== infix(_:_:)(a1, a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = *(a2 + 193);
-  v5 = *(a1 + 193);
-
-  return specialized == infix<A>(_:_:)(v5, v4);
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AggregationFunction(uint64_t a1, uint64_t a2)
-{
-  if ((specialized static AggregationFunction.AggregationType.== infix(_:_:)(a1, a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = *(a2 + 193);
-  v5 = *(a1 + 193);
-
-  return specialized == infix<A>(_:_:)(v5, v4);
-}
-
-uint64_t protocol witness for SQLExpressionNode.expressionString.getter in conformance SQLExpressionConst()
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  __swift_project_boxed_opaque_existential_0(v0, v1);
-  return (*(v2 + 8))(v1, v2);
-}
-
-uint64_t protocol witness for SQLExpressionNode.returnType.getter in conformance SQLExpressionConst()
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  __swift_project_boxed_opaque_existential_0(v0, v1);
-  return (*(v2 + 16))(v1, v2);
-}
-
-uint64_t SQLExpression.hash(into:)(uint64_t a1)
-{
-  v3 = v1[5];
-  v4 = v1[6];
-  String.hash(into:)();
-  v5 = v1[9];
-
-  return specialized Array<A>.hash(into:)(a1, v5);
-}
-
-Swift::Int SQLExpression.hashValue.getter()
-{
-  Hasher.init(_seed:)();
-  v1 = v0[5];
-  v2 = v0[6];
-  String.hash(into:)();
-  specialized Array<A>.hash(into:)(v4, v0[9]);
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance SQLExpression()
-{
-  Hasher.init(_seed:)();
-  v1 = v0[5];
-  v2 = v0[6];
-  String.hash(into:)();
-  specialized Array<A>.hash(into:)(v4, v0[9]);
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance SQLExpression(uint64_t a1)
-{
-  v3 = v1[5];
-  v4 = v1[6];
-  String.hash(into:)();
-  v5 = v1[9];
-
-  return specialized Array<A>.hash(into:)(a1, v5);
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLExpression()
-{
-  Hasher.init(_seed:)();
-  v1 = v0[5];
-  v2 = v0[6];
-  String.hash(into:)();
-  specialized Array<A>.hash(into:)(v4, v0[9]);
-  return Hasher._finalize()();
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression()
-{
-  result = lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression;
-  if (!lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression;
-  if (!lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType()
-{
-  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType;
-  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType);
-  }
-
-  return result;
-}
-
-uint64_t specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t a2, uint64_t a3)
-{
-  v4 = *(a3 + 16);
-  if (v4)
-  {
-    v6 = v4 - 1;
-    v7 = (a3 + 40);
-    do
-    {
-      v8 = *v7;
-      v12[0] = *(v7 - 1);
-      v12[1] = v8;
-
-      v9 = a1(v12);
-
-      if (v3)
-      {
-        break;
-      }
-
-      v10 = v6-- == 0;
-      v7 += 2;
-    }
-
-    while (((v9 | v10) & 1) == 0);
+    return (*a1 + 9);
   }
-
-  else
-  {
-    LOBYTE(v9) = 0;
-  }
-
-  return v9 & 1;
-}
-
-void _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVySSSiG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_aB15VKXEfU_SS_SiTG5AHxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lySSSiIsgnndzo_Tf1nc_n(unint64_t *a1, uint64_t a2, void *a3, uint64_t (*a4)(void *, uint64_t *))
-{
-  if ((a2 & 0x8000000000000000) == 0)
-  {
-    if (a2)
-    {
-      bzero(a1, 8 * a2);
-    }
-
-    v51 = a2;
-    v52 = 0;
-    v7 = 0;
-    v57 = a3;
-    v10 = a3[8];
-    v9 = a3 + 8;
-    v8 = v10;
-    v11 = 1 << *(v9 - 32);
-    v12 = -1;
-    if (v11 < 64)
-    {
-      v12 = ~(-1 << v11);
-    }
-
-    v13 = v12 & v8;
-    v14 = (v11 + 63) >> 6;
-    while (1)
-    {
-      if (!v13)
-      {
-        v16 = v7;
-        while (1)
-        {
-          v7 = v16 + 1;
-          if (__OFADD__(v16, 1))
-          {
-            break;
-          }
-
-          if (v7 >= v14)
-          {
-            goto LABEL_19;
-          }
-
-          v17 = v9[v7];
-          ++v16;
-          if (v17)
-          {
-            v15 = __clz(__rbit64(v17));
-            v13 = (v17 - 1) & v17;
-            goto LABEL_14;
-          }
-        }
-
-        __break(1u);
-        goto LABEL_49;
-      }
-
-      v15 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_14:
-      v18 = v15 | (v7 << 6);
-      v19 = v57[7];
-      v20 = (v57[6] + 16 * v18);
-      v21 = v20[1];
-      v58[0] = *v20;
-      v58[1] = v21;
-      v59 = *(v19 + 8 * v18);
-
-      v22 = a4(v58, &v59);
-      if (v4)
-      {
-
-        return;
-      }
-
-      v23 = v22;
-
-      if (v23)
-      {
-        *(a1 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
-        v24 = __OFADD__(v52++, 1);
-        if (v24)
-        {
-          break;
-        }
-      }
-    }
-
-    __break(1u);
-LABEL_19:
-    if (!v52)
-    {
-LABEL_47:
-
-      return;
-    }
-
-    v25 = v57;
-    if (v52 == v57[2])
-    {
-      return;
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
-    v26 = static _DictionaryStorage.allocate(capacity:)();
-    v27 = v26;
-    if (v51)
-    {
-      v28 = a1;
-      v29 = *a1;
-    }
-
-    else
-    {
-      v29 = 0;
-      v28 = a1;
-    }
-
-    v30 = 0;
-    v31 = v26 + 64;
-    v32 = v52;
-    while (v29)
-    {
-      v33 = __clz(__rbit64(v29));
-      v53 = (v29 - 1) & v29;
-LABEL_35:
-      v36 = v33 | (v30 << 6);
-      v37 = (v25[6] + 16 * v36);
-      v38 = *v37;
-      v39 = v37[1];
-      v56 = *(v25[7] + 8 * v36);
-      v40 = *(v27 + 40);
-      Hasher.init(_seed:)();
-
-      String.hash(into:)();
-      v41 = Hasher._finalize()();
-      v42 = -1 << *(v27 + 32);
-      v43 = v41 & ~v42;
-      v44 = v43 >> 6;
-      if (((-1 << v43) & ~*(v31 + 8 * (v43 >> 6))) == 0)
-      {
-        v46 = 0;
-        v47 = (63 - v42) >> 6;
-        v28 = a1;
-        while (++v44 != v47 || (v46 & 1) == 0)
-        {
-          v48 = v44 == v47;
-          if (v44 == v47)
-          {
-            v44 = 0;
-          }
-
-          v46 |= v48;
-          v49 = *(v31 + 8 * v44);
-          if (v49 != -1)
-          {
-            v45 = __clz(__rbit64(~v49)) + (v44 << 6);
-            goto LABEL_45;
-          }
-        }
-
-        goto LABEL_50;
-      }
-
-      v45 = __clz(__rbit64((-1 << v43) & ~*(v31 + 8 * (v43 >> 6)))) | v43 & 0x7FFFFFFFFFFFFFC0;
-      v28 = a1;
-LABEL_45:
-      *(v31 + ((v45 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v45;
-      v50 = (*(v27 + 48) + 16 * v45);
-      *v50 = v38;
-      v50[1] = v39;
-      *(*(v27 + 56) + 8 * v45) = v56;
-      ++*(v27 + 16);
-      v24 = __OFSUB__(v32--, 1);
-      if (v24)
-      {
-        goto LABEL_52;
-      }
-
-      v25 = v57;
-      v29 = v53;
-      if (!v32)
-      {
-        goto LABEL_47;
-      }
-    }
-
-    v34 = v30;
-    while (1)
-    {
-      v30 = v34 + 1;
-      if (__OFADD__(v34, 1))
-      {
-        break;
-      }
-
-      if (v30 >= v51)
-      {
-        goto LABEL_47;
-      }
-
-      v35 = v28[v30];
-      ++v34;
-      if (v35)
-      {
-        v33 = __clz(__rbit64(v35));
-        v53 = (v35 - 1) & v35;
-        goto LABEL_35;
-      }
-    }
-
-LABEL_49:
-    __break(1u);
-LABEL_50:
-    __break(1u);
-  }
-
-  __break(1u);
-LABEL_52:
-  __break(1u);
 }
 
-uint64_t specialized Array<A>.hash(into:)(uint64_t a1, uint64_t a2)
+__n128 __swift_memcpy33_8(uint64_t a1, uint64_t a2)
 {
+  result = *a2;
   v3 = *(a2 + 16);
-  result = MEMORY[0x259C33090](v3);
-  if (v3)
-  {
-    v5 = (a2 + 48);
-    do
-    {
-      v7 = *(v5 - 2);
-      v6 = *(v5 - 1);
-      v8 = *v5;
-      v5 += 24;
-
-      String.hash(into:)();
-      String.hash(into:)();
-
-      --v3;
-    }
-
-    while (v3);
-  }
-
+  *(a1 + 32) = *(a2 + 32);
+  *a1 = result;
+  *(a1 + 16) = v3;
   return result;
 }
 
-uint64_t specialized static AggregationFunction.AggregationType.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  outlined init with copy of AggregationFunction.AggregationType(a1, v44);
-  outlined init with copy of AggregationFunction.AggregationType(a2, &v46);
-  if (v45 > 3u)
-  {
-    if (v45 > 5u)
-    {
-      if (v45 != 6)
-      {
-        if (v57 == 7)
-        {
-          v4 = vorrq_s8(vorrq_s8(vorrq_s8(vorrq_s8(v49, v53), vorrq_s8(v51, v55)), vorrq_s8(vorrq_s8(v50, v54), vorrq_s8(v52, v56))), vorrq_s8(vorrq_s8(v46, *v48), vorrq_s8(v47, *&v48[16])));
-          if (!*&vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)))
-          {
-            outlined destroy of AggregationFunction.AggregationType(v44);
-            v3 = 1;
-            return v3 & 1;
-          }
-        }
-
-LABEL_45:
-        outlined destroy of URL?(v44, &_s14BiomeSQLParser19AggregationFunctionV0C4TypeO_AEtMd, &_s14BiomeSQLParser19AggregationFunctionV0C4TypeO_AEtMR);
-        v3 = 0;
-        return v3 & 1;
-      }
-
-      outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-      if (v57 != 6)
-      {
-        goto LABEL_44;
-      }
-    }
-
-    else if (v45 == 4)
-    {
-      outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-      if (v57 != 4)
-      {
-        goto LABEL_44;
-      }
-    }
-
-    else
-    {
-      outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-      if (v57 != 5)
-      {
-        goto LABEL_44;
-      }
-    }
-
-    goto LABEL_32;
-  }
-
-  if (v45 <= 1u)
-  {
-    if (!v45)
-    {
-      outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-      if (!v57)
-      {
-        goto LABEL_32;
-      }
-
-      goto LABEL_44;
-    }
-
-    outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-    if (v57 != 1)
-    {
-LABEL_44:
-      outlined destroy of SQLExpression(&v38);
-      goto LABEL_45;
-    }
-
-LABEL_32:
-    v17 = *v40;
-    v18 = *&v40[16];
-    v19 = v41;
-    v20 = v42;
-    v15 = v38;
-    v16 = v39;
-    v34 = *v48;
-    v35 = *&v48[16];
-    v36 = v49;
-    v37 = v50;
-    v32 = v46;
-    v33 = v47;
-    if (*&v40[8] == *&v48[8] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(BYTE8(v18), BYTE8(v35)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v19.i64[0], v36.i64[0]))
-    {
-      v3 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v19.i64[1], v36.i64[1]);
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-    outlined destroy of SQLExpression(&v32);
-    outlined destroy of SQLExpression(&v15);
-    goto LABEL_39;
-  }
-
-  if (v45 != 2)
-  {
-    outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-    if (v57 != 3)
-    {
-      goto LABEL_44;
-    }
-
-    goto LABEL_32;
-  }
-
-  outlined init with copy of AggregationFunction.AggregationType(v44, &v38);
-  if (v57 != 2)
-  {
-    outlined destroy of URL?(v43, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    goto LABEL_44;
-  }
-
-  v34 = *v40;
-  v35 = *&v40[16];
-  v36 = v41;
-  v37 = v42;
-  v32 = v38;
-  v33 = v39;
-  v28[2] = *v48;
-  v29 = *&v48[16];
-  v30 = v49;
-  v31 = v50;
-  v28[0] = v46;
-  v28[1] = v47;
-  v27[2] = v43[2];
-  v27[3] = v43[3];
-  v27[4] = v43[4];
-  v27[5] = v43[5];
-  v27[0] = v43[0];
-  v27[1] = v43[1];
-  v26[2] = v53;
-  v26[3] = v54;
-  v26[4] = v55;
-  v26[5] = v56;
-  v26[0] = v51;
-  v26[1] = v52;
-  if (*&v40[8] == *&v48[8] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(BYTE8(v35), BYTE8(v29)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v36.i64[0], v30.i64[0]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v36.i64[1], v30.i64[1]))
-  {
-    outlined init with copy of PgQuery_Alias?(v27, &v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined init with copy of PgQuery_Alias?(v26, &v21, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    if (v16.i64[1])
-    {
-      outlined init with copy of PgQuery_Alias?(&v15, v10, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-      if (*(&v22 + 1))
-      {
-        v6[2] = *v23;
-        v7 = *&v23[16];
-        v8 = v24;
-        v9 = v25;
-        v6[0] = v21;
-        v6[1] = v22;
-        if (v11 == *&v23[8] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(v12, BYTE8(v7)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v13, v8))
-        {
-          v3 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v14, *(&v8 + 1));
-        }
-
-        else
-        {
-          v3 = 0;
-        }
-
-        outlined destroy of URL?(v26, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-        outlined destroy of URL?(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-        outlined destroy of SQLExpression(v6);
-        outlined destroy of SQLExpression(v28);
-        outlined destroy of SQLExpression(&v32);
-        outlined destroy of SQLExpression(v10);
-        outlined destroy of URL?(&v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-        goto LABEL_39;
-      }
-
-      outlined destroy of URL?(v26, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-      outlined destroy of URL?(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-      outlined destroy of SQLExpression(v28);
-      outlined destroy of SQLExpression(&v32);
-      outlined destroy of SQLExpression(v10);
-    }
-
-    else
-    {
-      outlined destroy of URL?(v26, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-      outlined destroy of URL?(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-      outlined destroy of SQLExpression(v28);
-      outlined destroy of SQLExpression(&v32);
-      if (!*(&v22 + 1))
-      {
-        outlined destroy of URL?(&v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-        v3 = 1;
-        goto LABEL_39;
-      }
-    }
-
-    outlined destroy of URL?(&v15, &_s14BiomeSQLParser13SQLExpressionVSg_ADtMd, &_s14BiomeSQLParser13SQLExpressionVSg_ADtMR);
-  }
-
-  else
-  {
-    outlined destroy of URL?(v26, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined destroy of URL?(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined destroy of SQLExpression(v28);
-    outlined destroy of SQLExpression(&v32);
-  }
-
-  v3 = 0;
-LABEL_39:
-  outlined destroy of AggregationFunction.AggregationType(v44);
-  return v3 & 1;
-}
-
-__n128 __swift_memcpy96_8(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  *a1 = *a2;
-  *(a1 + 16) = v2;
-  result = *(a2 + 32);
-  v4 = *(a2 + 48);
-  v5 = *(a2 + 80);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 80) = v5;
-  *(a1 + 32) = result;
-  *(a1 + 48) = v4;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for SQLExpression(uint64_t a1, int a2)
+uint64_t getEnumTagSinglePayload for SQLParserError(uint64_t a1, unsigned int a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 < 0 && *(a1 + 96))
+  if (a2 >= 0xF7 && *(a1 + 33))
   {
-    return *a1 + 0x80000000;
+    return (*a1 + 247);
   }
 
-  v2 = *(a1 + 24);
-  if (v2 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for SQLExpression(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 88) = 0;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 96) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *(result + 24) = (a2 - 1);
-      return result;
-    }
-
-    *(result + 96) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t get_enum_tag_for_layout_string_14BiomeSQLParser19AggregationFunctionV0C4TypeO(uint64_t a1)
-{
-  if ((*(a1 + 192) & 7) == 7)
-  {
-    return (*a1 + 7);
-  }
-
-  else
-  {
-    return *(a1 + 192) & 7;
-  }
-}
-
-__n128 __swift_memcpy194_8(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 64);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 64) = v4;
-  *(a1 + 16) = v2;
-  *(a1 + 32) = v3;
-  v5 = *(a2 + 80);
-  v6 = *(a2 + 96);
-  v7 = *(a2 + 128);
-  *(a1 + 112) = *(a2 + 112);
-  *(a1 + 128) = v7;
-  *(a1 + 80) = v5;
-  *(a1 + 96) = v6;
-  result = *(a2 + 144);
-  v9 = *(a2 + 160);
-  v10 = *(a2 + 176);
-  *(a1 + 192) = *(a2 + 192);
-  *(a1 + 160) = v9;
-  *(a1 + 176) = v10;
-  *(a1 + 144) = result;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for AggregationFunction(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xF9 && *(a1 + 194))
-  {
-    return (*a1 + 249);
-  }
-
-  v3 = *(a1 + 192);
-  if (v3 <= 7)
+  v3 = *(a1 + 32);
+  if (v3 <= 9)
   {
     v4 = -1;
   }
@@ -5649,2128 +3270,60 @@ uint64_t getEnumTagSinglePayload for AggregationFunction(uint64_t a1, unsigned i
   return (v4 + 1);
 }
 
-uint64_t storeEnumTagSinglePayload for AggregationFunction(uint64_t result, unsigned int a2, unsigned int a3)
+uint64_t storeEnumTagSinglePayload for SQLParserError(uint64_t result, unsigned int a2, unsigned int a3)
 {
-  if (a2 > 0xF8)
+  if (a2 > 0xF6)
   {
-    *(result + 184) = 0;
-    *(result + 168) = 0u;
-    *(result + 152) = 0u;
-    *(result + 136) = 0u;
-    *(result + 120) = 0u;
-    *(result + 104) = 0u;
-    *(result + 88) = 0u;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 192) = 0;
-    *result = a2 - 249;
-    if (a3 >= 0xF9)
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *(result + 32) = 0;
+    *result = a2 - 247;
+    *(result + 8) = 0;
+    if (a3 >= 0xF7)
     {
-      *(result + 194) = 1;
+      *(result + 33) = 1;
     }
   }
 
   else
   {
-    if (a3 >= 0xF9)
+    if (a3 >= 0xF7)
     {
-      *(result + 194) = 0;
+      *(result + 33) = 0;
     }
 
     if (a2)
     {
-      *(result + 192) = -a2;
+      *(result + 32) = -a2;
     }
   }
 
   return result;
 }
 
-__n128 __swift_memcpy193_8(uint64_t a1, uint64_t a2)
+uint64_t destructiveInjectEnumTag for SQLParserError(uint64_t result, unsigned int a2)
 {
-  *a1 = *a2;
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 64);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 64) = v4;
-  *(a1 + 16) = v2;
-  *(a1 + 32) = v3;
-  v5 = *(a2 + 80);
-  v6 = *(a2 + 96);
-  v7 = *(a2 + 128);
-  *(a1 + 112) = *(a2 + 112);
-  *(a1 + 128) = v7;
-  *(a1 + 80) = v5;
-  *(a1 + 96) = v6;
-  result = *(a2 + 144);
-  v9 = *(a2 + 160);
-  v10 = *(a2 + 176);
-  *(a1 + 192) = *(a2 + 192);
-  *(a1 + 160) = v9;
-  *(a1 + 176) = v10;
-  *(a1 + 144) = result;
+  if (a2 >= 9)
+  {
+    *result = a2 - 9;
+    *(result + 8) = 0;
+    LOBYTE(a2) = 9;
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+  }
+
+  *(result + 32) = a2;
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for AggregationFunction.AggregationType(uint64_t a1, unsigned int a2)
+uint64_t getEnumTagSinglePayload for DatabaseCatalog(uint64_t *a1, int a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 >= 0xF9 && *(a1 + 193))
-  {
-    return (*a1 + 249);
-  }
-
-  v3 = *(a1 + 192);
-  if (v3 >= 8)
-  {
-    return (v3 ^ 0xFF) + 1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t storeEnumTagSinglePayload for AggregationFunction.AggregationType(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xF8)
-  {
-    *(result + 192) = 0;
-    *(result + 160) = 0u;
-    *(result + 176) = 0u;
-    *(result + 128) = 0u;
-    *(result + 144) = 0u;
-    *(result + 96) = 0u;
-    *(result + 112) = 0u;
-    *(result + 64) = 0u;
-    *(result + 80) = 0u;
-    *(result + 32) = 0u;
-    *(result + 48) = 0u;
-    *result = 0u;
-    *(result + 16) = 0u;
-    *result = a2 - 249;
-    if (a3 >= 0xF9)
-    {
-      *(result + 193) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xF9)
-    {
-      *(result + 193) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 192) = -a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t destructiveInjectEnumTag for AggregationFunction.AggregationType(uint64_t result, unsigned int a2)
-{
-  if (a2 > 6)
-  {
-    *(result + 160) = 0u;
-    *(result + 176) = 0u;
-    *(result + 128) = 0u;
-    *(result + 144) = 0u;
-    *(result + 96) = 0u;
-    *(result + 112) = 0u;
-    *(result + 64) = 0u;
-    *(result + 80) = 0u;
-    *(result + 32) = 0u;
-    *(result + 48) = 0u;
-    *result = 0u;
-    *(result + 16) = 0u;
-    *result = a2 - 7;
-    LOBYTE(a2) = 7;
-  }
-
-  *(result + 192) = a2;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for AggregationFunction.AggregationType.CodingKeys(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0xF9)
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 + 7 >= 0xFFFF00)
-  {
-    v2 = 4;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if ((a2 + 7) >> 8 < 0xFF)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
-    {
-      return (*a1 | (v4 << 8)) - 7;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 8)) - 7;
-    }
-
-    v4 = a1[1];
-    if (a1[1])
-    {
-      return (*a1 | (v4 << 8)) - 7;
-    }
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 8;
-  v8 = v6 - 8;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for AggregationFunction.AggregationType.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 7 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 7) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 < 0xF9)
-  {
-    v4 = 0;
-  }
-
-  if (a2 > 0xF8)
-  {
-    v5 = ((a2 - 249) >> 8) + 1;
-    *result = a2 + 7;
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        *(result + 1) = v5;
-      }
-
-      else
-      {
-        *(result + 1) = v5;
-      }
-    }
-
-    else if (v4)
-    {
-      *(result + 1) = v5;
-    }
-
-    return result;
-  }
-
-  if (v4 > 1)
-  {
-    if (v4 != 2)
-    {
-      *(result + 1) = 0;
-      if (a2)
-      {
-        goto LABEL_20;
-      }
-
-      return result;
-    }
-
-    *(result + 1) = 0;
-  }
-
-  else if (v4)
-  {
-    *(result + 1) = 0;
-    if (!a2)
-    {
-      return result;
-    }
-
-LABEL_20:
-    *result = a2 + 7;
-    return result;
-  }
-
-  if (a2)
-  {
-    goto LABEL_20;
-  }
-
-  return result;
-}
-
-_WORD *storeEnumTagSinglePayload for AggregationFunction.AggregationType.AVGCodingKeys(_WORD *result, int a2, int a3)
-{
-  if ((a3 + 1) >= 0x10000)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 1) < 0x100)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (!a3)
-  {
-    v4 = 0;
-  }
-
-  if (a2)
-  {
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        *result = a2;
-      }
-
-      else
-      {
-        *result = a2;
-      }
-    }
-
-    else if (v4)
-    {
-      *result = a2;
-    }
-  }
-
-  else if (v4 > 1)
-  {
-    if (v4 == 2)
-    {
-      *result = 0;
-    }
-
-    else
-    {
-      *result = 0;
-    }
-  }
-
-  else if (v4)
-  {
-    *result = 0;
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for AggregationFunction.CodingKeys(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0xFF)
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 + 1 >= 0xFFFF00)
-  {
-    v2 = 4;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if ((a2 + 1) >> 8 < 0xFF)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
-    {
-      return (*a1 | (v4 << 8)) - 1;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 8)) - 1;
-    }
-
-    v4 = a1[1];
-    if (a1[1])
-    {
-      return (*a1 | (v4 << 8)) - 1;
-    }
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 2;
-  v8 = v6 - 2;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for AggregationFunction.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 1 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 1) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 < 0xFF)
-  {
-    v4 = 0;
-  }
-
-  if (a2 > 0xFE)
-  {
-    v5 = ((a2 - 255) >> 8) + 1;
-    *result = a2 + 1;
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        *(result + 1) = v5;
-      }
-
-      else
-      {
-        *(result + 1) = v5;
-      }
-    }
-
-    else if (v4)
-    {
-      *(result + 1) = v5;
-    }
-
-    return result;
-  }
-
-  if (v4 > 1)
-  {
-    if (v4 != 2)
-    {
-      *(result + 1) = 0;
-      if (a2)
-      {
-        goto LABEL_20;
-      }
-
-      return result;
-    }
-
-    *(result + 1) = 0;
-  }
-
-  else if (v4)
-  {
-    *(result + 1) = 0;
-    if (!a2)
-    {
-      return result;
-    }
-
-LABEL_20:
-    *result = a2 + 1;
-    return result;
-  }
-
-  if (a2)
-  {
-    goto LABEL_20;
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for SQLExpression.CodingKeys(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0xFC)
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 + 4 >= 0xFFFF00)
-  {
-    v2 = 4;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if ((a2 + 4) >> 8 < 0xFF)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
-    {
-      return (*a1 | (v4 << 8)) - 4;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 8)) - 4;
-    }
-
-    v4 = a1[1];
-    if (a1[1])
-    {
-      return (*a1 | (v4 << 8)) - 4;
-    }
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 5;
-  v8 = v6 - 5;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for SQLExpression.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 4 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 4) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 < 0xFC)
-  {
-    v4 = 0;
-  }
-
-  if (a2 > 0xFB)
-  {
-    v5 = ((a2 - 252) >> 8) + 1;
-    *result = a2 + 4;
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        *(result + 1) = v5;
-      }
-
-      else
-      {
-        *(result + 1) = v5;
-      }
-    }
-
-    else if (v4)
-    {
-      *(result + 1) = v5;
-    }
-
-    return result;
-  }
-
-  if (v4 > 1)
-  {
-    if (v4 != 2)
-    {
-      *(result + 1) = 0;
-      if (a2)
-      {
-        goto LABEL_20;
-      }
-
-      return result;
-    }
-
-    *(result + 1) = 0;
-  }
-
-  else if (v4)
-  {
-    *(result + 1) = 0;
-    if (!a2)
-    {
-      return result;
-    }
-
-LABEL_20:
-    *result = a2 + 4;
-    return result;
-  }
-
-  if (a2)
-  {
-    goto LABEL_20;
-  }
-
-  return result;
-}
-
-uint64_t type metadata accessor for SQLExpressionError()
-{
-  result = type metadata singleton initialization cache for SQLExpressionError;
-  if (!type metadata singleton initialization cache for SQLExpressionError)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-void type metadata completion function for SQLExpressionError()
-{
-  type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (node: PgQuery_Node), type metadata accessor for PgQuery_Node);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (BOOLExpr: PgQuery_BoolExpr), type metadata accessor for PgQuery_BoolExpr);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for (numNotArgExprs: Int)();
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (aExpr: PgQuery_A_Expr), type metadata accessor for PgQuery_A_Expr);
-        if (v3 <= 0x3F)
-        {
-          type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (nullTest: PgQuery_NullTest), type metadata accessor for PgQuery_NullTest);
-          if (v4 <= 0x3F)
-          {
-            type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (op: String, dataType: SQLDataType));
-            if (v5 <= 0x3F)
-            {
-              type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (table: String, column: String));
-              if (v6 <= 0x3F)
-              {
-                type metadata accessor for (column: String)();
-                if (v7 <= 0x3F)
-                {
-                  type metadata accessor for (function: String, argTypes: [SQLDataType])();
-                  if (v8 <= 0x3F)
-                  {
-                    type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (column: String, tokenColumn: String));
-                    if (v9 <= 0x3F)
-                    {
-                      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-uint64_t type metadata accessor for (numNotArgExprs: Int)()
-{
-  result = lazy cache variable for type metadata for (numNotArgExprs: Int);
-  if (!lazy cache variable for type metadata for (numNotArgExprs: Int))
-  {
-    result = MEMORY[0x277D83B88];
-    atomic_store(MEMORY[0x277D83B88], &lazy cache variable for type metadata for (numNotArgExprs: Int));
-  }
-
-  return result;
-}
-
-void type metadata accessor for (node: PgQuery_Node)(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void))
-{
-  if (!*a2)
-  {
-    v4 = a3(0);
-    if (!v5)
-    {
-      atomic_store(v4, a2);
-    }
-  }
-}
-
-uint64_t type metadata accessor for (column: String)()
-{
-  result = lazy cache variable for type metadata for (column: String);
-  if (!lazy cache variable for type metadata for (column: String))
-  {
-    result = MEMORY[0x277D837D0];
-    atomic_store(MEMORY[0x277D837D0], &lazy cache variable for type metadata for (column: String));
-  }
-
-  return result;
-}
-
-void type metadata accessor for (function: String, argTypes: [SQLDataType])()
-{
-  if (!lazy cache variable for type metadata for (function: String, argTypes: [SQLDataType]))
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay14BiomeSQLParser11SQLDataTypeOGMd, &_sSay14BiomeSQLParser11SQLDataTypeOGMR);
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (function: String, argTypes: [SQLDataType]));
-    }
-  }
-}
-
-void type metadata accessor for (op: String, dataType: SQLDataType)(uint64_t a1, unint64_t *a2)
-{
-  if (!*a2)
-  {
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v4)
-    {
-      atomic_store(TupleTypeMetadata2, a2);
-    }
-  }
-}
-
-uint64_t specialized ColumnResolver.init(schemas:)(uint64_t a1)
-{
-  v206[9] = *MEMORY[0x277D85DE8];
-  v194 = *(a1 + 16);
-  v193 = a1;
-  if (!v194)
-  {
-    v2 = MEMORY[0x277D84F98];
-LABEL_48:
-    v54 = *(v2 + 32);
-    v10 = v2;
-    v2 = (((1 << v54) + 63) >> 6);
-    if ((v54 & 0x3Fu) > 0xD)
-    {
-      goto LABEL_188;
-    }
-
-LABEL_49:
-    MEMORY[0x28223BE20](a1);
-    v56 = (&v189 - ((v55 + 15) & 0x3FFFFFFFFFFFFFF0));
-    bzero(v56, v55);
-    v57 = 0;
-    v58 = 0;
-    v59 = v10;
-    v61 = *(v10 + 64);
-    v10 += 64;
-    v60 = v61;
-    v62 = 1 << *(v10 - 32);
-    v63 = -1;
-    if (v62 < 64)
-    {
-      v63 = ~(-1 << v62);
-    }
-
-    v64 = v63 & v60;
-    v65 = (v62 + 63) >> 6;
-    while (1)
-    {
-      if (v64)
-      {
-        v66 = __clz(__rbit64(v64));
-        v64 &= v64 - 1;
-        v67 = v66 | (v58 << 6);
-      }
-
-      else
-      {
-        v68 = v58;
-        do
-        {
-          v58 = v68 + 1;
-          if (__OFADD__(v68, 1))
-          {
-            goto LABEL_182;
-          }
-
-          if (v58 >= v65)
-          {
-            goto LABEL_63;
-          }
-
-          v69 = *(v10 + 8 * v58);
-          ++v68;
-        }
-
-        while (!v69);
-        v64 = (v69 - 1) & v69;
-        v67 = __clz(__rbit64(v69)) | (v58 << 6);
-      }
-
-      if (*(*(v59 + 56) + 8 * v67) >= 2)
-      {
-        *(v56 + ((v67 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v67;
-        v21 = __OFADD__(v57++, 1);
-        if (v21)
-        {
-          break;
-        }
-      }
-    }
-
-    __break(1u);
-LABEL_63:
-    if (v57)
-    {
-      v10 = v59;
-      if (v57 == *(v59 + 16))
-      {
-
-        v70 = v59;
-      }
-
-      else
-      {
-        countAndFlagsBits = &v189;
-        v202 = v2;
-        v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
-        v70 = static _DictionaryStorage.allocate(capacity:)();
-        v71 = 0;
-        v72 = *v56;
-        v73 = v70 + 64;
-        v74 = v59;
-        do
-        {
-          if (v72)
-          {
-            v78 = __clz(__rbit64(v72));
-            v72 &= v72 - 1;
-          }
-
-          else
-          {
-            v79 = v71;
-            do
-            {
-              v71 = v79 + 1;
-              if (__OFADD__(v79, 1))
-              {
-                goto LABEL_186;
-              }
-
-              if (v71 >= v202)
-              {
-                goto LABEL_86;
-              }
-
-              v80 = v56[v71];
-              ++v79;
-            }
-
-            while (!v80);
-            v78 = __clz(__rbit64(v80));
-            v72 = (v80 - 1) & v80;
-          }
-
-          v81 = v78 | (v71 << 6);
-          v82 = (*(v74 + 48) + 16 * v81);
-          v83 = *v82;
-          v10 = v82[1];
-          v204 = *(*(v74 + 56) + 8 * v81);
-          v84 = *(v70 + 40);
-          Hasher.init(_seed:)();
-
-          v203 = v83;
-          String.hash(into:)();
-          v2 = v206;
-          v85 = Hasher._finalize()();
-          v86 = -1 << *(v70 + 32);
-          v87 = v85 & ~v86;
-          v88 = v87 >> 6;
-          if (((-1 << v87) & ~*(v73 + 8 * (v87 >> 6))) != 0)
-          {
-            v75 = __clz(__rbit64((-1 << v87) & ~*(v73 + 8 * (v87 >> 6)))) | v87 & 0x7FFFFFFFFFFFFFC0;
-            v74 = v59;
-          }
-
-          else
-          {
-            v89 = 0;
-            v90 = (63 - v86) >> 6;
-            v74 = v59;
-            do
-            {
-              if (++v88 == v90 && (v89 & 1) != 0)
-              {
-                goto LABEL_187;
-              }
-
-              v91 = v88 == v90;
-              if (v88 == v90)
-              {
-                v88 = 0;
-              }
-
-              v89 |= v91;
-              v92 = *(v73 + 8 * v88);
-            }
-
-            while (v92 == -1);
-            v75 = __clz(__rbit64(~v92)) + (v88 << 6);
-          }
-
-          *(v73 + ((v75 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v75;
-          v76 = (*(v70 + 48) + 16 * v75);
-          v77 = v204;
-          *v76 = v203;
-          v76[1] = v10;
-          *(*(v70 + 56) + 8 * v75) = v77;
-          ++*(v70 + 16);
-          --v57;
-        }
-
-        while (v57);
-      }
-    }
-
-    else
-    {
-      v70 = MEMORY[0x277D84F98];
-    }
-
-LABEL_86:
-
-    v93 = v196;
-LABEL_87:
-    v94 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySSSiG_SSs5NeverOTg5181_s14BiomeSQLParser14ColumnResolver33_B787555787B9EFBBEFB0C9C5225A4FB7LLV7schemasADSayAA6SchemaVG_tKcfcS2S3key_Si5valuet_tcfu_32a168a102879cc1a6a91172b0770f0c91SSAI_SiAJtSSTf3nnnpk_nTf1cn_n(v70);
-    v191 = v93;
-
-    v95 = MEMORY[0x259C32D20](*(v94 + 16), MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
-    v205 = v95;
-    v96 = *(v94 + 16);
-    if (v96)
-    {
-      v97 = 0;
-      v98 = (v94 + 40);
-      do
-      {
-        if (v97 >= *(v94 + 16))
-        {
-          goto LABEL_184;
-        }
-
-        ++v97;
-        v10 = *(v98 - 1);
-        v99 = *v98;
-
-        v2 = &v205;
-        specialized Set._Variant.insert(_:)(v206, v10, v99);
-
-        v98 += 2;
-      }
-
-      while (v96 != v97);
-      v100 = v205;
-    }
-
-    else
-    {
-      v100 = v95;
-    }
-
-    if (!v194)
-    {
-      v103 = MEMORY[0x277D84F98];
-LABEL_174:
-      v186 = *MEMORY[0x277D85DE8];
-      return v103;
-    }
-
-    v101 = 0;
-    v192 = v193 + 32;
-    v102 = v100 + 56;
-    v103 = MEMORY[0x277D84F98];
-    v195 = v100;
-    v196 = (v100 + 56);
-LABEL_96:
-    v104 = (v192 + 24 * v101);
-    v105 = v104[1];
-    v200 = *v104;
-    v106 = v104[2];
-    v193 = v101 + 1;
-    v107 = v106 + 64;
-    v108 = 1 << *(v106 + 32);
-    if (v108 < 64)
-    {
-      v109 = ~(-1 << v108);
-    }
-
-    else
-    {
-      v109 = -1;
-    }
-
-    v110 = v109 & *(v106 + 64);
-    v2 = ((v108 + 63) >> 6);
-    v202 = v105;
-
-    v203 = v106;
-    swift_bridgeObjectRetain_n();
-    v111 = 0;
-    v198 = v2;
-    for (i = v106 + 64; ; v107 = i)
-    {
-      if (!v110)
-      {
-        while (1)
-        {
-          v113 = v111 + 1;
-          if (__OFADD__(v111, 1))
-          {
-            break;
-          }
-
-          if (v113 >= v2)
-          {
-
-            v101 = v193;
-            if (v193 == v194)
-            {
-              goto LABEL_174;
-            }
-
-            goto LABEL_96;
-          }
-
-          v110 = *(v107 + 8 * v113);
-          ++v111;
-          if (v110)
-          {
-            goto LABEL_107;
-          }
-        }
-
-LABEL_176:
-        __break(1u);
-LABEL_177:
-        __break(1u);
-        goto LABEL_178;
-      }
-
-      v113 = v111;
-LABEL_107:
-      v114 = __clz(__rbit64(v110)) | (v113 << 6);
-      v115 = (*(v203 + 48) + 16 * v114);
-      v116 = *v115;
-      object = v115[1];
-      LODWORD(v204) = *(*(v203 + 56) + v114);
-      if (!*(v100 + 16))
-      {
-        break;
-      }
-
-      v117 = *(v100 + 40);
-      Hasher.init(_seed:)();
-
-      String.hash(into:)();
-      v118 = Hasher._finalize()();
-      v119 = -1 << *(v100 + 32);
-      v120 = v118 & ~v119;
-      if (((*(v102 + ((v120 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v120) & 1) == 0)
-      {
-        goto LABEL_118;
-      }
-
-      v10 = ~v119;
-      while (1)
-      {
-        v121 = (*(v100 + 48) + 16 * v120);
-        v122 = *v121 == v116 && v121[1] == object;
-        if (v122 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-        {
-          break;
-        }
-
-        v120 = (v120 + 1) & v10;
-        if (((*(v102 + ((v120 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v120) & 1) == 0)
-        {
-          goto LABEL_118;
-        }
-      }
-
-LABEL_128:
-      v206[0] = v200;
-      v206[1] = v202;
-
-      MEMORY[0x259C32B90](46, 0xE100000000000000);
-      MEMORY[0x259C32B90](v116, object);
-
-      v136 = String.lowercased()();
-      object = v136._object;
-
-      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v206[0] = v103;
-      v2 = v103;
-      v138 = specialized __RawDictionaryStorage.find<A>(_:)(v136._countAndFlagsBits, v136._object);
-      v140 = *(v103 + 16);
-      v141 = (v139 & 1) == 0;
-      v21 = __OFADD__(v140, v141);
-      v142 = v140 + v141;
-      if (v21)
-      {
-        goto LABEL_179;
-      }
-
-      v10 = v139;
-      if (*(v103 + 24) < v142)
-      {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v142, isUniquelyReferenced_nonNull_native);
-        v103 = v206[0];
-        v2 = v206[0];
-        v138 = specialized __RawDictionaryStorage.find<A>(_:)(v136._countAndFlagsBits, v136._object);
-        if ((v10 & 1) != (v143 & 1))
-        {
-          goto LABEL_195;
-        }
-
-LABEL_133:
-        v102 = v196;
-        goto LABEL_134;
-      }
-
-      if (isUniquelyReferenced_nonNull_native)
-      {
-        goto LABEL_133;
-      }
-
-      countAndFlagsBits = v138;
-      v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
-      v146 = static _DictionaryStorage.copy(original:)();
-      v147 = *(v103 + 16);
-      v197 = v146;
-      if (v147)
-      {
-        v148 = v146;
-        v149 = (v146 + 64);
-        v2 = (v103 + 64);
-        v150 = ((1 << *(v148 + 32)) + 63) >> 6;
-        if (v148 != v103 || v149 >= &v2[v150])
-        {
-          memmove(v149, (v103 + 64), 8 * v150);
-        }
-
-        v151 = 0;
-        v197[2] = *(v103 + 16);
-        v152 = 1 << *(v103 + 32);
-        v153 = *(v103 + 64);
-        if (v152 < 64)
-        {
-          v154 = ~(-1 << v152);
-        }
-
-        else
-        {
-          v154 = -1;
-        }
-
-        v155 = v154 & v153;
-        v156 = (v152 + 63) >> 6;
-        if ((v154 & v153) != 0)
-        {
-          do
-          {
-            v157 = __clz(__rbit64(v155));
-            v155 &= v155 - 1;
-LABEL_151:
-            v160 = v157 | (v151 << 6);
-            v161 = (*(v103 + 48) + 16 * v160);
-            v163 = *v161;
-            v162 = v161[1];
-            LOBYTE(v161) = *(*(v103 + 56) + v160);
-            v164 = v197;
-            v165 = (v197[6] + 16 * v160);
-            *v165 = v163;
-            v165[1] = v162;
-            *(v164[7] + v160) = v161;
-          }
-
-          while (v155);
-        }
-
-        v158 = v151;
-        while (1)
-        {
-          v151 = v158 + 1;
-          if (__OFADD__(v158, 1))
-          {
-            goto LABEL_193;
-          }
-
-          if (v151 >= v156)
-          {
-            break;
-          }
-
-          v159 = v2[v151];
-          ++v158;
-          if (v159)
-          {
-            v157 = __clz(__rbit64(v159));
-            v155 = (v159 - 1) & v159;
-            goto LABEL_151;
-          }
-        }
-
-        v100 = v195;
-      }
-
-      v138 = countAndFlagsBits;
-      v102 = v196;
-      v103 = v197;
-LABEL_134:
-      v110 &= v110 - 1;
-      if (v10)
-      {
-        v112 = v138;
-
-        *(*(v103 + 56) + v112) = v204;
-      }
-
-      else
-      {
-        *(v103 + 8 * (v138 >> 6) + 64) |= 1 << v138;
-        *(*(v103 + 48) + 16 * v138) = v136;
-        *(*(v103 + 56) + v138) = v204;
-        v144 = *(v103 + 16);
-        v21 = __OFADD__(v144, 1);
-        v145 = v144 + 1;
-        if (v21)
-        {
-          goto LABEL_183;
-        }
-
-        *(v103 + 16) = v145;
-      }
-
-      v111 = v113;
-      v2 = v198;
-    }
-
-LABEL_118:
-    v123 = String.lowercased()();
-    v10 = v123._object;
-    v2 = v103;
-    v124 = swift_isUniquelyReferenced_nonNull_native();
-    v206[0] = v2;
-    countAndFlagsBits = v123._countAndFlagsBits;
-    v126 = specialized __RawDictionaryStorage.find<A>(_:)(v123._countAndFlagsBits, v123._object);
-    v127 = v2[2];
-    v128 = (v125 & 1) == 0;
-    v129 = v127 + v128;
-    if (__OFADD__(v127, v128))
-    {
-      goto LABEL_180;
-    }
-
-    v130 = v125;
-    v197 = v2;
-    if (v2[3] < v129)
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v129, v124);
-      v103 = v206[0];
-      v2 = v206[0];
-      v131 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v123._object);
-      if ((v130 & 1) != (v132 & 1))
-      {
-        goto LABEL_195;
-      }
-
-      v126 = v131;
-      if (v130)
-      {
-        goto LABEL_122;
-      }
-
-LABEL_125:
-      *(v103 + 8 * (v126 >> 6) + 64) |= 1 << v126;
-      v133 = (*(v103 + 48) + 16 * v126);
-      *v133 = countAndFlagsBits;
-      v133[1] = v123._object;
-      *(*(v103 + 56) + v126) = v204;
-      v134 = *(v103 + 16);
-      v21 = __OFADD__(v134, 1);
-      v135 = v134 + 1;
-      if (v21)
-      {
-        goto LABEL_185;
-      }
-
-      *(v103 + 16) = v135;
-      goto LABEL_127;
-    }
-
-    if (v124)
-    {
-      v103 = v197;
-      if ((v125 & 1) == 0)
-      {
-        goto LABEL_125;
-      }
-    }
-
-    else
-    {
-      v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
-      v166 = v197;
-      v167 = static _DictionaryStorage.copy(original:)();
-      v168 = v166;
-      v103 = v167;
-      if (v168[2])
-      {
-        v169 = (v167 + 64);
-        v170 = (v168 + 8);
-        v171 = ((1 << *(v103 + 32)) + 63) >> 6;
-        v189 = v168 + 8;
-        if (v103 != v168 || v169 >= &v170[8 * v171])
-        {
-          memmove(v169, v170, 8 * v171);
-        }
-
-        v172 = 0;
-        v173 = v197;
-        *(v103 + 16) = v197[2];
-        v174 = 1 << *(v173 + 32);
-        v175 = v173[8];
-        if (v174 < 64)
-        {
-          v176 = ~(-1 << v174);
-        }
-
-        else
-        {
-          v176 = -1;
-        }
-
-        v177 = v176 & v175;
-        v2 = ((v174 + 63) >> 6);
-        if (!v177)
-        {
-          goto LABEL_162;
-        }
-
-        while (1)
-        {
-          v178 = __clz(__rbit64(v177));
-          for (j = (v177 - 1) & v177; ; j = (v180 - 1) & v180)
-          {
-            v181 = v178 | (v172 << 6);
-            v182 = (v197[6] + 16 * v181);
-            v184 = *v182;
-            v183 = v182[1];
-            LOBYTE(v182) = *(v197[7] + v181);
-            v185 = (*(v103 + 48) + 16 * v181);
-            *v185 = v184;
-            v185[1] = v183;
-            *(*(v103 + 56) + v181) = v182;
-
-            v177 = j;
-            if (j)
-            {
-              break;
-            }
-
-LABEL_162:
-            v179 = v172;
-            do
-            {
-              v172 = v179 + 1;
-              if (__OFADD__(v179, 1))
-              {
-                goto LABEL_194;
-              }
-
-              if (v172 >= v2)
-              {
-                goto LABEL_169;
-              }
-
-              v180 = v189[v172];
-              ++v179;
-            }
-
-            while (!v180);
-            v178 = __clz(__rbit64(v180));
-          }
-        }
-      }
-
-LABEL_169:
-
-      if ((v130 & 1) == 0)
-      {
-        goto LABEL_125;
-      }
-    }
-
-LABEL_122:
-
-    *(*(v103 + 56) + v126) = v204;
-LABEL_127:
-    v100 = v195;
-    goto LABEL_128;
-  }
-
-  v1 = 0;
-  v197 = (a1 + 32);
-  v2 = MEMORY[0x277D84F98];
-  v3 = MEMORY[0x277D84F98];
-LABEL_4:
-  v4 = &v197[3 * v1];
-  v5 = v4[2];
-  v198 = v4[1];
-  i = v1 + 1;
-  v6 = v5 + 64;
-  v7 = 1 << *(v5 + 32);
-  if (v7 < 64)
-  {
-    v8 = ~(-1 << v7);
-  }
-
-  else
-  {
-    v8 = -1;
-  }
-
-  v9 = v8 & *(v5 + 64);
-  v10 = (v7 + 63) >> 6;
-
-  v202 = v5;
-  swift_bridgeObjectRetain_n();
-  v11 = 0;
-  v200 = v5 + 64;
-  for (countAndFlagsBits = v10; ; v10 = countAndFlagsBits)
-  {
-    if (!v9)
-    {
-      while (1)
-      {
-        v12 = v11 + 1;
-        if (__OFADD__(v11, 1))
-        {
-          __break(1u);
-          goto LABEL_176;
-        }
-
-        if (v12 >= v10)
-        {
-          break;
-        }
-
-        v9 = *(v6 + 8 * v12);
-        ++v11;
-        if (v9)
-        {
-          goto LABEL_15;
-        }
-      }
-
-      v1 = i;
-      if (i == v194)
-      {
-        goto LABEL_48;
-      }
-
-      goto LABEL_4;
-    }
-
-    v12 = v11;
-LABEL_15:
-    v13 = (*(v202 + 48) + ((v12 << 10) | (16 * __clz(__rbit64(v9)))));
-    v14 = *v13;
-    v15 = v13[1];
-    v16 = v2[2];
-
-    v204 = v14;
-    if (v16)
-    {
-
-      v17 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
-      v19 = v18;
-
-      if (v19)
-      {
-        v20 = *(v2[7] + 8 * v17);
-      }
-
-      else
-      {
-        v20 = 0;
-      }
-
-      v14 = v204;
-      v6 = v200;
-    }
-
-    else
-    {
-      v20 = 0;
-    }
-
-    v21 = __OFADD__(v20, 1);
-    v22 = v20 + 1;
-    if (v21)
-    {
-      goto LABEL_177;
-    }
-
-    v203 = v22;
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v206[0] = v3;
-    v2 = v3;
-    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
-    v25 = *(v3 + 16);
-    v26 = (v24 & 1) == 0;
-    v27 = v25 + v26;
-    if (__OFADD__(v25, v26))
-    {
-      break;
-    }
-
-    object = v24;
-    if (*(v3 + 24) >= v27)
-    {
-      if ((v23 & 1) == 0)
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
-        v195 = static _DictionaryStorage.copy(original:)();
-        if (*(v3 + 16))
-        {
-          v35 = (v195 + 64);
-          v36 = (v3 + 64);
-          v37 = ((1 << *(v195 + 32)) + 63) >> 6;
-          v192 = v3 + 64;
-          if (v195 != v3 || v35 >= &v36[8 * v37])
-          {
-            memmove(v35, v36, 8 * v37);
-          }
-
-          v38 = 0;
-          *(v195 + 16) = *(v3 + 16);
-          v39 = 1 << *(v3 + 32);
-          v40 = *(v3 + 64);
-          if (v39 < 64)
-          {
-            v41 = ~(-1 << v39);
-          }
-
-          else
-          {
-            v41 = -1;
-          }
-
-          v42 = v41 & v40;
-          v43 = (v39 + 63) >> 6;
-          if ((v41 & v40) != 0)
-          {
-            do
-            {
-              v44 = __clz(__rbit64(v42));
-              v42 &= v42 - 1;
-LABEL_44:
-              v47 = v44 | (v38 << 6);
-              v48 = (*(v3 + 48) + 16 * v47);
-              v50 = *v48;
-              v49 = v48[1];
-              v51 = *(*(v3 + 56) + 8 * v47);
-              v52 = v195;
-              v53 = (*(v195 + 48) + 16 * v47);
-              *v53 = v50;
-              v53[1] = v49;
-              *(*(v52 + 56) + 8 * v47) = v51;
-            }
-
-            while (v42);
-          }
-
-          v45 = v38;
-          while (1)
-          {
-            v38 = v45 + 1;
-            if (__OFADD__(v45, 1))
-            {
-              __break(1u);
-LABEL_193:
-              __break(1u);
-LABEL_194:
-              __break(1u);
-            }
-
-            if (v38 >= v43)
-            {
-              break;
-            }
-
-            v46 = *(v192 + 8 * v38);
-            ++v45;
-            if (v46)
-            {
-              v44 = __clz(__rbit64(v46));
-              v42 = (v46 - 1) & v46;
-              goto LABEL_44;
-            }
-          }
-        }
-
-        v2 = v195;
-      }
-    }
-
-    else
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v27, v23);
-      v2 = v206[0];
-      v29 = specialized __RawDictionaryStorage.find<A>(_:)(v204, v15);
-      if ((object & 1) != (v30 & 1))
-      {
-LABEL_195:
-        KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-        __break(1u);
-        goto LABEL_196;
-      }
-
-      v10 = v29;
-      v2 = v206[0];
-    }
-
-    v9 &= v9 - 1;
-    if (object)
-    {
-
-      *(v2[7] + 8 * v10) = v203;
-    }
-
-    else
-    {
-      v2[(v10 >> 6) + 8] |= 1 << v10;
-      v31 = (v2[6] + 16 * v10);
-      v32 = v203;
-      *v31 = v204;
-      v31[1] = v15;
-      *(v2[7] + 8 * v10) = v32;
-      v33 = v2[2];
-      v21 = __OFADD__(v33, 1);
-      v34 = v33 + 1;
-      if (v21)
-      {
-        goto LABEL_181;
-      }
-
-      v2[2] = v34;
-    }
-
-    v3 = v2;
-    v11 = v12;
-  }
-
-LABEL_178:
-  __break(1u);
-LABEL_179:
-  __break(1u);
-LABEL_180:
-  __break(1u);
-LABEL_181:
-  __break(1u);
-LABEL_182:
-  __break(1u);
-LABEL_183:
-  __break(1u);
-LABEL_184:
-  __break(1u);
-LABEL_185:
-  __break(1u);
-LABEL_186:
-  __break(1u);
-LABEL_187:
-  __break(1u);
-LABEL_188:
-
-  if (swift_stdlib_isStackAllocationSafe())
-  {
-
-    goto LABEL_49;
-  }
-
-  object = swift_slowAlloc();
-
-  v93 = v196;
-  _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVySSSiG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_aB15VKXEfU_SS_SiTG5AHxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lySSSiIsgnndzo_Tf1nc_n(object, v2, v10, closure #2 in ColumnResolver.init(schemas:));
-  v2 = v93;
-  if (!v93)
-  {
-    v70 = v188;
-
-    MEMORY[0x259C33C60](object, -1, -1);
-
-    goto LABEL_87;
-  }
-
-LABEL_196:
-
-  result = MEMORY[0x259C33C60](object, -1, -1);
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized SQLExpression.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  if (a1 == 0xD000000000000010 && 0x80000002553B6650 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x79546E7275746572 && a2 == 0xEA00000000006570 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 1;
-  }
-
-  else if (a1 == 0xD000000000000014 && 0x80000002553B6670 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 2;
-  }
-
-  else if (a1 == 0x73676E69646E6962 && a2 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 3;
-  }
-
-  else if (a1 == 7106931 && a2 == 0xE300000000000000)
-  {
-
-    return 4;
-  }
-
-  else
-  {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v5)
-    {
-      return 4;
-    }
-
-    else
-    {
-      return 5;
-    }
-  }
-}
-
-uint64_t specialized AggregationFunction.AggregationType.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v3 = a1 == 4675137 && a2 == 0xE300000000000000;
-  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x544E554F43 && a2 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 1;
-  }
-
-  else if (a1 == 0x54535F544E554F43 && a2 == 0xEA00000000005241 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 2;
-  }
-
-  else if (a1 == 0x4F435F50554F5247 && a2 == 0xEC0000005441434ELL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 3;
-  }
-
-  else if (a1 == 5783885 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 4;
-  }
-
-  else if (a1 == 5130573 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 5;
-  }
-
-  else if (a1 == 5068115 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 6;
-  }
-
-  else if (a1 == 0x4C41544F54 && a2 == 0xE500000000000000)
-  {
-
-    return 7;
-  }
-
-  else
-  {
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v6)
-    {
-      return 7;
-    }
-
-    else
-    {
-      return 8;
-    }
-  }
-}
-
-unint64_t lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError()
-{
-  result = lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError;
-  if (!lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError)
-  {
-    type metadata accessor for SQLExpressionError();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError);
-  }
-
-  return result;
-}
-
-void *partial apply for closure #1 in SQLExpressionFuncCall.init(function:schemas:columnResolver:tokenInformation:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
-{
-  result = buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(a3, a1, v3[2], v3[3], v3[4], v3[5]);
-  if (v4)
-  {
-    *a2 = v4;
-  }
-
-  return result;
-}
-
-{
-  return partial apply for closure #1 in SQLExpressioBoolExpr.init(BOOLExpr:schemas:columnResolver:tokenInformation:)(a1, a2, a3);
-}
-
-uint64_t outlined init with copy of PgQuery_Node(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t outlined destroy of PgQuery_Node.OneOf_Node(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  (*(*(v3 - 8) + 8))(a1, v3);
-  return a1;
-}
-
-uint64_t objectdestroyTm()
-{
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[6];
-
-  return MEMORY[0x2821FE8E8](v0, 56, 7);
-}
-
-uint64_t outlined init with take of PgQuery_BitString(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(void *a1)
-{
-  return partial apply for specialized closure #1 in Sequence<>.contains(_:)(a1) & 1;
-}
-
-{
-  v2 = *(v1 + 16);
-  if (*a1 == *v2 && a1[1] == v2[1])
-  {
-    return 1;
-  }
-
-  else
-  {
-    return _stringCompareWithSmolCheck(_:_:expecting:)() & 1;
-  }
-}
-
-unint64_t lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError()
-{
-  result = lazy protocol witness table cache variable for type SQLParserError and conformance SQLParserError;
-  if (!lazy protocol witness table cache variable for type SQLParserError and conformance SQLParserError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLParserError and conformance SQLParserError);
-  }
-
-  return result;
-}
-
-__n128 __swift_memcpy40_8(uint64_t a1, uint64_t a2)
-{
-  result = *a2;
-  v3 = *(a2 + 16);
-  *(a1 + 32) = *(a2 + 32);
-  *a1 = result;
-  *(a1 + 16) = v3;
-  return result;
-}
-
-__n128 __swift_memcpy97_8(uint64_t a1, __int128 *a2)
-{
-  v2 = *a2;
-  v3 = a2[2];
-  *(a1 + 16) = a2[1];
-  *(a1 + 32) = v3;
-  *a1 = v2;
-  result = a2[3];
-  v5 = a2[4];
-  v6 = a2[5];
-  *(a1 + 96) = *(a2 + 96);
-  *(a1 + 64) = v5;
-  *(a1 + 80) = v6;
-  *(a1 + 48) = result;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for SQLExpressionAExpr(uint64_t a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0 && *(a1 + 97))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *(a1 + 64);
-  if (v2 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for SQLExpressionAExpr(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 88) = 0;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 96) = 0;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 97) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *(result + 64) = (a2 - 1);
-      return result;
-    }
-
-    *(result + 97) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-__n128 __swift_memcpy18_8(__n128 *a1, __n128 *a2)
-{
-  result = *a2;
-  a1[1].n128_u16[0] = a2[1].n128_u16[0];
-  *a1 = result;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for SQLExpressioBoolExpr(uint64_t *a1, int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0 && *(a1 + 18))
+  if (a2 < 0 && *(a1 + 8))
   {
     return *a1 + 0x80000000;
   }
@@ -7784,16 +3337,14 @@ uint64_t getEnumTagSinglePayload for SQLExpressioBoolExpr(uint64_t *a1, int a2)
   return (v2 + 1);
 }
 
-uint64_t storeEnumTagSinglePayload for SQLExpressioBoolExpr(uint64_t result, int a2, int a3)
+uint64_t storeEnumTagSinglePayload for DatabaseCatalog(uint64_t result, int a2, int a3)
 {
   if (a2 < 0)
   {
-    *(result + 16) = 0;
     *result = a2 & 0x7FFFFFFF;
-    *(result + 8) = 0;
     if (a3 < 0)
     {
-      *(result + 18) = 1;
+      *(result + 8) = 1;
     }
   }
 
@@ -7811,7 +3362,7 @@ LABEL_8:
       return result;
     }
 
-    *(result + 18) = 0;
+    *(result + 8) = 0;
     if (a2)
     {
       goto LABEL_8;
@@ -7821,32 +3372,37 @@ LABEL_8:
   return result;
 }
 
-__n128 __swift_memcpy50_8(uint64_t a1, uint64_t a2)
+__n128 __swift_memcpy104_8(uint64_t a1, __int128 *a2)
 {
-  result = *a2;
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 32);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 16) = v3;
-  *(a1 + 32) = v4;
-  *a1 = result;
+  v2 = *a2;
+  v3 = a2[2];
+  *(a1 + 16) = a2[1];
+  *(a1 + 32) = v3;
+  *a1 = v2;
+  result = a2[3];
+  v5 = a2[4];
+  v6 = a2[5];
+  *(a1 + 96) = *(a2 + 12);
+  *(a1 + 64) = v5;
+  *(a1 + 80) = v6;
+  *(a1 + 48) = result;
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for SQLExpressionNullTest(uint64_t a1, int a2)
+uint64_t getEnumTagSinglePayload for FromClause(uint64_t *a1, int a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 < 0 && *(a1 + 50))
+  if (a2 < 0 && *(a1 + 104))
   {
     return *a1 + 0x80000000;
   }
 
-  v2 = *(a1 + 24);
-  if (v2 >= 0xFFFFFFFF)
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
   {
     LODWORD(v2) = -1;
   }
@@ -7854,18 +3410,20 @@ uint64_t getEnumTagSinglePayload for SQLExpressionNullTest(uint64_t a1, int a2)
   return (v2 + 1);
 }
 
-uint64_t storeEnumTagSinglePayload for SQLExpressionNullTest(uint64_t result, int a2, int a3)
+uint64_t storeEnumTagSinglePayload for FromClause(uint64_t result, int a2, int a3)
 {
   if (a2 < 0)
   {
-    *(result + 40) = 0;
+    *(result + 72) = 0u;
+    *(result + 88) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
     *(result + 24) = 0u;
     *(result + 8) = 0u;
-    *(result + 48) = 0;
     *result = a2 & 0x7FFFFFFF;
     if (a3 < 0)
     {
-      *(result + 50) = 1;
+      *(result + 104) = 1;
     }
   }
 
@@ -7879,11 +3437,11 @@ uint64_t storeEnumTagSinglePayload for SQLExpressionNullTest(uint64_t result, in
       }
 
 LABEL_8:
-      *(result + 24) = (a2 - 1);
+      *result = (a2 - 1);
       return result;
     }
 
-    *(result + 50) = 0;
+    *(result + 104) = 0;
     if (a2)
     {
       goto LABEL_8;
@@ -7893,49 +3451,39 @@ LABEL_8:
   return result;
 }
 
-__n128 __swift_memcpy216_8(uint64_t a1, uint64_t a2)
+__n128 __swift_memcpy128_8(uint64_t a1, __int128 *a2)
 {
-  v2 = *(a2 + 16);
-  *a1 = *a2;
-  *(a1 + 16) = v2;
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 48);
-  v5 = *(a2 + 80);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 80) = v5;
-  *(a1 + 32) = v3;
+  v2 = *a2;
+  v3 = a2[1];
+  v4 = a2[3];
+  *(a1 + 32) = a2[2];
   *(a1 + 48) = v4;
-  v6 = *(a2 + 96);
-  v7 = *(a2 + 112);
-  v8 = *(a2 + 144);
-  *(a1 + 128) = *(a2 + 128);
-  *(a1 + 144) = v8;
-  *(a1 + 96) = v6;
+  *a1 = v2;
+  *(a1 + 16) = v3;
+  result = a2[4];
+  v6 = a2[5];
+  v7 = a2[7];
+  *(a1 + 96) = a2[6];
   *(a1 + 112) = v7;
-  result = *(a2 + 160);
-  v10 = *(a2 + 176);
-  v11 = *(a2 + 192);
-  *(a1 + 208) = *(a2 + 208);
-  *(a1 + 176) = v10;
-  *(a1 + 192) = v11;
-  *(a1 + 160) = result;
+  *(a1 + 64) = result;
+  *(a1 + 80) = v6;
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for SQLExpressionAggregationFunction(uint64_t a1, int a2)
+uint64_t getEnumTagSinglePayload for SelectCore(uint64_t *a1, int a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 < 0 && *(a1 + 216))
+  if (a2 < 0 && *(a1 + 312))
   {
     return *a1 + 0x80000000;
   }
 
-  v2 = *(a1 + 208);
-  if (v2 >= 0xFFFFFFFF)
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
   {
     LODWORD(v2) = -1;
   }
@@ -7943,10 +3491,13 @@ uint64_t getEnumTagSinglePayload for SQLExpressionAggregationFunction(uint64_t a
   return (v2 + 1);
 }
 
-uint64_t storeEnumTagSinglePayload for SQLExpressionAggregationFunction(uint64_t result, int a2, int a3)
+uint64_t storeEnumTagSinglePayload for SelectCore(uint64_t result, int a2, int a3)
 {
   if (a2 < 0)
   {
+    *(result + 248) = 0u;
+    *(result + 232) = 0u;
+    *(result + 216) = 0u;
     *(result + 200) = 0u;
     *(result + 184) = 0u;
     *(result + 168) = 0u;
@@ -7960,10 +3511,13 @@ uint64_t storeEnumTagSinglePayload for SQLExpressionAggregationFunction(uint64_t
     *(result + 40) = 0u;
     *(result + 24) = 0u;
     *(result + 8) = 0u;
+    *(result + 296) = 0u;
+    *(result + 280) = 0u;
+    *(result + 264) = 0u;
     *result = a2 & 0x7FFFFFFF;
     if (a3 < 0)
     {
-      *(result + 216) = 1;
+      *(result + 312) = 1;
     }
   }
 
@@ -7977,11 +3531,11 @@ uint64_t storeEnumTagSinglePayload for SQLExpressionAggregationFunction(uint64_t
       }
 
 LABEL_8:
-      *(result + 208) = (a2 - 1);
+      *result = (a2 - 1);
       return result;
     }
 
-    *(result + 216) = 0;
+    *(result + 312) = 0;
     if (a2)
     {
       goto LABEL_8;
@@ -7991,14 +3545,14 @@ LABEL_8:
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for Binding(uint64_t a1, int a2)
+uint64_t getEnumTagSinglePayload for MaterializedView(uint64_t a1, int a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 < 0 && *(a1 + 17))
+  if (a2 < 0 && *(a1 + 328))
   {
     return *a1 + 0x80000000;
   }
@@ -8012,16 +3566,34 @@ uint64_t getEnumTagSinglePayload for Binding(uint64_t a1, int a2)
   return (v2 + 1);
 }
 
-uint64_t storeEnumTagSinglePayload for Binding(uint64_t result, int a2, int a3)
+uint64_t storeEnumTagSinglePayload for MaterializedView(uint64_t result, int a2, int a3)
 {
   if (a2 < 0)
   {
-    *(result + 16) = 0;
+    *(result + 248) = 0u;
+    *(result + 232) = 0u;
+    *(result + 216) = 0u;
+    *(result + 200) = 0u;
+    *(result + 184) = 0u;
+    *(result + 168) = 0u;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 296) = 0u;
+    *(result + 280) = 0u;
+    *(result + 264) = 0u;
+    *(result + 312) = 0u;
     *result = a2 & 0x7FFFFFFF;
-    *(result + 8) = 0;
     if (a3 < 0)
     {
-      *(result + 17) = 1;
+      *(result + 328) = 1;
     }
   }
 
@@ -8039,7 +3611,7 @@ LABEL_8:
       return result;
     }
 
-    *(result + 17) = 0;
+    *(result + 328) = 0;
     if (a2)
     {
       goto LABEL_8;
@@ -8049,19 +3621,19 @@ LABEL_8:
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for SQLExpressionConst(uint64_t a1, int a2)
+uint64_t getEnumTagSinglePayload for LogicalPlan(uint64_t a1, int a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 < 0 && *(a1 + 40))
+  if (a2 < 0 && *(a1 + 368))
   {
     return *a1 + 0x80000000;
   }
 
-  v2 = *(a1 + 24);
+  v2 = *(a1 + 344);
   if (v2 >= 0xFFFFFFFF)
   {
     LODWORD(v2) = -1;
@@ -8070,16 +3642,37 @@ uint64_t getEnumTagSinglePayload for SQLExpressionConst(uint64_t a1, int a2)
   return (v2 + 1);
 }
 
-uint64_t storeEnumTagSinglePayload for SQLExpressionConst(uint64_t result, int a2, int a3)
+uint64_t storeEnumTagSinglePayload for LogicalPlan(uint64_t result, int a2, int a3)
 {
   if (a2 < 0)
   {
-    *(result + 8) = 0u;
+    *(result + 360) = 0;
+    *(result + 248) = 0u;
+    *(result + 232) = 0u;
+    *(result + 216) = 0u;
+    *(result + 200) = 0u;
+    *(result + 184) = 0u;
+    *(result + 168) = 0u;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
     *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 344) = 0u;
+    *(result + 328) = 0u;
+    *(result + 312) = 0u;
+    *(result + 296) = 0u;
+    *(result + 280) = 0u;
+    *(result + 264) = 0u;
     *result = a2 & 0x7FFFFFFF;
     if (a3 < 0)
     {
-      *(result + 40) = 1;
+      *(result + 368) = 1;
     }
   }
 
@@ -8093,11 +3686,11 @@ uint64_t storeEnumTagSinglePayload for SQLExpressionConst(uint64_t result, int a
       }
 
 LABEL_8:
-      *(result + 24) = (a2 - 1);
+      *(result + 344) = (a2 - 1);
       return result;
     }
 
-    *(result + 40) = 0;
+    *(result + 368) = 0;
     if (a2)
     {
       goto LABEL_8;
@@ -8107,2573 +3700,10340 @@ LABEL_8:
   return result;
 }
 
-uint64_t getEnumTagSinglePayload for SQLExpressionInteger(uint64_t a1, int a2)
+uint64_t getEnumTagSinglePayload for LogicalPlanType(uint64_t a1, unsigned int a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 < 0 && *(a1 + 24))
+  if (a2 >= 0xFF && *(a1 + 329))
   {
-    return *a1 + 0x80000000;
+    return (*a1 + 255);
   }
 
-  v2 = *(a1 + 8);
-  if (v2 >= 0xFFFFFFFF)
+  v3 = *(a1 + 328);
+  if (v3 >= 2)
   {
-    LODWORD(v2) = -1;
+    return (v3 ^ 0xFF) + 1;
   }
 
-  return (v2 + 1);
-}
-
-uint64_t getEnumTagSinglePayload for SQLExpressionConstString(uint64_t a1, int a2)
-{
-  if (!a2)
+  else
   {
     return 0;
   }
-
-  if (a2 < 0 && *(a1 + 40))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *(a1 + 8);
-  if (v2 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
 }
 
-uint64_t storeEnumTagSinglePayload for SQLExpressionConstString(uint64_t result, int a2, int a3)
+uint64_t storeEnumTagSinglePayload for LogicalPlanType(uint64_t result, unsigned int a2, unsigned int a3)
 {
-  if (a2 < 0)
+  if (a2 > 0xFE)
   {
-    *(result + 8) = 0u;
-    *(result + 24) = 0u;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
+    *(result + 288) = 0u;
+    *(result + 304) = 0u;
+    *(result + 256) = 0u;
+    *(result + 272) = 0u;
+    *(result + 224) = 0u;
+    *(result + 240) = 0u;
+    *(result + 192) = 0u;
+    *(result + 208) = 0u;
+    *(result + 160) = 0u;
+    *(result + 176) = 0u;
+    *(result + 128) = 0u;
+    *(result + 144) = 0u;
+    *(result + 96) = 0u;
+    *(result + 112) = 0u;
+    *(result + 64) = 0u;
+    *(result + 80) = 0u;
+    *(result + 32) = 0u;
+    *(result + 48) = 0u;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *(result + 313) = 0u;
+    *result = a2 - 255;
+    if (a3 >= 0xFF)
     {
-      *(result + 40) = 1;
+      *(result + 329) = 1;
     }
   }
 
   else
   {
-    if ((a3 & 0x80000000) == 0)
+    if (a3 >= 0xFF)
     {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *(result + 8) = (a2 - 1);
-      return result;
+      *(result + 329) = 0;
     }
 
-    *(result + 40) = 0;
     if (a2)
     {
-      goto LABEL_8;
+      *(result + 328) = -a2;
     }
   }
 
   return result;
 }
 
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF013SQLExpressionH033_B787555787B9EFBBEFB0C9C5225A4FB7LL_psAE_pTg5(void (*a1)(__int128 *__return_ptr, uint64_t, uint64_t *), uint64_t a2, uint64_t a3)
+uint64_t destructiveInjectEnumTag for LogicalPlanType(uint64_t result, unsigned int a2)
 {
-  v4 = v3;
-  v5 = *(a3 + 16);
-  v6 = MEMORY[0x277D84F90];
-  if (v5)
+  if (a2 > 1)
   {
-    v17 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5, 0);
-    v6 = v17;
-    v9 = *(type metadata accessor for PgQuery_Node(0) - 8);
-    v10 = a3 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
-    v11 = *(v9 + 72);
-    while (1)
+    *(result + 320) = 0;
+    *(result + 288) = 0u;
+    *(result + 304) = 0u;
+    *(result + 256) = 0u;
+    *(result + 272) = 0u;
+    *(result + 224) = 0u;
+    *(result + 240) = 0u;
+    *(result + 192) = 0u;
+    *(result + 208) = 0u;
+    *(result + 160) = 0u;
+    *(result + 176) = 0u;
+    *(result + 128) = 0u;
+    *(result + 144) = 0u;
+    *(result + 96) = 0u;
+    *(result + 112) = 0u;
+    *(result + 64) = 0u;
+    *(result + 80) = 0u;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *result = a2 - 2;
+    LOBYTE(a2) = 2;
+    *(result + 32) = 0u;
+    *(result + 48) = 0u;
+  }
+
+  *(result + 328) = a2;
+  return result;
+}
+
+void type metadata completion function for SQLParseResult(uint64_t a1)
+{
+  type metadata accessor for PgQuery_ParseResult(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for PgQuery_ScanResult(319);
+    if (v2 <= 0x3F)
     {
-      a1(v16, v10, &v15);
-      if (v4)
+      type metadata accessor for [String]();
+      if (v3 <= 0x3F)
       {
-        break;
-      }
-
-      v4 = 0;
-      v17 = v6;
-      v13 = *(v6 + 16);
-      v12 = *(v6 + 24);
-      if (v13 >= v12 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
-        v6 = v17;
-      }
-
-      *(v6 + 16) = v13 + 1;
-      outlined init with take of SQLExpressionNode(v16, v6 + 40 * v13 + 32);
-      v10 += v11;
-      if (!--v5)
-      {
-        return v6;
+        swift_cvw_initStructMetadataWithLayoutString();
       }
     }
   }
-
-  return v6;
 }
 
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF12ResultColumnVsAE_pTg5(void (*a1)(_OWORD *__return_ptr, uint64_t, uint64_t *), uint64_t a2, uint64_t a3)
+void type metadata accessor for [String]()
 {
-  v4 = *(a3 + 16);
-  v5 = MEMORY[0x277D84F90];
-  if (v4)
+  if (!lazy cache variable for type metadata for [String])
   {
-    v23 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
-    v5 = v23;
-    v8 = *(type metadata accessor for PgQuery_Node(0) - 8);
-    v9 = a3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
-    v10 = *(v8 + 72);
-    while (1)
+    v0 = type metadata accessor for Array();
+    if (!v1)
     {
-      a1(v22, v9, &v21);
-      if (v3)
-      {
-        break;
-      }
-
-      v23 = v5;
-      v12 = *(v5 + 16);
-      v11 = *(v5 + 24);
-      if (v12 >= v11 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1);
-        v5 = v23;
-      }
-
-      *(v5 + 16) = v12 + 1;
-      v13 = (v5 + (v12 << 7));
-      v14 = v22[0];
-      v15 = v22[1];
-      v16 = v22[3];
-      v13[4] = v22[2];
-      v13[5] = v16;
-      v13[2] = v14;
-      v13[3] = v15;
-      v17 = v22[4];
-      v18 = v22[5];
-      v19 = v22[7];
-      v13[8] = v22[6];
-      v13[9] = v19;
-      v13[6] = v17;
-      v13[7] = v18;
-      v9 += v10;
-      if (!--v4)
-      {
-        return v5;
-      }
+      atomic_store(v0, &lazy cache variable for type metadata for [String]);
     }
   }
-
-  return v5;
 }
 
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF13SQLExpressionVsAE_pTg5(void (*a1)(_OWORD *__return_ptr, uint64_t, uint64_t *), uint64_t a2, uint64_t a3)
+uint64_t getEnumTagSinglePayload for LogicalPlan.CodingKeys(unsigned __int8 *a1, unsigned int a2)
 {
-  v4 = *(a3 + 16);
-  v5 = MEMORY[0x277D84F90];
-  if (v4)
-  {
-    v21 = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
-    v5 = v21;
-    v8 = *(type metadata accessor for PgQuery_Node(0) - 8);
-    v9 = a3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
-    v10 = *(v8 + 72);
-    while (1)
-    {
-      a1(v20, v9, &v19);
-      if (v3)
-      {
-        break;
-      }
-
-      v21 = v5;
-      v12 = *(v5 + 16);
-      v11 = *(v5 + 24);
-      if (v12 >= v11 >> 1)
-      {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1);
-        v5 = v21;
-      }
-
-      *(v5 + 16) = v12 + 1;
-      v13 = (v5 + 96 * v12);
-      v14 = v20[1];
-      v13[2] = v20[0];
-      v13[3] = v14;
-      v15 = v20[2];
-      v16 = v20[3];
-      v17 = v20[5];
-      v13[6] = v20[4];
-      v13[7] = v17;
-      v13[4] = v15;
-      v13[5] = v16;
-      v9 += v10;
-      if (!--v4)
-      {
-        return v5;
-      }
-    }
-  }
-
-  return v5;
-}
-
-uint64_t specialized Set.contains(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (!*(a3 + 16))
+  if (!a2)
   {
     return 0;
   }
 
-  v6 = *(a3 + 40);
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-  v7 = Hasher._finalize()();
-  v8 = -1 << *(a3 + 32);
-  v9 = v7 & ~v8;
-  if (((*(a3 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+  if (a2 < 0xFD)
   {
-    return 0;
+    goto LABEL_17;
   }
 
-  v10 = ~v8;
-  while (1)
+  if (a2 + 3 >= 0xFFFF00)
   {
-    v11 = (*(a3 + 48) + 16 * v9);
-    v12 = *v11 == a1 && v11[1] == a2;
-    if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-    {
-      break;
-    }
+    v2 = 4;
+  }
 
-    v9 = (v9 + 1) & v10;
-    if (((*(a3 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 3) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
     {
-      return 0;
+      return (*a1 | (v4 << 8)) - 3;
     }
   }
 
-  return 1;
-}
-
-unint64_t SQLParserError.description.getter()
-{
-  v2 = *v0;
-  v1 = *(v0 + 8);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 32);
-  if (v5 <= 4)
+  else
   {
-    if (*(v0 + 32) > 1u)
+    if (v3 == 2)
     {
-      if (v5 != 2)
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
       {
-        if (v5 != 3)
-        {
-          v13 = 0;
-          _StringGuts.grow(_:)(60);
-          MEMORY[0x259C32B90](0xD000000000000029, 0x80000002553B67B0);
-          MEMORY[0x259C32B90](v2, v1);
-          MEMORY[0x259C32B90](0x6120687469772022, 0xEE0022203A736772);
-          v11 = MEMORY[0x259C32CC0](v3, MEMORY[0x277D837D0]);
-          MEMORY[0x259C32B90](v11);
-
-LABEL_25:
-          v6 = 34;
-          v7 = 0xE100000000000000;
-          goto LABEL_26;
-        }
-
-        v13 = 0;
-        _StringGuts.grow(_:)(53);
-        MEMORY[0x259C32B90](0xD000000000000032, 0x80000002553B67E0);
-        goto LABEL_23;
+        goto LABEL_17;
       }
 
-      _StringGuts.grow(_:)(42);
-
-      v13 = 0x20656C626154;
-      MEMORY[0x259C32B90](v2, v1);
-      v6 = 0xD000000000000022;
-      v7 = 0x80000002553B6820;
-LABEL_26:
-      MEMORY[0x259C32B90](v6, v7);
-      return v13;
+      return (*a1 | (v4 << 8)) - 3;
     }
 
-    if (!*(v0 + 32))
+    v4 = a1[1];
+    if (a1[1])
     {
-      _StringGuts.grow(_:)(29);
-
-      v13 = 0xD000000000000016;
-      MEMORY[0x259C32B90](v3, v4);
-      MEMORY[0x259C32B90](657954, 0xE300000000000000);
-      goto LABEL_12;
+      return (*a1 | (v4 << 8)) - 3;
     }
-
-    _StringGuts.grow(_:)(29);
-
-    v8 = 0xD00000000000001ALL;
-LABEL_22:
-    v13 = v8;
-LABEL_23:
-    v9 = v2;
-    v10 = v1;
-    goto LABEL_24;
   }
 
-  if (*(v0 + 32) <= 6u)
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 4;
+  v8 = v6 - 4;
+  if (!v7)
   {
-    _StringGuts.grow(_:)(50);
-
-    v8 = 0xD00000000000002FLL;
-    goto LABEL_22;
+    v8 = -1;
   }
 
-  if (v5 == 7)
-  {
-    v13 = 0;
-    _StringGuts.grow(_:)(109);
-    MEMORY[0x259C32B90](0xD00000000000005CLL, 0x80000002553B66B0);
-    MEMORY[0x259C32B90](v2, v1);
-    MEMORY[0x259C32B90](0x6F73616552202E22, 0xEC00000022203A6ELL);
-    v9 = v3;
-    v10 = v4;
-LABEL_24:
-    MEMORY[0x259C32B90](v9, v10);
-    goto LABEL_25;
-  }
+  return (v8 + 1);
+}
 
-  if (v5 == 8)
+uint64_t storeEnumTagSinglePayload for LogicalPlan.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 3 >= 0xFFFF00)
   {
-    _StringGuts.grow(_:)(33);
-
-    v13 = 0xD00000000000001FLL;
-LABEL_12:
-    v6 = v2;
-    v7 = v1;
-    goto LABEL_26;
-  }
-
-  if (v3 | v1 | v2 | v4)
-  {
-    return 0xD000000000000036;
+    v3 = 4;
   }
 
   else
   {
-    return 0xD000000000000026;
-  }
-}
-
-BiomeSQLParser::SQLDataType_optional __swiftcall SQLDataType.init(rawValue:)(Swift::String rawValue)
-{
-  object = rawValue._object;
-  v3._countAndFlagsBits = rawValue._countAndFlagsBits;
-  v4 = v1;
-  v3._object = object;
-  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of SQLDataType.init(rawValue:), v3);
-
-  v7 = 8;
-  if (v5 < 8)
-  {
-    v7 = v5;
+    v3 = 2;
   }
 
-  *v4 = v7;
-  return result;
-}
-
-uint64_t SQLDataType.rawValue.getter()
-{
-  v1 = *v0;
-  v2 = 0x72656765746E69;
-  v3 = 1684632949;
-  if (v1 != 6)
+  if ((a3 + 3) >> 8 < 0xFF)
   {
-    v3 = 1819047278;
-  }
-
-  v4 = 1635017060;
-  if (v1 != 4)
-  {
-    v4 = 1852797802;
-  }
-
-  if (*v0 <= 5u)
-  {
-    v3 = v4;
-  }
-
-  v5 = 0x676E69727473;
-  if (v1 != 2)
-  {
-    v5 = 1702125924;
-  }
-
-  if (*v0)
-  {
-    v2 = 0x656C62756F64;
-  }
-
-  if (*v0 > 1u)
-  {
-    v2 = v5;
-  }
-
-  if (*v0 <= 3u)
-  {
-    return v2;
+    v4 = 1;
   }
 
   else
   {
-    return v3;
-  }
-}
-
-void protocol witness for RawRepresentable.rawValue.getter in conformance SQLDataType(uint64_t *a1@<X8>)
-{
-  v2 = *v1;
-  v3 = 0xE700000000000000;
-  v4 = 0x72656765746E69;
-  v5 = 1684632949;
-  if (v2 != 6)
-  {
-    v5 = 1819047278;
+    v4 = v3;
   }
 
-  v6 = 1635017060;
-  if (v2 != 4)
+  if (a3 < 0xFD)
   {
-    v6 = 1852797802;
+    v4 = 0;
   }
 
-  if (*v1 <= 5u)
+  if (a2 > 0xFC)
   {
-    v5 = v6;
-  }
-
-  v7 = 0xE600000000000000;
-  v8 = 0x676E69727473;
-  if (v2 != 2)
-  {
-    v8 = 1702125924;
-    v7 = 0xE400000000000000;
-  }
-
-  if (*v1)
-  {
-    v4 = 0x656C62756F64;
-    v3 = 0xE600000000000000;
-  }
-
-  if (*v1 > 1u)
-  {
-    v4 = v8;
-    v3 = v7;
-  }
-
-  if (*v1 <= 3u)
-  {
-    v9 = v4;
-  }
-
-  else
-  {
-    v9 = v5;
-  }
-
-  if (*v1 > 3u)
-  {
-    v3 = 0xE400000000000000;
-  }
-
-  *a1 = v9;
-  a1[1] = v3;
-}
-
-BiomeSQLParser::SQLRawDataType_optional __swiftcall SQLRawDataType.init(rawValue:)(Swift::String rawValue)
-{
-  object = rawValue._object;
-  v3._countAndFlagsBits = rawValue._countAndFlagsBits;
-  v4 = v1;
-  v3._object = object;
-  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of SQLRawDataType.init(rawValue:), v3);
-
-  v7 = 5;
-  if (v5 < 5)
-  {
-    v7 = v5;
-  }
-
-  *v4 = v7;
-  return result;
-}
-
-uint64_t SQLRawDataType.rawValue.getter()
-{
-  v1 = *v0;
-  v2 = 0x52454745544E49;
-  v3 = 1415071060;
-  v4 = 1112493122;
-  if (v1 != 3)
-  {
-    v4 = 1280070990;
-  }
-
-  if (v1 != 2)
-  {
-    v3 = v4;
-  }
-
-  if (*v0)
-  {
-    v2 = 1279346002;
-  }
-
-  if (*v0 <= 1u)
-  {
-    return v2;
-  }
-
-  else
-  {
-    return v3;
-  }
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance SQLRawDataType()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance SQLRawDataType()
-{
-  *v0;
-  *v0;
-  *v0;
-  String.hash(into:)();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLRawDataType()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-void protocol witness for RawRepresentable.rawValue.getter in conformance SQLRawDataType(uint64_t *a1@<X8>)
-{
-  v2 = *v1;
-  v3 = 0xE700000000000000;
-  v4 = 0x52454745544E49;
-  v5 = 1415071060;
-  v6 = 1112493122;
-  if (v2 != 3)
-  {
-    v6 = 1280070990;
-  }
-
-  if (v2 != 2)
-  {
-    v5 = v6;
-  }
-
-  if (*v1)
-  {
-    v4 = 1279346002;
-    v3 = 0xE400000000000000;
-  }
-
-  if (*v1 <= 1u)
-  {
-    v7 = v4;
-  }
-
-  else
-  {
-    v7 = v5;
-  }
-
-  if (*v1 > 1u)
-  {
-    v3 = 0xE400000000000000;
-  }
-
-  *a1 = v7;
-  a1[1] = v3;
-}
-
-BiomeSQLParser::DatabaseCatalog __swiftcall DatabaseCatalog.init(schemas:)(Swift::OpaquePointer schemas)
-{
-  v35 = v1;
-  v3 = *(schemas._rawValue + 2);
-  if (!v3)
-  {
-
-    v4 = MEMORY[0x277D84F90];
-    if (*(MEMORY[0x277D84F90] + 16))
+    v5 = ((a2 - 253) >> 8) + 1;
+    *result = a2 + 3;
+    if (v4 > 1)
     {
-      goto LABEL_7;
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
     }
 
-LABEL_19:
-    v12 = MEMORY[0x277D84F98];
-    goto LABEL_20;
-  }
-
-  v38 = MEMORY[0x277D84F90];
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
-  v4 = v38;
-  v5 = (schemas._rawValue + 48);
-  do
-  {
-    v7 = *(v5 - 2);
-    v6 = *(v5 - 1);
-    v8 = *v5;
-    v10 = *(v38 + 16);
-    v9 = *(v38 + 24);
-    swift_bridgeObjectRetain_n();
-
-    if (v10 >= v9 >> 1)
+    else if (v4)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v9 > 1), v10 + 1, 1);
+      *(result + 1) = v5;
     }
 
-    *(v38 + 16) = v10 + 1;
-    v11 = (v38 + 40 * v10);
-    v11[4] = v7;
-    v11[5] = v6;
-    v11[6] = v7;
-    v11[7] = v6;
-    v11[8] = v8;
-    v5 += 3;
-    --v3;
-  }
-
-  while (v3);
-
-  if (!*(v38 + 16))
-  {
-    goto LABEL_19;
-  }
-
-LABEL_7:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMR);
-  v12 = static _DictionaryStorage.allocate(capacity:)();
-  v39 = v12;
-  v36 = *(v4 + 16);
-  if (!v36)
-  {
-LABEL_20:
-
-    *v35 = v12;
     return result;
   }
 
-  v13 = 0;
-  v14 = (v4 + 64);
-  while (v13 < *(v4 + 16))
+  if (v4 > 1)
   {
-    v15 = *(v14 - 1);
-    v16 = *v14;
-    v17 = *(v14 - 3);
-    v18 = *(v14 - 2);
-    v19 = *(v14 - 4);
-
-    if (!v17)
+    if (v4 != 2)
     {
-      goto LABEL_20;
-    }
-
-    v20 = specialized __RawDictionaryStorage.find<A>(_:)(v19, v17);
-    v22 = v12[2];
-    v23 = (v21 & 1) == 0;
-    v24 = __OFADD__(v22, v23);
-    v25 = v22 + v23;
-    if (v24)
-    {
-      goto LABEL_22;
-    }
-
-    v26 = v21;
-    if (v12[3] < v25)
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v25, 1);
-      v12 = v39;
-      v20 = specialized __RawDictionaryStorage.find<A>(_:)(v19, v17);
-      if ((v26 & 1) != (v27 & 1))
+      *(result + 1) = 0;
+      if (a2)
       {
-        goto LABEL_26;
+        goto LABEL_20;
       }
-    }
 
-    if (v26)
-    {
-      goto LABEL_24;
-    }
-
-    v12[(v20 >> 6) + 8] |= 1 << v20;
-    v28 = (v12[6] + 16 * v20);
-    *v28 = v19;
-    v28[1] = v17;
-    v29 = (v12[7] + 24 * v20);
-    *v29 = v18;
-    v29[1] = v15;
-    v29[2] = v16;
-    v30 = v12[2];
-    v24 = __OFADD__(v30, 1);
-    v31 = v30 + 1;
-    if (v24)
-    {
-      goto LABEL_23;
-    }
-
-    ++v13;
-    v12[2] = v31;
-    v14 += 5;
-    if (v36 == v13)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  __break(1u);
-LABEL_22:
-  __break(1u);
-LABEL_23:
-  __break(1u);
-LABEL_24:
-  v33 = swift_allocError();
-  swift_willThrow();
-  v37 = v33;
-  v34 = v33;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-    goto LABEL_27;
-  }
-
-  _StringGuts.grow(_:)(30);
-  MEMORY[0x259C32B90](0xD00000000000001BLL, 0x80000002553B68D0);
-  _print_unlocked<A, B>(_:_:)();
-  MEMORY[0x259C32B90](39, 0xE100000000000000);
-  _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-LABEL_26:
-  KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-LABEL_27:
-
-  result.schemas._rawValue = swift_unexpectedError();
-  __break(1u);
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance DatabaseCatalog.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  if (a1 == 0x73616D65686373 && a2 == 0xE700000000000000)
-  {
-
-    v7 = 0;
-  }
-
-  else
-  {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    v7 = v5 ^ 1;
-  }
-
-  *a3 = v7 & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance DatabaseCatalog.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance DatabaseCatalog.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t DatabaseCatalog.encode(to:)(void *a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  v7 = v11 - v6;
-  v8 = *v1;
-  v9 = a1[4];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
-  lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
-
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11[1] = v8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser6SchemaVGMd, &_sSDySS14BiomeSQLParser6SchemaVGMR);
-  lazy protocol witness table accessor for type [String : Schema] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Schema] and conformance <> [A : B], lazy protocol witness table accessor for type Schema and conformance Schema);
-  KeyedEncodingContainer.encode<A>(_:forKey:)();
-
-  return (*(v4 + 8))(v7, v3);
-}
-
-uint64_t DatabaseCatalog.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedDecodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = v12 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
-  lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v2)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser6SchemaVGMd, &_sSDySS14BiomeSQLParser6SchemaVGMR);
-    lazy protocol witness table accessor for type [String : Schema] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Schema] and conformance <> [A : B], lazy protocol witness table accessor for type Schema and conformance Schema);
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v6 + 8))(v9, v5);
-    *a2 = v12[1];
-  }
-
-  return __swift_destroy_boxed_opaque_existential_0(a1);
-}
-
-uint64_t specialized Collection.firstIndex(where:)(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
-{
-  v4 = *(a3 + 16);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v7 = 0;
-  v8 = *(type metadata accessor for PgQuery_ScanToken(0) - 8);
-  v9 = a3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
-  v10 = *(v8 + 72);
-  while (1)
-  {
-    v11 = a1(v9);
-    if (v3 || (v11 & 1) != 0)
-    {
-      break;
-    }
-
-    ++v7;
-    v9 += v10;
-    if (v4 == v7)
-    {
-      return 0;
-    }
-  }
-
-  return v7;
-}
-
-uint64_t Schema.tableName.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return v1;
-}
-
-BiomeSQLParser::Schema __swiftcall Schema.init(tableName:columns:)(Swift::String tableName, Swift::OpaquePointer columns)
-{
-  *v2 = tableName;
-  *(v2 + 16) = columns;
-  result.tableName = tableName;
-  result.columns = columns;
-  return result;
-}
-
-uint64_t static Schema.lookup(rangeVar:catalog:)@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
-{
-  v3 = a1[3];
-  v4 = a1[2] & 0xFFFFFFFFFFFFLL;
-  if ((v3 & 0x2000000000000000) != 0)
-  {
-    v4 = HIBYTE(v3) & 0xF;
-  }
-
-  if (v4)
-  {
-    v5 = 0x80000002553B6CE0;
-    v6 = 1;
-    v7 = 0xD00000000000003ELL;
-  }
-
-  else
-  {
-    v9 = *a2;
-    v7 = a1[4];
-    v5 = a1[5];
-    v10 = *(*a2 + 16);
-
-    if (v10)
-    {
-      v11 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v5);
-      if (v12)
-      {
-        v13 = v11;
-
-        v14 = (*(v9 + 56) + 24 * v13);
-        v15 = v14[1];
-        v16 = v14[2];
-        *a3 = *v14;
-        a3[1] = v15;
-        a3[2] = v16;
-      }
-    }
-
-    v6 = 2;
-  }
-
-  lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-  swift_allocError();
-  *v18 = v7;
-  *(v18 + 8) = v5;
-  *(v18 + 16) = 0;
-  *(v18 + 24) = 0;
-  *(v18 + 32) = v6;
-  return swift_willThrow();
-}
-
-uint64_t static Schema.JSONEach(with:)@<X0>(char *a1@<X0>, void *a2@<X8>)
-{
-  v3 = *a1;
-  v13[0] = 0x65756C6176;
-  v13[1] = 0xE500000000000000;
-  v14 = v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
-  v4 = static _DictionaryStorage.allocate(capacity:)();
-
-  outlined destroy of URL?(v13, &_sSS_14BiomeSQLParser11SQLDataTypeOtMd, &_sSS_14BiomeSQLParser11SQLDataTypeOtMR);
-  v5 = specialized __RawDictionaryStorage.find<A>(_:)(0x65756C6176, 0xE500000000000000);
-  v7 = v6;
-
-  if (v7)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v4[(v5 >> 6) + 8] |= 1 << v5;
-    v9 = (v4[6] + 16 * v5);
-    *v9 = 0x65756C6176;
-    v9[1] = 0xE500000000000000;
-    *(v4[7] + v5) = v3;
-    v10 = v4[2];
-    v11 = __OFADD__(v10, 1);
-    v12 = v10 + 1;
-    if (!v11)
-    {
-      v4[2] = v12;
-      *a2 = 0x6361655F6E6F736ALL;
-      a2[1] = 0xE900000000000068;
-      a2[2] = v4;
       return result;
     }
+
+    *(result + 1) = 0;
   }
 
-  __break(1u);
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 3;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
   return result;
 }
 
-uint64_t static Schema.== infix(_:_:)(void *a1, void *a2)
+uint64_t getEnumTagSinglePayload for ResultColumn.CodingKeys(unsigned __int8 *a1, unsigned int a2)
 {
-  v2 = a1[2];
-  v3 = a2[2];
-  v4 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if (!a2)
   {
     return 0;
   }
 
-  return _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_14BiomeSQLParser11SQLDataTypeOTt1g5(v2, v3);
+  if (a2 < 0xFE)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 2 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 2) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 2;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 2;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 2;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 3;
+  v8 = v6 - 3;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
 }
 
-uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_14BiomeSQLParser11SQLDataTypeOTt1g5(uint64_t result, uint64_t a2)
+uint64_t storeEnumTagSinglePayload for ResultColumn.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
 {
-  if (result == a2)
+  if (a3 + 2 >= 0xFFFF00)
   {
-    return 1;
+    v3 = 4;
   }
 
-  v3 = result;
-  if (*(result + 16) != *(a2 + 16))
+  else
   {
+    v3 = 2;
+  }
+
+  if ((a3 + 2) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xFE)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xFD)
+  {
+    v5 = ((a2 - 254) >> 8) + 1;
+    *result = a2 + 2;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 2;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t outlined init with copy of PgQuery_ScanResult(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+BOOL partial apply for closure #1 in ResultColumn.init(node:schemas:tokenInformation:)(int *a1)
+{
+  v2 = *(v1 + 16);
+  v3 = *a1;
+  return v3 == *(*(v2 + *(type metadata accessor for PgQuery_ResTarget(0) + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
+}
+
+uint64_t outlined init with take of (PgQuery_RawStmt, String)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
+  return a2;
+}
+
+uint64_t type metadata completion function for SQLTokenInformation(uint64_t a1)
+{
+  result = type metadata accessor for PgQuery_ScanResult(319);
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
     return 0;
   }
 
-  v4 = 0;
-  v5 = result + 64;
-  v6 = 1 << *(result + 32);
-  v7 = -1;
-  if (v6 < 64)
+  return result;
+}
+
+uint64_t type metadata completion function for PlanResources(uint64_t a1)
+{
+  result = type metadata accessor for SQLTokenInformation(319);
+  if (v2 <= 0x3F)
   {
-    v7 = ~(-1 << v6);
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
   }
 
-  v8 = v7 & *(result + 64);
-  v9 = (v6 + 63) >> 6;
-  if (v8)
+  return result;
+}
+
+_DWORD *pg_query_init()
+{
+  result = pg_query_initialized();
+  if (!*result)
   {
-    goto LABEL_9;
+    *result = 1;
+    MemoryContextInit();
+    SetDatabaseEncoding(6u);
+    pthread_key_create(&pg_query_thread_exit_key, pg_query_thread_exit);
+    v1 = *TopMemoryContext();
+
+    return pthread_setspecific(v2, v1);
   }
 
-LABEL_10:
-  v12 = v4;
-  while (1)
+  return result;
+}
+
+void *pg_query_free_top_memory_context(void *a1)
+{
+  MemoryContextDeleteChildren(a1);
+  AllocSetDeleteFreeList(a1);
+  (*(a1[2] + 32))(a1);
+  free(a1);
+  *TopMemoryContext() = 0;
+  *CurrentMemoryContext(v2) = 0;
+  result = ErrorContext();
+  *result = 0;
+  return result;
+}
+
+void *pg_query_exit()
+{
+  v0 = TopMemoryContext();
+  v1 = *v0;
+  MemoryContextDeleteChildren(*v0);
+  AllocSetDeleteFreeList(v1);
+  (*(v1[2] + 32))(v1);
+  free(v1);
+  *v0 = 0;
+  *CurrentMemoryContext(v2) = 0;
+  result = ErrorContext();
+  *result = 0;
+  return result;
+}
+
+uint64_t pg_query_enter_memory_context()
+{
+  initialized = pg_query_initialized();
+  if (*initialized)
   {
-    v4 = v12 + 1;
-    if (__OFADD__(v12, 1))
+    v1 = TopMemoryContext();
+  }
+
+  else
+  {
+    *initialized = 1;
+    MemoryContextInit();
+    SetDatabaseEncoding(6u);
+    pthread_key_create(&pg_query_thread_exit_key, pg_query_thread_exit);
+    v1 = TopMemoryContext();
+    pthread_setspecific(v2, *v1);
+  }
+
+  AllocSetContextCreateInternal(*v1, "pg_query", 0, 0x2000uLL, 0x800000);
+  v4 = CurrentMemoryContext(v3);
+  *v4 = v5;
+  return v5;
+}
+
+uint64_t pg_query_exit_memory_context()
+{
+  v0 = TopMemoryContext();
+  v1 = CurrentMemoryContext(v0);
+  *v1 = v3;
+
+  return MemoryContextDelete(v2);
+}
+
+void pg_query_free_error(uint64_t a1)
+{
+  free(*a1);
+  free(*(a1 + 8));
+  free(*(a1 + 16));
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    free(v2);
+  }
+
+  free(a1);
+}
+
+char *pg_query_deparse_protobuf(uint64_t a1, unsigned __int8 *a2)
+{
+  v3 = a1;
+  v1249 = *MEMORY[0x277D85DE8];
+  __s1 = 0;
+  v1246 = 0;
+  v1247 = 0;
+  enter_memory_context = pg_query_enter_memory_context();
+  v5 = PG_exception_stack();
+  v6 = *v5;
+  v7 = v5;
+  v8 = error_context_stack();
+  v9 = *v8;
+  v10 = v8;
+  memset(v1248, 0, 196);
+  if (!sigsetjmp(v1248, 0))
+  {
+    *v7 = v1248;
+    protobuf_to_nodes = pg_query_protobuf_to_nodes(v3, a2);
+    initStringInfo(&__s1, v16);
+    if (!protobuf_to_nodes || *(protobuf_to_nodes + 4) < 1)
     {
-      break;
+LABEL_2464:
+      v14 = strdup(__s1);
+      goto LABEL_2465;
     }
 
-    if (v4 >= v9)
+    v17 = 0;
+    v1243 = v7;
+    v1244 = v6;
+    v1241 = v10;
+    v1242 = v9;
+    v1240 = protobuf_to_nodes;
+LABEL_7:
+    v18 = *(protobuf_to_nodes + 16) + 8 * v17;
+    v19 = *(*v18 + 8);
+    if (!v19)
     {
-      return 1;
+      pg_query_deparse_protobuf_cold_2();
     }
 
-    v13 = *(v5 + 8 * v4);
-    ++v12;
-    if (v13)
+    v20 = *(*v18 + 8);
+    v1239 = v17;
+    v1238 = v18;
+    switch(*v19)
     {
-      v11 = __clz(__rbit64(v13));
-      for (i = (v13 - 1) & v13; ; i = (v8 - 1) & v8)
-      {
-        v14 = v11 | (v4 << 6);
-        v15 = v3;
-        v16 = (*(v3 + 48) + 16 * v14);
-        v18 = *v16;
-        v17 = v16[1];
-        v19 = *(*(v3 + 56) + v14);
-        v20 = v17 == 0;
-
-        if (!v17)
+      case 0xE9:
+        goto LABEL_9;
+      case 0xEA:
+        goto LABEL_1294;
+      case 0xEB:
+        goto LABEL_1288;
+      case 0xEC:
+        goto LABEL_1287;
+      case 0xED:
+        appendStringInfoString(&__s1, "ALTER ");
+        v330 = *(v19 + 24);
+        if (v330 <= 34)
         {
-          return v20;
-        }
-
-        v21 = specialized __RawDictionaryStorage.find<A>(_:)(v18, v17);
-        v23 = v22;
-
-        if ((v23 & 1) == 0)
-        {
-          return v20;
-        }
-
-        v24 = *(*(a2 + 56) + v21);
-        if (v24 > 3)
-        {
-          v25 = 0xE400000000000000;
-          if (*(*(a2 + 56) + v21) > 5u)
+          if (v330 == 18)
           {
-            if (v24 == 6)
+            v332 = 0;
+            v331 = "FOREIGN TABLE ";
+          }
+
+          else if (v330 == 20)
+          {
+            v332 = 0;
+            v331 = "INDEX ";
+          }
+
+          else
+          {
+            v557 = 0;
+            v333 = 0;
+            if (v330 != 23)
             {
-              v26 = 1684632949;
-              if (v19 <= 3)
+              goto LABEL_1631;
+            }
+
+            v332 = 0;
+            v331 = "MATERIALIZED VIEW ";
+          }
+        }
+
+        else if (v330 > 46)
+        {
+          if (v330 == 47)
+          {
+            v333 = 9;
+            v332 = 1;
+            v331 = "TYPE ";
+LABEL_1630:
+            v806 = v332;
+            appendStringInfoString(&__s1, v331);
+            v557 = v806;
+LABEL_1631:
+            v1237 = v557;
+            if (*(v20 + 28) != 1)
+            {
+              goto LABEL_1633;
+            }
+
+            goto LABEL_1632;
+          }
+
+          v557 = 0;
+          v333 = 0;
+          if (v330 != 49)
+          {
+            goto LABEL_1631;
+          }
+
+          v332 = 0;
+          v331 = "VIEW ";
+        }
+
+        else
+        {
+          if (v330 != 35)
+          {
+            if (v330 != 39)
+            {
+              v333 = 0;
+              v1237 = 0;
+              if (*(v19 + 28) != 1)
               {
-                goto LABEL_43;
+LABEL_1633:
+                deparseRangeVar(&__s1, *(v20 + 8), v333);
+                appendStringInfoChar(&__s1, 32);
+                v807 = *(v20 + 16);
+                if (v807)
+                {
+                  v808 = *(v20 + 16);
+                  if (*(v807 + 4) >= 1)
+                  {
+                    v809 = 0;
+                    v1236 = *(v20 + 16);
+                    while (1)
+                    {
+                      v810 = 0;
+                      v811 = v809;
+                      v812 = *(v808 + 16) + 8 * v809;
+                      v813 = *v812;
+                      v814 = *v812;
+                      v815 = 1;
+                      v1235 = v811;
+                      v816 = "DROP EXPRESSION";
+                      switch(*(*v812 + 4))
+                      {
+                        case 0:
+                          if (v1237)
+                          {
+                            v817 = "ADD ATTRIBUTE ";
+                          }
+
+                          else
+                          {
+                            v817 = "ADD COLUMN ";
+                          }
+
+                          goto LABEL_1705;
+                        case 3:
+                          appendStringInfoString(&__s1, "ALTER COLUMN ");
+                          v815 = 0;
+                          if (*(v814 + 32))
+                          {
+                            v810 = "SET DEFAULT";
+                          }
+
+                          else
+                          {
+                            v810 = "DROP DEFAULT";
+                          }
+
+                          goto LABEL_1706;
+                        case 5:
+                          appendStringInfoString(&__s1, "ALTER COLUMN ");
+                          v815 = 0;
+                          v810 = "DROP NOT NULL";
+                          goto LABEL_1706;
+                        case 6:
+                          appendStringInfoString(&__s1, "ALTER COLUMN ");
+                          v815 = 0;
+                          v810 = "SET NOT NULL";
+                          goto LABEL_1706;
+                        case 7:
+                          goto LABEL_1695;
+                        case 9:
+                          appendStringInfoString(&__s1, "ALTER COLUMN ");
+                          v815 = 0;
+                          v810 = "SET STATISTICS";
+                          goto LABEL_1706;
+                        case 0xA:
+                          appendStringInfoString(&__s1, "ALTER COLUMN ");
+                          v815 = 0;
+                          v810 = "SET";
+                          goto LABEL_1706;
+                        case 0xB:
+                          appendStringInfoString(&__s1, "ALTER COLUMN ");
+                          v815 = 0;
+                          v810 = "RESET";
+                          goto LABEL_1706;
+                        case 0xC:
+                          appendStringInfoString(&__s1, "ALTER COLUMN ");
+                          v815 = 0;
+                          v810 = "SET STORAGE";
+                          goto LABEL_1706;
+                        case 0xD:
+                          if (v1237)
+                          {
+                            v817 = "DROP ATTRIBUTE ";
+                          }
+
+                          else
+                          {
+                            v817 = "DROP ";
+                          }
+
+                          goto LABEL_1705;
+                        case 0xF:
+                          v817 = "ADD INDEX ";
+                          goto LABEL_1705;
+                        case 0x11:
+                          v817 = "ADD ";
+                          goto LABEL_1705;
+                        case 0x15:
+                        case 0x41:
+                          v817 = "ALTER ";
+                          goto LABEL_1705;
+                        case 0x16:
+                          v817 = "VALIDATE CONSTRAINT ";
+                          goto LABEL_1705;
+                        case 0x19:
+                          v817 = "DROP CONSTRAINT ";
+                          goto LABEL_1705;
+                        case 0x1C:
+                          if (v1237)
+                          {
+                            v820 = "ALTER ATTRIBUTE ";
+                          }
+
+                          else
+                          {
+                            v820 = "ALTER COLUMN ";
+                          }
+
+                          appendStringInfoString(&__s1, v820);
+                          v815 = 0;
+                          v810 = "TYPE";
+                          goto LABEL_1706;
+                        case 0x1D:
+                          v817 = "ALTER COLUMN ";
+                          goto LABEL_1705;
+                        case 0x1E:
+                          appendStringInfoString(&__s1, "OWNER TO ");
+                          v810 = 0;
+                          v818 = *(v814 + 24);
+                          v819 = *(v818 + 4);
+                          v815 = 1;
+                          if (v819 > 1)
+                          {
+                            if (v819 == 2)
+                            {
+                              v817 = "SESSION_USER";
+                            }
+
+                            else
+                            {
+                              if (v819 != 3)
+                              {
+                                goto LABEL_1706;
+                              }
+
+                              v817 = "public";
+                            }
+                          }
+
+                          else if (v819)
+                          {
+                            if (v819 != 1)
+                            {
+                              goto LABEL_1706;
+                            }
+
+                            v817 = "CURRENT_USER";
+                          }
+
+                          else
+                          {
+                            v817 = quote_identifier(*(v818 + 8));
+                          }
+
+LABEL_1705:
+                          appendStringInfoString(&__s1, v817);
+                          v810 = 0;
+                          v815 = 1;
+LABEL_1706:
+                          v821 = v810;
+                          v825 = v815;
+                          if (*(v814 + 44) == 1)
+                          {
+                            if (*(v814 + 4))
+                            {
+                              v826 = "IF EXISTS ";
+                            }
+
+                            else
+                            {
+                              v826 = "IF NOT EXISTS ";
+                            }
+
+                            appendStringInfoString(&__s1, v826);
+                          }
+
+                          v822 = (v814 + 44);
+                          v823 = 0;
+                          v824 = v825;
+LABEL_1712:
+                          v827 = *(v814 + 8);
+                          if (v827)
+                          {
+                            v828 = quote_identifier(v827);
+                            appendStringInfoString(&__s1, v828);
+                            appendStringInfoChar(&__s1, 32);
+                          }
+
+                          if (*(v814 + 16) >= 1)
+                          {
+                            appendStringInfo(&__s1, "%d ", *(v814 + 16));
+                          }
+
+                          if (v824)
+                          {
+                            if ((v823 & *v822) != 1)
+                            {
+                              goto LABEL_1721;
+                            }
+                          }
+
+                          else
+                          {
+                            appendStringInfoString(&__s1, v821);
+                            appendStringInfoChar(&__s1, 32);
+                            if ((v823 & *v822) != 1)
+                            {
+LABEL_1721:
+                              v829 = *(v814 + 4);
+LABEL_1722:
+                              switch(v829)
+                              {
+                                case 0u:
+                                case 0x1Cu:
+                                  deparseColumnDef(&__s1, *(v814 + 32));
+                                  goto LABEL_1762;
+                                case 3u:
+                                  v845 = *(v814 + 32);
+                                  if (!v845)
+                                  {
+                                    goto LABEL_1763;
+                                  }
+
+                                  deparseExpr(&__s1, v845);
+                                  goto LABEL_1762;
+                                case 9u:
+                                  appendStringInfo(&__s1, "%d", *(*(v814 + 32) + 8));
+                                  goto LABEL_1762;
+                                case 0xAu:
+                                case 0xBu:
+                                case 0x25u:
+                                case 0x26u:
+                                  deparseRelOptions(&__s1, *(v814 + 32));
+                                  goto LABEL_1762;
+                                case 0xCu:
+                                  v832 = quote_identifier(*(*(v814 + 32) + 8));
+                                  goto LABEL_1735;
+                                case 0x11u:
+                                case 0x15u:
+                                case 0x40u:
+                                  deparseConstraint(&__s1, *(v814 + 32));
+                                  goto LABEL_1762;
+                                case 0x1Du:
+                                case 0x3Du:
+                                  deparseAlterGenericOptions(&__s1, *(v814 + 32));
+                                  goto LABEL_1762;
+                                case 0x34u:
+                                case 0x35u:
+                                  deparseRangeVar(&__s1, *(v814 + 32), 0);
+                                  goto LABEL_1762;
+                                case 0x36u:
+                                  deparseTypeName(&__s1, *(v814 + 32));
+                                  goto LABEL_1762;
+                                case 0x38u:
+                                  v831 = *(*(v814 + 32) + 4);
+                                  if (v831 <= 0x68)
+                                  {
+                                    if (v831 == 100)
+                                    {
+                                      v832 = "DEFAULT ";
+                                    }
+
+                                    else
+                                    {
+                                      if (v831 != 102)
+                                      {
+                                        goto LABEL_1762;
+                                      }
+
+                                      v832 = "FULL ";
+                                    }
+
+                                    goto LABEL_1735;
+                                  }
+
+                                  if (v831 == 105)
+                                  {
+                                    v847 = *(v814 + 32);
+                                    appendStringInfoString(&__s1, "USING INDEX ");
+                                    v832 = quote_identifier(*(v847 + 8));
+                                    goto LABEL_1735;
+                                  }
+
+                                  if (v831 == 110)
+                                  {
+                                    v832 = "NOTHING ";
+LABEL_1735:
+                                    appendStringInfoString(&__s1, v832);
+                                  }
+
+LABEL_1762:
+                                  appendStringInfoChar(&__s1, 32);
+                                  goto LABEL_1763;
+                                case 0x3Eu:
+                                case 0x3Fu:
+                                  v830 = *(v814 + 32);
+                                  deparseRangeVar(&__s1, *(v830 + 8), 0);
+                                  if (*(v830 + 16))
+                                  {
+                                    appendStringInfoChar(&__s1, 32);
+                                    deparsePartitionBoundSpec(&__s1, *(v830 + 16));
+                                  }
+
+                                  goto LABEL_1762;
+                                case 0x41u:
+                                  v833 = *(v814 + 32);
+                                  if (!v833 || *(v833 + 4) < 1)
+                                  {
+                                    goto LABEL_1762;
+                                  }
+
+                                  v834 = 0;
+                                  v835 = 8;
+                                  break;
+                                default:
+                                  goto LABEL_1763;
+                              }
+
+                              while (2)
+                              {
+                                v836 = enter_memory_context;
+                                v837 = *(v833 + 16);
+                                v838 = *(v837 + 8 * v834);
+                                v839 = *(v838 + 16);
+                                if (!strcmp(v839, "restart"))
+                                {
+                                  if (*(v838 + 24))
+                                  {
+                                    appendStringInfoString(&__s1, "RESTART ");
+                                    v840 = *(v838 + 24);
+                                    if (*v840 != 222)
+                                    {
+                                      if (*v840 == 221)
+                                      {
+                                        appendStringInfo(&__s1, "%d", v840[2]);
+                                      }
+
+                                      goto LABEL_1756;
+                                    }
+
+                                    v842 = *(v840 + 1);
+                                  }
+
+                                  else
+                                  {
+                                    v842 = "RESTART";
+                                  }
+                                }
+
+                                else
+                                {
+                                  if (strcmp(v839, "generated"))
+                                  {
+                                    appendStringInfoString(&__s1, "SET ");
+                                    deparseSeqOptElem(&__s1, v838);
+                                    goto LABEL_1756;
+                                  }
+
+                                  appendStringInfoString(&__s1, "SET GENERATED ");
+                                  v841 = *(*(v838 + 24) + 8);
+                                  if (v841 != 100)
+                                  {
+                                    if (v841 == 97)
+                                    {
+                                      v842 = "ALWAYS";
+                                      break;
+                                    }
+
+LABEL_1756:
+                                    v843 = *(v833 + 4);
+                                    v844 = v837 + v835;
+                                    if (v837 + v835)
+                                    {
+                                      enter_memory_context = v836;
+                                      if (v844 < *(v833 + 16) + 8 * *(v833 + 4))
+                                      {
+                                        appendStringInfoChar(&__s1, 32);
+                                        v843 = *(v833 + 4);
+                                      }
+                                    }
+
+                                    else
+                                    {
+                                      enter_memory_context = v836;
+                                    }
+
+                                    ++v834;
+                                    v835 += 8;
+                                    v10 = v1241;
+                                    if (v834 >= v843)
+                                    {
+                                      goto LABEL_1762;
+                                    }
+
+                                    continue;
+                                  }
+
+                                  v842 = "BY DEFAULT";
+                                }
+
+                                break;
+                              }
+
+                              appendStringInfoString(&__s1, v842);
+                              goto LABEL_1756;
+                            }
+                          }
+
+                          appendStringInfoString(&__s1, "IF EXISTS ");
+                          v829 = *(v814 + 4);
+                          if (v829 <= 0x41)
+                          {
+                            goto LABEL_1722;
+                          }
+
+LABEL_1763:
+                          if (*(v814 + 40) == 1)
+                          {
+                            appendStringInfoString(&__s1, "CASCADE ");
+                          }
+
+                          v846 = v1246 - 1;
+                          v7 = v1243;
+                          v6 = v1244;
+                          v9 = v1242;
+                          v808 = v1236;
+                          if (v1246 >= 1 && __s1[v846] == 32)
+                          {
+                            LODWORD(v1246) = v1246 - 1;
+                            __s1[v846] = 0;
+                          }
+
+                          if (v812 != -8 && v812 + 8 < (*(*(v20 + 16) + 16) + 8 * *(*(v20 + 16) + 4)))
+                          {
+                            appendStringInfoString(&__s1, ", ");
+                          }
+
+                          v809 = v1235 + 1;
+                          if (v1235 + 1 >= *(v1236 + 4))
+                          {
+                            goto LABEL_2447;
+                          }
+
+                          break;
+                        case 0x1F:
+                          v817 = "CLUSTER ON ";
+                          goto LABEL_1705;
+                        case 0x20:
+                          v817 = "SET WITHOUT CLUSTER ";
+                          goto LABEL_1705;
+                        case 0x21:
+                          v817 = "SET LOGGED ";
+                          goto LABEL_1705;
+                        case 0x22:
+                          v817 = "SET UNLOGGED ";
+                          goto LABEL_1705;
+                        case 0x23:
+                          v817 = "SET WITHOUT OIDS ";
+                          goto LABEL_1705;
+                        case 0x24:
+                          v817 = "SET TABLESPACE ";
+                          goto LABEL_1705;
+                        case 0x25:
+                          v817 = "SET ";
+                          goto LABEL_1705;
+                        case 0x26:
+                          v817 = "RESET ";
+                          goto LABEL_1705;
+                        case 0x28:
+                        case 0x2C:
+                          v817 = "ENABLE TRIGGER ";
+                          goto LABEL_1705;
+                        case 0x29:
+                          v817 = "ENABLE ALWAYS TRIGGER ";
+                          goto LABEL_1705;
+                        case 0x2A:
+                          v817 = "ENABLE REPLICA TRIGGER ";
+                          goto LABEL_1705;
+                        case 0x2B:
+                          v817 = "DISABLE TRIGGER ";
+                          goto LABEL_1705;
+                        case 0x2D:
+                          v817 = "DISABLE TRIGGER ALL ";
+                          goto LABEL_1705;
+                        case 0x2E:
+                          v817 = "ENABLE TRIGGER USER ";
+                          goto LABEL_1705;
+                        case 0x2F:
+                          v817 = "DISABLE TRIGGER USER ";
+                          goto LABEL_1705;
+                        case 0x30:
+                          v817 = "ENABLE RULE ";
+                          goto LABEL_1705;
+                        case 0x31:
+                          v817 = "ENABLE ALWAYS RULE ";
+                          goto LABEL_1705;
+                        case 0x32:
+                          v817 = "ENABLE REPLICA RULE ";
+                          goto LABEL_1705;
+                        case 0x33:
+                          v817 = "DISABLE RULE ";
+                          goto LABEL_1705;
+                        case 0x34:
+                          v817 = "INHERIT ";
+                          goto LABEL_1705;
+                        case 0x35:
+                          v817 = "NO INHERIT ";
+                          goto LABEL_1705;
+                        case 0x36:
+                          v817 = "OF ";
+                          goto LABEL_1705;
+                        case 0x37:
+                          v817 = "NOT OF ";
+                          goto LABEL_1705;
+                        case 0x38:
+                          v817 = "REPLICA IDENTITY ";
+                          goto LABEL_1705;
+                        case 0x39:
+                          v817 = "ENABLE ROW LEVEL SECURITY ";
+                          goto LABEL_1705;
+                        case 0x3A:
+                          v817 = "DISABLE ROW LEVEL SECURITY ";
+                          goto LABEL_1705;
+                        case 0x3B:
+                          v817 = "FORCE ROW LEVEL SECURITY ";
+                          goto LABEL_1705;
+                        case 0x3C:
+                          v817 = "NO FORCE ROW LEVEL SECURITY ";
+                          goto LABEL_1705;
+                        case 0x3E:
+                          v817 = "ATTACH PARTITION ";
+                          goto LABEL_1705;
+                        case 0x3F:
+                          v817 = "DETACH PARTITION ";
+                          goto LABEL_1705;
+                        case 0x40:
+                          appendStringInfoString(&__s1, "ALTER ");
+                          v815 = 0;
+                          v810 = "ADD";
+                          goto LABEL_1706;
+                        case 0x42:
+                          v816 = "DROP IDENTITY";
+LABEL_1695:
+                          v821 = v816;
+                          appendStringInfoString(&__s1, "ALTER COLUMN ");
+                          v822 = (v813 + 44);
+                          v823 = 1;
+                          v824 = 0;
+                          goto LABEL_1712;
+                        default:
+                          goto LABEL_1706;
+                      }
+                    }
+                  }
+                }
+
+                goto LABEL_2447;
+              }
+
+LABEL_1632:
+              appendStringInfoString(&__s1, "IF EXISTS ");
+              goto LABEL_1633;
+            }
+
+            v331 = "TABLE ";
+            v332 = 0;
+            v333 = 0;
+            goto LABEL_1630;
+          }
+
+          v332 = 0;
+          v331 = "SEQUENCE ";
+        }
+
+        v333 = 0;
+        goto LABEL_1630;
+      case 0xEF:
+        appendStringInfoString(&__s1, "ALTER DOMAIN ");
+        v296 = *(v19 + 8);
+        if (v296 && *(v296 + 4) >= 1)
+        {
+          v297 = 8;
+          v298 = 0;
+          do
+          {
+            v299 = *(v296 + 16);
+            v300 = quote_identifier(*(*(v299 + 8 * v298) + 8));
+            appendStringInfoString(&__s1, v300);
+            v301 = *(v296 + 4);
+            if (v299 + v297)
+            {
+              v302 = v299 + v297 >= (*(v296 + 16) + 8 * v301);
+            }
+
+            else
+            {
+              v302 = 1;
+            }
+
+            if (!v302)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v301 = *(v296 + 4);
+            }
+
+            ++v298;
+            v297 += 8;
+          }
+
+          while (v298 < v301);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        v303 = *(v20 + 4);
+        if (v303 <= 0x53)
+        {
+          v9 = v1242;
+          switch(v303)
+          {
+            case 'C':
+              appendStringInfoString(&__s1, "ADD ");
+              deparseConstraint(&__s1, *(v20 + 24));
+              goto LABEL_2447;
+            case 'N':
+              v28 = "DROP NOT NULL";
+              break;
+            case 'O':
+              v28 = "SET NOT NULL";
+              break;
+            default:
+              goto LABEL_2447;
+          }
+
+          goto LABEL_2263;
+        }
+
+        if (v303 == 88)
+        {
+          appendStringInfoString(&__s1, "DROP CONSTRAINT ");
+          v9 = v1242;
+          if (*(v20 + 36) == 1)
+          {
+            appendStringInfoString(&__s1, "IF EXISTS ");
+          }
+
+          v757 = quote_identifier(*(v20 + 16));
+          appendStringInfoString(&__s1, v757);
+          if (*(v20 + 32) == 1)
+          {
+            v28 = " CASCADE";
+            goto LABEL_2263;
+          }
+
+          goto LABEL_2447;
+        }
+
+        v9 = v1242;
+        if (v303 == 86)
+        {
+          appendStringInfoString(&__s1, "VALIDATE CONSTRAINT ");
+          v179 = *(v20 + 16);
+          goto LABEL_2262;
+        }
+
+        if (v303 != 84)
+        {
+          goto LABEL_2447;
+        }
+
+        if (*(v20 + 24))
+        {
+          appendStringInfoString(&__s1, "SET DEFAULT ");
+          deparseExpr(&__s1, *(v20 + 24));
+          goto LABEL_2447;
+        }
+
+        v28 = "DROP DEFAULT";
+        goto LABEL_2263;
+      case 0xF1:
+        deparseGrantStmt(&__s1, v19);
+        goto LABEL_2447;
+      case 0xF2:
+        if (*(v19 + 24))
+        {
+          v218 = "GRANT ";
+        }
+
+        else
+        {
+          v218 = "REVOKE ";
+        }
+
+        appendStringInfoString(&__s1, v218);
+        v219 = *(v19 + 8);
+        if (v219 && *(v219 + 4) >= 1)
+        {
+          v220 = 8;
+          v221 = 0;
+          do
+          {
+            v222 = *(v219 + 16);
+            deparseAccessPriv(&__s1, *(v222 + 8 * v221));
+            if (v222 + v220)
+            {
+              v223 = v222 + v220 >= (*(*(v20 + 8) + 16) + 8 * *(*(v20 + 8) + 4));
+            }
+
+            else
+            {
+              v223 = 1;
+            }
+
+            if (!v223)
+            {
+              appendStringInfoChar(&__s1, 44);
+            }
+
+            appendStringInfoChar(&__s1, 32);
+            ++v221;
+            v220 += 8;
+          }
+
+          while (v221 < *(v219 + 4));
+        }
+
+        if (*(v20 + 24))
+        {
+          v224 = "TO ";
+        }
+
+        else
+        {
+          v224 = "FROM ";
+        }
+
+        appendStringInfoString(&__s1, v224);
+        v225 = *(v20 + 16);
+        if (!v225 || *(v225 + 4) < 1)
+        {
+          goto LABEL_398;
+        }
+
+        v226 = 8;
+        v227 = 0;
+        while (1)
+        {
+          v228 = *(v225 + 16);
+          v229 = *(v228 + 8 * v227);
+          v230 = *(v229 + 4);
+          if (v230 > 1)
+          {
+            if (v230 == 2)
+            {
+              v231 = "SESSION_USER";
+              goto LABEL_392;
+            }
+
+            if (v230 == 3)
+            {
+              v231 = "public";
+              goto LABEL_392;
+            }
+          }
+
+          else
+          {
+            if (!v230)
+            {
+              v231 = quote_identifier(*(v229 + 8));
+              goto LABEL_392;
+            }
+
+            if (v230 == 1)
+            {
+              v231 = "CURRENT_USER";
+LABEL_392:
+              appendStringInfoString(&__s1, v231);
+            }
+          }
+
+          v232 = *(v225 + 4);
+          if (v228 + v226)
+          {
+            v233 = v228 + v226 >= (*(v225 + 16) + 8 * v232);
+          }
+
+          else
+          {
+            v233 = 1;
+          }
+
+          if (!v233)
+          {
+            appendStringInfoString(&__s1, ", ");
+            v232 = *(v225 + 4);
+          }
+
+          ++v227;
+          v226 += 8;
+          if (v227 >= v232)
+          {
+LABEL_398:
+            appendStringInfoChar(&__s1, 32);
+            v9 = v1242;
+            if (*(v20 + 25) == 1)
+            {
+              appendStringInfoString(&__s1, "WITH ADMIN OPTION ");
+            }
+
+            goto LABEL_2444;
+          }
+        }
+
+      case 0xF3:
+        appendStringInfoString(&__s1, "ALTER DEFAULT PRIVILEGES ");
+        v306 = *(v19 + 8);
+        if (!v306 || *(v306 + 4) < 1)
+        {
+          goto LABEL_555;
+        }
+
+        v307 = *(v306 + 4);
+        v308 = 0;
+        while (1)
+        {
+          v309 = *(*(v306 + 16) + 8 * v308);
+          v310 = *(v309 + 16);
+          if (!strcmp(v310, "schemas"))
+          {
+            appendStringInfoString(&__s1, "IN SCHEMA ");
+            v320 = *(v309 + 24);
+            if (v320 && *(v320 + 4) >= 1)
+            {
+              v321 = 8;
+              v322 = 0;
+              do
+              {
+                v323 = *(v320 + 16);
+                v324 = quote_identifier(*(*(v323 + 8 * v322) + 8));
+                appendStringInfoString(&__s1, v324);
+                v325 = *(v320 + 4);
+                if (v323 + v321)
+                {
+                  v326 = v323 + v321 >= (*(v320 + 16) + 8 * v325);
+                }
+
+                else
+                {
+                  v326 = 1;
+                }
+
+                if (!v326)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                  v325 = *(v320 + 4);
+                }
+
+                ++v322;
+                v321 += 8;
+              }
+
+              while (v322 < v325);
+            }
+          }
+
+          else
+          {
+            if (strcmp(v310, "roles"))
+            {
+              goto LABEL_524;
+            }
+
+            appendStringInfoString(&__s1, "FOR ROLE ");
+            v311 = *(v309 + 24);
+            if (v311 && *(v311 + 4) >= 1)
+            {
+              v312 = 8;
+              for (i = 0; i < v318; ++i)
+              {
+                v314 = *(v311 + 16);
+                v315 = *(v314 + 8 * i);
+                v316 = *(v315 + 4);
+                if (v316 > 1)
+                {
+                  if (v316 == 2)
+                  {
+                    v317 = "SESSION_USER";
+                    goto LABEL_540;
+                  }
+
+                  if (v316 == 3)
+                  {
+                    v317 = "public";
+                    goto LABEL_540;
+                  }
+                }
+
+                else
+                {
+                  if (!v316)
+                  {
+                    v317 = quote_identifier(*(v315 + 8));
+                    goto LABEL_540;
+                  }
+
+                  if (v316 == 1)
+                  {
+                    v317 = "CURRENT_USER";
+LABEL_540:
+                    appendStringInfoString(&__s1, v317);
+                  }
+                }
+
+                v318 = *(v311 + 4);
+                if (v314 + v312)
+                {
+                  v319 = v314 + v312 >= (*(v311 + 16) + 8 * v318);
+                }
+
+                else
+                {
+                  v319 = 1;
+                }
+
+                if (!v319)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                  v318 = *(v311 + 4);
+                }
+
+                v312 += 8;
+              }
+            }
+          }
+
+          appendStringInfoChar(&__s1, 32);
+          v307 = *(v306 + 4);
+          v7 = v1243;
+LABEL_524:
+          if (++v308 >= v307)
+          {
+LABEL_555:
+            deparseGrantStmt(&__s1, *(v20 + 16));
+            v6 = v1244;
+            v9 = v1242;
+            goto LABEL_2447;
+          }
+        }
+
+      case 0xF4:
+        appendStringInfoString(&__s1, "CLOSE ");
+        v179 = *(v19 + 8);
+        if (!v179)
+        {
+          goto LABEL_448;
+        }
+
+        goto LABEL_2262;
+      case 0xF5:
+        appendStringInfoString(&__s1, "CLUSTER ");
+        if ((*(v19 + 24) & 2) != 0)
+        {
+          appendStringInfoString(&__s1, "VERBOSE ");
+        }
+
+        v304 = *(v19 + 8);
+        if (v304)
+        {
+          deparseRangeVar(&__s1, v304, 0);
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        if (!*(v19 + 16))
+        {
+          goto LABEL_2444;
+        }
+
+        appendStringInfoString(&__s1, "USING ");
+        v305 = quote_identifier(*(v19 + 16));
+        appendStringInfoString(&__s1, v305);
+        goto LABEL_1617;
+      case 0xF6:
+        appendStringInfoString(&__s1, "COPY ");
+        v254 = *(v19 + 8);
+        if (v254)
+        {
+          deparseRangeVar(&__s1, v254, 0);
+          v255 = *(v19 + 24);
+          if (v255 && *(v255 + 4) >= 1)
+          {
+            appendStringInfoChar(&__s1, 40);
+            v256 = *(v19 + 24);
+            if (v256 && *(v256 + 4) >= 1)
+            {
+              v257 = 8;
+              v258 = 0;
+              do
+              {
+                v259 = *(v256 + 16);
+                v260 = quote_identifier(*(*(v259 + 8 * v258) + 8));
+                appendStringInfoString(&__s1, v260);
+                v261 = *(v256 + 4);
+                if (v259 + v257)
+                {
+                  v262 = v259 + v257 >= (*(v256 + 16) + 8 * v261);
+                }
+
+                else
+                {
+                  v262 = 1;
+                }
+
+                if (!v262)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                  v261 = *(v256 + 4);
+                }
+
+                ++v258;
+                v257 += 8;
+              }
+
+              while (v258 < v261);
+            }
+
+            appendStringInfoChar(&__s1, 41);
+            v9 = v1242;
+          }
+
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        if (*(v20 + 16))
+        {
+          appendStringInfoChar(&__s1, 40);
+          v661 = *(v20 + 16);
+          v662 = *v661;
+          if (*v661 > 234)
+          {
+            if (v662 == 235)
+            {
+              deparseUpdateStmt(&__s1, v661);
+            }
+
+            else if (v662 == 236)
+            {
+              deparseSelectStmt(&__s1, v661);
+            }
+          }
+
+          else if (v662 == 233)
+          {
+            deparseInsertStmt(&__s1, v661);
+          }
+
+          else if (v662 == 234)
+          {
+            deparseDeleteStmt(&__s1, v661);
+          }
+
+          appendStringInfoString(&__s1, ") ");
+        }
+
+        if (*(v20 + 32))
+        {
+          v759 = "FROM ";
+        }
+
+        else
+        {
+          v759 = "TO ";
+        }
+
+        appendStringInfoString(&__s1, v759);
+        if (*(v20 + 33) == 1)
+        {
+          appendStringInfoString(&__s1, "PROGRAM ");
+        }
+
+        v760 = *(v20 + 40);
+        if (v760)
+        {
+          deparseStringLiteral(&__s1, v760);
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        else
+        {
+          if (*(v20 + 32) == 1)
+          {
+            v761 = "STDIN ";
+          }
+
+          else
+          {
+            v761 = "STDOUT ";
+          }
+
+          appendStringInfoString(&__s1, v761);
+        }
+
+        v762 = *(v20 + 48);
+        if (!v762 || *(v762 + 4) < 1)
+        {
+          goto LABEL_1615;
+        }
+
+        appendStringInfoString(&__s1, "WITH (");
+        v763 = *(v20 + 48);
+        if (!v763 || *(v763 + 4) < 1)
+        {
+          goto LABEL_1614;
+        }
+
+        v764 = 0;
+        while (1)
+        {
+          v765 = *(v763 + 16) + 8 * v764;
+          v766 = *v765;
+          v767 = *(*v765 + 16);
+          if (!strcmp(v767, "format"))
+          {
+            appendStringInfoString(&__s1, "FORMAT ");
+            v771 = *(*(v766 + 24) + 8);
+            if (!strcmp(v771, "binary"))
+            {
+              v772 = "BINARY";
+            }
+
+            else
+            {
+              if (strcmp(v771, "csv"))
+              {
+                goto LABEL_1566;
+              }
+
+              v772 = "CSV";
+            }
+
+            goto LABEL_1562;
+          }
+
+          if (!strcmp(v767, "freeze") && ((v773 = *(v766 + 24)) == 0 || *(v773 + 8) == 1))
+          {
+            appendStringInfoString(&__s1, "FREEZE");
+            v774 = *(v766 + 24);
+            if (v774)
+            {
+              goto LABEL_1560;
+            }
+          }
+
+          else
+          {
+            if (!strcmp(v767, "delimiter"))
+            {
+              v775 = "DELIMITER ";
+LABEL_1565:
+              appendStringInfoString(&__s1, v775);
+              deparseStringLiteral(&__s1, *(*(v766 + 24) + 8));
+              goto LABEL_1566;
+            }
+
+            if (!strcmp(v767, "null"))
+            {
+              v775 = "NULL ";
+              goto LABEL_1565;
+            }
+
+            if (!strcmp(v767, "header"))
+            {
+              v776 = *(v766 + 24);
+              if (!v776 || *(v776 + 8) == 1)
+              {
+                appendStringInfoString(&__s1, "HEADER");
+                v774 = *(v766 + 24);
+                if (!v774)
+                {
+                  goto LABEL_1566;
+                }
+
+LABEL_1560:
+                if (*(v774 + 8) != 1)
+                {
+                  goto LABEL_1566;
+                }
+
+                v772 = " 1";
+LABEL_1562:
+                appendStringInfoString(&__s1, v772);
+                goto LABEL_1566;
+              }
+            }
+
+            if (!strcmp(v767, "quote"))
+            {
+              v775 = "QUOTE ";
+              goto LABEL_1565;
+            }
+
+            if (!strcmp(v767, "escape"))
+            {
+              v775 = "ESCAPE ";
+              goto LABEL_1565;
+            }
+
+            if (!strcmp(v767, "force_quote"))
+            {
+              appendStringInfoString(&__s1, "FORCE_QUOTE ");
+              v777 = **(v766 + 24);
+              if (v777 != 226)
+              {
+                if (v777 != 351)
+                {
+                  goto LABEL_1566;
+                }
+
+LABEL_1571:
+                appendStringInfoChar(&__s1, 42);
+                goto LABEL_1566;
+              }
+
+              appendStringInfoChar(&__s1, 40);
+              v792 = *(v766 + 24);
+              if (v792 && *(v792 + 4) >= 1)
+              {
+                v793 = 8;
+                v794 = 0;
+                do
+                {
+                  v795 = *(v792 + 16);
+                  v796 = quote_identifier(*(*(v795 + 8 * v794) + 8));
+                  appendStringInfoString(&__s1, v796);
+                  v797 = *(v792 + 4);
+                  if (v795 + v793)
+                  {
+                    v798 = v795 + v793 >= (*(v792 + 16) + 8 * v797);
+                  }
+
+                  else
+                  {
+                    v798 = 1;
+                  }
+
+                  if (!v798)
+                  {
+                    appendStringInfoString(&__s1, ", ");
+                    v797 = *(v792 + 4);
+                  }
+
+                  ++v794;
+                  v793 += 8;
+                }
+
+                while (v794 < v797);
+              }
+
+              goto LABEL_1611;
+            }
+
+            if (!strcmp(v767, "force_not_null"))
+            {
+              appendStringInfoString(&__s1, "FORCE_NOT_NULL (");
+              v778 = *(v766 + 24);
+              if (v778 && *(v778 + 4) >= 1)
+              {
+                v779 = 8;
+                v780 = 0;
+                do
+                {
+                  v781 = *(v778 + 16);
+                  v782 = quote_identifier(*(*(v781 + 8 * v780) + 8));
+                  appendStringInfoString(&__s1, v782);
+                  v783 = *(v778 + 4);
+                  if (v781 + v779)
+                  {
+                    v784 = v781 + v779 >= (*(v778 + 16) + 8 * v783);
+                  }
+
+                  else
+                  {
+                    v784 = 1;
+                  }
+
+                  if (!v784)
+                  {
+                    appendStringInfoString(&__s1, ", ");
+                    v783 = *(v778 + 4);
+                  }
+
+                  ++v780;
+                  v779 += 8;
+                }
+
+                while (v780 < v783);
+              }
+
+LABEL_1611:
+              appendStringInfoChar(&__s1, 41);
+              goto LABEL_1612;
+            }
+
+            if (!strcmp(v767, "force_null"))
+            {
+              appendStringInfoString(&__s1, "FORCE_NULL (");
+              v785 = *(v766 + 24);
+              if (v785 && *(v785 + 4) >= 1)
+              {
+                v786 = 8;
+                v787 = 0;
+                do
+                {
+                  v788 = *(v785 + 16);
+                  v789 = quote_identifier(*(*(v788 + 8 * v787) + 8));
+                  appendStringInfoString(&__s1, v789);
+                  v790 = *(v785 + 4);
+                  if (v788 + v786)
+                  {
+                    v791 = v788 + v786 >= (*(v785 + 16) + 8 * v790);
+                  }
+
+                  else
+                  {
+                    v791 = 1;
+                  }
+
+                  if (!v791)
+                  {
+                    appendStringInfoString(&__s1, ", ");
+                    v790 = *(v785 + 4);
+                  }
+
+                  ++v787;
+                  v786 += 8;
+                }
+
+                while (v787 < v790);
+              }
+
+              goto LABEL_1611;
+            }
+
+            if (!strcmp(v767, "encoding"))
+            {
+              appendStringInfoString(&__s1, "ENCODING ");
+              deparseStringLiteral(&__s1, *(*(v766 + 24) + 8));
+LABEL_1612:
+              v10 = v1241;
+              v9 = v1242;
+              goto LABEL_1566;
+            }
+
+            v768 = quote_identifier(v767);
+            appendStringInfoString(&__s1, v768);
+            v10 = v1241;
+            v9 = v1242;
+            if (!*(v766 + 24))
+            {
+              goto LABEL_1566;
+            }
+
+            appendStringInfoChar(&__s1, 32);
+            v769 = *(v766 + 24);
+            if (!v769)
+            {
+              goto LABEL_1566;
+            }
+
+            v770 = *v769;
+            if (*v769 > 222)
+            {
+              if (v770 == 351)
+              {
+                goto LABEL_1571;
+              }
+
+              if (v770 != 226)
+              {
+                if (v770 == 223)
+                {
+                  deparseOptBooleanOrString(&__s1, *(v769 + 8));
+                }
+
+                goto LABEL_1566;
+              }
+
+              appendStringInfoChar(&__s1, 40);
+              if (*(v769 + 4) >= 1)
+              {
+                v799 = 8;
+                v800 = 0;
+                do
+                {
+                  v801 = *(v769 + 16);
+                  deparseOptBooleanOrString(&__s1, *(*(v801 + 8 * v800) + 8));
+                  v802 = *(v769 + 4);
+                  if (v801 + v799)
+                  {
+                    v803 = v801 + v799 >= (*(v769 + 16) + 8 * v802);
+                  }
+
+                  else
+                  {
+                    v803 = 1;
+                  }
+
+                  if (!v803)
+                  {
+                    appendStringInfoString(&__s1, ", ");
+                    v802 = *(v769 + 4);
+                  }
+
+                  ++v800;
+                  v799 += 8;
+                }
+
+                while (v800 < v802);
+              }
+
+              goto LABEL_1611;
+            }
+
+            if (v770 == 221)
+            {
+              appendStringInfo(&__s1, "%d", *(v769 + 8));
+            }
+
+            else if (v770 == 222)
+            {
+              v772 = *(v769 + 8);
+              goto LABEL_1562;
+            }
+          }
+
+LABEL_1566:
+          if (v765 != -8 && v765 + 8 < (*(*(v20 + 48) + 16) + 8 * *(*(v20 + 48) + 4)))
+          {
+            appendStringInfoString(&__s1, ", ");
+          }
+
+          if (++v764 >= *(v763 + 4))
+          {
+LABEL_1614:
+            appendStringInfoString(&__s1, ") ");
+            v7 = v1243;
+            v6 = v1244;
+LABEL_1615:
+            v804 = *(v20 + 56);
+            if (v804)
+            {
+              appendStringInfoString(&__s1, "WHERE ");
+              deparseExpr(&__s1, v804);
+LABEL_1617:
+              appendStringInfoChar(&__s1, 32);
+            }
+
+LABEL_2444:
+            v374 = v1246 - 1;
+            if (v1246 >= 1)
+            {
+LABEL_2445:
+              if (__s1[v374] == 32)
+              {
+                LODWORD(v1246) = v374;
+                __s1[v374] = 0;
+              }
+            }
+
+LABEL_2447:
+            protobuf_to_nodes = v1240;
+            if (v1238 != -8 && v1238 + 8 < (*(v1240 + 16) + 8 * *(v1240 + 4)))
+            {
+              appendStringInfoString(&__s1, "; ");
+            }
+
+            v17 = v1239 + 1;
+            if (v1239 + 1 >= *(v1240 + 4))
+            {
+              goto LABEL_2464;
+            }
+
+            goto LABEL_7;
+          }
+        }
+
+      case 0xF7:
+        deparseCreateStmt(&__s1, v19, 0);
+        goto LABEL_2447;
+      case 0xF8:
+        appendStringInfoString(&__s1, "CREATE ");
+        if (*(v19 + 41) == 1)
+        {
+          appendStringInfoString(&__s1, "OR REPLACE ");
+        }
+
+        v334 = *(v19 + 4);
+        if (v334 > 43)
+        {
+          if (v334 > 45)
+          {
+            if (v334 == 46)
+            {
+              v335 = "TEXT SEARCH TEMPLATE ";
+            }
+
+            else
+            {
+              if (v334 != 47)
+              {
+                goto LABEL_1813;
+              }
+
+              v335 = "TYPE ";
+            }
+          }
+
+          else if (v334 == 44)
+          {
+            v335 = "TEXT SEARCH DICTIONARY ";
+          }
+
+          else
+          {
+            v335 = "TEXT SEARCH PARSER ";
+          }
+        }
+
+        else if (v334 > 24)
+        {
+          if (v334 == 25)
+          {
+            v335 = "OPERATOR ";
+          }
+
+          else
+          {
+            if (v334 != 43)
+            {
+              goto LABEL_1813;
+            }
+
+            v335 = "TEXT SEARCH CONFIGURATION ";
+          }
+        }
+
+        else if (v334 == 1)
+        {
+          v335 = "AGGREGATE ";
+        }
+
+        else
+        {
+          if (v334 != 7)
+          {
+            goto LABEL_1813;
+          }
+
+          v335 = "COLLATION ";
+        }
+
+        appendStringInfoString(&__s1, v335);
+LABEL_1813:
+        if (*(v19 + 40) == 1)
+        {
+          appendStringInfoString(&__s1, "IF NOT EXISTS ");
+        }
+
+        v858 = *(v19 + 4);
+        if (v858 > 42)
+        {
+          if ((v858 - 43) >= 5)
+          {
+            goto LABEL_2357;
+          }
+
+          goto LABEL_1817;
+        }
+
+        switch(v858)
+        {
+          case 1:
+            v870 = *(v19 + 16);
+            if (v870 && *(v870 + 4) >= 1)
+            {
+              v871 = 8;
+              v872 = 0;
+              do
+              {
+                v873 = *(v870 + 16);
+                v874 = quote_identifier(*(*(v873 + 8 * v872) + 8));
+                appendStringInfoString(&__s1, v874);
+                v875 = *(v870 + 4);
+                if (v873 + v871)
+                {
+                  v876 = v873 + v871 >= (*(v870 + 16) + 8 * v875);
+                }
+
+                else
+                {
+                  v876 = 1;
+                }
+
+                if (!v876)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v875 = *(v870 + 4);
+                }
+
+                ++v872;
+                v871 += 8;
+              }
+
+              while (v872 < v875);
+            }
+
+            break;
+          case 7:
+LABEL_1817:
+            v859 = *(v19 + 16);
+            if (v859 && *(v859 + 4) >= 1)
+            {
+              v860 = 8;
+              v861 = 0;
+              do
+              {
+                v862 = *(v859 + 16);
+                v863 = quote_identifier(*(*(v862 + 8 * v861) + 8));
+                appendStringInfoString(&__s1, v863);
+                v864 = *(v859 + 4);
+                if (v862 + v860)
+                {
+                  v865 = v862 + v860 >= (*(v859 + 16) + 8 * v864);
+                }
+
+                else
+                {
+                  v865 = 1;
+                }
+
+                if (!v865)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v864 = *(v859 + 4);
+                }
+
+                ++v861;
+                v860 += 8;
+              }
+
+              while (v861 < v864);
+            }
+
+            break;
+          case 25:
+            v866 = *(v19 + 16);
+            if (v866)
+            {
+              v867 = *(v866 + 4);
+              if (v867 == 1)
+              {
+                v869 = *(v866 + 16);
+              }
+
+              else
+              {
+                if (v867 != 2)
+                {
+                  break;
+                }
+
+                v868 = quote_identifier(*(**(v866 + 16) + 8));
+                appendStringInfoString(&__s1, v868);
+                appendStringInfoChar(&__s1, 46);
+                v869 = *(v866 + 16) + 8 * (*(v866 + 4) - 1);
+              }
+
+              appendStringInfoString(&__s1, *(*v869 + 8));
+            }
+
+            break;
+        }
+
+LABEL_2357:
+        appendStringInfoChar(&__s1, 32);
+        v9 = v1242;
+        if (*(v20 + 8))
+        {
+          goto LABEL_2374;
+        }
+
+        v1177 = *(v20 + 4);
+        if (v1177 == 1)
+        {
+          v1178 = *(*(v20 + 24) + 16);
+          v1179 = *v1178;
+          v1180 = *(v1178[1] + 8);
+          appendStringInfoChar(&__s1, 40);
+          if (v1179)
+          {
+            v1181 = v1180;
+            LODWORD(v1182) = *(v1179 + 4);
+            if (v1182 >= 1)
+            {
+              v1183 = *(v1179 + 16);
+              if (!v1181)
+              {
+                appendStringInfoString(&__s1, "ORDER BY ");
+              }
+
+              deparseFunctionParameter(&__s1, *v1183);
+              LODWORD(v1182) = *(v1179 + 4);
+              if (v1182 >= 2)
+              {
+                v1184 = 1;
+                do
+                {
+                  v1186 = *(v1179 + 16);
+                  if (v1181 == v1184)
+                  {
+                    appendStringInfoChar(&__s1, 32);
+                    v1185 = "ORDER BY ";
+                  }
+
+                  else
+                  {
+                    v1185 = ", ";
+                  }
+
+                  appendStringInfoString(&__s1, v1185);
+                  deparseFunctionParameter(&__s1, *(v1186 + 8 * v1184++));
+                  v1182 = *(v1179 + 4);
+                  v6 = v1244;
+                }
+
+                while (v1184 < v1182);
+                v9 = v1242;
+              }
+            }
+
+            if (v1181 == v1182)
+            {
+              appendStringInfoString(&__s1, " ORDER BY ");
+              deparseFunctionParameter(&__s1, *(*(v1179 + 16) + 8 * (*(v1179 + 4) - 1)));
+            }
+          }
+
+          else
+          {
+            appendStringInfoChar(&__s1, 42);
+          }
+
+          appendStringInfoChar(&__s1, 41);
+          appendStringInfoChar(&__s1, 32);
+LABEL_2374:
+          v1177 = *(v20 + 4);
+        }
+
+        v1187 = *(v20 + 32);
+        if (v1177 == 7)
+        {
+          if (!v1187)
+          {
+            goto LABEL_2444;
+          }
+
+          v1188 = *(v1187 + 4);
+          if (v1188 == 1)
+          {
+            if (!strcmp(*(**(v1187 + 16) + 16), "from"))
+            {
+              appendStringInfoString(&__s1, "FROM ");
+              v1189 = *(**(*(v20 + 32) + 16) + 24);
+              if (v1189 && *(v1189 + 4) >= 1)
+              {
+                v1190 = 8;
+                v1191 = 0;
+                do
+                {
+                  v1192 = *(v1189 + 16);
+                  v1193 = quote_identifier(*(*(v1192 + 8 * v1191) + 8));
+                  appendStringInfoString(&__s1, v1193);
+                  v1194 = *(v1189 + 4);
+                  if (v1192 + v1190)
+                  {
+                    v1195 = v1192 + v1190 >= (*(v1189 + 16) + 8 * v1194);
+                  }
+
+                  else
+                  {
+                    v1195 = 1;
+                  }
+
+                  if (!v1195)
+                  {
+                    appendStringInfoChar(&__s1, 46);
+                    v1194 = *(v1189 + 4);
+                  }
+
+                  ++v1191;
+                  v1190 += 8;
+                }
+
+                while (v1191 < v1194);
+              }
+
+              goto LABEL_2444;
+            }
+
+            goto LABEL_2391;
+          }
+        }
+
+        else
+        {
+          if (!v1187)
+          {
+            goto LABEL_2444;
+          }
+
+          v1188 = *(v1187 + 4);
+        }
+
+        if (v1188 < 1)
+        {
+          goto LABEL_2444;
+        }
+
+LABEL_2391:
+        v599 = v1187;
+LABEL_2392:
+        deparseDefinition(&__s1, v599);
+        goto LABEL_2444;
+      case 0xF9:
+        appendStringInfoString(&__s1, "DROP ");
+        v357 = *(v19 + 16);
+        if (v357 <= 0x31 && ((0x2FEAF3FBFD1A3uLL >> v357) & 1) != 0)
+        {
+          appendStringInfoString(&__s1, (&off_2797B69D8)[v357]);
+        }
+
+        if (*(v19 + 25) == 1)
+        {
+          appendStringInfoString(&__s1, "CONCURRENTLY ");
+          if (*(v19 + 24) != 1)
+          {
+LABEL_617:
+            v358 = *(v19 + 16);
+            if (v358 > 0x31)
+            {
+              goto LABEL_624;
+            }
+
+LABEL_621:
+            switch(v358)
+            {
+              case 0u:
+              case 0xEu:
+              case 0xFu:
+              case 0x10u:
+              case 0x11u:
+              case 0x1Du:
+              case 0x22u:
+                v697 = *(v19 + 8);
+                if (v697 && *(v697 + 4) >= 1)
+                {
+                  v698 = 8;
+                  v699 = 0;
+                  do
+                  {
+                    v700 = *(v697 + 16);
+                    v701 = quote_identifier(*(*(v700 + 8 * v699) + 8));
+                    appendStringInfoString(&__s1, v701);
+                    v702 = *(v697 + 4);
+                    if (v700 + v698)
+                    {
+                      v703 = v700 + v698 >= (*(v697 + 16) + 8 * v702);
+                    }
+
+                    else
+                    {
+                      v703 = 1;
+                    }
+
+                    if (!v703)
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                      v702 = *(v697 + 4);
+                    }
+
+                    ++v699;
+                    v698 += 8;
+                    v9 = v1242;
+                  }
+
+                  while (v699 < v702);
+                }
+
+                goto LABEL_623;
+              case 1u:
+                v1152 = *(v19 + 8);
+                if (v1152 && *(v1152 + 4) >= 1)
+                {
+                  v1153 = 8;
+                  v1154 = 0;
+                  do
+                  {
+                    v1155 = *(v1152 + 16);
+                    deparseAggregateWithArgtypes(&__s1, *(v1155 + 8 * v1154));
+                    if (v1155 + v1153)
+                    {
+                      v1156 = v1155 + v1153 >= (*(*(v20 + 8) + 16) + 8 * *(*(v20 + 8) + 4));
+                    }
+
+                    else
+                    {
+                      v1156 = 1;
+                    }
+
+                    if (!v1156)
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                    }
+
+                    ++v1154;
+                    v1153 += 8;
+                    v9 = v1242;
+                  }
+
+                  while (v1154 < *(v1152 + 4));
+                }
+
+                goto LABEL_623;
+              case 5u:
+                v1157 = **(*(v19 + 8) + 16);
+                appendStringInfoChar(&__s1, 40);
+                deparseTypeName(&__s1, **(v1157 + 16));
+                appendStringInfoString(&__s1, " AS ");
+                deparseTypeName(&__s1, *(*(v1157 + 16) + 8));
+                appendStringInfoChar(&__s1, 41);
+                goto LABEL_623;
+              case 7u:
+              case 8u:
+              case 0x12u:
+              case 0x14u:
+              case 0x17u:
+              case 0x23u:
+              case 0x25u:
+              case 0x27u:
+              case 0x2Bu:
+              case 0x2Cu:
+              case 0x2Du:
+              case 0x2Eu:
+              case 0x31u:
+                deparseAnyNameList(&__s1, *(v19 + 8));
+                goto LABEL_623;
+              case 0xCu:
+              case 0x2Fu:
+                v922 = *(v19 + 8);
+                if (v922 && *(v922 + 4) >= 1)
+                {
+                  v923 = 8;
+                  v924 = 0;
+                  do
+                  {
+                    v925 = *(v922 + 16);
+                    deparseTypeName(&__s1, *(v925 + 8 * v924));
+                    if (v925 + v923)
+                    {
+                      v926 = v925 + v923 >= (*(*(v20 + 8) + 16) + 8 * *(*(v20 + 8) + 4));
+                    }
+
+                    else
+                    {
+                      v926 = 1;
+                    }
+
+                    if (!v926)
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                    }
+
+                    ++v924;
+                    v923 += 8;
+                    v9 = v1242;
+                  }
+
+                  while (v924 < *(v922 + 4));
+                }
+
+                goto LABEL_623;
+              case 0x13u:
+              case 0x1Cu:
+              case 0x20u:
+                v898 = *(v19 + 8);
+                if (v898 && *(v898 + 4) >= 1)
+                {
+                  v899 = 8;
+                  v900 = 0;
+                  do
+                  {
+                    v901 = *(v898 + 16);
+                    deparseFunctionWithArgtypes(&__s1, *(v901 + 8 * v900));
+                    if (v901 + v899)
+                    {
+                      v902 = v901 + v899 >= (*(*(v20 + 8) + 16) + 8 * *(*(v20 + 8) + 4));
+                    }
+
+                    else
+                    {
+                      v902 = 1;
+                    }
+
+                    if (!v902)
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                    }
+
+                    ++v900;
+                    v899 += 8;
+                    v9 = v1242;
+                  }
+
+                  while (v900 < *(v898 + 4));
+                }
+
+                goto LABEL_623;
+              case 0x15u:
+                deparseStringLiteral(&__s1, *(**(*(v19 + 8) + 16) + 8));
+                goto LABEL_623;
+              case 0x18u:
+              case 0x1Au:
+                v927 = **(*(v19 + 8) + 16);
+                if (!v927)
+                {
+                  goto LABEL_2468;
+                }
+
+                if (*(v927 + 4) >= 2)
+                {
+                  v928 = 1;
+                  v929 = 0x100000000;
+                  do
+                  {
+                    v930 = (*(v927 + 16) + (v929 >> 29));
+                    v932 = *v930;
+                    v931 = (v930 + 1);
+                    v933 = quote_identifier(*(v932 + 8));
+                    appendStringInfoString(&__s1, v933);
+                    v934 = *(v927 + 4);
+                    if (v931)
+                    {
+                      v935 = v931 >= *(v927 + 16) + 8 * v934;
+                    }
+
+                    else
+                    {
+                      v935 = 1;
+                    }
+
+                    if (!v935)
+                    {
+                      appendStringInfoChar(&__s1, 46);
+                      LODWORD(v934) = *(v927 + 4);
+                    }
+
+                    ++v928;
+                    v929 += 0x100000000;
+                  }
+
+                  while (v934 > v928);
+                }
+
+                appendStringInfoString(&__s1, " USING ");
+                v936 = quote_identifier(*(**(v927 + 16) + 8));
+                appendStringInfoString(&__s1, v936);
+                v9 = v1242;
+LABEL_623:
+                appendStringInfoChar(&__s1, 32);
+                break;
+              case 0x19u:
+                v1158 = *(v19 + 8);
+                if (v1158 && *(v1158 + 4) >= 1)
+                {
+                  v1159 = 8;
+                  v1160 = 0;
+                  do
+                  {
+                    v1161 = *(v1158 + 16);
+                    deparseOperatorWithArgtypes(&__s1, *(v1161 + 8 * v1160));
+                    if (v1161 + v1159)
+                    {
+                      v1162 = v1161 + v1159 >= (*(*(v20 + 8) + 16) + 8 * *(*(v20 + 8) + 4));
+                    }
+
+                    else
+                    {
+                      v1162 = 1;
+                    }
+
+                    if (!v1162)
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                    }
+
+                    ++v1160;
+                    v1159 += 8;
+                    v9 = v1242;
+                  }
+
+                  while (v1160 < *(v1158 + 4));
+                }
+
+                goto LABEL_623;
+              case 0x1Bu:
+              case 0x21u:
+              case 0x2Au:
+                v903 = **(*(v19 + 8) + 16);
+                v904 = quote_identifier(*(*(*(v903 + 16) + 8 * (*(v903 + 4) - 1)) + 8));
+                appendStringInfoString(&__s1, v904);
+                appendStringInfoString(&__s1, " ON ");
+                v905 = *(v903 + 4);
+                if (v905 >= 1)
+                {
+                  v906 = 8;
+                  v907 = 0;
+                  do
+                  {
+                    v908 = v905;
+                    v909 = *(v903 + 16);
+                    if (v909 + v906)
+                    {
+                      v910 = v909 + v906 >= (v909 + 8 * v908);
+                    }
+
+                    else
+                    {
+                      v910 = 1;
+                    }
+
+                    if (!v910)
+                    {
+                      v911 = quote_identifier(*(*(v909 + 8 * v907) + 8));
+                      appendStringInfoString(&__s1, v911);
+                      v908 = *(v903 + 4);
+                      if (v907 < *(v903 + 4) - 2)
+                      {
+                        appendStringInfoChar(&__s1, 46);
+                        v908 = *(v903 + 4);
+                      }
+                    }
+
+                    v905 = v908;
+                    v891 = v907 + 1 < v908;
+                    v906 += 8;
+                    ++v907;
+                  }
+
+                  while (v891);
+                }
+
+                goto LABEL_623;
+              case 0x29u:
+                v1163 = **(*(v19 + 8) + 16);
+                appendStringInfoString(&__s1, "FOR ");
+                deparseTypeName(&__s1, **(v1163 + 16));
+                appendStringInfoString(&__s1, " LANGUAGE ");
+                v1164 = quote_identifier(*(*(*(v1163 + 16) + 8) + 8));
+                appendStringInfoString(&__s1, v1164);
+                goto LABEL_623;
+              default:
+                break;
+            }
+
+LABEL_624:
+            if (*(v20 + 20) == 1)
+            {
+LABEL_2443:
+              appendStringInfoString(&__s1, "CASCADE ");
+            }
+
+            goto LABEL_2444;
+          }
+        }
+
+        else if (*(v19 + 24) != 1)
+        {
+          goto LABEL_617;
+        }
+
+        appendStringInfoString(&__s1, "IF EXISTS ");
+        v358 = *(v19 + 16);
+        goto LABEL_621;
+      case 0xFA:
+        appendStringInfoString(&__s1, "TRUNCATE ");
+        v368 = *(v19 + 8);
+        if (v368 && *(v368 + 4) >= 1)
+        {
+          v369 = 8;
+          v370 = 0;
+          do
+          {
+            v371 = *(v368 + 16);
+            deparseRangeVar(&__s1, *(v371 + 8 * v370), 0);
+            v372 = *(v368 + 4);
+            if (v371 + v369)
+            {
+              v373 = v371 + v369 >= (*(v368 + 16) + 8 * v372);
+            }
+
+            else
+            {
+              v373 = 1;
+            }
+
+            if (!v373)
+            {
+              appendStringInfoString(&__s1, ", ");
+              v372 = *(v368 + 4);
+            }
+
+            ++v370;
+            v369 += 8;
+          }
+
+          while (v370 < v372);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        if (*(v20 + 16) == 1)
+        {
+          appendStringInfoString(&__s1, "RESTART IDENTITY ");
+          v9 = v1242;
+          if (*(v20 + 20) != 1)
+          {
+            goto LABEL_2444;
+          }
+        }
+
+        else
+        {
+          v9 = v1242;
+          if (*(v20 + 20) != 1)
+          {
+            goto LABEL_2444;
+          }
+        }
+
+        appendStringInfoString(&__s1, "CASCADE ");
+        v374 = v1246 - 1;
+        if (v1246 < 1)
+        {
+          goto LABEL_2447;
+        }
+
+        goto LABEL_2445;
+      case 0xFB:
+        appendStringInfoString(&__s1, "COMMENT ON ");
+        v359 = *(v19 + 4);
+        v360 = v359;
+        if (v359 <= 0x31 && ((0x2FFFFBFFFF3E3uLL >> v359) & 1) != 0)
+        {
+          appendStringInfoString(&__s1, (&off_2797B6810)[v359]);
+          v360 = *(v19 + 4);
+        }
+
+        switch(v360)
+        {
+          case 0:
+          case 9:
+          case 14:
+          case 15:
+          case 16:
+          case 17:
+          case 21:
+          case 29:
+          case 31:
+          case 34:
+          case 36:
+          case 40:
+            v655 = quote_identifier(*(*(v19 + 8) + 8));
+            appendStringInfoString(&__s1, v655);
+            goto LABEL_2399;
+          case 1:
+            deparseAggregateWithArgtypes(&__s1, *(v19 + 8));
+            goto LABEL_2399;
+          case 5:
+            v1196 = *(v19 + 8);
+            appendStringInfoChar(&__s1, 40);
+            deparseTypeName(&__s1, **(v1196 + 16));
+            appendStringInfoString(&__s1, " AS ");
+            deparseTypeName(&__s1, *(*(v1196 + 16) + 8));
+            appendStringInfoChar(&__s1, 41);
+            goto LABEL_2399;
+          case 6:
+          case 7:
+          case 8:
+          case 18:
+          case 20:
+          case 23:
+          case 35:
+          case 37:
+          case 39:
+          case 43:
+          case 44:
+          case 45:
+          case 46:
+          case 49:
+            v361 = *(v19 + 8);
+            if (v361 && *(v361 + 4) >= 1)
+            {
+              v362 = 8;
+              v363 = 0;
+              do
+              {
+                v364 = *(v361 + 16);
+                v365 = quote_identifier(*(*(v364 + 8 * v363) + 8));
+                appendStringInfoString(&__s1, v365);
+                v366 = *(v361 + 4);
+                if (v364 + v362)
+                {
+                  v367 = v364 + v362 >= (*(v361 + 16) + 8 * v366);
+                }
+
+                else
+                {
+                  v367 = 1;
+                }
+
+                if (!v367)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v366 = *(v361 + 4);
+                }
+
+                ++v363;
+                v362 += 8;
+                v9 = v1242;
+              }
+
+              while (v363 < v366);
+            }
+
+            goto LABEL_2399;
+          case 12:
+          case 47:
+            deparseTypeName(&__s1, *(v19 + 8));
+            goto LABEL_2399;
+          case 13:
+            v1199 = *(v19 + 8);
+            v1200 = quote_identifier(*(*(*(v1199 + 16) + 8 * (*(v1199 + 4) - 1)) + 8));
+            appendStringInfoString(&__s1, v1200);
+            appendStringInfoString(&__s1, " ON DOMAIN ");
+            deparseTypeName(&__s1, **(v1199 + 16));
+            goto LABEL_2399;
+          case 19:
+          case 28:
+          case 32:
+            deparseFunctionWithArgtypes(&__s1, *(v19 + 8));
+            goto LABEL_2399;
+          case 22:
+            deparseValue(&__s1, *(v19 + 8), 0);
+            goto LABEL_2399;
+          case 24:
+          case 26:
+            v937 = *(v19 + 8);
+            if (!v937)
+            {
+              goto LABEL_2468;
+            }
+
+            if (*(v937 + 4) >= 2)
+            {
+              v938 = 1;
+              v939 = 0x100000000;
+              do
+              {
+                v940 = (*(v937 + 16) + (v939 >> 29));
+                v942 = *v940;
+                v941 = (v940 + 1);
+                v943 = quote_identifier(*(v942 + 8));
+                appendStringInfoString(&__s1, v943);
+                v944 = *(v937 + 4);
+                if (v941)
+                {
+                  v945 = v941 >= *(v937 + 16) + 8 * v944;
+                }
+
+                else
+                {
+                  v945 = 1;
+                }
+
+                if (!v945)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  LODWORD(v944) = *(v937 + 4);
+                }
+
+                ++v938;
+                v939 += 0x100000000;
+              }
+
+              while (v944 > v938);
+            }
+
+            appendStringInfoString(&__s1, " USING ");
+            v946 = quote_identifier(*(**(v937 + 16) + 8));
+            appendStringInfoString(&__s1, v946);
+            v9 = v1242;
+LABEL_2399:
+            appendStringInfoString(&__s1, " IS ");
+            v392 = *(v20 + 16);
+            if (v392)
+            {
+              goto LABEL_2400;
+            }
+
+            v28 = "NULL";
+            break;
+          case 25:
+            deparseOperatorWithArgtypes(&__s1, *(v19 + 8));
+            goto LABEL_2399;
+          case 27:
+          case 33:
+          case 38:
+          case 42:
+            v886 = *(v19 + 8);
+            v887 = quote_identifier(*(*(*(v886 + 16) + 8 * (*(v886 + 4) - 1)) + 8));
+            appendStringInfoString(&__s1, v887);
+            appendStringInfoString(&__s1, " ON ");
+            v888 = *(v886 + 4);
+            if (v888 >= 1)
+            {
+              v889 = 8;
+              v890 = 0;
+              do
+              {
+                v892 = v888;
+                v893 = *(v886 + 16);
+                if (v893 + v889)
+                {
+                  v894 = v893 + v889 >= (v893 + 8 * v892);
+                }
+
+                else
+                {
+                  v894 = 1;
+                }
+
+                if (!v894)
+                {
+                  v895 = quote_identifier(*(*(v893 + 8 * v890) + 8));
+                  appendStringInfoString(&__s1, v895);
+                  v892 = *(v886 + 4);
+                  if (v890 < *(v886 + 4) - 2)
+                  {
+                    appendStringInfoChar(&__s1, 46);
+                    v892 = *(v886 + 4);
+                  }
+                }
+
+                v888 = v892;
+                v891 = v890 + 1 < v892;
+                v889 += 8;
+                ++v890;
+              }
+
+              while (v891);
+            }
+
+            goto LABEL_2399;
+          case 41:
+            v1197 = *(v19 + 8);
+            appendStringInfoString(&__s1, "FOR ");
+            deparseTypeName(&__s1, **(v1197 + 16));
+            appendStringInfoString(&__s1, " LANGUAGE ");
+            v1198 = quote_identifier(*(*(*(v1197 + 16) + 8) + 8));
+            appendStringInfoString(&__s1, v1198);
+            goto LABEL_2399;
+          default:
+            goto LABEL_2399;
+        }
+
+        goto LABEL_2263;
+      case 0xFC:
+        if (*(v19 + 24))
+        {
+          v340 = "MOVE ";
+        }
+
+        else
+        {
+          v340 = "FETCH ";
+        }
+
+        appendStringInfoString(&__s1, v340);
+        v341 = *(v19 + 4);
+        if (v341 > 1)
+        {
+          if (v341 == 2)
+          {
+            v675 = *(v19 + 8);
+            if (v675 == -1)
+            {
+              v343 = "LAST ";
+              goto LABEL_1923;
+            }
+
+            if (v675 == 1)
+            {
+              v343 = "FIRST ";
+              goto LABEL_1923;
+            }
+
+            appendStringInfo(&__s1, "ABSOLUTE %ld ");
+          }
+
+          else if (v341 == 3)
+          {
+            appendStringInfo(&__s1, "RELATIVE %ld ");
+          }
+        }
+
+        else if (v341)
+        {
+          if (v341 == 1)
+          {
+            v342 = *(v19 + 8);
+            if (v342 == 0x7FFFFFFFFFFFFFFFLL)
+            {
+              v343 = "BACKWARD ALL ";
+              goto LABEL_1923;
+            }
+
+            if (v342 == 1)
+            {
+              v343 = "PRIOR ";
+LABEL_1923:
+              appendStringInfoString(&__s1, v343);
+              v28 = *(v19 + 16);
+              goto LABEL_2263;
+            }
+
+            appendStringInfo(&__s1, "BACKWARD %ld ");
+          }
+        }
+
+        else
+        {
+          v674 = *(v19 + 8);
+          if (v674 != 1)
+          {
+            if (v674 == 0x7FFFFFFFFFFFFFFFLL)
+            {
+              v343 = "ALL ";
+              goto LABEL_1923;
+            }
+
+            appendStringInfo(&__s1, "FORWARD %ld ");
+          }
+        }
+
+        v28 = *(v19 + 16);
+        goto LABEL_2263;
+      case 0xFD:
+        deparseIndexStmt(&__s1, v19);
+        goto LABEL_2447;
+      case 0xFE:
+        appendStringInfoString(&__s1, "CREATE ");
+        if (*(v19 + 5) == 1)
+        {
+          appendStringInfoString(&__s1, "OR REPLACE ");
+        }
+
+        if (*(v19 + 4))
+        {
+          v280 = "PROCEDURE ";
+        }
+
+        else
+        {
+          v280 = "FUNCTION ";
+        }
+
+        appendStringInfoString(&__s1, v280);
+        v281 = *(v19 + 8);
+        if (v281 && *(v281 + 4) >= 1)
+        {
+          v282 = 8;
+          v283 = 0;
+          do
+          {
+            v284 = *(v281 + 16);
+            v285 = quote_identifier(*(*(v284 + 8 * v283) + 8));
+            appendStringInfoString(&__s1, v285);
+            v286 = *(v281 + 4);
+            if (v284 + v282)
+            {
+              v287 = v284 + v282 >= (*(v281 + 16) + 8 * v286);
+            }
+
+            else
+            {
+              v287 = 1;
+            }
+
+            if (!v287)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v286 = *(v281 + 4);
+            }
+
+            ++v283;
+            v282 += 8;
+          }
+
+          while (v283 < v286);
+        }
+
+        appendStringInfoChar(&__s1, 40);
+        v288 = *(v20 + 16);
+        if (v288 && *(v288 + 4) >= 1)
+        {
+          v289 = 0;
+          v290 = 8;
+          v291 = 0;
+          do
+          {
+            v293 = *(v288 + 16);
+            v294 = *(v293 + 8 * v291);
+            if (*(v294 + 24) == 116)
+            {
+              v292 = 1;
+            }
+
+            else
+            {
+              v292 = v289;
+              deparseFunctionParameter(&__s1, v294);
+              if (v293 + v290)
+              {
+                v295 = v293 + v290 >= (*(*(v20 + 16) + 16) + 8 * *(*(v20 + 16) + 4));
+              }
+
+              else
+              {
+                v295 = 1;
+              }
+
+              if (!v295 && *(*(v293 + 8 * v291 + 8) + 24) != 116)
+              {
+                appendStringInfoString(&__s1, ", ");
+              }
+            }
+
+            ++v291;
+            v290 += 8;
+            v289 = v292;
+          }
+
+          while (v291 < *(v288 + 4));
+          appendStringInfoString(&__s1, ") ");
+          if (v292)
+          {
+            appendStringInfoString(&__s1, "RETURNS TABLE (");
+            v592 = *(v20 + 16);
+            if (v592 && *(v592 + 4) >= 1)
+            {
+              v593 = 8;
+              v594 = 0;
+              do
+              {
+                v595 = *(v592 + 16);
+                v596 = *(v595 + 8 * v594);
+                if (*(v596 + 24) == 116)
+                {
+                  deparseFunctionParameter(&__s1, v596);
+                  if (v595 + v593 && v595 + v593 < (*(*(v20 + 16) + 16) + 8 * *(*(v20 + 16) + 4)))
+                  {
+                    appendStringInfoString(&__s1, ", ");
+                  }
+                }
+
+                ++v594;
+                v593 += 8;
+              }
+
+              while (v594 < *(v592 + 4));
+            }
+
+            appendStringInfoString(&__s1, ") ");
+            goto LABEL_1347;
+          }
+        }
+
+        else
+        {
+          appendStringInfoString(&__s1, ") ");
+        }
+
+        if (*(v20 + 24))
+        {
+          appendStringInfoString(&__s1, "RETURNS ");
+          deparseTypeName(&__s1, *(v20 + 24));
+          appendStringInfoChar(&__s1, 32);
+        }
+
+LABEL_1347:
+        v677 = *(v20 + 32);
+        v9 = v1242;
+        if (!v677 || *(v677 + 4) < 1)
+        {
+          goto LABEL_1386;
+        }
+
+        v678 = 0;
+        while (1)
+        {
+          v680 = *(*(v677 + 16) + 8 * v678);
+          v681 = *(v680 + 16);
+          if (*v681 == 97 && *(v681 + 1) == 115 && !*(v681 + 2))
+          {
+            appendStringInfoString(&__s1, "AS ");
+            v690 = *(v680 + 24);
+            if (v690 && *(v690 + 4) >= 1)
+            {
+              v691 = 8;
+              v692 = 0;
+              do
+              {
+                v693 = *(v690 + 16);
+                v694 = *(*(v693 + 8 * v692) + 8);
+                if (strstr(v694, "$$"))
+                {
+                  deparseStringLiteral(&__s1, v694);
+                }
+
+                else
+                {
+                  appendStringInfoString(&__s1, "$$");
+                  appendStringInfoString(&__s1, v694);
+                  appendStringInfoString(&__s1, "$$");
+                }
+
+                v695 = *(v690 + 4);
+                if (v693 + v691)
+                {
+                  v696 = v693 + v691 >= (*(v690 + 16) + 8 * v695);
+                }
+
+                else
+                {
+                  v696 = 1;
+                }
+
+                if (!v696)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                  v695 = *(v690 + 4);
+                }
+
+                ++v692;
+                v691 += 8;
+              }
+
+              while (v692 < v695);
+            }
+
+            goto LABEL_1352;
+          }
+
+          if (!strcmp(*(v680 + 16), "language"))
+          {
+            appendStringInfoString(&__s1, "LANGUAGE ");
+            v682 = *(*(v680 + 24) + 8);
+            v683 = strlen(v682);
+            if (v683)
+            {
+              if (v683 >= 0x40)
+              {
+                deparseStringLiteral(&__s1, v682);
+                goto LABEL_1352;
+              }
+
+              v679 = quote_identifier(v682);
+            }
+
+            else
+            {
+              v679 = "''";
+            }
+          }
+
+          else
+          {
+            if (!strcmp(v681, "transform"))
+            {
+              v684 = *(v680 + 24);
+              appendStringInfoString(&__s1, "TRANSFORM ");
+              if (v684 && *(v684 + 4) >= 1)
+              {
+                v685 = 8;
+                v686 = 0;
+                do
+                {
+                  v687 = *(v684 + 16);
+                  appendStringInfoString(&__s1, "FOR TYPE ");
+                  deparseTypeName(&__s1, *(v687 + 8 * v686));
+                  v688 = *(v684 + 4);
+                  if (v687 + v685)
+                  {
+                    v689 = v687 + v685 >= (*(v684 + 16) + 8 * v688);
+                  }
+
+                  else
+                  {
+                    v689 = 1;
+                  }
+
+                  if (!v689)
+                  {
+                    appendStringInfoString(&__s1, ", ");
+                    v688 = *(v684 + 4);
+                  }
+
+                  ++v686;
+                  v685 += 8;
+                }
+
+                while (v686 < v688);
+              }
+
+              goto LABEL_1352;
+            }
+
+            if (strcmp(v681, "window"))
+            {
+              deparseCommonFuncOptItem(&__s1, v680);
+              goto LABEL_1352;
+            }
+
+            v679 = "WINDOW";
+          }
+
+          appendStringInfoString(&__s1, v679);
+LABEL_1352:
+          appendStringInfoChar(&__s1, 32);
+          ++v678;
+          v9 = v1242;
+          v7 = v1243;
+          v10 = v1241;
+          if (v678 >= *(v677 + 4))
+          {
+LABEL_1386:
+            v374 = v1246 - 1;
+            v6 = v1244;
+            if (v1246 >= 1)
+            {
+              goto LABEL_2445;
+            }
+
+            goto LABEL_2447;
+          }
+        }
+
+      case 0xFF:
+        appendStringInfoString(&__s1, "ALTER ");
+        v263 = *(v19 + 4);
+        switch(v263)
+        {
+          case 19:
+            v264 = "FUNCTION ";
+            break;
+          case 32:
+            v264 = "ROUTINE ";
+            break;
+          case 28:
+            v264 = "PROCEDURE ";
+            break;
+          default:
+            goto LABEL_1256;
+        }
+
+        appendStringInfoString(&__s1, v264);
+LABEL_1256:
+        deparseFunctionWithArgtypes(&__s1, *(v19 + 8));
+        appendStringInfoChar(&__s1, 32);
+        v656 = *(v19 + 16);
+        if (v656 && *(v656 + 4) >= 1)
+        {
+          v657 = 8;
+          v658 = 0;
+          do
+          {
+            v659 = *(v656 + 16);
+            deparseCommonFuncOptItem(&__s1, *(v659 + 8 * v658));
+            if (v659 + v657)
+            {
+              v660 = v659 + v657 >= (*(*(v20 + 16) + 16) + 8 * *(*(v20 + 16) + 4));
+            }
+
+            else
+            {
+              v660 = 1;
+            }
+
+            if (!v660)
+            {
+              appendStringInfoChar(&__s1, 32);
+            }
+
+            ++v658;
+            v657 += 8;
+            v9 = v1242;
+          }
+
+          while (v658 < *(v656 + 4));
+        }
+
+        goto LABEL_2447;
+      case 0x100:
+        appendStringInfoString(&__s1, "DO ");
+        v344 = *(v19 + 8);
+        if (!v344 || *(v344 + 4) < 1)
+        {
+          goto LABEL_1802;
+        }
+
+        v345 = *(v344 + 4);
+        v346 = 0;
+        while (1)
+        {
+          v348 = *(*(v344 + 16) + 8 * v346);
+          v349 = *(v348 + 16);
+          if (!strcmp(v349, "language"))
+          {
+            appendStringInfoString(&__s1, "LANGUAGE ");
+            v347 = quote_identifier(*(*(v348 + 24) + 8));
+          }
+
+          else
+          {
+            if (*v349 != 97 || *(v349 + 1) != 115 || *(v349 + 2))
+            {
+              goto LABEL_595;
+            }
+
+            v350 = *(*(v348 + 24) + 8);
+            v351 = "$$";
+            if (strstr(v350, "$$"))
+            {
+              v351 = "$outer$";
+            }
+
+            appendStringInfoString(&__s1, v351);
+            appendStringInfoString(&__s1, v350);
+            v347 = v351;
+          }
+
+          appendStringInfoString(&__s1, v347);
+          appendStringInfoChar(&__s1, 32);
+          v345 = *(v344 + 4);
+LABEL_595:
+          if (++v346 >= v345)
+          {
+            goto LABEL_1802;
+          }
+        }
+
+      case 0x101:
+        appendStringInfoString(&__s1, "ALTER ");
+        v421 = "AGGREGATE ";
+        switch(*(v19 + 4))
+        {
+          case 1:
+            goto LABEL_2407;
+          case 4:
+          case 0x2F:
+            v421 = "TYPE ";
+            goto LABEL_2407;
+          case 6:
+            v1165 = *(v19 + 8);
+            if (v1165 > 38)
+            {
+              if (v1165 == 39)
+              {
+LABEL_2406:
+                v421 = "TABLE ";
+              }
+
+              else
+              {
+                if (v1165 != 49)
+                {
+                  goto LABEL_2408;
+                }
+
+LABEL_2405:
+                v421 = "VIEW ";
+              }
+            }
+
+            else if (v1165 == 18)
+            {
+LABEL_2317:
+              v421 = "FOREIGN TABLE ";
+            }
+
+            else
+            {
+              if (v1165 != 23)
+              {
+                goto LABEL_2408;
+              }
+
+LABEL_2316:
+              v421 = "MATERIALIZED VIEW ";
+            }
+
+LABEL_2407:
+            appendStringInfoString(&__s1, v421);
+LABEL_2408:
+            if (*(v19 + 52) == 1)
+            {
+              appendStringInfoString(&__s1, "IF EXISTS ");
+            }
+
+            switch(*(v19 + 4))
+            {
+              case 1:
+                deparseAggregateWithArgtypes(&__s1, *(v19 + 24));
+                goto LABEL_2441;
+              case 4:
+                deparseRangeVar(&__s1, *(v19 + 16), 9);
+                v1222 = " RENAME ATTRIBUTE ";
+                goto LABEL_2453;
+              case 6:
+                deparseRangeVar(&__s1, *(v19 + 16), 0);
+                v1222 = " RENAME COLUMN ";
+                goto LABEL_2453;
+              case 7:
+              case 8:
+              case 0xC:
+              case 0x25:
+              case 0x2B:
+              case 0x2C:
+              case 0x2D:
+              case 0x2E:
+              case 0x2F:
+                v1201 = *(v19 + 24);
+                if (v1201 && *(v1201 + 4) >= 1)
+                {
+                  v1202 = 8;
+                  v1203 = 0;
+                  do
+                  {
+                    v1204 = *(v1201 + 16);
+                    v1205 = quote_identifier(*(*(v1204 + 8 * v1203) + 8));
+                    appendStringInfoString(&__s1, v1205);
+                    v1206 = *(v1201 + 4);
+                    if (v1204 + v1202)
+                    {
+                      v1207 = v1204 + v1202 >= (*(v1201 + 16) + 8 * v1206);
+                    }
+
+                    else
+                    {
+                      v1207 = 1;
+                    }
+
+                    if (!v1207)
+                    {
+                      appendStringInfoChar(&__s1, 46);
+                      v1206 = *(v1201 + 4);
+                    }
+
+                    ++v1203;
+                    v1202 += 8;
+                  }
+
+                  while (v1203 < v1206);
+                }
+
+                goto LABEL_2420;
+              case 9:
+              case 0x1F:
+              case 0x22:
+              case 0x28:
+                v1209 = *(v19 + 32);
+                goto LABEL_2424;
+              case 0xD:
+                v1226 = *(v19 + 24);
+                if (v1226 && *(v1226 + 4) >= 1)
+                {
+                  v1227 = 8;
+                  v1228 = 0;
+                  do
+                  {
+                    v1229 = *(v1226 + 16);
+                    v1230 = quote_identifier(*(*(v1229 + 8 * v1228) + 8));
+                    appendStringInfoString(&__s1, v1230);
+                    v1231 = *(v1226 + 4);
+                    if (v1229 + v1227)
+                    {
+                      v1232 = v1229 + v1227 >= (*(v1226 + 16) + 8 * v1231);
+                    }
+
+                    else
+                    {
+                      v1232 = 1;
+                    }
+
+                    if (!v1232)
+                    {
+                      appendStringInfoChar(&__s1, 46);
+                      v1231 = *(v1226 + 4);
+                    }
+
+                    ++v1228;
+                    v1227 += 8;
+                  }
+
+                  while (v1228 < v1231);
+                }
+
+                appendStringInfoString(&__s1, " RENAME CONSTRAINT ");
+                v1233 = quote_identifier(*(v20 + 32));
+                appendStringInfoString(&__s1, v1233);
+                appendStringInfoChar(&__s1, 32);
+                v9 = v1242;
+                break;
+              case 0xE:
+              case 0x10:
+              case 0x11:
+              case 0x15:
+              case 0x1D:
+              case 0x24:
+                v1209 = *(*(v19 + 24) + 8);
+LABEL_2424:
+                v1210 = quote_identifier(v1209);
+                appendStringInfoString(&__s1, v1210);
+                goto LABEL_2441;
+              case 0x12:
+              case 0x14:
+              case 0x17:
+              case 0x23:
+              case 0x27:
+              case 0x31:
+                v1208 = *(v19 + 16);
+                goto LABEL_2426;
+              case 0x13:
+              case 0x1C:
+              case 0x20:
+                deparseFunctionWithArgtypes(&__s1, *(v19 + 24));
+                goto LABEL_2441;
+              case 0x18:
+              case 0x1A:
+                v1212 = *(v19 + 24);
+                if (!v1212)
+                {
+                  goto LABEL_2468;
+                }
+
+                if (*(v1212 + 4) >= 2)
+                {
+                  v1213 = 1;
+                  v1214 = 0x100000000;
+                  do
+                  {
+                    v1215 = (*(v1212 + 16) + (v1214 >> 29));
+                    v1217 = *v1215;
+                    v1216 = (v1215 + 1);
+                    v1218 = quote_identifier(*(v1217 + 8));
+                    appendStringInfoString(&__s1, v1218);
+                    v1219 = *(v1212 + 4);
+                    if (v1216)
+                    {
+                      v1220 = v1216 >= *(v1212 + 16) + 8 * v1219;
+                    }
+
+                    else
+                    {
+                      v1220 = 1;
+                    }
+
+                    if (!v1220)
+                    {
+                      appendStringInfoChar(&__s1, 46);
+                      LODWORD(v1219) = *(v1212 + 4);
+                    }
+
+                    ++v1213;
+                    v1214 += 0x100000000;
+                  }
+
+                  while (v1219 > v1213);
+                }
+
+                appendStringInfoString(&__s1, " USING ");
+                v1221 = quote_identifier(*(**(v1212 + 16) + 8));
+                appendStringInfoString(&__s1, v1221);
+LABEL_2420:
+                appendStringInfoString(&__s1, " RENAME ");
+                v9 = v1242;
+                break;
+              case 0x1B:
+              case 0x21:
+              case 0x2A:
+                v1211 = quote_identifier(*(v19 + 32));
+                appendStringInfoString(&__s1, v1211);
+                appendStringInfoString(&__s1, " ON ");
+                v1208 = *(v19 + 16);
+LABEL_2426:
+                deparseRangeVar(&__s1, v1208, 0);
+LABEL_2441:
+                appendStringInfoString(&__s1, " RENAME ");
+                break;
+              case 0x26:
+                deparseRangeVar(&__s1, *(v19 + 16), 0);
+                v1222 = " RENAME CONSTRAINT ";
+LABEL_2453:
+                appendStringInfoString(&__s1, v1222);
+                v1225 = quote_identifier(*(v19 + 32));
+                appendStringInfoString(&__s1, v1225);
+                appendStringInfoChar(&__s1, 32);
+                break;
+              default:
+                break;
+            }
+
+            appendStringInfoString(&__s1, "TO ");
+            v1223 = quote_identifier(*(v20 + 40));
+            appendStringInfoString(&__s1, v1223);
+            appendStringInfoChar(&__s1, 32);
+            if (*(v20 + 48) == 1)
+            {
+              goto LABEL_2443;
+            }
+
+            goto LABEL_2444;
+          case 7:
+            v421 = "COLLATION ";
+            goto LABEL_2407;
+          case 8:
+            v421 = "CONVERSION ";
+            goto LABEL_2407;
+          case 9:
+            v421 = "DATABASE ";
+            goto LABEL_2407;
+          case 0xC:
+          case 0xD:
+            v421 = "DOMAIN ";
+            goto LABEL_2407;
+          case 0xE:
+            v421 = "EVENT TRIGGER ";
+            goto LABEL_2407;
+          case 0x10:
+            v421 = "FOREIGN DATA WRAPPER ";
+            goto LABEL_2407;
+          case 0x11:
+            v421 = "SERVER ";
+            goto LABEL_2407;
+          case 0x12:
+            goto LABEL_2317;
+          case 0x13:
+            v421 = "FUNCTION ";
+            goto LABEL_2407;
+          case 0x14:
+            v421 = "INDEX ";
+            goto LABEL_2407;
+          case 0x15:
+            v421 = "LANGUAGE ";
+            goto LABEL_2407;
+          case 0x17:
+            goto LABEL_2316;
+          case 0x18:
+            v421 = "OPERATOR CLASS ";
+            goto LABEL_2407;
+          case 0x1A:
+            v421 = "OPERATOR FAMILY ";
+            goto LABEL_2407;
+          case 0x1B:
+            v421 = "POLICY ";
+            goto LABEL_2407;
+          case 0x1C:
+            v421 = "PROCEDURE ";
+            goto LABEL_2407;
+          case 0x1D:
+            v421 = "PUBLICATION ";
+            goto LABEL_2407;
+          case 0x1F:
+            v421 = "ROLE ";
+            goto LABEL_2407;
+          case 0x20:
+            v421 = "ROUTINE ";
+            goto LABEL_2407;
+          case 0x21:
+            v421 = "RULE ";
+            goto LABEL_2407;
+          case 0x22:
+            v421 = "SCHEMA ";
+            goto LABEL_2407;
+          case 0x23:
+            v421 = "SEQUENCE ";
+            goto LABEL_2407;
+          case 0x24:
+            v421 = "SUBSCRIPTION ";
+            goto LABEL_2407;
+          case 0x25:
+            v421 = "STATISTICS ";
+            goto LABEL_2407;
+          case 0x26:
+          case 0x27:
+            goto LABEL_2406;
+          case 0x28:
+            v421 = "TABLESPACE ";
+            goto LABEL_2407;
+          case 0x2A:
+            v421 = "TRIGGER ";
+            goto LABEL_2407;
+          case 0x2B:
+            v421 = "TEXT SEARCH CONFIGURATION ";
+            goto LABEL_2407;
+          case 0x2C:
+            v421 = "TEXT SEARCH DICTIONARY ";
+            goto LABEL_2407;
+          case 0x2D:
+            v421 = "TEXT SEARCH PARSER ";
+            goto LABEL_2407;
+          case 0x2E:
+            v421 = "TEXT SEARCH TEMPLATE ";
+            goto LABEL_2407;
+          case 0x31:
+            goto LABEL_2405;
+          default:
+            goto LABEL_2408;
+        }
+
+      case 0x102:
+        appendStringInfoString(&__s1, "CREATE ");
+        if (*(v19 + 48) == 1)
+        {
+          appendStringInfoString(&__s1, "OR REPLACE ");
+        }
+
+        appendStringInfoString(&__s1, "RULE ");
+        v187 = quote_identifier(*(v19 + 16));
+        appendStringInfoString(&__s1, v187);
+        appendStringInfoString(&__s1, " AS ON ");
+        v188 = *(v19 + 32) - 1;
+        if (v188 <= 3)
+        {
+          appendStringInfoString(&__s1, (&off_2797B6BD0)[v188]);
+        }
+
+        appendStringInfoString(&__s1, "TO ");
+        deparseRangeVar(&__s1, *(v19 + 8), 0);
+        appendStringInfoChar(&__s1, 32);
+        v189 = *(v19 + 24);
+        if (v189)
+        {
+          appendStringInfoString(&__s1, "WHERE ");
+          deparseExpr(&__s1, v189);
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        appendStringInfoString(&__s1, "DO ");
+        if (*(v19 + 36) == 1)
+        {
+          appendStringInfoString(&__s1, "INSTEAD ");
+        }
+
+        v190 = *(v19 + 40);
+        if (!v190)
+        {
+          goto LABEL_314;
+        }
+
+        v191 = *(v190 + 4);
+        if (v191 != 1)
+        {
+          if (!v191)
+          {
+LABEL_314:
+            v28 = "NOTHING";
+            goto LABEL_2263;
+          }
+
+          appendStringInfoChar(&__s1, 40);
+          v664 = *(v19 + 40);
+          if (v664 && *(v664 + 4) >= 1)
+          {
+            v665 = 0;
+            v666 = 0;
+            do
+            {
+              v667 = *(v664 + 16);
+              v668 = *(v667 + v666);
+              v669 = *v668;
+              if (*v668 <= 234)
+              {
+                if (v669 == 233)
+                {
+                  deparseInsertStmt(&__s1, *(v667 + v666));
+                }
+
+                else if (v669 == 234)
+                {
+                  deparseDeleteStmt(&__s1, *(v667 + v666));
+                }
+              }
+
+              else
+              {
+                switch(v669)
+                {
+                  case 235:
+                    deparseUpdateStmt(&__s1, *(v667 + v666));
+                    break;
+                  case 259:
+                    appendStringInfoString(&__s1, "NOTIFY ");
+                    v670 = quote_identifier(*(v668 + 8));
+                    appendStringInfoString(&__s1, v670);
+                    if (*(v668 + 16))
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                      deparseStringLiteral(&__s1, *(v668 + 16));
+                    }
+
+                    break;
+                  case 236:
+                    deparseSelectStmt(&__s1, *(v667 + v666));
+                    break;
+                }
+              }
+
+              if (v667 + v666 != -8 && v667 + v666 + 8 < (*(*(v20 + 40) + 16) + 8 * *(*(v20 + 40) + 4)))
+              {
+                appendStringInfoString(&__s1, "; ");
+              }
+
+              ++v665;
+              v666 += 8;
+            }
+
+            while (v665 < *(v664 + 4));
+          }
+
+          appendStringInfoChar(&__s1, 41);
+          v7 = v1243;
+          v6 = v1244;
+          v9 = v1242;
+          goto LABEL_2447;
+        }
+
+        v20 = **(v190 + 16);
+        v579 = *v20;
+        if (*v20 <= 234)
+        {
+          goto LABEL_1292;
+        }
+
+        if (v579 == 235)
+        {
+          goto LABEL_1288;
+        }
+
+        if (v579 != 259)
+        {
+          goto LABEL_1286;
+        }
+
+LABEL_1289:
+        appendStringInfoString(&__s1, "NOTIFY ");
+        v663 = quote_identifier(*(v20 + 8));
+        appendStringInfoString(&__s1, v663);
+        if (*(v20 + 16))
+        {
+          appendStringInfoString(&__s1, ", ");
+          v392 = *(v20 + 16);
+LABEL_2400:
+          deparseStringLiteral(&__s1, v392);
+        }
+
+        goto LABEL_2447;
+      case 0x103:
+        goto LABEL_1289;
+      case 0x104:
+        appendStringInfoString(&__s1, "LISTEN ");
+        v179 = *(v19 + 8);
+        goto LABEL_2262;
+      case 0x105:
+        appendStringInfoString(&__s1, "UNLISTEN ");
+        v179 = *(v19 + 8);
+        if (v179)
+        {
+          goto LABEL_2262;
+        }
+
+        v28 = "*";
+        goto LABEL_2263;
+      case 0x106:
+        v422 = *(v19 + 4);
+        if (v422 <= 4)
+        {
+          if (v422 <= 1)
+          {
+            if (v422)
+            {
+              if (v422 != 1)
+              {
+                goto LABEL_2444;
+              }
+
+              v672 = "START TRANSACTION ";
+            }
+
+            else
+            {
+              v672 = "BEGIN ";
+            }
+
+            appendStringInfoString(&__s1, v672);
+            deparseTransactionModeList(&__s1, *(v19 + 8));
+            goto LABEL_2444;
+          }
+
+          if (v422 == 2)
+          {
+            v897 = "COMMIT ";
+          }
+
+          else
+          {
+            if (v422 != 3)
+            {
+              v423 = "SAVEPOINT ";
+              goto LABEL_1882;
+            }
+
+            v897 = "ROLLBACK ";
+          }
+
+          appendStringInfoString(&__s1, v897);
+          if (*(v19 + 32) == 1)
+          {
+            appendStringInfoString(&__s1, "AND CHAIN ");
+          }
+
+          goto LABEL_2444;
+        }
+
+        if (v422 > 6)
+        {
+          switch(v422)
+          {
+            case 7:
+              v555 = "PREPARE TRANSACTION ";
+              break;
+            case 8:
+              v555 = "COMMIT PREPARED ";
+              break;
+            case 9:
+              v555 = "ROLLBACK PREPARED ";
+              break;
+            default:
+              goto LABEL_2444;
+          }
+
+          appendStringInfoString(&__s1, v555);
+          deparseStringLiteral(&__s1, *(v19 + 24));
+          goto LABEL_2444;
+        }
+
+        if (v422 == 5)
+        {
+          v423 = "RELEASE ";
+        }
+
+        else
+        {
+          appendStringInfoString(&__s1, "ROLLBACK ");
+          v423 = "TO SAVEPOINT ";
+        }
+
+LABEL_1882:
+        appendStringInfoString(&__s1, v423);
+        v896 = quote_identifier(*(v19 + 16));
+        appendStringInfoString(&__s1, v896);
+        goto LABEL_2444;
+      case 0x107:
+        deparseViewStmt(&__s1, v19);
+        goto LABEL_2447;
+      case 0x108:
+        appendStringInfoString(&__s1, "LOAD ");
+        v392 = *(v19 + 8);
+        goto LABEL_2400;
+      case 0x109:
+        appendStringInfoString(&__s1, "CREATE DOMAIN ");
+        v375 = *(v19 + 8);
+        if (v375 && *(v375 + 4) >= 1)
+        {
+          v376 = 8;
+          v377 = 0;
+          do
+          {
+            v378 = *(v375 + 16);
+            v379 = quote_identifier(*(*(v378 + 8 * v377) + 8));
+            appendStringInfoString(&__s1, v379);
+            v380 = *(v375 + 4);
+            if (v378 + v376)
+            {
+              v381 = v378 + v376 >= (*(v375 + 16) + 8 * v380);
+            }
+
+            else
+            {
+              v381 = 1;
+            }
+
+            if (!v381)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v380 = *(v375 + 4);
+            }
+
+            ++v377;
+            v376 += 8;
+          }
+
+          while (v377 < v380);
+        }
+
+        appendStringInfoString(&__s1, " AS ");
+        deparseTypeName(&__s1, *(v20 + 16));
+        appendStringInfoChar(&__s1, 32);
+        v382 = *(v20 + 24);
+        if (v382)
+        {
+          deparseCollateClause(&__s1, v382);
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        v383 = *(v20 + 32);
+        v9 = v1242;
+        if (v383 && *(v383 + 4) >= 1)
+        {
+          v384 = 0;
+          do
+          {
+            v385 = v384;
+            deparseConstraint(&__s1, *(*(v383 + 16) + 8 * v384));
+            appendStringInfoChar(&__s1, 32);
+            v384 = v385 + 1;
+          }
+
+          while (v385 + 1 < *(v383 + 4));
+        }
+
+        goto LABEL_2444;
+      case 0x10A:
+        appendStringInfoString(&__s1, "CREATE DATABASE ");
+        v386 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v386);
+        appendStringInfoChar(&__s1, 32);
+        deparseCreatedbOptList(&__s1, *(v19 + 16));
+        v374 = v1246 - 1;
+        if (v1246 < 1)
+        {
+          goto LABEL_2447;
+        }
+
+        goto LABEL_2445;
+      case 0x10B:
+        appendStringInfoString(&__s1, "DROP DATABASE ");
+        if (*(v19 + 16) == 1)
+        {
+          appendStringInfoString(&__s1, "IF EXISTS ");
+        }
+
+        v393 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v393);
+        appendStringInfoChar(&__s1, 32);
+        v394 = *(v19 + 24);
+        if (v394 && *(v394 + 4) >= 1)
+        {
+          appendStringInfoChar(&__s1, 40);
+          v395 = *(v19 + 24);
+          if (v395 && *(v395 + 4) >= 1)
+          {
+            v396 = 8;
+            v397 = 0;
+            do
+            {
+              v398 = *(v395 + 16);
+              if (!strcmp(*(*(v398 + 8 * v397) + 16), "force"))
+              {
+                appendStringInfoString(&__s1, "FORCE");
+              }
+
+              if (v398 + v396)
+              {
+                v399 = v398 + v396 >= (*(*(v20 + 24) + 16) + 8 * *(*(v20 + 24) + 4));
+              }
+
+              else
+              {
+                v399 = 1;
+              }
+
+              if (!v399)
+              {
+                appendStringInfoString(&__s1, ", ");
+              }
+
+              ++v397;
+              v396 += 8;
+            }
+
+            while (v397 < *(v395 + 4));
+          }
+
+          appendStringInfoChar(&__s1, 41);
+          v9 = v1242;
+        }
+
+        goto LABEL_2444;
+      case 0x10C:
+        if (*(v19 + 24))
+        {
+          v265 = "VACUUM ";
+        }
+
+        else
+        {
+          v265 = "ANALYZE ";
+        }
+
+        appendStringInfoString(&__s1, v265);
+        v266 = *(v19 + 8);
+        if (v266 && *(v266 + 4) >= 1)
+        {
+          appendStringInfoChar(&__s1, 40);
+          v268 = *(v19 + 8);
+          if (v268 && *(v268 + 4) >= 1)
+          {
+            v269 = 0;
+            do
+            {
+              v270 = *(v268 + 16) + 8 * v269;
+              v271 = *v270;
+              v272 = pstrdup(*(*v270 + 16), v267);
+              v273 = v272;
+              if (*v272)
+              {
+                v274 = *v272;
+                v275 = (v272 + 1);
+                do
+                {
+                  v276 = v275;
+                  *(v275 - 1) = pg_toupper(v274);
+                  v274 = *v276;
+                  v275 = v276 + 1;
+                }
+
+                while (*v276);
+              }
+
+              appendStringInfoString(&__s1, v273);
+              pfree(v273);
+              if (*(v271 + 24))
+              {
+                appendStringInfoChar(&__s1, 32);
+                v277 = *(v271 + 24);
+                v278 = *v277;
+                if (*v277 == 223)
+                {
+                  deparseOptBooleanOrString(&__s1, v277[1]);
+                }
+
+                else if (v278 == 222)
+                {
+                  appendStringInfoString(&__s1, v277[1]);
+                }
+
+                else if (v278 == 221)
+                {
+                  appendStringInfo(&__s1, "%d", *(v277 + 2));
+                }
+              }
+
+              v279 = v270 == -8 || v270 + 8 >= (*(*(v20 + 8) + 16) + 8 * *(*(v20 + 8) + 4));
+              v7 = v1243;
+              if (!v279)
+              {
+                appendStringInfoString(&__s1, ", ");
+              }
+
+              ++v269;
+            }
+
+            while (v269 < *(v268 + 4));
+          }
+
+          appendStringInfoString(&__s1, ") ");
+          v6 = v1244;
+        }
+
+        v580 = *(v20 + 16);
+        if (v580 && *(v580 + 4) >= 1)
+        {
+          v581 = 0;
+          do
+          {
+            v582 = *(v580 + 16) + 8 * v581;
+            v583 = *v582;
+            deparseRangeVar(&__s1, *(*v582 + 8), 0);
+            v584 = *(v583 + 24);
+            if (v584 && *(v584 + 4) >= 1)
+            {
+              appendStringInfoChar(&__s1, 40);
+              v585 = *(v583 + 24);
+              if (v585 && *(v585 + 4) >= 1)
+              {
+                v586 = 8;
+                v587 = 0;
+                do
+                {
+                  v588 = *(v585 + 16);
+                  v589 = quote_identifier(*(*(v588 + 8 * v587) + 8));
+                  appendStringInfoString(&__s1, v589);
+                  if (v588 + v586)
+                  {
+                    v590 = v588 + v586 >= (*(*(v583 + 24) + 16) + 8 * *(*(v583 + 24) + 4));
+                  }
+
+                  else
+                  {
+                    v590 = 1;
+                  }
+
+                  if (!v590)
+                  {
+                    appendStringInfoString(&__s1, ", ");
+                  }
+
+                  ++v587;
+                  v586 += 8;
+                }
+
+                while (v587 < *(v585 + 4));
+              }
+
+              appendStringInfoChar(&__s1, 41);
+              v7 = v1243;
+              v6 = v1244;
+              v10 = v1241;
+            }
+
+            if (v582 != -8 && v582 + 8 < (*(*(v20 + 16) + 16) + 8 * *(*(v20 + 16) + 4)))
+            {
+              appendStringInfoString(&__s1, ", ");
+            }
+
+            ++v581;
+          }
+
+          while (v581 < *(v580 + 4));
+        }
+
+        goto LABEL_1802;
+      case 0x10D:
+        appendStringInfoString(&__s1, "EXPLAIN ");
+        v237 = *(v19 + 16);
+        if (v237 && *(v237 + 4) >= 1)
+        {
+          appendStringInfoChar(&__s1, 40);
+          v239 = *(v19 + 16);
+          if (v239 && *(v239 + 4) >= 1)
+          {
+            v240 = 0;
+            do
+            {
+              v241 = *(v239 + 16) + 8 * v240;
+              v242 = *v241;
+              v243 = pstrdup(*(*v241 + 16), v238);
+              v244 = v243;
+              if (*v243)
+              {
+                v245 = *v243;
+                v246 = (v243 + 1);
+                do
+                {
+                  v247 = v246;
+                  *(v246 - 1) = pg_toupper(v245);
+                  v245 = *v247;
+                  v246 = v247 + 1;
+                }
+
+                while (*v247);
+              }
+
+              appendStringInfoString(&__s1, v244);
+              pfree(v244);
+              v248 = *(v242 + 24);
+              if (v248)
+              {
+                v249 = *v248;
+                if (v249 == 223)
+                {
+                  appendStringInfoChar(&__s1, 32);
+                  deparseOptBooleanOrString(&__s1, *(*(v242 + 24) + 8));
+                }
+
+                else if ((v249 - 221) <= 1)
+                {
+                  appendStringInfoChar(&__s1, 32);
+                  v250 = *(v242 + 24);
+                  if (*v250 == 222)
+                  {
+                    appendStringInfoString(&__s1, *(v250 + 8));
+                  }
+
+                  else if (*v250 == 221)
+                  {
+                    appendStringInfo(&__s1, "%d", *(v250 + 8));
+                  }
+                }
+              }
+
+              v251 = v241 == -8 || v241 + 8 >= (*(*(v20 + 16) + 16) + 8 * *(*(v20 + 16) + 4));
+              v7 = v1243;
+              if (!v251)
+              {
+                appendStringInfoString(&__s1, ", ");
+              }
+
+              ++v240;
+            }
+
+            while (v240 < *(v239 + 4));
+          }
+
+          appendStringInfoString(&__s1, ") ");
+          v6 = v1244;
+          v9 = v1242;
+        }
+
+        v20 = *(v20 + 8);
+        v579 = *v20;
+        if (*v20 <= 269)
+        {
+          if (v579 <= 234)
+          {
+LABEL_1292:
+            if (v579 == 233)
+            {
+LABEL_9:
+              deparseInsertStmt(&__s1, v20);
+            }
+
+            else if (v579 == 234)
+            {
+LABEL_1294:
+              deparseDeleteStmt(&__s1, v20);
+            }
+          }
+
+          else if (v579 == 235)
+          {
+LABEL_1288:
+            deparseUpdateStmt(&__s1, v20);
+          }
+
+          else
+          {
+LABEL_1286:
+            if (v579 == 236)
+            {
+LABEL_1287:
+              deparseSelectStmt(&__s1, v20);
+            }
+          }
+
+          goto LABEL_2447;
+        }
+
+        if (v579 <= 296)
+        {
+          if (v579 == 270)
+          {
+LABEL_1090:
+            deparseCreateTableAsStmt(&__s1, v20);
+          }
+
+          else if (v579 == 295)
+          {
+LABEL_1089:
+            deparseExecuteStmt(&__s1, v20);
+          }
+
+          goto LABEL_2447;
+        }
+
+        if (v579 == 297)
+        {
+LABEL_1253:
+          deparseDeclareCursorStmt(&__s1, v20);
+          goto LABEL_2447;
+        }
+
+        if (v579 != 330)
+        {
+          goto LABEL_2447;
+        }
+
+LABEL_1249:
+        appendStringInfoString(&__s1, "REFRESH MATERIALIZED VIEW ");
+        if (*(v20 + 4) == 1)
+        {
+          appendStringInfoString(&__s1, "CONCURRENTLY ");
+        }
+
+        deparseRangeVar(&__s1, *(v20 + 8), 0);
+        appendStringInfoChar(&__s1, 32);
+        if (*(v20 + 5) == 1)
+        {
+          appendStringInfoString(&__s1, "WITH NO DATA ");
+        }
+
+        goto LABEL_2444;
+      case 0x10E:
+        goto LABEL_1090;
+      case 0x10F:
+        deparseCreateSeqStmt(&__s1, v19);
+        goto LABEL_2447;
+      case 0x110:
+        appendStringInfoString(&__s1, "ALTER SEQUENCE ");
+        if (*(v19 + 25) == 1)
+        {
+          appendStringInfoString(&__s1, "IF EXISTS ");
+        }
+
+        deparseRangeVar(&__s1, *(v19 + 8), 0);
+        appendStringInfoChar(&__s1, 32);
+        v123 = *(v19 + 16);
+        if (v123 && *(v123 + 4) >= 1)
+        {
+          v124 = 0;
+          do
+          {
+            v125 = v124;
+            deparseSeqOptElem(&__s1, *(*(v123 + 16) + 8 * v124));
+            appendStringInfoChar(&__s1, 32);
+            v124 = v125 + 1;
+          }
+
+          while (v125 + 1 < *(v123 + 4));
+        }
+
+        goto LABEL_2444;
+      case 0x111:
+        deparseVariableSetStmt(&__s1, v19);
+        goto LABEL_2447;
+      case 0x112:
+        appendStringInfoString(&__s1, "SHOW ");
+        v453 = *(v19 + 8);
+        if (!strcmp(v453, "timezone"))
+        {
+          v28 = "TIME ZONE";
+        }
+
+        else if (!strcmp(v453, "transaction_isolation"))
+        {
+          v28 = "TRANSACTION ISOLATION LEVEL";
+        }
+
+        else if (!strcmp(v453, "session_authorization"))
+        {
+          v28 = "SESSION AUTHORIZATION";
+        }
+
+        else if (!strcmp(v453, "all"))
+        {
+          v28 = "SESSION ALL";
+        }
+
+        else
+        {
+          v28 = v453;
+        }
+
+        goto LABEL_2263;
+      case 0x113:
+        appendStringInfoString(&__s1, "DISCARD ");
+        v168 = *(v19 + 4);
+        if (v168 > 3)
+        {
+          goto LABEL_2447;
+        }
+
+        v28 = (&off_2797B69B8)[v168];
+        goto LABEL_2263;
+      case 0x114:
+        deparseCreateTrigStmt(&__s1, v19);
+        goto LABEL_2447;
+      case 0x115:
+        appendStringInfoString(&__s1, "CREATE ");
+        if (*(v19 + 4) == 1)
+        {
+          appendStringInfoString(&__s1, "OR REPLACE ");
+        }
+
+        if (*(v19 + 40) == 1)
+        {
+          appendStringInfoString(&__s1, "TRUSTED ");
+        }
+
+        appendStringInfoString(&__s1, "LANGUAGE ");
+        v450 = *(v19 + 8);
+        v451 = strlen(v450);
+        if (v451)
+        {
+          if (v451 >= 0x40)
+          {
+            deparseStringLiteral(&__s1, v450);
+            goto LABEL_1211;
+          }
+
+          v609 = quote_identifier(v450);
+        }
+
+        else
+        {
+          v609 = "''";
+        }
+
+        appendStringInfoString(&__s1, v609);
+LABEL_1211:
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "HANDLER ");
+        v634 = *(v19 + 16);
+        if (v634 && *(v634 + 4) >= 1)
+        {
+          v635 = 8;
+          v636 = 0;
+          do
+          {
+            v637 = *(v634 + 16);
+            v638 = quote_identifier(*(*(v637 + 8 * v636) + 8));
+            appendStringInfoString(&__s1, v638);
+            v639 = *(v634 + 4);
+            if (v637 + v635)
+            {
+              v640 = v637 + v635 >= (*(v634 + 16) + 8 * v639);
+            }
+
+            else
+            {
+              v640 = 1;
+            }
+
+            if (!v640)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v639 = *(v634 + 4);
+            }
+
+            ++v636;
+            v635 += 8;
+          }
+
+          while (v636 < v639);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        if (*(v20 + 24))
+        {
+          appendStringInfoString(&__s1, "INLINE ");
+          v641 = *(v20 + 24);
+          if (v641 && *(v641 + 4) >= 1)
+          {
+            v642 = 8;
+            v643 = 0;
+            do
+            {
+              v644 = *(v641 + 16);
+              v645 = quote_identifier(*(*(v644 + 8 * v643) + 8));
+              appendStringInfoString(&__s1, v645);
+              v646 = *(v641 + 4);
+              if (v644 + v642)
+              {
+                v647 = v644 + v642 >= (*(v641 + 16) + 8 * v646);
+              }
+
+              else
+              {
+                v647 = 1;
+              }
+
+              if (!v647)
+              {
+                appendStringInfoChar(&__s1, 46);
+                v646 = *(v641 + 4);
+              }
+
+              ++v643;
+              v642 += 8;
+            }
+
+            while (v643 < v646);
+          }
+
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        v9 = v1242;
+        if (!*(v20 + 32))
+        {
+          goto LABEL_2444;
+        }
+
+        appendStringInfoString(&__s1, "VALIDATOR ");
+        v648 = *(v20 + 32);
+        if (v648 && *(v648 + 4) >= 1)
+        {
+          v649 = 8;
+          v650 = 0;
+          do
+          {
+            v651 = *(v648 + 16);
+            v652 = quote_identifier(*(*(v651 + 8 * v650) + 8));
+            appendStringInfoString(&__s1, v652);
+            v653 = *(v648 + 4);
+            if (v651 + v649)
+            {
+              v654 = v651 + v649 >= (*(v648 + 16) + 8 * v653);
+            }
+
+            else
+            {
+              v654 = 1;
+            }
+
+            if (!v654)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v653 = *(v648 + 4);
+            }
+
+            ++v650;
+            v649 += 8;
+          }
+
+          while (v650 < v653);
+        }
+
+        goto LABEL_1617;
+      case 0x116:
+        appendStringInfoString(&__s1, "CREATE ");
+        v135 = *(v19 + 4);
+        if (v135 <= 2)
+        {
+          appendStringInfoString(&__s1, (&off_2797B69A0)[v135]);
+        }
+
+        v136 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v136);
+        appendStringInfoChar(&__s1, 32);
+        if (!*(v19 + 16))
+        {
+          goto LABEL_2444;
+        }
+
+        appendStringInfoString(&__s1, "WITH ");
+        v137 = *(v19 + 16);
+        if (!v137 || *(v137 + 4) < 1)
+        {
+          goto LABEL_2444;
+        }
+
+        v138 = 0;
+        while (1)
+        {
+          v139 = *(*(v137 + 16) + 8 * v138);
+          v140 = *(v139 + 16);
+          if (!strcmp(v140, "sysid"))
+          {
+            appendStringInfo(&__s1, "SYSID %d", *(*(v139 + 24) + 8));
+          }
+
+          else
+          {
+            if (!strcmp(v140, "adminmembers"))
+            {
+              appendStringInfoString(&__s1, "ADMIN ");
+              v141 = *(v139 + 24);
+              if (!v141 || *(v141 + 4) < 1)
+              {
+                goto LABEL_209;
+              }
+
+              v142 = 8;
+              v143 = 0;
+              while (2)
+              {
+                v144 = *(v141 + 16);
+                v145 = *(v144 + 8 * v143);
+                v146 = *(v145 + 4);
+                if (v146 > 1)
+                {
+                  if (v146 == 2)
+                  {
+                    v147 = "SESSION_USER";
+                  }
+
+                  else
+                  {
+                    if (v146 != 3)
+                    {
+                      goto LABEL_229;
+                    }
+
+                    v147 = "public";
+                  }
+                }
+
+                else
+                {
+                  if (v146)
+                  {
+                    if (v146 == 1)
+                    {
+                      v147 = "CURRENT_USER";
+                      break;
+                    }
+
+LABEL_229:
+                    v148 = *(v141 + 4);
+                    if (v144 + v142)
+                    {
+                      v149 = v144 + v142 >= (*(v141 + 16) + 8 * v148);
+                    }
+
+                    else
+                    {
+                      v149 = 1;
+                    }
+
+                    if (!v149)
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                      v148 = *(v141 + 4);
+                    }
+
+                    ++v143;
+                    v142 += 8;
+                    if (v143 >= v148)
+                    {
+                      goto LABEL_209;
+                    }
+
+                    continue;
+                  }
+
+                  v147 = quote_identifier(*(v145 + 8));
+                }
+
+                break;
+              }
+
+              appendStringInfoString(&__s1, v147);
+              goto LABEL_229;
+            }
+
+            if (!strcmp(v140, "rolemembers"))
+            {
+              appendStringInfoString(&__s1, "ROLE ");
+              v150 = *(v139 + 24);
+              if (!v150 || *(v150 + 4) < 1)
+              {
+                goto LABEL_209;
+              }
+
+              v151 = 8;
+              v152 = 0;
+              while (2)
+              {
+                v153 = *(v150 + 16);
+                v154 = *(v153 + 8 * v152);
+                v155 = *(v154 + 4);
+                if (v155 > 1)
+                {
+                  if (v155 == 2)
+                  {
+                    v156 = "SESSION_USER";
+                  }
+
+                  else
+                  {
+                    if (v155 != 3)
+                    {
+                      goto LABEL_248;
+                    }
+
+                    v156 = "public";
+                  }
+                }
+
+                else
+                {
+                  if (v155)
+                  {
+                    if (v155 == 1)
+                    {
+                      v156 = "CURRENT_USER";
+                      break;
+                    }
+
+LABEL_248:
+                    v157 = *(v150 + 4);
+                    if (v153 + v151)
+                    {
+                      v158 = v153 + v151 >= (*(v150 + 16) + 8 * v157);
+                    }
+
+                    else
+                    {
+                      v158 = 1;
+                    }
+
+                    if (!v158)
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                      v157 = *(v150 + 4);
+                    }
+
+                    ++v152;
+                    v151 += 8;
+                    if (v152 >= v157)
+                    {
+                      goto LABEL_209;
+                    }
+
+                    continue;
+                  }
+
+                  v156 = quote_identifier(*(v154 + 8));
+                }
+
+                break;
+              }
+
+              appendStringInfoString(&__s1, v156);
+              goto LABEL_248;
+            }
+
+            if (!strcmp(v140, "addroleto"))
+            {
+              appendStringInfoString(&__s1, "IN ROLE ");
+              v159 = *(v139 + 24);
+              if (!v159 || *(v159 + 4) < 1)
+              {
+                goto LABEL_209;
+              }
+
+              v160 = 8;
+              v161 = 0;
+              while (2)
+              {
+                v162 = *(v159 + 16);
+                v163 = *(v162 + 8 * v161);
+                v164 = *(v163 + 4);
+                if (v164 > 1)
+                {
+                  if (v164 == 2)
+                  {
+                    v165 = "SESSION_USER";
+                  }
+
+                  else
+                  {
+                    if (v164 != 3)
+                    {
+                      goto LABEL_267;
+                    }
+
+                    v165 = "public";
+                  }
+                }
+
+                else
+                {
+                  if (v164)
+                  {
+                    if (v164 == 1)
+                    {
+                      v165 = "CURRENT_USER";
+                      break;
+                    }
+
+LABEL_267:
+                    v166 = *(v159 + 4);
+                    if (v162 + v160)
+                    {
+                      v167 = v162 + v160 >= (*(v159 + 16) + 8 * v166);
+                    }
+
+                    else
+                    {
+                      v167 = 1;
+                    }
+
+                    if (!v167)
+                    {
+                      appendStringInfoString(&__s1, ", ");
+                      v166 = *(v159 + 4);
+                    }
+
+                    ++v161;
+                    v160 += 8;
+                    if (v161 >= v166)
+                    {
+                      goto LABEL_209;
+                    }
+
+                    continue;
+                  }
+
+                  v165 = quote_identifier(*(v163 + 8));
+                }
+
+                break;
+              }
+
+              appendStringInfoString(&__s1, v165);
+              goto LABEL_267;
+            }
+
+            deparseAlterRoleElem(&__s1, v139);
+          }
+
+LABEL_209:
+          appendStringInfoChar(&__s1, 32);
+          ++v138;
+          v6 = v1244;
+          v9 = v1242;
+          if (v138 >= *(v137 + 4))
+          {
+            goto LABEL_2444;
+          }
+        }
+
+      case 0x117:
+        appendStringInfoString(&__s1, "ALTER ");
+        v336 = *(v19 + 16);
+        if (!v336 || *(v336 + 4) != 1 || strcmp(*(**(v336 + 16) + 16), "rolemembers"))
+        {
+          appendStringInfoString(&__s1, "ROLE ");
+          v337 = *(v19 + 8);
+          v338 = *(v337 + 4);
+          if (v338 > 1)
+          {
+            if (v338 == 2)
+            {
+              v339 = "SESSION_USER";
+              goto LABEL_1407;
+            }
+
+            if (v338 == 3)
+            {
+              v339 = "public";
+              goto LABEL_1407;
+            }
+          }
+
+          else
+          {
+            if (!v338)
+            {
+              v339 = quote_identifier(*(v337 + 8));
+              goto LABEL_1407;
+            }
+
+            if (v338 == 1)
+            {
+              v339 = "CURRENT_USER";
+LABEL_1407:
+              appendStringInfoString(&__s1, v339);
+            }
+          }
+
+          appendStringInfoChar(&__s1, 32);
+          appendStringInfoString(&__s1, "WITH ");
+          v704 = *(v19 + 16);
+          if (v704 && *(v704 + 4) >= 1)
+          {
+            v705 = 0;
+            do
+            {
+              v706 = v705;
+              deparseAlterRoleElem(&__s1, *(*(v704 + 16) + 8 * v705));
+              appendStringInfoChar(&__s1, 32);
+              v705 = v706 + 1;
+            }
+
+            while (v706 + 1 < *(v704 + 4));
+          }
+
+          goto LABEL_2444;
+        }
+
+        appendStringInfoString(&__s1, "GROUP ");
+        v855 = *(v19 + 8);
+        v856 = *(v855 + 4);
+        if (v856 > 1)
+        {
+          if (v856 == 2)
+          {
+            v857 = "SESSION_USER";
+          }
+
+          else
+          {
+            if (v856 != 3)
+            {
+              goto LABEL_2331;
+            }
+
+            v857 = "public";
+          }
+        }
+
+        else if (v856)
+        {
+          if (v856 != 1)
+          {
+            goto LABEL_2331;
+          }
+
+          v857 = "CURRENT_USER";
+        }
+
+        else
+        {
+          v857 = quote_identifier(*(v855 + 8));
+        }
+
+        appendStringInfoString(&__s1, v857);
+LABEL_2331:
+        appendStringInfoChar(&__s1, 32);
+        v1166 = *(v19 + 24);
+        if (v1166 == 1)
+        {
+          v1167 = "ADD USER ";
+        }
+
+        else
+        {
+          if (v1166 != -1)
+          {
+            goto LABEL_2336;
+          }
+
+          v1167 = "DROP USER ";
+        }
+
+        appendStringInfoString(&__s1, v1167);
+LABEL_2336:
+        v1168 = *(**(*(v19 + 16) + 16) + 24);
+        if (!v1168 || *(v1168 + 4) < 1)
+        {
+          goto LABEL_2444;
+        }
+
+        v1169 = 8;
+        v1170 = 0;
+        while (1)
+        {
+          v1171 = *(v1168 + 16);
+          v1172 = *(v1171 + 8 * v1170);
+          v1173 = *(v1172 + 4);
+          if (v1173 > 1)
+          {
+            if (v1173 == 2)
+            {
+              v1174 = "SESSION_USER";
+              goto LABEL_2349;
+            }
+
+            if (v1173 == 3)
+            {
+              v1174 = "public";
+              goto LABEL_2349;
+            }
+          }
+
+          else
+          {
+            if (!v1173)
+            {
+              v1174 = quote_identifier(*(v1172 + 8));
+              goto LABEL_2349;
+            }
+
+            if (v1173 == 1)
+            {
+              v1174 = "CURRENT_USER";
+LABEL_2349:
+              appendStringInfoString(&__s1, v1174);
+            }
+          }
+
+          v1175 = *(v1168 + 4);
+          if (v1171 + v1169)
+          {
+            v1176 = v1171 + v1169 >= (*(v1168 + 16) + 8 * v1175);
+          }
+
+          else
+          {
+            v1176 = 1;
+          }
+
+          if (!v1176)
+          {
+            appendStringInfoString(&__s1, ", ");
+            v1175 = *(v1168 + 4);
+          }
+
+          ++v1170;
+          v1169 += 8;
+          if (v1170 >= v1175)
+          {
+            goto LABEL_2444;
+          }
+        }
+
+      case 0x118:
+        appendStringInfoString(&__s1, "DROP ROLE ");
+        if (*(v19 + 16) == 1)
+        {
+          appendStringInfoString(&__s1, "IF EXISTS ");
+        }
+
+        v426 = *(v19 + 8);
+        if (!v426 || *(v426 + 4) < 1)
+        {
+          goto LABEL_2447;
+        }
+
+        v427 = 8;
+        v428 = 0;
+        while (1)
+        {
+          v429 = *(v426 + 16);
+          v430 = *(v429 + 8 * v428);
+          v431 = *(v430 + 4);
+          if (v431 > 1)
+          {
+            if (v431 == 2)
+            {
+              v432 = "SESSION_USER";
+              goto LABEL_763;
+            }
+
+            if (v431 == 3)
+            {
+              v432 = "public";
+              goto LABEL_763;
+            }
+          }
+
+          else
+          {
+            if (!v431)
+            {
+              v432 = quote_identifier(*(v430 + 8));
+              goto LABEL_763;
+            }
+
+            if (v431 == 1)
+            {
+              v432 = "CURRENT_USER";
+LABEL_763:
+              appendStringInfoString(&__s1, v432);
+            }
+          }
+
+          v433 = *(v426 + 4);
+          if (v429 + v427)
+          {
+            v434 = v429 + v427 >= (*(v426 + 16) + 8 * v433);
+          }
+
+          else
+          {
+            v434 = 1;
+          }
+
+          if (!v434)
+          {
+            appendStringInfoString(&__s1, ", ");
+            v433 = *(v426 + 4);
+          }
+
+          ++v428;
+          v427 += 8;
+          if (v428 >= v433)
+          {
+            goto LABEL_2447;
+          }
+        }
+
+      case 0x119:
+        appendStringInfoString(&__s1, "LOCK TABLE ");
+        v462 = *(v19 + 8);
+        if (v462 && *(v462 + 4) >= 1)
+        {
+          v463 = 8;
+          v464 = 0;
+          do
+          {
+            v465 = *(v462 + 16);
+            deparseRangeVar(&__s1, *(v465 + 8 * v464), 0);
+            v466 = *(v462 + 4);
+            if (v465 + v463)
+            {
+              v467 = v465 + v463 >= (*(v462 + 16) + 8 * v466);
+            }
+
+            else
+            {
+              v467 = 1;
+            }
+
+            if (!v467)
+            {
+              appendStringInfoString(&__s1, ", ");
+              v466 = *(v462 + 4);
+            }
+
+            ++v464;
+            v463 += 8;
+          }
+
+          while (v464 < v466);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        if (*(v20 + 16) == 8)
+        {
+          v9 = v1242;
+          if (*(v20 + 20) != 1)
+          {
+            goto LABEL_2444;
+          }
+        }
+
+        else
+        {
+          appendStringInfoString(&__s1, "IN ");
+          v556 = *(v20 + 16) - 1;
+          if (v556 <= 7)
+          {
+            appendStringInfoString(&__s1, (&off_2797B6B68)[v556]);
+          }
+
+          appendStringInfoString(&__s1, "MODE ");
+          v9 = v1242;
+          if (*(v20 + 20) != 1)
+          {
+            goto LABEL_2444;
+          }
+        }
+
+        appendStringInfoString(&__s1, "NOWAIT ");
+        v374 = v1246 - 1;
+        if (v1246 >= 1)
+        {
+          goto LABEL_2445;
+        }
+
+        goto LABEL_2447;
+      case 0x11A:
+        appendStringInfoString(&__s1, "SET CONSTRAINTS ");
+        v93 = *(v19 + 8);
+        if (v93 && *(v93 + 4) >= 1)
+        {
+          v94 = 8;
+          v95 = 0;
+          do
+          {
+            v96 = *(v93 + 16);
+            deparseRangeVar(&__s1, *(v96 + 8 * v95), 0);
+            v97 = *(v93 + 4);
+            if (v96 + v94)
+            {
+              v98 = v96 + v94 >= (*(v93 + 16) + 8 * v97);
+            }
+
+            else
+            {
+              v98 = 1;
+            }
+
+            if (!v98)
+            {
+              appendStringInfoString(&__s1, ", ");
+              v97 = *(v93 + 4);
+            }
+
+            ++v95;
+            v94 += 8;
+          }
+
+          while (v95 < v97);
+          appendStringInfoChar(&__s1, 32);
+          v9 = v1242;
+        }
+
+        else
+        {
+          appendStringInfoString(&__s1, "ALL ");
+        }
+
+        if (*(v20 + 16))
+        {
+          v28 = "DEFERRED";
+        }
+
+        else
+        {
+          v28 = "IMMEDIATE";
+        }
+
+        goto LABEL_2263;
+      case 0x11B:
+        appendStringInfoString(&__s1, "REINDEX ");
+        if (*(v19 + 24))
+        {
+          appendStringInfoString(&__s1, "(VERBOSE) ");
+          v412 = *(v19 + 4);
+          if (v412 <= 4)
+          {
+LABEL_723:
+            appendStringInfoString(&__s1, (&off_2797B6BA8)[v412]);
+            if (*(v19 + 28) != 1)
+            {
+              goto LABEL_724;
+            }
+
+            goto LABEL_1010;
+          }
+        }
+
+        else
+        {
+          v412 = *(v19 + 4);
+          if (v412 <= 4)
+          {
+            goto LABEL_723;
+          }
+        }
+
+        if (*(v19 + 28) != 1)
+        {
+LABEL_724:
+          v413 = *(v19 + 8);
+          if (v413)
+          {
+LABEL_725:
+            deparseRangeVar(&__s1, v413, 0);
+            goto LABEL_2447;
+          }
+
+LABEL_1011:
+          v179 = *(v19 + 16);
+          if (!v179)
+          {
+            goto LABEL_2447;
+          }
+
+          goto LABEL_2262;
+        }
+
+LABEL_1010:
+        appendStringInfoString(&__s1, "CONCURRENTLY ");
+        v413 = *(v19 + 8);
+        if (v413)
+        {
+          goto LABEL_725;
+        }
+
+        goto LABEL_1011;
+      case 0x11C:
+        v28 = "CHECKPOINT";
+        goto LABEL_2263;
+      case 0x11D:
+        appendStringInfoString(&__s1, "CREATE SCHEMA ");
+        if (*(v19 + 32) == 1)
+        {
+          appendStringInfoString(&__s1, "IF NOT EXISTS ");
+        }
+
+        v387 = *(v19 + 8);
+        if (v387)
+        {
+          v388 = quote_identifier(v387);
+          appendStringInfoString(&__s1, v388);
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        if (!*(v19 + 16))
+        {
+          goto LABEL_1780;
+        }
+
+        appendStringInfoString(&__s1, "AUTHORIZATION ");
+        v389 = *(v19 + 16);
+        v390 = *(v389 + 4);
+        if (v390 > 1)
+        {
+          if (v390 == 2)
+          {
+            v391 = "SESSION_USER";
+          }
+
+          else
+          {
+            if (v390 != 3)
+            {
+              goto LABEL_1779;
+            }
+
+            v391 = "public";
+          }
+        }
+
+        else if (v390)
+        {
+          if (v390 != 1)
+          {
+            goto LABEL_1779;
+          }
+
+          v391 = "CURRENT_USER";
+        }
+
+        else
+        {
+          v391 = quote_identifier(*(v389 + 8));
+        }
+
+        appendStringInfoString(&__s1, v391);
+LABEL_1779:
+        appendStringInfoChar(&__s1, 32);
+LABEL_1780:
+        v848 = *(v19 + 24);
+        if (v848 && *(v848 + 4) >= 1)
+        {
+          v849 = 8;
+          v850 = 0;
+          do
+          {
+            v851 = *(v848 + 16);
+            v852 = *(v851 + 8 * v850);
+            v853 = *v852;
+            if (*v852 > 262)
+            {
+              switch(v853)
+              {
+                case 263:
+                  deparseViewStmt(&__s1, v852);
+                  break;
+                case 271:
+                  deparseCreateSeqStmt(&__s1, v852);
+                  break;
+                case 276:
+                  deparseCreateTrigStmt(&__s1, v852);
+                  break;
               }
             }
 
             else
             {
-              v26 = 1819047278;
-              if (v19 <= 3)
+              switch(v853)
               {
-LABEL_43:
-                if (v19 > 1)
-                {
-                  if (v19 == 2)
-                  {
-                    v27 = 0xE600000000000000;
-                    v28 = 0x676E69727473;
-                  }
+                case 241:
+                  deparseGrantStmt(&__s1, v852);
+                  break;
+                case 247:
+                  deparseCreateStmt(&__s1, v852, 0);
+                  break;
+                case 253:
+                  deparseIndexStmt(&__s1, v852);
+                  break;
+              }
+            }
 
-                  else
-                  {
-                    v27 = 0xE400000000000000;
-                    v28 = 1702125924;
-                  }
-                }
+            if (v851 + v849)
+            {
+              v854 = v851 + v849 >= (*(*(v20 + 24) + 16) + 8 * *(*(v20 + 24) + 4));
+            }
 
-                else if (v19)
+            else
+            {
+              v854 = 1;
+            }
+
+            if (!v854)
+            {
+              appendStringInfoChar(&__s1, 32);
+            }
+
+            ++v850;
+            v849 += 8;
+          }
+
+          while (v850 < *(v848 + 4));
+        }
+
+        goto LABEL_1802;
+      case 0x11E:
+        appendStringInfoString(&__s1, "ALTER DATABASE ");
+        v452 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v452);
+        appendStringInfoChar(&__s1, 32);
+        deparseCreatedbOptList(&__s1, *(v19 + 16));
+        goto LABEL_2444;
+      case 0x11F:
+        appendStringInfoString(&__s1, "ALTER DATABASE ");
+        v252 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v252);
+        appendStringInfoChar(&__s1, 32);
+        v253 = *(v19 + 16);
+        goto LABEL_1627;
+      case 0x120:
+        appendStringInfoString(&__s1, "ALTER ROLE ");
+        v327 = *(v19 + 8);
+        if (v327)
+        {
+          v328 = *(v327 + 4);
+          if (v328 > 1)
+          {
+            if (v328 == 2)
+            {
+              v329 = "SESSION_USER";
+            }
+
+            else
+            {
+              if (v328 != 3)
+              {
+                goto LABEL_1624;
+              }
+
+              v329 = "public";
+            }
+          }
+
+          else if (v328)
+          {
+            if (v328 != 1)
+            {
+              goto LABEL_1624;
+            }
+
+            v329 = "CURRENT_USER";
+          }
+
+          else
+          {
+            v329 = quote_identifier(*(v327 + 8));
+          }
+        }
+
+        else
+        {
+          v329 = "ALL";
+        }
+
+        appendStringInfoString(&__s1, v329);
+LABEL_1624:
+        appendStringInfoChar(&__s1, 32);
+        if (*(v19 + 16))
+        {
+          appendStringInfoString(&__s1, "IN DATABASE ");
+          v805 = quote_identifier(*(v19 + 16));
+          appendStringInfoString(&__s1, v805);
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        v253 = *(v19 + 24);
+LABEL_1627:
+        deparseVariableSetStmt(&__s1, v253);
+        goto LABEL_2447;
+      case 0x121:
+        appendStringInfoString(&__s1, "CREATE ");
+        if (*(v19 + 40) == 1)
+        {
+          appendStringInfoString(&__s1, "DEFAULT ");
+        }
+
+        appendStringInfoString(&__s1, "CONVERSION ");
+        v477 = *(v19 + 8);
+        if (v477 && *(v477 + 4) >= 1)
+        {
+          v478 = 8;
+          v479 = 0;
+          do
+          {
+            v480 = *(v477 + 16);
+            v481 = quote_identifier(*(*(v480 + 8 * v479) + 8));
+            appendStringInfoString(&__s1, v481);
+            v482 = *(v477 + 4);
+            if (v480 + v478)
+            {
+              v483 = v480 + v478 >= (*(v477 + 16) + 8 * v482);
+            }
+
+            else
+            {
+              v483 = 1;
+            }
+
+            if (!v483)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v482 = *(v477 + 4);
+            }
+
+            ++v479;
+            v478 += 8;
+          }
+
+          while (v479 < v482);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "FOR ");
+        deparseStringLiteral(&__s1, *(v20 + 16));
+        appendStringInfoString(&__s1, " TO ");
+        deparseStringLiteral(&__s1, *(v20 + 24));
+        appendStringInfoString(&__s1, "FROM ");
+        v484 = *(v20 + 32);
+        v9 = v1242;
+        if (v484 && *(v484 + 4) >= 1)
+        {
+          v485 = 8;
+          v486 = 0;
+          do
+          {
+            v487 = *(v484 + 16);
+            v488 = quote_identifier(*(*(v487 + 8 * v486) + 8));
+            appendStringInfoString(&__s1, v488);
+            v489 = *(v484 + 4);
+            if (v487 + v485)
+            {
+              v490 = v487 + v485 >= (*(v484 + 16) + 8 * v489);
+            }
+
+            else
+            {
+              v490 = 1;
+            }
+
+            if (!v490)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v489 = *(v484 + 4);
+            }
+
+            ++v486;
+            v485 += 8;
+          }
+
+          while (v486 < v489);
+        }
+
+        goto LABEL_2447;
+      case 0x122:
+        appendStringInfoString(&__s1, "CREATE CAST (");
+        deparseTypeName(&__s1, *(v19 + 8));
+        appendStringInfoString(&__s1, " AS ");
+        deparseTypeName(&__s1, *(v19 + 16));
+        appendStringInfoString(&__s1, ") ");
+        if (*(v19 + 24))
+        {
+          appendStringInfoString(&__s1, "WITH FUNCTION ");
+          deparseFunctionWithArgtypes(&__s1, *(v19 + 24));
+          appendStringInfoChar(&__s1, 32);
+          v209 = *(v19 + 32);
+          if (v209)
+          {
+LABEL_352:
+            if (v209 != 1)
+            {
+              goto LABEL_2447;
+            }
+
+            v28 = "AS ASSIGNMENT";
+            goto LABEL_2263;
+          }
+        }
+
+        else
+        {
+          if (*(v19 + 36) == 1)
+          {
+            v608 = "WITH INOUT ";
+          }
+
+          else
+          {
+            v608 = "WITHOUT FUNCTION ";
+          }
+
+          appendStringInfoString(&__s1, v608);
+          v209 = *(v19 + 32);
+          if (v209)
+          {
+            goto LABEL_352;
+          }
+        }
+
+        v28 = "AS IMPLICIT";
+        goto LABEL_2263;
+      case 0x123:
+        appendStringInfoString(&__s1, "CREATE OPERATOR CLASS ");
+        v99 = *(v19 + 8);
+        if (v99 && *(v99 + 4) >= 1)
+        {
+          v100 = 8;
+          v101 = 0;
+          do
+          {
+            v102 = *(v99 + 16);
+            v103 = quote_identifier(*(*(v102 + 8 * v101) + 8));
+            appendStringInfoString(&__s1, v103);
+            v104 = *(v99 + 4);
+            if (v102 + v100)
+            {
+              v105 = v102 + v100 >= (*(v99 + 16) + 8 * v104);
+            }
+
+            else
+            {
+              v105 = 1;
+            }
+
+            if (!v105)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v104 = *(v99 + 4);
+            }
+
+            ++v101;
+            v100 += 8;
+          }
+
+          while (v101 < v104);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        if (*(v20 + 48) == 1)
+        {
+          appendStringInfoString(&__s1, "DEFAULT ");
+        }
+
+        appendStringInfoString(&__s1, "FOR TYPE ");
+        deparseTypeName(&__s1, *(v20 + 32));
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "USING ");
+        v106 = quote_identifier(*(v20 + 24));
+        appendStringInfoString(&__s1, v106);
+        appendStringInfoChar(&__s1, 32);
+        if (*(v20 + 16))
+        {
+          appendStringInfoString(&__s1, "FAMILY ");
+          v107 = *(v20 + 16);
+          if (v107 && *(v107 + 4) >= 1)
+          {
+            v108 = 8;
+            v109 = 0;
+            do
+            {
+              v110 = *(v107 + 16);
+              v111 = quote_identifier(*(*(v110 + 8 * v109) + 8));
+              appendStringInfoString(&__s1, v111);
+              v112 = *(v107 + 4);
+              if (v110 + v108)
+              {
+                v113 = v110 + v108 >= (*(v107 + 16) + 8 * v112);
+              }
+
+              else
+              {
+                v113 = 1;
+              }
+
+              if (!v113)
+              {
+                appendStringInfoChar(&__s1, 46);
+                v112 = *(v107 + 4);
+              }
+
+              ++v109;
+              v108 += 8;
+            }
+
+            while (v109 < v112);
+          }
+
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        appendStringInfoString(&__s1, "AS ");
+        deparseOpclassItemList(&__s1, *(v20 + 40));
+        v9 = v1242;
+        goto LABEL_2447;
+      case 0x124:
+        appendStringInfoString(&__s1, "CREATE OPERATOR FAMILY ");
+        v210 = *(v19 + 8);
+        if (v210 && *(v210 + 4) >= 1)
+        {
+          v211 = 8;
+          v212 = 0;
+          do
+          {
+            v213 = *(v210 + 16);
+            v214 = quote_identifier(*(*(v213 + 8 * v212) + 8));
+            appendStringInfoString(&__s1, v214);
+            v215 = *(v210 + 4);
+            if (v213 + v211)
+            {
+              v216 = v213 + v211 >= (*(v210 + 16) + 8 * v215);
+            }
+
+            else
+            {
+              v216 = 1;
+            }
+
+            if (!v216)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v215 = *(v210 + 4);
+            }
+
+            ++v212;
+            v211 += 8;
+          }
+
+          while (v212 < v215);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "USING ");
+        v217 = *(v20 + 16);
+        goto LABEL_2129;
+      case 0x125:
+        appendStringInfoString(&__s1, "ALTER OPERATOR FAMILY ");
+        v114 = *(v19 + 8);
+        if (v114 && *(v114 + 4) >= 1)
+        {
+          v115 = 8;
+          v116 = 0;
+          do
+          {
+            v117 = *(v114 + 16);
+            v118 = quote_identifier(*(*(v117 + 8 * v116) + 8));
+            appendStringInfoString(&__s1, v118);
+            v119 = *(v114 + 4);
+            if (v117 + v115)
+            {
+              v120 = v117 + v115 >= (*(v114 + 16) + 8 * v119);
+            }
+
+            else
+            {
+              v120 = 1;
+            }
+
+            if (!v120)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v119 = *(v114 + 4);
+            }
+
+            ++v116;
+            v115 += 8;
+          }
+
+          while (v116 < v119);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "USING ");
+        v121 = quote_identifier(*(v20 + 16));
+        appendStringInfoString(&__s1, v121);
+        appendStringInfoChar(&__s1, 32);
+        if (*(v20 + 24))
+        {
+          v122 = "DROP ";
+        }
+
+        else
+        {
+          v122 = "ADD ";
+        }
+
+        appendStringInfoString(&__s1, v122);
+        deparseOpclassItemList(&__s1, *(v20 + 32));
+        v9 = v1242;
+        goto LABEL_2447;
+      case 0x126:
+        appendStringInfoString(&__s1, "PREPARE ");
+        v169 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v169);
+        v170 = *(v19 + 16);
+        if (v170 && *(v170 + 4) >= 1)
+        {
+          appendStringInfoChar(&__s1, 40);
+          v171 = *(v19 + 16);
+          if (v171 && *(v171 + 4) >= 1)
+          {
+            v172 = 8;
+            v173 = 0;
+            do
+            {
+              v174 = *(v171 + 16);
+              deparseTypeName(&__s1, *(v174 + 8 * v173));
+              v175 = *(v171 + 4);
+              if (v174 + v172)
+              {
+                v176 = v174 + v172 >= (*(v171 + 16) + 8 * v175);
+              }
+
+              else
+              {
+                v176 = 1;
+              }
+
+              if (!v176)
+              {
+                appendStringInfoString(&__s1, ", ");
+                v175 = *(v171 + 4);
+              }
+
+              ++v173;
+              v172 += 8;
+            }
+
+            while (v173 < v175);
+          }
+
+          appendStringInfoChar(&__s1, 41);
+          v9 = v1242;
+        }
+
+        appendStringInfoString(&__s1, " AS ");
+        v577 = *(v20 + 24);
+        v578 = *v577;
+        if (*v577 > 234)
+        {
+          if (v578 == 235)
+          {
+            deparseUpdateStmt(&__s1, v577);
+          }
+
+          else if (v578 == 236)
+          {
+            deparseSelectStmt(&__s1, v577);
+          }
+        }
+
+        else if (v578 == 233)
+        {
+          deparseInsertStmt(&__s1, v577);
+        }
+
+        else if (v578 == 234)
+        {
+          deparseDeleteStmt(&__s1, v577);
+        }
+
+        goto LABEL_2447;
+      case 0x127:
+        goto LABEL_1089;
+      case 0x128:
+        appendStringInfoString(&__s1, "DEALLOCATE ");
+        v179 = *(v19 + 8);
+        if (v179)
+        {
+          goto LABEL_2262;
+        }
+
+LABEL_448:
+        v28 = "ALL";
+        goto LABEL_2263;
+      case 0x129:
+        goto LABEL_1253;
+      case 0x12A:
+        appendStringInfoString(&__s1, "CREATE TABLESPACE ");
+        v129 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v129);
+        appendStringInfoChar(&__s1, 32);
+        if (!*(v19 + 16))
+        {
+          goto LABEL_1506;
+        }
+
+        appendStringInfoString(&__s1, "OWNER ");
+        v130 = *(v19 + 16);
+        v131 = *(v130 + 4);
+        if (v131 > 1)
+        {
+          if (v131 == 2)
+          {
+            v132 = "SESSION_USER";
+          }
+
+          else
+          {
+            if (v131 != 3)
+            {
+              goto LABEL_1505;
+            }
+
+            v132 = "public";
+          }
+        }
+
+        else if (v131)
+        {
+          if (v131 != 1)
+          {
+            goto LABEL_1505;
+          }
+
+          v132 = "CURRENT_USER";
+        }
+
+        else
+        {
+          v132 = quote_identifier(*(v130 + 8));
+        }
+
+        appendStringInfoString(&__s1, v132);
+LABEL_1505:
+        appendStringInfoChar(&__s1, 32);
+LABEL_1506:
+        appendStringInfoString(&__s1, "LOCATION ");
+        deparseStringLiteral(&__s1, *(v19 + 24));
+        appendStringInfoChar(&__s1, 32);
+        v758 = *(v19 + 32);
+        if (!v758 || *(v758 + 4) < 1)
+        {
+          goto LABEL_2444;
+        }
+
+        appendStringInfoString(&__s1, "WITH ");
+        deparseRelOptions(&__s1, v758);
+        goto LABEL_1617;
+      case 0x12B:
+        appendStringInfoString(&__s1, "DROP TABLESPACE ");
+        if (*(v19 + 16) == 1)
+        {
+          goto LABEL_179;
+        }
+
+        goto LABEL_180;
+      case 0x12C:
+        appendStringInfoString(&__s1, "ALTER ");
+        v177 = *(v19 + 4);
+        if (v177 > 27)
+        {
+          switch(v177)
+          {
+            case 28:
+              v756 = "PROCEDURE ";
+              break;
+            case 32:
+              v756 = "ROUTINE ";
+              break;
+            case 42:
+              appendStringInfoString(&__s1, "TRIGGER ");
+              v554 = quote_identifier(*(**(*(v19 + 16) + 16) + 8));
+              appendStringInfoString(&__s1, v554);
+              v178 = " ON ";
+              goto LABEL_1488;
+            default:
+              goto LABEL_1491;
+          }
+        }
+
+        else
+        {
+          if (v177 != 19)
+          {
+            if (v177 == 20)
+            {
+              v178 = "INDEX ";
+            }
+
+            else
+            {
+              if (v177 != 23)
+              {
+                goto LABEL_1491;
+              }
+
+              v178 = "MATERIALIZED VIEW ";
+            }
+
+LABEL_1488:
+            appendStringInfoString(&__s1, v178);
+            deparseRangeVar(&__s1, *(v19 + 8), 0);
+            goto LABEL_1491;
+          }
+
+          v756 = "FUNCTION ";
+        }
+
+        appendStringInfoString(&__s1, v756);
+        deparseFunctionWithArgtypes(&__s1, *(v19 + 16));
+LABEL_1491:
+        appendStringInfoChar(&__s1, 32);
+        if (*(v19 + 32) == 1)
+        {
+          appendStringInfoString(&__s1, "NO ");
+        }
+
+        appendStringInfoString(&__s1, "DEPENDS ON EXTENSION ");
+        v179 = *(*(v19 + 24) + 8);
+        goto LABEL_2262;
+      case 0x12D:
+        appendStringInfoString(&__s1, "ALTER ");
+        switch(*(v19 + 4))
+        {
+          case 1:
+            appendStringInfoString(&__s1, "AGGREGATE ");
+            deparseAggregateWithArgtypes(&__s1, *(v19 + 16));
+            break;
+          case 7:
+            appendStringInfoString(&__s1, "COLLATION ");
+            v1026 = *(v19 + 16);
+            if (v1026 && *(v1026 + 4) >= 1)
+            {
+              v1027 = 8;
+              v1028 = 0;
+              do
+              {
+                v1029 = *(v1026 + 16);
+                v1030 = quote_identifier(*(*(v1029 + 8 * v1028) + 8));
+                appendStringInfoString(&__s1, v1030);
+                v1031 = *(v1026 + 4);
+                if (v1029 + v1027)
                 {
-                  v27 = 0xE600000000000000;
-                  v28 = 0x656C62756F64;
+                  v1032 = v1029 + v1027 >= (*(v1026 + 16) + 8 * v1031);
                 }
 
                 else
                 {
-                  v27 = 0xE700000000000000;
-                  v28 = 0x72656765746E69;
+                  v1032 = 1;
                 }
 
-                goto LABEL_52;
+                if (!v1032)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1031 = *(v1026 + 4);
+                }
+
+                ++v1028;
+                v1027 += 8;
+              }
+
+              while (v1028 < v1031);
+            }
+
+            break;
+          case 8:
+            appendStringInfoString(&__s1, "CONVERSION ");
+            v1019 = *(v19 + 16);
+            if (v1019 && *(v1019 + 4) >= 1)
+            {
+              v1020 = 8;
+              v1021 = 0;
+              do
+              {
+                v1022 = *(v1019 + 16);
+                v1023 = quote_identifier(*(*(v1022 + 8 * v1021) + 8));
+                appendStringInfoString(&__s1, v1023);
+                v1024 = *(v1019 + 4);
+                if (v1022 + v1020)
+                {
+                  v1025 = v1022 + v1020 >= (*(v1019 + 16) + 8 * v1024);
+                }
+
+                else
+                {
+                  v1025 = 1;
+                }
+
+                if (!v1025)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1024 = *(v1019 + 4);
+                }
+
+                ++v1021;
+                v1020 += 8;
+              }
+
+              while (v1021 < v1024);
+            }
+
+            break;
+          case 0xC:
+            appendStringInfoString(&__s1, "DOMAIN ");
+            v1040 = *(v19 + 16);
+            if (v1040 && *(v1040 + 4) >= 1)
+            {
+              v1041 = 8;
+              v1042 = 0;
+              do
+              {
+                v1043 = *(v1040 + 16);
+                v1044 = quote_identifier(*(*(v1043 + 8 * v1042) + 8));
+                appendStringInfoString(&__s1, v1044);
+                v1045 = *(v1040 + 4);
+                if (v1043 + v1041)
+                {
+                  v1046 = v1043 + v1041 >= (*(v1040 + 16) + 8 * v1045);
+                }
+
+                else
+                {
+                  v1046 = 1;
+                }
+
+                if (!v1046)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1045 = *(v1040 + 4);
+                }
+
+                ++v1042;
+                v1041 += 8;
+              }
+
+              while (v1042 < v1045);
+            }
+
+            break;
+          case 0xF:
+            appendStringInfoString(&__s1, "EXTENSION ");
+            v1047 = *(v19 + 16);
+            goto LABEL_2127;
+          case 0x12:
+            v1001 = "FOREIGN TABLE ";
+            goto LABEL_2103;
+          case 0x13:
+            v1011 = "FUNCTION ";
+            goto LABEL_2091;
+          case 0x17:
+            v1001 = "MATERIALIZED VIEW ";
+            goto LABEL_2103;
+          case 0x18:
+            v1002 = *(v19 + 16);
+            appendStringInfoString(&__s1, "OPERATOR CLASS ");
+            if (!v1002)
+            {
+              goto LABEL_2468;
+            }
+
+            if (*(v1002 + 4) >= 2)
+            {
+              v1048 = 1;
+              v1049 = 0x100000000;
+              do
+              {
+                v1050 = (*(v1002 + 16) + (v1049 >> 29));
+                v1052 = *v1050;
+                v1051 = (v1050 + 1);
+                v1053 = quote_identifier(*(v1052 + 8));
+                appendStringInfoString(&__s1, v1053);
+                v1054 = *(v1002 + 4);
+                if (v1051)
+                {
+                  v1055 = v1051 >= *(v1002 + 16) + 8 * v1054;
+                }
+
+                else
+                {
+                  v1055 = 1;
+                }
+
+                if (!v1055)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  LODWORD(v1054) = *(v1002 + 4);
+                }
+
+                ++v1048;
+                v1049 += 0x100000000;
+              }
+
+              while (v1054 > v1048);
+            }
+
+            goto LABEL_2126;
+          case 0x19:
+            appendStringInfoString(&__s1, "OPERATOR ");
+            deparseOperatorWithArgtypes(&__s1, *(v19 + 16));
+            break;
+          case 0x1A:
+            v1002 = *(v19 + 16);
+            appendStringInfoString(&__s1, "OPERATOR FAMILY ");
+            if (!v1002)
+            {
+              goto LABEL_2468;
+            }
+
+            if (*(v1002 + 4) >= 2)
+            {
+              v1003 = 1;
+              v1004 = 0x100000000;
+              do
+              {
+                v1005 = (*(v1002 + 16) + (v1004 >> 29));
+                v1007 = *v1005;
+                v1006 = (v1005 + 1);
+                v1008 = quote_identifier(*(v1007 + 8));
+                appendStringInfoString(&__s1, v1008);
+                v1009 = *(v1002 + 4);
+                if (v1006)
+                {
+                  v1010 = v1006 >= *(v1002 + 16) + 8 * v1009;
+                }
+
+                else
+                {
+                  v1010 = 1;
+                }
+
+                if (!v1010)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  LODWORD(v1009) = *(v1002 + 4);
+                }
+
+                ++v1003;
+                v1004 += 0x100000000;
+              }
+
+              while (v1009 > v1003);
+            }
+
+LABEL_2126:
+            appendStringInfoString(&__s1, " USING ");
+            v1047 = **(v1002 + 16);
+LABEL_2127:
+            v1056 = quote_identifier(*(v1047 + 8));
+            appendStringInfoString(&__s1, v1056);
+            break;
+          case 0x1C:
+            v1011 = "PROCEDURE ";
+            goto LABEL_2091;
+          case 0x20:
+            v1011 = "ROUTINE ";
+LABEL_2091:
+            appendStringInfoString(&__s1, v1011);
+            deparseFunctionWithArgtypes(&__s1, *(v19 + 16));
+            break;
+          case 0x23:
+            v1001 = "SEQUENCE ";
+            goto LABEL_2103;
+          case 0x25:
+            appendStringInfoString(&__s1, "STATISTICS ");
+            v1033 = *(v19 + 16);
+            if (v1033 && *(v1033 + 4) >= 1)
+            {
+              v1034 = 8;
+              v1035 = 0;
+              do
+              {
+                v1036 = *(v1033 + 16);
+                v1037 = quote_identifier(*(*(v1036 + 8 * v1035) + 8));
+                appendStringInfoString(&__s1, v1037);
+                v1038 = *(v1033 + 4);
+                if (v1036 + v1034)
+                {
+                  v1039 = v1036 + v1034 >= (*(v1033 + 16) + 8 * v1038);
+                }
+
+                else
+                {
+                  v1039 = 1;
+                }
+
+                if (!v1039)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1038 = *(v1033 + 4);
+                }
+
+                ++v1035;
+                v1034 += 8;
+              }
+
+              while (v1035 < v1038);
+            }
+
+            break;
+          case 0x27:
+            v1001 = "TABLE ";
+            goto LABEL_2103;
+          case 0x2B:
+            appendStringInfoString(&__s1, "TEXT SEARCH CONFIGURATION ");
+            v1065 = *(v19 + 16);
+            if (v1065 && *(v1065 + 4) >= 1)
+            {
+              v1066 = 8;
+              v1067 = 0;
+              do
+              {
+                v1068 = *(v1065 + 16);
+                v1069 = quote_identifier(*(*(v1068 + 8 * v1067) + 8));
+                appendStringInfoString(&__s1, v1069);
+                v1070 = *(v1065 + 4);
+                if (v1068 + v1066)
+                {
+                  v1071 = v1068 + v1066 >= (*(v1065 + 16) + 8 * v1070);
+                }
+
+                else
+                {
+                  v1071 = 1;
+                }
+
+                if (!v1071)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1070 = *(v1065 + 4);
+                }
+
+                ++v1067;
+                v1066 += 8;
+              }
+
+              while (v1067 < v1070);
+            }
+
+            break;
+          case 0x2C:
+            appendStringInfoString(&__s1, "TEXT SEARCH DICTIONARY ");
+            v1058 = *(v19 + 16);
+            if (v1058 && *(v1058 + 4) >= 1)
+            {
+              v1059 = 8;
+              v1060 = 0;
+              do
+              {
+                v1061 = *(v1058 + 16);
+                v1062 = quote_identifier(*(*(v1061 + 8 * v1060) + 8));
+                appendStringInfoString(&__s1, v1062);
+                v1063 = *(v1058 + 4);
+                if (v1061 + v1059)
+                {
+                  v1064 = v1061 + v1059 >= (*(v1058 + 16) + 8 * v1063);
+                }
+
+                else
+                {
+                  v1064 = 1;
+                }
+
+                if (!v1064)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1063 = *(v1058 + 4);
+                }
+
+                ++v1060;
+                v1059 += 8;
+              }
+
+              while (v1060 < v1063);
+            }
+
+            break;
+          case 0x2D:
+            appendStringInfoString(&__s1, "TEXT SEARCH PARSER ");
+            v994 = *(v19 + 16);
+            if (v994 && *(v994 + 4) >= 1)
+            {
+              v995 = 8;
+              v996 = 0;
+              do
+              {
+                v997 = *(v994 + 16);
+                v998 = quote_identifier(*(*(v997 + 8 * v996) + 8));
+                appendStringInfoString(&__s1, v998);
+                v999 = *(v994 + 4);
+                if (v997 + v995)
+                {
+                  v1000 = v997 + v995 >= (*(v994 + 16) + 8 * v999);
+                }
+
+                else
+                {
+                  v1000 = 1;
+                }
+
+                if (!v1000)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v999 = *(v994 + 4);
+                }
+
+                ++v996;
+                v995 += 8;
+              }
+
+              while (v996 < v999);
+            }
+
+            break;
+          case 0x2E:
+            appendStringInfoString(&__s1, "TEXT SEARCH TEMPLATE ");
+            v1012 = *(v19 + 16);
+            if (v1012 && *(v1012 + 4) >= 1)
+            {
+              v1013 = 8;
+              v1014 = 0;
+              do
+              {
+                v1015 = *(v1012 + 16);
+                v1016 = quote_identifier(*(*(v1015 + 8 * v1014) + 8));
+                appendStringInfoString(&__s1, v1016);
+                v1017 = *(v1012 + 4);
+                if (v1015 + v1013)
+                {
+                  v1018 = v1015 + v1013 >= (*(v1012 + 16) + 8 * v1017);
+                }
+
+                else
+                {
+                  v1018 = 1;
+                }
+
+                if (!v1018)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1017 = *(v1012 + 4);
+                }
+
+                ++v1014;
+                v1013 += 8;
+              }
+
+              while (v1014 < v1017);
+            }
+
+            break;
+          case 0x2F:
+            appendStringInfoString(&__s1, "TYPE ");
+            v1072 = *(v19 + 16);
+            if (v1072 && *(v1072 + 4) >= 1)
+            {
+              v1073 = 8;
+              v1074 = 0;
+              do
+              {
+                v1075 = *(v1072 + 16);
+                v1076 = quote_identifier(*(*(v1075 + 8 * v1074) + 8));
+                appendStringInfoString(&__s1, v1076);
+                v1077 = *(v1072 + 4);
+                if (v1075 + v1073)
+                {
+                  v1078 = v1075 + v1073 >= (*(v1072 + 16) + 8 * v1077);
+                }
+
+                else
+                {
+                  v1078 = 1;
+                }
+
+                if (!v1078)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1077 = *(v1072 + 4);
+                }
+
+                ++v1074;
+                v1073 += 8;
+              }
+
+              while (v1074 < v1077);
+            }
+
+            break;
+          case 0x31:
+            v1001 = "VIEW ";
+LABEL_2103:
+            appendStringInfoString(&__s1, v1001);
+            if (*(v19 + 32) == 1)
+            {
+              appendStringInfoString(&__s1, "IF EXISTS ");
+            }
+
+            deparseRangeVar(&__s1, *(v19 + 8), 0);
+            break;
+          default:
+            break;
+        }
+
+        appendStringInfoString(&__s1, " SET SCHEMA ");
+        v217 = *(v20 + 24);
+LABEL_2129:
+        v1057 = quote_identifier(v217);
+        appendStringInfoString(&__s1, v1057);
+        v9 = v1242;
+        goto LABEL_2447;
+      case 0x12E:
+        appendStringInfoString(&__s1, "ALTER ");
+        switch(*(v19 + 4))
+        {
+          case 1:
+            appendStringInfoString(&__s1, "AGGREGATE ");
+            deparseAggregateWithArgtypes(&__s1, *(v19 + 16));
+            goto LABEL_2259;
+          case 7:
+            appendStringInfoString(&__s1, "COLLATION ");
+            v1134 = *(v19 + 16);
+            if (v1134 && *(v1134 + 4) >= 1)
+            {
+              v1135 = 8;
+              v1136 = 0;
+              do
+              {
+                v1137 = *(v1134 + 16);
+                v1138 = quote_identifier(*(*(v1137 + 8 * v1136) + 8));
+                appendStringInfoString(&__s1, v1138);
+                v1139 = *(v1134 + 4);
+                if (v1137 + v1135)
+                {
+                  v1140 = v1137 + v1135 >= (*(v1134 + 16) + 8 * v1139);
+                }
+
+                else
+                {
+                  v1140 = 1;
+                }
+
+                if (!v1140)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1139 = *(v1134 + 4);
+                }
+
+                ++v1136;
+                v1135 += 8;
+              }
+
+              while (v1136 < v1139);
+            }
+
+            goto LABEL_2259;
+          case 8:
+            appendStringInfoString(&__s1, "CONVERSION ");
+            v1118 = *(v19 + 16);
+            if (v1118 && *(v1118 + 4) >= 1)
+            {
+              v1119 = 8;
+              v1120 = 0;
+              do
+              {
+                v1121 = *(v1118 + 16);
+                v1122 = quote_identifier(*(*(v1121 + 8 * v1120) + 8));
+                appendStringInfoString(&__s1, v1122);
+                v1123 = *(v1118 + 4);
+                if (v1121 + v1119)
+                {
+                  v1124 = v1121 + v1119 >= (*(v1118 + 16) + 8 * v1123);
+                }
+
+                else
+                {
+                  v1124 = 1;
+                }
+
+                if (!v1124)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1123 = *(v1118 + 4);
+                }
+
+                ++v1120;
+                v1119 += 8;
+              }
+
+              while (v1120 < v1123);
+            }
+
+            goto LABEL_2259;
+          case 9:
+            v1079 = "DATABASE ";
+            goto LABEL_2256;
+          case 0xC:
+            appendStringInfoString(&__s1, "DOMAIN ");
+            v1142 = *(v19 + 16);
+            if (v1142 && *(v1142 + 4) >= 1)
+            {
+              v1143 = 8;
+              v1144 = 0;
+              do
+              {
+                v1145 = *(v1142 + 16);
+                v1146 = quote_identifier(*(*(v1145 + 8 * v1144) + 8));
+                appendStringInfoString(&__s1, v1146);
+                v1147 = *(v1142 + 4);
+                if (v1145 + v1143)
+                {
+                  v1148 = v1145 + v1143 >= (*(v1142 + 16) + 8 * v1147);
+                }
+
+                else
+                {
+                  v1148 = 1;
+                }
+
+                if (!v1148)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1147 = *(v1142 + 4);
+                }
+
+                ++v1144;
+                v1143 += 8;
+              }
+
+              while (v1144 < v1147);
+            }
+
+            goto LABEL_2259;
+          case 0xE:
+            v1079 = "EVENT TRIGGER ";
+            goto LABEL_2256;
+          case 0x10:
+            v1079 = "FOREIGN DATA WRAPPER ";
+            goto LABEL_2256;
+          case 0x11:
+            v1079 = "SERVER ";
+            goto LABEL_2256;
+          case 0x13:
+            v1141 = "FUNCTION ";
+            goto LABEL_2254;
+          case 0x15:
+            v1079 = "LANGUAGE ";
+            goto LABEL_2256;
+          case 0x16:
+            appendStringInfoString(&__s1, "LARGE OBJECT ");
+            v1103 = *(v19 + 16);
+            if (*v1103 == 222)
+            {
+              v1149 = *(v1103 + 8);
+LABEL_2258:
+              appendStringInfoString(&__s1, v1149);
+            }
+
+            else if (*v1103 == 221)
+            {
+              appendStringInfo(&__s1, "%d", *(v1103 + 8));
+            }
+
+LABEL_2259:
+            appendStringInfoString(&__s1, " OWNER TO ");
+            v65 = *(v20 + 24);
+            v66 = *(v65 + 4);
+            if (v66 > 1)
+            {
+              goto LABEL_2264;
+            }
+
+            v9 = v1242;
+            if (!v66)
+            {
+              goto LABEL_2261;
+            }
+
+            goto LABEL_88;
+          case 0x18:
+            v1087 = *(v19 + 16);
+            appendStringInfoString(&__s1, "OPERATOR CLASS ");
+            if (!v1087)
+            {
+              goto LABEL_2468;
+            }
+
+            if (*(v1087 + 4) >= 2)
+            {
+              v1125 = 1;
+              v1126 = 0x100000000;
+              do
+              {
+                v1127 = (*(v1087 + 16) + (v1126 >> 29));
+                v1129 = *v1127;
+                v1128 = (v1127 + 1);
+                v1130 = quote_identifier(*(v1129 + 8));
+                appendStringInfoString(&__s1, v1130);
+                v1131 = *(v1087 + 4);
+                if (v1128)
+                {
+                  v1132 = v1128 >= *(v1087 + 16) + 8 * v1131;
+                }
+
+                else
+                {
+                  v1132 = 1;
+                }
+
+                if (!v1132)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  LODWORD(v1131) = *(v1087 + 4);
+                }
+
+                ++v1125;
+                v1126 += 0x100000000;
+              }
+
+              while (v1131 > v1125);
+            }
+
+            goto LABEL_2226;
+          case 0x19:
+            appendStringInfoString(&__s1, "OPERATOR ");
+            deparseOperatorWithArgtypes(&__s1, *(v19 + 16));
+            goto LABEL_2259;
+          case 0x1A:
+            v1087 = *(v19 + 16);
+            appendStringInfoString(&__s1, "OPERATOR FAMILY ");
+            if (!v1087)
+            {
+              goto LABEL_2468;
+            }
+
+            if (*(v1087 + 4) >= 2)
+            {
+              v1088 = 1;
+              v1089 = 0x100000000;
+              do
+              {
+                v1090 = (*(v1087 + 16) + (v1089 >> 29));
+                v1092 = *v1090;
+                v1091 = (v1090 + 1);
+                v1093 = quote_identifier(*(v1092 + 8));
+                appendStringInfoString(&__s1, v1093);
+                v1094 = *(v1087 + 4);
+                if (v1091)
+                {
+                  v1095 = v1091 >= *(v1087 + 16) + 8 * v1094;
+                }
+
+                else
+                {
+                  v1095 = 1;
+                }
+
+                if (!v1095)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  LODWORD(v1094) = *(v1087 + 4);
+                }
+
+                ++v1088;
+                v1089 += 0x100000000;
+              }
+
+              while (v1094 > v1088);
+            }
+
+LABEL_2226:
+            appendStringInfoString(&__s1, " USING ");
+            v1133 = **(v1087 + 16);
+            goto LABEL_2257;
+          case 0x1C:
+            v1141 = "PROCEDURE ";
+            goto LABEL_2254;
+          case 0x1D:
+            v1079 = "PUBLICATION ";
+            goto LABEL_2256;
+          case 0x20:
+            v1141 = "ROUTINE ";
+LABEL_2254:
+            appendStringInfoString(&__s1, v1141);
+            deparseFunctionWithArgtypes(&__s1, *(v19 + 16));
+            goto LABEL_2259;
+          case 0x22:
+            v1079 = "SCHEMA ";
+            goto LABEL_2256;
+          case 0x24:
+            v1079 = "SUBSCRIPTION ";
+            goto LABEL_2256;
+          case 0x25:
+            appendStringInfoString(&__s1, "STATISTICS ");
+            v1111 = *(v19 + 16);
+            if (v1111 && *(v1111 + 4) >= 1)
+            {
+              v1112 = 8;
+              v1113 = 0;
+              do
+              {
+                v1114 = *(v1111 + 16);
+                v1115 = quote_identifier(*(*(v1114 + 8 * v1113) + 8));
+                appendStringInfoString(&__s1, v1115);
+                v1116 = *(v1111 + 4);
+                if (v1114 + v1112)
+                {
+                  v1117 = v1114 + v1112 >= (*(v1111 + 16) + 8 * v1116);
+                }
+
+                else
+                {
+                  v1117 = 1;
+                }
+
+                if (!v1117)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1116 = *(v1111 + 4);
+                }
+
+                ++v1113;
+                v1112 += 8;
+              }
+
+              while (v1113 < v1116);
+            }
+
+            goto LABEL_2259;
+          case 0x28:
+            v1079 = "TABLESPACE ";
+LABEL_2256:
+            appendStringInfoString(&__s1, v1079);
+            v1133 = *(v19 + 16);
+LABEL_2257:
+            v1149 = quote_identifier(*(v1133 + 8));
+            goto LABEL_2258;
+          case 0x2B:
+            appendStringInfoString(&__s1, "TEXT SEARCH CONFIGURATION ");
+            v1080 = *(v19 + 16);
+            if (v1080 && *(v1080 + 4) >= 1)
+            {
+              v1081 = 8;
+              v1082 = 0;
+              do
+              {
+                v1083 = *(v1080 + 16);
+                v1084 = quote_identifier(*(*(v1083 + 8 * v1082) + 8));
+                appendStringInfoString(&__s1, v1084);
+                v1085 = *(v1080 + 4);
+                if (v1083 + v1081)
+                {
+                  v1086 = v1083 + v1081 >= (*(v1080 + 16) + 8 * v1085);
+                }
+
+                else
+                {
+                  v1086 = 1;
+                }
+
+                if (!v1086)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1085 = *(v1080 + 4);
+                }
+
+                ++v1082;
+                v1081 += 8;
+              }
+
+              while (v1082 < v1085);
+            }
+
+            goto LABEL_2259;
+          case 0x2C:
+            appendStringInfoString(&__s1, "TEXT SEARCH DICTIONARY ");
+            v1104 = *(v19 + 16);
+            if (v1104 && *(v1104 + 4) >= 1)
+            {
+              v1105 = 8;
+              v1106 = 0;
+              do
+              {
+                v1107 = *(v1104 + 16);
+                v1108 = quote_identifier(*(*(v1107 + 8 * v1106) + 8));
+                appendStringInfoString(&__s1, v1108);
+                v1109 = *(v1104 + 4);
+                if (v1107 + v1105)
+                {
+                  v1110 = v1107 + v1105 >= (*(v1104 + 16) + 8 * v1109);
+                }
+
+                else
+                {
+                  v1110 = 1;
+                }
+
+                if (!v1110)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1109 = *(v1104 + 4);
+                }
+
+                ++v1106;
+                v1105 += 8;
+              }
+
+              while (v1106 < v1109);
+            }
+
+            goto LABEL_2259;
+          case 0x2F:
+            appendStringInfoString(&__s1, "TYPE ");
+            v1096 = *(v19 + 16);
+            if (v1096 && *(v1096 + 4) >= 1)
+            {
+              v1097 = 8;
+              v1098 = 0;
+              do
+              {
+                v1099 = *(v1096 + 16);
+                v1100 = quote_identifier(*(*(v1099 + 8 * v1098) + 8));
+                appendStringInfoString(&__s1, v1100);
+                v1101 = *(v1096 + 4);
+                if (v1099 + v1097)
+                {
+                  v1102 = v1099 + v1097 >= (*(v1096 + 16) + 8 * v1101);
+                }
+
+                else
+                {
+                  v1102 = 1;
+                }
+
+                if (!v1102)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v1101 = *(v1096 + 4);
+                }
+
+                ++v1098;
+                v1097 += 8;
+              }
+
+              while (v1098 < v1101);
+            }
+
+            goto LABEL_2259;
+          default:
+            goto LABEL_2259;
+        }
+
+      case 0x12F:
+        appendStringInfoString(&__s1, "ALTER OPERATOR ");
+        deparseOperatorWithArgtypes(&__s1, *(v19 + 8));
+        appendStringInfoString(&__s1, " SET (");
+        deparseOperatorDefList(&__s1, *(v19 + 16));
+        goto LABEL_349;
+      case 0x130:
+        appendStringInfoString(&__s1, "ALTER TYPE ");
+        v79 = *(v19 + 8);
+        if (v79 && *(v79 + 4) >= 1)
+        {
+          v80 = 8;
+          v81 = 0;
+          do
+          {
+            v82 = *(v79 + 16);
+            v83 = quote_identifier(*(*(v82 + 8 * v81) + 8));
+            appendStringInfoString(&__s1, v83);
+            v84 = *(v79 + 4);
+            if (v82 + v80)
+            {
+              v85 = v82 + v80 >= (*(v79 + 16) + 8 * v84);
+            }
+
+            else
+            {
+              v85 = 1;
+            }
+
+            if (!v85)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v84 = *(v79 + 4);
+            }
+
+            ++v81;
+            v80 += 8;
+          }
+
+          while (v81 < v84);
+        }
+
+        appendStringInfoString(&__s1, " SET (");
+        deparseOperatorDefList(&__s1, *(v20 + 16));
+        appendStringInfoChar(&__s1, 41);
+        v9 = v1242;
+        goto LABEL_2447;
+      case 0x131:
+        appendStringInfoString(&__s1, "DROP OWNED BY ");
+        v468 = *(v19 + 8);
+        if (!v468 || *(v468 + 4) < 1)
+        {
+          goto LABEL_853;
+        }
+
+        v469 = 8;
+        v470 = 0;
+        while (1)
+        {
+          v471 = *(v468 + 16);
+          v472 = *(v471 + 8 * v470);
+          v473 = *(v472 + 4);
+          if (v473 > 1)
+          {
+            if (v473 == 2)
+            {
+              v474 = "SESSION_USER";
+              goto LABEL_847;
+            }
+
+            if (v473 == 3)
+            {
+              v474 = "public";
+              goto LABEL_847;
+            }
+          }
+
+          else
+          {
+            if (!v473)
+            {
+              v474 = quote_identifier(*(v472 + 8));
+              goto LABEL_847;
+            }
+
+            if (v473 == 1)
+            {
+              v474 = "CURRENT_USER";
+LABEL_847:
+              appendStringInfoString(&__s1, v474);
+            }
+          }
+
+          v475 = *(v468 + 4);
+          if (v471 + v469)
+          {
+            v476 = v471 + v469 >= (*(v468 + 16) + 8 * v475);
+          }
+
+          else
+          {
+            v476 = 1;
+          }
+
+          if (!v476)
+          {
+            appendStringInfoString(&__s1, ", ");
+            v475 = *(v468 + 4);
+          }
+
+          ++v470;
+          v469 += 8;
+          if (v470 >= v475)
+          {
+LABEL_853:
+            appendStringInfoChar(&__s1, 32);
+            if (*(v20 + 16) == 1)
+            {
+              appendStringInfoString(&__s1, "CASCADE ");
+            }
+
+LABEL_1802:
+            v374 = v1246 - 1;
+            v9 = v1242;
+            if (v1246 >= 1)
+            {
+              goto LABEL_2445;
+            }
+
+            goto LABEL_2447;
+          }
+        }
+
+      case 0x132:
+        appendStringInfoString(&__s1, "REASSIGN OWNED BY ");
+        v56 = *(v19 + 8);
+        if (!v56 || *(v56 + 4) < 1)
+        {
+          goto LABEL_86;
+        }
+
+        v57 = 8;
+        v58 = 0;
+        while (1)
+        {
+          v59 = *(v56 + 16);
+          v60 = *(v59 + 8 * v58);
+          v61 = *(v60 + 4);
+          if (v61 > 1)
+          {
+            if (v61 == 2)
+            {
+              v62 = "SESSION_USER";
+              goto LABEL_80;
+            }
+
+            if (v61 == 3)
+            {
+              v62 = "public";
+              goto LABEL_80;
+            }
+          }
+
+          else
+          {
+            if (!v61)
+            {
+              v62 = quote_identifier(*(v60 + 8));
+              goto LABEL_80;
+            }
+
+            if (v61 == 1)
+            {
+              v62 = "CURRENT_USER";
+LABEL_80:
+              appendStringInfoString(&__s1, v62);
+            }
+          }
+
+          v63 = *(v56 + 4);
+          if (v59 + v57)
+          {
+            v64 = v59 + v57 >= (*(v56 + 16) + 8 * v63);
+          }
+
+          else
+          {
+            v64 = 1;
+          }
+
+          if (!v64)
+          {
+            appendStringInfoString(&__s1, ", ");
+            v63 = *(v56 + 4);
+          }
+
+          ++v58;
+          v57 += 8;
+          if (v58 >= v63)
+          {
+LABEL_86:
+            appendStringInfoChar(&__s1, 32);
+            appendStringInfoString(&__s1, "TO ");
+            v65 = *(v20 + 16);
+            v66 = *(v65 + 4);
+            if (v66 > 1)
+            {
+LABEL_2264:
+              v9 = v1242;
+              if (v66 == 2)
+              {
+                v28 = "SESSION_USER";
+              }
+
+              else
+              {
+                if (v66 != 3)
+                {
+                  goto LABEL_2447;
+                }
+
+                v28 = "public";
               }
             }
+
+            else
+            {
+              v9 = v1242;
+              if (v66)
+              {
+LABEL_88:
+                if (v66 != 1)
+                {
+                  goto LABEL_2447;
+                }
+
+                v28 = "CURRENT_USER";
+                goto LABEL_2263;
+              }
+
+LABEL_2261:
+              v179 = *(v65 + 8);
+LABEL_2262:
+              v28 = quote_identifier(v179);
+            }
+
+LABEL_2263:
+            appendStringInfoString(&__s1, v28);
+            goto LABEL_2447;
+          }
+        }
+
+      case 0x133:
+        appendStringInfoString(&__s1, "CREATE TYPE ");
+        deparseRangeVar(&__s1, *(v19 + 8), 8);
+        appendStringInfoString(&__s1, " AS (");
+        v352 = *(v19 + 16);
+        if (v352 && *(v352 + 4) >= 1)
+        {
+          v353 = 8;
+          v354 = 0;
+          do
+          {
+            v355 = *(v352 + 16);
+            deparseColumnDef(&__s1, *(v355 + 8 * v354));
+            if (v355 + v353)
+            {
+              v356 = v355 + v353 >= (*(*(v20 + 16) + 16) + 8 * *(*(v20 + 16) + 4));
+            }
+
+            else
+            {
+              v356 = 1;
+            }
+
+            if (!v356)
+            {
+              appendStringInfoString(&__s1, ", ");
+            }
+
+            ++v354;
+            v353 += 8;
           }
 
-          else if (v24 == 4)
+          while (v354 < *(v352 + 4));
+        }
+
+        goto LABEL_720;
+      case 0x134:
+        appendStringInfoString(&__s1, "CREATE TYPE ");
+        v400 = *(v19 + 8);
+        if (v400 && *(v400 + 4) >= 1)
+        {
+          v401 = 8;
+          v402 = 0;
+          do
           {
-            v26 = 1635017060;
-            if (v19 <= 3)
+            v403 = *(v400 + 16);
+            v404 = quote_identifier(*(*(v403 + 8 * v402) + 8));
+            appendStringInfoString(&__s1, v404);
+            v405 = *(v400 + 4);
+            if (v403 + v401)
             {
-              goto LABEL_43;
+              v406 = v403 + v401 >= (*(v400 + 16) + 8 * v405);
+            }
+
+            else
+            {
+              v406 = 1;
+            }
+
+            if (!v406)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v405 = *(v400 + 4);
+            }
+
+            ++v402;
+            v401 += 8;
+          }
+
+          while (v402 < v405);
+        }
+
+        appendStringInfoString(&__s1, " AS ENUM (");
+        v407 = *(v20 + 16);
+        if (v407 && *(v407 + 4) >= 1)
+        {
+          v408 = 8;
+          v409 = 0;
+          do
+          {
+            v410 = *(v407 + 16);
+            deparseStringLiteral(&__s1, *(*(v410 + 8 * v409) + 8));
+            if (v410 + v408)
+            {
+              v411 = v410 + v408 >= (*(*(v20 + 16) + 16) + 8 * *(*(v20 + 16) + 4));
+            }
+
+            else
+            {
+              v411 = 1;
+            }
+
+            if (!v411)
+            {
+              appendStringInfoString(&__s1, ", ");
+            }
+
+            ++v409;
+            v408 += 8;
+          }
+
+          while (v409 < *(v407 + 4));
+        }
+
+LABEL_720:
+        appendStringInfoChar(&__s1, 41);
+        v9 = v1242;
+        goto LABEL_2447;
+      case 0x135:
+        appendStringInfoString(&__s1, "CREATE TYPE ");
+        v414 = *(v19 + 8);
+        if (v414 && *(v414 + 4) >= 1)
+        {
+          v415 = 8;
+          v416 = 0;
+          do
+          {
+            v417 = *(v414 + 16);
+            v418 = quote_identifier(*(*(v417 + 8 * v416) + 8));
+            appendStringInfoString(&__s1, v418);
+            v419 = *(v414 + 4);
+            if (v417 + v415)
+            {
+              v420 = v417 + v415 >= (*(v414 + 16) + 8 * v419);
+            }
+
+            else
+            {
+              v420 = 1;
+            }
+
+            if (!v420)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v419 = *(v414 + 4);
+            }
+
+            ++v416;
+            v415 += 8;
+          }
+
+          while (v416 < v419);
+        }
+
+        appendStringInfoString(&__s1, " AS RANGE ");
+        deparseDefinition(&__s1, *(v20 + 16));
+        v9 = v1242;
+        goto LABEL_2447;
+      case 0x136:
+        appendStringInfoString(&__s1, "ALTER TYPE ");
+        v67 = *(v19 + 8);
+        if (v67 && *(v67 + 4) >= 1)
+        {
+          v68 = 8;
+          v69 = 0;
+          do
+          {
+            v70 = *(v67 + 16);
+            v71 = quote_identifier(*(*(v70 + 8 * v69) + 8));
+            appendStringInfoString(&__s1, v71);
+            v72 = *(v67 + 4);
+            if (v70 + v68)
+            {
+              v73 = v70 + v68 >= (*(v67 + 16) + 8 * v72);
+            }
+
+            else
+            {
+              v73 = 1;
+            }
+
+            if (!v73)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v72 = *(v67 + 4);
+            }
+
+            ++v69;
+            v68 += 8;
+          }
+
+          while (v69 < v72);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        if (*(v19 + 16))
+        {
+          appendStringInfoString(&__s1, "RENAME VALUE ");
+          deparseStringLiteral(&__s1, *(v19 + 16));
+          appendStringInfoString(&__s1, " TO ");
+          v74 = (v19 + 24);
+          v6 = v1244;
+          v9 = v1242;
+        }
+
+        else
+        {
+          appendStringInfoString(&__s1, "ADD VALUE ");
+          if (*(v19 + 41) == 1)
+          {
+            appendStringInfoString(&__s1, "IF NOT EXISTS ");
+          }
+
+          deparseStringLiteral(&__s1, *(v19 + 24));
+          appendStringInfoChar(&__s1, 32);
+          v6 = v1244;
+          v9 = v1242;
+          if (!*(v19 + 32))
+          {
+            goto LABEL_2444;
+          }
+
+          if (*(v19 + 40))
+          {
+            v600 = "AFTER ";
+          }
+
+          else
+          {
+            v600 = "BEFORE ";
+          }
+
+          appendStringInfoString(&__s1, v600);
+          v74 = (v19 + 32);
+        }
+
+        deparseStringLiteral(&__s1, *v74);
+        goto LABEL_2444;
+      case 0x137:
+        appendStringInfoString(&__s1, "ALTER TEXT SEARCH DICTIONARY ");
+        v180 = *(v19 + 8);
+        if (v180 && *(v180 + 4) >= 1)
+        {
+          v181 = 8;
+          v182 = 0;
+          do
+          {
+            v183 = *(v180 + 16);
+            v184 = quote_identifier(*(*(v183 + 8 * v182) + 8));
+            appendStringInfoString(&__s1, v184);
+            v185 = *(v180 + 4);
+            if (v183 + v181)
+            {
+              v186 = v183 + v181 >= (*(v180 + 16) + 8 * v185);
+            }
+
+            else
+            {
+              v186 = 1;
+            }
+
+            if (!v186)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v185 = *(v180 + 4);
+            }
+
+            ++v182;
+            v181 += 8;
+          }
+
+          while (v182 < v185);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        deparseDefinition(&__s1, *(v20 + 16));
+        v9 = v1242;
+        goto LABEL_2447;
+      case 0x138:
+        appendStringInfoString(&__s1, "ALTER TEXT SEARCH CONFIGURATION ");
+        v525 = *(v19 + 8);
+        if (v525 && *(v525 + 4) >= 1)
+        {
+          v526 = 8;
+          v527 = 0;
+          do
+          {
+            v528 = *(v525 + 16);
+            v529 = quote_identifier(*(*(v528 + 8 * v527) + 8));
+            appendStringInfoString(&__s1, v529);
+            v530 = *(v525 + 4);
+            if (v528 + v526)
+            {
+              v531 = v528 + v526 >= (*(v525 + 16) + 8 * v530);
+            }
+
+            else
+            {
+              v531 = 1;
+            }
+
+            if (!v531)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v530 = *(v525 + 4);
+            }
+
+            ++v527;
+            v526 += 8;
+          }
+
+          while (v527 < v530);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        v532 = *(v20 + 4);
+        if (v532 <= 1)
+        {
+          if (v532)
+          {
+            v9 = v1242;
+            if (v532 != 1)
+            {
+              goto LABEL_2447;
+            }
+
+            appendStringInfoString(&__s1, "ALTER MAPPING FOR ");
+            v558 = *(v20 + 16);
+            if (v558 && *(v558 + 4) >= 1)
+            {
+              v559 = 8;
+              v560 = 0;
+              do
+              {
+                v561 = *(v558 + 16);
+                v562 = quote_identifier(*(*(v561 + 8 * v560) + 8));
+                appendStringInfoString(&__s1, v562);
+                v563 = *(v558 + 4);
+                if (v561 + v559)
+                {
+                  v564 = v561 + v559 >= (*(v558 + 16) + 8 * v563);
+                }
+
+                else
+                {
+                  v564 = 1;
+                }
+
+                if (!v564)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                  v563 = *(v558 + 4);
+                }
+
+                ++v560;
+                v559 += 8;
+              }
+
+              while (v560 < v563);
             }
           }
 
           else
           {
-            v26 = 1852797802;
-            if (v19 <= 3)
+            appendStringInfoString(&__s1, "ADD MAPPING FOR ");
+            v749 = *(v20 + 16);
+            if (v749 && *(v749 + 4) >= 1)
             {
-              goto LABEL_43;
+              v750 = 8;
+              v751 = 0;
+              do
+              {
+                v752 = *(v749 + 16);
+                v753 = quote_identifier(*(*(v752 + 8 * v751) + 8));
+                appendStringInfoString(&__s1, v753);
+                v754 = *(v749 + 4);
+                if (v752 + v750)
+                {
+                  v755 = v752 + v750 >= (*(v749 + 16) + 8 * v754);
+                }
+
+                else
+                {
+                  v755 = 1;
+                }
+
+                if (!v755)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                  v754 = *(v749 + 4);
+                }
+
+                ++v751;
+                v750 += 8;
+              }
+
+              while (v751 < v754);
+            }
+          }
+
+          appendStringInfoString(&__s1, " WITH ");
+          deparseAnyNameList(&__s1, *(v20 + 24));
+          v9 = v1242;
+        }
+
+        else if (v532 == 2)
+        {
+          appendStringInfoString(&__s1, "ALTER MAPPING REPLACE ");
+          v714 = **(*(v20 + 24) + 16);
+          if (v714 && *(v714 + 4) >= 1)
+          {
+            v715 = 8;
+            v716 = 0;
+            do
+            {
+              v717 = *(v714 + 16);
+              v718 = quote_identifier(*(*(v717 + 8 * v716) + 8));
+              appendStringInfoString(&__s1, v718);
+              v719 = *(v714 + 4);
+              if (v717 + v715)
+              {
+                v720 = v717 + v715 >= (*(v714 + 16) + 8 * v719);
+              }
+
+              else
+              {
+                v720 = 1;
+              }
+
+              if (!v720)
+              {
+                appendStringInfoChar(&__s1, 46);
+                v719 = *(v714 + 4);
+              }
+
+              ++v716;
+              v715 += 8;
+            }
+
+            while (v716 < v719);
+          }
+
+          appendStringInfoString(&__s1, " WITH ");
+          v721 = *(*(*(v20 + 24) + 16) + 8);
+          v9 = v1242;
+          if (v721 && *(v721 + 4) >= 1)
+          {
+            v722 = 8;
+            v723 = 0;
+            do
+            {
+              v724 = *(v721 + 16);
+              v725 = quote_identifier(*(*(v724 + 8 * v723) + 8));
+              appendStringInfoString(&__s1, v725);
+              v726 = *(v721 + 4);
+              if (v724 + v722)
+              {
+                v727 = v724 + v722 >= (*(v721 + 16) + 8 * v726);
+              }
+
+              else
+              {
+                v727 = 1;
+              }
+
+              if (!v727)
+              {
+                appendStringInfoChar(&__s1, 46);
+                v726 = *(v721 + 4);
+              }
+
+              ++v723;
+              v722 += 8;
+            }
+
+            while (v723 < v726);
+          }
+        }
+
+        else if (v532 == 3)
+        {
+          appendStringInfoString(&__s1, "ALTER MAPPING FOR ");
+          v728 = *(v20 + 16);
+          if (v728 && *(v728 + 4) >= 1)
+          {
+            v729 = 8;
+            v730 = 0;
+            do
+            {
+              v731 = *(v728 + 16);
+              v732 = quote_identifier(*(*(v731 + 8 * v730) + 8));
+              appendStringInfoString(&__s1, v732);
+              v733 = *(v728 + 4);
+              if (v731 + v729)
+              {
+                v734 = v731 + v729 >= (*(v728 + 16) + 8 * v733);
+              }
+
+              else
+              {
+                v734 = 1;
+              }
+
+              if (!v734)
+              {
+                appendStringInfoString(&__s1, ", ");
+                v733 = *(v728 + 4);
+              }
+
+              ++v730;
+              v729 += 8;
+            }
+
+            while (v730 < v733);
+          }
+
+          appendStringInfoString(&__s1, " REPLACE ");
+          v735 = **(*(v20 + 24) + 16);
+          if (v735 && *(v735 + 4) >= 1)
+          {
+            v736 = 8;
+            v737 = 0;
+            do
+            {
+              v738 = *(v735 + 16);
+              v739 = quote_identifier(*(*(v738 + 8 * v737) + 8));
+              appendStringInfoString(&__s1, v739);
+              v740 = *(v735 + 4);
+              if (v738 + v736)
+              {
+                v741 = v738 + v736 >= (*(v735 + 16) + 8 * v740);
+              }
+
+              else
+              {
+                v741 = 1;
+              }
+
+              if (!v741)
+              {
+                appendStringInfoChar(&__s1, 46);
+                v740 = *(v735 + 4);
+              }
+
+              ++v737;
+              v736 += 8;
+            }
+
+            while (v737 < v740);
+          }
+
+          appendStringInfoString(&__s1, " WITH ");
+          v742 = *(*(*(v20 + 24) + 16) + 8);
+          v9 = v1242;
+          if (v742 && *(v742 + 4) >= 1)
+          {
+            v743 = 8;
+            v744 = 0;
+            do
+            {
+              v745 = *(v742 + 16);
+              v746 = quote_identifier(*(*(v745 + 8 * v744) + 8));
+              appendStringInfoString(&__s1, v746);
+              v747 = *(v742 + 4);
+              if (v745 + v743)
+              {
+                v748 = v745 + v743 >= (*(v742 + 16) + 8 * v747);
+              }
+
+              else
+              {
+                v748 = 1;
+              }
+
+              if (!v748)
+              {
+                appendStringInfoChar(&__s1, 46);
+                v747 = *(v742 + 4);
+              }
+
+              ++v744;
+              v743 += 8;
+            }
+
+            while (v744 < v747);
+          }
+        }
+
+        else
+        {
+          v9 = v1242;
+          if (v532 == 4)
+          {
+            appendStringInfoString(&__s1, "DROP MAPPING ");
+            if (*(v20 + 34) == 1)
+            {
+              appendStringInfoString(&__s1, "IF EXISTS ");
+            }
+
+            appendStringInfoString(&__s1, "FOR ");
+            v533 = *(v20 + 16);
+            if (v533 && *(v533 + 4) >= 1)
+            {
+              v534 = 8;
+              v535 = 0;
+              do
+              {
+                v536 = *(v533 + 16);
+                v537 = quote_identifier(*(*(v536 + 8 * v535) + 8));
+                appendStringInfoString(&__s1, v537);
+                v538 = *(v533 + 4);
+                if (v536 + v534)
+                {
+                  v539 = v536 + v534 >= (*(v533 + 16) + 8 * v538);
+                }
+
+                else
+                {
+                  v539 = 1;
+                }
+
+                if (!v539)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                  v538 = *(v533 + 4);
+                }
+
+                ++v535;
+                v534 += 8;
+              }
+
+              while (v535 < v538);
             }
           }
         }
 
-        else if (*(*(a2 + 56) + v21) > 1u)
+        goto LABEL_2447;
+      case 0x139:
+        appendStringInfoString(&__s1, "CREATE FOREIGN DATA WRAPPER ");
+        v424 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v424);
+        appendStringInfoChar(&__s1, 32);
+        v425 = *(v19 + 16);
+        if (v425 && *(v425 + 4) >= 1)
         {
-          if (v24 == 2)
+          deparseFdwOptions(&__s1, v425);
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        deparseCreateGenericOptions(&__s1, *(v19 + 24));
+        goto LABEL_2444;
+      case 0x13A:
+        appendStringInfoString(&__s1, "ALTER FOREIGN DATA WRAPPER ");
+        v523 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v523);
+        appendStringInfoChar(&__s1, 32);
+        v524 = *(v19 + 16);
+        if (!v524 || *(v524 + 4) < 1)
+        {
+          goto LABEL_1399;
+        }
+
+        deparseFdwOptions(&__s1, v524);
+        goto LABEL_1398;
+      case 0x13B:
+        appendStringInfoString(&__s1, "CREATE SERVER ");
+        if (*(v19 + 40) == 1)
+        {
+          appendStringInfoString(&__s1, "IF NOT EXISTS ");
+        }
+
+        v77 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v77);
+        appendStringInfoChar(&__s1, 32);
+        if (*(v19 + 16))
+        {
+          appendStringInfoString(&__s1, "TYPE ");
+          deparseStringLiteral(&__s1, *(v19 + 16));
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        if (*(v19 + 24))
+        {
+          appendStringInfoString(&__s1, "VERSION ");
+          deparseStringLiteral(&__s1, *(v19 + 24));
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        appendStringInfoString(&__s1, "FOREIGN DATA WRAPPER ");
+        v78 = quote_identifier(*(v19 + 32));
+        appendStringInfoString(&__s1, v78);
+        appendStringInfoChar(&__s1, 32);
+        deparseCreateGenericOptions(&__s1, *(v19 + 48));
+        goto LABEL_2444;
+      case 0x13C:
+        appendStringInfoString(&__s1, "ALTER SERVER ");
+        v133 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v133);
+        appendStringInfoChar(&__s1, 32);
+        if (*(v19 + 32) != 1)
+        {
+          goto LABEL_1399;
+        }
+
+        appendStringInfoString(&__s1, "VERSION ");
+        v134 = *(v19 + 16);
+        if (v134)
+        {
+          deparseStringLiteral(&__s1, v134);
+        }
+
+        else
+        {
+          appendStringInfoString(&__s1, "NULL");
+        }
+
+LABEL_1398:
+        appendStringInfoChar(&__s1, 32);
+LABEL_1399:
+        v436 = *(v19 + 24);
+        if (v436)
+        {
+LABEL_1400:
+          if (*(v436 + 4) >= 1)
           {
-            v25 = 0xE600000000000000;
-            v26 = 0x676E69727473;
-            if (v19 <= 3)
+            deparseAlterGenericOptions(&__s1, v436);
+          }
+        }
+
+        goto LABEL_2444;
+      case 0x13D:
+        appendStringInfoString(&__s1, "CREATE USER MAPPING ");
+        if (*(v19 + 24) == 1)
+        {
+          appendStringInfoString(&__s1, "IF NOT EXISTS ");
+        }
+
+        appendStringInfoString(&__s1, "FOR ");
+        v126 = *(v19 + 8);
+        v127 = *(v126 + 4);
+        if (v127 > 1)
+        {
+          if (v127 == 2)
+          {
+            v128 = "SESSION_USER";
+          }
+
+          else
+          {
+            if (v127 != 3)
             {
-              goto LABEL_43;
+              goto LABEL_1328;
+            }
+
+            v128 = "public";
+          }
+        }
+
+        else if (v127)
+        {
+          if (v127 != 1)
+          {
+            goto LABEL_1328;
+          }
+
+          v128 = "CURRENT_USER";
+        }
+
+        else
+        {
+          v128 = quote_identifier(*(v126 + 8));
+        }
+
+        appendStringInfoString(&__s1, v128);
+LABEL_1328:
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "SERVER ");
+        v673 = quote_identifier(*(v19 + 16));
+        appendStringInfoString(&__s1, v673);
+        appendStringInfoChar(&__s1, 32);
+        deparseCreateGenericOptions(&__s1, *(v19 + 32));
+        v374 = v1246 - 1;
+        if (v1246 < 1)
+        {
+          goto LABEL_2447;
+        }
+
+        goto LABEL_2445;
+      case 0x13E:
+        appendStringInfoString(&__s1, "ALTER USER MAPPING FOR ");
+        v509 = *(v19 + 8);
+        v510 = *(v509 + 4);
+        if (v510 > 1)
+        {
+          if (v510 == 2)
+          {
+            v511 = "SESSION_USER";
+          }
+
+          else
+          {
+            if (v510 != 3)
+            {
+              goto LABEL_1345;
+            }
+
+            v511 = "public";
+          }
+        }
+
+        else if (v510)
+        {
+          if (v510 != 1)
+          {
+            goto LABEL_1345;
+          }
+
+          v511 = "CURRENT_USER";
+        }
+
+        else
+        {
+          v511 = quote_identifier(*(v509 + 8));
+        }
+
+        appendStringInfoString(&__s1, v511);
+LABEL_1345:
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "SERVER ");
+        v676 = quote_identifier(*(v19 + 16));
+        appendStringInfoString(&__s1, v676);
+        appendStringInfoChar(&__s1, 32);
+        deparseAlterGenericOptions(&__s1, *(v19 + 24));
+        goto LABEL_2444;
+      case 0x13F:
+        appendStringInfoString(&__s1, "DROP USER MAPPING ");
+        if (*(v19 + 24) == 1)
+        {
+          appendStringInfoString(&__s1, "IF EXISTS ");
+        }
+
+        appendStringInfoString(&__s1, "FOR ");
+        v506 = *(v19 + 8);
+        v507 = *(v506 + 4);
+        if (v507 > 1)
+        {
+          if (v507 == 2)
+          {
+            v508 = "SESSION_USER";
+          }
+
+          else
+          {
+            if (v507 != 3)
+            {
+              goto LABEL_1341;
+            }
+
+            v508 = "public";
+          }
+        }
+
+        else if (v507)
+        {
+          if (v507 != 1)
+          {
+            goto LABEL_1341;
+          }
+
+          v508 = "CURRENT_USER";
+        }
+
+        else
+        {
+          v508 = quote_identifier(*(v506 + 8));
+        }
+
+        appendStringInfoString(&__s1, v508);
+LABEL_1341:
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "SERVER ");
+        v179 = *(v19 + 16);
+        goto LABEL_2262;
+      case 0x140:
+        appendStringInfoString(&__s1, "ALTER TABLESPACE ");
+        v234 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v234);
+        appendStringInfoChar(&__s1, 32);
+        if (*(v19 + 24))
+        {
+          v235 = "RESET ";
+        }
+
+        else
+        {
+          v235 = "SET ";
+        }
+
+        appendStringInfoString(&__s1, v235);
+        deparseRelOptions(&__s1, *(v19 + 16));
+        goto LABEL_2447;
+      case 0x142:
+        appendStringInfoString(&__s1, "SECURITY LABEL ");
+        if (*(v19 + 16))
+        {
+          appendStringInfoString(&__s1, "FOR ");
+          v236 = quote_identifier(*(v19 + 16));
+          appendStringInfoString(&__s1, v236);
+          appendStringInfoChar(&__s1, 32);
+        }
+
+        appendStringInfoString(&__s1, "ON ");
+        switch(*(v19 + 4))
+        {
+          case 1:
+            appendStringInfoString(&__s1, "AGGREGATE ");
+            deparseAggregateWithArgtypes(&__s1, *(v19 + 8));
+            break;
+          case 6:
+            appendStringInfoString(&__s1, "COLUMN ");
+            v957 = *(v19 + 8);
+            if (v957 && *(v957 + 4) >= 1)
+            {
+              v958 = 8;
+              v959 = 0;
+              do
+              {
+                v960 = *(v957 + 16);
+                v961 = quote_identifier(*(*(v960 + 8 * v959) + 8));
+                appendStringInfoString(&__s1, v961);
+                v962 = *(v957 + 4);
+                if (v960 + v958)
+                {
+                  v963 = v960 + v958 >= (*(v957 + 16) + 8 * v962);
+                }
+
+                else
+                {
+                  v963 = 1;
+                }
+
+                if (!v963)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v962 = *(v957 + 4);
+                }
+
+                ++v959;
+                v958 += 8;
+              }
+
+              while (v959 < v962);
+            }
+
+            break;
+          case 9:
+            v947 = "DATABASE ";
+            goto LABEL_2026;
+          case 0xC:
+            v949 = "DOMAIN ";
+            goto LABEL_2004;
+          case 0xE:
+            v947 = "EVENT TRIGGER ";
+            goto LABEL_2026;
+          case 0x12:
+            appendStringInfoString(&__s1, "FOREIGN TABLE ");
+            v950 = *(v19 + 8);
+            if (v950 && *(v950 + 4) >= 1)
+            {
+              v951 = 8;
+              v952 = 0;
+              do
+              {
+                v953 = *(v950 + 16);
+                v954 = quote_identifier(*(*(v953 + 8 * v952) + 8));
+                appendStringInfoString(&__s1, v954);
+                v955 = *(v950 + 4);
+                if (v953 + v951)
+                {
+                  v956 = v953 + v951 >= (*(v950 + 16) + 8 * v955);
+                }
+
+                else
+                {
+                  v956 = 1;
+                }
+
+                if (!v956)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v955 = *(v950 + 4);
+                }
+
+                ++v952;
+                v951 += 8;
+              }
+
+              while (v952 < v955);
+            }
+
+            break;
+          case 0x13:
+            v948 = "FUNCTION ";
+            goto LABEL_1990;
+          case 0x15:
+            v947 = "LANGUAGE ";
+            goto LABEL_2026;
+          case 0x16:
+            appendStringInfoString(&__s1, "LARGE OBJECT ");
+            deparseValue(&__s1, *(v19 + 8), 11);
+            break;
+          case 0x17:
+            appendStringInfoString(&__s1, "MATERIALIZED VIEW ");
+            v971 = *(v19 + 8);
+            if (v971 && *(v971 + 4) >= 1)
+            {
+              v972 = 8;
+              v973 = 0;
+              do
+              {
+                v974 = *(v971 + 16);
+                v975 = quote_identifier(*(*(v974 + 8 * v973) + 8));
+                appendStringInfoString(&__s1, v975);
+                v976 = *(v971 + 4);
+                if (v974 + v972)
+                {
+                  v977 = v974 + v972 >= (*(v971 + 16) + 8 * v976);
+                }
+
+                else
+                {
+                  v977 = 1;
+                }
+
+                if (!v977)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v976 = *(v971 + 4);
+                }
+
+                ++v973;
+                v972 += 8;
+              }
+
+              while (v973 < v976);
+            }
+
+            break;
+          case 0x1C:
+            v948 = "PROCEDURE ";
+            goto LABEL_1990;
+          case 0x1D:
+            v947 = "PUBLICATION ";
+            goto LABEL_2026;
+          case 0x1F:
+            v947 = "ROLE ";
+            goto LABEL_2026;
+          case 0x20:
+            v948 = "ROUTINE ";
+LABEL_1990:
+            appendStringInfoString(&__s1, v948);
+            deparseFunctionWithArgtypes(&__s1, *(v19 + 8));
+            break;
+          case 0x22:
+            v947 = "SCHEMA ";
+            goto LABEL_2026;
+          case 0x23:
+            appendStringInfoString(&__s1, "SEQUENCE ");
+            v964 = *(v19 + 8);
+            if (v964 && *(v964 + 4) >= 1)
+            {
+              v965 = 8;
+              v966 = 0;
+              do
+              {
+                v967 = *(v964 + 16);
+                v968 = quote_identifier(*(*(v967 + 8 * v966) + 8));
+                appendStringInfoString(&__s1, v968);
+                v969 = *(v964 + 4);
+                if (v967 + v965)
+                {
+                  v970 = v967 + v965 >= (*(v964 + 16) + 8 * v969);
+                }
+
+                else
+                {
+                  v970 = 1;
+                }
+
+                if (!v970)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v969 = *(v964 + 4);
+                }
+
+                ++v966;
+                v965 += 8;
+              }
+
+              while (v966 < v969);
+            }
+
+            break;
+          case 0x24:
+            v947 = "SUBSCRIPTION ";
+            goto LABEL_2026;
+          case 0x27:
+            appendStringInfoString(&__s1, "TABLE ");
+            v978 = *(v19 + 8);
+            if (v978 && *(v978 + 4) >= 1)
+            {
+              v979 = 8;
+              v980 = 0;
+              do
+              {
+                v981 = *(v978 + 16);
+                v982 = quote_identifier(*(*(v981 + 8 * v980) + 8));
+                appendStringInfoString(&__s1, v982);
+                v983 = *(v978 + 4);
+                if (v981 + v979)
+                {
+                  v984 = v981 + v979 >= (*(v978 + 16) + 8 * v983);
+                }
+
+                else
+                {
+                  v984 = 1;
+                }
+
+                if (!v984)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v983 = *(v978 + 4);
+                }
+
+                ++v980;
+                v979 += 8;
+              }
+
+              while (v980 < v983);
+            }
+
+            break;
+          case 0x28:
+            v947 = "TABLESPACE ";
+LABEL_2026:
+            appendStringInfoString(&__s1, v947);
+            v985 = quote_identifier(*(*(v19 + 8) + 8));
+            appendStringInfoString(&__s1, v985);
+            break;
+          case 0x2F:
+            v949 = "TYPE ";
+LABEL_2004:
+            appendStringInfoString(&__s1, v949);
+            deparseTypeName(&__s1, *(v19 + 8));
+            break;
+          case 0x31:
+            appendStringInfoString(&__s1, "VIEW ");
+            v987 = *(v19 + 8);
+            if (v987 && *(v987 + 4) >= 1)
+            {
+              v988 = 8;
+              v989 = 0;
+              do
+              {
+                v990 = *(v987 + 16);
+                v991 = quote_identifier(*(*(v990 + 8 * v989) + 8));
+                appendStringInfoString(&__s1, v991);
+                v992 = *(v987 + 4);
+                if (v990 + v988)
+                {
+                  v993 = v990 + v988 >= (*(v987 + 16) + 8 * v992);
+                }
+
+                else
+                {
+                  v993 = 1;
+                }
+
+                if (!v993)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v992 = *(v987 + 4);
+                }
+
+                ++v989;
+                v988 += 8;
+              }
+
+              while (v989 < v992);
+            }
+
+            break;
+          default:
+            break;
+        }
+
+        appendStringInfoString(&__s1, " IS ");
+        v986 = *(v20 + 24);
+        if (v986)
+        {
+          deparseStringLiteral(&__s1, v986);
+        }
+
+        else
+        {
+          appendStringInfoString(&__s1, "NULL");
+        }
+
+        v9 = v1242;
+        goto LABEL_2447;
+      case 0x143:
+        deparseCreateStmt(&__s1, v19, 1);
+        appendStringInfoString(&__s1, " SERVER ");
+        v435 = quote_identifier(*(v19 + 104));
+        appendStringInfoString(&__s1, v435);
+        appendStringInfoChar(&__s1, 32);
+        v436 = *(v19 + 112);
+        if (!v436)
+        {
+          goto LABEL_2444;
+        }
+
+        goto LABEL_1400;
+      case 0x144:
+        appendStringInfoString(&__s1, "IMPORT FOREIGN SCHEMA ");
+        appendStringInfoString(&__s1, *(v19 + 16));
+        appendStringInfoChar(&__s1, 32);
+        v49 = *(v19 + 32);
+        if (v49 == 2)
+        {
+          appendStringInfoString(&__s1, "EXCEPT (");
+          v610 = *(v19 + 40);
+          if (v610 && *(v610 + 4) >= 1)
+          {
+            v611 = 8;
+            v612 = 0;
+            do
+            {
+              v613 = *(v610 + 16);
+              deparseRangeVar(&__s1, *(v613 + 8 * v612), 0);
+              v614 = *(v610 + 4);
+              if (v613 + v611)
+              {
+                v615 = v613 + v611 >= (*(v610 + 16) + 8 * v614);
+              }
+
+              else
+              {
+                v615 = 1;
+              }
+
+              if (!v615)
+              {
+                appendStringInfoString(&__s1, ", ");
+                v614 = *(v610 + 4);
+              }
+
+              ++v612;
+              v611 += 8;
+            }
+
+            while (v612 < v614);
+          }
+        }
+
+        else
+        {
+          if (v49 != 1)
+          {
+            goto LABEL_1172;
+          }
+
+          appendStringInfoString(&__s1, "LIMIT TO (");
+          v50 = *(v19 + 40);
+          if (v50 && *(v50 + 4) >= 1)
+          {
+            v51 = 8;
+            v52 = 0;
+            do
+            {
+              v53 = *(v50 + 16);
+              deparseRangeVar(&__s1, *(v53 + 8 * v52), 0);
+              v54 = *(v50 + 4);
+              if (v53 + v51)
+              {
+                v55 = v53 + v51 >= (*(v50 + 16) + 8 * v54);
+              }
+
+              else
+              {
+                v55 = 1;
+              }
+
+              if (!v55)
+              {
+                appendStringInfoString(&__s1, ", ");
+                v54 = *(v50 + 4);
+              }
+
+              ++v52;
+              v51 += 8;
+            }
+
+            while (v52 < v54);
+          }
+        }
+
+        appendStringInfoString(&__s1, ") ");
+        v9 = v1242;
+LABEL_1172:
+        appendStringInfoString(&__s1, "FROM SERVER ");
+        v616 = quote_identifier(*(v20 + 8));
+        appendStringInfoString(&__s1, v616);
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "INTO ");
+        v617 = quote_identifier(*(v20 + 24));
+        appendStringInfoString(&__s1, v617);
+        appendStringInfoChar(&__s1, 32);
+        deparseCreateGenericOptions(&__s1, *(v20 + 48));
+        v374 = v1246 - 1;
+        if (v1246 < 1)
+        {
+          goto LABEL_2447;
+        }
+
+        goto LABEL_2445;
+      case 0x145:
+        appendStringInfoString(&__s1, "CREATE EXTENSION ");
+        if (*(v19 + 16) == 1)
+        {
+          appendStringInfoString(&__s1, "IF NOT EXISTS ");
+        }
+
+        v498 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v498);
+        appendStringInfoChar(&__s1, 32);
+        v499 = *(v19 + 24);
+        if (!v499 || *(v499 + 4) < 1)
+        {
+          goto LABEL_2444;
+        }
+
+        v500 = 0;
+        while (1)
+        {
+          v502 = *(*(v499 + 16) + 8 * v500);
+          v503 = *(v502 + 16);
+          if (!strcmp(v503, "schema"))
+          {
+            appendStringInfoString(&__s1, "SCHEMA ");
+            v501 = quote_identifier(*(*(v502 + 24) + 8));
+          }
+
+          else if (!strcmp(v503, "new_version"))
+          {
+            appendStringInfoString(&__s1, "VERSION ");
+            v504 = *(*(v502 + 24) + 8);
+            v505 = strlen(v504);
+            if (v505)
+            {
+              if (v505 >= 0x40)
+              {
+                deparseStringLiteral(&__s1, v504);
+                goto LABEL_893;
+              }
+
+              v501 = quote_identifier(v504);
+            }
+
+            else
+            {
+              v501 = "''";
             }
           }
 
           else
           {
-            v25 = 0xE400000000000000;
-            v26 = 1702125924;
-            if (v19 <= 3)
+            if (strcmp(v503, "cascade"))
             {
-              goto LABEL_43;
+              goto LABEL_893;
             }
+
+            v501 = "CASCADE";
+          }
+
+          appendStringInfoString(&__s1, v501);
+LABEL_893:
+          appendStringInfoChar(&__s1, 32);
+          if (++v500 >= *(v499 + 4))
+          {
+            goto LABEL_2444;
           }
         }
 
-        else if (*(*(a2 + 56) + v21))
+      case 0x146:
+        appendStringInfoString(&__s1, "ALTER EXTENSION ");
+        v491 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v491);
+        appendStringInfoString(&__s1, " UPDATE ");
+        v492 = *(v19 + 16);
+        if (!v492 || *(v492 + 4) < 1)
         {
-          v25 = 0xE600000000000000;
-          v26 = 0x656C62756F64;
-          if (v19 <= 3)
+          goto LABEL_2444;
+        }
+
+        v493 = 0;
+        while (1)
+        {
+          v495 = *(*(v492 + 16) + 8 * v493);
+          if (!strcmp(*(v495 + 16), "new_version"))
           {
-            goto LABEL_43;
+            appendStringInfoString(&__s1, "TO ");
+            v496 = *(*(v495 + 24) + 8);
+            v497 = strlen(v496);
+            if (v497)
+            {
+              if (v497 >= 0x40)
+              {
+                deparseStringLiteral(&__s1, v496);
+                goto LABEL_880;
+              }
+
+              v494 = quote_identifier(v496);
+            }
+
+            else
+            {
+              v494 = "''";
+            }
+
+            appendStringInfoString(&__s1, v494);
           }
+
+LABEL_880:
+          appendStringInfoChar(&__s1, 32);
+          if (++v493 >= *(v492 + 4))
+          {
+            goto LABEL_2444;
+          }
+        }
+
+      case 0x147:
+        appendStringInfoString(&__s1, "ALTER EXTENSION ");
+        v543 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v543);
+        appendStringInfoChar(&__s1, 32);
+        v544 = *(v19 + 16);
+        if (v544 == 1)
+        {
+          v545 = "ADD ";
         }
 
         else
         {
-          v25 = 0xE700000000000000;
-          v26 = 0x72656765746E69;
-          if (v19 <= 3)
+          if (v544 != -1)
           {
-            goto LABEL_43;
+            goto LABEL_1187;
+          }
+
+          v545 = "DROP ";
+        }
+
+        appendStringInfoString(&__s1, v545);
+LABEL_1187:
+        v625 = *(v19 + 20);
+        v626 = v625;
+        if (v625 <= 0x31 && ((0x2FA8D17AF51A3uLL >> v625) & 1) != 0)
+        {
+          appendStringInfoString(&__s1, (&off_2797B6668)[v625]);
+          v626 = *(v19 + 20);
+        }
+
+        switch(v626)
+        {
+          case 0:
+          case 14:
+          case 16:
+          case 17:
+          case 21:
+          case 34:
+            v179 = *(*(v19 + 24) + 8);
+            goto LABEL_2262;
+          case 1:
+            deparseAggregateWithArgtypes(&__s1, *(v19 + 24));
+            goto LABEL_2447;
+          case 5:
+            v1150 = *(v19 + 24);
+            appendStringInfoChar(&__s1, 40);
+            deparseTypeName(&__s1, **(v1150 + 16));
+            appendStringInfoString(&__s1, " AS ");
+            deparseTypeName(&__s1, *(*(v1150 + 16) + 8));
+            goto LABEL_349;
+          case 7:
+          case 8:
+          case 18:
+          case 23:
+          case 35:
+          case 39:
+          case 43:
+          case 44:
+          case 45:
+          case 46:
+          case 49:
+            v627 = *(v19 + 24);
+            if (v627 && *(v627 + 4) >= 1)
+            {
+              v628 = 8;
+              v629 = 0;
+              do
+              {
+                v630 = *(v627 + 16);
+                v631 = quote_identifier(*(*(v630 + 8 * v629) + 8));
+                appendStringInfoString(&__s1, v631);
+                v632 = *(v627 + 4);
+                if (v630 + v628)
+                {
+                  v633 = v630 + v628 >= (*(v627 + 16) + 8 * v632);
+                }
+
+                else
+                {
+                  v633 = 1;
+                }
+
+                if (!v633)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v632 = *(v627 + 4);
+                }
+
+                ++v629;
+                v628 += 8;
+              }
+
+              while (v629 < v632);
+            }
+
+            goto LABEL_2447;
+          case 12:
+          case 47:
+            deparseTypeName(&__s1, *(v19 + 24));
+            goto LABEL_2447;
+          case 19:
+          case 28:
+          case 32:
+            deparseFunctionWithArgtypes(&__s1, *(v19 + 24));
+            goto LABEL_2447;
+          case 24:
+          case 26:
+            v912 = *(v19 + 24);
+            if (v912)
+            {
+              if (*(v912 + 4) >= 2)
+              {
+                v913 = 1;
+                v914 = 0x100000000;
+                do
+                {
+                  v915 = (*(v912 + 16) + (v914 >> 29));
+                  v917 = *v915;
+                  v916 = (v915 + 1);
+                  v918 = quote_identifier(*(v917 + 8));
+                  appendStringInfoString(&__s1, v918);
+                  v919 = *(v912 + 4);
+                  if (v916)
+                  {
+                    v920 = v916 >= *(v912 + 16) + 8 * v919;
+                  }
+
+                  else
+                  {
+                    v920 = 1;
+                  }
+
+                  if (!v920)
+                  {
+                    appendStringInfoChar(&__s1, 46);
+                    LODWORD(v919) = *(v912 + 4);
+                  }
+
+                  ++v913;
+                  v914 += 0x100000000;
+                }
+
+                while (v919 > v913);
+              }
+
+              appendStringInfoString(&__s1, " USING ");
+              v921 = **(v912 + 16);
+LABEL_2270:
+              v28 = quote_identifier(*(v921 + 8));
+              goto LABEL_2263;
+            }
+
+LABEL_2468:
+            result = appendStringInfoString(&__s1, " USING ");
+            __break(1u);
+            break;
+          case 25:
+            deparseOperatorWithArgtypes(&__s1, *(v19 + 24));
+            goto LABEL_2447;
+          case 41:
+            v1151 = *(v19 + 24);
+            appendStringInfoString(&__s1, "FOR ");
+            deparseTypeName(&__s1, **(v1151 + 16));
+            appendStringInfoString(&__s1, " LANGUAGE ");
+            v921 = *(*(v1151 + 16) + 8);
+            goto LABEL_2270;
+          default:
+            goto LABEL_2447;
+        }
+
+        return result;
+      case 0x148:
+        appendStringInfoString(&__s1, "CREATE EVENT TRIGGER ");
+        v192 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v192);
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "ON ");
+        v193 = quote_identifier(*(v19 + 16));
+        appendStringInfoString(&__s1, v193);
+        appendStringInfoChar(&__s1, 32);
+        if (!*(v19 + 24))
+        {
+          goto LABEL_970;
+        }
+
+        appendStringInfoString(&__s1, "WHEN ");
+        v194 = *(v19 + 24);
+        if (!v194 || *(v194 + 4) < 1)
+        {
+          goto LABEL_969;
+        }
+
+        v195 = 0;
+        while (1)
+        {
+          v196 = *(v194 + 16) + 8 * v195;
+          v197 = *(*v196 + 24);
+          v198 = quote_identifier(*(*v196 + 16));
+          appendStringInfoString(&__s1, v198);
+          appendStringInfoString(&__s1, " IN (");
+          if (v197)
+          {
+            if (*(v197 + 4) >= 1)
+            {
+              break;
+            }
+          }
+
+LABEL_336:
+          appendStringInfoChar(&__s1, 41);
+          if (v196 != -8 && v196 + 8 < (*(*(v20 + 24) + 16) + 8 * *(*(v20 + 24) + 4)))
+          {
+            appendStringInfoString(&__s1, " AND ");
+          }
+
+          if (++v195 >= *(v194 + 4))
+          {
+LABEL_969:
+            appendStringInfoChar(&__s1, 32);
+            v7 = v1243;
+            v6 = v1244;
+            v9 = v1242;
+LABEL_970:
+            appendStringInfoString(&__s1, "EXECUTE FUNCTION ");
+            v546 = *(v20 + 32);
+            if (v546 && *(v546 + 4) >= 1)
+            {
+              v547 = 8;
+              v548 = 0;
+              do
+              {
+                v549 = *(v546 + 16);
+                v550 = quote_identifier(*(*(v549 + 8 * v548) + 8));
+                appendStringInfoString(&__s1, v550);
+                v551 = *(v546 + 4);
+                if (v549 + v547)
+                {
+                  v552 = v549 + v547 >= (*(v546 + 16) + 8 * v551);
+                }
+
+                else
+                {
+                  v552 = 1;
+                }
+
+                if (!v552)
+                {
+                  appendStringInfoChar(&__s1, 46);
+                  v551 = *(v546 + 4);
+                }
+
+                ++v548;
+                v547 += 8;
+              }
+
+              while (v548 < v551);
+            }
+
+            v28 = "()";
+            goto LABEL_2263;
           }
         }
 
-        v27 = 0xE400000000000000;
-        if (v19 > 5)
+        v199 = 0;
+LABEL_325:
+        v200 = *(v197 + 16) + 8 * v199;
+        v201 = *(*v200 + 8);
+        if (strchr(v201, 92))
         {
-          if (v19 == 6)
+          appendStringInfoChar(&__s1, 69);
+        }
+
+        appendStringInfoChar(&__s1, 39);
+        for (j = v201; ; ++j)
+        {
+          v203 = *j;
+          v204 = *j;
+          if (v203 == 39 || v203 == 92)
           {
-            v28 = 1684632949;
+            appendStringInfoChar(&__s1, v203);
+          }
+
+          else if (!*j)
+          {
+            appendStringInfoChar(&__s1, 39);
+            v205 = *(v197 + 4);
+            v206 = v200 + 8;
+            if (v200 == -8)
+            {
+              v10 = v1241;
+            }
+
+            else
+            {
+              v10 = v1241;
+              if (v206 < *(v197 + 16) + 8 * *(v197 + 4))
+              {
+                appendStringInfoString(&__s1, ", ");
+                v205 = *(v197 + 4);
+              }
+            }
+
+            if (++v199 >= v205)
+            {
+              goto LABEL_336;
+            }
+
+            goto LABEL_325;
+          }
+
+          appendStringInfoChar(&__s1, v204);
+        }
+
+      case 0x149:
+        appendStringInfoString(&__s1, "ALTER EVENT TRIGGER ");
+        v47 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v47);
+        appendStringInfoChar(&__s1, 32);
+        v48 = *(v19 + 16);
+        if (v48 > 0x4E)
+        {
+          if (v48 == 79)
+          {
+            v28 = "ENABLE";
           }
 
           else
           {
-            v28 = 1819047278;
+            if (v48 != 82)
+            {
+              goto LABEL_2447;
+            }
+
+            v28 = "ENABLE REPLICA";
           }
         }
 
-        else if (v19 == 4)
+        else if (v48 == 65)
         {
-          v28 = 1635017060;
+          v28 = "ENABLE ALWAYS";
         }
 
         else
         {
-          v28 = 1852797802;
+          if (v48 != 68)
+          {
+            goto LABEL_2447;
+          }
+
+          v28 = "DISABLE";
         }
 
-LABEL_52:
-        v3 = v15;
-        if (v26 == v28 && v25 == v27)
+        goto LABEL_2263;
+      case 0x14A:
+        goto LABEL_1249;
+      case 0x14C:
+        appendStringInfoString(&__s1, "ALTER SYSTEM ");
+        v253 = *(v19 + 8);
+        goto LABEL_1627;
+      case 0x14D:
+        appendStringInfoString(&__s1, "CREATE POLICY ");
+        v29 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v29);
+        appendStringInfoString(&__s1, " ON ");
+        deparseRangeVar(&__s1, *(v19 + 16), 0);
+        appendStringInfoChar(&__s1, 32);
+        if ((*(v19 + 32) & 1) == 0)
         {
+          appendStringInfoString(&__s1, "AS RESTRICTIVE ");
+        }
 
-          v8 = i;
-          if (!i)
+        v30 = *(v19 + 24);
+        if (!strcmp(v30, "all"))
+        {
+          goto LABEL_1845;
+        }
+
+        if (!strcmp(v30, "select"))
+        {
+          v31 = "FOR SELECT ";
+        }
+
+        else if (!strcmp(v30, "insert"))
+        {
+          v31 = "FOR INSERT ";
+        }
+
+        else if (!strcmp(v30, "update"))
+        {
+          v31 = "FOR UPDATE ";
+        }
+
+        else
+        {
+          if (strcmp(v30, "delete"))
           {
-            goto LABEL_10;
+            goto LABEL_1845;
+          }
+
+          v31 = "FOR DELETE ";
+        }
+
+        appendStringInfoString(&__s1, v31);
+LABEL_1845:
+        appendStringInfoString(&__s1, "TO ");
+        v877 = *(v19 + 40);
+        if (!v877 || *(v877 + 4) < 1)
+        {
+          goto LABEL_1864;
+        }
+
+        v878 = 8;
+        v879 = 0;
+        while (1)
+        {
+          v880 = *(v877 + 16);
+          v881 = *(v880 + 8 * v879);
+          v882 = *(v881 + 4);
+          if (v882 > 1)
+          {
+            if (v882 == 2)
+            {
+              v883 = "SESSION_USER";
+              goto LABEL_1858;
+            }
+
+            if (v882 == 3)
+            {
+              v883 = "public";
+              goto LABEL_1858;
+            }
+          }
+
+          else
+          {
+            if (!v882)
+            {
+              v883 = quote_identifier(*(v881 + 8));
+              goto LABEL_1858;
+            }
+
+            if (v882 == 1)
+            {
+              v883 = "CURRENT_USER";
+LABEL_1858:
+              appendStringInfoString(&__s1, v883);
+            }
+          }
+
+          v884 = *(v877 + 4);
+          if (v880 + v878)
+          {
+            v885 = v880 + v878 >= (*(v877 + 16) + 8 * v884);
+          }
+
+          else
+          {
+            v885 = 1;
+          }
+
+          if (!v885)
+          {
+            appendStringInfoString(&__s1, ", ");
+            v884 = *(v877 + 4);
+          }
+
+          ++v879;
+          v878 += 8;
+          if (v879 >= v884)
+          {
+LABEL_1864:
+            appendStringInfoChar(&__s1, 32);
+            if (*(v20 + 48))
+            {
+              appendStringInfoString(&__s1, "USING (");
+              deparseExpr(&__s1, *(v20 + 48));
+              appendStringInfoString(&__s1, ") ");
+            }
+
+            v9 = v1242;
+            if (!*(v20 + 56))
+            {
+              goto LABEL_2447;
+            }
+
+            appendStringInfoString(&__s1, "WITH CHECK (");
+            deparseExpr(&__s1, *(v20 + 56));
+            v28 = ") ";
+            goto LABEL_2263;
+          }
+        }
+
+      case 0x14E:
+        appendStringInfoString(&__s1, "ALTER POLICY ");
+        v512 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v512);
+        appendStringInfoString(&__s1, " ON ");
+        deparseRangeVar(&__s1, *(v19 + 16), 0);
+        appendStringInfoChar(&__s1, 32);
+        v513 = *(v19 + 24);
+        if (!v513 || *(v513 + 4) < 1)
+        {
+          goto LABEL_1132;
+        }
+
+        appendStringInfoString(&__s1, "TO ");
+        v514 = *(v19 + 24);
+        if (!v514 || *(v514 + 4) < 1)
+        {
+          goto LABEL_1131;
+        }
+
+        v515 = 8;
+        v516 = 0;
+        break;
+      case 0x14F:
+        appendStringInfoString(&__s1, "CREATE ");
+        if (*(v19 + 4) == 1)
+        {
+          appendStringInfoString(&__s1, "OR REPLACE ");
+        }
+
+        appendStringInfoString(&__s1, "TRANSFORM FOR ");
+        deparseTypeName(&__s1, *(v19 + 8));
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "LANGUAGE ");
+        v208 = quote_identifier(*(v19 + 16));
+        appendStringInfoString(&__s1, v208);
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoChar(&__s1, 40);
+        if (*(v19 + 24))
+        {
+          appendStringInfoString(&__s1, "FROM SQL WITH FUNCTION ");
+          deparseFunctionWithArgtypes(&__s1, *(v19 + 24));
+          if (*(v19 + 24))
+          {
+            if (*(v19 + 32))
+            {
+              appendStringInfoString(&__s1, ", ");
+            }
+          }
+        }
+
+        if (*(v19 + 32))
+        {
+          appendStringInfoString(&__s1, "TO SQL WITH FUNCTION ");
+          deparseFunctionWithArgtypes(&__s1, *(v19 + 32));
+        }
+
+LABEL_349:
+        appendStringInfoChar(&__s1, 41);
+        goto LABEL_2447;
+      case 0x150:
+        appendStringInfoString(&__s1, "CREATE ACCESS METHOD ");
+        v540 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v540);
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfoString(&__s1, "TYPE ");
+        v541 = *(v19 + 24);
+        if (v541 == 105)
+        {
+          v542 = "INDEX ";
+        }
+
+        else
+        {
+          if (v541 != 116)
+          {
+            goto LABEL_1176;
+          }
+
+          v542 = "TABLE ";
+        }
+
+        appendStringInfoString(&__s1, v542);
+LABEL_1176:
+        appendStringInfoString(&__s1, "HANDLER ");
+        v618 = *(v19 + 16);
+        if (v618 && *(v618 + 4) >= 1)
+        {
+          v619 = 8;
+          v620 = 0;
+          do
+          {
+            v621 = *(v618 + 16);
+            v622 = quote_identifier(*(*(v621 + 8 * v620) + 8));
+            appendStringInfoString(&__s1, v622);
+            v623 = *(v618 + 4);
+            if (v621 + v619)
+            {
+              v624 = v621 + v619 >= (*(v618 + 16) + 8 * v623);
+            }
+
+            else
+            {
+              v624 = 1;
+            }
+
+            if (!v624)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v623 = *(v618 + 4);
+            }
+
+            ++v620;
+            v619 += 8;
+          }
+
+          while (v620 < v623);
+        }
+
+        goto LABEL_2447;
+      case 0x151:
+        appendStringInfoString(&__s1, "CREATE PUBLICATION ");
+        v454 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v454);
+        appendStringInfoChar(&__s1, 32);
+        v455 = *(v19 + 24);
+        if (v455 && *(v455 + 4) >= 1)
+        {
+          appendStringInfoString(&__s1, "FOR TABLE ");
+          v456 = *(v19 + 24);
+          if (v456 && *(v456 + 4) >= 1)
+          {
+            v457 = 8;
+            v458 = 0;
+            do
+            {
+              v459 = *(v456 + 16);
+              deparseRangeVar(&__s1, *(v459 + 8 * v458), 0);
+              v460 = *(v456 + 4);
+              if (v459 + v457)
+              {
+                v461 = v459 + v457 >= (*(v456 + 16) + 8 * v460);
+              }
+
+              else
+              {
+                v461 = 1;
+              }
+
+              if (!v461)
+              {
+                appendStringInfoString(&__s1, ", ");
+                v460 = *(v456 + 4);
+              }
+
+              ++v458;
+              v457 += 8;
+            }
+
+            while (v458 < v460);
+          }
+
+          appendStringInfoChar(&__s1, 32);
+          v9 = v1242;
+        }
+
+        else if (*(v19 + 32) == 1)
+        {
+          appendStringInfoString(&__s1, "FOR ALL TABLES ");
+        }
+
+        v598 = *(v20 + 16);
+        if (!v598 || *(v598 + 4) < 1)
+        {
+          goto LABEL_2444;
+        }
+
+        appendStringInfoString(&__s1, "WITH ");
+        v599 = v598;
+        goto LABEL_2392;
+      case 0x152:
+        appendStringInfoString(&__s1, "ALTER PUBLICATION ");
+        v441 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v441);
+        appendStringInfoChar(&__s1, 32);
+        v442 = *(v19 + 24);
+        if (v442 && *(v442 + 4) >= 1)
+        {
+          v443 = *(v19 + 36) - 1;
+          if (v443 > 2 || (appendStringInfoString(&__s1, (&off_2797B67F8)[v443]), (v442 = *(v19 + 24)) != 0))
+          {
+            v444 = v442;
+            if (*(v442 + 4) >= 1)
+            {
+              v445 = 8;
+              v446 = 0;
+              do
+              {
+                v447 = *(v444 + 16);
+                deparseRangeVar(&__s1, *(v447 + 8 * v446), 0);
+                v448 = *(v444 + 4);
+                if (v447 + v445)
+                {
+                  v449 = v447 + v445 >= (*(v444 + 16) + 8 * v448);
+                }
+
+                else
+                {
+                  v449 = 1;
+                }
+
+                if (!v449)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                  v448 = *(v444 + 4);
+                }
+
+                ++v446;
+                v445 += 8;
+              }
+
+              while (v446 < v448);
+            }
           }
         }
 
         else
         {
-          v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-          v8 = i;
-          if ((v10 & 1) == 0)
+          v553 = *(v19 + 16);
+          if (v553 && *(v553 + 4) >= 1)
           {
-            return v20;
-          }
-
-          if (!i)
-          {
-            goto LABEL_10;
+            appendStringInfoString(&__s1, "SET ");
+            deparseDefinition(&__s1, *(v19 + 16));
           }
         }
 
-LABEL_9:
-        v11 = __clz(__rbit64(v8));
-      }
-    }
-  }
+        goto LABEL_2447;
+      case 0x153:
+        appendStringInfoString(&__s1, "CREATE SUBSCRIPTION ");
+        v75 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v75);
+        appendStringInfoString(&__s1, " CONNECTION ");
+        v76 = *(v19 + 16);
+        if (v76)
+        {
+          deparseStringLiteral(&__s1, v76);
+        }
 
-  __break(1u);
-  return result;
-}
+        else
+        {
+          appendStringInfoString(&__s1, "''");
+        }
 
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance Schema.CodingKeys()
-{
-  if (*v0)
-  {
-    result = 0x736E6D756C6F63;
-  }
+        appendStringInfoString(&__s1, " PUBLICATION ");
+        v601 = *(v19 + 24);
+        if (v601 && *(v601 + 4) >= 1)
+        {
+          v602 = 8;
+          v603 = 0;
+          do
+          {
+            v604 = *(v601 + 16);
+            v605 = quote_identifier(*(*(v604 + 8 * v603) + 8));
+            appendStringInfoString(&__s1, v605);
+            if (v604 + v602)
+            {
+              v606 = v604 + v602 >= (*(*(v20 + 24) + 16) + 8 * *(*(v20 + 24) + 4));
+            }
 
-  else
-  {
-    result = 0x6D614E656C626174;
-  }
+            else
+            {
+              v606 = 1;
+            }
 
-  *v0;
-  return result;
-}
+            if (!v606)
+            {
+              appendStringInfoString(&__s1, ", ");
+            }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Schema.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  v6 = a1 == 0x6D614E656C626174 && a2 == 0xE900000000000065;
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
+            ++v603;
+            v602 += 8;
+          }
 
-    v8 = 0;
-  }
+          while (v603 < *(v601 + 4));
+        }
 
-  else if (a1 == 0x736E6D756C6F63 && a2 == 0xE700000000000000)
-  {
+        appendStringInfoChar(&__s1, 32);
+        v607 = *(v20 + 32);
+        if (v607 && *(v607 + 4) >= 1)
+        {
+          appendStringInfoString(&__s1, "WITH ");
+          deparseDefinition(&__s1, v607);
+        }
 
-    v8 = 1;
-  }
+        goto LABEL_1802;
+      case 0x154:
+        appendStringInfoString(&__s1, "ALTER SUBSCRIPTION ");
+        v437 = quote_identifier(*(v19 + 8));
+        appendStringInfoString(&__s1, v437);
+        appendStringInfoChar(&__s1, 32);
+        v438 = *(v19 + 4);
+        if (v438 <= 1)
+        {
+          if (!v438)
+          {
+            appendStringInfoString(&__s1, "SET ");
+            deparseDefinition(&__s1, *(v19 + 32));
+            goto LABEL_2444;
+          }
 
-  else
-  {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          if (v438 != 1)
+          {
+            goto LABEL_2444;
+          }
 
-    if (v9)
-    {
-      v8 = 1;
-    }
+          appendStringInfoString(&__s1, "CONNECTION ");
+          deparseStringLiteral(&__s1, *(v19 + 16));
+          goto LABEL_1617;
+        }
 
-    else
-    {
-      v8 = 2;
-    }
-  }
+        switch(v438)
+        {
+          case 2:
+            appendStringInfoString(&__s1, "SET PUBLICATION ");
+            v707 = *(v19 + 24);
+            if (v707 && *(v707 + 4) >= 1)
+            {
+              v708 = 8;
+              v709 = 0;
+              do
+              {
+                v710 = *(v707 + 16);
+                v711 = quote_identifier(*(*(v710 + 8 * v709) + 8));
+                appendStringInfoString(&__s1, v711);
+                if (v710 + v708)
+                {
+                  v712 = v710 + v708 >= (*(*(v20 + 24) + 16) + 8 * *(*(v20 + 24) + 4));
+                }
 
-  *a3 = v8;
-  return result;
-}
+                else
+                {
+                  v712 = 1;
+                }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Schema.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
+                if (!v712)
+                {
+                  appendStringInfoString(&__s1, ", ");
+                }
 
-  return MEMORY[0x2821FE718](a1, v2);
-}
+                ++v709;
+                v708 += 8;
+              }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Schema.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
+              while (v709 < *(v707 + 4));
+            }
 
-  return MEMORY[0x2821FE720](a1, v2);
-}
+            appendStringInfoChar(&__s1, 32);
+            v713 = *(v20 + 32);
+            v9 = v1242;
+            if (!v713)
+            {
+              goto LABEL_2444;
+            }
 
-uint64_t Schema.encode(to:)(void *a1)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
-  v14 = *(v4 - 8);
-  v5 = *(v14 + 64);
-  MEMORY[0x28223BE20](v4);
-  v7 = &v12 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v13 = v1[2];
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
-  lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v17 = 0;
-  KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v2)
-  {
-    v15 = v13;
-    v16 = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser11SQLDataTypeOGMd, &_sSDySS14BiomeSQLParser11SQLDataTypeOGMR);
-    lazy protocol witness table accessor for type [String : SQLDataType] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : SQLDataType] and conformance <> [A : B], lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType);
-    KeyedEncodingContainer.encode<A>(_:forKey:)();
-  }
+            break;
+          case 3:
+            appendStringInfoString(&__s1, "REFRESH PUBLICATION ");
+            v713 = *(v19 + 32);
+            if (!v713)
+            {
+              goto LABEL_2444;
+            }
 
-  return (*(v14 + 8))(v7, v4);
-}
+            break;
+          case 4:
+            v439 = *(*(**(*(v19 + 32) + 16) + 24) + 8);
+            if (v439)
+            {
+              if (v439 != 1)
+              {
+                goto LABEL_2444;
+              }
 
-uint64_t Schema.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedDecodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = v17 - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
-  lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v2)
-  {
-    return __swift_destroy_boxed_opaque_existential_0(a1);
-  }
+              v440 = " ENABLE ";
+            }
 
-  v19 = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v14 = v11;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser11SQLDataTypeOGMd, &_sSDySS14BiomeSQLParser11SQLDataTypeOGMR);
-  v18 = 1;
-  lazy protocol witness table accessor for type [String : SQLDataType] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : SQLDataType] and conformance <> [A : B], lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType);
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v15 = v17[1];
-  *a2 = v14;
-  a2[1] = v13;
-  a2[2] = v15;
+            else
+            {
+              v440 = " DISABLE ";
+            }
 
-  __swift_destroy_boxed_opaque_existential_0(a1);
-}
+            appendStringInfoString(&__s1, v440);
+            goto LABEL_2444;
+          default:
+            goto LABEL_2444;
+        }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Schema(void *a1, void *a2)
-{
-  v2 = a1[2];
-  v3 = a2[2];
-  v4 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    return 0;
-  }
+        if (*(v713 + 4) >= 1)
+        {
+          appendStringInfoString(&__s1, "WITH ");
+          deparseDefinition(&__s1, v713);
+        }
 
-  return _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_14BiomeSQLParser11SQLDataTypeOTt1g5(v2, v3);
-}
+        goto LABEL_2444;
+      case 0x155:
+        appendStringInfoString(&__s1, "DROP SUBSCRIPTION ");
+        if (*(v19 + 16) == 1)
+        {
+LABEL_179:
+          appendStringInfoString(&__s1, "IF EXISTS ");
+        }
 
-uint64_t FromClause.init(fromClauseNodes:resources:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char **a3@<X8>)
-{
-  v390 = a2;
-  v377 = a3;
-  v4 = type metadata accessor for SQLTokenInformation(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v335 = &v314 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v341 = &v314 - v9;
-  ColumnRef = type metadata accessor for PgQuery_ColumnRef(0);
-  v10 = *(*(ColumnRef - 8) + 64);
-  v11 = MEMORY[0x28223BE20](ColumnRef);
-  v336 = (&v314 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v11);
-  v343 = (&v314 - v13);
-  String = type metadata accessor for PgQuery_String(0);
-  v14 = *(*(String - 8) + 64);
-  MEMORY[0x28223BE20](String);
-  v355 = (&v314 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v364 = type metadata accessor for PgQuery_FuncCall(0);
-  v16 = *(*(v364 - 8) + 64);
-  v17 = MEMORY[0x28223BE20](v364);
-  v339 = &v314 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x28223BE20](v17);
-  v346 = &v314 - v20;
-  v21 = MEMORY[0x28223BE20](v19);
-  v351 = &v314 - v22;
-  v23 = MEMORY[0x28223BE20](v21);
-  v353 = &v314 - v24;
-  MEMORY[0x28223BE20](v23);
-  v360 = &v314 - v25;
-  List = type metadata accessor for PgQuery_List(0);
-  v26 = *(*(List - 8) + 64);
-  v27 = MEMORY[0x28223BE20](List);
-  v29 = (&v314 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v30 = MEMORY[0x28223BE20](v27);
-  v347 = (&v314 - v31);
-  v32 = MEMORY[0x28223BE20](v30);
-  v352 = (&v314 - v33);
-  v34 = MEMORY[0x28223BE20](v32);
-  v359 = (&v314 - v35);
-  v36 = MEMORY[0x28223BE20](v34);
-  v362 = (&v314 - v37);
-  MEMORY[0x28223BE20](v36);
-  v367 = (&v314 - v38);
-  RangeFunction = type metadata accessor for PgQuery_RangeFunction(0);
-  v371 = *(RangeFunction - 8);
-  v372 = RangeFunction;
-  v40 = *(v371 + 64);
-  MEMORY[0x28223BE20](RangeFunction);
-  v369 = &v314 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-  v43 = *(*(v42 - 8) + 64);
-  v44 = MEMORY[0x28223BE20](v42 - 8);
-  v370 = &v314 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v44);
-  v373 = &v314 - v46;
-  v387 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  v389 = *(v387 - 8);
-  v47 = *(v389 + 64);
-  v48 = MEMORY[0x28223BE20](v387);
-  v376 = (&v314 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v48);
-  v374 = &v314 - v50;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v51 = *(RangeVar - 8);
-  v52 = *(v51 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v54 = &v314 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v386 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v55 = *(*(v386 - 8) + 64);
-  v56 = MEMORY[0x28223BE20](v386);
-  v337 = &v314 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v58 = MEMORY[0x28223BE20](v56);
-  v338 = &v314 - v59;
-  v60 = MEMORY[0x28223BE20](v58);
-  v342 = &v314 - v61;
-  v62 = MEMORY[0x28223BE20](v60);
-  v344 = &v314 - v63;
-  v64 = MEMORY[0x28223BE20](v62);
-  v345 = &v314 - v65;
-  v66 = MEMORY[0x28223BE20](v64);
-  v348 = &v314 - v67;
-  v68 = MEMORY[0x28223BE20](v66);
-  v350 = &v314 - v69;
-  v70 = MEMORY[0x28223BE20](v68);
-  v354 = &v314 - v71;
-  v72 = MEMORY[0x28223BE20](v70);
-  v357 = &v314 - v73;
-  v74 = MEMORY[0x28223BE20](v72);
-  v356 = &v314 - v75;
-  v76 = MEMORY[0x28223BE20](v74);
-  v358 = &v314 - v77;
-  v78 = MEMORY[0x28223BE20](v76);
-  v361 = &v314 - v79;
-  v80 = MEMORY[0x28223BE20](v78);
-  v366 = &v314 - v81;
-  v82 = MEMORY[0x28223BE20](v80);
-  v365 = &v314 - v83;
-  v84 = MEMORY[0x28223BE20](v82);
-  v378 = &v314 - v85;
-  v86 = MEMORY[0x28223BE20](v84);
-  v385 = &v314 - v87;
-  v88 = MEMORY[0x28223BE20](v86);
-  v383 = &v314 - v89;
-  v90 = MEMORY[0x28223BE20](v88);
-  v92 = &v314 - v91;
-  MEMORY[0x28223BE20](v90);
-  v94 = &v314 - v93;
-  v95 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v96 = *(*(v95 - 8) + 64);
-  v97 = MEMORY[0x28223BE20](v95 - 8);
-  *&v380 = &v314 - ((v98 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v97);
-  v100 = &v314 - v99;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v102 = *(Node - 8);
-  v103 = *(v102 + 64);
-  v104 = MEMORY[0x28223BE20](Node);
-  v105 = MEMORY[0x28223BE20](v104);
-  v106 = MEMORY[0x28223BE20](v105);
-  v107 = MEMORY[0x28223BE20](v106);
-  v108 = MEMORY[0x28223BE20](v107);
-  v109 = MEMORY[0x28223BE20](v108);
-  v110 = MEMORY[0x28223BE20](v109);
-  v111 = MEMORY[0x28223BE20](v110);
-  v112 = MEMORY[0x28223BE20](v111);
-  v113 = MEMORY[0x28223BE20](v112);
-  v363 = &v314 - v114;
-  v115 = MEMORY[0x28223BE20](v113);
-  v116 = MEMORY[0x28223BE20](v115);
-  v375 = &v314 - v117;
-  v118 = MEMORY[0x28223BE20](v116);
-  v130 = (&v314 - v126);
-  if (!*(a1 + 16))
-  {
+LABEL_180:
+        v28 = *(v19 + 8);
+        goto LABEL_2263;
+      case 0x156:
+        appendStringInfoString(&__s1, "CREATE STATISTICS ");
+        if (*(v19 + 48) == 1)
+        {
+          appendStringInfoString(&__s1, "IF NOT EXISTS ");
+        }
 
-    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-    swift_allocError();
-    *v138 = 0xD00000000000002FLL;
-    *(v138 + 8) = 0x80000002553B6CB0;
-    *(v138 + 16) = 0;
-    *(v138 + 24) = 0;
-    *(v138 + 32) = 1;
-    swift_willThrow();
-    v139 = type metadata accessor for PlanResources;
-    v140 = v390;
-    return outlined destroy of PgQuery_ParseResult(v140, v139);
-  }
+        v32 = *(v19 + 8);
+        if (v32 && *(v32 + 4) >= 1)
+        {
+          v33 = 8;
+          v34 = 0;
+          do
+          {
+            v35 = *(v32 + 16);
+            v36 = quote_identifier(*(*(v35 + 8 * v34) + 8));
+            appendStringInfoString(&__s1, v36);
+            v37 = *(v32 + 4);
+            if (v35 + v33)
+            {
+              v38 = v35 + v33 >= (*(v32 + 16) + 8 * v37);
+            }
 
-  v332 = *(a1 + 16);
-  v333 = v54;
-  v324 = v124;
-  v325 = v125;
-  v322 = v122;
-  v323 = v123;
-  v320 = v29;
-  v321 = v121;
-  v318 = v119;
-  v319 = v120;
-  v316 = v128;
-  v317 = v129;
-  v331 = v102;
-  v326 = (*(v102 + 80) + 32) & ~*(v102 + 80);
-  v327 = v127;
-  v131 = v118;
-  v328 = a1 + v326;
-  outlined init with copy of PgQuery_ScanResult(a1 + v326, &v314 - v126, type metadata accessor for PgQuery_Node);
-  v132 = a1;
-  v334 = v51;
-  v133 = *(v51 + 56);
-  v384 = v100;
-  v133(v100, 1, 1, RangeVar);
-  v329 = v131;
-  v134 = *(v131 + 20);
-  v381 = v130;
-  outlined init with copy of PgQuery_Alias?(*(v130 + v134) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v94, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v382 = v94;
-  outlined init with copy of PgQuery_Alias?(v94, v92, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v136 = v389 + 48;
-  v135 = *(v389 + 48);
-  v137 = v92;
-  if (v135(v92, 1, v387) == 1)
-  {
+            else
+            {
+              v38 = 1;
+            }
 
-LABEL_9:
-    v148 = v390;
-    *&v405 = 0;
-    *(&v405 + 1) = 0xE000000000000000;
-    _StringGuts.grow(_:)(49);
+            if (!v38)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v37 = *(v32 + 4);
+            }
 
-    *&v405 = 0xD00000000000002FLL;
-    *(&v405 + 1) = 0x80000002553B6C20;
-    v149 = v382;
-    outlined init with copy of PgQuery_Alias?(v382, v385, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v150 = String.init<A>(describing:)();
-    MEMORY[0x259C32B90](v150);
+            ++v34;
+            v33 += 8;
+          }
 
-    v151 = v405;
-    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-    swift_allocError();
-    *v152 = v151;
-    *(v152 + 16) = 0;
-    *(v152 + 24) = 0;
-    *(v152 + 32) = 1;
-    swift_willThrow();
-    outlined destroy of PgQuery_ParseResult(v148, type metadata accessor for PlanResources);
-    outlined destroy of URL?(v149, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    outlined destroy of URL?(v384, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    outlined destroy of PgQuery_ParseResult(v381, type metadata accessor for PgQuery_Node);
-    return outlined destroy of URL?(v137, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
+          while (v34 < v37);
+        }
 
-  v330 = v132;
-  v141 = v92;
-  v142 = v383;
-  outlined init with copy of PgQuery_Alias?(v141, v383, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (swift_getEnumCaseMultiPayload() != 1)
-  {
+        appendStringInfoChar(&__s1, 32);
+        v39 = *(v20 + 16);
+        if (v39 && *(v39 + 4) >= 1)
+        {
+          appendStringInfoChar(&__s1, 40);
+          v40 = *(v20 + 16);
+          if (v40 && *(v40 + 4) >= 1)
+          {
+            v41 = 8;
+            v42 = 0;
+            do
+            {
+              v43 = *(v40 + 16);
+              v44 = quote_identifier(*(*(v43 + 8 * v42) + 8));
+              appendStringInfoString(&__s1, v44);
+              v45 = *(v40 + 4);
+              if (v43 + v41)
+              {
+                v46 = v43 + v41 >= (*(v40 + 16) + 8 * v45);
+              }
 
-    outlined destroy of PgQuery_ParseResult(v142, type metadata accessor for PgQuery_Node.OneOf_Node);
-    goto LABEL_9;
-  }
+              else
+              {
+                v46 = 1;
+              }
 
-  v389 = v136;
-  v143 = v384;
-  outlined destroy of URL?(v384, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with take of PgQuery_ParseResult(v142, v143, type metadata accessor for PgQuery_RangeVar);
-  v144 = RangeVar;
-  v133(v143, 0, 1, RangeVar);
-  outlined destroy of URL?(v137, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v145 = v380;
-  outlined init with copy of PgQuery_Alias?(v143, v380, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  if ((*(v334 + 48))(v145, 1, v144) == 1)
-  {
+              if (!v46)
+              {
+                appendStringInfoString(&__s1, ", ");
+                v45 = *(v40 + 4);
+              }
 
-    outlined destroy of URL?(v145, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-    swift_allocError();
-    *v146 = 0xD00000000000001CLL;
-    *(v146 + 8) = 0x80000002553B6C50;
-    *(v146 + 16) = 0;
-    *(v146 + 24) = 0;
-    *(v146 + 32) = 1;
-    swift_willThrow();
-    outlined destroy of PgQuery_ParseResult(v390, type metadata accessor for PlanResources);
-    outlined destroy of URL?(v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v147 = v143;
-LABEL_12:
-    outlined destroy of URL?(v147, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    v139 = type metadata accessor for PgQuery_Node;
-    v140 = v381;
-    return outlined destroy of PgQuery_ParseResult(v140, v139);
-  }
+              ++v42;
+              v41 += 8;
+            }
 
-  v154 = v333;
-  outlined init with take of PgQuery_ParseResult(v145, v333, type metadata accessor for PgQuery_RangeVar);
-  v155 = v390;
-  v395[0] = *v390;
+            while (v42 < v45);
+          }
 
-  v156 = v379;
-  static Schema.lookup(rangeVar:catalog:)(v154, v395, &v405);
-  v157 = v156;
-  v158 = v330;
-  if (v156)
-  {
+          appendStringInfoString(&__s1, ") ");
+        }
 
-    outlined destroy of PgQuery_ParseResult(v155, type metadata accessor for PlanResources);
+        appendStringInfoString(&__s1, "ON ");
+        v565 = *(v20 + 24);
+        if (v565 && *(v565 + 4) >= 1)
+        {
+          v566 = 8;
+          v567 = 0;
+          do
+          {
+            v568 = *(v565 + 16);
+            deparseExpr(&__s1, *(v568 + 8 * v567));
+            v569 = *(v565 + 4);
+            if (v568 + v566)
+            {
+              v570 = v568 + v566 >= (*(v565 + 16) + 8 * v569);
+            }
 
-    outlined destroy of PgQuery_ParseResult(v154, type metadata accessor for PgQuery_RangeVar);
-    outlined destroy of URL?(v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v147 = v384;
-    goto LABEL_12;
-  }
+            else
+            {
+              v570 = 1;
+            }
 
-  v315 = v135;
+            if (!v570)
+            {
+              appendStringInfoString(&__s1, ", ");
+              v569 = *(v565 + 4);
+            }
 
-  v159 = v405;
-  v160 = v406;
-  v386 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMR);
-  v161 = swift_allocObject();
-  *(v161 + 16) = xmmword_2552FE080;
-  RangeVar = v159;
-  *(v161 + 32) = v159;
-  *(v161 + 48) = v160;
-  v409 = 0u;
-  v410 = 0u;
-  v407 = 0u;
-  v408 = 0u;
-  v405 = 0u;
-  v406 = 0u;
-  v162 = *(v158 + 16);
-  v163 = v382;
-  if (v162 < v332)
-  {
-    __break(1u);
-    goto LABEL_78;
-  }
+            ++v567;
+            v566 += 8;
+          }
 
-  v164 = v161;
-  v165 = v315;
-  if (v332 != 2)
-  {
+          while (v567 < v569);
+        }
 
-    outlined destroy of PgQuery_ParseResult(v155, type metadata accessor for PlanResources);
-    outlined destroy of PgQuery_ParseResult(v154, type metadata accessor for PgQuery_RangeVar);
-    outlined destroy of URL?(v163, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    outlined destroy of URL?(v384, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    result = outlined destroy of PgQuery_ParseResult(v381, type metadata accessor for PgQuery_Node);
-    goto LABEL_19;
-  }
+        appendStringInfoString(&__s1, " FROM ");
+        v571 = *(v20 + 32);
+        v9 = v1242;
+        if (v571 && *(v571 + 4) >= 1)
+        {
+          v572 = 8;
+          v573 = 0;
+          do
+          {
+            v574 = *(v571 + 16);
+            deparseTableRef(&__s1, *(v574 + 8 * v573));
+            v575 = *(v571 + 4);
+            if (v574 + v572)
+            {
+              v576 = v574 + v572 >= (*(v571 + 16) + 8 * v575);
+            }
 
-  v380 = xmmword_2552FE080;
-  v166 = v375;
-  outlined init with copy of PgQuery_ScanResult(v328 + *(v331 + 72), v375, type metadata accessor for PgQuery_Node);
-  v167 = v378;
-  outlined init with copy of PgQuery_Alias?(*(v166 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v378, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+            else
+            {
+              v576 = 1;
+            }
 
-  outlined destroy of PgQuery_ParseResult(v166, type metadata accessor for PgQuery_Node);
-  if (v165(v167, 1, v387) == 1)
-  {
+            if (!v576)
+            {
+              appendStringInfoString(&__s1, ", ");
+              v575 = *(v571 + 4);
+            }
 
-    outlined destroy of PgQuery_ParseResult(v390, type metadata accessor for PlanResources);
-    outlined destroy of PgQuery_ParseResult(v154, type metadata accessor for PgQuery_RangeVar);
-    outlined destroy of URL?(v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    outlined destroy of URL?(v384, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    outlined destroy of PgQuery_ParseResult(v381, type metadata accessor for PgQuery_Node);
-    result = outlined destroy of URL?(v378, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-LABEL_19:
-    v168 = v377;
-    *v377 = v164;
-    v169 = v408;
-    *(v168 + 5) = v407;
-    *(v168 + 7) = v169;
-    v170 = v410;
-    *(v168 + 9) = v409;
-    *(v168 + 11) = v170;
-    v171 = v406;
-    *(v168 + 1) = v405;
-    *(v168 + 3) = v171;
-    return result;
-  }
+            ++v573;
+            v572 += 8;
+          }
 
-  v385 = v160;
-  v383 = *(&v159 + 1);
-  v379 = v164;
-  v375 = 0;
-  v172 = v374;
-  outlined init with take of PgQuery_ParseResult(v378, v374, type metadata accessor for PgQuery_Node.OneOf_Node);
-  v173 = v371;
-  v174 = v372;
-  v175 = *(v371 + 56);
-  v176 = v373;
-  v175(v373, 1, 1, v372);
-  outlined init with copy of PgQuery_ScanResult(v172, v376, type metadata accessor for PgQuery_Node.OneOf_Node);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v178 = v390;
-  if (EnumCaseMultiPayload != 182)
-  {
+          while (v573 < v575);
+        }
 
-    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-    swift_allocError();
-    *v181 = 0xD000000000000030;
-    *(v181 + 8) = 0x80000002553B6C70;
-    *(v181 + 16) = 0;
-    *(v181 + 24) = 0;
-    *(v181 + 32) = 1;
-    swift_willThrow();
+        goto LABEL_2447;
+      case 0x157:
+        appendStringInfoString(&__s1, "ALTER COLLATION ");
+        v21 = *(v19 + 8);
+        if (v21 && *(v21 + 4) >= 1)
+        {
+          v22 = 8;
+          v23 = 0;
+          do
+          {
+            v24 = *(v21 + 16);
+            v25 = quote_identifier(*(*(v24 + 8 * v23) + 8));
+            appendStringInfoString(&__s1, v25);
+            v26 = *(v21 + 4);
+            if (v24 + v22)
+            {
+              v27 = v24 + v22 >= (*(v21 + 16) + 8 * v26);
+            }
 
-    outlined destroy of PgQuery_ParseResult(v178, type metadata accessor for PlanResources);
-    outlined destroy of URL?(v176, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-    outlined destroy of PgQuery_ParseResult(v172, type metadata accessor for PgQuery_Node.OneOf_Node);
-    outlined destroy of URL?(&v405, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined destroy of PgQuery_ParseResult(v333, type metadata accessor for PgQuery_RangeVar);
-    outlined destroy of URL?(v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    outlined destroy of URL?(v384, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    outlined destroy of PgQuery_ParseResult(v381, type metadata accessor for PgQuery_Node);
-    v140 = v376;
-    v139 = type metadata accessor for PgQuery_Node.OneOf_Node;
-    return outlined destroy of PgQuery_ParseResult(v140, v139);
-  }
+            else
+            {
+              v27 = 1;
+            }
 
-  outlined destroy of URL?(v176, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-  outlined init with take of PgQuery_ParseResult(v376, v176, type metadata accessor for PgQuery_RangeFunction);
-  v175(v176, 0, 1, v174);
-  v179 = v370;
-  outlined init with copy of PgQuery_Alias?(v176, v370, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-  v180 = v176;
-  if ((*(v173 + 48))(v179, 1, v174) == 1)
-  {
+            if (!v27)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v26 = *(v21 + 4);
+            }
 
-    outlined destroy of URL?(v179, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-LABEL_28:
-    v190 = v381;
-    v191 = v384;
-    v192 = v374;
-LABEL_57:
-    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
-    swift_allocError();
-    *v212 = 0xD000000000000030;
-    *(v212 + 8) = 0x80000002553B6C70;
-    *(v212 + 16) = 0;
-    *(v212 + 24) = 0;
-    *(v212 + 32) = 1;
-    swift_willThrow();
+            ++v23;
+            v22 += 8;
+          }
 
-    outlined destroy of PgQuery_ParseResult(v178, type metadata accessor for PlanResources);
-    outlined destroy of URL?(v180, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-    outlined destroy of PgQuery_ParseResult(v192, type metadata accessor for PgQuery_Node.OneOf_Node);
-    outlined destroy of URL?(&v405, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    outlined destroy of PgQuery_ParseResult(v333, type metadata accessor for PgQuery_RangeVar);
-    outlined destroy of URL?(v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    outlined destroy of URL?(v191, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    v139 = type metadata accessor for PgQuery_Node;
-    v140 = v190;
-    return outlined destroy of PgQuery_ParseResult(v140, v139);
-  }
+          while (v23 < v26);
+        }
 
-  v182 = v179;
-  v183 = v369;
-  outlined init with take of PgQuery_ParseResult(v182, v369, type metadata accessor for PgQuery_RangeFunction);
-  v184 = *(v183 + 8);
-  if (*(v184 + 16) != 1)
-  {
+        v28 = " REFRESH VERSION";
+        goto LABEL_2263;
+      case 0x158:
+        appendStringInfoString(&__s1, "CALL ");
+        deparseFuncCall(&__s1, *(v19 + 8));
+        goto LABEL_2447;
+      case 0x159:
+        appendStringInfoString(&__s1, "ALTER STATISTICS ");
+        if (*(v19 + 20) == 1)
+        {
+          appendStringInfoString(&__s1, "IF EXISTS ");
+        }
 
-    outlined destroy of PgQuery_ParseResult(v183, type metadata accessor for PgQuery_RangeFunction);
-    goto LABEL_28;
-  }
+        v86 = *(v19 + 8);
+        if (v86 && *(v86 + 4) >= 1)
+        {
+          v87 = 8;
+          v88 = 0;
+          do
+          {
+            v89 = *(v86 + 16);
+            v90 = quote_identifier(*(*(v89 + 8 * v88) + 8));
+            appendStringInfoString(&__s1, v90);
+            v91 = *(v86 + 4);
+            if (v89 + v87)
+            {
+              v92 = v89 + v87 >= (*(v86 + 16) + 8 * v91);
+            }
 
-  v185 = v327;
-  outlined init with copy of PgQuery_ScanResult(v184 + v326, v327, type metadata accessor for PgQuery_Node);
-  v155 = *(v185 + *(v329 + 20));
-  v157 = OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-  v186 = v365;
-  outlined init with copy of PgQuery_Alias?(v155 + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v365, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v187 = v315(v186, 1, v387);
-  v145 = MEMORY[0x277D84F90];
-  if (v187 == 1)
-  {
-    outlined destroy of URL?(v186, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v189 = v366;
-    v188 = v367;
-  }
+            else
+            {
+              v92 = 1;
+            }
 
-  else
-  {
-    v193 = swift_getEnumCaseMultiPayload() == 225;
-    v194 = v186;
-    v189 = v366;
-    v188 = v367;
-    if (v193)
-    {
-      outlined init with take of PgQuery_ParseResult(v194, v367, type metadata accessor for PgQuery_List);
-      goto LABEL_33;
+            if (!v92)
+            {
+              appendStringInfoChar(&__s1, 46);
+              v91 = *(v86 + 4);
+            }
+
+            ++v88;
+            v87 += 8;
+          }
+
+          while (v88 < v91);
+        }
+
+        appendStringInfoChar(&__s1, 32);
+        appendStringInfo(&__s1, "SET STATISTICS %d", *(v20 + 16));
+        v9 = v1242;
+        goto LABEL_2447;
+      default:
+        pg_query_deparse_protobuf_cold_1();
     }
 
-    outlined destroy of PgQuery_ParseResult(v194, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  *v188 = v145;
-  v195 = v188 + *(List + 20);
-  UnknownStorage.init()();
-LABEL_33:
-  v196 = *v188;
-
-  outlined destroy of PgQuery_ParseResult(v188, type metadata accessor for PgQuery_List);
-  v197 = *(v196 + 16);
-
-  if (v197 != 2)
-  {
-    goto LABEL_54;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v189, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v189, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v189, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 225)
+    while (1)
     {
-      v198 = v362;
-      outlined init with take of PgQuery_ParseResult(v189, v362, type metadata accessor for PgQuery_List);
-      goto LABEL_41;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v189, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  v198 = v362;
-  *v362 = v145;
-  v199 = v198 + *(List + 20);
-  UnknownStorage.init()();
-LABEL_41:
-  v200 = v198;
-  v201 = *v198;
-
-  outlined destroy of PgQuery_ParseResult(v200, type metadata accessor for PgQuery_List);
-  if (!*(v201 + 16))
-  {
-
-LABEL_54:
-
-    outlined destroy of PgQuery_ParseResult(v327, type metadata accessor for PgQuery_Node);
-
-    v211 = v183;
-LABEL_55:
-    outlined destroy of PgQuery_ParseResult(v211, type metadata accessor for PgQuery_RangeFunction);
-LABEL_56:
-    v178 = v390;
-    v190 = v381;
-    v191 = v384;
-    v180 = v373;
-    v192 = v374;
-    goto LABEL_57;
-  }
-
-  v202 = v363;
-  outlined init with copy of PgQuery_ScanResult(v201 + v326, v363, type metadata accessor for PgQuery_Node);
-
-  v203 = *(v202 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-  v204 = v361;
-  outlined init with copy of PgQuery_Alias?(v203, v361, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v204, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v204, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v205 = v360;
-  }
-
-  else
-  {
-    v193 = swift_getEnumCaseMultiPayload() == 170;
-    v206 = v204;
-    v205 = v360;
-    if (v193)
-    {
-      outlined init with take of PgQuery_ParseResult(v206, v360, type metadata accessor for PgQuery_FuncCall);
-      goto LABEL_51;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v206, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  UnknownStorage.init()();
-  v207 = *(v364 + 20);
-  if (one-time initialization token for defaultInstance != -1)
-  {
-    swift_once();
-  }
-
-  *(v205 + v207) = static PgQuery_FuncCall._StorageClass.defaultInstance;
-
-LABEL_51:
-  outlined destroy of PgQuery_ParseResult(v363, type metadata accessor for PgQuery_Node);
-  v208 = *(*(v205 + *(v364 + 20)) + 16);
-
-  outlined destroy of PgQuery_ParseResult(v205, type metadata accessor for PgQuery_FuncCall);
-  v209 = *(v208 + 16);
-
-  if (v209 != 1)
-  {
-    goto LABEL_54;
-  }
-
-  v210 = v358;
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v358, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v210, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v210, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 225)
-    {
-      v213 = v359;
-      outlined init with take of PgQuery_ParseResult(v210, v359, type metadata accessor for PgQuery_List);
-      goto LABEL_62;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v210, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  v213 = v359;
-  *v359 = v145;
-  v214 = v213 + *(List + 20);
-  UnknownStorage.init()();
-LABEL_62:
-  v215 = *v213;
-
-  outlined destroy of PgQuery_ParseResult(v213, type metadata accessor for PgQuery_List);
-  if (!*(v215 + 16))
-  {
-LABEL_74:
-
-LABEL_120:
-
-    outlined destroy of PgQuery_ParseResult(v327, type metadata accessor for PgQuery_Node);
-
-    v211 = v369;
-    goto LABEL_55;
-  }
-
-  v216 = v325;
-  outlined init with copy of PgQuery_ScanResult(v215 + v326, v325, type metadata accessor for PgQuery_Node);
-
-  v217 = v356;
-  outlined init with copy of PgQuery_Alias?(*(v216 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v356, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v217, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v217, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 170)
-    {
-      v218 = v353;
-      outlined init with take of PgQuery_ParseResult(v356, v353, type metadata accessor for PgQuery_FuncCall);
-      goto LABEL_71;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v356, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  v218 = v353;
-  UnknownStorage.init()();
-  v219 = *(v364 + 20);
-  if (one-time initialization token for defaultInstance != -1)
-  {
-    swift_once();
-  }
-
-  *(v218 + v219) = static PgQuery_FuncCall._StorageClass.defaultInstance;
-
-LABEL_71:
-  outlined destroy of PgQuery_ParseResult(v325, type metadata accessor for PgQuery_Node);
-  v220 = *(*(v218 + *(v364 + 20)) + 16);
-
-  outlined destroy of PgQuery_ParseResult(v218, type metadata accessor for PgQuery_FuncCall);
-  if (!*(v220 + 16))
-  {
-    goto LABEL_74;
-  }
-
-  v221 = v324;
-  outlined init with copy of PgQuery_ScanResult(v220 + v326, v324, type metadata accessor for PgQuery_Node);
-
-  v222 = v357;
-  outlined init with copy of PgQuery_Alias?(*(v221 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v222, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-LABEL_79:
-    v223 = v355;
-    *v355 = 0;
-    v223[1] = 0xE000000000000000;
-    v224 = v223 + *(String + 20);
-    UnknownStorage.init()();
-    goto LABEL_80;
-  }
-
-  if (swift_getEnumCaseMultiPayload() != 222)
-  {
-LABEL_78:
-    outlined destroy of PgQuery_ParseResult(v357, type metadata accessor for PgQuery_Node.OneOf_Node);
-    goto LABEL_79;
-  }
-
-  outlined init with take of PgQuery_ParseResult(v357, v355, type metadata accessor for PgQuery_String);
-LABEL_80:
-  outlined destroy of PgQuery_ParseResult(v324, type metadata accessor for PgQuery_Node);
-  v225 = v355;
-  v227 = *v355;
-  v226 = v355[1];
-
-  outlined destroy of PgQuery_ParseResult(v225, type metadata accessor for PgQuery_String);
-  if (v227 == 0x6361655F6E6F736ALL && v226 == 0xE900000000000068)
-  {
-  }
-
-  else
-  {
-    v228 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if ((v228 & 1) == 0)
-    {
-LABEL_119:
-
-      goto LABEL_120;
-    }
-  }
-
-  v229 = v354;
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v354, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v229, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v354, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 225)
-    {
-      outlined init with take of PgQuery_ParseResult(v354, v352, type metadata accessor for PgQuery_List);
-      goto LABEL_90;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v354, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  v230 = v352;
-  *v352 = v145;
-  v231 = v230 + *(List + 20);
-  UnknownStorage.init()();
-LABEL_90:
-  v232 = v352;
-  v233 = *v352;
-
-  outlined destroy of PgQuery_ParseResult(v232, type metadata accessor for PgQuery_List);
-  if (!*(v233 + 16))
-  {
-LABEL_118:
-
-    goto LABEL_119;
-  }
-
-  v234 = v323;
-  outlined init with copy of PgQuery_ScanResult(v233 + v326, v323, type metadata accessor for PgQuery_Node);
-
-  v235 = v350;
-  outlined init with copy of PgQuery_Alias?(*(v234 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v350, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v235, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v350, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 170)
-    {
-      outlined init with take of PgQuery_ParseResult(v350, v351, type metadata accessor for PgQuery_FuncCall);
-      goto LABEL_99;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v350, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  UnknownStorage.init()();
-  v236 = *(v364 + 20);
-  if (one-time initialization token for defaultInstance != -1)
-  {
-    swift_once();
-  }
-
-  *(v351 + v236) = static PgQuery_FuncCall._StorageClass.defaultInstance;
-
-LABEL_99:
-  outlined destroy of PgQuery_ParseResult(v323, type metadata accessor for PgQuery_Node);
-  v237 = v351;
-  v238 = *(*(v351 + *(v364 + 20)) + 24);
-
-  outlined destroy of PgQuery_ParseResult(v237, type metadata accessor for PgQuery_FuncCall);
-  v239 = *(v238 + 16);
-
-  if (v239 != 1)
-  {
-    goto LABEL_119;
-  }
-
-  v240 = v348;
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v348, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v240, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v348, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 225)
-    {
-      outlined init with take of PgQuery_ParseResult(v348, v347, type metadata accessor for PgQuery_List);
-      goto LABEL_106;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v348, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  v241 = v347;
-  *v347 = v145;
-  v242 = v241 + *(List + 20);
-  UnknownStorage.init()();
-LABEL_106:
-  v243 = v347;
-  v244 = *v347;
-
-  outlined destroy of PgQuery_ParseResult(v243, type metadata accessor for PgQuery_List);
-  if (!*(v244 + 16))
-  {
-    goto LABEL_118;
-  }
-
-  v245 = v322;
-  outlined init with copy of PgQuery_ScanResult(v244 + v326, v322, type metadata accessor for PgQuery_Node);
-
-  v246 = v345;
-  outlined init with copy of PgQuery_Alias?(*(v245 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v345, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v246, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v345, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 170)
-    {
-      outlined init with take of PgQuery_ParseResult(v345, v346, type metadata accessor for PgQuery_FuncCall);
-      goto LABEL_115;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v345, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  UnknownStorage.init()();
-  v247 = *(v364 + 20);
-  if (one-time initialization token for defaultInstance != -1)
-  {
-    swift_once();
-  }
-
-  *(v346 + v247) = static PgQuery_FuncCall._StorageClass.defaultInstance;
-
-LABEL_115:
-  outlined destroy of PgQuery_ParseResult(v322, type metadata accessor for PgQuery_Node);
-  v248 = v346;
-  v249 = *(*(v346 + *(v364 + 20)) + 24);
-
-  outlined destroy of PgQuery_ParseResult(v248, type metadata accessor for PgQuery_FuncCall);
-  if (!*(v249 + 16))
-  {
-    goto LABEL_118;
-  }
-
-  v250 = v321;
-  outlined init with copy of PgQuery_ScanResult(v249 + v326, v321, type metadata accessor for PgQuery_Node);
-
-  v251 = v344;
-  outlined init with copy of PgQuery_Alias?(*(v250 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v344, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v251, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v344, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 167)
-    {
-      outlined init with take of PgQuery_ParseResult(v344, v343, type metadata accessor for PgQuery_ColumnRef);
-      goto LABEL_125;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v344, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  v252 = v343;
-  *v343 = v145;
-  *(v252 + 2) = 0;
-  v253 = v252 + *(ColumnRef + 24);
-  UnknownStorage.init()();
-LABEL_125:
-  outlined destroy of PgQuery_ParseResult(v321, type metadata accessor for PgQuery_Node);
-  v254 = v343;
-  v255 = *v343;
-
-  outlined destroy of PgQuery_ParseResult(v254, type metadata accessor for PgQuery_ColumnRef);
-  v256 = *(v255 + 16);
-
-  if (v256 != 1)
-  {
-    goto LABEL_119;
-  }
-
-  v257 = v342;
-  outlined init with copy of PgQuery_Alias?(v155 + v157, v342, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v257, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v342, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 225)
-    {
-      outlined init with take of PgQuery_ParseResult(v342, v320, type metadata accessor for PgQuery_List);
-      goto LABEL_132;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v342, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  v258 = v320;
-  *v320 = v145;
-  v259 = v258 + *(List + 20);
-  UnknownStorage.init()();
-LABEL_132:
-  v260 = v320;
-  v261 = *v320;
-
-  outlined destroy of PgQuery_ParseResult(v260, type metadata accessor for PgQuery_List);
-  if (!*(v261 + 16))
-  {
-LABEL_144:
-
-    (*(v331 + 56))(v341, 1, 1, v329);
-LABEL_154:
-    outlined destroy of PgQuery_ParseResult(v327, type metadata accessor for PgQuery_Node);
-
-    outlined destroy of PgQuery_ParseResult(v369, type metadata accessor for PgQuery_RangeFunction);
-    outlined destroy of URL?(v341, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    goto LABEL_56;
-  }
-
-  v262 = v319;
-  outlined init with copy of PgQuery_ScanResult(v261 + v326, v319, type metadata accessor for PgQuery_Node);
-
-  v263 = v338;
-  outlined init with copy of PgQuery_Alias?(*(v262 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v338, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v263, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v338, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 170)
-    {
-      outlined init with take of PgQuery_ParseResult(v338, v339, type metadata accessor for PgQuery_FuncCall);
-      goto LABEL_141;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v338, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  UnknownStorage.init()();
-  v264 = *(v364 + 20);
-  if (one-time initialization token for defaultInstance != -1)
-  {
-    swift_once();
-  }
-
-  *(v339 + v264) = static PgQuery_FuncCall._StorageClass.defaultInstance;
-
-LABEL_141:
-  outlined destroy of PgQuery_ParseResult(v319, type metadata accessor for PgQuery_Node);
-  v265 = v339;
-  v266 = *(*(v339 + *(v364 + 20)) + 24);
-
-  outlined destroy of PgQuery_ParseResult(v265, type metadata accessor for PgQuery_FuncCall);
-  if (!*(v266 + 16))
-  {
-    goto LABEL_144;
-  }
-
-  v267 = v318;
-  outlined init with copy of PgQuery_ScanResult(v266 + v326, v318, type metadata accessor for PgQuery_Node);
-
-  v268 = v337;
-  outlined init with copy of PgQuery_Alias?(*(v267 + *(v329 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v337, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if (v315(v268, 1, v387) == 1)
-  {
-    outlined destroy of URL?(v337, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  }
-
-  else
-  {
-    if (swift_getEnumCaseMultiPayload() == 167)
-    {
-      outlined init with take of PgQuery_ParseResult(v337, v336, type metadata accessor for PgQuery_ColumnRef);
-      goto LABEL_149;
-    }
-
-    outlined destroy of PgQuery_ParseResult(v337, type metadata accessor for PgQuery_Node.OneOf_Node);
-  }
-
-  v269 = v336;
-  *v336 = v145;
-  *(v269 + 2) = 0;
-  v270 = v269 + *(ColumnRef + 24);
-  UnknownStorage.init()();
-LABEL_149:
-  outlined destroy of PgQuery_ParseResult(v318, type metadata accessor for PgQuery_Node);
-  v271 = v336;
-  v272 = *v336;
-
-  outlined destroy of PgQuery_ParseResult(v271, type metadata accessor for PgQuery_ColumnRef);
-  if (*(v272 + 16))
-  {
-    outlined init with copy of PgQuery_ScanResult(v272 + v326, v341, type metadata accessor for PgQuery_Node);
-    v273 = 0;
-  }
-
-  else
-  {
-    v273 = 1;
-  }
-
-  v274 = v331;
-  v275 = v341;
-  v276 = v273;
-  v277 = v329;
-  (*(v331 + 56))(v341, v276, 1, v329);
-  if ((*(v274 + 48))(v275, 1, v277) == 1)
-  {
-
-    goto LABEL_154;
-  }
-
-  v278 = v316;
-  outlined init with take of PgQuery_ParseResult(v341, v316, type metadata accessor for PgQuery_Node);
-  outlined init with copy of PgQuery_ScanResult(v278, v317, type metadata accessor for PgQuery_Node);
-  v279 = swift_allocObject();
-  *(v279 + 16) = v380;
-  v280 = v383;
-  *(v279 + 32) = RangeVar;
-  *(v279 + 40) = v280;
-  *(v279 + 48) = v385;
-  v281 = type metadata accessor for PlanResources(0);
-  outlined init with copy of PgQuery_ScanResult(v390 + *(v281 + 20), v335, type metadata accessor for SQLTokenInformation);
-
-  v283 = v375;
-  v284 = specialized ColumnResolver.init(schemas:)(v282);
-  if (!v283)
-  {
-    v286 = v284;
-    v287 = v285;
-
-    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v317, v279, v286, v287, v335, v394);
-    v288 = 0x65756C6176;
-
-    outlined init with copy of VirtualTable.Module(v394, v393);
-    outlined init with copy of VirtualTable.Module(v393, v395);
-    v289 = v396;
-    v290 = v397;
-    __swift_project_boxed_opaque_existential_0(v395, v396);
-    v398 = (*(v290 + 8))(v289, v290);
-    v399 = v291;
-    v292 = v396;
-    v293 = v397;
-    __swift_project_boxed_opaque_existential_0(v395, v396);
-    (*(v293 + 16))(&v411, v292, v293);
-    v400 = v411;
-    v294 = v396;
-    v295 = v397;
-    __swift_project_boxed_opaque_existential_0(v395, v396);
-    v401 = (*(v295 + 24))(v294, v295);
-    v296 = v396;
-    v297 = v397;
-    __swift_project_boxed_opaque_existential_0(v395, v396);
-    v402 = (*(v297 + 32))(v296, v297);
-    v298 = v396;
-    v299 = v397;
-    __swift_project_boxed_opaque_existential_0(v395, v396);
-    v300 = (*(v299 + 40))(v298, v299);
-    v302 = v301;
-    __swift_destroy_boxed_opaque_existential_0(v393);
-    __swift_destroy_boxed_opaque_existential_0(v394);
-    outlined destroy of PgQuery_ParseResult(v335, type metadata accessor for SQLTokenInformation);
-    outlined destroy of PgQuery_ParseResult(v317, type metadata accessor for PgQuery_Node);
-    outlined destroy of URL?(&v405, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-    v403 = v300;
-    v404 = v302;
-    outlined init with copy of SQLExpression(v395, &v405);
-    v303 = v400;
-    v391[0] = 0x65756C6176;
-    v391[1] = 0xE500000000000000;
-    v392 = v400;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
-    v304 = static _DictionaryStorage.allocate(capacity:)();
-
-    outlined destroy of URL?(v391, &_sSS_14BiomeSQLParser11SQLDataTypeOtMd, &_sSS_14BiomeSQLParser11SQLDataTypeOtMR);
-    v305 = specialized __RawDictionaryStorage.find<A>(_:)(0x65756C6176, 0xE500000000000000);
-    v307 = v306;
-
-    if (v307)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v304[(v305 >> 6) + 8] |= 1 << v305;
-      v309 = (v304[6] + 16 * v305);
-      *v309 = 0x65756C6176;
-      v309[1] = 0xE500000000000000;
-      *(v304[7] + v305) = v303;
-      v310 = v304[2];
-      v311 = __OFADD__(v310, 1);
-      v308 = v310 + 1;
-      if (!v311)
+      v517 = *(v514 + 16);
+      v518 = *(v517 + 8 * v516);
+      v519 = *(v518 + 4);
+      if (v519 > 1)
       {
-        v304[2] = v308;
-        v307 = *(v379 + 2);
-        v308 = *(v379 + 3);
-        v288 = v307 + 1;
-        if (v307 < v308 >> 1)
+        if (v519 == 2)
         {
-LABEL_160:
-
-          outlined destroy of PgQuery_ParseResult(v390, type metadata accessor for PlanResources);
-          outlined destroy of PgQuery_ParseResult(v316, type metadata accessor for PgQuery_Node);
-          outlined destroy of URL?(v373, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-          outlined destroy of PgQuery_ParseResult(v374, type metadata accessor for PgQuery_Node.OneOf_Node);
-          outlined destroy of PgQuery_ParseResult(v333, type metadata accessor for PgQuery_RangeVar);
-          outlined destroy of URL?(v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-          outlined destroy of URL?(v384, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-          outlined destroy of SQLExpression(v395);
-          v312 = v379;
-          *(v379 + 2) = v288;
-          v313 = &v312[24 * v307];
-          v164 = v312;
-          *(v313 + 4) = 0x6361655F6E6F736ALL;
-          *(v313 + 5) = 0xE900000000000068;
-          *(v313 + 6) = v304;
-          outlined destroy of PgQuery_ParseResult(v327, type metadata accessor for PgQuery_Node);
-          outlined destroy of PgQuery_ParseResult(v381, type metadata accessor for PgQuery_Node);
-          result = outlined destroy of PgQuery_ParseResult(v369, type metadata accessor for PgQuery_RangeFunction);
-          goto LABEL_19;
+          v520 = "SESSION_USER";
+          goto LABEL_928;
         }
 
-LABEL_163:
-        v379 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v308 > 1), v288, 1, v379);
-        goto LABEL_160;
+        if (v519 == 3)
+        {
+          v520 = "public";
+          goto LABEL_928;
+        }
+      }
+
+      else
+      {
+        if (!v519)
+        {
+          v520 = quote_identifier(*(v518 + 8));
+          goto LABEL_928;
+        }
+
+        if (v519 == 1)
+        {
+          v520 = "CURRENT_USER";
+LABEL_928:
+          appendStringInfoString(&__s1, v520);
+        }
+      }
+
+      v521 = *(v514 + 4);
+      if (v517 + v515)
+      {
+        v522 = v517 + v515 >= (*(v514 + 16) + 8 * v521);
+      }
+
+      else
+      {
+        v522 = 1;
+      }
+
+      if (!v522)
+      {
+        appendStringInfoString(&__s1, ", ");
+        v521 = *(v514 + 4);
+      }
+
+      ++v516;
+      v515 += 8;
+      if (v516 >= v521)
+      {
+LABEL_1131:
+        appendStringInfoChar(&__s1, 32);
+        v9 = v1242;
+LABEL_1132:
+        if (*(v20 + 32))
+        {
+          appendStringInfoString(&__s1, "USING (");
+          deparseExpr(&__s1, *(v20 + 32));
+          appendStringInfoString(&__s1, ") ");
+        }
+
+        if (!*(v20 + 40))
+        {
+          goto LABEL_2447;
+        }
+
+        appendStringInfoString(&__s1, "WITH CHECK (");
+        deparseExpr(&__s1, *(v20 + 40));
+        v28 = ") ";
+        goto LABEL_2263;
       }
     }
-
-    __break(1u);
-    goto LABEL_163;
   }
 
-  swift_bridgeObjectRelease_n();
-  outlined destroy of PgQuery_ParseResult(v390, type metadata accessor for PlanResources);
-  outlined destroy of PgQuery_ParseResult(v335, type metadata accessor for SQLTokenInformation);
-  outlined destroy of PgQuery_ParseResult(v317, type metadata accessor for PgQuery_Node);
-  outlined destroy of PgQuery_ParseResult(v316, type metadata accessor for PgQuery_Node);
-  outlined destroy of URL?(v373, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
-  outlined destroy of PgQuery_ParseResult(v374, type metadata accessor for PgQuery_Node.OneOf_Node);
-  outlined destroy of URL?(&v405, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
-  outlined destroy of PgQuery_ParseResult(v333, type metadata accessor for PgQuery_RangeVar);
-  outlined destroy of URL?(v382, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  outlined destroy of URL?(v384, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined destroy of PgQuery_ParseResult(v327, type metadata accessor for PgQuery_Node);
-
-  outlined destroy of PgQuery_ParseResult(v381, type metadata accessor for PgQuery_Node);
-  return outlined destroy of PgQuery_ParseResult(v369, type metadata accessor for PgQuery_RangeFunction);
+  *v7 = v6;
+  *v10 = v9;
+  *CurrentMemoryContext(v11) = enter_memory_context;
+  v12 = CopyErrorData();
+  v13 = malloc_type_malloc(0x28uLL, 0x1010040E871EB1AuLL);
+  *v13 = strdup(*(v12 + 64));
+  v13[2] = strdup(*(v12 + 16));
+  v13[1] = strdup(*(v12 + 32));
+  v13[4] = 0;
+  *(v13 + 6) = *(v12 + 24);
+  *(v13 + 7) = *(v12 + 160);
+  FlushErrorState();
+  v14 = 0;
+LABEL_2465:
+  *v7 = v6;
+  *v10 = v9;
+  pg_query_exit_memory_context();
+  return v14;
 }

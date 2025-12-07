@@ -15,11 +15,11 @@
 + (double)_rectDimensionOffset:(CGRect)offset insideRect:(CGRect)rect forEdge:(unsigned int)edge;
 + (double)_rectDimensionSize:(CGRect)size forEdge:(unsigned int)edge;
 + (double)bestCropRectV2ForPosterClassification:(uint64_t)classification layoutConfiguration:(uint64_t)configuration sourcePixelWidth:(uint64_t)width sourcePixelHeight:(uint64_t)height sourcePreferredCropRectNormalized:(void *)normalized sourceAcceptableCropRectNormalized:(void *)rectNormalized sourceFaceAreaRectNormalized:(__int128)areaRectNormalized outputCropScore:(uint64_t)self0 outputLayoutScore:(uint64_t)self1 outputClockOverlapAcceptable:(_BYTE *)self2;
-+ (uint64_t)_interpolationCropForAspectRatio:(uint64_t)ratio andZoom:(uint64_t)zoom acceptableRect:(uint64_t)rect andPreferredRect:(double)preferredRect andImageRect:(double)imageRect outputCropScore:(double)score;
-+ (uint64_t)_interpolationV2MaxCropSizeForAspectRatio:(double)ratio andZoom:(double)zoom withFocusRegion:(double)region forImageSize:(double)size withImportantRect:(double)rect;
-+ (uint64_t)_interpolationV2ScoreAlongEdge:(double)edge forCrop:(double)crop withFullsizeRect:(double)rect andPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect;
-+ (uint64_t)_interpolationV2ScoreForCrop:(double)crop withFullsizeRect:(double)rect andPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect;
-+ (uint64_t)bestCropRectV2ForAspectRatio:(CGFloat)ratio withFocusRegion:(CGFloat)region sourcePixelWidth:(CGFloat)width sourcePixelHeight:(CGFloat)height sourcePreferredCropRectNormalized:(uint64_t)normalized sourceAcceptableCropRectNormalized:(unint64_t)rectNormalized sourceFaceAreaRectNormalized:(unint64_t)areaRectNormalized outputCropScore:(double *)self0;
++ (void)_interpolationCropForAspectRatio:(uint64_t)ratio andZoom:(uint64_t)zoom acceptableRect:(uint64_t)rect andPreferredRect:(double)preferredRect andImageRect:(double)imageRect outputCropScore:(double)score;
++ (void)_interpolationV2MaxCropSizeForAspectRatio:(double)ratio andZoom:(double)zoom withFocusRegion:(double)region forImageSize:(double)size withImportantRect:(double)rect;
++ (void)_interpolationV2ScoreAlongEdge:(double)edge forCrop:(double)crop withFullsizeRect:(double)rect andPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect;
++ (void)_interpolationV2ScoreForCrop:(double)crop withFullsizeRect:(double)rect andPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect;
++ (void)bestCropRectV2ForAspectRatio:(CGFloat)ratio withFocusRegion:(CGFloat)region sourcePixelWidth:(CGFloat)width sourcePixelHeight:(CGFloat)height sourcePreferredCropRectNormalized:(uint64_t)normalized sourceAcceptableCropRectNormalized:(unint64_t)rectNormalized sourceFaceAreaRectNormalized:(unint64_t)areaRectNormalized outputCropScore:(double *)self0;
 @end
 
 @implementation PFCropUtilities
@@ -184,35 +184,35 @@ LABEL_9:
   return x >= 0.0 && v7;
 }
 
-+ (uint64_t)_interpolationV2ScoreAlongEdge:(double)edge forCrop:(double)crop withFullsizeRect:(double)rect andPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect
++ (void)_interpolationV2ScoreAlongEdge:(double)edge forCrop:(double)crop withFullsizeRect:(double)rect andPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect
 {
   [PFCropUtilities _rectDimensionOffset:self insideRect:a2 forEdge:edge, crop, rect];
-  v36 = v29;
+  v31 = v24;
   [PFCropUtilities _rectDimensionOffset:a11 insideRect:a12 forEdge:a13, a14, a15, rect, preferredRect, acceptableRect, a8];
-  v35 = v30;
+  v30 = v25;
   [PFCropUtilities _rectDimensionOffset:a11 insideRect:a16 forEdge:a17, a18, a19, rect, preferredRect, acceptableRect, a8];
-  v32 = v31;
+  v27 = v26;
   result = [PFCropUtilities _rectDimensionSize:a11 forEdge:a16, a17, a18, a19];
-  if (v36 > 0.0)
+  if (v31 > 0.0)
   {
-    if (v36 <= v35)
+    if (v31 <= v30)
     {
-      [PFCropUtilities _interpolationFactorFor:v36 between:0.0 and:?];
+      [PFCropUtilities _interpolationFactorFor:v31 between:0.0 and:?];
     }
 
-    else if (v36 <= v32)
+    else if (v31 <= v27)
     {
-      [PFCropUtilities _interpolationFactorFor:v36 between:v35 and:v32];
+      [PFCropUtilities _interpolationFactorFor:v31 between:v30 and:v27];
     }
 
     else
     {
-      if (v36 > v32 + v34)
+      if (v31 > v27 + v29)
       {
         return result;
       }
 
-      [PFCropUtilities _interpolationFactorFor:v36 between:v32 and:?];
+      [PFCropUtilities _interpolationFactorFor:v31 between:v27 and:?];
     }
 
     return [PFCropUtilities _interpolationWithFactor:"_interpolationWithFactor:between:and:" between:? and:?];
@@ -223,21 +223,21 @@ LABEL_9:
 
 + (CGFloat)_interpolationV2ScoreForFocusRegion:(double)region insideCropRect:(double)rect withImportantRect:(double)importantRect
 {
-  v23.origin.x = importantRect + self * a7;
-  v23.origin.y = a6 + a2 * a8;
-  v23.size.width = region * a7;
-  v23.size.height = rect * a8;
-  v21.origin.x = a9;
-  v21.origin.y = a10;
-  v21.size.width = a11;
-  v21.size.height = a12;
-  v22 = CGRectIntersection(v21, v23);
-  return v22.size.width * v22.size.height / (a11 * a12);
+  v15.origin.x = importantRect + self * a7;
+  v15.origin.y = a6 + a2 * a8;
+  v15.size.width = region * a7;
+  v15.size.height = rect * a8;
+  v13.origin.x = a9;
+  v13.origin.y = a10;
+  v13.size.width = a11;
+  v13.size.height = a12;
+  v14 = CGRectIntersection(v13, v15);
+  return v14.size.width * v14.size.height / (a11 * a12);
 }
 
-+ (uint64_t)_interpolationV2ScoreForCrop:(double)crop withFullsizeRect:(double)rect andPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect
++ (void)_interpolationV2ScoreForCrop:(double)crop withFullsizeRect:(double)rect andPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect
 {
-  [PFCropUtilities _interpolationV2ScoreAlongEdge:0 forCrop:a17 withFullsizeRect:a18 andPreferredRect:a19 andAcceptableRect:a20, a21, a22, a23, a24];
+  [PFCropUtilities _interpolationV2ScoreAlongEdge:0 forCrop:a12 withFullsizeRect:a13 andPreferredRect:a14 andAcceptableRect:a15, a16, a17, a18, a19, a20, a21, a22, a23, a24];
   [PFCropUtilities _interpolationV2ScoreAlongEdge:2 forCrop:self withFullsizeRect:a2 andPreferredRect:crop andAcceptableRect:rect, preferredRect, acceptableRect, a7, a8, a17, a18, a19, a20, a21, a22, a23, a24];
   [PFCropUtilities _interpolationV2ScoreAlongEdge:1 forCrop:self withFullsizeRect:a2 andPreferredRect:crop andAcceptableRect:rect, preferredRect, acceptableRect, a7, a8, a17, a18, a19, a20, a21, a22, a23, a24];
   return [PFCropUtilities _interpolationV2ScoreAlongEdge:3 forCrop:self withFullsizeRect:a2 andPreferredRect:crop andAcceptableRect:rect, preferredRect, acceptableRect, a7, a8, a17, a18, a19, a20, a21, a22, a23, a24];
@@ -246,21 +246,21 @@ LABEL_9:
 + (double)_interpolationV2AdjustedCrop:(double)crop toFocusRegion:(double)region withFullsizeRect:(double)rect andImportantRect:(double)importantRect
 {
   [PFCropUtilities _translationToIncludeRect:a13 insideRect:a14, a15, a16, self + rect * crop, a2 + importantRect * region, crop * a7, region * a8];
-  v29 = self - v28;
-  [PFCropUtilities _translationToIncludeRect:v29 insideRect:a2 - v30, crop, region, a9, a10, a11, a12];
-  return v29 + v31;
+  v21 = self - v20;
+  [PFCropUtilities _translationToIncludeRect:v21 insideRect:a2 - v22, crop, region, a9, a10, a11, a12];
+  return v21 + v23;
 }
 
-+ (uint64_t)_interpolationV2MaxCropSizeForAspectRatio:(double)ratio andZoom:(double)zoom withFocusRegion:(double)region forImageSize:(double)size withImportantRect:(double)rect
++ (void)_interpolationV2MaxCropSizeForAspectRatio:(double)ratio andZoom:(double)zoom withFocusRegion:(double)region forImageSize:(double)size withImportantRect:(double)rect
 {
-  v23 = *MEMORY[0x1E695EFF8];
-  v22 = *(MEMORY[0x1E695EFF8] + 8);
+  v15 = *MEMORY[0x1E695EFF8];
+  v14 = *(MEMORY[0x1E695EFF8] + 8);
   [PFCropUtilities _rectDimensionSize:0 forEdge:a9, a10, a11, a12];
   [PFCropUtilities _rectDimensionSize:1 forEdge:a9, a10, a11, a12];
-  [PFCropUtilities _rectDimensionOffset:0 insideRect:a9 forEdge:a10, a11, a12, v23, v22, rect, a8];
-  [PFCropUtilities _rectDimensionOffset:2 insideRect:a9 forEdge:a10, a11, a12, v23, v22, rect, a8];
-  [PFCropUtilities _rectDimensionOffset:1 insideRect:a9 forEdge:a10, a11, a12, v23, v22, rect, a8];
-  [PFCropUtilities _rectDimensionOffset:3 insideRect:a9 forEdge:a10, a11, a12, v23, v22, rect, a8];
+  [PFCropUtilities _rectDimensionOffset:0 insideRect:a9 forEdge:a10, a11, a12, v15, v14, rect, a8];
+  [PFCropUtilities _rectDimensionOffset:2 insideRect:a9 forEdge:a10, a11, a12, v15, v14, rect, a8];
+  [PFCropUtilities _rectDimensionOffset:1 insideRect:a9 forEdge:a10, a11, a12, v15, v14, rect, a8];
+  [PFCropUtilities _rectDimensionOffset:3 insideRect:a9 forEdge:a10, a11, a12, v15, v14, rect, a8];
   [PFCropUtilities _rectDimensionSize:0 forEdge:ratio, zoom, region, size];
   [PFCropUtilities _rectDimensionSize:1 forEdge:ratio, zoom, region, size];
   [PFCropUtilities _rectDimensionOffset:0 insideRect:ratio forEdge:zoom, region, size, 0.0, 0.0, 1.0, 1.0];
@@ -271,22 +271,22 @@ LABEL_9:
 
 + (double)_interpolationV2CropForAspectRatio:(double)ratio withFocusRegion:(double)region andAcceptableRect:(double)rect andPreferredRect:(uint64_t)preferredRect andImageRect:(uint64_t)imageRect outputCropScore:(double *)score
 {
-  [PFCropUtilities _interpolationV2MaxCropSizeForAspectRatio:self andZoom:1.0 withFocusRegion:a2 forImageSize:ratio withImportantRect:region, rect, a27, a28, a17, a18, a19, a20];
+  [PFCropUtilities _interpolationV2MaxCropSizeForAspectRatio:score andZoom:a12 withFocusRegion:a13 forImageSize:a14 withImportantRect:a15, a16, self, 1.0, a2, ratio, region, rect, a27, a28, a17, a18, a19, a20];
   [PFCropUtilities _interpolationCropToSize:score withinRect:a21 withPreferredRect:a22 andAcceptableRect:a23 outputScore:a24, a17, a18, a19, a20];
   [PFCropUtilities _interpolationV2AdjustedCrop:*&a25 toFocusRegion:*&a26 withFullsizeRect:*&a27 andImportantRect:*&a28, a17, a18, a19, a20];
-  v30 = v26;
-  v31 = v27;
-  v32 = v28;
   v33 = v29;
+  v34 = v30;
+  v35 = v31;
+  v36 = v32;
   if (score)
   {
-    [PFCropUtilities _interpolationV2ScoreForCrop:v26 withFullsizeRect:v27 andPreferredRect:v28 andAcceptableRect:v29, a25, a26, a27, a28, a21, a22, a23, a24, a17, a18, a19, a20];
-    v37 = v34;
-    [PFCropUtilities _interpolationV2ScoreForFocusRegion:a2 insideCropRect:ratio withImportantRect:region, rect, v30, v31, v32, v33, a17, a18, a19, a20];
-    *score = v37 * v35;
+    [PFCropUtilities _interpolationV2ScoreForCrop:v29 withFullsizeRect:v30 andPreferredRect:v31 andAcceptableRect:v32, a25, a26, a27, a28, a21, a22, a23, a24, a17, a18, a19, a20];
+    v40 = v37;
+    [PFCropUtilities _interpolationV2ScoreForFocusRegion:a2 insideCropRect:ratio withImportantRect:region, rect, v33, v34, v35, v36, a17, a18, a19, a20];
+    *score = v40 * v38;
   }
 
-  return v30;
+  return v33;
 }
 
 + (double)_interpolationFactorFor:(double)for between:(double)between and:(double)and
@@ -325,164 +325,164 @@ LABEL_9:
 
 + (double)_interpolationCropToSize:(double)size withinRect:(double)rect withPreferredRect:(double)preferredRect andAcceptableRect:(double)acceptableRect outputScore:(uint64_t)score
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   if (![PFCropUtilities _rectIsValid:a16]|| ![PFCropUtilities _rectIsValid:?])
   {
-    v28 = fmax(preferredRect - self, 0.0) * 0.5;
+    v25 = fmax(preferredRect - self, 0.0) * 0.5;
     if (a9)
     {
-      v29 = 0.5005;
+      v26 = 0.5005;
 LABEL_45:
-      *a9 = v29;
-      return v28;
+      *a9 = v26;
+      return v25;
     }
 
-    return v28;
+    return v25;
   }
 
-  if (self == 0.0 || a2 == 0.0 || (self == *MEMORY[0x1E69BDDB0] ? (v27 = a2 == *(MEMORY[0x1E69BDDB0] + 8)) : (v27 = 0), v27))
+  if (self == 0.0 || a2 == 0.0 || (self == *MEMORY[0x1E69BDDB0] ? (v24 = a2 == *(MEMORY[0x1E69BDDB0] + 8)) : (v24 = 0), v24))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
       *buf = 134218496;
       selfCopy = self;
-      v62 = 2048;
-      v63 = a2;
-      v64 = 2048;
-      v65 = 0x3FF0000000000000;
+      v59 = 2048;
+      v60 = a2;
+      v61 = 2048;
+      v62 = 0x3FF0000000000000;
       _os_log_fault_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "PFSizeGetAspectRatio produced an undefined aspect ratio from size {%lf, %lf}. Returning %f. Use PFSizeGetAspectRatioWithDefault() to provide a value for this case.", buf, 0x20u);
     }
   }
 
   PFSizeWithAspectRatioFittingSize();
-  v56 = v31;
-  v58 = v30;
-  v32 = [PFCropUtilities _rectIsValid:a16, a17, a18, a19];
-  v33 = [PFCropUtilities _rectIsValid:a12, a13, a14, a15];
-  v35 = v33;
-  v36 = a12;
-  v37 = a14;
-  v38 = a15;
-  if (!v33)
+  v53 = v28;
+  v55 = v27;
+  v29 = [PFCropUtilities _rectIsValid:a16, a17, a18, a19];
+  v30 = [PFCropUtilities _rectIsValid:a12, a13, a14, a15];
+  v32 = v30;
+  v33 = a12;
+  v34 = a14;
+  v35 = a15;
+  if (!v30)
   {
-    v36 = size + preferredRect * 0.5 + v58 * -0.5;
-    v34 = v56;
-    v37 = v58;
-    v38 = v56;
+    v33 = size + preferredRect * 0.5 + v55 * -0.5;
+    v31 = v53;
+    v34 = v55;
+    v35 = v53;
   }
 
-  v39 = MEMORY[0x1E695EFF8];
-  v40 = self < a18 && v32;
-  v57 = v38;
-  if (v40)
+  v36 = MEMORY[0x1E695EFF8];
+  v37 = self < a18 && v29;
+  v54 = v35;
+  if (v37)
   {
-    v67.origin.x = a16;
-    v67.origin.y = a17;
-    v67.size.width = a18;
-    v67.size.height = a19;
-    [PFCropUtilities _interpolationWithFactor:self / a18 between:CGRectGetMidX(v67) and:a16];
-    v28 = v41;
-    v42 = 2.0 - self / a18;
+    v64.origin.x = a16;
+    v64.origin.y = a17;
+    v64.size.width = a18;
+    v64.size.height = a19;
+    [PFCropUtilities _interpolationWithFactor:self / a18 between:CGRectGetMidX(v64) and:a16];
+    v25 = v38;
+    v39 = 2.0 - self / a18;
   }
 
   else
   {
-    if (v32 && v33 && self < a14)
+    if (v29 && v30 && self < a14)
     {
-      [PFCropUtilities _interpolationFactorFor:self between:a18 and:a14, v34, v36];
-      v44 = v43;
+      [PFCropUtilities _interpolationFactorFor:self between:a18 and:a14, v31, v33];
+      v41 = v40;
       [PFCropUtilities _interpolationWithFactor:"_interpolationWithFactor:between:and:" between:? and:?];
-      v28 = v45;
-      v46 = 2.0;
+      v25 = v42;
+      v43 = 2.0;
     }
 
     else
     {
       if (self >= preferredRect)
       {
-        v42 = *MEMORY[0x1E695EFF8];
-        v28 = *MEMORY[0x1E695EFF8];
+        v39 = *MEMORY[0x1E695EFF8];
+        v25 = *MEMORY[0x1E695EFF8];
         goto LABEL_28;
       }
 
-      [PFCropUtilities _interpolationFactorFor:self between:v37 and:preferredRect];
-      v44 = v47;
+      [PFCropUtilities _interpolationFactorFor:self between:v34 and:preferredRect];
+      v41 = v44;
       [PFCropUtilities _interpolationWithFactor:"_interpolationWithFactor:between:and:" between:? and:?];
-      v28 = v48;
-      v46 = 1.0;
+      v25 = v45;
+      v43 = 1.0;
     }
 
-    v42 = (v46 - v44) * 0.5;
+    v39 = (v43 - v41) * 0.5;
   }
 
 LABEL_28:
-  if (a2 < a19 && v32)
+  if (a2 < a19 && v29)
   {
-    v68.origin.x = a16;
-    v68.origin.y = a17;
-    v68.size.width = a18;
-    v68.size.height = a19;
-    [PFCropUtilities _interpolationWithFactor:a2 / a19 between:CGRectGetMidY(v68) and:a17];
-    v50 = 2.0 - a2 / a19;
+    v65.origin.x = a16;
+    v65.origin.y = a17;
+    v65.size.width = a18;
+    v65.size.height = a19;
+    [PFCropUtilities _interpolationWithFactor:a2 / a19 between:CGRectGetMidY(v65) and:a17];
+    v47 = 2.0 - a2 / a19;
     if (!a9)
     {
-      return v28;
+      return v25;
     }
 
     goto LABEL_42;
   }
 
-  if (v32 && v35 && a2 < a15)
+  if (v29 && v32 && a2 < a15)
   {
     [PFCropUtilities _interpolationFactorFor:a2 between:a19 and:a15];
-    v52 = v51;
+    v49 = v48;
     [PFCropUtilities _interpolationWithFactor:"_interpolationWithFactor:between:and:" between:? and:?];
-    v53 = 2.0;
+    v50 = 2.0;
     goto LABEL_39;
   }
 
   if (a2 < acceptableRect)
   {
-    [PFCropUtilities _interpolationFactorFor:a2 between:v57 and:?];
-    v52 = v54;
+    [PFCropUtilities _interpolationFactorFor:a2 between:v54 and:?];
+    v49 = v51;
     [PFCropUtilities _interpolationWithFactor:"_interpolationWithFactor:between:and:" between:? and:?];
-    v53 = 1.0;
+    v50 = 1.0;
 LABEL_39:
-    v50 = (v53 - v52) * 0.5;
+    v47 = (v50 - v49) * 0.5;
     if (!a9)
     {
-      return v28;
+      return v25;
     }
 
     goto LABEL_42;
   }
 
-  v50 = *(v39 + 8);
+  v47 = *(v36 + 8);
   if (a9)
   {
 LABEL_42:
-    if (v42 >= v50)
+    if (v39 >= v47)
     {
-      v50 = v42;
+      v47 = v39;
     }
 
-    v29 = (2.0 - v50) * 0.5;
+    v26 = (2.0 - v47) * 0.5;
     goto LABEL_45;
   }
 
-  return v28;
+  return v25;
 }
 
-+ (uint64_t)_interpolationCropForAspectRatio:(uint64_t)ratio andZoom:(uint64_t)zoom acceptableRect:(uint64_t)rect andPreferredRect:(double)preferredRect andImageRect:(double)imageRect outputCropScore:(double)score
++ (void)_interpolationCropForAspectRatio:(uint64_t)ratio andZoom:(uint64_t)zoom acceptableRect:(uint64_t)rect andPreferredRect:(double)preferredRect andImageRect:(double)imageRect outputCropScore:(double)score
 {
-  [PFCropUtilities _interpolationCropSizeForRatio:self andZoom:a2 forImageSize:a18, a19];
+  [PFCropUtilities _interpolationCropSizeForRatio:self andZoom:a2 forImageSize:a18, a19, score, a9, a10, a11];
 
   return [PFCropUtilities _interpolationCropToSize:"_interpolationCropToSize:withinRect:withPreferredRect:andAcceptableRect:outputScore:" withinRect:rect withPreferredRect:? andAcceptableRect:? outputScore:?];
 }
 
 + (double)bestCropRectV2ForPosterClassification:(uint64_t)classification layoutConfiguration:(uint64_t)configuration sourcePixelWidth:(uint64_t)width sourcePixelHeight:(uint64_t)height sourcePreferredCropRectNormalized:(void *)normalized sourceAcceptableCropRectNormalized:(void *)rectNormalized sourceFaceAreaRectNormalized:(__int128)areaRectNormalized outputCropScore:(uint64_t)self0 outputLayoutScore:(uint64_t)self1 outputClockOverlapAcceptable:(_BYTE *)self2
 {
-  v14 = [self bestAdaptiveCropRectForPosterClassification:areaRectNormalized layoutConfiguration:score sourcePixelWidth:layoutScore sourcePixelHeight:? sourcePreferredCropRectNormalized:? sourceAcceptableCropRectNormalized:? sourceFaceAreaRectNormalized:?];
+  v14 = [self bestAdaptiveCropRectForPosterClassification:classification layoutConfiguration:configuration sourcePixelWidth:width sourcePixelHeight:height sourcePreferredCropRectNormalized:areaRectNormalized sourceAcceptableCropRectNormalized:score sourceFaceAreaRectNormalized:layoutScore];
   v15 = v14;
   if (normalized)
   {
@@ -509,202 +509,202 @@ LABEL_42:
 
 + (PFCropUtilitiesPosterOutputData)bestAdaptiveCropRectForPosterClassification:(double)classification layoutConfiguration:(double)configuration sourcePixelWidth:(double)width sourcePixelHeight:(double)height sourcePreferredCropRectNormalized:(double)normalized sourceAcceptableCropRectNormalized:(double)rectNormalized sourceFaceAreaRectNormalized:(uint64_t)areaRectNormalized headroomFeasible:(uint64_t)self0
 {
-  v25 = a18;
-  v24 = a19;
-  v26 = a16;
-  v136 = *MEMORY[0x1E69E9840];
-  v27 = a12;
-  [v27 screenSize];
+  v24 = a18;
+  v23 = a19;
+  v25 = a16;
+  v135 = *MEMORY[0x1E69E9840];
+  v26 = a12;
+  [v26 screenSize];
+  v29 = v27;
   v30 = v28;
-  v31 = v29;
-  if (v28 == 0.0 || v29 == 0.0 || (v28 == *MEMORY[0x1E69BDDB0] ? (v32 = v29 == *(MEMORY[0x1E69BDDB0] + 8)) : (v32 = 0), v32))
+  if (v27 == 0.0 || v28 == 0.0 || (v27 == *MEMORY[0x1E69BDDB0] ? (v31 = v28 == *(MEMORY[0x1E69BDDB0] + 8)) : (v31 = 0), v31))
   {
-    v101 = 1.0;
+    v100 = 1.0;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
       *buf = 134218496;
-      *&buf[4] = v30;
-      v132 = 2048;
-      v133 = v31;
-      v134 = 2048;
-      v135 = 0x3FF0000000000000;
+      *&buf[4] = v29;
+      v131 = 2048;
+      v132 = v30;
+      v133 = 2048;
+      v134 = 0x3FF0000000000000;
       _os_log_fault_impl(&dword_1B35C1000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "PFSizeGetAspectRatio produced an undefined aspect ratio from size {%lf, %lf}. Returning %f. Use PFSizeGetAspectRatioWithDefault() to provide a value for this case.", buf, 0x20u);
     }
   }
 
   else
   {
-    v101 = fabs(v28 / v29);
+    v100 = fabs(v27 / v28);
   }
 
   *buf = 0;
   if ([PFCropUtilities _rectIsValid:a16, a17, a18, a19])
   {
-    v33 = 1.0 - (a17 + a19);
-    v34 = *MEMORY[0x1E695F050];
-    v35 = *(MEMORY[0x1E695F050] + 8);
-    v36 = *(MEMORY[0x1E695F050] + 16);
-    v37 = *(MEMORY[0x1E695F050] + 24);
+    v32 = 1.0 - (a17 + a19);
+    v33 = *MEMORY[0x1E695F050];
+    v34 = *(MEMORY[0x1E695F050] + 8);
+    v35 = *(MEMORY[0x1E695F050] + 16);
+    v36 = *(MEMORY[0x1E695F050] + 24);
   }
 
   else
   {
-    v34 = *MEMORY[0x1E695F050];
-    v35 = *(MEMORY[0x1E695F050] + 8);
-    v36 = *(MEMORY[0x1E695F050] + 16);
-    v37 = *(MEMORY[0x1E695F050] + 24);
-    v24 = v37;
-    v25 = v36;
-    v33 = v35;
-    v26 = *MEMORY[0x1E695F050];
+    v33 = *MEMORY[0x1E695F050];
+    v34 = *(MEMORY[0x1E695F050] + 8);
+    v35 = *(MEMORY[0x1E695F050] + 16);
+    v36 = *(MEMORY[0x1E695F050] + 24);
+    v23 = v36;
+    v24 = v35;
+    v32 = v34;
+    v25 = *MEMORY[0x1E695F050];
   }
 
-  v102 = v33;
-  v118 = a13;
-  v120 = a14;
-  v117 = v37;
+  v101 = v32;
+  v117 = a13;
+  v119 = a14;
   v116 = v36;
-  v113 = v35;
-  v121 = v34;
-  [PFParallaxLayoutUtilities effectiveAcceptableRectForClassification:a11 havePetFaces:0 sourcePreferredCropRectNormalized:self sourceAcceptableCropRectNormalized:a2 sourceFaceAreaRectNormalized:classification sourceGazeAreaRectNormalized:configuration, width, height, normalized, rectNormalized, *&v26, *&v33, *&v25, *&v24, *&v34, *&v35, *&v36, *&v37];
-  v127 = v38;
-  v129 = v39;
-  v123 = v41;
-  v125 = v40;
-  [PFParallaxLayoutUtilities effectivePreferredRectForClassification:a11 havePetFaces:0 sourcePreferredCropRectNormalized:self sourceAcceptableCropRectNormalized:a2 sourceFaceAreaRectNormalized:classification, configuration, width, height, normalized, rectNormalized, *&v26, *&v102, *&v25, *&v24];
-  v115 = v43;
-  v110 = v45;
-  v112 = v44;
-  v108 = v42;
+  v115 = v35;
+  v112 = v34;
+  v120 = v33;
+  [PFParallaxLayoutUtilities effectiveAcceptableRectForClassification:a11 havePetFaces:0 sourcePreferredCropRectNormalized:self sourceAcceptableCropRectNormalized:a2 sourceFaceAreaRectNormalized:classification sourceGazeAreaRectNormalized:configuration, width, height, normalized, rectNormalized, *&v25, *&v32, *&v24, *&v23, *&v33, *&v34, *&v35, *&v36];
+  v126 = v37;
+  v128 = v38;
+  v122 = v40;
+  v124 = v39;
+  [PFParallaxLayoutUtilities effectivePreferredRectForClassification:a11 havePetFaces:0 sourcePreferredCropRectNormalized:self sourceAcceptableCropRectNormalized:a2 sourceFaceAreaRectNormalized:classification, configuration, width, height, normalized, rectNormalized, *&v25, *&v101, *&v24, *&v23];
+  v114 = v42;
+  v109 = v44;
+  v111 = v43;
+  v107 = v41;
   if (a11 > 5)
   {
-    v53 = 0.0;
     v52 = 0.0;
     v51 = 0.0;
     v50 = 0.0;
+    v49 = 0.0;
   }
 
   else
   {
     if (((1 << a11) & 0x39) != 0)
     {
-      v46 = v121;
-      v47 = v113;
+      v45 = v120;
+      v46 = v112;
+      v47 = v115;
       v48 = v116;
-      v49 = v117;
-      [PFCropUtilities bestCropRectV2ForAspectRatio:a13 withFocusRegion:a14 sourcePixelWidth:buf sourcePixelHeight:v101 sourcePreferredCropRectNormalized:v121 sourceAcceptableCropRectNormalized:v113 sourceFaceAreaRectNormalized:v116 outputCropScore:v117, v42, v43, v44, v45, *&v127, *&v129, *&v125, *&v123, *&a16, *&a17, *&a18, *&a19];
+      [PFCropUtilities bestCropRectV2ForAspectRatio:a13 withFocusRegion:a14 sourcePixelWidth:buf sourcePixelHeight:v100 sourcePreferredCropRectNormalized:v120 sourceAcceptableCropRectNormalized:v112 sourceFaceAreaRectNormalized:v115 outputCropScore:v116, v41, v42, v43, v44, *&v126, *&v128, *&v124, *&v122, *&a16, *&a17, *&a18, *&a19];
       goto LABEL_19;
     }
 
-    v130 = 0;
-    [PFCropUtilities bestCropRectV2ForAspectRatio:a13 sourcePixelWidth:a14 sourcePixelHeight:&v130 sourceEssentialAreaRect:v101 sourceSecondaryEssentialAreaRect:v127 outputCropScore:v129, v125, v123, v42, v43, v44, v45];
-    *buf = v130;
+    v129 = 0;
+    [PFCropUtilities bestCropRectV2ForAspectRatio:a13 sourcePixelWidth:a14 sourcePixelHeight:&v129 sourceEssentialAreaRect:v100 sourceSecondaryEssentialAreaRect:v126 outputCropScore:v128, v124, v122, v41, v42, v43, v44];
+    *buf = v129;
   }
 
-  v46 = v121;
-  v47 = v113;
+  v45 = v120;
+  v46 = v112;
+  v47 = v115;
   v48 = v116;
-  v49 = v117;
 LABEL_19:
-  v54 = [[PFParallaxLayoutHelper alloc] initWithPosterClassification:a11 initialRect:a15 imageSize:0 effectiveAcceptableRect:0 effectivePreferredRect:[PFParallaxLayoutUtilities layoutTypeFromLayoutConfiguration:?]hasTopEdgeContact:3 computeSpatial:v50 * v118 + 0.0 spatialPadding:v51 * v120 + 0.0 layoutType:v52 * v118 allowedLayoutStrategies:v53 * v120 layoutConfiguration:v118, v120, *&v127, *&v129, *&v125, *&v123, v108, v115, v112, v110, *&v46, *&v47, *&v48, *&v49, 0, v27];
-  v55 = [PFParallaxLayoutUtilities computeLayoutWithHelper:v54];
-  [v55 visibleRect];
+  v53 = [[PFParallaxLayoutHelper alloc] initWithPosterClassification:a11 initialRect:a15 imageSize:0 effectiveAcceptableRect:0 effectivePreferredRect:[PFParallaxLayoutUtilities layoutTypeFromLayoutConfiguration:?]hasTopEdgeContact:3 computeSpatial:v49 * v117 + 0.0 spatialPadding:v50 * v119 + 0.0 layoutType:v51 * v117 allowedLayoutStrategies:v52 * v119 layoutConfiguration:v117, v119, *&v126, *&v128, *&v124, *&v122, v107, v114, v111, v109, *&v45, *&v46, *&v47, *&v48, 0, v26];
+  v54 = [PFParallaxLayoutUtilities computeLayoutWithHelper:v53];
+  [v54 visibleRect];
+  v59 = v55;
   v60 = v56;
-  v61 = v57;
   if (a13)
   {
-    v60 = v56 / v118;
-    v62 = v58 / v118;
+    v59 = v55 / v117;
+    v61 = v57 / v117;
   }
 
   else
   {
-    v62 = 0.0;
+    v61 = 0.0;
   }
 
-  v128 = v62;
-  v63 = 0.0;
+  v127 = v61;
+  v62 = 0.0;
   if (a14)
   {
-    v61 = v57 / v120;
-    v63 = v59 / v120;
+    v60 = v56 / v119;
+    v62 = v58 / v119;
   }
 
-  [v55 adaptiveVisibleRect];
-  v68 = v67 / v118;
+  [v54 adaptiveVisibleRect];
+  v67 = v66 / v117;
   if (a13)
   {
-    v64 = v64 / v118;
+    v63 = v63 / v117;
   }
 
   else
+  {
+    v67 = 0.0;
+  }
+
+  v123 = v63;
+  v125 = v67;
+  v68 = v65 / v119;
+  if (!a14)
   {
     v68 = 0.0;
   }
 
-  v124 = v64;
-  v126 = v68;
-  v69 = v66 / v120;
+  v121 = v68;
+  v69 = v64 / v119;
   if (!a14)
   {
-    v69 = 0.0;
+    v69 = v64;
   }
 
-  v122 = v69;
-  v70 = v65 / v120;
-  if (!a14)
+  v118 = v69;
+  v70 = [v54 clockOverlapAcceptableForLayoutConfiguration:v26];
+  if ([v54 overlapStrategy] == 5)
   {
-    v70 = v65;
-  }
-
-  v119 = v70;
-  v71 = [v55 clockOverlapAcceptableForLayoutConfiguration:v27];
-  if ([v55 overlapStrategy] == 5)
-  {
-    [v55 maxClockShift];
-    if (v72 > 0.0)
+    [v54 maxClockShift];
+    if (v71 > 0.0)
     {
-      v71 = 1;
+      v70 = 1;
     }
   }
 
-  [v55 adaptiveVisibleRect];
-  v74 = v73;
-  [v55 visibleRect];
-  v76 = vabdd_f64(v74, v75);
-  adaptiveStrategy = [v55 adaptiveStrategy];
-  v78 = [v55 headroomStrategy] == 2;
-  v80 = v76 > 0.00000999999975 && adaptiveStrategy == 2 || v78;
-  v81 = v80 | v71;
-  [v55 adaptiveVisibleRect];
-  v83 = v82;
-  [v55 visibleRect];
-  v85 = v83 - v84;
-  [v55 visibleRect];
-  v86 = 1.0 - (v63 + v61);
-  v88 = v85 / v87;
-  [v55 adaptiveVisibleRect];
-  v90 = v129 * v120 + 0.0 - v89;
-  [v55 visibleRect];
-  if (v90 / v91 >= 0.0)
+  [v54 adaptiveVisibleRect];
+  v73 = v72;
+  [v54 visibleRect];
+  v75 = vabdd_f64(v73, v74);
+  adaptiveStrategy = [v54 adaptiveStrategy];
+  v77 = [v54 headroomStrategy] == 2;
+  v79 = v75 > 0.00000999999975 && adaptiveStrategy == 2 || v77;
+  v80 = v79 | v70;
+  [v54 adaptiveVisibleRect];
+  v82 = v81;
+  [v54 visibleRect];
+  v84 = v82 - v83;
+  [v54 visibleRect];
+  v85 = 1.0 - (v62 + v60);
+  v87 = v84 / v86;
+  [v54 adaptiveVisibleRect];
+  v89 = v128 * v119 + 0.0 - v88;
+  [v54 visibleRect];
+  if (v89 / v90 >= 0.0)
   {
-    v92 = v90 / v91;
+    v91 = v89 / v90;
   }
 
   else
   {
-    v92 = 0.0;
+    v91 = 0.0;
   }
 
-  v93 = [PFCropUtilitiesPosterOutputData alloc];
-  [v55 cropScore];
-  v95 = v94;
-  [v55 layoutScore];
-  v97 = v96;
-  [v55 maxClockShift];
-  v99 = -[PFCropUtilitiesPosterOutputData initWithVisibleRect:adaptiveVisibleRect:cropScore:layoutScore:clockOverlapAcceptable:headroomEngaged:adaptiveHeadroom:maxClockShift:layoutVariant:notificationRoom:](v93, "initWithVisibleRect:adaptiveVisibleRect:cropScore:layoutScore:clockOverlapAcceptable:headroomEngaged:adaptiveHeadroom:maxClockShift:layoutVariant:notificationRoom:", v81 & 1, v78, [v55 layoutVariant], v60, v86, v128, v63, v124, v119, v126, v122, v95, v97, *&v88, v98, *&v92);
+  v92 = [PFCropUtilitiesPosterOutputData alloc];
+  [v54 cropScore];
+  v94 = v93;
+  [v54 layoutScore];
+  v96 = v95;
+  [v54 maxClockShift];
+  v98 = -[PFCropUtilitiesPosterOutputData initWithVisibleRect:adaptiveVisibleRect:cropScore:layoutScore:clockOverlapAcceptable:headroomEngaged:adaptiveHeadroom:maxClockShift:layoutVariant:notificationRoom:](v92, "initWithVisibleRect:adaptiveVisibleRect:cropScore:layoutScore:clockOverlapAcceptable:headroomEngaged:adaptiveHeadroom:maxClockShift:layoutVariant:notificationRoom:", v80 & 1, v77, [v54 layoutVariant], v59, v85, v127, v62, v123, v118, v125, v121, v94, v96, *&v87, v97, *&v91);
 
-  return v99;
+  return v98;
 }
 
 + (CGRect)bestCropRectV2ForAspectRatio:(double)ratio sourcePixelWidth:(unint64_t)width sourcePixelHeight:(unint64_t)height sourceEssentialAreaRect:(CGRect)rect sourceSecondaryEssentialAreaRect:(CGRect)areaRect outputCropScore:(double *)score
@@ -823,7 +823,7 @@ LABEL_12:
   return result;
 }
 
-+ (uint64_t)bestCropRectV2ForAspectRatio:(CGFloat)ratio withFocusRegion:(CGFloat)region sourcePixelWidth:(CGFloat)width sourcePixelHeight:(CGFloat)height sourcePreferredCropRectNormalized:(uint64_t)normalized sourceAcceptableCropRectNormalized:(unint64_t)rectNormalized sourceFaceAreaRectNormalized:(unint64_t)areaRectNormalized outputCropScore:(double *)self0
++ (void)bestCropRectV2ForAspectRatio:(CGFloat)ratio withFocusRegion:(CGFloat)region sourcePixelWidth:(CGFloat)width sourcePixelHeight:(CGFloat)height sourcePreferredCropRectNormalized:(uint64_t)normalized sourceAcceptableCropRectNormalized:(unint64_t)rectNormalized sourceFaceAreaRectNormalized:(unint64_t)areaRectNormalized outputCropScore:(double *)self0
 {
   rectNormalizedCopy = rectNormalized;
   areaRectNormalizedCopy = areaRectNormalized;

@@ -1,8 +1,49 @@
 @interface SIScaleTask
+- (SIScaleTask)initWithOutputResolution:(CGSize)resolution pixelformat:(unsigned int)pixelformat taskInputResourceKey:(id)key taskOutputResourceKey:(id)resourceKey appliedToAlgorithmName:(id)name cvPixelBufferProperties:(id)properties metadataIOSurfaceProperties:(id)surfaceProperties;
 - (void)registerResoureStreamWithContext:(id)context;
 @end
 
 @implementation SIScaleTask
+
+- (SIScaleTask)initWithOutputResolution:(CGSize)resolution pixelformat:(unsigned int)pixelformat taskInputResourceKey:(id)key taskOutputResourceKey:(id)resourceKey appliedToAlgorithmName:(id)name cvPixelBufferProperties:(id)properties metadataIOSurfaceProperties:(id)surfaceProperties
+{
+  v14 = *&pixelformat;
+  height = resolution.height;
+  width = resolution.width;
+  keyCopy = key;
+  resourceKeyCopy = resourceKey;
+  nameCopy = name;
+  propertiesCopy = properties;
+  surfacePropertiesCopy = surfaceProperties;
+  resourceKeyCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-%@-scaling-task", keyCopy, resourceKeyCopy];
+  v31.receiver = self;
+  v31.super_class = SIScaleTask;
+  v22 = [(PSTask *)&v31 initWithName:resourceKeyCopy];
+
+  if (v22)
+  {
+    height = [(SIBaseScaler *)[SIVideoToolboxScaler alloc] initForOutputResolution:v14 outputPixelFormat:0 mode:nameCopy algorithmKey:width, height];
+    scaler = v22->_scaler;
+    v22->_scaler = height;
+
+    v22->_outputResolution.width = width;
+    v22->_outputResolution.height = height;
+    v22->_pixelFormat = v14;
+    objc_storeStrong(&v22->_inputResourceKey, key);
+    objc_storeStrong(&v22->_outputResourceKey, resourceKey);
+    objc_storeStrong(&v22->_cvPixelBufferProperties, properties);
+    objc_storeStrong(&v22->_metadataIOSurfaceProperties, surfaceProperties);
+    v25 = [objc_alloc(MEMORY[0x277D3E6D8]) initWithResourceKey:v22->_inputResourceKey type:0 capacity:1];
+    [(PSTask *)v22 addInput:v25];
+    v26 = [objc_alloc(MEMORY[0x277D3E6E0]) initWithResourceKey:v22->_outputResourceKey];
+    [(PSTask *)v22 addOutput:v26];
+    [(PSTask *)v22 setComputeAgent:0];
+    [(PSTask *)v22 setFunction:scale_task userdata:v22->_scaler];
+    v27 = v22;
+  }
+
+  return v22;
+}
 
 - (void)registerResoureStreamWithContext:(id)context
 {

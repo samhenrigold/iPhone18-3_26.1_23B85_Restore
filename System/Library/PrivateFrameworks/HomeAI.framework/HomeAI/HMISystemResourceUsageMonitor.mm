@@ -12,26 +12,26 @@
 
 - (HMISystemResourceUsageMonitor)init
 {
-  v14.receiver = self;
-  v14.super_class = HMISystemResourceUsageMonitor;
-  v2 = [(HMISystemResourceUsageMonitor *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = HMISystemResourceUsageMonitor;
+  v2 = [(HMISystemResourceUsageMonitor *)&v13 init];
   if (v2)
   {
     productInfo = [MEMORY[0x277D0F8E8] productInfo];
-    productClass = [productInfo productClass];
+    [productInfo productClass];
 
-    v5 = HMIDispatchQueueNameString(v2, 0);
-    uTF8String = [v5 UTF8String];
-    v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v8 = dispatch_queue_create(uTF8String, v7);
+    v4 = HMIDispatchQueueNameString(v2, 0);
+    uTF8String = [v4 UTF8String];
+    v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v7 = dispatch_queue_create(uTF8String, v6);
 
     workQueue = v2->_workQueue;
-    v2->_workQueue = v8;
-    v10 = v8;
+    v2->_workQueue = v7;
+    v9 = v7;
 
-    v11 = [[HMISystemResourceUsageMonitorImpl alloc] initWithProductClass:productClass workQueue:v10];
+    v10 = [HMISystemResourceUsageMonitorImpl initWithProductClass:"initWithProductClass:workQueue:" workQueue:?];
     systemResourceUsageMonitorImpl = v2->_systemResourceUsageMonitorImpl;
-    v2->_systemResourceUsageMonitorImpl = v11;
+    v2->_systemResourceUsageMonitorImpl = v10;
   }
 
   return v2;
@@ -53,9 +53,8 @@
 
 void __45__HMISystemResourceUsageMonitor_setDelegate___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 40);
-  v2 = [*(a1 + 32) systemResourceUsageMonitorImpl];
-  [v2 setDelegate:v1];
+  v1 = [*(a1 + 32) systemResourceUsageMonitorImpl];
+  [v1 setDelegate:?];
 }
 
 - (HMISystemResourceUsageMonitorDelegate)delegate

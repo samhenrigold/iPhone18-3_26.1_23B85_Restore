@@ -2,11 +2,11 @@
 + (_LSDServiceDomain)currentUserSessionDomain;
 + (id)defaultServiceDomain;
 + (id)systemSessionDomain;
+- (_WORD)resolvedDomainUID;
 - (double)connectionConfigurationStateForServiceClass:(uint64_t)class@<X8>;
 - (id).cxx_construct;
 - (id)debugDescription;
 - (uint64_t)initWithUID:(void *)d;
-- (uint64_t)resolvedDomainUID;
 - (uint64_t)resolvedSessionKey;
 - (void)resolvedDomainUID;
 @end
@@ -44,61 +44,61 @@
   return result;
 }
 
-- (uint64_t)resolvedDomainUID
+- (_WORD)resolvedDomainUID
 {
   v8 = *MEMORY[0x1E69E9840];
-  if (!result)
+  if (result)
   {
-    goto LABEL_16;
-  }
-
-  v1 = result;
-  if (*(result + 12) == 1)
-  {
-    result = *(result + 8);
-LABEL_16:
-    v6 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  v2 = *(result + 16);
-  if (*(result + 16))
-  {
-    if (v2 == 3)
+    v2 = result;
+    if (*(result + 12) == 1)
     {
-      result = 0;
+      return *(result + 2);
     }
 
     else
     {
-      if (v2 != 1)
+      v3 = result[8];
+      if (result[8])
       {
-        currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler handleFailureInMethod:sel_resolvedDomainUID object:v1 file:@"LSDService.mm" lineNumber:157 description:{@"Resolving effective UID for domain had bogus type %d", *(v1 + 16)}];
-      }
+        if (v3 == 3)
+        {
+          return 0;
+        }
 
-      if (xpc_user_sessions_enabled())
-      {
-        foreground_uid = xpc_user_sessions_get_foreground_uid();
+        else
+        {
+          if (v3 != 1)
+          {
+            currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+            [currentHandler handleFailureInMethod:sel_resolvedDomainUID object:v2 file:@"LSDService.mm" lineNumber:157 description:{@"Resolving effective UID for domain had bogus type %d", v2[8]}];
+          }
+
+          if (xpc_user_sessions_enabled())
+          {
+            foreground_uid = xpc_user_sessions_get_foreground_uid();
+          }
+
+          else
+          {
+            foreground_uid = _CFGetEUID();
+          }
+
+          result = [__LSDefaultsGetSharedInstance(foreground_uid v6)];
+          *(v2 + 2) = result;
+          *(v2 + 12) = 1;
+        }
       }
 
       else
       {
-        foreground_uid = _CFGetEUID();
+        SharedInstance = __LSDefaultsGetSharedInstance(result, a2);
+
+        return [SharedInstance proxyUIDForCurrentEffectiveUID];
       }
-
-      result = [__LSDefaultsGetSharedInstance() proxyUIDForUID:foreground_uid];
-      *(v1 + 8) = result;
-      *(v1 + 12) = 1;
     }
-
-    goto LABEL_16;
   }
 
-  SharedInstance = __LSDefaultsGetSharedInstance();
-  v4 = *MEMORY[0x1E69E9840];
-
-  return [SharedInstance proxyUIDForCurrentEffectiveUID];
+  return result;
 }
 
 - (id).cxx_construct
@@ -117,7 +117,7 @@ LABEL_16:
 
   if (a2)
   {
-    v3 = [__LSDefaultsGetSharedInstance() proxyUIDForUID:a2];
+    v3 = [__LSDefaultsGetSharedInstance(d a2)];
     v7.receiver = d;
     v7.super_class = _LSDServiceDomain;
     v4 = objc_msgSendSuper2(&v7, sel_init);
@@ -146,16 +146,16 @@ LABEL_16:
     +[_LSDServiceDomain systemSessionDomain];
   }
 
-  v0 = +[_LSDServiceDomain systemSessionDomain]::target;
+  v1 = +[_LSDServiceDomain systemSessionDomain]::target;
 
-  return v0;
+  return v1;
 }
 
 - (id)debugDescription
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  return [v3 stringWithFormat:@"<%@: %p type %d resolvedDomainUID %d>", v4, self, self->_specifierType, -[_LSDServiceDomain resolvedDomainUID](self)];
+  return [v3 stringWithFormat:@"<%@: %p type %d resolvedDomainUID %d>", v4, self, self->_specifierType, -[_LSDServiceDomain resolvedDomainUID](self, v5)];
 }
 
 - (double)connectionConfigurationStateForServiceClass:(uint64_t)class@<X8>
@@ -168,15 +168,15 @@ LABEL_16:
     return result;
   }
 
-  v6 = *(self + 16);
-  proxyUIDForCurrentEffectiveUID = [__LSDefaultsGetSharedInstance() proxyUIDForCurrentEffectiveUID];
+  v6 = self[8];
+  v7 = [__LSDefaultsGetSharedInstance(self a2)];
   *class = 0;
-  *(class + 8) = proxyUIDForCurrentEffectiveUID;
+  *(class + 8) = v7;
   *(class + 16) = configureUIDVanilla;
-  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{(v6 << 32) | (objc_msgSend(a2, "connectionType") << 48) | proxyUIDForCurrentEffectiveUID}];
-  *(class + 24) = v14;
-  v8 = *(self + 16);
-  if (v8 == 2)
+  v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{(v6 << 32) | (objc_msgSend(a2, "connectionType") << 48) | v7}];
+  *(class + 24) = v15;
+  v9 = self[8];
+  if (v9 == 2)
   {
     if (![(_LSDServiceDomain *)self resolvedDomainUID])
     {
@@ -185,38 +185,38 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v8 = *(self + 16);
+    v9 = self[8];
   }
 
-  if (v8 == 3 || [a2 XPCConnectionIsAlwaysPrivileged])
+  if (v9 == 3 || [a2 XPCConnectionIsAlwaysPrivileged])
   {
     goto LABEL_7;
   }
 
 LABEL_8:
-  v9 = *(self + 16);
-  if (v9 == 1)
+  v10 = self[8];
+  if (v10 == 1)
   {
     if (xpc_user_sessions_enabled())
     {
-      v10 = configureUIDForUserSession;
+      v11 = configureUIDForUserSession;
       resolvedDomainUID = [(_LSDServiceDomain *)self resolvedDomainUID];
 LABEL_18:
-      v12 = resolvedDomainUID;
+      v13 = resolvedDomainUID;
       goto LABEL_19;
     }
 
-    v9 = *(self + 16);
+    v10 = self[8];
   }
 
-  if (v9 == 2)
+  if (v10 == 2)
   {
     goto LABEL_17;
   }
 
-  if (v9 == 3)
+  if (v10 == 3)
   {
-    v10 = configureUIDNull;
+    v11 = configureUIDNull;
     resolvedDomainUID = [(_LSDServiceDomain *)self resolvedDomainUID];
     goto LABEL_18;
   }
@@ -224,17 +224,17 @@ LABEL_18:
   if (([a2 XPCConnectionIsAlwaysPrivileged] & 1) == 0)
   {
 LABEL_17:
-    v10 = configureUIDVanilla;
+    v11 = configureUIDVanilla;
     resolvedDomainUID = [(_LSDServiceDomain *)self resolvedDomainUID];
     goto LABEL_18;
   }
 
-  v10 = configureUIDVanilla;
-  v12 = 0;
+  v11 = configureUIDVanilla;
+  v13 = 0;
 LABEL_19:
-  *(class + 8) = v12;
-  *(class + 16) = v10;
-  *(class + 24) = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{(objc_msgSend(a2, "connectionType") << 48) | (*(self + 16) << 32) | v12}];
+  *(class + 8) = v13;
+  *(class + 16) = v11;
+  *(class + 24) = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{(objc_msgSend(a2, "connectionType") << 48) | (self[8] << 32) | v13}];
 
   return result;
 }
@@ -242,21 +242,21 @@ LABEL_19:
 + (_LSDServiceDomain)currentUserSessionDomain
 {
   objc_opt_self();
-  v0 = [_LSDServiceDomain alloc];
-  if (v0)
+  v1 = [_LSDServiceDomain alloc];
+  if (v1)
   {
-    v2.receiver = v0;
-    v2.super_class = _LSDServiceDomain;
-    v0 = objc_msgSendSuper2(&v2, sel_init);
-    if (v0)
+    v3.receiver = v1;
+    v3.super_class = _LSDServiceDomain;
+    v1 = objc_msgSendSuper2(&v3, sel_init);
+    if (v1)
     {
-      v0->_resolvedDomainUID.__engaged_ = 0;
-      v0->_resolvedDomainUID.var0.__val_ = 0;
-      v0->_specifierType = 1;
+      v1->_resolvedDomainUID.__engaged_ = 0;
+      v1->_resolvedDomainUID.var0.__val_ = 0;
+      v1->_specifierType = 1;
     }
   }
 
-  return v0;
+  return v1;
 }
 
 - (void)resolvedDomainUID

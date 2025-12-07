@@ -135,7 +135,6 @@ uint64_t __55__WBSCloudKitContainerManateeObserver__accountChanged___block_invok
     result = v1[6];
     if (result)
     {
-      v2 = v1[5];
       return (*(result + 16))();
     }
   }
@@ -190,7 +189,7 @@ void __76__WBSCloudKitContainerManateeObserver__determineAccountStateWithComplet
 
 void __76__WBSCloudKitContainerManateeObserver__determineAccountStateWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 24) = 0;
   *(*(a1 + 32) + 32) = a2;
   *(*(a1 + 32) + 40) = a3;
@@ -200,50 +199,43 @@ void __76__WBSCloudKitContainerManateeObserver__determineAccountStateWithComplet
   v7 = *(v6 + 56);
   *(v6 + 56) = v5;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v19 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(a1 + 32);
-        v13 = *(a1 + 40);
-        v15 = *(v14 + 32);
-        v16 = *(v14 + 40);
-        (*(*(*(&v18 + 1) + 8 * v12) + 16))(*(*(&v18 + 1) + 8 * v12));
+        (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __76__WBSCloudKitContainerManateeObserver__determineAccountStateWithCompletion___block_invoke_3(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 48);
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
   }
 
   else
@@ -253,10 +245,10 @@ uint64_t __76__WBSCloudKitContainerManateeObserver__determineAccountStateWithCom
       [*(a1 + 40) deviceToDeviceEncryptionAvailability];
     }
 
-    v3 = *(*(a1 + 48) + 16);
+    v2 = *(*(a1 + 48) + 16);
   }
 
-  return v3();
+  return v2();
 }
 
 - (void)determineAccountStateWithCompletion:(id)completion

@@ -20,61 +20,56 @@
 
 - (id)ratchetStateFromState:(id)state
 {
-  v16 = *MEMORY[0x1E69E9840];
-  memset(v15, 0, 75);
+  v15 = *MEMORY[0x1E69E9840];
+  memset(v14, 0, 75);
   stateCopy = state;
-  [(LACDTORatchetSEPStateParser *)self _statusFromRatchetState:stateCopy];
-  [(LACDTORatchetSEPStateParser *)self _configFromRatchetState:stateCopy, 0, 0, 0, 0, 0, 0, 0];
+  objc_msgSend__statusFromRatchetState_(self);
+  objc_msgSend__configFromRatchetState_(self, 0, 0, 0, 0, 0, 0, 0);
 
-  v5 = [(LACDTORatchetSEPStateParser *)self _ratchetStateFromACMRatchetState:v15];
-  [(LACDTORatchetSEPStateParser *)self _durationFromRatchetStatus:v15 config:&v14];
+  v5 = [(LACDTORatchetSEPStateParser *)self _ratchetStateFromACMRatchetState:v14];
+  [(LACDTORatchetSEPStateParser *)self _durationFromRatchetStatus:v14 config:&v13];
   [(LACDTORatchetSEPStateParser *)self _scaleDuration:?];
   v7 = v6;
-  [(LACDTORatchetSEPStateParser *)self _resetDurationFromRatchetStatus:v15 config:&v14];
+  [(LACDTORatchetSEPStateParser *)self _resetDurationFromRatchetStatus:v14 config:&v13];
   [(LACDTORatchetSEPStateParser *)self _scaleDuration:?];
   v9 = v8;
-  v10 = [(LACDTORatchetSEPStateParser *)self _ratchetUUIDFromACMRatchetState:v15];
+  v10 = [(LACDTORatchetSEPStateParser *)self _ratchetUUIDFromACMRatchetState:v14];
   v11 = [[LACDTORatchetState alloc] initWithRawValue:v5 duration:v10 resetDuration:v7 uuid:v9];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)watchdogPackFromState:(id)state
 {
-  v12 = *MEMORY[0x1E69E9840];
-  memset(v11, 0, 75);
+  v11 = *MEMORY[0x1E69E9840];
+  memset(v10, 0, 75);
   stateCopy = state;
-  [(LACDTORatchetSEPStateParser *)self _statusFromRatchetState:stateCopy];
-  [(LACDTORatchetSEPStateParser *)self _configFromRatchetState:stateCopy, 0, 0, 0, 0, 0, 0, 0];
+  objc_msgSend__statusFromRatchetState_(self);
+  objc_msgSend__configFromRatchetState_(self, 0, 0, 0, 0, 0, 0, 0);
 
-  v5 = [(LACDTORatchetSEPStateParser *)self _biometryWatchdogGlobalFromConfig:&v10 status:v11];
-  v6 = [(LACDTORatchetSEPStateParser *)self _biometryWatchdogDTOFromConfig:&v10 status:v11];
+  v5 = [(LACDTORatchetSEPStateParser *)self _biometryWatchdogGlobalFromConfig:&v9 status:v10];
+  v6 = [(LACDTORatchetSEPStateParser *)self _biometryWatchdogDTOFromConfig:&v9 status:v10];
   v7 = [[LACDTOBiometryWatchdogPack alloc] initWithBiometryWatchdogGlobal:v5 biometryWatchdogDTO:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)gracePeriodStateFromState:(id)state
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(v9, 0, 75);
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, 75);
   stateCopy = state;
-  [(LACDTORatchetSEPStateParser *)self _statusFromRatchetState:stateCopy];
-  [(LACDTORatchetSEPStateParser *)self _configFromRatchetState:stateCopy, 0, 0, 0, 0, 0, 0, 0];
+  objc_msgSend__statusFromRatchetState_(self);
+  objc_msgSend__configFromRatchetState_(self, 0, 0, 0, 0, 0, 0, 0);
 
-  v5 = [(LACDTORatchetSEPStateParser *)self _gracePeriodStateFromConfig:&v8 status:v9];
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = [(LACDTORatchetSEPStateParser *)self _gracePeriodStateFromConfig:&v7 status:v8];
 
   return v5;
 }
 
 - (id)timerConfigurationFromState:(id)state
 {
-  [(LACDTORatchetSEPStateParser *)self _configFromRatchetState:state, 0, 0, 0, 0, 0, 0, 0];
+  objc_msgSend__configFromRatchetState_(self, a2, state, 0, 0, 0, 0, 0, 0, 0);
   v4 = [(LACDTORatchetSEPStateParser *)self _timerConfigurationFromConfig:&v6];
 
   return v4;

@@ -25,7 +25,7 @@
   requestCopy = request;
   [requestCopy setCachePolicy:1];
   [requestCopy setHTTPContentType:@"text/xml"];
-  v8 = sub_1003BBF50();
+  v8 = sub_1003BBF50(Device);
   sub_1003BC30C(requestCopy, 1, v8);
 
   v11.receiver = self;

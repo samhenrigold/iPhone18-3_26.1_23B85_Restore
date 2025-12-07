@@ -527,7 +527,7 @@ void __68__MPMoviePlayerController_requestThumbnailImagesAtTimes_timeOption___bl
 - (double)currentPlaybackTime
 {
   playerController = [(AVPlayerViewController *)self->_playerViewController playerController];
-  [playerController currentTime];
+  objc_msgSend_currentTime(playerController);
   v4 = v3;
 
   return v4;

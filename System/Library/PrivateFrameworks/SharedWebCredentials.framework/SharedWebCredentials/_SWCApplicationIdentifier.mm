@@ -101,7 +101,7 @@
 
 - (id)UUIDRepresentation
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   rawValue = [(_SWCApplicationIdentifier *)self rawValue];
   v5 = [rawValue dataUsingEncoding:4];
 
@@ -111,11 +111,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"SWCApplicationIdentifier.mm" lineNumber:120 description:@"Failed to get the UTF-8 representation of an application identifier."];
   }
 
-  memset(v10, 0, sizeof(v10));
-  CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), v10);
-  v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v10];
-
-  v7 = *MEMORY[0x277D85DE8];
+  memset(v9, 0, sizeof(v9));
+  CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), v9);
+  v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v9];
 
   return v6;
 }

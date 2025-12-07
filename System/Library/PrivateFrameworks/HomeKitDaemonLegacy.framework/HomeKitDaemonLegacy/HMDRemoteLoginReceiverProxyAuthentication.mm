@@ -56,7 +56,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -64,17 +64,16 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = selfCopy;
+    v9 = v6;
+    v10 = 2112;
+    v11 = selfCopy;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Dealloc %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDRemoteLoginReceiverProxyAuthentication;
-  [(HMDRemoteLoginReceiverProxyAuthentication *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDRemoteLoginReceiverProxyAuthentication;
+  [(HMDRemoteLoginReceiverProxyAuthentication *)&v7 dealloc];
 }
 
 - (HMDRemoteLoginReceiverProxyAuthentication)initWithSessionID:(id)d remoteDevice:(id)device workQueue:(id)queue remoteMessageSender:(id)sender delegate:(id)delegate request:(id)request
@@ -106,12 +105,11 @@
 
 uint64_t __56__HMDRemoteLoginReceiverProxyAuthentication_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_62156;
-  logCategory__hmf_once_v2_62156 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_62156;
+  logCategory__hmf_once_v2_62156 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

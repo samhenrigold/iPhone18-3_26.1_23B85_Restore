@@ -1,6 +1,105 @@
-uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVMetrics<A>@<X0>(void **a1@<X8>)
+uint64_t AVMergedMetrics.init(chronologicallyMerging:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  AVMetrics.makeAsyncIterator()(a1);
+  v11 = a4;
+  v47 = a8;
+  v48 = a3;
+  if (a4 == 1)
+  {
+    TupleTypeMetadata = type metadata accessor for AVMetrics(0, *(a7 & 0xFFFFFFFFFFFFFFFELL), a3, 1);
+    v15 = TupleTypeMetadata;
+  }
+
+  else
+  {
+    v46 = &v45;
+    MEMORY[0x1EEE9AC00](a1);
+    v19 = (v18 + 15) & 0xFFFFFFFFFFFFFFF0;
+    if (v11)
+    {
+      v20 = (a7 & 0xFFFFFFFFFFFFFFFELL);
+      v21 = (&v45 - v19);
+      v22 = v11;
+      do
+      {
+        v23 = *v20++;
+        *v21++ = type metadata accessor for AVMetrics(255, v23, v16, v17);
+        --v22;
+      }
+
+      while (v22);
+    }
+
+    TupleTypeMetadata = swift_getTupleTypeMetadata();
+    v15 = TupleTypeMetadata;
+  }
+
+  v24 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v26 = &v45 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v49[0] = v11;
+  v49[1] = a5;
+  v49[2] = a6;
+  v49[3] = a7;
+  v27 = type metadata accessor for AVMergedMetrics(0, v49);
+  v46 = &v45;
+  v28 = *(v27 - 8);
+  MEMORY[0x1EEE9AC00](v27);
+  v30 = &v45 - v29;
+  v31 = *(a1 + 8);
+  v32 = *(a1 + 16);
+  v33 = *a2;
+  v34 = a2[1];
+  v35 = *(a2 + 16);
+  *v30 = *a1;
+  *(v30 + 1) = v31;
+  v30[16] = v32;
+  *(v30 + 3) = v33;
+  *(v30 + 4) = v34;
+  v30[40] = v35;
+  if (v11)
+  {
+    v36 = (v15 + 32);
+    v37 = v48;
+    v38 = v11;
+    do
+    {
+      if (v11 == 1)
+      {
+        v39 = 0;
+      }
+
+      else
+      {
+        v39 = *v36;
+      }
+
+      v40 = &v26[v39];
+      v41 = *v37++;
+      v42 = *(v41 + 8);
+      v43 = *(v41 + 16);
+      *v40 = *v41;
+      *(v40 + 1) = v42;
+      v40[16] = v43;
+      swift_unknownObjectRetain();
+      v36 += 4;
+      --v38;
+    }
+
+    while (v38);
+  }
+
+  (*(v24 + 32))(&v30[*(v27 + 56)], v26, v15);
+  for (result = (*(v28 + 32))(v47, v30, v27); v11; --v11)
+  {
+    result = swift_unknownObjectRelease();
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVMetrics<A>@<X0>(uint64_t a1@<X0>, void **a2@<X8>)
+{
+  AVMetrics.makeAsyncIterator()(a1, a2);
 
   return swift_unknownObjectRelease();
 }
@@ -9,7 +108,7 @@ uint64_t AVMergedMetrics.SubscriberDelegate.__allocating_init(streamContinuation
 {
   v2 = swift_allocObject();
   v3 = direct field offset for AVMergedMetrics.SubscriberDelegate.streamContinuation;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   (*(*(v4 - 8) + 32))(v2 + v3, a1, v4);
   return v2;
 }
@@ -17,14 +116,14 @@ uint64_t AVMergedMetrics.SubscriberDelegate.__allocating_init(streamContinuation
 uint64_t AVMergedMetrics.SubscriberDelegate.init(streamContinuation:)(uint64_t a1)
 {
   v3 = direct field offset for AVMergedMetrics.SubscriberDelegate.streamContinuation;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   (*(*(v4 - 8) + 32))(v1 + v3, a1, v4);
   return v1;
 }
 
 uint64_t AVMergedMetrics.SubscriberDelegate.publisher(_:didReceive:)(uint64_t a1, void *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo13AVMetricEventC_So0dE15StreamPublisher_pt__GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo13AVMetricEventC_So0dE15StreamPublisher_pt__GMd, &_sScS12ContinuationV11YieldResultOySo13AVMetricEventC_So0dE15StreamPublisher_pt__GMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = v10 - v6;
@@ -32,7 +131,7 @@ uint64_t AVMergedMetrics.SubscriberDelegate.publisher(_:didReceive:)(uint64_t a1
   v10[1] = a1;
   v8 = a2;
   swift_unknownObjectRetain();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   AsyncStream.Continuation.yield(_:)();
   return (*(v5 + 8))(v7, v4);
 }
@@ -49,7 +148,7 @@ uint64_t @objc AVMergedMetrics.SubscriberDelegate.publisher(_:didReceive:)(uint6
 uint64_t AVMergedMetrics.SubscriberDelegate.deinit()
 {
   v1 = direct field offset for AVMergedMetrics.SubscriberDelegate.streamContinuation;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   return v0;
 }
@@ -57,7 +156,7 @@ uint64_t AVMergedMetrics.SubscriberDelegate.deinit()
 uint64_t AVMergedMetrics.SubscriberDelegate.__deallocating_deinit()
 {
   v1 = direct field offset for AVMergedMetrics.SubscriberDelegate.streamContinuation;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   v3 = *(*v0 + 48);
   v4 = *(*v0 + 52);
@@ -65,118 +164,118 @@ uint64_t AVMergedMetrics.SubscriberDelegate.__deallocating_deinit()
   return MEMORY[0x1EEE6BDC0](v0, v3, v4);
 }
 
-uint64_t AVMergedMetrics.makeAsyncIterator()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t AVMergedMetrics.makeAsyncIterator()@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
-  v4 = *(a1 + 16);
-  v5 = 8 * v4;
-  v41 = a2;
-  if (v4 == 1)
+  v6 = *(a1 + 16);
+  v7 = 8 * v6;
+  v46 = a4;
+  if (v6 == 1)
   {
-    TupleTypeMetadata = type metadata accessor for AVMetrics();
-    v7 = TupleTypeMetadata;
+    TupleTypeMetadata = type metadata accessor for AVMetrics(0, *(*(a1 + 40) & 0xFFFFFFFFFFFFFFFELL), a2, a3);
+    v9 = TupleTypeMetadata;
   }
 
   else
   {
     MEMORY[0x1EEE9AC00](a1);
-    if (v4)
+    if (v6)
     {
-      v8 = *(a1 + 40) & 0xFFFFFFFFFFFFFFFELL;
-      v9 = (&v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v10 = v4;
+      v12 = (*(a1 + 40) & 0xFFFFFFFFFFFFFFFELL);
+      v13 = (&v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v14 = v6;
       do
       {
-        v8 += 8;
-        *v9++ = type metadata accessor for AVMetrics();
-        --v10;
+        v15 = *v12++;
+        *v13++ = type metadata accessor for AVMetrics(255, v15, v10, v11);
+        --v14;
       }
 
-      while (v10);
+      while (v14);
     }
 
     TupleTypeMetadata = swift_getTupleTypeMetadata();
-    v7 = TupleTypeMetadata;
+    v9 = TupleTypeMetadata;
   }
 
-  v11 = *(v7 - 8);
-  v12 = MEMORY[0x1EEE9AC00](TupleTypeMetadata);
-  v14 = &v37 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = &v37;
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = &v37 - v16;
-  v39 = &v37;
-  v18 = *(v2 + 8);
-  v19 = *(v2 + 16);
-  v38 = *v2;
-  v45[0] = v38;
-  v45[1] = v18;
-  v46 = v19;
-  v20 = *(v2 + 32);
-  v21 = *(v2 + 40);
-  v43[0] = *(v2 + 24);
-  v43[1] = v20;
-  v44 = v21;
-  MEMORY[0x1EEE9AC00](v15);
-  v22 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = *(v11 + 16);
-  v24 = v2 + *(a1 + 56);
-  v42 = v25;
-  v23(v14, v24, v25);
-  if (v4)
+  v16 = *(v9 - 8);
+  v17 = MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v19 = &v42 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v45 = &v42;
+  v20 = MEMORY[0x1EEE9AC00](v17);
+  v22 = &v42 - v21;
+  v44 = &v42;
+  v23 = *(v4 + 8);
+  v24 = *(v4 + 16);
+  v43 = *v4;
+  v50[0] = v43;
+  v50[1] = v23;
+  v51 = v24;
+  v25 = *(v4 + 32);
+  v26 = *(v4 + 40);
+  v48[0] = *(v4 + 24);
+  v48[1] = v25;
+  v49 = v26;
+  MEMORY[0x1EEE9AC00](v20);
+  v27 = (&v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v28 = *(v16 + 16);
+  v29 = v4 + *(a1 + 56);
+  v47 = v30;
+  v28(v19, v29, v30);
+  if (v6)
   {
-    v26 = (v42 + 32);
-    v27 = (&v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-    v28 = v4;
+    v31 = (v47 + 32);
+    v32 = (&v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v33 = v6;
     do
     {
-      if (v4 == 1)
+      if (v6 == 1)
       {
-        v29 = 0;
-        v30 = v17;
+        v34 = 0;
+        v35 = v22;
       }
 
       else
       {
-        v29 = *v26;
-        v30 = &v17[v29];
+        v34 = *v31;
+        v35 = &v22[v34];
       }
 
-      v31 = *&v14[v29 + 8];
-      v32 = v14[v29 + 16];
-      *&v17[v29] = *&v14[v29];
-      *(v30 + 1) = v31;
-      v30[16] = v32;
-      *v27++ = v30;
+      v36 = *&v19[v34 + 8];
+      v37 = v19[v34 + 16];
+      *&v22[v34] = *&v19[v34];
+      *(v35 + 1) = v36;
+      v35[16] = v37;
+      *v32++ = v35;
       swift_unknownObjectRetain();
-      v26 += 4;
-      --v28;
+      v31 += 4;
+      --v33;
     }
 
-    while (v28);
+    while (v33);
   }
 
-  v33 = *(a1 + 24);
-  v34 = *(a1 + 32);
-  v35 = *(a1 + 40);
+  v38 = *(a1 + 24);
+  v39 = *(a1 + 32);
+  v40 = *(a1 + 40);
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  AVMergedMetrics.AsyncIterator.init(chronologicallyMerging:_:_:)(v45, v43, v22, v4, v33, v34, v35, v41);
-  return (*(v11 + 8))(v14, v42);
+  AVMergedMetrics.AsyncIterator.init(chronologicallyMerging:_:_:)(v50, v48, v27, v6, v38, v39, v40, v46);
+  return (*(v16 + 8))(v19, v47);
 }
 
-uint64_t AVMergedMetrics.AsyncIterator.init(chronologicallyMerging:_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+uint64_t AVMergedMetrics.AsyncIterator.init(chronologicallyMerging:_:_:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
   v50 = a7;
   v49 = a6;
   v48 = a5;
   v45[0] = a3;
   v65 = a8;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   v63 = *(v14 - 8);
   v64 = v14;
   MEMORY[0x1EEE9AC00](v14);
   v62 = v45 - v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo13AVMetricEventC_So0dE15StreamPublisher_pt__GMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo13AVMetricEventC_So0dE15StreamPublisher_pt__GMd, &_sScS12ContinuationV15BufferingPolicyOySo13AVMetricEventC_So0dE15StreamPublisher_pt__GMR);
   v59 = *(v16 - 8);
   v60 = v16;
   MEMORY[0x1EEE9AC00](v16);
@@ -194,7 +293,7 @@ uint64_t AVMergedMetrics.AsyncIterator.init(chronologicallyMerging:_:_:)@<X0>(ui
   v68 = a5;
   v69 = a6;
   v70 = a7;
-  v66 = type metadata accessor for AVMergedMetrics.AsyncIterator();
+  v66 = type metadata accessor for AVMergedMetrics.AsyncIterator(0, &v67);
   v61 = *(v66 - 8);
   MEMORY[0x1EEE9AC00](v66);
   v23 = v45 - v22;
@@ -208,19 +307,19 @@ uint64_t AVMergedMetrics.AsyncIterator.init(chronologicallyMerging:_:_:)@<X0>(ui
   v57 = *(a2 + 16);
   v26 = [objc_opt_self() eventStream];
   *v23 = v26;
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
   v27 = v26;
   static DispatchQoS.unspecified.getter();
   v67 = MEMORY[0x1E69E7CC0];
   lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v47 + 104))(v46, *MEMORY[0x1E69E8090], v51);
   v28 = v66;
   v29 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   *(v23 + 2) = v29;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13AVMetricEventC_So0aB15StreamPublisher_ptMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo13AVMetricEventC_So0aB15StreamPublisher_ptMd, &_sSo13AVMetricEventC_So0aB15StreamPublisher_ptMR);
   v31 = v59;
   v30 = v60;
   v32 = v55;
@@ -233,14 +332,14 @@ uint64_t AVMergedMetrics.AsyncIterator.init(chronologicallyMerging:_:_:)@<X0>(ui
   v68 = v48;
   v69 = v49;
   v70 = v50;
-  type metadata accessor for AVMergedMetrics.SubscriberDelegate();
+  type metadata accessor for AVMergedMetrics.SubscriberDelegate(0, &v67);
   v34 = v62;
   (*(v63 + 16))(v62, &v23[v33], v64);
   v35 = AVMergedMetrics.SubscriberDelegate.__allocating_init(streamContinuation:)(v34);
   *(v23 + 1) = v35;
   v36 = v66;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMd, &_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMR);
   AsyncStream.makeAsyncIterator()();
   v37 = v51;
   [v27 setSubscriber:v35 queue:v51];
@@ -267,7 +366,7 @@ uint64_t AVMergedMetrics.AsyncIterator.init(chronologicallyMerging:_:_:)@<X0>(ui
   do
   {
     v41 = *v39++;
-    v42 = v41[1];
+    v42 = *(v41 + 8);
     v43 = *(v41 + 16);
     v67 = *v41;
     v68 = v42;
@@ -294,7 +393,7 @@ uint64_t AVMergedMetrics.AsyncIterator.next()()
 {
   v1 = swift_task_alloc();
   *(v0 + 32) = v1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   *v1 = v0;
   v1[1] = AVMergedMetrics.AsyncIterator.next();
 
@@ -303,7 +402,7 @@ uint64_t AVMergedMetrics.AsyncIterator.next()()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVMergedMetrics.AsyncIterator.next(), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVMergedMetrics.AsyncIterator.next(), 0);
 }
 
 {
@@ -364,18 +463,18 @@ uint64_t _s12AVFoundation15AVMergedMetricsV13AsyncIteratorVyxq_q0_q0_Qp_QP_GScIA
   return v4();
 }
 
-uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVMergedMetrics<A, B, Pack{repeat C}>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVMergedMetrics<A, B, Pack{repeat C}>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
-  AVMergedMetrics.makeAsyncIterator()(a1, a2);
-  v4 = *(*(a1 - 8) + 8);
+  AVMergedMetrics.makeAsyncIterator()(a1, a2, a3, a4);
+  v6 = *(*(a1 - 8) + 8);
 
-  return v4(v2, a1);
+  return v6(v4, a1);
 }
 
 char *AVMetricPlayerItemLikelyToKeepUpEvent.loadedTimeRanges.getter()
 {
   v1 = [v0 loadedTimeRanges];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSValue);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSValue, 0x1E696B098);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v2 >> 62))
@@ -460,7 +559,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t type metadata instantiation function for AVMetrics()
+uint64_t type metadata instantiation function for AVMetrics(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -533,10 +632,10 @@ LABEL_8:
   return result;
 }
 
-uint64_t type metadata completion function for AVMetrics.SubscriberDelegate()
+uint64_t type metadata completion function for AVMetrics.SubscriberDelegate(uint64_t a1)
 {
   result = type metadata accessor for AsyncStream.Continuation();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -548,25 +647,25 @@ uint64_t type metadata completion function for AVMetrics.SubscriberDelegate()
   return result;
 }
 
-unint64_t type metadata completion function for AVMetrics.AsyncIterator()
+uint64_t type metadata completion function for AVMetrics.AsyncIterator(uint64_t a1)
 {
-  result = type metadata accessor for NSValue(319, &lazy cache variable for type metadata for AVMetricEventStream);
-  if (v1 <= 0x3F)
+  result = type metadata accessor for NSValue(319, &lazy cache variable for type metadata for AVMetricEventStream, 0x1E6988008);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for AVMetricEventStreamSubscriber();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      result = type metadata accessor for NSValue(319, &lazy cache variable for type metadata for OS_dispatch_queue);
-      if (v3 <= 0x3F)
+      result = type metadata accessor for NSValue(319, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
+      if (v4 <= 0x3F)
       {
         result = type metadata accessor for AsyncStream();
-        if (v4 <= 0x3F)
+        if (v5 <= 0x3F)
         {
           result = type metadata accessor for AsyncStream.Continuation();
-          if (v5 <= 0x3F)
+          if (v6 <= 0x3F)
           {
             result = type metadata accessor for AsyncStream.Iterator();
-            if (v6 <= 0x3F)
+            if (v7 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
               return 0;
@@ -592,58 +691,58 @@ unint64_t type metadata accessor for AVMetricEventStreamSubscriber()
   return result;
 }
 
-uint64_t type metadata completion function for AVMergedMetrics(uint64_t a1)
+uint64_t type metadata completion function for AVMergedMetrics(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result = type metadata accessor for AVMetrics();
-  if (v3 <= 0x3F)
+  result = type metadata accessor for AVMetrics(319, a1[3], a3, a4);
+  if (v8 <= 0x3F)
   {
-    v13[5] = 0;
-    v14 = result;
-    result = type metadata accessor for AVMetrics();
-    if (v4 <= 0x3F)
+    v23[5] = 0;
+    v24 = result;
+    result = type metadata accessor for AVMetrics(319, a1[4], v6, v7);
+    if (v11 <= 0x3F)
     {
-      v13[6] = 0;
-      v15 = result;
-      v5 = *(a1 + 16);
-      if (v5 == 1)
+      v23[6] = 0;
+      v25 = result;
+      v12 = a1[2];
+      if (v12 == 1)
       {
-        result = type metadata accessor for AVMetrics();
-        if (v6 > 0x3F)
+        result = type metadata accessor for AVMetrics(319, *(a1[5] & 0xFFFFFFFFFFFFFFFELL), v9, v10);
+        if (v13 > 0x3F)
         {
           return result;
         }
 
         result = swift_checkMetadataState();
-        if (v7 > 0x3F)
+        if (v14 > 0x3F)
         {
           return result;
         }
 
 LABEL_11:
-        v13[7] = 0;
-        v16 = result;
+        v23[7] = 0;
+        v26 = result;
         swift_cvw_initStructMetadataWithLayoutString();
         return 0;
       }
 
       MEMORY[0x1EEE9AC00](result);
-      if (v5)
+      if (v12)
       {
-        v9 = *(a1 + 40) & 0xFFFFFFFFFFFFFFFELL;
-        v10 = &v13[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-        v11 = v5;
+        v18 = (a1[5] & 0xFFFFFFFFFFFFFFFELL);
+        v19 = &v23[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
+        v20 = v12;
         do
         {
-          v9 += 8;
-          *v10++ = type metadata accessor for AVMetrics();
-          --v11;
+          v21 = *v18++;
+          *v19++ = type metadata accessor for AVMetrics(255, v21, v15, v16);
+          --v20;
         }
 
-        while (v11);
+        while (v20);
       }
 
       result = swift_getTupleTypeMetadata();
-      if (v12 <= 0x3F)
+      if (v22 <= 0x3F)
       {
         goto LABEL_11;
       }
@@ -653,34 +752,34 @@ LABEL_11:
   return result;
 }
 
-void type metadata completion function for AVMergedMetrics.SubscriberDelegate()
+void type metadata completion function for AVMergedMetrics.SubscriberDelegate(uint64_t a1)
 {
   type metadata accessor for AsyncStream<(AVMetricEvent, AVMetricEventStreamPublisher)>.Continuation(319, &lazy cache variable for type metadata for AsyncStream<(AVMetricEvent, AVMetricEventStreamPublisher)>.Continuation, MEMORY[0x1E69E8660]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_initClassMetadata2();
   }
 }
 
-void type metadata completion function for AVMergedMetrics.AsyncIterator()
+void type metadata completion function for AVMergedMetrics.AsyncIterator(uint64_t a1)
 {
-  type metadata accessor for NSValue(319, &lazy cache variable for type metadata for AVMetricEventStream);
-  if (v0 <= 0x3F)
+  type metadata accessor for NSValue(319, &lazy cache variable for type metadata for AVMetricEventStream, 0x1E6988008);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for AVMetricEventStreamSubscriber();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for NSValue(319, &lazy cache variable for type metadata for OS_dispatch_queue);
-      if (v2 <= 0x3F)
+      type metadata accessor for NSValue(319, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for AsyncStream<(AVMetricEvent, AVMetricEventStreamPublisher)>.Continuation(319, &lazy cache variable for type metadata for AsyncStream<(AVMetricEvent, AVMetricEventStreamPublisher)>, MEMORY[0x1E69E8698]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for AsyncStream<(AVMetricEvent, AVMetricEventStreamPublisher)>.Continuation(319, &lazy cache variable for type metadata for AsyncStream<(AVMetricEvent, AVMetricEventStreamPublisher)>.Continuation, MEMORY[0x1E69E8660]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             type metadata accessor for AsyncStream<(AVMetricEvent, AVMetricEventStreamPublisher)>.Continuation(319, &lazy cache variable for type metadata for AsyncStream<(AVMetricEvent, AVMetricEventStreamPublisher)>.Iterator, MEMORY[0x1E69E8688]);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -695,7 +794,7 @@ void type metadata accessor for AsyncStream<(AVMetricEvent, AVMetricEventStreamP
 {
   if (!*a2)
   {
-    v6 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSo13AVMetricEventC_So0aB15StreamPublisher_ptMd);
+    v6 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSo13AVMetricEventC_So0aB15StreamPublisher_ptMd, &_sSo13AVMetricEventC_So0aB15StreamPublisher_ptMR);
     v7 = a3(a1, v6);
     if (!v8)
     {
@@ -735,7 +834,7 @@ unint64_t lazy protocol witness table accessor for type [OS_dispatch_queue.Attri
   result = lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A];
   if (!lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A]);
   }
@@ -796,19 +895,19 @@ uint64_t AVVideoComposition.outputBufferDescription.getter()
   return v5;
 }
 
-size_t AVVideoComposition.spatialVideoConfigurations.getter()
+void *AVVideoComposition.spatialVideoConfigurations.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   MEMORY[0x1EEE9AC00](v1 - 8);
   v36 = &v35 - v2;
-  v3 = type metadata accessor for AVSpatialVideoConfiguration();
+  v3 = type metadata accessor for AVSpatialVideoConfiguration(0);
   v41 = *(v3 - 1);
   v4 = MEMORY[0x1EEE9AC00](v3);
   v6 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v4);
   v8 = &v35 - v7;
   v9 = [v0 spatialVideoConfigurations];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVSpatialVideoConfiguration);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVSpatialVideoConfiguration, 0x1E6988150);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v10 >> 62))
@@ -924,7 +1023,7 @@ LABEL_3:
       v32 = *(v14 + 24);
       if (v33 >= v32 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v32 > 1, v33 + 1, 1);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
         v14 = v42;
       }
 
@@ -942,7 +1041,7 @@ LABEL_3:
   return result;
 }
 
-Class @objc AVVideoComposition.sourceSampleDataTrackIDs.getter(void *a1, uint64_t a2, void (*a3)(void))
+Class @objc AVVideoComposition.sourceSampleDataTrackIDs.getter(void *a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v4 = a1;
   a3();
@@ -955,7 +1054,7 @@ Class @objc AVVideoComposition.sourceSampleDataTrackIDs.getter(void *a1, uint64_
 char *AVVideoComposition.sourceSampleDataTrackIDs.getter()
 {
   v1 = [v0 sourceSampleDataTrackIDs];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v2 >> 62))
@@ -1030,11 +1129,11 @@ LABEL_3:
   return result;
 }
 
-void @objc AVMutableVideoComposition.sourceSampleDataTrackIDs.setter(void *a1)
+void @objc AVMutableVideoComposition.sourceSampleDataTrackIDs.setter(void *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = a1;
-  AVMutableVideoComposition.sourceSampleDataTrackIDs.setter(v2);
+  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = a1;
+  AVMutableVideoComposition.sourceSampleDataTrackIDs.setter(v4);
 }
 
 void AVMutableVideoComposition.sourceSampleDataTrackIDs.setter(uint64_t a1)
@@ -1058,7 +1157,7 @@ void AVMutableVideoComposition.sourceSampleDataTrackIDs.setter(uint64_t a1)
     while (v2);
   }
 
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v1 setSourceSampleDataTrackIDs_];
@@ -1150,7 +1249,7 @@ uint64_t AVVideoComposition.init(applyingFiltersTo:applier:)(uint64_t a1, uint64
   v6[23] = v7;
   v6[24] = v9;
 
-  return MEMORY[0x1EEE6DFA0](AVVideoComposition.init(applyingFiltersTo:applier:), v7, v9);
+  return MEMORY[0x1EEE6DFA0](AVVideoComposition.init(applyingFiltersTo:applier:), v7);
 }
 
 uint64_t AVVideoComposition.init(applyingFiltersTo:applier:)()
@@ -1179,7 +1278,7 @@ uint64_t AVVideoComposition.init(applyingFiltersTo:applier:)()
   v1[7] = v1 + 18;
   v1[3] = AVVideoComposition.init(applyingFiltersTo:applier:);
   v10 = swift_continuation_init();
-  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo18AVVideoCompositionCs5Error_pGMd);
+  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo18AVVideoCompositionCs5Error_pGMd, &_sSccySo18AVVideoCompositionCs5Error_pGMR);
   v1[10] = v8;
   v1[11] = 1107296256;
   v1[12] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned AVMutableVideoComposition?, @unowned NSError?) -> () with result type AVMutableVideoComposition;
@@ -1194,19 +1293,18 @@ uint64_t AVVideoComposition.init(applyingFiltersTo:applier:)()
   v1 = *v0;
   v2 = *(*v0 + 48);
   *(*v0 + 208) = v2;
-  v3 = *(v1 + 192);
-  v4 = *(v1 + 184);
+  v3 = *(v1 + 184);
   if (v2)
   {
-    v5 = AVVideoComposition.init(applyingFiltersTo:applier:);
+    v4 = AVVideoComposition.init(applyingFiltersTo:applier:);
   }
 
   else
   {
-    v5 = AVVideoComposition.init(applyingFiltersTo:applier:);
+    v4 = AVVideoComposition.init(applyingFiltersTo:applier:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v5, v4, v3);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
 {
@@ -1220,20 +1318,21 @@ uint64_t AVVideoComposition.init(applyingFiltersTo:applier:)()
   return v4(v3);
 }
 
+uint64_t AVVideoComposition.init(applyingFiltersTo:applier:)(uint64_t a1)
 {
-  v1 = v0[25];
-  v2 = v0[19];
+  v2 = v1[25];
+  v3 = v1[19];
   swift_willThrow();
 
-  _Block_release(v1);
-  v3 = v0[1];
+  _Block_release(v2);
+  v4 = v1[1];
 
-  return v3();
+  return v4();
 }
 
 uint64_t closure #1 in AVVideoComposition.init(applyingFiltersTo:applier:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = v21 - v7;
   v9 = [a1 sourceImage];
@@ -1274,7 +1373,7 @@ uint64_t closure #1 in closure #1 in AVVideoComposition.init(applyingFiltersTo:a
   *(v10 + 104) = a9;
   *(v10 + 80) = a6;
   *(v10 + 88) = a7;
-  return MEMORY[0x1EEE6DFA0](closure #1 in closure #1 in AVVideoComposition.init(applyingFiltersTo:applier:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](closure #1 in closure #1 in AVVideoComposition.init(applyingFiltersTo:applier:), 0);
 }
 
 uint64_t closure #1 in closure #1 in AVVideoComposition.init(applyingFiltersTo:applier:)()
@@ -1312,7 +1411,7 @@ uint64_t closure #1 in closure #1 in AVVideoComposition.init(applyingFiltersTo:a
     v2 = closure #1 in closure #1 in AVVideoComposition.init(applyingFiltersTo:applier:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0);
 }
 
 {
@@ -1340,17 +1439,17 @@ uint64_t closure #1 in closure #1 in AVVideoComposition.init(applyingFiltersTo:a
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = v25 - v10;
-  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(a3, v25 - v10, &_sScPSgMd);
+  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(a3, v25 - v10, &_sScPSgMd, &_sScPSgMR);
   v12 = type metadata accessor for TaskPriority();
   v13 = *(v12 - 8);
   v14 = (*(v13 + 48))(v11, 1, v12);
 
   if (v14 == 1)
   {
-    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v11, &_sScPSgMd);
+    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v11, &_sScPSgMd, &_sScPSgMR);
   }
 
   else
@@ -1395,7 +1494,7 @@ LABEL_6:
       v25[3] = v19;
       v23 = swift_task_create();
 
-      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(a3, &_sScPSgMd);
+      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(a3, &_sScPSgMd, &_sScPSgMR);
 
       return v23;
     }
@@ -1411,7 +1510,7 @@ LABEL_6:
     }
   }
 
-  outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(a3, &_sScPSgMd);
+  outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(a3, &_sScPSgMd, &_sScPSgMR);
   v22 = swift_allocObject();
   *(v22 + 16) = a4;
   *(v22 + 24) = a5;
@@ -1481,7 +1580,7 @@ void AVVideoComposition.Configuration.animationTool.modify(uint64_t a1, char a2)
       [v8 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
       swift_dynamicCast();
       v10 = v2[5];
 
@@ -1504,7 +1603,7 @@ void AVVideoComposition.Configuration.animationTool.modify(uint64_t a1, char a2)
       [v12 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
       swift_dynamicCast();
       v14 = v2[5];
 
@@ -1518,7 +1617,7 @@ void AVVideoComposition.Configuration.animationTool.modify(uint64_t a1, char a2)
   free(v2);
 }
 
-uint64_t (*AVVideoComposition.Configuration.colorPrimaries.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*AVVideoComposition.Configuration.colorPrimaries.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = v1;
   v3 = [*v1 colorPrimaries];
@@ -1549,7 +1648,7 @@ void AVVideoComposition.Configuration.colorPrimaries.setter(uint64_t a1, uint64_
     [*v3 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
     v8 = v10;
 
@@ -1569,7 +1668,7 @@ void AVVideoComposition.Configuration.colorPrimaries.setter(uint64_t a1, uint64_
   [v8 *a3];
 }
 
-uint64_t (*AVVideoComposition.Configuration.colorTransferFunction.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*AVVideoComposition.Configuration.colorTransferFunction.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = v1;
   v3 = [*v1 colorTransferFunction];
@@ -1625,7 +1724,7 @@ void key path getter for AVVideoComposition.Configuration.colorPrimaries : AVVid
   a3[1] = v8;
 }
 
-uint64_t (*AVVideoComposition.Configuration.colorYCbCrMatrix.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*AVVideoComposition.Configuration.colorYCbCrMatrix.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = v1;
   v3 = [*v1 colorYCbCrMatrix];
@@ -1679,7 +1778,7 @@ id AVVideoComposition.Configuration.customVideoCompositorClass.setter(uint64_t a
     [*v1 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
     v4 = v7;
 
@@ -1724,7 +1823,7 @@ id key path setter for AVVideoComposition.Configuration.frameDuration : AVVideoC
     [v7 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     v7 = v9;
@@ -1746,7 +1845,7 @@ id AVVideoComposition.Configuration.frameDuration.setter(uint64_t a1, uint64_t a
     [v8 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     v8 = v10;
@@ -1792,7 +1891,7 @@ void AVVideoComposition.Configuration.frameDuration.modify(uint64_t a1)
     [v7 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
     v9 = v1[4];
 
@@ -1811,7 +1910,7 @@ void AVVideoComposition.Configuration.frameDuration.modify(uint64_t a1)
 uint64_t AVVideoComposition.Configuration.instructions.getter()
 {
   v1 = [*v0 instructions];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd, &_sSo29AVVideoCompositionInstruction_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   return v2;
@@ -1820,39 +1919,39 @@ uint64_t AVVideoComposition.Configuration.instructions.getter()
 void key path getter for AVVideoComposition.Configuration.instructions : AVVideoComposition.Configuration(id *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = [*a1 instructions];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd, &_sSo29AVVideoCompositionInstruction_pMR);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   *a2 = v4;
 }
 
-void AVVideoComposition.Configuration.instructions.setter()
+void AVVideoComposition.Configuration.instructions.setter(uint64_t a1)
 {
   isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-  v2 = *v0;
+  v3 = *v1;
   if ((isUniquelyReferenced_nonNull & 1) == 0)
   {
-    [*v0 mutableCopy];
+    [*v1 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
-    v2 = v4;
+    v3 = v5;
 
-    *v0 = v4;
+    *v1 = v5;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd, &_sSo29AVVideoCompositionInstruction_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v2 setInstructions_];
+  [v3 setInstructions_];
 }
 
-uint64_t (*AVVideoComposition.Configuration.instructions.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*AVVideoComposition.Configuration.instructions.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = [*v1 instructions];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd, &_sSo29AVVideoCompositionInstruction_pMR);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   *a1 = v4;
@@ -1867,7 +1966,7 @@ void key path setter for AVVideoComposition.Configuration.outputBufferDescriptio
     [*a2 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     *a2 = v5;
@@ -1884,7 +1983,7 @@ uint64_t AVVideoComposition.Configuration.outputBufferDescription.setter(void *a
     [*v1 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     *v1 = v5;
@@ -1928,7 +2027,7 @@ void AVVideoComposition.Configuration.outputBufferDescription.modify(uint64_t a1
       [v6 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
       swift_dynamicCast();
       v8 = v2[5];
 
@@ -1949,7 +2048,7 @@ void AVVideoComposition.Configuration.outputBufferDescription.modify(uint64_t a1
       [v10 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
       swift_dynamicCast();
       v12 = v2[5];
 
@@ -1963,25 +2062,25 @@ void AVVideoComposition.Configuration.outputBufferDescription.modify(uint64_t a1
   free(v2);
 }
 
-size_t AVVideoComposition.Configuration.spatialVideoConfigurations.getter()
+void *AVVideoComposition.Configuration.spatialVideoConfigurations.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
-  (MEMORY[0x1EEE9AC00])();
-  v35 = &v34 - v1;
-  v2 = type metadata accessor for AVSpatialVideoConfiguration();
-  v40 = *(v2 - 1);
-  v3 = (MEMORY[0x1EEE9AC00])();
-  v5 = &v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v34 - v6;
-  v8 = [*v0 spatialVideoConfigurations];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVSpatialVideoConfiguration);
-  v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
+  MEMORY[0x1EEE9AC00](v1 - 8);
+  v36 = &v35 - v2;
+  v3 = type metadata accessor for AVSpatialVideoConfiguration(0);
+  v41 = *(v3 - 1);
+  v4 = MEMORY[0x1EEE9AC00](v3);
+  v6 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v8 = &v35 - v7;
+  v9 = [*v0 spatialVideoConfigurations];
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVSpatialVideoConfiguration, 0x1E6988150);
+  v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (!(v9 >> 62))
+  if (!(v10 >> 62))
   {
-    v10 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v10)
+    v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v11)
     {
       goto LABEL_3;
     }
@@ -1991,118 +2090,118 @@ LABEL_25:
     return MEMORY[0x1E69E7CC0];
   }
 
-  if (v9 < 0)
+  if (v10 < 0)
   {
-    v33 = v9;
+    v34 = v10;
   }
 
   else
   {
-    v33 = v9 & 0xFFFFFFFFFFFFFF8;
+    v34 = v10 & 0xFFFFFFFFFFFFFF8;
   }
 
-  v10 = MEMORY[0x1CCA86B70](v33);
-  if (!v10)
+  v11 = MEMORY[0x1CCA86B70](v34);
+  if (!v11)
   {
     goto LABEL_25;
   }
 
 LABEL_3:
-  v41 = MEMORY[0x1E69E7CC0];
-  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v10 & ~(v10 >> 63), 0);
-  if ((v10 & 0x8000000000000000) == 0)
+  v42 = MEMORY[0x1E69E7CC0];
+  result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11 & ~(v11 >> 63), 0);
+  if ((v11 & 0x8000000000000000) == 0)
   {
-    v12 = 0;
-    v13 = v41;
-    v36 = v9 & 0xC000000000000001;
-    v37 = v10;
-    v38 = v9;
-    v39 = v7;
+    v13 = 0;
+    v14 = v42;
+    v37 = v10 & 0xC000000000000001;
+    v38 = v11;
+    v39 = v10;
+    v40 = v8;
     do
     {
-      if (v36)
+      if (v37)
       {
-        v14 = MEMORY[0x1CCA86AE0](v12, v9);
+        v15 = MEMORY[0x1CCA86AE0](v13, v10);
       }
 
       else
       {
-        v14 = *(v9 + 8 * v12 + 32);
+        v15 = *(v10 + 8 * v13 + 32);
       }
 
-      v15 = v14;
-      v16 = type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection();
-      (*(*(v16 - 8) + 56))(v5, 1, 1, v16);
-      v17 = &v5[v2[5]];
-      *v17 = 0;
-      v17[4] = 1;
-      v18 = &v5[v2[6]];
+      v16 = v15;
+      v17 = type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection();
+      (*(*(v17 - 8) + 56))(v6, 1, 1, v17);
+      v18 = &v6[v3[5]];
       *v18 = 0;
       v18[4] = 1;
-      v19 = &v5[v2[7]];
+      v19 = &v6[v3[6]];
       *v19 = 0;
       v19[4] = 1;
-      if ([v15 cameraCalibrationDataLensCollection])
+      v20 = &v6[v3[7]];
+      *v20 = 0;
+      v20[4] = 1;
+      if ([v16 cameraCalibrationDataLensCollection])
       {
-        v20 = v35;
+        v21 = v36;
         CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection.init(rawValue:)();
-        outlined assign with take of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v20, v5);
+        outlined assign with take of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v21, v6);
       }
 
-      v21 = [v15 horizontalFieldOfView];
-      if (v21)
+      v22 = [v16 horizontalFieldOfView];
+      if (v22)
       {
-        v22 = v21;
-        v23 = [v21 unsignedIntValue];
+        v23 = v22;
+        v24 = [v22 unsignedIntValue];
 
-        *v17 = v23;
-        v17[4] = 0;
-      }
-
-      v24 = [v15 cameraSystemBaseline];
-      if (v24)
-      {
-        v25 = v24;
-        v26 = [v24 unsignedIntValue];
-
-        *v18 = v26;
+        *v18 = v24;
         v18[4] = 0;
       }
 
-      v27 = [v15 disparityAdjustment];
-      v9 = v38;
-      if (v27)
+      v25 = [v16 cameraSystemBaseline];
+      if (v25)
       {
-        v28 = v27;
-        v29 = [v27 intValue];
+        v26 = v25;
+        v27 = [v25 unsignedIntValue];
 
-        *v19 = v29;
+        *v19 = v27;
         v19[4] = 0;
+      }
+
+      v28 = [v16 disparityAdjustment];
+      v10 = v39;
+      if (v28)
+      {
+        v29 = v28;
+        v30 = [v28 intValue];
+
+        *v20 = v30;
+        v20[4] = 0;
       }
 
       else
       {
       }
 
-      v30 = v39;
-      outlined init with take of AVSpatialVideoConfiguration(v5, v39);
-      v41 = v13;
-      v32 = *(v13 + 16);
-      v31 = *(v13 + 24);
-      if (v32 >= v31 >> 1)
+      v31 = v40;
+      outlined init with take of AVSpatialVideoConfiguration(v6, v40);
+      v42 = v14;
+      v33 = *(v14 + 16);
+      v32 = *(v14 + 24);
+      if (v33 >= v32 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v31 > 1, v32 + 1, 1);
-        v13 = v41;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
+        v14 = v42;
       }
 
-      ++v12;
-      *(v13 + 16) = v32 + 1;
-      outlined init with take of AVSpatialVideoConfiguration(v30, v13 + ((*(v40 + 80) + 32) & ~*(v40 + 80)) + *(v40 + 72) * v32);
+      ++v13;
+      *(v14 + 16) = v33 + 1;
+      outlined init with take of AVSpatialVideoConfiguration(v31, v14 + ((*(v41 + 80) + 32) & ~*(v41 + 80)) + *(v41 + 72) * v33);
     }
 
-    while (v37 != v12);
+    while (v38 != v13);
 
-    return v13;
+    return v14;
   }
 
   __break(1u);
@@ -2111,14 +2210,14 @@ LABEL_3:
 
 void AVVideoComposition.Configuration.spatialVideoConfigurations.setter(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = v30 - v4;
   v31 = type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection();
   v6 = *(v31 - 8);
   MEMORY[0x1EEE9AC00](v31);
   v35 = v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for AVSpatialVideoConfiguration();
+  v8 = type metadata accessor for AVSpatialVideoConfiguration(0);
   v9 = *(v8 - 1);
   MEMORY[0x1EEE9AC00](v8);
   v11 = v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2129,7 +2228,7 @@ void AVVideoComposition.Configuration.spatialVideoConfigurations.setter(uint64_t
     [*v1 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
     v13 = v36;
 
@@ -2155,10 +2254,10 @@ void AVVideoComposition.Configuration.spatialVideoConfigurations.setter(uint64_t
     {
       outlined init with copy of AVSpatialVideoConfiguration(v16, v11);
       v20 = [objc_allocWithZone(MEMORY[0x1E6988150]) init];
-      outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v11, v5, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+      outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v11, v5, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
       if ((*v17)(v5, 1, v19) == 1)
       {
-        outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v5, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+        outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v5, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
       }
 
       else
@@ -2169,7 +2268,6 @@ void AVVideoComposition.Configuration.spatialVideoConfigurations.setter(uint64_t
         if (swift_dynamicCastObjCClass())
         {
           v36 = 0;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
           static Array._conditionallyBridgeFromObjectiveC(_:result:)();
 
           if (v36)
@@ -2235,13 +2333,13 @@ void AVVideoComposition.Configuration.spatialVideoConfigurations.setter(uint64_t
   {
   }
 
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVSpatialVideoConfiguration);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVSpatialVideoConfiguration, 0x1E6988150);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v13 setSpatialVideoConfigurations_];
 }
 
-uint64_t (*AVVideoComposition.Configuration.spatialVideoConfigurations.modify(size_t *a1))(uint64_t *a1, char a2)
+uint64_t (*AVVideoComposition.Configuration.spatialVideoConfigurations.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   *a1 = AVVideoComposition.Configuration.spatialVideoConfigurations.getter();
@@ -2295,7 +2393,7 @@ void AVVideoComposition.Configuration.perFrameHDRDisplayMetadataPolicy.modify(ui
       [v8 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
       swift_dynamicCast();
       v10 = v2[5];
 
@@ -2318,7 +2416,7 @@ void AVVideoComposition.Configuration.perFrameHDRDisplayMetadataPolicy.modify(ui
       [v12 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
       swift_dynamicCast();
       v14 = v2[5];
 
@@ -2342,7 +2440,7 @@ id key path setter for AVVideoComposition.Configuration.renderScale : AVVideoCom
     [v6 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     v6 = v8;
@@ -2362,7 +2460,7 @@ id AVVideoComposition.Configuration.renderScale.setter(float a1)
     [v5 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     v5 = v7;
@@ -2406,7 +2504,7 @@ void AVVideoComposition.Configuration.renderScale.modify(uint64_t a1)
     [v6 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
     v8 = v1[4];
 
@@ -2431,7 +2529,7 @@ id key path setter for AVVideoComposition.Configuration.renderSize : AVVideoComp
     [v6 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     v6 = v8;
@@ -2450,7 +2548,7 @@ id AVVideoComposition.Configuration.renderSize.setter(double a1, double a2)
     [v6 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     v6 = v8;
@@ -2495,7 +2593,7 @@ void AVVideoComposition.Configuration.renderSize.modify(uint64_t a1)
     [v6 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
     v8 = v1[6];
 
@@ -2524,28 +2622,28 @@ void key path getter for AVVideoComposition.Configuration.sourceSampleDataTrackI
   *a2 = v4;
 }
 
-void AVVideoComposition.Configuration.sourceSampleDataTrackIDs.setter()
+void AVVideoComposition.Configuration.sourceSampleDataTrackIDs.setter(uint64_t a1)
 {
   isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-  v2 = *v0;
+  v3 = *v1;
   if ((isUniquelyReferenced_nonNull & 1) == 0)
   {
-    [*v0 mutableCopy];
+    [*v1 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
-    v2 = v4;
+    v3 = v5;
 
-    *v0 = v4;
+    *v1 = v5;
   }
 
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v2 set:isa sourceSampleDataTrackIDs:?];
+  [v3 set:isa sourceSampleDataTrackIDs:?];
 }
 
-uint64_t (*AVVideoComposition.Configuration.sourceSampleDataTrackIDs.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*AVVideoComposition.Configuration.sourceSampleDataTrackIDs.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
   v3 = [*v1 _sourceSampleDataTrackIDs];
@@ -2604,7 +2702,7 @@ uint64_t AVVideoComposition.Configuration.init(for:prototypeInstruction:)(uint64
   v5[30] = v6;
   v5[31] = v8;
 
-  return MEMORY[0x1EEE6DFA0](AVVideoComposition.Configuration.init(for:prototypeInstruction:), v6, v8);
+  return MEMORY[0x1EEE6DFA0](AVVideoComposition.Configuration.init(for:prototypeInstruction:), v6);
 }
 
 uint64_t AVVideoComposition.Configuration.init(for:prototypeInstruction:)()
@@ -2623,7 +2721,7 @@ uint64_t AVVideoComposition.Configuration.init(for:prototypeInstruction:)()
     v1[15] = v3;
     v1[11] = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
     v9 = swift_continuation_init();
-    v1[25] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo25AVMutableVideoCompositionCs5Error_pGMd);
+    v1[25] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo25AVMutableVideoCompositionCs5Error_pGMd, &_sSccySo25AVMutableVideoCompositionCs5Error_pGMR);
     v1[18] = MEMORY[0x1E69E9820];
     v1[19] = 1107296256;
     v1[20] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned AVMutableVideoComposition?, @unowned NSError?) -> () with result type AVMutableVideoComposition;
@@ -2640,7 +2738,7 @@ uint64_t AVVideoComposition.Configuration.init(for:prototypeInstruction:)()
     v1[7] = v3;
     v1[3] = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
     v11 = swift_continuation_init();
-    v1[25] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo25AVMutableVideoCompositionCs5Error_pGMd);
+    v1[25] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo25AVMutableVideoCompositionCs5Error_pGMd, &_sSccySo25AVMutableVideoCompositionCs5Error_pGMR);
     v1[18] = MEMORY[0x1E69E9820];
     v1[19] = 1107296256;
     v1[20] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned AVMutableVideoComposition?, @unowned NSError?) -> () with result type AVMutableVideoComposition;
@@ -2656,38 +2754,36 @@ uint64_t AVVideoComposition.Configuration.init(for:prototypeInstruction:)()
   v1 = *v0;
   v2 = *(*v0 + 112);
   *(*v0 + 256) = v2;
-  v3 = *(v1 + 248);
-  v4 = *(v1 + 240);
+  v3 = *(v1 + 240);
   if (v2)
   {
-    v5 = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
+    v4 = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
   }
 
   else
   {
-    v5 = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
+    v4 = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v5, v4, v3);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
 {
   v1 = *v0;
   v2 = *(*v0 + 48);
   *(*v0 + 264) = v2;
-  v3 = *(v1 + 248);
-  v4 = *(v1 + 240);
+  v3 = *(v1 + 240);
   if (v2)
   {
-    v5 = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
+    v4 = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
   }
 
   else
   {
-    v5 = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
+    v4 = AVVideoComposition.Configuration.init(for:prototypeInstruction:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v5, v4, v3);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
 {
@@ -2707,23 +2803,24 @@ uint64_t AVVideoComposition.Configuration.init(for:prototypeInstruction:)()
   return v1();
 }
 
+uint64_t AVVideoComposition.Configuration.init(for:prototypeInstruction:)(uint64_t a1)
 {
-  v1 = v0[28];
-  v2 = v0[29];
+  v2 = v1[28];
+  v3 = v1[29];
   swift_willThrow();
 
-  v3 = v0[1];
+  v4 = v1[1];
 
-  return v3();
+  return v4();
 }
 
 {
-  v1 = *(v0 + 224);
+  v2 = *(v1 + 224);
   swift_willThrow();
 
-  v2 = *(v0 + 8);
+  v3 = *(v1 + 8);
 
-  return v2();
+  return v3();
 }
 
 uint64_t @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned AVVideoComposition?, @unowned NSError?) -> () with result type AVVideoComposition(uint64_t a1, void *a2, void *a3)
@@ -2732,7 +2829,7 @@ uint64_t @objc completion handler block implementation for @escaping @callee_uno
   v6 = *v5;
   if (a3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     v7 = swift_allocError();
     *v8 = a3;
     v9 = a3;
@@ -2764,14 +2861,14 @@ void AVVideoComposition.Configuration.init(animationTool:colorPrimaries:colorTra
   v63 = a6;
   v74 = a4;
   v68 = a9;
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   MEMORY[0x1EEE9AC00](v30 - 8);
   v32 = &v62 - v31;
   v33 = type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection();
   v65 = *(v33 - 8);
   MEMORY[0x1EEE9AC00](v33);
   v76 = &v62 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = type metadata accessor for AVSpatialVideoConfiguration();
+  v35 = type metadata accessor for AVSpatialVideoConfiguration(0);
   v64 = *(v35 - 1);
   MEMORY[0x1EEE9AC00](v35);
   v37 = &v62 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2837,7 +2934,7 @@ void AVVideoComposition.Configuration.init(animationTool:colorPrimaries:colorTra
   v80 = a15;
   v81 = a16;
   [v42 setFrameDuration_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo29AVVideoCompositionInstruction_pMd, &_sSo29AVVideoCompositionInstruction_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v42 setInstructions_];
@@ -2870,13 +2967,13 @@ void AVVideoComposition.Configuration.init(animationTool:colorPrimaries:colorTra
     {
       outlined init with copy of AVSpatialVideoConfiguration(v48, v37);
       v51 = [objc_allocWithZone(MEMORY[0x1E6988150]) init];
-      outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v37, v32, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+      outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v37, v32, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
       if ((*v49)(v32, 1, v50) != 1)
       {
         break;
       }
 
-      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v32, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v32, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
 LABEL_24:
       v54 = &v37[v35[5]];
       if ((v54[1] & 1) == 0)
@@ -2917,7 +3014,6 @@ LABEL_24:
     if (swift_dynamicCastObjCClass())
     {
       v77 = 0;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
       static Array._conditionallyBridgeFromObjectiveC(_:result:)();
 
       if (v77)
@@ -2943,7 +3039,7 @@ LABEL_23:
 
 LABEL_30:
 
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVSpatialVideoConfiguration);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVSpatialVideoConfiguration, 0x1E6988150);
   v60 = Array._bridgeToObjectiveC()().super.isa;
 
   v61 = v71;
@@ -2967,7 +3063,7 @@ id AVVideoCompositionInstruction.Configuration.backgroundColor.getter()
   return v1;
 }
 
-uint64_t AVVideoCompositionInstruction.Configuration.layerInstructions.setter(uint64_t a1)
+uint64_t AVVideoCompositionInstruction.Configuration.layerInstructions.setter(unint64_t a1)
 {
   v2 = v1;
   v3 = a1;
@@ -2988,7 +3084,7 @@ LABEL_14:
     return result;
   }
 
-  if (a1 >= 0)
+  if ((a1 & 0x8000000000000000) == 0)
   {
     a1 &= 0xFFFFFFFFFFFFFF8uLL;
   }
@@ -3024,7 +3120,7 @@ LABEL_3:
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
 
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction, 0x1E6988070);
       swift_dynamicCast();
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
@@ -3043,7 +3139,7 @@ LABEL_3:
   return result;
 }
 
-uint64_t (*AVVideoCompositionInstruction.Configuration.layerInstructions.modify(void *a1))(uint64_t *a1, char a2)
+uint64_t (*AVVideoCompositionInstruction.Configuration.layerInstructions.modify(void *a1))(unint64_t *a1, char a2)
 {
   *a1 = *(v1 + 16);
   a1[1] = v1;
@@ -3051,7 +3147,7 @@ uint64_t (*AVVideoCompositionInstruction.Configuration.layerInstructions.modify(
   return AVVideoCompositionInstruction.Configuration.layerInstructions.modify;
 }
 
-uint64_t AVVideoCompositionInstruction.Configuration.layerInstructions.modify(uint64_t *a1, char a2)
+uint64_t AVVideoCompositionInstruction.Configuration.layerInstructions.modify(unint64_t *a1, char a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -3088,7 +3184,7 @@ __n128 AVVideoCompositionInstruction.Configuration.timeRange.setter(uint64_t a1)
   return result;
 }
 
-uint64_t AVVideoCompositionInstruction.Configuration.init(backgroundColor:enablePostProcessing:layerInstructions:requiredSourceSampleDataTrackIDs:timeRange:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X4>, uint64_t a6@<X8>)
+uint64_t AVVideoCompositionInstruction.Configuration.init(backgroundColor:enablePostProcessing:layerInstructions:requiredSourceSampleDataTrackIDs:timeRange:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, unint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X4>, uint64_t a6@<X8>)
 {
   v6 = MEMORY[0x1E69E7CC0];
   *a6 = a1;
@@ -3114,7 +3210,7 @@ id AVVideoCompositionInstruction.init(configuration:)(__int128 *a1)
   v3 = [objc_allocWithZone(MEMORY[0x1E6988068]) init];
   [v3 setBackgroundColor_];
   [v3 setEnablePostProcessing_];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVVideoCompositionLayerInstruction);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVVideoCompositionLayerInstruction, 0x1E6988180);
 
   isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -3140,7 +3236,7 @@ id AVVideoCompositionInstruction.init(configuration:)(__int128 *a1)
     while (v5);
   }
 
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
   v8 = Array._bridgeToObjectiveC()().super.isa;
 
   [v3 setRequiredSourceSampleDataTrackIDs_];
@@ -3155,43 +3251,43 @@ id AVVideoCompositionInstruction.init(configuration:)(__int128 *a1)
   return v9;
 }
 
-id key path setter for AVVideoComposition.Configuration.sourceTrackIDForFrameTiming : AVVideoComposition.Configuration(unsigned int *a1, id *a2, uint64_t a3, uint64_t a4, unint64_t *a5, uint64_t a6, SEL *a7)
+id key path setter for AVVideoComposition.Configuration.sourceTrackIDForFrameTiming : AVVideoComposition.Configuration(unsigned int *a1, id *a2, uint64_t a3, uint64_t a4, unint64_t *a5, void *a6, SEL *a7)
 {
-  v10 = *a1;
+  v11 = *a1;
   isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-  v12 = *a2;
+  v13 = *a2;
   if ((isUniquelyReferenced_nonNull & 1) == 0)
   {
-    [v12 mutableCopy];
+    [v13 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, a5);
+    type metadata accessor for NSValue(0, a5, a6);
     swift_dynamicCast();
 
-    v12 = v14;
-    *a2 = v14;
+    v13 = v15;
+    *a2 = v15;
   }
 
-  return [v12 *a7];
+  return [v13 *a7];
 }
 
-id AVVideoComposition.Configuration.sourceTrackIDForFrameTiming.setter(uint64_t a1, unint64_t *a2, uint64_t a3, SEL *a4)
+id AVVideoComposition.Configuration.sourceTrackIDForFrameTiming.setter(uint64_t a1, unint64_t *a2, void *a3, SEL *a4)
 {
   isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-  v9 = *v4;
+  v10 = *v4;
   if ((isUniquelyReferenced_nonNull & 1) == 0)
   {
-    [v9 mutableCopy];
+    [v10 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, a2);
+    type metadata accessor for NSValue(0, a2, a3);
     swift_dynamicCast();
 
-    v9 = v11;
-    *v4 = v11;
+    v10 = v12;
+    *v4 = v12;
   }
 
-  return [v9 *a4];
+  return [v10 *a4];
 }
 
 void (*AVVideoCompositionLayerInstruction.Configuration.trackID.modify(uint64_t *a1))(uint64_t a1, uint64_t a2)
@@ -3212,30 +3308,30 @@ void (*AVVideoCompositionLayerInstruction.Configuration.trackID.modify(uint64_t 
   return AVVideoCompositionLayerInstruction.Configuration.trackID.modify;
 }
 
-void AVVideoComposition.Configuration.sourceTrackIDForFrameTiming.modify(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4, SEL *a5)
+void AVVideoComposition.Configuration.sourceTrackIDForFrameTiming.modify(uint64_t a1, uint64_t a2, unint64_t *a3, void *a4, SEL *a5)
 {
-  v7 = *a1;
-  v8 = *(*a1 + 48);
-  v9 = *(*a1 + 40);
+  v8 = *a1;
+  v9 = *(*a1 + 48);
+  v10 = *(*a1 + 40);
   isUniquelyReferenced_nonNull = swift_isUniquelyReferenced_nonNull();
-  v11 = *v9;
+  v12 = *v10;
   if ((isUniquelyReferenced_nonNull & 1) == 0)
   {
-    v12 = v7[5];
-    [v11 mutableCopy];
+    v13 = v8[5];
+    [v12 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, a3);
+    type metadata accessor for NSValue(0, a3, a4);
     swift_dynamicCast();
-    v13 = v7[4];
+    v14 = v8[4];
 
-    v11 = v13;
-    *v12 = v13;
+    v12 = v14;
+    *v13 = v14;
   }
 
-  [v11 *a5];
+  [v12 *a5];
 
-  free(v7);
+  free(v8);
 }
 
 id AVVideoCompositionLayerInstruction.Configuration.init(trackID:)@<X0>(uint64_t a1@<X0>, id *a2@<X8>)
@@ -3247,7 +3343,7 @@ id AVVideoCompositionLayerInstruction.Configuration.init(trackID:)@<X0>(uint64_t
     [v4 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction, 0x1E6988070);
     swift_dynamicCast();
     v4 = v6;
 
@@ -3418,7 +3514,7 @@ Swift::Void __swiftcall AVVideoCompositionLayerInstruction.Configuration.setOpac
     [v9 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction, 0x1E6988070);
     swift_dynamicCast();
 
     v9 = v10;
@@ -3447,7 +3543,7 @@ id AVVideoCompositionLayerInstruction.Configuration.addOpacityRamp(_:)(__int128 
     [v6 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction, 0x1E6988070);
     swift_dynamicCast();
 
     v6 = v9;
@@ -3476,7 +3572,7 @@ Swift::Void __swiftcall AVVideoCompositionLayerInstruction.Configuration.setTran
     [v9 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction, 0x1E6988070);
     swift_dynamicCast();
 
     v9 = v12[0];
@@ -3515,7 +3611,7 @@ id AVVideoCompositionLayerInstruction.Configuration.addTransformRamp(_:)(__int12
     [v9 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction, 0x1E6988070);
     swift_dynamicCast();
 
     v9 = *&v16[0];
@@ -3552,7 +3648,7 @@ Swift::Void __swiftcall AVVideoCompositionLayerInstruction.Configuration.setCrop
     [v11 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction, 0x1E6988070);
     swift_dynamicCast();
 
     v11 = v12;
@@ -3586,7 +3682,7 @@ id AVVideoCompositionLayerInstruction.Configuration.addCropRectangleRamp(_:)(dou
     [v12 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoCompositionLayerInstruction, 0x1E6988070);
     swift_dynamicCast();
 
     v12 = v15;
@@ -3798,12 +3894,12 @@ _OWORD *AVVideoCompositionLayerInstruction.OpacityRamp.init(timeRange:start:end:
   return result;
 }
 
-BOOL static AVVideoCompositionLayerInstruction.OpacityRamp.== infix(_:_:)(uint64_t a1, uint64_t a2)
+BOOL static AVVideoCompositionLayerInstruction.OpacityRamp.== infix(_:_:)(uint64_t a1, float *a2)
 {
   v3 = *(a1 + 48);
   v2 = *(a1 + 52);
-  v5 = *(a2 + 48);
-  v4 = *(a2 + 52);
+  v5 = a2[12];
+  v4 = a2[13];
   v6 = static CMTimeRange.== infix(_:_:)();
   result = 0;
   if ((v6 & 1) != 0 && v3 == v5)
@@ -3814,12 +3910,12 @@ BOOL static AVVideoCompositionLayerInstruction.OpacityRamp.== infix(_:_:)(uint64
   return result;
 }
 
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance AVVideoCompositionLayerInstruction.OpacityRamp(uint64_t a1, uint64_t a2)
+BOOL protocol witness for static Equatable.== infix(_:_:) in conformance AVVideoCompositionLayerInstruction.OpacityRamp(uint64_t a1, float *a2)
 {
   v3 = *(a1 + 48);
   v2 = *(a1 + 52);
-  v5 = *(a2 + 48);
-  v4 = *(a2 + 52);
+  v5 = a2[12];
+  v4 = a2[13];
   v6 = static CMTimeRange.== infix(_:_:)();
   result = 0;
   if ((v6 & 1) != 0 && v3 == v5)
@@ -3912,34 +4008,34 @@ __n128 AVVideoCompositionLayerInstruction.TransformRamp.init(timeRange:start:end
   return result;
 }
 
-uint64_t static AVVideoCompositionLayerInstruction.TransformRamp.== infix(_:_:)()
+uint64_t static AVVideoCompositionLayerInstruction.TransformRamp.== infix(_:_:)(_OWORD *a1, __int128 *a2)
 {
   if (static CMTimeRange.== infix(_:_:)() & 1) != 0 && (static CGAffineTransform.== infix(_:_:)())
   {
-    v0 = static CGAffineTransform.== infix(_:_:)();
+    v2 = static CGAffineTransform.== infix(_:_:)();
   }
 
   else
   {
-    v0 = 0;
+    v2 = 0;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AVVideoCompositionLayerInstruction.TransformRamp()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AVVideoCompositionLayerInstruction.TransformRamp(_OWORD *a1, __int128 *a2)
 {
   if (static CMTimeRange.== infix(_:_:)() & 1) != 0 && (static CGAffineTransform.== infix(_:_:)())
   {
-    v0 = static CGAffineTransform.== infix(_:_:)();
+    v2 = static CGAffineTransform.== infix(_:_:)();
   }
 
   else
   {
-    v0 = 0;
+    v2 = 0;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
 uint64_t AVVideoCompositionCoreAnimationTool.Configuration.layers.setter(uint64_t a1)
@@ -3958,7 +4054,7 @@ uint64_t AVVideoCompositionCoreAnimationTool.Configuration.init(postProcessingAs
 
 double AVVideoCompositionCoreAnimationTool.Configuration.init(postProcessingAsVideoLayer:containingLayer:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v6 = swift_allocObject();
   *&result = 1;
   *(v6 + 16) = xmmword_1C9390C20;
@@ -3968,11 +4064,11 @@ double AVVideoCompositionCoreAnimationTool.Configuration.init(postProcessingAsVi
   return result;
 }
 
-id AVVideoCompositionCoreAnimationTool.init(configuration:)(uint64_t a1)
+id AVVideoCompositionCoreAnimationTool.init(configuration:)(uint64_t *a1)
 {
-  v1 = *(a1 + 8);
+  v1 = a1[1];
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for CALayer);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for CALayer, 0x1E6979398);
   v3 = v1;
 
   isa = Array._bridgeToObjectiveC()().super.isa;
@@ -4004,7 +4100,7 @@ uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_()
 
 uint64_t outlined init with take of AVSpatialVideoConfiguration(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AVSpatialVideoConfiguration();
+  v4 = type metadata accessor for AVSpatialVideoConfiguration(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -4025,7 +4121,7 @@ id specialized AVVideoComposition.Configuration.animationTool.setter(uint64_t a1
     [v4 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     v4 = v6;
@@ -4037,14 +4133,14 @@ id specialized AVVideoComposition.Configuration.animationTool.setter(uint64_t a1
 
 uint64_t outlined init with copy of AVSpatialVideoConfiguration(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AVSpatialVideoConfiguration();
+  v4 = type metadata accessor for AVSpatialVideoConfiguration(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of AVSpatialVideoConfiguration(uint64_t a1)
 {
-  v2 = type metadata accessor for AVSpatialVideoConfiguration();
+  v2 = type metadata accessor for AVSpatialVideoConfiguration(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -4058,7 +4154,7 @@ id specialized AVVideoComposition.Configuration.perFrameHDRDisplayMetadataPolicy
     [v4 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVMutableVideoComposition, 0x1E6988060);
     swift_dynamicCast();
 
     v4 = v6;
@@ -4545,17 +4641,17 @@ uint64_t partial apply for closure #1 in closure #1 in AVVideoComposition.init(a
   return closure #1 in closure #1 in AVVideoComposition.init(applyingFiltersTo:applier:)(v9, v10, a1, v14, v4, v5, v6, v7, v8, v11);
 }
 
-uint64_t outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -4602,7 +4698,7 @@ uint64_t untilReadyForMoreMediaData(for:)(uint64_t a1, uint64_t a2, uint64_t a3)
   v3[6] = v4;
   v3[7] = v6;
 
-  return MEMORY[0x1EEE6DFA0](untilReadyForMoreMediaData(for:), v4, v6);
+  return MEMORY[0x1EEE6DFA0](untilReadyForMoreMediaData(for:), v4);
 }
 
 uint64_t untilReadyForMoreMediaData(for:)()
@@ -4622,17 +4718,19 @@ uint64_t untilReadyForMoreMediaData(for:)()
   v0[10] = v4;
   *v4 = v0;
   v4[1] = untilReadyForMoreMediaData(for:);
+  v5 = v0[3];
+  v6 = v0[4];
+  v7 = MEMORY[0x1E69E7CA8] + 8;
 
-  return MEMORY[0x1EEE6DDE0]();
+  return MEMORY[0x1EEE6DDE0](v4, v5, v6, 0xD000000000000020, 0x80000001C9392500, partial apply for closure #1 in untilReadyForMoreMediaData(for:), v3, v7);
 }
 
 {
   v1 = *v0;
 
-  v2 = *(v1 + 56);
-  v3 = *(v1 + 48);
+  v2 = *(v1 + 48);
 
-  return MEMORY[0x1EEE6DFA0](untilReadyForMoreMediaData(for:), v3, v2);
+  return MEMORY[0x1EEE6DFA0](untilReadyForMoreMediaData(for:), v2);
 }
 
 {
@@ -4651,8 +4749,8 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo18AVAsset
 {
   v2[4] = a1;
   v2[5] = a2;
-  v3 = type metadata accessor for AVAssetWriterInput.PassDescriptions.Iterator();
-  v4 = lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(&lazy protocol witness table cache variable for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator, type metadata accessor for AVAssetWriterInput.PassDescriptions.Iterator);
+  v3 = type metadata accessor for AVAssetWriterInput.PassDescriptions.Iterator(0);
+  v4 = lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(&lazy protocol witness table cache variable for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator, type metadata accessor for AVAssetWriterInput.PassDescriptions.Iterator, &protocol conformance descriptor for AVAssetWriterInput.PassDescriptions.Iterator);
   v5 = swift_task_alloc();
   v2[6] = v5;
   *v5 = v2;
@@ -4672,16 +4770,14 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo18AVAsset
     {
       swift_getObjectType();
       v3 = dispatch thunk of Actor.unownedExecutor.getter();
-      v5 = v4;
     }
 
     else
     {
       v3 = 0;
-      v5 = 0;
     }
 
-    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo18AVAssetWriterInputC12AVFoundationE16PassDescriptions33_0DBEBA44EF5A78124CEEE30A91094244LLV8IteratorV_Tg5TY2_;
+    v4 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo18AVAssetWriterInputC12AVFoundationE16PassDescriptions33_0DBEBA44EF5A78124CEEE30A91094244LLV8IteratorV_Tg5TY2_;
   }
 
   else
@@ -4690,25 +4786,23 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo18AVAsset
     {
       swift_getObjectType();
       v3 = dispatch thunk of Actor.unownedExecutor.getter();
-      v5 = v7;
     }
 
     else
     {
       v3 = 0;
-      v5 = 0;
     }
 
-    v6 = AVMetrics.AsyncIterator.next();
+    v4 = AVMetrics.AsyncIterator.next();
   }
 
-  return MEMORY[0x1EEE6DFA0](v6, v3, v5);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
 uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo18AVAssetWriterInputC12AVFoundationE16PassDescriptions33_0DBEBA44EF5A78124CEEE30A91094244LLV8IteratorV_Tg5TY2_()
 {
   v0[3] = v0[7];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   swift_dynamicCast();
   swift_willThrowTypedImpl();
   v1 = v0[1];
@@ -4721,7 +4815,7 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlaye
   v2[3] = a1;
   v2[4] = a2;
   v3 = type metadata accessor for AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator(0);
-  v4 = lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(&lazy protocol witness table cache variable for type AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator and conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator, type metadata accessor for AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator);
+  v4 = lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(&lazy protocol witness table cache variable for type AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator and conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator, type metadata accessor for AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator, &protocol conformance descriptor for AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator);
   v5 = swift_task_alloc();
   v2[5] = v5;
   *v5 = v2;
@@ -4741,16 +4835,14 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlaye
     {
       swift_getObjectType();
       v3 = dispatch thunk of Actor.unownedExecutor.getter();
-      v5 = v4;
     }
 
     else
     {
       v3 = 0;
-      v5 = 0;
     }
 
-    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13PeriodicTimesV8IteratorV_Tg5TY2_;
+    v4 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13PeriodicTimesV8IteratorV_Tg5TY2_;
   }
 
   else
@@ -4759,19 +4851,17 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlaye
     {
       swift_getObjectType();
       v3 = dispatch thunk of Actor.unownedExecutor.getter();
-      v5 = v7;
     }
 
     else
     {
       v3 = 0;
-      v5 = 0;
     }
 
-    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13PeriodicTimesV8IteratorV_Tg5TY1_;
+    v4 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13PeriodicTimesV8IteratorV_Tg5TY1_;
   }
 
-  return MEMORY[0x1EEE6DFA0](v6, v3, v5);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
 uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13BoundaryTimesV8IteratorV_Tg5(uint64_t a1, uint64_t a2)
@@ -4779,7 +4869,7 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlaye
   v2[3] = a1;
   v2[4] = a2;
   v3 = type metadata accessor for AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator(0);
-  v4 = lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(&lazy protocol witness table cache variable for type AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator and conformance AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator, type metadata accessor for AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator);
+  v4 = lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(&lazy protocol witness table cache variable for type AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator and conformance AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator, type metadata accessor for AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator, &protocol conformance descriptor for AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator);
   v5 = swift_task_alloc();
   v2[5] = v5;
   *v5 = v2;
@@ -4799,16 +4889,14 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlaye
     {
       swift_getObjectType();
       v3 = dispatch thunk of Actor.unownedExecutor.getter();
-      v5 = v4;
     }
 
     else
     {
       v3 = 0;
-      v5 = 0;
     }
 
-    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13BoundaryTimesV8IteratorV_Tg5TY2_;
+    v4 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13BoundaryTimesV8IteratorV_Tg5TY2_;
   }
 
   else
@@ -4817,25 +4905,23 @@ uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlaye
     {
       swift_getObjectType();
       v3 = dispatch thunk of Actor.unownedExecutor.getter();
-      v5 = v7;
     }
 
     else
     {
       v3 = 0;
-      v5 = 0;
     }
 
-    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13BoundaryTimesV8IteratorV_Tg5TY1_;
+    v4 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13BoundaryTimesV8IteratorV_Tg5TY1_;
   }
 
-  return MEMORY[0x1EEE6DFA0](v6, v3, v5);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
 uint64_t _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13BoundaryTimesV8IteratorV_Tg5TY2_()
 {
   v0[2] = v0[6];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   swift_dynamicCast();
   swift_willThrowTypedImpl();
   v1 = v0[1];
@@ -4900,7 +4986,7 @@ unint64_t lazy protocol witness table accessor for type AVAssetWriterInput.PassD
   return result;
 }
 
-uint64_t type metadata accessor for AVAssetWriterInput.PassDescriptions.Iterator()
+uint64_t type metadata accessor for AVAssetWriterInput.PassDescriptions.Iterator(uint64_t a1)
 {
   result = type metadata singleton initialization cache for AVAssetWriterInput.PassDescriptions.Iterator;
   if (!type metadata singleton initialization cache for AVAssetWriterInput.PassDescriptions.Iterator)
@@ -4915,7 +5001,7 @@ void closure #1 in AVAssetWriterInput.PassDescriptions.Iterator.init(input:)(uin
 {
   v21 = a1;
   v22 = a2;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd, &_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMR);
   v2 = *(v20 - 8);
   v19 = *(v2 + 64);
   MEMORY[0x1EEE9AC00](v20);
@@ -4928,11 +5014,11 @@ void closure #1 in AVAssetWriterInput.PassDescriptions.Iterator.init(input:)(uin
   MEMORY[0x1EEE9AC00](v7);
   v8 = type metadata accessor for DispatchQoS();
   MEMORY[0x1EEE9AC00](v8 - 8);
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x1E69E7CC0];
-  lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x1E69E8030]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
+  lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x1E69E8030], MEMORY[0x1E69E8040]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v4 + 104))(v6, *MEMORY[0x1E69E8090], v17);
@@ -4960,7 +5046,7 @@ void closure #1 in AVAssetWriterInput.PassDescriptions.Iterator.init(input:)(uin
 
 void closure #1 in closure #1 in AVAssetWriterInput.PassDescriptions.Iterator.init(input:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo33AVAssetWriterInputPassDescriptionC__GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo33AVAssetWriterInputPassDescriptionC__GMd, &_sScS12ContinuationV11YieldResultOySo33AVAssetWriterInputPassDescriptionC__GMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v7 - v4;
@@ -4968,14 +5054,14 @@ void closure #1 in closure #1 in AVAssetWriterInput.PassDescriptions.Iterator.in
   if (v6)
   {
     v7[1] = v6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd, &_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMR);
     AsyncStream.Continuation.yield(_:)();
     (*(v3 + 8))(v5, v2);
   }
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd, &_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMR);
     AsyncStream.Continuation.finish()();
   }
 }
@@ -4992,7 +5078,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVAsse
   v3[4] = v2;
   v3[5] = a2;
   v3[3] = a1;
-  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetWriterInput.PassDescriptions.Iterator, 0, 0);
+  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetWriterInput.PassDescriptions.Iterator, 0);
 }
 
 uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetWriterInput.PassDescriptions.Iterator()
@@ -5008,7 +5094,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVAsse
   *(v2 + v3) = 1;
   v4 = swift_task_alloc();
   v0[6] = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMd, &_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMR);
   *v4 = v0;
   v4[1] = protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetWriterInput.PassDescriptions.Iterator;
 
@@ -5017,7 +5103,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVAsse
 
 {
 
-  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetWriterInput.PassDescriptions.Iterator, 0, 0);
+  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetWriterInput.PassDescriptions.Iterator, 0);
 }
 
 {
@@ -5053,19 +5139,19 @@ uint64_t _sSo18AVAssetWriterInputC12AVFoundationE16PassDescriptions33_0DBEBA44EF
 
 uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVAssetWriterInput.PassDescriptions@<X0>(uint64_t a1@<X8>)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo33AVAssetWriterInputPassDescriptionC__GMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo33AVAssetWriterInputPassDescriptionC__GMd, &_sScS12ContinuationV15BufferingPolicyOySo33AVAssetWriterInputPassDescriptionC__GMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v15[-v5];
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo33AVAssetWriterInputPassDescriptionCGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo33AVAssetWriterInputPassDescriptionCGMd, &_sScSySo33AVAssetWriterInputPassDescriptionCGMR);
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v15[-v9];
   v11 = *v1;
-  v12 = type metadata accessor for AVAssetWriterInput.PassDescriptions.Iterator();
+  v12 = type metadata accessor for AVAssetWriterInput.PassDescriptions.Iterator(0);
   *(a1 + *(v12 + 24)) = 0;
   *(a1 + *(v12 + 20)) = v11;
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVAssetWriterInputPassDescription);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVAssetWriterInputPassDescription, 0x1E6987F00);
   v16 = v11;
   (*(v4 + 104))(v6, *MEMORY[0x1E69E8650], v3);
   v13 = v11;
@@ -5077,7 +5163,7 @@ uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance A
 
 void partial apply for closure #1 in closure #1 in AVAssetWriterInput.PassDescriptions.Iterator.init(input:)()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd, &_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMR);
   v1 = *(v0 + 16);
 
   closure #1 in closure #1 in AVAssetWriterInput.PassDescriptions.Iterator.init(input:)(v1);
@@ -5090,7 +5176,7 @@ uint64_t block_copy_helper_3(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AVAssetWriterInput.PassDescriptions.Iterator and conformance AVAssetWriterInput.PassDescriptions.Iterator(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5105,7 +5191,7 @@ uint64_t lazy protocol witness table accessor for type AVAssetWriterInput.PassDe
 
 void closure #1 in untilReadyForMoreMediaData(for:)(uint64_t a1, void **a2, uint64_t a3, uint64_t a4)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, _sScCyyts5NeverOGMR);
   v9 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v11 = v16 - v10;
@@ -5141,7 +5227,7 @@ void closure #1 in closure #1 in untilReadyForMoreMediaData(for:)(id *a1, uint64
       os_unfair_lock_unlock((a3 + 16));
       if (v5 <= 1)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, _sScCyyts5NeverOGMR);
         CheckedContinuation.resume(returning:)();
       }
     }
@@ -5150,34 +5236,34 @@ void closure #1 in closure #1 in untilReadyForMoreMediaData(for:)(id *a1, uint64
 
 void partial apply for closure #1 in closure #1 in untilReadyForMoreMediaData(for:)(id *a1, uint64_t a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, _sScCyyts5NeverOGMR);
   v5 = *(v2 + 16);
 
   closure #1 in closure #1 in untilReadyForMoreMediaData(for:)(a1, a2, v5);
 }
 
-void type metadata completion function for AVAssetWriterInput.PassDescriptions.Iterator()
+void type metadata completion function for AVAssetWriterInput.PassDescriptions.Iterator(uint64_t a1)
 {
-  type metadata accessor for AsyncStream<AVAssetWriterInputPassDescription>.Iterator();
-  if (v0 <= 0x3F)
+  type metadata accessor for AsyncStream<AVAssetWriterInputPassDescription>.Iterator(319);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for NSValue(319, &lazy cache variable for type metadata for AVAssetWriterInput);
-    if (v1 <= 0x3F)
+    type metadata accessor for NSValue(319, &lazy cache variable for type metadata for AVAssetWriterInput, 0x1E6987EE0);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata accessor for AsyncStream<AVAssetWriterInputPassDescription>.Iterator()
+void type metadata accessor for AsyncStream<AVAssetWriterInputPassDescription>.Iterator(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for AsyncStream<AVAssetWriterInputPassDescription>.Iterator)
   {
-    type metadata accessor for NSValue(255, &lazy cache variable for type metadata for AVAssetWriterInputPassDescription);
-    v0 = type metadata accessor for AsyncStream.Iterator();
-    if (!v1)
+    type metadata accessor for NSValue(255, &lazy cache variable for type metadata for AVAssetWriterInputPassDescription, 0x1E6987F00);
+    v1 = type metadata accessor for AsyncStream.Iterator();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for AsyncStream<AVAssetWriterInputPassDescription>.Iterator);
+      atomic_store(v1, &lazy cache variable for type metadata for AsyncStream<AVAssetWriterInputPassDescription>.Iterator);
     }
   }
 }
@@ -5189,13 +5275,13 @@ uint64_t AVAnnotationSerializedData.jsonData.getter()
   return v1;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -5217,7 +5303,6 @@ id AVAnnotation.init(serializedData:)(uint64_t *a1)
   v4 = objc_allocWithZone(swift_getObjCClassFromMetadata());
   isa = Data._bridgeToObjectiveC()().super.isa;
   specialized _arrayForceCast<A, B>(_:)(v3);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
   v6 = Array._bridgeToObjectiveC()().super.isa;
 
   outlined consume of Data._Representation(v1, v2);
@@ -5254,8 +5339,7 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
     do
     {
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSs11AnyHashableVGMd);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSs11AnyHashableVGMd, &_sSDySSs11AnyHashableVGMR);
       swift_dynamicCast();
       v6 = *(v9 + 16);
       v5 = *(v9 + 24);
@@ -5310,13 +5394,13 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   return v2;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -5336,7 +5420,7 @@ void AVAnnotation.serialize()(uint64_t *a1@<X8>)
   v9 = v8;
 
   v12[0] = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSs11AnyHashableVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSs11AnyHashableVGMd, &_sSDySSs11AnyHashableVGMR);
   static Array._forceBridgeFromObjectiveC(_:result:)();
   v10 = v12[0];
   if (!v12[0])
@@ -5418,7 +5502,7 @@ LABEL_13:
 LABEL_10:
 
     v14 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSSo8NSNumberCGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSSo8NSNumberCGGMd, &_sSaySDySSSo8NSNumberCGGMR);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v14 initWithPaths_];
@@ -5428,7 +5512,7 @@ LABEL_10:
 uint64_t AVAnnotationPathRepresentation.paths.getter()
 {
   v1 = [v0 paths];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSSo8NSNumberCGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSSo8NSNumberCGGMd, &_sSaySDySSSo8NSNumberCGGMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v3 = *(v2 + 16);
@@ -5599,7 +5683,7 @@ LABEL_17:
   {
 
 LABEL_12:
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSSo8NSNumberCGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDySSSo8NSNumberCGGMd, &_sSaySDySSSo8NSNumberCGGMR);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v1 setPaths_];
@@ -6070,7 +6154,7 @@ uint64_t AVAsynchronousVideoCompositionRequest.sourceReadySampleBuffer(byTrackID
     v4 = 1;
   }
 
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd, &_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMR);
   v6 = *(*(v5 - 8) + 56);
 
   return v6(a2, v4, 1, v5);
@@ -6079,7 +6163,7 @@ uint64_t AVAsynchronousVideoCompositionRequest.sourceReadySampleBuffer(byTrackID
 uint64_t AVVideoCompositionRenderContext.makeMutablePixelBuffer()@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo20CVMutablePixelBufferVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo20CVMutablePixelBufferVSgMd, &_s9CoreVideo20CVMutablePixelBufferVSgMR);
   v5 = MEMORY[0x1EEE9AC00](v4 - 8);
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v5);
@@ -6113,11 +6197,11 @@ uint64_t AVVideoCompositionRenderContext.makeMutablePixelBuffer()@<X0>(uint64_t 
   return swift_willThrow();
 }
 
-void _sSo37AVAsynchronousVideoCompositionRequestC12AVFoundationE6finish25withComposedTaggedBuffersySay9CoreMedia21CMTaggedDynamicBufferVG_tFySayAF0mO0VGYTXEfU_TA()
+void _sSo37AVAsynchronousVideoCompositionRequestC12AVFoundationE6finish25withComposedTaggedBuffersySay9CoreMedia21CMTaggedDynamicBufferVG_tFySayAF0mO0VGYTXEfU_TA(uint64_t a1)
 {
-  v1 = *(v0 + 16);
-  v2 = Array<A>.taggedBufferGroup.getter();
-  [v1 finishWithComposedTaggedBufferGroup_];
+  v2 = *(v1 + 16);
+  v3 = Array<A>.taggedBufferGroup.getter();
+  [v2 finishWithComposedTaggedBufferGroup_];
 }
 
 void _sSo37AVAsynchronousVideoCompositionRequestC12AVFoundationE6attach_2toyAC09AVSpatialB13ConfigurationV_04CoreB020CVMutablePixelBufferVztKFySo11CVBufferRefaYTXEfU_TA(uint64_t a1)
@@ -6129,7 +6213,7 @@ void _sSo37AVAsynchronousVideoCompositionRequestC12AVFoundationE6attach_2toyAC09
 
 uint64_t outlined init with take of CVMutablePixelBuffer?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo20CVMutablePixelBufferVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo20CVMutablePixelBufferVSgMd, &_s9CoreVideo20CVMutablePixelBufferVSgMR);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -6139,7 +6223,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0gq5Tf4g_n(uint64_t a1
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
     v4 = a1 + 32;
 
@@ -6191,7 +6275,7 @@ LABEL_10:
 
 uint64_t outlined init with copy of (String, Any)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_yptMd, &_sSS_yptMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -6323,7 +6407,7 @@ uint64_t AVAssetWriterInput.PixelBufferReceiver.sourcePixelBufferAttributes.gett
   if (v4)
   {
     v5 = v4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd, &_ss8Sendable_pMR);
     v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
     MEMORY[0x1CCA865F0](v6);
@@ -6388,7 +6472,7 @@ uint64_t AVAssetWriterInput.PixelBufferReceiver.append(_:with:)(uint64_t a1, uin
   v7[9] = v8;
   v7[10] = v10;
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.PixelBufferReceiver.append(_:with:), v8, v10);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.PixelBufferReceiver.append(_:with:), v8);
 }
 
 uint64_t AVAssetWriterInput.PixelBufferReceiver.append(_:with:)()
@@ -6410,10 +6494,9 @@ uint64_t AVAssetWriterInput.PixelBufferReceiver.append(_:with:)()
   v1 = *v0;
   v2 = *(*v0 + 88);
 
-  v3 = *(v1 + 80);
-  v4 = *(v1 + 72);
+  v3 = *(v1 + 72);
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.PixelBufferReceiver.append(_:with:), v4, v3);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.PixelBufferReceiver.append(_:with:), v3);
 }
 
 {
@@ -6453,33 +6536,33 @@ LABEL_6:
   return v6();
 }
 
-uint64_t AVAssetWriterInput.PixelBufferReceiver.appendImmediately(_:with:)()
+uint64_t AVAssetWriterInput.PixelBufferReceiver.appendImmediately(_:with:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v1 = [*(v0 + 24) isReadyForMoreMediaData];
-  if (!v1)
+  v5 = [*(v4 + 24) isReadyForMoreMediaData];
+  if (!v5)
   {
     goto LABEL_7;
   }
 
-  MEMORY[0x1EEE9AC00](v1);
+  MEMORY[0x1EEE9AC00](v5);
   _s9CoreVideo21CVReadOnlyPixelBufferC010withUnsafeF0yxxSo11CVBufferRefaKYTXEKRi_zlF();
-  if ((v5 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v3 = *(v0 + 16);
-    if ([v3 error])
+    v7 = *(v4 + 16);
+    if ([v7 error])
     {
       swift_willThrow();
 
-      return v2 & 1;
+      return v6 & 1;
     }
 
 LABEL_7:
-    v2 = 0;
-    return v2 & 1;
+    v6 = 0;
+    return v6 & 1;
   }
 
-  v2 = 1;
-  return v2 & 1;
+  v6 = 1;
+  return v6 & 1;
 }
 
 id _sSo18AVAssetWriterInputC12AVFoundationE19PixelBufferReceiverC17appendImmediately_4withSb9CoreVideo010CVReadOnlyeF0C_So6CMTimeatKFSbSo11CVBufferRefaYTXEfU_TATm@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
@@ -6517,7 +6600,7 @@ void *AVAssetWriter.inputPixelBufferReceiver(for:pixelBufferAttributes:)(void *a
   v6 = *(v28 - 8);
   MEMORY[0x1EEE9AC00](v28);
   v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo31CVPixelBufferCreationAttributesVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo31CVPixelBufferCreationAttributesVSgMd, &_s9CoreVideo31CVPixelBufferCreationAttributesVSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v27 - v10;
   v12 = type metadata accessor for CVPixelBufferCreationAttributes();
@@ -6574,14 +6657,14 @@ void *AVAssetWriter.inputPixelBufferReceiver(for:pixelBufferAttributes:)(void *a
 
 uint64_t outlined init with copy of CVPixelBufferCreationAttributes?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo31CVPixelBufferCreationAttributesVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo31CVPixelBufferCreationAttributesVSgMd, &_s9CoreVideo31CVPixelBufferCreationAttributesVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined destroy of CVPixelBufferCreationAttributes?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo31CVPixelBufferCreationAttributesVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo31CVPixelBufferCreationAttributesVSgMd, &_s9CoreVideo31CVPixelBufferCreationAttributesVSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -6722,11 +6805,11 @@ unint64_t type metadata accessor for NSValue()
 uint64_t AVPlayerItemIntegratedTimeline.PeriodicTimes.makeAsyncIterator()@<X0>(uint64_t a1@<X8>)
 {
   v13[1] = a1;
-  v13[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMd);
+  v13[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMd, &_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMR);
   v2 = *(v13[0] - 8);
   MEMORY[0x1EEE9AC00](v13[0]);
   v4 = v13 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo6CMTimeaGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo6CMTimeaGMd, &_sScSySo6CMTimeaGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = v13 - v7;
@@ -6744,12 +6827,12 @@ uint64_t AVPlayerItemIntegratedTimeline.PeriodicTimes.makeAsyncIterator()@<X0>(u
   return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t closure #1 in AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.init(integratedTimeline:forInterval:)(uint64_t a1, void *a2, uint64_t a3, unint64_t a4, uint64_t (*a5)(uint64_t a1, uint64_t *a2))
+uint64_t closure #1 in AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.init(integratedTimeline:forInterval:)(uint64_t a1, void *a2, uint64_t a3, unint64_t a4, uint64_t (*a5)())
 {
   v22 = a5;
   v5 = a4;
   v9 = HIDWORD(a4);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7");
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
   v13 = &v21 - v12;
@@ -6782,11 +6865,11 @@ uint64_t closure #1 in closure #1 in AVPlayerItemIntegratedTimeline.PeriodicTime
   v8[1] = a1;
   v8[2] = a2;
   v8[3] = a3;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo6CMTimea__GMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo6CMTimea__GMd, &_sScS12ContinuationV11YieldResultOySo6CMTimea__GMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = v8 - v5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7");
   AsyncStream.Continuation.yield(_:)();
   return (*(v4 + 8))(v6, v3);
 }
@@ -6805,7 +6888,7 @@ uint64_t AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.next()()
 {
   v1 = swift_task_alloc();
   *(v0 + 16) = v1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd, &_sScS8IteratorVySo6CMTimea_GMR);
   *v1 = v0;
   v1[1] = AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.next();
 
@@ -6814,7 +6897,7 @@ uint64_t AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.next()()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.next(), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.next(), 0);
 }
 
 uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator(uint64_t a1)
@@ -6822,7 +6905,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVPlay
   *(v1 + 16) = a1;
   v2 = swift_task_alloc();
   *(v1 + 24) = v2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd, &_sScS8IteratorVySo6CMTimea_GMR);
   *v2 = v1;
   v2[1] = protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator;
 
@@ -6832,7 +6915,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVPlay
 uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator()
 {
 
-  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator, 0, 0);
+  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator, 0);
 }
 
 uint64_t _sSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13PeriodicTimesV8IteratorVScIACScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTW(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6850,11 +6933,11 @@ void protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVPla
 {
   v2 = v1;
   v13[1] = a1;
-  v13[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMd);
+  v13[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMd, &_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMR);
   v3 = *(v13[0] - 8);
   MEMORY[0x1EEE9AC00](v13[0]);
   v5 = v13 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo6CMTimeaGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo6CMTimeaGMd, &_sScSySo6CMTimeaGMR);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = v13 - v8;
@@ -6862,10 +6945,10 @@ void protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVPla
   v10 = v1[1];
   v12 = v2[3];
   type metadata accessor for CMTime(0);
-  v13[4] = v11;
-  v13[5] = v10;
-  v13[6] = v2[2];
-  v13[7] = v12;
+  v14 = v11;
+  v15 = v10;
+  v16 = v2[2];
+  v17 = v12;
   (*(v3 + 104))(v5, *MEMORY[0x1E69E8650], v13[0]);
   AsyncStream.init(_:bufferingPolicy:_:)();
   AsyncStream.makeAsyncIterator()();
@@ -6875,11 +6958,11 @@ void protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVPla
 uint64_t AVPlayerItemIntegratedTimeline.BoundaryTimes.makeAsyncIterator()@<X0>(uint64_t a1@<X8>)
 {
   v17 = a1;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMd, &_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMR);
   v2 = *(v16 - 8);
   MEMORY[0x1EEE9AC00](v16);
   v4 = v15 - v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo6CMTimeaGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo6CMTimeaGMd, &_sScSySo6CMTimeaGMR);
   v6 = *(v5 - 8);
   result = MEMORY[0x1EEE9AC00](v5);
   v9 = v15 - v8;
@@ -6912,7 +6995,7 @@ uint64_t AVPlayerItemIntegratedTimeline.BoundaryTimes.makeAsyncIterator()@<X0>(u
 
 uint64_t closure #1 in AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.init(integratedTimeline:forSegment:offsetsIntoSegment:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7");
   v9 = *(v8 - 8);
   v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
@@ -6947,21 +7030,21 @@ uint64_t closure #1 in AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.ini
 
 void closure #1 in closure #1 in AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.init(integratedTimeline:forSegment:offsetsIntoSegment:)(char a1, uint64_t a2, void *a3)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo6CMTimea__GMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo6CMTimea__GMd, &_sScS12ContinuationV11YieldResultOySo6CMTimea__GMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v9 - v7;
   if (a1)
   {
     [a3 currentTime];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7");
     AsyncStream.Continuation.yield(_:)();
     (*(v6 + 8))(v8, v5);
   }
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7");
     AsyncStream.Continuation.finish()();
   }
 }
@@ -6970,7 +7053,7 @@ uint64_t AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.next()()
 {
   v1 = swift_task_alloc();
   *(v0 + 16) = v1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd, &_sScS8IteratorVySo6CMTimea_GMR);
   *v1 = v0;
   v1[1] = AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.next();
 
@@ -6979,7 +7062,7 @@ uint64_t AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.next()()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.next(), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.next(), 0);
 }
 
 {
@@ -6991,7 +7074,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVPlay
   *(v1 + 16) = a1;
   v2 = swift_task_alloc();
   *(v1 + 24) = v2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd, &_sScS8IteratorVySo6CMTimea_GMR);
   *v2 = v1;
   v2[1] = protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator;
 
@@ -7001,7 +7084,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVPlay
 uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator()
 {
 
-  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator, 0, 0);
+  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator, 0);
 }
 
 {
@@ -7048,11 +7131,11 @@ void protocol witness for AsyncSequence.makeAsyncIterator() in conformance AVPla
 {
   v2 = v1;
   v20 = a1;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMd);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMd, &_sScS12ContinuationV15BufferingPolicyOySo6CMTimea__GMR);
   v3 = *(v18 - 8);
   MEMORY[0x1EEE9AC00](v18);
   v5 = &v17 - v4;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo6CMTimeaGMd);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo6CMTimeaGMd, &_sScSySo6CMTimeaGMR);
   v6 = *(v19 - 8);
   MEMORY[0x1EEE9AC00](v19);
   v8 = &v17 - v7;
@@ -7102,7 +7185,7 @@ uint64_t AVPlayerItemIntegratedTimeline.boundaryTimes(for:offsetsIntoSegment:)@<
   v6 = a1;
 }
 
-uint64_t lazy protocol witness table accessor for type AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator and conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator and conformance AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7115,7 +7198,7 @@ uint64_t lazy protocol witness table accessor for type AVPlayerItemIntegratedTim
   return result;
 }
 
-uint64_t type metadata accessor for AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -7185,15 +7268,15 @@ LABEL_8:
   return result;
 }
 
-void type metadata accessor for AsyncStream<CMTime>.Iterator()
+void type metadata accessor for AsyncStream<CMTime>.Iterator(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for AsyncStream<CMTime>.Iterator)
   {
     type metadata accessor for CMTime(255);
-    v0 = type metadata accessor for AsyncStream.Iterator();
-    if (!v1)
+    v1 = type metadata accessor for AsyncStream.Iterator();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for AsyncStream<CMTime>.Iterator);
+      atomic_store(v1, &lazy cache variable for type metadata for AsyncStream<CMTime>.Iterator);
     }
   }
 }
@@ -7258,7 +7341,7 @@ LABEL_8:
 
 uint64_t __swift_get_extra_inhabitant_indexTm(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd, &_sScS8IteratorVySo6CMTimea_GMR);
   v5 = *(*(v4 - 8) + 48);
 
   return v5(a1, a2, v4);
@@ -7266,16 +7349,16 @@ uint64_t __swift_get_extra_inhabitant_indexTm(uint64_t a1, uint64_t a2)
 
 uint64_t __swift_store_extra_inhabitant_indexTm(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo6CMTimea_GMd, &_sScS8IteratorVySo6CMTimea_GMR);
   v5 = *(*(v4 - 8) + 56);
 
   return v5(a1, a2, a2, v4);
 }
 
-void type metadata completion function for AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator()
+void type metadata completion function for AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator(uint64_t a1)
 {
-  type metadata accessor for AsyncStream<CMTime>.Iterator();
-  if (v0 <= 0x3F)
+  type metadata accessor for AsyncStream<CMTime>.Iterator(319);
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -7283,7 +7366,7 @@ void type metadata completion function for AVPlayerItemIntegratedTimeline.Period
 
 void partial apply for closure #1 in closure #1 in AVPlayerItemIntegratedTimeline.BoundaryTimes.Iterator.init(integratedTimeline:forSegment:offsetsIntoSegment:)(char a1)
 {
-  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd) - 8);
+  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7") - 8);
   v4 = (*(v3 + 80) + 16) & ~*(v3 + 80);
   v5 = *(v1 + ((*(v3 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8));
 
@@ -7299,7 +7382,7 @@ uint64_t block_copy_helper_5(uint64_t a1, uint64_t a2)
 
 uint64_t partial apply for closure #1 in closure #1 in AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.init(integratedTimeline:forInterval:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7");
 
   return closure #1 in closure #1 in AVPlayerItemIntegratedTimeline.PeriodicTimes.Iterator.init(integratedTimeline:forInterval:)(a1, a2, a3);
 }
@@ -7314,13 +7397,13 @@ uint64_t objectdestroy_32Tm()
 uint64_t AVCaptureSynchronizedDataCollection.makeIterator()@<X0>(void *a1@<X8>)
 {
   *a1 = v1;
-  type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator();
+  type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(0);
   v2 = v1;
   swift_unknownObjectRetain();
   return NSFastEnumerationIterator.init(_:)();
 }
 
-uint64_t type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator()
+uint64_t type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(uint64_t a1)
 {
   result = type metadata singleton initialization cache for AVCaptureSynchronizedDataCollection.Iterator;
   if (!type metadata singleton initialization cache for AVCaptureSynchronizedDataCollection.Iterator)
@@ -7333,7 +7416,7 @@ uint64_t type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator
 
 AVCaptureSynchronizedData_optional __swiftcall AVCaptureSynchronizedDataCollection.Iterator.next()()
 {
-  type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator();
+  type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(0);
   NSFastEnumerationIterator.next()();
   if (!v7)
   {
@@ -7341,7 +7424,7 @@ AVCaptureSynchronizedData_optional __swiftcall AVCaptureSynchronizedDataCollecti
     goto LABEL_5;
   }
 
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVCaptureOutput);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVCaptureOutput, 0x1E69870E8);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_5:
@@ -7371,7 +7454,7 @@ unint64_t lazy protocol witness table accessor for type AVCaptureSynchronizedDat
   result = lazy protocol witness table cache variable for type AVCaptureSynchronizedDataCollection.Iterator and conformance AVCaptureSynchronizedDataCollection.Iterator;
   if (!lazy protocol witness table cache variable for type AVCaptureSynchronizedDataCollection.Iterator and conformance AVCaptureSynchronizedDataCollection.Iterator)
   {
-    type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator();
+    type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type AVCaptureSynchronizedDataCollection.Iterator and conformance AVCaptureSynchronizedDataCollection.Iterator);
   }
@@ -7383,7 +7466,7 @@ uint64_t protocol witness for Sequence.makeIterator() in conformance AVCaptureSy
 {
   v2 = *v1;
   *a1 = v2;
-  type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator();
+  type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(0);
   v3 = v2;
   return NSFastEnumerationIterator.init(_:)();
 }
@@ -7399,7 +7482,7 @@ uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance A
 
 uint64_t specialized Sequence._copyContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator();
+  v7 = type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = (&v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   *v9 = v3;
@@ -7436,7 +7519,7 @@ LABEL_17:
         goto LABEL_16;
       }
 
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVCaptureOutput);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVCaptureOutput, 0x1E69870E8);
       if ((swift_dynamicCast() & 1) == 0)
       {
         goto LABEL_16;
@@ -7473,13 +7556,13 @@ LABEL_16:
   return result;
 }
 
-uint64_t type metadata completion function for AVCaptureSynchronizedDataCollection.Iterator()
+uint64_t type metadata completion function for AVCaptureSynchronizedDataCollection.Iterator(uint64_t a1)
 {
-  result = type metadata accessor for NSValue(319, &lazy cache variable for type metadata for AVCaptureSynchronizedDataCollection);
-  if (v1 <= 0x3F)
+  result = type metadata accessor for NSValue(319, &lazy cache variable for type metadata for AVCaptureSynchronizedDataCollection, 0x1E6987130);
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for NSFastEnumerationIterator();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -7491,14 +7574,14 @@ uint64_t type metadata completion function for AVCaptureSynchronizedDataCollecti
 
 uint64_t outlined init with take of AVCaptureSynchronizedDataCollection.Iterator(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator();
+  v4 = type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 void specialized _copySequenceToContiguousArray<A>(_:)(void *a1)
 {
-  v2 = type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator();
+  v2 = type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(0);
   v3 = MEMORY[0x1EEE9AC00](v2 - 8);
   v5 = (&v31 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
   *v5 = a1;
@@ -7510,7 +7593,7 @@ void specialized _copySequenceToContiguousArray<A>(_:)(void *a1)
   v8 = MEMORY[0x1E69E7CC0];
   if (v34)
   {
-    v9 = type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVCaptureOutput);
+    v9 = type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVCaptureOutput, 0x1E69870E8);
     v10 = 0;
     v11 = v8 + 4;
     v31 = v5;
@@ -7546,7 +7629,7 @@ void specialized _copySequenceToContiguousArray<A>(_:)(void *a1)
           v19 = v18;
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
         v20 = swift_allocObject();
         v21 = _swift_stdlib_malloc_size(v20);
         v22 = v21 - 32;
@@ -7628,7 +7711,7 @@ LABEL_29:
 
 uint64_t outlined destroy of AVCaptureSynchronizedDataCollection.Iterator(uint64_t a1)
 {
-  v2 = type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator();
+  v2 = type metadata accessor for AVCaptureSynchronizedDataCollection.Iterator(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -7752,7 +7835,7 @@ uint64_t AVPlayerItem.seek(to:)(uint64_t a1)
 {
   *(v2 + 16) = a1;
   *(v2 + 24) = v1;
-  return MEMORY[0x1EEE6DFA0](AVPlayerItem.seek(to:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVPlayerItem.seek(to:), 0);
 }
 
 uint64_t AVPlayerItem.seek(to:)()
@@ -7771,7 +7854,7 @@ uint64_t AVPlayerItem.seek(to:)()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVPlayerItem.seek(to:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVPlayerItem.seek(to:), 0);
 }
 
 {
@@ -7780,7 +7863,7 @@ uint64_t AVPlayerItem.seek(to:)()
 
 void closure #1 in AVPlayerItem.seek(to:)(uint64_t a1, void *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = aBlock - v6;
@@ -7972,10 +8055,10 @@ void AVPlayerItem.speedRamp.modify(objc_class **a1, char a2)
   }
 }
 
-uint64_t partial apply for closure #1 in closure #1 in AVPlayerItem.seek(to:)()
+uint64_t partial apply for closure #1 in closure #1 in AVPlayerItem.seek(to:)(char a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
   return CheckedContinuation.resume(returning:)();
 }
 
@@ -7992,7 +8075,7 @@ uint64_t AVAssetImageGenerator.image(at:)(uint64_t a1, uint64_t a2, uint64_t a3)
   v4[25] = v3;
   v4[22] = a1;
   v4[23] = a2;
-  return MEMORY[0x1EEE6DFA0](AVAssetImageGenerator.image(at:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAssetImageGenerator.image(at:), 0);
 }
 
 uint64_t AVAssetImageGenerator.image(at:)()
@@ -8006,7 +8089,7 @@ uint64_t AVAssetImageGenerator.image(at:)()
   v0[7] = v0 + 18;
   v0[3] = AVAssetImageGenerator.image(at:);
   v6 = swift_continuation_init();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefa_So6CMTimeats5Error_pGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySo10CGImageRefa_So6CMTimeats5Error_pGMd, &_sSccySo10CGImageRefa_So6CMTimeats5Error_pGMR);
   v0[27] = v5;
   v8 = v0 + 27;
   *(v8 - 10) = v7;
@@ -8035,18 +8118,19 @@ uint64_t AVAssetImageGenerator.image(at:)()
     v2 = AVAssetImageGenerator.image(at:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0);
 }
 
 {
   return (*(v0 + 8))(*(v0 + 144), *(v0 + 152), *(v0 + 160), *(v0 + 168));
 }
 
+uint64_t AVAssetImageGenerator.image(at:)(uint64_t a1)
 {
   swift_willThrow();
-  v1 = *(v0 + 8);
+  v2 = *(v1 + 8);
 
-  return v1();
+  return v2();
 }
 
 uint64_t @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned CGImageRef?, @unowned CMTime, @unowned NSError?) -> () with result type (CGImageRef, CMTime)(uint64_t a1, void *a2, uint64_t *a3, void *a4)
@@ -8058,7 +8142,7 @@ uint64_t @objc completion handler block implementation for @escaping @callee_uno
   v10 = *v9;
   if (a4)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     v11 = swift_allocError();
     *v12 = a4;
     v13 = a4;
@@ -8090,11 +8174,11 @@ uint64_t @objc completion handler block implementation for @escaping @callee_uno
 
 uint64_t AVAssetImageGenerator.images(for:)(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO__GMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO__GMd, &_sScS12ContinuationV15BufferingPolicyOySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO__GMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v16[-v5];
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementOGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementOGMd, &_sScSySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementOGMR);
   v8 = *(v7 - 8);
   v9 = MEMORY[0x1EEE9AC00](v7);
   v11 = &v16[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
@@ -8115,7 +8199,7 @@ uint64_t closure #1 in AVAssetImageGenerator.images(for:)(uint64_t a1, void *a2,
 {
   v22 = a2;
   v23 = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd, "&6");
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   v7 = MEMORY[0x1EEE9AC00](v4);
@@ -8148,7 +8232,7 @@ uint64_t closure #1 in AVAssetImageGenerator.images(for:)(uint64_t a1, void *a2,
 
 uint64_t closure #1 in closure #1 in AVAssetImageGenerator.images(for:)(__int128 *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO__GMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO__GMd, ",6");
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v8[-v4];
@@ -8158,7 +8242,7 @@ uint64_t closure #1 in closure #1 in AVAssetImageGenerator.images(for:)(__int128
   v11[0] = a1[2];
   *(v11 + 9) = *(a1 + 41);
   outlined init with copy of AVAssetImageGenerator.Images.Element(a1, v8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd, "&6");
   AsyncStream.Continuation.yield(_:)();
   return (*(v3 + 8))(v5, v2);
 }
@@ -8322,12 +8406,12 @@ uint64_t AVAssetImageGenerator.ImageGeneratorMonitor.__deallocating_deinit()
 
 uint64_t outlined init with copy of AVAssetImageGenerator.Images(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AVAssetImageGenerator.Images();
+  v4 = type metadata accessor for AVAssetImageGenerator.Images(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-uint64_t type metadata accessor for AVAssetImageGenerator.Images()
+uint64_t type metadata accessor for AVAssetImageGenerator.Images(uint64_t a1)
 {
   result = type metadata singleton initialization cache for AVAssetImageGenerator.Images;
   if (!type metadata singleton initialization cache for AVAssetImageGenerator.Images)
@@ -8343,7 +8427,7 @@ uint64_t AVAssetImageGenerator.Images.next()(uint64_t a1)
   *(v1 + 144) = a1;
   v2 = swift_task_alloc();
   *(v1 + 152) = v2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd, &_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMR);
   *v2 = v1;
   v2[1] = AVAssetImageGenerator.Images.next();
 
@@ -8353,7 +8437,7 @@ uint64_t AVAssetImageGenerator.Images.next()(uint64_t a1)
 uint64_t AVAssetImageGenerator.Images.next()()
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAssetImageGenerator.Images.next(), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAssetImageGenerator.Images.next(), 0);
 }
 
 {
@@ -8378,7 +8462,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVAsse
   *(v1 + 144) = a1;
   v2 = swift_task_alloc();
   *(v1 + 152) = v2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd, &_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMR);
   *v2 = v1;
   v2[1] = protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetImageGenerator.Images;
 
@@ -8388,7 +8472,7 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVAsse
 uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetImageGenerator.Images()
 {
 
-  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetImageGenerator.Images, 0, 0);
+  return MEMORY[0x1EEE6DFA0](protocol witness for AsyncIteratorProtocol.next() in conformance AVAssetImageGenerator.Images, 0);
 }
 
 {
@@ -8431,16 +8515,14 @@ uint64_t _sSo21AVAssetImageGeneratorC12AVFoundationE6ImagesVScIACScI4next9isolat
     {
       swift_getObjectType();
       v3 = dispatch thunk of Actor.unownedExecutor.getter();
-      v5 = v4;
     }
 
     else
     {
       v3 = 0;
-      v5 = 0;
     }
 
-    v6 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13BoundaryTimesV8IteratorV_Tg5TY2_;
+    v4 = _sScIsE4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFSo30AVPlayerItemIntegratedTimelineC12AVFoundationE13BoundaryTimesV8IteratorV_Tg5TY2_;
   }
 
   else
@@ -8449,43 +8531,41 @@ uint64_t _sSo21AVAssetImageGeneratorC12AVFoundationE6ImagesVScIACScI4next9isolat
     {
       swift_getObjectType();
       v3 = dispatch thunk of Actor.unownedExecutor.getter();
-      v5 = v7;
     }
 
     else
     {
       v3 = 0;
-      v5 = 0;
     }
 
-    v6 = _sSo21AVAssetImageGeneratorC12AVFoundationE6ImagesVScIACScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTY1_;
+    v4 = _sSo21AVAssetImageGeneratorC12AVFoundationE6ImagesVScIACScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTY1_;
   }
 
-  return MEMORY[0x1EEE6DFA0](v6, v3, v5);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
-void *AVAssetImageGenerator.Images.Element.image.getter()
+void *AVAssetImageGenerator.Images.Element.image.getter(uint64_t a1)
 {
-  v1 = *(v0 + 24);
-  if (*(v0 + 56))
+  v2 = *(v1 + 24);
+  if (*(v1 + 56))
   {
     swift_willThrow();
   }
 
-  v2 = v1;
-  return v1;
+  v3 = v2;
+  return v2;
 }
 
-id AVAssetImageGenerator.Images.Element.actualTime.getter()
+id AVAssetImageGenerator.Images.Element.actualTime.getter(uint64_t a1)
 {
-  if ((*(v0 + 56) & 1) == 0)
+  if ((*(v1 + 56) & 1) == 0)
   {
-    return *(v0 + 32);
+    return *(v1 + 32);
   }
 
-  v1 = *(v0 + 24);
+  v2 = *(v1 + 24);
   swift_willThrow();
-  return v1;
+  return v2;
 }
 
 unint64_t lazy protocol witness table accessor for type AVAssetImageGenerator.Images and conformance AVAssetImageGenerator.Images()
@@ -8493,7 +8573,7 @@ unint64_t lazy protocol witness table accessor for type AVAssetImageGenerator.Im
   result = lazy protocol witness table cache variable for type AVAssetImageGenerator.Images and conformance AVAssetImageGenerator.Images;
   if (!lazy protocol witness table cache variable for type AVAssetImageGenerator.Images and conformance AVAssetImageGenerator.Images)
   {
-    type metadata accessor for AVAssetImageGenerator.Images();
+    type metadata accessor for AVAssetImageGenerator.Images(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type AVAssetImageGenerator.Images and conformance AVAssetImageGenerator.Images);
   }
@@ -8501,10 +8581,10 @@ unint64_t lazy protocol witness table accessor for type AVAssetImageGenerator.Im
   return result;
 }
 
-void type metadata completion function for AVAssetImageGenerator.Images()
+void type metadata completion function for AVAssetImageGenerator.Images(uint64_t a1)
 {
   type metadata accessor for AsyncStream<AVAssetImageGenerator.Images.Element>.Iterator();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -8600,21 +8680,21 @@ uint64_t block_copy_helper_14_0(uint64_t a1, uint64_t a2)
 
 uint64_t outlined init with take of AVAssetImageGenerator.Images(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AVAssetImageGenerator.Images();
+  v4 = type metadata accessor for AVAssetImageGenerator.Images(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t partial apply for closure #1 in closure #1 in AVAssetImageGenerator.images(for:)(__int128 *a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd, "&6");
 
   return closure #1 in closure #1 in AVAssetImageGenerator.images(for:)(a1);
 }
 
 uint64_t objectdestroy_21Tm()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd, "&6");
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -8643,7 +8723,7 @@ uint64_t AVAssetWriterInput.TaggedPixelBufferGroupReceiver.sourcePixelBufferAttr
   if (v4)
   {
     v5 = v4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd, &_ss8Sendable_pMR);
     v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
     MEMORY[0x1CCA865F0](v6);
@@ -8684,7 +8764,7 @@ uint64_t AVAssetWriterInput.TaggedPixelBufferGroupReceiver.append(_:with:)(uint6
   v7[9] = v8;
   v7[10] = v10;
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.TaggedPixelBufferGroupReceiver.append(_:with:), v8, v10);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.TaggedPixelBufferGroupReceiver.append(_:with:), v8);
 }
 
 uint64_t AVAssetWriterInput.TaggedPixelBufferGroupReceiver.append(_:with:)()
@@ -8706,10 +8786,9 @@ uint64_t AVAssetWriterInput.TaggedPixelBufferGroupReceiver.append(_:with:)()
   v1 = *v0;
   v2 = *(*v0 + 88);
 
-  v3 = *(v1 + 80);
-  v4 = *(v1 + 72);
+  v3 = *(v1 + 72);
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.TaggedPixelBufferGroupReceiver.append(_:with:), v4, v3);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.TaggedPixelBufferGroupReceiver.append(_:with:), v3);
 }
 
 {
@@ -8778,19 +8857,19 @@ LABEL_7:
   return v4 & 1;
 }
 
-void _sSo18AVAssetWriterInputC12AVFoundationE30TaggedPixelBufferGroupReceiverC17appendImmediately_4withSbSay9CoreMedia015CMTaggedDynamicG0VG_So6CMTimeatKFSbSayAH0oG0VGYTXEfU_(uint64_t a1@<X1>, uint64_t a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X4>, _BYTE *a5@<X8>)
+void _sSo18AVAssetWriterInputC12AVFoundationE30TaggedPixelBufferGroupReceiverC17appendImmediately_4withSbSay9CoreMedia015CMTaggedDynamicG0VG_So6CMTimeatKFSbSayAH0oG0VGYTXEfU_(uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t a4@<X3>, uint64_t a5@<X4>, _BYTE *a6@<X8>)
 {
-  v6 = a3;
-  v9 = HIDWORD(a3);
-  v10 = *(a1 + 32);
-  v11 = Array<A>.taggedBufferGroup.getter();
-  v12 = a2;
-  v13 = v6;
-  v14 = v9;
-  v15 = a4;
-  LOBYTE(a4) = [v10 appendTaggedPixelBufferGroup:v11 withPresentationTime:&v12];
+  v7 = a4;
+  v10 = HIDWORD(a4);
+  v11 = *(a2 + 32);
+  v12 = Array<A>.taggedBufferGroup.getter();
+  v13 = a3;
+  v14 = v7;
+  v15 = v10;
+  v16 = a5;
+  LOBYTE(a5) = [v11 appendTaggedPixelBufferGroup:v12 withPresentationTime:&v13];
 
-  *a5 = a4;
+  *a6 = a5;
 }
 
 uint64_t AVAssetWriterInput.TaggedPixelBufferGroupReceiver.__deallocating_deinit()
@@ -8807,7 +8886,7 @@ void *AVAssetWriter.inputTaggedPixelBufferGroupReceiver(for:pixelBufferAttribute
   v6 = *(v28 - 8);
   MEMORY[0x1EEE9AC00](v28);
   v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo31CVPixelBufferCreationAttributesVSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreVideo31CVPixelBufferCreationAttributesVSgMd, &_s9CoreVideo31CVPixelBufferCreationAttributesVSgMR);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v27 - v10;
   v12 = type metadata accessor for CVPixelBufferCreationAttributes();
@@ -8890,7 +8969,7 @@ uint64_t closure #1 in AVAssetExportSession.export(to:as:isolation:)()
   if ([*(v0 + 152) status] == 5)
   {
     type metadata accessor for CancellationError();
-    lazy protocol witness table accessor for type AVAssetExportSession.ProgressStates.Iterator and conformance AVAssetExportSession.ProgressStates.Iterator(&lazy protocol witness table cache variable for type CancellationError and conformance CancellationError, MEMORY[0x1E69E8550]);
+    lazy protocol witness table accessor for type AVAssetExportSession.ProgressStates.Iterator and conformance AVAssetExportSession.ProgressStates.Iterator(&lazy protocol witness table cache variable for type CancellationError and conformance CancellationError, MEMORY[0x1E69E8550], MEMORY[0x1E69E8558]);
     swift_allocError();
     CancellationError.init()();
     swift_willThrow();
@@ -8905,7 +8984,7 @@ uint64_t closure #1 in AVAssetExportSession.export(to:as:isolation:)()
     *(v0 + 16) = v0;
     *(v0 + 24) = closure #1 in AVAssetExportSession.export(to:as:isolation:);
     v4 = swift_continuation_init();
-    *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+    *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
     *(v0 + 80) = MEMORY[0x1E69E9820];
     *(v0 + 88) = 1107296256;
     *(v0 + 96) = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -8919,7 +8998,7 @@ uint64_t closure #1 in AVAssetExportSession.export(to:as:isolation:)()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](closure #1 in AVAssetExportSession.export(to:as:isolation:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](closure #1 in AVAssetExportSession.export(to:as:isolation:), 0);
 }
 
 {
@@ -8942,7 +9021,7 @@ LABEL_8:
     __break(1u);
 LABEL_7:
     type metadata accessor for CancellationError();
-    lazy protocol witness table accessor for type AVAssetExportSession.ProgressStates.Iterator and conformance AVAssetExportSession.ProgressStates.Iterator(&lazy protocol witness table cache variable for type CancellationError and conformance CancellationError, MEMORY[0x1E69E8550]);
+    lazy protocol witness table accessor for type AVAssetExportSession.ProgressStates.Iterator and conformance AVAssetExportSession.ProgressStates.Iterator(&lazy protocol witness table cache variable for type CancellationError and conformance CancellationError, MEMORY[0x1E69E8550], MEMORY[0x1E69E8558]);
     swift_allocError();
     CancellationError.init()();
     goto LABEL_8;
@@ -8989,7 +9068,7 @@ uint64_t AVAssetExportSession.export(to:as:isolation:)(uint64_t a1, uint64_t a2,
   v5[7] = v6;
   v5[8] = a3;
 
-  return MEMORY[0x1EEE6DFA0](AVAssetExportSession.export(to:as:isolation:), v6, a3);
+  return MEMORY[0x1EEE6DFA0](AVAssetExportSession.export(to:as:isolation:), v6);
 }
 
 uint64_t AVAssetExportSession.export(to:as:isolation:)@<X0>(NSURL *a1@<X8>)
@@ -9023,19 +9102,17 @@ uint64_t AVAssetExportSession.export(to:as:isolation:)()
   if (v0)
   {
     v3 = *(v2 + 56);
-    v4 = *(v2 + 64);
-    v5 = AVAssetExportSession.export(to:as:isolation:);
+    v4 = AVAssetExportSession.export(to:as:isolation:);
   }
 
   else
   {
 
     v3 = *(v2 + 56);
-    v4 = *(v2 + 64);
-    v5 = _sSo21AVAssetImageGeneratorC12AVFoundationE6ImagesVScIACScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTY1_;
+    v4 = _sSo21AVAssetImageGeneratorC12AVFoundationE6ImagesVScIACScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQzYKFTWTY1_;
   }
 
-  return MEMORY[0x1EEE6DFA0](v5, v3, v4);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
 {
@@ -9063,7 +9140,7 @@ id AVAssetExportSession.states(updateInterval:)@<X0>(uint64_t a1@<X8>, double a2
   return v2;
 }
 
-uint64_t get_enum_tag_for_layout_string_So20AVAssetExportSessionC12AVFoundationE5StateO(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_So20AVAssetExportSessionC12AVFoundationE5StateO(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -9176,7 +9253,7 @@ uint64_t AVAssetExportSession.ProgressStates.Iterator.StateInternal.init(forSnap
   v8 = &v47 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v6);
   v10 = &v47 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
   MEMORY[0x1EEE9AC00](v11 - 8);
   v13 = &v47 - v12;
   v14 = type metadata accessor for Date();
@@ -9188,9 +9265,9 @@ uint64_t AVAssetExportSession.ProgressStates.Iterator.StateInternal.init(forSnap
   {
     if ((v18 - 3) < 3)
     {
-      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+      outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
 
-      v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+      v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
       v20 = *(*(v24 - 8) + 56);
       v21 = v24;
       v22 = v50;
@@ -9214,9 +9291,9 @@ LABEL_23:
 
   if (!v18)
   {
-    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
 
-    v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+    v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
     v20 = *(*(v25 - 8) + 56);
     v21 = v25;
     v22 = v50;
@@ -9228,22 +9305,22 @@ LABEL_23:
   {
     if (v18 == 2)
     {
-      outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, v13, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+      outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, v13, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
       v27 = type metadata accessor for AVAssetExportSession.ProgressStates.Iterator.StateInternal(0);
       if ((*(*(v27 - 8) + 48))(v13, 1, v27) == 1)
       {
-        outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v13, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+        outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v13, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
       }
 
       else
       {
-        v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+        v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
         v48 = *(v28 - 8);
         v29 = *(v48 + 48);
         v49 = v28;
         if (!v29(v13, 3))
         {
-          outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+          outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
 
           v41 = v49;
           v42 = *&v13[*(v49 + 48)];
@@ -9291,12 +9368,12 @@ LABEL_23:
 
           [v30 setCancellationHandler_];
           _Block_release(v36);
-          v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+          v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
           v39 = *(v38 + 48);
           v40 = v50;
           static Date.now.getter();
 
-          outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+          outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
           *&v40[v39] = v30;
           return (*(*(v38 - 8) + 56))(v40, 0, 3, v38);
         }
@@ -9313,9 +9390,9 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+  outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v51, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
 
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
   v20 = *(*(v19 - 8) + 56);
   v21 = v19;
   v22 = v50;
@@ -9334,7 +9411,7 @@ uint64_t AVAssetExportSession.ProgressStates.Iterator.next()(uint64_t a1)
   v2[5] = *(v3 - 8);
   v2[6] = swift_task_alloc();
   v2[7] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
   v2[8] = swift_task_alloc();
   v2[9] = swift_task_alloc();
   v4 = type metadata accessor for AVAssetExportSession.ProgressStates.Iterator.StateInternal(0);
@@ -9346,7 +9423,7 @@ uint64_t AVAssetExportSession.ProgressStates.Iterator.next()(uint64_t a1)
   v2[15] = swift_task_alloc();
   v2[16] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAssetExportSession.ProgressStates.Iterator.next(), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAssetExportSession.ProgressStates.Iterator.next(), 0);
 }
 
 uint64_t AVAssetExportSession.ProgressStates.Iterator.next()()
@@ -9359,10 +9436,10 @@ uint64_t AVAssetExportSession.ProgressStates.Iterator.next()()
   *(v0 + 136) = *v4;
   v6 = *(type metadata accessor for AVAssetExportSession.ProgressStates.Iterator(0) + 24);
   *(v0 + 176) = v6;
-  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v4 + v6, v3, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v4 + v6, v3, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
   v7 = v5;
   AVAssetExportSession.ProgressStates.Iterator.StateInternal.init(forSnapshotOf:previousInternalState:)(v7, v3, v2);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
   *(v0 + 144) = v8;
   v9 = *(v8 - 8);
   *(v0 + 152) = v9;
@@ -9377,10 +9454,10 @@ uint64_t AVAssetExportSession.ProgressStates.Iterator.next()()
   v10 = *(v0 + 80);
   v11 = *(v0 + 88);
   v12 = *(v0 + 64);
-  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v4 + v6, v12, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v4 + v6, v12, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
   if ((*(v11 + 48))(v12, 1, v10) == 1)
   {
-    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(*(v0 + 64), &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(*(v0 + 64), &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
     if (static Task<>.isCancelled.getter())
     {
 LABEL_4:
@@ -9410,7 +9487,7 @@ LABEL_14:
       v28 = *(*(v0 + 104) + *(*(v0 + 144) + 48));
       (*(v26 + 32))(v25);
       [v24 progress];
-      specialized static AVAssetExportSession.ProgressStates.Iterator.updateProgress(_:exportProgress:exportingStartDate:)(v28, v29);
+      specialized static AVAssetExportSession.ProgressStates.Iterator.updateProgress(_:exportProgress:exportingStartDate:)(v28, v25, v29);
 
       (*(v26 + 8))(v25, v27);
     }
@@ -9422,7 +9499,7 @@ LABEL_14:
     v33 = *(v0 + 96);
     v35 = *(v0 + 80);
     v36 = *(v0 + 24);
-    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v36 + v31, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v36 + v31, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
     outlined init with copy of AVAssetExportSession.ProgressStates.Iterator.StateInternal(v32, v36 + v31);
     (*(v34 + 56))(v36 + v31, 0, 1, v35);
     outlined init with take of AVAssetExportSession.ProgressStates.Iterator.StateInternal(v32, v33);
@@ -9499,7 +9576,7 @@ LABEL_6:
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAssetExportSession.ProgressStates.Iterator.next(), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAssetExportSession.ProgressStates.Iterator.next(), 0);
 }
 
 {
@@ -9511,7 +9588,7 @@ LABEL_6:
   v6 = *(v0 + 56);
   v7 = *(v0 + 32);
   v8 = *(v0 + 40);
-  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(*(v0 + 24) + *(v0 + 176), v5, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(*(v0 + 24) + *(v0 + 176), v5, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
   AVAssetExportSession.ProgressStates.Iterator.StateInternal.init(forSnapshotOf:previousInternalState:)(v2, v5, v3);
   outlined destroy of AVAssetExportSession.ProgressStates.Iterator.StateInternal(v1);
   (*(v8 + 8))(v6, v7);
@@ -9544,7 +9621,7 @@ LABEL_3:
     v20 = *(*(v0 + 104) + *(*(v0 + 144) + 48));
     (*(v18 + 32))(v17);
     [v16 progress];
-    specialized static AVAssetExportSession.ProgressStates.Iterator.updateProgress(_:exportProgress:exportingStartDate:)(v20, v21);
+    specialized static AVAssetExportSession.ProgressStates.Iterator.updateProgress(_:exportProgress:exportingStartDate:)(v20, v17, v21);
 
     (*(v18 + 8))(v17, v19);
   }
@@ -9556,7 +9633,7 @@ LABEL_3:
   v25 = *(v0 + 96);
   v27 = *(v0 + 80);
   v28 = *(v0 + 24);
-  outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v28 + v23, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+  outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v28 + v23, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
   outlined init with copy of AVAssetExportSession.ProgressStates.Iterator.StateInternal(v24, v28 + v23);
   (*(v26 + 56))(v28 + v23, 0, 1, v27);
   outlined init with take of AVAssetExportSession.ProgressStates.Iterator.StateInternal(v24, v25);
@@ -9607,10 +9684,10 @@ uint64_t closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advan
   v5[11] = *(v8 + 64);
   v5[12] = swift_task_alloc();
   v5[13] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v5[14] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:), 0);
 }
 
 uint64_t closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:)()
@@ -9636,9 +9713,9 @@ uint64_t closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advan
   *(v11 + v10) = v7;
   v12 = v7;
   _sScG7addTask8priority9operationyScPSg_xyYaYAcntFyt_Tg5(v1, &async function pointer to partial apply for closure #1 in closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:), v11);
-  outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v1, &_sScPSgMd);
+  outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v1, &_sScPSgMd, &_sScPSgMR);
   outlined init with copy of AVAssetExportSession.ProgressStates.Iterator.StateInternal(v6, v3);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
   if ((*(*(v13 - 8) + 48))(v3, 3, v13))
   {
     outlined destroy of AVAssetExportSession.ProgressStates.Iterator.StateInternal(v0[12]);
@@ -9662,12 +9739,12 @@ uint64_t closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advan
     *(v21 + 24) = 0;
     (*(v17 + 32))(v21 + v20, v16, v18);
     _sScG7addTask8priority9operationyScPSg_xyYaYAcntFyt_Tg5(v14, &async function pointer to partial apply for closure #2 in closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:), v21);
-    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v14, &_sScPSgMd);
+    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v14, &_sScPSgMd, &_sScPSgMR);
   }
 
   v22 = swift_task_alloc();
   v0[15] = v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScGyytGMd);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScGyytGMd, &_sScGyytGMR);
   *v22 = v0;
   v22[1] = closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:);
 
@@ -9676,7 +9753,7 @@ uint64_t closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advan
 
 {
 
-  return MEMORY[0x1EEE6DFA0](closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:), 0);
 }
 
 {
@@ -9700,15 +9777,15 @@ uint64_t closure #1 in closure #1 in static AVAssetExportSession.ProgressStates.
 uint64_t _sScG7addTask8priority9operationyScPSg_xyYaYAcntFyt_Tg5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = v20 - v9;
-  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(a1, v20 - v9, &_sScPSgMd);
+  outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(a1, v20 - v9, &_sScPSgMd, &_sScPSgMR);
   v11 = type metadata accessor for TaskPriority();
   v12 = *(v11 - 8);
   if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v10, &_sScPSgMd);
+    outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(v10, &_sScPSgMd, &_sScPSgMR);
     if (*(a3 + 16))
     {
 LABEL_3:
@@ -9752,87 +9829,4 @@ LABEL_6:
   v20[2] = v18;
   v20[3] = v16;
   swift_task_create();
-}
-
-uint64_t closure #2 in closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:)()
-{
-  v1 = Date.nanosecondsSinceNow.getter();
-  v2 = 0x3FFFFFFFFFFFFFFFLL;
-  if (v1 < 0x3FFFFFFFFFFFFFFFLL)
-  {
-    v2 = v1;
-  }
-
-  v3 = v2 & ~(v2 >> 63);
-  v4 = swift_task_alloc();
-  *(v0 + 24) = v4;
-  *v4 = v0;
-  v4[1] = closure #2 in closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:);
-
-  return MEMORY[0x1EEE6DA60](v3);
-}
-
-{
-  v2 = *v1;
-  *(v2 + 32) = v0;
-
-  if (v0)
-  {
-
-    return MEMORY[0x1EEE6DFA0](closure #2 in closure #1 in static AVAssetExportSession.ProgressStates.Iterator.advancementToNextInterestingState(after:accordingTo:deadline:), 0, 0);
-  }
-
-  else
-  {
-    v3 = *(v2 + 8);
-
-    return v3();
-  }
-}
-
-{
-
-  v1 = *(v0 + 8);
-
-  return v1();
-}
-
-uint64_t Date.nanosecondsSinceNow.getter()
-{
-  Date.timeIntervalSinceNow.getter();
-  if (v0 <= 0.0)
-  {
-    v1 = 0x8000000000000400;
-  }
-
-  else
-  {
-    v1 = 0x7FFFFFFFFFFFFC00;
-  }
-
-  Date.timeIntervalSinceNow.getter();
-  if ((v2 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-  {
-    return v1;
-  }
-
-  result = Date.timeIntervalSinceNow.getter();
-  v5 = v4 * 1000000000.0;
-  if (fabs(v5) >= 9.22337204e18)
-  {
-    return v1;
-  }
-
-  if (v5 <= -9.22337204e18)
-  {
-    __break(1u);
-  }
-
-  else if (v5 < 9.22337204e18)
-  {
-    return v5;
-  }
-
-  __break(1u);
-  return result;
 }

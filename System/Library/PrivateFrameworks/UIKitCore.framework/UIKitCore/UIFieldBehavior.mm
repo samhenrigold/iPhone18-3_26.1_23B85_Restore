@@ -180,7 +180,7 @@
   return v10;
 }
 
-void __44__UIFieldBehavior_fieldWithEvaluationBlock___block_invoke(uint64_t a1, int a2, uint64_t a3)
+void __44__UIFieldBehavior_fieldWithEvaluationBlock___block_invoke(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   WeakRetained = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
   if (a2 >= 1 && WeakRetained)

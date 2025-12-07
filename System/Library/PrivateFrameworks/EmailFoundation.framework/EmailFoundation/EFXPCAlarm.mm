@@ -3,6 +3,8 @@
 - (void)beginReceivingEventsWithHandler:(id)handler;
 - (void)eventDidFire:(id)fire;
 - (void)invalidate;
+- (void)setNextFireDate:(id)date isUserVisible:(BOOL)visible;
+- (void)test_fireEventImmediatelyWithDate:(id)date isUserVisible:(BOOL)visible;
 - (void)unschedule;
 @end
 
@@ -62,6 +64,34 @@
   os_unfair_lock_unlock(&self->_lock);
 }
 
+- (void)setNextFireDate:(id)date isUserVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  dateCopy = date;
+  if (dateCopy)
+  {
+    v6 = [EFXPCAlarmEvent alloc];
+    eventName = [(EFXPCAlarm *)self eventName];
+    v8 = [(EFXPCAlarmEvent *)v6 initWithName:eventName fireDate:dateCopy isUserVisible:visibleCopy];
+
+    scheduler = [(EFXPCAlarm *)self scheduler];
+    [scheduler scheduleEvent:v8];
+
+    test_schedulerObserver = [(EFXPCAlarm *)self test_schedulerObserver];
+
+    if (test_schedulerObserver)
+    {
+      test_schedulerObserver2 = [(EFXPCAlarm *)self test_schedulerObserver];
+      (test_schedulerObserver2)[2](test_schedulerObserver2, dateCopy, visibleCopy);
+    }
+  }
+
+  else
+  {
+    [(EFXPCAlarm *)self unschedule];
+  }
+}
+
 - (void)unschedule
 {
   scheduler = [(EFXPCAlarm *)self scheduler];
@@ -108,6 +138,18 @@ void __27__EFXPCAlarm_eventDidFire___block_invoke(uint64_t a1)
   v3 = *(a1 + 48);
   v4 = [*(a1 + 40) fireDate];
   (*(v3 + 16))(v3, v2, v4, [*(a1 + 40) isUserVisible]);
+}
+
+- (void)test_fireEventImmediatelyWithDate:(id)date isUserVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  dateCopy = date;
+  v6 = [EFXPCAlarmEvent alloc];
+  eventName = [(EFXPCAlarm *)self eventName];
+  v8 = [(EFXPCAlarmEvent *)v6 initWithName:eventName fireDate:dateCopy isUserVisible:visibleCopy];
+
+  scheduler = [(EFXPCAlarm *)self scheduler];
+  [scheduler test_fireEvent:v8];
 }
 
 @end

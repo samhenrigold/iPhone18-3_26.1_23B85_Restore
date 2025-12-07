@@ -1,5 +1,7 @@
 @interface FanCC
 - (FanCC)initWithParams:(__CFDictionary *)params;
+- (__CFString)copyFieldCurrentValueForIndex:(int)index;
+- (__CFString)copyHeaderForIndex:(int)index;
 - (int)numberOfFields;
 - (int)setFanRPM:(unsigned int)m;
 - (void)defaultAction;
@@ -161,6 +163,77 @@
   v3.receiver = self;
   v3.super_class = FanCC;
   return [(ComponentControl *)&v3 numberOfFields]+ 2;
+}
+
+- (__CFString)copyHeaderForIndex:(int)index
+{
+  v3 = *&index;
+  v10.receiver = self;
+  v10.super_class = FanCC;
+  if ([(ComponentControl *)&v10 numberOfFields]<= index)
+  {
+    v8.receiver = self;
+    v8.super_class = FanCC;
+    numberOfFields = [(ComponentControl *)&v8 numberOfFields];
+    if (v3 - numberOfFields == 1)
+    {
+      v7 = @"FanCC current RPM";
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    if (v3 == numberOfFields)
+    {
+      return @"FanCC target RPM";
+    }
+
+    else
+    {
+      return v7;
+    }
+  }
+
+  else
+  {
+    v9.receiver = self;
+    v9.super_class = FanCC;
+    return [(ComponentControl *)&v9 copyHeaderForIndex:v3];
+  }
+}
+
+- (__CFString)copyFieldCurrentValueForIndex:(int)index
+{
+  v3 = *&index;
+  v11.receiver = self;
+  v11.super_class = FanCC;
+  if ([(ComponentControl *)&v11 numberOfFields]> index)
+  {
+    v10.receiver = self;
+    v10.super_class = FanCC;
+    return [(ComponentControl *)&v10 copyFieldCurrentValueForIndex:v3];
+  }
+
+  v9.receiver = self;
+  v9.super_class = FanCC;
+  v6 = v3 - [(ComponentControl *)&v9 numberOfFields];
+  if (v6 == 1)
+  {
+    v7 = kCFAllocatorDefault;
+    v8 = 148;
+    return CFStringCreateWithFormat(v7, 0, @"%u", *(&self->super.super.super.isa + v8));
+  }
+
+  if (!v6)
+  {
+    v7 = kCFAllocatorDefault;
+    v8 = 140;
+    return CFStringCreateWithFormat(v7, 0, @"%u", *(&self->super.super.super.isa + v8));
+  }
+
+  return 0;
 }
 
 @end

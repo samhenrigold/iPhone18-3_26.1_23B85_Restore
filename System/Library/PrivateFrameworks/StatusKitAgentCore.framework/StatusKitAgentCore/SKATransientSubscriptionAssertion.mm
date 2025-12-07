@@ -12,18 +12,18 @@
 
 - (SKATransientSubscriptionAssertion)initWithSubscriptionIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v13.receiver = self;
-  v13.super_class = SKATransientSubscriptionAssertion;
-  v5 = [(SKATransientSubscriptionAssertion *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = SKATransientSubscriptionAssertion;
+  v5 = [(SKATransientSubscriptionAssertion *)&v12 init];
   if (v5)
   {
     v6 = +[SKATransientSubscriptionAssertion logger];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = identifierCopy;
+      v14 = identifierCopy;
       _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Creating TransientSubscriptionAssertion for channel %@", buf, 0xCu);
     }
 
@@ -36,7 +36,6 @@
     v5->_osActivity = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -96,20 +95,19 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = +[SKATransientSubscriptionAssertion logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     subscriptionIdentifier = self->_subscriptionIdentifier;
     *buf = 138412290;
-    v8 = subscriptionIdentifier;
+    v7 = subscriptionIdentifier;
     _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Deallocing TransientSubscriptionAssertion for channel %@, releasing os_activity", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = SKATransientSubscriptionAssertion;
-  [(SKATransientSubscriptionAssertion *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SKATransientSubscriptionAssertion;
+  [(SKATransientSubscriptionAssertion *)&v5 dealloc];
 }
 
 + (id)logger

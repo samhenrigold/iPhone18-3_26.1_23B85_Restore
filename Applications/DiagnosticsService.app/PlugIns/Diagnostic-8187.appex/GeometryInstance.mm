@@ -1,6 +1,5 @@
 @interface GeometryInstance
 - (__n128)initWithGeometry:(__n128)geometry transform:(__n128)transform mask:(__n128)mask;
-- (__n128)transform;
 @end
 
 @implementation GeometryInstance
@@ -23,15 +22,6 @@
   }
 
   return v13;
-}
-
-- (__n128)transform
-{
-  result = *(self + 32);
-  v2 = *(self + 48);
-  v3 = *(self + 64);
-  v4 = *(self + 80);
-  return result;
 }
 
 @end

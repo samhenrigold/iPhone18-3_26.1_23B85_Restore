@@ -7,22 +7,20 @@
 
 - (NSString)format
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9 = 0;
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8 = 0;
   v3 = [(OSActivityEvent *)self traceID]>> 32;
-  v10[0] = 0;
-  v10[1] = 0;
+  v9[0] = 0;
+  v9[1] = 0;
   senderImageUUID = [(OSActivityEvent *)self senderImageUUID];
-  [senderImageUUID getUUIDBytes:v10];
+  [senderImageUUID getUUIDBytes:v9];
 
-  v5 = uuidpath_resolve(0, v10, v3, 0, &v9, 0, 0, 0);
+  v5 = uuidpath_resolve(0, v9, v3, 0, &v8, 0, 0, 0);
   v6 = 0;
   if (v5)
   {
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:v9];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -37,7 +35,7 @@
   bufferPrivateData = self->_bufferPrivateData;
   self->_bufferPrivateData = v11;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v11, bufferPrivateData);
 }
 
 @end

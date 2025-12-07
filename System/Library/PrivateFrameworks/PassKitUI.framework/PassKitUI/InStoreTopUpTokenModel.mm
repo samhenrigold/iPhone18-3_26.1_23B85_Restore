@@ -20,7 +20,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for InStoreTopUpTokenModel();
+  v5.super_class = type metadata accessor for InStoreTopUpTokenModel(0);
   [(InStoreTopUpTokenModel *)&v5 dealloc];
 }
 
@@ -41,6 +41,8 @@
   tokenCopy = token;
   selfCopy = self;
   sub_1BD85D060(token, v6, v8);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (_TtC9PassKitUI22InStoreTopUpTokenModel)init

@@ -37,13 +37,13 @@
 
 - (void)_handleXPCDisconnectedUnexpectedlyWithError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[SSRVTUITrainingServiceClient _handleXPCDisconnectedUnexpectedlyWithError:]";
+    v20 = "[SSRVTUITrainingServiceClient _handleXPCDisconnectedUnexpectedlyWithError:]";
     _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -67,9 +67,9 @@
   trainCompletion = self->_trainCompletion;
   if (trainCompletion)
   {
-    v19 = errorCopy;
-    (*(trainCompletion + 2))(trainCompletion, 0, 5, 0, &v19);
-    v11 = v19;
+    v18 = errorCopy;
+    (*(trainCompletion + 2))(trainCompletion, 0, 5, 0, &v18);
+    v11 = v18;
 
     v12 = self->_trainCompletion;
     self->_trainCompletion = 0;
@@ -81,9 +81,9 @@
   {
     v13 = [[CSVTUITrainingResult alloc] initWithSessionId:0 sessionStatus:5 audioStatus:2];
     trainCompletionWithResult = self->_trainCompletionWithResult;
-    v18 = errorCopy;
+    v17 = errorCopy;
     trainCompletionWithResult[2]();
-    v15 = v18;
+    v15 = v17;
 
     v16 = self->_trainCompletionWithResult;
     self->_trainCompletionWithResult = 0;
@@ -92,8 +92,6 @@
   }
 
   self->_requireResetup = 1;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_service
@@ -106,7 +104,7 @@
 
 - (id)_connection
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   xpcConnection = self->_xpcConnection;
   if (!xpcConnection)
@@ -115,7 +113,7 @@
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "[SSRVTUITrainingServiceClient _connection]";
+      v18 = "[SSRVTUITrainingServiceClient _connection]";
       _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Creating new xpc connection...", buf, 0xCu);
     }
 
@@ -125,42 +123,40 @@
 
     objc_initWeak(buf, self);
     v7 = self->_xpcConnection;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __43__SSRVTUITrainingServiceClient__connection__block_invoke;
-    v16[3] = &unk_278578C88;
-    objc_copyWeak(&v17, buf);
-    [(NSXPCConnection *)v7 setInterruptionHandler:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __43__SSRVTUITrainingServiceClient__connection__block_invoke;
+    v15[3] = &unk_278578C88;
+    objc_copyWeak(&v16, buf);
+    [(NSXPCConnection *)v7 setInterruptionHandler:v15];
     v8 = self->_xpcConnection;
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __43__SSRVTUITrainingServiceClient__connection__block_invoke_10;
-    v14 = &unk_278578C88;
-    objc_copyWeak(&v15, buf);
-    [(NSXPCConnection *)v8 setInvalidationHandler:&v11];
-    [(NSXPCConnection *)self->_xpcConnection resume:v11];
-    objc_destroyWeak(&v15);
-    objc_destroyWeak(&v17);
+    v10 = MEMORY[0x277D85DD0];
+    v11 = 3221225472;
+    v12 = __43__SSRVTUITrainingServiceClient__connection__block_invoke_10;
+    v13 = &unk_278578C88;
+    objc_copyWeak(&v14, buf);
+    [(NSXPCConnection *)v8 setInvalidationHandler:&v10];
+    [(NSXPCConnection *)self->_xpcConnection resume:v10];
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
     xpcConnection = self->_xpcConnection;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return xpcConnection;
 }
 
 void __43__SSRVTUITrainingServiceClient__connection__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SSRVTUITrainingServiceClient _connection]_block_invoke";
-    v10 = 2112;
-    v11 = @"com.apple.siri.ssrvtuitrainingservice.xpc";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Interrupted", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SSRVTUITrainingServiceClient _connection]_block_invoke";
+    v9 = 2112;
+    v10 = @"com.apple.siri.ssrvtuitrainingservice.xpc";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Interrupted", &v7, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -175,21 +171,19 @@ void __43__SSRVTUITrainingServiceClient__connection__block_invoke(uint64_t a1)
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.speakerrecognition" code:1151 userInfo:0];
     [v4 _handleXPCDisconnectedUnexpectedlyWithError:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SSRVTUITrainingServiceClient__connection__block_invoke_10(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SSRVTUITrainingServiceClient _connection]_block_invoke";
-    v10 = 2112;
-    v11 = @"com.apple.siri.ssrvtuitrainingservice.xpc";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Invalidated", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SSRVTUITrainingServiceClient _connection]_block_invoke";
+    v9 = 2112;
+    v10 = @"com.apple.siri.ssrvtuitrainingservice.xpc";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s xpc connection %@ Invalidated", &v7, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -202,8 +196,6 @@ void __43__SSRVTUITrainingServiceClient__connection__block_invoke_10(uint64_t a1
     v6 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.speakerrecognition" code:1152 userInfo:0];
     [v4 _handleXPCDisconnectedUnexpectedlyWithError:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newConnection
@@ -274,23 +266,21 @@ void __50__SSRVTUITrainingServiceClient_getAudioSessionID___block_invoke(uint64_
 
 - (void)_resetupIfNeeded
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_requireResetup)
   {
     self->_requireResetup = 0;
     v3 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[SSRVTUITrainingServiceClient _resetupIfNeeded]";
-      _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s Re-setup training service due to xpc rebuilt", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SSRVTUITrainingServiceClient _resetupIfNeeded]";
+      _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s Re-setup training service due to xpc rebuilt", &v5, 0xCu);
     }
 
     _service = [(SSRVTUITrainingServiceClient *)self _service];
     [_service setupWithLocaleID:self->_localeIdentifier appDomain:self->_appDomain siriSharedUserId:self->_siriSharedUserId];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSourceWithCompletion:(id)completion
@@ -526,27 +516,25 @@ void __77__SSRVTUITrainingServiceClient_trainUtteranceViaXPC_shouldUseASR_comple
 
 - (void)cleanupViaXPCWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[SSRVTUITrainingServiceClient cleanupViaXPCWithCompletion:]";
+    v11 = "[SSRVTUITrainingServiceClient cleanupViaXPCWithCompletion:]";
     _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Cleaning up training service client", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __60__SSRVTUITrainingServiceClient_cleanupViaXPCWithCompletion___block_invoke;
-  v9[3] = &unk_278579618;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __60__SSRVTUITrainingServiceClient_cleanupViaXPCWithCompletion___block_invoke;
+  v8[3] = &unk_278579618;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 void __60__SSRVTUITrainingServiceClient_cleanupViaXPCWithCompletion___block_invoke(uint64_t a1)
@@ -736,19 +724,19 @@ void __37__SSRVTUITrainingServiceClient_reset__block_invoke(uint64_t a1)
 
 void __77__SSRVTUITrainingServiceClient_setupWithLocaleID_appDomain_siriSharedUserId___block_invoke(id *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v7 = 136315650;
-    v8 = "[SSRVTUITrainingServiceClient setupWithLocaleID:appDomain:siriSharedUserId:]_block_invoke";
-    v9 = 2114;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s localeIdentifier : %{public}@, appDomain : %{public}@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[SSRVTUITrainingServiceClient setupWithLocaleID:appDomain:siriSharedUserId:]_block_invoke";
+    v8 = 2114;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v4;
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s localeIdentifier : %{public}@, appDomain : %{public}@", &v6, 0x20u);
   }
 
   objc_storeStrong(a1[6] + 1, a1[4]);
@@ -756,8 +744,6 @@ void __77__SSRVTUITrainingServiceClient_setupWithLocaleID_appDomain_siriSharedUs
   objc_storeStrong(a1[6] + 3, a1[7]);
   v5 = [a1[6] _service];
   [v5 setupWithLocaleID:a1[4] appDomain:a1[5] siriSharedUserId:a1[7]];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -773,13 +759,13 @@ void __77__SSRVTUITrainingServiceClient_setupWithLocaleID_appDomain_siriSharedUs
 
 void __42__SSRVTUITrainingServiceClient_invalidate__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[SSRVTUITrainingServiceClient invalidate]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[SSRVTUITrainingServiceClient invalidate]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
   }
 
   [*(*(a1 + 32) + 48) setInvalidationHandler:0];
@@ -791,17 +777,15 @@ void __42__SSRVTUITrainingServiceClient_invalidate__block_invoke(uint64_t a1)
   v5 = *(a1 + 32);
   v6 = *(v5 + 56);
   *(v5 + 56) = 0;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (SSRVTUITrainingServiceClient)initWithDelegate:(id)delegate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v11.receiver = self;
-  v11.super_class = SSRVTUITrainingServiceClient;
-  v5 = [(SSRVTUITrainingServiceClient *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = SSRVTUITrainingServiceClient;
+  v5 = [(SSRVTUITrainingServiceClient *)&v10 init];
   if (v5)
   {
     SSRLogInitIfNeeded();
@@ -815,12 +799,11 @@ void __42__SSRVTUITrainingServiceClient_invalidate__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[SSRVTUITrainingServiceClient initWithDelegate:]";
+      v12 = "[SSRVTUITrainingServiceClient initWithDelegate:]";
       _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

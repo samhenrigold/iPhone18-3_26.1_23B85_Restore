@@ -13,7 +13,7 @@
   v5 = [(HDLocalFeatureAttributesProvider *)&v9 init];
   if (v5)
   {
-    v6 = [attributesCopy copy];
+    v6 = objc_msgSend_copy(attributesCopy);
     localFeatureAttributes = v5->_localFeatureAttributes;
     v5->_localFeatureAttributes = v6;
   }

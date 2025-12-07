@@ -93,29 +93,39 @@
       v17 = v16;
       coordinateSpace = [mainScreen coordinateSpace];
       [coordinateSpace bounds];
-      [v3 convertRect:coordinateSpace fromCoordinateSpace:{0, 0, 0, 0}];
-      remainder = v30;
-      CGRectDivide(v30, &v28, &remainder, 80.0, v9);
-      CGRectDivide(remainder, &v28, &remainder, v15, v9);
-      [self setDirection:v9 != CGRectMinXEdge];
-      PKFloatRoundToPixel();
-      [self setDisplacement:?];
-      PKSizeAlignedInRect();
       v20 = v19;
-      v22 = v21;
-      v24 = v23;
-      v26 = v25;
-      v31.origin.x = v11;
-      v31.origin.y = v13;
-      v31.size.width = v15;
-      v31.size.height = v17;
-      v32.origin.x = v20;
-      v32.origin.y = v22;
-      v32.size.width = v24;
-      v32.size.height = v26;
-      if (!CGRectEqualToRect(v31, v32))
+      memset(&v39, 0, sizeof(v39));
+      [v3 convertRect:coordinateSpace fromCoordinateSpace:?];
+      remainder = v41;
+      CGRectDivide(v41, &v39, &remainder, 80.0, v9);
+      CGRectDivide(remainder, &v39, &remainder, v15, v9);
+      [self setDirection:v9 != CGRectMinXEdge];
+      v21.n128_u64[0] = 0xC054000000000000;
+      v22.n128_f64[0] = -80.0 - (v15 - v20 * 0.5);
+      PKFloatRoundToPixel(v22, v21);
+      [self setDisplacement:?];
+      v24.n128_u64[0] = *&v39.origin.y;
+      v23.n128_u64[0] = *&v39.origin.x;
+      v26.n128_u64[0] = *&v39.size.height;
+      v25.n128_u64[0] = *&v39.size.width;
+      v27.n128_f64[0] = v15;
+      v28.n128_f64[0] = v17;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v27, v28, v23, v24, v25, v26, v29);
+      v31 = v30;
+      v33 = v32;
+      v35 = v34;
+      v37 = v36;
+      v42.origin.x = v11;
+      v42.origin.y = v13;
+      v42.size.width = v15;
+      v42.size.height = v17;
+      v43.origin.x = v31;
+      v43.origin.y = v33;
+      v43.size.width = v35;
+      v43.size.height = v37;
+      if (!CGRectEqualToRect(v42, v43))
       {
-        [self setFrame:{v20, v22, v24, v26}];
+        [self setFrame:{v31, v33, v35, v37}];
       }
 
       v7 = 1;

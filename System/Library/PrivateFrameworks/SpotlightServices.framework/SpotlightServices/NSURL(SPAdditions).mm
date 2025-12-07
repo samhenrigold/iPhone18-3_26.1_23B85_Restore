@@ -10,7 +10,6 @@
   v1 = [self _sp_URLFromFileID:? filename:? parentFileID:? documentID:?];
   if (v1 && _CFURLIsItemPromiseAtURL())
   {
-    v5 = 0;
     v2 = _CFURLCopyLogicalURLOfPromiseAtURL();
 
     if (!v2)
@@ -18,7 +17,7 @@
       v3 = PRSLogCategoryDefault();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        [NSURL(SPAdditions) sp_URLFromFileID:v1 filename:&v5 parentFileID:? documentID:?];
+        +[NSURL(SPAdditions) sp_URLFromFileID:filename:parentFileID:documentID:];
       }
     }
 
@@ -50,8 +49,7 @@
   unsignedIntValue = [v12 unsignedIntValue];
   if (v9)
   {
-    [v9 unsignedLongValue];
-    v15 = openbyid();
+    v15 = openbyid([v9 unsignedLongValue]);
     if ((v15 & 0x80000000) == 0)
     {
       v16 = v15;
@@ -83,7 +81,7 @@
         defaultManager = PRSLogCategoryDefault();
         if (os_log_type_enabled(defaultManager, OS_LOG_TYPE_ERROR))
         {
-          [NSURL(SPAdditions) _sp_URLFromFileID:? filename:? parentFileID:? documentID:?];
+          +[NSURL(SPAdditions) _sp_URLFromFileID:filename:parentFileID:documentID:];
         }
       }
 
@@ -108,8 +106,7 @@ LABEL_14:
     goto LABEL_28;
   }
 
-  [v11 unsignedLongValue];
-  v23 = openbyid();
+  v23 = openbyid([v11 unsignedLongValue]);
   if (v23 < 0)
   {
     goto LABEL_28;
@@ -151,7 +148,7 @@ LABEL_14:
     defaultManager2 = PRSLogCategoryDefault();
     if (os_log_type_enabled(defaultManager2, OS_LOG_TYPE_ERROR))
     {
-      [NSURL(SPAdditions) _sp_URLFromFileID:? filename:? parentFileID:? documentID:?];
+      +[NSURL(SPAdditions) _sp_URLFromFileID:filename:parentFileID:documentID:];
     }
   }
 
@@ -170,7 +167,8 @@ LABEL_28:
     +[NSURL(SPAdditions) _sp_URLFromFileID:filename:parentFileID:documentID:];
   }
 
-  if (!GSLibraryResolveDocumentId2())
+  v30 = GSLibraryResolveDocumentId2();
+  if (!v30)
   {
     v22 = PRSLogCategoryDefault();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -183,19 +181,19 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v30 = openbyid();
-  if (v30 < 0)
+  v31 = openbyid(v30);
+  if (v31 < 0)
   {
 LABEL_38:
     v21 = 0;
     goto LABEL_45;
   }
 
-  v31 = v30;
+  v32 = v31;
   v39 = 0;
   v38 = xmmword_1DA0D5430;
   bzero(v40, 0x410uLL);
-  if (fgetattrlist(v31, &v38, v40, 0x410uLL, 0x21u) < 0)
+  if (fgetattrlist(v32, &v38, v40, 0x410uLL, 0x21u) < 0)
   {
     defaultManager3 = PRSLogCategoryDefault();
     if (os_log_type_enabled(defaultManager3, OS_LOG_TYPE_ERROR))
@@ -211,7 +209,7 @@ LABEL_38:
     defaultManager3 = PRSLogCategoryDefault();
     if (os_log_type_enabled(defaultManager3, OS_LOG_TYPE_ERROR))
     {
-      [NSURL(SPAdditions) _sp_URLFromFileID:? filename:? parentFileID:? documentID:?];
+      +[NSURL(SPAdditions) _sp_URLFromFileID:filename:parentFileID:documentID:];
     }
 
 LABEL_43:
@@ -219,17 +217,15 @@ LABEL_43:
     goto LABEL_44;
   }
 
-  v32 = v42;
-  v33 = MEMORY[0x1E695DFF8];
+  v33 = v42;
+  v34 = MEMORY[0x1E695DFF8];
   defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-  v35 = [defaultManager3 stringWithFileSystemRepresentation:&v42 + v32 length:v43];
-  v21 = [v33 fileURLWithPath:v35];
+  v36 = [defaultManager3 stringWithFileSystemRepresentation:&v42 + v33 length:v43];
+  v21 = [v34 fileURLWithPath:v36];
 
 LABEL_44:
-  close(v31);
+  close(v32);
 LABEL_45:
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

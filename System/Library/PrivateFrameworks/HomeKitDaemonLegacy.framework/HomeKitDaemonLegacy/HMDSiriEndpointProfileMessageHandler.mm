@@ -30,7 +30,7 @@
 
 - (id)dataSourceHubAccessories
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDSiriEndpointProfileMessageHandler *)self dataSource];
   if (dataSource)
   {
@@ -46,23 +46,21 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source hub accessories due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source hub accessories due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)dataSourceSiriEndpointOnboardingManager
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDSiriEndpointProfileMessageHandler *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -78,16 +76,14 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source Siri Endpoint Onboarding Manager due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source Siri Endpoint Onboarding Manager due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -125,7 +121,7 @@ uint64_t __85__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUI
 
 - (id)deleteHistoryForAccessoryUUID:(id)d onHubAccessories:(id)accessories
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   accessoriesCopy = accessories;
   v8 = objc_autoreleasePoolPush();
@@ -135,38 +131,37 @@ uint64_t __85__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUI
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v29 = v11;
-    v30 = 2112;
-    v31 = dCopy;
-    v32 = 2112;
-    v33 = accessoriesCopy;
+    v28 = v11;
+    v29 = 2112;
+    v30 = dCopy;
+    v31 = 2112;
+    v32 = accessoriesCopy;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Deleting siri history for accessory UUID: %@ on hub accessories: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = objc_alloc_init(MEMORY[0x277D2C900]);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_onHubAccessories___block_invoke;
-  v25[3] = &unk_279723CE0;
-  v25[4] = selfCopy;
-  v26 = dCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_onHubAccessories___block_invoke;
+  v24[3] = &unk_279723CE0;
+  v24[4] = selfCopy;
+  v25 = dCopy;
   v13 = v12;
-  v27 = v13;
+  v26 = v13;
   v14 = dCopy;
-  v15 = [accessoriesCopy na_map:v25];
+  v15 = [accessoriesCopy na_map:v24];
   v16 = [MEMORY[0x277D2C900] chainFutures:v15];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_onHubAccessories___block_invoke_4;
-  v23[3] = &unk_279733BC0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_onHubAccessories___block_invoke_4;
+  v22[3] = &unk_279733BC0;
   v17 = v13;
-  v24 = v17;
-  v18 = [v16 addCompletionBlock:v23];
-  v19 = v24;
+  v23 = v17;
+  v18 = [v16 addCompletionBlock:v22];
+  v19 = v23;
   v20 = v17;
 
-  v21 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -207,7 +202,7 @@ void __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_on
 
 - (void)handleSiriEndpointDeleteSiriHistoryRequestMessage:(id)message
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -216,9 +211,9 @@ void __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_on
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v40 = v8;
-    v41 = 2112;
-    v42 = messageCopy;
+    v39 = v8;
+    v40 = 2112;
+    v41 = messageCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handle siri endpoint delete siri history request message: %@", buf, 0x16u);
   }
 
@@ -234,26 +229,26 @@ void __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_on
       {
         accessoryUUID = [v10 accessoryUUID];
         v13 = [(HMDSiriEndpointProfileMessageHandler *)selfCopy deleteHistoryForAccessoryUUID:accessoryUUID onHubAccessories:dataSourceHubAccessories];
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHistoryRequestMessage___block_invoke;
-        v35[3] = &unk_279730430;
-        v35[4] = selfCopy;
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHistoryRequestMessage___block_invoke;
+        v34[3] = &unk_279730430;
+        v34[4] = selfCopy;
         v14 = accessoryUUID;
-        v36 = v14;
-        v37 = dataSourceHubAccessories;
+        v35 = v14;
+        v36 = dataSourceHubAccessories;
         v15 = messageCopy;
-        v38 = v15;
-        v16 = [v13 addFailureBlock:v35];
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHistoryRequestMessage___block_invoke_6;
-        v32[3] = &unk_27972E568;
-        v32[4] = selfCopy;
-        v33 = v14;
-        v34 = v15;
+        v37 = v15;
+        v16 = [v13 addFailureBlock:v34];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHistoryRequestMessage___block_invoke_6;
+        v31[3] = &unk_27972E568;
+        v31[4] = selfCopy;
+        v32 = v14;
+        v33 = v15;
         v17 = v14;
-        v18 = [v13 addSuccessBlock:v32];
+        v18 = [v13 addSuccessBlock:v31];
       }
 
       else
@@ -266,11 +261,11 @@ void __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_on
         {
           v30 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v40 = v30;
-          v41 = 2112;
-          v42 = messageCopy;
-          v43 = 2112;
-          v44 = v13;
+          v39 = v30;
+          v40 = 2112;
+          v41 = messageCopy;
+          v42 = 2112;
+          v43 = v13;
           _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to get hub accessories to handle delete siri history request message: %@ error: %@", buf, 0x20u);
         }
 
@@ -289,11 +284,11 @@ void __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_on
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v40 = v26;
-        v41 = 2112;
-        v42 = messagePayload;
-        v43 = 2112;
-        v44 = dataSourceHubAccessories;
+        v39 = v26;
+        v40 = 2112;
+        v41 = messagePayload;
+        v42 = 2112;
+        v43 = dataSourceHubAccessories;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode message payload from delete siri history message payload: %@ error: %@", buf, 0x20u);
       }
 
@@ -312,24 +307,22 @@ void __87__HMDSiriEndpointProfileMessageHandler_deleteHistoryForAccessoryUUID_on
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v40 = v22;
-      v41 = 2112;
-      v42 = messageCopy;
-      v43 = 2112;
-      v44 = v10;
+      v39 = v22;
+      v40 = 2112;
+      v41 = messageCopy;
+      v42 = 2112;
+      v43 = v10;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to get message payload from delete siri history message: %@ error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v19);
     [messageCopy respondWithError:v10];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHistoryRequestMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -339,26 +332,24 @@ void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHist
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v11 = 138544130;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Delete siri history failed for accessory uuid: %@ using hub accessories: %@ error: %@", &v11, 0x2Au);
+    v10 = 138544130;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Delete siri history failed for accessory uuid: %@ using hub accessories: %@ error: %@", &v10, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 56) respondWithError:v3];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHistoryRequestMessage___block_invoke_6(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -367,22 +358,20 @@ void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHist
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Delete siri history succeeded for accessory uuid: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Delete siri history succeeded for accessory uuid: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 48) respondWithSuccess];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSiriEndpointApplyOnboardingSelectionsRequestMessage:(id)message
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -391,9 +380,9 @@ void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHist
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v8;
-    v32 = 2112;
-    v33 = messageCopy;
+    v30 = v8;
+    v31 = 2112;
+    v32 = messageCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling siri endpoint apply onboarding selections request message: %@", buf, 0x16u);
   }
 
@@ -415,13 +404,13 @@ void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHist
         onboardingSelections = [v10 onboardingSelections];
         accessoryUUID = [v10 accessoryUUID];
         homeUUID2 = [(HMDSiriEndpointProfileMessageHandler *)selfCopy homeUUID];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __98__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointApplyOnboardingSelectionsRequestMessage___block_invoke;
-        v28[3] = &unk_279723CB8;
-        v28[4] = selfCopy;
-        v29 = messageCopy;
-        [dataSourceSiriEndpointOnboardingManager applyOnboardingSelections:onboardingSelections accessoryUUID:accessoryUUID homeUUID:homeUUID2 userUUID:v15 completion:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __98__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointApplyOnboardingSelectionsRequestMessage___block_invoke;
+        v27[3] = &unk_279723CB8;
+        v27[4] = selfCopy;
+        v28 = messageCopy;
+        [dataSourceSiriEndpointOnboardingManager applyOnboardingSelections:onboardingSelections accessoryUUID:accessoryUUID homeUUID:homeUUID2 userUUID:v15 completion:v27];
       }
 
       else
@@ -440,9 +429,9 @@ void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHist
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v31 = v26;
-        v32 = 2112;
-        v33 = messagePayload;
+        v30 = v26;
+        v31 = 2112;
+        v32 = messagePayload;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode onboarding message payload: %@", buf, 0x16u);
       }
 
@@ -461,9 +450,9 @@ void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHist
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v22;
-      v32 = 2112;
-      v33 = messageCopy;
+      v30 = v22;
+      v31 = 2112;
+      v32 = messageCopy;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to get onboarding message payload on message: %@", buf, 0x16u);
     }
 
@@ -471,13 +460,11 @@ void __90__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointDeleteSiriHist
     v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
     [messageCopy respondWithError:v10];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __98__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointApplyOnboardingSelectionsRequestMessage___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -488,11 +475,11 @@ void __98__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointApplyOnboardin
     if (v9)
     {
       v10 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Apply onboarding selections failed with error: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Apply onboarding selections failed with error: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -505,11 +492,11 @@ void __98__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointApplyOnboardin
     {
       v11 = HMFGetLogIdentifier();
       v12 = HMSiriEndpointOnboardingResultAsString();
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Apply result received from onboarding manager: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Apply result received from onboarding manager: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -518,8 +505,6 @@ void __98__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointApplyOnboardin
     v15 = [v13 payloadCopy];
     [v14 respondWithPayload:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSiriEndpointProfileMessageHandler)initWithHomeUUID:(id)d
@@ -551,12 +536,11 @@ void __98__HMDSiriEndpointProfileMessageHandler_handleSiriEndpointApplyOnboardin
 
 uint64_t __51__HMDSiriEndpointProfileMessageHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15;
-  logCategory__hmf_once_v15 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15;
+  logCategory__hmf_once_v15 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

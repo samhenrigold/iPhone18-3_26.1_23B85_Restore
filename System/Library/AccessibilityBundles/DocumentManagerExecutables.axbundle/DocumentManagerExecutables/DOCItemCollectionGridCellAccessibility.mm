@@ -178,17 +178,16 @@ LABEL_13:
 
 void __60__DOCItemCollectionGridCellAccessibility_accessibilityLabel__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = a2;
+  v8 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = *(*(*(a1 + 32) + 8) + 40);
-    v4 = [v9 contentView];
-    v8 = [v4 accessibilityLabel];
-    v5 = __UIAXStringForVariables();
-    v6 = *(*(a1 + 32) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v3 = [v8 contentView];
+    v7 = [v3 accessibilityLabel];
+    v4 = __UIAXStringForVariables();
+    v5 = *(*(a1 + 32) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
   }
 }
 
@@ -248,11 +247,11 @@ void __60__DOCItemCollectionGridCellAccessibility_accessibilityLabel__block_invo
 
 - (id)accessibilityDropPointDescriptors
 {
-  v15[1] = *MEMORY[0x29EDCA608];
+  v14[1] = *MEMORY[0x29EDCA608];
   if ([(DOCItemCollectionGridCellAccessibility *)self _accessibilityIsFolder])
   {
     v3 = [(DOCItemCollectionGridCellAccessibility *)self _accessibilityViewAncestorIsKindOf:objc_opt_class()];
-    v14 = 0;
+    v13 = 0;
     objc_opt_class();
     v4 = [(DOCItemCollectionGridCellAccessibility *)self safeValueForKey:@"accessibilityThumbnailView"];
     v5 = __UIAccessibilityCastAsClass();
@@ -275,18 +274,17 @@ void __60__DOCItemCollectionGridCellAccessibility_accessibilityLabel__block_invo
       AX_CGRectGetCenter();
       [v5 convertPoint:v3 toView:?];
       v9 = [v7 initWithName:v8 point:v3 inView:?];
-      v15[0] = v9;
-      accessibilityDropPointDescriptors = [MEMORY[0x29EDB8D80] arrayWithObjects:v15 count:1];
+      v14[0] = v9;
+      accessibilityDropPointDescriptors = [MEMORY[0x29EDB8D80] arrayWithObjects:v14 count:1];
 
       goto LABEL_9;
     }
   }
 
-  v13.receiver = self;
-  v13.super_class = DOCItemCollectionGridCellAccessibility;
-  accessibilityDropPointDescriptors = [(DOCItemCollectionGridCellAccessibility *)&v13 accessibilityDropPointDescriptors];
+  v12.receiver = self;
+  v12.super_class = DOCItemCollectionGridCellAccessibility;
+  accessibilityDropPointDescriptors = [(DOCItemCollectionGridCellAccessibility *)&v12 accessibilityDropPointDescriptors];
 LABEL_9:
-  v11 = *MEMORY[0x29EDCA608];
 
   return accessibilityDropPointDescriptors;
 }

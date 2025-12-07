@@ -39,8 +39,9 @@ LABEL_5:
   return v4;
 }
 
-BOOL mlir::mps::ReductionMinOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, __int128 *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::ReductionMinOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, __int128 *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v13 = a3;
   v65 = *MEMORY[0x277D85DE8];
   if (a7)
   {
@@ -53,7 +54,7 @@ BOOL mlir::mps::ReductionMinOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
   }
 
   v51 = a6;
-  v52[0] = 0;
+  LOBYTE(v52) = 0;
   v53 = 0;
   v54 = v15;
   v55 = a9;
@@ -67,7 +68,7 @@ BOOL mlir::mps::ReductionMinOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
       v53 = 0;
     }
 
-    mlir::OperationName::OperationName(v52, "mps.reduction_min", 17, Context);
+    mlir::OperationName::OperationName(&v52, "mps.reduction_min", 0x11uLL, Context);
     v53 = 1;
     a1 = v16;
   }
@@ -96,7 +97,7 @@ BOOL mlir::mps::ReductionMinOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
     v50 = v21;
     if (!v21)
     {
-      return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "input type must be a tensor type");
+      return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "input type must be a tensor type");
     }
 
     ElementType = mlir::TensorType::getElementType(&v50);
@@ -114,7 +115,7 @@ BOOL mlir::mps::ReductionMinOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
         v49 = v25;
         if (!v25)
         {
-          return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes type must be a tensor type");
+          return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes type must be a tensor type");
         }
 
         if (mlir::TensorType::hasRank(&v49))
@@ -122,7 +123,7 @@ BOOL mlir::mps::ReductionMinOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
           mlir::TensorType::getShape(&v49);
           if (v28 >= 2)
           {
-            return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes tensor must have rank 0 or 1");
+            return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes tensor must have rank 0 or 1");
           }
         }
 
@@ -204,7 +205,7 @@ LABEL_53:
 
 LABEL_58:
         mlir::TensorType::getShape(&v50);
-        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64);
+        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64, &mlir::ShapedType::kDynamic);
         v46 = mlir::RankedTensorType::get(__p, (v59 - __p) >> 3, ElementType, 0);
         llvm::SmallVectorTemplateBase<mlir::Operation *,true>::push_back(a11, v46);
         if (__p)
@@ -317,8 +318,9 @@ LABEL_5:
   return v4;
 }
 
-BOOL mlir::mps::ReductionOrOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::ReductionOrOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v13 = a3;
   v65 = *MEMORY[0x277D85DE8];
   if (a7)
   {
@@ -331,7 +333,7 @@ BOOL mlir::mps::ReductionOrOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIR
   }
 
   v51 = a6;
-  v52[0] = 0;
+  LOBYTE(v52) = 0;
   v53 = 0;
   v54 = v15;
   v55 = a9;
@@ -345,7 +347,7 @@ BOOL mlir::mps::ReductionOrOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIR
       v53 = 0;
     }
 
-    mlir::OperationName::OperationName(v52, "mps.reduction_or", 16, Context);
+    mlir::OperationName::OperationName(&v52, "mps.reduction_or", 0x10uLL, Context);
     v53 = 1;
     a1 = v16;
   }
@@ -374,7 +376,7 @@ BOOL mlir::mps::ReductionOrOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIR
     v50 = v21;
     if (!v21)
     {
-      return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "input type must be a tensor type");
+      return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "input type must be a tensor type");
     }
 
     ElementType = mlir::TensorType::getElementType(&v50);
@@ -392,7 +394,7 @@ BOOL mlir::mps::ReductionOrOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIR
         v49 = v25;
         if (!v25)
         {
-          return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes type must be a tensor type");
+          return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes type must be a tensor type");
         }
 
         if (mlir::TensorType::hasRank(&v49))
@@ -400,7 +402,7 @@ BOOL mlir::mps::ReductionOrOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIR
           mlir::TensorType::getShape(&v49);
           if (v28 >= 2)
           {
-            return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes tensor must have rank 0 or 1");
+            return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes tensor must have rank 0 or 1");
           }
         }
 
@@ -482,7 +484,7 @@ LABEL_53:
 
 LABEL_58:
         mlir::TensorType::getShape(&v50);
-        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64);
+        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64, &mlir::ShapedType::kDynamic);
         v46 = mlir::RankedTensorType::get(__p, (v59 - __p) >> 3, ElementType, 0);
         llvm::SmallVectorTemplateBase<mlir::Operation *,true>::push_back(a11, v46);
         if (__p)
@@ -595,8 +597,9 @@ LABEL_5:
   return v4;
 }
 
-BOOL mlir::mps::ReductionSumOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::ReductionSumOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v13 = a3;
   v65 = *MEMORY[0x277D85DE8];
   if (a7)
   {
@@ -609,7 +612,7 @@ BOOL mlir::mps::ReductionSumOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
   }
 
   v51 = a6;
-  v52[0] = 0;
+  LOBYTE(v52) = 0;
   v53 = 0;
   v54 = v15;
   v55 = a9;
@@ -623,7 +626,7 @@ BOOL mlir::mps::ReductionSumOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
       v53 = 0;
     }
 
-    mlir::OperationName::OperationName(v52, "mps.reduction_sum", 17, Context);
+    mlir::OperationName::OperationName(&v52, "mps.reduction_sum", 0x11uLL, Context);
     v53 = 1;
     a1 = v16;
   }
@@ -652,7 +655,7 @@ BOOL mlir::mps::ReductionSumOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
     v50 = v21;
     if (!v21)
     {
-      return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "input type must be a tensor type");
+      return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "input type must be a tensor type");
     }
 
     ElementType = mlir::TensorType::getElementType(&v50);
@@ -670,7 +673,7 @@ BOOL mlir::mps::ReductionSumOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
         v49 = v25;
         if (!v25)
         {
-          return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes type must be a tensor type");
+          return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes type must be a tensor type");
         }
 
         if (mlir::TensorType::hasRank(&v49))
@@ -678,7 +681,7 @@ BOOL mlir::mps::ReductionSumOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLI
           mlir::TensorType::getShape(&v49);
           if (v28 >= 2)
           {
-            return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes tensor must have rank 0 or 1");
+            return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes tensor must have rank 0 or 1");
           }
         }
 
@@ -760,7 +763,7 @@ LABEL_53:
 
 LABEL_58:
         mlir::TensorType::getShape(&v50);
-        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64);
+        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64, &mlir::ShapedType::kDynamic);
         v46 = mlir::RankedTensorType::get(__p, (v59 - __p) >> 3, ElementType, 0);
         llvm::SmallVectorTemplateBase<mlir::Operation *,true>::push_back(a11, v46);
         if (__p)
@@ -873,8 +876,9 @@ LABEL_5:
   return v4;
 }
 
-BOOL mlir::mps::ReductionVarianceOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::ReductionVarianceOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v13 = a3;
   v65 = *MEMORY[0x277D85DE8];
   if (a7)
   {
@@ -887,7 +891,7 @@ BOOL mlir::mps::ReductionVarianceOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir
   }
 
   v51 = a6;
-  v52[0] = 0;
+  LOBYTE(v52) = 0;
   v53 = 0;
   v54 = v15;
   v55 = a9;
@@ -901,7 +905,7 @@ BOOL mlir::mps::ReductionVarianceOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir
       v53 = 0;
     }
 
-    mlir::OperationName::OperationName(v52, "mps.reduction_variance", 22, Context);
+    mlir::OperationName::OperationName(&v52, "mps.reduction_variance", 0x16uLL, Context);
     v53 = 1;
     a1 = v16;
   }
@@ -930,7 +934,7 @@ BOOL mlir::mps::ReductionVarianceOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir
     v50 = v21;
     if (!v21)
     {
-      return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "input type must be a tensor type");
+      return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "input type must be a tensor type");
     }
 
     ElementType = mlir::TensorType::getElementType(&v50);
@@ -948,7 +952,7 @@ BOOL mlir::mps::ReductionVarianceOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir
         v49 = v25;
         if (!v25)
         {
-          return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes type must be a tensor type");
+          return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes type must be a tensor type");
         }
 
         if (mlir::TensorType::hasRank(&v49))
@@ -956,7 +960,7 @@ BOOL mlir::mps::ReductionVarianceOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir
           mlir::TensorType::getShape(&v49);
           if (v28 >= 2)
           {
-            return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes tensor must have rank 0 or 1");
+            return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes tensor must have rank 0 or 1");
           }
         }
 
@@ -1038,7 +1042,7 @@ LABEL_53:
 
 LABEL_58:
         mlir::TensorType::getShape(&v50);
-        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64);
+        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64, &mlir::ShapedType::kDynamic);
         v46 = mlir::RankedTensorType::get(__p, (v59 - __p) >> 3, ElementType, 0);
         llvm::SmallVectorTemplateBase<mlir::Operation *,true>::push_back(a11, v46);
         if (__p)
@@ -1151,8 +1155,9 @@ LABEL_5:
   return v4;
 }
 
-BOOL mlir::mps::ReductionProdOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::ReductionProdOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v13 = a3;
   v65 = *MEMORY[0x277D85DE8];
   if (a7)
   {
@@ -1165,7 +1170,7 @@ BOOL mlir::mps::ReductionProdOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::ML
   }
 
   v51 = a6;
-  v52[0] = 0;
+  LOBYTE(v52) = 0;
   v53 = 0;
   v54 = v15;
   v55 = a9;
@@ -1179,7 +1184,7 @@ BOOL mlir::mps::ReductionProdOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::ML
       v53 = 0;
     }
 
-    mlir::OperationName::OperationName(v52, "mps.reduction_prod", 18, Context);
+    mlir::OperationName::OperationName(&v52, "mps.reduction_prod", 0x12uLL, Context);
     v53 = 1;
     a1 = v16;
   }
@@ -1208,7 +1213,7 @@ BOOL mlir::mps::ReductionProdOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::ML
     v50 = v21;
     if (!v21)
     {
-      return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "input type must be a tensor type");
+      return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "input type must be a tensor type");
     }
 
     ElementType = mlir::TensorType::getElementType(&v50);
@@ -1226,7 +1231,7 @@ BOOL mlir::mps::ReductionProdOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::ML
         v49 = v25;
         if (!v25)
         {
-          return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes type must be a tensor type");
+          return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes type must be a tensor type");
         }
 
         if (mlir::TensorType::hasRank(&v49))
@@ -1234,7 +1239,7 @@ BOOL mlir::mps::ReductionProdOp::inferReturnTypes(mlir::UnknownLoc *a1, mlir::ML
           mlir::TensorType::getShape(&v49);
           if (v28 >= 2)
           {
-            return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "axes tensor must have rank 0 or 1");
+            return mlir::emitOptionalError<char const(&)[24]>(a2, v13, "axes tensor must have rank 0 or 1");
           }
         }
 
@@ -1316,7 +1321,7 @@ LABEL_53:
 
 LABEL_58:
         mlir::TensorType::getShape(&v50);
-        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64);
+        std::vector<long long>::vector[abi:nn200100](&__p, (__PAIR128__(v45, v18) - 1) >> 64, &mlir::ShapedType::kDynamic);
         v46 = mlir::RankedTensorType::get(__p, (v59 - __p) >> 3, ElementType, 0);
         llvm::SmallVectorTemplateBase<mlir::Operation *,true>::push_back(a11, v46);
         if (__p)
@@ -1723,7 +1728,7 @@ uint64_t mlir::mps::SortOp::inferReturnTypes(mlir::Float32Type *this, mlir::MLIR
       ++*(a11 + 8);
       v20 = mlir::ShapedType::getShape(v38);
       v22 = v21;
-      v23 = mlir::IntegerType::get(this, 32, 1u);
+      v23 = mlir::IntegerType::get(this, 0x20u, 1u);
       v24 = mlir::RankedTensorType::get(v20, v22, v23, 0);
     }
 
@@ -1740,7 +1745,7 @@ uint64_t mlir::mps::SortOp::inferReturnTypes(mlir::Float32Type *this, mlir::MLIR
 
       *(*a11 + 8 * v28) = v27;
       ++*(a11 + 8);
-      v29 = mlir::IntegerType::get(this, 32, 1u);
+      v29 = mlir::IntegerType::get(this, 0x20u, 1u);
       v24 = mlir::UnrankedTensorType::get(v29);
     }
 
@@ -1765,7 +1770,7 @@ uint64_t mlir::mps::SortOp::inferReturnTypes(mlir::Float32Type *this, mlir::MLIR
 
     *(*a11 + 8 * v33) = v32;
     ++*(a11 + 8);
-    v34 = mlir::IntegerType::get(this, 32, 1u);
+    v34 = mlir::IntegerType::get(this, 0x20u, 1u);
     v35 = mlir::UnrankedTensorType::get(v34);
     v36 = *(a11 + 8);
     if (v36 >= *(a11 + 12))
@@ -1888,26 +1893,27 @@ LABEL_5:
   return v4;
 }
 
-BOOL mlir::mps::NormalizationOp::inferReturnTypes(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5)
+BOOL mlir::mps::NormalizationOp::inferReturnTypes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v6[0] = a4;
-  v6[1] = a5;
+  v12[2] = *MEMORY[0x277D85DE8];
+  v12[0] = a4;
+  v12[1] = a5;
   if (a5 == 5)
   {
-    mlir::ValueRange::dereference_iterator(v6, 0);
-    mlir::ValueRange::dereference_iterator(v6, 1);
-    mlir::ValueRange::dereference_iterator(v6, 2);
-    mlir::ValueRange::dereference_iterator(v6, 3);
-    mlir::ValueRange::dereference_iterator(v6, 4);
+    mlir::ValueRange::dereference_iterator(v12, 0);
+    mlir::ValueRange::dereference_iterator(v12, 1);
+    mlir::ValueRange::dereference_iterator(v12, 2);
+    mlir::ValueRange::dereference_iterator(v12, 3);
+    mlir::ValueRange::dereference_iterator(v12, 4);
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
   return mlir::emitOptionalError<char const(&)[24]>(a2, a3, "invalid number of operands");
 }
 
-void *mlir::mps::anonymous namespace::getBroadcastedOperandsType(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+void *mlir::mps::anonymous namespace::getBroadcastedOperandsType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
+  v9 = a2;
   v11 = mlir::TypeRange::dereference_iterator(a5, 0);
   v19 = v11;
   if (a6 >= 2)
@@ -1945,7 +1951,7 @@ void *mlir::mps::anonymous namespace::getBroadcastedOperandsType(uint64_t a1, ch
 LABEL_8:
       v19 = v11;
       v18 = mlir::TypeRange::dereference_iterator(a5, v12);
-      mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[6],llvm::StringRef const&,char const(&)[7],mlir::Type,char const(&)[30]>(a1, a2, "output type ", &v19, " and ", (a3 + 16 * v12), " type ", &v18, " are not broadcast compatible");
+      mlir::emitOptionalError<char const(&)[13],mlir::Type &,char const(&)[6],llvm::StringRef const&,char const(&)[7],mlir::Type,char const(&)[30]>(a1, v9, "output type ", &v19, " and ", (a3 + 16 * v12), " type ", &v18, " are not broadcast compatible");
       return 0;
     }
   }
@@ -2097,7 +2103,7 @@ BOOL mlir::mps::NormalizationOp::verify(mlir::Operation **this)
 
           v39[0] = "invalid type for beta.";
           v41 = 259;
-          mlir::OpState::emitOpError(this, v39, &v42);
+          mlir::OpState::emitOpError(&v42, this, v39);
           v11 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v42);
           if (v42)
           {
@@ -2114,7 +2120,7 @@ BOOL mlir::mps::NormalizationOp::verify(mlir::Operation **this)
 
         v39[0] = "invalid type for gamma.";
         v41 = 259;
-        mlir::OpState::emitOpError(this, v39, &v42);
+        mlir::OpState::emitOpError(&v42, this, v39);
         v11 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v42);
         if (v42)
         {
@@ -2192,7 +2198,7 @@ LABEL_71:
       {
         v39[0] = "invalid type for variance.";
         v41 = 259;
-        mlir::OpState::emitOpError(this, v39, &v42);
+        mlir::OpState::emitOpError(&v42, this, v39);
         v11 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v42);
         if (v42)
         {
@@ -2260,7 +2266,7 @@ LABEL_71:
     {
       v39[0] = "invalid type for mean.";
       v41 = 259;
-      mlir::OpState::emitOpError(this, v39, &v42);
+      mlir::OpState::emitOpError(&v42, this, v39);
       v11 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v42);
       if (v42)
       {
@@ -2328,7 +2334,7 @@ LABEL_71:
   {
     v39[0] = "invalid type for input.";
     v41 = 259;
-    mlir::OpState::emitOpError(this, v39, &v42);
+    mlir::OpState::emitOpError(&v42, this, v39);
     v11 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v42);
     if (v42)
     {
@@ -2428,7 +2434,7 @@ BOOL mlir::mps::InstanceNormOp::verify(mlir::Operation **this)
   {
     v43 = "input and axes type must be a tensor type";
     v46 = 259;
-    mlir::OpState::emitOpError(this, &v43, v47);
+    mlir::OpState::emitOpError(v47, this, &v43);
     v9 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v47);
     if (v47[0])
     {
@@ -2500,7 +2506,7 @@ BOOL mlir::mps::InstanceNormOp::verify(mlir::Operation **this)
     {
       v43 = "axes tensor must have rank 0 or 1";
       v46 = 259;
-      mlir::OpState::emitOpError(this, &v43, v47);
+      mlir::OpState::emitOpError(v47, this, &v43);
       v9 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v47);
       if (v47[0])
       {
@@ -2626,36 +2632,36 @@ LABEL_60:
   v38 = *mlir::TensorType::getShape(&v41);
   mlir::TensorType::getShape(&v42);
   v37 = v30;
-  llvm::formatv<long long,long long>("axes tensor shape {0} is incompatible with input rank of {1}", &v38, &v37, &v43);
+  llvm::formatv<long long,long long>(&v43, "axes tensor shape {0} is incompatible with input rank of {1}", &v38, &v37);
   v40 = 263;
   v39 = &v43;
-  mlir::OpState::emitOpError(this, &v39, v47);
+  mlir::OpState::emitOpError(v47, this, &v39);
   v9 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v47);
   mlir::InFlightDiagnostic::~InFlightDiagnostic(v47);
   return v9;
 }
 
-const char *llvm::formatv<long long,long long>@<X0>(const char *__s@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+const char *llvm::formatv<long long,long long>@<X0>(const char **__return_ptr a1@<X8>, const char *__s@<X0>, const char **a3@<X1>, const char **a4@<X2>)
 {
   v4 = __s;
-  v6 = *a2;
-  v7 = *a3;
+  v6 = *a3;
+  v7 = *a4;
   if (__s)
   {
     __s = strlen(__s);
   }
 
-  *a4 = v4;
-  *(a4 + 8) = __s;
-  *(a4 + 72) = a4 + 40;
-  *(a4 + 16) = a4 + 72;
-  *(a4 + 24) = 2;
-  *(a4 + 32) = 1;
-  *(a4 + 40) = &unk_28685E550;
-  *(a4 + 48) = v6;
-  *(a4 + 56) = &unk_28685E550;
-  *(a4 + 64) = v7;
-  *(a4 + 80) = a4 + 56;
+  *a1 = v4;
+  a1[1] = __s;
+  a1[9] = (a1 + 5);
+  a1[2] = (a1 + 9);
+  a1[3] = 2;
+  *(a1 + 32) = 1;
+  a1[5] = &unk_28685E550;
+  a1[6] = v6;
+  a1[7] = &unk_28685E550;
+  a1[8] = v7;
+  a1[10] = (a1 + 7);
   return __s;
 }
 
@@ -3332,7 +3338,7 @@ LABEL_150:
   return v31;
 }
 
-uint64_t mlir::mps::Conv2DOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, int a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::Conv2DOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, mlir::MLIRContext *a11)
 {
   v44[2] = *MEMORY[0x277D85DE8];
   v44[0] = a4;
@@ -3354,7 +3360,7 @@ uint64_t mlir::mps::Conv2DOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
   }
 
   v33 = a6;
-  v34[0] = 0;
+  LOBYTE(v34) = 0;
   v35 = 0;
   v36 = v14;
   v37 = v15;
@@ -3370,13 +3376,13 @@ uint64_t mlir::mps::Conv2DOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
       v35 = 0;
     }
 
-    mlir::OperationName::OperationName(v34, "mps.conv_2d", 11, Context);
+    mlir::OperationName::OperationName(&v34, "mps.conv_2d", 0xBuLL, Context);
     v35 = 1;
   }
 
   v42 = a4;
   v43 = a5;
-  if (a5 >= 2 && (v19 = mlir::UnknownLoc::get(this, a2), (mlir::mps::Conv2DOpAdaptor::verify(&v33, v19) & 1) != 0))
+  if (a5 >= 2 && (v19 = mlir::UnknownLoc::get(this, a2), mlir::mps::Conv2DOpAdaptor::verify(&v33, v19)))
   {
     v31[3] = *(&v36 + 1);
     v31[4] = *(&v38 + 1);
@@ -3404,8 +3410,8 @@ uint64_t mlir::mps::Conv2DOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
     }
 
     v28 = mlir::UnrankedTensorType::get(ElementTypeOrSelf);
-    v29 = *(a11 + 8);
-    if (v29 >= *(a11 + 12))
+    v29 = *(a11 + 2);
+    if (v29 >= *(a11 + 3))
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
@@ -3417,8 +3423,8 @@ uint64_t mlir::mps::Conv2DOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
   {
     v20 = mlir::Float32Type::get(this, a2);
     v21 = mlir::UnrankedTensorType::get(v20);
-    v22 = *(a11 + 8);
-    if (v22 >= *(a11 + 12))
+    v22 = *(a11 + 2);
+    if (v22 >= *(a11 + 3))
     {
       llvm::SmallVectorBase<unsigned int>::grow_pod();
     }
@@ -3426,11 +3432,11 @@ uint64_t mlir::mps::Conv2DOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
     *(*a11 + 8 * v22) = v21;
   }
 
-  ++*(a11 + 8);
+  ++*(a11 + 2);
   return 1;
 }
 
-uint64_t mlir::mps::Conv2DOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::mps::Conv2DOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v70 = *MEMORY[0x277D85DE8];
   if (!a1[3])
@@ -3841,7 +3847,7 @@ uint64_t *mlir::mps::detail::Conv2DOpGenericAdaptorBase::getGroups(mlir::mps::de
   return v2;
 }
 
-BOOL mlir::mps::anonymous namespace::inferConv2DReturnType(uint64_t a1, char a2, void *a3, void *a4, uint64_t *a5, uint64_t *a6)
+uint64_t mlir::mps::anonymous namespace::inferConv2DReturnType(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t *a5, uint64_t *a6)
 {
   v27 = *MEMORY[0x277D85DE8];
   v25 = a3;
@@ -3937,8 +3943,9 @@ LABEL_5:
   return v4;
 }
 
-uint64_t mlir::mps::Conv2DDataGradientOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, char a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::Conv2DDataGradientOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v13 = a3;
   v14 = a2;
   v143[4] = *MEMORY[0x277D85DE8];
   v120 = a4;
@@ -3977,14 +3984,14 @@ uint64_t mlir::mps::Conv2DDataGradientOp::inferReturnTypes(mlir::UnknownLoc *thi
       v111 = 0;
     }
 
-    mlir::OperationName::OperationName(v110, "mps.conv_2d_data_gradient", 25, Context);
+    mlir::OperationName::OperationName(v110, "mps.conv_2d_data_gradient", 0x19uLL, Context);
     v111 = 1;
     v20 = v121;
   }
 
   v118 = a4;
   v119 = a5;
-  if (v20 < 2 || (v22 = mlir::UnknownLoc::get(this, a2), (mlir::mps::Conv2DDataGradientOpAdaptor::verify(&v109, v22) & 1) == 0))
+  if (v20 < 2 || (v22 = mlir::UnknownLoc::get(this, a2), !mlir::mps::Conv2DDataGradientOpAdaptor::verify(&v109, v22)))
   {
     v37 = mlir::Float32Type::get(this, a2);
 LABEL_52:
@@ -4078,7 +4085,7 @@ LABEL_26:
 
 LABEL_27:
   v40 = v14;
-  v41 = a3;
+  v41 = v13;
   v42 = *v39;
   {
     mlir::mps::ConstantOp::verify();
@@ -4091,7 +4098,7 @@ LABEL_27:
     }
 
 LABEL_39:
-    a3 = v41;
+    v13 = v41;
     v14 = v40;
     goto LABEL_41;
   }
@@ -4107,7 +4114,7 @@ LABEL_39:
 LABEL_29:
   v46 = v44;
   v47 = v45;
-  a3 = v41;
+  v13 = v41;
   do
   {
     v48 = v47 >> 1;
@@ -4167,7 +4174,7 @@ LABEL_42:
       Shape = mlir::ShapedType::getShape(&v106);
       if (v68 != 4)
       {
-        v70 = mlir::emitOptionalError<char const(&)[24]>(v14, a3, "Conv2DDataGradientOp input should be rank 4");
+        v70 = mlir::emitOptionalError<char const(&)[24]>(v14, v13, "Conv2DDataGradientOp input should be rank 4");
         v62 = 0;
         goto LABEL_115;
       }
@@ -4203,7 +4210,7 @@ LABEL_42:
     v79 = mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v104);
     v81 = v80;
     v82 = mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v103);
-    if (mlir::mps::inferConv2DParams(v14, a3, v69, 4, v76, v78, v79, v81, v82, v83, v71, v136, v134, v132, v130))
+    if (mlir::mps::inferConv2DParams(v14, v13, v69, 4, v76, v78, v79, v81, v82, v83, v71, v136, v134, v132, v130))
     {
       if (v102)
       {
@@ -4275,7 +4282,7 @@ LABEL_42:
 
       else
       {
-        v70 = mlir::emitOptionalError<char const(&)[24]>(v14, a3, "Conv2dGradient weights should be rank 4");
+        v70 = mlir::emitOptionalError<char const(&)[24]>(v14, v13, "Conv2dGradient weights should be rank 4");
         v62 = 0;
       }
     }
@@ -4465,7 +4472,7 @@ LABEL_53:
   return 1;
 }
 
-uint64_t mlir::mps::Conv2DDataGradientOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::mps::Conv2DDataGradientOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v70 = *MEMORY[0x277D85DE8];
   if (!a1[3])
@@ -4903,8 +4910,9 @@ LABEL_5:
   return v4;
 }
 
-uint64_t mlir::mps::Conv2DWeightsGradientOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, char a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t mlir::mps::Conv2DWeightsGradientOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLIRContext *a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6, __int128 *a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
+  v13 = a3;
   v142[4] = *MEMORY[0x277D85DE8];
   v119 = a4;
   v120 = a5;
@@ -4942,14 +4950,14 @@ uint64_t mlir::mps::Conv2DWeightsGradientOp::inferReturnTypes(mlir::UnknownLoc *
       v110 = 0;
     }
 
-    mlir::OperationName::OperationName(v109, "mps.conv_2d_weights_gradient", 28, Context);
+    mlir::OperationName::OperationName(v109, "mps.conv_2d_weights_gradient", 0x1CuLL, Context);
     v110 = 1;
     v20 = v120;
   }
 
   v117 = a4;
   v118 = a5;
-  if (v20 < 3 || (v22 = mlir::UnknownLoc::get(this, a2), (mlir::mps::Conv2DWeightsGradientOpAdaptor::verify(&v108, v22) & 1) == 0))
+  if (v20 < 3 || (v22 = mlir::UnknownLoc::get(this, a2), !mlir::mps::Conv2DWeightsGradientOpAdaptor::verify(&v108, v22)))
   {
     v37 = mlir::Float32Type::get(this, a2);
 LABEL_50:
@@ -5123,7 +5131,7 @@ LABEL_40:
       Shape = mlir::ShapedType::getShape(&v105);
       if (v67 != 4)
       {
-        v69 = mlir::emitOptionalError<char const(&)[24]>(a2, a3, "Conv2DDataGradientOp input should be rank 4");
+        v69 = mlir::emitOptionalError<char const(&)[24]>(a2, v13, "Conv2DDataGradientOp input should be rank 4");
         v60 = 0;
 LABEL_108:
         v73 = v137;
@@ -5161,7 +5169,7 @@ LABEL_108:
     v78 = mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v103);
     v80 = v79;
     v81 = mlir::DenseElementsAttr::operator mlir::ElementsAttr(&v102);
-    if (mlir::mps::inferConv2DParams(a2, a3, v68, 4, v75, v77, v78, v80, v81, v82, v70, v135, v133, v131, v129))
+    if (mlir::mps::inferConv2DParams(a2, v13, v68, 4, v75, v77, v78, v80, v81, v82, v70, v135, v133, v131, v129))
     {
       if (v101)
       {
@@ -5234,7 +5242,7 @@ LABEL_108:
         goto LABEL_100;
       }
 
-      v69 = mlir::emitOptionalError<char const(&)[24]>(a2, a3, "Conv2dGradient weights should be rank 4");
+      v69 = mlir::emitOptionalError<char const(&)[24]>(a2, v13, "Conv2dGradient weights should be rank 4");
       v60 = 0;
     }
 
@@ -5419,7 +5427,7 @@ LABEL_51:
   return 1;
 }
 
-uint64_t mlir::mps::Conv2DWeightsGradientOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::mps::Conv2DWeightsGradientOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v70 = *MEMORY[0x277D85DE8];
   if (!a1[3])
@@ -5857,18 +5865,18 @@ LABEL_5:
   return v4;
 }
 
-void mlir::mps::getSpatialPaddingValues(void *a1@<X8>)
+void mlir::mps::getSpatialPaddingValues(void *a3@<X8>)
 {
-  *a1 = a1 + 2;
-  a1[1] = 0x500000000;
+  *a3 = a3 + 2;
+  a3[1] = 0x500000000;
   llvm::SmallVectorBase<unsigned int>::grow_pod();
 }
 
-uint64_t llvm::SmallVector<long long,5u>::SmallVector(uint64_t a1, const void *a2, uint64_t a3)
+void *llvm::SmallVector<long long,5u>::SmallVector(void *a1, const void *a2, uint64_t a3)
 {
   v3 = a3;
-  *a1 = a1 + 16;
-  *(a1 + 8) = 0x500000000;
+  *a1 = a1 + 2;
+  a1[1] = 0x500000000;
   if (((8 * a3) >> 3) >= 6)
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
@@ -5878,10 +5886,10 @@ uint64_t llvm::SmallVector<long long,5u>::SmallVector(uint64_t a1, const void *a
   if (a3)
   {
     memcpy(*a1, a2, 8 * a3);
-    v5 = *(a1 + 8);
+    v5 = *(a1 + 2);
   }
 
-  *(a1 + 8) = v5 + v3;
+  *(a1 + 2) = v5 + v3;
   return a1;
 }
 
@@ -6009,11 +6017,11 @@ void mlir::mps::computeSpatialPaddings(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint
   }
 }
 
-void mlir::mps::computeConvResultSpatialShape(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X4>, void *a5@<X6>, uint64_t a6@<X8>, uint64_t a7)
+void mlir::mps::computeConvResultSpatialShape(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X4>, void *a5@<X6>, void *a6@<X8>, uint64_t a7)
 {
   v7 = a2;
-  *a6 = a6 + 16;
-  *(a6 + 8) = 0x300000000;
+  *a6 = a6 + 2;
+  a6[1] = 0x300000000;
   if (a2)
   {
     if (a2 >= 4)
@@ -6022,7 +6030,7 @@ void mlir::mps::computeConvResultSpatialShape(uint64_t *a1@<X0>, unint64_t a2@<X
     }
 
     bzero(*a6, 8 * a2);
-    *(a6 + 8) = v7;
+    *(a6 + 2) = v7;
     v13 = *a6;
     v14 = (a7 + 8);
     do
@@ -6148,14 +6156,14 @@ uint64_t mlir::mps::Conv3DOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::MLI
       v89 = 0;
     }
 
-    mlir::OperationName::OperationName(v88, "mps.conv_3d", 11, Context);
+    mlir::OperationName::OperationName(v88, "mps.conv_3d", 0xBuLL, Context);
     v89 = 1;
     v18 = v99;
   }
 
   v96 = a4;
   v97 = a5;
-  if (v18 >= 2 && (v20 = mlir::UnknownLoc::get(this, a2), (mlir::mps::Conv3DOpAdaptor::verify(&v87, v20) & 1) != 0))
+  if (v18 >= 2 && (v20 = mlir::UnknownLoc::get(this, a2), mlir::mps::Conv3DOpAdaptor::verify(&v87, v20)))
   {
     v21 = mlir::ValueRange::dereference_iterator(&v98, 0);
     v22 = mlir::ValueRange::dereference_iterator(&v98, 1);
@@ -6271,7 +6279,7 @@ LABEL_20:
   return 1;
 }
 
-uint64_t mlir::mps::Conv3DOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::mps::Conv3DOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v73 = *MEMORY[0x277D85DE8];
   v3 = a1[3];
@@ -7169,7 +7177,7 @@ LABEL_29:
 LABEL_46:
         v108[0] = "failed: strides incompatible with given tensor data layout.";
         v109[8] = 259;
-        mlir::OpState::emitOpError(this, v108, &v112);
+        mlir::OpState::emitOpError(&v112, this, v108);
         v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v112);
         if (v112)
         {
@@ -7260,18 +7268,18 @@ LABEL_85:
         goto LABEL_66;
       }
 
-      v24 = 4;
+      v24 = 32;
       if (*(*(*this + 2 * ((*(*this + 11) >> 23) & 1) + 8) + 8) == 7)
       {
-        v24 = 1;
+        v24 = 8;
       }
 
-      if (v108[0][v24] != 1)
+      if (*&v108[0][v24] != 1)
       {
 LABEL_66:
         v105[0] = "failed: dilation values incompatible with given tensor layout.";
         v106 = 259;
-        mlir::OpState::emitOpError(this, v105, &v112);
+        mlir::OpState::emitOpError(&v112, this, v105);
         v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v112);
         if (v112)
         {
@@ -7356,8 +7364,8 @@ LABEL_142:
       v26 = *v25;
       {
         v27 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-        v28 = v26[1];
-        v29 = *(v26 + 4);
+        v28 = *(v26 + 8);
+        v29 = *(v26 + 16);
         if (v29)
         {
           goto LABEL_40;
@@ -7368,8 +7376,8 @@ LABEL_142:
       {
         mlir::mps::ConstantOp::verify();
         v27 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-        v28 = v26[1];
-        v29 = *(v26 + 4);
+        v28 = *(v26 + 8);
+        v29 = *(v26 + 16);
         if (v29)
         {
 LABEL_40:
@@ -7608,7 +7616,7 @@ LABEL_99:
 LABEL_13:
   v110[0] = "failed: explicit padding incompatible with with given tensor data layout.";
   v111[8] = 259;
-  mlir::OpState::emitOpError(this, v110, &v112);
+  mlir::OpState::emitOpError(&v112, this, v110);
   v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v112);
   if (v112)
   {
@@ -7701,7 +7709,7 @@ uint64_t *mlir::mps::Conv3DOp::getGroups(mlir::mps::Conv3DOp *this)
 
 uint64_t mlir::mps::get5DElementsAttrFrom3DSpatialValues(uint64_t **a1, uint64_t *a2, uint64_t a3, int a4)
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v17[5] = *MEMORY[0x277D85DE8];
   v5 = a2[1];
   v4 = a2[2];
   v6 = *a2;
@@ -7721,46 +7729,46 @@ uint64_t mlir::mps::get5DElementsAttrFrom3DSpatialValues(uint64_t **a1, uint64_t
     v5 = *a2;
   }
 
-  v16[0] = 1;
-  v16[1] = v7;
+  v17[0] = 1;
+  v17[1] = v7;
   if (a4 != 7)
   {
     v6 = 1;
   }
 
-  v16[2] = v4;
-  v16[3] = v5;
-  v16[4] = v6;
-  v14 = v16;
-  v15 = 0x500000005;
-  v13 = 5;
+  v17[2] = v4;
+  v17[3] = v5;
+  v17[4] = v6;
+  v15 = v17;
+  v16 = 0x500000005;
+  v14 = 5;
   IntegerType = mlir::Builder::getIntegerType(a1, 64, 0);
-  v12 = mlir::RankedTensorType::get(&v13, 1, IntegerType, 0);
-  v9 = mlir::TensorType::operator mlir::ShapedType(&v12);
-  result = mlir::DenseElementsAttr::getRawIntOrFloat(v9);
-  if (v14 != v16)
+  v13 = mlir::RankedTensorType::get(&v14, 1, IntegerType, 0);
+  v9 = mlir::TensorType::operator mlir::ShapedType(&v13);
+  result = mlir::DenseElementsAttr::getRawIntOrFloat(v9, v10, v15, 8 * v16);
+  if (v15 != v17)
   {
-    v11 = result;
-    free(v14);
-    return v11;
+    v12 = result;
+    free(v15);
+    return v12;
   }
 
   return result;
 }
 
-void mlir::mps::get5DElementsAttrFrom3DPaddingValues()
+void mlir::mps::get5DElementsAttrFrom3DPaddingValues(mlir::Builder *a1, uint64_t *a2, uint64_t a3, int a4)
 {
-  v2[5] = *MEMORY[0x277D85DE8];
-  v0 = v2;
-  v1 = 0x500000000;
+  v6[5] = *MEMORY[0x277D85DE8];
+  v4 = v6;
+  v5 = 0x500000000;
   llvm::SmallVectorBase<unsigned int>::grow_pod();
 }
 
-void mlir::mps::computeConv3DTransposeResultSpatialShape(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X4>, void *a5@<X6>, uint64_t a6@<X8>, uint64_t a7)
+void mlir::mps::computeConv3DTransposeResultSpatialShape(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X4>, void *a5@<X6>, void *a6@<X8>, uint64_t a7)
 {
   v7 = a2;
-  *a6 = a6 + 16;
-  *(a6 + 8) = 0x300000000;
+  *a6 = a6 + 2;
+  a6[1] = 0x300000000;
   if (a2)
   {
     if (a2 >= 4)
@@ -7769,7 +7777,7 @@ void mlir::mps::computeConv3DTransposeResultSpatialShape(uint64_t *a1@<X0>, unin
     }
 
     bzero(*a6, 8 * a2);
-    *(a6 + 8) = v7;
+    *(a6 + 2) = v7;
     v13 = *a6;
     v14 = (a7 + 8);
     do
@@ -7835,14 +7843,14 @@ uint64_t mlir::mps::Conv3DDataGradientOp::inferReturnTypes(mlir::UnknownLoc *thi
       v105 = 0;
     }
 
-    mlir::OperationName::OperationName(v104, "mps.conv_3d_data_gradient", 25, Context);
+    mlir::OperationName::OperationName(v104, "mps.conv_3d_data_gradient", 0x19uLL, Context);
     v105 = 1;
     v18 = v115;
   }
 
   v112 = a4;
   v113 = a5;
-  if (v18 >= 2 && (v20 = mlir::UnknownLoc::get(this, a2), (mlir::mps::Conv3DDataGradientOpAdaptor::verify(&v103, v20) & 1) != 0))
+  if (v18 >= 2 && (v20 = mlir::UnknownLoc::get(this, a2), mlir::mps::Conv3DDataGradientOpAdaptor::verify(&v103, v20)))
   {
     v21 = mlir::ValueRange::dereference_iterator(&v114, 0);
     v22 = mlir::ValueRange::dereference_iterator(&v114, 1);
@@ -7948,7 +7956,7 @@ LABEL_45:
         ++v29;
       }
 
-      while (v29 != &v26[v27]);
+      while (v29 != (v26 + 8 * v27));
 LABEL_41:
       v74 = mlir::RankedTensorType::get(v26, v27, v25, 0);
       v75 = *(a11 + 8);
@@ -8077,7 +8085,7 @@ LABEL_42:
   return 1;
 }
 
-uint64_t mlir::mps::Conv3DDataGradientOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::mps::Conv3DDataGradientOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v73 = *MEMORY[0x277D85DE8];
   v3 = a1[3];
@@ -8560,7 +8568,7 @@ LABEL_5:
   return v4;
 }
 
-uint64_t mlir::mps::verifyConvolutionBatches(mlir::Operation *a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+BOOL mlir::mps::verifyConvolutionBatches(mlir::Operation *a1, uint64_t *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
   v47 = *MEMORY[0x277D85DE8];
   v5 = 1;
@@ -8753,7 +8761,7 @@ LABEL_47:
   return v5;
 }
 
-uint64_t mlir::mps::Conv3DDataGradientOp::verify(mlir::Operation **this)
+BOOL mlir::mps::Conv3DDataGradientOp::verify(mlir::Operation **this)
 {
   v140[6] = *MEMORY[0x277D85DE8];
   v139[0] = v140;
@@ -8813,7 +8821,7 @@ LABEL_29:
 LABEL_46:
         v124[0] = "failed: strides incompatible with given tensor data layout.";
         v125[8] = 259;
-        mlir::OpState::emitOpError(this, v124, &v128);
+        mlir::OpState::emitOpError(&v128, this, v124);
         v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v128);
         if (v128)
         {
@@ -8904,18 +8912,18 @@ LABEL_85:
         goto LABEL_66;
       }
 
-      v24 = 4;
+      v24 = 32;
       if (*(*(*this + 2 * ((*(*this + 11) >> 23) & 1) + 8) + 8) == 7)
       {
-        v24 = 1;
+        v24 = 8;
       }
 
-      if (v124[0][v24] != 1)
+      if (*&v124[0][v24] != 1)
       {
 LABEL_66:
         v120 = "failed: dilation values incompatible with given tensor layout.";
         v122 = 259;
-        mlir::OpState::emitOpError(this, &v120, &v128);
+        mlir::OpState::emitOpError(&v128, this, &v120);
         v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v128);
         if (v128)
         {
@@ -9309,7 +9317,7 @@ LABEL_98:
 LABEL_13:
   v126[0] = "failed: explicit padding incompatible with with given tensor data layout.";
   v127[8] = 259;
-  mlir::OpState::emitOpError(this, v126, &v128);
+  mlir::OpState::emitOpError(&v128, this, v126);
   v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(&v128);
   if (v128)
   {
@@ -9438,14 +9446,14 @@ uint64_t mlir::mps::Conv3DWeightsGradientOp::inferReturnTypes(mlir::UnknownLoc *
       v48 = 0;
     }
 
-    mlir::OperationName::OperationName(v47, "mps.conv_3d_weights_gradient", 28, Context);
+    mlir::OperationName::OperationName(v47, "mps.conv_3d_weights_gradient", 0x1CuLL, Context);
     v48 = 1;
   }
 
   v55 = a4;
   v56 = a5;
   v41 = 0;
-  if (a5 < 3 || (v19 = mlir::UnknownLoc::get(this, a2), (mlir::mps::Conv3DWeightsGradientOpAdaptor::verify(&v46, v19) & 1) == 0))
+  if (a5 < 3 || (v19 = mlir::UnknownLoc::get(this, a2), !mlir::mps::Conv3DWeightsGradientOpAdaptor::verify(&v46, v19)))
   {
     v35 = mlir::Float32Type::get(this, a2);
     v36 = mlir::UnrankedTensorType::get(v35);
@@ -9577,7 +9585,7 @@ LABEL_36:
     ++v28;
   }
 
-  while (v28 != &v25[v26]);
+  while (v28 != (v25 + 8 * v26));
 LABEL_31:
   v39 = mlir::RankedTensorType::get(v25, v26, v20, 0);
   v40 = *(a11 + 8);
@@ -9596,7 +9604,7 @@ LABEL_31:
   return 1;
 }
 
-uint64_t mlir::mps::Conv3DWeightsGradientOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::mps::Conv3DWeightsGradientOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v73 = *MEMORY[0x277D85DE8];
   v3 = a1[3];

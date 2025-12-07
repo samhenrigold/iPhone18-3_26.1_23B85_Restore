@@ -2745,77 +2745,76 @@ void __73__MOEventStore_fetchEventsWithStartDateAfter_Category_CompletionHandler
 {
   v3 = a2;
   v4 = +[MOEventMO fetchRequest];
-  v5 = *(a1 + 32);
-  v6 = [NSPredicate predicateWithFormat:@"startDate >= %@ AND category == %lu AND isInvalid == NO", v5, *(a1 + 48)];
-  [v4 setPredicate:v6];
+  v5 = [NSPredicate predicateWithFormat:@"startDate >= %@ AND category == %lu AND isInvalid == NO", *(a1 + 32), *(a1 + 48)];
+  [v4 setPredicate:v5];
 
   [v4 setReturnsObjectsAsFaults:0];
-  v7 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:1];
-  v36 = v7;
-  v8 = [NSArray arrayWithObjects:&v36 count:1];
-  [v4 setSortDescriptors:v8];
+  v6 = [[NSSortDescriptor alloc] initWithKey:@"startDate" ascending:1];
+  v35 = v6;
+  v7 = [NSArray arrayWithObjects:&v35 count:1];
+  [v4 setSortDescriptors:v7];
 
-  v26 = 0;
-  v9 = [v3 executeFetchRequest:v4 error:&v26];
-  v10 = v26;
-  v11 = _mo_log_facility_get_os_log(&MOLogFacilityEventStore);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v25 = 0;
+  v8 = [v3 executeFetchRequest:v4 error:&v25];
+  v9 = v25;
+  v10 = _mo_log_facility_get_os_log(&MOLogFacilityEventStore);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v19 = NSStringFromSelector(*(a1 + 56));
-    v20 = [v9 count];
+    v18 = NSStringFromSelector(*(a1 + 56));
+    v19 = [v8 count];
     *buf = 138413058;
-    v29 = v19;
-    v30 = 2112;
-    v31 = v4;
-    v32 = 2048;
-    v33 = v20;
-    v34 = 2112;
-    v35 = v10;
-    _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%@, request, %@, results count, %lu, error, %@", buf, 0x2Au);
+    v28 = v18;
+    v29 = 2112;
+    v30 = v4;
+    v31 = 2048;
+    v32 = v19;
+    v33 = 2112;
+    v34 = v9;
+    _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "%@, request, %@, results count, %lu, error, %@", buf, 0x2Au);
   }
 
-  if (v10)
+  if (v9)
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v21 = v3;
-    v12 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v9 count]);
+    v20 = v3;
+    v11 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v8 count]);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v13 = v9;
-    v14 = [v13 countByEnumeratingWithState:&v22 objects:v27 count:16];
-    if (v14)
+    v12 = v8;
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v23;
+      v14 = v13;
+      v15 = *v22;
       do
       {
-        for (i = 0; i != v15; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v23 != v16)
+          if (*v22 != v15)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v12);
           }
 
-          v18 = [[MOEvent alloc] initWithEventMO:*(*(&v22 + 1) + 8 * i)];
-          if (v18)
+          v17 = [[MOEvent alloc] initWithEventMO:*(*(&v21 + 1) + 8 * i)];
+          if (v17)
           {
-            [v12 addObject:v18];
+            [v11 addObject:v17];
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
-      while (v15);
+      while (v14);
     }
 
-    v3 = v21;
+    v3 = v20;
   }
 
   [v3 reset];
@@ -3246,7 +3245,7 @@ uint64_t __33__MOEventStore_readEWAPlistFile___block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 - (BOOL)_persistEWAMetricsPrivate:(id)private withData:(id)data

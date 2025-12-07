@@ -89,22 +89,22 @@ uint64_t __44__ASCMiniProductPageMediaViewController_log__block_invoke()
 
     objc_initWeak(&location, v10);
     v28 = MEMORY[0x277D750C8];
-    v36 = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __75__ASCMiniProductPageMediaViewController_initWithScreenshots_selectedIndex___block_invoke;
-    v39 = &unk_2781CC820;
-    objc_copyWeak(&v40, &location);
-    v29 = [v28 actionWithHandler:&v36];
+    v35 = MEMORY[0x277D85DD0];
+    v36 = 3221225472;
+    v37 = __75__ASCMiniProductPageMediaViewController_initWithScreenshots_selectedIndex___block_invoke;
+    v38 = &unk_2781CC820;
+    objc_copyWeak(&v39, &location);
+    v29 = [v28 actionWithHandler:&v35];
     v30 = objc_alloc(MEMORY[0x277D751E0]);
-    v31 = [v30 initWithBarButtonSystemItem:24 primaryAction:{v29, v36, v37, v38, v39}];
+    v31 = [v30 initWithBarButtonSystemItem:24 primaryAction:{v29, v35, v36, v37, v38}];
     navigationItem = [(ASCMiniProductPageMediaViewController *)v10 navigationItem];
     [navigationItem setRightBarButtonItem:v31];
 
-    v34 = ASCLocalizedString(@"MINI_PRODUCT_PAGE_SCREENSHOT_SHEET_TITLE", v33);
-    [(ASCMiniProductPageMediaViewController *)v10 setTitle:v34];
+    v33 = ASCLocalizedString(@"MINI_PRODUCT_PAGE_SCREENSHOT_SHEET_TITLE");
+    [(ASCMiniProductPageMediaViewController *)v10 setTitle:v33];
 
     [(ASCMiniProductPageMediaViewController *)v10 adjustEdgeInsets];
-    objc_destroyWeak(&v40);
+    objc_destroyWeak(&v39);
     objc_destroyWeak(&location);
   }
 

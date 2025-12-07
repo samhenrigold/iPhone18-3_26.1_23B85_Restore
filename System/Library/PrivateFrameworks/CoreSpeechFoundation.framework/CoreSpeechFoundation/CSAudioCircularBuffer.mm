@@ -14,24 +14,23 @@
 
 - (void)reset
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSAudioCircularBuffer reset]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s CSAudioCircularBuffer.reset", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSAudioCircularBuffer reset]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s CSAudioCircularBuffer.reset", &v5, 0xCu);
   }
 
   ptr = self->_csAudioCircularBufferImpl.__ptr_;
   ptr[3] = 0;
   ptr[4] = 0;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyBufferWithNumSamplesCopiedIn:(unint64_t *)in
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   ptr = self->_csAudioCircularBufferImpl.__ptr_;
   v6 = ptr[4];
   v7 = ptr[2];
@@ -51,15 +50,15 @@
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     v12 = *in;
-    v18 = 136315906;
-    v19 = "[CSAudioCircularBuffer copyBufferWithNumSamplesCopiedIn:]";
-    v20 = 2050;
-    v21 = v10;
-    v22 = 2050;
-    v23 = v6;
-    v24 = 2050;
-    v25 = v12;
-    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s copyBuffer: oldestSample: %{public}lu latestSample: %{public}lu, numSamplesCopied: %{public}lu", &v18, 0x2Au);
+    v17 = 136315906;
+    v18 = "[CSAudioCircularBuffer copyBufferWithNumSamplesCopiedIn:]";
+    v19 = 2050;
+    v20 = v10;
+    v21 = 2050;
+    v22 = v6;
+    v23 = 2050;
+    v24 = v12;
+    _os_log_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_DEFAULT, "%s copyBuffer: oldestSample: %{public}lu latestSample: %{public}lu, numSamplesCopied: %{public}lu", &v17, 0x2Au);
   }
 
   v13 = [(CSAudioCircularBuffer *)self copySamplesFrom:v10 to:v6];
@@ -76,18 +75,17 @@
     *in = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return data;
 }
 
 - (id)copybufferFrom:(unint64_t)from to:(unint64_t)to
 {
-  v21 = *MEMORY[0x1E69E9840];
-  corespeech::CSAudioCircularBufferImpl<unsigned short>::copySamples(&v12, self->_csAudioCircularBufferImpl.__ptr_, from, to);
-  v7 = v12;
-  if (v12)
+  v20 = *MEMORY[0x1E69E9840];
+  corespeech::CSAudioCircularBufferImpl<unsigned short>::copySamples(&v11, self->_csAudioCircularBufferImpl.__ptr_, from, to);
+  v7 = v11;
+  if (v11)
   {
-    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:v12 length:2 * (to - from) * *self->_csAudioCircularBufferImpl.__ptr_];
+    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:v11 length:2 * (to - from) * *self->_csAudioCircularBufferImpl.__ptr_];
     MEMORY[0x1E12B9880](v7, 0x1000C80BDFB0063);
   }
 
@@ -97,27 +95,25 @@
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v14 = "[CSAudioCircularBuffer copybufferFrom:to:]";
-      v15 = 2050;
+      v13 = "[CSAudioCircularBuffer copybufferFrom:to:]";
+      v14 = 2050;
       fromCopy = from;
-      v17 = 2050;
+      v16 = 2050;
       toCopy = to;
-      v19 = 2050;
-      v20 = 0;
+      v18 = 2050;
+      v19 = 0;
       _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Could NOT copyFrom: %{public}lu to: %{public}lu, retSampleCount: %{public}lu", buf, 0x2Au);
     }
 
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)copySamplesFrom:(unint64_t)from to:(unint64_t)to channelIdx:(unint64_t)idx
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   ptr = self->_csAudioCircularBufferImpl.__ptr_;
   v8 = ptr[2];
   v9 = ptr[4];
@@ -140,15 +136,15 @@
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v20 = "copySamples";
-    v21 = 2050;
+    v19 = "copySamples";
+    v20 = 2050;
     fromCopy2 = from;
-    v23 = 2050;
+    v22 = 2050;
     toCopy2 = to;
-    v25 = 2050;
-    v26 = v10;
-    v27 = 2050;
-    v28 = v9;
+    v24 = 2050;
+    v25 = v10;
+    v26 = 2050;
+    v27 = v9;
     _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_DEFAULT, "%s Invalid request: reqStartSample=%{public}lu, reqEndSample=%{public}lu, oldestSampleInBuffer: %{public}lu, latestSampleInBuffer=%{public}lu", buf, 0x34u);
   }
 
@@ -156,30 +152,29 @@
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v20 = "[CSAudioCircularBuffer copySamplesFrom:to:channelIdx:]";
-    v21 = 2050;
+    v19 = "[CSAudioCircularBuffer copySamplesFrom:to:channelIdx:]";
+    v20 = 2050;
     fromCopy2 = from;
-    v23 = 2050;
+    v22 = 2050;
     toCopy2 = to;
-    v25 = 2050;
-    v26 = 0;
+    v24 = 2050;
+    v25 = 0;
     _os_log_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_DEFAULT, "%s Could NOT copyFrom: %{public}lu to: %{public}lu, retSampleCount: %{public}lu", buf, 0x2Au);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (id)copySamplesFrom:(unint64_t)from to:(unint64_t)to
 {
-  v29 = *MEMORY[0x1E69E9840];
-  corespeech::CSAudioCircularBufferImpl<unsigned short>::copySamples(&v20, self->_csAudioCircularBufferImpl.__ptr_, from, to);
-  v7 = v20;
-  if (v20)
+  v28 = *MEMORY[0x1E69E9840];
+  corespeech::CSAudioCircularBufferImpl<unsigned short>::copySamples(&v19, self->_csAudioCircularBufferImpl.__ptr_, from, to);
+  v7 = v19;
+  if (v19)
   {
     v8 = *self->_csAudioCircularBufferImpl.__ptr_;
     v9 = to - from;
-    v10 = [MEMORY[0x1E695DEF0] dataWithBytes:v20 length:2 * (to - from) * v8];
+    v10 = [MEMORY[0x1E695DEF0] dataWithBytes:v19 length:2 * (to - from) * v8];
     audioTimeConverter = self->_audioTimeConverter;
     if (audioTimeConverter)
     {
@@ -192,9 +187,9 @@
     }
 
     v15 = [CSAudioChunk alloc];
-    LOBYTE(v19) = +[CSConfig inputRecordingIsFloat];
-    LOBYTE(v18) = 1;
-    v14 = [(CSAudioChunk *)v15 initWithData:v10 numChannels:v8 numSamples:v9 sampleByteDepth:2 startSampleCount:from hostTime:v12 arrivalHostTimeToAudioRecorder:0 wasBuffered:v18 remoteVAD:0 isFloat:v19];
+    LOBYTE(v18) = +[CSConfig inputRecordingIsFloat];
+    LOBYTE(v17) = 1;
+    v14 = [(CSAudioChunk *)v15 initWithData:v10 numChannels:v8 numSamples:v9 sampleByteDepth:2 startSampleCount:from hostTime:v12 arrivalHostTimeToAudioRecorder:0 wasBuffered:v17 remoteVAD:0 isFloat:v18];
 
     MEMORY[0x1E12B9880](v7, 0x1000C80BDFB0063);
   }
@@ -205,26 +200,25 @@
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v22 = "[CSAudioCircularBuffer copySamplesFrom:to:]";
-      v23 = 2050;
+      v21 = "[CSAudioCircularBuffer copySamplesFrom:to:]";
+      v22 = 2050;
       fromCopy = from;
-      v25 = 2050;
+      v24 = 2050;
       toCopy = to;
-      v27 = 2050;
-      v28 = 0;
+      v26 = 2050;
+      v27 = 0;
       _os_log_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_DEFAULT, "%s Could NOT copyFrom: %{public}lu to: %{public}lu, retSampleCount: %{public}lu", buf, 0x2Au);
     }
 
-    v14 = 0;
+    return 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)copySamplesFromHostTime:(unint64_t)time
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (*(self->_csAudioCircularBufferImpl.__ptr_ + 4))
   {
     audioTimeConverter = self->_audioTimeConverter;
@@ -239,7 +233,6 @@
     }
 
     sampleCount = [(CSAudioCircularBuffer *)self sampleCount];
-    v10 = *MEMORY[0x1E69E9840];
 
     return [(CSAudioCircularBuffer *)self copySamplesFrom:v5 to:sampleCount];
   }
@@ -249,12 +242,11 @@
     v6 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "[CSAudioCircularBuffer copySamplesFromHostTime:]";
-      _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Cannot copy samples since this is empty", &v11, 0xCu);
+      v9 = 136315138;
+      v10 = "[CSAudioCircularBuffer copySamplesFromHostTime:]";
+      _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Cannot copy samples since this is empty", &v9, 0xCu);
     }
 
-    v7 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }
@@ -329,16 +321,15 @@
 
 - (CSAudioCircularBuffer)initWithNumChannels:(unint64_t)channels recordingDuration:(float)duration samplingRate:(float)rate audioTimeConverter:(id)converter
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   converterCopy = converter;
-  v10.receiver = self;
-  v10.super_class = CSAudioCircularBuffer;
-  if ([(CSAudioCircularBuffer *)&v10 init])
+  v9.receiver = self;
+  v9.super_class = CSAudioCircularBuffer;
+  if ([(CSAudioCircularBuffer *)&v9 init])
   {
     operator new();
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

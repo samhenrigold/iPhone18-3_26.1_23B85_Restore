@@ -374,7 +374,7 @@ LABEL_62:
       }
 
       sub_10000EC00(&v17, [subIdentityId UTF8String]);
-      sub_1000E1C7C(&v17, &__str);
+      sub_1000E1C7C(&__str, &v17);
 LABEL_47:
       sub_100034F70(retstr, &__str);
       if (v33 < 0)
@@ -467,11 +467,11 @@ LABEL_64:
       goto LABEL_65;
     case 'p':
       sub_10000EC00(&v17, [clientAnchor UTF8String]);
-      sub_1000E1C7C(&v17, &__str);
+      sub_1000E1C7C(&__str, &v17);
       goto LABEL_47;
     case 'i':
       sub_10000EC00(&v17, [clientAnchor UTF8String]);
-      sub_100034EE4(&v17, &__str);
+      sub_100034EE4(&__str, &v17);
       goto LABEL_47;
   }
 

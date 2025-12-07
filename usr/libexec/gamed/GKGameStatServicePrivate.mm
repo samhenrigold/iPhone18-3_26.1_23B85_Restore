@@ -107,14 +107,14 @@
 
 - (void)getLeaderboardScoringFriendsForGameDescriptor:(id)descriptor playerID:(id)d completionHandler:(id)handler
 {
-  v14[0] = @"game";
+  v14 = @"game";
   handlerCopy = handler;
   dCopy = d;
   dictionaryForRequest = [descriptor dictionaryForRequest];
-  v14[1] = @"player-id";
-  v15[0] = dictionaryForRequest;
-  v15[1] = dCopy;
-  v11 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v15 = @"player-id";
+  v16 = dictionaryForRequest;
+  v17 = dCopy;
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v12 = +[GKNetworkRequestManager commonNetworkRequestManager];
 

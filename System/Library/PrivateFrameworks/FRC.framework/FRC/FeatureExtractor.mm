@@ -57,60 +57,43 @@
 - (BOOL)extractFeaturesFromImage:(__CVBuffer *)image toFeatures:(id *)features callback:(id)callback
 {
   callbackCopy = callback;
-  inputBlob = self->_inputBlob;
-  plan = self->super._net.plan;
-  v10 = *&self->super._net.network_index;
   if (espresso_network_bind_direct_cvpixelbuffer())
   {
     NSLog(&cfstr_Featureexracto.isa);
 LABEL_3:
-    v11 = 0;
+    v7 = 0;
     goto LABEL_11;
   }
 
   if (self->_numLevels)
   {
-    v12 = 0;
-    v13 = 0;
-    var1 = features->var1;
-    while (1)
+    v8 = 0;
+    while (!espresso_network_bind_direct_cvpixelbuffer())
     {
-      v15 = self->_outputBlobs[v12];
-      v16 = var1[v12];
-      v17 = self->super._net.plan;
-      v18 = *&self->super._net.network_index;
-      if (espresso_network_bind_direct_cvpixelbuffer())
-      {
-        break;
-      }
-
-      v12 = (v13 + 1);
-      v13 = v12;
-      if (self->_numLevels <= v12)
+      v8 = (v8 + 1);
+      if (self->_numLevels <= v8)
       {
         goto LABEL_8;
       }
     }
 
-    NSLog(&cfstr_Featureexracto_0.isa, v13);
+    NSLog(&cfstr_Featureexracto_0.isa, v8);
     goto LABEL_3;
   }
 
 LABEL_8:
   kdebug_trace();
-  v19 = self->super._plan;
-  callbackQueue = self->super._callbackQueue;
-  v23 = MEMORY[0x277D85DD0];
-  v24 = callbackCopy;
-  v21 = espresso_plan_submit();
-  v11 = v21 == 0;
-  if (v21)
+  v11 = MEMORY[0x277D85DD0];
+  v12 = callbackCopy;
+  v9 = espresso_plan_submit();
+  v7 = v9 == 0;
+  if (v9)
   {
-    NSLog(&cfstr_Featureextract.isa, [(EspressoModel *)self usage], v23, 3221225472, __65__FeatureExtractor_extractFeaturesFromImage_toFeatures_callback___block_invoke, &unk_278FEA538, v24);
+    NSLog(&cfstr_Featureextract.isa, [(EspressoModel *)self usage], v11, 3221225472, __65__FeatureExtractor_extractFeaturesFromImage_toFeatures_callback___block_invoke, &unk_278FEA538, v12);
   }
 
 LABEL_11:
-  return v11;
+  return v7;
 }
 
 uint64_t __65__FeatureExtractor_extractFeaturesFromImage_toFeatures_callback___block_invoke(uint64_t a1)
@@ -129,15 +112,15 @@ uint64_t __65__FeatureExtractor_extractFeaturesFromImage_toFeatures_callback___b
 
 - (void)getOutputTensorSize:(id *)size level:(unsigned int)level
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v12[0] = xmmword_24A8FF120;
-  v12[1] = xmmword_24A8FF130;
-  v12[2] = xmmword_24A8FF140;
+  v12 = *MEMORY[0x277D85DE8];
+  v11[0] = xmmword_24A8FF120;
+  v11[1] = xmmword_24A8FF130;
+  v11[2] = xmmword_24A8FF140;
+  v9 = 0;
   v10 = 0;
-  v11 = 0;
-  FRCGetInputFrameSizeForUsage([(EspressoModel *)self usage], &v11, &v10);
-  v7 = v10;
-  v6 = v11;
+  FRCGetInputFrameSizeForUsage([(EspressoModel *)self usage], &v10, &v9);
+  v7 = v9;
+  v6 = v10;
   v8 = level + 1;
   do
   {
@@ -149,8 +132,7 @@ uint64_t __65__FeatureExtractor_extractFeaturesFromImage_toFeatures_callback___b
   while (v8);
   size->var0 = v6;
   size->var1 = v7;
-  size->var2 = *(v12 + level);
-  v9 = *MEMORY[0x277D85DE8];
+  size->var2 = *(v11 + level);
 }
 
 @end

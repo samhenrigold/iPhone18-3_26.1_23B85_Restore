@@ -8,7 +8,7 @@
 
 - (unint64_t)autoLaunchBehaviorForApp
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   settings = self->_settings;
   v5 = objc_opt_class();
   v6 = settings;
@@ -46,13 +46,13 @@
         v13 = NSStringFromSelector(a2);
         application2 = [(CSLPRFLiveActivitiesAppProperties *)v8 application];
         bundleIdentifier2 = [application2 bundleIdentifier];
-        v30 = 134218498;
+        v29 = 134218498;
         selfCopy3 = self;
-        v32 = 2112;
-        v33 = v13;
-        v34 = 2112;
-        v35 = bundleIdentifier2;
-        _os_log_impl(&dword_22CE92000, application3, OS_LOG_TYPE_INFO, "%p %@ -- this (%@) is a check-in activity, always allow it to launch to .smartstack.", &v30, 0x20u);
+        v31 = 2112;
+        v32 = v13;
+        v33 = 2112;
+        v34 = bundleIdentifier2;
+        _os_log_impl(&dword_22CE92000, application3, OS_LOG_TYPE_INFO, "%p %@ -- this (%@) is a check-in activity, always allow it to launch to .smartstack.", &v29, 0x20u);
       }
 
       goto LABEL_16;
@@ -87,19 +87,19 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v26 = cslprf_settings_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v25 = cslprf_settings_log();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v27 = NSStringFromSelector(a2);
+      v26 = NSStringFromSelector(a2);
       application4 = [(CSLPRFLiveActivitiesAppProperties *)v8 application];
       bundleIdentifier4 = [application4 bundleIdentifier];
-      v30 = 134218498;
+      v29 = 134218498;
       selfCopy3 = self;
-      v32 = 2112;
-      v33 = v27;
-      v34 = 2112;
-      v35 = bundleIdentifier4;
-      _os_log_impl(&dword_22CE92000, v26, OS_LOG_TYPE_INFO, "%p %@ -- user uninstalled Now Playing but configured .smartstack for all audio apps, returning .app instead for (%@).", &v30, 0x20u);
+      v31 = 2112;
+      v32 = v26;
+      v33 = 2112;
+      v34 = bundleIdentifier4;
+      _os_log_impl(&dword_22CE92000, v25, OS_LOG_TYPE_INFO, "%p %@ -- user uninstalled Now Playing but configured .smartstack for all audio apps, returning .app instead for (%@).", &v29, 0x20u);
     }
 
     autoLaunchBehaviorForApp = 2;
@@ -113,13 +113,13 @@ LABEL_17:
       v20 = NSStringFromSelector(a2);
       application5 = [(CSLPRFLiveActivitiesAppProperties *)v8 application];
       bundleIdentifier5 = [application5 bundleIdentifier];
-      v30 = 134218498;
+      v29 = 134218498;
       selfCopy3 = self;
-      v32 = 2112;
-      v33 = v20;
-      v34 = 2112;
-      v35 = bundleIdentifier5;
-      _os_log_impl(&dword_22CE92000, v19, OS_LOG_TYPE_INFO, "%p %@ -- overriding app setting for (%@) because global setting is off.", &v30, 0x20u);
+      v31 = 2112;
+      v32 = v20;
+      v33 = 2112;
+      v34 = bundleIdentifier5;
+      _os_log_impl(&dword_22CE92000, v19, OS_LOG_TYPE_INFO, "%p %@ -- overriding app setting for (%@) because global setting is off.", &v29, 0x20u);
     }
 
     autoLaunchBehaviorForApp = 0;
@@ -127,7 +127,6 @@ LABEL_17:
 
 LABEL_21:
 
-  v23 = *MEMORY[0x277D85DE8];
   return autoLaunchBehaviorForApp;
 }
 

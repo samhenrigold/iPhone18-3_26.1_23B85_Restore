@@ -17,32 +17,32 @@
   {
     if ((self->columnCount - 31) > 0xFFFFFFFFFFFFFFE1)
     {
-      LOBYTE(v3) = 1;
-      return v3;
+      LOBYTE(v4) = 1;
+      return v4;
     }
 
-    v4 = ci_logger_api();
-    v3 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
-    if (v3)
+    v5 = ci_logger_api(self, a2);
+    v4 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (v4)
     {
-      [CIPDF417CodeDescriptor isValid];
+      [(CIPDF417CodeDescriptor *)self isValid];
       goto LABEL_7;
     }
   }
 
   else
   {
-    v2 = ci_logger_api();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
-    if (v3)
+    v3 = ci_logger_api(self, a2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+    if (v4)
     {
-      [CIPDF417CodeDescriptor isValid];
+      [(CIPDF417CodeDescriptor *)self isValid];
 LABEL_7:
-      LOBYTE(v3) = 0;
+      LOBYTE(v4) = 0;
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (CIPDF417CodeDescriptor)initWithPayload:(NSData *)errorCorrectedPayload isCompact:(BOOL)isCompact rowCount:(NSInteger)rowCount columnCount:(NSInteger)columnCount
@@ -131,8 +131,9 @@ LABEL_7:
 - (void)isValid
 {
   objc_opt_class();
+  v8 = 136446466;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v0, v1, "%{public}s %{public}@: rowCount must be in the range of [3,90]", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_1_0(&dword_19CC36000, v2, v3, "%{public}s %{public}@: rowCount must be in the range of [3,90]", v4, v5, v6, v7, v8);
 }
 
 @end

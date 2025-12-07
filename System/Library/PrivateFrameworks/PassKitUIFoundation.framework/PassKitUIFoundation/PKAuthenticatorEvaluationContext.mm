@@ -15,6 +15,7 @@
 - (void)_createContextWithExternalizedContext:(id)context;
 - (void)_dismissAuthenticatorViewOfType:(unsigned __int8)type;
 - (void)_handleLiftFinger;
+- (void)_presentAuthenticatorViewOfType:(unsigned __int8)type withParams:(id)params;
 - (void)_setCoachingState:(int64_t)state;
 - (void)_setEvaluationStateWithEvent:(id)event;
 - (void)_setFingerOnTimer;
@@ -44,9 +45,9 @@
   requestCopy = request;
   handlerCopy = handler;
   authenticatorCopy = authenticator;
-  v54.receiver = self;
-  v54.super_class = PKAuthenticatorEvaluationContext;
-  v12 = [(PKAuthenticatorEvaluationContext *)&v54 init];
+  v55.receiver = self;
+  v55.super_class = PKAuthenticatorEvaluationContext;
+  v12 = [(PKAuthenticatorEvaluationContext *)&v55 init];
   v13 = v12;
   if (v12)
   {
@@ -69,41 +70,41 @@
     }
 
     policy = [requestCopy policy];
-    v18 = _LAPolicyContainerForPKPolicy(policy);
-    v20 = v19;
+    v19 = _LAPolicyContainerForPKPolicy(policy, v18);
+    v21 = v20;
     objc_storeStrong(&v13->_request, request);
-    if ((v20 & 0x10000) != 0)
+    if ((v21 & 0x10000) != 0)
     {
-      v23 = 0;
-      v22 = (v20 >> 8) & 1;
+      v24 = 0;
+      v23 = (v21 >> 8) & 1;
     }
 
-    else if ((v20 & 0x100) != 0)
+    else if ((v21 & 0x100) != 0)
     {
-      LOBYTE(v22) = 1;
-      v23 = 1;
+      LOBYTE(v23) = 1;
+      v24 = 1;
     }
 
     else
     {
       accessControlRef = [requestCopy accessControlRef];
-      LOBYTE(v22) = 0;
-      v23 = accessControlRef != 0;
+      LOBYTE(v23) = 0;
+      v24 = accessControlRef != 0;
     }
 
-    v13->_supported = v23;
-    v13->_policySupported = v23 & v22;
-    v13->_forceApplePayCheck = v20 & 1;
-    v13->_forceSkipUserIntent = BYTE3(v20) & 1;
-    v13->_policy = v18;
-    v24 = [handlerCopy copy];
+    v13->_supported = v24;
+    v13->_policySupported = v24 & v23;
+    v13->_forceApplePayCheck = v21 & 1;
+    v13->_forceSkipUserIntent = BYTE3(v21) & 1;
+    v13->_policy = v19;
+    v25 = [handlerCopy copy];
     completionHandler = v13->_completionHandler;
-    v13->_completionHandler = v24;
+    v13->_completionHandler = v25;
 
     v13->_presentationFlags = 0;
-    v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
     accessHandlers = v13->_accessHandlers;
-    v13->_accessHandlers = v26;
+    v13->_accessHandlers = v27;
 
     v13->_externalContextInvalidationPolicy = 0;
     v13->_externalContextOptions = 0;
@@ -111,26 +112,26 @@
     if ([(PKAuthenticatorEvaluationRequest *)v13->_request useLegacyAuthenticator])
     {
       hasInitialAuthenticatorState = 0;
-      v30 = 0;
+      v31 = 0;
     }
 
     else
     {
       hasInitialAuthenticatorState = [requestCopy hasInitialAuthenticatorState];
-      v30 = ([requestCopy initialAuthenticatorState] & 6) != 0;
+      v31 = ([requestCopy initialAuthenticatorState] & 6) != 0;
     }
 
     IsAvailable = PKUserIntentIsAvailable();
-    v32 = 0;
+    v33 = 0;
     if (policy != 1 && IsAvailable)
     {
-      v32 = !v13->_forceSkipUserIntent;
+      v33 = !v13->_forceSkipUserIntent;
     }
 
-    v13->_acquireUserIntent = v32;
-    v33 = PKUserIntentIsAvailable();
+    v13->_acquireUserIntent = v33;
+    v34 = PKUserIntentIsAvailable();
     acquireUserIntent = v13->_acquireUserIntent;
-    if (v33)
+    if (v34)
     {
       v13->_acquireSecondaryUserIntent = policy == 8 && acquireUserIntent;
       if (!acquireUserIntent)
@@ -149,16 +150,16 @@
     }
 
     assumeUserIntentAvailable = [(PKAuthenticatorEvaluationRequest *)v13->_request assumeUserIntentAvailable];
-    v36 = assumeUserIntentAvailable;
+    v37 = assumeUserIntentAvailable;
     if (policy == 8 || assumeUserIntentAvailable || (PKPearlIsAvailable() & 1) != 0)
     {
-      if (!v36)
+      if (!v37)
       {
         goto LABEL_28;
       }
     }
 
-    else if (!v30 && (hasInitialAuthenticatorState & 1) != 0)
+    else if (!v31 && (hasInitialAuthenticatorState & 1) != 0)
     {
 LABEL_28:
       if ([(PKAuthenticatorEvaluationRequest *)v13->_request assumeBiometricOrPasscodeAvailable])
@@ -172,24 +173,24 @@ LABEL_28:
         v13->_coachingState = 0;
         if (!v13->_acquireUserIntent || (v13->_completedMechanisms & 0x10) != 0)
         {
-          v37 = 4;
-          if (v30)
+          v38 = 4;
+          if (v31)
           {
-            v37 = 0;
+            v38 = 0;
           }
 
           if (!hasInitialAuthenticatorState)
           {
-            v37 = 0;
+            v38 = 0;
           }
         }
 
         else
         {
-          v37 = 3;
+          v38 = 3;
         }
 
-        v13->_evaluationState = v37;
+        v13->_evaluationState = v38;
       }
 
       objc_initWeak(&location, v13);
@@ -202,24 +203,24 @@ LABEL_48:
         block[1] = 3221225472;
         block[2] = __87__PKAuthenticatorEvaluationContext_initWithRequest_completionHandler_forAuthenticator___block_invoke_3;
         block[3] = &unk_2799FFAF8;
-        v43 = &v49;
-        objc_copyWeak(&v49, &location);
-        v45 = &v48;
-        v48 = externalizedContext;
-        v44 = externalizedContext;
+        v44 = &v50;
+        objc_copyWeak(&v50, &location);
+        v46 = &v49;
+        v49 = externalizedContext;
+        v45 = externalizedContext;
         dispatch_async(MEMORY[0x277D85CD0], block);
         goto LABEL_49;
       }
 
-      v39 = PKUserIntentIsAvailable();
+      v40 = PKUserIntentIsAvailable();
       policy = v13->_policy;
-      if (v39)
+      if (v40)
       {
         if (policy == 1004)
         {
           *p_externalContextInvalidationPolicy = 1;
-          v41 = +[PKAuthenticatorSharedRootContext sharedInstance];
-          externalizedContext = [v41 externalizedContext];
+          v42 = +[PKAuthenticatorSharedRootContext sharedInstance];
+          externalizedContext = [v42 externalizedContext];
 
           goto LABEL_48;
         }
@@ -228,20 +229,20 @@ LABEL_48:
       else if (policy == 1004 && PKRunningInViewService())
       {
         v13->_externalContextOptions |= 1uLL;
-        v42 = objc_alloc_init(MEMORY[0x277D66A00]);
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __87__PKAuthenticatorEvaluationContext_initWithRequest_completionHandler_forAuthenticator___block_invoke;
-        v50[3] = &unk_2799FFE18;
-        v43 = &v52;
-        objc_copyWeak(&v52, &location);
-        v44 = v42;
-        v51 = v44;
-        [v44 fetchUnlockCredentialSetWithCompletion:v50];
-        v45 = &v51;
+        v43 = objc_alloc_init(MEMORY[0x277D66A00]);
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __87__PKAuthenticatorEvaluationContext_initWithRequest_completionHandler_forAuthenticator___block_invoke;
+        v51[3] = &unk_2799FFE18;
+        v44 = &v53;
+        objc_copyWeak(&v53, &location);
+        v45 = v43;
+        v52 = v45;
+        [v45 fetchUnlockCredentialSetWithCompletion:v51];
+        v46 = &v52;
 LABEL_49:
 
-        objc_destroyWeak(v43);
+        objc_destroyWeak(v44);
         objc_destroyWeak(&location);
         goto LABEL_50;
       }
@@ -329,7 +330,7 @@ void __43__PKAuthenticatorEvaluationContext_dealloc__block_invoke(uint64_t a1)
 
 - (void)invalidateWithIntent:(int64_t)intent
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (![(PKAuthenticatorEvaluationRequest *)self->_request useLegacyAuthenticator])
   {
     [(PKAuthenticatorEvaluationContext *)self _clearFingerOnTimer];
@@ -353,29 +354,29 @@ void __43__PKAuthenticatorEvaluationContext_dealloc__block_invoke(uint64_t a1)
         self->_externalContextInvalidationPolicy = 0;
       }
 
-      *&v58 = 0;
-      *(&v58 + 1) = &v58;
-      v59 = 0x2020000000;
-      v60 = 0;
+      *&v57 = 0;
+      *(&v57 + 1) = &v57;
+      v58 = 0x2020000000;
+      v59 = 0;
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke;
-      v54[3] = &unk_2799FFE40;
-      v54[4] = &v58;
-      v8 = [mEMORY[0x277D75128] beginBackgroundTaskWithExpirationHandler:v54];
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke;
+      v53[3] = &unk_2799FFE40;
+      v53[4] = &v57;
+      v8 = [mEMORY[0x277D75128] beginBackgroundTaskWithExpirationHandler:v53];
 
-      *(*(&v58 + 1) + 24) = v8;
+      *(*(&v57 + 1) + 24) = v8;
       v9 = self->_externalContextOptions & 1;
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_2;
-      v50[3] = &unk_2799FFE68;
-      v53 = v9;
-      v33 = v5;
-      v51 = v33;
-      v52 = &v58;
-      v31 = MEMORY[0x25F8AAFE0](v50);
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_2;
+      v49[3] = &unk_2799FFE68;
+      v52 = v9;
+      v32 = v5;
+      v50 = v32;
+      v51 = &v57;
+      v30 = MEMORY[0x25F8AAFE0](v49);
       externalContextInvalidationPolicy = self->_externalContextInvalidationPolicy;
       if (externalContextInvalidationPolicy == 2)
       {
@@ -383,11 +384,11 @@ void __43__PKAuthenticatorEvaluationContext_dealloc__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v57 = v33;
+          v56 = v32;
           _os_log_impl(&dword_25E0A9000, v24, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Invalidating and not resetting external context.", buf, 0xCu);
         }
 
-        v31[2]();
+        v30[2]();
       }
 
       else
@@ -412,46 +413,46 @@ void __43__PKAuthenticatorEvaluationContext_dealloc__block_invoke(uint64_t a1)
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v57 = v33;
+            v56 = v32;
             _os_log_impl(&dword_25E0A9000, v13, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Attempting to partially reset external context due to invalidation.", buf, 0xCu);
           }
 
           v14 = dispatch_group_create();
+          v45 = 0u;
           v46 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v49 = 0u;
           v15 = v11;
-          v16 = [(LAContext *)v15 countByEnumeratingWithState:&v46 objects:v55 count:16];
+          v16 = [(LAContext *)v15 countByEnumeratingWithState:&v45 objects:v54 count:16];
           obj = v15;
           if (v16)
           {
-            v17 = *v47;
+            v17 = *v46;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v47 != v17)
+                if (*v46 != v17)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v19 = *(*(&v46 + 1) + 8 * i);
+                v19 = *(*(&v45 + 1) + 8 * i);
                 dispatch_group_enter(v14);
                 integerValue = [v19 integerValue];
-                v42[0] = MEMORY[0x277D85DD0];
-                v42[1] = 3221225472;
-                v42[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_247;
-                v42[3] = &unk_2799FFE90;
-                v21 = v33;
-                v43 = v21;
-                v44 = v19;
-                v45 = v14;
-                [(LAContext *)v21 resetProcessedEvent:integerValue reply:v42];
+                v41[0] = MEMORY[0x277D85DD0];
+                v41[1] = 3221225472;
+                v41[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_247;
+                v41[3] = &unk_2799FFE90;
+                v21 = v32;
+                v42 = v21;
+                v43 = v19;
+                v44 = v14;
+                [(LAContext *)v21 resetProcessedEvent:integerValue reply:v41];
               }
 
               v15 = obj;
-              v16 = [(LAContext *)obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+              v16 = [(LAContext *)obj countByEnumeratingWithState:&v45 objects:v54 count:16];
             }
 
             while (v16);
@@ -461,8 +462,8 @@ void __43__PKAuthenticatorEvaluationContext_dealloc__block_invoke(uint64_t a1)
           block[1] = 3221225472;
           block[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_248;
           block[3] = &unk_2799FFEB8;
-          v40 = v33;
-          v41 = v31;
+          v39 = v32;
+          v40 = v30;
           dispatch_group_notify(v14, MEMORY[0x277D85CD0], block);
 
           v22 = obj;
@@ -474,23 +475,23 @@ void __43__PKAuthenticatorEvaluationContext_dealloc__block_invoke(uint64_t a1)
           if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v57 = v33;
+            v56 = v32;
             _os_log_impl(&dword_25E0A9000, v25, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Attempting to reset external context due to invalidation.", buf, 0xCu);
           }
 
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_249;
-          v36[3] = &unk_2799FFDC8;
-          v37 = v33;
-          v38 = v31;
-          [(LAContext *)v37 resetWithReply:v36];
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_249;
+          v35[3] = &unk_2799FFDC8;
+          v36 = v32;
+          v37 = v30;
+          [(LAContext *)v36 resetWithReply:v35];
 
-          v22 = v37;
+          v22 = v36;
         }
       }
 
-      _Block_object_dispose(&v58, 8);
+      _Block_object_dispose(&v57, 8);
     }
 
     else
@@ -498,9 +499,9 @@ void __43__PKAuthenticatorEvaluationContext_dealloc__block_invoke(uint64_t a1)
       v23 = PKLogFacilityTypeGetObject();
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v58) = 134349056;
-        *(&v58 + 4) = v5;
-        _os_log_impl(&dword_25E0A9000, v23, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%{public}p): Invalidating context.", &v58, 0xCu);
+        LODWORD(v57) = 134349056;
+        *(&v57 + 4) = v5;
+        _os_log_impl(&dword_25E0A9000, v23, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%{public}p): Invalidating context.", &v57, 0xCu);
       }
 
       [(LAContext *)v5 invalidate];
@@ -534,15 +535,13 @@ void __43__PKAuthenticatorEvaluationContext_dealloc__block_invoke(uint64_t a1)
   [(NSMutableArray *)self->_accessHandlers removeAllObjects];
   if ([v29 count])
   {
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_250;
-    v34[3] = &unk_2799FFC10;
-    v35 = v29;
-    dispatch_async(MEMORY[0x277D85CD0], v34);
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_250;
+    v33[3] = &unk_2799FFC10;
+    v34 = v29;
+    dispatch_async(MEMORY[0x277D85CD0], v33);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke(uint64_t a1)
@@ -559,7 +558,7 @@ void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke(
 
 void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48) == 1)
   {
     atomic_store(0, EvaluatingWithSingletonExternalContext);
@@ -569,9 +568,9 @@ void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 134349056;
-    v8 = v3;
-    _os_log_impl(&dword_25E0A9000, v2, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%{public}p): Invalidating context.", &v7, 0xCu);
+    v6 = 134349056;
+    v7 = v3;
+    _os_log_impl(&dword_25E0A9000, v2, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%{public}p): Invalidating context.", &v6, 0xCu);
   }
 
   [*(a1 + 32) invalidate];
@@ -583,13 +582,11 @@ void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_
 
     *(*(*(a1 + 40) + 8) + 24) = v4;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_247(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5 || (a2 & 1) == 0)
   {
@@ -598,41 +595,37 @@ void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_
     {
       v7 = *(a1 + 32);
       v8 = *(a1 + 40);
-      v10 = 134218498;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_25E0A9000, v6, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Failed partial reset of external context for event %@ - %@.", &v10, 0x20u);
+      v9 = 134218498;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_25E0A9000, v6, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Failed partial reset of external context for event %@ - %@.", &v9, 0x20u);
     }
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_248(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_25E0A9000, v2, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Finished attempting partial reset of external context.", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_25E0A9000, v2, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Finished attempting partial reset of external context.", &v5, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_249(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = PKLogFacilityTypeGetObject();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -641,10 +634,10 @@ void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_
     if (v7)
     {
       v12 = *(a1 + 32);
-      v17 = 134218242;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v5;
+      v16 = 134218242;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v5;
       v9 = "PKAuthenticator (%p): Could not reset external context - %@.";
       v10 = v6;
       v11 = 22;
@@ -655,54 +648,51 @@ void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_
   else if (v7)
   {
     v8 = *(a1 + 32);
-    v17 = 134217984;
-    v18 = v8;
+    v16 = 134217984;
+    v17 = v8;
     v9 = "PKAuthenticator (%p): reset external context.";
     v10 = v6;
     v11 = 12;
 LABEL_7:
-    _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, v9, &v17, v11);
+    _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, v9, &v16, v11);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v13, v14, v15);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PKAuthenticatorEvaluationContext_invalidateWithIntent___block_invoke_250(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        (*(*(*(&v7 + 1) + 8 * v5) + 16))(*(*(&v7 + 1) + 8 * v5));
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fallbackToPasscode
@@ -742,7 +732,7 @@ void __54__PKAuthenticatorEvaluationContext_fallbackToPasscode__block_invoke(uin
 
 void __54__PKAuthenticatorEvaluationContext_fallbackToPasscode__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5 || (a2 & 1) == 0)
   {
@@ -750,15 +740,13 @@ void __54__PKAuthenticatorEvaluationContext_fallbackToPasscode__block_invoke_2(u
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 134218242;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_25E0A9000, v6, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Passcode Fallback Failed - %@.", &v9, 0x16u);
+      v8 = 134218242;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_25E0A9000, v6, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%p): Passcode Fallback Failed - %@.", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_presentPasscodeIfNecessary
@@ -784,23 +772,23 @@ void __54__PKAuthenticatorEvaluationContext_fallbackToPasscode__block_invoke_2(u
 
 - (void)_createContextWithExternalizedContext:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = contextCopy;
   if (!self->_invalidated)
   {
     if (contextCopy && (self->_externalContextOptions & 1) != 0)
     {
-      v14 = 0;
+      v13 = 0;
       v6 = 1;
-      atomic_compare_exchange_strong(EvaluatingWithSingletonExternalContext, &v14, 1u);
-      if (v14)
+      atomic_compare_exchange_strong(EvaluatingWithSingletonExternalContext, &v13, 1u);
+      if (v13)
       {
-        v15 = PKLogFacilityTypeGetObject();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v14 = PKLogFacilityTypeGetObject();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25E0A9000, v15, OS_LOG_TYPE_DEFAULT, "PKAuthenticator: ignoring external context because singleton context is outstanding.", buf, 2u);
+          _os_log_impl(&dword_25E0A9000, v14, OS_LOG_TYPE_DEFAULT, "PKAuthenticator: ignoring external context because singleton context is outstanding.", buf, 2u);
         }
 
         v6 = 0;
@@ -817,13 +805,12 @@ void __54__PKAuthenticatorEvaluationContext_fallbackToPasscode__block_invoke_2(u
     {
       if (!v5)
       {
-        v16 = objc_alloc_init(MEMORY[0x277CD4790]);
-        p_LAContext = &self->_LAContext;
+        v15 = objc_alloc_init(MEMORY[0x277CD4790]);
         LAContext = self->_LAContext;
-        self->_LAContext = v16;
+        self->_LAContext = v15;
 
-        v10 = self->_LAContext;
-        if (v10)
+        v9 = self->_LAContext;
+        if (v9)
         {
           goto LABEL_18;
         }
@@ -836,93 +823,91 @@ void __54__PKAuthenticatorEvaluationContext_fallbackToPasscode__block_invoke_2(u
       self->_LAContext = v7;
     }
 
-    p_LAContext = &self->_LAContext;
-    v10 = self->_LAContext;
-    if (v10)
+    v9 = self->_LAContext;
+    if (v9)
     {
       if (v5)
       {
-        v11 = PKLogFacilityTypeGetObject();
-        v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+        v10 = PKLogFacilityTypeGetObject();
+        v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
         if (v6)
         {
-          if (v12)
+          if (v11)
           {
             *buf = 134349056;
-            v35 = v10;
-            v13 = "PKAuthenticator (%{public}p): creating evaluation with external context and singleton semantics.";
+            v32 = v9;
+            v12 = "PKAuthenticator (%{public}p): creating evaluation with external context and singleton semantics.";
 LABEL_29:
-            _os_log_impl(&dword_25E0A9000, v11, OS_LOG_TYPE_DEFAULT, v13, buf, 0xCu);
+            _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
           }
         }
 
-        else if (v12)
+        else if (v11)
         {
           *buf = 134349056;
-          v35 = v10;
-          v13 = "PKAuthenticator (%{public}p): creating evaluation with external context.";
+          v32 = v9;
+          v12 = "PKAuthenticator (%{public}p): creating evaluation with external context.";
           goto LABEL_29;
         }
 
-        v18 = 1;
+        v17 = 1;
 LABEL_31:
 
-        self->_usingExternalContext = v18;
+        self->_usingExternalContext = v17;
         [self->_LAContext setUiDelegate:self];
-        v22 = [(NSMutableArray *)self->_accessHandlers copy];
+        v21 = [(NSMutableArray *)self->_accessHandlers copy];
         [(NSMutableArray *)self->_accessHandlers removeAllObjects];
-        v31 = 0u;
-        v32 = 0u;
+        v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
-        v21 = v22;
-        v23 = [v21 countByEnumeratingWithState:&v29 objects:v33 count:16];
-        if (v23)
+        v26 = 0u;
+        v27 = 0u;
+        v20 = v21;
+        v22 = [v20 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        if (v22)
         {
-          v24 = v23;
-          v25 = *v30;
+          v23 = v22;
+          v24 = *v27;
           do
           {
-            for (i = 0; i != v24; ++i)
+            for (i = 0; i != v23; ++i)
             {
-              if (*v30 != v25)
+              if (*v27 != v24)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v20);
               }
 
-              v27 = *p_LAContext;
-              (*(*(*(&v29 + 1) + 8 * i) + 16))(*(*(&v29 + 1) + 8 * i));
+              (*(*(*(&v26 + 1) + 8 * i) + 16))(*(*(&v26 + 1) + 8 * i));
             }
 
-            v24 = [v21 countByEnumeratingWithState:&v29 objects:v33 count:16];
+            v23 = [v20 countByEnumeratingWithState:&v26 objects:v30 count:16];
           }
 
-          while (v24);
+          while (v23);
         }
 
-        hoistCompletionHandler = v21;
+        hoistCompletionHandler = v20;
         goto LABEL_39;
       }
 
 LABEL_18:
-      v11 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v10 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134349056;
-        v35 = v10;
-        _os_log_impl(&dword_25E0A9000, v11, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%{public}p): creating evaluation.", buf, 0xCu);
+        v32 = v9;
+        _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, "PKAuthenticator (%{public}p): creating evaluation.", buf, 0xCu);
       }
 
-      v18 = 0;
+      v17 = 0;
       goto LABEL_31;
     }
 
 LABEL_21:
-    v19 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25E0A9000, v19, OS_LOG_TYPE_DEFAULT, "PKAuthenticator: failed to create LAContext.", buf, 2u);
+      _os_log_impl(&dword_25E0A9000, v18, OS_LOG_TYPE_DEFAULT, "PKAuthenticator: failed to create LAContext.", buf, 2u);
     }
 
     if (v6)
@@ -937,14 +922,12 @@ LABEL_21:
       goto LABEL_40;
     }
 
-    v21 = [MEMORY[0x277D37DB8] responseWithResult:5];
-    hoistCompletionHandler[2](hoistCompletionHandler, v21);
+    v20 = [MEMORY[0x277D37DB8] responseWithResult:5];
+    hoistCompletionHandler[2](hoistCompletionHandler, v20);
 LABEL_39:
 
 LABEL_40:
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bindToSecureIndicatorProvider:(id)provider
@@ -1114,8 +1097,7 @@ void __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___blo
   v5 = WeakRetained;
   if (!v3 || !WeakRetained)
   {
-    v7 = *(a1 + 32);
-    v8 = *(*(a1 + 40) + 16);
+    v7 = *(*(a1 + 40) + 16);
     goto LABEL_16;
   }
 
@@ -1138,8 +1120,8 @@ void __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___blo
       {
         [v3 evaluationMechanismsForPolicy:WeakRetained[25] error:0];
       }
-      v9 = ;
-      if (([PKAuthenticator _currentStateForMechanisms:v9]& 6) != 0)
+      v8 = ;
+      if (([PKAuthenticator _currentStateForMechanisms:v8]& 6) != 0)
       {
         *(v5 + 184) = 1;
         [*(v5 + 22) registerConsumer:v5];
@@ -1153,25 +1135,24 @@ void __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___blo
       if (*(v5 + 168))
       {
 LABEL_14:
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_3;
-        v11[3] = &unk_2799FFF58;
-        v11[4] = v5;
-        v14 = *(a1 + 40);
-        v12 = *(a1 + 32);
-        v13 = v3;
-        dispatch_async(MEMORY[0x277D85CD0], v11);
+        v9[0] = MEMORY[0x277D85DD0];
+        v9[1] = 3221225472;
+        v9[2] = __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_3;
+        v9[3] = &unk_2799FFF58;
+        v9[4] = v5;
+        v12 = *(a1 + 40);
+        v10 = *(a1 + 32);
+        v11 = v3;
+        dispatch_async(MEMORY[0x277D85CD0], v9);
 
 LABEL_17:
         return;
       }
     }
 
-    v10 = *(a1 + 32);
-    v8 = *(*(a1 + 40) + 16);
+    v7 = *(*(a1 + 40) + 16);
 LABEL_16:
-    v8();
+    v7();
     goto LABEL_17;
   }
 
@@ -1180,18 +1161,18 @@ LABEL_16:
 
 void __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 176);
   if (v3)
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_4;
-    v8[3] = &unk_2799FFF30;
-    v10 = *(a1 + 56);
-    v9 = *(a1 + 40);
-    [v3 consumer:v2 ensureIndicatorWithCompletion:v8];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_4;
+    v6[3] = &unk_2799FFF30;
+    v8 = *(a1 + 56);
+    v7 = *(a1 + 40);
+    [v3 consumer:v2 ensureIndicatorWithCompletion:v6];
   }
 
   else
@@ -1201,17 +1182,14 @@ void __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___blo
     {
       v5 = *(a1 + 48);
       *buf = 134218240;
-      v12 = v2;
-      v13 = 2048;
-      v14 = v5;
+      v10 = v2;
+      v11 = 2048;
+      v12 = v5;
       _os_log_impl(&dword_25E0A9000, v4, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): secure indicator fallback required but missing for context %p.", buf, 0x16u);
     }
 
-    v6 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_256(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1250,16 +1228,16 @@ void __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___blo
   v5 = WeakRetained;
   if (v3 && WeakRetained)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_3_258;
-    v11[3] = &unk_2799FFFD0;
-    v14 = *(a1 + 64);
-    v10 = *(a1 + 48);
-    v6 = v10;
-    v13 = v10;
-    v12 = *(a1 + 32);
-    v7 = MEMORY[0x25F8AAFE0](v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_3_258;
+    v10[3] = &unk_2799FFFD0;
+    v13 = *(a1 + 64);
+    v9 = *(a1 + 48);
+    v6 = v9;
+    v12 = v9;
+    v11 = *(a1 + 32);
+    v7 = MEMORY[0x25F8AAFE0](v10);
     v8 = *(a1 + 80);
     if (v8)
     {
@@ -1274,7 +1252,6 @@ void __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___blo
 
   else
   {
-    v9 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 }
@@ -1384,43 +1361,6 @@ LABEL_9:
   }
 }
 
-uint64_t __67__PKAuthenticatorEvaluationContext_evaluateWithOptions_completion___block_invoke_6(void *a1, uint64_t a2)
-{
-  v2 = a1[4];
-  if (v2)
-  {
-    v3 = *(v2 + 185);
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  if (a2)
-  {
-    v4 = *(*(a1[6] + 8) + 40) == 0;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = v4;
-  if ((v5 & (v3 ^ 1)) == 1)
-  {
-    v6 = *(*(a1[7] + 8) + 40);
-  }
-
-  if ((v3 & 1) == 0)
-  {
-    v7 = *(*(a1[6] + 8) + 40);
-  }
-
-  return (*(a1[5] + 16))(a1[5]);
-}
-
 - (void)_dismissAuthenticatorViewOfType:(unsigned __int8)type
 {
   v3 = 4 * (type == 1);
@@ -1481,21 +1421,188 @@ LABEL_16:
   }
 }
 
-uint64_t __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_withParams___block_invoke(uint64_t result, char a2)
+- (void)_presentAuthenticatorViewOfType:(unsigned __int8)type withParams:(id)params
 {
-  *(*(result + 32) + 224) &= ~*(result + 40);
-  if (a2)
+  typeCopy = type;
+  paramsCopy = params;
+  if (typeCopy == 1)
   {
-    *(*(result + 32) + 224) |= *(result + 64);
-    if ((*(result + 56) & *(*(result + 32) + 224)) != 0)
+    _delegateSupportsPassphrasePresentation = [(PKAuthenticatorEvaluationContext *)self _delegateSupportsPassphrasePresentation];
+  }
+
+  else if (typeCopy)
+  {
+    _delegateSupportsPassphrasePresentation = 0;
+  }
+
+  else
+  {
+    _delegateSupportsPassphrasePresentation = [(PKAuthenticatorEvaluationContext *)self _delegateSupportsPasscodePresentation];
+  }
+
+  if (typeCopy)
+  {
+    v8 = 4 * (typeCopy == 1);
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  if (typeCopy)
+  {
+    v9 = 16 * (typeCopy == 1);
+  }
+
+  else
+  {
+    v9 = 8;
+  }
+
+  if (typeCopy)
+  {
+    v10 = (typeCopy == 1) << 6;
+  }
+
+  else
+  {
+    v10 = 32;
+  }
+
+  if (_delegateSupportsPassphrasePresentation)
+  {
+    self->_presentationFlags |= v9 | v8;
+    secureIndicatorProvider = self->_secureIndicatorProvider;
+    if (secureIndicatorProvider)
     {
-      return [*(result + 32) _dismissAuthenticatorViewOfType:*(result + 72)];
+      if (self->_providerRegistered)
+      {
+        [(PKAuthenticatorSecureIndicatorProvider *)secureIndicatorProvider unregisterConsumer:self];
+        self->_providerRegistered = 0;
+        secureIndicatorProvider = self->_secureIndicatorProvider;
+      }
+
+      self->_secureIndicatorProvider = 0;
+    }
+
+    banner = self->_banner;
+    if (banner)
+    {
+      [(PKBannerHandle *)banner invalidate];
+      v13 = self->_banner;
+      self->_banner = 0;
+    }
+
+    v14 = [paramsCopy objectForKeyedSubscript:&unk_286FD0FC8];
+    v15 = [(PKAuthenticatorEvaluationContext *)self _requestRemoteAuthenticatorViewControllerOfType:typeCopy withHostingConfiguration:v14];
+
+    if (typeCopy)
+    {
+      v16 = (typeCopy == 1) << 9;
+    }
+
+    else
+    {
+      v16 = 128;
+    }
+
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_withParams___block_invoke;
+    v36[3] = &unk_279A000C0;
+    v36[4] = self;
+    v36[5] = v9;
+    v36[6] = v8;
+    v36[7] = v10;
+    v36[8] = v16;
+    v37 = typeCopy;
+    v18 = MEMORY[0x25F8AAFE0](v36);
+    v19 = v18;
+    if ((self->_presentationFlags & v10) != 0 || !v15)
+    {
+      (*(v18 + 16))(v18, 0);
+    }
+
+    else
+    {
+      objc_initWeak(&location, self->_LAContext);
+      if (typeCopy == 1)
+      {
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_withParams___block_invoke_269;
+        v31[3] = &unk_279A00108;
+        objc_copyWeak(&v32, &location);
+        [WeakRetained presentPassphraseViewController:v15 completionHandler:v19 reply:v31];
+        objc_destroyWeak(&v32);
+      }
+
+      else if (!typeCopy)
+      {
+        v21 = objc_loadWeakRetained(&self->_authenticator);
+        clientAnalyticsParameters = [v21 clientAnalyticsParameters];
+
+        v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        [v23 setObject:*MEMORY[0x277D383F8] forKeyedSubscript:*MEMORY[0x277D383D8]];
+        v24 = [clientAnalyticsParameters objectForKeyedSubscript:*MEMORY[0x277D38908]];
+        [v23 setObject:v24 forKeyedSubscript:*MEMORY[0x277D384E0]];
+
+        v25 = MEMORY[0x277D37D28];
+        v26 = clientAnalyticsParameters;
+        v27 = [v26 objectForKeyedSubscript:*MEMORY[0x277D38910]];
+        objc_opt_class();
+        isKindOfClass = objc_opt_isKindOfClass();
+        v29 = *MEMORY[0x277D38540];
+        if (isKindOfClass)
+        {
+          v29 = v27;
+        }
+
+        v30 = v29;
+
+        [v25 subject:v30 sendEvent:v23];
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_withParams___block_invoke_2;
+        v33[3] = &unk_279A00108;
+        objc_copyWeak(&v34, &location);
+        [WeakRetained presentPasscodeViewController:v15 completionHandler:v19 reply:v33];
+        objc_destroyWeak(&v34);
+      }
+
+      objc_destroyWeak(&location);
     }
   }
 
   else
   {
-    *(*(result + 32) + 224) &= ~(*(result + 56) | *(result + 48));
+    v20 = (typeCopy == 1) << 10;
+    if (!typeCopy)
+    {
+      v20 = 256;
+    }
+
+    self->_presentationFlags |= v20;
+  }
+}
+
+unsigned __int8 *__79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_withParams___block_invoke(unsigned __int8 *result, char a2)
+{
+  *(*(result + 4) + 224) &= ~*(result + 5);
+  if (a2)
+  {
+    *(*(result + 4) + 224) |= *(result + 8);
+    if ((*(result + 7) & *(*(result + 4) + 224)) != 0)
+    {
+      return [*(result + 4) _dismissAuthenticatorViewOfType:result[72]];
+    }
+  }
+
+  else
+  {
+    *(*(result + 4) + 224) &= ~(*(result + 7) | *(result + 6));
   }
 
   return result;
@@ -1510,20 +1617,18 @@ void __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_with
 
 void __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_withParams___block_invoke_3(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4 || (a2 & 1) == 0)
   {
     v5 = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_25E0A9000, v5, OS_LOG_TYPE_DEFAULT, "Failed to set credential for passcode event: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_25E0A9000, v5, OS_LOG_TYPE_DEFAULT, "Failed to set credential for passcode event: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_withParams___block_invoke_269(uint64_t a1, void *a2)
@@ -1535,26 +1640,24 @@ void __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_with
 
 void __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_withParams___block_invoke_2_270(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4 || (a2 & 1) == 0)
   {
     v5 = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_25E0A9000, v5, OS_LOG_TYPE_DEFAULT, "Failed to set credential for passphrase event: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_25E0A9000, v5, OS_LOG_TYPE_DEFAULT, "Failed to set credential for passphrase event: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_requestRemoteAuthenticatorViewControllerOfType:(unsigned __int8)type withHostingConfiguration:(id)configuration
 {
   typeCopy = type;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)
@@ -1587,15 +1690,15 @@ void __79__PKAuthenticatorEvaluationContext__presentAuthenticatorViewOfType_with
       {
         v11 = objc_opt_class();
         v12 = NSStringFromClass(v11);
-        v19 = 134218754;
+        v18 = 134218754;
         selfCopy4 = self;
-        v21 = 2114;
-        v22 = v12;
-        v23 = 2048;
-        v24 = v9;
-        v25 = 1024;
-        v26 = typeCopy;
-        _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): using externally provided (%{public}@:%p) as authenticator VC of type %u.", &v19, 0x26u);
+        v20 = 2114;
+        v21 = v12;
+        v22 = 2048;
+        v23 = v9;
+        v24 = 1024;
+        v25 = typeCopy;
+        _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): using externally provided (%{public}@:%p) as authenticator VC of type %u.", &v18, 0x26u);
       }
 
       goto LABEL_22;
@@ -1614,15 +1717,15 @@ LABEL_11:
       {
         v15 = objc_opt_class();
         v16 = NSStringFromClass(v15);
-        v19 = 134218754;
+        v18 = 134218754;
         selfCopy4 = self;
-        v21 = 2114;
-        v22 = v16;
-        v23 = 2048;
-        v24 = v10;
-        v25 = 1024;
-        v26 = typeCopy;
-        _os_log_impl(&dword_25E0A9000, v13, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): using (%{public}@:%p) as authenticator VC of type %u from LA provided configuration.", &v19, 0x26u);
+        v20 = 2114;
+        v21 = v16;
+        v22 = 2048;
+        v23 = v10;
+        v24 = 1024;
+        v25 = typeCopy;
+        _os_log_impl(&dword_25E0A9000, v13, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): using (%{public}@:%p) as authenticator VC of type %u from LA provided configuration.", &v18, 0x26u);
       }
 
       v10 = v10;
@@ -1633,11 +1736,11 @@ LABEL_11:
     {
       if (v14)
       {
-        v19 = 134218240;
+        v18 = 134218240;
         selfCopy4 = self;
-        v21 = 1024;
-        LODWORD(v22) = typeCopy;
-        _os_log_impl(&dword_25E0A9000, v13, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): failed to create remote authenticator VC of type %u using LA provided configuration.", &v19, 0x12u);
+        v20 = 1024;
+        LODWORD(v21) = typeCopy;
+        _os_log_impl(&dword_25E0A9000, v13, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): failed to create remote authenticator VC of type %u using LA provided configuration.", &v18, 0x12u);
       }
 
       v9 = 0;
@@ -1649,11 +1752,11 @@ LABEL_11:
     v10 = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134218240;
+      v18 = 134218240;
       selfCopy4 = self;
-      v21 = 1024;
-      LODWORD(v22) = typeCopy;
-      _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): no configuration data provided for remote authenticator VC of type %u.", &v19, 0x12u);
+      v20 = 1024;
+      LODWORD(v21) = typeCopy;
+      _os_log_impl(&dword_25E0A9000, v10, OS_LOG_TYPE_DEFAULT, "PKAuthenticatorEvaluationContext (%p): no configuration data provided for remote authenticator VC of type %u.", &v18, 0x12u);
     }
 
     v9 = 0;
@@ -1661,7 +1764,6 @@ LABEL_11:
 
 LABEL_22:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1691,7 +1793,7 @@ LABEL_22:
 
 - (void)handlePearlEventWithParameters:(id)parameters
 {
-  v52[3] = *MEMORY[0x277D85DE8];
+  v51[3] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v6 = objc_loadWeakRetained(&self->_authenticator);
@@ -1765,14 +1867,14 @@ LABEL_22:
         [v32 setObject:*MEMORY[0x277D38448] forKeyedSubscript:*MEMORY[0x277D383D8]];
         [v32 setObject:*MEMORY[0x277D38378] forKeyedSubscript:*MEMORY[0x277D384B8]];
         [v32 setObject:*MEMORY[0x277D383F0] forKeyedSubscript:*MEMORY[0x277D38498]];
-        v49 = clientAnalyticsParameters;
+        v48 = clientAnalyticsParameters;
         v33 = [clientAnalyticsParameters objectForKeyedSubscript:*MEMORY[0x277D38908]];
         [v32 setObject:v33 forKeyedSubscript:*MEMORY[0x277D384E0]];
 
         v34 = MEMORY[0x277D37D28];
         v35 = *MEMORY[0x277D38558];
-        v52[0] = *MEMORY[0x277D38538];
-        v52[1] = v35;
+        v51[0] = *MEMORY[0x277D38538];
+        v51[1] = v35;
         v36 = [clientAnalyticsParameters objectForKeyedSubscript:*MEMORY[0x277D38910]];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -1784,8 +1886,8 @@ LABEL_22:
 
         v39 = v38;
 
-        v52[2] = v39;
-        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:3];
+        v51[2] = v39;
+        v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
         [v34 subjects:v40 sendEvent:v32];
 
         goto LABEL_48;
@@ -1850,14 +1952,14 @@ LABEL_19:
             [v19 setObject:*MEMORY[0x277D38448] forKeyedSubscript:*MEMORY[0x277D383D8]];
             [v19 setObject:*MEMORY[0x277D38378] forKeyedSubscript:*MEMORY[0x277D384B8]];
             [v19 setObject:*MEMORY[0x277D383B8] forKeyedSubscript:*MEMORY[0x277D383C0]];
-            v48 = clientAnalyticsParameters2;
+            v47 = clientAnalyticsParameters2;
             v20 = [clientAnalyticsParameters2 objectForKeyedSubscript:*MEMORY[0x277D38908]];
             [v19 setObject:v20 forKeyedSubscript:*MEMORY[0x277D384E0]];
 
             v21 = MEMORY[0x277D37D28];
             v22 = *MEMORY[0x277D38558];
-            v51[0] = *MEMORY[0x277D38538];
-            v51[1] = v22;
+            v50[0] = *MEMORY[0x277D38538];
+            v50[1] = v22;
             v23 = [clientAnalyticsParameters2 objectForKeyedSubscript:*MEMORY[0x277D38910]];
             objc_opt_class();
             v24 = objc_opt_isKindOfClass();
@@ -1869,8 +1971,8 @@ LABEL_19:
 
             v26 = v25;
 
-            v51[2] = v26;
-            v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:3];
+            v50[2] = v26;
+            v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
             [v21 subjects:v27 sendEvent:v19];
 
             v28 = 2;
@@ -1914,13 +2016,11 @@ LABEL_43:
   }
 
 LABEL_50:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleTouchIDEventWithParameters:(id)parameters
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v37[3] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   v5 = [parametersCopy objectForKeyedSubscript:&unk_286FD1028];
   if ([v5 BOOLValue])
@@ -1961,8 +2061,8 @@ LABEL_50:
     v13 = PKLogFacilityTypeGetObject();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v36 = 0;
-      _os_log_impl(&dword_25E0A9000, v13, OS_LOG_TYPE_DEFAULT, "Biometric Match Miss Event Encountered", v36, 2u);
+      *v35 = 0;
+      _os_log_impl(&dword_25E0A9000, v13, OS_LOG_TYPE_DEFAULT, "Biometric Match Miss Event Encountered", v35, 2u);
     }
 
     if (![(PKAuthenticatorEvaluationRequest *)self->_request useLegacyAuthenticator])
@@ -2017,8 +2117,8 @@ LABEL_50:
 
     v20 = MEMORY[0x277D37D28];
     v21 = *MEMORY[0x277D38558];
-    v37[0] = *MEMORY[0x277D38538];
-    v37[1] = v21;
+    v36[0] = *MEMORY[0x277D38538];
+    v36[1] = v21;
     v22 = [clientAnalyticsParameters objectForKeyedSubscript:*MEMORY[0x277D38910]];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
@@ -2030,9 +2130,9 @@ LABEL_50:
 
     v25 = v24;
 
-    v37[2] = v25;
+    v36[2] = v25;
     v26 = MEMORY[0x277CBEA60];
-    v27 = v37;
+    v27 = v36;
 LABEL_52:
     v34 = [v26 arrayWithObjects:v27 count:3];
     [v20 subjects:v34 sendEvent:v18];
@@ -2076,8 +2176,8 @@ LABEL_52:
 
     v20 = MEMORY[0x277D37D28];
     v30 = *MEMORY[0x277D38558];
-    v38[0] = *MEMORY[0x277D38538];
-    v38[1] = v30;
+    v37[0] = *MEMORY[0x277D38538];
+    v37[1] = v30;
     v31 = [clientAnalyticsParameters objectForKeyedSubscript:*MEMORY[0x277D38910]];
     objc_opt_class();
     v32 = objc_opt_isKindOfClass();
@@ -2089,9 +2189,9 @@ LABEL_52:
 
     v25 = v33;
 
-    v38[2] = v25;
+    v37[2] = v25;
     v26 = MEMORY[0x277CBEA60];
-    v27 = v38;
+    v27 = v37;
     goto LABEL_52;
   }
 
@@ -2135,13 +2235,11 @@ LABEL_45:
   }
 
 LABEL_53:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePushButtonEventWithParameters:(id)parameters
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   v5 = [(PKAuthenticatorEvaluationContext *)self updateCompletedMechanismsForPushButtonEventParams:parametersCopy];
   v6 = [parametersCopy objectForKeyedSubscript:&unk_286FD1058];
@@ -2175,8 +2273,8 @@ LABEL_53:
 
       v17 = v16;
 
-      v22[2] = v17;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+      v21[2] = v17;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
       [v13 subjects:v18 sendEvent:v10];
 
       self->_completedMechanisms |= 0x10uLL;
@@ -2212,8 +2310,6 @@ LABEL_53:
 
   [(PKAuthenticatorEvaluationContext *)self _updateEvaluationState];
 LABEL_16:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)updateCompletedMechanismsForPushButtonEventParams:(id)params
@@ -2774,20 +2870,19 @@ void __53__PKAuthenticatorEvaluationContext__setFingerOnTimer__block_invoke(uint
 
 - (void)_updateEvaluationState
 {
-  completedMechanisms = self->_completedMechanisms;
-  v4 = self->_acquireUserIntent && (self->_completedMechanisms & 0x10) == 0;
-  if (v4 || (self->_acquireSecondaryUserIntent ? (v5 = (self->_completedMechanisms & 0x21) == 1) : (v5 = 0), v5))
+  v3 = self->_acquireUserIntent && (self->_completedMechanisms & 0x10) == 0;
+  if (v3 || (self->_acquireSecondaryUserIntent ? (v4 = (self->_completedMechanisms & 0x21) == 1) : (v4 = 0), v4))
   {
-    v7 = 3;
+    v6 = 3;
     goto LABEL_14;
   }
 
-  v6 = self->_completedMechanisms & 0xC;
+  v5 = self->_completedMechanisms & 0xC;
   if ([(PKAuthenticatorEvaluationRequest *)self->_request assumeBiometricOrPasscodeAvailable])
   {
-    if (v6 || (self->_completedMechanisms & 3) != 0)
+    if (v5 || (self->_completedMechanisms & 3) != 0)
     {
-      v7 = 5;
+      v6 = 5;
       goto LABEL_14;
     }
 
@@ -2798,12 +2893,12 @@ void __53__PKAuthenticatorEvaluationContext__setFingerOnTimer__block_invoke(uint
     }
 
 LABEL_22:
-    v7 = 2;
+    v6 = 2;
     goto LABEL_14;
   }
 
   evaluationFlags = self->_evaluationFlags;
-  if ((evaluationFlags & 0xE) == 2 || v6 && (evaluationFlags & 4) == 0)
+  if ((evaluationFlags & 0xE) == 2 || v5 && (evaluationFlags & 4) == 0)
   {
     goto LABEL_22;
   }
@@ -2813,12 +2908,12 @@ LABEL_24:
   {
     if (self->_evaluationState == 2)
     {
-      v7 = 2;
+      v6 = 2;
     }
 
     else
     {
-      v7 = 1;
+      v6 = 1;
     }
   }
 
@@ -2827,17 +2922,17 @@ LABEL_24:
     activeMechanisms = self->_activeMechanisms;
     if ((activeMechanisms & 0xC) != 0)
     {
-      v7 = 0;
+      v6 = 0;
     }
 
     else if ((self->_presentationFlags & 2) != 0 || self->_passcodePresentationRequested || !activeMechanisms || self->_automaticallyPresentPasscodeOnce)
     {
-      v7 = 4 * (self->_evaluationState != 0);
+      v6 = 4 * (self->_evaluationState != 0);
     }
 
     else
     {
-      v7 = 4;
+      v6 = 4;
     }
   }
 
@@ -2847,7 +2942,7 @@ LABEL_14:
     self->_evaluationFlags &= 0xFFFFFFFFFFFFFFF4;
   }
 
-  [(PKAuthenticatorEvaluationContext *)self _setEvaluationStateWithEvent:v7, 0];
+  [(PKAuthenticatorEvaluationContext *)self _setEvaluationStateWithEvent:v6, 0];
 }
 
 - (void)_setEvaluationStateWithEvent:(id)event

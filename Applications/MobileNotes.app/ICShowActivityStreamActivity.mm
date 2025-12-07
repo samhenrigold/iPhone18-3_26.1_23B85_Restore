@@ -82,7 +82,7 @@
 
   selfCopy = self;
   sub_1003F6410(v7, v6);
-  sub_10000C840(v7);
+  sub_10000C840(v7, v6);
 }
 
 - (ICShowActivityStreamActivity)initWithPerformActivity:(id)activity

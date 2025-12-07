@@ -1,11 +1,11 @@
 @interface NSString(TITypingSession)
-- (uint64_t)endsInPunctuation;
-- (uint64_t)endsInWhitespace;
+- (char)endsInPunctuation;
+- (char)endsInWhitespace;
 @end
 
 @implementation NSString(TITypingSession)
 
-- (uint64_t)endsInWhitespace
+- (char)endsInWhitespace
 {
   result = [self length];
   if (result)
@@ -20,7 +20,7 @@
   return result;
 }
 
-- (uint64_t)endsInPunctuation
+- (char)endsInPunctuation
 {
   result = [self length];
   if (result)

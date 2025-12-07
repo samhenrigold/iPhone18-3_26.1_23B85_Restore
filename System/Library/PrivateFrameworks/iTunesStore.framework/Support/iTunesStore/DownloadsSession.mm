@@ -195,33 +195,38 @@ LABEL_12:
         shouldLog = [v14 shouldLog];
         if ([v14 shouldLogToDisk])
         {
-          v16 = shouldLog | 2;
+          LODWORD(v16) = shouldLog | 2;
         }
 
         else
         {
-          v16 = shouldLog;
+          LODWORD(v16) = shouldLog;
         }
 
-        if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_ERROR))
+        oSLogObject = [v14 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        {
+          v16 = v16;
+        }
+
+        else
         {
           v16 &= 2u;
         }
 
         if (v16)
         {
-          v17 = objc_opt_class();
+          v18 = objc_opt_class();
           v26 = 138543618;
-          v27 = v17;
+          v27 = v18;
           v28 = 2114;
           v29 = v25;
-          LODWORD(v24) = 22;
-          v18 = _os_log_send_and_compose_impl();
-          if (v18)
+          v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to archive policy. Error = %{public}@", &v26, 22);
+          if (v19)
           {
-            v19 = v18;
-            [NSString stringWithCString:v18 encoding:4, &v26, v24];
-            free(v19);
+            v20 = v19;
+            [NSString stringWithCString:v19 encoding:4];
+            free(v20);
             SSFileLog();
           }
         }
@@ -238,19 +243,19 @@ LABEL_12:
 
   if ([property isEqualToString:SSDownloadExternalPropertyPolicySizeLimit])
   {
-    v20 = [(DownloadPolicyManager *)self->_policyManager overrideDownloadSizeLimitForDownloadIdentifier:d];
-    if (v20)
+    v21 = [(DownloadPolicyManager *)self->_policyManager overrideDownloadSizeLimitForDownloadIdentifier:d];
+    if (v21)
     {
-      longLongValue = [v20 longLongValue];
+      longLongValue = [v21 longLongValue];
     }
 
     else
     {
-      v22 = [[DownloadEntity alloc] initWithPersistentID:d inDatabase:self->_database];
-      v23 = [(DownloadEntity *)v22 valueForProperty:@"policy_id"];
-      if (v23)
+      v23 = [[DownloadEntity alloc] initWithPersistentID:d inDatabase:self->_database];
+      v24 = [(DownloadEntity *)v23 valueForProperty:@"policy_id"];
+      if (v24)
       {
-        longLongValue = -[DownloadPolicyManager downloadSizeLimitForPolicyWithID:](self->_policyManager, "downloadSizeLimitForPolicyWithID:", [v23 longLongValue]);
+        longLongValue = -[DownloadPolicyManager downloadSizeLimitForPolicyWithID:](self->_policyManager, "downloadSizeLimitForPolicyWithID:", [v24 longLongValue]);
       }
 
       else

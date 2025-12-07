@@ -42,7 +42,7 @@
 
   v6 = AdaptiveFontLayoutContext.isEqual(_:)(v8);
 
-  sub_1A2D8FE7C(v8, &qword_1EB0B36E0);
+  sub_1A2D8FE7C(v8, &qword_1EB0B36E0, qword_1A2DA5180);
   return v6;
 }
 

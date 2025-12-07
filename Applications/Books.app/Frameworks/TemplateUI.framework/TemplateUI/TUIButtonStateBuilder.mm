@@ -11,7 +11,7 @@
   stringCopy = string;
   roleCopy = role;
   v7 = roleCopy;
-  if (!roleCopy || [roleCopy isEqualToString:@"title"])
+  if (!roleCopy || objc_msgSend_isEqualToString_(roleCopy))
   {
     v8 = [stringCopy copy];
     title = self->_title;
@@ -24,7 +24,7 @@
   modelCopy = model;
   roleCopy = role;
   v7 = roleCopy;
-  if (!roleCopy || [roleCopy isEqualToString:@"image"])
+  if (!roleCopy || objc_msgSend_isEqualToString_(roleCopy))
   {
     image = [modelCopy image];
     image = self->_image;

@@ -61,32 +61,33 @@
   defaultCopy = default;
   if (class)
   {
-    v12 = 0;
-    v7 = [NSKeyedArchiver archivedDataWithRootObject:class requiringSecureCoding:1 error:&v12];
-    v8 = v12;
+    v13 = 0;
+    v7 = [NSKeyedArchiver archivedDataWithRootObject:class requiringSecureCoding:1 error:&v13];
+    v8 = v13;
+    v9 = v8;
     if (v8)
     {
-      v9 = sub_100030FE4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sub_100030FE4(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_100002F34(v8, v9);
+        sub_100002F34(v9, v10);
       }
 
-      v10 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v10 = [(MSDDefaultsManager *)self setObject:v7 forDefault:defaultCopy];
+      v11 = [(MSDDefaultsManager *)self setObject:v7 forDefault:defaultCopy];
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)setObject:(id)object forDefault:(id)default
@@ -107,7 +108,7 @@
 
   else
   {
-    v10 = sub_100030FE4();
+    v10 = sub_100030FE4(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100002FAC();
@@ -128,7 +129,7 @@
 
   else
   {
-    v5 = sub_100030FE4();
+    v5 = sub_100030FE4(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100002FE0();
@@ -155,7 +156,7 @@
 
   else
   {
-    v7 = sub_100030FE4();
+    v7 = sub_100030FE4(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100002FE0();
@@ -185,7 +186,7 @@
 
   else
   {
-    v6 = sub_100030FE4();
+    v6 = sub_100030FE4(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100003014();
@@ -300,10 +301,10 @@
   v6 = keyCopy;
   if (object)
   {
-    v25 = keyCopy;
+    v26 = keyCopy;
     objectCopy = object;
+    v25 = objc_opt_class();
     v24 = objc_opt_class();
-    v23 = objc_opt_class();
     v8 = objc_opt_class();
     v9 = objc_opt_class();
     v10 = objc_opt_class();
@@ -313,36 +314,36 @@
     v14 = objc_opt_class();
     v15 = objc_opt_class();
     v16 = objc_opt_class();
-    v17 = [NSSet setWithObjects:v24, v23, v8, v9, v10, v11, v12, v13, v14, v15, v16, objc_opt_class(), 0];
-    v26 = 0;
-    v18 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v17 fromData:objectCopy error:&v26];
+    v17 = [NSSet setWithObjects:v25, v24, v8, v9, v10, v11, v12, v13, v14, v15, v16, objc_opt_class(), 0];
+    v27 = 0;
+    v18 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v17 fromData:objectCopy error:&v27];
 
-    v19 = v26;
+    v19 = v27;
     if (v19)
     {
-      v20 = sub_100030FE4();
-      v6 = v25;
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = sub_100030FE4(v20);
+      v6 = v26;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        sub_100003048(v25, v19, v20);
+        sub_100003048(v26, v19, v21);
       }
 
-      v21 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v21 = v18;
-      v6 = v25;
+      v22 = v18;
+      v6 = v26;
     }
   }
 
   else
   {
-    v21 = 0;
+    v22 = 0;
   }
 
-  return v21;
+  return v22;
 }
 
 @end

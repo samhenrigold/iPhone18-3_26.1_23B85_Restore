@@ -38,42 +38,41 @@
   v6 = v4 != 0;
   if (v4)
   {
-    [v4 distanceFromLocation:navigateCopy];
-    v8 = v7;
-    if (v7 > 500.0)
+    v7 = [v4 distanceFromLocation:navigateCopy];
+    v9 = v8;
+    if (v8 > 500.0)
     {
       v6 = 0;
       goto LABEL_10;
     }
 
-    v9 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_context_heuristic(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 134217984;
-      v16 = v8 / 1000.0;
-      v10 = "Navigation Suggestion: Close to event (distance to: %f). Skipping...";
-      v11 = v9;
-      v12 = 12;
+      v16 = v9 / 1000.0;
+      v11 = "Navigation Suggestion: Close to event (distance to: %f). Skipping...";
+      v12 = v10;
+      v13 = 12;
 LABEL_7:
-      _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, v10, &v15, v12);
+      _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, v11, &v15, v13);
     }
   }
 
   else
   {
-    v9 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_context_heuristic(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v15) = 0;
-      v10 = "Navigation Suggestion: Current location missing";
-      v11 = v9;
-      v12 = 2;
+      v11 = "Navigation Suggestion: Current location missing";
+      v12 = v10;
+      v13 = 2;
       goto LABEL_7;
     }
   }
 
 LABEL_10:
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -107,17 +106,18 @@ void __55__ATXHeuristicNavigationUtilities_fetchLocationForLOI___block_invoke(ui
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __55__ATXHeuristicNavigationUtilities_fetchLocationForLOI___block_invoke_cold_1();
     }
 
-    v9 = *(*(a1 + 40) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = 0;
+    v10 = *(*(a1 + 40) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = 0;
   }
 
   else
@@ -138,22 +138,20 @@ void __55__ATXHeuristicNavigationUtilities_fetchLocationForLOI___block_invoke(ui
   [locationCopy coordinate];
   v10 = v9;
 
-  v11 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = __atxlog_handle_context_heuristic(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 134283777;
     v17 = v8;
     v18 = 2049;
     v19 = v10;
-    _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Geolocation from Structured location: (%{private}f), (%{private}f)", &v16, 0x16u);
+    _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Geolocation from Structured location: (%{private}f), (%{private}f)", &v16, 0x16u);
   }
 
-  v12 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:v8 longitude:v10];
-  v13 = [MEMORY[0x277CBFC40] placemarkWithLocation:v12 name:nameCopy postalAddress:0];
+  v13 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:v8 longitude:v10];
+  v14 = [MEMORY[0x277CBFC40] placemarkWithLocation:v13 name:nameCopy postalAddress:0];
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v14;
 }
 
 + (id)schemaTypeToString:(unint64_t)string
@@ -179,28 +177,20 @@ void __55__ATXHeuristicNavigationUtilities_fetchLocationForLOI___block_invoke(ui
   firstObject = [v9 firstObject];
   preferredLocationWithoutPrediction = [eventCopy preferredLocationWithoutPrediction];
   v11 = preferredLocationWithoutPrediction;
-  if (!preferredLocationWithoutPrediction)
+  if (!preferredLocationWithoutPrediction || ([preferredLocationWithoutPrediction geoLocation], v12 = objc_claimAutoreleasedReturnValue(), v12, !v12) || (objc_msgSend(v11, "geoLocation"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "destinationPlacemarkForLocation:withDestinationName:", v13, nameCopy), v14 = objc_claimAutoreleasedReturnValue(), v13, !v14))
   {
-    goto LABEL_4;
-  }
-
-  geoLocation = [preferredLocationWithoutPrediction geoLocation];
-
-  if (!geoLocation || ([v11 geoLocation], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "destinationPlacemarkForLocation:withDestinationName:", v13, nameCopy), v14 = objc_claimAutoreleasedReturnValue(), v13, !v14))
-  {
-LABEL_4:
     if (type == 1)
     {
-      v27 = [firstObject objectForKeyedSubscript:@"reservationFor"];
-      v28 = [v27 objectForKeyedSubscript:@"address"];
+      v28 = [firstObject objectForKeyedSubscript:@"reservationFor"];
+      v29 = [v28 objectForKeyedSubscript:@"address"];
       objc_opt_class();
       objc_opt_isKindOfClass();
 
-      v29 = objc_opt_new();
-      if (v29)
+      v30 = objc_opt_new();
+      if (v30)
       {
-        v30 = dispatch_semaphore_create(0);
-        v31 = objc_opt_new();
+        v31 = dispatch_semaphore_create(0);
+        v32 = objc_opt_new();
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
@@ -212,14 +202,14 @@ LABEL_4:
         v50[2] = __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_schemaType___block_invoke;
         v50[3] = &unk_278C3D180;
         v52 = buf;
-        v32 = v30;
-        v51 = v32;
-        [v31 geocodeAddressString:v29 completionHandler:v50];
-        [MEMORY[0x277D425A0] waitForSemaphore:v32 timeoutSeconds:1.0];
-        v33 = *(*&buf[8] + 40);
-        if (v33)
+        v33 = v31;
+        v51 = v33;
+        [v32 geocodeAddressString:v30 completionHandler:v50];
+        [MEMORY[0x277D425A0] waitForSemaphore:v33 timeoutSeconds:1.0];
+        v34 = *(*&buf[8] + 40);
+        if (v34)
         {
-          location = [v33 location];
+          location = [v34 location];
           v14 = [self destinationPlacemarkForLocation:location withDestinationName:nameCopy];
         }
 
@@ -242,12 +232,12 @@ LABEL_4:
       if (type)
       {
 LABEL_22:
-        v18 = __atxlog_handle_context_heuristic();
+        v18 = __atxlog_handle_context_heuristic(preferredLocationWithoutPrediction);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v44 = [self schemaTypeToString:type];
+          v45 = [self schemaTypeToString:type];
           *buf = 138412290;
-          *&buf[4] = v44;
+          *&buf[4] = v45;
           _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Destination placemark for %@ is empty. Cannot create suggestion", buf, 0xCu);
         }
 
@@ -268,24 +258,24 @@ LABEL_24:
 
       if (!v18 || !v22)
       {
-        v35 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v36 = __atxlog_handle_context_heuristic(v23);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138478083;
           *&buf[4] = v18;
           *&buf[12] = 2113;
           *&buf[14] = v22;
-          _os_log_impl(&dword_23E3EA000, v35, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Missing latitude/longitude/destination information: %{private}@, %{private}@", buf, 0x16u);
+          _os_log_impl(&dword_23E3EA000, v36, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Missing latitude/longitude/destination information: %{private}@, %{private}@", buf, 0x16u);
         }
 
         goto LABEL_24;
       }
 
       [v18 doubleValue];
-      v24 = v23;
+      v25 = v24;
       [v22 doubleValue];
-      v26 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:v24 longitude:v25];
-      v14 = [self destinationPlacemarkForLocation:v26 withDestinationName:nameCopy];
+      v27 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:v25 longitude:v26];
+      v14 = [self destinationPlacemarkForLocation:v27 withDestinationName:nameCopy];
     }
 
     if (v14)
@@ -297,31 +287,29 @@ LABEL_24:
   }
 
 LABEL_20:
-  v18 = __atxlog_handle_context_heuristic();
+  v18 = __atxlog_handle_context_heuristic(preferredLocationWithoutPrediction);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = [self schemaTypeToString:type];
+    v37 = [self schemaTypeToString:type];
     location2 = [v14 location];
     [location2 coordinate];
-    v39 = v38;
+    v40 = v39;
     location3 = [v14 location];
     [location3 coordinate];
-    v42 = v41;
+    v43 = v42;
     name = [v14 name];
     *buf = 138413059;
-    *&buf[4] = v36;
+    *&buf[4] = v37;
     *&buf[12] = 2049;
-    *&buf[14] = v39;
+    *&buf[14] = v40;
     *&buf[22] = 2049;
-    v54 = v42;
+    v54 = v43;
     LOWORD(v55) = 2113;
     *(&v55 + 2) = name;
     _os_log_impl(&dword_23E3EA000, v18, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: For %@, geolocation information: (%{private}f), (%{private}f), (%{private}@)", buf, 0x2Au);
   }
 
 LABEL_25:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -330,19 +318,20 @@ void __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_sch
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_context_heuristic(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_schemaType___block_invoke_cold_1();
     }
   }
 
-  v8 = [v5 firstObject];
-  v9 = *(*(a1 + 40) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v9 = [v5 firstObject];
+  v10 = *(*(a1 + 40) + 8);
+  v11 = *(v10 + 40);
+  *(v10 + 40) = v9;
 
   dispatch_semaphore_signal(*(a1 + 32));
 }
@@ -392,7 +381,7 @@ void __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_sch
 
 + (id)locationFromEvent:(id)event schemaType:(unint64_t)type
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v7 = [self destinationPlacemarkForEvent:eventCopy name:@"destination" schemaType:type];
   v8 = v7;
@@ -403,19 +392,17 @@ void __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_sch
 
   else
   {
-    v10 = __atxlog_handle_context_heuristic();
+    v10 = __atxlog_handle_context_heuristic(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       eventIdentifier = [eventCopy eventIdentifier];
-      v14 = 138477827;
-      v15 = eventIdentifier;
-      _os_log_impl(&dword_23E3EA000, v10, OS_LOG_TYPE_INFO, "Empty placemark for event %{private}@", &v14, 0xCu);
+      v13 = 138477827;
+      v14 = eventIdentifier;
+      _os_log_impl(&dword_23E3EA000, v10, OS_LOG_TYPE_INFO, "Empty placemark for event %{private}@", &v13, 0xCu);
     }
 
     location = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return location;
 }
@@ -429,16 +416,16 @@ void __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_sch
   v8 = 0;
   if (locationCopy && v6)
   {
-    [v6 distanceFromLocation:locationCopy];
-    v10 = v9;
-    if (v9 <= distance)
+    v9 = [v6 distanceFromLocation:locationCopy];
+    v11 = v10;
+    if (v10 <= distance)
     {
-      v11 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = __atxlog_handle_context_heuristic(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 134217984;
-        v15 = v10 / 1000.0;
-        _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: At location. Distance is %.2fkm", &v14, 0xCu);
+        v15 = v11 / 1000.0;
+        _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: At location. Distance is %.2fkm", &v14, 0xCu);
       }
 
       v8 = 1;
@@ -450,7 +437,6 @@ void __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_sch
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -463,48 +449,48 @@ void __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_sch
   v8 = 0;
   if (locationCopy && v6)
   {
-    [v6 distanceFromLocation:locationCopy];
-    v10 = v9;
-    if (v9 <= 500.0)
+    v9 = [v6 distanceFromLocation:locationCopy];
+    v11 = v10;
+    if (v10 <= 500.0)
     {
-      v11 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = __atxlog_handle_context_heuristic(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v16 = 134218240;
-        v17 = v10;
+        v17 = v11;
         v18 = 2048;
         *&v19 = 500;
-        v13 = "ATXHeuristicNavigationUtilities: Too close to the event (%.2fkm < %.2lukm)";
+        v14 = "ATXHeuristicNavigationUtilities: Too close to the event (%.2fkm < %.2lukm)";
         goto LABEL_9;
       }
     }
 
     else
     {
-      v11 = __atxlog_handle_context_heuristic();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      if (v10 <= distance)
+      v12 = __atxlog_handle_context_heuristic(v9);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      if (v11 <= distance)
       {
-        if (v12)
+        if (v13)
         {
           v16 = 134217984;
-          v17 = v10 / 1000.0;
-          _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Distance to destination is %.2fkm", &v16, 0xCu);
+          v17 = v11 / 1000.0;
+          _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Distance to destination is %.2fkm", &v16, 0xCu);
         }
 
         v8 = 1;
         goto LABEL_14;
       }
 
-      if (v12)
+      if (v13)
       {
         v16 = 134218240;
-        v17 = v10 / 1000.0;
+        v17 = v11 / 1000.0;
         v18 = 2048;
         v19 = (distance / 0x3E8);
-        v13 = "ATXHeuristicNavigationUtilities: Will not create navigation to destination since distance %fKM is beyond %fKM";
+        v14 = "ATXHeuristicNavigationUtilities: Will not create navigation to destination since distance %fKM is beyond %fKM";
 LABEL_9:
-        _os_log_impl(&dword_23E3EA000, v11, OS_LOG_TYPE_DEFAULT, v13, &v16, 0x16u);
+        _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, v14, &v16, 0x16u);
       }
     }
 
@@ -512,24 +498,23 @@ LABEL_9:
 LABEL_14:
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (id)placemarkForLOI:(int64_t)i name:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v7 = [self fetchLocationForLOI:i];
-  v8 = __atxlog_handle_context_heuristic();
+  v8 = __atxlog_handle_context_heuristic(v7);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {
     if (v9)
     {
-      v18 = 138477827;
-      v19 = nameCopy;
-      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Resolved (%{private}@) to destination", &v18, 0xCu);
+      v17 = 138477827;
+      v18 = nameCopy;
+      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Resolved (%{private}@) to destination", &v17, 0xCu);
     }
 
     [v7 coordinate];
@@ -537,13 +522,13 @@ LABEL_14:
     [v7 coordinate];
     v8 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:v11 longitude:v12];
     v13 = [MEMORY[0x277CBFC40] placemarkWithLocation:v8 name:nameCopy postalAddress:0];
-    v14 = __atxlog_handle_context_heuristic();
+    v14 = __atxlog_handle_context_heuristic(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       name = [v13 name];
-      v18 = 138477827;
-      v19 = name;
-      _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Location Resolved for (%{private}@)", &v18, 0xCu);
+      v17 = 138477827;
+      v18 = name;
+      _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Location Resolved for (%{private}@)", &v17, 0xCu);
     }
   }
 
@@ -551,15 +536,13 @@ LABEL_14:
   {
     if (v9)
     {
-      v18 = 138412290;
-      v19 = nameCopy;
-      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Unable to resolve %@ to destination", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = nameCopy;
+      _os_log_impl(&dword_23E3EA000, v8, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Unable to resolve %@ to destination", &v17, 0xCu);
     }
 
     v13 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -593,7 +576,7 @@ LABEL_14:
   destinationCopy = destination;
   deviceCopy = device;
   typeCopy = type;
-  v13 = __atxlog_handle_context_heuristic();
+  v13 = __atxlog_handle_context_heuristic(typeCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     eventIdentifier = [eventCopy eventIdentifier];
@@ -613,47 +596,46 @@ LABEL_14:
     resolvedTimeInformation = [v16 resolvedTimeInformation];
     v19 = [resolvedTimeInformation objectForKeyedSubscript:@"estimatedTravelTime"];
 
-    v20 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = __atxlog_handle_context_heuristic(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       [v19 doubleValue];
       v29 = 134217984;
-      v30 = v21;
-      _os_log_impl(&dword_23E3EA000, v20, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Travel to destination time: %fs", &v29, 0xCu);
+      v30 = v22;
+      _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Travel to destination time: %fs", &v29, 0xCu);
     }
 
     [v19 doubleValue];
-    if (v22 == 0.0)
+    if (v23 == 0.0)
     {
-      v23 = [v17 objectForKeyedSubscript:@"estimatedTravelTime"];
+      v24 = [v17 objectForKeyedSubscript:@"estimatedTravelTime"];
 
-      [v23 doubleValue];
-      if (v25 == 0.0)
+      [v24 doubleValue];
+      if (v26 == 0.0)
       {
-        v24 = -1.0;
+        v25 = -1.0;
         goto LABEL_12;
       }
 
-      v19 = v23;
+      v19 = v24;
     }
 
     else
     {
-      v23 = v19;
+      v24 = v19;
     }
 
     [v19 doubleValue];
-    v24 = v26;
+    v25 = v27;
 LABEL_12:
 
     goto LABEL_13;
   }
 
-  v24 = -1.0;
+  v25 = -1.0;
 LABEL_13:
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v25;
 }
 
 + (id)_titleWithTravelTimeInSeconds:(double)seconds destinationName:(id)name
@@ -673,7 +655,7 @@ LABEL_13:
 
 + (id)navigationSuggestionActionForDestination:(id)destination event:(id)event transportType:(id)type schemaForEvent:(id)forEvent predictionReasons:(unint64_t)reasons heuristicDevice:(id)device score:(double)score shouldClearOnEngagement:(BOOL)self0 validStartDate:(id)self1 validEndDate:(id)self2
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   eventCopy = event;
   typeCopy = type;
@@ -681,15 +663,15 @@ LABEL_13:
   deviceCopy = device;
   dateCopy = date;
   endDateCopy = endDate;
-  v53 = typeCopy;
+  v54 = typeCopy;
   v24 = [ATXHeuristicNavigationUtilities navigationTypeForString:typeCopy];
   name = [destinationCopy name];
   v26 = [ATXHeuristicNavigationUtilities navigationSubtitleForType:v24];
-  v54 = endDateCopy;
+  v55 = endDateCopy;
   if ([name length])
   {
-    v51 = eventCopy;
-    v52 = deviceCopy;
+    v52 = eventCopy;
+    v53 = deviceCopy;
     v27 = objc_alloc(MEMORY[0x277CCA970]);
     distantPast = dateCopy;
     if (!dateCopy)
@@ -697,7 +679,7 @@ LABEL_13:
       distantPast = [MEMORY[0x277CBEAA8] distantPast];
     }
 
-    v50 = v26;
+    v51 = v26;
     reasonsCopy = reasons;
     if (endDateCopy)
     {
@@ -714,44 +696,44 @@ LABEL_13:
     {
     }
 
-    v33 = [v52 now];
+    v33 = [v53 now];
     v34 = [v30 containsDate:v33];
 
     v35 = 0.0;
     if (v34)
     {
-      eventCopy = v51;
-      [self _travelTimeInSecondsWithEvent:v51 destination:destinationCopy transportType:v53 heuristicDevice:v52];
-      v35 = v36;
-      if (v36 >= 180.0)
+      eventCopy = v52;
+      v36 = [self _travelTimeInSecondsWithEvent:v52 destination:destinationCopy transportType:v54 heuristicDevice:v53];
+      v35 = v37;
+      if (v37 >= 180.0)
       {
-        v39 = [self _titleWithTravelTimeInSeconds:name destinationName:v36];
+        v40 = [self _titleWithTravelTimeInSeconds:name destinationName:v37];
 
-        name = v39;
+        name = v40;
       }
 
       else
       {
-        deviceCopy = v52;
-        v37 = __atxlog_handle_context_heuristic();
-        v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+        deviceCopy = v53;
+        v38 = __atxlog_handle_context_heuristic(v36);
+        v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
         if (v35 != -1.0)
         {
-          if (v38)
+          if (v39)
           {
             *buf = 134217984;
-            v57 = v35;
-            _os_log_impl(&dword_23E3EA000, v37, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Travel to destination time is below minimum [%f]. Navigation suggestion is skipped", buf, 0xCu);
+            v58 = v35;
+            _os_log_impl(&dword_23E3EA000, v38, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Travel to destination time is below minimum [%f]. Navigation suggestion is skipped", buf, 0xCu);
           }
 
           v31 = 0;
           goto LABEL_29;
         }
 
-        if (v38)
+        if (v39)
         {
           *buf = 0;
-          _os_log_impl(&dword_23E3EA000, v37, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Travel to destination time returned -1. Navigation suggestion is included without ETA", buf, 2u);
+          _os_log_impl(&dword_23E3EA000, v38, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Travel to destination time returned -1. Navigation suggestion is included without ETA", buf, 2u);
         }
 
         v35 = -1.0;
@@ -760,52 +742,52 @@ LABEL_13:
 
     else
     {
-      eventCopy = v51;
+      eventCopy = v52;
     }
 
-    v40 = [ATXContextNavigationSuggestionProducer alloc];
+    v41 = [ATXContextNavigationSuggestionProducer alloc];
     name2 = [destinationCopy name];
-    v37 = [(ATXContextNavigationSuggestionProducer *)v40 initWithTitle:name event:eventCopy schemaForEvent:forEventCopy alternateDestinationTitle:name2];
+    v38 = [(ATXContextNavigationSuggestionProducer *)v41 initWithTitle:name event:eventCopy schemaForEvent:forEventCopy alternateDestinationTitle:name2];
 
-    v42 = v54;
+    v43 = v55;
     if ((reasonsCopy & 0x3000000000) != 0 && v35 > 1800.0)
     {
-      v43 = [dateCopy dateByAddingTimeInterval:v35];
+      v44 = [dateCopy dateByAddingTimeInterval:v35];
 
-      v42 = v43;
+      v43 = v44;
     }
 
-    deviceCopy = v52;
+    deviceCopy = v53;
     name3 = [destinationCopy name];
-    v31 = [v37 suggestionForNavigationToDestination:destinationCopy transportType:v24 destinationName:name3 subtitle:v50 predictionReasons:reasonsCopy score:engagement shouldClearOnEngagement:score validStartDate:dateCopy validEndDate:v42];
+    v31 = [v38 suggestionForNavigationToDestination:destinationCopy transportType:v24 destinationName:name3 subtitle:v51 predictionReasons:reasonsCopy score:engagement shouldClearOnEngagement:score validStartDate:dateCopy validEndDate:v43];
 
     if (v31)
     {
       [ATXHeuristicFlightEventUtilities logSuggestion:v31 description:@"ATXHeuristicNavigationUtilities: Navigation to destination suggestion"];
-      v45 = v31;
+      v47 = v31;
     }
 
     else
     {
-      v46 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v48 = __atxlog_handle_context_heuristic(v46);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v57 = *&reasonsCopy;
-        _os_log_impl(&dword_23E3EA000, v46, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Could not create navigation suggestion for prediction reason: %llu", buf, 0xCu);
+        v58 = *&reasonsCopy;
+        _os_log_impl(&dword_23E3EA000, v48, OS_LOG_TYPE_DEFAULT, "ATXHeuristicNavigationUtilities: Could not create navigation suggestion for prediction reason: %llu", buf, 0xCu);
       }
 
-      deviceCopy = v52;
+      deviceCopy = v53;
     }
 
-    eventCopy = v51;
+    eventCopy = v52;
 LABEL_29:
 
-    v26 = v50;
+    v26 = v51;
     goto LABEL_30;
   }
 
-  v30 = __atxlog_handle_context_heuristic();
+  v30 = __atxlog_handle_context_heuristic(0);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -814,8 +796,6 @@ LABEL_29:
 
   v31 = 0;
 LABEL_30:
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -843,43 +823,43 @@ LABEL_30:
   v26 = preferredLocationWithoutPrediction;
   if ((reasons & 0x80000000) != 0)
   {
-    v37 = typeCopy;
-    v38 = [forEventCopy objectForKeyedSubscript:@"reservationFor"];
-    v39 = [v38 objectForKeyedSubscript:@"departureAirport"];
-    firstObject = [v39 objectForKeyedSubscript:@"iataCode"];
+    v38 = typeCopy;
+    v39 = [forEventCopy objectForKeyedSubscript:@"reservationFor"];
+    v40 = [v39 objectForKeyedSubscript:@"departureAirport"];
+    firstObject = [v40 objectForKeyedSubscript:@"iataCode"];
 
     if (!firstObject && v26)
     {
       title = [v26 title];
 
-      typeCopy = v37;
+      typeCopy = v38;
       if (!title)
       {
 LABEL_23:
-        v47 = __atxlog_handle_context_heuristic();
-        if (!os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v50 = __atxlog_handle_context_heuristic(v41);
+        if (!os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_35;
         }
 
-        v60 = 0;
-        v48 = "ATXHeuristicNavigationUtilities: For Upcoming flight, destination is empty";
-        v49 = &v60;
+        v63 = 0;
+        v51 = "ATXHeuristicNavigationUtilities: For Upcoming flight, destination is empty";
+        v52 = &v63;
         goto LABEL_27;
       }
 
       title2 = [v26 title];
-      v42 = [title2 componentsSeparatedByString:@"\n"];
-      firstObject = [v42 firstObject];
+      v44 = [title2 componentsSeparatedByString:@"\n"];
+      firstObject = [v44 firstObject];
     }
 
-    typeCopy = v37;
+    typeCopy = v38;
     if (firstObject)
     {
       selfCopy3 = self;
-      v34 = eventCopy;
-      v35 = firstObject;
-      v36 = 0;
+      v35 = eventCopy;
+      v36 = firstObject;
+      v37 = 0;
       goto LABEL_30;
     }
 
@@ -890,55 +870,56 @@ LABEL_23:
   {
     if ((reasons & 0x300000) == 0)
     {
-      v47 = __atxlog_handle_context_heuristic();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+      v50 = __atxlog_handle_context_heuristic(preferredLocationWithoutPrediction);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
       {
-        [ATXHeuristicNavigationUtilities navigationSuggestionActionForEvent:reasons schemaForEvent:v47 transportType:? predictionReasons:? heuristicDevice:? score:? validStartDate:? validEndDate:?];
+        [ATXHeuristicNavigationUtilities navigationSuggestionActionForEvent:reasons schemaForEvent:v50 transportType:? predictionReasons:? heuristicDevice:? score:? validStartDate:? validEndDate:?];
       }
 
       goto LABEL_35;
     }
 
-    if (preferredLocationWithoutPrediction && ([preferredLocationWithoutPrediction title], v43 = objc_claimAutoreleasedReturnValue(), v43, v43))
+    if (preferredLocationWithoutPrediction && ([preferredLocationWithoutPrediction title], v45 = objc_claimAutoreleasedReturnValue(), v45, v45))
     {
       title3 = [v26 title];
       [MEMORY[0x277CCA900] characterSetWithCharactersInString:{@", \n"}];
-      v45 = v44 = typeCopy;
-      v46 = [title3 componentsSeparatedByCharactersInSet:v45];
-      firstObject = [v46 firstObject];
+      v47 = v46 = typeCopy;
+      v48 = [title3 componentsSeparatedByCharactersInSet:v47];
+      firstObject = [v48 firstObject];
 
-      typeCopy = v44;
+      typeCopy = v46;
       if (!firstObject)
       {
 LABEL_21:
-        v47 = __atxlog_handle_context_heuristic();
-        if (!os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v50 = __atxlog_handle_context_heuristic(title4);
+        if (!os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_35;
         }
 
-        v58 = 0;
-        v48 = "ATXHeuristicNavigationUtilities: For upcoming event, destination is empty";
-        v49 = &v58;
+        v61 = 0;
+        v51 = "ATXHeuristicNavigationUtilities: For upcoming event, destination is empty";
+        v52 = &v61;
 LABEL_27:
-        _os_log_impl(&dword_23E3EA000, v47, OS_LOG_TYPE_DEFAULT, v48, v49, 2u);
+        _os_log_impl(&dword_23E3EA000, v50, OS_LOG_TYPE_DEFAULT, v51, v52, 2u);
         goto LABEL_35;
       }
     }
 
     else
     {
-      firstObject = [eventCopy title];
-      if (!firstObject)
+      title4 = [eventCopy title];
+      firstObject = title4;
+      if (!title4)
       {
         goto LABEL_21;
       }
     }
 
     selfCopy3 = self;
-    v34 = eventCopy;
-    v35 = firstObject;
-    v36 = 2;
+    v35 = eventCopy;
+    v36 = firstObject;
+    v37 = 2;
     goto LABEL_30;
   }
 
@@ -947,61 +928,61 @@ LABEL_27:
 
   if (!firstObject && v26)
   {
-    title4 = [v26 title];
+    title5 = [v26 title];
 
-    if (!title4)
+    if (!title5)
     {
       goto LABEL_25;
     }
 
-    title5 = [v26 title];
-    [title5 componentsSeparatedByString:@"\n"];
-    v32 = v31 = typeCopy;
-    firstObject = [v32 firstObject];
+    title6 = [v26 title];
+    [title6 componentsSeparatedByString:@"\n"];
+    v33 = v32 = typeCopy;
+    firstObject = [v33 firstObject];
 
-    typeCopy = v31;
+    typeCopy = v32;
   }
 
   if (!firstObject)
   {
 LABEL_25:
-    v47 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v50 = __atxlog_handle_context_heuristic(v29);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v48 = "ATXHeuristicNavigationUtilities: For concluded flight, destination is empty";
-      v49 = buf;
+      v51 = "ATXHeuristicNavigationUtilities: For concluded flight, destination is empty";
+      v52 = buf;
       goto LABEL_27;
     }
 
 LABEL_35:
     firstObject = 0;
-    v51 = 0;
-    v50 = deviceCopy;
+    v54 = 0;
+    v53 = deviceCopy;
     goto LABEL_36;
   }
 
   selfCopy3 = self;
-  v34 = eventCopy;
-  v35 = firstObject;
-  v36 = 1;
+  v35 = eventCopy;
+  v36 = firstObject;
+  v37 = 1;
 LABEL_30:
-  v47 = [selfCopy3 destinationPlacemarkForEvent:v34 name:v35 schemaType:v36];
-  if (!v47)
+  v50 = [selfCopy3 destinationPlacemarkForEvent:v35 name:v36 schemaType:v37];
+  if (!v50)
   {
-    v51 = 0;
-    v50 = deviceCopy;
+    v54 = 0;
+    v53 = deviceCopy;
     goto LABEL_37;
   }
 
-  LOBYTE(v53) = 0;
-  v50 = deviceCopy;
-  v51 = [self navigationSuggestionActionForDestination:v47 event:eventCopy transportType:typeCopy schemaForEvent:forEventCopy predictionReasons:reasons heuristicDevice:deviceCopy score:score shouldClearOnEngagement:v53 validStartDate:dateCopy validEndDate:endDateCopy];
+  LOBYTE(v56) = 0;
+  v53 = deviceCopy;
+  v54 = [self navigationSuggestionActionForDestination:v50 event:eventCopy transportType:typeCopy schemaForEvent:forEventCopy predictionReasons:reasons heuristicDevice:deviceCopy score:score shouldClearOnEngagement:v56 validStartDate:dateCopy validEndDate:endDateCopy];
 LABEL_36:
 
 LABEL_37:
 
-  return v51;
+  return v54;
 }
 
 + (id)_dateIntervalWithEvent:(id)event
@@ -1017,29 +998,12 @@ LABEL_37:
   return v8;
 }
 
-void __55__ATXHeuristicNavigationUtilities_fetchLocationForLOI___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __80__ATXHeuristicNavigationUtilities_destinationPlacemarkForEvent_name_schemaType___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 + (void)navigationSuggestionActionForEvent:(uint64_t)a1 schemaForEvent:(NSObject *)a2 transportType:predictionReasons:heuristicDevice:score:validStartDate:validEndDate:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_FAULT, "ATXHeuristicNavigationUtilities: Navigation called for an unsupported prediction %llu reason", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_FAULT, "ATXHeuristicNavigationUtilities: Navigation called for an unsupported prediction %llu reason", &v2, 0xCu);
 }
 
 @end

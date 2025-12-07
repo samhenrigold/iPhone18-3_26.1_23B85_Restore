@@ -2,6 +2,7 @@
 + (id)predictionUpdateBlacklistedBundleIds;
 + (int)petClipCaptureTypeFromDuetClipLaunchReason:(int)reason;
 + (void)_logAppLaunch:(id)launch from:(unint64_t)from;
++ (void)_logPredictionForBundleId:(id)id poweringAppClipBundleId:(id)bundleId urlHash:(id)hash isClip:(BOOL)clip appLaunchReason:(id)reason appClipLaunchReason:(int)launchReason consumerType:(unint64_t)type consumerSubType:(unsigned __int8)self0 context:(id)self1;
 + (void)mergeAppLaunches:(id)launches andBacklightTransitions:(id)transitions callingAppLaunchBlock:(id)block;
 - (BOOL)isValidAppLaunchBundleId:(id)id;
 - (_ATXAppLaunchMonitor)initWithAppInfoManager:(id)manager appLaunchHistogramManager:(id)histogramManager appLaunchSequenceManager:(id)sequenceManager appDailyDose:(id)dose appInFocusStream:(id)stream displayOnIntervalStream:(id)intervalStream contextBuilder:(id)builder tracker:(id)self0;
@@ -107,20 +108,20 @@
   doseCopy = dose;
   intervalStreamCopy = intervalStream;
   sequenceManagerCopy = sequenceManager;
-  v55 = doseCopy;
+  v56 = doseCopy;
   streamCopy = stream;
   intervalStreamCopy2 = intervalStream;
   builderCopy = builder;
   trackerCopy = tracker;
   blacklistCopy = blacklist;
   poiManagerCopy = poiManager;
-  v57.receiver = self;
-  v57.super_class = _ATXAppLaunchMonitor;
-  v22 = [(_ATXAppLaunchMonitor *)&v57 init];
+  v58.receiver = self;
+  v58.super_class = _ATXAppLaunchMonitor;
+  v22 = [(_ATXAppLaunchMonitor *)&v58 init];
   if (v22)
   {
-    v45 = histogramManagerCopy2;
-    v49 = managerCopy;
+    v46 = histogramManagerCopy2;
+    v50 = managerCopy;
     v23 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v24 = dispatch_queue_create("com.apple.duetexpertcenter.AppPredictionExpert.AppLaunchHistory", v23);
     appLaunchHistoryQueue = v22->_appLaunchHistoryQueue;
@@ -166,14 +167,14 @@
     v22->_userDefaults = v41;
 
     objc_storeStrong(&v22->_predictionUpdateBlacklist, blacklist);
-    v43 = __atxlog_handle_default();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+    v44 = __atxlog_handle_default(v43);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchMonitor initWithAppInfoManager:appLaunchHistogramManager:appLaunchSequenceManager:appDailyDose:appInFocusStream:displayOnIntervalStream:contextBuilder:tracker:predictionUpdateBlacklist:heroPoiManager:];
     }
 
-    managerCopy = v49;
-    histogramManagerCopy2 = v45;
+    managerCopy = v50;
+    histogramManagerCopy2 = v46;
   }
 
   return v22;
@@ -401,52 +402,53 @@
 
 - (void)processDonationsForPreviousAppSessionEndIfNeeded
 {
-  if ([(NSUserDefaults *)self->_userDefaults BOOLForKey:@"ATXAppLaunchMonitor_LastLaunchWasHomescreen"])
+  v3 = [(NSUserDefaults *)self->_userDefaults BOOLForKey:@"ATXAppLaunchMonitor_LastLaunchWasHomescreen"];
+  if (v3)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Last app launch was the homescreen. Not going to process donations for previous app session end.", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Last app launch was the homescreen. Not going to process donations for previous app session end.", buf, 2u);
     }
   }
 
   else
   {
-    v4 = +[_ATXAppPredictor sharedInstance];
-    appIntentMonitor = [v4 appIntentMonitor];
+    v5 = +[_ATXAppPredictor sharedInstance];
+    appIntentMonitor = [v5 appIntentMonitor];
 
     *buf = 0;
-    v14 = buf;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__45;
-    v17 = __Block_byref_object_dispose__45;
-    v18 = 0;
-    v11[0] = 0;
-    v11[1] = v11;
-    v11[2] = 0x3032000000;
-    v11[3] = __Block_byref_object_copy__45;
-    v11[4] = __Block_byref_object_dispose__45;
-    v12 = 0;
+    v15 = buf;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__45;
+    v18 = __Block_byref_object_dispose__45;
+    v19 = 0;
+    v12[0] = 0;
+    v12[1] = v12;
+    v12[2] = 0x3032000000;
+    v12[3] = __Block_byref_object_copy__45;
+    v12[4] = __Block_byref_object_dispose__45;
+    v13 = 0;
     history = self->_history;
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __72___ATXAppLaunchMonitor_processDonationsForPreviousAppSessionEndIfNeeded__block_invoke;
-    v7[3] = &unk_27859BCB0;
-    v9 = buf;
-    v10 = v11;
-    v3 = appIntentMonitor;
-    v8 = v3;
-    [(_PASQueueLock *)history runAsyncWithLockAcquired:v7];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __72___ATXAppLaunchMonitor_processDonationsForPreviousAppSessionEndIfNeeded__block_invoke;
+    v8[3] = &unk_27859BCB0;
+    v10 = buf;
+    v11 = v12;
+    v4 = appIntentMonitor;
+    v9 = v4;
+    [(_PASQueueLock *)history runAsyncWithLockAcquired:v8];
 
-    _Block_object_dispose(v11, 8);
+    _Block_object_dispose(v12, 8);
     _Block_object_dispose(buf, 8);
   }
 }
 
 - (void)handleAppOrClipLaunchNotificationForBundleId:(id)id poweringAppClipBundleId:(id)bundleId urlHash:(id)hash isClip:(BOOL)clip appLaunchReason:(id)reason appClipLaunchReason:(int)launchReason date:(id)date
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   idCopy = id;
   bundleIdCopy = bundleId;
   hashCopy = hash;
@@ -457,57 +459,53 @@
   [(_ATXAppLaunchMonitor *)self processDonationsForPreviousAppSessionEndIfNeeded];
   if ([idCopy length])
   {
-    [(NSUserDefaults *)self->_userDefaults setBool:0 forKey:@"ATXAppLaunchMonitor_LastLaunchWasHomescreen"];
-    v22 = __atxlog_handle_default();
+    v22 = __atxlog_handle_default([(NSUserDefaults *)self->_userDefaults setBool:0 forKey:@"ATXAppLaunchMonitor_LastLaunchWasHomescreen"]);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v41 = idCopy;
-      v42 = 2112;
-      v43 = reasonCopy;
+      v40 = idCopy;
+      v41 = 2112;
+      v42 = reasonCopy;
       _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_INFO, "App launch: %@ for reason %@", buf, 0x16u);
     }
 
     logQueue = self->_logQueue;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __149___ATXAppLaunchMonitor_handleAppOrClipLaunchNotificationForBundleId_poweringAppClipBundleId_urlHash_isClip_appLaunchReason_appClipLaunchReason_date___block_invoke_135;
-    v28[3] = &unk_27859BD28;
-    v28[4] = self;
-    v29 = idCopy;
-    v30 = reasonCopy;
-    v31 = bundleIdCopy;
-    v32 = hashCopy;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __149___ATXAppLaunchMonitor_handleAppOrClipLaunchNotificationForBundleId_poweringAppClipBundleId_urlHash_isClip_appLaunchReason_appClipLaunchReason_date___block_invoke_135;
+    v27[3] = &unk_27859BD28;
+    v27[4] = self;
+    v28 = idCopy;
+    v29 = reasonCopy;
+    v30 = bundleIdCopy;
+    v31 = hashCopy;
     clipCopy = clip;
     launchReasonCopy = launchReason;
-    v33 = dateCopy;
-    v34 = v21;
-    dispatch_async(logQueue, v28);
+    v32 = dateCopy;
+    v33 = v21;
+    dispatch_async(logQueue, v27);
 
-    v24 = v29;
+    v24 = v28;
   }
 
   else
   {
     history = self->_history;
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __149___ATXAppLaunchMonitor_handleAppOrClipLaunchNotificationForBundleId_poweringAppClipBundleId_urlHash_isClip_appLaunchReason_appClipLaunchReason_date___block_invoke;
-    v37[3] = &unk_27859BCD8;
-    v38 = dateCopy;
-    v39 = v21;
-    [(_PASQueueLock *)history runAsyncWithLockAcquired:v37];
-    [(NSUserDefaults *)self->_userDefaults setBool:1 forKey:@"ATXAppLaunchMonitor_LastLaunchWasHomescreen"];
-    v26 = __atxlog_handle_default();
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __149___ATXAppLaunchMonitor_handleAppOrClipLaunchNotificationForBundleId_poweringAppClipBundleId_urlHash_isClip_appLaunchReason_appClipLaunchReason_date___block_invoke;
+    v36[3] = &unk_27859BCD8;
+    v37 = dateCopy;
+    v38 = v21;
+    [(_PASQueueLock *)history runAsyncWithLockAcquired:v36];
+    v26 = __atxlog_handle_default([(NSUserDefaults *)self->_userDefaults setBool:1 forKey:@"ATXAppLaunchMonitor_LastLaunchWasHomescreen"]);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchMonitor handleAppOrClipLaunchNotificationForBundleId:poweringAppClipBundleId:urlHash:isClip:appLaunchReason:appClipLaunchReason:date:];
     }
 
-    v24 = v38;
+    v24 = v37;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemoteAppLaunch:(id)launch context:(id)context
@@ -523,14 +521,14 @@
 
   v13 = ATXRemoteBundleIdForBundleId();
 
-  v14 = __atxlog_handle_default();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v15 = __atxlog_handle_default(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     v29 = v13;
     v30 = 2112;
     v31 = launchReason;
-    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_INFO, "Remote app launch: %@ for reason %@", buf, 0x16u);
+    _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_INFO, "Remote app launch: %@ for reason %@", buf, 0x16u);
   }
 
   logQueue = self->_logQueue;
@@ -544,14 +542,141 @@
   v25 = launchReason;
   v26 = contextCopy;
   v27 = v9;
-  v16 = v9;
-  v17 = contextCopy;
-  v18 = launchReason;
-  v19 = appSessionStartTime;
-  v20 = v13;
+  v17 = v9;
+  v18 = contextCopy;
+  v19 = launchReason;
+  v20 = appSessionStartTime;
+  v21 = v13;
   dispatch_async(logQueue, v22);
+}
 
-  v21 = *MEMORY[0x277D85DE8];
++ (void)_logPredictionForBundleId:(id)id poweringAppClipBundleId:(id)bundleId urlHash:(id)hash isClip:(BOOL)clip appLaunchReason:(id)reason appClipLaunchReason:(int)launchReason consumerType:(unint64_t)type consumerSubType:(unsigned __int8)self0 context:(id)self1
+{
+  v11 = *&launchReason;
+  clipCopy = clip;
+  idCopy = id;
+  bundleIdCopy = bundleId;
+  hashCopy = hash;
+  reasonCopy = reason;
+  contextCopy = context;
+  v53 = os_transaction_create();
+  v52 = objc_autoreleasePoolPush();
+  v20 = [MEMORY[0x277CEB400] clientForConsumerType:type];
+  v21 = [v20 appPredictionsForConsumerSubType:subType limit:20];
+
+  error = [v21 error];
+
+  if (error)
+  {
+    v24 = __atxlog_handle_default(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    {
+      [_ATXAppLaunchMonitor _logPredictionForBundleId:v21 poweringAppClipBundleId:v24 urlHash:? isClip:? appLaunchReason:? appClipLaunchReason:? consumerType:? consumerSubType:? context:?];
+    }
+
+LABEL_4:
+    v25 = v53;
+
+    objc_autoreleasePoolPop(v52);
+    goto LABEL_23;
+  }
+
+  if (![reasonCopy length])
+  {
+    v24 = __atxlog_handle_default(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      +[_ATXAppLaunchMonitor _logPredictionForBundleId:poweringAppClipBundleId:urlHash:isClip:appLaunchReason:appClipLaunchReason:consumerType:consumerSubType:context:];
+    }
+
+    goto LABEL_4;
+  }
+
+  predictedApps = [v21 predictedApps];
+  v51 = bundleIdCopy;
+  v27 = [predictedApps indexOfObject:idCopy];
+
+  +[_ATXAggregateLogger sharedInstance];
+  v28 = v50 = hashCopy;
+  [v28 logLaunchEventWithLaunchReason:reasonCopy predicted:v27 != 0x7FFFFFFFFFFFFFFFLL position:v27];
+
+  hashCopy = v50;
+  v29 = +[_ATXGlobals sharedInstance];
+  [v29 shadowLogSamplingRate];
+  v31 = v30;
+
+  bundleIdCopy = v51;
+  isInternalBuild = [MEMORY[0x277D42590] isInternalBuild];
+  v33 = v31 * 10.0;
+  if (v31 * 10.0 > 1.0)
+  {
+    v33 = 1.0;
+  }
+
+  if (isInternalBuild)
+  {
+    v31 = v33;
+  }
+
+  if (v51 && clipCopy && (v11 - 4) <= 0xFFFFFFFD)
+  {
+    v34 = [[ATXAppOrClipLaunch alloc] initAppClipLaunchWithBundleId:v51 urlHash:v50 launchReason:v11];
+    [ATXLaunchAndLocationHarvester logAppOrClipLaunch:v34 isNegativeSession:0];
+
+    bundleIdCopy = v51;
+  }
+
+  if ([_ATXAggregateLogger yesWithProbability:v31])
+  {
+    context = objc_autoreleasePoolPush();
+    v35 = objc_opt_new();
+    predictedApps2 = [v21 predictedApps];
+    v37 = [predictedApps2 count];
+
+    if (v37)
+    {
+      v38 = 0;
+      do
+      {
+        predictedApps3 = [v21 predictedApps];
+        v40 = [predictedApps3 objectAtIndexedSubscript:v38];
+        [v35 addObject:v40];
+
+        ++v38;
+        predictedApps4 = [v21 predictedApps];
+        v42 = [predictedApps4 count];
+
+        if (v42 >= 4)
+        {
+          v43 = 4;
+        }
+
+        else
+        {
+          v43 = v42;
+        }
+      }
+
+      while (v38 < v43);
+    }
+
+    v44 = [ATXAppPredictionFeedbackItem feedbackItemsForResponse:v21];
+    v45 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{0, 4}];
+    v46 = [_ATXAggregateLogger propertyStringForLaunchReason:reasonCopy];
+    v47 = [ATXAppPredictorFeedback constructSessionLogDictionaryWithFeedbackItems:v44 engagedBundleId:idCopy shownBundleIdIndexes:v45 consumerType:type consumerSubType:subType outcome:5 annotation:v46 context:contextCopy];
+
+    [ATXAWDUtils logAppPredictionDictionaryViaAWD:v47];
+    objc_autoreleasePoolPop(context);
+    hashCopy = v50;
+    bundleIdCopy = v51;
+  }
+
+  [_ATXAppLaunchMonitor _harvestAppPredictionDataForBundleId:idCopy response:v21];
+
+  objc_autoreleasePoolPop(v52);
+  v25 = v53;
+  v48 = objc_opt_self();
+LABEL_23:
 }
 
 - (void)logAppLaunchForBundleId:(id)id launchReason:(id)reason
@@ -832,8 +957,7 @@ LABEL_16:
   [v22 setAppPredictionPanelEnabled:v20 != 0];
   [v22 setSuggestionsWidgetEnabled:v21 != 0];
   [v22 setSuggestionsWidgetTodayEnabled:v19];
-  [(ATXPETEventTracker2Protocol *)selfCopy->_tracker trackScalarForMessage:v22];
-  v28 = __atxlog_handle_metrics();
+  v28 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)selfCopy->_tracker trackScalarForMessage:v22]);
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
     [(_ATXAppLaunchMonitor *)selfCopy _logAppLaunchOverallCaptureRateForBundleId:v22 launchReason:v28];
@@ -909,7 +1033,7 @@ LABEL_6:
 
 - (void)_addLaunchWithLockWitness:(id)witness bundleId:(id)id date:(id)date timeZone:(id)zone reason:(id)reason context:(id)context
 {
-  v83[4] = *MEMORY[0x277D85DE8];
+  v82[4] = *MEMORY[0x277D85DE8];
   witnessCopy = witness;
   idCopy = id;
   dateCopy = date;
@@ -999,27 +1123,27 @@ LABEL_6:
     [v43 addLaunchWithBundleId:idCopy date:dateCopy category:wifiSSID];
   }
 
-  v81 = wifiSSID;
+  v80 = wifiSSID;
   v44 = *(witnessCopy + 1);
   if (v44)
   {
-    v83[0] = idCopy;
+    v82[0] = idCopy;
     null = reasonCopy;
     if (!reasonCopy)
     {
       null = [MEMORY[0x277CBEB68] null];
     }
 
-    v83[1] = null;
-    v83[2] = dateCopy;
+    v82[1] = null;
+    v82[2] = dateCopy;
     null2 = zoneCopy;
     if (!zoneCopy)
     {
       null2 = [MEMORY[0x277CBEB68] null];
     }
 
-    v83[3] = null2;
-    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:4];
+    v82[3] = null2;
+    v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:4];
     [v44 addObject:v47];
 
     if (zoneCopy)
@@ -1041,7 +1165,7 @@ LABEL_6:
   }
 
 LABEL_30:
-  v82 = reasonCopy;
+  v81 = reasonCopy;
   v48 = zoneCopy;
   ambientLightContext = [contextCopy ambientLightContext];
   ambientLightType = [ambientLightContext ambientLightType];
@@ -1056,26 +1180,26 @@ LABEL_30:
 
   v54 = MEMORY[0x277D41C30];
   locationMotionContext = [contextCopy locationMotionContext];
-  v80 = [v54 getMotionStringFromMotionType:{objc_msgSend(locationMotionContext, "motionType")}];
+  v79 = [v54 getMotionStringFromMotionType:{objc_msgSend(locationMotionContext, "motionType")}];
 
   v56 = [*(witnessCopy + 6) categoricalHistogramForLaunchType:37];
-  [v56 addLaunchWithBundleId:idCopy date:dateCopy category:v80];
+  [v56 addLaunchWithBundleId:idCopy date:dateCopy category:v79];
 
-  v79 = [_ATXActionUtils stringForTimeOfDayAndDayOfWeek:dateCopy timeZone:0];
+  v78 = [_ATXActionUtils stringForTimeOfDayAndDayOfWeek:dateCopy timeZone:0];
   v57 = [*(witnessCopy + 6) categoricalHistogramForLaunchType:42];
-  [v57 addLaunchWithBundleId:idCopy date:dateCopy category:v79];
+  [v57 addLaunchWithBundleId:idCopy date:dateCopy category:v78];
 
   locationMotionContext2 = [contextCopy locationMotionContext];
-  v78 = +[_ATXActionUtils stringForCoarseTimePOWLocation:timeZone:coarseGeohash:](_ATXActionUtils, "stringForCoarseTimePOWLocation:timeZone:coarseGeohash:", dateCopy, 0, [locationMotionContext2 coarseGeohash]);
+  v77 = +[_ATXActionUtils stringForCoarseTimePOWLocation:timeZone:coarseGeohash:](_ATXActionUtils, "stringForCoarseTimePOWLocation:timeZone:coarseGeohash:", dateCopy, 0, [locationMotionContext2 coarseGeohash]);
 
   locationMotionContext3 = [contextCopy locationMotionContext];
-  v77 = +[_ATXActionUtils stringForSpecificTimeDOWLocation:timeZone:geohash:](_ATXActionUtils, "stringForSpecificTimeDOWLocation:timeZone:geohash:", dateCopy, 0, [locationMotionContext3 geohash]);
+  v76 = +[_ATXActionUtils stringForSpecificTimeDOWLocation:timeZone:geohash:](_ATXActionUtils, "stringForSpecificTimeDOWLocation:timeZone:geohash:", dateCopy, 0, [locationMotionContext3 geohash]);
 
   v60 = [*(witnessCopy + 6) categoricalHistogramForLaunchType:43];
-  [v60 addLaunchWithBundleId:idCopy date:dateCopy category:v78];
+  [v60 addLaunchWithBundleId:idCopy date:dateCopy category:v77];
 
   v61 = [*(witnessCopy + 6) categoricalHistogramForLaunchType:44];
-  [v61 addLaunchWithBundleId:idCopy date:dateCopy category:v77];
+  [v61 addLaunchWithBundleId:idCopy date:dateCopy category:v76];
 
   locationMotionContext4 = [contextCopy locationMotionContext];
   v63 = +[_ATXActionUtils stringForCoarseGeohash:](_ATXActionUtils, "stringForCoarseGeohash:", [locationMotionContext4 coarseGeohash]);
@@ -1084,7 +1208,7 @@ LABEL_30:
   v65 = +[_ATXActionUtils stringForSpecificGeohash:](_ATXActionUtils, "stringForSpecificGeohash:", [locationMotionContext5 geohash]);
 
   [contextCopy locationMotionContext];
-  v66 = v76 = contextCopy;
+  v66 = v75 = contextCopy;
   v67 = +[_ATXActionUtils stringForZoom7Geohash:](_ATXActionUtils, "stringForZoom7Geohash:", [v66 largeGeohash]);
 
   v68 = [*(witnessCopy + 6) categoricalHistogramForLaunchType:50];
@@ -1103,8 +1227,6 @@ LABEL_30:
   currentPoiCategory = [*(witnessCopy + 9) currentPoiCategory];
   v74 = [*(witnessCopy + 6) categoricalHistogramForLaunchType:95];
   [v74 addLaunchWithBundleId:idCopy date:dateCopy category:currentPoiCategory];
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stopDeltaRecording
@@ -1244,27 +1366,17 @@ LABEL_30:
   dispatch_sync(appLaunchHistoryQueue, &__block_literal_global_182);
 }
 
-- (void)handleAppOrClipLaunchNotificationForBundleId:poweringAppClipBundleId:urlHash:isClip:appLaunchReason:appClipLaunchReason:date:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_1(&dword_2263AA000, v0, v1, "Ignoring app launch with nil or empty value for bundleId (%@) and launchReason of %@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 + (void)_logPredictionForBundleId:(void *)a1 poweringAppClipBundleId:(NSObject *)a2 urlHash:isClip:appLaunchReason:appClipLaunchReason:consumerType:consumerSubType:context:.cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "No results predicted. Error: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "No results predicted. Error: %@", v4, 0xCu);
 }
 
 - (void)_logAppLaunchOverallCaptureRateForBundleId:(NSObject *)a3 launchReason:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 captureType];
@@ -1291,26 +1403,24 @@ LABEL_30:
   }
 
   *buf = 138414338;
-  v14 = v6;
-  v15 = 2112;
-  v16 = v9;
-  v17 = 2112;
-  v18 = v11;
-  v19 = 1024;
-  v20 = [a2 spotlightEnabled];
-  v21 = 1024;
-  v22 = [a2 appLibraryEnabled];
-  v23 = 1024;
-  v24 = [a2 appPredictionPanelEnabled];
-  v25 = 1024;
-  v26 = [a2 appPredictionPanelTodayEnabled];
-  v27 = 1024;
-  v28 = [a2 suggestionsWidgetEnabled];
-  v29 = 1024;
-  v30 = [a2 suggestionsWidgetTodayEnabled];
+  v13 = v6;
+  v14 = 2112;
+  v15 = v9;
+  v16 = 2112;
+  v17 = v11;
+  v18 = 1024;
+  v19 = [a2 spotlightEnabled];
+  v20 = 1024;
+  v21 = [a2 appLibraryEnabled];
+  v22 = 1024;
+  v23 = [a2 appPredictionPanelEnabled];
+  v24 = 1024;
+  v25 = [a2 appPredictionPanelTodayEnabled];
+  v26 = 1024;
+  v27 = [a2 suggestionsWidgetEnabled];
+  v28 = 1024;
+  v29 = [a2 suggestionsWidgetTodayEnabled];
   _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAppLaunchOverallCaptureRateTracker with captureType: %@, iconLocation: %@, spotlightEnabled: %u, appLibraryEnabled: %u, hasAppPanel: %u, hasAppPanelToday: %u, suggestionsWidgetEnabled: %u, suggestionsWidgetTodayEnabled: %u", buf, 0x44u);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

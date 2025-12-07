@@ -1,4 +1,4 @@
-void sub_256404ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_256404ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
 {
   llvm::APFloat::~APFloat(&a18);
 
@@ -300,7 +300,7 @@ EmitterViewerSPI::MPSReadDataFromFileOpHandler *EmitterViewerSPI::MPSReadDataFro
     [v14 addObject:v18];
   }
 
-  FileSymbol = mlir::mps::ReadDataFromFileOp::getFileSymbol(&v39, v34);
+  FileSymbol = mlir::mps::ReadDataFromFileOp::getFileSymbol(v34, &v39);
   if (v35 == 1)
   {
     v21 = EmitViewerSPI::emitStringProperty(FileSymbol, @"file_symbol", v34[0], v34[1]);
@@ -7458,7 +7458,7 @@ EmitterViewerSPI::MPSStencilOpHandler *EmitterViewerSPI::MPSStencilOpHandler::MP
     }
   }
 
-  mlir::mps::StencilOp::getPaddingConstant(&v83, &v84);
+  mlir::mps::StencilOp::getPaddingConstant(&v84, &v83);
   v36 = [[MLViewerNodePropertyDataSPI alloc] initWithName:@"paddingConstant" dataType:268435488 shape:&unk_2868B0568];
   if (v36)
   {

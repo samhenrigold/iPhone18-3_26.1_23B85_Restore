@@ -39,7 +39,7 @@
   selfCopy = self;
   sub_10079B8C4();
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for TabBarController();
+  v7.super_class = type metadata accessor for TabBarController(0);
   [(MiniPlayerHostingTabBarController *)&v7 viewWillAppear:appearCopy];
   view = [(BKTabBarController *)selfCopy view];
   if (view)
@@ -159,7 +159,7 @@
   swift_unknownObjectRelease();
   _s5Books33MiniPlayerHostingTabBarControllerC11viewDidMove2to23shouldAppearOrDisappearySo8UIWindowCSg_SbtF_0();
 
-  sub_1000074E0(&v6);
+  sub_1000074E0(v6);
 }
 
 - (void)didReceiveMemoryWarning
@@ -227,10 +227,10 @@
 
 - (id)flowControllers
 {
-  sub_1001F1160(&qword_100AD7FB0);
+  sub_1001F1160(&qword_100AD7FB0, &unk_100820560);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_10080B690;
-  *(v3 + 56) = type metadata accessor for TabBarController();
+  *(v3 + 56) = type metadata accessor for TabBarController(0);
   *(v3 + 32) = self;
   selfCopy = self;
   v5.super.isa = sub_1007A25D4().super.isa;

@@ -9,7 +9,6 @@
 - (_NSRange)targetRange;
 - (id)_unvalidatedEdgeFromAdjacencyListMatchingTargetNodeIndex:(unint64_t)index;
 - (id)copyWithZone:(_NSZone *)zone;
-- (void)_finishValidating;
 - (void)_insertPrefix:(id)prefix;
 - (void)_validateWithAdjacencyList:(id)list gender:(id)gender defaultGender:(id)defaultGender;
 - (void)encodeWithCoder:(id)coder;
@@ -159,13 +158,6 @@
   self->_defaultGender = defaultGenderCopy;
 }
 
-- (void)_finishValidating
-{
-  unvalidatedAdjacencyList = self->_unvalidatedAdjacencyList;
-  self->_unvalidatedAdjacencyList = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (id)_unvalidatedEdgeFromAdjacencyListMatchingTargetNodeIndex:(unint64_t)index
 {
   unvalidatedAdjacencyList = self->_unvalidatedAdjacencyList;
@@ -208,11 +200,11 @@
 
 - (_LTDisambiguationLinkConfiguration)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = _LTDisambiguationLinkConfiguration;
-  v5 = [(_LTDisambiguationLinkConfiguration *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = _LTDisambiguationLinkConfiguration;
+  v5 = [(_LTDisambiguationLinkConfiguration *)&v21 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sourceRange"];
@@ -224,9 +216,9 @@
     v5->_targetRange.length = v9;
 
     v10 = MEMORY[0x277CBEB98];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v12 = [v10 setWithArray:v11];
 
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"adjacencyList"];
@@ -244,7 +236,6 @@
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

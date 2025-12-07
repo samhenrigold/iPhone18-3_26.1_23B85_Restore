@@ -74,14 +74,13 @@
 {
   v4 = sub_2429B6D70();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2429B6D50();
   selfCopy = self;
   sub_2429B4238();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC21CalendarUIKitInternal22PendingReminderTracker)init

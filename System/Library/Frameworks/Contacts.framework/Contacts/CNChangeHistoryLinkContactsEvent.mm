@@ -310,7 +310,7 @@ uint64_t __40__CNChangeHistoryLinkContactsEvent_hash__block_invoke_3(uint64_t a1
   v2 = a1;
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1954A0000, v3, v4, "parameter ‘fromContact’ must be nonnull and of type %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_2(&dword_1954A0000, v3, v4, "parameter ‘fromContact’ must be nonnull and of type %{public}@", v5, v6, v7, v8);
 }
 
 - (void)initWithFromContact:(void *)a1 toContact:unifiedContact:.cold.4(void *a1)
@@ -318,7 +318,7 @@ uint64_t __40__CNChangeHistoryLinkContactsEvent_hash__block_invoke_3(uint64_t a1
   v2 = a1;
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1954A0000, v3, v4, "parameter ‘toContact’ must be nonnull and of type %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_2(&dword_1954A0000, v3, v4, "parameter ‘toContact’ must be nonnull and of type %{public}@", v5, v6, v7, v8);
 }
 
 - (void)initWithFromContact:(void *)a1 toContact:unifiedContact:.cold.6(void *a1)
@@ -326,7 +326,7 @@ uint64_t __40__CNChangeHistoryLinkContactsEvent_hash__block_invoke_3(uint64_t a1
   v2 = a1;
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_1954A0000, v3, v4, "parameter ‘unifiedContact’ must be of type %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_0_2(&dword_1954A0000, v3, v4, "parameter ‘unifiedContact’ must be of type %{public}@", v5, v6, v7, v8);
 }
 
 @end

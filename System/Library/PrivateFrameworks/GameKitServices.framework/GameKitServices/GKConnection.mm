@@ -1,8 +1,6 @@
 @interface GKConnection
 + (BOOL)isRelayEnabled;
 + (id)allocWithZone:(_NSZone *)zone;
-+ (id)externalAddressForCDXSelfConnectionData:(id)data;
-+ (id)externalAddressForSelfConnectionData:(id)data;
 - (BOOL)convertParticipantID:(id)d toPeerID:(id *)iD;
 - (BOOL)convertPeerID:(id)d toParticipantID:(id *)iD;
 - (GKConnection)initWithParticipantID:(id)d;
@@ -17,10 +15,12 @@
 - (void)connect;
 - (void)connectParticipantsWithConnectionData:(id)data withSessionInfo:(id)info;
 - (void)getLocalConnectionDataWithCompletionHandler:(id)handler;
+- (void)initiateRelayWithParticipant:(id)participant withConnectionData:(id)data withRelayInfo:(id)info didInitiate:(BOOL)initiate;
 - (void)preRelease;
 - (void)setEventDelegate:(id)delegate;
 - (void)setParticipantID:(id)d forPeerID:(id)iD;
 - (void)setReportingAgent:(opaqueRTCReporting *)agent;
+- (void)updateRelayWithParticipant:(id)participant withConnectionData:(id)data withRelayInfo:(id)info didInitiate:(BOOL)initiate;
 @end
 
 @implementation GKConnection
@@ -141,6 +141,20 @@
   [(GKConnection *)&v4 doesNotRecognizeSelector:a2, info];
 }
 
+- (void)initiateRelayWithParticipant:(id)participant withConnectionData:(id)data withRelayInfo:(id)info didInitiate:(BOOL)initiate
+{
+  v6.receiver = self;
+  v6.super_class = GKConnection;
+  [(GKConnection *)&v6 doesNotRecognizeSelector:a2, data, info, initiate];
+}
+
+- (void)updateRelayWithParticipant:(id)participant withConnectionData:(id)data withRelayInfo:(id)info didInitiate:(BOOL)initiate
+{
+  v6.receiver = self;
+  v6.super_class = GKConnection;
+  [(GKConnection *)&v6 doesNotRecognizeSelector:a2, data, info, initiate];
+}
+
 - (void)cancelConnectParticipant:(id)participant
 {
   v3.receiver = self;
@@ -172,31 +186,16 @@
   return 0;
 }
 
-+ (id)externalAddressForSelfConnectionData:(id)data
-{
-  v5 = *MEMORY[0x277D85DE8];
-  result = [data subdataWithRange:{5, 4}];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-+ (id)externalAddressForCDXSelfConnectionData:(id)data
-{
-  v5 = *MEMORY[0x277D85DE8];
-  result = [data subdataWithRange:{1, 4}];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 + (BOOL)isRelayEnabled
 {
   if ((isRelayEnabled_relayEnabledCached & 1) == 0)
   {
-    isRelayEnabled_relayEnabled = [objc_msgSend(objc_msgSend(MEMORY[0x277CBEBD0] "standardUserDefaults")] ^ 1;
+    v2 = [objc_msgSend(objc_msgSend(MEMORY[0x277CBEBD0] "standardUserDefaults")] ^ 1;
+    isRelayEnabled_relayEnabled = v2;
     isRelayEnabled_relayEnabledCached = 1;
     if (*MEMORY[0x277CE5800] > 6 || (*MEMORY[0x277CE5810] & 1) != 0)
     {
-      +[GKConnection isRelayEnabled];
+      +[(GKConnection *)v2];
     }
   }
 

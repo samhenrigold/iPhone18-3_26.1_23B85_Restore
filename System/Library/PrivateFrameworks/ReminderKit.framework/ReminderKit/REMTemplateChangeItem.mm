@@ -6,6 +6,7 @@
 - (REMListBadge)badge;
 - (REMTemplateChangeItem)initWithObjectID:(id)d name:(id)name configuration:(id)configuration insertIntoAccountChangeItem:(id)item;
 - (REMTemplateChangeItem)initWithSaveRequest:(id)request storage:(id)storage changedKeysObserver:(id)observer;
+- (REMTemplateChangeItem)initWithSaveRequest:(id)request storage:(id)storage observeInitialValues:(BOOL)values;
 - (REMTemplateSectionContextChangeItem)sectionsContextChangeItem;
 - (id)changedKeys;
 - (id)resolutionTokenKeyForChangedKey:(id)key;
@@ -65,6 +66,18 @@
   }
 
   return selfCopy;
+}
+
+- (REMTemplateChangeItem)initWithSaveRequest:(id)request storage:(id)storage observeInitialValues:(BOOL)values
+{
+  valuesCopy = values;
+  requestCopy = request;
+  v9 = [storage copy];
+  v10 = [REMChangedKeysObserver alloc];
+  v11 = [(REMChangedKeysObserver *)v10 initWithTarget:v9 keysToObserve:__sKeysToObserve_1 includeInitial:valuesCopy];
+  v12 = [(REMTemplateChangeItem *)self initWithSaveRequest:requestCopy storage:v9 changedKeysObserver:v11];
+
+  return v12;
 }
 
 - (REMTemplateChangeItem)initWithObjectID:(id)d name:(id)name configuration:(id)configuration insertIntoAccountChangeItem:(id)item
@@ -274,45 +287,37 @@
 
 - (void)initWithSaveRequest:(uint64_t)a1 storage:(const char *)a2 changedKeysObserver:.cold.1(uint64_t a1, const char *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = NSStringFromSelector(a2);
-  v7 = [v3 stringWithFormat:@"%@.%@"];
+  v7 = [v3 stringWithFormat:@"%@.%@", v5, v6];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v5, v6, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v14, v15);
 }
 
 - (void)initWithObjectID:(void *)a1 name:configuration:insertIntoAccountChangeItem:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = +[REMLogStore write];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v4 = [a1 remObjectID];
-    v5 = 138543362;
-    v6 = v4;
-    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!accountChangeItem.capabilities.supportsTemplates) -- Attempt to create REMTemplateChangeItem into account not supporting templates {account: %{public}@}", &v5, 0xCu);
+    v3 = [a1 remObjectID];
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!accountChangeItem.capabilities.supportsTemplates) -- Attempt to create REMTemplateChangeItem into account not supporting templates {account: %{public}@}", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shallowCopyWithSaveRequest:(uint64_t)a1 .cold.1(uint64_t a1, const char *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = NSStringFromSelector(a2);
-  v7 = [v3 stringWithFormat:@"%@.%@"];
+  v7 = [v3 stringWithFormat:@"%@.%@", v5, v6];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v5, v6, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v14, v15);
 }
 
 @end

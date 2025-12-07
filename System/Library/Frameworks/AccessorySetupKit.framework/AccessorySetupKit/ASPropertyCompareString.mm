@@ -64,35 +64,35 @@
   {
     if (MEMORY[0x2383B4C90](objectCopy) == MEMORY[0x277D86468])
     {
-      v17 = 0;
+      v10 = 0;
       if (CUXPCDecodeUInt64RangedEx() == 6)
       {
-        v7->_compareOptions = v17;
+        v7->_compareOptions = v10;
       }
 
       CUXPCDecodeNSString();
-      v14 = v7;
+      v8 = v7;
     }
 
     else if (error)
     {
-      ASErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v16);
-      *error = v14 = 0;
+      ASErrorF(-6756, "XPC non-dict");
+      *error = v8 = 0;
     }
 
     else
     {
-      v14 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    [ASAccessory initWithXPCObject:error error:&v17];
-    v14 = v17;
+    [ASAccessory initWithXPCObject:error error:&v10];
+    v8 = v10;
   }
 
-  return v14;
+  return v8;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -192,44 +192,58 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v18 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v17 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v17, &v18, "%@", v5);
+    v6 = v17;
   }
 
   string = self->_string;
   if (string)
   {
-    v11 = string;
-    CUAppendF();
-    v6 = v4;
+    v16 = v6;
+    v8 = string;
+    CUAppendF(&v16, &v18, "%@", v8);
+    v9 = v16;
 
-    v4 = v6;
+    v6 = v9;
   }
 
-  if (self->_compareOptions)
+  compareOptions = self->_compareOptions;
+  if (compareOptions)
   {
-    compareOptions = self->_compareOptions;
-    CUAppendF();
-    v7 = v4;
+    v15 = v6;
+    CUAppendF(&v15, &v18, "%lu", compareOptions);
+    v11 = v15;
 
-    v4 = v7;
+    v6 = v11;
   }
 
-  v8 = &stru_28499D698;
-  if (v4)
+  v12 = &stru_28499D698;
+  if (v6)
   {
-    v8 = v4;
+    v12 = v6;
   }
 
-  v9 = v8;
+  v13 = v12;
 
-  return v9;
+  return v13;
 }
 
 - (unint64_t)hash

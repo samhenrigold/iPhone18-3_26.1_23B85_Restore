@@ -1,6 +1,7 @@
 @interface ServiceBridgeErrorHandlingProxy
 - (void)closeServerRequestForExecutionRequestId:(id)id;
 - (void)closeWithExecutionOutput:(id)output errorString:(id)string;
+- (void)closeWithExecutionOutput:(id)output needsUserInput:(BOOL)input;
 - (void)fetchContextsFor:(id)for includesNearByDevices:(BOOL)devices completion:(id)completion;
 - (void)postToMessageBusWithMessage:(id)message completion:(id)completion;
 - (void)retriggerOriginalRequestWithExecutionRequestId:(id)id forUserId:(id)userId givenCurrentExecutionRequestId:(id)requestId reply:(id)reply;
@@ -50,6 +51,19 @@
 
   else
   {
+  }
+}
+
+- (void)closeWithExecutionOutput:(id)output needsUserInput:(BOOL)input
+{
+  inputCopy = input;
+  outputCopy = output;
+
+  v7 = specialized ServiceBridgeErrorHandlingProxy.withErrorHandler(onError:)(v6, specialized closure #1 in ServiceBridgeErrorHandlingProxy.withErrorHandler(onError:), &block_descriptor_318);
+  if (v7)
+  {
+    [v7 closeWithExecutionOutput:outputCopy needsUserInput:inputCopy];
+    swift_unknownObjectRelease();
   }
 }
 

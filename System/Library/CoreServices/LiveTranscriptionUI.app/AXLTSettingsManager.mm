@@ -22,49 +22,47 @@
 - (NSLocale)locale
 {
   v3 = sub_100003968(&qword_100063820, &qword_100048F80);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR___AXLTSettingsManager_locale;
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR___AXLTSettingsManager_locale;
   swift_beginAccess();
-  sub_100006098(self + v7, v6, &qword_100063820, &qword_100048F80);
-  v8 = type metadata accessor for Locale();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_100006098(self + v6, v5, &qword_100063820, &qword_100048F80);
+  v7 = type metadata accessor for Locale();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
     isa = Locale._bridgeToObjectiveC()().super.isa;
-    (*(v9 + 8))(v6, v8);
-    v11 = isa;
+    (*(v8 + 8))(v5, v7);
+    v10 = isa;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setLocale:(id)locale
 {
   v5 = sub_100003968(&qword_100063820, &qword_100048F80);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (locale)
   {
     static Locale._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for Locale();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = type metadata accessor for Locale();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = type metadata accessor for Locale();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = type metadata accessor for Locale();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR___AXLTSettingsManager_locale;
+  v10 = OBJC_IVAR___AXLTSettingsManager_locale;
   swift_beginAccess();
   selfCopy = self;
-  sub_100026EAC(v8, self + v11);
+  sub_100026EAC(v7, self + v10);
   swift_endAccess();
 }
 

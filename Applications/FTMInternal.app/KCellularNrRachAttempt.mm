@@ -1,8 +1,16 @@
 @interface KCellularNrRachAttempt
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)dcModeDetailsAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rachContentionDetailsAsString:(int)string;
+- (id)rachReasonDetailsAsString:(int)string;
+- (id)rachResultDetailsAsString:(int)string;
+- (id)servingCellBeamInfoAntennaPanelIndexDetailsAsString:(int)string;
+- (id)servingCellBeamInfoCellRsrpDetailsAsString:(int)string;
+- (id)servingCellBeamInfoCellRsrqDetailsAsString:(int)string;
+- (id)txPowerDiffDetailsAsString:(int)string;
 - (int)StringAsDcModeDetails:(id)details;
 - (int)StringAsRachContentionDetails:(id)details;
 - (int)StringAsRachReasonDetails:(id)details;
@@ -347,6 +355,21 @@
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
 }
 
+- (id)rachResultDetailsAsString:(int)string
+{
+  if (string >= 0x10)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317F08 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsRachResultDetails:(id)details
 {
   detailsCopy = details;
@@ -466,6 +489,21 @@
   self->_has = (*&self->_has & 0xFFFFFDFF | v3);
 }
 
+- (id)rachContentionDetailsAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317F88 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsRachContentionDetails:(id)details
 {
   detailsCopy = details;
@@ -528,6 +566,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFBFF | v3);
+}
+
+- (id)rachReasonDetailsAsString:(int)string
+{
+  if (string >= 0x15)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317FB0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRachReasonDetails:(id)details
@@ -674,6 +727,53 @@
   self->_has = (*&self->_has & 0xFEFFFFFF | v3);
 }
 
+- (id)txPowerDiffDetailsAsString:(int)string
+{
+  if (string <= 1)
+  {
+    if (string)
+    {
+      if (string != 1)
+      {
+LABEL_22:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"P_ERROR_1_TO_3";
+    }
+
+    else
+    {
+      v4 = @"NO_ERROR";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 2:
+        v4 = @"P_ERROR_MORE_THAN_3";
+
+        break;
+      case 3:
+        v4 = @"BAD_PDET";
+
+        break;
+      case 255:
+        v4 = @"NO_VALUE";
+
+        return v4;
+      default:
+        goto LABEL_22;
+    }
+  }
+
+  return v4;
+}
+
 - (int)StringAsTxPowerDiffDetails:(id)details
 {
   detailsCopy = details;
@@ -738,6 +838,21 @@
   self->_has = (*&self->_has & 0xFFFFFFF7 | v3);
 }
 
+- (id)dcModeDetailsAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318058 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsDcModeDetails:(id)details
 {
   detailsCopy = details;
@@ -795,6 +910,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFEFFF | v3);
+}
+
+- (id)servingCellBeamInfoAntennaPanelIndexDetailsAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100318078 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsServingCellBeamInfoAntennaPanelIndexDetails:(id)details
@@ -866,6 +996,21 @@
   self->_has = (*&self->_has & 0xFFFFDFFF | v3);
 }
 
+- (id)servingCellBeamInfoCellRsrpDetailsAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003180A8 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsServingCellBeamInfoCellRsrpDetails:(id)details
 {
   detailsCopy = details;
@@ -918,6 +1063,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFBFFF | v3);
+}
+
+- (id)servingCellBeamInfoCellRsrqDetailsAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003180C0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsServingCellBeamInfoCellRsrqDetails:(id)details
@@ -1563,7 +1723,6 @@ LABEL_34:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x200000) == 0)
@@ -1583,7 +1742,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1598,7 +1756,6 @@ LABEL_4:
   }
 
 LABEL_39:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1613,7 +1770,6 @@ LABEL_5:
   }
 
 LABEL_40:
-  numAttempt = self->_numAttempt;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1628,7 +1784,6 @@ LABEL_6:
   }
 
 LABEL_41:
-  ssbId = self->_ssbId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1643,7 +1798,6 @@ LABEL_7:
   }
 
 LABEL_42:
-  csiRsId = self->_csiRsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1658,7 +1812,6 @@ LABEL_8:
   }
 
 LABEL_43:
-  lastTxPower = self->_lastTxPower;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1673,7 +1826,6 @@ LABEL_9:
   }
 
 LABEL_44:
-  accbState = self->_accbState;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1688,7 +1840,6 @@ LABEL_10:
   }
 
 LABEL_45:
-  txPowerDiff = self->_txPowerDiff;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1703,7 +1854,6 @@ LABEL_11:
   }
 
 LABEL_46:
-  freqBandInd = self->_freqBandInd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1718,7 +1868,6 @@ LABEL_12:
   }
 
 LABEL_47:
-  isPowerLimited = self->_isPowerLimited;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1733,7 +1882,6 @@ LABEL_13:
   }
 
 LABEL_48:
-  isNrHst = self->_isNrHst;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1748,12 +1896,10 @@ LABEL_14:
   }
 
 LABEL_49:
-  isLteHst = self->_isLteHst;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x2000000) != 0)
   {
 LABEL_15:
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1763,16 +1909,15 @@ LABEL_16:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x40000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40000) != 0)
   {
-    servingCellBeamInfoSsbIndex = self->_servingCellBeamInfoSsbIndex;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((*&v6 & 0x10000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x10000) == 0)
     {
 LABEL_20:
-      if ((*&v6 & 0x20000) == 0)
+      if ((*&v5 & 0x20000) == 0)
       {
         goto LABEL_21;
       }
@@ -1781,18 +1926,17 @@ LABEL_20:
     }
   }
 
-  else if ((*&v6 & 0x10000) == 0)
+  else if ((*&v5 & 0x10000) == 0)
   {
     goto LABEL_20;
   }
 
-  servingCellBeamInfoRxBeamId0 = self->_servingCellBeamInfoRxBeamId0;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x20000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20000) == 0)
   {
 LABEL_21:
-    if ((*&v6 & 0x8000) == 0)
+    if ((*&v5 & 0x8000) == 0)
     {
       goto LABEL_22;
     }
@@ -1801,13 +1945,12 @@ LABEL_21:
   }
 
 LABEL_53:
-  servingCellBeamInfoRxBeamId1 = self->_servingCellBeamInfoRxBeamId1;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x8000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x8000) == 0)
   {
 LABEL_22:
-    if ((*&v6 & 0x800) == 0)
+    if ((*&v5 & 0x800) == 0)
     {
       goto LABEL_23;
     }
@@ -1816,13 +1959,12 @@ LABEL_22:
   }
 
 LABEL_54:
-  servingCellBeamInfoNumDetectedTxBeams = self->_servingCellBeamInfoNumDetectedTxBeams;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x800) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) == 0)
   {
 LABEL_23:
-    if ((*&v6 & 0x200) == 0)
+    if ((*&v5 & 0x200) == 0)
     {
       goto LABEL_24;
     }
@@ -1831,13 +1973,12 @@ LABEL_23:
   }
 
 LABEL_55:
-  rachResultDetails = self->_rachResultDetails;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x200) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200) == 0)
   {
 LABEL_24:
-    if ((*&v6 & 0x400) == 0)
+    if ((*&v5 & 0x400) == 0)
     {
       goto LABEL_25;
     }
@@ -1846,13 +1987,12 @@ LABEL_24:
   }
 
 LABEL_56:
-  rachContentionDetails = self->_rachContentionDetails;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x400) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400) == 0)
   {
 LABEL_25:
-    if ((*&v6 & 0x1000000) == 0)
+    if ((*&v5 & 0x1000000) == 0)
     {
       goto LABEL_26;
     }
@@ -1861,13 +2001,12 @@ LABEL_25:
   }
 
 LABEL_57:
-  rachReasonDetails = self->_rachReasonDetails;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x1000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000000) == 0)
   {
 LABEL_26:
-    if ((*&v6 & 8) == 0)
+    if ((*&v5 & 8) == 0)
     {
       goto LABEL_27;
     }
@@ -1876,13 +2015,12 @@ LABEL_26:
   }
 
 LABEL_58:
-  txPowerDiffDetails = self->_txPowerDiffDetails;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 8) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 8) == 0)
   {
 LABEL_27:
-    if ((*&v6 & 0x1000) == 0)
+    if ((*&v5 & 0x1000) == 0)
     {
       goto LABEL_28;
     }
@@ -1891,13 +2029,12 @@ LABEL_27:
   }
 
 LABEL_59:
-  dcModeDetails = self->_dcModeDetails;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x1000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000) == 0)
   {
 LABEL_28:
-    if ((*&v6 & 0x2000) == 0)
+    if ((*&v5 & 0x2000) == 0)
     {
       goto LABEL_29;
     }
@@ -1906,13 +2043,12 @@ LABEL_28:
   }
 
 LABEL_60:
-  servingCellBeamInfoAntennaPanelIndexDetails = self->_servingCellBeamInfoAntennaPanelIndexDetails;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x2000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000) == 0)
   {
 LABEL_29:
-    if ((*&v6 & 0x4000) == 0)
+    if ((*&v5 & 0x4000) == 0)
     {
       goto LABEL_30;
     }
@@ -1921,13 +2057,12 @@ LABEL_29:
   }
 
 LABEL_61:
-  servingCellBeamInfoCellRsrpDetails = self->_servingCellBeamInfoCellRsrpDetails;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x4000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000) == 0)
   {
 LABEL_30:
-    if ((*&v6 & 0x40) == 0)
+    if ((*&v5 & 0x40) == 0)
     {
       goto LABEL_31;
     }
@@ -1936,13 +2071,12 @@ LABEL_30:
   }
 
 LABEL_62:
-  servingCellBeamInfoCellRsrqDetails = self->_servingCellBeamInfoCellRsrqDetails;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x40) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40) == 0)
   {
 LABEL_31:
-    if ((*&v6 & 0x400000) == 0)
+    if ((*&v5 & 0x400000) == 0)
     {
       goto LABEL_32;
     }
@@ -1951,13 +2085,12 @@ LABEL_31:
   }
 
 LABEL_63:
-  mtplDbm10 = self->_mtplDbm10;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x400000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400000) == 0)
   {
 LABEL_32:
-    if ((*&v6 & 0x80000) == 0)
+    if ((*&v5 & 0x80000) == 0)
     {
       goto LABEL_34;
     }
@@ -1966,12 +2099,10 @@ LABEL_32:
   }
 
 LABEL_64:
-  timeDefer = self->_timeDefer;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x80000) != 0)
   {
 LABEL_33:
-    sftToCellDelay = self->_sftToCellDelay;
     PBDataWriterWriteUint32Field();
   }
 
@@ -2969,7 +3100,6 @@ LABEL_31:
       goto LABEL_162;
     }
 
-    v9 = *(equalCopy + 123);
     if (self->_isPowerLimited)
     {
       if ((*(equalCopy + 123) & 1) == 0)
@@ -2996,7 +3126,6 @@ LABEL_31:
       goto LABEL_162;
     }
 
-    v10 = *(equalCopy + 122);
     if (self->_isNrHst)
     {
       if ((*(equalCopy + 122) & 1) == 0)
@@ -3023,7 +3152,6 @@ LABEL_31:
       goto LABEL_162;
     }
 
-    v11 = *(equalCopy + 121);
     if (self->_isLteHst)
     {
       if ((*(equalCopy + 121) & 1) == 0)
@@ -3050,7 +3178,6 @@ LABEL_31:
       goto LABEL_162;
     }
 
-    v12 = *(equalCopy + 120);
     if (self->_isDataPreferred)
     {
       if ((*(equalCopy + 120) & 1) == 0)
@@ -3079,7 +3206,7 @@ LABEL_31:
   if (![(NSData *)plmn isEqual:?])
   {
 LABEL_162:
-    v13 = 0;
+    v9 = 0;
     goto LABEL_163;
   }
 
@@ -3275,17 +3402,17 @@ LABEL_63:
       goto LABEL_162;
     }
 
-    v13 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v13 = (v8 & 0x80000) == 0;
+    v9 = (v8 & 0x80000) == 0;
   }
 
 LABEL_163:
 
-  return v13;
+  return v9;
 }
 
 - (unint64_t)hash

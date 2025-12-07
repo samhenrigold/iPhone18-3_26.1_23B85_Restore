@@ -70,7 +70,6 @@
 - (void)setDial:(unint64_t)dial
 {
   self->_dial = dial;
-  cachedIdentifier = self->_cachedIdentifier;
   self->_cachedIdentifier = 0;
   _objc_release_x1();
 }

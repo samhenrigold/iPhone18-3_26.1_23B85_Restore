@@ -3,6 +3,9 @@
 - (void)dealloc;
 - (void)fetchStateWithCompletion:(id)completion;
 - (void)registerForUpdatesWithHandler:(id)handler;
+- (void)setAnalyticsConsent:(BOOL)consent completion:(id)completion;
+- (void)updateCachedPermission:(BOOL)permission;
+- (void)updateCachedVisibility:(BOOL)visibility;
 @end
 
 @implementation PUIBankConnectAnalyticsConsentCoordinator
@@ -44,6 +47,22 @@
   }
 
   return v2;
+}
+
+- (void)updateCachedPermission:(BOOL)permission
+{
+  permissionCopy = permission;
+  self->_shouldShare = permission;
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [standardUserDefaults setBool:permissionCopy forKey:@"shouldShareBankConnectData"];
+}
+
+- (void)updateCachedVisibility:(BOOL)visibility
+{
+  visibilityCopy = visibility;
+  self->_showPreference = visibility;
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  [standardUserDefaults setBool:visibilityCopy forKey:@"showBankConnectPreference"];
 }
 
 - (void)fetchStateWithCompletion:(id)completion
@@ -257,15 +276,47 @@ LABEL_9:
   v10[2](v10, v6);
 }
 
+- (void)setAnalyticsConsent:(BOOL)consent completion:(id)completion
+{
+  consentCopy = consent;
+  v17 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  v7 = _PUILoggingFacility(completionCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v16 = "[PUIBankConnectAnalyticsConsentCoordinator setAnalyticsConsent:completion:]";
+    _os_log_impl(&dword_2657FE000, v7, OS_LOG_TYPE_DEFAULT, "%s: Saving OfflineLab analytics consent state.", buf, 0xCu);
+  }
+
+  shouldShare = [(PUIBankConnectAnalyticsConsentCoordinator *)self shouldShare];
+  [(PUIBankConnectAnalyticsConsentCoordinator *)self updateCachedPermission:consentCopy];
+  objc_initWeak(buf, self);
+  offlineLabConsentCoordinator = self->_offlineLabConsentCoordinator;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __76__PUIBankConnectAnalyticsConsentCoordinator_setAnalyticsConsent_completion___block_invoke;
+  v11[3] = &unk_279BA0F18;
+  objc_copyWeak(&v13, buf);
+  v14 = shouldShare;
+  v10 = completionCopy;
+  v12 = v10;
+  [offlineLabConsentCoordinator saveOfflineLabSharingPermission:consentCopy withCompletion:v11];
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(buf);
+}
+
 void __76__PUIBankConnectAnalyticsConsentCoordinator_setAnalyticsConsent_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _PUILoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __76__PUIBankConnectAnalyticsConsentCoordinator_setAnalyticsConsent_completion___block_invoke_cold_1(v3, v4);
+      __76__PUIBankConnectAnalyticsConsentCoordinator_setAnalyticsConsent_completion___block_invoke_cold_1(v4, v5);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -285,13 +336,12 @@ void __76__PUIBankConnectAnalyticsConsentCoordinator_setAnalyticsConsent_complet
 
 void __76__PUIBankConnectAnalyticsConsentCoordinator_setAnalyticsConsent_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[PUIBankConnectAnalyticsConsentCoordinator setAnalyticsConsent:completion:]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "%s, Error when saving OfflineLab analytics consent, error: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[PUIBankConnectAnalyticsConsentCoordinator setAnalyticsConsent:completion:]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "%s, Error when saving OfflineLab analytics consent, error: %@", &v2, 0x16u);
 }
 
 @end

@@ -28,11 +28,11 @@
 
 - ($AFC8CF76A46F37F9FB23C20884F4FD99)timeRangeValue
 {
-  start = [(VCPProtoTimeRange *)self start];
-  v6 = start;
-  if (start)
+  v5 = objc_msgSend_start(self, a3);
+  v6 = v5;
+  if (v5)
   {
-    [start timeValue];
+    objc_msgSend_timeValue(v5);
   }
 
   else
@@ -40,11 +40,11 @@
     memset(&start, 0, sizeof(start));
   }
 
-  duration = [(VCPProtoTimeRange *)self duration];
-  v8 = duration;
-  if (duration)
+  v7 = objc_msgSend_duration(self);
+  v8 = v7;
+  if (v7)
   {
-    [duration timeValue];
+    objc_msgSend_timeValue(v7);
   }
 
   else

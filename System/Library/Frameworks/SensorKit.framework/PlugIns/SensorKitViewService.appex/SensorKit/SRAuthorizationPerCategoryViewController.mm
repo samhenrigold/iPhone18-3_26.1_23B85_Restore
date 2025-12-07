@@ -6,9 +6,12 @@
 - (void)cancelPrompt;
 - (void)dealloc;
 - (void)deny;
+- (void)showNextAuthFlowPerCategory:(BOOL)category;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SRAuthorizationPerCategoryViewController
@@ -74,6 +77,32 @@
   v6 = [UIView alloc];
   [-[SRAuthorizationPerCategoryViewController tableView](self "tableView")];
   [-[SRAuthorizationPerCategoryViewController tableView](self "tableView")];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = SRAuthorizationPerCategoryViewController;
+  [(SRAuthorizationPerCategoryViewController *)&v8 viewWillAppear:appear];
+  currentAuthGroup = [(SRAuthorizationPerCategoryViewController *)self currentAuthGroup];
+  [-[SRAuthorizationPerCategoryViewController view](self "view")];
+  [-[SRAuthorizationPerCategoryViewController tableView](self "tableView")];
+  v7 = [-[SRAuthorizationPerCategoryViewController navigationController](self "navigationController")];
+  v9 = NSForegroundColorAttributeName;
+  v10 = +[UIColor systemGrayColor];
+  [v7 setTitleTextAttributes:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v10, &v9, 1)}];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = [-[SRAuthorizationPerCategoryViewController navigationController](self "navigationController")];
+  v7 = NSForegroundColorAttributeName;
+  v8 = +[UIColor labelColor];
+  [v5 setTitleTextAttributes:{+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary, "dictionaryWithObjects:forKeys:count:", &v8, &v7, 1)}];
+  v6.receiver = self;
+  v6.super_class = SRAuthorizationPerCategoryViewController;
+  [(SRAuthorizationPerCategoryViewController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (void)dealloc
@@ -188,6 +217,38 @@
   }
 
   [view deselectRowAtIndexPath:path animated:0];
+}
+
+- (void)showNextAuthFlowPerCategory:(BOOL)category
+{
+  [(NSMutableArray *)[(SRAuthorizationPerCategoryViewController *)self authState] setObject:[NSNumber atIndexedSubscript:"numberWithBool:" numberWithBool:category], [(SRAuthorizationPerCategoryViewController *)self authIndex]];
+  authIndex = [(SRAuthorizationPerCategoryViewController *)self authIndex];
+  if ([(NSArray *)[(SRAuthorizationPerCategoryViewController *)self services] count]- 1 == authIndex)
+  {
+    v5 = [[SRAuthorizationConfirmationViewController alloc] initWithTitle:[NSString srui_localizedStringForCode:48]];
+    [(SRAuthorizationConfirmationViewController *)v5 setAppBundle:[(SRAuthorizationPerCategoryViewController *)self appBundle]];
+    [(SRAuthorizationConfirmationViewController *)v5 setServices:[(SRAuthorizationPerCategoryViewController *)self services]];
+    [(SRAuthorizationConfirmationViewController *)v5 setAuthState:[(SRAuthorizationPerCategoryViewController *)self authState]];
+    [(SRAuthorizationConfirmationViewController *)v5 setCompletionHandler:[(SRAuthorizationPerCategoryViewController *)self completionHandler]];
+    [(SRAuthorizationConfirmationViewController *)v5 setCancelHandler:[(SRAuthorizationPerCategoryViewController *)self cancelHandler]];
+    [(SRAuthorizationConfirmationViewController *)v5 setAuthStore:[(SRAuthorizationPerCategoryViewController *)self authStore]];
+    navigationController = [(SRAuthorizationPerCategoryViewController *)self navigationController];
+
+    [navigationController pushViewController:v5 animated:1];
+  }
+
+  else
+  {
+    v7 = objc_alloc_init(SRAuthorizationPerCategoryViewController);
+    [(SRAuthorizationPerCategoryViewController *)v7 setAppBundle:[(SRAuthorizationPerCategoryViewController *)self appBundle]];
+    [(SRAuthorizationPerCategoryViewController *)v7 setServices:[(SRAuthorizationPerCategoryViewController *)self services]];
+    [(SRAuthorizationPerCategoryViewController *)v7 setAuthState:[(SRAuthorizationPerCategoryViewController *)self authState]];
+    [(SRAuthorizationPerCategoryViewController *)v7 setAuthIndex:[(SRAuthorizationPerCategoryViewController *)self authIndex]+ 1];
+    [(SRAuthorizationPerCategoryViewController *)v7 setCompletionHandler:[(SRAuthorizationPerCategoryViewController *)self completionHandler]];
+    [(SRAuthorizationPerCategoryViewController *)v7 setCancelHandler:[(SRAuthorizationPerCategoryViewController *)self cancelHandler]];
+    [(SRAuthorizationPerCategoryViewController *)v7 setAuthStore:[(SRAuthorizationPerCategoryViewController *)self authStore]];
+    [-[SRAuthorizationPerCategoryViewController navigationController](self "navigationController")];
+  }
 }
 
 - (void)deny

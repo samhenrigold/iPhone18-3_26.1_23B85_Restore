@@ -1734,9 +1734,9 @@ LABEL_22:
         {
           v25 = *a1;
           v26 = *a1 + 1;
-          v27 = (*a1 + 2);
-          v28 = (*a1 + 3);
-          v29 = (*a1 + 4);
+          v27 = *a1 + 2;
+          v28 = *a1 + 3;
+          v29 = *a1 + 4;
           *&v12 = **a1;
           *a1 = v26;
           *(&v12 + 1) = *v26;
@@ -2252,9 +2252,9 @@ __n128 MakeDYMTL4ComputePipelineDescriptor(const char **a1, uint64_t a2, void *a
   v21 = 0u;
   MakeDYMTL4FunctionDescriptor(a1, &v20, a3, a4, a5, a6);
   v9 = *a1;
-  v10 = (*a1 + 16);
-  v11 = (*a1 + 24);
-  v12 = (*a1 + 32);
+  v10 = *a1 + 16;
+  v11 = *a1 + 24;
+  v12 = *a1 + 32;
   v13 = **a1;
   *a1 += 8;
   result.n128_u64[0] = *(v9 + 1);
@@ -2399,11 +2399,11 @@ const char **MakeDYMTL4RenderPipelineDescriptor(const char **a1, void *a2, void 
   v15 = **a1;
   *a1 += 8;
   LOBYTE(__src[120]) = v15;
-  v16 = *(v14 + 1);
-  *a1 = v14 + 16;
+  v16 = v14[1];
+  *a1 = (v14 + 2);
   BYTE1(__src[120]) = v16;
-  v17 = *(v14 + 2);
-  v18 = v14 + 24;
+  v17 = v14[2];
+  v18 = (v14 + 3);
   *a1 = v18;
   if (v17)
   {
@@ -2450,8 +2450,8 @@ const char **MakeDYMTL4RenderPipelineDescriptor(const char **a1, void *a2, void 
   BYTE6(__src[120]) = v31;
   if (a4 > 0x6E)
   {
-    v32 = *(v30 + 1);
-    *a1 = v30 + 16;
+    v32 = v30[1];
+    *a1 = (v30 + 2);
     BYTE2(__src[120]) = v32;
   }
 
@@ -2593,11 +2593,11 @@ const char **MakeDYMTL4MeshRenderPipelineDescriptor(const char **a1, void *a2, v
   v13 = **a1;
   *a1 += 8;
   BYTE8(v42[20]) = v13;
-  v14 = *(v12 + 1);
-  *a1 = v12 + 16;
+  v14 = v12[1];
+  *a1 = (v12 + 2);
   BYTE9(v42[20]) = v14;
-  v15 = *(v12 + 2);
-  v16 = v12 + 24;
+  v15 = v12[2];
+  v16 = (v12 + 3);
   *a1 = v16;
   if (v15)
   {
@@ -2618,14 +2618,14 @@ const char **MakeDYMTL4MeshRenderPipelineDescriptor(const char **a1, void *a2, v
   MakeDYMTL4FunctionDescriptor(a1, &v42[8], a3, a4, a5, a6);
   v19 = *a1;
   v20 = *a1 + 8;
-  v21 = (*a1 + 16);
+  v21 = *a1 + 16;
   v22 = *a1 + 24;
-  v23 = (*a1 + 32);
+  v23 = *a1 + 32;
   *&v24 = **a1;
   *a1 = v20;
   *(&v24 + 1) = *v20;
   *a1 = v21;
-  *&v25 = *(v19 + 2);
+  *&v25 = v19[2];
   *a1 = v22;
   *(&v25 + 1) = *v22;
   *a1 = v23;
@@ -3820,7 +3820,7 @@ __n128 DecodeDYMTLAccelerationStructureDescriptor(__n128 *a1, uint64_t *a2, uint
     v58 = a1[1].n128_i64[1];
     result = a1[2];
     v60 = result;
-    v11 = &a1[4];
+    v11 = a1 + 4;
     v13 = a1[3].n128_u64[0];
     v12 = a1[3].n128_u64[1];
     if (v12)
@@ -3830,8 +3830,8 @@ __n128 DecodeDYMTLAccelerationStructureDescriptor(__n128 *a1, uint64_t *a2, uint
       v16 = v14;
       do
       {
-        v18 = *v11;
-        v11 += 2;
+        v18 = v11->n128_u64[0];
+        v11 = (v11 + 8);
         v17 = v18;
         if (v6)
         {
@@ -3881,14 +3881,14 @@ __n128 DecodeDYMTLAccelerationStructureDescriptor(__n128 *a1, uint64_t *a2, uint
 
     else
     {
-      v37 = *v11;
-      v38 = *(v11 + 1);
-      v39 = *(v11 + 1);
+      v37 = v11->n128_u8[0];
+      v38 = v11->n128_i64[1];
+      v39 = v11[1];
       if (v9 >= 0x4E)
       {
-        v40 = *(v11 + 4);
-        v41 = *(v11 + 40);
-        v42 = *(v11 + 48);
+        v40 = v11[2].n128_u64[0];
+        v41 = v11[2].n128_u8[8];
+        v42 = v11[3].n128_u8[0];
         if (!v6)
         {
           goto LABEL_37;
@@ -3983,7 +3983,7 @@ LABEL_58:
   return result;
 }
 
-uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint64_t a3, uint64_t a4)
+uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t *a1, void *a2, unint64_t a3, uint64_t a4)
 {
   v5 = a3;
   v67 = a2;
@@ -3991,7 +3991,7 @@ uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint
   if (a3 > 7)
   {
     *a2 = 115;
-    v8 = (a1 + 96);
+    v8 = (a1 + 12);
     if (a3 >= 0x10)
     {
       a2[1] = *v8;
@@ -4004,7 +4004,7 @@ uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint
 
   else
   {
-    v8 = (a1 + 96);
+    v8 = (a1 + 12);
   }
 
   result = 24;
@@ -4014,11 +4014,11 @@ uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint
   {
     if (v10 == 1)
     {
-      v29 = *(a1 + 8);
+      v29 = a1[1];
       if (a3 >= 0x20)
       {
         a2[3] = v29;
-        v29 = *(a1 + 8);
+        v29 = a1[1];
       }
 
       v30 = 32;
@@ -4034,7 +4034,7 @@ uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint
           v31 += 152;
         }
 
-        while (*(a1 + 8) > v32);
+        while (a1[1] > v32);
         v30 = v68;
         v5 = v69;
       }
@@ -4042,7 +4042,7 @@ uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint
       v33 = v30 + 4;
       if (v30 + 4 <= v5)
       {
-        *(v67 + v30) = *(a1 + 24);
+        *(v67 + v30) = *(a1 + 6);
         v5 = v69;
         v33 = v68 + 4;
       }
@@ -4067,7 +4067,7 @@ uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint
       v36 = v33 + 8;
       if (v36 <= v5)
       {
-        *(v67 + v35) = *(a1 + 16);
+        *(v67 + v35) = *(a1 + 4);
         v5 = v69;
         v36 = v68 + 4;
       }
@@ -4109,7 +4109,7 @@ uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint
       result = v39 + 8;
       if (v39 + 8 <= v5)
       {
-        *(v67 + v39) = *(a1 + 20);
+        *(v67 + v39) = *(a1 + 5);
         return v68 + 8;
       }
 
@@ -4121,12 +4121,12 @@ uint64_t EncodeDYMTLAccelerationStructureDescriptor(uint64_t a1, void *a2, unint
       return result;
     }
 
-    v11 = GTTraceStream_deviceObjectOrNULL(a4, *(a1 + 8));
-    if (v5 >= 0x20 && (a2[3] = v11, v5 >= 0x28) && (a2[4] = *(a1 + 16), v5 >= 0x30) && (a2[5] = *(a1 + 24), v5 > 0x37))
+    v11 = GTTraceStream_deviceObjectOrNULL(a4, a1[1]);
+    if (v5 >= 0x20 && (a2[3] = v11, v5 >= 0x28) && (a2[4] = a1[2], v5 >= 0x30) && (a2[5] = a1[3], v5 > 0x37))
     {
       a2[6] = *a1;
-      v12 = (a1 + 40);
-      v13 = *(a1 + 40);
+      v12 = (a1 + 5);
+      v13 = a1[5];
       if (v5 < 0x40)
       {
 LABEL_15:
@@ -4137,7 +4137,7 @@ LABEL_15:
           v15 = 0;
           do
           {
-            v71 = *(*(a1 + 32) + 8 * v15);
+            v71 = *(a1[4] + 8 * v15);
             entry = find_entry(a4, &v71, 8uLL, 0);
             v17 = &dword_8;
             if (*entry)
@@ -4178,7 +4178,7 @@ LABEL_15:
         }
 
         v68 = v20;
-        v21 = GTTraceStream_deviceObjectOrNULL(a4, *(a1 + 48));
+        v21 = GTTraceStream_deviceObjectOrNULL(a4, a1[6]);
         v22 = v69;
         v23 = v68 + 8;
         if (v68 + 8 <= v69)
@@ -4192,7 +4192,7 @@ LABEL_15:
         v24 = v23 + 8;
         if (v23 + 8 <= v22)
         {
-          *(v67 + v23) = *(a1 + 56);
+          *(v67 + v23) = a1[7];
           v22 = v69;
           v24 = v68 + 8;
         }
@@ -4201,7 +4201,7 @@ LABEL_15:
         v25 = v24 + 8;
         if (v24 + 8 <= v22)
         {
-          *(v67 + v24) = *(a1 + 64);
+          *(v67 + v24) = a1[8];
           v22 = v69;
           v25 = v68 + 8;
         }
@@ -4210,7 +4210,7 @@ LABEL_15:
         v26 = v25 + 8;
         if (v25 + 8 <= v22)
         {
-          *(v67 + v25) = *(a1 + 72);
+          *(v67 + v25) = a1[9];
           v22 = v69;
           v26 = v68 + 8;
         }
@@ -4242,7 +4242,7 @@ LABEL_106:
 
     else
     {
-      v12 = (a1 + 40);
+      v12 = (a1 + 5);
     }
 
     v13 = *v12;
@@ -4251,7 +4251,7 @@ LABEL_106:
 
   if (v10 == 3)
   {
-    v71 = *(a1 + 16);
+    v71 = a1[2];
     v40 = &dword_8;
     v41 = find_entry(a4, &v71, 8uLL, 0);
     if (*v41)
@@ -4282,7 +4282,7 @@ LABEL_106:
     v46 = v45 + 8;
     if (v45 + 8 <= v44)
     {
-      *(v67 + v45) = *(a1 + 24);
+      *(v67 + v45) = a1[3];
       v46 = v68 + 8;
     }
 
@@ -4318,12 +4318,12 @@ LABEL_106:
     v53 = v52 + 8;
     if (v52 + 8 <= v51)
     {
-      *(v67 + v52) = *(a1 + 8);
+      *(v67 + v52) = a1[1];
       v53 = v68 + 8;
     }
 
     v68 = v53;
-    v54 = GTTraceStream_deviceObjectOrNULL(a4, *(a1 + 32));
+    v54 = GTTraceStream_deviceObjectOrNULL(a4, a1[4]);
     v55 = v69;
     v56 = v68 + 8;
     if (v68 + 8 <= v69)
@@ -4337,12 +4337,12 @@ LABEL_106:
     v57 = v56 + 8;
     if (v56 + 8 <= v55)
     {
-      *(v67 + v56) = *(a1 + 40);
+      *(v67 + v56) = a1[5];
       v57 = v68 + 8;
     }
 
     v68 = v57;
-    v58 = GTTraceStream_deviceObjectOrNULL(a4, *(a1 + 48));
+    v58 = GTTraceStream_deviceObjectOrNULL(a4, a1[6]);
     v59 = v69;
     v60 = v68 + 8;
     if (v68 + 8 <= v69)
@@ -4356,7 +4356,7 @@ LABEL_106:
     v61 = v60 + 8;
     if (v60 + 8 <= v59)
     {
-      *(v67 + v60) = *(a1 + 56);
+      *(v67 + v60) = a1[7];
       v59 = v69;
       v61 = v68 + 8;
     }
@@ -4365,7 +4365,7 @@ LABEL_106:
     v62 = v61 + 8;
     if (v61 + 8 <= v59)
     {
-      *(v67 + v61) = *(a1 + 76);
+      *(v67 + v61) = *(a1 + 19);
       v59 = v69;
       v62 = v68 + 8;
     }
@@ -4374,7 +4374,7 @@ LABEL_106:
     v63 = v62 + 8;
     if (v62 + 8 <= v59)
     {
-      *(v67 + v62) = *(a1 + 72);
+      *(v67 + v62) = *(a1 + 18);
       v59 = v69;
       v63 = v68 + 8;
     }
@@ -4383,7 +4383,7 @@ LABEL_106:
     v64 = v63 + 8;
     if (v63 + 8 <= v59)
     {
-      *(v67 + v63) = *(a1 + 80);
+      *(v67 + v63) = *(a1 + 20);
       v59 = v69;
       v64 = v68 + 8;
     }
@@ -4401,7 +4401,7 @@ LABEL_106:
     v66 = v65 + 8;
     if (v65 + 8 <= v59)
     {
-      *(v67 + v65) = *(a1 + 64);
+      *(v67 + v65) = a1[8];
       v59 = v69;
       v66 = v68 + 8;
     }
@@ -6064,12 +6064,12 @@ uint64_t DecodeDYMTLTextureMipmapInfo(uint64_t result, uint64_t a2, uint64_t a3,
   return result;
 }
 
-uint64_t EncodeDYMTLTextureMipmapInfo2(uint64_t *a1, void *a2, unint64_t a3)
+unint64_t EncodeDYMTLTextureMipmapInfo2(uint64_t *a1, void *a2, unint64_t a3)
 {
   if (a3 > 7)
   {
     *a2 = 115;
-    v3 = (a1 + 1);
+    v3 = a1 + 1;
     v4 = *(a1 + 8);
     if (a3 < 0x10)
     {
@@ -6081,7 +6081,7 @@ uint64_t EncodeDYMTLTextureMipmapInfo2(uint64_t *a1, void *a2, unint64_t a3)
 
   else
   {
-    v3 = (a1 + 1);
+    v3 = a1 + 1;
   }
 
   LODWORD(v4) = *v3;
@@ -6589,244 +6589,244 @@ LABEL_66:
   return result;
 }
 
-void DecodeDYMTLStitchedLibraryDescriptor(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+void DecodeDYMTLStitchedLibraryDescriptor(uint64_t a1, uint64_t a2, unsigned __int8 **a3, int a4, uint64_t a5)
 {
-  v75 = 0;
-  v73 = 0u;
-  v74 = 0u;
-  v72 = 0u;
+  v80 = 0;
+  v78 = 0u;
+  v79 = 0u;
+  v77 = 0u;
   newpool = 0;
   apr_pool_create_ex(&newpool, 0, 0, 0);
   v9 = newpool;
-  v10 = apr_hash_make(newpool);
-  v11 = (a1 + 8);
-  v12 = *a1;
-  v76[0] = (a1 + 8);
-  v70 = 0;
-  v69 = 0;
-  if (v12 < 0x4F)
+  v12 = apr_hash_make(newpool);
+  v13 = (a1 + 8);
+  v14 = *a1;
+  v81[0] = (a1 + 8);
+  v75 = 0;
+  v74 = 0;
+  if (v14 < 0x4F)
   {
-    LOBYTE(v13) = 4;
+    LOBYTE(v15) = 4;
     goto LABEL_10;
   }
 
-  v13 = *(a1 + 24);
-  v11 = (a1 + 32);
-  v76[0] = (a1 + 32);
-  if (v12 <= 0x51)
+  v15 = *(a1 + 24);
+  v13 = (a1 + 32);
+  v81[0] = (a1 + 32);
+  if (v14 <= 0x51)
   {
 LABEL_10:
-    LOBYTE(v75) = v13;
-    *(&v72 + 1) = 0;
-    *(&v73 + 1) = 0;
+    LOBYTE(v80) = v15;
+    *(&v77 + 1) = 0;
+    *(&v78 + 1) = 0;
     goto LABEL_11;
   }
 
-  v14 = *(a1 + 56);
-  LOBYTE(v75) = *(a1 + 48);
-  v11 = (a1 + 64);
-  v76[0] = (a1 + 64);
-  *(&v73 + 1) = v14;
-  v15 = *(a3 + 536);
-  *(a3 + 536) = v15 + 56 * v14;
-  if (v14)
+  v16 = *(a1 + 56);
+  LOBYTE(v80) = *(a1 + 48);
+  v13 = (a1 + 64);
+  v81[0] = (a1 + 64);
+  *(&v78 + 1) = v16;
+  v17 = a3[67];
+  a3[67] = &v17[56 * v16];
+  if (v16)
   {
-    v16 = a5;
-    v17 = 0;
-    *(&v72 + 1) = v15;
+    v18 = a5;
+    v19 = 0;
+    *(&v77 + 1) = v17;
     do
     {
+      v72 = 0;
+      v70 = 0u;
+      v71 = 0u;
+      v69 = 0u;
+      v64[0] = v81;
+      v64[1] = &v77;
+      v64[2] = a3;
+      v64[3] = v12;
+      v65 = v14;
+      v66 = a4;
       v67 = 0;
-      v65 = 0u;
-      v66 = 0u;
-      v64 = 0u;
-      v59[0] = v76;
-      v59[1] = &v72;
-      v59[2] = a3;
-      v59[3] = v10;
-      v60 = v12;
-      v61 = a4;
-      v62 = 0;
-      v63 = 0;
-      DecodeDYMTLFunctionStitchingNode(&v64, v59, &v68);
+      v68 = 0;
+      DecodeDYMTLFunctionStitchingNode(&v69, v64, v73, v10, v11);
       if (a4)
       {
-        v18 = v64;
-        v19 = v65;
-        v20 = v66;
-        *(v15 + 48) = v67;
-        *(v15 + 16) = v19;
-        *(v15 + 32) = v20;
-        *v15 = v18;
-        v15 += 56;
+        v20 = v69;
+        v21 = v70;
+        v22 = v71;
+        *(v17 + 6) = v72;
+        *(v17 + 1) = v21;
+        *(v17 + 2) = v22;
+        *v17 = v20;
+        v17 += 56;
       }
 
-      ++v17;
+      ++v19;
     }
 
-    while (v17 < *(&v73 + 1));
-    v11 = v76[0];
-    a5 = v16;
+    while (v19 < *(&v78 + 1));
+    v13 = v81[0];
+    a5 = v18;
   }
 
   else
   {
-    *(&v72 + 1) = 0;
+    *(&v77 + 1) = 0;
   }
 
 LABEL_11:
-  v22 = *v11;
-  v21 = v11 + 8;
-  v76[0] = v21;
-  *&v74 = v22;
-  if (v22)
+  v24 = *v13;
+  v23 = v13 + 8;
+  v81[0] = v23;
+  *&v79 = v24;
+  if (v24)
   {
-    v54 = v9;
-    v23 = 0;
-    *&v72 = *(a3 + 528);
+    v59 = v9;
+    v25 = 0;
+    *&v77 = a3[66];
     while (1)
     {
-      v58 = v23;
-      v24 = v76[0];
-      v55 = *v76[0];
-      v76[0] += 8;
-      v25 = &v76[0][(strlen(v76[0]) & 0xFFFFFFFFFFFFFFF8) + 8];
-      v76[0] = v25;
-      v26 = *(v24 + 8);
-      v27 = v24[8] ? v24 + 8 : 0;
-      if (!v26)
+      v63 = v25;
+      v26 = v81[0];
+      v60 = *v81[0];
+      v81[0] += 8;
+      v30 = &v81[0][(strlen(v81[0]) & 0xFFFFFFFFFFFFFFF8) + 8];
+      v81[0] = v30;
+      v31 = *(v26 + 8);
+      v32 = v26[8] ? v26 + 8 : 0;
+      if (!v31)
       {
         break;
       }
 
-      v28 = strlen(v27);
-      v29 = *(a3 + 592);
-      v30 = v28 + 1;
-      if (v28 == -1)
+      v33 = strlen(v32);
+      v34 = a3[74];
+      v35 = v33 + 1;
+      if (v33 == -1)
       {
         goto LABEL_20;
       }
 
-      __dst = *(a3 + 592);
+      __dst = a3[74];
 LABEL_21:
-      *(a3 + 592) = v29 + v30;
+      a3[74] = &v34[v35];
       if (a4)
       {
-        memcpy(__dst, v27, v30);
-        v25 = v76[0];
+        memcpy(__dst, v32, v35);
+        v30 = v81[0];
       }
 
-      v31 = *v25;
-      v76[0] = v25 + 8;
-      v32 = *(a3 + 576);
-      *(a3 + 576) = &v32[v31];
-      v33 = v31;
-      v56 = v32;
-      if (v31)
+      v36 = *v30;
+      v81[0] = v30 + 8;
+      v37 = a3[72];
+      a3[72] = &v37[v36];
+      v38 = v36;
+      v61 = v37;
+      if (v36)
       {
         do
         {
-          *&v64 = v76;
-          *(&v64 + 1) = &v72;
-          *&v65 = a3;
-          *(&v65 + 1) = v10;
-          LODWORD(v66) = v12;
-          BYTE4(v66) = a4;
-          *(&v66 + 5) = v69;
-          BYTE7(v66) = v70;
-          DYMTLFunctionStitchingFunctionNodeID = GetDYMTLFunctionStitchingFunctionNodeID(&v64);
+          *&v69 = v81;
+          *(&v69 + 1) = &v77;
+          *&v70 = a3;
+          *(&v70 + 1) = v12;
+          LODWORD(v71) = v14;
+          BYTE4(v71) = a4;
+          *(&v71 + 5) = v74;
+          BYTE7(v71) = v75;
+          DYMTLFunctionStitchingFunctionNodeID = GetDYMTLFunctionStitchingFunctionNodeID(&v69, v27, v35, v28, v29);
           if (a4)
           {
-            *v32++ = DYMTLFunctionStitchingFunctionNodeID;
+            *v37++ = DYMTLFunctionStitchingFunctionNodeID;
           }
 
-          --v33;
+          --v38;
         }
 
-        while (v33);
-        v35 = v56;
+        while (v38);
+        v40 = v61;
       }
 
       else
       {
-        v35 = 0;
+        v40 = 0;
       }
 
-      *&v64 = v76;
-      *(&v64 + 1) = &v72;
-      *&v65 = a3;
-      *(&v65 + 1) = v10;
-      LODWORD(v66) = v12;
-      BYTE4(v66) = a4;
-      *(&v66 + 5) = v69;
-      BYTE7(v66) = v70;
-      DYMTLFunctionStitchingNodeID = GetDYMTLFunctionStitchingNodeID(&v64);
-      v37 = v76[0];
-      v38 = *v76[0];
-      v76[0] += 8;
-      v39 = *(a3 + 544);
-      if (v38)
+      *&v69 = v81;
+      *(&v69 + 1) = &v77;
+      *&v70 = a3;
+      *(&v70 + 1) = v12;
+      LODWORD(v71) = v14;
+      BYTE4(v71) = a4;
+      *(&v71 + 5) = v74;
+      BYTE7(v71) = v75;
+      DYMTLFunctionStitchingNodeID = GetDYMTLFunctionStitchingNodeID(&v69, v27, v35, v28, v29);
+      v42 = v81[0];
+      v43 = *v81[0];
+      v81[0] += 8;
+      v44 = a3[68];
+      if (v43)
       {
-        v40 = v39 + 8;
-        v41 = v37 + 16;
-        v42 = v38;
+        v45 = v44 + 8;
+        v46 = v42 + 16;
+        v47 = v43;
         do
         {
-          v43 = *(v41 - 1);
-          v76[0] = v41;
+          v48 = *(v46 - 1);
+          v81[0] = v46;
           if (a4)
           {
-            *(v40 - 8) = v43;
+            *(v45 - 8) = v48;
           }
 
-          v41 += 8;
-          *(a3 + 544) = v40;
-          v40 += 8;
-          --v42;
+          v46 += 8;
+          a3[68] = v45;
+          v45 += 8;
+          --v47;
         }
 
-        while (v42);
+        while (v47);
       }
 
       if (a4)
       {
-        v44 = *(a3 + 528);
-        *v44 = __dst;
-        *(v44 + 8) = v35;
-        *(v44 + 16) = v31;
-        *(v44 + 24) = DYMTLFunctionStitchingNodeID;
-        *(v44 + 32) = v39;
-        *(v44 + 40) = v38;
-        *(v44 + 48) = v55;
-        *(v44 + 49) = 0;
-        *(v44 + 52) = 0;
+        v49 = a3[66];
+        *v49 = __dst;
+        *(v49 + 1) = v40;
+        *(v49 + 2) = v36;
+        *(v49 + 3) = DYMTLFunctionStitchingNodeID;
+        *(v49 + 4) = v44;
+        *(v49 + 5) = v43;
+        v49[48] = v60;
+        *(v49 + 49) = 0;
+        *(v49 + 13) = 0;
       }
 
-      *(a3 + 528) += 56;
-      v23 = v58 + 1;
-      if (v58 + 1 >= v74)
+      a3[66] += 56;
+      v25 = v63 + 1;
+      if (v63 + 1 >= v79)
       {
-        v21 = v76[0];
-        v9 = v54;
+        v23 = v81[0];
+        v9 = v59;
         goto LABEL_39;
       }
     }
 
-    v29 = *(a3 + 592);
+    v34 = a3[74];
 LABEL_20:
-    v30 = 0;
+    v35 = 0;
     __dst = 0;
     goto LABEL_21;
   }
 
-  *&v72 = 0;
+  *&v77 = 0;
 LABEL_39:
-  v45 = *v21;
-  v76[0] = v21 + 8;
-  *(&v74 + 1) = v45;
-  if (!v45)
+  v50 = *v23;
+  v81[0] = v23 + 8;
+  *(&v79 + 1) = v50;
+  if (!v50)
   {
-    *&v73 = 0;
+    *&v78 = 0;
     if ((a4 & 1) == 0)
     {
       goto LABEL_50;
@@ -6835,187 +6835,187 @@ LABEL_39:
     goto LABEL_49;
   }
 
-  v46 = 0;
-  v47 = *(a3 + 576);
-  *&v73 = v47;
+  v51 = 0;
+  v52 = a3[72];
+  *&v78 = v52;
   do
   {
-    v48 = *v76[0];
-    v76[0] += 8;
+    v53 = *v81[0];
+    v81[0] += 8;
     if (a4)
     {
       if (a5)
       {
-        Stream_19685 = GetStream_19685(a5, v48);
+        Stream_19685 = GetStream_19685(a5, v53);
         if (Stream_19685)
         {
-          v48 = *Stream_19685;
+          v53 = *Stream_19685;
         }
 
         else
         {
-          v48 = 0;
+          v53 = 0;
         }
       }
 
-      v47 = *(a3 + 576);
-      *v47 = v48;
-      v45 = *(&v74 + 1);
+      v52 = a3[72];
+      *v52 = v53;
+      v50 = *(&v79 + 1);
     }
 
-    *(a3 + 576) = ++v47;
-    ++v46;
+    a3[72] = ++v52;
+    ++v51;
   }
 
-  while (v46 < v45);
+  while (v51 < v50);
   if (a4)
   {
 LABEL_49:
-    v50 = *(a3 + 376);
-    v51 = v72;
-    v52 = v73;
-    v53 = v74;
-    *(v50 + 48) = v75;
-    *(v50 + 16) = v52;
-    *(v50 + 32) = v53;
-    *v50 = v51;
+    v55 = a3[47];
+    v56 = v77;
+    v57 = v78;
+    v58 = v79;
+    *(v55 + 6) = v80;
+    *(v55 + 1) = v57;
+    *(v55 + 2) = v58;
+    *v55 = v56;
   }
 
 LABEL_50:
-  *(a3 + 376) += 56;
+  a3[47] += 56;
   apr_pool_destroy(v9);
 }
 
-size_t DecodeDYMTLFunctionStitchingNode(size_t result, unsigned __int8 ***a2, void *a3)
+size_t DecodeDYMTLFunctionStitchingNode(size_t result, unsigned __int8 ***a2, void *a3, uint64_t a4, uint64_t a5)
 {
   *(result + 48) = 0;
   *(result + 16) = 0u;
   *(result + 32) = 0u;
   *result = 0u;
-  v6 = **a2;
-  v8 = *v6;
-  v7 = v8;
-  **a2 = v6 + 8;
-  *result = v8;
-  if (v8 <= 4)
+  v8 = **a2;
+  v10 = *v8;
+  v9 = v10;
+  **a2 = v8 + 8;
+  *result = v10;
+  if (v10 <= 4)
   {
-    if ((v7 - 1) >= 2)
+    if ((v9 - 1) >= 2)
     {
-      if (v7 != 3 && v7 != 4)
+      if (v9 != 3 && v9 != 4)
       {
         return result;
       }
 
 LABEL_7:
-      v9 = **a2;
-      v10 = *v9;
-      **a2 = v9 + 8;
-      *(result + 16) = v10;
+      v11 = **a2;
+      v12 = *v11;
+      **a2 = (v11 + 1);
+      *(result + 16) = v12;
       return result;
     }
 
     goto LABEL_10;
   }
 
-  if ((v7 - 6) < 4)
+  if ((v9 - 6) < 4)
   {
     goto LABEL_7;
   }
 
-  if (v7 == 5)
+  if (v9 == 5)
   {
-    v12 = **a2;
-    v13 = *v12;
-    **a2 = v12 + 8;
-    *(result + 16) = v13;
     v14 = **a2;
     v15 = *v14;
-    **a2 = v14 + 8;
-    *(result + 8) = v15;
+    **a2 = (v14 + 1);
+    *(result + 16) = v15;
     v16 = **a2;
     v17 = *v16;
-    **a2 = v16 + 8;
-    *(result + 18) = v17;
+    **a2 = (v16 + 1);
+    *(result + 8) = v17;
+    v18 = **a2;
+    v19 = *v18;
+    **a2 = (v18 + 1);
+    *(result + 18) = v19;
     return result;
   }
 
-  if (v7 == 12)
+  if (v9 == 12)
   {
 LABEL_10:
-    v20 = v3;
-    v21 = v4;
-    v11 = *(a2 + 1);
-    v18[0] = *a2;
-    v18[1] = v11;
-    v19 = a2[4];
-    return DecodeDYMTLFunctionStitchingFunctionNode(result, v18, v7, a3);
+    v22 = v5;
+    v23 = v6;
+    v13 = *(a2 + 1);
+    v20[0] = *a2;
+    v20[1] = v13;
+    v21 = a2[4];
+    return DecodeDYMTLFunctionStitchingFunctionNode(result, v20, v9, a3);
   }
 
   return result;
 }
 
-uint64_t GetDYMTLFunctionStitchingNodeID(__int128 *a1)
+uint64_t GetDYMTLFunctionStitchingNodeID(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*(a1 + 8) < 0x52u)
   {
-    v11 = 0;
-    memset(v9, 0, sizeof(v9));
-    v10 = 0;
-    v4 = a1[1];
-    v6 = *a1;
-    v7 = v4;
-    v8 = *(a1 + 4);
-    DecodeDYMTLFunctionStitchingNode(v9, &v6, &v11);
-    v5 = a1[1];
-    v6 = *a1;
-    v7 = v5;
-    v8 = *(a1 + 4);
-    return AppendNodeToDescriptor(&v6, v9, v11);
+    v15 = 0;
+    memset(v13, 0, sizeof(v13));
+    v14 = 0;
+    v8 = a1[1];
+    v10 = *a1;
+    v11 = v8;
+    v12 = *(a1 + 4);
+    DecodeDYMTLFunctionStitchingNode(v13, &v10, &v15, a4, a5);
+    v9 = a1[1];
+    v10 = *a1;
+    v11 = v9;
+    v12 = *(a1 + 4);
+    return AppendNodeToDescriptor(&v10, v13, v15);
   }
 
   else
   {
-    v2 = **a1;
-    result = *v2;
-    **a1 = v2 + 1;
+    v6 = **a1;
+    result = *v6;
+    **a1 = v6 + 1;
   }
 
   return result;
 }
 
-uint64_t GetDYMTLFunctionStitchingFunctionNodeID(unsigned __int8 ***a1)
+uint64_t GetDYMTLFunctionStitchingFunctionNodeID(unsigned __int8 ***a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*(a1 + 8) < 0x52u)
   {
-    v13 = 0;
-    memset(v11, 0, sizeof(v11));
-    v12 = 0;
-    v4 = **a1;
-    v5 = *v4;
-    **a1 = v4 + 8;
-    v6 = *(a1 + 1);
-    v8 = *a1;
-    v9 = v6;
-    v10 = a1[4];
-    DecodeDYMTLFunctionStitchingFunctionNode(v11, &v8, v5, &v13);
-    v7 = *(a1 + 1);
-    v8 = *a1;
-    v9 = v7;
-    v10 = a1[4];
-    return AppendNodeToDescriptor(&v8, v11, v13);
+    v17 = 0;
+    memset(v15, 0, sizeof(v15));
+    v16 = 0;
+    v8 = **a1;
+    v9 = *v8;
+    **a1 = v8 + 8;
+    v10 = *(a1 + 1);
+    v12 = *a1;
+    v13 = v10;
+    v14 = a1[4];
+    DecodeDYMTLFunctionStitchingFunctionNode(v15, &v12, v9, &v17);
+    v11 = *(a1 + 1);
+    v12 = *a1;
+    v13 = v11;
+    v14 = a1[4];
+    return AppendNodeToDescriptor(&v12, v15, v17);
   }
 
   else
   {
-    v2 = **a1;
-    result = *v2;
-    **a1 = (v2 + 1);
+    v6 = **a1;
+    result = *v6;
+    **a1 = (v6 + 8);
   }
 
   return result;
 }
 
-size_t DecodeDYMTLFunctionStitchingFunctionNode(uint64_t a1, unint64_t ***a2, int a3, void *a4)
+size_t DecodeDYMTLFunctionStitchingFunctionNode(uint64_t a1, const char ***a2, int a3, void *a4)
 {
   *(a1 + 48) = 0;
   *(a1 + 16) = 0u;
@@ -7026,7 +7026,7 @@ size_t DecodeDYMTLFunctionStitchingFunctionNode(uint64_t a1, unint64_t ***a2, in
   {
     v6 = **a2;
     v7 = *v6;
-    **a2 = (v6 + 1);
+    **a2 = v6 + 8;
     *a4 = v7;
   }
 
@@ -7034,7 +7034,7 @@ size_t DecodeDYMTLFunctionStitchingFunctionNode(uint64_t a1, unint64_t ***a2, in
   {
     v8 = **a2;
     v9 = *v8;
-    **a2 = (v8 + 1);
+    **a2 = v8 + 8;
     *(a1 + 48) = v9;
   }
 
@@ -7048,52 +7048,52 @@ size_t DecodeDYMTLFunctionStitchingFunctionNode(uint64_t a1, unint64_t ***a2, in
   v11 = a2[2];
   v12 = *(a2 + 36);
   result = strlen(v10);
-  v14 = result + 1;
+  v17 = result + 1;
   if (result == -1)
   {
-    v15 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v15 = v11[74];
+    v18 = v11[74];
   }
 
-  v11[74] = (v11[74] + v14);
+  v11[74] = (v11[74] + v17);
   if (v12 == 1)
   {
-    result = memcpy(v15, v10, v14);
+    result = memcpy(v18, v10, v17);
   }
 
-  *(a1 + 8) = v15;
-  v16 = **a2;
-  v17 = *v16;
-  **a2 = v16 + 1;
-  *(a1 + 32) = v17;
-  v18 = a2[2];
-  v19 = v18[72];
-  v18[72] = &v19[v17];
-  if (v17)
+  *(a1 + 8) = v18;
+  v19 = **a2;
+  v20 = *v19;
+  **a2 = v19 + 8;
+  *(a1 + 32) = v20;
+  v21 = a2[2];
+  v22 = v21[72];
+  v21[72] = &v22[v20];
+  if (v20)
   {
-    v20 = 0;
-    *(a1 + 16) = v19;
+    v23 = 0;
+    *(a1 + 16) = v22;
     do
     {
-      v21 = *(a2 + 1);
-      v28 = *a2;
-      v29 = v21;
-      v30 = a2[4];
-      result = GetDYMTLFunctionStitchingNodeID(&v28);
+      v24 = *(a2 + 1);
+      v31 = *a2;
+      v32 = v24;
+      v33 = a2[4];
+      result = GetDYMTLFunctionStitchingNodeID(&v31, v14, v17, v15, v16);
       if (*(a2 + 36) == 1)
       {
-        *v19++ = result;
-        v17 = *(a1 + 32);
+        *v22++ = result;
+        v20 = *(a1 + 32);
       }
 
-      ++v20;
+      ++v23;
     }
 
-    while (v20 < v17);
+    while (v23 < v20);
   }
 
   else
@@ -7101,34 +7101,34 @@ size_t DecodeDYMTLFunctionStitchingFunctionNode(uint64_t a1, unint64_t ***a2, in
     *(a1 + 16) = 0;
   }
 
-  v22 = **a2;
-  v23 = *v22;
-  **a2 = v22 + 1;
-  *(a1 + 40) = v23;
-  v24 = a2[2];
-  v25 = v24[72];
-  v24[72] = &v25[v23];
-  if (v23)
+  v25 = **a2;
+  v26 = *v25;
+  **a2 = v25 + 8;
+  *(a1 + 40) = v26;
+  v27 = a2[2];
+  v28 = v27[72];
+  v27[72] = &v28[v26];
+  if (v26)
   {
-    v26 = 0;
-    *(a1 + 24) = v25;
+    v29 = 0;
+    *(a1 + 24) = v28;
     do
     {
-      v27 = *(a2 + 1);
-      v28 = *a2;
-      v29 = v27;
-      v30 = a2[4];
-      result = GetDYMTLFunctionStitchingFunctionNodeID(&v28);
+      v30 = *(a2 + 1);
+      v31 = *a2;
+      v32 = v30;
+      v33 = a2[4];
+      result = GetDYMTLFunctionStitchingFunctionNodeID(&v31, v14, v17, v15, v16);
       if (*(a2 + 36) == 1)
       {
-        *v25++ = result;
-        v23 = *(a1 + 40);
+        *v28++ = result;
+        v26 = *(a1 + 40);
       }
 
-      ++v26;
+      ++v29;
     }
 
-    while (v26 < v23);
+    while (v29 < v26);
   }
 
   else
@@ -7764,33 +7764,8 @@ uint64_t EncodeDYMPSDestinationTextureInfo(void *a1, void *a2, unint64_t a3)
 
 uint64_t EncodeDYMPSPluginCNNConvolutionDescriptor(uint64_t a1, uint64_t a2, unint64_t a3)
 {
-  if (a3 < 8)
+  if (a3 < 8 || (*a2 = 115, a3 < 0x10) || (*(a2 + 8) = *(a1 + 52), a3 < 0x14) || (*(a2 + 16) = *(a1 + 12), a3 < 0x15) || (a3 - 20 >= 4 ? (v6 = 4) : (v6 = a3 - 20), (bzero((a2 + 20), v6), a3 < 0x1C) || (*(a2 + 24) = *(a1 + 16), a3 < 0x1D) || (a3 - 28 >= 4 ? (v7 = 4) : (v7 = a3 - 28), (bzero((a2 + 28), v7), a3 < 0x24) || (*(a2 + 32) = *(a1 + 20), a3 <= 0x24))))
   {
-    goto LABEL_20;
-  }
-
-  *a2 = 115;
-  if (a3 < 0x10)
-  {
-    goto LABEL_20;
-  }
-
-  *(a2 + 8) = *(a1 + 52);
-  if (a3 < 0x14)
-  {
-    goto LABEL_20;
-  }
-
-  *(a2 + 16) = *(a1 + 12);
-  if (a3 < 0x15)
-  {
-    goto LABEL_20;
-  }
-
-  v6 = a3 - 20 >= 4 ? 4 : a3 - 20;
-  if ((bzero((a2 + 20), v6), a3 < 0x1C) || (*(a2 + 24) = *(a1 + 16), a3 < 0x1D) || (a3 - 28 >= 4 ? (v7 = 4) : (v7 = a3 - 28), (bzero((a2 + 28), v7), a3 < 0x24) || (*(a2 + 32) = *(a1 + 20), a3 <= 0x24)))
-  {
-LABEL_20:
     v9 = (a1 + 8);
     goto LABEL_21;
   }
@@ -7935,13 +7910,13 @@ void *DecodeDYMPSPluginCNNConvolutionDescriptor(void *result, uint64_t a2, uint6
   v9 = result[5];
   v10 = result + ((v9 + 7) & 0xFFFFFFFFFFFFFFF8) + 48;
   v11 = *v10;
-  v12 = *(v10 + 16);
-  v13 = *(v10 + 32);
-  v14 = *(v10 + 48);
-  v15 = *(v10 + 64);
+  v12 = *(v10 + 1);
+  v13 = *(v10 + 2);
+  v14 = *(v10 + 3);
+  v15 = *(v10 + 8);
   v16 = *(v10 + 72);
-  v18 = *(v10 + 88);
-  v17 = *(v10 + 96);
+  v18 = *(v10 + 11);
+  v17 = *(v10 + 12);
   v19 = *(a3 + 72);
   *(a3 + 72) = &v19[v9];
   if (a4)
@@ -8553,7 +8528,7 @@ uint64_t EncodeDYMPSPluginNDArrayConvolutionDescriptor(unsigned __int8 *a1, void
     }
   }
 
-  v6 = (a1 + 12);
+  v6 = a1 + 12;
   v7 = a2 + 6;
   for (i = 56; i != 80; i += 8)
   {
@@ -8563,10 +8538,10 @@ uint64_t EncodeDYMPSPluginNDArrayConvolutionDescriptor(unsigned __int8 *a1, void
     }
 
     ++v7;
-    ++v6;
+    v6 += 4;
   }
 
-  v9 = (a1 + 24);
+  v9 = a1 + 24;
   v10 = a2 + 9;
   do
   {
@@ -8577,7 +8552,7 @@ uint64_t EncodeDYMPSPluginNDArrayConvolutionDescriptor(unsigned __int8 *a1, void
 
     ++v10;
     i += 8;
-    ++v9;
+    v9 += 4;
   }
 
   while (i != 104);
@@ -8768,7 +8743,7 @@ apr_hash_t *GTTraceContext_buildBacktraceMap(uint64_t a1, apr_pool_t *pool)
   return v3;
 }
 
-uint64_t GTTraceContext_create(uint64_t a1)
+char *GTTraceContext_create(uint64_t a1)
 {
   newpool = 0;
   apr_pool_create_ex(&newpool, 0, 0, 0);
@@ -9656,20 +9631,20 @@ void GTTraceContext_pushEncoder(uint64_t a1@<X0>, void *a2@<X8>)
   *(v6 + 47) = 0;
 }
 
-void *GTTraceContext_pushEncoderWithStream@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void *GTTraceContext_pushEncoderWithStream@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
+  *(a2 + 1) = 0u;
+  *(a2 + 2) = 0u;
   *a2 = 0u;
   add = atomic_fetch_add((a1 + 80), 1uLL);
   *a2 = a1;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = add;
+  a2[1] = 0;
+  a2[2] = 0;
+  a2[3] = add;
   s();
   v6 = *v5;
   *v5 = v7;
-  *(a2 + 32) = v6;
+  a2[4] = v6;
   *(a2 + 40) = *(v5 + 8);
   *(a2 + 41) = 16400;
   *(a2 + 43) = 0;
@@ -9679,7 +9654,7 @@ void *GTTraceContext_pushEncoderWithStream@<X0>(uint64_t a1@<X0>, uint64_t a2@<X
   if (v10)
   {
     v11 = *a2;
-    v12 = *(a2 + 24);
+    v12 = a2[3];
 
     return GTTraceContext_backtrace(v11, v12);
   }
@@ -9958,13 +9933,12 @@ uint64_t GTTraceEncoder_storeBytes(uint64_t a1, void *__src, size_t __n)
   return v3;
 }
 
-void GTTraceContext_popEncoder(uint64_t a1, uint64_t a2)
+void GTTraceContext_popEncoder()
 {
-  v2 = *(a2 + 32);
   s();
-  *v3 = v4;
-  *(v3 + 8) = *(v5 + 40);
-  *(*(v5 + 16) + 15) |= 8u;
+  *v0 = v1;
+  *(v0 + 8) = *(v2 + 40);
+  *(*(v2 + 16) + 15) |= 8u;
 }
 
 void *GTTraceEncoder_setStream(uint64_t *a1, uint64_t a2)
@@ -10224,7 +10198,7 @@ unint64_t GTTraceStream_boundTimestamp(unint64_t result)
   return result;
 }
 
-uint64_t GTTraceStream_updated(uint64_t result)
+unint64_t GTTraceStream_updated(unint64_t result)
 {
   if (result)
   {
@@ -10733,7 +10707,7 @@ uint64_t GTMTLIndirectResources_computePipelineIdForGPUResourceID(uint64_t a1, u
   }
 }
 
-void GTMTLUniqueIdentifierResource_fillHashMap(char *key, int a2, apr_hash_t *ht)
+void GTMTLUniqueIdentifierResource_fillHashMap(char *key, unsigned int a2, apr_hash_t *ht)
 {
   if (a2 >= 1)
   {
@@ -10749,7 +10723,7 @@ void GTMTLUniqueIdentifierResource_fillHashMap(char *key, int a2, apr_hash_t *ht
   }
 }
 
-void GTMTLUniqueIdentifierResource_fillHashMapByKey(char *val, int a2, int a3, apr_hash_t *ht)
+void GTMTLUniqueIdentifierResource_fillHashMapByKey(char *val, unsigned int a2, int a3, apr_hash_t *ht)
 {
   if (a2 >= 1)
   {
@@ -10849,7 +10823,7 @@ void GTMTLIndirectResources_optimizeByKey(apr_pool_t *pool@<X2>, uint64_t *a2@<X
   }
 }
 
-__n128 GTMTLResourceViewPoolResource_fillHashMapWithArraysByResourceID(__n128 *a1, int a2, apr_pool_t **a3)
+__n128 GTMTLResourceViewPoolResource_fillHashMapWithArraysByResourceID(__n128 *a1, unsigned int a2, apr_pool_t **a3)
 {
   if (a2 >= 1)
   {
@@ -10879,7 +10853,7 @@ __n128 GTMTLResourceViewPoolResource_fillHashMapWithArraysByResourceID(__n128 *a
   return result;
 }
 
-void GTMTLResourceViewPoolResource_fillHashMapByKey(char *val, int a2, char a3, apr_hash_t *ht)
+void GTMTLResourceViewPoolResource_fillHashMapByKey(char *val, unsigned int a2, char a3, apr_hash_t *ht)
 {
   if (a2 >= 1)
   {
@@ -10896,11 +10870,11 @@ void GTMTLResourceViewPoolResource_fillHashMapByKey(char *val, int a2, char a3, 
   }
 }
 
-void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X0>, unint64_t a3@<X1>, int a4@<W2>, uint64_t *a5@<X8>)
+void GTMTLIndirectResources_allResourcesByKey(uint64_t *__return_ptr a1@<X8>, apr_pool_t *p@<X3>, _DWORD **a3@<X0>, unint64_t a4@<X1>, int a5@<W2>)
 {
   v8 = apr_array_make(p, 32, 8);
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[1], a3, v8);
+  GTMTLSMContext_getObjects(a3[1], a4, v8);
   v9 = apr_array_make(p, v8->nelts, 32);
   v114[0] = v9;
   if (v8->nelts >= 1)
@@ -10925,7 +10899,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   v116 = 0u;
   v115 = 0u;
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[3], a3, v8);
+  GTMTLSMContext_getObjects(a3[3], a4, v8);
   v14 = apr_array_make(p, v8->nelts, 32);
   v114[2] = v14;
   if (v8->nelts >= 1)
@@ -10956,7 +10930,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[2], a3, v8);
+  GTMTLSMContext_getObjects(a3[2], a4, v8);
   v23 = apr_array_make(p, v8->nelts, 32);
   v114[1] = v23;
   if (v8->nelts >= 1)
@@ -10978,7 +10952,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[4], a3, v8);
+  GTMTLSMContext_getObjects(a3[4], a4, v8);
   v29 = apr_array_make(p, v8->nelts, 32);
   v114[3] = v29;
   if (v8->nelts >= 1)
@@ -11001,7 +10975,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[11], a3, v8);
+  GTMTLSMContext_getObjects(a3[11], a4, v8);
   v36 = apr_array_make(p, v8->nelts, 32);
   *&v118 = v36;
   nelts = v8->nelts;
@@ -11025,7 +10999,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[5], a3, v8);
+  GTMTLSMContext_getObjects(a3[5], a4, v8);
   v44 = apr_array_make(p, v8->nelts, 32);
   *&v115 = v44;
   v45 = v8->nelts;
@@ -11048,7 +11022,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[6], a3, v8);
+  GTMTLSMContext_getObjects(a3[6], a4, v8);
   v51 = apr_array_make(p, v8->nelts, 32);
   *(&v115 + 1) = v51;
   v52 = v8->nelts;
@@ -11071,7 +11045,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[7], a3, v8);
+  GTMTLSMContext_getObjects(a3[7], a4, v8);
   v58 = apr_array_make(p, v8->nelts, 32);
   *&v116 = v58;
   if (v8->nelts >= 1)
@@ -11094,7 +11068,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[8], a3, v8);
+  GTMTLSMContext_getObjects(a3[8], a4, v8);
   v65 = apr_array_make(p, v8->nelts, 32);
   *(&v116 + 1) = v65;
   if (v8->nelts >= 1)
@@ -11124,7 +11098,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[9], a3, v8);
+  GTMTLSMContext_getObjects(a3[9], a4, v8);
   v73 = apr_array_make(p, v8->nelts, 32);
   *&v117 = v73;
   if (v8->nelts >= 1)
@@ -11147,7 +11121,7 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[10], a3, v8);
+  GTMTLSMContext_getObjects(a3[10], a4, v8);
   v80 = apr_array_make(p, v8->nelts, 32);
   *(&v117 + 1) = v80;
   if (v8->nelts >= 1)
@@ -11179,21 +11153,21 @@ void GTMTLIndirectResources_allResourcesByKey(apr_pool_t *p@<X3>, _DWORD **a2@<X
   }
 
   v8->nelts = 0;
-  GTMTLSMContext_getObjects(a2[12], a3, v8);
+  GTMTLSMContext_getObjects(a3[12], a4, v8);
   v90 = v8->nelts;
   if (v90 < 1)
   {
     LODWORD(v92) = 0;
-    v93 = a4;
-    v94 = a5;
+    v93 = a5;
+    v94 = a1;
   }
 
   else
   {
     v91 = 0;
     v92 = 0;
-    v93 = a4;
-    v94 = a5;
+    v93 = a5;
+    v94 = a1;
     do
     {
       v95 = *&v8->elts[8 * v91];
@@ -11328,7 +11302,7 @@ uint64_t GTMTLResourceViewPoolResource_getKey(uint64_t a1, int a2)
   }
 }
 
-apr_hash_index_t *GTMTLIndirectResources_rehash@<X0>(apr_pool_t *p@<X2>, apr_hash_index_t *result@<X0>, int a3@<W1>, uint64_t a4@<X8>)
+apr_hash_index_t *GTMTLIndirectResources_rehash@<X0>(apr_pool_t *p@<X2>, apr_hash_index_t *result@<X0>, uint64_t a3@<X1>, uint64_t a4@<X8>)
 {
   v4 = result;
   if (*(result + 96) == a3)
@@ -11497,7 +11471,7 @@ apr_hash_index_t *GTMTLIndirectResources_rehash@<X0>(apr_pool_t *p@<X2>, apr_has
   return result;
 }
 
-apr_hash_index_t *GTMTLUniqueIdentifierResource_fillHashMapByKey_apr_ht(uint64_t a1, int a2, apr_hash_t *a3)
+apr_hash_index_t *GTMTLUniqueIdentifierResource_fillHashMapByKey_apr_ht(uint64_t a1, int a2, apr_pool_t **a3)
 {
   v5 = *a3;
   *(a1 + 24) = 0;
@@ -11990,7 +11964,7 @@ LABEL_6:
   return v10;
 }
 
-_OWORD *GTCaptureArchive_open(const char *a1, apr_pool_t *a2, _OWORD *a3)
+_OWORD *GTCaptureArchive_open(char *a1, apr_pool_t *a2, _OWORD *a3)
 {
   bzero(v58, 0x400uLL);
   v6 = realpath_DARWIN_EXTSN(a1, v58);
@@ -12370,7 +12344,7 @@ LABEL_7:
   return 20014;
 }
 
-uint64_t GTCaptureArchive_create(const char *a1, apr_pool_t *a2, int *a3)
+_OWORD *GTCaptureArchive_create(const char *a1, apr_pool_t *a2, int *a3)
 {
   bzero(v20, 0x400uLL);
   v6 = realpath_DARWIN_EXTSN(a1, v20);
@@ -12818,7 +12792,7 @@ void *GTCaptureArchiveDecompressor_create(apr_pool_t *a1)
   return v3;
 }
 
-void GTCaptureArchive_fillBuffer(const char **a1, apr_pool_t **a2, char *a3, void *a4, size_t a5, int *a6)
+void GTCaptureArchive_fillBuffer(const char **a1, apr_pool_t **a2, char *a3, uint8_t *a4, size_t a5, int *a6)
 {
   FileWithFilename = GTCaptureArchive_getFileWithFilename(a1, a3);
   if (*(FileWithFilename + 8) >= a5)

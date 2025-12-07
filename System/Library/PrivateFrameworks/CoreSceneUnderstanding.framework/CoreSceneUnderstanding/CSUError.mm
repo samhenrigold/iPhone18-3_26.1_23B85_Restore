@@ -1,10 +1,12 @@
 @interface CSUError
++ (BOOL)CSUAssert:(BOOL)assert logError:(id *)error withMessage:(id)message;
 + (id)CSUAssert:(BOOL)assert log:(id)log;
 + (id)errorForDataUnavailableWithLocalizedDescription:(id)description;
 + (id)errorForDataUnavailableWithLocalizedDescription:(id)description underlyingError:(id)error;
 + (id)errorForDatabase:(id)database;
 + (id)errorForDictionaryDeserialization:(id)deserialization;
 + (id)errorForEspressoErrorInfo:(id)info localizedDescription:(id)description;
++ (id)errorForEspressoReturnStatus:(int)status localizedDescription:(id)description;
 + (id)errorForFailedEspressoPlan:(void *)plan localizedDescription:(id)description;
 + (id)errorForInternalErrorWithLocalizedDescription:(id)description;
 + (id)errorForInternalErrorWithLocalizedDescription:(id)description underlyingError:(id)error;
@@ -41,14 +43,14 @@
 
 + (id)errorForMemoryAllocationFailureWithLocalizedDescription:(id)description
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v5 = descriptionCopy;
   if (descriptionCopy)
   {
-    v11 = *MEMORY[0x1E696A578];
-    v12[0] = descriptionCopy;
-    v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v4, v12, &v11, 1);
+    v10 = *MEMORY[0x1E696A578];
+    v11[0] = descriptionCopy;
+    v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v4, v11, &v10, 1);
     objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v7, @"com.apple.coresceneunderstanding", 4, v6);
   }
 
@@ -58,8 +60,6 @@
     objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v4, @"com.apple.coresceneunderstanding", 4, 0);
   }
   v8 = ;
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -115,28 +115,24 @@
 
 + (id)errorForInvalidModelWithLocalizedDescription:(id)description underlyingError:(id)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
-  v11 = *MEMORY[0x1E696A578];
-  v12[0] = descriptionCopy;
-  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v12, &v11, 1);
+  v10 = *MEMORY[0x1E696A578];
+  v11[0] = descriptionCopy;
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v11, &v10, 1);
   v8 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v7, @"com.apple.coresceneunderstanding", 9, v6);
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)errorForUnknownErrorWithLocalizedDescription:(id)description
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
-  v10 = *MEMORY[0x1E696A578];
-  v11[0] = descriptionCopy;
-  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v4, v11, &v10, 1);
+  v9 = *MEMORY[0x1E696A578];
+  v10[0] = descriptionCopy;
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v4, v10, &v9, 1);
   v7 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x1E696ABC0], v6, @"com.apple.coresceneunderstanding", 5, v5);
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -153,6 +149,35 @@
   v4 = objc_msgSend_errorWithCode_message_underlyingError_(self, a2, 10, description, error);
 
   return v4;
+}
+
++ (id)errorForEspressoReturnStatus:(int)status localizedDescription:(id)description
+{
+  v4 = *&status;
+  descriptionCopy = description;
+  v11 = objc_msgSend_string(MEMORY[0x1E696AD60], v7, v8, v9, v10);
+  objc_msgSend_appendFormat_(v11, v12, @"%d", v13, v14, v4);
+  status_string = espresso_get_status_string();
+  if (status_string)
+  {
+    objc_msgSend_appendFormat_(v11, v16, @": %s", v18, v19, status_string);
+  }
+
+  if (objc_msgSend_length(descriptionCopy, v16, v17, v18, v19))
+  {
+    v23 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v20, @"%@ (%@)", v21, v22, descriptionCopy, v11);
+  }
+
+  else
+  {
+    v23 = v11;
+  }
+
+  v24 = v23;
+
+  v28 = objc_msgSend_errorForInternalErrorWithLocalizedDescription_(self, v25, v24, v26, v27);
+
+  return v28;
 }
 
 + (id)errorForEspressoErrorInfo:(id)info localizedDescription:(id)description
@@ -227,16 +252,17 @@
 {
   v35 = *MEMORY[0x1E69E9840];
   errorCopy = error;
+  v4 = errorCopy;
   if (errorCopy)
   {
-    v4 = sub_1AC090E50();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_1AC090E50(errorCopy);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_msgSend_code(errorCopy, v5, v6, v7, v8);
-      v15 = objc_msgSend_localizedDescription(errorCopy, v11, v12, v13, v14);
+      v10 = objc_msgSend_code(v4, v6, v7, v8, v9);
+      v15 = objc_msgSend_localizedDescription(v4, v11, v12, v13, v14);
       v16 = v15;
       v20 = objc_msgSend_cStringUsingEncoding_(v16, v17, 1, v18, v19);
-      v25 = objc_msgSend_localizedFailureReason(errorCopy, v21, v22, v23, v24);
+      v25 = objc_msgSend_localizedFailureReason(v4, v21, v22, v23, v24);
       v26 = v25;
       v30[0] = 67109634;
       v30[1] = v10;
@@ -244,38 +270,49 @@
       v32 = v20;
       v33 = 2080;
       v34 = objc_msgSend_cStringUsingEncoding_(v26, v27, 1, v28, v29);
-      _os_log_error_impl(&dword_1AC05D000, v4, OS_LOG_TYPE_ERROR, "Internal Error Occurred. Code: %d; description: %s; reason: %s", v30, 0x1Cu);
+      _os_log_error_impl(&dword_1AC05D000, v5, OS_LOG_TYPE_ERROR, "Internal Error Occurred. Code: %d; description: %s; reason: %s", v30, 0x1Cu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)CSUAssert:(BOOL)assert log:(id)log
 {
   v20 = *MEMORY[0x1E69E9840];
   logCopy = log;
+  v6 = logCopy;
   if (assert)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = sub_1AC090E50();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1AC090E50(logCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = logCopy;
-      v13 = objc_msgSend_UTF8String(v8, v9, v10, v11, v12);
-      sub_1AC11F600(v13, v19, v7);
+      v9 = v6;
+      v14 = objc_msgSend_UTF8String(v9, v10, v11, v12, v13);
+      sub_1AC11F600(v14, v19, v8);
     }
 
-    v6 = objc_msgSend_errorForInternalErrorWithLocalizedDescription_(CSUError, v14, logCopy, v15, v16);
+    v7 = objc_msgSend_errorForInternalErrorWithLocalizedDescription_(CSUError, v15, v6, v16, v17);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
+  return v7;
+}
 
-  return v6;
++ (BOOL)CSUAssert:(BOOL)assert logError:(id *)error withMessage:(id)message
+{
+  v6 = objc_msgSend_CSUAssert_log_(CSUError, a2, assert, message, message);
+  if (error)
+  {
+    v6 = v6;
+    *error = v6;
+  }
+
+  v7 = v6 == 0;
+
+  return v7;
 }
 
 + (id)errorFromErrors:(id)errors And:(id)and

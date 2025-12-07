@@ -10,8 +10,8 @@
   if (!lazy protocol witness table cache variable for type [HE.SecurityLevel : [HE.RlweParams]] and conformance <> [A : B])
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDy16CryptoKitPrivate2HEO13SecurityLevelOSayAC10RlweParamsOGGMd, &_sSDy16CryptoKitPrivate2HEO13SecurityLevelOSayAC10RlweParamsOGGMR);
-    lazy protocol witness table accessor for type HE.SecurityLevel and conformance HE.SecurityLevel(&lazy protocol witness table cache variable for type HE.SecurityLevel and conformance HE.SecurityLevel, MEMORY[0x277D02EF8]);
-    lazy protocol witness table accessor for type [HE.RlweParams] and conformance <A> [A](&lazy protocol witness table cache variable for type [HE.RlweParams] and conformance <A> [A], &lazy protocol witness table cache variable for type HE.RlweParams and conformance HE.RlweParams);
+    lazy protocol witness table accessor for type HE.SecurityLevel and conformance HE.SecurityLevel(&lazy protocol witness table cache variable for type HE.SecurityLevel and conformance HE.SecurityLevel, MEMORY[0x277D02EF8], MEMORY[0x277D02F00]);
+    lazy protocol witness table accessor for type [HE.RlweParams] and conformance <A> [A](&lazy protocol witness table cache variable for type [HE.RlweParams] and conformance <A> [A], &lazy protocol witness table cache variable for type HE.RlweParams and conformance HE.RlweParams, MEMORY[0x277D02ED0], MEMORY[0x277D83948]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [HE.SecurityLevel : [HE.RlweParams]] and conformance <> [A : B]);
   }

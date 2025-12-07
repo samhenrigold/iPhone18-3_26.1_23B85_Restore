@@ -64,10 +64,10 @@
 
 - (id)runAction
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v34.receiver = self;
-  v34.super_class = AMSUIWebFetchCardMetadataAction;
-  runAction = [(AMSUIWebAction *)&v34 runAction];
+  v39 = *MEMORY[0x1E69E9840];
+  v33.receiver = self;
+  v33.super_class = AMSUIWebFetchCardMetadataAction;
+  runAction = [(AMSUIWebAction *)&v33 runAction];
   context = [(AMSUIWebAction *)self context];
   v5 = [context bag];
 
@@ -92,9 +92,9 @@
           v11 = objc_opt_class();
           v12 = AMSLogKey();
           *buf = 138543618;
-          v37 = v11;
-          v38 = 2114;
-          v39 = v12;
+          v36 = v11;
+          v37 = 2114;
+          v38 = v12;
           _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully retrieved the apple card icon.", buf, 0x16u);
         }
 
@@ -102,8 +102,8 @@
         [v13 setCardArtwork:v7];
         v14 = MEMORY[0x1E698CAD0];
         dictionary = [v13 dictionary];
-        v35 = dictionary;
-        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+        v34 = dictionary;
+        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
         v17 = [v14 promiseWithResult:v16];
       }
 
@@ -120,9 +120,9 @@
           v27 = objc_opt_class();
           v28 = AMSLogKey();
           *buf = 138543618;
-          v37 = v27;
-          v38 = 2114;
-          v39 = v28;
+          v36 = v27;
+          v37 = 2114;
+          v38 = v28;
           _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed for no apple card icon.", buf, 0x16u);
         }
 
@@ -137,15 +137,15 @@
       v23 = objc_alloc_init(MEMORY[0x1E698CAD0]);
       serialNumber = [(AMSUIWebFetchCardMetadataAction *)self serialNumber];
       cardArtworkSize = [(AMSUIWebFetchCardMetadataAction *)self cardArtworkSize];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __44__AMSUIWebFetchCardMetadataAction_runAction__block_invoke;
-      v32[3] = &unk_1E7F261A0;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __44__AMSUIWebFetchCardMetadataAction_runAction__block_invoke;
+      v31[3] = &unk_1E7F261A0;
       v17 = v23;
-      v33 = v17;
-      [AMSUICardMetadata metadataForPassTypeIdentifier:passTypeIdentifier serialNumber:serialNumber cardArtworkSize:cardArtworkSize completionHandler:v32];
+      v32 = v17;
+      [AMSUICardMetadata metadataForPassTypeIdentifier:passTypeIdentifier serialNumber:serialNumber cardArtworkSize:cardArtworkSize completionHandler:v31];
 
-      v7 = v33;
+      v7 = v32;
     }
   }
 
@@ -163,9 +163,9 @@
       v20 = objc_opt_class();
       v21 = AMSLogKey();
       *buf = 138543618;
-      v37 = v20;
-      v38 = 2114;
-      v39 = v21;
+      v36 = v20;
+      v37 = 2114;
+      v38 = v21;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed for feature not enabled.", buf, 0x16u);
     }
 
@@ -173,8 +173,6 @@
     passTypeIdentifier = AMSError();
     v17 = [v22 promiseWithError:passTypeIdentifier];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

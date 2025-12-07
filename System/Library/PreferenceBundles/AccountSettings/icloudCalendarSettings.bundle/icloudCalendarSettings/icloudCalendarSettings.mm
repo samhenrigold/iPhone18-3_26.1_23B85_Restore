@@ -9,7 +9,7 @@ void sub_1E74(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
-  v8 = _CalLogSystem();
+  v8 = _CalLogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_AE68();
@@ -19,7 +19,7 @@ void sub_1E74(uint64_t a1, void *a2, void *a3)
   v10 = WeakRetained;
   if (v7)
   {
-    v11 = _CalLogSystem();
+    v11 = _CalLogSystem(WeakRetained);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_AED0();
@@ -29,32 +29,32 @@ void sub_1E74(uint64_t a1, void *a2, void *a3)
   else
   {
     objc_storeStrong(WeakRetained + 21, a2);
-    v12 = _CalLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _CalLogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [v10[21] emails];
+      v14 = [v10[21] emails];
       *buf = 134217984;
-      v21 = [v13 count];
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Calendar get settings response loaded from server. Email count %lu", buf, 0xCu);
+      v23 = [v14 count];
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Calendar get settings response loaded from server. Email count %lu", buf, 0xCu);
     }
 
-    v11 = _CalLogSystem();
+    v11 = _CalLogSystem(v15);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_AF40(v10 + 21);
     }
   }
 
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_20A4;
-  v15[3] = &unk_146A0;
-  v16 = *(a1 + 32);
-  v17 = *(a1 + 40);
-  v18 = v10;
-  v19 = *(a1 + 48);
-  v14 = v10;
-  dispatch_async(&_dispatch_main_q, v15);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_20A4;
+  v17[3] = &unk_146A0;
+  v18 = *(a1 + 32);
+  v19 = *(a1 + 40);
+  v20 = v10;
+  v21 = *(a1 + 48);
+  v16 = v10;
+  dispatch_async(&_dispatch_main_q, v17);
 }
 
 void sub_20A4(uint64_t a1)
@@ -101,7 +101,7 @@ void sub_342C(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v8 = _CalLogSystem();
+  v8 = _CalLogSystem(WeakRetained);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v5 emails];
@@ -163,7 +163,7 @@ void sub_3B0C(uint64_t a1, void *a2, void *a3)
 {
   v6 = a2;
   v7 = a3;
-  v8 = _CalLogSystem();
+  v8 = _CalLogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_B190();
@@ -173,7 +173,7 @@ void sub_3B0C(uint64_t a1, void *a2, void *a3)
   v10 = WeakRetained;
   if (v7)
   {
-    v11 = _CalLogSystem();
+    v11 = _CalLogSystem(WeakRetained);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_B1F8();
@@ -183,16 +183,16 @@ void sub_3B0C(uint64_t a1, void *a2, void *a3)
   else
   {
     objc_storeStrong(WeakRetained + 21, a2);
-    v12 = _CalLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _CalLogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [v10[21] emails];
+      v14 = [v10[21] emails];
       *buf = 134217984;
-      v16 = [v13 count];
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Calendar get settings response loaded from server. Email count %lu", buf, 0xCu);
+      v18 = [v14 count];
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Calendar get settings response loaded from server. Email count %lu", buf, 0xCu);
     }
 
-    v11 = _CalLogSystem();
+    v11 = _CalLogSystem(v15);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_AF40(v10 + 21);
@@ -207,16 +207,18 @@ void sub_3B0C(uint64_t a1, void *a2, void *a3)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-void sub_3EF4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_3EF4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_3F20(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_3F20(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_4EC0(uint64_t a1, void *a2, void *a3, void *a4)
@@ -224,79 +226,81 @@ void sub_4EC0(uint64_t a1, void *a2, void *a3, void *a4)
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  if ([v8 statusCode] == &stru_158.reloff + 1 && *(a1 + 48) == 1)
+  v10 = [v8 statusCode];
+  if (v10 == &stru_158.reloff + 1 && *(a1 + 48) == 1)
   {
-    v10 = _CalLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _CalLogSystem(401);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v28 = v7;
-      v29 = 2112;
-      v30 = v8;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "401 response from server for request %@ response %@", buf, 0x16u);
+      v30 = v7;
+      v31 = 2112;
+      v32 = v8;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "401 response from server for request %@ response %@", buf, 0x16u);
     }
 
-    v35[0] = &__kCFBooleanTrue;
-    v34[0] = kACRenewCredentialsShouldForceKey;
-    v34[1] = kACRenewCredentialsServicesKey;
-    v33 = AAGrandSlamAppTokenIDiCloudSettings;
-    v11 = [NSArray arrayWithObjects:&v33 count:1];
-    v35[1] = v11;
-    v12 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v37[0] = &__kCFBooleanTrue;
+    v36[0] = kACRenewCredentialsShouldForceKey;
+    v36[1] = kACRenewCredentialsServicesKey;
+    v35 = AAGrandSlamAppTokenIDiCloudSettings;
+    v12 = [NSArray arrayWithObjects:&v35 count:1];
+    v37[1] = v12;
+    v13 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
 
-    v13 = _accountStore;
-    v14 = *(*(a1 + 32) + 8);
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_52D0;
-    v22[3] = &unk_14758;
-    v26 = *(a1 + 40);
-    v23 = v7;
-    v15 = v8;
-    v16 = *(a1 + 32);
-    v24 = v15;
-    v25 = v16;
-    [v13 renewCredentialsForAccount:v14 options:v12 completion:v22];
+    v14 = _accountStore;
+    v15 = *(*(a1 + 32) + 8);
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_52D0;
+    v24[3] = &unk_14758;
+    v28 = *(a1 + 40);
+    v25 = v7;
+    v16 = v8;
+    v17 = *(a1 + 32);
+    v26 = v16;
+    v27 = v17;
+    [v14 renewCredentialsForAccount:v15 options:v13 completion:v24];
   }
 
   else if (*(a1 + 40))
   {
-    if ([v8 statusCode] == stru_B8.segname)
+    v18 = [v8 statusCode];
+    if (v18 == stru_B8.segname)
     {
-      v12 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v17 = _CalLogSystem();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      v19 = _CalLogSystem(v18);
+      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
       if (v9)
       {
-        if (v18)
+        if (v20)
         {
           *buf = 134218242;
-          v28 = [v8 statusCode];
-          v29 = 2114;
-          v30 = v9;
-          _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "non 200 response from server responseCode: %ld error: %{public}@", buf, 0x16u);
+          v30 = [v8 statusCode];
+          v31 = 2114;
+          v32 = v9;
+          _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "non 200 response from server responseCode: %ld error: %{public}@", buf, 0x16u);
         }
 
-        v19 = v8;
-        v20 = [v19 statusCode];
-        v21 = [*(a1 + 32) _errorDictionaryFromServerResponse:v19];
-        v12 = [NSError errorWithDomain:@"CalServerErrorDomain" code:v20 userInfo:v21];
+        v21 = v8;
+        v22 = [v21 statusCode];
+        v23 = [*(a1 + 32) _errorDictionaryFromServerResponse:v21];
+        v13 = [NSError errorWithDomain:@"CalServerErrorDomain" code:v22 userInfo:v23];
       }
 
       else
       {
-        if (v18)
+        if (v20)
         {
           *buf = 134217984;
-          v28 = [v8 statusCode];
-          _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "non 200 response from server responseCode: %ld. Error object is nil. Constructing local error code", buf, 0xCu);
+          v30 = [v8 statusCode];
+          _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "non 200 response from server responseCode: %ld. Error object is nil. Constructing local error code", buf, 0xCu);
         }
 
-        v12 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", @"CalServerErrorDomain", [v8 statusCode], 0);
+        v13 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", @"CalServerErrorDomain", [v8 statusCode], 0);
       }
     }
 
@@ -305,16 +309,16 @@ void sub_4EC0(uint64_t a1, void *a2, void *a3, void *a4)
 
   else
   {
-    v12 = _CalLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _CalLogSystem(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v28 = v8;
-      v29 = 2112;
-      v30 = v7;
+      v30 = v8;
       v31 = 2112;
-      v32 = v9;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "no handler for performRequestWithHandler. Server response %@ for request %@ and error %@", buf, 0x20u);
+      v32 = v7;
+      v33 = 2112;
+      v34 = v9;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "no handler for performRequestWithHandler. Server response %@ for request %@ and error %@", buf, 0x20u);
     }
   }
 }
@@ -322,37 +326,36 @@ void sub_4EC0(uint64_t a1, void *a2, void *a3, void *a4)
 void sub_52D0(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     if (a2 == 1)
     {
-      v6 = _CalLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _CalLogSystem(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v7 = "auth token renew failed. User rejected";
-        v8 = buf;
+        v8 = "auth token renew failed. User rejected";
+        v9 = buf;
         goto LABEL_8;
       }
 
 LABEL_9:
 
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 40);
       (*(*(a1 + 56) + 16))();
       goto LABEL_13;
     }
 
     if (a2 == 2)
     {
-      v6 = _CalLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _CalLogSystem(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 0;
-        v7 = "auth token renew failed.";
-        v8 = &v14;
+        v13 = 0;
+        v8 = "auth token renew failed.";
+        v9 = &v13;
 LABEL_8:
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
         goto LABEL_9;
       }
 
@@ -362,11 +365,11 @@ LABEL_8:
 
   else
   {
-    v11 = _CalLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = _CalLogSystem(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "auth token renewed. Retrying request with server", v12, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "auth token renewed. Retrying request with server", v11, 2u);
     }
 
     [*(a1 + 48) _performRequestWithHandler:*(a1 + 56) renewToken:0];
@@ -379,7 +382,7 @@ void sub_57D4(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = a3;
   v7 = a4;
-  v8 = _CalLogSystem();
+  v8 = _CalLogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_B3E4();
@@ -397,7 +400,7 @@ void sub_5B44(uint64_t a1, uint64_t a2, void *a3, void *a4)
   v6 = a3;
   v7 = a4;
   v8 = v6;
-  v9 = _CalLogSystem();
+  v9 = _CalLogSystem(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_B44C();
@@ -415,7 +418,7 @@ void sub_6034(uint64_t a1, uint64_t a2, void *a3, void *a4)
   v6 = a3;
   v7 = a4;
   v8 = v6;
-  v9 = _CalLogSystem();
+  v9 = _CalLogSystem(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_B4B4();
@@ -473,7 +476,7 @@ void sub_8B3C(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v8 = _CalLogSystem();
+  v8 = _CalLogSystem(WeakRetained);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v5 emails];
@@ -528,16 +531,16 @@ void sub_8DBC(uint64_t a1)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-id _CalLogSystem()
+id _CalLogSystem(uint64_t a1)
 {
   if (qword_1A378[0] != -1)
   {
     sub_B5A8();
   }
 
-  v1 = qword_1A370;
+  v2 = qword_1A370;
 
-  return v1;
+  return v2;
 }
 
 void sub_9090(id a1)
@@ -572,7 +575,7 @@ uint64_t sub_995C(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_99DC@<X0>(void *a1@<X8>)
+uint64_t sub_99DC@<X0>(uint64_t *a1@<X8>)
 {
   sub_B65C();
   v2 = sub_B62C();
@@ -583,66 +586,58 @@ uint64_t sub_99DC@<X0>(void *a1@<X8>)
 
 uint64_t sub_9A20()
 {
-  v1 = *v0;
   sub_B65C();
-  v2 = sub_B68C();
+  v0 = sub_B68C();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_9A5C()
+uint64_t sub_9A5C(uint64_t a1)
 {
-  v1 = *v0;
   sub_B65C();
   sub_B67C();
 }
 
-Swift::Int sub_9AB0()
+Swift::Int sub_9AB0(uint64_t a1)
 {
-  v1 = *v0;
   sub_B65C();
   sub_B70C();
   sub_B67C();
-  v2 = sub_B71C();
+  v1 = sub_B71C();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_9B24(uint64_t *a1, uint64_t *a2)
+uint64_t sub_9B24(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_B65C();
-  v6 = v5;
-  if (v4 == sub_B65C() && v6 == v7)
+  v2 = sub_B65C();
+  v4 = v3;
+  if (v2 == sub_B65C() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_B6FC();
+    v7 = sub_B6FC();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_9BAC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_9BAC@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_B62C();
+  v3 = sub_B62C();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_9BF4@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_B65C();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
@@ -660,13 +655,13 @@ void type metadata accessor for OpenExternalURLOptionsKey()
 
 uint64_t sub_9C70(uint64_t a1)
 {
-  v2 = sub_9DA4(&qword_1A220);
-  v3 = sub_9DA4(&qword_1A228);
+  v2 = sub_9DA4(&qword_1A220, &unk_E0E4);
+  v3 = sub_9DA4(&qword_1A228, &unk_E038);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
-uint64_t sub_9DA4(unint64_t *a1)
+uint64_t sub_9DA4(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -701,7 +696,7 @@ uint64_t sub_9DE8()
   v3.super.isa = v2;
   v35._countAndFlagsBits = 0x5241444E454C4143;
   v35._object = 0xEE004C4542414C5FLL;
-  sub_B5BC(v27, v31, v3, v35, v22);
+  sub_B5BC(v27, v31, v3, v35, 0, v22);
 
   sub_A92C(&qword_1A278, &qword_E188);
   v4 = swift_allocObject();
@@ -715,7 +710,7 @@ uint64_t sub_9DE8()
   v36._object = 0x8000000000010E90;
   v6.super.isa = v5;
   v32.value._countAndFlagsBits = 0xD000000000000010;
-  v7 = sub_B5BC(v28, v32, v6, v36, v23);
+  v7 = sub_B5BC(v28, v32, v6, v36, 0, v23);
   v9 = v8;
 
   *(v4 + 56) = &type metadata for String;
@@ -732,7 +727,7 @@ uint64_t sub_9DE8()
   v37._object = 0x8000000000010EB0;
   v12.super.isa = v11;
   v33.value._countAndFlagsBits = 0xD000000000000010;
-  v13 = sub_B5BC(v29, v33, v12, v37, v24);
+  v13 = sub_B5BC(v29, v33, v12, v37, 0, v24);
   v15 = v14;
 
   *(v4 + 96) = &type metadata for String;
@@ -748,7 +743,7 @@ uint64_t sub_9DE8()
   v38._object = 0x8000000000010ED0;
   v17.super.isa = v16;
   v34.value._countAndFlagsBits = 0xD000000000000010;
-  v18 = sub_B5BC(v30, v34, v17, v38, v25);
+  v18 = sub_B5BC(v30, v34, v17, v38, 0, v25);
   v20 = v19;
 
   *(v4 + 136) = &type metadata for String;
@@ -830,7 +825,6 @@ uint64_t sub_A92C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -843,7 +837,6 @@ uint64_t sub_A974(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -851,7 +844,7 @@ uint64_t sub_A974(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_A9BC(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_A9BC(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -889,13 +882,12 @@ unint64_t sub_AA68()
 
 unint64_t sub_AABC(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   sub_B65C();
   sub_B70C();
   sub_B67C();
-  v4 = sub_B71C();
+  v2 = sub_B71C();
 
-  return sub_AB50(a1, v4);
+  return sub_AB50(a1, v2);
 }
 
 unint64_t sub_AB50(uint64_t a1, uint64_t a2)
@@ -907,17 +899,16 @@ unint64_t sub_AB50(uint64_t a1, uint64_t a2)
     v5 = ~v3;
     while (1)
     {
-      v6 = *(*(v2 + 48) + 8 * v4);
-      v7 = sub_B65C();
-      v9 = v8;
-      if (v7 == sub_B65C() && v9 == v10)
+      v6 = sub_B65C();
+      v8 = v7;
+      if (v6 == sub_B65C() && v8 == v9)
       {
         break;
       }
 
-      v12 = sub_B6FC();
+      v11 = sub_B6FC();
 
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         v4 = (v4 + 1) & v5;
         if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
@@ -1024,14 +1015,7 @@ void sub_AF40(id *a1)
 {
   v1 = [*a1 description];
   sub_3EE8();
-  sub_3EF4(&dword_0, v2, v3, "Calendar get settings response %@", v4, v5, v6, v7, v8);
-}
-
-void sub_AFC8(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_3F14();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  sub_3EF4(&dword_0, v2, v3, "Calendar get settings response %@", v4, v5, v6, v7);
 }
 
 void sub_B1F8()
@@ -1045,7 +1029,7 @@ void sub_B268(void *a1)
 {
   [a1 item];
   sub_3EE8();
-  sub_3EF4(&dword_0, v1, v2, "[CalendarSettingsController] Nil specifier at indexPath %ld", v3, v4, v5, v6, v7);
+  sub_3EF4(&dword_0, v1, v2, "[CalendarSettingsController] Nil specifier at indexPath %ld", v3, v4, v5, v6);
 }
 
 void sub_B2E0(uint64_t *a1, NSObject *a2)

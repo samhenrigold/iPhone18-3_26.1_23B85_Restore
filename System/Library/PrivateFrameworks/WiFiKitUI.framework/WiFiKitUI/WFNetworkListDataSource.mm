@@ -56,7 +56,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)setInfoButtonHandler:(id)handler
@@ -81,7 +81,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)setAssociationHandler:(id)handler
@@ -106,7 +106,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)setPendingDeletingNetworksChangedCallback:(id)callback
@@ -131,7 +131,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)setUnconfiguredNetworksSectionTitleDelegate:(id)delegate
@@ -156,7 +156,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_273FBD2BC(v7);
+  sub_273FBD2BC(v7, v8);
 }
 
 - (void)startEditingPreferredNetworks

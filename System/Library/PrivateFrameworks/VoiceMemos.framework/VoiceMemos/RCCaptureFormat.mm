@@ -8,6 +8,7 @@
 + (id)fileExtensionsSupported;
 + (id)supportedFileTypeIdentifiers;
 + (id)supportedFileTypes;
++ (void)AVAssetExportDetermineSettingsForExportingAsset:(id)asset preferredOutputExtension:(id)extension preferredFormat:(unsigned int)format completionHandler:(id)handler;
 + (void)_AVAssetExportDetermineSettingsForExportingAsset:(id)asset outputExtensionWithFallbacks:(id)fallbacks preferredFormat:(unsigned int)format completionHandler:(id)handler;
 @end
 
@@ -15,11 +16,10 @@
 
 + (id)fileExtensionsSupported
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"m4a";
-  v5[1] = @"qta";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"m4a";
+  v4[1] = @"qta";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -88,6 +88,26 @@
   return v6;
 }
 
++ (void)AVAssetExportDetermineSettingsForExportingAsset:(id)asset preferredOutputExtension:(id)extension preferredFormat:(unsigned int)format completionHandler:(id)handler
+{
+  v7 = *&format;
+  assetCopy = asset;
+  extensionCopy = extension;
+  handlerCopy = handler;
+  fileExtensionsSupported = [self fileExtensionsSupported];
+  v13 = [fileExtensionsSupported mutableCopy];
+
+  [v13 removeObject:@"m4a"];
+  [v13 insertObject:@"m4a" atIndex:0];
+  if ([extensionCopy length] && (objc_msgSend(@"m4a", "isEqual:", extensionCopy) & 1) == 0)
+  {
+    [v13 removeObject:extensionCopy];
+    [v13 insertObject:extensionCopy atIndex:0];
+  }
+
+  [self _AVAssetExportDetermineSettingsForExportingAsset:assetCopy outputExtensionWithFallbacks:v13 preferredFormat:v7 completionHandler:handlerCopy];
+}
+
 + (void)_AVAssetExportDetermineSettingsForExportingAsset:(id)asset outputExtensionWithFallbacks:(id)fallbacks preferredFormat:(unsigned int)format completionHandler:(id)handler
 {
   assetCopy = asset;
@@ -135,16 +155,16 @@ void __131__RCCaptureFormat__AVAssetExportDetermineSettingsForExportingAsset_out
     goto LABEL_9;
   }
 
-  v17 = [*(a1 + 32) rc_audioTracks];
-  if ([v17 count] <= 1)
+  v14 = [*(a1 + 32) rc_audioTracks];
+  if ([v14 count] <= 1)
   {
-    v3 = [v17 firstObject];
+    v3 = [v14 firstObject];
     v4 = [v3 formatDescriptions];
     v5 = [v4 count];
 
     if (v5 <= 1)
     {
-      v6 = [v17 firstObject];
+      v6 = [v14 firstObject];
       v7 = [v6 formatDescriptions];
       v8 = [v7 firstObject];
 
@@ -152,33 +172,30 @@ void __131__RCCaptureFormat__AVAssetExportDetermineSettingsForExportingAsset_out
       {
 
 LABEL_9:
-        v12 = [RCCaptureFormat AVAssetExportPresetForExportingToExtension:*(a1 + 40) preferredFormat:*(a1 + 80)];
-        v13 = MEMORY[0x277CE6400];
-        v14 = *(a1 + 32);
-        v15 = *(a1 + 48);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __131__RCCaptureFormat__AVAssetExportDetermineSettingsForExportingAsset_outputExtensionWithFallbacks_preferredFormat_completionHandler___block_invoke_2;
-        v18[3] = &unk_279E45208;
-        v24 = *(a1 + 64);
-        v19 = *(a1 + 40);
-        v20 = *(a1 + 48);
-        v21 = v12;
-        v25 = *(a1 + 72);
-        v22 = *(a1 + 32);
-        v23 = *(a1 + 56);
-        v26 = *(a1 + 80);
-        v16 = v12;
-        [v13 determineCompatibilityOfExportPreset:v16 withAsset:v14 outputFileType:v15 completionHandler:v18];
+        v9 = [RCCaptureFormat AVAssetExportPresetForExportingToExtension:*(a1 + 40) preferredFormat:*(a1 + 80)];
+        v10 = MEMORY[0x277CE6400];
+        v11 = *(a1 + 32);
+        v12 = *(a1 + 48);
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __131__RCCaptureFormat__AVAssetExportDetermineSettingsForExportingAsset_outputExtensionWithFallbacks_preferredFormat_completionHandler___block_invoke_2;
+        v15[3] = &unk_279E45208;
+        v21 = *(a1 + 64);
+        v16 = *(a1 + 40);
+        v17 = *(a1 + 48);
+        v18 = v9;
+        v22 = *(a1 + 72);
+        v19 = *(a1 + 32);
+        v20 = *(a1 + 56);
+        v23 = *(a1 + 80);
+        v13 = v9;
+        [v10 determineCompatibilityOfExportPreset:v13 withAsset:v11 outputFileType:v12 completionHandler:v15];
 
         return;
       }
     }
   }
 
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  v11 = *MEMORY[0x277CE5C78];
   (*(*(a1 + 64) + 16))();
 }
 
@@ -277,13 +294,12 @@ uint64_t __131__RCCaptureFormat__AVAssetExportDetermineSettingsForExportingAsset
 
 + (void)_AVAssetExportDetermineSettingsForExportingAsset:(uint64_t)a1 outputExtensionWithFallbacks:(NSObject *)a2 preferredFormat:completionHandler:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "+[RCCaptureFormat _AVAssetExportDetermineSettingsForExportingAsset:outputExtensionWithFallbacks:preferredFormat:completionHandler:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Unable to determine any output settings for asset %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "+[RCCaptureFormat _AVAssetExportDetermineSettingsForExportingAsset:outputExtensionWithFallbacks:preferredFormat:completionHandler:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_272442000, a2, OS_LOG_TYPE_ERROR, "%s -- Unable to determine any output settings for asset %@", &v2, 0x16u);
 }
 
 @end

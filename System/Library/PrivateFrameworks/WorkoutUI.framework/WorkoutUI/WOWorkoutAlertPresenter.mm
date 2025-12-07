@@ -26,7 +26,7 @@
 - (WOWorkoutAlertSuppressor)alertSuppressor
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter(&lazy protocol witness table cache variable for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter, type metadata accessor for WorkoutAlertPresenter);
+  lazy protocol witness table accessor for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter(&lazy protocol witness table cache variable for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter, type metadata accessor for WorkoutAlertPresenter, &protocol conformance descriptor for WorkoutAlertPresenter);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -39,7 +39,7 @@
 - (void)setAlertSuppressor:(id)suppressor
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter(&lazy protocol witness table cache variable for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter, type metadata accessor for WorkoutAlertPresenter);
+  lazy protocol witness table accessor for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter(&lazy protocol witness table cache variable for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter, type metadata accessor for WorkoutAlertPresenter, &protocol conformance descriptor for WorkoutAlertPresenter);
   swift_unknownObjectRetain();
   selfCopy = self;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
@@ -57,7 +57,7 @@
 - (NLWorkoutAlert)currentAlert
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter(&lazy protocol witness table cache variable for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter, type metadata accessor for WorkoutAlertPresenter);
+  lazy protocol witness table accessor for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter(&lazy protocol witness table cache variable for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter, type metadata accessor for WorkoutAlertPresenter, &protocol conformance descriptor for WorkoutAlertPresenter);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
@@ -103,7 +103,7 @@
   v10 = selfCopy;
   static DispatchUtilities.ensureMainQueueOrAsync(block:)();
 
-  __swift_destroy_boxed_opaque_existential_0(&v11);
+  __swift_destroy_boxed_opaque_existential_0(v11);
 }
 
 - (void)alertSource:(id)source speakUtterance:(id)utterance
@@ -118,7 +118,7 @@
 - (BOOL)canTriggerAlerts
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter(&lazy protocol witness table cache variable for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter, type metadata accessor for WorkoutAlertPresenter);
+  lazy protocol witness table accessor for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter(&lazy protocol witness table cache variable for type WorkoutAlertPresenter and conformance WorkoutAlertPresenter, type metadata accessor for WorkoutAlertPresenter, &protocol conformance descriptor for WorkoutAlertPresenter);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 

@@ -35,7 +35,7 @@
 
 void __123__PBFMigrationHelpers_updateConfiguredPropertiesForDataStoreURL_extensionToDescriptorMap_migrationKey_reason_match_update___block_invoke(void *a1, void *a2)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = a1[4];
   v5 = [v3 extensionIdentifier];
@@ -58,30 +58,30 @@ void __123__PBFMigrationHelpers_updateConfiguredPropertiesForDataStoreURL_extens
 
     if (!v9)
     {
-      v45 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v46 = 0u;
-      v43 = 0u;
-      v44 = 0u;
-      v34 = v3;
+      v47 = 0u;
+      v37 = v3;
       obj = [v3 configurationStoreCoordinatorsWithError:0];
-      v40 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
-      if (v40)
+      v43 = [obj countByEnumeratingWithState:&v46 objects:v58 count:16];
+      if (v43)
       {
-        v10 = *v44;
+        v10 = *v47;
         v11 = 0x277D3E000uLL;
-        v37 = *v44;
-        v38 = a1;
-        v35 = v6;
+        v40 = *v47;
+        v41 = a1;
+        v38 = v6;
         do
         {
-          for (i = 0; i != v40; ++i)
+          for (i = 0; i != v43; ++i)
           {
-            if (*v44 != v10)
+            if (*v47 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v43 + 1) + 8 * i);
+            v13 = *(*(&v46 + 1) + 8 * i);
             if (a1[4])
             {
               if ([v6 count])
@@ -99,91 +99,93 @@ void __123__PBFMigrationHelpers_updateConfiguredPropertiesForDataStoreURL_extens
             v16 = [v13 pathOfLatestVersion];
             v17 = [*(v11 + 3552) modelObjectCacheForPath:v16];
             v18 = [v17 configuredProperties];
-            if ((*(a1[7] + 16))())
+            v19 = (*(a1[7] + 16))();
+            if (v19)
             {
-              v19 = PBFLogMigration();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              v20 = PBFLogMigration(v19);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
                 [v13 extensionIdentifier];
-                v20 = v36 = v18;
-                v21 = [v13 descriptorIdentifier];
-                v22 = v38[6];
-                v23 = [v17 identity];
-                v24 = [v23 posterUUID];
+                v21 = v39 = v18;
+                v22 = [v13 descriptorIdentifier];
+                v23 = v41[6];
+                v24 = [v17 identity];
+                v25 = [v24 posterUUID];
                 *buf = 138413058;
-                v48 = v20;
-                v49 = 2112;
-                v50 = v21;
-                v51 = 2112;
-                v52 = v22;
-                a1 = v38;
-                v53 = 2112;
-                v54 = v24;
-                _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "Config for extension: %@ descriptor:%@ needs update for %@ UUID:%@", buf, 0x2Au);
+                v51 = v21;
+                v52 = 2112;
+                v53 = v22;
+                v54 = 2112;
+                v55 = v23;
+                a1 = v41;
+                v56 = 2112;
+                v57 = v25;
+                _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "Config for extension: %@ descriptor:%@ needs update for %@ UUID:%@", buf, 0x2Au);
 
-                v6 = v35;
-                v18 = v36;
+                v6 = v38;
+                v18 = v39;
               }
 
-              v25 = [v16 contentsURL];
-              v42 = 0;
-              v26 = [v13 addNewVersionWithContents:v25 error:&v42];
-              v27 = v42;
+              v26 = [v16 contentsURL];
+              v45 = 0;
+              v27 = [v13 addNewVersionWithContents:v26 error:&v45];
+              v28 = v45;
 
-              if (v26)
+              if (v27)
               {
-                if (v27)
+                if (v28)
                 {
-                  v28 = PBFLogMigration();
-                  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                  v30 = PBFLogMigration(v29);
+                  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
                   {
-                    v29 = a1[6];
+                    v31 = a1[6];
                     *buf = 138412546;
-                    v48 = v29;
-                    v49 = 2112;
-                    v50 = v27;
-                    _os_log_impl(&dword_21B526000, v28, OS_LOG_TYPE_DEFAULT, "%@ migration error creating new version of configuration: %@", buf, 0x16u);
+                    v51 = v31;
+                    v52 = 2112;
+                    v53 = v28;
+                    _os_log_impl(&dword_21B526000, v30, OS_LOG_TYPE_DEFAULT, "%@ migration error creating new version of configuration: %@", buf, 0x16u);
                   }
                 }
 
                 else
                 {
-                  v28 = [v13 pathOfLatestVersion];
-                  v30 = (*(a1[8] + 16))();
-                  v41 = 0;
-                  [MEMORY[0x277D3EDE8] storeConfiguredPropertiesForPath:v28 configuredProperties:v30 error:&v41];
-                  v31 = v41;
-                  if (v31)
+                  v30 = [v13 pathOfLatestVersion];
+                  v32 = (*(a1[8] + 16))();
+                  v44 = 0;
+                  [MEMORY[0x277D3EDE8] storeConfiguredPropertiesForPath:v30 configuredProperties:v32 error:&v44];
+                  v33 = v44;
+                  v34 = v33;
+                  if (v33)
                   {
-                    v32 = PBFLogMigration();
-                    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                    v35 = PBFLogMigration(v33);
+                    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                     {
-                      v33 = v38[6];
+                      v36 = v41[6];
                       *buf = 138412546;
-                      v48 = v33;
-                      v49 = 2112;
-                      v50 = v31;
-                      _os_log_impl(&dword_21B526000, v32, OS_LOG_TYPE_DEFAULT, "%@ migration error storing updated configuredProperties: %@", buf, 0x16u);
+                      v51 = v36;
+                      v52 = 2112;
+                      v53 = v34;
+                      _os_log_impl(&dword_21B526000, v35, OS_LOG_TYPE_DEFAULT, "%@ migration error storing updated configuredProperties: %@", buf, 0x16u);
                     }
                   }
 
-                  a1 = v38;
+                  a1 = v41;
                 }
               }
 
-              v10 = v37;
+              v10 = v40;
               v11 = 0x277D3E000;
             }
           }
 
-          v40 = [obj countByEnumeratingWithState:&v43 objects:v55 count:16];
+          v43 = [obj countByEnumeratingWithState:&v46 objects:v58 count:16];
         }
 
-        while (v40);
+        while (v43);
       }
 
-      v3 = v34;
-      [v34 providerInfoSetObject:MEMORY[0x277CBEC38] forKey:a1[5]];
+      v3 = v37;
+      [v37 providerInfoSetObject:MEMORY[0x277CBEC38] forKey:a1[5]];
     }
 
     [v3 invalidate];

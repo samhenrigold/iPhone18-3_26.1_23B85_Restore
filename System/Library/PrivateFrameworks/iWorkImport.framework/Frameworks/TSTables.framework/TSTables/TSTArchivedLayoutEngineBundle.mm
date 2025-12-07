@@ -9,40 +9,40 @@
 - (TSTArchivedLayoutEngineBundle)initWithLayoutEngine:(id)engine
 {
   engineCopy = engine;
-  v13.receiver = self;
-  v13.super_class = TSTArchivedLayoutEngineBundle;
-  v9 = [(TSTArchivedLayoutEngineBundle *)&v13 init];
-  if (v9)
+  v12.receiver = self;
+  v12.super_class = TSTArchivedLayoutEngineBundle;
+  v8 = [(TSTArchivedLayoutEngineBundle *)&v12 init];
+  if (v8)
   {
-    v10 = objc_msgSend_widthHeightCache(engineCopy, v5, v6, v7, v8);
-    widthHeightCache = v9->_widthHeightCache;
-    v9->_widthHeightCache = v10;
+    v9 = objc_msgSend_widthHeightCache(engineCopy, v5, v6, v7);
+    widthHeightCache = v8->_widthHeightCache;
+    v8->_widthHeightCache = v9;
   }
 
-  return v9;
+  return v8;
 }
 
 - (TSTArchivedLayoutEngineBundle)initWithArchive:(const void *)archive unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v17.receiver = self;
-  v17.super_class = TSTArchivedLayoutEngineBundle;
-  v7 = [(TSTArchivedLayoutEngineBundle *)&v17 init];
+  v15.receiver = self;
+  v15.super_class = TSTArchivedLayoutEngineBundle;
+  v7 = [(TSTArchivedLayoutEngineBundle *)&v15 init];
   if (v7 && (*(archive + 16) & 1) != 0)
   {
     v8 = [TSTWidthHeightCache alloc];
     if (*(archive + 3))
     {
-      v11 = objc_msgSend_initWithArchive_unarchiver_(v8, v9, *(archive + 3), unarchiverCopy, v10);
+      v10 = objc_msgSend_initWithArchive_unarchiver_(v8, v9, *(archive + 3), unarchiverCopy);
     }
 
     else
     {
-      v11 = objc_msgSend_initWithArchive_unarchiver_(v8, v9, &TST::_WidthHeightCache_default_instance_, unarchiverCopy, v10);
+      v10 = objc_msgSend_initWithArchive_unarchiver_(v8, v9, &TST::_WidthHeightCache_default_instance_, unarchiverCopy);
     }
 
-    v15 = v11;
-    objc_msgSend_setWidthHeightCache_(v7, v12, v11, v13, v14);
+    v13 = v10;
+    objc_msgSend_setWidthHeightCache_(v7, v11, v10, v12);
   }
 
   return v7;
@@ -53,18 +53,18 @@
   v5 = *&columns;
   v6 = *&rows;
   bundleCopy = bundle;
-  v16 = objc_msgSend_widthHeightCache(bundleCopy, v8, v9, v10, v11);
-  if (v16)
+  v14 = objc_msgSend_widthHeightCache(bundleCopy, v8, v9, v10);
+  if (v14)
   {
-    v17 = objc_msgSend_widthHeightCache(bundleCopy, v12, v13, v14, v15);
-    if (objc_msgSend_numberOfRows(v17, v18, v19, v20, v21) == v6)
+    v15 = objc_msgSend_widthHeightCache(bundleCopy, v11, v12, v13);
+    if (objc_msgSend_numberOfRows(v15, v16, v17, v18) == v6)
     {
-      v26 = objc_msgSend_widthHeightCache(bundleCopy, v22, v23, v24, v25);
-      v31 = objc_msgSend_numberOfColumns(v26, v27, v28, v29, v30);
+      v22 = objc_msgSend_widthHeightCache(bundleCopy, v19, v20, v21);
+      v26 = objc_msgSend_numberOfColumns(v22, v23, v24, v25);
 
-      if (v31 == v5)
+      if (v26 == v5)
       {
-        v36 = objc_msgSend_widthHeightCache(bundleCopy, v32, v33, v34, v35);
+        v30 = objc_msgSend_widthHeightCache(bundleCopy, v27, v28, v29);
         goto LABEL_7;
       }
     }
@@ -74,12 +74,12 @@
     }
   }
 
-  v37 = [TSTWidthHeightCache alloc];
-  v36 = objc_msgSend_initWithNumRows_andNumColumns_(v37, v38, v6, v5, v39);
+  v31 = [TSTWidthHeightCache alloc];
+  v30 = objc_msgSend_initWithNumRows_andNumColumns_(v31, v32, v6, v5);
 LABEL_7:
-  v40 = v36;
+  v33 = v30;
 
-  return v40;
+  return v33;
 }
 
 @end

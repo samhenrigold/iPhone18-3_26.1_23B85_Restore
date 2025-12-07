@@ -103,7 +103,7 @@
 
 + (BOOL)convertOIHWtoIOHW:(id)w sourceOIHW:(const void *)hW resultIOHW:(void *)oHW inputFeatureChannelCount:(unint64_t)count outputFeatureChannelCount:(unint64_t)channelCount
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   wCopy = w;
   descriptor = [wCopy descriptor];
   shape = [descriptor shape];
@@ -111,9 +111,9 @@
   unsignedIntegerValue = [v15 unsignedIntegerValue];
 
   channelCountCopy = channelCount;
-  v41 = unsignedIntegerValue;
-  v42 = wCopy;
-  v40 = channelCount * count;
+  v40 = unsignedIntegerValue;
+  v41 = wCopy;
+  v39 = channelCount * count;
   if (unsignedIntegerValue == channelCount * count)
   {
     descriptor2 = [wCopy descriptor];
@@ -124,7 +124,7 @@
     descriptor3 = [wCopy descriptor];
     shape3 = [descriptor3 shape];
     [shape3 objectAtIndexedSubscript:2];
-    v22 = v44 = count;
+    v22 = v43 = count;
     unsignedIntegerValue2 = [v22 unsignedIntegerValue];
 
     descriptor4 = [wCopy descriptor];
@@ -140,7 +140,7 @@
       v31 = unsignedIntegerValue2 * aSelectora * v27;
       v32 = v27 * unsignedIntegerValue2 * aSelectora;
       v33 = v32 * countCopy;
-      v43 = v32 * channelCountCopy;
+      v42 = v32 * channelCountCopy;
       do
       {
         aSelectorb = v28;
@@ -154,10 +154,10 @@
 
         ++v30;
         v29 += v31;
-        v28 = &aSelectorb[v43];
+        v28 = &aSelectorb[v42];
       }
 
-      while (v30 != v44);
+      while (v30 != v43);
     }
   }
 
@@ -166,21 +166,20 @@
     v36 = +[MLCLog framework];
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v39 = NSStringFromSelector(a2);
+      v38 = NSStringFromSelector(a2);
       *buf = 138413058;
-      v50 = v39;
-      v51 = 2048;
-      v52 = unsignedIntegerValue;
-      v53 = 2048;
+      v49 = v38;
+      v50 = 2048;
+      v51 = unsignedIntegerValue;
+      v52 = 2048;
       countCopy2 = count;
-      v55 = 2048;
+      v54 = 2048;
       channelCountCopy2 = channelCount;
       _os_log_error_impl(&dword_238C1D000, v36, OS_LOG_TYPE_ERROR, "%@: channel count of the weights=%lu does not match the multiplication of inputFeatureChannelCount=%lu and outputFeatureChannelCount=%lu", buf, 0x2Au);
     }
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-  return v41 == v40;
+  return v40 == v39;
 }
 
 + (BOOL)convertSourceOIHW:(const void *)w toResultHWIO:(void *)o width:(unint64_t)width height:(unint64_t)height inputFeatureChannelCount:(unint64_t)count outputFeatureChannelCount:(unint64_t)channelCount dataType:(int)type

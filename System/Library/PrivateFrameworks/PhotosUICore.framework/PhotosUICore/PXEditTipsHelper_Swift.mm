@@ -24,13 +24,12 @@
 + (void)setTipsPresentationDelegate:(id)delegate
 {
   swift_getObjCClassMetadata();
-  swift_unknownObjectRetain();
-  static PXEditTipsHelper.setTipsPresentationDelegate(_:)();
+  v3 = swift_unknownObjectRetain();
+  static PXEditTipsHelper.setTipsPresentationDelegate(_:)(v3);
 }
 
 + (void)setTip:(id)tip isPresentable:(BOOL)presentable
 {
-  presentableCopy = presentable;
   v5 = sub_1A524C674();
   v7 = v6;
   v8 = sub_1A3FA19C0();
@@ -38,7 +37,7 @@
   if (v9 || (sub_1A524EAB4() & 1) != 0)
   {
 
-    sub_1A3FA19EC(presentableCopy);
+    sub_1A3FA19EC(presentable);
   }
 
   else
@@ -58,14 +57,14 @@
       }
     }
 
-    sub_1A3FA2110(presentableCopy);
+    sub_1A3FA2110(presentable);
   }
 }
 
 + (void)setTipActionPerformed:(id)performed
 {
   v3 = sub_1A524C674();
-  _s12PhotosUICore16PXEditTipsHelperC21setTipActionPerformedyySSFZ_0(v3, v4);
+  _s12PhotosUICore16PXEditTipsHelperC21setTipActionPerformedyySSFZ_0(v3, v4, v5);
 }
 
 + (BOOL)isTipValid:(id)valid
@@ -78,12 +77,12 @@
 
 - (PXEditTipsHelper_Swift)init
 {
-  PXDisplayCollectionDetailedCountsMake(self);
-  PXDisplayCollectionDetailedCountsMake(v3);
+  PXDisplayCollectionDetailedCountsMake();
+  PXDisplayCollectionDetailedCountsMake();
   self->_anon_0[OBJC_IVAR___PXEditTipsHelper_Swift_hasStartedTips] = 0;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for PXEditTipsHelper();
-  return [(PXTipsHelper_Swift *)&v5 init];
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for PXEditTipsHelper();
+  return [(PXTipsHelper_Swift *)&v4 init];
 }
 
 @end

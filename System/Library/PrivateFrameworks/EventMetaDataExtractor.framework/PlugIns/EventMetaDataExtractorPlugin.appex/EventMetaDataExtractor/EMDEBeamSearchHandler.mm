@@ -78,7 +78,7 @@
 
   else
   {
-    v19 = modelLogHandle();
+    v19 = modelLogHandle(self);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10008B218(v19);
@@ -93,98 +93,99 @@
 - (void)updateBeamsWithPredictionFor:(id)for state:(__CFArray *)state predictions:(void *)predictions
 {
   forCopy = for;
+  v9 = forCopy;
   if (forCopy && state && predictions)
   {
     if (self->_beamWidth >= 1)
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        v10 = *(*(predictions + 1) + (((v9 + *(predictions + 4)) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v9 + *(predictions + 4)) & 0x1FF);
-        if (*v10 == self->_EOSToken)
+        v11 = *(*(predictions + 1) + (((v10 + *(predictions + 4)) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v10 + *(predictions + 4)) & 0x1FF);
+        if (*v11 == self->_EOSToken)
         {
-          v11 = [EMDEBeamPath alloc];
-          v12 = *(*(*(predictions + 1) + (((v9 + *(predictions + 4)) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v9 + *(predictions + 4)) & 0x1FF));
+          v12 = [EMDEBeamPath alloc];
+          v13 = *(*(*(predictions + 1) + (((v10 + *(predictions + 4)) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v10 + *(predictions + 4)) & 0x1FF));
           lengthPenalty = self->_lengthPenalty;
-          v14 = +[EMDEUtils config];
-          v15 = [v14 objectForKeyedSubscript:@"EMDE_BEAM_VALIDATION_REQUIRED"];
-          bOOLValue = [v15 BOOLValue];
-          *&v17 = lengthPenalty;
-          v18 = [(EMDEBeamPath *)v11 initFinishedBeamFrom:forCopy additionalToken:v12 lengthPenalty:bOOLValue validate:v17];
+          v15 = +[EMDEUtils config];
+          v16 = [v15 objectForKeyedSubscript:@"EMDE_BEAM_VALIDATION_REQUIRED"];
+          bOOLValue = [v16 BOOLValue];
+          *&v18 = lengthPenalty;
+          v19 = [(EMDEBeamPath *)v12 initFinishedBeamFrom:v9 additionalToken:v13 lengthPenalty:bOOLValue validate:v18];
 
-          if (v18)
+          if (v19)
           {
-            [(NSMutableArray *)self->_finishedBeams addObject:v18];
+            [(NSMutableArray *)self->_finishedBeams addObject:v19];
             finishedBeamMaxScore = self->_finishedBeamMaxScore;
-            [v18 averageScore];
-            if (finishedBeamMaxScore < v20)
+            [v19 averageScore];
+            if (finishedBeamMaxScore < v21)
             {
-              [v18 averageScore];
-              self->_finishedBeamMaxScore = v21;
+              [v19 averageScore];
+              self->_finishedBeamMaxScore = v22;
             }
           }
         }
 
         else
         {
-          if (*(v10 + 4) < self->_tokenThreshold)
+          if (*(v11 + 4) < self->_tokenThreshold)
           {
             break;
           }
 
-          v22 = [EMDEBeamPath alloc];
-          v23 = *(*(*(predictions + 1) + (((v9 + *(predictions + 4)) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v9 + *(predictions + 4)) & 0x1FF));
-          v24 = self->_lengthPenalty;
-          v25 = +[EMDEUtils config];
-          v26 = [v25 objectForKeyedSubscript:@"EMDE_BEAM_VALIDATION_REQUIRED"];
-          bOOLValue2 = [v26 BOOLValue];
-          *&v28 = v24;
-          v18 = [(EMDEBeamPath *)v22 initChildBeamFrom:forCopy additionalToken:v23 state:state lengthPenalty:bOOLValue2 validate:v28];
+          v23 = [EMDEBeamPath alloc];
+          v24 = *(*(*(predictions + 1) + (((v10 + *(predictions + 4)) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((v10 + *(predictions + 4)) & 0x1FF));
+          v25 = self->_lengthPenalty;
+          v26 = +[EMDEUtils config];
+          v27 = [v26 objectForKeyedSubscript:@"EMDE_BEAM_VALIDATION_REQUIRED"];
+          bOOLValue2 = [v27 BOOLValue];
+          *&v29 = v25;
+          v19 = [(EMDEBeamPath *)v23 initChildBeamFrom:v9 additionalToken:v24 state:state lengthPenalty:bOOLValue2 validate:v29];
 
-          if (v18)
+          if (v19)
           {
-            [v18 averageScore];
-            if ((v29 * self->_earlyStoppingPatience) > self->_finishedBeamMaxScore)
+            [v19 averageScore];
+            if ((v30 * self->_earlyStoppingPatience) > self->_finishedBeamMaxScore)
             {
-              [(NSMutableArray *)self->_nextBeams addObject:v18];
+              [(NSMutableArray *)self->_nextBeams addObject:v19];
             }
           }
         }
 
-        ++v9;
+        ++v10;
       }
 
-      while (v9 < self->_beamWidth);
+      while (v10 < self->_beamWidth);
     }
   }
 
   else
   {
-    v30 = modelLogHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v31 = modelLogHandle(forCopy);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      v31 = 138412802;
-      v32 = forCopy;
-      v33 = 2112;
+      v32 = 138412802;
+      v33 = v9;
+      v34 = 2112;
       stateCopy = state;
-      v35 = 2112;
+      v36 = 2112;
       predictionsCopy = predictions;
-      _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "EMDEBeamSearchHandler - Found nil in input parameters for updateBeamsWithPredictionFor:%@ state:%@ predictions:%@", &v31, 0x20u);
+      _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "EMDEBeamSearchHandler - Found nil in input parameters for updateBeamsWithPredictionFor:%@ state:%@ predictions:%@", &v32, 0x20u);
     }
   }
 }
 
 - (void)runNextTimeStep
 {
-  v64[0] = kMRLNeuralNetworkTensorInfoInputDimensionKey;
+  v53[0] = kMRLNeuralNetworkTensorInfoInputDimensionKey;
   v3 = [NSNumber numberWithInt:1];
-  v65[0] = v3;
-  v64[1] = kMRLNeuralNetworkTensorInfoSequenceLengthKey;
+  v54[0] = v3;
+  v53[1] = kMRLNeuralNetworkTensorInfoSequenceLengthKey;
   v4 = [NSNumber numberWithInt:1];
-  v65[1] = v4;
-  v43 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:2];
+  v54[1] = v4;
+  v32 = [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:2];
 
-  v61 = 0;
+  v50 = 0;
   begin = self->_previousStates.__begin_;
   if (self->_previousStates.__end_ != begin)
   {
@@ -200,115 +201,104 @@
 
   v7 = self->_currentStates.__begin_;
   self->_previousStates.__end_ = begin;
-  sub_100003FB0(&self->_previousStates.__begin_, v7, self->_currentStates.__end_, (self->_currentStates.__end_ - v7) >> 3);
+  sub_100003FB0(&self->_previousStates, v7, self->_currentStates.__end_, (self->_currentStates.__end_ - v7) >> 3);
   self->_currentStates.__end_ = self->_currentStates.__begin_;
-  *v46.i32 = self->_currentPosition;
-  v59 = 0;
-  v60 = 0;
-  v58 = 0;
-  sub_1000040DC(&v58, &v46, v46.i64 + 4, 1uLL);
+  *v35.i32 = self->_currentPosition;
+  v48 = 0;
+  v49 = 0;
+  v47 = 0;
+  sub_1000040DC(&v47, v35.i32, &v35.i32[1], 1uLL);
   self->_positionTensor = MRLNeuralNetworkTensorCreate();
   MRLNeuralNetworkTensorAppendData();
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = self->_activeBeams;
-  v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v54 objects:v63 count:16];
+  v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (v8)
   {
-    v9 = *v55;
+    v9 = *v44;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v55 != v9)
+        if (*v44 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v54 + 1) + 8 * i);
-        [v11 tokens];
-        [v11 tokens];
-        v44 = *(v46.i64[0] + v50 - __p - 4);
-        v52 = 0;
-        v53 = 0;
-        v51 = 0;
-        sub_1000040DC(&v51, &v44, &v45, 1uLL);
+        v11 = *(*(&v43 + 1) + 8 * i);
+        objc_msgSend_tokens(v11);
+        objc_msgSend_tokens(v11);
+        v33 = *(v35.i64[0] + v39 - __p - 4);
+        v41 = 0;
+        v42 = 0;
+        v40 = 0;
+        sub_1000040DC(&v40, &v33, &v34, 1uLL);
         if (__p)
         {
-          v50 = __p;
+          v39 = __p;
           operator delete(__p);
         }
 
-        if (v46.i64[0])
+        if (v35.i64[0])
         {
-          v46.i64[1] = v46.i64[0];
-          operator delete(v46.i64[0]);
+          v35.i64[1] = v35.i64[0];
+          operator delete(v35.i64[0]);
         }
 
         self->_inputTensor = MRLNeuralNetworkTensorCreate();
         MRLNeuralNetworkTensorAppendData();
-        inputTensor = self->_inputTensor;
-        v13 = *self->_model;
         MRLNeuralNetworkSetInputTensor();
-        v14 = *self->_model;
-        positionTensor = self->_positionTensor;
         MRLNeuralNetworkSetInputTensor();
-        v16 = *self->_model;
-        segmentTensor = self->_segmentTensor;
         MRLNeuralNetworkSetInputTensor();
-        v18 = *self->_model;
-        tempTensor = self->_tempTensor;
         MRLNeuralNetworkSetInputTensor();
-        v20 = *self->_model;
         [v11 state];
         MRLNeuralNetworkPredict();
-        v21 = *self->_model;
-        v61 = MRLNeuralNetworkCopyStates();
-        sub_1000032BC(&self->_currentStates, &v61);
-        v22 = *self->_model;
+        v50 = MRLNeuralNetworkCopyStates();
+        sub_1000032BC(&self->_currentStates, &v50);
         Output = MRLNeuralNetworkGetOutput();
         beamWidth = self->_beamWidth;
         __p = 0;
-        sub_1000041D4(&v46, beamWidth, &__p);
+        sub_1000041D4(&v35, beamWidth, &__p);
         vocabSize = self->_vocabSize;
         if (vocabSize >= 1)
         {
           for (j = 0; j < vocabSize; ++j)
           {
-            v27 = self->_beamWidth;
-            if (v27 >= 1)
+            v16 = self->_beamWidth;
+            if (v16 >= 1)
             {
-              v28 = 0;
-              v29 = -v27;
-              v30 = v48;
-              while (*(Output + 4 * j) <= *(*(v46.i64[1] + ((v30 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v30 & 0x1FF) + 4))
+              v17 = 0;
+              v18 = -v16;
+              v19 = v37;
+              while (*(Output + 4 * j) <= *(*(v35.i64[1] + ((v19 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v19 & 0x1FF) + 4))
               {
-                --v28;
-                ++v30;
-                if (v29 == v28)
+                --v17;
+                ++v19;
+                if (v18 == v17)
                 {
                   goto LABEL_24;
                 }
               }
 
-              if (v47 == v46.i64[1])
+              if (v36 == v35.i64[1])
               {
-                v31 = 0;
+                v20 = 0;
               }
 
               else
               {
-                v31 = *(v46.i64[1] + 8 * (v48 >> 9)) + 8 * (v48 & 0x1FF);
+                v20 = *(v35.i64[1] + 8 * (v37 >> 9)) + 8 * (v37 & 0x1FF);
               }
 
-              __p = (v46.i64[1] + 8 * (v48 >> 9));
-              v50 = v31;
-              v32 = sub_100003720(&__p, -v28);
-              v44 = *&j;
-              v45 = *(Output + 4 * j);
-              sub_100003390(&v46, v32, v33, &v44);
+              __p = (v35.i64[1] + 8 * (v37 >> 9));
+              v39 = v20;
+              v21 = sub_100003720(&__p, -v17);
+              v33 = *&j;
+              v34 = *(Output + 4 * j);
+              sub_100003390(&v35, v21, v22, &v33);
               vocabSize = self->_vocabSize;
             }
 
@@ -317,17 +307,17 @@ LABEL_24:
           }
         }
 
-        [(EMDEBeamSearchHandler *)self updateBeamsWithPredictionFor:v11 state:v61 predictions:&v46];
+        [(EMDEBeamSearchHandler *)self updateBeamsWithPredictionFor:v11 state:v50 predictions:&v35];
         CFRelease(self->_inputTensor);
-        sub_100004B1C(&v46);
-        if (v51)
+        sub_100004B1C(&v35);
+        if (v40)
         {
-          v52 = v51;
-          operator delete(v51);
+          v41 = v40;
+          operator delete(v40);
         }
       }
 
-      v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v54 objects:v63 count:16];
+      v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
     while (v8);
@@ -336,35 +326,35 @@ LABEL_24:
   CFRelease(self->_positionTensor);
   [(NSMutableArray *)self->_activeBeams removeAllObjects];
   nextBeams = self->_nextBeams;
-  v35 = [NSSortDescriptor sortDescriptorWithKey:@"score" ascending:0];
-  v62 = v35;
-  v36 = [NSArray arrayWithObjects:&v62 count:1];
-  [(NSMutableArray *)nextBeams sortUsingDescriptors:v36];
+  v24 = [NSSortDescriptor sortDescriptorWithKey:@"score" ascending:0];
+  v51 = v24;
+  v25 = [NSArray arrayWithObjects:&v51 count:1];
+  [(NSMutableArray *)nextBeams sortUsingDescriptors:v25];
 
   for (k = 0; ; ++k)
   {
-    v38 = [(NSMutableArray *)self->_nextBeams count];
-    v39 = self->_beamWidth;
-    if (v39 >= v38)
+    v27 = [(NSMutableArray *)self->_nextBeams count];
+    v28 = self->_beamWidth;
+    if (v28 >= v27)
     {
-      v39 = v38;
+      v28 = v27;
     }
 
-    if (k >= v39)
+    if (k >= v28)
     {
       break;
     }
 
     activeBeams = self->_activeBeams;
-    v41 = [(NSMutableArray *)self->_nextBeams objectAtIndex:k];
-    [(NSMutableArray *)activeBeams addObject:v41];
+    v30 = [(NSMutableArray *)self->_nextBeams objectAtIndex:k];
+    [(NSMutableArray *)activeBeams addObject:v30];
   }
 
   [(NSMutableArray *)self->_nextBeams removeAllObjects];
-  if (v58)
+  if (v47)
   {
-    v59 = v58;
-    operator delete(v58);
+    v48 = v47;
+    operator delete(v47);
   }
 }
 
@@ -374,32 +364,30 @@ LABEL_24:
   if (state)
   {
     self->_currentPosition = position;
-    v37[0] = kMRLNeuralNetworkTensorInfoInputDimensionKey;
+    v35[0] = kMRLNeuralNetworkTensorInfoInputDimensionKey;
     v7 = [NSNumber numberWithInt:1];
-    v38[0] = v7;
-    v37[1] = kMRLNeuralNetworkTensorInfoSequenceLengthKey;
+    v36[0] = v7;
+    v35[1] = kMRLNeuralNetworkTensorInfoSequenceLengthKey;
     v8 = [NSNumber numberWithInt:1];
-    v38[1] = v8;
-    v9 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
+    v36[1] = v8;
+    v9 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:2];
 
-    LODWORD(v29) = 1065353216;
-    v33 = 0;
-    v34 = 0;
-    v32 = 0;
-    sub_1000040DC(&v32, &v29, &v29 + 4, 1uLL);
-    v28 = 1065353216;
-    v30 = 0;
+    LODWORD(v27) = 1065353216;
     v31 = 0;
+    v32 = 0;
+    v30 = 0;
+    sub_1000040DC(&v30, &v27, &v27 + 1, 1uLL);
+    v26 = 1065353216;
+    v28 = 0;
     v29 = 0;
-    sub_1000040DC(&v29, &v28, &v29, 1uLL);
+    v27 = 0;
+    sub_1000040DC(&v27, &v26, &v27, 1uLL);
     self->_segmentTensor = MRLNeuralNetworkTensorCreate();
     self->_tempTensor = MRLNeuralNetworkTensorCreate();
-    segmentTensor = self->_segmentTensor;
     MRLNeuralNetworkTensorAppendData();
-    tempTensor = self->_tempTensor;
     MRLNeuralNetworkTensorAppendData();
-    v12 = [EMDEBeamPath alloc];
-    v13 = stateCopy;
+    v10 = [EMDEBeamPath alloc];
+    v11 = stateCopy;
     if (*(&a5->__rep_.__l + 23) < 0)
     {
       sub_100019AD4(__p, a5->__rep_.__l.__data_, a5->__rep_.__l.__size_);
@@ -408,20 +396,20 @@ LABEL_24:
     else
     {
       *__p = *a5->__rep_.__s.__data_;
-      v27 = *(&a5->__rep_.__l + 2);
+      v25 = *(&a5->__rep_.__l + 2);
     }
 
-    v15 = [(EMDEBeamPath *)v12 initWithState:v13 allowedWords:__p];
-    if (SHIBYTE(v27) < 0)
+    v13 = [(EMDEBeamPath *)v10 initWithState:v11 allowedWords:__p];
+    if (SHIBYTE(v25) < 0)
     {
       operator delete(__p[0]);
     }
 
-    [(NSMutableArray *)self->_activeBeams addObject:v15, __p[0], __p[1], v27];
+    [(NSMutableArray *)self->_activeBeams addObject:v13, __p[0], __p[1], v25];
     sub_1000032BC(&self->_currentStates, &stateCopy);
     currentPosition = self->_currentPosition;
-    v17 = currentPosition + self->_maxLength - 2;
-    while (currentPosition < v17 && [(NSMutableArray *)self->_activeBeams count])
+    v15 = currentPosition + self->_maxLength - 2;
+    while (currentPosition < v15 && [(NSMutableArray *)self->_activeBeams count])
     {
       [(EMDEBeamSearchHandler *)self runNextTimeStep];
       currentPosition = self->_currentPosition + 1;
@@ -431,72 +419,72 @@ LABEL_24:
     begin = self->_previousStates.__begin_;
     if (self->_previousStates.__end_ != begin)
     {
-      v19 = 0;
+      v17 = 0;
       do
       {
-        CFRelease(begin[v19++]);
+        CFRelease(begin[v17++]);
         begin = self->_previousStates.__begin_;
       }
 
-      while (v19 < self->_previousStates.__end_ - begin);
+      while (v17 < self->_previousStates.__end_ - begin);
     }
 
-    v20 = self->_currentStates.__begin_;
-    if (self->_currentStates.__end_ != v20)
+    v18 = self->_currentStates.__begin_;
+    if (self->_currentStates.__end_ != v18)
     {
-      v21 = 0;
+      v19 = 0;
       do
       {
-        CFRelease(v20[v21++]);
-        v20 = self->_currentStates.__begin_;
+        CFRelease(v18[v19++]);
+        v18 = self->_currentStates.__begin_;
       }
 
-      while (v21 < self->_currentStates.__end_ - v20);
+      while (v19 < self->_currentStates.__end_ - v18);
     }
 
     CFRelease(self->_segmentTensor);
     CFRelease(self->_tempTensor);
     finishedBeams = self->_finishedBeams;
-    v23 = [NSSortDescriptor sortDescriptorWithKey:@"averageScore" ascending:0];
-    v36 = v23;
-    v24 = [NSArray arrayWithObjects:&v36 count:1];
-    [(NSMutableArray *)finishedBeams sortUsingDescriptors:v24];
+    v21 = [NSSortDescriptor sortDescriptorWithKey:@"averageScore" ascending:0];
+    v34 = v21;
+    v22 = [NSArray arrayWithObjects:&v34 count:1];
+    [(NSMutableArray *)finishedBeams sortUsingDescriptors:v22];
 
     if ([(NSMutableArray *)self->_finishedBeams count])
     {
-      v14 = [(NSMutableArray *)self->_finishedBeams objectAtIndex:0];
+      v12 = [(NSMutableArray *)self->_finishedBeams objectAtIndex:0];
     }
 
     else
     {
-      v14 = 0;
+      v12 = 0;
     }
 
-    if (v29)
+    if (v27)
     {
-      v30 = v29;
-      operator delete(v29);
+      v28 = v27;
+      operator delete(v27);
     }
 
-    if (v32)
+    if (v30)
     {
-      v33 = v32;
-      operator delete(v32);
+      v31 = v30;
+      operator delete(v30);
     }
   }
 
   else
   {
-    v9 = modelLogHandle();
+    v9 = modelLogHandle(self);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10008B294(v9);
     }
 
-    v14 = 0;
+    v12 = 0;
   }
 
-  return v14;
+  return v12;
 }
 
 - (vector<const)previousStates

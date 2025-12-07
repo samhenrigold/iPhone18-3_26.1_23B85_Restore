@@ -8,50 +8,51 @@
 
 - (SpringGroupAnimation)init
 {
-  v11.receiver = self;
-  v11.super_class = SpringGroupAnimation;
-  v2 = [(GroupAnimation *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = SpringGroupAnimation;
+  v2 = [(GroupAnimation *)&v12 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_2DD54();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = sub_2DD54(v2);
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
 LABEL_9:
 
-      return v2;
+      return v3;
     }
 
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v5 = v3;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     if (objc_opt_respondsToSelector())
     {
-      v7 = [(SpringGroupAnimation *)v4 performSelector:"accessibilityIdentifier"];
-      v8 = v7;
-      if (v7 && ![v7 isEqualToString:v6])
+      v8 = [(SpringGroupAnimation *)v5 performSelector:"accessibilityIdentifier"];
+      v9 = v8;
+      if (v8 && ![v8 isEqualToString:v7])
       {
-        v9 = [NSString stringWithFormat:@"%@<%p, %@>", v6, v4, v8];
+        v10 = [NSString stringWithFormat:@"%@<%p, %@>", v7, v5, v9];
 
         goto LABEL_8;
       }
     }
 
-    v9 = [NSString stringWithFormat:@"%@<%p>", v6, v4];
+    v10 = [NSString stringWithFormat:@"%@<%p>", v7, v5];
 LABEL_8:
 
     *buf = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "[%{public}@] Initializing", buf, 0xCu);
+    v14 = v10;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "[%{public}@] Initializing", buf, 0xCu);
 
     goto LABEL_9;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_2DD54();
+  v3 = sub_2DD54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     selfCopy = self;
@@ -92,26 +93,27 @@ LABEL_10:
 - (void)runWithDuration:(double)duration delay:(double)delay options:(unint64_t)options mass:(double)mass stiffness:(double)stiffness damping:(double)damping initialVelocity:(double)velocity
 {
   isAnimated = [(GroupAnimation *)self isAnimated];
-  v18 = sub_2DD54();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
-  if (isAnimated)
+  v18 = isAnimated;
+  v19 = sub_2DD54(isAnimated);
+  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+  if (v18)
   {
-    if (!v19)
+    if (!v20)
     {
 LABEL_20:
 
       [(GroupAnimation *)self prepare];
+      v35[0] = _NSConcreteStackBlock;
+      v35[1] = 3221225472;
+      v35[2] = sub_30720;
+      v35[3] = &unk_69228;
+      v35[4] = self;
       v34[0] = _NSConcreteStackBlock;
       v34[1] = 3221225472;
-      v34[2] = sub_30720;
-      v34[3] = &unk_69228;
+      v34[2] = sub_30728;
+      v34[3] = &unk_7FC30;
       v34[4] = self;
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_30728;
-      v33[3] = &unk_7FC30;
-      v33[4] = self;
-      [UIView _animateUsingSpringWithDuration:options delay:v34 options:v33 mass:duration stiffness:delay damping:mass initialVelocity:stiffness animations:damping completion:velocity];
+      [UIView _animateUsingSpringWithDuration:options delay:v35 options:v34 mass:duration stiffness:delay damping:mass initialVelocity:stiffness animations:damping completion:velocity];
       return;
     }
 
@@ -122,46 +124,46 @@ LABEL_20:
       goto LABEL_19;
     }
 
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
     if (objc_opt_respondsToSelector())
     {
-      v23 = [(SpringGroupAnimation *)selfCopy performSelector:"accessibilityIdentifier"];
-      v24 = v23;
-      if (v23 && ![v23 isEqualToString:v22])
+      v24 = [(SpringGroupAnimation *)selfCopy performSelector:"accessibilityIdentifier"];
+      v25 = v24;
+      if (v24 && ![v24 isEqualToString:v23])
       {
-        selfCopy = [NSString stringWithFormat:@"%@<%p, %@>", v22, selfCopy, v24];
+        selfCopy = [NSString stringWithFormat:@"%@<%p, %@>", v23, selfCopy, v25];
 
         goto LABEL_9;
       }
     }
 
-    selfCopy = [NSString stringWithFormat:@"%@<%p>", v22, selfCopy];
+    selfCopy = [NSString stringWithFormat:@"%@<%p>", v23, selfCopy];
 LABEL_9:
 
 LABEL_19:
     *buf = 138545154;
-    v36 = selfCopy;
-    v37 = 2048;
+    v37 = selfCopy;
+    v38 = 2048;
     durationCopy = duration;
-    v39 = 2048;
+    v40 = 2048;
     delayCopy = delay;
-    v41 = 2048;
+    v42 = 2048;
     optionsCopy = options;
-    v43 = 2048;
+    v44 = 2048;
     massCopy = mass;
-    v45 = 2048;
+    v46 = 2048;
     stiffnessCopy = stiffness;
-    v47 = 2048;
+    v48 = 2048;
     dampingCopy = damping;
-    v49 = 2048;
+    v50 = 2048;
     velocityCopy = velocity;
-    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "[%{public}@] runWithDuration:%#.1lfs delay:%#.1lf options:%lu mass:%lf stiffness:%lf damping:%lf initialVelocity:%lf", buf, 0x52u);
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "[%{public}@] runWithDuration:%#.1lfs delay:%#.1lf options:%lu mass:%lf stiffness:%lf damping:%lf initialVelocity:%lf", buf, 0x52u);
 
     goto LABEL_20;
   }
 
-  if (v19)
+  if (v20)
   {
     selfCopy2 = self;
     if (!selfCopy2)
@@ -170,35 +172,35 @@ LABEL_19:
       goto LABEL_22;
     }
 
-    v27 = objc_opt_class();
-    v28 = NSStringFromClass(v27);
+    v28 = objc_opt_class();
+    v29 = NSStringFromClass(v28);
     if (objc_opt_respondsToSelector())
     {
-      v29 = [(SpringGroupAnimation *)selfCopy2 performSelector:"accessibilityIdentifier"];
-      v30 = v29;
-      if (v29 && ![v29 isEqualToString:v28])
+      v30 = [(SpringGroupAnimation *)selfCopy2 performSelector:"accessibilityIdentifier"];
+      v31 = v30;
+      if (v30 && ![v30 isEqualToString:v29])
       {
-        selfCopy2 = [NSString stringWithFormat:@"%@<%p, %@>", v28, selfCopy2, v30];
+        selfCopy2 = [NSString stringWithFormat:@"%@<%p, %@>", v29, selfCopy2, v31];
 
         goto LABEL_17;
       }
     }
 
-    selfCopy2 = [NSString stringWithFormat:@"%@<%p>", v28, selfCopy2];
+    selfCopy2 = [NSString stringWithFormat:@"%@<%p>", v29, selfCopy2];
 LABEL_17:
 
 LABEL_22:
     *buf = 138543362;
-    v36 = selfCopy2;
-    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "[%{public}@] runWithoutAnimation", buf, 0xCu);
+    v37 = selfCopy2;
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "[%{public}@] runWithoutAnimation", buf, 0xCu);
   }
 
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_30734;
-  v32[3] = &unk_69228;
-  v32[4] = self;
-  [UIView performWithoutAnimation:v32];
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_30734;
+  v33[3] = &unk_69228;
+  v33[4] = self;
+  [UIView performWithoutAnimation:v33];
 }
 
 @end

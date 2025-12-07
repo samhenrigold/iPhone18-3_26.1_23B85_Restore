@@ -45,32 +45,32 @@
 
 - (_DKHistogram)initWithValues:(id)values
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   v5 = [(_DKHistogram *)self init];
   if (v5)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v6 = valuesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
-          v12 = [(NSMutableDictionary *)v5->_histogram objectForKeyedSubscript:v11, v17];
+          v11 = *(*(&v16 + 1) + 8 * i);
+          v12 = [(NSMutableDictionary *)v5->_histogram objectForKeyedSubscript:v11, v16];
           unsignedIntegerValue = [v12 unsignedIntegerValue];
 
           v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedIntegerValue + 1];
@@ -79,61 +79,59 @@
           ++v5->_countOverAllValues;
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v8);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_DKHistogram)initWithHistogram:(id)histogram
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   histogramCopy = histogram;
   v5 = [(_DKHistogram *)self init];
   v6 = v5;
   if (v5)
   {
     [(NSMutableDictionary *)v5->_histogram addEntriesFromDictionary:histogramCopy];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = v6->_histogram;
-    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [(NSMutableDictionary *)v6->_histogram objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v11), v15];
+          v12 = [(NSMutableDictionary *)v6->_histogram objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v11), v14];
           v6->_countOverAllValues += [v12 unsignedIntegerValue];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -344,30 +342,30 @@ LABEL_7:
 
 - (void)addHistogram:(id)histogram
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   histogramCopy = histogram;
   context = objc_autoreleasePoolPush();
   [(_DKHistogram *)self _addPropertiesFrom:histogramCopy];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   histogram = [histogramCopy histogram];
-  v6 = [histogram countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [histogram countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(histogram);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_histogram objectForKeyedSubscript:v10];
         [v11 doubleValue];
         v13 = v12;
@@ -383,14 +381,13 @@ LABEL_7:
         self->_countOverAllValues = (v17 + self->_countOverAllValues);
       }
 
-      v7 = [histogram countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [histogram countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
 
   objc_autoreleasePoolPop(context);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addHistogram:(id)histogram decayingExistingCounts:(double)counts
@@ -432,7 +429,7 @@ LABEL_7:
 
 - (void)subtractHistogram:(id)histogram
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   histogramCopy = histogram;
   context = objc_autoreleasePoolPush();
   v5 = [MEMORY[0x1E695DF70] arrayWithArray:self->_deviceIdentifiers];
@@ -443,26 +440,26 @@ LABEL_7:
   deviceIdentifiers = [histogramCopy deviceIdentifiers];
   [(NSArray *)v7 removeObjectsInArray:deviceIdentifiers];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   histogram = [histogramCopy histogram];
-  v10 = [histogram countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [histogram countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(histogram);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         v15 = [(NSMutableDictionary *)self->_histogram objectForKeyedSubscript:v14];
         unsignedIntegerValue = [v15 unsignedIntegerValue];
 
@@ -484,14 +481,13 @@ LABEL_7:
         self->_countOverAllValues -= unsignedIntegerValue;
       }
 
-      v11 = [histogram countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [histogram countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   objc_autoreleasePoolPop(context);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -513,20 +509,20 @@ LABEL_7:
 
 - (_DKHistogram)initWithCoder:(id)coder
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v22[2] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v21[2] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
   v7 = [v4 setWithArray:v6];
 
   v8 = MEMORY[0x1E695DFD8];
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
-  v10 = [v8 setWithArray:{v9, v21[0]}];
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+  v10 = [v8 setWithArray:{v9, v20[0]}];
 
   v11 = [coderCopy decodeObjectOfClasses:v7 forKey:@"histogram"];
   v12 = [coderCopy decodeObjectOfClasses:v10 forKey:@"deviceIdentifiers"];
@@ -546,7 +542,6 @@ LABEL_7:
     [(_DKHistogram *)v18 setCustomIdentifier:v16];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -564,11 +559,11 @@ LABEL_7:
 
 - (_DKHistogram)initWithManagedObject:(id)object
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v47.receiver = self;
-  v47.super_class = _DKHistogram;
-  v5 = [(_DKHistogram *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = _DKHistogram;
+  v5 = [(_DKHistogram *)&v46 init];
   if (!v5)
   {
     goto LABEL_22;
@@ -578,13 +573,13 @@ LABEL_7:
   value = [objectCopy value];
   v8 = [v6 dictionaryWithCapacity:{objc_msgSend(value, "count")}];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
-  v42 = objectCopy;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v41 = objectCopy;
   value2 = [objectCopy value];
-  v10 = [value2 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v10 = [value2 countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (!v10)
   {
     v12 = 0;
@@ -593,17 +588,17 @@ LABEL_7:
 
   v11 = v10;
   v12 = 0;
-  v13 = *v44;
+  v13 = *v43;
   while (2)
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v44 != v13)
+      if (*v43 != v13)
       {
         objc_enumerationMutation(value2);
       }
 
-      v15 = *(*(&v43 + 1) + 8 * i);
+      v15 = *(*(&v42 + 1) + 8 * i);
       stringValue = [v15 stringValue];
 
       if (stringValue)
@@ -618,10 +613,10 @@ LABEL_7:
         if (!integerValue)
         {
           v19 = +[_CDLogging knowledgeChannel];
-          objectCopy = v42;
+          objectCopy = v41;
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            [(_DKHistogram(CoreData) *)v42 initWithManagedObject:v19];
+            [(_DKHistogram(CoreData) *)v41 initWithManagedObject:v19];
           }
 
           goto LABEL_25;
@@ -636,10 +631,10 @@ LABEL_7:
       if (!v20)
       {
         v23 = +[_CDLogging knowledgeChannel];
-        objectCopy = v42;
+        objectCopy = v41;
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          [(_DKHistogram(CoreData) *)v42 initWithManagedObject:v23];
+          [(_DKHistogram(CoreData) *)v41 initWithManagedObject:v23];
         }
 
 LABEL_25:
@@ -654,7 +649,7 @@ LABEL_25:
       v12 += [v22 unsignedIntegerValue];
     }
 
-    v11 = [value2 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v11 = [value2 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v11)
     {
       continue;
@@ -665,37 +660,37 @@ LABEL_25:
 
 LABEL_19:
 
-  objectCopy = v42;
-  streamTypeCode = [v42 streamTypeCode];
+  objectCopy = v41;
+  streamTypeCode = [v41 streamTypeCode];
   v25 = +[_DKObjectType objectTypeWithTypeCode:](_DKObjectType, "objectTypeWithTypeCode:", [streamTypeCode integerValue]);
 
-  streamName = [v42 streamName];
+  streamName = [v41 streamName];
   v27 = [_DKEventStream eventStreamWithName:streamName valueType:v25];
 
   v28 = objc_alloc(MEMORY[0x1E696AB80]);
-  startDate = [v42 startDate];
-  endDate = [v42 endDate];
+  startDate = [v41 startDate];
+  endDate = [v41 endDate];
   v31 = [v28 initWithStartDate:startDate endDate:endDate];
   [(_DKHistogram *)v5 setInterval:v31];
 
   [(_DKHistogram *)v5 setHistogram:v8];
-  deviceIdentifier = [v42 deviceIdentifier];
+  deviceIdentifier = [v41 deviceIdentifier];
 
   if (deviceIdentifier)
   {
-    deviceIdentifier2 = [v42 deviceIdentifier];
-    v48 = deviceIdentifier2;
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+    deviceIdentifier2 = [v41 deviceIdentifier];
+    v47 = deviceIdentifier2;
+    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
     [(_DKHistogram *)v5 setDeviceIdentifiers:v34];
   }
 
   [(_DKHistogram *)v5 setStream:v27];
   v35 = objc_alloc(MEMORY[0x1E696AFB0]);
-  identifier = [v42 identifier];
+  identifier = [v41 identifier];
   v37 = [v35 initWithUUIDString:identifier];
   [(_DKHistogram *)v5 setIdentifier:v37];
 
-  customIdentifier = [v42 customIdentifier];
+  customIdentifier = [v41 customIdentifier];
   [(_DKHistogram *)v5 setCustomIdentifier:customIdentifier];
 
   [(_DKHistogram *)v5 setCountOverAllValues:v12];
@@ -703,13 +698,12 @@ LABEL_22:
   v39 = v5;
 LABEL_26:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v39;
 }
 
 - (id)insertInManagedObjectContext:(id)context
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = MEMORY[0x1E695D5B8];
   v6 = +[_DKHistogram entityName];
@@ -749,28 +743,28 @@ LABEL_26:
     firstObject = [deviceIdentifiers2 firstObject];
     [v7 setDeviceIdentifier:firstObject];
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     selfCopy = self;
     obj = [(_DKHistogram *)self histogram];
-    v27 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v27 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v41;
+      v29 = *v40;
       do
       {
         for (i = 0; i != v28; ++i)
         {
           v31 = v7;
-          if (*v41 != v29)
+          if (*v40 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v40 + 1) + 8 * i);
+          v32 = *(*(&v39 + 1) + 8 * i);
           v33 = contextCopy;
           v34 = [MEMORY[0x1E695D5B8] insertNewObjectForEntityForName:@"HistogramValue" inManagedObjectContext:contextCopy];
           objc_opt_class();
@@ -794,7 +788,7 @@ LABEL_26:
           contextCopy = v33;
         }
 
-        v28 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v28 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v28);
@@ -808,8 +802,6 @@ LABEL_26:
   {
     v23 = 0;
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return v23;
 }

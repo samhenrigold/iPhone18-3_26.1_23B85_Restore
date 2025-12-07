@@ -35,30 +35,29 @@
 - (NSUUID)identifier
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943680, qword_1B63C4070);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v17 - v5;
-  v7 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__propertyLock;
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC8MapsSync14MapsSyncObject__propertyLock);
+  v5 = &v16 - v4;
+  v6 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__propertyLock;
+  v7 = *(&self->super.isa + OBJC_IVAR____TtC8MapsSync14MapsSyncObject__propertyLock);
   selfCopy = self;
-  [v8 lock];
-  v10 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__identifier;
+  [v7 lock];
+  v9 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__identifier;
   swift_beginAccess();
-  sub_1B628C510(selfCopy + v10, v6, &unk_1EB943680, qword_1B63C4070);
-  [*(&self->super.isa + v7) unlock];
+  sub_1B628C510(selfCopy + v9, v5, &unk_1EB943680, qword_1B63C4070);
+  [*(&self->super.isa + v6) unlock];
 
-  v11 = sub_1B63BEA04();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v6, 1, v11);
-  v14 = 0;
-  if (v13 != 1)
+  v10 = sub_1B63BEA04();
+  v11 = *(v10 - 8);
+  v12 = (*(v11 + 48))(v5, 1, v10);
+  v13 = 0;
+  if (v12 != 1)
   {
-    v15 = sub_1B63BE9C4();
-    (*(v12 + 8))(v6, v11);
-    v14 = v15;
+    v14 = sub_1B63BE9C4();
+    (*(v11 + 8))(v5, v10);
+    v13 = v14;
   }
 
-  return v14;
+  return v13;
 }
 
 - (_TtC8MapsSync14MapsSyncObject)init
@@ -97,7 +96,6 @@
 {
   v3 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__editBlocks;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
   *(&self->super.isa + v3) = MEMORY[0x1E69E7CC0];
 }
 
@@ -171,26 +169,25 @@
 - (void)setIdentifier:(id)identifier
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943680, qword_1B63C4070);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (identifier)
   {
     sub_1B63BE9E4();
-    v9 = sub_1B63BEA04();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1B63BEA04();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1B63BEA04();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1B63BEA04();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  sub_1B6396718(v8, 1);
+  sub_1B6396718(v7, 1);
 
-  sub_1B6284EAC(v8, &unk_1EB943680, qword_1B63C4070);
+  sub_1B6284EAC(v7, &unk_1EB943680, qword_1B63C4070);
 }
 
 - (void)withPropertyLock:(id)lock

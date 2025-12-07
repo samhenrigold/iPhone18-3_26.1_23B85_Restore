@@ -211,7 +211,7 @@ void __19__EDVIPManager_log__block_invoke(uint64_t a1)
 
 void __35__EDVIPManager__initializeKVSStore__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _loadVIPs];
   if (*(*(a1 + 32) + 48))
   {
@@ -222,18 +222,18 @@ void __35__EDVIPManager__initializeKVSStore__block_invoke(uint64_t a1)
     v4 = +[EDVIPManager log];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
-      v11 = @"com.apple.mail.vipsenders";
-      v12 = 2048;
-      v13 = [v3 count];
-      _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "registering for VIP kvstore at: %@\nnumber of VIPs in current store: %lu", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = @"com.apple.mail.vipsenders";
+      v11 = 2048;
+      v12 = [v3 count];
+      _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "registering for VIP kvstore at: %@\nnumber of VIPs in current store: %lu", &v9, 0x16u);
     }
 
     v5 = +[EDVIPManager log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = [*(a1 + 32) _partiallyRedactedVIPDictionary:v3];
-      __35__EDVIPManager__initializeKVSStore__block_invoke_cold_1(v6, &v10, v5);
+      __35__EDVIPManager__initializeKVSStore__block_invoke_cold_1(v6, &v9, v5);
     }
 
     v7 = *(a1 + 32);
@@ -242,8 +242,6 @@ void __35__EDVIPManager__initializeKVSStore__block_invoke(uint64_t a1)
 
     [*(a1 + 32) gatherStatisticsWithVIPCount:{objc_msgSend(*(*(a1 + 32) + 8), "count")}];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_partiallyRedactedVIPDictionary:(id)dictionary
@@ -362,7 +360,7 @@ LABEL_10:
   return selfCopy;
 }
 
-uint64_t __23__EDVIPManager_hasVIPs__block_invoke(uint64_t a1)
+void *__23__EDVIPManager_hasVIPs__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -505,7 +503,7 @@ void __35__EDVIPManager_allVIPWaitForResult__block_invoke(uint64_t a1)
 
 - (void)saveVIPs:(id)ps
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   psCopy = ps;
   keyValueStore = [(EDVIPManager *)self keyValueStore];
 
@@ -519,57 +517,55 @@ void __35__EDVIPManager_allVIPWaitForResult__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = [psCopy count];
+    v15 = [psCopy count];
     _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "save VIPs with count %lu", buf, 0xCu);
   }
 
   operationQueue = [(EDVIPManager *)self operationQueue];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __25__EDVIPManager_saveVIPs___block_invoke;
-  v12[3] = &unk_1E8250128;
-  v13 = psCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __25__EDVIPManager_saveVIPs___block_invoke;
+  v11[3] = &unk_1E8250128;
+  v12 = psCopy;
   selfCopy = self;
   v9 = psCopy;
-  dispatch_barrier_async(operationQueue, v12);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_barrier_async(operationQueue, v11);
 }
 
 void __25__EDVIPManager_saveVIPs___block_invoke(uint64_t a1)
 {
-  v60 = *MEMORY[0x1E69E9840];
-  v40 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v59 = *MEMORY[0x1E69E9840];
+  v39 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v44 = a1;
+  v43 = a1;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v52 objects:v59 count:16];
+  v2 = [obj countByEnumeratingWithState:&v51 objects:v58 count:16];
   if (v2)
   {
-    v42 = *v53;
+    v41 = *v52;
     do
     {
-      v43 = v2;
-      for (i = 0; i != v43; ++i)
+      v42 = v2;
+      for (i = 0; i != v42; ++i)
       {
-        if (*v53 != v42)
+        if (*v52 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v52 + 1) + 8 * i);
-        v45 = [v4 name];
+        v4 = *(*(&v51 + 1) + 8 * i);
+        v44 = [v4 name];
         v5 = [v4 emailAddresses];
         v6 = [v4 identifier];
-        v7 = [*(*(v44 + 40) + 8) objectForKeyedSubscript:v6];
+        v7 = [*(*(v43 + 40) + 8) objectForKeyedSubscript:v6];
         v8 = v7;
         if (v7)
         {
           v9 = [v7 name];
-          v10 = [v9 isEqualToString:v45];
+          v10 = [v9 isEqualToString:v44];
 
           if (v10)
           {
@@ -578,7 +574,7 @@ void __25__EDVIPManager_saveVIPs___block_invoke(uint64_t a1)
 
           else
           {
-            v11 = v45;
+            v11 = v44;
           }
 
           v20 = [v8 emailAddresses];
@@ -625,18 +621,18 @@ void __25__EDVIPManager_saveVIPs___block_invoke(uint64_t a1)
 
           v25 = v24;
           v26 = [objc_alloc(MEMORY[0x1E699AF30]) initWithIdentifier:v6 name:v13 emailAddresses:v24];
-          [v40 addObject:v26];
+          [v39 addObject:v26];
         }
 
         else
         {
-          v11 = [*(v44 + 40) _contactForName:v45 emailAddresses:v5];
-          if ([*(v44 + 40) _isVIPForContact:v11 orAddresses:v5])
+          v11 = [*(v43 + 40) _contactForName:v44 emailAddresses:v5];
+          if ([*(v43 + 40) _isVIPForContact:v11 orAddresses:v5])
           {
             goto LABEL_36;
           }
 
-          v12 = v45;
+          v12 = v44;
           v13 = [v5 mutableCopy];
           if (v11)
           {
@@ -675,7 +671,7 @@ void __25__EDVIPManager_saveVIPs___block_invoke(uint64_t a1)
 
           v25 = v19;
           v26 = [objc_alloc(MEMORY[0x1E699AF30]) initWithIdentifier:v6 name:v19 emailAddresses:v13];
-          [v40 addObject:v26];
+          [v39 addObject:v26];
         }
 
 LABEL_34:
@@ -684,7 +680,7 @@ LABEL_35:
 LABEL_36:
       }
 
-      v2 = [obj countByEnumeratingWithState:&v52 objects:v59 count:16];
+      v2 = [obj countByEnumeratingWithState:&v51 objects:v58 count:16];
     }
 
     while (v2);
@@ -693,35 +689,35 @@ LABEL_36:
   v27 = +[EDVIPManager log];
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = [v40 count];
+    v28 = [v39 count];
     *buf = 134217984;
-    v58 = v28;
+    v57 = v28;
     _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "save new VIPs with count %lu", buf, 0xCu);
   }
 
-  if ([v40 count])
+  if ([v39 count])
   {
     v29 = objc_alloc_init(MEMORY[0x1E699AFD8]);
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
-    v30 = v40;
-    v31 = [v30 countByEnumeratingWithState:&v48 objects:v56 count:16];
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v30 = v39;
+    v31 = [v30 countByEnumeratingWithState:&v47 objects:v55 count:16];
     if (v31)
     {
-      v32 = *v49;
+      v32 = *v48;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v49 != v32)
+          if (*v48 != v32)
           {
             objc_enumerationMutation(v30);
           }
 
-          v34 = *(*(&v48 + 1) + 8 * j);
-          v35 = *(*(v44 + 40) + 8);
+          v34 = *(*(&v47 + 1) + 8 * j);
+          v35 = *(*(v43 + 40) + 8);
           v36 = [v34 identifier];
           [v35 setObject:v34 forKeyedSubscript:v36];
 
@@ -729,39 +725,35 @@ LABEL_36:
           [v29 unionSet:v37];
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v48 objects:v56 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v47 objects:v55 count:16];
       }
 
       while (v31);
     }
 
-    [*(*(v44 + 40) + 16) unionSet:v29];
-    [*(v44 + 40) _saveVIPs];
-    v38 = [*(v44 + 40) notificationQueue];
+    [*(*(v43 + 40) + 16) unionSet:v29];
+    [*(v43 + 40) _saveVIPs];
+    v38 = [*(v43 + 40) notificationQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __25__EDVIPManager_saveVIPs___block_invoke_60;
     block[3] = &unk_1E8250128;
-    block[4] = *(v44 + 40);
-    v47 = v30;
+    block[4] = *(v43 + 40);
+    v46 = v30;
     dispatch_async(v38, block);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 void __25__EDVIPManager_saveVIPs___block_invoke_60(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD88] defaultCenter];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v7 = *MEMORY[0x1E699ABF0];
-  v8[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E699ABF0];
+  v7[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 postNotificationName:*MEMORY[0x1E699ABE0] object:v4 userInfo:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isVIPForContact:(id)contact orAddresses:(id)addresses
@@ -860,36 +852,36 @@ uint64_t __45__EDVIPManager_removeVIPsWithEmailAddresses___block_invoke_2(uint64
 
 - (void)_removeVIPsWithIdentifiers:(id)identifiers
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = +[EDVIPManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = identifiersCopy;
+    v24 = identifiersCopy;
     _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "remove VIPs with identifiers %@", buf, 0xCu);
   }
 
   v6 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = identifiersCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         v12 = [(NSMutableDictionary *)self->_vipsByIdentifier objectForKeyedSubscript:v11];
         if (v12)
         {
@@ -899,7 +891,7 @@ uint64_t __45__EDVIPManager_removeVIPsWithEmailAddresses___block_invoke_2(uint64
         [(NSMutableDictionary *)self->_vipsByIdentifier removeObjectForKey:v11];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -910,30 +902,26 @@ uint64_t __45__EDVIPManager_removeVIPsWithEmailAddresses___block_invoke_2(uint64
 
   [(EDVIPManager *)self _saveVIPs];
   notificationQueue = [(EDVIPManager *)self notificationQueue];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __43__EDVIPManager__removeVIPsWithIdentifiers___block_invoke;
-  v17[3] = &unk_1E8250128;
-  v17[4] = self;
-  v18 = v6;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __43__EDVIPManager__removeVIPsWithIdentifiers___block_invoke;
+  v16[3] = &unk_1E8250128;
+  v16[4] = self;
+  v17 = v6;
   v15 = v6;
-  dispatch_async(notificationQueue, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  dispatch_async(notificationQueue, v16);
 }
 
 void __43__EDVIPManager__removeVIPsWithIdentifiers___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD88] defaultCenter];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v7 = *MEMORY[0x1E699ABE8];
-  v8[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E699ABE8];
+  v7[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v2 postNotificationName:*MEMORY[0x1E699ABE0] object:v4 userInfo:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadVIPs
@@ -999,19 +987,19 @@ void __25__EDVIPManager__loadVIPs__block_invoke(uint64_t a1, void *a2, void *a3)
 
 - (id)_serializedData
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   vipsByIdentifier = self->_vipsByIdentifier;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __31__EDVIPManager__serializedData__block_invoke;
-  v14[3] = &unk_1E8259058;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __31__EDVIPManager__serializedData__block_invoke;
+  v13[3] = &unk_1E8259058;
   v5 = v3;
-  v15 = v5;
-  [(NSMutableDictionary *)vipsByIdentifier enumerateKeysAndObjectsUsingBlock:v14];
-  v13 = 0;
-  v6 = [MEMORY[0x1E696AE40] dataWithPropertyList:v5 format:200 options:0 error:&v13];
-  v7 = v13;
+  v14 = v5;
+  [(NSMutableDictionary *)vipsByIdentifier enumerateKeysAndObjectsUsingBlock:v13];
+  v12 = 0;
+  v6 = [MEMORY[0x1E696AE40] dataWithPropertyList:v5 format:200 options:0 error:&v12];
+  v7 = v12;
   if (!v6)
   {
     v8 = +[EDVIPManager log];
@@ -1023,47 +1011,44 @@ void __25__EDVIPManager__loadVIPs__block_invoke(uint64_t a1, void *a2, void *a3)
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 void __31__EDVIPManager__serializedData__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 name];
   if (v7)
   {
-    v15[0] = @"Name";
+    v14[0] = @"Name";
     v8 = [v6 name];
-    v15[1] = @"EmailAddresses";
-    v16[0] = v8;
+    v14[1] = @"EmailAddresses";
+    v15[0] = v8;
     v9 = [v6 emailAddresses];
     v10 = [v9 allObjects];
-    v16[1] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v15[1] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
   }
 
   else
   {
-    v13 = @"EmailAddresses";
+    v12 = @"EmailAddresses";
     v8 = [v6 emailAddresses];
     v9 = [v8 allObjects];
-    v14 = v9;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v13 = v9;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   }
 
   [*(a1 + 32) setObject:v11 forKeyedSubscript:v5];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateCloudWithLocal
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1C61EF000, a2, a3, "VIP store contents after writing to cloud: %{private}@", a5, a6, a7, a8, 3u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138477827;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_1(&dword_1C61EF000, a2, a3, "VIP store contents after writing to cloud: %{private}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __37__EDVIPManager__updateCloudWithLocal__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1141,18 +1126,18 @@ LABEL_13:
 
 void __38__EDVIPManager__keyValueStoreChanged___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:*MEMORY[0x1E696A9D8]];
   v4 = [v2 objectForKeyedSubscript:*MEMORY[0x1E696A9E0]];
   v5 = +[EDVIPManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543618;
-    v17 = v3;
-    v18 = 2048;
-    v19 = [v4 count];
-    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "VIP kvstore changed, reason: %{public}@\n%lu keys changed", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v3;
+    v17 = 2048;
+    v18 = [v4 count];
+    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "VIP kvstore changed, reason: %{public}@\n%lu keys changed", &v15, 0x16u);
   }
 
   v6 = +[EDVIPManager log];
@@ -1191,8 +1176,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_synchronizeKVStore
@@ -1220,14 +1203,14 @@ LABEL_13:
 - (void)_updateLocalWithCloud:(id)cloud refresh:(BOOL)refresh
 {
   refreshCopy = refresh;
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   v6 = +[EDVIPManager log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [(NSMutableDictionary *)self->_vipsByIdentifier count];
     *buf = 134217984;
-    v90 = v7;
+    v89 = v7;
     _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "local store has %lu VIPs before updating from cloud", buf, 0xCu);
   }
 
@@ -1239,40 +1222,40 @@ LABEL_13:
     [(EDVIPManager *)self _updateLocalWithCloud:v8 refresh:v9, v10, v11, v12, v13, v14];
   }
 
-  v65 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v64 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (refreshCopy)
   {
     v15 = objc_alloc(MEMORY[0x1E695DFA8]);
     allKeys = [(NSMutableDictionary *)self->_vipsByIdentifier allKeys];
-    v67 = [v15 initWithArray:allKeys];
+    v66 = [v15 initWithArray:allKeys];
   }
 
   else
   {
-    v67 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v66 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   }
 
   keyValueStore = [(EDVIPManager *)self keyValueStore];
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
   v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   obj = cloudCopy;
-  v17 = [obj countByEnumeratingWithState:&v83 objects:v88 count:16];
+  v17 = [obj countByEnumeratingWithState:&v82 objects:v87 count:16];
   if (v17)
   {
-    v69 = *v84;
+    v68 = *v83;
     do
     {
-      v70 = v17;
-      for (i = 0; i != v70; ++i)
+      v69 = v17;
+      for (i = 0; i != v69; ++i)
       {
-        if (*v84 != v69)
+        if (*v83 != v68)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v83 + 1) + 8 * i);
+        v19 = *(*(&v82 + 1) + 8 * i);
         if ([v19 hasPrefix:@"VIP_"])
         {
           v20 = [v19 stringByReplacingOccurrencesOfString:@"VIP_" withString:&stru_1F45B4608 options:8 range:{0, objc_msgSend(v19, "length")}];
@@ -1349,15 +1332,15 @@ LABEL_33:
 
             if (v35)
             {
-              [v65 setObject:v35 forKeyedSubscript:v20];
+              [v64 setObject:v35 forKeyedSubscript:v20];
             }
 
-            [v67 removeObject:v20];
+            [v66 removeObject:v20];
           }
 
           else
           {
-            [v67 addObject:v20];
+            [v66 addObject:v20];
           }
 
           self = selfCopy;
@@ -1365,50 +1348,50 @@ LABEL_33:
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v83 objects:v88 count:16];
+      v17 = [obj countByEnumeratingWithState:&v82 objects:v87 count:16];
     }
 
     while (v17);
   }
 
   v38 = selfCopy;
-  if ([v65 count] || objc_msgSend(v67, "count"))
+  if ([v64 count] || objc_msgSend(v66, "count"))
   {
     v39 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v40 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v41 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v80[0] = MEMORY[0x1E69E9820];
-    v80[1] = 3221225472;
-    v80[2] = __46__EDVIPManager__updateLocalWithCloud_refresh___block_invoke;
-    v80[3] = &unk_1E82590D0;
-    v80[4] = selfCopy;
+    v79[0] = MEMORY[0x1E69E9820];
+    v79[1] = 3221225472;
+    v79[2] = __46__EDVIPManager__updateLocalWithCloud_refresh___block_invoke;
+    v79[3] = &unk_1E82590D0;
+    v79[4] = selfCopy;
     v42 = v39;
-    v81 = v42;
+    v80 = v42;
     v43 = v41;
-    v82 = v43;
-    [v65 enumerateKeysAndObjectsUsingBlock:v80];
+    v81 = v43;
+    [v64 enumerateKeysAndObjectsUsingBlock:v79];
     [(EAEmailAddressSet *)selfCopy->_cachedEmailAddresses unionSet:v43];
-    if ([v67 count])
+    if ([v66 count])
     {
-      v78 = 0u;
-      v79 = 0u;
-      v76 = 0u;
       v77 = 0u;
-      v44 = v67;
-      v45 = [v44 countByEnumeratingWithState:&v76 objects:v87 count:16];
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      v44 = v66;
+      v45 = [v44 countByEnumeratingWithState:&v75 objects:v86 count:16];
       if (v45)
       {
-        v46 = *v77;
+        v46 = *v76;
         do
         {
           for (j = 0; j != v45; ++j)
           {
-            if (*v77 != v46)
+            if (*v76 != v46)
             {
               objc_enumerationMutation(v44);
             }
 
-            v48 = *(*(&v76 + 1) + 8 * j);
+            v48 = *(*(&v75 + 1) + 8 * j);
             v49 = [(NSMutableDictionary *)selfCopy->_vipsByIdentifier objectForKeyedSubscript:v48];
             if (v49)
             {
@@ -1418,7 +1401,7 @@ LABEL_33:
             [(NSMutableDictionary *)selfCopy->_vipsByIdentifier removeObjectForKey:v48];
           }
 
-          v45 = [v44 countByEnumeratingWithState:&v76 objects:v87 count:16];
+          v45 = [v44 countByEnumeratingWithState:&v75 objects:v86 count:16];
         }
 
         while (v45);
@@ -1434,9 +1417,9 @@ LABEL_33:
     block[1] = 3221225472;
     block[2] = __46__EDVIPManager__updateLocalWithCloud_refresh___block_invoke_2;
     block[3] = &unk_1E8250720;
-    v73 = v42;
-    v74 = v40;
-    v75 = selfCopy;
+    v72 = v42;
+    v73 = v40;
+    v74 = selfCopy;
     v52 = v40;
     v53 = v42;
     dispatch_async(notificationQueue, block);
@@ -1449,7 +1432,7 @@ LABEL_33:
   {
     v55 = [(NSMutableDictionary *)v38->_vipsByIdentifier count];
     *buf = 134217984;
-    v90 = v55;
+    v89 = v55;
     _os_log_impl(&dword_1C61EF000, v54, OS_LOG_TYPE_DEFAULT, "local store has %lu VIPs after updating from cloud", buf, 0xCu);
   }
 
@@ -1458,8 +1441,6 @@ LABEL_33:
   {
     [(EDVIPManager *)selfCopy _updateLocalWithCloud:v56 refresh:v57, v58, v59, v60, v61, v62];
   }
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EDVIPManager__updateLocalWithCloud_refresh___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1475,58 +1456,55 @@ void __46__EDVIPManager__updateLocalWithCloud_refresh___block_invoke(uint64_t a1
 
 void __46__EDVIPManager__updateLocalWithCloud_refresh___block_invoke_2(void *a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E699ABE8];
-  v7[0] = *MEMORY[0x1E699ABF0];
-  v7[1] = v2;
+  v6[0] = *MEMORY[0x1E699ABF0];
+  v6[1] = v2;
   v3 = a1[5];
-  v8[0] = a1[4];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[0] = a1[4];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
   v5 = [MEMORY[0x1E696AD88] defaultCenter];
   [v5 postNotificationName:*MEMORY[0x1E699ABE0] object:a1[6] userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_mergeVIPs
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 8);
-  v5 = 138412546;
+  v4 = 138412546;
   selfCopy = self;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_debug_impl(&dword_1C61EF000, log, OS_LOG_TYPE_DEBUG, "merge VIPs from cloud: %@ and local: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = 2112;
+  v7 = v3;
+  _os_log_debug_impl(&dword_1C61EF000, log, OS_LOG_TYPE_DEBUG, "merge VIPs from cloud: %@ and local: %@", &v4, 0x16u);
 }
 
 void __26__EDVIPManager__mergeVIPs__block_invoke(id *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v5 hasPrefix:@"VIP_"])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v7 = [v6 objectForKeyedSubscript:@"a"];
-    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = [a1[4] objectForKeyedSubscript:*(*(&v20 + 1) + 8 * i)];
+          v11 = [a1[4] objectForKeyedSubscript:*(*(&v19 + 1) + 8 * i)];
           v12 = v11;
           if (v11)
           {
@@ -1540,7 +1518,7 @@ void __26__EDVIPManager__mergeVIPs__block_invoke(id *a1, void *a2, void *a3)
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v8);
@@ -1561,57 +1539,55 @@ void __26__EDVIPManager__mergeVIPs__block_invoke(id *a1, void *a2, void *a3)
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __26__EDVIPManager__mergeVIPs__block_invoke_2(id *a1, void *a2, void *a3)
 {
-  v73 = *MEMORY[0x1E69E9840];
-  v45 = a2;
-  v43 = a3;
-  v59 = [v43 name];
-  v46 = [v43 emailAddresses];
-  v47 = [a1[4] _cloudKeyForIdentifier:v45];
+  v72 = *MEMORY[0x1E69E9840];
+  v44 = a2;
+  v42 = a3;
+  v58 = [v42 name];
+  v45 = [v42 emailAddresses];
+  v46 = [a1[4] _cloudKeyForIdentifier:v44];
   v5 = [a1[4] _validatedCloudVIPFromStore:a1[5] withCloudKey:?];
-  v44 = v5;
+  v43 = v5;
   if (v5)
   {
     v6 = [v5 mutableCopy];
     goto LABEL_74;
   }
 
-  v7 = [MEMORY[0x1E6996790] componentsFromString:v59];
+  v7 = [MEMORY[0x1E6996790] componentsFromString:v58];
   v8 = [v7 givenName];
-  v50 = v8;
-  v52 = [v7 familyName];
+  v49 = v8;
+  v51 = [v7 familyName];
   v9 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
-  v10 = v46;
-  v11 = [v10 countByEnumeratingWithState:&v67 objects:v72 count:16];
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v10 = v45;
+  v11 = [v10 countByEnumeratingWithState:&v66 objects:v71 count:16];
   if (v11)
   {
-    v12 = *v68;
+    v12 = *v67;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v68 != v12)
+        if (*v67 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [a1[6] objectForKeyedSubscript:*(*(&v67 + 1) + 8 * i)];
+        v14 = [a1[6] objectForKeyedSubscript:*(*(&v66 + 1) + 8 * i)];
         if (v14)
         {
           [v9 unionSet:v14];
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v66 objects:v71 count:16];
     }
 
     while (v11);
@@ -1626,47 +1602,47 @@ void __26__EDVIPManager__mergeVIPs__block_invoke_2(id *a1, void *a2, void *a3)
       goto LABEL_70;
     }
 
-    v57 = [v10 count];
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
+    v56 = [v10 count];
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     obj = v9;
-    v18 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+    v18 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
     if (v18)
     {
-      v61 = 0;
+      v60 = 0;
+      v47 = 0;
       v48 = 0;
-      v49 = 0;
+      v52 = 0;
       v53 = 0;
-      v54 = 0;
-      v56 = *v64;
-      v55 = (v8 | v52) != 0;
+      v55 = *v63;
+      v54 = (v8 | v51) != 0;
 LABEL_21:
-      v58 = v18;
+      v57 = v18;
       v19 = 0;
       while (1)
       {
-        if (*v64 != v56)
+        if (*v63 != v55)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v63 + 1) + 8 * v19);
-        v62 = [a1[5] dictionaryForKey:v20];
-        if (v55)
+        v20 = *(*(&v62 + 1) + 8 * v19);
+        v61 = [a1[5] dictionaryForKey:v20];
+        if (v54)
         {
-          v21 = [v62 objectForKeyedSubscript:@"n"];
-          v60 = [MEMORY[0x1E6996790] componentsFromString:v21];
+          v21 = [v61 objectForKeyedSubscript:@"n"];
+          v59 = [MEMORY[0x1E6996790] componentsFromString:v21];
 
-          v22 = [v60 givenName];
-          v23 = [v60 familyName];
-          if (v59 && ([v21 isEqualToString:v59] & 1) != 0)
+          v22 = [v59 givenName];
+          v23 = [v59 familyName];
+          if (v58 && ([v21 isEqualToString:v58] & 1) != 0)
           {
             v16 = v20;
 
-            v33 = v49;
-            v7 = v60;
+            v33 = v48;
+            v7 = v59;
             if (v16)
             {
               goto LABEL_68;
@@ -1680,12 +1656,12 @@ LABEL_21:
             LODWORD(v8) = [v22 isEqualToString:v8];
           }
 
-          if (v52)
+          if (v51)
           {
             v24 = [v23 isEqualToString:?];
-            if ((v8 & v24) == 1 && v48 == 0)
+            if ((v8 & v24) == 1 && v47 == 0)
             {
-              v48 = v20;
+              v47 = v20;
               v24 = 1;
             }
           }
@@ -1695,7 +1671,7 @@ LABEL_21:
             v24 = 0;
           }
 
-          if (v53)
+          if (v52)
           {
             v26 = 0;
           }
@@ -1707,10 +1683,10 @@ LABEL_21:
 
           if (v26 == 1)
           {
-            v53 = v20;
+            v52 = v20;
           }
 
-          if (v54)
+          if (v53)
           {
             v27 = 0;
           }
@@ -1720,35 +1696,35 @@ LABEL_21:
             v27 = v24;
           }
 
-          v8 = v50;
+          v8 = v49;
           if (v27 == 1)
           {
-            v54 = v20;
+            v53 = v20;
           }
 
-          v7 = v60;
+          v7 = v59;
         }
 
-        if (v61 < v57)
+        if (v60 < v56)
         {
           v28 = objc_alloc(MEMORY[0x1E695DFA8]);
-          v29 = [v62 objectForKeyedSubscript:@"a"];
+          v29 = [v61 objectForKeyedSubscript:@"a"];
           v30 = [v28 initWithArray:v29];
 
           [v30 intersectSet:v10];
           v31 = [v30 count];
-          if (v31 > v61)
+          if (v31 > v60)
           {
             v32 = v20;
 
-            v61 = v31;
-            v49 = v32;
+            v60 = v31;
+            v48 = v32;
           }
         }
 
-        if (v58 == ++v19)
+        if (v57 == ++v19)
         {
-          v18 = [obj countByEnumeratingWithState:&v63 objects:v71 count:16];
+          v18 = [obj countByEnumeratingWithState:&v62 objects:v70 count:16];
           if (v18)
           {
             goto LABEL_21;
@@ -1759,24 +1735,24 @@ LABEL_21:
       }
     }
 
-    v61 = 0;
+    v60 = 0;
+    v47 = 0;
     v48 = 0;
-    v49 = 0;
+    v52 = 0;
     v53 = 0;
-    v54 = 0;
 LABEL_58:
 
-    v33 = v49;
+    v33 = v48;
 LABEL_59:
-    if (v48)
+    if (v47)
     {
-      v16 = v48;
-      v48 = v16;
+      v16 = v47;
+      v47 = v16;
     }
 
     else
     {
-      if (v61 == v57)
+      if (v60 == v56)
       {
         v34 = v33;
         v33 = v34;
@@ -1784,43 +1760,43 @@ LABEL_59:
 
       else
       {
-        if (v54)
-        {
-          v16 = v54;
-          v48 = 0;
-          v54 = v16;
-          goto LABEL_68;
-        }
-
         if (v53)
         {
           v16 = v53;
+          v47 = 0;
           v53 = v16;
-          v54 = 0;
-          v48 = 0;
+          goto LABEL_68;
+        }
+
+        if (v52)
+        {
+          v16 = v52;
+          v52 = v16;
+          v53 = 0;
+          v47 = 0;
           goto LABEL_68;
         }
 
         v34 = v33;
         v33 = v34;
+        v52 = 0;
         v53 = 0;
-        v54 = 0;
       }
 
-      v48 = 0;
+      v47 = 0;
       v16 = v34;
     }
 
 LABEL_68:
 
-    v17 = v53;
+    v17 = v52;
     goto LABEL_69;
   }
 
-  v16 = [a1[7] objectForKeyedSubscript:v59];
-  if (!v16 && v8 && v52)
+  v16 = [a1[7] objectForKeyedSubscript:v58];
+  if (!v16 && v8 && v51)
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ %@", v8, v52];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ %@", v8, v51];
     v16 = [a1[8] objectForKeyedSubscript:v17];
 LABEL_69:
   }
@@ -1833,7 +1809,7 @@ LABEL_70:
     v36 = [a1[5] dictionaryForKey:v35];
     v6 = [v36 mutableCopy];
 
-    v47 = v35;
+    v46 = v35;
   }
 
   else
@@ -1844,9 +1820,9 @@ LABEL_70:
 LABEL_74:
   if (!v6)
   {
-    if (v59)
+    if (v58)
     {
-      v37 = [objc_alloc(MEMORY[0x1E695DF90]) initWithObjectsAndKeys:{v59, @"n", 0}];
+      v37 = [objc_alloc(MEMORY[0x1E695DF90]) initWithObjectsAndKeys:{v58, @"n", 0}];
     }
 
     else
@@ -1858,16 +1834,14 @@ LABEL_74:
   }
 
   v38 = [v6 objectForKeyedSubscript:@"a"];
-  v39 = [v46 mutableCopy];
+  v39 = [v45 mutableCopy];
   [v39 addObjectsFromArray:v38];
   v40 = [v39 allObjects];
   v41 = [v40 sortedArrayUsingSelector:sel_compare_];
   [v6 setObject:v41 forKeyedSubscript:@"a"];
 
   [v6 setObject:&unk_1F45E6E38 forKeyedSubscript:@"v"];
-  [a1[5] setDictionary:v6 forKey:v47];
-
-  v42 = *MEMORY[0x1E69E9840];
+  [a1[5] setDictionary:v6 forKey:v46];
 }
 
 - (id)_cloudKeyForIdentifier:(id)identifier
@@ -1967,36 +1941,36 @@ BOOL __57__EDVIPManager__validatedCloudVIPFromStore_withCloudKey___block_invoke(
 
 - (id)_contactForName:(id)name emailAddresses:(id)addresses
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   addressesCopy = addresses;
   contactStore = [(EDVIPManager *)self contactStore];
   v7 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = addressesCopy;
-  v8 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v8 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
   if (v8)
   {
-    v9 = *v49;
+    v9 = *v48;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v49 != v9)
+        if (*v48 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:*(*(&v48 + 1) + 8 * i)];
+        v11 = [MEMORY[0x1E695CD58] predicateForContactsMatchingEmailAddress:*(*(&v47 + 1) + 8 * i)];
         _contactDescriptors = [objc_opt_class() _contactDescriptors];
         v13 = [contactStore unifiedContactsMatchingPredicate:v11 keysToFetch:_contactDescriptors error:0];
         [v7 addObjectsFromArray:v13];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v8 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
     }
 
     while (v8);
@@ -2030,33 +2004,33 @@ BOOL __57__EDVIPManager__validatedCloudVIPFromStore_withCloudKey___block_invoke(
   }
 
   v15 = [MEMORY[0x1E6996790] componentsFromString:nameCopy];
-  v39 = v15;
+  v38 = v15;
   givenName = [v15 givenName];
   familyName = [v15 familyName];
   if (givenName | familyName)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
-    v35 = v7;
-    v20 = [v35 countByEnumeratingWithState:&v44 objects:v52 count:16];
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v34 = v7;
+    v20 = [v34 countByEnumeratingWithState:&v43 objects:v51 count:16];
     if (v20)
     {
+      v40 = 0;
       v41 = 0;
-      v42 = 0;
-      v38 = *v45;
+      v37 = *v44;
 LABEL_16:
-      v37 = v20;
+      v36 = v20;
       v21 = 0;
       while (1)
       {
-        if (*v45 != v38)
+        if (*v44 != v37)
         {
-          objc_enumerationMutation(v35);
+          objc_enumerationMutation(v34);
         }
 
-        v22 = *(*(&v44 + 1) + 8 * v21);
+        v22 = *(*(&v43 + 1) + 8 * v21);
         givenName2 = [0 givenName];
         familyName2 = [0 familyName];
         v25 = [givenName2 isEqualToString:givenName];
@@ -2067,7 +2041,7 @@ LABEL_16:
           break;
         }
 
-        if (v42)
+        if (v41)
         {
           v28 = 0;
         }
@@ -2079,10 +2053,10 @@ LABEL_16:
 
         if (v28 == 1)
         {
-          v42 = v22;
+          v41 = v22;
         }
 
-        if (v41)
+        if (v40)
         {
           v29 = 0;
         }
@@ -2094,15 +2068,15 @@ LABEL_16:
 
         if (v29 == 1)
         {
-          v41 = v22;
+          v40 = v22;
         }
 
-        v15 = v39;
+        v15 = v38;
         familyName = v26;
 
-        if (v37 == ++v21)
+        if (v36 == ++v21)
         {
-          v20 = [v35 countByEnumeratingWithState:&v44 objects:v52 count:16];
+          v20 = [v34 countByEnumeratingWithState:&v43 objects:v51 count:16];
           if (v20)
           {
             goto LABEL_16;
@@ -2114,10 +2088,10 @@ LABEL_16:
 
       firstObject = v22;
 
-      v15 = v39;
+      v15 = v38;
       familyName = v26;
 
-      v30 = v41;
+      v30 = v40;
       if (firstObject)
       {
         goto LABEL_42;
@@ -2126,11 +2100,11 @@ LABEL_16:
 
     else
     {
+      v40 = 0;
       v41 = 0;
-      v42 = 0;
 LABEL_37:
 
-      v30 = v41;
+      v30 = v40;
     }
 
     v31 = v30;
@@ -2139,8 +2113,8 @@ LABEL_37:
       goto LABEL_41;
     }
 
-    v30 = v42;
-    if (v42)
+    v30 = v41;
+    if (v41)
     {
       v31 = 0;
 LABEL_41:
@@ -2158,23 +2132,21 @@ LABEL_44:
 LABEL_45:
 LABEL_46:
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return firstObject;
 }
 
 - (id)_contactFromContacts:(id)contacts matchingMostAddresses:(id)addresses
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   contactsCopy = contacts;
   addressesCopy = addresses;
-  v21 = [addressesCopy count];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
+  v20 = [addressesCopy count];
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = contactsCopy;
-  v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v7)
   {
 
@@ -2185,17 +2157,17 @@ LABEL_16:
 
   v8 = 0;
   firstObject = 0;
-  v10 = *v24;
+  v10 = *v23;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v24 != v10)
+      if (*v23 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v23 + 1) + 8 * i);
+      v12 = *(*(&v22 + 1) + 8 * i);
       v13 = objc_alloc(MEMORY[0x1E699AFD8]);
       emailAddresses = [v12 emailAddresses];
       v15 = [emailAddresses valueForKey:@"value"];
@@ -2207,7 +2179,7 @@ LABEL_16:
       {
         v18 = v12;
 
-        if (v17 == v21)
+        if (v17 == v20)
         {
 
           firstObject = v18;
@@ -2219,7 +2191,7 @@ LABEL_16:
       }
     }
 
-    v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v7)
     {
       continue;
@@ -2236,8 +2208,6 @@ LABEL_13:
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -2256,19 +2226,17 @@ LABEL_17:
 
 void __35__EDVIPManager__contactDescriptors__block_invoke()
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
   v1 = *MEMORY[0x1E695C240];
-  v6[0] = v0;
-  v6[1] = v1;
+  v5[0] = v0;
+  v5[1] = v1;
   v2 = *MEMORY[0x1E695C208];
-  v6[2] = *MEMORY[0x1E695C230];
-  v6[3] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
+  v5[2] = *MEMORY[0x1E695C230];
+  v5[3] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
   v4 = _contactDescriptors_descriptors;
   _contactDescriptors_descriptors = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)gatherStatisticsWithVIPCount:(unint64_t)count
@@ -2310,25 +2278,16 @@ void __45__EDVIPManager_gatherStatisticsWithVIPCount___block_invoke(uint64_t a1,
   [v4 performBlock:v5];
 }
 
-uint64_t __45__EDVIPManager_gatherStatisticsWithVIPCount___block_invoke_2(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return AnalyticsSendEventLazy();
-}
-
 id __45__EDVIPManager_gatherStatisticsWithVIPCount___block_invoke_3(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"vipCount";
+  v7[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"vipCount";
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v7[1] = @"notificationsEnabled";
-  v8[0] = v2;
+  v6[1] = @"notificationsEnabled";
+  v7[0] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -2360,25 +2319,23 @@ void __35__EDVIPManager__initializeKVSStore__block_invoke_cold_1(void *a1, uint8
 
 void __38__EDVIPManager__keyValueStoreChanged___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1C61EF000, a2, a3, "keys changed: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1C61EF000, a2, a3, "keys changed: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_updateLocalWithCloud:(uint64_t)a3 refresh:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 8));
-  OUTLINED_FUNCTION_0_1(&dword_1C61EF000, a2, a3, "local VIPs before updating from cloud: %{private}@", a5, a6, a7, a8, 3u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138477827;
+  *(&v8 + 4) = *(a1 + 8);
+  OUTLINED_FUNCTION_0_1(&dword_1C61EF000, a2, a3, "local VIPs before updating from cloud: %{private}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_updateLocalWithCloud:(uint64_t)a3 refresh:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 8));
-  OUTLINED_FUNCTION_0_1(&dword_1C61EF000, a2, a3, "local VIPs after updating from cloud: %{private}@", a5, a6, a7, a8, 3u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138477827;
+  *(&v8 + 4) = *(a1 + 8);
+  OUTLINED_FUNCTION_0_1(&dword_1C61EF000, a2, a3, "local VIPs after updating from cloud: %{private}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

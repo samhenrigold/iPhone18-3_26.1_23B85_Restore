@@ -137,7 +137,7 @@ uint64_t __63__BLSDiagnosticEnvironmentDateSpecifier_bls_shortLoggingString__blo
 
   else
   {
-    v7 = bls_diagnostics_log();
+    v7 = bls_diagnostics_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       [BLSDiagnosticFlipbookFrame initWithXPCDictionary:];
@@ -154,7 +154,7 @@ uint64_t __63__BLSDiagnosticEnvironmentDateSpecifier_bls_shortLoggingString__blo
 
   else
   {
-    v10 = bls_diagnostics_log();
+    v10 = bls_diagnostics_log(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [BLSDiagnosticEnvironmentDateSpecifier initWithXPCDictionary:];
@@ -192,7 +192,7 @@ uint64_t __63__BLSDiagnosticEnvironmentDateSpecifier_bls_shortLoggingString__blo
 
   else
   {
-    v8 = bls_diagnostics_log();
+    v8 = bls_diagnostics_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [BLSDiagnosticEnvironmentDateSpecifier initWithCoder:];
@@ -210,22 +210,6 @@ uint64_t __63__BLSDiagnosticEnvironmentDateSpecifier_bls_shortLoggingString__blo
   coderCopy = coder;
   [coderCopy encodeObject:dateSpecifier forKey:@"specifier"];
   [coderCopy encodeObject:self->_environmentIdentifier forKey:@"environment"];
-}
-
-- (void)initWithXPCDictionary:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_5(&dword_21FE25000, v0, v1, "failed to decode explanation from %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithCoder:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_5(&dword_21FE25000, v0, v1, "invalid specifier from %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

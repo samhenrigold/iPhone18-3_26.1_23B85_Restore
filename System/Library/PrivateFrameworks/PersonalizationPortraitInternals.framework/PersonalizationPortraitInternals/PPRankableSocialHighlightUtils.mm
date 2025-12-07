@@ -18,7 +18,7 @@
 
 + (id)rankableHighlightFromSearchableItem:(id)item attribution:(id)attribution autoDonatingChats:(id)chats applicationIdentifiers:(id)identifiers clientIdentifier:(id)identifier variant:(id)variant
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   attributionCopy = attribution;
   chatsCopy = chats;
@@ -81,7 +81,7 @@
       {
         attributeSet4 = [itemCopy attributeSet];
         [attributeSet4 URL];
-        v85 = v26;
+        v84 = v26;
         v38 = identifiersCopy;
         v39 = v28;
         v41 = v40 = chatsCopy;
@@ -90,24 +90,24 @@
         chatsCopy = v40;
         v28 = v39;
         identifiersCopy = v38;
-        v26 = v85;
+        v26 = v84;
       }
     }
 
-    v87 = v28;
+    v86 = v28;
     v42 = pp_default_log_handle();
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138739971;
-      v89 = _lp_simplifiedURLStringForFuzzyMatching;
+      v88 = _lp_simplifiedURLStringForFuzzyMatching;
       _os_log_debug_impl(&dword_23224A000, v42, OS_LOG_TYPE_DEBUG, "RankableSocialHighlight using comparisonURL: '%{sensitive}@'", buf, 0xCu);
     }
 
-    v86 = [_lp_simplifiedURLStringForFuzzyMatching dataUsingEncoding:4];
+    v85 = [_lp_simplifiedURLStringForFuzzyMatching dataUsingEncoding:4];
     v43 = [MEMORY[0x277D3A578] Sha256ForData:? withSalt:?];
     v44 = [v43 base64EncodedStringWithOptions:0];
 
-    v84 = v44;
+    v83 = v44;
     [v19 setHighlightIdentifier:v44];
     if ([attributionCopy isStarred])
     {
@@ -135,7 +135,7 @@
 
     if (sourceBundleId)
     {
-      v82 = chatsCopy;
+      v81 = chatsCopy;
       groupDisplayName = [attributionCopy groupDisplayName];
       [v19 setDisplayName:groupDisplayName];
 
@@ -169,7 +169,7 @@
       if (conversationIdentifier2)
       {
         conversationIdentifier3 = [attributionCopy conversationIdentifier];
-        [v19 setIsConversationAutoDonating:{objc_msgSend(v82, "containsObject:", conversationIdentifier3)}];
+        [v19 setIsConversationAutoDonating:{objc_msgSend(v81, "containsObject:", conversationIdentifier3)}];
       }
 
       attributeSet6 = [itemCopy attributeSet];
@@ -216,8 +216,8 @@
 
       v36 = v19;
 
-      chatsCopy = v82;
-      v28 = v87;
+      chatsCopy = v81;
+      v28 = v86;
     }
 
     else
@@ -244,8 +244,6 @@
 
     v36 = 0;
   }
-
-  v80 = *MEMORY[0x277D85DE8];
 
   return v36;
 }

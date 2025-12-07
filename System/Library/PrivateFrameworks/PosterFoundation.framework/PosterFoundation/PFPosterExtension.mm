@@ -19,7 +19,7 @@
   identityCopy = identity;
   if (!identityCopy)
   {
-    [PFPosterExtension initWithIdentity:a2];
+    [(PFPosterExtension *)a2 initWithIdentity:?];
   }
 
   v7 = identityCopy;
@@ -130,22 +130,22 @@
 
         if (bundleIdentifier)
         {
-          v13 = objc_alloc(MEMORY[0x1E69635D0]);
+          v14 = objc_alloc(MEMORY[0x1E69635D0]);
           bundleIdentifier2 = [(_EXExtensionIdentity *)self->_identity bundleIdentifier];
           v24 = uniqueIdentifier;
-          v15 = [v13 initWithBundleIdentifier:bundleIdentifier2 error:&v24];
-          v16 = v24;
+          v16 = [v14 initWithBundleIdentifier:bundleIdentifier2 error:&v24];
+          v17 = v24;
 
-          v17 = self->_record;
-          self->_record = v15;
+          v18 = self->_record;
+          self->_record = v16;
 
-          uniqueIdentifier = v16;
+          uniqueIdentifier = v17;
         }
 
         if (!self->_record)
         {
-          v18 = PFLogHosting();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v19 = PFLogHosting(v13);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             identity = self->_identity;
             *buf = 134218498;
@@ -154,7 +154,7 @@
             v29 = identity;
             v30 = 2114;
             v31 = uniqueIdentifier;
-            _os_log_error_impl(&dword_1C269D000, v18, OS_LOG_TYPE_ERROR, "%p Failure to fault in application extensionRecord for identity %{public}@: %{public}@", buf, 0x20u);
+            _os_log_error_impl(&dword_1C269D000, v19, OS_LOG_TYPE_ERROR, "%p Failure to fault in application extensionRecord for identity %{public}@: %{public}@", buf, 0x20u);
           }
         }
       }
@@ -162,11 +162,10 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v19 = self->_record;
-  v20 = v19;
+  v20 = self->_record;
+  v21 = v20;
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v19;
+  return v20;
 }
 
 - (NSString)posterExtensionContainerBundleIdentifier
@@ -220,24 +219,24 @@
   return pf_supportedRoles;
 }
 
-- (void)initWithIdentity:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithIdentity:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identity"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identity"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"PFPosterExtension.m";
-    v9 = 1024;
-    v10 = 35;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PFPosterExtension.m";
+    v10 = 1024;
+    v11 = 35;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

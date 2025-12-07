@@ -86,7 +86,7 @@
 
 - (BOOL)isValidFilter
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   playbackStyle = [(PUPickerAssetPlaybackStyleFilter *)self playbackStyle];
   v3 = playbackStyle - 1;
   if ((playbackStyle - 1) >= 5)
@@ -95,15 +95,13 @@
     v5 = PLPickerGetLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 134217984;
-      v9 = v4;
-      _os_log_impl(&dword_1D2128000, v5, OS_LOG_TYPE_ERROR, "PUPickerAssetPlaybackStyleFilter: invalid playback style: %ld", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = v4;
+      _os_log_impl(&dword_1D2128000, v5, OS_LOG_TYPE_ERROR, "PUPickerAssetPlaybackStyleFilter: invalid playback style: %ld", &v7, 0xCu);
     }
   }
 
-  result = v3 < 5;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 < 5;
 }
 
 - (BOOL)isEqual:(id)equal

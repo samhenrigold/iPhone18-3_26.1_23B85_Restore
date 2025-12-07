@@ -1,5 +1,6 @@
 @interface NSFileProviderDomain
 + (id)_userInfoAllowedClasses;
++ (id)domainFromPlistDictionary:(id)dictionary identifier:(id)identifier volumeURL:(id)l replicatedByDefault:(BOOL)default;
 - (BOOL)experimentIDIsValid;
 - (NSData)backingStoreIdentity;
 - (NSFileProviderDomain)initWithCoder:(id)coder;
@@ -12,7 +13,6 @@
 - (id)plistDictionary;
 - (void)copyValuesFromExistingDomain:(id)domain;
 - (void)encodeWithCoder:(id)coder;
-- (void)plistDictionary;
 - (void)setBackingStoreIdentity:(id)identity;
 - (void)setUserInfo:(id)info;
 @end
@@ -421,31 +421,31 @@
 
 - (id)plistDictionary
 {
-  v37[8] = *MEMORY[0x1E69E9840];
-  v36[0] = @"DisplayName";
-  v36[1] = @"Path";
+  v36[8] = *MEMORY[0x1E69E9840];
+  v35[0] = @"DisplayName";
+  v35[1] = @"Path";
   pathRelativeToDocumentStorage = self->_pathRelativeToDocumentStorage;
-  v37[0] = self->_displayName;
-  v37[1] = pathRelativeToDocumentStorage;
-  v36[2] = @"Hidden";
+  v36[0] = self->_displayName;
+  v36[1] = pathRelativeToDocumentStorage;
+  v35[2] = @"Hidden";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:self->_hidden];
-  v37[2] = v4;
-  v36[3] = @"Replicated";
+  v36[2] = v4;
+  v35[3] = @"Replicated";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:self->_replicated];
-  v37[3] = v5;
-  v36[4] = @"SupportsSyncingTrash";
+  v36[3] = v5;
+  v35[4] = @"SupportsSyncingTrash";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsSyncingTrash];
-  v37[4] = v6;
-  v36[5] = @"SupportsSearch";
+  v36[4] = v6;
+  v35[5] = @"SupportsSearch";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsSearch];
-  v37[5] = v7;
-  v36[6] = @"SupportsStringSearchRequest";
+  v36[5] = v7;
+  v35[6] = @"SupportsStringSearchRequest";
   v8 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsStringSearchRequest];
-  v37[6] = v8;
-  v36[7] = @"SupportsRemoteVersions";
+  v36[6] = v8;
+  v35[7] = @"SupportsRemoteVersions";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:self->_supportsRemoteVersions];
-  v37[7] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:8];
+  v36[7] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:8];
 
   v11 = [v10 mutableCopy];
   if (self->_containsPhotos)
@@ -481,15 +481,15 @@
   error = self->_error;
   if (error)
   {
-    v35 = 0;
-    v18 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:error requiringSecureCoding:1 error:&v35];
-    v19 = v35;
+    v34 = 0;
+    v18 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:error requiringSecureCoding:1 error:&v34];
+    v19 = v34;
     if (!v18)
     {
       v20 = fp_current_or_default_log();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [(NSFileProviderDomain *)&self->_error plistDictionary];
+        [NSFileProviderDomain plistDictionary];
       }
     }
 
@@ -499,15 +499,15 @@
   userInfo = self->_userInfo;
   if (userInfo)
   {
-    v34 = 0;
-    v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:userInfo requiringSecureCoding:1 error:&v34];
-    v23 = v34;
+    v33 = 0;
+    v22 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:userInfo requiringSecureCoding:1 error:&v33];
+    v23 = v33;
     if (!v22)
     {
       v24 = fp_current_or_default_log();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(NSFileProviderDomain *)&self->_error plistDictionary];
+        [NSFileProviderDomain plistDictionary];
       }
     }
 
@@ -556,9 +556,300 @@
     [v11 setObject:v31 forKeyedSubscript:@"ReplicatedKnownFolders"];
   }
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v11;
+}
+
++ (id)domainFromPlistDictionary:(id)dictionary identifier:(id)identifier volumeURL:(id)l replicatedByDefault:(BOOL)default
+{
+  defaultCopy = default;
+  dictionaryCopy = dictionary;
+  identifierCopy = identifier;
+  lCopy = l;
+  if ([identifierCopy isEqualToString:@"NSFileProviderDomainDefaultIdentifier"])
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v48 = [dictionaryCopy objectForKeyedSubscript:@"DisplayName"];
+    v14 = [dictionaryCopy objectForKeyedSubscript:@"Path"];
+    v59 = [dictionaryCopy objectForKeyedSubscript:@"Hidden"];
+    v15 = [dictionaryCopy objectForKeyedSubscript:@"Replicated"];
+    v16 = v15;
+    if (v15)
+    {
+      v17 = v15;
+    }
+
+    else
+    {
+      v17 = [MEMORY[0x1E696AD98] numberWithBool:defaultCopy];
+    }
+
+    v58 = v17;
+
+    v54 = [dictionaryCopy objectForKeyedSubscript:@"ContainsPhotos"];
+    v47 = [dictionaryCopy objectForKeyedSubscript:@"ReadOnly"];
+    v53 = [dictionaryCopy objectForKeyedSubscript:@"Erasable"];
+    v52 = [dictionaryCopy objectForKeyedSubscript:@"IsContentManaged"];
+    v57 = [dictionaryCopy objectForKeyedSubscript:@"Error"];
+    v56 = [dictionaryCopy objectForKeyedSubscript:@"Disconnected"];
+    v44 = [dictionaryCopy objectForKeyedSubscript:@"DisconnectionReason"];
+    v43 = [dictionaryCopy objectForKeyedSubscript:@"DisconnectionOptions"];
+    v51 = [dictionaryCopy objectForKeyedSubscript:@"TestingModes"];
+    v18 = [dictionaryCopy objectForKeyedSubscript:@"SupportsSyncingTrash"];
+    v46 = [dictionaryCopy objectForKeyedSubscript:@"SupportsSearch"];
+    v19 = [dictionaryCopy objectForKeyedSubscript:@"SupportsStringSearchRequest"];
+    v20 = [dictionaryCopy objectForKeyedSubscript:@"UserHidden"];
+    v21 = v20;
+    v22 = MEMORY[0x1E695E110];
+    if (v20)
+    {
+      v22 = v20;
+    }
+
+    v55 = v22;
+
+    v50 = [dictionaryCopy objectForKeyedSubscript:@"SpotlightDomain"];
+    v23 = [dictionaryCopy objectForKeyedSubscript:@"UserInfo"];
+    v49 = [dictionaryCopy objectForKeyedSubscript:@"SupportedKnownFolders"];
+    v24 = [dictionaryCopy objectForKeyedSubscript:@"ReplicatedKnownFolders"];
+    v45 = [dictionaryCopy objectForKeyedSubscript:@"SupportsRemoteVersions"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), (objc_opt_isKindOfClass()))
+      {
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v50 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v54 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v53 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v52 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v57 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v23 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v56 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v51 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v49 = 0;
+        }
+
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
+        {
+
+          v24 = 0;
+        }
+
+        v25 = [self alloc];
+        bOOLValue = [v59 BOOLValue];
+        LOBYTE(v36) = [v58 BOOLValue];
+        v13 = [v25 initWithIdentifier:identifierCopy displayName:v48 userInfo:MEMORY[0x1E695E0F8] volumeURL:lCopy pathRelativeToDocumentStorage:v14 hidden:bOOLValue replicated:v36];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          bOOLValue2 = [v18 BOOLValue];
+        }
+
+        else
+        {
+          bOOLValue2 = 1;
+        }
+
+        [v13 setSupportsSyncingTrash:bOOLValue2];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          bOOLValue3 = [v46 BOOLValue];
+        }
+
+        else
+        {
+          bOOLValue3 = 0;
+        }
+
+        [v13 setSupportsSearch:bOOLValue3];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          bOOLValue4 = [v19 BOOLValue];
+        }
+
+        else
+        {
+          bOOLValue4 = 0;
+        }
+
+        [v13 setSupportsStringSearchRequest:bOOLValue4];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          bOOLValue5 = [v45 BOOLValue];
+        }
+
+        else
+        {
+          bOOLValue5 = 0;
+        }
+
+        [v13 setSupportsRemoteVersions:bOOLValue5];
+        [v13 setSpotlightDomainIdentifier:v50];
+        if (v54)
+        {
+          [v13 setContainsPhotos:{objc_msgSend(v54, "BOOLValue")}];
+        }
+
+        if (v47)
+        {
+          [v13 setReadOnly:{objc_msgSend(v47, "BOOLValue")}];
+        }
+
+        if (v53)
+        {
+          [v13 setErasable:{objc_msgSend(v53, "BOOLValue")}];
+        }
+
+        if (v52)
+        {
+          [v13 setIsContentManaged:{objc_msgSend(v52, "BOOLValue")}];
+        }
+
+        [v13 setHiddenByUser:{objc_msgSend(v55, "BOOLValue")}];
+        [v13 setSupportedKnownFolders:{objc_msgSend(v49, "unsignedIntegerValue")}];
+        [v13 setReplicatedKnownFolders:{objc_msgSend(v24, "unsignedIntegerValue")}];
+        if (v57)
+        {
+          v60[0] = 0;
+          v31 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v57 error:v60];
+          v40 = v60[0];
+          if (!v31)
+          {
+            v32 = fp_current_or_default_log();
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            {
+              [NSFileProviderDomain domainFromPlistDictionary:v40 identifier:v32 volumeURL:? replicatedByDefault:?];
+            }
+
+            v31 = 0;
+          }
+
+          [v13 setError:v31];
+        }
+
+        if (v23)
+        {
+          v41 = MEMORY[0x1E696ACD0];
+          v37 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+          v33 = +[NSFileProviderDomain _userInfoAllowedClasses];
+          v42 = [v41 unarchivedDictionaryWithKeysOfClasses:v37 objectsOfClasses:? fromData:? error:?];
+          v38 = 0;
+
+          v34 = v42;
+          if (!v42)
+          {
+            v35 = fp_current_or_default_log();
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+            {
+              [NSFileProviderDomain domainFromPlistDictionary:v38 identifier:v35 volumeURL:? replicatedByDefault:?];
+            }
+
+            v34 = 0;
+          }
+
+          [v13 setUserInfo:v34];
+        }
+
+        if (v56)
+        {
+          [v13 setDisconnected:{objc_msgSend(v56, "BOOLValue")}];
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            [v13 _setDisconnectionReason:v44];
+          }
+
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            [v13 _setDisconnectionOptions:{objc_msgSend(v43, "intValue") & 1}];
+          }
+        }
+
+        if (v51)
+        {
+          [v13 setTestingModes:{objc_msgSend(v51, "unsignedIntegerValue")}];
+        }
+
+        if (v58)
+        {
+          [v13 setReplicated:{objc_msgSend(v58, "BOOLValue")}];
+        }
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  return v13;
 }
 
 - (void)setUserInfo:(id)info
@@ -583,7 +874,7 @@
 
 void __36__NSFileProviderDomain_setUserInfo___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -592,12 +883,12 @@ void __36__NSFileProviderDomain_setUserInfo___block_invoke(uint64_t a1, void *a2
     __36__NSFileProviderDomain_setUserInfo___block_invoke_cold_1(a1, v5);
   }
 
-  v17 = 0u;
-  v18 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = *(a1 + 40);
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (!v8)
   {
 
@@ -608,21 +899,20 @@ LABEL_13:
 
   v9 = v8;
   v10 = 0;
-  v11 = *v16;
+  v11 = *v14;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v16 != v11)
+      if (*v14 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v15 + 1) + 8 * i);
       v10 |= objc_opt_isKindOfClass();
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   }
 
   while (v9);
@@ -633,8 +923,6 @@ LABEL_13:
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyValuesFromExistingDomain:(id)domain
@@ -704,31 +992,20 @@ LABEL_11:
   return v6;
 }
 
-- (void)plistDictionary
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *self;
-  OUTLINED_FUNCTION_0_17();
-  OUTLINED_FUNCTION_37(&dword_1AAAE1000, v2, v3, "[ERROR] Failed to archive domain userInfo %@: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
 + (void)domainFromPlistDictionary:(uint64_t)a1 identifier:(NSObject *)a2 volumeURL:replicatedByDefault:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to unarchive domain error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to unarchive domain error %@", &v2, 0xCu);
 }
 
 + (void)domainFromPlistDictionary:(uint64_t)a1 identifier:(NSObject *)a2 volumeURL:replicatedByDefault:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to unarchive domain userInfo %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to unarchive domain userInfo %@", &v2, 0xCu);
 }
 
 void __36__NSFileProviderDomain_setUserInfo___block_invoke_cold_1(uint64_t a1, uint64_t a2)

@@ -51,38 +51,40 @@ void __66__PXSidebarImageLoader_requestImageForAsset_pixelSize_completion___bloc
 
 - (int64_t)requestFolderImageWithAssets:(id)assets imageSize:(CGSize)size traitCollection:(id)collection completion:(id)completion
 {
+  height = size.height;
+  width = size.width;
   assetsCopy = assets;
   collectionCopy = collection;
   completionCopy = completion;
   objc_initWeak(&location, self);
-  v17[0] = 0;
-  v17[1] = v17;
-  v17[2] = 0x3032000000;
-  v17[3] = __Block_byref_object_copy__40070;
-  v17[4] = __Block_byref_object_dispose__40071;
-  v17[5] = 0;
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x2020000000;
-  v16[3] = 0;
+  v19[0] = 0;
+  v19[1] = v19;
+  v19[2] = 0x3032000000;
+  v19[3] = __Block_byref_object_copy__40070;
+  v19[4] = __Block_byref_object_dispose__40071;
+  v19[5] = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2020000000;
+  v18[3] = 0;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __90__PXSidebarImageLoader_requestFolderImageWithAssets_imageSize_traitCollection_completion___block_invoke;
+  v17[3] = &unk_1E7731558;
+  v17[4] = self;
+  v17[5] = v19;
+  v17[6] = v18;
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
-  v15[2] = __90__PXSidebarImageLoader_requestFolderImageWithAssets_imageSize_traitCollection_completion___block_invoke;
-  v15[3] = &unk_1E7731558;
-  v15[4] = self;
-  v15[5] = v17;
-  v15[6] = v16;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __90__PXSidebarImageLoader_requestFolderImageWithAssets_imageSize_traitCollection_completion___block_invoke_2;
-  v13[3] = &unk_1E7731580;
-  objc_copyWeak(&v14, &location);
-  v13[5] = v17;
-  v13[4] = completionCopy;
-  PXSidebarRequestFolderImageForAssets(assetsCopy, collectionCopy, v15, v13);
+  v15[2] = __90__PXSidebarImageLoader_requestFolderImageWithAssets_imageSize_traitCollection_completion___block_invoke_2;
+  v15[3] = &unk_1E7731580;
+  objc_copyWeak(&v16, &location);
+  v15[5] = v19;
+  v15[4] = completionCopy;
+  PXSidebarRequestFolderImageForAssets(assetsCopy, collectionCopy, v17, v15, width, height);
 }
 
-uint64_t __90__PXSidebarImageLoader_requestFolderImageWithAssets_imageSize_traitCollection_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__90__PXSidebarImageLoader_requestFolderImageWithAssets_imageSize_traitCollection_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = [*(a1 + 32) beginRequestForMediaProvider:a2 mediaRequestIDs:a3];
   v5 = *(*(a1 + 40) + 8);

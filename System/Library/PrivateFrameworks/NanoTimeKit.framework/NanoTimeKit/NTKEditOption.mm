@@ -46,12 +46,12 @@
 
   else if (style == 2)
   {
-    v4 = _smallRectSwatchSize();
+    v4 = _smallRectSwatchSize(self, a2);
   }
 
   else if (style == 3)
   {
-    v4 = _largeRectSwatchSize();
+    v4 = _largeRectSwatchSize(self, a2);
   }
 
   else
@@ -110,37 +110,37 @@
 
 - (NSString)dailySnapshotKey
 {
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_5();
+  v2 = OUTLINED_FUNCTION_1_6(self);
+  OUTLINED_FUNCTION_0_5(v2);
   return 0;
 }
 
 - (NSString)localizedName
 {
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_5();
+  v2 = OUTLINED_FUNCTION_1_6(self);
+  OUTLINED_FUNCTION_0_5(v2);
   return 0;
 }
 
 - (id)JSONObjectRepresentation
 {
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_5();
+  v2 = OUTLINED_FUNCTION_1_6(self);
+  OUTLINED_FUNCTION_0_5(v2);
   return 0;
 }
 
 - (NTKEditOption)initWithJSONObjectRepresentation:(id)representation forDevice:(id)device
 {
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_5();
+  v5 = OUTLINED_FUNCTION_1_6(self);
+  OUTLINED_FUNCTION_0_5(v5);
 
   return 0;
 }
 
 - (BOOL)isValidOption
 {
-  OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_5();
+  v2 = OUTLINED_FUNCTION_1_6(self);
+  OUTLINED_FUNCTION_0_5(v2);
   return 0;
 }
 

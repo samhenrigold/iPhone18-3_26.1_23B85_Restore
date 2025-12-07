@@ -1,8 +1,10 @@
 @interface OrgApacheLuceneUtilBytesRefHash
 - (id)compact;
+- (id)getWithInt:(int)int withOrgApacheLuceneUtilBytesRef:(id)ref;
 - (id)sortWithJavaUtilComparator:(id)comparator;
 - (int)addByPoolOffsetWithInt:(int)int;
 - (int)addWithOrgApacheLuceneUtilBytesRef:(id)ref;
+- (int)byteStartWithInt:(int)int;
 - (int)findWithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (void)clearWithBoolean:(BOOL)boolean;
 - (void)close;
@@ -11,6 +13,25 @@
 @end
 
 @implementation OrgApacheLuceneUtilBytesRefHash
+
+- (id)getWithInt:(int)int withOrgApacheLuceneUtilBytesRef:(id)ref
+{
+  pool = self->pool_;
+  if (!pool)
+  {
+    JreThrowNullPointerException();
+  }
+
+  bytesStart = self->bytesStart_;
+  size = bytesStart->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  [(OrgApacheLuceneUtilByteBlockPool *)pool setBytesRefWithOrgApacheLuceneUtilBytesRef:ref withInt:*(&bytesStart->super.size_ + int + 1)];
+  return ref;
+}
 
 - (id)compact
 {
@@ -171,7 +192,6 @@ LABEL_10:
   {
     if (v20 + 2 > 0x8000)
     {
-      v39 = *(ref + 5);
       v37 = JreStrcat("$I$I", v7, v8, v9, v10, v11, v12, v13, @"bytes can be at most ");
       v38 = new_OrgApacheLuceneUtilBytesRefHash_MaxBytesLengthExceededException_initWithNSString_(v37);
       objc_exception_throw(v38);
@@ -458,6 +478,23 @@ LABEL_9:
   v6 = 4 * self->hashSize_;
 
   [(OrgApacheLuceneUtilCounter *)bytesUsed addAndGetWithLong:v6];
+}
+
+- (int)byteStartWithInt:(int)int
+{
+  bytesStart = self->bytesStart_;
+  if (!bytesStart)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = bytesStart->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  return *(&bytesStart->super.size_ + int + 1);
 }
 
 - (void)dealloc

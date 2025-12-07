@@ -400,7 +400,7 @@ LABEL_55:
   return v3;
 }
 
-uint64_t __33__BWMetadataTimeMachine_metadata__block_invoke(uint64_t a1)
+void *__33__BWMetadataTimeMachine_metadata__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 40) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -535,7 +535,7 @@ uint64_t __30__BWMetadataTimeMachine_reset__block_invoke(uint64_t a1)
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && v6)
           {
-            v6[5] = 0;
+            *(v6 + 20) = 0;
             v15.receiver = v6;
             v15.super_class = BWMetadataTimeMachineWaitRequest;
             objc_msgSendSuper2(&v15, sel_complete);
@@ -642,7 +642,7 @@ __n128 __43__BWMetadataTimeMachine_earliestAllowedPTS__block_invoke(uint64_t a1)
   if (!_FigIsCurrentDispatchQueue())
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v53, v55, v57, v60, LODWORD(rhs.start.value), *&rhs.start.timescale, rhs.start.epoch, LODWORD(rhs.duration.value));
   }
 
   if ((*(a2 + 12) & 1) == 0 || (*(a2 + 36) & 1) == 0 || *(a2 + 40) || (*(a2 + 24) & 0x8000000000000000) != 0)
@@ -650,8 +650,8 @@ __n128 __43__BWMetadataTimeMachine_earliestAllowedPTS__block_invoke(uint64_t a1)
     return 0;
   }
 
-  memset(&v87, 0, sizeof(v87));
-  CMTimeMake(&v87, 1, 1000);
+  memset(&v89, 0, sizeof(v89));
+  CMTimeMake(&v89, 1, 1000);
   v4 = MEMORY[0x1E6960C98];
   value = *MEMORY[0x1E6960C98];
   timescale = *(MEMORY[0x1E6960C98] + 8);
@@ -669,7 +669,7 @@ __n128 __43__BWMetadataTimeMachine_earliestAllowedPTS__block_invoke(uint64_t a1)
     if (CMTimeCompare(&time1.start, &time2) > 0)
     {
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v53, v55, v57, v60, LODWORD(rhs.start.value), *&rhs.start.timescale, rhs.start.epoch, LODWORD(rhs.duration.value));
       return 0;
     }
 
@@ -713,24 +713,24 @@ LABEL_15:
   array = 0;
   if ((BYTE4(v5) & 1) != 0 && !v11)
   {
-    v57 = v5;
+    v58 = v5;
     if ((v10 & 0x8000000000000000) == 0)
     {
       rhs.start.value = value;
       rhs.start.timescale = timescale;
       rhs.start.flags = flags;
       rhs.start.epoch = epoch;
-      *&lhs.value = *&v87.value;
-      OUTLINED_FUNCTION_1_24(v87.epoch);
+      *&lhs.value = *&v89.value;
+      OUTLINED_FUNCTION_1_24(v89.epoch);
       CMTimeSubtract(v18, v16, v17);
       value = time1.start.value;
       v19 = time1.start.flags;
       timescale = time1.start.timescale;
       v20 = time1.start.epoch;
-      time1.start = v87;
+      time1.start = v89;
       CMTimeMultiply(&rhs.start, &time1.start, 2);
       lhs.value = v10;
-      *&lhs.timescale = v57;
+      *&lhs.timescale = v58;
       CMTimeAdd(&time1.start, &lhs, &rhs.start);
       v21 = time1.start.value;
       v22 = time1.start.epoch;
@@ -760,35 +760,35 @@ LABEL_15:
       *&time1.duration.timescale = *(a2 + 32);
       *&rhs.start.value = *&time1.start.value;
       rhs.start.epoch = *(a2 + 16);
-      *&lhs.value = *&v87.value;
-      OUTLINED_FUNCTION_1_24(v87.epoch);
+      *&lhs.value = *&v89.value;
+      OUTLINED_FUNCTION_1_24(v89.epoch);
       CMTimeSubtract(v29, v27, v28);
-      rhs.start = v87;
+      rhs.start = v89;
       CMTimeMultiply(&lhs, &rhs.start, 2);
       time2 = time1.duration;
       v30 = CMTimeAdd(&rhs.start, &time2, &lhs);
       time1.duration = rhs.start;
-      v77 = 0u;
-      v78 = 0u;
       v79 = 0u;
       v80 = 0u;
+      v81 = 0u;
+      v82 = 0u;
       v31 = *(range + 40);
-      v39 = OUTLINED_FUNCTION_6_15(v30, v32, v33, v34, v35, v36, v37, v38, v53, v55, v57, *(&v57 + 1), rhs.start.value, *&rhs.start.timescale, rhs.start.epoch, rhs.duration.value, *&rhs.duration.timescale, rhs.duration.epoch, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, 0);
+      v39 = OUTLINED_FUNCTION_6_15(v30, v32, v33, v34, v35, v36, v37, v38, v53, v55, v58, *(&v58 + 1), rhs.start.value, *&rhs.start.timescale, rhs.start.epoch, rhs.duration.value, *&rhs.duration.timescale, rhs.duration.epoch, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
       if (v39)
       {
         v40 = v39;
-        v41 = *v78;
+        v41 = *v80;
         v42 = *off_1E798A420;
         do
         {
           for (i = 0; i != v40; ++i)
           {
-            if (*v78 != v41)
+            if (*v80 != v41)
             {
               objc_enumerationMutation(v31);
             }
 
-            v44 = *(*(&v77 + 1) + 8 * i);
+            v44 = *(*(&v79 + 1) + 8 * i);
             memset(&lhs, 0, sizeof(lhs));
             CMTimeMakeFromDictionary(&lhs, [v44 objectForKeyedSubscript:v42]);
             rhs = time1;
@@ -800,7 +800,7 @@ LABEL_15:
             }
           }
 
-          v40 = OUTLINED_FUNCTION_6_15(v45, v46, v47, v48, v49, v50, v51, v52, v54, v56, v58, v59, rhs.start.value, *&rhs.start.timescale, rhs.start.epoch, rhs.duration.value, *&rhs.duration.timescale, rhs.duration.epoch, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77);
+          v40 = OUTLINED_FUNCTION_6_15(v45, v46, v47, v48, v49, v50, v51, v52, v54, v56, v59, v61, rhs.start.value, *&rhs.start.timescale, rhs.start.epoch, rhs.duration.value, *&rhs.duration.timescale, rhs.duration.epoch, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
         }
 
         while (v40);

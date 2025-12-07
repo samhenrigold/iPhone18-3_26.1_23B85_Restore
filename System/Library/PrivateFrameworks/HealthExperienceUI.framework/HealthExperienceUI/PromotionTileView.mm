@@ -67,7 +67,7 @@
     selfCopy = v12;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v13);
+  __swift_destroy_boxed_opaque_existential_1(v13);
 }
 
 - (void)didTapLinkAction:(id)action
@@ -94,7 +94,7 @@
     selfCopy = v12;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v13);
+  __swift_destroy_boxed_opaque_existential_1(v13);
 }
 
 - (BOOL)isDismissible
@@ -107,7 +107,7 @@
 
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event
 {
-  sub_1B9F0ADF8(0, &qword_1EBBECB58);
+  sub_1B9F0ADF8(0, &qword_1EBBECB58, 0x1E69DD190);
   sub_1BA3955EC();
   sub_1BA4A6D78();
   selfCopy = self;

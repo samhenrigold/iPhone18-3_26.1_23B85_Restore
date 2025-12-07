@@ -8,14 +8,11 @@
 
 - (NSString)magicString
 {
-  v2 = (self + OBJC_IVAR____TtC30_SecureElementCredential_UIKit20SESCAMPrivateUIScene_magicString);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_23B969564();
+  v2 = sub_23B969564();
 
-  return v5;
+  return v2;
 }
 
 - (void)setMagicString:(id)string
@@ -24,7 +21,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC30_SecureElementCredential_UIKit20SESCAMPrivateUIScene_magicString);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

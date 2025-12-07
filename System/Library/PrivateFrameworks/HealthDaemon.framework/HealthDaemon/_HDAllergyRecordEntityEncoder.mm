@@ -8,24 +8,22 @@
 
 - (id)orderedProperties
 {
-  v9[11] = *MEMORY[0x277D85DE8];
-  v9[0] = @"allergy_coding_collection";
-  v9[1] = @"onset_date";
-  v9[2] = @"asserter";
-  v9[3] = @"reactions";
-  v9[4] = @"criticality_coding";
-  v9[5] = @"last_occurrence_date";
-  v9[6] = @"recorded_date";
-  v9[7] = @"verification_status_coding";
-  v9[8] = @"clinical_status_coding";
-  v9[9] = @"allergy_type_coding";
-  v9[10] = @"category_coding";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:11];
+  v8[11] = *MEMORY[0x277D85DE8];
+  v8[0] = @"allergy_coding_collection";
+  v8[1] = @"onset_date";
+  v8[2] = @"asserter";
+  v8[3] = @"reactions";
+  v8[4] = @"criticality_coding";
+  v8[5] = @"last_occurrence_date";
+  v8[6] = @"recorded_date";
+  v8[7] = @"verification_status_coding";
+  v8[8] = @"clinical_status_coding";
+  v8[9] = @"allergy_type_coding";
+  v8[10] = @"category_coding";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:11];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

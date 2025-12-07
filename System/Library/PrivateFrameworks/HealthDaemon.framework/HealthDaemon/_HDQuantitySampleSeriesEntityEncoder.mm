@@ -11,21 +11,19 @@
 
 - (id)orderedProperties
 {
-  v9[8] = *MEMORY[0x277D85DE8];
-  v9[0] = @"count";
-  v9[1] = @"insertion_era";
-  v9[2] = @"hfd_key";
-  v9[3] = @"min";
-  v9[4] = @"max";
-  v9[5] = @"most_recent";
-  v9[6] = @"most_recent_date";
-  v9[7] = @"most_recent_duration";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:8];
+  v8[8] = *MEMORY[0x277D85DE8];
+  v8[0] = @"count";
+  v8[1] = @"insertion_era";
+  v8[2] = @"hfd_key";
+  v8[3] = @"min";
+  v8[4] = @"max";
+  v8[5] = @"most_recent";
+  v8[6] = @"most_recent_date";
+  v8[7] = @"most_recent_duration";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:8];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -298,7 +296,7 @@
     v72 = 0x3032000000;
     v73 = __Block_byref_object_copy__123;
     v74 = __Block_byref_object_dispose__123;
-    v75 = [v19 copy];
+    v75 = objc_msgSend_copy(v19);
     v66 = 0;
     v67 = &v66;
     v68 = 0x2020000000;
@@ -343,24 +341,8 @@
       if (*(v63 + 24) == 1)
       {
         v26 = v71[5];
-        if (!v26)
+        if (!v26 || ([v26 setFinal:1], v27 = v71[5], v28 = v67[3], v29 = (v55 + 5), obj = v55[5], v30 = (*(v23 + 2))(v23, v27, v28, 1, &obj), objc_storeStrong(v29, obj), v31 = v30 == 2, *(v63 + 24) = v30 != 2, superclassEncoder = v40, !v31))
         {
-          goto LABEL_8;
-        }
-
-        [v26 setFinal:1];
-        v27 = v71[5];
-        v28 = v67[3];
-        v29 = (v55 + 5);
-        obj = v55[5];
-        v30 = (*(v23 + 2))(v23, v27, v28, 1, &obj);
-        objc_storeStrong(v29, obj);
-        v31 = v30 == 2;
-        *(v63 + 24) = v30 != 2;
-        superclassEncoder = v40;
-        if (!v31)
-        {
-LABEL_8:
           v32 = 1;
 LABEL_20:
 

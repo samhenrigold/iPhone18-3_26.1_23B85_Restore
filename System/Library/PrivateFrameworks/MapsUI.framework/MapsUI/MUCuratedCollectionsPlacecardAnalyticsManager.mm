@@ -2,6 +2,7 @@
 - (MUCuratedCollectionsPlacecardAnalyticsManager)init;
 - (void)cleanUp;
 - (void)logEvent;
+- (void)placecardCollectionTapped:(id)tapped atIndex:(unint64_t)index isCurrentlySaved:(BOOL)saved;
 - (void)placecardCollectionsScrollBackward;
 - (void)placecardCollectionsScrollForward;
 - (void)placecardCollectionsSeeAllTapped;
@@ -28,11 +29,11 @@
 
 - (void)logEvent
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69A1B10] moduleFromModuleType:31];
   action = self->_event.action;
   value = self->_event.value;
-  v15 = MEMORY[0x1E69A1598];
+  v14 = MEMORY[0x1E69A1598];
   collectionId = self->_event.collectionId;
   verticalIndex = self->_event.verticalIndex;
   collectionCurrentlySaved = self->_event.collectionCurrentlySaved;
@@ -41,11 +42,9 @@
   v9 = [MEMORY[0x1E696AD98] numberWithInt:self->_event.cardType];
   possibleActions = self->_event.possibleActions;
   impossibleActions = self->_event.impossibleActions;
-  v17[0] = v3;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-  [v15 captureCuratedCollectionUserAction:action target:target value:value publisherId:0 following:0 collectionId:collectionId collectionCategory:0 collectionCurrentlySaved:collectionCurrentlySaved verticalIndex:verticalIndex horizontalIndex:horizontalIndex placeCardType:v9 possibleActions:possibleActions impossibleActions:impossibleActions modules:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v16[0] = v3;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  [v14 captureCuratedCollectionUserAction:action target:target value:value publisherId:0 following:0 collectionId:collectionId collectionCategory:0 collectionCurrentlySaved:collectionCurrentlySaved verticalIndex:verticalIndex horizontalIndex:horizontalIndex placeCardType:v9 possibleActions:possibleActions impossibleActions:impossibleActions modules:v12];
 }
 
 - (void)placecardExploreGuidesButtonTapped
@@ -60,6 +59,30 @@
 {
   [(MUCuratedCollectionsPlacecardAnalyticsManager *)self cleanUp];
   self->_event.action = 2094;
+
+  [(MUCuratedCollectionsPlacecardAnalyticsManager *)self logEvent];
+}
+
+- (void)placecardCollectionTapped:(id)tapped atIndex:(unint64_t)index isCurrentlySaved:(BOOL)saved
+{
+  savedCopy = saved;
+  tappedCopy = tapped;
+  [(MUCuratedCollectionsPlacecardAnalyticsManager *)self cleanUp];
+  self->_event.action = 2099;
+  v9 = MEMORY[0x1E696AD98];
+  muid = [tappedCopy muid];
+
+  v11 = [v9 numberWithUnsignedLongLong:muid];
+  collectionId = self->_event.collectionId;
+  self->_event.collectionId = v11;
+
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:savedCopy];
+  collectionCurrentlySaved = self->_event.collectionCurrentlySaved;
+  self->_event.collectionCurrentlySaved = v13;
+
+  v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
+  horizontalIndex = self->_event.horizontalIndex;
+  self->_event.horizontalIndex = v15;
 
   [(MUCuratedCollectionsPlacecardAnalyticsManager *)self logEvent];
 }

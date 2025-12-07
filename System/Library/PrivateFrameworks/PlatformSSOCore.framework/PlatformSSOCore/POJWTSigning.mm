@@ -165,7 +165,7 @@ LABEL_7:
 id __49__POJWTSigning_verifyJWTSignature_algorithm_key___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Algorithm not found when verifying JWT."];
-  v1 = PO_LOG_POJWTSigning();
+  v1 = PO_LOG_POJWTSigning(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -223,7 +223,7 @@ id __49__POJWTSigning_verifyJWTSignature_algorithm_key___block_invoke()
 id __39__POJWTSigning_verifyJWTSignature_key___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Failed to decode signature."];
-  v1 = PO_LOG_POJWTSigning();
+  v1 = PO_LOG_POJWTSigning(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -254,7 +254,7 @@ id __39__POJWTSigning_verifyJWTSignature_key___block_invoke()
 id __65__POJWTSigning_encodeAndSignJWT_algorithm_key_certificate_error___block_invoke()
 {
   v0 = [POError errorWithCode:-1008 description:@"Algorithm not found when signing JWT."];
-  v1 = PO_LOG_POJWTSigning();
+  v1 = PO_LOG_POJWTSigning(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -392,24 +392,25 @@ LABEL_17:
   v43 = CFStringCreateWithFormat(v42, 0, @"%@.%@", psso_base64URLEncodedString, psso_base64URLEncodedString2);
   v44 = SecCFAllocatorZeroize();
   ExternalRepresentation = CFStringCreateExternalRepresentation(v44, v43, 0x8000100u, 0);
+  v46 = ExternalRepresentation;
   if (v43)
   {
     CFRelease(v43);
   }
 
-  v46 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+  v47 = PO_LOG_POJWTSigning(ExternalRepresentation);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
   {
-    [POJWTSigning encodeAndSignJWT:v46 key:? certificate:? error:?];
+    [POJWTSigning encodeAndSignJWT:v46 key:v47 certificate:? error:?];
   }
 
-  v47 = [(POJWTSigning *)self signData:ExternalRepresentation usingKey:key error:error];
+  v48 = [(POJWTSigning *)self signData:v46 usingKey:key error:error];
 
-  if ([v47 length])
+  if ([v48 length])
   {
-    psso_base64URLEncodedString3 = [v47 psso_base64URLEncodedString];
-    v49 = SecCFAllocatorZeroize();
-    v24 = CFStringCreateWithFormat(v49, 0, @"%@.%@.%@", psso_base64URLEncodedString, psso_base64URLEncodedString2, psso_base64URLEncodedString3);
+    psso_base64URLEncodedString3 = [v48 psso_base64URLEncodedString];
+    v50 = SecCFAllocatorZeroize();
+    v24 = CFStringCreateWithFormat(v50, 0, @"%@.%@.%@", psso_base64URLEncodedString, psso_base64URLEncodedString2, psso_base64URLEncodedString3);
   }
 
   else
@@ -418,7 +419,6 @@ LABEL_17:
   }
 
 LABEL_25:
-  v50 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -426,7 +426,7 @@ LABEL_25:
 id __55__POJWTSigning_encodeAndSignJWT_key_certificate_error___block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Failed to copy public key when signing JWT."];
-  v1 = PO_LOG_POJWTSigning();
+  v1 = PO_LOG_POJWTSigning(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -438,7 +438,7 @@ id __55__POJWTSigning_encodeAndSignJWT_key_certificate_error___block_invoke()
 id __55__POJWTSigning_encodeAndSignJWT_key_certificate_error___block_invoke_71()
 {
   v0 = [POError errorWithCode:-1004 description:@"Failed to extract certificate data when signing JWT."];
-  v1 = PO_LOG_POJWTSigning();
+  v1 = PO_LOG_POJWTSigning(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __24__POJWT_initWithString___block_invoke_cold_1();
@@ -452,12 +452,12 @@ id __55__POJWTSigning_encodeAndSignJWT_key_certificate_error___block_invoke_71()
   dataCopy = data;
   if (!SecKeyIsAlgorithmSupported(key, kSecKeyOperationTypeSign, [(POJWTSigning *)self algorithm]))
   {
-    error[6] = MEMORY[0x277D85DD0];
-    error[7] = 3221225472;
-    error[8] = __40__POJWTSigning_signData_usingKey_error___block_invoke;
-    error[9] = &unk_279A3DC48;
-    error[10] = self;
-    v11 = __40__POJWTSigning_signData_usingKey_error___block_invoke();
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __40__POJWTSigning_signData_usingKey_error___block_invoke;
+    v18[3] = &unk_279A3DC48;
+    v18[4] = self;
+    v11 = __40__POJWTSigning_signData_usingKey_error___block_invoke(v18);
     if (!error)
     {
 LABEL_9:
@@ -474,12 +474,12 @@ LABEL_8:
 
   if (![dataCopy length])
   {
-    error[1] = MEMORY[0x277D85DD0];
-    error[2] = 3221225472;
-    error[3] = __40__POJWTSigning_signData_usingKey_error___block_invoke_87;
-    error[4] = &unk_279A3DC48;
-    error[5] = self;
-    v11 = __40__POJWTSigning_signData_usingKey_error___block_invoke_87();
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __40__POJWTSigning_signData_usingKey_error___block_invoke_87;
+    v17[3] = &unk_279A3DC48;
+    v17[4] = self;
+    v11 = __40__POJWTSigning_signData_usingKey_error___block_invoke_87(v17);
     if (!error)
     {
       goto LABEL_9;
@@ -488,18 +488,18 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  error[0] = 0;
-  Signature = SecKeyCreateSignature(key, [(POJWTSigning *)self algorithm], dataCopy, error);
-  if (error[0])
+  error = 0;
+  v9 = SecKeyCreateSignature(key, [(POJWTSigning *)self algorithm], dataCopy, &error);
+  if (error)
   {
-    if (CFErrorGetCode(error[0]) == -3)
+    if (CFErrorGetCode(error) == -3)
     {
       v15[0] = MEMORY[0x277D85DD0];
       v15[1] = 3221225472;
       v15[2] = __40__POJWTSigning_signData_usingKey_error___block_invoke_91;
       v15[3] = &unk_279A3E0D8;
       v15[4] = self;
-      v15[5] = error[0];
+      v15[5] = error;
       v10 = __40__POJWTSigning_signData_usingKey_error___block_invoke_91(v15);
       if (!error)
       {
@@ -514,7 +514,7 @@ LABEL_8:
       v14[2] = __40__POJWTSigning_signData_usingKey_error___block_invoke_95;
       v14[3] = &unk_279A3E0D8;
       v14[4] = self;
-      v14[5] = error[0];
+      v14[5] = error;
       v10 = __40__POJWTSigning_signData_usingKey_error___block_invoke_95(v14);
       if (!error)
       {
@@ -530,7 +530,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v12 = Signature;
+  v12 = v9;
 LABEL_16:
 
 LABEL_17:
@@ -538,28 +538,28 @@ LABEL_17:
   return v12;
 }
 
-id __40__POJWTSigning_signData_usingKey_error___block_invoke()
+id __40__POJWTSigning_signData_usingKey_error___block_invoke(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1001 description:@"Signing algorithm not supported"];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1001 description:@"Signing algorithm not supported"];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
-id __40__POJWTSigning_signData_usingKey_error___block_invoke_87()
+id __40__POJWTSigning_signData_usingKey_error___block_invoke_87(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1005 description:@"No data to sign."];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1005 description:@"No data to sign."];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 id __40__POJWTSigning_signData_usingKey_error___block_invoke_91(uint64_t a1)
@@ -567,8 +567,8 @@ id __40__POJWTSigning_signData_usingKey_error___block_invoke_91(uint64_t a1)
   v1 = *(a1 + 40);
   v2 = [POError errorWithCode:-1010 underlyingError:v1 description:@"Key error creating signature"];
 
-  v3 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POJWTSigning(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
@@ -581,8 +581,8 @@ id __40__POJWTSigning_signData_usingKey_error___block_invoke_95(uint64_t a1)
   v1 = *(a1 + 40);
   v2 = [POError errorWithCode:-1001 underlyingError:v1 description:@"Error creating signature"];
 
-  v3 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POJWTSigning(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
@@ -615,77 +615,97 @@ LABEL_11:
           goto LABEL_12;
         }
 
-        v19 = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_110();
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_110;
+        v21[3] = &unk_279A3DC48;
+        v21[4] = self;
+        v19 = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_110(v21);
       }
 
       else
       {
-        v18 = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_106();
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_106;
+        v22[3] = &unk_279A3DC48;
+        v22[4] = self;
+        v18 = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_106(v22);
       }
     }
 
     else
     {
-      v17 = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_102();
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_102;
+      v23[3] = &unk_279A3DC48;
+      v23[4] = self;
+      v17 = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_102(v23);
     }
 
     v15 = 0;
     goto LABEL_11;
   }
 
-  v16 = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke();
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke;
+  v24[3] = &unk_279A3DC48;
+  v24[4] = self;
+  v16 = __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke(v24);
   v15 = 0;
 LABEL_12:
 
   return v15;
 }
 
-id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke()
+id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1008 description:@"No certificate string."];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1008 description:@"No certificate string."];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
-id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_102()
+id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_102(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1008 description:@"Failed to base64 decode."];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1008 description:@"Failed to base64 decode."];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
-id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_106()
+id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_106(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1008 description:@"Failed to create certificate."];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1008 description:@"Failed to create certificate."];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
-id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_110()
+id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invoke_110(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1008 description:@"Failed to get public key."];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1008 description:@"Failed to get public key."];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 - (BOOL)verifySignature:(id)signature onData:(id)data usingKey:(__SecKey *)key
@@ -694,12 +714,12 @@ id __62__POJWTSigning_verifySignature_onData_usingCertificateString___block_invo
   dataCopy = data;
   if (!SecKeyIsAlgorithmSupported(key, kSecKeyOperationTypeVerify, [(POJWTSigning *)self algorithm]))
   {
-    error[11] = MEMORY[0x277D85DD0];
-    error[12] = 3221225472;
-    error[13] = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke;
-    error[14] = &unk_279A3DC48;
-    error[15] = self;
-    v13 = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke();
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke;
+    v21[3] = &unk_279A3DC48;
+    v21[4] = self;
+    v13 = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke(v21);
 LABEL_9:
     v11 = 0;
     goto LABEL_10;
@@ -707,28 +727,28 @@ LABEL_9:
 
   if (![signatureCopy length])
   {
-    error[6] = MEMORY[0x277D85DD0];
-    error[7] = 3221225472;
-    error[8] = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_117;
-    error[9] = &unk_279A3DC48;
-    error[10] = self;
-    v14 = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_117();
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_117;
+    v20[3] = &unk_279A3DC48;
+    v20[4] = self;
+    v14 = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_117(v20);
     goto LABEL_9;
   }
 
   if (![dataCopy length])
   {
-    error[1] = MEMORY[0x277D85DD0];
-    error[2] = 3221225472;
-    error[3] = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_121;
-    error[4] = &unk_279A3DC48;
-    error[5] = self;
-    v15 = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_121();
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_121;
+    v19[3] = &unk_279A3DC48;
+    v19[4] = self;
+    v15 = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_121(v19);
     goto LABEL_9;
   }
 
-  error[0] = 0;
-  v10 = SecKeyVerifySignature(key, [(POJWTSigning *)self algorithm], dataCopy, signatureCopy, error);
+  error = 0;
+  v10 = SecKeyVerifySignature(key, [(POJWTSigning *)self algorithm], dataCopy, signatureCopy, &error);
   v11 = v10 != 0;
   if (!v10)
   {
@@ -737,7 +757,7 @@ LABEL_9:
     v17[2] = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_125;
     v17[3] = &unk_279A3E0D8;
     v17[4] = self;
-    v17[5] = error[0];
+    v17[5] = error;
     v12 = __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_125(v17);
   }
 
@@ -746,40 +766,40 @@ LABEL_10:
   return v11;
 }
 
-id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke()
+id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1008 description:@"Signing algorithm not supported for verification."];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1008 description:@"Signing algorithm not supported for verification."];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
-id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_117()
+id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_117(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1008 description:@"No signature to verify for verification."];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1008 description:@"No signature to verify for verification."];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
-id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_121()
+id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_121(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1008 description:@"No data to verify."];
-  v1 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1008 description:@"No data to verify."];
+  v2 = PO_LOG_POJWTSigning(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_125(uint64_t a1)
@@ -787,8 +807,8 @@ id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_125(uint64_
   v1 = *(a1 + 40);
   v2 = [POError errorWithCode:-1008 underlyingError:v1 description:@"Error verifying signature."];
 
-  v3 = PO_LOG_POJWTSigning();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POJWTSigning(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1();
   }
@@ -798,22 +818,18 @@ id __48__POJWTSigning_verifySignature_onData_usingKey___block_invoke_125(uint64_
 
 - (void)encodeAndSignJWT:(const __CFData *)a1 key:(NSObject *)a2 certificate:error:.cold.1(const __CFData *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   CFDataGetLength(a1);
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "Signing Data: %ld", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "Signing Data: %ld", v3, 0xCu);
 }
 
 void __40__POJWTSigning_signData_usingKey_error___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_3_0(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_3_0(v0 v1)];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E8B1000, v4, v5, "%{public}@, %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_25E8B1000, v3, v4, "%{public}@, %{public}@", v5, v6, v7, v8);
 }
 
 @end

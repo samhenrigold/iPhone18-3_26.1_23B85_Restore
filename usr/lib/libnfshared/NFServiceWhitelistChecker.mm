@@ -27,7 +27,7 @@
 
 - (void)_copyValueOfEntitlement:(id)entitlement secTask:(__SecTask *)task
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   error = 0;
   v6 = SecTaskCopyValueForEntitlement(task, entitlement, &error);
   if (error)
@@ -74,22 +74,21 @@
       v19 = object_getClassName(self);
       v20 = sel_getName(a2);
       *buf = 67110146;
-      v25 = v18;
-      v26 = 2082;
-      v27 = v19;
-      v28 = 2082;
-      v29 = v20;
-      v30 = 1024;
-      v31 = 65;
-      v32 = 2114;
-      v33 = error;
+      v24 = v18;
+      v25 = 2082;
+      v26 = v19;
+      v27 = 2082;
+      v28 = v20;
+      v29 = 1024;
+      v30 = 65;
+      v31 = 2114;
+      v32 = error;
       _os_log_impl(&dword_22EEC4000, v16, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to get entitlements: %{public}@", buf, 0x2Cu);
     }
 
     CFRelease(error);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -144,23 +143,23 @@
 
 - (id)_createAccessDictionaryFromICCode:(id)code serialNumber:(id)number maximumFilterStringLength:(unint64_t)length
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   codeCopy = code;
   numberCopy = number;
   v9 = objc_opt_new();
   v11 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x277CCA900], v10, @"0123456789abcdefABCDEF*");
   if (objc_msgSend_length(codeCopy, v12, v13) <= 2)
   {
-    v45 = 0;
+    v44 = 0;
     v15 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v14, codeCopy);
-    v17 = objc_msgSend_scanHexInt_(v15, v16, &v45);
+    v17 = objc_msgSend_scanHexInt_(v15, v16, &v44);
 
     if (v17)
     {
       v19 = objc_msgSend_scannerWithString_(MEMORY[0x277CCAC80], v18, numberCopy);
-      v44 = 0;
-      objc_msgSend_scanCharactersFromSet_intoString_(v19, v20, v11, &v44);
-      v21 = v44;
+      v43 = 0;
+      objc_msgSend_scanCharactersFromSet_intoString_(v19, v20, v11, &v43);
+      v21 = v43;
 
       if (objc_msgSend_length(v21, v22, v23) <= length)
       {
@@ -194,55 +193,53 @@
             }
           }
 
-          v46[0] = @"TagManufacturerCode";
-          v38 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v28, v45);
-          v46[1] = @"TagSerialNumber";
-          v47[0] = v38;
-          v47[1] = v21;
-          v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, v47, v46, 2);
+          v45[0] = @"TagManufacturerCode";
+          v38 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v28, v44);
+          v45[1] = @"TagSerialNumber";
+          v46[0] = v38;
+          v46[1] = v21;
+          v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, v46, v45, 2);
           objc_msgSend_addEntriesFromDictionary_(v9, v41, v40);
         }
       }
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)_initTagSpecifier:(id)specifier maximumFilterStringLength:(unint64_t)length
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v40 = specifierCopy;
+    v39 = specifierCopy;
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     v7 = specifierCopy;
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v41, v45, 16);
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v40, v44, 16);
     if (!v9)
     {
       goto LABEL_23;
     }
 
     v10 = v9;
-    v11 = *v42;
+    v11 = *v41;
     while (1)
     {
       v12 = 0;
       do
       {
-        if (*v42 != v11)
+        if (*v41 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v41 + 1) + 8 * v12);
+        v13 = *(*(&v40 + 1) + 8 * v12);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -306,23 +303,21 @@ LABEL_21:
       }
 
       while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v38, &v41, v45, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v38, &v40, v44, 16);
       if (!v10)
       {
 LABEL_23:
 
-        specifierCopy = v40;
+        specifierCopy = v39;
         break;
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isAIDStringValid:(id)valid
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA900];
   validCopy = valid;
   v8 = objc_msgSend_characterSetWithCharactersInString_(v5, v7, @"0123456789ABCDEF");
@@ -370,15 +365,15 @@ LABEL_23:
       }
 
       *buf = 67110146;
-      v65 = v25;
-      v66 = 2082;
-      v67 = object_getClassName(self);
-      v68 = 2082;
-      v69 = sel_getName(a2);
-      v70 = 1024;
-      v71 = 195;
-      v72 = 2114;
-      v73 = v11;
+      v64 = v25;
+      v65 = 2082;
+      v66 = object_getClassName(self);
+      v67 = 2082;
+      v68 = sel_getName(a2);
+      v69 = 1024;
+      v70 = 195;
+      v71 = 2114;
+      v72 = v11;
       v26 = "%c[%{public}s %{public}s]:%i Identifier string does not meet the minimum required length, %{public}@";
 LABEL_39:
       _os_log_impl(&dword_22EEC4000, v23, OS_LOG_TYPE_DEFAULT, v26, buf, 0x2Cu);
@@ -402,15 +397,15 @@ LABEL_40:
       {
         v32 = object_getClass(self);
         v33 = class_isMetaClass(v32);
-        v59 = object_getClassName(self);
-        v62 = sel_getName(a2);
+        v58 = object_getClassName(self);
+        v61 = sel_getName(a2);
         v34 = 45;
         if (v33)
         {
           v34 = 43;
         }
 
-        v31(5, "%c[%{public}s %{public}s]:%i Identifier string exceeds the maximum length, %{public}@", v34, v59, v62, 198, v11);
+        v31(5, "%c[%{public}s %{public}s]:%i Identifier string exceeds the maximum length, %{public}@", v34, v58, v61, 198, v11);
         v29 = kNFLOG_DISPATCH_SPECIFIC_KEY;
       }
 
@@ -433,15 +428,15 @@ LABEL_40:
       }
 
       *buf = 67110146;
-      v65 = v37;
-      v66 = 2082;
-      v67 = object_getClassName(self);
-      v68 = 2082;
-      v69 = sel_getName(a2);
-      v70 = 1024;
-      v71 = 198;
-      v72 = 2114;
-      v73 = v11;
+      v64 = v37;
+      v65 = 2082;
+      v66 = object_getClassName(self);
+      v67 = 2082;
+      v68 = sel_getName(a2);
+      v69 = 1024;
+      v70 = 198;
+      v71 = 2114;
+      v72 = v11;
       v26 = "%c[%{public}s %{public}s]:%i Identifier string exceeds the maximum length, %{public}@";
       goto LABEL_39;
     }
@@ -460,15 +455,15 @@ LABEL_40:
       {
         v50 = object_getClass(self);
         v51 = class_isMetaClass(v50);
-        v60 = object_getClassName(self);
-        v63 = sel_getName(a2);
+        v59 = object_getClassName(self);
+        v62 = sel_getName(a2);
         v52 = 45;
         if (v51)
         {
           v52 = 43;
         }
 
-        v49(5, "%c[%{public}s %{public}s]:%i Invalid AID entry: %{public}@", v52, v60, v63, 201, v11);
+        v49(5, "%c[%{public}s %{public}s]:%i Invalid AID entry: %{public}@", v52, v59, v62, 201, v11);
         v47 = kNFLOG_DISPATCH_SPECIFIC_KEY;
       }
 
@@ -491,15 +486,15 @@ LABEL_40:
       }
 
       *buf = 67110146;
-      v65 = v55;
-      v66 = 2082;
-      v67 = object_getClassName(self);
-      v68 = 2082;
-      v69 = sel_getName(a2);
-      v70 = 1024;
-      v71 = 201;
-      v72 = 2114;
-      v73 = v11;
+      v64 = v55;
+      v65 = 2082;
+      v66 = object_getClassName(self);
+      v67 = 2082;
+      v68 = sel_getName(a2);
+      v69 = 1024;
+      v70 = 201;
+      v71 = 2114;
+      v72 = v11;
       v26 = "%c[%{public}s %{public}s]:%i Invalid AID entry: %{public}@";
       goto LABEL_39;
     }
@@ -533,41 +528,40 @@ LABEL_43:
 
 LABEL_41:
 
-  v56 = *MEMORY[0x277D85DE8];
   return IsMember;
 }
 
 - (void)_initCoreNFCEntitlements:(id)entitlements secTask:(__SecTask *)task
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v25 = objc_msgSend_getAppInfoDictionary(self, a2, entitlements);
-  v6 = objc_msgSend_NF_stringForKey_(v25, v5, @"NFCReaderUsageDescription");
+  v31 = *MEMORY[0x277D85DE8];
+  v24 = objc_msgSend_getAppInfoDictionary(self, a2, entitlements);
+  v6 = objc_msgSend_NF_stringForKey_(v24, v5, @"NFCReaderUsageDescription");
   if (objc_msgSend_length(v6, v7, v8))
   {
     objc_storeStrong(&self->_readerPurposeString, v6);
   }
 
-  v24 = v6;
+  v23 = v6;
   v10 = objc_msgSend__arrayValueOfEntitlement_secTask_(self, v9, @"com.apple.developer.nfc.readersession.formats", task);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v27, v31, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v26, v30, 16);
   if (v12)
   {
     v14 = v12;
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
+        v17 = *(*(&v26 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -601,42 +595,40 @@ LABEL_41:
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v18, &v27, v31, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v18, &v26, v30, 16);
     }
 
     while (v14);
   }
 
-  objc_msgSend__initISO7816PermissibleAIDListWithSecTask_infoPlist_(self, v13, task, v25);
+  objc_msgSend__initISO7816PermissibleAIDListWithSecTask_infoPlist_(self, v13, task, v24);
   objc_msgSend__initCardSessionEntitlementsWithSecTask_(self, v22, task);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initISO7816PermissibleAIDListWithSecTask:(__SecTask *)task infoPlist:(id)plist
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend__arrayValueOfEntitlement_secTask_(self, a2, @"com.apple.developer.nfc.readersession.iso7816.select-identifiers.trusted", task);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v20, v24, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v19, v23, 16);
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * v10);
+        v11 = *(*(&v19 + 1) + 8 * v10);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend__isAIDStringValid_(self, v12, v11))
         {
@@ -651,43 +643,41 @@ LABEL_41:
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v20, v24, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v19, v23, 16);
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initCardSessionEntitlementsWithSecTask:(__SecTask *)task
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   self->_nfcCardSessionAccess = objc_msgSend__BOOLValueOfEntitlement_secTask_(self, a2, @"com.apple.developer.nfc.hce", task);
   v6 = objc_opt_new();
   nfcCardSessionAIDPrefixList = self->_nfcCardSessionAIDPrefixList;
   self->_nfcCardSessionAIDPrefixList = v6;
 
   v9 = objc_msgSend__arrayValueOfEntitlement_secTask_(self, v8, @"com.apple.developer.nfc.hce.iso7816.select-identifier-prefixes", task);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v41, v55, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v40, v54, 16);
   if (v11)
   {
     v14 = v11;
-    v15 = *v42;
+    v15 = *v41;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v42 != v15)
+        if (*v41 != v15)
         {
           objc_enumerationMutation(v9);
         }
 
-        v17 = *(*(&v41 + 1) + 8 * i);
+        v17 = *(*(&v40 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend__isAIDStringValid_(self, v18, v17))
         {
@@ -699,7 +689,7 @@ LABEL_41:
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v18, &v41, v55, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v18, &v40, v54, 16);
     }
 
     while (v14);
@@ -750,30 +740,28 @@ LABEL_41:
       v38 = sel_getName(a2);
       v39 = self->_nfcCardSessionAIDPrefixList;
       *buf = 67110146;
-      v46 = v36;
-      v47 = 2082;
-      v48 = v37;
-      v49 = 2082;
-      v50 = v38;
-      v51 = 1024;
-      v52 = 290;
-      v53 = 2112;
-      v54 = v39;
+      v45 = v36;
+      v46 = 2082;
+      v47 = v37;
+      v48 = 2082;
+      v49 = v38;
+      v50 = 1024;
+      v51 = 290;
+      v52 = 2112;
+      v53 = v39;
       _os_log_impl(&dword_22EEC4000, v34, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i com.apple.developer.nfc.hce.iso7816.select-identifier-prefixes={public}%@", buf, 0x2Cu);
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (NFServiceWhitelistChecker)initWithConnection:(id)connection coreNFCConnection:(BOOL)cConnection
 {
   cConnectionCopy = cConnection;
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v87.receiver = self;
-  v87.super_class = NFServiceWhitelistChecker;
-  v10 = [(NFServiceWhitelistChecker *)&v87 init];
+  v86.receiver = self;
+  v86.super_class = NFServiceWhitelistChecker;
+  v10 = [(NFServiceWhitelistChecker *)&v86 init];
   if (!v10)
   {
     goto LABEL_33;
@@ -901,8 +889,8 @@ LABEL_33:
         *&token[20] = v80;
         *&token[28] = 1024;
         *&token[30] = 355;
-        v89 = 2114;
-        v90 = @"application-identifier";
+        v88 = 2114;
+        v89 = @"application-identifier";
         _os_log_impl(&dword_22EEC4000, v76, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Missing or invalid entitlement %{public}@ to be of type <string>, ignoring", token, 0x2Cu);
       }
 
@@ -925,15 +913,15 @@ LABEL_35:
   {
     v59 = object_getClass(v10);
     v60 = class_isMetaClass(v59);
-    v83 = object_getClassName(v10);
-    v85 = sel_getName(a2);
+    v82 = object_getClassName(v10);
+    v84 = sel_getName(a2);
     v61 = 45;
     if (v60)
     {
       v61 = 43;
     }
 
-    v58(3, "%c[%{public}s %{public}s]:%i Cannot create SecTaskRef with XPC Connection: %{public}@", v61, v83, v85, 314, connectionCopy);
+    v58(3, "%c[%{public}s %{public}s]:%i Cannot create SecTaskRef with XPC Connection: %{public}@", v61, v82, v84, 314, connectionCopy);
     v56 = kNFLOG_DISPATCH_SPECIFIC_KEY;
   }
 
@@ -962,15 +950,14 @@ LABEL_35:
     *&token[20] = v67;
     *&token[28] = 1024;
     *&token[30] = 314;
-    v89 = 2114;
-    v90 = connectionCopy;
+    v88 = 2114;
+    v89 = connectionCopy;
     _os_log_impl(&dword_22EEC4000, v63, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Cannot create SecTaskRef with XPC Connection: %{public}@", token, 0x2Cu);
   }
 
   v68 = 0;
 LABEL_34:
 
-  v81 = *MEMORY[0x277D85DE8];
   return v68;
 }
 
@@ -1081,30 +1068,30 @@ LABEL_34:
 
 - (unsigned)validateISO15693TagAccessWithManufacturerCode:(unint64_t)code serialNumber:(id)number
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_NF_asHexString(number, a2, code);
   if (objc_msgSend_length(v6, v7, v8))
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     obj = self->_iso15693TagAccessFilters;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v59, v63, 16);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v58, v62, 16);
     if (v10)
     {
       v12 = v10;
-      v13 = *v60;
+      v13 = *v59;
 LABEL_4:
       v14 = 0;
       while (1)
       {
-        if (*v60 != v13)
+        if (*v59 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v59 + 1) + 8 * v14);
+        v15 = *(*(&v58 + 1) + 8 * v14);
         v16 = objc_msgSend_objectForKeyedSubscript_(v15, v11, @"TagManufacturerCode");
         v19 = objc_msgSend_unsignedIntegerValue(v16, v17, v18);
 
@@ -1167,7 +1154,7 @@ LABEL_18:
 LABEL_19:
         if (v12 == ++v14)
         {
-          v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v59, v63, 16);
+          v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v58, v62, 16);
           if (v12)
           {
             goto LABEL_4;
@@ -1187,33 +1174,32 @@ LABEL_24:
     v55 = 10;
   }
 
-  v56 = *MEMORY[0x277D85DE8];
   return v55;
 }
 
 - (unsigned)validateISO15693TagAccessWithManufacturerCode:(unint64_t)code
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = self->_iso15693TagAccessFilters;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v18, v22, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v17, v21, 16);
   if (v6)
   {
     v8 = v6;
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = objc_msgSend_objectForKeyedSubscript_(*(*(&v18 + 1) + 8 * i), v7, @"TagManufacturerCode", v18);
+        v11 = objc_msgSend_objectForKeyedSubscript_(*(*(&v17 + 1) + 8 * i), v7, @"TagManufacturerCode", v17);
         v14 = objc_msgSend_unsignedIntegerValue(v11, v12, v13);
 
         if (v14 == code)
@@ -1223,7 +1209,7 @@ LABEL_24:
         }
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v18, v22, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v17, v21, 16);
       if (v8)
       {
         continue;
@@ -1236,14 +1222,13 @@ LABEL_24:
   v15 = 32;
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)getAppInfoDictionary
 {
   v2 = MEMORY[0x28223BE20](self, a2);
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   bzero(buffer, 0x1000uLL);
   v3 = proc_pidpath(*(v2 + 56), buffer, 0x1000u);
   if (v3 < 1)
@@ -1275,8 +1260,6 @@ LABEL_8:
     v13 = objc_opt_new();
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -1290,82 +1273,76 @@ LABEL_8:
 
 - (double)sessionTimeLimit
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self->_iso15693ReaderAccess || self->_ndefReaderAccess || self->_vasReaderAccess || self->_tagReaderAccess || self->_nfcCardSessionAccess)
   {
-    goto LABEL_6;
+    return 60.0;
   }
 
   v4 = 0.0;
   if (!self->_internalAccess)
   {
-    goto LABEL_7;
+    return v4;
   }
 
-  v8 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2);
-  v10 = objc_msgSend_BOOLForKey_(v8, v9, @"BurnoutTimerDisable");
+  v7 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, v2);
+  v9 = objc_msgSend_BOOLForKey_(v7, v8, @"BurnoutTimerDisable");
 
-  if (!v10)
+  if (!v9)
   {
-LABEL_6:
-    v4 = 60.0;
+    return 60.0;
   }
 
-  else
+  v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+  specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  if (specific >= 5)
   {
-    v11 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-    specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    if (specific >= 5)
-    {
-      __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
-    }
-
-    v13 = off_27DA9DE50[specific];
-    if (v13)
-    {
-      Class = object_getClass(self);
-      isMetaClass = class_isMetaClass(Class);
-      ClassName = object_getClassName(self);
-      Name = sel_getName(a2);
-      v17 = 45;
-      if (isMetaClass)
-      {
-        v17 = 43;
-      }
-
-      v13(6, "%c[%{public}s %{public}s]:%i Disabled", v17, ClassName, Name, 524);
-      v11 = kNFLOG_DISPATCH_SPECIFIC_KEY;
-    }
-
-    v18 = dispatch_get_specific(v11);
-    v19 = NFSharedLogGetLogger(v18);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-    {
-      v20 = object_getClass(self);
-      if (class_isMetaClass(v20))
-      {
-        v21 = 43;
-      }
-
-      else
-      {
-        v21 = 45;
-      }
-
-      *buf = 67109890;
-      v24 = v21;
-      v25 = 2082;
-      v26 = object_getClassName(self);
-      v27 = 2082;
-      v28 = sel_getName(a2);
-      v29 = 1024;
-      v30 = 524;
-      _os_log_impl(&dword_22EEC4000, v19, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Disabled", buf, 0x22u);
-    }
+    __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
   }
 
-LABEL_7:
-  v5 = *MEMORY[0x277D85DE8];
+  v12 = off_27DA9DE50[specific];
+  if (v12)
+  {
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v16 = 45;
+    if (isMetaClass)
+    {
+      v16 = 43;
+    }
+
+    v12(6, "%c[%{public}s %{public}s]:%i Disabled", v16, ClassName, Name, 524);
+    v10 = kNFLOG_DISPATCH_SPECIFIC_KEY;
+  }
+
+  v17 = dispatch_get_specific(v10);
+  v18 = NFSharedLogGetLogger(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = object_getClass(self);
+    if (class_isMetaClass(v19))
+    {
+      v20 = 43;
+    }
+
+    else
+    {
+      v20 = 45;
+    }
+
+    *buf = 67109890;
+    v23 = v20;
+    v24 = 2082;
+    v25 = object_getClassName(self);
+    v26 = 2082;
+    v27 = sel_getName(a2);
+    v28 = 1024;
+    v29 = 524;
+    _os_log_impl(&dword_22EEC4000, v18, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Disabled", buf, 0x22u);
+  }
+
   return v4;
 }
 

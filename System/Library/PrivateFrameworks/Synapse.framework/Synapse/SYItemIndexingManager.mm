@@ -30,30 +30,28 @@
 
 void __42__SYItemIndexingManager__customKeyForKey___block_invoke()
 {
-  v10[6] = *MEMORY[0x277D85DE8];
-  v9[0] = @"sy_isLinkItem";
+  v9[6] = *MEMORY[0x277D85DE8];
+  v8[0] = @"sy_isLinkItem";
   v0 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"sy_isLinkItem" searchable:1 searchableByDefault:0 unique:0 multiValued:0];
-  v10[0] = v0;
-  v9[1] = @"sy_activityType";
+  v9[0] = v0;
+  v8[1] = @"sy_activityType";
   v1 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"sy_activityType" searchable:1 searchableByDefault:0 unique:0 multiValued:0];
-  v10[1] = v1;
-  v9[2] = @"sy_canonicalURL";
+  v9[1] = v1;
+  v8[2] = @"sy_canonicalURL";
   v2 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"sy_canonicalURL" searchable:1 searchableByDefault:0 unique:0 multiValued:0];
-  v10[2] = v2;
-  v9[3] = @"sy_activityPersistentID";
+  v9[2] = v2;
+  v8[3] = @"sy_activityPersistentID";
   v3 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"sy_activityPersistentID" searchable:1 searchableByDefault:0 unique:0 multiValued:0];
-  v10[3] = v3;
-  v9[4] = @"sy_activityTargetContentID";
+  v9[3] = v3;
+  v8[4] = @"sy_activityTargetContentID";
   v4 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"sy_activityTargetContentID" searchable:1 searchableByDefault:0 unique:0 multiValued:0];
-  v10[4] = v4;
-  v9[5] = @"sy_linkContextInfoData";
+  v9[4] = v4;
+  v8[5] = @"sy_linkContextInfoData";
   v5 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:@"sy_linkContextInfoData" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
-  v10[5] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:6];
+  v9[5] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:6];
   v7 = _customKeyForKey___customAttributeKeys;
   _customKeyForKey___customAttributeKeys = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)searchableItemLinkingContentItem:(id)item toContainerIdentifier:(id)identifier uniqueIdentifier:(id)uniqueIdentifier relatedIdentifier:(id)relatedIdentifier domainIdentifier:(id)domainIdentifier
@@ -217,7 +215,7 @@ LABEL_8:
 
 + (void)_fetchIndexedItemsLinkedToUserActivity:(id)activity extraFetchAttributes:(id)attributes completion:(id)completion
 {
-  v37[7] = *MEMORY[0x277D85DE8];
+  v36[7] = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   attributesCopy = attributes;
   completionCopy = completion;
@@ -251,16 +249,16 @@ LABEL_3:
   {
     v13 = [self _queryStringForMatchingUserActivityInfo:activityCopy];
     v14 = NSStringFromSelector(sel_URL);
-    v37[0] = v14;
+    v36[0] = v14;
     v15 = NSStringFromSelector(sel_containerIdentifier);
-    v37[1] = v15;
+    v36[1] = v15;
     v16 = NSStringFromSelector(sel_domainIdentifier);
-    v37[2] = v16;
-    v37[3] = @"sy_canonicalURL";
-    v37[4] = @"sy_activityType";
-    v37[5] = @"sy_activityPersistentID";
-    v37[6] = @"sy_activityTargetContentID";
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:7];
+    v36[2] = v16;
+    v36[3] = @"sy_canonicalURL";
+    v36[4] = @"sy_activityType";
+    v36[5] = @"sy_activityPersistentID";
+    v36[6] = @"sy_activityTargetContentID";
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:7];
 
     if (attributesCopy)
     {
@@ -278,29 +276,29 @@ LABEL_3:
     v22 = _coreSpotlightIndexBundleID;
     if (_coreSpotlightIndexBundleID)
     {
-      v36 = _coreSpotlightIndexBundleID;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+      v35 = _coreSpotlightIndexBundleID;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
       [v20 setBundleIDs:v23];
     }
 
     array = [MEMORY[0x277CBEB18] array];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFetchAttributes_completion___block_invoke;
-    v32[3] = &unk_27856C450;
-    v33 = activityCopy;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFetchAttributes_completion___block_invoke;
+    v31[3] = &unk_27856C450;
+    v32 = activityCopy;
     selfCopy = self;
     v25 = array;
-    v34 = v25;
-    [v20 setFoundItemsHandler:v32];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFetchAttributes_completion___block_invoke_128;
-    v29[3] = &unk_27856BCB0;
-    v30 = v25;
-    v31 = v11;
+    v33 = v25;
+    [v20 setFoundItemsHandler:v31];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFetchAttributes_completion___block_invoke_128;
+    v28[3] = &unk_27856BCB0;
+    v29 = v25;
+    v30 = v11;
     v26 = v25;
-    [v20 setCompletionHandler:v29];
+    [v20 setCompletionHandler:v28];
     [v20 start];
   }
 
@@ -314,8 +312,6 @@ LABEL_3:
 
     v11[2](v11, MEMORY[0x277CBEBF8]);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFetchAttributes_completion___block_invoke(uint64_t a1, void *a2)
@@ -346,7 +342,6 @@ void __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFet
     }
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -364,31 +359,31 @@ void __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFet
 
 void __73__SYItemIndexingManager_fetchIdentifiersLinkedToUserActivity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
   v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
   v3 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v2, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         v9 = [v8 attributeSet];
         v10 = [v9 domainIdentifier];
 
@@ -428,25 +423,24 @@ void __73__SYItemIndexingManager_fetchIdentifiersLinkedToUserActivity_completion
 
         if (!v16 && ([v3 containsObject:v15] & 1) == 0)
         {
-          [v20 addObject:v10];
-          [v19 addObject:v12];
+          [v19 addObject:v10];
+          [v18 addObject:v12];
           [v3 addObject:v15];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
   }
 
   (*(*(a1 + 32) + 16))();
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_fetchIndexedActivitiesWithActivityType:(id)type completion:(id)completion
 {
-  v31[7] = *MEMORY[0x277D85DE8];
+  v30[7] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   completionCopy = completion;
   v8 = completionCopy;
@@ -473,20 +467,20 @@ LABEL_3:
   if ([typeCopy length])
   {
     v10 = _escapedSearchString(typeCopy);
-    [v9 appendFormat:@" && (%@ == \"%@\", @"sy_activityType"", v10];
+    [v9 appendFormat:@" && (%@ == %@, @"sy_activityType"", v10];
   }
 
   v11 = NSStringFromSelector(sel_URL);
-  v31[0] = v11;
+  v30[0] = v11;
   v12 = NSStringFromSelector(sel_containerIdentifier);
-  v31[1] = v12;
+  v30[1] = v12;
   v13 = NSStringFromSelector(sel_domainIdentifier);
-  v31[2] = v13;
-  v31[3] = @"sy_canonicalURL";
-  v31[4] = @"sy_activityType";
-  v31[5] = @"sy_activityPersistentID";
-  v31[6] = @"sy_activityTargetContentID";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:7];
+  v30[2] = v13;
+  v30[3] = @"sy_canonicalURL";
+  v30[4] = @"sy_activityType";
+  v30[5] = @"sy_activityPersistentID";
+  v30[6] = @"sy_activityTargetContentID";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:7];
 
   v15 = objc_alloc_init(MEMORY[0x277CC34A0]);
   [v15 setFetchAttributes:v14];
@@ -497,57 +491,55 @@ LABEL_3:
   v18 = _coreSpotlightIndexBundleID;
   if (_coreSpotlightIndexBundleID)
   {
-    v30 = _coreSpotlightIndexBundleID;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+    v29 = _coreSpotlightIndexBundleID;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
     [v16 setBundleIDs:v19];
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_completion___block_invoke;
-  v28[3] = &unk_27856B640;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_completion___block_invoke;
+  v27[3] = &unk_27856B640;
   v21 = array;
-  v29 = v21;
-  [v16 setFoundItemsHandler:v28];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_completion___block_invoke_2;
-  v25[3] = &unk_27856BCB0;
-  v26 = v21;
-  v27 = v8;
+  v28 = v21;
+  [v16 setFoundItemsHandler:v27];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_completion___block_invoke_2;
+  v24[3] = &unk_27856BCB0;
+  v25 = v21;
+  v26 = v8;
   v22 = v21;
   v23 = v8;
-  [v16 setCompletionHandler:v25];
+  [v16 setCompletionHandler:v24];
   [v16 start];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         v9 = [SYAttributeSetActivityInfo alloc];
         v10 = [v8 attributeSet];
         v11 = [(SYAttributeSetActivityInfo *)v9 initWithAttributeSet:v10];
@@ -557,13 +549,11 @@ void __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_complet
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -578,7 +568,6 @@ void __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_complet
     }
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -596,50 +585,48 @@ void __76__SYItemIndexingManager__fetchIndexedActivitiesWithActivityType_complet
 
 + (void)fetchLinkContextsDataForUserActivity:(id)activity completion:(id)completion
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v14[0] = @"sy_linkContextInfoData";
+  v13[0] = @"sy_linkContextInfoData";
   v7 = MEMORY[0x277CBEA60];
   activityCopy = activity;
-  v9 = [v7 arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion___block_invoke;
-  v12[3] = &unk_27856B760;
-  v13 = completionCopy;
+  v9 = [v7 arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion___block_invoke;
+  v11[3] = &unk_27856B760;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [self _fetchIndexedItemsLinkedToUserActivity:activityCopy extraFetchAttributes:v9 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [self _fetchIndexedItemsLinkedToUserActivity:activityCopy extraFetchAttributes:v9 completion:v11];
 }
 
 void __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = a1;
-  v19 = *MEMORY[0x277D85DE8];
+  v11 = a1;
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v14 + 1) + 8 * v7) attributeSet];
+        v8 = [*(*(&v13 + 1) + 8 * v7) attributeSet];
         v9 = [SYItemIndexingManager _customKeyForKey:@"sy_linkContextInfoData"];
         v10 = [v8 valueForCustomKey:v9];
 
@@ -648,7 +635,7 @@ void __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v13 addObject:v10];
+            [v12 addObject:v10];
           }
         }
 
@@ -656,14 +643,13 @@ void __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  (*(*(v12 + 32) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
+  (*(*(v11 + 32) + 16))();
 }
 
 + (id)_coreSpotlightIndexBundleID
@@ -694,7 +680,7 @@ void __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion
     activityType2 = [infoCopy activityType];
     v8 = _escapedSearchString(activityType2);
 
-    [v4 appendFormat:@" && (%@ == \"%@\" || %@ == \"\", @"sy_activityType", v8, @"sy_activityType""];
+    [v4 appendFormat:@" && (%@ == %@ || %@ == , @"sy_activityType", v8, @"sy_activityType""];
   }
 
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
@@ -754,30 +740,30 @@ void __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion
 
 + (id)_postFilteredItems:(id)items matchingUserActivityInfo:(id)info
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   infoCopy = info;
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(itemsCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         attributeSet = [v13 attributeSet];
         v15 = [attributeSet URL];
 
@@ -787,13 +773,11 @@ void __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -816,14 +800,12 @@ void __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion
 
 + (void)searchableItemLinkingContentItem:(NSObject *)a3 toContainerIdentifier:uniqueIdentifier:relatedIdentifier:domainIdentifier:.cold.3(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [a1 itemIdentifier];
   OUTLINED_FUNCTION_1_1();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Error encoding linkContextInfo dictionary for item %@, ignoring: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_225901000, a3, OS_LOG_TYPE_ERROR, "Error encoding linkContextInfo dictionary for item %@, ignoring: %@", v6, 0x16u);
 }
 
 + (void)_fetchIndexedItemsLinkedToUserActivity:extraFetchAttributes:completion:.cold.1()
@@ -844,41 +826,36 @@ void __73__SYItemIndexingManager_fetchLinkContextsDataForUserActivity_completion
 
 + (void)_fetchIndexedItemsLinkedToUserActivity:(uint64_t)a1 extraFetchAttributes:(void *)a2 completion:(NSObject *)a3 .cold.3(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 134218240;
-  v6 = a1;
-  v7 = 1024;
-  v8 = [a2 count] != 0;
-  _os_log_debug_impl(&dword_225901000, a3, OS_LOG_TYPE_DEBUG, "Search indexed linked items for activity: %p, has extra fetch attributes: %d", &v5, 0x12u);
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = a1;
+  v6 = 1024;
+  v7 = [a2 count] != 0;
+  _os_log_debug_impl(&dword_225901000, a3, OS_LOG_TYPE_DEBUG, "Search indexed linked items for activity: %p, has extra fetch attributes: %d", &v4, 0x12u);
 }
 
 + (void)_fetchIndexedItemsLinkedToUserActivity:extraFetchAttributes:completion:.cold.4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(&dword_225901000, v0, OS_LOG_TYPE_DEBUG, "Can't search indexed linked items for invalid activity: %p", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_225901000, v0, OS_LOG_TYPE_DEBUG, "Can't search indexed linked items for invalid activity: %p", v1, 0xCu);
 }
 
 void __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFetchAttributes_completion___block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [a1 count];
-  v5 = *(a2 + 32);
   OUTLINED_FUNCTION_1_1();
-  v9 = 2048;
-  v10 = v6;
-  _os_log_debug_impl(&dword_225901000, a3, OS_LOG_TYPE_DEBUG, "Process %ld indexed linked item(s) found for activity: %p", v8, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 2048;
+  v7 = v4;
+  _os_log_debug_impl(&dword_225901000, a3, OS_LOG_TYPE_DEBUG, "Process %ld indexed linked item(s) found for activity: %p", v5, 0x16u);
 }
 
 void __96__SYItemIndexingManager__fetchIndexedItemsLinkedToUserActivity_extraFetchAttributes_completion___block_invoke_128_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(&dword_225901000, v0, OS_LOG_TYPE_ERROR, "Error executing search query: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_225901000, v0, OS_LOG_TYPE_ERROR, "Error executing search query: %@", v1, 0xCu);
 }
 
 + (void)_fetchIndexedActivitiesWithActivityType:completion:.cold.1()

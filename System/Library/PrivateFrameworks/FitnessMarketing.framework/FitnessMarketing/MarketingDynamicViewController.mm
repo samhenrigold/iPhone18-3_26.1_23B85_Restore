@@ -11,12 +11,11 @@
 - (_TtC16FitnessMarketing30MarketingDynamicViewController)initWithBag:(id)bag URL:(id)l
 {
   v4 = sub_20C64CF10();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20C64CEF0();
-  v8 = swift_unknownObjectRetain();
-  return MarketingDynamicViewController.init(bag:url:)(v8, v7);
+  v7 = swift_unknownObjectRetain();
+  return MarketingDynamicViewController.init(bag:url:)(v7, v6);
 }
 
 - (void)willMoveToParentViewController:(id)controller

@@ -255,30 +255,30 @@
 
 - (void)commit
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v39 = [-[MTLToolsObject baseObject](self "baseObject")];
+  v51 = *MEMORY[0x277D85DE8];
+  v38 = [-[MTLToolsObject baseObject](self "baseObject")];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v37 = [-[MTLToolsObject baseObject](self "baseObject")];
+  v36 = [-[MTLToolsObject baseObject](self "baseObject")];
   obj = self->_pendingAdds;
-  v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v3)
   {
-    v40 = *v46;
+    v39 = *v45;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v46 != v40)
+        if (*v45 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v45 + 1) + 8 * i);
+        v5 = *(*(&v44 + 1) + 8 * i);
         committedAllocations = self->_committedAllocations;
-        v49 = v5;
+        v48 = v5;
         if (v7)
         {
           v7[3] = 0;
@@ -360,41 +360,41 @@ LABEL_23:
         v17 = v5;
       }
 
-      v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
     while (v3);
   }
 
   [(NSMutableSet *)self->_pendingAdds removeAllObjects];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   pendingRemoves = self->_pendingRemoves;
-  v19 = [(NSMutableSet *)pendingRemoves countByEnumeratingWithState:&v41 objects:v50 count:16];
+  v19 = [(NSMutableSet *)pendingRemoves countByEnumeratingWithState:&v40 objects:v49 count:16];
   if (v19)
   {
-    v20 = *v42;
+    v20 = *v41;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v42 != v20)
+        if (*v41 != v20)
         {
           objc_enumerationMutation(pendingRemoves);
         }
 
         v22 = self->_committedAllocations;
-        v49 = *(*(&v41 + 1) + 8 * j);
+        v48 = *(*(&v40 + 1) + 8 * j);
         if (v23)
         {
-          v23[3] = v39;
+          v23[3] = v38;
           *(v23 + 32) = 1;
         }
       }
 
-      v19 = [(NSMutableSet *)pendingRemoves countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v19 = [(NSMutableSet *)pendingRemoves countByEnumeratingWithState:&v40 objects:v49 count:16];
     }
 
     while (v19);
@@ -405,7 +405,7 @@ LABEL_23:
   v25 = v24[2];
   if (v25)
   {
-    while (*(v25 + 32) != 1 || v25[3] > v37)
+    while (*(v25 + 32) != 1 || v25[3] > v36)
     {
       v26 = *v25;
 LABEL_68:
@@ -529,7 +529,6 @@ LABEL_61:
 
 LABEL_69:
   [-[MTLToolsObject baseObject](self "baseObject")];
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 @end

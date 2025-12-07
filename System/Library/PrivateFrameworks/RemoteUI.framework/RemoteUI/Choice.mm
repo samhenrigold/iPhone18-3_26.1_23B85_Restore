@@ -67,19 +67,20 @@
 
   else
   {
-    memset(v8, 0, sizeof(v8));
+    memset(v10, 0, sizeof(v10));
     selfCopy2 = self;
   }
 
   v6 = (*((*MEMORY[0x277D85000] & self->super.super.isa) + 0xF0))(selfCopy2);
   if (v6)
   {
-    v7 = v6;
+    v8 = v6;
+    v9 = v7;
     v6(self);
-    sub_21B946D98(v7);
+    sub_21B946D98(v8, v9);
   }
 
-  sub_21B9ABAAC(v8, &qword_27CD9E7C0);
+  sub_21B9ABAAC(v10, &qword_27CD9E7C0, &unk_21BA96A60);
 }
 
 - (id)staticValues

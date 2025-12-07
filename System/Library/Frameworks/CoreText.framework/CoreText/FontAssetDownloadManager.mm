@@ -1,8 +1,8 @@
 @interface FontAssetDownloadManager
 + (uint64_t)errorWithCode:(uint64_t)code description:;
-+ (uint64_t)fontInfo:(uint64_t)info andAssetDesignLanguages:(void *)languages matchesRequest:;
-+ (void)availableMobileAssetsWithOptions:(uint64_t *)options error:;
-+ (void)availableMobileAssetsWithOptions:(uint64_t)options manager:(uint64_t *)manager error:;
++ (uint64_t)fontInfo:(id)info andAssetDesignLanguages:(void *)languages matchesRequest:;
++ (void)availableMobileAssetsWithOptions:(uint64_t)options manager:(void *)manager error:;
++ (void)availableMobileAssetsWithOptions:(void *)options error:;
 - (id).cxx_construct;
 - (uint64_t)callProgressCallback:(uint64_t)callback;
 - (void)dealloc;
@@ -114,7 +114,7 @@ uint64_t __52__FontAssetDownloadManager_filterIncompatibleAsset___block_invoke(u
   return [v9 compare:v10];
 }
 
-+ (void)availableMobileAssetsWithOptions:(uint64_t *)options error:
++ (void)availableMobileAssetsWithOptions:(void *)options error:
 {
   v77 = *MEMORY[0x1E69E9840];
   objc_opt_self();
@@ -385,7 +385,7 @@ void __67__FontAssetDownloadManager_availableMobileAssetsWithOptions_error___blo
   dispatch_release(v6);
 }
 
-+ (uint64_t)fontInfo:(uint64_t)info andAssetDesignLanguages:(void *)languages matchesRequest:
++ (uint64_t)fontInfo:(id)info andAssetDesignLanguages:(void *)languages matchesRequest:
 {
   objc_opt_self();
   v7 = [languages objectForKey:@"NSFontFamilyAttribute"];
@@ -408,7 +408,7 @@ void __67__FontAssetDownloadManager_availableMobileAssetsWithOptions_error___blo
       }
 
       v17 = v16;
-      CopyValueForCurrentUser([(NSDictionary *)a2 objectForKey:@"DisplayNames"], 0, &v24);
+      CopyValueForCurrentUser(&v24, [(NSDictionary *)a2 objectForKey:@"DisplayNames"], 0);
       explicit = atomic_load_explicit(&v24, memory_order_acquire);
 
       if (!explicit)
@@ -451,7 +451,7 @@ LABEL_29:
   return result;
 }
 
-+ (void)availableMobileAssetsWithOptions:(uint64_t)options manager:(uint64_t *)manager error:
++ (void)availableMobileAssetsWithOptions:(uint64_t)options manager:(void *)manager error:
 {
   objc_opt_self();
   if (a2)

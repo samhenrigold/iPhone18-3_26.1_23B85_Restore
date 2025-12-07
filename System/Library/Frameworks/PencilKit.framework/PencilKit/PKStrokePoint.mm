@@ -26,7 +26,7 @@
   v42.receiver = self;
   v42.super_class = PKStrokePoint;
   v19 = [(PKStrokePoint *)&v42 init];
-  +[PKStrokePoint _sharedConstantData];
+  objc_msgSend__sharedConstantData(PKStrokePoint);
   cntrl = v19->_strokeDataPointsPrivate.constants.__cntrl_;
   v19->_strokeDataPointsPrivate.constants = v41;
   p_strokeDataPointsPrivate = &v19->_strokeDataPointsPrivate;
@@ -191,9 +191,9 @@
 {
   v3 = [objc_opt_class() hash];
   ptr = self->_strokeDataPointsPrivate.constants.__ptr_;
-  v5 = PKHashBytes(ptr, 8) ^ v3;
-  v6 = v5 ^ PKHashBytes(ptr + 32, 8);
-  v7 = v6 ^ PKHashBytes(ptr + 40, 8);
+  v5 = PKHashBytes(ptr, 8u) ^ v3;
+  v6 = v5 ^ PKHashBytes(ptr + 32, 8u);
+  v7 = v6 ^ PKHashBytes(ptr + 40, 8u);
   begin = self->_strokeDataPointsPrivate.pointsData.__begin_;
   end = self->_strokeDataPointsPrivate.pointsData.__end_;
   if (end != begin)

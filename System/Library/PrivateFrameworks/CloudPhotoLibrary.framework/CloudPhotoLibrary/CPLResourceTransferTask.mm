@@ -119,7 +119,7 @@
   options = self->_options;
   if (options)
   {
-    [(CPLResourceTransferTaskOptions *)options timeRange];
+    objc_msgSend_timeRange(options);
   }
 
   else

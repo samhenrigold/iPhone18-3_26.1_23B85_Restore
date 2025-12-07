@@ -132,8 +132,8 @@
 
 - (id)_localizedDialogTokensWithLocalizer:(id)localizer
 {
-  v16[2] = *MEMORY[0x1E69E9840];
-  v15[0] = @"minimumValue";
+  v15[2] = *MEMORY[0x1E69E9840];
+  v14[0] = @"minimumValue";
   minimumValue = [(INCodableNumberAttributeMetadata *)self minimumValue];
   stringValue = [minimumValue stringValue];
   v6 = stringValue;
@@ -147,8 +147,8 @@
     v7 = &stru_1F01E0850;
   }
 
-  v15[1] = @"maximumValue";
-  v16[0] = v7;
+  v14[1] = @"maximumValue";
+  v15[0] = v7;
   maximumValue = [(INCodableNumberAttributeMetadata *)self maximumValue];
   stringValue2 = [maximumValue stringValue];
   v10 = stringValue2;
@@ -162,10 +162,8 @@
     v11 = &stru_1F01E0850;
   }
 
-  v16[1] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[1] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v12;
 }
@@ -184,12 +182,12 @@
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v30[5] = *MEMORY[0x1E69E9840];
-  v28.receiver = self;
-  v28.super_class = INCodableNumberAttributeMetadata;
-  v24 = [(INCodableAttributeMetadata *)&v28 dictionaryRepresentationWithLocalizer:localizer];
+  v29[5] = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = INCodableNumberAttributeMetadata;
+  v23 = [(INCodableAttributeMetadata *)&v27 dictionaryRepresentationWithLocalizer:localizer];
   __INCodableDescriptionTypeKey = [(INCodableNumberAttributeMetadata *)self __INCodableDescriptionTypeKey];
-  v29[0] = __INCodableDescriptionTypeKey;
+  v28[0] = __INCodableDescriptionTypeKey;
   type = [(INCodableNumberAttributeMetadata *)self type];
   v5 = @"Field";
   if (type == 1)
@@ -202,10 +200,10 @@
     v5 = @"Slider";
   }
 
-  v26 = v5;
-  v30[0] = v26;
+  v25 = v5;
+  v29[0] = v25;
   __INCodableDescriptionSupportsNegativeNumbersKey = [(INCodableNumberAttributeMetadata *)self __INCodableDescriptionSupportsNegativeNumbersKey];
-  v29[1] = __INCodableDescriptionSupportsNegativeNumbersKey;
+  v28[1] = __INCodableDescriptionSupportsNegativeNumbersKey;
   null = [MEMORY[0x1E696AD98] numberWithBool:{-[INCodableNumberAttributeMetadata supportsNegativeNumbers](self, "supportsNegativeNumbers")}];
   v7 = null;
   if (!null)
@@ -213,10 +211,10 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v30[1] = null;
+  v20 = null;
+  v29[1] = null;
   __INCodableDescriptionDefaultValueKey = [(INCodableNumberAttributeMetadata *)self __INCodableDescriptionDefaultValueKey];
-  v29[2] = __INCodableDescriptionDefaultValueKey;
+  v28[2] = __INCodableDescriptionDefaultValueKey;
   defaultValue = [(INCodableNumberAttributeMetadata *)self defaultValue];
   v9 = defaultValue;
   if (!defaultValue)
@@ -224,9 +222,9 @@
     defaultValue = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[2] = defaultValue;
+  v29[2] = defaultValue;
   __INCodableDescriptionMinimumValueKey = [(INCodableNumberAttributeMetadata *)self __INCodableDescriptionMinimumValueKey];
-  v29[3] = __INCodableDescriptionMinimumValueKey;
+  v28[3] = __INCodableDescriptionMinimumValueKey;
   minimumValue = [(INCodableNumberAttributeMetadata *)self minimumValue];
   null2 = minimumValue;
   if (!minimumValue)
@@ -234,9 +232,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[3] = null2;
+  v29[3] = null2;
   __INCodableDescriptionMaximumValueKey = [(INCodableNumberAttributeMetadata *)self __INCodableDescriptionMaximumValueKey];
-  v29[4] = __INCodableDescriptionMaximumValueKey;
+  v28[4] = __INCodableDescriptionMaximumValueKey;
   maximumValue = [(INCodableNumberAttributeMetadata *)self maximumValue];
   null3 = maximumValue;
   if (!maximumValue)
@@ -244,9 +242,9 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[4] = null3;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:5];
-  v16 = [v24 if_dictionaryByAddingEntriesFromDictionary:v15];
+  v29[4] = null3;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:5];
+  v16 = [v23 if_dictionaryByAddingEntriesFromDictionary:v15];
 
   if (!maximumValue)
   {
@@ -265,8 +263,6 @@
   }
 
   if_dictionaryWithNonEmptyValues = [v16 if_dictionaryWithNonEmptyValues];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

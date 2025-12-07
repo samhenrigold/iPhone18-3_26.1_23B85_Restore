@@ -32,7 +32,7 @@
 {
   appearCopy = appear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SuggestedSearchController();
+  v8.super_class = type metadata accessor for SuggestedSearchController(0);
   v4 = v8.receiver;
   [(SuggestedSearchController *)&v8 viewDidAppear:appearCopy];
   traitCollection = [v4 traitCollection];
@@ -79,7 +79,7 @@
 
   sub_1004738E8(controller, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (_TtC7Journal25SuggestedSearchController)initWithSearchResultsController:(id)controller
@@ -108,7 +108,7 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100479530();
+  sub_100479530(suggestion);
 
   swift_unknownObjectRelease();
 }

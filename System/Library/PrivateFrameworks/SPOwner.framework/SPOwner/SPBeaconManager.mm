@@ -57,10 +57,10 @@
 
 - (SPBeaconManager)init
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = SPBeaconManager;
-  v2 = [(SPBeaconManager *)&v18 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = SPBeaconManager;
+  v2 = [(SPBeaconManager *)&v17 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -68,18 +68,8 @@
     queue = v2->_queue;
     v2->_queue = v4;
 
-    if (!os_variant_has_internal_content())
+    if (!os_variant_has_internal_content() || ([MEMORY[0x277CCAC38] processInfo], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "environment"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKeyedSubscript:", @"UNDER_TEST"), v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, !v8))
     {
-      goto LABEL_4;
-    }
-
-    processInfo = [MEMORY[0x277CCAC38] processInfo];
-    environment = [processInfo environment];
-    v8 = [environment objectForKeyedSubscript:@"UNDER_TEST"];
-
-    if (!v8)
-    {
-LABEL_4:
       v9 = objc_alloc_init(SPLocalBeaconManager);
       localBeaconingManager = v2->_localBeaconingManager;
       v2->_localBeaconingManager = v9;
@@ -94,147 +84,144 @@ LABEL_4:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v20 = v2;
+        v19 = v2;
         _os_log_impl(&dword_2643D0000, v15, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: Created %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)remoteInterface
 {
-  v72[2] = *MEMORY[0x277D85DE8];
+  v71[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287606B50];
   v3 = MEMORY[0x277CBEB98];
-  v72[0] = objc_opt_class();
-  v72[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+  v71[0] = objc_opt_class();
+  v71[1] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_allBeaconsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v6 = MEMORY[0x277CBEB98];
-  v71[0] = objc_opt_class();
-  v71[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+  v70[0] = objc_opt_class();
+  v70[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
   v8 = [v6 setWithArray:v7];
   [v2 setClasses:v8 forSelector:sel_allBeaconsOfTypes_includeDupes_includeHidden_completion_ argumentIndex:0 ofReply:1];
 
   v9 = MEMORY[0x277CBEB98];
-  v70[0] = objc_opt_class();
-  v70[1] = objc_opt_class();
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+  v69[0] = objc_opt_class();
+  v69[1] = objc_opt_class();
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
   v11 = [v9 setWithArray:v10];
   [v2 setClasses:v11 forSelector:sel_unacceptedBeaconsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v12 = MEMORY[0x277CBEB98];
-  v69[0] = objc_opt_class();
-  v69[1] = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+  v68[0] = objc_opt_class();
+  v68[1] = objc_opt_class();
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
   v14 = [v12 setWithArray:v13];
   [v2 setClasses:v14 forSelector:sel_beaconingKeysForUUID_dateInterval_completion_ argumentIndex:0 ofReply:1];
 
   v15 = MEMORY[0x277CBEB98];
-  v68[0] = objc_opt_class();
-  v68[1] = objc_opt_class();
-  v68[2] = objc_opt_class();
-  v68[3] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:4];
+  v67[0] = objc_opt_class();
+  v67[1] = objc_opt_class();
+  v67[2] = objc_opt_class();
+  v67[3] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:4];
   v17 = [v15 setWithArray:v16];
   [v2 setClasses:v17 forSelector:sel_commandKeysForUUIDs_dateInterval_completion_ argumentIndex:0 ofReply:1];
 
   v18 = MEMORY[0x277CBEB98];
-  v67[0] = objc_opt_class();
-  v67[1] = objc_opt_class();
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+  v66[0] = objc_opt_class();
+  v66[1] = objc_opt_class();
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
   v20 = [v18 setWithArray:v19];
   [v2 setClasses:v20 forSelector:sel_allDuriansWithCompletion_ argumentIndex:0 ofReply:1];
 
   v21 = MEMORY[0x277CBEB98];
-  v66[0] = objc_opt_class();
-  v66[1] = objc_opt_class();
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
+  v65[0] = objc_opt_class();
+  v65[1] = objc_opt_class();
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
   v23 = [v21 setWithArray:v22];
   [v2 setClasses:v23 forSelector:sel_nearOwnerCommandKeysWithCompletion_ argumentIndex:0 ofReply:1];
 
   v24 = MEMORY[0x277CBEB98];
-  v65[0] = objc_opt_class();
-  v65[1] = objc_opt_class();
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:2];
+  v64[0] = objc_opt_class();
+  v64[1] = objc_opt_class();
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
   v26 = [v24 setWithArray:v25];
   [v2 setClasses:v26 forSelector:sel_roleCategoriesWithCompletion_ argumentIndex:0 ofReply:1];
 
   v27 = MEMORY[0x277CBEB98];
-  v64[0] = objc_opt_class();
-  v64[1] = objc_opt_class();
-  v64[2] = objc_opt_class();
-  v64[3] = objc_opt_class();
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:4];
-  v29 = [v27 setWithArray:v28];
-  [v2 setClasses:v29 forSelector:sel_commandKeysForUUIDs_dateInterval_completion_ argumentIndex:0 ofReply:1];
-
-  v30 = MEMORY[0x277CBEB98];
   v63[0] = objc_opt_class();
   v63[1] = objc_opt_class();
   v63[2] = objc_opt_class();
   v63[3] = objc_opt_class();
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
+  v29 = [v27 setWithArray:v28];
+  [v2 setClasses:v29 forSelector:sel_commandKeysForUUIDs_dateInterval_completion_ argumentIndex:0 ofReply:1];
+
+  v30 = MEMORY[0x277CBEB98];
+  v62[0] = objc_opt_class();
+  v62[1] = objc_opt_class();
+  v62[2] = objc_opt_class();
+  v62[3] = objc_opt_class();
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
   v32 = [v30 setWithArray:v31];
   [v2 setClasses:v32 forSelector:sel_commandKeysForUUIDs_completion_ argumentIndex:0 ofReply:1];
 
   v33 = MEMORY[0x277CBEB98];
-  v62[0] = objc_opt_class();
-  v62[1] = objc_opt_class();
-  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+  v61[0] = objc_opt_class();
+  v61[1] = objc_opt_class();
+  v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
   v35 = [v33 setWithArray:v34];
   [v2 setClasses:v35 forSelector:sel_commandKeysForUUID_withCriteria_completion_ argumentIndex:0 ofReply:1];
 
   v36 = MEMORY[0x277CBEB98];
-  v61[0] = objc_opt_class();
-  v61[1] = objc_opt_class();
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+  v60[0] = objc_opt_class();
+  v60[1] = objc_opt_class();
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
   v38 = [v36 setWithArray:v37];
   [v2 setClasses:v38 forSelector:sel_allBeaconingKeysForUUID_dateInterval_forceGenerate_completion_ argumentIndex:0 ofReply:1];
 
   v39 = MEMORY[0x277CBEB98];
-  v60[0] = objc_opt_class();
-  v60[1] = objc_opt_class();
-  v60[2] = objc_opt_class();
-  v60[3] = objc_opt_class();
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:4];
+  v59[0] = objc_opt_class();
+  v59[1] = objc_opt_class();
+  v59[2] = objc_opt_class();
+  v59[3] = objc_opt_class();
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:4];
   v41 = [v39 setWithArray:v40];
   [v2 setClasses:v41 forSelector:sel_fetchAllKeyMapFileDescriptorsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v42 = MEMORY[0x277CBEB98];
-  v59 = objc_opt_class();
-  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+  v58 = objc_opt_class();
+  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
   v44 = [v42 setWithArray:v43];
   [v2 setClasses:v44 forSelector:sel_fetchAllKeyMapFileDescriptorsWithCompletion_ argumentIndex:1 ofReply:1];
 
   v45 = MEMORY[0x277CBEB98];
-  v58[0] = objc_opt_class();
-  v58[1] = objc_opt_class();
-  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+  v57[0] = objc_opt_class();
+  v57[1] = objc_opt_class();
+  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
   v47 = [v45 setWithArray:v46];
   [v2 setClasses:v47 forSelector:sel_ownedDeviceKeyRecordsForUUID_completion_ argumentIndex:0 ofReply:1];
 
   v48 = MEMORY[0x277CBEB98];
-  v57[0] = objc_opt_class();
-  v57[1] = objc_opt_class();
-  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v56[0] = objc_opt_class();
+  v56[1] = objc_opt_class();
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
   v50 = [v48 setWithArray:v49];
   [v2 setClasses:v50 forSelector:sel_purgeOwnedDeviceKeyRecordsForUUID_completion_ argumentIndex:0 ofReply:1];
 
   v51 = MEMORY[0x277CBEB98];
-  v56[0] = objc_opt_class();
-  v56[1] = objc_opt_class();
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+  v55[0] = objc_opt_class();
+  v55[1] = objc_opt_class();
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
   v53 = [v51 setWithArray:v52];
   [v2 setClasses:v53 forSelector:sel_createOwnedDeviceKeyRecordForUUID_completion_ argumentIndex:0 ofReply:1];
-
-  v54 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -286,7 +273,7 @@ LABEL_4:
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [(SPBeaconManager *)self invalidate];
   localBeaconingManager = self->_localBeaconingManager;
   self->_localBeaconingManager = 0;
@@ -299,15 +286,14 @@ LABEL_4:
     _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: Dealloc %{public}@", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = SPBeaconManager;
-  [(SPBeaconManager *)&v6 dealloc];
-  v5 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = SPBeaconManager;
+  [(SPBeaconManager *)&v5 dealloc];
 }
 
 - (SPBeaconManagerXPCProtocol)proxy
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   queue = [(SPBeaconManager *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -325,9 +311,9 @@ LABEL_4:
     {
       serviceDescription2 = [(SPBeaconManager *)self serviceDescription];
       machService = [serviceDescription2 machService];
-      v16 = 138412290;
-      v17 = machService;
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: Establishing XPC connection to %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = machService;
+      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: Establishing XPC connection to %@", &v15, 0xCu);
     }
 
     session2 = [(SPBeaconManager *)self session];
@@ -336,8 +322,6 @@ LABEL_4:
 
   session3 = [(SPBeaconManager *)self session];
   proxy = [session3 proxy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -356,30 +340,29 @@ LABEL_4:
 
 - (void)updateObfuscatedIdentifierWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[SPBeaconManager updateObfuscatedIdentifierWithCompletion:]";
+    v12 = "[SPBeaconManager updateObfuscatedIdentifierWithCompletion:]";
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: API: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   queue = [(SPBeaconManager *)self queue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __60__SPBeaconManager_updateObfuscatedIdentifierWithCompletion___block_invoke;
-  v9[3] = &unk_279B59650;
-  objc_copyWeak(&v11, buf);
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __60__SPBeaconManager_updateObfuscatedIdentifierWithCompletion___block_invoke;
+  v8[3] = &unk_279B59650;
+  objc_copyWeak(&v10, buf);
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
+  dispatch_async(queue, v8);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SPBeaconManager_updateObfuscatedIdentifierWithCompletion___block_invoke(uint64_t a1)
@@ -407,7 +390,7 @@ void __60__SPBeaconManager_updateObfuscatedIdentifierWithCompletion___block_invo
 
 void __44__SPBeaconManager_beaconForUUID_completion___block_invoke(id *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a1[4] == 0;
   v3 = LogCategory_BeaconManager();
   v4 = v3;
@@ -426,7 +409,7 @@ void __44__SPBeaconManager_beaconForUUID_completion___block_invoke(id *a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = "[SPBeaconManager beaconForUUID:completion:]_block_invoke";
+      v11 = "[SPBeaconManager beaconForUUID:completion:]_block_invoke";
       _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
     }
 
@@ -436,16 +419,14 @@ void __44__SPBeaconManager_beaconForUUID_completion___block_invoke(id *a1)
     block[1] = 3221225472;
     block[2] = __44__SPBeaconManager_beaconForUUID_completion___block_invoke_220;
     block[3] = &unk_279B58BA8;
-    objc_copyWeak(&v10, buf);
-    v8 = a1[4];
-    v9 = a1[6];
+    objc_copyWeak(&v9, buf);
+    v7 = a1[4];
+    v8 = a1[6];
     dispatch_async(v5, block);
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SPBeaconManager_beaconForUUID_completion___block_invoke_220(uint64_t a1)
@@ -473,12 +454,12 @@ void __44__SPBeaconManager_beaconForUUID_completion___block_invoke_220(uint64_t 
 
 void __59__SPBeaconManager_ownedDeviceKeyRecordsForUUID_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager ownedDeviceKeyRecordsForUUID:completion:]_block_invoke";
+    v9 = "[SPBeaconManager ownedDeviceKeyRecordsForUUID:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -488,14 +469,13 @@ void __59__SPBeaconManager_ownedDeviceKeyRecordsForUUID_completion___block_invok
   block[1] = 3221225472;
   block[2] = __59__SPBeaconManager_ownedDeviceKeyRecordsForUUID_completion___block_invoke_221;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v8, buf);
-  v6 = a1[5];
-  v7 = a1[6];
+  objc_copyWeak(&v7, buf);
+  v5 = a1[5];
+  v6 = a1[6];
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SPBeaconManager_ownedDeviceKeyRecordsForUUID_completion___block_invoke_221(uint64_t a1)
@@ -523,12 +503,12 @@ void __59__SPBeaconManager_ownedDeviceKeyRecordsForUUID_completion___block_invok
 
 void __64__SPBeaconManager_purgeOwnedDeviceKeyRecordsForUUID_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager purgeOwnedDeviceKeyRecordsForUUID:completion:]_block_invoke";
+    v9 = "[SPBeaconManager purgeOwnedDeviceKeyRecordsForUUID:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -538,14 +518,13 @@ void __64__SPBeaconManager_purgeOwnedDeviceKeyRecordsForUUID_completion___block_
   block[1] = 3221225472;
   block[2] = __64__SPBeaconManager_purgeOwnedDeviceKeyRecordsForUUID_completion___block_invoke_222;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v8, buf);
-  v6 = a1[5];
-  v7 = a1[6];
+  objc_copyWeak(&v7, buf);
+  v5 = a1[5];
+  v6 = a1[6];
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SPBeaconManager_purgeOwnedDeviceKeyRecordsForUUID_completion___block_invoke_222(uint64_t a1)
@@ -573,12 +552,12 @@ void __64__SPBeaconManager_purgeOwnedDeviceKeyRecordsForUUID_completion___block_
 
 void __64__SPBeaconManager_createOwnedDeviceKeyRecordForUUID_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager createOwnedDeviceKeyRecordForUUID:completion:]_block_invoke";
+    v9 = "[SPBeaconManager createOwnedDeviceKeyRecordForUUID:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -588,14 +567,13 @@ void __64__SPBeaconManager_createOwnedDeviceKeyRecordForUUID_completion___block_
   block[1] = 3221225472;
   block[2] = __64__SPBeaconManager_createOwnedDeviceKeyRecordForUUID_completion___block_invoke_223;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v8, buf);
-  v6 = a1[5];
-  v7 = a1[6];
+  objc_copyWeak(&v7, buf);
+  v5 = a1[5];
+  v6 = a1[6];
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SPBeaconManager_createOwnedDeviceKeyRecordForUUID_completion___block_invoke_223(uint64_t a1)
@@ -623,12 +601,12 @@ void __64__SPBeaconManager_createOwnedDeviceKeyRecordForUUID_completion___block_
 
 void __66__SPBeaconManager_notificationBeaconForSubscriptionId_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager notificationBeaconForSubscriptionId:completion:]_block_invoke";
+    v9 = "[SPBeaconManager notificationBeaconForSubscriptionId:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -638,14 +616,13 @@ void __66__SPBeaconManager_notificationBeaconForSubscriptionId_completion___bloc
   block[1] = 3221225472;
   block[2] = __66__SPBeaconManager_notificationBeaconForSubscriptionId_completion___block_invoke_224;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v8, buf);
-  v6 = a1[5];
-  v7 = a1[6];
+  objc_copyWeak(&v7, buf);
+  v5 = a1[5];
+  v6 = a1[6];
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __66__SPBeaconManager_notificationBeaconForSubscriptionId_completion___block_invoke_224(uint64_t a1)
@@ -670,28 +647,27 @@ void __66__SPBeaconManager_notificationBeaconForSubscriptionId_completion___bloc
 
 void __44__SPBeaconManager_allBeaconsWithCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[SPBeaconManager allBeaconsWithCompletion:]_block_invoke";
+    v8 = "[SPBeaconManager allBeaconsWithCompletion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
   v3 = [*(a1 + 32) queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __44__SPBeaconManager_allBeaconsWithCompletion___block_invoke_225;
-  v5[3] = &unk_279B59650;
-  objc_copyWeak(&v7, buf);
-  v6 = *(a1 + 40);
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __44__SPBeaconManager_allBeaconsWithCompletion___block_invoke_225;
+  v4[3] = &unk_279B59650;
+  objc_copyWeak(&v6, buf);
+  v5 = *(a1 + 40);
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SPBeaconManager_allBeaconsWithCompletion___block_invoke_225(uint64_t a1)
@@ -743,43 +719,40 @@ void __48__SPBeaconManager_allBeaconsOfTypes_completion___block_invoke(id *a1)
 
 void __48__SPBeaconManager_allBeaconsOfTypes_completion___block_invoke_226(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: allBeaconsOfTypes: %{public}@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = [WeakRetained userAgentProxy];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__SPBeaconManager_allBeaconsOfTypes_completion___block_invoke_227;
-  v8[3] = &unk_279B59348;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __48__SPBeaconManager_allBeaconsOfTypes_completion___block_invoke_227;
+  v7[3] = &unk_279B59348;
   v6 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  [v5 allBeaconsOfTypes:v6 includeDupes:0 includeHidden:0 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 40);
+  [v5 allBeaconsOfTypes:v6 includeDupes:0 includeHidden:0 completion:v7];
 }
 
 void __48__SPBeaconManager_allBeaconsOfTypes_completion___block_invoke_227(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = [v3 count];
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: allBeaconsOfTypes completion beacon count: %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = [v3 count];
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: allBeaconsOfTypes completion beacon count: %lu", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allBeaconsOfTypes:(id)types includeDupes:(BOOL)dupes includeHidden:(BOOL)hidden completion:(id)completion
@@ -827,13 +800,13 @@ void __75__SPBeaconManager_allBeaconsOfTypes_includeDupes_includeHidden_completi
 
 void __75__SPBeaconManager_allBeaconsOfTypes_includeDupes_includeHidden_completion___block_invoke_229(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: allBeaconsOfTypes: %{public}@", buf, 0xCu);
   }
 
@@ -841,31 +814,28 @@ void __75__SPBeaconManager_allBeaconsOfTypes_includeDupes_includeHidden_completi
   v5 = [WeakRetained userAgentProxy];
   v6 = *(a1 + 56);
   v7 = *(a1 + 57);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __75__SPBeaconManager_allBeaconsOfTypes_includeDupes_includeHidden_completion___block_invoke_230;
-  v10[3] = &unk_279B59348;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __75__SPBeaconManager_allBeaconsOfTypes_includeDupes_includeHidden_completion___block_invoke_230;
+  v9[3] = &unk_279B59348;
   v8 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  [v5 allBeaconsOfTypes:v8 includeDupes:v6 includeHidden:v7 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *(a1 + 40);
+  [v5 allBeaconsOfTypes:v8 includeDupes:v6 includeHidden:v7 completion:v9];
 }
 
 void __75__SPBeaconManager_allBeaconsOfTypes_includeDupes_includeHidden_completion___block_invoke_230(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = [v3 count];
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: allBeaconsOfTypes:includeDupes:includeHidden: completion beacon count: %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = [v3 count];
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: allBeaconsOfTypes:includeDupes:includeHidden: completion beacon count: %lu", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allBeaconsOfType:(id)type completion:(id)completion
@@ -886,55 +856,52 @@ void __75__SPBeaconManager_allBeaconsOfTypes_includeDupes_includeHidden_completi
 
 void __47__SPBeaconManager_allBeaconsOfType_completion___block_invoke(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[SPBeaconManager allBeaconsOfType:completion:]_block_invoke";
+    v12 = "[SPBeaconManager allBeaconsOfType:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, a1[4]);
   v3 = [MEMORY[0x277CBEB98] setWithObject:a1[5]];
   v4 = [a1[4] queue];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __47__SPBeaconManager_allBeaconsOfType_completion___block_invoke_231;
-  v7[3] = &unk_279B599D0;
-  v8 = a1[5];
-  objc_copyWeak(&v11, buf);
-  v9 = v3;
-  v10 = a1[6];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __47__SPBeaconManager_allBeaconsOfType_completion___block_invoke_231;
+  v6[3] = &unk_279B599D0;
+  v7 = a1[5];
+  objc_copyWeak(&v10, buf);
+  v8 = v3;
+  v9 = a1[6];
   v5 = v3;
-  dispatch_async(v4, v7);
+  dispatch_async(v4, v6);
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __47__SPBeaconManager_allBeaconsOfType_completion___block_invoke_231(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %lu", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   [WeakRetained allBeaconsOfTypes:*(a1 + 40) completion:*(a1 + 48)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startUpdatingSimpleBeaconsWithContext:(id)context collectionDifference:(id)difference completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   differenceCopy = difference;
   completionCopy = completion;
@@ -942,7 +909,7 @@ void __47__SPBeaconManager_allBeaconsOfType_completion___block_invoke_231(uint64
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v26 = "[SPBeaconManager startUpdatingSimpleBeaconsWithContext:collectionDifference:completion:]";
+    v25 = "[SPBeaconManager startUpdatingSimpleBeaconsWithContext:collectionDifference:completion:]";
     _os_log_impl(&dword_2643D0000, v11, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %{public}s", buf, 0xCu);
   }
 
@@ -951,24 +918,22 @@ void __47__SPBeaconManager_allBeaconsOfType_completion___block_invoke_231(uint64
   aBlock[2] = __89__SPBeaconManager_startUpdatingSimpleBeaconsWithContext_collectionDifference_completion___block_invoke;
   aBlock[3] = &unk_279B58E30;
   aBlock[4] = self;
-  v22 = contextCopy;
-  v23 = differenceCopy;
-  v24 = completionCopy;
+  v21 = contextCopy;
+  v22 = differenceCopy;
+  v23 = completionCopy;
   v12 = completionCopy;
   v13 = contextCopy;
   v14 = differenceCopy;
   v15 = _Block_copy(aBlock);
   queue = [(SPBeaconManager *)self queue];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __89__SPBeaconManager_startUpdatingSimpleBeaconsWithContext_collectionDifference_completion___block_invoke_4;
-  v19[3] = &unk_279B58B80;
-  v19[4] = self;
-  v20 = v15;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __89__SPBeaconManager_startUpdatingSimpleBeaconsWithContext_collectionDifference_completion___block_invoke_4;
+  v18[3] = &unk_279B58B80;
+  v18[4] = self;
+  v19 = v15;
   v17 = v15;
-  dispatch_async(queue, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v18);
 }
 
 void __89__SPBeaconManager_startUpdatingSimpleBeaconsWithContext_collectionDifference_completion___block_invoke(uint64_t a1)
@@ -1059,27 +1024,25 @@ void __89__SPBeaconManager_startUpdatingSimpleBeaconsWithContext_collectionDiffe
 
 - (void)stopUpdatingSimpleBeaconsWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v12 = "[SPBeaconManager stopUpdatingSimpleBeaconsWithCompletion:]";
+    v11 = "[SPBeaconManager stopUpdatingSimpleBeaconsWithCompletion:]";
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %{public}s", buf, 0xCu);
   }
 
   queue = [(SPBeaconManager *)self queue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__SPBeaconManager_stopUpdatingSimpleBeaconsWithCompletion___block_invoke;
-  v9[3] = &unk_279B58B80;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__SPBeaconManager_stopUpdatingSimpleBeaconsWithCompletion___block_invoke;
+  v8[3] = &unk_279B58B80;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v8);
 }
 
 void __59__SPBeaconManager_stopUpdatingSimpleBeaconsWithCompletion___block_invoke(uint64_t a1)
@@ -1112,28 +1075,27 @@ void __59__SPBeaconManager_stopUpdatingSimpleBeaconsWithCompletion___block_invok
 
 void __51__SPBeaconManager_unacceptedBeaconsWithCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[SPBeaconManager unacceptedBeaconsWithCompletion:]_block_invoke";
+    v8 = "[SPBeaconManager unacceptedBeaconsWithCompletion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
   v3 = [*(a1 + 32) queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __51__SPBeaconManager_unacceptedBeaconsWithCompletion___block_invoke_241;
-  v5[3] = &unk_279B59650;
-  objc_copyWeak(&v7, buf);
-  v6 = *(a1 + 40);
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __51__SPBeaconManager_unacceptedBeaconsWithCompletion___block_invoke_241;
+  v4[3] = &unk_279B59650;
+  objc_copyWeak(&v6, buf);
+  v5 = *(a1 + 40);
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SPBeaconManager_unacceptedBeaconsWithCompletion___block_invoke_241(uint64_t a1)
@@ -1164,30 +1126,29 @@ void __51__SPBeaconManager_unacceptedBeaconsWithCompletion___block_invoke_241(ui
 
 void __64__SPBeaconManager_beaconingKeysForUUID_dateInterval_completion___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[SPBeaconManager beaconingKeysForUUID:dateInterval:completion:]_block_invoke";
+    v10 = "[SPBeaconManager beaconingKeysForUUID:dateInterval:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, a1[4]);
   v3 = [a1[4] queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __64__SPBeaconManager_beaconingKeysForUUID_dateInterval_completion___block_invoke_242;
-  v5[3] = &unk_279B59A20;
-  objc_copyWeak(&v9, buf);
-  v6 = a1[5];
-  v7 = a1[6];
-  v8 = a1[7];
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __64__SPBeaconManager_beaconingKeysForUUID_dateInterval_completion___block_invoke_242;
+  v4[3] = &unk_279B59A20;
+  objc_copyWeak(&v8, buf);
+  v5 = a1[5];
+  v6 = a1[6];
+  v7 = a1[7];
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SPBeaconManager_beaconingKeysForUUID_dateInterval_completion___block_invoke_242(uint64_t a1)
@@ -1215,12 +1176,12 @@ void __64__SPBeaconManager_beaconingKeysForUUID_dateInterval_completion___block_
 
 void __76__SPBeaconManager_postedLocalNotifyWhenFoundNotificationForUUID_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager postedLocalNotifyWhenFoundNotificationForUUID:completion:]_block_invoke";
+    v9 = "[SPBeaconManager postedLocalNotifyWhenFoundNotificationForUUID:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -1230,14 +1191,13 @@ void __76__SPBeaconManager_postedLocalNotifyWhenFoundNotificationForUUID_complet
   block[1] = 3221225472;
   block[2] = __76__SPBeaconManager_postedLocalNotifyWhenFoundNotificationForUUID_completion___block_invoke_243;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v8, buf);
-  v6 = a1[5];
-  v7 = a1[6];
+  objc_copyWeak(&v7, buf);
+  v5 = a1[5];
+  v6 = a1[6];
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SPBeaconManager_postedLocalNotifyWhenFoundNotificationForUUID_completion___block_invoke_243(uint64_t a1)
@@ -1262,12 +1222,12 @@ void __76__SPBeaconManager_postedLocalNotifyWhenFoundNotificationForUUID_complet
 
 void __44__SPBeaconManager_allDuriansWithCompletion___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager allDuriansWithCompletion:]_block_invoke";
+    v9 = "[SPBeaconManager allDuriansWithCompletion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -1279,17 +1239,16 @@ void __44__SPBeaconManager_allDuriansWithCompletion___block_invoke(uint64_t a1)
 
   objc_initWeak(buf, *(a1 + 32));
   v4 = [*(a1 + 32) queue];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __44__SPBeaconManager_allDuriansWithCompletion___block_invoke_244;
-  v6[3] = &unk_279B59650;
-  objc_copyWeak(&v8, buf);
-  v7 = *(a1 + 40);
-  dispatch_async(v4, v6);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __44__SPBeaconManager_allDuriansWithCompletion___block_invoke_244;
+  v5[3] = &unk_279B59650;
+  objc_copyWeak(&v7, buf);
+  v6 = *(a1 + 40);
+  dispatch_async(v4, v5);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SPBeaconManager_allDuriansWithCompletion___block_invoke_244(uint64_t a1)
@@ -1314,28 +1273,27 @@ void __44__SPBeaconManager_allDuriansWithCompletion___block_invoke_244(uint64_t 
 
 void __48__SPBeaconManager_roleCategoriesWithCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[SPBeaconManager roleCategoriesWithCompletion:]_block_invoke";
+    v8 = "[SPBeaconManager roleCategoriesWithCompletion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
   v3 = [*(a1 + 32) queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __48__SPBeaconManager_roleCategoriesWithCompletion___block_invoke_245;
-  v5[3] = &unk_279B59650;
-  objc_copyWeak(&v7, buf);
-  v6 = *(a1 + 40);
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __48__SPBeaconManager_roleCategoriesWithCompletion___block_invoke_245;
+  v4[3] = &unk_279B59650;
+  objc_copyWeak(&v6, buf);
+  v5 = *(a1 + 40);
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __48__SPBeaconManager_roleCategoriesWithCompletion___block_invoke_245(uint64_t a1)
@@ -1364,30 +1322,29 @@ void __48__SPBeaconManager_roleCategoriesWithCompletion___block_invoke_245(uint6
 
 void __48__SPBeaconManager_setRole_forBeacon_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager setRole:forBeacon:completion:]_block_invoke";
+    v9 = "[SPBeaconManager setRole:forBeacon:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, a1[4]);
   v3 = [a1[4] queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __48__SPBeaconManager_setRole_forBeacon_completion___block_invoke_246;
-  v5[3] = &unk_279B59F78;
-  objc_copyWeak(v8, buf);
-  v8[1] = a1[7];
-  v6 = a1[5];
-  v7 = a1[6];
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __48__SPBeaconManager_setRole_forBeacon_completion___block_invoke_246;
+  v4[3] = &unk_279B59F78;
+  objc_copyWeak(v7, buf);
+  v7[1] = a1[7];
+  v5 = a1[5];
+  v6 = a1[6];
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(v8);
+  objc_destroyWeak(v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __48__SPBeaconManager_setRole_forBeacon_completion___block_invoke_246(uint64_t a1)
@@ -1418,12 +1375,12 @@ void __48__SPBeaconManager_setRole_forBeacon_completion___block_invoke_246(uint6
 
 void __51__SPBeaconManager_updateBeacon_updates_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager updateBeacon:updates:completion:]_block_invoke";
+    v9 = "[SPBeaconManager updateBeacon:updates:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -1433,15 +1390,14 @@ void __51__SPBeaconManager_updateBeacon_updates_completion___block_invoke(id *a1
   activity_block[2] = __51__SPBeaconManager_updateBeacon_updates_completion___block_invoke_247;
   activity_block[3] = &unk_279B5A4C0;
   activity_block[4] = a1[4];
-  objc_copyWeak(&v8, buf);
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = a1[7];
+  objc_copyWeak(&v7, buf);
+  v4 = a1[5];
+  v5 = a1[6];
+  v6 = a1[7];
   _os_activity_initiate(&dword_2643D0000, "SPOwnerSession: Calling commandKeysForUUIDs", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SPBeaconManager_updateBeacon_updates_completion___block_invoke_247(id *a1)
@@ -1488,12 +1444,12 @@ void __51__SPBeaconManager_updateBeacon_updates_completion___block_invoke_2(uint
 
 void __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager connectionTokensForBeaconUUID:dateInterval:completion:]_block_invoke";
+    v9 = "[SPBeaconManager connectionTokensForBeaconUUID:dateInterval:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -1503,15 +1459,14 @@ void __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion
   activity_block[2] = __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_248;
   activity_block[3] = &unk_279B5A4C0;
   activity_block[4] = a1[4];
-  objc_copyWeak(&v8, buf);
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = a1[7];
+  objc_copyWeak(&v7, buf);
+  v4 = a1[5];
+  v5 = a1[6];
+  v6 = a1[7];
   _os_activity_initiate(&dword_2643D0000, "SPOwnerSession: Calling commandKeysForUUIDs", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_248(id *a1)
@@ -1532,20 +1487,18 @@ void __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion
 
 void __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_2(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained userAgentProxy];
-  v9[0] = *(a1 + 32);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_3;
-  v7[3] = &unk_279B5A4E8;
+  v8[0] = *(a1 + 32);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_3;
+  v6[3] = &unk_279B5A4E8;
   v5 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  [v3 commandKeysForUUIDs:v4 dateInterval:v5 completion:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *(a1 + 48);
+  [v3 commandKeysForUUIDs:v4 dateInterval:v5 completion:v6];
 }
 
 void __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -1591,12 +1544,12 @@ void __73__SPBeaconManager_connectionTokensForBeaconUUID_dateInterval_completion
 
 void __69__SPBeaconManager_connectionTokensForBeaconUUID_criteria_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager connectionTokensForBeaconUUID:criteria:completion:]_block_invoke";
+    v9 = "[SPBeaconManager connectionTokensForBeaconUUID:criteria:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -1606,15 +1559,14 @@ void __69__SPBeaconManager_connectionTokensForBeaconUUID_criteria_completion___b
   activity_block[2] = __69__SPBeaconManager_connectionTokensForBeaconUUID_criteria_completion___block_invoke_252;
   activity_block[3] = &unk_279B5A4C0;
   activity_block[4] = a1[4];
-  objc_copyWeak(&v8, buf);
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = a1[7];
+  objc_copyWeak(&v7, buf);
+  v4 = a1[5];
+  v5 = a1[6];
+  v6 = a1[7];
   _os_activity_initiate(&dword_2643D0000, "SPOwnerSession: Calling commandKeysForUUID withCriteria", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SPBeaconManager_connectionTokensForBeaconUUID_criteria_completion___block_invoke_252(id *a1)
@@ -1669,12 +1621,12 @@ void __69__SPBeaconManager_connectionTokensForBeaconUUID_criteria_completion___b
 
 void __81__SPBeaconManager_allBeaconingKeysForUUID_dateInterval_forceGenerate_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[SPBeaconManager allBeaconingKeysForUUID:dateInterval:forceGenerate:completion:]_block_invoke";
+    v11 = "[SPBeaconManager allBeaconingKeysForUUID:dateInterval:forceGenerate:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -1684,16 +1636,15 @@ void __81__SPBeaconManager_allBeaconingKeysForUUID_dateInterval_forceGenerate_co
   block[1] = 3221225472;
   block[2] = __81__SPBeaconManager_allBeaconingKeysForUUID_dateInterval_forceGenerate_completion___block_invoke_254;
   block[3] = &unk_279B59AE8;
-  objc_copyWeak(&v9, buf);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v10 = *(a1 + 64);
-  v8 = *(a1 + 56);
+  objc_copyWeak(&v8, buf);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
+  v9 = *(a1 + 64);
+  v7 = *(a1 + 56);
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __81__SPBeaconManager_allBeaconingKeysForUUID_dateInterval_forceGenerate_completion___block_invoke_254(uint64_t a1)
@@ -1726,32 +1677,31 @@ void __81__SPBeaconManager_allBeaconingKeysForUUID_dateInterval_forceGenerate_co
 
 void __77__SPBeaconManager_setAlignmentUncertainty_atIndex_date_forBeacon_completion___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[SPBeaconManager setAlignmentUncertainty:atIndex:date:forBeacon:completion:]_block_invoke";
+    v10 = "[SPBeaconManager setAlignmentUncertainty:atIndex:date:forBeacon:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, a1[4]);
   v3 = [a1[4] queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __77__SPBeaconManager_setAlignmentUncertainty_atIndex_date_forBeacon_completion___block_invoke_255;
-  v5[3] = &unk_279B5A510;
-  objc_copyWeak(v9, buf);
-  v9[1] = a1[8];
-  v9[2] = a1[9];
-  v6 = a1[5];
-  v7 = a1[6];
-  v8 = a1[7];
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __77__SPBeaconManager_setAlignmentUncertainty_atIndex_date_forBeacon_completion___block_invoke_255;
+  v4[3] = &unk_279B5A510;
+  objc_copyWeak(v8, buf);
+  v8[1] = a1[8];
+  v8[2] = a1[9];
+  v5 = a1[5];
+  v6 = a1[6];
+  v7 = a1[7];
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(v9);
+  objc_destroyWeak(v8);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __77__SPBeaconManager_setAlignmentUncertainty_atIndex_date_forBeacon_completion___block_invoke_255(uint64_t a1)
@@ -1780,30 +1730,29 @@ void __77__SPBeaconManager_setAlignmentUncertainty_atIndex_date_forBeacon_comple
 
 void __59__SPBeaconManager_setKeyRollInterval_forBeacon_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager setKeyRollInterval:forBeacon:completion:]_block_invoke";
+    v9 = "[SPBeaconManager setKeyRollInterval:forBeacon:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, a1[4]);
   v3 = [a1[4] queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __59__SPBeaconManager_setKeyRollInterval_forBeacon_completion___block_invoke_256;
-  v5[3] = &unk_279B59F78;
-  objc_copyWeak(v8, buf);
-  v8[1] = a1[7];
-  v6 = a1[5];
-  v7 = a1[6];
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __59__SPBeaconManager_setKeyRollInterval_forBeacon_completion___block_invoke_256;
+  v4[3] = &unk_279B59F78;
+  objc_copyWeak(v7, buf);
+  v7[1] = a1[7];
+  v5 = a1[5];
+  v6 = a1[6];
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(v8);
+  objc_destroyWeak(v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SPBeaconManager_setKeyRollInterval_forBeacon_completion___block_invoke_256(uint64_t a1)
@@ -1834,31 +1783,30 @@ void __59__SPBeaconManager_setKeyRollInterval_forBeacon_completion___block_invok
 
 void __73__SPBeaconManager_setWildKeyBase_interval_fallback_forBeacon_completion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[SPBeaconManager setWildKeyBase:interval:fallback:forBeacon:completion:]_block_invoke";
+    v11 = "[SPBeaconManager setWildKeyBase:interval:fallback:forBeacon:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
   v3 = [*(a1 + 32) queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __73__SPBeaconManager_setWildKeyBase_interval_fallback_forBeacon_completion___block_invoke_257;
-  v5[3] = &unk_279B5A560;
-  objc_copyWeak(&v8, buf);
-  v9 = *(a1 + 56);
-  v10 = *(a1 + 72);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __73__SPBeaconManager_setWildKeyBase_interval_fallback_forBeacon_completion___block_invoke_257;
+  v4[3] = &unk_279B5A560;
+  objc_copyWeak(&v7, buf);
+  v8 = *(a1 + 56);
+  v9 = *(a1 + 72);
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SPBeaconManager_setWildKeyBase_interval_fallback_forBeacon_completion___block_invoke_257(uint64_t a1)
@@ -1887,30 +1835,29 @@ void __73__SPBeaconManager_setWildKeyBase_interval_fallback_forBeacon_completion
 
 void __63__SPBeaconManager_setCurrentWildKeyIndex_forBeacon_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager setCurrentWildKeyIndex:forBeacon:completion:]_block_invoke";
+    v9 = "[SPBeaconManager setCurrentWildKeyIndex:forBeacon:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, a1[4]);
   v3 = [a1[4] queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __63__SPBeaconManager_setCurrentWildKeyIndex_forBeacon_completion___block_invoke_258;
-  v5[3] = &unk_279B59F78;
-  objc_copyWeak(v8, buf);
-  v8[1] = a1[7];
-  v6 = a1[5];
-  v7 = a1[6];
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __63__SPBeaconManager_setCurrentWildKeyIndex_forBeacon_completion___block_invoke_258;
+  v4[3] = &unk_279B59F78;
+  objc_copyWeak(v7, buf);
+  v7[1] = a1[7];
+  v5 = a1[5];
+  v6 = a1[6];
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(v8);
+  objc_destroyWeak(v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __63__SPBeaconManager_setCurrentWildKeyIndex_forBeacon_completion___block_invoke_258(uint64_t a1)
@@ -1938,29 +1885,28 @@ void __63__SPBeaconManager_setCurrentWildKeyIndex_forBeacon_completion___block_i
 
 void __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invoke(id *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[SPBeaconManager connectionTokensForBeaconUUID:completion:]_block_invoke";
+    v8 = "[SPBeaconManager connectionTokensForBeaconUUID:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, a1[4]);
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invoke_259;
-  v4[3] = &unk_279B599D0;
-  v4[4] = a1[4];
-  objc_copyWeak(&v7, buf);
-  v5 = a1[5];
-  v6 = a1[6];
-  _os_activity_initiate(&dword_2643D0000, "SPOwnerSession: Calling commandKeysForUUIDs", OS_ACTIVITY_FLAG_DEFAULT, v4);
+  v3[0] = MEMORY[0x277D85DD0];
+  v3[1] = 3221225472;
+  v3[2] = __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invoke_259;
+  v3[3] = &unk_279B599D0;
+  v3[4] = a1[4];
+  objc_copyWeak(&v6, buf);
+  v4 = a1[5];
+  v5 = a1[6];
+  _os_activity_initiate(&dword_2643D0000, "SPOwnerSession: Calling commandKeysForUUIDs", OS_ACTIVITY_FLAG_DEFAULT, v3);
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invoke_259(id *a1)
@@ -1980,19 +1926,17 @@ void __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invo
 
 void __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invoke_2(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained userAgentProxy];
-  v8[0] = *(a1 + 32);
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invoke_3;
-  v6[3] = &unk_279B5A4E8;
-  v7 = *(a1 + 40);
-  [v3 commandKeysForUUIDs:v4 completion:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = *(a1 + 32);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invoke_3;
+  v5[3] = &unk_279B5A4E8;
+  v6 = *(a1 + 40);
+  [v3 commandKeysForUUIDs:v4 completion:v5];
 }
 
 void __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -2029,33 +1973,32 @@ void __60__SPBeaconManager_connectionTokensForBeaconUUID_completion___block_invo
 
 void __58__SPBeaconManager_connectedToBeacon_withIndex_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[SPBeaconManager connectedToBeacon:withIndex:completion:]_block_invoke";
+    v12 = "[SPBeaconManager connectedToBeacon:withIndex:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
   v3 = [*(a1 + 32) queue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __58__SPBeaconManager_connectedToBeacon_withIndex_completion___block_invoke_260;
-  v8[3] = &unk_279B59F78;
-  objc_copyWeak(v11, buf);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __58__SPBeaconManager_connectedToBeacon_withIndex_completion___block_invoke_260;
+  v7[3] = &unk_279B59F78;
+  objc_copyWeak(v10, buf);
   v4 = *(a1 + 40);
   v6 = *(a1 + 48);
   v5 = *(a1 + 56);
-  v9 = v4;
-  v11[1] = v5;
-  v10 = v6;
-  dispatch_async(v3, v8);
+  v8 = v4;
+  v10[1] = v5;
+  v9 = v6;
+  dispatch_async(v3, v7);
 
-  objc_destroyWeak(v11);
+  objc_destroyWeak(v10);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SPBeaconManager_connectedToBeacon_withIndex_completion___block_invoke_260(uint64_t a1)
@@ -2083,12 +2026,12 @@ void __58__SPBeaconManager_connectedToBeacon_withIndex_completion___block_invoke
 
 void __54__SPBeaconManager_fetchUserStatsForBeacon_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager fetchUserStatsForBeacon:completion:]_block_invoke";
+    v9 = "[SPBeaconManager fetchUserStatsForBeacon:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -2098,14 +2041,13 @@ void __54__SPBeaconManager_fetchUserStatsForBeacon_completion___block_invoke(id 
   block[1] = 3221225472;
   block[2] = __54__SPBeaconManager_fetchUserStatsForBeacon_completion___block_invoke_264;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v8, buf);
-  v6 = a1[5];
-  v7 = a1[6];
+  objc_copyWeak(&v7, buf);
+  v5 = a1[5];
+  v6 = a1[6];
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SPBeaconManager_fetchUserStatsForBeacon_completion___block_invoke_264(uint64_t a1)
@@ -2133,12 +2075,12 @@ void __54__SPBeaconManager_fetchUserStatsForBeacon_completion___block_invoke_264
 
 void __60__SPBeaconManager_fetchFirmwareVersionForBeacon_completion___block_invoke(id *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SPBeaconManager fetchFirmwareVersionForBeacon:completion:]_block_invoke";
+    v9 = "[SPBeaconManager fetchFirmwareVersionForBeacon:completion:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
@@ -2148,14 +2090,13 @@ void __60__SPBeaconManager_fetchFirmwareVersionForBeacon_completion___block_invo
   block[1] = 3221225472;
   block[2] = __60__SPBeaconManager_fetchFirmwareVersionForBeacon_completion___block_invoke_265;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v8, buf);
-  v6 = a1[5];
-  v7 = a1[6];
+  objc_copyWeak(&v7, buf);
+  v5 = a1[5];
+  v6 = a1[6];
   dispatch_async(v3, block);
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SPBeaconManager_fetchFirmwareVersionForBeacon_completion___block_invoke_265(uint64_t a1)
@@ -2208,7 +2149,7 @@ void __53__SPBeaconManager_createKeyReconcilerWithCompletion___block_invoke_2(ui
 
 void __53__SPBeaconManager_createKeyReconcilerWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = LogCategory_BeaconManager();
@@ -2227,16 +2168,14 @@ void __53__SPBeaconManager_createKeyReconcilerWithCompletion___block_invoke_3(ui
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134217984;
-      v12 = [v5 count];
-      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: fetched %zu key map file descriptor sets", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = [v5 count];
+      _os_log_impl(&dword_2643D0000, v8, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: fetched %zu key map file descriptor sets", &v10, 0xCu);
     }
 
     v9 = [[SPKeyReconciler alloc] initWithDictionary:v5];
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)repairDataStore:(id)store
@@ -2254,28 +2193,27 @@ void __53__SPBeaconManager_createKeyReconcilerWithCompletion___block_invoke_3(ui
 
 void __35__SPBeaconManager_repairDataStore___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconManager();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[SPBeaconManager repairDataStore:]_block_invoke";
+    v8 = "[SPBeaconManager repairDataStore:]_block_invoke";
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPBeaconManager: SPI: %s", buf, 0xCu);
   }
 
   objc_initWeak(buf, *(a1 + 32));
   v3 = [*(a1 + 32) queue];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __35__SPBeaconManager_repairDataStore___block_invoke_268;
-  v5[3] = &unk_279B59650;
-  objc_copyWeak(&v7, buf);
-  v6 = *(a1 + 40);
-  dispatch_async(v3, v5);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __35__SPBeaconManager_repairDataStore___block_invoke_268;
+  v4[3] = &unk_279B59650;
+  objc_copyWeak(&v6, buf);
+  v5 = *(a1 + 40);
+  dispatch_async(v3, v4);
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __35__SPBeaconManager_repairDataStore___block_invoke_268(uint64_t a1)
@@ -2483,11 +2421,10 @@ void __49__SPBeaconManager_keySyncMetadataWithcompletion___block_invoke(uint64_t
 
 void __53__SPBeaconManager_createKeyReconcilerWithCompletion___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "SPBeaconManager: failed to fetch key map file descriptors: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "SPBeaconManager: failed to fetch key map file descriptors: %@", &v2, 0xCu);
 }
 
 @end

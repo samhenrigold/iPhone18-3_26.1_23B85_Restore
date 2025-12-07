@@ -10,10 +10,10 @@
 
 - (void)didMoveToWindow
 {
-  v12.receiver = self;
-  v12.super_class = type metadata accessor for RoundedDetailHeaderCell();
-  v2 = v12.receiver;
-  [(RoundedDetailHeaderCell *)&v12 didMoveToWindow];
+  v14.receiver = self;
+  v14.super_class = type metadata accessor for RoundedDetailHeaderCell(0);
+  v2 = v14.receiver;
+  [(RoundedDetailHeaderCell *)&v14 didMoveToWindow];
   window = [v2 window];
   v4 = window;
   if (window)
@@ -33,7 +33,7 @@
   }
 
   traitCollection = [v2 traitCollection];
-  sub_20B9EFC30(v9, v10, v4 == 0, traitCollection, 0);
+  sub_20B9EFC30(v9, v10, v4 == 0, traitCollection, 0, v12, v13);
 }
 
 - (void)layoutSubviews
@@ -58,24 +58,24 @@
   }
 
   traitCollection = [(RoundedDetailHeaderCell *)selfCopy traitCollection];
-  sub_20B9EFC30(v9, v10, v4 == 0, traitCollection, 0);
+  sub_20B9EFC30(v9, v10, v4 == 0, traitCollection, 0, v12, v13);
 
-  v12.receiver = selfCopy;
-  v12.super_class = type metadata accessor for RoundedDetailHeaderCell();
-  [(RoundedDetailHeaderCell *)&v12 layoutSubviews];
+  v14.receiver = selfCopy;
+  v14.super_class = type metadata accessor for RoundedDetailHeaderCell(0);
+  [(RoundedDetailHeaderCell *)&v14 layoutSubviews];
 }
 
 - (void)prepareForReuse
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C762550, &unk_20C1505A0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v10 - v4;
-  v6 = type metadata accessor for RoundedDetailHeaderCell();
+  v6 = type metadata accessor for RoundedDetailHeaderCell(0);
   v11.receiver = self;
   v11.super_class = v6;
   selfCopy = self;
   [(RoundedDetailHeaderCell *)&v11 prepareForReuse];
-  v8 = type metadata accessor for ShelfCellItemInfo();
+  v8 = type metadata accessor for ShelfCellItemInfo(0);
   (*(*(v8 - 8) + 56))(v5, 1, 1, v8);
   v9 = OBJC_IVAR____TtC9SeymourUI23RoundedDetailHeaderCell_itemInfo;
   swift_beginAccess();
@@ -105,7 +105,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for RoundedDetailHeaderCell();
+  v7.super_class = type metadata accessor for RoundedDetailHeaderCell(0);
   changeCopy = change;
   v5 = v7.receiver;
   [(RoundedDetailHeaderCell *)&v7 traitCollectionDidChange:changeCopy];

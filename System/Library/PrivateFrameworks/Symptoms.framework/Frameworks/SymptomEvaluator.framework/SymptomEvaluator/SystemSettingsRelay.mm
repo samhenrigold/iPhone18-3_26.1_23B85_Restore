@@ -5,6 +5,7 @@
 - (SystemSettingsRelay)init;
 - (id)getPacketFilterStateFromKernel;
 - (int)autoBugCaptureEnhancedBetaFeedbackState;
+- (void)_enableBrokenBackhaulWithBaseband:(BOOL)baseband prefStore:(__prefs_store *)store;
 - (void)_setAirplaneModeSwitchEnabled:(BOOL)enabled;
 - (void)_setAutoBugCaptureAvailable:(BOOL)available;
 - (void)_setAutoBugCaptureEnabled:(BOOL)enabled;
@@ -20,7 +21,9 @@
 - (void)getAutoBugCaptureConfiguration;
 - (void)recalculateAndSetCellOutrankEnabled;
 - (void)registerForAutoBugCaptureChangeNotifications;
+- (void)rnfSettingChangedToFeatureEnabled:(BOOL)enabled userEnabled:(BOOL)userEnabled;
 - (void)setAutoBugCaptureConfiguration:(id)configuration;
+- (void)smartDataModeChangedToUserEnabled:(BOOL)enabled;
 @end
 
 @implementation SystemSettingsRelay
@@ -98,10 +101,10 @@ void __40__SystemSettingsRelay_packetFilterState__block_invoke(uint64_t a1)
 
 - (id)getPacketFilterStateFromKernel
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v11, 0, 125);
-  v8 = 125;
-  if (sysctlbyname("net.filter_state", v11, &v8, 0, 0))
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v10, 0, 125);
+  v7 = 125;
+  if (sysctlbyname("net.filter_state", v10, &v7, 0, 0))
   {
     v2 = otherLogHandle;
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
@@ -109,34 +112,47 @@ void __40__SystemSettingsRelay_packetFilterState__block_invoke(uint64_t a1)
       v3 = v2;
       v4 = *__error();
       *buf = 67109120;
-      v10 = v4;
+      v9 = v4;
       _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "SystemSettingsRelay: Failed to find the packet filter state string from sysctl. Error = %{darwin.errno}d.", buf, 8u);
     }
   }
 
-  else if (LOBYTE(v11[0]))
+  else if (LOBYTE(v10[0]))
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v10];
     goto LABEL_7;
   }
 
   v5 = @"None";
 LABEL_7:
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 uint64_t __35__SystemSettingsRelay_defaultRelay__block_invoke(uint64_t a1)
 {
-  sharedInstance_8 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstance_8;
+  sharedInstance_8 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
+}
+
+- (void)_enableBrokenBackhaulWithBaseband:(BOOL)baseband prefStore:(__prefs_store *)store
+{
+  basebandCopy = baseband;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __67__SystemSettingsRelay__enableBrokenBackhaulWithBaseband_prefStore___block_invoke;
+  v6[3] = &unk_27898A0A0;
+  v6[4] = self;
+  prefs_add_client(store, "detect_no_backhaul", v6);
+  [(SystemSettingsRelay *)self _setNoBackhaulEnabled:basebandCopy];
 }
 
 void __67__SystemSettingsRelay__enableBrokenBackhaulWithBaseband_prefStore___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x238389170](v4) == MEMORY[0x277D86448])
@@ -155,9 +171,9 @@ void __67__SystemSettingsRelay__enableBrokenBackhaulWithBaseband_prefStore___blo
       v16 = *(a1 + 32);
       v15 = v11;
       *buf = 67109376;
-      v21 = [v16 noBackhaulEnabled];
-      v22 = 1024;
-      v23 = value;
+      v20 = [v16 noBackhaulEnabled];
+      v21 = 1024;
+      v22 = value;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "NBSM no-op for detect_no_backhaul (was/is): %d/%d", buf, 0xEu);
     }
 
@@ -168,20 +184,20 @@ void __67__SystemSettingsRelay__enableBrokenBackhaulWithBaseband_prefStore___blo
         v13 = *(a1 + 32);
         v14 = v11;
         *buf = 67109376;
-        v21 = [v13 noBackhaulEnabled];
-        v22 = 1024;
-        v23 = value;
+        v20 = [v13 noBackhaulEnabled];
+        v21 = 1024;
+        v22 = value;
         _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEFAULT, "NBSM changing a value for detect_no_backhaul from %d to %d", buf, 0xEu);
       }
 
       v15 = [*(a1 + 32) queue];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __67__SystemSettingsRelay__enableBrokenBackhaulWithBaseband_prefStore___block_invoke_6;
-      v18[3] = &unk_27898A3A0;
-      v18[4] = *(a1 + 32);
-      v19 = value;
-      dispatch_async(v15, v18);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __67__SystemSettingsRelay__enableBrokenBackhaulWithBaseband_prefStore___block_invoke_6;
+      v17[3] = &unk_27898A3A0;
+      v17[4] = *(a1 + 32);
+      v18 = value;
+      dispatch_async(v15, v17);
     }
 
     goto LABEL_12;
@@ -193,24 +209,22 @@ void __67__SystemSettingsRelay__enableBrokenBackhaulWithBaseband_prefStore___blo
     v7 = *(a1 + 32);
     v8 = v6;
     *buf = 67109120;
-    v21 = [v7 noBackhaulEnabled];
+    v20 = [v7 noBackhaulEnabled];
     _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "NBSM got invalid value for detect_no_backhaul. Maintaining current value (%d)", buf, 8u);
   }
 
 LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (SystemSettingsRelay)init
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v54.receiver = self;
-  v54.super_class = SystemSettingsRelay;
-  v2 = [(SystemSettingsRelay *)&v54 init];
+  v55 = *MEMORY[0x277D85DE8];
+  v51.receiver = self;
+  v51.super_class = SystemSettingsRelay;
+  v2 = [(SystemSettingsRelay *)&v51 init];
   if (!v2)
   {
-    goto LABEL_45;
+    return v2;
   }
 
   v3 = dispatch_queue_create("com.apple.symptoms.systemsettings.queue", 0);
@@ -344,9 +358,9 @@ LABEL_12:
       v26 = v25;
       v27 = SCError();
       v28 = SCErrorString(v27);
-      *v55 = 136315138;
-      *v56 = v28;
-      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "Unable to create preferences handle: %s", v55, 0xCu);
+      *v52 = 136315138;
+      *v53 = v28;
+      _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_ERROR, "Unable to create preferences handle: %s", v52, 0xCu);
     }
   }
 
@@ -358,34 +372,32 @@ LABEL_12:
     if (ctServerConnection)
     {
       [v29 addDelegate:v2];
-      serverConnection = v2->_serverConnection;
-      v32 = *MEMORY[0x277CC3CB0];
-      v33 = _CTServerConnectionRegisterForNotification();
-      v34 = v33;
-      v35 = HIDWORD(v33);
-      if (!HIDWORD(v33) && !v33)
+      v31 = _CTServerConnectionRegisterForNotification();
+      v32 = v31;
+      v33 = HIDWORD(v31);
+      if (!HIDWORD(v31) && !v31)
       {
         goto LABEL_39;
       }
 
-      v36 = systemSettingsLogHandle;
+      v34 = systemSettingsLogHandle;
       if (!os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_39;
       }
 
-      *v55 = 67109376;
-      *v56 = v34;
-      *&v56[4] = 1024;
-      *&v56[6] = v35;
-      v37 = "Failed to register for kCTRegistrationDataStatusChangedNotification: error domain = %d, error number = %d.";
-      v38 = v36;
-      v39 = 14;
+      *v52 = 67109376;
+      *v53 = v32;
+      *&v53[4] = 1024;
+      *&v53[6] = v33;
+      v35 = "Failed to register for kCTRegistrationDataStatusChangedNotification: error domain = %d, error number = %d.";
+      v36 = v34;
+      v37 = 14;
     }
 
     else
     {
-      v40 = systemSettingsLogHandle;
+      v38 = systemSettingsLogHandle;
       if (!os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_ERROR))
       {
 LABEL_39:
@@ -393,53 +405,51 @@ LABEL_39:
         goto LABEL_40;
       }
 
-      *v55 = 0;
-      v37 = "Could not establish CTServerConnection.";
-      v38 = v40;
-      v39 = 2;
+      *v52 = 0;
+      v35 = "Could not establish CTServerConnection.";
+      v36 = v38;
+      v37 = 2;
     }
 
-    _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_ERROR, v37, v55, v39);
+    _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, v35, v52, v37);
     goto LABEL_39;
   }
 
 LABEL_40:
-  v41 = _os_feature_enabled_impl();
-  v42 = systemSettingsLogHandle;
+  v39 = _os_feature_enabled_impl();
+  v40 = systemSettingsLogHandle;
   if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v43 = "en";
-    if (!v41)
+    v41 = "en";
+    if (!v39)
     {
-      v43 = "dis";
+      v41 = "dis";
     }
 
-    *v55 = 136315138;
-    *v56 = v43;
-    _os_log_impl(&dword_23255B000, v42, OS_LOG_TYPE_DEFAULT, "turbo_rnf feature flag is %sabled", v55, 0xCu);
+    *v52 = 136315138;
+    *v53 = v41;
+    _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_DEFAULT, "turbo_rnf feature flag is %sabled", v52, 0xCu);
   }
 
-  [(SystemSettingsRelay *)v2 setTurboRNFFeatureFlagEnabled:v41];
+  [(SystemSettingsRelay *)v2 setTurboRNFFeatureFlagEnabled:v39];
   queue4 = [(SystemSettingsRelay *)v2 queue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __27__SystemSettingsRelay_init__block_invoke;
   block[3] = &unk_27898A328;
-  v50 = v2;
-  v51 = v21;
-  v52 = v29;
-  v45 = v29;
-  v46 = v21;
+  v47 = v2;
+  v48 = v21;
+  v49 = v29;
+  v43 = v29;
+  v44 = v21;
   dispatch_async(queue4, block);
 
-LABEL_45:
-  v47 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void __27__SystemSettingsRelay_init__block_invoke(id *a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   Value = SCPreferencesGetValue(sWifi, @"AllowEnable");
   BOOLFromCFType = _readBOOLFromCFType("AllowEnable", Value);
   [a1[4] _setWifiEnabled:BOOLFromCFType];
@@ -448,7 +458,7 @@ void __27__SystemSettingsRelay_init__block_invoke(id *a1)
   v5 = _readBOOLFromCFType("AirplaneMode", v4);
   [a1[4] _setAirplaneModeSwitchEnabled:v5];
   SCPreferencesSynchronize(sAirplane);
-  v26 = 0;
+  v25 = 0;
   if (!*(a1[4] + 2))
   {
     v11 = systemSettingsLogHandle;
@@ -473,9 +483,9 @@ LABEL_8:
     if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      *v28 = IsEnabled;
-      *&v28[4] = 1024;
-      *&v28[6] = HIDWORD(IsEnabled);
+      *v27 = IsEnabled;
+      *&v27[4] = 1024;
+      *&v27[6] = HIDWORD(IsEnabled);
       v8 = "_CTServerConnectionGetCellularDataIsEnabled returned with error domain %d, error %d";
       v9 = v7;
       v10 = 14;
@@ -487,7 +497,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  [a1[4] _setCellDataSwitchEnabled:v26 != 0];
+  [a1[4] _setCellDataSwitchEnabled:v25 != 0];
   v12 = "administratively";
 LABEL_10:
   if (!*(a1[4] + 2))
@@ -530,8 +540,8 @@ LABEL_17:
       v16 = "OFF";
     }
 
-    *v28 = v16;
-    *&v28[8] = 2080;
+    *v27 = v16;
+    *&v27[8] = 2080;
     if (BOOLFromCFType)
     {
       v17 = "ON";
@@ -542,13 +552,13 @@ LABEL_17:
       v17 = "OFF";
     }
 
-    v29 = v17;
-    v30 = 2080;
-    v31 = v12;
-    v32 = 2080;
-    v33 = "OFF";
-    v34 = 2080;
-    v35 = "RNF implicitly OFF";
+    v28 = v17;
+    v29 = 2080;
+    v30 = v12;
+    v31 = 2080;
+    v32 = "OFF";
+    v33 = 2080;
+    v34 = "RNF implicitly OFF";
     _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "AirplaneMode %s,  Wi-Fi administratively %s, Cellular data switch %s %s, %s", buf, 0x34u);
   }
 
@@ -561,12 +571,12 @@ LABEL_17:
 
   shared_prefs_store = get_shared_prefs_store();
   [a1[4] _enableBrokenBackhaulWithBaseband:v18 prefStore:shared_prefs_store];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __27__SystemSettingsRelay_init__block_invoke_44;
-  v23[3] = &unk_27898A0A0;
-  v24 = a1[4];
-  prefs_add_client(shared_prefs_store, "cell_outrank", v23);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __27__SystemSettingsRelay_init__block_invoke_44;
+  v22[3] = &unk_27898A0A0;
+  v23 = a1[4];
+  prefs_add_client(shared_prefs_store, "cell_outrank", v22);
   [a1[4] _setSmartDataModeEnabled:{objc_msgSend(a1[6], "getSmartDataModeSetting")}];
   v20 = systemSettingsLogHandle;
   if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -582,16 +592,14 @@ LABEL_17:
     }
 
     *buf = 136315138;
-    *v28 = v21;
+    *v27 = v21;
     _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "SmartDataMode (pre-initialization) is %sabled", buf, 0xCu);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __27__SystemSettingsRelay_init__block_invoke_44(uint64_t a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = v4;
   if (v4)
@@ -609,9 +617,9 @@ void __27__SystemSettingsRelay_init__block_invoke_44(uint64_t a1, uint64_t a2, v
           v17 = *(a1 + 32);
           v18 = v12;
           *buf = 67109376;
-          v24 = [v17 cellOutrankEnabled];
-          v25 = 1024;
-          v26 = value;
+          v23 = [v17 cellOutrankEnabled];
+          v24 = 1024;
+          v25 = value;
           _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "COSM no-op for cell_outrank (was/is): %d/%d", buf, 0xEu);
         }
       }
@@ -623,20 +631,20 @@ void __27__SystemSettingsRelay_init__block_invoke_44(uint64_t a1, uint64_t a2, v
           v14 = *(a1 + 32);
           v15 = v12;
           *buf = 67109376;
-          v24 = [v14 cellOutrankEnabled];
-          v25 = 1024;
-          v26 = value;
+          v23 = [v14 cellOutrankEnabled];
+          v24 = 1024;
+          v25 = value;
           _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEFAULT, "COSM changing a value for cell_outrank from %d to %d", buf, 0xEu);
         }
 
         v16 = [*(a1 + 32) queue];
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __27__SystemSettingsRelay_init__block_invoke_45;
-        v20[3] = &unk_27898A3A0;
-        v21 = *(a1 + 32);
-        v22 = value;
-        dispatch_async(v16, v20);
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __27__SystemSettingsRelay_init__block_invoke_45;
+        v19[3] = &unk_27898A3A0;
+        v20 = *(a1 + 32);
+        v21 = value;
+        dispatch_async(v16, v19);
       }
     }
 
@@ -648,7 +656,7 @@ void __27__SystemSettingsRelay_init__block_invoke_44(uint64_t a1, uint64_t a2, v
         v7 = *(a1 + 32);
         v8 = v6;
         *buf = 67109120;
-        v24 = [v7 cellOutrankEnabled];
+        v23 = [v7 cellOutrankEnabled];
         _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "COSM got invalid value for cell_outrank. Maintaining current value (%d)", buf, 8u);
       }
     }
@@ -666,39 +674,36 @@ void __27__SystemSettingsRelay_init__block_invoke_44(uint64_t a1, uint64_t a2, v
     *(*(a1 + 32) + 9) = 0;
     [*(a1 + 32) recalculateAndSetCellOutrankEnabled];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->_serverConnection)
   {
-    v3 = *MEMORY[0x277CC3CB0];
-    v4 = _CTServerConnectionUnregisterForNotification();
-    v5 = v4;
-    v6 = HIDWORD(v4);
-    if (HIDWORD(v4))
+    v3 = _CTServerConnectionUnregisterForNotification();
+    v4 = v3;
+    v5 = HIDWORD(v3);
+    if (HIDWORD(v3))
     {
-      v7 = 0;
+      v6 = 0;
     }
 
     else
     {
-      v7 = v4 == 0;
+      v6 = v3 == 0;
     }
 
-    if (!v7)
+    if (!v6)
     {
-      v8 = systemSettingsLogHandle;
+      v7 = systemSettingsLogHandle;
       if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
+        v13 = v4;
+        v14 = 1024;
         v15 = v5;
-        v16 = 1024;
-        v17 = v6;
-        _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_ERROR, "Failed to unregister kCTRegistrationDataStatusChangedNotification: error domain = %d, error number = %d.", buf, 0xEu);
+        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Failed to unregister kCTRegistrationDataStatusChangedNotification: error domain = %d, error number = %d.", buf, 0xEu);
       }
     }
 
@@ -710,9 +715,9 @@ void __27__SystemSettingsRelay_init__block_invoke_44(uint64_t a1, uint64_t a2, v
     }
   }
 
-  v10 = +[CoreTelephonyShim sharedInstance];
-  [v10 unregisterRNFChangedWithDelegate:self];
-  [v10 removeDelegate:self];
+  v9 = +[CoreTelephonyShim sharedInstance];
+  [v9 unregisterRNFChangedWithDelegate:self];
+  [v9 removeDelegate:self];
   if (self->_registeredForAutoBugCaptureChangeNotifications)
   {
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -720,10 +725,9 @@ void __27__SystemSettingsRelay_init__block_invoke_44(uint64_t a1, uint64_t a2, v
     self->_registeredForAutoBugCaptureChangeNotifications = 0;
   }
 
-  v13.receiver = self;
-  v13.super_class = SystemSettingsRelay;
-  [(SystemSettingsRelay *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = SystemSettingsRelay;
+  [(SystemSettingsRelay *)&v11 dealloc];
 }
 
 - (void)registerForAutoBugCaptureChangeNotifications
@@ -773,22 +777,20 @@ void __53__SystemSettingsRelay_getAutoBugCaptureConfiguration__block_invoke(uint
 
 void __53__SystemSettingsRelay_getAutoBugCaptureConfiguration__block_invoke_49(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = systemSettingsLogHandle;
   if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Setting autoBugCaptureConfiguration to %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "Setting autoBugCaptureConfiguration to %@", &v7, 0xCu);
   }
 
   [*(a1 + 32) setAutoBugCaptureConfiguration:v3];
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = 0;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)symptomEvaluatorDatabaseContainerPath
@@ -828,14 +830,14 @@ void __60__SystemSettingsRelay_symptomEvaluatorDatabaseContainerPath__block_invo
 
 void __60__SystemSettingsRelay_symptomEvaluatorDatabaseContainerPath__block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(a1 + 32);
-    v15 = 138412290;
-    v16 = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (Database Container Path) %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Checking for forced override: (Database Container Path) %@", &v14, 0xCu);
   }
 
   if (*(a1 + 32) && MEMORY[0x238389170]() == MEMORY[0x277D864C0])
@@ -852,11 +854,11 @@ void __60__SystemSettingsRelay_symptomEvaluatorDatabaseContainerPath__block_invo
           v7 = v5;
           v8 = [v6 UTF8String];
           v9 = [v4 UTF8String];
-          v15 = 136315394;
-          v16 = v8;
-          v17 = 2080;
-          v18 = v9;
-          _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Forced Override: Database Container Path %s => %s", &v15, 0x16u);
+          v14 = 136315394;
+          v15 = v8;
+          v16 = 2080;
+          v17 = v9;
+          _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "Forced Override: Database Container Path %s => %s", &v14, 0x16u);
         }
 
         objc_storeStrong(&symptomEvaluatorDatabaseContainerPath_databaseContainerPath, v4);
@@ -871,14 +873,12 @@ void __60__SystemSettingsRelay_symptomEvaluatorDatabaseContainerPath__block_invo
         v11 = v4;
         v12 = v10;
         v13 = [v4 UTF8String];
-        v15 = 136315138;
-        v16 = v13;
-        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Invalid path provided for database container override: %s", &v15, 0xCu);
+        v14 = 136315138;
+        v15 = v13;
+        _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Invalid path provided for database container override: %s", &v14, 0xCu);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setAirplaneModeSwitchEnabled:(BOOL)enabled
@@ -1007,7 +1007,7 @@ void __60__SystemSettingsRelay_symptomEvaluatorDatabaseContainerPath__block_invo
 
 - (void)recalculateAndSetCellOutrankEnabled
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_cellOutrankEnabledOverride)
   {
     goto LABEL_2;
@@ -1038,21 +1038,20 @@ LABEL_7:
     cellOutrankFeatureFlagEnabled = self->_cellOutrankFeatureFlagEnabled;
     cellSupports5G = self->_cellSupports5G;
     v8 = self->_cellSupportsPrivateNetwork;
-    v10[0] = 67110144;
-    v10[1] = cellSupportsPrivateNetwork;
-    v11 = 1024;
-    v12 = cellOutrankEnabledOverride;
-    v13 = 1024;
-    v14 = cellOutrankFeatureFlagEnabled;
-    v15 = 1024;
-    v16 = cellSupports5G;
-    v17 = 1024;
-    v18 = v8;
-    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "recalculateAndSetCellOutrankEnabled enable:%d (override:%d, outrankFeatureFlag:%d, supports5G:%d, supportsPrivateNetwork:%d)", v10, 0x20u);
+    v9[0] = 67110144;
+    v9[1] = cellSupportsPrivateNetwork;
+    v10 = 1024;
+    v11 = cellOutrankEnabledOverride;
+    v12 = 1024;
+    v13 = cellOutrankFeatureFlagEnabled;
+    v14 = 1024;
+    v15 = cellSupports5G;
+    v16 = 1024;
+    v17 = v8;
+    _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_DEFAULT, "recalculateAndSetCellOutrankEnabled enable:%d (override:%d, outrankFeatureFlag:%d, supports5G:%d, supportsPrivateNetwork:%d)", v9, 0x20u);
   }
 
   [(SystemSettingsRelay *)self _setCellOutrankEnabled:cellSupportsPrivateNetwork];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ctServerConnectionNotification:(__CFString *)notification notificationInfo:(__CFDictionary *)info
@@ -1082,7 +1081,7 @@ LABEL_7:
 
 void __71__SystemSettingsRelay_ctServerConnectionNotification_notificationInfo___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (CFStringCompare(*(a1 + 40), *MEMORY[0x277CC3CB0], 0))
   {
     v2 = systemSettingsLogHandle;
@@ -1092,7 +1091,7 @@ void __71__SystemSettingsRelay_ctServerConnectionNotification_notificationInfo__
       v4 = v2;
       v5 = [v3 description];
       *buf = 136315138;
-      v12 = [v5 UTF8String];
+      v11 = [v5 UTF8String];
       _os_log_impl(&dword_23255B000, v4, OS_LOG_TYPE_INFO, "Received an unrecognized call back: %s", buf, 0xCu);
     }
   }
@@ -1108,13 +1107,11 @@ void __71__SystemSettingsRelay_ctServerConnectionNotification_notificationInfo__
     block[4] = *(a1 + 32);
     dispatch_after(v7, v8, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __71__SystemSettingsRelay_ctServerConnectionNotification_notificationInfo___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 16))
   {
     IsEnabled = _CTServerConnectionGetCellularDataIsEnabled();
@@ -1124,9 +1121,9 @@ void __71__SystemSettingsRelay_ctServerConnectionNotification_notificationInfo__
       if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        v10 = IsEnabled;
-        v11 = 1024;
-        v12 = HIDWORD(IsEnabled);
+        v9 = IsEnabled;
+        v10 = 1024;
+        v11 = HIDWORD(IsEnabled);
         v4 = "_CTServerConnectionGetCellularDataIsEnabled returned with error domain %d, error %d";
         v5 = v3;
         v6 = 14;
@@ -1140,7 +1137,7 @@ LABEL_7:
       if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v10 = 0;
+        v9 = 0;
         _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Cellular data switch is %d", buf, 8u);
       }
 
@@ -1162,7 +1159,57 @@ LABEL_7:
   }
 
   pendingCellData = 0;
-  v8 = *MEMORY[0x277D85DE8];
+}
+
+- (void)rnfSettingChangedToFeatureEnabled:(BOOL)enabled userEnabled:(BOOL)userEnabled
+{
+  userEnabledCopy = userEnabled;
+  enabledCopy = enabled;
+  v14 = *MEMORY[0x277D85DE8];
+  v7 = systemSettingsLogHandle;
+  if (os_log_type_enabled(systemSettingsLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = "unavailable";
+    if (enabledCopy)
+    {
+      v8 = "available";
+    }
+
+    v9 = "ON";
+    if (!userEnabledCopy)
+    {
+      v9 = "OFF";
+    }
+
+    v10 = 136315394;
+    v11 = v8;
+    v12 = 2080;
+    v13 = v9;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "RNF is %s and %s", &v10, 0x16u);
+  }
+
+  [(SystemSettingsRelay *)self _setRnfEnabled:userEnabledCopy];
+}
+
+- (void)smartDataModeChangedToUserEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = flowScrutinyLogHandle;
+  if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"dis";
+    if (enabledCopy)
+    {
+      v6 = @"en";
+    }
+
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "SmartDataMode is now %@abled", &v7, 0xCu);
+  }
+
+  [(SystemSettingsRelay *)self _setSmartDataModeEnabled:enabledCopy];
 }
 
 - (void)setAutoBugCaptureConfiguration:(id)configuration

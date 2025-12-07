@@ -33,11 +33,11 @@
 
   if (serverOverride)
   {
-    v5 = DefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = DefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1DF7C6000, v5, OS_LOG_TYPE_DEFAULT, "Using test local server", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1DF7C6000, v6, OS_LOG_TYPE_DEFAULT, "Using test local server", v10, 2u);
     }
 
     serverOverride2 = [(DDSInterface *)self serverOverride];
@@ -46,8 +46,8 @@
   else
   {
     serverOverride2 = [(DDSInterface *)self syncServiceObjectProxy];
-    v7 = DefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = DefaultLog(serverOverride2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [DDSInterface syncServer];
     }
@@ -290,32 +290,33 @@ void __29__DDSInterface_triggerUpdate__block_invoke(uint64_t a1)
 void __43__DDSInterface_createConnectionIfNecessary__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = DefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = DefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_1DF7C6000, v2, OS_LOG_TYPE_DEFAULT, "XPC connection to server invalidated.", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_1DF7C6000, v3, OS_LOG_TYPE_DEFAULT, "XPC connection to server invalidated.", v4, 2u);
     }
 
-    [WeakRetained teardownXPCConnection];
+    [v2 teardownXPCConnection];
   }
 }
 
-void __43__DDSInterface_createConnectionIfNecessary__block_invoke_6()
+void __43__DDSInterface_createConnectionIfNecessary__block_invoke_6(uint64_t a1)
 {
-  v0 = DefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = DefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEFAULT, "XPC connection to server interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1DF7C6000, v1, OS_LOG_TYPE_DEFAULT, "XPC connection to server interrupted.", v2, 2u);
   }
 }
 
 + (unint64_t)xpcConnectionOptionsForServer
 {
-  v2 = DefaultLog();
+  v2 = DefaultLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -359,7 +360,7 @@ void __43__DDSInterface_createConnectionIfNecessary__block_invoke_6()
 void __34__DDSInterface_serviceObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = DefaultLog();
+  v3 = DefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __34__DDSInterface_serviceObjectProxy__block_invoke_cold_1();
@@ -369,7 +370,7 @@ void __34__DDSInterface_serviceObjectProxy__block_invoke(uint64_t a1, void *a2)
 void __38__DDSInterface_syncServiceObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = DefaultLog();
+  v3 = DefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __38__DDSInterface_syncServiceObjectProxy__block_invoke_cold_1();
@@ -385,11 +386,11 @@ void __38__DDSInterface_syncServiceObjectProxy__block_invoke(uint64_t a1, void *
 
   if (serverOverride)
   {
-    v5 = DefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = DefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1DF7C6000, v5, OS_LOG_TYPE_DEFAULT, "Using test local server", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1DF7C6000, v6, OS_LOG_TYPE_DEFAULT, "Using test local server", v10, 2u);
     }
 
     serverOverride2 = [(DDSInterface *)self serverOverride];
@@ -398,8 +399,8 @@ void __38__DDSInterface_syncServiceObjectProxy__block_invoke(uint64_t a1, void *
   else
   {
     serverOverride2 = [(DDSInterface *)self serviceObjectProxy];
-    v7 = DefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = DefaultLog(serverOverride2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [DDSInterface server];
     }
@@ -444,34 +445,30 @@ uint64_t __25__DDSInterface_interface__block_invoke()
 
 void __34__DDSInterface_serviceObjectProxy__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_ERROR, "Error creating proxy (%{public}@)", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_ERROR, "Error creating proxy (%{public}@)", v1, 0xCu);
 }
 
 void __38__DDSInterface_syncServiceObjectProxy__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_ERROR, "Error creating sync proxy (%{public}@)", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_ERROR, "Error creating sync proxy (%{public}@)", v1, 0xCu);
 }
 
 - (void)server
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEBUG, "Interface is using remote server: (%{public}@)", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEBUG, "Interface is using remote server: (%{public}@)", v1, 0xCu);
 }
 
 - (void)syncServer
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEBUG, "Interface is using sync remote server: (%{public}@)", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DF7C6000, v0, OS_LOG_TYPE_DEBUG, "Interface is using sync remote server: (%{public}@)", v1, 0xCu);
 }
 
 @end

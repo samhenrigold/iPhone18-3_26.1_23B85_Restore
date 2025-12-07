@@ -138,7 +138,7 @@
   v12 = layout;
   if (layout)
   {
-    [layout transform];
+    objc_msgSend_transform(layout);
   }
 
   else

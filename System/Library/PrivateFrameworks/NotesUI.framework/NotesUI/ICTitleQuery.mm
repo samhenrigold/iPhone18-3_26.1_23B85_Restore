@@ -49,7 +49,7 @@
   ObjectType = swift_getObjectType();
   *(&self->super.super.isa + OBJC_IVAR____TtC7NotesUIP33_F897AB263D3561CA5D296CCFF5C5FDF512ICTitleQuery_drawingUUID) = 0;
   v4 = OBJC_IVAR____TtC7NotesUIP33_F897AB263D3561CA5D296CCFF5C5FDF512ICTitleQuery_continuation;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7C9F50);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC7C9F50, &qword_1D44372F8);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.isa + OBJC_IVAR____TtC7NotesUIP33_F897AB263D3561CA5D296CCFF5C5FDF512ICTitleQuery_resumed) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC7NotesUIP33_F897AB263D3561CA5D296CCFF5C5FDF512ICTitleQuery_timer) = 0;

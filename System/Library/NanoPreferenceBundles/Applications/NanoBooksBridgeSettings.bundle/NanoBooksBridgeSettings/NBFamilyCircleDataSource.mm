@@ -118,7 +118,7 @@
   {
     objc_sync_exit(v3);
 
-    activeStoreAccount = NBDefaultLog();
+    activeStoreAccount = NBDefaultLog(v4);
     if (os_log_type_enabled(activeStoreAccount, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -132,29 +132,29 @@
     self->_refreshing = &__kCFBooleanTrue;
 
     objc_sync_exit(v3);
-    v6 = +[BUAccountsProvider sharedProvider];
-    activeStoreAccount = [v6 activeStoreAccount];
+    v7 = +[BUAccountsProvider sharedProvider];
+    activeStoreAccount = [v7 activeStoreAccount];
 
-    v7 = +[BUBag defaultBag];
-    v8 = [[AMSFamilyInfoLookupTask alloc] initWithAccount:activeStoreAccount bag:v7];
-    performFamilyInfoLookup = [v8 performFamilyInfoLookup];
-    v10 = NBDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v8 = +[BUBag defaultBag];
+    v9 = [[AMSFamilyInfoLookupTask alloc] initWithAccount:activeStoreAccount bag:v8];
+    performFamilyInfoLookup = [v9 performFamilyInfoLookup];
+    v11 = NBDefaultLog(performFamilyInfoLookup);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       ams_DSID = [activeStoreAccount ams_DSID];
       *buf = 138412290;
-      v15 = ams_DSID;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Starting family Circle lookup request for (%@)", buf, 0xCu);
+      v16 = ams_DSID;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Starting family Circle lookup request for (%@)", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_42C0;
-    v12[3] = &unk_20950;
-    objc_copyWeak(&v13, buf);
-    [performFamilyInfoLookup addFinishBlock:v12];
-    objc_destroyWeak(&v13);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_42C0;
+    v13[3] = &unk_20950;
+    objc_copyWeak(&v14, buf);
+    [performFamilyInfoLookup addFinishBlock:v13];
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 }

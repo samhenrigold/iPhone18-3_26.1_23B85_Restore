@@ -36,6 +36,8 @@
   sub_1004ECA50(v6, selfCopy, v5);
   _Block_release(v5);
   _Block_release(v5);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (void)deleteAllSearchableItemsWithCompletionHandler:(id)handler

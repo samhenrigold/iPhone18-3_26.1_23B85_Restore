@@ -88,7 +88,7 @@ LABEL_5:
 
 - (void)_addNotableUserDataItemsView
 {
-  v42[4] = *MEMORY[0x277D85DE8];
+  v41[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D75A68]);
   v4 = [v3 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   [v4 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -130,32 +130,30 @@ LABEL_5:
   contentView3 = [(DKIntroViewController *)self contentView];
   topAnchor = [contentView3 topAnchor];
   topAnchor2 = [v4 topAnchor];
-  v38 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v42[0] = v38;
+  v37 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v41[0] = v37;
   contentView4 = [(DKIntroViewController *)self contentView];
   leadingAnchor = [contentView4 leadingAnchor];
   leadingAnchor2 = [v4 leadingAnchor];
-  v34 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v42[1] = v34;
+  v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v41[1] = v33;
   contentView5 = [(DKIntroViewController *)self contentView];
   trailingAnchor = [contentView5 trailingAnchor];
   trailingAnchor2 = [v4 trailingAnchor];
   v26 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v42[2] = v26;
+  v41[2] = v26;
   contentView6 = [(DKIntroViewController *)self contentView];
   bottomAnchor = [contentView6 bottomAnchor];
   bottomAnchor2 = [v4 bottomAnchor];
   v30 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v42[3] = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:4];
+  v41[3] = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
   [contentView2 addConstraints:v31];
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createNotableUserDataCardForAccounts:(id)accounts
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   if ([accountsCopy count])
   {
@@ -163,30 +161,30 @@ LABEL_5:
     profilePicture = [firstObject profilePicture];
 
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v6 = accountsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v41;
+      v9 = *v40;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v41 != v9)
+          if (*v40 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          username = [*(*(&v40 + 1) + 8 * i) username];
+          username = [*(*(&v39 + 1) + 8 * i) username];
           [v5 addObject:username];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v8);
@@ -201,28 +199,28 @@ LABEL_5:
 
     if ([v6 count] >= 2)
     {
-      v32 = v12;
-      v33 = accountsCopy;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
+      v31 = v12;
+      v32 = accountsCopy;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       obj = v6;
-      v18 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v18 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v37;
+        v20 = *v36;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v37 != v20)
+            if (*v36 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v36 + 1) + 8 * j);
+            v22 = *(*(&v35 + 1) + 8 * j);
             v23 = objc_alloc(MEMORY[0x277D755E8]);
             profilePicture2 = [v22 profilePicture];
             v25 = [v23 initWithImage:profilePicture2];
@@ -235,15 +233,15 @@ LABEL_5:
             [(DKNotableUserDataCardView *)v17 addCardCell:v29];
           }
 
-          v19 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v19 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
         }
 
         while (v19);
       }
 
-      accountsCopy = v33;
+      accountsCopy = v32;
       v16 = profilePicture;
-      v12 = v32;
+      v12 = v31;
     }
   }
 
@@ -251,8 +249,6 @@ LABEL_5:
   {
     v17 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -306,7 +302,7 @@ LABEL_5:
 
 - (id)_createNotableUserDataCardForWallet:(id)wallet
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   walletCopy = wallet;
   walletCards = [walletCopy walletCards];
   v5 = [walletCards count];
@@ -323,32 +319,32 @@ LABEL_5:
     v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v13 = [v12 localizedStringForKey:@"APPLE_WALLET" value:&stru_285BC2A70 table:@"Localizable"];
     v14 = [MEMORY[0x277D755B8] _systemImageNamed:@"wallet"];
-    v33 = v10;
+    v32 = v10;
     v15 = [(DKNotableUserDataWalletCardView *)v11 initWithTitle:v13 subtitle:v10 icon:v14];
 
     paymentProvisioningContext = [walletCopy paymentProvisioningContext];
     [paymentProvisioningContext setDelegate:v15];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = [walletCopy walletCards];
-    v17 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v17 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v36;
+      v19 = *v35;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v36 != v19)
+          if (*v35 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
+          v21 = *(*(&v34 + 1) + 8 * i);
           v22 = objc_alloc(MEMORY[0x277D755E8]);
           v23 = [walletCopy passSnapshotForCredential:v21];
           v24 = [v22 initWithImage:v23];
@@ -368,7 +364,7 @@ LABEL_5:
           [(DKNotableUserDataWalletCardView *)v15 addCardCell:v29];
         }
 
-        v18 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v18 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v18);
@@ -380,46 +376,44 @@ LABEL_5:
     v15 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)_createNotableUserDataCardForCellularPlans:(id)plans
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   plansCopy = plans;
   if ([plansCopy count])
   {
-    v51 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v50 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v48 = plansCopy;
+    v47 = plansCopy;
     obj = plansCopy;
-    v5 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
-    v49 = v4;
+    v5 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v48 = v4;
     if (v5)
     {
       v6 = v5;
-      v7 = *v53;
+      v7 = *v52;
       v8 = 1;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v53 != v7)
+          if (*v52 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v52 + 1) + 8 * i);
+          v10 = *(*(&v51 + 1) + 8 * i);
           if ([v10 isTransferred] || (objc_msgSend(v10, "phoneNumber"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "length"), v11, !v12))
           {
             carrierName = [v10 carrierName];
-            [v51 addObject:carrierName];
+            [v50 addObject:carrierName];
           }
 
           else
@@ -430,9 +424,9 @@ LABEL_5:
             carrierName2 = [v10 carrierName];
             phoneNumber = [v10 phoneNumber];
             v18 = [v13 stringWithFormat:v15, carrierName2, phoneNumber];
-            [v51 addObject:v18];
+            [v50 addObject:v18];
 
-            v4 = v49;
+            v4 = v48;
           }
 
           carrierName3 = [v10 carrierName];
@@ -441,7 +435,7 @@ LABEL_5:
           v8 &= [v10 isTransferred];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+        v6 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
       }
 
       while (v6);
@@ -456,10 +450,10 @@ LABEL_5:
     allObjects = [v4 allObjects];
     v23 = [allObjects sortedArrayUsingSelector:sel_localizedCaseInsensitiveCompare_];
     v24 = [v23 mutableCopy];
-    v47 = [v21 localizedStringByJoiningStrings:v24];
+    v46 = [v21 localizedStringByJoiningStrings:v24];
 
     v25 = MEMORY[0x277CCAAF0];
-    allObjects2 = [v51 allObjects];
+    allObjects2 = [v50 allObjects];
     v27 = [allObjects2 sortedArrayUsingSelector:sel_localizedCaseInsensitiveCompare_];
     v28 = [v27 mutableCopy];
     v29 = [v25 localizedStringByJoiningStrings:v28];
@@ -488,19 +482,19 @@ LABEL_5:
       v34 = v35;
     }
 
-    plansCopy = v48;
+    plansCopy = v47;
     v36 = v34;
     v37 = MEMORY[0x277CCACA8];
     v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v39 = [v38 localizedStringForKey:v36 value:&stru_285BC2A70 table:@"Localizable"];
     if (v8)
     {
-      [v37 stringWithFormat:v39, v47, v46];
+      [v37 stringWithFormat:v39, v46, v45];
     }
 
     else
     {
-      [v37 stringWithFormat:v39, v29, v47];
+      [v37 stringWithFormat:v39, v29, v46];
     }
     v40 = ;
 
@@ -516,8 +510,6 @@ LABEL_5:
   {
     v20 = 0;
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -656,13 +648,12 @@ uint64_t __50__DKIntroViewController__presentLocalDataWarning___block_invoke(uin
 
 void __53__DKIntroViewController__presentBasebandDeadWarning___block_invoke(uint64_t a1)
 {
-  v7 = [MEMORY[0x277D75128] sharedApplication];
-  v2 = MEMORY[0x277CBEBC0];
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"TELEPHONY_BASEBAND_DEAD_HTTPS_WEB_LINK" value:&stru_285BC2A70 table:@"Localizable"];
-  v6 = [v2 URLWithString:v5];
-  [v7 openURL:v6 options:MEMORY[0x277CBEC10] completionHandler:0];
+  v5 = [MEMORY[0x277D75128] sharedApplication];
+  v1 = MEMORY[0x277CBEBC0];
+  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v3 = [v2 localizedStringForKey:@"TELEPHONY_BASEBAND_DEAD_HTTPS_WEB_LINK" value:&stru_285BC2A70 table:@"Localizable"];
+  v4 = [v1 URLWithString:v3];
+  [v5 openURL:v4 options:MEMORY[0x277CBEC10] completionHandler:0];
 }
 
 - (id)localPaymentCards

@@ -64,7 +64,7 @@
 
 - (id)body
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   data = [MEMORY[0x277CBEA90] data];
   _requestBodyDict = [(FMJSONCommand *)self _requestBodyDict];
   v5 = _requestBodyDict;
@@ -80,37 +80,35 @@
 
   v7 = jsonBodyDictionary;
 
-  v8 = LogCategory_NetworkingVerbose();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = LogCategory_NetworkingVerbose(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 134218242;
     selfCopy = self;
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&dword_24A2EE000, v8, OS_LOG_TYPE_INFO, "[%p] request_body: %@", buf, 0x16u);
+    v18 = 2112;
+    v19 = v7;
+    _os_log_impl(&dword_24A2EE000, v9, OS_LOG_TYPE_INFO, "[%p] request_body: %@", buf, 0x16u);
   }
 
   if ([v7 count])
   {
-    v14 = 0;
-    v9 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v7 options:0 error:&v14];
-    v10 = v14;
+    v15 = 0;
+    v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v7 options:0 error:&v15];
+    v11 = v15;
 
-    if (v10)
+    if (v11)
     {
-      v11 = LogCategory_Networking();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = LogCategory_Networking(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [(FMJSONCommand *)self body];
       }
 
-      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"[%@] JSON Creation error: %@", self, v10}];
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"[%@] JSON Creation error: %@", self, v11}];
     }
 
-    data = v9;
+    data = v10;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -140,71 +138,69 @@
 
 void __39__FMJSONCommand_jsonResponseDictionary__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _hasParsedResponseBody];
   v4 = *v2;
   if (!v3)
   {
-    v9 = [v4 valueForResponseHTTPHeader:@"Content-Type"];
-    v10 = [*v2 responseData];
-    if ([v10 length])
+    v5 = [v4 valueForResponseHTTPHeader:@"Content-Type"];
+    v6 = [*v2 responseData];
+    if ([v6 length])
     {
-      v11 = [v9 lowercaseString];
-      v12 = [v11 rangeOfString:@"json"];
+      v7 = [v5 lowercaseString];
+      v8 = [v7 rangeOfString:@"json"];
 
-      if (v12 == 0x7FFFFFFFFFFFFFFFLL)
+      if (v8 == 0x7FFFFFFFFFFFFFFFLL)
       {
 LABEL_16:
         [*(a1 + 32) set_hasParsedResponseBody:1];
         [*(a1 + 32) set_responseBodyDict:*(*(*(a1 + 40) + 8) + 40)];
 
-        v27 = *MEMORY[0x277D85DE8];
         return;
       }
 
-      v13 = MEMORY[0x277CCAAA0];
-      v14 = [*(a1 + 32) responseData];
-      v28 = 0;
-      v15 = [v13 JSONObjectWithData:v14 options:0 error:&v28];
-      v10 = v28;
-      v16 = *(*(a1 + 40) + 8);
-      v17 = *(v16 + 40);
-      *(v16 + 40) = v15;
+      v9 = MEMORY[0x277CCAAA0];
+      v10 = [*(a1 + 32) responseData];
+      v25 = 0;
+      v11 = [v9 JSONObjectWithData:v10 options:0 error:&v25];
+      v6 = v25;
+      v12 = *(*(a1 + 40) + 8);
+      v13 = *(v12 + 40);
+      *(v12 + 40) = v11;
 
-      v18 = LogCategory_NetworkingVerbose();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v15 = LogCategory_NetworkingVerbose(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v19 = *(a1 + 32);
-        v20 = *(*(*(a1 + 40) + 8) + 40);
+        v16 = *(a1 + 32);
+        v17 = *(*(*(a1 + 40) + 8) + 40);
         *buf = 134218242;
-        v30 = v19;
-        v31 = 2112;
-        v32 = v20;
-        _os_log_impl(&dword_24A2EE000, v18, OS_LOG_TYPE_INFO, "[%p] response_body: %@", buf, 0x16u);
+        v27 = v16;
+        v28 = 2112;
+        v29 = v17;
+        _os_log_impl(&dword_24A2EE000, v15, OS_LOG_TYPE_INFO, "[%p] response_body: %@", buf, 0x16u);
       }
 
-      if (v10)
+      if (v6)
       {
-        [*v2 setJsonResponseParseError:v10];
-        v21 = LogCategory_ServerError();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v18 = LogCategory_ServerError([*v2 setJsonResponseParseError:v6]);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          __39__FMJSONCommand_jsonResponseDictionary__block_invoke_cold_1(v2, v10, v21);
+          __39__FMJSONCommand_jsonResponseDictionary__block_invoke_cold_1(v2, v6, v18);
         }
 
-        v22 = LogCategory_ServerError();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v20 = LogCategory_ServerError(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v23 = *v2;
-          v24 = objc_alloc(MEMORY[0x277CCACA8]);
-          v25 = [*v2 responseData];
-          v26 = [v24 initWithData:v25 encoding:4];
+          v21 = *v2;
+          v22 = objc_alloc(MEMORY[0x277CCACA8]);
+          v23 = [*v2 responseData];
+          v24 = [v22 initWithData:v23 encoding:4];
           *buf = 134218242;
-          v30 = v23;
-          v31 = 2112;
-          v32 = v26;
-          _os_log_impl(&dword_24A2EE000, v22, OS_LOG_TYPE_INFO, "[%p] Actual JSON that failed to parse: %@", buf, 0x16u);
+          v27 = v21;
+          v28 = 2112;
+          v29 = v24;
+          _os_log_impl(&dword_24A2EE000, v20, OS_LOG_TYPE_INFO, "[%p] Actual JSON that failed to parse: %@", buf, 0x16u);
         }
       }
     }
@@ -212,11 +208,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v5 = [v4 _responseBodyDict];
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
-  v8 = *MEMORY[0x277D85DE8];
+  *(*(*(a1 + 40) + 8) + 40) = [v4 _responseBodyDict];
 
   MEMORY[0x2821F96F8]();
 }
@@ -232,22 +224,20 @@ LABEL_16:
 
 - (void)body
 {
-  *v4 = 138412546;
-  *&v4[4] = self;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_1(&dword_24A2EE000, a2, a3, "[%@] JSON Creation error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = self;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_1(&dword_24A2EE000, a2, a3, "[%@] JSON Creation error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 void __39__FMJSONCommand_jsonResponseDictionary__block_invoke_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_1(&dword_24A2EE000, a2, a3, "[%p] JSON parse error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_1(&dword_24A2EE000, a2, a3, "[%p] JSON parse error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

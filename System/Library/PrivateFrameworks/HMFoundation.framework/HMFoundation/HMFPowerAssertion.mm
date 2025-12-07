@@ -19,28 +19,27 @@
   {
     v8 = v7;
     v9 = objc_autoreleasePoolPush();
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = HMFGetOSLogHandle(0, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = HMFGetLogIdentifier(0);
+      v12 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v17 = v11;
+      v17 = v12;
       v18 = 2048;
       v19 = v8;
-      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to create assertion with error: %ld", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to create assertion with error: %ld", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = v6;
+    v13 = v6;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (HMFPowerAssertion)initWithName:(id)name timeout:(double)timeout
@@ -55,28 +54,27 @@
   {
     v10 = v9;
     v11 = objc_autoreleasePoolPush();
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = HMFGetOSLogHandle(0, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = HMFGetLogIdentifier(0);
+      v14 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v19 = v13;
+      v19 = v14;
       v20 = 2048;
       v21 = v10;
-      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to create assertion with error: %ld", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to create assertion with error: %ld", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v14 = v8;
+    v15 = v8;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
 - (void)invalidate

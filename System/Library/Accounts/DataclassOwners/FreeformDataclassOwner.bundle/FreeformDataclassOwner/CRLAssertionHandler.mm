@@ -6,6 +6,8 @@
 + (id)performBlockIgnoringFatalAssertions:(id)assertions;
 + (id)performBlockIgnoringQAFatalAssertions:(id)assertions;
 + (void)_logBacktraceWithCallStackSymbols:(id)symbols;
++ (void)handleFailureInFunction:(id)function file:(id)file lineNumber:(int64_t)number isFatal:(BOOL)fatal description:(const char *)description;
++ (void)handleFailureInFunction:(id)function file:(id)file lineNumber:(int64_t)number isFatal:(BOOL)fatal format:(id)format args:(char *)args;
 + (void)logFullBacktrace;
 + (void)simulateCrashWithMessage:(id)message;
 @end
@@ -475,6 +477,53 @@ void __48__CRLAssertionHandler_simulateCrashWithMessage___block_invoke(id a1)
   }
 
   simulateCrashWithMessage____SimulateCrash = v1;
+}
+
++ (void)handleFailureInFunction:(id)function file:(id)file lineNumber:(int64_t)number isFatal:(BOOL)fatal format:(id)format args:(char *)args
+{
+  fatalCopy = fatal;
+  functionCopy = function;
+  fileCopy = file;
+  formatCopy = format;
+  v17 = [[NSString alloc] crl_initUnRedactedWithFormat:formatCopy arguments:args];
+
+  if (_ignoreAssertionsCallback)
+  {
+    (*(_ignoreAssertionsCallback + 16))();
+  }
+
+  else
+  {
+    v24[0] = @"CRLAssertNotificationDescriptionKey";
+    v24[1] = @"CRLAssertNotificationFileKey";
+    v25[0] = v17;
+    v25[1] = fileCopy;
+    v24[2] = @"CRLAssertNotificationLineNumberKey";
+    v18 = [NSNumber numberWithInteger:number];
+    v25[2] = v18;
+    v25[3] = functionCopy;
+    v24[3] = @"CRLAssertNotificationFunctionNameKey";
+    v24[4] = @"CRLAssertNotificationAssertionCountKey";
+    v19 = atomic_load(sAssertionCount);
+    v20 = [NSNumber numberWithInt:v19];
+    v25[4] = v20;
+    v24[5] = @"CRLAssertNotificationFatalnessNameKey";
+    v21 = [NSNumber numberWithBool:fatalCopy];
+    v25[5] = v21;
+    v22 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:6];
+
+    v23 = +[NSNotificationCenter defaultCenter];
+    [v23 postNotificationName:@"CRLAssertNotification" object:self userInfo:v22];
+  }
+}
+
++ (void)handleFailureInFunction:(id)function file:(id)file lineNumber:(int64_t)number isFatal:(BOOL)fatal description:(const char *)description
+{
+  fatalCopy = fatal;
+  fileCopy = file;
+  functionCopy = function;
+  v14 = [NSString stringWithUTF8String:description];
+  [self handleFailureInFunction:functionCopy file:fileCopy lineNumber:number isFatal:fatalCopy format:v14 args:&v15];
 }
 
 + (void)_logBacktraceWithCallStackSymbols:(void *)a1 .cold.2(void *a1, uint64_t a2)

@@ -1,8 +1,11 @@
 @interface BYSetupUserDisposition
 + (id)current;
 - (BYSetupUserDisposition)init;
+- (BYSetupUserDisposition)initWithChild:(BOOL)child;
+- (BYSetupUserDisposition)initWithNewUser:(BOOL)user child:(BOOL)child;
 - (BYSetupUserDisposition)initWithPreferences:(id)preferences;
 - (BYSetupUserDisposition)initWithProductVersion:(id)version buildVersion:(id)buildVersion date:(id)date;
+- (BYSetupUserDisposition)initWithProductVersion:(id)version buildVersion:(id)buildVersion date:(id)date newUser:(BOOL)user child:(BOOL)child;
 - (id)_dictionaryRepresentation;
 - (void)_loadDataFromPreferences:(id)preferences;
 - (void)persistUsingPreferences:(id)preferences;
@@ -50,6 +53,63 @@
   }
 
   return v13;
+}
+
+- (BYSetupUserDisposition)initWithProductVersion:(id)version buildVersion:(id)buildVersion date:(id)date newUser:(BOOL)user child:(BOOL)child
+{
+  childCopy = child;
+  userCopy = user;
+  v9 = [(BYSetupUserDisposition *)self initWithProductVersion:version buildVersion:buildVersion date:date];
+  if (v9)
+  {
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:userCopy];
+    newUser = v9->_newUser;
+    v9->_newUser = v10;
+
+    v12 = [MEMORY[0x1E696AD98] numberWithBool:childCopy];
+    child = v9->_child;
+    v9->_child = v12;
+  }
+
+  return v9;
+}
+
+- (BYSetupUserDisposition)initWithNewUser:(BOOL)user child:(BOOL)child
+{
+  childCopy = child;
+  userCopy = user;
+  v7 = +[BYDeviceConfiguration currentConfiguration];
+  productVersion = [v7 productVersion];
+
+  v9 = +[BYDeviceConfiguration currentConfiguration];
+  buildVersion = [v9 buildVersion];
+
+  date = [MEMORY[0x1E695DF00] date];
+  v12 = [(BYSetupUserDisposition *)self initWithProductVersion:productVersion buildVersion:buildVersion date:date newUser:userCopy child:childCopy];
+
+  return v12;
+}
+
+- (BYSetupUserDisposition)initWithChild:(BOOL)child
+{
+  childCopy = child;
+  v5 = +[BYDeviceConfiguration currentConfiguration];
+  productVersion = [v5 productVersion];
+
+  v7 = +[BYDeviceConfiguration currentConfiguration];
+  buildVersion = [v7 buildVersion];
+
+  date = [MEMORY[0x1E695DF00] date];
+  v10 = [(BYSetupUserDisposition *)self initWithProductVersion:productVersion buildVersion:buildVersion date:date];
+
+  if (v10)
+  {
+    v11 = [MEMORY[0x1E696AD98] numberWithBool:childCopy];
+    child = v10->_child;
+    v10->_child = v11;
+  }
+
+  return v10;
 }
 
 + (id)current

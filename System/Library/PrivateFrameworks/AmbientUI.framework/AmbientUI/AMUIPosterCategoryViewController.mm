@@ -21,12 +21,15 @@
 - (void)_dismissInlineAuthenticationViewAnimated:(BOOL)animated completion:(id)completion;
 - (void)_updateInlineAuthenticationViewLayout;
 - (void)authenticationViewController:(id)controller didAuthenticateWithSuccess:(BOOL)success;
+- (void)authenticationViewController:(id)controller didSetBiometricAuthenticationDisabled:(BOOL)disabled;
+- (void)authenticationViewController:(id)controller setDidSetPasscodeVisible:(BOOL)visible;
 - (void)dealloc;
 - (void)invalidate;
 - (void)posterCategorySwitcherItem:(id)item relinquishInstanceIdentifier:(id)identifier;
 - (void)requestUnlockForViewController:(id)controller withRequest:(id)request completion:(id)completion;
 - (void)setConfigurations:(id)configurations;
 - (void)setDateProvider:(id)provider;
+- (void)switcher:(id)switcher didSettleOnItem:(id)item interactive:(BOOL)interactive;
 - (void)switcher:(id)switcher transitionDidBegin:(id)begin;
 - (void)switcher:(id)switcher transitionDidEnd:(id)end;
 - (void)switcher:(id)switcher transitionDidUpdate:(id)update withProgress:(double)progress;
@@ -37,7 +40,9 @@
 - (void)viewControllerWillBeginShowingTemporaryOverlay:(id)overlay;
 - (void)viewControllerWillEndConfiguration:(id)configuration;
 - (void)viewControllerWillEndShowingTemporaryOverlay:(id)overlay;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -53,7 +58,7 @@
 
 - (void)setConfigurations:(id)configurations
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   visibleItems = [(AMUISwitcherViewController *)self->_posterSwitcherViewController visibleItems];
   firstObject = [visibleItems firstObject];
@@ -114,66 +119,66 @@
 
   v23 = v22;
 
-  v64 = v23;
-  v65 = [v23 differenceFromArray:v17 withOptions:0];
-  if ([v65 hasChanges])
+  v63 = v23;
+  v64 = [v23 differenceFromArray:v17 withOptions:0];
+  if ([v64 hasChanges])
   {
-    v61 = v17;
-    v62 = v11;
-    v63 = configurationsCopy;
+    v60 = v17;
+    v61 = v11;
+    v62 = configurationsCopy;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v75 = 0u;
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
     v24 = self->_configurations;
-    v25 = [(NSArray *)v24 countByEnumeratingWithState:&v76 objects:v82 count:16];
+    v25 = [(NSArray *)v24 countByEnumeratingWithState:&v75 objects:v81 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v77;
+      v27 = *v76;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v77 != v27)
+          if (*v76 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v76 + 1) + 8 * i);
+          v29 = *(*(&v75 + 1) + 8 * i);
           serverUUID = [v29 serverUUID];
           [dictionary setObject:v29 forKeyedSubscript:serverUUID];
         }
 
-        v26 = [(NSArray *)v24 countByEnumeratingWithState:&v76 objects:v82 count:16];
+        v26 = [(NSArray *)v24 countByEnumeratingWithState:&v75 objects:v81 count:16];
       }
 
       while (v26);
     }
 
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+    v71 = 0u;
     v72 = 0u;
     v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
     v32 = self->_items;
-    v33 = [(NSArray *)v32 countByEnumeratingWithState:&v72 objects:v81 count:16];
+    v33 = [(NSArray *)v32 countByEnumeratingWithState:&v71 objects:v80 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v73;
+      v35 = *v72;
       do
       {
         v36 = 0;
         do
         {
-          if (*v73 != v35)
+          if (*v72 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          v37 = *(*(&v72 + 1) + 8 * v36);
+          v37 = *(*(&v71 + 1) + 8 * v36);
           if (v37)
           {
             v38 = *(v37 + 88);
@@ -192,7 +197,7 @@
         }
 
         while (v34 != v36);
-        v41 = [(NSArray *)v32 countByEnumeratingWithState:&v72 objects:v81 count:16];
+        v41 = [(NSArray *)v32 countByEnumeratingWithState:&v71 objects:v80 count:16];
         v34 = v41;
       }
 
@@ -211,26 +216,26 @@
     }
 
     v43 = [(NSArray *)items mutableCopy];
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v44 = v65;
-    v45 = [v44 countByEnumeratingWithState:&v68 objects:v80 count:16];
+    v44 = v64;
+    v45 = [v44 countByEnumeratingWithState:&v67 objects:v79 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v69;
+      v47 = *v68;
       do
       {
         for (j = 0; j != v46; ++j)
         {
-          if (*v69 != v47)
+          if (*v68 != v47)
           {
             objc_enumerationMutation(v44);
           }
 
-          v49 = *(*(&v68 + 1) + 8 * j);
+          v49 = *(*(&v67 + 1) + 8 * j);
           changeType = [v49 changeType];
           if (changeType == 1)
           {
@@ -251,7 +256,7 @@
           }
         }
 
-        v46 = [v44 countByEnumeratingWithState:&v68 objects:v80 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v67 objects:v79 count:16];
       }
 
       while (v46);
@@ -263,10 +268,10 @@
     selfCopy->_items = v54;
 
     [(AMUISwitcherViewController *)selfCopy->_posterSwitcherViewController reload];
-    configurationsCopy = v63;
-    v17 = v61;
-    v11 = v62;
-    v12 = v60;
+    configurationsCopy = v62;
+    v17 = v60;
+    v11 = v61;
+    v12 = v59;
   }
 
   if ([(NSArray *)self->_items count])
@@ -288,8 +293,6 @@
   {
     [(AMUISwitcherViewController *)self->_posterSwitcherViewController scrollToIdentifier:v11 animated:0];
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)visibleConfigurations
@@ -346,7 +349,6 @@
 
 - (id)cancelTouchesForCurrentEventInHostedContent
 {
-  dataLayerViewController = self->_dataLayerViewController;
   if (objc_opt_respondsToSelector())
   {
     cancelTouchesForCurrentEventInHostedContent = [(AMUIDataLayerViewController *)self->_dataLayerViewController cancelTouchesForCurrentEventInHostedContent];
@@ -551,6 +553,25 @@ uint64_t __88__AMUIPosterCategoryViewController__dismissInlineAuthenticationView
   [view bringSubviewToFront:self->_contentWrapperView];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = AMUIPosterCategoryViewController;
+  [(AMUIPosterCategoryViewController *)&v7 viewWillAppear:appear];
+  posterSwitcherViewController = self->_posterSwitcherViewController;
+  visibleItems = [(AMUISwitcherViewController *)posterSwitcherViewController visibleItems];
+  lastObject = [visibleItems lastObject];
+  [(AMUISwitcherViewController *)posterSwitcherViewController scrollToItem:lastObject animated:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = AMUIPosterCategoryViewController;
+  [(AMUIPosterCategoryViewController *)&v4 viewDidDisappear:disappear];
+  [(AMUIPosterCategoryViewController *)self _dismissInlineAuthenticationViewAnimated:0 completion:0];
+}
+
 - (void)viewWillLayoutSubviews
 {
   v3.receiver = self;
@@ -565,18 +586,19 @@ uint64_t __88__AMUIPosterCategoryViewController__dismissInlineAuthenticationView
   configurationCopy = configuration;
   settingsCopy = settings;
   [(AMUIPosterCategoryViewController *)self loadViewIfNeeded];
-  if ([(AMUISwitcherViewController *)self->_posterSwitcherViewController isScrollingInteractively])
+  isScrollingInteractively = [(AMUISwitcherViewController *)self->_posterSwitcherViewController isScrollingInteractively];
+  if (isScrollingInteractively)
   {
-    v8 = AMUILogSwitcher();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = AMUILogSwitcher(isScrollingInteractively);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       serverUUID = [configurationCopy serverUUID];
       v15 = 138543362;
       v16 = serverUUID;
-      _os_log_impl(&dword_23F38B000, v8, OS_LOG_TYPE_INFO, "vertical switcher ignoring update to %{public}@ due to interactive scroll", &v15, 0xCu);
+      _os_log_impl(&dword_23F38B000, v9, OS_LOG_TYPE_INFO, "vertical switcher ignoring update to %{public}@ due to interactive scroll", &v15, 0xCu);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
@@ -584,11 +606,10 @@ uint64_t __88__AMUIPosterCategoryViewController__dismissInlineAuthenticationView
     [(AMUIDataLayerViewController *)self->_dataLayerViewController updatePosterConfiguration:configurationCopy withAnimationSettings:settingsCopy];
     posterSwitcherViewController = self->_posterSwitcherViewController;
     serverUUID2 = [configurationCopy serverUUID];
-    v10 = [(AMUISwitcherViewController *)posterSwitcherViewController scrollToIdentifier:serverUUID2 animated:settingsCopy != 0];
+    v11 = [(AMUISwitcherViewController *)posterSwitcherViewController scrollToIdentifier:serverUUID2 animated:settingsCopy != 0];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (void)invalidate
@@ -660,7 +681,7 @@ uint64_t __88__AMUIPosterCategoryViewController__dismissInlineAuthenticationView
       v20 = itemView;
       if (itemView)
       {
-        [itemView transform];
+        objc_msgSend_transform(itemView);
       }
 
       else
@@ -673,7 +694,7 @@ uint64_t __88__AMUIPosterCategoryViewController__dismissInlineAuthenticationView
       v22 = itemView2;
       if (itemView2)
       {
-        [itemView2 transform];
+        objc_msgSend_transform(itemView2);
       }
 
       else
@@ -778,6 +799,39 @@ uint64_t __88__AMUIPosterCategoryViewController__dismissInlineAuthenticationView
   }
 }
 
+- (void)switcher:(id)switcher didSettleOnItem:(id)item interactive:(BOOL)interactive
+{
+  interactiveCopy = interactive;
+  itemCopy = item;
+  v8 = objc_opt_class();
+  v12 = itemCopy;
+  if (v8)
+  {
+    if (objc_opt_isKindOfClass())
+    {
+      v9 = v12;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = v9;
+
+  if (v10)
+  {
+    delegate = [(AMUIPosterCategoryViewController *)self delegate];
+    [delegate posterCategoryViewController:self didSettleOnConfiguration:v10[11] interactive:interactiveCopy];
+  }
+}
+
 - (void)switcher:(id)switcher updateItem:(id)item view:(id)view forPresentationProgress:(double)progress
 {
   switcherCopy = switcher;
@@ -863,47 +917,45 @@ void __85__AMUIPosterCategoryViewController_switcher_updateItem_view_forPresenta
 void __85__AMUIPosterCategoryViewController_switcher_updateItem_view_forPresentationProgress___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) verticalExitingCardTargetScale];
-  v2 = *(a1 + 56);
   BSFloatByLinearlyInterpolatingFloats();
-  v3 = *(a1 + 40);
-  CGAffineTransformMakeScale(&v14, v4, v4);
-  [v3 setTransform:&v14];
-  v5 = *(a1 + 48);
-  v6 = objc_opt_class();
-  v7 = v5;
-  if (v6)
+  v2 = *(a1 + 40);
+  CGAffineTransformMakeScale(&v12, v3, v3);
+  [v2 setTransform:&v12];
+  v4 = *(a1 + 48);
+  v5 = objc_opt_class();
+  v6 = v4;
+  if (v5)
   {
     if (objc_opt_isKindOfClass())
     {
-      v8 = v7;
+      v7 = v6;
     }
 
     else
     {
-      v8 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = v8;
+  v8 = v7;
 
-  v10 = [(AMUIPosterCategorySwitcherItem *)v9 posterView];
-  v11 = v10;
-  if (!v10)
+  v9 = [(AMUIPosterCategorySwitcherItem *)v8 posterView];
+  v10 = v9;
+  if (!v9)
   {
-    v11 = *(a1 + 40);
+    v10 = *(a1 + 40);
   }
 
-  v12 = v11;
+  v11 = v10;
 
   [*(a1 + 32) exitingCardTargetOpacity];
-  v13 = *(a1 + 64);
   BSFloatByLinearlyInterpolatingFloats();
-  [v12 setAlpha:?];
+  [v11 setAlpha:?];
 }
 
 - (id)posterCategorySwitcherItemRequestInstanceIdentifier:(id)identifier preferring:(id)preferring
@@ -1131,6 +1183,20 @@ LABEL_10:
   }
 }
 
+- (void)authenticationViewController:(id)controller setDidSetPasscodeVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  delegate = [(AMUIPosterCategoryViewController *)self delegate];
+  [delegate posterCategoryViewController:self didSetPasscodeVisible:visibleCopy];
+}
+
+- (void)authenticationViewController:(id)controller didSetBiometricAuthenticationDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  delegate = [(AMUIPosterCategoryViewController *)self delegate];
+  [delegate posterCategoryViewController:self didSetBiometricAuthenticationDisabled:disabledCopy];
+}
+
 - (BOOL)authenticationViewControllerWantsBiometricAuthenticationBlocked:(id)blocked
 {
   selfCopy = self;
@@ -1189,13 +1255,13 @@ void *__57__AMUIPosterCategoryViewController_visibleConfigurations__block_invoke
 
 - (PRSPosterConfiguration)mostVisibleConfiguration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   visibleItems = [(AMUISwitcherViewController *)self->_posterSwitcherViewController visibleItems];
-  v4 = [visibleItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [visibleItems countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (!v4)
   {
 
@@ -1207,18 +1273,18 @@ LABEL_13:
 
   v5 = v4;
   v6 = 0;
-  v7 = *v19;
+  v7 = *v18;
   v8 = 0.0;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v19 != v7)
+      if (*v18 != v7)
       {
         objc_enumerationMutation(visibleItems);
       }
 
-      v10 = *(*(&v18 + 1) + 8 * i);
+      v10 = *(*(&v17 + 1) + 8 * i);
       [(AMUISwitcherViewController *)self->_posterSwitcherViewController presentationProgressForItem:v10];
       if (v11 > v8)
       {
@@ -1230,7 +1296,7 @@ LABEL_13:
       }
     }
 
-    v5 = [visibleItems countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [visibleItems countByEnumeratingWithState:&v17 objects:v21 count:16];
   }
 
   while (v5);
@@ -1244,7 +1310,6 @@ LABEL_13:
 LABEL_14:
   v15 = v14;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

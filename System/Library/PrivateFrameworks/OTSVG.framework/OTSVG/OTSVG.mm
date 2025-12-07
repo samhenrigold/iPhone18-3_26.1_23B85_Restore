@@ -14,7 +14,7 @@ uint64_t OTSVGTableRelease(uint64_t result)
   return result;
 }
 
-unint64_t SVG::ViewBox::parseViewBox@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void *SVG::ViewBox::parseViewBox@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = 0;
   do
@@ -45,7 +45,7 @@ unint64_t SVG::ViewBox::parseViewBox@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   while ((v10 & 1) != 0);
   v11 = *(a1 + 23);
-  if ((v11 & 0x80u) != 0)
+  if (v11 < 0)
   {
     v11 = *(a1 + 8);
   }
@@ -116,7 +116,7 @@ LABEL_10:
   return v9 | v10;
 }
 
-unint64_t SVG::consumePreserveAspectRatio@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t SVG::consumePreserveAspectRatio@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v3 = a2;
   v6 = SVG::consumeString<6ul>("defer", a1, a2);
@@ -472,7 +472,7 @@ LABEL_64:
   return result;
 }
 
-void *SVG::consumeWspCommaList<double,4ul>@<X0>(uint64_t *a1@<X0>, unint64_t a2@<X1>, void *(*a3)(uint64_t *__return_ptr, uint64_t *, unint64_t)@<X2>, uint64_t a4@<X8>)
+void *SVG::consumeWspCommaList<double,4ul>@<X0>(uint64_t *a1@<X0>, unint64_t a2@<X1>, void *(*a3)(uint64_t *__return_ptr, uint64_t, unint64_t)@<X2>, uint64_t a4@<X8>)
 {
   v8 = 0;
   *&v9 = -1;
@@ -649,7 +649,7 @@ unint64_t SVG::consumeString<9ul>(char *a1, uint64_t a2, uint64_t a3)
 
 uint64_t SVG::Presentation::defaultPresentation@<X0>(uint64_t a1@<X8>)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   memcpy(a1, &unk_25D1D5338, 0x238uLL);
   *(a1 + 64) = 0;
   *(a1 + 80) = 0;
@@ -694,16 +694,16 @@ uint64_t SVG::Presentation::defaultPresentation@<X0>(uint64_t a1@<X8>)
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0;
   *(a1 + 48) = 2;
+  v14[0] = 0;
   v15[0] = 0;
-  v16[0] = 0;
-  v17 = 2;
-  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1>>(a1 + 64, v15);
-  if (v17 != -1)
+  v16 = 2;
+  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1>>(a1 + 64, v14);
+  if (v16 != -1)
   {
-    v11 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    v12 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    v13 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    (*(&v11 + v17))(&v6, v15);
+    v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    v11 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    v12 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    (*(&v10 + v16))(&v5, v14);
   }
 
   *(a1 + 88) = 0x200000000;
@@ -712,92 +712,92 @@ uint64_t SVG::Presentation::defaultPresentation@<X0>(uint64_t a1@<X8>)
   *(a1 + 112) = 2;
   *(a1 + 116) = xmmword_25D1D5320;
   *(a1 + 132) = 0x200000000;
-  v12 = 2852126720;
-  v14 = 2;
-  v16[0] = 0;
-  v20 = -1;
-  std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>,(std::__variant_detail::_Trait)1>>(v16, &v12);
-  v21 = 2;
-  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>,(std::__variant_detail::_Trait)1>>(a1 + 152, v15);
-  if (v21 != -1)
+  v11 = 2852126720;
+  v13 = 2;
+  v15[0] = 0;
+  v19 = -1;
+  std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>,(std::__variant_detail::_Trait)1>>(v15, &v11);
+  v20 = 2;
+  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>,(std::__variant_detail::_Trait)1>>(a1 + 152, v14);
+  if (v20 != -1)
   {
-    v6 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-    v7 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-    v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-    (*(&v6 + v21))(&v5, v15);
+    v5 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+    v6 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+    v7 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+    (*(&v5 + v20))(&v4, v14);
   }
 
-  v21 = -1;
-  if (v14 != -1)
+  v20 = -1;
+  if (v13 != -1)
   {
-    v6 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    v7 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    (*(&v6 + v14))(&v5, &v12);
+    v5 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    v6 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    v7 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    (*(&v5 + v13))(&v4, &v11);
   }
 
   *(a1 + 208) = 0x3FF0000000000000;
   *(a1 + 216) = 2;
-  v4 = vdupq_n_s64(0x200000000uLL);
-  *(a1 + 224) = v4;
+  v3 = vdupq_n_s64(0x200000000uLL);
+  *(a1 + 224) = v3;
+  v14[0] = 0;
   v15[0] = 0;
-  v16[0] = 0;
-  v17 = 2;
-  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1>>(a1 + 248, v15);
-  if (v17 != -1)
+  v16 = 2;
+  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1>>(a1 + 248, v14);
+  if (v16 != -1)
   {
-    v11 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    v12 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    v13 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    (*(&v11 + v17))(&v6, v15);
+    v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    v11 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    v12 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    (*(&v10 + v16))(&v5, v14);
   }
 
   *(a1 + 272) = 0x3FF0000000000000;
   *(a1 + 280) = 2;
-  *(a1 + 288) = v4;
+  *(a1 + 288) = v3;
   *(a1 + 308) = 2852126720;
   *(a1 + 316) = 1;
   *(a1 + 320) = 2;
   *(a1 + 328) = 0x3FF0000000000000;
   *(a1 + 336) = 2;
-  LODWORD(v12) = 0;
-  v14 = 0;
-  v16[0] = 0;
-  v20 = -1;
-  std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>,(std::__variant_detail::_Trait)1>>(v16, &v12);
-  v21 = 2;
-  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>,(std::__variant_detail::_Trait)1>>(a1 + 352, v15);
-  if (v21 != -1)
-  {
-    v6 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-    v7 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-    v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-    (*(&v6 + v21))(&v5, v15);
-  }
-
-  v21 = -1;
-  if (v14 != -1)
-  {
-    v6 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    v7 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
-    (*(&v6 + v14))(&v5, &v12);
-  }
-
+  LODWORD(v11) = 0;
+  v13 = 0;
   v15[0] = 0;
-  v18 = 0;
-  v19 = 2;
-  result = std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>,(std::__variant_detail::_Trait)1>>(a1 + 416, v15);
-  if (v19 != -1)
+  v19 = -1;
+  std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>>::__generic_construct[abi:nn200100]<std::__variant_detail::__move_constructor<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>,(std::__variant_detail::_Trait)1>>(v15, &v11);
+  v20 = 2;
+  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>,(std::__variant_detail::_Trait)1>>(a1 + 352, v14);
+  if (v20 != -1)
   {
-    v11 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    v12 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    v13 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-    result = (*(&v11 + v19))(&v6, v15);
+    v5 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+    v6 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+    v7 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+    (*(&v5 + v20))(&v4, v14);
+  }
+
+  v20 = -1;
+  if (v13 != -1)
+  {
+    v5 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    v6 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    v7 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm3EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm4EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSG_1EJSA_SB_SC_SD_SE_EEEEEEDcSI_DpT0_;
+    (*(&v5 + v13))(&v4, &v11);
+  }
+
+  v14[0] = 0;
+  v17 = 0;
+  v18 = 2;
+  result = std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>,(std::__variant_detail::_Trait)1>>(a1 + 416, v14);
+  if (v18 != -1)
+  {
+    v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    v11 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    v12 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+    result = (*(&v10 + v18))(&v5, v14);
   }
 
   *(a1 + 464) = 0;
@@ -819,9 +819,9 @@ uint64_t SVG::Presentation::defaultPresentation@<X0>(uint64_t a1@<X8>)
 void SVG::Presentation::inherit(SVG::Presentation *this@<X0>, const SVG::Presentation *a2@<X1>, const SVG::Presentation *a3@<X2>, _OWORD *a4@<X8>)
 {
   memcpy(a4, &unk_25D1D5338, 0x240uLL);
-  v9 = *(this + 1);
+  v8 = *(this + 1);
   *a4 = *this;
-  a4[1] = v9;
+  a4[1] = v8;
   a4[2] = *(this + 2);
   *(a4 + 6) = *(this + 6);
   *(a4 + 64) = 0;
@@ -835,35 +835,35 @@ void SVG::Presentation::inherit(SVG::Presentation *this@<X0>, const SVG::Present
   *(a4 + 50) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>,(std::__variant_detail::_Trait)1> const&>(a4 + 152, this + 152);
   *(a4 + 248) = 0;
-  v10 = *(this + 14);
+  v9 = *(this + 14);
   a4[13] = *(this + 13);
-  a4[14] = v10;
+  a4[14] = v9;
   *(a4 + 66) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1> const&>(a4 + 248, this + 248);
-  v11 = *(this + 17);
+  v10 = *(this + 17);
   a4[18] = *(this + 18);
-  v12 = *(this + 20);
+  v11 = *(this + 20);
   a4[19] = *(this + 19);
-  a4[20] = v12;
+  a4[20] = v11;
   *(a4 + 42) = *(this + 42);
-  a4[17] = v11;
+  a4[17] = v10;
   *(a4 + 352) = 0;
   *(a4 + 100) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>,(std::__variant_detail::_Trait)1> const&>((a4 + 22), this + 352);
   *(a4 + 416) = 0;
   *(a4 + 112) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>,(std::__variant_detail::_Trait)1> const&>((a4 + 26), this + 416);
-  v13 = *(this + 536);
+  v12 = *(this + 536);
   *(a4 + 520) = *(this + 520);
-  *(a4 + 536) = v13;
+  *(a4 + 536) = v12;
   *(a4 + 552) = *(this + 552);
   *(a4 + 71) = *(this + 71);
-  v14 = *(this + 472);
+  v13 = *(this + 472);
   *(a4 + 456) = *(this + 456);
-  *(a4 + 472) = v14;
-  v15 = *(this + 504);
+  *(a4 + 472) = v13;
+  v14 = *(this + 504);
   *(a4 + 488) = *(this + 488);
-  *(a4 + 504) = v15;
+  *(a4 + 504) = v14;
   if (*(this + 23) <= 1u)
   {
     *(a4 + 11) = *(a2 + 11);
@@ -922,9 +922,9 @@ void SVG::Presentation::inherit(SVG::Presentation *this@<X0>, const SVG::Present
 
   if (*(this + 120) <= 1u)
   {
-    v16 = *(a2 + 472);
+    v15 = *(a2 + 472);
     *(a4 + 456) = *(a2 + 456);
-    *(a4 + 472) = v16;
+    *(a4 + 472) = v15;
   }
 
   if (*(this + 123) <= 1u)
@@ -949,9 +949,9 @@ void SVG::Presentation::inherit(SVG::Presentation *this@<X0>, const SVG::Present
 
   if (*(this + 140) <= 1u)
   {
-    v17 = *(a2 + 552);
+    v16 = *(a2 + 552);
     *(a4 + 536) = *(a2 + 536);
-    *(a4 + 552) = v17;
+    *(a4 + 552) = v16;
   }
 
   if (*(this + 143) <= 1u)
@@ -959,113 +959,113 @@ void SVG::Presentation::inherit(SVG::Presentation *this@<X0>, const SVG::Present
     *(a4 + 71) = *(a2 + 71);
   }
 
-  v18 = *(this + 12);
-  v19 = a3;
-  if (v18)
+  v17 = *(this + 12);
+  v18 = a3;
+  if (v17)
   {
-    if (v18 != 1)
+    if (v17 != 1)
     {
       goto LABEL_41;
     }
 
-    v19 = a2;
+    v18 = a2;
   }
 
-  v20 = *(v19 + 1);
-  *a4 = *v19;
-  a4[1] = v20;
-  a4[2] = *(v19 + 2);
-  *(a4 + 6) = *(v19 + 6);
+  v19 = *(v18 + 1);
+  *a4 = *v18;
+  a4[1] = v19;
+  a4[2] = *(v18 + 2);
+  *(a4 + 6) = *(v18 + 6);
 LABEL_41:
-  v21 = *(this + 20);
-  v22 = a3;
-  if (v21)
+  v20 = *(this + 20);
+  v21 = a3;
+  if (v20)
   {
-    if (v21 != 1)
+    if (v20 != 1)
     {
       goto LABEL_45;
     }
 
-    v22 = a2;
+    v21 = a2;
   }
 
-  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1> const&>((a4 + 4), v22 + 64);
+  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1> const&>((a4 + 4), v21 + 64);
 LABEL_45:
-  v23 = *(this + 34);
-  v24 = a3;
-  if (v23)
+  v22 = *(this + 34);
+  v23 = a3;
+  if (v22)
   {
-    if (v23 != 1)
+    if (v22 != 1)
     {
       goto LABEL_49;
     }
 
-    v24 = a2;
+    v23 = a2;
   }
 
-  *(a4 + 132) = *(v24 + 132);
+  *(a4 + 132) = *(v23 + 132);
 LABEL_49:
-  v25 = *(this + 66);
-  v26 = a3;
-  if (v25)
+  v24 = *(this + 66);
+  v25 = a3;
+  if (v24)
   {
-    if (v25 != 1)
+    if (v24 != 1)
     {
       goto LABEL_53;
     }
 
-    v26 = a2;
+    v25 = a2;
   }
 
-  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1> const&>(a4 + 248, v26 + 248);
+  std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1> const&>(a4 + 248, v25 + 248);
 LABEL_53:
-  v27 = *(this + 70);
-  v28 = a3;
-  if (v27)
+  v26 = *(this + 70);
+  v27 = a3;
+  if (v26)
   {
-    if (v27 != 1)
+    if (v26 != 1)
     {
       goto LABEL_57;
     }
 
-    v28 = a2;
+    v27 = a2;
   }
 
-  a4[17] = *(v28 + 17);
+  a4[17] = *(v27 + 17);
 LABEL_57:
-  v29 = *(this + 73);
-  v30 = a3;
-  if (v29)
+  v28 = *(this + 73);
+  v29 = a3;
+  if (v28)
   {
-    if (v29 != 1)
+    if (v28 != 1)
     {
       goto LABEL_61;
     }
 
-    v30 = a2;
+    v29 = a2;
   }
 
-  *(a4 + 36) = *(v30 + 36);
+  *(a4 + 36) = *(v29 + 36);
 LABEL_61:
-  v31 = *(this + 80);
-  v32 = a3;
-  if (v31)
+  v30 = *(this + 80);
+  v31 = a3;
+  if (v30)
   {
-    if (v31 != 1)
+    if (v30 != 1)
     {
       goto LABEL_65;
     }
 
-    v32 = a2;
+    v31 = a2;
   }
 
-  a4[19] = *(v32 + 19);
-  *(a4 + 80) = *(v32 + 80);
+  a4[19] = *(v31 + 19);
+  *(a4 + 80) = *(v31 + 80);
 LABEL_65:
-  v33 = *(this + 84);
-  if (v33)
+  v32 = *(this + 84);
+  if (v32)
   {
-    if (v33 != 1)
+    if (v32 != 1)
     {
       goto LABEL_69;
     }
@@ -1103,9 +1103,9 @@ LABEL_76:
     std::__throw_bad_variant_access[abi:nn200100]();
   }
 
-  *(&v34 + 4) = *(a4 + 100);
-  HIDWORD(v34) = *(a4 + 27);
-  a4[19] = v34;
+  *(&v33 + 4) = *(a4 + 100);
+  HIDWORD(v33) = *(a4 + 27);
+  a4[19] = v33;
   *(a4 + 80) = 2;
 }
 
@@ -1223,9 +1223,9 @@ void SVG::resolveCurrentColor(uint64_t a1, const void *a2, char a3)
 uint64_t SVG::Presentation::specifiedInherit@<X0>(SVG::Presentation *this@<X0>, const SVG::Presentation *a2@<X1>, _OWORD *a3@<X8>)
 {
   memcpy(a3, &unk_25D1D5338, 0x240uLL);
-  v7 = *(this + 1);
+  v6 = *(this + 1);
   *a3 = *this;
-  a3[1] = v7;
+  a3[1] = v6;
   a3[2] = *(this + 2);
   *(a3 + 6) = *(this + 6);
   *(a3 + 64) = 0;
@@ -1239,40 +1239,40 @@ uint64_t SVG::Presentation::specifiedInherit@<X0>(SVG::Presentation *this@<X0>, 
   *(a3 + 50) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>,(std::__variant_detail::_Trait)1> const&>(a3 + 152, this + 152);
   *(a3 + 248) = 0;
-  v8 = *(this + 14);
+  v7 = *(this + 14);
   a3[13] = *(this + 13);
-  a3[14] = v8;
+  a3[14] = v7;
   *(a3 + 66) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>,(std::__variant_detail::_Trait)1> const&>(a3 + 248, this + 248);
-  v9 = *(this + 17);
+  v8 = *(this + 17);
   a3[18] = *(this + 18);
-  v10 = *(this + 20);
+  v9 = *(this + 20);
   a3[19] = *(this + 19);
-  a3[20] = v10;
+  a3[20] = v9;
   *(a3 + 42) = *(this + 42);
-  a3[17] = v9;
+  a3[17] = v8;
   *(a3 + 352) = 0;
   *(a3 + 100) = -1;
   std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>,(std::__variant_detail::_Trait)1> const&>((a3 + 22), this + 352);
   *(a3 + 416) = 0;
   *(a3 + 112) = -1;
   result = std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>>::__generic_construct[abi:nn200100]<std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>,(std::__variant_detail::_Trait)1> const&>((a3 + 26), this + 416);
-  v12 = *(this + 536);
+  v11 = *(this + 536);
   *(a3 + 520) = *(this + 520);
-  *(a3 + 536) = v12;
+  *(a3 + 536) = v11;
   *(a3 + 552) = *(this + 552);
   *(a3 + 71) = *(this + 71);
-  v13 = *(this + 472);
+  v12 = *(this + 472);
   *(a3 + 456) = *(this + 456);
-  *(a3 + 472) = v13;
-  v14 = *(this + 504);
+  *(a3 + 472) = v12;
+  v13 = *(this + 504);
   *(a3 + 488) = *(this + 488);
-  *(a3 + 504) = v14;
+  *(a3 + 504) = v13;
   if (!*(this + 12) && *(a2 + 12))
   {
-    v15 = *(a2 + 1);
+    v14 = *(a2 + 1);
     *a3 = *a2;
-    a3[1] = v15;
+    a3[1] = v14;
     a3[2] = *(a2 + 2);
     *(a3 + 6) = *(a2 + 6);
   }
@@ -1371,9 +1371,9 @@ uint64_t SVG::Presentation::specifiedInherit@<X0>(SVG::Presentation *this@<X0>, 
 
   if (!*(this + 120) && *(a2 + 120))
   {
-    v16 = *(a2 + 472);
+    v15 = *(a2 + 472);
     *(a3 + 456) = *(a2 + 456);
-    *(a3 + 472) = v16;
+    *(a3 + 472) = v15;
   }
 
   if (!*(this + 123) && *(a2 + 123))
@@ -1398,9 +1398,9 @@ uint64_t SVG::Presentation::specifiedInherit@<X0>(SVG::Presentation *this@<X0>, 
 
   if (!*(this + 140) && *(a2 + 140))
   {
-    v17 = *(a2 + 552);
+    v16 = *(a2 + 552);
     *(a3 + 536) = *(a2 + 536);
-    *(a3 + 552) = v17;
+    *(a3 + 552) = v16;
   }
 
   if (!*(this + 143))
@@ -1414,7 +1414,7 @@ uint64_t SVG::Presentation::specifiedInherit@<X0>(SVG::Presentation *this@<X0>, 
   return result;
 }
 
-_BYTE *SVG::Presentation::Presentation(uint64_t a1, void *a2)
+void *SVG::Presentation::Presentation(uint64_t a1, void *a2)
 {
   v203 = *MEMORY[0x277D85DE8];
   *(a1 + 8) = 0;
@@ -2942,7 +2942,7 @@ LABEL_298:
   return a1;
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2956,13 +2956,13 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -3189,7 +3189,7 @@ uint64_t SVG::consumeRenderingQuality(uint64_t a1)
   return v3 | v2;
 }
 
-void SVG::parseAloneOrVar<SVG::Presentation::Paint>(uint64_t a1, uint64_t *a2)
+void SVG::parseAloneOrVar<SVG::Presentation::Paint>(uint64_t a1, uint64_t **a2)
 {
   v43 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -3540,7 +3540,7 @@ uint64_t SVG::consumeOpacity(uint64_t a1)
   return *&v6;
 }
 
-unint64_t SVG::consumeStopColor(uint64_t a1, uint64_t a2)
+uint64_t SVG::consumeStopColor(uint64_t a1, uint64_t a2)
 {
   result = SVG::consumeStringAlone<8ul>("inherit", a2);
   if (result)
@@ -3577,7 +3577,7 @@ LABEL_3:
   return result;
 }
 
-void *SVG::consumeAlone<SVG::Length>@<X0>(uint64_t a1@<X0>, void *(*a2)(__int128 *__return_ptr, uint64_t, unint64_t)@<X1>, uint64_t a3@<X8>)
+void *SVG::consumeAlone<SVG::Length>@<X0>(uint64_t a1@<X0>, void *(*a2)(__int128 *__return_ptr, uint64_t, uint64_t)@<X1>, uint64_t a3@<X8>)
 {
   v6 = 0;
   do
@@ -3709,10 +3709,10 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__d
   }
 }
 
-uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__assign_alt[abi:nn200100]<0ul,SVG::Presentation::NotSpecified,SVG::Presentation::NotSpecified>(uint64_t result, _DWORD *a2, _DWORD *a3)
+_DWORD *std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__assign_alt[abi:nn200100]<0ul,SVG::Presentation::NotSpecified,SVG::Presentation::NotSpecified>(_DWORD *result, _DWORD *a2, _DWORD *a3)
 {
   v4 = result;
-  v5 = *(result + 16);
+  v5 = result[4];
   if (v5 != -1)
   {
     if (!v5)
@@ -3732,10 +3732,10 @@ uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG
   return result;
 }
 
-uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__assign_alt[abi:nn200100]<1ul,SVG::Presentation::Inherit,SVG::Presentation::Inherit>(uint64_t result, _DWORD *a2, _DWORD *a3)
+_DWORD *std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<SVG::CF<__CFURL const*>>>>::__assign_alt[abi:nn200100]<1ul,SVG::Presentation::Inherit,SVG::Presentation::Inherit>(_DWORD *result, _DWORD *a2, _DWORD *a3)
 {
   v4 = result;
-  v5 = *(result + 16);
+  v5 = result[4];
   if (v5 != -1)
   {
     if (v5 == 1)
@@ -3878,10 +3878,10 @@ uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE1
   return result;
 }
 
-uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__assign_alt[abi:nn200100]<0ul,SVG::Presentation::NotSpecified,SVG::Presentation::NotSpecified>(uint64_t result, _DWORD *a2, _DWORD *a3)
+_DWORD *std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__assign_alt[abi:nn200100]<0ul,SVG::Presentation::NotSpecified,SVG::Presentation::NotSpecified>(_DWORD *result, _DWORD *a2, _DWORD *a3)
 {
   v4 = result;
-  v5 = *(result + 48);
+  v5 = result[12];
   if (v5 != -1)
   {
     if (!v5)
@@ -3901,10 +3901,10 @@ uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG
   return result;
 }
 
-uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__assign_alt[abi:nn200100]<1ul,SVG::Presentation::Inherit,SVG::Presentation::Inherit>(uint64_t result, _DWORD *a2, _DWORD *a3)
+_DWORD *std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::Paint>>::__assign_alt[abi:nn200100]<1ul,SVG::Presentation::Inherit,SVG::Presentation::Inherit>(_DWORD *result, _DWORD *a2, _DWORD *a3)
 {
   v4 = result;
-  v5 = *(result + 48);
+  v5 = result[12];
   if (v5 != -1)
   {
     if (v5 == 1)
@@ -4107,7 +4107,7 @@ uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG
   return a1;
 }
 
-void std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>>::__assign_alt[abi:nn200100]<3ul,SVG::Presentation::IRIWithFallback,SVG::Presentation::IRIWithFallback>(uint64_t a1, uint64_t a2, uint64_t a3)
+void std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::None,SVG::Presentation::CurrentColor,SVG::Presentation::Color,SVG::Presentation::IRIWithFallback,SVG::Presentation::FromContext>>::__assign_alt[abi:nn200100]<3ul,SVG::Presentation::IRIWithFallback,SVG::Presentation::IRIWithFallback>(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   if (*(a1 + 32) == 3)
   {
@@ -4119,7 +4119,7 @@ void std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Pr
     v5 = *a3;
     *a3 = 0;
     *a2 = v5;
-    v6 = *(a3 + 8);
+    v6 = *(a3 + 1);
     *(a2 + 24) = *(a3 + 24);
     *(a2 + 8) = v6;
   }
@@ -4280,10 +4280,10 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__d
   }
 }
 
-uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>>::__assign_alt[abi:nn200100]<0ul,SVG::Presentation::NotSpecified,SVG::Presentation::NotSpecified>(uint64_t result, _DWORD *a2, _DWORD *a3)
+_DWORD *std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>>::__assign_alt[abi:nn200100]<0ul,SVG::Presentation::NotSpecified,SVG::Presentation::NotSpecified>(_DWORD *result, _DWORD *a2, _DWORD *a3)
 {
   v4 = result;
-  v5 = *(result + 32);
+  v5 = result[8];
   if (v5 != -1)
   {
     if (!v5)
@@ -4303,10 +4303,10 @@ uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG
   return result;
 }
 
-uint64_t std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>>::__assign_alt[abi:nn200100]<1ul,SVG::Presentation::Inherit,SVG::Presentation::Inherit>(uint64_t result, _DWORD *a2, _DWORD *a3)
+_DWORD *std::__variant_detail::__assignment<std::__variant_detail::__traits<SVG::Presentation::NotSpecified,SVG::Presentation::Inherit,SVG::Presentation::ValueOrKeyword<std::vector<SVG::Length>>>>::__assign_alt[abi:nn200100]<1ul,SVG::Presentation::Inherit,SVG::Presentation::Inherit>(_DWORD *result, _DWORD *a2, _DWORD *a3)
 {
   v4 = result;
-  v5 = *(result + 32);
+  v5 = result[8];
   if (v5 != -1)
   {
     if (v5 == 1)
@@ -4370,8 +4370,7 @@ __n128 std::__optional_storage_base<std::vector<SVG::Length>,false>::__assign_fr
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -4587,7 +4586,7 @@ uint64_t std::__variant_detail::__ctor<std::__variant_detail::__traits<SVG::Pres
   return result;
 }
 
-void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISJ_LNS0_6_TraitE1EEEEEvRSK_OT_EUlST_E_JRKNS0_6__baseILSN_1EJSA_SB_SI_EEEEEEDcSS_DpT0_(void **a1, uint64_t a2)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__ctorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEEE19__generic_constructB8nn200100IRKNS0_18__copy_constructorISJ_LNS0_6_TraitE1EEEEEvRSK_OT_EUlST_E_JRKNS0_6__baseILSN_1EJSA_SB_SI_EEEEEEDcSS_DpT0_(uint64_t **a1, uint64_t a2)
 {
   result = *a1;
   *result = 0;
@@ -4601,21 +4600,21 @@ void *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__
   return result;
 }
 
-void *std::vector<SVG::Length>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<SVG::Length>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<SVG::Length>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 4);
+    std::vector<SVG::Length>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 4);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<SVG::Length>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<SVG::Length>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4711,7 +4710,7 @@ uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1
   return result;
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEEE16__generic_assignB8nn200100IRKNS0_17__copy_assignmentISD_LNS0_6_TraitE1EEEEEvOT_EUlRSL_OT0_E_JRNS0_6__baseILSH_1EJSA_SB_SC_EEERKST_EEEDcSL_DpT0_(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEEE16__generic_assignB8nn200100IRKNS0_17__copy_assignmentISD_LNS0_6_TraitE1EEEEEvOT_EUlRSL_OT0_E_JRNS0_6__baseILSH_1EJSA_SB_SC_EEERKST_EEEDcSL_DpT0_(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v4 = *result;
   v5 = *(*result + 48);
@@ -4818,7 +4817,7 @@ uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1
   return result;
 }
 
-uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEEE16__generic_assignB8nn200100IRKNS0_17__copy_assignmentISF_LNS0_6_TraitE1EEEEEvOT_EUlRSN_OT0_E_JRNS0_6__baseILSJ_1EJSA_SB_SC_SD_SE_EEERKSV_EEEDcSN_DpT0_(uint64_t result, void *a2, void *a3)
+uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJN3SVG12Presentation4NoneENS9_12CurrentColorENS9_5ColorENS9_15IRIWithFallbackENS9_11FromContextEEEEE16__generic_assignB8nn200100IRKNS0_17__copy_assignmentISF_LNS0_6_TraitE1EEEEEvOT_EUlRSN_OT0_E_JRNS0_6__baseILSJ_1EJSA_SB_SC_SD_SE_EEERKSV_EEEDcSN_DpT0_(uint64_t *result, void *a2, void *a3)
 {
   v4 = *result;
   v5 = *(*result + 32);
@@ -5001,7 +5000,7 @@ uint64_t _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1
   return result;
 }
 
-void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEEE16__generic_assignB8nn200100IRKNS0_17__copy_assignmentISJ_LNS0_6_TraitE1EEEEEvOT_EUlRSR_OT0_E_JRNS0_6__baseILSN_1EJSA_SB_SI_EEERKSZ_EEEDcSR_DpT0_(uint64_t *a1, uint64_t a2, char **a3)
+void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8nn200100IOZNS0_12__assignmentINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEEE16__generic_assignB8nn200100IRKNS0_17__copy_assignmentISJ_LNS0_6_TraitE1EEEEEvOT_EUlRSR_OT0_E_JRNS0_6__baseILSN_1EJSA_SB_SI_EEERKSZ_EEEDcSR_DpT0_(uint64_t *a1, uint64_t *a2, char **a3)
 {
   v3 = *a1;
   if (*(*a1 + 32) == 2)
@@ -5013,19 +5012,19 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE1
         v5 = *a3;
         v6 = a3[1];
         v7 = v6 - *a3;
-        v8 = *(a2 + 16);
+        v8 = a2[2];
         v9 = *a2;
         if (v8 - *a2 < v7)
         {
           v10 = v7 >> 4;
           if (v9)
           {
-            *(a2 + 8) = v9;
+            a2[1] = v9;
             operator delete(v9);
             v8 = 0;
             *a2 = 0;
-            *(a2 + 8) = 0;
-            *(a2 + 16) = 0;
+            a2[1] = 0;
+            a2[2] = 0;
           }
 
           if (!(v10 >> 60))
@@ -5052,7 +5051,7 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE1
           std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
         }
 
-        v14 = *(a2 + 8);
+        v14 = a2[1];
         v15 = v14 - v9;
         if (v14 - v9 >= v7)
         {
@@ -5070,7 +5069,7 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE1
           if (v14 != v9)
           {
             memmove(*a2, v5, v15);
-            v14 = *(a2 + 8);
+            v14 = a2[1];
           }
 
           if (v6 != v16)
@@ -5081,7 +5080,7 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE1
           v17 = &v14[v6 - v16];
         }
 
-        *(a2 + 8) = v17;
+        a2[1] = v17;
       }
     }
 
@@ -5090,7 +5089,7 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE1
       v13 = *a2;
       if (*a2)
       {
-        *(a2 + 8) = v13;
+        a2[1] = v13;
         operator delete(v13);
       }
 
@@ -5329,7 +5328,7 @@ BOOL SVG::consumeStringAlone<5ul>(char *a1, uint64_t a2)
   return v9 == v11;
 }
 
-unint64_t SVG::consumeClipRect@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t SVG::consumeClipRect@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   result = SVG::consumeString<5ul>("rect", a1, a2);
   if ((v6 & 1) == 0)
@@ -5622,7 +5621,7 @@ unint64_t SVG::consumeString<4ul>(char *a1, uint64_t a2, uint64_t a3)
   return v6 | v5;
 }
 
-unint64_t SVG::consumeAlone<SVG::Presentation::Color>(uint64_t a1, void (*a2)(void *__return_ptr, uint64_t, unint64_t))
+unint64_t SVG::consumeAlone<SVG::Presentation::Color>(uint64_t a1, void (*a2)(void *__return_ptr, uint64_t, uint64_t))
 {
   v4 = 0;
   do
@@ -5933,12 +5932,12 @@ unint64_t SVG::consumeCommaSpace(uint64_t *a1, unint64_t a2)
   return v8;
 }
 
-void SVG::consumePercentRGBColorValue(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+void SVG::consumePercentRGBColorValue(uint64_t *a1@<X0>, uint64_t a2@<X8>, unint64_t a3@<X1>)
 {
   v30 = NAN;
   v31 = 0xAAAAAAAAAAAAAAAALL;
   v32 = 0xAAAAAAAAAAAAAAAALL;
-  SVG::consumePathNumber(a1, a2, &v30);
+  SVG::consumePathNumber(a1, a3, &v30);
   if (v32 & 1) != 0 && (v5 = SVG::consumeString<2ul>("%", a1, v31), (v6) && (v7 = SVG::consumeCommaSpace(a1, v5), (v8) && (v27 = NAN, v28 = 0xAAAAAAAAAAAAAAAALL, v29 = 0xAAAAAAAAAAAAAAAALL, SVG::consumePathNumber(a1, v7, &v27), (v29) && (v9 = SVG::consumeString<2ul>("%", a1, v28), (v10) && (v11 = SVG::consumeCommaSpace(a1, v9), (v12))
   {
     v24 = NAN;
@@ -6001,24 +6000,24 @@ void SVG::consumePercentRGBColorValue(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint
         v17 = v22 * 255.0 / 100.0;
       }
 
-      *a3 = v18 | (v21 << 8) | (v17 << 16) | 0xAA000000;
-      *(a3 + 8) = v13;
+      *a2 = v18 | (v21 << 8) | (v17 << 16) | 0xAA000000;
+      *(a2 + 8) = v13;
       v23 = 1;
     }
 
     else
     {
       v23 = 0;
-      *a3 = 0;
+      *a2 = 0;
     }
 
-    *(a3 + 16) = v23;
+    *(a2 + 16) = v23;
   }
 
   else
   {
-    *a3 = 0;
-    *(a3 + 16) = 0;
+    *a2 = 0;
+    *(a2 + 16) = 0;
   }
 }
 
@@ -6708,7 +6707,7 @@ std::string *SVG::ValueWithOffset<SVG::ICCColor>::ValueWithOffset(std::string *t
     *&this->__r_.__value_.__l.__data_ = v6;
   }
 
-  std::vector<double>::vector[abi:nn200100](this[1].__r_.__value_.__r.__words, a2 + 3);
+  std::vector<double>::vector[abi:nn200100](&this[1], a2 + 3);
   this[2].__r_.__value_.__r.__words[0] = a3;
   return this;
 }
@@ -6731,21 +6730,21 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-void *std::vector<double>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<double>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<double>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<double>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<double>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6765,23 +6764,22 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<double>>(uint64_t a1,
   std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
 }
 
-void *SVG::consumeOneOrMoreGeneric<double>@<X0>(void *(*a1)(void *__return_ptr)@<X2>, _BYTE *a2@<X8>)
+void SVG::consumeOneOrMoreGeneric<double>(void (*a2)(__int128 *__return_ptr)@<X2>, _BYTE *a4@<X8>)
 {
-  v4[0] = -1;
-  v4[1] = 0xAAAAAAAAAAAAAAAALL;
-  v5 = 0xAAAAAAAAAAAAAAAALL;
-  result = a1(v4);
-  if (v5)
+  v5[0] = -1;
+  v5[1] = 0xAAAAAAAAAAAAAAAALL;
+  v6 = 0xAAAAAAAAAAAAAAAALL;
+  a2(v5);
+  if (v6)
   {
     operator new();
   }
 
-  *a2 = 0;
-  a2[32] = 0;
-  return result;
+  *a4 = 0;
+  a4[32] = 0;
 }
 
-uint64_t SVG::consumeAlone<double>(uint64_t a1, void (*a2)(uint64_t *__return_ptr, uint64_t, unint64_t))
+uint64_t SVG::consumeAlone<double>(uint64_t a1, void (*a2)(uint64_t *__return_ptr, uint64_t, uint64_t))
 {
   v4 = 0;
   do
@@ -6907,7 +6905,7 @@ uint64_t SVG::ShapeElement::ShapeElement(uint64_t a1, uint64_t a2, void *a3)
   return a1;
 }
 
-uint64_t OTSVGGlyphRecordingCreate(std::mutex **a1, uint64_t a2)
+uint64_t *OTSVGGlyphRecordingCreate(std::mutex **a1, uint64_t a2)
 {
   v4 = *a1;
   std::mutex::lock(*a1);
@@ -7057,7 +7055,7 @@ LABEL_30:
     goto LABEL_61;
   }
 
-  v18 = SVG::GlyphRecordingCreateWithElement(*a1);
+  v18 = SVG::GlyphRecordingCreateWithElement(*a1, *(v18 + 40));
   v19 = *a1;
   std::mutex::lock(*a1);
   v20 = *a1;
@@ -7196,123 +7194,123 @@ uint64_t std::ostringstream::basic_ostringstream[abi:nn200100](uint64_t a1)
   return a1;
 }
 
-uint64_t SVG::GlyphRecordingCreateWithElement(uint64_t a1)
+uint64_t SVG::GlyphRecordingCreateWithElement(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   memcpy(__dst, &unk_25D1D5808, sizeof(__dst));
   SVG::Presentation::defaultPresentation(__dst);
-  memcpy(v19, &unk_25D1D5608, sizeof(v19));
+  memcpy(v20, &unk_25D1D5608, sizeof(v20));
   SVG::Recorder::getInitialState(__dst, t1);
-  SVG::Recorder::Recorder(v19, t1, *(a1 + 88), *(a1 + 72), 72.0);
+  SVG::Recorder::Recorder(v20, t1, *(a1 + 88), *(a1 + 72), 72.0);
   if (LODWORD(t1[2].c) != -1)
   {
     *&t2.a = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
     *&t2.b = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
     *&t2.c = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG2CFIP7CGColorEENS8_7SetFill12CurrentColorENSD_11PatternDataEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSH_1EJSC_SE_SF_EEEEEEDcSJ_DpT0_;
-    (*(&t2.a + LODWORD(t1[2].c)))(&v17, &t1[0].b);
+    (*(&t2.a + LODWORD(t1[2].c)))(&v18, &t1[0].b);
   }
 
-  *&v2 = -1;
-  *(&v2 + 1) = -1;
-  *&v17.c = v2;
-  *&v17.tx = v2;
-  *&v17.a = v2;
-  v18 = 0xAAAAAAAAAAAAAAAALL;
-  v3 = *(a1 + 64);
-  SVG::computeViewBoxTransform(*(v3 + 704), &v17, *(v3 + 672), *(v3 + 680), *(v3 + 688), *(v3 + 696), 0.0, 0.0, *(v3 + 656), *(v3 + 664));
-  if (v18 != 1)
+  *&v3 = -1;
+  *(&v3 + 1) = -1;
+  *&v18.c = v3;
+  *&v18.tx = v3;
+  *&v18.a = v3;
+  v19 = 0xAAAAAAAAAAAAAAAALL;
+  v4 = *(a1 + 64);
+  SVG::computeViewBoxTransform(*(v4 + 704), &v18, *(v4 + 672), *(v4 + 680), *(v4 + 688), *(v4 + 696), 0.0, 0.0, *(v4 + 656), *(v4 + 664));
+  if (v19 != 1)
   {
 LABEL_18:
     operator new();
   }
 
-  *&v4 = -1;
-  *(&v4 + 1) = -1;
-  *&v16.c = v4;
-  *&v16.tx = v4;
-  *&v16.a = v4;
-  t1[0] = v17;
+  *&v5 = -1;
+  *(&v5 + 1) = -1;
+  *&v17.c = v5;
+  *&v17.tx = v5;
+  *&v17.a = v5;
+  t1[0] = v18;
   CGAffineTransformMakeScale(&t2, 1.0, -1.0);
-  CGAffineTransformConcat(&v16, t1, &t2);
+  CGAffineTransformConcat(&v17, t1, &t2);
   t2 = *byte_25D1D57B0;
-  v13 = unk_25D1D57E0;
-  v14 = xmmword_25D1D57F0;
-  v15 = 0xAAAAAAAAAAAAAAAALL;
-  t1[0] = v16;
-  SVG::AffineTransformApplier::AffineTransformApplier(&t2, v19, t1);
+  v14 = unk_25D1D57E0;
+  v15 = xmmword_25D1D57F0;
+  v16 = 0xAAAAAAAAAAAAAAAALL;
+  t1[0] = v17;
+  SVG::AffineTransformApplier::AffineTransformApplier(&t2, v20, t1);
   memcpy(t1, &unk_25D1D5808, sizeof(t1));
   SVG::Presentation::inherit((*(a1 + 64) + 64), __dst, __dst, t1);
   if (LODWORD(t1[2].ty) == 2)
   {
     if (HIDWORD(t1[2].tx) != 2)
     {
-      *&v5 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v8 = v5;
-      v9 = v5;
-      v10 = -1;
-      v11 = 0xAAAAAAAAAAAAAAAALL;
+      *&v6 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v9 = v6;
+      v10 = v6;
+      v11 = -1;
+      v12 = 0xAAAAAAAAAAAAAAAALL;
       operator new();
     }
 
     if (LODWORD(t1[9].c) != -1)
     {
-      *&v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      *(&v8 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      (*(&v8 + LODWORD(t1[9].c)))(&v20, &t1[8].tx);
+      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      *(&v9 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      *&v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS_6vectorINS8_6LengthENS_9allocatorISE_EEEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      (*(&v9 + LODWORD(t1[9].c)))(&v21, &t1[8].tx);
     }
 
     LODWORD(t1[9].c) = -1;
     if (LODWORD(t1[8].c) != -1)
     {
-      *&v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-      *(&v8 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-      (*(&v8 + LODWORD(t1[8].c)))(&v20, &t1[7].c);
+      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+      *(&v9 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+      *&v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+      (*(&v9 + LODWORD(t1[8].c)))(&v21, &t1[7].c);
     }
 
     LODWORD(t1[8].c) = -1;
     if (LODWORD(t1[5].d) != -1)
     {
-      *&v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      *(&v8 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      (*(&v8 + LODWORD(t1[5].d)))(&v20, &t1[5].b);
+      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      *(&v9 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      *&v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      (*(&v9 + LODWORD(t1[5].d)))(&v21, &t1[5].b);
     }
 
     LODWORD(t1[5].d) = -1;
     if (LODWORD(t1[4].b) != -1)
     {
-      *&v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-      *(&v8 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
-      (*(&v8 + LODWORD(t1[4].b)))(&v20, &t1[3].b);
+      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+      *(&v9 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+      *&v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_5PaintEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSE_1EJSA_SB_SC_EEEEEEDcSG_DpT0_;
+      (*(&v9 + LODWORD(t1[4].b)))(&v21, &t1[3].b);
     }
 
     LODWORD(t1[4].b) = -1;
     if (LODWORD(t1[1].tx) != -1)
     {
-      *&v8 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      *(&v8 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
-      (*(&v8 + LODWORD(t1[1].tx)))(&v20, &t1[1].c);
+      *&v9 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      *(&v9 + 1) = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      *&v10 = _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2EEE10__dispatchB8nn200100IOZNS0_6__dtorINS0_8__traitsIJN3SVG12Presentation12NotSpecifiedENS9_7InheritENS9_14ValueOrKeywordINS8_2CFIPK7__CFURLEEEEEEELNS0_6_TraitE1EE9__destroyB8nn200100EvEUlRT_E_JRNS0_6__baseILSK_1EJSA_SB_SI_EEEEEEDcSM_DpT0_;
+      (*(&v9 + LODWORD(t1[1].tx)))(&v21, &t1[1].c);
     }
 
     SVG::AffineTransformApplier::~AffineTransformApplier(&t2);
     goto LABEL_18;
   }
 
-  v6 = std::__throw_bad_variant_access[abi:nn200100]();
-  return OTSVGGlyphRecordingCreateFromDocument(v6);
+  v7 = std::__throw_bad_variant_access[abi:nn200100]();
+  return OTSVGGlyphRecordingCreateFromDocument(v7);
 }
 
 uint64_t OTSVGGlyphRecordingCreateFromID(uint64_t *a1, CFStringRef theString)
 {
   maxBufLen = 0;
-  v8.length = CFStringGetLength(theString);
-  v8.location = 0;
-  CFStringGetBytes(theString, v8, 0x8000100u, 0, 0, 0, 0, &maxBufLen);
+  v9.length = CFStringGetLength(theString);
+  v9.location = 0;
+  CFStringGetBytes(theString, v9, 0x8000100u, 0, 0, 0, 0, &maxBufLen);
   if (maxBufLen)
   {
     if ((maxBufLen & 0x8000000000000000) == 0)
@@ -7323,20 +7321,21 @@ uint64_t OTSVGGlyphRecordingCreateFromID(uint64_t *a1, CFStringRef theString)
     std::vector<SVG::Length>::__throw_length_error[abi:nn200100]();
   }
 
-  v9.length = CFStringGetLength(theString);
-  v9.location = 0;
-  CFStringGetBytes(theString, v9, 0x8000100u, 0, 0, 0, maxBufLen, 0);
+  v10.length = CFStringGetLength(theString);
+  v10.location = 0;
+  CFStringGetBytes(theString, v10, 0x8000100u, 0, 0, 0, maxBufLen, 0);
   memset(__dst, 170, sizeof(__dst));
   HIBYTE(__dst[2]) = 0;
   LOBYTE(__dst[0]) = 0;
-  if (std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>((*a1 + 96), __dst))
+  v4 = std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>((*a1 + 96), __dst);
+  if (v4)
   {
-    v4 = SVG::GlyphRecordingCreateWithElement(*a1);
+    v5 = SVG::GlyphRecordingCreateWithElement(*a1, v4[5]);
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   if (SHIBYTE(__dst[2]) < 0)
@@ -7344,7 +7343,7 @@ uint64_t OTSVGGlyphRecordingCreateFromID(uint64_t *a1, CFStringRef theString)
     operator delete(__dst[0]);
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t OTSVGGlyphRecordingRelease(uint64_t result)
@@ -7442,7 +7441,7 @@ void std::__shared_weak_count::__release_shared[abi:nn200100](std::__shared_weak
   }
 }
 
-uint64_t SVG::AffineTransformApplier::AffineTransformApplier(uint64_t a1, uint64_t a2, _OWORD *a3)
+uint64_t SVG::AffineTransformApplier::AffineTransformApplier(uint64_t a1, CGAffineTransform *a2, _OWORD *a3)
 {
   *a1 = a2;
   *(a1 + 8) = a2;
@@ -7484,19 +7483,18 @@ uint64_t SVG::AffineTransformApplier::AffineTransformApplier(uint64_t a1, uint64
   return a1;
 }
 
-uint64_t SVG::StateSaverRestorer::save(SVG::StateSaverRestorer *this)
+void SVG::StateSaverRestorer::save(SVG::StateSaverRestorer *this)
 {
   v2 = *this;
-  v4[0] = &unk_286EB9400;
-  v5 = 0;
-  result = SVG::Recorder::append(v2, v4);
-  if (v5 != -1)
+  v3[0] = &unk_286EB9400;
+  v4 = 0;
+  SVG::Recorder::append(v2, v3);
+  if (v4 != -1)
   {
-    result = (off_286EBA5A8[v5])(&v6, v4);
+    (off_286EBA5A8[v4])(&v5, v3);
   }
 
   *(this + 8) = 1;
-  return result;
 }
 
 double SVG::SaveState::boundingRect(SVG::SaveState *this, SVG::BoundingRectState *a2)
@@ -7517,7 +7515,7 @@ uint64_t SVG::SaveState::dump(SVG::SaveState *this)
   return std::ostream::flush();
 }
 
-__n128 std::deque<SVG::BoundingRectState::State>::push_back(void *a1, uint64_t a2)
+__n128 std::deque<SVG::BoundingRectState::State>::push_back(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   v5 = a1[1];
@@ -7550,19 +7548,19 @@ __n128 std::deque<SVG::BoundingRectState::State>::push_back(void *a1, uint64_t a
   return result;
 }
 
-void *std::deque<SVG::BoundingRectState::State>::__add_back_capacity(void *a1)
+void std::deque<SVG::BoundingRectState::State>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2E;
   v3 = v1 - 46;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7570,48 +7568,47 @@ void *std::deque<SVG::BoundingRectState::State>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<SVG::BoundingRectState::State *>::emplace_back<SVG::BoundingRectState::State *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<SVG::BoundingRectState::State *>::emplace_back<SVG::BoundingRectState::State *&>(a1, &v9);
 }
 
-void *std::__split_buffer<SVG::BoundingRectState::State *>::emplace_back<SVG::BoundingRectState::State *&>(void *result, void *a2)
+void std::__split_buffer<SVG::BoundingRectState::State *>::emplace_back<SVG::BoundingRectState::State *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(result, v11);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7620,28 +7617,26 @@ void *std::__split_buffer<SVG::BoundingRectState::State *>::emplace_back<SVG::Bo
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<SVG::BoundingRectState::State *>::emplace_front<SVG::BoundingRectState::State *>(const void **result, void *a2)
+void std::__split_buffer<SVG::BoundingRectState::State *>::emplace_front<SVG::BoundingRectState::State *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7654,52 +7649,50 @@ const void **std::__split_buffer<SVG::BoundingRectState::State *>::emplace_front
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(result, v9);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<SVG::BoundingRectState::State *>::emplace_back<SVG::BoundingRectState::State *>(void *result, void *a2)
+void std::__split_buffer<SVG::BoundingRectState::State *>::emplace_back<SVG::BoundingRectState::State *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(result[4], v11);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7708,28 +7701,26 @@ void *std::__split_buffer<SVG::BoundingRectState::State *>::emplace_back<SVG::Bo
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<SVG::BoundingRectState::State *>::emplace_front<SVG::BoundingRectState::State *&>(const void **result, void *a2)
+void std::__split_buffer<SVG::BoundingRectState::State *>::emplace_front<SVG::BoundingRectState::State *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7742,29 +7733,28 @@ const void **std::__split_buffer<SVG::BoundingRectState::State *>::emplace_front
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(result[4], v9);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<SVG::BoundingRectState::State *>>(uint64_t a1, unint64_t a2)
@@ -8189,7 +8179,7 @@ void SVG::ClipToMask::~ClipToMask(SVG::ClipToMask *this)
 void SVG::ClipToMask::execute(uint64_t a1, SVG *this)
 {
   v6 = 0xAAAAAAAAAAAAAAAALL;
-  SVG::createParallelBitmapContext(this, *(a1 + 72), &v6);
+  SVG::createParallelBitmapContext(&v6, this, *(a1 + 72));
   if (v6)
   {
     v4 = *(a1 + 40);
@@ -8200,7 +8190,7 @@ void SVG::ClipToMask::execute(uint64_t a1, SVG *this)
     SVG::playback(v6, *(a1 + 8));
     CGContextFlush(v6);
     mask.a = -3.72066208e-103;
-    SVG::convertToMask(v6, &mask);
+    SVG::convertToMask(&mask, v6);
     if (*&mask.a)
     {
       CGContextClipToMask(this, *(a1 + 72), *&mask.a);
@@ -8925,9 +8915,9 @@ void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v
   if (LOBYTE(v13[0]) == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
+    v7 = *(v6 + 5);
     v8 = a2 + a3;
-    if ((*(v6 + 8) & 0xB0) == 0x20)
+    if ((*(v6 + 2) & 0xB0) == 0x20)
     {
       v9 = v8;
     }
@@ -8937,14 +8927,14 @@ void *std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v
       v9 = a2;
     }
 
-    v10 = *(v6 + 144);
+    v10 = *(v6 + 36);
     if (v10 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v11 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v10 = (v11->__vftable[2].~facet_0)(v11, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v10;
+      *(v6 + 36) = v10;
     }
 
     if (!std::__pad_and_output[abi:nn200100]<char,std::char_traits<char>>(v7, a2, v9, v8, v6, v10))
@@ -9099,10 +9089,10 @@ void std::stringbuf::__init_buf_ptrs[abi:nn200100](uint64_t a1)
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(void *a1, uint64_t a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::reference_wrapper<SVG::Element>>>>::find<std::string>(void *a1, const void **a2)
 {
   v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);
@@ -9149,87 +9139,6 @@ const void **std::__hash_table<std::__hash_value_type<std::string,std::reference
   {
     v14 = i[1];
     if (v14 == v8)
-    {
-      if (std::equal_to<std::string>::operator()[abi:nn200100](a1, i + 2, v2))
-      {
-        return i;
-      }
-    }
-
-    else
-    {
-      if (v10 > 1)
-      {
-        if (v14 >= *&v7)
-        {
-          v14 %= *&v7;
-        }
-      }
-
-      else
-      {
-        v14 &= *&v7 - 1;
-      }
-
-      if (v14 != v11)
-      {
-        return 0;
-      }
-    }
-  }
-
-  return i;
-}
-
-{
-  v2 = a2;
-  v4 = *(a2 + 8);
-  if (*(a2 + 23) >= 0)
-  {
-    v5 = *(a2 + 23);
-  }
-
-  else
-  {
-    a2 = *a2;
-    v5 = v4;
-  }
-
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v16, a2, v5);
-  v7 = a1[1];
-  if (!*&v7)
-  {
-    return 0;
-  }
-
-  v8 = v6;
-  v9 = vcnt_s8(v7);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
-  {
-    v11 = v6;
-    if (v6 >= *&v7)
-    {
-      v11 = v6 % *&v7;
-    }
-  }
-
-  else
-  {
-    v11 = (*&v7 - 1) & v6;
-  }
-
-  v12 = *(*a1 + 8 * v11);
-  if (!v12)
-  {
-    return 0;
-  }
-
-  for (i = *v12; i; i = *i)
-  {
-    v14 = i[1];
-    if (v8 == v14)
     {
       if (std::equal_to<std::string>::operator()[abi:nn200100](a1, i + 2, v2))
       {
@@ -9457,7 +9366,7 @@ void SVG::unzipData(SVG *this@<X0>, void *a2@<X8>)
   {
     if (Length > 0xB)
     {
-      v7 = *(BytePtr + 5) + 12;
+      v6 = *(BytePtr + 5) + 12;
       if ((BytePtr[3] & 8) == 0)
       {
         goto LABEL_14;
@@ -9471,32 +9380,32 @@ LABEL_22:
     return;
   }
 
-  v7 = 10;
+  v6 = 10;
   if ((BytePtr[3] & 8) == 0)
   {
     goto LABEL_14;
   }
 
 LABEL_10:
-  if (Length > v7)
+  if (Length > v6)
   {
-    while (BytePtr[v7++])
+    while (BytePtr[v6++])
     {
-      if (Length == v7)
+      if (Length == v6)
       {
 LABEL_18:
-        v7 = Length;
+        v6 = Length;
         goto LABEL_19;
       }
     }
   }
 
 LABEL_14:
-  if ((BytePtr[3] & 0x10) != 0 && Length > v7)
+  if ((BytePtr[3] & 0x10) != 0 && Length > v6)
   {
-    while (BytePtr[v7++])
+    while (BytePtr[v6++])
     {
-      if (Length == v7)
+      if (Length == v6)
       {
         goto LABEL_18;
       }
@@ -9504,78 +9413,78 @@ LABEL_14:
   }
 
 LABEL_19:
-  v10 = v7 + (BytePtr[3] & 2);
-  v11 = Length - v10;
-  if (Length <= v10)
+  v9 = v6 + (BytePtr[3] & 2);
+  v10 = Length - v9;
+  if (Length <= v9)
   {
     goto LABEL_22;
   }
 
-  v12 = (v11 * 1.5);
-  v13 = malloc_type_malloc(v12, 0x100004077774924uLL);
-  v19.state = 0xAAAAAAAAAAAAAAAALL;
-  *&v14 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v19.dst_ptr = v14;
-  *&v19.src_ptr = v14;
-  if (compression_stream_init(&v19, COMPRESSION_STREAM_DECODE, COMPRESSION_ZLIB))
+  v11 = (v10 * 1.5);
+  v12 = malloc_type_malloc(v11, 0x100004077774924uLL);
+  v18.state = 0xAAAAAAAAAAAAAAAALL;
+  *&v13 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v18.dst_ptr = v13;
+  *&v18.src_ptr = v13;
+  if (compression_stream_init(&v18, COMPRESSION_STREAM_DECODE, COMPRESSION_ZLIB))
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v16 = 0;
-    v19.dst_ptr = v13;
-    v19.dst_size = (v11 * 1.5);
-    v19.src_ptr = &BytePtr[v10];
-    v19.src_size = v11;
-    v17 = v13;
+    v15 = 0;
+    v18.dst_ptr = v12;
+    v18.dst_size = (v10 * 1.5);
+    v18.src_ptr = &BytePtr[v9];
+    v18.src_size = v10;
+    v16 = v12;
     while (1)
     {
-      v18 = compression_stream_process(&v19, 1);
-      v16 += v19.dst_ptr - v13;
-      if (v18)
+      v17 = compression_stream_process(&v18, 1);
+      v15 += v18.dst_ptr - v12;
+      if (v17)
       {
         break;
       }
 
-      v12 = (v12 * 1.5 + 1.0);
-      v15 = reallocf(v17, v12);
-      if (!v15)
+      v11 = (v11 * 1.5 + 1.0);
+      v14 = reallocf(v16, v11);
+      if (!v14)
       {
         goto LABEL_30;
       }
 
-      v17 = v15;
-      v13 = &v15[v16];
-      v19.dst_ptr = &v15[v16];
-      v19.dst_size = v12 - v16;
+      v16 = v14;
+      v12 = &v14[v15];
+      v18.dst_ptr = &v14[v15];
+      v18.dst_size = v11 - v15;
     }
 
-    if (v18 == COMPRESSION_STATUS_END)
+    if (v17 == COMPRESSION_STATUS_END)
     {
-      if (compression_stream_destroy(&v19) == COMPRESSION_STATUS_OK)
+      if (compression_stream_destroy(&v18) == COMPRESSION_STATUS_OK)
       {
-        v15 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v17, v16, *MEMORY[0x277CBECF0]);
+        v14 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], v16, v15, *MEMORY[0x277CBECF0]);
 LABEL_30:
-        v13 = 0;
+        v12 = 0;
         goto LABEL_33;
       }
     }
 
     else
     {
-      compression_stream_destroy(&v19);
+      compression_stream_destroy(&v18);
     }
 
-    v15 = 0;
-    v13 = v17;
+    v14 = 0;
+    v12 = v16;
   }
 
 LABEL_33:
-  *a2 = v15;
-  free(v13);
+  *a2 = v14;
+  free(v12);
 }
 
 double SVG::Length::computeValue(SVG::Length *this, double a2)

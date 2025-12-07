@@ -38,10 +38,10 @@
 
 - (id)runAction
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = AMSUIWebDelegateAction;
-  runAction = [(AMSUIWebAction *)&v17 runAction];
+  v21 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = AMSUIWebDelegateAction;
+  runAction = [(AMSUIWebAction *)&v16 runAction];
   delegateData = [(AMSUIWebDelegateAction *)self delegateData];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
@@ -55,9 +55,9 @@
     v7 = objc_opt_class();
     v8 = AMSLogKey();
     *buf = 138543618;
-    v19 = v7;
-    v20 = 2114;
-    v21 = v8;
+    v18 = v7;
+    v19 = 2114;
+    v20 = v8;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running delegate action", buf, 0x16u);
   }
 
@@ -69,32 +69,30 @@
 
   else
   {
-    v13 = MEMORY[0x1E698CAD0];
-    v14 = AMSError();
-    v10 = [v13 promiseWithError:v14];
+    v12 = MEMORY[0x1E698CAD0];
+    v13 = AMSError();
+    v10 = [v12 promiseWithError:v13];
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __35__AMSUIWebDelegateAction_runAction__block_invoke;
-  v16[3] = &unk_1E7F24410;
-  v16[4] = self;
-  [v10 addErrorBlock:v16];
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
-  v15[2] = __35__AMSUIWebDelegateAction_runAction__block_invoke_51;
-  v15[3] = &unk_1E7F25F98;
+  v15[2] = __35__AMSUIWebDelegateAction_runAction__block_invoke;
+  v15[3] = &unk_1E7F24410;
   v15[4] = self;
-  [v10 addSuccessBlock:v15];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [v10 addErrorBlock:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __35__AMSUIWebDelegateAction_runAction__block_invoke_51;
+  v14[3] = &unk_1E7F25F98;
+  v14[4] = self;
+  [v10 addSuccessBlock:v14];
 
   return v10;
 }
 
 void __35__AMSUIWebDelegateAction_runAction__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v4)
@@ -105,25 +103,22 @@ void __35__AMSUIWebDelegateAction_runAction__block_invoke(uint64_t a1, void *a2)
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = [*(a1 + 32) context];
-    v9 = [v8 logKey];
-    v11 = 138543874;
-    v12 = v7;
+    v6 = objc_opt_class();
+    v7 = [*(a1 + 32) context];
+    v8 = [v7 logKey];
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v8;
     v13 = 2114;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Delegate action failed. %{public}@", &v11, 0x20u);
+    v14 = v3;
+    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Delegate action failed. %{public}@", &v9, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __35__AMSUIWebDelegateAction_runAction__block_invoke_51(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v4)
@@ -134,25 +129,22 @@ void __35__AMSUIWebDelegateAction_runAction__block_invoke_51(uint64_t a1, void *
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = [*(a1 + 32) context];
-    v9 = [v8 logKey];
-    v11 = 138543874;
-    v12 = v7;
+    v6 = objc_opt_class();
+    v7 = [*(a1 + 32) context];
+    v8 = [v7 logKey];
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v8;
     v13 = 2114;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Delegate action succeeded. %{public}@", &v11, 0x20u);
+    v14 = v3;
+    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Delegate action succeeded. %{public}@", &v9, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_handleResolveActionWithData:(id)data
 {
-  v58[3] = *MEMORY[0x1E69E9840];
+  v57[3] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [dataCopy objectForKeyedSubscript:@"action"];
   objc_opt_class();
@@ -195,19 +187,19 @@ void __35__AMSUIWebDelegateAction_runAction__block_invoke_51(uint64_t a1, void *
       }
 
       v15 = MEMORY[0x1E695DFD8];
-      v58[0] = @"buyParams";
-      v58[1] = @"action";
-      v58[2] = @"state";
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:3];
+      v57[0] = @"buyParams";
+      v57[1] = @"action";
+      v57[2] = @"state";
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:3];
       v17 = [v15 setWithArray:v16];
 
-      v49 = MEMORY[0x1E69E9820];
-      v50 = 3221225472;
-      v51 = __55__AMSUIWebDelegateAction__handleResolveActionWithData___block_invoke;
-      v52 = &unk_1E7F25528;
-      v53 = v17;
+      v48 = MEMORY[0x1E69E9820];
+      v49 = 3221225472;
+      v50 = __55__AMSUIWebDelegateAction__handleResolveActionWithData___block_invoke;
+      v51 = &unk_1E7F25528;
+      v52 = v17;
       v18 = v17;
-      v19 = [dataCopy ams_filterUsingTest:&v49];
+      v19 = [dataCopy ams_filterUsingTest:&v48];
       v10 = [(AMSUIWebDelegateAction *)self _infoWithBuyParams:v12 additionalInfo:v19];
 
       v9 = 0;
@@ -336,7 +328,7 @@ void __35__AMSUIWebDelegateAction_runAction__block_invoke_51(uint64_t a1, void *
       if (longLongValue)
       {
         v35 = [MEMORY[0x1E696AD98] numberWithLong:longLongValue];
-        v48 = v35;
+        v47 = v35;
         v9 = AMSErrorWithFormat();
         v10 = 0;
 LABEL_52:
@@ -382,9 +374,9 @@ LABEL_53:
       v44 = objc_opt_class();
       v45 = AMSLogKey();
       *buf = 138543618;
-      v55 = v44;
-      v56 = 2114;
-      v57 = v45;
+      v54 = v44;
+      v55 = 2114;
+      v56 = v45;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Action is a resolve action", buf, 0x16u);
     }
 
@@ -404,16 +396,14 @@ LABEL_53:
       v40 = objc_opt_class();
       v41 = AMSLogKey();
       *buf = 138543618;
-      v55 = v40;
-      v56 = 2114;
-      v57 = v41;
+      v54 = v40;
+      v55 = 2114;
+      v56 = v41;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Action is not a resolve action", buf, 0x16u);
     }
 
     v42 = 0;
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v42;
 }
@@ -468,7 +458,7 @@ LABEL_53:
 
 - (id)_didResolveWithResult:(id)result error:(id)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   [MEMORY[0x1E698CAA8] sendCUICallbackEventWithResolveData:resultCopy];
@@ -491,13 +481,13 @@ LABEL_53:
       v14 = objc_opt_class();
       v15 = AMSLogKey();
       *buf = 138544130;
-      v27 = v14;
-      v28 = 2114;
-      v29 = v15;
-      v30 = 2114;
-      v31 = resultCopy;
-      v32 = 2114;
-      v33 = errorCopy;
+      v26 = v14;
+      v27 = 2114;
+      v28 = v15;
+      v29 = 2114;
+      v30 = resultCopy;
+      v31 = 2114;
+      v32 = errorCopy;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Forwarding resolve payload to delegate: Result=%{public}@ Error=%{public}@", buf, 0x2Au);
     }
 
@@ -519,9 +509,9 @@ LABEL_53:
       v20 = objc_opt_class();
       v21 = AMSLogKey();
       *buf = 138543618;
-      v27 = v20;
-      v28 = 2114;
-      v29 = v21;
+      v26 = v20;
+      v27 = 2114;
+      v28 = v21;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Delegate does not handle resolve action.", buf, 0x16u);
     }
 
@@ -531,8 +521,6 @@ LABEL_53:
     v23 = AMSErrorWithFormat();
     v18 = [v22 promiseWithError:{v23, actionDelegate2}];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

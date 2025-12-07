@@ -465,7 +465,6 @@ LABEL_26:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -485,7 +484,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  cellId = self->_cellId;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -500,7 +498,6 @@ LABEL_4:
   }
 
 LABEL_31:
-  freq = self->_freq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -515,12 +512,10 @@ LABEL_5:
   }
 
 LABEL_32:
-  phyCellId = self->_phyCellId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x800) != 0)
   {
 LABEL_6:
-    valueTag = self->_valueTag;
     PBDataWriterWriteUint32Field();
   }
 
@@ -530,45 +525,43 @@ LABEL_7:
     PBDataWriterWriteSubmessage();
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v7 = self->_sibs;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v8)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_sibs;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v27;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v13 = self->_has;
-  if ((v13 & 8) != 0)
+  v11 = self->_has;
+  if ((v11 & 8) != 0)
   {
-    freqBandInd = self->_freqBandInd;
     PBDataWriterWriteUint32Field();
-    v13 = self->_has;
-    if ((v13 & 0x400) == 0)
+    v11 = self->_has;
+    if ((v11 & 0x400) == 0)
     {
 LABEL_18:
-      if ((v13 & 0x80) == 0)
+      if ((v11 & 0x80) == 0)
       {
         goto LABEL_19;
       }
@@ -582,13 +575,12 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  trackingAreaCode = self->_trackingAreaCode;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((v13 & 0x80) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x80) == 0)
   {
 LABEL_19:
-    if ((v13 & 0x100) == 0)
+    if ((v11 & 0x100) == 0)
     {
       goto LABEL_20;
     }
@@ -597,13 +589,12 @@ LABEL_19:
   }
 
 LABEL_36:
-  selPlmnMcc = self->_selPlmnMcc;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((v13 & 0x100) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x100) == 0)
   {
 LABEL_20:
-    if ((v13 & 0x10) == 0)
+    if ((v11 & 0x10) == 0)
     {
       goto LABEL_21;
     }
@@ -612,13 +603,12 @@ LABEL_20:
   }
 
 LABEL_37:
-  selPlmnMnc = self->_selPlmnMnc;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((v13 & 0x10) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x10) == 0)
   {
 LABEL_21:
-    if ((v13 & 0x200) == 0)
+    if ((v11 & 0x200) == 0)
     {
       goto LABEL_22;
     }
@@ -627,13 +617,12 @@ LABEL_21:
   }
 
 LABEL_38:
-  numMncDigits = self->_numMncDigits;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((v13 & 0x200) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x200) == 0)
   {
 LABEL_22:
-    if ((v13 & 0x20) == 0)
+    if ((v11 & 0x20) == 0)
     {
       goto LABEL_24;
     }
@@ -642,12 +631,10 @@ LABEL_22:
   }
 
 LABEL_39:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_23:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -659,7 +646,6 @@ LABEL_24:
 
   if ((*&self->_has & 0x1000) != 0)
   {
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteBOOLField();
   }
 }

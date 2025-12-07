@@ -27,20 +27,20 @@
 
 - (void)_fetchPrimaryNetworkInfo
 {
-  v76 = *MEMORY[0x277D85DE8];
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__77661;
-  v69 = __Block_byref_object_dispose__77662;
-  v70 = 0;
-  v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v75 = *MEMORY[0x277D85DE8];
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__77661;
+  v68 = __Block_byref_object_dispose__77662;
+  v69 = 0;
+  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   home = [(HMDPrimaryNetworkInterfaceMonitor *)self home];
   if (home)
   {
     networkInfoController = [(HMDPrimaryNetworkInterfaceMonitor *)self networkInfoController];
-    v50 = home;
+    v49 = home;
     selfCopy = self;
     v6 = networkInfoController == 0;
 
@@ -48,16 +48,16 @@
     {
       v11 = 0;
 LABEL_44:
-      home = v50;
+      home = v49;
       goto LABEL_45;
     }
 
-    wifiManager = [v50 wifiManager];
+    wifiManager = [v49 wifiManager];
     currentNetworkAssociation = [wifiManager currentNetworkAssociation];
 
     if (currentNetworkAssociation)
     {
-      wifiManager2 = [v50 wifiManager];
+      wifiManager2 = [v49 wifiManager];
       currentNetworkAssociation2 = [wifiManager2 currentNetworkAssociation];
       sSID = [currentNetworkAssociation2 SSID];
     }
@@ -99,26 +99,26 @@ LABEL_44:
 
     v21 = v20;
 
-    v63 = 0u;
-    v64 = 0u;
     v62 = 0u;
+    v63 = 0u;
     v61 = 0u;
+    v60 = 0u;
     v22 = v21;
     v11 = 0;
-    v23 = [v22 countByEnumeratingWithState:&v61 objects:v75 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v60 objects:v74 count:16];
     if (v23)
     {
-      v24 = *v62;
+      v24 = *v61;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v62 != v24)
+          if (*v61 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v61 + 1) + 8 * i);
+          v26 = *(*(&v60 + 1) + 8 * i);
           if ([v26 hasIsPrimary] && objc_msgSend(v26, "isPrimary"))
           {
             ifaceName = [v26 ifaceName];
@@ -127,42 +127,42 @@ LABEL_44:
           }
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v61 objects:v75 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v60 objects:v74 count:16];
       }
 
       while (v23);
     }
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v28 = v17;
-    v29 = [v28 countByEnumeratingWithState:&v57 objects:v74 count:16];
+    v29 = [v28 countByEnumeratingWithState:&v56 objects:v73 count:16];
     if (v29)
     {
-      v30 = *v58;
+      v30 = *v57;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v58 != v30)
+          if (*v57 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          v32 = *(*(&v57 + 1) + 8 * j);
+          v32 = *(*(&v56 + 1) + 8 * j);
           if ([v32 hasIfaceName])
           {
             ipv4Addresses = [v32 ipv4Addresses];
-            [v52 addObjectsFromArray:ipv4Addresses];
+            [v51 addObjectsFromArray:ipv4Addresses];
 
             ipv6Addresses = [v32 ipv6Addresses];
             [v3 addObjectsFromArray:ipv6Addresses];
           }
         }
 
-        v29 = [v28 countByEnumeratingWithState:&v57 objects:v74 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v56 objects:v73 count:16];
       }
 
       while (v29);
@@ -176,18 +176,18 @@ LABEL_44:
 
       if (!defaultPath)
       {
-        v44 = objc_autoreleasePoolPush();
-        v45 = selfCopy;
-        v46 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v43 = objc_autoreleasePoolPush();
+        v44 = selfCopy;
+        v45 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          v47 = HMFGetLogIdentifier();
+          v46 = HMFGetLogIdentifier();
           buf = 138543362;
-          v73 = v47;
-          _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_ERROR, "%{public}@No primary interface found", &buf, 0xCu);
+          v72 = v46;
+          _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@No primary interface found", &buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v44);
+        objc_autoreleasePoolPop(v43);
         goto LABEL_43;
       }
 
@@ -199,10 +199,10 @@ LABEL_44:
     enumerate_block[2] = __61__HMDPrimaryNetworkInterfaceMonitor__fetchPrimaryNetworkInfo__block_invoke;
     enumerate_block[3] = &unk_2786758C0;
     v37 = defaultPath;
-    v54 = v37;
+    v53 = v37;
     v38 = v11;
-    v55 = v38;
-    v56 = &v65;
+    v54 = v38;
+    v55 = &v64;
     nw_path_enumerate_interfaces(v37, enumerate_block);
     if (nw_path_get_ipv4_network_signature())
     {
@@ -216,7 +216,7 @@ LABEL_44:
 
     if (nw_path_get_ipv6_network_signature())
     {
-      v40 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v71 length:20];
+      v40 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v70 length:20];
     }
 
     else
@@ -225,7 +225,7 @@ LABEL_44:
     }
 
     v41 = [HMDPrimaryNetworkInterfaceDetails alloc];
-    v42 = [(HMDPrimaryNetworkInterfaceDetails *)v41 initWithPrimaryInterfaceType:v66[5] primaryInterfaceName:v38 wifiSSID:sSID primaryIPv4Addresses:v52 primaryIPv6Addresses:v3 primaryIPv4NetworkSignature:v39 primaryIPv6NetworkSignature:v40];
+    v42 = [(HMDPrimaryNetworkInterfaceDetails *)v41 initWithPrimaryInterfaceType:v65[5] primaryInterfaceName:v38 wifiSSID:sSID primaryIPv4Addresses:v51 primaryIPv6Addresses:v3 primaryIPv4NetworkSignature:v39 primaryIPv6NetworkSignature:v40];
     [(HMDPrimaryNetworkInterfaceMonitor *)selfCopy _updatePrimaryNetworkWithInterfaceDetails:v42];
 
 LABEL_43:
@@ -236,8 +236,7 @@ LABEL_43:
   v11 = 0;
 LABEL_45:
 
-  _Block_object_dispose(&v65, 8);
-  v43 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v64, 8);
 }
 
 uint64_t __61__HMDPrimaryNetworkInterfaceMonitor__fetchPrimaryNetworkInfo__block_invoke(uint64_t a1, void *a2)
@@ -260,7 +259,7 @@ uint64_t __61__HMDPrimaryNetworkInterfaceMonitor__fetchPrimaryNetworkInfo__block
 
 - (void)_updatePrimaryNetworkWithInterfaceDetails:(id)details
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   home = [(HMDPrimaryNetworkInterfaceMonitor *)self home];
   if (home)
@@ -274,9 +273,9 @@ uint64_t __61__HMDPrimaryNetworkInterfaceMonitor__fetchPrimaryNetworkInfo__block
       v9 = HMFGetLogIdentifier();
       dictionaryRepresentation = [detailsCopy dictionaryRepresentation];
       *buf = 138543618;
-      v33 = v9;
-      v34 = 2112;
-      v35 = dictionaryRepresentation;
+      v32 = v9;
+      v33 = 2112;
+      v34 = dictionaryRepresentation;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Updated interface details: %@", buf, 0x16u);
     }
 
@@ -302,21 +301,21 @@ uint64_t __61__HMDPrimaryNetworkInterfaceMonitor__fetchPrimaryNetworkInfo__block
             interfaceDetails2 = [(HMDPrimaryNetworkInterfaceMonitor *)v14 interfaceDetails];
             generateStatusKitPayload = [interfaceDetails2 generateStatusKitPayload];
             *buf = 138543618;
-            v33 = v16;
-            v34 = 2112;
-            v35 = generateStatusKitPayload;
+            v32 = v16;
+            v33 = 2112;
+            v34 = generateStatusKitPayload;
             _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Updating statuskit with hash representation: %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(context);
           interfaceDetails3 = [(HMDPrimaryNetworkInterfaceMonitor *)v14 interfaceDetails];
           generateStatusKitPayload2 = [interfaceDetails3 generateStatusKitPayload];
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __79__HMDPrimaryNetworkInterfaceMonitor__updatePrimaryNetworkWithInterfaceDetails___block_invoke;
-          v31[3] = &unk_27868A250;
-          v31[4] = v14;
-          [residentStatusChannel publishDomain:0 data:generateStatusKitPayload2 completion:v31];
+          v30[0] = MEMORY[0x277D85DD0];
+          v30[1] = 3221225472;
+          v30[2] = __79__HMDPrimaryNetworkInterfaceMonitor__updatePrimaryNetworkWithInterfaceDetails___block_invoke;
+          v30[3] = &unk_27868A250;
+          v30[4] = v14;
+          [residentStatusChannel publishDomain:0 data:generateStatusKitPayload2 completion:v30];
 
           v21 = residentStatusChannel;
         }
@@ -328,7 +327,7 @@ uint64_t __61__HMDPrimaryNetworkInterfaceMonitor__fetchPrimaryNetworkInfo__block
           {
             v27 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v33 = v27;
+            v32 = v27;
             _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@No resident status channel present, not publishing", buf, 0xCu);
           }
 
@@ -347,7 +346,7 @@ uint64_t __61__HMDPrimaryNetworkInterfaceMonitor__fetchPrimaryNetworkInfo__block
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v33 = v25;
+        v32 = v25;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@No change in network data compared to StatusKit data, not publishing", buf, 0xCu);
       }
 
@@ -361,13 +360,11 @@ uint64_t __61__HMDPrimaryNetworkInterfaceMonitor__fetchPrimaryNetworkInfo__block
   {
     [(HMDPrimaryNetworkInterfaceMonitor *)self stop];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HMDPrimaryNetworkInterfaceMonitor__updatePrimaryNetworkWithInterfaceDetails___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -378,24 +375,24 @@ void __79__HMDPrimaryNetworkInterfaceMonitor__updatePrimaryNetworkWithInterfaceD
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Failed to publish data : %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_229538000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Published network information data to SK";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -404,12 +401,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePathMonitorUpdate:(id)update
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -417,15 +413,13 @@ LABEL_6:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Path monitor reported a change", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Path monitor reported a change", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDPrimaryNetworkInterfaceMonitor *)selfCopy _fetchPrimaryNetworkInfo];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -441,7 +435,7 @@ LABEL_6:
 
 void __41__HMDPrimaryNetworkInterfaceMonitor_stop__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isSCDynamicStoreActive])
   {
     [*(a1 + 32) cleanSCDynamicStore];
@@ -463,9 +457,9 @@ void __41__HMDPrimaryNetworkInterfaceMonitor_stop__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopped monitoring default network path", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopped monitoring default network path", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -480,8 +474,6 @@ void __41__HMDPrimaryNetworkInterfaceMonitor_stop__block_invoke(uint64_t a1)
     v12 = [MEMORY[0x277CCAB98] defaultCenter];
     [v12 removeObserver:*(a1 + 32) name:*MEMORY[0x277D0F768] object:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -497,7 +489,7 @@ void __41__HMDPrimaryNetworkInterfaceMonitor_stop__block_invoke(uint64_t a1)
 
 void __42__HMDPrimaryNetworkInterfaceMonitor_start__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) home];
   if (!v2)
   {
@@ -536,7 +528,7 @@ LABEL_9:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v13;
+        v27 = v13;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting to monitor default network path", buf, 0xCu);
       }
 
@@ -555,7 +547,7 @@ LABEL_9:
         update_handler[1] = 3221225472;
         update_handler[2] = __42__HMDPrimaryNetworkInterfaceMonitor_start__block_invoke_282;
         update_handler[3] = &unk_278675898;
-        objc_copyWeak(&v26, buf);
+        objc_copyWeak(&v25, buf);
         nw_path_monitor_set_update_handler(v16, update_handler);
 
         v17 = [*(a1 + 32) pathMonitor];
@@ -565,7 +557,7 @@ LABEL_9:
         v19 = [*(a1 + 32) pathMonitor];
         nw_path_monitor_start(v19);
 
-        objc_destroyWeak(&v26);
+        objc_destroyWeak(&v25);
         objc_destroyWeak(buf);
         goto LABEL_9;
       }
@@ -577,7 +569,7 @@ LABEL_9:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v23;
+        v27 = v23;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to start network path monitor", buf, 0xCu);
       }
 
@@ -594,8 +586,6 @@ LABEL_10:
   }
 
 LABEL_16:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __42__HMDPrimaryNetworkInterfaceMonitor_start__block_invoke_282(uint64_t a1, void *a2)
@@ -607,98 +597,96 @@ void __42__HMDPrimaryNetworkInterfaceMonitor_start__block_invoke_282(uint64_t a1
 
 - (void)createSCDynamicStore
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.version = 0;
-  memset(&v18.retain, 0, 24);
-  v18.info = self;
-  v3 = SCDynamicStoreCreate(*MEMORY[0x277CBECE8], @"HMDPrimaryNetworkInterfaceMonitor", networkChangeCallback, &v18);
+  v20 = *MEMORY[0x277D85DE8];
+  v17.version = 0;
+  memset(&v17.retain, 0, 24);
+  v17.info = self;
+  v3 = SCDynamicStoreCreate(*MEMORY[0x277CBECE8], @"HMDPrimaryNetworkInterfaceMonitor", networkChangeCallback, &v17);
   self->scDynamicStore = v3;
-  if (v3)
+  if (!v3)
   {
-    if (SCDynamicStoreSetNotificationKeys(v3, 0, &unk_283E75728))
+    v7 = objc_autoreleasePoolPush();
+    selfCopy3 = self;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      scDynamicStore = self->scDynamicStore;
-      pathMonitorQueue = [(HMDPrimaryNetworkInterfaceMonitor *)self pathMonitorQueue];
-      v6 = SCDynamicStoreSetDispatchQueue(scDynamicStore, pathMonitorQueue);
+      v11 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v19 = v11;
+      v12 = "%{public}@Failed to create SCDynamicStore";
+      v13 = v10;
+      v14 = OS_LOG_TYPE_ERROR;
+      goto LABEL_8;
+    }
 
-      v7 = objc_autoreleasePoolPush();
-      selfCopy3 = self;
-      v9 = HMFGetOSLogHandle();
-      v10 = v9;
-      if (v6)
+LABEL_9:
+
+    objc_autoreleasePoolPop(v7);
+    return;
+  }
+
+  if (SCDynamicStoreSetNotificationKeys(v3, 0, &unk_283E75728))
+  {
+    scDynamicStore = self->scDynamicStore;
+    pathMonitorQueue = [(HMDPrimaryNetworkInterfaceMonitor *)self pathMonitorQueue];
+    v6 = SCDynamicStoreSetDispatchQueue(scDynamicStore, pathMonitorQueue);
+
+    v7 = objc_autoreleasePoolPush();
+    selfCopy3 = self;
+    v9 = HMFGetOSLogHandle();
+    v10 = v9;
+    if (v6)
+    {
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-        {
-          v11 = HMFGetLogIdentifier();
-          *buf = 138543362;
-          v20 = v11;
-          v12 = "%{public}@Started network interface monitoring using SCDynamicStore";
-          v13 = v10;
-          v14 = OS_LOG_TYPE_INFO;
+        v11 = HMFGetLogIdentifier();
+        *buf = 138543362;
+        v19 = v11;
+        v12 = "%{public}@Started network interface monitoring using SCDynamicStore";
+        v13 = v10;
+        v14 = OS_LOG_TYPE_INFO;
 LABEL_8:
-          _os_log_impl(&dword_229538000, v13, v14, v12, buf, 0xCu);
-
-          goto LABEL_9;
-        }
+        _os_log_impl(&dword_229538000, v13, v14, v12, buf, 0xCu);
 
         goto LABEL_9;
       }
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        v15 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v20 = v15;
-        v16 = "%{public}@Failed to set dispatch queue";
-        goto LABEL_14;
-      }
+      goto LABEL_9;
     }
 
-    else
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v7 = objc_autoreleasePoolPush();
-      selfCopy3 = self;
-      v10 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v15 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v20 = v15;
-        v16 = "%{public}@Failed to set notification keys";
-LABEL_14:
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
-      }
+      v15 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v19 = v15;
+      v16 = "%{public}@Failed to set dispatch queue";
+      goto LABEL_14;
     }
-
-    objc_autoreleasePoolPop(v7);
-    [(HMDPrimaryNetworkInterfaceMonitor *)selfCopy3 cleanSCDynamicStore];
-    goto LABEL_16;
   }
 
-  v7 = objc_autoreleasePoolPush();
-  selfCopy3 = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  else
   {
-    v11 = HMFGetLogIdentifier();
-    *buf = 138543362;
-    v20 = v11;
-    v12 = "%{public}@Failed to create SCDynamicStore";
-    v13 = v10;
-    v14 = OS_LOG_TYPE_ERROR;
-    goto LABEL_8;
+    v7 = objc_autoreleasePoolPush();
+    selfCopy3 = self;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v15 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v19 = v15;
+      v16 = "%{public}@Failed to set notification keys";
+LABEL_14:
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
+    }
   }
-
-LABEL_9:
 
   objc_autoreleasePoolPop(v7);
-LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
+  [(HMDPrimaryNetworkInterfaceMonitor *)selfCopy3 cleanSCDynamicStore];
 }
 
 - (void)cleanSCDynamicStore
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   scDynamicStore = self->scDynamicStore;
   if (scDynamicStore)
   {
@@ -712,15 +700,13 @@ LABEL_16:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopped network interface monitoring using SCDynamicStore", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopped network interface monitoring using SCDynamicStore", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleWifiCurrentNetworkChangedNotification:(id)notification
@@ -736,22 +722,20 @@ LABEL_16:
 
 uint64_t __82__HMDPrimaryNetworkInterfaceMonitor__handleWifiCurrentNetworkChangedNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Wifi current network configuration changed. Fetching primary network information.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Wifi current network configuration changed. Fetching primary network information.", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _fetchPrimaryNetworkInfo];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _fetchPrimaryNetworkInfo];
 }
 
 - (void)_handleResidentWasUpdatedNotification:(id)notification
@@ -770,7 +754,7 @@ uint64_t __82__HMDPrimaryNetworkInterfaceMonitor__handleWifiCurrentNetworkChange
 
 void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"HMDResidentDeviceManagerResidentDeviceNotificationKey"];
 
@@ -795,9 +779,9 @@ void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotificati
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Resident device updated, check if StatusKit network data needs an update", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Resident device updated, check if StatusKit network data needs an update", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -805,13 +789,11 @@ void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotificati
     v11 = [v10 interfaceDetails];
     [v10 _updatePrimaryNetworkWithInterfaceDetails:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldAssertOnChannelWithInterfaceDetails:(id)details
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   home = [(HMDPrimaryNetworkInterfaceMonitor *)self home];
   v6 = home;
@@ -831,13 +813,13 @@ void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotificati
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v18 = 138543874;
-        v19 = v15;
-        v20 = 2112;
-        v21 = v8;
-        v22 = 2112;
-        v23 = generateStatusKitPayload;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@StatusKit data: %@, updated network data: %@", &v18, 0x20u);
+        v17 = 138543874;
+        v18 = v15;
+        v19 = 2112;
+        v20 = v8;
+        v21 = 2112;
+        v22 = generateStatusKitPayload;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@StatusKit data: %@, updated network data: %@", &v17, 0x20u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -850,14 +832,13 @@ void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotificati
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)statusKitNetworkDataForDevice:(id)device shouldIncludeAssertionTimeStamp:(BOOL)stamp
 {
   stampCopy = stamp;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   home = [(HMDPrimaryNetworkInterfaceMonitor *)self home];
   if (home)
@@ -871,28 +852,28 @@ void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotificati
       if (residentStatusChannel)
       {
         [residentStatusChannel dataForDomain:0];
+        v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
-        v12 = v37 = 0u;
-        v13 = [v12 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v12 = v36 = 0u;
+        v13 = [v12 countByEnumeratingWithState:&v33 objects:v39 count:16];
         if (v13)
         {
           v14 = v13;
-          v31 = stampCopy;
-          v32 = v11;
-          v33 = residentDeviceManager;
-          v15 = *v35;
+          v30 = stampCopy;
+          v31 = v11;
+          v32 = residentDeviceManager;
+          v15 = *v34;
           while (2)
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v35 != v15)
+              if (*v34 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = *(*(&v34 + 1) + 8 * i);
+              v17 = *(*(&v33 + 1) + 8 * i);
               idsIdentifier2 = [v17 idsIdentifier];
               v19 = [idsIdentifier isEqual:idsIdentifier2];
 
@@ -904,8 +885,8 @@ void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotificati
                 if (v23)
                 {
                   v20 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:v23 copyItems:1];
-                  residentDeviceManager = v33;
-                  if (v31)
+                  residentDeviceManager = v32;
+                  if (v30)
                   {
                     assertionTime = [v17 assertionTime];
                     [v20 setObject:assertionTime forKeyedSubscript:@"AssertionTimeStamp"];
@@ -915,14 +896,14 @@ void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotificati
                 else
                 {
                   v20 = 0;
-                  residentDeviceManager = v33;
+                  residentDeviceManager = v32;
                 }
 
                 goto LABEL_24;
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v34 objects:v40 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v33 objects:v39 count:16];
             if (v14)
             {
               continue;
@@ -932,9 +913,9 @@ void __75__HMDPrimaryNetworkInterfaceMonitor__handleResidentWasUpdatedNotificati
           }
 
           v20 = 0;
-          residentDeviceManager = v33;
+          residentDeviceManager = v32;
 LABEL_24:
-          v11 = v32;
+          v11 = v31;
         }
 
         else
@@ -952,7 +933,7 @@ LABEL_24:
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v39 = v28;
+          v38 = v28;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@No resident status channel present, not fetching data", buf, 0xCu);
         }
 
@@ -975,14 +956,12 @@ LABEL_24:
     v21 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -990,7 +969,7 @@ LABEL_24:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@dealloc", buf, 0xCu);
   }
 
@@ -1010,20 +989,19 @@ LABEL_24:
     [(HMDPrimaryNetworkInterfaceMonitor *)selfCopy setPathMonitor:0];
   }
 
-  v10.receiver = selfCopy;
-  v10.super_class = HMDPrimaryNetworkInterfaceMonitor;
-  [(HMDPrimaryNetworkInterfaceMonitor *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = selfCopy;
+  v9.super_class = HMDPrimaryNetworkInterfaceMonitor;
+  [(HMDPrimaryNetworkInterfaceMonitor *)&v9 dealloc];
 }
 
 - (HMDPrimaryNetworkInterfaceMonitor)initWithHome:(id)home networkInfoController:(id)controller
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   controllerCopy = controller;
-  v25.receiver = self;
-  v25.super_class = HMDPrimaryNetworkInterfaceMonitor;
-  v8 = [(HMDPrimaryNetworkInterfaceMonitor *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = HMDPrimaryNetworkInterfaceMonitor;
+  v8 = [(HMDPrimaryNetworkInterfaceMonitor *)&v24 init];
   v9 = v8;
   if (v8)
   {
@@ -1053,12 +1031,11 @@ LABEL_24:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v27 = v22;
+    v26 = v22;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@init", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v19);
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -1076,10 +1053,9 @@ LABEL_24:
 
 void __48__HMDPrimaryNetworkInterfaceMonitor_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v26_77727;
-  logCategory__hmf_once_v26_77727 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v26_77727;
+  logCategory__hmf_once_v26_77727 = v0;
 }
 
 @end

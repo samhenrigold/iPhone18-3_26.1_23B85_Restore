@@ -3,6 +3,7 @@
 - (BOOL)_allowMultiPhrase:(id)phrase forceSkipEngineVersionCheck:(BOOL)check;
 - (id)RTModelWithFallbackLanguage:(id)language;
 - (id)_buildRTModelWithBlobConfig:(id)config requestOptions:(id)options;
+- (id)_getFilteredAccessoryRTBlobListForRequestOptions:(id)options accessoryBlobs:(id)blobs forceSkipEngineVersionCheck:(BOOL)check;
 - (id)_rtModelWithRequestOptions:(id)options accessoryBlobs:(id)blobs;
 - (id)_splitBlobsByPhraseType:(id)type;
 - (id)_userSelectedPhraseTypeToRTModelPhraseType:(id)type;
@@ -155,6 +156,57 @@
 LABEL_15:
 
   return v22;
+}
+
+- (id)_getFilteredAccessoryRTBlobListForRequestOptions:(id)options accessoryBlobs:(id)blobs forceSkipEngineVersionCheck:(BOOL)check
+{
+  checkCopy = check;
+  optionsCopy = options;
+  v9 = [(CSAsset *)self _splitBlobsByPhraseType:blobs];
+  userSelectedPhraseType = [optionsCopy userSelectedPhraseType];
+  v11 = [(CSAsset *)self _userSelectedPhraseTypeToRTModelPhraseType:userSelectedPhraseType];
+
+  if ([(CSAsset *)self _allowMultiPhrase:optionsCopy forceSkipEngineVersionCheck:checkCopy])
+  {
+    if (!v11)
+    {
+      v12 = 0;
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v13 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 136315650;
+      v17 = "[CSAsset(RTModel) _getFilteredAccessoryRTBlobListForRequestOptions:accessoryBlobs:forceSkipEngineVersionCheck:]";
+      v18 = 1024;
+      *v19 = 0;
+      *&v19[4] = 2112;
+      *&v19[6] = optionsCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s Falling back to HSOnly phrase - Multi-phrase allowed: %d, request options: %@", &v16, 0x1Cu);
+    }
+
+    v11 = @"HSOnly";
+  }
+
+  v12 = [v9 objectForKeyedSubscript:v11];
+LABEL_8:
+  v14 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
+  {
+    v16 = 136315651;
+    v17 = "[CSAsset(RTModel) _getFilteredAccessoryRTBlobListForRequestOptions:accessoryBlobs:forceSkipEngineVersionCheck:]";
+    v18 = 2113;
+    *v19 = v11;
+    *&v19[8] = 2113;
+    *&v19[10] = v12;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s Selected phrase type: %{private}@ accessory RTBlobs: %{private}@", &v16, 0x20u);
+  }
+
+  return v12;
 }
 
 - (id)_splitBlobsByPhraseType:(id)type
@@ -467,26 +519,16 @@ LABEL_9:
   }
 
   dictionary = [(CSAsset *)self dictionary];
-  if (!dictionary)
+  if (dictionary && (v9 = dictionary, -[CSAsset dictionary](self, "dictionary"), v10 = objc_claimAutoreleasedReturnValue(), [v10 objectForKeyedSubscript:v7], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v9, v11))
   {
-    goto LABEL_7;
-  }
-
-  v9 = dictionary;
-  dictionary2 = [(CSAsset *)self dictionary];
-  v11 = [dictionary2 objectForKeyedSubscript:v7];
-
-  if (v11)
-  {
-    dictionary3 = [(CSAsset *)self dictionary];
-    v13 = [dictionary3 objectForKeyedSubscript:v7];
+    dictionary2 = [(CSAsset *)self dictionary];
+    v13 = [dictionary2 objectForKeyedSubscript:v7];
 
     v14 = [(CSAsset *)self _rtModelWithRequestOptions:optionsCopy accessoryBlobs:v13];
   }
 
   else
   {
-LABEL_7:
     v15 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
@@ -505,24 +547,14 @@ LABEL_7:
 {
   optionsCopy = options;
   dictionary = [(CSAsset *)self dictionary];
-  if (!dictionary)
+  if (!dictionary || (v6 = dictionary, -[CSAsset dictionary](self, "dictionary"), v7 = objc_claimAutoreleasedReturnValue(), [v7 objectForKeyedSubscript:@"rtblobs"], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, !v8))
   {
-    goto LABEL_18;
-  }
-
-  v6 = dictionary;
-  dictionary2 = [(CSAsset *)self dictionary];
-  v8 = [dictionary2 objectForKeyedSubscript:@"rtblobs"];
-
-  if (!v8)
-  {
-LABEL_18:
     v25 = 0;
     goto LABEL_23;
   }
 
-  dictionary3 = [(CSAsset *)self dictionary];
-  v10 = [dictionary3 objectForKeyedSubscript:@"rtblobs"];
+  dictionary2 = [(CSAsset *)self dictionary];
+  v10 = [dictionary2 objectForKeyedSubscript:@"rtblobs"];
   selfCopy = self;
   v30 = optionsCopy;
   v11 = [(CSAsset *)self _getFilteredAccessoryRTBlobListForRequestOptions:optionsCopy accessoryBlobs:v10 forceSkipEngineVersionCheck:1];

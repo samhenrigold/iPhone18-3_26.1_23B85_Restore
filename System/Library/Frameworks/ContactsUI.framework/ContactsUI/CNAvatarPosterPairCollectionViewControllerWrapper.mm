@@ -29,10 +29,10 @@
   contactCopy = contact;
   profileCopy = profile;
   swift_unknownObjectRetain();
-  v13 = sub_199B6AA90(configurationCopy, contactCopy, profileCopy, mode);
+  v14 = sub_199B6AA90(configurationCopy, contactCopy, profileCopy, mode, delegate);
 
   swift_unknownObjectRelease();
-  return v13;
+  return v14;
 }
 
 - (_TtC10ContactsUI49CNAvatarPosterPairCollectionViewControllerWrapper)init

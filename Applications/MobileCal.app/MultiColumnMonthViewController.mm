@@ -2261,18 +2261,16 @@ LABEL_7:
     v4 = v5;
   }
 
-  EKUIScaleFactor();
-  v7 = v4 + 2.0 / v6;
+  v6 = v4 + 2.0 / EKUIScaleFactor();
   traitCollection = [(MultiColumnMonthViewController *)self traitCollection];
-  v9 = EKUIUsesLargeTextLayout();
+  v8 = EKUIUsesLargeTextLayout();
 
-  if (v9)
+  if (v8)
   {
-    EKUIScaleFactor();
-    return v7 + 1.0 / v10;
+    return v6 + 1.0 / EKUIScaleFactor();
   }
 
-  return v7;
+  return v6;
 }
 
 - (int64_t)eventCountDisplayedForDate:(id)date
@@ -2523,11 +2521,11 @@ LABEL_8:
   v9 = v8;
   v11 = v10;
 
-  v31.origin.x = v5;
-  v31.origin.y = v7;
-  v31.size.width = v9;
-  v31.size.height = v11;
-  if (CGRectIsEmpty(v31))
+  v30.origin.x = v5;
+  v30.origin.y = v7;
+  v30.size.width = v9;
+  v30.size.height = v11;
+  if (CGRectIsEmpty(v30))
   {
     return;
   }
@@ -2545,27 +2543,27 @@ LABEL_8:
 
     else
     {
-      v32.origin.x = v5;
-      v32.origin.y = v7;
-      v32.size.width = v9;
-      v32.size.height = v11;
-      MidX = CGRectGetMidX(v32);
+      v31.origin.x = v5;
+      v31.origin.y = v7;
+      v31.size.width = v9;
+      v31.size.height = v11;
+      MidX = CGRectGetMidX(v31);
       if (CalInterfaceIsLeftToRight())
       {
-        v33.origin.x = v5;
-        v33.origin.y = v7;
-        v33.size.width = v9;
-        v33.size.height = v11;
-        MinX = CGRectGetMidX(v33);
+        v32.origin.x = v5;
+        v32.origin.y = v7;
+        v32.size.width = v9;
+        v32.size.height = v11;
+        MinX = CGRectGetMidX(v32);
         goto LABEL_9;
       }
     }
 
-    v34.origin.x = v5;
-    v34.origin.y = v7;
-    v34.size.width = v9;
-    v34.size.height = v11;
-    MinX = CGRectGetMinX(v34);
+    v33.origin.x = v5;
+    v33.origin.y = v7;
+    v33.size.width = v9;
+    v33.size.height = v11;
+    MinX = CGRectGetMinX(v33);
     goto LABEL_9;
   }
 
@@ -2575,40 +2573,39 @@ LABEL_8:
 LABEL_9:
   v18 = MinX;
   [*(&self->_selectedMonthWeekView + 1) setFrame:{MinX, v7, MidX, v11}];
-  EKUIScaleFactor();
-  v20 = v19;
-  v21 = v11;
-  v22 = v7;
+  v19 = EKUIScaleFactor();
+  v20 = v11;
+  v21 = v7;
   if (CalSystemSolariumEnabled())
   {
     view2 = [(MultiColumnMonthViewController *)self view];
     [view2 safeAreaInsets];
-    v22 = v24;
+    v21 = v23;
 
-    v21 = v11 - v22;
+    v20 = v11 - v21;
   }
 
-  v25 = 1.0 / v20;
+  v24 = 1.0 / v19;
   IsLeftToRight = CalInterfaceIsLeftToRight();
   MaxX = v18;
   if ((IsLeftToRight & 1) == 0)
   {
-    v35.origin.x = v18;
-    v35.origin.y = v7;
-    v35.size.width = MidX;
-    v35.size.height = v11;
-    MaxX = CGRectGetMaxX(v35);
+    v34.origin.x = v18;
+    v34.origin.y = v7;
+    v34.size.width = MidX;
+    v34.size.height = v11;
+    MaxX = CGRectGetMaxX(v34);
   }
 
-  [*(&self->_weekCalculationCalendar + 1) setFrame:{MaxX, v22, v25, v21}];
-  v36.origin.x = v18;
-  v36.origin.y = v7;
-  v36.size.width = MidX;
-  v36.size.height = v11;
-  v28 = CGRectGetMaxX(v36);
-  v29 = *(&self->_dividerLineBetweenListAndMonth + 1);
+  [*(&self->_weekCalculationCalendar + 1) setFrame:{MaxX, v21, v24, v20}];
+  v35.origin.x = v18;
+  v35.origin.y = v7;
+  v35.size.width = MidX;
+  v35.size.height = v11;
+  v27 = CGRectGetMaxX(v35);
+  v28 = *(&self->_dividerLineBetweenListAndMonth + 1);
 
-  [v29 setFrame:{v28, v22, v25, v21}];
+  [v28 setFrame:{v27, v21, v24, v20}];
 }
 
 - (void)_autoSelectEvent

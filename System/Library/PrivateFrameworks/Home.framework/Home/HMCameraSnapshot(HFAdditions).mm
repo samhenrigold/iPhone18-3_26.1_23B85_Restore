@@ -29,11 +29,11 @@
 
 - (id)hf_localizedAge
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   captureDate = [self captureDate];
-  v4 = [v2 hf_localizedAgeForCaptureDate:captureDate];
+  v5 = [v3 hf_localizedAgeForCaptureDate:captureDate];
 
-  return v4;
+  return v5;
 }
 
 @end

@@ -161,7 +161,7 @@ void __55__AXBSpeakThisManager__notifySpeakThisOfSettingsChange__block_invoke_2_
 
 void __71__AXBSpeakThisManager__startWatchingForDeathOfAccessibilityUIServerPID__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   [*(*(a1 + 32) + 16) invalidate];
   v2 = *(a1 + 32);
   v3 = *(v2 + 16);
@@ -175,10 +175,10 @@ void __71__AXBSpeakThisManager__startWatchingForDeathOfAccessibilityUIServerPID_
       goto LABEL_11;
     }
 
-    LOWORD(v13[0]) = 0;
+    LOWORD(v12[0]) = 0;
     v11 = "Not watching for death of AXUIServer, because Speak Screen was not enabled.";
 LABEL_10:
-    _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, v11, v13, 2u);
+    _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, v11, v12, 2u);
     goto LABEL_11;
   }
 
@@ -192,7 +192,7 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    LOWORD(v13[0]) = 0;
+    LOWORD(v12[0]) = 0;
     v11 = "Not watching for death of AXUIServer, because PID unavailable.";
     goto LABEL_10;
   }
@@ -200,9 +200,9 @@ LABEL_10:
   if (v6)
   {
     v7 = *(a1 + 40);
-    v13[0] = 67109120;
-    v13[1] = v7;
-    _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Start watching for death of AXUIServer: %i", v13, 8u);
+    v12[0] = 67109120;
+    v12[1] = v7;
+    _os_log_impl(&dword_29BBBD000, v5, OS_LOG_TYPE_DEFAULT, "Start watching for death of AXUIServer: %i", v12, 8u);
   }
 
   v8 = objc_alloc(MEMORY[0x29EDBFBE0]);
@@ -211,8 +211,6 @@ LABEL_10:
   v5 = *(v10 + 16);
   *(v10 + 16) = v9;
 LABEL_11:
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __71__AXBSpeakThisManager__startWatchingForDeathOfAccessibilityUIServerPID__block_invoke_302()
@@ -229,11 +227,10 @@ uint64_t __71__AXBSpeakThisManager__startWatchingForDeathOfAccessibilityUIServer
 
 void __55__AXBSpeakThisManager__notifySpeakThisOfSettingsChange__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error notifying SpeakThis of setting change: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BBBD000, a2, OS_LOG_TYPE_ERROR, "Error notifying SpeakThis of setting change: %@", &v2, 0xCu);
 }
 
 @end

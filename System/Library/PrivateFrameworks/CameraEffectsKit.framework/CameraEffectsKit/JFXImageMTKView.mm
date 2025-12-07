@@ -222,9 +222,11 @@ void __45__JFXImageMTKView_JFXImageMTKView_commonInit__block_invoke()
     else
     {
       CVMetalTextureCacheCreateTextureFromImage(v8, textureCache, cvPixelBuffer, 0, MTLPixelFormatBGRA8Unorm, Width, Height, 0, &self->_texture_RGBA);
-      self->_mtlTexture_RGBA = CVMetalTextureGetTexture(self->_texture_RGBA);
+      v15 = CVMetalTextureGetTexture(self->_texture_RGBA);
+      mtlTexture_RGBA = self->_mtlTexture_RGBA;
+      self->_mtlTexture_RGBA = v15;
 
-      MEMORY[0x2821F96F8]();
+      MEMORY[0x2821F96F8](v15, mtlTexture_RGBA);
     }
   }
 

@@ -32,23 +32,21 @@
 
 void __47__EKPersistentAttendee_defaultPropertiesToLoad__block_invoke(uint64_t a1)
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8.receiver = *(a1 + 32);
-  v8.super_class = &OBJC_METACLASS___EKPersistentAttendee;
-  v1 = objc_msgSendSuper2(&v8, sel_defaultPropertiesToLoad);
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7.receiver = *(a1 + 32);
+  v7.super_class = &OBJC_METACLASS___EKPersistentAttendee;
+  v1 = objc_msgSendSuper2(&v7, sel_defaultPropertiesToLoad);
   v2 = *MEMORY[0x1E6992528];
-  v9[0] = *MEMORY[0x1E6992520];
-  v9[1] = v2;
+  v8[0] = *MEMORY[0x1E6992520];
+  v8[1] = v2;
   v3 = *MEMORY[0x1E6992B80];
-  v9[2] = *MEMORY[0x1E6992538];
-  v9[3] = v3;
-  v9[4] = *MEMORY[0x1E6992510];
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
+  v8[2] = *MEMORY[0x1E6992538];
+  v8[3] = v3;
+  v8[4] = *MEMORY[0x1E6992510];
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:5];
   v5 = [v1 arrayByAddingObjectsFromArray:v4];
   v6 = defaultPropertiesToLoad_defaultPropertiesToLoad_4;
   defaultPropertiesToLoad_defaultPropertiesToLoad_4 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)relations
@@ -141,21 +139,19 @@ void __33__EKPersistentAttendee_relations__block_invoke()
 
 void __50__EKPersistentAttendee_propertiesToUnloadOnCommit__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8.receiver = *(a1 + 32);
-  v8.super_class = &OBJC_METACLASS___EKPersistentAttendee;
-  v1 = objc_msgSendSuper2(&v8, sel_propertiesToUnloadOnCommit);
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7.receiver = *(a1 + 32);
+  v7.super_class = &OBJC_METACLASS___EKPersistentAttendee;
+  v1 = objc_msgSendSuper2(&v7, sel_propertiesToUnloadOnCommit);
   v2 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_0;
   propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_0 = v1;
 
   v3 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_0;
-  v9[0] = *MEMORY[0x1E6992510];
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = *MEMORY[0x1E6992510];
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v5 = [v3 arrayByAddingObjectsFromArray:v4];
   v6 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_0;
   propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_0 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

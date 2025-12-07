@@ -72,21 +72,22 @@
 
 - (void)main
 {
-  if (ICVerboseSearchLogging())
+  v3 = ICVerboseSearchLogging();
+  if (v3)
   {
-    v3 = os_log_create("com.apple.notes", "SearchIndexer");
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v5 = os_log_create("com.apple.notes", "SearchIndexer");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [ICIndexItemsOperation main];
     }
   }
 
-  if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+  if ((ICUseCoreDataCoreSpotlightIntegration(v3, v4) & 1) == 0)
   {
     if ([(ICIndexItemsOperation *)self isCancelled])
     {
-      v4 = os_log_create("com.apple.notes", "SearchIndexer");
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v6 = os_log_create("com.apple.notes", "SearchIndexer");
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         [ICIndexItemsOperation main];
       }
@@ -100,8 +101,8 @@
         return;
       }
 
-      v4 = os_log_create("com.apple.notes", "SearchIndexer");
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v6 = os_log_create("com.apple.notes", "SearchIndexer");
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         [ICIndexItemsOperation main];
       }

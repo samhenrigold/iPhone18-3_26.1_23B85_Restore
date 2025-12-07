@@ -229,7 +229,16 @@
 
 + (BOOL)isAvailable
 {
-  if (AXProcessIsSpringBoard() & 1) == 0 && ((AXInPreboardScenario() & 1) != 0 || (AXInCheckerBoardScenario()) || _AXSMossdeepEnabled() || _AXSIsNonUIBuild())
+  if ((AXProcessIsSpringBoard() & 1) == 0)
+  {
+    v5 = AXInPreboardScenario();
+    if (v5 & 1) != 0 || (AXInCheckerBoardScenario(v5, v6))
+    {
+      return 0;
+    }
+  }
+
+  if (_AXSMossdeepEnabled() || _AXSIsNonUIBuild())
   {
     return 0;
   }
@@ -331,9 +340,11 @@ void __29__AXSpringBoardServer_server__block_invoke()
 
 uint64_t __29__AXSpringBoardServer_server__block_invoke_434(uint64_t a1)
 {
-  server_Server_0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = server_Server_0;
+  server_Server_0 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (AXSpringBoardServer)init
@@ -529,18 +540,17 @@ uint64_t __42__AXSpringBoardServer__handleReplyResult___block_invoke(uint64_t a1
 
 - (void)_didConnectToServer
 {
-  v5.receiver = self;
-  v5.super_class = AXSpringBoardServer;
-  [(AXServer *)&v5 _didConnectToServer];
+  v4.receiver = self;
+  v4.super_class = AXSpringBoardServer;
+  [(AXServer *)&v4 _didConnectToServer];
   server = [(AXServer *)self server];
   [server setHandlerWithTarget:self selector:sel__handleReplyResult_ forKey:5000];
   [server setHandlerWithTarget:self selector:sel__handleReachabilityResult_ forKey:5003];
   [server setHandlerWithTarget:self selector:sel__handleMediaPlayingResult_ forKey:5004];
   if ([(AXSpringBoardServer *)self _shouldValidateEntitlements])
   {
-    LOBYTE(v4) = 1;
-    _AXLogWithFacility();
-    [server addPossibleRequiredEntitlement:@"com.apple.accessibility.SpringBoard" forMessageWithKey:{5000, v4, @"Validating SB reply messages"}];
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Validating SB reply messages");
+    [server addPossibleRequiredEntitlement:@"com.apple.accessibility.SpringBoard" forMessageWithKey:5000];
     [server addPossibleRequiredEntitlement:@"com.apple.accessibility.SpringBoard" forMessageWithKey:5002];
     [server addPossibleRequiredEntitlement:@"com.apple.accessibility.SpringBoard" forMessageWithKey:5003];
     [server addPossibleRequiredEntitlement:@"com.apple.accessibility.SpringBoard" forMessageWithKey:5004];
@@ -558,19 +568,18 @@ uint64_t __42__AXSpringBoardServer__handleReplyResult___block_invoke(uint64_t a1
 
 - (void)_wasDisconnectedFromClient
 {
-  v7.receiver = self;
-  v7.super_class = AXSpringBoardServer;
-  [(AXServer *)&v7 _wasDisconnectedFromClient];
-  LOBYTE(v5) = 1;
-  _AXLogWithFacility();
+  v6.receiver = self;
+  v6.super_class = AXSpringBoardServer;
+  [(AXServer *)&v6 _wasDisconnectedFromClient];
+  _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"client died, trying again");
   SpringBoardPid = -1;
-  v3 = [(AXSpringBoardServer *)self accessQueue:v5];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __49__AXSpringBoardServer__wasDisconnectedFromClient__block_invoke;
-  v6[3] = &unk_1E71E9B98;
-  v6[4] = self;
-  [v3 performSynchronousWritingBlock:v6];
+  accessQueue = [(AXSpringBoardServer *)self accessQueue];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __49__AXSpringBoardServer__wasDisconnectedFromClient__block_invoke;
+  v5[3] = &unk_1E71E9B98;
+  v5[4] = self;
+  [accessQueue performSynchronousWritingBlock:v5];
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"AXSystemAppServerDiedNotification" object:0];
@@ -2689,27 +2698,28 @@ void __50__AXSpringBoardServer_activeInterfaceOrientation___block_invoke(uint64_
 
 - (id)allowedMedusaGestures
 {
-  if ([(AXSpringBoardServer *)self _shouldDispatchLocally])
+  _shouldDispatchLocally = [(AXSpringBoardServer *)self _shouldDispatchLocally];
+  if (_shouldDispatchLocally)
   {
     _axSpringBoardServerInstanceDelegate = [(AXSpringBoardServer *)self _axSpringBoardServerInstanceDelegate];
     _axSpringBoardServerInstance = [(AXSpringBoardServer *)self _axSpringBoardServerInstance];
-    v5 = [(AXIPCMessage *)_axSpringBoardServerInstanceDelegate allowedMedusaGesturesWithServerInstance:_axSpringBoardServerInstance];
+    v7 = [(AXIPCMessage *)_axSpringBoardServerInstanceDelegate allowedMedusaGesturesWithServerInstance:_axSpringBoardServerInstance];
 
 LABEL_5:
     goto LABEL_7;
   }
 
-  if (AXDeviceSupportsSideApp())
+  if (AXDeviceSupportsSideApp(_shouldDispatchLocally, v4))
   {
     _axSpringBoardServerInstanceDelegate = [[AXIPCMessage alloc] initWithKey:4063 payload:0];
-    v5 = [(AXServer *)self sendSimpleMessageWithObjectResult:_axSpringBoardServerInstanceDelegate];
+    v7 = [(AXServer *)self sendSimpleMessageWithObjectResult:_axSpringBoardServerInstanceDelegate];
     goto LABEL_5;
   }
 
-  v5 = MEMORY[0x1E695E0F0];
+  v7 = MEMORY[0x1E695E0F0];
 LABEL_7:
 
-  return v5;
+  return v7;
 }
 
 - (void)setMenuBarVisible:(BOOL)visible
@@ -3193,7 +3203,7 @@ void __38__AXSpringBoardServer_purpleBuddyPID___block_invoke_2(uint64_t a1, void
 
 - (BOOL)dismissBuddyIfNecessary
 {
-  if (AXDeviceHasHomeButton())
+  if (AXDeviceHasHomeButton(self, a2))
   {
     return 0;
   }
@@ -3307,7 +3317,7 @@ LABEL_6:
 
       if (v14)
       {
-        _AXLogWithFacility();
+        _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Failed to unarchive displayIdentifierData: %@");
       }
     }
 
@@ -3346,7 +3356,7 @@ LABEL_6:
 
       if (v12)
       {
-        _AXLogWithFacility();
+        _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Failed to unarchive focusedOccludedAppScenes: %@");
       }
     }
 
@@ -3493,27 +3503,21 @@ LABEL_6:
 
 void __56__AXSpringBoardServer_isMagnifierVisibleWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
-  v6 = a3;
-  if (v6)
+  v8 = a2;
+  v5 = a3;
+  if (v5)
   {
-    _AXLogWithFacility();
-LABEL_3:
-    v7 = 0;
-    goto LABEL_6;
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not find if magnifier is visible: %@");
   }
 
-  if (!v10)
+  else if (v8)
   {
-    goto LABEL_3;
+    v6 = [v8 payload];
+    v7 = [v6 objectForKeyedSubscript:@"result"];
+    [v7 BOOLValue];
   }
 
-  v8 = [v10 payload];
-  v9 = [v8 objectForKeyedSubscript:@"result"];
-  v7 = [v9 BOOLValue];
-
-LABEL_6:
-  (*(*(a1 + 32) + 16))(*(a1 + 32), v7, v5);
+  (*(*(a1 + 32) + 16))();
 }
 
 - (void)launchOnboardingViewService:(id)service
@@ -4074,7 +4078,7 @@ void __55__AXSpringBoardServer_presentNearbyDeviceControlPicker__block_invoke(ui
   return [(objc_class *)v2 safeValueForKey:@"springBoardServerInstanceIfExists"];
 }
 
-uint64_t __74__AXSpringBoardServer_AXSpringBoardServer_Private___shouldDispatchLocally__block_invoke()
+uint64_t __74__AXSpringBoardServer_AXSpringBoardServer_Private___shouldDispatchLocally__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = AXProcessIsSpringBoard();
   _shouldDispatchLocally_result = result;

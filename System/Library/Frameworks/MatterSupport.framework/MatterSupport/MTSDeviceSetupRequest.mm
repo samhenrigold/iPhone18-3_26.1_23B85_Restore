@@ -30,7 +30,7 @@
 
 - (MTSDeviceSetupRequest)initWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSDSR.wrappedRequest"];
   if (v5)
@@ -47,18 +47,17 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2048;
-      v16 = [0 length];
-      _os_log_impl(&dword_239824000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not deserialize from wrappedRequestData: %ld", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2048;
+      v15 = [0 length];
+      _os_log_impl(&dword_239824000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not deserialize from wrappedRequestData: %ld", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -144,15 +143,15 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v12];
-  v4 = v12;
+  v20 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v3 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v11];
+  v4 = v11;
   if (v3)
   {
-    v13 = @"MTSDSR";
-    v14 = v3;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v12 = @"MTSDSR";
+    v13 = v3;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   }
 
   else
@@ -164,19 +163,17 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v16 = v9;
-      v17 = 2112;
-      v18 = selfCopy;
-      v19 = 2112;
-      v20 = v4;
+      v15 = v9;
+      v16 = 2112;
+      v17 = selfCopy;
+      v18 = 2112;
+      v19 = v4;
       _os_log_impl(&dword_239824000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize device setup request %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = MEMORY[0x277CBEC10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -215,15 +212,15 @@
 
 - (MTSDeviceSetupRequest)initWithDictionaryRepresentation:(id)representation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = [(MTSDeviceSetupRequest *)self init];
   v6 = [representationCopy hmf_dataForKey:@"MTSDSR"];
   if (v6)
   {
-    v19 = 0;
-    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v19];
-    v8 = v19;
+    v18 = 0;
+    v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v18];
+    v8 = v18;
 
     if (v7)
     {
@@ -238,11 +235,11 @@
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v6;
-        v24 = 2112;
-        v25 = representationCopy;
+        v20 = v16;
+        v21 = 2112;
+        v22 = v6;
+        v23 = 2112;
+        v24 = representationCopy;
         _os_log_impl(&dword_239824000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to create device setup request from dictionary representation; failed to deserialize data %@: %@", buf, 0x20u);
       }
 
@@ -261,11 +258,11 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v21 = v12;
-      v22 = 2112;
-      v23 = @"MTSDSR";
-      v24 = 2112;
-      v25 = representationCopy;
+      v20 = v12;
+      v21 = 2112;
+      v22 = @"MTSDSR";
+      v23 = 2112;
+      v24 = representationCopy;
       _os_log_impl(&dword_239824000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to create device setup request from dictionary representation; missing %@ key in dictionary: %@", buf, 0x20u);
     }
 
@@ -273,7 +270,6 @@
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

@@ -25,27 +25,26 @@
 
 - (COStateUpdateNotification)initWithCoder:(id)coder
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v64.receiver = self;
-  v64.super_class = COStateUpdateNotification;
-  v5 = [(COMeshCommand *)&v64 initWithCoder:coderCopy];
+  v59.receiver = self;
+  v59.super_class = COStateUpdateNotification;
+  v5 = [(COMeshCommand *)&v59 initWithCoder:coderCopy];
   if (v5)
   {
-    v6 = 0x277CBE000uLL;
-    v7 = MEMORY[0x277CBEB98];
+    v6 = MEMORY[0x277CBEB98];
+    v7 = objc_opt_class();
     v8 = objc_opt_class();
     v9 = objc_opt_class();
     v10 = objc_opt_class();
-    v11 = objc_opt_class();
-    v12 = [v7 setWithObjects:{v8, v9, v10, v11, objc_opt_class(), 0}];
-    v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"updates"];
+    v11 = [v6 setWithObjects:{v7, v8, v9, v10, objc_opt_class(), 0}];
+    v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"updates"];
     updates = v5->_updates;
-    v5->_updates = v13;
+    v5->_updates = v12;
 
-    v15 = [coderCopy decodeObjectOfClasses:v12 forKey:@"removals"];
+    v14 = [coderCopy decodeObjectOfClasses:v11 forKey:@"removals"];
     removals = v5->_removals;
-    v5->_removals = v15;
+    v5->_removals = v14;
 
     if (v5->_updates)
     {
@@ -55,37 +54,37 @@
         goto LABEL_42;
       }
 
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
-      v61 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       allKeys = [(NSDictionary *)v5->_updates allKeys];
-      v18 = [allKeys countByEnumeratingWithState:&v60 objects:v68 count:16];
-      if (v18)
+      v17 = [allKeys countByEnumeratingWithState:&v55 objects:v63 count:16];
+      if (v17)
       {
-        v19 = *v61;
-        v46 = allKeys;
-        v47 = v12;
-        v41 = *v61;
+        v18 = *v56;
+        v41 = allKeys;
+        v42 = v11;
+        v36 = *v56;
 LABEL_6:
-        v20 = 0;
-        v42 = v18;
+        v19 = 0;
+        v37 = v17;
         while (1)
         {
-          if (*v61 != v19)
+          if (*v56 != v18)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v44 = v20;
-          v21 = *(*(&v60 + 1) + 8 * v20);
+          v39 = v19;
+          v20 = *(*(&v55 + 1) + 8 * v19);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             break;
           }
 
-          v22 = [(NSDictionary *)v5->_updates objectForKeyedSubscript:v21];
+          v21 = [(NSDictionary *)v5->_updates objectForKeyedSubscript:v20];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -94,39 +93,38 @@ LABEL_44:
             break;
           }
 
-          v58 = 0u;
-          v59 = 0u;
-          v56 = 0u;
-          v57 = 0u;
-          allKeys2 = [v22 allKeys];
-          v24 = [allKeys2 countByEnumeratingWithState:&v56 objects:v67 count:16];
-          if (v24)
+          v53 = 0u;
+          v54 = 0u;
+          v51 = 0u;
+          v52 = 0u;
+          allKeys2 = [v21 allKeys];
+          v23 = [allKeys2 countByEnumeratingWithState:&v51 objects:v62 count:16];
+          if (v23)
           {
-            v25 = v24;
-            v26 = *v57;
+            v24 = v23;
+            v25 = *v52;
             while (2)
             {
-              for (i = 0; i != v25; ++i)
+              for (i = 0; i != v24; ++i)
               {
-                if (*v57 != v26)
+                if (*v52 != v25)
                 {
                   objc_enumerationMutation(allKeys2);
                 }
 
-                v28 = *(*(&v56 + 1) + 8 * i);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
 LABEL_43:
 
-                  allKeys = v46;
-                  v12 = v47;
+                  allKeys = v41;
+                  v11 = v42;
                   goto LABEL_44;
                 }
               }
 
-              v25 = [allKeys2 countByEnumeratingWithState:&v56 objects:v67 count:16];
-              if (v25)
+              v24 = [allKeys2 countByEnumeratingWithState:&v51 objects:v62 count:16];
+              if (v24)
               {
                 continue;
               }
@@ -135,15 +133,14 @@ LABEL_43:
             }
           }
 
-          v20 = v44 + 1;
-          allKeys = v46;
-          v12 = v47;
-          v6 = 0x277CBE000uLL;
-          v19 = v41;
-          if (v44 + 1 == v42)
+          v19 = v39 + 1;
+          allKeys = v41;
+          v11 = v42;
+          v18 = v36;
+          if (v39 + 1 == v37)
           {
-            v18 = [v46 countByEnumeratingWithState:&v60 objects:v68 count:16];
-            if (v18)
+            v17 = [v41 countByEnumeratingWithState:&v55 objects:v63 count:16];
+            if (v17)
             {
               goto LABEL_6;
             }
@@ -170,78 +167,76 @@ LABEL_48:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       allKeys = [(NSDictionary *)v5->_removals allKeys];
-      v29 = [allKeys countByEnumeratingWithState:&v52 objects:v66 count:16];
-      if (!v29)
+      v27 = [allKeys countByEnumeratingWithState:&v47 objects:v61 count:16];
+      if (!v27)
       {
 LABEL_47:
 
         goto LABEL_48;
       }
 
-      v30 = *v53;
-      v46 = allKeys;
-      v47 = v12;
-      v43 = *v53;
+      v28 = *v48;
+      v41 = allKeys;
+      v42 = v11;
+      v38 = *v48;
 LABEL_26:
-      v31 = 0;
-      v45 = v29;
+      v29 = 0;
+      v40 = v27;
       while (1)
       {
-        if (*v53 != v30)
+        if (*v48 != v28)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v32 = *(*(&v52 + 1) + 8 * v31);
+        v30 = *(*(&v47 + 1) + 8 * v29);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           goto LABEL_45;
         }
 
-        v22 = [(NSDictionary *)v5->_removals objectForKeyedSubscript:v32];
-        v33 = *(v6 + 2968);
+        v21 = [(NSDictionary *)v5->_removals objectForKeyedSubscript:v30];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           goto LABEL_44;
         }
 
-        v50 = 0u;
-        v51 = 0u;
-        v48 = 0u;
-        v49 = 0u;
-        allKeys2 = v22;
-        v34 = [allKeys2 countByEnumeratingWithState:&v48 objects:v65 count:16];
-        if (v34)
+        v45 = 0u;
+        v46 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        allKeys2 = v21;
+        v31 = [allKeys2 countByEnumeratingWithState:&v43 objects:v60 count:16];
+        if (v31)
         {
-          v35 = v34;
-          v36 = *v49;
+          v32 = v31;
+          v33 = *v44;
 LABEL_33:
-          v37 = 0;
+          v34 = 0;
           while (1)
           {
-            if (*v49 != v36)
+            if (*v44 != v33)
             {
               objc_enumerationMutation(allKeys2);
             }
 
-            v38 = *(*(&v48 + 1) + 8 * v37);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               goto LABEL_43;
             }
 
-            if (v35 == ++v37)
+            if (v32 == ++v34)
             {
-              v35 = [allKeys2 countByEnumeratingWithState:&v48 objects:v65 count:16];
-              if (v35)
+              v32 = [allKeys2 countByEnumeratingWithState:&v43 objects:v60 count:16];
+              if (v32)
               {
                 goto LABEL_33;
               }
@@ -251,15 +246,14 @@ LABEL_33:
           }
         }
 
-        ++v31;
-        allKeys = v46;
-        v12 = v47;
-        v6 = 0x277CBE000;
-        v30 = v43;
-        if (v31 == v45)
+        ++v29;
+        allKeys = v41;
+        v11 = v42;
+        v28 = v38;
+        if (v29 == v40)
         {
-          v29 = [v46 countByEnumeratingWithState:&v52 objects:v66 count:16];
-          if (v29)
+          v27 = [v41 countByEnumeratingWithState:&v47 objects:v61 count:16];
+          if (v27)
           {
             goto LABEL_26;
           }
@@ -278,7 +272,6 @@ LABEL_46:
 
 LABEL_49:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -105,9 +105,11 @@
 
 uint64_t __31__SBHIconImageCache__workQueue__block_invoke()
 {
-  _workQueue__workQueue = dispatch_workloop_create("com.SpringBoardHome.SBHIconImageCache.work");
+  v0 = dispatch_workloop_create("com.SpringBoardHome.SBHIconImageCache.work");
+  v1 = _workQueue__workQueue;
+  _workQueue__workQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (SBHIconImageCache)initWithName:(id)name iconImageInfo:(SBIconImageInfo *)info
@@ -1207,58 +1209,58 @@ BOOL __53__SBHIconImageCache_hasCachingRequestsStillDoingWork__block_invoke(uint
 
 - (void)notifyObserversOfUpdateForIcon:(id)icon imageAppearance:(id)appearance context:(SBHIconImageCacheRequestResultContext *)context
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   appearanceCopy = appearance;
-  BSDispatchQueueAssertMain();
+  v10 = BSDispatchQueueAssertMain();
   self->_currentRequestStartTimestamp = context->var0;
   self->_currentRequestElapsedTime = context->var1;
   self->_currentRequestChangedImageVisually = context->var3 != 2;
-  v10 = SBLogIconImageCache();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = SBLogIconImageCache(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     uniqueIdentifier = [iconCopy uniqueIdentifier];
     var1 = context->var1;
     var2 = context->var2;
     *buf = 138412802;
-    v26 = uniqueIdentifier;
-    v27 = 2048;
-    v28 = var1;
-    v29 = 2048;
-    v30 = var2;
-    _os_log_debug_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEBUG, "notifying observers of update to icon %@. requested elapsed time: %f, execution time: %f", buf, 0x20u);
+    v27 = uniqueIdentifier;
+    v28 = 2048;
+    v29 = var1;
+    v30 = 2048;
+    v31 = var2;
+    _os_log_debug_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEBUG, "notifying observers of update to icon %@. requested elapsed time: %f, execution time: %f", buf, 0x20u);
   }
 
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v11 = [(NSHashTable *)self->_observers copy];
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v12)
+  v22 = 0u;
+  v12 = [(NSHashTable *)self->_observers copy];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v21;
+    v14 = v13;
+    v15 = *v22;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v14)
+        if (*v22 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
+        v17 = *(*(&v21 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v16 iconImageCache:self didUpdateImageForIcon:iconCopy imageAppearance:appearanceCopy];
+          [v17 iconImageCache:self didUpdateImageForIcon:iconCopy imageAppearance:appearanceCopy];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
   self->_currentRequestChangedImageVisually = 0;
@@ -1493,7 +1495,7 @@ void __74__SBHIconImageCache_fallbackGenericImageWithInfo_imageAppearance_option
   tintingBackgroundImage = self->_tintingBackgroundImage;
   if (!tintingBackgroundImage)
   {
-    [(SBHIconImageCache *)self iconImageInfo];
+    objc_msgSend_iconImageInfo(self, a2);
     v8 = [objc_opt_class() tintingBackgroundImageWithInfo:{v4, v5, v6, v7}];
     v9 = self->_tintingBackgroundImage;
     self->_tintingBackgroundImage = v8;
@@ -1535,7 +1537,7 @@ void __74__SBHIconImageCache_fallbackGenericImageWithInfo_imageAppearance_option
   overlayImage = self->_overlayImage;
   if (!overlayImage)
   {
-    [(SBHIconImageCache *)self iconImageInfo];
+    objc_msgSend_iconImageInfo(self, a2);
     v5 = v4;
     v7 = v6;
     v9 = v8;
@@ -1605,7 +1607,7 @@ void __50__SBHIconImageCache_unmaskedOverlayImageWithInfo___block_invoke()
   unmaskedOverlayImage = self->_unmaskedOverlayImage;
   if (!unmaskedOverlayImage)
   {
-    [(SBHIconImageCache *)self iconImageInfo];
+    objc_msgSend_iconImageInfo(self, a2);
     v4 = [(SBHIconImageCache *)self memoryMappedIconImageOfSize:&__block_literal_global_40 scale:1.0 withDrawing:1.0];
     sbf_imageByTilingCenterPixel = [v4 sbf_imageByTilingCenterPixel];
     v6 = self->_unmaskedOverlayImage;
@@ -1652,39 +1654,39 @@ void __41__SBHIconImageCache_unmaskedOverlayImage__block_invoke()
   gracefullyCopy = gracefully;
   height = size.height;
   width = size.width;
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   drawingCopy = drawing;
   iconImagesMemoryPool = [(SBHIconImageCache *)self iconImagesMemoryPool];
-  if (gracefullyCopy && (v13 = [MEMORY[0x1E69DCAB8] sbf_bytesNeededForSize:0 scale:width withContextType:{height, scale}], v13 > objc_msgSend(iconImagesMemoryPool, "slotLength")))
+  if (gracefullyCopy && (v13 = [MEMORY[0x1E69DCAB8] sbf_bytesNeededForSize:0 scale:width withContextType:{height, scale}], v14 = objc_msgSend(iconImagesMemoryPool, "slotLength"), v13 > v14))
   {
-    v14 = SBLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogCommon(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v24.width = width;
-      v24.height = height;
-      v15 = NSStringFromCGSize(v24);
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2048;
+      v25.width = width;
+      v25.height = height;
+      v16 = NSStringFromCGSize(v25);
+      v19 = 138543618;
+      v20 = v16;
+      v21 = 2048;
       scaleCopy = scale;
-      _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, "color context with dimensions %{public}@ @%fx does not fit in 'iconImages' memory pool - returning nil", &v18, 0x16u);
+      _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "color context with dimensions %{public}@ @%fx does not fit in 'iconImages' memory pool - returning nil", &v19, 0x16u);
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = [MEMORY[0x1E69DCAB8] sbf_imageFromContextWithSize:0 scale:iconImagesMemoryPool type:drawingCopy pool:width drawing:{height, scale}];
+    v17 = [MEMORY[0x1E69DCAB8] sbf_imageFromContextWithSize:0 scale:iconImagesMemoryPool type:drawingCopy pool:width drawing:{height, scale}];
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)_pooledIconImageForIconImage:(id)image icon:(id)icon allowingOptOut:(BOOL)out
 {
   outCopy = out;
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   iconCopy = icon;
   if (imageCopy)
@@ -1701,12 +1703,12 @@ LABEL_8:
 
     if (!v11)
     {
-      v12 = SBLogIconImageCache();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = SBLogIconImageCache(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v15 = 134217984;
-        v16 = imageCopy;
-        _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_INFO, "Icon image %p could not be pooled as BGRA without color clamping, returning original image instead", &v15, 0xCu);
+        v16 = 134217984;
+        v17 = imageCopy;
+        _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_INFO, "Icon image %p could not be pooled as BGRA without color clamping, returning original image instead", &v16, 0xCu);
       }
 
       goto LABEL_8;
@@ -1757,8 +1759,7 @@ LABEL_12:
   if (![(NSHashTable *)self->_observedIcons containsObject:necessaryCopy])
   {
     [(NSHashTable *)self->_observedIcons addObject:necessaryCopy];
-    [necessaryCopy addObserver:self];
-    v5 = SBLogIconImageCache();
+    v5 = SBLogIconImageCache([necessaryCopy addObserver:self]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [SBHIconImageCache beginObservingIconIfNecessary:];
@@ -1879,7 +1880,7 @@ LABEL_12:
 - (void)iconImageDidUpdate:(id)update
 {
   updateCopy = update;
-  v5 = SBLogIconImageCache();
+  v5 = SBLogIconImageCache(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(SBHIconImageCache *)updateCopy iconImageDidUpdate:v5];
@@ -2043,13 +2044,20 @@ LABEL_6:
 uint64_t __39__SBHIconImageCache_hasCachingRequests__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
-  if (v5 && [v5[3] count])
+  v6 = v5;
+  if (v5)
   {
-    *(*(*(a1 + 32) + 8) + 24) = 1;
-    *a3 = 1;
+    v8 = v5;
+    v5 = [v5[3] count];
+    v6 = v8;
+    if (v5)
+    {
+      *(*(*(a1 + 32) + 8) + 24) = 1;
+      *a3 = 1;
+    }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 - (unint64_t)numberOfCachedImages
@@ -2190,7 +2198,7 @@ LABEL_11:
   name = [(SBHIconImageCache *)self name];
   v6 = [succinctDescriptionBuilder appendObject:name withName:@"name"];
 
-  [(SBHIconImageCache *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   v8 = v7;
   v9 = [succinctDescriptionBuilder appendSize:@"imageSize" withName:?];
   v10 = [succinctDescriptionBuilder appendFloat:@"imageScale" withName:v8];

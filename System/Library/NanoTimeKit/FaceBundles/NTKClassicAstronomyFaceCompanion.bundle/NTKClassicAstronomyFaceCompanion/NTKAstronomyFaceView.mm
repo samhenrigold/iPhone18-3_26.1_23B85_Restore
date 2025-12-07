@@ -35,9 +35,9 @@
 - (void)_layoutPhaseLabel;
 - (void)_layoutSpheroidLabel:(int)label;
 - (void)_loadSnapshotContentViews;
-- (void)_physicalButtonDelayedBlockFired;
 - (void)_prepareForEditing;
 - (void)_prepareToZoom;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_setAstronomyFaceViewModeDefault;
 - (void)_setAstronomyFaceViewModeInteractive;
 - (void)_setAstronomyFaceViewModeNonInteractive;
@@ -47,7 +47,9 @@
 - (void)_startClockUpdates;
 - (void)_stopClockUpdates;
 - (void)_unloadSnapshotContentViews;
+- (void)_updateLocaleAnimated:(BOOL)animated;
 - (void)_updateLocation:(id)location lastLocation:(id)lastLocation;
+- (void)_updateTimeAnimated:(BOOL)animated;
 - (void)_wheelDelayedBlockFired;
 - (void)astronomyVistaViewContentsAnimationFinished:(id)finished;
 - (void)dealloc;
@@ -105,73 +107,59 @@
   {
     device2 = [(NTKAstronomyFaceView *)self device];
     [device2 screenBounds];
-    v12 = v11 - *&dword_1575C;
+    v10 = v9 - *&dword_1575C;
   }
 
   else
   {
-    v12 = *&dword_1575C;
+    v10 = *&dword_1575C;
   }
 
-  v13 = v12;
-  v14 = 160;
-  v15 = 8;
+  v11 = v10;
+  v12 = 160;
+  v13 = 8;
   do
   {
-    v16 = *&self->NTKDigitalFaceView_opaque[v14];
-    if (v16)
+    v14 = *&self->NTKDigitalFaceView_opaque[v12];
+    if (v14)
     {
-      var1 = pose->var1;
-      v18 = toPose->var1;
-      v19 = v16;
+      v15 = v14;
       CLKInterpolateBetweenFloatsClipped();
-      [v19 setAlpha:?];
-      [v19 frame];
+      [v15 setAlpha:?];
+      [v15 frame];
+      v17 = v16;
+      v19 = v18;
       v21 = v20;
-      v23 = v22;
-      v25 = v24;
-      var0 = pose->var0;
-      v27 = toPose->var0;
       CLKInterpolateBetweenFloatsClipped();
       if (IsRTL)
       {
-        v28 = -v28 - v23;
+        v22 = -v22 - v19;
       }
 
-      [v19 setFrame:{v28 + v13, v21, v23, v25}];
+      [v15 setFrame:{v22 + v11, v17, v19, v21}];
     }
 
-    v14 += 8;
-    --v15;
+    v12 += 8;
+    --v13;
   }
 
-  while (v15);
+  while (v13);
   if (([(NTKAstronomyFaceView *)self editing]& 1) == 0)
   {
     timeView = [(NTKAstronomyFaceView *)self timeView];
-    var3 = pose->var3;
-    v31 = toPose->var3;
     CLKInterpolateBetweenFloatsClipped();
     [timeView setAlpha:?];
 
     overrideDateLabel = self->_overrideDateLabel;
-    var4 = pose->var4;
-    v34 = toPose->var4;
     CLKInterpolateBetweenFloatsClipped();
     [(CLKUIColoringLabel *)overrideDateLabel setAlpha:?];
     scrubLabel = self->_scrubLabel;
-    v36 = pose->var4;
-    v37 = toPose->var4;
     CLKInterpolateBetweenFloatsClipped();
     [(CLKUIColoringLabel *)scrubLabel setAlpha:?];
     phaseLabel = self->_phaseLabel;
-    var6 = pose->var6;
-    v40 = toPose->var6;
     CLKInterpolateBetweenFloatsClipped();
     [(CLKUIColoringLabel *)phaseLabel setAlpha:?];
     faceViewComplicationFactory = self->_faceViewComplicationFactory;
-    var2 = pose->var2;
-    v43 = toPose->var2;
     CLKInterpolateBetweenFloatsClipped();
 
     [(NTKDigitialUtilitarianFaceViewComplicationFactory *)faceViewComplicationFactory setAlpha:self faceView:?];
@@ -345,10 +333,10 @@ LABEL_16:
 
 - (void)_setAstronomyFaceViewModeSupplemental
 {
-  [(NTKAstronomyFaceView *)self _disableCrown];
+  _disableCrown = [(NTKAstronomyFaceView *)self _disableCrown];
   overrideDateLabel = self->_overrideDateLabel;
-  v4 = sub_2198();
-  [(CLKUIColoringLabel *)overrideDateLabel setText:v4];
+  v5 = sub_2198(_disableCrown);
+  [(CLKUIColoringLabel *)overrideDateLabel setText:v5];
 
   [(CLKUIColoringLabel *)self->_scrubLabel setText:&stru_10690];
   [(CLKUIColoringLabel *)self->_phaseLabel setText:&stru_10690];
@@ -364,10 +352,10 @@ LABEL_16:
 
 - (void)_setAstronomyFaceViewModeDefault
 {
-  [(NTKAstronomyFaceView *)self _enableCrownForAstronomyVista:self->_vista];
+  v3 = [(NTKAstronomyFaceView *)self _enableCrownForAstronomyVista:self->_vista];
   overrideDateLabel = self->_overrideDateLabel;
-  v4 = sub_2198();
-  [(CLKUIColoringLabel *)overrideDateLabel setText:v4];
+  v5 = sub_2198(v3);
+  [(CLKUIColoringLabel *)overrideDateLabel setText:v5];
 
   [(CLKUIColoringLabel *)self->_scrubLabel setText:&stru_10690];
   [(CLKUIColoringLabel *)self->_phaseLabel setText:&stru_10690];
@@ -379,15 +367,15 @@ LABEL_16:
   astronomyVistaView = self->_astronomyVistaView;
   if ([(NTKAstronomyFaceView *)self editing])
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = 3;
+    v7 = 3;
   }
 
-  [(NUNIAstronomyVistaView *)astronomyVistaView setFrameInterval:v6];
+  [(NUNIAstronomyVistaView *)astronomyVistaView setFrameInterval:v7];
   [(NUNIAstronomyVistaView *)self->_astronomyVistaView startAnimation];
 
   [(NTKAstronomyFaceView *)self _startClockUpdates];
@@ -395,10 +383,10 @@ LABEL_16:
 
 - (void)_setAstronomyFaceViewModeNonInteractive
 {
-  [(NTKAstronomyFaceView *)self _disableCrown];
+  _disableCrown = [(NTKAstronomyFaceView *)self _disableCrown];
   overrideDateLabel = self->_overrideDateLabel;
-  v4 = sub_2198();
-  [(CLKUIColoringLabel *)overrideDateLabel setText:v4];
+  v5 = sub_2198(_disableCrown);
+  [(CLKUIColoringLabel *)overrideDateLabel setText:v5];
 
   [(CLKUIColoringLabel *)self->_scrubLabel setText:&stru_10690];
   [(CLKUIColoringLabel *)self->_phaseLabel setText:&stru_10690];
@@ -474,12 +462,12 @@ LABEL_16:
   gestureCopy = gesture;
   if (self->_vista != 2 && !self->_overrideDate)
   {
-    v32 = gestureCopy;
+    v30 = gestureCopy;
     rotatable = [(NUNIAstronomyRotationModel *)self->_rotationModel rotatable];
     interactionSettings = [(NUNIAstronomyRotationModel *)self->_rotationModel interactionSettings];
     vista = self->_vista;
     LODWORD(v8) = 1.0;
-    v29 = v8;
+    v27 = v8;
     if (vista)
     {
       if (vista == 1)
@@ -494,7 +482,7 @@ LABEL_16:
           *&v11 = -1.0;
         }
 
-        v29 = v11;
+        v27 = v11;
       }
     }
 
@@ -503,22 +491,22 @@ LABEL_16:
       [(NUNIAstronomyRotationModel *)self->_rotationModel setPulling:0, *&v8];
     }
 
-    state = [v32 state];
+    state = [v30 state];
     if (state == &dword_0 + 3)
     {
       rotationModel = self->_rotationModel;
-      view = [v32 view];
-      [v32 velocityInView:view];
-      v28.f64[1] = v27;
-      [(NUNIAstronomyRotationModel *)rotationModel push:COERCE_DOUBLE(vmul_f32(interactionSettings[1], vmul_n_f32(vcvt_f32_f64(v28), v30)))];
+      view = [v30 view];
+      [v30 velocityInView:view];
+      v26.f64[1] = v25;
+      [(NUNIAstronomyRotationModel *)rotationModel push:COERCE_DOUBLE(vmul_f32(interactionSettings[1], vmul_n_f32(vcvt_f32_f64(v26), v28)))];
     }
 
     else if (state == &dword_0 + 2)
     {
-      view2 = [v32 view];
-      [v32 translationInView:view2];
+      view2 = [v30 view];
+      [v30 translationInView:view2];
       v17.f64[1] = v16;
-      v18 = vmul_n_f32(vcvt_f32_f64(v17), v30);
+      v18 = vmul_n_f32(vcvt_f32_f64(v17), v28);
 
       v19 = vsub_f32(*self->_previousTranslation, v18);
       v20 = sqrtf(COERCE_FLOAT(vmul_f32(v19, v19).i32[1]) + (v19.f32[0] * v19.f32[0]));
@@ -529,12 +517,10 @@ LABEL_16:
       }
 
       self->_recentMovement = v20;
-      v31 = vmul_f32(v18, *interactionSettings).f32[0];
+      v29 = vmul_f32(v18, *interactionSettings).f32[0];
       *self->_previousTranslation = v18;
-      p_initialCoordinate = &self->_initialCoordinate;
-      latitude = p_initialCoordinate->latitude;
       NUNIAstronomyClampLatitude();
-      [rotatable setCenterCoordinate:{v24, p_initialCoordinate->longitude + v31}];
+      [rotatable setCenterCoordinate:{v22, self->_initialCoordinate.longitude + v29}];
     }
 
     else if (state == &dword_0 + 1)
@@ -547,7 +533,7 @@ LABEL_16:
       *self->_previousTranslation = 0;
     }
 
-    gestureCopy = v32;
+    gestureCopy = v30;
   }
 }
 
@@ -888,7 +874,7 @@ LABEL_16:
 
   text = [(CLKUIColoringLabel *)self->_scrubLabel text];
   scrubLabel = self->_scrubLabel;
-  v13 = sub_2198();
+  v13 = sub_2198(text);
   [(CLKUIColoringLabel *)scrubLabel setText:v13];
 
   [(CLKUIColoringLabel *)self->_scrubLabel sizeToFit];
@@ -1219,6 +1205,53 @@ LABEL_16:
   objc_destroyWeak(&location);
 }
 
+- (void)_updateLocaleAnimated:(BOOL)animated
+{
+  if ((*(self + 416) & 2) != 0)
+  {
+    animatedCopy = animated;
+    v7 = +[NSLocale currentLocale];
+    if (CLKLocaleIs24HourMode())
+    {
+      v6 = @"H:mm";
+    }
+
+    else
+    {
+      v6 = @"h:mm a";
+    }
+
+    [(NSDateFormatter *)self->_scrubDateFormatter[0] setLocalizedDateFormatFromTemplate:v6];
+    [(NSDateFormatter *)self->_scrubDateFormatter[1] setLocalizedDateFormatFromTemplate:@"MMM d"];
+    [(NSDateFormatter *)self->_scrubDateFormatter[2] setLocalizedDateFormatFromTemplate:@"MM/dd/y"];
+    [(NTKAstronomyFaceView *)self _updateTimeAnimated:animatedCopy];
+  }
+}
+
+- (void)_updateTimeAnimated:(BOOL)animated
+{
+  if ((*(self + 416) & 2) != 0 && (*(self + 416) & 1) == 0)
+  {
+    animatedCopy = animated;
+    if (![(NTKAstronomyFaceView *)self viewMode]&& ([(NTKAstronomyFaceView *)self editing]& 1) == 0 && ([(NTKAstronomyFaceView *)self zooming]& 1) == 0)
+    {
+      [(NUNIAstronomyVistaView *)self->_astronomyVistaView updateSunLocationAnimated:animatedCopy];
+    }
+  }
+
+  device = [(NTKAstronomyFaceView *)self device];
+  nrDeviceVersion = [device nrDeviceVersion];
+
+  if (HIWORD(nrDeviceVersion) <= 4u && (*(self + 416) & 2) != 0)
+  {
+    overrideDateStyle = [(NTKDateComplicationLabel *)self->_legacyDateLabel overrideDateStyle];
+    _date = [(NTKAstronomyFaceView *)self _date];
+    v9 = [NTKComplicationDateFormatter stringForDate:_date withStyle:overrideDateStyle];
+
+    [(NTKDateComplicationLabel *)self->_legacyDateLabel setDateComplicationText:v9 withDayRange:0x7FFFFFFFFFFFFFFFLL forDateStyle:0, overrideDateStyle];
+  }
+}
+
 - (void)_updateLocation:(id)location lastLocation:(id)lastLocation
 {
   locationCopy = location;
@@ -1473,13 +1506,6 @@ LABEL_3:
   }
 }
 
-- (void)_physicalButtonDelayedBlockFired
-{
-  physicalButtonDelayedBlock = self->_physicalButtonDelayedBlock;
-  self->_physicalButtonDelayedBlock = 0;
-  _objc_release_x1();
-}
-
 - (void)_enableCrownForAstronomyVista:(unint64_t)vista
 {
   v5.receiver = self;
@@ -1558,11 +1584,7 @@ LABEL_3:
 
 - (id)_swatchImageForEditOption:(id)option mode:(int64_t)mode withSelectedOptions:(id)options
 {
-  astronomyVista = [option astronomyVista];
-  if (astronomyVista <= 2)
-  {
-    v6 = *(&off_105D8 + astronomyVista);
-  }
+  [option astronomyVista];
 
   return NTKImageNamed();
 }
@@ -1742,6 +1764,28 @@ LABEL_18:
         [(NTKAstronomyFaceView *)self _applyVista:v7];
       }
     }
+  }
+}
+
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  groupCopy = group;
+  v9.receiver = self;
+  v9.super_class = NTKAstronomyFaceView;
+  [(NTKAstronomyFaceView *)&v9 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  if ((*(self + 416) & 2) != 0)
+  {
+    v7 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      dataMode = [(NTKAstronomyFaceView *)self dataMode];
+      *buf = 134217984;
+      v11 = dataMode;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "_renderSynchronouslyWithImageQueueDiscard: dataMode=%ld", buf, 0xCu);
+    }
+
+    [(NUNIAstronomyVistaView *)self->_astronomyVistaView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
   }
 }
 

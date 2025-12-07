@@ -23,9 +23,9 @@
 
 - (id)description
 {
-  v2 = MEMORY[0x1E696AEC0];
-  [(CLMinimumAltitudeCondition *)self altitude];
-  return [v2 stringWithFormat:@"CLMinimumAltitudeCondition(altitude: %+.2fm)", v3];
+  v4 = MEMORY[0x1E696AEC0];
+  objc_msgSend_altitude(self, a2, v2, v3);
+  return objc_msgSend_stringWithFormat_(v4, v5, @"CLMinimumAltitudeCondition(altitude: %+.2fm)", v6, v7);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -35,8 +35,8 @@
     return 1;
   }
 
-  v17 = v4;
-  v18 = v3;
+  v21 = v4;
+  v22 = v3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -47,26 +47,26 @@
     }
   }
 
-  [(CLMinimumAltitudeCondition *)self altitude:v10];
-  v14 = round(v13 * 1000.0);
-  [equal altitude];
-  return vabdd_f64(v14, round(v15 * 1000.0)) <= 2.22044605e-16;
+  objc_msgSend_altitude(self, v11, v12, v13, v8, v7, v6, v5, v21, v22);
+  v15 = round(v14 * 1000.0);
+  objc_msgSend_altitude(equal, v16, v17, v18);
+  return vabdd_f64(v15, round(v19 * 1000.0)) <= 2.22044605e-16;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [(CLMinimumAltitudeCondition *)self altitude];
+  objc_msgSend_altitude(self, a2, coder, v3);
 
-  [coder encodeDouble:@"kCLMinimumAltitudeConditionAltitude" forKey:?];
+  objc_msgSend_encodeDouble_forKey_(coder, v5, @"kCLMinimumAltitudeConditionAltitude", v6);
 }
 
 - (CLMinimumAltitudeCondition)initWithCoder:(id)coder
 {
-  v7.receiver = self;
-  v7.super_class = CLMinimumAltitudeCondition;
-  v4 = [(CLCondition *)&v7 initWithCoder:?];
-  [coder decodeDoubleForKey:@"kCLMinimumAltitudeConditionAltitude"];
-  v4->_altitude = v5;
+  v9.receiver = self;
+  v9.super_class = CLMinimumAltitudeCondition;
+  v4 = [(CLCondition *)&v9 initWithCoder:?];
+  objc_msgSend_decodeDoubleForKey_(coder, v5, @"kCLMinimumAltitudeConditionAltitude", v6);
+  v4->_altitude = v7;
   return v4;
 }
 

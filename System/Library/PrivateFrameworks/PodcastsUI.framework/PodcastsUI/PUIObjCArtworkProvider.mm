@@ -23,31 +23,34 @@
 
 - (void)cacheArtwork:(id)artwork withDimension:(CGRect)dimension forShow:(id)show fromSource:(id)source
 {
-  v8 = sub_21B4C9708();
-  v10 = v9;
-  v11 = sub_21B4C9708();
+  width = dimension.size.width;
+  v9 = sub_21B4C9708();
+  v11 = v10;
+  v12 = sub_21B4C9708();
+  v14 = v13;
   artworkCopy = artwork;
   selfCopy = self;
-  sub_21B3FFB54(artworkCopy, v8, v10, v11);
+  sub_21B3FFB54(artworkCopy, v9, v11, v12, v14, v17, v18, width);
 }
 
 - (BOOL)hasArtworkForShow:(id)show withDimensions:(CGRect)dimensions fromSource:(id)source
 {
-  v6 = sub_21B4C9708();
-  v8 = v7;
-  v9 = sub_21B4C9708();
-  v11 = v10;
+  width = dimensions.size.width;
+  v7 = sub_21B4C9708();
+  v9 = v8;
+  v10 = sub_21B4C9708();
+  v12 = v11;
   selfCopy = self;
-  LOBYTE(v9) = sub_21B400000(v6, v8, v9, v11);
+  LOBYTE(v10) = sub_21B400000(v7, v9, v10, v12, v14, v15, width);
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (void)artworkForShow:(NSString *)show size:(CGSize)size source:(NSString *)source completionHandler:(id)handler
 {
   height = size.height;
   width = size.width;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v12 - 8);
   v14 = &v23 - v13;
   v15 = _Block_copy(handler);
@@ -80,7 +83,7 @@
 {
   height = size.height;
   width = size.width;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v20 - v11;
   v13 = _Block_copy(handler);
@@ -111,7 +114,7 @@
 {
   height = size.height;
   width = size.width;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v20 - v11;
   v13 = _Block_copy(handler);
@@ -142,7 +145,7 @@
 {
   height = size.height;
   width = size.width;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v12 - 8);
   v14 = &v23 - v13;
   v15 = _Block_copy(handler);
@@ -175,7 +178,7 @@
 {
   height = size.height;
   width = size.width;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v20 - v11;
   v13 = _Block_copy(handler);
@@ -204,28 +207,30 @@
 
 - (id)legacyUICachedArtworkForPodcastUuid:(id)uuid withSize:(CGSize)size
 {
-  v5 = sub_21B4C9708();
-  v7 = v6;
+  width = size.width;
+  v6 = sub_21B4C9708();
+  v8 = v7;
   selfCopy = self;
-  v9 = sub_21B403BB8(v5, v7);
+  v10 = sub_21B403BB8(v6, v8, width);
 
-  return v9;
+  return v10;
 }
 
 - (id)cachedArtworkForMTPodcast:(id)podcast withSize:(CGSize)size
 {
+  width = size.width;
   podcastCopy = podcast;
   selfCopy = self;
-  v7 = sub_21B403E18();
+  v8 = sub_21B403E18(width);
 
-  return v7;
+  return v8;
 }
 
 - (void)artworkForMTPodcast:(MTPodcast *)podcast withSize:(CGSize)size completionHandler:(id)handler
 {
   height = size.height;
   width = size.width;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v20 - v11;
   v13 = _Block_copy(handler);
@@ -256,7 +261,7 @@
 {
   height = size.height;
   width = size.width;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v20 - v11;
   v13 = _Block_copy(handler);
@@ -287,7 +292,7 @@
 {
   height = size.height;
   width = size.width;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v17 - v9;
   v11 = _Block_copy(handler);
@@ -314,7 +319,7 @@
 
 - (void)migrateLibraryArtworkFromImageStoreWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -355,7 +360,7 @@
 
 - (void)loadRepresentationForArtworkCatalog:(MPArtworkCatalog *)catalog completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86EE0, &qword_21B4D5680);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -414,7 +419,7 @@
 
   else
   {
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86E70);
+    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD86E70, &qword_21B4D8470);
     v17 = v12;
     v13 = swift_allocObject();
     v16[0] = v13;

@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10000CB48();
+  sub_10000CB48(selfCopy, v2);
 }
 
 - (_TtC21AvatarPosterExtension22AvatarRecordRenderView)initWithFrame:(CGRect)frame

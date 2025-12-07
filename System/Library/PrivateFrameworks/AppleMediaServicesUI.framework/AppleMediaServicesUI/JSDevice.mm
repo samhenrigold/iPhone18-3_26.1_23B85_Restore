@@ -14,18 +14,17 @@
 - (NSDate)activationDate
 {
   v3 = sub_10007B9A4(&unk_100271EA0, &qword_1001E77F0);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11 - v5;
+  v5 = &v10 - v4;
   selfCopy = self;
-  sub_10010E418(v6);
+  sub_10010E418(v5);
 
-  v8 = type metadata accessor for Date();
+  v7 = type metadata accessor for Date();
   isa = 0;
-  if (sub_100009F34(v6, 1, v8) != 1)
+  if (sub_100009F34(v5, 1, v7) != 1)
   {
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(*(v8 - 8) + 8))(v6, v8);
+    (*(*(v7 - 8) + 8))(v5, v7);
   }
 
   return isa;

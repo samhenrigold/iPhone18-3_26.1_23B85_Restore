@@ -20,7 +20,7 @@
 
 + (NSArray)moreMenuSections
 {
-  sub_18B9EE328();
+  sub_18B9EE328(self);
   type metadata accessor for SFBrowsingAssistantMenuSection();
   v2 = sub_18BC20D88();
 

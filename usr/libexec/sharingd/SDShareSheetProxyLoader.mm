@@ -57,19 +57,20 @@
 
 - (void)loadRemainingProxies
 {
-  if (![(SDShareSheetProxyLoader *)self isLoading])
+  isLoading = [(SDShareSheetProxyLoader *)self isLoading];
+  if ((isLoading & 1) == 0)
   {
-    v3 = share_sheet_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = share_sheet_log(isLoading);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138412290;
+      v7 = 138412290;
       selfCopy = self;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "load remaining proxies for loader:%@", &v6, 0xCu);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "load remaining proxies for loader:%@", &v7, 0xCu);
     }
 
     remainingProxies = [(SDShareSheetProxyLoader *)self remainingProxies];
-    v5 = [remainingProxies copy];
-    [(SDShareSheetProxyLoader *)self _loadProxies:v5 withTimeLimit:1];
+    v6 = [remainingProxies copy];
+    [(SDShareSheetProxyLoader *)self _loadProxies:v6 withTimeLimit:1];
   }
 }
 
@@ -89,7 +90,7 @@
       sub_100085C54(a2, self);
     }
 
-    v8 = share_sheet_log();
+    v8 = share_sheet_log(remainingProxiesCount);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 134218242;
@@ -112,109 +113,110 @@
   limitCopy = limit;
   proxiesCopy = proxies;
   [(SDShareSheetProxyLoader *)self setIsLoading:1];
-  v43 = +[NSMutableArray array];
-  v42 = +[NSMutableIndexSet indexSet];
-  v41 = +[NSMutableIndexSet indexSet];
-  +[NSDate timeIntervalSinceReferenceDate];
-  v8 = v7;
-  v9 = share_sheet_log();
-  v10 = share_sheet_log();
-  v11 = os_signpost_id_make_with_pointer(v10, self);
+  v47 = +[NSMutableArray array];
+  v46 = +[NSMutableIndexSet indexSet];
+  v45 = +[NSMutableIndexSet indexSet];
+  v7 = +[NSDate timeIntervalSinceReferenceDate];
+  v9 = v8;
+  v10 = share_sheet_log(v7);
+  v11 = share_sheet_log(v10);
+  v12 = os_signpost_id_make_with_pointer(v11, self);
 
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, v11, "LoadingProxies", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_BEGIN, v12, "LoadingProxies", "", buf, 2u);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = proxiesCopy;
-  v12 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
-  if (v12)
+  v13 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v45;
+    v14 = v13;
+    v15 = *v49;
     while (2)
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v45 != v14)
+        if (*v49 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * i);
+        v17 = *(*(&v48 + 1) + 8 * i);
         isCancelled = [(SDShareSheetProxyLoader *)self isCancelled];
+        v19 = isCancelled;
         if (isCancelled)
         {
-          v29 = share_sheet_log();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v33 = share_sheet_log(isCancelled);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             selfCopy2 = self;
-            v30 = "loading was cancelled for loader:%@";
+            v34 = "loading was cancelled for loader:%@";
             goto LABEL_24;
           }
 
 LABEL_25:
-          v28 = isCancelled ^ 1;
+          v32 = v19 ^ 1;
 
           goto LABEL_26;
         }
 
-        load = [(SDShareSheetProxyLoader *)v16 load];
-        [v43 addObject:v16];
+        load = [(SDShareSheetProxyLoader *)v17 load];
+        [v47 addObject:v17];
         allProxies = [(SDShareSheetProxyLoader *)self allProxies];
-        v20 = [allProxies indexOfObject:v16];
+        v22 = [allProxies indexOfObject:v17];
 
-        v21 = share_sheet_log();
-        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+        v24 = share_sheet_log(v23);
+        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
         if (load)
         {
-          v23 = v42;
-          if (v22)
+          v26 = v46;
+          if (v25)
           {
             *buf = 138412290;
-            selfCopy2 = v16;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "load proxy succeeded:%@", buf, 0xCu);
-            v23 = v42;
+            selfCopy2 = v17;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "load proxy succeeded:%@", buf, 0xCu);
+            v26 = v46;
           }
         }
 
         else
         {
-          v23 = v41;
-          if (v22)
+          v26 = v45;
+          if (v25)
           {
             *buf = 138412290;
-            selfCopy2 = v16;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "load proxy failed:%@", buf, 0xCu);
-            v23 = v41;
+            selfCopy2 = v17;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "load proxy failed:%@", buf, 0xCu);
+            v26 = v45;
           }
         }
 
-        [v23 addIndex:v20];
+        [v26 addIndex:v22];
         if (limitCopy)
         {
           [(SDShareSheetProxyLoader *)self loadTimeLimit];
-          if (v24 > 0.0)
+          if (v27 > 0.0)
           {
             +[NSDate timeIntervalSinceReferenceDate];
-            v26 = v25 - v8;
-            [(SDShareSheetProxyLoader *)self loadTimeLimit];
-            if (v26 > v27 || v26 < 0.0)
+            v29 = v28 - v9;
+            loadTimeLimit = [(SDShareSheetProxyLoader *)self loadTimeLimit];
+            if (v29 > v31 || v29 < 0.0)
             {
-              v29 = share_sheet_log();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+              v33 = share_sheet_log(loadTimeLimit);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
                 selfCopy2 = self;
-                v30 = "loading time interval reached. Stop loading:%@";
+                v34 = "loading time interval reached. Stop loading:%@";
 LABEL_24:
-                _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, v30, buf, 0xCu);
+                _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, v34, buf, 0xCu);
               }
 
               goto LABEL_25;
@@ -223,8 +225,8 @@ LABEL_24:
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
-      if (v13)
+      v14 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      if (v14)
       {
         continue;
       }
@@ -233,56 +235,55 @@ LABEL_24:
     }
   }
 
-  v28 = 0;
-  isCancelled = 0;
+  v32 = 0;
+  v19 = 0;
 LABEL_26:
 
-  +[CATransaction flush];
-  v31 = share_sheet_log();
-  v32 = share_sheet_log();
-  v33 = os_signpost_id_make_with_pointer(v32, self);
+  v35 = share_sheet_log(+[CATransaction flush]);
+  v36 = share_sheet_log(v35);
+  v37 = os_signpost_id_make_with_pointer(v36, self);
 
-  if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+  if (v37 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v31, OS_SIGNPOST_INTERVAL_END, v33, "LoadingProxies", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v35, OS_SIGNPOST_INTERVAL_END, v37, "LoadingProxies", "", buf, 2u);
   }
 
   remainingProxies = [(SDShareSheetProxyLoader *)self remainingProxies];
-  [remainingProxies removeObjectsInArray:v43];
+  [remainingProxies removeObjectsInArray:v47];
 
   [(SDShareSheetProxyLoader *)self setIsLoading:0];
-  v35 = [obj count];
-  if (v35 == [v43 count])
+  v39 = [obj count];
+  if (v39 == [v47 count])
   {
-    v36 = 0;
+    v40 = 0;
   }
 
   else
   {
-    if (isCancelled)
+    if (v19)
     {
-      v36 = 1;
+      v40 = 1;
     }
 
     else
     {
-      v36 = 2;
+      v40 = 2;
     }
 
-    if (((v28 | isCancelled) & 1) == 0)
+    if (((v32 | v19) & 1) == 0)
     {
       sub_100085CC8(a2, self);
-      v36 = 2;
+      v40 = 2;
     }
   }
 
-  v37 = objc_alloc_init(SDShareSheetProxyLoaderResult);
-  [(SDShareSheetProxyLoaderResult *)v37 setState:v36];
-  [(SDShareSheetProxyLoaderResult *)v37 setLoadedIndexes:v42];
-  [(SDShareSheetProxyLoaderResult *)v37 setFailedIndexes:v41];
+  v41 = objc_alloc_init(SDShareSheetProxyLoaderResult);
+  [(SDShareSheetProxyLoaderResult *)v41 setState:v40];
+  [(SDShareSheetProxyLoaderResult *)v41 setLoadedIndexes:v46];
+  [(SDShareSheetProxyLoaderResult *)v41 setFailedIndexes:v45];
   delegate = [(SDShareSheetProxyLoader *)self delegate];
-  [delegate proxyLoader:self didLoadProxiesWithResult:v37];
+  [delegate proxyLoader:self didLoadProxiesWithResult:v41];
 }
 
 - (SDShareSheetProxyLoaderDelegate)delegate

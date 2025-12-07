@@ -37,22 +37,21 @@
 {
   payloadCopy = payload;
   storageUtil = self->_storageUtil;
-  v19 = 0;
-  v6 = [(MXStorageUtilProtocol *)storageUtil archivedDataWithObject:payloadCopy error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [(MXStorageUtilProtocol *)storageUtil archivedDataWithObject:payloadCopy error:&v18];
+  v7 = v18;
   v8 = v7;
-  logHandle = self->_logHandle;
   if (v6)
   {
-    v10 = v7 == 0;
+    v9 = v7 == 0;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  if (v10)
+  if (v9)
   {
     if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_DEBUG))
     {
@@ -63,11 +62,11 @@
     sourceID = [payloadCopy sourceID];
     bundleID = [payloadCopy bundleID];
     datestamp = [payloadCopy datestamp];
-    v15 = [(MXSourcePathUtilProtocol *)sourcePathUtil filePathOfMetricSourcePayloadForSourceID:sourceID andBundleID:bundleID andDate:datestamp];
+    v14 = [(MXSourcePathUtilProtocol *)sourcePathUtil filePathOfMetricSourcePayloadForSourceID:sourceID andBundleID:bundleID andDate:datestamp];
 
-    if (!v15)
+    if (!v14)
     {
-      v17 = 0;
+      v16 = 0;
       goto LABEL_19;
     }
 
@@ -76,7 +75,7 @@
       [MXSourceDataCacher saveToSourceDirectoryWithMetricSourcePayload:];
     }
 
-    if (([(MXStorageUtilProtocol *)self->_storageUtil saveData:v6 withFilePath:v15]& 1) == 0 && os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
+    if (([(MXStorageUtilProtocol *)self->_storageUtil saveData:v6 withFilePath:v14]& 1) == 0 && os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
     {
       [MXSourceDataCacher saveToSourceDirectoryWithMetricSourcePayload:];
     }
@@ -87,38 +86,37 @@
     [MXSourceDataCacher saveToSourceDirectoryWithMetricSourcePayload:];
   }
 
-  v16 = self->_logHandle;
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  logHandle = self->_logHandle;
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
   {
-    [(MXSourceDataCacher *)v16 saveToSourceDirectoryWithMetricSourcePayload:payloadCopy];
+    [(MXSourceDataCacher *)logHandle saveToSourceDirectoryWithMetricSourcePayload:payloadCopy];
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_19:
 
-  return v17;
+  return v16;
 }
 
 - (BOOL)saveToSourceDirectoryWithDiagnosticSourcePayload:(id)payload
 {
   payloadCopy = payload;
   storageUtil = self->_storageUtil;
-  v21 = 0;
-  v6 = [(MXStorageUtilProtocol *)storageUtil archivedDataWithObject:payloadCopy error:&v21];
-  v7 = v21;
+  v20 = 0;
+  v6 = [(MXStorageUtilProtocol *)storageUtil archivedDataWithObject:payloadCopy error:&v20];
+  v7 = v20;
   v8 = v7;
-  logHandle = self->_logHandle;
   if (v6)
   {
-    v10 = v7 == 0;
+    v9 = v7 == 0;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  if (v10)
+  if (v9)
   {
     if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_DEBUG))
     {
@@ -126,12 +124,12 @@ LABEL_19:
     }
 
     bundleID = [payloadCopy bundleID];
-    if ([(MXBundleUtilProtocol *)self->_bundleUtil isAppExtensionFromBundleID:bundleID]&& ([(MXBundleUtilProtocol *)self->_bundleUtil mainAppBundleIDforExtension:bundleID], v12 = objc_claimAutoreleasedReturnValue(), bundleID, (bundleID = v12) == 0))
+    if ([(MXBundleUtilProtocol *)self->_bundleUtil isAppExtensionFromBundleID:bundleID]&& ([(MXBundleUtilProtocol *)self->_bundleUtil mainAppBundleIDforExtension:bundleID], v11 = objc_claimAutoreleasedReturnValue(), bundleID, (bundleID = v11) == 0))
     {
-      v19 = self->_logHandle;
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      logHandle = self->_logHandle;
+      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
       {
-        [(MXSourceDataCacher *)v19 saveToSourceDirectoryWithDiagnosticSourcePayload:payloadCopy];
+        [(MXSourceDataCacher *)logHandle saveToSourceDirectoryWithDiagnosticSourcePayload:payloadCopy];
       }
     }
 
@@ -140,16 +138,16 @@ LABEL_19:
       sourcePathUtil = self->_sourcePathUtil;
       sourceID = [payloadCopy sourceID];
       datestamp = [payloadCopy datestamp];
-      v16 = [(MXSourcePathUtilProtocol *)sourcePathUtil filePathOfDiagnosticSourcePayloadForSourceID:sourceID andBundleID:bundleID andDate:datestamp];
+      v15 = [(MXSourcePathUtilProtocol *)sourcePathUtil filePathOfDiagnosticSourcePayloadForSourceID:sourceID andBundleID:bundleID andDate:datestamp];
 
-      if (v16)
+      if (v15)
       {
         if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_DEBUG))
         {
           [MXSourceDataCacher saveToSourceDirectoryWithMetricSourcePayload:];
         }
 
-        if (([(MXStorageUtilProtocol *)self->_storageUtil saveData:v6 withFilePath:v16]& 1) == 0 && os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
+        if (([(MXStorageUtilProtocol *)self->_storageUtil saveData:v6 withFilePath:v15]& 1) == 0 && os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
         {
           [MXSourceDataCacher saveToSourceDirectoryWithMetricSourcePayload:];
         }
@@ -158,7 +156,7 @@ LABEL_19:
       }
     }
 
-    v18 = 0;
+    v17 = 0;
     goto LABEL_25;
   }
 
@@ -168,63 +166,40 @@ LABEL_19:
   }
 
 LABEL_18:
-  v17 = self->_logHandle;
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v16 = self->_logHandle;
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    [(MXSourceDataCacher *)v17 saveToSourceDirectoryWithMetricSourcePayload:payloadCopy];
+    [(MXSourceDataCacher *)v16 saveToSourceDirectoryWithMetricSourcePayload:payloadCopy];
   }
 
-  v18 = 1;
+  v17 = 1;
 LABEL_25:
 
-  return v18;
-}
-
-- (void)saveToSourceDirectoryWithMetricSourcePayload:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Writing data: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveToSourceDirectoryWithMetricSourcePayload:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Log filename: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  return v17;
 }
 
 - (void)saveToSourceDirectoryWithMetricSourcePayload:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveToSourceDirectoryWithMetricSourcePayload:(void *)a1 .cold.5(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 metrics];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3_1(&dword_258D6F000, v5, v6, "Interested source data is now available : %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_258D6F000, v5, v6, "Interested source data is now available : %@", v7, v8, v9, v10);
 }
 
 - (void)saveToSourceDirectoryWithDiagnosticSourcePayload:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 bundleID];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_258D6F000, v3, OS_LOG_TYPE_ERROR, "Could not resolve Main App bunldeID for extension: %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_258D6F000, v3, OS_LOG_TYPE_ERROR, "Could not resolve Main App bunldeID for extension: %@", v5, 0xCu);
 }
 
 @end

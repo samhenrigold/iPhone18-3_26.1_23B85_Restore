@@ -47,57 +47,58 @@
 
 - (id)specifiersWithSpecifier:(id)specifier
 {
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     currentControllerSpecifierIdentifier = [(DirectToVMSettingsBundleController *)self currentControllerSpecifierIdentifier];
-    *v18 = 138412290;
-    *&v18[4] = currentControllerSpecifierIdentifier;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "DIRECT TO VM SETTINGS: Loading settings page for app %@", v18, 0xCu);
+    *v20 = 138412290;
+    *&v20[4] = currentControllerSpecifierIdentifier;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "DIRECT TO VM SETTINGS: Loading settings page for app %@", v20, 0xCu);
   }
 
   v6 = +[NSMutableArray array];
   currentControllerIsPhoneSettings = [(DirectToVMSettingsBundleController *)self currentControllerIsPhoneSettings];
-  createDirectToVoicemailSpecifier = PHDefaultLog();
-  v9 = os_log_type_enabled(createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT);
-  if (currentControllerIsPhoneSettings)
+  v8 = currentControllerIsPhoneSettings;
+  createDirectToVoicemailSpecifier = PHDefaultLog(currentControllerIsPhoneSettings);
+  v10 = os_log_type_enabled(createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    if (v9)
+    if (v10)
     {
-      *v18 = 0;
-      _os_log_impl(&dword_0, createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT, "DIRECT TO VM SETTINGS: We are in Phone Settings", v18, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_0, createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT, "DIRECT TO VM SETTINGS: We are in Phone Settings", v20, 2u);
     }
 
     configurationProvider = [(DirectToVMSettingsBundleController *)self configurationProvider];
     isReceptionistAvailable = [configurationProvider isReceptionistAvailable];
 
-    createDirectToVoicemailSpecifier = PHDefaultLog();
-    v12 = os_log_type_enabled(createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT);
+    createDirectToVoicemailSpecifier = PHDefaultLog(v13);
+    v14 = os_log_type_enabled(createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT);
     if (isReceptionistAvailable)
     {
-      if (v12)
+      if (v14)
       {
-        *v18 = 0;
-        _os_log_impl(&dword_0, createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT, "DIRECT TO VM SETTINGS: We are in Phone Settings with receptionist available, so we will not show Silence Unknown Callers toggle, we must show Intelligent Call Screening group instead", v18, 2u);
+        *v20 = 0;
+        _os_log_impl(&dword_0, createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT, "DIRECT TO VM SETTINGS: We are in Phone Settings with receptionist available, so we will not show Silence Unknown Callers toggle, we must show Intelligent Call Screening group instead", v20, 2u);
       }
 
       goto LABEL_17;
     }
 
-    if (v12)
+    if (v14)
     {
-      *v18 = 0;
-      v13 = "DIRECT TO VM SETTINGS: We are in Phone Settings with receptionist unavailable, so we will show Silence Unknown Callers toggle";
+      *v20 = 0;
+      v15 = "DIRECT TO VM SETTINGS: We are in Phone Settings with receptionist unavailable, so we will show Silence Unknown Callers toggle";
       goto LABEL_13;
     }
   }
 
-  else if (v9)
+  else if (v10)
   {
-    *v18 = 0;
-    v13 = "DIRECT TO VM SETTINGS: We are in FT Settings, so we will show Silence Unknown Callers toggle";
+    *v20 = 0;
+    v15 = "DIRECT TO VM SETTINGS: We are in FT Settings, so we will show Silence Unknown Callers toggle";
 LABEL_13:
-    _os_log_impl(&dword_0, createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT, v13, v18, 2u);
+    _os_log_impl(&dword_0, createDirectToVoicemailSpecifier, OS_LOG_TYPE_DEFAULT, v15, v20, 2u);
   }
 
   activeSpecifier = [(DirectToVMSettingsBundleController *)self activeSpecifier];
@@ -110,8 +111,8 @@ LABEL_13:
   createDirectToVoicemailSpecifier = [(DirectToVMSettingsBundleController *)self createDirectToVoicemailSpecifier];
   if (createDirectToVoicemailSpecifier)
   {
-    v15 = [PSSpecifier groupSpecifierWithName:&stru_42D0];
-    [v6 addObject:v15];
+    v17 = [PSSpecifier groupSpecifierWithName:&stru_42D0];
+    [v6 addObject:v17];
     [v6 addObject:createDirectToVoicemailSpecifier];
     [(DirectToVMSettingsBundleController *)self setActiveSpecifier:createDirectToVoicemailSpecifier];
   }
@@ -119,9 +120,9 @@ LABEL_13:
 LABEL_17:
 
 LABEL_18:
-  v16 = [v6 copy];
+  v18 = [v6 copy];
 
-  return v16;
+  return v18;
 }
 
 - (id)createDirectToVoicemailSpecifier
@@ -163,7 +164,7 @@ LABEL_18:
 - (void)setDirectToVoicemailEnabled:(id)enabled specifier:(id)specifier
 {
   enabledCopy = enabled;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(enabledCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     currentControllerSpecifierIdentifier = [(DirectToVMSettingsBundleController *)self currentControllerSpecifierIdentifier];

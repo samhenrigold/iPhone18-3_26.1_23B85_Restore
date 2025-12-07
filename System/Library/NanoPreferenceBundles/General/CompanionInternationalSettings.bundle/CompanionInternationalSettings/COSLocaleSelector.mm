@@ -8,6 +8,7 @@
 - (void)setLocaleFromCalendarID:(id)d;
 - (void)setLocaleFromLanguageIdentifier:(id)identifier;
 - (void)setLocaleOnly:(id)only;
+- (void)setRegion:(id)region changeLanguageVariant:(BOOL)variant;
 - (void)updateLocale:(id)locale;
 @end
 
@@ -193,6 +194,46 @@
   if (([v11 isEqualToString:localeIdentifier] & 1) == 0)
   {
     [(COSLocaleSelector *)self setLocale:v11];
+  }
+}
+
+- (void)setRegion:(id)region changeLanguageVariant:(BOOL)variant
+{
+  variantCopy = variant;
+  regionCopy = region;
+  if (!self->_internationalController)
+  {
+    sub_1A588();
+  }
+
+  v22 = regionCopy;
+  v7 = [IPLanguageListManager alloc];
+  preferredLanguages = [objc_opt_class() preferredLanguages];
+  currentLocale = [(COSLocaleSelector *)self currentLocale];
+  v10 = [v7 initWithPreferredLanguages:preferredLanguages preferredLocale:currentLocale];
+
+  [v10 setRegion:v22 updateFirstLanguage:variantCopy];
+  currentLocale2 = [(COSLocaleSelector *)self currentLocale];
+  v12 = [NSLocale _localeIdentifierForRegionChangeFrom:currentLocale2 to:v22];
+
+  [(COSLocaleSelector *)self setLocale:v12];
+  internationalController = self->_internationalController;
+  preferredLanguages2 = [v10 preferredLanguages];
+  [(COSInternationalController *)internationalController setPreferredLanguages:preferredLanguages2];
+
+  deviceLanguage = [v10 deviceLanguage];
+  currentLocale3 = [(COSLocaleSelector *)self currentLocale];
+  localeIdentifier = [currentLocale3 localeIdentifier];
+  LOBYTE(internationalController) = [NSLocale _language:deviceLanguage usesSameLocalizationAs:localeIdentifier];
+
+  if ((internationalController & 1) == 0)
+  {
+    currentLocale4 = [(COSLocaleSelector *)self currentLocale];
+    localeIdentifier2 = [currentLocale4 localeIdentifier];
+    deviceLanguage2 = [v10 deviceLanguage];
+    v21 = [NSLocale canonicalLocaleIdentifier:localeIdentifier2 withNewLanguageIdentifier:deviceLanguage2];
+
+    [(COSLocaleSelector *)self setLocale:v21];
   }
 }
 

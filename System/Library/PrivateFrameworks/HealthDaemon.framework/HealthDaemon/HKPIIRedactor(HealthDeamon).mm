@@ -6,25 +6,25 @@
 
 + (id)redactorWithProfile:()HealthDeamon error:
 {
-  v80[16] = *MEMORY[0x277D85DE8];
+  v79[16] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_opt_self();
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   hd_contactStoreWithHealthAppIdentity = [MEMORY[0x277CBDAB8] hd_contactStoreWithHealthAppIdentity];
   objc_opt_self();
   v9 = *MEMORY[0x277CBD000];
-  v80[0] = *MEMORY[0x277CBCFF8];
-  v80[1] = v9;
+  v79[0] = *MEMORY[0x277CBCFF8];
+  v79[1] = v9;
   v10 = *MEMORY[0x277CBD0B0];
-  v80[2] = *MEMORY[0x277CBD0A8];
-  v80[3] = v10;
+  v79[2] = *MEMORY[0x277CBD0A8];
+  v79[3] = v10;
   v11 = *MEMORY[0x277CBD078];
-  v80[4] = *MEMORY[0x277CBD0E0];
-  v80[5] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:6];
-  v79 = 0;
-  v13 = [hd_contactStoreWithHealthAppIdentity _ios_meContactWithKeysToFetch:v12 error:&v79];
-  v14 = v79;
+  v79[4] = *MEMORY[0x277CBD0E0];
+  v79[5] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:6];
+  v78 = 0;
+  v13 = [hd_contactStoreWithHealthAppIdentity _ios_meContactWithKeysToFetch:v12 error:&v78];
+  v14 = v78;
 
   if (v13 || !v14)
   {
@@ -58,9 +58,9 @@
 LABEL_10:
     v16 = [HDKeyValueDomain healthAppUserDefaultsDomainWithProfile:v5];
     v29 = *MEMORY[0x277CCE5A8];
-    v78 = 0;
-    v30 = [v16 propertyListValueForKey:v29 error:&v78];
-    v31 = v78;
+    v77 = 0;
+    v30 = [v16 propertyListValueForKey:v29 error:&v77];
+    v31 = v77;
     v32 = v31;
     if (!v30 && v31)
     {
@@ -92,7 +92,7 @@ LABEL_49:
       goto LABEL_49;
     }
 
-    v69 = v31;
+    v68 = v31;
     if (v30)
     {
       v35 = [v30 objectForKeyedSubscript:*MEMORY[0x277CCE598]];
@@ -102,17 +102,17 @@ LABEL_49:
       [(HKPIIRedactor *)v6 _addName:v36 toArray:v7];
     }
 
-    v68 = v30;
+    v67 = v30;
     medicalIDDataManager = [v5 medicalIDDataManager];
-    v77 = 0;
-    v38 = [medicalIDDataManager fetchMedicalIDIfSetUpWithError:&v77];
-    v34 = v77;
+    v76 = 0;
+    v38 = [medicalIDDataManager fetchMedicalIDIfSetUpWithError:&v76];
+    v34 = v76;
 
-    v67 = v38;
+    v66 = v38;
     if (v38 || !v34)
     {
-      v65 = v34;
-      v66 = v13;
+      v64 = v34;
+      v65 = v13;
       if (v38)
       {
         name = [v38 name];
@@ -125,61 +125,61 @@ LABEL_49:
       }
 
       accountOwnerType = [MEMORY[0x277CCCF90] accountOwnerType];
-      v76 = 0;
-      v47 = [HDSampleEntity samplesWithType:accountOwnerType profile:v5 encodingOptions:MEMORY[0x277CBEC10] predicate:0 limit:0 anchor:0 error:&v76];
-      v48 = v76;
+      v75 = 0;
+      v47 = [HDSampleEntity samplesWithType:accountOwnerType profile:v5 encodingOptions:MEMORY[0x277CBEC10] predicate:0 limit:0 anchor:0 error:&v75];
+      v48 = v75;
 
       if (v47)
       {
-        v62 = v48;
-        v63 = v14;
-        v70 = v5;
+        v61 = v48;
+        v62 = v14;
+        v69 = v5;
         selfCopy = self;
-        v74 = 0u;
-        v75 = 0u;
-        v72 = 0u;
         v73 = 0u;
+        v74 = 0u;
+        v71 = 0u;
+        v72 = 0u;
         v40 = v47;
-        v49 = [v40 countByEnumeratingWithState:&v72 objects:v80 count:16];
+        v49 = [v40 countByEnumeratingWithState:&v71 objects:v79 count:16];
         if (v49)
         {
           v50 = v49;
-          v51 = *v73;
+          v51 = *v72;
           do
           {
             for (i = 0; i != v50; ++i)
             {
-              if (*v73 != v51)
+              if (*v72 != v51)
               {
                 objc_enumerationMutation(v40);
               }
 
-              name2 = [*(*(&v72 + 1) + 8 * i) name];
+              name2 = [*(*(&v71 + 1) + 8 * i) name];
               whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
               v55 = [name2 componentsSeparatedByCharactersInSet:whitespaceCharacterSet];
 
               [(HKPIIRedactor *)v6 _addNames:v55 toArray:v7];
             }
 
-            v50 = [v40 countByEnumeratingWithState:&v72 objects:v80 count:16];
+            v50 = [v40 countByEnumeratingWithState:&v71 objects:v79 count:16];
           }
 
           while (v50);
         }
 
         v18 = v7;
-        v14 = v63;
+        v14 = v62;
         self = selfCopy;
-        v5 = v70;
-        v13 = v66;
-        v34 = v65;
-        v48 = v62;
+        v5 = v69;
+        v13 = v65;
+        v34 = v64;
+        v48 = v61;
         goto LABEL_48;
       }
 
       v56 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Error getting names to redact" underlyingError:v48];
       v57 = v56;
-      v13 = v66;
+      v13 = v65;
       if (v56)
       {
         if (a4)
@@ -226,9 +226,9 @@ LABEL_49:
     v18 = 0;
 LABEL_48:
 
-    v30 = v68;
-    v32 = v69;
-    v33 = v67;
+    v30 = v67;
+    v32 = v68;
+    v33 = v66;
     goto LABEL_49;
   }
 
@@ -274,8 +274,6 @@ LABEL_50:
   {
     v59 = 0;
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 
   return v59;
 }

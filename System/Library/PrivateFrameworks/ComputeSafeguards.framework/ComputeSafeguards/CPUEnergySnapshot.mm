@@ -9,8 +9,8 @@
 {
   if (!energy)
   {
-    v6 = processLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = processLogger(self);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[CPUEnergySnapshot snapshotCPUEnergy:];
     }
@@ -21,8 +21,8 @@
   v3 = malloc_type_malloc(0x168uLL, 0x1000040DAE56E47uLL);
   if (!v3)
   {
-    v6 = processLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = processLogger(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[CPUEnergySnapshot snapshotCPUEnergy:];
     }
@@ -30,15 +30,16 @@
 LABEL_11:
 
 LABEL_12:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_13;
   }
 
   v4 = v3;
-  if (coalition_info_resource_usage())
+  v5 = coalition_info_resource_usage();
+  if (v5)
   {
-    v5 = processLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = processLogger(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[CPUEnergySnapshot snapshotCPUEnergy:];
     }
@@ -47,17 +48,17 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v7 = objc_alloc_init(CPUEnergySnapshot);
-  [(CPUEnergySnapshot *)v7 setCpuEnergy:v4[11]];
-  [(CPUEnergySnapshot *)v7 setCpuEnergyBilledToMe:v4[20]];
-  [(CPUEnergySnapshot *)v7 setCpuEnergyBilledToOthers:v4[21]];
+  v8 = objc_alloc_init(CPUEnergySnapshot);
+  [(CPUEnergySnapshot *)v8 setCpuEnergy:v4[11]];
+  [(CPUEnergySnapshot *)v8 setCpuEnergyBilledToMe:v4[20]];
+  [(CPUEnergySnapshot *)v8 setCpuEnergyBilledToOthers:v4[21]];
   date = [MEMORY[0x277CBEAA8] date];
-  [(CPUEnergySnapshot *)v7 setTime:date];
+  [(CPUEnergySnapshot *)v8 setTime:date];
 
   free(v4);
 LABEL_13:
 
-  return v7;
+  return v8;
 }
 
 - (double)computeEnergyDiff:(id)diff
@@ -83,8 +84,8 @@ LABEL_13:
 
   if (v8 < 0.0 || v11 < 0.0 || v17 < 0.0)
   {
-    v19 = processLogger();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = processLogger(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v22 = 134218496;
       v23 = v8;
@@ -92,44 +93,27 @@ LABEL_13:
       v25 = v11;
       v26 = 2048;
       v27 = v17;
-      _os_log_error_impl(&dword_243DC3000, v19, OS_LOG_TYPE_ERROR, "unexpected energy values: %f %f %f", &v22, 0x20u);
+      _os_log_error_impl(&dword_243DC3000, v20, OS_LOG_TYPE_ERROR, "unexpected energy values: %f %f %f", &v22, 0x20u);
     }
 
     goto LABEL_9;
   }
 
-  v18 = (v8 + v11 - v17) / 3600000000.0;
-  if (v18 < 0.0)
+  v19 = (v8 + v11 - v17) / 3600000000.0;
+  if (v19 < 0.0)
   {
-    v19 = processLogger();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = processLogger(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [CPUEnergySnapshot computeEnergyDiff:];
     }
 
 LABEL_9:
 
-    v18 = 0.0;
+    return 0.0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v18;
-}
-
-+ (void)snapshotCPUEnergy:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)computeEnergyDiff:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  return v19;
 }
 
 @end

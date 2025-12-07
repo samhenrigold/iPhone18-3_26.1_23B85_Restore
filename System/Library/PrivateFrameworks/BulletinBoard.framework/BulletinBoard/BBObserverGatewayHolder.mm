@@ -11,6 +11,8 @@
 - (void)_startTimerWithFireDate:(id)date;
 - (void)dealloc;
 - (void)sendAddBulletin:(id)bulletin playLightsAndSirens:(BOOL)sirens forFeeds:(unint64_t)feeds withTimeout:(double)timeout handler:(id)handler;
+- (void)sendObserver:(id)observer addBulletin:(id)bulletin playLightsAndSirens:(BOOL)sirens forFeeds:(unint64_t)feeds withHandler:(id)handler;
+- (void)sendObserversAddBulletin:(id)bulletin playLightsAndSirens:(BOOL)sirens forFeeds:(unint64_t)feeds;
 @end
 
 @implementation BBObserverGatewayHolder
@@ -43,7 +45,7 @@
 
 - (void)_startNextTimer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(BBObserverGatewayHolder *)self _invalidateTimer];
   if ([(NSMutableArray *)self->_timeouts count])
   {
@@ -56,22 +58,20 @@
       timeout = [v3 timeout];
       bulletinID = [v3 bulletinID];
       sectionID = [v3 sectionID];
-      v12 = 138544130;
-      v13 = name;
-      v14 = 2114;
-      v15 = timeout;
-      v16 = 2114;
-      v17 = bulletinID;
-      v18 = 2114;
-      v19 = sectionID;
-      _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ start timer (%{public}@) for out for bulletin %{public}@ in section %{public}@", &v12, 0x2Au);
+      v11 = 138544130;
+      v12 = name;
+      v13 = 2114;
+      v14 = timeout;
+      v15 = 2114;
+      v16 = bulletinID;
+      v17 = 2114;
+      v18 = sectionID;
+      _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ start timer (%{public}@) for out for bulletin %{public}@ in section %{public}@", &v11, 0x2Au);
     }
 
     timeout2 = [v3 timeout];
     [(BBObserverGatewayHolder *)self _startTimerWithFireDate:timeout2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimerWithFireDate:(id)date
@@ -100,7 +100,7 @@
 
 - (BOOL)_invalidateTimeout:(id)timeout
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   timeoutCopy = timeout;
   v5 = [(NSMutableArray *)self->_timeouts indexOfObject:timeoutCopy];
   if (v5 != 0x7FFFFFFFFFFFFFFFLL)
@@ -113,15 +113,15 @@
       timeout = [timeoutCopy timeout];
       bulletinID = [timeoutCopy bulletinID];
       sectionID = [timeoutCopy sectionID];
-      v14 = 138544130;
-      v15 = name;
-      v16 = 2114;
-      v17 = timeout;
-      v18 = 2114;
-      v19 = bulletinID;
-      v20 = 2114;
-      v21 = sectionID;
-      _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ invalidated timer (%{public}@) for out for bulletin %{public}@ in section %{public}@", &v14, 0x2Au);
+      v13 = 138544130;
+      v14 = name;
+      v15 = 2114;
+      v16 = timeout;
+      v17 = 2114;
+      v18 = bulletinID;
+      v19 = 2114;
+      v20 = sectionID;
+      _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ invalidated timer (%{public}@) for out for bulletin %{public}@ in section %{public}@", &v13, 0x2Au);
     }
 
     [(NSMutableArray *)self->_timeouts removeObjectAtIndex:v5];
@@ -131,13 +131,12 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5 != 0x7FFFFFFFFFFFFFFFLL;
 }
 
 - (void)_handleTimeout
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_timeouts count])
   {
     v3 = [(NSMutableArray *)self->_timeouts objectAtIndexedSubscript:0];
@@ -148,13 +147,13 @@
       name = [(BBObserverGatewayHolder *)self name];
       bulletinID = [v3 bulletinID];
       sectionID = [v3 sectionID];
-      v11 = 138543874;
-      v12 = name;
-      v13 = 2114;
-      v14 = bulletinID;
-      v15 = 2114;
-      v16 = sectionID;
-      _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ timed out for bulletin %{public}@ in section %{public}@", &v11, 0x20u);
+      v10 = 138543874;
+      v11 = name;
+      v12 = 2114;
+      v13 = bulletinID;
+      v14 = 2114;
+      v15 = sectionID;
+      _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ timed out for bulletin %{public}@ in section %{public}@", &v10, 0x20u);
     }
 
     timeoutHandler = [v3 timeoutHandler];
@@ -163,13 +162,11 @@
     [(NSMutableArray *)self->_timeouts removeObjectAtIndex:0];
     [(BBObserverGatewayHolder *)self _startNextTimer];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_addTimeout:(double)timeout forBulletinID:(id)d inSectionID:(id)iD handler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   v12 = MEMORY[0x277CBEAA8];
@@ -180,15 +177,15 @@
   {
     v16 = v15;
     name = [(BBObserverGatewayHolder *)self name];
-    v21 = 138544130;
-    v22 = name;
-    v23 = 2114;
-    v24 = v14;
-    v25 = 2114;
-    v26 = dCopy;
-    v27 = 2114;
-    v28 = iDCopy;
-    _os_log_impl(&dword_241EFF000, v16, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ add timer (%{public}@) for bulletin %{public}@ in section %{public}@", &v21, 0x2Au);
+    v20 = 138544130;
+    v21 = name;
+    v22 = 2114;
+    v23 = v14;
+    v24 = 2114;
+    v25 = dCopy;
+    v26 = 2114;
+    v27 = iDCopy;
+    _os_log_impl(&dword_241EFF000, v16, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ add timer (%{public}@) for bulletin %{public}@ in section %{public}@", &v20, 0x2Au);
   }
 
   v18 = objc_alloc_init(BBObserverGatewayAddBulletinRequest);
@@ -203,15 +200,13 @@
     [(BBObserverGatewayHolder *)self _startNextTimer];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (void)sendAddBulletin:(id)bulletin playLightsAndSirens:(BOOL)sirens forFeeds:(unint64_t)feeds withTimeout:(double)timeout handler:(id)handler
 {
   sirensCopy = sirens;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   handlerCopy = handler;
   bulletinID = [bulletinCopy bulletinID];
@@ -238,50 +233,50 @@
         *&buf[12] = 2114;
         *&buf[14] = bulletinID;
         *&buf[22] = 2114;
-        v52 = sectionID;
-        v53 = 2048;
+        v51 = sectionID;
+        v52 = 2048;
         timeoutCopy = timeout;
-        v55 = 2082;
-        v56 = v19;
+        v54 = 2082;
+        v55 = v19;
         _os_log_impl(&dword_241EFF000, v17, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ sending add bulletin lights and sirens YES for %{public}@ in section %{public}@ with timeout %f %{public}s handler", buf, 0x34u);
       }
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      LOBYTE(v52) = 0;
+      LOBYTE(v51) = 0;
       objc_initWeak(&location, self);
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_withTimeout_handler___block_invoke;
-      v44[3] = &unk_278D2BA98;
-      objc_copyWeak(&v49, &location);
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_withTimeout_handler___block_invoke;
+      v43[3] = &unk_278D2BA98;
+      objc_copyWeak(&v48, &location);
       v20 = bulletinID;
-      v45 = v20;
+      v44 = v20;
       v21 = sectionID;
-      v46 = v21;
-      v48 = buf;
+      v45 = v21;
+      v47 = buf;
       v22 = handlerCopy;
-      v47 = v22;
-      v23 = [(BBObserverGatewayHolder *)self _addTimeout:v20 forBulletinID:v21 inSectionID:v44 handler:timeout];
+      v46 = v22;
+      v23 = [(BBObserverGatewayHolder *)self _addTimeout:v20 forBulletinID:v21 inSectionID:v43 handler:timeout];
       gateway = [(BBObserverGatewayHolder *)self gateway];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_withTimeout_handler___block_invoke_42;
-      v36[3] = &unk_278D2BAC0;
-      objc_copyWeak(v43, &location);
-      v37 = v20;
-      v38 = v21;
-      v42 = buf;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_withTimeout_handler___block_invoke_42;
+      v35[3] = &unk_278D2BAC0;
+      objc_copyWeak(v42, &location);
+      v36 = v20;
+      v37 = v21;
+      v41 = buf;
       v25 = v23;
-      v39 = v25;
-      v40 = bulletinCopy;
-      v43[1] = feeds;
-      v41 = v22;
-      [(BBObserverGatewayHolder *)self sendObserver:gateway addBulletin:v40 playLightsAndSirens:1 forFeeds:feeds withHandler:v36];
+      v38 = v25;
+      v39 = bulletinCopy;
+      v42[1] = feeds;
+      v40 = v22;
+      [(BBObserverGatewayHolder *)self sendObserver:gateway addBulletin:v39 playLightsAndSirens:1 forFeeds:feeds withHandler:v35];
 
-      objc_destroyWeak(v43);
-      objc_destroyWeak(&v49);
+      objc_destroyWeak(v42);
+      objc_destroyWeak(&v48);
       objc_destroyWeak(&location);
       _Block_object_dispose(buf, 8);
       goto LABEL_16;
@@ -298,7 +293,7 @@
       *&buf[12] = 2114;
       *&buf[14] = bulletinID2;
       *&buf[22] = 2114;
-      v52 = sectionID2;
+      v51 = sectionID2;
       _os_log_impl(&dword_241EFF000, v28, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ sending add bulletin lights and sirens NO for %{public}@ in section %{public}@ with NO timeout and NO handler", buf, 0x20u);
     }
 
@@ -324,8 +319,8 @@ LABEL_15:
       *&buf[12] = 2114;
       *&buf[14] = bulletinID;
       *&buf[22] = 2114;
-      v52 = sectionID;
-      v53 = 2048;
+      v51 = sectionID;
+      v52 = 2048;
       timeoutCopy = *&feeds;
       _os_log_impl(&dword_241EFF000, v26, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ will not handle add bulletin %{public}@ in section %{public}@ for feed %lu. It's not in a relevant feed.", buf, 0x2Au);
     }
@@ -337,13 +332,11 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_withTimeout_handler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
@@ -354,13 +347,13 @@ void __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_
       v5 = [WeakRetained name];
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v6;
-      v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ did NOT receive lights and sirens response for bulletin %{public}@ in section %{public}@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v7;
+      _os_log_impl(&dword_241EFF000, v4, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ did NOT receive lights and sirens response for bulletin %{public}@ in section %{public}@", &v9, 0x20u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -371,13 +364,11 @@ void __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_
   {
     (*(v8 + 16))(v8, 0, 0);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_withTimeout_handler___block_invoke_42(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   if (!WeakRetained)
@@ -399,20 +390,20 @@ void __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_
     v11 = "DID NOT";
     v12 = *(a1 + 32);
     v13 = *(a1 + 40);
-    *v16 = 138544130;
+    *v15 = 138544130;
     if (a2)
     {
       v11 = "DID";
     }
 
-    *&v16[4] = v9;
-    v17 = 2082;
-    v18 = v11;
-    v19 = 2114;
-    v20 = v12;
-    v21 = 2114;
-    v22 = v13;
-    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ received %{public}s play lights and sirens for bulletin %{public}@ in section %{public}@", v16, 0x2Au);
+    *&v15[4] = v9;
+    v16 = 2082;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v12;
+    v20 = 2114;
+    v21 = v13;
+    _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "Gateway %{public}@ received %{public}s play lights and sirens for bulletin %{public}@ in section %{public}@", v15, 0x2Au);
   }
 
   if ((*(*(*(a1 + 72) + 8) + 24) & 1) == 0)
@@ -420,7 +411,7 @@ void __92__BBObserverGatewayHolder_sendAddBulletin_playLightsAndSirens_forFeeds_
     [WeakRetained _invalidateTimeout:*(a1 + 48)];
     if ((a2 & 1) != 0 || [WeakRetained gatewayPriority] != 3)
     {
-      [WeakRetained sendObserversAddBulletin:*(a1 + 56) playLightsAndSirens:a2 forFeeds:{*(a1 + 88), *v16}];
+      [WeakRetained sendObserversAddBulletin:*(a1 + 56) playLightsAndSirens:a2 forFeeds:{*(a1 + 88), *v15}];
     }
 
 LABEL_11:
@@ -432,8 +423,81 @@ LABEL_11:
   }
 
 LABEL_13:
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)sendObserversAddBulletin:(id)bulletin playLightsAndSirens:(BOOL)sirens forFeeds:(unint64_t)feeds
+{
+  sirensCopy = sirens;
+  v19 = *MEMORY[0x277D85DE8];
+  bulletinCopy = bulletin;
+  v9 = [(BBMaskedSet *)self->_observerFeedSet objectsForMask:feeds];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v15;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v15 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [(BBObserverGatewayHolder *)self sendObserver:*(*(&v14 + 1) + 8 * v13++) addBulletin:bulletinCopy playLightsAndSirens:sirensCopy forFeeds:feeds withHandler:0];
+      }
+
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v11);
+  }
+}
+
+- (void)sendObserver:(id)observer addBulletin:(id)bulletin playLightsAndSirens:(BOOL)sirens forFeeds:(unint64_t)feeds withHandler:(id)handler
+{
+  sirensCopy = sirens;
+  v28 = *MEMORY[0x277D85DE8];
+  observerCopy = observer;
+  bulletinCopy = bulletin;
+  handlerCopy = handler;
+  bulletinID = [bulletinCopy bulletinID];
+  v15 = [observerCopy incrementedTransactionIDForBulletinID:bulletinID];
+
+  v16 = BBLogBulletinLife;
+  if (os_log_type_enabled(BBLogBulletinLife, OS_LOG_TYPE_DEFAULT))
+  {
+    if (sirensCopy)
+    {
+      v17 = "YES";
+    }
+
+    else
+    {
+      v17 = "NO";
+    }
+
+    v18 = v16;
+    bulletinID2 = [bulletinCopy bulletinID];
+    v22 = 136446722;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v15;
+    v26 = 2114;
+    v27 = bulletinID2;
+    _os_log_impl(&dword_241EFF000, v18, OS_LOG_TYPE_DEFAULT, "Sending add bulletin with lights and sirens %{public}s for transactionID %ld, bulletin %{public}@", &v22, 0x20u);
+  }
+
+  v20 = [BBBulletinAddUpdate updateWithBulletin:bulletinCopy feeds:feeds shouldPlayLightsAndSirens:sirensCopy];
+  v21 = [BBBulletinUpdateTransaction transactionWithBulletinUpdate:v20 transactionID:v15];
+  [observerCopy updateBulletin:v21 withHandler:handlerCopy];
 }
 
 - (void)dealloc

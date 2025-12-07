@@ -87,7 +87,7 @@ uint64_t __49__TUIKTStatusCell_initWithStyle_reuseIdentifier___block_invoke()
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_13 != -1)
   {
@@ -99,9 +99,9 @@ uint64_t __49__TUIKTStatusCell_initWithStyle_reuseIdentifier___block_invoke()
     [TUIKTStatusCell refreshCellContentsWithSpecifier:];
   }
 
-  v25.receiver = self;
-  v25.super_class = TUIKTStatusCell;
-  [(PSTableCell *)&v25 refreshCellContentsWithSpecifier:specifierCopy];
+  v24.receiver = self;
+  v24.super_class = TUIKTStatusCell;
+  [(PSTableCell *)&v24 refreshCellContentsWithSpecifier:specifierCopy];
   name = [specifierCopy name];
   [(UILabel *)self->_ktStatusTitleLabel setText:name];
 
@@ -121,10 +121,10 @@ uint64_t __49__TUIKTStatusCell_initWithStyle_reuseIdentifier___block_invoke()
   UICeilToViewScale();
   v10 = v9;
   text = [(UILabel *)self->_ktStatusTitleLabel text];
-  v38 = *MEMORY[0x277D740A8];
+  v37 = *MEMORY[0x277D740A8];
   font = [(UILabel *)self->_ktStatusTitleLabel font];
-  v39[0] = font;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v38[0] = font;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
   [text sizeWithAttributes:v13];
   UICeilToViewScale();
   v15 = v14;
@@ -143,16 +143,16 @@ uint64_t __49__TUIKTStatusCell_initWithStyle_reuseIdentifier___block_invoke()
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316418;
-    v27 = "[TUIKTStatusCell refreshCellContentsWithSpecifier:]";
-    v28 = 1024;
-    v29 = v10 > v19;
-    v30 = 2048;
-    v31 = v10;
-    v32 = 2048;
-    v33 = v15;
-    v34 = 2048;
-    v35 = v17;
-    v36 = 2114;
+    v26 = "[TUIKTStatusCell refreshCellContentsWithSpecifier:]";
+    v27 = 1024;
+    v28 = v10 > v19;
+    v29 = 2048;
+    v30 = v10;
+    v31 = 2048;
+    v32 = v15;
+    v33 = 2048;
+    v34 = v17;
+    v35 = 2114;
     selfCopy = self;
     _os_log_debug_impl(&dword_26F50B000, v20, OS_LOG_TYPE_DEBUG, "%s isHorizontal = %d (cellWidth = %f, titleWidth = %f, statusWidth = %f) on %{public}@", buf, 0x3Au);
   }
@@ -183,8 +183,6 @@ uint64_t __49__TUIKTStatusCell_initWithStyle_reuseIdentifier___block_invoke()
   [(UIStackView *)self->_ktStatusStackView setSpacing:v23];
   [(TUIKTStatusCell *)self setNeedsUpdateConstraints];
   [(TUIKTStatusCell *)self setNeedsLayout];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__TUIKTStatusCell_refreshCellContentsWithSpecifier___block_invoke()
@@ -203,10 +201,9 @@ uint64_t __52__TUIKTStatusCell_refreshCellContentsWithSpecifier___block_invoke_1
 
 - (void)updateConstraints
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 uint64_t __36__TUIKTStatusCell_updateConstraints__block_invoke()
@@ -298,26 +295,23 @@ uint64_t __34__TUIKTStatusCell__setStatusText___block_invoke()
 
 - (void)initWithStyle:reuseIdentifier:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)refreshCellContentsWithSpecifier:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_setStatusText:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_26F50B000, v0, v1, "%s  on %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

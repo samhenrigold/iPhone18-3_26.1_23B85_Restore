@@ -96,10 +96,10 @@ uint64_t __29__BCSRootViewController_init__block_invoke(uint64_t a1)
 
 - (void)loadView
 {
-  v53[8] = *MEMORY[0x277D85DE8];
+  v52[8] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D75D18]);
   [v3 setAutoresizingMask:18];
-  v27 = v3;
+  v26 = v3;
   [(BCSRootViewController *)self setView:v3];
   systemYellowColor = [MEMORY[0x277D75348] systemYellowColor];
   view = [(BCSRootViewController *)self view];
@@ -128,64 +128,62 @@ uint64_t __29__BCSRootViewController_init__block_invoke(uint64_t a1)
   view4 = [(BCSRootViewController *)self view];
   [view4 addSubview:self->_popoverAnchorView];
 
-  v28 = MEMORY[0x277CCAAD0];
+  v27 = MEMORY[0x277CCAAD0];
   topAnchor = [view2 topAnchor];
   view5 = [(BCSRootViewController *)self view];
   topAnchor2 = [view5 topAnchor];
-  v45 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v53[0] = v45;
+  v44 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v52[0] = v44;
   bottomAnchor = [view2 bottomAnchor];
   view6 = [(BCSRootViewController *)self view];
   bottomAnchor2 = [view6 bottomAnchor];
-  v41 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v53[1] = v41;
+  v40 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v52[1] = v40;
   leftAnchor = [view2 leftAnchor];
   view7 = [(BCSRootViewController *)self view];
   leftAnchor2 = [view7 leftAnchor];
-  v37 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v53[2] = v37;
+  v36 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v52[2] = v36;
   rightAnchor = [view2 rightAnchor];
   view8 = [(BCSRootViewController *)self view];
   rightAnchor2 = [view8 rightAnchor];
-  v33 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v53[3] = v33;
+  v32 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
+  v52[3] = v32;
   centerXAnchor = [(UIView *)self->_popoverAnchorView centerXAnchor];
   view9 = [(BCSRootViewController *)self view];
   centerXAnchor2 = [view9 centerXAnchor];
-  v29 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v53[4] = v29;
+  v28 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v52[4] = v28;
   bottomAnchor3 = [(UIView *)self->_popoverAnchorView bottomAnchor];
   view10 = [(BCSRootViewController *)self view];
   bottomAnchor4 = [view10 bottomAnchor];
   v17 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v53[5] = v17;
+  v52[5] = v17;
   widthAnchor = [(UIView *)self->_popoverAnchorView widthAnchor];
   v19 = [widthAnchor constraintEqualToConstant:1.0];
-  v53[6] = v19;
+  v52[6] = v19;
   heightAnchor = [(UIView *)self->_popoverAnchorView heightAnchor];
   v21 = [heightAnchor constraintEqualToConstant:1.0];
-  v53[7] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:8];
-  [v28 activateConstraints:v22];
+  v52[7] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:8];
+  [v27 activateConstraints:v22];
 
   [(BCSLiveViewController *)self->_liveViewController didMoveToParentViewController:self];
   [(BCSRootViewController *)self createSessionIfNeededConnectingPreviewLayer:self->_previewLayer completion:0];
   self->_startTime = CFAbsoluteTimeGetCurrent();
   objc_initWeak(&location, self);
   v23 = objc_alloc(MEMORY[0x277CB8598]);
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __33__BCSRootViewController_loadView__block_invoke;
-  v50[3] = &unk_278D01D80;
-  objc_copyWeak(&v51, &location);
-  v24 = [v23 initWithEventHandler:v50];
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __33__BCSRootViewController_loadView__block_invoke;
+  v49[3] = &unk_278D01D80;
+  objc_copyWeak(&v50, &location);
+  v24 = [v23 initWithEventHandler:v49];
   view11 = [(BCSRootViewController *)self view];
   [view11 addInteraction:v24];
 
-  objc_destroyWeak(&v51);
+  objc_destroyWeak(&v50);
   objc_destroyWeak(&location);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __33__BCSRootViewController_loadView__block_invoke(uint64_t a1, void *a2)
@@ -232,11 +230,11 @@ void __33__BCSRootViewController_loadView__block_invoke(uint64_t a1, void *a2)
   if (deviceType2 == v7)
   {
 LABEL_7:
-    v10 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_2419E7000, v10, OS_LOG_TYPE_INFO, "Found ultra wide camera or triple camera from systemPreferredCamera, use preferred internal camera.", v12, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_2419E7000, v12, OS_LOG_TYPE_INFO, "Found ultra wide camera or triple camera from systemPreferredCamera, use preferred internal camera.", v14, 2u);
     }
 
     _preferredInternalCamera2 = [(BCSRootViewController *)self _preferredInternalCamera];
@@ -254,22 +252,22 @@ LABEL_11:
 
 - (id)_preferredInternalCamera
 {
-  v34[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CE5AD0];
   v3 = *MEMORY[0x277CE5840];
   v4 = *MEMORY[0x277CE5878];
-  v34[0] = *MEMORY[0x277CE5840];
-  v34[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+  v33[0] = *MEMORY[0x277CE5840];
+  v33[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
   v6 = [v2 discoverySessionWithDeviceTypes:v5 mediaType:*MEMORY[0x277CE5EA8] position:1];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v24 = v6;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v23 = v6;
   obj = [v6 devices];
-  v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v7)
   {
     v10 = 0;
@@ -277,27 +275,27 @@ LABEL_11:
   }
 
   v8 = v7;
-  v26 = 0;
+  v25 = 0;
   v9 = 0;
   v10 = 0;
-  v27 = *v30;
+  v26 = *v29;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v30 != v27)
+      if (*v29 != v26)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v29 + 1) + 8 * i);
+      v12 = *(*(&v28 + 1) + 8 * i);
       v13 = [(BCSRootViewController *)self _bestCaptureFormatForDevice:v12];
       highResolutionStillImageDimensions = [v13 highResolutionStillImageDimensions];
 
       if (!v10)
       {
         v10 = v12;
-        v26 = HIDWORD(highResolutionStillImageDimensions);
+        v25 = HIDWORD(highResolutionStillImageDimensions);
         v9 = highResolutionStillImageDimensions;
         continue;
       }
@@ -334,25 +332,23 @@ LABEL_11:
       {
       }
 
-      if (([v10 hasTorch] & 1) == 0 && objc_msgSend(v12, "hasTorch") || highResolutionStillImageDimensions * HIDWORD(highResolutionStillImageDimensions) > (v9 * v26))
+      if (([v10 hasTorch] & 1) == 0 && objc_msgSend(v12, "hasTorch") || highResolutionStillImageDimensions * HIDWORD(highResolutionStillImageDimensions) > (v9 * v25))
       {
 LABEL_19:
         v21 = v12;
 
-        v26 = HIDWORD(highResolutionStillImageDimensions);
+        v25 = HIDWORD(highResolutionStillImageDimensions);
         v9 = highResolutionStillImageDimensions;
         v10 = v21;
         continue;
       }
     }
 
-    v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   }
 
   while (v8);
 LABEL_24:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -365,34 +361,34 @@ LABEL_24:
   if (self->_cameraDevice != _bestCaptureDevice)
   {
     position = [(AVCaptureDevice *)_bestCaptureDevice position];
-    v6 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
+    v7 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle(position, v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
     if (position == 2)
     {
-      if (v7)
+      if (v8)
       {
         *buf = 138543362;
         v15 = v4;
-        _os_log_impl(&dword_2419E7000, v6, OS_LOG_TYPE_INFO, "Ignoring front-facing camera: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_2419E7000, v7, OS_LOG_TYPE_INFO, "Ignoring front-facing camera: %{public}@", buf, 0xCu);
       }
     }
 
     else
     {
-      if (v7)
+      if (v8)
       {
         *buf = 138477827;
         v15 = v4;
-        _os_log_impl(&dword_2419E7000, v6, OS_LOG_TYPE_INFO, "Updating cameraDevice to system preferred: %{private}@", buf, 0xCu);
+        _os_log_impl(&dword_2419E7000, v7, OS_LOG_TYPE_INFO, "Updating cameraDevice to system preferred: %{private}@", buf, 0xCu);
       }
 
       [(AVCaptureDeviceRotationCoordinator *)self->_videoRotationCoordinator removeObserver:self forKeyPath:@"videoRotationAngleForHorizonLevelPreview"];
       [(AVCaptureDevice *)self->_cameraDevice removeObserver:self forKeyPath:@"torchAvailable"];
       [(AVCaptureDevice *)self->_cameraDevice removeObserver:self forKeyPath:@"torchActive"];
       deviceType = [(AVCaptureDevice *)v4 deviceType];
-      v9 = *MEMORY[0x277CE5890];
+      v10 = *MEMORY[0x277CE5890];
 
-      if (deviceType == v9)
+      if (deviceType == v10)
       {
         [(BCSRootViewController *)self _endSession];
       }
@@ -400,9 +396,9 @@ LABEL_24:
       objc_storeStrong(&self->_cameraDevice, v4);
       [(AVCaptureDevice *)self->_cameraDevice addObserver:self forKeyPath:@"torchAvailable" options:4 context:observerContext];
       [(AVCaptureDevice *)self->_cameraDevice addObserver:self forKeyPath:@"torchActive" options:4 context:observerContext];
-      v10 = [objc_alloc(MEMORY[0x277CE5AE0]) initWithDevice:self->_cameraDevice previewLayer:self->_previewLayer];
+      v11 = [objc_alloc(MEMORY[0x277CE5AE0]) initWithDevice:self->_cameraDevice previewLayer:self->_previewLayer];
       videoRotationCoordinator = self->_videoRotationCoordinator;
-      self->_videoRotationCoordinator = v10;
+      self->_videoRotationCoordinator = v11;
 
       [(AVCaptureDeviceRotationCoordinator *)self->_videoRotationCoordinator addObserver:self forKeyPath:@"videoRotationAngleForHorizonLevelPreview" options:4 context:observerContext];
       [(BCSRootViewController *)self _startSessionConnectingPreviewLayer:self->_previewLayer];
@@ -414,8 +410,6 @@ LABEL_24:
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateUserPreferredCameraIfNeeded
@@ -426,18 +420,16 @@ LABEL_24:
   if (userPreferredCamera && [userPreferredCamera position] != 1)
   {
     _preferredInternalCamera = [(BCSRootViewController *)self _preferredInternalCamera];
-    v6 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle(_preferredInternalCamera, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = 138543362;
       v9 = _preferredInternalCamera;
-      _os_log_impl(&dword_2419E7000, v6, OS_LOG_TYPE_INFO, "Updating userPreferredCamera to %{public}@", &v8, 0xCu);
+      _os_log_impl(&dword_2419E7000, v7, OS_LOG_TYPE_INFO, "Updating userPreferredCamera to %{public}@", &v8, 0xCu);
     }
 
     [MEMORY[0x277CE5AC8] setUserPreferredCamera:_preferredInternalCamera];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateVideoRotationAngleIfNeeded
@@ -523,7 +515,7 @@ void __72__BCSRootViewController_observeValueForKeyPath_ofObject_change_context_
   }
 }
 
-uint64_t __72__BCSRootViewController_observeValueForKeyPath_ofObject_change_context___block_invoke_3(uint64_t a1)
+void *__72__BCSRootViewController_observeValueForKeyPath_ofObject_change_context___block_invoke_3(uint64_t a1)
 {
   if ([*(a1 + 32) isEqualToString:@"torchAvailable"])
   {
@@ -550,30 +542,30 @@ uint64_t __72__BCSRootViewController_observeValueForKeyPath_ofObject_change_cont
 
 - (id)_bestCaptureFormatForDevice:(id)device
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   deviceCopy = device;
   formats = [deviceCopy formats];
-  v4 = [formats countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [formats countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(formats);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         formatDescription = [v10 formatDescription];
         if (CMFormatDescriptionGetMediaSubType(formatDescription) == 875704422)
         {
@@ -600,7 +592,7 @@ uint64_t __72__BCSRootViewController_observeValueForKeyPath_ofObject_change_cont
         }
       }
 
-      v5 = [formats countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [formats countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -610,8 +602,6 @@ uint64_t __72__BCSRootViewController_observeValueForKeyPath_ofObject_change_cont
   {
     v6 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -649,7 +639,7 @@ uint64_t __72__BCSRootViewController_observeValueForKeyPath_ofObject_change_cont
 
 - (void)_endSession
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   [(BCSRootViewController *)self disconnectPreviewLayerFromSession];
   if ([(AVCaptureSession *)self->_currentSession isRunning])
   {
@@ -657,61 +647,61 @@ uint64_t __72__BCSRootViewController_observeValueForKeyPath_ofObject_change_cont
     [(BCSVisualCodeDetector *)self->_codeDetector endSession];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   inputs = [(AVCaptureSession *)self->_currentSession inputs];
-  v4 = [inputs countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v4 = [inputs countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       v7 = 0;
       do
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(inputs);
         }
 
-        [(AVCaptureSession *)self->_currentSession removeInput:*(*(&v21 + 1) + 8 * v7++)];
+        [(AVCaptureSession *)self->_currentSession removeInput:*(*(&v20 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [inputs countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v5 = [inputs countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v5);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   outputs = [(AVCaptureSession *)self->_currentSession outputs];
-  v9 = [outputs countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v9 = [outputs countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(outputs);
         }
 
-        [(AVCaptureSession *)self->_currentSession removeOutput:*(*(&v17 + 1) + 8 * v12++)];
+        [(AVCaptureSession *)self->_currentSession removeOutput:*(*(&v16 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [outputs countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v10 = [outputs countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v10);
@@ -725,33 +715,31 @@ uint64_t __72__BCSRootViewController_observeValueForKeyPath_ofObject_change_cont
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277CE5838] object:0];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startSessionConnectingPreviewLayer:(id)layer
 {
   layerCopy = layer;
-  v5 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
-  if (os_signpost_enabled(v5))
+  v6 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(layerCopy, v5);
+  if (os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2419E7000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "scanningToAction", "start capturing", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2419E7000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "scanningToAction", "start capturing", buf, 2u);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_invoke;
-  v7[3] = &unk_278D01C40;
-  v7[4] = self;
-  v8 = layerCopy;
-  v6 = layerCopy;
-  [(BCSRootViewController *)self executeBlockSynchronouslyWithLockedCameraDevice:v7];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_invoke;
+  v8[3] = &unk_278D01C40;
+  v8[4] = self;
+  v9 = layerCopy;
+  v7 = layerCopy;
+  [(BCSRootViewController *)self executeBlockSynchronouslyWithLockedCameraDevice:v8];
 }
 
 void __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (!*(v2 + 1000))
   {
@@ -771,70 +759,70 @@ void __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_inv
   }
 
   [*(v2 + 1000) beginConfiguration];
-  v51 = 0u;
-  v52 = 0u;
   v50 = 0u;
+  v51 = 0u;
   v49 = 0u;
+  v48 = 0u;
   v7 = [*(*(a1 + 32) + 1000) inputs];
-  v8 = [v7 countByEnumeratingWithState:&v49 objects:v56 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v48 objects:v55 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v50;
+    v10 = *v49;
     do
     {
       v11 = 0;
       do
       {
-        if (*v50 != v10)
+        if (*v49 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(a1 + 32) + 1000) removeInput:*(*(&v49 + 1) + 8 * v11++)];
+        [*(*(a1 + 32) + 1000) removeInput:*(*(&v48 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v49 objects:v56 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v48 objects:v55 count:16];
     }
 
     while (v9);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v12 = [*(*(a1 + 32) + 1000) outputs];
-  v13 = [v12 countByEnumeratingWithState:&v45 objects:v55 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v44 objects:v54 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v46;
+    v15 = *v45;
     do
     {
       v16 = 0;
       do
       {
-        if (*v46 != v15)
+        if (*v45 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [*(*(a1 + 32) + 1000) removeOutput:*(*(&v45 + 1) + 8 * v16++)];
+        [*(*(a1 + 32) + 1000) removeOutput:*(*(&v44 + 1) + 8 * v16++)];
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v44 objects:v54 count:16];
     }
 
     while (v14);
   }
 
   v17 = *(*(a1 + 32) + 992);
-  v44 = 0;
-  v18 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:v17 error:&v44];
-  v19 = v44;
+  v43 = 0;
+  v18 = [MEMORY[0x277CE5AD8] deviceInputWithDevice:v17 error:&v43];
+  v19 = v43;
   v20 = *(*(a1 + 32) + 1000);
   if (v19 || (v21 = [v20 canAddInput:v18], v20 = *(*(a1 + 32) + 1000), (v21 & 1) == 0))
   {
@@ -846,9 +834,9 @@ void __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_inv
   {
     [v20 addInput:v18];
     v22 = objc_alloc_init(MEMORY[0x277CE5B60]);
-    v53 = *MEMORY[0x277CC4E30];
-    v54 = &unk_2853A10C0;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+    v52 = *MEMORY[0x277CC4E30];
+    v53 = &unk_2853A10C0;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
     [v22 setVideoSettings:v23];
 
     [v22 setSampleBufferDelegate:*(a1 + 32) queue:*(*(a1 + 32) + 1016)];
@@ -858,18 +846,19 @@ void __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_inv
     {
       [v25 addOutput:v22];
       v26 = [v22 connectionWithMediaType:*MEMORY[0x277CE5EA8]];
-      if ([v26 isCameraIntrinsicMatrixDeliverySupported])
+      v27 = [v26 isCameraIntrinsicMatrixDeliverySupported];
+      if (v27)
       {
         [v26 setCameraIntrinsicMatrixDeliveryEnabled:1];
       }
 
       else
       {
-        v28 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+        v29 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle(v27, v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_2419E7000, v28, OS_LOG_TYPE_INFO, "Camera intrinsic matrix delivery not supported", buf, 2u);
+          _os_log_impl(&dword_2419E7000, v29, OS_LOG_TYPE_INFO, "Camera intrinsic matrix delivery not supported", buf, 2u);
         }
       }
 
@@ -887,49 +876,47 @@ void __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_inv
       if ([*(*(a1 + 32) + 1000) supportsControls])
       {
         [*(*(a1 + 32) + 1000) setControlsDelegate:*(*(a1 + 32) + 1024) queue:*(*(a1 + 32) + 1016)];
-        v29 = [objc_alloc(MEMORY[0x277CE5B58]) initWithDevice:*(*(a1 + 32) + 992)];
-        if ([*(*(a1 + 32) + 1000) canAddControl:v29])
+        v30 = [objc_alloc(MEMORY[0x277CE5B58]) initWithDevice:*(*(a1 + 32) + 992)];
+        if ([*(*(a1 + 32) + 1000) canAddControl:v30])
         {
-          [*(*(a1 + 32) + 1000) addControl:v29];
+          [*(*(a1 + 32) + 1000) addControl:v30];
         }
       }
 
-      v30 = *MEMORY[0x277CE5978];
-      v31 = [*(*(a1 + 32) + 1000) canSetSessionPreset:*MEMORY[0x277CE5978]];
-      v32 = *(*(a1 + 32) + 1000);
-      if (v31)
+      v31 = *MEMORY[0x277CE5978];
+      if ([*(*(a1 + 32) + 1000) canSetSessionPreset:*MEMORY[0x277CE5978]])
       {
-        v33 = v30;
+        v32 = v31;
       }
 
       else
       {
-        v33 = *MEMORY[0x277CE5988];
+        v32 = *MEMORY[0x277CE5988];
       }
 
-      [*(*(a1 + 32) + 1000) setSessionPreset:v33];
+      [*(*(a1 + 32) + 1000) setSessionPreset:v32];
       if (shouldUseSystemPreferredCamera())
       {
+        v33 = [*(*(a1 + 32) + 1008) connection];
+        [v33 setVideoRotationAngle:0.0];
+
         v34 = [*(*(a1 + 32) + 1008) connection];
-        [v34 setVideoRotationAngle:0.0];
+        v35 = [v34 isVideoMirroringSupported];
 
-        v35 = [*(*(a1 + 32) + 1008) connection];
-        v36 = [v35 isVideoMirroringSupported];
-
-        if (v36)
+        if (v35)
         {
-          v37 = [*(*(a1 + 32) + 1008) connection];
-          [v37 setAutomaticallyAdjustsVideoMirroring:0];
+          v36 = [*(*(a1 + 32) + 1008) connection];
+          [v36 setAutomaticallyAdjustsVideoMirroring:0];
 
-          v38 = [*(*(a1 + 32) + 1008) connection];
-          [v38 setVideoMirrored:0];
+          v37 = [*(*(a1 + 32) + 1008) connection];
+          [v37 setVideoMirrored:0];
         }
       }
 
       [*(*(a1 + 32) + 1000) commitConfiguration];
       [*(*(a1 + 32) + 1000) startRunning];
       [*(*(a1 + 32) + 1096) videoRotationAngleForHorizonLevelPreview];
-      *(*(a1 + 32) + 1112) = v39 * 3.14159265 / 180.0;
+      *(*(a1 + 32) + 1112) = v38 * 3.14159265 / 180.0;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_invoke_40;
@@ -937,11 +924,11 @@ void __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_inv
       block[4] = *(a1 + 32);
       dispatch_async(MEMORY[0x277D85CD0], block);
       [*(*(a1 + 32) + 1080) startSession];
-      v40 = [MEMORY[0x277CCAB98] defaultCenter];
-      [v40 addObserver:*(a1 + 32) selector:sel_subjectAreaDidChange_ name:*MEMORY[0x277CE5838] object:*(*(a1 + 32) + 992)];
+      v39 = [MEMORY[0x277CCAB98] defaultCenter];
+      [v39 addObserver:*(a1 + 32) selector:sel_subjectAreaDidChange_ name:*MEMORY[0x277CE5838] object:*(*(a1 + 32) + 992)];
 
-      v41 = [MEMORY[0x277CCAB98] defaultCenter];
-      [v41 addObserver:*(a1 + 32) selector:sel_didLaunchFromControl_ name:*MEMORY[0x277CF0AE8] object:0];
+      v40 = [MEMORY[0x277CCAB98] defaultCenter];
+      [v40 addObserver:*(a1 + 32) selector:sel_didLaunchFromControl_ name:*MEMORY[0x277CF0AE8] object:0];
     }
 
     else
@@ -950,8 +937,6 @@ void __61__BCSRootViewController__startSessionConnectingPreviewLayer___block_inv
       [*(a1 + 32) endSession];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_executeBlockWithLockedCameraDevice:(id)device
@@ -1031,10 +1016,9 @@ uint64_t __80__BCSRootViewController_createSessionIfNeededConnectingPreviewLayer
   result = a1[6];
   if (result)
   {
-    v7 = *(a1[4] + 1000);
-    v8 = *(result + 16);
+    v7 = *(result + 16);
 
-    return v8();
+    return v7();
   }
 
   return result;
@@ -1052,7 +1036,7 @@ uint64_t __80__BCSRootViewController_createSessionIfNeededConnectingPreviewLayer
   dispatch_async(captureQueue, v4);
 }
 
-uint64_t __43__BCSRootViewController_setLiveZoomFactor___block_invoke(uint64_t a1)
+void *__43__BCSRootViewController_setLiveZoomFactor___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1000) isRunning];
   if (result)
@@ -1087,12 +1071,12 @@ uint64_t __43__BCSRootViewController_setLiveZoomFactor___block_invoke(uint64_t a
   return result;
 }
 
-uint64_t __43__BCSRootViewController_setLiveZoomFactor___block_invoke_2(uint64_t result, int a2, double a3, double a4)
+double *__43__BCSRootViewController_setLiveZoomFactor___block_invoke_2(double *result, int a2, double a3, double a4)
 {
   if (a2)
   {
     LODWORD(a4) = 1157234688;
-    return [*(*(result + 32) + 992) rampToVideoZoomFactor:*(result + 40) withRate:a4];
+    return [*(*(result + 4) + 992) rampToVideoZoomFactor:result[5] withRate:a4];
   }
 
   return result;
@@ -1143,7 +1127,7 @@ void __76__BCSRootViewController_viewWillTransitionToSize_withTransitionCoordina
 
 - (void)_startSession
 {
-  v3 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
+  v3 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(self, a2);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -1163,12 +1147,12 @@ void __38__BCSRootViewController__startSession__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 1040) = CFAbsoluteTimeGetCurrent();
   [*(*(a1 + 32) + 1000) startRunning];
-  [*(*(a1 + 32) + 1080) startSession];
-  v2 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v2 = [*(*(a1 + 32) + 1080) startSession];
+  v4 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_2419E7000, v2, OS_LOG_TYPE_INFO, "liveViewControllerDidResetCapture - startRunning.", v3, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2419E7000, v4, OS_LOG_TYPE_INFO, "liveViewControllerDidResetCapture - startRunning.", v5, 2u);
   }
 }
 
@@ -1188,12 +1172,12 @@ void __46__BCSRootViewController__pauseSessionIfNeeded__block_invoke(uint64_t a1
   if ([*(*(a1 + 32) + 1000) isRunning])
   {
     [*(*(a1 + 32) + 1000) stopRunning];
-    [*(*(a1 + 32) + 1080) endSession];
-    v2 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v2 = [*(*(a1 + 32) + 1080) endSession];
+    v4 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_2419E7000, v2, OS_LOG_TYPE_INFO, "_pauseSessionIfNeeded - stopRunning.", v3, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_2419E7000, v4, OS_LOG_TYPE_INFO, "_pauseSessionIfNeeded - stopRunning.", v5, 2u);
     }
   }
 }
@@ -1262,13 +1246,14 @@ uint64_t __60__BCSRootViewController__resetSessionWithCompletionHandler___block_
 
 void __48__BCSRootViewController__restartSessionIfNeeded__block_invoke(uint64_t a1)
 {
-  if ([*(*(a1 + 32) + 1000) isRunning])
+  v2 = [*(*(a1 + 32) + 1000) isRunning];
+  if (v2)
   {
-    v2 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_2419E7000, v2, OS_LOG_TYPE_INFO, "_restartSessionIfNeeded - isRunning.", buf, 2u);
+      _os_log_impl(&dword_2419E7000, v4, OS_LOG_TYPE_INFO, "_restartSessionIfNeeded - isRunning.", buf, 2u);
     }
   }
 
@@ -1439,12 +1424,12 @@ uint64_t __54__BCSRootViewController_applicationDidEnterBackground__block_invoke
 {
   if ([*(*(a1 + 32) + 1000) isRunning])
   {
-    [*(*(a1 + 32) + 1000) stopRunning];
-    v2 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v2 = [*(*(a1 + 32) + 1000) stopRunning];
+    v4 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_2419E7000, v2, OS_LOG_TYPE_INFO, "applicationDidEnterBackground - stopRunning.", v4, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_2419E7000, v4, OS_LOG_TYPE_INFO, "applicationDidEnterBackground - stopRunning.", v6, 2u);
     }
   }
 
@@ -1571,25 +1556,25 @@ uint64_t __46__BCSRootViewController_continueUserActivity___block_invoke(void *a
   [(BCSRootViewController *)self executeBlockAsynchronouslyWithLockedCameraDevice:v6];
 }
 
-uint64_t __93__BCSRootViewController_focusWithMode_exposeWithMode_atDevicePoint_monitorSubjectAreaChange___block_invoke(uint64_t result, int a2)
+double *__93__BCSRootViewController_focusWithMode_exposeWithMode_atDevicePoint_monitorSubjectAreaChange___block_invoke(double *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    if ([*(*(result + 32) + 992) isFocusPointOfInterestSupported] && objc_msgSend(*(*(v2 + 32) + 992), "isFocusModeSupported:", *(v2 + 40)))
+    if ([*(*(result + 4) + 992) isFocusPointOfInterestSupported] && objc_msgSend(*(*(v2 + 4) + 992), "isFocusModeSupported:", *(v2 + 5)))
     {
-      [*(*(v2 + 32) + 992) setFocusPointOfInterest:{*(v2 + 48), *(v2 + 56)}];
-      [*(*(v2 + 32) + 992) setFocusMode:*(v2 + 40)];
+      [*(*(v2 + 4) + 992) setFocusPointOfInterest:{v2[6], v2[7]}];
+      [*(*(v2 + 4) + 992) setFocusMode:*(v2 + 5)];
     }
 
-    if ([*(*(v2 + 32) + 992) isExposurePointOfInterestSupported] && objc_msgSend(*(*(v2 + 32) + 992), "isExposureModeSupported:", *(v2 + 64)))
+    if ([*(*(v2 + 4) + 992) isExposurePointOfInterestSupported] && objc_msgSend(*(*(v2 + 4) + 992), "isExposureModeSupported:", *(v2 + 8)))
     {
-      [*(*(v2 + 32) + 992) setExposurePointOfInterest:{*(v2 + 48), *(v2 + 56)}];
-      [*(*(v2 + 32) + 992) setExposureMode:*(v2 + 64)];
+      [*(*(v2 + 4) + 992) setExposurePointOfInterest:{v2[6], v2[7]}];
+      [*(*(v2 + 4) + 992) setExposureMode:*(v2 + 8)];
     }
 
     v3 = *(v2 + 72);
-    v4 = *(*(v2 + 32) + 992);
+    v4 = *(*(v2 + 4) + 992);
 
     return [v4 setSubjectAreaChangeMonitoringEnabled:v3];
   }
@@ -1675,18 +1660,16 @@ uint64_t __93__BCSRootViewController_focusWithMode_exposeWithMode_atDevicePoint_
   return firstObject;
 }
 
-uint64_t __50__BCSRootViewController__bestCandidateVisualCode___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __50__BCSRootViewController__bestCandidateVisualCode___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   [a2 boundingBox];
-  result = _bcs_pointToRectDistance();
-  v7 = *(*(a1 + 32) + 8);
-  if (v6 < *(v7 + 24))
+  _bcs_pointToRectDistance();
+  v6 = *(*(a1 + 32) + 8);
+  if (v5 < *(v6 + 24))
   {
-    *(v7 + 24) = v6;
+    *(v6 + 24) = v5;
     *(*(*(a1 + 40) + 8) + 24) = a3;
   }
-
-  return result;
 }
 
 - (void)captureOutput:(id)output didOutputSampleBuffer:(opaqueCMSampleBuffer *)buffer fromConnection:(id)connection
@@ -1741,7 +1724,7 @@ void __76__BCSRootViewController_captureOutput_didOutputSampleBuffer_fromConnect
 
 - (void)liveViewControllerWillPerformAction:(id)action
 {
-  v4 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner();
+  v4 = BCS_LOG_CHANNEL_PREFIXBarcodeScanner(self, a2);
   if (os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -1760,12 +1743,12 @@ void __76__BCSRootViewController_captureOutput_didOutputSampleBuffer_fromConnect
 void __61__BCSRootViewController_liveViewControllerWillPerformAction___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 1000) stopRunning];
-  [*(*(a1 + 32) + 1080) endSession];
-  v2 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v2 = [*(*(a1 + 32) + 1080) endSession];
+  v4 = BCS_LOG_CHANNEL_PREFIXBarcodeScannerLifeCycle(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_2419E7000, v2, OS_LOG_TYPE_INFO, "liveViewControllerWillPerformAction - stopRunning.", v3, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_2419E7000, v4, OS_LOG_TYPE_INFO, "liveViewControllerWillPerformAction - stopRunning.", v5, 2u);
   }
 }
 
@@ -1825,7 +1808,7 @@ void __63__BCSRootViewController_liveViewController_torchModeChangedTo___block_i
     else
     {
 
-      [v4 setTorchMode:0];
+      [v4 setTorchMode:{0, a3}];
     }
   }
 
@@ -1838,22 +1821,22 @@ void __63__BCSRootViewController_liveViewController_torchModeChangedTo___block_i
 
 - (id)_imageFromLastVideoSample:(opaqueCMSampleBuffer *)sample rect:(CGRect)rect
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   if (sample)
   {
     ImageBuffer = CMSampleBufferGetImageBuffer(sample);
     v6 = MEMORY[0x277CBF758];
     v7 = *MEMORY[0x277CBFA08];
-    v18[0] = MEMORY[0x277CBEC38];
+    v17[0] = MEMORY[0x277CBEC38];
     v8 = *MEMORY[0x277CBFA68];
-    v17[0] = v7;
-    v17[1] = v8;
-    v15 = *MEMORY[0x277CD3410];
+    v16[0] = v7;
+    v16[1] = v8;
+    v14 = *MEMORY[0x277CD3410];
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[BCSRootViewController _desiredImageOrientation](self, "_desiredImageOrientation")}];
-    v16 = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-    v18[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v15 = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v17[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
     v12 = [v6 imageWithCVPixelBuffer:ImageBuffer options:v11];
   }
 
@@ -1862,39 +1845,28 @@ void __63__BCSRootViewController_liveViewController_torchModeChangedTo___block_i
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (void)continueUserActivity:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 _bcs_privacyPreservingDescription];
+  v6 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)continueUserActivity:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 _bcs_privacyPreservingDescription];
+  v6 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __63__BCSRootViewController_liveViewController_torchModeChangedTo___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 _bcs_privacyPreservingDescription];
+  v6 = [a1 _bcs_privacyPreservingDescription];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

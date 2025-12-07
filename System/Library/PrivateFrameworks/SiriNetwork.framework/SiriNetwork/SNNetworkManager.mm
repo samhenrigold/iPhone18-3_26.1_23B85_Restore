@@ -211,39 +211,37 @@ void __41__SNNetworkManager_acquireWiFiAssertion___block_invoke(uint64_t a1)
 
 void __58__SNNetworkManager_networkManagerLostNonWWANConnectivity___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = WeakRetained[1];
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) networkManagerLostNonWWANConnectivity:{*(a1 + 32), v9}];
+        [*(*(&v8 + 1) + 8 * v7++) networkManagerLostNonWWANConnectivity:{*(a1 + 32), v8}];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkManagerNetworkUnreachable:(id)unreachable
@@ -263,39 +261,37 @@ void __58__SNNetworkManager_networkManagerLostNonWWANConnectivity___block_invoke
 
 void __53__SNNetworkManager_networkManagerNetworkUnreachable___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = WeakRetained[1];
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) networkManagerNetworkUnreachable:{*(a1 + 32), v9}];
+        [*(*(&v8 + 1) + 8 * v7++) networkManagerNetworkUnreachable:{*(a1 + 32), v8}];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkManagerNonWWANDidBecomeAvailable:(id)available
@@ -315,39 +311,37 @@ void __53__SNNetworkManager_networkManagerNetworkUnreachable___block_invoke(uint
 
 void __60__SNNetworkManager_networkManagerNonWWANDidBecomeAvailable___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = WeakRetained[1];
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) networkManagerNonWWANDidBecomeAvailable:{*(a1 + 32), v9}];
+        [*(*(&v8 + 1) + 8 * v7++) networkManagerNonWWANDidBecomeAvailable:{*(a1 + 32), v8}];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

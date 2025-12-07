@@ -24,14 +24,16 @@
   }
 }
 
-uint64_t __45__BLTDebugObserverHolder_startWithWKAppList___block_invoke(uint64_t a1)
+uint64_t __45__BLTDebugObserverHolder_startWithWKAppList___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = BLTIsDebugOrInternalBuild();
+  result = BLTIsDebugOrInternalBuild(a1, a2);
   if (result)
   {
-    startWithWKAppList____sharedInstance = [objc_alloc(*(a1 + 40)) initWithWKAppList:*(a1 + 32)];
+    v4 = [objc_alloc(*(a1 + 40)) initWithWKAppList:*(a1 + 32)];
+    v5 = startWithWKAppList____sharedInstance;
+    startWithWKAppList____sharedInstance = v4;
 
-    return MEMORY[0x2821F96F8]();
+    return MEMORY[0x2821F96F8](v4, v5);
   }
 
   return result;
@@ -40,18 +42,18 @@ uint64_t __45__BLTDebugObserverHolder_startWithWKAppList___block_invoke(uint64_t
 - (BLTDebugObserverHolder)initWithWKAppList:(id)list
 {
   listCopy = list;
-  v12.receiver = self;
-  v12.super_class = BLTDebugObserverHolder;
-  v5 = [(BLTDebugObserverHolder *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = BLTDebugObserverHolder;
+  v5 = [(BLTDebugObserverHolder *)&v13 init];
   v6 = v5;
   if (v5)
   {
-    objc_storeWeak(&v5->_wkAppList, listCopy);
-    v7 = BLTWorkQueue();
-    v8 = BLTWorkQueue();
-    v9 = [BLTBBObserver surrogateWithQueue:v7 calloutQueue:v8];
+    v7 = objc_storeWeak(&v5->_wkAppList, listCopy);
+    v8 = BLTWorkQueue(v7);
+    v9 = BLTWorkQueue(v8);
+    v10 = [BLTBBObserver surrogateWithQueue:v8 calloutQueue:v9];
     observer = v6->_observer;
-    v6->_observer = v9;
+    v6->_observer = v10;
 
     [(BBObserver *)v6->_observer setDelegate:v6];
     [(BBObserver *)v6->_observer setObserverFeed:32878];
@@ -74,7 +76,7 @@ uint64_t __45__BLTDebugObserverHolder_startWithWKAppList___block_invoke(uint64_t
   v39 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   replyCopy = reply;
-  v13 = blt_general_log();
+  v13 = blt_general_log(replyCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     sectionID = [bulletinCopy sectionID];
@@ -132,22 +134,20 @@ uint64_t __45__BLTDebugObserverHolder_startWithWKAppList___block_invoke(uint64_t
   date = [MEMORY[0x277CBEAA8] date];
   if ((feed & 0x806E) != 0)
   {
-    kdebug_trace();
+    v21 = kdebug_trace();
     if (sirensCopy)
     {
-      v21 = blt_general_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v22 = blt_general_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         publishDate = [bulletinCopy publishDate];
         [date timeIntervalSinceDate:publishDate];
         *buf = 134217984;
-        v28 = v23;
-        _os_log_impl(&dword_241FB3000, v21, OS_LOG_TYPE_INFO, "Bulletin raised after %f seconds from 'publish' date", buf, 0xCu);
+        v28 = v24;
+        _os_log_impl(&dword_241FB3000, v22, OS_LOG_TYPE_INFO, "Bulletin raised after %f seconds from 'publish' date", buf, 0xCu);
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

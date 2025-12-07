@@ -31,9 +31,11 @@
 
 uint64_t __46__VSManagedProfileConnection_sharedConnection__block_invoke()
 {
-  sharedConnection___vs_lazy_init_variable = objc_alloc_init(VSManagedProfileConnection);
+  v0 = objc_alloc_init(VSManagedProfileConnection);
+  v1 = sharedConnection___vs_lazy_init_variable;
+  sharedConnection___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (VSManagedProfileConnection)init

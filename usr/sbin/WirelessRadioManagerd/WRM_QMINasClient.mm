@@ -258,31 +258,29 @@
 
 - (void)setHandlerNasSigInfoInd
 {
-  v3 = +[WRM_EnhancedCTService wrm_EnhancedCTServiceSingleton];
-  mClient = self->mClient;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_100014D7C;
-  v7[3] = &unk_1002404A0;
-  v7[4] = v3;
-  v7[5] = self;
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_100014D7C;
+  v5[3] = &unk_1002404A0;
+  v5[4] = +[WRM_EnhancedCTService wrm_EnhancedCTServiceSingleton];
+  v5[5] = self;
   keys[0] = _NSConcreteStackBlock;
   keys[1] = 3221225472;
-  v10 = sub_100014C20;
-  v11 = &unk_10023EB40;
-  v12 = v7;
+  v8 = sub_100014C20;
+  v9 = &unk_10023EB40;
+  v10 = v5;
   qmi::Client::setIndHandler();
   if (self->mSub == 1)
   {
-    v5 = xpc_dictionary_create(0, 0, 0);
+    v3 = xpc_dictionary_create(0, 0, 0);
     *keys = *off_1002404C0;
     values[0] = xpc_uint64_create(0x198uLL);
-    values[1] = v5;
-    v6 = xpc_dictionary_create(keys, values, 2uLL);
+    values[1] = v3;
+    v4 = xpc_dictionary_create(keys, values, 2uLL);
     [+[WRM_HandoverManager WRM_HandoverManagerSingleton](WRM_HandoverManager "WRM_HandoverManagerSingleton")];
     xpc_release(values[0]);
-    xpc_release(v6);
-    xpc_release(v5);
+    xpc_release(v4);
+    xpc_release(v3);
   }
 
   else
@@ -318,7 +316,6 @@
 {
   if (self->mSub == 1)
   {
-    mClient = self->mClient;
     qmi::Client::setIndHandler();
   }
 }
@@ -360,28 +357,27 @@
 
 - (void)querySignalSinr
 {
-  qmi::MutableMessageBase::MutableMessageBase(v6, 2u);
-  *sub_1000B6BAC(v6, 19) = 0;
-  *sub_1000B6DBC(v6, 20) = 0;
-  *sub_1000B6FCC(v6, 21) = 0;
-  *sub_1000B71DC(v6, 24) = 0;
-  *sub_1000B73EC(v6, 27) = 0;
-  *sub_1000B7600(v6, 28) = 0;
-  mClient = self->mClient;
-  QMIServiceMsg::create(v6, v3);
+  qmi::MutableMessageBase::MutableMessageBase(v4, 2u);
+  *sub_1000B6BAC(v4, 19) = 0;
+  *sub_1000B6DBC(v4, 20) = 0;
+  *sub_1000B6FCC(v4, 21) = 0;
+  *sub_1000B71DC(v4, 24) = 0;
+  *sub_1000B73EC(v4, 27) = 0;
+  *sub_1000B7600(v4, 28) = 0;
+  QMIServiceMsg::create(v4, v2);
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 3221225472;
   aBlock[2] = sub_1000B7810;
   aBlock[3] = &unk_10023EB40;
   aBlock[4] = &stru_100240560;
-  v5 = _Block_copy(aBlock);
+  v3 = _Block_copy(aBlock);
   qmi::Client::send();
-  if (v5)
+  if (v3)
   {
-    _Block_release(v5);
+    _Block_release(v3);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(v6);
+  qmi::MutableMessageBase::~MutableMessageBase(v4);
 }
 
 - (void)notifyBBCallState:(unsigned __int8)state :(unsigned __int8)a4 :(unsigned __int8)a5 :(unsigned __int8)a6
@@ -619,55 +615,53 @@
 
 - (void)setHandlerLocationDbInfo
 {
-  mClient = self->mClient;
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1000B0E78;
-  v12[3] = &unk_10023E9A0;
-  v12[4] = self;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000B0E78;
+  v10[3] = &unk_10023E9A0;
+  v10[4] = self;
   aBlock = _NSConcreteStackBlock;
-  v14 = 3221225472;
-  v15 = sub_1000B8944;
-  v16 = &unk_10023EB40;
-  v17 = v12;
+  v12 = 3221225472;
+  v13 = sub_1000B8944;
+  v14 = &unk_10023EB40;
+  v15 = v10;
   qmi::Client::setIndHandler();
-  v4 = self->mClient;
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1000B0F6C;
-  v11[3] = &unk_10023E9A0;
-  v11[4] = self;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1000B0F6C;
+  v9[3] = &unk_10023E9A0;
+  v9[4] = self;
   aBlock = _NSConcreteStackBlock;
-  v14 = 3221225472;
-  v15 = sub_1000B8CEC;
-  v16 = &unk_10023EB40;
-  v17 = v11;
+  v12 = 3221225472;
+  v13 = sub_1000B8CEC;
+  v14 = &unk_10023EB40;
+  v15 = v9;
   qmi::Client::setIndHandler();
   [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: send nas::WrmSdmLocationDbInfoRegister::Request", self->mSub];
-  qmi::MutableMessageBase::MutableMessageBase(v10, 0x556Cu);
-  v6[5] = self->mClient;
-  v6[6] = QMIServiceMsg::create(v10, v5);
-  v7 = 25000;
-  v8 = 0;
-  v9 = 0;
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_1000B1194;
-  v6[3] = &unk_10023E9A0;
-  v6[4] = self;
+  qmi::MutableMessageBase::MutableMessageBase(v8, 0x556Cu);
+  v4[5] = self->mClient;
+  v4[6] = QMIServiceMsg::create(v8, v3);
+  v5 = 25000;
+  v6 = 0;
+  v7 = 0;
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_1000B1194;
+  v4[3] = &unk_10023E9A0;
+  v4[4] = self;
   aBlock = _NSConcreteStackBlock;
-  v14 = 3221225472;
-  v15 = sub_1000B8F90;
-  v16 = &unk_10023EB40;
-  v17 = v6;
-  v9 = _Block_copy(&aBlock);
+  v12 = 3221225472;
+  v13 = sub_1000B8F90;
+  v14 = &unk_10023EB40;
+  v15 = v4;
+  v7 = _Block_copy(&aBlock);
   qmi::Client::send();
-  if (v9)
+  if (v7)
   {
-    _Block_release(v9);
+    _Block_release(v7);
   }
 
-  qmi::MutableMessageBase::~MutableMessageBase(v10);
+  qmi::MutableMessageBase::~MutableMessageBase(v8);
 }
 
 - (void)setWrmSdmLocationDbPushOneEntryForCellType:(int64_t)type cellType:(int)cellType anchorCellBandwidth:(unsigned int)bandwidth mmWavePresent:(BOOL)present downlinkThroughput:(unsigned int)throughput sampleCount:(unsigned int)count deploymentCount:(unsigned int)deploymentCount

@@ -1,6 +1,95 @@
-void sub_1A2E2EE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void *__getkCASnapshotOriginYSymbolLoc_block_invoke(uint64_t a1)
 {
-  va_start(va, a7);
+  v2 = QuartzCoreLibrary();
+  result = dlsym(v2, "kCASnapshotOriginY");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCASnapshotOriginYSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+id getkCASnapshotOriginY()
+{
+  v0 = getkCASnapshotOriginYSymbolLoc();
+  if (!v0)
+  {
+    getkCASnapshotOriginY_cold_1();
+  }
+
+  v1 = *v0;
+
+  return v1;
+}
+
+uint64_t getkCASnapshotSizeHeightSymbolLoc()
+{
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v0 = getkCASnapshotSizeHeightSymbolLoc_ptr;
+  v6 = getkCASnapshotSizeHeightSymbolLoc_ptr;
+  if (!getkCASnapshotSizeHeightSymbolLoc_ptr)
+  {
+    v1 = QuartzCoreLibrary();
+    v4[3] = dlsym(v1, "kCASnapshotSizeHeight");
+    getkCASnapshotSizeHeightSymbolLoc_ptr = v4[3];
+    v0 = v4[3];
+  }
+
+  _Block_object_dispose(&v3, 8);
+  return v0;
+}
+
+void sub_1A2E2ECF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getkCASnapshotSizeHeightSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = QuartzCoreLibrary();
+  result = dlsym(v2, "kCASnapshotSizeHeight");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCASnapshotSizeHeightSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+id getkCASnapshotSizeHeight()
+{
+  v0 = getkCASnapshotSizeHeightSymbolLoc();
+  if (!v0)
+  {
+    getkCASnapshotSizeHeight_cold_1();
+  }
+
+  v1 = *v0;
+
+  return v1;
+}
+
+uint64_t getkCASnapshotSizeWidthSymbolLoc()
+{
+  v3 = 0;
+  v4 = &v3;
+  v5 = 0x2020000000;
+  v0 = getkCASnapshotSizeWidthSymbolLoc_ptr;
+  v6 = getkCASnapshotSizeWidthSymbolLoc_ptr;
+  if (!getkCASnapshotSizeWidthSymbolLoc_ptr)
+  {
+    v1 = QuartzCoreLibrary();
+    v4[3] = dlsym(v1, "kCASnapshotSizeWidth");
+    getkCASnapshotSizeWidthSymbolLoc_ptr = v4[3];
+    v0 = v4[3];
+  }
+
+  _Block_object_dispose(&v3, 8);
+  return v0;
+}
+
+void sub_1A2E2EE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -46,9 +135,9 @@ uint64_t getkCASnapshotTransformSymbolLoc()
   return v0;
 }
 
-void sub_1A2E2EFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2E2EFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -94,9 +183,9 @@ uint64_t getkCASnapshotMapCacheAttributeSymbolLoc()
   return v0;
 }
 
-void sub_1A2E2F140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2E2F140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -142,9 +231,9 @@ uint64_t getCARenderServerCreateSnapshotsSymbolLoc()
   return v0;
 }
 
-void sub_1A2E2F2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2E2F2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -195,12 +284,12 @@ id OUTLINED_FUNCTION_25(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 
 void FBSSettingForExtensionSelector_cold_2()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"selector != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"FBSSetting * _Nullable FBSSettingForExtensionSelector(__unsafe_unretained Class _Nonnull, SEL _Nonnull)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"selector != ((void*)0)", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -209,12 +298,12 @@ void FBSSettingForExtensionSelector_cold_2()
 
 void FBSRealizeSettingsExtension_cold_1()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"![extension isSubclassOfClass:[FBSDerivedSettingsExtension class]]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void FBSRealizeSettingsExtension(__unsafe_unretained Class _Nonnull, __unsafe_unretained FBSSettingsExtensionType _Nonnull)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"![extension isSubclassOfClass:[FBSDerivedSettingsExtension class]]", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -223,12 +312,12 @@ void FBSRealizeSettingsExtension_cold_1()
 
 void FBSRealizeSceneExtension_cold_1(uint64_t a1)
 {
-  v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a FBSSceneExtension"];
+  v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a FBSSceneExtension", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void FBSRealizeSceneExtension(__unsafe_unretained Class _Nonnull)"];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v3, "failure in %{public}@ (%{public}@:%i) : %{public}@", v4, v5, v6, v7, a1, v9, v10);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v3, "failure in %{public}@ (%{public}@:%i) : %{public}@", v4, v5, v6, v7, v8, v9);
   }
 
   [v1 UTF8String];
@@ -256,12 +345,12 @@ void FBSRealizeSceneExtension_cold_2()
 
 void FBSRealizeSceneExtension_cold_3()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"extension != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void FBSRealizeSceneExtension(__unsafe_unretained Class _Nonnull)"];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"extension != ((void *)0)", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -270,12 +359,12 @@ void FBSRealizeSceneExtension_cold_3()
 
 void _realizeSettingsExtension_cold_1()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[baseClass isSubclassOfClass:[FBSSettings class]]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _realizeSettingsExtension(__unsafe_unretained Class, __unsafe_unretained Class)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"[baseClass isSubclassOfClass:[FBSSettings class]]", v8, v9);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v8, v9);
   }
 
   v7 = v0;
@@ -285,12 +374,12 @@ void _realizeSettingsExtension_cold_1()
 
 void _realizeSettingsExtension_cold_2(uint64_t a1)
 {
-  v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a valid FBSSettingsExtension"];
+  v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a valid FBSSettingsExtension", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _realizeSettingsExtension(__unsafe_unretained Class, __unsafe_unretained Class)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v3, "failure in %{public}@ (%{public}@:%i) : %{public}@", v4, v5, v6, v7, a1, v10, v11);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v3, "failure in %{public}@ (%{public}@:%i) : %{public}@", v4, v5, v6, v7, v9, v10);
   }
 
   v8 = v1;
@@ -300,12 +389,12 @@ void _realizeSettingsExtension_cold_2(uint64_t a1)
 
 void _realizeSettingsExtension_cold_3()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingsClass == baseClass"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _realizeSettingsExtension(__unsafe_unretained Class, __unsafe_unretained Class)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"settingsClass == baseClass", v8, v9);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v8, v9);
   }
 
   v7 = v0;
@@ -450,12 +539,12 @@ void _realizeSettingsExtension_cold_32()
 
 void _realizeSettingsExtension_cold_34()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingsClass != baseClass"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _realizeSettingsExtension(__unsafe_unretained Class, __unsafe_unretained Class)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"settingsClass != baseClass", v8, v9);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v8, v9);
   }
 
   v7 = v0;
@@ -501,12 +590,12 @@ void FBSRealizeSubclassExtension_cold_7()
 
 void FBSRealizeSubclassExtension_cold_9()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingsClass != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void FBSRealizeSubclassExtension(__unsafe_unretained Class _Nonnull)"];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"settingsClass != ((void *)0)", v8, v9);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v8, v9);
   }
 
   v7 = v0;
@@ -516,12 +605,12 @@ void FBSRealizeSubclassExtension_cold_9()
 
 void FBSIngestSubclassProperties_cold_1()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingsClass != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void FBSIngestSubclassProperties(__unsafe_unretained Class _Nonnull)"];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"settingsClass != ((void *)0)", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -603,12 +692,12 @@ void _ingestPropertiesFromSettingsSubclass_cold_14(void *a1, uint8_t *buf, os_lo
 
 void _ingestPropertiesFromSettingsSubclass_cold_15()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"mutableSubclass != [mutableSubclass _mutableClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _ingestPropertiesFromSettingsSubclass(__unsafe_unretained Class)"];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"mutableSubclass != [mutableSubclass _mutableClass]", v8, v9);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v8, v9);
   }
 
   v7 = v0;
@@ -618,12 +707,12 @@ void _ingestPropertiesFromSettingsSubclass_cold_15()
 
 void _ingestPropertiesFromSettingsSubclass_cold_16()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingsSubclass != [settingsSubclass _baseClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _ingestPropertiesFromSettingsSubclass(__unsafe_unretained Class)"];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"settingsSubclass != [settingsSubclass _baseClass]", v8, v9);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v8, v9);
   }
 
   v7 = v0;
@@ -633,12 +722,12 @@ void _ingestPropertiesFromSettingsSubclass_cold_16()
 
 void _ingestPropertiesFromSettingsSubclass_cold_17()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingsSubclass != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void _ingestPropertiesFromSettingsSubclass(__unsafe_unretained Class)"];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"settingsSubclass != ((void *)0)", v8, v9);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v8, v9);
   }
 
   v7 = v0;
@@ -648,12 +737,12 @@ void _ingestPropertiesFromSettingsSubclass_cold_17()
 
 void FBSSubclassHasBeenIngested_cold_1()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingsClass != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BOOL FBSSubclassHasBeenIngested(__unsafe_unretained Class _Nonnull)"];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"settingsClass != ((void *)0)", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -662,12 +751,12 @@ void FBSSubclassHasBeenIngested_cold_1()
 
 void FBSSettingForLegacySetting_cold_1()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"settingsClass != ((void*)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"FBSSetting * _Nullable FBSSettingForLegacySetting(__unsafe_unretained Class _Nonnull, NSUInteger)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"settingsClass != ((void*)0)", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -676,12 +765,12 @@ void FBSSettingForLegacySetting_cold_1()
 
 void FBSSettingForLegacySetting_cold_2()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"legacySetting != NSNotFound"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"FBSSetting * _Nullable FBSSettingForLegacySetting(__unsafe_unretained Class _Nonnull, NSUInteger)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"legacySetting != NSNotFound", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -703,12 +792,12 @@ void _addMethod_cold_1(uint64_t a1)
 
 void _addMethod_cold_2()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"type"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _addMethod(__unsafe_unretained Class, __unsafe_unretained Class, SEL, IMP, const char *, BOOL)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"type", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -717,12 +806,12 @@ void _addMethod_cold_2()
 
 void _addMethod_cold_3()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"imp"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _addMethod(__unsafe_unretained Class, __unsafe_unretained Class, SEL, IMP, const char *, BOOL)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"imp", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -731,12 +820,12 @@ void _addMethod_cold_3()
 
 void _addMethod_cold_4()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sel"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _addMethod(__unsafe_unretained Class, __unsafe_unretained Class, SEL, IMP, const char *, BOOL)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"sel", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -745,12 +834,12 @@ void _addMethod_cold_4()
 
 void _addMethod_cold_5()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"ext"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _addMethod(__unsafe_unretained Class, __unsafe_unretained Class, SEL, IMP, const char *, BOOL)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"ext", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -759,12 +848,12 @@ void _addMethod_cold_5()
 
 void _addMethod_cold_6()
 {
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"cls"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v1 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _addMethod(__unsafe_unretained Class, __unsafe_unretained Class, SEL, IMP, const char *, BOOL)"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, @"cls", v7, v8);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v2, "failure in %{public}@ (%{public}@:%i) : %{public}@", v3, v4, v5, v6, v7, v8);
   }
 
   [v0 UTF8String];
@@ -776,17 +865,17 @@ void ___realizeSettingsExtension_block_invoke_285_cold_1(uint64_t a1, Class *a2)
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v13 = NSStringFromClass(*a2);
-  v6 = [v3 stringWithFormat:@"value of class %@ is not of expected class %@"];
+  v6 = NSStringFromClass(*a2);
+  v7 = [v3 stringWithFormat:@"value of class %@ is not of expected class %@", v5, v6];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _realizeSettingsExtension(__unsafe_unretained Class, __unsafe_unretained Class)_block_invoke"}];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void _realizeSettingsExtension(__unsafe_unretained Class, __unsafe_unretained Class)_block_invoke"}];
     OUTLINED_FUNCTION_9();
-    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v5, v13, v14);
+    OUTLINED_FUNCTION_4_0(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v6 UTF8String];
+  [v7 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -2076,7 +2165,7 @@ double gotLoadHelper_x8__OBJC_CLASS___AITransactionLog(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_MobileInstallation(double a1)
+double dlopenHelper_MobileInstallation(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/MobileInstallation.framework/MobileInstallation", 0);
   atomic_store(1u, &dlopenHelperFlag_MobileInstallation);

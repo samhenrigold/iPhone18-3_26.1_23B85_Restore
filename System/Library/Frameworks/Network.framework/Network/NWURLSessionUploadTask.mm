@@ -247,7 +247,7 @@ LABEL_7:
     v17 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_client_metadata_get_upload_resume_endpoint";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null metadata", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v36 = 0;
@@ -339,7 +339,7 @@ LABEL_46:
     v21 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_http_client_metadata_get_upload_resume_endpoint";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s metadata must be http_client", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v36 = 0;
@@ -420,7 +420,7 @@ LABEL_46:
   v33 = __nw_http_client_metadata_get_upload_resume_endpoint_block_invoke;
   v34 = &unk_1E6A3A858;
   v35 = buf;
-  if (_nw_protocol_metadata_get_handle(v8))
+  if (_nw_protocol_metadata_get_handle())
   {
     (v33)(v32);
   }

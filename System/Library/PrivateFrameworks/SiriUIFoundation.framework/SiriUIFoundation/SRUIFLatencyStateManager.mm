@@ -35,7 +35,9 @@
   v4 = sub_269562BB0();
   v6 = v5;
   selfCopy = self;
-  sub_26955443C(v4, v6);
+  sub_26955443C(v4, v6, v8, v9, v10, v11, v12, v13);
+
+  v6, v14, v15, v16, v17, v18, v19, v20;
 }
 
 - (void)processLatencyProgressUpdate:(id)update

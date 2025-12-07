@@ -1088,23 +1088,25 @@ LABEL_16:
   v7 = v6;
   v8 = [NSNumber numberWithUnsignedInteger:index];
   v9 = [(NSMutableDictionary *)self->_questionNumberStorages objectForKey:v8];
+  v11 = v9;
   if (!v9)
   {
     if (!self->_questionNumberStorages)
     {
-      self->_questionNumberStorages = objc_alloc_init(NSMutableDictionary);
+      v9 = objc_alloc_init(NSMutableDictionary);
+      self->_questionNumberStorages = v9;
     }
 
-    v10 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Question %lu of %lu" value:&stru_471858 table:0], index + 1, v7);
+    v12 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v9 v10)], index + 1, v7);
     questionNumberStyle = [info questionNumberStyle];
     context = [info context];
-    v13 = [[TSSStylesheet alloc] initWithContext:context];
-    v9 = [[THWPStorage alloc] initWithContext:context string:v10 kind:3 stylesheet:v13 paragraphStyle:questionNumberStyle listStyle:[TSWPListStyle defaultStyleWithContext:?], 0, 0];
+    v15 = [[TSSStylesheet alloc] initWithContext:context];
+    v11 = [[THWPStorage alloc] initWithContext:context string:v12 kind:3 stylesheet:v15 paragraphStyle:questionNumberStyle listStyle:[TSWPListStyle defaultStyleWithContext:?], 0, 0];
 
-    [(NSMutableDictionary *)self->_questionNumberStorages setObject:v9 forKey:v8];
+    [(NSMutableDictionary *)self->_questionNumberStorages setObject:v11 forKey:v8];
   }
 
-  return v9;
+  return v11;
 }
 
 - (id)summaryTitleStorage
@@ -1112,7 +1114,9 @@ LABEL_16:
   result = self->_summaryTitleStorage;
   if (!result)
   {
-    result = -[THWReviewSummaryLayout storageWithStyle:string:](-[THWReviewLayout summaryLayout](self, "summaryLayout"), "storageWithStyle:string:", -[THWReviewSummaryLayoutDelegate reviewSummaryTitleParagraphStyle](-[THWReviewSummaryLayout delegate](-[THWReviewLayout summaryLayout](self, "summaryLayout"), "delegate"), "reviewSummaryTitleParagraphStyle"), [THBundle() localizedStringForKey:@"Summary" value:&stru_471858 table:0]);
+    reviewSummaryTitleParagraphStyle = [(THWReviewSummaryLayoutDelegate *)[(THWReviewSummaryLayout *)[(THWReviewLayout *)self summaryLayout] delegate] reviewSummaryTitleParagraphStyle];
+    summaryLayout = [(THWReviewLayout *)self summaryLayout];
+    result = -[THWReviewSummaryLayout storageWithStyle:string:](summaryLayout, "storageWithStyle:string:", reviewSummaryTitleParagraphStyle, [THBundle(summaryLayout v6)]);
     self->_summaryTitleStorage = result;
   }
 

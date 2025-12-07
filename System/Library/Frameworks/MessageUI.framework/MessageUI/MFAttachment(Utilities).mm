@@ -3,9 +3,12 @@
 + (id)attachmentElementHTMLStringWithAttributes:()Utilities;
 + (uint64_t)isBasicImageMimeType:()Utilities;
 - (BOOL)isCameraRollCompatibleVideo;
+- (BOOL)isDisplayableByWebKit;
+- (BOOL)isPDFFile;
 - (NSObject)filenameStrippingZipIfNeededUseApplications:()Utilities;
 - (__CFString)_imageScalingKeyForImageScale:()Utilities;
 - (__CFString)className;
+- (char)scaledImageToFit:()Utilities saveScaledImage:attachmentContextID:;
 - (double)constrainedWidth;
 - (double)imageDimensions;
 - (double)imageDimensionsWithData:()Utilities;
@@ -13,18 +16,15 @@
 - (id)contentType;
 - (id)markupStringForCompositionWithPrependedBlankLine:()Utilities imageScale:useAttachmentElement:;
 - (id)markupStringForDisplayWithData:()Utilities allowAttachmentElement:;
-- (id)scaledImageToFit:()Utilities saveScaledImage:attachmentContextID:;
 - (uint64_t)_imageScale;
 - (uint64_t)_isContentTypeDisplayableByMobileMail;
 - (uint64_t)imageScalingFlags;
 - (uint64_t)isBasicImage;
 - (uint64_t)isCalendarFile;
 - (uint64_t)isContentCompressed;
-- (uint64_t)isDisplayableByWebKit;
 - (uint64_t)isDisplayableImage;
 - (uint64_t)isDisplayableInline;
 - (uint64_t)isMedia;
-- (uint64_t)isPDFFile;
 - (uint64_t)isRestrictedMIMEType;
 - (uint64_t)needsColorspaceConversion;
 - (uint64_t)scaledFileSize;
@@ -232,46 +232,46 @@
   return v5;
 }
 
-- (uint64_t)isPDFFile
+- (BOOL)isPDFFile
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   mimeType = [self mimeType];
-  LOBYTE(v2) = [v2 _isPDF:mimeType];
+  LOBYTE(v3) = [v3 _isPDF:mimeType];
 
-  if (v2)
+  if (v3)
   {
     return 1;
   }
 
-  v5 = objc_alloc_init(MEMORY[0x1E69AD778]);
+  v6 = objc_alloc_init(MEMORY[0x1E69AD778]);
   fileName = [self fileName];
   pathExtension = [fileName pathExtension];
-  [v5 setPathExtension:pathExtension];
+  [v6 setPathExtension:pathExtension];
 
   fileName2 = [self fileName];
-  [v5 setFilename:fileName2];
+  [v6 setFilename:fileName2];
 
   if (MFGetTypeInfo())
   {
-    mimeType2 = [v5 mimeType];
+    mimeType2 = [v6 mimeType];
     if (mimeType2)
     {
-      mimeType3 = [v5 mimeType];
-      v4 = [mimeType3 caseInsensitiveCompare:@"application/pdf"] == 0;
+      mimeType3 = [v6 mimeType];
+      v5 = [mimeType3 caseInsensitiveCompare:@"application/pdf"] == 0;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (uint64_t)isCalendarFile
@@ -665,7 +665,7 @@ LABEL_11:
   return unsignedIntegerValue;
 }
 
-- (id)scaledImageToFit:()Utilities saveScaledImage:attachmentContextID:
+- (char)scaledImageToFit:()Utilities saveScaledImage:attachmentContextID:
 {
   v65[1] = *MEMORY[0x1E69E9840];
   v61 = a5;
@@ -1132,11 +1132,11 @@ LABEL_8:
 
 - (uint64_t)isBasicImage
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   mimeType = [self mimeType];
-  v4 = [v2 isBasicImageMimeType:mimeType];
+  v5 = [v3 isBasicImageMimeType:mimeType];
 
-  return v4;
+  return v5;
 }
 
 - (uint64_t)isDisplayableImage
@@ -1198,7 +1198,7 @@ LABEL_8:
   return v2;
 }
 
-- (uint64_t)isDisplayableByWebKit
+- (BOOL)isDisplayableByWebKit
 {
   mimeType = [self mimeType];
   if (mimeType)
@@ -1312,7 +1312,7 @@ LABEL_19:
 
 - (NSObject)filenameStrippingZipIfNeededUseApplications:()Utilities
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   fileName = [self fileName];
   pathExtension = [fileName pathExtension];
   lowercaseString = [pathExtension lowercaseString];
@@ -1327,9 +1327,9 @@ LABEL_19:
       if (a3)
       {
         v10 = [MEMORY[0x1E6963658] documentProxyForName:stringByDeletingPathExtension type:0 MIMEType:0];
-        v17[0] = 0;
-        v11 = [v10 applicationsAvailableForOpeningWithError:v17];
-        v12 = v17[0];
+        v17 = 0;
+        v11 = [v10 applicationsAvailableForOpeningWithError:&v17];
+        v12 = v17;
         v13 = v12;
         if (v11 || !v12)
         {

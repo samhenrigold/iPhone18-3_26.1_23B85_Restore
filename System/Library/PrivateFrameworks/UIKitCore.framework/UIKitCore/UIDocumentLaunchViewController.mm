@@ -85,7 +85,7 @@ void __53___UIDocumentLaunchViewController_animateTransition___block_invoke(uint
   }
 
   v17 = [v78 selectedDetentIdentifier];
-  v70 = [v17 isEqualToString:@"com.apple.UIKit.full"];
+  isEqualToString = objc_msgSend_isEqualToString_(v17);
 
   v67 = v5;
   v68 = v1;
@@ -188,7 +188,7 @@ LABEL_46:
     goto LABEL_61;
   }
 
-  if (!v71 || (v70 & 1) != 0)
+  if (!v71 || (isEqualToString & 1) != 0)
   {
     if (!v10)
     {
@@ -303,7 +303,7 @@ LABEL_27:
   v93 = v24;
   v96 = v21;
   v97 = v71 >> 2;
-  v98 = v70;
+  v98 = isEqualToString;
   v31 = v28;
   v90 = v31;
   v32 = v27;
@@ -690,7 +690,7 @@ id __64___UIDocumentLaunchViewController__updateTitleViewConfiguration__block_in
 
   if (v5)
   {
-    if ([v5 isEqualToString:@"UIDocumentCreationIntentPasteboard"])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       v6 = *(__UILogGetCategoryCachedImpl("UIDocument", &_UIInternalPreference_ForceIOSDeviceInsets_block_invoke_2___s_category_2) + 8);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -737,9 +737,9 @@ uint64_t __64___UIDocumentLaunchViewController__updateTitleViewConfiguration__bl
   }
 
   v6 = v5;
-  v7 = [v6 isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  return v7;
+  return isEqualToString;
 }
 
 id __64___UIDocumentLaunchViewController__updateTitleViewConfiguration__block_invoke_2_35(uint64_t a1)
@@ -817,7 +817,7 @@ id __64___UIDocumentLaunchViewController__updateTitleViewConfiguration__block_in
     v7 = [v5 identifier];
     v8 = _UIDocumentCreationIntentForActionIdentifier(v7);
 
-    if ([v8 isEqualToString:@"UIDocumentCreationIntentPasteboard"])
+    if (objc_msgSend_isEqualToString_(v8))
     {
       v11[0] = MEMORY[0x1E69E9820];
       v11[1] = 3221225472;
@@ -844,7 +844,7 @@ void __64___UIDocumentLaunchViewController__updateTitleViewConfiguration__block_
   (*(a2 + 16))(a2, v3);
 }
 
-uint64_t __60___UIDocumentLaunchViewController__firstResponderDidChange___block_invoke(uint64_t a1)
+void *__60___UIDocumentLaunchViewController__firstResponderDidChange___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isFirstResponder];
   if (result)

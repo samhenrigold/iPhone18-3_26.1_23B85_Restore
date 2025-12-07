@@ -10,10 +10,11 @@
 
 - (void)didMoveToWindow
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UISoftOutlineView();
-  v2 = v3.receiver;
-  [(UIView *)&v3 didMoveToWindow];
+  type metadata accessor for _UISoftOutlineView();
+  v5.receiver = self;
+  v5.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v5 didMoveToWindow];
   sub_188DBD174();
 }
 

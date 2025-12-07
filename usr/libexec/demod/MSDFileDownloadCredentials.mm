@@ -179,25 +179,26 @@
 
   if (expiredCopy)
   {
-    v7 = [expiredCopy objectForKey:@"Expires"];
-    if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    isKindOfClass = [expiredCopy objectForKey:@"Expires"];
+    v8 = isKindOfClass;
+    if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
     {
-      v8 = [v7 longLongValue] < v6 + 30;
+      v9 = [v8 longLongValue] < v6 + 30;
     }
 
     else
     {
-      sub_1000E5ABC();
-      v8 = 1;
+      sub_1000E5ABC(isKindOfClass);
+      v9 = 1;
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)loadFromFile
@@ -206,25 +207,26 @@
   manifestAndFileDownloadInfoPath = [v3 manifestAndFileDownloadInfoPath];
   v5 = [NSURL fileURLWithPath:manifestAndFileDownloadInfoPath];
 
-  v11 = 0;
-  v6 = [NSDictionary dictionaryWithContentsOfURL:v5 error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [NSDictionary dictionaryWithContentsOfURL:v5 error:&v12];
+  v7 = v12;
+  v8 = v7;
   if (v6)
   {
-    v8 = [NSMutableDictionary dictionaryWithDictionary:v6];
-    v9 = [v8 objectForKey:@"FileDownloadCredentials"];
-    [(MSDFileDownloadCredentials *)self setCredentials:v9];
+    v9 = [NSMutableDictionary dictionaryWithDictionary:v6];
+    v10 = [v9 objectForKey:@"FileDownloadCredentials"];
+    [(MSDFileDownloadCredentials *)self setCredentials:v10];
 
-    [v8 removeObjectForKey:@"FileDownloadCredentials"];
-    [(MSDFileDownloadCredentials *)self setManifestInfo:v8];
+    [v9 removeObjectForKey:@"FileDownloadCredentials"];
+    [(MSDFileDownloadCredentials *)self setManifestInfo:v9];
   }
 
   else
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1000E5B24(v5, v7);
+      sub_1000E5B24(v5, v8);
     }
   }
 
@@ -246,46 +248,47 @@
 
   else
   {
-    v17 = 0;
-    v9 = [v4 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v17];
-    v8 = v17;
+    v19 = 0;
+    v9 = [v4 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v19];
+    v10 = v19;
+    v8 = v10;
     if ((v9 & 1) == 0)
     {
-      v15 = sub_100063A54();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = sub_100063A54(v10);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_1000E5BD4(stringByDeletingLastPathComponent, v8);
       }
 
-      v11 = 0;
+      v12 = 0;
       goto LABEL_12;
     }
   }
 
-  v10 = v8;
-  v11 = [NSURL fileURLWithPath:manifestAndFileDownloadInfoPath];
-  v16 = v8;
-  v12 = [fileCopy writeToURL:v11 error:&v16];
-  v8 = v16;
+  v11 = v8;
+  v12 = [NSURL fileURLWithPath:manifestAndFileDownloadInfoPath];
+  v18 = v8;
+  v13 = [fileCopy writeToURL:v12 error:&v18];
+  v8 = v18;
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v15 = sub_100063A54();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = sub_100063A54(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_1000E5C88(v11, v8);
+      sub_1000E5C88(v12, v8);
     }
 
 LABEL_12:
 
-    v13 = 0;
+    v15 = 0;
     goto LABEL_6;
   }
 
-  v13 = 1;
+  v15 = 1;
 LABEL_6:
 
-  return v13;
+  return v15;
 }
 
 - (NSDictionary)manifestInfo

@@ -39,7 +39,7 @@
 
 - (BOOL)performSiriEvaluationTaskWithTaskName:(id)name bmStreamIdentifier:(id)identifier outError:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   identifierCopy = identifier;
   NSLog(&cfstr_Lighthouseshad.isa);
@@ -55,9 +55,9 @@
     v11 = @"com.apple.SiriTasksEvaluation";
   }
 
-  v27 = 0;
-  v12 = [objc_alloc(MEMORY[0x277D36A50]) initWithBundleIdentifier:v11 dataProviderInstance:self evaluationInstance:self personalizationInstance:self pruningPolicy:v9 error:&v27];
-  v13 = v27;
+  v26 = 0;
+  v12 = [objc_alloc(MEMORY[0x277D36A50]) initWithBundleIdentifier:v11 dataProviderInstance:self evaluationInstance:self personalizationInstance:self pruningPolicy:v9 error:&v26];
+  v13 = v26;
   if (v13)
   {
     v14 = v13;
@@ -72,18 +72,18 @@
       identifierCopy = [MEMORY[0x277CF0E28] streamIdentifierForStream:35];
     }
 
-    v25 = identifierCopy;
+    v24 = identifierCopy;
     v16 = [(LighthouseShadowEvaluator *)self generateCandidateModels:identifierCopy];
     v17 = [objc_alloc(MEMORY[0x277D36A58]) initWithMetricName:@"taskSuccessMetric" percentageIncrease:0.05];
-    v28[0] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+    v27[0] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
 
     v19 = [objc_alloc(MEMORY[0x277D36A60]) initWithModelSelectionParameters:v18 minimumNumberOfEvaluations:&unk_2879E1808 minimumNumberOfSamples:0];
     v20 = [objc_alloc(MEMORY[0x277D36A68]) initWithModelSelectionParameters:v18 minimumNumberOfSamplesForPersonalization:&unk_2879E1820 minimumNumberOfSamplesForPersonalizationSelection:&unk_2879E1808];
-    v26 = 0;
+    v25 = 0;
     v21 = v16;
-    [v12 trainAndEvaluateModelsWithCandidateModels:v16 personalizationPolicy:v20 selectionPolicy:v19 error:&v26];
-    v22 = v26;
+    [v12 trainAndEvaluateModelsWithCandidateModels:v16 personalizationPolicy:v20 selectionPolicy:v19 error:&v25];
+    v22 = v25;
     v14 = v22;
     v15 = v22 == 0;
     if (v22)
@@ -91,10 +91,9 @@
       NSLog(&cfstr_Lighthouseshad_1.isa, v22);
     }
 
-    identifierCopy = v25;
+    identifierCopy = v24;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -183,7 +182,7 @@ LABEL_10:
 
 - (BOOL)evaluateTaskSuccess:(id)success finalInteraction:(id)interaction
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   successCopy = success;
   interactionCopy = interaction;
   if (![successCopy count])
@@ -211,61 +210,61 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v14 = MEMORY[0x277CCAAA0];
+  v13 = MEMORY[0x277CCAAA0];
   eventData = [v9 eventData];
-  v35 = 0;
-  v16 = [v14 JSONObjectWithData:eventData options:0 error:&v35];
-  v17 = v35;
+  v34 = 0;
+  v15 = [v13 JSONObjectWithData:eventData options:0 error:&v34];
+  v16 = v34;
 
-  if (v17)
+  if (v16)
   {
     v11 = 0;
   }
 
   else
   {
-    v18 = [v16 objectForKey:@"intentType"];
+    v17 = [v15 objectForKey:@"intentType"];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v19 = successCopy;
-    v20 = [v19 countByEnumeratingWithState:&v31 objects:v36 count:16];
-    if (v20)
+    v18 = successCopy;
+    v19 = [v18 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v19)
     {
-      v28 = v18;
-      v29 = v16;
-      v21 = *v32;
+      v27 = v17;
+      v28 = v15;
+      v20 = *v31;
       while (2)
       {
-        for (i = 0; i != v20; i = i + 1)
+        for (i = 0; i != v19; i = i + 1)
         {
-          if (*v32 != v21)
+          if (*v31 != v20)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v31 + 1) + 8 * i);
-          if ([v23 eventType] == 1)
+          v22 = *(*(&v30 + 1) + 8 * i);
+          if ([v22 eventType] == 1)
           {
-            v24 = MEMORY[0x277CCAAA0];
-            eventData2 = [v23 eventData];
-            v30 = 0;
-            v26 = [v24 JSONObjectWithData:eventData2 options:0 error:&v30];
-            v27 = v30;
+            v23 = MEMORY[0x277CCAAA0];
+            eventData2 = [v22 eventData];
+            v29 = 0;
+            v25 = [v23 JSONObjectWithData:eventData2 options:0 error:&v29];
+            v26 = v29;
 
-            v20 = 0;
-            if (!v27)
+            v19 = 0;
+            if (!v26)
             {
-              v20 = [v26 objectForKey:@"type"];
+              v19 = [v25 objectForKey:@"type"];
             }
 
             goto LABEL_23;
           }
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v31 objects:v36 count:16];
-        if (v20)
+        v19 = [v18 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        if (v19)
         {
           continue;
         }
@@ -274,15 +273,14 @@ LABEL_7:
       }
 
 LABEL_23:
-      v18 = v28;
-      v16 = v29;
+      v17 = v27;
+      v15 = v28;
     }
 
-    v11 = [(LighthouseShadowEvaluator *)self isSuccess:interactionCopy intentType:v18 intentResultType:v20];
+    v11 = [(LighthouseShadowEvaluator *)self isSuccess:interactionCopy intentType:v17 intentResultType:v19];
   }
 
 LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -314,39 +312,39 @@ LABEL_8:
 
 - (id)evaluateAppLaunchedTasks:(id)tasks startTime:(id)time
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   tasksCopy = tasks;
   timeCopy = time;
-  v56 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v53 = objc_opt_new();
-  v54 = timeCopy;
-  v55 = tasksCopy;
+  v55 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v52 = objc_opt_new();
+  v53 = timeCopy;
+  v54 = tasksCopy;
   v7 = [BiomeUtils getEventsFromStream:"getEventsFromStream:startingAt:until:" startingAt:? until:?];
   NSLog(&cfstr_Lighthouseshad_5.isa, [v7 count]);
-  v59 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v8 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v64;
-    v58 = *v64;
+    v10 = *v63;
+    v57 = *v63;
     do
     {
       v11 = 0;
-      v60 = v9;
+      v59 = v9;
       do
       {
-        if (*v64 != v10)
+        if (*v63 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v63 + 1) + 8 * v11);
+        v12 = *(*(&v62 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         eventBody = [v12 eventBody];
         intentClass = [eventBody intentClass];
@@ -357,8 +355,8 @@ LABEL_8:
           v17 = MEMORY[0x277CCAAC8];
           v18 = objc_opt_class();
           interaction = [eventBody interaction];
-          v62 = 0;
-          v20 = [v17 unarchivedObjectOfClass:v18 fromData:interaction error:&v62];
+          v61 = 0;
+          v20 = [v17 unarchivedObjectOfClass:v18 fromData:interaction error:&v61];
 
           v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v20];
           NSLog(&cfstr_Lighthouseshad_7.isa, v21);
@@ -400,10 +398,10 @@ LABEL_8:
           NSLog(&cfstr_Lighthouseshad_8.isa, dateInterval3, identifier, _donatedBySiri);
 
           v36 = [[StitchableInteraction alloc] initWithType:_className identifier:identifier startDate:v30 duration:_donatedBySiri isDonatedBySiri:v33];
-          [v59 addObject:v36];
+          [v58 addObject:v36];
 
-          v10 = v58;
-          v9 = v60;
+          v10 = v57;
+          v9 = v59;
         }
 
         else
@@ -416,15 +414,15 @@ LABEL_8:
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v9 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
     }
 
     while (v9);
   }
 
-  v37 = v59;
-  v38 = [v59 sortedArrayUsingComparator:&__block_literal_global_0];
-  if ([v59 count] >= 2)
+  v37 = v58;
+  v38 = [v58 sortedArrayUsingComparator:&__block_literal_global_0];
+  if ([v58 count] >= 2)
   {
     v39 = 1;
     do
@@ -455,7 +453,7 @@ LABEL_8:
           }
 
           v50 = [[SiriTasksEvaluationResult alloc] initWithTaskId:intentId isEffectiveTask:1 isSuccessfulTask:[(LighthouseShadowEvaluator *)self evaluateTaskSuccess:v45 finalInteraction:v41]];
-          [v56 addObject:v50];
+          [v55 addObject:v50];
         }
 
         else
@@ -464,7 +462,7 @@ LABEL_8:
           NSLog(&cfstr_Lighthouseshad_9.isa, intentId);
         }
 
-        v37 = v59;
+        v37 = v58;
       }
 
       objc_autoreleasePoolPop(v40);
@@ -474,9 +472,7 @@ LABEL_8:
     while (v42 + 2 < [v37 count]);
   }
 
-  v51 = *MEMORY[0x277D85DE8];
-
-  return v56;
+  return v55;
 }
 
 uint64_t __64__LighthouseShadowEvaluator_evaluateAppLaunchedTasks_startTime___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -491,9 +487,9 @@ uint64_t __64__LighthouseShadowEvaluator_evaluateAppLaunchedTasks_startTime___bl
 
 - (id)fetchSiriIntentEvents:(id)events
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
-  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = eventsCopy;
   v5 = [v4 dateByAddingTimeInterval:-60.0];
   v6 = objc_opt_new();
@@ -503,33 +499,33 @@ uint64_t __64__LighthouseShadowEvaluator_evaluateAppLaunchedTasks_startTime___bl
 
   if ([v7 count])
   {
-    v30 = v6;
-    v31 = v5;
-    v32 = v4;
+    v29 = v6;
+    v30 = v5;
+    v31 = v4;
     firstObject = [v7 firstObject];
     eventBody = [firstObject eventBody];
     intentId = [eventBody intentId];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v29 = v7;
+    v28 = v7;
     obj = v7;
-    v9 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v9 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v9)
     {
       v10 = v9;
-      v35 = *v39;
+      v34 = *v38;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v39 != v35)
+          if (*v38 != v34)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v38 + 1) + 8 * i);
+          v12 = *(*(&v37 + 1) + 8 * i);
           eventBody2 = [v12 eventBody];
           intentId2 = [eventBody2 intentId];
           v15 = [intentId2 isEqualToString:intentId];
@@ -552,11 +548,11 @@ uint64_t __64__LighthouseShadowEvaluator_evaluateAppLaunchedTasks_startTime___bl
           v23 = [[SiriIntentEvent alloc] initWithIntentId:intentId3 eventType:v22 eventData:eventData createdAt:v20];
           if (v22 <= 5)
           {
-            [v34 addObject:v23];
+            [v33 addObject:v23];
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v10 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
         if (v10)
         {
           continue;
@@ -568,13 +564,13 @@ uint64_t __64__LighthouseShadowEvaluator_evaluateAppLaunchedTasks_startTime___bl
 
 LABEL_14:
 
-    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v34, "count")}];
+    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v33, "count")}];
     NSLog(&cfstr_Lighthouseshad_14.isa, intentId, v24);
 
-    v5 = v31;
-    v4 = v32;
-    v7 = v29;
-    v6 = v30;
+    v5 = v30;
+    v4 = v31;
+    v7 = v28;
+    v6 = v29;
   }
 
   else
@@ -582,14 +578,12 @@ LABEL_14:
     NSLog(&cfstr_Lighthouseshad_12.isa);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v33;
 }
 
 - (id)getLastEvaluationTime:(id)time
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   bMModelDataStream = [timeCopy BMModelDataStream];
 
@@ -604,31 +598,31 @@ LABEL_14:
     v10 = [publisher filterWithIsIncluded:bmReceiveInputBlock];
 
     v11 = [BiomeUtils getEventsFromPublisher:v10];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
           v16 = MEMORY[0x277CBEAA8];
-          [*(*(&v25 + 1) + 8 * i) timestamp];
+          [*(*(&v24 + 1) + 8 * i) timestamp];
           v17 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
           [v6 addObject:v17];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v13);
@@ -655,8 +649,6 @@ LABEL_14:
   {
     firstObject = [MEMORY[0x277CBEAA8] distantPast];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -710,7 +702,7 @@ LABEL_14:
 
 - (id)evaluateWithModel:(id)model
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v5 = objc_opt_new();
   bMModelDataStream = [modelCopy BMModelDataStream];
@@ -729,86 +721,85 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v13 = [MEMORY[0x277CBEAA8] now];
-  v14 = [(LighthouseShadowEvaluator *)self getLastEvaluationTime:modelCopy];
+  v12 = [MEMORY[0x277CBEAA8] now];
+  v13 = [(LighthouseShadowEvaluator *)self getLastEvaluationTime:modelCopy];
   modelURL = [modelCopy modelURL];
   absoluteString = [modelURL absoluteString];
-  v17 = [(LighthouseShadowEvaluator *)self getDateString:v14];
-  NSLog(&cfstr_Lighthouseshad_18.isa, absoluteString, v17);
+  v16 = [(LighthouseShadowEvaluator *)self getDateString:v13];
+  NSLog(&cfstr_Lighthouseshad_18.isa, absoluteString, v16);
 
-  v18 = [v13 dateByAddingTimeInterval:-10800.0];
-  v38 = v18;
-  if ([v14 compare:v18] == -1)
+  v17 = [v12 dateByAddingTimeInterval:-10800.0];
+  v37 = v17;
+  if ([v13 compare:v17] == -1)
   {
-    v19 = v18;
+    v18 = v17;
 
-    v20 = [(LighthouseShadowEvaluator *)self getDateString:v19];
-    NSLog(&cfstr_Lighthouseshad_19.isa, v20);
+    v19 = [(LighthouseShadowEvaluator *)self getDateString:v18];
+    NSLog(&cfstr_Lighthouseshad_19.isa, v19);
 
-    v14 = v19;
+    v13 = v18;
   }
 
-  v21 = [(LighthouseShadowEvaluator *)self evaluateAbandonedSiriTasks:v13];
-  v39 = v13;
-  v22 = [(LighthouseShadowEvaluator *)self evaluateAppLaunchedTasks:v13 startTime:v14];
-  v23 = MEMORY[0x277CBEB18];
-  v36 = v22;
-  v37 = v21;
-  v24 = [v21 arrayByAddingObjectsFromArray:?];
-  v25 = [v23 arrayWithArray:v24];
-  [(LighthouseShadowEvaluator *)self setEvaluationResults:v25];
+  v20 = [(LighthouseShadowEvaluator *)self evaluateAbandonedSiriTasks:v12];
+  v38 = v12;
+  v21 = [(LighthouseShadowEvaluator *)self evaluateAppLaunchedTasks:v12 startTime:v13];
+  v22 = MEMORY[0x277CBEB18];
+  v35 = v21;
+  v36 = v20;
+  v23 = [v20 arrayByAddingObjectsFromArray:?];
+  v24 = [v22 arrayWithArray:v23];
+  [(LighthouseShadowEvaluator *)self setEvaluationResults:v24];
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   evaluationResults = [(LighthouseShadowEvaluator *)self evaluationResults];
-  v27 = [evaluationResults countByEnumeratingWithState:&v40 objects:v44 count:16];
-  if (v27)
+  v26 = [evaluationResults countByEnumeratingWithState:&v39 objects:v43 count:16];
+  if (v26)
   {
-    v28 = v27;
+    v27 = v26;
+    LODWORD(v28) = 0;
     LODWORD(v29) = 0;
-    LODWORD(v30) = 0;
-    v31 = *v41;
+    v30 = *v40;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v41 != v31)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(evaluationResults);
         }
 
-        v33 = *(*(&v40 + 1) + 8 * i);
-        v30 = v30 + [v33 isSuccessfulTask];
-        v29 = v29 + [v33 isEffectiveTask];
+        v32 = *(*(&v39 + 1) + 8 * i);
+        v29 = v29 + [v32 isSuccessfulTask];
+        v28 = v28 + [v32 isEffectiveTask];
       }
 
-      v28 = [evaluationResults countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v27 = [evaluationResults countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
   else
   {
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
   }
 
-  v34 = objc_opt_new();
-  [v34 setMetricName:@"taskSuccessMetric"];
-  [v34 setMetricValue:v30 * 100.0 / v29];
-  [v34 setNumberOfPositiveSamples:v30];
-  [v34 setNumberOfSamples:v29];
-  metricName = [v34 metricName];
-  NSLog(&cfstr_Lighthouseshad_20.isa, metricName, v30, v29);
+  v33 = objc_opt_new();
+  [v33 setMetricName:@"taskSuccessMetric"];
+  [v33 setMetricValue:v29 * 100.0 / v28];
+  [v33 setNumberOfPositiveSamples:v29];
+  [v33 setNumberOfSamples:v28];
+  metricName = [v33 metricName];
+  NSLog(&cfstr_Lighthouseshad_20.isa, metricName, v29, v28);
 
-  [v5 addModelEvaluationResults:v34];
+  [v5 addModelEvaluationResults:v33];
   v10 = v5;
 
 LABEL_7:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -879,29 +870,29 @@ LABEL_7:
 
 - (id)getTaskConfigurationFromInteractionID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v3 = [_TtC19SiriTasksEvaluation17FeatureStoreUtils retrieveFeatureDataWithStreamId:@"SIRITaskConfiguration" interactionId:?];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [[SiriTaskConfiguration alloc] initWithJSONData:*(*(&v18 + 1) + 8 * i)];
+        v9 = [[SiriTaskConfiguration alloc] initWithJSONData:*(*(&v17 + 1) + 8 * i)];
         v10 = v9;
         if (v6)
         {
@@ -923,7 +914,7 @@ LABEL_7:
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
@@ -933,8 +924,6 @@ LABEL_7:
   {
     v6 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

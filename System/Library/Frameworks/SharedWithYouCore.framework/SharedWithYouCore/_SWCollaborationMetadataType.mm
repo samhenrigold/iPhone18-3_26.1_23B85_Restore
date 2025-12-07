@@ -15,7 +15,7 @@
 + (_SWCollaborationMetadataType)collaboration
 {
   v2 = [_SWCollaborationMetadataType alloc];
-  v3 = SWCoreFrameworkBundle();
+  v3 = SWCoreFrameworkBundle(v2);
   v4 = [v3 localizedStringForKey:@"Collaborate" value:&stru_1F4E16F00 table:@"SharedWithYouCore"];
   v5 = [(_SWCollaborationMetadataType *)v2 initWithTypedIdentifier:@"SWCollaborationMetadataTypeTypeIdentifierCollaboration" actionDescription:v4];
 
@@ -25,7 +25,7 @@
 + (_SWCollaborationMetadataType)event
 {
   v2 = [_SWCollaborationMetadataType alloc];
-  v3 = SWCoreFrameworkBundle();
+  v3 = SWCoreFrameworkBundle(v2);
   v4 = [v3 localizedStringForKey:@"RSVP" value:&stru_1F4E16F00 table:@"SharedWithYouCore"];
   v5 = [(_SWCollaborationMetadataType *)v2 initWithTypedIdentifier:@"SWCollaborationMetadataTypeTypeIdentifierEvent" actionDescription:v4];
 

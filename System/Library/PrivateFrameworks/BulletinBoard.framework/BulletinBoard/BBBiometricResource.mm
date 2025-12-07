@@ -15,11 +15,11 @@
 
 - (BBBiometricResource)initWithQueue:(id)queue
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v29.receiver = self;
-  v29.super_class = BBBiometricResource;
-  v6 = [(BBBiometricResource *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = BBBiometricResource;
+  v6 = [(BBBiometricResource *)&v28 init];
   v7 = v6;
   if (v6)
   {
@@ -37,34 +37,34 @@
 
     if (__loadBiometricKitIfNecessary_biometricKit)
     {
-      v23 = queueCopy;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
+      v22 = queueCopy;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       availableDevices = [NSClassFromString(&cfstr_Bkdevicemanage.isa) availableDevices];
-      v10 = [availableDevices countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v10 = [availableDevices countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (!v10)
       {
         goto LABEL_16;
       }
 
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       while (1)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(availableDevices);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           v15 = NSClassFromString(&cfstr_Bkdevice.isa);
-          v24 = 0;
-          v16 = [(objc_class *)v15 deviceWithDescriptor:v14 error:&v24];
-          v17 = v24;
+          v23 = 0;
+          v16 = [(objc_class *)v15 deviceWithDescriptor:v14 error:&v23];
+          v17 = v23;
           descriptor = [v16 descriptor];
           if ([descriptor type] == 2)
           {
@@ -85,12 +85,12 @@
 LABEL_14:
         }
 
-        v11 = [availableDevices countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v11 = [availableDevices countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (!v11)
         {
 LABEL_16:
 
-          queueCopy = v23;
+          queueCopy = v22;
           break;
         }
       }
@@ -106,7 +106,6 @@ LABEL_16:
     [(BBBiometricResource *)v7 _registerForPasscodeChange];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

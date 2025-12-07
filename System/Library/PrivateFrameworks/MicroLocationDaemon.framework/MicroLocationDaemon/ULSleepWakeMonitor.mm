@@ -1,6 +1,7 @@
 @interface ULSleepWakeMonitor
 + (int)_internalSleepWakeStateFromCUSleepWakeState:(int)state;
 - (id)latestEventAfterAddingObserverForEventName:(id)name;
+- (void)_didUpdateSleepWakeState:(int)state;
 - (void)startMonitoring:(id)monitoring;
 - (void)stopMonitoring:(id)monitoring;
 @end
@@ -111,6 +112,33 @@ void __38__ULSleepWakeMonitor_startMonitoring___block_invoke(uint64_t a1, uint64
   }
 
   return v8;
+}
+
+- (void)_didUpdateSleepWakeState:(int)state
+{
+  v3 = *&state;
+  v12 = *MEMORY[0x277D85DE8];
+  queue = [(ULEventMonitor *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  -[ULSleepWakeMonitor setSleepWakeState:](self, "setSleepWakeState:", [objc_opt_class() _internalSleepWakeStateFromCUSleepWakeState:v3]);
+  v6 = objc_opt_new();
+  [v6 setSleepWakeState:{-[ULSleepWakeMonitor sleepWakeState](self, "sleepWakeState")}];
+  [(ULEventMonitor *)self postEvent:v6];
+  if (onceToken_MicroLocation_Default != -1)
+  {
+    ULSleepWakeStateToString_cold_1();
+  }
+
+  v7 = logObject_MicroLocation_Default;
+  if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    v9 = ULSleepWakeStateToString([v6 sleepWakeState]);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "ULSleepWakeMonitor, sleep state = %@", &v10, 0xCu);
+  }
 }
 
 + (int)_internalSleepWakeStateFromCUSleepWakeState:(int)state

@@ -35,7 +35,7 @@
   v20 = 0u;
   if (dataSource)
   {
-    [dataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(dataSource);
     v9 = v19;
   }
 

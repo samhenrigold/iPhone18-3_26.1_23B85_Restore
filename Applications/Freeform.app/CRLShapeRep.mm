@@ -290,7 +290,7 @@ LABEL_15:
     v8 = shapeLayout;
     if (shapeLayout)
     {
-      [shapeLayout transformInRoot];
+      objc_msgSend_transformInRoot(shapeLayout);
     }
 
     else
@@ -1487,9 +1487,9 @@ LABEL_6:
 - (void)didUpdateRenderable:(id)renderable
 {
   renderableCopy = renderable;
-  v157.receiver = self;
-  v157.super_class = CRLShapeRep;
-  [(CRLCanvasRep *)&v157 didUpdateRenderable:renderableCopy];
+  v158.receiver = self;
+  v158.super_class = CRLShapeRep;
+  [(CRLCanvasRep *)&v158 didUpdateRenderable:renderableCopy];
   if (![(CRLShapeRep *)self p_shouldSkipRenderableRecalculations])
   {
     [(CRLShapeRep *)self opacity];
@@ -1563,9 +1563,9 @@ LABEL_6:
 
     directlyManagesLayerContent = 0;
 LABEL_25:
-    v139 = v19;
+    v140 = v19;
     mNeedsDisplay = self->mNeedsDisplay;
-    v140 = renderableCopy;
+    v141 = renderableCopy;
     if (!(v10 | ![(CRLShapeRep *)self directlyManagesLayerContent]))
     {
       self->mNeedsDisplay = 0;
@@ -1583,33 +1583,33 @@ LABEL_25:
         {
           if (mNeedsDisplay)
           {
-            *v135 = *&CGAffineTransformIdentity.c;
-            *&v156.a = *&CGAffineTransformIdentity.a;
-            *&v156.c = *v135;
-            *&v156.tx = *&CGAffineTransformIdentity.tx;
-            tx = v156.tx;
+            *v136 = *&CGAffineTransformIdentity.c;
+            *&v157.a = *&CGAffineTransformIdentity.a;
+            *&v157.c = *v136;
+            *&v157.tx = *&CGAffineTransformIdentity.tx;
+            tx = v157.tx;
             canvas2 = [(CRLCanvasRep *)self canvas];
             [canvas2 contentsScale];
             v31 = v30;
             canvas3 = [(CRLCanvasRep *)self canvas];
             [canvas3 contentsScale];
-            *&v155.a = *&v156.a;
-            *&v155.c = *v135;
-            *&v155.tx = *&v156.tx;
-            CGAffineTransformScale(&v156, &v155, v31, v33);
+            *&v156.a = *&v157.a;
+            *&v156.c = *v136;
+            *&v156.tx = *&v157.tx;
+            CGAffineTransformScale(&v157, &v156, v31, v33);
 
-            [(CRLCanvasRep *)self transformToConvertNaturalToLayerRelative];
-            t2 = v156;
-            CGAffineTransformConcat(&v155, &t1, &t2);
-            v156 = v155;
+            objc_msgSend_transformToConvertNaturalToLayerRelative(self);
+            t2 = v157;
+            CGAffineTransformConcat(&v156, &t1, &t2);
+            v157 = v156;
             shapeLayout = [(CRLShapeRep *)self shapeLayout];
             [shapeLayout pathBounds];
             v36 = v35;
             v38 = v37;
 
-            t1 = v156;
-            CGAffineTransformTranslate(&v155, &t1, -v36, -v38);
-            v156 = v155;
+            t1 = v157;
+            CGAffineTransformTranslate(&v156, &t1, -v36, -v38);
+            v157 = v156;
             [renderableCopy frame];
             [(CRLShapeRep *)self p_sizeForDirectlyManagedImageFromRenderableSize:v39, v40];
             if (v41 <= 0.0 || (v43 = v42, v42 <= 0.0) || (v44 = v41, [(CRLShapeRep *)self strokeEnd], v45 <= 0.0) || [(CRLShapeRep *)self isInvisible]&& (*(self + 344) & 3) == 0)
@@ -1651,11 +1651,11 @@ LABEL_25:
 
             else
             {
-              v137 = [v28 copy];
+              v138 = [v28 copy];
               shapeLayout2 = [(CRLShapeRep *)self shapeLayout];
               pathSource = [shapeLayout2 pathSource];
               bezierPath = [pathSource bezierPath];
-              v136 = [bezierPath copy];
+              v137 = [bezierPath copy];
 
               *&v49 = COERCE_DOUBLE(objc_alloc_init(CRLBrushStrokeLayoutOptions));
               if ([(CRLShapeRepHelperProtocol *)self->mHelper hasLegacyFreehandDrawingBrushStroke])
@@ -1675,14 +1675,14 @@ LABEL_25:
                   shapeLayout4 = [(CRLShapeRep *)self shapeInfo];
                   [shapeLayout4 strokePatternOffsetDistance];
                   dynamicPatternOffsetsBySubpath2 = [NSNumber numberWithDouble:?];
-                  v158 = dynamicPatternOffsetsBySubpath2;
-                  v54 = [NSArray arrayWithObjects:&v158 count:1];
+                  v159 = dynamicPatternOffsetsBySubpath2;
+                  v54 = [NSArray arrayWithObjects:&v159 count:1];
                 }
 
                 v75 = v54;
                 [(CRLBrushStrokeLayoutOptions *)v49 setPatternOffsetsBySubpath:v54];
 
-                renderableCopy = v140;
+                renderableCopy = v141;
               }
 
               [(CRLShapeRep *)self strokeEnd];
@@ -1705,90 +1705,91 @@ LABEL_25:
                   queueForConcurrentlyDrawingChildrenIntoLayersIfSafe = [*&v78 queueForConcurrentlyDrawingChildrenIntoLayersIfSafe];
                 }
 
-                v100 = v136;
-                v145[0] = _NSConcreteStackBlock;
-                v145[1] = 3221225472;
-                v145[2] = sub_100197994;
-                v145[3] = &unk_101843808;
-                v150 = v44;
-                v151 = v43;
-                v145[4] = self;
-                v146 = v137;
-                v152 = v156;
-                v147 = v136;
-                v101 = *&v49;
-                v148 = v49;
-                v102 = v140;
-                v149 = v102;
-                v103 = objc_retainBlock(v145);
-                v104 = v103;
+                v101 = v137;
+                v146[0] = _NSConcreteStackBlock;
+                v146[1] = 3221225472;
+                v146[2] = sub_100197994;
+                v146[3] = &unk_101843808;
+                v151 = v44;
+                v152 = v43;
+                v146[4] = self;
+                v147 = v138;
+                v153 = v157;
+                v148 = v137;
+                v102 = *&v49;
+                v149 = v49;
+                v103 = v141;
+                v150 = v103;
+                v104 = objc_retainBlock(v146);
+                v105 = v104;
                 if (queueForConcurrentlyDrawingChildrenIntoLayersIfSafe)
                 {
-                  v143[0] = _NSConcreteStackBlock;
-                  v143[1] = 3221225472;
-                  v143[2] = sub_100197AAC;
-                  v143[3] = &unk_10183B230;
-                  v144 = v103;
-                  [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe performAsync:v143];
+                  v144[0] = _NSConcreteStackBlock;
+                  v144[1] = 3221225472;
+                  v144[2] = sub_100197AAC;
+                  v144[3] = &unk_10183B230;
+                  v145 = v104;
+                  [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe performAsync:v144];
                   interactiveCanvasController2 = [(CRLCanvasRep *)self interactiveCanvasController];
-                  layer2 = [v102 layer];
+                  layer2 = [v103 layer];
                   [interactiveCanvasController2 setNeedsDisplayOnLayer:layer2];
 
-                  v101 = *&v49;
+                  v102 = *&v49;
                 }
 
                 else
                 {
-                  (v103[2])(v103, 0);
+                  (v104[2])(v104, 0);
                 }
 
-                v97 = tx;
+                v98 = tx;
               }
 
               else
               {
                 tx = *&v49;
-                v80 = [(CRLShapeRep *)self p_shouldDrawStrokeWide:v137];
-                sub_10016BB74();
-                *&v81 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                if (v80)
+                v80 = [(CRLShapeRep *)self p_shouldDrawStrokeWide:v138];
+                v81 = v80;
+                sub_10016BB74(v80);
+                *&v82 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                if (v81)
                 {
-                  v82 = 115;
+                  v83 = 115;
                 }
 
                 else
                 {
-                  v82 = 70;
+                  v83 = 70;
                 }
 
-                v83 = objc_opt_class();
+                v84 = objc_opt_class();
                 layer3 = [renderableCopy layer];
-                sub_100013F00(v83, layer3);
-                queueForConcurrentlyDrawingChildrenIntoLayersIfSafe = v85 = renderableCopy;
+                sub_100013F00(v84, layer3);
+                queueForConcurrentlyDrawingChildrenIntoLayersIfSafe = v86 = renderableCopy;
 
                 [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setOpaque:0];
                 [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setPresentsWithTransaction:0];
                 [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setAllowsNextDrawableTimeout:0];
                 [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setMaximumDrawableCount:3];
-                [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setDevice:v81];
-                [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setPixelFormat:v82];
+                [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setDevice:v82];
+                [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setPixelFormat:v83];
                 [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe setColorspace:0];
                 nextDrawable = [queueForConcurrentlyDrawingChildrenIntoLayersIfSafe nextDrawable];
-                v87 = [CRLBrushStrokeDirectMetalRenderingContext alloc];
-                [v85 frame];
-                v89 = v88;
-                v91 = v90;
-                v93 = v92;
-                v95 = v94;
+                v88 = [CRLBrushStrokeDirectMetalRenderingContext alloc];
+                [v86 frame];
+                v90 = v89;
+                v92 = v91;
+                v94 = v93;
+                v96 = v95;
                 canvas4 = [(CRLCanvasRep *)self canvas];
                 [canvas4 contentsScale];
-                v155 = v156;
-                v97 = *&v81;
-                v99 = [(CRLBrushStrokeDirectMetalRenderingContext *)v87 initWithMetalDrawable:nextDrawable frame:&v155 transform:0 contentsScale:v81 destinationColorSpaceOverride:v89 metalDeviceOverride:v91, v93, v95, v98];
+                v156 = v157;
+                v98 = *&v82;
+                v100 = [(CRLBrushStrokeDirectMetalRenderingContext *)v88 initWithMetalDrawable:nextDrawable frame:&v156 transform:0 contentsScale:v82 destinationColorSpaceOverride:v90 metalDeviceOverride:v92, v94, v96, v99];
 
-                v100 = v136;
-                v101 = tx;
-                [v137 paintPath:objc_msgSend(v136 directlyUsingContext:"CGPath") withLayoutOptions:{v99, *&tx}];
+                v101 = v137;
+                v102 = tx;
+                [v138 paintPath:objc_msgSend(v137 directlyUsingContext:"CGPath") withLayoutOptions:{v100, *&tx}];
               }
             }
 
@@ -1862,16 +1863,16 @@ LABEL_25:
           [canvas6 contentsScale];
           v68 = v57 * v67;
 
+          v157.a = 0.0;
+          v157.b = 0.0;
           v156.a = 0.0;
           v156.b = 0.0;
-          v155.a = 0.0;
-          v155.b = 0.0;
           shapeLayout7 = [(CRLShapeRep *)self shapeLayout];
-          v141 = 0;
           v142 = 0;
-          [shapeLayout7 aliasPathForScale:&v142 adjustedStroke:&v141 adjustedPath:&v156 startDelta:&v155 endDelta:v68];
-          v70 = v142;
-          v71 = v141;
+          v143 = 0;
+          [shapeLayout7 aliasPathForScale:&v143 adjustedStroke:&v142 adjustedPath:&v157 startDelta:&v156 endDelta:v68];
+          v70 = v143;
+          v71 = v142;
 
           [v70 applyToRepRenderable:renderableCopy withScale:v57];
         }
@@ -1890,15 +1891,15 @@ LABEL_83:
     freehandDrawingToolkit = [interactiveCanvasController3 freehandDrawingToolkit];
 
     shapeInfo = [(CRLShapeRep *)self shapeInfo];
-    v110 = [shapeInfo id];
-    v111 = [freehandDrawingToolkit wantsToAnimateForObjectUUID:v110 animation:@"CRLFreehandDrawingToolkitAnimationNameOutlineFill"];
+    v111 = [shapeInfo id];
+    v112 = [freehandDrawingToolkit wantsToAnimateForObjectUUID:v111 animation:@"CRLFreehandDrawingToolkitAnimationNameOutlineFill"];
 
     shapeInfo2 = [(CRLShapeRep *)self shapeInfo];
-    v113 = [shapeInfo2 id];
-    v114 = [freehandDrawingToolkit wantsToAnimateForObjectUUID:v113 animation:@"CRLFreehandDrawingToolkitAnimationNameFloodFill"];
+    v114 = [shapeInfo2 id];
+    v115 = [freehandDrawingToolkit wantsToAnimateForObjectUUID:v114 animation:@"CRLFreehandDrawingToolkitAnimationNameFloodFill"];
 
-    renderableCopy = v140;
-    if ((v111 & 1) == 0 && !v114)
+    renderableCopy = v141;
+    if ((v112 & 1) == 0 && !v115)
     {
 LABEL_103:
       self->mFillChanged = 0;
@@ -1907,98 +1908,98 @@ LABEL_103:
       goto LABEL_104;
     }
 
-    LODWORD(v116) = 1036831949;
-    LODWORD(v115) = 0.25;
-    LODWORD(v117) = 0.25;
-    LODWORD(v118) = 1.0;
-    v138 = [CAMediaTimingFunction functionWithControlPoints:v115];
-    if ((v139 | directlyManagesLayerContent))
+    LODWORD(v117) = 1036831949;
+    LODWORD(v116) = 0.25;
+    LODWORD(v118) = 0.25;
+    LODWORD(v119) = 1.0;
+    v139 = [CAMediaTimingFunction functionWithControlPoints:v116];
+    if ((v140 | directlyManagesLayerContent))
     {
       if (!directlyManagesLayerContent)
       {
-        if (!v139)
+        if (!v140)
         {
+          v121 = 0;
+          v130 = 0;
           v120 = 0;
-          v129 = 0;
-          v119 = 0;
           goto LABEL_94;
         }
 
-        v120 = +[CATransition animation];
-        [v120 setDuration:0.2];
-        [v120 setTimingFunction:v138];
-        [v120 setType:kCATransitionFade];
-        v119 = @"contents";
+        v121 = +[CATransition animation];
+        [v121 setDuration:0.2];
+        [v121 setTimingFunction:v139];
+        [v121 setType:kCATransitionFade];
+        v120 = @"contents";
 LABEL_93:
-        v129 = 1;
+        v130 = 1;
 LABEL_94:
         shapeInfo3 = [(CRLShapeRep *)self shapeInfo];
-        v131 = [shapeInfo3 id];
-        if (v111)
+        v132 = [shapeInfo3 id];
+        if (v112)
         {
-          v132 = @"CRLFreehandDrawingToolkitAnimationNameOutlineFill";
+          v133 = @"CRLFreehandDrawingToolkitAnimationNameOutlineFill";
         }
 
         else
         {
-          v132 = @"CRLFreehandDrawingToolkitAnimationNameFloodFill";
+          v133 = @"CRLFreehandDrawingToolkitAnimationNameFloodFill";
         }
 
-        v133 = [freehandDrawingToolkit animationCompletionHandlerForObjectUUID:v131 animation:v132];
+        v134 = [freehandDrawingToolkit animationCompletionHandlerForObjectUUID:v132 animation:v133];
 
-        if (v120 && v129)
+        if (v121 && v130)
         {
           +[CATransaction begin];
-          renderableCopy = v140;
-          [v140 addAnimation:v120 forKey:v119];
-          [CATransaction setCompletionBlock:v133];
+          renderableCopy = v141;
+          [v141 addAnimation:v121 forKey:v120];
+          [CATransaction setCompletionBlock:v134];
           +[CATransaction commit];
         }
 
         else
         {
-          renderableCopy = v140;
-          if (v133)
+          renderableCopy = v141;
+          if (v134)
           {
-            v133[2](v133);
+            v134[2](v134);
           }
         }
 
         goto LABEL_103;
       }
 
-      v119 = @"backgroundColor";
-      v120 = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-      [v120 setDuration:0.2];
-      [v120 setTimingFunction:v138];
-      presentationRenderable = [v140 presentationRenderable];
+      v120 = @"backgroundColor";
+      v121 = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+      [v121 setDuration:0.2];
+      [v121 setTimingFunction:v139];
+      presentationRenderable = [v141 presentationRenderable];
       backgroundColor = [presentationRenderable backgroundColor];
-      v123 = v120;
+      v124 = v121;
     }
 
     else
     {
-      v124 = 0.0;
-      if (v111)
+      v125 = 0.0;
+      if (v112)
       {
-        v125 = objc_opt_class();
+        v126 = objc_opt_class();
         currentTool = [freehandDrawingToolkit currentTool];
-        v127 = sub_100013F00(v125, currentTool);
+        v128 = sub_100013F00(v126, currentTool);
 
-        [v127 actualOpacityValueForOutlineFills];
-        v124 = v128;
+        [v128 actualOpacityValueForOutlineFills];
+        v125 = v129;
       }
 
-      v119 = @"opacity";
-      v120 = [CABasicAnimation animationWithKeyPath:@"opacity"];
-      [v120 setDuration:0.2];
-      [v120 setTimingFunction:v138];
-      presentationRenderable = [NSNumber numberWithDouble:v124];
-      v123 = v120;
+      v120 = @"opacity";
+      v121 = [CABasicAnimation animationWithKeyPath:@"opacity"];
+      [v121 setDuration:0.2];
+      [v121 setTimingFunction:v139];
+      presentationRenderable = [NSNumber numberWithDouble:v125];
+      v124 = v121;
       backgroundColor = presentationRenderable;
     }
 
-    [v123 setFromValue:backgroundColor];
+    [v124 setFromValue:backgroundColor];
 
     goto LABEL_93;
   }
@@ -2391,7 +2392,7 @@ LABEL_34:
     v21 = layout;
     if (layout)
     {
-      [layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -2735,7 +2736,7 @@ LABEL_13:
   v9 = layout2;
   if (layout2)
   {
-    [layout2 transformInRoot];
+    objc_msgSend_transformInRoot(layout2);
   }
 
   else
@@ -3724,9 +3725,9 @@ LABEL_24:
 
   else
   {
-    v32.receiver = self;
-    v32.super_class = CRLShapeRep;
-    additionalRenderablesOverRenderable = [(CRLCanvasRep *)&v32 additionalRenderablesOverRenderable];
+    v33.receiver = self;
+    v33.super_class = CRLShapeRep;
+    additionalRenderablesOverRenderable = [(CRLCanvasRep *)&v33 additionalRenderablesOverRenderable];
     v2 = [additionalRenderablesOverRenderable mutableCopy];
 
     if ([(CRLShapeRep *)self shouldShowInvisiblePathHighlight])
@@ -3747,36 +3748,36 @@ LABEL_24:
       [canvas2 contentsScale];
       v13 = v10 * v12;
 
-      v30 = CGPointZero;
-      v31 = v30;
+      v31 = CGPointZero;
+      v32 = v31;
       v14 = +[CRLColor blackColor];
       v15 = [CRLStroke strokeWithColor:v14 width:1.0];
 
       shapeLayout = [(CRLShapeRep *)self shapeLayout];
-      v28 = 0;
       v29 = 0;
-      [shapeLayout aliasPathForScale:v15 originalStroke:&v29 adjustedStroke:&v28 adjustedPath:&v31 startDelta:&v30 endDelta:v13];
-      v17 = v29;
-      v18 = v28;
+      v30 = 0;
+      [shapeLayout aliasPathForScale:v15 originalStroke:&v30 adjustedStroke:&v29 adjustedPath:&v32 startDelta:&v31 endDelta:v13];
+      v17 = v30;
+      v18 = v29;
 
       [v17 width];
       [v5 setLineWidth:?];
-      [v18 boundsIncludingCRLStroke:v15];
-      v21 = sub_10012218C(v19, v20, v10);
-      memset(&v27, 0, sizeof(v27));
-      CGAffineTransformMakeTranslation(&v27, -v21, -v22);
+      v19 = [v18 boundsIncludingCRLStroke:v15];
+      v22 = sub_10012218C(v19, v20, v21, v10);
+      memset(&v28, 0, sizeof(v28));
+      CGAffineTransformMakeTranslation(&v28, -v22, -v23);
       CGAffineTransformMakeScale(&t2, v10, v10);
-      v24 = v27;
-      CGAffineTransformConcat(&v26, &v24, &t2);
-      v27 = v26;
-      [v18 transformUsingAffineTransform:&v26];
+      v25 = v28;
+      CGAffineTransformConcat(&v27, &v25, &t2);
+      v28 = v27;
+      [v18 transformUsingAffineTransform:&v27];
       [v5 setPath:{objc_msgSend(v18, "CGPath")}];
-      memset(&v24, 0, 32);
-      memset(&v26, 0, sizeof(v26));
-      [(CRLCanvasRep *)self computeDirectLayerFrame:&v24 andTransform:&v26];
+      memset(&v25, 0, 32);
+      memset(&v27, 0, sizeof(v27));
+      [(CRLCanvasRep *)self computeDirectLayerFrame:&v25 andTransform:&v27];
 
-      [v5 setFrame:{*&v24.a, *&v24.c}];
-      t2 = v26;
+      [v5 setFrame:{*&v25.a, *&v25.c}];
+      t2 = v27;
       [v5 setAffineTransform:&t2];
       [v2 addObject:v5];
     }
@@ -3838,7 +3839,7 @@ LABEL_24:
       v38 = layout;
       if (layout)
       {
-        [layout transformInRoot];
+        objc_msgSend_transformInRoot(layout);
       }
 
       else
@@ -4360,7 +4361,7 @@ LABEL_24:
   v11 = pathSource;
   if (pathSource)
   {
-    [pathSource pathFlipTransform];
+    objc_msgSend_pathFlipTransform(pathSource);
   }
 
   else
@@ -4938,7 +4939,7 @@ LABEL_18:
     {
       if (shapeLayout)
       {
-        [shapeLayout originalTransformInRoot];
+        objc_msgSend_originalTransformInRoot(shapeLayout);
 LABEL_14:
         if ([path isRectangular])
         {
@@ -4959,7 +4960,7 @@ LABEL_14:
 
     else if (shapeLayout)
     {
-      [shapeLayout transformInRoot];
+      objc_msgSend_transformInRoot(shapeLayout);
       goto LABEL_14;
     }
 

@@ -65,7 +65,7 @@ SXSubscriptionButtonComponentTextProvider *__56__SXSubscriptionButtonComponentAs
 SXSubscriptionButtonTextProvider *__56__SXSubscriptionButtonComponentAssembly_loadInRegistry___block_invoke_5()
 {
   v0 = [SXSubscriptionButtonTextProvider alloc];
-  v1 = SXBundle();
+  v1 = SXBundle(v0);
   v2 = [v1 localizedStringForKey:@"Subscribe" value:&stru_1F532F6C0 table:0];
   v3 = [(SXSubscriptionButtonTextProvider *)v0 initWithTitle:v2];
 

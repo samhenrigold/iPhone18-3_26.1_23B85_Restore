@@ -12,7 +12,7 @@
   buttonCopy = button;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupWiFiViewController handleDismissButton:]", 30, "WiFi Dismiss button\n");
   }
 
   [(iOSSetupBaseViewController *)self dismissWithType:5];
@@ -23,7 +23,7 @@
   buttonCopy = button;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupWiFiViewController handleContinueButton:]", 30, "WiFi Continue button\n");
   }
 
   if ([*(&self->_infoLabel + 1) isEnabled])
@@ -31,7 +31,7 @@
     [*(&self->_infoLabel + 1) setEnabled:0];
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupWiFiViewController handleContinueButton:]", 30, "WiFi powering on\n");
     }
 
     v5 = WiFiManagerClientCreate();
@@ -44,7 +44,7 @@
 
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupWiFiViewController handleContinueButton:]", 30, "WiFi start reachability\n");
     }
 
     v7 = objc_alloc_init(CUReachabilityMonitor);
@@ -65,7 +65,7 @@
   disappearCopy = disappear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupWiFiViewController viewDidDisappear:]", 30, "WiFi ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -78,7 +78,7 @@
   appearCopy = appear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupWiFiViewController viewWillAppear:]", 30, "WiFi ViewWillAppear\n");
   }
 
   v10.receiver = self;

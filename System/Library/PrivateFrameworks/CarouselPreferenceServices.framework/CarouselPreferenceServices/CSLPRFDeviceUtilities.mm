@@ -56,7 +56,6 @@
 {
   tinkerCopy = tinker;
   v4 = MEMORY[0x277D76620];
-  v5 = *MEMORY[0x277D76620];
   if (objc_opt_respondsToSelector())
   {
     bridgeController = [*v4 bridgeController];
@@ -73,11 +72,11 @@
 
 + (int64_t)seriesForProductType:(id)type
 {
-  *&v16[5] = *MEMORY[0x277D85DE8];
+  *&v15[5] = *MEMORY[0x277D85DE8];
   typeCopy = type;
-  v14 = 0;
-  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"Watch(\\d+) options:" error:{1, &v14}];
-  v5 = v14;
+  v13 = 0;
+  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"Watch(\\d+) options:" error:{1, &v13}];
+  v5 = v13;
   v6 = [v4 firstMatchInString:typeCopy options:0 range:{0, objc_msgSend(typeCopy, "length")}];
   v7 = v6;
   if (v6)
@@ -89,9 +88,9 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67240450;
-      v16[0] = integerValue;
-      LOWORD(v16[1]) = 2114;
-      *(&v16[1] + 2) = typeCopy;
+      v15[0] = integerValue;
+      LOWORD(v15[1]) = 2114;
+      *(&v15[1] + 2) = typeCopy;
       _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Series %{public}d detected in %{public}@", buf, 0x12u);
     }
   }
@@ -101,21 +100,19 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      *v16 = typeCopy;
+      *v15 = typeCopy;
       _os_log_error_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not extract series information from %{public}@", buf, 0xCu);
     }
 
     integerValue = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
 + (id)bridgeController
 {
   v2 = MEMORY[0x277D76620];
-  v3 = *MEMORY[0x277D76620];
   if (objc_opt_respondsToSelector())
   {
     bridgeController = [*v2 bridgeController];
@@ -125,8 +122,8 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      _os_log_error_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, ">>>> no bridgeController", v6, 2u);
+      *v5 = 0;
+      _os_log_error_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, ">>>> no bridgeController", v5, 2u);
     }
 
     bridgeController = 0;

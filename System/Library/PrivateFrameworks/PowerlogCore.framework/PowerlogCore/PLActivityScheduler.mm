@@ -27,10 +27,10 @@
 
 uint64_t __37__PLActivityScheduler_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedInstance_sharedInstance = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  sharedInstance_sharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1);
 }
 
 - (PLActivityScheduler)init

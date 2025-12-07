@@ -67,7 +67,7 @@
   {
     if (!applicationCopy)
     {
-      TYLogl(OS_LOG_TYPE_ERROR, @"No target application bundle id is provided for IP keyboard.", v6, v7, v8, v9, v10, v11, v15);
+      TYLogl(OS_LOG_TYPE_ERROR, @"No target application bundle id is provided for IP keyboard.", v6, v7, v8, v9, v10, v11);
       v13 = 0;
       goto LABEL_6;
     }
@@ -328,8 +328,8 @@ void __52__TypistKeyboardDataInputUIClient_setTIPreferences___block_invoke(uint6
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     v8 = objc_opt_class();
-    v16 = NSStringFromClass(v8);
-    TYLog(@"WARNING: Unsupported key or value class in -setTIPreferences: key=%@, class(key)=%@, class(obj)=%@", v9, v10, v11, v12, v13, v14, v15, v17);
+    v9 = NSStringFromClass(v8);
+    TYLog(@"WARNING: Unsupported key or value class in -setTIPreferences: key=%@, class(key)=%@, class(obj)=%@", v10, v11, v12, v13, v14, v15, v16, v17, v7, v9);
   }
 }
 
@@ -381,8 +381,8 @@ void __57__TypistKeyboardDataInputUIClient_setKeyboardUISettings___block_invoke(
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     v8 = objc_opt_class();
-    v16 = NSStringFromClass(v8);
-    TYLog(@"WARNING: Unsupported key or value class in -setKeyboardUISettings: key=%@, class(key)=%@, class(obj)=%@", v9, v10, v11, v12, v13, v14, v15, v17);
+    v9 = NSStringFromClass(v8);
+    TYLog(@"WARNING: Unsupported key or value class in -setKeyboardUISettings: key=%@, class(key)=%@, class(obj)=%@", v10, v11, v12, v13, v14, v15, v16, v17, v7, v9);
   }
 }
 
@@ -656,17 +656,9 @@ LABEL_7:
       [objc_opt_class() getCandidateRectWithString_];
     }
 
-    else
-    {
-      v6 = *MEMORY[0x277CBF3A0];
-      v7 = *(MEMORY[0x277CBF3A0] + 8);
-      v8 = *(MEMORY[0x277CBF3A0] + 16);
-      v9 = *(MEMORY[0x277CBF3A0] + 24);
-    }
-
     UIRectGetCenter();
-    v4 = v10;
-    v5 = v11;
+    v4 = v6;
+    v5 = v7;
   }
 
   else
@@ -675,10 +667,10 @@ LABEL_7:
     v5 = *(MEMORY[0x277CBF348] + 8);
   }
 
-  v12 = v4;
-  v13 = v5;
-  result.y = v13;
-  result.x = v12;
+  v8 = v4;
+  v9 = v5;
+  result.y = v9;
+  result.x = v8;
   return result;
 }
 
@@ -713,10 +705,7 @@ LABEL_7:
 
   else
   {
-    result = *MEMORY[0x277D860B8];
-    v3 = *(MEMORY[0x277D860B8] + 16);
-    v4 = *(MEMORY[0x277D860B8] + 32);
-    v5 = *(MEMORY[0x277D860B8] + 48);
+    return *MEMORY[0x277D860B8];
   }
 
   return result;

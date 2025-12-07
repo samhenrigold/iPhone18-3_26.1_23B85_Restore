@@ -32,22 +32,22 @@
 
 - (NSDateInterval)localDateInterval
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   array = [(MAElementCollection *)self array];
   if ([array count])
   {
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = array;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         v9 = 0;
@@ -55,12 +55,12 @@
         v11 = distantFuture;
         do
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          localDate = [*(*(&v16 + 1) + 8 * v9) localDate];
+          localDate = [*(*(&v15 + 1) + 8 * v9) localDate];
           distantFuture = [v11 earlierDate:localDate];
 
           distantPast = [v10 laterDate:localDate];
@@ -71,7 +71,7 @@
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -84,8 +84,6 @@
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -164,37 +162,37 @@
 
 + (id)dateNodesForDateComponents:(id)components inGraph:(id)graph
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   graphCopy = graph;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = componentsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [graphCopy dateNodeNameWithDateComponents:{*(*(&v18 + 1) + 8 * i), v18}];
+        v13 = [graphCopy dateNodeNameWithDateComponents:{*(*(&v17 + 1) + 8 * i), v17}];
         if (v13)
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -202,42 +200,40 @@
 
   v14 = [PGGraphDateNode filterWithDateNames:v7];
   v15 = [(MANodeCollection *)PGGraphDateNodeCollection nodesMatchingFilter:v14 inGraph:graphCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 + (id)dateNodesForLocalDates:(id)dates inGraph:(id)graph
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
   graphCopy = graph;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = datesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [graphCopy dateNodeNameWithLocalDate:{*(*(&v18 + 1) + 8 * i), v18}];
+        v13 = [graphCopy dateNodeNameWithLocalDate:{*(*(&v17 + 1) + 8 * i), v17}];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -245,8 +241,6 @@
 
   v14 = [PGGraphDateNode filterWithDateNames:v7];
   v15 = [(MANodeCollection *)PGGraphDateNodeCollection nodesMatchingFilter:v14 inGraph:graphCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

@@ -8,6 +8,7 @@
 - (id)localizedPaneTitle;
 - (id)specifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SettingsThresholdController
@@ -150,6 +151,35 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v18.receiver = self;
+  v18.super_class = SettingsThresholdController;
+  [(SettingsThresholdController *)&v18 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  if (v4)
+  {
+    v5 = [_NSLocalizedStringResource alloc];
+    v6 = +[NSLocale currentLocale];
+    bundleURL = [v4 bundleURL];
+    v8 = [v5 initWithKey:@"NOISE_THRESHOLD" table:@"HearingUtilities_Noise" locale:v6 bundleURL:bundleURL];
+
+    v9 = [_NSLocalizedStringResource alloc];
+    v10 = +[NSLocale currentLocale];
+    bundleURL2 = [v3 bundleURL];
+    v12 = [v9 initWithKey:@"MAIN_PANE_TITLE" table:@"Localizable" locale:v10 bundleURL:bundleURL2];
+
+    bundleIdentifier = [v3 bundleIdentifier];
+    v19 = v12;
+    v14 = [NSArray arrayWithObjects:&v19 count:1];
+    bundleIdentifier2 = [v3 bundleIdentifier];
+    v16 = [NSString stringWithFormat:@"bridge:root=%@&path=LOUD_NOTIFICATION_ID", bundleIdentifier2];
+    v17 = [NSURL URLWithString:v16];
+    [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v8 localizedNavigationComponents:v14 deepLink:v17];
+  }
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

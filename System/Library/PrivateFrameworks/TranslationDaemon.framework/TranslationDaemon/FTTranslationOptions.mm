@@ -34,33 +34,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::TranslationOptions::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::TranslationOptions::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -98,18 +72,17 @@ LABEL_13:
 
 - (Offset<siri::speech::schema_fb::TranslationOptions>)addObjectToBuffer:(void *)buffer
 {
-  selfCopy = self;
   enable_disambiguation_alternatives = [(FTTranslationOptions *)self enable_disambiguation_alternatives];
-  mask_profanity = [(FTTranslationOptions *)selfCopy mask_profanity];
-  LODWORD(selfCopy) = [(FTTranslationOptions *)selfCopy disable_payload_logging];
+  mask_profanity = [(FTTranslationOptions *)self mask_profanity];
+  disable_payload_logging = [(FTTranslationOptions *)self disable_payload_logging];
   *(buffer + 70) = 1;
-  v7 = *(buffer + 10);
-  v8 = *(buffer + 8) - *(buffer + 12);
+  v8 = *(buffer + 10);
+  v9 = *(buffer + 8) - *(buffer + 12);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 4, enable_disambiguation_alternatives, 0);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 6, mask_profanity, 0);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 8, selfCopy, 0);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 8, disable_payload_logging, 0);
 
-  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v8 + v7);
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v9 + v8);
 }
 
 - (id)flatbuffData

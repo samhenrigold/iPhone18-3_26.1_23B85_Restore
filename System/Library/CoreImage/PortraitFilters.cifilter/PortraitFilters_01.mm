@@ -132,7 +132,7 @@ uint64_t sub_349FC(unsigned __int8 *a1, _DWORD *a2, uint64_t a3)
   return result;
 }
 
-unint64_t sub_34A3C(unint64_t result, unsigned int *a2, uint64_t a3, int a4)
+uint64_t sub_34A3C(uint64_t result, unsigned int *a2, uint64_t a3, int a4)
 {
   if (*result)
   {
@@ -239,7 +239,7 @@ BOOL sub_34ADC(_BYTE *a1, int a2, int a3)
   return !*a1 || !a1[v4] || a1[-v4] == 0;
 }
 
-unint64_t sub_34B2C(unint64_t result, unsigned int *a2, uint64_t a3, int a4, int a5)
+uint64_t sub_34B2C(uint64_t result, unsigned int *a2, uint64_t a3, int a4, int a5)
 {
   if (*result)
   {
@@ -287,7 +287,7 @@ unint64_t sub_34B2C(unint64_t result, unsigned int *a2, uint64_t a3, int a4, int
   return a3;
 }
 
-unint64_t sub_34B94(unint64_t result, unsigned int *a2, uint64_t a3, int a4, int a5)
+uint64_t sub_34B94(uint64_t result, unsigned int *a2, uint64_t a3, int a4, int a5)
 {
   if (*result)
   {
@@ -508,7 +508,7 @@ double sub_3523C(_BYTE *a1, double *a2, double a3)
   return result;
 }
 
-char *sub_35278(char *result, _BYTE *a2, int a3, int a4, int a5, int a6)
+char *sub_35278(char *result, _BYTE *a2, int a3, unsigned int a4, int a5, unsigned int a6)
 {
   if (a4 >= 1)
   {
@@ -558,7 +558,7 @@ char *sub_35278(char *result, _BYTE *a2, int a3, int a4, int a5, int a6)
   return result;
 }
 
-uint64_t sub_35300(uint64_t result, int a2, unsigned int a3, int a4, int a5)
+uint64_t sub_35300(uint64_t result, int a2, int a3, int a4, unsigned int a5)
 {
   if (a3 >= 2)
   {
@@ -621,7 +621,7 @@ uint64_t sub_35300(uint64_t result, int a2, unsigned int a3, int a4, int a5)
   return result;
 }
 
-uint64_t sub_353E4(uint64_t result, int a2, int a3, int a4, int a5)
+uint64_t sub_353E4(uint64_t result, unsigned int a2, unsigned int a3, int a4, int a5)
 {
   if (a3 >= 1)
   {
@@ -679,56 +679,56 @@ float sub_354DC(double a1, double a2, double a3, double a4, float a5, float a6, 
   }
 }
 
-BOOL sub_355C8(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, long double a10)
+BOOL sub_355C8(uint64_t a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, long double a12, long double a13)
 {
-  v18 = sqrt((a2 - a6) * (a2 - a6) + (a1 - a5) * (a1 - a5));
-  v19 = sqrt((a4 - a6) * (a4 - a6) + (a3 - a5) * (a3 - a5));
+  v18 = sqrt((a5 - a9) * (a5 - a9) + (a4 - a8) * (a4 - a8));
+  v19 = sqrt((a7 - a9) * (a7 - a9) + (a6 - a8) * (a6 - a8));
   if (v18 >= v19)
   {
     v18 = v19;
   }
 
-  return sub_3563C(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, v18 * 0.02);
+  return sub_3563C(a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, v18 * 0.02);
 }
 
-BOOL sub_3563C(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, long double a10, double a11)
+BOOL sub_3563C(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, long double a9, long double a10, double a11)
 {
-  v19 = a1 - a5;
-  v20 = a2 - a6;
-  v21 = sqrt(v20 * v20 + v19 * v19);
-  v22 = v21;
-  v23 = a3 - a5;
-  v24 = a4 - a6;
-  v25 = sqrt(v24 * v24 + v23 * v23);
-  v26 = v25;
-  v27 = 0.0;
-  v28 = 0.0;
-  v29 = 0.0;
-  if (v22 >= 0.01)
+  v11 = a1 - a5;
+  v12 = a2 - a6;
+  v13 = sqrt(v12 * v12 + v11 * v11);
+  v14 = v13;
+  v15 = a3 - a5;
+  v16 = a4 - a6;
+  v17 = sqrt(v16 * v16 + v15 * v15);
+  v18 = v17;
+  v19 = 0.0;
+  v20 = 0.0;
+  v21 = 0.0;
+  if (v14 >= 0.01)
   {
-    v28 = v19 / v22;
-    v29 = v20 / v22;
+    v20 = v11 / v14;
+    v21 = v12 / v14;
   }
 
-  v30 = 0.0;
-  if (v26 >= 0.01)
+  v22 = 0.0;
+  if (v18 >= 0.01)
   {
-    v27 = v23 / v26;
-    v30 = v24 / v26;
+    v19 = v15 / v18;
+    v22 = v16 / v18;
   }
 
-  v31 = 1.0 / v26;
-  v32 = 1.0 / v22;
-  v33 = a7 - a5;
-  v34 = (a8 - a6) * v29 + (a7 - a5) * v28;
-  v35 = (a8 - a6) * v30 + v33 * v27;
-  if (v34 >= 0.0)
+  v23 = 1.0 / v18;
+  v24 = 1.0 / v14;
+  v25 = a7 - a5;
+  v26 = (a8 - a6) * v21 + (a7 - a5) * v20;
+  v27 = (a8 - a6) * v22 + v25 * v19;
+  if (v26 >= 0.0)
   {
     a10 = a9;
   }
 
-  v37 = pow(fabs(v32 * v34), a10);
-  return v37 + pow(fabs(v31 * v35), a10) < a11 + 1.0;
+  v29 = pow(fabs(v24 * v26), a10);
+  return v29 + pow(fabs(v23 * v27), a10) < a11 + 1.0;
 }
 
 BOOL sub_35750(double a1, double a2, double a3, double a4, double a5, double a6, long double a7, long double a8, double a9)
@@ -738,8 +738,8 @@ BOOL sub_35750(double a1, double a2, double a3, double a4, double a5, double a6,
     a7 = a8;
   }
 
-  v21 = pow(fabs((a5 - a3) / a1), a7);
-  return v21 + pow(fabs((a6 - a4) / a2), a7) < a9 + 1.0;
+  v13 = pow(fabs((a5 - a3) / a1), a7);
+  return v13 + pow(fabs((a6 - a4) / a2), a7) < a9 + 1.0;
 }
 
 BOOL sub_357D4(double a1, double a2, double a3, double a4, double a5, double a6, long double a7, long double a8, double a9)
@@ -749,8 +749,8 @@ BOOL sub_357D4(double a1, double a2, double a3, double a4, double a5, double a6,
     a7 = a8;
   }
 
-  v21 = pow(fabs((a5 - a3) / a1), a7);
-  return v21 + pow(fabs((a6 - a4) / a2), a7) < a9 + 1.0;
+  v13 = pow(fabs((a5 - a3) / a1), a7);
+  return v13 + pow(fabs((a6 - a4) / a2), a7) < a9 + 1.0;
 }
 
 double sub_35874(int a1, int a2, int a3, int *a4, int *a5, double result)
@@ -1248,7 +1248,7 @@ uint64_t sub_35C8C(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t sub_360AC(uint64_t result, int a2)
+uint64_t sub_360AC(uint64_t result, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -1317,7 +1317,7 @@ uint64_t sub_36204(uint64_t a1, int a2, float a3, float a4)
   return puts("\n");
 }
 
-float sub_362B0(uint64_t a1, int a2, uint64_t a3)
+float sub_362B0(uint64_t a1, unsigned int a2, uint64_t a3)
 {
   if (a2 >= 1)
   {
@@ -1341,7 +1341,7 @@ float sub_362B0(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_362E8(uint64_t result, int a2)
+uint64_t sub_362E8(uint64_t result, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -1375,7 +1375,7 @@ uint64_t sub_362E8(uint64_t result, int a2)
   return result;
 }
 
-double sub_36378(uint64_t a1, int a2)
+double sub_36378(uint64_t a1, unsigned int a2)
 {
   if (a2 < 1)
   {
@@ -1405,7 +1405,7 @@ double sub_36378(uint64_t a1, int a2)
   return v6 / a2;
 }
 
-uint64_t sub_363D4(uint64_t result, int a2, double a3, double a4, double a5)
+uint64_t sub_363D4(uint64_t result, unsigned int a2, double a3, double a4, double a5)
 {
   if (a2 >= 1)
   {
@@ -1432,7 +1432,7 @@ uint64_t sub_363D4(uint64_t result, int a2, double a3, double a4, double a5)
   return result;
 }
 
-void sub_3642C(uint64_t a1, int a2)
+void sub_3642C(uint64_t a1, unsigned int a2)
 {
   v4 = sub_36378(a1, a2);
   if (a2 >= 1)
@@ -1456,7 +1456,7 @@ void sub_3642C(uint64_t a1, int a2)
   }
 }
 
-double sub_364BC(uint64_t a1, int a2, double result)
+double sub_364BC(uint64_t a1, unsigned int a2, double result)
 {
   if (a2 >= 1)
   {
@@ -1481,7 +1481,7 @@ double sub_364BC(uint64_t a1, int a2, double result)
   return result;
 }
 
-uint64_t sub_36508(uint64_t result, int a2, float a3)
+uint64_t sub_36508(uint64_t result, unsigned int a2, float a3)
 {
   if (a2 >= 1)
   {
@@ -1501,7 +1501,7 @@ uint64_t sub_36508(uint64_t result, int a2, float a3)
   return result;
 }
 
-uint64_t sub_36534(uint64_t result, int a2, float a3)
+uint64_t sub_36534(uint64_t result, unsigned int a2, float a3)
 {
   if (a2 >= 1)
   {
@@ -1521,7 +1521,7 @@ uint64_t sub_36534(uint64_t result, int a2, float a3)
   return result;
 }
 
-uint64_t sub_36560(uint64_t a1, int a2, double a3, double a4, double a5)
+uint64_t sub_36560(uint64_t a1, unsigned int a2, double a3, double a4, double a5)
 {
   if (a2 < 1)
   {
@@ -1613,7 +1613,7 @@ float sub_36718(uint64_t a1, uint64_t a2, unsigned __int8 a3)
   return v4 * 0.125;
 }
 
-double sub_367FC(uint64_t a1, uint64_t a2, float *a3, uint64_t a4, int a5, int a6)
+double sub_367FC(uint64_t a1, uint64_t a2, float *a3, uint64_t a4, unsigned int a5, int a6)
 {
   if (a5 < 1)
   {
@@ -1836,12 +1836,12 @@ double sub_3C2F4(void *a1)
   return *v2;
 }
 
-id sub_3C328@<X0>(void *a1@<X0>, _OWORD *x8_0@<X8>)
+id sub_3C328@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  x8_0[1] = 0u;
-  x8_0[2] = 0u;
-  *x8_0 = 0u;
-  return [a1 getValue:x8_0];
+  a2[1] = 0u;
+  a2[2] = 0u;
+  *a2 = 0u;
+  return [a1 getValue:a2];
 }
 
 id sub_3C354(uint64_t a1, uint64_t a2)

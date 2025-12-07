@@ -25,7 +25,7 @@
 {
   if (contents && *contents)
   {
-    if ((atomic_load_explicit(&qword_5679B8, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_5679B8, memory_order_acquire) & 1) == 0)
     {
       sub_1EE28C();
     }

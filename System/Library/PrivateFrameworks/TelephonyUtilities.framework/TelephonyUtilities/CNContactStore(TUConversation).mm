@@ -7,53 +7,53 @@
 
 - (id)tu_contactsByConversationMemberForConversationMembers:()TUConversation keyDescriptors:error:
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v6 = a3;
-  v37 = a4;
+  v36 = a4;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   obj = v6;
-  v45 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
-  if (v45)
+  v44 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
+  if (v44)
   {
-    v43 = *v60;
+    v42 = *v59;
     do
     {
-      for (i = 0; i != v45; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v60 != v43)
+        if (*v59 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v59 + 1) + 8 * i);
+        v9 = *(*(&v58 + 1) + 8 * i);
         v10 = MEMORY[0x1E695CD58];
         handle = [v9 handle];
         v12 = [v10 tu_contactHandlesForHandle:handle];
 
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
         v13 = v12;
-        v14 = [v13 countByEnumeratingWithState:&v55 objects:v65 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v54 objects:v64 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v56;
+          v16 = *v55;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v56 != v16)
+              if (*v55 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              v18 = *(*(&v55 + 1) + 8 * j);
+              v18 = *(*(&v54 + 1) + 8 * j);
               v19 = [v7 objectForKeyedSubscript:v18];
               if (v19)
               {
@@ -68,88 +68,88 @@
               }
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v55 objects:v65 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v54 objects:v64 count:16];
           }
 
           while (v15);
         }
       }
 
-      v45 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+      v44 = [obj countByEnumeratingWithState:&v58 objects:v65 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
   allKeys = [v7 allKeys];
-  v22 = [self tu_contactsByContactHandleForContactHandles:allKeys keyDescriptors:v37 error:a5];
+  v22 = [self tu_contactsByContactHandleForContactHandles:allKeys keyDescriptors:v36 error:a5];
 
   if (v22)
   {
     v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     allKeys2 = [v22 allKeys];
-    v44 = [allKeys2 countByEnumeratingWithState:&v51 objects:v64 count:16];
-    if (v44)
+    v43 = [allKeys2 countByEnumeratingWithState:&v50 objects:v63 count:16];
+    if (v43)
     {
-      v42 = *v52;
+      v41 = *v51;
       do
       {
         v24 = 0;
         do
         {
-          if (*v52 != v42)
+          if (*v51 != v41)
           {
             objc_enumerationMutation(allKeys2);
           }
 
-          v46 = v24;
-          v25 = *(*(&v51 + 1) + 8 * v24);
+          v45 = v24;
+          v25 = *(*(&v50 + 1) + 8 * v24);
           v26 = [v7 objectForKeyedSubscript:v25];
           v27 = v26;
           if (v26)
           {
-            v49 = 0u;
-            v50 = 0u;
-            v47 = 0u;
             v48 = 0u;
-            v28 = [v26 countByEnumeratingWithState:&v47 objects:v63 count:16];
+            v49 = 0u;
+            v46 = 0u;
+            v47 = 0u;
+            v28 = [v26 countByEnumeratingWithState:&v46 objects:v62 count:16];
             if (v28)
             {
               v29 = v28;
-              v30 = *v48;
+              v30 = *v47;
               do
               {
                 for (k = 0; k != v29; ++k)
                 {
-                  if (*v48 != v30)
+                  if (*v47 != v30)
                   {
                     objc_enumerationMutation(v27);
                   }
 
-                  v32 = *(*(&v47 + 1) + 8 * k);
+                  v32 = *(*(&v46 + 1) + 8 * k);
                   v33 = [v22 objectForKeyedSubscript:v25];
                   [v23 setObject:v33 forKeyedSubscript:v32];
                 }
 
-                v29 = [v27 countByEnumeratingWithState:&v47 objects:v63 count:16];
+                v29 = [v27 countByEnumeratingWithState:&v46 objects:v62 count:16];
               }
 
               while (v29);
             }
           }
 
-          v24 = v46 + 1;
+          v24 = v45 + 1;
         }
 
-        while (v46 + 1 != v44);
-        v44 = [allKeys2 countByEnumeratingWithState:&v51 objects:v64 count:16];
+        while (v45 + 1 != v43);
+        v43 = [allKeys2 countByEnumeratingWithState:&v50 objects:v63 count:16];
       }
 
-      while (v44);
+      while (v43);
     }
   }
 
@@ -160,42 +160,40 @@
 
   v34 = [v23 copy];
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v34;
 }
 
 - (id)tu_contactsByRemoteConversationMemberForConversations:()TUConversation keyDescriptors:error:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   v10 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v8, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        remoteMembers = [*(*(&v22 + 1) + 8 * i) remoteMembers];
+        remoteMembers = [*(*(&v21 + 1) + 8 * i) remoteMembers];
         allObjects = [remoteMembers allObjects];
         [v10 addObjectsFromArray:allObjects];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
@@ -203,8 +201,6 @@
 
   allObjects2 = [v10 allObjects];
   v19 = [self tu_contactsByConversationMemberForConversationMembers:allObjects2 keyDescriptors:v9 error:a5];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

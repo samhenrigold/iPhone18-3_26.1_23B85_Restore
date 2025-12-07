@@ -10,22 +10,28 @@
 {
   ObjectType = swift_getObjectType();
   v4 = *(&self->super.isa + OBJC_IVAR____TtCC9MusicCore30ExplicitRestrictionsControllerP33_49A4F392108DD8BCF77701E27C86571422AgeVerificationWrapper_completion);
-  selfCopy = self;
   if (v4)
   {
-    outlined copy of (@escaping @callee_guaranteed () -> ())?(v4);
+    v5 = *&self->completion[OBJC_IVAR____TtCC9MusicCore30ExplicitRestrictionsControllerP33_49A4F392108DD8BCF77701E27C86571422AgeVerificationWrapper_completion];
+    selfCopy = self;
+    outlined copy of (@escaping @callee_guaranteed () -> ())?(v4, v5);
     v4(0, 0);
-    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v4);
+    outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v4, v5);
   }
 
-  v6.receiver = self;
-  v6.super_class = ObjectType;
-  [(ExplicitRestrictionsController.AgeVerificationWrapper *)&v6 dealloc];
+  else
+  {
+    selfCopy2 = self;
+  }
+
+  v8.receiver = self;
+  v8.super_class = ObjectType;
+  [(ExplicitRestrictionsController.AgeVerificationWrapper *)&v8 dealloc];
 }
 
 - (void)cloudServiceSetupViewControllerDidDismiss:(id)dismiss
 {
-  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for UIAction(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
   v4 = swift_allocObject();
   *(v4 + 16) = self;
   selfCopy = self;

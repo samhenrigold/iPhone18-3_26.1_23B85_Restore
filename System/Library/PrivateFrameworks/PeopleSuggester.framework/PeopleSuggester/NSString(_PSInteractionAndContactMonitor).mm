@@ -6,24 +6,24 @@
 
 - (uint64_t)_ps_pointerSizedHash
 {
-  v0 = objc_autoreleasePoolPush();
+  v1 = objc_autoreleasePoolPush();
   if (_ps_pointerSizedHash__pasOnceToken1 != -1)
   {
     [NSString(_PSInteractionAndContactMonitor) _ps_pointerSizedHash];
   }
 
-  v1 = _PASRepairString();
-  v4 = 0;
-  if (![v1 _pas_fastUTF8StringPtrWithOptions:0 encodedLength:&v4])
+  v2 = _PASRepairString();
+  v5 = 0;
+  if (![v2 _pas_fastUTF8StringPtrWithOptions:0 encodedLength:&v5])
   {
-    [v1 UTF8String];
-    v4 = [v1 lengthOfBytesUsingEncoding:4];
+    [v2 UTF8String];
+    v5 = [v2 lengthOfBytesUsingEncoding:4];
   }
 
-  v2 = _PASMurmur3_x64_128();
+  v3 = _PASMurmur3_x64_128();
 
-  objc_autoreleasePoolPop(v0);
-  return v2;
+  objc_autoreleasePoolPop(v1);
+  return v3;
 }
 
 @end

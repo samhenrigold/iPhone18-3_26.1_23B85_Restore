@@ -773,7 +773,7 @@ void __60__UITextFieldAccessibility__accessibilityHitTest_withEvent___block_invo
   objc_storeStrong(location, 0);
 }
 
-uint64_t __51__UITextFieldAccessibility__accessibilitySetValue___block_invoke(uint64_t a1)
+void *__51__UITextFieldAccessibility__accessibilitySetValue___block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) window];
   v5 = v1 != 0;

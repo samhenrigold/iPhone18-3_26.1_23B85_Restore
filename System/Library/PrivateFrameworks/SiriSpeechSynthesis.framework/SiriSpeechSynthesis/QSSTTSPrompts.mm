@@ -39,82 +39,81 @@ flatbuffers::DetachedBuffer *__29__QSSTTSPrompts_flatbuffData__block_invoke(uint
 
 - (Offset<siri::speech::schema_fb::TTSPrompts>)addObjectToBuffer:(void *)buffer
 {
-  v35 = *MEMORY[0x277D85DE8];
-  memset(&v33, 0, sizeof(v33));
+  v34 = *MEMORY[0x277D85DE8];
+  memset(&v32, 0, sizeof(v32));
   prompts = [(QSSTTSPrompts *)self prompts];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v33, [prompts count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v32, [prompts count]);
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   prompts2 = [(QSSTTSPrompts *)self prompts];
-  v7 = [prompts2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v7 = [prompts2 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v7)
   {
-    v8 = *v30;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(prompts2);
         }
 
-        uTF8String = [*(*(&v29 + 1) + 8 * i) UTF8String];
+        uTF8String = [*(*(&v28 + 1) + 8 * i) UTF8String];
         v11 = strlen(uTF8String);
-        LODWORD(v22) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v11);
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v33, &v22);
+        LODWORD(v21) = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String, v11);
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v32, &v21);
       }
 
-      v7 = [prompts2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v7 = [prompts2 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v7);
   }
 
-  begin = v33.__begin_;
-  if (v33.__end_ == v33.__begin_)
+  begin = v32.__begin_;
+  if (v32.__end_ == v32.__begin_)
   {
     v13 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
   }
 
   else
   {
-    v13 = v33.__begin_;
+    v13 = v32.__begin_;
   }
 
-  v14 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v13, v33.__end_ - v33.__begin_);
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3812000000;
-  v25 = __Block_byref_object_copy__645;
-  v26 = __Block_byref_object_dispose__646;
-  v27 = &unk_26916BD4D;
-  v28 = 0;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __35__QSSTTSPrompts_addObjectToBuffer___block_invoke;
-  v21[3] = &unk_279C4C2C8;
-  v21[4] = &v22;
-  v21[5] = buffer;
-  [(QSSTTSPrompts *)self prompts_v2:v21];
+  v14 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(buffer, v13, v32.__end_ - v32.__begin_);
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3812000000;
+  v24 = __Block_byref_object_copy__645;
+  v25 = __Block_byref_object_dispose__646;
+  v26 = &unk_26916BD4D;
+  v27 = 0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __35__QSSTTSPrompts_addObjectToBuffer___block_invoke;
+  v20[3] = &unk_279C4C2C8;
+  v20[4] = &v21;
+  v20[5] = buffer;
+  [(QSSTTSPrompts *)self prompts_v2:v20];
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
   v15 = *(buffer + 8);
   v16 = *(buffer + 12);
   v17 = *(buffer + 10);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 4, v14);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, *(v23 + 12));
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 6, *(v22 + 12));
   v18.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, v15 - v16 + v17);
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
   if (begin)
   {
     operator delete(begin);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -127,11 +126,7 @@ uint64_t __35__QSSTTSPrompts_addObjectToBuffer___block_invoke(uint64_t a1, const
 
 - (void)prompts_v2:(id)prompts_v2
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   prompts_v2Copy = prompts_v2;
-  v7 = *root[*v5[6].var0 + *root[*v5[6].var0].var0].var0;
-  v8 = prompts_v2Copy;
   (*(prompts_v2 + 2))();
 }
 

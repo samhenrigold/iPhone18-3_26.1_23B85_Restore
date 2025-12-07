@@ -1,3 +1,13 @@
+void sub_237221028(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, char a11, uint64_t a12, uint64_t a13, xpc_object_t object)
+{
+  v15 = v14;
+  xpc_release(v15);
+  xpc_release(object);
+  __cxa_begin_catch(a1);
+  __cxa_end_catch();
+  JUMPOUT(0x237220F6CLL);
+}
+
 void sub_2372210A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t object, char a10)
 {
   xpc_release(v10);
@@ -453,7 +463,7 @@ void MIDIProcessXPC::MIDIProcessXPC(MIDIProcessXPC *this)
 void sub_237222204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   qword_27DE98238 = 0;
-  (*(*v9 + 8))(v9);
+  (*(*v9 + 8))(v9, a2, a3, a4, a5, a6, a7, a8);
   swix::connection_config::~connection_config(&a9);
   MIDIProcess::~MIDIProcess(MIDIProcess::defaultInstance(int)::xpcImpl);
   _Unwind_Resume(a1);
@@ -470,7 +480,7 @@ uint64_t MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0::~$_0(ui
   return a1;
 }
 
-uint64_t MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0::operator()(uint64_t *a1)
+uint64_t MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0::operator()(MIDIProcess **a1)
 {
   v38 = *MEMORY[0x277D85DE8];
   v2 = a1[1];
@@ -509,7 +519,7 @@ uint64_t MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0::operato
 
   else
   {
-    v9 = *(v3 + 464);
+    v9 = *(v3 + 58);
     v30[0] = &unk_284A48900;
     v30[3] = v30;
     swix::encode_message::encode_message(v21, 190206330);
@@ -636,7 +646,7 @@ void _ZNSt3__110__function6__funcIZZN14MIDIProcessXPC14DispatchNotifyEPKvmENK3__
   }
 }
 
-void std::__function::__func<MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0,std::allocator<MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0>,void ()(void)>::destroy_deallocate(const void **a1)
+void std::__function::__func<MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0,std::allocator<MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0>,void ()(void)>::destroy_deallocate(void *a1)
 {
   std::__function::__alloc_func<MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0,std::allocator<MIDIProcessXPC::DispatchNotify(void const*,unsigned long)::$_0>,void ()(void)>::destroy[abi:ne200100](a1[2]);
 
@@ -695,13 +705,13 @@ void MIDISetup::FromPList(MIDISetup *this, __CFDictionary *a2)
   if (a2)
   {
     v4 = DictGetAndDelete(a2, @"devices");
-    DeviceList::FromPList(this + 6, v4);
+    DeviceList::FromPList((this + 48), v4);
     CFRelease(v4);
     v5 = DictGetAndDelete(a2, @"externalDevices");
     if (v5)
     {
       v6 = v5;
-      DeviceList::FromPList(this + 17, v5);
+      DeviceList::FromPList((this + 136), v5);
       CFRelease(v6);
     }
 
@@ -804,9 +814,9 @@ __CFDictionary *MIDISetup::ToPList(CFDictionaryRef *this)
   return v2;
 }
 
-void sub_2372230F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2372230F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   XCFObject<__CFDictionary const*>::~XCFObject(va);
   _Unwind_Resume(a1);
 }
@@ -1162,13 +1172,24 @@ void MIDISetup::ObjectRemoved(MIDISetup *this, MIDIObject *a2)
   {
     *(a2 + 20) = 256;
     v4 = *(a2 + 2);
+    v7 = 0x2800000003;
     if (v4)
     {
-      (*(*v4 + 72))(v4);
+      v8 = v4[2];
+      v5 = (*(*v4 + 72))(v4);
     }
 
-    (*(*a2 + 72))(a2);
-    MIDISetup::GenerateNotification(this);
+    else
+    {
+      v8 = 0;
+      v5 = -1;
+    }
+
+    v6 = *(a2 + 2);
+    v9 = v5;
+    v10 = v6;
+    v11 = (*(*a2 + 72))(a2);
+    MIDISetup::GenerateNotification(this, &v7);
   }
 }
 
@@ -1257,34 +1278,32 @@ LABEL_22:
   MIDISetup::ObjectRemoved(this, a2);
 }
 
-void MIDISetup::GenerateNotification(SetupManager *a1)
+void MIDISetup::GenerateNotification(SetupManager *a1, const ClientNotification *a2)
 {
   if ((*(a1 + 216) & 1) == 0)
   {
-    v2 = SetupManager::instance(a1);
-    if (*v2 == a1 || (v2 = SetupManager::instance(v2), !*v2))
+    v4 = SetupManager::instance(a1);
+    if (*v4 == a1 || (v4 = SetupManager::instance(v4), !*v4))
     {
-      v3 = SetupManager::instance(v2);
-      v4 = SetupManager::AddNotification(v3);
+      v5 = SetupManager::instance(v4);
+      SetupManager::AddNotification(v5, a2);
       if ((*(a1 + 218) & 1) == 0)
       {
         *(a1 + 217) = 1;
-        v5 = SetupManager::instance(v4);
+        v7 = SetupManager::instance(v6);
 
-        SetupManager::SchedulePrefSaver(v5);
+        SetupManager::SchedulePrefSaver(v7);
       }
     }
   }
 }
 
-uint64_t SetupManager::AddNotification(uint64_t result)
+void SetupManager::AddNotification(uint64_t a1, uint64_t a2)
 {
-  if ((*(result + 80) & 1) == 0)
+  if ((*(a1 + 80) & 1) == 0)
   {
     operator new();
   }
-
-  return result;
 }
 
 void OwnedPtrVector<MIDIConnection *>::~OwnedPtrVector(void *a1)
@@ -1459,9 +1478,9 @@ LABEL_8:
   BaseOpaqueObject::~BaseOpaqueObject(&v11);
 }
 
-void sub_2372241C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2372241C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DeviceList::~DeviceList(va);
   _Unwind_Resume(a1);
 }
@@ -1560,55 +1579,55 @@ void MIDISetup::DeviceAddEffects(MIDISetup *this, MIDIDevice *a2, char a3)
 
 uint64_t MIDISetup::AssignUniqueID(MIDISetup *this, MIDIObject *a2)
 {
-  v12 = 0;
-  IntegerProperty = MIDIObject::GetIntegerProperty(a2, kMIDIPropertyUniqueID, &v12);
-  v5 = v12;
+  v13 = 0;
+  IntegerProperty = MIDIObject::GetIntegerProperty(a2, kMIDIPropertyUniqueID, &v13);
+  v6 = v13;
   if (IntegerProperty)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  if (!v5)
+  if (!v6)
   {
-    v6 = rand();
-    v5 = v6 ^ (2 * rand());
+    v7 = rand();
+    v6 = v7 ^ (2 * rand());
   }
 
   do
   {
-    if (v5 <= 1)
+    if (v6 <= 1)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v7 = v5;
+      v8 = v6;
     }
 
-    ObjectByUniqueID = MIDISetup::FindObjectByUniqueID(this, v7, a2);
-    v5 = v7 + 1;
+    ObjectByUniqueID = MIDISetup::FindObjectByUniqueID(this, v8, a2, v5);
+    v6 = v8 + 1;
   }
 
   while (ObjectByUniqueID);
-  v13 = 0;
-  result = MIDIObject::GetIntegerProperty(a2, kMIDIPropertyUniqueID, &v13);
+  v14 = 0;
+  result = MIDIObject::GetIntegerProperty(a2, kMIDIPropertyUniqueID, &v14);
   if (result)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = v13 == v7;
+    v11 = v14 == v8;
   }
 
-  if (!v10)
+  if (!v11)
   {
-    v11 = *(this + 218);
+    v12 = *(this + 218);
     *(this + 218) = 0;
-    result = MIDIObject::SetProperty(a2, kMIDIPropertyUniqueID, v7);
-    *(this + 218) = v11;
+    result = MIDIObject::SetProperty(a2, kMIDIPropertyUniqueID, v8);
+    *(this + 218) = v12;
   }
 
   return result;
@@ -1620,13 +1639,24 @@ void MIDISetup::ObjectAdded(MIDISetup *this, MIDIObject *a2)
   {
     *(a2 + 20) = 1;
     v4 = *(a2 + 2);
+    v7 = 0x2800000002;
     if (v4)
     {
-      (*(*v4 + 72))(v4);
+      v8 = v4[2];
+      v5 = (*(*v4 + 72))(v4);
     }
 
-    (*(*a2 + 72))(a2);
-    MIDISetup::GenerateNotification(this);
+    else
+    {
+      v8 = 0;
+      v5 = -1;
+    }
+
+    v6 = *(a2 + 2);
+    v9 = v5;
+    v10 = v6;
+    v11 = (*(*a2 + 72))(a2);
+    MIDISetup::GenerateNotification(this, &v7);
   }
 }
 
@@ -1739,84 +1769,85 @@ LABEL_23:
   }
 }
 
-MIDIObject *MIDISetup::FindObjectByUniqueID(MIDISetup *this, int a2, MIDIObject *a3)
+MIDIObject *MIDISetup::FindObjectByUniqueID(MIDISetup *this, DeviceList *a2, MIDIObject *a3, MIDIObject *a4)
 {
+  v5 = a2;
   ObjectInDeviceListByUniqueID = MIDISetup::FindObjectInDeviceListByUniqueID(this + 48, a2, a3);
   if (ObjectInDeviceListByUniqueID)
   {
     return ObjectInDeviceListByUniqueID;
   }
 
-  ObjectInDeviceListByUniqueID = MIDISetup::FindObjectInDeviceListByUniqueID(this + 136, a2, a3);
+  ObjectInDeviceListByUniqueID = MIDISetup::FindObjectInDeviceListByUniqueID(this + 136, v5, a3);
   if (ObjectInDeviceListByUniqueID)
   {
     return ObjectInDeviceListByUniqueID;
   }
 
   IntegerProperty = SetupManager::instance(0);
-  v11 = *(IntegerProperty + 1);
-  v10 = *(IntegerProperty + 2);
-  if (v11 != v10)
+  v12 = *(IntegerProperty + 1);
+  v11 = *(IntegerProperty + 2);
+  if (v12 != v11)
   {
-    v12 = IntegerProperty;
+    v13 = IntegerProperty;
     do
     {
-      v7 = *v11;
-      if (*v11 != a3)
-      {
-        v20 = 0;
-        IntegerProperty = MIDIObject::GetIntegerProperty(v7, kMIDIPropertyUniqueID, &v20);
-        v13 = v20;
-        if (IntegerProperty)
-        {
-          v13 = 0;
-        }
-
-        if (v13 == a2)
-        {
-          return v7;
-        }
-
-        v10 = *(v12 + 2);
-      }
-
-      ++v11;
-    }
-
-    while (v11 != v10);
-  }
-
-  v14 = SetupManager::instance(IntegerProperty);
-  v16 = *(v14 + 32);
-  v15 = *(v14 + 40);
-  if (v16 != v15)
-  {
-    v17 = v14;
-    do
-    {
-      v7 = *v16;
-      if (*v16 != a3)
+      v8 = *v12;
+      if (*v12 != a3)
       {
         v21 = 0;
-        v18 = MIDIObject::GetIntegerProperty(v7, kMIDIPropertyUniqueID, &v21);
-        v19 = v21;
-        if (v18)
+        IntegerProperty = MIDIObject::GetIntegerProperty(v8, kMIDIPropertyUniqueID, &v21);
+        v14 = v21;
+        if (IntegerProperty)
         {
-          v19 = 0;
+          v14 = 0;
         }
 
-        if (v19 == a2)
+        if (v14 == v5)
         {
-          return v7;
+          return v8;
         }
 
-        v15 = *(v17 + 40);
+        v11 = *(v13 + 2);
       }
 
-      ++v16;
+      ++v12;
     }
 
-    while (v16 != v15);
+    while (v12 != v11);
+  }
+
+  v15 = SetupManager::instance(IntegerProperty);
+  v17 = *(v15 + 32);
+  v16 = *(v15 + 40);
+  if (v17 != v16)
+  {
+    v18 = v15;
+    do
+    {
+      v8 = *v17;
+      if (*v17 != a3)
+      {
+        v22 = 0;
+        v19 = MIDIObject::GetIntegerProperty(v8, kMIDIPropertyUniqueID, &v22);
+        v20 = v22;
+        if (v19)
+        {
+          v20 = 0;
+        }
+
+        if (v20 == v5)
+        {
+          return v8;
+        }
+
+        v16 = *(v18 + 40);
+      }
+
+      ++v17;
+    }
+
+    while (v17 != v16);
   }
 
   return 0;
@@ -1990,89 +2021,89 @@ uint64_t MIDISetup::FromData(MIDISetup *this, const __CFData *a2)
   }
 }
 
-void MIDISetup::CreationEffects(MIDISetup *this)
+void MIDISetup::CreationEffects(uint64_t this)
 {
   *(this + 218) = 1;
-  *(this + 12) = *(this + 11);
-  *(this + 15) = *(this + 14);
-  v3 = *(this + 8);
-  for (i = *(this + 9); v3 != i; i = *(this + 9))
+  *(this + 96) = *(this + 88);
+  *(this + 120) = *(this + 112);
+  v3 = *(this + 64);
+  for (i = *(this + 72); v3 != i; i = *(this + 72))
   {
     v4 = *v3++;
     MIDISetup::DeviceAddEffects(this, v4, 1);
   }
 
-  for (j = *(this + 19); j != *(this + 20); ++j)
+  for (j = *(this + 152); j != *(this + 160); ++j)
   {
     v6 = *j;
     MIDISetup::DeviceAddEffects(this, v6, 1);
   }
 
   *(this + 218) = 0;
-  for (k = *(this + 23); k != *(this + 24); ++k)
+  for (k = *(this + 184); k != *(this + 192); ++k)
   {
     v8 = *k;
     MIDIConnection::MaintainEndpoints(v8, this);
   }
 }
 
-void MIDISetup::SetMIDIRunning(MIDISetup *this, int a2)
+void MIDISetup::SetMIDIRunning(MIDISetup *this)
 {
-  v2 = this;
-  v3 = MIDIServer::defaultInstance(this, a2);
-  if (v2)
+  v1 = this;
+  v2 = MIDIServer::defaultInstance(this);
+  if (v1)
   {
-    v5 = v3;
-    v6 = v3[122];
-    v7 = v3 + 123;
-    if (v6 != v3 + 123)
+    v3 = v2;
+    v4 = v2[122];
+    v5 = v2 + 123;
+    if (v4 != v2 + 123)
     {
       do
       {
-        UMPStream::EndpointManager::sendEndpointDiscoveryMessage((v5 + 110), *(v6 + 7));
-        v8 = v6[1];
-        if (v8)
+        UMPStream::EndpointManager::sendEndpointDiscoveryMessage((v3 + 110), *(v4 + 7));
+        v6 = v4[1];
+        if (v6)
         {
           do
           {
-            v9 = v8;
-            v8 = *v8;
+            v7 = v6;
+            v6 = *v6;
           }
 
-          while (v8);
+          while (v6);
         }
 
         else
         {
           do
           {
-            v9 = v6[2];
-            v10 = *v9 == v6;
-            v6 = v9;
+            v7 = v4[2];
+            v8 = *v7 == v4;
+            v4 = v7;
           }
 
-          while (!v10);
+          while (!v8);
         }
 
-        v6 = v9;
+        v4 = v7;
       }
 
-      while (v9 != v7);
+      while (v7 != v5);
     }
 
-    std::__tree<std::__value_type<__CFString const*,unsigned int>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned int>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned int>>>::destroy(v5[123]);
-    v5[122] = v7;
-    *v7 = 0u;
+    std::__tree<std::__value_type<__CFString const*,unsigned int>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,unsigned int>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,unsigned int>>>::destroy(v3[123]);
+    v3[122] = v5;
+    *v5 = 0u;
   }
 
-  v11 = (MIDIServer::defaultInstance(v3, v4) + 688);
+  v9 = (MIDIServer::defaultInstance(v2) + 86);
 
-  MIDICI::DeviceManager::setMIDIRunning(v11, v2);
+  MIDICI::DeviceManager::setMIDIRunning(v9, v1);
 }
 
-void *std::vector<MIDIDevice *>::reserve(void *result, unint64_t a2)
+void std::vector<MIDIDevice *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
@@ -2081,11 +2112,9 @@ void *std::vector<MIDIDevice *>::reserve(void *result, unint64_t a2)
 
     std::vector<CADeprecated::XMachServer::Client *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void std::vector<MIDISource *>::__init_with_size[abi:ne200100]<MIDISource **,MIDISource **>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<MIDISource *>::__init_with_size[abi:ne200100]<MIDISource **,MIDISource **>(void *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2115,10 +2144,10 @@ MIDIServer *SetupManager::NotificationTimerCallback(MIDIServer *this, __CFRunLoo
   if (*(a2 + 9))
   {
     v4 = (a2 + 56);
-    v5 = MIDIServer::defaultInstance(this, a2);
-    v7 = *(v5 + 200);
-    v6 = *(v5 + 208);
-    for (i = v5; v7 != v6; ++v7)
+    v5 = MIDIServer::defaultInstance(this);
+    v7 = v5[25];
+    v6 = v5[26];
+    for (i = v5; v7 != v6; v7 += 8)
     {
       v8 = *v7;
       if (!*(*v7 + 48))
@@ -2286,7 +2315,7 @@ void UMPCIClients::UMPCIClients(UMPCIClients *this)
   }
 
 LABEL_6:
-  v5 = MIDIClientCreateWithBlockInternal(v4, &UMPCIClients::instance(void)::all, v1);
+  v5 = MIDIClientCreateWithBlockInternal(v4, &UMPCIClients::instance(void)::all, v1, 1);
   std::string::basic_string[abi:ne200100]<0>(&__p, "Creating MIDI client failed miserably.");
   if (v5)
   {
@@ -2949,7 +2978,7 @@ uint64_t CADeprecated::CAPThread::Start(uint64_t this)
   v18 = *MEMORY[0x277D85DE8];
   if (atomic_load((this + 8)))
   {
-    CAVerboseAbort();
+    CAVerboseAbort("CAPThread::Start: can't start because the thread is already running");
   }
 
   if (!atomic_load((this + 8)))
@@ -3078,14 +3107,19 @@ uint64_t CADeprecated::CAPThread::SetTimeConstraints(uint64_t this, int a2, int 
   {
     *policy_info = *(this + 108);
     v6 = *(this + 120);
-    v11 = *(this + 116);
-    v12 = v6;
+    v12 = *(this + 116);
+    v13 = v6;
     v7 = atomic_load((this + 8));
     v8 = pthread_mach_thread_np(v7);
     this = thread_policy_set(v8, 2u, policy_info, 4u);
     if (this)
     {
-      v9 = CAVerboseAbort();
+      v10[0] = BYTE3(this);
+      v10[1] = BYTE2(this);
+      v10[2] = BYTE1(this);
+      v10[3] = this;
+      v10[4] = 0;
+      v9 = CAVerboseAbort("CAPThread::SetTimeConstraints: thread_policy_set failed, Error: %d (%s)", this, v10);
       CADeprecated::CAPThread::~CAPThread(v9);
     }
   }
@@ -3288,10 +3322,10 @@ void std::__shared_ptr_emplace<LocalMIDIClient>::~__shared_ptr_emplace(std::__sh
   JUMPOUT(0x2383C8250);
 }
 
-void LocalClientList::Copy(uint64_t **a1, uint64_t *a2)
+void LocalClientList::Copy(uint64_t *a1, uint64_t *a2)
 {
-  v4 = (a1 + 11);
-  v5 = ((*a1)[2])(a1);
+  v4 = a1 + 11;
+  v5 = (*(*a1 + 16))(a1);
   if (v4 == a2)
   {
 LABEL_15:
@@ -3308,7 +3342,7 @@ LABEL_15:
   v8 = v6 - v7;
   v9 = a2[2];
   v10 = *a2;
-  if (v9 - *a2 < (v6 - v7))
+  if (v9 - *a2 < v6 - v7)
   {
     v11 = v8 >> 4;
     if (v10)
@@ -3357,9 +3391,9 @@ LABEL_15:
   }
 
   v15 = std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<LocalMIDIClient> *,std::shared_ptr<LocalMIDIClient> *,std::shared_ptr<LocalMIDIClient> *>(a1[11], a1[12], v10);
-  for (i = a2[1]; i != v15; i -= 2)
+  for (i = a2[1]; i != v15; i -= 16)
   {
-    v17 = *(i - 1);
+    v17 = *(i - 8);
     if (v17)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v17);
@@ -3370,11 +3404,11 @@ LABEL_15:
   if (v5)
   {
 LABEL_16:
-    ((*a1)[3])(a1);
+    (*(*a1 + 24))(a1);
   }
 }
 
-void *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<LocalMIDIClient> *,std::shared_ptr<LocalMIDIClient> *,std::shared_ptr<LocalMIDIClient> *>(uint64_t *a1, uint64_t *a2, void *a3)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<LocalMIDIClient> *,std::shared_ptr<LocalMIDIClient> *,std::shared_ptr<LocalMIDIClient> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   if (a1 != a2)
   {
@@ -3539,23 +3573,23 @@ uint64_t LocalMIDIReceiverList::Remove(LocalMIDIReceiverList *this, int a2)
   return result;
 }
 
-uint64_t LocalMIDIReceiverList::ReceiverConnectEndpoint(LocalMIDIReceiverList *this, int a2, int a3, void *a4, int a5)
+void LocalMIDIReceiverList::ReceiverConnectEndpoint(LocalMIDIReceiverList *this, int a2, int a3, void (**a4)(), int a5)
 {
-  v24[8] = *MEMORY[0x277D85DE8];
+  v27[7] = *MEMORY[0x277D85DE8];
   v10 = this + 24;
-  v22 = this + 24;
-  result = (*(*(this + 3) + 16))(this + 24);
-  v23 = result;
+  v24 = this + 24;
+  v11 = (*(*(this + 3) + 16))(this + 24);
+  v25 = v11;
   for (i = *this; ; ++i)
   {
     if (i == *(this + 1))
     {
-      if (!result)
+      if (!v11)
       {
-        return result;
+        return;
       }
 
-      return (*(*v10 + 24))(v10);
+      goto LABEL_40;
     }
 
     v13 = *i;
@@ -3568,7 +3602,7 @@ uint64_t LocalMIDIReceiverList::ReceiverConnectEndpoint(LocalMIDIReceiverList *t
   atomic_fetch_add(this + 28, 1u);
   while (*(this + 29))
   {
-    result = usleep(0x1F4u);
+    usleep(0x1F4u);
   }
 
   if (a5)
@@ -3595,12 +3629,12 @@ LABEL_20:
         operator new();
       }
 
-      v20 = *(v13 + 8);
-      v21 = *(v13 + 24);
-      v24[1] = caulk::inplace_function<void ()(MIDI::EventList const*),48ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<LocalMIDIReceiver::connectEndpoint(unsigned int,void *)::$_2>;
-      v24[2] = v21;
-      v24[3] = a4;
-      MIDI::EventListDeliverer::create(v24, v20);
+      v22 = *(v13 + 8);
+      v23 = *(v13 + 24);
+      v27[0] = caulk::inplace_function<void ()(MIDI::EventList const*),48ul,8ul,caulk::inplace_function_detail::rt_vtable>::k_wrapper_vtable<LocalMIDIReceiver::connectEndpoint(unsigned int,void *)::$_2>;
+      v27[1] = v23;
+      v27[2] = a4;
+      MIDI::EventListDeliverer::create(&v26, v22, v27);
     }
   }
 
@@ -3624,11 +3658,11 @@ LABEL_20:
                 *v16 = *v18;
                 v19 = *(v18 + 8);
                 *(v18 + 8) = 0;
-                result = *(v16 + 8);
+                v20 = *(v16 + 8);
                 *(v16 + 8) = v19;
-                if (result)
+                if (v20)
                 {
-                  result = (*(*result + 8))(result);
+                  (*(*v20 + 8))(v20);
                 }
 
                 v16 += 16;
@@ -3646,11 +3680,11 @@ LABEL_20:
         {
           while (v17 != v16)
           {
-            result = *(v17 - 8);
+            v21 = *(v17 - 8);
             *(v17 - 8) = 0;
-            if (result)
+            if (v21)
             {
-              result = (*(*result + 8))(result);
+              (*(*v21 + 8))(v21);
             }
 
             v17 -= 16;
@@ -3667,13 +3701,12 @@ LABEL_20:
   }
 
   atomic_fetch_add(this + 28, 0xFFFFFFFF);
-  if (v23)
+  if (v25)
   {
-    v10 = v22;
-    return (*(*v10 + 24))(v10);
+    v10 = v24;
+LABEL_40:
+    (*(*v10 + 24))(v10);
   }
-
-  return result;
 }
 
 void sub_23722794C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15)
@@ -3871,7 +3904,7 @@ __n128 caulk::inplace_function_detail::rt_vtable<void,MIDI::EventList const*>::r
   return result;
 }
 
-void MIDIIORingBufferWriter::copyPacketList(uint64_t a1, void *__src, uint64_t a3)
+void MIDIIORingBufferWriter::copyPacketList(uint64_t result, void *__src, uint64_t a3)
 {
   if (*(a3 + 4))
   {
@@ -3912,7 +3945,7 @@ void MIDIIORingBufferWriter::copyPacketList(uint64_t a1, void *__src, uint64_t a
           }
 
           *(__src + 9) = 4 * v12;
-          MIDIIORingBufferWriter::writePacket2(a1, __src, v9);
+          MIDIIORingBufferWriter::writePacket2(result, __src, v9);
           v13 = &v9[4 * v8];
           v8 -= v12;
           v9 = &v13[-4 * v8];
@@ -3923,7 +3956,7 @@ void MIDIIORingBufferWriter::copyPacketList(uint64_t a1, void *__src, uint64_t a
       }
 
       *(__src + 9) = v14;
-      MIDIIORingBufferWriter::writePacket2(a1, __src, v9);
+      MIDIIORingBufferWriter::writePacket2(result, __src, v9);
       v7 += 12 + 4 * *(v7 + 8);
       ++v6;
     }
@@ -3963,7 +3996,7 @@ BOOL MIDIIORingBufferWriter::writePacketList<MIDI::EventList>(uint64_t a1, uint6
   return v8;
 }
 
-uint64_t MIDIProcess::Notify(uint64_t **this, const UniChar *a2, size_t a3)
+uint64_t MIDIProcess::Notify(MIDIProcess *this, const UniChar *a2, size_t a3)
 {
   v46 = *MEMORY[0x277D85DE8];
   v35 = 0;
@@ -4060,7 +4093,7 @@ LABEL_19:
       v19 = __dst;
       if (!(((__dst - 4) < 0xFFFFFFFD) | v6 & 1))
       {
-        ObjectTreeCache::Invalidate((this + 36));
+        ObjectTreeCache::Invalidate((this + 288));
         v6 = 1;
         v19 = __dst;
       }
@@ -4594,10 +4627,10 @@ LABEL_30:
   return 0;
 }
 
-void sub_237229DA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_237229DA8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MIDICIDiscoveryManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4634,19 +4667,19 @@ _DWORD *MIDI::EventList::create@<X0>(int a1@<W0>, uint64_t a2@<X1>, const void *
 
 void *MIDI::EventList::create@<X0>(MIDI::EventList *this@<X0>, void *a2@<X8>)
 {
-  v5 = this + 8;
+  v4 = this + 8;
   for (i = *(this + 1); i; --i)
   {
-    v5 += 4 * *(v5 + 2) + 12;
+    v4 += 4 * *(v4 + 2) + 12;
   }
 
-  v7 = v5 - this;
-  v8 = malloc_type_malloc(v5 - this, 0x49233628uLL);
-  *v8 = *this;
-  *a2 = v8;
+  v6 = v4 - this;
+  v7 = malloc_type_malloc(v4 - this, 0x49233628uLL);
+  *v7 = *this;
+  *a2 = v7;
   a2[1] = MIDI::packet_list_deleter;
 
-  return memcpy(v8, this, v7);
+  return memcpy(v7, this, v6);
 }
 
 void *MIDI::LegacyPacketList::dump(_DWORD *a1)
@@ -4661,7 +4694,7 @@ void *MIDI::LegacyPacketList::dump(_DWORD *a1)
   if (*v21)
   {
     v7 = 0;
-    v8 = (v21 + 1);
+    v8 = v21 + 1;
     do
     {
       v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v1, "  [", 3);
@@ -4671,9 +4704,9 @@ void *MIDI::LegacyPacketList::dump(_DWORD *a1)
       v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "] ts ", 5);
       v14 = MEMORY[0x2383C8040](v13, *v8);
       v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ", ", 2);
-      v16 = MEMORY[0x2383C8030](v15, *(v8 + 8));
+      v16 = MEMORY[0x2383C8030](v15, *(v8 + 4));
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " bytes:", 7);
-      if (*(v8 + 8))
+      if (*(v8 + 4))
       {
         v17 = 0;
         do
@@ -4684,16 +4717,16 @@ void *MIDI::LegacyPacketList::dump(_DWORD *a1)
           *(v1 + *(*v1 - 24) + 8) = *(v1 + *(*v1 - 24) + 8) & 0xFFFFFFB5 | 8;
           *(v1 + *(v19 - 24) + 24) = 2;
           v20 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v18, 48);
-          MEMORY[0x2383C8020](v20, *(v8 + 10 + v17++));
+          MEMORY[0x2383C8020](v20, *(v8 + v17++ + 10));
         }
 
-        while (v17 < *(v8 + 8));
+        while (v17 < *(v8 + 4));
       }
 
       *(v1 + *(*v1 - 24) + 8) = *(v1 + *(*v1 - 24) + 8) & 0xFFFFFFB5 | 2;
       v22 = 10;
       result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v1, &v22, 1);
-      v8 = (v8 + *(v8 + 8) + 13) & 0xFFFFFFFFFFFFFFFCLL;
+      v8 = ((v8 + *(v8 + 4) + 13) & 0xFFFFFFFFFFFFFFFCLL);
       v7 = (v7 + 1);
     }
 
@@ -5215,7 +5248,7 @@ void std::__shared_ptr_emplace<caulk::synchronized<CentralState,caulk::mach::unf
   JUMPOUT(0x2383C8250);
 }
 
-void MIDIServerXPC_Server::registerProcess(uint64_t a1, uint64_t a2, int a3)
+void MIDIServerXPC_Server::registerProcess(uint64_t a1, void *a2, int a3)
 {
   v47 = *MEMORY[0x277D85DE8];
   swix::ipc_interface::audit_token(&v44, *(a1 + 8));
@@ -5524,7 +5557,7 @@ LABEL_15:
     }
   }
 
-  v10 = _MIDIClientCreate(v5, v9, &v15);
+  v10 = _MIDIClientCreate(v5, v9, &v15, 0);
   v11 = v15;
   if (v9)
   {
@@ -5544,49 +5577,50 @@ LABEL_15:
   return v12 | ((v10 == 0) << 32);
 }
 
-void sub_23722BEDC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23722BEDC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
 
 unint64_t MIDIServerXPC_Server::createInputPort(MIDIServerXPC_Server *this, xpc_object_t xstring, const swix::string *a3)
 {
-  v16 = 0;
+  v3 = a3;
+  v17 = 0;
   string_ptr = xpc_string_get_string_ptr(xstring);
   std::string::basic_string[abi:ne200100]<0>(__p, string_ptr);
-  if ((v14 & 0x80u) == 0)
+  if ((v15 & 0x80u) == 0)
   {
-    v5 = __p;
+    v6 = __p;
   }
 
   else
   {
-    v5 = __p[0];
+    v6 = __p[0];
   }
 
-  if (v5)
+  if (v6)
   {
-    if ((v14 & 0x80u) == 0)
+    if ((v15 & 0x80u) == 0)
     {
-      v6 = v14;
+      v7 = v15;
     }
 
     else
     {
-      v6 = __p[1];
+      v7 = __p[1];
     }
 
-    v7 = CFStringCreateWithBytes(0, v5, v6, 0x8000100u, 0);
-    v15 = v7;
-    if (!v7)
+    v8 = CFStringCreateWithBytes(0, v6, v7, 0x8000100u, 0);
+    v16 = v8;
+    if (!v8)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x2383C7ED0](exception, "Could not construct");
     }
 
-    if ((v14 & 0x80) != 0)
+    if ((v15 & 0x80) != 0)
     {
       goto LABEL_10;
     }
@@ -5594,38 +5628,38 @@ unint64_t MIDIServerXPC_Server::createInputPort(MIDIServerXPC_Server *this, xpc_
 
   else
   {
-    v7 = 0;
-    v15 = 0;
-    if ((v14 & 0x80) != 0)
+    v8 = 0;
+    v16 = 0;
+    if ((v15 & 0x80) != 0)
     {
 LABEL_10:
       operator delete(__p[0]);
     }
   }
 
-  v8 = _MIDIInputPortCreate(this);
-  v9 = v16;
-  if (v7)
-  {
-    CFRelease(v7);
-  }
-
+  v9 = _MIDIInputPortCreate(this, v8, v3, &v17, 0, 0);
+  v10 = v17;
   if (v8)
   {
-    v10 = v8;
+    CFRelease(v8);
+  }
+
+  if (v9)
+  {
+    v11 = v9;
   }
 
   else
   {
-    v10 = v9;
+    v11 = v10;
   }
 
-  return v10 | ((v8 == 0) << 32);
+  return v11 | ((v9 == 0) << 32);
 }
 
-void sub_23722C064(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23722C064(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -5682,7 +5716,7 @@ LABEL_10:
     }
   }
 
-  v8 = _MIDIOutputPortCreate(this);
+  v8 = _MIDIOutputPortCreate(this, v7, &v16);
   v9 = v16;
   if (v7)
   {
@@ -5702,9 +5736,9 @@ LABEL_10:
   return v10 | ((v8 == 0) << 32);
 }
 
-void sub_23722C1B0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23722C1B0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -5769,40 +5803,41 @@ uint64_t _ZNKSt3__18functionIFvN4swix6resultIJEEEEEclES3_(uint64_t a1, uint64_t 
 
 unint64_t MIDIServerXPC_Server::createSource(MIDIServerXPC_Server *this, xpc_object_t xstring, const swix::string *a3)
 {
-  v16 = 0;
+  v3 = a3;
+  v17 = 0;
   string_ptr = xpc_string_get_string_ptr(xstring);
   std::string::basic_string[abi:ne200100]<0>(__p, string_ptr);
-  if ((v14 & 0x80u) == 0)
+  if ((v15 & 0x80u) == 0)
   {
-    v5 = __p;
+    v6 = __p;
   }
 
   else
   {
-    v5 = __p[0];
+    v6 = __p[0];
   }
 
-  if (v5)
+  if (v6)
   {
-    if ((v14 & 0x80u) == 0)
+    if ((v15 & 0x80u) == 0)
     {
-      v6 = v14;
+      v7 = v15;
     }
 
     else
     {
-      v6 = __p[1];
+      v7 = __p[1];
     }
 
-    v7 = CFStringCreateWithBytes(0, v5, v6, 0x8000100u, 0);
-    v15 = v7;
-    if (!v7)
+    v8 = CFStringCreateWithBytes(0, v6, v7, 0x8000100u, 0);
+    v16 = v8;
+    if (!v8)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x2383C7ED0](exception, "Could not construct");
     }
 
-    if ((v14 & 0x80) != 0)
+    if ((v15 & 0x80) != 0)
     {
       goto LABEL_10;
     }
@@ -5810,78 +5845,79 @@ unint64_t MIDIServerXPC_Server::createSource(MIDIServerXPC_Server *this, xpc_obj
 
   else
   {
-    v7 = 0;
-    v15 = 0;
-    if ((v14 & 0x80) != 0)
+    v8 = 0;
+    v16 = 0;
+    if ((v15 & 0x80) != 0)
     {
 LABEL_10:
       operator delete(__p[0]);
     }
   }
 
-  v8 = _MIDISourceCreate(this);
-  v9 = v16;
-  if (v7)
-  {
-    CFRelease(v7);
-  }
-
+  v9 = _MIDISourceCreate(this, v8, v3, &v17);
+  v10 = v17;
   if (v8)
   {
-    v10 = v8;
+    CFRelease(v8);
+  }
+
+  if (v9)
+  {
+    v11 = v9;
   }
 
   else
   {
-    v10 = v9;
+    v11 = v10;
   }
 
-  return v10 | ((v8 == 0) << 32);
+  return v11 | ((v9 == 0) << 32);
 }
 
-void sub_23722C490(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23722C490(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
 
 unint64_t MIDIServerXPC_Server::createDestination(MIDIServerXPC_Server *this, xpc_object_t xstring, const swix::string *a3)
 {
-  v16 = 0;
+  v3 = a3;
+  v17 = 0;
   string_ptr = xpc_string_get_string_ptr(xstring);
   std::string::basic_string[abi:ne200100]<0>(__p, string_ptr);
-  if ((v14 & 0x80u) == 0)
+  if ((v15 & 0x80u) == 0)
   {
-    v5 = __p;
+    v6 = __p;
   }
 
   else
   {
-    v5 = __p[0];
+    v6 = __p[0];
   }
 
-  if (v5)
+  if (v6)
   {
-    if ((v14 & 0x80u) == 0)
+    if ((v15 & 0x80u) == 0)
     {
-      v6 = v14;
+      v7 = v15;
     }
 
     else
     {
-      v6 = __p[1];
+      v7 = __p[1];
     }
 
-    v7 = CFStringCreateWithBytes(0, v5, v6, 0x8000100u, 0);
-    v15 = v7;
-    if (!v7)
+    v8 = CFStringCreateWithBytes(0, v6, v7, 0x8000100u, 0);
+    v16 = v8;
+    if (!v8)
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x2383C7ED0](exception, "Could not construct");
     }
 
-    if ((v14 & 0x80) != 0)
+    if ((v15 & 0x80) != 0)
     {
       goto LABEL_10;
     }
@@ -5889,45 +5925,44 @@ unint64_t MIDIServerXPC_Server::createDestination(MIDIServerXPC_Server *this, xp
 
   else
   {
-    v7 = 0;
-    v15 = 0;
-    if ((v14 & 0x80) != 0)
+    v8 = 0;
+    v16 = 0;
+    if ((v15 & 0x80) != 0)
     {
 LABEL_10:
       operator delete(__p[0]);
     }
   }
 
-  v8 = _MIDIDestinationCreate(this);
-  v9 = v16;
-  if (v7)
-  {
-    CFRelease(v7);
-  }
-
+  v9 = _MIDIDestinationCreate(this, v8, v3, &v17, 0, 0);
+  v10 = v17;
   if (v8)
   {
-    v10 = v8;
+    CFRelease(v8);
+  }
+
+  if (v9)
+  {
+    v11 = v9;
   }
 
   else
   {
-    v10 = v9;
+    v11 = v10;
   }
 
-  return v10 | ((v8 == 0) << 32);
+  return v11 | ((v9 == 0) << 32);
 }
 
-void sub_23722C5EC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23722C5EC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
 
 unint64_t MIDIServerXPC_Server::objectSetIntegerProperty(MIDIServerXPC_Server *this, xpc_object_t xstring, const swix::string *a3)
 {
-  v3 = a3;
   string_ptr = xpc_string_get_string_ptr(xstring);
   std::string::basic_string[abi:ne200100]<0>(__p, string_ptr);
   if ((v13 & 0x80u) == 0)
@@ -5977,7 +6012,7 @@ LABEL_10:
     }
   }
 
-  v9 = _MIDIObjectSetIntegerProperty(this, v8, v3);
+  v9 = _MIDIObjectSetIntegerProperty(this, v8, a3);
   if (v8)
   {
     CFRelease(v8);
@@ -5986,9 +6021,9 @@ LABEL_10:
   return v9 | ((v9 == 0) << 32);
 }
 
-void sub_23722C760(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23722C760(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -6065,9 +6100,9 @@ LABEL_10:
   return v10 | ((IntegerProperty == 0) << 32);
 }
 
-void sub_23722C8AC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23722C8AC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -6184,9 +6219,9 @@ LABEL_20:
   return v14 | ((v14 == 0) << 32);
 }
 
-void sub_23722CAB4(void *a1, uint64_t a2, ...)
+void sub_23722CAB4(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -6325,7 +6360,7 @@ uint64_t swix::result<swix::string>::result(uint64_t a1, xpc_object_t *a2)
   return a1;
 }
 
-_BYTE *applesauce::CF::convert_to<std::string,0>(_BYTE *a1, const __CFString *a2)
+void *applesauce::CF::convert_to<std::string,0>(uint64_t a1, const __CFString *a2)
 {
   TypeID = CFStringGetTypeID();
   if (TypeID != CFGetTypeID(a2))
@@ -6359,14 +6394,14 @@ _BYTE *applesauce::CF::convert_to<std::string,0>(_BYTE *a1, const __CFString *a2
       operator new();
     }
 
-    a1[23] = maxBufLen;
+    *(a1 + 23) = maxBufLen;
     if (v8)
     {
       bzero(a1, v8);
     }
 
-    a1[v8] = 0;
-    if (a1[23] >= 0)
+    *(a1 + v8) = 0;
+    if (*(a1 + 23) >= 0)
     {
       v9 = a1;
     }
@@ -6472,9 +6507,9 @@ LABEL_10:
   return v12 | ((v12 == 0) << 32);
 }
 
-void sub_23722D12C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23722D12C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -6677,9 +6712,9 @@ LABEL_10:
   return v12 | ((v12 == 0) << 32);
 }
 
-void sub_23722D578(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23722D578(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -6921,9 +6956,9 @@ LABEL_10:
   return v8 | ((v8 == 0) << 32);
 }
 
-void sub_23722DB28(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23722DB28(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -6954,21 +6989,21 @@ unint64_t MIDIServerXPC_Server::createSetupFromData(xpc_object_t *this, const sw
   return v7 | ((v5 == 0) << 32);
 }
 
-unint64_t MIDIServerXPC_Server::getCurrentSetup(MIDIServerXPC_Server *this)
+unint64_t MIDIServerXPC_Server::getCurrentSetup(MIDIServerXPC_Server *this, int a2)
 {
-  v4 = 0;
-  Current = _MIDISetupGetCurrent(&v4);
+  v5 = 0;
+  Current = _MIDISetupGetCurrent(&v5, a2);
   if (Current)
   {
-    v2 = Current;
+    v3 = Current;
   }
 
   else
   {
-    v2 = v4;
+    v3 = v5;
   }
 
-  return v2 | ((Current == 0) << 32);
+  return v3 | ((Current == 0) << 32);
 }
 
 unint64_t MIDIServerXPC_Server::createExternalDevice(MIDIServerXPC_Server *this, xpc_object_t *a2, xpc_object_t *a3, const swix::string *a4)
@@ -7147,15 +7182,16 @@ LABEL_30:
   return v20 | ((v18 == 0) << 32);
 }
 
-void sub_23722DF80(void *a1, uint64_t a2, ...)
+void sub_23722DF80(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
 
-unint64_t MIDIServerXPC_Server::deviceAddEntity(MIDIServerXPC_Server *this, xpc_object_t xstring, const swix::string *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+unint64_t MIDIServerXPC_Server::deviceAddEntity(MIDIServerXPC_Server *this, xpc_object_t xstring, const swix::string *a3, int a4, int a5, int a6)
 {
+  v9 = a3;
   v23 = 0;
   string_ptr = xpc_string_get_string_ptr(xstring);
   std::string::basic_string[abi:ne200100]<0>(__p, string_ptr);
@@ -7206,7 +7242,7 @@ LABEL_10:
     }
   }
 
-  v15 = _MIDIDeviceAddEntity(this, v14, a3, a4, a5, a6, &v23);
+  v15 = _MIDIDeviceAddEntity(this, v14, v9, a4, a5, a6, &v23);
   v16 = v23;
   if (v14)
   {
@@ -7226,9 +7262,9 @@ LABEL_10:
   return v17 | ((v15 == 0) << 32);
 }
 
-void sub_23722E134(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23722E134(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -7237,12 +7273,12 @@ unint64_t MIDIServerXPC_Server::setupAddDevice(MIDIServerXPC_Server *this, int a
 {
   if (a2)
   {
-    v2 = _MIDISetupAddExternalDevice(this);
+    v2 = _MIDISetupAddExternalDevice(this, a2);
   }
 
   else
   {
-    v2 = _MIDISetupAddDevice(this);
+    v2 = _MIDISetupAddDevice(this, 0);
   }
 
   return v2 | ((v2 == 0) << 32);
@@ -7252,12 +7288,12 @@ unint64_t MIDIServerXPC_Server::setupRemoveDevice(MIDIServerXPC_Server *this, in
 {
   if (a2)
   {
-    v2 = _MIDISetupRemoveExternalDevice(this);
+    v2 = _MIDISetupRemoveExternalDevice(this, a2);
   }
 
   else
   {
-    v2 = _MIDISetupRemoveDevice(this);
+    v2 = _MIDISetupRemoveDevice(this, 0);
   }
 
   return v2 | ((v2 == 0) << 32);
@@ -7430,9 +7466,9 @@ unint64_t MIDIServerXPC_Server::createThruConnection(MIDIServerXPC_Server *this,
   return v18 | ((v16 == 0) << 32);
 }
 
-void sub_23722E624(void *a1, uint64_t a2, ...)
+void sub_23722E624(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __clang_call_terminate(a1);
 }
@@ -7636,27 +7672,27 @@ void MIDIServerXPC_Server::getObjectTree(MIDIServerXPC_Server *this, int a2)
 {
   v4 = MIDIServer::defaultInstance(this) + 2;
   v5 = (*(*v4 + 16))(v4);
-  v12 = 0;
   v13 = 0;
   v14 = 0;
-  ObjectTreeCache::GetObjectTree(&v12);
-  v6 = v12;
-  swix::data::data(&xdata, v12, v13 - v12);
+  v15 = 0;
+  ObjectTreeCache::GetObjectTree(&v13, v6);
+  v7 = v13;
+  swix::data::data(&xdata, v13, v14 - v13);
   if (a2)
   {
     bytes_ptr = xpc_data_get_bytes_ptr(xdata);
-    v8 = xpc_data_get_length(xdata) >> 2;
-    if (v8 >= 1)
+    v9 = xpc_data_get_length(xdata) >> 2;
+    if (v9 >= 1)
     {
-      v9 = v8 + 1;
+      v10 = v9 + 1;
       do
       {
         *bytes_ptr = bswap32(*bytes_ptr);
         ++bytes_ptr;
-        --v9;
+        --v10;
       }
 
-      while (v9 > 1);
+      while (v10 > 1);
     }
   }
 
@@ -7675,9 +7711,9 @@ void MIDIServerXPC_Server::getObjectTree(MIDIServerXPC_Server *this, int a2)
   xpc_release(object);
   object = 0;
   xpc_release(xdata);
-  if (v6)
+  if (v7)
   {
-    operator delete(v6);
+    operator delete(v7);
   }
 
   if (v5)
@@ -7758,69 +7794,69 @@ unint64_t MIDIServerXPC_Server::umpciObjectSetDescription(MIDIServerXPC_Server *
   return v7 | ((v7 == 0) << 32);
 }
 
-void MIDIServerXPC_Server::umpciGlobalState(MIDIServerXPC_Server *this)
+void MIDIServerXPC_Server::umpciGlobalState(MIDIServerXPC_Server *this, int a2)
 {
   cf = 0;
-  v2 = _UMPCIGlobalState(&cf);
-  if (v2 || (v3 = cf) == 0)
+  v3 = _UMPCIGlobalState(&cf, a2);
+  if (v3 || (v4 = cf) == 0)
   {
-    v10 = xpc_null_create();
-    v15 = v10;
-    if (v2)
+    v11 = xpc_null_create();
+    v16 = v11;
+    if (v3)
     {
-      *this = v2;
+      *this = v3;
       *(this + 8) = 0;
     }
 
     else
     {
-      swix::result<swix::data>::result(this, &v15);
-      v10 = v15;
+      swix::result<swix::data>::result(this, &v16);
+      v11 = v16;
     }
 
-    xpc_release(v10);
+    xpc_release(v11);
   }
 
   else
   {
-    v14[1] = cf;
-    v4 = CFGetTypeID(cf);
-    if (v4 != CFDictionaryGetTypeID())
+    v15[1] = cf;
+    v5 = CFGetTypeID(cf);
+    if (v5 != CFDictionaryGetTypeID())
     {
       exception = __cxa_allocate_exception(0x10uLL);
       MEMORY[0x2383C7ED0](exception, "Could not construct");
     }
 
-    Data = CFPropertyListCreateData(0, v3, kCFPropertyListBinaryFormat_v1_0, 0, 0);
-    v6 = Data;
+    Data = CFPropertyListCreateData(0, v4, kCFPropertyListBinaryFormat_v1_0, 0, 0);
+    v7 = Data;
     if (Data)
     {
       object[1] = Data;
-      v7 = CFGetTypeID(Data);
-      if (v7 != CFDataGetTypeID())
+      v8 = CFGetTypeID(Data);
+      if (v8 != CFDataGetTypeID())
       {
-        v12 = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x2383C7ED0](v12, "Could not construct");
+        v13 = __cxa_allocate_exception(0x10uLL);
+        MEMORY[0x2383C7ED0](v13, "Could not construct");
       }
 
-      BytePtr = CFDataGetBytePtr(v6);
-      Length = CFDataGetLength(v6);
+      BytePtr = CFDataGetBytePtr(v7);
+      Length = CFDataGetLength(v7);
       swix::data::data(object, BytePtr, Length);
       swix::result<swix::data>::result(this, object);
       xpc_release(object[0]);
       object[0] = 0;
-      CFRelease(v6);
+      CFRelease(v7);
     }
 
     else
     {
-      v14[0] = xpc_null_create();
-      swix::result<swix::data>::result(this, v14);
-      xpc_release(v14[0]);
-      v14[0] = 0;
+      v15[0] = xpc_null_create();
+      swix::result<swix::data>::result(this, v15);
+      xpc_release(v15[0]);
+      v15[0] = 0;
     }
 
-    CFRelease(v3);
+    CFRelease(v4);
   }
 }
 
@@ -8205,7 +8241,7 @@ os_unfair_lock_s *caulk::concurrent::lf_read_synchronized_write<applesauce::disp
   return a1;
 }
 
-void sub_237230574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12)
+void sub_237230574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   os_unfair_recursive_lock_unlock();
 
@@ -8227,191 +8263,191 @@ void sub_237230E64(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_237230FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, objc_super a10)
+void sub_237230FFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, objc_super a10)
 {
   a10.super_class = MIDIUMPMutableEndpoint;
-  [(_Unwind_Exception *)&a10 dealloc];
+  [(_Unwind_Exception *)&a10 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_23723137C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23723137C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-void ObjectTreeCache::GetObjectTree(MIDIServer *a1)
+void ObjectTreeCache::GetObjectTree(MIDIServer *a1, int a2)
 {
-  v2 = _MIDIGetNumberOfDevices(a1);
-  v21 = v2;
-  std::vector<unsigned int>::push_back[abi:ne200100](a1, &v21);
-  if (v2 >= 1)
+  v3 = _MIDIGetNumberOfDevices(a1, a2);
+  v26 = v3;
+  std::vector<unsigned int>::push_back[abi:ne200100](a1, &v26);
+  if (v3 >= 1)
   {
-    v4 = 0;
-    v5 = (v2 & 0x7FFFFFFF);
-    do
-    {
-      v21 = _MIDIGetDevice(v4);
-      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v21);
-      v4 = (v4 + 1);
-    }
-
-    while (v5 != v4);
     v6 = 0;
+    v7 = (v3 & 0x7FFFFFFF);
     do
     {
-      v7 = _MIDIGetDevice(v6);
-      AddDeviceChildren(a1, v7);
+      v26 = _MIDIGetDevice(v6, v5);
+      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v26);
       v6 = (v6 + 1);
     }
 
-    while (v5 != v6);
+    while (v7 != v6);
+    v8 = 0;
+    do
+    {
+      v9 = _MIDIGetDevice(v8, v5);
+      AddDeviceChildren(a1, v9);
+      v8 = (v8 + 1);
+    }
+
+    while (v7 != v8);
   }
 
-  v8 = _MIDIGetNumberOfSources(v3);
-  v21 = v8;
-  std::vector<unsigned int>::push_back[abi:ne200100](a1, &v21);
-  if (v8 >= 1)
+  v10 = _MIDIGetNumberOfSources(v4, v5);
+  v26 = v10;
+  std::vector<unsigned int>::push_back[abi:ne200100](a1, &v26);
+  if (v10 >= 1)
   {
-    v10 = 0;
-    v11 = (v8 & 0x7FFFFFFF);
+    v13 = 0;
+    v14 = (v10 & 0x7FFFFFFF);
     do
     {
-      v21 = _MIDIGetSource(v10);
-      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v21);
-      v10 = (v10 + 1);
+      v26 = _MIDIGetSource(v13, v12);
+      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v26);
+      v13 = (v13 + 1);
     }
 
-    while (v11 != v10);
+    while (v14 != v13);
   }
 
-  v12 = _MIDIGetNumberOfDestinations(v9);
-  v21 = v12;
-  std::vector<unsigned int>::push_back[abi:ne200100](a1, &v21);
-  if (v12 >= 1)
+  v15 = _MIDIGetNumberOfDestinations(v11, v12);
+  v26 = v15;
+  std::vector<unsigned int>::push_back[abi:ne200100](a1, &v26);
+  if (v15 >= 1)
   {
-    v14 = 0;
-    v15 = (v12 & 0x7FFFFFFF);
+    v18 = 0;
+    v19 = (v15 & 0x7FFFFFFF);
     do
     {
-      v21 = _MIDIGetDestination(v14);
-      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v21);
-      v14 = (v14 + 1);
+      v26 = _MIDIGetDestination(v18, v17);
+      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v26);
+      v18 = (v18 + 1);
     }
 
-    while (v15 != v14);
+    while (v19 != v18);
   }
 
-  v16 = _MIDIGetNumberOfExternalDevices(v13);
-  v21 = v16;
-  std::vector<unsigned int>::push_back[abi:ne200100](a1, &v21);
-  if (v16 >= 1)
+  v20 = _MIDIGetNumberOfExternalDevices(v16, v17);
+  v26 = v20;
+  std::vector<unsigned int>::push_back[abi:ne200100](a1, &v26);
+  if (v20 >= 1)
   {
-    v17 = 0;
-    v18 = (v16 & 0x7FFFFFFF);
+    v22 = 0;
+    v23 = (v20 & 0x7FFFFFFF);
     do
     {
-      v21 = _MIDIGetExternalDevice(v17);
-      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v21);
-      v17 = (v17 + 1);
+      v26 = _MIDIGetExternalDevice(v22, v21);
+      std::vector<unsigned int>::push_back[abi:ne200100](a1, &v26);
+      v22 = (v22 + 1);
     }
 
-    while (v18 != v17);
-    v19 = 0;
+    while (v23 != v22);
+    v24 = 0;
     do
     {
-      v20 = _MIDIGetExternalDevice(v19);
-      AddDeviceChildren(a1, v20);
-      v19 = (v19 + 1);
+      v25 = _MIDIGetExternalDevice(v24, v21);
+      AddDeviceChildren(a1, v25);
+      v24 = (v24 + 1);
     }
 
-    while (v18 != v19);
+    while (v23 != v24);
   }
 }
 
 void AddDeviceChildren(uint64_t a1, MIDIServer *a2)
 {
-  v19 = 0uLL;
-  v20 = 0;
-  NumberOfEntities = _MIDIDeviceGetNumberOfEntities(a2);
+  v21 = 0uLL;
+  v22 = 0;
+  NumberOfEntities = _MIDIDeviceGetNumberOfEntities(a2, a2);
   Source = NumberOfEntities;
   std::vector<unsigned int>::push_back[abi:ne200100](a1, &Source);
   if (NumberOfEntities < 1)
   {
-    v8 = 0uLL;
+    v9 = 0uLL;
   }
 
   else
   {
-    v5 = 0;
-    v6 = NumberOfEntities & 0x7FFFFFFF;
+    v6 = 0;
+    v7 = NumberOfEntities & 0x7FFFFFFF;
     do
     {
-      Entity = _MIDIDeviceGetEntity(a2, v5);
+      Entity = _MIDIDeviceGetEntity(a2, v6);
       Source = Entity;
       std::vector<unsigned int>::push_back[abi:ne200100](a1, &Source);
       Source = Entity;
-      std::vector<unsigned int>::push_back[abi:ne200100](&v19, &Source);
-      ++v5;
+      std::vector<unsigned int>::push_back[abi:ne200100](&v21, &Source);
+      ++v6;
     }
 
-    while (v6 != v5);
-    v8 = v19;
+    while (v7 != v6);
+    v9 = v21;
   }
 
-  v9 = v8;
-  if (v8 != *(&v8 + 1))
+  v10 = v9;
+  if (v9 != *(&v9 + 1))
   {
-    v10 = v8;
+    v11 = v9;
     do
     {
-      v11 = *v10;
-      NumberOfSources = _MIDIEntityGetNumberOfSources(v11);
+      v12 = *v11;
+      NumberOfSources = _MIDIEntityGetNumberOfSources(v12, v5);
       Source = NumberOfSources;
       std::vector<unsigned int>::push_back[abi:ne200100](a1, &Source);
       if (NumberOfSources >= 1)
       {
-        v13 = 0;
-        v14 = NumberOfSources & 0x7FFFFFFF;
+        v15 = 0;
+        v16 = NumberOfSources & 0x7FFFFFFF;
         do
         {
-          Source = _MIDIEntityGetSource(v11, v13);
+          Source = _MIDIEntityGetSource(v12, v15);
           std::vector<unsigned int>::push_back[abi:ne200100](a1, &Source);
-          ++v13;
+          ++v15;
         }
 
-        while (v14 != v13);
+        while (v16 != v15);
       }
 
-      NumberOfDestinations = _MIDIEntityGetNumberOfDestinations(v11);
+      NumberOfDestinations = _MIDIEntityGetNumberOfDestinations(v12, v14);
       Source = NumberOfDestinations;
       std::vector<unsigned int>::push_back[abi:ne200100](a1, &Source);
       if (NumberOfDestinations >= 1)
       {
-        v16 = 0;
-        v17 = NumberOfDestinations & 0x7FFFFFFF;
+        v18 = 0;
+        v19 = NumberOfDestinations & 0x7FFFFFFF;
         do
         {
-          Source = _MIDIEntityGetDestination(v11, v16);
+          Source = _MIDIEntityGetDestination(v12, v18);
           std::vector<unsigned int>::push_back[abi:ne200100](a1, &Source);
-          ++v16;
+          ++v18;
         }
 
-        while (v17 != v16);
+        while (v19 != v18);
       }
 
-      ++v10;
+      ++v11;
     }
 
-    while (v10 != *(&v9 + 1));
+    while (v11 != *(&v10 + 1));
   }
 
-  if (v9)
+  if (v10)
   {
 
-    operator delete(v9);
+    operator delete(v10);
   }
 }
 
@@ -8510,7 +8546,7 @@ void sub_2372324FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<CIAsyncTransaction>::__emplace_back_slow_path<CIAsyncTransaction>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<CIAsyncTransaction>::__emplace_back_slow_path<CIAsyncTransaction>(unint64_t *a1, uint64_t a2)
 {
   v3 = *a1;
   v2 = a1[1];
@@ -8571,16 +8607,16 @@ uint64_t std::vector<CIAsyncTransaction>::__emplace_back_slow_path<CIAsyncTransa
       v14 = *v12;
       *(v13 + 16) = *(v12 + 16);
       *v13 = v14;
-      v15 = *(v12 + 3);
-      *(v12 + 3) = 0;
+      v15 = *(v12 + 24);
+      *(v12 + 24) = 0;
       *(v13 + 24) = v15;
-      LODWORD(v15) = *(v12 + 8);
+      LODWORD(v15) = *(v12 + 32);
       *(v13 + 36) = *(v12 + 36);
       *(v13 + 32) = v15;
-      v16 = *(v12 + 5);
-      *(v12 + 5) = 0;
+      v16 = *(v12 + 40);
+      *(v12 + 40) = 0;
       *(v13 + 40) = v16;
-      v12 += 3;
+      v12 += 48;
       v13 += 48;
     }
 
@@ -8588,7 +8624,7 @@ uint64_t std::vector<CIAsyncTransaction>::__emplace_back_slow_path<CIAsyncTransa
     while (v3 != v2)
     {
 
-      v3 += 6;
+      v3 += 48;
     }
   }
 
@@ -8976,9 +9012,9 @@ LABEL_30:
   }
 }
 
-void sub_237235084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_237235084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   CADeprecated::CAMutex::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
@@ -9352,7 +9388,7 @@ LABEL_48:
   MIDIConnection::ConnectToSources(this, 1);
 }
 
-uint64_t TransformValue(uint64_t result, int a2, unsigned int a3, unsigned __int16 *a4, int a5)
+uint64_t TransformValue(uint64_t result, int a2, int a3, unsigned __int16 *a4, int a5)
 {
   v5 = *a4;
   if (a2 <= 9)
@@ -9401,7 +9437,7 @@ uint64_t TransformValue(uint64_t result, int a2, unsigned int a3, unsigned __int
 
   else
   {
-    if (a2 != 12 || (a3 & 0x80000000) != 0 || a3 >= *(result + 194))
+    if (a2 != 12 || a3 < 0 || a3 >= *(result + 194))
     {
       return result;
     }
@@ -9442,7 +9478,7 @@ uint64_t TransformValue(uint64_t result, int a2, unsigned int a3, unsigned __int
   return result;
 }
 
-uint64_t caulk::inplace_function_detail::rt_vtable<void,MIDI::EventList const*>::rt_vtable<ConnectionEmitter::ConnectionEmitter(MIDIConnection *)::{lambda(MIDI::EventList const*)#1}>(caulk::inplace_function_detail::wrapper<ConnectionEmitter::ConnectionEmitter(MIDIConnection *)::{lambda(MIDI::EventList const*)#1}>)::{lambda(void *,MIDI::EventList const*&&)#1}::__invoke(uint64_t result, const MIDI::EventList **a2)
+MIDIDestination *caulk::inplace_function_detail::rt_vtable<void,MIDI::EventList const*>::rt_vtable<ConnectionEmitter::ConnectionEmitter(MIDIConnection *)::{lambda(MIDI::EventList const*)#1}>(caulk::inplace_function_detail::wrapper<ConnectionEmitter::ConnectionEmitter(MIDIConnection *)::{lambda(MIDI::EventList const*)#1}>)::{lambda(void *,MIDI::EventList const*&&)#1}::__invoke(MIDIDestination *result, const MIDI::EventList **a2)
 {
   v2 = *(*result + 1088);
   v3 = v2[5];
@@ -9476,22 +9512,22 @@ uint64_t caulk::inplace_function_detail::rt_vtable<void,MIDI::EventList const*>:
 
 void MIDICI::Device::serialize(MIDICI::Device *this)
 {
-  v16[34] = *MEMORY[0x277D85DE8];
-  v2 = *(this + 24);
-  if (v2)
+  v17[34] = *MEMORY[0x277D85DE8];
+  v3 = *(this + 24);
+  if (v3)
   {
     CFRetain(*(this + 24));
-    v9 = v2;
+    v10 = v3;
   }
 
   else
   {
-    v3 = CFArrayCreate(0, 0, 0, MEMORY[0x277CBF128]);
-    v9 = v3;
-    if (v3)
+    v4 = CFArrayCreate(0, 0, 0, MEMORY[0x277CBF128]);
+    v10 = v4;
+    if (v4)
     {
-      v4 = CFGetTypeID(v3);
-      if (v4 != CFArrayGetTypeID())
+      v5 = CFGetTypeID(v4);
+      if (v5 != CFArrayGetTypeID())
       {
         exception = __cxa_allocate_exception(0x10uLL);
         MEMORY[0x2383C7ED0](exception, "Could not construct");
@@ -9499,23 +9535,23 @@ void MIDICI::Device::serialize(MIDICI::Device *this)
     }
   }
 
-  v8 = *(this + 2);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int>(v11, "object", &v8);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int const&>(&v12, "muid", this + 16);
-  applesauce::CF::TypeRef::TypeRef(&v13, "device_type");
+  v9 = *(this + 2);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int>(v12, "object", &v9);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int const&>(&v13, "muid", this + 16);
+  applesauce::CF::TypeRef::TypeRef(&v14, "device_type");
   LOBYTE(valuePtr) = *(this + 68);
   if (CFNumberCreate(0, kCFNumberCharType, &valuePtr))
   {
-    applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int const&>(&v15, "source", this + 18);
-    applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int const&>(v16, "destination", this + 19);
+    applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int const&>(&v16, "source", this + 18);
+    applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int const&>(v17, "destination", this + 19);
     MIDI2::DeviceInfo::serialize(&cf, this + 80);
   }
 
-  v5 = __cxa_allocate_exception(0x10uLL);
-  MEMORY[0x2383C7ED0](v5, "Could not construct");
+  v6 = __cxa_allocate_exception(0x10uLL);
+  MEMORY[0x2383C7ED0](v6, "Could not construct");
 }
 
-void sub_237235DA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, const void *a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_237235DA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, const void *a18, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
 {
   __cxa_free_exception(v30);
   applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(&a18);
@@ -9533,26 +9569,26 @@ const void **applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(const void 
   return a1;
 }
 
-void MIDICI::Device::deserialize(MIDICI::Device *this@<X0>, const __CFDictionary **a2@<X1>, void *a3@<X8>)
+void MIDICI::Device::deserialize(uint64_t **__return_ptr a1@<X8>, MIDICI::Device *this@<X0>, const __CFDictionary **a3@<X1>)
 {
-  a3[1] = 0;
-  a3[2] = 0;
-  *a3 = a3 + 1;
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = (a1 + 1);
   std::string::basic_string[abi:ne200100]<0>(&__p, "muid");
-  if (!*a2)
+  if (!*a3)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](exception, "Could not construct");
   }
 
-  v6 = applesauce::CF::details::at_key<std::string const&>(*a2, &__p);
+  v6 = applesauce::CF::details::at_key<std::string const&>(*a3, &__p);
   if (v6)
   {
     v7 = applesauce::CF::convert_as<unsigned int,0>(v6);
     v8 = v7;
     if ((v7 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
       v9 = 0;
       v10 = v8;
       goto LABEL_7;
@@ -9567,7 +9603,7 @@ void MIDICI::Device::deserialize(MIDICI::Device *this@<X0>, const __CFDictionary
   v10 = 0;
   v9 = 1;
 LABEL_7:
-  if ((SHIBYTE(__p.data) & 0x80000000) == 0)
+  if ((v93 & 0x80000000) == 0)
   {
     if (v9)
     {
@@ -9577,7 +9613,7 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  operator delete(__p.isa);
+  operator delete(__p);
   if ((v9 & 1) == 0)
   {
 LABEL_9:
@@ -9586,13 +9622,13 @@ LABEL_9:
 
 LABEL_10:
   std::string::basic_string[abi:ne200100]<0>(&__p, "device_type");
-  if (!*a2)
+  if (!*a3)
   {
     v71 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v71, "Could not construct");
   }
 
-  v11 = applesauce::CF::details::at_key<std::string const&>(*a2, &__p);
+  v11 = applesauce::CF::details::at_key<std::string const&>(*a3, &__p);
   if (v11)
   {
     TypeID = CFNumberGetTypeID();
@@ -9602,7 +9638,7 @@ LABEL_10:
       if (CFNumberGetValue(v11, kCFNumberCharType, &valuePtr))
       {
         LOBYTE(v11) = valuePtr;
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
         v13 = 0;
         goto LABEL_17;
       }
@@ -9613,7 +9649,7 @@ LABEL_10:
 
   v13 = 1;
 LABEL_17:
-  if ((SHIBYTE(__p.data) & 0x80000000) == 0)
+  if ((v93 & 0x80000000) == 0)
   {
     if (v13)
     {
@@ -9623,7 +9659,7 @@ LABEL_17:
     goto LABEL_19;
   }
 
-  operator delete(__p.isa);
+  operator delete(__p);
   if ((v13 & 1) == 0)
   {
 LABEL_19:
@@ -9632,20 +9668,20 @@ LABEL_19:
 
 LABEL_20:
   std::string::basic_string[abi:ne200100]<0>(&__p, "source");
-  if (!*a2)
+  if (!*a3)
   {
     v72 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v72, "Could not construct");
   }
 
-  v14 = applesauce::CF::details::at_key<std::string const&>(*a2, &__p);
+  v14 = applesauce::CF::details::at_key<std::string const&>(*a3, &__p);
   if (v14)
   {
     v15 = applesauce::CF::convert_as<unsigned int,0>(v14);
     v16 = v15;
     if ((v15 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
       v17 = 0;
       v18 = v16;
       goto LABEL_30;
@@ -9660,7 +9696,7 @@ LABEL_20:
   v18 = 0;
   v17 = 1;
 LABEL_30:
-  if ((SHIBYTE(__p.data) & 0x80000000) == 0)
+  if ((v93 & 0x80000000) == 0)
   {
     if (v17)
     {
@@ -9670,7 +9706,7 @@ LABEL_30:
     goto LABEL_32;
   }
 
-  operator delete(__p.isa);
+  operator delete(__p);
   if ((v17 & 1) == 0)
   {
 LABEL_32:
@@ -9679,20 +9715,20 @@ LABEL_32:
 
 LABEL_33:
   std::string::basic_string[abi:ne200100]<0>(&__p, "destination");
-  if (!*a2)
+  if (!*a3)
   {
     v73 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v73, "Could not construct");
   }
 
-  v19 = applesauce::CF::details::at_key<std::string const&>(*a2, &__p);
+  v19 = applesauce::CF::details::at_key<std::string const&>(*a3, &__p);
   if (v19)
   {
     v20 = applesauce::CF::convert_as<unsigned int,0>(v19);
     v21 = v20;
     if ((v20 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
       v22 = 0;
       v23 = v21;
       goto LABEL_41;
@@ -9707,7 +9743,7 @@ LABEL_33:
   v23 = 0;
   v22 = 1;
 LABEL_41:
-  if ((SHIBYTE(__p.data) & 0x80000000) == 0)
+  if ((v93 & 0x80000000) == 0)
   {
     if (v22)
     {
@@ -9717,7 +9753,7 @@ LABEL_41:
     goto LABEL_43;
   }
 
-  operator delete(__p.isa);
+  operator delete(__p);
   if ((v22 & 1) == 0)
   {
 LABEL_43:
@@ -9726,34 +9762,34 @@ LABEL_43:
 
 LABEL_44:
   std::string::basic_string[abi:ne200100]<0>(&__p, "device_info");
-  if (!*a2)
+  if (!*a3)
   {
     v74 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v74, "Could not construct");
   }
 
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,std::string const&>(&valuePtr, *a2, &__p);
-  if (v94 == 1)
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DictionaryRef,std::string const&>(&valuePtr, *a3, &__p);
+  if (v96 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
   }
 
   else
   {
     LOBYTE(valuePtr) = 0;
-    LOBYTE(v94) = 0;
+    LOBYTE(v96) = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
-  if (v94 == 1)
+  if (v96 == 1)
   {
-    MIDI2::DeviceInfo::deserialize(v100, (this + 80), &valuePtr);
-    std::__tree<std::string>::destroy(v101);
-    if (v94)
+    MIDI2::DeviceInfo::deserialize(v102, (this + 80), &valuePtr);
+    std::__tree<std::string>::destroy(v103);
+    if (v96)
     {
       if (valuePtr)
       {
@@ -9763,16 +9799,16 @@ LABEL_44:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "supports_protocol_negotiation");
-  if (!*a2)
+  if (!*a3)
   {
     v75 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v75, "Could not construct");
   }
 
-  v24 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__p);
+  v24 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a3, &__p);
   if (v24 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v25 = v24;
   }
 
@@ -9781,9 +9817,9 @@ LABEL_44:
     v25 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
   if (v24 >= 0x100u)
@@ -9792,16 +9828,16 @@ LABEL_44:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "supports_profile_capability");
-  if (!*a2)
+  if (!*a3)
   {
     v76 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v76, "Could not construct");
   }
 
-  v26 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__p);
+  v26 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a3, &__p);
   if (v26 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v27 = v26;
   }
 
@@ -9810,9 +9846,9 @@ LABEL_44:
     v27 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
   if (v26 >= 0x100u)
@@ -9821,16 +9857,16 @@ LABEL_44:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "supports_property_exchange_capability");
-  if (!*a2)
+  if (!*a3)
   {
     v77 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v77, "Could not construct");
   }
 
-  v28 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__p);
+  v28 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a3, &__p);
   if (v28 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v29 = v28;
   }
 
@@ -9839,9 +9875,9 @@ LABEL_44:
     v29 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
   if (v28 >= 0x100u)
@@ -9850,16 +9886,16 @@ LABEL_44:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "supports_process_inquiry_capability");
-  if (!*a2)
+  if (!*a3)
   {
     v78 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v78, "Could not construct");
   }
 
-  v30 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__p);
+  v30 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a3, &__p);
   if (v30 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v31 = v30;
   }
 
@@ -9868,9 +9904,9 @@ LABEL_44:
     v31 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
   if (v30 >= 0x100u)
@@ -9879,17 +9915,17 @@ LABEL_44:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "max_sysex_size");
-  if (!*a2)
+  if (!*a3)
   {
     v79 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v79, "Could not construct");
   }
 
-  v32 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a2, &__p);
+  v32 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a3, &__p);
   v34 = v33;
   if (v33)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v35 = v32;
   }
 
@@ -9898,7 +9934,7 @@ LABEL_44:
     v35 = 0;
   }
 
-  if ((SHIBYTE(__p.data) & 0x80000000) == 0)
+  if ((v93 & 0x80000000) == 0)
   {
     if ((v34 & 1) == 0)
     {
@@ -9908,7 +9944,7 @@ LABEL_44:
     goto LABEL_92;
   }
 
-  operator delete(__p.isa);
+  operator delete(__p);
   if (v34)
   {
 LABEL_92:
@@ -9917,17 +9953,17 @@ LABEL_92:
 
 LABEL_93:
   std::string::basic_string[abi:ne200100]<0>(&__p, "max_property_requests");
-  if (!*a2)
+  if (!*a3)
   {
     v80 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v80, "Could not construct");
   }
 
-  v36 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a2, &__p);
+  v36 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a3, &__p);
   v38 = v37;
   if (v37)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v39 = v36;
   }
 
@@ -9936,7 +9972,7 @@ LABEL_93:
     v39 = 0;
   }
 
-  if ((SHIBYTE(__p.data) & 0x80000000) == 0)
+  if ((v93 & 0x80000000) == 0)
   {
     if ((v38 & 1) == 0)
     {
@@ -9946,7 +9982,7 @@ LABEL_93:
     goto LABEL_99;
   }
 
-  operator delete(__p.isa);
+  operator delete(__p);
   if (v38)
   {
 LABEL_99:
@@ -9955,16 +9991,16 @@ LABEL_99:
 
 LABEL_100:
   std::string::basic_string[abi:ne200100]<0>(&__p, "enabled");
-  if (!*a2)
+  if (!*a3)
   {
     v81 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v81, "Could not construct");
   }
 
-  v40 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__p);
+  v40 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a3, &__p);
   if (v40 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v41 = v40;
   }
 
@@ -9973,9 +10009,9 @@ LABEL_100:
     v41 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
   if (v40 >= 0x100u)
@@ -9984,16 +10020,16 @@ LABEL_100:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "client_owned");
-  if (!*a2)
+  if (!*a3)
   {
     v82 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v82, "Could not construct");
   }
 
-  v42 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a2, &__p);
+  v42 = applesauce::CF::details::find_at_key_or_optional<BOOL,std::string const&>(*a3, &__p);
   if (v42 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v43 = v42;
   }
 
@@ -10002,9 +10038,9 @@ LABEL_100:
     v43 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
   if (v42 >= 0x100u)
@@ -10013,20 +10049,20 @@ LABEL_100:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "owner_client_ref");
-  if (!*a2)
+  if (!*a3)
   {
     v83 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v83, "Could not construct");
   }
 
-  v44 = applesauce::CF::details::at_key<std::string const&>(*a2, &__p);
+  v44 = applesauce::CF::details::at_key<std::string const&>(*a3, &__p);
   if (v44)
   {
     v45 = applesauce::CF::convert_as<unsigned int,0>(v44);
     v46 = v45;
     if ((v45 & 0x100000000) != 0)
     {
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
       v47 = 0;
       v48 = v46;
       goto LABEL_128;
@@ -10041,7 +10077,7 @@ LABEL_100:
   v48 = 0;
   v47 = 1;
 LABEL_128:
-  if ((SHIBYTE(__p.data) & 0x80000000) == 0)
+  if ((v93 & 0x80000000) == 0)
   {
     if (v47)
     {
@@ -10051,7 +10087,7 @@ LABEL_128:
     goto LABEL_130;
   }
 
-  operator delete(__p.isa);
+  operator delete(__p);
   if ((v47 & 1) == 0)
   {
 LABEL_130:
@@ -10060,16 +10096,16 @@ LABEL_130:
 
 LABEL_131:
   std::string::basic_string[abi:ne200100]<0>(&__p, "function_block_id");
-  if (!*a2)
+  if (!*a3)
   {
     v84 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v84, "Could not construct");
   }
 
-  v49 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__p);
+  v49 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__p);
   if (v49 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v50 = v49;
   }
 
@@ -10078,9 +10114,9 @@ LABEL_131:
     v50 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
   if (v49 >= 0x100u)
@@ -10089,30 +10125,30 @@ LABEL_131:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "profiles");
-  if (!*a2)
+  if (!*a3)
   {
     v85 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v85, "Could not construct");
   }
 
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,std::string const&>(&theArray, *a2, &__p);
-  if (v99 == 1)
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,std::string const&>(&theArray, *a3, &__p);
+  if (v101 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
   }
 
   else
   {
     LOBYTE(theArray) = 0;
-    v99 = 0;
+    v101 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
-  if (v99 == 1)
+  if (v101 == 1)
   {
     v51 = theArray;
     if (theArray)
@@ -10146,11 +10182,11 @@ LABEL_131:
           break;
         }
 
-        applesauce::CF::details::at_to<applesauce::CF::TypeRef>(&v97, v51, v55);
-        applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, &v97);
+        applesauce::CF::details::at_to<applesauce::CF::TypeRef>(&v99, v51, v55);
+        applesauce::CF::TypeRef::operator applesauce::CF::DictionaryRef(&cf, &v99);
         valuePtr = 0;
-        v94 = 0;
-        v95 = 0;
+        v96 = 0;
+        v97 = 0;
         if (!cf)
         {
           v69 = __cxa_allocate_exception(0x10uLL);
@@ -10158,29 +10194,29 @@ LABEL_131:
         }
 
         applesauce::CF::details::find_at_key_or_optional<std::vector<unsigned long long>,char const* const&>(&__p, cf, "id");
-        if (LOBYTE(__p.length) == 1)
+        if (v94 == 1)
         {
           v56 = 0;
-          isa = __p.isa;
+          v57 = __p;
           do
           {
-            LOBYTE(v90) = *&isa[v56];
+            LOBYTE(v90) = *&v57[v56];
             std::vector<unsigned char>::push_back[abi:ne200100](&valuePtr, &v90);
             v56 += 8;
           }
 
           while (v56 != 40);
-          operator delete(isa);
+          operator delete(v57);
         }
 
         v58 = valuePtr;
-        v59 = MIDICI::Device::profile(*(this + 18), *(this + 19), valuePtr, v94 - valuePtr);
+        v59 = MIDICI::Device::profile(*(this + 18), *(this + 19), valuePtr, v96 - valuePtr);
         if (!v59)
         {
           operator new();
         }
 
-        MIDICI::Profile::deserialize(v59, &cf, v91);
+        MIDICI::Profile::deserialize(v91, v59, &cf);
         std::__tree<std::string>::destroy(v91[1]);
         if (v58)
         {
@@ -10192,9 +10228,9 @@ LABEL_131:
           CFRelease(cf);
         }
 
-        if (v97)
+        if (v99)
         {
-          CFRelease(v97);
+          CFRelease(v99);
         }
 
         ++v55;
@@ -10205,23 +10241,23 @@ LABEL_131:
   }
 
 LABEL_171:
-  if (v99 == 1 && theArray)
+  if (v101 == 1 && theArray)
   {
     CFRelease(theArray);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, "timestamp");
-  if (!*a2)
+  if (!*a3)
   {
     v86 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v86, "Could not construct");
   }
 
-  v60 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a2, &__p);
+  v60 = applesauce::CF::details::find_at_key_or_optional<unsigned long long,std::string const&>(*a3, &__p);
   v62 = v61;
   if (v61)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v63 = v60;
   }
 
@@ -10230,7 +10266,7 @@ LABEL_171:
     v63 = 0;
   }
 
-  if ((SHIBYTE(__p.data) & 0x80000000) == 0)
+  if ((v93 & 0x80000000) == 0)
   {
     if ((v62 & 1) == 0)
     {
@@ -10240,7 +10276,7 @@ LABEL_171:
     goto LABEL_180;
   }
 
-  operator delete(__p.isa);
+  operator delete(__p);
   if (v62)
   {
 LABEL_180:
@@ -10249,28 +10285,28 @@ LABEL_180:
 
 LABEL_181:
   std::string::basic_string[abi:ne200100]<0>(&__p, "resource_list");
-  if (!*a2)
+  if (!*a3)
   {
     v87 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v87, "Could not construct");
   }
 
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,std::string const&>(&valuePtr, *a2, &__p);
-  v64 = v94;
-  if (v94 == 1)
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,std::string const&>(&valuePtr, *a3, &__p);
+  v64 = v96;
+  if (v96 == 1)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
   }
 
   else
   {
     LOBYTE(valuePtr) = 0;
-    LOBYTE(v94) = 0;
+    LOBYTE(v96) = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
     if (!v64)
     {
       goto LABEL_197;
@@ -10302,16 +10338,16 @@ LABEL_181:
 
 LABEL_197:
   std::string::basic_string[abi:ne200100]<0>(&__p, "group");
-  if (!*a2)
+  if (!*a3)
   {
     v88 = __cxa_allocate_exception(0x10uLL);
     MEMORY[0x2383C7ED0](v88, "Could not construct");
   }
 
-  v67 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a2, &__p);
+  v67 = applesauce::CF::details::find_at_key_or_optional<unsigned char,std::string const&>(*a3, &__p);
   if (v67 >= 0x100u)
   {
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a3, &__p.isa);
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(a1, &__p, &__p);
     v68 = v67;
   }
 
@@ -10320,9 +10356,9 @@ LABEL_197:
     v68 = 0;
   }
 
-  if (SHIBYTE(__p.data) < 0)
+  if (v93 < 0)
   {
-    operator delete(__p.isa);
+    operator delete(__p);
   }
 
   if (v67 >= 0x100u)

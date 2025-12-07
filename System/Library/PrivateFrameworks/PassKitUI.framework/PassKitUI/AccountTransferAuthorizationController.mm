@@ -20,16 +20,17 @@
 {
   v5 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v9[4] = sub_1BD56EAC0;
-  v9[5] = v5;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 1107296256;
-  v9[2] = sub_1BD126964;
-  v9[3] = &block_descriptor_89_0;
-  v6 = _Block_copy(v9);
+  v17[4] = sub_1BD56EAC0;
+  v18 = v5;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 1107296256;
+  v17[2] = sub_1BD126964;
+  v17[3] = &block_descriptor_89_0;
+  v6 = _Block_copy(v17);
+  v7 = v18;
   finishCopy = finish;
   selfCopy = self;
-
+  v7, v10, v11, v12, v13, v14, v15, v16;
   [finishCopy dismissWithCompletion_];
 
   _Block_release(v6);
@@ -41,7 +42,7 @@
   if (v8)
   {
     v9 = swift_allocObject();
-    *(v9 + 16) = v8;
+    v9[2] = v8;
     v8 = sub_1BD56E97C;
   }
 
@@ -54,7 +55,7 @@
   methodCopy = method;
   selfCopy = self;
   sub_1BD56DC14(method, v8, v9);
-  sub_1BD0D4744(v8);
+  sub_1BD0D4744(v8, v9, v12, v13, v14, v15, v16, v17);
 }
 
 - (void)paymentAuthorizationController:(id)controller didAuthorizeApplePayTrustSignature:(id)signature handler:(id)handler
@@ -63,7 +64,7 @@
   if (v8)
   {
     v9 = swift_allocObject();
-    *(v9 + 16) = v8;
+    v9[2] = v8;
     v8 = sub_1BD139BD4;
   }
 
@@ -76,7 +77,7 @@
   signatureCopy = signature;
   selfCopy = self;
   sub_1BD56E334(signature, v8, v9);
-  sub_1BD0D4744(v8);
+  sub_1BD0D4744(v8, v9, v12, v13, v14, v15, v16, v17);
 }
 
 - (void)transactionsChanged:(id)changed

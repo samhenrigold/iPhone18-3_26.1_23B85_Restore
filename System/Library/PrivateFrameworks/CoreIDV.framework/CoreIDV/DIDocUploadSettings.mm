@@ -26,12 +26,12 @@
 
 - (DIDocUploadSettings)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"certificateChain"];
 
@@ -47,7 +47,6 @@
     selfCopy = self;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

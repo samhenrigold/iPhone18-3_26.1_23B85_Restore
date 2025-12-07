@@ -49,7 +49,7 @@
 
 + (id)compactObservations:(id)observations
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   observationsCopy = observations;
   v4 = observationsCopy;
   if (observationsCopy && [observationsCopy count])
@@ -60,10 +60,10 @@
     {
       v8 = v6;
       *&v7 = 134217984;
-      v16 = v7;
+      v17 = v7;
       do
       {
-        v9 = [v5 objectAtIndexedSubscript:{--v8, v16}];
+        v9 = [v5 objectAtIndexedSubscript:{--v8, v17}];
         if (v9)
         {
         }
@@ -79,12 +79,12 @@
 
             if (!getLines)
             {
-              v13 = _LTOSLogVisualTranslation();
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+              v15 = _LTOSLogVisualTranslation(v13, v14);
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
               {
-                *buf = v16;
-                v18 = v8;
-                _os_log_error_impl(&dword_26F39E000, v13, OS_LOG_TYPE_ERROR, "Text block at index %lu has no observations", buf, 0xCu);
+                *buf = v17;
+                v19 = v8;
+                _os_log_error_impl(&dword_26F39E000, v15, OS_LOG_TYPE_ERROR, "Text block at index %lu has no observations", buf, 0xCu);
               }
 
               [v5 removeObjectAtIndex:v8];
@@ -105,8 +105,6 @@
   {
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

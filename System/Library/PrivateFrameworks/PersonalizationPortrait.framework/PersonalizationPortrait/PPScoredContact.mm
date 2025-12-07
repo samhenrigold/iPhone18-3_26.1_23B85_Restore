@@ -1,4 +1,5 @@
 @interface PPScoredContact
++ (id)scoredContactWithContact:(id)contact scoredPhoneNumbers:(id)numbers scoredEmailAddresses:(id)addresses scoredSocialProfiles:(id)profiles scoredPostalAddresses:(id)postalAddresses score:(double)score flags:(unsigned __int8)flags;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToScoredContact:(id)contact;
 - (PPScoredContact)initWithCoder:(id)coder;
@@ -268,6 +269,19 @@ LABEL_25:
     v21->_score = score;
     v21->_flags = flags;
   }
+
+  return v21;
+}
+
++ (id)scoredContactWithContact:(id)contact scoredPhoneNumbers:(id)numbers scoredEmailAddresses:(id)addresses scoredSocialProfiles:(id)profiles scoredPostalAddresses:(id)postalAddresses score:(double)score flags:(unsigned __int8)flags
+{
+  flagsCopy = flags;
+  postalAddressesCopy = postalAddresses;
+  profilesCopy = profiles;
+  addressesCopy = addresses;
+  numbersCopy = numbers;
+  contactCopy = contact;
+  v21 = [[self alloc] initWithContact:contactCopy scoredPhoneNumbers:numbersCopy scoredEmailAddresses:addressesCopy scoredSocialProfiles:profilesCopy scoredPostalAddresses:postalAddressesCopy score:flagsCopy flags:score];
 
   return v21;
 }

@@ -67,7 +67,6 @@
 - (void)setBackgroundStyle:(unint64_t)style
 {
   self->_backgroundStyle = style;
-  cachedIdentifier = self->_cachedIdentifier;
   self->_cachedIdentifier = 0;
   _objc_release_x1();
 }
@@ -157,16 +156,15 @@ LABEL_4:
 
   if ([(NTKProteusFaceColorPalette *)self isTritium])
   {
-    device = self->_device;
-    v9 = NTKEnableAODVibrancy();
+    v8 = NTKEnableAODVibrancy();
     primaryColor = [(NTKProteusFaceColorPalette *)self primaryColor];
     primaryColor2 = primaryColor;
-    if ((v9 & 1) == 0)
+    if ((v8 & 1) == 0)
     {
-      v11 = [primaryColor colorWithAlphaComponent:0.7];
+      v10 = [primaryColor colorWithAlphaComponent:0.7];
 
       v6 = v4;
-      primaryColor2 = v11;
+      primaryColor2 = v10;
       goto LABEL_14;
     }
 
@@ -185,10 +183,10 @@ LABEL_13:
 
   primaryColor3 = [(NTKProteusFaceColorPalette *)self primaryColor];
   CLKContrastRatioForColors();
-  v14 = v13;
+  v13 = v12;
 
   [(NTKProteusFaceColorPalette *)self _contrastRatio];
-  if (v14 >= v15 || (-[NTKProteusFaceColorPalette pigmentEditOption](self, "pigmentEditOption"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 isRainbowColor], v16, (v17 & 1) != 0))
+  if (v13 >= v14 || (-[NTKProteusFaceColorPalette pigmentEditOption](self, "pigmentEditOption"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 isRainbowColor], v15, (v16 & 1) != 0))
   {
 LABEL_11:
     v5 = [v6 colorWithAlphaComponent:0.7];
@@ -196,20 +194,20 @@ LABEL_11:
   }
 
   digitContrast = [(NTKProteusFaceColorPalette *)self digitContrast];
-  v20 = digitContrast;
+  v19 = digitContrast;
   if (!digitContrast || digitContrast == NTKFaceColorPaletteNotFoundColor)
   {
     if (([(NTKProteusFaceColorPalette *)self hasPrimaryColorRange]& 1) != 0)
     {
-      v21 = [(NTKProteusFaceColorPalette *)self primaryColorWithFraction:1.0];
+      v20 = [(NTKProteusFaceColorPalette *)self primaryColorWithFraction:1.0];
 
-      v6 = v21;
+      v6 = v20;
       goto LABEL_11;
     }
 
     primaryColor4 = [(NTKProteusFaceColorPalette *)self primaryColor];
-    v23 = [primaryColor4 colorWithAlphaComponent:1.0];
-    primaryColor2 = [v23 ntk_colorWithSaturationDelta:0.18 brightnessDelta:-0.2];
+    v22 = [primaryColor4 colorWithAlphaComponent:1.0];
+    primaryColor2 = [v22 ntk_colorWithSaturationDelta:0.18 brightnessDelta:-0.2];
   }
 
   else

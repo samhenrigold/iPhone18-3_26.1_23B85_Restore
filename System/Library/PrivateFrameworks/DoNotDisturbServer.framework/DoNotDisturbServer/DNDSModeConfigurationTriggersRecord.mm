@@ -110,30 +110,30 @@
 
 + (id)newWithDictionaryRepresentation:(id)representation context:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v6 = [representation bs_safeArrayForKey:@"triggers"];
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         v14 = [v13 bs_safeStringForKey:@"class"];
         if (([&unk_285C53B40 containsObject:v14] & 1) != 0 || objc_msgSend(&unk_285C53B58, "containsObject:", v14))
         {
@@ -142,44 +142,43 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
 
   v16 = [[self alloc] initWithTriggers:array];
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 + (id)newWithDictionaryRepresentation:(id)representation partitionedDictionaryRepresentation:(id)dictionaryRepresentation context:(id)context
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dictionaryRepresentationCopy = dictionaryRepresentation;
   contextCopy = context;
   v8 = [representation bs_safeArrayForKey:@"triggers"];
   array = [MEMORY[0x277CBEB18] array];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = v8;
-  v10 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v10 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v36;
+    v12 = *v35;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v34 + 1) + 8 * i);
         v15 = [v14 bs_safeStringForKey:@"class"];
         if (([&unk_285C53B70 containsObject:v15] & 1) != 0 || objc_msgSend(&unk_285C53B88, "containsObject:", v15))
         {
@@ -188,32 +187,32 @@
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v11 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v11);
   }
 
   v17 = [dictionaryRepresentationCopy bs_safeArrayForKey:@"triggers"];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v18 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v32;
+    v20 = *v31;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v32 != v20)
+        if (*v31 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v31 + 1) + 8 * j);
+        v22 = *(*(&v30 + 1) + 8 * j);
         v23 = [v22 bs_safeStringForKey:@"class"];
         if ([&unk_285C53BA0 containsObject:v23])
         {
@@ -222,7 +221,7 @@
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v19);
@@ -230,35 +229,34 @@
 
   v25 = [[self alloc] initWithTriggers:array];
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (id)dictionaryRepresentationWithContext:(id)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   array = [MEMORY[0x277CBEB18] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = self->_triggers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         v12 = objc_opt_class();
         v13 = NSStringFromClass(v12);
         if ([contextCopy partitionType])
@@ -293,17 +291,15 @@ LABEL_13:
 LABEL_14:
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v8);
   }
 
-  v23 = @"triggers";
-  v24 = array;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v22 = @"triggers";
+  v23 = array;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
 
   return v16;
 }

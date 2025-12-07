@@ -126,7 +126,7 @@ LABEL_3:
     {
       *v8 = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Building index from database", v8, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Building index from database");
     }
 
     v6 = [(MBDatabase *)self->_database indexFromDatabaseIgnoringTruncation:0];

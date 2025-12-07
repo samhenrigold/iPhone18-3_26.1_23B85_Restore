@@ -46,7 +46,7 @@ uint64_t __31__DCAssetFetcher_sharedFetcher__block_invoke(uint64_t a1)
 
 - (void)initiateMetadataFetchIgnoringCachesWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (DCInternalLogSystem_onceToken_1 != -1)
   {
@@ -85,22 +85,20 @@ uint64_t __31__DCAssetFetcher_sharedFetcher__block_invoke(uint64_t a1)
       v10 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Mobile Asset/DCAssetFetcher.m";
     }
 
-    v12 = 136315394;
-    v13 = v10;
-    v14 = 1024;
-    v15 = 44;
-    _os_log_impl(&dword_2488FB000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Initiating an out of band catalog download", &v12, 0x12u);
+    v11 = 136315394;
+    v12 = v10;
+    v13 = 1024;
+    v14 = 44;
+    _os_log_impl(&dword_2488FB000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Initiating an out of band catalog download", &v11, 0x12u);
   }
 
   [MEMORY[0x277D289C0] startCatalogDownload:@"com.apple.MobileAsset.DeviceCheck" then:&__block_literal_global_1];
   completionCopy[2](completionCopy, 1, 0);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (DCInternalLogSystem_onceToken_1 != -1)
   {
     [DCAssetFetcher initiateMetadataFetchIgnoringCachesWithCompletion:];
@@ -138,21 +136,19 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
       v9 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Mobile Asset/DCAssetFetcher.m";
     }
 
-    v11 = 136315650;
-    v12 = v9;
-    v13 = 1024;
-    v14 = 47;
-    v15 = 2048;
-    v16 = a2;
-    _os_log_impl(&dword_2488FB000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Initiated an out of band catalog download completed. { result=%ld }", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = v9;
+    v12 = 1024;
+    v13 = 47;
+    v14 = 2048;
+    v15 = a2;
+    _os_log_impl(&dword_2488FB000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Initiated an out of band catalog download completed. { result=%ld }", &v10, 0x1Cu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAssetWithContext:(id)context completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   handlerCopy = handler;
   if (DCInternalLogSystem_onceToken_1 != -1)
@@ -192,23 +188,21 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
       v14 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Mobile Asset/DCAssetFetcher.m";
     }
 
-    v16 = 136315650;
-    v17 = v14;
-    v18 = 1024;
-    v19 = 63;
-    v20 = 2112;
-    v21 = contextCopy;
-    _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Attempting to fetch asset, querying metadata. { context=%@ }", &v16, 0x1Cu);
+    v15 = 136315650;
+    v16 = v14;
+    v17 = 1024;
+    v18 = 63;
+    v19 = 2112;
+    v20 = contextCopy;
+    _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Attempting to fetch asset, querying metadata. { context=%@ }", &v15, 0x1Cu);
   }
 
   [(DCAssetFetcher *)self _queryMetadataWithContext:contextCopy completion:handlerCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryMetadataWithContext:(id)context completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   if (DCInternalLogSystem_onceToken_1 != -1)
@@ -250,13 +244,13 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
       v14 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Mobile Asset/DCAssetFetcher.m";
     }
 
-    v25 = 136315650;
-    v26 = v14;
-    v27 = 1024;
-    v28 = 68;
-    v29 = 2112;
-    v30 = contextCopy;
-    _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Fetching asset. { context=%@ }", &v25, 0x1Cu);
+    v24 = 136315650;
+    v25 = v14;
+    v26 = 1024;
+    v27 = 68;
+    v28 = 2112;
+    v29 = contextCopy;
+    _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Fetching asset. { context=%@ }", &v24, 0x1Cu);
   }
 
   _assetQuery = [(DCAssetFetcher *)self _assetQuery];
@@ -307,13 +301,13 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
         v22 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Mobile Asset/DCAssetFetcher.m";
       }
 
-      v25 = 136315650;
-      v26 = v22;
-      v27 = 1024;
-      v28 = 81;
-      v29 = 2048;
-      v30 = queryMetaDataSync;
-      _os_log_impl(&dword_2488FB000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to query metadata. { result=%ld }", &v25, 0x1Cu);
+      v24 = 136315650;
+      v25 = v22;
+      v26 = 1024;
+      v27 = 81;
+      v28 = 2048;
+      v29 = queryMetaDataSync;
+      _os_log_impl(&dword_2488FB000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to query metadata. { result=%ld }", &v24, 0x1Cu);
     }
 
     v23 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.twobit.fetcherror" code:-3000 userInfo:0];
@@ -324,8 +318,6 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
   {
     [(DCAssetFetcher *)self _handleSuccessForQuery:_assetQuery completion:completionCopy];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_assetQuery
@@ -337,7 +329,7 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
 
 - (void)_handleMissingMetadataWithContext:(id)context completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   completionCopy = completion;
   if (DCInternalLogSystem_onceToken_1 != -1)
@@ -380,9 +372,9 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
     }
 
     *buf = 136315394;
-    v34 = v14;
-    v35 = 1024;
-    v36 = 92;
+    v33 = v14;
+    v34 = 1024;
+    v35 = 92;
     _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Query sync result indicated missing asset catalog.", buf, 0x12u);
   }
 
@@ -430,23 +422,23 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
       }
 
       *buf = 136315394;
-      v34 = v20;
-      v35 = 1024;
-      v36 = 100;
+      v33 = v20;
+      v34 = 1024;
+      v35 = 100;
       _os_log_impl(&dword_2488FB000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Attempting to download catalog.", buf, 0x12u);
     }
 
     v21 = MEMORY[0x277D289C0];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_invoke;
-    v30[3] = &unk_278F59C88;
-    v32 = completionCopy;
-    v30[4] = self;
-    v31 = contextCopy;
-    [v21 startCatalogDownload:@"com.apple.MobileAsset.DeviceCheck" then:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_invoke;
+    v29[3] = &unk_278F59C88;
+    v31 = completionCopy;
+    v29[4] = self;
+    v30 = contextCopy;
+    [v21 startCatalogDownload:@"com.apple.MobileAsset.DeviceCheck" then:v29];
 
-    v22 = v32;
+    v22 = v31;
   }
 
   else
@@ -491,22 +483,20 @@ void __68__DCAssetFetcher_initiateMetadataFetchIgnoringCachesWithCompletion___bl
       }
 
       *buf = 136315394;
-      v34 = v28;
-      v35 = 1024;
-      v36 = 110;
+      v33 = v28;
+      v34 = 1024;
+      v35 = 110;
       _os_log_impl(&dword_2488FB000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch catalog, not allowed.", buf, 0x12u);
     }
 
     v22 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.twobit.fetcherror" code:-3001 userInfo:0];
     (*(completionCopy + 2))(completionCopy, 0, v22);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (DCInternalLogSystem_onceToken_1 != -1)
   {
     [DCAssetFetcher initiateMetadataFetchIgnoringCachesWithCompletion:];
@@ -544,13 +534,13 @@ void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_i
       v10 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Mobile Asset/DCAssetFetcher.m";
     }
 
-    v14 = 136315650;
-    v15 = v10;
-    v16 = 1024;
-    v17 = 102;
-    v18 = 2048;
-    v19 = a2;
-    _os_log_impl(&dword_2488FB000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Downloaded catalog. { result=%ld }", &v14, 0x1Cu);
+    v13 = 136315650;
+    v14 = v10;
+    v15 = 1024;
+    v16 = 102;
+    v17 = 2048;
+    v18 = a2;
+    _os_log_impl(&dword_2488FB000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Downloaded catalog. { result=%ld }", &v13, 0x1Cu);
   }
 
   if (a2)
@@ -564,13 +554,11 @@ void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_i
   {
     [*(a1 + 32) _queryMetadataWithContext:*(a1 + 40) completion:*(a1 + 48)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSuccessForQuery:(id)query completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   completionCopy = completion;
   if (DCInternalLogSystem_onceToken_1 != -1)
@@ -614,11 +602,11 @@ void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_i
 
     results = [queryCopy results];
     *buf = 136315650;
-    v35 = v14;
-    v36 = 1024;
-    v37 = 116;
-    v38 = 2048;
-    v39 = [results count];
+    v34 = v14;
+    v35 = 1024;
+    v36 = 116;
+    v37 = 2048;
+    v38 = [results count];
     _os_log_impl(&dword_2488FB000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Executed query successfully. { numResults=%lu }", buf, 0x1Cu);
   }
 
@@ -674,11 +662,11 @@ void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_i
         results4 = [queryCopy results];
         v27 = [results4 count];
         *buf = 136315650;
-        v35 = v25;
-        v36 = 1024;
-        v37 = 129;
-        v38 = 2048;
-        v39 = v27;
+        v34 = v25;
+        v35 = 1024;
+        v36 = 129;
+        v37 = 2048;
+        v38 = v27;
         _os_log_impl(&dword_2488FB000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected result count. { numResults=%lu }", buf, 0x1Cu);
       }
     }
@@ -686,9 +674,9 @@ void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_i
     results5 = [queryCopy results];
     firstObject = [results5 firstObject];
 
-    v33 = 0;
-    v30 = [(DCAssetFetcher *)self _validateAsset:firstObject error:&v33];
-    v31 = v33;
+    v32 = 0;
+    v30 = [(DCAssetFetcher *)self _validateAsset:firstObject error:&v32];
+    v31 = v32;
     completionCopy[2](completionCopy, v30, v31);
   }
 
@@ -697,13 +685,11 @@ void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_i
     firstObject = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.twobit.fetcherror" code:-3100 userInfo:0];
     completionCopy[2](completionCopy, 0, firstObject);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_validateAsset:(id)asset error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   if (DCInternalLogSystem_onceToken_1 != -1)
   {
@@ -744,17 +730,17 @@ void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_i
 
     state = [assetCopy state];
     attributes = [assetCopy attributes];
-    v19 = 136316162;
-    v20 = v12;
-    v21 = 1024;
-    v22 = 139;
-    v23 = 2112;
-    v24 = assetCopy;
-    v25 = 2048;
-    v26 = state;
-    v27 = 2112;
-    v28 = attributes;
-    _os_log_impl(&dword_2488FB000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Attempting to validate asset: { asset=%@, state=%ld, attributes=%@ }", &v19, 0x30u);
+    v18 = 136316162;
+    v19 = v12;
+    v20 = 1024;
+    v21 = 139;
+    v22 = 2112;
+    v23 = assetCopy;
+    v24 = 2048;
+    v25 = state;
+    v26 = 2112;
+    v27 = attributes;
+    _os_log_impl(&dword_2488FB000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Attempting to validate asset: { asset=%@, state=%ld, attributes=%@ }", &v18, 0x30u);
   }
 
   v15 = [DCAsset assetWithMobileAsset:assetCopy];
@@ -769,8 +755,6 @@ void __63__DCAssetFetcher__handleMissingMetadataWithContext_completion___block_i
   {
     *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.twobit.fetcherror" code:-3200 userInfo:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

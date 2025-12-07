@@ -42,8 +42,8 @@
   intermediateCertificates = [(MTRTLSCertificateManagementClusterTLSClientCertificateDetailStruct *)self intermediateCertificates];
   [(MTRTLSCertificateManagementClusterTLSClientCertificateDetailStruct *)v4 setIntermediateCertificates:intermediateCertificates];
 
-  fabricIndex = [(MTRTLSCertificateManagementClusterTLSClientCertificateDetailStruct *)self fabricIndex];
-  [(MTRTLSCertificateManagementClusterTLSClientCertificateDetailStruct *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRTLSCertificateManagementClusterTLSClientCertificateDetailStruct *)v4 setFabricIndex:v8];
 
   return v4;
 }

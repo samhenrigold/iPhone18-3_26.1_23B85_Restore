@@ -43,7 +43,7 @@
   ptr = self->_dataFeed.__ptr_;
   if (tsvCopy)
   {
-    [tsvCopy ear_toString];
+    objc_msgSend_ear_toString(tsvCopy);
   }
 
   else
@@ -66,8 +66,8 @@
   v21[0] = 0;
   v21[1] = 0;
   v20 = v21;
-  quasar::DataFeedItem::setPrior(&v19, prior);
-  quasar::DataFeed::getFieldNames(self->_dataFeed.__ptr_, v18);
+  quasar::DataFeedItem::setPrior(v19, prior);
+  quasar::DataFeed::getFieldNames(v18, self->_dataFeed.__ptr_);
   v7 = [dataCopy count];
   if (v7 == 0xAAAAAAAAAAAAAAABLL * ((v18[1] - v18[0]) >> 3))
   {
@@ -87,7 +87,7 @@
       v14 = v13;
       if (v13)
       {
-        [v13 ear_toString];
+        objc_msgSend_ear_toString(v13);
       }
 
       else
@@ -95,7 +95,7 @@
         memset(&__p, 0, sizeof(__p));
       }
 
-      quasar::DataFeedItem::setField(&v19, (v12 + v8), &__p);
+      quasar::DataFeedItem::setField(v19, (v12 + v8), &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -104,7 +104,7 @@
       v8 += 24;
     }
 
-    appended = quasar::DataFeed::appendItem(self->_dataFeed.__ptr_, &v19);
+    appended = quasar::DataFeed::appendItem(self->_dataFeed.__ptr_, v19);
   }
 
   else

@@ -57,10 +57,9 @@
     v4 = @"True";
   }
 
-  role = self->_role;
-  v6 = [v3 initWithFormat:@"<DKApplicationState: %@ lvl:%zd zind:%zd keyb:%@ role:%zd dt:%zd>", *&self->_application, self->_zIndex, v4, role, self->_displayType];
+  v5 = [v3 initWithFormat:@"<DKApplicationState: %@ lvl:%zd zind:%zd keyb:%@ role:%zd dt:%zd>", *&self->_application, self->_zIndex, v4, self->_role, self->_displayType];
 
-  return v6;
+  return v5;
 }
 
 - (int64_t)compare:(id)compare

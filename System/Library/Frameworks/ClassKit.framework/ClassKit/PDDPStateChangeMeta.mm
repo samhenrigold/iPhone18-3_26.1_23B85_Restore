@@ -163,7 +163,7 @@
       goto LABEL_9;
     }
 
-    [(PDDPStatus *)status mergeFrom:?];
+    status = [(PDDPStatus *)status mergeFrom:?];
   }
 
   else
@@ -173,17 +173,18 @@
       goto LABEL_9;
     }
 
-    [(PDDPStateChangeMeta *)self setStatus:?];
+    status = [(PDDPStateChangeMeta *)self setStatus:?];
   }
 
   fromCopy = v7;
 LABEL_9:
   if (fromCopy[1])
   {
-    [(PDDPStateChangeMeta *)self setEtag:?];
+    status = [(PDDPStateChangeMeta *)self setEtag:?];
+    fromCopy = v7;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(status, fromCopy);
 }
 
 @end

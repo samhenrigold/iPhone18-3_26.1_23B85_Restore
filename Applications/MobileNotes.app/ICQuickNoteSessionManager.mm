@@ -318,7 +318,7 @@ LABEL_26:
     v32 = os_log_create("com.apple.notes", "QuickNote");
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      sub_1004DC49C();
+      sub_1004DC49C(self);
     }
   }
 

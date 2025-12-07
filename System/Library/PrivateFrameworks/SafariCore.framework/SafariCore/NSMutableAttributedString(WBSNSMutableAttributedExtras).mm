@@ -6,39 +6,39 @@
 
 - (void)safari_replaceCharactersWithStringBindings:()WBSNSMutableAttributedExtras
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v4 = a3;
   string = [self string];
   array = [MEMORY[0x1E695DF70] array];
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __102__NSMutableAttributedString_WBSNSMutableAttributedExtras__safari_replaceCharactersWithStringBindings___block_invoke;
-  v32[3] = &unk_1E7CF29F8;
-  v27 = string;
-  v33 = v27;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __102__NSMutableAttributedString_WBSNSMutableAttributedExtras__safari_replaceCharactersWithStringBindings___block_invoke;
+  v31[3] = &unk_1E7CF29F8;
+  v26 = string;
+  v32 = v26;
   v7 = array;
-  v34 = v7;
-  [v4 enumerateKeysAndObjectsUsingBlock:v32];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
+  v33 = v7;
+  [v4 enumerateKeysAndObjectsUsingBlock:v31];
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v35 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * i);
+        v13 = *(*(&v27 + 1) + 8 * i);
         first = [v13 first];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -71,13 +71,11 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
     while (v10);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

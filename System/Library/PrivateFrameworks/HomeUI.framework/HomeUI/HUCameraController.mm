@@ -154,7 +154,7 @@
     swift_once();
   }
 
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D708);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81D708, &qword_20D5BFA18);
   __swift_project_value_buffer(v4, qword_27C8381A0);
   swift_beginAccess();
   sub_20D5665C8();

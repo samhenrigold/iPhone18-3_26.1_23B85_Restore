@@ -13,7 +13,7 @@
 
   v3 = type metadata accessor for Logger();
   __swift_project_value_buffer(v3, static Logger.executor);
-  Logger.debugF(file:function:)();
+  Logger.debugF(file:function:)("SiriKitRuntime/SharedFlowPluginXPCServer.swift", 46, 2, "init()", 6, 2);
   type metadata accessor for SharedFlowPluginService();
   memset(v9, 0, sizeof(v9));
   v10 = 0;

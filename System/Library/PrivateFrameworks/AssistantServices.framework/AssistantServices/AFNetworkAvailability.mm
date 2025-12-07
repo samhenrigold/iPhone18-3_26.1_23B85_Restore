@@ -153,38 +153,36 @@ LABEL_12:
 
 - (void)_notifyObservers
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_observers;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) networkAvailability:self isAvailable:{(*&self->_state >> 1) & 1, v9}];
+        [*(*(&v8 + 1) + 8 * v7++) networkAvailability:self isAvailable:{(*&self->_state >> 1) & 1, v8}];
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 _BYTE *__36__AFNetworkAvailability_isAvailable__block_invoke(uint64_t a1)
@@ -230,7 +228,7 @@ _BYTE *__36__AFNetworkAvailability_isAvailable__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __40__AFNetworkAvailability_removeObserver___block_invoke(uint64_t a1)
+void *__40__AFNetworkAvailability_removeObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 24) count];

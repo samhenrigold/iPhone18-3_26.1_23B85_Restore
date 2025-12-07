@@ -150,7 +150,7 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   name = [(HMMTRVendorMetadataVendor *)self name];
   [dictionary setObject:name forKeyedSubscript:@"Name"];
@@ -159,33 +159,33 @@
   products = [(HMMTRVendorMetadataVendor *)self products];
   v7 = [v5 dictionaryWithCapacity:{objc_msgSend(products, "count")}];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   products2 = [(HMMTRVendorMetadataVendor *)self products];
-  v9 = [products2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [products2 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(products2);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         dictionaryRepresentation = [v13 dictionaryRepresentation];
         identifier = [v13 identifier];
         stringValue = [identifier stringValue];
         [v7 setObject:dictionaryRepresentation forKeyedSubscript:stringValue];
       }
 
-      v10 = [products2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [products2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -195,7 +195,6 @@
   [dictionary setObject:v17 forKeyedSubscript:@"Products"];
 
   v18 = [dictionary copy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -243,7 +242,7 @@
 
 - (HMMTRVendorMetadataVendor)initWithIdentifier:(id)identifier dictionaryRepresentation:(id)representation
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   representationCopy = representation;
   if (!identifierCopy)
@@ -262,37 +261,37 @@ LABEL_24:
   v9 = [representationCopy hmf_dictionaryForKey:@"Products"];
   if (v9)
   {
-    v38 = identifierCopy;
-    v40 = [(HMMTRVendorMetadataVendor *)self initWithIdentifier:identifierCopy];
-    v10 = [(HMMTRVendorMetadataVendor *)v40 mutableCopy];
-    v37 = v8;
+    v37 = identifierCopy;
+    v39 = [(HMMTRVendorMetadataVendor *)self initWithIdentifier:identifierCopy];
+    v10 = [(HMMTRVendorMetadataVendor *)v39 mutableCopy];
+    v36 = v8;
     v11 = [v8 hmf_stringForKey:@"Name"];
     [v10 setName:v11];
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v36 = v9;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v35 = v9;
     v12 = v9;
-    v13 = [v12 countByEnumeratingWithState:&v42 objects:v46 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v43;
-      v39 = v10;
+      v15 = *v42;
+      v38 = v10;
       do
       {
         v16 = 0;
-        v41 = v14;
+        v40 = v14;
         do
         {
-          if (*v43 != v15)
+          if (*v42 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v42 + 1) + 8 * v16);
+          v17 = *(*(&v41 + 1) + 8 * v16);
           v18 = objc_autoreleasePoolPush();
           v19 = [v12 hmf_dictionaryForKey:v17];
           if (v19)
@@ -311,24 +310,24 @@ LABEL_24:
           {
             v23 = v15;
             v24 = objc_autoreleasePoolPush();
-            v25 = v40;
+            v25 = v39;
             v26 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
               v27 = HMFGetLogIdentifier();
               v28 = [v12 objectForKeyedSubscript:v17];
               *buf = 138543618;
-              v48 = v27;
-              v49 = 2112;
-              v50 = v28;
+              v47 = v27;
+              v48 = 2112;
+              v49 = v28;
               _os_log_impl(&dword_22AEAE000, v26, OS_LOG_TYPE_ERROR, "%{public}@Ignoring product value that is not a dictionary: %@", buf, 0x16u);
 
-              v10 = v39;
+              v10 = v38;
             }
 
             objc_autoreleasePoolPop(v24);
             v15 = v23;
-            v14 = v41;
+            v14 = v40;
           }
 
           objc_autoreleasePoolPop(v18);
@@ -336,17 +335,17 @@ LABEL_24:
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
       while (v14);
     }
 
     v29 = [v10 copy];
-    selfCopy = v40;
-    v8 = v37;
-    identifierCopy = v38;
-    v9 = v36;
+    selfCopy = v39;
+    v8 = v36;
+    identifierCopy = v37;
+    v9 = v35;
   }
 
   else
@@ -358,9 +357,9 @@ LABEL_24:
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v48 = v33;
-      v49 = 2112;
-      v50 = v8;
+      v47 = v33;
+      v48 = 2112;
+      v49 = v8;
       _os_log_impl(&dword_22AEAE000, v32, OS_LOG_TYPE_ERROR, "%{public}@Could not find products in vendor dictionary representation: %@", buf, 0x16u);
     }
 
@@ -368,7 +367,6 @@ LABEL_24:
     v29 = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v29;
 }
 

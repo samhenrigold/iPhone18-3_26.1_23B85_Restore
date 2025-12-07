@@ -49,13 +49,13 @@
     if (unsignedIntegerValue == 2)
     {
       v22 = objectCopy;
-      v17 = sub_1000070C0();
+      v17 = sub_1000070C0(v22);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         error = [v22 error];
-        LODWORD(v28) = 138412290;
-        *(&v28 + 4) = error;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDLoopPlayer: End looping since player has failed with error %@", &v28, 0xCu);
+        LODWORD(v29) = 138412290;
+        *(&v29 + 4) = error;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDLoopPlayer: End looping since player has failed with error %@", &v29, 0xCu);
         goto LABEL_10;
       }
 
@@ -76,19 +76,19 @@ LABEL_20:
 
       if (v25)
       {
-        v26 = [v13 objectForKeyedSubscript:NSKeyValueChangeOldKey];
+        v27 = [v13 objectForKeyedSubscript:NSKeyValueChangeOldKey];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v28 = *&kCMTimeZero.value;
+          v29 = *&kCMTimeZero.value;
           epoch = kCMTimeZero.epoch;
-          [v26 seekToTime:&v28 completionHandler:0];
+          [v27 seekToTime:&v29 completionHandler:0];
           [(FMDLoopPlayer *)self stopObservingPlayerAndItem];
-          audioMix = [v26 audioMix];
+          audioMix = [v27 audioMix];
 
           if (!audioMix)
           {
-            [v23 insertItem:v26 afterItem:0];
+            [v23 insertItem:v27 afterItem:0];
           }
 
           [(FMDLoopPlayer *)self startObservingPlayerAndItem];
@@ -97,11 +97,11 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      v17 = sub_1000070C0();
+      v17 = sub_1000070C0(v26);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v28) = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDLoopPlayer: Play queue emptied out due to bad player item. End looping.", &v28, 2u);
+        LOWORD(v29) = 0;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDLoopPlayer: Play queue emptied out due to bad player item. End looping.", &v29, 2u);
       }
 
       goto LABEL_19;
@@ -115,14 +115,14 @@ LABEL_20:
       if (unsignedIntegerValue2 == 2)
       {
         v16 = objectCopy;
-        v17 = sub_1000070C0();
+        v17 = sub_1000070C0(v16);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           error = [v16 currentItem];
           v18Error = [error error];
-          LODWORD(v28) = 138412290;
-          *(&v28 + 4) = v18Error;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDLoopPlayer: End looping since player item has failed with error %@", &v28, 0xCu);
+          LODWORD(v29) = 138412290;
+          *(&v29 + 4) = v18Error;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDLoopPlayer: End looping since player item has failed with error %@", &v29, 0xCu);
 
 LABEL_10:
           goto LABEL_19;
@@ -183,7 +183,7 @@ LABEL_10:
   assetCopy = asset;
   if (duration <= 0.00000011920929 || (v11 = index * assetDuration, v11 >= duration))
   {
-    v26 = 0;
+    v27 = 0;
   }
 
   else
@@ -204,51 +204,51 @@ LABEL_10:
     v16 = v15;
     v14 = durationCopy / duration;
     *&v17 = v14;
-    [(FMDLoopPlayer *)self _adjustAudioVolumeForOptimalRampingPerception:v17];
-    v19 = v18;
-    v20 = sub_1000070C0();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v18 = [(FMDLoopPlayer *)self _adjustAudioVolumeForOptimalRampingPerception:v17];
+    v20 = v19;
+    v21 = sub_1000070C0(v18);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138545666;
       selfCopy = self;
-      v34 = 2050;
+      v35 = 2050;
       durationCopy2 = duration;
-      v36 = 2114;
-      v37 = assetCopy;
-      v38 = 2050;
+      v37 = 2114;
+      v38 = assetCopy;
+      v39 = 2050;
       assetDurationCopy = assetDuration;
-      v40 = 2050;
+      v41 = 2050;
       indexCopy = index;
-      v42 = 2050;
-      v43 = v16;
-      v44 = 2050;
-      v45 = v19;
-      v46 = 2050;
-      v47 = durationCopy - v11;
-      v48 = 2050;
-      v49 = index * assetDuration;
-      v50 = 2050;
-      v51 = durationCopy;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%{public}@: _audioMixForVolumeRampingWithDuration:(%{public}f) toneAsset:(%{public}@) toneAssetDuration:(%{public}f) itemIndex:(%{public}lu): Ramping volume from %{public}f to %{public}f over %{public}f seconds, between overall playback timestamps %{public}f and %{public}f.", buf, 0x66u);
+      v43 = 2050;
+      v44 = v16;
+      v45 = 2050;
+      v46 = v20;
+      v47 = 2050;
+      v48 = durationCopy - v11;
+      v49 = 2050;
+      v50 = index * assetDuration;
+      v51 = 2050;
+      v52 = durationCopy;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "%{public}@: _audioMixForVolumeRampingWithDuration:(%{public}f) toneAsset:(%{public}@) toneAssetDuration:(%{public}f) itemIndex:(%{public}lu): Ramping volume from %{public}f to %{public}f over %{public}f seconds, between overall playback timestamps %{public}f and %{public}f.", buf, 0x66u);
     }
 
-    v21 = [assetCopy tracksWithMediaType:AVMediaTypeAudio];
-    firstObject = [v21 firstObject];
+    v22 = [assetCopy tracksWithMediaType:AVMediaTypeAudio];
+    firstObject = [v22 firstObject];
 
-    v23 = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:firstObject];
+    v24 = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:firstObject];
     CMTimeMakeWithSeconds(&duration, durationCopy - v11, 600);
-    v29 = kCMTimeZero;
-    CMTimeRangeMake(buf, &v29, &duration);
-    *&v24 = v16;
-    *&v25 = v19;
-    [v23 setVolumeRampFromStartVolume:buf toEndVolume:v24 timeRange:v25];
-    v26 = +[AVMutableAudioMix audioMix];
-    v31 = v23;
-    v27 = [NSArray arrayWithObjects:&v31 count:1];
-    [v26 setInputParameters:v27];
+    v30 = kCMTimeZero;
+    CMTimeRangeMake(buf, &v30, &duration);
+    *&v25 = v16;
+    *&v26 = v20;
+    [v24 setVolumeRampFromStartVolume:buf toEndVolume:v25 timeRange:v26];
+    v27 = +[AVMutableAudioMix audioMix];
+    v32 = v24;
+    v28 = [NSArray arrayWithObjects:&v32 count:1];
+    [v27 setInputParameters:v28];
   }
 
-  return v26;
+  return v27;
 }
 
 @end

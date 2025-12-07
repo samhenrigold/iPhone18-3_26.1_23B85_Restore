@@ -29,64 +29,64 @@
 - (BOOL)run:(id)run
 {
   selfCopy = self;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   selfCopy2 = self;
   runCopy = run;
   if ((objc_msgSend_valid(runCopy, v5, v6, v7) & 1) != 0 && objc_msgSend_meshType(runCopy, v8, v9, v10) == 1)
   {
     v14 = objc_msgSend_meshImpl(runCopy, v11, v12, v13);
-    v19 = xmmword_24BFBF8C0;
-    v20 = 981668463;
-    v21 = 0x1400000005;
-    v22 = 1;
+    v18 = xmmword_24BFBF8C0;
+    v19 = 981668463;
+    v20 = 0x1400000005;
+    v21 = 1;
     options = selfCopy->_options;
     if (options)
     {
-      sub_24BCD278C(options, &v19);
+      sub_24BCD278C(options, &v18);
     }
 
+    v27[3] = 0;
     v28[3] = 0;
     v29[3] = 0;
     v30[3] = 0;
-    v31[3] = 0;
     if (selfCopy->_progress_cb)
     {
-      v32 = &unk_285F94038;
-      v33 = &selfCopy2;
-      v34 = &v32;
-      sub_24BCA3290(&v32, v28);
-      sub_24BC9F00C(&v32);
+      v31 = &unk_285F94038;
+      v32 = &selfCopy2;
+      v33 = &v31;
+      sub_24BCA3290(&v31, v27);
+      sub_24BC9F00C(&v31);
       selfCopy = selfCopy2;
     }
 
     if (selfCopy->_error_cb)
     {
-      v32 = &unk_285F94080;
-      v33 = &selfCopy2;
-      v34 = &v32;
-      sub_24BCA4ECC(&v32, v29);
-      sub_24BC9F08C(&v32);
+      v31 = &unk_285F94080;
+      v32 = &selfCopy2;
+      v33 = &v31;
+      sub_24BCA4ECC(&v31, v28);
+      sub_24BC9F08C(&v31);
     }
 
-    v32 = &unk_285F940C8;
-    v33 = &selfCopy2;
-    v34 = &v32;
-    sub_24BCD410C(&v32, v31);
-    sub_24BC9EE14(&v32);
-    sub_24BCA1524(v24, v28);
-    sub_24BCA2D38(v25, v29);
-    sub_24BCA2DD0(v26, v30);
-    sub_24BC9ED7C(v27, v31);
-    v16 = sub_24BC9A66C(v14, &v19, v24);
-    sub_24BC9EE14(v27);
-    sub_24BC9F10C(v26);
-    sub_24BC9F08C(v25);
-    sub_24BC9F00C(v24);
+    v31 = &unk_285F940C8;
+    v32 = &selfCopy2;
+    v33 = &v31;
+    sub_24BCD410C(&v31, v30);
+    sub_24BC9EE14(&v31);
+    sub_24BCA1524(v23, v27);
+    sub_24BCA2D38(v24, v28);
+    sub_24BCA2DD0(v25, v29);
+    sub_24BC9ED7C(v26, v30);
+    v16 = sub_24BC9A66C(v14, &v18, v23);
+    sub_24BC9EE14(v26);
+    sub_24BC9F10C(v25);
+    sub_24BC9F08C(v24);
+    sub_24BC9F00C(v23);
     selfCopy2->_success = v16;
-    sub_24BC9EE14(v31);
-    sub_24BC9F10C(v30);
-    sub_24BC9F08C(v29);
-    sub_24BC9F00C(v28);
+    sub_24BC9EE14(v30);
+    sub_24BC9F10C(v29);
+    sub_24BC9F08C(v28);
+    sub_24BC9F00C(v27);
   }
 
   else
@@ -94,7 +94,6 @@
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

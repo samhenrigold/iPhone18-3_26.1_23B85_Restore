@@ -105,10 +105,10 @@
   if (!v7)
   {
     v7 = [(SKUITableViewCell *)[SKUIProductPageInAppPurchaseTableCell alloc] initWithStyle:0 reuseIdentifier:@"IA"];
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v8)
     {
-      [(SKUITableViewCell *)v7 setBottomBorderColor:primaryTextColor];
+      [(SKUITableViewCell *)v7 setBottomBorderColor:v8];
     }
 
     else
@@ -178,11 +178,11 @@
   }
 
   v7 = self->_headerView;
-  primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-  v10 = primaryTextColor;
-  if (primaryTextColor)
+  v8 = objc_msgSend_primaryTextColor(self->_colorScheme);
+  v10 = v8;
+  if (v8)
   {
-    [(SKUIProductPageTableExpandableHeaderView *)v7 setBottomBorderColor:primaryTextColor];
+    [(SKUIProductPageTableExpandableHeaderView *)v7 setBottomBorderColor:v8];
   }
 
   else

@@ -17,7 +17,7 @@
 
 - (NSArray)sourceObjectIds
 {
-  sub_1000054A4(0, &qword_1006BFEC0);
+  sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -64,15 +64,16 @@
 
   v7 = (self + OBJC_IVAR___ICMoveViewController_completionHandler);
   v8 = *(self + OBJC_IVAR___ICMoveViewController_completionHandler);
+  v9 = *(self + OBJC_IVAR___ICMoveViewController_completionHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (ICMoveViewController)initWithViewControllerManager:(id)manager sourceObjectIds:(id)ids
 {
-  sub_1000054A4(0, &qword_1006BFEC0);
+  sub_1000054A4(0, &qword_1006BFEC0, NSManagedObjectID_ptr);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   managerCopy = manager;
   v7 = sub_1003EF0F8(managerCopy, v5);

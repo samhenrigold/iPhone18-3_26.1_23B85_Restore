@@ -108,15 +108,15 @@ void __57__RTIUtilities__codableAttributedString_validAttributes___block_invoke(
 
 void __57__RTIUtilities__codableAttributedString_validAttributes___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 32) containsObject:v5])
   {
     v7 = *(a1 + 48);
-    v12 = v5;
-    v13[0] = v6;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = v5;
+    v12[0] = v6;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v7 _attributeToReplaceForCoding:v8];
 
     v10 = *(a1 + 40);
@@ -130,8 +130,6 @@ void __57__RTIUtilities__codableAttributedString_validAttributes___block_invoke_
       [v10 addAttribute:v5 value:v6 range:{*(a1 + 56), *(a1 + 64)}];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_decodableAttributedString:(id)string
@@ -179,14 +177,14 @@ void __43__RTIUtilities__decodableAttributedString___block_invoke(uint64_t a1, v
 
 void __43__RTIUtilities__decodableAttributedString___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = a1[5];
-  v13 = a2;
-  v14[0] = a3;
+  v12 = a2;
+  v13[0] = a3;
   v6 = MEMORY[0x1E695DF20];
   v7 = a3;
   v8 = a2;
-  v9 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [v5 _attributeToReplaceForDecoding:v9];
 
   v11 = a1[4];
@@ -199,8 +197,6 @@ void __43__RTIUtilities__decodableAttributedString___block_invoke_2(void *a1, vo
   {
     [v11 addAttribute:v8 value:v7 range:{a1[6], a1[7]}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_attributesToAllowForCoding
@@ -224,19 +220,19 @@ uint64_t __43__RTIUtilities__attributesToAllowForCoding__block_invoke()
 
 + (id)_attributeToReplaceForCoding:(id)coding
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   codingCopy = coding;
   v5 = [codingCopy objectForKey:@"NSAttachment"];
   v6 = [codingCopy objectForKey:@"NSParagraphStyle"];
   v7 = [codingCopy objectForKey:@"NSTextAnimation"];
   if (objc_opt_respondsToSelector())
   {
-    v27 = @"RTITextAnimation";
+    v26 = @"RTITextAnimation";
     name = [v7 name];
-    v28[0] = name;
+    v27[0] = name;
     v9 = MEMORY[0x1E695DF20];
-    v10 = v28;
-    v11 = &v27;
+    v10 = v27;
+    v11 = &v26;
 LABEL_3:
     v12 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
 
@@ -275,11 +271,11 @@ LABEL_3:
         name = [v6 mutableCopy];
         [name setTabStops:0];
         [name setTextLists:MEMORY[0x1E695E0F0]];
-        v25 = @"NSParagraphStyle";
-        v26 = name;
+        v24 = @"NSParagraphStyle";
+        v25 = name;
         v9 = MEMORY[0x1E695DF20];
-        v10 = &v26;
-        v11 = &v25;
+        v10 = &v25;
+        v11 = &v24;
         goto LABEL_3;
       }
 
@@ -310,31 +306,27 @@ LABEL_15:
   v12 = 0;
 LABEL_16:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 + (id)_attributeToReplaceForDecoding:(id)decoding
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   decodingCopy = decoding;
   v4 = [decodingCopy objectForKey:@"RTITextAnimation"];
   v5 = v4;
   if (v4 && (RTITextAnimationWithName(v4), (v6 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v7 = v6;
-    v11 = @"NSTextAnimation";
-    v12[0] = v6;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"NSTextAnimation";
+    v11[0] = v6;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
   {
     v8 = decodingCopy;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -372,28 +364,28 @@ LABEL_16:
 
 + (void)registerCustomInfoClasses:(id)classes forType:(id)type forClass:(Class)class
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   typeCopy = type;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [classesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [classesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     while (1)
     {
-      if (*v20 != v12)
+      if (*v19 != v12)
       {
         objc_enumerationMutation(classesCopy);
       }
 
       if (!--v11)
       {
-        v11 = [classesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [classesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (!v11)
         {
           break;
@@ -417,8 +409,6 @@ LABEL_16:
 
   [dictionary setObject:classesCopy forKey:typeCopy];
   os_unfair_lock_unlock(&_rtiUtilities_lock);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unregisterCustomInfoType:(id)type forClass:(Class)class

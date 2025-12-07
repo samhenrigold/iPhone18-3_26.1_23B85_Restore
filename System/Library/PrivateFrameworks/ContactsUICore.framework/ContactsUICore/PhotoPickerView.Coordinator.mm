@@ -7,10 +7,10 @@
 
 - (void)picker:(id)picker didFinishPicking:(id)picking
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6110);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6110, &qword_1A34DB600);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
-  sub_1A31EC194(0, &qword_1EB0C9740);
+  sub_1A31EC194(0, &qword_1EB0C9740, &off_1E76E55F8);
   v8 = sub_1A34CD370();
   v9 = sub_1A34CD4A0();
   (*(*(v9 - 8) + 56))(v7, 1, 1, v9);

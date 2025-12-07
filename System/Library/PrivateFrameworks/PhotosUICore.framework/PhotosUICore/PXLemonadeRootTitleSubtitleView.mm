@@ -50,7 +50,7 @@
   {
     v3 = *(&self->super.super._responderFlags + OBJC_IVAR___PXLemonadeRootTitleSubtitleView_subtitleLabelAction);
     selfCopy = self;
-    v5 = sub_1A3D607F0(v2);
+    v5 = sub_1A3D607F0(v2, v3);
     v2(v5);
 
     sub_1A3C784D4(v2, v3);

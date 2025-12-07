@@ -2,10 +2,10 @@ uint64_t aci::CVBufferDummyFactory::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::CVBufferDummyFactory::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x282137690]();
+    return MEMORY[0x282137690](a1);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t aci::CVBufferDummyFactory::freeData(uint64_t a1, uint64_t a2)
@@ -104,10 +104,10 @@ uint64_t aci::camera::Device::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::camera::Device::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x282137668]();
+    return MEMORY[0x282137668](a1);
   }
 
-  return result;
+  return a1;
 }
 
 void aci::camera::Device::Device(aci::camera::Device *this, const char *a2)
@@ -118,7 +118,7 @@ void aci::camera::Device::Device(aci::camera::Device *this, const char *a2)
   v4[4] = 0;
   *v4 = &unk_284F038A0;
   v4[5] = a2;
-  v5 = v4 + 5;
+  v5 = (v4 + 5);
   if (aci::Device::instance)
   {
     (*(*aci::Device::instance + 24))(aci::Device::instance);
@@ -135,7 +135,7 @@ void aci::camera::Device::Device(aci::camera::Device *this, const char *a2)
     }
 
     v7 = _aciLogGeneral();
-    aci::camera::Device::Device(v7, v5);
+    aci::camera::Device::Device(v7);
 
     __assert_rtn("Device", "ACICameraManager.mm", 43, "false");
   }
@@ -143,12 +143,13 @@ void aci::camera::Device::Device(aci::camera::Device *this, const char *a2)
   aci::ACIObjectSP<aci::camera::CVPSourceManager>();
 }
 
-void sub_23C3F652C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, aci::Object *a9, aci::Object *a10)
+void sub_23C3F652C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  aci::SP<aci::SourceManager,&(void ACISPRetain<aci::SourceManager>(aci::SourceManager &)),&(void ACISPRelease<aci::SourceManager>(aci::SourceManager &))>::~SP(&a10);
+  va_start(va, a9);
+  aci::SP<aci::SourceManager,&(void ACISPRetain<aci::SourceManager>(aci::SourceManager &)),&(void ACISPRelease<aci::SourceManager>(aci::SourceManager &))>::~SP(va);
   aci::SP<aci::camera::CVPSourceManager,&(void ACISPRetain<aci::camera::CVPSourceManager>(aci::camera::CVPSourceManager &)),&(void ACISPRelease<aci::camera::CVPSourceManager>(aci::camera::CVPSourceManager &))>::~SP(&a9);
-  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(v11);
-  aci::Device::~Device(v10);
+  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(v10);
+  aci::Device::~Device(v9);
   _Unwind_Resume(a1);
 }
 
@@ -156,10 +157,10 @@ uint64_t aci::camera::Manager::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::camera::Manager::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x282137698]();
+    return MEMORY[0x282137698](a1);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t non-virtual thunk toaci::camera::Manager::castToClass(uint64_t a1, uint64_t *a2)
@@ -191,14 +192,14 @@ void aci::camera::Manager::Manager(aci::camera::Manager *this, const char *a2, c
   aci::ACIObjectSP<aci::camera::Device,char const*>();
 }
 
-void sub_23C3F67E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3F67E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::camera::XPCProvider,&(void ACISPRetain<aci::camera::XPCProvider>(aci::camera::XPCProvider &)),&(void ACISPRelease<aci::camera::XPCProvider>(aci::camera::XPCProvider &))>::~SP(va);
-  aci::SP<aci::camera::XPCProvider,&(void ACISPRetain<aci::camera::XPCProvider>(aci::camera::XPCProvider &)),&(void ACISPRelease<aci::camera::XPCProvider>(aci::camera::XPCProvider &))>::~SP(v4);
-  aci::SP<aci::camera::Device,&(void ACISPRetain<aci::camera::Device>(aci::camera::Device &)),&(void ACISPRelease<aci::camera::Device>(aci::camera::Device &))>::~SP(v3);
-  *(v2 + 16) = MEMORY[0x277CE47D0] + 16;
-  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP((v2 + 24));
+  aci::SP<aci::camera::XPCProvider,&(void ACISPRetain<aci::camera::XPCProvider>(aci::camera::XPCProvider &)),&(void ACISPRelease<aci::camera::XPCProvider>(aci::camera::XPCProvider &))>::~SP(v5);
+  aci::SP<aci::camera::Device,&(void ACISPRetain<aci::camera::Device>(aci::camera::Device &)),&(void ACISPRelease<aci::camera::Device>(aci::camera::Device &))>::~SP(v4);
+  *(v3 + 16) = MEMORY[0x277CE47D0] + 16;
+  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP((v3 + 24));
   _Unwind_Resume(a1);
 }
 
@@ -250,21 +251,21 @@ aci::Dictionary *aci::_ACIDynamicCast<aci::Dictionary,aci::Object>(aci::Dictiona
 
 aci::Object **aci::camera::Manager::constructStreamBySourceProperties(aci::camera::Manager *this, aci::Dictionary *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(*(this + 6) + 16);
-  v9 = v2;
+  v8 = v2;
   if (v2)
   {
     aci::Object::retain(v2);
-    (*(*v2 + 64))(&v8, v2, a2);
-    if (v8)
+    (*(*v2 + 64))(&v7, v2, a2);
+    if (v7)
     {
       operator new();
     }
 
-    v7 = _aciLogGeneral();
-    aci::camera::Manager::constructStreamBySourceProperties(v7);
-    aci::SP<aci::Component,&(void ACISPRetain<aci::Component>(aci::Component &)),&(void ACISPRelease<aci::Component>(aci::Component &))>::~SP(&v8);
+    v6 = _aciLogGeneral();
+    aci::camera::Manager::constructStreamBySourceProperties(v6);
+    aci::SP<aci::Component,&(void ACISPRetain<aci::Component>(aci::Component &)),&(void ACISPRelease<aci::Component>(aci::Component &))>::~SP(&v7);
   }
 
   else
@@ -277,20 +278,18 @@ aci::Object **aci::camera::Manager::constructStreamBySourceProperties(aci::camer
     }
   }
 
-  result = aci::SP<aci::SourceManager,&(void ACISPRetain<aci::SourceManager>(aci::SourceManager &)),&(void ACISPRelease<aci::SourceManager>(aci::SourceManager &))>::~SP(&v9);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return aci::SP<aci::SourceManager,&(void ACISPRetain<aci::SourceManager>(aci::SourceManager &)),&(void ACISPRelease<aci::SourceManager>(aci::SourceManager &))>::~SP(&v8);
 }
 
-void sub_23C3F6E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, aci::Object *a9, aci::Object *a10, aci::Object *a11, aci::Object *a12, aci::Object *a13, aci::Object *a14, uint64_t a15, uint64_t a16, aci::Object *a17)
+void sub_23C3F6E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, aci::Object *a10, aci::Object *a12, aci::Object *a14, aci::Object *a16, aci::Object *a18, uint64_t a19, uint64_t a20, aci::Object *a21)
 {
-  aci::SP<aci::Stream,&(void ACISPRetain<aci::Stream>(aci::Stream &)),&(void ACISPRelease<aci::Stream>(aci::Stream &))>::~SP(&a17);
+  aci::SP<aci::Stream,&(void ACISPRetain<aci::Stream>(aci::Stream &)),&(void ACISPRelease<aci::Stream>(aci::Stream &))>::~SP(&a21);
   aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(&a9);
   aci::SP<aci::String,&(void ACISPRetain<aci::String>(aci::String &)),&(void ACISPRelease<aci::String>(aci::String &))>::~SP(&a10);
-  aci::SP<aci::Sink,&(void ACISPRetain<aci::Sink>(aci::Sink &)),&(void ACISPRelease<aci::Sink>(aci::Sink &))>::~SP(&a11);
-  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(&a12);
-  aci::SP<aci::Component,&(void ACISPRetain<aci::Component>(aci::Component &)),&(void ACISPRelease<aci::Component>(aci::Component &))>::~SP(&a13);
-  aci::SP<aci::SourceManager,&(void ACISPRetain<aci::SourceManager>(aci::SourceManager &)),&(void ACISPRelease<aci::SourceManager>(aci::SourceManager &))>::~SP(&a14);
+  aci::SP<aci::Sink,&(void ACISPRetain<aci::Sink>(aci::Sink &)),&(void ACISPRelease<aci::Sink>(aci::Sink &))>::~SP(&a12);
+  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(&a14);
+  aci::SP<aci::Component,&(void ACISPRetain<aci::Component>(aci::Component &)),&(void ACISPRelease<aci::Component>(aci::Component &))>::~SP(&a16);
+  aci::SP<aci::SourceManager,&(void ACISPRetain<aci::SourceManager>(aci::SourceManager &)),&(void ACISPRelease<aci::SourceManager>(aci::SourceManager &))>::~SP(&a18);
   _Unwind_Resume(a1);
 }
 
@@ -303,9 +302,9 @@ id aci::camera::Manager::availableCameraKeys(aci::Dictionary **this)
   return v1;
 }
 
-void sub_23C3F70B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3F70B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
   _Unwind_Resume(a1);
 }
@@ -331,17 +330,17 @@ uint64_t non-virtual thunk toaci::camera::ProviderListener::castToClass(uint64_t
   return result;
 }
 
-void sub_23C3F71D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3F71D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::camera::ProviderListener,&(void ACISPRetain<aci::camera::ProviderListener>(aci::camera::ProviderListener &)),&(void ACISPRelease<aci::camera::ProviderListener>(aci::camera::ProviderListener &))>::~SP(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23C3F7270(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_23C3F7270(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x23EED02D0](v10, 0x1081C40EE4F9096);
+  MEMORY[0x23EED02D0](v10, 0x1081C40EE4F9096, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -374,9 +373,9 @@ void sub_23C3F78A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23C3F7E20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3F7E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::camera::Manager,&(void ACISPRetain<aci::camera::Manager>(aci::camera::Manager &)),&(void ACISPRelease<aci::camera::Manager>(aci::camera::Manager &))>::~SP(va);
 
   _Unwind_Resume(a1);
@@ -653,10 +652,10 @@ uint64_t aci::camera::CVPSource::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::camera::CVPSource::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x2821376B8]();
+    return MEMORY[0x2821376B8](a1);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t non-virtual thunk toaci::camera::CVPSource::castToClass(uint64_t a1, uint64_t *a2)
@@ -706,18 +705,17 @@ uint64_t aci::camera::CVPSource::CVPSource(uint64_t a1, uint64_t a2, aci::Dictio
     if (v9)
     {
       *(a1 + 3620) = *(v9 + 6);
-      v10 = *(a1 + 3600);
       operator new();
     }
 
-    v13 = _aciLogGeneral();
-    aci::camera::CVPSource::CVPSource(v13, &v14);
+    v12 = _aciLogGeneral();
+    aci::camera::CVPSource::CVPSource(v12, &v13);
   }
 
   else
   {
-    v12 = _aciLogGeneral();
-    aci::camera::CVPSource::CVPSource(v12, &v14);
+    v11 = _aciLogGeneral();
+    aci::camera::CVPSource::CVPSource(v11, &v13);
   }
 
   return a1;
@@ -739,87 +737,74 @@ aci::Number *aci::_ACIDynamicCast<aci::Number,aci::Object>(aci::Number *result)
 
 uint64_t aci::camera::CVPSource::start(aci::camera::CVPSource *this)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     CString = aci::String::getCString(*(*(this + 25) + 24));
     v4 = *(this + 904);
     v5 = *(this + 905);
-    v13 = 136316418;
-    v14 = "virtual ACIErrorCode aci::camera::CVPSource::start()";
+    v7 = 136316418;
+    v8 = "virtual ACIErrorCode aci::camera::CVPSource::start()";
+    v9 = 1024;
+    v10 = 30;
+    v11 = 2080;
+    v12 = CString;
+    v13 = 2048;
+    v14 = this;
     v15 = 1024;
-    v16 = 30;
-    v17 = 2080;
-    v18 = CString;
-    v19 = 2048;
-    v20 = this;
-    v21 = 1024;
-    v22 = v4;
-    v23 = 1024;
-    v24 = v5;
-    _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d[%s@%p] ch: %d, output: %d", &v13, 0x32u);
+    v16 = v4;
+    v17 = 1024;
+    v18 = v5;
+    _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d[%s@%p] ch: %d, output: %d", &v7, 0x32u);
   }
 
-  v6 = *(this + 451);
-  v7 = *(this + 904);
-  v8 = *(this + 905);
   if (ACICVPDeviceRegisterCallback())
   {
-    aci::camera::CVPSource::start(this + 904, this + 905);
-LABEL_9:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_6;
+    aci::camera::CVPSource::start(this + 3616);
+    return 0xFFFFFFFFLL;
   }
 
-  v9 = *(this + 451);
-  v10 = *(this + 904);
   if (ACICVPDeviceStartChannel())
   {
-    aci::camera::CVPSource::start(this + 904, this + 905);
-    goto LABEL_9;
+    aci::camera::CVPSource::start(this + 3616);
+    return 0xFFFFFFFFLL;
   }
 
-  result = aci::Controller::start((this + 120));
-LABEL_6:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return aci::Controller::start((this + 120));
 }
 
 uint64_t aci::camera::CVPSource::stop(aci::camera::CVPSource *this)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     CString = aci::String::getCString(*(*(this + 25) + 24));
     v4 = *(this + 904);
     v5 = *(this + 905);
-    v11 = 136316418;
-    v12 = "virtual ACIErrorCode aci::camera::CVPSource::stop()";
-    v13 = 1024;
-    v14 = 40;
-    v15 = 2080;
-    v16 = CString;
-    v17 = 2048;
-    v18 = this;
-    v19 = 1024;
-    v20 = v4;
-    v21 = 1024;
-    v22 = v5;
-    _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d[%s@%p] ch: %d, output: %d", &v11, 0x32u);
+    v8 = 136316418;
+    v9 = "virtual ACIErrorCode aci::camera::CVPSource::stop()";
+    v10 = 1024;
+    v11 = 40;
+    v12 = 2080;
+    v13 = CString;
+    v14 = 2048;
+    v15 = this;
+    v16 = 1024;
+    v17 = v4;
+    v18 = 1024;
+    v19 = v5;
+    _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d[%s@%p] ch: %d, output: %d", &v8, 0x32u);
   }
 
   v6 = aci::Controller::stop((this + 120));
-  v7 = *(this + 451);
-  v8 = *(this + 904);
   if (ACICVPDeviceStopChannel())
   {
-    aci::camera::CVPSource::stop(this + 904, this);
-    v6 = 0xFFFFFFFFLL;
+    aci::camera::CVPSource::stop(this + 3616);
+    return 0xFFFFFFFFLL;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -873,26 +858,28 @@ aci::Object **aci::SP<aci::ComponentSpec,&(void ACISPRetain<aci::ComponentSpec>(
   return a1;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xEu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xEu);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t aci::camera::CVPSourceManager::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::camera::CVPSourceManager::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x282137638]();
+    return MEMORY[0x282137638](a1);
   }
 
-  return result;
+  return a1;
 }
 
 aci::camera::CVPSourceManager *aci::camera::CVPSourceManager::CVPSourceManager(aci::camera::CVPSourceManager *this)
@@ -918,105 +905,101 @@ void sub_23C3F9018(_Unwind_Exception *a1)
 
 void aci::camera::CVPSourceManager::discoverSources(aci::camera::CVPSourceManager *this)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v26 = 0;
+  v26 = *MEMORY[0x277D85DE8];
+  v22 = 0;
   if (!*(this + 3))
   {
     *(this + 3) = MEMORY[0x23EECFD80]();
   }
 
-  v2 = *MEMORY[0x277CE4760];
   if (ACICVPDeviceCopyProperty())
   {
-    v3 = 1;
+    v1 = 1;
   }
 
   else
   {
-    v3 = v26 == 0;
+    v1 = v22 == 0;
   }
 
-  if (v3)
+  if (v1)
   {
-    v17 = _aciLogGeneral();
-    aci::camera::CVPSourceManager::discoverSources(v17, buf);
-    v5 = *buf;
+    v13 = _aciLogGeneral();
+    aci::camera::CVPSourceManager::discoverSources(v13, buf);
+    v3 = *buf;
   }
 
   else
   {
-    v4 = _aciLogGeneral();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v2 = _aciLogGeneral();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v26;
-      _os_log_impl(&dword_23C3F5000, v4, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      *&buf[4] = v22;
+      _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
 
-    [v26 objectForKeyedSubscript:*MEMORY[0x277CE4768]];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
-    v5 = v23 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
-    if (v6)
+    [v22 objectForKeyedSubscript:*MEMORY[0x277CE4768]];
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v3 = v19 = 0u;
+    v4 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
+    if (v4)
     {
-      v7 = *v23;
-      v8 = *MEMORY[0x277CE4770];
+      v5 = *v19;
+      v6 = *MEMORY[0x277CE4770];
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v4; ++i)
         {
-          if (*v23 != v7)
+          if (*v19 != v5)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v3);
           }
 
-          v10 = [*(*(&v22 + 1) + 8 * i) objectForKeyedSubscript:v8];
-          v20 = 0u;
-          v21 = 0u;
-          v18 = 0u;
-          v19 = 0u;
-          v11 = v10;
-          v12 = [v11 countByEnumeratingWithState:&v18 objects:v27 count:16];
-          if (v12)
+          v8 = [*(*(&v18 + 1) + 8 * i) objectForKeyedSubscript:v6];
+          v16 = 0u;
+          v17 = 0u;
+          v14 = 0u;
+          v15 = 0u;
+          v9 = v8;
+          v10 = [v9 countByEnumeratingWithState:&v14 objects:v23 count:16];
+          if (v10)
           {
-            v13 = *v19;
+            v11 = *v15;
             do
             {
-              for (j = 0; j != v12; ++j)
+              for (j = 0; j != v10; ++j)
               {
-                if (*v19 != v13)
+                if (*v15 != v11)
                 {
-                  objc_enumerationMutation(v11);
+                  objc_enumerationMutation(v9);
                 }
 
-                *buf = ns2aciDictionary(*(*(&v18 + 1) + 8 * j));
-                v15 = *(this + 2);
+                *buf = ns2aciDictionary(*(*(&v14 + 1) + 8 * j));
                 aci::Array::addObject();
                 aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(buf);
               }
 
-              v12 = [v11 countByEnumeratingWithState:&v18 objects:v27 count:16];
+              v10 = [v9 countByEnumeratingWithState:&v14 objects:v23 count:16];
             }
 
-            while (v12);
+            while (v10);
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
-      while (v6);
+      while (v4);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void sub_23C3F9390(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3F9390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::camera::CVPSource,&(void ACISPRetain<aci::camera::CVPSource>(aci::camera::CVPSource &)),&(void ACISPRelease<aci::camera::CVPSource>(aci::camera::CVPSource &))>::~SP(va);
   _Unwind_Resume(a1);
 }
@@ -1101,18 +1084,18 @@ aci::camera::XPCAccountReceiver *aci::camera::XPCAccountReceiver::XPCAccountRece
   return this;
 }
 
-void sub_23C3F99C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3F99C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23C3F9ABC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23C3F9ABC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ACIXPCAccount;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1130,9 +1113,9 @@ aci::Service *aci::_ACIDynamicCast<aci::Service,aci::Object>(aci::Service *resul
   return result;
 }
 
-void sub_23C3F9C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
+void sub_23C3F9C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   aci::SP<aci::Array,&(void ACISPRetain<aci::Array>(aci::Array &)),&(void ACISPRelease<aci::Array>(aci::Array &))>::~SP(va);
   _Unwind_Resume(a1);
@@ -1147,18 +1130,18 @@ void sub_23C3F9F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_23C3F9FFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_23C3F9FFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x23EED02D0](v10, 0x1081C40EE4F9096);
+  MEMORY[0x23EED02D0](v10, 0x1081C40EE4F9096, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23C3FA200(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3FA200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, aci::Object *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, aci::Object *);
   aci::SP<aci::String,&(void ACISPRetain<aci::String>(aci::String &)),&(void ACISPRelease<aci::String>(aci::String &))>::~SP(va);
   aci::SP<aci::String,&(void ACISPRetain<aci::String>(aci::String &)),&(void ACISPRelease<aci::String>(aci::String &))>::~SP(va1);
 
@@ -1251,10 +1234,10 @@ uint64_t aci::camera::XPCService::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::camera::XPCService::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x2821376A0]();
+    return MEMORY[0x2821376A0](a1);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t non-virtual thunk toaci::camera::XPCService::castToClass(uint64_t a1, uint64_t *a2)
@@ -1291,52 +1274,51 @@ void aci::camera::XPCService::onNewData(aci::camera::XPCService *this, aci::Data
 {
   if (((*(*a2 + 64))(a2) & 1) == 0)
   {
-    v7 = _aciLogGeneral();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = _aciLogGeneral();
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_5;
     }
 
     *buf = 0;
-    v10 = "[ACIVERIFY]DataGeneric expected!";
+    v8 = "[ACIVERIFY]DataGeneric expected!";
 LABEL_12:
-    _os_log_impl(&dword_23C3F5000, v7, OS_LOG_TYPE_ERROR, v10, buf, 2u);
+    _os_log_impl(&dword_23C3F5000, v6, OS_LOG_TYPE_ERROR, v8, buf, 2u);
     goto LABEL_5;
   }
 
-  v5 = *(a2 + 6);
-  if (!v5)
+  v4 = *(a2 + 6);
+  if (!v4)
   {
-    v7 = _aciLogGeneral();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = _aciLogGeneral();
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_5;
     }
 
     *buf = 0;
-    v10 = "[ACIVERIFY]Generic payload is empty!";
+    v8 = "[ACIVERIFY]Generic payload is empty!";
     goto LABEL_12;
   }
 
-  v6 = CFGetTypeID(v5);
-  if (v6 != CVPixelBufferGetTypeID())
+  v5 = CFGetTypeID(v4);
+  if (v5 != CVPixelBufferGetTypeID())
   {
-    v7 = _aciLogGeneral();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = _aciLogGeneral();
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_5;
     }
 
     *buf = 0;
-    v10 = "[ACIVERIFY]PixelBuffer is expected!";
+    v8 = "[ACIVERIFY]PixelBuffer is expected!";
     goto LABEL_12;
   }
 
-  v7 = CVPixelBufferGetIOSurface(v5);
-  v8 = objc_opt_new();
-  [v8 setObject:v7 forKeyedSubscript:@"content"];
-  v9 = *(this + 17);
-  v11 = v8;
+  v6 = CVPixelBufferGetIOSurface(v4);
+  v7 = objc_opt_new();
+  [v7 setObject:v6 forKeyedSubscript:@"content"];
+  v9 = v7;
   aci::Dictionary::enumerateKeysAndObjectsUsingBlock();
 
 LABEL_5:
@@ -1360,10 +1342,10 @@ uint64_t aci::camera::XPCProvider::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::camera::XPCProvider::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x2821376A8]();
+    return MEMORY[0x2821376A8](a1);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t non-virtual thunk toaci::camera::XPCProvider::castToClass(uint64_t a1, uint64_t *a2)
@@ -1390,9 +1372,9 @@ aci::camera::XPCProvider *aci::camera::XPCProvider::XPCProvider(aci::camera::XPC
   return this;
 }
 
-void sub_23C3FBE7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3FBE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::camera::XPCService,&(void ACISPRetain<aci::camera::XPCService>(aci::camera::XPCService &)),&(void ACISPRelease<aci::camera::XPCService>(aci::camera::XPCService &))>::~SP(va);
   _Unwind_Resume(a1);
 }
@@ -1526,7 +1508,7 @@ BOOL OUTLINED_FUNCTION_5(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_ERROR);
 }
 
-void sub_23C3FC8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_23C3FC8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1544,10 +1526,10 @@ uint64_t aci::camera::XPCSourceManager::castToClass(uint64_t a1, uint64_t *a2)
 {
   if (a2 != &aci::camera::XPCSourceManager::classTypeInfo(void)::ti)
   {
-    return MEMORY[0x282137638]();
+    return MEMORY[0x282137638](a1);
   }
 
-  return result;
+  return a1;
 }
 
 aci::camera::XPCSourceManager *aci::camera::XPCSourceManager::XPCSourceManager(aci::camera::XPCSourceManager *this)
@@ -1582,45 +1564,43 @@ void aci::camera::XPCSourceManager::discoverSources(id *this)
 
 void ___ZN3aci6camera16XPCSourceManager15discoverSourcesEv_block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = ns2aciJSONDict(v3);
-  v7 = v5;
-  if (v5)
+  v2 = a2;
+  v3 = ns2aciJSONDict(v2);
+  v4 = v3;
+  if (v3)
   {
-    aci::Object::retain(v5);
+    aci::Object::retain(v3);
   }
 
-  v6 = *(v4 + 16);
   aci::Array::addObject();
-  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(&v7);
+  aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(&v4);
 }
 
-void sub_23C3FCB90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3FCB90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::Dictionary,&(void ACISPRetain<aci::Dictionary>(aci::Dictionary &)),&(void ACISPRelease<aci::Dictionary>(aci::Dictionary &))>::~SP(va);
 
   _Unwind_Resume(a1);
 }
 
-void aci::camera::XPCSourceManager::sourceByProps(id *this, aci::Dictionary *a2)
+void aci::camera::XPCSourceManager::sourceByProps(id *this)
 {
-  v2 = [this[3] connection];
-  aci::ACIObjectSP<aci::camera::XPCSource,NSXPCConnection * {__strong},aci::Dictionary *>(v2);
+  v3 = [this[3] connection];
+  aci::ACIObjectSP<aci::camera::XPCSource,NSXPCConnection * {__strong},aci::Dictionary *>(v3);
 }
 
-void sub_23C3FCC20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23C3FCC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   aci::SP<aci::camera::XPCSource,&(void ACISPRetain<aci::camera::XPCSource>(aci::camera::XPCSource &)),&(void ACISPRelease<aci::camera::XPCSource>(aci::camera::XPCSource &))>::~SP(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_23C3FCCBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+void sub_23C3FCCBC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, id a10)
 {
-  MEMORY[0x23EED02D0](v10, 0x10A1C40E1B889C9);
+  MEMORY[0x23EED02D0](v10, 0x10A1C40E1B889C9, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
@@ -1650,12 +1630,12 @@ aci::Object **aci::SP<aci::camera::XPCSource,&(void ACISPRetain<aci::camera::XPC
   return a1;
 }
 
-void sub_23C3FD090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_23C3FD090(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ACIXPCController;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1707,17 +1687,17 @@ LABEL_8:
   return v8;
 }
 
-void sub_23C3FD510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23C3FD510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23C3FD7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
+void sub_23C3FD7E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1763,19 +1743,18 @@ uint64_t non-virtual thunk toaci::camera::XPCSource::className(aci::camera::XPCS
   return aci::camera::XPCSource::classTypeInfo(void)::ti;
 }
 
-void aci::camera::XPCSource::XPCSource(aci::camera::XPCSource *this, NSXPCConnection *a2, aci::Dictionary *a3)
+void aci::camera::XPCSource::XPCSource(aci::Array **this, NSXPCConnection *a2, aci::Dictionary *a3)
 {
   v5 = a2;
   aci::Component::Component(this, a3);
   *this = &unk_284F03E98;
-  *(this + 2) = &unk_284F03EF8;
-  *(this + 15) = &unk_284F03F38;
-  *(this + 451) = 0;
+  this[2] = &unk_284F03EF8;
+  this[15] = &unk_284F03F38;
+  this[451] = 0;
   v6 = [[ACIXPCController alloc] initWithDelegate:this connection:v5];
-  v7 = *(this + 451);
-  *(this + 451) = v6;
+  v7 = this[451];
+  this[451] = v6;
 
-  v8 = *(this + 450);
   operator new();
 }
 
@@ -1789,30 +1768,25 @@ void sub_23C3FDB44(_Unwind_Exception *a1)
 
 uint64_t aci::camera::XPCSource::start(id *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "virtual ACIErrorCode aci::camera::XPCSource::start()";
-    v9 = 1024;
-    v10 = 136;
-    _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "virtual ACIErrorCode aci::camera::XPCSource::start()";
+    v8 = 1024;
+    v9 = 136;
+    _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d", &v6, 0x12u);
   }
 
   v3 = [this[451] start];
-  if (v3)
+  if (!v3)
   {
-    v4 = v3;
-    aci::camera::XPCSource::start();
+    return aci::Controller::start((this + 15));
   }
 
-  else
-  {
-    v4 = aci::Controller::start((this + 15));
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  aci::camera::XPCSource::start(v3);
   return v4;
 }
 
@@ -1841,29 +1815,22 @@ uint64_t ___ZN3aci6camera7Manager16constructStreamsEv_block_invoke(uint64_t a1, 
   return 0;
 }
 
-void aci::camera::Device::Device(NSObject *a1, uint64_t *a2)
+void aci::camera::Device::Device(NSObject *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v9 = *a2;
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_impl(v1, v2, v3, v4, v5, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void aci::camera::Manager::constructStreamBySourceProperties(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -1912,7 +1879,8 @@ void aci::camera::CVPSource::CVPSource(NSObject *a1, NSObject **a2)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_2(&dword_23C3F5000, v4, v5, "[ACIVERIFY]outputId not found props!", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_2(&dword_23C3F5000, v4, v5, "[ACIVERIFY]outputId not found props!", v6, v7, v8, v9, v10);
   }
 
   *a2 = a1;
@@ -1921,54 +1889,40 @@ void aci::camera::CVPSource::CVPSource(NSObject *a1, NSObject **a2)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_2(&dword_23C3F5000, v4, v5, "[ACIVERIFY]channelId not found props!", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_2(&dword_23C3F5000, v4, v5, "[ACIVERIFY]channelId not found props!", v6, v7, v8, v9, v10);
   }
 
   *a2 = a1;
 }
 
-void aci::camera::CVPSource::start(unsigned int *a1, unsigned int *a2)
+void aci::camera::CVPSource::start(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = _aciLogGeneral();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v1 = _aciLogGeneral();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v5 = *a1;
-    v6 = *a2;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1(&dword_23C3F5000, v7, v8, "[ACIVERIFY]Register callback to Output(%d, %d) failed!", v9, v10, v11, v12, v14);
+    OUTLINED_FUNCTION_1(&dword_23C3F5000, v2, v3, "[ACIVERIFY]Register callback to Output(%d, %d) failed!", v4, v5, v6, v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = _aciLogGeneral();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v1 = _aciLogGeneral();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v5 = *a1;
-    v6 = *a2;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1(&dword_23C3F5000, v7, v8, "[ACIVERIFY]Start channel(%d, %d) failed!", v9, v10, v11, v12, v14);
+    OUTLINED_FUNCTION_1(&dword_23C3F5000, v2, v3, "[ACIVERIFY]Start channel(%d, %d) failed!", v4, v5, v6, v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-void aci::camera::CVPSource::stop(unsigned int *a1, uint64_t a2)
+void aci::camera::CVPSource::stop(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = _aciLogGeneral();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v1 = _aciLogGeneral();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v5 = *a1;
-    v6 = *(a2 + 3620);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1(&dword_23C3F5000, v7, v8, "[ACIVERIFY]Stop channel(%d, %d) failed!", v9, v10, v11, v12, v14);
+    OUTLINED_FUNCTION_1(&dword_23C3F5000, v2, v3, "[ACIVERIFY]Stop channel(%d, %d) failed!", v4, v5, v6, v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void aci::camera::CVPSourceManager::CVPSourceManager(NSObject *a1)
@@ -2004,52 +1958,45 @@ uint64_t ___ZN3aci6camera10XPCService9onNewDataEPNS_4DataEPNS_6StringE_block_inv
 
 uint64_t aci::camera::XPCSource::stop(id *this)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = _aciLogGeneral();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "virtual ACIErrorCode aci::camera::XPCSource::stop()";
-    v10 = 1024;
-    v11 = 143;
-    _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "virtual ACIErrorCode aci::camera::XPCSource::stop()";
+    v9 = 1024;
+    v10 = 143;
+    _os_log_impl(&dword_23C3F5000, v2, OS_LOG_TYPE_DEFAULT, "%s:%d", &v7, 0x12u);
   }
 
   v3 = aci::Controller::stop((this + 15));
   if (v3)
   {
-    v4 = v3;
+    return v3;
   }
 
-  else
+  v4 = [this[451] stop];
+  if (v4)
   {
-    v4 = [this[451] stop];
-    if (v4)
+    v6 = _aciLogGeneral();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = _aciLogGeneral();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        v8 = 67109120;
-        LODWORD(v9) = v4;
-        _os_log_impl(&dword_23C3F5000, v7, OS_LOG_TYPE_ERROR, "[ACIVERIFY]XPCControler stop failed! errCode: %d", &v8, 8u);
-      }
+      v7 = 67109120;
+      LODWORD(v8) = v4;
+      _os_log_impl(&dword_23C3F5000, v6, OS_LOG_TYPE_ERROR, "[ACIVERIFY]XPCControler stop failed! errCode: %d", &v7, 8u);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 void aci::camera::XPCSource::handleNewContent(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -2060,17 +2007,14 @@ void aci::camera::XPCSource::handleNewContent(NSObject *a1)
   }
 }
 
-void aci::camera::XPCSource::start()
+void aci::camera::XPCSource::start(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = _aciLogGeneral();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _aciLogGeneral();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
-    _os_log_impl(v1, v2, v3, v4, v5, 8u);
+    _os_log_impl(v2, v3, v4, v5, v6, 8u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void operator new()

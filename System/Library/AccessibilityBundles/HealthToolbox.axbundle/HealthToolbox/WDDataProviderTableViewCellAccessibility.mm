@@ -67,7 +67,7 @@
   return v14;
 }
 
-uint64_t __62__WDDataProviderTableViewCellAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
+void *__62__WDDataProviderTableViewCellAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) frame];
   v3 = *(*(a1 + 40) + 8);

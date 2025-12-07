@@ -11,7 +11,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (!errorCopy)
@@ -24,10 +24,10 @@
     }
 
     *buf = 138412546;
-    v20 = objc_opt_class();
-    v21 = 2048;
-    v22 = v5;
-    v9 = v20;
+    v19 = objc_opt_class();
+    v20 = 2048;
+    v21 = v5;
+    v9 = v19;
     v10 = "%@ Parsed response with statusCode %ld";
     goto LABEL_7;
   }
@@ -43,10 +43,10 @@
     }
 
     *buf = 138412546;
-    v20 = objc_opt_class();
-    v21 = 2112;
-    v22 = errorCopy;
-    v9 = v20;
+    v19 = objc_opt_class();
+    v20 = 2112;
+    v21 = errorCopy;
+    v9 = v19;
     v10 = "%@ failed: %@";
 LABEL_7:
     v11 = v7;
@@ -62,8 +62,8 @@ LABEL_7:
   }
 
   *buf = 138412290;
-  v20 = objc_opt_class();
-  v9 = v20;
+  v19 = objc_opt_class();
+  v9 = v19;
   v10 = "%@ cancelled";
   v11 = v7;
   v12 = v14;
@@ -79,17 +79,15 @@ LABEL_11:
 
   else
   {
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __41__ASFetchAttachmentTask_finishWithError___block_invoke;
-    v16[3] = &unk_278FC7B68;
-    v16[4] = self;
-    v18 = v5;
-    v17 = errorCopy;
-    [(ASTask *)self finishWithError:v17 afterDelegateCallout:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __41__ASFetchAttachmentTask_finishWithError___block_invoke;
+    v15[3] = &unk_278FC7B68;
+    v15[4] = self;
+    v17 = v5;
+    v16 = errorCopy;
+    [(ASTask *)self finishWithError:v16 afterDelegateCallout:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __41__ASFetchAttachmentTask_finishWithError___block_invoke(void *a1)

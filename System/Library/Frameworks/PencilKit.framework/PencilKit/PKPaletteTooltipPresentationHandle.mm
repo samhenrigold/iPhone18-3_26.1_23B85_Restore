@@ -47,9 +47,9 @@
     v52.size.width = v22;
     v52.size.height = v23;
     MidY = CGRectGetMidY(v52);
-    v26 = [(PKFloatingLabelView *)MidX floatingLabelViewWithString:PKFloatingLabelView font:textCopy location:0 traitCollection:collectionCopy];
+    midY = [PKFloatingLabelView floatingLabelViewWithString:textCopy font:0 location:collectionCopy traitCollection:MidX, MidY];
     floatingLabel = self->_floatingLabel;
-    self->_floatingLabel = v26;
+    self->_floatingLabel = midY;
 
     [(UIView *)self->_floatingLabel frame];
     v30 = v29;

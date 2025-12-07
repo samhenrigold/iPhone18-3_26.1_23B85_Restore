@@ -1,175 +1,13 @@
-BOOL CMMsl::BatchedPPGData::operator==(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 140);
-  v5 = *(a2 + 140);
-  if ((v4 & 0x100) != 0)
-  {
-    if ((*(a2 + 140) & 0x100) == 0 || *(a1 + 136) != *(a2 + 136))
-    {
-      return 0;
-    }
-  }
-
-  else if ((*(a2 + 140) & 0x100) != 0)
-  {
-    return 0;
-  }
-
-  if ((v4 & 0x10) != 0)
-  {
-    if ((v5 & 0x10) == 0 || *(a1 + 120) != *(a2 + 120))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v5 & 0x10) != 0)
-  {
-    return 0;
-  }
-
-  if ((v4 & 0x40) != 0)
-  {
-    if ((v5 & 0x40) == 0 || *(a1 + 128) != *(a2 + 128))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v5 & 0x40) != 0)
-  {
-    return 0;
-  }
-
-  if ((v4 & 0x20) != 0)
-  {
-    if ((v5 & 0x20) == 0 || *(a1 + 124) != *(a2 + 124))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v5 & 0x20) != 0)
-  {
-    return 0;
-  }
-
-  if ((v4 & 0x80) != 0)
-  {
-    if ((v5 & 0x80) == 0 || *(a1 + 132) != *(a2 + 132))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v5 & 0x80) != 0)
-  {
-    return 0;
-  }
-
-  v6 = *(a1 + 80);
-  v7 = *(a2 + 80);
-  v8 = *(a1 + 88) - v6;
-  if (v8 != *(a2 + 88) - v7)
-  {
-    return 0;
-  }
-
-  if (memcmp(v6, v7, v8))
-  {
-    return 0;
-  }
-
-  v9 = *(a1 + 56);
-  v10 = *(a2 + 56);
-  v11 = *(a1 + 64) - v9;
-  if (v11 != *(a2 + 64) - v10 || memcmp(v9, v10, v11))
-  {
-    return 0;
-  }
-
-  if ((v4 & 8) != 0)
-  {
-    if ((v5 & 8) == 0 || *(a1 + 116) != *(a2 + 116))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v5 & 8) != 0)
-  {
-    return 0;
-  }
-
-  if ((v4 & 4) != 0)
-  {
-    if ((v5 & 4) == 0 || *(a1 + 112) != *(a2 + 112))
-    {
-      return 0;
-    }
-  }
-
-  else if ((v5 & 4) != 0)
-  {
-    return 0;
-  }
-
-  if ((v4 & 2) == 0)
-  {
-    if ((v5 & 2) == 0)
-    {
-      goto LABEL_47;
-    }
-
-    return 0;
-  }
-
-  if ((v5 & 2) == 0 || *(a1 + 108) != *(a2 + 108))
-  {
-    return 0;
-  }
-
-LABEL_47:
-  v13 = *(a1 + 32);
-  v14 = *(a2 + 32);
-  v15 = *(a1 + 40) - v13;
-  if (v15 != *(a2 + 40) - v14)
-  {
-    return 0;
-  }
-
-  if (memcmp(v13, v14, v15))
-  {
-    return 0;
-  }
-
-  v16 = *(a1 + 8);
-  v17 = *(a2 + 8);
-  v18 = *(a1 + 16) - v16;
-  if (v18 != *(a2 + 16) - v17 || memcmp(v16, v17, v18))
-  {
-    return 0;
-  }
-
-  result = (v5 & 1) == 0;
-  if (v4)
-  {
-    return (v5 & 1) != 0 && *(a1 + 104) == *(a2 + 104);
-  }
-
-  return result;
-}
-
 uint64_t CMMsl::BatchedPPGData::hash_value(CMMsl::BatchedPPGData *this)
 {
   v2 = *(this + 70);
   if ((v2 & 0x100) != 0)
   {
-    v25 = *(this + 34);
+    v17 = *(this + 34);
     if ((v2 & 0x10) != 0)
     {
 LABEL_3:
-      v24 = *(this + 30);
+      v16 = *(this + 30);
       if ((v2 & 0x40) != 0)
       {
         goto LABEL_4;
@@ -181,14 +19,14 @@ LABEL_3:
 
   else
   {
-    v25 = 0;
+    v17 = 0;
     if ((v2 & 0x10) != 0)
     {
       goto LABEL_3;
     }
   }
 
-  v24 = 0;
+  v16 = 0;
   if ((v2 & 0x40) != 0)
   {
 LABEL_4:
@@ -227,24 +65,20 @@ LABEL_6:
 LABEL_11:
   v5 = 0;
 LABEL_12:
-  v6 = *(this + 10);
-  v7 = *(this + 11);
-  v8 = PBHashBytes();
-  v9 = *(this + 7);
-  v10 = *(this + 8);
-  v11 = PBHashBytes();
-  v12 = *(this + 70);
-  if ((v12 & 8) == 0)
+  v6 = PBHashBytes();
+  v7 = PBHashBytes();
+  v8 = *(this + 70);
+  if ((v8 & 8) == 0)
   {
-    v13 = 0;
-    if ((v12 & 4) != 0)
+    v9 = 0;
+    if ((v8 & 4) != 0)
     {
       goto LABEL_14;
     }
 
 LABEL_17:
-    v14 = 0;
-    if ((v12 & 2) != 0)
+    v10 = 0;
+    if ((v8 & 2) != 0)
     {
       goto LABEL_15;
     }
@@ -252,41 +86,37 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v13 = *(this + 29);
-  if ((v12 & 4) == 0)
+  v9 = *(this + 29);
+  if ((v8 & 4) == 0)
   {
     goto LABEL_17;
   }
 
 LABEL_14:
-  v14 = *(this + 28);
-  if ((v12 & 2) != 0)
+  v10 = *(this + 28);
+  if ((v8 & 2) != 0)
   {
 LABEL_15:
-    v15 = *(this + 27);
+    v11 = *(this + 27);
     goto LABEL_19;
   }
 
 LABEL_18:
-  v15 = 0;
+  v11 = 0;
 LABEL_19:
-  v16 = *(this + 4);
-  v17 = *(this + 5);
-  v18 = PBHashBytes();
-  v19 = *(this + 1);
-  v20 = *(this + 2);
-  v21 = PBHashBytes();
+  v12 = PBHashBytes();
+  v13 = PBHashBytes();
   if (*(this + 70))
   {
-    v22 = *(this + 26);
+    v14 = *(this + 26);
   }
 
   else
   {
-    v22 = 0;
+    v14 = 0;
   }
 
-  return v24 ^ v25 ^ v3 ^ v4 ^ v5 ^ v8 ^ v11 ^ v13 ^ v14 ^ v15 ^ v18 ^ v21 ^ v22;
+  return v16 ^ v17 ^ v3 ^ v4 ^ v5 ^ v6 ^ v7 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14;
 }
 
 uint64_t CMMsl::BatterySaverModeStatus::BatterySaverModeStatus(uint64_t this)
@@ -406,7 +236,6 @@ uint64_t CMMsl::BatterySaverModeStatus::formatText(CMMsl::BatterySaverModeStatus
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 12))
   {
-    v5 = *(this + 8);
     PB::TextFormatter::format(a2, "isBatterySaverModeEnabled");
   }
 
@@ -546,7 +375,6 @@ uint64_t CMMsl::BatterySaverModeStatus::writeTo(uint64_t this, PB::Writer *a2)
 {
   if (*(this + 12))
   {
-    v2 = *(this + 8);
     return PB::Writer::write(a2);
   }
 
@@ -818,7 +646,6 @@ uint64_t CMMsl::BatteryStatus::formatText(CMMsl::BatteryStatus *this, PB::TextFo
   v5 = *(this + 28);
   if ((v5 & 8) != 0)
   {
-    v7 = *(this + 24);
     PB::TextFormatter::format(a2, "charged");
     v5 = *(this + 28);
     if ((v5 & 2) == 0)
@@ -838,7 +665,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(this + 4);
   PB::TextFormatter::format(a2, "chargerFamily");
   v5 = *(this + 28);
   if ((v5 & 4) == 0)
@@ -853,7 +679,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  v9 = *(this + 5);
   PB::TextFormatter::format(a2, "chargerType");
   v5 = *(this + 28);
   if ((v5 & 0x10) == 0)
@@ -868,7 +693,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  v10 = *(this + 25);
   PB::TextFormatter::format(a2, "connected");
   v5 = *(this + 28);
   if ((v5 & 1) == 0)
@@ -887,7 +711,6 @@ LABEL_15:
   if ((*(this + 28) & 0x20) != 0)
   {
 LABEL_7:
-    v6 = *(this + 26);
     PB::TextFormatter::format(a2, "wasConnected");
   }
 
@@ -1280,7 +1103,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v5 = *(v3 + 24);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 28);
   if ((v4 & 0x10) == 0)
@@ -1295,7 +1117,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  v6 = *(v3 + 25);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 28);
   if ((v4 & 4) == 0)
@@ -1307,7 +1128,6 @@ LABEL_5:
     }
 
 LABEL_12:
-    v8 = *(v3 + 26);
     this = PB::Writer::write(a2);
     if ((*(v3 + 28) & 2) == 0)
     {
@@ -1318,7 +1138,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  v7 = *(v3 + 20);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 28);
   if ((v4 & 0x20) != 0)
@@ -1333,7 +1152,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  v9 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -1710,16 +1528,15 @@ uint64_t CMMsl::BioMotionAnchor::formatText(CMMsl::BioMotionAnchor *this, PB::Te
 
   if ((*(this + 52) & 2) != 0)
   {
-    v6 = *(this + 48);
     PB::TextFormatter::format(a2, "runSmoother");
   }
 
-  v7 = *(this + 1);
-  v8 = *(this + 2);
-  while (v7 != v8)
+  v6 = *(this + 1);
+  v7 = *(this + 2);
+  while (v6 != v7)
   {
-    v9 = *v7++;
-    PB::TextFormatter::format(a2, "velocity", v9);
+    v8 = *v6++;
+    PB::TextFormatter::format(a2, "velocity", v8);
   }
 
   return MEMORY[0x2821A4560](a2);
@@ -2084,7 +1901,6 @@ uint64_t CMMsl::BioMotionAnchor::writeTo(uint64_t this, PB::Writer *a2)
 
   if ((v8 & 2) != 0)
   {
-    v9 = *(v3 + 48);
 
     return PB::Writer::write(a2);
   }
@@ -2155,7 +1971,6 @@ BOOL CMMsl::BioMotionAnchor::operator==(uint64_t a1, uint64_t a2)
 
 BOOL CMMsl::Pose::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 64);
   if (*(a1 + 64))
   {
     if ((*(a2 + 64) & 1) == 0 || *(a1 + 56) != *(a2 + 56))
@@ -2169,48 +1984,48 @@ BOOL CMMsl::Pose::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  while (v4 != v3)
+  while (v3 != v2)
   {
-    if (*v4 != *v5)
+    if (*v3 != *v4)
     {
       return 0;
     }
 
+    ++v3;
     ++v4;
-    ++v5;
   }
 
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(a2 + 32);
-  if (v6 - v7 != *(a2 + 40) - v8)
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = *(a2 + 32);
+  if (v5 - v6 != *(a2 + 40) - v7)
   {
     return 0;
   }
 
-  if (v7 == v6)
+  if (v6 == v5)
   {
     return 1;
   }
 
-  v9 = v7 + 8;
+  v8 = v6 + 8;
   do
   {
-    v10 = *v8++;
-    result = *(v9 - 8) == v10;
-    v12 = *(v9 - 8) != v10 || v9 == v6;
-    v9 += 8;
+    v9 = *v7++;
+    result = *(v8 - 8) == v9;
+    v11 = *(v8 - 8) != v9 || v8 == v5;
+    v8 += 8;
   }
 
-  while (!v12);
+  while (!v11);
   return result;
 }
 
@@ -2227,15 +2042,13 @@ uint64_t CMMsl::BioMotionAnchor::hash_value(CMMsl::BioMotionAnchor *this)
     v3 = 0;
   }
 
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  v6 = PBHashBytes();
+  v4 = PBHashBytes();
   if (*(this + 52))
   {
-    v7 = *(this + 4);
-    if (v7 == 0.0)
+    v5 = *(this + 4);
+    if (v5 == 0.0)
     {
-      v7 = 0.0;
+      v5 = 0.0;
     }
 
     if ((*(this + 52) & 2) != 0)
@@ -2244,24 +2057,24 @@ uint64_t CMMsl::BioMotionAnchor::hash_value(CMMsl::BioMotionAnchor *this)
     }
 
 LABEL_10:
-    v8 = 0;
-    return v6 ^ v3 ^ *&v7 ^ v8;
+    v6 = 0;
+    return v4 ^ v3 ^ *&v5 ^ v6;
   }
 
-  v7 = 0.0;
+  v5 = 0.0;
   if ((*(this + 52) & 2) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_6:
-  v8 = *(this + 48);
-  return v6 ^ v3 ^ *&v7 ^ v8;
+  v6 = *(this + 48);
+  return v4 ^ v3 ^ *&v5 ^ v6;
 }
 
-uint64_t CMMsl::BioMotionAnchor::makePose(uint64_t this)
+void *CMMsl::BioMotionAnchor::makePose(void *this)
 {
-  if (!*(this + 40))
+  if (!this[5])
   {
     operator new();
   }
@@ -2301,11 +2114,11 @@ void CMMsl::BioMotionAnchorPose::~BioMotionAnchorPose(CMMsl::BioMotionAnchorPose
   JUMPOUT(0x25F8548F0);
 }
 
-void *CMMsl::BioMotionAnchorPose::BioMotionAnchorPose(void *this, const CMMsl::BioMotionAnchorPose *a2)
+CMMsl::BioMotionAnchorPose *CMMsl::BioMotionAnchorPose::BioMotionAnchorPose(CMMsl::BioMotionAnchorPose *this, const CMMsl::BioMotionAnchor **a2)
 {
   *this = &unk_286C1ED30;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -2313,13 +2126,13 @@ void *CMMsl::BioMotionAnchorPose::BioMotionAnchorPose(void *this, const CMMsl::B
   return this;
 }
 
-const CMMsl::BioMotionAnchorPose *CMMsl::BioMotionAnchorPose::operator=(const CMMsl::BioMotionAnchorPose *a1, const CMMsl::BioMotionAnchorPose *a2)
+uint64_t CMMsl::BioMotionAnchorPose::operator=(uint64_t a1, const CMMsl::BioMotionAnchor **a2)
 {
   if (a1 != a2)
   {
     CMMsl::BioMotionAnchorPose::BioMotionAnchorPose(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::BioMotionAnchorPose::~BioMotionAnchorPose(&v5);
   }
@@ -2538,9 +2351,9 @@ CMMsl::BioMotionAnchor *CMMsl::BioMotionAnchorPose::hash_value(CMMsl::BioMotionA
   return result;
 }
 
-uint64_t CMMsl::BioMotionAnchorPose::makeSuper(uint64_t this)
+void *CMMsl::BioMotionAnchorPose::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -3438,7 +3251,7 @@ uint64_t CMMsl::BioMotionLinkLengthFitParameters::BioMotionLinkLengthFitParamete
   return a1;
 }
 
-CMMsl *CMMsl::BioMotionLinkLengthFitParameters::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::BioMotionLinkLengthFitParameters::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4571,28 +4384,20 @@ uint64_t CMMsl::BioMotionLinkLengthFitParameters::hash_value(CMMsl::BioMotionLin
     v2 = 0;
   }
 
-  v3 = *(this + 4);
-  v4 = *(this + 5);
+  v3 = PBHashBytes();
+  v4 = PBHashBytes();
   v5 = PBHashBytes();
-  v6 = *(this + 10);
-  v7 = *(this + 11);
-  v8 = PBHashBytes();
-  v9 = *(this + 1);
-  v10 = *(this + 2);
-  v11 = PBHashBytes();
-  v12 = *(this + 7);
-  v13 = *(this + 8);
-  v14 = PBHashBytes();
+  v6 = PBHashBytes();
   if ((*(this + 144) & 1) == 0)
   {
-    v15 = 0.0;
+    v7 = 0.0;
     if ((*(this + 144) & 2) != 0)
     {
       goto LABEL_8;
     }
 
 LABEL_20:
-    v16 = 0.0;
+    v8 = 0.0;
     if ((*(this + 144) & 8) != 0)
     {
       goto LABEL_11;
@@ -4601,10 +4406,10 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v15 = *(this + 13);
-  if (v15 == 0.0)
+  v7 = *(this + 13);
+  if (v7 == 0.0)
   {
-    v15 = 0.0;
+    v7 = 0.0;
   }
 
   if ((*(this + 144) & 2) == 0)
@@ -4613,19 +4418,19 @@ LABEL_20:
   }
 
 LABEL_8:
-  v16 = *(this + 14);
-  if (v16 == 0.0)
+  v8 = *(this + 14);
+  if (v8 == 0.0)
   {
-    v16 = 0.0;
+    v8 = 0.0;
   }
 
   if ((*(this + 144) & 8) != 0)
   {
 LABEL_11:
-    v17 = *(this + 16);
-    if (v17 == 0.0)
+    v9 = *(this + 16);
+    if (v9 == 0.0)
     {
-      v17 = 0.0;
+      v9 = 0.0;
     }
 
     if ((*(this + 144) & 0x10) != 0)
@@ -4634,25 +4439,25 @@ LABEL_11:
     }
 
 LABEL_22:
-    v18 = 0.0;
-    return v5 ^ v2 ^ v8 ^ v11 ^ v14 ^ *&v15 ^ *&v16 ^ *&v17 ^ *&v18;
+    v10 = 0.0;
+    return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ *&v7 ^ *&v8 ^ *&v9 ^ *&v10;
   }
 
 LABEL_21:
-  v17 = 0.0;
+  v9 = 0.0;
   if ((*(this + 144) & 0x10) == 0)
   {
     goto LABEL_22;
   }
 
 LABEL_14:
-  v18 = *(this + 17);
-  if (v18 == 0.0)
+  v10 = *(this + 17);
+  if (v10 == 0.0)
   {
-    v18 = 0.0;
+    v10 = 0.0;
   }
 
-  return v5 ^ v2 ^ v8 ^ v11 ^ v14 ^ *&v15 ^ *&v16 ^ *&v17 ^ *&v18;
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ *&v7 ^ *&v8 ^ *&v9 ^ *&v10;
 }
 
 uint64_t CMMsl::BioMotionOnlineLinkLengthUpdate::BioMotionOnlineLinkLengthUpdate(uint64_t this)
@@ -4854,7 +4659,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 16);
   PB::TextFormatter::format(a2, "updatedLinkLengthX");
   v5 = *(this + 20);
   if ((v5 & 4) == 0)
@@ -4869,12 +4673,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  v8 = *(this + 17);
   PB::TextFormatter::format(a2, "updatedLinkLengthY");
   if ((*(this + 20) & 8) != 0)
   {
 LABEL_5:
-    v6 = *(this + 18);
     PB::TextFormatter::format(a2, "updatedLinkLengthZ");
   }
 
@@ -5075,7 +4877,7 @@ uint64_t CMMsl::BioMotionOnlineLinkLengthUpdate::writeTo(uint64_t this, PB::Writ
   if (v4)
   {
     this = PB::Writer::write(a2, *(this + 8));
-    v4 = v3[20];
+    v4 = *(v3 + 20);
     if ((v4 & 2) == 0)
     {
 LABEL_3:
@@ -5085,9 +4887,8 @@ LABEL_3:
       }
 
 LABEL_8:
-      v6 = v3[17];
       this = PB::Writer::write(a2);
-      if ((v3[20] & 8) == 0)
+      if ((*(v3 + 20) & 8) == 0)
       {
         return this;
       }
@@ -5101,9 +4902,8 @@ LABEL_8:
     goto LABEL_3;
   }
 
-  v5 = v3[16];
   this = PB::Writer::write(a2);
-  v4 = v3[20];
+  v4 = *(v3 + 20);
   if ((v4 & 4) != 0)
   {
     goto LABEL_8;
@@ -5116,7 +4916,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  v7 = v3[18];
 
   return PB::Writer::write(a2);
 }
@@ -5308,7 +5107,7 @@ void CMMsl::BioMotionPose::~BioMotionPose(CMMsl::BioMotionPose *this)
   JUMPOUT(0x25F8548F0);
 }
 
-CMMsl::BioMotionPose *CMMsl::BioMotionPose::BioMotionPose(char **this, char **a2)
+void **CMMsl::BioMotionPose::BioMotionPose(void **this, void **a2)
 {
   *this = &unk_286C1EE10;
   *(this + 1) = 0u;
@@ -5371,7 +5170,7 @@ LABEL_6:
   return this;
 }
 
-CMMsl *CMMsl::BioMotionPose::operator=(CMMsl *a1, char **a2)
+CMMsl *CMMsl::BioMotionPose::operator=(CMMsl *a1, void **a2)
 {
   if (a1 != a2)
   {
@@ -5471,7 +5270,7 @@ uint64_t CMMsl::BioMotionPose::BioMotionPose(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::BioMotionPose::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::BioMotionPose::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -5496,53 +5295,51 @@ uint64_t CMMsl::BioMotionPose::formatText(CMMsl::BioMotionPose *this, PB::TextFo
 
   if ((*(this + 144) & 2) != 0)
   {
-    v8 = *(this + 34);
     PB::TextFormatter::format(a2, "modelType");
   }
 
-  v9 = *(this + 4);
-  v10 = *(this + 5);
-  while (v9 != v10)
+  v8 = *(this + 4);
+  v9 = *(this + 5);
+  while (v8 != v9)
   {
-    v11 = *v9++;
-    PB::TextFormatter::format(a2, "rotationRate", v11);
+    v10 = *v8++;
+    PB::TextFormatter::format(a2, "rotationRate", v10);
   }
 
-  v12 = *(this + 144);
-  if ((v12 & 4) != 0)
+  v11 = *(this + 144);
+  if ((v11 & 4) != 0)
   {
-    v13 = *(this + 35);
     PB::TextFormatter::format(a2, "status");
-    v12 = *(this + 144);
+    v11 = *(this + 144);
   }
 
-  if (v12)
+  if (v11)
   {
     PB::TextFormatter::format(a2, "timestamp", *(this + 16));
   }
 
-  v14 = *(this + 7);
-  v15 = *(this + 8);
-  while (v14 != v15)
+  v12 = *(this + 7);
+  v13 = *(this + 8);
+  while (v12 != v13)
   {
-    v16 = *v14++;
-    PB::TextFormatter::format(a2, "translation", v16);
+    v14 = *v12++;
+    PB::TextFormatter::format(a2, "translation", v14);
   }
 
-  v17 = *(this + 10);
-  v18 = *(this + 11);
-  while (v17 != v18)
+  v15 = *(this + 10);
+  v16 = *(this + 11);
+  while (v15 != v16)
   {
-    v19 = *v17++;
-    PB::TextFormatter::format(a2, "userAcceleration", v19);
+    v17 = *v15++;
+    PB::TextFormatter::format(a2, "userAcceleration", v17);
   }
 
-  v20 = *(this + 13);
-  v21 = *(this + 14);
-  while (v20 != v21)
+  v18 = *(this + 13);
+  v19 = *(this + 14);
+  while (v18 != v19)
   {
-    v22 = *v20++;
-    PB::TextFormatter::format(a2, "velocity", v22);
+    v20 = *v18++;
+    PB::TextFormatter::format(a2, "velocity", v20);
   }
 
   return MEMORY[0x2821A4560](a2);
@@ -6671,7 +6468,6 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v20 = *(v3 + 140);
   this = PB::Writer::writeVarInt(a2);
   v19 = *(v3 + 144);
   if (v19)
@@ -6686,7 +6482,6 @@ LABEL_18:
   }
 
 LABEL_22:
-  v21 = *(v3 + 136);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -6825,31 +6620,21 @@ BOOL CMMsl::BioMotionPose::operator==(uint64_t a1, uint64_t a2)
 
 uint64_t CMMsl::BioMotionPose::hash_value(CMMsl::BioMotionPose *this)
 {
-  v2 = *(this + 1);
-  v3 = *(this + 2);
+  v2 = PBHashBytes();
+  v3 = PBHashBytes();
   v4 = PBHashBytes();
-  v5 = *(this + 7);
-  v6 = *(this + 8);
-  v7 = PBHashBytes();
-  v8 = *(this + 4);
-  v9 = *(this + 5);
-  v10 = PBHashBytes();
-  v11 = *(this + 10);
-  v12 = *(this + 11);
-  v13 = PBHashBytes();
-  v14 = *(this + 13);
-  v15 = *(this + 14);
-  v16 = PBHashBytes();
+  v5 = PBHashBytes();
+  v6 = PBHashBytes();
   if ((*(this + 144) & 4) != 0)
   {
-    v17 = *(this + 35);
+    v7 = *(this + 35);
     if (*(this + 144))
     {
 LABEL_3:
-      v18 = *(this + 16);
-      if (v18 == 0.0)
+      v8 = *(this + 16);
+      if (v8 == 0.0)
       {
-        v18 = 0.0;
+        v8 = 0.0;
       }
 
       if ((*(this + 144) & 2) != 0)
@@ -6858,29 +6643,29 @@ LABEL_3:
       }
 
 LABEL_9:
-      v19 = 0;
-      return v7 ^ v4 ^ v10 ^ v13 ^ v16 ^ v17 ^ *&v18 ^ v19;
+      v9 = 0;
+      return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ *&v8 ^ v9;
     }
   }
 
   else
   {
-    v17 = 0;
+    v7 = 0;
     if (*(this + 144))
     {
       goto LABEL_3;
     }
   }
 
-  v18 = 0.0;
+  v8 = 0.0;
   if ((*(this + 144) & 2) == 0)
   {
     goto LABEL_9;
   }
 
 LABEL_6:
-  v19 = *(this + 34);
-  return v7 ^ v4 ^ v10 ^ v13 ^ v16 ^ v17 ^ *&v18 ^ v19;
+  v9 = *(this + 34);
+  return v3 ^ v2 ^ v4 ^ v5 ^ v6 ^ v7 ^ *&v8 ^ v9;
 }
 
 uint64_t CMMsl::BioMotionPredictedPose::BioMotionPredictedPose(uint64_t this)
@@ -6917,12 +6702,12 @@ void CMMsl::BioMotionPredictedPose::~BioMotionPredictedPose(CMMsl::BioMotionPred
   JUMPOUT(0x25F8548F0);
 }
 
-uint64_t CMMsl::BioMotionPredictedPose::BioMotionPredictedPose(uint64_t this, const CMMsl::BioMotionPredictedPose *a2)
+CMMsl::BioMotionPredictedPose *CMMsl::BioMotionPredictedPose::BioMotionPredictedPose(CMMsl::BioMotionPredictedPose *this, const CMMsl::PoseState **a2)
 {
   *this = &unk_286C1EE48;
-  *(this + 8) = 0;
-  *(this + 28) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 7) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -6930,9 +6715,9 @@ uint64_t CMMsl::BioMotionPredictedPose::BioMotionPredictedPose(uint64_t this, co
   v2 = *(a2 + 28);
   if (v2)
   {
-    v3 = *(a2 + 2);
+    v3 = a2[2];
     *(this + 28) |= 1u;
-    *(this + 16) = v3;
+    *(this + 2) = v3;
     v2 = *(a2 + 28);
   }
 
@@ -6940,25 +6725,25 @@ uint64_t CMMsl::BioMotionPredictedPose::BioMotionPredictedPose(uint64_t this, co
   {
     v4 = *(a2 + 6);
     *(this + 28) |= 2u;
-    *(this + 24) = v4;
+    *(this + 6) = v4;
   }
 
   return this;
 }
 
-const CMMsl::BioMotionPredictedPose *CMMsl::BioMotionPredictedPose::operator=(const CMMsl::BioMotionPredictedPose *a1, const CMMsl::BioMotionPredictedPose *a2)
+const CMMsl::PoseState **CMMsl::BioMotionPredictedPose::operator=(const CMMsl::PoseState **a1, const CMMsl::PoseState **a2)
 {
   if (a1 != a2)
   {
     CMMsl::BioMotionPredictedPose::BioMotionPredictedPose(&v8, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v9;
+    v3 = a1[1];
+    a1[1] = v9;
     v9 = v3;
     v4 = v11;
-    v5 = *(a1 + 2);
-    v6 = *(a1 + 3);
-    *(a1 + 2) = v10;
-    *(a1 + 3) = v4;
+    v5 = a1[2];
+    v6 = a1[3];
+    a1[2] = v10;
+    a1[3] = v4;
     v10 = v5;
     v11 = v6;
     CMMsl::BioMotionPredictedPose::~BioMotionPredictedPose(&v8);
@@ -7004,7 +6789,7 @@ uint64_t CMMsl::BioMotionPredictedPose::BioMotionPredictedPose(uint64_t a1, uint
   return a1;
 }
 
-void *CMMsl::BioMotionPredictedPose::operator=(void *a1, uint64_t a2)
+void *CMMsl::BioMotionPredictedPose::operator=(void *a1, void *a2)
 {
   if (a1 != a2)
   {
@@ -7030,14 +6815,13 @@ uint64_t CMMsl::BioMotionPredictedPose::formatText(CMMsl::BioMotionPredictedPose
   PB::TextFormatter::beginObject(a2, a3);
   if ((*(this + 28) & 2) != 0)
   {
-    v5 = *(this + 6);
     PB::TextFormatter::format(a2, "modelType");
   }
 
-  v6 = *(this + 1);
-  if (v6)
+  v5 = *(this + 1);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, a2, "state");
+    (*(*v5 + 32))(v5, a2, "state");
   }
 
   if (*(this + 28))
@@ -7301,7 +7085,6 @@ uint64_t CMMsl::BioMotionPredictedPose::writeTo(uint64_t this, PB::Writer *a2)
 
   if ((v5 & 2) != 0)
   {
-    v6 = *(v3 + 24);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -7430,9 +7213,9 @@ LABEL_5:
   return *&v3 ^ v2 ^ v4;
 }
 
-uint64_t CMMsl::BioMotionPredictedPose::makeState(uint64_t this)
+void *CMMsl::BioMotionPredictedPose::makeState(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -7472,11 +7255,11 @@ void CMMsl::BioMotionPropagatedAnchor::~BioMotionPropagatedAnchor(CMMsl::BioMoti
   JUMPOUT(0x25F8548F0);
 }
 
-void *CMMsl::BioMotionPropagatedAnchor::BioMotionPropagatedAnchor(void *this, const CMMsl::BioMotionPropagatedAnchor *a2)
+CMMsl::BioMotionPropagatedAnchor *CMMsl::BioMotionPropagatedAnchor::BioMotionPropagatedAnchor(CMMsl::BioMotionPropagatedAnchor *this, const CMMsl::PropagatedAnchor **a2)
 {
   *this = &unk_286C1EE80;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -7484,13 +7267,13 @@ void *CMMsl::BioMotionPropagatedAnchor::BioMotionPropagatedAnchor(void *this, co
   return this;
 }
 
-const CMMsl::BioMotionPropagatedAnchor *CMMsl::BioMotionPropagatedAnchor::operator=(const CMMsl::BioMotionPropagatedAnchor *a1, const CMMsl::BioMotionPropagatedAnchor *a2)
+uint64_t CMMsl::BioMotionPropagatedAnchor::operator=(uint64_t a1, const CMMsl::PropagatedAnchor **a2)
 {
   if (a1 != a2)
   {
     CMMsl::BioMotionPropagatedAnchor::BioMotionPropagatedAnchor(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::BioMotionPropagatedAnchor::~BioMotionPropagatedAnchor(&v5);
   }
@@ -7775,9 +7558,9 @@ CMMsl::PropagatedAnchor *CMMsl::BioMotionPropagatedAnchor::hash_value(CMMsl::Bio
   return result;
 }
 
-uint64_t CMMsl::BioMotionPropagatedAnchor::makeSuper(uint64_t this)
+void *CMMsl::BioMotionPropagatedAnchor::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -7819,12 +7602,12 @@ void CMMsl::BleedToZeroCorrection::~BleedToZeroCorrection(CMMsl::BleedToZeroCorr
   JUMPOUT(0x25F8548F0);
 }
 
-uint64_t CMMsl::BleedToZeroCorrection::BleedToZeroCorrection(uint64_t this, const CMMsl::BleedToZeroCorrection *a2)
+CMMsl::BleedToZeroCorrection *CMMsl::BleedToZeroCorrection::BleedToZeroCorrection(CMMsl::BleedToZeroCorrection *this, const CMMsl::DeviceMotionCorrection **a2)
 {
   *this = &unk_286C1EEB8;
-  *(this + 8) = 0;
-  *(this + 20) = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  *(this + 5) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -7839,7 +7622,7 @@ uint64_t CMMsl::BleedToZeroCorrection::BleedToZeroCorrection(uint64_t this, cons
   return this;
 }
 
-uint64_t CMMsl::BleedToZeroCorrection::operator=(uint64_t a1, const CMMsl::BleedToZeroCorrection *a2)
+uint64_t CMMsl::BleedToZeroCorrection::operator=(uint64_t a1, const CMMsl::DeviceMotionCorrection **a2)
 {
   if (a1 != a2)
   {
@@ -7923,7 +7706,6 @@ uint64_t CMMsl::BleedToZeroCorrection::formatText(CMMsl::BleedToZeroCorrection *
 
   if (*(this + 20))
   {
-    v6 = *(this + 16);
     PB::TextFormatter::format(a2, "withAnchoredStaticPose");
   }
 
@@ -8074,7 +7856,6 @@ uint64_t CMMsl::BleedToZeroCorrection::writeTo(uint64_t this, PB::Writer *a2)
 
   if (*(v3 + 20))
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::write(a2);
   }
@@ -8129,9 +7910,9 @@ unint64_t CMMsl::BleedToZeroCorrection::hash_value(CMMsl::BleedToZeroCorrection 
   return v3 ^ v2;
 }
 
-uint64_t CMMsl::BleedToZeroCorrection::makeCorrection(uint64_t this)
+void *CMMsl::BleedToZeroCorrection::makeCorrection(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -8469,7 +8250,7 @@ float CMMsl::BodyMetrics::BodyMetrics(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::BodyMetrics::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::BodyMetrics::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -8520,7 +8301,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  v6 = *(this + 60);
   PB::TextFormatter::format(a2, "betaBlockerUse");
   v5 = *(this + 32);
   if ((v5 & 4) == 0)
@@ -8535,7 +8315,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  v7 = *(this + 4);
   PB::TextFormatter::format(a2, "biologicalSex");
   v5 = *(this + 32);
   if ((v5 & 8) == 0)
@@ -8550,7 +8329,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  v8 = *(this + 5);
   PB::TextFormatter::format(a2, "condition");
   v5 = *(this + 32);
   if ((v5 & 0x10) == 0)
@@ -8565,7 +8343,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  v9 = *(this + 6);
   PB::TextFormatter::format(a2, "gender");
   v5 = *(this + 32);
   if ((v5 & 0x20) == 0)
@@ -9177,7 +8954,6 @@ uint64_t CMMsl::BodyMetrics::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 64);
   if ((v4 & 0x10) != 0)
   {
-    v5 = *(this + 24);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 64);
     if ((v4 & 0x20) == 0)
@@ -9309,7 +9085,6 @@ LABEL_11:
   }
 
 LABEL_25:
-  v6 = *(v3 + 20);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 64);
   if ((v4 & 0x400) == 0)
@@ -9335,7 +9110,6 @@ LABEL_13:
     }
 
 LABEL_28:
-    v8 = *(v3 + 16);
     this = PB::Writer::writeVarInt(a2);
     if ((*(v3 + 64) & 1) == 0)
     {
@@ -9346,7 +9120,6 @@ LABEL_28:
   }
 
 LABEL_27:
-  v7 = *(v3 + 60);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 64);
   if ((v4 & 4) != 0)
@@ -9361,9 +9134,9 @@ LABEL_14:
   }
 
 LABEL_29:
-  v9 = *(v3 + 8);
+  v5 = *(v3 + 8);
 
-  return PB::Writer::write(a2, v9);
+  return PB::Writer::write(a2, v5);
 }
 
 BOOL CMMsl::BodyMetrics::operator==(uint64_t a1, uint64_t a2)
@@ -9844,4 +9617,234 @@ void CMMsl::BraveHeartAccel::~BraveHeartAccel(CMMsl::BraveHeartAccel *this)
   PB::Base::~Base(this);
 
   JUMPOUT(0x25F8548F0);
+}
+
+CMMsl::BraveHeartAccel *CMMsl::BraveHeartAccel::BraveHeartAccel(CMMsl::BraveHeartAccel *this, const CMMsl::BraveHeartAccel *a2)
+{
+  *(this + 1) = 0;
+  *this = &unk_286C1EF28;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  if (*(a2 + 1) != *(a2 + 2))
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t CMMsl::BraveHeartAccel::operator=(uint64_t a1, const CMMsl::BraveHeartAccel *a2)
+{
+  if (a1 != a2)
+  {
+    CMMsl::BraveHeartAccel::BraveHeartAccel(&v6, a2);
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v7;
+    v7 = v3;
+    v4 = *(a1 + 24);
+    *(a1 + 24) = v8;
+    v8 = v4;
+    v6 = &unk_286C1EF28;
+    v9 = &v7;
+    sub_25AD28930(&v9);
+    PB::Base::~Base(&v6);
+  }
+
+  return a1;
+}
+
+void *CMMsl::swap(void *this, CMMsl::BraveHeartAccel *a2, CMMsl::BraveHeartAccel *a3)
+{
+  v3 = this[1];
+  this[1] = *(a2 + 1);
+  *(a2 + 1) = v3;
+  v4 = this[2];
+  this[2] = *(a2 + 2);
+  *(a2 + 2) = v4;
+  v5 = this[3];
+  this[3] = *(a2 + 3);
+  *(a2 + 3) = v5;
+  return this;
+}
+
+void **CMMsl::BraveHeartAccel::BraveHeartAccel(void **a1, uint64_t a2)
+{
+  *a1 = &unk_286C1EF28;
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_25AD289F0(a1 + 1);
+  *v4 = *(a2 + 8);
+  a1[3] = *(a2 + 24);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  return a1;
+}
+
+{
+  *a1 = &unk_286C1EF28;
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_25AD289F0(a1 + 1);
+  *v4 = *(a2 + 8);
+  a1[3] = *(a2 + 24);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  return a1;
+}
+
+uint64_t CMMsl::BraveHeartAccel::operator=(uint64_t a1, uint64_t a2)
+{
+  if (a1 != a2)
+  {
+    v9 = &unk_286C1EF28;
+    v10 = 0uLL;
+    v11 = 0;
+    sub_25AD289F0(&v10);
+    v4 = *(a2 + 24);
+    v5 = *(a2 + 8);
+    *(a2 + 16) = 0;
+    *(a2 + 24) = 0;
+    *(a2 + 8) = 0;
+    v6 = *(a1 + 8);
+    *(a1 + 8) = v5;
+    v10 = v6;
+    v7 = *(a1 + 24);
+    *(a1 + 24) = v4;
+    v11 = v7;
+    v12 = &v10;
+    v9 = &unk_286C1EF28;
+    sub_25AD28930(&v12);
+    PB::Base::~Base(&v9);
+  }
+
+  return a1;
+}
+
+uint64_t CMMsl::BraveHeartAccel::formatText(CMMsl::BraveHeartAccel *this, PB::TextFormatter *a2, const char *a3)
+{
+  PB::TextFormatter::beginObject(a2, a3);
+  v5 = *(this + 1);
+  v6 = *(this + 2);
+  while (v5 != v6)
+  {
+    v7 = *v5++;
+    (*(*v7 + 32))(v7, a2, "accel");
+  }
+
+  return MEMORY[0x2821A4560](a2);
+}
+
+uint64_t CMMsl::BraveHeartAccel::readFrom(CMMsl::BraveHeartAccel *this, PB::Reader *a2)
+{
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 2);
+  v4 = *(a2 + 24);
+  if (v2 < v3 && (*(a2 + 24) & 1) == 0)
+  {
+    while (1)
+    {
+      v6 = *a2;
+      if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
+      {
+        break;
+      }
+
+      v7 = 0;
+      v8 = 0;
+      v9 = 0;
+      v10 = (v6 + v2);
+      v11 = v2 + 1;
+      while (1)
+      {
+        *(a2 + 1) = v11;
+        v12 = *v10++;
+        v9 |= (v12 & 0x7F) << v7;
+        if ((v12 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v7 += 7;
+        ++v11;
+        v13 = v8++ > 8;
+        if (v13)
+        {
+          goto LABEL_21;
+        }
+      }
+
+LABEL_18:
+      if ((v9 & 7) == 4)
+      {
+        v4 = 0;
+        goto LABEL_27;
+      }
+
+      if ((v9 >> 3) == 1)
+      {
+        operator new();
+      }
+
+LABEL_21:
+      if ((PB::Reader::skip(a2) & 1) == 0)
+      {
+        v22 = 0;
+        return v22 & 1;
+      }
+
+      v2 = *(a2 + 1);
+      v3 = *(a2 + 2);
+      v4 = *(a2 + 24);
+      if (v2 >= v3 || (*(a2 + 24) & 1) != 0)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    v14 = 0;
+    v15 = 0;
+    v9 = 0;
+    v16 = (v6 + v2);
+    v17 = v3 >= v2;
+    v18 = v3 - v2;
+    if (!v17)
+    {
+      v18 = 0;
+    }
+
+    v19 = v2 + 1;
+    while (v18)
+    {
+      v20 = *v16;
+      *(a2 + 1) = v19;
+      v9 |= (v20 & 0x7F) << v14;
+      if ((v20 & 0x80) == 0)
+      {
+        goto LABEL_18;
+      }
+
+      v14 += 7;
+      ++v16;
+      --v18;
+      ++v19;
+      v13 = v15++ > 8;
+      if (v13)
+      {
+        goto LABEL_21;
+      }
+    }
+
+    v4 = 1;
+    *(a2 + 24) = 1;
+  }
+
+LABEL_27:
+  v22 = v4 ^ 1;
+  return v22 & 1;
 }

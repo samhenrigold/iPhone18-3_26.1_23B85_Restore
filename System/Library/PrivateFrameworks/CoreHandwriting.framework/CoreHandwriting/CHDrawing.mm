@@ -1527,7 +1527,7 @@ LABEL_11:
   {
     if (drawingCopy)
     {
-      sub_1837088E8(&v15, &drawingCopy->_drawing);
+      sub_1837088E8(&v15, drawingCopy + 16);
     }
 
     bzero(&v15, 0x280uLL);
@@ -1778,7 +1778,7 @@ LABEL_16:
     sub_183707A70(STACK[0xA60] + 24 * v21, &v90);
     v87 = v19;
     v26 = v23 - v24;
-    v89[0] = v26 >> 1;
+    v89 = v26 >> 1;
     *(STACK[0xA18] + 8 * (v21 >> 6)) &= ~(1 << v21);
     ++v20;
     if (v26 >= 4)
@@ -1787,7 +1787,7 @@ LABEL_16:
     }
 
 LABEL_22:
-    v19 = v87 + LODWORD(v89[0]);
+    v19 = v87 + v89;
     if (++v21 == v86)
     {
       if (v19 * 0.1 > v20)
@@ -2073,7 +2073,7 @@ LABEL_26:
 LABEL_27:
     ++v29;
     v27 += 16;
-    if (v89[0] == v29)
+    if (v89 == v29)
     {
       goto LABEL_22;
     }
@@ -2086,7 +2086,7 @@ LABEL_27:
   v6 = objc_msgSend_copy(self, a2, v2, v3, v4, v5);
   if (v6)
   {
-    sub_1837088E8(&STACK[0x8C0], v6 + 128);
+    sub_1837088E8(&STACK[0x8C0], (v6 + 128));
   }
 
   bzero(&STACK[0x8C0], 0x280uLL);
@@ -2121,7 +2121,7 @@ LABEL_27:
   STACK[0x8D8] = 0;
   STACK[0x8E0] = v9;
   STACK[0x8E8] = 0;
-  sub_1837088E8(v12, &STACK[0x8C0]);
+  sub_1837088E8(&v12, &STACK[0x8C0]);
 }
 
 - (id)sortedDrawingUsingStrokeMidPoint:(id *)point
@@ -2307,7 +2307,7 @@ LABEL_27:
   v9 = objc_msgSend_copy(self, a2, map, v4, v5, v6);
   if (v9)
   {
-    sub_1837088E8(&STACK[0xCC0], v9 + 128);
+    sub_1837088E8(&STACK[0xCC0], (v9 + 128));
   }
 
   bzero(&STACK[0xCC0], 0x280uLL);
@@ -2323,7 +2323,7 @@ LABEL_27:
   v9 = objc_msgSend_copy(self, a2, stroke, v4, v5, v6);
   if (v9)
   {
-    sub_1837088E8(&STACK[0xCC0], v9 + 128);
+    sub_1837088E8(&STACK[0xCC0], (v9 + 128));
   }
 
   bzero(&STACK[0xCC0], 0x280uLL);
@@ -2339,7 +2339,7 @@ LABEL_27:
   v8 = objc_msgSend_copy(self, a2, v3, v4, v5, v6);
   if (v8)
   {
-    sub_1837088E8(&STACK[0xDE0], v8 + 128);
+    sub_1837088E8(&STACK[0xDE0], (v8 + 128));
   }
 
   bzero(&STACK[0xDE0], 0x280uLL);

@@ -26,7 +26,7 @@
     return *(&off_10005DBB8 + v4);
   }
 
-  v6 = sub_100002830();
+  v6 = sub_100002830(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100037D3C(type, v6);

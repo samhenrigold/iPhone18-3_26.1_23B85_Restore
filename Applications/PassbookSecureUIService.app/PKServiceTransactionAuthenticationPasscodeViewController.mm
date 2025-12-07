@@ -7,6 +7,8 @@
 - (void)passcodeViewControllerDidEndSessionExchange:(id)exchange;
 - (void)resetWithTransactionAuthenticationFailure:(int64_t)failure completion:(id)completion;
 - (void)setPassUniqueIdentifier:(id)identifier transactionIdentifier:(id)transactionIdentifier archivedAnalyticsSessionToken:(id)token completionHandler:(id)handler;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PKServiceTransactionAuthenticationPasscodeViewController
@@ -18,6 +20,32 @@
   [(PKServiceTransactionAuthenticationPasscodeViewController *)&v4 _hostApplicationDidEnterBackground];
   _remoteViewControllerProxy = [(PKServiceTransactionAuthenticationPasscodeViewController *)self _remoteViewControllerProxy];
   [_remoteViewControllerProxy passcodeViewControllerDidCancel];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = PKServiceTransactionAuthenticationPasscodeViewController;
+  [(PKServiceTransactionAuthenticationPasscodeViewController *)&v5 viewWillAppear:appear];
+  if (self->_archivedAnalyticsSessionToken)
+  {
+    [PKAnalyticsReporter beginSubjectReporting:PKAnalyticsSubjectSecureUIService withArchivedParent:?];
+    archivedAnalyticsSessionToken = self->_archivedAnalyticsSessionToken;
+    self->_archivedAnalyticsSessionToken = 0;
+  }
+
+  else
+  {
+    [PKAnalyticsReporter beginSubjectReporting:PKAnalyticsSubjectSecureUIService];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = PKServiceTransactionAuthenticationPasscodeViewController;
+  [(PKServiceTransactionAuthenticationPasscodeViewController *)&v3 viewDidDisappear:disappear];
+  [PKAnalyticsReporter endSubjectReporting:PKAnalyticsSubjectSecureUIService];
 }
 
 - (void)setPassUniqueIdentifier:(id)identifier transactionIdentifier:(id)transactionIdentifier archivedAnalyticsSessionToken:(id)token completionHandler:(id)handler
@@ -86,7 +114,7 @@
 
 - (BOOL)_isHostProcessEntitled
 {
-  [(PKServiceTransactionAuthenticationPasscodeViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self, a2);
   v2 = SecTaskCreateWithAuditToken(0, &v7);
   if (!v2)
   {

@@ -21,7 +21,7 @@
 
 - (id)representativeAssetsFromMomentNode:(id)node curationContext:(id)context
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   contextCopy = context;
   v8 = [MEMORY[0x277CBEB58] set];
@@ -31,36 +31,36 @@
     addressEdges = [nodeCopy addressEdges];
     if ([addressEdges count])
     {
-      v48 = v9;
-      v45 = contextCopy;
-      v46 = nodeCopy;
-      v50 = [(PGSurveyQuestionFactory *)self assetsFromMomentNode:nodeCopy curationContext:contextCopy];
+      v47 = v9;
+      v44 = contextCopy;
+      v45 = nodeCopy;
+      v49 = [(PGSurveyQuestionFactory *)self assetsFromMomentNode:nodeCopy curationContext:contextCopy];
+      v57 = 0u;
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
-      v44 = addressEdges;
+      v43 = addressEdges;
       obj = addressEdges;
-      v51 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
-      if (v51)
+      v50 = [obj countByEnumeratingWithState:&v57 objects:v63 count:16];
+      if (v50)
       {
-        v49 = *v59;
+        v48 = *v58;
         do
         {
-          for (i = 0; i != v51; ++i)
+          for (i = 0; i != v50; ++i)
           {
-            if (*v59 != v49)
+            if (*v58 != v48)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v58 + 1) + 8 * i);
+            v12 = *(*(&v57 + 1) + 8 * i);
+            v55 = 0;
             v56 = 0;
-            v57 = 0;
             photoLocation = [v12 photoLocation];
             [photoLocation coordinate];
-            v56 = v14;
-            v57 = v15;
+            v55 = v14;
+            v56 = v15;
 
             array = [MEMORY[0x277CBEB18] array];
             universalStartDate = [v12 universalStartDate];
@@ -91,26 +91,26 @@
               v23 = 0;
             }
 
-            v54 = 0u;
-            v55 = 0u;
-            v52 = 0u;
             v53 = 0u;
-            v25 = v50;
-            v26 = [v25 countByEnumeratingWithState:&v52 objects:v62 count:16];
+            v54 = 0u;
+            v51 = 0u;
+            v52 = 0u;
+            v25 = v49;
+            v26 = [v25 countByEnumeratingWithState:&v51 objects:v61 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v53;
+              v28 = *v52;
               do
               {
                 for (j = 0; j != v27; ++j)
                 {
-                  if (*v53 != v28)
+                  if (*v52 != v28)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  v30 = *(*(&v52 + 1) + 8 * j);
+                  v30 = *(*(&v51 + 1) + 8 * j);
                   creationDate = [v30 creationDate];
                   if (v23)
                   {
@@ -132,7 +132,7 @@
                   }
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v52 objects:v62 count:16];
+                v27 = [v25 countByEnumeratingWithState:&v51 objects:v61 count:16];
               }
 
               while (v27);
@@ -141,22 +141,22 @@
             if ([array count])
             {
               v36 = [array objectAtIndexedSubscript:{arc4random_uniform(objc_msgSend(array, "count"))}];
-              [v48 addObject:v36];
+              [v47 addObject:v36];
             }
           }
 
-          v51 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
+          v50 = [obj countByEnumeratingWithState:&v57 objects:v63 count:16];
         }
 
-        while (v51);
+        while (v50);
       }
 
-      v9 = v48;
-      v39 = v48;
+      v9 = v47;
+      v39 = v47;
 
-      contextCopy = v45;
-      nodeCopy = v46;
-      addressEdges = v44;
+      contextCopy = v44;
+      nodeCopy = v45;
+      addressEdges = v43;
     }
 
     else
@@ -170,51 +170,49 @@
     v40 = v8;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)_assetFromAssets:(id)assets closestToLocationCoordinate:(CLLocationCoordinate2D)coordinate radius:(double)radius
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   coordinateCopy = coordinate;
   v6 = MEMORY[0x277CCAC98];
   assetsCopy = assets;
   v8 = [v6 sortDescriptorWithKey:@"creationDate" ascending:1];
-  v39[0] = v8;
+  v38[0] = v8;
   v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v39[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v38[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
   v11 = [assetsCopy sortedArrayUsingDescriptors:v10];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
     v16 = 0;
     v17 = *MEMORY[0x277CE41E0];
-    v18 = *v34;
+    v18 = *v33;
     v19 = *MEMORY[0x277CE41E0];
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v34 != v18)
+        if (*v33 != v18)
         {
           objc_enumerationMutation(v12);
         }
 
-        v21 = *(*(&v33 + 1) + 8 * i);
+        v21 = *(*(&v32 + 1) + 8 * i);
         [v21 locationCoordinate];
-        v32 = v40;
-        if (CLLocationCoordinate2DIsValid(v40))
+        v31 = v39;
+        if (CLLocationCoordinate2DIsValid(v39))
         {
           CLLocationCoordinate2DGetDistanceFrom();
           v23 = v22;
@@ -236,7 +234,7 @@
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v33 objects:v38 count:{16, *&v32.latitude, *&v32.longitude}];
+      v14 = [v12 countByEnumeratingWithState:&v32 objects:v37 count:{16, *&v31.latitude, *&v31.longitude}];
     }
 
     while (v14);
@@ -260,7 +258,6 @@
 
   v29 = v28;
 
-  v30 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -345,7 +342,7 @@ LABEL_14:
 
 - (id)assetsFromMomentNode:(id)node curationContext:(id)context
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   photoLibrary = [(PGManagerWorkingContext *)self->_workingContext photoLibrary];
   v7 = [nodeCopy fetchAssetCollectionInPhotoLibrary:photoLibrary];
@@ -354,74 +351,72 @@ LABEL_14:
   librarySpecificFetchOptions = [photoLibrary2 librarySpecificFetchOptions];
 
   v10 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v27[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   [librarySpecificFetchOptions setSortDescriptors:v11];
 
   v12 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollection:v7 options:librarySpecificFetchOptions];
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v22 + 1) + 8 * i);
+        v19 = *(*(&v21 + 1) + 8 * i);
         if (([v19 clsIsScreenshotOrScreenRecording] & 1) == 0)
         {
           [array addObject:v19];
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_questionsByEntityIdentifierFromQuestions:(id)questions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   questionsCopy = questions;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = questionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         entityIdentifier = [v10 entityIdentifier];
         array = [dictionary objectForKeyedSubscript:entityIdentifier];
         if (!array)
@@ -433,13 +428,11 @@ LABEL_14:
         [array addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -462,7 +455,7 @@ LABEL_14:
 
 - (id)fetchExistingQuestions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   photoLibrary = [(PGManagerWorkingContext *)self->_workingContext photoLibrary];
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
@@ -481,13 +474,11 @@ LABEL_14:
     v12 = objc_opt_class();
     v13 = NSStringFromClass(v12);
     *buf = 67109378;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v13;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v13;
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "%d existing questions found for factory %@", buf, 0x12u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -532,7 +523,7 @@ LABEL_14:
 
 - (BOOL)questionAlreadyExists:(id)exists
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   existsCopy = exists;
   if ([(PGSurveyQuestionFactory *)self ignoreExistingQuestions])
   {
@@ -547,32 +538,32 @@ LABEL_14:
 
     if (v8)
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v9 = v8;
-      v5 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
-        v10 = *v15;
+        v10 = *v14;
         while (2)
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(v9);
             }
 
-            if ([existsCopy isEquivalentToPersistedQuestion:{*(*(&v14 + 1) + 8 * i), v14}])
+            if ([existsCopy isEquivalentToPersistedQuestion:{*(*(&v13 + 1) + 8 * i), v13}])
             {
               LOBYTE(v5) = 1;
               goto LABEL_14;
             }
           }
 
-          v5 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v5 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v5)
           {
             continue;
@@ -591,7 +582,6 @@ LABEL_14:
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -626,12 +616,10 @@ LABEL_14:
 
 - (NSArray)collidingQuestionTypes
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{-[PGSurveyQuestionFactory questionType](self, "questionType")}];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }

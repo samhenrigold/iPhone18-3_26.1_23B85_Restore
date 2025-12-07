@@ -12,11 +12,11 @@
 
 - (CRSUIPunchThroughController)initWithPunchThroughIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v24.receiver = self;
-  v24.super_class = CRSUIPunchThroughController;
-  v6 = [(CRSUIPunchThroughController *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = CRSUIPunchThroughController;
+  v6 = [(CRSUIPunchThroughController *)&v23 init];
   v7 = v6;
   if (v6)
   {
@@ -32,27 +32,26 @@
 
     objc_initWeak(&location, v7);
     v13 = v7->_connection;
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __62__CRSUIPunchThroughController_initWithPunchThroughIdentifier___block_invoke;
-    v21 = &unk_278DA0CF0;
-    objc_copyWeak(&v22, &location);
-    [(BSServiceConnection *)v13 configureConnection:&v18];
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __62__CRSUIPunchThroughController_initWithPunchThroughIdentifier___block_invoke;
+    v20 = &unk_278DA0CF0;
+    objc_copyWeak(&v21, &location);
+    [(BSServiceConnection *)v13 configureConnection:&v17];
     v14 = CRSUILogForCategory(5uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = v7->_connection;
       *buf = 138412290;
-      v26 = v15;
+      v25 = v15;
       _os_log_impl(&dword_243218000, v14, OS_LOG_TYPE_DEFAULT, "Activating connection! %@", buf, 0xCu);
     }
 
-    [(BSServiceConnection *)v7->_connection activate:v18];
-    objc_destroyWeak(&v22);
+    [(BSServiceConnection *)v7->_connection activate:v17];
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -81,20 +80,18 @@ void __62__CRSUIPunchThroughController_initWithPunchThroughIdentifier___block_in
 
 void __62__CRSUIPunchThroughController_initWithPunchThroughIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = CRSUILogForCategory(5uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Connection activated! %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_243218000, v4, OS_LOG_TYPE_DEFAULT, "Connection activated! %@", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _handleConnectionActivated];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __62__CRSUIPunchThroughController_initWithPunchThroughIdentifier___block_invoke_4(uint64_t a1, void *a2)
@@ -121,7 +118,6 @@ void __62__CRSUIPunchThroughController_initWithPunchThroughIdentifier___block_in
 {
   completionCopy = completion;
   os_unfair_lock_lock(&self->_lock);
-  lock_invalidated = self->_lock_invalidated;
   if (self->_lock_connectionActivated)
   {
     if (!self->_lock_invalidated)
@@ -129,14 +125,14 @@ void __62__CRSUIPunchThroughController_initWithPunchThroughIdentifier___block_in
       connection = [(CRSUIPunchThroughController *)self connection];
       remoteTarget = [connection remoteTarget];
       punchThroughIdentifier = [(CRSUIPunchThroughController *)self punchThroughIdentifier];
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __65__CRSUIPunchThroughController_requestPresentationWithCompletion___block_invoke;
-      v11[3] = &unk_278DA0E70;
-      v12 = completionCopy;
-      [remoteTarget clientRequestPresentationForPunchThroughIdentifier:punchThroughIdentifier completion:v11];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __65__CRSUIPunchThroughController_requestPresentationWithCompletion___block_invoke;
+      v10[3] = &unk_278DA0E70;
+      v11 = completionCopy;
+      [remoteTarget clientRequestPresentationForPunchThroughIdentifier:punchThroughIdentifier completion:v10];
 
-      lock_pendingPresentationCompletion = v12;
+      lock_pendingPresentationCompletion = v11;
 LABEL_6:
     }
   }
@@ -144,9 +140,9 @@ LABEL_6:
   else if (!self->_lock_invalidated)
   {
     self->_lock_hasPendingPresentationRequest = 1;
-    v10 = MEMORY[0x245D2CF20](completionCopy);
+    v9 = MEMORY[0x245D2CF20](completionCopy);
     lock_pendingPresentationCompletion = self->_lock_pendingPresentationCompletion;
-    self->_lock_pendingPresentationCompletion = v10;
+    self->_lock_pendingPresentationCompletion = v9;
     goto LABEL_6;
   }
 
@@ -227,7 +223,7 @@ uint64_t __62__CRSUIPunchThroughController_requestDismissalWithCompletion___bloc
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lock_invalidated)
   {
@@ -235,9 +231,9 @@ uint64_t __62__CRSUIPunchThroughController_requestDismissalWithCompletion___bloc
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       connection = self->_connection;
-      v6 = 138412290;
-      v7 = connection;
-      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = connection;
+      _os_log_impl(&dword_243218000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection! %@", &v5, 0xCu);
     }
 
     [(BSServiceConnection *)self->_connection invalidate];
@@ -245,7 +241,6 @@ uint64_t __62__CRSUIPunchThroughController_requestDismissalWithCompletion___bloc
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serverDismissedPunchThroughIdentifier:(id)identifier

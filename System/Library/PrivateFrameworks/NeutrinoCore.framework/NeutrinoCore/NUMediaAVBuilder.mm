@@ -242,19 +242,19 @@ LABEL_49:
                 {
                   v39 = mediaType;
                   v40 = [v15 addMutableTrackWithMediaType:mediaType preferredTrackID:{objc_msgSend(resourceID2, "trackID")}];
-                  [resourceID2 timeRange];
+                  objc_msgSend_timeRange(resourceID2);
                   if (v141)
                   {
-                    [resourceID2 timeRange];
+                    objc_msgSend_timeRange(resourceID2);
                     if (v140)
                     {
-                      [resourceID2 timeRange];
+                      objc_msgSend_timeRange(resourceID2);
                       if (!v139)
                       {
-                        [resourceID2 timeRange];
+                        objc_msgSend_timeRange(resourceID2);
                         if ((v138 & 0x8000000000000000) == 0)
                         {
-                          [resourceID2 timeRange];
+                          objc_msgSend_timeRange(resourceID2);
                           time2 = **&MEMORY[0x1E6960CC0];
                           if (![v40 insertTimeRange:buf ofTrack:resourceID2 atTime:&time2 error:errorCopy])
                           {
@@ -386,10 +386,10 @@ LABEL_53:
       [v57 naturalSize];
       [v58 setRenderSize:?];
       [v58 setSourceTrackIDForFrameTiming:{objc_msgSend(v57, "trackID")}];
-      [v57 minFrameDuration];
+      objc_msgSend_minFrameDuration(v57);
       if (v131)
       {
-        [v57 minFrameDuration];
+        objc_msgSend_minFrameDuration(v57);
         *buf = v129;
         epoch = v130;
       }
@@ -415,10 +415,10 @@ LABEL_53:
 
       *&buf[16] = epoch;
       [v58 setFrameDuration:buf];
-      if (v58 && ([v58 frameDuration], (v126 & 1) != 0) && (objc_msgSend(v58, "frameDuration"), time2 = **&MEMORY[0x1E6960CC0], CMTimeCompare(buf, &time2) > 0))
+      if (v58 && (objc_msgSend_frameDuration(v58), (v126 & 1) != 0) && (objc_msgSend_frameDuration(v58), time2 = **&MEMORY[0x1E6960CC0], CMTimeCompare(buf, &time2) > 0))
       {
         v62 = objc_alloc_init(NUVideoCompositionInstruction);
-        [v57 timeRange];
+        objc_msgSend_timeRange(v57);
         *buf = v123;
         *&buf[16] = v124;
         v152 = v125;

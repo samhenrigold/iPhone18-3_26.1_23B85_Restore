@@ -17,7 +17,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  TransportMonitor.clientDelegate.setter();
+  TransportMonitor.clientDelegate.setter(delegate, selfCopy);
 }
 
 - (void)stopMonitoringAll

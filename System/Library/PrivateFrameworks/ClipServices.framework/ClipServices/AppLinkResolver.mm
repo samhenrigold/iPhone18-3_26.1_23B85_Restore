@@ -44,15 +44,15 @@
     absoluteString = [lCopy absoluteString];
     cps_sha256 = [absoluteString cps_sha256];
 
-    [(NSMutableDictionary *)self->_URLHashToMetadataMap setObject:v8 forKey:cps_sha256];
-    v13 = sub_100004064();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v13 = [(NSMutableDictionary *)self->_URLHashToMetadataMap setObject:v8 forKey:cps_sha256];
+    v15 = sub_100004064(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v14 = 138740227;
-      v15 = v8;
-      v16 = 2117;
-      v17 = lCopy;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Found an app with meta data: %{sensitive}@, for URL: %{sensitive}@", &v14, 0x16u);
+      v16 = 138740227;
+      v17 = v8;
+      v18 = 2117;
+      v19 = lCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Found an app with meta data: %{sensitive}@, for URL: %{sensitive}@", &v16, 0x16u);
     }
   }
 }
@@ -89,23 +89,23 @@
 - (id)appBundleIdentifierForURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100004064();
-  if (os_signpost_enabled(v5))
+  v6 = sub_100004064(lCopy, v5);
+  if (os_signpost_enabled(v6))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "resolveURLAction", "start resolving URL", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "resolveURLAction", "start resolving URL", buf, 2u);
   }
 
-  v6 = [(AppLinkResolver *)self _bundleIdentifierForURL:lCopy];
+  v7 = [(AppLinkResolver *)self _bundleIdentifierForURL:lCopy];
 
-  v7 = sub_100004064();
-  if (os_signpost_enabled(v7))
+  v10 = sub_100004064(v8, v9);
+  if (os_signpost_enabled(v10))
   {
-    *v9 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "resolveURLAction", "end resolving URL", v9, 2u);
+    *v12 = 0;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "resolveURLAction", "end resolving URL", v12, 2u);
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)ipaLinkForClipBundleIdentifier:(id)identifier
@@ -149,21 +149,21 @@
   {
     handlerCopy = handler;
     lCopy = l;
-    v8 = sub_100004064();
-    if (os_signpost_enabled(v8))
+    v9 = sub_100004064(lCopy, v8);
+    if (os_signpost_enabled(v9))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "resolveURLAction", "start resolving URL", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "resolveURLAction", "start resolving URL", buf, 2u);
     }
 
-    v9 = [(AppLinkResolver *)self _bundleIdentifierForURL:lCopy];
+    v10 = [(AppLinkResolver *)self _bundleIdentifierForURL:lCopy];
 
-    handlerCopy[2](handlerCopy, v9);
-    v10 = sub_100004064();
-    if (os_signpost_enabled(v10))
+    handlerCopy[2](handlerCopy, v10);
+    v13 = sub_100004064(v11, v12);
+    if (os_signpost_enabled(v13))
     {
-      *v11 = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "resolveURLAction", "end resolving URL", v11, 2u);
+      *v14 = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "resolveURLAction", "end resolving URL", v14, 2u);
     }
   }
 }

@@ -2,7 +2,9 @@
 - ($01BB1521EC52D44A8E7628F5261DCEC8)wetMeasurementInfo;
 - (BOOL)_checkIsReceptacleEmpty;
 - (BOOL)_holdPowerAssertionTypeC:(BOOL)c;
+- (BOOL)_recordLDCMError:(int)error;
 - (BOOL)_setInitialUserNotificationTimestamp;
+- (BOOL)_setMitigations:(BOOL)mitigations;
 - (BOOL)_throttleUserNotification;
 - (IOAccessoryLDCMPortManagerTypeC)initWithParams:(unint64_t)params dryPollingIntervalNs:(unint64_t)ns;
 - (id)_fetchFilesToUpload:(id)upload;
@@ -104,14 +106,11 @@
 
 - (void)_checkPortState
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_3_1();
     _os_log_impl(v0, v1, v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_checkIsReceptacleEmpty
@@ -388,89 +387,266 @@ uint64_t __52__IOAccessoryLDCMPortManagerTypeC_handleDetachEvent__block_invoke(u
 
 - (BOOL)_holdPowerAssertionTypeC:(BOOL)c
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   isPowerAssertionHeld = self->_isPowerAssertionHeld;
   if (isPowerAssertionHeld == c)
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  cCopy = c;
+  if (isPowerAssertionHeld || !c)
   {
-    cCopy = c;
-    if (isPowerAssertionHeld || !c)
+    if (c || !self->_isPowerAssertionHeld)
     {
-      if (c || !self->_isPowerAssertionHeld)
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-        {
-          [IOAccessoryLDCMPortManagerTypeC _holdPowerAssertionTypeC:];
-        }
+        [IOAccessoryLDCMPortManagerTypeC _holdPowerAssertionTypeC:];
       }
+    }
 
-      else if (IOPMAssertionRelease(self->_sleepAssertionID))
+    else if (IOPMAssertionRelease(self->_sleepAssertionID))
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          [IOAccessoryLDCMPortManagerTypeC _holdPowerAssertionTypeC:];
-        }
-      }
-
-      else
-      {
-        self->_isPowerAssertionHeld = 0;
+        [IOAccessoryLDCMPortManagerTypeC _holdPowerAssertionTypeC:];
       }
     }
 
     else
     {
-      v11[0] = @"AssertType";
-      v11[1] = @"AssertLevel";
-      v12[0] = @"NoIdleSleepAssertion";
-      v12[1] = &unk_2866B8EE8;
-      v11[2] = @"AssertName";
-      v11[3] = @"AllowsDeviceRestart";
-      v7 = *MEMORY[0x277CBED28];
-      v12[2] = @"com.apple.ioaccessorymanager.halogenTypeC";
-      v12[3] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
-      AssertionID = self->_sleepAssertionID;
-      if (IOPMAssertionCreateWithProperties(v8, &AssertionID))
-      {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          [IOAccessoryLDCMPortManagerTypeC _holdPowerAssertionTypeC:];
-        }
-      }
+      self->_isPowerAssertionHeld = 0;
+    }
+  }
 
-      else
+  else
+  {
+    v10[0] = @"AssertType";
+    v10[1] = @"AssertLevel";
+    v11[0] = @"NoIdleSleepAssertion";
+    v11[1] = &unk_2866B8EE8;
+    v10[2] = @"AssertName";
+    v10[3] = @"AllowsDeviceRestart";
+    v7 = *MEMORY[0x277CBED28];
+    v11[2] = @"com.apple.ioaccessorymanager.halogenTypeC";
+    v11[3] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
+    AssertionID = self->_sleepAssertionID;
+    if (IOPMAssertionCreateWithProperties(v8, &AssertionID))
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        self->_sleepAssertionID = AssertionID;
-        self->_isPowerAssertionHeld = 1;
+        [IOAccessoryLDCMPortManagerTypeC _holdPowerAssertionTypeC:];
       }
     }
 
-    result = self->_isPowerAssertionHeld == cCopy;
+    else
+    {
+      self->_sleepAssertionID = AssertionID;
+      self->_isPowerAssertionHeld = 1;
+    }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_isPowerAssertionHeld == cCopy;
 }
 
 - (void)_readLDCMBootArgs
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v3 = IORegistryEntryFromPath(*MEMORY[0x277CD2898], "IODeviceTree:/options");
+  if (v3 && (v4 = v3, CFProperty = IORegistryEntryCreateCFProperty(v3, @"boot-args", *MEMORY[0x277CBECE8], 0), IOObjectRelease(v4), CFProperty))
+  {
+    v6 = CFGetTypeID(CFProperty);
+    if (v6 == CFStringGetTypeID())
+    {
+      v7 = [CFProperty stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x277CCA900], "whitespaceCharacterSet")}];
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    v11 = [v7 componentsSeparatedByString:@" "];
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      cf = CFProperty;
+      v20 = 0;
+      v14 = 0;
+      v15 = 0;
+      v16 = *v22;
+      do
+      {
+        for (i = 0; i != v13; ++i)
+        {
+          if (*v22 != v16)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          v18 = *(*(&v21 + 1) + 8 * i);
+          if ([v18 rangeOfString:@"hpmDebugFlags"] == 0x7FFFFFFFFFFFFFFFLL)
+          {
+            if ([v18 rangeOfString:@"ldcmMitigations"] == 0x7FFFFFFFFFFFFFFFLL)
+            {
+              if ([v18 rangeOfString:@"skipLDCMTTR"] != 0x7FFFFFFFFFFFFFFFLL)
+              {
+                v20 = strtoull([objc_msgSend(objc_msgSend(v18 componentsSeparatedByString:{@"=", "lastObject"), "UTF8String"}], 0, 0);
+              }
+            }
+
+            else
+            {
+              v14 = strtoull([objc_msgSend(objc_msgSend(v18 componentsSeparatedByString:{@"=", "lastObject"), "UTF8String"}], 0, 0);
+            }
+          }
+
+          else
+          {
+            v15 = strtoull([objc_msgSend(objc_msgSend(v18 componentsSeparatedByString:{@"=", "lastObject"), "UTF8String"}], 0, 0);
+          }
+        }
+
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      }
+
+      while (v13);
+      v10 = (v15 >> 8) & 1;
+      v9 = v14 & 1;
+      v8 = v20 & 1;
+      CFProperty = cf;
+    }
+
+    else
+    {
+      v8 = 0;
+      v9 = 0;
+      LOBYTE(v10) = 0;
+    }
+
+    CFRelease(CFProperty);
+  }
+
+  else
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [IOAccessoryLDCMPortManagerTypeC _readLDCMBootArgs];
+    }
+
+    v8 = 0;
+    v9 = 0;
+    LOBYTE(v10) = 0;
+  }
+
+  self->_sbuBootArgSet = v10;
+  self->_enableMitigationsBootArgSet = v9;
+  self->_skipTTRBootArgSet = v8;
+}
+
+- (BOOL)_setMitigations:(BOOL)mitigations
+{
+  if (!self->_enableMitigationsBootArgSet)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [IOAccessoryLDCMPortManagerTypeC _setMitigations:];
+    }
+
+    return 0;
+  }
+
+  mitigationsCopy = mitigations;
+  if (!mitigations && !self->_isWet)
+  {
+    [(HalogenTypeC *)self->_typeC setLiquidDetected:0];
+  }
+
+  if (![(HalogenTypeC *)self->_typeC setMitigations:mitigationsCopy])
+  {
+    return 0;
+  }
+
+  self->_mitigationsEnabled = mitigationsCopy;
+  if (mitigationsCopy)
+  {
+    v5 = @"Yes";
+  }
+
+  else
+  {
+    v5 = @"No";
+  }
+
+  v6 = 1;
+  [(IOAccessoryLDCMPortManagerTypeC *)self _writeAndNotifyDefaults:@"MitigationsEnabled" value:v5 domain:@"com.apple.CoreAccessories.LDCMPreferences" notify:1 notification:@"com.apple.CoreAccessories.MitigationsDidChange"];
+  return v6;
 }
 
 - (void)_controlLDCMMeasurements
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  [(NSLock *)self->_defaultsRWLock lock];
+  v3 = *MEMORY[0x277CBF030];
+  v4 = CFPreferencesCopyValue(@"referenceMeasurementsFailed", @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
+  if ([(HalogenTypeC *)self->_typeC isHWSelfTestCapable])
+  {
+    v5 = CFPreferencesCopyValue(@"selfTestMeasurementsFailed", @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", v3);
+    if (v5)
+    {
+      v6 = v5;
+      self->_selfTestFailed = CFBooleanGetValue(v5) != 0;
+      CFRelease(v6);
+    }
+  }
+
+  if (v4)
+  {
+    self->_refMeasurementFailed = CFBooleanGetValue(v4) != 0;
+    CFRelease(v4);
+  }
+
+  if (self->_selfTestFailed || self->_refMeasurementFailed)
+  {
+    self->_measurementsEnabled = 0;
+    [(IOAccessoryLDCMPortManagerTypeC *)self _writeAndNotifyDefaults:@"ldcmMeasurementsDisabled" value:@"Yes" domain:@"com.apple.CoreAccessories.LDCMPreferences" notify:0 notification:@"None"];
+    [(IOAccessoryLDCMPortManagerTypeC *)self setIsWet:0];
+    if (self->_mitigationsEnabled && ![(IOAccessoryLDCMPortManagerTypeC *)self _setMitigations:0]&& os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [IOAccessoryLDCMPortManagerTypeC _controlLDCMMeasurements];
+    }
+  }
+
+  else
+  {
+    [(IOAccessoryLDCMPortManagerTypeC *)self _resetLDCMErrorDict];
+    self->_measurementsEnabled = 1;
+    [(IOAccessoryLDCMPortManagerTypeC *)self _writeAndNotifyDefaults:@"ldcmMeasurementsDisabled" value:@"No" domain:@"com.apple.CoreAccessories.LDCMPreferences" notify:0 notification:@"None"];
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    measurementsEnabled = self->_measurementsEnabled;
+    selfTestFailed = self->_selfTestFailed;
+    refMeasurementFailed = self->_refMeasurementFailed;
+    v10 = 136315906;
+    v11 = "[IOAccessoryLDCMPortManagerTypeC _controlLDCMMeasurements]";
+    v12 = 1024;
+    v13 = measurementsEnabled;
+    v14 = 1024;
+    v15 = selfTestFailed;
+    v16 = 1024;
+    v17 = refMeasurementFailed;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s _measurementEnabled:%d, _selfTestFailed:%d, _refMeasurementFailed:%d\n", &v10, 0x1Eu);
+  }
+
+  [(NSLock *)self->_defaultsRWLock unlock];
 }
 
 - (int)_halogenErrorToAnalyticError:(unsigned __int8)error
@@ -514,6 +690,28 @@ uint64_t __52__IOAccessoryLDCMPortManagerTypeC_handleDetachEvent__block_invoke(u
   while (v3 != 19);
 }
 
+- (BOOL)_recordLDCMError:(int)error
+{
+  if (self->_didReportDisabledAnalytic)
+  {
+    return 0;
+  }
+
+  v4 = *&error;
+  v6 = -[NSMutableDictionary objectForKey:](self->_ldcmErrorCountDict, "objectForKey:", [MEMORY[0x277CCABB0] numberWithInt:?]);
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v6, "intValue") + 1}];
+  -[NSMutableDictionary setObject:forKey:](self->_ldcmErrorCountDict, "setObject:forKey:", v7, [MEMORY[0x277CCABB0] numberWithInt:v4]);
+  if ([v7 intValue] != 50)
+  {
+    return 0;
+  }
+
+  ldcmErrorCountDict = self->_ldcmErrorCountDict;
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:0];
+  -[NSMutableDictionary setObject:forKey:](ldcmErrorCountDict, "setObject:forKey:", v9, [MEMORY[0x277CCABB0] numberWithInt:v4]);
+  return 1;
+}
+
 _BYTE *__55__IOAccessoryLDCMPortManagerTypeC_performTypeCSelfTest__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -538,14 +736,11 @@ _BYTE *__67__IOAccessoryLDCMPortManagerTypeC_performTypeCReferenceMeasurement__b
 
 - (void)performTypeCMeasurement
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_3_1();
     _os_log_impl(v0, v1, v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 _BYTE *__58__IOAccessoryLDCMPortManagerTypeC_performTypeCMeasurement__block_invoke(uint64_t a1)
@@ -561,17 +756,15 @@ _BYTE *__58__IOAccessoryLDCMPortManagerTypeC_performTypeCMeasurement__block_invo
 
 - (void)_generateLDCMCSVData
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = 136315394;
-    v4 = "[IOAccessoryLDCMPortManagerTypeC _generateLDCMCSVData]";
-    v5 = 2112;
+    v2 = 136315394;
+    v3 = "[IOAccessoryLDCMPortManagerTypeC _generateLDCMCSVData]";
+    v4 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Error in creating directory. %@\n", &v3, 0x16u);
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Error in creating directory. %@\n", &v2, 0x16u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__IOAccessoryLDCMPortManagerTypeC__generateLDCMCSVData__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -620,17 +813,18 @@ uint64_t __55__IOAccessoryLDCMPortManagerTypeC__generateLDCMCSVData__block_invok
 
 void __70__IOAccessoryLDCMPortManagerTypeC__fileRadarHalogenTypeC_TTRCategory___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  if (a3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  if (a3)
   {
-    v5 = 136315394;
-    v6 = "[IOAccessoryLDCMPortManagerTypeC _fileRadarHalogenTypeC:TTRCategory:]_block_invoke";
-    v7 = 2112;
-    v8 = a3;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Error while filing radar. %@\n", &v5, 0x16u);
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      v4 = 136315394;
+      v5 = "[IOAccessoryLDCMPortManagerTypeC _fileRadarHalogenTypeC:TTRCategory:]_block_invoke";
+      v6 = 2112;
+      v7 = a3;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Error while filing radar. %@\n", &v4, 0x16u);
+    }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_setInitialUserNotificationTimestamp
@@ -685,10 +879,10 @@ void __70__IOAccessoryLDCMPortManagerTypeC__fileRadarHalogenTypeC_TTRCategory___
 
 void __49__IOAccessoryLDCMPortManagerTypeC__showWetPrompt__block_invoke(uint64_t a1)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   if (gWetNotificationContext)
   {
-    goto LABEL_30;
+    return;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -697,7 +891,7 @@ void __49__IOAccessoryLDCMPortManagerTypeC__showWetPrompt__block_invoke(uint64_t
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Showing wet prompt", buf, 2u);
   }
 
-  v29 = 0;
+  v28 = 0;
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (v2)
   {
@@ -712,8 +906,8 @@ void __49__IOAccessoryLDCMPortManagerTypeC__showWetPrompt__block_invoke(uint64_t
     {
       v6 = v5;
       [v5 setUserInfo:v3];
-      v34[0] = v6;
-      v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:objc_msgSend(MEMORY[0x277CBEA60] requiringSecureCoding:"arrayWithObjects:count:" error:{v34, 1), 1, &v29}];
+      v33[0] = v6;
+      v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:objc_msgSend(MEMORY[0x277CBEA60] requiringSecureCoding:"arrayWithObjects:count:" error:{v33, 1), 1, &v28}];
       v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
       v9 = v8;
       if (v8)
@@ -732,9 +926,9 @@ void __49__IOAccessoryLDCMPortManagerTypeC__showWetPrompt__block_invoke(uint64_t
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v31 = "[IOAccessoryLDCMPortManagerTypeC _showWetPrompt]_block_invoke";
-            v32 = 2112;
-            v33 = v13;
+            v30 = "[IOAccessoryLDCMPortManagerTypeC _showWetPrompt]_block_invoke";
+            v31 = 2112;
+            v32 = v13;
             _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Setting asset path for LDCM wet icon:%@", buf, 0x16u);
           }
 
@@ -815,23 +1009,20 @@ LABEL_22:
   }
 
 LABEL_26:
-  v26 = v29;
-  if (v29)
+  v26 = v28;
+  if (v28)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v27 = [objc_msgSend(v26 "localizedDescription")];
       *buf = 136315394;
-      v31 = "[IOAccessoryLDCMPortManagerTypeC _showWetPrompt]_block_invoke";
-      v32 = 2080;
-      v33 = v27;
+      v30 = "[IOAccessoryLDCMPortManagerTypeC _showWetPrompt]_block_invoke";
+      v31 = 2080;
+      v32 = v27;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s err: %s", buf, 0x16u);
-      v26 = v29;
+      v26 = v28;
     }
   }
-
-LABEL_30:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissWetPrompt
@@ -862,13 +1053,13 @@ void __52__IOAccessoryLDCMPortManagerTypeC__dismissWetPrompt__block_invoke()
 - (void)_generateAlternateMeasurementAnalytics:(BOOL)analytics measurementInfo:(id *)info intervalSinceLastPass:(double)pass
 {
   analyticsCopy = analytics;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_isInternalBuild)
   {
     v8 = MGGetStringAnswer();
     if ([v8 hasPrefix:{@"iPad13, 8"}] & 1) != 0 || (objc_msgSend(v8, "hasPrefix:", @"iPad13,9") & 1) != 0 || (objc_msgSend(v8, "hasPrefix:", @"iPad13,10") & 1) != 0 || (objc_msgSend(v8, "hasPrefix:", @"iPad13,11"))
     {
-      goto LABEL_25;
+      return;
     }
   }
 
@@ -876,7 +1067,7 @@ void __52__IOAccessoryLDCMPortManagerTypeC__dismissWetPrompt__block_invoke()
   if (!v9)
   {
     [IOAccessoryLDCMPortManagerTypeC _generateAlternateMeasurementAnalytics:measurementInfo:intervalSinceLastPass:];
-    goto LABEL_25;
+    return;
   }
 
   v10 = v9;
@@ -932,50 +1123,37 @@ LABEL_11:
       AnalyticsSendEvent();
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 67109634;
-        *v21 = 2095;
-        *&v21[4] = 2112;
-        *&v21[6] = v10;
-        v22 = 2112;
-        v23 = v16;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%d Analytics event for %@:%@\n", &v20, 0x1Cu);
+        v19 = 67109634;
+        *v20 = 2095;
+        *&v20[4] = 2112;
+        *&v20[6] = v10;
+        v21 = 2112;
+        v22 = v16;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%d Analytics event for %@:%@\n", &v19, 0x1Cu);
       }
     }
 
-    goto LABEL_25;
+    return;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 136315394;
-    *v21 = "[IOAccessoryLDCMPortManagerTypeC _generateAlternateMeasurementAnalytics:measurementInfo:intervalSinceLastPass:]";
-    *&v21[8] = 1024;
-    *&v21[10] = var0;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Measurement type is neither SelfTest or Reference. Type:%d\n", &v20, 0x12u);
+    v19 = 136315394;
+    *v20 = "[IOAccessoryLDCMPortManagerTypeC _generateAlternateMeasurementAnalytics:measurementInfo:intervalSinceLastPass:]";
+    *&v20[8] = 1024;
+    *&v20[10] = var0;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Measurement type is neither SelfTest or Reference. Type:%d\n", &v19, 0x12u);
   }
-
-LABEL_25:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateFailureAnalytics:(int)analytics recordLDCMDisabled:(BOOL)disabled analyticsError:(int)error
 {
   disabledCopy = disabled;
-  if (analytics != 1)
+  if (analytics == 1 || analytics == 10 || analytics == 3)
   {
-    if (analytics == 10)
-    {
-      self->_isReceptacleEmpty;
-    }
-
-    else if (analytics != 3)
-    {
-      goto LABEL_7;
-    }
+    AnalyticsSendEvent();
   }
 
-  AnalyticsSendEvent();
-LABEL_7:
   if (disabledCopy)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -989,7 +1167,7 @@ LABEL_7:
 - (void)_generateAnalytics:(BOOL)analytics dryToWetTransition:(BOOL)transition measurementInfo:(id *)info
 {
   transitionCopy = transition;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (analytics && ![(IOAccessoryLDCMPortManagerTypeC *)self _throttleUserNotification])
   {
     [(IOAccessoryLDCMPortManagerTypeC *)self _showWetPrompt];
@@ -1001,76 +1179,71 @@ LABEL_7:
   var2 = info->var2;
   if (var2 > 6)
   {
-    if (var2 <= 8)
+    if (var2 > 8)
     {
-      if (var2 == 7)
+      if (var2 == 9)
       {
-        if (info->var9 < 0.07)
+        if (info->var19 < 0.14)
         {
-          [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:"), @"badCalCurrentAmp"}];
+          [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:"), @"badMeasurementCurrentAmp"}];
         }
 
-        if (info->var8 >= 0.07)
+        if (info->var18 >= 0.14)
         {
-          goto LABEL_38;
+          goto LABEL_37;
         }
 
         v10 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-        v11 = @"badCalVoltageAmp";
+        v11 = @"badMeasurementVoltageAmp";
       }
 
       else
       {
-        if (info->var17 < 24.0)
+        if (var2 != 10)
         {
-          [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:"), @"badMeasurementCurrentSNR"}];
+          goto LABEL_39;
         }
 
-        if (info->var16 >= 24.0)
-        {
-          goto LABEL_38;
-        }
-
-        v10 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-        v11 = @"badMeasurementVoltageSNR";
+        v10 = [MEMORY[0x277CCABB0] numberWithDouble:info->var15];
+        v11 = @"badMeasurementNegativeCap";
       }
-
-      goto LABEL_37;
     }
 
-    if (var2 == 9)
+    else if (var2 == 7)
     {
-      if (info->var19 < 0.14)
+      if (info->var9 < 0.07)
       {
-        [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:"), @"badMeasurementCurrentAmp"}];
+        [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:"), @"badCalCurrentAmp"}];
       }
 
-      if (info->var18 >= 0.14)
+      if (info->var8 >= 0.07)
       {
-        goto LABEL_38;
+        goto LABEL_37;
       }
 
       v10 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-      v11 = @"badMeasurementVoltageAmp";
-      goto LABEL_37;
+      v11 = @"badCalVoltageAmp";
     }
 
-    if (var2 == 10)
+    else
     {
-      v10 = [MEMORY[0x277CCABB0] numberWithDouble:info->var15];
-      v11 = @"badMeasurementNegativeCap";
-      goto LABEL_37;
+      if (info->var17 < 24.0)
+      {
+        [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:"), @"badMeasurementCurrentSNR"}];
+      }
+
+      if (info->var16 >= 24.0)
+      {
+        goto LABEL_37;
+      }
+
+      v10 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+      v11 = @"badMeasurementVoltageSNR";
     }
 
-LABEL_41:
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      v25[0] = 67109120;
-      v25[1] = 2307;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%d No analytics event generated.\n", v25, 8u);
-    }
-
-    goto LABEL_40;
+LABEL_36:
+    [v8 setObject:v10 forKey:v11];
+    goto LABEL_37;
   }
 
   if (var2 <= 1)
@@ -1079,10 +1252,10 @@ LABEL_41:
     {
       if (var2 == 1)
       {
-        goto LABEL_40;
+        goto LABEL_38;
       }
 
-      goto LABEL_41;
+      goto LABEL_39;
     }
 
     v12 = objc_alloc_init(MEMORY[0x277CCAB68]);
@@ -1107,10 +1280,10 @@ LABEL_41:
     {
       if (drySinceWetCount < 4)
       {
-LABEL_49:
+LABEL_47:
         AnalyticsSendEvent();
 
-        goto LABEL_40;
+        goto LABEL_38;
       }
 
       [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:", info->var14), @"resistance"}];
@@ -1124,16 +1297,16 @@ LABEL_49:
 
     if (isReceptacleEmpty)
     {
-      v21 = v18;
+      v20 = v18;
     }
 
     else
     {
-      v21 = v17;
+      v20 = v17;
     }
 
-    [v12 setString:v21];
-    goto LABEL_49;
+    [v12 setString:v20];
+    goto LABEL_47;
   }
 
   if (var2 != 2)
@@ -1147,21 +1320,23 @@ LABEL_49:
 
       if (info->var6 >= 24.0)
       {
-        goto LABEL_38;
+        goto LABEL_37;
       }
 
       v10 = [MEMORY[0x277CCABB0] numberWithDouble:?];
       v11 = @"badCalVoltageSNR";
-LABEL_37:
-      [v8 setObject:v10 forKey:v11];
-LABEL_38:
-      self->_isReceptacleEmpty;
-LABEL_39:
-      AnalyticsSendEvent();
-      goto LABEL_40;
+      goto LABEL_36;
     }
 
-    goto LABEL_41;
+LABEL_39:
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      v24[0] = 67109120;
+      v24[1] = 2307;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%d No analytics event generated.\n", v24, 8u);
+    }
+
+    goto LABEL_38;
   }
 
   if (transitionCopy)
@@ -1176,35 +1351,30 @@ LABEL_39:
     [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:", info->var23), @"impedancePhase"}];
     [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:", info->var16), @"measurementVoltageSNR"}];
     [v8 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithDouble:", info->var17), @"measurementCurrentSNR"}];
-    if (!self->_isReceptacleEmpty)
-    {
-      self->_newAccArrived;
-    }
-
-    goto LABEL_39;
+LABEL_37:
+    AnalyticsSendEvent();
+    goto LABEL_38;
   }
 
   if (!self->_wetTooLongRecorded)
   {
     [objc_msgSend(MEMORY[0x277CBEAA8] "date")];
-    v23 = v22 - self->_wetMeasurementInfo.initialWetWallTime;
-    v24 = 28800.0;
+    v22 = v21 - self->_wetMeasurementInfo.initialWetWallTime;
+    v23 = 28800.0;
     if (WET_TOO_LONG_THRESHOLD)
     {
-      v24 = 120.0;
+      v23 = 120.0;
     }
 
-    if (v23 > v24)
+    if (v22 > v23)
     {
       [(IOAccessoryLDCMPortManagerTypeC *)self setWetTooLongRecorded:1];
       [(HalogenTypeC *)self->_typeC setWetTooLong:1];
-      goto LABEL_39;
+      goto LABEL_37;
     }
   }
 
-LABEL_40:
-
-  v20 = *MEMORY[0x277D85DE8];
+LABEL_38:
 }
 
 - ($01BB1521EC52D44A8E7628F5261DCEC8)wetMeasurementInfo
@@ -1222,14 +1392,14 @@ LABEL_40:
 
 - (IOAccessoryLDCMPortManagerTypeC)initWithParams:(unint64_t)params dryPollingIntervalNs:(unint64_t)ns
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v51.receiver = self;
-  v51.super_class = IOAccessoryLDCMPortManagerTypeC;
-  v6 = [(IOAccessoryLDCMPortManagerTypeC *)&v51 init];
+  v51 = *MEMORY[0x277D85DE8];
+  v48.receiver = self;
+  v48.super_class = IOAccessoryLDCMPortManagerTypeC;
+  v6 = [(IOAccessoryLDCMPortManagerTypeC *)&v48 init];
   v7 = v6;
   if (!v6)
   {
-    goto LABEL_21;
+    return v7;
   }
 
   *(v6 + 12) = 1000000000 * params;
@@ -1265,9 +1435,7 @@ LABEL_40:
   *(v7 + 20) = v10;
   if (!v10)
   {
-LABEL_40:
-    v7 = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   [v7 _registerForLDCMNotifications];
@@ -1280,11 +1448,11 @@ LABEL_40:
       goto LABEL_39;
     }
 
-    v52 = 136315138;
-    v53 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
+    v49 = 136315138;
+    v50 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
 LABEL_38:
     OUTLINED_FUNCTION_0_4();
-    _os_log_impl(v41, v42, v43, v44, v45, v46);
+    _os_log_impl(v38, v39, v40, v41, v42, v43);
     goto LABEL_39;
   }
 
@@ -1297,8 +1465,8 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v52 = 136315138;
-    v53 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
+    v49 = 136315138;
+    v50 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
     goto LABEL_38;
   }
 
@@ -1308,12 +1476,12 @@ LABEL_38:
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_21;
+      return v7;
     }
 
-    LOWORD(v52) = 0;
+    LOWORD(v49) = 0;
     OUTLINED_FUNCTION_1_3();
-    v38 = 2;
+    v36 = 2;
     goto LABEL_20;
   }
 
@@ -1326,8 +1494,8 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v52 = 136315138;
-    v53 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
+    v49 = 136315138;
+    v50 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
     goto LABEL_38;
   }
 
@@ -1348,87 +1516,85 @@ LABEL_38:
       goto LABEL_39;
     }
 
-    v52 = 136315138;
-    v53 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
+    v49 = 136315138;
+    v50 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
     goto LABEL_38;
   }
 
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __71__IOAccessoryLDCMPortManagerTypeC_initWithParams_dryPollingIntervalNs___block_invoke_8;
-  v49[3] = &unk_279793038;
-  v49[4] = v7;
-  dispatch_source_set_event_handler(v19, v49);
-  v20 = *(v7 + 17);
-  v21 = arc4random_uniform(0xFu);
-  v22 = dispatch_walltime(0, 1000000000 * (v21 + 1));
-  OUTLINED_FUNCTION_4_0(v22);
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __71__IOAccessoryLDCMPortManagerTypeC_initWithParams_dryPollingIntervalNs___block_invoke_8;
+  v46[3] = &unk_279793038;
+  v46[4] = v7;
+  dispatch_source_set_event_handler(v19, v46);
+  v20 = arc4random_uniform(0xFu);
+  v21 = dispatch_walltime(0, 1000000000 * (v20 + 1));
+  OUTLINED_FUNCTION_4_0(v21);
   dispatch_resume(*(v7 + 17));
-  v25 = OUTLINED_FUNCTION_15_0(MEMORY[0x277D85D38], v23, v24, *(v7 + 10));
-  *(v7 + 18) = v25;
-  if (!v25)
+  v24 = OUTLINED_FUNCTION_15_0(MEMORY[0x277D85D38], v22, v23, *(v7 + 10));
+  *(v7 + 18) = v24;
+  if (!v24)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_39;
     }
 
-    v52 = 136315138;
-    v53 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
+    v49 = 136315138;
+    v50 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
     goto LABEL_38;
   }
 
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __71__IOAccessoryLDCMPortManagerTypeC_initWithParams_dryPollingIntervalNs___block_invoke_9;
-  v48[3] = &unk_279793038;
-  v48[4] = v7;
-  dispatch_source_set_event_handler(v25, v48);
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __71__IOAccessoryLDCMPortManagerTypeC_initWithParams_dryPollingIntervalNs___block_invoke_9;
+  v45[3] = &unk_279793038;
+  v45[4] = v7;
+  dispatch_source_set_event_handler(v24, v45);
   dispatch_source_set_timer(*(v7 + 18), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
   dispatch_resume(*(v7 + 18));
   if ([*(v7 + 9) isHWSelfTestCapable])
   {
-    v28 = OUTLINED_FUNCTION_15_0(MEMORY[0x277D85D38], v26, v27, *(v7 + 10));
-    *(v7 + 16) = v28;
-    if (!v28)
+    v27 = OUTLINED_FUNCTION_15_0(MEMORY[0x277D85D38], v25, v26, *(v7 + 10));
+    *(v7 + 16) = v27;
+    if (!v27)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v52 = 136315138;
-        v53 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
+        v49 = 136315138;
+        v50 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
         goto LABEL_38;
       }
 
       goto LABEL_39;
     }
 
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __71__IOAccessoryLDCMPortManagerTypeC_initWithParams_dryPollingIntervalNs___block_invoke_10;
-    v47[3] = &unk_279793038;
-    v47[4] = v7;
-    dispatch_source_set_event_handler(v28, v47);
-    v29 = *(v7 + 16);
-    v30 = arc4random_uniform(0xFu);
-    v31 = dispatch_walltime(0, 1000000000 * (v30 + 1));
-    OUTLINED_FUNCTION_4_0(v31);
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __71__IOAccessoryLDCMPortManagerTypeC_initWithParams_dryPollingIntervalNs___block_invoke_10;
+    v44[3] = &unk_279793038;
+    v44[4] = v7;
+    dispatch_source_set_event_handler(v27, v44);
+    v28 = arc4random_uniform(0xFu);
+    v29 = dispatch_walltime(0, 1000000000 * (v28 + 1));
+    OUTLINED_FUNCTION_4_0(v29);
     dispatch_resume(*(v7 + 16));
   }
 
-  v32 = objc_alloc_init(MEMORY[0x277CCA928]);
-  *(v7 + 21) = v32;
-  if (!v32)
+  v30 = objc_alloc_init(MEMORY[0x277CCA928]);
+  *(v7 + 21) = v30;
+  if (!v30)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v52 = 136315138;
-      v53 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
+      v49 = 136315138;
+      v50 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
       goto LABEL_38;
     }
 
 LABEL_39:
 
-    goto LABEL_40;
+    return 0;
   }
 
   [v7 _readLDCMBootArgs];
@@ -1446,21 +1612,19 @@ LABEL_39:
   [v7 _resetLDCMErrorDict];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v52 = 136315138;
-    v53 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
+    v49 = 136315138;
+    v50 = "[IOAccessoryLDCMPortManagerTypeC initWithParams:dryPollingIntervalNs:]";
     OUTLINED_FUNCTION_0_4();
 LABEL_20:
-    _os_log_impl(v33, v34, v35, v36, v37, v38);
+    _os_log_impl(v31, v32, v33, v34, v35, v36);
   }
 
-LABEL_21:
-  v39 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)performTypeCSelfTest
 {
-  v56[5] = *MEMORY[0x277D85DE8];
+  v53[5] = *MEMORY[0x277D85DE8];
   typeC = [(IOAccessoryLDCMPortManagerTypeC *)self typeC];
   [(NSCondition *)self->_condition lock];
   [OUTLINED_FUNCTION_13() setIsMeasurementActive:?];
@@ -1472,8 +1636,8 @@ LABEL_21:
       goto LABEL_27;
     }
 
-    LODWORD(v56[0]) = 136315138;
-    *(v56 + 4) = "[IOAccessoryLDCMPortManagerTypeC performTypeCSelfTest]";
+    LODWORD(v53[0]) = 136315138;
+    *(v53 + 4) = "[IOAccessoryLDCMPortManagerTypeC performTypeCSelfTest]";
     goto LABEL_32;
   }
 
@@ -1484,8 +1648,8 @@ LABEL_21:
       goto LABEL_27;
     }
 
-    LODWORD(v56[0]) = 136315138;
-    *(v56 + 4) = "[IOAccessoryLDCMPortManagerTypeC performTypeCSelfTest]";
+    LODWORD(v53[0]) = 136315138;
+    *(v53 + 4) = "[IOAccessoryLDCMPortManagerTypeC performTypeCSelfTest]";
 LABEL_32:
     OUTLINED_FUNCTION_0_4();
     goto LABEL_35;
@@ -1498,8 +1662,8 @@ LABEL_32:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v56[0]) = 136315138;
-    *(v56 + 4) = "[IOAccessoryLDCMPortManagerTypeC performTypeCSelfTest]";
+    LODWORD(v53[0]) = 136315138;
+    *(v53 + 4) = "[IOAccessoryLDCMPortManagerTypeC performTypeCSelfTest]";
     OUTLINED_FUNCTION_0_4();
     _os_log_impl(v4, v5, v6, v7, v8, v9);
   }
@@ -1511,34 +1675,34 @@ LABEL_32:
       goto LABEL_27;
     }
 
-    LODWORD(v56[0]) = 136315394;
+    LODWORD(v53[0]) = 136315394;
     OUTLINED_FUNCTION_13_0("[IOAccessoryLDCMPortManagerTypeC performTypeCSelfTest]");
     OUTLINED_FUNCTION_1_3();
-    v48 = 18;
+    v45 = 18;
 LABEL_35:
-    _os_log_impl(v43, v44, v45, v46, v47, v48);
+    _os_log_impl(v40, v41, v42, v43, v44, v45);
     goto LABEL_27;
   }
 
   v10 = OUTLINED_FUNCTION_2_3();
-  v52 = 3221225472;
-  v53 = __55__IOAccessoryLDCMPortManagerTypeC_performTypeCSelfTest__block_invoke;
-  v54 = &unk_279793038;
+  v49 = 3221225472;
+  v50 = __55__IOAccessoryLDCMPortManagerTypeC_performTypeCSelfTest__block_invoke;
+  v51 = &unk_279793038;
   selfCopy = self;
   dispatch_async(v10, block);
   memcpy(__dst, &xmmword_25491C358, sizeof(__dst));
-  [(HalogenTypeC *)typeC getMeasurementInfo];
+  objc_msgSend_getMeasurementInfo(typeC);
   if (__dst[2] == 15)
   {
-    v25 = self->_selfTestPassCount + 1;
+    v24 = self->_selfTestPassCount + 1;
     self->_selfTestFailureCount = 0;
-    self->_selfTestPassCount = v25;
+    self->_selfTestPassCount = v24;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v56[0]) = 67109120;
-      HIDWORD(v56[0]) = v25;
+      LODWORD(v53[0]) = 67109120;
+      HIDWORD(v53[0]) = v24;
       OUTLINED_FUNCTION_1_3();
-      _os_log_impl(v26, v27, v28, v29, v30, 8u);
+      _os_log_impl(v25, v26, v27, v28, v29, 8u);
     }
 
     selfTestPassCount = self->_selfTestPassCount;
@@ -1547,30 +1711,30 @@ LABEL_35:
       if (selfTestPassCount == 3)
       {
         [(IOAccessoryLDCMPortManagerTypeC *)self _writeAndNotifyDefaults:@"selfTestMeasurementsFailed" value:@"No" domain:@"com.apple.CoreAccessories.LDCMPreferences" notify:1 notification:@"com.apple.CoreAccessories.LDCMActiveMeasurementsDidChangeNotification"];
-        v56[0] = NAN;
-        v32 = *MEMORY[0x277CBF030];
-        v33 = CFPreferencesCopyValue(@"selfTestFailureTimestamp", @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
-        if (v33)
+        v53[0] = NAN;
+        v31 = *MEMORY[0x277CBF030];
+        v32 = CFPreferencesCopyValue(@"selfTestFailureTimestamp", @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
+        if (v32)
         {
-          v34 = v33;
+          v33 = v32;
           OUTLINED_FUNCTION_10_0();
-          CFNumberGetValue(v35, v36, v37);
-          if (v56[0] > 0.0)
+          CFNumberGetValue(v34, v35, v36);
+          if (v53[0] > 0.0)
           {
             [objc_msgSend(MEMORY[0x277CBEAA8] date];
             [OUTLINED_FUNCTION_13() _generateAlternateMeasurementAnalytics:? measurementInfo:? intervalSinceLastPass:?];
           }
 
-          CFRelease(v34);
+          CFRelease(v33);
         }
 
         valuePtr = 0;
-        v38 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberDoubleType, &valuePtr);
-        if (v38)
+        v37 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberDoubleType, &valuePtr);
+        if (v37)
         {
-          v39 = v38;
-          CFPreferencesSetValue(@"selfTestFailureTimestamp", v38, @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", v32);
-          CFRelease(v39);
+          v38 = v37;
+          CFPreferencesSetValue(@"selfTestFailureTimestamp", v37, @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", v31);
+          CFRelease(v38);
         }
       }
     }
@@ -1589,43 +1753,40 @@ LABEL_35:
     {
       [(IOAccessoryLDCMPortManagerTypeC *)self _writeAndNotifyDefaults:@"selfTestMeasurementsFailed" value:@"Yes" domain:@"com.apple.CoreAccessories.LDCMPreferences" notify:1 notification:@"com.apple.CoreAccessories.LDCMActiveMeasurementsDidChangeNotification"];
       [objc_msgSend(MEMORY[0x277CBEAA8] "date")];
-      v56[0] = v12;
-      v13 = *MEMORY[0x277CBECE8];
+      v53[0] = v12;
       OUTLINED_FUNCTION_10_0();
-      v17 = CFNumberCreate(v14, v15, v16);
-      if (v17)
+      v16 = CFNumberCreate(v13, v14, v15);
+      if (v16)
       {
-        v18 = v17;
-        CFPreferencesSetValue(@"selfTestFailureTimestamp", v17, @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
-        CFRelease(v18);
+        v17 = v16;
+        CFPreferencesSetValue(@"selfTestFailureTimestamp", v16, @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
+        CFRelease(v17);
       }
 
       [OUTLINED_FUNCTION_5_0() _generateAlternateMeasurementAnalytics:0 measurementInfo:? intervalSinceLastPass:?];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         selfTestFailureCount = self->_selfTestFailureCount;
-        LODWORD(v56[0]) = 136315650;
+        LODWORD(v53[0]) = 136315650;
         OUTLINED_FUNCTION_7_0(selfTestFailureCount);
         OUTLINED_FUNCTION_1_3();
-        _os_log_impl(v20, v21, v22, v23, v24, 0x1Cu);
+        _os_log_impl(v19, v20, v21, v22, v23, 0x1Cu);
       }
     }
   }
 
 LABEL_27:
   [OUTLINED_FUNCTION_14() _holdPowerAssertionTypeC:?];
-  timerSelfTest = self->_timerSelfTest;
-  v41 = OUTLINED_FUNCTION_14_0();
-  OUTLINED_FUNCTION_4_0(v41);
+  v39 = OUTLINED_FUNCTION_14_0();
+  OUTLINED_FUNCTION_4_0(v39);
   [(NSCondition *)self->_condition lock];
   [OUTLINED_FUNCTION_14() setIsMeasurementActive:?];
   [(NSCondition *)self->_condition unlock];
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performTypeCReferenceMeasurement
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   [(NSCondition *)self->_condition lock];
   [OUTLINED_FUNCTION_13() setIsMeasurementActive:?];
   [(NSCondition *)self->_condition unlock];
@@ -1636,8 +1797,8 @@ LABEL_27:
       goto LABEL_29;
     }
 
-    *v63 = 136315138;
-    *&v63[4] = "[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]";
+    *v60 = 136315138;
+    *&v60[4] = "[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]";
     goto LABEL_34;
   }
 
@@ -1649,8 +1810,8 @@ LABEL_27:
       goto LABEL_29;
     }
 
-    *v63 = 136315138;
-    *&v63[4] = "[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]";
+    *v60 = 136315138;
+    *&v60[4] = "[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]";
 LABEL_34:
     OUTLINED_FUNCTION_0_4();
     goto LABEL_37;
@@ -1664,8 +1825,8 @@ LABEL_34:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    *v63 = 136315138;
-    *&v63[4] = "[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]";
+    *v60 = 136315138;
+    *&v60[4] = "[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]";
     OUTLINED_FUNCTION_0_4();
     _os_log_impl(v5, v6, v7, v8, v9, v10);
   }
@@ -1677,37 +1838,37 @@ LABEL_34:
       goto LABEL_29;
     }
 
-    *v63 = 136315394;
+    *v60 = 136315394;
     OUTLINED_FUNCTION_13_0("[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]");
     OUTLINED_FUNCTION_1_3();
-    v55 = 18;
+    v52 = 18;
 LABEL_37:
-    _os_log_impl(v50, v51, v52, v53, v54, v55);
+    _os_log_impl(v47, v48, v49, v50, v51, v52);
     goto LABEL_29;
   }
 
   v11 = OUTLINED_FUNCTION_2_3();
-  v59 = 3221225472;
-  v60 = __67__IOAccessoryLDCMPortManagerTypeC_performTypeCReferenceMeasurement__block_invoke;
-  v61 = &unk_279793038;
+  v56 = 3221225472;
+  v57 = __67__IOAccessoryLDCMPortManagerTypeC_performTypeCReferenceMeasurement__block_invoke;
+  v58 = &unk_279793038;
   selfCopy = self;
   dispatch_async(v11, block);
   memcpy(__dst, &xmmword_25491C358, sizeof(__dst));
-  [(HalogenTypeC *)v4 getMeasurementInfo];
+  objc_msgSend_getMeasurementInfo(v4);
   if (LODWORD(__dst[1]) == 17)
   {
-    v31 = self->_referenceMeasurementPassCount + 1;
+    v30 = self->_referenceMeasurementPassCount + 1;
     self->_referenceMeasurementFailureCount = 0;
-    self->_referenceMeasurementPassCount = v31;
+    self->_referenceMeasurementPassCount = v30;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       refMeasurementFailed = self->_refMeasurementFailed;
-      *v63 = 67109376;
-      *&v63[4] = v31;
-      *&v63[8] = 1024;
-      *&v63[10] = refMeasurementFailed;
+      *v60 = 67109376;
+      *&v60[4] = v30;
+      *&v60[8] = 1024;
+      *&v60[10] = refMeasurementFailed;
       OUTLINED_FUNCTION_1_3();
-      _os_log_impl(v33, v34, v35, v36, v37, 0xEu);
+      _os_log_impl(v32, v33, v34, v35, v36, 0xEu);
     }
 
     referenceMeasurementPassCount = self->_referenceMeasurementPassCount;
@@ -1716,30 +1877,30 @@ LABEL_37:
       if (referenceMeasurementPassCount == 3)
       {
         [(IOAccessoryLDCMPortManagerTypeC *)self _writeAndNotifyDefaults:@"referenceMeasurementsFailed" value:@"No" domain:@"com.apple.CoreAccessories.LDCMPreferences" notify:1 notification:@"com.apple.CoreAccessories.LDCMActiveMeasurementsDidChangeNotification"];
-        *v63 = -1;
-        v39 = *MEMORY[0x277CBF030];
-        v40 = CFPreferencesCopyValue(@"referenceMeasurementsFailureTimestamp", @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
-        if (v40)
+        *v60 = -1;
+        v38 = *MEMORY[0x277CBF030];
+        v39 = CFPreferencesCopyValue(@"referenceMeasurementsFailureTimestamp", @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
+        if (v39)
         {
-          v41 = v40;
+          v40 = v39;
           OUTLINED_FUNCTION_10_0();
-          CFNumberGetValue(v42, v43, v44);
-          if (*v63 > 0.0)
+          CFNumberGetValue(v41, v42, v43);
+          if (*v60 > 0.0)
           {
             [objc_msgSend(MEMORY[0x277CBEAA8] date];
             [OUTLINED_FUNCTION_13() _generateAlternateMeasurementAnalytics:? measurementInfo:? intervalSinceLastPass:?];
           }
 
-          CFRelease(v41);
+          CFRelease(v40);
         }
 
         valuePtr = 0;
-        v45 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberDoubleType, &valuePtr);
-        if (v45)
+        v44 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberDoubleType, &valuePtr);
+        if (v44)
         {
-          v46 = v45;
-          CFPreferencesSetValue(@"referenceMeasurementsFailureTimestamp", v45, @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", v39);
-          CFRelease(v46);
+          v45 = v44;
+          CFPreferencesSetValue(@"referenceMeasurementsFailureTimestamp", v44, @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", v38);
+          CFRelease(v45);
         }
       }
     }
@@ -1754,12 +1915,12 @@ LABEL_37:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v63 = 136315650;
-      *&v63[4] = "[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]";
-      *&v63[12] = 2048;
-      v64 = __dst[13];
-      v65 = 2048;
-      v66 = __dst[14];
+      *v60 = 136315650;
+      *&v60[4] = "[IOAccessoryLDCMPortManagerTypeC performTypeCReferenceMeasurement]";
+      *&v60[12] = 2048;
+      v61 = __dst[13];
+      v62 = 2048;
+      v63 = __dst[14];
       OUTLINED_FUNCTION_1_3();
       _os_log_impl(v12, v13, v14, v15, v16, 0x20u);
     }
@@ -1770,38 +1931,35 @@ LABEL_37:
     {
       [(IOAccessoryLDCMPortManagerTypeC *)self _writeAndNotifyDefaults:@"referenceMeasurementsFailed" value:@"Yes" domain:@"com.apple.CoreAccessories.LDCMPreferences" notify:1 notification:@"com.apple.CoreAccessories.LDCMActiveMeasurementsDidChangeNotification"];
       [objc_msgSend(MEMORY[0x277CBEAA8] "date")];
-      *v63 = v18;
-      v19 = *MEMORY[0x277CBECE8];
+      *v60 = v18;
       OUTLINED_FUNCTION_10_0();
-      v23 = CFNumberCreate(v20, v21, v22);
-      if (v23)
+      v22 = CFNumberCreate(v19, v20, v21);
+      if (v22)
       {
-        v24 = v23;
-        CFPreferencesSetValue(@"referenceMeasurementsFailureTimestamp", v23, @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
-        CFRelease(v24);
+        v23 = v22;
+        CFPreferencesSetValue(@"referenceMeasurementsFailureTimestamp", v22, @"com.apple.CoreAccessories.LDCMPreferences", @"mobile", *MEMORY[0x277CBF030]);
+        CFRelease(v23);
       }
 
       [OUTLINED_FUNCTION_5_0() _generateAlternateMeasurementAnalytics:0 measurementInfo:? intervalSinceLastPass:?];
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         referenceMeasurementFailureCount = self->_referenceMeasurementFailureCount;
-        *v63 = 136315650;
+        *v60 = 136315650;
         OUTLINED_FUNCTION_7_0(referenceMeasurementFailureCount);
         OUTLINED_FUNCTION_1_3();
-        _os_log_impl(v26, v27, v28, v29, v30, 0x1Cu);
+        _os_log_impl(v25, v26, v27, v28, v29, 0x1Cu);
       }
     }
   }
 
 LABEL_29:
   [OUTLINED_FUNCTION_14() _holdPowerAssertionTypeC:?];
-  timerReferenceMeasurement = self->_timerReferenceMeasurement;
-  v48 = OUTLINED_FUNCTION_14_0();
-  OUTLINED_FUNCTION_4_0(v48);
+  v46 = OUTLINED_FUNCTION_14_0();
+  OUTLINED_FUNCTION_4_0(v46);
   [(NSCondition *)self->_condition lock];
   [OUTLINED_FUNCTION_14() setIsMeasurementActive:?];
   [(NSCondition *)self->_condition unlock];
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fileRadarHalogenTypeC:(id)c TTRCategory:(int)category
@@ -1873,50 +2031,40 @@ LABEL_29:
 
 - (void)_holdPowerAssertionTypeC:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_holdPowerAssertionTypeC:.cold.2()
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1[0] = 136315394;
+  v1 = *MEMORY[0x277D85DE8];
+  v0[0] = 136315394;
   OUTLINED_FUNCTION_11_0();
-  _os_log_debug_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s halogen power assertion already in the correct state: %d.\n", v1, 0x12u);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s halogen power assertion already in the correct state: %d.\n", v0, 0x12u);
 }
 
 - (void)_holdPowerAssertionTypeC:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setMitigations:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateAlternateMeasurementAnalytics:measurementInfo:intervalSinceLastPass:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_3_1();
     _os_log_impl(v0, v1, v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

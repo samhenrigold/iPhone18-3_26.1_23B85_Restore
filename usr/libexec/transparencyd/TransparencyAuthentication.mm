@@ -2,7 +2,10 @@
 + (BOOL)isVirtualMachine;
 - (TransparencyAuthentication)initWithWorkloop:(id)workloop;
 - (TransparencyAuthentication)initWithWorkloop:(id)workloop analytics:(id)analytics;
+- (void)issueCert:(BOOL)cert completionHandler:(id)handler;
+- (void)signData:(id)data fetchNow:(BOOL)now completionHandler:(id)handler;
 - (void)signData:(id)data key:(id)key completionHandler:(id)handler;
+- (void)signDataWithTimestamp:(id)timestamp fetchNow:(BOOL)now timeShift:(double)shift completionHandler:(id)handler;
 @end
 
 @implementation TransparencyAuthentication
@@ -15,6 +18,31 @@
   }
 
   return byte_10039CE40;
+}
+
+- (void)issueCert:(BOOL)cert completionHandler:(id)handler
+{
+  certCopy = cert;
+  handlerCopy = handler;
+  if (+[TransparencyAuthentication isVirtualMachine])
+  {
+    v7 = [[KTBAAKey alloc] initWithKey:0 certificates:0 failure:0];
+    [(KTBAAKey *)v7 setUseHostKey:1];
+    handlerCopy[2](handlerCopy, v7);
+    [(TransparencyAuthentication *)self setCertFetcher:0];
+  }
+
+  else
+  {
+    certFetcher = [(TransparencyAuthentication *)self certFetcher];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100233B30;
+    v9[3] = &unk_10032C2B0;
+    v9[4] = self;
+    v10 = handlerCopy;
+    [certFetcher getDeviceCertWithForcedFetch:certCopy completionHandler:v9];
+  }
 }
 
 - (TransparencyAuthentication)initWithWorkloop:(id)workloop analytics:(id)analytics
@@ -105,6 +133,84 @@
       (*(handlerCopy + 2))(handlerCopy, 0, 0, error[0]);
     }
   }
+}
+
+- (void)signData:(id)data fetchNow:(BOOL)now completionHandler:(id)handler
+{
+  nowCopy = now;
+  dataCopy = data;
+  handlerCopy = handler;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (nowCopy)
+  {
+    goto LABEL_6;
+  }
+
+  baaKey = [(TransparencyAuthentication *)selfCopy baaKey];
+  if (([baaKey validBAAKey] & 1) == 0)
+  {
+
+    goto LABEL_6;
+  }
+
+  lastLocalFetchTime = [(TransparencyAuthentication *)selfCopy lastLocalFetchTime];
+  [lastLocalFetchTime timeIntervalSinceNow];
+  v14 = v13;
+  v15 = -kKTAuthenticationLifetime;
+
+  if (v14 <= v15)
+  {
+LABEL_6:
+    objc_sync_exit(selfCopy);
+
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10023468C;
+    v17[3] = &unk_10032C360;
+    v17[4] = selfCopy;
+    v18 = dataCopy;
+    v19 = handlerCopy;
+    [(TransparencyAuthentication *)selfCopy issueCert:nowCopy completionHandler:v17];
+
+    goto LABEL_7;
+  }
+
+  baaKey2 = [(TransparencyAuthentication *)selfCopy baaKey];
+  [(TransparencyAuthentication *)selfCopy signData:dataCopy key:baaKey2 completionHandler:handlerCopy];
+
+  objc_sync_exit(selfCopy);
+LABEL_7:
+}
+
+- (void)signDataWithTimestamp:(id)timestamp fetchNow:(BOOL)now timeShift:(double)shift completionHandler:(id)handler
+{
+  nowCopy = now;
+  handlerCopy = handler;
+  timestampCopy = timestamp;
+  +[NSDate kt_currentTimeMs];
+  v13 = v12;
+  if (fabs(shift) > 1.0)
+  {
+    v14 = +[NSDate date];
+    [v14 timeIntervalSince1970];
+    v13 = (v15 + shift) * 1000.0;
+  }
+
+  v16 = [NSString stringWithFormat:@"%llu", v13];
+  v23 = bswap64(v13);
+  v17 = [NSMutableData dataWithData:timestampCopy];
+
+  [v17 appendBytes:&v23 length:8];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_1002348B8;
+  v20[3] = &unk_10032C388;
+  v21 = v16;
+  v22 = handlerCopy;
+  v18 = v16;
+  v19 = handlerCopy;
+  [(TransparencyAuthentication *)self signData:v17 fetchNow:nowCopy completionHandler:v20];
 }
 
 @end

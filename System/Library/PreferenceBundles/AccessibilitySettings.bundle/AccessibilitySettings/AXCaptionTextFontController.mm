@@ -125,98 +125,98 @@
   v3 = *&self->super.AXUISettingsBaseListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v25 = OBJC_IVAR___PSListController__specifiers;
+    v27 = OBJC_IVAR___PSListController__specifiers;
     v4 = objc_alloc_init(NSMutableArray);
     captionPreviewSpecifiers = [(AXCaptionStyleChooserController *)selfCopy captionPreviewSpecifiers];
     [v4 addObjectsFromArray:captionPreviewSpecifiers];
 
+    v36 = 0u;
+    v37 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    obj = AXCaptionFonts();
-    v31 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
-    if (v31)
+    obj = AXCaptionFonts(v6, v7);
+    v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    if (v33)
     {
-      v30 = *v33;
-      v28 = PSIDKey;
-      v29 = PSCellClassKey;
-      v27 = PSTitleKey;
+      v32 = *v35;
+      v30 = PSIDKey;
+      v31 = PSCellClassKey;
+      v29 = PSTitleKey;
       do
       {
-        for (i = 0; i != v31; i = i + 1)
+        for (i = 0; i != v33; i = i + 1)
         {
-          if (*v33 != v30)
+          if (*v35 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v32 + 1) + 8 * i);
-          v8 = [v7 objectForKeyedSubscript:@"displayName"];
-          if (!v8)
+          v9 = *(*(&v34 + 1) + 8 * i);
+          v10 = [v9 objectForKeyedSubscript:@"displayName"];
+          if (!v10)
           {
-            v8 = [v7 objectForKeyedSubscript:@"name"];
+            v10 = [v9 objectForKeyedSubscript:@"name"];
           }
 
-          v9 = [v7 objectForKeyedSubscript:@"name"];
-          if (v9)
+          v11 = [v9 objectForKeyedSubscript:@"name"];
+          if (v11)
           {
-            [PSSpecifier preferenceSpecifierNamed:v8 target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
-            v11 = v10 = selfCopy;
-            [v11 setProperty:objc_opt_class() forKey:v29];
-            [v11 setProperty:v9 forKey:v28];
-            [v7 objectForKeyedSubscript:@"isBold"];
-            v13 = v12 = v4;
-            [v11 setProperty:v13 forKey:@"isBold"];
+            [PSSpecifier preferenceSpecifierNamed:v10 target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
+            v13 = v12 = selfCopy;
+            [v13 setProperty:objc_opt_class() forKey:v31];
+            [v13 setProperty:v11 forKey:v30];
+            [v9 objectForKeyedSubscript:@"isBold"];
+            v15 = v14 = v4;
+            [v13 setProperty:v15 forKey:@"isBold"];
 
-            [v11 setProperty:v8 forKey:v27];
-            v14 = [v7 objectForKeyedSubscript:@"isUserAddedFont"];
-            [v11 setProperty:v14 forKey:@"isUserAddedFont"];
+            [v13 setProperty:v10 forKey:v29];
+            v16 = [v9 objectForKeyedSubscript:@"isUserAddedFont"];
+            [v13 setProperty:v16 forKey:@"isUserAddedFont"];
 
-            v4 = v12;
-            [v11 setProperty:&__kCFBooleanTrue forKey:@"isFont"];
-            [v11 setCellType:3];
-            [v12 addObject:v11];
+            v4 = v14;
+            [v13 setProperty:&__kCFBooleanTrue forKey:@"isFont"];
+            [v13 setCellType:3];
+            [v14 addObject:v13];
 
-            selfCopy = v10;
+            selfCopy = v12;
           }
         }
 
-        v31 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v33 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
-      while (v31);
+      while (v33);
     }
 
     videoOverrideSpecifiers = [(AXCaptionStyleChooserController *)selfCopy videoOverrideSpecifiers];
     [v4 addObjectsFromArray:videoOverrideSpecifiers];
 
-    v16 = [PSSpecifier preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
-    [v4 addObject:v16];
-    v17 = settingsLocString(@"ADD_FONT", @"CaptioningStyle");
-    v18 = [PSSpecifier preferenceSpecifierNamed:v17 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
-
-    v19 = [NSNumber numberWithLong:[(AXCaptionTextFontController *)selfCopy textCategory]];
-    [v18 setProperty:v19 forKey:@"TextCategory"];
-
-    [v18 setProperty:-[AXCaptionStyleChooserController profileId](selfCopy forKey:{"profileId"), @"ProfileId"}];
+    v18 = [PSSpecifier preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
     [v4 addObject:v18];
+    v19 = settingsLocString(@"ADD_FONT", @"CaptioningStyle");
+    v20 = [PSSpecifier preferenceSpecifierNamed:v19 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+
+    v21 = [NSNumber numberWithLong:[(AXCaptionTextFontController *)selfCopy textCategory]];
+    [v20 setProperty:v21 forKey:@"TextCategory"];
+
+    [v20 setProperty:-[AXCaptionStyleChooserController profileId](selfCopy forKey:{"profileId"), @"ProfileId"}];
+    [v4 addObject:v20];
     if (![(AXCaptionTextFontController *)selfCopy textCategory])
     {
-      v20 = [PSSpecifier preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
-
-      [v4 addObject:v20];
-      v21 = settingsLocString(@"advanced", @"CaptioningStyle");
-      v22 = [PSSpecifier preferenceSpecifierNamed:v21 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+      v22 = [PSSpecifier preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:0 cell:0 edit:0];
 
       [v4 addObject:v22];
-      v16 = v20;
+      v23 = settingsLocString(@"advanced", @"CaptioningStyle");
+      v24 = [PSSpecifier preferenceSpecifierNamed:v23 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
+
+      [v4 addObject:v24];
+      v18 = v22;
     }
 
-    v23 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v25];
-    *&selfCopy->super.AXUISettingsBaseListController_opaque[v25] = v4;
+    v25 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v27];
+    *&selfCopy->super.AXUISettingsBaseListController_opaque[v27] = v4;
 
-    v3 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v25];
+    v3 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v27];
   }
 
   return v3;
@@ -294,9 +294,9 @@
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path
 {
   cellCopy = cell;
-  v19.receiver = self;
-  v19.super_class = AXCaptionTextFontController;
-  [(AXCaptionStyleChooserController *)&v19 tableView:view willDisplayCell:cellCopy forRowAtIndexPath:path];
+  v21.receiver = self;
+  v21.super_class = AXCaptionTextFontController;
+  [(AXCaptionStyleChooserController *)&v21 tableView:view willDisplayCell:cellCopy forRowAtIndexPath:path];
   systemFontType = [(AXCaptionTextFontController *)self systemFontType];
   switch(systemFontType)
   {
@@ -322,8 +322,9 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v18 = AXCaptionDefaultFontForCategory([(AXCaptionTextFontController *)self textCategory]);
-  v12 = [v18 objectForKeyedSubscript:@"name"];
+  textCategory = [(AXCaptionTextFontController *)self textCategory];
+  v20 = AXCaptionDefaultFontForCategory(textCategory, v19);
+  v12 = [v20 objectForKeyedSubscript:@"name"];
 
 LABEL_9:
   v13 = cellCopy;

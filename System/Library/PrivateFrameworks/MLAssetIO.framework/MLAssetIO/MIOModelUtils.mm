@@ -6,7 +6,7 @@
 
 + (id)URLForNewlyCreatedWorkingDirectoryAppropriateForURL:(id)l error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v7 = [defaultManager URLForDirectory:99 inDomain:1 appropriateForURL:lCopy create:1 error:error];
@@ -26,15 +26,13 @@
     if (error)
     {
       v9 = MEMORY[0x1E696ABC0];
-      v14 = *MEMORY[0x1E696A578];
+      v13 = *MEMORY[0x1E696A578];
       v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to create a working directory URL."];
-      v15[0] = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v14[0] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       *error = [v9 errorWithDomain:@"com.apple.mlassetio" code:2 userInfo:v11];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

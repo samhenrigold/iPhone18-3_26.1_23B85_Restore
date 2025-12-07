@@ -9,7 +9,7 @@
 
 + (id)predicateForObject:(id)object forDomain:(id)domain attribute:(id)attribute errors:(id)errors
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   domainCopy = domain;
   attributeCopy = attribute;
@@ -36,8 +36,8 @@ LABEL_6:
     {
       v15 = MEMORY[0x277CCA9B8];
       v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Domain %@ attribute %@ contains bundle properties of wrong type: %@", domainCopy, attributeCopy, objectCopy, *MEMORY[0x277CCA470]];
-      v22[0] = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v21[0] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       v18 = [v15 errorWithDomain:@"RBDomainAttributeManagerDataProviderErrorDomain" code:2 userInfo:v17];
 
       [errorsCopy addObject:v18];
@@ -46,8 +46,6 @@ LABEL_6:
 
   v14 = 0;
 LABEL_10:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

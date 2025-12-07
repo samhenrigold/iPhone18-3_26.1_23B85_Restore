@@ -62,7 +62,7 @@
 {
   instructionCopy = instruction;
   v5 = instructionCopy;
-  if (instructionCopy && ([instructionCopy renderJob], v6 = objc_claimAutoreleasedReturnValue(), WeakRetained = objc_loadWeakRetained(&self->_renderJob), WeakRetained, v6, v6 == WeakRetained) && (objc_msgSend(v5, "videoRenderPrepareNode"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEquivalentToRenderNode:", self->_videoRenderPrepareNode), v8, v9) && (objc_msgSend(v5, "timeRange"), v10 = *&self->_timeRange.start.epoch, *&v20.start.value = *&self->_timeRange.start.value, *&v20.start.epoch = v10, *&v20.duration.timescale = *&self->_timeRange.duration.timescale, CMTimeRangeEqual(&range1, &v20)) && (v11 = objc_msgSend(v5, "renderScale"), NUScaleEqual(v11, v12, self->_renderScale.numerator, self->_renderScale.denominator)) && (objc_msgSend(v5, "requiredSourceTrackIDs"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToArray:", self->_requiredSourceTrackIDs), v13, v14) && (v15 = objc_msgSend(v5, "containsTweening"), v15 == -[NUVideoCompositionInstruction containsTweening](self, "containsTweening")) && (v16 = objc_msgSend(v5, "passthroughTrackID"), v16 == -[NUVideoCompositionInstruction passthroughTrackID](self, "passthroughTrackID")) && (v17 = objc_msgSend(v5, "enablePostProcessing"), v17 == -[NUVideoCompositionInstruction enablePostProcessing](self, "enablePostProcessing")))
+  if (instructionCopy && ([instructionCopy renderJob], v6 = objc_claimAutoreleasedReturnValue(), WeakRetained = objc_loadWeakRetained(&self->_renderJob), WeakRetained, v6, v6 == WeakRetained) && (objc_msgSend(v5, "videoRenderPrepareNode"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isEquivalentToRenderNode:", self->_videoRenderPrepareNode), v8, v9) && (objc_msgSend_timeRange(v5), v10 = *&self->_timeRange.start.epoch, *&v20.start.value = *&self->_timeRange.start.value, *&v20.start.epoch = v10, *&v20.duration.timescale = *&self->_timeRange.duration.timescale, CMTimeRangeEqual(&range1, &v20)) && (v11 = objc_msgSend(v5, "renderScale"), NUScaleEqual(v11, v12, self->_renderScale.numerator, self->_renderScale.denominator)) && (objc_msgSend(v5, "requiredSourceTrackIDs"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToArray:", self->_requiredSourceTrackIDs), v13, v14) && (v15 = objc_msgSend(v5, "containsTweening"), v15 == -[NUVideoCompositionInstruction containsTweening](self, "containsTweening")) && (v16 = objc_msgSend(v5, "passthroughTrackID"), v16 == -[NUVideoCompositionInstruction passthroughTrackID](self, "passthroughTrackID")) && (v17 = objc_msgSend(v5, "enablePostProcessing"), v17 == -[NUVideoCompositionInstruction enablePostProcessing](self, "enablePostProcessing")))
   {
     v18 = [v5[1] isEqual:self->_sourceIdentifiersByTrackID];
   }
@@ -254,7 +254,7 @@ LABEL_11:
 - (NSString)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  [(NUVideoCompositionInstruction *)self timeRange];
+  objc_msgSend_timeRange(self, a2);
   v4 = *MEMORY[0x1E695E480];
   range = v8;
   v5 = CMTimeRangeCopyDescription(v4, &range);
@@ -317,7 +317,7 @@ LABEL_11:
   v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
   [(NUVideoCompositionInstruction *)v5 setRequiredSourceTrackIDs:v7];
 
-  [v4 timeRange];
+  objc_msgSend_timeRange(v4);
   *buf = v26;
   *&buf[16] = v27;
   v30 = v28;

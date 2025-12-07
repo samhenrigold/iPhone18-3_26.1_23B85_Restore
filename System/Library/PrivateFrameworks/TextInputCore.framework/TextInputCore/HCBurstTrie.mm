@@ -12,13 +12,12 @@
 - (BOOL)writeToFile:(id)file
 {
   path = [file path];
-  v5 = fopen([path UTF8String], "wb+");
+  v4 = fopen([path UTF8String], "wb+");
 
-  fileno(v5);
-  burstTrie = self->_burstTrie;
-  LOBYTE(self) = CFBurstTrieSerializeWithFileDescriptor() != 0;
-  fclose(v5);
-  return self;
+  fileno(v4);
+  v5 = CFBurstTrieSerializeWithFileDescriptor() != 0;
+  fclose(v4);
+  return v5;
 }
 
 - (unint64_t)count

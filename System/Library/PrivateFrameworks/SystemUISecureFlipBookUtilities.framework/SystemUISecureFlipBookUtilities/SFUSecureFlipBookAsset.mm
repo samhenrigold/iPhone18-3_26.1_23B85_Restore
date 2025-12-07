@@ -34,14 +34,14 @@
 
 - (id)initFromURL:(id)l flipbookName:(id)name constraintSuffix:(id)suffix
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   lCopy = l;
   nameCopy = name;
   suffixCopy = suffix;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v33 = 0;
-  v12 = [defaultManager contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:0 options:4 error:&v33];
-  v13 = v33;
+  v34 = 0;
+  v12 = [defaultManager contentsOfDirectoryAtURL:lCopy includingPropertiesForKeys:0 options:4 error:&v34];
+  v13 = v34;
 
   if (!v12)
   {
@@ -49,50 +49,50 @@
     v15 = localizedDescription;
     uTF8String = [localizedDescription UTF8String];
 
-    v17 = os_log_get();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = os_log_get(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       path = [lCopy path];
-      v25 = path;
+      v26 = path;
       uTF8String2 = [path UTF8String];
-      v27 = "";
+      v28 = "";
       if (uTF8String)
       {
-        v27 = uTF8String;
+        v28 = uTF8String;
       }
 
       *buf = 136315394;
-      v35 = uTF8String2;
-      v36 = 2080;
-      v37 = v27;
-      _os_log_error_impl(&dword_26C632000, v17, OS_LOG_TYPE_ERROR, "Failed to read Secure Asset at %s : '%s'", buf, 0x16u);
+      v36 = uTF8String2;
+      v37 = 2080;
+      v38 = v28;
+      _os_log_error_impl(&dword_26C632000, v18, OS_LOG_TYPE_ERROR, "Failed to read Secure Asset at %s : '%s'", buf, 0x16u);
     }
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __68__SFUSecureFlipBookAsset_initFromURL_flipbookName_constraintSuffix___block_invoke;
-  v28[3] = &unk_279D425C8;
-  v18 = nameCopy;
-  v29 = v18;
-  v19 = lCopy;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __68__SFUSecureFlipBookAsset_initFromURL_flipbookName_constraintSuffix___block_invoke;
+  v29[3] = &unk_279D425C8;
+  v19 = nameCopy;
   v30 = v19;
-  v20 = suffixCopy;
+  v20 = lCopy;
   v31 = v20;
+  v21 = suffixCopy;
+  v32 = v21;
   selfCopy = self;
-  v32 = selfCopy;
-  [v12 enumerateObjectsUsingBlock:v28];
+  v33 = selfCopy;
+  [v12 enumerateObjectsUsingBlock:v29];
   if (selfCopy->_metadata && selfCopy->_blob)
   {
-    v22 = selfCopy;
+    v23 = selfCopy;
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
-  return v22;
+  return v23;
 }
 
 void __68__SFUSecureFlipBookAsset_initFromURL_flipbookName_constraintSuffix___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -216,7 +216,7 @@ LABEL_13:
 
 - (id)mtlTextureFor:(unsigned int)for withDevice:(id)device
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   metadata = [(SFUSecureFlipBookAsset *)self metadata];
   v7 = [metadata objectForKeyedSubscript:@"indicators"];
@@ -229,34 +229,35 @@ LABEL_13:
   unsignedIntValue2 = [v11 unsignedIntValue];
 
   v13 = [v8 objectForKeyedSubscript:@"frames"];
+  v14 = [v13 count];
   forCopy = for;
-  if ([v13 count] <= for)
+  if (v14 <= for)
   {
-    v26 = os_log_get();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = os_log_get(v14);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      -[SFUSecureFlipBookAsset mtlTextureFor:withDevice:].cold.1([v13 count], buf, for, v26);
+      -[SFUSecureFlipBookAsset mtlTextureFor:withDevice:].cold.1([v13 count], buf, for, v27);
     }
 
-    v28 = 0;
+    v29 = 0;
   }
 
   else
   {
     if (!self->_decomp_buffer)
     {
-      v15 = [MEMORY[0x277CBEB28] dataWithLength:unsignedIntValue2 * unsignedIntValue];
+      v16 = [MEMORY[0x277CBEB28] dataWithLength:unsignedIntValue2 * unsignedIntValue];
       decomp_buffer = self->_decomp_buffer;
-      self->_decomp_buffer = v15;
+      self->_decomp_buffer = v16;
     }
 
-    v17 = [v13 objectAtIndexedSubscript:for];
-    v18 = [v17 objectForKeyedSubscript:@"dataSize"];
-    unsignedIntValue3 = [v18 unsignedIntValue];
+    v18 = [v13 objectAtIndexedSubscript:for];
+    v19 = [v18 objectForKeyedSubscript:@"dataSize"];
+    unsignedIntValue3 = [v19 unsignedIntValue];
 
-    v20 = [v13 objectAtIndexedSubscript:forCopy];
-    v21 = [v20 objectForKeyedSubscript:@"dataOffset"];
-    unsignedIntValue4 = [v21 unsignedIntValue];
+    v21 = [v13 objectAtIndexedSubscript:forCopy];
+    v22 = [v21 objectForKeyedSubscript:@"dataOffset"];
+    unsignedIntValue4 = [v22 unsignedIntValue];
 
     blob = [(SFUSecureFlipBookAsset *)self blob];
     if ([blob length] < (unsignedIntValue4 + unsignedIntValue3))
@@ -272,28 +273,28 @@ LABEL_13:
       __assert_rtn("[SFUSecureFlipBookAsset mtlTextureFor:withDevice:]", "SFUSecureFlipBookRecorder.mm", 1596, "res != 0");
     }
 
-    v26 = objc_alloc_init(MEMORY[0x277CD7058]);
-    [v26 setPixelFormat:80];
-    v27 = unsignedIntValue;
-    [v26 setWidth:unsignedIntValue];
-    [v26 setHeight:unsignedIntValue];
-    [v26 setUsage:3];
-    v28 = [deviceCopy newTextureWithDescriptor:v26];
-    if (!v28)
+    v27 = objc_alloc_init(MEMORY[0x277CD7058]);
+    [v27 setPixelFormat:80];
+    v28 = unsignedIntValue;
+    [v27 setWidth:unsignedIntValue];
+    [v27 setHeight:unsignedIntValue];
+    [v27 setUsage:3];
+    v29 = [deviceCopy newTextureWithDescriptor:v27];
+    if (!v29)
     {
       __assert_rtn("[SFUSecureFlipBookAsset mtlTextureFor:withDevice:]", "SFUSecureFlipBookRecorder.mm", 1604, "texture != nil");
     }
 
     *buf = 0;
-    v32 = 0;
     v33 = 0;
-    v34 = v27;
-    v35 = v27;
-    v36 = 1;
-    [v28 replaceRegion:buf mipmapLevel:0 withBytes:-[NSMutableData bytes](self->_decomp_buffer bytesPerRow:{"bytes"), unsignedIntValue2}];
+    v34 = 0;
+    v35 = v28;
+    v36 = v28;
+    v37 = 1;
+    [v29 replaceRegion:buf mipmapLevel:0 withBytes:-[NSMutableData bytes](self->_decomp_buffer bytesPerRow:{"bytes"), unsignedIntValue2}];
   }
 
-  return v28;
+  return v29;
 }
 
 - (id)diffWith:(id)with policy:(id)policy

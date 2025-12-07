@@ -6,7 +6,6 @@
 - (NSData)dataRepresentation;
 - (float)fNumber;
 - (id)_initWithInternalChanges:(id)changes;
-- (void)dataRepresentation;
 @end
 
 @implementation CNScriptChanges
@@ -37,23 +36,23 @@
 
 - (CNScriptChanges)initWithDataRepresentation:(NSData *)dataRepresentation
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   v4 = dataRepresentation;
-  v19[0] = objc_opt_class();
-  v19[1] = objc_opt_class();
-  v19[2] = objc_opt_class();
-  v19[3] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v23[2] = objc_opt_class();
+  v23[3] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
   v6 = MEMORY[0x277CCAAC8];
   v7 = [MEMORY[0x277CBEB98] setWithArray:v5];
-  v18 = 0;
-  v8 = [v6 unarchivedObjectOfClasses:v7 fromData:v4 error:&v18];
+  v22 = 0;
+  v8 = [v6 unarchivedObjectOfClasses:v7 fromData:v4 error:&v22];
 
-  v9 = v18;
+  v9 = v22;
   if (v9)
   {
-    v10 = _CNLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _CNLogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CNScriptChanges initWithDataRepresentation:];
     }
@@ -64,47 +63,51 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v12 = _CNLogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = _CNLogSystem(isKindOfClass);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [CNScriptChanges initWithDataRepresentation:];
+        [CNScriptChanges initWithDataRepresentation:v8];
       }
     }
 
-    v10 = [v8 objectForKeyedSubscript:@"version"];
+    v11 = [v8 objectForKeyedSubscript:@"version"];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v15 = objc_opt_isKindOfClass();
+    if ((v15 & 1) == 0)
     {
-      v13 = _CNLogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = _CNLogSystem(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [CNScriptChanges initWithDataRepresentation:];
+        [CNScriptChanges initWithDataRepresentation:v11];
       }
     }
 
-    if ([v10 integerValue]== 1)
+    integerValue = [v11 integerValue];
+    if (integerValue == 1)
     {
-      v14 = [v8 objectForKeyedSubscript:@"scriptChanges"];
+      v18 = [v8 objectForKeyedSubscript:@"scriptChanges"];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v19 = objc_opt_isKindOfClass();
+      if ((v19 & 1) == 0)
       {
-        v15 = _CNLogSystem();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v20 = _CNLogSystem(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [CNScriptChanges initWithDataRepresentation:];
+          [CNScriptChanges initWithDataRepresentation:v18];
         }
       }
 
-      self = [(CNScriptChanges *)self _initWithInternalChanges:v14];
+      self = [(CNScriptChanges *)self _initWithInternalChanges:v18];
       selfCopy = self;
     }
 
     else
     {
-      v14 = _CNLogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = _CNLogSystem(integerValue);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [CNScriptChanges initWithDataRepresentation:];
       }
@@ -113,7 +116,6 @@
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -130,25 +132,24 @@
   v10 = 0;
   v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v10];
   v5 = v10;
+  v6 = v5;
   if (v5)
   {
-    v6 = _CNLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CNLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [CNScriptChanges dataRepresentation];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = v4;
+    v8 = v4;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (float)fNumber
@@ -174,107 +175,73 @@
 
 - (NSArray)addedDetectionTracks
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   internalChanges = [(CNScriptChanges *)self internalChanges];
   v5 = [internalChanges objectForKeyedSubscript:@"user_tracks"];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = objc_alloc(MEMORY[0x277D3E860]);
-        v13 = [v12 _initWithCinematographyDictionary:{v11, v18}];
+        v13 = [v12 _initWithCinematographyDictionary:{v11, v17}];
         v14 = [CNDetectionTrack _trackFromInternal:v13];
         [array addObject:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [array copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
-- (void)initWithDataRepresentation:.cold.1()
+- (void)initWithDataRepresentation:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2_1(&dword_236F52000, v0, v1, "Error decoding script changes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDataRepresentation:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithDataRepresentation:.cold.3()
+- (void)initWithDataRepresentation:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithDataRepresentation:.cold.4()
+- (void)initWithDataRepresentation:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2_1(&dword_236F52000, v0, v1, "Unsupported script changes version: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDataRepresentation:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)dataRepresentation
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2_1(&dword_236F52000, v0, v1, "Error encoding script changes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

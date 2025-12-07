@@ -1,5 +1,6 @@
 @interface DSUIUtilities
 + (BOOL)isPlaceholderForApp:(id)app;
++ (id)appIconForAppID:(id)d format:(int)format;
 + (id)setUpBoldButtonForController:(id)controller title:(id)title target:(id)target selector:(SEL)selector;
 + (id)setUpLearnMoreButtonForController:(id)controller selector:(SEL)selector;
 + (id)setUpLinkButtonForController:(id)controller title:(id)title target:(id)target selector:(SEL)selector;
@@ -65,6 +66,19 @@
   [headerView addAccessoryButton:accessoryButton];
 
   return accessoryButton;
+}
+
++ (id)appIconForAppID:(id)d format:(int)format
+{
+  v4 = *&format;
+  v5 = MEMORY[0x277D755B8];
+  v6 = MEMORY[0x277D759A0];
+  dCopy = d;
+  mainScreen = [v6 mainScreen];
+  [mainScreen scale];
+  v9 = [v5 _applicationIconImageForBundleIdentifier:dCopy format:v4 scale:?];
+
+  return v9;
 }
 
 + (BOOL)isPlaceholderForApp:(id)app

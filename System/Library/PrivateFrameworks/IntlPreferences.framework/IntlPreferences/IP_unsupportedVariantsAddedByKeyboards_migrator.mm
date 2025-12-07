@@ -7,48 +7,48 @@
 
 - (id)migrateForPreferences:(id)preferences keyboards:(id)keyboards
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   keyboardsCopy = keyboards;
   orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v8 = keyboardsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v47;
+    v11 = *v46;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v47 != v11)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = IPUIKeyboardInputModeGetLanguageWithRegion(*(*(&v46 + 1) + 8 * i));
+        v13 = IPUIKeyboardInputModeGetLanguageWithRegion(*(*(&v45 + 1) + 8 * i));
         v14 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:v13];
         [orderedSet addObject:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
     while (v10);
   }
 
-  v39 = orderedSet;
-  v36 = v8;
+  v38 = orderedSet;
+  v35 = v8;
 
-  v35 = [preferencesCopy mutableCopy];
+  v34 = [preferencesCopy mutableCopy];
   v15 = [preferencesCopy objectForKeyedSubscript:?];
-  v38 = [MEMORY[0x277CBEB40] orderedSetWithArray:v15];
+  v37 = [MEMORY[0x277CBEB40] orderedSetWithArray:v15];
   v16 = MEMORY[0x277CBEAF8];
-  v37 = preferencesCopy;
+  v36 = preferencesCopy;
   v17 = [preferencesCopy objectForKeyedSubscript:@"AppleLocale"];
   v18 = [v16 componentsFromLocaleIdentifier:v17];
   v19 = *MEMORY[0x277CBE690];
@@ -57,26 +57,26 @@
   v21 = [IPLanguageListManager effectiveSystemLanguagesWithUnsupportedVariant:1 forPreferredLanguages:v15];
   firstObject = [v21 firstObject];
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = v15;
-  v22 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+  v22 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v43;
+    v24 = *v42;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v43 != v24)
+        if (*v42 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = *(*(&v42 + 1) + 8 * j);
+        v26 = *(*(&v41 + 1) + 8 * j);
         v27 = [MEMORY[0x277CBEAF8] componentsFromLocaleIdentifier:v26];
         v28 = [v27 objectForKeyedSubscript:v19];
 
@@ -87,54 +87,53 @@
 
           if ((v30 & 1) == 0)
           {
-            if ([v39 containsObject:v26])
+            if ([v38 containsObject:v26])
             {
               v31 = [MEMORY[0x277CBEAF8] languageFromLanguage:v26 byReplacingRegion:v20];
-              if ([v38 containsObject:v31])
+              if ([v37 containsObject:v31])
               {
-                [v38 removeObject:v26];
+                [v37 removeObject:v26];
               }
 
               else
               {
-                [v38 replaceObjectAtIndex:objc_msgSend(v38 withObject:{"indexOfObject:", v26), v31}];
+                [v37 replaceObjectAtIndex:objc_msgSend(v37 withObject:{"indexOfObject:", v26), v31}];
               }
             }
           }
         }
       }
 
-      v23 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v23 = [obj countByEnumeratingWithState:&v41 objects:v49 count:16];
     }
 
     while (v23);
   }
 
-  array = [v38 array];
-  [v35 setObject:array forKeyedSubscript:@"AppleLanguages"];
+  array = [v37 array];
+  [v34 setObject:array forKeyedSubscript:@"AppleLanguages"];
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v35;
+  return v34;
 }
 
 - (id)performMigrationForPreferences:(id)preferences
 {
   preferencesCopy = preferences;
-  if ([(ISMigrator *)self previousSchemaVersion]>= 0x7D0)
+  previousSchemaVersion = [(ISMigrator *)self previousSchemaVersion];
+  if (previousSchemaVersion >= 0x7D0)
   {
-    v7 = preferencesCopy;
+    v9 = preferencesCopy;
   }
 
   else
   {
-    iPUIKeyboardInputModeController = [(objc_class *)IPUIKeyboardInputModeController() sharedInputModeController];
+    iPUIKeyboardInputModeController = [(objc_class *)IPUIKeyboardInputModeController(previousSchemaVersion sharedInputModeController];
     enabledInputModeIdentifiers = [iPUIKeyboardInputModeController enabledInputModeIdentifiers];
 
-    v7 = [(IP_unsupportedVariantsAddedByKeyboards_migrator *)self migrateForPreferences:preferencesCopy keyboards:enabledInputModeIdentifiers];
+    v9 = [(IP_unsupportedVariantsAddedByKeyboards_migrator *)self migrateForPreferences:preferencesCopy keyboards:enabledInputModeIdentifiers];
   }
 
-  return v7;
+  return v9;
 }
 
 @end

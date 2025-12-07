@@ -339,73 +339,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_20;
-  }
-
-  alertSetting = [(UNNotificationSettings *)self alertSetting];
-  if (alertSetting != [equalCopy alertSetting])
-  {
-    goto LABEL_20;
-  }
-
-  alertStyle = [(UNNotificationSettings *)self alertStyle];
-  if (alertStyle != [equalCopy alertStyle])
-  {
-    goto LABEL_20;
-  }
-
-  authorizationStatus = [(UNNotificationSettings *)self authorizationStatus];
-  if (authorizationStatus != [equalCopy authorizationStatus])
-  {
-    goto LABEL_20;
-  }
-
-  badgeSetting = [(UNNotificationSettings *)self badgeSetting];
-  if (badgeSetting != [equalCopy badgeSetting])
-  {
-    goto LABEL_20;
-  }
-
-  carPlaySetting = [(UNNotificationSettings *)self carPlaySetting];
-  if (carPlaySetting != [equalCopy carPlaySetting])
-  {
-    goto LABEL_20;
-  }
-
-  remoteNotificationsSetting = [(UNNotificationSettings *)self remoteNotificationsSetting];
-  if (remoteNotificationsSetting != [equalCopy remoteNotificationsSetting])
-  {
-    goto LABEL_20;
-  }
-
-  announcementSetting = [(UNNotificationSettings *)self announcementSetting];
-  if (announcementSetting != [equalCopy announcementSetting])
-  {
-    goto LABEL_20;
-  }
-
-  lockScreenSetting = [(UNNotificationSettings *)self lockScreenSetting];
-  if (lockScreenSetting != [equalCopy lockScreenSetting])
-  {
-    goto LABEL_20;
-  }
-
-  notificationCenterSetting = [(UNNotificationSettings *)self notificationCenterSetting];
-  if (notificationCenterSetting != [equalCopy notificationCenterSetting])
-  {
-    goto LABEL_20;
-  }
-
-  soundSetting = [(UNNotificationSettings *)self soundSetting];
-  if (soundSetting != [equalCopy soundSetting])
-  {
-    goto LABEL_20;
-  }
-
-  groupingSetting = [(UNNotificationSettings *)self groupingSetting];
-  if (groupingSetting == [equalCopy groupingSetting] && (v16 = -[UNNotificationSettings providesAppNotificationSettings](self, "providesAppNotificationSettings"), v16 == objc_msgSend(equalCopy, "providesAppNotificationSettings")) && (v17 = -[UNNotificationSettings criticalAlertSetting](self, "criticalAlertSetting"), v17 == objc_msgSend(equalCopy, "criticalAlertSetting")) && (v18 = -[UNNotificationSettings timeSensitiveSetting](self, "timeSensitiveSetting"), v18 == objc_msgSend(equalCopy, "timeSensitiveSetting")) && (v19 = -[UNNotificationSettings scheduledDeliverySetting](self, "scheduledDeliverySetting"), v19 == objc_msgSend(equalCopy, "scheduledDeliverySetting")) && (v20 = -[UNNotificationSettings directMessagesSetting](self, "directMessagesSetting"), v20 == objc_msgSend(equalCopy, "directMessagesSetting")) && (v21 = -[UNNotificationSettings summarizationSetting](self, "summarizationSetting"), v21 == objc_msgSend(equalCopy, "summarizationSetting")))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = -[UNNotificationSettings alertSetting](self, "alertSetting"), v5 == [equalCopy alertSetting]) && (v6 = -[UNNotificationSettings alertStyle](self, "alertStyle"), v6 == objc_msgSend(equalCopy, "alertStyle")) && (v7 = -[UNNotificationSettings authorizationStatus](self, "authorizationStatus"), v7 == objc_msgSend(equalCopy, "authorizationStatus")) && (v8 = -[UNNotificationSettings badgeSetting](self, "badgeSetting"), v8 == objc_msgSend(equalCopy, "badgeSetting")) && (v9 = -[UNNotificationSettings carPlaySetting](self, "carPlaySetting"), v9 == objc_msgSend(equalCopy, "carPlaySetting")) && (v10 = -[UNNotificationSettings remoteNotificationsSetting](self, "remoteNotificationsSetting"), v10 == objc_msgSend(equalCopy, "remoteNotificationsSetting")) && (v11 = -[UNNotificationSettings announcementSetting](self, "announcementSetting"), v11 == objc_msgSend(equalCopy, "announcementSetting")) && (v12 = -[UNNotificationSettings lockScreenSetting](self, "lockScreenSetting"), v12 == objc_msgSend(equalCopy, "lockScreenSetting")) && (v13 = -[UNNotificationSettings notificationCenterSetting](self, "notificationCenterSetting"), v13 == objc_msgSend(equalCopy, "notificationCenterSetting")) && (v14 = -[UNNotificationSettings soundSetting](self, "soundSetting"), v14 == objc_msgSend(equalCopy, "soundSetting")) && (v15 = -[UNNotificationSettings groupingSetting](self, "groupingSetting"), v15 == objc_msgSend(equalCopy, "groupingSetting")) && (v16 = -[UNNotificationSettings providesAppNotificationSettings](self, "providesAppNotificationSettings"), v16 == objc_msgSend(equalCopy, "providesAppNotificationSettings")) && (v17 = -[UNNotificationSettings criticalAlertSetting](self, "criticalAlertSetting"), v17 == objc_msgSend(equalCopy, "criticalAlertSetting")) && (v18 = -[UNNotificationSettings timeSensitiveSetting](self, "timeSensitiveSetting"), v18 == objc_msgSend(equalCopy, "timeSensitiveSetting")) && (v19 = -[UNNotificationSettings scheduledDeliverySetting](self, "scheduledDeliverySetting"), v19 == objc_msgSend(equalCopy, "scheduledDeliverySetting")) && (v20 = -[UNNotificationSettings directMessagesSetting](self, "directMessagesSetting"), v20 == objc_msgSend(equalCopy, "directMessagesSetting")) && (v21 = -[UNNotificationSettings summarizationSetting](self, "summarizationSetting"), v21 == objc_msgSend(equalCopy, "summarizationSetting")))
   {
     prioritizationSetting = [(UNNotificationSettings *)self prioritizationSetting];
     v23 = prioritizationSetting == [equalCopy prioritizationSetting];
@@ -413,7 +347,6 @@
 
   else
   {
-LABEL_20:
     v23 = 0;
   }
 

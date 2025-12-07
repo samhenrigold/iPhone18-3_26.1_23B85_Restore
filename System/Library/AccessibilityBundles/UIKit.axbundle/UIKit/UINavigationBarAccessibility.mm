@@ -718,17 +718,17 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
 
 - (id)_accessibilityFetchCachedNavBarElements
 {
-  v216 = *MEMORY[0x29EDCA608];
+  v217 = *MEMORY[0x29EDCA608];
   val = self;
   if (self)
   {
-    v203.receiver = val;
-    v203.super_class = UINavigationBarAccessibility;
-    v204 = objc_msgSendSuper2(&v203, sel_accessibilityElements);
-    if (v204)
+    v204.receiver = val;
+    v204.super_class = UINavigationBarAccessibility;
+    v205 = objc_msgSendSuper2(&v204, sel_accessibilityElements);
+    if (v205)
     {
-      v206 = MEMORY[0x29EDC9748](v204);
-      v202 = 1;
+      v207 = MEMORY[0x29EDC9748](v205);
+      v203 = 1;
     }
 
     else
@@ -739,231 +739,231 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
         type = OS_LOG_TYPE_INFO;
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_2_1_8_64(v215, val);
-          _os_log_impl(&dword_29C4D6000, oslog, type, "Left/Right button count change for %@, resetting", v215, 0xCu);
+          __os_log_helper_16_2_1_8_64(v216, val);
+          _os_log_impl(&dword_29C4D6000, oslog, type, "Left/Right button count change for %@, resetting", v216, 0xCu);
         }
 
         objc_storeStrong(&oslog, 0);
         [val _accessibilityRemoveValueForKey:*MEMORY[0x29EDC7620]];
       }
 
-      v199 = [val _accessibilityValueForKey:*MEMORY[0x29EDC7620]];
-      if ([v199 count] && objc_msgSend(v199, "indexOfObjectPassingTest:", &__block_literal_global_475) == 0x7FFFFFFFFFFFFFFFLL)
+      v200 = [val _accessibilityValueForKey:*MEMORY[0x29EDC7620]];
+      if ([v200 count] && objc_msgSend(v200, "indexOfObjectPassingTest:", &__block_literal_global_475) == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v206 = MEMORY[0x29EDC9748](v199);
-        v202 = 1;
+        v207 = MEMORY[0x29EDC9748](v200);
+        v203 = 1;
       }
 
       else
       {
         [val _accessibilityRemoveValueForKey:*MEMORY[0x29EDC7620]];
         array = [MEMORY[0x29EDB8DE8] array];
-        v2 = v199;
-        v199 = array;
-        MEMORY[0x29EDC9740](v2);
-        v198 = MEMORY[0x29EDC9748](val);
-        _accessibility_contentsOfNavigationBar = [v198 _accessibility_contentsOfNavigationBar];
+        v3 = v200;
+        v200 = array;
+        MEMORY[0x29EDC9740](v3);
+        v199 = MEMORY[0x29EDC9748](val);
+        _accessibility_contentsOfNavigationBar = [v199 _accessibility_contentsOfNavigationBar];
         viewsRepresentingBackButton = [_accessibility_contentsOfNavigationBar viewsRepresentingBackButton];
-        v195 = ([val _accessibilityViewIsVisible] & 1) != 0;
-        v194 = 0;
+        v196 = ([val _accessibilityViewIsVisible] & 1) != 0;
+        v195 = 0;
         topItem = [_accessibility_contentsOfNavigationBar topItem];
         searchController = [topItem searchController];
-        v192 = 0;
-        v190 = 0;
+        v193 = 0;
+        v191 = 0;
         hidesNavigationBarDuringPresentation = 0;
         if ([searchController isActive])
         {
           topItem2 = [_accessibility_contentsOfNavigationBar topItem];
-          v192 = 1;
+          v193 = 1;
           searchController2 = [topItem2 searchController];
-          v190 = 1;
+          v191 = 1;
           hidesNavigationBarDuringPresentation = [searchController2 hidesNavigationBarDuringPresentation];
         }
 
-        v194 = hidesNavigationBarDuringPresentation & 1;
-        if (v190)
+        v195 = hidesNavigationBarDuringPresentation & 1;
+        if (v191)
         {
           MEMORY[0x29EDC9740](searchController2);
         }
 
-        if (v192)
+        if (v193)
         {
           MEMORY[0x29EDC9740](topItem2);
         }
 
         MEMORY[0x29EDC9740](searchController);
-        *&v3 = MEMORY[0x29EDC9740](topItem).n128_u64[0];
-        if ((v194 & 1) == 0)
+        *&v4 = MEMORY[0x29EDC9740](topItem).n128_u64[0];
+        if ((v195 & 1) == 0)
         {
-          if ([viewsRepresentingBackButton indexOfObjectPassingTest:{&__block_literal_global_478_0, v3}] != 0x7FFFFFFFFFFFFFFFLL)
+          if ([viewsRepresentingBackButton indexOfObjectPassingTest:{&__block_literal_global_478_0, v4}] != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v187 = 0;
+            v188 = 0;
             objc_opt_class();
             topItem3 = [_accessibility_contentsOfNavigationBar topItem];
-            v106 = [topItem3 safeValueForKey:@"backAction"];
-            v186 = __UIAccessibilityCastAsClass();
-            MEMORY[0x29EDC9740](v106);
+            v107 = [topItem3 safeValueForKey:@"backAction"];
+            v187 = __UIAccessibilityCastAsClass();
+            MEMORY[0x29EDC9740](v107);
             MEMORY[0x29EDC9740](topItem3);
-            v185 = MEMORY[0x29EDC9748](v186);
-            objc_storeStrong(&v186, 0);
-            v188 = v185;
+            v186 = MEMORY[0x29EDC9748](v187);
+            objc_storeStrong(&v187, 0);
+            v189 = v186;
             backBarButtonItem = [_accessibility_contentsOfNavigationBar backBarButtonItem];
             _accessibilityAXAttributedLabel = [backBarButtonItem _accessibilityAXAttributedLabel];
-            v184 = trimWhitespaceToNil(_accessibilityAXAttributedLabel);
+            v185 = trimWhitespaceToNil(_accessibilityAXAttributedLabel);
             MEMORY[0x29EDC9740](_accessibilityAXAttributedLabel);
-            *&v4 = MEMORY[0x29EDC9740](backBarButtonItem).n128_u64[0];
-            v182 = 0;
-            v180 = 0;
-            v178 = 0;
-            if (v184)
+            *&v5 = MEMORY[0x29EDC9740](backBarButtonItem).n128_u64[0];
+            v183 = 0;
+            v181 = 0;
+            v179 = 0;
+            if (v185)
             {
-              objc_storeStrong(&v184, v184);
+              objc_storeStrong(&v185, v185);
             }
 
             else
             {
               backItem = [_accessibility_contentsOfNavigationBar backItem];
-              v182 = 1;
+              v183 = 1;
               backButtonTitle = [backItem backButtonTitle];
-              v180 = 1;
-              v179 = trimWhitespaceToNil(backButtonTitle);
-              v178 = 1;
-              objc_storeStrong(&v184, v179);
+              v181 = 1;
+              v180 = trimWhitespaceToNil(backButtonTitle);
+              v179 = 1;
+              objc_storeStrong(&v185, v180);
             }
 
-            if (v178)
+            if (v179)
             {
-              MEMORY[0x29EDC9740](v179);
+              MEMORY[0x29EDC9740](v180);
             }
 
-            if (v180)
+            if (v181)
             {
               MEMORY[0x29EDC9740](backButtonTitle);
             }
 
-            if (v182)
+            if (v183)
             {
               MEMORY[0x29EDC9740](backItem);
             }
 
-            v176 = 0;
-            v174 = 0;
-            v172 = 0;
-            if (v184)
+            v177 = 0;
+            v175 = 0;
+            v173 = 0;
+            if (v185)
             {
-              objc_storeStrong(&v184, v184);
+              objc_storeStrong(&v185, v185);
             }
 
             else
             {
               backItem2 = [_accessibility_contentsOfNavigationBar backItem];
-              v176 = 1;
+              v177 = 1;
               _accessibilityAXAttributedLabel2 = [backItem2 _accessibilityAXAttributedLabel];
-              v174 = 1;
-              v173 = trimWhitespaceToNil(_accessibilityAXAttributedLabel2);
-              v172 = 1;
-              objc_storeStrong(&v184, v173);
+              v175 = 1;
+              v174 = trimWhitespaceToNil(_accessibilityAXAttributedLabel2);
+              v173 = 1;
+              objc_storeStrong(&v185, v174);
             }
 
-            if (v172)
+            if (v173)
             {
-              MEMORY[0x29EDC9740](v173);
+              MEMORY[0x29EDC9740](v174);
             }
 
-            if (v174)
+            if (v175)
             {
               MEMORY[0x29EDC9740](_accessibilityAXAttributedLabel2);
             }
 
-            if (v176)
+            if (v177)
             {
               MEMORY[0x29EDC9740](backItem2);
             }
 
-            v170 = 0;
-            v168 = 0;
-            v166 = 0;
-            if (v184)
+            v171 = 0;
+            v169 = 0;
+            v167 = 0;
+            if (v185)
             {
-              objc_storeStrong(&v184, v184);
+              objc_storeStrong(&v185, v185);
             }
 
             else
             {
               backItem3 = [_accessibility_contentsOfNavigationBar backItem];
-              v170 = 1;
+              v171 = 1;
               title = [backItem3 title];
-              v168 = 1;
-              v167 = trimWhitespaceToNil(title);
-              v166 = 1;
-              objc_storeStrong(&v184, v167);
+              v169 = 1;
+              v168 = trimWhitespaceToNil(title);
+              v167 = 1;
+              objc_storeStrong(&v185, v168);
             }
 
-            if (v166)
+            if (v167)
             {
-              MEMORY[0x29EDC9740](v167);
+              MEMORY[0x29EDC9740](v168);
             }
 
-            if (v168)
+            if (v169)
             {
               MEMORY[0x29EDC9740](title);
             }
 
-            if (v170)
+            if (v171)
             {
               MEMORY[0x29EDC9740](backItem3);
             }
 
             memset(__b, 0, sizeof(__b));
-            _accessibility_contentsOfNavigationBar2 = [v198 _accessibility_contentsOfNavigationBar];
+            _accessibility_contentsOfNavigationBar2 = [v199 _accessibility_contentsOfNavigationBar];
             viewsRepresentingBackButton2 = [_accessibility_contentsOfNavigationBar2 viewsRepresentingBackButton];
-            v101 = [viewsRepresentingBackButton2 countByEnumeratingWithState:__b objects:v214 count:{16, MEMORY[0x29EDC9740](_accessibility_contentsOfNavigationBar2).n128_f64[0]}];
-            if (v101)
+            v102 = [viewsRepresentingBackButton2 countByEnumeratingWithState:__b objects:v215 count:{16, MEMORY[0x29EDC9740](_accessibility_contentsOfNavigationBar2).n128_f64[0]}];
+            if (v102)
             {
-              v98 = *__b[2];
-              v99 = 0;
-              v100 = v101;
+              v99 = *__b[2];
+              v100 = 0;
+              v101 = v102;
               while (1)
               {
-                v97 = v99;
-                if (*__b[2] != v98)
+                v98 = v100;
+                if (*__b[2] != v99)
                 {
                   objc_enumerationMutation(viewsRepresentingBackButton2);
                 }
 
-                v165 = *(__b[1] + 8 * v99);
-                v162 = 0;
-                v160 = 0;
-                if (v184)
+                v166 = *(__b[1] + 8 * v100);
+                v163 = 0;
+                v161 = 0;
+                if (v185)
                 {
-                  objc_storeStrong(&v184, v184);
+                  objc_storeStrong(&v185, v185);
                 }
 
                 else
                 {
-                  _accessibilityAXAttributedLabel3 = [v165 _accessibilityAXAttributedLabel];
-                  v162 = 1;
-                  v161 = trimWhitespaceToNil(_accessibilityAXAttributedLabel3);
-                  v160 = 1;
-                  objc_storeStrong(&v184, v161);
+                  _accessibilityAXAttributedLabel3 = [v166 _accessibilityAXAttributedLabel];
+                  v163 = 1;
+                  v162 = trimWhitespaceToNil(_accessibilityAXAttributedLabel3);
+                  v161 = 1;
+                  objc_storeStrong(&v185, v162);
                 }
 
-                if (v160)
+                if (v161)
                 {
-                  MEMORY[0x29EDC9740](v161);
+                  MEMORY[0x29EDC9740](v162);
                 }
 
-                if (v162)
+                if (v163)
                 {
                   MEMORY[0x29EDC9740](_accessibilityAXAttributedLabel3);
                 }
 
-                ++v99;
-                if (v97 + 1 >= v100)
+                ++v100;
+                if (v98 + 1 >= v101)
                 {
-                  v99 = 0;
-                  v100 = [viewsRepresentingBackButton2 countByEnumeratingWithState:__b objects:v214 count:16];
-                  if (!v100)
+                  v100 = 0;
+                  v101 = [viewsRepresentingBackButton2 countByEnumeratingWithState:__b objects:v215 count:16];
+                  if (!v101)
                   {
                     break;
                   }
@@ -971,204 +971,204 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
               }
             }
 
-            *&v5 = MEMORY[0x29EDC9740](viewsRepresentingBackButton2).n128_u64[0];
-            v158 = 0;
-            v156 = 0;
-            if (v184)
+            *&v6 = MEMORY[0x29EDC9740](viewsRepresentingBackButton2).n128_u64[0];
+            v159 = 0;
+            v157 = 0;
+            if (v185)
             {
-              objc_storeStrong(&v184, v184);
+              objc_storeStrong(&v185, v185);
             }
 
             else
             {
-              accessibilityLabel = [v188 accessibilityLabel];
-              v158 = 1;
-              v157 = trimWhitespaceToNil(accessibilityLabel);
-              v156 = 1;
-              objc_storeStrong(&v184, v157);
+              accessibilityLabel = [v189 accessibilityLabel];
+              v159 = 1;
+              v158 = trimWhitespaceToNil(accessibilityLabel);
+              v157 = 1;
+              objc_storeStrong(&v185, v158);
             }
 
-            if (v156)
+            if (v157)
             {
-              MEMORY[0x29EDC9740](v157);
+              MEMORY[0x29EDC9740](v158);
             }
 
-            if (v158)
+            if (v159)
             {
               MEMORY[0x29EDC9740](accessibilityLabel);
             }
 
-            v154 = 0;
-            if (v184)
+            v155 = 0;
+            if (v185)
             {
-              objc_storeStrong(&v184, v184);
+              objc_storeStrong(&v185, v185);
             }
 
             else
             {
-              v155 = accessibilityLocalizedString(@"uibutton.navbar.back.button.title");
-              v154 = 1;
-              objc_storeStrong(&v184, v155);
+              v156 = accessibilityLocalizedString(@"uibutton.navbar.back.button.title");
+              v155 = 1;
+              objc_storeStrong(&v185, v156);
             }
 
-            if (v154)
+            if (v155)
             {
-              MEMORY[0x29EDC9740](v155);
+              MEMORY[0x29EDC9740](v156);
             }
 
             _accessibilityFauxBackButton = [val _accessibilityFauxBackButton];
-            v151 = 0;
+            v152 = 0;
             if (_accessibilityFauxBackButton)
             {
-              v6 = MEMORY[0x29EDC9748](_accessibilityFauxBackButton);
+              v7 = MEMORY[0x29EDC9748](_accessibilityFauxBackButton);
             }
 
             else
             {
-              v95 = [UIAccessibilityBackButtonElement alloc];
-              v152 = [(UIAccessibilityBackButtonElement *)v95 initWithAccessibilityContainer:v198];
-              v151 = 1;
-              v6 = MEMORY[0x29EDC9748](v152);
+              v96 = [UIAccessibilityBackButtonElement alloc];
+              v153 = [(UIAccessibilityBackButtonElement *)v96 initWithAccessibilityContainer:v199];
+              v152 = 1;
+              v7 = MEMORY[0x29EDC9748](v153);
             }
 
-            v153 = v6;
-            if (v151)
+            v154 = v7;
+            if (v152)
             {
-              MEMORY[0x29EDC9740](v152);
+              MEMORY[0x29EDC9740](v153);
             }
 
-            *&v7 = MEMORY[0x29EDC9740](_accessibilityFauxBackButton).n128_u64[0];
-            [v153 setAccessibilityContainer:{val, v7}];
-            [(UINavigationBarAccessibility *)val _accessibilitySetFauxBackButton:v153];
-            [v153 setAssociatedViews:viewsRepresentingBackButton];
+            *&v8 = MEMORY[0x29EDC9740](_accessibilityFauxBackButton).n128_u64[0];
+            [v154 setAccessibilityContainer:{val, v8}];
+            [(UINavigationBarAccessibility *)val _accessibilitySetFauxBackButton:v154];
+            [v154 setAssociatedViews:viewsRepresentingBackButton];
             objc_initWeak(&from, val);
-            v94 = v153;
-            v144 = MEMORY[0x29EDCA5F8];
-            v145 = -1073741824;
-            v146 = 0;
-            v147 = __71__UINavigationBarAccessibility__accessibilityFetchCachedNavBarElements__block_invoke_3;
-            v148 = &unk_29F30CAE8;
-            objc_copyWeak(&v149, &from);
-            [v94 _setAccessibilityFrameBlock:&v144];
+            v95 = v154;
+            v145 = MEMORY[0x29EDCA5F8];
+            v146 = -1073741824;
+            v147 = 0;
+            v148 = __71__UINavigationBarAccessibility__accessibilityFetchCachedNavBarElements__block_invoke_3;
+            v149 = &unk_29F30CAE8;
+            objc_copyWeak(&v150, &from);
+            [v95 _setAccessibilityFrameBlock:&v145];
             backBarButtonItem2 = [_accessibility_contentsOfNavigationBar backBarButtonItem];
             accessibilityUserInputLabels = [backBarButtonItem2 accessibilityUserInputLabels];
             if (![accessibilityUserInputLabels count])
             {
-              v142 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-              [v142 axSafelyAddObject:v184];
+              v143 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+              [v143 axSafelyAddObject:v185];
               backItem4 = [_accessibility_contentsOfNavigationBar backItem];
               _abbreviatedBackButtonTitles = [backItem4 _abbreviatedBackButtonTitles];
-              v90 = [_abbreviatedBackButtonTitles ax_filteredArrayUsingBlock:&__block_literal_global_486];
-              [v142 axSafelyAddObjectsFromArray:?];
-              MEMORY[0x29EDC9740](v90);
+              v91 = [_abbreviatedBackButtonTitles ax_filteredArrayUsingBlock:&__block_literal_global_486];
+              [v143 axSafelyAddObjectsFromArray:?];
+              MEMORY[0x29EDC9740](v91);
               MEMORY[0x29EDC9740](_abbreviatedBackButtonTitles);
               MEMORY[0x29EDC9740](backItem4);
-              v89 = UIKitAccessibilityLocalizedString();
-              [v142 axSafelyAddObject:?];
-              MEMORY[0x29EDC9740](v89);
-              objc_storeStrong(&accessibilityUserInputLabels, v142);
-              objc_storeStrong(&v142, 0);
+              v90 = UIKitAccessibilityLocalizedString();
+              [v143 axSafelyAddObject:?];
+              MEMORY[0x29EDC9740](v90);
+              objc_storeStrong(&accessibilityUserInputLabels, v143);
+              objc_storeStrong(&v143, 0);
             }
 
-            [v153 setAccessibilityUserInputLabels:accessibilityUserInputLabels];
-            [v153 _accessibilitySetSortPriority:1];
-            [v153 setAccessibilityLabel:v184];
-            accessibilityIdentifier = [v188 accessibilityIdentifier];
-            [v153 setAccessibilityIdentifier:?];
-            *&v8 = MEMORY[0x29EDC9740](accessibilityIdentifier).n128_u64[0];
-            [v153 setAccessibilityTraits:{*MEMORY[0x29EDC7F70] | *MEMORY[0x29EDC7500], v8}];
+            [v154 setAccessibilityUserInputLabels:accessibilityUserInputLabels];
+            [v154 _accessibilitySetSortPriority:1];
+            [v154 setAccessibilityLabel:v185];
+            accessibilityIdentifier = [v189 accessibilityIdentifier];
+            [v154 setAccessibilityIdentifier:?];
+            *&v9 = MEMORY[0x29EDC9740](accessibilityIdentifier).n128_u64[0];
+            [v154 setAccessibilityTraits:{*MEMORY[0x29EDC7F70] | *MEMORY[0x29EDC7500], v9}];
             backItem5 = [_accessibility_contentsOfNavigationBar backItem];
             accessibilityLanguage = [backItem5 accessibilityLanguage];
-            [v153 setAccessibilityLanguage:?];
+            [v154 setAccessibilityLanguage:?];
             MEMORY[0x29EDC9740](accessibilityLanguage);
-            *&v9 = MEMORY[0x29EDC9740](backItem5).n128_u64[0];
-            [v199 addObject:{v153, v9}];
+            *&v10 = MEMORY[0x29EDC9740](backItem5).n128_u64[0];
+            [v200 addObject:{v154, v10}];
             objc_storeStrong(&accessibilityUserInputLabels, 0);
-            objc_destroyWeak(&v149);
+            objc_destroyWeak(&v150);
             objc_destroyWeak(&from);
-            objc_storeStrong(&v153, 0);
-            objc_storeStrong(&v184, 0);
-            objc_storeStrong(&v188, 0);
+            objc_storeStrong(&v154, 0);
+            objc_storeStrong(&v185, 0);
+            objc_storeStrong(&v189, 0);
           }
 
           _accessibilityRightButtonElements = [(UINavigationBarAccessibility *)val _accessibilityRightButtonElements];
           _accessibilityLeftButtonElements = [(UINavigationBarAccessibility *)val _accessibilityLeftButtonElements];
-          memset(v138, 0, sizeof(v138));
-          v85 = MEMORY[0x29EDB8D80];
+          memset(v139, 0, sizeof(v139));
+          v86 = MEMORY[0x29EDB8D80];
           largeTitleView = [_accessibility_contentsOfNavigationBar largeTitleView];
           titleView = [_accessibility_contentsOfNavigationBar titleView];
           topItem4 = [_accessibility_contentsOfNavigationBar topItem];
           _largeSubtitleView = [topItem4 _largeSubtitleView];
-          v80 = [v85 axArrayByIgnoringNilElementsWithCount:{3, largeTitleView, titleView, _largeSubtitleView}];
+          v81 = [v86 axArrayByIgnoringNilElementsWithCount:{3, largeTitleView, titleView, _largeSubtitleView}];
           MEMORY[0x29EDC9740](_largeSubtitleView);
           MEMORY[0x29EDC9740](topItem4);
           MEMORY[0x29EDC9740](titleView);
-          v79 = [v80 countByEnumeratingWithState:v138 objects:v213 count:{16, MEMORY[0x29EDC9740](largeTitleView).n128_f64[0]}];
-          if (v79)
+          v80 = [v81 countByEnumeratingWithState:v139 objects:v214 count:{16, MEMORY[0x29EDC9740](largeTitleView).n128_f64[0]}];
+          if (v80)
           {
-            v76 = *v138[2];
-            v77 = 0;
-            v78 = v79;
+            v77 = *v139[2];
+            v78 = 0;
+            v79 = v80;
             while (1)
             {
-              v75 = v77;
-              if (*v138[2] != v76)
+              v76 = v78;
+              if (*v139[2] != v77)
               {
-                objc_enumerationMutation(v80);
+                objc_enumerationMutation(v81);
               }
 
-              v139 = *(v138[1] + 8 * v77);
-              v137 = MEMORY[0x29EDC9748](v139);
+              v140 = *(v139[1] + 8 * v78);
+              v138 = MEMORY[0x29EDC9748](v140);
               NSClassFromString(&cfstr_Uinavigationba_8.isa);
               if (objc_opt_isKindOfClass())
               {
-                v74 = [v139 safeValueForKey:@"titleLabel"];
-                *&v10 = MEMORY[0x29EDC9740](v74).n128_u64[0];
-                if (v74)
+                v75 = [v140 safeValueForKey:@"titleLabel"];
+                *&v11 = MEMORY[0x29EDC9740](v75).n128_u64[0];
+                if (v75)
                 {
-                  [v139 _accessibilityLoadAccessibilityInformation];
-                  v11 = [v139 safeValueForKey:@"titleLabel"];
+                  [v140 _accessibilityLoadAccessibilityInformation];
+                  v12 = [v140 safeValueForKey:@"titleLabel"];
                 }
 
                 else
                 {
-                  v11 = [v139 safeValueForKey:{@"titleView", v10}];
+                  v12 = [v140 safeValueForKey:{@"titleView", v11}];
                 }
 
-                v12 = v137;
-                v137 = v11;
-                MEMORY[0x29EDC9740](v12);
+                v13 = v138;
+                v138 = v12;
+                MEMORY[0x29EDC9740](v13);
               }
 
-              if ([v137 _accessibilityViewIsVisible])
+              if ([v138 _accessibilityViewIsVisible])
               {
-                v136 = objc_opt_new();
-                [(_UIAccessibilityNavigationViewInfo *)v136 setNavigationBar:?];
+                v137 = objc_opt_new();
+                [(_UIAccessibilityNavigationViewInfo *)v137 setNavigationBar:?];
                 topItem5 = [_accessibility_contentsOfNavigationBar topItem];
-                [(_UIAccessibilityNavigationViewInfo *)v136 setNavigationItem:topItem5];
+                [(_UIAccessibilityNavigationViewInfo *)v137 setNavigationItem:topItem5];
                 MEMORY[0x29EDC9740](topItem5);
                 objc_opt_class();
-                v72 = __UIAccessibilityCastAsSafeCategory();
-                [v72 _accessibilitySetNavigationViewInfo:v136];
-                *&v13 = MEMORY[0x29EDC9740](v72).n128_u64[0];
-                [v199 addObject:{v137, v13}];
-                [val _accessibilitySetRetainedValue:v137 forKey:@"AXTitleView"];
-                objc_storeStrong(&v136, 0);
-                v202 = 0;
+                v73 = __UIAccessibilityCastAsSafeCategory();
+                [v73 _accessibilitySetNavigationViewInfo:v137];
+                *&v14 = MEMORY[0x29EDC9740](v73).n128_u64[0];
+                [v200 addObject:{v138, v14}];
+                [val _accessibilitySetRetainedValue:v138 forKey:@"AXTitleView"];
+                objc_storeStrong(&v137, 0);
+                v203 = 0;
               }
 
               else
               {
-                v202 = 5;
+                v203 = 5;
               }
 
-              objc_storeStrong(&v137, 0);
-              ++v77;
-              if (v75 + 1 >= v78)
+              objc_storeStrong(&v138, 0);
+              ++v78;
+              if (v76 + 1 >= v79)
               {
-                v77 = 0;
-                v78 = [v80 countByEnumeratingWithState:v138 objects:v213 count:16];
-                if (!v78)
+                v78 = 0;
+                v79 = [v81 countByEnumeratingWithState:v139 objects:v214 count:16];
+                if (!v79)
                 {
                   break;
                 }
@@ -1176,178 +1176,178 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
             }
           }
 
-          MEMORY[0x29EDC9740](v80);
+          MEMORY[0x29EDC9740](v81);
           _axSubtitleLabel = [(UINavigationBarAccessibility *)val _axSubtitleLabel];
           if (_axSubtitleLabel && ([_axSubtitleLabel _accessibilityViewIsVisible] & 1) != 0)
           {
-            [v199 addObject:_axSubtitleLabel];
+            [v200 addObject:_axSubtitleLabel];
             [val _accessibilitySetRetainedValue:_axSubtitleLabel forKey:@"AXSubtitleView"];
           }
 
           topItem6 = [_accessibility_contentsOfNavigationBar topItem];
           _largeTitleAccessoryView = [topItem6 _largeTitleAccessoryView];
-          *&v14 = MEMORY[0x29EDC9740](topItem6).n128_u64[0];
+          *&v15 = MEMORY[0x29EDC9740](topItem6).n128_u64[0];
           if (_largeTitleAccessoryView && ([_largeTitleAccessoryView _accessibilityViewIsVisible] & 1) != 0)
           {
-            [v199 addObject:_largeTitleAccessoryView];
+            [v200 addObject:_largeTitleAccessoryView];
             [val _accessibilitySetRetainedValue:_largeTitleAccessoryView forKey:@"AXTitleAccessoryView"];
           }
 
-          v70 = val;
-          v69 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:{objc_msgSend(_accessibilityLeftButtonElements, "count", v14)}];
-          [v70 _accessibilitySetRetainedValue:? forKey:?];
-          *&v15 = MEMORY[0x29EDC9740](v69).n128_u64[0];
-          v68 = val;
-          v67 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:{objc_msgSend(_accessibilityRightButtonElements, "count", v15)}];
-          [v68 _accessibilitySetRetainedValue:? forKey:?];
-          *&v16 = MEMORY[0x29EDC9740](v67).n128_u64[0];
+          v71 = val;
+          v70 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:{objc_msgSend(_accessibilityLeftButtonElements, "count", v15)}];
+          [v71 _accessibilitySetRetainedValue:? forKey:?];
+          *&v16 = MEMORY[0x29EDC9740](v70).n128_u64[0];
+          v69 = val;
+          v68 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:{objc_msgSend(_accessibilityRightButtonElements, "count", v16)}];
+          [v69 _accessibilitySetRetainedValue:? forKey:?];
+          *&v17 = MEMORY[0x29EDC9740](v68).n128_u64[0];
           cancelBarButtonItems = [_accessibility_contentsOfNavigationBar cancelBarButtonItems];
           otherBarButtonItems = [_accessibility_contentsOfNavigationBar otherBarButtonItems];
-          v131 = [(UINavigationBarAccessibility *)val _accessibilityStaticBarButtonItemWithContents:_accessibility_contentsOfNavigationBar];
-          v130 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{1, v131}];
-          v129 = [MEMORY[0x29EDB8E20] set];
-          memset(v127, 0, sizeof(v127));
-          v65 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{5, _accessibilityRightButtonElements, _accessibilityLeftButtonElements, cancelBarButtonItems, otherBarButtonItems, v130}];
-          v66 = [v65 countByEnumeratingWithState:v127 objects:v212 count:16];
-          if (v66)
+          v132 = [(UINavigationBarAccessibility *)val _accessibilityStaticBarButtonItemWithContents:_accessibility_contentsOfNavigationBar];
+          v131 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{1, v132}];
+          v130 = [MEMORY[0x29EDB8E20] set];
+          memset(v128, 0, sizeof(v128));
+          v66 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{5, _accessibilityRightButtonElements, _accessibilityLeftButtonElements, cancelBarButtonItems, otherBarButtonItems, v131}];
+          v67 = [v66 countByEnumeratingWithState:v128 objects:v213 count:16];
+          if (v67)
           {
-            v62 = *v127[2];
-            v63 = 0;
-            v64 = v66;
+            v63 = *v128[2];
+            v64 = 0;
+            v65 = v67;
             while (1)
             {
-              v61 = v63;
-              if (*v127[2] != v62)
+              v62 = v64;
+              if (*v128[2] != v63)
               {
-                objc_enumerationMutation(v65);
+                objc_enumerationMutation(v66);
               }
 
-              v128 = *(v127[1] + 8 * v63);
-              memset(v125, 0, sizeof(v125));
-              v59 = MEMORY[0x29EDC9748](v128);
-              v60 = [v59 countByEnumeratingWithState:v125 objects:v211 count:16];
-              if (v60)
+              v129 = *(v128[1] + 8 * v64);
+              memset(v126, 0, sizeof(v126));
+              v60 = MEMORY[0x29EDC9748](v129);
+              v61 = [v60 countByEnumeratingWithState:v126 objects:v212 count:16];
+              if (v61)
               {
-                v56 = *v125[2];
-                v57 = 0;
-                v58 = v60;
+                v57 = *v126[2];
+                v58 = 0;
+                v59 = v61;
                 while (1)
                 {
-                  v55 = v57;
-                  if (*v125[2] != v56)
+                  v56 = v58;
+                  if (*v126[2] != v57)
                   {
-                    objc_enumerationMutation(v59);
+                    objc_enumerationMutation(v60);
                   }
 
-                  v126 = *(v125[1] + 8 * v57);
-                  view = [v126 view];
+                  v127 = *(v126[1] + 8 * v58);
+                  view = [v127 view];
                   isAccessibilityElement = [view isAccessibilityElement];
-                  v121 = 0;
-                  v119 = 0;
+                  v122 = 0;
+                  v120 = 0;
                   if (isAccessibilityElement & 1) != 0 || ([view _accessibilityHasOrderedChildren])
                   {
-                    v210 = view;
-                    v122 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v210 count:1];
-                    v121 = 1;
-                    v17 = MEMORY[0x29EDC9748](v122);
+                    v211 = view;
+                    v123 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v211 count:1];
+                    v122 = 1;
+                    v18 = MEMORY[0x29EDC9748](v123);
                   }
 
                   else
                   {
-                    v120 = [view _accessibleSubviews:1];
-                    v119 = 1;
-                    v17 = MEMORY[0x29EDC9748](v120);
+                    v121 = [view _accessibleSubviews:1];
+                    v120 = 1;
+                    v18 = MEMORY[0x29EDC9748](v121);
                   }
 
-                  v123 = v17;
-                  if (v119)
+                  v124 = v18;
+                  if (v120)
                   {
-                    MEMORY[0x29EDC9740](v120);
+                    MEMORY[0x29EDC9740](v121);
                   }
 
-                  if (v121)
+                  if (v122)
                   {
-                    MEMORY[0x29EDC9740](v122);
+                    MEMORY[0x29EDC9740](v123);
                   }
 
-                  if (view && ![v123 count] && AXDoesRequestingClientDeserveAutomation())
+                  if (view && ![v124 count] && AXDoesRequestingClientDeserveAutomation())
                   {
-                    v209 = view;
-                    v18 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v209 count:1];
-                    v19 = v123;
-                    v123 = v18;
-                    MEMORY[0x29EDC9740](v19);
+                    v210 = view;
+                    v19 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v210 count:1];
+                    v20 = v124;
+                    v124 = v19;
+                    MEMORY[0x29EDC9740](v20);
                   }
 
-                  if (![v123 count] && (objc_msgSend(v129, "containsObject:", v126) & 1) == 0)
+                  if (![v124 count] && (objc_msgSend(v130, "containsObject:", v127) & 1) == 0)
                   {
-                    if ([_accessibilityRightButtonElements containsObject:v126])
+                    if ([_accessibilityRightButtonElements containsObject:v127])
                     {
-                      v53 = val;
-                      v52 = [MEMORY[0x29EDBA070] numberWithInteger:{objc_msgSend(val, "_accessibilityIntegerValueForKey:", @"AXRightCount"}];
-                      [v53 _accessibilitySetRetainedValue:? forKey:?];
-                      v20 = MEMORY[0x29EDC9740](v52).n128_u64[0];
+                      v54 = val;
+                      v53 = [MEMORY[0x29EDBA070] numberWithInteger:{objc_msgSend(val, "_accessibilityIntegerValueForKey:", @"AXRightCount"}];
+                      [v54 _accessibilitySetRetainedValue:? forKey:?];
+                      v21 = MEMORY[0x29EDC9740](v53).n128_u64[0];
                     }
 
-                    else if ([_accessibilityLeftButtonElements containsObject:v126])
+                    else if ([_accessibilityLeftButtonElements containsObject:v127])
                     {
-                      v51 = val;
-                      v50 = [MEMORY[0x29EDBA070] numberWithInteger:{objc_msgSend(val, "_accessibilityIntegerValueForKey:", @"AXLeftCount"}];
-                      [v51 _accessibilitySetRetainedValue:? forKey:?];
-                      v20 = MEMORY[0x29EDC9740](v50).n128_u64[0];
+                      v52 = val;
+                      v51 = [MEMORY[0x29EDBA070] numberWithInteger:{objc_msgSend(val, "_accessibilityIntegerValueForKey:", @"AXLeftCount"}];
+                      [v52 _accessibilitySetRetainedValue:? forKey:?];
+                      v21 = MEMORY[0x29EDC9740](v51).n128_u64[0];
                     }
 
-                    [v129 addObject:{v126, *&v20}];
+                    [v130 addObject:{v127, *&v21}];
                   }
 
-                  memset(v117, 0, sizeof(v117));
-                  v48 = MEMORY[0x29EDC9748](v123);
-                  v49 = [v48 countByEnumeratingWithState:v117 objects:v208 count:16];
-                  if (v49)
+                  memset(v118, 0, sizeof(v118));
+                  v49 = MEMORY[0x29EDC9748](v124);
+                  v50 = [v49 countByEnumeratingWithState:v118 objects:v209 count:16];
+                  if (v50)
                   {
-                    v45 = *v117[2];
-                    v46 = 0;
-                    v47 = v49;
+                    v46 = *v118[2];
+                    v47 = 0;
+                    v48 = v50;
                     while (1)
                     {
-                      v44 = v46;
-                      if (*v117[2] != v45)
+                      v45 = v47;
+                      if (*v118[2] != v46)
                       {
-                        objc_enumerationMutation(v48);
+                        objc_enumerationMutation(v49);
                       }
 
-                      v118 = *(v117[1] + 8 * v46);
-                      if (([v199 containsObject:v118] & 1) == 0)
+                      v119 = *(v118[1] + 8 * v47);
+                      if (([v200 containsObject:v119] & 1) == 0)
                       {
-                        customView = [v126 customView];
-                        *&v21 = MEMORY[0x29EDC9740](customView).n128_u64[0];
+                        customView = [v127 customView];
+                        *&v22 = MEMORY[0x29EDC9740](customView).n128_u64[0];
                         if (!customView)
                         {
-                          v116 = objc_opt_new();
-                          [(_UIAccessibilityNavigationViewInfo *)v116 setBarButtonItem:v126];
+                          v117 = objc_opt_new();
+                          [(_UIAccessibilityNavigationViewInfo *)v117 setBarButtonItem:v127];
                           topItem7 = [_accessibility_contentsOfNavigationBar topItem];
-                          [(_UIAccessibilityNavigationViewInfo *)v116 setNavigationItem:topItem7];
+                          [(_UIAccessibilityNavigationViewInfo *)v117 setNavigationItem:topItem7];
                           MEMORY[0x29EDC9740](topItem7);
-                          [(_UIAccessibilityNavigationViewInfo *)v116 setIsCancelItem:?];
-                          [(_UIAccessibilityNavigationViewInfo *)v116 setNavigationBar:?];
-                          v41 = [_accessibilityRightButtonElements containsObject:v126];
-                          [(_UIAccessibilityNavigationViewInfo *)v116 setIsRightItem:v41];
+                          [(_UIAccessibilityNavigationViewInfo *)v117 setIsCancelItem:?];
+                          [(_UIAccessibilityNavigationViewInfo *)v117 setNavigationBar:?];
+                          v42 = [_accessibilityRightButtonElements containsObject:v127];
+                          [(_UIAccessibilityNavigationViewInfo *)v117 setIsRightItem:v42];
                           objc_opt_class();
-                          v40 = __UIAccessibilityCastAsSafeCategory();
-                          [v40 _accessibilitySetNavigationViewInfo:v116];
-                          MEMORY[0x29EDC9740](v40);
-                          objc_storeStrong(&v116, 0);
+                          v41 = __UIAccessibilityCastAsSafeCategory();
+                          [v41 _accessibilitySetNavigationViewInfo:v117];
+                          MEMORY[0x29EDC9740](v41);
+                          objc_storeStrong(&v117, 0);
                         }
 
-                        [v199 addObject:{v118, v21}];
+                        [v200 addObject:{v119, v22}];
                       }
 
-                      ++v46;
-                      if (v44 + 1 >= v47)
+                      ++v47;
+                      if (v45 + 1 >= v48)
                       {
-                        v46 = 0;
-                        v47 = [v48 countByEnumeratingWithState:v117 objects:v208 count:16];
-                        if (!v47)
+                        v47 = 0;
+                        v48 = [v49 countByEnumeratingWithState:v118 objects:v209 count:16];
+                        if (!v48)
                         {
                           break;
                         }
@@ -1355,15 +1355,15 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
                     }
                   }
 
-                  MEMORY[0x29EDC9740](v48);
-                  objc_storeStrong(&v123, 0);
+                  MEMORY[0x29EDC9740](v49);
+                  objc_storeStrong(&v124, 0);
                   objc_storeStrong(&view, 0);
-                  ++v57;
-                  if (v55 + 1 >= v58)
+                  ++v58;
+                  if (v56 + 1 >= v59)
                   {
-                    v57 = 0;
-                    v58 = [v59 countByEnumeratingWithState:v125 objects:v211 count:16];
-                    if (!v58)
+                    v58 = 0;
+                    v59 = [v60 countByEnumeratingWithState:v126 objects:v212 count:16];
+                    if (!v59)
                     {
                       break;
                     }
@@ -1371,13 +1371,13 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
                 }
               }
 
-              *&v22 = MEMORY[0x29EDC9740](v59).n128_u64[0];
-              ++v63;
-              if (v61 + 1 >= v64)
+              *&v23 = MEMORY[0x29EDC9740](v60).n128_u64[0];
+              ++v64;
+              if (v62 + 1 >= v65)
               {
-                v63 = 0;
-                v64 = [v65 countByEnumeratingWithState:v127 objects:v212 count:{16, v22}];
-                if (!v64)
+                v64 = 0;
+                v65 = [v66 countByEnumeratingWithState:v128 objects:v213 count:{16, v23}];
+                if (!v65)
                 {
                   break;
                 }
@@ -1385,14 +1385,14 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
             }
           }
 
-          *&v23 = MEMORY[0x29EDC9740](v65).n128_u64[0];
-          v39 = val;
-          view2 = [v131 view];
-          [(UINavigationBarAccessibility *)v39 _axSetCachedStaticNavBarButton:view2];
+          *&v24 = MEMORY[0x29EDC9740](v66).n128_u64[0];
+          v40 = val;
+          view2 = [v132 view];
+          [(UINavigationBarAccessibility *)v40 _axSetCachedStaticNavBarButton:view2];
           MEMORY[0x29EDC9740](view2);
-          objc_storeStrong(&v129, 0);
           objc_storeStrong(&v130, 0);
           objc_storeStrong(&v131, 0);
+          objc_storeStrong(&v132, 0);
           objc_storeStrong(&otherBarButtonItems, 0);
           objc_storeStrong(&cancelBarButtonItems, 0);
           objc_storeStrong(&_largeTitleAccessoryView, 0);
@@ -1401,68 +1401,68 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
           objc_storeStrong(&_accessibilityRightButtonElements, 0);
         }
 
-        v115 = [v198 _accessibleSubviews:{1, v3}];
-        v37 = val;
-        v36 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:{objc_msgSend(v115, "count")}];
-        [v37 _accessibilitySetRetainedValue:? forKey:?];
-        MEMORY[0x29EDC9740](v36);
-        memset(v113, 0, sizeof(v113));
-        v34 = MEMORY[0x29EDC9748](v115);
-        v35 = [v34 countByEnumeratingWithState:v113 objects:v207 count:16];
-        if (v35)
+        v116 = [v199 _accessibleSubviews:{1, v4}];
+        v38 = val;
+        v37 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:{objc_msgSend(v116, "count")}];
+        [v38 _accessibilitySetRetainedValue:? forKey:?];
+        MEMORY[0x29EDC9740](v37);
+        memset(v114, 0, sizeof(v114));
+        v35 = MEMORY[0x29EDC9748](v116);
+        v36 = [v35 countByEnumeratingWithState:v114 objects:v208 count:16];
+        if (v36)
         {
-          v31 = *v113[2];
-          v32 = 0;
-          v33 = v35;
+          v32 = *v114[2];
+          v33 = 0;
+          v34 = v36;
           while (1)
           {
-            v30 = v32;
-            if (*v113[2] != v31)
+            v31 = v33;
+            if (*v114[2] != v32)
             {
-              objc_enumerationMutation(v34);
+              objc_enumerationMutation(v35);
             }
 
-            v114 = *(v113[1] + 8 * v32);
-            v112 = 0;
-            v111 = MEMORY[0x29EDC9748](v114);
+            v115 = *(v114[1] + 8 * v33);
+            v113 = 0;
+            v112 = MEMORY[0x29EDC9748](v115);
             while (1)
             {
-              v29 = 0;
-              if (v111 != val)
+              v30 = 0;
+              if (v112 != val)
               {
-                v29 = v111 != 0;
+                v30 = v112 != 0;
               }
 
-              if (!v29)
+              if (!v30)
               {
                 break;
               }
 
-              if ([v199 containsObject:v111] & 1) != 0 || (objc_msgSend(viewsRepresentingBackButton, "containsObject:", v111))
+              if ([v200 containsObject:v112] & 1) != 0 || (objc_msgSend(viewsRepresentingBackButton, "containsObject:", v112))
               {
-                objc_storeStrong(&v112, v111);
+                objc_storeStrong(&v113, v112);
                 break;
               }
 
-              accessibilityContainer = [v111 accessibilityContainer];
-              v25 = v111;
-              v111 = accessibilityContainer;
-              MEMORY[0x29EDC9740](v25);
+              accessibilityContainer = [v112 accessibilityContainer];
+              v26 = v112;
+              v112 = accessibilityContainer;
+              MEMORY[0x29EDC9740](v26);
             }
 
-            if (!v112)
+            if (!v113)
             {
-              [v199 addObject:v114];
+              [v200 addObject:v115];
             }
 
-            objc_storeStrong(&v111, 0);
             objc_storeStrong(&v112, 0);
-            ++v32;
-            if (v30 + 1 >= v33)
+            objc_storeStrong(&v113, 0);
+            ++v33;
+            if (v31 + 1 >= v34)
             {
-              v32 = 0;
-              v33 = [v34 countByEnumeratingWithState:v113 objects:v207 count:16];
-              if (!v33)
+              v33 = 0;
+              v34 = [v35 countByEnumeratingWithState:v114 objects:v208 count:16];
+              if (!v34)
               {
                 break;
               }
@@ -1470,36 +1470,36 @@ double __58__UINavigationBarAccessibility_accessibilityPerformEscape__block_invo
           }
         }
 
-        *&v26 = MEMORY[0x29EDC9740](v34).n128_u64[0];
-        [val _accessibilitySortElementsUsingGeometry:{v199, v26}];
-        if (v195)
+        *&v27 = MEMORY[0x29EDC9740](v35).n128_u64[0];
+        [val _accessibilitySortElementsUsingGeometry:{v200, v27}];
+        if (v196)
         {
-          [val _accessibilitySetNavBarElements:v199];
-          [val _accessibilitySetRetainedValue:v199 forKey:*MEMORY[0x29EDC7620]];
+          [val _accessibilitySetNavBarElements:v200];
+          [val _accessibilitySetRetainedValue:v200 forKey:*MEMORY[0x29EDC7620]];
         }
 
-        v206 = MEMORY[0x29EDC9748](v199);
-        v202 = 1;
-        objc_storeStrong(&v115, 0);
+        v207 = MEMORY[0x29EDC9748](v200);
+        v203 = 1;
+        objc_storeStrong(&v116, 0);
         objc_storeStrong(&viewsRepresentingBackButton, 0);
         objc_storeStrong(&_accessibility_contentsOfNavigationBar, 0);
-        objc_storeStrong(&v198, 0);
+        objc_storeStrong(&v199, 0);
       }
 
-      objc_storeStrong(&v199, 0);
+      objc_storeStrong(&v200, 0);
     }
 
-    objc_storeStrong(&v204, 0);
+    objc_storeStrong(&v205, 0);
   }
 
   else
   {
-    v206 = 0;
+    v207 = 0;
   }
 
-  v27 = v206;
+  v28 = v207;
 
-  return v27;
+  return v28;
 }
 
 uint64_t __53__UINavigationBarAccessibility_accessibilityElements__block_invoke(void *a1, void *a2)
@@ -1807,7 +1807,7 @@ uint64_t __53__UINavigationBarAccessibility_accessibilityElements__block_invoke(
   {
     _axSubtitleLabel = [(UINavigationBarAccessibility *)selfCopy _axSubtitleLabel];
     location = [selfCopy _accessibilityValueForKey:@"AXSubtitleView"];
-    if (!location || (v3 = 1, ([location _accessibilityViewIsVisible] & 1) != 0))
+    if (!location || (v4 = 1, ([location _accessibilityViewIsVisible] & 1) != 0))
     {
       _accessibilityViewIsVisible = 0;
       if (!location)
@@ -1815,20 +1815,20 @@ uint64_t __53__UINavigationBarAccessibility_accessibilityElements__block_invoke(
         _accessibilityViewIsVisible = [_axSubtitleLabel _accessibilityViewIsVisible];
       }
 
-      v3 = _accessibilityViewIsVisible;
+      v4 = _accessibilityViewIsVisible;
     }
 
-    v7 = v3 & 1;
+    v8 = v4 & 1;
     objc_storeStrong(&location, 0);
     objc_storeStrong(&_axSubtitleLabel, 0);
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7 & 1;
+  return v8 & 1;
 }
 
 - (id)_axSubtitleLabel

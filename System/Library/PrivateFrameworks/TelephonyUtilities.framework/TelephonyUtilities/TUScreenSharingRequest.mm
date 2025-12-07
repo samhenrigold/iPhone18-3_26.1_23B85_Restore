@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRequest:(id)request;
 - (TUScreenSharingRequest)initWithCoder:(id)coder;
+- (TUScreenSharingRequest)initWithHandle:(id)handle shareMyScreen:(BOOL)screen originType:(int64_t)type shouldSendLegacyInvite:(BOOL)invite metadata:(id)metadata;
 - (TUScreenSharingRequest)initWithHandle:(id)handle type:(int64_t)type originType:(int64_t)originType UUID:(id)d participantIdentifier:(unint64_t)identifier shouldSendLegacyInvite:(BOOL)invite metadata:(id)metadata;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -10,6 +11,28 @@
 @end
 
 @implementation TUScreenSharingRequest
+
+- (TUScreenSharingRequest)initWithHandle:(id)handle shareMyScreen:(BOOL)screen originType:(int64_t)type shouldSendLegacyInvite:(BOOL)invite metadata:(id)metadata
+{
+  inviteCopy = invite;
+  if (screen)
+  {
+    v11 = 2;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  v12 = MEMORY[0x1E696AFB0];
+  metadataCopy = metadata;
+  handleCopy = handle;
+  uUID = [v12 UUID];
+  v16 = [(TUScreenSharingRequest *)self initWithHandle:handleCopy type:v11 originType:type UUID:uUID participantIdentifier:0 shouldSendLegacyInvite:inviteCopy metadata:metadataCopy];
+
+  return v16;
+}
 
 - (TUScreenSharingRequest)initWithHandle:(id)handle type:(int64_t)type originType:(int64_t)originType UUID:(id)d participantIdentifier:(unint64_t)identifier shouldSendLegacyInvite:(BOOL)invite metadata:(id)metadata
 {

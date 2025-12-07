@@ -4,6 +4,12 @@
 - (BOOL)invertedConfirmationAudioFeedbackMode;
 - (HGAudioFeedbackConfiguration)init;
 - (unsigned)audioSessionID;
+- (void)enableAudioFeedbackForHeadGesture:(unint64_t)gesture toEnable:(BOOL)enable;
+- (void)enableAudioFeedbackForHeadGesturePart:(unint64_t)part toEnable:(BOOL)enable;
+- (void)setAudioSessionID:(unsigned int)d;
+- (void)setEnableAudioFeedback:(BOOL)feedback;
+- (void)setEnableWaitingTone:(BOOL)tone;
+- (void)setInvertedConfirmationAudioFeedbackMode:(BOOL)mode;
 @end
 
 @implementation HGAudioFeedbackConfiguration
@@ -39,12 +45,26 @@
   return enableWaitingTone;
 }
 
+- (void)setEnableWaitingTone:(BOOL)tone
+{
+  toneCopy = tone;
+  internal = [(HGAudioFeedbackConfiguration *)self internal];
+  [internal setEnableWaitingTone:toneCopy];
+}
+
 - (BOOL)enableAudioFeedback
 {
   internal = [(HGAudioFeedbackConfiguration *)self internal];
   enableAudioFeedback = [internal enableAudioFeedback];
 
   return enableAudioFeedback;
+}
+
+- (void)setEnableAudioFeedback:(BOOL)feedback
+{
+  feedbackCopy = feedback;
+  internal = [(HGAudioFeedbackConfiguration *)self internal];
+  [internal setEnableAudioFeedback:feedbackCopy];
 }
 
 - (unsigned)audioSessionID
@@ -55,12 +75,40 @@
   return audioSessionID;
 }
 
+- (void)setAudioSessionID:(unsigned int)d
+{
+  v3 = *&d;
+  internal = [(HGAudioFeedbackConfiguration *)self internal];
+  [internal setAudioSessionID:v3];
+}
+
+- (void)enableAudioFeedbackForHeadGesture:(unint64_t)gesture toEnable:(BOOL)enable
+{
+  enableCopy = enable;
+  internal = [(HGAudioFeedbackConfiguration *)self internal];
+  [internal enableAudioFeedbackForGestureWithGesture:gesture enable:enableCopy];
+}
+
+- (void)enableAudioFeedbackForHeadGesturePart:(unint64_t)part toEnable:(BOOL)enable
+{
+  enableCopy = enable;
+  internal = [(HGAudioFeedbackConfiguration *)self internal];
+  [internal enableAudioFeedbackForPartGestureWithPart:part enable:enableCopy];
+}
+
 - (BOOL)invertedConfirmationAudioFeedbackMode
 {
   internal = [(HGAudioFeedbackConfiguration *)self internal];
   invertedConfirmationAudioFeedbackMode = [internal invertedConfirmationAudioFeedbackMode];
 
   return invertedConfirmationAudioFeedbackMode;
+}
+
+- (void)setInvertedConfirmationAudioFeedbackMode:(BOOL)mode
+{
+  modeCopy = mode;
+  internal = [(HGAudioFeedbackConfiguration *)self internal];
+  [internal setInvertedConfirmationAudioFeedbackMode:modeCopy];
 }
 
 @end

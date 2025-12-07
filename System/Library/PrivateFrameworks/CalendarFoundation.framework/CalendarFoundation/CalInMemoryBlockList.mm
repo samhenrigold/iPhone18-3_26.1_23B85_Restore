@@ -15,18 +15,15 @@
 
 - (NSArray)blockedPhoneNumbers
 {
-  v2 = *(self + OBJC_IVAR___CalInMemoryBlockList_blockedPhoneNumbers);
 
-  v3 = sub_1B996FFAC();
+  v2 = sub_1B996FFAC();
 
-  return v3;
+  return v2;
 }
 
 - (void)setBlockedPhoneNumbers:(id)numbers
 {
-  v4 = sub_1B996FFBC();
-  v5 = *(self + OBJC_IVAR___CalInMemoryBlockList_blockedPhoneNumbers);
-  *(self + OBJC_IVAR___CalInMemoryBlockList_blockedPhoneNumbers) = v4;
+  *(self + OBJC_IVAR___CalInMemoryBlockList_blockedPhoneNumbers) = sub_1B996FFBC();
 }
 
 - (CalInMemoryBlockList)init

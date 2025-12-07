@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)reportReasonAsString:(int)string;
 - (int)StringAsReportReason:(id)reason;
 - (int)reportReason;
 - (unint64_t)hash;
@@ -88,6 +89,19 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)reportReasonAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32760[string - 1];
+  }
+}
+
 - (int)StringAsReportReason:(id)reason
 {
   if ([reason isEqualToString:@"REPORT_REASON_FALLBACK_SIGNAL"])
@@ -139,7 +153,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if ((*&self->_has & 2) != 0)
   {
@@ -195,29 +209,29 @@
   if ([(NSMutableArray *)self->_connectionAttemptStatisticsReports count])
   {
     v10 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_connectionAttemptStatisticsReports, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     connectionAttemptStatisticsReports = self->_connectionAttemptStatisticsReports;
-    v12 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(connectionAttemptStatisticsReports);
           }
 
-          [v10 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v10 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v13 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
@@ -232,16 +246,14 @@
     [dictionary setObject:sourceAppIdentifier forKey:@"sourceAppIdentifier"];
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -253,14 +265,12 @@
   has = self->_has;
   if ((has & 8) != 0)
   {
-    delegated = self->_delegated;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    reportReason = self->_reportReason;
     PBDataWriterWriteInt32Field();
   }
 
@@ -276,45 +286,41 @@
 
   if (*&self->_has)
   {
-    iPAddressAttemptCount = self->_iPAddressAttemptCount;
     PBDataWriterWriteUint64Field();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   connectionAttemptStatisticsReports = self->_connectionAttemptStatisticsReports;
-  v10 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v10)
+  v6 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v11 = v10;
-    v12 = *v17;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v12)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(connectionAttemptStatisticsReports);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v11);
+    while (v7);
   }
 
   if (self->_sourceAppIdentifier)
   {
     PBDataWriterWriteStringField();
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -383,7 +389,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if ((*&self->_has & 2) != 0)
@@ -415,37 +421,36 @@
     *(v6 + 76) |= 1u;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   connectionAttemptStatisticsReports = self->_connectionAttemptStatisticsReports;
-  v9 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(connectionAttemptStatisticsReports);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v15 + 1) + 8 * i) copyWithZone:zone];
         [v6 addConnectionAttemptStatisticsReports:v13];
       }
 
-      v10 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)connectionAttemptStatisticsReports countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
 
   *(v6 + 64) = [(NSString *)self->_sourceAppIdentifier copyWithZone:zone];
-  v14 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -458,7 +463,6 @@
   }
 
   has = self->_has;
-  v7 = *(equal + 76);
   if ((has & 2) != 0)
   {
     if ((*(equal + 76) & 2) == 0 || self->_timestamp != *(equal + 2))
@@ -484,12 +488,10 @@
     has = self->_has;
   }
 
-  v9 = *(equal + 76);
   if ((has & 8) != 0)
   {
     if ((*(equal + 76) & 8) != 0)
     {
-      v10 = *(equal + 72);
       if (self->_delegated)
       {
         if ((*(equal + 72) & 1) == 0)
@@ -536,7 +538,6 @@ LABEL_12:
     cellularFallbackReport = self->_cellularFallbackReport;
     if (!(cellularFallbackReport | *(equal + 3)) || (v5 = [(AWDLibnetcoreCellularFallbackReport *)cellularFallbackReport isEqual:?]) != 0)
     {
-      v13 = *(equal + 76);
       if (*&self->_has)
       {
         if ((*(equal + 76) & 1) == 0 || self->_iPAddressAttemptCount != *(equal + 1))
@@ -624,7 +625,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if ((*(from + 76) & 2) != 0)
   {
     self->_timestamp = *(from + 2);
@@ -686,29 +687,29 @@ LABEL_9:
     *&self->_has |= 1u;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = *(from + 5);
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(AWDLibnetcoreTCPConnectionReport *)self addConnectionAttemptStatisticsReports:*(*(&v16 + 1) + 8 * i)];
+        [(AWDLibnetcoreTCPConnectionReport *)self addConnectionAttemptStatisticsReports:*(*(&v15 + 1) + 8 * i)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
@@ -718,8 +719,6 @@ LABEL_9:
   {
     [(AWDLibnetcoreTCPConnectionReport *)self setSourceAppIdentifier:?];
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 @end

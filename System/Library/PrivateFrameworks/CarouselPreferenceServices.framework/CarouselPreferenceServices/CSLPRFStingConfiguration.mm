@@ -97,24 +97,22 @@
 
 - (void)reset
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __33__CSLPRFStingConfiguration_reset__block_invoke;
-  v5[3] = &unk_278745368;
-  v5[4] = self;
-  [(CSLPRFStingConfiguration *)self _withLock:v5];
+  v9 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __33__CSLPRFStingConfiguration_reset__block_invoke;
+  v4[3] = &unk_278745368;
+  v4[4] = self;
+  [(CSLPRFStingConfiguration *)self _withLock:v4];
   v3 = cslprf_sting_settings_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446467;
-    v7 = "[CSLPRFStingConfiguration reset]";
-    v8 = 2113;
+    v6 = "[CSLPRFStingConfiguration reset]";
+    v7 = 2113;
     selfCopy = self;
     _os_log_impl(&dword_22CE92000, v3, OS_LOG_TYPE_DEFAULT, "%{public}s reset stingConfigurationSetting to %{private}@", buf, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __33__CSLPRFStingConfiguration_reset__block_invoke(uint64_t a1)
@@ -136,7 +134,7 @@ void __33__CSLPRFStingConfiguration_reset__block_invoke(uint64_t a1)
 
 void __38__CSLPRFStingConfiguration_setSource___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _lock_settingsDictionary];
   v3 = [v2 mutableCopy];
 
@@ -150,14 +148,12 @@ void __38__CSLPRFStingConfiguration_setSource___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(*(a1 + 32) + 16);
-    v9 = 136446467;
-    v10 = "[CSLPRFStingConfiguration setSource:]_block_invoke";
-    v11 = 2113;
-    v12 = v7;
-    _os_log_impl(&dword_22CE92000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s set stingConfigurationSetting to %{private}@", &v9, 0x16u);
+    v8 = 136446467;
+    v9 = "[CSLPRFStingConfiguration setSource:]_block_invoke";
+    v10 = 2113;
+    v11 = v7;
+    _os_log_impl(&dword_22CE92000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s set stingConfigurationSetting to %{private}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)source
@@ -204,7 +200,7 @@ void __34__CSLPRFStingConfiguration_source__block_invoke(uint64_t a1)
 
 void __49__CSLPRFStingConfiguration_setWorkoutIdentifier___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _lock_settingsDictionary];
   v3 = [v2 mutableCopy];
 
@@ -216,14 +212,12 @@ void __49__CSLPRFStingConfiguration_setWorkoutIdentifier___block_invoke(uint64_t
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(a1 + 32) + 16);
-    v8 = 136446467;
-    v9 = "[CSLPRFStingConfiguration setWorkoutIdentifier:]_block_invoke";
-    v10 = 2113;
-    v11 = v6;
-    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s set stingConfigurationSetting to %{private}@", &v8, 0x16u);
+    v7 = 136446467;
+    v8 = "[CSLPRFStingConfiguration setWorkoutIdentifier:]_block_invoke";
+    v9 = 2113;
+    v10 = v6;
+    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s set stingConfigurationSetting to %{private}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (INIntent)controlConfigurationIntent
@@ -293,7 +287,7 @@ void __45__CSLPRFStingConfiguration_workoutIdentifier__block_invoke(uint64_t a1)
 
 - (void)_locked_setConfigurationForBundleID:(id)d actionType:(unint64_t)type identifier:(id)identifier intent:(id)intent source:(int64_t)source
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dCopy = d;
   identifierCopy = identifier;
   intentCopy = intent;
@@ -303,12 +297,12 @@ void __45__CSLPRFStingConfiguration_workoutIdentifier__block_invoke(uint64_t a1)
   if (type == 24 || type == 20)
   {
     depthSetting = self->_depthSetting;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __100__CSLPRFStingConfiguration__locked_setConfigurationForBundleID_actionType_identifier_intent_source___block_invoke;
-    v29[3] = &unk_278744FC0;
-    v30 = dCopy;
-    [(CSLPRFDepthAutoLaunchAppSetting *)depthSetting updateSettingsWithBlock:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __100__CSLPRFStingConfiguration__locked_setConfigurationForBundleID_actionType_identifier_intent_source___block_invoke;
+    v28[3] = &unk_278744FC0;
+    v29 = dCopy;
+    [(CSLPRFDepthAutoLaunchAppSetting *)depthSetting updateSettingsWithBlock:v28];
 
     v19 = type - 1;
 LABEL_4:
@@ -363,15 +357,13 @@ LABEL_5:
     {
       stingConfigurationSetting = self->_stingConfigurationSetting;
       *buf = 138477827;
-      v32 = stingConfigurationSetting;
+      v31 = stingConfigurationSetting;
       _os_log_impl(&dword_22CE92000, v26, OS_LOG_TYPE_DEFAULT, "setConfigurationForBundleID: set stingConfigurationSetting to %{private}@", buf, 0xCu);
     }
 
     v24 = [[CSLPRFStingConfigurationHistoryItem alloc] initWithBundleID:dCopy actionType:type identifier:identifierCopy];
     [(CSLPRFStingConfigurationHistory *)self->_configurationHistory addHistoryItem:v24];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __100__CSLPRFStingConfiguration__locked_setConfigurationForBundleID_actionType_identifier_intent_source___block_invoke(uint64_t a1, void *a2)
@@ -469,7 +461,7 @@ void __40__CSLPRFStingConfiguration_setBundleID___block_invoke(uint64_t a1, void
 
 void __40__CSLPRFStingConfiguration_setBundleID___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _lock_settingsDictionary];
   v3 = [v2 mutableCopy];
 
@@ -481,14 +473,12 @@ void __40__CSLPRFStingConfiguration_setBundleID___block_invoke_2(uint64_t a1)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(*(a1 + 32) + 16);
-    v8 = 136446467;
-    v9 = "[CSLPRFStingConfiguration setBundleID:]_block_invoke_2";
-    v10 = 2113;
-    v11 = v6;
-    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s set stingConfigurationSetting to %{private}@", &v8, 0x16u);
+    v7 = 136446467;
+    v8 = "[CSLPRFStingConfiguration setBundleID:]_block_invoke_2";
+    v9 = 2113;
+    v10 = v6;
+    _os_log_impl(&dword_22CE92000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s set stingConfigurationSetting to %{private}@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)bundleID
@@ -545,7 +535,7 @@ void __36__CSLPRFStingConfiguration_bundleID__block_invoke(uint64_t a1)
 
 void __42__CSLPRFStingConfiguration_setActionType___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _lock_settingsDictionary];
   v3 = [v2 mutableCopy];
 
@@ -570,14 +560,12 @@ void __42__CSLPRFStingConfiguration_setActionType___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(*(a1 + 32) + 16);
-    v11 = 136446467;
-    v12 = "[CSLPRFStingConfiguration setActionType:]_block_invoke";
-    v13 = 2113;
-    v14 = v9;
-    _os_log_impl(&dword_22CE92000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s set stingConfigurationSetting to %{private}@", &v11, 0x16u);
+    v10 = 136446467;
+    v11 = "[CSLPRFStingConfiguration setActionType:]_block_invoke";
+    v12 = 2113;
+    v13 = v9;
+    _os_log_impl(&dword_22CE92000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s set stingConfigurationSetting to %{private}@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)actionType
@@ -628,7 +616,7 @@ void __38__CSLPRFStingConfiguration_actionType__block_invoke(uint64_t a1)
 
 void __63__CSLPRFStingConfiguration_depthAutoLaunchAppSettingDidUpdate___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained delegate];
   [v3 stingConfigurationDidUpdate:WeakRetained];
@@ -637,16 +625,14 @@ void __63__CSLPRFStingConfiguration_depthAutoLaunchAppSettingDidUpdate___block_i
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[CSLPRFStingConfiguration depthAutoLaunchAppSettingDidUpdate:]_block_invoke";
-    v9 = 2112;
-    v10 = WeakRetained;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_22CE92000, v4, OS_LOG_TYPE_INFO, "%s: %@ setting did update %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[CSLPRFStingConfiguration depthAutoLaunchAppSettingDidUpdate:]_block_invoke";
+    v8 = 2112;
+    v9 = WeakRetained;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_22CE92000, v4, OS_LOG_TYPE_INFO, "%s: %@ setting did update %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)twoWaySyncSettingDidUpdate:(id)update
@@ -668,7 +654,7 @@ void __63__CSLPRFStingConfiguration_depthAutoLaunchAppSettingDidUpdate___block_i
 
 void __55__CSLPRFStingConfiguration_twoWaySyncSettingDidUpdate___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained delegate];
   [v3 stingConfigurationDidUpdate:WeakRetained];
@@ -677,16 +663,14 @@ void __55__CSLPRFStingConfiguration_twoWaySyncSettingDidUpdate___block_invoke(ui
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[CSLPRFStingConfiguration twoWaySyncSettingDidUpdate:]_block_invoke";
-    v9 = 2112;
-    v10 = WeakRetained;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_22CE92000, v4, OS_LOG_TYPE_INFO, "%s: %@ setting did update %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[CSLPRFStingConfiguration twoWaySyncSettingDidUpdate:]_block_invoke";
+    v8 = 2112;
+    v9 = WeakRetained;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_22CE92000, v4, OS_LOG_TYPE_INFO, "%s: %@ setting did update %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_withLock:(id)lock
@@ -700,11 +684,11 @@ void __55__CSLPRFStingConfiguration_twoWaySyncSettingDidUpdate___block_invoke(ui
 
 - (CSLPRFStingConfiguration)initWithDelegate:(id)delegate
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v17.receiver = self;
-  v17.super_class = CSLPRFStingConfiguration;
-  v5 = [(CSLPRFStingConfiguration *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = CSLPRFStingConfiguration;
+  v5 = [(CSLPRFStingConfiguration *)&v16 init];
   v6 = v5;
   if (v5)
   {
@@ -717,11 +701,11 @@ void __55__CSLPRFStingConfiguration_twoWaySyncSettingDidUpdate___block_invoke(ui
     v9 = cslprf_sting_settings_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v16 = v6->_stingConfigurationSetting;
+      v15 = v6->_stingConfigurationSetting;
       *buf = 138543619;
-      v19 = v6;
-      v20 = 2113;
-      v21 = v16;
+      v18 = v6;
+      v19 = 2113;
+      v20 = v15;
       _os_log_debug_impl(&dword_22CE92000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ initialValue %{private}@", buf, 0x16u);
     }
 
@@ -737,7 +721,6 @@ void __55__CSLPRFStingConfiguration_twoWaySyncSettingDidUpdate___block_invoke(ui
     [(CSLPRFTwoWaySyncSetting *)v6->_stingConfigurationSetting setDelegate:v6];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

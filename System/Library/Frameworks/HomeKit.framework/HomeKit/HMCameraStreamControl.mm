@@ -119,7 +119,7 @@ void __61___HMCameraStreamControl__callVideoStoppedDelegateWithError___block_inv
 
 void __49___HMCameraStreamControl___configureWithContext___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if ([WeakRetained streamState] == 2)
   {
@@ -129,27 +129,24 @@ void __49___HMCameraStreamControl___configureWithContext___block_invoke(uint64_t
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failing active stream due to daemon reconnection", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failing active stream due to daemon reconnection", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
     v6 = [MEMORY[0x1E696ABC0] hmErrorWithCode:52];
     [v3 _resetStateWithError:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __37___HMCameraStreamControl_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v32_66863;
-  logCategory__hmf_once_v32_66863 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v32_66863;
+  logCategory__hmf_once_v32_66863 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

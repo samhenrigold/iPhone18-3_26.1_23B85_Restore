@@ -4771,7 +4771,7 @@ LABEL_11:
   v3 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:0 repeats:v4 block:0.2];
 }
 
-uint64_t __61__HKInteractiveChartViewController__scheduleDelayedAutoscale__block_invoke(uint64_t a1)
+void *__61__HKInteractiveChartViewController__scheduleDelayedAutoscale__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setDelayedAutoscaleActualCount:{objc_msgSend(*(a1 + 32), "delayedAutoscaleActualCount") + 1}];
   v2 = [*(a1 + 32) delayedAutoscaleActualCount];

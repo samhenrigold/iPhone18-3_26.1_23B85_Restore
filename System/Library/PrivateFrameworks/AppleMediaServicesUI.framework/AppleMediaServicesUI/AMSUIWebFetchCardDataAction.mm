@@ -49,10 +49,10 @@
 
 - (id)runAction
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v33.receiver = self;
-  v33.super_class = AMSUIWebFetchCardDataAction;
-  runAction = [(AMSUIWebAction *)&v33 runAction];
+  v38 = *MEMORY[0x1E69E9840];
+  v32.receiver = self;
+  v32.super_class = AMSUIWebFetchCardDataAction;
+  runAction = [(AMSUIWebAction *)&v32 runAction];
   v4 = AMSLogKey();
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
@@ -65,9 +65,9 @@
   {
     v7 = objc_opt_class();
     *buf = 138543618;
-    v36 = v7;
-    v37 = 2114;
-    v38 = v4;
+    v35 = v7;
+    v36 = 2114;
+    v37 = v4;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Fetching card data...", buf, 0x16u);
   }
 
@@ -100,44 +100,42 @@
   }
 
   v18 = MEMORY[0x1E698CAD0];
-  v34[0] = valuePromise2;
-  v34[1] = valuePromise;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+  v33[0] = valuePromise2;
+  v33[1] = valuePromise;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
   v20 = [v18 promiseWithAll:v19];
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __40__AMSUIWebFetchCardDataAction_runAction__block_invoke;
-  v31[3] = &unk_1E7F26158;
-  v31[4] = self;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __40__AMSUIWebFetchCardDataAction_runAction__block_invoke;
+  v30[3] = &unk_1E7F26158;
+  v30[4] = self;
   v21 = v4;
-  v32 = v21;
-  v22 = [v20 thenWithBlock:v31];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_2;
-  v29[3] = &unk_1E7F24990;
-  v29[4] = self;
+  v31 = v21;
+  v22 = [v20 thenWithBlock:v30];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_2;
+  v28[3] = &unk_1E7F24990;
+  v28[4] = self;
   v23 = v21;
-  v30 = v23;
-  [v22 addErrorBlock:v29];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_30;
-  v27[3] = &unk_1E7F249D8;
-  v27[4] = self;
-  v28 = v23;
+  v29 = v23;
+  [v22 addErrorBlock:v28];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_30;
+  v26[3] = &unk_1E7F249D8;
+  v26[4] = self;
+  v27 = v23;
   v24 = v23;
-  [v22 addSuccessBlock:v27];
-
-  v25 = *MEMORY[0x1E69E9840];
+  [v22 addSuccessBlock:v26];
 
   return v22;
 }
 
 id __40__AMSUIWebFetchCardDataAction_runAction__block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectAtIndexedSubscript:0];
   v5 = [v3 objectAtIndexedSubscript:1];
@@ -151,27 +149,24 @@ id __40__AMSUIWebFetchCardDataAction_runAction__block_invoke(uint64_t a1, void *
   v7 = [v6 OSLogObject];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = *(a1 + 40);
-    v16 = 138544130;
+    v8 = objc_opt_class();
+    v9 = *(a1 + 40);
+    v14 = 138544130;
+    v15 = v8;
+    v16 = 2114;
     v17 = v9;
     v18 = 2114;
-    v19 = v10;
+    v19 = v4;
     v20 = 2114;
-    v21 = v4;
-    v22 = 2114;
-    v23 = v5;
-    _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] countryCode: %{public}@, merchantIdentifier: %{public}@", &v16, 0x2Au);
+    v21 = v5;
+    _os_log_impl(&dword_1BB036000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] countryCode: %{public}@, merchantIdentifier: %{public}@", &v14, 0x2Au);
   }
 
-  v11 = [objc_alloc(MEMORY[0x1E698C858]) initWithCountryCode:v4 merchantIdentifier:v5];
-  v12 = [v11 performCardRegistration];
-  v13 = [v12 thenWithBlock:&__block_literal_global_24];
+  v10 = [objc_alloc(MEMORY[0x1E698C858]) initWithCountryCode:v4 merchantIdentifier:v5];
+  v11 = [v10 performCardRegistration];
+  v12 = [v11 thenWithBlock:&__block_literal_global_24];
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 id __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_16(uint64_t a1, void *a2)
@@ -200,7 +195,7 @@ id __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_16(uint64_t a1, voi
 
 void __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v4)
@@ -211,25 +206,22 @@ void __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_2(uint64_t a1, vo
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = *(a1 + 40);
-    v9 = AMSLogableError();
-    v11 = 138543874;
+    v6 = objc_opt_class();
+    v7 = *(a1 + 40);
+    v8 = AMSLogableError();
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2114;
     v12 = v7;
     v13 = 2114;
     v14 = v8;
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed with error: %{public}@", &v11, 0x20u);
+    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed with error: %{public}@", &v9, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_30(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!v4)
@@ -240,19 +232,16 @@ void __40__AMSUIWebFetchCardDataAction_runAction__block_invoke_30(uint64_t a1, v
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = *(a1 + 40);
-    v10 = 138543875;
+    v6 = objc_opt_class();
+    v7 = *(a1 + 40);
+    v8 = 138543875;
+    v9 = v6;
+    v10 = 2114;
     v11 = v7;
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2113;
-    v15 = v3;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully fetched card data: %{private}@", &v10, 0x20u);
+    v12 = 2113;
+    v13 = v3;
+    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Successfully fetched card data: %{private}@", &v8, 0x20u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

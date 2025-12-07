@@ -93,7 +93,7 @@
   return identity;
 }
 
-- (uint64_t)isEqual:(char *)a3 .cold.1(uint64_t a1, uint64_t a2, char *a3)
+- (uint64_t)isEqual:(unsigned __int8 *)a3 .cold.1(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
 {
   v4 = *(a1 + 8);
   if (a2)

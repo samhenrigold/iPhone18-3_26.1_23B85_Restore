@@ -35,7 +35,7 @@
   if (self->_clockTimerToken)
   {
     v4 = objc_msgSend_sharedInstance(MEMORY[0x277CBB700], a2, v2);
-    objc_msgSend_stopUpdatesForToken_(v4, v5, v6, self->_clockTimerToken);
+    objc_msgSend_stopUpdatesForToken_(v4, v5, self->_clockTimerToken);
 
     clockTimerToken = self->_clockTimerToken;
     self->_clockTimerToken = 0;
@@ -47,16 +47,16 @@
   updated = objc_msgSend_updateMode(self, a2, v2);
   objc_initWeak(&location, self);
   v7 = objc_msgSend_sharedInstance(MEMORY[0x277CBB700], v5, v6);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_23BED7500;
-  v12[3] = &unk_278BA0E40;
-  objc_copyWeak(&v13, &location);
-  v10 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(v7, v8, v9, 2 * ((updated - 1) < 2), v12, &unk_284EA8B48);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_23BED7500;
+  v11[3] = &unk_278BA0E40;
+  objc_copyWeak(&v12, &location);
+  v9 = objc_msgSend_startUpdatesWithUpdateFrequency_withHandler_identificationLog_(v7, v8, 2 * ((updated - 1) < 2), v11, &unk_284EA8B48);
   clockTimerToken = self->_clockTimerToken;
-  self->_clockTimerToken = v10;
+  self->_clockTimerToken = v9;
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
@@ -98,7 +98,7 @@
 {
   if (!self->_clockTimerToken)
   {
-    v2 = NTKFoghornFaceBundleLogObject();
+    v2 = NTKFoghornFaceBundleLogObject(self, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_23BEE7068(v2);

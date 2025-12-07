@@ -1365,7 +1365,7 @@ LABEL_11:
   return v4 & 1;
 }
 
-uint64_t __41__OKPageViewController_canPerformAction___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__41__OKPageViewController_canPerformAction___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 intValue];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -1648,7 +1648,7 @@ uint64_t __47__OKPageViewController_setupJavascriptContext___block_invoke()
   return [v0 name];
 }
 
-id __47__OKPageViewController_setupJavascriptContext___block_invoke_2()
+OKCollectionProxy *__47__OKPageViewController_setupJavascriptContext___block_invoke_2()
 {
   v0 = objc_opt_new();
   [v0 setTag:1];
@@ -1657,7 +1657,7 @@ id __47__OKPageViewController_setupJavascriptContext___block_invoke_2()
   return v0;
 }
 
-id __47__OKPageViewController_setupJavascriptContext___block_invoke_3()
+OKCollectionProxy *__47__OKPageViewController_setupJavascriptContext___block_invoke_3()
 {
   v0 = objc_opt_new();
   [v0 setTag:2];

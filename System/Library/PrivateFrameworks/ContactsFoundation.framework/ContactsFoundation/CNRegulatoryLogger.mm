@@ -31,12 +31,12 @@
 
   if (loggingEnabled)
   {
-    [(CNRegulatoryLogger *)self willLogContactsDataAccessEvent];
-    v5 = objc_alloc(getPATCCAccessClass());
+    willLogContactsDataAccessEvent = [(CNRegulatoryLogger *)self willLogContactsDataAccessEvent];
+    v6 = objc_alloc(getPATCCAccessClass(willLogContactsDataAccessEvent));
     privacyAccountingAccessor = [(CNRegulatoryLogger *)self privacyAccountingAccessor];
-    v7 = [v5 initWithAccessor:privacyAccountingAccessor forService:*MEMORY[0x1E69D5500]];
+    v8 = [v6 initWithAccessor:privacyAccountingAccessor forService:*MEMORY[0x1E69D5500]];
 
-    [(CNRegulatoryLogger *)self logPrivacyAccountingAccessEvent:v7];
+    [(CNRegulatoryLogger *)self logPrivacyAccountingAccessEvent:v8];
   }
 
   else
@@ -93,7 +93,7 @@ id __47__CNRegulatoryLogger_privacyAccountingAccessor__block_invoke(uint64_t a1)
 
 - (void)willLogContactsDataAccessEvent
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([(CNRegulatoryLogger *)self isPrivacyAccountingDiagnosticsEnabled])
   {
     cnAuditToken = [(CNRegulatoryLogger *)self cnAuditToken];
@@ -105,25 +105,23 @@ id __47__CNRegulatoryLogger_privacyAccountingAccessor__block_invoke(uint64_t a1)
       if (v5)
       {
         processDescription = [(CNRegulatoryLogger *)self processDescription];
-        v9 = 138412290;
-        v10 = processDescription;
+        v8 = 138412290;
+        v9 = processDescription;
         v7 = "Logging out-of-process contacts data access event for %@";
 LABEL_7:
-        _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, v7, &v9, 0xCu);
+        _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, v7, &v8, 0xCu);
       }
     }
 
     else if (v5)
     {
       processDescription = [(CNRegulatoryLogger *)self processDescription];
-      v9 = 138412290;
-      v10 = processDescription;
+      v8 = 138412290;
+      v9 = processDescription;
       v7 = "Logging in-process contacts data access event for %@";
       goto LABEL_7;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)privacyAccountingAccessorImpl
@@ -152,7 +150,7 @@ LABEL_4:
     assumedIdentity3 = cnAuditToken3;
     if (cnAuditToken3)
     {
-      [cnAuditToken3 audit_token];
+      objc_msgSend_audit_token(cnAuditToken3);
     }
 
     else
@@ -188,7 +186,7 @@ LABEL_13:
 
 - (void)willNotLogContactsDataAccessEventAsLoggingDisabled
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([(CNRegulatoryLogger *)self isPrivacyAccountingDiagnosticsEnabled])
   {
     cnAuditToken = [(CNRegulatoryLogger *)self cnAuditToken];
@@ -200,25 +198,23 @@ LABEL_13:
       if (v5)
       {
         processDescription = [(CNRegulatoryLogger *)self processDescription];
-        v9 = 138412290;
-        v10 = processDescription;
+        v8 = 138412290;
+        v9 = processDescription;
         v7 = "Logging disabled with out-of-process contacts data access event for %@";
 LABEL_7:
-        _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, v7, &v9, 0xCu);
+        _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, v7, &v8, 0xCu);
       }
     }
 
     else if (v5)
     {
       processDescription = [(CNRegulatoryLogger *)self processDescription];
-      v9 = 138412290;
-      v10 = processDescription;
+      v8 = 138412290;
+      v9 = processDescription;
       v7 = "Logging disabled with in-process contacts data access event for %@";
       goto LABEL_7;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (PAAccessLogger)privacyAccountingLogger
@@ -308,7 +304,7 @@ LABEL_7:
 
 - (void)logGreenTeaEvent:(id)event
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if ([(CNRegulatoryLogger *)self greenTeaLogger])
   {
@@ -318,7 +314,7 @@ LABEL_7:
     if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = eventCopy;
+      v13 = eventCopy;
       _os_log_impl(&dword_1859F0000, v6, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
   }
@@ -342,12 +338,10 @@ LABEL_7:
     else if (os_log_type_enabled(os_log, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = eventCopy;
+      v13 = eventCopy;
       _os_log_impl(&dword_1859F0000, v11, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logContactsDataAccessEventWithAssetIdentifiers:(id)identifiers
@@ -360,12 +354,12 @@ LABEL_7:
 
     if (loggingEnabled)
     {
-      [(CNRegulatoryLogger *)self willLogContactsDataAccessEventWithAssetIdentifiers:identifiersCopy];
-      v6 = objc_alloc(getPATCCAccessClass());
+      v6 = [(CNRegulatoryLogger *)self willLogContactsDataAccessEventWithAssetIdentifiers:identifiersCopy];
+      v7 = objc_alloc(getPATCCAccessClass(v6));
       privacyAccountingAccessor = [(CNRegulatoryLogger *)self privacyAccountingAccessor];
-      v8 = [v6 initWithAccessor:privacyAccountingAccessor forService:*MEMORY[0x1E69D5500] assetIdentifiers:identifiersCopy];
+      v9 = [v7 initWithAccessor:privacyAccountingAccessor forService:*MEMORY[0x1E69D5500] assetIdentifiers:identifiersCopy];
 
-      [(CNRegulatoryLogger *)self logPrivacyAccountingAccessEvent:v8];
+      [(CNRegulatoryLogger *)self logPrivacyAccountingAccessEvent:v9];
     }
 
     else
@@ -386,12 +380,12 @@ LABEL_7:
 
     if (cnAuditToken)
     {
-      [(CNRegulatoryLogger *)self willLogContactPickerAccessEvent];
-      v6 = objc_alloc(getPAOutOfProcessPickerAccessClass());
+      willLogContactPickerAccessEvent = [(CNRegulatoryLogger *)self willLogContactPickerAccessEvent];
+      v7 = objc_alloc(getPAOutOfProcessPickerAccessClass(willLogContactPickerAccessEvent));
       privacyAccountingAccessor = [(CNRegulatoryLogger *)self privacyAccountingAccessor];
-      v8 = [v6 initWithAccessor:privacyAccountingAccessor forType:2];
+      v9 = [v7 initWithAccessor:privacyAccountingAccessor forType:2];
 
-      [(CNRegulatoryLogger *)self logPrivacyAccountingAccessEvent:v8];
+      [(CNRegulatoryLogger *)self logPrivacyAccountingAccessEvent:v9];
     }
 
     else
@@ -415,7 +409,7 @@ LABEL_7:
   v5 = cnAuditToken;
   if (cnAuditToken)
   {
-    [cnAuditToken audit_token];
+    objc_msgSend_audit_token(cnAuditToken);
   }
 
   else
@@ -457,7 +451,7 @@ LABEL_7:
 
 - (void)willLogContactsDataAccessEventWithAssetIdentifiers:(id)identifiers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if ([(CNRegulatoryLogger *)self isPrivacyAccountingDiagnosticsEnabled])
   {
@@ -473,29 +467,27 @@ LABEL_7:
       if (v9)
       {
         processDescription = [(CNRegulatoryLogger *)self processDescription];
-        v13 = 138412546;
-        v14 = processDescription;
-        v15 = 2112;
-        v16 = v6;
+        v12 = 138412546;
+        v13 = processDescription;
+        v14 = 2112;
+        v15 = v6;
         v11 = "Logging out-of-process contacts data access event for %@, %@";
 LABEL_7:
-        _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, v11, &v13, 0x16u);
+        _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, v11, &v12, 0x16u);
       }
     }
 
     else if (v9)
     {
       processDescription = [(CNRegulatoryLogger *)self processDescription];
-      v13 = 138412546;
-      v14 = processDescription;
-      v15 = 2112;
-      v16 = v6;
+      v12 = 138412546;
+      v13 = processDescription;
+      v14 = 2112;
+      v15 = v6;
       v11 = "Logging in-process contacts data access event for %@, %@";
       goto LABEL_7;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __73__CNRegulatoryLogger_willLogContactsDataAccessEventWithAssetIdentifiers___block_invoke(uint64_t a1, void *a2)
@@ -509,7 +501,7 @@ id __73__CNRegulatoryLogger_willLogContactsDataAccessEventWithAssetIdentifiers__
 
 - (void)willNotLogContactPickerAccessEventAsLoggingDisabled
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([(CNRegulatoryLogger *)self isPrivacyAccountingDiagnosticsEnabled])
   {
     cnAuditToken = [(CNRegulatoryLogger *)self cnAuditToken];
@@ -521,52 +513,47 @@ id __73__CNRegulatoryLogger_willLogContactsDataAccessEventWithAssetIdentifiers__
       if (v5)
       {
         processDescription = [(CNRegulatoryLogger *)self processDescription];
-        v9 = 138412290;
-        v10 = processDescription;
+        v8 = 138412290;
+        v9 = processDescription;
         v7 = "Logging disabled with out-of-process contact picker access event for %@.";
 LABEL_7:
-        _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, v7, &v9, 0xCu);
+        _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, v7, &v8, 0xCu);
       }
     }
 
     else if (v5)
     {
       processDescription = [(CNRegulatoryLogger *)self processDescription];
-      v9 = 138412290;
-      v10 = processDescription;
+      v8 = 138412290;
+      v9 = processDescription;
       v7 = "Logging disabled when asked to log an in-process contact picker access event for %@";
       goto LABEL_7;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)willNotLogContactPickerAccessEventAsLoggingInProcess
 {
-  v9 = *MEMORY[0x1E69E9840];
   processDescription = [self processDescription];
-  OUTLINED_FUNCTION_0(&dword_1859F0000, v2, v3, "Unexpected request to log an in-process contact picker access event for %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = processDescription;
+  OUTLINED_FUNCTION_0(&dword_1859F0000, v2, v3, "Unexpected request to log an in-process contact picker access event for %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)willLogContactPickerAccessEvent
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([(CNRegulatoryLogger *)self isPrivacyAccountingDiagnosticsEnabled])
   {
     os_log = [(CNRegulatoryLogger *)self os_log];
     if (os_log_type_enabled(os_log, OS_LOG_TYPE_INFO))
     {
       processDescription = [(CNRegulatoryLogger *)self processDescription];
-      v6 = 138412290;
-      v7 = processDescription;
-      _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, "Logging out-of-process contact picker access event for %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = processDescription;
+      _os_log_impl(&dword_1859F0000, os_log, OS_LOG_TYPE_INFO, "Logging out-of-process contact picker access event for %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)processDescription
@@ -662,20 +649,18 @@ LABEL_8:
 
 - (void)logGreenTeaEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1859F0000, a2, OS_LOG_TYPE_FAULT, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1859F0000, a2, OS_LOG_TYPE_FAULT, "%@", &v2, 0xCu);
 }
 
 - (void)accessorForAuditTokenValidatingAssumedIdentity
 {
-  v9 = *MEMORY[0x1E69E9840];
   processDescription = [self processDescription];
-  OUTLINED_FUNCTION_0(&dword_1859F0000, v2, v3, "Failed to validate assumed identity for %@, will log as contactsd.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = processDescription;
+  OUTLINED_FUNCTION_0(&dword_1859F0000, v2, v3, "Failed to validate assumed identity for %@, will log as contactsd.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -11,7 +11,7 @@
 - (NSArray)_conditions
 {
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0, &unk_1C52A9AA0);
   v2 = sub_1C529D7CC();
 
   return v2;
@@ -19,7 +19,7 @@
 
 - (void)set_conditions:(id)set_conditions
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0, &unk_1C52A9AA0);
   *(self + OBJC_IVAR____TtC15MapsSuggestions35MapsSuggestionsCompositeOrCondition__conditions) = sub_1C529D7DC();
 }
 
@@ -33,7 +33,7 @@
 
 - (_TtC15MapsSuggestions35MapsSuggestionsCompositeOrCondition)initWithConditions:(id)conditions
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC1563D0, &unk_1C52A9AA0);
   *(self + OBJC_IVAR____TtC15MapsSuggestions35MapsSuggestionsCompositeOrCondition__conditions) = sub_1C529D7DC();
   v4 = sub_1C529D71C();
   v7.receiver = self;

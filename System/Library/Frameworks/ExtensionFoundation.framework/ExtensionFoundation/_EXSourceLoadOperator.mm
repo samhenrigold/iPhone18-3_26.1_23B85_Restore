@@ -33,19 +33,18 @@
 
 - (_EXSourceLoadOperator)initWithCoder:(id)coder
 {
-  coderCopy = coder;
-  v4 = _EXDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v3 = _EXDefaultLog(coder);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v8 = 136315650;
-    v9 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/ItemProvider/EXLoadOperator.m";
-    v10 = 1024;
-    v11 = 122;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_fault_impl(&dword_1847D1000, v4, OS_LOG_TYPE_FAULT, "%s - %d: %@ cannot be decoded", &v8, 0x1Cu);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v7 = 136315650;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/ItemProvider/EXLoadOperator.m";
+    v9 = 1024;
+    v10 = 122;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_fault_impl(&dword_1847D1000, v3, OS_LOG_TYPE_FAULT, "%s - %d: %@ cannot be decoded", &v7, 0x1Cu);
   }
 
   __break(1u);
@@ -78,59 +77,57 @@
 
 - (void)resolveWithIdentifier:(id)identifier className:(id)name options:(id)options reply:(id)reply
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   optionsCopy = options;
   replyCopy = reply;
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
   v15 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
   {
+    v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
   }
 
   v16 = NSClassFromString(nameCopy);
   v17 = v16;
   if (nameCopy && !v16)
   {
-    v18 = _EXDefaultLog();
+    v18 = _EXDefaultLog(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = nameCopy;
+      v37 = nameCopy;
     }
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_itemProvider);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __71___EXSourceLoadOperator_resolveWithIdentifier_className_options_reply___block_invoke;
-  v26[3] = &unk_1E6E4E698;
-  v27 = WeakRetained;
-  v28 = identifierCopy;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __71___EXSourceLoadOperator_resolveWithIdentifier_className_options_reply___block_invoke;
+  v25[3] = &unk_1E6E4E698;
+  v26 = WeakRetained;
+  v27 = identifierCopy;
+  v32 = v34;
   v33 = v35;
-  v34 = v36;
-  v29 = optionsCopy;
-  v30 = nameCopy;
-  v31 = replyCopy;
-  v32 = v17;
+  v28 = optionsCopy;
+  v29 = nameCopy;
+  v30 = replyCopy;
+  v31 = v17;
   v20 = replyCopy;
   v21 = nameCopy;
   v22 = optionsCopy;
   v23 = identifierCopy;
   v24 = WeakRetained;
-  dispatch_async(MEMORY[0x1E69E96A0], v26);
-
-  v25 = *MEMORY[0x1E69E9840];
+  dispatch_async(MEMORY[0x1E69E96A0], v25);
 }
 
 - (void)previewImageWithClassName:(id)name options:(id)options reply:(id)reply

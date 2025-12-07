@@ -245,7 +245,7 @@ id sub_10005103C(uint64_t a1)
   return v19;
 }
 
-id sub_100051398(id a1, void *a2)
+NSMutableArray *sub_100051398(NSMutableArray *a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
@@ -344,7 +344,7 @@ void sub_1000516E0(uint64_t a1, uint64_t *a2)
   [v2 addObject:v3];
 }
 
-id sub_100051744(id a1, uint64_t a2)
+NSMutableArray *sub_100051744(NSMutableArray *a1, uint64_t a2)
 {
   v2 = a1;
   if (a1)
@@ -876,9 +876,9 @@ void sub_100054BB4(uint64_t a1, char a2, void *a3)
   [v6 uploadStateChanged:v7];
 }
 
-void sub_100055740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100055740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -933,11 +933,11 @@ void sub_10005577C(uint64_t a1)
   _Block_object_dispose(v26, 8);
 }
 
-void sub_100055948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100055948(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -977,8 +977,7 @@ void sub_100055970(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v12 = [v6 path];
-    v13 = objc_claimAutoreleasedReturnValue();
+    v13 = v12 = [v6 path];
 
     v14 = [NSError cls_createErrorWithCode:315 underlyingError:v8 description:v13];
     v15 = *(*(a1 + 56) + 8);
@@ -989,9 +988,9 @@ void sub_100055970(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100055D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100055D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1038,11 +1037,11 @@ void sub_100055D4C(uint64_t a1)
   _Block_object_dispose(v26, 8);
 }
 
-void sub_100055F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100055F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1082,8 +1081,7 @@ void sub_100055F2C(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v12 = [v6 path];
-    v13 = objc_claimAutoreleasedReturnValue();
+    v13 = v12 = [v6 path];
 
     v14 = [NSError cls_createErrorWithCode:315 underlyingError:v8 description:v13];
     v15 = *(*(a1 + 56) + 8);
@@ -1372,13 +1370,13 @@ void sub_100056DC0(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_1000572E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1000572E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
-  objc_destroyWeak((v13 + 32));
-  objc_destroyWeak((v12 + 40));
+  va_start(va, a19);
+  objc_destroyWeak((v20 + 32));
+  objc_destroyWeak((v19 + 40));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v14 - 120));
+  objc_destroyWeak((v21 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -1532,9 +1530,9 @@ void sub_100057798(uint64_t a1, double a2)
   }
 }
 
-void sub_100057C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100057C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1617,11 +1615,11 @@ void sub_100057CC0(uint64_t a1)
   }
 }
 
-void sub_100057FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_100057FA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v12 - 104), 8);
+  _Block_object_dispose((v19 - 104), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1896,7 +1894,7 @@ void sub_100058C44(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v3 = sub_10003E1B4();
+    v3 = sub_10003E1B4(PDAccountInfo);
     sub_1000408B8(v3);
     if (v3)
     {
@@ -2059,9 +2057,18 @@ void sub_10005910C(uint64_t a1, uint64_t a2, void *a3, void *a4)
 
 void sub_1000593A0(id a1)
 {
-  qword_10024D940 = [NSSet setWithObjects:NSURLUbiquitousItemIsUploadedKey, NSURLUbiquitousItemUploadingErrorKey, 0];
+  v1 = [NSSet setWithObjects:NSURLUbiquitousItemIsUploadedKey, NSURLUbiquitousItemUploadingErrorKey, 0];
+  v2 = qword_10024D940;
+  qword_10024D940 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
+}
+
+void sub_10005AB74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, id location, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10005ABE8(uint64_t a1, void *a2, double a3)
@@ -2189,6 +2196,13 @@ void sub_10005ADFC(uint64_t a1, void *a2, void *a3)
   (*(*(a1 + 32) + 16))();
 }
 
+void sub_10005B7BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_10005B824(id a1, CKRecordID *a2, double a3)
 {
   v4 = a2;
@@ -2294,6 +2308,13 @@ void sub_10005B9C0(uint64_t a1, void *a2, void *a3)
   }
 
   (*(*(a1 + 32) + 16))();
+}
+
+void sub_10005C12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10005C180(uint64_t a1, void *a2, double a3)
@@ -2666,9 +2687,9 @@ void sub_10005EA5C(id a1)
   [v7 setWeekday:v6];
 }
 
-void sub_100060328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100060328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2686,59 +2707,58 @@ uint64_t sub_100060358(uint64_t a1)
   v2 = [*(a1 + 32) logSubsystem];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v5 = *(a1 + 32);
-    v6 = v4;
-    v7 = [v5 operationID];
-    v8 = [*(a1 + 40) count];
+    v3 = objc_opt_class();
+    v4 = *(a1 + 32);
+    v5 = v3;
+    v6 = [v4 operationID];
+    v7 = [*(a1 + 40) count];
     *buf = 138543874;
-    v41 = v4;
-    v42 = 2114;
-    v43 = v7;
-    v44 = 2048;
-    v45 = v8;
+    v38 = v3;
+    v39 = 2114;
+    v40 = v6;
+    v41 = 2048;
+    v42 = v7;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ processing response with %lu payload items", buf, 0x20u);
   }
 
-  v37 = 0u;
-  v38 = 0u;
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v9 = *(a1 + 40);
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
-  if (v10)
+  v32 = 0u;
+  v33 = 0u;
+  v8 = *(a1 + 40);
+  v9 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v9)
   {
-    v11 = v10;
-    v12 = *v36;
+    v10 = v9;
+    v11 = *v33;
 LABEL_5:
-    v13 = 0;
+    v12 = 0;
     while (1)
     {
-      if (*v36 != v12)
+      if (*v33 != v11)
       {
-        objc_enumerationMutation(v9);
+        objc_enumerationMutation(v8);
       }
 
-      v14 = *(*(&v35 + 1) + 8 * v13);
-      v15 = objc_autoreleasePoolPush();
+      v13 = *(*(&v32 + 1) + 8 * v12);
+      v14 = objc_autoreleasePoolPush();
       buf[0] = 0;
-      v16 = *(a1 + 32);
-      v17 = *(*(a1 + 48) + 8);
-      obj = *(v17 + 40);
-      [v16 processPayloadWithinWriteTransaction:v14 error:&obj stop:buf];
-      objc_storeStrong((v17 + 40), obj);
-      LOBYTE(v14) = buf[0];
-      objc_autoreleasePoolPop(v15);
-      if (v14)
+      v15 = *(a1 + 32);
+      v16 = *(*(a1 + 48) + 8);
+      obj = *(v16 + 40);
+      [v15 processPayloadWithinWriteTransaction:v13 error:&obj stop:buf];
+      objc_storeStrong((v16 + 40), obj);
+      LOBYTE(v13) = buf[0];
+      objc_autoreleasePoolPop(v14);
+      if (v13)
       {
         break;
       }
 
-      if (v11 == ++v13)
+      if (v10 == ++v12)
       {
-        v11 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
-        if (v11)
+        v10 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        if (v10)
         {
           goto LABEL_5;
         }
@@ -2751,44 +2771,42 @@ LABEL_5:
   if (*(*(a1 + 32) + 226) == 1)
   {
     CLSInitLog();
-    v18 = [*(a1 + 32) logSubsystem];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = [*(a1 + 32) logSubsystem];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
+      v18 = objc_opt_class();
       v19 = *(a1 + 32);
-      v20 = objc_opt_class();
-      v21 = *(a1 + 32);
-      v22 = v20;
-      v23 = [v21 operationID];
-      v24 = *(*(*(a1 + 48) + 8) + 40);
+      v20 = v18;
+      v21 = [v19 operationID];
+      v22 = *(*(*(a1 + 48) + 8) + 40);
       *buf = 138543874;
-      v41 = v20;
-      v42 = 2114;
-      v43 = v23;
-      v44 = 2112;
-      v45 = v24;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ response processing terminated by failed status. error:%@", buf, 0x20u);
+      v38 = v18;
+      v39 = 2114;
+      v40 = v21;
+      v41 = 2112;
+      v42 = v22;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ response processing terminated by failed status. error:%@", buf, 0x20u);
     }
   }
 
-  v25 = +[PDUserDefaults sharedDefaults];
-  v26 = [v25 enableVerboseLogging];
+  v23 = +[PDUserDefaults sharedDefaults];
+  v24 = [v23 enableVerboseLogging];
 
-  if (v26)
+  if (v24)
   {
     CLSInitLog();
-    v27 = [*(a1 + 32) logSubsystem];
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v25 = [*(a1 + 32) logSubsystem];
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v29 = *(a1 + 32);
-      v30 = objc_opt_class();
-      v31 = *(a1 + 32);
-      v32 = v30;
-      v33 = [v31 operationID];
+      v27 = objc_opt_class();
+      v28 = *(a1 + 32);
+      v29 = v27;
+      v30 = [v28 operationID];
       *buf = 138543618;
-      v41 = v30;
-      v42 = 2114;
-      v43 = v33;
-      _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@ response processing complete.", buf, 0x16u);
+      v38 = v27;
+      v39 = 2114;
+      v40 = v30;
+      _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@ response processing complete.", buf, 0x16u);
     }
   }
 
@@ -3521,37 +3539,36 @@ void sub_10006BD9C(uint64_t a1, void *a2)
   v8 = [*(a1 + 40) logSubsystem];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v9 = *(a1 + 40);
-    v10 = objc_opt_class();
-    v11 = *(a1 + 40);
-    v12 = v10;
-    v13 = [v11 operationID];
+    v9 = objc_opt_class();
+    v10 = *(a1 + 40);
+    v11 = v9;
+    v12 = [v10 operationID];
     if (v4)
     {
-      v14 = v4[1];
+      v13 = v4[1];
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    v15 = v14;
-    v16 = 138543874;
-    v17 = v10;
-    v18 = 2114;
-    v19 = v13;
-    v20 = 2112;
-    v21 = v15;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%{public}@ %{public}@ request add app: %@", &v16, 0x20u);
+    v14 = v13;
+    v15 = 138543874;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v14;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%{public}@ %{public}@ request add app: %@", &v15, 0x20u);
   }
 
 LABEL_9:
 }
 
-void sub_10006C630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10006C630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3565,28 +3582,28 @@ uint64_t sub_10006C6B8(uint64_t result, uint64_t a2)
 
 uint64_t sub_10006C6D0(uint64_t a1)
 {
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = [*(a1 + 32) appIdentifiersInRequest];
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v27 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v19;
+    v6 = *v18;
     *&v4 = 138543874;
-    v17 = v4;
+    v16 = v4;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = sub_100145108([PDDashboardAppRegisterState alloc], v8);
         v10 = v9;
         if (v9)
@@ -3594,26 +3611,25 @@ uint64_t sub_10006C6D0(uint64_t a1)
           v9[2] = 1;
         }
 
-        [*(a1 + 40) updateObject:{v9, v17}];
+        [*(a1 + 40) updateObject:{v9, v16}];
         CLSInitLog();
         v11 = [*(a1 + 32) logSubsystem];
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v12 = *(a1 + 32);
-          v13 = objc_opt_class();
-          v14 = *(*(*(a1 + 48) + 8) + 40);
-          *buf = v17;
-          v23 = v13;
-          v24 = 2114;
-          v25 = v14;
-          v26 = 2112;
-          v27 = v8;
-          v15 = v13;
+          v12 = objc_opt_class();
+          v13 = *(*(*(a1 + 48) + 8) + 40);
+          *buf = v16;
+          v22 = v12;
+          v23 = 2114;
+          v24 = v13;
+          v25 = 2112;
+          v26 = v8;
+          v14 = v12;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%{public}@:%{public}@ Register done in DB for app: %@", buf, 0x20u);
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v17 objects:v27 count:16];
     }
 
     while (v5);
@@ -3748,7 +3764,7 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-id sub_10006DCEC()
+id sub_10006DCEC(uint64_t a1)
 {
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -3760,16 +3776,18 @@ id sub_10006DCEC()
     dispatch_once(&qword_10024D978, block);
   }
 
-  v0 = qword_10024D970;
+  v1 = qword_10024D970;
 
-  return v0;
+  return v1;
 }
 
 uint64_t sub_10006DD90(uint64_t a1)
 {
-  qword_10024D970 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_10024D970;
+  qword_10024D970 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_10006DEB8(void *a1, void *a2)
@@ -3902,164 +3920,160 @@ void sub_10006E63C(uint64_t a1)
 void sub_10006E6F0(uint64_t a1, void *a2)
 {
   [a2 createTaskSchedulerRegistration:*(a1 + 32)];
-  v3 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
-    v4 = [*(a1 + 32) isRepeating];
+    v3 = [*(a1 + 32) isRepeating];
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v5 = +[BGSystemTaskScheduler sharedScheduler];
-  v6 = [*(a1 + 32) identifier];
-  v7 = [v5 taskRequestForIdentifier:v6];
+  v4 = +[BGSystemTaskScheduler sharedScheduler];
+  v5 = [*(a1 + 32) identifier];
+  v6 = [v4 taskRequestForIdentifier:v5];
 
   CLSInitLog();
-  v8 = CLSLogDefault;
-  v9 = os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_DEBUG);
-  if (!v7)
+  v7 = CLSLogDefault;
+  v8 = os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_DEBUG);
+  if (!v6)
   {
-    if (v4)
+    if (v3)
     {
-      if (v9)
+      if (v8)
       {
-        v33 = *(a1 + 32);
-        v34 = v8;
-        v35 = [v33 identifier];
+        v29 = *(a1 + 32);
+        v30 = v7;
+        v31 = [v29 identifier];
         *buf = 138412290;
-        v42 = v35;
-        _os_log_debug_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "Scheduling repeating task: '%@'", buf, 0xCu);
+        v38 = v31;
+        _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "Scheduling repeating task: '%@'", buf, 0xCu);
       }
 
-      v13 = [BGRepeatingSystemTaskRequest alloc];
-      v14 = [*(a1 + 32) identifier];
-      v7 = [v13 initWithIdentifier:v14];
+      v12 = [BGRepeatingSystemTaskRequest alloc];
+      v13 = [*(a1 + 32) identifier];
+      v6 = [v12 initWithIdentifier:v13];
 
-      [v7 setInterval:{objc_msgSend(*(a1 + 32), "delay")}];
-      v15 = *(a1 + 32);
+      [v6 setInterval:{objc_msgSend(*(a1 + 32), "delay")}];
       if ((objc_opt_respondsToSelector() & 1) != 0 && [*(a1 + 32) gracePeriod])
       {
-        [v7 setMinDurationBetweenInstances:{(objc_msgSend(*(a1 + 32), "delay") - objc_msgSend(*(a1 + 32), "gracePeriod"))}];
+        [v6 setMinDurationBetweenInstances:{(objc_msgSend(*(a1 + 32), "delay") - objc_msgSend(*(a1 + 32), "gracePeriod"))}];
       }
     }
 
     else
     {
-      if (v9)
+      if (v8)
       {
-        v36 = *(a1 + 32);
-        v37 = v8;
-        v38 = [v36 identifier];
+        v32 = *(a1 + 32);
+        v33 = v7;
+        v34 = [v32 identifier];
         *buf = 138412290;
-        v42 = v38;
-        _os_log_debug_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "Scheduling non-repeating task: '%@'", buf, 0xCu);
+        v38 = v34;
+        _os_log_debug_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEBUG, "Scheduling non-repeating task: '%@'", buf, 0xCu);
       }
 
-      v16 = [BGNonRepeatingSystemTaskRequest alloc];
-      v17 = [*(a1 + 32) identifier];
-      v7 = [v16 initWithIdentifier:v17];
+      v14 = [BGNonRepeatingSystemTaskRequest alloc];
+      v15 = [*(a1 + 32) identifier];
+      v6 = [v14 initWithIdentifier:v15];
 
-      [v7 setScheduleAfter:{objc_msgSend(*(a1 + 32), "delay")}];
-      v18 = *(a1 + 32);
+      [v6 setScheduleAfter:{objc_msgSend(*(a1 + 32), "delay")}];
       if ((objc_opt_respondsToSelector() & 1) != 0 && [*(a1 + 32) gracePeriod])
       {
-        [v7 setTrySchedulingBefore:{(objc_msgSend(*(a1 + 32), "delay") + objc_msgSend(*(a1 + 32), "gracePeriod"))}];
+        [v6 setTrySchedulingBefore:{(objc_msgSend(*(a1 + 32), "delay") + objc_msgSend(*(a1 + 32), "gracePeriod"))}];
       }
     }
 
-    v19 = *(a1 + 32);
     if (objc_opt_respondsToSelector())
     {
-      v20 = [*(a1 + 32) requiredNetworkState];
-      if (v20 == 2)
+      v16 = [*(a1 + 32) requiredNetworkState];
+      if (v16 == 2)
       {
-        [v7 setRequiresInexpensiveNetworkConnectivity:1];
+        [v6 setRequiresInexpensiveNetworkConnectivity:1];
       }
 
-      else if (v20 == 1)
+      else if (v16 == 1)
       {
-        [v7 setRequiresNetworkConnectivity:1];
+        [v6 setRequiresNetworkConnectivity:1];
       }
     }
 
-    v21 = [*(a1 + 32) priority];
-    if (v21)
+    v17 = [*(a1 + 32) priority];
+    if (v17)
     {
-      if (v21 != 1)
+      if (v17 != 1)
       {
         goto LABEL_28;
       }
 
-      v22 = 2;
+      v18 = 2;
     }
 
     else
     {
-      v22 = 1;
+      v18 = 1;
     }
 
-    [v7 setPriority:v22];
+    [v6 setPriority:v18];
 LABEL_28:
-    v23 = +[BGSystemTaskScheduler sharedScheduler];
-    v40 = 0;
-    v24 = [v23 submitTaskRequest:v7 error:&v40];
-    v11 = v40;
+    v19 = +[BGSystemTaskScheduler sharedScheduler];
+    v36 = 0;
+    v20 = [v19 submitTaskRequest:v6 error:&v36];
+    v10 = v36;
 
     CLSInitLog();
-    v25 = CLSLogDefault;
-    v26 = os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_DEBUG);
-    if (v24)
+    v21 = CLSLogDefault;
+    v22 = os_log_type_enabled(CLSLogDefault, OS_LOG_TYPE_DEBUG);
+    if (v20)
     {
-      if (!v26)
+      if (!v22)
       {
         goto LABEL_32;
       }
 
-      v27 = *(a1 + 32);
-      v28 = v25;
-      v29 = [v27 identifier];
+      v23 = *(a1 + 32);
+      v24 = v21;
+      v25 = [v23 identifier];
       *buf = 138412290;
-      v42 = v29;
-      v30 = "Successfully submitted task '%@'";
-      v31 = v28;
-      v32 = 12;
+      v38 = v25;
+      v26 = "Successfully submitted task '%@'";
+      v27 = v24;
+      v28 = 12;
     }
 
     else
     {
-      if (!v26)
+      if (!v22)
       {
         goto LABEL_32;
       }
 
-      v39 = *(a1 + 32);
-      v28 = v25;
-      v29 = [v39 identifier];
+      v35 = *(a1 + 32);
+      v24 = v21;
+      v25 = [v35 identifier];
       *buf = 138412546;
-      v42 = v29;
-      v43 = 2112;
-      v44 = v11;
-      v30 = "Failed to submit task '%@' with error: %@";
-      v31 = v28;
-      v32 = 22;
+      v38 = v25;
+      v39 = 2112;
+      v40 = v10;
+      v26 = "Failed to submit task '%@' with error: %@";
+      v27 = v24;
+      v28 = 22;
     }
 
-    _os_log_debug_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, v30, buf, v32);
+    _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, v26, buf, v28);
 
     goto LABEL_32;
   }
 
-  if (v9)
+  if (v8)
   {
-    v10 = *(a1 + 32);
-    v11 = v8;
-    v12 = [v10 identifier];
+    v9 = *(a1 + 32);
+    v10 = v7;
+    v11 = [v9 identifier];
     *buf = 138412290;
-    v42 = v12;
-    _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Task to schedule already exists: '%@'", buf, 0xCu);
+    v38 = v11;
+    _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Task to schedule already exists: '%@'", buf, 0xCu);
 
 LABEL_32:
   }
@@ -4137,9 +4151,9 @@ uint64_t sub_10006F644(void *a1, void *a2)
   return v5 & 1;
 }
 
-void sub_10006F730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006F730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4370,9 +4384,9 @@ id sub_100070560(id a1, void *a2)
   return a1;
 }
 
-void sub_100070674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100070674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4415,9 +4429,9 @@ void *sub_100070754(void *a1, void *a2)
   return a1;
 }
 
-void sub_100070828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100070828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4587,7 +4601,7 @@ void *sub_100071750(void *result)
   return result;
 }
 
-id sub_100071764(id result, BOOL a2)
+id sub_100071764(id result, _BOOL8 a2)
 {
   if (result)
   {
@@ -4607,7 +4621,7 @@ void *sub_100071778(void *result)
   return result;
 }
 
-id sub_10007178C(id result, BOOL a2)
+id sub_10007178C(id result, _BOOL8 a2)
 {
   if (result)
   {
@@ -5148,7 +5162,7 @@ uint64_t sub_100073FEC(uint64_t a1, const char *a2)
       do
       {
         v6 = sqlite3_column_name(*a1, v3);
-        sub_10004B3DC((a1 + 16), &v6);
+        sub_10004B3DC((a1 + 16), &v6, &v6, &v7);
         v3 = v7 + 1;
         v7 = v3;
       }
@@ -5716,7 +5730,7 @@ LABEL_114:
   return [a2 hasError] ^ 1;
 }
 
-id sub_1000765A0(id a1, void *a2)
+NSMutableArray *sub_1000765A0(NSMutableArray *a1, void *a2)
 {
   v3 = a2;
   if (a1)
@@ -6167,9 +6181,9 @@ LABEL_59:
   return [a2 hasError] ^ 1;
 }
 
-void sub_10007BA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10007BA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6206,32 +6220,12 @@ BOOL sub_10007BA7C(uint64_t a1)
   }
 
   v9 = *(v1 + 48);
-  if (v9)
+  if (v9 && ([v9 database], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "select:identity:", objc_opt_class(), @"asmRefreshRequested"), v11 = objc_claimAutoreleasedReturnValue(), v10, v11) && (v12 = v11[16], v11, (v12 & 1) != 0) || (objc_msgSend(*(v1 + 40), "serviceConfig"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "disableRosterSync"), v13, v14))
   {
-    v10 = [v9 database];
-    v11 = [v10 select:objc_opt_class() identity:@"asmRefreshRequested"];
-
-    if (v11)
-    {
-      v12 = v11[16];
-
-      if (v12)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  v13 = [*(v1 + 40) serviceConfig];
-  v14 = [v13 disableRosterSync];
-
-  if (v14)
-  {
-LABEL_8:
     sub_1000504A8(*(v1 + 32));
   }
 
-  v155 = v1;
+  v152 = v1;
   if (![*(v1 + 40) hasUserInfo])
   {
     v18 = 1;
@@ -6256,20 +6250,19 @@ LABEL_8:
   v19 = [*(v1 + 48) logSubsystem];
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
+    v124 = objc_opt_class();
     v125 = *(v1 + 48);
-    v126 = objc_opt_class();
-    v127 = *(v1 + 48);
-    v128 = v126;
-    v129 = [v127 operationID];
-    v130 = [*(v1 + 40) userInfo];
-    v131 = [v130 dictionaryRepresentation];
-    *v195 = 138543874;
-    v196 = v126;
-    v197 = 2114;
-    v198 = v129;
-    v199 = 2112;
-    v200 = v131;
-    _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ response userinfo: %@", v195, 0x20u);
+    v126 = v124;
+    v127 = [v125 operationID];
+    v128 = [*(v1 + 40) userInfo];
+    v129 = [v128 dictionaryRepresentation];
+    *v192 = 138543874;
+    v193 = v124;
+    v194 = 2114;
+    v195 = v127;
+    v196 = 2112;
+    v197 = v129;
+    _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ response userinfo: %@", v192, 0x20u);
   }
 
   v20 = *(v1 + 48);
@@ -6286,79 +6279,79 @@ LABEL_8:
         v27 = [v22 userInfo];
         v28 = [v27 person];
         [v28 personId];
-        v29 = v147 = v22;
+        v29 = v144 = v22;
         v30 = [v29 length];
 
-        v22 = v147;
+        v22 = v144;
         if (v30)
         {
-          v145 = v18;
-          v146 = [v20 database];
+          v142 = v18;
+          v143 = [v20 database];
           v31 = objc_opt_new();
           v32 = objc_opt_new();
-          v33 = [v147 privileges];
+          v33 = [v144 privileges];
 
           if (v33)
           {
-            v174 = 0u;
-            v175 = 0u;
+            v171 = 0u;
             v172 = 0u;
-            v173 = 0u;
-            v34 = [v147 privileges];
-            v35 = [v34 countByEnumeratingWithState:&v172 objects:v195 count:16];
+            v169 = 0u;
+            v170 = 0u;
+            v34 = [v144 privileges];
+            v35 = [v34 countByEnumeratingWithState:&v169 objects:v192 count:16];
             if (v35)
             {
               v36 = v35;
-              v37 = *v173;
+              v37 = *v170;
               do
               {
                 for (i = 0; i != v36; i = i + 1)
                 {
-                  if (*v173 != v37)
+                  if (*v170 != v37)
                   {
                     objc_enumerationMutation(v34);
                   }
 
-                  v39 = [*(*(&v172 + 1) + 8 * i) locationIds];
+                  v39 = [*(*(&v169 + 1) + 8 * i) locationIds];
                   [v32 addObjectsFromArray:v39];
                 }
 
-                v36 = [v34 countByEnumeratingWithState:&v172 objects:v195 count:16];
+                v36 = [v34 countByEnumeratingWithState:&v169 objects:v192 count:16];
               }
 
               while (v36);
             }
           }
 
-          v40 = [v147 locations];
+          v40 = [v144 locations];
 
           v41 = &CLSLogAsset_ptr;
-          v150 = v32;
-          v151 = v31;
+          v147 = v32;
+          v148 = v31;
           if (v40)
           {
             v42 = objc_alloc_init(NSMutableArray);
+            v165 = 0u;
+            v166 = 0u;
+            v167 = 0u;
             v168 = 0u;
-            v169 = 0u;
-            v170 = 0u;
-            v171 = 0u;
-            v43 = [v147 locations];
-            v44 = [v43 countByEnumeratingWithState:&v168 objects:v194 count:16];
+            v43 = [v144 locations];
+            v44 = [v43 countByEnumeratingWithState:&v165 objects:v191 count:16];
             if (v44)
             {
               v45 = v44;
-              v46 = *v169;
-              v149 = v43;
+              v46 = *v166;
+              v146 = v43;
               do
               {
                 for (j = 0; j != v45; j = j + 1)
                 {
-                  if (*v169 != v46)
+                  if (*v166 != v46)
                   {
                     objc_enumerationMutation(v43);
                   }
 
-                  v48 = sub_100085C14(*(*(&v168 + 1) + 8 * j));
+                  v48 = sub_100085C14(*(*(&v165 + 1) + 8 * j));
                   CLSInitLog();
                   v49 = [v20 logSubsystem];
                   if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
@@ -6368,15 +6361,15 @@ LABEL_8:
                     v52 = [v20 operationID];
                     v53 = [v48 dictionaryRepresentation];
                     *buf = 138543874;
-                    v189 = v51;
-                    v43 = v149;
-                    v190 = 2114;
-                    v191 = v52;
-                    v192 = 2112;
-                    v193 = v53;
+                    v186 = v51;
+                    v43 = v146;
+                    v187 = 2114;
+                    v188 = v52;
+                    v189 = 2112;
+                    v190 = v53;
                     _os_log_debug_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ response location: %@", buf, 0x20u);
 
-                    v31 = v151;
+                    v31 = v148;
                   }
 
                   [v42 addObject:v48];
@@ -6384,14 +6377,14 @@ LABEL_8:
                   [v31 addObject:v50];
                 }
 
-                v45 = [v43 countByEnumeratingWithState:&v168 objects:v194 count:16];
+                v45 = [v43 countByEnumeratingWithState:&v165 objects:v191 count:16];
               }
 
               while (v45);
             }
 
-            v32 = v150;
-            if (([v146 insertOrUpdateObjects:v42] & 1) == 0)
+            v32 = v147;
+            if (([v143 insertOrUpdateObjects:v42] & 1) == 0)
             {
               CLSInitLog();
               v54 = [v20 logSubsystem];
@@ -6401,18 +6394,18 @@ LABEL_8:
                 v56 = v55;
                 v57 = [v20 operationID];
                 *buf = 138543875;
-                v189 = v55;
-                v190 = 2114;
-                v191 = v57;
-                v192 = 2113;
-                v193 = v42;
+                v186 = v55;
+                v187 = 2114;
+                v188 = v57;
+                v189 = 2113;
+                v190 = v42;
                 _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Failed to insert %{private}@.", buf, 0x20u);
 
-                v31 = v151;
+                v31 = v148;
               }
             }
 
-            v22 = v147;
+            v22 = v144;
             v41 = &CLSLogAsset_ptr;
           }
 
@@ -6420,26 +6413,26 @@ LABEL_8:
 
           if (v58)
           {
-            v166 = 0u;
-            v167 = 0u;
+            v163 = 0u;
             v164 = 0u;
-            v165 = 0u;
-            obj = [v147 roles];
-            v59 = [obj countByEnumeratingWithState:&v164 objects:buf count:16];
+            v161 = 0u;
+            v162 = 0u;
+            obj = [v144 roles];
+            v59 = [obj countByEnumeratingWithState:&v161 objects:buf count:16];
             if (v59)
             {
               v60 = v59;
-              v61 = *v165;
+              v61 = *v162;
               do
               {
                 for (k = 0; k != v60; k = k + 1)
                 {
-                  if (*v165 != v61)
+                  if (*v162 != v61)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v63 = *(*(&v164 + 1) + 8 * k);
+                  v63 = *(*(&v161 + 1) + 8 * k);
                   v64 = sub_100085D1C(v63);
                   v65 = sub_100085F78(v63);
                   [v32 unionSet:v65];
@@ -6449,22 +6442,22 @@ LABEL_8:
                   if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
                   {
                     v71 = objc_opt_class();
-                    v148 = v71;
+                    v145 = v71;
                     v72 = [v20 operationID];
                     v73 = [v64 dictionaryRepresentation];
-                    *v182 = 138543874;
-                    v183 = v71;
-                    v184 = 2114;
-                    v185 = v72;
-                    v186 = 2112;
-                    v187 = v73;
-                    _os_log_debug_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ response role: %@", v182, 0x20u);
+                    *v179 = 138543874;
+                    v180 = v71;
+                    v181 = 2114;
+                    v182 = v72;
+                    v183 = 2112;
+                    v184 = v73;
+                    _os_log_debug_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ response role: %@", v179, 0x20u);
 
-                    v31 = v151;
-                    v32 = v150;
+                    v31 = v148;
+                    v32 = v147;
                   }
 
-                  if ((sub_100050F94(v146, v64) & 1) == 0)
+                  if ((sub_100050F94(v143, v64) & 1) == 0)
                   {
                     CLSInitLog();
                     v67 = [v20 logSubsystem];
@@ -6473,21 +6466,21 @@ LABEL_8:
                       v68 = objc_opt_class();
                       v69 = v68;
                       v70 = [v20 operationID];
-                      *v182 = 138543874;
-                      v183 = v68;
-                      v184 = 2114;
-                      v185 = v70;
-                      v186 = 2114;
-                      v187 = v64;
-                      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Failed to insert %{public}@.", v182, 0x20u);
+                      *v179 = 138543874;
+                      v180 = v68;
+                      v181 = 2114;
+                      v182 = v70;
+                      v183 = 2114;
+                      v184 = v64;
+                      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Failed to insert %{public}@.", v179, 0x20u);
 
-                      v32 = v150;
-                      v31 = v151;
+                      v32 = v147;
+                      v31 = v148;
                     }
                   }
                 }
 
-                v60 = [obj countByEnumeratingWithState:&v164 objects:buf count:16];
+                v60 = [obj countByEnumeratingWithState:&v161 objects:buf count:16];
               }
 
               while (v60);
@@ -6498,40 +6491,40 @@ LABEL_8:
 
           [v32 minusSet:v31];
           v74 = objc_alloc_init(v41[213]);
+          v157 = 0u;
+          v158 = 0u;
+          v159 = 0u;
           v160 = 0u;
-          v161 = 0u;
-          v162 = 0u;
-          v163 = 0u;
           v75 = v32;
-          v76 = [v75 countByEnumeratingWithState:&v160 objects:v182 count:16];
+          v76 = [v75 countByEnumeratingWithState:&v157 objects:v179 count:16];
           if (v76)
           {
             v77 = v76;
-            v78 = *v161;
+            v78 = *v158;
             do
             {
               for (m = 0; m != v77; m = m + 1)
               {
-                if (*v161 != v78)
+                if (*v158 != v78)
                 {
                   objc_enumerationMutation(v75);
                 }
 
-                v80 = *(*(&v160 + 1) + 8 * m);
+                v80 = *(*(&v157 + 1) + 8 * m);
                 v81 = [[CLSLocation alloc] _init];
                 [v81 setObjectID:v80];
                 [v74 addObject:v81];
               }
 
-              v77 = [v75 countByEnumeratingWithState:&v160 objects:v182 count:16];
+              v77 = [v75 countByEnumeratingWithState:&v157 objects:v179 count:16];
             }
 
             while (v77);
           }
 
-          v1 = v155;
-          v18 = v145;
-          if (([v146 insertOrUpdateObjects:v74] & 1) == 0)
+          v1 = v152;
+          v18 = v142;
+          if (([v143 insertOrUpdateObjects:v74] & 1) == 0)
           {
             CLSInitLog();
             v82 = [v20 logSubsystem];
@@ -6540,25 +6533,25 @@ LABEL_8:
               v83 = objc_opt_class();
               v84 = v83;
               v85 = [v20 operationID];
-              *v178 = 138543875;
-              *&v178[4] = v83;
-              *&v178[12] = 2114;
-              *&v178[14] = v85;
-              *&v178[22] = 2113;
-              v179 = v74;
-              _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Failed to insert %{private}@.", v178, 0x20u);
+              *v175 = 138543875;
+              *&v175[4] = v83;
+              *&v175[12] = 2114;
+              *&v175[14] = v85;
+              *&v175[22] = 2113;
+              v176 = v74;
+              _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ Failed to insert %{private}@.", v175, 0x20u);
             }
           }
 
-          *v178 = _NSConcreteStackBlock;
-          *&v178[8] = 3221225472;
-          *&v178[16] = sub_10007CB5C;
-          v179 = &unk_100202140;
-          v180 = v147;
-          v86 = v146;
+          *v175 = _NSConcreteStackBlock;
+          *&v175[8] = 3221225472;
+          *&v175[16] = sub_10007CB5C;
+          v176 = &unk_100202140;
+          v177 = v144;
+          v86 = v143;
           v87 = v86;
-          v181 = v86;
-          if (v86 && ([v86 performTransaction:v178 forWriting:1] & 1) != 0)
+          v178 = v86;
+          if (v86 && ([v86 performTransaction:v175 forWriting:1] & 1) != 0)
           {
             v88 = 0;
           }
@@ -6570,7 +6563,7 @@ LABEL_8:
 
           v91 = v88;
 
-          v22 = v147;
+          v22 = v144;
           goto LABEL_78;
         }
       }
@@ -6580,17 +6573,17 @@ LABEL_8:
       }
 
       CLSInitLog();
-      v124 = [v20 logSubsystem];
-      if (os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+      v123 = [v20 logSubsystem];
+      if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
       {
-        v142 = objc_opt_class();
-        v143 = v142;
-        v144 = [v20 operationID];
-        *v195 = 138543618;
-        v196 = v142;
-        v197 = 2114;
-        v198 = v144;
-        _os_log_error_impl(&_mh_execute_header, v124, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@ Bootstrap response was missing personID!", v195, 0x16u);
+        v139 = objc_opt_class();
+        v140 = v139;
+        v141 = [v20 operationID];
+        *v192 = 138543618;
+        v193 = v139;
+        v194 = 2114;
+        v195 = v141;
+        _os_log_error_impl(&_mh_execute_header, v123, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@ Bootstrap response was missing personID!", v192, 0x16u);
       }
 
       v90 = @"Bootstrap response was missing personID.";
@@ -6602,14 +6595,14 @@ LABEL_8:
       v89 = [v20 logSubsystem];
       if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
       {
-        v132 = objc_opt_class();
-        v133 = v132;
-        v134 = [v20 operationID];
-        *v195 = 138543618;
-        v196 = v132;
-        v197 = 2114;
-        v198 = v134;
-        _os_log_error_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@ Bootstrap response was missing UserInfo!", v195, 0x16u);
+        v130 = objc_opt_class();
+        v131 = v130;
+        v132 = [v20 operationID];
+        *v192 = 138543618;
+        v193 = v130;
+        v194 = 2114;
+        v195 = v132;
+        _os_log_error_impl(&_mh_execute_header, v89, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@ Bootstrap response was missing UserInfo!", v192, 0x16u);
       }
 
       v90 = @"Bootstrap response was missing UserInfo.";
@@ -6640,20 +6633,19 @@ LABEL_80:
     v94 = [*(v1 + 48) logSubsystem];
     if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
     {
-      v135 = *(v1 + 48);
-      v136 = objc_opt_class();
-      v137 = *(v1 + 48);
-      v138 = v136;
-      v139 = [v137 operationID];
-      v140 = [*(v1 + 40) serviceConfig];
-      v141 = [v140 dictionaryRepresentation];
-      *v195 = 138543874;
-      v196 = v136;
-      v197 = 2114;
-      v198 = v139;
-      v199 = 2112;
-      v200 = v141;
-      _os_log_debug_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ response serviceConfig: %@", v195, 0x20u);
+      v133 = objc_opt_class();
+      v134 = *(v1 + 48);
+      v135 = v133;
+      v136 = [v134 operationID];
+      v137 = [*(v1 + 40) serviceConfig];
+      v138 = [v137 dictionaryRepresentation];
+      *v192 = 138543874;
+      v193 = v133;
+      v194 = 2114;
+      v195 = v136;
+      v196 = 2112;
+      v197 = v138;
+      _os_log_debug_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEBUG, "%{public}@ %{public}@ response serviceConfig: %@", v192, 0x20u);
     }
 
     v95 = *(v1 + 48);
@@ -6662,35 +6654,35 @@ LABEL_80:
 
     if ((v95 & 1) == 0)
     {
-      v120 = [NSError cls_createErrorWithCode:100 description:@"save ServiceConfig failed!"];
-      v121 = *(*(v1 + 56) + 8);
-      v122 = *(v121 + 40);
-      *(v121 + 40) = v120;
+      v119 = [NSError cls_createErrorWithCode:100 description:@"save ServiceConfig failed!"];
+      v120 = *(*(v1 + 56) + 8);
+      v121 = *(v120 + 40);
+      *(v120 + 40) = v119;
 
       return 0;
     }
   }
 
-  v158 = 0u;
-  v159 = 0u;
+  v155 = 0u;
   v156 = 0u;
-  v157 = 0u;
+  v153 = 0u;
+  v154 = 0u;
   v97 = [*(v1 + 40) endpoints];
-  v98 = [v97 countByEnumeratingWithState:&v156 objects:v177 count:16];
+  v98 = [v97 countByEnumeratingWithState:&v153 objects:v174 count:16];
   if (v98)
   {
     v99 = v98;
-    v100 = *v157;
+    v100 = *v154;
     do
     {
       for (n = 0; n != v99; n = n + 1)
       {
-        if (*v157 != v100)
+        if (*v154 != v100)
         {
           objc_enumerationMutation(v97);
         }
 
-        v102 = *(*(&v156 + 1) + 8 * n);
+        v102 = *(*(&v153 + 1) + 8 * n);
         v103 = [v102 serviceId];
         if (v103)
         {
@@ -6702,46 +6694,45 @@ LABEL_80:
           {
             [v102 setServiceId:@"apple_school_manager"];
             CLSInitLog();
-            v107 = [*(v155 + 48) logSubsystem];
+            v107 = [*(v152 + 48) logSubsystem];
             if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
             {
-              v108 = *(v155 + 48);
-              v109 = objc_opt_class();
-              v110 = *(v155 + 48);
-              objb = v109;
-              v111 = [v110 operationID];
-              v112 = [v102 identifier];
-              *v195 = 138543874;
-              v196 = v109;
-              v197 = 2114;
-              v198 = v111;
-              v199 = 2114;
-              v200 = v112;
-              _os_log_debug_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@ Remapping ABM serviceID for endpoint %{public}@", v195, 0x20u);
+              v108 = objc_opt_class();
+              v109 = *(v152 + 48);
+              objb = v108;
+              v110 = [v109 operationID];
+              v111 = [v102 identifier];
+              *v192 = 138543874;
+              v193 = v108;
+              v194 = 2114;
+              v195 = v110;
+              v196 = 2114;
+              v197 = v111;
+              _os_log_debug_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@ Remapping ABM serviceID for endpoint %{public}@", v192, 0x20u);
             }
           }
         }
       }
 
-      v99 = [v97 countByEnumeratingWithState:&v156 objects:v177 count:16];
+      v99 = [v97 countByEnumeratingWithState:&v153 objects:v174 count:16];
     }
 
     while (v99);
   }
 
-  v176[0] = @"ee.setup";
-  v176[1] = @"ee.adminRequest";
-  v176[2] = @"ee.managedOrgDiscovery";
-  v113 = [NSArray arrayWithObjects:v176 count:3];
-  v114 = *(v155 + 48);
-  v115 = [*(v155 + 40) endpoints];
-  v116 = [v114 replaceEndpoints:v115 excludeEndpointIDs:v113 forServiceID:@"apple_school_manager"];
-  v117 = *(*(v155 + 56) + 8);
-  v118 = *(v117 + 40);
-  *(v117 + 40) = v116;
+  v173[0] = @"ee.setup";
+  v173[1] = @"ee.adminRequest";
+  v173[2] = @"ee.managedOrgDiscovery";
+  v112 = [NSArray arrayWithObjects:v173 count:3];
+  v113 = *(v152 + 48);
+  v114 = [*(v152 + 40) endpoints];
+  v115 = [v113 replaceEndpoints:v114 excludeEndpointIDs:v112 forServiceID:@"apple_school_manager"];
+  v116 = *(*(v152 + 56) + 8);
+  v117 = *(v116 + 40);
+  *(v116 + 40) = v115;
 
-  v119 = *(*(*(v155 + 56) + 8) + 40) == 0;
-  return v119;
+  v118 = *(*(*(v152 + 56) + 8) + 40) == 0;
+  return v118;
 }
 
 uint64_t sub_10007CB5C(uint64_t a1)
@@ -6755,29 +6746,7 @@ uint64_t sub_10007CB5C(uint64_t a1)
   v7 = sub_100084BC8(v6);
 
   v8 = *(a1 + 40);
-  if (!v8)
-  {
-    goto LABEL_11;
-  }
-
-  if (![v8 _setCurrentUser:v4 withRoleLocations:v7 orRole:0])
-  {
-    goto LABEL_11;
-  }
-
-  if ([*(a1 + 32) hasOrganizationId])
-  {
-    v9 = *(a1 + 40);
-    v10 = [*(a1 + 32) organizationId];
-    LODWORD(v9) = sub_1000716F0(v9, v10);
-
-    if (!v9)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if ((![*(a1 + 32) hasOrganizationName] || (v11 = *(a1 + 40), objc_msgSend(*(a1 + 32), "organizationName"), v12 = objc_claimAutoreleasedReturnValue(), LODWORD(v11) = sub_10007173C(v11, v12), v12, v11)) && (!objc_msgSend(*(a1 + 32), "hasOrganizationProgressTrackingAllowed") || sub_100071764(*(a1 + 40), objc_msgSend(*(a1 + 32), "organizationProgressTrackingAllowed"))))
+  if (v8 && [v8 _setCurrentUser:v4 withRoleLocations:v7 orRole:0] && (!objc_msgSend(*(a1 + 32), "hasOrganizationId") || (v9 = *(a1 + 40), objc_msgSend(*(a1 + 32), "organizationId"), v10 = objc_claimAutoreleasedReturnValue(), LODWORD(v9) = sub_1000716F0(v9, v10), v10, v9)) && (!objc_msgSend(*(a1 + 32), "hasOrganizationName") || (v11 = *(a1 + 40), objc_msgSend(*(a1 + 32), "organizationName"), v12 = objc_claimAutoreleasedReturnValue(), LODWORD(v11) = sub_10007173C(v11, v12), v12, v11)) && (!objc_msgSend(*(a1 + 32), "hasOrganizationProgressTrackingAllowed") || sub_100071764(*(a1 + 40), objc_msgSend(*(a1 + 32), "organizationProgressTrackingAllowed"))))
   {
     if ([*(a1 + 32) hasAnalyticsOptedIn])
     {
@@ -6792,7 +6761,6 @@ uint64_t sub_10007CB5C(uint64_t a1)
 
   else
   {
-LABEL_11:
     v13 = 0;
   }
 
@@ -6899,10 +6867,10 @@ uint64_t sub_10007CE40(uint64_t a1)
 
   if (sub_1000BA900(*(a1 + 40), v2))
   {
-    v40 = 0u;
-    v41 = 0u;
     v38 = 0u;
     v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     if (v2)
     {
       defaultSyncZoneNames = v2->_defaultSyncZoneNames;
@@ -6914,42 +6882,41 @@ uint64_t sub_10007CE40(uint64_t a1)
     }
 
     v18 = defaultSyncZoneNames;
-    v19 = [v18 countByEnumeratingWithState:&v38 objects:v48 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v36 objects:v46 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v39;
+      v21 = *v37;
       while (2)
       {
         for (i = 0; i != v20; i = i + 1)
         {
-          if (*v39 != v21)
+          if (*v37 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v38 + 1) + 8 * i);
-          if (([*(a1 + 40) entityExistsByClass:objc_opt_class() identity:{v23, v38}] & 1) == 0)
+          v23 = *(*(&v36 + 1) + 8 * i);
+          if (([*(a1 + 40) entityExistsByClass:objc_opt_class() identity:{v23, v36}] & 1) == 0)
           {
             v24 = sub_1000A6678([PDASMRecordZone alloc], v23);
             if (([*(a1 + 40) insertOrUpdateObject:v24] & 1) == 0)
             {
               CLSInitLog();
-              v31 = [*(a1 + 48) logSubsystem];
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v30 = [*(a1 + 48) logSubsystem];
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
+                v31 = objc_opt_class();
                 v32 = *(a1 + 48);
-                v33 = objc_opt_class();
-                v34 = *(a1 + 48);
-                v35 = v33;
-                v36 = [v34 operationID];
+                v33 = v31;
+                v34 = [v32 operationID];
                 *buf = 138543874;
-                v43 = v33;
-                v44 = 2114;
-                v45 = v36;
-                v46 = 2112;
-                v47 = v23;
-                _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ failed to create default ASMRecordZone for %@", buf, 0x20u);
+                v41 = v31;
+                v42 = 2114;
+                v43 = v34;
+                v44 = 2112;
+                v45 = v23;
+                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ failed to create default ASMRecordZone for %@", buf, 0x20u);
               }
 
               goto LABEL_43;
@@ -6957,7 +6924,7 @@ uint64_t sub_10007CE40(uint64_t a1)
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v36 objects:v46 count:16];
         v25 = 1;
         if (v20)
         {
@@ -6980,15 +6947,14 @@ uint64_t sub_10007CE40(uint64_t a1)
     v18 = [*(a1 + 48) logSubsystem];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = *(a1 + 48);
-      v27 = objc_opt_class();
-      v28 = *(a1 + 48);
-      v29 = v27;
-      v30 = [v28 operationID];
+      v26 = objc_opt_class();
+      v27 = *(a1 + 48);
+      v28 = v26;
+      v29 = [v27 operationID];
       *buf = 138543618;
-      v43 = v27;
-      v44 = 2114;
-      v45 = v30;
+      v41 = v26;
+      v42 = 2114;
+      v43 = v29;
       _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@ failed to update PDASMConfig", buf, 0x16u);
     }
 
@@ -8154,7 +8120,7 @@ LABEL_15:
   return v5;
 }
 
-id sub_100085768(void *a1)
+NSMutableArray *sub_100085768(void *a1)
 {
   v1 = a1;
   v2 = objc_opt_new();
@@ -8193,7 +8159,7 @@ id sub_100085768(void *a1)
   return v2;
 }
 
-id sub_1000858B0(void *a1)
+NSMutableArray *sub_1000858B0(void *a1)
 {
   v1 = a1;
   v25 = objc_opt_new();
@@ -8404,7 +8370,7 @@ id sub_100085D1C(void *a1)
   return v2;
 }
 
-id sub_100085F78(void *a1)
+NSMutableSet *sub_100085F78(void *a1)
 {
   v1 = a1;
   v2 = objc_opt_new();
@@ -8446,7 +8412,7 @@ id sub_100085F78(void *a1)
   return v2;
 }
 
-id sub_1000860D8(void *a1)
+NSMutableArray *sub_1000860D8(void *a1)
 {
   v1 = a1;
   v2 = objc_opt_new();
@@ -9075,6 +9041,51 @@ id sub_100087B88(void *a1)
   {
     a1 = [a1 select:objc_opt_class() where:@"starting = ?" bindings:&off_10021B9E8];
     v1 = vars8;
+  }
+
+  return a1;
+}
+
+id sub_100087BE8(id a1, void *a2)
+{
+  v2 = a1;
+  if (a1)
+  {
+    v3 = a2;
+    v4 = objc_opt_class();
+    v7[0] = &off_10021B660;
+    v7[1] = v3;
+    v5 = [NSArray arrayWithObjects:v7 count:2];
+
+    v2 = [v2 select:v4 where:@"starting = ? AND bundleIdentifier = ?" bindings:v5];
+  }
+
+  return v2;
+}
+
+id sub_100087CC8(id a1, void *a2)
+{
+  v3 = a2;
+  v4 = v3;
+  if (a1)
+  {
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x3032000000;
+    v12 = sub_100087B60;
+    v13 = sub_100087B70;
+    v14 = 0;
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_100087DF8;
+    v6[3] = &unk_100203410;
+    v6[4] = a1;
+    v7 = v3;
+    v8 = &v9;
+    sub_10010BE68(a1, v6);
+    a1 = v10[5];
+
+    _Block_object_dispose(&v9, 8);
   }
 
   return a1;

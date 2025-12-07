@@ -522,23 +522,23 @@ LABEL_32:
   [-[TSDContainerRep childReps](self "childReps")];
 }
 
-uint64_t __43__TSDContainerRep_updateChildrenFromLayout__block_invoke()
+uint64_t __43__TSDContainerRep_updateChildrenFromLayout__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   objc_opt_class();
-  v0 = TSUDynamicCast();
+  v3 = TSUDynamicCast();
   objc_opt_class();
-  v1 = TSUDynamicCast();
-  if ([v0 forcesPlacementOnTop] && (objc_msgSend(v1, "forcesPlacementOnTop") & 1) != 0)
+  v4 = TSUDynamicCast();
+  if ([v3 forcesPlacementOnTop] && (objc_msgSend(v4, "forcesPlacementOnTop") & 1) != 0)
   {
     return 0;
   }
 
-  if ([v0 forcesPlacementOnTop])
+  if ([v3 forcesPlacementOnTop])
   {
     return 1;
   }
 
-  return [v1 forcesPlacementOnTop] << 63 >> 63;
+  return [v4 forcesPlacementOnTop] << 63 >> 63;
 }
 
 - (id)visibleChildLayouts
@@ -659,7 +659,7 @@ uint64_t __43__TSDContainerRep_updateChildrenFromLayout__block_invoke()
         v12 = [objc_msgSend(v11 "layout")];
         if (v12)
         {
-          [v12 inverseTransform];
+          objc_msgSend_inverseTransform(v12);
           v13 = v24;
           v14 = v25;
           v15 = v26;
@@ -730,7 +730,7 @@ uint64_t __43__TSDContainerRep_updateChildrenFromLayout__block_invoke()
         v14 = [objc_msgSend(v13 "layout")];
         if (v14)
         {
-          [v14 inverseTransform];
+          objc_msgSend_inverseTransform(v14);
           v15 = v26;
           v16 = v27;
           v17 = v28;
@@ -802,7 +802,7 @@ uint64_t __43__TSDContainerRep_updateChildrenFromLayout__block_invoke()
         v13 = [objc_msgSend(v12 "layout")];
         if (v13)
         {
-          [v13 inverseTransform];
+          objc_msgSend_inverseTransform(v13);
           v14 = v24;
           v15 = v25;
           v16 = v26;

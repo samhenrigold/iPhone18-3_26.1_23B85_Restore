@@ -65,23 +65,21 @@
 
 + (id)br_errorWithDomain:()BRAdditions code:description:
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v11 = a3;
   if (a5)
   {
-    v18 = &a9;
+    v17 = &a9;
     v12 = MEMORY[0x1E696AEC0];
     v13 = a5;
     v14 = [[v12 alloc] initWithFormat:v13 arguments:&a9];
 
-    v19 = *MEMORY[0x1E695E620];
-    v20[0] = v14;
-    a5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E695E620];
+    v19[0] = v14;
+    a5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   }
 
-  v15 = [MEMORY[0x1E696ABC0] errorWithDomain:v11 code:a4 userInfo:{a5, v18}];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [MEMORY[0x1E696ABC0] errorWithDomain:v11 code:a4 userInfo:{a5, v17}];
 
   return v15;
 }
@@ -119,37 +117,35 @@
 
 + (id)br_errorWithPOSIXCode:()BRAdditions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (__errnum < 0 || *MEMORY[0x1E69E9940] <= __errnum)
   {
     +[NSError(BRAdditions) br_errorWithPOSIXCode:];
   }
 
-  v9 = *MEMORY[0x1E695E620];
+  v8 = *MEMORY[0x1E695E620];
   v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:strerror(__errnum)];
-  v10[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:__errnum userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)br_errorWithPOSIXCode:()BRAdditions description:
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   if (a4)
   {
-    v17 = &a9;
+    v16 = &a9;
     v10 = MEMORY[0x1E696AEC0];
     v11 = a4;
     v12 = [[v10 alloc] initWithFormat:v11 arguments:&a9];
 
-    v18 = *MEMORY[0x1E695E620];
-    v19[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E695E620];
+    v18[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   }
 
   else
@@ -157,9 +153,7 @@
     v13 = 0;
   }
 
-  v14 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:a3 userInfo:{v13, v17}];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:a3 userInfo:{v13, v16}];
 
   return v14;
 }
@@ -190,7 +184,7 @@
 
 - (BOOL)br_isCKErrorCode:()BRAdditions underlyingErrorCode:
 {
-  if (![self br_isCKErrorCode:?])
+  if (![self br_isCKErrorCode:a3])
   {
     return 0;
   }
@@ -333,15 +327,15 @@
 
 + (id)brc_errorLoggedOutWithUnderlyingError:()BRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   if (a3)
   {
-    v10 = *MEMORY[0x1E696AA08];
-    v11[0] = a3;
+    v9 = *MEMORY[0x1E696AA08];
+    v10[0] = a3;
     v4 = MEMORY[0x1E695DF20];
     v5 = a3;
-    v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v3 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:2 userInfo:v6 description:@"Logged out - iCloud Drive is not configured"];
   }
 
@@ -350,8 +344,6 @@
     v6 = 0;
     v7 = [v3 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:2 userInfo:0 description:@"Logged out - iCloud Drive is not configured"];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -363,7 +355,7 @@
   v5 = brc_default_log(0, 0);
   if (os_log_type_enabled(v5, 0x90u))
   {
-    +[NSError(BRAdditions) brc_errorOperationNotImplemented:];
+    [NSError(BRAdditions) brc_errorOperationNotImplemented:v3];
   }
 
   v6 = MEMORY[0x1E696ABC0];
@@ -407,54 +399,50 @@
 
 + (id)brc_errorNotOnDisk:()BRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696ABC0] br_errorWithDomain:@"BRCloudDocsErrorDomain" code:27 description:{@"Item hasn't been made live on disk: '%@'", a3}];
   v4 = MEMORY[0x1E696ABC0];
   v5 = *MEMORY[0x1E696A250];
-  v10 = *MEMORY[0x1E696AA08];
-  v11[0] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696AA08];
+  v10[0] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v4 errorWithDomain:v5 code:256 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)brc_errorNotInCloud:()BRAdditions
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = *MEMORY[0x1E696A368];
-  v12[0] = *MEMORY[0x1E695E620];
-  v12[1] = v4;
+  v11[0] = *MEMORY[0x1E695E620];
+  v11[1] = v4;
   v5 = @"nil";
   if (a3)
   {
     v5 = a3;
   }
 
-  v13[0] = @"Document hasn't yet been synced to the server";
-  v13[1] = v5;
+  v12[0] = @"Document hasn't yet been synced to the server";
+  v12[1] = v5;
   v6 = MEMORY[0x1E695DF20];
   v7 = a3;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:v11 count:2];
   v9 = [v3 errorWithDomain:@"BRCloudDocsErrorDomain" code:7 userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)brc_errorPathOutsideAnyCloudDocsAppLibraryAtURL:()BRAdditions
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = *MEMORY[0x1E695E620];
-  v14[0] = @"Path is outside of any CloudDocs app library, will never sync";
+  v13[0] = @"Path is outside of any CloudDocs app library, will never sync";
   v5 = *MEMORY[0x1E696A368];
-  v13[0] = v4;
-  v13[1] = v5;
+  v12[0] = v4;
+  v12[1] = v5;
   path = [a3 path];
   v7 = path;
   v8 = @"nil";
@@ -463,18 +451,16 @@
     v8 = path;
   }
 
-  v14[1] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v10 = [v3 errorWithDomain:@"BRCloudDocsErrorDomain" code:6 userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)brc_errorPermissionError:()BRAdditions
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   if (a3)
   {
@@ -486,27 +472,25 @@
     v4 = &stru_1F23D4ED0;
   }
 
-  v11 = *MEMORY[0x1E695E620];
-  v12[0] = v4;
+  v10 = *MEMORY[0x1E695E620];
+  v11[0] = v4;
   v5 = MEMORY[0x1E695DF20];
   v6 = a3;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v3 errorWithDomain:@"BRCloudDocsErrorDomain" code:8 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)brc_errorPermissionErrorAtURL:()BRAdditions
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = *MEMORY[0x1E695E620];
-  v14[0] = @"Permission error when trying to access path";
+  v13[0] = @"Permission error when trying to access path";
   v5 = *MEMORY[0x1E696A368];
-  v13[0] = v4;
-  v13[1] = v5;
+  v12[0] = v4;
+  v12[1] = v5;
   path = [a3 path];
   v7 = path;
   v8 = @"nil";
@@ -515,25 +499,23 @@
     v8 = path;
   }
 
-  v14[1] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v10 = [v3 errorWithDomain:@"BRCloudDocsErrorDomain" code:8 userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)brc_errorItemNotFound:()BRAdditions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = v3;
   if (v3)
   {
-    v9 = @"BRUnderlyingItemIdentifierKey";
-    v10[0] = v3;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"BRUnderlyingItemIdentifierKey";
+    v9[0] = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -543,21 +525,19 @@
 
   v6 = [MEMORY[0x1E696ABC0] br_errorWithDomain:@"BRCloudDocsErrorDomain" code:14 userInfo:v5 description:{@"Item not found: '%@'", v4}];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (id)brc_errorParentItemRemotelyDeleted:()BRAdditions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = v3;
   if (v3)
   {
-    v9 = @"BRUnderlyingItemIdentifierKey";
-    v10[0] = v3;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"BRUnderlyingItemIdentifierKey";
+    v9[0] = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -567,21 +547,19 @@
 
   v6 = [MEMORY[0x1E696ABC0] br_errorWithDomain:@"BRCloudDocsErrorDomain" code:144 userInfo:v5 description:{@"Parent item remotely deleted: '%@'", v4}];
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (id)brc_errorUnexpectedItemType:()BRAdditions description:
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   if (v5)
   {
-    v11 = @"BRUnderlyingItemIdentifierKey";
-    v12[0] = v5;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"BRUnderlyingItemIdentifierKey";
+    v11[0] = v5;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -591,20 +569,18 @@
 
   v8 = [MEMORY[0x1E696ABC0] br_errorWithDomain:@"BRCloudDocsErrorDomain" code:123 userInfo:v7 description:{@"%@", v6}];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (id)brc_errorNoDocumentAtURL:()BRAdditions underlyingError:
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = *MEMORY[0x1E695E620];
-  v17[0] = @"No document at URL";
+  v16[0] = @"No document at URL";
   v7 = *MEMORY[0x1E696A368];
-  v16[0] = v6;
-  v16[1] = v7;
+  v15[0] = v6;
+  v15[1] = v7;
   v8 = a4;
   path = [a3 path];
   v10 = path;
@@ -614,56 +590,52 @@
     v11 = path;
   }
 
-  v16[2] = *MEMORY[0x1E696AA08];
-  v17[1] = v11;
-  v17[2] = v8;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v15[2] = *MEMORY[0x1E696AA08];
+  v16[1] = v11;
+  v16[2] = v8;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
   v13 = [v5 errorWithDomain:@"BRCloudDocsErrorDomain" code:5 userInfo:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 + (id)brc_errorNoDocument:()BRAdditions underlyingPOSIXError:
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = *MEMORY[0x1E696A368];
-  v14[0] = *MEMORY[0x1E695E620];
-  v14[1] = v6;
+  v13[0] = *MEMORY[0x1E695E620];
+  v13[1] = v6;
   v7 = @"nil";
   if (a3)
   {
     v7 = a3;
   }
 
-  v15[0] = @"No document at path";
-  v15[1] = v7;
-  v14[2] = *MEMORY[0x1E696AA08];
+  v14[0] = @"No document at path";
+  v14[1] = v7;
+  v13[2] = *MEMORY[0x1E696AA08];
   v8 = a3;
   v9 = [v5 br_errorWithPOSIXCode:a4];
-  v15[2] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
   v11 = [v5 errorWithDomain:@"BRCloudDocsErrorDomain" code:5 userInfo:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)brc_errorDocumentAtURL:()BRAdditions isNotExternalToAppLibrary:
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696AEC0];
   v6 = a3;
   v7 = [v5 stringWithFormat:@"Document is not external to app library %@", a4];
   v8 = MEMORY[0x1E696ABC0];
   v9 = *MEMORY[0x1E695E620];
-  v18[0] = v7;
+  v17[0] = v7;
   v10 = *MEMORY[0x1E696A368];
-  v17[0] = v9;
-  v17[1] = v10;
+  v16[0] = v9;
+  v16[1] = v10;
   path = [v6 path];
 
   v12 = @"nil";
@@ -672,28 +644,26 @@
     v12 = path;
   }
 
-  v18[1] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v14 = [v8 errorWithDomain:@"BRCloudDocsErrorDomain" code:11 userInfo:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (id)brc_errorDocumentWithFilename:()BRAdditions size:isTooLargeToUpload:localizedDescription:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E696ABC0];
   if (a6)
   {
-    v19 = @"BRLocalizedDescriptionKey";
-    v20 = a6;
+    v18 = @"BRLocalizedDescriptionKey";
+    v19 = a6;
     v10 = MEMORY[0x1E695DF20];
     v11 = a6;
     v12 = a3;
-    v13 = [v10 dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v14 = [v9 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:19 userInfo:v13 description:{@"document '%@' of size:%lli is too large to upload (max size: %lli)", v12, a4, a5, v19, v20, v21}];
+    v13 = [v10 dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v14 = [v9 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:19 userInfo:v13 description:{@"document '%@' of size:%lli is too large to upload (max size: %lli)", v12, a4, a5, v18, v19, v20}];
   }
 
   else
@@ -703,28 +673,24 @@
     v14 = [v9 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:19 userInfo:0 description:{@"document '%@' of size:%lli is too large to upload (max size: %lli)", v16, a4, a5}];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (id)brc_errorFolderHasSharedSubitemsWithSharedByMeURLs:()BRAdditions sharedToMeURLs:
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
-  v13[0] = @"BRFailedURLsKey";
+  v12[0] = @"BRFailedURLsKey";
   v6 = a4;
   v7 = a3;
   v8 = [v7 arrayByAddingObjectsFromArray:v6];
-  v14[0] = v8;
-  v14[1] = v7;
-  v13[1] = @"BRSharedByMeURLsKey";
-  v13[2] = @"BRSharedToMeURLsKey";
-  v14[2] = v6;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[0] = v8;
+  v13[1] = v7;
+  v12[1] = @"BRSharedByMeURLsKey";
+  v12[2] = @"BRSharedToMeURLsKey";
+  v13[2] = v6;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   v10 = [v5 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:38 userInfo:v9 description:@"Folder has shared subitems"];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -760,15 +726,15 @@
 
 + (id)brc_errorItemAlreadyPausedFromSyncByBundleID:()BRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   if (a3)
   {
-    v10 = @"bundleID";
-    v11[0] = a3;
+    v9 = @"bundleID";
+    v10[0] = a3;
     v4 = MEMORY[0x1E695DF20];
     v5 = a3;
-    v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v3 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:59 userInfo:v6 description:@"Item is already paused from sync by another bundleID"];
   }
 
@@ -778,24 +744,22 @@
     v7 = [v3 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:59 userInfo:0 description:@"Item is already paused from sync by another bundleID"];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)brc_addPartialError:()BRAdditions forURL:toError:
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = a5;
   if (!v9)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v18 = @"BRPartialErrorsByURLKey";
+    v17 = @"BRPartialErrorsByURLKey";
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v19[0] = dictionary;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = dictionary;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v10 = [v13 errorWithDomain:@"BRCloudDocsErrorDomain" code:21 userInfo:v12];
 LABEL_6:
 
@@ -826,55 +790,47 @@ LABEL_7:
 
   [v15 setObject:v7 forKey:v8];
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 + (id)brc_errorCollisionWithItem:()BRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = @"BRUnderlyingItemKey";
-  v11[0] = a3;
+  v9 = @"BRUnderlyingItemKey";
+  v10[0] = a3;
   v4 = MEMORY[0x1E695DF20];
   v5 = a3;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"BRCloudDocsErrorDomain" code:63 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)brc_errorForRejectedDeletionOfItem:()BRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = @"BRUnderlyingItemKey";
-  v11[0] = a3;
+  v9 = @"BRUnderlyingItemKey";
+  v10[0] = a3;
   v4 = MEMORY[0x1E695DF20];
   v5 = a3;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"BRCloudDocsErrorDomain" code:64 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)brc_errorAcceptShareFailedWithUnderlyingError:()BRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696AA08];
-  v11[0] = a3;
+  v9 = *MEMORY[0x1E696AA08];
+  v10[0] = a3;
   v4 = MEMORY[0x1E695DF20];
   v5 = a3;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"BRCloudDocsErrorDomain" code:130 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -893,15 +849,15 @@ LABEL_7:
 
 + (id)brc_errorDamagedDocumentOnDiskWithUnderlyingError:()BRAdditions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   if (a3)
   {
-    v10 = *MEMORY[0x1E696AA08];
-    v11[0] = a3;
+    v9 = *MEMORY[0x1E696AA08];
+    v10[0] = a3;
     v4 = MEMORY[0x1E695DF20];
     v5 = a3;
-    v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [v3 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:151 userInfo:v6 description:@"The current document on disk is damaged and needs recovery"];
   }
 
@@ -911,74 +867,62 @@ LABEL_7:
     v7 = [v3 br_errorWithDomain:@"BRCloudDocsErrorDomain" code:151 userInfo:0 description:@"The current document on disk is damaged and needs recovery"];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (void)br_errorWithPOSIXCode:()BRAdditions .cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("+[NSError(BRAdditions) br_errorWithPOSIXCode:]", 62);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: code >= 0 && code < sys_nerr%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: code >= 0 && code < sys_nerr%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-+ (void)brc_errorOperationNotImplemented:()BRAdditions .cold.1()
++ (void)brc_errorOperationNotImplemented:()BRAdditions .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v2, v3, "[ERROR] operation not implemented: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v3, v4, "[ERROR] operation not implemented: %@%@", v5, v6, v7, v8);
 }
 
 + (void)brc_errorMethodNotImplemented:()BRAdditions .cold.1(const char *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v2, v3, "[ERROR] method not implemented: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1AE2A9000, v2, v3, "[ERROR] method not implemented: %@%@", v4, v5, v6, v7);
 }
 
 + (void)brc_errorFunctionNotImplemented:()BRAdditions .cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  v4 = v0;
-  _os_log_error_impl(&dword_1AE2A9000, v1, 0x90u, "[ERROR] function not implemented: %@%@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1AE2A9000, v1, 0x90u, "[ERROR] function not implemented: %@%@", v2, 0x16u);
 }
 
 + (void)brc_addPartialError:()BRAdditions forURL:toError:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: existingError.code == BRErrorPartialFailure%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: existingError.code == BRErrorPartialFailure%@", &v2, 0xCu);
 }
 
 + (void)brc_addPartialError:()BRAdditions forURL:toError:.cold.2()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("+[NSError(BRAdditions) brc_addPartialError:forURL:toError:]", 481);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: dict && [dict isKindOfClass:[NSMutableDictionary class]]%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: dict && [dict isKindOfClass:[NSMutableDictionary class]]%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

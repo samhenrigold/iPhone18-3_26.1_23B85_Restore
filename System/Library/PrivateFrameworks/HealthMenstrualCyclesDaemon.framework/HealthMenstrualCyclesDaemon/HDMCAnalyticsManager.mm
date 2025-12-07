@@ -44,7 +44,7 @@
 
 - (void)reportDailyAnalyticsWithCoordinator:(id)coordinator completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v6 = +[HDMCDailyAnalytics shouldSubmit];
   hkmc_menstrualCyclesDefaults = [MEMORY[0x277CBEBD0] hkmc_menstrualCyclesDefaults];
@@ -61,13 +61,13 @@
     v14 = v12;
     v15 = [v13 numberWithBool:v6];
     v16 = [MEMORY[0x277CCABB0] numberWithBool:hkmc_analyticsDebugModeEnabled];
-    v22 = 138543874;
-    v23 = v12;
-    v24 = 2114;
-    v25 = v15;
-    v26 = 2114;
-    v27 = v16;
-    _os_log_impl(&dword_2293D1000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received daily analytics trigger. metricsEnabled: %{public}@, inDebugMode: %{public}@", &v22, 0x20u);
+    v21 = 138543874;
+    v22 = v12;
+    v23 = 2114;
+    v24 = v15;
+    v25 = 2114;
+    v26 = v16;
+    _os_log_impl(&dword_2293D1000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received daily analytics trigger. metricsEnabled: %{public}@, inDebugMode: %{public}@", &v21, 0x20u);
   }
 
   if (v6 | hkmc_analyticsDebugModeEnabled)
@@ -83,21 +83,19 @@
     {
       v18 = v17;
       v19 = objc_opt_class();
-      v22 = 138543362;
-      v23 = v19;
+      v21 = 138543362;
+      v22 = v19;
       v20 = v19;
-      _os_log_impl(&dword_2293D1000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping analytics submission", &v22, 0xCu);
+      _os_log_impl(&dword_2293D1000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping analytics submission", &v21, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 0, 0);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitAnalyticsWithCompletion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = _HKLogPersistedSignposts();
   v6 = _HKLogSignpostIDGenerate();
@@ -125,7 +123,7 @@
     v13 = v12;
     v14 = objc_opt_class();
     *buf = 138543362;
-    v50 = v14;
+    v49 = v14;
     v15 = v14;
     _os_log_impl(&dword_2293D1000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Beginning analytics submission", buf, 0xCu);
   }
@@ -141,9 +139,9 @@
   else
   {
     analysisManager = self->_analysisManager;
-    v48 = 0;
-    v20 = [(HDMCAnalysisManager *)analysisManager _analyzeWithForceIncludeCycles:1 forceAnalyzeCompleteHistory:0 error:&v48];
-    v18 = v48;
+    v47 = 0;
+    v20 = [(HDMCAnalysisManager *)analysisManager _analyzeWithForceIncludeCycles:1 forceAnalyzeCompleteHistory:0 error:&v47];
+    v18 = v47;
 
     currentAnalysis = v20;
   }
@@ -157,7 +155,7 @@
       v22 = v21;
       v23 = objc_opt_class();
       *buf = 138543362;
-      v50 = v23;
+      v49 = v23;
       v24 = v23;
       _os_log_impl(&dword_2293D1000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Finished running analysis", buf, 0xCu);
     }
@@ -166,9 +164,9 @@
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     v27 = [(HDMCDailyAnalytics *)v25 initWithProfile:WeakRetained analysis:currentAnalysis heartRateFeatureAvailabilityManager:self->_heartRateFeatureAvailabilityManager deviationDetectionFeatureAvailabilityManager:self->_deviationDetectionFeatureAvailabilityManager wristTemperatureInputFeatureAvailabilityManager:self->_wristTemperatureInputFeatureAvailabilityManager pregnancyManager:self->_pregnancyManager];
 
-    v47 = v18;
-    v28 = [(HDMCDailyAnalytics *)v27 submitMetricWithError:&v47];
-    v29 = v47;
+    v46 = v18;
+    v28 = [(HDMCDailyAnalytics *)v27 submitMetricWithError:&v46];
+    v29 = v46;
 
     _HKInitializeLogging();
     v30 = _HKLogPersistedSignposts();
@@ -194,7 +192,7 @@
         v35 = v34;
         v36 = objc_opt_class();
         *buf = 138543362;
-        v50 = v36;
+        v49 = v36;
         v37 = v36;
         _os_log_impl(&dword_2293D1000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@] Metric submission succeeded", buf, 0xCu);
       }
@@ -219,7 +217,7 @@
       v45 = *v11;
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
       {
-        [HDMCAnalyticsManager _submitAnalyticsWithCompletion:v45];
+        [(HDMCAnalyticsManager *)v45 _submitAnalyticsWithCompletion:?];
       }
 
       (*(completionCopy + 2))(completionCopy, 0, 2, v29);
@@ -248,35 +246,27 @@
     v42 = *v11;
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
     {
-      [HDMCAnalyticsManager _submitAnalyticsWithCompletion:v42];
+      [(HDMCAnalyticsManager *)v42 _submitAnalyticsWithCompletion:?];
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 2, v18);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_submitAnalyticsWithCompletion:(void *)a1 .cold.1(void *a1)
+- (void)_submitAnalyticsWithCompletion:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v4, v5, "[%{public}@] Metric submission failed with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Metric submission failed with error: %{public}@", v7, v8, v9, v10);
 }
 
-- (void)_submitAnalyticsWithCompletion:(void *)a1 .cold.2(void *a1)
+- (void)_submitAnalyticsWithCompletion:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v4, v5, "[%{public}@] Analysis failed with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Analysis failed with error: %{public}@", v7, v8, v9, v10);
 }
 
 @end

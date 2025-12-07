@@ -61,22 +61,20 @@
 
 void __35__SKSyncXPCCaller_syncRemoteObject__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = SKGetOSLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315394;
-    v8 = "[SKSyncXPCCaller syncRemoteObject]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "%s: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SKSyncXPCCaller syncRemoteObject]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "%s: %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 32) group];
   dispatch_group_leave(v5);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wait

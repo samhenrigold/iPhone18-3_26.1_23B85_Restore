@@ -55,7 +55,7 @@
 
   v6 = PKDrawingUUIDKeyPath.isEqual(_:)(v8);
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_sypSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_sypSgMd, &_sypSgMR);
   return v6 & 1;
 }
 
@@ -63,7 +63,7 @@
 {
   Hasher.init()();
   type metadata accessor for CRKeyPath();
-  _sSo7CGPointVABSE12CoreGraphicsWlTm_0(&lazy protocol witness table cache variable for type CRKeyPath and conformance CRKeyPath, 255, MEMORY[0x1E69954B8]);
+  _sSo7CGPointVABSE12CoreGraphicsWlTm_0(&lazy protocol witness table cache variable for type CRKeyPath and conformance CRKeyPath, 255, MEMORY[0x1E69954B8], MEMORY[0x1E69954C8]);
   selfCopy = self;
   dispatch thunk of Hashable.hash(into:)();
   v4 = Hasher.finalize()();

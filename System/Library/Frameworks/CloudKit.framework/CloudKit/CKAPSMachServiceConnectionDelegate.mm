@@ -1,6 +1,7 @@
 @interface CKAPSMachServiceConnectionDelegate
 - (APSConnection)connection;
 - (CKAPSMachServiceConnectionDelegate)initWithConnection:(id)connection key:(id)key;
+- (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status;
 - (void)connection:(id)connection didFailToSendOutgoingMessage:(id)message error:(id)error;
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message;
 - (void)connection:(id)connection didReceiveMessageForTopic:(id)topic userInfo:(id)info;
@@ -193,6 +194,27 @@
 
   v29 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v27, v28);
   objc_msgSend_postNotificationName_object_userInfo_(v29, v30, @"CKAPSMachServiceConnectionDidFailToSendOutgoingMessageNotification", connectionCopy, v12);
+}
+
+- (void)connection:(id)connection didChangeConnectedStatus:(BOOL)status
+{
+  statusCopy = status;
+  v6 = MEMORY[0x1E695DF90];
+  connectionCopy = connection;
+  v30 = objc_msgSend_dictionaryWithCapacity_(v6, v8, 3);
+  v11 = objc_msgSend_key(self, v9, v10);
+  v14 = objc_msgSend_environmentName(v11, v12, v13);
+  objc_msgSend_setObject_forKeyedSubscript_(v30, v15, v14, @"environmentName");
+
+  v18 = objc_msgSend_key(self, v16, v17);
+  v21 = objc_msgSend_namedDelegatePort(v18, v19, v20);
+  objc_msgSend_setObject_forKeyedSubscript_(v30, v22, v21, @"namedDelegatePort");
+
+  v24 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v23, statusCopy);
+  objc_msgSend_setObject_forKeyedSubscript_(v30, v25, v24, @"connected");
+
+  v28 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v26, v27);
+  objc_msgSend_postNotificationName_object_userInfo_(v28, v29, @"CKAPSMachServiceConnectionDidChangeConnectedStatusNotification", connectionCopy, v30);
 }
 
 - (void)connectionDidReconnect:(id)reconnect

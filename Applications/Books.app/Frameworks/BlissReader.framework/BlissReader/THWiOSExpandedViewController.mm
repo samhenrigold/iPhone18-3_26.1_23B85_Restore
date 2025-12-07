@@ -828,7 +828,7 @@ LABEL_6:
     [THWiOSExpandedViewController viewWillTransitionToSize:"viewWillTransitionToSize:withTransitionCoordinator:" withTransitionCoordinator:?];
     if (coordinator)
     {
-      [coordinator targetTransform];
+      objc_msgSend_targetTransform(coordinator);
       if (CGAffineTransformIsIdentity(&v15))
       {
         [(THWiOSExpandedViewController *)self bookViewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
@@ -969,7 +969,7 @@ LABEL_6:
   canvasView = [(TSDInteractiveCanvasController *)[(THWiOSExpandedViewController *)self icc] canvasView];
   if (canvasView)
   {
-    [canvasView transform];
+    objc_msgSend_transform(canvasView);
   }
 
   else

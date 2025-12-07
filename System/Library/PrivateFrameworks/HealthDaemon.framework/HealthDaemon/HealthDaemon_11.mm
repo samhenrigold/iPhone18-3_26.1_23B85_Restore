@@ -1,1681 +1,3 @@
-void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &,std::string &,long long &>::formatOptionsAtIndex<health::DataStore::ObjectIdentifier &,long long &,std::string &,std::string &,std::string &,long long &>(uint64_t a1)
-{
-  if (a1 <= 1)
-  {
-    if (a1 <= 1)
-    {
-LABEL_5:
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-      goto LABEL_13;
-    }
-  }
-
-  else if (a1 == 2 || a1 == 3 || a1 == 4)
-  {
-    goto LABEL_5;
-  }
-
-  v3 = __cxa_allocate_exception(0x10uLL);
-  exception = v3;
-  if (a1 == 5)
-  {
-    std::runtime_error::runtime_error(v3, "Requested parameter is not an FormatOptions instance.");
-  }
-
-  else
-  {
-    std::runtime_error::runtime_error(v3, "Parameter index out of bounds.");
-  }
-
-LABEL_13:
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatImplementation<health::DataStore::ObjectIdentifier &,char const*>(std::string *a1, std::string *a2, std::string::size_type a3, char ***a4)
-{
-  v30 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (!a1->__r_.__value_.__s.__data_[0])
-  {
-
-    std::string::resize(a2, a3, 0);
-    return;
-  }
-
-  v9 = 0;
-  v10 = 0;
-  v11 = a1;
-  while (v6 != 123)
-  {
-LABEL_6:
-    v30 = &v11->__r_.__value_.__s.__data_[1];
-    v6 = v11->__r_.__value_.__s.__data_[1];
-    --v9;
-    v11 = (v11 + 1);
-    if (!v6)
-    {
-      std::string::resize(a2, a3 - v9, 0);
-      if (v9)
-      {
-
-        health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
-      }
-
-      return;
-    }
-  }
-
-  v12 = v11->__r_.__value_.__s.__data_[1];
-  if (v12 == 123)
-  {
-    v10 = 1;
-    v11 = (v11 + 1);
-    goto LABEL_6;
-  }
-
-  if (v12 == 42)
-  {
-    v30 = &v11->__r_.__value_.__s.__data_[2];
-    v21 = v11->__r_.__value_.__s.__data_[2];
-    if ((v21 - 48) > 9)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-    }
-
-    else
-    {
-      v22 = 0;
-      v23 = &v11->__r_.__value_.__s.__data_[3];
-      do
-      {
-        v30 = v23;
-        v22 = (v21 & 0xF) + 10 * v22;
-        v24 = *v23++;
-        LOBYTE(v21) = v24;
-      }
-
-      while ((v24 - 58) >= 0xFFFFFFF6);
-      v30 = v23;
-      if (*(v23 - 1) == 125)
-      {
-        health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier &,char const*>::formatOptionsAtIndex<health::DataStore::ObjectIdentifier &,char const*>(v22);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-    }
-
-    goto LABEL_49;
-  }
-
-  health::FormatOptions::FormatOptions(&v26, &v30);
-  v13 = v30;
-  if (*(&v26 + 1))
-  {
-    if (*(&v26 + 1) == 1)
-    {
-      v14 = **a4;
-      __p = v14;
-      if (v14)
-      {
-        v14 = strlen(v14);
-      }
-
-      v32 = v14;
-      v33 = v26;
-      v34 = v27;
-      v35 = v28;
-      v36 = v29;
-      v15 = *(&v27 + 1);
-      if (*(&v27 + 1) <= v14)
-      {
-        v15 = v14;
-      }
-
-      if (v27)
-      {
-        v16 = v15;
-      }
-
-      else
-      {
-        v16 = v14;
-      }
-
-      health::FormatImplementation<health::DataStore::ObjectIdentifier &,char const*>(v30, a2, &v16[a3 - v9], a4);
-      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v17 = a2;
-      }
-
-      else
-      {
-        v17 = a2->__r_.__value_.__r.__words[0];
-      }
-
-      health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,char const*>(&v26, &v17[a3 - v9], &__p);
-      goto LABEL_39;
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-LABEL_49:
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  health::TypeFormatter<health::DataStore::ObjectIdentifier &,void>::TypeFormatter(&__p, a4[1], &v26);
-  v18 = BYTE7(v33);
-  if (SBYTE7(v33) < 0)
-  {
-    v18 = v32;
-  }
-
-  v19 = *(&v27 + 1);
-  if (*(&v27 + 1) <= v18)
-  {
-    v19 = v18;
-  }
-
-  if (v27)
-  {
-    v18 = v19;
-  }
-
-  health::FormatImplementation<health::DataStore::ObjectIdentifier &,char const*>(v13, a2, &v18[a3 - v9], a4);
-  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v20 = a2;
-  }
-
-  else
-  {
-    v20 = a2->__r_.__value_.__r.__words[0];
-  }
-
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v26, &v20[a3 - v9], &__p);
-  if (SBYTE7(v33) < 0)
-  {
-    operator delete(__p);
-  }
-
-LABEL_39:
-  if (v9)
-  {
-    health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
-  }
-}
-
-void health::FormatterParameters<0ul,health::DataStore::ObjectIdentifier &,char const*>::formatOptionsAtIndex<health::DataStore::ObjectIdentifier &,char const*>(uint64_t a1)
-{
-  if (a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    v1 = exception;
-    if (a1 == 1)
-    {
-      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-    }
-
-    else
-    {
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-    }
-  }
-
-  else
-  {
-    v1 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
-  }
-
-  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatImplementation<std::string &,std::string const&>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t *a4)
-{
-  v28 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (!a1->__r_.__value_.__s.__data_[0])
-  {
-
-    std::string::resize(a2, a3, 0);
-    return;
-  }
-
-  v9 = 0;
-  v10 = 0;
-  v11 = a1;
-  while (v6 != 123)
-  {
-LABEL_6:
-    v28 = &v11->__r_.__value_.__s.__data_[1];
-    v6 = v11->__r_.__value_.__s.__data_[1];
-    --v9;
-    v11 = (v11 + 1);
-    if (!v6)
-    {
-      std::string::resize(a2, a3 - v9, 0);
-      if (v9)
-      {
-
-        health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
-      }
-
-      return;
-    }
-  }
-
-  v12 = v11->__r_.__value_.__s.__data_[1];
-  if (v12 == 123)
-  {
-    v10 = 1;
-    v11 = (v11 + 1);
-    goto LABEL_6;
-  }
-
-  if (v12 == 42)
-  {
-    v28 = &v11->__r_.__value_.__s.__data_[2];
-    v19 = v11->__r_.__value_.__s.__data_[2];
-    if ((v19 - 48) > 9)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-    }
-
-    else
-    {
-      v20 = 0;
-      v21 = &v11->__r_.__value_.__s.__data_[3];
-      do
-      {
-        v28 = v21;
-        v20 = (v19 & 0xF) + 10 * v20;
-        v22 = *v21++;
-        LOBYTE(v19) = v22;
-      }
-
-      while ((v22 - 58) >= 0xFFFFFFF6);
-      v28 = v21;
-      if (*(v21 - 1) == 125)
-      {
-        health::FormatterParameters<0ul,std::string &,std::string const&>::formatOptionsAtIndex<std::string &,std::string const&>(v20);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-    }
-
-    goto LABEL_47;
-  }
-
-  health::FormatOptions::FormatOptions(v24, &v28);
-  v13 = v28;
-  if (v25)
-  {
-    if (v25 == 1)
-    {
-      health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *a4, v24);
-      v14 = v31;
-      if ((v31 & 0x80u) != 0)
-      {
-        v14 = v30;
-      }
-
-      v15 = v27;
-      if (v27 <= v14)
-      {
-        v15 = v14;
-      }
-
-      if (v26)
-      {
-        v14 = v15;
-      }
-
-      health::FormatImplementation<std::string &,std::string const&>(v13, a2, v14 + a3 - v9, a4);
-      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v16 = a2;
-      }
-
-      else
-      {
-        v16 = a2->__r_.__value_.__r.__words[0];
-      }
-
-      goto LABEL_35;
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-LABEL_47:
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, a4[1], v24);
-  v17 = v31;
-  if ((v31 & 0x80u) != 0)
-  {
-    v17 = v30;
-  }
-
-  v18 = v27;
-  if (v27 <= v17)
-  {
-    v18 = v17;
-  }
-
-  if (v26)
-  {
-    v17 = v18;
-  }
-
-  health::FormatImplementation<std::string &,std::string const&>(v13, a2, v17 + a3 - v9, a4);
-  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v16 = a2;
-  }
-
-  else
-  {
-    v16 = a2->__r_.__value_.__r.__words[0];
-  }
-
-LABEL_35:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, &v16[a3 - v9], &__p);
-  if (v31 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v9)
-  {
-    health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
-  }
-}
-
-void health::FormatterParameters<0ul,std::string &,std::string const&>::formatOptionsAtIndex<std::string &,std::string const&>(uint64_t a1)
-{
-  if (a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    v1 = exception;
-    if (a1 == 1)
-    {
-      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-    }
-
-    else
-    {
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-    }
-  }
-
-  else
-  {
-    v1 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
-  }
-
-  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
-{
-  v30 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (!a1->__r_.__value_.__s.__data_[0])
-  {
-
-    std::string::resize(a2, a3, 0);
-    return;
-  }
-
-  v9 = 0;
-  v10 = 0;
-  v11 = a1;
-  while (v6 != 123)
-  {
-LABEL_6:
-    v30 = &v11->__r_.__value_.__s.__data_[1];
-    v6 = v11->__r_.__value_.__s.__data_[1];
-    ++v9;
-    v11 = (v11 + 1);
-    if (!v6)
-    {
-      std::string::resize(a2, a3 + v9, 0);
-      if (v9)
-      {
-
-        health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-      }
-
-      return;
-    }
-  }
-
-  v12 = v11->__r_.__value_.__s.__data_[1];
-  if (v12 == 123)
-  {
-    v10 = 1;
-    v11 = (v11 + 1);
-    goto LABEL_6;
-  }
-
-  if (v12 == 42)
-  {
-    v30 = &v11->__r_.__value_.__s.__data_[2];
-    v21 = v11->__r_.__value_.__s.__data_[2];
-    if ((v21 - 48) > 9)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-    }
-
-    else
-    {
-      v22 = 0;
-      v23 = &v11->__r_.__value_.__s.__data_[3];
-      do
-      {
-        v30 = v23;
-        v22 = (v21 & 0xF) + 10 * v22;
-        v24 = *v23++;
-        LOBYTE(v21) = v24;
-      }
-
-      while ((v24 - 58) >= 0xFFFFFFF6);
-      v30 = v23;
-      if (*(v23 - 1) == 125)
-      {
-        health::FormatterParameters<0ul,std::string &,health::BlockPointer &,std::string const&>::formatOptionsAtIndex<std::string &,health::BlockPointer &,std::string const&>(v22);
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-    }
-
-    goto LABEL_57;
-  }
-
-  health::FormatOptions::FormatOptions(v26, &v30);
-  v13 = v30;
-  if (v27)
-  {
-    if (v27 != 1)
-    {
-      if (v27 == 2)
-      {
-        health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *a4, v26);
-        size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          size = __p.__r_.__value_.__l.__size_;
-        }
-
-        v15 = v29;
-        if (v29 <= size)
-        {
-          v15 = size;
-        }
-
-        if (v28)
-        {
-          size = v15;
-        }
-
-        health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>(v13, a2, size + a3 + v9, a4);
-        if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-        {
-          v16 = a2;
-        }
-
-        else
-        {
-          v16 = a2->__r_.__value_.__r.__words[0];
-        }
-
-        goto LABEL_45;
-      }
-
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-LABEL_57:
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-
-    health::FormatString<unsigned long long const&,unsigned long long const&>("({0}: {1})", *(a4 + 8), (*(a4 + 8) + 8), &__p);
-    v17 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v17 = __p.__r_.__value_.__l.__size_;
-    }
-
-    v18 = v29;
-    if (v29 <= v17)
-    {
-      v18 = v17;
-    }
-
-    if (v28)
-    {
-      v17 = v18;
-    }
-
-    health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>(v13, a2, v17 + a3 + v9, a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v16 = a2;
-    }
-
-    else
-    {
-      v16 = a2->__r_.__value_.__r.__words[0];
-    }
-  }
-
-  else
-  {
-    health::TypeFormatter<std::string &,void>::TypeFormatter(&__p, *(a4 + 16), v26);
-    v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v19 = __p.__r_.__value_.__l.__size_;
-    }
-
-    v20 = v29;
-    if (v29 <= v19)
-    {
-      v20 = v19;
-    }
-
-    if (v28)
-    {
-      v19 = v20;
-    }
-
-    health::FormatImplementation<std::string &,health::BlockPointer &,std::string const&>(v13, a2, v19 + a3 + v9, a4);
-    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v16 = a2;
-    }
-
-    else
-    {
-      v16 = a2->__r_.__value_.__r.__words[0];
-    }
-  }
-
-LABEL_45:
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v26, &v16[a3 + v9], &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (v9)
-  {
-    health::CopyFormatSectionToResult(a1, a2, a3, v9, v10 & 1);
-  }
-}
-
-void health::FormatterParameters<0ul,std::string &,health::BlockPointer &,std::string const&>::formatOptionsAtIndex<std::string &,health::BlockPointer &,std::string const&>(uint64_t a1)
-{
-  if (a1 && a1 != 1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    v2 = exception;
-    if (a1 == 2)
-    {
-      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-    }
-
-    else
-    {
-      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-    }
-  }
-
-  else
-  {
-    v2 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v2, "Requested parameter is not an FormatOptions instance.");
-  }
-
-  __cxa_throw(v2, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatString<unsigned long long const&,unsigned long long const&>(std::string *a1@<X0>, void *a2@<X1>, void *a3@<X2>, std::string *a4@<X8>)
-{
-  v4[0] = a3;
-  v4[1] = a2;
-  a4->__r_.__value_.__l.__size_ = 0;
-  a4->__r_.__value_.__r.__words[2] = 0;
-  a4->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<unsigned long long const&,unsigned long long const&>(a1, a4, 0, v4);
-}
-
-void sub_228C7BF84(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void health::FormatImplementation<unsigned long long const&,unsigned long long const&>(std::string *a1, std::string *this, std::string::size_type __n, void **a4)
-{
-  v19 = a1;
-  v6 = a1->__r_.__value_.__s.__data_[0];
-  if (a1->__r_.__value_.__s.__data_[0])
-  {
-    v9 = 0;
-    v10 = 0;
-    for (i = a1; ; i = (i + 1))
-    {
-      if (v6 == 123)
-      {
-        v12 = i->__r_.__value_.__s.__data_[1];
-        if (v12 != 123)
-        {
-          if (v12 == 42)
-          {
-            v19 = &i->__r_.__value_.__s.__data_[2];
-            v13 = i->__r_.__value_.__s.__data_[2];
-            if ((v13 - 48) > 9)
-            {
-              exception = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
-            }
-
-            else
-            {
-              v14 = 0;
-              v15 = &i->__r_.__value_.__s.__data_[3];
-              do
-              {
-                v19 = v15;
-                v14 = (v13 & 0xF) + 10 * v14;
-                v16 = *v15++;
-                LOBYTE(v13) = v16;
-              }
-
-              while ((v16 - 58) >= 0xFFFFFFF6);
-              v19 = v15;
-              if (*(v15 - 1) == 125)
-              {
-                health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>(a4, a4, v14);
-              }
-
-              exception = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
-            }
-
-            __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-          }
-
-          health::FormatOptions::FormatOptions(v18, &v19);
-          health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>::formatParameterAtIndex<unsigned long long const&,unsigned long long const&>(a4, a4, v18[1], v18, this, __n - v9, v19);
-          if (v9)
-          {
-            health::CopyFormatSectionToResult(a1, this, __n, -v9, v10 & 1);
-          }
-
-          return;
-        }
-
-        v10 = 1;
-        i = (i + 1);
-      }
-
-      v19 = &i->__r_.__value_.__s.__data_[1];
-      v6 = i->__r_.__value_.__s.__data_[1];
-      --v9;
-      if (!v6)
-      {
-        std::string::resize(this, __n - v9, 0);
-        if (v9)
-        {
-
-          health::CopyFormatSectionToResult(a1, this, __n, -v9, v10 & 1);
-        }
-
-        return;
-      }
-    }
-  }
-
-  std::string::resize(this, __n, 0);
-}
-
-void health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a3)
-  {
-
-    health::FormatterParameters<1ul,unsigned long long const&>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>(a1, a2, a3);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>::formatParameterAtIndex<unsigned long long const&,unsigned long long const&>(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, std::string *a5, uint64_t a6, int a7)
-{
-  if (a3)
-  {
-
-    health::FormatterParameters<1ul,unsigned long long const&>::formatParameterAtIndex<unsigned long long const&,unsigned long long const&>(a1, a2, a3, a4, a5, a6, a7);
-  }
-
-  else
-  {
-    health::TypeFormatter<unsigned long long const&,void>::TypeFormatter(__p, a1[1], a4);
-    v11 = v15;
-    if ((v15 & 0x80u) != 0)
-    {
-      v11 = __p[1];
-    }
-
-    v12 = *(a4 + 24);
-    if (v12 <= v11)
-    {
-      v12 = v11;
-    }
-
-    if (*(a4 + 16))
-    {
-      v11 = v12;
-    }
-
-    health::FormatImplementation<unsigned long long const&,unsigned long long const&>(a7, a5, v11 + a6);
-    if ((a5->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v13 = a5;
-    }
-
-    else
-    {
-      v13 = a5->__r_.__value_.__r.__words[0];
-    }
-
-    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(a4, &v13[a6], __p);
-    if (v15 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-}
-
-void sub_228C7C388(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void health::FormatterParameters<1ul,unsigned long long const&>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a3 != 1)
-  {
-
-    health::FormatterParameters<2ul>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>();
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatterParameters<2ul>::formatOptionsAtIndex<unsigned long long const&,unsigned long long const&>()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void health::FormatterParameters<1ul,unsigned long long const&>::formatParameterAtIndex<unsigned long long const&,unsigned long long const&>(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, std::string *a5, uint64_t a6, int a7)
-{
-  if (a3 != 1)
-  {
-
-    health::FormatterParameters<2ul>::formatParameterAtIndex<health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>>();
-  }
-
-  health::TypeFormatter<unsigned long long const&,void>::TypeFormatter(__p, *a1, a4);
-  v11 = v15;
-  if ((v15 & 0x80u) != 0)
-  {
-    v11 = __p[1];
-  }
-
-  v12 = *(a4 + 24);
-  if (v12 <= v11)
-  {
-    v12 = v11;
-  }
-
-  if (*(a4 + 16))
-  {
-    v11 = v12;
-  }
-
-  health::FormatImplementation<unsigned long long const&,unsigned long long const&>(a7, a5, v11 + a6);
-  if ((a5->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v13 = a5;
-  }
-
-  else
-  {
-    v13 = a5->__r_.__value_.__r.__words[0];
-  }
-
-  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(a4, &v13[a6], __p);
-  if (v15 < 0)
-  {
-    operator delete(__p[0]);
-  }
-}
-
-void sub_228C7C590(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void health::FormatterParameters<2ul>::formatParameterAtIndex<health::FormatterParameters<0ul,unsigned long long const&,unsigned long long const&>>()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-uint64_t health::TypeFormatter<unsigned long long const&,void>::TypeFormatter(uint64_t a1, void *a2, uint64_t a3)
-{
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
-  v6 = v13;
-  if (*(a3 + 16) == 1)
-  {
-    *(&v15[1] + *(v13 - 24)) = *(a3 + 24);
-  }
-
-  if (*(a3 + 32) == 1)
-  {
-    *(v15 + *(v6 - 24)) = *(a3 + 40);
-  }
-
-  v7 = (&v13 + *(v6 - 24));
-  v8 = *(a3 + 52);
-  if (v7[1].__fmtflags_ == -1)
-  {
-    std::ios_base::getloc(v7);
-    v9 = std::locale::use_facet(&v11, MEMORY[0x277D82680]);
-    (v9->__vftable[2].~facet_0)(v9, 32);
-    std::locale::~locale(&v11);
-  }
-
-  v7[1].__fmtflags_ = v8;
-  MEMORY[0x22AAC83F0](&v13, *a2);
-  std::ostringstream::str[abi:ne200100](&v13, &v11);
-  if (*(a1 + 23) < 0)
-  {
-    operator delete(*a1);
-  }
-
-  *a1 = v11;
-  *(a1 + 16) = v12;
-  v13 = *MEMORY[0x277D82828];
-  *(&v13 + *(v13 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v14 = MEMORY[0x277D82878] + 16;
-  if (v16 < 0)
-  {
-    operator delete(v15[7].__locale_);
-  }
-
-  v14 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v15);
-  std::ostream::~ostream();
-  MEMORY[0x22AAC8550](&v17);
-  return a1;
-}
-
-void sub_228C7C870(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
-{
-  std::locale::~locale(&a9);
-  std::ostringstream::~ostringstream(&a12);
-  if (*(v12 + 23) < 0)
-  {
-    operator delete(*v12);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDCodableUserDomainConceptLocalizedStringPropertyReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        v44 = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:&v44 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v44 & 0x7F) << v5;
-        if ((v44 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        v11 = v6++ >= 9;
-        if (v11)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 4)
-      {
-        if (v13 == 5)
-        {
-          v30 = PBReaderReadString();
-          v31 = 40;
-LABEL_58:
-          v39 = *(a1 + v31);
-          *(a1 + v31) = v30;
-
-          goto LABEL_72;
-        }
-
-        if (v13 == 6)
-        {
-          v30 = PBReaderReadString();
-          v31 = 32;
-          goto LABEL_58;
-        }
-
-        if (v13 != 7)
-        {
-LABEL_46:
-          result = PBReaderSkipValueWithTag();
-          if (!result)
-          {
-            return result;
-          }
-
-          goto LABEL_72;
-        }
-
-        v16 = 0;
-        v17 = 0;
-        v18 = 0;
-        *(a1 + 52) |= 8u;
-        while (1)
-        {
-          v47 = 0;
-          v19 = [a2 position] + 1;
-          if (v19 >= [a2 position] && (v20 = objc_msgSend(a2, "position") + 1, v20 <= objc_msgSend(a2, "length")))
-          {
-            v21 = [a2 data];
-            [v21 getBytes:&v47 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v18 |= (v47 & 0x7F) << v16;
-          if ((v47 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v16 += 7;
-          v11 = v17++ >= 9;
-          if (v11)
-          {
-            LOBYTE(v22) = 0;
-            goto LABEL_64;
-          }
-        }
-
-        v22 = (v18 != 0) & ~[a2 hasError];
-LABEL_64:
-        *(a1 + 48) = v22;
-      }
-
-      else
-      {
-        if (v13 == 1)
-        {
-          v23 = 0;
-          v24 = 0;
-          v25 = 0;
-          *(a1 + 52) |= 2u;
-          while (1)
-          {
-            v46 = 0;
-            v26 = [a2 position] + 1;
-            if (v26 >= [a2 position] && (v27 = objc_msgSend(a2, "position") + 1, v27 <= objc_msgSend(a2, "length")))
-            {
-              v28 = [a2 data];
-              [v28 getBytes:&v46 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v25 |= (v46 & 0x7F) << v23;
-            if ((v46 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v23 += 7;
-            v11 = v24++ >= 9;
-            if (v11)
-            {
-              v29 = 0;
-              goto LABEL_62;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v29 = 0;
-          }
-
-          else
-          {
-            v29 = v25;
-          }
-
-LABEL_62:
-          v40 = 16;
-          goto LABEL_69;
-        }
-
-        if (v13 == 2)
-        {
-          v33 = 0;
-          v34 = 0;
-          v35 = 0;
-          *(a1 + 52) |= 4u;
-          while (1)
-          {
-            v45 = 0;
-            v36 = [a2 position] + 1;
-            if (v36 >= [a2 position] && (v37 = objc_msgSend(a2, "position") + 1, v37 <= objc_msgSend(a2, "length")))
-            {
-              v38 = [a2 data];
-              [v38 getBytes:&v45 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v35 |= (v45 & 0x7F) << v33;
-            if ((v45 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v33 += 7;
-            v11 = v34++ >= 9;
-            if (v11)
-            {
-              v29 = 0;
-              goto LABEL_68;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v29 = 0;
-          }
-
-          else
-          {
-            v29 = v35;
-          }
-
-LABEL_68:
-          v40 = 24;
-LABEL_69:
-          *(a1 + v40) = v29;
-          goto LABEL_72;
-        }
-
-        if (v13 != 3)
-        {
-          goto LABEL_46;
-        }
-
-        *(a1 + 52) |= 1u;
-        v43 = 0;
-        v14 = [a2 position] + 8;
-        if (v14 >= [a2 position] && (v15 = objc_msgSend(a2, "position") + 8, v15 <= objc_msgSend(a2, "length")))
-        {
-          v41 = [a2 data];
-          [v41 getBytes:&v43 range:{objc_msgSend(a2, "position"), 8}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        *(a1 + 8) = v43;
-      }
-
-LABEL_72:
-      v42 = [a2 position];
-    }
-
-    while (v42 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-uint64_t HDCloudSyncCodableSequenceReadFrom(uint64_t a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 >= [a2 length])
-  {
-    return [a2 hasError] ^ 1;
-  }
-
-  while (2)
-  {
-    if ([a2 hasError])
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    while (1)
-    {
-      LOBYTE(v57) = 0;
-      v8 = [a2 position] + 1;
-      if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-      {
-        v10 = [a2 data];
-        [v10 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v7 |= (v57 & 0x7F) << v5;
-      if ((v57 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v5 += 7;
-      v11 = v6++ >= 9;
-      if (v11)
-      {
-        v12 = 0;
-        goto LABEL_15;
-      }
-    }
-
-    v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-    if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-    {
-      return [a2 hasError] ^ 1;
-    }
-
-    switch((v12 >> 3))
-    {
-      case 1u:
-        v13 = 0;
-        v14 = 0;
-        v15 = 0;
-        *(a1 + 108) |= 0x10u;
-        while (1)
-        {
-          LOBYTE(v57) = 0;
-          v16 = [a2 position] + 1;
-          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
-          {
-            v18 = [a2 data];
-            [v18 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v15 |= (v57 & 0x7F) << v13;
-          if ((v57 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v13 += 7;
-          v11 = v14++ >= 9;
-          if (v11)
-          {
-            v19 = 0;
-LABEL_99:
-            *(a1 + 80) = v19;
-            goto LABEL_115;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v19 = 0;
-        }
-
-        else
-        {
-          v19 = v15;
-        }
-
-        goto LABEL_99;
-      case 2u:
-        v34 = 0;
-        v35 = 0;
-        v36 = 0;
-        *(a1 + 108) |= 0x20u;
-        while (1)
-        {
-          LOBYTE(v57) = 0;
-          v37 = [a2 position] + 1;
-          if (v37 >= [a2 position] && (v38 = objc_msgSend(a2, "position") + 1, v38 <= objc_msgSend(a2, "length")))
-          {
-            v39 = [a2 data];
-            [v39 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v36 |= (v57 & 0x7F) << v34;
-          if ((v57 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v34 += 7;
-          v11 = v35++ >= 9;
-          if (v11)
-          {
-            LOBYTE(v40) = 0;
-            goto LABEL_105;
-          }
-        }
-
-        v40 = (v36 != 0) & ~[a2 hasError];
-LABEL_105:
-        *(a1 + 104) = v40;
-        goto LABEL_115;
-      case 3u:
-        v28 = 0;
-        v29 = 0;
-        v30 = 0;
-        *(a1 + 108) |= 4u;
-        while (1)
-        {
-          LOBYTE(v57) = 0;
-          v31 = [a2 position] + 1;
-          if (v31 >= [a2 position] && (v32 = objc_msgSend(a2, "position") + 1, v32 <= objc_msgSend(a2, "length")))
-          {
-            v33 = [a2 data];
-            [v33 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v30 |= (v57 & 0x7F) << v28;
-          if ((v57 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v28 += 7;
-          v11 = v29++ >= 9;
-          if (v11)
-          {
-            v26 = 0;
-            goto LABEL_103;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v26 = 0;
-        }
-
-        else
-        {
-          v26 = v30;
-        }
-
-LABEL_103:
-        v54 = 24;
-        goto LABEL_114;
-      case 4u:
-        v27 = PBReaderReadData();
-        if (v27)
-        {
-          [a1 addIncludedStoreIdentifiers:v27];
-        }
-
-        goto LABEL_91;
-      case 5u:
-        v27 = objc_alloc_init(HDCodableSyncIdentity);
-        [a1 addIncludedSyncIdentities:v27];
-        goto LABEL_41;
-      case 6u:
-        v27 = objc_alloc_init(HDCodableSyncIdentity);
-        [a1 addIncludedChildSyncIdentities:v27];
-LABEL_41:
-        v57 = 0;
-        v58 = 0;
-        if (!PBReaderPlaceMark() || !HDCodableSyncIdentityReadFrom(v27, a2))
-        {
-          goto LABEL_117;
-        }
-
-        goto LABEL_90;
-      case 0xAu:
-        v41 = 0;
-        v42 = 0;
-        v43 = 0;
-        *(a1 + 108) |= 8u;
-        while (1)
-        {
-          LOBYTE(v57) = 0;
-          v44 = [a2 position] + 1;
-          if (v44 >= [a2 position] && (v45 = objc_msgSend(a2, "position") + 1, v45 <= objc_msgSend(a2, "length")))
-          {
-            v46 = [a2 data];
-            [v46 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v43 |= (v57 & 0x7F) << v41;
-          if ((v57 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v41 += 7;
-          v11 = v42++ >= 9;
-          if (v11)
-          {
-            v26 = 0;
-            goto LABEL_109;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v26 = 0;
-        }
-
-        else
-        {
-          v26 = v43;
-        }
-
-LABEL_109:
-        v54 = 32;
-        goto LABEL_114;
-      case 0xBu:
-        v27 = objc_alloc_init(HDCodableSyncAnchorRangeMap);
-        v47 = 40;
-        goto LABEL_88;
-      case 0xCu:
-        v27 = objc_alloc_init(HDCodableSyncAnchorRangeMap);
-        v47 = 48;
-LABEL_88:
-        objc_storeStrong((a1 + v47), v27);
-        v57 = 0;
-        v58 = 0;
-        if (PBReaderPlaceMark() && [(HDCodableSyncIdentity *)v27 readFrom:a2])
-        {
-          goto LABEL_90;
-        }
-
-        goto LABEL_117;
-      case 0x14u:
-        v48 = 0;
-        v49 = 0;
-        v50 = 0;
-        *(a1 + 108) |= 1u;
-        while (1)
-        {
-          LOBYTE(v57) = 0;
-          v51 = [a2 position] + 1;
-          if (v51 >= [a2 position] && (v52 = objc_msgSend(a2, "position") + 1, v52 <= objc_msgSend(a2, "length")))
-          {
-            v53 = [a2 data];
-            [v53 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v50 |= (v57 & 0x7F) << v48;
-          if ((v57 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v48 += 7;
-          v11 = v49++ >= 9;
-          if (v11)
-          {
-            v26 = 0;
-            goto LABEL_113;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v26 = 0;
-        }
-
-        else
-        {
-          v26 = v50;
-        }
-
-LABEL_113:
-        v54 = 8;
-        goto LABEL_114;
-      case 0x15u:
-        v20 = 0;
-        v21 = 0;
-        v22 = 0;
-        *(a1 + 108) |= 2u;
-        while (1)
-        {
-          LOBYTE(v57) = 0;
-          v23 = [a2 position] + 1;
-          if (v23 >= [a2 position] && (v24 = objc_msgSend(a2, "position") + 1, v24 <= objc_msgSend(a2, "length")))
-          {
-            v25 = [a2 data];
-            [v25 getBytes:&v57 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v22 |= (v57 & 0x7F) << v20;
-          if ((v57 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v20 += 7;
-          v11 = v21++ >= 9;
-          if (v11)
-          {
-            v26 = 0;
-            goto LABEL_95;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v26 = 0;
-        }
-
-        else
-        {
-          v26 = v22;
-        }
-
-LABEL_95:
-        v54 = 16;
-LABEL_114:
-        *(a1 + v54) = v26;
-        goto LABEL_115;
-      case 0x1Eu:
-        v27 = PBReaderReadString();
-        if (v27)
-        {
-          [a1 addUnfrozenChangeRecordNames:v27];
-        }
-
-        goto LABEL_91;
-      case 0x1Fu:
-        v27 = objc_alloc_init(HDCodableSyncEntityVersionMap);
-        objc_storeStrong((a1 + 88), v27);
-        v57 = 0;
-        v58 = 0;
-        if (PBReaderPlaceMark() && HDCodableSyncEntityVersionMapReadFrom(v27, a2))
-        {
-LABEL_90:
-          PBReaderRecallMark();
-LABEL_91:
-
-LABEL_115:
-          v55 = [a2 position];
-          if (v55 >= [a2 length])
-          {
-            return [a2 hasError] ^ 1;
-          }
-
-          continue;
-        }
-
-LABEL_117:
-
-        return 0;
-      default:
-        if ((PBReaderSkipValueWithTag() & 1) == 0)
-        {
-          return 0;
-        }
-
-        goto LABEL_115;
-    }
-  }
-}
-
 id HDHeartDailyAnalyticsProcessingIntervalForCurrentDateAndCalendar(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1688,9 +10,9 @@ id HDHeartDailyAnalyticsProcessingIntervalForCurrentDateAndCalendar(uint64_t a1,
   return v7;
 }
 
-void sub_228C88908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228C88908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1702,30 +24,30 @@ uint64_t __Block_byref_object_copy__87(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228C88AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228C88AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228C88CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228C88CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228C88EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228C88EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228C89050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228C89050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1737,11 +59,18 @@ void sub_228C899A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_228C8B240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228C8A21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, ...)
 {
-  va_start(va, a9);
+  va_start(va, a61);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228C8B240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1757,6 +86,13 @@ void sub_228C8C4E0(_Unwind_Exception *a1)
   objc_destroyWeak((v2 + 40));
   objc_destroyWeak((v1 + 32));
   objc_destroyWeak((v3 - 128));
+  _Unwind_Resume(a1);
+}
+
+void sub_228C8D9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1933,19 +269,19 @@ __CFString *NSStringFromHDDemoDataSampleTrackingType(uint64_t a1)
   return 0;
 }
 
-void sub_228C90830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228C90830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1956,9 +292,9 @@ uint64_t __Block_byref_object_copy__90(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228C9147C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228C9147C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2083,9 +419,9 @@ uint64_t __Block_byref_object_copy__92(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228C9DD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228C9DD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2097,23 +433,23 @@ uint64_t __Block_byref_object_copy__93(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228C9DF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228C9DF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228C9E0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228C9E0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228C9EFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_228C9EFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2125,29 +461,29 @@ void *__Block_byref_object_copy__94(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_228C9F570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_228C9F570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CA076C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_228CA076C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
   v11 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
   v15 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
@@ -2161,6 +497,42 @@ uint64_t __Block_byref_object_copy__330(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_228CA1484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228CA1684(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v12 = objc_begin_catch(a1);
+    _HKInitializeLogging();
+    v13 = *MEMORY[0x277CCC328];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    {
+      v16 = *(v11 + 40);
+      v17 = [v12 reason];
+      LODWORD(buf) = 138543618;
+      *(&buf + 4) = v16;
+      WORD6(buf) = 2114;
+      *(&buf + 14) = v17;
+      _os_log_fault_impl(&dword_228986000, v13, OS_LOG_TYPE_FAULT, "%{public}@: Error unarchiving change objects: %{public}@", &buf, 0x16u);
+    }
+
+    v14 = *(*(v11 + 56) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = 0;
+
+    objc_end_catch();
+    JUMPOUT(0x228CA15BCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void sub_228CA2F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, id a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, id a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, id a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, id a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   objc_destroyWeak(&a29);
@@ -2171,7 +543,7 @@ void sub_228CA2F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   objc_destroyWeak(&a54);
   objc_destroyWeak(&a59);
   objc_destroyWeak(&a64);
-  objc_destroyWeak(&a69);
+  objc_destroyWeak(&a65);
   objc_destroyWeak(&STACK[0x208]);
   objc_destroyWeak(&STACK[0x210]);
   _Unwind_Resume(a1);
@@ -2230,13 +602,12 @@ uint64_t _HDAddWorkoutSessionControllerTables(uint64_t a1, void *a2, uint64_t a3
 
 uint64_t _HDAddClientBundleIdentifierToWorkoutSession(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v5 = [a2 unprotectedDatabase];
-  v9[0] = @"ALTER TABLE workout_sessions ADD COLUMN client_bundle_id TEXT;";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = @"ALTER TABLE workout_sessions ADD COLUMN client_bundle_id TEXT;";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   LODWORD(a4) = [v5 executeSQLStatements:v6 error:a4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -2250,13 +621,12 @@ uint64_t _HDAddAuthorizationMode(uint64_t a1, void *a2, uint64_t a3, uint64_t a4
 
 uint64_t _HDAddClientApplicationIdentifierToWorkoutSession(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v5 = [a2 unprotectedDatabase];
-  v9[0] = @"ALTER TABLE workout_sessions ADD COLUMN client_application_id TEXT;";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = @"ALTER TABLE workout_sessions ADD COLUMN client_application_id TEXT;";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   LODWORD(a4) = [v5 executeSQLStatements:v6 error:a4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -2294,25 +664,23 @@ uint64_t _HDMakeStatisticsColumnNullable(uint64_t a1, void *a2, uint64_t a3, uin
 
 uint64_t _HDAddRequestedTargetStateToWorkoutSession(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v5 = [a2 unprotectedDatabase];
-  v9[0] = @"ALTER TABLE workout_sessions ADD COLUMN requested_target_state INTEGER NOT NULL DEFAULT 1;";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = @"ALTER TABLE workout_sessions ADD COLUMN requested_target_state INTEGER NOT NULL DEFAULT 1;";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   LODWORD(a4) = [v5 executeSQLStatements:v6 error:a4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
 uint64_t _HDAddHasFailedToWorkoutSession(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v5 = [a2 unprotectedDatabase];
-  v9[0] = @"ALTER TABLE workout_sessions ADD COLUMN has_failed INTEGER NOT NULL DEFAULT 0;";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = @"ALTER TABLE workout_sessions ADD COLUMN has_failed INTEGER NOT NULL DEFAULT 0;";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   LODWORD(a4) = [v5 executeSQLStatements:v6 error:a4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -2342,31 +710,29 @@ uint64_t _AddCondenserVersionToWorkoutEntityTable(uint64_t a1, void *a2, uint64_
 
 uint64_t _AddTemplateUniqueNameToFitnessFriendAchievements(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v5 = [a2 protectedDatabase];
-  v9[0] = @"DROP TABLE fitness_friend_achievements";
-  v9[1] = @"CREATE TABLE fitness_friend_achievements (data_id INTEGER PRIMARY KEY, friend_uuid BLOB, template_unique_name TEXT, completed_date REAL, value)";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[0] = @"DROP TABLE fitness_friend_achievements";
+  v8[1] = @"CREATE TABLE fitness_friend_achievements (data_id INTEGER PRIMARY KEY, friend_uuid BLOB, template_unique_name TEXT, completed_date REAL, value)";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   LODWORD(a4) = [v5 executeSQLStatements:v6 error:a4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
 uint64_t _AddiOSVersionToFHIRResources(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v9[6] = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D85DE8];
   v5 = [a2 protectedDatabase];
-  v9[0] = @"CREATE TABLE original_fhir_resources (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT NOT NULL, account_id INTEGER NOT NULL REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, id TEXT NOT NULL, sync_provenance INTEGER NOT NULL, raw_content BLOB NOT NULL, received_date REAL NOT NULL, received_date_timezone TEXT NOT NULL, fhir_version TEXT NOT NULL, source_url TEXT, extraction_hints INTEGER, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, origin_build TEXT NOT NULL, UNIQUE(type, account_id, id))";
-  v9[1] = @"CREATE TABLE IF NOT EXISTS original_fhir_resources_last_seen (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, resource_id INTEGER NOT NULL REFERENCES original_fhir_resources(ROWID) ON DELETE CASCADE, last_seen_date REAL NOT NULL)";
-  v9[2] = @"INSERT INTO original_fhir_resources (rowid, type, account_id, id, sync_provenance, raw_content, received_date, received_date_timezone, fhir_version, source_url, extraction_hints, origin_major_version, origin_minor_version, origin_patch_version, origin_build) SELECT rowid, type, account_id, id, sync_provenance, raw_content, received_date, received_date_timezone, fhir_version, source_url, extraction_hints, 11, 3, 0, '15E216' FROM fhir_resources";
-  v9[3] = @"INSERT INTO original_fhir_resources_last_seen (rowid, resource_id, last_seen_date) SELECT rowid, resource_id, last_seen_date FROM fhir_resources_last_seen";
-  v9[4] = @"DROP TABLE fhir_resources";
-  v9[5] = @"DROP TABLE fhir_resources_last_seen";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:6];
+  v8[0] = @"CREATE TABLE original_fhir_resources (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT NOT NULL, account_id INTEGER NOT NULL REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, id TEXT NOT NULL, sync_provenance INTEGER NOT NULL, raw_content BLOB NOT NULL, received_date REAL NOT NULL, received_date_timezone TEXT NOT NULL, fhir_version TEXT NOT NULL, source_url TEXT, extraction_hints INTEGER, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, origin_build TEXT NOT NULL, UNIQUE(type, account_id, id))";
+  v8[1] = @"CREATE TABLE IF NOT EXISTS original_fhir_resources_last_seen (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, resource_id INTEGER NOT NULL REFERENCES original_fhir_resources(ROWID) ON DELETE CASCADE, last_seen_date REAL NOT NULL)";
+  v8[2] = @"INSERT INTO original_fhir_resources (rowid, type, account_id, id, sync_provenance, raw_content, received_date, received_date_timezone, fhir_version, source_url, extraction_hints, origin_major_version, origin_minor_version, origin_patch_version, origin_build) SELECT rowid, type, account_id, id, sync_provenance, raw_content, received_date, received_date_timezone, fhir_version, source_url, extraction_hints, 11, 3, 0, '15E216' FROM fhir_resources";
+  v8[3] = @"INSERT INTO original_fhir_resources_last_seen (rowid, resource_id, last_seen_date) SELECT rowid, resource_id, last_seen_date FROM fhir_resources_last_seen";
+  v8[4] = @"DROP TABLE fhir_resources";
+  v8[5] = @"DROP TABLE fhir_resources_last_seen";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:6];
   LODWORD(a4) = [v5 executeSQLStatements:v6 error:a4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -2475,43 +841,7 @@ uint64_t _HDMigrateClinicalSources(void *a1, void *a2, uint64_t a3, uint64_t a4)
     v27 = v11;
     v12 = [v10 executeUncachedSQL:@"SELECT account_id FROM public_clinical_sources" error:a4 bindingHandler:0 enumerationHandler:v26];
 
-    if (!v12)
-    {
-      goto LABEL_9;
-    }
-
-    v13 = [v6 fetchLegacySyncIdentity:v11 error:a4];
-    if (v13 == -1)
-    {
-      goto LABEL_9;
-    }
-
-    v14 = v13;
-    v15 = [v11 unprotectedDatabase];
-    v16 = [v15 executeSQLStatements:&unk_283CAEDA0 error:a4];
-
-    if (!v16)
-    {
-      goto LABEL_9;
-    }
-
-    v17 = [v11 unprotectedDatabase];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = ___HDMigrateClinicalSources_block_invoke_5;
-    v25[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-    v25[4] = v14;
-    v18 = [v17 executeSQL:@"INSERT INTO sources (uuid error:logical_source_id bindingHandler:name enumerationHandler:{source_options, local_device, product_type, mod_date, provenance, sync_anchor, deleted, sync_identity)                                             SELECT RANDOMBLOB(16), l.ROWID, name, source_options, local_device, product_type, mod_date, 0, COALESCE((SELECT MAX(sync_anchor) + 1 FROM sources), 1) + p.ROWID, 0, ?                                             FROM public_clinical_sources p JOIN logical_sources l WHERE p.stable_bundle_id = l.bundle_id", a4, v25, 0}];
-
-    if (!v18)
-    {
-      goto LABEL_9;
-    }
-
-    v19 = [v11 unprotectedDatabase];
-    v20 = [v19 executeSQLStatements:&unk_283CAEDB8 error:a4];
-
-    if (v20)
+    if (v12 && (v13 = [v6 fetchLegacySyncIdentity:v11 error:a4], v13 != -1) && (v14 = v13, objc_msgSend(v11, "unprotectedDatabase"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "executeSQLStatements:error:", &unk_283CAEDA0, a4), v15, v16) && (objc_msgSend(v11, "unprotectedDatabase"), v17 = objc_claimAutoreleasedReturnValue(), v25[0] = MEMORY[0x277D85DD0], v25[1] = 3221225472, v25[2] = ___HDMigrateClinicalSources_block_invoke_5, v25[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v25[4] = v14, v18 = objc_msgSend(v17, "executeSQL:error:bindingHandler:enumerationHandler:", @"INSERT INTO sources (uuid, logical_source_id, name, source_options, local_device, product_type, mod_date, provenance, sync_anchor, deleted, sync_identity)                                             SELECT RANDOMBLOB(16), l.ROWID, name, source_options, local_device, product_type, mod_date, 0, COALESCE((SELECT MAX(sync_anchor) + 1 FROM sources), 1) + p.ROWID, 0, ?                                             FROM public_clinical_sources p JOIN logical_sources l WHERE p.stable_bundle_id = l.bundle_id", a4, v25, 0), v17, v18) && (objc_msgSend(v11, "unprotectedDatabase"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "executeSQLStatements:error:", &unk_283CAEDB8, a4), v19, v20))
     {
       v21 = [v11 protectedDatabase];
       v22 = _deleteRowsFromDataEntitySubclassTables(v21, a4);
@@ -2521,7 +851,6 @@ uint64_t _HDMigrateClinicalSources(void *a1, void *a2, uint64_t a3, uint64_t a4)
 
     else
     {
-LABEL_9:
       v23 = 1;
     }
   }
@@ -2582,42 +911,42 @@ uint64_t _HDAddHealthRecordsAccountCount(void *a1, void *a2, uint64_t a3, uint64
   return v14;
 }
 
-void sub_228CADE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228CADE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _deleteRowsFromDataEntitySubclassTables(void *a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 dumpSchemaWithError:a2];
   if (v4)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    v5 = [&unk_283CAEDD0 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v5 = [&unk_283CAEDD0 countByEnumeratingWithState:&v15 objects:v21 count:16];
     if (v5)
     {
       v7 = v5;
-      v8 = *v17;
+      v8 = *v16;
       *&v6 = 138412290;
-      v15 = v6;
+      v14 = v6;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(&unk_283CAEDD0);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
-          if ([MEMORY[0x277D10B30] databaseSchemas:v4 containTable:{v10, v15}])
+          v10 = *(*(&v15 + 1) + 8 * i);
+          if ([MEMORY[0x277D10B30] databaseSchemas:v4 containTable:{v10, v14}])
           {
             if (![v3 deleteRowsFromDataEntitySubclassTable:v10 intermediateTables:&unk_283CAEDE8 error:a2])
             {
@@ -2631,14 +960,14 @@ uint64_t _deleteRowsFromDataEntitySubclassTables(void *a1, uint64_t a2)
             v11 = *MEMORY[0x277CCC2A0];
             if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
             {
-              *buf = v15;
-              v21 = v10;
+              *buf = v14;
+              v20 = v10;
               _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_INFO, "Skipping deletion from nonexistent table %@", buf, 0xCu);
             }
           }
         }
 
-        v7 = [&unk_283CAEDD0 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v7 = [&unk_283CAEDD0 countByEnumeratingWithState:&v15 objects:v21 count:16];
       }
 
       while (v7);
@@ -2653,7 +982,6 @@ LABEL_15:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2765,12 +1093,12 @@ LABEL_28:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228CB74A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228CB74A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2788,24 +1116,25 @@ void sub_228CB847C(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_228CB8788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228CB8788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CB962C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_228CB962C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CB9F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_228CB9F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3235,13 +1564,12 @@ uint64_t _HDAddSleepScheduleTable(uint64_t a1, void *a2, uint64_t a3, uint64_t a
 
 uint64_t _HDAddContributorsTable(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v5 = [a2 protectedDatabase];
-  v9[0] = @"CREATE TABLE IF NOT EXISTS contributors (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, uuid BLOB UNIQUE NOT NULL, payload BLOB, deleted INTEGER NOT NULL, placeholder INTEGER NOT NULL, mod_date REAL NOT NULL, sync_anchor INTEGER UNIQUE NOT NULL)";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = @"CREATE TABLE IF NOT EXISTS contributors (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, uuid BLOB UNIQUE NOT NULL, payload BLOB, deleted INTEGER NOT NULL, placeholder INTEGER NOT NULL, mod_date REAL NOT NULL, sync_anchor INTEGER UNIQUE NOT NULL)";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   LODWORD(a4) = [v5 executeSQLStatements:v6 error:a4];
 
-  v7 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -3255,21 +1583,20 @@ uint64_t _HDAddFHIRVersionToClinicalRecordSamplesTable(uint64_t a1, void *a2, ui
 
 uint64_t _HDAddContributorsColumnToProvenance(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v13[5] = *MEMORY[0x277D85DE8];
+  v12[5] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCACA8];
   v6 = a2;
   v7 = [v5 alloc];
   v8 = [v7 initWithFormat:@"INSERT INTO contributors (ROWID, uuid, payload, deleted, placeholder, mod_date, sync_anchor) VALUES (1, %@('00000000-0000-0000-0000-000000000000'), NULL, 0, 0, %lf, 0)", *MEMORY[0x277D10A68], CFAbsoluteTimeGetCurrent()];
-  v13[0] = v8;
-  v13[1] = @"CREATE TABLE IF NOT EXISTS data_provenances_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, sync_provenance INTEGER NOT NULL, origin_product_type TEXT NOT NULL, origin_build TEXT NOT NULL, local_product_type TEXT NOT NULL, local_build TEXT NOT NULL, source_id INTEGER NOT NULL, device_id INTEGER NOT NULL, contributor_id INTEGER NOT NULL, source_version TEXT NOT NULL, tz_name TEXT NOT NULL, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, derived_flags INTEGER NOT NULL, UNIQUE(sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version))";
-  v13[2] = @"INSERT INTO data_provenances_new (ROWID, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, derived_flags) SELECT ROWID, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, 1, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, derived_flags FROM data_provenances";
-  v13[3] = @"DROP TABLE IF EXISTS data_provenances";
-  v13[4] = @"ALTER TABLE data_provenances_new RENAME TO data_provenances";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:5];
+  v12[0] = v8;
+  v12[1] = @"CREATE TABLE IF NOT EXISTS data_provenances_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, sync_provenance INTEGER NOT NULL, origin_product_type TEXT NOT NULL, origin_build TEXT NOT NULL, local_product_type TEXT NOT NULL, local_build TEXT NOT NULL, source_id INTEGER NOT NULL, device_id INTEGER NOT NULL, contributor_id INTEGER NOT NULL, source_version TEXT NOT NULL, tz_name TEXT NOT NULL, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, derived_flags INTEGER NOT NULL, UNIQUE(sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version))";
+  v12[2] = @"INSERT INTO data_provenances_new (ROWID, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, contributor_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, derived_flags) SELECT ROWID, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, 1, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version, derived_flags FROM data_provenances";
+  v12[3] = @"DROP TABLE IF EXISTS data_provenances";
+  v12[4] = @"ALTER TABLE data_provenances_new RENAME TO data_provenances";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:5];
   v10 = [v6 protectedDatabase];
 
   LODWORD(a4) = [v10 executeSQLStatements:v9 error:a4];
-  v11 = *MEMORY[0x277D85DE8];
   return a4 ^ 1;
 }
 
@@ -3347,89 +1674,51 @@ uint64_t _HDAddRequestedScopeToClinicalCredentialsTable(uint64_t a1, void *a2, u
   return v6;
 }
 
-uint64_t _HDFixInvalidContributorInDataProvenancesTable(void *a1, void *a2, uint64_t a3, uint64_t a4)
+BOOL _HDFixInvalidContributorInDataProvenancesTable(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v44[1] = *MEMORY[0x277D85DE8];
-  v30 = a1;
+  v43[1] = *MEMORY[0x277D85DE8];
+  v29 = a1;
   v6 = a2;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = -1;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = -1;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT * FROM data_provenances WHERE contributor_id NOT IN (%@)", @"SELECT ROWID from contributors"];
   v10 = [v6 protectedDatabase];
-  v31 = MEMORY[0x277D85DD0];
-  v32 = 3221225472;
-  v33 = ___HDFixInvalidContributorInDataProvenancesTable_block_invoke;
-  v34 = &unk_278621520;
-  v38 = &v39;
+  v30 = MEMORY[0x277D85DD0];
+  v31 = 3221225472;
+  v32 = ___HDFixInvalidContributorInDataProvenancesTable_block_invoke;
+  v33 = &unk_278621520;
+  v37 = &v38;
   v11 = v6;
-  v35 = v11;
+  v34 = v11;
   v12 = v7;
-  v36 = v12;
+  v35 = v12;
   v13 = v8;
-  v37 = v13;
-  v14 = [v10 executeUncachedSQL:v9 error:a4 bindingHandler:0 enumerationHandler:&v31];
+  v36 = v13;
+  v14 = [v10 executeUncachedSQL:v9 error:a4 bindingHandler:0 enumerationHandler:&v30];
 
-  if ((v14 & 1) == 0)
+  v27 = 1;
+  if (v14)
   {
-    goto LABEL_7;
-  }
-
-  if ([v13 count])
-  {
-    v15 = MEMORY[0x277CCACA8];
-    v16 = v40[3];
-    v17 = [v13 componentsJoinedByString:{@", "}];
-    v18 = [v15 stringWithFormat:@"UPDATE data_provenances SET contributor_id = %lld WHERE ROWID IN (%@)", v16, v17, v30, v31, v32, v33, v34, v35, v36];
-
-    v19 = [v11 protectedDatabase];
-    v44[0] = v18;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
-    LOBYTE(v16) = [v19 executeSQLStatements:v20 error:a4];
-
-    if ((v16 & 1) == 0)
+    if (![v13 count] || (v15 = MEMORY[0x277CCACA8], v16 = v39[3], objc_msgSend(v13, "componentsJoinedByString:", @","), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "stringWithFormat:", @"UPDATE data_provenances SET contributor_id = %lld WHERE ROWID IN (%@)", v16, v17, v29, v30, v31, v32, v33, v34, v35), v18 = objc_claimAutoreleasedReturnValue(), v17, objc_msgSend(v11, "protectedDatabase"), v19 = objc_claimAutoreleasedReturnValue(), v43[0] = v18, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v43, 1), v20 = objc_claimAutoreleasedReturnValue(), LOBYTE(v16) = objc_msgSend(v19, "executeSQLStatements:error:", v20, a4), v20, v19, v18, (v16 & 1) != 0))
     {
-      goto LABEL_7;
+      if (![v12 count] || (v21 = MEMORY[0x277CCACA8], objc_msgSend(v12, "componentsJoinedByString:", @","), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "stringWithFormat:", @"DELETE FROM data_provenances WHERE ROWID IN (%@)", v22), v23 = objc_claimAutoreleasedReturnValue(), v22, objc_msgSend(v11, "protectedDatabase"), v24 = objc_claimAutoreleasedReturnValue(), v42 = v23, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v42, 1), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v24, "executeSQLStatements:error:", v25, a4), v25, v24, v23, (v26 & 1) != 0))
+      {
+        v27 = 0;
+      }
     }
   }
 
-  if (![v12 count])
-  {
-    goto LABEL_6;
-  }
-
-  v21 = MEMORY[0x277CCACA8];
-  v22 = [v12 componentsJoinedByString:{@", "}];
-  v23 = [v21 stringWithFormat:@"DELETE FROM data_provenances WHERE ROWID IN (%@)", v22];
-
-  v24 = [v11 protectedDatabase];
-  v43 = v23;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-  v26 = [v24 executeSQLStatements:v25 error:a4];
-
-  if (v26)
-  {
-LABEL_6:
-    v27 = 0;
-  }
-
-  else
-  {
-LABEL_7:
-    v27 = 1;
-  }
-
-  _Block_object_dispose(&v39, 8);
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
   return v27;
 }
 
-void sub_228CBF9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_228CBF9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3550,7 +1839,7 @@ LABEL_11:
 
 uint64_t _HDRecreateCHRConditionsTable(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 protectedDatabase];
   v7 = [v6 deleteDataEntitySubclassTablesIfExist:&unk_283CAEF80 intermediateTables:&unk_283CAEF98 error:a4];
@@ -3558,8 +1847,8 @@ uint64_t _HDRecreateCHRConditionsTable(uint64_t a1, void *a2, uint64_t a3, uint6
   if (v7)
   {
     v8 = [v5 protectedDatabase];
-    v13[0] = @"CREATE TABLE condition_record_samples (data_id INTEGER PRIMARY KEY, condition_coding_collection BLOB NOT NULL, categories_coding_collections BLOB NOT NULL, asserter TEXT, abatement BLOB, onset BLOB, recorded_date BLOB, clinical_status_coding BLOB, verification_status_coding BLOB, severity_coding_collection BLOB, body_sites_coding_collections BLOB)";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = @"CREATE TABLE condition_record_samples (data_id INTEGER PRIMARY KEY, condition_coding_collection BLOB NOT NULL, categories_coding_collections BLOB NOT NULL, asserter TEXT, abatement BLOB, onset BLOB, recorded_date BLOB, clinical_status_coding BLOB, verification_status_coding BLOB, severity_coding_collection BLOB, body_sites_coding_collections BLOB)";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v10 = [v8 executeSQLStatements:v9 error:a4] ^ 1;
   }
 
@@ -3568,7 +1857,6 @@ uint64_t _HDRecreateCHRConditionsTable(uint64_t a1, void *a2, uint64_t a3, uint6
     v10 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -3624,16 +1912,16 @@ uint64_t _HDUpdateCoverageAddIdentifierColumnsTable(uint64_t a1, void *a2, uint6
   return v6;
 }
 
-void sub_228CC1440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_228CC1440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CC269C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228CC269C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3645,10 +1933,11 @@ uint64_t __Block_byref_object_copy__96(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228CC393C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_228CC393C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3659,23 +1948,24 @@ uint64_t __Block_byref_object_copy__97(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228CC4928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_228CC4928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_228CC664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CC7E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228CC664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228CC7E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3687,9 +1977,9 @@ void sub_228CC9B68(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_228CCCC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228CCCC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3701,39 +1991,41 @@ uint64_t __Block_byref_object_copy__98(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228CCF718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228CCF718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CCFE30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_228CCFE30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
+  va_start(va, a50);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a43, 8);
   _Block_object_dispose(&a47, 8);
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose((v51 - 256), 8);
-  _Block_object_dispose((v51 - 224), 8);
-  _Block_object_dispose((v51 - 192), 8);
-  _Block_object_dispose((v51 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v50 - 256), 8);
+  _Block_object_dispose((v50 - 224), 8);
+  _Block_object_dispose((v50 - 192), 8);
+  _Block_object_dispose((v50 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CD0314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228CD0314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CD4708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_228CD4708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 256), 8);
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 256), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3744,9 +2036,16 @@ void sub_228CD77D4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_228CDA4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_228CDA4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228CE1C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3760,58 +2059,54 @@ uint64_t __Block_byref_object_copy__99(uint64_t result, uint64_t a2)
 
 Class __getUIHealthAuthorizationActionClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
   if (!qword_280D67C18)
   {
-    v7[1] = MEMORY[0x277D85DD0];
-    v7[2] = 3221225472;
-    v7[3] = __UIKitLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_278621C90;
-    v9 = 0;
+    v6[1] = MEMORY[0x277D85DD0];
+    v6[2] = 3221225472;
+    v6[3] = __UIKitLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_278621C90;
+    v8 = 0;
     qword_280D67C18 = _sl_dlopen();
   }
 
   if (!qword_280D67C18)
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *UIKitLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"HDAuthorizationManager.m" lineNumber:63 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *UIKitLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"HDAuthorizationManager.m" lineNumber:63 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("UIHealthAuthorizationAction");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getUIHealthAuthorizationActionClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"HDAuthorizationManager.m" lineNumber:64 description:{@"Unable to find class %s", "UIHealthAuthorizationAction"}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getUIHealthAuthorizationActionClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"HDAuthorizationManager.m" lineNumber:64 description:{@"Unable to find class %s", "UIHealthAuthorizationAction"}];
 
 LABEL_10:
     __break(1u);
   }
 
   _MergedGlobals_203 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_280D67C18 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4114,9 +2409,9 @@ LABEL_80:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228CE4D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_228CE4D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4305,12 +2600,12 @@ HDAssociatableObjectReference *HDReferenceForUnknownAssociatableObjectWithPersis
   return v9;
 }
 
-void sub_228CF2B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_228CF2B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
 
   _Block_object_dispose(va, 8);
-  std::unique_ptr<health::DataStore>::reset[abi:ne200100]((v11 + 48), 0);
+  std::unique_ptr<health::DataStore>::reset[abi:ne200100]((v18 + 48), 0);
 
   _Unwind_Resume(a1);
 }
@@ -4323,7 +2618,7 @@ uint64_t __Block_byref_object_copy__101(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228CF2D3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_228CF2D3C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (v19)
   {
@@ -4335,7 +2630,7 @@ void sub_228CF2D3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  MEMORY[0x22AAC8590](v18, v17);
+  MEMORY[0x22AAC8590](v18, v17, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -4360,11 +2655,11 @@ void sub_228CF32F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_228CF3C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228CF3C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4385,27 +2680,27 @@ uint64_t HDIsValidTinkerEventIdentifier(void *a1)
   return v4;
 }
 
-void sub_228CF3FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228CF3FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CF4848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228CF4848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228CF4A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228CF4A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4656,9 +2951,9 @@ uint64_t _HDRemoveOtherCardioFitnessMedications(void *a1, void *a2, uint64_t a3,
   return v16;
 }
 
-void sub_228CF9124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228CF9124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4767,7 +3062,7 @@ uint64_t _HDAddSecureCKRecordCacheTables(uint64_t a1, void *a2, uint64_t a3, uin
 
 uint64_t _HDUpdateMedicalRecordsDiagnosticResultTableAddReferenceRangeStatus(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 protectedDatabase];
   v7 = [v6 deleteDataEntitySubclassTablesIfExist:&unk_283CAF238 intermediateTables:&unk_283CAF250 error:a4];
@@ -4775,8 +3070,8 @@ uint64_t _HDUpdateMedicalRecordsDiagnosticResultTableAddReferenceRangeStatus(uin
   if (v7 && ([v5 protectedDatabase], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "executeUncachedSQL:error:", @"UPDATE clinical_accounts SET last_extracted_rowid = NULL", a4), v8, v9))
   {
     v10 = [v5 protectedDatabase];
-    v15[0] = @"CREATE TABLE IF NOT EXISTS diagnostic_test_result_samples (data_id INTEGER PRIMARY KEY, diagnostic_test_coding_collection BLOB NOT NULL, value BLOB, reference_ranges BLOB, effective_start_date BLOB, category TEXT NOT NULL, categories_coding_collections BLOB NOT NULL, issue_date BLOB, effective_end_date BLOB, status_coding BLOB NOT NULL, interpretation_coding_collections BLOB, comments TEXT, body_site_coding_collection BLOB, method_coding_collection BLOB, performers BLOB, reference_range_status INTEGER NOT NULL);";
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = @"CREATE TABLE IF NOT EXISTS diagnostic_test_result_samples (data_id INTEGER PRIMARY KEY, diagnostic_test_coding_collection BLOB NOT NULL, value BLOB, reference_ranges BLOB, effective_start_date BLOB, category TEXT NOT NULL, categories_coding_collections BLOB NOT NULL, issue_date BLOB, effective_end_date BLOB, status_coding BLOB NOT NULL, interpretation_coding_collections BLOB, comments TEXT, body_site_coding_collection BLOB, method_coding_collection BLOB, performers BLOB, reference_range_status INTEGER NOT NULL);";
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     v12 = [v10 executeSQLStatements:v11 error:a4] ^ 1;
   }
 
@@ -4785,7 +3080,6 @@ uint64_t _HDUpdateMedicalRecordsDiagnosticResultTableAddReferenceRangeStatus(uin
     v12 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -4819,7 +3113,7 @@ uint64_t _HDAddSampleAggregateCacheEntitiesTables(uint64_t a1, void *a2, uint64_
 
 uint64_t _HDUpdateAllergyRecordSamplesTable(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 protectedDatabase];
   v7 = [v6 deleteDataEntitySubclassTablesIfExist:&unk_283CAF2C8 intermediateTables:&unk_283CAF2E0 error:a4];
@@ -4827,8 +3121,8 @@ uint64_t _HDUpdateAllergyRecordSamplesTable(uint64_t a1, void *a2, uint64_t a3, 
   if (v7)
   {
     v8 = [v5 protectedDatabase];
-    v13[0] = @"CREATE TABLE allergy_record_samples (data_id INTEGER PRIMARY KEY, allergy_coding_collection BLOB NOT NULL, onset_date BLOB, asserter TEXT, reactions BLOB, criticality_coding BLOB, last_occurrence_date BLOB, recorded_date BLOB, verification_status_coding BLOB, clinical_status_coding BLOB, allergy_type_coding BLOB, category_coding BLOB)";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = @"CREATE TABLE allergy_record_samples (data_id INTEGER PRIMARY KEY, allergy_coding_collection BLOB NOT NULL, onset_date BLOB, asserter TEXT, reactions BLOB, criticality_coding BLOB, last_occurrence_date BLOB, recorded_date BLOB, verification_status_coding BLOB, clinical_status_coding BLOB, allergy_type_coding BLOB, category_coding BLOB)";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v10 = [v8 executeSQLStatements:v9 error:a4] ^ 1;
   }
 
@@ -4837,13 +3131,12 @@ uint64_t _HDUpdateAllergyRecordSamplesTable(uint64_t a1, void *a2, uint64_t a3, 
     v10 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t _HDAddUserDomainConceptEntities(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 protectedDatabase];
   v7 = [v6 executeSQLStatements:&unk_283CAF2F8 error:a4];
@@ -4855,11 +3148,11 @@ uint64_t _HDAddUserDomainConceptEntities(uint64_t a1, void *a2, uint64_t a3, uin
 
     if (v9)
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
-      v10 = [&unk_283CAF328 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v10 = [&unk_283CAF328 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (!v10)
       {
         v16 = 0;
@@ -4867,17 +3160,17 @@ uint64_t _HDAddUserDomainConceptEntities(uint64_t a1, void *a2, uint64_t a3, uin
       }
 
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
 LABEL_5:
       v13 = 0;
       while (1)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(&unk_283CAF328);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * v13);
+        v14 = *(*(&v18 + 1) + 8 * v13);
         v15 = [v5 protectedDatabase];
         LODWORD(v14) = [v15 deleteRowsFromDataEntitySubclassTable:v14 intermediateTables:&unk_283CAF310 error:a4];
 
@@ -4888,7 +3181,7 @@ LABEL_5:
 
         if (v11 == ++v13)
         {
-          v11 = [&unk_283CAF328 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v11 = [&unk_283CAF328 countByEnumeratingWithState:&v18 objects:v22 count:16];
           v16 = 0;
           if (v11)
           {
@@ -4904,7 +3197,6 @@ LABEL_5:
   v16 = 1;
 LABEL_13:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -5256,10 +3548,11 @@ LABEL_18:
   return v19;
 }
 
-void sub_228CFA654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_228CFA654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 128), 8);
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5441,28 +3734,28 @@ uint64_t HDDemoData_currentDayOfYearFromNSDateComponents(void *a1)
   return v6;
 }
 
-void sub_228CFBDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_228CFBDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-id HDFitnessFriendActivitySnapshotEntityPredicateForFriendUUID()
+id HDFitnessFriendActivitySnapshotEntityPredicateForFriendUUID(uint64_t a1)
 {
-  v0 = MEMORY[0x277D10B18];
-  v1 = _HDSQLiteValueForUUID();
-  v2 = [v0 predicateWithProperty:@"friend_uuid" equalToValue:v1];
+  v1 = MEMORY[0x277D10B18];
+  v2 = _HDSQLiteValueForUUID();
+  v3 = [v1 predicateWithProperty:@"friend_uuid" equalToValue:v2];
 
-  return v2;
+  return v3;
 }
 
 uint64_t __Block_byref_object_copy__105(uint64_t result, uint64_t a2)
@@ -5472,9 +3765,9 @@ uint64_t __Block_byref_object_copy__105(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228CFC164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228CFC164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5499,21 +3792,8 @@ uint64_t __HDFilterSharesBySharingType_block_invoke(uint64_t a1, void *a2)
     v5 = *(a1 + 32);
   }
 
-  if ((v5 & 2) == 0)
+  if ((v5 & 2) == 0 || ([v4 recordID], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "zoneID"), v10 = objc_claimAutoreleasedReturnValue(), v15 = 0, v16 = 0, v11 = objc_msgSend(v10, "hd_isSharedSummaryZoneIDForUserIdentifier:syncCircleIdentifier:", &v16, &v15), v12 = v16, v10, v9, v12, (v11 & 1) == 0))
   {
-    goto LABEL_7;
-  }
-
-  v9 = [v4 recordID];
-  v10 = [v9 zoneID];
-  v15 = 0;
-  v16 = 0;
-  v11 = [v10 hd_isSharedSummaryZoneIDForUserIdentifier:&v16 syncCircleIdentifier:&v15];
-  v12 = v16;
-
-  if ((v11 & 1) == 0)
-  {
-LABEL_7:
     v13 = 0;
     goto LABEL_8;
   }
@@ -5541,9 +3821,16 @@ void sub_228D01984(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_228D022E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_228D022E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_228D03DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5557,28 +3844,24 @@ uint64_t __Block_byref_object_copy__106(uint64_t result, uint64_t a2)
 
 __n128 __Block_byref_object_copy__107(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
 
 __n128 __Block_byref_object_copy__310(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -5590,16 +3873,16 @@ uint64_t __Block_byref_object_copy__313(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228D084CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228D084CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228D088F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228D088F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5611,28 +3894,28 @@ uint64_t __Block_byref_object_copy__108(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228D08EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228D08EF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228D098F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228D098F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228D09B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228D09B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5760,16 +4043,16 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-void sub_228D0CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228D0CCDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228D0DAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_228D0DAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5885,33 +4168,33 @@ id HDMedicationDoseEventEntityPredicateForHashedMedicationIdentifier(void *a1, i
 
 id HDMedicationDoseEventEntityPredicateForHashedMedicationIdentifiers(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v12 + 1) + 8 * i) underlyingIdentifier];
+        v8 = [*(*(&v11 + 1) + 8 * i) underlyingIdentifier];
         [v2 addObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -5919,18 +4202,16 @@ id HDMedicationDoseEventEntityPredicateForHashedMedicationIdentifiers(void *a1)
 
   v9 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"hashed_medication_identifier" values:v2];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
-id HDMedicationDoseEventEntityPredicateForScheduledDate(uint64_t a1)
+id HDMedicationDoseEventEntityPredicateForScheduledDate(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D10B18];
-  v3 = _HDSQLiteValueForDate();
-  v4 = [v2 predicateWithProperty:@"scheduled_date" value:v3 comparisonType:a1];
+  v3 = MEMORY[0x277D10B18];
+  v4 = _HDSQLiteValueForDate();
+  v5 = [v3 predicateWithProperty:@"scheduled_date" value:v4 comparisonType:a1];
 
-  return v4;
+  return v5;
 }
 
 id HDMedicationDoseEventEntityPredicateForMedicationConceptIdentifier(void *a1, int a2)
@@ -5966,30 +4247,30 @@ id HDMedicationDoseEventEntityPredicateForMedicationConceptIdentifier(void *a1, 
 
 id HDMedicationDoseEventEntityPredicateForMedicationConceptIdentifiers(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     v7 = *MEMORY[0x277CCC190];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [v9 domain];
         v11 = [v10 isEqualToString:v7];
 
@@ -6000,7 +4281,7 @@ id HDMedicationDoseEventEntityPredicateForMedicationConceptIdentifiers(void *a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -6008,14 +4289,12 @@ id HDMedicationDoseEventEntityPredicateForMedicationConceptIdentifiers(void *a1)
 
   v13 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"hashed_medication_identifier" values:v2];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
-void sub_228D11710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228D11710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6027,18 +4306,19 @@ uint64_t __Block_byref_object_copy__110(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228D123E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_228D123E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228D134E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_228D134E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a28, 8);
   _Unwind_Resume(a1);
 }
@@ -6240,7 +4520,7 @@ LABEL_45:
 
 id HDAssetFileHandleForFileURL(void *a1, void *a2, uint64_t a3)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   _HKInitializeLogging();
@@ -6248,11 +4528,11 @@ id HDAssetFileHandleForFileURL(void *a1, void *a2, uint64_t a3)
   v8 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
   {
-    v31 = v8;
-    v32 = [v5 path];
+    v30 = v8;
+    v31 = [v5 path];
     *buf = 138543362;
-    v48 = v32;
-    _os_log_debug_impl(&dword_228986000, v31, OS_LOG_TYPE_DEBUG, "Creating new asset file %{public}@", buf, 0xCu);
+    v47 = v31;
+    _os_log_debug_impl(&dword_228986000, v30, OS_LOG_TYPE_DEBUG, "Creating new asset file %{public}@", buf, 0xCu);
   }
 
   v9 = [v5 path];
@@ -6260,9 +4540,9 @@ id HDAssetFileHandleForFileURL(void *a1, void *a2, uint64_t a3)
 
   if (v10)
   {
-    v44 = 0;
-    v11 = [MEMORY[0x277CCA9F8] fileHandleForUpdatingURL:v5 error:&v44];
-    v12 = v44;
+    v43 = 0;
+    v11 = [MEMORY[0x277CCA9F8] fileHandleForUpdatingURL:v5 error:&v43];
+    v12 = v43;
     if (v11)
     {
       if (fcntl([v11 fileDescriptor], 48, 1))
@@ -6271,28 +4551,28 @@ id HDAssetFileHandleForFileURL(void *a1, void *a2, uint64_t a3)
         v13 = *v7;
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
         {
-          v33 = v13;
-          v34 = [v5 path];
-          v35 = *__error();
-          v36 = __error();
-          v37 = strerror(*v36);
+          v32 = v13;
+          v33 = [v5 path];
+          v34 = *__error();
+          v35 = __error();
+          v36 = strerror(*v35);
           *buf = 138543874;
-          v48 = v34;
-          v49 = 1024;
-          v50 = v35;
-          v51 = 2082;
-          v52 = v37;
-          _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "Error setting F_NOCACHE on file at %{public}@ failed (%d): %{public}s", buf, 0x1Cu);
+          v47 = v33;
+          v48 = 1024;
+          v49 = v34;
+          v50 = 2082;
+          v51 = v36;
+          _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "Error setting F_NOCACHE on file at %{public}@ failed (%d): %{public}s", buf, 0x1Cu);
         }
       }
 
       v14 = *MEMORY[0x277CCA198];
       v15 = *MEMORY[0x277CCA180];
-      v45[0] = *MEMORY[0x277CCA1B0];
-      v45[1] = v15;
-      v46[0] = v14;
-      v46[1] = &unk_283CB2F40;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+      v44[0] = *MEMORY[0x277CCA1B0];
+      v44[1] = v15;
+      v45[0] = v14;
+      v45[1] = &unk_283CB2F40;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
       v17 = v16;
       if (_HDIsUnitTesting)
       {
@@ -6301,9 +4581,9 @@ id HDAssetFileHandleForFileURL(void *a1, void *a2, uint64_t a3)
       }
 
       v18 = [v5 path];
-      v43 = 0;
-      v19 = [v6 setAttributes:v17 ofItemAtPath:v18 error:&v43];
-      v20 = v43;
+      v42 = 0;
+      v19 = [v6 setAttributes:v17 ofItemAtPath:v18 error:&v42];
+      v20 = v42;
 
       if (v19)
       {
@@ -6313,18 +4593,18 @@ id HDAssetFileHandleForFileURL(void *a1, void *a2, uint64_t a3)
           v21 = *v7;
           if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
           {
-            v38 = v21;
-            v39 = [v5 path];
-            v40 = *__error();
-            v41 = __error();
-            v42 = strerror(*v41);
+            v37 = v21;
+            v38 = [v5 path];
+            v39 = *__error();
+            v40 = __error();
+            v41 = strerror(*v40);
             *buf = 138543874;
-            v48 = v39;
-            v49 = 1024;
-            v50 = v40;
-            v51 = 2082;
-            v52 = v42;
-            _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, "Error unlinking file at %{public}@ failed (%d): %{public}s", buf, 0x1Cu);
+            v47 = v38;
+            v48 = 1024;
+            v49 = v39;
+            v50 = 2082;
+            v51 = v41;
+            _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "Error unlinking file at %{public}@ failed (%d): %{public}s", buf, 0x1Cu);
           }
         }
 
@@ -6362,8 +4642,6 @@ id HDAssetFileHandleForFileURL(void *a1, void *a2, uint64_t a3)
     v22 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
@@ -6384,7 +4662,7 @@ void setUnderlyingDeviceContext(void *a1, void *a2)
 
   if (v4)
   {
-    [v4 currentOSVersion];
+    objc_msgSend_currentOSVersion(v4);
   }
 
   v9 = HKNSOperatingSystemVersionString();
@@ -6420,7 +4698,7 @@ __CFString *HDCloudSyncTargetPurposeToString(uint64_t a1)
 
 __CFString *HDCloudSyncTargetOptionsToString(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v6 = @"()";
@@ -6474,7 +4752,7 @@ LABEL_6:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
       *buf = 134217984;
-      v11 = a1;
+      v10 = a1;
       _os_log_fault_impl(&dword_228986000, v7, OS_LOG_TYPE_FAULT, "Cloud sync target options %ld did not produce any option strings", buf, 0xCu);
     }
 
@@ -6482,7 +4760,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -6494,17 +4771,17 @@ uint64_t __Block_byref_object_copy__112(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228D196A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228D196A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228D1A088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228D1A088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6865,16 +5142,16 @@ void sub_228D2139C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_228D22C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228D22C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228D22FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_228D22FF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7401,40 +5678,38 @@ uint64_t __Block_byref_object_copy__114(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228D2E09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228D2E09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_228D2E870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228D2E870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id HDUserDomainMedicalCodingEntityPredicateForCoding(void *a1)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277D10B20];
   v2 = MEMORY[0x277D10B18];
   v3 = a1;
   v4 = [v3 codingSystem];
   v5 = [v4 identifier];
   v6 = [v2 predicateWithProperty:@"medical_coding_system.string" equalToValue:v5];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = MEMORY[0x277D10B18];
   v8 = [v3 code];
 
   v9 = [v7 predicateWithProperty:@"medical_coding_code.string" equalToValue:v8];
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v11 = [v1 predicateMatchingAllPredicates:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -8128,16 +6403,16 @@ std::string *health::CopyFormatSectionToResult(std::string *__s, std::string *th
   return std::string::replace(this, __pos, __n1, __s, __n1);
 }
 
-void health::FormatPointerImplementation(const char *a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+void health::FormatPointerImplementation(uint64_t a1@<X1>, std::string *a2@<X8>, const char *a3@<X0>)
 {
-  health::HDDemangleSymbol(a1, &__p);
-  v5 = a2;
+  health::HDDemangleSymbol(a3, &__p);
+  v5 = a1;
   v7[0] = &v5;
   v7[1] = &__p;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  a3->__r_.__value_.__r.__words[0] = 0;
-  health::FormatImplementation<std::string,unsigned long>("<{0}: {1:x}>", a3, 0, v7);
+  a2->__r_.__value_.__l.__size_ = 0;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  a2->__r_.__value_.__r.__words[0] = 0;
+  health::FormatImplementation<std::string,unsigned long>("<{0}: {1:x}>", a2, 0, v7);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8161,7 +6436,7 @@ void sub_228D305F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void health::FormatImplementation<std::string,unsigned long>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t a4)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v6 = a1->__r_.__value_.__s.__data_[0];
   if (a1->__r_.__value_.__s.__data_[0])
   {
@@ -8177,9 +6452,9 @@ void health::FormatImplementation<std::string,unsigned long>(std::string *a1, st
         {
           if (v12 == 42)
           {
-            v38 = &v11->__r_.__value_.__s.__data_[2];
-            v27 = v11->__r_.__value_.__s.__data_[2];
-            if ((v27 - 48) > 9)
+            v35 = &v11->__r_.__value_.__s.__data_[2];
+            v24 = v11->__r_.__value_.__s.__data_[2];
+            if ((v24 - 48) > 9)
             {
               exception = __cxa_allocate_exception(0x10uLL);
               std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
@@ -8187,21 +6462,21 @@ void health::FormatImplementation<std::string,unsigned long>(std::string *a1, st
 
             else
             {
-              v28 = 0;
-              v29 = &v11->__r_.__value_.__s.__data_[3];
+              v25 = 0;
+              v26 = &v11->__r_.__value_.__s.__data_[3];
               do
               {
-                v38 = v29;
-                v28 = (v27 & 0xF) + 10 * v28;
-                v30 = *v29++;
-                LOBYTE(v27) = v30;
+                v35 = v26;
+                v25 = (v24 & 0xF) + 10 * v25;
+                v27 = *v26++;
+                LOBYTE(v24) = v27;
               }
 
-              while ((v30 - 58) >= 0xFFFFFFF6);
-              v38 = v29;
-              if (*(v29 - 1) == 125)
+              while ((v27 - 58) >= 0xFFFFFFF6);
+              v35 = v26;
+              if (*(v26 - 1) == 125)
               {
-                health::FormatterParameters<0ul,std::string,unsigned long>::formatOptionsAtIndex<std::string,unsigned long>(v28);
+                health::FormatterParameters<0ul,std::string,unsigned long>::formatOptionsAtIndex<std::string,unsigned long>(v25);
               }
 
               exception = __cxa_allocate_exception(0x10uLL);
@@ -8211,102 +6486,102 @@ void health::FormatImplementation<std::string,unsigned long>(std::string *a1, st
             __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          v38 = v11;
-          health::FormatOptions::FormatOptions(&v33, &v38);
-          v16 = v38;
-          if (v34)
+          v35 = v11;
+          health::FormatOptions::FormatOptions(&v30, &v35);
+          v14 = v35;
+          if (v31)
           {
-            if (v34 != 1)
+            if (v31 != 1)
             {
-              v32 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v32, "Parameter index out of bounds.");
-              __cxa_throw(v32, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+              v29 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v29, "Parameter index out of bounds.");
+              __cxa_throw(v29, MEMORY[0x277D82760], MEMORY[0x277D82600]);
             }
 
-            health::TypeFormatter<unsigned long,void>::TypeFormatter(&v39, **a4, &v33);
-            if (v45 == 1 && *(v39 + 48) != 1)
+            health::TypeFormatter<unsigned long,void>::TypeFormatter(&v36, **a4, &v30);
+            if (v42 == 1 && *(v36 + 48) != 1)
             {
-              v17 = 64;
-            }
-
-            else
-            {
-              v17 = 65;
-            }
-
-            v22 = v17 - v44;
-            if (*(v39 + 50) == 1 && v22 <= *(v39 + 24))
-            {
-              v22 = *(v39 + 24);
-            }
-
-            v23 = *(&v35 + 1);
-            if (*(&v35 + 1) <= v22)
-            {
-              v23 = v22;
-            }
-
-            if (v35)
-            {
-              v24 = v23;
+              v15 = 64;
             }
 
             else
             {
-              v24 = v22;
+              v15 = 65;
             }
 
-            health::FormatImplementation<std::string,unsigned long>(v16, a2, v24 + a3 - v9, a4);
+            v20 = v15 - v41;
+            if (*(v36 + 50) == 1 && v20 <= *(v36 + 24))
+            {
+              v20 = *(v36 + 24);
+            }
+
+            v21 = *(&v32 + 1);
+            if (*(&v32 + 1) <= v20)
+            {
+              v21 = v20;
+            }
+
+            if (v32)
+            {
+              v22 = v21;
+            }
+
+            else
+            {
+              v22 = v20;
+            }
+
+            health::FormatImplementation<std::string,unsigned long>(v14, a2, v22 + a3 - v9, a4);
             if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v25 = a2;
+              v23 = a2;
             }
 
             else
             {
-              v25 = a2->__r_.__value_.__r.__words[0];
+              v23 = a2->__r_.__value_.__r.__words[0];
             }
 
-            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long>(&v33, &v25[a3 - v9], &v39);
+            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long>(&v30, v23 + a3 - v9, &v36);
           }
 
           else
           {
-            v18 = *(a4 + 8);
-            v39 = v18;
-            v43 = v37;
-            v42 = v36;
-            v41 = v35;
-            v40 = v33;
-            v19 = *(v18 + 23);
-            if ((v19 & 0x8000000000000000) != 0)
+            v16 = *(a4 + 8);
+            v36 = v16;
+            v40 = v34;
+            v39 = v33;
+            v38 = v32;
+            v37 = v30;
+            v17 = *(v16 + 23);
+            if ((v17 & 0x8000000000000000) != 0)
             {
-              v19 = *(v18 + 8);
+              v17 = *(v16 + 8);
             }
 
-            v20 = *(&v35 + 1);
-            if (*(&v35 + 1) <= v19)
+            v18 = *(&v32 + 1);
+            if (*(&v32 + 1) <= v17)
             {
-              v20 = v19;
+              v18 = v17;
             }
 
-            if (v35)
+            if (v32)
             {
-              v19 = v20;
+              v17 = v18;
             }
 
-            health::FormatImplementation<std::string,unsigned long>(v38, a2, v19 + a3 - v9, a4);
+            health::FormatImplementation<std::string,unsigned long>(v35, a2, v17 + a3 - v9, a4);
             if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v21 = a2;
+              v19 = a2;
             }
 
             else
             {
-              v21 = a2->__r_.__value_.__r.__words[0];
+              v19 = a2->__r_.__value_.__r.__words[0];
             }
 
-            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v33, &v21[a3 - v9], &v39);
+            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(&v30, v19 + a3 - v9, &v36);
           }
 
           if (v9)
@@ -8314,7 +6589,7 @@ void health::FormatImplementation<std::string,unsigned long>(std::string *a1, st
             health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
           }
 
-          goto LABEL_45;
+          return;
         }
 
         v10 = 1;
@@ -8330,20 +6605,14 @@ void health::FormatImplementation<std::string,unsigned long>(std::string *a1, st
         std::string::resize(a2, a3 - v9, 0);
         if (v9)
         {
-          v14 = *MEMORY[0x277D85DE8];
 
           health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
-          return;
         }
 
-LABEL_45:
-        v26 = *MEMORY[0x277D85DE8];
         return;
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   std::string::resize(a2, a3, 0);
 }
@@ -8419,9 +6688,9 @@ __CFString *HDCloudSyncZonePurposeToString(unint64_t a1)
   return v2;
 }
 
-void sub_228D3C588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_228D3C588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8439,18 +6708,18 @@ uint64_t health::BlockAccessFile::BlockAccessFile(uint64_t a1, __int128 *a2)
   return health::BlockAccessFile::BlockAccessFile(a1, a2, v3, 0);
 }
 
-uint64_t health::BlockAccessFile::BlockAccessFile(uint64_t a1, __int128 *a2, void *a3, int a4)
+uint64_t health::BlockAccessFile::BlockAccessFile(uint64_t a1, __int128 *a2, void *a3, uint64_t a4)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v6 = a3[1];
-  v10[0] = *a3;
-  v10[1] = v6;
+  v9[0] = *a3;
+  v9[1] = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  health::TransactionalFile::TransactionalFile(a1, a2, v10);
+  health::TransactionalFile::TransactionalFile(a1, a2, v9);
   if (v6)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
@@ -8463,31 +6732,30 @@ uint64_t health::BlockAccessFile::BlockAccessFile(uint64_t a1, __int128 *a2, voi
   *(a1 + 800) = 68;
   *(a1 + 808) = 68;
   health::TransactionalFile::open(a1, a4);
-  v9 = 0;
-  v12[0] = &unk_283BE9EE0;
-  v12[1] = &v9;
-  v12[2] = a1;
-  v12[3] = v12;
-  health::TransactionalFile::readTransactionWithLambda(a1, v12);
-  std::__function::__value_func<void ()(health::TransactionalFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v12);
-  if (v9 == 1)
+  v8 = 0;
+  v11[0] = &unk_283BE9EE0;
+  v11[1] = &v8;
+  v11[2] = a1;
+  v11[3] = v11;
+  health::TransactionalFile::readTransactionWithLambda(a1, v11);
+  std::__function::__value_func<void ()(health::TransactionalFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v11);
+  if (v8 == 1)
   {
-    v11[0] = &unk_283BE9F70;
-    v11[1] = a1;
-    v11[3] = v11;
-    health::TransactionalFile::writeTransactionWithLambda(a1, v11);
-    std::__function::__value_func<BOOL ()(health::TransactionalFile::WriteTransaction &)>::~__value_func[abi:ne200100](v11);
+    v10[0] = &unk_283BE9F70;
+    v10[1] = a1;
+    v10[3] = v10;
+    health::TransactionalFile::writeTransactionWithLambda(a1, v10);
+    std::__function::__value_func<BOOL ()(health::TransactionalFile::WriteTransaction &)>::~__value_func[abi:ne200100](v10);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-void sub_228D3EC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_228D3EC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<BOOL ()(health::TransactionalFile::WriteTransaction &)>::~__value_func[abi:ne200100](va);
-  health::TransactionalFile::~TransactionalFile(v4);
+  health::TransactionalFile::~TransactionalFile(v7);
   _Unwind_Resume(a1);
 }
 
@@ -8503,61 +6771,55 @@ void sub_228D3EC98()
 
 uint64_t health::BlockAccessFile::performReadTransactionWithLambda(uint64_t a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v4[0] = &unk_283BEA000;
-  v4[1] = a1;
-  v4[2] = a2;
-  v4[3] = v4;
-  health::TransactionalFile::readTransactionWithLambda(a1, v4);
-  result = std::__function::__value_func<void ()(health::TransactionalFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[4] = *MEMORY[0x277D85DE8];
+  v3[0] = &unk_283BEA000;
+  v3[1] = a1;
+  v3[2] = a2;
+  v3[3] = v3;
+  health::TransactionalFile::readTransactionWithLambda(a1, v3);
+  return std::__function::__value_func<void ()(health::TransactionalFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_228D3ED68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_228D3ED68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(health::TransactionalFile::ReadTransaction const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t health::BlockAccessFile::checkIntegrity(uint64_t a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v4[0] = &unk_283BEA100;
-  v4[1] = a2;
-  v4[3] = v4;
-  health::BlockAccessFile::performReadTransactionWithLambda(a1, v4);
-  result = std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[4] = *MEMORY[0x277D85DE8];
+  v3[0] = &unk_283BEA100;
+  v3[1] = a2;
+  v3[3] = v3;
+  health::BlockAccessFile::performReadTransactionWithLambda(a1, v3);
+  return std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](v3);
 }
 
-void sub_228D3EE00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_228D3EE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t health::BlockAccessFile::isBlockUsingFreeSpace(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = 0;
-  v6[0] = &unk_283BEA190;
-  v6[1] = a2;
-  v6[2] = &v5;
-  v6[3] = v6;
-  health::BlockAccessFile::ReadTransaction::_enumerateFreeSpaceBlocks(a3, v6);
-  std::__function::__value_func<void ()(health::FileExtent const&)>::~__value_func[abi:ne200100](v6);
-  result = v5;
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = 0;
+  v5[0] = &unk_283BEA190;
+  v5[1] = a2;
+  v5[2] = &v4;
+  v5[3] = v5;
+  health::BlockAccessFile::ReadTransaction::_enumerateFreeSpaceBlocks(a3, v5);
+  std::__function::__value_func<void ()(health::FileExtent const&)>::~__value_func[abi:ne200100](v5);
+  return v4;
 }
 
-void sub_228D3EEA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_228D3EEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(health::FileExtent const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8692,32 +6954,31 @@ void sub_228D3F354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t health::TransactionalFile::ReadTransaction::readObjectAtOffset<health::BlockAccessFile::BlockHeader>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = 12;
-  v12[0] = v14;
-  v12[1] = v14;
-  v12[2] = 12;
-  health::RawBuffer::RawBuffer(v11, v14, 12);
+  v16 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v15 = 12;
+  v11[0] = v13;
+  v11[1] = v13;
+  v11[2] = 12;
+  health::RawBuffer::RawBuffer(v10, v13, 12);
   v8 = a1 + 8;
   v6 = *(a1 + 8);
   v7 = *(v8 + 8);
-  health::RawBuffer::RawBuffer(v13, v11[0], v11[1]);
-  health::TransactionalFile::_readBufferAtOffset(v7, v6, v13, a3);
-  v13[0] = 0;
-  health::DeserializationBuffer::extractRaw<unsigned long long>(v12, v13);
-  *a2 = v13[0];
-  LODWORD(v13[0]) = 0;
-  health::DeserializationBuffer::extractRaw<unsigned int>(v12, v13);
-  *(a2 + 8) = v13[0];
-  result = v15;
-  v15 = 0;
+  health::RawBuffer::RawBuffer(v12, v10[0], v10[1]);
+  health::TransactionalFile::_readBufferAtOffset(v7, v6, v12, a3);
+  v12[0] = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(v11, v12);
+  *a2 = v12[0];
+  LODWORD(v12[0]) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned int>(v11, v12);
+  *(a2 + 8) = v12[0];
+  result = v14;
+  v14 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8787,27 +7048,26 @@ uint64_t health::BlockAccessFile::ReadTransaction::rootUserPointer(health::Block
 
 uint64_t health::TransactionalFile::ReadTransaction::readObjectAtOffset<health::BlockAccessFile::BlockAccessFileHeader>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = 68;
-  v12[0] = v14;
-  v12[1] = v14;
-  v12[2] = 68;
-  health::RawBuffer::RawBuffer(v11, v14, 68);
+  v16 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v15 = 68;
+  v11[0] = v13;
+  v11[1] = v13;
+  v11[2] = 68;
+  health::RawBuffer::RawBuffer(v10, v13, 68);
   v8 = a1 + 8;
   v6 = *(a1 + 8);
   v7 = *(v8 + 8);
-  health::RawBuffer::RawBuffer(v13, v11[0], v11[1]);
-  health::TransactionalFile::_readBufferAtOffset(v7, v6, v13, a3);
-  health::BlockAccessFile::BlockAccessFileHeader::deserialize(a2, v12);
-  result = v15;
-  v15 = 0;
+  health::RawBuffer::RawBuffer(v12, v10[0], v10[1]);
+  health::TransactionalFile::_readBufferAtOffset(v7, v6, v12, a3);
+  health::BlockAccessFile::BlockAccessFileHeader::deserialize(a2, v11);
+  result = v14;
+  v14 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8897,7 +7157,7 @@ void health::BlockAccessFile::ReadTransaction::_checkIntegrity(uint64_t *a1, uin
     }
   }
 
-  health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents(a1, v7);
+  health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents(v7, a1);
   if (v7[0])
   {
     v7[1] = v7[0];
@@ -8935,19 +7195,19 @@ void sub_228D3FBD0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents@<X0>(health::BlockAccessFile::ReadTransaction *this@<X0>, uint64_t *a2@<X8>)
+uint64_t *health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents@<X0>(uint64_t *__return_ptr a1@<X8>, health::BlockAccessFile::ReadTransaction *this@<X0>)
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v22[0] = &unk_283BEA220;
-  v22[1] = a2;
-  v22[3] = v22;
-  health::BlockAccessFile::ReadTransaction::_enumerateFreeSpaceBlocks(this, v22);
-  result = std::__function::__value_func<void ()(health::FileExtent const&)>::~__value_func[abi:ne200100](v22);
-  v4 = *a2;
-  if ((a2[1] - *a2) >= 0x11)
+  v21[4] = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v21[0] = &unk_283BEA220;
+  v21[1] = a1;
+  v21[3] = v21;
+  health::BlockAccessFile::ReadTransaction::_enumerateFreeSpaceBlocks(this, v21);
+  result = std::__function::__value_func<void ()(health::FileExtent const&)>::~__value_func[abi:ne200100](v21);
+  v4 = *a1;
+  if ((a1[1] - *a1) >= 0x11)
   {
     v5 = 1;
     v6 = 1;
@@ -8960,19 +7220,19 @@ uint64_t health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents@<X0>
       if (*v7 <= *v8 && v7[1] + v9 > v10 || v10 <= v9 && v8[1] + v10 > v9)
       {
         v11 = *MEMORY[0x277CCC2A0];
-        std::string::basic_string[abi:ne200100]<0>(v20, "!left.overlaps(right)");
-        std::string::basic_string[abi:ne200100]<0>(v19, "_computeFreeSpaceExtents");
-        std::string::basic_string[abi:ne200100]<0>(v18, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDBlockAccessFile.cpp");
-        v21[0] = v8;
-        v21[1] = v7;
+        std::string::basic_string[abi:ne200100]<0>(v19, "!left.overlaps(right)");
+        std::string::basic_string[abi:ne200100]<0>(v18, "_computeFreeSpaceExtents");
+        std::string::basic_string[abi:ne200100]<0>(v17, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDBlockAccessFile.cpp");
+        v20[0] = v8;
+        v20[1] = v7;
         memset(&__p, 0, sizeof(__p));
-        health::FormatImplementation<health::FileExtent &,health::FileExtent &>("Found overlapping free space extents {0} and {1}", &__p, 0, v21);
-        health::_HDAssertImplementation<health::data_corruption_error>(v11, v20, v19, v18, 205, &__p);
+        health::FormatImplementation<health::FileExtent &,health::FileExtent &>("Found overlapping free space extents {0} and {1}", &__p, 0, v20);
+        health::_HDAssertImplementation<health::data_corruption_error>(v11, v19, v18, v17, 205, &__p);
       }
 
       v12 = v7[1];
-      v4 = *a2;
-      v13 = a2[1];
+      v4 = *a1;
+      v13 = a1[1];
       if (v12 + *v7 == *v8)
       {
         v7[1] = v8[1] + v12;
@@ -8981,11 +7241,11 @@ uint64_t health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents@<X0>
         if (v13 != v14 + 16)
         {
           result = memmove(v14, (v14 + 16), v13 - (v14 + 16));
-          v4 = *a2;
+          v4 = *a1;
         }
 
         v13 = v14 + v15;
-        a2[1] = v14 + v15;
+        a1[1] = v14 + v15;
         --v6;
       }
 
@@ -8995,7 +7255,6 @@ uint64_t health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents@<X0>
     while (v6 < ((v13 - v4) >> 4));
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9135,36 +7394,35 @@ void sub_228D40240(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t health::TransactionalFile::WriteTransaction::storeObjectAtOffset<health::BlockAccessFile::BlockHeader &>(health::TransactionalFile::WriteTransaction *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = 12;
-  v10[0] = v11;
-  v10[1] = v11;
-  v10[2] = 12;
-  v9[0] = *a2;
-  health::SerializationBuffer::appendRaw<unsigned long long>(v10, v9);
-  LODWORD(v9[0]) = *(a2 + 8);
-  health::SerializationBuffer::appendRaw<unsigned int>(v10, v9);
-  if (v13 <= 0x3FF)
+  v13 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = 12;
+  v9[0] = v10;
+  v9[1] = v10;
+  v9[2] = 12;
+  v8[0] = *a2;
+  health::SerializationBuffer::appendRaw<unsigned long long>(v9, v8);
+  LODWORD(v8[0]) = *(a2 + 8);
+  health::SerializationBuffer::appendRaw<unsigned int>(v9, v8);
+  if (v12 <= 0x3FF)
   {
-    v6 = v11;
+    v6 = v10;
   }
 
   else
   {
-    v6 = v12;
+    v6 = v11;
   }
 
-  health::RawBuffer::RawBuffer(v9, v6, v13);
-  health::TransactionalFile::WriteTransaction::writeBufferAtOffset(a1, v9, a3);
-  result = v12;
-  v12 = 0;
+  health::RawBuffer::RawBuffer(v8, v6, v12);
+  health::TransactionalFile::WriteTransaction::writeBufferAtOffset(a1, v8, a3);
+  result = v11;
+  v11 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9180,16 +7438,16 @@ void sub_228D40450(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t health::BlockAccessFile::WriteTransaction::freeBlock(uint64_t a1, unint64_t a2, unint64_t a3)
+uint64_t health::BlockAccessFile::WriteTransaction::freeBlock(health::BlockAccessFile::WriteTransaction *a1, unint64_t a2, unint64_t a3)
 {
   v5.n128_u64[0] = a2;
   v5.n128_u64[1] = a3;
-  if (*(*(a1 + 24) + 4) >= 2u)
+  if (*(*(a1 + 3) + 4) >= 2u)
   {
     v5.n128_u64[1] = a3 + 12;
   }
 
-  std::deque<health::BlockPointer>::push_back(a1 + 56, &v5);
+  std::deque<health::BlockPointer>::push_back(a1 + 7, &v5);
   return health::BlockAccessFile::WriteTransaction::_flushFreedBlockQueue(a1);
 }
 
@@ -9314,10 +7572,10 @@ uint64_t std::__function::__value_func<void ()(health::TransactionalFile::ReadTr
   return a1;
 }
 
-uint64_t health::SmartBuffer::SmartBuffer(uint64_t this, unint64_t a2)
+health::SmartBuffer *health::SmartBuffer::SmartBuffer(health::SmartBuffer *this, size_t a2)
 {
-  *(this + 1024) = 0;
-  *(this + 1032) = a2;
+  *(this + 128) = 0;
+  *(this + 129) = a2;
   if (a2 >= 0x400)
   {
     operator new[]();
@@ -9338,44 +7596,44 @@ void sub_228D408F0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t health::BlockAccessFile::BlockAccessFileHeader::serialize(uint64_t a1, uint64_t a2)
+void health::BlockAccessFile::BlockAccessFileHeader::serialize(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 4) < 3u)
   {
-    LODWORD(v6) = *a1;
-    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v6);
-    LODWORD(v6) = *(a1 + 4);
-    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v6);
-    LODWORD(v6) = *(a1 + 8);
-    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v6);
+    LODWORD(v5) = *a1;
+    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v5);
+    LODWORD(v5) = *(a1 + 4);
+    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v5);
+    LODWORD(v5) = *(a1 + 8);
+    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v5);
     v4 = *(a1 + 16);
   }
 
   else
   {
-    LODWORD(v6) = *a1;
-    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v6);
-    LODWORD(v6) = *(a1 + 4);
-    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v6);
-    LODWORD(v6) = *(a1 + 8);
-    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v6);
-    v6 = *(a1 + 16);
-    health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v6);
-    v6 = *(a1 + 24);
-    health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v6);
+    LODWORD(v5) = *a1;
+    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v5);
+    LODWORD(v5) = *(a1 + 4);
+    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v5);
+    LODWORD(v5) = *(a1 + 8);
+    health::SerializationBuffer::appendRaw<unsigned int>(a2, &v5);
+    v5 = *(a1 + 16);
+    health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v5);
+    v5 = *(a1 + 24);
+    health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v5);
     v4 = *(a1 + 32);
   }
 
-  v6 = v4;
-  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v6);
-  v6 = *(a1 + 40);
-  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v6);
-  v6 = *(a1 + 48);
-  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v6);
-  v6 = *(a1 + 56);
-  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v6);
-  v6 = *(a1 + 64);
-  return health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v6);
+  v5 = v4;
+  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v5);
+  v5 = *(a1 + 40);
+  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v5);
+  v5 = *(a1 + 48);
+  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v5);
+  v5 = *(a1 + 56);
+  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v5);
+  v5 = *(a1 + 64);
+  health::SerializationBuffer::appendRaw<unsigned long long>(a2, &v5);
 }
 
 uint64_t std::__function::__func<health::BlockAccessFile::BlockAccessFile(std::string const&,std::shared_ptr<health::VirtualFilesystem>,health::TransactionalFile::OpenMethod)::$_1,std::allocator<health::BlockAccessFile::BlockAccessFile(std::string const&,std::shared_ptr<health::VirtualFilesystem>,health::TransactionalFile::OpenMethod)::$_1>,BOOL ()(health::TransactionalFile::WriteTransaction &)>::__clone(uint64_t result, void *a2)
@@ -9429,36 +7687,36 @@ uint64_t std::__function::__func<health::BlockAccessFile::BlockAccessFile(std::s
 
 uint64_t health::TransactionalFile::WriteTransaction::storeObjectAtOffset<health::BTreeNode<unsigned long long,health::BlockAccessFile::FreeSpaceList,unsigned long long,17> &>(health::TransactionalFile::WriteTransaction *a1, uint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  health::SmartBuffer::SmartBuffer(v17, 0x6F2uLL);
+  v19 = *MEMORY[0x277D85DE8];
+  health::SmartBuffer::SmartBuffer(v16, 0x6F2uLL);
   v6 = 0;
-  if (v19 <= 0x3FF)
+  if (v18 <= 0x3FF)
   {
-    v7 = v17;
+    v7 = v16;
   }
 
   else
   {
-    v7 = v18;
+    v7 = v17;
   }
 
-  v16[0] = v7;
-  v16[1] = v7;
-  v16[2] = 1778;
+  v15[0] = v7;
+  v15[1] = v7;
+  v15[2] = 1778;
   v8 = a2;
   do
   {
     v9 = (a2 + 96 * v6);
-    v15[0] = *v9;
-    health::SerializationBuffer::appendRaw<unsigned long long>(v16, v15);
+    v14[0] = *v9;
+    health::SerializationBuffer::appendRaw<unsigned long long>(v15, v14);
     for (i = 8; i != 88; i += 8)
     {
-      v15[0] = *(v8 + i);
-      health::SerializationBuffer::appendRaw<unsigned long long>(v16, v15);
+      v14[0] = *(v8 + i);
+      health::SerializationBuffer::appendRaw<unsigned long long>(v15, v14);
     }
 
-    v15[0] = v9[11];
-    health::SerializationBuffer::appendRaw<unsigned long long>(v16, v15);
+    v14[0] = v9[11];
+    health::SerializationBuffer::appendRaw<unsigned long long>(v15, v14);
     ++v6;
     v8 += 96;
   }
@@ -9466,31 +7724,2026 @@ uint64_t health::TransactionalFile::WriteTransaction::storeObjectAtOffset<health
   while (v6 != 17);
   for (j = 0; j != 144; j += 8)
   {
-    v15[0] = *(a2 + 1632 + j);
-    health::SerializationBuffer::appendRaw<unsigned long long>(v16, v15);
+    v14[0] = *(a2 + 1632 + j);
+    health::SerializationBuffer::appendRaw<unsigned long long>(v15, v14);
   }
 
-  LOWORD(v15[0]) = *(a2 + 1776);
-  health::SerializationBuffer::appendRaw<unsigned short>(v16, v15);
-  if (v19 <= 0x3FF)
+  LOWORD(v14[0]) = *(a2 + 1776);
+  health::SerializationBuffer::appendRaw<unsigned short>(v15, v14);
+  if (v18 <= 0x3FF)
   {
-    v12 = v17;
+    v12 = v16;
   }
 
   else
   {
-    v12 = v18;
+    v12 = v17;
   }
 
-  health::RawBuffer::RawBuffer(v15, v12, v19);
-  health::TransactionalFile::WriteTransaction::writeBufferAtOffset(a1, v15, a3);
-  result = v18;
-  v18 = 0;
+  health::RawBuffer::RawBuffer(v14, v12, v18);
+  health::TransactionalFile::WriteTransaction::writeBufferAtOffset(a1, v14, a3);
+  result = v17;
+  v17 = 0;
   if (result)
   {
-    result = MEMORY[0x22AAC8570](result, 0x1000C8077774924);
+    return MEMORY[0x22AAC8570](result, 0x1000C8077774924);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+void sub_228D40E04(_Unwind_Exception *a1)
+{
+  v2 = STACK[0x428];
+  STACK[0x428] = 0;
+  if (v2)
+  {
+    MEMORY[0x22AAC8570](v2, 0x1000C8077774924);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__function::__value_func<BOOL ()(health::TransactionalFile::WriteTransaction &)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+__n128 std::__function::__func<health::BlockAccessFile::performReadTransactionWithLambda(std::function<void ()(health::BlockAccessFile::ReadTransaction const&)>)::$_0,std::allocator<health::BlockAccessFile::performReadTransactionWithLambda(std::function<void ()(health::BlockAccessFile::ReadTransaction const&)>)::$_0>,void ()(health::TransactionalFile::ReadTransaction const&)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_283BEA000;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::performReadTransactionWithLambda(std::function<void ()(health::BlockAccessFile::ReadTransaction const&)>)::$_0,std::allocator<health::BlockAccessFile::performReadTransactionWithLambda(std::function<void ()(health::BlockAccessFile::ReadTransaction const&)>)::$_0>,void ()(health::TransactionalFile::ReadTransaction const&)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  v3 = *(a1 + 8) + 792;
+  v6[0] = a2;
+  v6[1] = v3;
+  v4 = *(v2 + 24);
+  if (!v4)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  return (*(*v4 + 48))(v4, v6);
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::performReadTransactionWithLambda(std::function<void ()(health::BlockAccessFile::ReadTransaction const&)>)::$_0,std::allocator<health::BlockAccessFile::performReadTransactionWithLambda(std::function<void ()(health::BlockAccessFile::ReadTransaction const&)>)::$_0>,void ()(health::TransactionalFile::ReadTransaction const&)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<health::BlockAccessFile::performWriteTransactionWithLambda(std::function<BOOL ()(health::BlockAccessFile::WriteTransaction &)>)::$_0,std::allocator<health::BlockAccessFile::performWriteTransactionWithLambda(std::function<BOOL ()(health::BlockAccessFile::WriteTransaction &)>)::$_0>,BOOL ()(health::TransactionalFile::WriteTransaction &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_283BEA080;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::performWriteTransactionWithLambda(std::function<BOOL ()(health::BlockAccessFile::WriteTransaction &)>)::$_0,std::allocator<health::BlockAccessFile::performWriteTransactionWithLambda(std::function<BOOL ()(health::BlockAccessFile::WriteTransaction &)>)::$_0>,BOOL ()(health::TransactionalFile::WriteTransaction &)>::operator()(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  v3 = *(a1 + 8) + 792;
+  v7[0] = a2;
+  v7[1] = v3;
+  v7[2] = a2;
+  v7[3] = v3;
+  v7[4] = 0;
+  v7[5] = v7;
+  v8 = 0;
+  memset(v9, 0, sizeof(v9));
+  v4 = *(v2 + 24);
+  if (!v4)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  v5 = (*(*v4 + 48))(v4, v7);
+  std::deque<health::BlockPointer>::~deque[abi:ne200100](v9);
+  return v5;
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::performWriteTransactionWithLambda(std::function<BOOL ()(health::BlockAccessFile::WriteTransaction &)>)::$_0,std::allocator<health::BlockAccessFile::performWriteTransactionWithLambda(std::function<BOOL ()(health::BlockAccessFile::WriteTransaction &)>)::$_0>,BOOL ()(health::TransactionalFile::WriteTransaction &)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::deque<health::BlockPointer>::~deque[abi:ne200100](void *a1)
+{
+  v2 = a1[1];
+  v3 = a1[2];
+  a1[5] = 0;
+  v4 = v3 - v2;
+  if (v4 >= 3)
+  {
+    do
+    {
+      operator delete(*v2);
+      v3 = a1[2];
+      v2 = (a1[1] + 8);
+      a1[1] = v2;
+      v4 = v3 - v2;
+    }
+
+    while (v4 > 2);
+  }
+
+  if (v4 == 1)
+  {
+    v5 = 128;
+  }
+
+  else
+  {
+    if (v4 != 2)
+    {
+      goto LABEL_9;
+    }
+
+    v5 = 256;
+  }
+
+  a1[4] = v5;
+LABEL_9:
+  while (v2 != v3)
+  {
+    v6 = *v2++;
+    operator delete(v6);
+  }
+
+  return std::__split_buffer<std::__thread_id *>::~__split_buffer(a1);
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::checkIntegrity(std::function<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>)::$_0,std::allocator<health::BlockAccessFile::checkIntegrity(std::function<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>)::$_0>,void ()(health::BlockAccessFile::ReadTransaction const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_283BEA100;
+  a2[1] = v2;
+  return result;
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::checkIntegrity(std::function<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>)::$_0,std::allocator<health::BlockAccessFile::checkIntegrity(std::function<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>)::$_0>,void ()(health::BlockAccessFile::ReadTransaction const&)>::operator()(uint64_t a1, uint64_t *a2)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 8);
+  v4 = *(v3 + 24);
+  if (v4)
+  {
+    if (v4 == v3)
+    {
+      v7 = v6;
+      (*(*v4 + 24))(v4, v6);
+    }
+
+    else
+    {
+      v7 = (*(*v4 + 16))(v4);
+    }
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  health::BlockAccessFile::ReadTransaction::_checkIntegrity(a2, v6);
+  return std::__function::__value_func<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>::~__value_func[abi:ne200100](v6);
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::checkIntegrity(std::function<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>)::$_0,std::allocator<health::BlockAccessFile::checkIntegrity(std::function<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>)::$_0>,void ()(health::BlockAccessFile::ReadTransaction const&)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__value_func<BOOL ()(health::BlockAccessFile::IntegrityError,long long,long long,std::string const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(health::BlockAccessFile::ReadTransaction const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+__n128 std::__function::__func<health::BlockAccessFile::isBlockUsingFreeSpace(health::BlockPointer const&,health::BlockAccessFile::WriteTransaction &)::$_0,std::allocator<health::BlockAccessFile::isBlockUsingFreeSpace(health::BlockPointer const&,health::BlockAccessFile::WriteTransaction &)::$_0>,void ()(health::FileExtent const&)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_283BEA190;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::isBlockUsingFreeSpace(health::BlockPointer const&,health::BlockAccessFile::WriteTransaction &)::$_0,std::allocator<health::BlockAccessFile::isBlockUsingFreeSpace(health::BlockPointer const&,health::BlockAccessFile::WriteTransaction &)::$_0>,void ()(health::FileExtent const&)>::operator()(uint64_t result, unint64_t *a2)
+{
+  v2 = *(result + 8);
+  v3 = *v2;
+  v4 = *a2;
+  v5 = a2[1];
+  v6 = *a2 < *v2 || v5 == 0;
+  if (!v6 && v4 < v2[1] + v3 || ((v7 = v5 + v4, v4 <= v3) ? (v8 = v7 > v3) : (v8 = 0), v8))
+  {
+    **(result + 16) = 1;
+  }
+
+  return result;
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::isBlockUsingFreeSpace(health::BlockPointer const&,health::BlockAccessFile::WriteTransaction &)::$_0,std::allocator<health::BlockAccessFile::isBlockUsingFreeSpace(health::BlockPointer const&,health::BlockAccessFile::WriteTransaction &)::$_0>,void ()(health::FileExtent const&)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t std::__function::__value_func<void ()(health::FileExtent const&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+void health::FormatImplementation<unsigned long long &,unsigned long>(std::string *a1, std::string *a2, std::string::size_type a3, unint64_t **a4)
+{
+  v37 = *MEMORY[0x277D85DE8];
+  v32 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (a1->__r_.__value_.__s.__data_[0])
+  {
+    v9 = 0;
+    v10 = 0;
+    for (i = a1; ; i = (i + 1))
+    {
+      if (v6 == 123)
+      {
+        v12 = i->__r_.__value_.__s.__data_[1];
+        if (v12 != 123)
+        {
+          if (v12 == 42)
+          {
+            v32 = &i->__r_.__value_.__s.__data_[2];
+            v22 = i->__r_.__value_.__s.__data_[2];
+            if ((v22 - 48) > 9)
+            {
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+            }
+
+            else
+            {
+              v23 = 0;
+              v24 = &i->__r_.__value_.__s.__data_[3];
+              do
+              {
+                v32 = v24;
+                v23 = (v22 & 0xF) + 10 * v23;
+                v25 = *v24++;
+                LOBYTE(v22) = v25;
+              }
+
+              while ((v25 - 58) >= 0xFFFFFFF6);
+              v32 = v24;
+              if (*(v24 - 1) == 125)
+              {
+                health::FormatterParameters<0ul,unsigned long long &,unsigned long>::formatOptionsAtIndex<unsigned long long &,unsigned long>(v23);
+              }
+
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+            }
+
+            __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          }
+
+          health::FormatOptions::FormatOptions(&v28, &v32);
+          v13 = v32;
+          if (v29)
+          {
+            if (v29 != 1)
+            {
+              v27 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v27, "Parameter index out of bounds.");
+              __cxa_throw(v27, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            }
+
+            health::TypeFormatter<unsigned long,void>::TypeFormatter(__p, **a4, &v28);
+            if (v36 == 1 && *(__p[0] + 48) != 1)
+            {
+              v14 = 64;
+            }
+
+            else
+            {
+              v14 = 65;
+            }
+
+            v18 = v14 - v35;
+            if (*(__p[0] + 50) == 1 && v18 <= *(__p[0] + 3))
+            {
+              v18 = *(__p[0] + 3);
+            }
+
+            v19 = v31;
+            if (v31 <= v18)
+            {
+              v19 = v18;
+            }
+
+            if (v30)
+            {
+              v20 = v19;
+            }
+
+            else
+            {
+              v20 = v18;
+            }
+
+            health::FormatImplementation<unsigned long long &,unsigned long>(v13, a2, v20 + a3 - v9, a4);
+            if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v21 = a2;
+            }
+
+            else
+            {
+              v21 = a2->__r_.__value_.__r.__words[0];
+            }
+
+            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long>(&v28, v21 + a3 - v9, __p);
+          }
+
+          else
+          {
+            health::TypeFormatter<unsigned long long &,void>::TypeFormatter(__p, a4[1], &v28);
+            v15 = v34;
+            if ((v34 & 0x80u) != 0)
+            {
+              v15 = __p[1];
+            }
+
+            v16 = v31;
+            if (v31 <= v15)
+            {
+              v16 = v15;
+            }
+
+            if (v30)
+            {
+              v15 = v16;
+            }
+
+            health::FormatImplementation<unsigned long long &,unsigned long>(v13, a2, v15 + a3 - v9, a4);
+            if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v17 = a2;
+            }
+
+            else
+            {
+              v17 = a2->__r_.__value_.__r.__words[0];
+            }
+
+            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v28, v17 + a3 - v9, __p);
+            if (v34 < 0)
+            {
+              operator delete(__p[0]);
+            }
+          }
+
+          if (v9)
+          {
+            health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+          }
+
+          return;
+        }
+
+        v10 = 1;
+        i = (i + 1);
+      }
+
+      v32 = &i->__r_.__value_.__s.__data_[1];
+      v6 = i->__r_.__value_.__s.__data_[1];
+      --v9;
+      if (!v6)
+      {
+        std::string::resize(a2, a3 - v9, 0);
+        if (v9)
+        {
+
+          health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+        }
+
+        return;
+      }
+    }
+  }
+
+  std::string::resize(a2, a3, 0);
+}
+
+void health::FormatterParameters<0ul,unsigned long long &,unsigned long>::formatOptionsAtIndex<unsigned long long &,unsigned long>(uint64_t a1)
+{
+  if (a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v1 = exception;
+    if (a1 == 1)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v1 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<unsigned long long &,unsigned long long &>(std::string *a1, std::string *a2, std::string::size_type a3, void **a4)
+{
+  v28 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v28 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    --v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 - v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v28 = &v11->__r_.__value_.__s.__data_[2];
+    v19 = v11->__r_.__value_.__s.__data_[2];
+    if ((v19 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v20 = 0;
+      v21 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v28 = v21;
+        v20 = (v19 & 0xF) + 10 * v20;
+        v22 = *v21++;
+        LOBYTE(v19) = v22;
+      }
+
+      while ((v22 - 58) >= 0xFFFFFFF6);
+      v28 = v21;
+      if (*(v21 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,unsigned long long &,unsigned long long &>::formatOptionsAtIndex<unsigned long long &,unsigned long long &>(v20);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_47;
+  }
+
+  health::FormatOptions::FormatOptions(v24, &v28);
+  v13 = v28;
+  if (v25)
+  {
+    if (v25 == 1)
+    {
+      health::TypeFormatter<unsigned long long &,void>::TypeFormatter(&__p, *a4, v24);
+      v14 = v31;
+      if ((v31 & 0x80u) != 0)
+      {
+        v14 = v30;
+      }
+
+      v15 = v27;
+      if (v27 <= v14)
+      {
+        v15 = v14;
+      }
+
+      if (v26)
+      {
+        v14 = v15;
+      }
+
+      health::FormatImplementation<unsigned long long &,unsigned long long &>(v13, a2, v14 + a3 - v9, a4);
+      if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v16 = a2;
+      }
+
+      else
+      {
+        v16 = a2->__r_.__value_.__r.__words[0];
+      }
+
+      goto LABEL_35;
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_47:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  health::TypeFormatter<unsigned long long &,void>::TypeFormatter(&__p, a4[1], v24);
+  v17 = v31;
+  if ((v31 & 0x80u) != 0)
+  {
+    v17 = v30;
+  }
+
+  v18 = v27;
+  if (v27 <= v17)
+  {
+    v18 = v17;
+  }
+
+  if (v26)
+  {
+    v17 = v18;
+  }
+
+  health::FormatImplementation<unsigned long long &,unsigned long long &>(v13, a2, v17 + a3 - v9, a4);
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v16 = a2;
+  }
+
+  else
+  {
+    v16 = a2->__r_.__value_.__r.__words[0];
+  }
+
+LABEL_35:
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v24, v16 + a3 - v9, &__p);
+  if (v31 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,unsigned long long &,unsigned long long &>::formatOptionsAtIndex<unsigned long long &,unsigned long long &>(uint64_t a1)
+{
+  if (a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v1 = exception;
+    if (a1 == 1)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v1 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<unsigned int &,unsigned int>(std::string *a1, std::string *a2, std::string::size_type a3, unsigned int **a4)
+{
+  v37 = *MEMORY[0x277D85DE8];
+  v32 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (a1->__r_.__value_.__s.__data_[0])
+  {
+    v9 = 0;
+    v10 = 0;
+    for (i = a1; ; i = (i + 1))
+    {
+      if (v6 == 123)
+      {
+        v12 = i->__r_.__value_.__s.__data_[1];
+        if (v12 != 123)
+        {
+          if (v12 == 42)
+          {
+            v32 = &i->__r_.__value_.__s.__data_[2];
+            v22 = i->__r_.__value_.__s.__data_[2];
+            if ((v22 - 48) > 9)
+            {
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+            }
+
+            else
+            {
+              v23 = 0;
+              v24 = &i->__r_.__value_.__s.__data_[3];
+              do
+              {
+                v32 = v24;
+                v23 = (v22 & 0xF) + 10 * v23;
+                v25 = *v24++;
+                LOBYTE(v22) = v25;
+              }
+
+              while ((v25 - 58) >= 0xFFFFFFF6);
+              v32 = v24;
+              if (*(v24 - 1) == 125)
+              {
+                health::FormatterParameters<0ul,unsigned int &,unsigned int>::formatOptionsAtIndex<unsigned int &,unsigned int>(v23);
+              }
+
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+            }
+
+            __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          }
+
+          health::FormatOptions::FormatOptions(v28, &v32);
+          v13 = v32;
+          if (v29)
+          {
+            if (v29 != 1)
+            {
+              v27 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v27, "Parameter index out of bounds.");
+              __cxa_throw(v27, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            }
+
+            health::TypeFormatter<unsigned int,void>::TypeFormatter(__p, **a4, v28);
+            if (v36 == 1 && *(__p[0] + 48) != 1)
+            {
+              v14 = 32;
+            }
+
+            else
+            {
+              v14 = 33;
+            }
+
+            v18 = v14 - v35;
+            if (*(__p[0] + 50) == 1 && v18 <= *(__p[0] + 3))
+            {
+              v18 = *(__p[0] + 3);
+            }
+
+            v19 = v31;
+            if (v31 <= v18)
+            {
+              v19 = v18;
+            }
+
+            if (v30)
+            {
+              v20 = v19;
+            }
+
+            else
+            {
+              v20 = v18;
+            }
+
+            health::FormatImplementation<unsigned int &,unsigned int>(v13, a2, v20 + a3 - v9, a4);
+            if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v21 = a2;
+            }
+
+            else
+            {
+              v21 = a2->__r_.__value_.__r.__words[0];
+            }
+
+            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned int>(v28, v21 + a3 - v9, __p);
+          }
+
+          else
+          {
+            health::TypeFormatter<unsigned int &,void>::TypeFormatter(__p, a4[1], v28);
+            v15 = v34;
+            if ((v34 & 0x80u) != 0)
+            {
+              v15 = __p[1];
+            }
+
+            v16 = v31;
+            if (v31 <= v15)
+            {
+              v16 = v15;
+            }
+
+            if (v30)
+            {
+              v15 = v16;
+            }
+
+            health::FormatImplementation<unsigned int &,unsigned int>(v13, a2, v15 + a3 - v9, a4);
+            if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v17 = a2;
+            }
+
+            else
+            {
+              v17 = a2->__r_.__value_.__r.__words[0];
+            }
+
+            health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v28, v17 + a3 - v9, __p);
+            if (v34 < 0)
+            {
+              operator delete(__p[0]);
+            }
+          }
+
+          if (v9)
+          {
+            health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+          }
+
+          return;
+        }
+
+        v10 = 1;
+        i = (i + 1);
+      }
+
+      v32 = &i->__r_.__value_.__s.__data_[1];
+      v6 = i->__r_.__value_.__s.__data_[1];
+      --v9;
+      if (!v6)
+      {
+        std::string::resize(a2, a3 - v9, 0);
+        if (v9)
+        {
+
+          health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+        }
+
+        return;
+      }
+    }
+  }
+
+  std::string::resize(a2, a3, 0);
+}
+
+void health::FormatterParameters<0ul,unsigned int &,unsigned int>::formatOptionsAtIndex<unsigned int &,unsigned int>(uint64_t a1)
+{
+  if (a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v1 = exception;
+    if (a1 == 1)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v1 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+uint64_t health::TypeFormatter<unsigned int &,void>::TypeFormatter(uint64_t a1, unsigned int *a2, uint64_t a3)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v13);
+  v6 = v13;
+  if (*(a3 + 16) == 1)
+  {
+    *(&v15[1] + *(v13 - 24)) = *(a3 + 24);
+  }
+
+  if (*(a3 + 32) == 1)
+  {
+    *(v15 + *(v6 - 24)) = *(a3 + 40);
+  }
+
+  v7 = (&v13 + *(v6 - 24));
+  v8 = *(a3 + 52);
+  if (v7[1].__fmtflags_ == -1)
+  {
+    std::ios_base::getloc(v7);
+    v9 = std::locale::use_facet(&v11, MEMORY[0x277D82680]);
+    (v9->__vftable[2].~facet_0)(v9, 32);
+    std::locale::~locale(&v11);
+  }
+
+  v7[1].__fmtflags_ = v8;
+  MEMORY[0x22AAC83B0](&v13, *a2);
+  std::ostringstream::str[abi:ne200100](&v13, &v11);
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  *a1 = v11;
+  *(a1 + 16) = v12;
+  v13 = *MEMORY[0x277D82828];
+  *(&v13 + *(v13 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v14 = MEMORY[0x277D82878] + 16;
+  if (v16 < 0)
+  {
+    operator delete(v15[7].__locale_);
+  }
+
+  v14 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v15);
+  std::ostream::~ostream();
+  MEMORY[0x22AAC8550](&v17);
+  return a1;
+}
+
+void sub_228D42710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  std::locale::~locale(&a9);
+  std::ostringstream::~ostringstream(va);
+  if (*(v11 + 23) < 0)
+  {
+    operator delete(*v11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void health::BlockAccessFile::BlockAccessFileHeader::deserialize(uint64_t a1, uint64_t a2)
+{
+  if (*(a2 + 16) <= 3uLL)
+  {
+    v4 = *MEMORY[0x277CCC2A0];
+    std::string::basic_string[abi:ne200100]<0>(v15, "sizeof(T) <= _length");
+    std::string::basic_string[abi:ne200100]<0>(v14, "extractRaw");
+    std::string::basic_string[abi:ne200100]<0>(v13, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/Utility/HDEncoder.h");
+    health::FormatString<>("Extract would overflow deserialization buffer.", &__p);
+    health::_HDAssertImplementation<std::out_of_range>(v4, v15, v14, v13, 63, &__p);
+  }
+
+  v5 = *(a2 + 8);
+  v6 = *v5;
+  v7 = *(a2 + 16) - 4;
+  *(a2 + 8) = v5 + 1;
+  *(a2 + 16) = v7;
+  *a1 = v6;
+  if (v7 <= 3)
+  {
+    v8 = *MEMORY[0x277CCC2A0];
+    std::string::basic_string[abi:ne200100]<0>(v15, "sizeof(T) <= _length");
+    std::string::basic_string[abi:ne200100]<0>(v14, "extractRaw");
+    std::string::basic_string[abi:ne200100]<0>(v13, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/Utility/HDEncoder.h");
+    health::FormatString<>("Extract would overflow deserialization buffer.", &__p);
+    health::_HDAssertImplementation<std::out_of_range>(v8, v15, v14, v13, 63, &__p);
+  }
+
+  v9 = *(a2 + 8);
+  v10 = *v9;
+  v11 = *(a2 + 16) - 4;
+  *(a2 + 8) = v9 + 1;
+  *(a2 + 16) = v11;
+  *(a1 + 4) = v10;
+  LODWORD(v15[0]) = 0;
+  health::DeserializationBuffer::extractRaw<unsigned int>(a2, v15);
+  *(a1 + 8) = v15[0];
+  v15[0] = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a2, v15);
+  *(a1 + 16) = v15[0];
+  if (*(a1 + 4) >= 3u)
+  {
+    v15[0] = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(a2, v15);
+    *(a1 + 24) = v15[0];
+    v15[0] = 0;
+    health::DeserializationBuffer::extractRaw<unsigned long long>(a2, v15);
+    *(a1 + 32) = v15[0];
+  }
+
+  v15[0] = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a2, v15);
+  *(a1 + 40) = v15[0];
+  v15[0] = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a2, v15);
+  *(a1 + 48) = v15[0];
+  v15[0] = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a2, v15);
+  *(a1 + 56) = v15[0];
+  v15[0] = 0;
+  health::DeserializationBuffer::extractRaw<unsigned long long>(a2, v15);
+  *(a1 + 64) = v15[0];
+}
+
+void sub_228D429DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a20 < 0)
+  {
+    operator delete(a15);
+  }
+
+  if (a26 < 0)
+  {
+    operator delete(a21);
+  }
+
+  if (*(v26 - 33) < 0)
+  {
+    operator delete(*(v26 - 56));
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void health::FormatImplementation<unsigned int,unsigned int>(std::string *a1, std::string *a2, std::string::size_type a3, unsigned int **a4)
+{
+  v37 = *MEMORY[0x277D85DE8];
+  v33 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (a1->__r_.__value_.__s.__data_[0])
+  {
+    v9 = 0;
+    v10 = 0;
+    for (i = a1; ; i = (i + 1))
+    {
+      if (v6 == 123)
+      {
+        v12 = i->__r_.__value_.__s.__data_[1];
+        if (v12 != 123)
+        {
+          if (v12 == 42)
+          {
+            v33 = &i->__r_.__value_.__s.__data_[2];
+            v23 = i->__r_.__value_.__s.__data_[2];
+            if ((v23 - 48) > 9)
+            {
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+            }
+
+            else
+            {
+              v24 = 0;
+              v25 = &i->__r_.__value_.__s.__data_[3];
+              do
+              {
+                v33 = v25;
+                v24 = (v23 & 0xF) + 10 * v24;
+                v26 = *v25++;
+                LOBYTE(v23) = v26;
+              }
+
+              while ((v26 - 58) >= 0xFFFFFFF6);
+              v33 = v25;
+              if (*(v25 - 1) == 125)
+              {
+                health::FormatterParameters<0ul,unsigned int,unsigned int>::formatOptionsAtIndex<unsigned int,unsigned int>(v24);
+              }
+
+              exception = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+            }
+
+            __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          }
+
+          health::FormatOptions::FormatOptions(v29, &v33);
+          v13 = v33;
+          if (v30)
+          {
+            if (v30 != 1)
+            {
+              v28 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v28, "Parameter index out of bounds.");
+              __cxa_throw(v28, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+            }
+
+            health::TypeFormatter<unsigned int,void>::TypeFormatter(v34, **a4, v29);
+            if (v36 == 1 && *(v34[0] + 48) != 1)
+            {
+              v14 = 32;
+            }
+
+            else
+            {
+              v14 = 33;
+            }
+
+            v20 = v14 - v35;
+            if (*(v34[0] + 50) == 1 && v20 <= *(v34[0] + 24))
+            {
+              v20 = *(v34[0] + 24);
+            }
+
+            v21 = v32;
+            if (v32 <= v20)
+            {
+              v21 = v20;
+            }
+
+            if (v31)
+            {
+              v22 = v21;
+            }
+
+            else
+            {
+              v22 = v20;
+            }
+
+            health::FormatImplementation<unsigned int,unsigned int>(v13, a2, v22 + a3 - v9, a4);
+            if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v19 = a2;
+            }
+
+            else
+            {
+              v19 = a2->__r_.__value_.__r.__words[0];
+            }
+          }
+
+          else
+          {
+            health::TypeFormatter<unsigned int,void>::TypeFormatter(v34, *a4[1], v29);
+            if (v36 == 1 && *(v34[0] + 48) != 1)
+            {
+              v15 = 32;
+            }
+
+            else
+            {
+              v15 = 33;
+            }
+
+            v16 = v15 - v35;
+            if (*(v34[0] + 50) == 1 && v16 <= *(v34[0] + 24))
+            {
+              v16 = *(v34[0] + 24);
+            }
+
+            v17 = v32;
+            if (v32 <= v16)
+            {
+              v17 = v16;
+            }
+
+            if (v31)
+            {
+              v18 = v17;
+            }
+
+            else
+            {
+              v18 = v16;
+            }
+
+            health::FormatImplementation<unsigned int,unsigned int>(v13, a2, v18 + a3 - v9, a4);
+            if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            {
+              v19 = a2;
+            }
+
+            else
+            {
+              v19 = a2->__r_.__value_.__r.__words[0];
+            }
+          }
+
+          health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned int>(v29, v19 + a3 - v9, v34);
+          if (v9)
+          {
+            health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+          }
+
+          return;
+        }
+
+        v10 = 1;
+        i = (i + 1);
+      }
+
+      v33 = &i->__r_.__value_.__s.__data_[1];
+      v6 = i->__r_.__value_.__s.__data_[1];
+      --v9;
+      if (!v6)
+      {
+        std::string::resize(a2, a3 - v9, 0);
+        if (v9)
+        {
+
+          health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+        }
+
+        return;
+      }
+    }
+  }
+
+  std::string::resize(a2, a3, 0);
+}
+
+void health::FormatterParameters<0ul,unsigned int,unsigned int>::formatOptionsAtIndex<unsigned int,unsigned int>(uint64_t a1)
+{
+  if (a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v1 = exception;
+    if (a1 == 1)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v1 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void health::FormatImplementation<unsigned int &,unsigned int &>(std::string *a1, std::string *a2, std::string::size_type a3, unsigned int **a4)
+{
+  v27 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v27 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    --v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 - v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v27 = &v11->__r_.__value_.__s.__data_[2];
+    v18 = v11->__r_.__value_.__s.__data_[2];
+    if ((v18 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v19 = 0;
+      v20 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v27 = v20;
+        v19 = (v18 & 0xF) + 10 * v19;
+        v21 = *v20++;
+        LOBYTE(v18) = v21;
+      }
+
+      while ((v21 - 58) >= 0xFFFFFFF6);
+      v27 = v20;
+      if (*(v20 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,unsigned int &,unsigned int &>::formatOptionsAtIndex<unsigned int &,unsigned int &>(v19);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+    goto LABEL_45;
+  }
+
+  health::FormatOptions::FormatOptions(v23, &v27);
+  v13 = v27;
+  if (v24)
+  {
+    if (v24 == 1)
+    {
+      health::TypeFormatter<unsigned int &,void>::TypeFormatter(&__p, *a4, v23);
+      v14 = v30;
+      if ((v30 & 0x80u) != 0)
+      {
+        v14 = v29;
+      }
+
+      v15 = v26;
+      if (v26 <= v14)
+      {
+        v15 = v14;
+      }
+
+      if (v25)
+      {
+        v14 = v15;
+      }
+
+      goto LABEL_30;
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+LABEL_45:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  health::TypeFormatter<unsigned int &,void>::TypeFormatter(&__p, a4[1], v23);
+  v14 = v30;
+  if ((v30 & 0x80u) != 0)
+  {
+    v14 = v29;
+  }
+
+  v16 = v26;
+  if (v26 <= v14)
+  {
+    v16 = v14;
+  }
+
+  if (v25)
+  {
+    v14 = v16;
+  }
+
+LABEL_30:
+  health::FormatImplementation<unsigned int &,unsigned int &>(v13, a2, v14 + a3 - v9, a4);
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v17 = a2;
+  }
+
+  else
+  {
+    v17 = a2->__r_.__value_.__r.__words[0];
+  }
+
+  health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(v23, v17 + a3 - v9, &__p);
+  if (v30 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+  }
+}
+
+void health::FormatterParameters<0ul,unsigned int &,unsigned int &>::formatOptionsAtIndex<unsigned int &,unsigned int &>(uint64_t a1)
+{
+  if (a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    v1 = exception;
+    if (a1 == 1)
+    {
+      std::runtime_error::runtime_error(exception, "Requested parameter is not an FormatOptions instance.");
+    }
+
+    else
+    {
+      std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    }
+  }
+
+  else
+  {
+    v1 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v1, "Requested parameter is not an FormatOptions instance.");
+  }
+
+  __cxa_throw(v1, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents(void)::$_0,std::allocator<health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents(void)::$_0>,void ()(health::FileExtent const&)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_283BEA220;
+  a2[1] = v2;
+  return result;
+}
+
+__n128 std::__function::__func<health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents(void)::$_0,std::allocator<health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents(void)::$_0>,void ()(health::FileExtent const&)>::operator()(uint64_t a1, __n128 *a2)
+{
+  v3 = *(a1 + 8);
+  v5 = *v3;
+  v4 = v3[1];
+  if (*v3 == v4)
+  {
+LABEL_10:
+    v10 = v3[2];
+    if (v4 >= v10)
+    {
+      v13 = (v4 - *v3) >> 4;
+      v14 = v13 + 1;
+      if ((v13 + 1) >> 60)
+      {
+        goto LABEL_56;
+      }
+
+      v15 = v10 - *v3;
+      if (v15 >> 3 > v14)
+      {
+        v14 = v15 >> 3;
+      }
+
+      if (v15 >= 0x7FFFFFFFFFFFFFF0)
+      {
+        v16 = 0xFFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v16 = v14;
+      }
+
+      if (v16)
+      {
+        std::__allocate_at_least[abi:ne200100]<std::allocator<health::FileExtent>>(v16);
+      }
+
+      v29 = (16 * v13);
+      *v29 = *a2;
+      v12 = 16 * v13 + 16;
+      v30 = v3[1] - *v3;
+      v31 = v29 - v30;
+      memcpy(v29 - v30, *v3, v30);
+      v32 = *v3;
+      *v3 = v31;
+      v3[1] = v12;
+      v3[2] = 0;
+      if (v32)
+      {
+        operator delete(v32);
+      }
+    }
+
+    else
+    {
+      result = *a2;
+      *v4 = *a2;
+      v12 = &v4[1];
+    }
+
+    v3[1] = v12;
+    return result;
+  }
+
+  v6 = 0;
+  v7 = a2->n128_u64[0];
+  while (1)
+  {
+    v8 = *(v5 + v6);
+    if (v7 <= v8 && a2->n128_u64[1] + v7 > v8 || v8 <= v7 && *(v5 + v6 + 8) + v8 > v7)
+    {
+      v9 = *MEMORY[0x277CCC2A0];
+      std::string::basic_string[abi:ne200100]<0>(v45, "!extent.overlaps(*i)");
+      std::string::basic_string[abi:ne200100]<0>(v44, "operator()");
+      std::string::basic_string[abi:ne200100]<0>(v43, "/Library/Caches/com.apple.xbs/Sources/HealthKit/HealthKit/HealthDaemon/Database/Migration/HFDtoSQLite/HighFrequencyData/HDBlockAccessFile.cpp");
+      v46[0] = a2;
+      v46[1] = v5 + v6;
+      memset(&__p, 0, sizeof(__p));
+      health::FormatImplementation<health::FileExtent &,health::FileExtent const&>("Found overlapping free space extents {0} and {1}", &__p, 0, v46);
+      health::_HDAssertImplementation<health::data_corruption_error>(v9, v45, v44, v43, 192, &__p);
+    }
+
+    v7 = a2->n128_u64[0];
+    if (a2->n128_u64[0] < *(v5 + v6))
+    {
+      break;
+    }
+
+    v3 = *(a1 + 8);
+    v4 = v3[1];
+    v6 += 16;
+    if ((v5 + v6) == v4)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  v17 = *(a1 + 8);
+  v18 = (v5 + v6);
+  v19 = v17[1];
+  v20 = v17[2];
+  if (v19 < v20)
+  {
+    if (v18 == v19)
+    {
+      result = *a2;
+      *v19 = *a2;
+      v17[1] = v19 + 1;
+    }
+
+    else
+    {
+      v21 = v19[v6 / 0xFFFFFFFFFFFFFFF0 - 1].n128_u64 - v5;
+      if ((v18 + v21) >= v19)
+      {
+        n128_u64 = v17[1];
+      }
+
+      else
+      {
+        n128_u64 = v19[1].n128_u64;
+        *v19 = *(v18 + v21);
+      }
+
+      v17[1] = n128_u64;
+      if ((v5 + v6 + 16) != v19)
+      {
+        memmove((16 - (-v5 - v6)), (v5 + v6), v21);
+        n128_u64 = v17[1];
+      }
+
+      v39 = n128_u64 <= a2 || v18 > a2;
+      v40 = 1;
+      if (v39)
+      {
+        v40 = 0;
+      }
+
+      result = a2[v40];
+      *v18 = result;
+    }
+
+    return result;
+  }
+
+  v23 = *v17;
+  v24 = v19 - *v17 + 1;
+  if (v24 >> 60)
+  {
+LABEL_56:
+    std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
+  }
+
+  v25 = v18 - v23;
+  v26 = v20 - v23;
+  if (v26 >> 3 > v24)
+  {
+    v24 = v26 >> 3;
+  }
+
+  if (v26 >= 0x7FFFFFFFFFFFFFF0)
+  {
+    v27 = 0xFFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v27 = v24;
+  }
+
+  v28 = v25 >> 4;
+  if (v27)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<health::FileExtent>>(v27);
+  }
+
+  v33 = (16 * v28);
+  if (!v28)
+  {
+    if (v25 < 1)
+    {
+      if (v18 == v23)
+      {
+        v41 = 1;
+      }
+
+      else
+      {
+        v41 = v25 >> 3;
+      }
+
+      std::__allocate_at_least[abi:ne200100]<std::allocator<health::FileExtent>>(v41);
+    }
+
+    v33 = (v33 - (((v25 >> 1) + 8) & 0xFFFFFFFFFFFFFFF0));
+  }
+
+  *v33 = *a2;
+  memcpy(&v33[1], (v5 + v6), v17[1]->n128_u64 - v5 - v6);
+  v34 = *v17;
+  v35 = &v17[1][1] + v33 - v5 - v6;
+  v17[1] = v18;
+  v36 = v5 - v34 + v6;
+  v37 = (v33 - v36);
+  memcpy(v33 - v36, v34, v36);
+  v38 = *v17;
+  *v17 = v37;
+  v17[1] = v35;
+  v17[2] = 0;
+  if (v38)
+  {
+    operator delete(v38);
+  }
+
+  return result;
+}
+
+void sub_228D437A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+{
+  if (v32)
+  {
+    operator delete(v32);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__function::__func<health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents(void)::$_0,std::allocator<health::BlockAccessFile::ReadTransaction::_computeFreeSpaceExtents(void)::$_0>,void ()(health::FileExtent const&)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void health::FormatImplementation<health::FileExtent &,health::FileExtent const&>(std::string *a1, std::string *a2, std::string::size_type a3, uint64_t *a4)
+{
+  v47 = a1;
+  v6 = a1->__r_.__value_.__s.__data_[0];
+  if (!a1->__r_.__value_.__s.__data_[0])
+  {
+
+    std::string::resize(a2, a3, 0);
+    return;
+  }
+
+  v9 = 0;
+  v10 = 0;
+  v11 = a1;
+  while (v6 != 123)
+  {
+LABEL_6:
+    v47 = &v11->__r_.__value_.__s.__data_[1];
+    v6 = v11->__r_.__value_.__s.__data_[1];
+    --v9;
+    v11 = (v11 + 1);
+    if (!v6)
+    {
+      std::string::resize(a2, a3 - v9, 0);
+      if (v9)
+      {
+
+        health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+      }
+
+      return;
+    }
+  }
+
+  v12 = v11->__r_.__value_.__s.__data_[1];
+  if (v12 == 123)
+  {
+    v10 = 1;
+    v11 = (v11 + 1);
+    goto LABEL_6;
+  }
+
+  if (v12 == 42)
+  {
+    v47 = &v11->__r_.__value_.__s.__data_[2];
+    v37 = v11->__r_.__value_.__s.__data_[2];
+    if ((v37 - 48) > 9)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format string- missing numeric value.");
+    }
+
+    else
+    {
+      v38 = 0;
+      v39 = &v11->__r_.__value_.__s.__data_[3];
+      do
+      {
+        v47 = v39;
+        v38 = (v37 & 0xF) + 10 * v38;
+        v40 = *v39++;
+        LOBYTE(v37) = v40;
+      }
+
+      while ((v40 - 58) >= 0xFFFFFFF6);
+      v47 = v39;
+      if (*(v39 - 1) == 125)
+      {
+        health::FormatterParameters<0ul,health::FileExtent &,health::FileExtent const&>::formatOptionsAtIndex<health::FileExtent &,health::FileExtent const&>(v38);
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Invalid format options reference: Must be of form {*<index>} but no trailing '}' found.");
+    }
+
+LABEL_94:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  health::FormatOptions::FormatOptions(&v42, &v47);
+  v13 = v47;
+  if (!v43)
+  {
+    health::FormatString<long long const&,unsigned long const&>(&__p, a4[1], a4[1] + 8);
+    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      size = __p.__r_.__value_.__l.__size_;
+    }
+
+    v27 = v45;
+    if (v45 <= size)
+    {
+      v27 = size;
+    }
+
+    if (v44)
+    {
+      size = v27;
+    }
+
+    health::FormatImplementation<health::FileExtent &,health::FileExtent const&>(v13, a2, size + a3 - v9, a4);
+    if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v28 = a2;
+    }
+
+    else
+    {
+      v28 = a2->__r_.__value_.__r.__words[0];
+    }
+
+    health::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,unsigned long long &>(&v42, v28 + a3 - v9, &__p.__r_.__value_.__l.__data_);
+    goto LABEL_58;
+  }
+
+  if (v43 != 1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Parameter index out of bounds.");
+    goto LABEL_94;
+  }
+
+  health::FormatString<long long const&,unsigned long const&>(&__p, *a4, *a4 + 8);
+  v14 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v14 = __p.__r_.__value_.__l.__size_;
+  }
+
+  v15 = v45;
+  if (v45 <= v14)
+  {
+    v15 = v14;
+  }
+
+  if (v44)
+  {
+    v14 = v15;
+  }
+
+  health::FormatImplementation<health::FileExtent &,health::FileExtent const&>(v13, a2, v14 + a3 - v9, a4);
+  if ((a2->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v16 = a2;
+  }
+
+  else
+  {
+    v16 = a2->__r_.__value_.__r.__words[0];
+  }
+
+  v17 = v16 + a3 - v9;
+  v18 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v20 = __p.__r_.__value_.__l.__size_;
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v21 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v21 = __p.__r_.__value_.__l.__size_;
+  }
+
+  if (v44 == 1)
+  {
+    v22 = v45 - v21;
+    if (v45 > v21)
+    {
+      if (v42)
+      {
+        if (v42 != 1)
+        {
+          if (v42 == 2)
+          {
+            memset(v17, __c, v45 - v21);
+            v23 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? HIBYTE(__p.__r_.__value_.__r.__words[2]) : __p.__r_.__value_.__l.__size_;
+            if (v23)
+            {
+              if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              {
+                p_p = &__p;
+              }
+
+              else
+              {
+                p_p = __p.__r_.__value_.__r.__words[0];
+              }
+
+              v25 = &v17[v22];
+              goto LABEL_57;
+            }
+          }
+
+          goto LABEL_58;
+        }
+
+        if (v22 >= 2)
+        {
+          if (v22 >> 1 <= 1)
+          {
+            v29 = 1;
+          }
+
+          else
+          {
+            v29 = v22 >> 1;
+          }
+
+          memset(v17, __c, v29);
+          v17 += v29;
+          v18 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+          v20 = __p.__r_.__value_.__l.__size_;
+          v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+        }
+
+        v30 = v22 - (v22 >> 1);
+        if (v19 >= 0)
+        {
+          v31 = v18;
+        }
+
+        else
+        {
+          v31 = v20;
+        }
+
+        if (v31)
+        {
+          if (v19 >= 0)
+          {
+            v32 = &__p;
+          }
+
+          else
+          {
+            v32 = __p.__r_.__value_.__r.__words[0];
+          }
+
+          memmove(v17, v32, v31);
+        }
+
+        if (v30 <= 1)
+        {
+          v33 = 1;
+        }
+
+        else
+        {
+          v33 = v30;
+        }
+
+        v34 = __c;
+        v35 = &v17[v21];
+      }
+
+      else
+      {
+        if (v21)
+        {
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v36 = &__p;
+          }
+
+          else
+          {
+            v36 = __p.__r_.__value_.__r.__words[0];
+          }
+
+          memmove(v17, v36, v21);
+        }
+
+        v34 = __c;
+        v35 = &v17[v21];
+        v33 = v22;
+      }
+
+      memset(v35, v34, v33);
+      goto LABEL_58;
+    }
+  }
+
+  if (v21)
+  {
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      p_p = &__p;
+    }
+
+    else
+    {
+      p_p = __p.__r_.__value_.__r.__words[0];
+    }
+
+    v25 = v17;
+    v23 = v21;
+LABEL_57:
+    memmove(v25, p_p, v23);
+  }
+
+LABEL_58:
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  if (v9)
+  {
+    health::CopyFormatSectionToResult(a1, a2, a3, -v9, v10 & 1);
+  }
 }

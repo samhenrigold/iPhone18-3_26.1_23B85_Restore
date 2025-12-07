@@ -1,7 +1,7 @@
 @interface _NSXPCConnectionExpectedReplies
 - (_NSXPCConnectionExpectedReplies)init;
+- (char)progressForSequence:(char *)result;
 - (char)sequenceForProgress:(uint64_t)progress;
-- (id)progressForSequence:(id)result;
 - (void)dealloc;
 - (void)removeProgressSequence:(uint64_t)sequence;
 @end
@@ -73,7 +73,7 @@
   }
 }
 
-- (id)progressForSequence:(id)result
+- (char)progressForSequence:(char *)result
 {
   if (result)
   {

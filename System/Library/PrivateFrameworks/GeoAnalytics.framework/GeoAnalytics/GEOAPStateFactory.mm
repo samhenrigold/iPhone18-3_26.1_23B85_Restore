@@ -35,6 +35,7 @@
 - (void)dealloc;
 - (void)deviceCountryChanged:(id)changed;
 - (void)sessionStateForType:(int)type callback:(id)callback;
+- (void)sessionStateForType:(int)type onQueue:(id)queue callback:(id)callback;
 - (void)sessionStateForType:(int)type sessionAppId:(id)id onQueue:(id)queue callback:(id)callback;
 @end
 
@@ -808,10 +809,18 @@ uint64_t __71__GEOAPStateFactory_sessionStateForType_sessionAppId_onQueue_callba
   v17 = [*(a1 + 32) userSession];
   [v17 setAgeOfSessionIdInSeconds:floor(a7)];
 
-  v18 = *(a1 + 32);
-  v19 = *(*(a1 + 40) + 16);
+  v18 = *(*(a1 + 40) + 16);
 
-  return v19();
+  return v18();
+}
+
+- (void)sessionStateForType:(int)type onQueue:(id)queue callback:(id)callback
+{
+  v6 = *&type;
+  callbackCopy = callback;
+  queueCopy = queue;
+  v10 = GEOApplicationIdentifierOrProcessName();
+  [(GEOAPStateFactory *)self sessionStateForType:v6 sessionAppId:v10 onQueue:queueCopy callback:callbackCopy];
 }
 
 - (void)sessionStateForType:(int)type callback:(id)callback
@@ -1028,7 +1037,7 @@ void __50__GEOAPStateFactory_sessionStateForType_callback___block_invoke_5(uint6
 - (id)stateForType:(int64_t)type
 {
   deviceLocaleLimited = 0;
-  v196 = *MEMORY[0x1E69E9840];
+  v193 = *MEMORY[0x1E69E9840];
   switch(type)
   {
     case 1:
@@ -1087,15 +1096,15 @@ void __50__GEOAPStateFactory_sessionStateForType_callback___block_invoke_5(uint6
 
       deviceLocaleLimited = objc_alloc_init(MEMORY[0x1E69A1FF8]);
       [deviceLocaleLimited setStateType:405];
-      v95 = objc_alloc_init(MEMORY[0x1E69A2100]);
-      [deviceLocaleLimited setPairedDevice:v95];
+      v93 = objc_alloc_init(MEMORY[0x1E69A2100]);
+      [deviceLocaleLimited setPairedDevice:v93];
 
       pairedDevice = [deviceLocaleLimited pairedDevice];
       [pairedDevice setType:1];
 
-      v97 = objc_alloc_init(MEMORY[0x1E69A2048]);
+      v95 = objc_alloc_init(MEMORY[0x1E69A2048]);
       pairedDevice2 = [deviceLocaleLimited pairedDevice];
-      [pairedDevice2 setPairedDeviceIdentifier:v97];
+      [pairedDevice2 setPairedDeviceIdentifier:v95];
 
       deviceOsVersionIfAvailable = [mapSettings3 deviceOsVersionIfAvailable];
       pairedDevice3 = [deviceLocaleLimited pairedDevice];
@@ -1116,8 +1125,8 @@ void __50__GEOAPStateFactory_sessionStateForType_callback___block_invoke_5(uint6
 
       deviceLocaleLimited = objc_alloc_init(MEMORY[0x1E69A1FF8]);
       [deviceLocaleLimited setStateType:406];
-      v104 = objc_alloc_init(MEMORY[0x1E69A2070]);
-      [deviceLocaleLimited setExtension:v104];
+      v102 = objc_alloc_init(MEMORY[0x1E69A2070]);
+      [deviceLocaleLimited setExtension:v102];
 
       mapSettings3 = +[GEOAPSharedStateData sharedData];
       if ([mapSettings3 hasTableBookingAppInstalled])
@@ -1158,23 +1167,23 @@ void __50__GEOAPStateFactory_sessionStateForType_callback___block_invoke_5(uint6
         goto LABEL_217;
       }
 
-      v118 = objc_alloc_init(MEMORY[0x1E69A1FF8]);
-      [v118 setStateType:501];
-      v119 = objc_alloc_init(MEMORY[0x1E69A20B0]);
-      [v118 setMapView:v119];
+      v116 = objc_alloc_init(MEMORY[0x1E69A1FF8]);
+      [v116 setStateType:501];
+      v117 = objc_alloc_init(MEMORY[0x1E69A20B0]);
+      [v116 setMapView:v117];
 
-      v120 = +[GEOAPSharedStateData sharedData];
+      v118 = +[GEOAPSharedStateData sharedData];
       *buf = MEMORY[0x1E69E9820];
-      v191 = 3221225472;
-      v192 = __28__GEOAPStateFactory_mapView__block_invoke;
-      v193 = &unk_1E7959400;
-      selfCopy = v120;
-      v121 = v118;
-      v195 = v121;
-      v122 = v120;
-      [(GEOAPStateFactory *)v122 performMapViewStateUpdate:buf];
-      v123 = v195;
-      deviceLocaleLimited = v121;
+      v188 = 3221225472;
+      v189 = __28__GEOAPStateFactory_mapView__block_invoke;
+      v190 = &unk_1E7959400;
+      selfCopy = v118;
+      v119 = v116;
+      v192 = v119;
+      v120 = v118;
+      [(GEOAPStateFactory *)v120 performMapViewStateUpdate:buf];
+      v121 = v192;
+      deviceLocaleLimited = v119;
 
       goto LABEL_202;
     case 10:
@@ -1183,23 +1192,23 @@ void __50__GEOAPStateFactory_sessionStateForType_callback___block_invoke_5(uint6
         goto LABEL_217;
       }
 
-      v112 = objc_alloc_init(MEMORY[0x1E69A1FF8]);
-      [v112 setStateType:502];
-      v113 = objc_alloc_init(MEMORY[0x1E69A20B8]);
-      [v112 setMapViewLocation:v113];
+      v110 = objc_alloc_init(MEMORY[0x1E69A1FF8]);
+      [v110 setStateType:502];
+      v111 = objc_alloc_init(MEMORY[0x1E69A20B8]);
+      [v110 setMapViewLocation:v111];
 
-      v114 = +[GEOAPSharedStateData sharedData];
+      v112 = +[GEOAPSharedStateData sharedData];
       *buf = MEMORY[0x1E69E9820];
-      v191 = 3221225472;
-      v192 = __36__GEOAPStateFactory_mapViewLocation__block_invoke;
-      v193 = &unk_1E7959400;
-      selfCopy = v114;
-      v115 = v112;
-      v195 = v115;
-      v116 = v114;
-      [(GEOAPStateFactory *)v116 performMapViewStateUpdate:buf];
-      v117 = v195;
-      deviceLocaleLimited = v115;
+      v188 = 3221225472;
+      v189 = __36__GEOAPStateFactory_mapViewLocation__block_invoke;
+      v190 = &unk_1E7959400;
+      selfCopy = v112;
+      v113 = v110;
+      v192 = v113;
+      v114 = v112;
+      [(GEOAPStateFactory *)v114 performMapViewStateUpdate:buf];
+      v115 = v192;
+      deviceLocaleLimited = v113;
 
       goto LABEL_202;
     case 11:
@@ -1268,9 +1277,9 @@ void __50__GEOAPStateFactory_sessionStateForType_callback___block_invoke_5(uint6
         windowSize = [mapSettings3 windowSize];
         if (windowSize <= 3)
         {
-          v154 = windowSize;
+          v152 = windowSize;
           mapUi4 = [deviceLocaleLimited mapUi];
-          [mapUi4 setWindowSize:v154 + 1];
+          [mapUi4 setWindowSize:v152 + 1];
         }
       }
 
@@ -1342,43 +1351,43 @@ void __50__GEOAPStateFactory_sessionStateForType_callback___block_invoke_5(uint6
 
         else
         {
-          v140 = objc_alloc_init(MEMORY[0x1E69A2228]);
+          v138 = objc_alloc_init(MEMORY[0x1E69A2228]);
           mapsServer2 = [deviceLocaleLimited mapsServer];
-          [mapsServer2 setServerMetadata:v140];
+          [mapsServer2 setServerMetadata:v138];
 
           mapsServerMetadataSuggestionEntryTappedOn = [v53 mapsServerMetadataSuggestionEntryTappedOn];
           mapsServer3 = [deviceLocaleLimited mapsServer];
           serverMetadata = [mapsServer3 serverMetadata];
           [serverMetadata setSuggestionEntryMetadataTappedOn:mapsServerMetadataSuggestionEntryTappedOn];
 
-          v187 = 0u;
-          v188 = 0u;
+          v184 = 0u;
           v185 = 0u;
-          v186 = 0u;
+          v182 = 0u;
+          v183 = 0u;
           mapsServerMetadataSuggestionEntryDisplayeds = [v53 mapsServerMetadataSuggestionEntryDisplayeds];
-          v146 = [mapsServerMetadataSuggestionEntryDisplayeds countByEnumeratingWithState:&v185 objects:buf count:16];
-          if (v146)
+          v144 = [mapsServerMetadataSuggestionEntryDisplayeds countByEnumeratingWithState:&v182 objects:buf count:16];
+          if (v144)
           {
-            v147 = *v186;
+            v145 = *v183;
             do
             {
-              for (i = 0; i != v146; ++i)
+              for (i = 0; i != v144; ++i)
               {
-                if (*v186 != v147)
+                if (*v183 != v145)
                 {
                   objc_enumerationMutation(mapsServerMetadataSuggestionEntryDisplayeds);
                 }
 
-                v149 = *(*(&v185 + 1) + 8 * i);
+                v147 = *(*(&v182 + 1) + 8 * i);
                 mapsServer4 = [deviceLocaleLimited mapsServer];
                 serverMetadata2 = [mapsServer4 serverMetadata];
-                [serverMetadata2 addSuggestionEntryMetadataDisplayed:v149];
+                [serverMetadata2 addSuggestionEntryMetadataDisplayed:v147];
               }
 
-              v146 = [mapsServerMetadataSuggestionEntryDisplayeds countByEnumeratingWithState:&v185 objects:buf count:16];
+              v144 = [mapsServerMetadataSuggestionEntryDisplayeds countByEnumeratingWithState:&v182 objects:buf count:16];
             }
 
-            while (v146);
+            while (v144);
           }
         }
       }
@@ -1652,11 +1661,11 @@ LABEL_156:
 
       deviceLocaleLimited = objc_alloc_init(MEMORY[0x1E69A1FF8]);
       [deviceLocaleLimited setStateType:407];
-      v124 = objc_alloc_init(MEMORY[0x1E69A2058]);
-      [deviceLocaleLimited setDeviceSettings:v124];
+      v122 = objc_alloc_init(MEMORY[0x1E69A2058]);
+      [deviceLocaleLimited setDeviceSettings:v122];
 
-      v125 = +[GEOAPSharedStateData sharedData];
-      hasDeviceInDarkMode2 = [v125 hasDeviceInDarkMode];
+      v123 = +[GEOAPSharedStateData sharedData];
+      hasDeviceInDarkMode2 = [v123 hasDeviceInDarkMode];
 
       if (!hasDeviceInDarkMode2)
       {
@@ -1822,15 +1831,13 @@ LABEL_200:
         [user setBestMapsUseStartDate:v77];
       }
 
-      v79 = *MEMORY[0x1E69A1A68];
-      v80 = *(MEMORY[0x1E69A1A68] + 8);
       if (_GEOConfigHasValue())
       {
         GEOConfigGetDouble();
         [(GEOAPStateFactory *)self _monthResolution:?];
-        v82 = v81;
+        v80 = v79;
         user2 = [deviceLocaleLimited user];
-        [user2 setMapsUseStartDate:v82];
+        [user2 setMapsUseStartDate:v80];
       }
 
       BOOL = GEOConfigGetBOOL();
@@ -1838,41 +1845,41 @@ LABEL_200:
       [user3 setIsSignedInWithDsid:BOOL];
 
       *buf = 0;
-      v191 = buf;
-      v192 = 0x3032000000;
-      v193 = __Block_byref_object_copy_;
+      v188 = buf;
+      v189 = 0x3032000000;
+      v190 = __Block_byref_object_copy_;
       selfCopy = __Block_byref_object_dispose_;
-      v195 = 0;
-      *(&v185 + 1) = &v185;
-      *&v186 = 0x3032000000;
-      *(&v186 + 1) = __Block_byref_object_copy_;
-      *&v187 = __Block_byref_object_dispose_;
-      *(&v187 + 1) = 0;
-      v189[0] = MEMORY[0x1E69E9820];
-      v189[1] = 3221225472;
-      v189[2] = __29__GEOAPStateFactory_mapsUser__block_invoke;
-      v189[3] = &unk_1E7953880;
-      v189[4] = buf;
-      v189[5] = &v185;
-      [v73 bestUserHomeLocation:{v189, 0}];
-      v86 = *(*(&v185 + 1) + 40);
+      v192 = 0;
+      *(&v182 + 1) = &v182;
+      *&v183 = 0x3032000000;
+      *(&v183 + 1) = __Block_byref_object_copy_;
+      *&v184 = __Block_byref_object_dispose_;
+      *(&v184 + 1) = 0;
+      v186[0] = MEMORY[0x1E69E9820];
+      v186[1] = 3221225472;
+      v186[2] = __29__GEOAPStateFactory_mapsUser__block_invoke;
+      v186[3] = &unk_1E7953880;
+      v186[4] = buf;
+      v186[5] = &v182;
+      [v73 bestUserHomeLocation:{v186, 0}];
+      v84 = *(*(&v182 + 1) + 40);
       user4 = [deviceLocaleLimited user];
-      [user4 setHomeMetroRegion:v86];
+      [user4 setHomeMetroRegion:v84];
 
-      v88 = *(v191 + 40);
+      v86 = *(v188 + 40);
       user5 = [deviceLocaleLimited user];
-      [user5 setHomeCountryCode:v88];
+      [user5 setHomeCountryCode:v86];
 
       bestCurrentMetro = [v73 bestCurrentMetro];
-      v91 = bestCurrentMetro;
-      if (bestCurrentMetro && *(*(&v185 + 1) + 40))
+      v89 = bestCurrentMetro;
+      if (bestCurrentMetro && *(*(&v182 + 1) + 40))
       {
-        v92 = [bestCurrentMetro isEqualToString:?];
+        v90 = [bestCurrentMetro isEqualToString:?];
         user6 = [deviceLocaleLimited user];
-        [user6 setIsTourist:v92 ^ 1u];
+        [user6 setIsTourist:v90 ^ 1u];
       }
 
-      _Block_object_dispose(&v185, 8);
+      _Block_object_dispose(&v182, 8);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_202;
@@ -1883,9 +1890,9 @@ LABEL_200:
       }
 
       *buf = MEMORY[0x1E69E9820];
-      v191 = 3221225472;
-      v192 = __50__GEOAPStateFactory_deviceIdentifierHardwareClass__block_invoke;
-      v193 = &unk_1E7959610;
+      v188 = 3221225472;
+      v189 = __50__GEOAPStateFactory_deviceIdentifierHardwareClass__block_invoke;
+      v190 = &unk_1E7959610;
       selfCopy = self;
       if (deviceIdentifierHardwareClass_onceToken != -1)
       {
@@ -2029,8 +2036,8 @@ LABEL_163:
       {
         deviceLocaleLimited = objc_alloc_init(MEMORY[0x1E69A1FF8]);
         [deviceLocaleLimited setStateType:405];
-        v135 = objc_alloc_init(MEMORY[0x1E69A2100]);
-        [deviceLocaleLimited setPairedDevice:v135];
+        v133 = objc_alloc_init(MEMORY[0x1E69A2100]);
+        [deviceLocaleLimited setPairedDevice:v133];
 
         deviceLocale2 = [deviceLocaleLimited pairedDevice];
         [deviceLocale2 setType:1];
@@ -2054,7 +2061,7 @@ LABEL_149:
       if (self)
       {
         mEMORY[0x1E69A22E8] = [MEMORY[0x1E69A22E8] sharedNoCreate];
-        v129 = mEMORY[0x1E69A22E8];
+        v127 = mEMORY[0x1E69A22E8];
         if (!mEMORY[0x1E69A22E8])
         {
           deviceLocaleLimited = 0;
@@ -2066,8 +2073,8 @@ LABEL_214:
         state = [mEMORY[0x1E69A22E8] state];
         deviceLocaleLimited = objc_alloc_init(MEMORY[0x1E69A1FF8]);
         [deviceLocaleLimited setStateType:713];
-        v131 = objc_alloc_init(MEMORY[0x1E69A20F8]);
-        [deviceLocaleLimited setOffline:v131];
+        v129 = objc_alloc_init(MEMORY[0x1E69A20F8]);
+        [deviceLocaleLimited setOffline:v129];
 
         if (state >= 3u)
         {
@@ -2078,16 +2085,16 @@ LABEL_214:
             _os_log_fault_impl(&dword_1AB634000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Unreachable reached: invalid offline mode value %x", buf, 8u);
           }
 
-          LOBYTE(v132) = 0;
+          LOBYTE(v130) = 0;
         }
 
         else
         {
-          v132 = 4u >> (state & 7);
+          v130 = 4u >> (state & 7);
         }
 
         offline = [deviceLocaleLimited offline];
-        [offline setIsMapsInOfflineMode:v132 & 1];
+        [offline setIsMapsInOfflineMode:v130 & 1];
 
         offline2 = [deviceLocaleLimited offline];
         isMapsInOfflineMode = [offline2 isMapsInOfflineMode];
@@ -2106,24 +2113,24 @@ LABEL_214:
         {
           if (HIBYTE(state) < 3u)
           {
-            v139 = 4u >> (HIBYTE(state) & 7);
+            v137 = 4u >> (HIBYTE(state) & 7);
 LABEL_207:
             offline3 = [deviceLocaleLimited offline];
-            [offline3 setIsOnlyUseOffline:v139 & 1];
+            [offline3 setIsOnlyUseOffline:v137 & 1];
 
-            offlineRegionCount = [v129 offlineRegionCount];
+            offlineRegionCount = [v127 offlineRegionCount];
             if (offlineRegionCount >= 2)
             {
-              v174 = 2;
+              v171 = 2;
             }
 
             else
             {
-              v174 = offlineRegionCount;
+              v171 = offlineRegionCount;
             }
 
             offline4 = [deviceLocaleLimited offline];
-            [offline4 setNumberOfDownloadedRegions:v174];
+            [offline4 setNumberOfDownloadedRegions:v171];
 
             mEMORY[0x1E69A22B0] = [MEMORY[0x1E69A22B0] sharedNetworkObserver];
             isNetworkReachable = [mEMORY[0x1E69A22B0] isNetworkReachable];
@@ -2152,14 +2159,14 @@ LABEL_207:
           if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
           {
 LABEL_206:
-            LOBYTE(v139) = 0;
+            LOBYTE(v137) = 0;
             goto LABEL_207;
           }
 
           *buf = 67109120;
           *&buf[4] = HIBYTE(state);
-          v158 = MEMORY[0x1E69E9C10];
-          v159 = "Unreachable reached: invalid offline reason value %x";
+          v156 = MEMORY[0x1E69E9C10];
+          v157 = "Unreachable reached: invalid offline reason value %x";
         }
 
         else
@@ -2171,18 +2178,17 @@ LABEL_206:
 
           *buf = 67109120;
           *&buf[4] = state;
-          v158 = MEMORY[0x1E69E9C10];
-          v159 = "Unreachable reached: invalid offline mode value %x";
+          v156 = MEMORY[0x1E69E9C10];
+          v157 = "Unreachable reached: invalid offline mode value %x";
         }
 
-        _os_log_fault_impl(&dword_1AB634000, v158, OS_LOG_TYPE_FAULT, v159, buf, 8u);
+        _os_log_fault_impl(&dword_1AB634000, v156, OS_LOG_TYPE_FAULT, v157, buf, 8u);
         goto LABEL_206;
       }
 
 LABEL_217:
       deviceLocaleLimited = 0;
 LABEL_202:
-      v170 = *MEMORY[0x1E69E9840];
 
       return deviceLocaleLimited;
     default:
@@ -2255,11 +2261,9 @@ void __50__GEOAPStateFactory_deviceIdentifierHardwareClass__block_invoke(uint64_
   v3 = deviceIdentifierHardwareClass_state;
   deviceIdentifierHardwareClass_state = v2;
 
-  v4 = *MEMORY[0x1E69A1A48];
-  v5 = *(MEMORY[0x1E69A1A48] + 8);
-  v7 = GEOConfigGetString();
-  v6 = [deviceIdentifierHardwareClass_state deviceIdentifier];
-  [v6 setDeviceHwIdentifier:v7];
+  v5 = GEOConfigGetString();
+  v4 = [deviceIdentifierHardwareClass_state deviceIdentifier];
+  [v4 setDeviceHwIdentifier:v5];
 }
 
 void __42__GEOAPStateFactory_applicationIdentifier__block_invoke()
@@ -2318,17 +2322,13 @@ void __37__GEOAPStateFactory_deviceIdentifier__block_invoke()
   v8 = [deviceIdentifier_state deviceIdentifier];
   [v8 setIsInternalTool:v7];
 
-  v9 = *MEMORY[0x1E69A1A58];
-  v10 = *(MEMORY[0x1E69A1A58] + 8);
-  v11 = GEOConfigGetString();
-  v12 = [deviceIdentifier_state deviceIdentifier];
-  [v12 setDeviceOsVersion:v11];
+  v9 = GEOConfigGetString();
+  v10 = [deviceIdentifier_state deviceIdentifier];
+  [v10 setDeviceOsVersion:v9];
 
-  v13 = *MEMORY[0x1E69A1A50];
-  v14 = *(MEMORY[0x1E69A1A50] + 8);
-  v16 = GEOConfigGetString();
-  v15 = [deviceIdentifier_state deviceIdentifier];
-  [v15 setDeviceHwIdentifier:v16];
+  v12 = GEOConfigGetString();
+  v11 = [deviceIdentifier_state deviceIdentifier];
+  [v11 setDeviceHwIdentifier:v12];
 }
 
 - (int)logMsgStateTypeForType:(int64_t)type
@@ -2578,10 +2578,7 @@ uint64_t __46__GEOAPStateFactory__updateOfflineVersionInfo__block_invoke_2(uint6
     v3 = 24;
   }
 
-  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
-  v5 = *(v2 + 32);
-  v6 = *(v5 + v3);
-  *(v5 + v3) = v4;
+  *(*(v2 + 32) + v3) = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -2631,51 +2628,49 @@ uint64_t __46__GEOAPStateFactory__updateOfflineVersionInfo__block_invoke_2(uint6
 
 - (id)ugcStateWithPhotoSources:(id)sources
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   sourcesCopy = sources;
   v4 = objc_alloc_init(MEMORY[0x1E69A1FF8]);
   [v4 setStateType:720];
   v5 = objc_alloc_init(MEMORY[0x1E69A2168]);
   [v4 setUgcPhoto:v5];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = sourcesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         ugcPhoto = [v4 ugcPhoto];
         [ugcPhoto addPhotoSource:{objc_msgSend(v11, "intValue")}];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)mapsServerStateWithCategoryMetadataDisplayed:(id)displayed categoryMetadataSelected:(id)selected
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   displayedCopy = displayed;
   selectedCopy = selected;
   v7 = objc_alloc_init(MEMORY[0x1E69A1FF8]);
@@ -2687,26 +2682,26 @@ uint64_t __46__GEOAPStateFactory__updateOfflineVersionInfo__block_invoke_2(uint6
   mapsServer = [v7 mapsServer];
   [mapsServer setServerMetadata:v9];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v11 = displayedCopy;
-  v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         mapsServer2 = [v7 mapsServer];
         serverMetadata = [mapsServer2 serverMetadata];
         suggestionEntryMetadataDisplayeds = [serverMetadata suggestionEntryMetadataDisplayeds];
@@ -2714,7 +2709,7 @@ uint64_t __46__GEOAPStateFactory__updateOfflineVersionInfo__block_invoke_2(uint6
         [suggestionEntryMetadataDisplayeds addObject:v20];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
@@ -2724,8 +2719,6 @@ uint64_t __46__GEOAPStateFactory__updateOfflineVersionInfo__block_invoke_2(uint6
   mapsServer3 = [v7 mapsServer];
   serverMetadata2 = [mapsServer3 serverMetadata];
   [serverMetadata2 setSuggestionEntryMetadataTappedOn:v21];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -2748,7 +2741,7 @@ uint64_t __46__GEOAPStateFactory__updateOfflineVersionInfo__block_invoke_2(uint6
 
 - (id)mapsServerStateWithDisplayedData:(id)data selectedData:(id)selectedData
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   selectedDataCopy = selectedData;
   v7 = objc_alloc_init(MEMORY[0x1E69A1FF8]);
@@ -2765,39 +2758,37 @@ uint64_t __46__GEOAPStateFactory__updateOfflineVersionInfo__block_invoke_2(uint6
   serverMetadata = [mapsServer2 serverMetadata];
   [serverMetadata setSuggestionEntryMetadataTappedOn:v11];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v14 = dataCopy;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v26;
+    v17 = *v25;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * i);
+        v19 = *(*(&v24 + 1) + 8 * i);
         mapsServer3 = [v7 mapsServer];
         serverMetadata2 = [mapsServer3 serverMetadata];
         v22 = [v19 copy];
         [serverMetadata2 addSuggestionEntryMetadataDisplayed:v22];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v16);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

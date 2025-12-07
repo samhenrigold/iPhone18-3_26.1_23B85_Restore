@@ -10,10 +10,10 @@
 {
   v3 = type metadata accessor for UICellConfigurationState();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
+  __chkstk_darwin();
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
-  sub_100676CF4();
+  sub_100676CF4(selfCopy);
 
   v8.super.super.isa = UICellConfigurationState._bridgeToObjectiveC()().super.super.isa;
   (*(v4 + 8))(v6, v3);
@@ -25,7 +25,7 @@
 {
   v4 = type metadata accessor for UICellConfigurationState();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UICellConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

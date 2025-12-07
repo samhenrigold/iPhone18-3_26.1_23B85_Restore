@@ -36,7 +36,7 @@
   v37 = 0u;
   if (geometryCopy)
   {
-    [geometryCopy extent];
+    objc_msgSend_extent(geometryCopy);
   }
 
   v16 = [PIRepairUtilities brushStrokeFromRetouchStrokeDictionary:strokeCopy];
@@ -45,7 +45,7 @@
   v35 = 0u;
   if (v16)
   {
-    [v16 extent];
+    objc_msgSend_extent(v16);
   }
 
   else

@@ -22,7 +22,7 @@
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_1001A6C04(&qword_1003B5800);
+  v12 = sub_1001A6C04(&qword_1003B5800, &qword_1002C40D0);
   v13 = __chkstk_darwin(v12 - 8);
   v15 = (&v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
   __chkstk_darwin(v13);
@@ -46,7 +46,7 @@
   sub_10027C380(v11, v15, v18, v17);
   _Block_release(v18);
 
-  sub_1001A974C(v15, &qword_1003B5800);
+  sub_1001A974C(v15, &qword_1003B5800, &qword_1002C40D0);
   v21 = *(v9 + 8);
   v21(v11, v8);
   if (sub_1001A969C(v17, 1, v8) == 1)
@@ -66,7 +66,7 @@
 
 - (void)fetchImageForURL:(id)l gameKitDirectoryURLHint:(id)hint completionHandler:(id)handler
 {
-  v8 = sub_1001A6C04(&qword_1003B5800);
+  v8 = sub_1001A6C04(&qword_1003B5800, &qword_1002C40D0);
   __chkstk_darwin(v8 - 8);
   v10 = &v18 - v9;
   v11 = type metadata accessor for URL();
@@ -92,7 +92,7 @@
   sub_10027C910(v14, v10, selfCopy, v15);
   _Block_release(v15);
 
-  sub_1001A974C(v10, &qword_1003B5800);
+  sub_1001A974C(v10, &qword_1003B5800, &qword_1002C40D0);
   (*(v12 + 8))(v14, v11);
 }
 

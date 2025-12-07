@@ -136,7 +136,7 @@ void __46__ICAttachmentMovieModel_updateAttachmentSize__block_invoke_2(uint64_t 
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 preferredTransform];
+    objc_msgSend_preferredTransform(v6);
     v8 = *&v33.value;
     v7 = *&v33.timescale;
     v10 = *&v33.epoch;
@@ -180,7 +180,7 @@ void __46__ICAttachmentMovieModel_updateAttachmentSize__block_invoke_2(uint64_t 
   v23 = *(a1 + 48);
   if (v23)
   {
-    [v23 duration];
+    objc_msgSend_duration(v23);
   }
 
   else
@@ -190,7 +190,7 @@ void __46__ICAttachmentMovieModel_updateAttachmentSize__block_invoke_2(uint64_t 
 
   Seconds = CMTimeGetSeconds(&v33);
   v25 = [*(a1 + 40) attachment];
-  [v25 duration];
+  objc_msgSend_duration(v25);
   v27 = v26;
 
   if (v27 == Seconds)

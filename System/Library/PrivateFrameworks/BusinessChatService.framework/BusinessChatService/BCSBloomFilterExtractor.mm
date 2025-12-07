@@ -7,7 +7,7 @@
 
 - (void)extractShardsURLsFromBloomFilterURL:(id)l completion:(id)completion
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   completionCopy = completion;
   v7 = ABSLogCommon();
@@ -21,14 +21,14 @@
     _os_signpost_emit_with_name_impl(&dword_242072000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "Unzip Megashard", "", buf, 2u);
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completion___block_invoke;
-  v30[3] = &unk_278D38A90;
-  v32 = v8;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completion___block_invoke;
+  v29[3] = &unk_278D38A90;
+  v31 = v8;
   v11 = completionCopy;
-  v31 = v11;
-  v12 = MEMORY[0x245D07100](v30);
+  v30 = v11;
+  v12 = MEMORY[0x245D07100](v29);
   v13 = +[BCSPathProvider sharedInstance];
   tempURL = [v13 tempURL];
 
@@ -40,19 +40,19 @@
     v18 = [v15 stringWithFormat:@"%@_%@", @"bloom_filter", uUIDString];
 
     v19 = [tempURL URLByAppendingPathComponent:v18];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completion___block_invoke_12;
-    v27[3] = &unk_278D38AE0;
-    v29 = v12;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completion___block_invoke_12;
+    v26[3] = &unk_278D38AE0;
+    v28 = v12;
     v20 = v19;
-    v28 = v20;
-    v21 = MEMORY[0x245D07100](v27);
+    v27 = v20;
+    v21 = MEMORY[0x245D07100](v26);
     v22 = ABSLogCommon();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v34 = v20;
+      v33 = v20;
       _os_log_debug_impl(&dword_242072000, v22, OS_LOG_TYPE_DEBUG, "Unzipping megashard to %@", buf, 0xCu);
     }
 
@@ -63,15 +63,13 @@
 
   else
   {
-    v35 = *MEMORY[0x277CCA450];
-    v36[0] = @"Failed get temp directory";
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35[0] = @"Failed get temp directory";
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v18 = [BCSError errorWithDomain:@"com.apple.businessservices" code:100 userInfo:v25];
 
     (v12)[2](v12, 0, v18);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -92,14 +90,14 @@ void __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completio
 
 void __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completion___block_invoke_12(uint64_t a1, void *a2)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 cleanup];
   if ([v3 didErrorOccur])
   {
-    v35 = *MEMORY[0x277CCA450];
-    v36[0] = @"Failed to unzip the megashard";
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v33 = *MEMORY[0x277CCA450];
+    v34[0] = @"Failed to unzip the megashard";
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
     v5 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v4];
 
     (*(*(a1 + 40) + 16))();
@@ -107,23 +105,23 @@ void __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completio
 
   else
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__1;
-    v30 = __Block_byref_object_dispose__1;
-    v31 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__1;
+    v28 = __Block_byref_object_dispose__1;
+    v29 = 0;
     v6 = [MEMORY[0x277CCAA00] defaultManager];
     v7 = *(a1 + 32);
     v8 = [MEMORY[0x277CBEA60] arrayWithObject:*MEMORY[0x277CBE868]];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completion___block_invoke_18;
-    v25[3] = &unk_278D38AB8;
-    v25[4] = &v26;
-    v9 = [v6 enumeratorAtURL:v7 includingPropertiesForKeys:v8 options:0 errorHandler:v25];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completion___block_invoke_18;
+    v23[3] = &unk_278D38AB8;
+    v23[4] = &v24;
+    v9 = [v6 enumeratorAtURL:v7 includingPropertiesForKeys:v8 options:0 errorHandler:v23];
 
-    if (v27[5])
+    if (v25[5])
     {
       v10 = ABSLogCommon();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -132,62 +130,59 @@ void __74__BCSBloomFilterExtractor_extractShardsURLsFromBloomFilterURL_completio
         _os_log_error_impl(&dword_242072000, v10, OS_LOG_TYPE_ERROR, "Error enumerating the unzipped shards on disk", buf, 2u);
       }
 
-      v11 = v27[5];
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v12 = [MEMORY[0x277CBEB18] array];
-      v22 = 0u;
-      v23 = 0u;
+      v11 = [MEMORY[0x277CBEB18] array];
       v20 = 0u;
       v21 = 0u;
-      v13 = v9;
-      v14 = [v13 countByEnumeratingWithState:&v20 objects:v34 count:16];
-      if (v14)
+      v18 = 0u;
+      v19 = 0u;
+      v12 = v9;
+      v13 = [v12 countByEnumeratingWithState:&v18 objects:v32 count:16];
+      if (v13)
       {
-        v15 = *v21;
+        v14 = *v19;
         do
         {
-          v16 = 0;
+          v15 = 0;
           do
           {
-            if (*v21 != v15)
+            if (*v19 != v14)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v12);
             }
 
-            [v12 addObject:{*(*(&v20 + 1) + 8 * v16++), v20}];
+            [v11 addObject:{*(*(&v18 + 1) + 8 * v15++), v18}];
           }
 
-          while (v14 != v16);
-          v14 = [v13 countByEnumeratingWithState:&v20 objects:v34 count:16];
+          while (v13 != v15);
+          v13 = [v12 countByEnumeratingWithState:&v18 objects:v32 count:16];
         }
 
-        while (v14);
+        while (v13);
       }
 
-      if ([v12 count])
+      if ([v11 count])
       {
         (*(*(a1 + 40) + 16))();
       }
 
       else
       {
-        v32 = *MEMORY[0x277CCA450];
-        v33 = @"No shards in the unzipped megashard";
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-        v18 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v17];
+        v30 = *MEMORY[0x277CCA450];
+        v31 = @"No shards in the unzipped megashard";
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+        v17 = [BCSError errorWithDomain:@"com.apple.businessservices" code:42 userInfo:v16];
 
         (*(*(a1 + 40) + 16))();
       }
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v24, 8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)extractShardsURLsFromFilterShardURL:(id)l domainShardURL:(id)rL completion:(id)completion

@@ -2,6 +2,7 @@
 - (_TtC13transparencyd16KTOptIOValidator)init;
 - (_TtC13transparencyd16KTOptIOValidator)initWithOptInRecords:(id)records uriToSMT:(id)t;
 - (id)urisNeedOptInApplication:(id)application error:(id *)error;
+- (void)setIntendedStateWithState:(BOOL)state;
 @end
 
 @implementation KTOptIOValidator
@@ -21,6 +22,14 @@
   v9.receiver = self;
   v9.super_class = type metadata accessor for KTOptIOValidator();
   return [(KTOptIOValidator *)&v9 init];
+}
+
+- (void)setIntendedStateWithState:(BOOL)state
+{
+  stateCopy = state;
+  v4 = *((swift_isaMask & self->super.isa) + 0x88);
+  selfCopy = self;
+  v4(stateCopy);
 }
 
 - (id)urisNeedOptInApplication:(id)application error:(id *)error

@@ -275,16 +275,14 @@ LABEL_13:
 
 void __33__CHSDynamicColor_initWithCoder___block_invoke()
 {
-  v3[4] = *MEMORY[0x1E69E9840];
-  v3[0] = @"P_LightSRGB";
-  v3[1] = @"P_DarkSRGB";
-  v3[2] = @"P_LightP3";
-  v3[3] = @"P_DarkP3";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x1E69E9840];
+  v2[0] = @"P_LightSRGB";
+  v2[1] = @"P_DarkSRGB";
+  v2[2] = @"P_LightP3";
+  v2[3] = @"P_DarkP3";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:4];
   v1 = initWithCoder__keys;
   initWithCoder__keys = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __33__CHSDynamicColor_initWithCoder___block_invoke_2(uint64_t a1, void *a2)

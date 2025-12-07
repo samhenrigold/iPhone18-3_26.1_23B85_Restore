@@ -83,7 +83,7 @@
       }
     }
 
-    [(PXPhotoKitAssetCollectionActionManager *)self _setActivePerformer:0, *v13];
+    [(PXPhotoKitAssetCollectionActionManager *)self _setActivePerformer:0, *v13, *&v13[8]];
   }
 }
 

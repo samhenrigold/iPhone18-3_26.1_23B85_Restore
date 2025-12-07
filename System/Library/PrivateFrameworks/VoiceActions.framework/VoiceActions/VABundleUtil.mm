@@ -8,30 +8,32 @@
 
 + (id)bundePathFallbackWithResource:(id)resource type:(id)type
 {
-  sub_27237782C();
-  sub_27237782C();
-  sub_272255F24();
-  if (v4)
+  v4 = sub_27237782C();
+  v6 = v5;
+  v7 = sub_27237782C();
+  v9 = v8;
+  sub_272255F24(v4, v6, v7, v8);
+  if (v10)
   {
 
 LABEL_4:
-    v7 = sub_2723777FC();
+    v13 = sub_2723777FC();
 
     goto LABEL_5;
   }
 
-  sub_272256018();
-  v6 = v5;
+  sub_272256018(v4, v6, v7, v9);
+  v12 = v11;
 
-  if (v6)
+  if (v12)
   {
     goto LABEL_4;
   }
 
-  v7 = 0;
+  v13 = 0;
 LABEL_5:
 
-  return v7;
+  return v13;
 }
 
 + (id)bundlePathFallbackWithPath:(id)path error:(id *)error

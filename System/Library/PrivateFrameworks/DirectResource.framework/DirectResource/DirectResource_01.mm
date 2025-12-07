@@ -1,240 +1,18 @@
-void re::DirectResourceContext::DirectResourceContext(uint64_t a1, __int128 *a2)
+uint64_t re::DirectResourceContext::addExistingResource(uint64_t a1, const unsigned __int8 **a2)
 {
-  ArcSharedObject::ArcSharedObject(a1, 0);
-  *v4 = &unk_285BC17C8;
-  *(v4 + 16) = &unk_285BC1860;
-  v5 = *a2;
-  v6 = a2[1];
-  *(v4 + 56) = *(a2 + 4);
-  *(v4 + 40) = v6;
-  *(v4 + 24) = v5;
-  *(a1 + 64) = *(a2 + 5);
-  *(a1 + 72) = 0;
-  *(a1 + 76) = 1;
-  *(a1 + 120) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 88) = 0;
-  *(a1 + 152) = 0;
-  *(a1 + 160) = 1;
-  *(a1 + 224) = 0;
-  *(a1 + 232) = 0;
-  *(a1 + 216) = 0;
-  *(a1 + 168) = 0u;
-  *(a1 + 184) = 0u;
-  *(a1 + 196) = 0u;
-  operator new();
-}
-
-void re::DirectResourceContext::~DirectResourceContext(re::DirectResourceContext *this)
-{
-  for (i = *(this + 34); i; i = *i)
-  {
-    WeakRetained = objc_loadWeakRetained(i + 4);
-    if (WeakRetained)
-    {
-      v4 = WeakRetained;
-      re::DirectResource::setDelegate(WeakRetained - 8, 0);
-    }
-  }
-
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>>>::clear(this + 256);
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::clear(this + 296);
-  v5 = *(this + 30);
-  if (v5)
-  {
-    re::DirectResourcesReusePool::~DirectResourcesReusePool(v5);
-    MEMORY[0x24C1E9EB0]();
-  }
-
-  *(this + 30) = 0;
-  v6 = *(this + 11);
-  if (v6)
-  {
-    _Block_release(v6);
-    *(this + 11) = 0;
-  }
-
-  dispatch_queue_set_specific(*(this + 3), this, 0, 0);
-  dispatch_release(*(this + 3));
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table(this + 296);
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>>>::~__hash_table(this + 256);
-  __ulock_wake();
-  v11 = (this + 216);
-  std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v11);
-  v11 = (this + 184);
-  std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v11);
-  v7 = *(this + 22);
-  if (v7)
-  {
-
-    *(this + 22) = 0;
-  }
-
-  v8 = *(this + 21);
-  if (v8)
-  {
-
-    *(this + 21) = 0;
-  }
-
-  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::~__value_func[abi:nn200100](this + 128);
-  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::~__value_func[abi:nn200100](this + 96);
-  v9 = *(this + 10);
-  if (v9)
-  {
-
-    *(this + 10) = 0;
-  }
-
-  v10 = *(this + 8);
-  if (v10)
-  {
-
-    *(this + 8) = 0;
-  }
-
-  ArcSharedObject::~ArcSharedObject(this);
-}
-
-{
-  re::DirectResourceContext::~DirectResourceContext(this);
-
-  JUMPOUT(0x24C1E9EB0);
-}
-
-void non-virtual thunk tore::DirectResourceContext::~DirectResourceContext(re::DirectResourceContext *this)
-{
-  re::DirectResourceContext::~DirectResourceContext((this - 16));
-}
-
-{
-  re::DirectResourceContext::~DirectResourceContext((this - 16));
-
-  JUMPOUT(0x24C1E9EB0);
-}
-
-void re::DirectResourceContext::createMesh(uint64_t a1@<X0>, uint64_t a2@<X1>, char **a3@<X8>)
-{
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 24));
-  v6 = *(a1 + 32) != 2;
-  v9 = *(a1 + 64);
-  v10 = v6;
-  re::DirectMesh::create(a2, &v9, a3);
-  v7 = *a3;
-  if (*a3)
+  if (!*(*a2 + 5))
   {
-    v9 = *a3;
-    v8 = v7 + 8;
-    re::DirectResourceContext::addResource(a1, &v9);
-  }
-}
-
-void re::DirectResourceContext::addResource(uint64_t a1, uint64_t *a2)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  dispatch_assert_queue_V2(*(a1 + 24));
-  re::DirectResource::setDelegate(*a2, a1 + 16);
-  v4 = *a2;
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::ArcWeakPtr<re::DirectResource>>>>::__emplace_unique_impl<unsigned char const(&)[16],re::SharedPtr<re::DirectResource> const&>();
-}
-
-void re::DirectResourceContext::createTexture(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  dispatch_assert_queue_V2(*(a1 + 24));
-  v6 = *(a1 + 32) != 2;
-  v9 = *(a1 + 64);
-  v10 = v6;
-  re::DirectTexture::create(a2, &v9, a3);
-  v7 = *a3;
-  if (*a3)
-  {
-    v9 = *a3;
-    v8 = (v7 + 8);
-    re::DirectResourceContext::addResource(a1, &v9);
-  }
-}
-
-void re::DirectResourceContext::createBuffer(uint64_t a1@<X0>, void *a2@<X1>, char **a3@<X8>)
-{
-  dispatch_assert_queue_V2(*(a1 + 24));
-  v6 = *(a1 + 32) != 2;
-  v9 = *(a1 + 64);
-  v10 = v6;
-  re::DirectBuffer::create(a2, &v9, a3);
-  v7 = *a3;
-  if (*a3)
-  {
-    v9 = *a3;
-    v8 = v7 + 8;
-    re::DirectResourceContext::addResource(a1, &v9);
-  }
-}
-
-uint64_t re::DirectResourceContext::createMaterial@<X0>(uint64_t a1@<X0>, unint64_t *a2@<X1>, uint64_t *a3@<X8>)
-{
-  dispatch_assert_queue_V2(*(a1 + 24));
-  v6 = *(a1 + 32) != 2;
-  v10 = *(a1 + 64);
-  v11 = v6;
-  result = re::DirectMaterialParameters::create(a2, a3);
-  v8 = *a3;
-  if (*a3)
-  {
-    v10 = *a3;
-    v9 = (v8 + 8);
-    re::DirectResourceContext::addResource(a1, &v10);
-  }
-
-  return result;
-}
-
-void re::DirectResourceContext::reusePayload(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, int a5@<W4>, uint64_t a6@<X5>, void *a7@<X8>)
-{
-  os_unfair_lock_lock((a1 + 208));
-  re::DirectResourcesReusePool::take(*(a1 + 240), a2, a3, a4, a5, a6, a7);
-
-  os_unfair_lock_unlock((a1 + 208));
-}
-
-void re::DirectResourceContext::addPayload(uint64_t a1, void *a2, uint64_t *a3)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  dispatch_assert_queue_V2(*(a1 + 24));
-  if (a2[4])
-  {
-    re::DirectResourceContext::addPayload();
-  }
-
-  (*(*a2 + 40))(a2);
-  v6 = *(*a3 + 100);
-  v7 = *(*a3 + 48);
-  kdebug_trace();
-  v8 = re::DirectResourceContext::ensureUncommitted(a1);
-  re::DirectResourcesPendingCommit::addPayload(v8, *a3);
-  std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMemoryResource>>::pair[abi:nn200100]<unsigned char const(&)[16],re::SharedPtr<re::DirectMemoryResource> const&,0>(v10, (*a3 + 16), a3);
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>((a1 + 296), v10);
-  if (v11)
-  {
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t re::DirectResourceContext::addExistingResource(uint64_t a1, uint64_t *a2)
-{
-  v12 = *MEMORY[0x277D85DE8];
-  dispatch_assert_queue_V2(*(a1 + 24));
-  if (!*(*a2 + 40))
-  {
-    uuid_copy(dst, (*a2 + 16));
-    if (!std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::find<re::DirectResourceId>((a1 + 256), dst) && !*(*a2 + 32) && (*(**a2 + 40))(*a2) == 2)
+    uuid_copy(dst, *a2 + 16);
+    if (!std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::find<re::DirectResourceId>((a1 + 256), dst) && !*(*a2 + 4) && (*(**a2 + 40))(*a2) == 2)
     {
       if (*(a1 + 32))
       {
         goto LABEL_9;
       }
 
-      v8 = 1;
+      v7 = 1;
       v4 = *a2;
       if (*a2)
       {
@@ -242,12 +20,12 @@ uint64_t re::DirectResourceContext::addExistingResource(uint64_t a1, uint64_t *a
       }
 
       *dst = &unk_285BC1A18;
-      *&dst[8] = &v8;
-      v10 = v4;
-      v11 = dst;
+      *&dst[8] = &v7;
+      v9 = v4;
+      v10 = dst;
       (*(*v4 + 64))(v4, dst);
       std::__function::__value_func<void ()(re::DirectResourceSlot)>::~__value_func[abi:nn200100](dst);
-      if (v8 == 1)
+      if (v7 == 1)
       {
 LABEL_9:
         re::DirectResourceContext::addResource(a1, a2);
@@ -255,14 +33,12 @@ LABEL_9:
     }
   }
 
-  result = 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t re::DirectResourceContext::removeResource(re::DirectResourceContext *this, re::DirectResource *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(this + 3));
   re::DirectResource::setDelegate(a2, 0);
   uuid_copy(dst, a2 + 16);
@@ -275,70 +51,62 @@ uint64_t re::DirectResourceContext::removeResource(re::DirectResourceContext *th
     re::DirectResourcesPendingCommit::destroyResource(v4, v5, *dst, *&dst[8]);
     *dst = &unk_285BC1AA8;
     *&dst[8] = this;
-    v13 = a2;
-    v14 = dst;
+    v12 = a2;
+    v13 = dst;
     (*(*a2 + 64))(a2, dst);
     std::__function::__value_func<void ()(re::DirectResourceSlot)>::~__value_func[abi:nn200100](dst);
     os_unfair_lock_lock(this + 52);
     v6 = *(this + 30);
-    uuid_copy(v11, a2 + 16);
-    re::DirectResourcesReusePool::purgePayloads(v6, *v11, *&v11[8], dst);
+    uuid_copy(v10, a2 + 16);
+    re::DirectResourcesReusePool::purgePayloads(v6, *v10, *&v10[8], dst);
     v7 = *dst;
     v8 = *&dst[8];
     while (v7 != v8)
     {
-      uuid_copy(v11, (*(v7 + 48) + 16));
-      re::DirectResourceContext::removePayload(this, v11);
+      uuid_copy(v10, (*(v7 + 48) + 16));
+      re::DirectResourceContext::removePayload(this, v10);
       v7 += 56;
     }
 
-    *v11 = dst;
-    std::vector<re::DirectResourcesReuseList::Entry>::__destroy_vector::operator()[abi:nn200100](v11);
+    *v10 = dst;
+    std::vector<re::DirectResourcesReuseList::Entry>::__destroy_vector::operator()[abi:nn200100](v10);
     os_unfair_lock_unlock(this + 52);
   }
 
   result = *(this + 11);
   if (result)
   {
-    result = (*(result + 16))(result, this, 2, a2);
+    return (*(result + 16))(result, this, 2, a2);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void re::DirectResourceContext::removePayload(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 24));
   v4 = std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>>>::find<re::DirectResourceId>((a1 + 296), a2);
   if (v4)
   {
     v5 = v4;
-    v6 = *(v4 + 4);
-    v7 = *(v6 + 100);
-    v8 = *(v6 + 96);
-    v9 = *(v6 + 48);
     kdebug_trace();
-    v10 = re::DirectResourceContext::ensureUncommitted(a1);
-    re::DirectResourcesPendingCommit::removePayload(v10, *a2, *(a2 + 8));
-    v11 = *MEMORY[0x277D85DE8];
+    v6 = re::DirectResourceContext::ensureUncommitted(a1);
+    re::DirectResourcesPendingCommit::removePayload(v6, *a2, *(a2 + 8));
 
     std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>>>::erase((a1 + 296), v5);
   }
 
   else
   {
-    v12 = re::directResourceLog(0);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v7 = re::directResourceLog(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      re::toString(a2, v14);
+      re::toString(a2, v8);
       *buf = 136315138;
-      v16 = v14;
-      _os_log_impl(&dword_248D48000, v12, OS_LOG_TYPE_DEFAULT, "Unable to find payload %s for removal", buf, 0xCu);
+      v10 = v8;
+      _os_log_impl(&dword_248D48000, v7, OS_LOG_TYPE_DEFAULT, "Unable to find payload %s for removal", buf, 0xCu);
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -445,7 +213,7 @@ uint64_t re::DirectResourceContext::payloadCanReplace(uint64_t a1, uint64_t a2)
 
 void re::DirectResourceContext::payloadWillReplace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 24));
   if (*(a1 + 40))
   {
@@ -461,13 +229,13 @@ void re::DirectResourceContext::payloadWillReplace(uint64_t a1, uint64_t a2, uin
         v14 = v13;
         uuid_copy(dst, (a2 + 16));
         v15 = (*(*a2 + 40))(a2);
-        v18 = v9;
+        v17 = v9;
         v16 = (v9 + 8);
-        re::DirectResourcesReuseList::add(v14, *dst, *&dst[8], v15, a3, a4, &v18);
-        if (v18)
+        re::DirectResourcesReuseList::add(v14, *dst, *&dst[8], v15, a3, a4, &v17);
+        if (v17)
         {
 
-          v18 = 0;
+          v17 = 0;
         }
       }
 
@@ -478,8 +246,6 @@ void re::DirectResourceContext::payloadWillReplace(uint64_t a1, uint64_t a2, uin
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t re::DirectResourceContext::payloadDidReplace(uint64_t a1, re::DirectResource *a2, uint64_t a3, uint64_t a4)
@@ -601,7 +367,7 @@ void ___ZN2re21DirectResourceContext25destroyPayloads_anyThreadENSt3__16vectorIN
   }
 }
 
-void *__copy_helper_block_8_32c50_ZTSN2re10ArcWeakPtrINS_21DirectResourceContextEEE40c63_ZTSNSt3__16vectorIN2re16DirectResourceIdENS_9allocatorIS2_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_8_32c50_ZTSN2re10ArcWeakPtrINS_21DirectResourceContextEEE40c63_ZTSNSt3__16vectorIN2re16DirectResourceIdENS_9allocatorIS2_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 32) = 0;
   v3 = a1 + 32;
@@ -638,105 +404,92 @@ void *re::DirectResourceContext::setObserver(uint64_t a1, void *aBlock)
 
 void *std::function<void ()(re::DirectResourceContext *,unsigned long long)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::__value_func[abi:nn200100](v5, a2);
-  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::swap[abi:nn200100](v5, a1);
-  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::~__value_func[abi:nn200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::__value_func[abi:nn200100](v4, a2);
+  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::swap[abi:nn200100](v4, a1);
+  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::~__value_func[abi:nn200100](v4);
   return a1;
 }
 
 void *std::function<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::__value_func[abi:nn200100](v5, a2);
-  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::swap[abi:nn200100](v5, a1);
-  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::~__value_func[abi:nn200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::__value_func[abi:nn200100](v4, a2);
+  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::swap[abi:nn200100](v4, a1);
+  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::~__value_func[abi:nn200100](v4);
   return a1;
 }
 
 void re::DirectResourceContext::commit(os_unfair_lock_s *this)
 {
   os_unfair_lock_lock(this + 18);
-  v2 = *&this[42]._os_unfair_lock_opaque;
-  if (v2)
+  if (*&this[42]._os_unfair_lock_opaque)
   {
-    v3 = 32;
-    if (!*(v2 + 16))
-    {
-      v3 = 24;
-    }
-
-    v4 = *(*(v2 + v3) + 16);
     kdebug_trace();
-    v5 = *&this[42]._os_unfair_lock_opaque;
+    v2 = *&this[42]._os_unfair_lock_opaque;
     *&this[42]._os_unfair_lock_opaque = 0;
-    re::DirectResourcesPendingCommit::scheduled(v5);
-    v6 = *&this[48]._os_unfair_lock_opaque;
-    v7 = *&this[50]._os_unfair_lock_opaque;
-    if (v6 >= v7)
+    re::DirectResourcesPendingCommit::scheduled(v2);
+    v3 = *&this[48]._os_unfair_lock_opaque;
+    v4 = *&this[50]._os_unfair_lock_opaque;
+    if (v3 >= v4)
     {
-      v9 = *&this[46]._os_unfair_lock_opaque;
-      v10 = v6 - v9;
-      v11 = v10 + 1;
-      if ((v10 + 1) >> 61)
+      v6 = *&this[46]._os_unfair_lock_opaque;
+      v7 = v3 - v6;
+      v8 = v7 + 1;
+      if ((v7 + 1) >> 61)
       {
         std::string::__throw_length_error[abi:nn200100]();
       }
 
-      v12 = v7 - v9;
-      if (v12 >> 2 > v11)
+      v9 = v4 - v6;
+      if (v9 >> 2 > v8)
       {
-        v11 = v12 >> 2;
+        v8 = v9 >> 2;
       }
 
-      v13 = v12 >= 0x7FFFFFFFFFFFFFF8;
-      v14 = 0x1FFFFFFFFFFFFFFFLL;
-      if (!v13)
+      v10 = v9 >= 0x7FFFFFFFFFFFFFF8;
+      v11 = 0x1FFFFFFFFFFFFFFFLL;
+      if (!v10)
       {
-        v14 = v11;
+        v11 = v8;
       }
 
-      v25[4] = this + 46;
-      if (v14)
+      v19[4] = this + 46;
+      if (v11)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>>(&this[46], v14);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>>(&this[46], v11);
       }
 
-      *(8 * v10) = v5;
-      v8 = 8 * v10 + 8;
-      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>,re::SharedPtr<re::DirectBuffer>*>(&this[46], v9, v6, 0);
-      v15 = *&this[46]._os_unfair_lock_opaque;
+      *(8 * v7) = v2;
+      v5 = 8 * v7 + 8;
+      std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>,re::SharedPtr<re::DirectBuffer>*>(&this[46], v6, v3, 0);
+      v12 = *&this[46]._os_unfair_lock_opaque;
       *&this[46]._os_unfair_lock_opaque = 0;
-      *&this[48]._os_unfair_lock_opaque = v8;
-      v16 = *&this[50]._os_unfair_lock_opaque;
+      *&this[48]._os_unfair_lock_opaque = v5;
+      v13 = *&this[50]._os_unfair_lock_opaque;
       *&this[50]._os_unfair_lock_opaque = 0;
-      v25[2] = v15;
-      v25[3] = v16;
-      v25[0] = v15;
-      v25[1] = v15;
-      std::__split_buffer<re::SharedPtr<re::DirectBuffer>>::~__split_buffer(v25);
+      v19[2] = v12;
+      v19[3] = v13;
+      v19[0] = v12;
+      v19[1] = v12;
+      std::__split_buffer<re::SharedPtr<re::DirectBuffer>>::~__split_buffer(v19);
     }
 
     else
     {
-      *v6 = v5;
-      v8 = (v6 + 1);
+      *v3 = v2;
+      v5 = (v3 + 1);
     }
 
-    *&this[48]._os_unfair_lock_opaque = v8;
+    *&this[48]._os_unfair_lock_opaque = v5;
   }
 
-  v17 = *&this[44]._os_unfair_lock_opaque;
-  if (v17)
+  if (*&this[44]._os_unfair_lock_opaque)
   {
-    v18 = v17[2];
-    v19 = (v17[5] - v17[4]) >> 3;
     kdebug_trace();
     re::DirectResourceContext::freeListAppend(this, &this[44]._os_unfair_lock_opaque);
-    v20 = *&this[44]._os_unfair_lock_opaque;
-    if (v20)
+    v14 = *&this[44]._os_unfair_lock_opaque;
+    if (v14)
     {
 
       *&this[44]._os_unfair_lock_opaque = 0;
@@ -744,25 +497,25 @@ void re::DirectResourceContext::commit(os_unfair_lock_s *this)
   }
 
   re::DirectResourceContext::sendIfReady(this);
-  v21 = *&this[10]._os_unfair_lock_opaque;
-  if (v21 == 2)
+  v15 = *&this[10]._os_unfair_lock_opaque;
+  if (v15 == 2)
   {
-    v24 = *&this[40]._os_unfair_lock_opaque;
-    v23 = v24 - 2;
-    if (v24 >= 2)
+    v18 = *&this[40]._os_unfair_lock_opaque;
+    v17 = v18 - 2;
+    if (v18 >= 2)
     {
-      goto LABEL_23;
+      goto LABEL_21;
     }
   }
 
-  else if (v21 == 1)
+  else if (v15 == 1)
   {
-    v22 = *&this[40]._os_unfair_lock_opaque;
-    if (v22)
+    v16 = *&this[40]._os_unfair_lock_opaque;
+    if (v16)
     {
-      v23 = v22 - 1;
-LABEL_23:
-      re::DirectResourceContext::freeListReady(this, v23);
+      v17 = v16 - 1;
+LABEL_21:
+      re::DirectResourceContext::freeListReady(this, v17);
     }
   }
 
@@ -876,7 +629,8 @@ void re::DirectResourcesCommitQueue::enumerate(uint64_t a1, uint64_t a2)
     v5 = 0;
     do
     {
-      if ((std::function<BOOL ()(re::DirectResourcesResolvedCommit const*)>::operator()(a2, *(v4 + 8 * v5)) & 1) == 0)
+      std::function<BOOL ()(re::DirectResourcesResolvedCommit const*)>::operator()(a2, *(v4 + 8 * v5));
+      if ((v6 & 1) == 0)
       {
         break;
       }
@@ -891,17 +645,20 @@ void re::DirectResourcesCommitQueue::enumerate(uint64_t a1, uint64_t a2)
   os_unfair_lock_unlock((a1 + 40));
 }
 
-uint64_t std::function<BOOL ()(re::DirectResourcesResolvedCommit const*)>::operator()(uint64_t a1, uint64_t a2)
+void std::function<BOOL ()(re::DirectResourcesResolvedCommit const*)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v5 = a2;
+  v6 = a2;
   v2 = *(a1 + 24);
   if (v2)
   {
-    return (*(*v2 + 48))(v2, &v5);
+    (*(*v2 + 48))(v2, &v6);
   }
 
-  v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return re::DirectResourcesCommitQueue::commitThrough(v4);
+  else
+  {
+    v3 = std::__throw_bad_function_call[abi:nn200100]();
+    re::DirectResourcesCommitQueue::commitThrough(v3, v4, v5);
+  }
 }
 
 void re::DirectResourcesCommitQueue::commitThrough(uint64_t a1, unint64_t a2, uint64_t a3)
@@ -1020,79 +777,76 @@ void std::function<void ()(re::DirectResourceEvent const&,unsigned long long)>::
   }
 }
 
-void re::DirectResourcesCommitQueue::enqueueCommit_threadSafe(uint64_t a1, uint64_t a2)
+void re::DirectResourcesCommitQueue::enqueueCommit_threadSafe(uint64_t a1, void *a2)
 {
   os_unfair_lock_lock((a1 + 40));
-  v4 = *(*a2 + 16);
-  v5 = *(*a2 + 24);
   kdebug_trace();
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 64);
-  if (v6 >= v7)
+  v4 = *(a1 + 56);
+  v5 = *(a1 + 64);
+  if (v4 >= v5)
   {
-    v9 = *(a1 + 48);
-    v10 = v6 - v9;
-    v11 = v10 + 1;
-    if ((v10 + 1) >> 61)
+    v7 = *(a1 + 48);
+    v8 = v4 - v7;
+    v9 = v8 + 1;
+    if ((v8 + 1) >> 61)
     {
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v12 = v7 - v9;
-    if (v12 >> 2 > v11)
+    v10 = v5 - v7;
+    if (v10 >> 2 > v9)
     {
-      v11 = v12 >> 2;
+      v9 = v10 >> 2;
     }
 
-    v13 = v12 >= 0x7FFFFFFFFFFFFFF8;
-    v14 = 0x1FFFFFFFFFFFFFFFLL;
-    if (!v13)
+    v11 = v10 >= 0x7FFFFFFFFFFFFFF8;
+    v12 = 0x1FFFFFFFFFFFFFFFLL;
+    if (!v11)
     {
-      v14 = v11;
+      v12 = v9;
     }
 
-    v17[4] = a1 + 48;
-    if (v14)
+    v15[4] = a1 + 48;
+    if (v12)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>>(a1 + 48, v14);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>>(a1 + 48, v12);
     }
 
-    *(8 * v10) = *a2;
-    v8 = 8 * v10 + 8;
+    *(8 * v8) = *a2;
+    v6 = 8 * v8 + 8;
     *a2 = 0;
-    std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>,re::SharedPtr<re::DirectBuffer>*>(a1 + 48, v9, v6, 0);
-    v15 = *(a1 + 48);
+    std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>,re::SharedPtr<re::DirectBuffer>*>(a1 + 48, v7, v4, 0);
+    v13 = *(a1 + 48);
     *(a1 + 48) = 0;
-    *(a1 + 56) = v8;
-    v16 = *(a1 + 64);
+    *(a1 + 56) = v6;
+    v14 = *(a1 + 64);
     *(a1 + 64) = 0;
-    v17[2] = v15;
-    v17[3] = v16;
-    v17[0] = v15;
-    v17[1] = v15;
-    std::__split_buffer<re::SharedPtr<re::DirectBuffer>>::~__split_buffer(v17);
+    v15[2] = v13;
+    v15[3] = v14;
+    v15[0] = v13;
+    v15[1] = v13;
+    std::__split_buffer<re::SharedPtr<re::DirectBuffer>>::~__split_buffer(v15);
   }
 
   else
   {
-    *v6 = *a2;
+    *v4 = *a2;
     *a2 = 0;
-    v8 = (v6 + 1);
+    v6 = (v4 + 1);
   }
 
-  *(a1 + 56) = v8;
+  *(a1 + 56) = v6;
   os_unfair_lock_unlock((a1 + 40));
 }
 
 void re::DirectResourcesCommitQueue::takeCommits_threadSafe(re::DirectResourcesCommitQueue *this, os_unfair_lock_s *a2)
 {
   std::lock[abi:nn200100]<re::UnfairLock,re::UnfairLock>(this + 10, a2 + 10);
-  v4 = *&a2[12]._os_unfair_lock_opaque;
-  v5 = *&a2[14]._os_unfair_lock_opaque;
-  v6 = *&a2[12]._os_unfair_lock_opaque;
-  if (v6 != v5)
+  v4 = *&a2[14]._os_unfair_lock_opaque;
+  v5 = *&a2[12]._os_unfair_lock_opaque;
+  if (v5 != v4)
   {
-    std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_with_size[abi:nn200100]<std::__wrap_iter<re::SharedPtr<re::DirectResourcesResolvedCommit>*>,std::__wrap_iter<re::SharedPtr<re::DirectResourcesResolvedCommit>*>>(this + 6, *(this + 7), v6, v5, v5 - v6);
+    std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_with_size[abi:nn200100]<std::__wrap_iter<re::SharedPtr<re::DirectResourcesResolvedCommit>*>,std::__wrap_iter<re::SharedPtr<re::DirectResourcesResolvedCommit>*>>(this + 6, *(this + 7), v5, v4, v4 - v5);
     *&a2[6]._os_unfair_lock_opaque = *(*(*&a2[14]._os_unfair_lock_opaque - 8) + 24);
     std::vector<re::SharedPtr<re::DirectBuffer>>::clear[abi:nn200100](&a2[12]._os_unfair_lock_opaque);
   }
@@ -1186,11 +940,11 @@ uint64_t re::DirectResourceClientReceiver::DirectResourceClientReceiver(uint64_t
 void re::DirectResourceClientReceiver::~DirectResourceClientReceiver(dispatch_object_t *this)
 {
   dispatch_release(this[3]);
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table((this + 25));
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table((this + 20));
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table((this + 15));
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table((this + 10));
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table((this + 5));
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table(this + 25);
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table(this + 20);
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table(this + 15);
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table(this + 10);
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table(this + 5);
   v2 = this[4];
   if (v2)
   {
@@ -1207,35 +961,35 @@ void re::DirectResourceClientReceiver::~DirectResourceClientReceiver(dispatch_ob
   JUMPOUT(0x24C1E9EB0);
 }
 
-void re::DirectResourceClientReceiver::destroyAll(re::DirectResourceClientReceiver *this@<X0>, ArcSharedObject **a2@<X8>)
+void re::DirectResourceClientReceiver::destroyAll(dispatch_queue_t *this@<X0>, ArcSharedObject **a2@<X8>)
 {
-  dispatch_assert_queue_V2(*(this + 3));
+  dispatch_assert_queue_V2(this[3]);
   v7 = -1;
   re::make::shared::object<re::DirectResourcesResolvedCommit,unsigned long long const&,unsigned long long>(this + 2, &v7, a2);
-  for (i = *(this + 7); i; i = *i)
+  for (i = this[7]; i; i = i->isa)
   {
-    std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](*a2 + 96, i + 4);
+    std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](*a2 + 12, &i[4]);
   }
 
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::clear(this + 40);
-  for (j = *(this + 12); j; j = *j)
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::clear((this + 5));
+  for (j = this[12]; j; j = j->isa)
   {
-    std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](*a2 + 168, j + 4);
+    std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](*a2 + 21, &j[4]);
   }
 
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::clear(this + 80);
-  for (k = *(this + 17); k; k = *k)
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::clear((this + 10));
+  for (k = this[17]; k; k = k->isa)
   {
-    std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](*a2 + 240, k + 4);
+    std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](*a2 + 30, &k[4]);
   }
 
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::clear(this + 120);
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::clear((this + 15));
 }
 
-uint64_t *std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](uint64_t *a1, uint64_t *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<re::SharedPtr<re::DirectMesh>>::__emplace_back_slow_path<re::SharedPtr<re::DirectMesh> const&>(a1, a2);
   }
@@ -1252,25 +1006,25 @@ uint64_t *std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](ui
     result = v3 + 1;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
 void re::DirectResourceClientReceiver::resolvePayloadChanges(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   for (i = *(a2 + 16); i; i = *i)
   {
-    v9 = *(i + 1);
+    v8 = *(i + 1);
     v5 = i[4];
-    v10 = v5;
+    v9 = v5;
     if (v5)
     {
       v6 = (v5 + 8);
     }
 
-    std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>((a1 + 200), &v9);
-    if (v10)
+    std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>((a1 + 200), &v8, &v8);
+    if (v9)
     {
     }
   }
@@ -1279,36 +1033,31 @@ void re::DirectResourceClientReceiver::resolvePayloadChanges(uint64_t a1, uint64
   {
     std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>>>::__erase_unique<re::DirectResourceId>((a1 + 200), j + 16);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t re::DirectResourceClientReceiver::receiveCommit(re::DirectResourceClientReceiver *this, void *a2, re::DirectResourcesCommitQueue *a3)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  if (re::xpc_get_value(a2, &v7))
+  v7[4] = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  if (re::xpc_get_value(a2, &v6))
   {
-    v8[0] = &unk_285BC1AF0;
-    v8[1] = this;
-    v8[3] = v8;
-    re::load(v7, v8, &v6);
+    v7[0] = &unk_285BC1AF0;
+    v7[1] = this;
+    v7[3] = v7;
+    re::load(v6, v7, &v5);
   }
 
-  if (v7)
+  if (v6)
   {
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t re::DirectResourceClientReceiver::validateAndResolve@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, ArcSharedObject **a3@<X8>)
+uint64_t re::DirectResourceClientReceiver::validateAndResolve@<X0>(uint64_t a1@<X0>, void *a2@<X1>, ArcSharedObject **a3@<X8>)
 {
   dispatch_assert_queue_V2(*(a1 + 24));
-  v7 = (a1 + 16);
-  v6 = *(a1 + 16);
-  v8 = *(*a2 + 16);
+  v6 = (a1 + 16);
   kdebug_trace();
   if (re::DirectResourceClientReceiver::isValid(a1, a2))
   {
@@ -1316,86 +1065,84 @@ uint64_t re::DirectResourceClientReceiver::validateAndResolve@<X0>(uint64_t a1@<
     re::make::shared::object<re::DirectResourcesResolvedCommit,unsigned long long const&,unsigned long long>((a1 + 16), (*a2 + 16), a3);
     re::DirectResourceEvent::operator=(*a3 + 5, (*a2 + 32));
     re::XPCObject::setValue(*a3 + 4, *(*a2 + 24));
-    re::DirectResourceClientReceiver::resolve<re::DirectMesh,re::DirectMeshUpdate>(a1, (*a2 + 40), (a1 + 40), &v17);
-    v9 = *a3;
+    re::DirectResourceClientReceiver::resolve<re::DirectMesh,re::DirectMeshUpdate>(a1, (*a2 + 40), (a1 + 40), &v13);
+    v7 = *a3;
     std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(*a3 + 6);
-    *(v9 + 3) = v17;
-    *(v9 + 8) = v18;
+    *(v7 + 3) = v13;
+    *(v7 + 8) = v14;
+    v14 = 0;
+    v13 = 0uLL;
+    std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::__vdeallocate(v7 + 9);
+    *(v7 + 72) = v15;
+    *(v7 + 11) = v16;
+    v16 = 0;
+    v15 = 0uLL;
+    std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(v7 + 12);
+    *(v7 + 6) = v17;
+    *(v7 + 14) = v18;
     v18 = 0;
     v17 = 0uLL;
-    std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::__vdeallocate(v9 + 9);
-    *(v9 + 72) = v19;
-    *(v9 + 11) = v20;
-    v20 = 0;
-    v19 = 0uLL;
-    std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(v9 + 12);
-    *(v9 + 6) = v21;
-    *(v9 + 14) = v22;
-    v22 = 0;
-    v21 = 0uLL;
-    v23 = &v21;
-    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v23);
-    v23 = &v19;
-    std::vector<std::pair<re::SharedPtr<re::DirectBuffer>,re::SharedPtr<re::DirectBufferUpdate>>>::__destroy_vector::operator()[abi:nn200100](&v23);
-    v23 = &v17;
-    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v23);
-    re::DirectResourceClientReceiver::resolve<re::DirectBuffer,re::DirectBufferUpdate>(a1, (*a2 + 280), (a1 + 120), &v17);
-    v10 = *a3;
+    v19 = &v17;
+    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = &v15;
+    std::vector<std::pair<re::SharedPtr<re::DirectBuffer>,re::SharedPtr<re::DirectBufferUpdate>>>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = &v13;
+    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v19);
+    re::DirectResourceClientReceiver::resolve<re::DirectBuffer,re::DirectBufferUpdate>(a1, (*a2 + 280), (a1 + 120), &v13);
+    v8 = *a3;
     std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(*a3 + 24);
-    *(v10 + 12) = v17;
-    *(v10 + 26) = v18;
+    *(v8 + 12) = v13;
+    *(v8 + 26) = v14;
+    v14 = 0;
+    v13 = 0uLL;
+    std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::__vdeallocate(v8 + 27);
+    *(v8 + 216) = v15;
+    *(v8 + 29) = v16;
+    v16 = 0;
+    v15 = 0uLL;
+    std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(v8 + 30);
+    *(v8 + 15) = v17;
+    *(v8 + 32) = v18;
     v18 = 0;
     v17 = 0uLL;
-    std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::__vdeallocate(v10 + 27);
-    *(v10 + 216) = v19;
-    *(v10 + 29) = v20;
-    v20 = 0;
-    v19 = 0uLL;
-    std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(v10 + 30);
-    *(v10 + 15) = v21;
-    *(v10 + 32) = v22;
-    v22 = 0;
-    v21 = 0uLL;
-    v23 = &v21;
-    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v23);
-    v23 = &v19;
-    std::vector<std::pair<re::SharedPtr<re::DirectBuffer>,re::SharedPtr<re::DirectBufferUpdate>>>::__destroy_vector::operator()[abi:nn200100](&v23);
-    v23 = &v17;
-    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v23);
-    re::DirectResourceClientReceiver::resolve<re::DirectTexture,re::DirectTextureUpdate>(a1, (*a2 + 160), (a1 + 80), &v17);
-    v11 = *a3;
-    std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(v11 + 15);
-    *(v11 + 120) = v17;
-    *(v11 + 17) = v18;
+    v19 = &v17;
+    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = &v15;
+    std::vector<std::pair<re::SharedPtr<re::DirectBuffer>,re::SharedPtr<re::DirectBufferUpdate>>>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = &v13;
+    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v19);
+    re::DirectResourceClientReceiver::resolve<re::DirectTexture,re::DirectTextureUpdate>(a1, (*a2 + 160), (a1 + 80), &v13);
+    v9 = *a3;
+    std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(v9 + 15);
+    *(v9 + 120) = v13;
+    *(v9 + 17) = v14;
+    v14 = 0;
+    v13 = 0uLL;
+    std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::__vdeallocate(v9 + 18);
+    *(v9 + 9) = v15;
+    *(v9 + 20) = v16;
+    v16 = 0;
+    v15 = 0uLL;
+    std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(v9 + 21);
+    *(v9 + 168) = v17;
+    *(v9 + 23) = v18;
     v18 = 0;
     v17 = 0uLL;
-    std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::__vdeallocate(v11 + 18);
-    *(v11 + 9) = v19;
-    *(v11 + 20) = v20;
-    v20 = 0;
-    v19 = 0uLL;
-    std::vector<re::SharedPtr<re::DirectMesh>>::__vdeallocate(v11 + 21);
-    *(v11 + 168) = v21;
-    *(v11 + 23) = v22;
-    v22 = 0;
-    v21 = 0uLL;
-    v23 = &v21;
-    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v23);
-    v23 = &v19;
-    std::vector<std::pair<re::SharedPtr<re::DirectBuffer>,re::SharedPtr<re::DirectBufferUpdate>>>::__destroy_vector::operator()[abi:nn200100](&v23);
-    v23 = &v17;
-    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v23);
+    v19 = &v17;
+    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = &v15;
+    std::vector<std::pair<re::SharedPtr<re::DirectBuffer>,re::SharedPtr<re::DirectBufferUpdate>>>::__destroy_vector::operator()[abi:nn200100](&v19);
+    v19 = &v13;
+    std::vector<re::SharedPtr<re::DirectBuffer>>::__destroy_vector::operator()[abi:nn200100](&v19);
   }
 
   else
   {
-    v12 = *v7;
-    v13 = *(*a2 + 16);
-    v14 = kdebug_trace();
-    v15 = re::directResourceLog(v14);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v10 = kdebug_trace();
+    v11 = re::directResourceLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      re::DirectResourceClientReceiver::validateAndResolve(v7, v15);
+      re::DirectResourceClientReceiver::validateAndResolve(v6, v11);
     }
 
     *a3 = 0;
@@ -1404,7 +1151,7 @@ uint64_t re::DirectResourceClientReceiver::validateAndResolve@<X0>(uint64_t a1@<
   return kdebug_trace();
 }
 
-uint64_t re::DirectResourceClientReceiver::isValid(void *a1, uint64_t a2)
+uint64_t re::DirectResourceClientReceiver::isValid(void *a1, void *a2)
 {
   if (!re::DirectResourceClientReceiver::isValid<re::DirectMesh,re::DirectMeshUpdate>(a1, (*a2 + 40), a1 + 5) || !re::DirectResourceClientReceiver::isValid<re::DirectMesh,re::DirectMeshUpdate>(a1, (*a2 + 160), a1 + 10))
   {
@@ -1416,9 +1163,9 @@ uint64_t re::DirectResourceClientReceiver::isValid(void *a1, uint64_t a2)
   return re::DirectResourceClientReceiver::isValid<re::DirectMesh,re::DirectMeshUpdate>(a1, v4, a1 + 15);
 }
 
-void re::DirectResourceClientReceiver::resolve<re::DirectMesh,re::DirectMeshUpdate>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+void re::DirectResourceClientReceiver::resolve<re::DirectMesh,re::DirectMeshUpdate>(uint64_t a1@<X0>, void *a2@<X1>, float *a3@<X2>, uint64_t a4@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *(a4 + 64) = 0;
   *(a4 + 16) = 0u;
   *(a4 + 32) = 0u;
@@ -1432,16 +1179,16 @@ void re::DirectResourceClientReceiver::resolve<re::DirectMesh,re::DirectMeshUpda
     v9 = i[4];
     *(v9 + 32) = *(a1 + 16);
     re::DirectMesh::attachToDevice(v9, *(a1 + 32));
-    v19 = *(i + 1);
+    v18 = *(i + 1);
     v10 = i[4];
-    v20 = v10;
+    v19 = v10;
     if (v10)
     {
       v11 = (v10 + 8);
     }
 
-    std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>(a3, &v19);
-    if (v20)
+    std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>(a3, &v18, &v18);
+    if (v19)
     {
     }
 
@@ -1455,15 +1202,15 @@ void re::DirectResourceClientReceiver::resolve<re::DirectMesh,re::DirectMeshUpda
     {
       v14 = v13;
       (*(*j[4] + 80))(j[4], *(v13 + 4), *(a1 + 32));
-      std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>::pair[abi:nn200100]<re::SharedPtr<re::DirectMesh>&,re::SharedPtr<re::DirectMeshUpdate> const&,0>(&v19, v14 + 4, j + 4);
-      std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::push_back[abi:nn200100]((a4 + 24), &v19);
-      if (*(&v19 + 1))
+      std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>::pair[abi:nn200100]<re::SharedPtr<re::DirectMesh>&,re::SharedPtr<re::DirectMeshUpdate> const&,0>(&v18, v14 + 4, j + 4);
+      std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::push_back[abi:nn200100]((a4 + 24), &v18);
+      if (*(&v18 + 1))
       {
 
-        *(&v19 + 1) = 0;
+        *(&v18 + 1) = 0;
       }
 
-      if (v19)
+      if (v18)
       {
       }
     }
@@ -1475,17 +1222,15 @@ void re::DirectResourceClientReceiver::resolve<re::DirectMesh,re::DirectMeshUpda
     if (v16)
     {
       v17 = v16;
-      std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](a4 + 48, v16 + 4);
+      std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100]((a4 + 48), v16 + 4);
       std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>>>::erase(a3, v17);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-void re::DirectResourceClientReceiver::resolve<re::DirectBuffer,re::DirectBufferUpdate>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+void re::DirectResourceClientReceiver::resolve<re::DirectBuffer,re::DirectBufferUpdate>(uint64_t a1@<X0>, void *a2@<X1>, float *a3@<X2>, uint64_t a4@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *(a4 + 64) = 0;
   *(a4 + 16) = 0u;
   *(a4 + 32) = 0u;
@@ -1499,16 +1244,16 @@ void re::DirectResourceClientReceiver::resolve<re::DirectBuffer,re::DirectBuffer
     v9 = i[4];
     *(v9 + 32) = *(a1 + 16);
     re::DirectBuffer::attachToDevice(v9, *(a1 + 32));
-    v19 = *(i + 1);
+    v18 = *(i + 1);
     v10 = i[4];
-    v20 = v10;
+    v19 = v10;
     if (v10)
     {
       v11 = (v10 + 8);
     }
 
-    std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>(a3, &v19);
-    if (v20)
+    std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>(a3, &v18, &v18);
+    if (v19)
     {
     }
 
@@ -1522,15 +1267,15 @@ void re::DirectResourceClientReceiver::resolve<re::DirectBuffer,re::DirectBuffer
     {
       v14 = v13;
       (*(*j[4] + 80))(j[4], *(v13 + 4), *(a1 + 32));
-      std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>::pair[abi:nn200100]<re::SharedPtr<re::DirectMesh>&,re::SharedPtr<re::DirectMeshUpdate> const&,0>(&v19, v14 + 4, j + 4);
-      std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::push_back[abi:nn200100]((a4 + 24), &v19);
-      if (*(&v19 + 1))
+      std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>::pair[abi:nn200100]<re::SharedPtr<re::DirectMesh>&,re::SharedPtr<re::DirectMeshUpdate> const&,0>(&v18, v14 + 4, j + 4);
+      std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::push_back[abi:nn200100]((a4 + 24), &v18);
+      if (*(&v18 + 1))
       {
 
-        *(&v19 + 1) = 0;
+        *(&v18 + 1) = 0;
       }
 
-      if (v19)
+      if (v18)
       {
       }
     }
@@ -1542,17 +1287,15 @@ void re::DirectResourceClientReceiver::resolve<re::DirectBuffer,re::DirectBuffer
     if (v16)
     {
       v17 = v16;
-      std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](a4 + 48, v16 + 4);
+      std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100]((a4 + 48), v16 + 4);
       std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>>>::erase(a3, v17);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-void re::DirectResourceClientReceiver::resolve<re::DirectTexture,re::DirectTextureUpdate>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
+void re::DirectResourceClientReceiver::resolve<re::DirectTexture,re::DirectTextureUpdate>(uint64_t a1@<X0>, void *a2@<X1>, float *a3@<X2>, uint64_t a4@<X8>)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *(a4 + 64) = 0;
   *(a4 + 16) = 0u;
   *(a4 + 32) = 0u;
@@ -1566,16 +1309,16 @@ void re::DirectResourceClientReceiver::resolve<re::DirectTexture,re::DirectTextu
     v9 = i[4];
     *(v9 + 32) = *(a1 + 16);
     re::DirectTexture::attachToDevice(v9, *(a1 + 32));
-    v19 = *(i + 1);
+    v18 = *(i + 1);
     v10 = i[4];
-    v20 = v10;
+    v19 = v10;
     if (v10)
     {
       v11 = (v10 + 8);
     }
 
-    std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>(a3, &v19);
-    if (v20)
+    std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>(a3, &v18, &v18);
+    if (v19)
     {
     }
 
@@ -1589,15 +1332,15 @@ void re::DirectResourceClientReceiver::resolve<re::DirectTexture,re::DirectTextu
     {
       v14 = v13;
       (*(*j[4] + 80))(j[4], *(v13 + 4), *(a1 + 32));
-      std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>::pair[abi:nn200100]<re::SharedPtr<re::DirectMesh>&,re::SharedPtr<re::DirectMeshUpdate> const&,0>(&v19, v14 + 4, j + 4);
-      std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::push_back[abi:nn200100]((a4 + 24), &v19);
-      if (*(&v19 + 1))
+      std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>::pair[abi:nn200100]<re::SharedPtr<re::DirectMesh>&,re::SharedPtr<re::DirectMeshUpdate> const&,0>(&v18, v14 + 4, j + 4);
+      std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::push_back[abi:nn200100]((a4 + 24), &v18);
+      if (*(&v18 + 1))
       {
 
-        *(&v19 + 1) = 0;
+        *(&v18 + 1) = 0;
       }
 
-      if (v19)
+      if (v18)
       {
       }
     }
@@ -1609,17 +1352,15 @@ void re::DirectResourceClientReceiver::resolve<re::DirectTexture,re::DirectTextu
     if (v16)
     {
       v17 = v16;
-      std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100](a4 + 48, v16 + 4);
+      std::vector<re::SharedPtr<re::DirectMesh>>::push_back[abi:nn200100]((a4 + 48), v16 + 4);
       std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>>>::erase(a3, v17);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t re::DirectResourceClientReceiver::isValid<re::DirectMesh,re::DirectMeshUpdate>(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 24));
   v5 = a2[2];
   if (v5)
@@ -1628,7 +1369,7 @@ uint64_t re::DirectResourceClientReceiver::isValid<re::DirectMesh,re::DirectMesh
     {
       *uu2 = *(v5 + 1);
       v6 = v5[4];
-      v26 = v6;
+      v25 = v6;
       if (v6)
       {
         v7 = (v6 + 8);
@@ -1640,7 +1381,7 @@ uint64_t re::DirectResourceClientReceiver::isValid<re::DirectMesh,re::DirectMesh
         break;
       }
 
-      if (v26)
+      if (v25)
       {
       }
 
@@ -1668,25 +1409,25 @@ LABEL_8:
       {
         *uu2 = *(v9 + 1);
         v10 = v9[4];
-        v26 = v10;
+        v25 = v10;
         if (v10)
         {
           v11 = (v10 + 8);
         }
 
-        v24 = 0;
+        v23 = 0;
         v12 = std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::find<re::DirectResourceId>(a3, uu2);
         if (v12 || (v12 = std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::find<re::DirectResourceId>(a2, uu2)) != 0)
         {
-          re::SharedPtr<re::DirectBuffer>::reset(&v24, v12[4]);
+          re::SharedPtr<re::DirectBuffer>::reset(&v23, v12[4]);
         }
 
-        if (!v24)
+        if (!v23)
         {
           break;
         }
 
-        v13 = (*(*v26 + 72))(v26);
+        v13 = (*(*v25 + 72))(v25);
         if ((v13 & 1) == 0)
         {
           v21 = re::directResourceLog(v13);
@@ -1698,11 +1439,11 @@ LABEL_8:
           goto LABEL_40;
         }
 
-        if (v24)
+        if (v23)
         {
         }
 
-        if (v26)
+        if (v25)
         {
         }
 
@@ -1726,41 +1467,39 @@ LABEL_21:
       v14 = a2[12];
       if (!v14)
       {
-LABEL_31:
-        result = 1;
-        goto LABEL_45;
+        return 1;
       }
 
       while (1)
       {
         *uu2 = *(v14 + 1);
         v15 = v14[4];
-        v26 = v15;
+        v25 = v15;
         if (v15)
         {
           v16 = (v15 + 8);
         }
 
-        v24 = 0;
+        v23 = 0;
         v17 = std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::find<re::DirectResourceId>(a3, uu2);
         if (v17 || (v17 = std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::find<re::DirectResourceId>(a2, uu2)) != 0)
         {
-          re::SharedPtr<re::DirectBuffer>::reset(&v24, v17[4]);
+          re::SharedPtr<re::DirectBuffer>::reset(&v23, v17[4]);
         }
 
-        if (!v24)
+        if (!v23)
         {
           break;
         }
 
-        if (v26)
+        if (v25)
         {
         }
 
         v14 = *v14;
         if (!v14)
         {
-          goto LABEL_31;
+          return 1;
         }
       }
 
@@ -1772,19 +1511,16 @@ LABEL_31:
     }
 
 LABEL_40:
-    if (v24)
+    if (v23)
     {
     }
   }
 
-  if (v26)
+  if (v25)
   {
   }
 
-  result = 0;
-LABEL_45:
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void std::vector<std::pair<re::SharedPtr<re::DirectBuffer>,re::SharedPtr<re::DirectBufferUpdate>>>::__destroy_vector::operator()[abi:nn200100](void ***a1)
@@ -1881,9 +1617,9 @@ void std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::Direc
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -2002,34 +1738,34 @@ const unsigned __int8 *std::__hash_table<std::__hash_value_type<re::DirectResour
   return i;
 }
 
-const unsigned __int8 *std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>(void *a1, unsigned __int8 *uu2)
+const unsigned __int8 *std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,re::SharedPtr<re::DirectMesh>>>(float *a1, unsigned __int8 *uu2, uint64_t a3)
 {
-  v2 = (*(uu2 + 1) + (*uu2 << 6) + (*uu2 >> 2) - 0x61C8864680B583E9) ^ *uu2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = (*(uu2 + 1) + (*uu2 << 6) + (*uu2 >> 2) - 0x61C8864680B583E9) ^ *uu2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v5 = vcnt_s8(v3);
-  v5.i16[0] = vaddlv_u8(v5);
-  v6 = v5.u32[0];
-  if (v5.u32[0] > 1uLL)
+  v6 = vcnt_s8(v4);
+  v6.i16[0] = vaddlv_u8(v6);
+  v7 = v6.u32[0];
+  if (v6.u32[0] > 1uLL)
   {
-    v7 = (*(uu2 + 1) + (*uu2 << 6) + (*uu2 >> 2) - 0x61C8864680B583E9) ^ *uu2;
-    if (v2 >= *&v3)
+    v8 = (*(uu2 + 1) + (*uu2 << 6) + (*uu2 >> 2) - 0x61C8864680B583E9) ^ *uu2;
+    if (v3 >= *&v4)
     {
-      v7 = v2 % *&v3;
+      v8 = v3 % *&v4;
     }
   }
 
   else
   {
-    v7 = v2 & (*&v3 - 1);
+    v8 = v3 & (*&v4 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -2037,47 +1773,47 @@ LABEL_18:
 
   while (1)
   {
-    v10 = *(v9 + 1);
-    if (v10 == v2)
+    v11 = *(v10 + 1);
+    if (v11 == v3)
     {
       break;
     }
 
-    if (v6 > 1)
+    if (v7 > 1)
     {
-      if (v10 >= *&v3)
+      if (v11 >= *&v4)
       {
-        v10 %= *&v3;
+        v11 %= *&v4;
       }
     }
 
     else
     {
-      v10 &= *&v3 - 1;
+      v11 &= *&v4 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (uuid_compare(v9 + 16, uu2))
+  if (uuid_compare(v10 + 16, uu2))
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2093,7 +1829,7 @@ void std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2101,7 +1837,7 @@ void std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2125,7 +1861,7 @@ void std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMesh>>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2170,7 +1906,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>>>::__erase_unique<re::DirectResourceId>(void *a1, unsigned __int8 *a2)
+unsigned __int8 *std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMeshUpdate>>>>::__erase_unique<re::DirectResourceId>(void *a1, unsigned __int8 *a2)
 {
   result = std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>>>::find<re::DirectResourceId>(a1, a2);
   if (result)
@@ -2938,7 +2674,7 @@ __n128 std::__function::__func<re::DirectResourceContext::removeResource(re::Dir
 
 void std::__function::__func<re::DirectResourceContext::removeResource(re::DirectResource *)::$_0,std::allocator<re::DirectResourceContext::removeResource(re::DirectResource *)::$_0>,void ()(re::DirectResourceSlot)>::operator()(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
   v3 = (*(**(a1 + 16) + 48))(*(a1 + 16), *a2, a2[1]);
   if (v3)
@@ -2946,25 +2682,23 @@ void std::__function::__func<re::DirectResourceContext::removeResource(re::Direc
     uuid_copy(dst, (v3 + 16));
     re::DirectResourceContext::removePayload(v2, dst);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-void *std::vector<re::DirectResourceId>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<re::DirectResourceId>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<re::DirectResourceId>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 4);
+    std::vector<re::DirectResourceId>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 4);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<re::DirectResourceId>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<re::DirectResourceId>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3001,7 +2735,7 @@ uint64_t std::__function::__value_func<void ()(re::DirectResourceContext *,unsig
 
 void *std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::swap[abi:nn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -3011,15 +2745,15 @@ void *std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -3047,7 +2781,6 @@ void *std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3078,7 +2811,7 @@ uint64_t std::__function::__value_func<void ()(re::DirectResourceContext *,re::D
 
 void *std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::swap[abi:nn200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -3088,15 +2821,15 @@ void *std::__function::__value_func<void ()(re::DirectResourceContext *,re::Dire
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -3124,11 +2857,10 @@ void *std::__function::__value_func<void ()(re::DirectResourceContext *,re::Dire
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-char *std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_with_size[abi:nn200100]<std::__wrap_iter<re::SharedPtr<re::DirectResourcesResolvedCommit>*>,std::__wrap_iter<re::SharedPtr<re::DirectResourcesResolvedCommit>*>>(uint64_t *a1, char *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+uint64_t *std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_with_size[abi:nn200100]<std::__wrap_iter<re::SharedPtr<re::DirectResourcesResolvedCommit>*>,std::__wrap_iter<re::SharedPtr<re::DirectResourcesResolvedCommit>*>>(uint64_t *a1, char *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -3143,7 +2875,7 @@ char *std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_wi
       if (v18 >= a5)
       {
         v23 = &a2[8 * a5];
-        v24 = (v10 - 8 * a5);
+        v24 = &v10[-a5];
         v25 = a1[1];
         while (v24 < v10)
         {
@@ -3154,9 +2886,9 @@ char *std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_wi
         a1[1] = v25;
         if (v10 != v23)
         {
-          v26 = (v10 - 8);
-          v27 = &v23[-v10];
-          v28 = (v10 - 8 - 8 * a5);
+          v26 = v10 - 1;
+          v27 = v23 - v10;
+          v28 = &v10[-a5 - 1];
           do
           {
             v29 = *v26;
@@ -3202,8 +2934,8 @@ char *std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_wi
             }
 
             ++v39;
-            v22 += 8;
-            ++v21;
+            ++v22;
+            v21 += 8;
           }
 
           while (v39 != a4);
@@ -3219,7 +2951,7 @@ char *std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_wi
         {
           v5 = a2;
           v42 = &a2[8 * a5];
-          v43 = &v21[-a5];
+          v43 = (v21 - 8 * a5);
           v44 = v21;
           while (v43 < v10)
           {
@@ -3230,9 +2962,9 @@ char *std::vector<re::SharedPtr<re::DirectResourcesResolvedCommit>>::__insert_wi
           a1[1] = v44;
           if (v22 != v42)
           {
-            v45 = v21 - 1;
+            v45 = (v21 - 8);
             v46 = v42 - v21;
-            v47 = &v21[-a5 - 1];
+            v47 = (v21 - 8 - 8 * a5);
             do
             {
               v48 = *v45;
@@ -3415,16 +3147,16 @@ double re::make::shared::object<re::DirectResourcesResolvedCommit,unsigned long 
   return result;
 }
 
-uint64_t *std::vector<re::SharedPtr<re::DirectMesh>>::__emplace_back_slow_path<re::SharedPtr<re::DirectMesh> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<re::SharedPtr<re::DirectMesh>>::__emplace_back_slow_path<re::SharedPtr<re::DirectMesh> const&>(uint64_t *a1, uint64_t *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 3;
+  v2 = (a1[1] - *a1) >> 3;
   v3 = v2 + 1;
   if ((v2 + 1) >> 61)
   {
     std::string::__throw_length_error[abi:nn200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 2 > v3)
   {
     v3 = v6 >> 2;
@@ -3454,14 +3186,14 @@ uint64_t *std::vector<re::SharedPtr<re::DirectMesh>>::__emplace_back_slow_path<r
     v10 = (v9 + 8);
   }
 
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   v12 = (v8 + *a1 - v11);
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>,re::SharedPtr<re::DirectBuffer>*>(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
-  *(a1 + 8) = v8 + 1;
-  v14 = *(a1 + 16);
-  *(a1 + 16) = 0;
+  a1[1] = (v8 + 1);
+  v14 = a1[2];
+  a1[2] = 0;
   v16[2] = v13;
   v16[3] = v14;
   v16[0] = v13;
@@ -3476,8 +3208,6 @@ void *std::vector<re::SharedPtr<re::DirectMesh>>::reserve(void *result, unint64_
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:nn200100]<std::allocator<re::SharedPtr<re::DirectBuffer>>>(result, a2);
     }
 
@@ -3487,14 +3217,12 @@ void *std::vector<re::SharedPtr<re::DirectMesh>>::reserve(void *result, unint64_
   return result;
 }
 
-void *std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<re::SharedPtr<re::DirectMesh>,re::SharedPtr<re::DirectMeshUpdate>>>>(result, a2);
     }
 
@@ -3660,10 +3388,11 @@ const unsigned __int8 *std::__function::__func<re::DirectResourceClientReceiver:
   return result;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_1(re *a1@<X0>, uint64_t a2@<X8>, uint64_t a3, uint64_t a4, __int16 a5, char a6, char a7)
@@ -3752,9 +3481,9 @@ uint64_t ArcObjectDebugDescription(char *a1, objc_selector *a2)
   return v4;
 }
 
-uint64_t ArcObjectClass(void)
+uint64_t ArcObjectClass(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_2810C3998, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2810C3998, memory_order_acquire) & 1) == 0)
   {
     ArcObjectClass();
   }
@@ -3789,7 +3518,7 @@ void ArcSharedObject::ArcSharedObject(ArcSharedObject *this, Class cls)
   *this = &unk_285BC1B38;
   if (!cls)
   {
-    v2 = ArcObjectClass();
+    v2 = ArcObjectClass(this, 0);
   }
 
   *(this + 1) = 0;
@@ -3848,34 +3577,33 @@ void re::DirectResourcesReuseList::~DirectResourcesReuseList(re::DirectResources
 
 void re::DirectResourcesReuseList::add(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t *a7)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  *&v12 = *(a1 + 16);
-  *(&v12 + 1) = a2;
-  v13 = a3;
-  v14 = a4;
-  v15 = a5;
-  v16 = a6;
+  v17 = *MEMORY[0x277D85DE8];
+  *&v11 = *(a1 + 16);
+  *(&v11 + 1) = a2;
+  v12 = a3;
+  v13 = a4;
+  v14 = a5;
+  v15 = a6;
   v9 = *a7;
-  v17 = v9;
+  v16 = v9;
   if (v9)
   {
     v10 = (v9 + 8);
   }
 
-  std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn200100](a1 + 32, &v12);
-  if (v17)
+  std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn200100]((a1 + 32), &v11);
+  if (v16)
   {
   }
 
   *(a1 + 24) += *(*a7 + 48);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn200100](uint64_t result, __int128 *a2)
+__int128 **std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn200100](__int128 **result, __int128 *a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v9 = 0x6DB6DB6DB6DB6DB7 * ((v4 - *result) >> 3);
@@ -3916,7 +3644,7 @@ uint64_t std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn20010
     *(v13 + 48) = *(a2 + 6);
     *(a2 + 6) = 0;
     v8 = 56 * v9 + 56;
-    v16 = *(result + 8);
+    v16 = result[1];
     v17 = v13 + *result - v16;
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<re::DirectResourcesReuseList::Entry>,re::DirectResourcesReuseList::Entry*>(result, *result, v16, v17);
     v18 = *v3;
@@ -3960,9 +3688,9 @@ double re::DirectResourcesReusePool::DirectResourcesReusePool(re::DirectResource
 
 void re::DirectResourcesReusePool::take(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, int a5@<W4>, uint64_t a6@<X5>, void *a7@<X8>)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   *uu2 = a2;
-  v34 = a3;
+  v33 = a3;
   *a7 = 0;
   v12 = std::__hash_table<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,re::SharedPtr<re::DirectMemoryResource>>>>::find<re::DirectResourceId>(a1, uu2);
   if (v12)
@@ -4044,36 +3772,34 @@ LABEL_23:
       std::__hash_table<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>>>::erase(a1, v13);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void re::DirectResourcesReusePool::mergeFrom(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v2 = *(a2 + 32);
   v3 = *(a2 + 40);
   if (v2 != v3)
   {
-    v9 = vdupq_n_s64(1uLL).u64[0];
+    v8 = vdupq_n_s64(1uLL).u64[0];
     do
     {
       v5 = *(v2 + 48);
       if (!*(v5 + 36))
       {
-        v6.i64[0] = v9;
+        v6.i64[0] = v8;
         v6.i64[1] = *(v5 + 48);
         *(a1 + 40) = vaddq_s64(*(a1 + 40), v6);
-        memset(v10, 0, sizeof(v10));
+        memset(v9, 0, sizeof(v9));
         *uu2 = *(v2 + 8);
-        memset(v13, 0, sizeof(v13));
-        std::vector<re::DirectResourcesReuseList::Entry>::__init_with_size[abi:nn200100]<re::DirectResourcesReuseList::Entry*,re::DirectResourcesReuseList::Entry*>(v13, 0, 0, 0);
-        v7 = std::__hash_table<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,std::vector<re::DirectResourcesReuseList::Entry>>>(a1, uu2);
-        std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn200100]((v7 + 32), v2);
-        v11 = v13;
-        std::vector<re::DirectResourcesReuseList::Entry>::__destroy_vector::operator()[abi:nn200100](&v11);
-        v11 = v10;
-        std::vector<re::DirectResourcesReuseList::Entry>::__destroy_vector::operator()[abi:nn200100](&v11);
+        memset(v12, 0, 24);
+        std::vector<re::DirectResourcesReuseList::Entry>::__init_with_size[abi:nn200100]<re::DirectResourcesReuseList::Entry*,re::DirectResourcesReuseList::Entry*>(v12, 0, 0, 0);
+        v7 = std::__hash_table<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,std::vector<re::DirectResourcesReuseList::Entry>>>(a1, uu2, uu2);
+        std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn200100](v7 + 4, v2);
+        v10 = v12;
+        std::vector<re::DirectResourcesReuseList::Entry>::__destroy_vector::operator()[abi:nn200100](&v10);
+        v10 = v9;
+        std::vector<re::DirectResourcesReuseList::Entry>::__destroy_vector::operator()[abi:nn200100](&v10);
       }
 
       v2 += 56;
@@ -4081,17 +3807,15 @@ void re::DirectResourcesReusePool::mergeFrom(uint64_t a1, uint64_t a2)
 
     while (v2 != v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t re::DirectResourcesReusePool::purgeBefore@<X0>(uint64_t this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *re::DirectResourcesReusePool::purgeBefore@<X0>(__int128 **__return_ptr a1@<X8>, uint64_t *this@<X0>, unint64_t a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v16 = this;
-  v3 = *(this + 16);
+  v3 = this[2];
   if (v3)
   {
     v6 = 0;
@@ -4101,7 +3825,7 @@ uint64_t re::DirectResourcesReusePool::purgeBefore@<X0>(uint64_t this@<X0>, unin
       v8 = v3[4];
       if (v3[5] != v8)
       {
-        if (*v8 >= a2)
+        if (*v8 >= a3)
         {
           v11 = 0;
           v10 = 0;
@@ -4122,7 +3846,7 @@ LABEL_10:
           while (1)
           {
             v11 += *(*(v8 + 48) + 48);
-            this = std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn200100](a3, v8);
+            this = std::vector<re::DirectResourcesReuseList::Entry>::push_back[abi:nn200100](a1, v8);
             ++v10;
             v13 = v3[4];
             if (v10 >= 0x6DB6DB6DB6DB6DB7 * ((v3[5] - v13) >> 3))
@@ -4133,7 +3857,7 @@ LABEL_10:
             v8 = v13 + 56 * v10;
             v14 = *(v13 + v12);
             v12 += 56;
-            if (v14 >= a2)
+            if (v14 >= a3)
             {
               v8 = v3[4];
               v7 = v9;
@@ -4164,9 +3888,9 @@ LABEL_14:
   v7 = 0;
   v6 = 0;
 LABEL_17:
-  v15 = *(v16 + 48) - v7;
-  *(v16 + 40) -= v6;
-  *(v16 + 48) = v15;
+  v15 = v16[6] - v7;
+  v16[5] -= v6;
+  v16[6] = v15;
   return this;
 }
 
@@ -4214,11 +3938,11 @@ __int128 *std::vector<re::DirectResourcesReuseList::Entry>::erase(uint64_t a1, _
   return a2;
 }
 
-uint64_t re::DirectResourcesReusePool::purgePayloads@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+unsigned __int8 *re::DirectResourcesReusePool::purgePayloads@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *uu2 = a2;
-  v15 = a3;
+  v14 = a3;
   a4[1] = 0;
   a4[2] = 0;
   *a4 = 0;
@@ -4226,9 +3950,9 @@ uint64_t re::DirectResourcesReusePool::purgePayloads@<X0>(void *a1@<X0>, uint64_
   if (result)
   {
     v7 = result;
-    v8 = *(result + 32);
-    v9 = *(result + 40);
-    v10 = (result + 32);
+    v8 = *(result + 4);
+    v9 = *(result + 5);
+    v10 = result + 32;
     if (v8 != v9)
     {
       v11 = a1[5];
@@ -4246,19 +3970,18 @@ uint64_t re::DirectResourcesReusePool::purgePayloads@<X0>(void *a1@<X0>, uint64_
     }
 
     std::vector<re::DirectResourcesReuseList::Entry>::__vdeallocate(a4);
-    *a4 = *(v7 + 32);
-    a4[2] = *(v7 + 48);
+    *a4 = *(v7 + 2);
+    a4[2] = *(v7 + 6);
     *v10 = 0;
-    v10[1] = 0;
-    v10[2] = 0;
-    result = std::__hash_table<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>>>::erase(a1, v7);
+    *(v10 + 1) = 0;
+    *(v10 + 2) = 0;
+    return std::__hash_table<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>>>::erase(a1, v7);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::vector<re::DirectResourcesReuseList::Entry>::__init_with_size[abi:nn200100]<re::DirectResourcesReuseList::Entry*,re::DirectResourcesReuseList::Entry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<re::DirectResourcesReuseList::Entry>::__init_with_size[abi:nn200100]<re::DirectResourcesReuseList::Entry*,re::DirectResourcesReuseList::Entry*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4268,7 +3991,7 @@ uint64_t std::vector<re::DirectResourcesReuseList::Entry>::__init_with_size[abi:
   return result;
 }
 
-void std::vector<re::DirectResourcesReuseList::Entry>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<re::DirectResourcesReuseList::Entry>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -4405,34 +4128,34 @@ uint64_t std::__hash_table<std::__hash_value_type<re::DirectResourceId,std::vect
   return v2;
 }
 
-const unsigned __int8 *std::__hash_table<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,std::vector<re::DirectResourcesReuseList::Entry>>>(void *a1, unsigned __int8 *uu2)
+const unsigned __int8 *std::__hash_table<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::__unordered_map_hasher<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::hash<re::DirectResourceId>,std::equal_to<re::DirectResourceId>,true>,std::__unordered_map_equal<re::DirectResourceId,std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>,std::equal_to<re::DirectResourceId>,std::hash<re::DirectResourceId>,true>,std::allocator<std::__hash_value_type<re::DirectResourceId,std::vector<re::DirectResourcesReuseList::Entry>>>>::__emplace_unique_key_args<re::DirectResourceId,std::pair<re::DirectResourceId const,std::vector<re::DirectResourcesReuseList::Entry>>>(void *a1, unsigned __int8 *uu2, uint64_t a3)
 {
-  v2 = (*(uu2 + 1) + (*uu2 << 6) + (*uu2 >> 2) - 0x61C8864680B583E9) ^ *uu2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = (*(uu2 + 1) + (*uu2 << 6) + (*uu2 >> 2) - 0x61C8864680B583E9) ^ *uu2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v5 = vcnt_s8(v3);
-  v5.i16[0] = vaddlv_u8(v5);
-  v6 = v5.u32[0];
-  if (v5.u32[0] > 1uLL)
+  v6 = vcnt_s8(v4);
+  v6.i16[0] = vaddlv_u8(v6);
+  v7 = v6.u32[0];
+  if (v6.u32[0] > 1uLL)
   {
-    v7 = (*(uu2 + 1) + (*uu2 << 6) + (*uu2 >> 2) - 0x61C8864680B583E9) ^ *uu2;
-    if (v2 >= *&v3)
+    v8 = (*(uu2 + 1) + (*uu2 << 6) + (*uu2 >> 2) - 0x61C8864680B583E9) ^ *uu2;
+    if (v3 >= *&v4)
     {
-      v7 = v2 % *&v3;
+      v8 = v3 % *&v4;
     }
   }
 
   else
   {
-    v7 = v2 & (*&v3 - 1);
+    v8 = v3 & (*&v4 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -4440,44 +4163,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = *(v9 + 1);
-    if (v10 == v2)
+    v11 = *(v10 + 1);
+    if (v11 == v3)
     {
       break;
     }
 
-    if (v6 > 1)
+    if (v7 > 1)
     {
-      if (v10 >= *&v3)
+      if (v11 >= *&v4)
       {
-        v10 %= *&v3;
+        v11 %= *&v4;
       }
     }
 
     else
     {
-      v10 &= *&v3 - 1;
+      v11 &= *&v4 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (uuid_compare(v9 + 16, uu2))
+  if (uuid_compare(v10 + 16, uu2))
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 BOOL re::DirectBufferValidation::isValid(re::DirectBufferValidation *this, const re::DirectBuffer *a2)
@@ -4519,7 +4242,7 @@ void re::DirectResource::dispose(re::DirectResource *this)
 
 double re::DirectResource::setIdentifier(re::DirectResource *this, const unsigned __int8 (*a2)[16])
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (*(this + 5))
   {
     re::DirectResource::setIdentifier();
@@ -4528,7 +4251,6 @@ double re::DirectResource::setIdentifier(re::DirectResource *this, const unsigne
   uuid_copy(dst, a2);
   result = *dst;
   *(this + 1) = *dst;
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4618,7 +4340,7 @@ id re::DirectTexture::makeDescriptor@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void re::DirectTexture::create(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void re::DirectTexture::create(uint64_t a1@<X0>, id *a2@<X1>, void *a3@<X8>)
 {
   if (*a2 && (re::DirectTextureValidation::isWellFormed() & 1) != 0)
   {
@@ -4643,9 +4365,9 @@ void re::DirectTexture::create(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
   }
 }
 
-BOOL re::DirectTexture::allocateStorage(uint64_t a1, uint64_t a2)
+BOOL re::DirectTexture::allocateStorage(uint64_t a1, id *a2)
 {
-  re::DirectTexture::allocatePayload(*a2, a1, *(a2 + 8), &v6);
+  re::DirectTexture::allocatePayload(&v6, *a2, a1, *(a2 + 8));
   v3 = *(a1 + 128);
   v4 = v6;
   *(a1 + 128) = v6;
@@ -4697,22 +4419,22 @@ re::DirectResource *re::DirectTexture::DirectTexture(re::DirectResource *a1, uin
   return a1;
 }
 
-void re::DirectTexture::allocatePayload(id a1@<X1>, uint64_t a2@<X0>, int a3@<W2>, re::DirectMemoryResource **a4@<X8>)
+void re::DirectTexture::allocatePayload(re::DirectMemoryResource **__return_ptr a1@<X8>, id a2@<X1>, uint64_t a3@<X0>, int a4@<W2>)
 {
   v8 = 0;
-  if (a3)
+  if (a4)
   {
-    v5 = *(a2 + 120);
+    v5 = *(a3 + 120);
     v6 = &selRef_newSharedTextureWithDescriptor_;
   }
 
   else
   {
-    v5 = *(a2 + 120);
+    v5 = *(a3 + 120);
     v6 = &selRef_newTextureWithDescriptor_;
   }
 
-  v7 = [a1 *v6];
+  v7 = [a2 *v6];
   NS::SharedPtr<MTL::Resource>::operator=<MTL::Texture>(&v8, &v7);
   if (v7)
   {
@@ -4722,12 +4444,12 @@ void re::DirectTexture::allocatePayload(id a1@<X1>, uint64_t a2@<X0>, int a3@<W2
   {
     if ([v8 isShareable])
     {
-      re::DirectMemoryResource::createWithSharedTexture(v8, 10, 0, a4);
+      re::DirectMemoryResource::createWithSharedTexture(v8, 10, 0, a1);
     }
 
     else
     {
-      re::DirectMemoryResource::createWithPrivateTexture(v8, 2, 0, a4);
+      re::DirectMemoryResource::createWithPrivateTexture(v8, 2, 0, a1);
     }
 
     if (v8)
@@ -4737,7 +4459,7 @@ void re::DirectTexture::allocatePayload(id a1@<X1>, uint64_t a2@<X0>, int a3@<W2
 
   else
   {
-    *a4 = 0;
+    *a1 = 0;
   }
 }
 
@@ -4752,7 +4474,7 @@ BOOL re::DirectTexture::isAttachedToDevice(re::DirectMemoryResource **this)
   return v2 != 0;
 }
 
-uint64_t re::DirectTexture::allocateRuntimeResource(uint64_t a1, re::DirectMemoryResource *a2, void *a3)
+BOOL re::DirectTexture::allocateRuntimeResource(uint64_t a1, re::DirectMemoryResource *a2, void *a3)
 {
   if (!re::DirectMemoryResource::bindToResource(a2, 2, 3))
   {
@@ -4802,7 +4524,7 @@ void re::DirectTexture::newPayload(id a1@<X3>, uint64_t a2@<X0>, int a3@<W1>, ui
 {
   if (a1 && a3 == 3 && !a4)
   {
-    re::DirectTexture::allocatePayload(a1, a2, (*(*(a2 + 128) + 40) >> 3) & 1, a5);
+    re::DirectTexture::allocatePayload(a5, a1, a2, (*(*(a2 + 128) + 40) >> 3) & 1);
   }
 
   else
@@ -4941,7 +4663,7 @@ id re::make::shared::object<re::DirectTexture,re::DirectTextureDescription const
   return result;
 }
 
-void re::DirectMesh::create(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
+void re::DirectMesh::create(_OWORD *a1@<X0>, void **a2@<X1>, void *a3@<X8>)
 {
   if (re::DirectMeshValidation::isWellFormed(a1))
   {
@@ -4965,7 +4687,7 @@ void re::DirectMesh::create(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
   }
 }
 
-BOOL re::DirectMesh::allocateStorage(unint64_t *a1, uint64_t a2)
+BOOL re::DirectMesh::allocateStorage(void *a1, uint64_t a2)
 {
   v3 = *a2;
   if (*(a2 + 8))
@@ -5087,7 +4809,7 @@ uint64_t re::DirectMesh::attachToDevice(uint64_t a1, void *a2)
 
       if (!*re::DirectMemoryResource::runtimeResource(v10))
       {
-        re::DirectMemoryResource::makeBuffer(a2, v10, &v13);
+        re::DirectMemoryResource::makeBuffer(&v13, a2, v10);
         v12 = v13;
         v13 = 0;
         v14 = v12;
@@ -5113,15 +4835,15 @@ LABEL_15:
   return 1;
 }
 
-uint64_t re::DirectMesh::DirectMesh(uint64_t a1, uint64_t a2)
+uint64_t re::DirectMesh::DirectMesh(uint64_t a1, _OWORD *a2)
 {
   v4 = re::DirectResource::DirectResource(a1);
   *v4 = &unk_285BC1C88;
-  v5 = *(a2 + 16);
+  v5 = a2[1];
   *(v4 + 3) = *a2;
   *(v4 + 4) = v5;
-  std::vector<re::DirectMeshVertexAttribute>::vector[abi:nn200100](v4 + 10, (a2 + 32));
-  std::vector<re::DirectMeshVertexLayout>::vector[abi:nn200100]((a1 + 104), (a2 + 56));
+  std::vector<re::DirectMeshVertexAttribute>::vector[abi:nn200100](v4 + 10, a2 + 4);
+  std::vector<re::DirectMeshVertexLayout>::vector[abi:nn200100]((a1 + 104), a2 + 7);
   *(a1 + 176) = 0;
   *(a1 + 144) = 0u;
   *(a1 + 160) = 0u;
@@ -5288,14 +5010,7 @@ uint64_t re::DirectMesh::vertexPayload(re::DirectMesh *this, unint64_t a2)
   }
 }
 
-UInt8 *re::DirectMesh::parts(re::DirectMemoryResource **this)
-{
-  result = re::DirectMemoryResource::bytes(this[17]);
-  v3 = &result[96 * this[16]];
-  return result;
-}
-
-void re::DirectMesh::setParts(uint64_t a1, uint64_t a2, uint64_t a3)
+void re::DirectMesh::setParts(void *a1, uint64_t a2, uint64_t a3)
 {
   v6 = a3;
   if (a3)
@@ -5308,16 +5023,16 @@ void re::DirectMesh::setParts(uint64_t a1, uint64_t a2, uint64_t a3)
   {
   }
 
-  if (*(a1 + 128) != a2)
+  if (a1[16] != a2)
   {
     re::DirectResource::willChange(a1, 0, 0, 0, 0);
-    *(a1 + 128) = a2;
+    a1[16] = a2;
 
     re::DirectResource::didChange(a1, 0, 0, 0);
   }
 }
 
-uint64_t re::DirectMesh::setPayload(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t *a4)
+uint64_t re::DirectMesh::setPayload(void *a1, uint64_t a2, unint64_t a3, uint64_t *a4)
 {
   result = re::DirectMemoryResource::bindToResource(*a4, 1, a2);
   if (!result)
@@ -5325,7 +5040,7 @@ uint64_t re::DirectMesh::setPayload(uint64_t a1, uint64_t a2, unint64_t a3, uint
     return result;
   }
 
-  v9 = *(a1 + 40);
+  v9 = a1[5];
   if (v9)
   {
     result = (*(*v9 + 48))(v9, *a4, a1, a2, a3);
@@ -5334,7 +5049,7 @@ uint64_t re::DirectMesh::setPayload(uint64_t a1, uint64_t a2, unint64_t a3, uint
       return result;
     }
 
-    v10 = *(a1 + 40);
+    v10 = a1[5];
     if (v10)
     {
       (*(*v10 + 56))(v10, a1, a2, a3);
@@ -5348,7 +5063,7 @@ uint64_t re::DirectMesh::setPayload(uint64_t a1, uint64_t a2, unint64_t a3, uint
       v11 = *a4;
       v15 = *a4;
       *a4 = 0;
-      v12 = (a1 + 8 * a3 + 152);
+      v12 = &a1[a3 + 19];
       v13 = &v15;
       goto LABEL_14;
     }
@@ -5361,7 +5076,7 @@ uint64_t re::DirectMesh::setPayload(uint64_t a1, uint64_t a2, unint64_t a3, uint
     v11 = *a4;
     v16 = *a4;
     *a4 = 0;
-    v12 = (a1 + 144);
+    v12 = a1 + 18;
     v13 = &v16;
     goto LABEL_14;
   }
@@ -5374,7 +5089,7 @@ uint64_t re::DirectMesh::setPayload(uint64_t a1, uint64_t a2, unint64_t a3, uint
   v11 = *a4;
   v17 = *a4;
   *a4 = 0;
-  v12 = (a1 + 136);
+  v12 = a1 + 17;
   v13 = &v17;
 LABEL_14:
   re::DirectMesh::replaceInternal(a1, v12, v13);
@@ -5382,7 +5097,7 @@ LABEL_14:
   {
   }
 
-  v14 = *(a1 + 40);
+  v14 = a1[5];
   if (v14)
   {
     (*(*v14 + 64))(v14, a1, a2, a3);
@@ -5631,7 +5346,7 @@ void re::DirectMesh::replaceInternal(uint64_t a1, uint64_t *a2, uint64_t *a3)
     if (v7 && !*re::DirectMemoryResource::runtimeResource(*a3))
     {
       v8 = *a3;
-      re::DirectMemoryResource::makeBuffer(v7, v8, &v11);
+      re::DirectMemoryResource::makeBuffer(&v11, v7, v8);
       v9 = v11;
       v11 = 0;
       v12 = v9;
@@ -5790,9 +5505,8 @@ uint64_t DRMeshDescriptorGetVertexAttributeCount(uint64_t a1)
 
 void DRMeshDescriptorSetVertexAttributeCount(void *a1, unint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v18 = v3;
+  v17 = v3;
   if (v3)
   {
     v4 = v3 - 8;
@@ -5807,7 +5521,7 @@ void DRMeshDescriptorSetVertexAttributeCount(void *a1, unint64_t a2)
   v6 = *(v4 + 7);
   for (i = (v6 - v5) >> 5; i < a2; i = (v6 - v5) >> 5)
   {
-    memset(v19, 0, 28);
+    memset(v18, 0, 28);
     v8 = *(v4 + 8);
     if (v6 >= v8)
     {
@@ -5862,16 +5576,14 @@ void DRMeshDescriptorSetVertexAttributeCount(void *a1, unint64_t a2)
     else
     {
       *v6 = -1;
-      *(v6 + 16) = *(v19 + 12);
-      *(v6 + 4) = v19[0];
+      *(v6 + 16) = *(v18 + 12);
+      *(v6 + 4) = v18[0];
       v6 += 32;
     }
 
     *(v4 + 7) = v6;
     v5 = *(v4 + 6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 BOOL DRMeshDescriptorGetVertexAttributeFormat(uint64_t a1, unint64_t a2, _DWORD *a3, void *a4, void *a5, void *a6)
@@ -6077,7 +5789,7 @@ uint64_t DRMeshCreateUnmanaged(uint64_t a1, void *a2, CFErrorRef *a3)
     v6 = 0;
   }
 
-  re::DirectMesh::create(v6 + 16, &v13, &v12);
+  re::DirectMesh::create((v6 + 16), &v13, &v12);
   v7 = v12;
   if (a3 && !v12)
   {
@@ -6158,7 +5870,7 @@ uint64_t DRMeshCopyDescriptor(void *a1)
           v13 = v12;
         }
 
-        std::vector<re::DirectMeshVertexAttribute>::__vallocate[abi:nn200100](v2 + 48, v13);
+        std::vector<re::DirectMeshVertexAttribute>::__vallocate[abi:nn200100]((v2 + 48), v13);
       }
 
       std::string::__throw_length_error[abi:nn200100]();
@@ -6231,7 +5943,7 @@ uint64_t DRMeshCopyDescriptor(void *a1)
           v26 = v25;
         }
 
-        std::vector<re::DirectMeshVertexLayout>::__vallocate[abi:nn200100](v2 + 72, v26);
+        std::vector<re::DirectMeshVertexLayout>::__vallocate[abi:nn200100]((v2 + 72), v26);
       }
 
       std::string::__throw_length_error[abi:nn200100]();
@@ -6752,7 +6464,7 @@ void re::DirectMeshDescriptor::~DirectMeshDescriptor(re::DirectMeshDescriptor *t
   JUMPOUT(0x24C1E9EB0);
 }
 
-id DRFenceCreate(const char *a1)
+char *DRFenceCreate(char *a1)
 {
   if (a1)
   {
@@ -6765,7 +6477,7 @@ id DRFenceCreate(const char *a1)
   }
 
   v2 = operator new(0x50uLL);
-  v3 = (re::DirectFence::DirectFence(v2, v1) + 8);
+  v3 = re::DirectFence::DirectFence(v2, v1) + 8;
 
   return v3;
 }
@@ -7418,7 +7130,7 @@ char *DRContextCreateMesh(uint64_t a1, uint64_t a2, CFErrorRef *a3)
     v5 = 0;
   }
 
-  re::DirectResourceContext::createMesh(v4, v5 + 16, &v11);
+  re::DirectResourceContext::createMesh(v4, (v5 + 16), &v11);
   v6 = v11;
   if (a3 && !v11)
   {
@@ -7441,7 +7153,7 @@ char *DRContextCreateMesh(uint64_t a1, uint64_t a2, CFErrorRef *a3)
   }
 }
 
-uint64_t DRContextCreateTexture(uint64_t a1, uint64_t a2, CFErrorRef *a3)
+const unsigned __int8 *DRContextCreateTexture(uint64_t a1, uint64_t a2, CFErrorRef *a3)
 {
   if (a1)
   {
@@ -7755,9 +7467,9 @@ BOOL DRContextCommitAddFence(char *a1, void *a2)
   return v7 != 0;
 }
 
-void DRContextSetOnCommitBegan(void *a1, void *a2)
+void DRContextSetOnCommitBegan(char *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (a1)
   {
@@ -7769,21 +7481,20 @@ void DRContextSetOnCommitBegan(void *a1, void *a2)
     v4 = 0;
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __DRContextSetOnCommitBegan_block_invoke;
-  v8[3] = &unk_278F7D0B8;
-  v11 = 0;
-  v9 = v3;
-  v10[0] = &unk_285BC1DA0;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __DRContextSetOnCommitBegan_block_invoke;
+  v7[3] = &unk_278F7D0B8;
+  v10 = 0;
+  v8 = v3;
+  v9[0] = &unk_285BC1DA0;
   v5 = v3;
   v6 = a1;
-  v10[1] = _Block_copy(v8);
-  v11 = v10;
-  re::DirectResourceContext::setBeginCallback(v4, v10);
+  v9[1] = _Block_copy(v7);
+  v10 = v9;
+  re::DirectResourceContext::setBeginCallback(v4, v9);
 
-  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::~__value_func[abi:nn200100](v10);
-  v7 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(re::DirectResourceContext *,unsigned long long)>::~__value_func[abi:nn200100](v9);
 }
 
 void __DRContextSetOnCommitBegan_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7806,9 +7517,9 @@ id re::UnownedPtr<re::DirectResourceContext>::operator re::bridge_to_api<re::Dir
   }
 }
 
-void DRContextSetOnCommitComplete(void *a1, void *a2)
+void DRContextSetOnCommitComplete(char *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (a1)
   {
@@ -7820,21 +7531,20 @@ void DRContextSetOnCommitComplete(void *a1, void *a2)
     v4 = 0;
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __DRContextSetOnCommitComplete_block_invoke;
-  v8[3] = &unk_278F7D0E8;
-  v11 = 0;
-  v9 = v3;
-  v10[0] = &unk_285BC1DE8;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __DRContextSetOnCommitComplete_block_invoke;
+  v7[3] = &unk_278F7D0E8;
+  v10 = 0;
+  v8 = v3;
+  v9[0] = &unk_285BC1DE8;
   v5 = v3;
   v6 = a1;
-  v10[1] = _Block_copy(v8);
-  v11 = v10;
-  re::DirectResourceContext::setCompleteCallback(v4, v10);
+  v9[1] = _Block_copy(v7);
+  v10 = v9;
+  re::DirectResourceContext::setCompleteCallback(v4, v9);
 
-  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::~__value_func[abi:nn200100](v10);
-  v7 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::~__value_func[abi:nn200100](v9);
 }
 
 void __DRContextSetOnCommitComplete_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7926,20 +7636,6 @@ void *std::__function::__func<void({block_pointer} {__strong})(re::DirectResourc
   return result;
 }
 
-uint64_t std::__function::__func<void({block_pointer} {__strong})(re::DirectResourceContext *,unsigned long long),std::allocator<void({block_pointer} {__strong})(re::DirectResourceContext *,unsigned long long)>,void ()(re::DirectResourceContext *,unsigned long long)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  return MEMORY[0x2821F96F8]();
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(re::DirectResourceContext *,unsigned long long),std::allocator<void({block_pointer} {__strong})(re::DirectResourceContext *,unsigned long long)>,void ()(re::DirectResourceContext *,unsigned long long)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
-{
-  v3 = *a2;
-  v4 = *a3;
-  return (*(*(a1 + 8) + 16))();
-}
-
 void std::__function::__func<void({block_pointer} {__strong})(re::DirectResourceContext *,re::DirectResourceCommands *),std::allocator<void({block_pointer} {__strong})(re::DirectResourceContext *,re::DirectResourceCommands *)>,void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::~__func(uint64_t a1)
 {
 
@@ -7952,20 +7648,6 @@ void *std::__function::__func<void({block_pointer} {__strong})(re::DirectResourc
   result = _Block_copy(*(a1 + 8));
   a2[1] = result;
   return result;
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(re::DirectResourceContext *,re::DirectResourceCommands *),std::allocator<void({block_pointer} {__strong})(re::DirectResourceContext *,re::DirectResourceCommands *)>,void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  return MEMORY[0x2821F96F8]();
-}
-
-uint64_t std::__function::__func<void({block_pointer} {__strong})(re::DirectResourceContext *,re::DirectResourceCommands *),std::allocator<void({block_pointer} {__strong})(re::DirectResourceContext *,re::DirectResourceCommands *)>,void ()(re::DirectResourceContext *,re::DirectResourceCommands *)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
-{
-  v3 = *a2;
-  v4 = *a3;
-  return (*(*(a1 + 8) + 16))();
 }
 
 void DRResourceGetIdentifier(uint64_t a1, uuid_t dst)
@@ -8393,7 +8075,7 @@ uint64_t DRMemoryResourceCopyBuffer(uint64_t a1, void *a2)
     v2 = 0;
   }
 
-  re::DirectMemoryResource::makeBuffer(a2, v2, &v4);
+  re::DirectMemoryResource::makeBuffer(&v4, a2, v2);
   return v4;
 }
 
@@ -8602,7 +8284,7 @@ char *DRContextCreateClient(void *a1, void *a2)
 
   v14 = *(v7 + 2);
   v15 = *(v7 + 3);
-  v16 = *(v6 + 8);
+  v16 = *(v6 + 64);
   v17 = operator new(0xF0uLL);
   v18 = re::DirectResourceClientReceiver::DirectResourceClientReceiver(v17, v14, v15, v16);
   v19 = *v9;
@@ -8680,9 +8362,9 @@ uint64_t DRContextCreateCommitQueue(uint64_t a1)
   return re::DirectResourcesCommitQueue::DirectResourcesCommitQueue(v2, v1) + 8;
 }
 
-uint64_t DRCommitQueueEnumerate(void *a1, const void *a2)
+void *DRCommitQueueEnumerate(char *a1, const void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v3 = a1 - 8;
@@ -8694,29 +8376,28 @@ uint64_t DRCommitQueueEnumerate(void *a1, const void *a2)
   }
 
   v4 = a1;
-  v7[0] = &unk_285BC1ED8;
-  v7[1] = _Block_copy(a2);
-  v8 = v7;
-  re::DirectResourcesCommitQueue::enumerate(v3, v7);
+  v6[0] = &unk_285BC1ED8;
+  v6[1] = _Block_copy(a2);
+  v7 = v6;
+  re::DirectResourcesCommitQueue::enumerate(v3, v6);
 
-  result = v8;
-  if (v8 == v7)
+  result = v7;
+  if (v7 == v6)
   {
-    result = (*(*v8 + 32))(v8);
+    return (*(*v7 + 32))(v7);
   }
 
-  else if (v8)
+  if (v7)
   {
-    result = (*(*v8 + 40))();
+    return (*(*v7 + 40))();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t DRCommitQueueApplyThrough(void *a1, unint64_t a2, const void *a3)
+uint64_t DRCommitQueueApplyThrough(char *a1, unint64_t a2, const void *a3)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v5 = a1 - 8;
@@ -8728,15 +8409,13 @@ uint64_t DRCommitQueueApplyThrough(void *a1, unint64_t a2, const void *a3)
   }
 
   v6 = a1;
-  v9[0] = &unk_285BC1F20;
-  v9[1] = v5;
-  v9[2] = _Block_copy(a3);
-  v9[3] = v9;
-  re::DirectResourcesCommitQueue::commitThrough(v5, a2, v9);
+  v8[0] = &unk_285BC1F20;
+  v8[1] = v5;
+  v8[2] = _Block_copy(a3);
+  v8[3] = v8;
+  re::DirectResourcesCommitQueue::commitThrough(v5, a2, v8);
 
-  result = std::__function::__value_func<void ()(re::DirectResourceEvent const&,unsigned long long)>::~__value_func[abi:nn200100](v9);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(re::DirectResourceEvent const&,unsigned long long)>::~__value_func[abi:nn200100](v8);
 }
 
 uint64_t DRCommitQueueGetLastAppliedCommitId(uint64_t a1)
@@ -8920,16 +8599,16 @@ void std::__function::__func<DRCommitQueueApplyThrough::$_0,std::allocator<DRCom
   operator delete(a1);
 }
 
-void std::__function::__func<DRCommitQueueApplyThrough::$_0,std::allocator<DRCommitQueueApplyThrough::$_0>,void ()(re::DirectResourceEvent const&,unsigned long long)>::operator()(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void std::__function::__func<DRCommitQueueApplyThrough::$_0,std::allocator<DRCommitQueueApplyThrough::$_0>,void ()(re::DirectResourceEvent const&,unsigned long long)>::operator()(uint64_t a1, void *a2, uint64_t *a3)
 {
   if (*a2)
   {
-    v4 = *a3;
-    v5 = *(a1 + 16);
-    v6 = re::DirectResourcesCommitQueue::device(*(a1 + 8));
-    re::DirectResourceEvent::makeEvent(a2, v6, &v7);
-    (*(v5 + 16))(v5, v7, v4);
-    if (v7)
+    v3 = *a3;
+    v4 = *(a1 + 16);
+    v5 = re::DirectResourcesCommitQueue::device(*(a1 + 8));
+    re::DirectResourceEvent::makeEvent(v5, &v6);
+    (*(v4 + 16))(v4, v6, v3);
+    if (v6)
     {
     }
   }
@@ -8953,24 +8632,14 @@ uint64_t DRResourcesCommitCopyToXPC(uint64_t a1, const re::DirectResourceCommand
 
 id DRResourcesCommitCopyEventWithDevice(uint64_t a1, void *a2)
 {
-  if (a1)
-  {
-    v2 = a1 - 8;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  re::DirectResourceEvent::makeEvent((v2 + 32), a2, &v6);
-  v3 = v6;
-  v4 = v3;
-  if (v3)
+  re::DirectResourceEvent::makeEvent(a2, &v5);
+  v2 = v5;
+  v3 = v2;
+  if (v2)
   {
   }
 
-  return v4;
+  return v3;
 }
 
 BOOL DRResourcesCommitHasEvent(uint64_t a1)
@@ -9008,89 +8677,82 @@ id DRResourcesCommitGetUserPayload(uint64_t a1)
 
 void re::directResourceLog()
 {
-  if (__cxa_guard_acquire(&qword_2810C3978))
+  if (__cxa_guard_acquire(byte_2810C3978))
   {
     _MergedGlobals = os_log_create("com.apple.re", "DirectResource");
 
-    __cxa_guard_release(&qword_2810C3978);
+    __cxa_guard_release(byte_2810C3978);
   }
 }
 
 void re::DirectMemoryResource::allocatePrivatePageAligned()
 {
-  if (__cxa_guard_acquire(&qword_2810C3988))
+  if (__cxa_guard_acquire(byte_2810C3988))
   {
     _MergedGlobals_0 = *MEMORY[0x277D85FA0];
 
-    __cxa_guard_release(&qword_2810C3988);
+    __cxa_guard_release(byte_2810C3988);
   }
 }
 
 void re::DirectResourceLoader::corruptResource(re *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  re::toString(a1, v6);
-  v4 = 136315138;
-  v5 = v6;
-  _os_log_error_impl(&dword_248D48000, a2, OS_LOG_TYPE_ERROR, "CorruptResource %s", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  re::toString(a1, v5);
+  v3 = 136315138;
+  v4 = v5;
+  _os_log_error_impl(&dword_248D48000, a2, OS_LOG_TYPE_ERROR, "CorruptResource %s", &v3, 0xCu);
 }
 
 void re::DirectResourceContext::freeListWaitTimedOut(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_error_impl(&dword_248D48000, log, OS_LOG_TYPE_ERROR, "Renderer is at commit %llu, waiting for commit %llu", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_error_impl(&dword_248D48000, log, OS_LOG_TYPE_ERROR, "Renderer is at commit %llu, waiting for commit %llu", &v3, 0x16u);
 }
 
 void re::DirectResourceClientReceiver::validateAndResolve(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_248D48000, a2, OS_LOG_TYPE_ERROR, "Discarding invalid commit from client %llu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_248D48000, a2, OS_LOG_TYPE_ERROR, "Discarding invalid commit from client %llu", &v3, 0xCu);
 }
 
 void re::DirectResourceClientReceiver::isValid<re::DirectMesh,re::DirectMeshUpdate>(re *a1)
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8], v8, v10, v11, SBYTE2(v11), SHIBYTE(v11));
+  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8], v7, v8, v9, SBYTE2(v9), SHIBYTE(v9));
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_248D48000, v1, v2, "Attempting to create a resource %s which already exists", v3, v4, v5, v6, v9);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_248D48000, v1, v2, "Attempting to create a resource %s which already exists", v3, v4, v5, v6);
 }
 
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8], v8, v10, v11, SBYTE2(v11), SHIBYTE(v11));
+  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8], v7, v8, v9, SBYTE2(v9), SHIBYTE(v9));
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_248D48000, v1, v2, "Update failed validation for resource %s", v3, v4, v5, v6, v9);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_248D48000, v1, v2, "Update failed validation for resource %s", v3, v4, v5, v6);
 }
 
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8], v8, v10, v11, SBYTE2(v11), SHIBYTE(v11));
+  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8], v7, v8, v9, SBYTE2(v9), SHIBYTE(v9));
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_248D48000, v1, v2, "Update destined for unknown resource %s", v3, v4, v5, v6, v9);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_248D48000, v1, v2, "Update destined for unknown resource %s", v3, v4, v5, v6);
 }
 
 {
-  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8], v8, v10, v11, SBYTE2(v11), SHIBYTE(v11));
+  OUTLINED_FUNCTION_1(a1, *MEMORY[0x277D85DE8], v7, v8, v9, SBYTE2(v9), SHIBYTE(v9));
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_248D48000, v1, v2, "Attempting to destroy unknown resource %s", v3, v4, v5, v6, v9);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_248D48000, v1, v2, "Attempting to destroy unknown resource %s", v3, v4, v5, v6);
 }
 
 void std::__function::__func<re::DirectResourceContext::freeListWaitTimedOut(unsigned long long,unsigned long long)::$_0,std::allocator<re::DirectResourceContext::freeListWaitTimedOut(unsigned long long,unsigned long long)::$_0>,void ()(re::DirectFence *)>::operator()(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   (*(*a1 + 24))(__p);
-  if (v6 >= 0)
+  if (v5 >= 0)
   {
     v3 = __p;
   }
@@ -9101,23 +8763,21 @@ void std::__function::__func<re::DirectResourceContext::freeListWaitTimedOut(uns
   }
 
   *buf = 136315138;
-  v8 = v3;
+  v7 = v3;
   _os_log_error_impl(&dword_248D48000, a2, OS_LOG_TYPE_ERROR, "\t\tWaiting for %s", buf, 0xCu);
-  if (v6 < 0)
+  if (v5 < 0)
   {
     operator delete(__p[0]);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void ArcObjectClass()
 {
-  if (__cxa_guard_acquire(&qword_2810C3998))
+  if (__cxa_guard_acquire(byte_2810C3998))
   {
     _MergedGlobals_1 = ArcObjectClass(void)::$_0::operator()();
 
-    __cxa_guard_release(&qword_2810C3998);
+    __cxa_guard_release(byte_2810C3998);
   }
 }
 

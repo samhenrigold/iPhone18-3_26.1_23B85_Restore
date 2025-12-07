@@ -39,7 +39,7 @@ void CA::Render::Timing::~Timing(CA::Render::Timing *this, const CA::Render::Obj
   }
 }
 
-void *CA::Render::Layer::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Layer::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   v4 = *(a2 + 4);
@@ -432,8 +432,9 @@ void CA::Transaction::add_deleted_id(CA::Transaction *this, uint64_t a2, int a3,
   while (v10 != v9);
 }
 
-CA::Render *CA::Context::commit_deleted(CA::Context *this, int a2, uint64_t a3, void *a4)
+CA::Render *CA::Context::commit_deleted(CA::Context *this, uint64_t a2, uint64_t a3, void *a4)
 {
+  v5 = a2;
   v7 = *(a3 + 40);
   if (v7)
   {
@@ -444,13 +445,13 @@ CA::Render *CA::Context::commit_deleted(CA::Context *this, int a2, uint64_t a3, 
   if (result)
   {
 
-    return CA::Render::encode_delete_object(result, this, a2);
+    return CA::Render::encode_delete_object(result, this, v5);
   }
 
   return result;
 }
 
-void *CA::Render::encode_delete_object(CA::Render *this, CA::Render::Encoder *a2, int a3)
+CA::Render::Encoder *CA::Render::encode_delete_object(CA::Render *this, CA::Render::Encoder *a2, int a3)
 {
   v6 = *(this + 4);
   if ((v6 + 1) > *(this + 5))
@@ -485,22 +486,21 @@ void *CA::Render::encode_delete_object(CA::Render *this, CA::Render::Encoder *a2
   return CA::Render::Encoder::encode_sanity_check(this);
 }
 
-CFTypeID CA::Render::convert_cgcolor(CGColor *a1, CGColor *a2, uint64_t a3, float *a4, CA::Render::Pattern **a5)
+void CA::Render::convert_cgcolor(CGColor *a1, CGColor *a2, uint64_t a3, float *a4, CA::Render::Pattern **a5)
 {
   v11 = *MEMORY[0x1E69E9840];
   v10 = 0uLL;
   CA::Render::convert_cgcolor_to_float(a1, a2, &v10, a4, a5);
   v9 = v10;
-  result = CFGetTypeID(a1);
+  v7 = CFGetTypeID(a1);
   v8 = 1.0;
-  if (result == CA::Render::color_type)
+  if (v7 == CA::Render::color_type)
   {
-    result = CGColorGetContentHeadroom();
+    CGColorGetContentHeadroom();
   }
 
   *a3 = v9;
   *(a3 + 16) = v8;
-  return result;
 }
 
 atomic_uint *CA::Render::Layer::set_sublayers(uint64_t a1, atomic_uint *a2)
@@ -557,7 +557,7 @@ LABEL_15:
   return result;
 }
 
-atomic_uint *CA::Render::Layer::set_contents(CA::Render::Layer *this, CA::Render::Object *a2)
+atomic_uint *CA::Render::Layer::set_contents(CA::Render::Layer *this, atomic_uint *a2)
 {
   if (a2)
   {
@@ -599,7 +599,7 @@ atomic_uint *CA::Render::Layer::set_contents(CA::Render::Layer *this, CA::Render
 
     if (v7)
     {
-      v9 = (v7 + 8);
+      v9 = v7 + 2;
       if (!atomic_fetch_add(v7 + 2, 1u))
       {
         v7 = 0;
@@ -613,11 +613,11 @@ atomic_uint *CA::Render::Layer::set_contents(CA::Render::Layer *this, CA::Render
   return result;
 }
 
-void *CA::Render::Layer::set_contents_scale(void *this, float a2)
+CA::Render::Layer *CA::Render::Layer::set_contents_scale(CA::Render::Layer *this, float a2)
 {
   v3 = this;
   v4 = a2;
-  if (truncf(a2) != a2 || this[17])
+  if (truncf(a2) != a2 || *(this + 17))
   {
     this = CA::Render::Layer::ensure_ext(this);
     *(this + 76) = a2;
@@ -667,19 +667,19 @@ uint64_t CA::Display::DisplayTimingsControl::server_timing_expiry(os_unfair_lock
   return v4;
 }
 
-void CA::Render::Context::ResourceTable::release_value(CA::Render::Context::ResourceTable *this, CA::Render::Object *a2)
+void CA::Render::Context::ResourceTable::release_value(CA::Render::Context::ResourceTable *this, CA::Render::Object *a2, uint64_t a3)
 {
   if (this)
   {
-    v3 = *(this + 12);
-    if (v3 == 24)
+    v4 = *(this + 12);
+    if (v4 == 24)
     {
       os_unfair_lock_lock(&CA::Render::ImageProvider::_provider_lock);
       *(this + 23) = 0;
       os_unfair_lock_unlock(&CA::Render::ImageProvider::_provider_lock);
     }
 
-    else if (v3 == 22)
+    else if (v4 == 22)
     {
       if (*(this + 3))
       {
@@ -690,46 +690,46 @@ void CA::Render::Context::ResourceTable::release_value(CA::Render::Context::Reso
 
       for (i = *(this + 6); i; i = i[1])
       {
-        v5 = *i;
+        v6 = *i;
         if (*(*i + 12) == 61)
         {
-          v6 = *(v5 + 128);
-          if (v6)
+          v7 = *(v6 + 128);
+          if (v7)
           {
-            if (atomic_fetch_add(v6 + 2, 0xFFFFFFFF) == 1)
+            if (atomic_fetch_add(v7 + 2, 0xFFFFFFFF) == 1)
             {
-              (*(*v6 + 16))(v6, a2);
+              (*(*v7 + 16))(v7, a2, a3);
             }
 
-            *(v5 + 128) = 0;
+            *(v6 + 128) = 0;
           }
         }
       }
 
-      v7 = *(this + 5);
-      if (v7)
+      v8 = *(this + 5);
+      if (v8)
       {
-        *(v7 + 40) = 0;
-        if (atomic_fetch_add((v7 + 16), 0xFFFFFFFF) == 1)
+        *(v8 + 40) = 0;
+        if (atomic_fetch_add((v8 + 16), 0xFFFFFFFF) == 1)
         {
-          CA::Render::LayerNode::delete_node(v7, a2);
+          CA::Render::LayerNode::delete_node(v8, a2);
         }
 
         *(this + 5) = 0;
       }
 
-      v8 = *(this + 2);
-      if (v8)
+      v9 = *(this + 2);
+      if (v9)
       {
-        v9 = *(v8 + 136);
-        if (v9)
+        v10 = *(v9 + 136);
+        if (v10)
         {
-          v10 = *v9;
-          if (*v9)
+          v11 = *v10;
+          if (*v10)
           {
-            if (*(v10 + 12) == 31 && *(v10 + 40) == this)
+            if (*(v11 + 12) == 31 && *(v11 + 40) == this)
             {
-              CA::Render::LayerHost::invalidate(v10);
+              CA::Render::LayerHost::invalidate(v11);
             }
           }
         }
@@ -738,7 +738,7 @@ void CA::Render::Context::ResourceTable::release_value(CA::Render::Context::Reso
       if ((*(this + 13) & 0x20) != 0)
       {
         os_unfair_lock_lock(&CA::Render::FlattenManager::flattened_lock);
-        CA::Render::FlattenManager::delete_entry(this, v11);
+        CA::Render::FlattenManager::delete_entry(this, v12);
         os_unfair_lock_unlock(&CA::Render::FlattenManager::flattened_lock);
       }
 
@@ -749,14 +749,14 @@ void CA::Render::Context::ResourceTable::release_value(CA::Render::Context::Reso
 
     if (atomic_fetch_add(this + 2, 0xFFFFFFFF) == 1)
     {
-      v12 = *(*this + 16);
+      v13 = *(*this + 16);
 
-      v12(this);
+      v13(this);
     }
   }
 }
 
-void CA::Render::Context::delete_object(CA::Render::Context *this, CA::Render::Object *a2, int a3)
+void CA::Render::Context::delete_object(CA::Render::Context *this, CA::Render::Object *a2, uint64_t a3)
 {
   v4 = ((a2 ^ 0x8000000000000000) + ~(a2 << 32)) ^ (((a2 ^ 0x8000000000000000) + ~(a2 << 32)) >> 22);
   v5 = 9 * ((v4 + ~(v4 << 13)) ^ ((v4 + ~(v4 << 13)) >> 8));
@@ -787,7 +787,7 @@ void CA::Render::Context::delete_object(CA::Render::Context *this, CA::Render::O
       if (v10)
       {
         *v8 = *v7;
-        CA::Render::Context::ResourceTable::release_value(v7[2], a2);
+        CA::Render::Context::ResourceTable::release_value(v7[2], a2, a3);
         if (x_malloc_get_zone::once != -1)
         {
           dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
@@ -802,7 +802,7 @@ void CA::Render::Context::delete_object(CA::Render::Context *this, CA::Render::O
   }
 }
 
-void *CA::Render::Object::encode(CA::Render::Object *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Object::encode(CA::Render::Object *this, CA::Render::Encoder *a2)
 {
   v3 = *(this + 3);
   v4 = *(a2 + 4);
@@ -818,7 +818,7 @@ void *CA::Render::Object::encode(CA::Render::Object *this, CA::Render::Encoder *
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::Array::encode(CA::Render::Array *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Array::encode(CA::Render::Array *this, CA::Render::Encoder *a2)
 {
   v4 = *(this + 3) >> 8;
   v5 = *(a2 + 4);
@@ -882,7 +882,7 @@ void *CA::Render::Array::encode(CA::Render::Array *this, CA::Render::Encoder *a2
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::PresentationModifier::encode(CA::Render::PresentationModifier *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::PresentationModifier::encode(CA::Render::PresentationModifier *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   CA::Render::Encoder::encode_object(a2, *(this + 2));
@@ -911,7 +911,7 @@ void *CA::Render::PresentationModifier::encode(CA::Render::PresentationModifier 
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::Shmem::encode(CA::Render::Shmem *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Shmem::encode(CA::Render::Shmem *this, CA::Render::Encoder *a2)
 {
   v3 = this;
   v4 = *(this + 3);
@@ -1193,7 +1193,7 @@ void CA::Render::Layer::~Layer(CA::Render::Layer *this, const CA::Render::Object
   v3 = *(this + 14);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   if ((*(this + 13) & 2) == 0)
@@ -1203,7 +1203,7 @@ void CA::Render::Layer::~Layer(CA::Render::Layer *this, const CA::Render::Object
     {
       if (atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
       {
-        (*(*v4 + 16))(v4);
+        (*(*v4 + 16))(v4, a2);
       }
     }
   }
@@ -1211,13 +1211,13 @@ void CA::Render::Layer::~Layer(CA::Render::Layer *this, const CA::Render::Object
   v5 = *(this + 19);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   v6 = *(this + 18);
   if (v6 && atomic_fetch_add(v6 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v6 + 16))(v6);
+    (*(*v6 + 16))(v6, a2);
   }
 
   v7 = *(this + 17);
@@ -1229,13 +1229,13 @@ void CA::Render::Layer::~Layer(CA::Render::Layer *this, const CA::Render::Object
   v8 = *(this + 16);
   if (v8 && atomic_fetch_add(v8 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v8 + 16))(v8);
+    (*(*v8 + 16))(v8, a2);
   }
 
   v9 = *(this + 13);
   if (v9 && atomic_fetch_add(v9 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v9 + 16))(v9);
+    (*(*v9 + 16))(v9, a2);
   }
 
   --dword_1ED4EAAB0;
@@ -1460,7 +1460,7 @@ LABEL_30:
     {
       v17 = *Components;
       *a3 = *Components;
-      *(a3 + 1) = v17;
+      a3[1] = v17;
       a3[2] = *Components;
       Alpha = Components[1];
       goto LABEL_38;
@@ -1768,11 +1768,11 @@ void sub_183B76B24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *CA::Render::Layer::set_rasterization_scale(void *this, float a2)
+CA::Render::Layer *CA::Render::Layer::set_rasterization_scale(CA::Render::Layer *this, float a2)
 {
   v3 = this;
   v4 = a2;
-  if (truncf(a2) != a2 || this[17])
+  if (truncf(a2) != a2 || *(this + 17))
   {
     this = CA::Render::Layer::ensure_ext(this);
     *(this + 77) = a2;
@@ -1782,7 +1782,7 @@ void *CA::Render::Layer::set_rasterization_scale(void *this, float a2)
   return this;
 }
 
-void *CA::Render::CompressedImage::encode(CA::Render::CompressedImage *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::CompressedImage::encode(CA::Render::CompressedImage *this, CA::Render::Encoder *a2)
 {
   v46[1] = *MEMORY[0x1E69E9840];
   v4 = *(this + 3) >> 8;
@@ -1947,7 +1947,7 @@ void *CA::Render::CompressedImage::encode(CA::Render::CompressedImage *this, CA:
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::Texture::encode(CA::Render::Texture *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Texture::encode(CA::Render::Texture *this, CA::Render::Encoder *a2)
 {
   v56 = *MEMORY[0x1E69E9840];
   CA::Render::Encoder::encode_colorspace(a2, *(this + 7));
@@ -2310,13 +2310,13 @@ LABEL_19:
 
 void CA::Render::Encoder::encode_cfobject(CA::Render::Encoder *this, const void *a2)
 {
-  v2 = MEMORY[0x1EEE9AC00](this);
-  v4 = v3;
-  v5 = v2;
+  MEMORY[0x1EEE9AC00](this);
+  v3 = v2;
+  v5 = v4;
   v50 = *MEMORY[0x1E69E9840];
   if (CA::Render::cacftype_from_cfobject(void const*)::once[0] == -1)
   {
-    if (v3)
+    if (v2)
     {
       goto LABEL_3;
     }
@@ -2327,20 +2327,20 @@ LABEL_12:
   }
 
   dispatch_once(CA::Render::cacftype_from_cfobject(void const*)::once, &__block_literal_global_241);
-  if (!v4)
+  if (!v3)
   {
     goto LABEL_12;
   }
 
 LABEL_3:
-  if (*MEMORY[0x1E695E738] == v4)
+  if (*MEMORY[0x1E695E738] == v3)
   {
     LODWORD(v7) = 1;
   }
 
   else
   {
-    v6 = CFGetTypeID(v4);
+    v6 = CFGetTypeID(v3);
     v7 = 0;
     while (CA::Render::cacftype_from_cfobject(void const*)::cfTypeIds[v7] != v6)
     {
@@ -2375,11 +2375,11 @@ LABEL_13:
       {
         case 8:
 
-          CA::Render::Encoder::encode_colorspace(v5, v4);
+          CA::Render::Encoder::encode_colorspace(v5, v3);
           break;
         case 9:
-          ColorSpace = CGImageGetColorSpace(v4);
-          v33 = CA::Render::copy_image(v4, ColorSpace, 0, 0.0, 1.0);
+          ColorSpace = CGImageGetColorSpace(v3);
+          v33 = CA::Render::copy_image(v3, ColorSpace, 0, 0.0, 1.0);
           v34 = *(v33 + 12);
           v35 = *(v5 + 4);
           if ((v35 + 1) > *(v5 + 5))
@@ -2421,7 +2421,7 @@ LABEL_13:
           v11 = CAGetColorSpace(35);
           v48 = 0uLL;
           v49 = 0;
-          CA::Render::convert_cgcolor(v4, v11, &v48, 0, v12);
+          CA::Render::convert_cgcolor(v3, v11, &v48, 0, v12);
           v13.i32[0] = HIDWORD(v48);
           if (*(&v48 + 3) != 0.0 && *(&v48 + 3) != 1.0)
           {
@@ -2450,7 +2450,7 @@ LABEL_13:
     if (v7 == 11)
     {
 LABEL_44:
-      v18 = [(__CFString *)v4 CA_copyRenderValue];
+      v18 = [(__CFString *)v3 CA_copyRenderValue];
       CA::Render::Encoder::encode_object(v5, v18);
       if (v18 && atomic_fetch_add(v18 + 2, 0xFFFFFFFF) == 1)
       {
@@ -2472,7 +2472,7 @@ LABEL_44:
       goto LABEL_44;
     }
 
-    v40 = [(__CFString *)v4 objCType];
+    v40 = [(__CFString *)v3 objCType];
     if (!strcmp(v40, "{CGPoint=dd}"))
     {
       v41 = 0;
@@ -2531,7 +2531,7 @@ LABEL_44:
 
     v42 = 16;
 LABEL_99:
-    [(__CFString *)v4 getValue:&v48 size:v42];
+    [(__CFString *)v3 getValue:&v48 size:v42];
     v44 = *(v5 + 4);
     if ((v44 + 1) > *(v5 + 5))
     {
@@ -2552,14 +2552,14 @@ LABEL_99:
     switch(v7)
     {
       case 5:
-        BytePtr = CFDataGetBytePtr(v4);
-        Length = CFDataGetLength(v4);
-        v27 = CFRetain(v4);
+        BytePtr = CFDataGetBytePtr(v3);
+        Length = CFDataGetLength(v3);
+        v27 = CFRetain(v3);
 
         CA::Render::Encoder::encode_data_async(v5, BytePtr, Length, CA::Render::release_cfdata, v27);
         break;
       case 6:
-        Count = CFArrayGetCount(v4);
+        Count = CFArrayGetCount(v3);
         v37 = *(v5 + 4);
         if ((v37 + 1) > *(v5 + 5))
         {
@@ -2573,14 +2573,14 @@ LABEL_99:
         {
           for (i = 0; i != Count; ++i)
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v4, i);
+            ValueAtIndex = CFArrayGetValueAtIndex(v3, i);
             CA::Render::Encoder::encode_cfobject(v5, ValueAtIndex);
           }
         }
 
         break;
       case 7:
-        v16 = CFDictionaryGetCount(v4);
+        v16 = CFDictionaryGetCount(v3);
         v17 = *(v5 + 4);
         if ((v17 + 1) > *(v5 + 5))
         {
@@ -2591,7 +2591,7 @@ LABEL_99:
         *v17 = v16;
         *(v5 + 4) += 8;
 
-        CFDictionaryApplyFunction(v4, CA::Render::encode_dictionary_item, v5);
+        CFDictionaryApplyFunction(v3, CA::Render::encode_dictionary_item, v5);
         break;
     }
   }
@@ -2604,7 +2604,7 @@ LABEL_99:
       {
         if (v7 == 4)
         {
-          Value = CFBooleanGetValue(v4);
+          Value = CFBooleanGetValue(v3);
           v10 = *(v5 + 4);
           if ((v10 + 1) > *(v5 + 5))
           {
@@ -2619,11 +2619,11 @@ LABEL_99:
         return;
       }
 
-      Type = CFNumberGetType(v4);
+      Type = CFNumberGetType(v3);
       if (Type <= kCFNumberCGFloatType && ((1 << Type) & 0x13060) != 0)
       {
         *&v48 = 0;
-        if (!CFNumberGetValue(v4, kCFNumberDoubleType, &v48))
+        if (!CFNumberGetValue(v3, kCFNumberDoubleType, &v48))
         {
           *&v48 = 0;
         }
@@ -2651,7 +2651,7 @@ LABEL_99:
       else
       {
         *&v48 = 0;
-        if (!CFNumberGetValue(v4, kCFNumberLongLongType, &v48))
+        if (!CFNumberGetValue(v3, kCFNumberLongLongType, &v48))
         {
           *&v48 = 0;
         }
@@ -2683,7 +2683,7 @@ LABEL_69:
     }
 
     bzero(&v48, 0x1000uLL);
-    CString = CA_CFStringGetCString(v4, &v48, 4096);
+    CString = CA_CFStringGetCString(v3, &v48, 4096);
     v21 = *(v5 + 4);
     if ((v21 + 1) > *(v5 + 5))
     {
@@ -2736,7 +2736,7 @@ atomic_uint *CA::Render::String::new_string(const __CFString *this, const __CFSt
   return v4;
 }
 
-void *CA::Render::String::encode(CA::Render::String *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::String::encode(CA::Render::String *this, CA::Render::Encoder *a2)
 {
   v4 = *(this + 6);
   v5 = *(a2 + 4);
@@ -2910,7 +2910,7 @@ uint64_t CA::Render::Layer::set_subclass(uint64_t this, CA::Render::LayerSubclas
   return this;
 }
 
-void *CA::Render::BackdropLayer::encode(CA::Render::BackdropLayer *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::BackdropLayer::encode(CA::Render::BackdropLayer *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   v4 = *(this + 2);
@@ -3024,7 +3024,7 @@ void *CA::Render::BackdropLayer::encode(CA::Render::BackdropLayer *this, CA::Ren
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-CA::Render::Texture *CA::Render::copy_render_value(CA::Render::Texture *cf, CGImage *a2, CGColorSpace *a3)
+atomic_uint *CA::Render::copy_render_value(atomic_uint *cf, CGImage *a2, CGColorSpace *a3)
 {
   v21 = *MEMORY[0x1E69E9840];
   if (!cf)
@@ -3155,7 +3155,7 @@ CA::Render::Texture *CA::Render::copy_render_value(CA::Render::Texture *cf, CGIm
           cf = v4->data;
           if (cf)
           {
-            v14 = (cf + 8);
+            v14 = cf + 2;
             if (!atomic_fetch_add(cf + 2, 1u))
             {
               cf = 0;
@@ -3401,7 +3401,7 @@ LABEL_32:
 
 float CABackingStoreGetFrontTexture(CABackingStore *a1, CGColorSpace *a2, float result)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 246);
   if ((v3 & 0x100) == 0)
   {
@@ -3409,10 +3409,10 @@ float CABackingStoreGetFrontTexture(CABackingStore *a1, CGColorSpace *a2, float 
     if (v5)
     {
 LABEL_64:
-      v46 = *(a1 + 50);
-      if (v46)
+      v47 = *(a1 + 50);
+      if (v47)
       {
-        result = *(v46 + 60);
+        result = *(v47 + 60);
         *(v5 + 64) = result;
       }
 
@@ -3507,16 +3507,17 @@ LABEL_64:
     v20 = *(v7 + 32);
     if (v20)
     {
-      v61 = 0uLL;
-      v62 = 0;
-      CA::Render::convert_cgcolor(v20, a2, &v61, 0, v9);
+      v62 = 0uLL;
+      v63 = 0;
+      CA::Render::convert_cgcolor(v20, a2, &v62, 0, v9);
       v21 = *(a1 + 53);
-      result = *&v61;
-      *(v21 + 72) = v61;
-      *(v21 + 88) = v62;
+      result = *&v62;
+      *(v21 + 72) = v62;
+      *(v21 + 88) = v63;
     }
 
-    if (!*(a1 + 58))
+    v22 = *(a1 + 58);
+    if (!v22)
     {
 LABEL_63:
       v5 = *(a1 + 53);
@@ -3528,38 +3529,38 @@ LABEL_63:
       goto LABEL_64;
     }
 
-    v22 = CA::Shape::new_shape();
-    if (!CA::Shape::is_valid(v22))
+    v23 = CA::Shape::new_shape(v22);
+    if ((CA::Shape::is_valid(v23) & 1) == 0)
     {
       if (x_log_get_utilities::once != -1)
       {
         dispatch_once(&x_log_get_utilities::once, &__block_literal_global_5_2153);
       }
 
-      v59 = x_log_get_utilities::log;
+      v60 = x_log_get_utilities::log;
       if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_ERROR))
       {
-        v60 = CA::Shape::dump(v22);
-        LODWORD(v61) = 136315138;
-        *(&v61 + 4) = v60;
-        _os_log_error_impl(&dword_183AA6000, v59, OS_LOG_TYPE_ERROR, "CoreAnimation: Invalid shape: %s", &v61, 0xCu);
+        v61 = CA::Shape::dump(v23);
+        LODWORD(v62) = 136315138;
+        *(&v62 + 4) = v61;
+        _os_log_error_impl(&dword_183AA6000, v60, OS_LOG_TYPE_ERROR, "CoreAnimation: Invalid shape: %s", &v62, 0xCu);
       }
 
       abort();
     }
 
-    v24 = *(a1 + 53);
-    v25 = *(v24 + 24);
-    v26 = *(v24 + 26);
-    v27 = v26 | v25;
-    if (v22)
+    v25 = *(a1 + 53);
+    v26 = *(v25 + 24);
+    v27 = *(v25 + 26);
+    v28 = v27 | v26;
+    if (v23)
     {
-      if (!v27 || v22 == 1)
+      if (!v28 || v23 == 1)
       {
         goto LABEL_62;
       }
 
-      if (!(v26 | v25))
+      if (!(v27 | v26))
       {
         goto LABEL_59;
       }
@@ -3567,126 +3568,126 @@ LABEL_63:
 
     else
     {
-      if (!v27)
+      if (!v28)
       {
         goto LABEL_62;
       }
 
-      v28 = *(v22 + 4);
-      if (v28 == 6)
+      v29 = *(v23 + 4);
+      if (v29 == 6)
       {
         goto LABEL_62;
       }
 
-      if (v28 == 12)
+      if (v29 == 12)
       {
-        v29 = *(v22 + 32) - *(v22 + 28);
-        v30 = *(v22 + 36) - *(v22 + 20);
-        if (v29 >= 0x3FFFFFFF && v30 > 0x3FFFFFFE)
+        v30 = *(v23 + 32) - *(v23 + 28);
+        v31 = *(v23 + 36) - *(v23 + 20);
+        if (v30 >= 0x3FFFFFFF && v31 > 0x3FFFFFFE)
         {
           goto LABEL_62;
         }
 
-        if (v30 <= 0x3FFFFFFE)
+        if (v31 <= 0x3FFFFFFE)
         {
-          v31 = v26;
+          v32 = v27;
         }
 
         else
         {
-          v31 = 0;
+          v32 = 0;
         }
 
-        if (v29 > 0x3FFFFFFE)
+        if (v30 > 0x3FFFFFFE)
         {
-          v25 = 0;
+          v26 = 0;
         }
 
         else
         {
-          v26 = v31;
+          v27 = v32;
         }
       }
 
-      if (*v22 == 1)
+      if (*v23 == 1)
       {
-        v32 = (v22 + 20);
-        v33 = *(v22 + 20);
-        if (v33 != 0x7FFFFFFF)
+        v33 = (v23 + 20);
+        v34 = *(v23 + 20);
+        if (v34 != 0x7FFFFFFF)
         {
-          v34 = vdup_n_s32(v25);
+          v35 = vdup_n_s32(v26);
           do
           {
-            v32->i32[0] = v33 + v26;
-            v35 = v32->i32[1];
-            if ((v35 - 2) >= 2)
+            v33->i32[0] = v34 + v27;
+            v36 = v33->i32[1];
+            if ((v36 - 2) >= 2)
             {
-              v36 = (v35 - 2) >> 1;
-              v37 = v32 + 1;
+              v37 = (v36 - 2) >> 1;
+              v38 = v33 + 1;
               do
               {
-                *v37 = vadd_s32(*v37, v34);
-                ++v37;
-                --v36;
+                *v38 = vadd_s32(*v38, v35);
+                ++v38;
+                --v37;
               }
 
-              while (v36);
-              v35 = v32->i32[1];
+              while (v37);
+              v36 = v33->i32[1];
             }
 
-            v32 = (v32 + 4 * v35);
-            v33 = v32->i32[0];
+            v33 = (v33 + 4 * v36);
+            v34 = v33->i32[0];
           }
 
-          while (v32->i32[0] != 0x7FFFFFFF);
+          while (v33->i32[0] != 0x7FFFFFFF);
         }
 
         goto LABEL_62;
       }
 
-      if (!(v26 | v25))
+      if (!(v27 | v26))
       {
         goto LABEL_59;
       }
 
-      if ((v22 & 1) == 0)
+      if ((v23 & 1) == 0)
       {
-        v40 = *(v22 + 4);
-        if (v40 == 12)
+        v41 = *(v23 + 4);
+        if (v41 == 12)
         {
-          v41 = *(v22 + 32) - *(v22 + 28);
-          v42 = *(v22 + 36) - *(v22 + 20);
-          if (v41 >= 0x3FFFFFFF && v42 >= 0x3FFFFFFF)
+          v42 = *(v23 + 32) - *(v23 + 28);
+          v43 = *(v23 + 36) - *(v23 + 20);
+          if (v42 >= 0x3FFFFFFF && v43 >= 0x3FFFFFFF)
           {
 LABEL_59:
-            v39 = CA::Shape::ref(v22, v23);
+            v40 = CA::Shape::ref(v23, v24);
             goto LABEL_60;
           }
 
-          if (v42 <= 0x3FFFFFFE)
+          if (v43 <= 0x3FFFFFFE)
           {
-            v47 = v26;
+            v48 = v27;
           }
 
           else
           {
-            v47 = 0;
+            v48 = 0;
           }
 
-          if (v41 > 0x3FFFFFFE)
+          if (v42 > 0x3FFFFFFE)
           {
-            v25 = 0;
+            v26 = 0;
           }
 
           else
           {
-            v26 = v47;
+            v27 = v48;
           }
         }
 
-        else if ((v40 & 0x80000000) != 0)
+        else if ((v41 & 0x80000000) != 0)
         {
-          v43 = 0;
+          v44 = 0;
           goto LABEL_61;
         }
 
@@ -3695,56 +3696,56 @@ LABEL_59:
           dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
         }
 
-        v48 = malloc_type_zone_malloc(malloc_zone, 4 * v40, 0x100004052888210uLL);
-        v43 = v48;
-        if (v48)
+        v49 = malloc_type_zone_malloc(malloc_zone, 4 * v41, 0x100004052888210uLL);
+        v44 = v49;
+        if (v49)
         {
-          if (v40)
+          if (v41)
           {
-            v49 = v40;
-            v50 = v22;
-            v51 = v48;
+            v50 = v41;
+            v51 = v23;
+            v52 = v49;
             do
             {
-              v52 = *v50++;
-              *v51++ = v52;
-              --v49;
+              v53 = *v51++;
+              *v52++ = v53;
+              --v50;
             }
 
-            while (v49);
+            while (v50);
           }
 
-          *v48 = 1;
-          v48[2] = v40;
-          v53 = (v48 + 5);
-          v54 = v48[5];
-          if (v54 != 0x7FFFFFFF)
+          *v49 = 1;
+          v49[2] = v41;
+          v54 = (v49 + 5);
+          v55 = v49[5];
+          if (v55 != 0x7FFFFFFF)
           {
-            v55 = vdup_n_s32(v25);
+            v56 = vdup_n_s32(v26);
             do
             {
-              v53->i32[0] = v54 + v26;
-              v56 = v53->i32[1];
-              if ((v56 - 2) >= 2)
+              v54->i32[0] = v55 + v27;
+              v57 = v54->i32[1];
+              if ((v57 - 2) >= 2)
               {
-                v57 = (v56 - 2) >> 1;
-                v58 = v53 + 1;
+                v58 = (v57 - 2) >> 1;
+                v59 = v54 + 1;
                 do
                 {
-                  *v58 = vadd_s32(*v58, v55);
-                  ++v58;
-                  --v57;
+                  *v59 = vadd_s32(*v59, v56);
+                  ++v59;
+                  --v58;
                 }
 
-                while (v57);
-                v56 = v53->i32[1];
+                while (v58);
+                v57 = v54->i32[1];
               }
 
-              v53 = (v53 + 4 * v56);
-              v54 = v53->i32[0];
+              v54 = (v54 + 4 * v57);
+              v55 = v54->i32[0];
             }
 
-            while (v53->i32[0] != 0x7FFFFFFF);
+            while (v54->i32[0] != 0x7FFFFFFF);
           }
         }
 
@@ -3752,23 +3753,23 @@ LABEL_59:
       }
     }
 
-    v61 = 0uLL;
-    CA::Shape::get_bounds(v22, &v61);
-    LODWORD(v61) = v61 + v25;
-    DWORD1(v61) += v26;
-    v39 = CA::Shape::new_shape(&v61, v38);
+    v62 = 0uLL;
+    CA::Shape::get_bounds(v23, &v62);
+    LODWORD(v62) = v62 + v26;
+    DWORD1(v62) += v27;
+    v40 = CA::Shape::new_shape(&v62, v39);
 LABEL_60:
-    v43 = v39;
+    v44 = v40;
 LABEL_61:
-    CA::Shape::unref(v22);
-    v22 = v43;
+    CA::Shape::unref(v23);
+    v23 = v44;
 LABEL_62:
-    v61 = 0uLL;
-    CA::Shape::get_bounds(v22, &v61);
-    v45 = CA::Shape::new_shape(&v61, v44);
-    CA::Render::Texture::set_dirty_shape(*(a1 + 53), v45);
-    CA::Shape::unref(v45);
-    CA::Shape::unref(v22);
+    v62 = 0uLL;
+    CA::Shape::get_bounds(v23, &v62);
+    v46 = CA::Shape::new_shape(&v62, v45);
+    CA::Render::Texture::set_dirty_shape(*(a1 + 53), v46);
+    CA::Shape::unref(v46);
+    CA::Shape::unref(v23);
     CGSReleaseRegion();
     *(a1 + 58) = 0;
     goto LABEL_63;
@@ -4235,7 +4236,7 @@ uint64_t CA::Render::Image::caches_encoding(CA::Render::Image *this)
   return 1;
 }
 
-void *CA::Render::Image::encode(CA::Render::Image *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Image::encode(CA::Render::Image *this, CA::Render::Encoder *a2)
 {
   v35 = *MEMORY[0x1E69E9840];
   v4 = *(this + 3) >> 8;
@@ -4411,7 +4412,7 @@ LABEL_12:
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::Filter::encode(CA::Render::Filter *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Filter::encode(CA::Render::Filter *this, CA::Render::Encoder *a2)
 {
   v4 = *(this + 3) >> 8;
   v5 = *(a2 + 4);
@@ -4448,7 +4449,7 @@ void *CA::Render::Filter::encode(CA::Render::Filter *this, CA::Render::Encoder *
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::KeyValue::encode(CA::Render::KeyValue *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::KeyValue::encode(CA::Render::KeyValue *this, CA::Render::Encoder *a2)
 {
   CA::Render::Encoder::encode_atom(a2, *(this + 4));
   CA::Render::Encoder::encode_object(a2, *(this + 3));
@@ -4456,7 +4457,7 @@ void *CA::Render::KeyValue::encode(CA::Render::KeyValue *this, CA::Render::Encod
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::Vector::encode(CA::Render::Vector *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Vector::encode(CA::Render::Vector *this, CA::Render::Encoder *a2)
 {
   v4 = *(this + 4);
   v5 = *(a2 + 4);
@@ -4715,7 +4716,7 @@ BOOL key_path_affects_container(unint64_t a1)
   return v2;
 }
 
-atomic_uint *CA::Render::BasicAnimation0::set_from(CA::Render::BasicAnimation0 *this, CA::Render::Object *a2)
+atomic_uint *CA::Render::BasicAnimation0::set_from(CA::Render::BasicAnimation0 *this, atomic_uint *a2)
 {
   result = *(this + 14);
   if (result != a2)
@@ -4742,7 +4743,7 @@ atomic_uint *CA::Render::BasicAnimation0::set_from(CA::Render::BasicAnimation0 *
   return result;
 }
 
-void *CA::Render::BasicAnimation0::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::BasicAnimation0::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
 {
   CA::Render::PropertyAnimation::encode(this, a2);
   CA::Render::Encoder::encode_object(a2, this[14]);
@@ -4774,7 +4775,7 @@ void *CA::Render::BasicAnimation0::encode(const CA::Render::Object **this, CA::R
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::PropertyAnimation::encode(CA::Render::PropertyAnimation *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::PropertyAnimation::encode(CA::Render::PropertyAnimation *this, CA::Render::Encoder *a2)
 {
   CA::Render::Animation::encode(this, a2);
   CA::Render::Encoder::encode_keypath(a2, this + 12);
@@ -4783,7 +4784,7 @@ void *CA::Render::PropertyAnimation::encode(CA::Render::PropertyAnimation *this,
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void *CA::Render::Animation::encode(CA::Render::Animation *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Animation::encode(CA::Render::Animation *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   if (*(this + 5))
@@ -4862,7 +4863,7 @@ void *CA::Render::Animation::encode(CA::Render::Animation *this, CA::Render::Enc
   return CA::Render::Encoder::encode_sanity_check(a2);
 }
 
-void CA::Context::commit_animation(CA::Context *this, CA::Layer *a2, CA::Render::Animation *a3, void *a4)
+void CA::Context::commit_animation(uint64_t this, CA::Layer *a2, CA::Render::Animation *a3, void *a4)
 {
   v7 = *(a3 + 5);
   if (v7)
@@ -4874,7 +4875,7 @@ void CA::Context::commit_animation(CA::Context *this, CA::Layer *a2, CA::Render:
 
     if (this)
     {
-      v8 = (this + CA::Render::_render_id_slide);
+      v8 = (CA::Render::_render_id_slide + this);
     }
 
     else
@@ -4895,7 +4896,7 @@ void CA::Context::commit_animation(CA::Context *this, CA::Layer *a2, CA::Render:
 
     if (this)
     {
-      v10 = this + CA::Render::_render_id_slide;
+      v10 = CA::Render::_render_id_slide + this;
     }
 
     else
@@ -4928,7 +4929,7 @@ void CA::Context::commit_animation(CA::Context *this, CA::Layer *a2, CA::Render:
   *(a3 + 56) = 1;
 }
 
-void *CA::Render::Timing::encode(CA::Render::Timing *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Timing::encode(CA::Render::Timing *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   v4 = *(this + 4);
@@ -5489,8 +5490,8 @@ LABEL_20:
 
     if (v17 && HIDWORD(v35))
     {
-      *v8.i32 = v35 * SHIDWORD(v35) / (SDWORD2(v35) * SDWORD1(v35));
-      *(this + 8) = v8.i32[0];
+      *v8.f64 = v35 * SHIDWORD(v35) / (SDWORD2(v35) * SDWORD1(v35));
+      *(this + 8) = LODWORD(v8.f64[0]);
     }
   }
 
@@ -5519,8 +5520,8 @@ LABEL_26:
         v19 = v20;
       }
 
-      *v8.i64 = v23;
-      *&v8.i64[1] = v19;
+      v8.f64[0] = v23;
+      v8.f64[1] = v19;
       v24 = vceqzq_f64(v8);
       v25 = vorrq_s8(vdupq_laneq_s64(v24, 1), v24).u64[0];
       v26 = 0uLL;
@@ -5573,13 +5574,13 @@ LABEL_26:
   if ((v10 & ((v2 & 0x20) >> 5)) == 1)
   {
     CA::Render::iosurface_get_edr_headroom(v4, v7);
-    *(this + 16) = v8.i32[0];
+    *(this + 16) = LODWORD(v8.f64[0]);
   }
 
   if ((v10 & ((v2 & 0x40) >> 6)) == 1)
   {
-    v8.i16[0] = WORD5(v37);
-    *(this + 17) = v8.u32[0];
+    LOWORD(v8.f64[0]) = WORD5(v37);
+    *(this + 17) = LODWORD(v8.f64[0]);
   }
 
   if ((v9 & v10) == 1)
@@ -5669,7 +5670,7 @@ LABEL_14:
   return result;
 }
 
-void *CA::Render::Surface::encode(atomic_uint *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Surface::encode(atomic_uint *this, CA::Render::Encoder *a2)
 {
   v3 = this;
   v4 = *(a2 + 4);
@@ -6110,25 +6111,25 @@ void CA::Render::SpringAnimation::~SpringAnimation(CA::Render::SpringAnimation *
   v3 = *(this + 16);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 15);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   v5 = *(this + 14);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   CA::Render::PropertyAnimation::~PropertyAnimation(this, a2);
 }
 
-void CA::Layer::collect_non_visible_callback(CA::Layer *this, uint64_t **a2, void *a3)
+void CA::Layer::collect_non_visible_callback(CA::Layer *this, void **a2, void *a3)
 {
   v5 = *(this + 35);
   v25 = v5;
@@ -6177,12 +6178,12 @@ LABEL_9:
       v17 = v16 | (v16 >> 16) | ((v16 | (v16 >> 16)) >> 32);
       if (v17 + 1 > v12)
       {
-        v18 = v17 + 1;
+        v18 = (v17 + 1);
       }
 
       else
       {
-        v18 = (v11 >> 3) + 1;
+        v18 = ((v11 >> 3) + 1);
       }
 
       v19 = malloc_type_malloc(8 * v18, 0x2004093837F09uLL);
@@ -6206,18 +6207,18 @@ LABEL_9:
         free(*a2);
       }
 
-      v9 = v20 + v11;
+      v9 = (v20 + v11);
       *a2 = v20;
-      a2[1] = (v20 + v11);
+      a2[1] = v20 + v11;
       a2[3] = v18;
     }
 
     *v9 = this;
-    ++a2[1];
+    a2[1] = a2[1] + 8;
   }
 }
 
-void *CA::Render::LayerHost::encode(mach_port_name_t *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::LayerHost::encode(mach_port_name_t *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   CA::Render::Encoder::encode_port_send_right(a2, this[6], 0);
@@ -6353,8 +6354,7 @@ void CA::Render::LayerHost::invalidate(CA::Render::LayerHost *this)
   v4 = *(this + 12);
   if (v4)
   {
-    v5 = *(v4 + 456);
-    x_list_remove(v5, this);
+    x_list_remove(*(v4 + 456), this);
     *(v4 + 456) = v5;
     *(this + 12) = 0;
   }
@@ -6391,7 +6391,7 @@ void CA::Render::HostingToken::~HostingToken(CA::Render::HostingToken *this)
   JUMPOUT(0x1865EA9A0);
 }
 
-void *CA::Render::BasicAnimation::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::BasicAnimation::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
 {
   CA::Render::BasicAnimation0::encode(this, a2);
 
@@ -6437,19 +6437,19 @@ void CA::Render::BasicAnimation::~BasicAnimation(CA::Render::BasicAnimation *thi
   v3 = *(this + 16);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 15);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   v5 = *(this + 14);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   CA::Render::PropertyAnimation::~PropertyAnimation(this, a2);
@@ -6467,13 +6467,13 @@ void CA::Render::Animation::~Animation(CA::Render::Animation *this, const CA::Re
   v4 = *(this + 6);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   v5 = *(this + 5);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   *this = &unk_1EF1F6D08;
@@ -8007,7 +8007,7 @@ LABEL_48:
             {
               v33 = v32[3];
               v113[0] = &v103;
-              std::__hash_table<std::__hash_value_type<unsigned int,CA::Render::Context *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Context *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Context *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Render::Context *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v104, v31)[3] = v33;
+              std::__hash_table<std::__hash_value_type<unsigned int,CA::Render::Context *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Context *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::Render::Context *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::Render::Context *>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v104, v31, v113)[3] = v33;
               v30 = CA::Render::Fence::bcontexts_by_id;
             }
 
@@ -8311,7 +8311,7 @@ LABEL_94:
 
             if (*&v56->_os_unfair_lock_opaque == v59 && !*&v35[2][6]._os_unfair_lock_opaque)
             {
-              v113[0] = v56;
+              v113[0] = &v56->_os_unfair_lock_opaque;
               std::vector<std::unordered_set<unsigned long long>>::__destroy_vector::operator()[abi:nn200100](v113);
               MEMORY[0x1865EA9A0](v56, 0x20C40960023A9);
               v70 = v35[2];
@@ -8554,11 +8554,12 @@ LABEL_190:
 
 uint64_t CA::Render::Fence::is_batch_resolved(unsigned int a1, void *a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a2, a1);
+  v19 = *MEMORY[0x1E69E9840];
+  v15 = a1;
+  std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a2, a1, &v15);
   if (!std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(CA::Render::Fence::cleared_b_ports, a1))
   {
-    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a4, a1);
+    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a4, a1, &v15);
     return 0;
   }
 
@@ -8589,19 +8590,19 @@ LABEL_16:
   v11 = 0;
   while (1)
   {
-    v17 = 0;
+    v18 = 0;
     v10 -= 40;
-    v15 = 0u;
     v16 = 0u;
-    std::unordered_set<unsigned int>::unordered_set(&v15, v10);
-    if ((v11 & 1) == 0 && !std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(&v15, a1))
+    v17 = 0u;
+    std::unordered_set<unsigned int>::unordered_set(&v16, v10);
+    if ((v11 & 1) == 0 && !std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(&v16, a1))
     {
       v11 = 0;
       goto LABEL_15;
     }
 
-    v12 = v16;
-    if (v16)
+    v12 = v17;
+    if (v17)
     {
       break;
     }
@@ -8609,7 +8610,7 @@ LABEL_16:
 LABEL_13:
     v11 = 1;
 LABEL_15:
-    std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(&v15);
+    std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(&v16);
     if (v10 == *v9)
     {
       goto LABEL_16;
@@ -8619,7 +8620,7 @@ LABEL_15:
   while (1)
   {
     v13 = *(v12 + 4);
-    if (!std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(a2, *(v12 + 4)) && !std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(a3, v13) && (std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(a4, v13) || !CA::Render::Fence::is_batch_resolved(v13, a2, a3, a4)))
+    if (!std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(a2, v13) && !std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(a3, v13) && (std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::find<unsigned int>(a4, v13) || !CA::Render::Fence::is_batch_resolved(v13, a2, a3, a4)))
     {
       break;
     }
@@ -8631,8 +8632,8 @@ LABEL_15:
     }
   }
 
-  std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a4, a1);
-  std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(&v15);
+  std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(a4, a1, &v15);
+  std::__hash_table<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CA::Render::PerModeInfo>>>::~__hash_table(&v16);
   return 0;
 }
 
@@ -9101,7 +9102,7 @@ LABEL_45:
   return result;
 }
 
-void *CA::Render::SpringAnimation::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::SpringAnimation::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
 {
   CA::Render::BasicAnimation0::encode(this, a2);
   v4 = this[19];
@@ -9515,8 +9516,8 @@ CA::Render::Layer *CA::Render::Layer::Layer(CA::Render::Layer *this, CA::Render:
   CA::Render::Decoder::decode_bytes(a2, v4 + 16, 0x58uLL);
   CA::Render::Decoder::decode_sanity_check(a2, "/Library/Caches/com.apple.xbs/Sources/QuartzCore/LayerKit/render/render-layer.cpp", 6431);
   *(this + 13) = CA::Render::Decoder::decode_object(a2, 11, CA::Render::contents_types);
-  __dst[0] = 30;
-  *(this + 14) = CA::Render::Decoder::decode_array_object(a2, 1, __dst, 1);
+  LODWORD(__dst) = 30;
+  *(this + 14) = CA::Render::Decoder::decode_array_object(a2, 1, &__dst, 1);
   *(this + 15) = CA::Render::Decoder::decode_size_t(a2);
   *(this + 16) = CA::Render::Decoder::decode_object(a2, 54);
   if (CA::Render::Decoder::decode_int8(a2))
@@ -9541,31 +9542,31 @@ CA::Render::Layer *CA::Render::Layer::Layer(CA::Render::Layer *this, CA::Render:
       *(v5 + 9) = CA::Render::Decoder::decode_object(a2, 62);
       *(v5 + 10) = CA::Render::Decoder::decode_object(a2, 39);
       *(v5 + 11) = CA::Render::Decoder::decode_object(a2, 17);
-      __dst[0] = 17;
-      *(v5 + 12) = CA::Render::Decoder::decode_array_object(a2, 1, __dst, 0);
-      __dst[0] = 17;
-      *(v5 + 13) = CA::Render::Decoder::decode_array_object(a2, 1, __dst, 0);
+      LODWORD(__dst) = 17;
+      *(v5 + 12) = CA::Render::Decoder::decode_array_object(a2, 1, &__dst, 0);
+      LODWORD(__dst) = 17;
+      *(v5 + 13) = CA::Render::Decoder::decode_array_object(a2, 1, &__dst, 0);
       *(v5 + 14) = CA::Render::Decoder::decode_object(a2, 35);
       *(v5 + 15) = CA::Render::Decoder::decode_object(a2, 38);
       *(v5 + 16) = CA::Render::Decoder::decode_object(a2, 39);
-      __dst[0] = 44;
-      *(v5 + 17) = CA::Render::Decoder::decode_array_object(a2, 1, __dst, 0);
+      LODWORD(__dst) = 44;
+      *(v5 + 17) = CA::Render::Decoder::decode_array_object(a2, 1, &__dst, 0);
       *(v5 + 18) = 0;
-      *__dst = 0uLL;
-      CA::Render::Decoder::decode_bytes(a2, __dst, 0x10uLL);
-      *(v5 + 152) = *__dst;
-      *__dst = 0uLL;
-      CA::Render::Decoder::decode_bytes(a2, __dst, 0x10uLL);
-      *(v5 + 168) = *__dst;
+      __dst = 0uLL;
+      CA::Render::Decoder::decode_bytes(a2, &__dst, 0x10uLL);
+      *(v5 + 152) = __dst;
+      __dst = 0uLL;
+      CA::Render::Decoder::decode_bytes(a2, &__dst, 0x10uLL);
+      *(v5 + 168) = __dst;
       *(v5 + 23) = CA::Render::Decoder::decode_int64(a2);
       *(v5 + 24) = CA::Render::Decoder::decode_int64(a2);
       *(v5 + 26) = 0;
       *(v5 + 54) = 0;
       *(v5 + 25) = 0;
       CA::Render::Decoder::decode_bytes(a2, v5 + 200, 0x14uLL);
-      *__dst = 0;
-      CA::Render::Decoder::decode_bytes(a2, __dst, 8uLL);
-      *(v5 + 220) = *__dst;
+      *&__dst = 0;
+      CA::Render::Decoder::decode_bytes(a2, &__dst, 8uLL);
+      *(v5 + 220) = __dst;
       *(v5 + 57) = CA::Render::Decoder::decode_int32(a2);
       *(v5 + 58) = CA::Render::Decoder::decode_int32(a2);
       *(v5 + 59) = CA::Render::Decoder::decode_int32(a2);
@@ -9762,19 +9763,20 @@ CA::Render::Layer *CA::Render::Layer::Layer(CA::Render::Layer *this, CA::Render:
   return this;
 }
 
-atomic_uint *CA::Render::Decoder::decode_array_object(CA::Render::Decoder *a1, uint64_t a2, int *a3, int a4)
+atomic_uint *CA::Render::Decoder::decode_array_object(CA::Render::Decoder *a1, uint64_t a2, int *a3, uint64_t a4)
 {
   if (*(a1 + 18))
   {
     return 0;
   }
 
+  v4 = a4;
   v8 = CA::Render::Decoder::decode_int8(a1);
   if (v8)
   {
     if (v8 == 1)
     {
-      result = CA::Render::Array::decode(a1, a2, a3, a4);
+      result = CA::Render::Array::decode(a1, a2, a3, v4);
       if (result)
       {
         return result;

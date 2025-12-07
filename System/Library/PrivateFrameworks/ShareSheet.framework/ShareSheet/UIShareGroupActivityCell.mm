@@ -1230,29 +1230,29 @@ LABEL_11:
     v16 = MEMORY[0x1E6979320];
     v17 = *v15;
     titleSlotView5 = [v16 objectForSlot:{-[UIShareGroupActivityCell titleSlotID](self, "titleSlotID")}];
-    v19 = _ShareSheetDeviceScreenScale();
+    v20 = _ShareSheetDeviceScreenScale(titleSlotView5, v19);
     titleSlotView = [(UIShareGroupActivityCell *)self titleSlotView];
     layer = [titleSlotView layer];
-    [layer setContentsScale:v19];
+    [layer setContentsScale:v20];
 
-    v22 = _ShareSheetDeviceScreenScale();
+    v25 = _ShareSheetDeviceScreenScale(v23, v24);
     titleSlotView2 = [(UIShareGroupActivityCell *)self titleSlotView];
     layer2 = [titleSlotView2 layer];
-    [layer2 setRasterizationScale:v22];
+    [layer2 setRasterizationScale:v25];
 
     if (IsAccessibilityCategory)
     {
-      v25 = v17;
+      v28 = v17;
     }
 
     else
     {
-      v25 = *MEMORY[0x1E6979DB8];
+      v28 = *MEMORY[0x1E6979DB8];
     }
 
     titleSlotView3 = [(UIShareGroupActivityCell *)self titleSlotView];
     layer3 = [titleSlotView3 layer];
-    [layer3 setContentsGravity:v25];
+    [layer3 setContentsGravity:v28];
 
     titleSlotView4 = [(UIShareGroupActivityCell *)self titleSlotView];
     layer4 = [titleSlotView4 layer];
@@ -1268,16 +1268,16 @@ LABEL_11:
 
   if (titleSlotID)
   {
-    v30 = 1.0;
+    v33 = 1.0;
   }
 
   else
   {
-    v30 = 0.0;
+    v33 = 0.0;
   }
 
   titleSlotView6 = [(UIShareGroupActivityCell *)self titleSlotView];
-  [titleSlotView6 setAlpha:v30];
+  [titleSlotView6 setAlpha:v33];
 }
 
 - (void)_updateBadgeSlotView
@@ -1286,20 +1286,20 @@ LABEL_11:
   if (badgeSlotID)
   {
     badgeSlotView5 = [MEMORY[0x1E6979320] objectForSlot:{-[UIShareGroupActivityCell badgeSlotID](self, "badgeSlotID")}];
-    v5 = _ShareSheetDeviceScreenScale();
+    v6 = _ShareSheetDeviceScreenScale(badgeSlotView5, v5);
     badgeSlotView = [(UIShareGroupActivityCell *)self badgeSlotView];
     layer = [badgeSlotView layer];
-    [layer setContentsScale:v5];
+    [layer setContentsScale:v6];
 
-    v8 = _ShareSheetDeviceScreenScale();
+    v11 = _ShareSheetDeviceScreenScale(v9, v10);
     badgeSlotView2 = [(UIShareGroupActivityCell *)self badgeSlotView];
     layer2 = [badgeSlotView2 layer];
-    [layer2 setRasterizationScale:v8];
+    [layer2 setRasterizationScale:v11];
 
-    v11 = *MEMORY[0x1E6979DD0];
+    v14 = *MEMORY[0x1E6979DD0];
     badgeSlotView3 = [(UIShareGroupActivityCell *)self badgeSlotView];
     layer3 = [badgeSlotView3 layer];
-    [layer3 setContentsGravity:v11];
+    [layer3 setContentsGravity:v14];
 
     badgeSlotView4 = [(UIShareGroupActivityCell *)self badgeSlotView];
     layer4 = [badgeSlotView4 layer];
@@ -1315,16 +1315,16 @@ LABEL_11:
 
   if (badgeSlotID)
   {
-    v16 = 1.0;
+    v19 = 1.0;
   }
 
   else
   {
-    v16 = 0.0;
+    v19 = 0.0;
   }
 
   badgeSlotView6 = [(UIShareGroupActivityCell *)self badgeSlotView];
-  [badgeSlotView6 setAlpha:v16];
+  [badgeSlotView6 setAlpha:v19];
 }
 
 - (SHSheetContentLayoutSpec)layoutSpec

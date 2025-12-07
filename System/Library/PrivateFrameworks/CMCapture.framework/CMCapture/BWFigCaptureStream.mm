@@ -4,6 +4,7 @@
 - (BWFigCaptureStream)initWithFigCaptureStream:(OpaqueFigCaptureStream *)stream deviceID:(id)d errOut:(int *)out;
 - (BWFigCaptureStreamStartStopDelegate)startStopDelegate;
 - (_DWORD)_copyProperty:(int)property requireSupported:(int *)supported error:;
+- (double)_activateVibeMitigationIfEnabled;
 - (id)description;
 - (id)getProperty:(__CFString *)property error:(int *)error;
 - (id)getPropertyIfSupported:(__CFString *)supported error:(int *)error;
@@ -14,7 +15,6 @@
 - (int)stop;
 - (int)unregisterForNotification:(__CFString *)notification listener:(const void *)listener;
 - (uint64_t)_setProperty:(void *)property value:(int)value requireSupported:(char)supported lockHeldByCaller:;
-- (void)_activateVibeMitigationIfEnabled;
 - (void)_resetStreamingState;
 - (void)dealloc;
 - (void)flushPropertyCache;
@@ -342,23 +342,23 @@ LABEL_25:
 - (BWFigCaptureStream)initWithFigCaptureStream:(OpaqueFigCaptureStream *)stream deviceID:(id)d errOut:(int *)out
 {
   selfCopy = self;
-  v50 = 0;
+  v27 = 0;
   if (stream)
   {
-    v49.receiver = self;
-    v49.super_class = BWFigCaptureStream;
-    v9 = [(BWFigCaptureStream *)&v49 init];
+    v26.receiver = self;
+    v26.super_class = BWFigCaptureStream;
+    v9 = [(BWFigCaptureStream *)&v26 init];
     selfCopy = v9;
     if (v9)
     {
       v9->_lock._os_unfair_lock_opaque = 0;
       v9->_cachedProperties = objc_alloc_init(MEMORY[0x1E695DF90]);
       selfCopy->_stream = CFRetain(stream);
-      v10 = [(BWFigCaptureStream *)selfCopy copyProperty:*off_1E798C0E0 error:&v50];
+      v10 = [(BWFigCaptureStream *)selfCopy copyProperty:*off_1E798C0E0 error:&v27];
       selfCopy->_portType = v10;
-      if (v50)
+      if (v27)
       {
-        [BWFigCaptureStream initWithFigCaptureStream:deviceID:errOut:];
+        [BWFigCaptureStream initWithFigCaptureStream:v27 deviceID:? errOut:?];
       }
 
       else
@@ -367,24 +367,23 @@ LABEL_25:
         selfCopy->_loggingPrefix = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<%p FigCaptureStreamRef(%p), %@>", selfCopy, selfCopy->_stream, selfCopy->_portTypeShortString];
         if (dword_1ED844370)
         {
-          v48 = 0;
-          v47 = OS_LOG_TYPE_DEFAULT;
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
           os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        selfCopy->_supportedProperties = [(BWFigCaptureStream *)selfCopy copyProperty:*off_1E798A2C8 error:&v50, v35, v36];
-        if (v50)
+        selfCopy->_supportedProperties = [(BWFigCaptureStream *)selfCopy copyProperty:*off_1E798A2C8 error:&v27, v24, v25];
+        if (v27)
         {
           [BWFigCaptureStream initWithFigCaptureStream:deviceID:errOut:];
         }
 
         else
         {
-          if ((BWCaptureIsRunningInMacCatalystEnvironment() & 1) == 0 && (BWCaptureIsRunningInIOSAppOnMacEnvironment() & 1) == 0)
+          IsRunningInMacCatalystEnvironment = BWCaptureIsRunningInMacCatalystEnvironment(0, v13);
+          if ((IsRunningInMacCatalystEnvironment & 1) == 0 && (BWCaptureIsRunningInIOSAppOnMacEnvironment(IsRunningInMacCatalystEnvironment, v15) & 1) == 0)
           {
-            selfCopy->_staticPropertiesCacheEnabled = [d isEqualToString:0x1F21702D0];
+            selfCopy->_staticPropertiesCacheEnabled = objc_msgSend_isEqualToString_(d);
           }
 
           if (selfCopy->_staticPropertiesCacheEnabled)
@@ -394,19 +393,18 @@ LABEL_25:
             os_unfair_lock_unlock(&sStaticCachedPropertiesByPortTypeLock);
           }
 
-          v13 = *off_1E798A0E8;
-          if ([(NSString *)selfCopy->_portType isEqualToString:*off_1E798A0E8])
+          if (objc_msgSend_isEqualToString_(selfCopy->_portType))
           {
-            v14 = [(NSDictionary *)selfCopy->_supportedProperties mutableCopy];
-            [v14 setObject:0 forKeyedSubscript:*off_1E798C1E8];
-            [v14 setObject:0 forKeyedSubscript:*off_1E798C1E0];
-            [v14 setObject:0 forKeyedSubscript:*off_1E798C1D8];
+            v16 = [(NSDictionary *)selfCopy->_supportedProperties mutableCopy];
+            [v16 setObject:0 forKeyedSubscript:*off_1E798C1E8];
+            [v16 setObject:0 forKeyedSubscript:*off_1E798C1E0];
+            [v16 setObject:0 forKeyedSubscript:*off_1E798C1D8];
 
-            selfCopy->_supportedProperties = [v14 copy];
+            selfCopy->_supportedProperties = [v16 copy];
           }
 
-          selfCopy->_uniqueID = [(BWFigCaptureStream *)selfCopy copyPropertyIfSupported:*off_1E798C240 error:&v50];
-          if (v50)
+          selfCopy->_uniqueID = [(BWFigCaptureStream *)selfCopy copyPropertyIfSupported:*off_1E798C240 error:&v27];
+          if (v27)
           {
             [BWFigCaptureStream initWithFigCaptureStream:deviceID:errOut:];
           }
@@ -416,124 +414,70 @@ LABEL_25:
             if (*MEMORY[0x1E695FF58])
             {
               portType = selfCopy->_portType;
-              v16 = 822151424;
-              if ([(NSString *)portType isEqualToString:*off_1E798A0D8])
+              v18 = 822151424;
+              if (objc_msgSend_isEqualToString_(portType))
               {
-                v16 = 822151552;
+                v18 = 822151552;
               }
 
-              else if ([(NSString *)portType isEqualToString:*off_1E798A0C0])
+              else if (objc_msgSend_isEqualToString_(portType))
               {
-                v16 = 822151488;
+                v18 = 822151488;
               }
 
-              else if (![(NSString *)portType isEqualToString:*off_1E798A0D0])
+              else if ((objc_msgSend_isEqualToString_(portType) & 1) == 0)
               {
-                if ([(NSString *)portType isEqualToString:*off_1E798A0E0])
+                if (objc_msgSend_isEqualToString_(portType))
                 {
-                  v16 = 822151680;
+                  v18 = 822151680;
                 }
 
-                else if ([(NSString *)portType isEqualToString:*off_1E798A0C8])
+                else if (objc_msgSend_isEqualToString_(portType))
                 {
-                  v16 = 822151616;
+                  v18 = 822151616;
                 }
 
-                else if ([(NSString *)portType isEqualToString:v13])
+                else if (objc_msgSend_isEqualToString_(portType))
                 {
-                  v16 = 822151744;
+                  v18 = 822151744;
                 }
 
-                else if ([(NSString *)portType isEqualToString:*off_1E798A0F8])
+                else if (objc_msgSend_isEqualToString_(portType))
                 {
-                  v16 = 822152064;
+                  v18 = 822152064;
                 }
 
                 else
                 {
-                  v16 = 0;
+                  v18 = 0;
                 }
               }
             }
 
             else
             {
-              v16 = 0;
+              v18 = 0;
             }
 
-            selfCopy->_ktraceCodePrefix = v16;
+            selfCopy->_ktraceCodePrefix = v18;
             [(BWFigCaptureStream *)selfCopy registerForNotification:*off_1E798B8B8 listener:selfCopy callback:fcs_handleStreamControlTakenByAnotherClientNotification];
             [(BWFigCaptureStream *)selfCopy registerForNotification:*off_1E798B8B0 listener:selfCopy callback:fcs_handleStreamControlRelinquishedByAnotherClientNotification];
             [(BWFigCaptureStream *)selfCopy registerForNotification:*off_1E798B890 listener:selfCopy callback:fcs_handleFrameReceiveTimeout];
             [(BWFigCaptureStream *)selfCopy registerForNotification:*off_1E798B8A0 listener:selfCopy callback:fcs_reactionsInProgressChanged];
             [(BWFigCaptureStream *)selfCopy registerForNotification:*off_1E798B8D0 listener:selfCopy callback:fcs_suppressedGesture];
             selfCopy->_vibeMitigationWhileCameraStreamingSupported = 0;
-            v17 = *off_1E798C270;
+            v19 = *off_1E798C270;
             if ([(NSDictionary *)selfCopy->_supportedProperties objectForKeyedSubscript:*off_1E798C270])
             {
-              v50 = [(BWFigCaptureStream *)selfCopy setProperty:v17 value:MEMORY[0x1E695E110]];
-              if (v50)
+              v27 = [(BWFigCaptureStream *)selfCopy setProperty:v19 value:MEMORY[0x1E695E110]];
+              if (!v27 && !dword_1ED844370)
               {
-                v48 = 0;
-                v47 = OS_LOG_TYPE_DEFAULT;
-                v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v19 = v48;
-                if (os_log_type_enabled(v18, v47))
-                {
-                  v20 = v19;
-                }
-
-                else
-                {
-                  v20 = v19 & 0xFFFFFFFE;
-                }
-
-                if (v20)
-                {
-                  loggingPrefix = selfCopy->_loggingPrefix;
-                  v37 = 136315650;
-                  v38 = "[BWFigCaptureStream initWithFigCaptureStream:deviceID:errOut:]";
-                  v39 = 2114;
-                  v40 = loggingPrefix;
-                  v41 = 1024;
-                  LODWORD(streamCopy2) = v50;
-                  _os_log_send_and_compose_impl();
-                }
+                *out = 0;
+                return selfCopy;
               }
 
-              else
-              {
-                if (!dword_1ED844370)
-                {
-                  *out = 0;
-                  return selfCopy;
-                }
-
-                v48 = 0;
-                v47 = OS_LOG_TYPE_DEFAULT;
-                v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v23 = v48;
-                if (os_log_type_enabled(v22, v47))
-                {
-                  v24 = v23;
-                }
-
-                else
-                {
-                  v24 = v23 & 0xFFFFFFFE;
-                }
-
-                if (v24)
-                {
-                  v25 = selfCopy->_loggingPrefix;
-                  v37 = 136315394;
-                  v38 = "[BWFigCaptureStream initWithFigCaptureStream:deviceID:errOut:]";
-                  v39 = 2114;
-                  v40 = v25;
-                  _os_log_send_and_compose_impl();
-                }
-              }
-
+              v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
               fig_log_call_emit_and_clean_up_after_send_and_compose();
             }
           }
@@ -547,79 +491,12 @@ LABEL_25:
     [BWFigCaptureStream initWithFigCaptureStream:deviceID:errOut:];
   }
 
-  v26 = v50;
-  *out = v50;
-  if (v26)
+  v21 = v27;
+  *out = v27;
+  if (v21)
   {
-    if (selfCopy->_loggingPrefix)
-    {
-      v48 = 0;
-      v47 = OS_LOG_TYPE_DEFAULT;
-      v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v28 = v48;
-      if (os_log_type_enabled(v27, v47))
-      {
-        v29 = v28;
-      }
-
-      else
-      {
-        v29 = v28 & 0xFFFFFFFE;
-      }
-
-      if (!v29)
-      {
-        goto LABEL_60;
-      }
-
-      v30 = selfCopy->_loggingPrefix;
-      v37 = 136316162;
-      v38 = "[BWFigCaptureStream initWithFigCaptureStream:deviceID:errOut:]";
-      v39 = 2114;
-      v40 = v30;
-      v41 = 2048;
-      streamCopy2 = stream;
-      v43 = 2114;
-      dCopy2 = d;
-      v45 = 1024;
-      v46 = v50;
-    }
-
-    else
-    {
-      v48 = 0;
-      v47 = OS_LOG_TYPE_DEFAULT;
-      v31 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v32 = v48;
-      if (os_log_type_enabled(v31, v47))
-      {
-        v33 = v32;
-      }
-
-      else
-      {
-        v33 = v32 & 0xFFFFFFFE;
-      }
-
-      if (!v33)
-      {
-        goto LABEL_60;
-      }
-
-      v37 = 136316162;
-      v38 = "[BWFigCaptureStream initWithFigCaptureStream:deviceID:errOut:]";
-      v39 = 2048;
-      v40 = selfCopy;
-      v41 = 2048;
-      streamCopy2 = stream;
-      v43 = 2114;
-      dCopy2 = d;
-      v45 = 1024;
-      v46 = v50;
-    }
-
-    _os_log_send_and_compose_impl();
-LABEL_60:
+    v22 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
     return 0;
@@ -864,7 +741,7 @@ LABEL_60:
   os_unfair_lock_unlock(&self->_lock);
 }
 
-- (void)_activateVibeMitigationIfEnabled
+- (double)_activateVibeMitigationIfEnabled
 {
   if (self)
   {
@@ -875,12 +752,12 @@ LABEL_60:
       {
         if (!dword_1ED844370)
         {
-          return;
+          return result;
         }
 
-        v6 = OUTLINED_FUNCTION_15_22();
-        v7 = OUTLINED_FUNCTION_29_4(v6);
-        if (!OUTLINED_FUNCTION_6(v7))
+        v12 = OUTLINED_FUNCTION_15_22();
+        v13 = OUTLINED_FUNCTION_29_4(v12);
+        if (!OUTLINED_FUNCTION_6(v13))
         {
           goto LABEL_15;
         }
@@ -893,15 +770,15 @@ LABEL_60:
         if (-[BWFigCaptureStream _setProperty:value:requireSupported:lockHeldByCaller:](self, *off_1E798C270, [MEMORY[0x1E696AD98] numberWithBool:?], 0, 1))
         {
           OUTLINED_FUNCTION_1_5();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, v20, v21);
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v5 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-          if (OUTLINED_FUNCTION_12(v5))
+          v6 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+          if (OUTLINED_FUNCTION_12(v6))
           {
             OUTLINED_FUNCTION_13_28();
             OUTLINED_FUNCTION_5();
             OUTLINED_FUNCTION_13();
-            OUTLINED_FUNCTION_27_13();
+            OUTLINED_FUNCTION_27_13(v7, v8, v9, v10, v11);
           }
 
           OUTLINED_FUNCTION_1_4();
@@ -910,12 +787,12 @@ LABEL_60:
 
         if (!dword_1ED844370)
         {
-          return;
+          return result;
         }
 
-        v2 = OUTLINED_FUNCTION_15_22();
-        v3 = OUTLINED_FUNCTION_29_4(v2);
-        if (!OUTLINED_FUNCTION_6(v3))
+        v3 = OUTLINED_FUNCTION_15_22();
+        v4 = OUTLINED_FUNCTION_29_4(v3);
+        if (!OUTLINED_FUNCTION_6(v4))
         {
           goto LABEL_15;
         }
@@ -930,6 +807,8 @@ LABEL_15:
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
+
+  return result;
 }
 
 - (int)stop
@@ -938,9 +817,10 @@ LABEL_15:
   v4 = MEMORY[0x1E695FF58];
   if (ktraceCodePrefix)
   {
+    v6 = ktraceCodePrefix & 0xFFFFFFC0;
     if (*MEMORY[0x1E695FF58])
     {
-      v5 = ktraceCodePrefix & 0xFFFFFFC0 | 4;
+      v5 = v6 | 4;
     }
 
     else
@@ -950,7 +830,7 @@ LABEL_15:
 
     if (*MEMORY[0x1E695FF58] == 1)
     {
-      OUTLINED_FUNCTION_5_7();
+      OUTLINED_FUNCTION_5_7(v6 | 5, 0);
     }
   }
 
@@ -963,8 +843,8 @@ LABEL_15:
   if (self->_invalidated)
   {
     retainReferencedObject = 0;
-    v7 = 0;
-    v8 = -12785;
+    v8 = 0;
+    v9 = -12785;
   }
 
   else if (self->_streaming)
@@ -973,8 +853,8 @@ LABEL_15:
     {
       OUTLINED_FUNCTION_4_54();
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v10 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v20);
-      if (OUTLINED_FUNCTION_6(v10))
+      v11 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v21);
+      if (OUTLINED_FUNCTION_6(v11))
       {
         OUTLINED_FUNCTION_0_66();
         OUTLINED_FUNCTION_6_47();
@@ -986,42 +866,42 @@ LABEL_15:
     }
 
     stream = self->_stream;
-    v12 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-    if (v12)
+    v13 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+    if (v13)
     {
-      v8 = v12(stream);
+      v9 = v13(stream);
     }
 
     else
     {
-      v8 = -12782;
+      v9 = -12782;
     }
 
     self->_streaming = 0;
     retainReferencedObject = [(FigWeakReference *)self->_startStopDelegateWeakReference retainReferencedObject];
-    v7 = 1;
+    v8 = 1;
   }
 
   else
   {
     retainReferencedObject = 0;
-    v7 = 0;
-    v8 = -12780;
+    v8 = 0;
+    v9 = -12780;
   }
 
   [(BWFigCaptureStream *)self _activateVibeMitigationIfEnabled];
   os_unfair_lock_unlock(&self->_lock);
   if (v5 && *v4 == 1)
   {
-    OUTLINED_FUNCTION_5_7();
+    OUTLINED_FUNCTION_5_7(v5 | 2u, v9);
   }
 
-  if (v8)
+  if (v9)
   {
     OUTLINED_FUNCTION_4_54();
-    v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v14 = OUTLINED_FUNCTION_14_24(v13);
-    if (OUTLINED_FUNCTION_12(v14))
+    v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v15 = OUTLINED_FUNCTION_14_24(v14);
+    if (OUTLINED_FUNCTION_12(v15))
     {
       OUTLINED_FUNCTION_3_62();
       OUTLINED_FUNCTION_5();
@@ -1038,9 +918,9 @@ LABEL_15:
     }
 
     OUTLINED_FUNCTION_4_54();
-    v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v16 = OUTLINED_FUNCTION_14_24(v15);
-    if (OUTLINED_FUNCTION_12(v16))
+    v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v17 = OUTLINED_FUNCTION_14_24(v16);
+    if (OUTLINED_FUNCTION_12(v17))
     {
       OUTLINED_FUNCTION_0_66();
       OUTLINED_FUNCTION_6_47();
@@ -1051,7 +931,7 @@ LABEL_15:
   OUTLINED_FUNCTION_5_54();
   fig_log_call_emit_and_clean_up_after_send_and_compose();
 LABEL_31:
-  if (v7)
+  if (v8)
   {
     if (retainReferencedObject)
     {
@@ -1061,9 +941,9 @@ LABEL_31:
     else
     {
       OUTLINED_FUNCTION_4_54();
-      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v18 = OUTLINED_FUNCTION_14_24(v17);
-      if (OUTLINED_FUNCTION_12(v18))
+      v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v19 = OUTLINED_FUNCTION_14_24(v18);
+      if (OUTLINED_FUNCTION_12(v19))
       {
         OUTLINED_FUNCTION_0_66();
         OUTLINED_FUNCTION_6_47();
@@ -1075,7 +955,7 @@ LABEL_31:
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)_resetStreamingState
@@ -1112,11 +992,11 @@ LABEL_31:
         {
           OUTLINED_FUNCTION_0_66();
           OUTLINED_FUNCTION_13();
-          OUTLINED_FUNCTION_27_13();
+          OUTLINED_FUNCTION_27_13(v6, v7, v8, v9, v10);
         }
 
         OUTLINED_FUNCTION_1_4();
-        OUTLINED_FUNCTION_13_0();
+        OUTLINED_FUNCTION_13_0(v11, v12, v13, v14, v15);
       }
     }
   }
@@ -1155,21 +1035,22 @@ LABEL_31:
   v14 = MEMORY[0x1E695FF58];
   if (v13)
   {
-    v15 = v13 & 0xFFFFFFC0 | 8;
+    v15 = v13 & 0xFFFFFFC0;
+    v16 = v13 & 0xFFFFFFC0 | 8;
     if (*MEMORY[0x1E695FF58])
     {
-      v16 = v15;
+      v17 = v16;
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
     if (*MEMORY[0x1E695FF58] == 1)
     {
-      CFHash(cf1);
-      OUTLINED_FUNCTION_5_7();
+      v18 = CFHash(cf1);
+      OUTLINED_FUNCTION_5_7(v15 | 9, v18);
     }
 
     if ((supported & 1) == 0)
@@ -1180,7 +1061,7 @@ LABEL_31:
 
   else
   {
-    v16 = 0;
+    v17 = 0;
     if ((supported & 1) == 0)
     {
 LABEL_14:
@@ -1197,7 +1078,7 @@ LABEL_14:
     }
 
 LABEL_26:
-    if (v16)
+    if (v17)
     {
       goto LABEL_33;
     }
@@ -1205,8 +1086,8 @@ LABEL_26:
     goto LABEL_35;
   }
 
-  v17 = *(self + 48);
-  if (v17 && ![v17 objectForKeyedSubscript:cf1])
+  v19 = *(self + 48);
+  if (v19 && ![v19 objectForKeyedSubscript:cf1])
   {
     if (value)
     {
@@ -1240,12 +1121,12 @@ LABEL_26:
 
 LABEL_32:
   os_unfair_lock_unlock((self + 68));
-  if (v16)
+  if (v17)
   {
 LABEL_33:
     if (*v14 == 1)
     {
-      OUTLINED_FUNCTION_5_7();
+      OUTLINED_FUNCTION_5_7(v17 | 2, v12);
     }
   }
 
@@ -1266,91 +1147,92 @@ LABEL_35:
   if (result)
   {
     v7 = result;
-    v16 = 0;
+    v18 = 0;
     v8 = result[19];
     v9 = MEMORY[0x1E695FF58];
     if (v8)
     {
-      v10 = v8 & 0xFFFFFFC0 | 0xC;
+      v10 = v8 & 0xFFFFFFC0;
+      v11 = v8 & 0xFFFFFFC0 | 0xC;
       if (*MEMORY[0x1E695FF58])
       {
-        v11 = v10;
+        v12 = v11;
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
       if (*MEMORY[0x1E695FF58] == 1)
       {
-        CFHash(cf);
-        OUTLINED_FUNCTION_5_7();
+        v13 = CFHash(cf);
+        OUTLINED_FUNCTION_5_7(v10 | 0xD, v13);
       }
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    os_unfair_lock_lock((v7 + 68));
+    os_unfair_lock_lock(v7 + 17);
     if (*(v7 + 65))
     {
-      v12 = -12785;
+      v14 = -12785;
     }
 
     else
     {
-      v13 = *(v7 + 48);
-      if (v13 && ![v13 objectForKeyedSubscript:cf])
+      v15 = *(v7 + 6);
+      if (v15 && ![v15 objectForKeyedSubscript:cf])
       {
         if (property)
         {
-          v12 = -12787;
+          v14 = -12787;
         }
 
         else
         {
-          v12 = 0;
+          v14 = 0;
         }
       }
 
       else
       {
-        v16 = [*(v7 + 56) objectForKeyedSubscript:cf];
-        if (!v16)
+        v18 = [*(v7 + 7) objectForKeyedSubscript:cf];
+        if (!v18)
         {
           FigCaptureStreamGetFigBaseObject();
         }
 
-        v12 = 0;
+        v14 = 0;
       }
     }
 
-    os_unfair_lock_unlock((v7 + 68));
-    if (v11 && *v9 == 1)
+    os_unfair_lock_unlock(v7 + 17);
+    if (v12 && *v9 == 1)
     {
-      OUTLINED_FUNCTION_5_7();
+      OUTLINED_FUNCTION_5_7(v12 | 2, v14);
     }
 
-    v14 = 0;
-    if (v12)
+    v16 = 0;
+    if (v14)
     {
       OUTLINED_FUNCTION_17_21();
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       OUTLINED_FUNCTION_1_4();
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v14 = v12;
+      v16 = v14;
     }
 
     if (supported)
     {
-      *supported = v14;
+      *supported = v16;
     }
 
-    return v16;
+    return v18;
   }
 
   return result;
@@ -1376,9 +1258,10 @@ LABEL_35:
   v6 = MEMORY[0x1E695FF58];
   if (ktraceCodePrefix)
   {
+    v8 = ktraceCodePrefix & 0xFFFFFFC0;
     if (*MEMORY[0x1E695FF58])
     {
-      v7 = ktraceCodePrefix & 0xFFFFFFC0 | 0x18;
+      v7 = v8 | 0x18;
     }
 
     else
@@ -1388,7 +1271,7 @@ LABEL_35:
 
     if (*MEMORY[0x1E695FF58] == 1)
     {
-      OUTLINED_FUNCTION_5_7();
+      OUTLINED_FUNCTION_5_7(v8 | 0x19, 0);
     }
   }
 
@@ -1409,26 +1292,26 @@ LABEL_35:
   {
     OUTLINED_FUNCTION_17_21();
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v11 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-    if (OUTLINED_FUNCTION_5_24(v11))
+    v12 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    if (OUTLINED_FUNCTION_5_24(v12))
     {
       OUTLINED_FUNCTION_0_66();
       OUTLINED_FUNCTION_6_47();
-      OUTLINED_FUNCTION_27_13();
+      OUTLINED_FUNCTION_27_13(v13, v14, v15, v16, v17);
     }
 
     OUTLINED_FUNCTION_5_54();
-    OUTLINED_FUNCTION_13_0();
+    OUTLINED_FUNCTION_13_0(v18, 1, 1, v19, v20);
   }
 
   streaming = self->_streaming;
   if (streaming)
   {
     stream = self->_stream;
-    v13 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-    if (v13)
+    v22 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+    if (v22)
     {
-      v13(stream);
+      v22(stream);
     }
 
     self->_streaming = 0;
@@ -1452,10 +1335,10 @@ LABEL_20:
   }
 
 LABEL_22:
-  v14 = self->_stream;
-  if (v14)
+  v23 = self->_stream;
+  if (v23)
   {
-    CFRelease(v14);
+    CFRelease(v23);
     self->_stream = 0;
   }
 
@@ -1473,9 +1356,9 @@ LABEL_25:
     else
     {
       OUTLINED_FUNCTION_17_21();
-      v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-      if (OUTLINED_FUNCTION_5_24(v16))
+      v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+      if (OUTLINED_FUNCTION_5_24(v25))
       {
         OUTLINED_FUNCTION_0_66();
         OUTLINED_FUNCTION_6_47();
@@ -1483,7 +1366,7 @@ LABEL_25:
       }
 
       OUTLINED_FUNCTION_1_4();
-      OUTLINED_FUNCTION_13_0();
+      OUTLINED_FUNCTION_13_0(v26, v27, v28, v29, v30);
     }
   }
 
@@ -1491,7 +1374,7 @@ LABEL_25:
   {
     if (*v6 == 1)
     {
-      OUTLINED_FUNCTION_5_7();
+      OUTLINED_FUNCTION_5_7(v7 | 2u, 0);
     }
   }
 }
@@ -1527,21 +1410,22 @@ LABEL_25:
       {
         OUTLINED_FUNCTION_0_66();
         OUTLINED_FUNCTION_13();
-        OUTLINED_FUNCTION_27_13();
+        OUTLINED_FUNCTION_27_13(v7, v8, v9, v10, v11);
       }
 
       OUTLINED_FUNCTION_1_4();
-      OUTLINED_FUNCTION_13_0();
+      OUTLINED_FUNCTION_13_0(v12, v13, v14, v15, v16);
     }
   }
 }
 
-- (uint64_t)initWithFigCaptureStream:deviceID:errOut:.cold.4()
+- (double)initWithFigCaptureStream:deviceID:errOut:.cold.4()
 {
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
   OUTLINED_FUNCTION_1_4();
-  return fig_log_call_emit_and_clean_up_after_send_and_compose();
+  fig_log_call_emit_and_clean_up_after_send_and_compose();
+  return result;
 }
 
 @end

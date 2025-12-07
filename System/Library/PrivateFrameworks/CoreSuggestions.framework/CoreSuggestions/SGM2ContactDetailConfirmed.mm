@@ -4,6 +4,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)extractedAsString:(int)string;
+- (id)typeAsString:(int)string;
+- (id)uiTypeAsString:(int)string;
 - (int)StringAsExtracted:(id)extracted;
 - (int)StringAsType:(id)type;
 - (int)StringAsUiType:(id)type;
@@ -330,19 +333,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -361,9 +363,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  extracted = self->_extracted;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -377,15 +378,13 @@ LABEL_6:
   }
 
 LABEL_13:
-  extractionModelVersion = self->_extractionModelVersion;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    uiType = self->_uiType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
@@ -531,6 +530,21 @@ LABEL_21:
   return v4;
 }
 
+- (id)uiTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC3F8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasUiType:(BOOL)type
 {
   if (type)
@@ -610,6 +624,21 @@ LABEL_21:
   return v4;
 }
 
+- (id)extractedAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC3D0[string];
+  }
+
+  return v4;
+}
+
 - (int)extracted
 {
   if (*&self->_has)
@@ -654,6 +683,21 @@ LABEL_21:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFC3A8[string];
   }
 
   return v4;

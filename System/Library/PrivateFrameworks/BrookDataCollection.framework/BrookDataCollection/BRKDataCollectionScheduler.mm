@@ -153,11 +153,10 @@ void __46__BRKDataCollectionScheduler__queue_schedule___block_invoke(uint64_t a1
 
 - (void)_queue_schedule:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_241ED9000, a2, OS_LOG_TYPE_ERROR, "Unable to wait on semaphore %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_241ED9000, a2, OS_LOG_TYPE_ERROR, "Unable to wait on semaphore %ld", &v2, 0xCu);
 }
 
 @end

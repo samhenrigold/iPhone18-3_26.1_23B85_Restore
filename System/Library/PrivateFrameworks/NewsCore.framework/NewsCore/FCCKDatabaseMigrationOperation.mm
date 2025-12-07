@@ -13,7 +13,7 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self && self->_database)
   {
     v3 = 1;
@@ -23,16 +23,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate without a database"];
-      v9 = 136315906;
-      v10 = "[FCCKDatabaseMigrationOperation validateOperation]";
-      v11 = 2080;
-      v12 = "FCCKDatabaseMigrationOperation.m";
-      v13 = 1024;
-      v14 = 36;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate without a database"];
+      v8 = 136315906;
+      v9 = "[FCCKDatabaseMigrationOperation validateOperation]";
+      v10 = 2080;
+      v11 = "FCCKDatabaseMigrationOperation.m";
+      v12 = 1024;
+      v13 = 36;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
     }
 
     v3 = 0;
@@ -45,27 +45,25 @@
   if (self->_migrator)
   {
     v4 = 1;
-    goto LABEL_12;
+    return v4 & v3;
   }
 
 LABEL_9:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate without a migrator"];
-    v9 = 136315906;
-    v10 = "[FCCKDatabaseMigrationOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCCKDatabaseMigrationOperation.m";
-    v13 = 1024;
-    v14 = 40;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't migrate without a migrator"];
+    v8 = 136315906;
+    v9 = "[FCCKDatabaseMigrationOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCCKDatabaseMigrationOperation.m";
+    v12 = 1024;
+    v13 = 40;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   v4 = 0;
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
   return v4 & v3;
 }
 
@@ -91,7 +89,7 @@ LABEL_12:
 
 - (void)performOperation
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = self->_database;
@@ -111,18 +109,16 @@ LABEL_12:
   if (os_log_type_enabled(FCPrivateDataEncryptionLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Migration: Performing Migration {zones: %{public}@}", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __50__FCCKDatabaseMigrationOperation_performOperation__block_invoke;
-  v9[3] = &unk_1E7C36E50;
-  v9[4] = self;
-  [(FCCKDatabaseMigrationOperation *)&self->super.super.super.isa _migrateZoneIDs:v6 completion:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __50__FCCKDatabaseMigrationOperation_performOperation__block_invoke;
+  v8[3] = &unk_1E7C36E50;
+  v8[4] = self;
+  [(FCCKDatabaseMigrationOperation *)&self->super.super.super.isa _migrateZoneIDs:v6 completion:v8];
 }
 
 - (void)_migrateZoneIDs:(void *)ds completion:
@@ -249,16 +245,16 @@ LABEL_12:
 LABEL_5:
 }
 
-uint64_t __61__FCCKDatabaseMigrationOperation__migrateZoneIDs_completion___block_invoke(void *a1, uint64_t a2)
+void __61__FCCKDatabaseMigrationOperation__migrateZoneIDs_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    return (*(a1[6] + 16))();
+    (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    return [(FCCKDatabaseMigrationOperation *)a1[4] _migrateZoneIDs:a1[6] completion:?];
+    [(FCCKDatabaseMigrationOperation *)*(a1 + 32) _migrateZoneIDs:*(a1 + 48) completion:?];
   }
 }
 

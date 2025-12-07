@@ -191,7 +191,7 @@
   v8 = _MRLogForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_1003A7130(transactionCopy);
+    sub_1003A7130(transactionCopy, packetsCopy);
   }
 
   v9 = +[MRDMediaRemoteServer server];
@@ -538,71 +538,70 @@ LABEL_24:
   transactionCopy = transaction;
   requestCopy = request;
   pathCopy = path;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = transactionCopy;
-  v24 = [transactionCopy countByEnumeratingWithState:&v31 objects:v38 count:16];
-  if (v24)
+  v23 = [transactionCopy countByEnumeratingWithState:&v30 objects:v37 count:16];
+  if (v23)
   {
-    v23 = *v32;
-    v26 = _kMRPlaybackQueueRequestIDUserInfoKey;
+    v22 = *v31;
+    v25 = _kMRPlaybackQueueRequestIDUserInfoKey;
     do
     {
       v8 = 0;
       do
       {
-        if (*v32 != v23)
+        if (*v31 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = v8;
-        v9 = *(*(&v31 + 1) + 8 * v8);
-        v30 = MRContentItemGetAncestorIdentifier();
+        v24 = v8;
+        v29 = MRContentItemGetAncestorIdentifier();
         for (i = 2; i != 9; ++i)
         {
-          v11 = [[MRPlaybackQueueRequest alloc] initFromTransactionName:i];
-          v12 = MRContentItemCreateFromRequest();
+          v10 = [[MRPlaybackQueueRequest alloc] initFromTransactionName:i];
+          v11 = MRContentItemCreateFromRequest();
           if ((MRContentItemIsEmpty() & 1) == 0)
           {
-            v13 = objc_alloc_init(_MRTransactionKeyProtobuf);
+            v12 = objc_alloc_init(_MRTransactionKeyProtobuf);
             requestIdentifier = [requestCopy requestIdentifier];
-            v15 = requestIdentifier;
+            v14 = requestIdentifier;
             if (requestIdentifier)
             {
-              v36 = v26;
-              v37 = requestIdentifier;
-              v16 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-              v17 = [NSKeyedArchiver archivedDataWithRootObject:v16 requiringSecureCoding:1 error:0];
+              v35 = v25;
+              v36 = requestIdentifier;
+              v15 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+              v16 = [NSKeyedArchiver archivedDataWithRootObject:v15 requiringSecureCoding:1 error:0];
             }
 
             else
             {
-              v17 = 0;
+              v16 = 0;
             }
 
-            [v13 setIdentifier:v30];
-            [v13 setUserData:v17];
+            [v12 setIdentifier:v29];
+            [v12 setUserData:v16];
 
             ExternalRepresentation = MRContentItemCreateExternalRepresentation();
-            v19 = [[MRTransactionPacket alloc] initWithData:ExternalRepresentation forKey:v13];
-            v20 = [[MRTransaction alloc] initWithName:i playerPath:pathCopy];
-            v35 = v19;
-            v21 = [NSArray arrayWithObjects:&v35 count:1];
-            [(MRDTransactionServer *)self handleContentItemTransaction:v20 packets:v21 group:0];
+            v18 = [[MRTransactionPacket alloc] initWithData:ExternalRepresentation forKey:v12];
+            v19 = [[MRTransaction alloc] initWithName:i playerPath:pathCopy];
+            v34 = v18;
+            v20 = [NSArray arrayWithObjects:&v34 count:1];
+            [(MRDTransactionServer *)self handleContentItemTransaction:v19 packets:v20 group:0];
           }
         }
 
-        v8 = v25 + 1;
+        v8 = v24 + 1;
       }
 
-      while ((v25 + 1) != v24);
-      v24 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
+      while ((v24 + 1) != v23);
+      v23 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 }
 

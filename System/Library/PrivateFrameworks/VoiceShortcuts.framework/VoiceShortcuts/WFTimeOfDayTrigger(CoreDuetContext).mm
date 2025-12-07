@@ -6,7 +6,7 @@
 
 - (id)contextStorePredicate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   userContext = [MEMORY[0x277CFE318] userContext];
   keyPathForSunriseSunsetDataDictionary = [MEMORY[0x277CFE338] keyPathForSunriseSunsetDataDictionary];
   v4 = [userContext objectForKeyedSubscript:keyPathForSunriseSunsetDataDictionary];
@@ -29,15 +29,13 @@
     v12 = getWFTriggersLogObject();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = "[WFTimeOfDayTrigger(CoreDuetContext) contextStorePredicate]";
-      _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_ERROR, "%s Could not create predicate for WFTimeOfDayTrigger because next fire date was nil", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "[WFTimeOfDayTrigger(CoreDuetContext) contextStorePredicate]";
+      _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_ERROR, "%s Could not create predicate for WFTimeOfDayTrigger because next fire date was nil", &v14, 0xCu);
     }
 
     v11 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

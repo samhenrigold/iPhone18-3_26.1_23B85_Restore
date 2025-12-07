@@ -66,32 +66,32 @@
 
 - (void)_queue_installHealthAppIfTinkerProfileExists
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   daemon = [WeakRetained daemon];
   profileManager = [daemon profileManager];
   allProfileIdentifiers = [profileManager allProfileIdentifiers];
 
-  v7 = [allProfileIdentifiers countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [allProfileIdentifiers countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(allProfileIdentifiers);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
+        v11 = *(*(&v20 + 1) + 8 * v10);
         v12 = objc_loadWeakRetained(&self->_profile);
         daemon2 = [v12 daemon];
         profileManager2 = [daemon2 profileManager];
@@ -108,8 +108,8 @@
             v18 = *MEMORY[0x277CCC2B0];
             if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
             {
-              *v20 = 0;
-              _os_log_impl(&dword_22939E000, v18, OS_LOG_TYPE_DEFAULT, "Tinker profile detected and Health App is not installed, requesting installation.", v20, 2u);
+              *v19 = 0;
+              _os_log_impl(&dword_22939E000, v18, OS_LOG_TYPE_DEFAULT, "Tinker profile detected and Health App is not installed, requesting installation.", v19, 2u);
             }
 
             [(HDHAHealthAppApplicationInstallationManager *)self _queue_startInstalling];
@@ -120,13 +120,11 @@
       }
 
       while (v8 != v10);
-      v8 = [allProfileIdentifiers countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [allProfileIdentifiers countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestHealthAppInstallIfNecessaryWithPairedDeviceSnapshot:(id)snapshot
@@ -228,7 +226,7 @@ LABEL_13:
 
 void __69__HDHAHealthAppApplicationInstallationManager__queue_startInstalling__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2B0];
@@ -237,19 +235,19 @@ void __69__HDHAHealthAppApplicationInstallationManager__queue_startInstalling__b
   {
     if (v5)
     {
-      v11 = 138412290;
-      v12 = v3;
+      v10 = 138412290;
+      v11 = v3;
       v6 = "Error for request to install Health app: %@";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, v6, &v11, v8);
+      _os_log_impl(&dword_22939E000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v11) = 0;
+    LOWORD(v10) = 0;
     v6 = "Request to install Health app succeeded";
     v7 = v4;
     v8 = 2;
@@ -258,8 +256,6 @@ LABEL_6:
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _cleanupInstallRequest];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupInstallRequest

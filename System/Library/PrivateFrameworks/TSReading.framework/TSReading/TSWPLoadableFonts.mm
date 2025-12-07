@@ -137,11 +137,11 @@
   }
 }
 
-uint64_t __38__TSWPLoadableFonts_loadFontWithName___block_invoke(uint64_t result, uint64_t a2)
+id *__38__TSWPLoadableFonts_loadFontWithName___block_invoke(id *result, id a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
-    return [*(result + 40) p_loadFontWithInfo:a2];
+    return [result[5] p_loadFontWithInfo:a2];
   }
 
   return result;
@@ -161,7 +161,7 @@ uint64_t __38__TSWPLoadableFonts_loadFontWithName___block_invoke(uint64_t result
   objc_sync_exit(self);
 }
 
-uint64_t __39__TSWPLoadableFonts_loadFontsForGroup___block_invoke(uint64_t a1, void *a2)
+void *__39__TSWPLoadableFonts_loadFontsForGroup___block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 "groupUID")];
   if (result)
@@ -260,7 +260,7 @@ uint64_t __39__TSWPLoadableFonts_loadFontsForGroup___block_invoke(uint64_t a1, v
   objc_sync_exit(self);
 }
 
-uint64_t __45__TSWPLoadableFonts_unregisterFontsForGroup___block_invoke(uint64_t a1, void *a2)
+void *__45__TSWPLoadableFonts_unregisterFontsForGroup___block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 "groupUID")];
   if (result)

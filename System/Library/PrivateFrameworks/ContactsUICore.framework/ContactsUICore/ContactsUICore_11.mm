@@ -1,7 +1,102 @@
+uint64_t sub_1A3378760@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = type metadata accessor for ImageCroppingView(0);
+  v5 = v4 - 8;
+  v38 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v39 = v6;
+  v40 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = sub_1A34CC610();
+  v7 = *(v37 - 8);
+  MEMORY[0x1EEE9AC00](v37);
+  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D68, &qword_1A34EB138);
+  v43 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v42 = &v35 - v11;
+  v12 = *(v5 + 40);
+  v41 = a1;
+  v13 = (a1 + v12);
+  v14 = *v13;
+  v15 = v13[1];
+  v16 = v13[2];
+  *&v52 = *v13;
+  *(&v52 + 1) = v15;
+  *&v53 = v16;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D70, &qword_1A34EB140);
+  MEMORY[0x1A58EE120](&v44);
+  v18 = v44;
+  v19 = [v44 CGImage];
+  if (v19)
+  {
+    v20 = v19;
+    CGImageGetWidth(v19);
+    v35 = a2;
+    CGImageGetHeight(v20);
+    v36 = v10;
+
+    *&v52 = v14;
+    *(&v52 + 1) = v15;
+    *&v53 = v16;
+    MEMORY[0x1A58EE120](&v44, v17);
+    sub_1A34CC5C0();
+    v21 = v37;
+    (*(v7 + 104))(v9, *MEMORY[0x1E6981630], v37);
+    v22 = sub_1A34CC680();
+
+    (*(v7 + 8))(v9, v21);
+    sub_1A34CCC80();
+    sub_1A34CA760();
+    v23 = v58;
+    v24 = v59;
+    v25 = v60;
+    v26 = v61;
+    v27 = v62;
+    v28 = v63;
+    v29 = v40;
+    sub_1A337C4F8(v41, v40);
+    v30 = (*(v38 + 80) + 16) & ~*(v38 + 80);
+    v31 = swift_allocObject();
+    sub_1A337C55C(v29, v31 + v30);
+    v51 = v24;
+    v50 = v26;
+    *&v44 = v22;
+    *(&v44 + 1) = v23;
+    LOBYTE(v45) = v24;
+    *(&v45 + 1) = v25;
+    LOBYTE(v46) = v26;
+    *(&v46 + 1) = v27;
+    *&v47 = v28;
+    *(&v47 + 1) = sub_1A337C660;
+    v48 = v31;
+    v49 = 0;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D78, &qword_1A34EB148);
+    sub_1A337C6EC();
+    v32 = v42;
+    sub_1A34CC1F0();
+    v54 = v46;
+    v55 = v47;
+    v56 = v48;
+    v57 = v49;
+    v52 = v44;
+    v53 = v45;
+    sub_1A3288FDC(&v52, &qword_1EB0C8D78, &qword_1A34EB148);
+    v33 = v35;
+    sub_1A337C7FC(v32, v35);
+    return (*(v43 + 56))(v33, 0, 1, v36);
+  }
+
+  else
+  {
+
+    return (*(v43 + 56))(a2, 1, 1, v10);
+  }
+}
+
 void sub_1A3378CA4()
 {
-  type metadata accessor for ImageCroppingView();
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D60);
+  type metadata accessor for ImageCroppingView(0);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D60, &qword_1A34EB130);
   MEMORY[0x1A58EE120](v1, v0);
   sub_1A33778D4(v1);
 }
@@ -9,12 +104,12 @@ void sub_1A3378CA4()
 uint64_t sub_1A3378D20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v18[1] = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D38);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D38, &unk_1A34EB100);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v18 - v4;
   v6 = sub_1A34CB460();
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8D40);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8D40, &qword_1A34E6F10);
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -22,7 +117,7 @@ uint64_t sub_1A3378D20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v13 = v18 - v12;
   sub_1A34CB430();
   v18[8] = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C5468);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C5468, &unk_1A34EB110);
   sub_1A32B51E4();
   sub_1A34CA680();
   sub_1A34CB440();
@@ -40,11 +135,11 @@ uint64_t sub_1A3378D20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1A3378FB0(uint64_t a1)
 {
-  v2 = type metadata accessor for ImageCroppingView();
+  v2 = type metadata accessor for ImageCroppingView(0);
   v3 = *(v2 - 8);
   v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8D50);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8D50, &unk_1A34DB090);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v15[-v7];
@@ -59,11 +154,11 @@ uint64_t sub_1A3378FB0(uint64_t a1)
   v16 = v19;
   v17 = 0x6B72616D78;
   v18 = 0xE500000000000000;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5660);
-  sub_1A3284D0C(&unk_1EB0C0590, &unk_1EB0C5660);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5660, &unk_1A34DB0A0);
+  sub_1A3284D0C(&unk_1EB0C0590, &unk_1EB0C5660, &unk_1A34DB0A0, MEMORY[0x1E697D658]);
   sub_1A34CC790();
 
-  sub_1A3284D0C(&unk_1EB0C0500, &unk_1EB0C8D50);
+  sub_1A3284D0C(&unk_1EB0C0500, &unk_1EB0C8D50, &unk_1A34DB090, MEMORY[0x1E697D680]);
   sub_1A34CC1F0();
   return (*(v6 + 8))(v8, v5);
 }
@@ -74,7 +169,7 @@ uint64_t sub_1A3379278(uint64_t a1)
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8080);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8080, &unk_1A34EB120);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v15 - v7;
   v9 = sub_1A34CA7A0();
@@ -105,11 +200,11 @@ uint64_t sub_1A3379278(uint64_t a1)
 
 uint64_t sub_1A33794E0(uint64_t a1)
 {
-  v2 = type metadata accessor for ImageCroppingView();
+  v2 = type metadata accessor for ImageCroppingView(0);
   v3 = *(v2 - 8);
   v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8D50);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8D50, &unk_1A34DB090);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v15[-v7];
@@ -124,11 +219,11 @@ uint64_t sub_1A33794E0(uint64_t a1)
   v16 = v19;
   v17 = 0x72616D6B63656863;
   v18 = 0xE90000000000006BLL;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5660);
-  sub_1A3284D0C(&unk_1EB0C0590, &unk_1EB0C5660);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5660, &unk_1A34DB0A0);
+  sub_1A3284D0C(&unk_1EB0C0590, &unk_1EB0C5660, &unk_1A34DB0A0, MEMORY[0x1E697D658]);
   sub_1A34CC790();
 
-  sub_1A3284D0C(&unk_1EB0C0500, &unk_1EB0C8D50);
+  sub_1A3284D0C(&unk_1EB0C0500, &unk_1EB0C8D50, &unk_1A34DB090, MEMORY[0x1E697D680]);
   sub_1A34CC1F0();
   return (*(v6 + 8))(v8, v5);
 }
@@ -148,17 +243,17 @@ uint64_t sub_1A33797B4()
 uint64_t sub_1A3379884@<X0>(uint64_t a1@<X8>)
 {
   v18[1] = a1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8C28);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8C28, &qword_1A34EB060);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = v18 - v4;
   v19 = v1;
-  v18[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8C30);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C38);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C40);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C48);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C50);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C58);
+  v18[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8C30, &qword_1A34EB068);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C38, &qword_1A34EB070);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C40, &qword_1A34EB078);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C48, &qword_1A34EB080);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C50, &qword_1A34EB088);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C58, &qword_1A34EB090);
   v11 = sub_1A337C070();
   v20 = v10;
   v21 = MEMORY[0x1E69815C0];
@@ -174,14 +269,14 @@ uint64_t sub_1A3379884@<X0>(uint64_t a1@<X8>)
   v20 = v8;
   v21 = v14;
   v15 = swift_getOpaqueTypeConformance2();
-  v16 = sub_1A3284D0C(&qword_1EB0C8CB8, &qword_1EB0C8C40);
+  v16 = sub_1A3284D0C(&qword_1EB0C8CB8, &qword_1EB0C8C40, &qword_1A34EB078, MEMORY[0x1E697C5E0]);
   v20 = v6;
   v21 = v7;
   v22 = v15;
   v23 = v16;
   swift_getOpaqueTypeConformance2();
   sub_1A34CA9F0();
-  sub_1A3284D0C(&qword_1EB0C8CC0, &qword_1EB0C8C28);
+  sub_1A3284D0C(&qword_1EB0C8CC0, &qword_1EB0C8C28, &qword_1A34EB060, MEMORY[0x1E697C0C0]);
   sub_1A34CC1F0();
   return (*(v3 + 8))(v5, v2);
 }
@@ -238,10 +333,10 @@ id sub_1A3379EB0()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t sub_1A3379F20()
+uint64_t sub_1A3379F20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result = type metadata accessor for ZoomableScrollView();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for ZoomableScrollView(319, *(a1 + 80), *(a1 + 88), a4);
+  if (v5 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -270,34 +365,37 @@ uint64_t sub_1A337A020()
   return sub_1A34CDF70();
 }
 
-uint64_t sub_1A337A0AC()
+void sub_1A337A0AC(uint64_t a1)
 {
-  if (*(v0 + 32) == 1)
+  if (*(v1 + 32) == 1)
   {
-    return sub_1A34CDF40();
+    sub_1A34CDF40();
   }
 
-  v3 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  v5 = *v0;
-  v4 = *(v0 + 8);
-  sub_1A34CDF40();
+  else
+  {
+    v3 = *(v1 + 16);
+    v2 = *(v1 + 24);
+    v5 = *v1;
+    v4 = *(v1 + 8);
+    sub_1A34CDF40();
 
-  return sub_1A337BA7C(v5, v4, v3, v2);
+    sub_1A337BA7C(v5, v4, v3, v2);
+  }
 }
 
-uint64_t sub_1A337A140()
+uint64_t sub_1A337A140(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 32);
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = *(v1 + 32);
   sub_1A34CDF20();
   sub_1A34CDF40();
-  if (v5 != 1)
+  if (v6 != 1)
   {
-    sub_1A337BA7C(v1, v2, v3, v4);
+    sub_1A337BA7C(v2, v3, v4, v5);
   }
 
   return sub_1A34CDF70();
@@ -313,88 +411,88 @@ BOOL sub_1A337A1C8(uint64_t a1, uint64_t a2)
   return (*(a2 + 32) & 1) != 0;
 }
 
-void sub_1A337A21C()
+void sub_1A337A21C(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_1A34CB9C0();
-  MEMORY[0x1EEE9AC00](v1);
-  v2 = [objc_allocWithZone(MEMORY[0x1E69DCEF8]) init];
+  v3 = sub_1A34CB9C0();
+  MEMORY[0x1EEE9AC00](v3);
+  v4 = [objc_allocWithZone(MEMORY[0x1E69DCEF8]) init];
   swift_getWitnessTable();
   sub_1A34CB830();
   sub_1A34CB810();
-  [v2 setDelegate_];
+  [v4 setDelegate_];
 
-  v3 = v2;
-  [v3 setClipsToBounds_];
-  [v3 setShowsHorizontalScrollIndicator_];
-  [v3 setShowsVerticalScrollIndicator_];
-  [v3 setContentInsetAdjustmentBehavior_];
-  [v3 setBouncesZoom_];
-  [v3 setMinimumZoomScale_];
-  v29 = v0;
-  [v3 setMaximumZoomScale_];
+  v5 = v4;
+  [v5 setClipsToBounds_];
+  [v5 setShowsHorizontalScrollIndicator_];
+  [v5 setShowsVerticalScrollIndicator_];
+  [v5 setContentInsetAdjustmentBehavior_];
+  [v5 setBouncesZoom_];
+  [v5 setMinimumZoomScale_];
+  v31 = v2;
+  [v5 setMaximumZoomScale_];
   sub_1A34CB810();
-  v4 = *&v32[*((*MEMORY[0x1E69E7D40] & *v32) + 0x60)];
+  v6 = *&v34[*((*MEMORY[0x1E69E7D40] & *v34) + 0x60)];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8B98);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_1A34DAA10;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8B98, &qword_1A34EAFC0);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_1A34DAA10;
   sub_1A34CB9B0();
-  v31 = v5;
-  sub_1A337C29C(&qword_1EB0C8BA0, MEMORY[0x1E697CC60]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8BA8);
-  sub_1A3284D0C(&qword_1EB0C8BB0, &qword_1EB0C8BA8);
+  v33 = v7;
+  sub_1A337C29C(&qword_1EB0C8BA0, MEMORY[0x1E697CC60], MEMORY[0x1E697CC68]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8BA8, &qword_1A34EAFC8);
+  sub_1A3284D0C(&qword_1EB0C8BB0, &qword_1EB0C8BA8, &qword_1A34EAFC8, MEMORY[0x1E69E6328]);
   sub_1A34CD960();
   sub_1A34CB2D0();
 
   sub_1A34CB810();
-  v6 = *&v32[*((*MEMORY[0x1E69E7D40] & *v32) + 0x60)];
+  v8 = *&v34[*((*MEMORY[0x1E69E7D40] & *v34) + 0x60)];
 
-  v7 = [v6 view];
-  if (v7)
+  v9 = [v8 view];
+  if (v9)
   {
-    v8 = [objc_opt_self() clearColor];
-    [v7 setBackgroundColor_];
+    v10 = [objc_opt_self() clearColor];
+    [v9 setBackgroundColor_];
 
-    [v7 setTranslatesAutoresizingMaskIntoConstraints_];
-    [v3 addSubview_];
-    v9 = [v7 topAnchor];
-    v10 = [v3 topAnchor];
-    v11 = [v9 constraintEqualToAnchor_];
+    [v9 setTranslatesAutoresizingMaskIntoConstraints_];
+    [v5 addSubview_];
+    v11 = [v9 topAnchor];
+    v12 = [v5 topAnchor];
+    v13 = [v11 constraintEqualToAnchor_];
 
-    [v11 setActive_];
-    v12 = [v7 bottomAnchor];
-    v13 = [v3 bottomAnchor];
-    v14 = [v12 constraintEqualToAnchor_];
+    [v13 setActive_];
+    v14 = [v9 bottomAnchor];
+    v15 = [v5 bottomAnchor];
+    v16 = [v14 constraintEqualToAnchor_];
 
-    [v14 setActive_];
-    v15 = [v7 leadingAnchor];
-    v16 = [v3 leadingAnchor];
-    v17 = [v15 constraintEqualToAnchor_];
+    [v16 setActive_];
+    v17 = [v9 leadingAnchor];
+    v18 = [v5 leadingAnchor];
+    v19 = [v17 constraintEqualToAnchor_];
 
-    [v17 setActive_];
-    v18 = [v7 trailingAnchor];
-    v19 = [v3 trailingAnchor];
+    [v19 setActive_];
+    v20 = [v9 trailingAnchor];
+    v21 = [v5 trailingAnchor];
 
-    v20 = [v18 constraintEqualToAnchor_];
-    [v20 setActive_];
+    v22 = [v20 constraintEqualToAnchor_];
+    [v22 setActive_];
 
-    v21 = *(v29 + 96);
-    v22 = *(v29 + 104);
-    v23 = type metadata accessor for ZoomableScrollViewWrapper();
-    v24 = objc_allocWithZone(v23);
-    v25 = &v24[OBJC_IVAR____TtC14ContactsUICoreP33_83DFF39AC61AC97E6598631873AD735425ZoomableScrollViewWrapper_zoomRect];
-    *v25 = 0u;
-    *(v25 + 1) = 0u;
-    v25[32] = 1;
-    v26 = &v24[OBJC_IVAR____TtC14ContactsUICoreP33_83DFF39AC61AC97E6598631873AD735425ZoomableScrollViewWrapper_cropSize];
-    *v26 = v21;
-    *(v26 + 1) = v22;
-    *&v24[OBJC_IVAR____TtC14ContactsUICoreP33_83DFF39AC61AC97E6598631873AD735425ZoomableScrollViewWrapper_scrollView] = v3;
-    v30.receiver = v24;
-    v30.super_class = v23;
-    v27 = v3;
-    v28 = objc_msgSendSuper2(&v30, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
-    [v28 addSubview_];
+    v23 = *(v31 + 96);
+    v24 = *(v31 + 104);
+    v25 = type metadata accessor for ZoomableScrollViewWrapper();
+    v26 = objc_allocWithZone(v25);
+    v27 = &v26[OBJC_IVAR____TtC14ContactsUICoreP33_83DFF39AC61AC97E6598631873AD735425ZoomableScrollViewWrapper_zoomRect];
+    *v27 = 0u;
+    *(v27 + 1) = 0u;
+    v27[32] = 1;
+    v28 = &v26[OBJC_IVAR____TtC14ContactsUICoreP33_83DFF39AC61AC97E6598631873AD735425ZoomableScrollViewWrapper_cropSize];
+    *v28 = v23;
+    *(v28 + 1) = v24;
+    *&v26[OBJC_IVAR____TtC14ContactsUICoreP33_83DFF39AC61AC97E6598631873AD735425ZoomableScrollViewWrapper_scrollView] = v5;
+    v32.receiver = v26;
+    v32.super_class = v25;
+    v29 = v5;
+    v30 = objc_msgSendSuper2(&v32, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
+    [v30 addSubview_];
   }
 
   else
@@ -409,12 +507,12 @@ id sub_1A337A880(uint64_t a1)
   v4 = *(a1 + 16);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for ZoomableScrollView.Coordinator();
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for ZoomableScrollView.Coordinator(0, v4, *(v8 + 24), v9);
   sub_1A34CB300();
   (*(v5 + 16))(v7, v2 + *(a1 + 56), v4);
-  v8 = sub_1A34CB2E0();
-  return sub_1A337BC0C(v8, v2);
+  v10 = sub_1A34CB2E0();
+  return sub_1A337BC0C(v10, v2, v11, v12);
 }
 
 void sub_1A337A994(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -486,18 +584,22 @@ LABEL_7:
 
 uint64_t sub_1A337AC7C@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x68);
+  v3 = *v1;
+  v4 = *MEMORY[0x1E69E7D40];
+  v5 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x68);
   swift_beginAccess();
-  v4 = type metadata accessor for ZoomableScrollView();
-  return (*(*(v4 - 8) + 16))(a1, &v1[v3], v4);
+  v7 = type metadata accessor for ZoomableScrollView(0, *((v4 & v3) + 0x50), *((v4 & v3) + 0x58), v6);
+  return (*(*(v7 - 8) + 16))(a1, &v1[v5], v7);
 }
 
 uint64_t sub_1A337AD50(uint64_t a1)
 {
-  v3 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x68);
+  v3 = *v1;
+  v4 = *MEMORY[0x1E69E7D40];
+  v5 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x68);
   swift_beginAccess();
-  v4 = type metadata accessor for ZoomableScrollView();
-  (*(*(v4 - 8) + 40))(&v1[v3], a1, v4);
+  v7 = type metadata accessor for ZoomableScrollView(0, *((v4 & v3) + 0x50), *((v4 & v3) + 0x58), v6);
+  (*(*(v7 - 8) + 40))(&v1[v5], a1, v7);
   return swift_endAccess();
 }
 
@@ -514,7 +616,7 @@ void sub_1A337AE88(void *a1, uint64_t a2, void *a3)
 {
   v4 = a3;
   v5 = a1;
-  sub_1A3206B64(v4);
+  sub_1A3206B64();
 }
 
 void sub_1A337AEF0(void *a1, uint64_t a2, void *a3, void *a4)
@@ -522,64 +624,67 @@ void sub_1A337AEF0(void *a1, uint64_t a2, void *a3, void *a4)
   v6 = a3;
   v7 = a4;
   v8 = a1;
-  sub_1A3206B64(v6);
+  sub_1A3206B64();
 }
 
-uint64_t sub_1A337AF68(void *a1)
+uint64_t sub_1A337AF68(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = type metadata accessor for ZoomableScrollView();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = (v11 - v4);
-  sub_1A337AC7C(v11 - v4);
+  v6 = type metadata accessor for ZoomableScrollView(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x50), *((*MEMORY[0x1E69E7D40] & *v4) + 0x58), a4);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = (v17 - v8);
+  sub_1A337AC7C(v17 - v8);
   [a1 contentOffset];
-  sub_1A3379FC4();
-  v6 = *(v3 + 8);
-  v6(v5, v2);
-  sub_1A337AC7C(v5);
+  sub_1A3379FC4(v10, v11);
+  v12 = *(v7 + 8);
+  v12(v9, v6);
+  sub_1A337AC7C(v9);
   [a1 zoomScale];
-  v7 = v5[5];
-  v8 = v5[6];
-  v11[1] = v5[4];
-  v11[2] = v7;
-  v11[3] = v8;
-  v11[0] = v9;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8BB8);
+  v13 = v9[5];
+  v14 = v9[6];
+  v17[1] = v9[4];
+  v17[2] = v13;
+  v17[3] = v14;
+  v17[0] = v15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8BB8, &qword_1A34EAFD0);
   sub_1A34CC910();
-  return (v6)(v5, v2);
+  return (v12)(v9, v6);
 }
 
-id sub_1A337B13C()
+id sub_1A337B13C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ZoomableScrollView.Coordinator();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v5 = type metadata accessor for ZoomableScrollView.Coordinator(0, *((*MEMORY[0x1E69E7D40] & *v4) + 0x50), *((*MEMORY[0x1E69E7D40] & *v4) + 0x58), a4);
+  v7.receiver = v4;
+  v7.super_class = v5;
+  return objc_msgSendSuper2(&v7, sel_dealloc);
 }
 
 uint64_t sub_1A337B1AC(char *a1)
 {
   v2 = MEMORY[0x1E69E7D40];
+  v3 = *a1;
+  v4 = *MEMORY[0x1E69E7D40];
 
-  v3 = *((*v2 & *a1) + 0x68);
-  v4 = type metadata accessor for ZoomableScrollView();
-  v5 = *(*(v4 - 8) + 8);
+  v5 = *((*v2 & *a1) + 0x68);
+  v7 = type metadata accessor for ZoomableScrollView(0, *((v4 & v3) + 0x50), *((v4 & v3) + 0x58), v6);
+  v8 = *(*(v7 - 8) + 8);
 
-  return v5(&a1[v3], v4);
+  return v8(&a1[v5], v7);
 }
 
-void sub_1A337B2B8()
+void sub_1A337B2B8(uint64_t a1)
 {
   sub_1A337BF38(319, &qword_1EB0C8B80, type metadata accessor for CGPoint, MEMORY[0x1E6981948]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A337BEE8(319, &qword_1EB0C8B88, MEMORY[0x1E69E7DE0], MEMORY[0x1E6981948]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for CGSize(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_checkMetadataState();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -954,7 +1059,7 @@ unint64_t sub_1A337B854()
   return result;
 }
 
-id sub_1A337B8B8@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+id sub_1A337B8B8@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   result = sub_1A337A880(a1);
   *a2 = result;
@@ -975,7 +1080,7 @@ uint64_t sub_1A337B9A4(uint64_t a1, uint64_t a2, uint64_t a3)
   return MEMORY[0x1EEDDA9B8](a1, a2, a3, WitnessTable);
 }
 
-void sub_1A337BA20()
+void sub_1A337BA20(uint64_t a1)
 {
   swift_getWitnessTable();
   sub_1A34CB3A0();
@@ -1029,16 +1134,20 @@ uint64_t sub_1A337BA7C(double a1, double a2, double a3, double a4)
   return MEMORY[0x1A58EF770](*&v9);
 }
 
-id sub_1A337BB00(uint64_t a1, uint64_t a2)
+id sub_1A337BB00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = MEMORY[0x1E69E7D40];
-  *&v2[*((*MEMORY[0x1E69E7D40] & *v2) + 0x60)] = a1;
-  v5 = *((*v4 & *v2) + 0x68);
-  v6 = type metadata accessor for ZoomableScrollView();
-  (*(*(v6 - 8) + 16))(&v2[v5], a2, v6);
-  v8.receiver = v2;
-  v8.super_class = type metadata accessor for ZoomableScrollView.Coordinator();
-  return objc_msgSendSuper2(&v8, sel_init);
+  v6 = *v4;
+  v7 = MEMORY[0x1E69E7D40];
+  v8 = *MEMORY[0x1E69E7D40];
+  *&v4[*((*MEMORY[0x1E69E7D40] & *v4) + 0x60)] = a1;
+  v9 = *((*v7 & *v4) + 0x68);
+  v10 = *((v8 & v6) + 0x50);
+  v11 = *((v8 & v6) + 0x58);
+  v12 = type metadata accessor for ZoomableScrollView(0, v10, v11, a4);
+  (*(*(v12 - 8) + 16))(&v4[v9], a2, v12);
+  v15.receiver = v4;
+  v15.super_class = type metadata accessor for ZoomableScrollView.Coordinator(0, v10, v11, v13);
+  return objc_msgSendSuper2(&v15, sel_init);
 }
 
 id sub_1A337BC58()
@@ -1048,7 +1157,7 @@ id sub_1A337BC58()
   return v1;
 }
 
-uint64_t type metadata accessor for ImageCroppingView()
+uint64_t type metadata accessor for ImageCroppingView(uint64_t a1)
 {
   result = qword_1EB0C8BD8;
   if (!qword_1EB0C8BD8)
@@ -1059,25 +1168,25 @@ uint64_t type metadata accessor for ImageCroppingView()
   return result;
 }
 
-void sub_1A337BD28()
+void sub_1A337BD28(uint64_t a1)
 {
   sub_1A337BF38(319, &qword_1EB0C1158, MEMORY[0x1E697BF90], MEMORY[0x1E697DCC0]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A337BEE8(319, &qword_1EB0C8BF0, &type metadata for ZoomableScrollPosition, MEMORY[0x1E6981790]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1A337BF38(319, &qword_1EB0C8BF8, type metadata accessor for CGPoint, MEMORY[0x1E6981790]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1A337BEE8(319, &qword_1EB0C8C00, MEMORY[0x1E69E7DE0], MEMORY[0x1E6981790]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_1A337BF38(319, &unk_1EB0C8C08, sub_1A337BF9C, MEMORY[0x1E6981948]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
-            sub_1A337BFE8();
-            if (v5 <= 0x3F)
+            sub_1A337BFE8(319);
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -1126,15 +1235,15 @@ unint64_t sub_1A337BF9C()
   return result;
 }
 
-void sub_1A337BFE8()
+void sub_1A337BFE8(uint64_t a1)
 {
   if (!qword_1EB0C8C18)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C20);
-    v0 = sub_1A34CC960();
-    if (!v1)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C20, &qword_1A34F8D50);
+    v1 = sub_1A34CC960();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB0C8C18);
+      atomic_store(v1, &qword_1EB0C8C18);
     }
   }
 }
@@ -1144,7 +1253,7 @@ unint64_t sub_1A337C070()
   result = qword_1EB0C8C60;
   if (!qword_1EB0C8C60)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C58);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C58, &qword_1A34EB090);
     sub_1A337C0FC();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8C60);
@@ -1158,9 +1267,9 @@ unint64_t sub_1A337C0FC()
   result = qword_1EB0C8C68;
   if (!qword_1EB0C8C68)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C70);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C70, &qword_1A34EB098);
     sub_1A337C1B4();
-    sub_1A3284D0C(&qword_1EB0C8CA0, &unk_1EB0C8CA8);
+    sub_1A3284D0C(&qword_1EB0C8CA0, &unk_1EB0C8CA8, &qword_1A34EB0B0, MEMORY[0x1E697EC18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8C68);
   }
@@ -1173,9 +1282,9 @@ unint64_t sub_1A337C1B4()
   result = qword_1EB0C8C78;
   if (!qword_1EB0C8C78)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C80);
-    sub_1A3284D0C(&qword_1EB0C8C88, &unk_1EB0C8C90);
-    sub_1A337C29C(&qword_1ED8544B0, MEMORY[0x1E697CBE8]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8C80, &qword_1A34EB0A0);
+    sub_1A3284D0C(&qword_1EB0C8C88, &unk_1EB0C8C90, &qword_1A34EB0A8, &unk_1A34EAEE0);
+    sub_1A337C29C(&qword_1ED8544B0, MEMORY[0x1E697CBE8], MEMORY[0x1E697CBD8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8C78);
   }
@@ -1183,7 +1292,7 @@ unint64_t sub_1A337C1B4()
   return result;
 }
 
-uint64_t sub_1A337C29C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A337C29C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1201,7 +1310,7 @@ unint64_t sub_1A337C2E4()
   result = qword_1EB0C8D00;
   if (!qword_1EB0C8D00)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8CC8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8CC8, &qword_1A34EB0B8);
     sub_1A337C370();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8D00);
@@ -1215,7 +1324,7 @@ unint64_t sub_1A337C370()
   result = qword_1EB0C8D08;
   if (!qword_1EB0C8D08)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8D10);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8D10, &unk_1A34EB0F0);
     sub_1A337C3FC();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8D08);
@@ -1229,9 +1338,9 @@ unint64_t sub_1A337C3FC()
   result = qword_1EB0C8D18;
   if (!qword_1EB0C8D18)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8CE8);
-    sub_1A3284D0C(&qword_1EB0C8D20, &qword_1EB0C8D28);
-    sub_1A3284D0C(&qword_1EB0C8D30, &qword_1EB0C8CF8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8CE8, &qword_1A34EB0D8);
+    sub_1A3284D0C(&qword_1EB0C8D20, &qword_1EB0C8D28, &unk_1A34ED440, MEMORY[0x1E697DB78]);
+    sub_1A3284D0C(&qword_1EB0C8D30, &qword_1EB0C8CF8, &qword_1A34EB0E8, MEMORY[0x1E697EC18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8D18);
   }
@@ -1241,28 +1350,28 @@ unint64_t sub_1A337C3FC()
 
 uint64_t sub_1A337C4F8(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ImageCroppingView();
+  v4 = type metadata accessor for ImageCroppingView(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1A337C55C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ImageCroppingView();
+  v4 = type metadata accessor for ImageCroppingView(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1A337C5D8(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8080);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8080, &unk_1A34EB120);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1A337C678(uint64_t (*a1)(uint64_t))
 {
-  v2 = *(type metadata accessor for ImageCroppingView() - 8);
+  v2 = *(type metadata accessor for ImageCroppingView(0) - 8);
   v3 = v1 + ((*(v2 + 80) + 16) & ~*(v2 + 80));
 
   return a1(v3);
@@ -1273,7 +1382,7 @@ unint64_t sub_1A337C6EC()
   result = qword_1EB0C8D80;
   if (!qword_1EB0C8D80)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8D78);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8D78, &qword_1A34EB148);
     sub_1A337C778();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8D80);
@@ -1287,7 +1396,7 @@ unint64_t sub_1A337C778()
   result = qword_1EB0C8D88;
   if (!qword_1EB0C8D88)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8D90);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8D90, &qword_1A34EB150);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8D88);
   }
@@ -1297,7 +1406,7 @@ unint64_t sub_1A337C778()
 
 uint64_t sub_1A337C7FC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D68);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8D68, &qword_1A34EB138);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -1307,9 +1416,9 @@ unint64_t sub_1A337C86C()
   result = qword_1EB0C8D98;
   if (!qword_1EB0C8D98)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8DA0);
-    sub_1A3284D0C(&qword_1EB0C8CC0, &qword_1EB0C8C28);
-    sub_1A337C29C(&qword_1ED8544B0, MEMORY[0x1E697CBE8]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8DA0, &qword_1A34EB158);
+    sub_1A3284D0C(&qword_1EB0C8CC0, &qword_1EB0C8C28, &qword_1A34EB060, MEMORY[0x1E697C0C0]);
+    sub_1A337C29C(&qword_1ED8544B0, MEMORY[0x1E697CBE8], MEMORY[0x1E697CBD8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8D98);
   }
@@ -1324,7 +1433,7 @@ void *sub_1A337C958@<X0>(void *a1@<X8>)
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_1A328D790(v2, v10, &unk_1EB0C5650);
+  sub_1A328D790(v2, v10, &unk_1EB0C5650, &unk_1A34FCB90);
   if (v10[264] == 1)
   {
     return memcpy(a1, v10, 0x108uLL);
@@ -1346,11 +1455,11 @@ uint64_t sub_1A337CAD8@<X0>(uint64_t a1@<X8>)
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DB0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DB0, &qword_1A34EB1B8);
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v14 - v8;
-  v10 = type metadata accessor for ContactCardActions();
-  sub_1A328D790(v1 + *(v10 + 20), v9, &unk_1EB0C8DB0);
+  v10 = type metadata accessor for ContactCardActions(0);
+  sub_1A328D790(v1 + *(v10 + 20), v9, &unk_1EB0C8DB0, &qword_1A34EB1B8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v11 = sub_1A34CBA00();
@@ -1374,10 +1483,10 @@ void ContactCardActions.init(model:placement:)(char *a1@<X0>, uint64_t a2@<X1>, 
 {
   *a3 = swift_getKeyPath();
   *(a3 + 264) = 0;
-  v6 = type metadata accessor for ContactCardActions();
+  v6 = type metadata accessor for ContactCardActions(0);
   v7 = *(v6 + 20);
   *(a3 + v7) = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DB0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DB0, &qword_1A34EB1B8);
   swift_storeEnumTagMultiPayload();
   *(a3 + *(v6 + 24)) = a1;
   if (*&a1[OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__placement] == a2)
@@ -1389,7 +1498,7 @@ void ContactCardActions.init(model:placement:)(char *a1@<X0>, uint64_t a2@<X1>, 
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x1EEE9AC00](KeyPath);
-    sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+    sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
     v10 = a1;
     sub_1A34C9990();
   }
@@ -1410,12 +1519,12 @@ void ContactCardActions.init(model:placement:)(char *a1@<X0>, uint64_t a2@<X1>, 
     v15 = swift_slowAlloc();
     v16 = swift_slowAlloc();
     *v15 = 138477827;
-    v17 = *(&v12->isa + OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel_contact);
+    v17 = *&v12[OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel_contact];
 
     *(v15 + 4) = v17;
     *v16 = v17;
     _os_log_impl(&dword_1A31E6000, v13, v14, "[ContactCardActions] init for %{private}@", v15, 0xCu);
-    sub_1A3288FDC(v16, &unk_1EB0C6C40);
+    sub_1A3288FDC(v16, &unk_1EB0C6C40, &qword_1A34DDFC0);
     MEMORY[0x1A58F1010](v16, -1, -1);
     MEMORY[0x1A58F1010](v15, -1, -1);
   }
@@ -1430,19 +1539,19 @@ void ContactCardActions.init(model:placement:)(char *a1@<X0>, uint64_t a2@<X1>, 
 uint64_t ContactCardActions.body.getter@<X0>(uint64_t a1@<X8>)
 {
   v26 = a1;
-  v2 = type metadata accessor for ContactCardActions();
+  v2 = type metadata accessor for ContactCardActions(0);
   v3 = v2 - 8;
   v24 = *(v2 - 8);
   v21 = *(v24 + 64);
   MEMORY[0x1EEE9AC00](v2);
   v23 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CB030);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CB030, &qword_1A34EB1F0);
   MEMORY[0x1EEE9AC00](v25);
   v20 = &v19 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8DC0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8DC0, &qword_1A34EB1F8);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v19 - v7;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8DC8);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8DC8, &qword_1A34EB200);
   MEMORY[0x1EEE9AC00](v22);
   v10 = &v19 - v9;
   v19 = v1;
@@ -1456,7 +1565,7 @@ uint64_t ContactCardActions.body.getter@<X0>(uint64_t a1@<X8>)
   v11 = *(v1 + *(v3 + 32));
   swift_getKeyPath();
   v29 = v11;
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   v29 = *(v11 + OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__placement);
@@ -1464,10 +1573,10 @@ uint64_t ContactCardActions.body.getter@<X0>(uint64_t a1@<X8>)
   v12 = sub_1A34CD160();
   MEMORY[0x1A58EEA30](v12);
 
-  sub_1A338196C(&qword_1EB0C05B0, &qword_1EB0C8DC0, &unk_1A34EB1F8, sub_1A3380D2C);
+  sub_1A338196C(&qword_1EB0C05B0, &qword_1EB0C8DC0, &qword_1A34EB1F8, sub_1A3380D2C);
   sub_1A34CC1F0();
 
-  sub_1A3288FDC(v8, &qword_1EB0C8DC0);
+  sub_1A3288FDC(v8, &qword_1EB0C8DC0, &qword_1A34EB1F8);
   swift_getKeyPath();
   v27 = v11;
   sub_1A34C99A0();
@@ -1475,7 +1584,7 @@ uint64_t ContactCardActions.body.getter@<X0>(uint64_t a1@<X8>)
   v13 = OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__viewControllerToPresent;
   swift_beginAccess();
   v14 = v20;
-  sub_1A328D790(v11 + v13, v20, &qword_1EB0CB030);
+  sub_1A328D790(v11 + v13, v20, &qword_1EB0CB030, &qword_1A34EB1F0);
   v15 = v23;
   sub_1A3382608(v19, v23, type metadata accessor for ContactCardActions);
   v16 = (*(v24 + 80) + 16) & ~*(v24 + 80);
@@ -1485,33 +1594,33 @@ uint64_t ContactCardActions.body.getter@<X0>(uint64_t a1@<X8>)
   sub_1A33811F8();
   sub_1A34CC3C0();
 
-  sub_1A3288FDC(v14, &qword_1EB0CB030);
-  return sub_1A3288FDC(v10, &qword_1EB0C8DC8);
+  sub_1A3288FDC(v14, &qword_1EB0CB030, &qword_1A34EB1F0);
+  return sub_1A3288FDC(v10, &qword_1EB0C8DC8, &qword_1A34EB200);
 }
 
 uint64_t sub_1A337D414@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v29 = a2;
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E10);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E10, &qword_1A34EB228);
   v24 = *(v30 - 8);
   MEMORY[0x1EEE9AC00](v30);
   v23 = &v22 - v3;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9098);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9098, &qword_1A34EB4F8);
   MEMORY[0x1EEE9AC00](v27);
   v28 = &v22 - v4;
-  v5 = type metadata accessor for ContactCardActions();
+  v5 = type metadata accessor for ContactCardActions(0);
   v6 = v5 - 8;
   v25 = *(v5 - 8);
   v7 = *(v25 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DE0);
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DE0, &qword_1A34EB210);
   v8 = *(v26 - 8);
   MEMORY[0x1EEE9AC00](v26);
   v10 = &v22 - v9;
   v11 = *(a1 + *(v6 + 32));
   swift_getKeyPath();
   v31 = v11;
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   v12 = *(v11 + OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__placement);
@@ -1527,12 +1636,12 @@ uint64_t sub_1A337D414@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v14 = swift_allocObject();
     sub_1A3381470(&v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v14 + v13, type metadata accessor for ContactCardActions);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6570);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6570, &qword_1A34DF3A8);
     sub_1A34C9780();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DF0);
-    sub_1A3284D0C(&qword_1EB0C02A0, &qword_1EB0C6570);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DF0, &qword_1A34EB218);
+    sub_1A3284D0C(&qword_1EB0C02A0, &qword_1EB0C6570, &qword_1A34DF3A8, MEMORY[0x1E69E6338]);
     sub_1A3380E3C();
-    sub_1A33822F4(&qword_1EB0C2878, type metadata accessor for ActionSection);
+    sub_1A33822F4(&qword_1EB0C2878, type metadata accessor for ActionSection, &unk_1A34F4A68);
     sub_1A34CC9D0();
     v15 = v26;
     (*(v8 + 16))(v28, v10, v26);
@@ -1549,12 +1658,12 @@ uint64_t sub_1A337D414@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v18 = swift_allocObject();
     sub_1A3381470(&v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v18 + v17, type metadata accessor for ContactCardActions);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6570);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6570, &qword_1A34DF3A8);
     sub_1A34C9780();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E20);
-    sub_1A3284D0C(&qword_1EB0C02A0, &qword_1EB0C6570);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E20, &qword_1A34EB230);
+    sub_1A3284D0C(&qword_1EB0C02A0, &qword_1EB0C6570, &qword_1A34DF3A8, MEMORY[0x1E69E6338]);
     sub_1A3380F70();
-    sub_1A33822F4(&qword_1EB0C2878, type metadata accessor for ActionSection);
+    sub_1A33822F4(&qword_1EB0C2878, type metadata accessor for ActionSection, &unk_1A34F4A68);
     v19 = v23;
     sub_1A34CC9D0();
     v20 = v24;
@@ -1570,14 +1679,14 @@ uint64_t sub_1A337D414@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t ContactCardActions.contentWithoutSection.getter()
 {
-  v1 = type metadata accessor for ContactCardActions();
+  v1 = type metadata accessor for ContactCardActions(0);
   v2 = *(v1 - 8);
   v3 = *(v2 + 64);
   MEMORY[0x1EEE9AC00](v1 - 8);
   v5 = *(v0 + *(v4 + 32));
   swift_getKeyPath();
   v10 = v5;
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   v10 = *(v5 + OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__sections);
@@ -1586,12 +1695,12 @@ uint64_t ContactCardActions.contentWithoutSection.getter()
   v7 = swift_allocObject();
   sub_1A3381470(&v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v7 + v6, type metadata accessor for ContactCardActions);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6570);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6570, &qword_1A34DF3A8);
   sub_1A34C9780();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DF0);
-  sub_1A3284D0C(&qword_1EB0C02A0, &qword_1EB0C6570);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DF0, &qword_1A34EB218);
+  sub_1A3284D0C(&qword_1EB0C02A0, &qword_1EB0C6570, &qword_1A34DF3A8, MEMORY[0x1E69E6338]);
   sub_1A3380E3C();
-  sub_1A33822F4(&qword_1EB0C2878, type metadata accessor for ActionSection);
+  sub_1A33822F4(&qword_1EB0C2878, type metadata accessor for ActionSection, &unk_1A34F4A68);
   return sub_1A34CC9D0();
 }
 
@@ -1606,27 +1715,27 @@ uint64_t sub_1A337DD60(uint64_t a1)
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CB030);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CB030, &qword_1A34EB1F0);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v18 - v10;
-  v12 = *(type metadata accessor for ContactCardActions() + 24);
+  v12 = *(type metadata accessor for ContactCardActions(0) + 24);
   v18 = a1;
   v13 = *(a1 + v12);
   swift_getKeyPath();
   v21 = v13;
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   v14 = OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__viewControllerToPresent;
   swift_beginAccess();
-  sub_1A328D790(v13 + v14, v11, &qword_1EB0CB030);
+  sub_1A328D790(v13 + v14, v11, &qword_1EB0CB030, &qword_1A34EB1F0);
   if ((*(v6 + 48))(v11, 1, v5))
   {
-    return sub_1A3288FDC(v11, &qword_1EB0CB030);
+    return sub_1A3288FDC(v11, &qword_1EB0CB030, &qword_1A34EB1F0);
   }
 
   sub_1A3382608(v11, v8, type metadata accessor for ContactCardActionsViewModel.ViewController);
-  sub_1A3288FDC(v11, &qword_1EB0CB030);
+  sub_1A3288FDC(v11, &qword_1EB0CB030, &qword_1A34EB1F0);
   v16 = *&v8[*(v5 + 20)];
   sub_1A3382670(v8, type metadata accessor for ContactCardActionsViewModel.ViewController);
   v17 = sub_1A337CAD8(v4);
@@ -1640,16 +1749,16 @@ uint64_t sub_1A337DD60(uint64_t a1)
 uint64_t sub_1A337E0A8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v17[0] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E30);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E30, &qword_1A34EB238);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = v17 - v7;
   v9 = type metadata accessor for ActionSection(0);
   v10 = *(a1 + *(v9 + 28));
-  v11 = *(a2 + *(type metadata accessor for ContactCardActions() + 24));
+  v11 = *(a2 + *(type metadata accessor for ContactCardActions(0) + 24));
   swift_getKeyPath();
   v17[1] = v11;
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   if (v10 == *(v11 + OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__placement) && *(*(a1 + *(v9 + 20)) + 16))
@@ -1657,8 +1766,8 @@ uint64_t sub_1A337E0A8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     MEMORY[0x1EEE9AC00](v12);
     v17[-2] = a1;
     v17[-1] = a2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E40);
-    sub_1A3284D0C(&unk_1EB0C0368, &unk_1EB0C8E40);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E40, &qword_1A34EB240);
+    sub_1A3284D0C(&unk_1EB0C0368, &unk_1EB0C8E40, &qword_1A34EB240, MEMORY[0x1E6981F48]);
     sub_1A34CCA00();
     v13 = v17[0];
     (*(v6 + 32))(v17[0], v8, v5);
@@ -1677,7 +1786,7 @@ uint64_t sub_1A337E0A8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
 
 uint64_t sub_1A337E318@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
 {
-  v6 = type metadata accessor for ContactCardActions();
+  v6 = type metadata accessor for ContactCardActions(0);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v67 = v8;
@@ -1687,7 +1796,7 @@ uint64_t sub_1A337E318@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
   MEMORY[0x1EEE9AC00](v10);
   v65 = v11;
   v66 = &v56 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C90A0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C90A0, &qword_1A34EB500);
   v13 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
   v69 = &v56 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1751,7 +1860,7 @@ uint64_t sub_1A337E318@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
     v86 = v75;
     v87 = v76;
     v88 = v77;
-    CGPointMake(&v83);
+    CGPointMake();
     v98 = v89;
     v99 = v90;
     v100 = v91;
@@ -1780,8 +1889,8 @@ uint64_t sub_1A337E318@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
   v41 = swift_allocObject();
   sub_1A3381470(v38, v41 + v39, type metadata accessor for ActionSection);
   sub_1A3381470(v9, v41 + v40, type metadata accessor for ContactCardActions);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8EE0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0, &qword_1A34EB370);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8EE0, &qword_1A34EB390);
   sub_1A32D3A44();
   sub_1A3381718();
   v42 = v68;
@@ -1824,9 +1933,9 @@ uint64_t sub_1A337E318@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
   a3[5] = v49;
   *a3 = v52;
   a3[1] = v51;
-  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C90A8);
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C90A8, &qword_1A34EB508);
   v43(a3 + *(v53 + 48), v44, v12);
-  sub_1A328D790(&v83, v71, &unk_1EB0C90B0);
+  sub_1A328D790(&v83, v71, &unk_1EB0C90B0, &unk_1A34EB510);
   v54 = *(v13 + 8);
   v54(v42, v12);
   v54(v44, v12);
@@ -1839,12 +1948,12 @@ uint64_t sub_1A337E318@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
   v72[3] = v79;
   v71[0] = v74;
   v71[1] = v75;
-  return sub_1A3288FDC(v71, &unk_1EB0C90B0);
+  return sub_1A3288FDC(v71, &unk_1EB0C90B0, &unk_1A34EB510);
 }
 
 uint64_t sub_1A337E998@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = type metadata accessor for ContactCardActionRow();
+  v6 = type metadata accessor for ContactCardActionRow(0);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -1880,19 +1989,19 @@ uint64_t sub_1A337EAD0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v6 = MEMORY[0x1EEE9AC00](v5);
   (*(v8 + 16))(v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v6);
   v9 = sub_1A34CA770();
-  *(a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F00) + 36)) = v9;
+  *(a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F00, &qword_1A34EB3A0) + 36)) = v9;
   __swift_destroy_boxed_opaque_existential_0(v21);
   sub_1A337C958(v22);
   v10 = v22[2];
   sub_1A34C9010();
   sub_1A3292144(v22);
   KeyPath = swift_getKeyPath();
-  v12 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8EF0) + 36));
+  v12 = (a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8EF0, &qword_1A34EB398) + 36));
   *v12 = KeyPath;
   v12[1] = v10;
   v13 = sub_1A34CCC80();
   v15 = v14;
-  v16 = type metadata accessor for ContactCardActionRow();
+  v16 = type metadata accessor for ContactCardActionRow(0);
   v17 = 0;
   if (*(a1 + *(v16 + 84)) == 1)
   {
@@ -1900,7 +2009,7 @@ uint64_t sub_1A337EAD0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v18 = v17;
   }
 
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8EE0);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8EE0, &qword_1A34EB390);
   v20 = (a2 + *(result + 36));
   *v20 = v17;
   v20[1] = v13;
@@ -1911,12 +2020,12 @@ uint64_t sub_1A337EAD0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 uint64_t sub_1A337ECB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v96 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E00);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8E00, &qword_1A34EB220);
   v94 = *(v5 - 8);
   v95 = v5;
   MEMORY[0x1EEE9AC00](v5);
   v92 = &v72[-v6];
-  v7 = type metadata accessor for ContactCardActions();
+  v7 = type metadata accessor for ContactCardActions(0);
   v8 = v7 - 8;
   v84 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
@@ -1927,22 +2036,22 @@ uint64_t sub_1A337ECB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   MEMORY[0x1EEE9AC00](v10);
   v81 = v11;
   v82 = &v72[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8E80);
+  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8E80, &qword_1A34EB330);
   v90 = *(v91 - 8);
   MEMORY[0x1EEE9AC00](v91);
   v89 = &v72[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v13);
   v88 = &v72[-v14];
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8E88);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8E88, &qword_1A34EB338);
   MEMORY[0x1EEE9AC00](v15);
   v17 = &v72[-v16];
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8E90);
+  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8E90, &qword_1A34EB340);
   v78 = *(v79 - 8);
   MEMORY[0x1EEE9AC00](v79);
   v19 = &v72[-((v18 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v20);
   v22 = &v72[-v21];
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8E98);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8E98, &unk_1A34EB348);
   MEMORY[0x1EEE9AC00](v23 - 8);
   v83 = &v72[-((v24 + 15) & 0xFFFFFFFFFFFFFFF0)];
   MEMORY[0x1EEE9AC00](v25);
@@ -1953,7 +2062,7 @@ uint64_t sub_1A337ECB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   v29 = *(a2 + v28);
   swift_getKeyPath();
   *&v99 = v29;
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   if (v27 == *(v29 + OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__placement))
@@ -1984,7 +2093,7 @@ uint64_t sub_1A337ECB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
       sub_1A328A9B0(v32, v34, v36 & 1);
 
       v40 = &v17[*(v15 + 36)];
-      v41 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9018) + 28);
+      v41 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9018, &qword_1A34EB448) + 28);
       v42 = *MEMORY[0x1E6980FD8];
       v43 = sub_1A34CBE00();
       v44 = *(v43 - 8);
@@ -1998,7 +2107,7 @@ uint64_t sub_1A337ECB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
       *(v17 + 3) = v76;
       sub_1A34CCC90();
       sub_1A34CADA0();
-      sub_1A329D98C(v17, v19, &qword_1EB0C8E88);
+      sub_1A329D98C(v17, v19, &qword_1EB0C8E88, &qword_1A34EB338);
       v46 = v79;
       v47 = &v19[*(v79 + 36)];
       v48 = v104;
@@ -2011,9 +2120,9 @@ uint64_t sub_1A337ECB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
       v50 = v102;
       v47[2] = v101;
       v47[3] = v50;
-      sub_1A329D98C(v19, v22, &qword_1EB0C8E90);
+      sub_1A329D98C(v19, v22, &qword_1EB0C8E90, &qword_1A34EB340);
       v51 = v93;
-      sub_1A329D98C(v22, v93, &qword_1EB0C8E90);
+      sub_1A329D98C(v22, v93, &qword_1EB0C8E90, &qword_1A34EB340);
       v52 = 0;
       a1 = v77;
     }
@@ -2039,28 +2148,28 @@ uint64_t sub_1A337ECB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v60 = swift_allocObject();
     sub_1A3381470(v56, v60 + v58, type metadata accessor for ActionSection);
     sub_1A3381470(v57, v60 + v59, type metadata accessor for ContactCardActions);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0, &qword_1A34EB370);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA8, &qword_1A34EB378);
     sub_1A32D3A44();
     sub_1A33814F0();
     v61 = v88;
     sub_1A34CC9C0();
     v62 = v83;
-    sub_1A328D790(v51, v83, &qword_1EB0C8E98);
+    sub_1A328D790(v51, v83, &qword_1EB0C8E98, &unk_1A34EB348);
     v63 = v90;
     v64 = *(v90 + 16);
     v65 = v89;
     v66 = v91;
     v64(v89, v61, v91);
     v67 = v92;
-    sub_1A328D790(v62, v92, &qword_1EB0C8E98);
-    v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9008);
+    sub_1A328D790(v62, v92, &qword_1EB0C8E98, &unk_1A34EB348);
+    v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9008, &qword_1A34EB440);
     v64(&v67[*(v68 + 48)], v65, v66);
     v69 = *(v63 + 8);
     v69(v61, v66);
-    sub_1A3288FDC(v93, &qword_1EB0C8E98);
+    sub_1A3288FDC(v93, &qword_1EB0C8E98, &unk_1A34EB348);
     v69(v65, v66);
-    sub_1A3288FDC(v62, &qword_1EB0C8E98);
+    sub_1A3288FDC(v62, &qword_1EB0C8E98, &unk_1A34EB348);
     v70 = v96;
     sub_1A3206FD4(v67, v96);
     v53 = 0;
@@ -2078,7 +2187,7 @@ uint64_t sub_1A337ECB4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
 
 uint64_t sub_1A337F73C@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = type metadata accessor for ContactCardActionRow();
+  v6 = type metadata accessor for ContactCardActionRow(0);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v24[-1] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -2104,13 +2213,13 @@ LABEL_8:
   v13 = v24[3];
   sub_1A34C9010();
   sub_1A3292144(v24);
-  *(a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8ED0) + 36)) = v13;
+  *(a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8ED0, &qword_1A34EB388) + 36)) = v13;
   sub_1A337C958(v24);
   v14 = v24[2];
   sub_1A34C9010();
   sub_1A3292144(v24);
   KeyPath = swift_getKeyPath();
-  v16 = (a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EC0) + 36));
+  v16 = (a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EC0, &qword_1A34EB380) + 36));
   *v16 = KeyPath;
   v16[1] = v14;
   v17 = sub_1A34CCC80();
@@ -2126,7 +2235,7 @@ LABEL_8:
     v20 = 0;
   }
 
-  v22 = (a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA8) + 36));
+  v22 = (a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA8, &qword_1A34EB378) + 36));
   *v22 = v20;
   v22[1] = v17;
   v22[2] = v19;
@@ -2136,21 +2245,21 @@ LABEL_8:
 uint64_t sub_1A337F96C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v32 = a3;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F40);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F40, &qword_1A34EB3C0);
   v29 = *(v31 - 8);
   MEMORY[0x1EEE9AC00](v31);
   v6 = v27 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F30);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F30, &qword_1A34EB3B8);
   MEMORY[0x1EEE9AC00](v7);
   v30 = v27 - v8;
-  v9 = type metadata accessor for ContactCardActionRow();
+  v9 = type metadata accessor for ContactCardActionRow(0);
   v10 = v9 - 8;
   MEMORY[0x1EEE9AC00](v9);
   v12 = v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9030);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9030, &unk_1A34EB4C0);
   MEMORY[0x1EEE9AC00](v33);
   v14 = v27 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F50);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F50, &qword_1A34EB3C8);
   MEMORY[0x1EEE9AC00](v15);
   v17 = v27 - v16;
   if (*(a1 + *(v10 + 68)))
@@ -2160,8 +2269,8 @@ uint64_t sub_1A337F96C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v27[2] = v15;
     MEMORY[0x1EEE9AC00](v18);
     MEMORY[0x1EEE9AC00](v19);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9038);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9040);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9038, qword_1A34EC130);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9040, &qword_1A34EB4D0);
     sub_1A33820AC();
     v27[1] = v7;
     sub_1A33821B4();
@@ -2183,24 +2292,24 @@ uint64_t sub_1A337F96C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v21 = sub_1A34CD8E0();
     MEMORY[0x1A58EEA30](v21);
 
-    sub_1A3284D0C(&unk_1EB0C0648, &unk_1EB0C8F40);
+    sub_1A3284D0C(&unk_1EB0C0648, &unk_1EB0C8F40, &qword_1A34EB3C0, MEMORY[0x1E697CD28]);
     v23 = v30;
     v22 = v31;
     sub_1A34CC1F0();
 
     (*(v29 + 8))(v6, v22);
-    sub_1A328D790(v23, v14, &unk_1EB0C8F30);
+    sub_1A328D790(v23, v14, &unk_1EB0C8F30, &qword_1A34EB3B8);
     swift_storeEnumTagMultiPayload();
     sub_1A3381A74();
     sub_1A3381B5C();
     sub_1A34CB3E0();
-    sub_1A3288FDC(v23, &unk_1EB0C8F30);
+    sub_1A3288FDC(v23, &unk_1EB0C8F30, &qword_1A34EB3B8);
     return sub_1A3382670(v28, type metadata accessor for ContactCardActionRow);
   }
 
   else
   {
-    v25 = *(a2 + *(type metadata accessor for ContactCardActions() + 24));
+    v25 = *(a2 + *(type metadata accessor for ContactCardActions(0) + 24));
     v40[3] = type metadata accessor for ContactCardActionsViewModel(0);
     v40[4] = &off_1F1627130;
     v40[0] = v25;
@@ -2214,7 +2323,7 @@ uint64_t sub_1A337F96C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     sub_1A3381A74();
     sub_1A3381B5C();
     sub_1A34CB3E0();
-    return sub_1A3288FDC(v17, &unk_1EB0C8F50);
+    return sub_1A3288FDC(v17, &unk_1EB0C8F50, &qword_1A34EB3C8);
   }
 }
 
@@ -2224,18 +2333,18 @@ uint64_t sub_1A337FEF4@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>
   v25 = a2;
   v26 = a1;
   v28 = a4;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9088);
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9088, &qword_1A34EB4E8);
   v4 = *(v29 - 8);
   MEMORY[0x1EEE9AC00](v29);
   v6 = &v24 - v5;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9090);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9090, &qword_1A34EB4F0);
   MEMORY[0x1EEE9AC00](v27);
   v8 = &v24 - v7;
-  v9 = type metadata accessor for ContactCardActions();
+  v9 = type metadata accessor for ContactCardActions(0);
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9070);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9070, &qword_1A34EB4E0);
   v13 = *(v12 - 8);
   MEMORY[0x1EEE9AC00](v12);
   v15 = &v24 - v14;
@@ -2253,10 +2362,10 @@ uint64_t sub_1A337FEF4@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>
     *(v20 + 16) = v17;
     sub_1A3381470(&v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v20 + v19, type metadata accessor for ContactCardActions);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0);
-    type metadata accessor for ContactCardActionMenu();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0, &qword_1A34EB370);
+    type metadata accessor for ContactCardActionMenu(0);
     sub_1A32D3A44();
-    sub_1A33822F4(&qword_1EB0C22C8, type metadata accessor for ContactCardActionMenu);
+    sub_1A33822F4(&qword_1EB0C22C8, type metadata accessor for ContactCardActionMenu, &unk_1A34EC098);
     sub_1A34CC9C0();
     (*(v13 + 16))(v8, v15, v12);
     swift_storeEnumTagMultiPayload();
@@ -2287,7 +2396,7 @@ uint64_t sub_1A337FEF4@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>
 
 uint64_t sub_1A33803AC(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ContactCardActions();
+  v4 = type metadata accessor for ContactCardActions(0);
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
@@ -2301,10 +2410,10 @@ uint64_t sub_1A33803AC(uint64_t a1, uint64_t a2)
   *(v9 + 16) = a1;
   sub_1A3381470(v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v9 + v8, type metadata accessor for ContactCardActions);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0);
-  type metadata accessor for ContactCardActionMenu();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0, &qword_1A34EB370);
+  type metadata accessor for ContactCardActionMenu(0);
   sub_1A32D3A44();
-  sub_1A33822F4(&qword_1EB0C22C8, type metadata accessor for ContactCardActionMenu);
+  sub_1A33822F4(&qword_1EB0C22C8, type metadata accessor for ContactCardActionMenu, &unk_1A34EC098);
   return sub_1A34CC9C0();
 }
 
@@ -2324,10 +2433,10 @@ LABEL_7:
     return result;
   }
 
-  v8 = *(type metadata accessor for ContactCardActionRow() - 8);
+  v8 = *(type metadata accessor for ContactCardActionRow(0) - 8);
   sub_1A3382608(a2 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v4, a4, type metadata accessor for ContactCardActionRow);
-  v10 = *(a3 + *(type metadata accessor for ContactCardActions() + 24));
-  v9 = (a4 + *(type metadata accessor for ContactCardActionMenu() + 20));
+  v10 = *(a3 + *(type metadata accessor for ContactCardActions(0) + 24));
+  v9 = (a4 + *(type metadata accessor for ContactCardActionMenu(0) + 20));
   v9[3] = type metadata accessor for ContactCardActionsViewModel(0);
   v9[4] = &off_1F1627130;
   *v9 = v10;
@@ -2335,23 +2444,23 @@ LABEL_7:
   return v10;
 }
 
-uint64_t sub_1A33806AC()
+uint64_t sub_1A33806AC(uint64_t a1)
 {
-  sub_1A337C958(v1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9058);
+  sub_1A337C958(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9058, &qword_1A34EB4D8);
   sub_1A3382138();
   sub_1A34CA9A0();
-  return sub_1A3292144(v1);
+  return sub_1A3292144(v2);
 }
 
-id sub_1A3380904()
+id sub_1A3380904(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ActionsProvider();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for ActionsProvider();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
-uint64_t type metadata accessor for ContactCardActions()
+uint64_t type metadata accessor for ContactCardActions(uint64_t a1)
 {
   result = qword_1EB0C2640;
   if (!qword_1EB0C2640)
@@ -2366,7 +2475,7 @@ uint64_t sub_1A33809D4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   *a2 = *(v3 + OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__placement);
@@ -2377,31 +2486,33 @@ uint64_t sub_1A3380AAC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   v4 = OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__viewControllerToPresent;
   swift_beginAccess();
-  return sub_1A328D790(v3 + v4, a2, &qword_1EB0CB030);
+  return sub_1A328D790(v3 + v4, a2, &qword_1EB0CB030, &qword_1A34EB1F0);
 }
 
 uint64_t sub_1A3380B84(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CB030);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0CB030, &qword_1A34EB1F0);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v6 - v3;
-  sub_1A328D790(a1, &v6 - v3, &qword_1EB0CB030);
+  sub_1A328D790(a1, &v6 - v3, &qword_1EB0CB030, &qword_1A34EB1F0);
   return sub_1A340D87C(v4);
 }
 
-uint64_t sub_1A3380C30@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+double sub_1A3380C30@<D0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel);
+  sub_1A33822F4(&unk_1EB0C1B28, type metadata accessor for ContactCardActionsViewModel, &protocol conformance descriptor for ContactCardActionsViewModel);
   sub_1A34C99A0();
 
   *a2 = *(v3 + OBJC_IVAR____TtC14ContactsUICore27ContactCardActionsViewModel__sections);
+
+  return result;
 }
 
 unint64_t sub_1A3380D2C()
@@ -2409,7 +2520,7 @@ unint64_t sub_1A3380D2C()
   result = qword_1EB0C0828;
   if (!qword_1EB0C0828)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8DD0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8DD0, &qword_1A34EB208);
     sub_1A3380DB8();
     sub_1A3380EEC();
     result = swift_getWitnessTable();
@@ -2424,7 +2535,7 @@ unint64_t sub_1A3380DB8()
   result = qword_1EB0C0428;
   if (!qword_1EB0C0428)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8DE0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8DE0, &qword_1A34EB210);
     sub_1A3380E3C();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0428);
@@ -2438,8 +2549,8 @@ unint64_t sub_1A3380E3C()
   result = qword_1EB0C0338;
   if (!qword_1EB0C0338)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8DF0);
-    sub_1A3284D0C(&qword_1EB0C0348, &unk_1EB0C8E00);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8DF0, &qword_1A34EB218);
+    sub_1A3284D0C(&qword_1EB0C0348, &unk_1EB0C8E00, &qword_1A34EB220, MEMORY[0x1E6981F48]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0338);
   }
@@ -2452,7 +2563,7 @@ unint64_t sub_1A3380EEC()
   result = qword_1EB0C0438;
   if (!qword_1EB0C0438)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8E10);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8E10, &qword_1A34EB228);
     sub_1A3380F70();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0438);
@@ -2466,7 +2577,7 @@ unint64_t sub_1A3380F70()
   result = qword_1EB0C03E8;
   if (!qword_1EB0C03E8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8E20);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8E20, &qword_1A34EB230);
     sub_1A3380FF4();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C03E8);
@@ -2480,8 +2591,8 @@ unint64_t sub_1A3380FF4()
   result = qword_1EB0C03F8;
   if (!qword_1EB0C03F8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8E30);
-    sub_1A3284D0C(&unk_1EB0C0368, &unk_1EB0C8E40);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8E30, &qword_1A34EB238);
+    sub_1A3284D0C(&unk_1EB0C0368, &unk_1EB0C8E40, &qword_1A34EB240, MEMORY[0x1E6981F48]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C03F8);
   }
@@ -2491,7 +2602,7 @@ unint64_t sub_1A3380FF4()
 
 uint64_t sub_1A33810B0()
 {
-  v1 = *(type metadata accessor for ContactCardActions() - 8);
+  v1 = *(type metadata accessor for ContactCardActions(0) - 8);
   v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
 
   return sub_1A337DD60(v2);
@@ -2502,9 +2613,9 @@ unint64_t sub_1A3381110()
   result = qword_1EB0C0D68;
   if (!qword_1EB0C0D68)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8DC8);
-    sub_1A338196C(&qword_1EB0C05B0, &qword_1EB0C8DC0, &unk_1A34EB1F8, sub_1A3380D2C);
-    sub_1A33822F4(&qword_1ED8544B0, MEMORY[0x1E697CBE8]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8DC8, &qword_1A34EB200);
+    sub_1A338196C(&qword_1EB0C05B0, &qword_1EB0C8DC0, &qword_1A34EB1F8, sub_1A3380D2C);
+    sub_1A33822F4(&qword_1ED8544B0, MEMORY[0x1E697CBE8], MEMORY[0x1E697CBD8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0D68);
   }
@@ -2517,8 +2628,8 @@ unint64_t sub_1A33811F8()
   result = qword_1EB0C1B38;
   if (!qword_1EB0C1B38)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0CB030);
-    sub_1A33822F4(&qword_1EB0C1B40, type metadata accessor for ContactCardActionsViewModel.ViewController);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0CB030, &qword_1A34EB1F0);
+    sub_1A33822F4(&qword_1EB0C1B40, type metadata accessor for ContactCardActionsViewModel.ViewController, &unk_1A34F4AA0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C1B38);
   }
@@ -2526,16 +2637,16 @@ unint64_t sub_1A33811F8()
   return result;
 }
 
-void sub_1A3381308()
+void sub_1A3381308(uint64_t a1)
 {
   sub_1A33813A4();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1A33813F4();
-    if (v1 <= 0x3F)
+    sub_1A33813F4(319);
+    if (v2 <= 0x3F)
     {
       type metadata accessor for ContactCardActionsViewModel(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -2555,15 +2666,15 @@ void sub_1A33813A4()
   }
 }
 
-void sub_1A33813F4()
+void sub_1A33813F4(uint64_t a1)
 {
   if (!qword_1EB0C1148)
   {
     sub_1A34CBA00();
-    v0 = sub_1A34CA5F0();
-    if (!v1)
+    v1 = sub_1A34CA5F0();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB0C1148);
+      atomic_store(v1, &qword_1EB0C1148);
     }
   }
 }
@@ -2580,9 +2691,9 @@ unint64_t sub_1A33814F0()
   result = qword_1EB0C8EB0;
   if (!qword_1EB0C8EB0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8EA8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8EA8, &qword_1A34EB378);
     sub_1A33815A8();
-    sub_1A3284D0C(&qword_1EB0C0920, &unk_1EB0C8FF0);
+    sub_1A3284D0C(&qword_1EB0C0920, &unk_1EB0C8FF0, &unk_1A34EB430, MEMORY[0x1E697F940]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8EB0);
   }
@@ -2595,9 +2706,9 @@ unint64_t sub_1A33815A8()
   result = qword_1EB0C8EB8;
   if (!qword_1EB0C8EB8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8EC0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8EC0, &qword_1A34EB380);
     sub_1A3381660();
-    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0);
+    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0, &unk_1A34EBBB0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8EB8);
   }
@@ -2610,9 +2721,9 @@ unint64_t sub_1A3381660()
   result = qword_1EB0C8EC8;
   if (!qword_1EB0C8EC8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8ED0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8ED0, &qword_1A34EB388);
     sub_1A3381718();
-    sub_1A3284D0C(&qword_1ED854EA0, &qword_1EB0C9000);
+    sub_1A3284D0C(&qword_1ED854EA0, &qword_1EB0C9000, &qword_1A34E7470, MEMORY[0x1E6980490]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C8EC8);
   }
@@ -2625,9 +2736,9 @@ unint64_t sub_1A3381718()
   result = qword_1EB0C0A88;
   if (!qword_1EB0C0A88)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8EE0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8EE0, &qword_1A34EB390);
     sub_1A33817D0();
-    sub_1A3284D0C(&qword_1EB0C0920, &unk_1EB0C8FF0);
+    sub_1A3284D0C(&qword_1EB0C0920, &unk_1EB0C8FF0, &unk_1A34EB430, MEMORY[0x1E697F940]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0A88);
   }
@@ -2640,9 +2751,9 @@ unint64_t sub_1A33817D0()
   result = qword_1EB0C0B78;
   if (!qword_1EB0C0B78)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8EF0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8EF0, &qword_1A34EB398);
     sub_1A3381888();
-    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0);
+    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0, &unk_1A34EBBB0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0B78);
   }
@@ -2655,9 +2766,9 @@ unint64_t sub_1A3381888()
   result = qword_1EB0C0D58;
   if (!qword_1EB0C0D58)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F00);
-    sub_1A338196C(&qword_1EB0C05D8, &unk_1EB0C8F10, &unk_1A34EB3A8, sub_1A33819E8);
-    sub_1A3284D0C(&qword_1EB0C0700, &unk_1EB0C8FD0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F00, &qword_1A34EB3A0);
+    sub_1A338196C(&qword_1EB0C05D8, &unk_1EB0C8F10, &qword_1A34EB3A8, sub_1A33819E8);
+    sub_1A3284D0C(&qword_1EB0C0700, &unk_1EB0C8FD0, &unk_1A34EB420, MEMORY[0x1E6980490]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0D58);
   }
@@ -2665,12 +2776,12 @@ unint64_t sub_1A3381888()
   return result;
 }
 
-uint64_t sub_1A338196C(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_1A338196C(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -2684,7 +2795,7 @@ unint64_t sub_1A33819E8()
   result = qword_1EB0C08D8;
   if (!qword_1EB0C08D8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F20);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F20, &qword_1A34EB3B0);
     sub_1A3381A74();
     sub_1A3381B5C();
     result = swift_getWitnessTable();
@@ -2699,9 +2810,9 @@ unint64_t sub_1A3381A74()
   result = qword_1EB0C0E58;
   if (!qword_1EB0C0E58)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F30);
-    sub_1A3284D0C(&unk_1EB0C0648, &unk_1EB0C8F40);
-    sub_1A33822F4(&qword_1ED8544B0, MEMORY[0x1E697CBE8]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F30, &qword_1A34EB3B8);
+    sub_1A3284D0C(&unk_1EB0C0648, &unk_1EB0C8F40, &qword_1A34EB3C0, MEMORY[0x1E697CD28]);
+    sub_1A33822F4(&qword_1ED8544B0, MEMORY[0x1E697CBE8], MEMORY[0x1E697CBD8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0E58);
   }
@@ -2714,9 +2825,9 @@ unint64_t sub_1A3381B5C()
   result = qword_1EB0C07E8;
   if (!qword_1EB0C07E8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F50);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F50, &qword_1A34EB3C8);
     sub_1A3381C14();
-    sub_1A3284D0C(&qword_1EB0C04F8, &unk_1EB0C8FC0);
+    sub_1A3284D0C(&qword_1EB0C04F8, &unk_1EB0C8FC0, &qword_1A34EB418, MEMORY[0x1E697D680]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C07E8);
   }
@@ -2729,8 +2840,8 @@ unint64_t sub_1A3381C14()
   result = qword_1EB0C0868;
   if (!qword_1EB0C0868)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8F60);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8F68);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8F60, &qword_1A34EB3D0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8F68, &qword_1A34EB3D8);
     sub_1A3381CDC();
     swift_getOpaqueTypeConformance2();
     sub_1A3381E4C();
@@ -2746,7 +2857,7 @@ unint64_t sub_1A3381CDC()
   result = qword_1EB0C0B30;
   if (!qword_1EB0C0B30)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8F68);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8F68, &qword_1A34EB3D8);
     sub_1A3381D68();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0B30);
@@ -2760,9 +2871,9 @@ unint64_t sub_1A3381D68()
   result = qword_1EB0C0CC8;
   if (!qword_1EB0C0CC8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F70);
-    sub_1A3284D0C(&qword_1EB0C0458, &unk_1EB0C8F80);
-    sub_1A3284D0C(&qword_1EB0C06B0, &unk_1EB0C8F90);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C8F70, &qword_1A34EB3E0);
+    sub_1A3284D0C(&qword_1EB0C0458, &unk_1EB0C8F80, &qword_1A34EB3E8, MEMORY[0x1E6981870]);
+    sub_1A3284D0C(&qword_1EB0C06B0, &unk_1EB0C8F90, &qword_1A34EB3F0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0CC8);
   }
@@ -2775,8 +2886,8 @@ unint64_t sub_1A3381E4C()
   result = qword_1EB0C05F8;
   if (!qword_1EB0C05F8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8FA0);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8FA8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8FA0, &qword_1A34EB3F8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8FA8, &qword_1A34EB400);
     sub_1A3381F0C();
     swift_getOpaqueTypeConformance2();
     result = swift_getWitnessTable();
@@ -2791,9 +2902,9 @@ unint64_t sub_1A3381F0C()
   result = qword_1EB0C0CF0;
   if (!qword_1EB0C0CF0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8FA8);
-    sub_1A3284D0C(&qword_1EB0C04A8, &unk_1EB0C8FB0);
-    sub_1A3284D0C(&qword_1EB0C0790, &qword_1EB0C58B0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8FA8, &qword_1A34EB400);
+    sub_1A3284D0C(&qword_1EB0C04A8, &unk_1EB0C8FB0, &qword_1A34EB408, MEMORY[0x1E69817F8]);
+    sub_1A3284D0C(&qword_1EB0C0790, &qword_1EB0C58B0, &qword_1A34EB410, MEMORY[0x1E697FD58]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0CF0);
   }
@@ -2803,9 +2914,9 @@ unint64_t sub_1A3381F0C()
 
 uint64_t sub_1A3381FF0(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9020);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9020, &qword_1A34EB480);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  sub_1A328D790(a1, &v5 - v3, &unk_1EB0C9020);
+  sub_1A328D790(a1, &v5 - v3, &unk_1EB0C9020, &qword_1A34EB480);
   return sub_1A34CB040();
 }
 
@@ -2814,7 +2925,7 @@ unint64_t sub_1A33820AC()
   result = qword_1EB0C9048;
   if (!qword_1EB0C9048)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9038);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9038, qword_1A34EC130);
     sub_1A3382138();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9048);
@@ -2828,7 +2939,7 @@ unint64_t sub_1A3382138()
   result = qword_1EB0C9050;
   if (!qword_1EB0C9050)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9058);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9058, &qword_1A34EB4D8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9050);
   }
@@ -2841,7 +2952,7 @@ unint64_t sub_1A33821B4()
   result = qword_1EB0C9060;
   if (!qword_1EB0C9060)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9040);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9040, &qword_1A34EB4D0);
     sub_1A3382240();
     sub_1A338233C();
     result = swift_getWitnessTable();
@@ -2856,8 +2967,8 @@ unint64_t sub_1A3382240()
   result = qword_1EB0C9068;
   if (!qword_1EB0C9068)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9070);
-    sub_1A33822F4(&qword_1EB0C22C8, type metadata accessor for ContactCardActionMenu);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9070, &qword_1A34EB4E0);
+    sub_1A33822F4(&qword_1EB0C22C8, type metadata accessor for ContactCardActionMenu, &unk_1A34EC098);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9068);
   }
@@ -2865,7 +2976,7 @@ unint64_t sub_1A3382240()
   return result;
 }
 
-uint64_t sub_1A33822F4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A33822F4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2883,7 +2994,7 @@ unint64_t sub_1A338233C()
   result = qword_1EB0C9080;
   if (!qword_1EB0C9080)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9088);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9088, &qword_1A34EB4E8);
     sub_1A3382240();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9080);
@@ -2894,27 +3005,27 @@ unint64_t sub_1A338233C()
 
 uint64_t objectdestroy_59Tm()
 {
-  v1 = type metadata accessor for ContactCardActions();
+  v1 = type metadata accessor for ContactCardActions(0);
   v2 = (*(*(v1 - 8) + 80) + 24) & ~*(*(v1 - 8) + 80);
 
-  v3 = v0 + v2;
+  v3 = (v0 + v2);
   if (*(v0 + v2 + 264) == 1)
   {
 
-    __swift_destroy_boxed_opaque_existential_0(v3 + 32);
+    __swift_destroy_boxed_opaque_existential_0(v3 + 4);
 
-    __swift_destroy_boxed_opaque_existential_0(v3 + 88);
-    __swift_destroy_boxed_opaque_existential_0(v3 + 128);
-    __swift_destroy_boxed_opaque_existential_0(v3 + 168);
-    __swift_destroy_boxed_opaque_existential_0(v3 + 216);
+    __swift_destroy_boxed_opaque_existential_0(v3 + 11);
+    __swift_destroy_boxed_opaque_existential_0(v3 + 16);
+    __swift_destroy_boxed_opaque_existential_0(v3 + 21);
+    __swift_destroy_boxed_opaque_existential_0(v3 + 27);
   }
 
   v4 = *(v1 + 20);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DB0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DB0, &qword_1A34EB1B8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v5 = sub_1A34CBA00();
-    (*(*(v5 - 8) + 8))(v3 + v4, v5);
+    (*(*(v5 - 8) + 8))(&v3[v4], v5);
   }
 
   else
@@ -2950,7 +3061,7 @@ id sub_1A33826D0(id result)
 
 uint64_t sub_1A3382708(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t))
 {
-  v4 = *(type metadata accessor for ContactCardActions() - 8);
+  v4 = *(type metadata accessor for ContactCardActions(0) - 8);
   v5 = v2 + ((*(v4 + 80) + 16) & ~*(v4 + 80));
 
   return a2(a1, v5);
@@ -2976,29 +3087,29 @@ uint64_t objectdestroy_47Tm()
   v1 = *(type metadata accessor for ActionSection(0) - 8);
   v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
   v3 = *(v1 + 64);
-  v4 = type metadata accessor for ContactCardActions();
+  v4 = type metadata accessor for ContactCardActions(0);
   v5 = (v2 + v3 + *(*(v4 - 8) + 80)) & ~*(*(v4 - 8) + 80);
   v6 = sub_1A34C9780();
   (*(*(v6 - 8) + 8))(v0 + v2, v6);
 
-  v7 = v0 + v5;
+  v7 = (v0 + v5);
   if (*(v0 + v5 + 264) == 1)
   {
 
-    __swift_destroy_boxed_opaque_existential_0(v7 + 32);
+    __swift_destroy_boxed_opaque_existential_0(v7 + 4);
 
-    __swift_destroy_boxed_opaque_existential_0(v7 + 88);
-    __swift_destroy_boxed_opaque_existential_0(v7 + 128);
-    __swift_destroy_boxed_opaque_existential_0(v7 + 168);
-    __swift_destroy_boxed_opaque_existential_0(v7 + 216);
+    __swift_destroy_boxed_opaque_existential_0(v7 + 11);
+    __swift_destroy_boxed_opaque_existential_0(v7 + 16);
+    __swift_destroy_boxed_opaque_existential_0(v7 + 21);
+    __swift_destroy_boxed_opaque_existential_0(v7 + 27);
   }
 
   v8 = *(v4 + 20);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DB0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8DB0, &qword_1A34EB1B8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v9 = sub_1A34CBA00();
-    (*(*(v9 - 8) + 8))(v7 + v8, v9);
+    (*(*(v9 - 8) + 8))(&v7[v8], v9);
   }
 
   else
@@ -3013,7 +3124,7 @@ uint64_t sub_1A3382A28(uint64_t a1, uint64_t (*a2)(uint64_t, unint64_t, uint64_t
   v4 = *(type metadata accessor for ActionSection(0) - 8);
   v5 = (*(v4 + 80) + 16) & ~*(v4 + 80);
   v6 = *(v4 + 64);
-  v7 = *(type metadata accessor for ContactCardActions() - 8);
+  v7 = *(type metadata accessor for ContactCardActions(0) - 8);
   v8 = v2 + ((v5 + v6 + *(v7 + 80)) & ~*(v7 + 80));
 
   return a2(a1, v2 + v5, v8);
@@ -3140,7 +3251,7 @@ uint64_t sub_1A33830D0()
     *(v10 + 12) = 2080;
     *(v0 + 72) = v6;
     v15 = v6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C69B0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C69B0, &qword_1A34E0C20);
     v16 = sub_1A34CD170();
     v18 = sub_1A31EE23C(v16, v17, v22);
 
@@ -3244,7 +3355,7 @@ uint64_t sub_1A3383574()
     *(v11 + 12) = 2080;
     *(v0 + 64) = v8;
     v17 = v8;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C69B0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C69B0, &qword_1A34E0C20);
     v18 = sub_1A34CD170();
     v20 = sub_1A31EE23C(v18, v19, v24);
 
@@ -3381,7 +3492,7 @@ uint64_t sub_1A3383ABC()
     *(v12 + 12) = 2080;
     *(v0 + 728) = v11;
     v21 = v11;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C69B0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C69B0, &qword_1A34E0C20);
     v22 = sub_1A34CD170();
     v24 = sub_1A31EE23C(v22, v23, v28);
 
@@ -3415,7 +3526,7 @@ uint64_t sub_1A3383D60()
 
 double sub_1A3383DAC()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C90C8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C90C8, &unk_1A34EB590);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1A34E3590;
   if (qword_1ED8549E0 != -1)
@@ -3489,11 +3600,11 @@ uint64_t sub_1A3383FE8()
   return v0;
 }
 
-uint64_t sub_1A3384050(uint64_t a1)
+uint64_t sub_1A3384050()
 {
-  v1 = *(a1 + *(type metadata accessor for VisualIdentitySuggestionContext(0) + 28));
+  type metadata accessor for VisualIdentitySuggestionContext(0);
 
-  return sub_1A3336EDC(0, v1);
+  return sub_1A3336EDC();
 }
 
 uint64_t sub_1A3384094(uint64_t a1, uint64_t a2)
@@ -3658,27 +3769,27 @@ uint64_t sub_1A338450C(uint64_t a1)
   return MEMORY[0x1EEE6DFA0](sub_1A3384628, 0, 0);
 }
 
-uint64_t sub_1A3384628()
+uint64_t sub_1A3384628(uint64_t a1)
 {
-  v1 = *(v0 + 1296);
-  *(v0 + 832) = 0u;
-  *(v0 + 848) = 0u;
-  *(v0 + 864) = 0u;
-  *(v0 + 880) = 0u;
-  *(v0 + 896) = 0u;
-  *(v0 + 912) = 0u;
-  v2 = *v1;
-  *(v0 + 1352) = *v1;
-  *(v0 + 1368) = MEMORY[0x1E69E7CC0];
-  *(v0 + 1360) = 0;
+  v2 = *(v1 + 1296);
+  *(v1 + 832) = 0u;
+  *(v1 + 848) = 0u;
+  *(v1 + 864) = 0u;
+  *(v1 + 880) = 0u;
+  *(v1 + 896) = 0u;
+  *(v1 + 912) = 0u;
+  v3 = *v2;
+  *(v1 + 1352) = *v2;
+  *(v1 + 1368) = MEMORY[0x1E69E7CC0];
+  *(v1 + 1360) = 0;
   sub_1A34C8A90();
-  v3 = v2;
-  sub_1A34604B4(v3, v0 + 832, v0 + 16);
+  v4 = v3;
+  sub_1A34604B4(v4, (v1 + 832), v1 + 16);
 
-  v4 = swift_task_alloc();
-  *(v0 + 1376) = v4;
-  *v4 = v0;
-  v4[1] = sub_1A3384734;
+  v5 = swift_task_alloc();
+  *(v1 + 1376) = v5;
+  *v5 = v1;
+  v5[1] = sub_1A3384734;
 
   return sub_1A33837BC(0xD00000000000002CLL, 0x80000001A350EE80);
 }
@@ -3968,7 +4079,7 @@ LABEL_31:
   v77 = v59[3];
   if (v78 >= v77 >> 1)
   {
-    v59 = sub_1A3298DD8(v77 > 1, v78 + 1, 1, v59);
+    v59 = sub_1A3298DD8((v77 > 1), v78 + 1, 1, v59);
   }
 
   v79 = *(v0 + 1360);
@@ -3992,7 +4103,7 @@ LABEL_31:
     v84 = *(v0 + 1352);
     sub_1A34C8A90();
     v85 = v84;
-    sub_1A34604B4(v85, v0 + 832, v0 + 16);
+    sub_1A34604B4(v85, (v0 + 832), v0 + 16);
 
     v86 = swift_task_alloc();
     *(v0 + 1376) = v86;
@@ -4018,7 +4129,7 @@ uint64_t sub_1A33850B0()
 
 uint64_t sub_1A3385160(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C90C0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C90C0, &unk_1A34F9530);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -4028,7 +4139,7 @@ uint64_t sub_1A3385224(void (*a1)(void, void, void), int a2, void *a3)
   LODWORD(v88) = a2;
   v87 = a1;
   v95[1] = *MEMORY[0x1E69E9840];
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C71D8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C71D8, &unk_1A34E4830);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v79 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
@@ -4212,7 +4323,7 @@ LABEL_14:
       *(v71 + 6) = 2080;
       v95[0] = v72;
       v73 = v72;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C69B0);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C69B0, &qword_1A34E0C20);
       v74 = sub_1A34CD170();
       v76 = sub_1A31EE23C(v74, v75, &v92);
 
@@ -4242,7 +4353,7 @@ LABEL_14:
 
 uint64_t sub_1A3385A7C(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C71D8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C71D8, &unk_1A34E4830);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -4304,33 +4415,33 @@ uint64_t sub_1A3385C80()
   return sub_1A34CDF70();
 }
 
-uint64_t sub_1A3385D0C()
+uint64_t sub_1A3385D0C(uint64_t a1)
 {
-  v1 = *(v0 + 32);
+  v2 = *(v1 + 32);
   sub_1A34CD1C0();
   sub_1A34CD840();
   sub_1A34CDF40();
-  return MEMORY[0x1A58EF750](v1);
+  return MEMORY[0x1A58EF750](v2);
 }
 
-uint64_t sub_1A3385D70()
+uint64_t sub_1A3385D70(uint64_t a1)
 {
-  v1 = *(v0 + 32);
+  v2 = *(v1 + 32);
   sub_1A34CDF20();
   sub_1A34CD1C0();
   sub_1A34CD840();
   sub_1A34CDF40();
-  MEMORY[0x1A58EF750](v1);
+  MEMORY[0x1A58EF750](v2);
   return sub_1A34CDF70();
 }
 
-uint64_t sub_1A3385DF8(uint64_t a1, uint64_t a2)
+uint64_t sub_1A3385DF8(uint64_t *a1, uint64_t a2)
 {
   v2 = *(a1 + 24);
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   v4 = *(a2 + 24);
   v5 = *(a2 + 32);
-  v6 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
+  v6 = *a1 == *a2 && a1[1] == *(a2 + 8);
   if (v6 || (v7 = sub_1A34CDE30(), result = 0, (v7 & 1) != 0))
   {
     sub_1A3385EF4();
@@ -4365,15 +4476,15 @@ unint64_t sub_1A3385EF4()
   return result;
 }
 
-id sub_1A3385F40@<X0>(uint64_t a1@<X8>)
+void sub_1A3385F40(uint64_t a1@<X8>)
 {
   v3 = [v1 identifier];
   v4 = sub_1A34CD110();
   v6 = v5;
-  result = [objc_opt_self() componentsForContact_];
-  if (result)
+  v7 = [objc_opt_self() componentsForContact_];
+  if (v7)
   {
-    v8 = result;
+    v8 = v7;
 
     if ([v1 isKeyAvailable_])
     {
@@ -4406,7 +4517,7 @@ id sub_1A3385F40@<X0>(uint64_t a1@<X8>)
     }
 
     v15 = sub_1A34CDF60();
-    result = sub_1A31EEE60(v12, v14);
+    sub_1A31EEE60(v12, v14);
     *a1 = v4;
     *(a1 + 8) = v6;
     *(a1 + 16) = v8;
@@ -4418,13 +4529,11 @@ id sub_1A3385F40@<X0>(uint64_t a1@<X8>)
   {
     __break(1u);
   }
-
-  return result;
 }
 
 uint64_t sub_1A33860D8()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C52E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C52E0, &unk_1A34DAA70);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1A34DCA90;
   type metadata accessor for CGColor(0);
@@ -4440,7 +4549,7 @@ uint64_t sub_1A33860D8()
   return result;
 }
 
-uint64_t type metadata accessor for ContactCardActionRow()
+uint64_t type metadata accessor for ContactCardActionRow(uint64_t a1)
 {
   result = qword_1EB0C2360;
   if (!qword_1EB0C2360)
@@ -4451,37 +4560,37 @@ uint64_t type metadata accessor for ContactCardActionRow()
   return result;
 }
 
-void sub_1A3386258()
+void sub_1A3386258(uint64_t a1)
 {
   sub_1A33864C0(319, &qword_1EB0C0138, type metadata accessor for CNUIContactCardActionType);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1A33864C0(319, &unk_1EB0C2E70, MEMORY[0x1E6968848]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_1A31F39F8(319, &qword_1EB0C2B30);
-      if (v2 <= 0x3F)
+      sub_1A31F39F8(319, &qword_1EB0C2B30, MEMORY[0x1E69E6158]);
+      if (v3 <= 0x3F)
       {
-        sub_1A31F39F8(319, &unk_1EB0C05E8);
-        if (v3 <= 0x3F)
+        sub_1A31F39F8(319, &unk_1EB0C05E8, MEMORY[0x1E69815C0]);
+        if (v4 <= 0x3F)
         {
-          sub_1A338656C(319, &qword_1EB0C0060, &qword_1EB0C5C80);
-          if (v4 <= 0x3F)
+          sub_1A338656C(319, &qword_1EB0C0060, &qword_1EB0C5C80, &unk_1A34DCAE0);
+          if (v5 <= 0x3F)
           {
-            sub_1A338656C(319, &qword_1EB0C90E0, &qword_1EB0C90E8);
-            if (v5 <= 0x3F)
+            sub_1A338656C(319, &qword_1EB0C90E0, &qword_1EB0C90E8, &unk_1A34EB750);
+            if (v6 <= 0x3F)
             {
-              sub_1A3386514(319, &qword_1EB0C01A0, &qword_1EB0C01A8);
-              if (v6 <= 0x3F)
+              sub_1A3386514(319, &qword_1EB0C01A0, &qword_1EB0C01A8, &off_1E76E57A8);
+              if (v7 <= 0x3F)
               {
-                sub_1A3386514(319, &unk_1EB0C0120, &qword_1EB0C0130);
-                if (v7 <= 0x3F)
+                sub_1A3386514(319, &unk_1EB0C0120, &qword_1EB0C0130, &off_1E76E5400);
+                if (v8 <= 0x3F)
                 {
-                  sub_1A338656C(319, &qword_1EB0C11D0, &qword_1EB0C90F0);
-                  if (v8 <= 0x3F)
+                  sub_1A338656C(319, &qword_1EB0C11D0, &qword_1EB0C90F0, &qword_1A34FCC20);
+                  if (v9 <= 0x3F)
                   {
-                    sub_1A31EC194(319, &unk_1EB0C00E8);
-                    if (v9 <= 0x3F)
+                    sub_1A31EC194(319, &unk_1EB0C00E8, 0x1E69DD250);
+                    if (v10 <= 0x3F)
                     {
                       swift_cvw_initStructMetadataWithLayoutString();
                     }
@@ -4496,7 +4605,7 @@ void sub_1A3386258()
   }
 }
 
-void sub_1A33864C0(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1A33864C0(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -4509,38 +4618,38 @@ void sub_1A33864C0(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1A3386514(uint64_t a1, unint64_t *a2, unint64_t *a3)
+void sub_1A3386514(uint64_t a1, unint64_t *a2, unint64_t *a3, void *a4)
 {
   if (!*a2)
   {
-    sub_1A31EC194(255, a3);
-    v4 = sub_1A34CD890();
-    if (!v5)
+    sub_1A31EC194(255, a3, a4);
+    v5 = sub_1A34CD890();
+    if (!v6)
     {
-      atomic_store(v4, a2);
+      atomic_store(v5, a2);
     }
   }
 }
 
-void sub_1A338656C(uint64_t a1, unint64_t *a2, uint64_t *a3)
+void sub_1A338656C(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   if (!*a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a3);
-    v4 = sub_1A34CD890();
-    if (!v5)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a3, a4);
+    v5 = sub_1A34CD890();
+    if (!v6)
     {
-      atomic_store(v4, a2);
+      atomic_store(v5, a2);
     }
   }
 }
 
 void sub_1A33865C0()
 {
-  v1 = type metadata accessor for ContactCardActionRow();
+  v1 = type metadata accessor for ContactCardActionRow(0);
   v2 = *(v1 - 8);
   MEMORY[0x1EEE9AC00](v1);
-  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((*(v0 + *(v3 + 44)) & 1) == 0)
   {
     v6 = *(v0 + *(v3 + 60));
@@ -4556,10 +4665,10 @@ void sub_1A33865C0()
           return;
         }
 
-        v9 = sub_1A3387A80(v6 + ((*(v2 + 80) + 32) & ~*(v2 + 80)) + *(v2 + 72) * v7++, v5);
-        v10 = sub_1A33865C0(v9);
+        sub_1A3387A80(v6 + ((*(v2 + 80) + 32) & ~*(v2 + 80)) + *(v2 + 72) * v7++, v5);
+        v9 = sub_1A33865C0();
         sub_1A32D3FF8(v5);
-        if (v10)
+        if (v9)
         {
           return;
         }
@@ -4578,7 +4687,7 @@ void *sub_1A33866F8()
 uint64_t sub_1A3386720@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v97 = a2;
-  v95 = type metadata accessor for ContactCardActionRow();
+  v95 = type metadata accessor for ContactCardActionRow(0);
   v6 = *(v95 - 8);
   MEMORY[0x1EEE9AC00](v95);
   v8 = &v92 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -4586,12 +4695,12 @@ uint64_t sub_1A3386720@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
   v94 = &v92 - v10;
   MEMORY[0x1EEE9AC00](v11);
   v13 = &v92 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60, &unk_1A34EB720);
   MEMORY[0x1EEE9AC00](v14 - 8);
   v16 = &v92 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v17);
   v98 = &v92 - v18;
-  *&v20 = MEMORY[0x1EEE9AC00](v19).n128_u64[0];
+  v20 = MEMORY[0x1EEE9AC00](v19);
   v22 = &v92 - v21;
   v23 = [a1 menuItems];
   v96 = a3;
@@ -4619,7 +4728,7 @@ uint64_t sub_1A3386720@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
     v98 = sub_1A3332448(MEMORY[0x1E69E7CC0], 0, 0, v35, v37);
     v94 = v38;
 
-    sub_1A328D790(v22, v16, &unk_1EB0C5B60);
+    sub_1A328D790(v22, v16, &unk_1EB0C5B60, &unk_1A34EB720);
     v102 = 0;
     v100 = 0u;
     v101 = 0u;
@@ -4666,8 +4775,8 @@ uint64_t sub_1A3386720@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
     v54 = v94;
     *(v8 + 2) = v53;
     *(v8 + 3) = v54;
-    sub_1A328D790(v16, &v8[*(v6 + 24)], &unk_1EB0C5B60);
-    sub_1A328D790(&v100, &v8[*(v6 + 76)], &qword_1EB0CB0A0);
+    sub_1A328D790(v16, &v8[*(v6 + 24)], &unk_1EB0C5B60, &unk_1A34EB720);
+    sub_1A328D790(&v100, &v8[*(v6 + 76)], &qword_1EB0CB0A0, &qword_1A34EC2C0);
     v55 = &v8[*(v6 + 28)];
     *v55 = v93;
     v55[1] = v45;
@@ -4688,7 +4797,7 @@ uint64_t sub_1A3386720@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
   }
 
   v24 = v23;
-  sub_1A31EC194(0, &qword_1EB0C90F8);
+  sub_1A31EC194(0, &qword_1EB0C90F8, &off_1E76E53F8);
   v16 = sub_1A34CD370();
 
   if (v16 >> 62)
@@ -4740,8 +4849,8 @@ LABEL_30:
     v82[8] = 1;
     *(v82 + 2) = v71;
     *(v82 + 3) = v73;
-    sub_1A328D790(v98, &v82[v76[6]], &unk_1EB0C5B60);
-    sub_1A328D790(&v100, &v82[v76[19]], &qword_1EB0CB0A0);
+    sub_1A328D790(v98, &v82[v76[6]], &unk_1EB0C5B60, &unk_1A34EB720);
+    sub_1A328D790(&v100, &v82[v76[19]], &qword_1EB0CB0A0, &qword_1A34EC2C0);
     v84 = &v82[v76[7]];
     *v84 = 0;
     *(v84 + 1) = 0;
@@ -4779,8 +4888,8 @@ LABEL_30:
 
     v90 = sub_1A3335898(0x7FFFFFFFLL, off_1EB0C2378);
 
-    sub_1A3288FDC(&v100, &qword_1EB0CB0A0);
-    sub_1A3288FDC(v98, &unk_1EB0C5B60);
+    sub_1A3288FDC(&v100, &qword_1EB0CB0A0, &qword_1A34EC2C0);
+    sub_1A3288FDC(v98, &unk_1EB0C5B60, &unk_1A34EB720);
     v82[v76[21]] = v90;
     v64 = v82;
     v65 = v96;
@@ -4814,13 +4923,13 @@ LABEL_4:
         v28 = *(v16 + 8 * v25 + 32);
       }
 
-      sub_1A3386720(v28, v27);
+      sub_1A3386720(v28, v27, v13);
       *&v100 = v26;
       v30 = *(v26 + 16);
       v29 = *(v26 + 24);
       if (v30 >= v29 >> 1)
       {
-        sub_1A32EBBD4(v29 > 1, v30 + 1, 1);
+        sub_1A32EBBD4((v29 > 1), v30 + 1, 1);
         v27 = v97;
         v26 = v100;
       }
@@ -4867,9 +4976,9 @@ LABEL_23:
 
   v63 = sub_1A3335898(v62, off_1EB0C2378);
 
-  sub_1A3288FDC(&v100, &qword_1EB0CB0A0);
-  sub_1A3288FDC(v16, &unk_1EB0C5B60);
-  sub_1A3288FDC(v22, &unk_1EB0C5B60);
+  sub_1A3288FDC(&v100, &qword_1EB0CB0A0, &qword_1A34EC2C0);
+  sub_1A3288FDC(v16, &unk_1EB0C5B60, &unk_1A34EB720);
+  sub_1A3288FDC(v22, &unk_1EB0C5B60, &unk_1A34EB720);
   v8[*(v6 + 84)] = v63;
   v64 = v8;
   v65 = v61;
@@ -4889,10 +4998,10 @@ uint64_t sub_1A338715C(uint64_t a1, uint64_t a2)
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v63 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60, &unk_1A34EB720);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v63 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9530);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9530, &unk_1A34EB7A0);
   MEMORY[0x1EEE9AC00](v11);
   v13 = &v63 - v12;
   v14 = *(a2 + 8);
@@ -4922,29 +5031,29 @@ uint64_t sub_1A338715C(uint64_t a1, uint64_t a2)
     goto LABEL_16;
   }
 
-  v63 = type metadata accessor for ContactCardActionRow();
+  v63 = type metadata accessor for ContactCardActionRow(0);
   v64 = a2;
   v15 = v63[6];
   v16 = *(v11 + 48);
-  sub_1A328D790(a1 + v15, v13, &unk_1EB0C5B60);
+  sub_1A328D790(a1 + v15, v13, &unk_1EB0C5B60, &unk_1A34EB720);
   v17 = v64 + v15;
   v18 = v64;
-  sub_1A328D790(v17, &v13[v16], &unk_1EB0C5B60);
+  sub_1A328D790(v17, &v13[v16], &unk_1EB0C5B60, &unk_1A34EB720);
   v19 = *(v5 + 48);
   if (v19(v13, 1, v4) == 1)
   {
     if (v19(&v13[v16], 1, v4) == 1)
     {
-      sub_1A3288FDC(v13, &unk_1EB0C5B60);
+      sub_1A3288FDC(v13, &unk_1EB0C5B60, &unk_1A34EB720);
       goto LABEL_19;
     }
 
 LABEL_15:
-    sub_1A3288FDC(v13, &unk_1EB0C9530);
+    sub_1A3288FDC(v13, &unk_1EB0C9530, &unk_1A34EB7A0);
     goto LABEL_16;
   }
 
-  sub_1A328D790(v13, v10, &unk_1EB0C5B60);
+  sub_1A328D790(v13, v10, &unk_1EB0C5B60, &unk_1A34EB720);
   if (v19(&v13[v16], 1, v4) == 1)
   {
     (*(v5 + 8))(v10, v4);
@@ -4958,7 +5067,7 @@ LABEL_15:
   v23(v7, v4);
   v23(v10, v4);
   v18 = v64;
-  sub_1A3288FDC(v13, &unk_1EB0C5B60);
+  sub_1A3288FDC(v13, &unk_1EB0C5B60, &unk_1A34EB720);
   if ((v22 & 1) == 0)
   {
     goto LABEL_16;
@@ -5081,7 +5190,7 @@ LABEL_19:
       goto LABEL_16;
     }
 
-    sub_1A31EC194(0, &qword_1EB0C01A8);
+    sub_1A31EC194(0, &qword_1EB0C01A8, &off_1E76E57A8);
     v50 = v49;
     v51 = v48;
     v52 = sub_1A34CD830();
@@ -5126,7 +5235,7 @@ LABEL_65:
   v20 = (v59 | v60) == 0;
   if (v59 && v60)
   {
-    sub_1A31EC194(0, &qword_1EB0C0130);
+    sub_1A31EC194(0, &qword_1EB0C0130, &off_1E76E5400);
     v61 = v60;
     v62 = v59;
     v20 = sub_1A34CD830();
@@ -5238,14 +5347,14 @@ LABEL_11:
 
 uint64_t sub_1A3387A1C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ContactCardActionRow();
+  v4 = type metadata accessor for ContactCardActionRow(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1A3387A80(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ContactCardActionRow();
+  v4 = type metadata accessor for ContactCardActionRow(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -5483,7 +5592,7 @@ LABEL_19:
       *(v39 + 112) = 0x2000000000000000;
       *(v39 + 120) = 0;
       *(v39 + 128) = 0;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C52E0);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C52E0, &unk_1A34DAA70);
       v40 = swift_allocObject();
       *(v40 + 16) = xmmword_1A34DAA10;
       sub_1A31EE004(v35, v36);
@@ -5497,7 +5606,7 @@ LABEL_19:
       v41 = *(v54 + 24);
       if (v5 >= v41 >> 1)
       {
-        sub_1A32EBCF4(v41 > 1, v5 + 1, 1);
+        sub_1A32EBCF4((v41 > 1), v5 + 1, 1);
       }
 
       ++v22;
@@ -5766,12 +5875,14 @@ uint64_t sub_1A3388934()
   return result;
 }
 
-uint64_t static HeaderView.descriptorsForRequiredKeys.getter()
+double static HeaderView.descriptorsForRequiredKeys.getter()
 {
   if (qword_1EB0C49B8 != -1)
   {
     swift_once();
   }
+
+  return result;
 }
 
 uint64_t HeaderView.init(configuration:)@<X0>(id *a1@<X0>, void *a2@<X8>)
@@ -5779,7 +5890,7 @@ uint64_t HeaderView.init(configuration:)@<X0>(id *a1@<X0>, void *a2@<X8>)
   v4 = type metadata accessor for ContactCardConfiguration(0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = (v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = type metadata accessor for HeaderView();
+  v7 = type metadata accessor for HeaderView(0);
   v8 = *(v7 + 24);
   *(a2 + v8) = [objc_opt_self() deviceSupportsGemini];
   sub_1A3388CEC(a1, a2 + *(v7 + 20));
@@ -5814,7 +5925,7 @@ uint64_t HeaderView.init(configuration:)@<X0>(id *a1@<X0>, void *a2@<X8>)
     *(v17 + 4) = v19;
     *v18 = v19;
     _os_log_impl(&dword_1A31E6000, v15, v16, "[HeaderView] init for %{private}@", v17, 0xCu);
-    sub_1A3288FDC(v18, &unk_1EB0C6C40);
+    sub_1A3288FDC(v18, &unk_1EB0C6C40, &qword_1A34DDFC0);
     MEMORY[0x1A58F1010](v18, -1, -1);
     MEMORY[0x1A58F1010](v17, -1, -1);
   }
@@ -5829,7 +5940,7 @@ uint64_t HeaderView.init(configuration:)@<X0>(id *a1@<X0>, void *a2@<X8>)
   return sub_1A32A313C(a1);
 }
 
-uint64_t type metadata accessor for HeaderView()
+uint64_t type metadata accessor for HeaderView(uint64_t a1)
 {
   result = qword_1EB0C2A00;
   if (!qword_1EB0C2A00)
@@ -5849,43 +5960,43 @@ uint64_t sub_1A3388CEC(uint64_t a1, uint64_t a2)
 
 uint64_t HeaderView.body.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9160);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9160, &qword_1A34EB878);
   MEMORY[0x1EEE9AC00](v1);
   v3 = &v6 - v2;
   *v3 = sub_1A34CB280();
   *(v3 + 1) = 0x4018000000000000;
   v3[16] = 0;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9168);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9168, &qword_1A34EB880);
   sub_1A3388E7C(v0, &v3[*(v4 + 44)]);
-  sub_1A3284D0C(&qword_1EB0C0460, &qword_1EB0C9160);
+  sub_1A3284D0C(&qword_1EB0C0460, &qword_1EB0C9160, &qword_1A34EB878, MEMORY[0x1E6981870]);
   sub_1A34CC1F0();
-  return sub_1A3288FDC(v3, &qword_1EB0C9160);
+  return sub_1A3288FDC(v3, &qword_1EB0C9160, &qword_1A34EB878);
 }
 
-uint64_t sub_1A3388E7C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1A3388E7C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v153 = a2;
-  v142 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91B8);
+  v142 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91B8, &qword_1A34EBAA0);
   MEMORY[0x1EEE9AC00](v142);
   v141 = &v128 - v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91C0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91C0, &qword_1A34EBAA8);
   v148 = *(v4 - 8);
   v149 = v4;
   MEMORY[0x1EEE9AC00](v4);
   v140 = &v128 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91C8);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91C8, &qword_1A34EBAB0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v152 = &v128 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
   v164 = &v128 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91D0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91D0, &qword_1A34EBAB8);
   v150 = *(v10 - 8);
   v151 = v10;
   MEMORY[0x1EEE9AC00](v10);
   v165 = &v128 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v12);
   v168 = &v128 - v13;
-  v132 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91D8);
+  v132 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91D8, &qword_1A34EBAC0);
   MEMORY[0x1EEE9AC00](v132);
   v131 = &v128 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v15);
@@ -5897,10 +6008,10 @@ uint64_t sub_1A3388E7C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v133 = &v128 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v19);
   v156 = &v128 - v20;
-  v130 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91E0);
+  v130 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91E0, &qword_1A34EBAC8);
   MEMORY[0x1EEE9AC00](v130);
   v138 = &v128 - v21;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91E8);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91E8, &qword_1A34EBAD0);
   v157 = *(v22 - 8);
   v158 = v22;
   MEMORY[0x1EEE9AC00](v22);
@@ -5908,20 +6019,20 @@ uint64_t sub_1A3388E7C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v137 = type metadata accessor for ContactCardConfiguration(0);
   MEMORY[0x1EEE9AC00](v137);
   v139 = &v128 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91F0);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91F0, &qword_1A34EBAD8);
   MEMORY[0x1EEE9AC00](v25 - 8);
   v163 = &v128 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v27);
   v169 = &v128 - v28;
-  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91F8);
+  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91F8, &qword_1A34EBAE0);
   MEMORY[0x1EEE9AC00](v145);
   v144 = &v128 - v29;
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9200);
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9200, &qword_1A34EBAE8);
   v154 = *(v30 - 1);
   v155 = v30;
   MEMORY[0x1EEE9AC00](v30);
   v143 = &v128 - v31;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9208);
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9208, &qword_1A34EBAF0);
   MEMORY[0x1EEE9AC00](v32 - 8);
   v162 = &v128 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v34);
@@ -5929,13 +6040,13 @@ uint64_t sub_1A3388E7C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v36 = sub_1A34C9410();
   MEMORY[0x1EEE9AC00](v36 - 8);
   v136 = &v128 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9210);
+  v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9210, &qword_1A34EBAF8);
   MEMORY[0x1EEE9AC00](v147);
   v39 = &v128 - v38;
-  v146 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9218);
+  v146 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9218, &unk_1A34EBB00);
   MEMORY[0x1EEE9AC00](v146);
   v41 = &v128 - v40;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60, &unk_1A34EB720);
   MEMORY[0x1EEE9AC00](v42 - 8);
   v44 = &v128 - v43;
   v45 = sub_1A34C93B0();
@@ -5944,7 +6055,7 @@ uint64_t sub_1A3388E7C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v48 = &v128 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v49);
   v51 = &v128 - v50;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9228);
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9228, &qword_1A34EBB10);
   MEMORY[0x1EEE9AC00](v52 - 8);
   v161 = &v128 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v54);
@@ -5955,7 +6066,7 @@ uint64_t sub_1A3388E7C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   *&v174 = v159;
   *(&v174 + 1) = v56;
   v167 = v56;
-  v166 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9230);
+  v166 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9230, &qword_1A34EBB18);
   sub_1A34CC740();
   v58 = v172;
   sub_1A3391F00(v44);
@@ -5968,8 +6079,8 @@ uint64_t sub_1A3388E7C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
     goto LABEL_6;
   }
 
-  sub_1A3288FDC(v44, &unk_1EB0C5B60);
-  v60 = *(v57 + *(type metadata accessor for HeaderView() + 20));
+  sub_1A3288FDC(v44, &unk_1EB0C5B60, &unk_1A34EB720);
+  v60 = *(v57 + *(type metadata accessor for HeaderView(0) + 20));
   v61 = [v60 isSuggested];
   v62 = v170;
   if ((v61 & 1) != 0 || (v64 = [v60 iOSLegacyIdentifier], v64 == *MEMORY[0x1E695C248]) && (objc_msgSend(v60, sel_isSuggestedMe) & 1) == 0)
@@ -5984,12 +6095,12 @@ uint64_t sub_1A3388E7C@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
       v51 = v48;
 LABEL_6:
       sub_1A338A338(v51, v41);
-      sub_1A328D790(v41, v39, &unk_1EB0C9218);
+      sub_1A328D790(v41, v39, &unk_1EB0C9218, &unk_1A34EBB00);
       swift_storeEnumTagMultiPayload();
       sub_1A338CA50(&qword_1EB0C0BC0, &unk_1EB0C9218, &unk_1A34EBB00, sub_1A338CB04);
       v62 = v170;
       sub_1A34CB3E0();
-      sub_1A3288FDC(v41, &unk_1EB0C9218);
+      sub_1A3288FDC(v41, &unk_1EB0C9218, &unk_1A34EBB00);
       (*(v46 + 8))(v51, v45);
       v63 = 0;
       goto LABEL_10;
@@ -5998,7 +6109,7 @@ LABEL_6:
 
   v63 = 1;
 LABEL_10:
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9238);
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9238, &qword_1A34EBB20);
   v66 = 1;
   (*(*(v65 - 8) + 56))(v62, v63, 1, v65);
   v67 = v159;
@@ -6008,7 +6119,7 @@ LABEL_10:
   v68 = v172;
   swift_getKeyPath();
   *&v174 = v68;
-  v147 = sub_1A338C5A0(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel);
+  v147 = sub_1A338C5A0(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel, &unk_1A34EC368);
   sub_1A34C99A0();
 
   v69 = v68[OBJC_IVAR____TtC14ContactsUICore33ContactCardHeaderSwiftUIViewModel__isEmergencyContact];
@@ -6030,15 +6141,15 @@ LABEL_10:
     sub_1A338C690();
     v80 = v143;
     sub_1A34CC1F0();
-    sub_1A3288FDC(v78, &qword_1EB0C91F8);
-    sub_1A329D98C(v80, v171, &qword_1EB0C9200);
+    sub_1A3288FDC(v78, &qword_1EB0C91F8, &qword_1A34EBAE0);
+    sub_1A329D98C(v80, v171, &qword_1EB0C9200, &qword_1A34EBAE8);
     v66 = 0;
   }
 
   v81 = 1;
   (*(v154 + 56))(v171, v66, 1, v155);
   v82 = [objc_opt_self() unifiedMeContactMonitor];
-  v83 = type metadata accessor for HeaderView();
+  v83 = type metadata accessor for HeaderView(0);
   v84 = (v70 + *(v83 + 20));
   v85 = *v84;
   v86 = [v82 isMeContact_];
@@ -6070,7 +6181,7 @@ LABEL_19:
   v180 = 0;
   KeyPath = swift_getKeyPath();
   v182 = 0;
-  v188 = 0;
+  v188[0] = 0;
   v90 = v89;
   v91 = v85;
   swift_unknownObjectRetain();
@@ -6091,7 +6202,7 @@ LABEL_19:
   v95(v71, *MEMORY[0x1E697E718], v135);
   v96 = v133;
   v95(v133, *MEMORY[0x1E697E6D0], v93);
-  sub_1A338C5A0(&qword_1EB0C0FC8, MEMORY[0x1E697E730]);
+  sub_1A338C5A0(&qword_1EB0C0FC8, MEMORY[0x1E697E730], MEMORY[0x1E697E748]);
   result = sub_1A34CD020();
   v154 = Strong;
   if ((result & 1) == 0)
@@ -6106,22 +6217,22 @@ LABEL_19:
   v100 = v132;
   v98((v99 + *(v132 + 48)), v96, v93);
   v101 = v131;
-  sub_1A328D790(v99, v131, &qword_1EB0C91D8);
+  sub_1A328D790(v99, v131, &qword_1EB0C91D8, &qword_1A34EBAC0);
   v102 = *(v100 + 48);
   v98(v138, v101, v93);
   v103 = *(v94 + 8);
   v103(v101 + v102, v93);
-  sub_1A329D98C(v99, v101, &qword_1EB0C91D8);
+  sub_1A329D98C(v99, v101, &qword_1EB0C91D8, &qword_1A34EBAC0);
   v104 = v138;
   v98(&v138[*(v130 + 36)], (v101 + *(v100 + 48)), v93);
   v103(v101, v93);
   sub_1A338C5E8();
-  sub_1A3284D0C(&qword_1EB0C02D8, &qword_1EB0C91E0);
+  sub_1A3284D0C(&qword_1EB0C02D8, &qword_1EB0C91E0, &qword_1A34EBAC8, MEMORY[0x1E69E5FB8]);
   v105 = v128;
   sub_1A34CC010();
   swift_unknownObjectRelease();
 
-  sub_1A3288FDC(v104, &qword_1EB0C91E0);
+  sub_1A3288FDC(v104, &qword_1EB0C91E0, &qword_1A34EBAC8);
   sub_1A338C63C(&v174);
   (*(v157 + 32))(v169, v105, v158);
   v81 = 0;
@@ -6149,13 +6260,13 @@ LABEL_20:
     v112 = v176;
     v113 = *(&v176 + 1);
     LOBYTE(v172) = 0;
-    v188 = v176;
+    v188[0] = v176;
     *&v174 = v108;
     *(&v174 + 1) = 0x4010000000000000;
     LOBYTE(v175) = 0;
     v176 = __PAIR128__(v110, v109);
     v177 = v111;
-    v178 = v188;
+    v178 = v188[0];
     v179 = v113;
     v114 = v141;
     sub_1A338AD54(&v174, v141);
@@ -6165,9 +6276,9 @@ LABEL_20:
     sub_1A338C238();
     v115 = v140;
     sub_1A34CC1F0();
-    sub_1A3288FDC(v114, &qword_1EB0C91B8);
+    sub_1A3288FDC(v114, &qword_1EB0C91B8, &qword_1A34EBAA0);
     v116 = v164;
-    sub_1A329D98C(v115, v164, &qword_1EB0C91C0);
+    sub_1A329D98C(v115, v164, &qword_1EB0C91C0, &qword_1A34EBAA8);
     (*(v148 + 56))(v116, 0, 1, v149);
   }
 
@@ -6178,36 +6289,36 @@ LABEL_20:
   }
 
   v117 = v161;
-  sub_1A328D790(v170, v161, &qword_1EB0C9228);
+  sub_1A328D790(v170, v161, &qword_1EB0C9228, &qword_1A34EBB10);
   v118 = v162;
-  sub_1A328D790(v171, v162, &qword_1EB0C9208);
+  sub_1A328D790(v171, v162, &qword_1EB0C9208, &qword_1A34EBAF0);
   v119 = v163;
-  sub_1A328D790(v169, v163, &qword_1EB0C91F0);
+  sub_1A328D790(v169, v163, &qword_1EB0C91F0, &qword_1A34EBAD8);
   v121 = v150;
   v120 = v151;
   v122 = *(v150 + 16);
   v122(v165, v168, v151);
   v123 = v152;
-  sub_1A328D790(v116, v152, &qword_1EB0C91C8);
+  sub_1A328D790(v116, v152, &qword_1EB0C91C8, &qword_1A34EBAB0);
   v124 = v153;
-  sub_1A328D790(v117, v153, &qword_1EB0C9228);
-  v125 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9248);
-  sub_1A328D790(v118, v124 + v125[12], &qword_1EB0C9208);
-  sub_1A328D790(v119, v124 + v125[16], &qword_1EB0C91F0);
+  sub_1A328D790(v117, v153, &qword_1EB0C9228, &qword_1A34EBB10);
+  v125 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9248, &qword_1A34EBB78);
+  sub_1A328D790(v118, v124 + v125[12], &qword_1EB0C9208, &qword_1A34EBAF0);
+  sub_1A328D790(v119, v124 + v125[16], &qword_1EB0C91F0, &qword_1A34EBAD8);
   v126 = v165;
   v122((v124 + v125[20]), v165, v120);
-  sub_1A328D790(v123, v124 + v125[24], &qword_1EB0C91C8);
-  sub_1A3288FDC(v164, &qword_1EB0C91C8);
+  sub_1A328D790(v123, v124 + v125[24], &qword_1EB0C91C8, &qword_1A34EBAB0);
+  sub_1A3288FDC(v164, &qword_1EB0C91C8, &qword_1A34EBAB0);
   v127 = *(v121 + 8);
   v127(v168, v120);
-  sub_1A3288FDC(v169, &qword_1EB0C91F0);
-  sub_1A3288FDC(v171, &qword_1EB0C9208);
-  sub_1A3288FDC(v170, &qword_1EB0C9228);
-  sub_1A3288FDC(v123, &qword_1EB0C91C8);
+  sub_1A3288FDC(v169, &qword_1EB0C91F0, &qword_1A34EBAD8);
+  sub_1A3288FDC(v171, &qword_1EB0C9208, &qword_1A34EBAF0);
+  sub_1A3288FDC(v170, &qword_1EB0C9228, &qword_1A34EBB10);
+  sub_1A3288FDC(v123, &qword_1EB0C91C8, &qword_1A34EBAB0);
   v127(v126, v120);
-  sub_1A3288FDC(v163, &qword_1EB0C91F0);
-  sub_1A3288FDC(v162, &qword_1EB0C9208);
-  return sub_1A3288FDC(v161, &qword_1EB0C9228);
+  sub_1A3288FDC(v163, &qword_1EB0C91F0, &qword_1A34EBAD8);
+  sub_1A3288FDC(v162, &qword_1EB0C9208, &qword_1A34EBAF0);
+  return sub_1A3288FDC(v161, &qword_1EB0C9228, &qword_1A34EBB10);
 }
 
 uint64_t sub_1A338A338@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -6217,7 +6328,7 @@ uint64_t sub_1A338A338@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9330);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9330, &qword_1A34EBC58);
   v8 = MEMORY[0x1EEE9AC00](v7);
   v10 = v19 - v9;
   (*(v4 + 16))(v6, a1, v3, v8);
@@ -6233,7 +6344,7 @@ uint64_t sub_1A338A338@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v22 = KeyPath;
   v23 = 1;
   sub_1A34CBB70();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9338);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9338, &unk_1A34EBC60);
   sub_1A338CBF8();
   sub_1A34CBE60();
   sub_1A328A9B0(v11, v13, a1 & 1);
@@ -6241,7 +6352,7 @@ uint64_t sub_1A338A338@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *&v10[*(v7 + 36)] = sub_1A34CC500();
   sub_1A338CB04();
   sub_1A34CC1F0();
-  return sub_1A3288FDC(v10, &qword_1EB0C9330);
+  return sub_1A3288FDC(v10, &qword_1EB0C9330, &qword_1A34EBC58);
 }
 
 uint64_t sub_1A338A568@<X0>(uint64_t a1@<X8>)
@@ -6254,16 +6365,16 @@ uint64_t sub_1A338A568@<X0>(uint64_t a1@<X8>)
   v38 = v4;
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9350);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9350, &qword_1A34EBCA0);
   MEMORY[0x1EEE9AC00](v35);
   v8 = &v35 - v7;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9358);
+  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9358, &qword_1A34EBCA8);
   MEMORY[0x1EEE9AC00](v36);
   v10 = &v35 - v9;
   v11 = v1[1];
   v41 = *v1;
   v42 = v11;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9230);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9230, &qword_1A34EBB18);
   sub_1A34CC740();
   v12 = v40;
   v13 = sub_1A339284C();
@@ -6281,7 +6392,7 @@ uint64_t sub_1A338A568@<X0>(uint64_t a1@<X8>)
   LOBYTE(v15) = v15 & 1;
   LOBYTE(v41) = v15;
   LOBYTE(v40) = 0;
-  v24 = *(v2 + *(type metadata accessor for HeaderView() + 20));
+  v24 = *(v2 + *(type metadata accessor for HeaderView(0) + 20));
   *(v8 + 9) = swift_getKeyPath();
   v8[336] = 0;
   *(v8 + 43) = v24;
@@ -6296,8 +6407,8 @@ uint64_t sub_1A338A568@<X0>(uint64_t a1@<X8>)
   v8[64] = 1;
   *(v8 + 44) = swift_getKeyPath();
   *(v8 + 45) = 0x3FE6666666666666;
-  v25 = &v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9360) + 36)];
-  v26 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9368) + 28);
+  v25 = &v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9360, &qword_1A34EBD10) + 36)];
+  v26 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9368, &qword_1A34EBD18) + 28);
   v27 = *MEMORY[0x1E6980FA8];
   v28 = sub_1A34CBDD0();
   (*(*(v28 - 8) + 104))(v25 + v26, v27, v28);
@@ -6305,20 +6416,20 @@ uint64_t sub_1A338A568@<X0>(uint64_t a1@<X8>)
   v29 = v24;
   v30 = sub_1A34CC500();
   v31 = swift_getKeyPath();
-  v32 = &v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9370) + 36)];
+  v32 = &v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9370, &qword_1A34EBD80) + 36)];
   *v32 = v31;
   v32[1] = v30;
   sub_1A338CD04();
   sub_1A34CCC50();
   sub_1A338CD58();
   sub_1A34CC1F0();
-  sub_1A3288FDC(v8, &qword_1EB0C9350);
+  sub_1A3288FDC(v8, &qword_1EB0C9350, &qword_1A34EBCA0);
   sub_1A34CB760();
-  sub_1A338CA50(&qword_1EB0C09B8, &qword_1EB0C9358, &unk_1A34EBCA8, sub_1A338CD58);
+  sub_1A338CA50(&qword_1EB0C09B8, &qword_1EB0C9358, &qword_1A34EBCA8, sub_1A338CD58);
   v33 = v37;
   sub_1A34CBF90();
   (*(v38 + 8))(v6, v33);
-  return sub_1A3288FDC(v10, &qword_1EB0C9358);
+  return sub_1A3288FDC(v10, &qword_1EB0C9358, &qword_1A34EBCA8);
 }
 
 uint64_t sub_1A338A990@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
@@ -6390,9 +6501,9 @@ uint64_t sub_1A338A990@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, ui
   v67 = v21;
   v68 = v23;
   v69 = 0;
-  sub_1A328D790(&v51, v80, &qword_1EB0C9308);
-  sub_1A3288FDC(v58, &qword_1EB0C9308);
-  v32 = a5 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92E8) + 36);
+  sub_1A328D790(&v51, v80, &qword_1EB0C9308, &qword_1A34EBC40);
+  sub_1A3288FDC(v58, &qword_1EB0C9308, &qword_1A34EBC40);
+  v32 = a5 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92E8, &qword_1A34EBC30) + 36);
   sub_1A338CCB0();
   sub_1A34CCC50();
   v33 = sub_1A34CBA90();
@@ -6409,7 +6520,7 @@ uint64_t sub_1A338A990@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, ui
   *&v78 = v29;
   *(&v78 + 1) = v31;
   v79 = 0;
-  *(v32 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92C0) + 36)) = v33;
+  *(v32 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92C0, &unk_1A34EBBC0) + 36)) = v33;
   v34 = v71;
   *a5 = v70;
   *(a5 + 16) = v34;
@@ -6437,13 +6548,13 @@ uint64_t sub_1A338A990@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, ui
   v85 = v29;
   v86 = v31;
   v87 = 0;
-  sub_1A328D790(&v70, v43, &qword_1EB0C92F8);
-  sub_1A3288FDC(v80, &qword_1EB0C92F8);
-  v38 = a5 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91F8) + 36);
+  sub_1A328D790(&v70, v43, &qword_1EB0C92F8, &qword_1A34EBC38);
+  sub_1A3288FDC(v80, &qword_1EB0C92F8, &qword_1A34EBC38);
+  v38 = a5 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91F8, &qword_1A34EBAE0) + 36);
   v39 = *MEMORY[0x1E697F468];
   v40 = sub_1A34CB200();
   (*(*(v40 - 8) + 104))(v38, v39, v40);
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92D0);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92D0, &qword_1A34EE1F0);
   *(v38 + *(result + 36)) = 256;
   return result;
 }
@@ -6495,9 +6606,9 @@ uint64_t sub_1A338AD54@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
   v67[1] = v12;
   v68 = KeyPath;
   v69 = v4;
-  sub_1A328D790(v63, v107, &qword_1EB0C92A0);
+  sub_1A328D790(v63, v107, &qword_1EB0C92A0, &qword_1A34EBBA0);
   sub_1A34C9010();
-  sub_1A3288FDC(v67, &qword_1EB0C92A0);
+  sub_1A3288FDC(v67, &qword_1EB0C92A0, &qword_1A34EBBA0);
   v18 = sub_1A34CBAF0();
   v72 = v49;
   v73 = v50;
@@ -6523,8 +6634,8 @@ uint64_t sub_1A338AD54@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
   v76[2] = v49;
   v76[0] = v47;
   v77 = v10;
-  sub_1A328D790(&v70, v107, &qword_1EB0C9290);
-  sub_1A3288FDC(v76, &qword_1EB0C9290);
+  sub_1A328D790(&v70, v107, &qword_1EB0C9290, &qword_1A34EBB98);
+  sub_1A3288FDC(v76, &qword_1EB0C9290, &qword_1A34EBB98);
   LOBYTE(v10) = sub_1A34CBA80();
   v80 = v97;
   v81 = v98;
@@ -6565,9 +6676,9 @@ uint64_t sub_1A338AD54@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
   v92 = v24;
   v93 = v26;
   v94 = 0;
-  sub_1A328D790(&v78, v107, &qword_1EB0C9280);
-  sub_1A3288FDC(v87, &qword_1EB0C9280);
-  v35 = a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9260) + 36);
+  sub_1A328D790(&v78, v107, &qword_1EB0C9280, &qword_1A34EBB90);
+  sub_1A3288FDC(v87, &qword_1EB0C9280, &qword_1A34EBB90);
+  v35 = a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9260, &qword_1A34EBB80) + 36);
   sub_1A338CCB0();
   sub_1A34CCC50();
   v36 = sub_1A34CBA90();
@@ -6586,7 +6697,7 @@ uint64_t sub_1A338AD54@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
   *&v105 = v32;
   *(&v105 + 1) = v34;
   v106 = 0;
-  *(v35 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92C0) + 36)) = v36;
+  *(v35 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92C0, &unk_1A34EBBC0) + 36)) = v36;
   v37 = v98;
   *(a2 + 32) = v97;
   *(a2 + 48) = v37;
@@ -6620,37 +6731,37 @@ uint64_t sub_1A338AD54@<X0>(__int128 *a1@<X0>, uint64_t a2@<X8>)
   v112 = v32;
   v113 = v34;
   v114 = 0;
-  sub_1A328D790(&v95, &v47, &qword_1EB0C9270);
-  sub_1A3288FDC(v107, &qword_1EB0C9270);
-  v43 = a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91B8) + 36);
+  sub_1A328D790(&v95, &v47, &qword_1EB0C9270, &qword_1A34EBB88);
+  sub_1A3288FDC(v107, &qword_1EB0C9270, &qword_1A34EBB88);
+  v43 = a2 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91B8, &qword_1A34EBAA0) + 36);
   v44 = *MEMORY[0x1E697F468];
   v45 = sub_1A34CB200();
   (*(*(v45 - 8) + 104))(v43, v44, v45);
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92D0);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C92D0, &qword_1A34EE1F0);
   *(v43 + *(result + 36)) = 256;
   return result;
 }
 
-uint64_t sub_1A338B294@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1A338B294@<X0>(uint64_t a2@<X8>)
 {
-  v2 = sub_1A34CC5E0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9230);
+  v3 = sub_1A34CC5E0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9230, &qword_1A34EBB18);
   sub_1A34CC740();
 
   sub_1A3332448(MEMORY[0x1E69E7CC0], 0, 0, 0xD00000000000001ELL, 0x80000001A350FB40);
   sub_1A328A95C();
-  v3 = sub_1A34CBE30();
-  v5 = v4;
-  *a1 = v2;
-  *(a1 + 8) = v3;
-  *(a1 + 16) = v4;
-  v7 = v6 & 1;
-  *(a1 + 24) = v6 & 1;
-  *(a1 + 32) = v8;
+  v4 = sub_1A34CBE30();
+  v6 = v5;
+  *a2 = v3;
+  *(a2 + 8) = v4;
+  *(a2 + 16) = v5;
+  v8 = v7 & 1;
+  *(a2 + 24) = v7 & 1;
+  *(a2 + 32) = v9;
   sub_1A34C9010();
-  sub_1A3285BB4(v3, v5, v7);
+  sub_1A3285BB4(v4, v6, v8);
 
-  sub_1A328A9B0(v3, v5, v7);
+  sub_1A328A9B0(v4, v6, v8);
 }
 
 void *sub_1A338B3C0@<X0>(void *a1@<X8>)
@@ -6660,7 +6771,7 @@ void *sub_1A338B3C0@<X0>(void *a1@<X8>)
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_1A328D790(v2, v10, &unk_1EB0C5650);
+  sub_1A328D790(v2, v10, &unk_1EB0C5650, &unk_1A34FCB90);
   if (v10[264] == 1)
   {
     return memcpy(a1, v10, 0x108uLL);
@@ -6678,25 +6789,27 @@ void *sub_1A338B3C0@<X0>(void *a1@<X8>)
 
 uint64_t sub_1A338B540()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9160);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9160, &qword_1A34EB878);
   MEMORY[0x1EEE9AC00](v1);
   v3 = &v6 - v2;
   *v3 = sub_1A34CB280();
   *(v3 + 1) = 0x4018000000000000;
   v3[16] = 0;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9168);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9168, &qword_1A34EB880);
   sub_1A3388E7C(v0, &v3[*(v4 + 44)]);
-  sub_1A3284D0C(&qword_1EB0C0460, &qword_1EB0C9160);
+  sub_1A3284D0C(&qword_1EB0C0460, &qword_1EB0C9160, &qword_1A34EB878, MEMORY[0x1E6981870]);
   sub_1A34CC1F0();
-  return sub_1A3288FDC(v3, &qword_1EB0C9160);
+  return sub_1A3288FDC(v3, &qword_1EB0C9160, &qword_1A34EB878);
 }
 
-uint64_t sub_1A338B66C()
+double sub_1A338B66C()
 {
   if (qword_1EB0C49B8 != -1)
   {
     swift_once();
   }
+
+  return result;
 }
 
 uint64_t sub_1A338B6C8(void *a1, uint64_t a2, char a3)
@@ -6716,7 +6829,7 @@ uint64_t sub_1A338B6C8(void *a1, uint64_t a2, char a3)
   v8 = [v6 fontDescription];
 
   type metadata accessor for CNWallpaperFontDescriptionKey(0);
-  sub_1A338C5A0(&qword_1EB0C5080, type metadata accessor for CNWallpaperFontDescriptionKey);
+  sub_1A338C5A0(&qword_1EB0C5080, type metadata accessor for CNWallpaperFontDescriptionKey, &unk_1A34DA938);
   v9 = sub_1A34CCF90();
 
   if (a3)
@@ -6781,7 +6894,7 @@ LABEL_17:
     return v27;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9198);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9198, &qword_1A34EBA78);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1A34DCA90;
   v17 = *MEMORY[0x1E6965808];
@@ -6794,21 +6907,21 @@ LABEL_17:
   v20 = *MEMORY[0x1E69658F8];
   *(inited + 64) = v21;
   *(inited + 72) = v20;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91A0, &qword_1A34EBA80);
   v22 = swift_initStackObject();
   *(v22 + 16) = xmmword_1A34DAA10;
   *(v22 + 32) = 2003265652;
   *(v22 + 40) = v29;
   v23 = sub_1A33EA510(v22);
   swift_setDeallocating();
-  *(inited + 104) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91A8);
+  *(inited + 104) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91A8, &qword_1A34EBA88);
   *(inited + 80) = v23;
   v24 = v20;
   sub_1A31F9D3C(inited);
   swift_setDeallocating();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91B0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C91B0, &unk_1A34EBA90);
   swift_arrayDestroy();
-  sub_1A338C5A0(&qword_1ED854618, type metadata accessor for CFString);
+  sub_1A338C5A0(&qword_1ED854618, type metadata accessor for CFString, &unk_1A34D9D90);
   v25 = sub_1A34CCF70();
 
   v26 = CTFontDescriptorCreateWithAttributesAndOptions();
@@ -6827,9 +6940,9 @@ uint64_t sub_1A338BAFC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   sub_1A3292144(v12);
   v7 = sub_1A338B6C8(v5, v6, 0);
   KeyPath = swift_getKeyPath();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9180);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9180, &qword_1A34EBA68);
   (*(*(v9 - 8) + 16))(a2, a1, v9);
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9188);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9188, &qword_1A34EBA70);
   v11 = (a2 + *(result + 36));
   *v11 = KeyPath;
   v11[1] = v7;
@@ -6888,28 +7001,28 @@ uint64_t sub_1A338BE5C(uint64_t a1)
   return sub_1A34CAE70();
 }
 
-void sub_1A338BF68()
+void sub_1A338BF68(uint64_t a1)
 {
-  sub_1A338BFF4();
-  if (v0 <= 0x3F)
+  sub_1A338BFF4(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ContactCardConfiguration(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_1A338BFF4()
+void sub_1A338BFF4(uint64_t a1)
 {
   if (!qword_1EB0C0580)
   {
     type metadata accessor for ContactCardHeaderSwiftUIViewModel(255);
-    v0 = sub_1A34CC770();
-    if (!v1)
+    v1 = sub_1A34CC770();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB0C0580);
+      atomic_store(v1, &qword_1EB0C0580);
     }
   }
 }
@@ -6919,9 +7032,9 @@ unint64_t sub_1A338C04C()
   result = qword_1EB0C0CD8;
   if (!qword_1EB0C0CD8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9170);
-    sub_1A3284D0C(&qword_1EB0C0460, &qword_1EB0C9160);
-    sub_1A338C5A0(&qword_1ED8544B0, MEMORY[0x1E697CBE8]);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9170, &qword_1A34EB908);
+    sub_1A3284D0C(&qword_1EB0C0460, &qword_1EB0C9160, &qword_1A34EB878, MEMORY[0x1E6981870]);
+    sub_1A338C5A0(&qword_1ED8544B0, MEMORY[0x1E697CBE8], MEMORY[0x1E697CBD8]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0CD8);
   }
@@ -7007,9 +7120,9 @@ unint64_t sub_1A338C238()
   result = qword_1EB0C9250;
   if (!qword_1EB0C9250)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C91B8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C91B8, &qword_1A34EBAA0);
     sub_1A338C2F0();
-    sub_1A3284D0C(&qword_1EB0C92C8, &qword_1EB0C92D0);
+    sub_1A3284D0C(&qword_1EB0C92C8, &qword_1EB0C92D0, &qword_1A34EE1F0, MEMORY[0x1E697DDB0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9250);
   }
@@ -7022,9 +7135,9 @@ unint64_t sub_1A338C2F0()
   result = qword_1EB0C9258;
   if (!qword_1EB0C9258)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9260);
-    sub_1A338C85C(&qword_1EB0C9268, &qword_1EB0C9270, &unk_1A34EBB88, sub_1A338C3D4);
-    sub_1A3284D0C(&qword_1ED853F90, &qword_1EB0C92C0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9260, &qword_1A34EBB80);
+    sub_1A338C85C(&qword_1EB0C9268, &qword_1EB0C9270, &qword_1A34EBB88, sub_1A338C3D4);
+    sub_1A3284D0C(&qword_1ED853F90, &qword_1EB0C92C0, &unk_1A34EBBC0, MEMORY[0x1E6980468]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9258);
   }
@@ -7037,9 +7150,9 @@ unint64_t sub_1A338C404()
   result = qword_1EB0C9288;
   if (!qword_1EB0C9288)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9290);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9290, &qword_1A34EBB98);
     sub_1A338C4BC();
-    sub_1A3284D0C(&qword_1ED854EA0, &qword_1EB0C9000);
+    sub_1A3284D0C(&qword_1ED854EA0, &qword_1EB0C9000, &qword_1A34E7470, MEMORY[0x1E6980490]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9288);
   }
@@ -7052,9 +7165,9 @@ unint64_t sub_1A338C4BC()
   result = qword_1EB0C9298;
   if (!qword_1EB0C9298)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C92A0);
-    sub_1A3284D0C(&qword_1EB0C92A8, &unk_1EB0C92B0);
-    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C92A0, &qword_1A34EBBA0);
+    sub_1A3284D0C(&qword_1EB0C92A8, &unk_1EB0C92B0, &qword_1A34EBBA8, MEMORY[0x1E69817F8]);
+    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0, &unk_1A34EBBB0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9298);
   }
@@ -7062,7 +7175,7 @@ unint64_t sub_1A338C4BC()
   return result;
 }
 
-uint64_t sub_1A338C5A0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A338C5A0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7092,9 +7205,9 @@ unint64_t sub_1A338C690()
   result = qword_1EB0C92D8;
   if (!qword_1EB0C92D8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C91F8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C91F8, &qword_1A34EBAE0);
     sub_1A338C748();
-    sub_1A3284D0C(&qword_1EB0C92C8, &qword_1EB0C92D0);
+    sub_1A3284D0C(&qword_1EB0C92C8, &qword_1EB0C92D0, &qword_1A34EE1F0, MEMORY[0x1E697DDB0]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C92D8);
   }
@@ -7107,9 +7220,9 @@ unint64_t sub_1A338C748()
   result = qword_1EB0C92E0;
   if (!qword_1EB0C92E0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C92E8);
-    sub_1A338C85C(&qword_1EB0C92F0, &qword_1EB0C92F8, &unk_1A34EBC38, sub_1A338C82C);
-    sub_1A3284D0C(&qword_1ED853F90, &qword_1EB0C92C0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C92E8, &qword_1A34EBC30);
+    sub_1A338C85C(&qword_1EB0C92F0, &qword_1EB0C92F8, &qword_1A34EBC38, sub_1A338C82C);
+    sub_1A3284D0C(&qword_1ED853F90, &qword_1EB0C92C0, &unk_1A34EBBC0, MEMORY[0x1E6980468]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C92E0);
   }
@@ -7117,12 +7230,12 @@ unint64_t sub_1A338C748()
   return result;
 }
 
-uint64_t sub_1A338C85C(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_1A338C85C(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -7136,9 +7249,9 @@ unint64_t sub_1A338C8E0()
   result = qword_1EB0C9310;
   if (!qword_1EB0C9310)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9318);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9318, &qword_1A34EBC48);
     sub_1A338C998();
-    sub_1A3284D0C(&qword_1ED854EA0, &qword_1EB0C9000);
+    sub_1A3284D0C(&qword_1ED854EA0, &qword_1EB0C9000, &qword_1A34E7470, MEMORY[0x1E6980490]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9310);
   }
@@ -7151,8 +7264,8 @@ unint64_t sub_1A338C998()
   result = qword_1EB0C9320;
   if (!qword_1EB0C9320)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9328);
-    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9328, &qword_1A34EBC50);
+    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0, &unk_1A34EBBB0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9320);
   }
@@ -7160,14 +7273,14 @@ unint64_t sub_1A338C998()
   return result;
 }
 
-uint64_t sub_1A338CA50(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_1A338CA50(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     a4();
-    sub_1A338C5A0(&qword_1ED8544B0, MEMORY[0x1E697CBE8]);
+    sub_1A338C5A0(&qword_1ED8544B0, MEMORY[0x1E697CBE8], MEMORY[0x1E697CBD8]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7180,11 +7293,11 @@ unint64_t sub_1A338CB04()
   result = qword_1EB0C0E18;
   if (!qword_1EB0C0E18)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9330);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9338);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9330, &qword_1A34EBC58);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9338, &unk_1A34EBC60);
     sub_1A338CBF8();
     swift_getOpaqueTypeConformance2();
-    sub_1A3284D0C(&qword_1ED854EA0, &qword_1EB0C9000);
+    sub_1A3284D0C(&qword_1ED854EA0, &qword_1EB0C9000, &qword_1A34E7470, MEMORY[0x1E6980490]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0E18);
   }
@@ -7197,8 +7310,8 @@ unint64_t sub_1A338CBF8()
   result = qword_1EB0C0E30;
   if (!qword_1EB0C0E30)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9338);
-    sub_1A3284D0C(&qword_1EB0C06A0, &qword_1EB0C9340);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9338, &unk_1A34EBC60);
+    sub_1A3284D0C(&qword_1EB0C06A0, &qword_1EB0C9340, &qword_1A34EEAE0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0E30);
   }
@@ -7235,9 +7348,9 @@ unint64_t sub_1A338CD58()
   result = qword_1EB0C09C0;
   if (!qword_1EB0C09C0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9350);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9350, &qword_1A34EBCA0);
     sub_1A338CE10();
-    sub_1A3284D0C(&qword_1ED8539D8, &unk_1EB0C93D0);
+    sub_1A3284D0C(&qword_1ED8539D8, &unk_1EB0C93D0, &qword_1A34EBDC0, MEMORY[0x1E6980490]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C09C0);
   }
@@ -7250,9 +7363,9 @@ unint64_t sub_1A338CE10()
   result = qword_1EB0C09C8;
   if (!qword_1EB0C09C8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9370);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9370, &qword_1A34EBD80);
     sub_1A338CEC8();
-    sub_1A3284D0C(&qword_1EB0C0688, &unk_1EB0C93C0);
+    sub_1A3284D0C(&qword_1EB0C0688, &unk_1EB0C93C0, &unk_1A34DF820, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C09C8);
   }
@@ -7265,9 +7378,9 @@ unint64_t sub_1A338CEC8()
   result = qword_1EB0C09D0;
   if (!qword_1EB0C09D0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9360);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9360, &qword_1A34EBD10);
     sub_1A338CF80();
-    sub_1A3284D0C(&qword_1EB0C0690, &qword_1EB0C9368);
+    sub_1A3284D0C(&qword_1EB0C0690, &qword_1EB0C9368, &qword_1A34EBD18, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C09D0);
   }
@@ -7280,9 +7393,9 @@ unint64_t sub_1A338CF80()
   result = qword_1EB0C0A08;
   if (!qword_1EB0C0A08)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9380);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9380, &qword_1A34EBD88);
     sub_1A338D038();
-    sub_1A3284D0C(&unk_1EB0C06D0, &qword_1EB0C93B8);
+    sub_1A3284D0C(&unk_1EB0C06D0, &qword_1EB0C93B8, &unk_1A34EBDB0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0A08);
   }
@@ -7295,7 +7408,7 @@ unint64_t sub_1A338D038()
   result = qword_1EB0C0AB8;
   if (!qword_1EB0C0AB8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9390);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9390, &qword_1A34EBD90);
     sub_1A338D0C4();
     sub_1A338D17C();
     result = swift_getWitnessTable();
@@ -7310,9 +7423,9 @@ unint64_t sub_1A338D0C4()
   result = qword_1EB0C0BC8;
   if (!qword_1EB0C0BC8)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C93A0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C93A0, &qword_1A34EBD98);
     sub_1A32A46AC();
-    sub_1A3284D0C(&qword_1EB0C06A0, &qword_1EB0C9340);
+    sub_1A3284D0C(&qword_1EB0C06A0, &qword_1EB0C9340, &qword_1A34EEAE0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0BC8);
   }
@@ -7337,9 +7450,9 @@ unint64_t sub_1A338D1F0()
   result = qword_1EB0C0EC0;
   if (!qword_1EB0C0EC0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9188);
-    sub_1A3284D0C(&qword_1EB0C0748, &qword_1EB0C9180);
-    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9188, &qword_1A34EBA70);
+    sub_1A3284D0C(&qword_1EB0C0748, &qword_1EB0C9180, &qword_1A34EBA68, MEMORY[0x1E697FDF8]);
+    sub_1A3284D0C(&unk_1ED8534A0, &unk_1EB0C8FE0, &unk_1A34EBBB0, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C0EC0);
   }
@@ -7401,11 +7514,11 @@ uint64_t sub_1A338D434()
   v0 = *(v8 - 8);
   MEMORY[0x1EEE9AC00](v8);
   v2 = &v7 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C93F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C93F0, &unk_1A34F9490);
   sub_1A34CCC30();
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1A34DAA10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C93F8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C93F8, &unk_1A34EBF70);
   sub_1A34CCC10();
   *(swift_allocObject() + 16) = xmmword_1A34DCA90;
   v9 = sub_1A34CD110();
@@ -7434,11 +7547,11 @@ uint64_t sub_1A338D714()
   v1 = *(v0 - 8);
   MEMORY[0x1EEE9AC00](v0);
   v3 = v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C93F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C93F0, &unk_1A34F9490);
   sub_1A34CCC30();
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1A34DAA10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C93F8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C93F8, &unk_1A34EBF70);
   sub_1A34CCC10();
   *(swift_allocObject() + 16) = xmmword_1A34DD060;
   sub_1A34CCBF0();
@@ -7473,16 +7586,16 @@ unint64_t sub_1A338D9F0()
   return result;
 }
 
-uint64_t sub_1A338DA5C()
+uint64_t sub_1A338DA5C(uint64_t a1)
 {
   result = type metadata accessor for ContactCardConfiguration(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = sub_1A34C99E0();
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         return swift_initClassMetadata2();
       }
@@ -7494,18 +7607,21 @@ uint64_t sub_1A338DA5C()
 
 uint64_t sub_1A338DB6C@<X0>(uint64_t a1@<X8>)
 {
-  swift_getKeyPath();
-  sub_1A338DEC4();
+  KeyPath = swift_getKeyPath();
+  sub_1A338DEC4(KeyPath);
 
-  v3 = qword_1EB0C1618;
+  v4 = qword_1EB0C1618;
   swift_beginAccess();
-  return sub_1A3388CEC(v1 + v3, a1);
+  return sub_1A3388CEC(v1 + v4, a1);
 }
 
 uint64_t sub_1A338DC10(uint64_t a1)
 {
-  swift_getKeyPath();
-  sub_1A338DF70();
+  v8 = *(*v1 + 80);
+  KeyPath = swift_getKeyPath();
+  v6 = v1;
+  v7 = a1;
+  sub_1A338DF70(KeyPath, sub_1A338E42C, &v5, MEMORY[0x1E69E7CA8] + 8);
 
   return sub_1A32A313C(a1);
 }
@@ -7520,21 +7636,21 @@ uint64_t sub_1A338DCC0(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1A338DD2C@<X0>(uint64_t a1@<X8>)
 {
-  v5 = *(*v1 + 80);
-  swift_getKeyPath();
-  sub_1A338DEC4();
+  v6 = *(*v1 + 80);
+  KeyPath = swift_getKeyPath();
+  sub_1A338DEC4(KeyPath);
 
-  v3 = *(*v1 + 120);
+  v4 = *(*v1 + 120);
   swift_beginAccess();
-  return (*(*(v5 - 8) + 16))(a1, v1 + v3);
+  return (*(*(v6 - 8) + 16))(a1, v1 + v4);
 }
 
-uint64_t sub_1A338DE08(uint64_t *a1, uint64_t a2)
+uint64_t sub_1A338DE08(char *a1, uint64_t a2)
 {
   v4 = *a1;
   v5 = *(*a1 + 120);
   swift_beginAccess();
-  (*(*(*(v4 + 80) - 8) + 24))(a1 + v5, a2);
+  (*(*(*(v4 + 80) - 8) + 24))(&a1[v5], a2);
   return swift_endAccess();
 }
 
@@ -7567,7 +7683,7 @@ uint64_t sub_1A338E1E0(uint64_t a1)
   v5 = *(*v1 + 80);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v8 = &v15[-v7];
+  v8 = &v16[-v7];
   v9 = *(v4 + 120);
   swift_beginAccess();
   (*(v6 + 16))(v8, v2 + v9, v5);
@@ -7584,13 +7700,13 @@ uint64_t sub_1A338E1E0(uint64_t a1)
   else
   {
     MEMORY[0x1EEE9AC00](v12);
-    *&v15[-16] = v5;
-    *&v15[-8] = v10;
+    *&v16[-16] = v5;
+    *&v16[-8] = v10;
     KeyPath = swift_getKeyPath();
     MEMORY[0x1EEE9AC00](KeyPath);
-    *&v15[-16] = v2;
-    *&v15[-8] = a1;
-    sub_1A338DF70();
+    *&v16[-16] = v2;
+    *&v16[-8] = a1;
+    sub_1A338DF70(v15, sub_1A338E410, &v16[-32], MEMORY[0x1E69E7CA8] + 8);
   }
 }
 
@@ -7601,7 +7717,7 @@ uint64_t sub_1A338E448(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t type metadata accessor for ContactCardActionMenu()
+uint64_t type metadata accessor for ContactCardActionMenu(uint64_t a1)
 {
   result = qword_1EB0C22B0;
   if (!qword_1EB0C22B0)
@@ -7612,13 +7728,13 @@ uint64_t type metadata accessor for ContactCardActionMenu()
   return result;
 }
 
-unint64_t sub_1A338E520()
+uint64_t sub_1A338E520(uint64_t a1)
 {
-  result = type metadata accessor for ContactCardActionRow();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for ContactCardActionRow(319);
+  if (v2 <= 0x3F)
   {
     result = sub_1A338E5A4();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -7646,36 +7762,36 @@ uint64_t sub_1A338E624@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X2>, 
   v87 = a2;
   v88 = a4;
   v92 = a1;
-  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8FC0);
+  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8FC0, &qword_1A34EB418);
   v78 = *(v91 - 8);
   MEMORY[0x1EEE9AC00](v91);
   v77 = &v72 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9488);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9488, &qword_1A34EC178);
   v73 = *(v5 - 8);
   *&v74 = v5;
   MEMORY[0x1EEE9AC00](v5);
   v72 = &v72 - v6;
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8FA0);
+  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8FA0, &qword_1A34EB3F8);
   MEMORY[0x1EEE9AC00](v85);
   v8 = &v72 - v7;
-  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9490);
+  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9490, &qword_1A34EC180);
   MEMORY[0x1EEE9AC00](v89);
   v10 = &v72 - v9;
-  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9498);
+  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9498, &qword_1A34EC188);
   MEMORY[0x1EEE9AC00](v82);
   v84 = &v72 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8F60);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8F60, &qword_1A34EB3D0);
   MEMORY[0x1EEE9AC00](v12);
   v14 = &v72 - v13;
-  v15 = type metadata accessor for ContactCardActionRow();
+  v15 = type metadata accessor for ContactCardActionRow(0);
   v86 = *(v15 - 8);
   v16 = *(v86 + 64);
   MEMORY[0x1EEE9AC00](v15);
   v17 = &v72 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8F68);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8F68, &qword_1A34EB3D8);
   MEMORY[0x1EEE9AC00](v18);
   v20 = &v72 - v19;
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94A0);
+  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94A0, &qword_1A34EC190);
   v81 = *(v83 - 8);
   MEMORY[0x1EEE9AC00](v83);
   v80 = &v72 - v21;
@@ -7695,10 +7811,10 @@ uint64_t sub_1A338E624@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X2>, 
     v74 = *&v109[8];
     LOBYTE(v98) = 1;
     LOBYTE(v93[0]) = v25;
-    v27 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F70) + 36);
+    v27 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F70, &qword_1A34EB3E0) + 36);
     v79 = v14;
     v28 = &v20[v27];
-    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F90);
+    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F90, &qword_1A34EB3F0);
     (*(*(v26 - 8) + 104))(v28 + *(v29 + 28), *MEMORY[0x1E697DBA8], v26);
     *v28 = swift_getKeyPath();
     *v20 = v24;
@@ -7729,7 +7845,7 @@ uint64_t sub_1A338E624@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X2>, 
     v36 = v80;
     sub_1A34CBF50();
 
-    sub_1A3288FDC(v20, &qword_1EB0C8F68);
+    sub_1A3288FDC(v20, &qword_1EB0C8F68, &qword_1A34EB3D8);
     v37 = v81;
     v38 = v83;
     (*(v81 + 16))(v84, v36, v83);
@@ -7740,13 +7856,13 @@ uint64_t sub_1A338E624@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, char *a3@<X2>, 
     sub_1A3381E4C();
     v39 = v79;
     sub_1A34CB3E0();
-    sub_1A328D790(v39, v78, &qword_1EB0C8F60);
+    sub_1A328D790(v39, v78, &qword_1EB0C8F60, &qword_1A34EB3D0);
     swift_storeEnumTagMultiPayload();
     sub_1A3381C14();
-    sub_1A3284D0C(&qword_1EB0C04F8, &unk_1EB0C8FC0);
+    sub_1A3284D0C(&qword_1EB0C04F8, &unk_1EB0C8FC0, &qword_1A34EB418, MEMORY[0x1E697D680]);
     sub_1A34CB3E0();
 
-    sub_1A3288FDC(v39, &qword_1EB0C8F60);
+    sub_1A3288FDC(v39, &qword_1EB0C8F60, &qword_1A34EB3D0);
     return (*(v37 + 8))(v36, v38);
   }
 
@@ -7791,8 +7907,8 @@ LABEL_12:
     v65 = v76;
     *(&v72 - 2) = v66;
     *(&v72 - 1) = v65;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94A8);
-    sub_1A3284D0C(&qword_1EB0C0350, &qword_1EB0C94A8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94A8, &qword_1A34EC198);
+    sub_1A3284D0C(&qword_1EB0C0350, &qword_1EB0C94A8, &qword_1A34EC198, MEMORY[0x1E6981F48]);
     v67 = v77;
     sub_1A34CC790();
     v68 = v78;
@@ -7800,7 +7916,7 @@ LABEL_12:
     (*(v78 + 2))(v10, v67, v91);
     swift_storeEnumTagMultiPayload();
     sub_1A3381C14();
-    sub_1A3284D0C(&qword_1EB0C04F8, &unk_1EB0C8FC0);
+    sub_1A3284D0C(&qword_1EB0C04F8, &unk_1EB0C8FC0, &qword_1A34EB418, MEMORY[0x1E697D680]);
     sub_1A34CB3E0();
     return (*(v68 + 8))(v67, v69);
   }
@@ -7833,8 +7949,8 @@ LABEL_9:
     v106[5] = v112;
     v106[6] = v113;
     v107 = v114;
-    sub_1A328D790(&v98, &v94, &qword_1EB0C94B0);
-    sub_1A3288FDC(v106, &qword_1EB0C94B0);
+    sub_1A328D790(&v98, &v94, &qword_1EB0C94B0, &qword_1A34EC1A0);
+    sub_1A3288FDC(v106, &qword_1EB0C94B0, &qword_1A34EC1A0);
     *(&v97[4] + 7) = v102;
     *(&v97[5] + 7) = v103;
     *(&v97[6] + 7) = v104;
@@ -7860,7 +7976,7 @@ LABEL_9:
     v57 = swift_allocObject();
     sub_1A31EE568(v93, v57 + 16);
     sub_1A3391AE8(v52, v57 + v56, type metadata accessor for ContactCardActionRow);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8FA8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8FA8, &qword_1A34EB400);
     sub_1A3381F0C();
     v58 = v72;
     sub_1A34CBF50();
@@ -7875,7 +7991,7 @@ LABEL_9:
     v112 = v95[4];
     v108 = v94;
     *v109 = v95[0];
-    sub_1A3288FDC(&v108, &qword_1EB0C8FA8);
+    sub_1A3288FDC(&v108, &qword_1EB0C8FA8, &qword_1A34EB400);
     v60 = v73;
     v59 = v74;
     v61 = v80;
@@ -7889,7 +8005,7 @@ LABEL_9:
     (*(v73 + 56))(v80, 1, 1, v74);
   }
 
-  sub_1A328D790(v61, v84, &qword_1EB0C8FA0);
+  sub_1A328D790(v61, v84, &qword_1EB0C8FA0, &qword_1A34EB3F8);
   swift_storeEnumTagMultiPayload();
   v70 = sub_1A3381CDC();
   *&v108 = v75;
@@ -7898,98 +8014,99 @@ LABEL_9:
   sub_1A3381E4C();
   v71 = v79;
   sub_1A34CB3E0();
-  sub_1A328D790(v71, v78, &qword_1EB0C8F60);
+  sub_1A328D790(v71, v78, &qword_1EB0C8F60, &qword_1A34EB3D0);
   swift_storeEnumTagMultiPayload();
   sub_1A3381C14();
-  sub_1A3284D0C(&qword_1EB0C04F8, &unk_1EB0C8FC0);
+  sub_1A3284D0C(&qword_1EB0C04F8, &unk_1EB0C8FC0, &qword_1A34EB418, MEMORY[0x1E697D680]);
   sub_1A34CB3E0();
-  sub_1A3288FDC(v71, &qword_1EB0C8F60);
-  return sub_1A3288FDC(v61, &qword_1EB0C8FA0);
+  sub_1A3288FDC(v71, &qword_1EB0C8F60, &qword_1A34EB3D0);
+  return sub_1A3288FDC(v61, &qword_1EB0C8FA0, &qword_1A34EB3F8);
 }
 
 uint64_t sub_1A338F43C@<X0>(uint64_t a1@<X8>)
 {
-  v35 = a1;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F50);
+  v36 = a1;
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F50, &qword_1A34EB3C8);
+  MEMORY[0x1EEE9AC00](v35);
+  v3 = &v29 - v2;
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9400, &qword_1A34EC0F0);
   MEMORY[0x1EEE9AC00](v34);
-  v3 = &v28 - v2;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9400);
-  MEMORY[0x1EEE9AC00](v33);
-  v5 = &v28 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9408);
-  v30 = *(v6 - 8);
+  v5 = &v29 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9408, &qword_1A34EC0F8);
+  v31 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v8 = &v28 - v7;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9410);
-  MEMORY[0x1EEE9AC00](v31);
-  v10 = &v28 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9418);
+  v8 = &v29 - v7;
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9410, &qword_1A34EC100);
+  MEMORY[0x1EEE9AC00](v32);
+  v10 = &v29 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9418, &qword_1A34EC108);
   v12 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
-  v14 = &v28 - v13;
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9420);
-  MEMORY[0x1EEE9AC00](v32);
-  v16 = &v28 - v15;
-  v17 = type metadata accessor for ContactCardActionRow();
+  v14 = &v29 - v13;
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9420, &qword_1A34EC110);
+  MEMORY[0x1EEE9AC00](v33);
+  v16 = &v29 - v15;
+  v17 = type metadata accessor for ContactCardActionRow(0);
   if (*(v1 + *(v17 + 60)))
   {
-    v29 = v6;
+    v30 = v6;
     if (*(v1 + *(v17 + 44)) == 1)
     {
       v18 = *(v1 + 24);
-      v36 = *(v1 + 16);
-      v37 = v18;
+      v37 = *(v1 + 16);
+      v38 = v18;
       MEMORY[0x1EEE9AC00](v18);
-      *(&v28 - 2) = v19;
-      *(&v28 - 1) = v1;
+      *(&v29 - 2) = v19;
+      *(&v29 - 1) = v1;
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9440);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9440, &qword_1A34EC118);
       sub_1A3391698();
       sub_1A328A95C();
       sub_1A34CC9E0();
       (*(v12 + 16))(v10, v14, v11);
       swift_storeEnumTagMultiPayload();
       sub_1A3391600();
-      sub_1A3284D0C(&qword_1EB0C9468, &qword_1EB0C9408);
+      sub_1A3284D0C(&qword_1EB0C9468, &qword_1EB0C9408, &qword_1A34EC0F8, MEMORY[0x1E697CD28]);
       sub_1A34CB3E0();
       (*(v12 + 8))(v14, v11);
     }
 
     else
     {
-      v28 = &v28;
+      v29 = &v29;
       MEMORY[0x1EEE9AC00](v17);
-      *(&v28 - 2) = v23;
-      *(&v28 - 1) = v1;
-      MEMORY[0x1EEE9AC00](v24);
-      *(&v28 - 2) = v1;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9038);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9440);
+      *(&v29 - 2) = v24;
+      *(&v29 - 1) = v1;
+      MEMORY[0x1EEE9AC00](v25);
+      *(&v29 - 2) = v1;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9038, qword_1A34EC130);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9440, &qword_1A34EC118);
       sub_1A33820AC();
       sub_1A3391698();
       sub_1A34CBC70();
-      v25 = v29;
       v26 = v30;
-      (*(v30 + 16))(v10, v8, v29);
+      v27 = v31;
+      (*(v31 + 16))(v10, v8, v30);
       swift_storeEnumTagMultiPayload();
       sub_1A3391600();
-      sub_1A3284D0C(&qword_1EB0C9468, &qword_1EB0C9408);
+      sub_1A3284D0C(&qword_1EB0C9468, &qword_1EB0C9408, &qword_1A34EC0F8, MEMORY[0x1E697CD28]);
       sub_1A34CB3E0();
-      (*(v26 + 8))(v8, v25);
+      (*(v27 + 8))(v8, v26);
     }
 
     v21 = &qword_1EB0C9420;
-    sub_1A328D790(v16, v5, &qword_1EB0C9420);
+    v22 = &qword_1A34EC110;
+    sub_1A328D790(v16, v5, &qword_1EB0C9420, &qword_1A34EC110);
     swift_storeEnumTagMultiPayload();
     sub_1A3391548();
     sub_1A3381B5C();
     sub_1A34CB3E0();
-    v22 = v16;
+    v23 = v16;
   }
 
   else
   {
-    v20 = *(type metadata accessor for ContactCardActionMenu() + 20);
+    v20 = *(type metadata accessor for ContactCardActionMenu(0) + 20);
     if (qword_1EB0C2118 != -1)
     {
       swift_once();
@@ -7997,30 +8114,31 @@ uint64_t sub_1A338F43C@<X0>(uint64_t a1@<X8>)
 
     sub_1A338E624(v1, v1 + v20, &qword_1EB0ED2F0, v3);
     v21 = &unk_1EB0C8F50;
-    sub_1A328D790(v3, v5, &unk_1EB0C8F50);
+    v22 = &qword_1A34EB3C8;
+    sub_1A328D790(v3, v5, &unk_1EB0C8F50, &qword_1A34EB3C8);
     swift_storeEnumTagMultiPayload();
     sub_1A3391548();
     sub_1A3381B5C();
     sub_1A34CB3E0();
-    v22 = v3;
+    v23 = v3;
   }
 
-  return sub_1A3288FDC(v22, v21);
+  return sub_1A3288FDC(v23, v21, v22);
 }
 
 uint64_t sub_1A338FAC8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F50);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F50, &qword_1A34EB3C8);
   MEMORY[0x1EEE9AC00](v5);
   v7 = v20 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9470);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9470, &qword_1A34EC168);
   MEMORY[0x1EEE9AC00](v8);
   v10 = v20 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9460);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9460, &qword_1A34EC128);
   v12 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
   v14 = v20 - v13;
-  v15 = type metadata accessor for ContactCardActionRow();
+  v15 = type metadata accessor for ContactCardActionRow(0);
   if (*(a1 + *(v15 + 60)))
   {
     v20[3] = v20;
@@ -8029,8 +8147,8 @@ uint64_t sub_1A338FAC8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v20[-1] = v2;
     MEMORY[0x1EEE9AC00](v17);
     v20[-2] = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9038);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9478);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9038, qword_1A34EC130);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9478, &qword_1A34EC170);
     v20[2] = a2;
     sub_1A33820AC();
     v20[1] = v5;
@@ -8038,7 +8156,7 @@ uint64_t sub_1A338FAC8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     sub_1A34CBC70();
     (*(v12 + 16))(v10, v14, v11);
     swift_storeEnumTagMultiPayload();
-    sub_1A3284D0C(&qword_1EB0C9458, &qword_1EB0C9460);
+    sub_1A3284D0C(&qword_1EB0C9458, &qword_1EB0C9460, &qword_1A34EC128, MEMORY[0x1E697CD28]);
     sub_1A3381B5C();
     sub_1A34CB3E0();
     return (*(v12 + 8))(v14, v11);
@@ -8046,40 +8164,40 @@ uint64_t sub_1A338FAC8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    v19 = *(type metadata accessor for ContactCardActionMenu() + 20);
+    v19 = *(type metadata accessor for ContactCardActionMenu(0) + 20);
     if (qword_1EB0C2118 != -1)
     {
       swift_once();
     }
 
     sub_1A338E624(a1, v2 + v19, &qword_1EB0ED2F0, v7);
-    sub_1A328D790(v7, v10, &unk_1EB0C8F50);
+    sub_1A328D790(v7, v10, &unk_1EB0C8F50, &qword_1A34EB3C8);
     swift_storeEnumTagMultiPayload();
-    sub_1A3284D0C(&qword_1EB0C9458, &qword_1EB0C9460);
+    sub_1A3284D0C(&qword_1EB0C9458, &qword_1EB0C9460, &qword_1A34EC128, MEMORY[0x1E697CD28]);
     sub_1A3381B5C();
     sub_1A34CB3E0();
-    return sub_1A3288FDC(v7, &unk_1EB0C8F50);
+    return sub_1A3288FDC(v7, &unk_1EB0C8F50, &qword_1A34EB3C8);
   }
 }
 
-uint64_t sub_1A338FEC0(uint64_t a1, uint64_t a2)
+uint64_t sub_1A338FEC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = type metadata accessor for ContactCardActionMenu();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = *(a1 + 16);
-  v11[0] = 0;
-  v11[1] = v7;
+  v6 = type metadata accessor for ContactCardActionMenu(0);
+  v7 = *(v6 - 8);
+  v8 = *(v7 + 64);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v9 = *(a1 + 16);
+  v13[0] = 0;
+  v13[1] = v9;
   swift_getKeyPath();
-  sub_1A3391A80(a2, v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ContactCardActionMenu);
-  v8 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-  v9 = swift_allocObject();
-  sub_1A3391AE8(v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v9 + v8, type metadata accessor for ContactCardActionMenu);
-  *(v9 + ((v6 + v8 + 7) & 0xFFFFFFFFFFFFFFF8)) = a1;
+  sub_1A3391A80(a2, v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for ContactCardActionMenu);
+  v10 = (*(v7 + 80) + 16) & ~*(v7 + 80);
+  v11 = swift_allocObject();
+  sub_1A3391AE8(v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v11 + v10, type metadata accessor for ContactCardActionMenu);
+  *(v11 + ((v8 + v10 + 7) & 0xFFFFFFFFFFFFFFF8)) = a1;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9450);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0, &qword_1A34EB370);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9450, &qword_1A34EC120);
   sub_1A32D3A44();
   sub_1A339171C();
   return sub_1A34CC9C0();
@@ -8095,7 +8213,7 @@ unint64_t *sub_1A339007C@<X0>(unint64_t *result@<X0>, uint64_t a2@<X2>, uint64_t
 
   else if (v3 < *(a2 + 16))
   {
-    v6 = *(type metadata accessor for ContactCardActionRow() - 8);
+    v6 = *(type metadata accessor for ContactCardActionRow(0) - 8);
     return sub_1A338FAC8(a2 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v3, a3);
   }
 
@@ -8105,7 +8223,7 @@ unint64_t *sub_1A339007C@<X0>(unint64_t *result@<X0>, uint64_t a2@<X2>, uint64_t
 
 uint64_t sub_1A339012C(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ContactCardActionMenu();
+  v4 = type metadata accessor for ContactCardActionMenu(0);
   v5 = *(v4 - 8);
   v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
@@ -8119,8 +8237,8 @@ uint64_t sub_1A339012C(uint64_t a1, uint64_t a2)
   *(v9 + 16) = a1;
   sub_1A3391AE8(v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0), v9 + v8, type metadata accessor for ContactCardActionMenu);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F50);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8EA0, &qword_1A34EB370);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8F50, &qword_1A34EB3C8);
   sub_1A32D3A44();
   sub_1A3381B5C();
   return sub_1A34CC9C0();
@@ -8141,10 +8259,10 @@ uint64_t sub_1A33902E0@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
     if (v10 < *(a2 + 16))
     {
       v4 = a3;
-      v11 = *(type metadata accessor for ContactCardActionRow() - 8);
+      v11 = *(type metadata accessor for ContactCardActionRow(0) - 8);
       v7 = *(v11 + 80);
       v8 = *(v11 + 72);
-      v9 = *(type metadata accessor for ContactCardActionMenu() + 20);
+      v9 = *(type metadata accessor for ContactCardActionMenu(0) + 20);
       if (qword_1EB0C2118 == -1)
       {
         goto LABEL_4;
@@ -8162,18 +8280,18 @@ LABEL_4:
   return sub_1A338E624(v6 + ((v7 + 32) & ~v7) + v8 * v10, v4 + v9, &qword_1EB0ED2F0, v5);
 }
 
-uint64_t sub_1A33903F0(uint64_t a1)
+uint64_t sub_1A33903F0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (qword_1EB0C2118 != -1)
   {
-    v3 = a1;
+    v5 = a1;
     swift_once();
-    a1 = v3;
+    a1 = v5;
   }
 
   MEMORY[0x1EEE9AC00](a1);
-  MEMORY[0x1EEE9AC00](v1);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9058);
+  MEMORY[0x1EEE9AC00](v3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9058, &qword_1A34EB4D8);
   sub_1A3382138();
   return sub_1A34CA9A0();
 }
@@ -8203,61 +8321,61 @@ uint64_t sub_1A3390504@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   sub_1A328A9B0(v8, v10, v12 & 1);
 }
 
-uint64_t sub_1A3390654@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_1A3390654@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a5@<X8>)
 {
-  v6 = sub_1A34CB290();
-  LOBYTE(v20[0]) = 0;
-  sub_1A3390804(a1, a2, v17);
-  *&v16[7] = v17[0];
-  *&v16[23] = v17[1];
-  *&v16[39] = v17[2];
-  *&v16[55] = v17[3];
-  v7 = v20[0];
+  v8 = sub_1A34CB290();
+  LOBYTE(v22[0]) = 0;
+  sub_1A3390804(a1, a2, v19);
+  *&v18[7] = v19[0];
+  *&v18[23] = v19[1];
+  *&v18[39] = v19[2];
+  *&v18[55] = v19[3];
+  v9 = v22[0];
 
-  v8 = sub_1A34CC5E0();
+  v10 = sub_1A34CC5E0();
   if (qword_1EB0C2118 != -1)
   {
-    v15 = v8;
+    v17 = v10;
     swift_once();
-    v8 = v15;
+    v10 = v17;
   }
 
-  v9 = qword_1EB0ED308;
-  v18 = v6;
-  v19[0] = v7;
-  *&v19[1] = *v16;
-  *&v19[49] = *&v16[48];
-  *&v19[33] = *&v16[32];
-  *&v19[17] = *&v16[16];
-  *&v19[64] = *&v16[63];
-  v10 = *v19;
-  *a3 = v6;
-  *(a3 + 16) = v10;
-  v11 = *&v19[16];
-  v12 = *&v19[48];
-  v13 = *&v19[64];
-  *(a3 + 48) = *&v19[32];
-  *(a3 + 64) = v12;
-  *(a3 + 32) = v11;
-  *(a3 + 80) = v13;
-  *(a3 + 88) = 0;
-  *(a3 + 96) = 1;
-  *(a3 + 104) = v8;
-  *(a3 + 112) = v9;
+  v11 = qword_1EB0ED308;
+  v20 = v8;
+  v21[0] = v9;
+  *&v21[1] = *v18;
+  *&v21[49] = *&v18[48];
+  *&v21[33] = *&v18[32];
+  *&v21[17] = *&v18[16];
+  *&v21[64] = *&v18[63];
+  v12 = *v21;
+  *a5 = v8;
+  *(a5 + 16) = v12;
+  v13 = *&v21[16];
+  v14 = *&v21[48];
+  v15 = *&v21[64];
+  *(a5 + 48) = *&v21[32];
+  *(a5 + 64) = v14;
+  *(a5 + 32) = v13;
+  *(a5 + 80) = v15;
+  *(a5 + 88) = 0;
+  *(a5 + 96) = 1;
+  *(a5 + 104) = v10;
+  *(a5 + 112) = v11;
   sub_1A34C9010();
-  sub_1A328D790(&v18, v20, &qword_1EB0C6F20);
-  v20[0] = v6;
-  v20[1] = 0;
-  v21 = v7;
-  v23 = *&v16[16];
-  v24 = *&v16[32];
-  *v25 = *&v16[48];
-  *&v25[15] = *&v16[63];
-  v22 = *v16;
-  return sub_1A3288FDC(v20, &qword_1EB0C6F20);
+  sub_1A328D790(&v20, v22, &qword_1EB0C6F20, &unk_1A34E3098);
+  v22[0] = v8;
+  v22[1] = 0;
+  v23 = v9;
+  v25 = *&v18[16];
+  v26 = *&v18[32];
+  *v27 = *&v18[48];
+  *&v27[15] = *&v18[63];
+  v24 = *v18;
+  return sub_1A3288FDC(v22, &qword_1EB0C6F20, &unk_1A34E3098);
 }
 
-uint64_t sub_1A3390804@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_1A3390804@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   sub_1A3332448(MEMORY[0x1E69E7CC0], 0, 0, 0x42414C5F454D414ELL, 0xEA00000000004C45);
   sub_1A328A95C();
@@ -8308,21 +8426,21 @@ uint64_t sub_1A3390804@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
 uint64_t sub_1A3390A8C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v38 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94B8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94B8, &qword_1A34EC1E0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
   v10 = &v35 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94C0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94C0, &qword_1A34EC1E8);
   v12 = *(v11 - 8);
   MEMORY[0x1EEE9AC00](v11);
   v14 = &v35 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94C8);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94C8, &qword_1A34EC1F0);
   MEMORY[0x1EEE9AC00](v15 - 8);
   v17 = &v35 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v18);
   v20 = &v35 - v19;
-  v21 = (a1 + *(type metadata accessor for ContactCardActionRow() + 32));
+  v21 = (a1 + *(type metadata accessor for ContactCardActionRow(0) + 32));
   v22 = v21[1];
   if (v22)
   {
@@ -8330,19 +8448,19 @@ uint64_t sub_1A3390A8C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
     v23 = *v21;
     *v14 = swift_getKeyPath();
     v14[264] = 0;
-    v24 = type metadata accessor for DetailsLabelText();
+    v24 = type metadata accessor for DetailsLabelText(0);
     v36 = a1;
     v37 = v7;
     v25 = v24;
     v26 = *(v24 + 20);
     *&v14[v26] = swift_getKeyPath();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0CA420);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0CA420, &qword_1A34E12D0);
     swift_storeEnumTagMultiPayload();
     v27 = &v14[*(v25 + 24)];
     *v27 = v23;
     *(v27 + 1) = v22;
     KeyPath = swift_getKeyPath();
-    v29 = &v14[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94D8) + 36)];
+    v29 = &v14[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94D8, &qword_1A34EC290) + 36)];
     *v29 = KeyPath;
     v29[8] = 0;
     v30 = swift_getKeyPath();
@@ -8361,22 +8479,22 @@ uint64_t sub_1A3390A8C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   }
 
   sub_1A3390E40(a1, v10);
-  sub_1A328D790(v20, v17, &qword_1EB0C94C8);
-  sub_1A328D790(v10, v7, &qword_1EB0C94B8);
+  sub_1A328D790(v20, v17, &qword_1EB0C94C8, &qword_1A34EC1F0);
+  sub_1A328D790(v10, v7, &qword_1EB0C94B8, &qword_1A34EC1E0);
   v32 = v38;
-  sub_1A328D790(v17, v38, &qword_1EB0C94C8);
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94D0);
-  sub_1A328D790(v7, v32 + *(v33 + 48), &qword_1EB0C94B8);
-  sub_1A3288FDC(v10, &qword_1EB0C94B8);
-  sub_1A3288FDC(v20, &qword_1EB0C94C8);
-  sub_1A3288FDC(v7, &qword_1EB0C94B8);
-  return sub_1A3288FDC(v17, &qword_1EB0C94C8);
+  sub_1A328D790(v17, v38, &qword_1EB0C94C8, &qword_1A34EC1F0);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94D0, &qword_1A34EC1F8);
+  sub_1A328D790(v7, v32 + *(v33 + 48), &qword_1EB0C94B8, &qword_1A34EC1E0);
+  sub_1A3288FDC(v10, &qword_1EB0C94B8, &qword_1A34EC1E0);
+  sub_1A3288FDC(v20, &qword_1EB0C94C8, &qword_1A34EC1F0);
+  sub_1A3288FDC(v7, &qword_1EB0C94B8, &qword_1A34EC1E0);
+  return sub_1A3288FDC(v17, &qword_1EB0C94C8, &qword_1A34EC1F0);
 }
 
-uint64_t sub_1A3390E40@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+uint64_t sub_1A3390E40@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v25 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94E0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94E0, &qword_1A34EC298);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -8384,12 +8502,12 @@ uint64_t sub_1A3390E40@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
   v9 = &v24 - v8;
   v27 = a1;
   v26 = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6168);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C65C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6168, &unk_1A34EC2A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C65C0, &unk_1A34DF410);
   sub_1A32BF778();
   sub_1A32D3E30();
   sub_1A34CA9A0();
-  v10 = (a1 + *(type metadata accessor for ContactCardActionRow() + 28));
+  v10 = (a1 + *(type metadata accessor for ContactCardActionRow(0) + 28));
   v11 = v10[1];
   if (v11)
   {
@@ -8417,7 +8535,7 @@ uint64_t sub_1A3390E40@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
   v19 = v6;
   v20 = v25;
   v18(v25, v19, v3);
-  v21 = &v20[*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94E8) + 48)];
+  v21 = (v20 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94E8, &qword_1A34EC2B8) + 48));
   sub_1A334071C(v11, v13, v17, v15);
   sub_1A3340760(v11, v13, v17, v15);
   *v21 = v11;
@@ -8432,8 +8550,8 @@ uint64_t sub_1A3390E40@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 
 uint64_t sub_1A3391100@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = type metadata accessor for ContactCardActionRow();
-  sub_1A328D790(a1 + *(v4 + 76), &v23, &qword_1EB0CB0A0);
+  v4 = type metadata accessor for ContactCardActionRow(0);
+  sub_1A328D790(a1 + *(v4 + 76), &v23, &qword_1EB0CB0A0, &qword_1A34EC2C0);
   if (*(&v24 + 1))
   {
     sub_1A31EE568(&v23, &v26);
@@ -8461,7 +8579,7 @@ uint64_t sub_1A3391100@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    sub_1A3288FDC(&v23, &qword_1EB0CB0A0);
+    sub_1A3288FDC(&v23, &qword_1EB0CB0A0, &qword_1A34EC2C0);
     v16 = *(a1 + 16);
     v17 = *(a1 + 24);
     *&v26 = v16;
@@ -8487,7 +8605,7 @@ uint64_t sub_1A3391100@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1A33912FC@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  if (*(a1 + *(type metadata accessor for ContactCardActionRow() + 36) + 8))
+  if (*(a1 + *(type metadata accessor for ContactCardActionRow(0) + 36) + 8))
   {
 
     result = sub_1A34CC5E0();
@@ -8502,7 +8620,7 @@ uint64_t sub_1A33912FC@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1A3391364@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_1A3391364@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = *(a1 + 24);
   v29 = *(a1 + 16);
@@ -8517,7 +8635,7 @@ uint64_t sub_1A3391364@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
   v15 = v14;
   sub_1A328A9B0(v6, v8, v10 & 1);
 
-  v16 = __swift_project_boxed_opaque_existential_1((a2 + 128), *(a2 + 152));
+  v16 = __swift_project_boxed_opaque_existential_1(a2 + 16, a2[19]);
   v17 = MEMORY[0x1EEE9AC00](v16);
   (*(v19 + 16))(&v28 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0), v17);
   v29 = sub_1A34CA770();
@@ -8539,9 +8657,9 @@ unint64_t sub_1A3391548()
   result = qword_1EB0C9428;
   if (!qword_1EB0C9428)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9420);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9420, &qword_1A34EC110);
     sub_1A3391600();
-    sub_1A3284D0C(&qword_1EB0C9468, &qword_1EB0C9408);
+    sub_1A3284D0C(&qword_1EB0C9468, &qword_1EB0C9408, &qword_1A34EC0F8, MEMORY[0x1E697CD28]);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9428);
   }
@@ -8554,7 +8672,7 @@ unint64_t sub_1A3391600()
   result = qword_1EB0C9430;
   if (!qword_1EB0C9430)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9418);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9418, &qword_1A34EC108);
     sub_1A3391698();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9430);
@@ -8568,7 +8686,7 @@ unint64_t sub_1A3391698()
   result = qword_1EB0C9438;
   if (!qword_1EB0C9438)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9440);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9440, &qword_1A34EC118);
     sub_1A339171C();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9438);
@@ -8582,8 +8700,8 @@ unint64_t sub_1A339171C()
   result = qword_1EB0C9448;
   if (!qword_1EB0C9448)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9450);
-    sub_1A3284D0C(&qword_1EB0C9458, &qword_1EB0C9460);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9450, &qword_1A34EC120);
+    sub_1A3284D0C(&qword_1EB0C9458, &qword_1EB0C9460, &qword_1A34EC128, MEMORY[0x1E697CD28]);
     sub_1A3381B5C();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9448);
@@ -8597,7 +8715,7 @@ unint64_t sub_1A33918D4()
   result = qword_1EB0C9480;
   if (!qword_1EB0C9480)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9478);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C9478, &qword_1A34EC170);
     sub_1A3381B5C();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EB0C9480);
@@ -8608,7 +8726,7 @@ unint64_t sub_1A33918D4()
 
 uint64_t sub_1A3391958@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = *(type metadata accessor for ContactCardActionMenu() - 8);
+  v5 = *(type metadata accessor for ContactCardActionMenu(0) - 8);
   v6 = *(v2 + 16);
   v7 = v2 + ((*(v5 + 80) + 24) & ~*(v5 + 80));
 
@@ -8631,9 +8749,9 @@ uint64_t sub_1A3391AE8(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t objectdestroy_12Tm()
 {
-  v1 = type metadata accessor for ContactCardActionRow();
+  v1 = type metadata accessor for ContactCardActionRow(0);
   v2 = (*(*(v1 - 1) + 80) + 56) & ~*(*(v1 - 1) + 80);
-  __swift_destroy_boxed_opaque_existential_0(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_0((v0 + 16));
   v3 = v0 + v2;
 
   v4 = v1[6];
@@ -8648,8 +8766,8 @@ uint64_t objectdestroy_12Tm()
   {
   }
 
-  v7 = v3 + v1[19];
-  if (*(v7 + 24))
+  v7 = (v3 + v1[19]);
+  if (v7[3])
   {
     __swift_destroy_boxed_opaque_existential_0(v7);
   }
@@ -8661,7 +8779,7 @@ uint64_t objectdestroy_12Tm()
 
 uint64_t sub_1A3391D58()
 {
-  v1 = *(type metadata accessor for ContactCardActionRow() - 8);
+  v1 = *(type metadata accessor for ContactCardActionRow(0) - 8);
   v2 = (*(v1 + 80) + 56) & ~*(v1 + 80);
   v3 = *(v0 + 5);
   v4 = *(v0 + 6);
@@ -8671,7 +8789,7 @@ uint64_t sub_1A3391D58()
 
 uint64_t sub_1A3391DEC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94C0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C94C0, &qword_1A34EC1E8);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -8681,7 +8799,7 @@ unint64_t sub_1A3391E64()
   result = qword_1EB0C94F0;
   if (!qword_1EB0C94F0)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C94F8);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C94F8, &qword_1A34EC2C8);
     sub_1A3391548();
     sub_1A3381B5C();
     result = swift_getWitnessTable();
@@ -8694,10 +8812,10 @@ unint64_t sub_1A3391E64()
 uint64_t sub_1A3391F00@<X0>(uint64_t a1@<X8>)
 {
   v58 = a1;
-  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9530);
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C9530, &unk_1A34EB7A0);
   MEMORY[0x1EEE9AC00](v69);
   v78 = v57 - v1;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60, &unk_1A34EB720);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v60 = v57 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v4);
@@ -8745,10 +8863,10 @@ uint64_t sub_1A3391F00@<X0>(uint64_t a1@<X8>)
       v31 = v28;
       if (v30 >= v29 >> 1)
       {
-        v31 = sub_1A3298E28(v29 > 1, v30 + 1, 1, v28);
+        v31 = sub_1A3298E28((v29 > 1), v30 + 1, 1, v28);
       }
 
-      *(v31 + 16) = v30 + 1;
+      v31[2] = v30 + 1;
       v28 = v31;
       (*(v76 + 32))(v31 + ((*(v76 + 80) + 32) & ~*(v76 + 80)) + *(v76 + 72) * v30, v17, v8);
       v25 += v26;
@@ -8793,7 +8911,7 @@ uint64_t sub_1A3391F00@<X0>(uint64_t a1@<X8>)
         v44 = v67;
         v43 = v68;
         v67(v68, v40, v8);
-        v75 = sub_1A3394308(&qword_1EB0C2A60, MEMORY[0x1E6968848]);
+        v75 = sub_1A3394308(&qword_1EB0C2A60, MEMORY[0x1E6968848], MEMORY[0x1E6968820]);
         sub_1A34C9390();
         v45 = v74;
         v72 = *v73;
@@ -8814,14 +8932,14 @@ uint64_t sub_1A3391F00@<X0>(uint64_t a1@<X8>)
           break;
         }
 
-        sub_1A3288FDC(v36, &unk_1EB0C5B60);
-        sub_1A3288FDC(v47, &unk_1EB0C5B60);
+        sub_1A3288FDC(v36, &unk_1EB0C5B60, &unk_1A34EB720);
+        sub_1A3288FDC(v47, &unk_1EB0C5B60, &unk_1A34EB720);
         if (v50(v78 + v48, 1, v8) != 1)
         {
           goto LABEL_20;
         }
 
-        sub_1A3288FDC(v78, &unk_1EB0C5B60);
+        sub_1A3288FDC(v78, &unk_1EB0C5B60, &unk_1A34EB720);
 LABEL_14:
         v40 += v66;
         if (!--v33)
@@ -8839,27 +8957,27 @@ LABEL_14:
       if (v50(v51 + v48, 1, v8) == 1)
       {
         v36 = v61;
-        sub_1A3288FDC(v61, &unk_1EB0C5B60);
-        sub_1A3288FDC(v74, &unk_1EB0C5B60);
+        sub_1A3288FDC(v61, &unk_1EB0C5B60, &unk_1A34EB720);
+        sub_1A3288FDC(v74, &unk_1EB0C5B60, &unk_1A34EB720);
         (*v71)(v52, v8);
 LABEL_20:
-        sub_1A3288FDC(v78, &unk_1EB0C9530);
+        sub_1A3288FDC(v78, &unk_1EB0C9530, &unk_1A34EB7A0);
       }
 
       else
       {
         v54 = v63;
         v72(v63, (v51 + v48), v8);
-        sub_1A3394308(&qword_1EB0C2A68, MEMORY[0x1E6968848]);
+        sub_1A3394308(&qword_1EB0C2A68, MEMORY[0x1E6968848], MEMORY[0x1E6968860]);
         v59 = sub_1A34CD040();
         v55 = *v71;
         (*v71)(v54, v8);
         v36 = v61;
-        sub_1A3288FDC(v61, &unk_1EB0C5B60);
-        sub_1A3288FDC(v74, &unk_1EB0C5B60);
+        sub_1A3288FDC(v61, &unk_1EB0C5B60, &unk_1A34EB720);
+        sub_1A3288FDC(v74, &unk_1EB0C5B60, &unk_1A34EB720);
         v55(v52, v8);
         v42 = v62;
-        sub_1A3288FDC(v51, &unk_1EB0C5B60);
+        sub_1A3288FDC(v51, &unk_1EB0C5B60, &unk_1A34EB720);
         if (v59)
         {
           goto LABEL_14;
@@ -8888,7 +9006,7 @@ LABEL_20:
 uint64_t sub_1A33927AC(uint64_t a1, void *a2)
 {
   swift_getKeyPath();
-  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel);
+  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel, &unk_1A34EC368);
   sub_1A34C99A0();
 
   return *(v2 + *a2);
@@ -8897,11 +9015,11 @@ uint64_t sub_1A33927AC(uint64_t a1, void *a2)
 uint64_t sub_1A339284C()
 {
   v1 = *(v0 + OBJC_IVAR____TtC14ContactsUICore33ContactCardHeaderSwiftUIViewModel_contact);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970, qword_1A34DAA90);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1A34DAA30;
   *(v2 + 32) = [objc_opt_self() descriptorForRequiredKeysForStyle_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C7370);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C7370, &qword_1A34E1FE0);
   v3 = sub_1A34CD350();
 
   LODWORD(v2) = [v1 areKeysAvailable_];
@@ -8927,53 +9045,53 @@ uint64_t sub_1A339284C()
 uint64_t sub_1A3392974()
 {
   swift_getKeyPath();
-  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel);
+  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel, &unk_1A34EC368);
   sub_1A34C99A0();
 
   return swift_unknownObjectWeakLoadStrong();
 }
 
-uint64_t sub_1A3392A20@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1A3392A20@<X0>(uint64_t *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel);
+  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel, &unk_1A34EC368);
   sub_1A34C99A0();
 
   result = swift_unknownObjectWeakLoadStrong();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
-uint64_t sub_1A3392AD4()
+uint64_t sub_1A3392AD4(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel);
+  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel, &unk_1A34EC368);
   sub_1A34C9990();
 }
 
-uint64_t sub_1A3392C14@<X0>(uint64_t *a1@<X0>, void *a2@<X4>, _BYTE *a3@<X8>)
+uint64_t sub_1A3392C14@<X0>(uint64_t *a1@<X0>, void *a3@<X4>, _BYTE *a4@<X8>)
 {
-  v5 = *a1;
+  v6 = *a1;
   swift_getKeyPath();
-  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel);
+  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel, &unk_1A34EC368);
   sub_1A34C99A0();
 
-  *a3 = *(v5 + *a2);
+  *a4 = *(v6 + *a3);
   return result;
 }
 
-uint64_t sub_1A3392D14(uint64_t result, void *a2)
+uint64_t sub_1A3392D14(uint64_t result, void *a2, uint64_t a3, uint64_t a4)
 {
-  if (*(v2 + *a2) == (result & 1))
+  if (*(v4 + *a2) == (result & 1))
   {
-    *(v2 + *a2) = result & 1;
+    *(v4 + *a2) = result & 1;
   }
 
   else
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x1EEE9AC00](KeyPath);
-    sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel);
+    sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel, &unk_1A34EC368);
     sub_1A34C9990();
   }
 
@@ -9006,7 +9124,7 @@ id sub_1A3392E18()
 
 id sub_1A3392EA0()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970, qword_1A34DAA90);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1A34DC310;
   v1 = *MEMORY[0x1E695C240];
@@ -9022,7 +9140,7 @@ id sub_1A3392EA0()
 
 id sub_1A3392F28()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970, qword_1A34DAA90);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1A34EC2D0;
   v1 = *MEMORY[0x1E695C348];
@@ -9063,7 +9181,7 @@ void *sub_1A3393034()
   v3 = *(v47 - 8);
   MEMORY[0x1EEE9AC00](v47);
   v41 = &v40 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9540);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C9540, qword_1A34EC408);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v40 - v6;
   v51 = type metadata accessor for SubheaderItem(0);
@@ -9081,7 +9199,7 @@ void *sub_1A3393034()
 
   while (1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C7370);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C7370, &qword_1A34E1FE0);
     v12 = sub_1A34CD350();
     v13 = [v11 areKeysAvailable_];
 
@@ -9186,7 +9304,7 @@ LABEL_17:
 
         sub_1A34C9400();
         sub_1A34C93C0();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970, qword_1A34DAA90);
         v29 = swift_allocObject();
         *(v29 + 16) = v44;
         *(v29 + 32) = swift_getKeyPath();
@@ -9229,7 +9347,7 @@ LABEL_17:
           v37 = v23[3];
           if (v38 >= v37 >> 1)
           {
-            v23 = sub_1A3298E00(v37 > 1, v38 + 1, 1, v23);
+            v23 = sub_1A3298E00((v37 > 1), v38 + 1, 1, v23);
           }
 
           v23[2] = v38 + 1;
@@ -9243,7 +9361,7 @@ LABEL_17:
         (*v50)(v7, 1, 1, v51);
       }
 
-      sub_1A3288FDC(v7, &qword_1EB0C9540);
+      sub_1A3288FDC(v7, &qword_1EB0C9540, qword_1A34EC408);
 LABEL_21:
       ++v3;
       v25 += 3;
@@ -9260,7 +9378,7 @@ LABEL_36:
   return v23;
 }
 
-uint64_t sub_1A33936D4@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+void sub_1A33936D4(unint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v3 = *a1;
   v4 = *a1 & 0xFFFFFFFFFFFFFF8;
@@ -9275,11 +9393,11 @@ LABEL_39:
     v5 = *((*a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v35 = OBJC_IVAR____TtC14ContactsUICore33ContactCardHeaderSwiftUIViewModel_contact;
+  v34 = OBJC_IVAR____TtC14ContactsUICore33ContactCardHeaderSwiftUIViewModel_contact;
   if (v5)
   {
     v6 = 0;
-    v34 = MEMORY[0x1E69E7CC0];
+    v33 = MEMORY[0x1E69E7CC0];
     v7 = v3 & 0xC000000000000001;
     do
     {
@@ -9319,10 +9437,10 @@ LABEL_38:
         }
 
         swift_getKeyPath();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8140);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C8140, &unk_1A34E6D00);
         v10 = sub_1A34CD040();
 
-        v11 = *(a2 + v35);
+        v11 = *(a2 + v34);
         if (v10)
         {
           break;
@@ -9334,7 +9452,7 @@ LABEL_38:
         if (swift_dynamicCast())
         {
           v15 = v3;
-          v17 = v37;
+          v17 = v36;
           goto LABEL_20;
         }
 
@@ -9360,22 +9478,22 @@ LABEL_38:
       v17 = v16;
 
 LABEL_20:
-      v18 = v34;
+      v18 = v33;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v18 = sub_1A32984C4(0, *(v34 + 2) + 1, 1, v34);
+        v18 = sub_1A32984C4(0, *(v33 + 2) + 1, 1, v33);
       }
 
       v20 = *(v18 + 2);
       v19 = *(v18 + 3);
-      v34 = v18;
+      v33 = v18;
       if (v20 >= v19 >> 1)
       {
-        v34 = sub_1A32984C4((v19 > 1), v20 + 1, 1, v18);
+        v33 = sub_1A32984C4((v19 > 1), v20 + 1, 1, v18);
       }
 
-      *(v34 + 2) = v20 + 1;
-      v21 = &v34[16 * v20];
+      *(v33 + 2) = v20 + 1;
+      v21 = &v33[16 * v20];
       *(v21 + 4) = v15;
       *(v21 + 5) = v17;
       v3 = v9;
@@ -9386,11 +9504,11 @@ LABEL_20:
 
   else
   {
-    v34 = MEMORY[0x1E69E7CC0];
+    v33 = MEMORY[0x1E69E7CC0];
   }
 
 LABEL_27:
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6970, qword_1A34DAA90);
   v22 = swift_allocObject();
   *(v22 + 16) = xmmword_1A34E7C90;
   *(v22 + 32) = swift_getKeyPath();
@@ -9401,7 +9519,7 @@ LABEL_27:
   if (v23)
   {
 
-    v24 = [objc_opt_self() stringFromContact:*(a2 + v35) style:1];
+    v24 = [objc_opt_self() stringFromContact:*(a2 + v34) style:1];
     if (v24)
     {
       v25 = v24;
@@ -9426,26 +9544,27 @@ LABEL_27:
 
   if (v30)
   {
-    v26 = sub_1A3393B40(v34);
-    v28 = v32;
+    v26 = sub_1A3393B40(v33);
+    v28 = v31;
 LABEL_34:
 
 LABEL_36:
     *a3 = v26;
     a3[1] = v28;
     a3[2] = v3;
+
+    return;
   }
 
-  if (*(v34 + 2))
+  if (*(v33 + 2))
   {
-    v26 = *(v34 + 4);
-    v28 = *(v34 + 5);
+    v26 = *(v33 + 4);
+    v28 = *(v33 + 5);
 
     goto LABEL_34;
   }
 
   __break(1u);
-  return result;
 }
 
 void *sub_1A3393B40(void *result)
@@ -9483,7 +9602,7 @@ LABEL_14:
 
     if (v6)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C7380);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C7380, &unk_1A34E4290);
       sub_1A329A208();
       return sub_1A34CD010();
     }
@@ -9503,10 +9622,10 @@ LABEL_14:
   }
 }
 
-uint64_t sub_1A3393D0C()
+uint64_t sub_1A3393D0C(uint64_t a1)
 {
   result = sub_1A34C99E0();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -9522,7 +9641,7 @@ uint64_t sub_1A3393DCC()
 {
   v1 = v0;
   swift_getKeyPath();
-  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel);
+  sub_1A3394308(&qword_1EB0C1530, type metadata accessor for ContactCardHeaderSwiftUIViewModel, &unk_1A34EC368);
   sub_1A34C99A0();
 
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -9625,7 +9744,7 @@ uint64_t sub_1A33942AC(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_1A3394308(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1A3394308(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9640,7 +9759,7 @@ uint64_t sub_1A3394308(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_1A3394350(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C5B60, &unk_1A34EB720);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -9705,147 +9824,28 @@ id sub_1A33944DC(void *a1, void *a2)
   return v8;
 }
 
-void sub_1A3394610()
+void sub_1A3394610(uint64_t a1)
 {
   sub_1A34C93B0();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_1A3394694();
-    if (v1 <= 0x3F)
+    sub_1A3394694(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_1A3394694()
+void sub_1A3394694(uint64_t a1)
 {
   if (!qword_1EB0C0268)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8140);
-    v0 = sub_1A34CD3C0();
-    if (!v1)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB0C8140, &unk_1A34E6D00);
+    v1 = sub_1A34CD3C0();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EB0C0268);
+      atomic_store(v1, &qword_1EB0C0268);
     }
   }
-}
-
-uint64_t type metadata accessor for DetailsLabelText()
-{
-  result = qword_1EB0C2760;
-  if (!qword_1EB0C2760)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-void sub_1A339479C()
-{
-  sub_1A33813A4();
-  if (v0 <= 0x3F)
-  {
-    sub_1A31EF4D8();
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-    }
-  }
-}
-
-double sub_1A3394844@<D0>(uint64_t a1@<X8>)
-{
-  sub_1A34546F8(v29);
-  sub_1A31EE4BC(v30, v28);
-  sub_1A3292144(v29);
-  __swift_project_boxed_opaque_existential_1(v28, v28[3]);
-  v3 = (v1 + *(type metadata accessor for DetailsLabelText() + 24));
-  v4 = v3[1];
-  v27[0] = *v3;
-  v27[1] = v4;
-  sub_1A328A95C();
-
-  v5 = sub_1A34CBE30();
-  v7 = v6;
-  v9 = v8;
-  sub_1A34546F8(v27);
-  sub_1A34C9010();
-  sub_1A3292144(v27);
-  v10 = sub_1A34CBE10();
-  v12 = v11;
-  v14 = v13;
-  sub_1A328A9B0(v5, v7, v9 & 1);
-
-  v15 = sub_1A34CBDF0();
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  sub_1A328A9B0(v10, v12, v14 & 1);
-
-  KeyPath = swift_getKeyPath();
-  __swift_destroy_boxed_opaque_existential_0(v28);
-  sub_1A34CCC90();
-  sub_1A34CADA0();
-  *(&v31[1] + 7) = v29[1];
-  *(v31 + 7) = v29[0];
-  *(&v31[3] + 7) = v30[1];
-  *(&v31[4] + 7) = v30[2];
-  *(&v31[5] + 7) = v30[3];
-  *(&v31[6] + 7) = v30[4];
-  *(&v31[2] + 7) = v30[0];
-  v23 = v31[5];
-  *(a1 + 105) = v31[4];
-  *(a1 + 121) = v23;
-  *(a1 + 137) = v31[6];
-  v24 = v31[1];
-  *(a1 + 41) = v31[0];
-  *(a1 + 57) = v24;
-  result = *&v31[2];
-  v26 = v31[3];
-  *(a1 + 73) = v31[2];
-  *a1 = v15;
-  *(a1 + 8) = v17;
-  *(a1 + 16) = v19 & 1;
-  *(a1 + 24) = v21;
-  *(a1 + 32) = KeyPath;
-  *(a1 + 40) = 0;
-  *(a1 + 152) = *(&v31[6] + 15);
-  *(a1 + 89) = v26;
-  return result;
-}
-
-unint64_t sub_1A3394ABC()
-{
-  result = qword_1EB0C0BD0;
-  if (!qword_1EB0C0BD0)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&unk_1EB0C9C90);
-    sub_1A338CBF8();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB0C0BD0);
-  }
-
-  return result;
-}
-
-uint64_t sub_1A3394B48()
-{
-  result = sub_1A3332448(MEMORY[0x1E69E7CC0], 0, 0, 0x73746E65636552, 0xE700000000000000);
-  qword_1EB0EDE38 = result;
-  unk_1EB0EDE40 = v1;
-  return result;
-}
-
-uint64_t sub_1A3394BB4()
-{
-  if (qword_1EB0C49D8 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = qword_1EB0EDE38;
-
-  return v0;
 }

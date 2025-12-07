@@ -595,108 +595,11 @@ uint64_t __43__RMManagedKeychainController_modifierLock__block_invoke()
 
 - (void)initWithScope:(NSObject *)a3 personaID:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2114;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_4_0(&dword_1E1168000, a2, a3, "Created with scope: %ld personaID: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)hasDataForAssetKey:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "hasDataForAssetKey: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)storePassword:userName:assetKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "storePassword: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)storePEMData:assetKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "storePEMData: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)storePKCS1Data:assetKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "storePKCS1Data: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)storePKCS12Data:password:assetKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "storePKCS12Data identity: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)storeSCEPIdentityURL:caInstanceName:caFingerprint:caCapabilities:challenge:subject:keySize:usageFlags:subjectAltName:retries:retryDelay:assetKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "storeSCEPIdentity identity: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)storeACMEDirectoryURL:clientIdentifier:keySize:keyType:hardwareBound:subject:subjectAltName:usageFlags:extendedKeyUsage:attest:isUserEnrollment:assetKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "storeACMEIdentity identity: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)assignPasswordForAssetKey:toConfigurationKey:access:group:returnUserName:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_0(&dword_1E1168000, v0, v1, "assignPasswordForAssetKey: %{public}@ configuration: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)assignCertificateForAssetKey:toConfigurationKey:access:group:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_0(&dword_1E1168000, v0, v1, "assignCertificateForAssetKey: %{public}@ configuration: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)assignIdentityForAssetKey:configurationKey:access:group:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_4_0(&dword_1E1168000, v0, v1, "assignIdentityForAssetKey: %{public}@ configuration: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)unassignAllAssetsFromConfigurationKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "unassignAllAssetsFromConfigurationKey: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removedKeychainItemsForAssetKey:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_2(&dword_1E1168000, v0, v1, "removedKeychainItemsForAssetKey: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2114;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_4_0(&dword_1E1168000, a2, a3, "Created with scope: %ld personaID: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)debugState
@@ -708,11 +611,10 @@ uint64_t __43__RMManagedKeychainController_modifierLock__block_invoke()
 
 + (void)removeAssetsNotMatchingStoreIdentifiers:(void *)a1 scope:(NSObject *)a2 personaID:error:.cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1E1168000, a2, OS_LOG_TYPE_DEBUG, "removeAssetsNotMatchingStoreIdentifiers with %lu store identifiers", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1E1168000, a2, OS_LOG_TYPE_DEBUG, "removeAssetsNotMatchingStoreIdentifiers with %lu store identifiers", v3, 0xCu);
 }
 
 @end

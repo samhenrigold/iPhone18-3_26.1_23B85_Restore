@@ -83,15 +83,15 @@ void __102__CKRecord_BRCSerializationAdditions__processAppLibraryDataWithMovedZo
 
 void __84__CKRecord_BRCContainerMetadataAdditions__brc_containerMetadataRecordWithContainer___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()) && ([v6 isFileURL]& 1) != 0)
   {
-    v14 = 0;
-    v7 = [v6 checkResourceIsReachableAndReturnError:&v14];
-    v8 = v14;
+    v13 = 0;
+    v7 = [v6 checkResourceIsReachableAndReturnError:&v13];
+    v8 = v13;
     if (v7)
     {
       v9 = [objc_alloc(MEMORY[0x277CBC190]) initWithFileURL:v6];
@@ -106,16 +106,16 @@ void __84__CKRecord_BRCContainerMetadataAdditions__brc_containerMetadataRecordWi
     else
     {
       v9 = brc_bread_crumbs();
-      v13 = brc_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v12 = brc_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        v16 = v6;
-        v17 = 2112;
-        v18 = v8;
-        v19 = 2112;
-        v20 = v9;
-        _os_log_fault_impl(&dword_223E7A000, v13, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: icon doesn't exist anymore at %@ - %@%@", buf, 0x20u);
+        v15 = v6;
+        v16 = 2112;
+        v17 = v8;
+        v18 = 2112;
+        v19 = v9;
+        _os_log_fault_impl(&dword_223E7A000, v12, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: icon doesn't exist anymore at %@ - %@%@", buf, 0x20u);
       }
     }
   }
@@ -127,16 +127,14 @@ void __84__CKRecord_BRCContainerMetadataAdditions__brc_containerMetadataRecordWi
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412802;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v8;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v6;
+      v18 = 2112;
+      v19 = v8;
       _os_log_fault_impl(&dword_223E7A000, v9, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid key %@ and obj %@%@", buf, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

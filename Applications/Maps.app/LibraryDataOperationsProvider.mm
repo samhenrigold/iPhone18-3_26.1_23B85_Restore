@@ -50,7 +50,7 @@
 
 - (void)saveNote:(NSString *)note libraryPlaceItem:(_TtP4Maps26LibraryPlaceItemCompatible_ *)item completionHandler:(id)handler
 {
-  v9 = sub_1000CE6B8(&unk_10190BA50);
+  v9 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -119,7 +119,7 @@ LABEL_6:
 - (void)deleteFromLibraryWithPlaceItem:(id)item viewControllerForPresentingAlert:(id)alert completion:(id)completion
 {
   ObjectType = swift_getObjectType();
-  v10 = sub_1000CE6B8(&unk_10190BA50);
+  v10 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v10 - 8);
   v12 = &v19 - v11;
   v13 = _Block_copy(completion);
@@ -155,7 +155,7 @@ LABEL_6:
 - (void)deleteFromLibraryWithPlaceItems:(id)items viewControllerForPresentingAlert:(id)alert completion:(id)completion
 {
   v7 = _Block_copy(completion);
-  sub_1000CE6B8(&qword_1019151C0);
+  sub_1000CE6B8(&qword_1019151C0, &qword_101209C80);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (v7)
   {
@@ -172,13 +172,13 @@ LABEL_6:
   alertCopy = alert;
   selfCopy = self;
   sub_10048A2E0(v8, alertCopy, v7, v9);
-  sub_1000588AC(v7);
+  sub_1000588AC(v7, v9);
 }
 
 - (void)deleteFromLibraryWithPlaceItems:(id)items completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  sub_1000CE6B8(&qword_1019151C0);
+  sub_1000CE6B8(&qword_1019151C0, &qword_101209C80);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (v5)
   {
@@ -194,12 +194,12 @@ LABEL_6:
 
   selfCopy = self;
   sub_10048A910(v6, v5, v7);
-  sub_1000588AC(v5);
+  sub_1000588AC(v5, v7);
 }
 
 - (void)deletePlacesMatchingMapItem:(id)item
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -233,7 +233,7 @@ LABEL_6:
   alertCopy = alert;
   selfCopy = self;
   sub_1004919D0(dataCopy, alertCopy, v8, v9);
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (void)existingPlaceItemForMapItem:(id)item completion:(id)completion
@@ -249,7 +249,7 @@ LABEL_6:
 
 - (void)existingPlaceItemsForMapItem:(MKMapItem *)item completionHandler:(id)handler
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -276,7 +276,7 @@ LABEL_6:
 
 - (void)updateSavedPlaceItemsMatchingMapItem:(id)item withStorageFrom:(id)from
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   itemCopy = item;
@@ -307,7 +307,7 @@ LABEL_6:
 
 - (void)deleteFavoriteItem:(id)item
 {
-  v4 = sub_1000CE6B8(&unk_10190BA50);
+  v4 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   v7 = type metadata accessor for TaskPriority();
@@ -322,7 +322,7 @@ LABEL_6:
 
 - (void)saveAsFavoriteWithCollectionPlaceItem:(id)item
 {
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -346,7 +346,7 @@ LABEL_6:
 
 - (void)alertMessageForDeletingPlaceItem:(_TtP4Maps26LibraryPlaceItemCompatible_ *)item completionHandler:(id)handler
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

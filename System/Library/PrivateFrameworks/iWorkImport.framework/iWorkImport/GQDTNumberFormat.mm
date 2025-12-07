@@ -1,8 +1,12 @@
 @interface GQDTNumberFormat
++ (id)numberFormatWithValueType:(int)type formatString:(id)string decimalPlaces:(unsigned __int16)places currencyCode:(id)code useAccountingStyle:(BOOL)style negativeStyle:(int)negativeStyle showThousandsSeparator:(BOOL)separator fractionAccuracy:(int)self0 suffixString:(__CFString *)self1;
+- (GQDTNumberFormat)initWithValueType:(int)type formatString:(id)string decimalPlaces:(unsigned __int16)places currencyCode:(id)code useAccountingStyle:(BOOL)style negativeStyle:(int)negativeStyle showThousandsSeparator:(BOOL)separator fractionAccuracy:(int)self0 suffixString:(__CFString *)self1 scaleFactor:(double)self2 base:(unsigned __int16)self3 basePlaces:(unsigned __int16)self4 baseUseMinusSign:(BOOL)self5 isCustom:(BOOL)self6 interstitialStrings:(id)self7 interstitialStringInsertionIndexes:(id)self8 indexFromRightOfLastDigitPlaceholder:(unsigned __int16)self9 minimumIntegerWidth:(unsigned __int8)width decimalWidth:(unsigned __int8)decimalWidth numberOfNonSpaceIntegerPlaceholderDigits:(unsigned __int8)digits numberOfNonSpaceDecimalPlaceholderDigits:(unsigned __int8)placeholderDigits isTextFormat:(BOOL)format formatName:(id)name;
 - (__CFString)createStringFromDouble:(double)double;
 - (id)baseStringFromDouble:(double)double;
 - (id)customNumberFormatTokens;
 - (id)fractionStringFromDouble:(double)double;
+- (id)numberFormatBySettingNegativeStyle:(int)style;
+- (id)numberFormatBySettingValueType:(int)type;
 - (id)stringFromDouble:(double)double;
 - (int)readAttributesFromReader:(_xmlTextReader *)reader;
 - (void)dealloc;
@@ -432,6 +436,20 @@ LABEL_9:
   return v6;
 }
 
++ (id)numberFormatWithValueType:(int)type formatString:(id)string decimalPlaces:(unsigned __int16)places currencyCode:(id)code useAccountingStyle:(BOOL)style negativeStyle:(int)negativeStyle showThousandsSeparator:(BOOL)separator fractionAccuracy:(int)self0 suffixString:(__CFString *)self1
+{
+  BYTE6(v15) = 0;
+  *(&v15 + 2) = 0;
+  LOWORD(v15) = 0;
+  WORD2(v14) = 1;
+  LODWORD(v14) = 10;
+  HIDWORD(v13) = accuracy;
+  LOBYTE(v13) = separator;
+  v11 = [[self alloc] initWithValueType:*&type formatString:string decimalPlaces:places currencyCode:code useAccountingStyle:style negativeStyle:*&negativeStyle showThousandsSeparator:1.0 fractionAccuracy:v13 suffixString:suffixString scaleFactor:v14 base:0 basePlaces:0 baseUseMinusSign:v15 isCustom:0 interstitialStrings:? interstitialStringInsertionIndexes:? indexFromRightOfLastDigitPlaceholder:? minimumIntegerWidth:? decimalWidth:? numberOfNonSpaceIntegerPlaceholderDigits:? numberOfNonSpaceDecimalPlaceholderDigits:? isTextFormat:? formatName:?];
+
+  return v11;
+}
+
 - (int)readAttributesFromReader:(_xmlTextReader *)reader
 {
   self->mCurrencyCode = sub_4294C(reader, qword_A35E8, "format-currency-code");
@@ -509,6 +527,162 @@ LABEL_19:
   self->mDecimalWidth = sub_42468(reader, qword_A35E8, "decimal-width", 0);
   self->mSuffixString = sub_4294C(reader, qword_A35E8, "format-suffix");
   return v6;
+}
+
+- (GQDTNumberFormat)initWithValueType:(int)type formatString:(id)string decimalPlaces:(unsigned __int16)places currencyCode:(id)code useAccountingStyle:(BOOL)style negativeStyle:(int)negativeStyle showThousandsSeparator:(BOOL)separator fractionAccuracy:(int)self0 suffixString:(__CFString *)self1 scaleFactor:(double)self2 base:(unsigned __int16)self3 basePlaces:(unsigned __int16)self4 baseUseMinusSign:(BOOL)self5 isCustom:(BOOL)self6 interstitialStrings:(id)self7 interstitialStringInsertionIndexes:(id)self8 indexFromRightOfLastDigitPlaceholder:(unsigned __int16)self9 minimumIntegerWidth:(unsigned __int8)width decimalWidth:(unsigned __int8)decimalWidth numberOfNonSpaceIntegerPlaceholderDigits:(unsigned __int8)digits numberOfNonSpaceDecimalPlaceholderDigits:(unsigned __int8)placeholderDigits isTextFormat:(BOOL)format formatName:(id)name
+{
+  styleCopy = style;
+  v48.receiver = self;
+  placesCopy = places;
+  v30 = *&type;
+  v48.super_class = GQDTNumberFormat;
+  v31 = [(GQDTNumberFormat *)&v48 init];
+  if (!v31)
+  {
+    return v31;
+  }
+
+  v46 = styleCopy;
+  if (custom)
+  {
+    v31->mFormatString = string;
+    v31->mFormatStringRequiresSuppressionOfMinusSign = 0;
+    v32 = [string length];
+    if (v32 >= 1)
+    {
+      v33 = 0;
+      v34 = v32 & 0x7FFFFFFF;
+      do
+      {
+        v35 = [string characterAtIndex:v33];
+        if (v35 != 9 && v35 == word_9CC18)
+        {
+          v31->mRequiresFractionReplacement = 1;
+        }
+
+        ++v33;
+      }
+
+      while (v34 != v33);
+    }
+  }
+
+  else
+  {
+    if (styleCopy)
+    {
+      negativeStyleCopy2 = 2;
+    }
+
+    else
+    {
+      negativeStyleCopy2 = negativeStyle;
+    }
+
+    if (v30 != 1)
+    {
+      negativeStyleCopy2 = negativeStyle;
+    }
+
+    if (v30 == 3)
+    {
+      v37 = 0;
+    }
+
+    else
+    {
+      v37 = negativeStyleCopy2;
+    }
+
+    if (string)
+    {
+      v38 = [GQNumberFormatter formatString:string transformedForNegativeStyle:v37];
+    }
+
+    else
+    {
+      v38 = [GQNumberFormatter defaultFormatStringForValueType:v30 negativeStyle:v37];
+    }
+
+    v31->mFormatString = v38;
+    v31->mFormatStringRequiresSuppressionOfMinusSign = negativeStyle == 1;
+  }
+
+  if (code)
+  {
+    codeCopy = code;
+  }
+
+  else
+  {
+    codeCopy = +[GQNumberFormatter currentLocaleCurrencyCode];
+  }
+
+  v31->mCurrencyCode = codeCopy;
+  v31->mDecimalPlaces = placesCopy;
+  v31->mValueType = v30;
+  v31->mNegativeStyle = negativeStyle;
+  v31->mShowThousandsSeparator = separator;
+  v31->mUseAccountingStyle = v46;
+  v31->mFractionAccuracy = accuracy;
+  v31->mScaleFactor = factor;
+  v31->mIsCustom = custom;
+  v31->mInterstitialStrings = strings;
+  v31->mInterstitialStringInsertionIndexes = indexes;
+  v31->mIsTextFormat = format;
+  v31->mIndexFromRightOfLastDigitPlaceholder = placeholder;
+  v31->mMinimumIntegerWidth = width;
+  v31->mDecimalWidth = decimalWidth;
+  v31->mNumberOfNonSpaceIntegerPlaceholderDigits = digits;
+  v31->mNumberOfNonSpaceDecimalPlaceholderDigits = placeholderDigits;
+  v31->mBase = base;
+  v31->mBasePlaces = basePlaces;
+  v31->mBaseUsesMinusSign = sign;
+  if (custom)
+  {
+    customNumberFormatTokens = [(GQDTNumberFormat *)v31 customNumberFormatTokens];
+    if (customNumberFormatTokens && (v41 = customNumberFormatTokens, [customNumberFormatTokens count]) && (objc_msgSend(v41, "count") != &dword_0 + 1 || objc_msgSend(objc_msgSend(v41, "objectAtIndex:", 0), "isSpecialCustomNumberFormatToken")))
+    {
+      v31->mFormatContainsSpecialTokens = 1;
+      if ([v41 count] < 1)
+      {
+        goto LABEL_37;
+      }
+
+      v42 = 0;
+      v43 = 87;
+      while (1)
+      {
+        v44 = 1;
+        if ([objc_msgSend(v41 objectAtIndex:{v42), "isSpecialCustomNumberFormatTokenOfType:", 1}])
+        {
+          break;
+        }
+
+        if (++v42 >= [v41 count])
+        {
+          goto LABEL_37;
+        }
+      }
+    }
+
+    else
+    {
+      v44 = 0;
+      v43 = 86;
+    }
+
+    *(&v31->super.isa + v43) = v44;
+  }
+
+LABEL_37:
+  if (suffixString)
+  {
+    v31->mSuffixString = suffixString;
+    CFRetain(suffixString);
+  }
+
+  return v31;
 }
 
 - (id)fractionStringFromDouble:(double)double
@@ -775,6 +949,64 @@ LABEL_19:
   }
 
   return v12;
+}
+
+- (id)numberFormatBySettingNegativeStyle:(int)style
+{
+  v3 = *&style;
+  v5 = objc_alloc(objc_opt_class());
+  valueType = [(GQDTNumberFormat *)self valueType];
+  formatString = [(GQDTNumberFormat *)self formatString];
+  mDecimalPlaces_low = LOWORD(self->mDecimalPlaces);
+  currencyCode = [(GQDTNumberFormat *)self currencyCode];
+  mUseAccountingStyle = self->mUseAccountingStyle;
+  showThousandsSeparator = [(GQDTNumberFormat *)self showThousandsSeparator];
+  BYTE6(v16) = self->mIsTextFormat;
+  WORD2(v16) = *&self->mNumberOfNonSpaceIntegerPlaceholderDigits;
+  WORD1(v16) = *&self->mMinimumIntegerWidth;
+  LOWORD(v16) = self->mIndexFromRightOfLastDigitPlaceholder;
+  BYTE5(v15) = self->mIsCustom;
+  BYTE4(v15) = 1;
+  LODWORD(v15) = 10;
+  HIDWORD(v14) = self->mFractionAccuracy;
+  LOBYTE(v14) = showThousandsSeparator;
+  v12 = [v5 initWithValueType:valueType formatString:formatString decimalPlaces:mDecimalPlaces_low currencyCode:currencyCode useAccountingStyle:mUseAccountingStyle negativeStyle:v3 showThousandsSeparator:self->mScaleFactor fractionAccuracy:v14 suffixString:self->mSuffixString scaleFactor:v15 base:self->mInterstitialStrings basePlaces:self->mInterstitialStringInsertionIndexes baseUseMinusSign:v16 isCustom:0 interstitialStrings:? interstitialStringInsertionIndexes:? indexFromRightOfLastDigitPlaceholder:? minimumIntegerWidth:? decimalWidth:? numberOfNonSpaceIntegerPlaceholderDigits:? numberOfNonSpaceDecimalPlaceholderDigits:? isTextFormat:? formatName:?];
+
+  return v12;
+}
+
+- (id)numberFormatBySettingValueType:(int)type
+{
+  v3 = *&type;
+  valueType = [(GQDTNumberFormat *)self valueType];
+  if ((v3 - 1) <= 1 && valueType == v3)
+  {
+    v6 = [(GQDTNumberFormat *)self copy];
+
+    return v6;
+  }
+
+  else
+  {
+    mDecimalPlaces = self->mDecimalPlaces;
+    currencyCode = [(GQDTNumberFormat *)self currencyCode];
+    if (v3 == 1)
+    {
+      mDecimalPlaces = +[GQNumberFormatter defaultDecimalPlacesForCurrencyCode:](GQNumberFormatter, "defaultDecimalPlacesForCurrencyCode:", +[GQNumberFormatter currentLocaleCurrencyCode]);
+      v10 = 0;
+    }
+
+    else
+    {
+      v10 = currencyCode;
+    }
+
+    v11 = ((v3 - 1) < 2) | [(GQDTNumberFormat *)self showThousandsSeparator];
+    v12 = objc_opt_class();
+    HIDWORD(v13) = self->mFractionAccuracy;
+    LOBYTE(v13) = v11 & 1;
+    return [v12 numberFormatWithValueType:v3 formatString:0 decimalPlaces:mDecimalPlaces currencyCode:v10 useAccountingStyle:self->mUseAccountingStyle negativeStyle:self->mNegativeStyle showThousandsSeparator:v13 fractionAccuracy:self->mSuffixString suffixString:?];
+  }
 }
 
 - (id)customNumberFormatTokens

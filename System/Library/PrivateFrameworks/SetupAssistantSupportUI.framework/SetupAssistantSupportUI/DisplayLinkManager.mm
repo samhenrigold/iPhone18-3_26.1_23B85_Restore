@@ -15,11 +15,12 @@
   v8 = *(&selfCopy->super.isa + OBJC_IVAR____TtC23SetupAssistantSupportUI18DisplayLinkManager_frameUpdateBlock);
   if (v8)
   {
-    v9 = v6 - v7;
+    v9 = *&selfCopy->displayLink[OBJC_IVAR____TtC23SetupAssistantSupportUI18DisplayLinkManager_frameUpdateBlock];
+    v10 = v6 - v7;
 
-    v8(v10, v9);
+    v8(v11, v10);
 
-    sub_265A56D6C(v8);
+    sub_265A56D6C(v8, v9);
   }
 
   else

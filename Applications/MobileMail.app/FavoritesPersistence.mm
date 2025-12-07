@@ -187,7 +187,7 @@
 
       else
       {
-        v41 = sub_100007718();
+        v41 = sub_100007718(FavoritesPersistence);
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
@@ -404,7 +404,7 @@ LABEL_7:
 
   if (integerValue == 2)
   {
-    v7 = sub_100007718();
+    v7 = sub_100007718(FavoritesPersistence);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100487E1C(v7);
@@ -449,7 +449,7 @@ LABEL_7:
 - (void)_mailboxListingChanged:(id)changed
 {
   changedCopy = changed;
-  v6 = sub_100007718();
+  v6 = sub_100007718(FavoritesPersistence);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);

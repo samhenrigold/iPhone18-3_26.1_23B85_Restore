@@ -26,18 +26,18 @@
 {
   v18 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(completionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     request = self->_request;
-    v7 = v5;
+    v8 = v6;
     urls = [(CPSValidationRequest *)request urls];
     bundleIdentifiers = [(CPSValidationRequest *)self->_request bundleIdentifiers];
     *buf = 138478083;
     v15 = urls;
     v16 = 2113;
     v17 = bundleIdentifiers;
-    _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "Client requests validation for URLs: %{private}@, bundleIDs: %{private}@", buf, 0x16u);
+    _os_log_impl(&dword_2436ED000, v8, OS_LOG_TYPE_INFO, "Client requests validation for URLs: %{private}@, bundleIDs: %{private}@", buf, 0x16u);
   }
 
   v12[0] = MEMORY[0x277D85DD0];
@@ -46,10 +46,8 @@
   v12[3] = &unk_278DCE4F8;
   v12[4] = self;
   v13 = completionCopy;
-  v10 = completionCopy;
+  v11 = completionCopy;
   [CPSClipInvocationPolicy requestAccountPolicyForClipMetadata:0 withCompletion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __42__CPSURLValidator_validateWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -111,15 +109,15 @@ void __42__CPSURLValidator_validateWithCompletion___block_invoke(uint64_t a1, vo
 
 void __42__CPSURLValidator_validateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 invocationPolicy];
   if ([v4 isEligible])
   {
 
 LABEL_4:
-    v7 = [v3 clipBundleID];
-    [*(a1 + 48) setObject:v7 forKeyedSubscript:*(a1 + 32)];
+    v9 = [v3 clipBundleID];
+    [*(a1 + 48) setObject:v9 forKeyedSubscript:*(a1 + 32)];
 
     goto LABEL_5;
   }
@@ -132,22 +130,20 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v9 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v7, v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v12 = 138478083;
-    v13 = v10;
-    v14 = 2113;
-    v15 = v11;
-    _os_log_impl(&dword_2436ED000, v9, OS_LOG_TYPE_INFO, "Failed validation for URL: %{private}@, bundleID: %{private}@", &v12, 0x16u);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    v13 = 138478083;
+    v14 = v11;
+    v15 = 2113;
+    v16 = v12;
+    _os_log_impl(&dword_2436ED000, v10, OS_LOG_TYPE_INFO, "Failed validation for URL: %{private}@, bundleID: %{private}@", &v13, 0x16u);
   }
 
 LABEL_5:
   dispatch_group_leave(*(a1 + 56));
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_validateURL:(id)l forBundleID:(id)d policy:(id)policy completion:(id)completion
@@ -185,8 +181,7 @@ uint64_t __62__CPSURLValidator__validateURL_forBundleID_policy_completion___bloc
     {
 
 LABEL_6:
-      v7 = *(a1 + 32);
-      v8 = *(*(a1 + 40) + 16);
+      v7 = *(*(a1 + 40) + 16);
       goto LABEL_8;
     }
 
@@ -199,10 +194,10 @@ LABEL_6:
     }
   }
 
-  v8 = *(*(a1 + 40) + 16);
+  v7 = *(*(a1 + 40) + 16);
 LABEL_8:
 
-  return v8();
+  return v7();
 }
 
 @end

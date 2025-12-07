@@ -357,7 +357,7 @@ LABEL_22:
   return v14;
 }
 
-uint64_t __42__VCAudioRelay_startRelayIO_otherRelayIO___block_invoke(uint64_t a1)
+void *__42__VCAudioRelay_startRelayIO_otherRelayIO___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) startCompletionHandler];
   if (result)
@@ -1003,7 +1003,7 @@ LABEL_2:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Periodic health print already initialized", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Periodic health print already initialized", v2, v3, v4, v5);
 }
 
 void __40__VCAudioRelay_startPeriodicHealthPrint__block_invoke(uint64_t a1)
@@ -1089,9 +1089,10 @@ LABEL_9:
 {
   v3 = pthread_mutex_trylock(&self->_clientIOInfo.lock);
   v4 = pthread_mutex_trylock(&self->_remoteIOInfo.lock);
+  v6 = v4;
   if (v4)
   {
-    v5 = 0;
+    v7 = 0;
     if (v3)
     {
       goto LABEL_3;
@@ -1099,12 +1100,12 @@ LABEL_9:
 
 LABEL_6:
     relayIO = self->_clientIOInfo.relayIO;
-    v8 = micro();
-    [(VCAudioRelay *)self forwardSamplesFromIO:v5 toIO:relayIO withConverter:self->_remoteToClientConverter withHostTime:?];
-    [(VCAudioRelay *)self forwardSamplesFromIO:relayIO toIO:v5 withConverter:self->_clientToRemoteConverter withHostTime:v8];
+    v10 = micro(v4, v5);
+    [(VCAudioRelay *)self forwardSamplesFromIO:v7 toIO:relayIO withConverter:self->_remoteToClientConverter withHostTime:?];
+    [(VCAudioRelay *)self forwardSamplesFromIO:relayIO toIO:v7 withConverter:self->_clientToRemoteConverter withHostTime:v10];
     [(VCAudioRelay *)self updateRealTimeStats];
     pthread_mutex_unlock(&self->_clientIOInfo.lock);
-    if (v4)
+    if (v6)
     {
       return;
     }
@@ -1112,18 +1113,18 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v5 = self->_remoteIOInfo.relayIO;
+  v7 = self->_remoteIOInfo.relayIO;
   if (!v3)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  v6 = micro();
-  [(VCAudioRelay *)self forwardSamplesFromIO:v5 toIO:0 withConverter:self->_remoteToClientConverter withHostTime:?];
-  [(VCAudioRelay *)self forwardSamplesFromIO:0 toIO:v5 withConverter:self->_clientToRemoteConverter withHostTime:v6];
+  v8 = micro(v4, v5);
+  [(VCAudioRelay *)self forwardSamplesFromIO:v7 toIO:0 withConverter:self->_remoteToClientConverter withHostTime:?];
+  [(VCAudioRelay *)self forwardSamplesFromIO:0 toIO:v7 withConverter:self->_clientToRemoteConverter withHostTime:v8];
   [(VCAudioRelay *)self updateRealTimeStats];
-  if (v4)
+  if (v6)
   {
     return;
   }
@@ -1151,7 +1152,7 @@ LABEL_7:
   pthread_mutex_lock(&self->_clientIOInfo.lock);
   v5 = self->_clientIOInfo.relayIO;
   pthread_mutex_unlock(&self->_clientIOInfo.lock);
-  [(VCAudioRelay *)self unlock];
+  [(VCAudioRelay *)self unlock:*&remoteCodecInfo.codecType];
   [(VCAudioRelayIO *)v5 didUpdateBasebandCodec:&remoteCodecInfo];
 }
 
@@ -1159,14 +1160,14 @@ LABEL_7:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Trying to set the IO duration while relay is running", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Trying to set the IO duration while relay is running", v2, v3, v4, v5);
 }
 
 - (void)startRelayIO:otherRelayIO:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to restart the other IO", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to restart the other IO", v2, v3, v4, v5);
 }
 
 - (void)startRelayIO:(uint64_t)a1 otherRelayIO:(_BYTE *)a2 .cold.2(uint64_t a1, _BYTE *a2)
@@ -1219,14 +1220,14 @@ LABEL_7:
   *a1 = 1;
 }
 
-- (uint64_t)startRelayIO:(uint64_t *)a1 otherRelayIO:.cold.5(uint64_t *a1)
+- (void)startRelayIO:(void *)a1 otherRelayIO:.cold.5(void *a1)
 {
   result = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32016 detailCode:0 description:@"Invalid IO"];
   *a1 = result;
   return result;
 }
 
-- (uint64_t)startRelayIO:(uint64_t *)a1 otherRelayIO:.cold.6(uint64_t *a1)
+- (void)startRelayIO:(void *)a1 otherRelayIO:.cold.6(void *a1)
 {
   result = [MEMORY[0x1E696ABC0] AVConferenceServiceError:32016 detailCode:0 description:@"Can't start: relay IO is nil"];
   *a1 = result;
@@ -1254,7 +1255,7 @@ LABEL_7:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to restart the other IO", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to restart the other IO", v2, v3, v4, v5);
 }
 
 - (void)stopRelayIO:otherRelayIO:.cold.3()
@@ -1266,7 +1267,7 @@ LABEL_7:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Can't stop: invalid IO", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Can't stop: invalid IO", v2, v3, v4, v5);
     }
   }
 }
@@ -1280,7 +1281,7 @@ LABEL_7:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Can't stop: relay IO is nil", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Can't stop: relay IO is nil", v2, v3, v4, v5);
     }
   }
 }
@@ -1289,28 +1290,28 @@ LABEL_7:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to start client IO", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to start client IO", v2, v3, v4, v5);
 }
 
 - (void)startRemoteIO
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to start remote IO", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to start remote IO", v2, v3, v4, v5);
 }
 
 - (void)setNetworkClockID:withError:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Trying to set network clock while relay is running", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Trying to set network clock while relay is running", v2, v3, v4, v5);
 }
 
 - (void)setNetworkClockID:withError:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create PTP clock", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create PTP clock", v2, v3, v4, v5);
 }
 
 - (void)newAudioConverterWithInputFormat:outputFormat:withError:.cold.1()

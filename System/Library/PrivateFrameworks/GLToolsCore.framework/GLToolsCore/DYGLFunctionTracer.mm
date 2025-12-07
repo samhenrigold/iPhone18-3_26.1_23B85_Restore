@@ -370,7 +370,7 @@ LABEL_5:
 
 LABEL_4:
     LODWORD(v22) = GPUTools::FD::Argument::ViewAsGLObjectName((function + 24));
-    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&self->_programNames.__table_.__bucket_list_.__ptr_, &v22);
+    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(&self->_programNames, &v22, &v22);
     goto LABEL_5;
   }
 

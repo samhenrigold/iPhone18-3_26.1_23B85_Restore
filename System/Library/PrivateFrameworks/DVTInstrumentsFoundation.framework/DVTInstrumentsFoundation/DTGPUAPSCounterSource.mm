@@ -46,7 +46,7 @@
 
 - (BOOL)request:(unint64_t)request vendorFeatures:(id)features
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   if (self->_source && self->_sourceGroup)
   {
@@ -86,8 +86,8 @@
     v12 = MEMORY[0x277D0AF30];
     grcTrigger = [(DTGPUAPSConfig *)self->_apsConfig grcTrigger];
     v14 = [v12 selectWithName:@"KickAndStateTracing" options:grcTrigger];
-    v33[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v32[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
 
     if (([(GPURawCounterSource *)self->_source requestTriggers:v15 firstErrorIndex:0]& 1) != 0 && ([(DTGPUAPSConfig *)self->_apsConfig grcOptions], v16 = objc_claimAutoreleasedReturnValue(), [(GPURawCounterSource *)self->_source setOptions:v16], v16, *buf = 0, ([(GPURawCounterSource *)self->_source requestCounters:v6 firstErrorIndex:buf]& 1) != 0) && [(GPURawCounterSource *)self->_source setEnabled:1])
     {
@@ -110,13 +110,13 @@
       v25 = dispatch_time(0, 50000000);
       dispatch_source_set_timer(v24, v25, 0x2FAF080uLL, 0x2FAF080uLL);
       v26 = *p_pullTimer;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = sub_247FF15E4;
-      v29[3] = &unk_278EF30D8;
-      objc_copyWeak(&v30, &location);
-      dispatch_source_set_event_handler(v26, v29);
-      objc_destroyWeak(&v30);
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = sub_247FF15E4;
+      v28[3] = &unk_278EF30D8;
+      objc_copyWeak(&v29, &location);
+      dispatch_source_set_event_handler(v26, v28);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(&location);
       v10 = 1;
     }
@@ -132,7 +132,6 @@
     v10 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -224,8 +223,8 @@
 {
   callbackCopy = callback;
   [(NSLock *)self->_pullLock lock];
-  memset(v12, 0, sizeof(v12));
-  sub_247FCD8A8(v12, self->_counterBuffers.__begin_, self->_counterBuffers.__end_, 0xAAAAAAAAAAAAAAABLL * ((self->_counterBuffers.__end_ - self->_counterBuffers.__begin_) >> 3));
+  memset(v10, 0, sizeof(v10));
+  sub_247FCD8A8(v10, self->_counterBuffers.__begin_, self->_counterBuffers.__end_, 0xAAAAAAAAAAAAAAABLL * ((self->_counterBuffers.__end_ - self->_counterBuffers.__begin_) >> 3));
   begin = self->_counterBuffers.__begin_;
   end = self->_counterBuffers.__end_;
   while (begin != end)
@@ -238,14 +237,12 @@
   v8 = 0;
   for (i = 0; i < [(GPURawCounterSource *)self->_source ringBufferNum]; ++i)
   {
-    v10 = (*(v12[0] + v8 + 8) - *(v12[0] + v8)) >> 3;
-    sourceIndex = self->_sourceIndex;
     callbackCopy[2](callbackCopy);
     v8 += 24;
   }
 
-  v13 = v12;
-  sub_247FCDB30(&v13);
+  v11 = v10;
+  sub_247FCDB30(&v11);
 }
 
 - (void)sampleAPS:(id)s

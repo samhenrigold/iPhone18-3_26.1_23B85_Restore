@@ -74,11 +74,11 @@
   completionCopy = completion;
   assetStorageLocation = [(FMDRemoteAsset *)self assetStorageLocation];
   v6 = +[NSFileManager defaultManager];
-  v7 = sub_100002400();
+  v7 = sub_100002400(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v39 = assetStorageLocation;
+    v42 = assetStorageLocation;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDRemoteAsset: file location = %@", buf, 0xCu);
   }
 
@@ -90,53 +90,54 @@
       goto LABEL_17;
     }
 
-    v10 = sub_100002400();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100002400(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDRemoteAsset: Removing invalid cached asset.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "FMDRemoteAsset: Removing invalid cached asset.", buf, 2u);
     }
 
-    v37 = 0;
-    [v6 removeItemAtPath:assetStorageLocation error:&v37];
-    v11 = v37;
-    if (v11)
+    v40 = 0;
+    [v6 removeItemAtPath:assetStorageLocation error:&v40];
+    v12 = v40;
+    v13 = v12;
+    if (v12)
     {
-      v12 = sub_100002400();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_100002400(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_10001DA94(v11, v12, v13, v14, v15, v16, v17, v18);
+        sub_10001DA94(v13, v14, v15, v16, v17, v18, v19, v20);
       }
     }
   }
 
   assetURL = [(FMDRemoteAsset *)self assetURL];
-  v20 = [FMDRemoteAssetValidator alloc];
-  v21 = objc_opt_new();
-  v22 = [(FMDRemoteAssetValidator *)v20 initWithRequestURL:assetURL mimeTypeProvider:v21];
+  v22 = [FMDRemoteAssetValidator alloc];
+  v23 = objc_opt_new();
+  v24 = [(FMDRemoteAssetValidator *)v22 initWithRequestURL:assetURL mimeTypeProvider:v23];
 
-  v23 = +[NSURLSession sharedSession];
-  v28 = _NSConcreteStackBlock;
-  v29 = 3221225472;
-  v30 = sub_1000035BC;
-  v31 = &unk_1000386D8;
-  v32 = v22;
-  v36 = completionCopy;
-  v33 = assetURL;
-  v34 = assetStorageLocation;
-  v35 = v6;
-  v24 = assetURL;
-  v25 = v22;
-  v26 = [v23 downloadTaskWithURL:v24 completionHandler:&v28];
+  v25 = +[NSURLSession sharedSession];
+  v31 = _NSConcreteStackBlock;
+  v32 = 3221225472;
+  v33 = sub_1000035BC;
+  v34 = &unk_1000386D8;
+  v35 = v24;
+  v39 = completionCopy;
+  v36 = assetURL;
+  v37 = assetStorageLocation;
+  v38 = v6;
+  v26 = assetURL;
+  v27 = v24;
+  v28 = [v25 downloadTaskWithURL:v26 completionHandler:&v31];
 
-  v27 = sub_100002400();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v30 = sub_100002400(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "FMDRemoteAsset: task resumed", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "FMDRemoteAsset: task resumed", buf, 2u);
   }
 
-  [v26 resume];
+  [v28 resume];
 LABEL_17:
 }
 
@@ -144,7 +145,7 @@ LABEL_17:
 {
   assetStorageLocation = [(FMDRemoteAsset *)self assetStorageLocation];
   v3 = +[NSFileManager defaultManager];
-  v4 = sub_100002400();
+  v4 = sub_100002400(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;

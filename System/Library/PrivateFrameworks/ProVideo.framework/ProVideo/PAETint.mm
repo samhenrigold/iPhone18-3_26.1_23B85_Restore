@@ -91,7 +91,7 @@
 
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
     }
 
     else

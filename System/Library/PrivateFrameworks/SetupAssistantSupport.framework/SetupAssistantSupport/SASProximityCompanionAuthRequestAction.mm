@@ -8,28 +8,28 @@
 
 - (id)responsePayload
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   idmsAccountForiCloud = [(SASProximityCompanionAuthRequestAction *)self idmsAccountForiCloud];
   mEMORY[0x277CF0130] = [MEMORY[0x277CF0130] sharedInstance];
   v4 = [mEMORY[0x277CF0130] transportableAuthKitAccount:idmsAccountForiCloud];
 
   v5 = objc_alloc_init(MEMORY[0x277CB8F48]);
-  v16 = 0;
-  v6 = [v5 credentialForAccount:v4 error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [v5 credentialForAccount:v4 error:&v15];
+  v7 = v15;
   if (v6)
   {
     [v4 setCredential:v6];
     currentDevice = [MEMORY[0x277CF0218] currentDevice];
     [currentDevice setLinkType:3];
-    v17[0] = @"device";
-    v17[1] = @"account";
-    v18[0] = currentDevice;
-    v18[1] = v4;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-    v15 = v7;
-    v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v15];
-    v11 = v15;
+    v16[0] = @"device";
+    v16[1] = @"account";
+    v17[0] = currentDevice;
+    v17[1] = v4;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v14 = v7;
+    v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v14];
+    v11 = v14;
 
     if (!v10)
     {
@@ -37,7 +37,7 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v20 = v11;
+        v19 = v11;
         _os_log_impl(&dword_22E4D7000, v12, OS_LOG_TYPE_DEFAULT, "Failed to archive response: %@", buf, 0xCu);
       }
     }
@@ -49,9 +49,9 @@
     if (os_log_type_enabled(currentDevice, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = v4;
-      v21 = 2112;
-      v22 = v7;
+      v19 = v4;
+      v20 = 2112;
+      v21 = v7;
       _os_log_impl(&dword_22E4D7000, currentDevice, OS_LOG_TYPE_DEFAULT, "Failed to load credentials for IDMS account: %@ - %@", buf, 0x16u);
     }
 
@@ -59,14 +59,12 @@
     v11 = v7;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)setResponseFromData:(id)data
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAAC8];
   v5 = MEMORY[0x277CBEB98];
   dataCopy = data;
@@ -74,17 +72,17 @@
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = [v5 setWithObjects:{v7, v8, v9, objc_opt_class(), 0}];
-  v17 = 0;
-  v11 = [v4 unarchivedObjectOfClasses:v10 fromData:dataCopy error:&v17];
+  v16 = 0;
+  v11 = [v4 unarchivedObjectOfClasses:v10 fromData:dataCopy error:&v16];
 
-  v12 = v17;
+  v12 = v16;
   if (!v11)
   {
     v13 = +[SASLogging facility];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_22E4D7000, v13, OS_LOG_TYPE_DEFAULT, "Failed to unarchive response: %@", buf, 0xCu);
     }
   }
@@ -94,13 +92,11 @@
 
   v15 = [v11 objectForKeyedSubscript:@"account"];
   [(SASProximityCompanionAuthRequestAction *)self setAccount:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)idmsAccountForiCloud
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CB8F48]);
   aa_primaryAppleAccount = [v2 aa_primaryAppleAccount];
   username = [aa_primaryAppleAccount username];
@@ -108,28 +104,28 @@
   v4 = [aa_primaryAppleAccount accountPropertyForKey:@"DSID"];
   v5 = [v2 accountTypeWithAccountTypeIdentifier:*MEMORY[0x277CB8C58]];
   [v2 accountsWithAccountType:v5];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v6 = v26 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = v25 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
-    v19 = aa_primaryAppleAccount;
-    v20 = v2;
-    v18 = v5;
+    v9 = *v23;
+    v18 = aa_primaryAppleAccount;
+    v19 = v2;
+    v17 = v5;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         aa_altDSID2 = [v11 aa_altDSID];
         if (aa_altDSID2 && [aa_altDSID isEqualToString:aa_altDSID2])
         {
@@ -152,18 +148,18 @@
 LABEL_19:
 LABEL_20:
 
-          aa_primaryAppleAccount = v19;
-          v2 = v20;
-          v5 = v18;
+          aa_primaryAppleAccount = v18;
+          v2 = v19;
+          v5 = v17;
           goto LABEL_21;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
       v15 = 0;
-      aa_primaryAppleAccount = v19;
-      v2 = v20;
-      v5 = v18;
+      aa_primaryAppleAccount = v18;
+      v2 = v19;
+      v5 = v17;
       if (v8)
       {
         continue;
@@ -179,8 +175,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

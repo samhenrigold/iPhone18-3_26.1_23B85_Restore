@@ -70,7 +70,7 @@
 
 - (void)buildComponents
 {
-  LPWebLock(self, a2);
+  LPWebLock();
   v3 = [LPEmailCompatibleHTMLCaptionBarRowComponent alloc];
   themePath = [(LPHTMLComponent *)self themePath];
   generator = [(LPHTMLComponent *)self generator];

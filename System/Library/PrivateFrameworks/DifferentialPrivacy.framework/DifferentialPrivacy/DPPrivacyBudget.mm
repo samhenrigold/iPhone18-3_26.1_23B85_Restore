@@ -68,23 +68,17 @@ void __87___DPPrivacyBudget_createDatabaseRecordIfMissingIn_key_balance_cohortAg
 void __46___DPPrivacyBudget_fetchBudgetRecordFrom_key___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4_0();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(v0 + 48));
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_3(&dword_22622D000, v2, v3, "%@: record fetch failed with %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_22622D000, v2, v3, "%@: record fetch failed with %@", v4, v5, v6, v7);
 }
 
 void __87___DPPrivacyBudget_createDatabaseRecordIfMissingIn_key_balance_cohortAggregateBalance___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4_0();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(v0 + 32));
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_3(&dword_22622D000, v2, v3, "%@: record save failed with %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_22622D000, v2, v3, "%@: record save failed with %@", v4, v5, v6, v7);
 }
 
 @end

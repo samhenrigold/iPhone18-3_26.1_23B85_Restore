@@ -443,11 +443,11 @@ void __30__SKBitmapFont_initWithCoder___block_invoke()
           }
 
           [obj addObject:v123];
-          v185 = &v178;
-          v125 = std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&v183, &v178);
+          v185[0] = &v178;
+          v125 = std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&v183, &v178, &std::piecewise_construct, v185);
           objc_storeStrong(v125 + 5, v123);
-          v185 = &v178;
-          std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&v181, &v178)[5] = v115;
+          v185[0] = &v178;
+          std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&v181, &v178, &std::piecewise_construct, v185)[5] = v115;
           v126 = [MEMORY[0x277CCABB0] numberWithInt:intValue2];
           [v175 setObject:v120 forKey:v126];
 
@@ -521,8 +521,8 @@ void __30__SKBitmapFont_initWithCoder___block_invoke()
                 if (v159 && v162)
                 {
                   v178 = v162 | (v159 << 16);
-                  v185 = &v178;
-                  std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v179, &v178)[5] = v156;
+                  v185[0] = &v178;
+                  std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v179, &v178, &std::piecewise_construct, v185)[5] = v156;
                 }
 
                 ++v133;
@@ -538,17 +538,17 @@ void __30__SKBitmapFont_initWithCoder___block_invoke()
         v7 = v173;
         if (&selfCopy->_characterSpriteByChar != &v183)
         {
-          std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__tree_node<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,void *> *,long>>(&selfCopy->_characterSpriteByChar, v183, v184);
+          std::__tree<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,std::__tree_node<std::__value_type<unsigned short,SKSpriteNode * {__strong}>,void *> *,long>>(&selfCopy->_characterSpriteByChar.__tree_.__begin_node_, v183, v184);
         }
 
         if (&selfCopy->_characterAdvanceByChar != &v181)
         {
-          std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,double>,std::__tree_node<std::__value_type<unsigned short,double>,void *> *,long>>(&selfCopy->_characterAdvanceByChar, v181, v182);
+          std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned short,double>,std::__tree_node<std::__value_type<unsigned short,double>,void *> *,long>>(&selfCopy->_characterAdvanceByChar.__tree_.__begin_node_, v181, v182);
         }
 
         if (&selfCopy->_characterKerningByCharPair != &v179)
         {
-          std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned int,double>,std::__tree_node<std::__value_type<unsigned int,double>,void *> *,long>>(&selfCopy->_characterKerningByCharPair, v179, v180);
+          std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<unsigned int,double>,std::__tree_node<std::__value_type<unsigned int,double>,void *> *,long>>(&selfCopy->_characterKerningByCharPair.__tree_.__begin_node_, v179, v180);
         }
 
         if (selfCopy->_fileName)
@@ -638,7 +638,7 @@ void __30__SKBitmapFont_initWithCoder___block_invoke()
 {
   namedCopy = named;
   v6 = &namedCopy;
-  v3 = [std::__tree<std::__value_type<unsigned short SKSpriteNode * {:std::__map_value_compare<unsigned short :{std::__value_type<unsigned short, SKSpriteNode * {__strong}>, std::less<unsigned short>, true>, std::allocator<std::__value_type<unsigned short, SKSpriteNode * {__strong}>>>::__emplace_unique_key_args<unsigned short, std::piecewise_construct_t const&, std::tuple<unsigned short const&>, std::tuple<>>(&self->_characterSpriteByChar, &namedCopy)[5], "copy"}strong}>];
+  v3 = [std::__tree<std::__value_type<unsigned short SKSpriteNode * {:std::__map_value_compare<unsigned short :{std::__value_type<unsigned short, SKSpriteNode * {__strong}>, std::less<unsigned short>, true>, std::allocator<std::__value_type<unsigned short, SKSpriteNode * {__strong}>>>::__emplace_unique_key_args<unsigned short, std::piecewise_construct_t const&, std::tuple<unsigned short const&>, std::tuple<>>(&self->_characterSpriteByChar, &namedCopy, &std::piecewise_construct, &v6)[5], "copy"}strong}>];
 
   return v3;
 }
@@ -647,14 +647,14 @@ void __30__SKBitmapFont_initWithCoder___block_invoke()
 {
   namedCopy = named;
   v5 = &namedCopy;
-  return *(std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&self->_characterAdvanceByChar, &namedCopy) + 5);
+  return *(std::__tree<std::__value_type<unsigned short,double>,std::__map_value_compare<unsigned short,std::__value_type<unsigned short,double>,std::less<unsigned short>,true>,std::allocator<std::__value_type<unsigned short,double>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(&self->_characterAdvanceByChar, &namedCopy, &std::piecewise_construct, &v5) + 5);
 }
 
 - (double)kerningForCharacterNamed:(unsigned __int16)named followedBy:(unsigned __int16)by
 {
   v5 = by | (named << 16);
   v6 = &v5;
-  return *(std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&self->_characterKerningByCharPair, &v5) + 5);
+  return *(std::__tree<std::__value_type<unsigned int,double>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,double>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,double>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&self->_characterKerningByCharPair, &v5, &std::piecewise_construct, &v6) + 5);
 }
 
 + (id)fontWithTexture:(id)texture fontDataString:(id)string

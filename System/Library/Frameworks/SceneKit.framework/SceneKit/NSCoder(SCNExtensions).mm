@@ -15,10 +15,10 @@
 
 - (uint64_t)scn_decodeObjectOfClass:()SCNExtensions forKey:
 {
-  v1 = [self decodeObjectOfClass:? forKey:?];
+  v3 = [self decodeObjectOfClass:? forKey:?];
   if (objc_opt_isKindOfClass())
   {
-    return v1;
+    return v3;
   }
 
   else

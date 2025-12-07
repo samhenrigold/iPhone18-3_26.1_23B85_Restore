@@ -93,14 +93,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    sessionID = self->_sessionID;
     PBDataWriterWriteUint32Field();
   }
 
@@ -111,7 +109,6 @@
 
   if (*&self->_has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -187,7 +184,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 28);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 28) & 4) == 0 || self->_version != *(equalCopy + 6))
@@ -220,14 +216,14 @@
     if (![(NSData *)authToken isEqual:?])
     {
 LABEL_19:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_20;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 28) & 1) == 0;
+  v7 = (*(equalCopy + 28) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_errorCode != *(equalCopy + 4))
@@ -235,12 +231,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_20:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

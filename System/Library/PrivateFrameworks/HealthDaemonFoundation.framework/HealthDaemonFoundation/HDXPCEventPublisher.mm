@@ -12,9 +12,9 @@
 
 - (HDXPCEventPublisher)initWithStream:(const char *)stream entitlement:(const char *)entitlement
 {
-  v23.receiver = self;
-  v23.super_class = HDXPCEventPublisher;
-  v5 = [(HDXPCEventPublisher *)&v23 init];
+  v21.receiver = self;
+  v21.super_class = HDXPCEventPublisher;
+  v5 = [(HDXPCEventPublisher *)&v21 init];
   if (v5)
   {
     v6 = HKCreateSerialDispatchQueue();
@@ -34,22 +34,18 @@
     v5->_subscribers = v12;
 
     v5->_requiredEntitlement = entitlement;
-    if ((HDIsUnitTesting() & 1) == 0)
+    if ((HDIsUnitTesting(v14, v15) & 1) == 0)
     {
-      v14 = v5->_queue;
-      v15 = xpc_event_publisher_create();
+      v16 = xpc_event_publisher_create();
       publisher = v5->_publisher;
-      v5->_publisher = v15;
+      v5->_publisher = v16;
 
       objc_initWeak(&location, v5);
-      v17 = v5->_publisher;
-      objc_copyWeak(&v21, &location);
+      objc_copyWeak(&v19, &location);
       xpc_event_publisher_set_handler();
-      v18 = v5->_publisher;
       xpc_event_publisher_set_error_handler();
-      v19 = v5->_publisher;
       xpc_event_publisher_activate();
-      objc_destroyWeak(&v21);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(&location);
     }
   }
@@ -57,42 +53,42 @@
   return v5;
 }
 
-void __50__HDXPCEventPublisher_initWithStream_entitlement___block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4)
+void __50__HDXPCEventPublisher_initWithStream_entitlement___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
+  v5 = a2;
   v7 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [(HDXPCEventPublisher *)WeakRetained _handleEventAction:a2 token:a3 descriptor:v7];
+  [(HDXPCEventPublisher *)WeakRetained _handleEventAction:v5 token:a3 descriptor:v7];
 }
 
-void __50__HDXPCEventPublisher_initWithStream_entitlement___block_invoke_2(uint64_t a1, int a2)
+void __50__HDXPCEventPublisher_initWithStream_entitlement___block_invoke_2(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   _HKInitializeLogging();
   v3 = HKLogInfrastructure();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __50__HDXPCEventPublisher_initWithStream_entitlement___block_invoke_2_cold_1(a2, v3);
+    __50__HDXPCEventPublisher_initWithStream_entitlement___block_invoke_2_cold_1(v2, v3);
   }
 }
 
 void __59__HDXPCEventPublisher__handleEventAction_token_descriptor___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
   if (v2 == 2)
   {
-    v10 = *(a1 + 32);
-    v11 = *MEMORY[0x277D85DE8];
+    v8 = *(a1 + 32);
 
-    [(HDXPCEventPublisher *)v10 _queue_sendPendingEvents];
+    [(HDXPCEventPublisher *)v8 _queue_sendPendingEvents];
   }
 
   else if (v2 == 1)
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 48);
-    v9 = *MEMORY[0x277D85DE8];
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 48);
 
-    [(HDXPCEventPublisher *)v7 _queue_removeSubscriberForToken:v8];
+    [(HDXPCEventPublisher *)v6 _queue_removeSubscriberForToken:v7];
   }
 
   else if (v2)
@@ -103,30 +99,27 @@ void __59__HDXPCEventPublisher__handleEventAction_token_descriptor___block_invok
     {
       v4 = *(a1 + 56);
       v5 = *(a1 + 48);
-      v16[0] = 67109376;
-      v16[1] = v4;
-      v17 = 2048;
-      v18 = v5;
-      _os_log_impl(&dword_25156C000, v3, OS_LOG_TYPE_DEFAULT, "Unexpected XPC event action %d from %llu", v16, 0x12u);
+      v12[0] = 67109376;
+      v12[1] = v4;
+      v13 = 2048;
+      v14 = v5;
+      _os_log_impl(&dword_25156C000, v3, OS_LOG_TYPE_DEFAULT, "Unexpected XPC event action %d from %llu", v12, 0x12u);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v14 = *(a1 + 32);
-    v15 = *MEMORY[0x277D85DE8];
+    v10 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v11 = *(a1 + 32);
 
-    [(HDXPCEventPublisher *)v14 _queue_addSubscriberForToken:v12 descriptor:v13];
+    [(HDXPCEventPublisher *)v11 _queue_addSubscriberForToken:v9 descriptor:v10];
   }
 }
 
 void __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke(void *a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKLogInfrastructure();
@@ -182,33 +175,32 @@ LABEL_19:
     }
 
     *buf = 0u;
-    v38 = 0u;
+    v36 = 0u;
     xpc_dictionary_get_audit_token();
     v20 = xpc_copy_code_signing_identity_for_token();
-    v21 = *(a1[4] + 48);
-    v22 = xpc_copy_entitlement_for_token();
-    v23 = v22;
-    if (v22)
+    v21 = xpc_copy_entitlement_for_token();
+    v22 = v21;
+    if (v21)
     {
-      if (xpc_BOOL_get_value(v22))
+      if (xpc_BOOL_get_value(v21))
       {
-        v24 = [MEMORY[0x277CBEAC0] hd_dictionaryFromXPCObject:a1[5]];
-        v25 = *(a1[4] + 40);
-        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a1[6]];
-        [v25 setObject:v24 forKeyedSubscript:v26];
+        v23 = [MEMORY[0x277CBEAC0] hd_dictionaryFromXPCObject:a1[5]];
+        v24 = *(a1[4] + 40);
+        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a1[6]];
+        [v24 setObject:v23 forKeyedSubscript:v25];
 
         _HKInitializeLogging();
-        v27 = HKLogInfrastructure();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v26 = HKLogInfrastructure();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = *v8;
-          v33 = 136315394;
-          v34 = v20;
-          v35 = 2048;
-          v36 = v28;
-          v29 = "Registered XPC event subscriber %s:%llu";
+          v27 = *v8;
+          v31 = 136315394;
+          v32 = v20;
+          v33 = 2048;
+          v34 = v27;
+          v28 = "Registered XPC event subscriber %s:%llu";
 LABEL_25:
-          _os_log_impl(&dword_25156C000, v27, OS_LOG_TYPE_DEFAULT, v29, &v33, 0x16u);
+          _os_log_impl(&dword_25156C000, v26, OS_LOG_TYPE_DEFAULT, v28, &v31, 0x16u);
           goto LABEL_26;
         }
 
@@ -219,23 +211,23 @@ LABEL_25:
     else
     {
       _HKInitializeLogging();
-      v30 = HKLogInfrastructure();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = HKLogInfrastructure();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke_cold_4(v20, v8, v30);
+        __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke_cold_4(v20, v8, v29);
       }
     }
 
     _HKInitializeLogging();
-    v27 = HKLogInfrastructure();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v26 = HKLogInfrastructure();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = *v8;
-      v33 = 136315394;
-      v34 = v20;
-      v35 = 2048;
-      v36 = v31;
-      v29 = "XPC event client %s:%llu is not entitled for subscription";
+      v30 = *v8;
+      v31 = 136315394;
+      v32 = v20;
+      v33 = 2048;
+      v34 = v30;
+      v28 = "XPC event client %s:%llu is not entitled for subscription";
       goto LABEL_25;
     }
 
@@ -261,8 +253,6 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)broadcastEvent:(id)event
@@ -301,7 +291,7 @@ void __38__HDXPCEventPublisher_broadcastEvent___block_invoke(uint64_t a1)
 
 - (void)_handleEventAction:(uint64_t)action token:(void *)token descriptor:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   if (self)
   {
@@ -316,27 +306,25 @@ void __38__HDXPCEventPublisher_broadcastEvent___block_invoke(uint64_t a1)
       {
         *buf = 138543874;
         selfCopy = self;
-        v19 = 1024;
-        v20 = a2;
-        v21 = 2048;
+        v18 = 1024;
+        v19 = a2;
+        v20 = 2048;
         actionCopy = action;
         _os_log_impl(&dword_25156C000, v10, OS_LOG_TYPE_INFO, "%{public}@: Handling XPC event action %d for %llu", buf, 0x1Cu);
       }
     }
 
     v11 = *(self + 8);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __59__HDXPCEventPublisher__handleEventAction_token_descriptor___block_invoke;
-    v13[3] = &unk_2796BDB30;
-    v16 = a2;
-    v13[4] = self;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __59__HDXPCEventPublisher__handleEventAction_token_descriptor___block_invoke;
+    v12[3] = &unk_2796BDB30;
+    v15 = a2;
+    v12[4] = self;
     actionCopy2 = action;
-    v14 = tokenCopy;
-    dispatch_async(v11, v13);
+    v13 = tokenCopy;
+    dispatch_async(v11, v12);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_addSubscriberForToken:(void *)token descriptor:
@@ -350,16 +338,14 @@ void __38__HDXPCEventPublisher_broadcastEvent___block_invoke(uint64_t a1)
     [v6 addObject:v7];
 
     v8 = xpc_dictionary_create(0, 0, 0);
-    v10 = *(self + 8);
-    v9 = *(self + 16);
-    v11 = tokenCopy;
+    v9 = tokenCopy;
     xpc_event_publisher_fire_with_reply();
   }
 }
 
 - (void)_queue_removeSubscriberForToken:(uint64_t)token
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (token)
   {
     dispatch_assert_queue_V2(*(token + 8));
@@ -375,18 +361,16 @@ void __38__HDXPCEventPublisher_broadcastEvent___block_invoke(uint64_t a1)
     v8 = HKLogInfrastructure();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134217984;
-      v11 = a2;
-      _os_log_impl(&dword_25156C000, v8, OS_LOG_TYPE_DEFAULT, "Removed XPC event subscriber %llu", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = a2;
+      _os_log_impl(&dword_25156C000, v8, OS_LOG_TYPE_DEFAULT, "Removed XPC event subscriber %llu", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_sendPendingEvents
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 8));
@@ -394,22 +378,22 @@ void __38__HDXPCEventPublisher_broadcastEvent___block_invoke(uint64_t a1)
     v3 = *(self + 24);
     *(self + 24) = 0;
 
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v4);
           }
@@ -418,65 +402,62 @@ void __38__HDXPCEventPublisher_broadcastEvent___block_invoke(uint64_t a1)
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_sendEventWithXPCObject:(uint64_t)object
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (object)
   {
     dispatch_assert_queue_V2(*(object + 8));
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     allKeys = [*(object + 40) allKeys];
-    v5 = [allKeys countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v5 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (!v5)
     {
       goto LABEL_17;
     }
 
     v7 = v5;
-    v8 = *v22;
+    v8 = *v20;
     *&v6 = 134218240;
-    v20 = v6;
+    v18 = v6;
     while (1)
     {
       v9 = 0;
       do
       {
-        if (*v22 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * v9);
-        v11 = *(object + 16);
+        v10 = *(*(&v19 + 1) + 8 * v9);
         [v10 intValue];
-        v12 = xpc_event_publisher_fire();
+        v11 = xpc_event_publisher_fire();
         _HKInitializeLogging();
-        v13 = HKLogInfrastructure();
-        v14 = v13;
-        if (v12)
+        v12 = HKLogInfrastructure();
+        v13 = v12;
+        if (v11)
         {
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             intValue = [v10 intValue];
-            *buf = v20;
-            v26 = intValue;
-            v27 = 1024;
-            v28 = v12;
-            _os_log_error_impl(&dword_25156C000, v14, OS_LOG_TYPE_ERROR, "Failed to publish XPC event for %ld with error: %d", buf, 0x12u);
+            *buf = v18;
+            v24 = intValue;
+            v25 = 1024;
+            v26 = v11;
+            _os_log_error_impl(&dword_25156C000, v13, OS_LOG_TYPE_ERROR, "Failed to publish XPC event for %ld with error: %d", buf, 0x12u);
           }
 
 LABEL_10:
@@ -484,17 +465,17 @@ LABEL_10:
           goto LABEL_11;
         }
 
-        v15 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
+        v14 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
 
-        if (v15)
+        if (v14)
         {
-          v14 = HKLogInfrastructure();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          v13 = HKLogInfrastructure();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             intValue2 = [v10 intValue];
             *buf = 134217984;
-            v26 = intValue2;
-            _os_log_impl(&dword_25156C000, v14, OS_LOG_TYPE_INFO, "Published XPC event for %ld", buf, 0xCu);
+            v24 = intValue2;
+            _os_log_impl(&dword_25156C000, v13, OS_LOG_TYPE_INFO, "Published XPC event for %ld", buf, 0xCu);
           }
 
           goto LABEL_10;
@@ -505,9 +486,9 @@ LABEL_11:
       }
 
       while (v7 != v9);
-      v18 = [allKeys countByEnumeratingWithState:&v21 objects:v29 count:16];
-      v7 = v18;
-      if (!v18)
+      v17 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v7 = v17;
+      if (!v17)
       {
 LABEL_17:
 
@@ -515,59 +496,48 @@ LABEL_17:
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HDXPCEventPublisher_initWithStream_entitlement___block_invoke_2_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_25156C000, a2, OS_LOG_TYPE_ERROR, "Received XPC event error %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_25156C000, a2, OS_LOG_TYPE_ERROR, "Received XPC event error %d", v2, 8u);
 }
 
 void __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_25156C000, a2, OS_LOG_TYPE_DEBUG, "XPC event client %llu unsubscribed before replying to ping", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_25156C000, a2, OS_LOG_TYPE_DEBUG, "XPC event client %llu unsubscribed before replying to ping", &v3, 0xCu);
 }
 
-void __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke_cold_2(uint64_t *a1, xpc_type_t type)
+void __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke_cold_2(int a1, xpc_type_t type)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
   xpc_type_get_name(type);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_25156C000, v3, v4, "XPC event client %llu replied with unexpected type %s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_25156C000, v2, v3, "XPC event client %llu replied with unexpected type %s", v4, v5, v6, v7);
 }
 
-void __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke_cold_3(uint64_t *a1, xpc_object_t xdict)
+void __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke_cold_3(int a1, xpc_object_t xdict)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
   xpc_dictionary_get_string(xdict, *MEMORY[0x277D86400]);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_25156C000, v3, v4, "XPC event client %llu replied with error: %s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_25156C000, v2, v3, "XPC event client %llu replied with error: %s", v4, v5, v6, v7);
 }
 
 void __63__HDXPCEventPublisher__queue_addSubscriberForToken_descriptor___block_invoke_cold_4(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 136315394;
-  v6 = a1;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_error_impl(&dword_25156C000, log, OS_LOG_TYPE_ERROR, "XPC event entitlement not found for %s:%llu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = a1;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_error_impl(&dword_25156C000, log, OS_LOG_TYPE_ERROR, "XPC event entitlement not found for %s:%llu", &v4, 0x16u);
 }
 
 @end

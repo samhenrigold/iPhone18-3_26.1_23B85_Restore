@@ -60,7 +60,7 @@
   *dirty = 0;
 }
 
-uint64_t __77__SBKSyncRequestHandler_transaction_processUpdatedKey_data_conflict_isDirty___block_invoke(uint64_t a1)
+void *__77__SBKSyncRequestHandler_transaction_processUpdatedKey_data_conflict_isDirty___block_invoke(uint64_t a1)
 {
   if (*(a1 + 56))
   {
@@ -82,7 +82,6 @@ uint64_t __77__SBKSyncRequestHandler_transaction_processUpdatedKey_data_conflict
   if (*(a1 + 40))
   {
     v5 = *(*(a1 + 32) + 64);
-    v6 = *(a1 + 48);
 
     return [v5 setObject:? forKey:?];
   }
@@ -106,18 +105,16 @@ uint64_t __77__SBKSyncRequestHandler_transaction_processUpdatedKey_data_conflict
 
 void __61__SBKSyncRequestHandler_transaction_willProcessResponseData___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 32), *(a1 + 40));
   v2 = os_log_create("com.apple.amp.StoreBookkeeper", "Sync");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(*(a1 + 32) + 32) syncAnchor];
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "will process response with responseDomainVersion = %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "will process response with responseDomainVersion = %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTransactionWithSyncAnchor:(id)anchor keysToUpdate:(id)update keysToDelete:(id)delete finishedBlock:(id)block
@@ -148,17 +145,16 @@ void __96__SBKSyncRequestHandler_startTransactionWithSyncAnchor_keysToUpdate_key
   [*(a1 + 32) _onQueue_clearTransactionResponseData];
   v2 = [SBKSyncTransaction alloc];
   v3 = [*(a1 + 32) bagContext];
-  v4 = *(a1 + 32);
-  v5 = -[SBKSyncTransaction initWithStoreBagContext:syncAnchor:keysToUpdate:keysToDelete:conflictDetectionType:](v2, "initWithStoreBagContext:syncAnchor:keysToUpdate:keysToDelete:conflictDetectionType:", v3, *(a1 + 40), *(a1 + 48), *(a1 + 56), [objc_opt_class() conflictDetectionType]);
+  v4 = -[SBKSyncTransaction initWithStoreBagContext:syncAnchor:keysToUpdate:keysToDelete:conflictDetectionType:](v2, "initWithStoreBagContext:syncAnchor:keysToUpdate:keysToDelete:conflictDetectionType:", v3, *(a1 + 40), *(a1 + 48), *(a1 + 56), [objc_opt_class() conflictDetectionType]);
 
-  [(SBKSyncTransaction *)v5 setTransactionProcessor:*(a1 + 32)];
-  v6 = *(*(a1 + 32) + 72);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __96__SBKSyncRequestHandler_startTransactionWithSyncAnchor_keysToUpdate_keysToDelete_finishedBlock___block_invoke_2;
-  v7[3] = &unk_279D231F0;
-  v8 = *(a1 + 64);
-  [v6 scheduleTransaction:v5 withTransactionFinishedBlock:v7];
+  [(SBKSyncTransaction *)v4 setTransactionProcessor:*(a1 + 32)];
+  v5 = *(*(a1 + 32) + 72);
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __96__SBKSyncRequestHandler_startTransactionWithSyncAnchor_keysToUpdate_keysToDelete_finishedBlock___block_invoke_2;
+  v6[3] = &unk_279D231F0;
+  v7 = *(a1 + 64);
+  [v5 scheduleTransaction:v4 withTransactionFinishedBlock:v6];
 }
 
 uint64_t __96__SBKSyncRequestHandler_startTransactionWithSyncAnchor_keysToUpdate_keysToDelete_finishedBlock___block_invoke_2(uint64_t a1)

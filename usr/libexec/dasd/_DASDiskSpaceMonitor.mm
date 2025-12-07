@@ -79,7 +79,7 @@
       while (v12);
     }
 
-    if ([v9 count])
+    if (objc_msgSend_count(v9))
     {
       log = self->_log;
       if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))

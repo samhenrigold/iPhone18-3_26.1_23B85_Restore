@@ -18,7 +18,9 @@
 - (void)updateBodyText;
 - (void)updateImageWithCompletionHandler:(id)handler;
 - (void)updateVideoAndPlayImmediately:(BOOL)immediately;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TPSSingleTipViewController
@@ -78,6 +80,35 @@
     v6 = +[TPSAppearance defaultBackgroundColor];
     [(TPSVideoAssetView *)self->_heroAssetView setDefaultBackgroundColor:v6];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = TPSSingleTipViewController;
+  [(TPSSingleTipViewController *)&v8 viewWillAppear:appear];
+  assetsConfiguration = [(TPSSingleTipViewController *)self assetsConfiguration];
+  v5 = [assetsConfiguration cacheIdentifierForType:0];
+
+  if (v5)
+  {
+    v6 = [TPSImageAssetController dataCacheForIdentifier:v5];
+
+    if (v6)
+    {
+      v7 = [TPSImageAssetController getImageForIdentifier:v5];
+      [(TPSVideoAssetView *)self->_heroAssetView setImage:v7];
+    }
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TPSSingleTipViewController;
+  [(TPSSingleTipViewController *)&v4 viewDidAppear:appear];
+  self->_viewDidAppeared = 1;
+  [(TPSSingleTipViewController *)self playVideo];
 }
 
 - (void)cancelConstellationContentParserOperation
@@ -288,26 +319,13 @@
       v17 = [assetSizes tip];
 
       v18 = &selRef_respondsToSelector_;
-      if (!v17)
-      {
-        goto LABEL_8;
-      }
-
-      v19 = +[TPSCommonDefines isPhoneUI]^ 1;
-      assetSizes2 = [(TPSSingleTipViewController *)self assetSizes];
-      v21 = [assetSizes2 tip];
-      [v21 heightToWidthRatioForViewMode:v19];
-      v23 = v22;
-
-      v18 = &selRef_respondsToSelector_;
-      if (v23 > 0.0)
+      if (v17 && (v19 = +[TPSCommonDefines isPhoneUI](TPSCommonDefines, "isPhoneUI") ^ 1, -[TPSSingleTipViewController assetSizes](self, "assetSizes"), v20 = objc_claimAutoreleasedReturnValue(), [v20 tip], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "heightToWidthRatioForViewMode:", v19), v23 = v22, v21, v18 = &selRef_respondsToSelector_, v20, v23 > 0.0))
       {
         v24 = 0.0;
       }
 
       else
       {
-LABEL_8:
         v25 = +[TPSCommonDefines sharedInstance];
         assetRatioType = [v25 assetRatioType];
         if (+[TPSCommonDefines isPhoneUI])

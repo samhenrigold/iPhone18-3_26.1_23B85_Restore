@@ -3,6 +3,7 @@
 - (_INPBIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)encodingFormatAsString:(int)string;
 - (int)StringAsEncodingFormat:(id)format;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -284,7 +285,6 @@ LABEL_27:
 
   if (encodedIntent)
   {
-    encodedIntent = self->_encodedIntent;
     PBDataWriterWriteStringField();
   }
 
@@ -292,24 +292,21 @@ LABEL_27:
 
   if (encodedIntentDefinition)
   {
-    encodedIntentDefinition = self->_encodedIntentDefinition;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBIntent *)self hasEncodingFormat])
   {
-    encodingFormat = self->_encodingFormat;
     PBDataWriterWriteInt32Field();
   }
 
   intentTypeName = [(_INPBIntent *)self intentTypeName];
 
-  v12 = toCopy;
+  v9 = toCopy;
   if (intentTypeName)
   {
-    intentTypeName = self->_intentTypeName;
     PBDataWriterWriteStringField();
-    v12 = toCopy;
+    v9 = toCopy;
   }
 }
 
@@ -337,6 +334,26 @@ LABEL_27:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)encodingFormatAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"JSON_STRING";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"PROTOBUF_STRING";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

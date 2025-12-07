@@ -15,7 +15,6 @@
   MEMORY[0x1C6949DF0]();
   if (*((*(&self->super.super.isa + v5) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(&self->super.super.isa + v5) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v7 = *((*(&self->super.super.isa + v5) & 0xFFFFFFFFFFFFFF8) + 0x10);
     sub_1C584F7A0();
   }
 

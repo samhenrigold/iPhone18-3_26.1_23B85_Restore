@@ -7,8 +7,11 @@
 - (id)_localizedNameWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)handlerRankWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
+- (id)iconDictionaryWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
+- (id)iconResourceBundleURLWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
 - (id)localizedNameWithPreferredLocalizations:(id)localizations;
 - (id)typeIdentifiersWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 @end
 
 @implementation LSClaimRecord
@@ -26,12 +29,11 @@
 
 + (id)_propertyClasses
 {
-  v5[3] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[3] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
 
   return v2;
 }
@@ -124,6 +126,21 @@
   return v6;
 }
 
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  bytes = [(LSRecord *)self _resolvedPropertyValueForGetter:sel__claimingBundleRecord, *&d, *&iD, bytes];
+  if (bytes)
+  {
+    [bytes detach];
+  }
+
+  v8 = [(LSRecord *)self _resolvedPropertyValueForGetter:sel__localizedName];
+  if (v8)
+  {
+    [v8 detach];
+  }
+}
+
 - (id)copyWithZone:(_NSZone *)zone
 {
   v7.receiver = self;
@@ -136,6 +153,86 @@
   }
 
   return v4;
+}
+
+- (id)iconDictionaryWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
+{
+  var9 = bytes->var9;
+  v9 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{2, *&d, *&iD}];
+  if (var9)
+  {
+    [(_LSDatabase *)context->db store];
+    v10 = _CSStringCopyCFString();
+    if (v10)
+    {
+      [v9 setObject:v10 forKeyedSubscript:@"CFBundleIconName"];
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:8];
+  v12 = 0;
+  var8 = bytes->var8;
+  do
+  {
+    if (!var8[v12])
+    {
+      break;
+    }
+
+    [(_LSDatabase *)context->db store];
+    v14 = _CSStringCopyCFString();
+    if (v14)
+    {
+      [v11 addObject:v14];
+    }
+
+    ++v12;
+  }
+
+  while (v12 != 8);
+  if ([v11 count])
+  {
+    [v9 setObject:v10 forKeyedSubscript:@"CFBundleIconFiles"];
+  }
+
+  return v9;
+}
+
+- (id)iconResourceBundleURLWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
+{
+  if ((bytes->var9 || bytes->var8[0]) && bytes->var10)
+  {
+    [(_LSDatabase *)context->db store];
+    v7 = _CSStringCopyCFString();
+    claimingBundleRecord = [(LSClaimRecord *)self claimingBundleRecord];
+    v9 = [claimingBundleRecord URL];
+
+    if (v9 && v7)
+    {
+      v10 = [v9 URLByAppendingPathComponent:v7];
+
+      if (v10)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    else
+    {
+    }
+  }
+
+  v11 = [(LSClaimRecord *)self claimingBundleRecord:context];
+  v10 = [v11 URL];
+
+LABEL_10:
+
+  return v10;
 }
 
 @end

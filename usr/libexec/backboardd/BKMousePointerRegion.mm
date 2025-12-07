@@ -21,43 +21,24 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v16 = 1;
+    v6 = 1;
   }
 
   else
   {
     v5 = objc_opt_class();
-    if (v5 != objc_opt_class())
+    if (v5 == objc_opt_class() && BSSizeEqualToSize() && BSFloatEqualToFloat() && BSFloatEqualToFloat())
     {
-      goto LABEL_7;
-    }
-
-    width = self->_pointSize.width;
-    height = self->_pointSize.height;
-    v8 = equalCopy->_pointSize.width;
-    v9 = equalCopy->_pointSize.height;
-    if (!BSSizeEqualToSize())
-    {
-      goto LABEL_7;
-    }
-
-    cornerRadius = self->_cornerRadius;
-    v11 = equalCopy->_cornerRadius;
-    if (BSFloatEqualToFloat() && (scale = self->_scale, v13 = equalCopy->_scale, BSFloatEqualToFloat()))
-    {
-      displayUUID = self->_displayUUID;
-      v15 = equalCopy->_displayUUID;
-      v16 = BSEqualObjects();
+      v6 = BSEqualObjects();
     }
 
     else
     {
-LABEL_7:
-      v16 = 0;
+      v6 = 0;
     }
   }
 
-  return v16;
+  return v6;
 }
 
 - (void)appendDescriptionToStream:(id)stream

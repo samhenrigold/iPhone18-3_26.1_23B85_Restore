@@ -42,7 +42,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_192C71C54();
+  sub_192C71C54(delegate);
 }
 
 - (AMSChildAccountStorefrontTask)initWithParentAccount:(id)account childDSID:(id)d bag:(id)bag

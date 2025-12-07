@@ -17,12 +17,12 @@
     operationQueue = v2->_operationQueue;
     v2->_operationQueue = v3;
 
-    [(NSOperationQueue *)v2->_operationQueue setName:@"HMIFeedback Queue"];
-    [(NSOperationQueue *)v2->_operationQueue setMaxConcurrentOperationCount:1];
+    [(NSOperationQueue *)v2->_operationQueue setName:?];
+    [(NSOperationQueue *)v2->_operationQueue setMaxConcurrentOperationCount:?];
     defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
     v6 = MEMORY[0x277CCAD30];
     operationQueue = [(HMIFeedbackSession *)v2 operationQueue];
-    v8 = [v6 sessionWithConfiguration:defaultSessionConfiguration delegate:v2 delegateQueue:operationQueue];
+    v8 = [v6 sessionWithConfiguration:? delegate:? delegateQueue:?];
     session = v2->_session;
     v2->_session = v8;
 
@@ -36,7 +36,7 @@
     if (+[HMIPreference isInternalInstall])
     {
       v13 = +[HMIPreference sharedInstance];
-      v14 = [v13 BOOLPreferenceForKey:@"useDevelopmentFeedbackService" defaultValue:0];
+      v14 = [v13 BOOLPreferenceForKey:? defaultValue:?];
 
       if (v14)
       {
@@ -58,7 +58,7 @@
   if (+[HMIPreference isInternalInstall])
   {
     v11 = +[HMIPreference sharedInstance];
-    v12 = [v11 BOOLPreferenceForKey:@"useDevelopmentFeedbackService" defaultValue:0];
+    v12 = [v11 BOOLPreferenceForKey:? defaultValue:?];
 
     if (v12)
     {
@@ -86,7 +86,7 @@ LABEL_16:
   protectionSpace = [challengeCopy protectionSpace];
   host = [protectionSpace host];
   feedbackServiceHost2 = [(HMIFeedbackSession *)self feedbackServiceHost];
-  v21 = [host isEqual:feedbackServiceHost2];
+  v21 = [host isEqual:?];
 
   v22 = objc_autoreleasePoolPush();
   selfCopy2 = self;
@@ -105,7 +105,7 @@ LABEL_16:
     objc_autoreleasePoolPop(v22);
     protectionSpace2 = [challengeCopy protectionSpace];
     authenticationMethod = [protectionSpace2 authenticationMethod];
-    v29 = [authenticationMethod isEqualToString:*MEMORY[0x277CCA720]];
+    v29 = [authenticationMethod isEqualToString:?];
 
     if (!v29)
     {
@@ -143,7 +143,7 @@ LABEL_16:
         error = 0;
         if (SecTrustEvaluateWithError(serverTrust, &error))
         {
-          v45 = [MEMORY[0x277CCACF0] credentialForTrust:serverTrust];
+          v45 = [MEMORY[0x277CCACF0] credentialForTrust:?];
           (handlerCopy)[2](handlerCopy, 0, v45);
 
           goto LABEL_21;
@@ -191,7 +191,8 @@ LABEL_15:
   objc_autoreleasePoolPop(v22);
   v42 = MEMORY[0x277CCACF0];
   protectionSpace5 = [challengeCopy protectionSpace];
-  v44 = [v42 credentialForTrust:{objc_msgSend(protectionSpace5, "serverTrust")}];
+  [protectionSpace5 serverTrust];
+  v44 = [v42 credentialForTrust:?];
   (handlerCopy)[2](handlerCopy, 0, v44);
 
 LABEL_21:
@@ -211,9 +212,11 @@ LABEL_21:
 
 uint64_t __33__HMIFeedbackSession_logCategory__block_invoke()
 {
-  logCategory__hmf_once_v12 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12;
+  logCategory__hmf_once_v12 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

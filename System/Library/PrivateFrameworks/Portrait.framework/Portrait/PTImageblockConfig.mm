@@ -15,14 +15,14 @@
   memset(v10, 0, sizeof(v10));
   textureCopy = texture;
   pixelFormat = [textureCopy pixelFormat];
-  device = [textureCopy device];
-  v7 = [PTMetalTextureUtil macroBlockSizeForPixelFormat:pixelFormat device:device];
+  v6 = objc_msgSend_device(textureCopy);
+  v7 = [PTMetalTextureUtil macroBlockSizeForPixelFormat:pixelFormat device:v6];
 
   LOWORD(pixelFormat) = [textureCopy width];
-  LOWORD(device) = [textureCopy height];
+  LOWORD(v6) = [textureCopy height];
 
   LOWORD(v9) = pixelFormat;
-  HIWORD(v9) = device;
+  HIWORD(v9) = v6;
   return [(PTImageblockConfig *)self initWithTextureSize:v9 scissorRect:v10 outRect:v7 imageblockSize:0.0];
 }
 
@@ -67,9 +67,9 @@
   v6 = v4;
   v7 = v5;
   outRectCopy = outRect;
-  v34.receiver = self;
-  v34.super_class = PTImageblockConfig;
-  v10 = [(PTImageblockConfig *)&v34 init];
+  v30.receiver = self;
+  v30.super_class = PTImageblockConfig;
+  v10 = [(PTImageblockConfig *)&v30 init];
   v11 = v10;
   if (v10)
   {
@@ -79,58 +79,53 @@
     v10->_threadsPerGroup.depth = 1;
     if (*(size + 16) && *(size + 24))
     {
-      v32 = 0u;
-      v33 = 0u;
-      v12 = *(size + 16);
-      v31[0] = *size;
-      v31[1] = v12;
-      [PTImageblockConfig adjustScissorRectToImageBlocks:v31 imageBlockSize:v6];
-      v13 = vmovn_s64(v32);
-      *&v11->_scissorRectOffset[2] = v13.i16[2];
-      *v11->_scissorRectOffset = v13.i16[0];
-      v14 = v33;
+      objc_msgSend_adjustScissorRectToImageBlocks_imageBlockSize_(PTImageblockConfig, *size, *(size + 8), *(size + 16), *(size + 24));
+      v12 = vmovn_s64(0);
+      *&v11->_scissorRectOffset[2] = v12.i16[2];
+      *v11->_scissorRectOffset = v12.i16[0];
+      v13 = 0u;
     }
 
     else
     {
-      v15 = vmovl_u16(v7);
-      v16 = vextq_s8(v15, v15, 8uLL).u64[0];
-      v17 = vceqz_s32(v16);
-      if (vorr_s8(v17, vdup_lane_s32(v17, 1)).u8[0])
+      v14 = vmovl_u16(v7);
+      v15 = vextq_s8(v14, v14, 8uLL).u64[0];
+      v16 = vceqz_s32(v15);
+      if (vorr_s8(v16, vdup_lane_s32(v16, 1)).u8[0])
       {
         v10->_threads.width = outRectCopy;
         v10->_threads.height = HIWORD(outRectCopy);
 LABEL_9:
         v11->_threads.depth = 1;
-        v29 = v11;
+        v28 = v11;
         goto LABEL_10;
       }
 
-      v18 = vand_s8(vdup_n_s32(v6), 0xFFFF0000FFFFLL);
-      v19 = v18.u32[1];
-      v20 = vand_s8(*v15.i8, 0xFFFF0000FFFFLL);
-      v21 = v18.i32[0];
-      v18.i32[0] = v20.i32[0] % v18.i32[0];
-      v18.i32[1] = v20.i32[1] % v18.i32[1];
-      v22 = vneg_s32(v18);
-      *&v10->_anon_c[2] = v22.i16[2];
-      *v10->_anon_c = v22.i16[0];
-      v23 = vsub_s32(*v15.i8, v18);
-      *&v10->_anon_c[6] = v23.i16[2];
-      *&v10->_anon_c[4] = v23.i16[0];
-      v24 = vadd_s32(vadd_s32(vdup_n_s32(v6 - 1), v16), v18);
-      v25 = vand_s8(v24, 0xFFFF0000FFFFLL);
-      v25.i32[0] %= v21;
-      v25.i32[1] %= v19;
-      v26 = vsub_s32(v24, v25);
-      v27.i64[0] = v26.u32[0];
-      v27.i64[1] = v26.u32[1];
-      v28.i64[0] = 0xFFFFLL;
-      v28.i64[1] = 0xFFFFLL;
-      v14 = vandq_s8(v27, v28);
+      v17 = vand_s8(vdup_n_s32(v6), 0xFFFF0000FFFFLL);
+      v18 = v17.u32[1];
+      v19 = vand_s8(*v14.i8, 0xFFFF0000FFFFLL);
+      v20 = v17.i32[0];
+      v17.i32[0] = v19.i32[0] % v17.i32[0];
+      v17.i32[1] = v19.i32[1] % v17.i32[1];
+      v21 = vneg_s32(v17);
+      *&v10->_anon_c[2] = v21.i16[2];
+      *v10->_anon_c = v21.i16[0];
+      v22 = vsub_s32(*v14.i8, v17);
+      *&v10->_anon_c[6] = v22.i16[2];
+      *&v10->_anon_c[4] = v22.i16[0];
+      v23 = vadd_s32(vadd_s32(vdup_n_s32(v6 - 1), v15), v17);
+      v24 = vand_s8(v23, 0xFFFF0000FFFFLL);
+      v24.i32[0] %= v20;
+      v24.i32[1] %= v18;
+      v25 = vsub_s32(v23, v24);
+      v26.i64[0] = v25.u32[0];
+      v26.i64[1] = v25.u32[1];
+      v27.i64[0] = 0xFFFFLL;
+      v27.i64[1] = 0xFFFFLL;
+      v13 = vandq_s8(v26, v27);
     }
 
-    *&v11->_threads.width = v14;
+    *&v11->_threads.width = v13;
     goto LABEL_9;
   }
 

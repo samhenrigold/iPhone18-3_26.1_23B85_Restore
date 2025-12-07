@@ -1,3 +1,752 @@
+_DWORD *BBUDataSource::createFromEurekaMIData(BBUDataSource *this, const __CFData *a2, int a3)
+{
+  v4 = a2;
+  Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+  v16 = Mutable;
+  v15 = 0;
+  v14 = 0u;
+  v13 = 0u;
+  if (this)
+  {
+    Length = CFDataGetLength(this);
+  }
+
+  else
+  {
+    Length = 0;
+  }
+
+  HIDWORD(v13) = Length;
+  LODWORD(v14) = Length;
+  v12 = a3;
+  CFDataAppendBytes(Mutable, &v12, 40);
+  if (this)
+  {
+    BytePtr = CFDataGetBytePtr(this);
+    v9 = CFDataGetLength(this);
+    CFDataAppendBytes(Mutable, BytePtr, v9);
+  }
+
+  v10 = operator new(0x18uLL);
+  v10[4] = v4;
+  *v10 = &unk_1F5F04B00;
+  *(v10 + 1) = Mutable;
+  if (Mutable)
+  {
+    CFRetain(Mutable);
+    CFRelease(Mutable);
+  }
+
+  return v10;
+}
+
+void sub_1E535ED28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  ctu::cf::CFSharedRef<__CFData>::~CFSharedRef(va);
+  _Unwind_Resume(a1);
+}
+
+void BBUDataSource::generateHash(uint64_t a1, unsigned __int8 *a2, int a3)
+{
+  v6 = (*(*a1 + 24))(a1);
+  v7 = operator new[](0x100000uLL);
+  if (a3 == 1)
+  {
+    *&v11 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v14.wbuf[12] = v11;
+    *&v14.wbuf[14] = v11;
+    *&v14.wbuf[8] = v11;
+    *&v14.wbuf[10] = v11;
+    *&v14.wbuf[4] = v11;
+    *&v14.wbuf[6] = v11;
+    *v14.wbuf = v11;
+    *&v14.wbuf[2] = v11;
+    *&v14.hash[4] = v11;
+    *&v14.hash[6] = v11;
+    *v14.hash = v11;
+    *&v14.hash[2] = v11;
+    *v14.count = v11;
+    CC_SHA384_Init(&v14);
+    if (v6)
+    {
+      v12 = 0;
+      do
+      {
+        v15 = 0;
+        if (v6 >= 0x100000)
+        {
+          v13 = 0x100000;
+        }
+
+        else
+        {
+          v13 = v6;
+        }
+
+        (*(*a1 + 16))(a1, v7, v13, &v15, v12);
+        CC_SHA384_Update(&v14, v7, v15);
+        v12 = v15 + v12;
+        v6 -= v15;
+      }
+
+      while (v6);
+    }
+
+    CC_SHA384_Final(a2, &v14);
+  }
+
+  else if (!a3)
+  {
+    v14.wbuf[2] = 0xAAAAAAAAAAAAAAAALL;
+    *&v8 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v14.hash[6] = v8;
+    *v14.wbuf = v8;
+    *&v14.hash[2] = v8;
+    *&v14.hash[4] = v8;
+    *v14.count = v8;
+    *v14.hash = v8;
+    CC_SHA256_Init(&v14);
+    if (v6)
+    {
+      v9 = 0;
+      do
+      {
+        v15 = 0;
+        if (v6 >= 0x100000)
+        {
+          v10 = 0x100000;
+        }
+
+        else
+        {
+          v10 = v6;
+        }
+
+        (*(*a1 + 16))(a1, v7, v10, &v15, v9);
+        CC_SHA256_Update(&v14, v7, v15);
+        v9 = v15 + v9;
+        v6 -= v15;
+      }
+
+      while (v6);
+    }
+
+    CC_SHA256_Final(a2, &v14);
+  }
+
+  operator delete[](v7);
+}
+
+uint64_t BBUDataSource::saveDataToFile(uint64_t a1, uint64_t a2, int a3)
+{
+  v85 = *MEMORY[0x1E69E9840];
+  memset(&v69, 170, sizeof(v69));
+  pthread_mutex_lock(&ctu::Singleton<BBUPartitionManager,BBUPartitionManager,ctu::PthreadMutexGuardPolicy<BBUPartitionManager>>::sInstance);
+  v6 = off_1ED944170;
+  if (!off_1ED944170)
+  {
+    v7 = operator new(0x18uLL);
+    BBUPartitionManager::BBUPartitionManager(v7);
+    *&__str = v7;
+    v8 = operator new(0x20uLL);
+    *v8 = &unk_1F5F05A00;
+    v8[1] = 0;
+    v8[2] = 0;
+    v8[3] = v7;
+    v9 = off_1ED944178;
+    off_1ED944170 = v7;
+    off_1ED944178 = v8;
+    if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v9->__on_zero_shared)(v9);
+      std::__shared_weak_count::__release_weak(v9);
+    }
+
+    v6 = off_1ED944170;
+  }
+
+  v10 = off_1ED944178;
+  *&__b.f_bsize = v6;
+  __b.f_blocks = off_1ED944178;
+  if (off_1ED944178)
+  {
+    atomic_fetch_add_explicit(off_1ED944178 + 1, 1uLL, memory_order_relaxed);
+  }
+
+  pthread_mutex_unlock(&ctu::Singleton<BBUPartitionManager,BBUPartitionManager,ctu::PthreadMutexGuardPolicy<BBUPartitionManager>>::sInstance);
+  v11 = v6[1];
+  if (!v11)
+  {
+LABEL_14:
+    std::__throw_out_of_range[abi:ne200100]("map::at:  key not found");
+  }
+
+  while (1)
+  {
+    while (1)
+    {
+      v12 = *(v11 + 8);
+      if (v12 < 1)
+      {
+        break;
+      }
+
+      v11 = *v11;
+      if (!v11)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    if ((v12 & 0x80000000) == 0)
+    {
+      break;
+    }
+
+    v11 = v11[1];
+    if (!v11)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  if (*(v11 + 63) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v69, v11[5], v11[6]);
+  }
+
+  else
+  {
+    v69 = *(v11 + 5);
+  }
+
+  if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v10->__on_zero_shared)(v10);
+    std::__shared_weak_count::__release_weak(v10);
+  }
+
+  if (*(a2 + 23) >= 0)
+  {
+    v13 = a2;
+  }
+
+  else
+  {
+    v13 = *a2;
+  }
+
+  v14 = open(v13, 1537, 420);
+  if (v14 < 0)
+  {
+    v22 = 35;
+    if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+    {
+      goto LABEL_104;
+    }
+
+    return v22;
+  }
+
+  v15 = (*(*a1 + 24))(a1);
+  v60 = operator new[](v15);
+  if (v15)
+  {
+    v16 = 0;
+    v17 = v15;
+    v18 = v60;
+    do
+    {
+      __b.f_bsize = -1431655766;
+      (*(*a1 + 16))(a1, v18, v17, &__b, v16);
+      v16 = (__b.f_bsize + v16);
+      v18 += __b.f_bsize;
+      v17 = (v17 - __b.f_bsize);
+    }
+
+    while (v17);
+  }
+
+  v68 = -1431655766;
+  v19 = TelephonyUtilWriteToCompletion();
+  if (!v19)
+  {
+    if (gBBULogMaskGet(void)::once == -1)
+    {
+      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x80) == 0)
+      {
+        goto LABEL_44;
+      }
+    }
+
+    else
+    {
+      dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+      if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x80) == 0)
+      {
+        goto LABEL_44;
+      }
+    }
+
+    if ((gBBULogVerbosity & 0x80000000) == 0)
+    {
+      v23 = (*(*a1 + 56))(a1);
+      if (*(a2 + 23) >= 0)
+      {
+        v24 = a2;
+      }
+
+      else
+      {
+        v24 = *a2;
+      }
+
+      _BBULog(15, 0, v23, "", "Wrote %u bytes to %s\n", v68, v24);
+    }
+
+LABEL_44:
+    if (!a3)
+    {
+LABEL_47:
+      v22 = 0;
+      goto LABEL_103;
+    }
+
+    memset(&__b, 0, 24);
+    v25 = bbufs::chownToWireless(&__b, v14);
+    if (SHIBYTE(__b.f_bfree) < 0)
+    {
+      v49 = v25;
+      operator delete(*&__b.f_bsize);
+      if (v49)
+      {
+        goto LABEL_47;
+      }
+    }
+
+    else if (v25)
+    {
+      goto LABEL_47;
+    }
+
+    pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
+    v50 = off_1ED944120;
+    if (!off_1ED944120)
+    {
+      v51 = operator new(0x38uLL);
+      v52 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+      v53 = dispatch_queue_create("BBUError", v52);
+      *v51 = 0;
+      v51[1] = 0;
+      v51[2] = v53;
+      if (v53)
+      {
+        v54 = v53;
+        dispatch_retain(v53);
+        v51[3] = 0;
+        dispatch_release(v54);
+      }
+
+      else
+      {
+        v51[3] = 0;
+      }
+
+      v51[4] = 0;
+      v51[5] = 0;
+      v51[6] = 0;
+      std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&__b, v51);
+      v55 = *&__b.f_bsize;
+      *&__b.f_bsize = 0;
+      __b.f_blocks = 0;
+      v56 = *(&off_1ED944120 + 1);
+      off_1ED944120 = v55;
+      if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v56->__on_zero_shared)(v56);
+        std::__shared_weak_count::__release_weak(v56);
+      }
+
+      f_blocks = __b.f_blocks;
+      if (__b.f_blocks && !atomic_fetch_add((__b.f_blocks + 8), 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (f_blocks->__on_zero_shared)(f_blocks);
+        std::__shared_weak_count::__release_weak(f_blocks);
+      }
+
+      v50 = off_1ED944120;
+    }
+
+    v58 = *(&off_1ED944120 + 1);
+    v67.__r_.__value_.__r.__words[0] = v50;
+    v67.__r_.__value_.__l.__size_ = *(&off_1ED944120 + 1);
+    if (*(&off_1ED944120 + 1))
+    {
+      atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
+    }
+
+    pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
+    block = operator new(0x20uLL);
+    v72 = xmmword_1E5391A90;
+    strcpy(block, "Failed to change file ownership");
+    *&__b.f_bsize = MEMORY[0x1E69E9820];
+    __b.f_blocks = 0x40000000;
+    __b.f_bfree = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+    __b.f_bavail = &__block_descriptor_tmp_8;
+    __b.f_files = v50;
+    __b.f_ffree = &block;
+    __b.f_fsid.val[0] = 35;
+    __p[0] = &__b;
+    *&__str = MEMORY[0x1E69E9820];
+    *(&__str + 1) = 0x40000000;
+    *&v78 = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+    *(&v78 + 1) = &__block_descriptor_tmp_13_0;
+    *&v79 = v50;
+    *(&v79 + 1) = __p;
+    v59 = *(v50 + 16);
+    if (*(v50 + 24))
+    {
+      dispatch_async_and_wait(v59, &__str);
+      if ((SHIBYTE(v72) & 0x80000000) == 0)
+      {
+LABEL_123:
+        if (v58 && !atomic_fetch_add(&v58->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v58->__on_zero_shared)(v58);
+          std::__shared_weak_count::__release_weak(v58);
+        }
+
+        goto LABEL_102;
+      }
+    }
+
+    else
+    {
+      dispatch_sync(v59, &__str);
+      if ((SHIBYTE(v72) & 0x80000000) == 0)
+      {
+        goto LABEL_123;
+      }
+    }
+
+    operator delete(block);
+    goto LABEL_123;
+  }
+
+  memset(&__b, 170, sizeof(__b));
+  memset(&v67, 0, sizeof(v67));
+  if ((v69.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v20 = &v69;
+  }
+
+  else
+  {
+    v20 = v69.__r_.__value_.__r.__words[0];
+  }
+
+  if (statfs(v20, &__b))
+  {
+    if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v67.__r_.__value_.__l.__size_ = 18;
+      v21 = v67.__r_.__value_.__r.__words[0];
+    }
+
+    else
+    {
+      *(&v67.__r_.__value_.__s + 23) = 18;
+      v21 = &v67;
+    }
+
+    strcpy(v21, ": failed to statfs");
+  }
+
+  else
+  {
+    v84 = 0u;
+    v83 = 0u;
+    v82 = 0u;
+    v81 = 0u;
+    v80 = 0u;
+    v79 = 0u;
+    v78 = 0u;
+    __str = 0u;
+    snprintf(&__str, 0x80uLL, ": free %llu avail %llu", __b.f_bfree * __b.f_bsize, __b.f_bavail * __b.f_bsize);
+    std::string::__assign_external(&v67, &__str);
+  }
+
+  pthread_mutex_lock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
+  v26 = off_1ED944120;
+  if (!off_1ED944120)
+  {
+    v27 = operator new(0x38uLL);
+    v28 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v29 = dispatch_queue_create("BBUError", v28);
+    *v27 = 0;
+    v27[1] = 0;
+    v27[2] = v29;
+    if (v29)
+    {
+      v30 = v29;
+      dispatch_retain(v29);
+      v27[3] = 0;
+      dispatch_release(v30);
+    }
+
+    else
+    {
+      v27[3] = 0;
+    }
+
+    v27[4] = 0;
+    v27[5] = 0;
+    v27[6] = 0;
+    std::shared_ptr<BBUError>::shared_ptr[abi:ne200100]<BBUError,std::shared_ptr<BBUError> ctu::SharedSynchronizable<BBUError>::make_shared_ptr<BBUError>(BBUError*)::{lambda(BBUError*)#1},0>(&__str, v27);
+    v31 = __str;
+    __str = 0uLL;
+    v32 = *(&off_1ED944120 + 1);
+    off_1ED944120 = v31;
+    if (v32 && !atomic_fetch_add(&v32->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v32->__on_zero_shared)(v32);
+      std::__shared_weak_count::__release_weak(v32);
+    }
+
+    v33 = *(&__str + 1);
+    if (*(&__str + 1) && !atomic_fetch_add((*(&__str + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v33->__on_zero_shared)(v33);
+      std::__shared_weak_count::__release_weak(v33);
+    }
+
+    v26 = off_1ED944120;
+  }
+
+  v34 = *(&off_1ED944120 + 1);
+  v65 = v26;
+  v66 = *(&off_1ED944120 + 1);
+  if (*(&off_1ED944120 + 1))
+  {
+    atomic_fetch_add_explicit((*(&off_1ED944120 + 1) + 8), 1uLL, memory_order_relaxed);
+  }
+
+  pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
+  v84 = 0u;
+  v83 = 0u;
+  v82 = 0u;
+  v81 = 0u;
+  v80 = 0u;
+  v79 = 0u;
+  v78 = 0u;
+  __str = 0u;
+  if (strerror_r(v19, &__str, 0x80uLL))
+  {
+    snprintf(&__str, 0x80uLL, "unknown error %d", v19);
+  }
+
+  v35 = strlen(&__str);
+  if (v35 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v36 = v35;
+  if (v35 >= 0x17)
+  {
+    if ((v35 | 7) == 0x17)
+    {
+      v38 = 25;
+    }
+
+    else
+    {
+      v38 = (v35 | 7) + 1;
+    }
+
+    p_dst = operator new(v38);
+    __dst.__r_.__value_.__l.__size_ = v36;
+    __dst.__r_.__value_.__r.__words[2] = v38 | 0x8000000000000000;
+    __dst.__r_.__value_.__r.__words[0] = p_dst;
+    goto LABEL_74;
+  }
+
+  *(&__dst.__r_.__value_.__s + 23) = v35;
+  p_dst = &__dst;
+  if (v35)
+  {
+LABEL_74:
+    memcpy(p_dst, &__str, v36);
+  }
+
+  p_dst->__r_.__value_.__s.__data_[v36] = 0;
+  v39 = std::string::insert(&__dst, 0, "Failed to write file: ", 0x16uLL);
+  v40 = *&v39->__r_.__value_.__l.__data_;
+  v62.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
+  *&v62.__r_.__value_.__l.__data_ = v40;
+  v39->__r_.__value_.__l.__size_ = 0;
+  v39->__r_.__value_.__r.__words[2] = 0;
+  v39->__r_.__value_.__r.__words[0] = 0;
+  if ((v67.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v41 = &v67;
+  }
+
+  else
+  {
+    v41 = v67.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v67.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(v67.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    size = v67.__r_.__value_.__l.__size_;
+  }
+
+  v43 = std::string::append(&v62, v41, size);
+  v44 = *&v43->__r_.__value_.__l.__data_;
+  v64 = v43->__r_.__value_.__r.__words[2];
+  *__p = v44;
+  v43->__r_.__value_.__l.__size_ = 0;
+  v43->__r_.__value_.__r.__words[2] = 0;
+  v43->__r_.__value_.__r.__words[0] = 0;
+  *&__str = MEMORY[0x1E69E9820];
+  *(&__str + 1) = 0x40000000;
+  *&v78 = ___ZN8BBUError8addErrorERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE9BBUReturn_block_invoke;
+  *(&v78 + 1) = &__block_descriptor_tmp_8;
+  *&v79 = v26;
+  *(&v79 + 1) = __p;
+  LODWORD(v80) = 35;
+  p_str = &__str;
+  block = MEMORY[0x1E69E9820];
+  *&v72 = 0x40000000;
+  *(&v72 + 1) = ___ZNK3ctu20SharedSynchronizableI8BBUErrorE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+  v73 = &__block_descriptor_tmp_13_0;
+  v74 = v26;
+  p_p_str = &p_str;
+  v45 = *(v26 + 16);
+  if (*(v26 + 24))
+  {
+    dispatch_async_and_wait(v45, &block);
+    if ((SHIBYTE(v64) & 0x80000000) == 0)
+    {
+      goto LABEL_83;
+    }
+  }
+
+  else
+  {
+    dispatch_sync(v45, &block);
+    if ((SHIBYTE(v64) & 0x80000000) == 0)
+    {
+LABEL_83:
+      if ((SHIBYTE(v62.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      {
+        goto LABEL_84;
+      }
+
+      goto LABEL_89;
+    }
+  }
+
+  operator delete(__p[0]);
+  if ((SHIBYTE(v62.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+LABEL_84:
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_85;
+    }
+
+    goto LABEL_90;
+  }
+
+LABEL_89:
+  operator delete(v62.__r_.__value_.__l.__data_);
+  if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+LABEL_85:
+    if (!v34)
+    {
+      goto LABEL_93;
+    }
+
+    goto LABEL_91;
+  }
+
+LABEL_90:
+  operator delete(__dst.__r_.__value_.__l.__data_);
+  if (!v34)
+  {
+    goto LABEL_93;
+  }
+
+LABEL_91:
+  if (!atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v34->__on_zero_shared)(v34);
+    std::__shared_weak_count::__release_weak(v34);
+  }
+
+LABEL_93:
+  if (gBBULogMaskGet(void)::once == -1)
+  {
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x80) != 0)
+    {
+      goto LABEL_95;
+    }
+  }
+
+  else
+  {
+    dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
+    if ((*(gBBULogMaskGet(void)::sBBULogMask + 1) & 0x80) != 0)
+    {
+LABEL_95:
+      if ((gBBULogVerbosity & 0x80000000) == 0)
+      {
+        v46 = (*(*a1 + 56))(a1);
+        if (*(a2 + 23) >= 0)
+        {
+          v47 = a2;
+        }
+
+        else
+        {
+          v47 = *a2;
+        }
+
+        _BBULog(15, 0, v46, "", "Failed writing %u bytes to %s - wrote only %u\n", v15, v47, v68);
+      }
+    }
+  }
+
+  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v67.__r_.__value_.__l.__data_);
+  }
+
+LABEL_102:
+  v22 = 35;
+LABEL_103:
+  close(v14);
+  operator delete[](v60);
+  if (SHIBYTE(v69.__r_.__value_.__r.__words[2]) < 0)
+  {
+LABEL_104:
+    operator delete(v69.__r_.__value_.__l.__data_);
+  }
+
+  return v22;
+}
+
 void sub_1E535FB00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, void *__p, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
 {
   pthread_mutex_unlock(&ctu::Singleton<BBUError,BBUError,ctu::PthreadMutexGuardPolicy<BBUError>>::sInstance);
@@ -6,6 +755,13 @@ void sub_1E535FB00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
+  _Unwind_Resume(a1);
+}
+
+void sub_1E535FC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -30,20 +786,20 @@ uint64_t DaleController_ExceptionDump::create@<X0>(uint64_t a1@<X0>, void *a2@<X
   v4[6] = 0;
   if (*(a1 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v8, *a1, *(a1 + 8));
+    std::string::__init_copy_ctor_external(&v9, *a1, *(a1 + 8));
     v5 = *v4;
   }
 
   else
   {
-    v8 = *a1;
+    v9 = *a1;
   }
 
-  result = v5[2](v4, &v8);
-  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+  result = v5[2](v4, &v9);
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
   {
     v7 = result;
-    operator delete(v8.__r_.__value_.__l.__data_);
+    operator delete(v9.__r_.__value_.__l.__data_);
     result = v7;
   }
 
@@ -54,17 +810,17 @@ uint64_t DaleController_ExceptionDump::create@<X0>(uint64_t a1@<X0>, void *a2@<X
 
   else
   {
-    ACFULogging::getLogInstance(result);
-    ACFULogging::handleMessage();
+    LogInstance = ACFULogging::getLogInstance(result);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to init exception dump object\n", "DaleController_ExceptionDump", "create");
     return (*(*v4 + 8))(v4);
   }
 
   return result;
 }
 
-void sub_1E535FE14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+void sub_1E535FE14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
 {
-  (*(*v17 + 8))(v17);
+  (*(*v17 + 8))(v17, a2, a3, a4, a5, a6, a7, a8);
   *v16 = 0;
   _Unwind_Resume(a1);
 }
@@ -114,37 +870,48 @@ void sub_1E535FF38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t DaleController_ExceptionDump::handshake(DaleController_ExceptionDump *this)
 {
-  v7 = 0;
-  v6 = 0;
-  ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage();
-  v2 = support::transport::airship::write(*(*(this + 3) + 8), "oem mrdump", 0xAuLL);
-  v3 = v2;
-  ACFULogging::getLogInstance(v2);
-  if (v3)
+  v11 = 0;
+  v10 = 0;
+  LogInstance = ACFULogging::getLogInstance(this);
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: Sending oem mrdump command\n", "DaleController_ExceptionDump", "handshake");
+  v3 = support::transport::airship::write(*(*(this + 3) + 8), "oem mrdump", 0xAuLL);
+  v4 = v3;
+  v5 = ACFULogging::getLogInstance(v3);
+  if (v4)
   {
-    ACFULogging::handleMessage();
-    v4 = support::transport::airship::read(*(*(this + 3) + 8), &v6, 4uLL);
-    if (v4)
+    ACFULogging::handleMessage(v5, 4, "%s::%s: Reading oem mrdump command response\n", "DaleController_ExceptionDump", "handshake");
+    v6 = support::transport::airship::read(*(*(this + 3) + 8), &v10, 4uLL);
+    if (v6)
     {
-      v7 = 0;
-      if (v6 == 1497451343)
+      v11 = 0;
+      if (v10 == 1497451343)
       {
         return 1;
       }
+
+      v9 = ACFULogging::getLogInstance(v6);
+      ACFULogging::handleMessage(v9, 2, "%s::%s: unexpected response (%s) to oem memory dump\n");
     }
 
-    ACFULogging::getLogInstance(v4);
+    else
+    {
+      v8 = ACFULogging::getLogInstance(v6);
+      ACFULogging::handleMessage(v8, 2, "%s::%s: failed to read response to memory dump command\n");
+    }
   }
 
-  ACFULogging::handleMessage();
+  else
+  {
+    ACFULogging::handleMessage(v5, 2, "%s::%s: failed to send oem memory dump command\n");
+  }
+
   return 0;
 }
 
 uint64_t DaleController_ExceptionDump::transfer(DaleController_ExceptionDump *this)
 {
   v1 = MEMORY[0x1EEE9AC00](this);
-  v52 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v2 = 0x7FFFFFFFFFFFFFF7;
   v3 = *(v1 + 55);
   if (v3 >= 0)
@@ -310,166 +1077,175 @@ LABEL_30:
 LABEL_41:
   *v20 = 0;
   v24 = block.__r_.__value_.__r.__words[2];
-  v44 = 0xAAAAAAAAAAAAAAAALL;
-  v45 = 0xAAAAAAAAAAAAAAAALL;
+  v51 = 0xAAAAAAAAAAAAAAAALL;
+  v52 = 0xAAAAAAAAAAAAAAAALL;
   __p = block.__r_.__value_.__r.__words[0];
   if ((block.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    std::string::__init_copy_ctor_external(&v43, block.__r_.__value_.__l.__data_, block.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v50, block.__r_.__value_.__l.__data_, block.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v43 = block;
+    v50 = block;
   }
 
-  support::fs::SyncFile::create(&v43, 52, 0x100000uLL, &v44);
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  support::fs::SyncFile::create(&v50, 52, 0x100000uLL, &v51);
+  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v50.__r_.__value_.__l.__data_);
   }
 
   v26 = tcgetattr;
-  if (v44)
+  if (!v51)
   {
-    block.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
-    block.__r_.__value_.__l.__size_ = 0x40000000;
-    block.__r_.__value_.__r.__words[2] = ___ZN7support2fs8SyncFile4openEv_block_invoke;
-    v48 = &__block_descriptor_tmp_2;
-    v49 = v44;
-    ctu::SharedSynchronizable<support::fs::SyncFile>::execute_wrapped(v44 + 1, &block);
-    isOpen = support::fs::SyncFile::isOpen(v44);
-    if (isOpen)
-    {
-      v28 = 0;
-      v29 = 0;
-      while (1)
-      {
-        v30 = support::transport::airship::read(*(*(v6 + 24) + 8), __b, 0xF000uLL);
-        if ((v30 & 1) == 0)
-        {
-          ACFULogging::getLogInstance(v30);
-          v26 = tcgetattr;
-          goto LABEL_73;
-        }
-
-        v31 = *__b;
-        ACFULogging::getLogInstance(v30);
-        v32 = ACFULogging::handleMessage();
-        if (!v31)
-        {
-          break;
-        }
-
-        if (v31 >= 0xEFFD)
-        {
-          ACFULogging::getLogInstance(v32);
-          v26 = tcgetattr;
-          ACFULogging::handleMessage();
-          goto LABEL_75;
-        }
-
-        v28 += v31;
-        if ((v28 - v29) > 0x500000)
-        {
-          ACFULogging::getLogInstance(v32);
-          ACFULogging::handleMessage();
-          v29 = v28;
-        }
-
-        support::fs::SyncFile::write(v44, &__b[4], v31);
-      }
-
-      ACFULogging::getLogInstance(v32);
-      v26 = tcgetattr;
-      ACFULogging::handleMessage();
-      v33 = 1;
-      v34 = v44;
-      if (!v44)
-      {
-        goto LABEL_64;
-      }
-
-      goto LABEL_56;
-    }
-
-    ACFULogging::getLogInstance(isOpen);
-    if (*(v44 + 63) < 0)
-    {
-      v41 = *(v44 + 5);
-    }
+    LogInstance = ACFULogging::getLogInstance(v25);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to create coredump file\n");
+    goto LABEL_75;
   }
 
-  else
+  block.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
+  block.__r_.__value_.__l.__size_ = 0x40000000;
+  block.__r_.__value_.__r.__words[2] = ___ZN7support2fs8SyncFile4openEv_block_invoke;
+  v55 = &__block_descriptor_tmp_2;
+  v56 = v51;
+  ctu::SharedSynchronizable<support::fs::SyncFile>::execute_wrapped(v51 + 1, &block);
+  isOpen = support::fs::SyncFile::isOpen(v51);
+  if (!isOpen)
   {
-    ACFULogging::getLogInstance(v25);
-  }
+    v47 = ACFULogging::getLogInstance(isOpen);
+    if (*(v51 + 63) >= 0)
+    {
+      v48 = v51 + 40;
+    }
 
-LABEL_73:
-  ACFULogging::handleMessage();
+    else
+    {
+      v48 = *(v51 + 5);
+    }
+
+    ACFULogging::handleMessage(v47, 2, "%s::%s: failed to open file (%s)\n", "DaleController_ExceptionDump", "transfer", v48);
 LABEL_75:
-  v33 = 0;
-  v34 = v44;
-  if (v44)
-  {
-LABEL_56:
-    if (support::fs::SyncFile::isOpen(v34))
+    v36 = 0;
+    v37 = v51;
+    if (!v51)
     {
-      v46 = v44;
-      block.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
-      block.__r_.__value_.__l.__size_ = *(v26 + 130);
-      block.__r_.__value_.__r.__words[2] = ___ZNK3ctu20SharedSynchronizableIN7support2fs8SyncFileEE20execute_wrapped_syncIZNS3_5closeEvE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-      v48 = &__block_descriptor_tmp_17;
-      v49 = (v44 + 8);
-      v50 = &v46;
-      v35 = *(v44 + 3);
-      if (*(v44 + 4))
+      goto LABEL_65;
+    }
+
+    goto LABEL_56;
+  }
+
+  v28 = 0;
+  v29 = 0;
+  while (1)
+  {
+    v30 = support::transport::airship::read(*(*(v6 + 24) + 8), __b, 0xF000uLL);
+    if ((v30 & 1) == 0)
+    {
+      v44 = ACFULogging::getLogInstance(v30);
+      v26 = tcgetattr;
+      ACFULogging::handleMessage(v44, 2, "%s::%s: failed to read coredump chunk\n");
+      goto LABEL_75;
+    }
+
+    v31 = *__b;
+    v32 = ACFULogging::getLogInstance(v30);
+    v33 = ACFULogging::handleMessage(v32, 4, "%s::%s: Length of data contained within the chunk: %u bytes\n", "DaleController_ExceptionDump", "transfer", v31);
+    if (!v31)
+    {
+      break;
+    }
+
+    if (v31 >= 0xEFFD)
+    {
+      v45 = ACFULogging::getLogInstance(v33);
+      v26 = tcgetattr;
+      ACFULogging::handleMessage(v45, 2, "%s::%s: Unexpected data length: %u\n", "DaleController_ExceptionDump", "transfer", v31);
+      goto LABEL_75;
+    }
+
+    v28 += v31;
+    if ((v28 - v29) > 0x500000)
+    {
+      v34 = ACFULogging::getLogInstance(v33);
+      ACFULogging::handleMessage(v34, 0, "%s::%s: %llu bytes transferred\n", "DaleController_ExceptionDump", "transfer", v28);
+      v29 = v28;
+    }
+
+    support::fs::SyncFile::write(v51, &__b[4], v31);
+  }
+
+  v35 = ACFULogging::getLogInstance(v33);
+  v26 = tcgetattr;
+  ACFULogging::handleMessage(v35, 0, "%s::%s: Total transferred bytes %llu\n", "DaleController_ExceptionDump", "transfer", v28);
+  v36 = 1;
+  v37 = v51;
+  if (!v51)
+  {
+    goto LABEL_65;
+  }
+
+LABEL_56:
+  if (support::fs::SyncFile::isOpen(v37))
+  {
+    v53 = v51;
+    block.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
+    block.__r_.__value_.__l.__size_ = *(v26 + 130);
+    block.__r_.__value_.__r.__words[2] = ___ZNK3ctu20SharedSynchronizableIN7support2fs8SyncFileEE20execute_wrapped_syncIZNS3_5closeEvE3__0EEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+    v55 = &__block_descriptor_tmp_17;
+    v56 = (v51 + 8);
+    v57 = &v53;
+    v38 = *(v51 + 3);
+    if (*(v51 + 4))
+    {
+      dispatch_async_and_wait(v38, &block);
+    }
+
+    else
+    {
+      dispatch_sync(v38, &block);
+    }
+
+    v39 = support::fs::SyncFile::isOpen(v51);
+    if (v39)
+    {
+      v40 = ACFULogging::getLogInstance(v39);
+      if (*(v51 + 63) >= 0)
       {
-        dispatch_async_and_wait(v35, &block);
+        v41 = v51 + 40;
       }
 
       else
       {
-        dispatch_sync(v35, &block);
+        v41 = *(v51 + 5);
       }
 
-      v36 = support::fs::SyncFile::isOpen(v44);
-      if (v36)
-      {
-        ACFULogging::getLogInstance(v36);
-        if (*(v44 + 63) < 0)
-        {
-          v37 = *(v44 + 5);
-        }
-
-        ACFULogging::handleMessage();
-      }
+      ACFULogging::handleMessage(v40, 2, "%s::%s: failed to close file (%s)\n", "DaleController_ExceptionDump", "transfer", v41);
     }
   }
 
-LABEL_64:
-  v38 = v45;
-  if (v45 && !atomic_fetch_add((v45 + 8), 0xFFFFFFFFFFFFFFFFLL))
+LABEL_65:
+  v42 = v52;
+  if (v52 && !atomic_fetch_add((v52 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v38->__on_zero_shared)(v38);
-    std::__shared_weak_count::__release_weak(v38);
+    (v42->__on_zero_shared)(v42);
+    std::__shared_weak_count::__release_weak(v42);
     if ((v24 & 0x8000000000000000) == 0)
     {
-      goto LABEL_68;
+      return v36;
     }
 
-    goto LABEL_67;
+    goto LABEL_68;
   }
 
   if ((v24 & 0x8000000000000000) != 0)
   {
-LABEL_67:
+LABEL_68:
     operator delete(__p);
   }
 
-LABEL_68:
-  v39 = *MEMORY[0x1E69E9840];
-  return v33;
+  return v36;
 }
 
 void sub_1E5360698(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -532,7 +1308,7 @@ void DaleController_ExceptionDump::~DaleController_ExceptionDump(void **this)
   operator delete(this);
 }
 
-void **std::__call_once_proxy[abi:ne200100]<std::tuple<DaleController_ExceptionDump::init(std::string)::$_0 &&>>(uint64_t ***a1)
+void ***std::__call_once_proxy[abi:ne200100]<std::tuple<DaleController_ExceptionDump::init(std::string)::$_0 &&>>(uint64_t ***a1)
 {
   v1 = **a1;
   v2 = *v1;
@@ -572,61 +1348,60 @@ void **std::__call_once_proxy[abi:ne200100]<std::tuple<DaleController_ExceptionD
 
   if (!v4)
   {
-    goto LABEL_23;
+    LogInstance = ACFULogging::getLogInstance(v3);
+    result = ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to create transport\n");
+LABEL_25:
+    *(v2 + 8) = 0;
+    return result;
   }
 
   v11 = *(v1 + 31);
   v12 = v11;
-  if ((v11 & 0x80u) != 0)
+  if (v11 < 0)
   {
     v11 = v1[2];
   }
 
-  if (v11)
+  if (!v11)
   {
-    v13 = (v1 + 1);
-    result = (v2 + 32);
-    if ((v2 + 32) != v1 + 1)
+    v18 = ACFULogging::getLogInstance(v3);
+    result = ACFULogging::handleMessage(v18, 2, "%s::%s: invalid coredump save directory\n");
+    goto LABEL_25;
+  }
+
+  v13 = (v1 + 1);
+  result = (v2 + 32);
+  if ((v2 + 32) != v1 + 1)
+  {
+    if (*(v2 + 55) < 0)
     {
-      if (*(v2 + 55) < 0)
+      if (v12 >= 0)
       {
-        if (v12 >= 0)
-        {
-          v16 = v1 + 1;
-        }
-
-        else
-        {
-          v16 = *v13;
-        }
-
-        result = std::string::__assign_no_alias<false>(result, v16, v11);
-      }
-
-      else if (v12 < 0)
-      {
-        result = std::string::__assign_no_alias<true>(result, *v13, v1[2]);
+        v16 = v1 + 1;
       }
 
       else
       {
-        v15 = *v13;
-        *(v2 + 48) = v1[3];
-        *result = v15;
+        v16 = *v13;
       }
+
+      result = std::string::__assign_no_alias<false>(result, v16, v11);
     }
 
-    *(v2 + 8) = 1;
+    else if (v12 < 0)
+    {
+      result = std::string::__assign_no_alias<true>(result, *v13, v1[2]);
+    }
+
+    else
+    {
+      v15 = *v13;
+      *(v2 + 48) = v1[3];
+      *result = v15;
+    }
   }
 
-  else
-  {
-LABEL_23:
-    ACFULogging::getLogInstance(v3);
-    result = ACFULogging::handleMessage();
-    *(v2 + 8) = 0;
-  }
-
+  *(v2 + 8) = 1;
   return result;
 }
 
@@ -641,18 +1416,18 @@ uint64_t __cxx_global_var_init_42()
 
 void eUICC::Firmware::CreateFromData(const void **a1@<X0>, const void **a2@<X1>, const void **a3@<X2>, void *a4@<X8>)
 {
-  v87 = 0xAAAAAAAAAAAAAAAALL;
-  v88 = 0xAAAAAAAAAAAAAAAALL;
+  v54 = 0xAAAAAAAAAAAAAAAALL;
+  v55 = 0xAAAAAAAAAAAAAAAALL;
   v8 = operator new(0x48uLL);
   v9 = *a1;
-  v86 = v9;
+  v53 = v9;
   if (v9)
   {
     CFRetain(v9);
   }
 
   v10 = *a2;
-  v85 = v10;
+  v52 = v10;
   if (v10)
   {
     CFRetain(v10);
@@ -675,14 +1450,14 @@ void eUICC::Firmware::CreateFromData(const void **a1@<X0>, const void **a2@<X1>,
 
   *(v8 + 56) = 0u;
   *(v8 + 40) = 0u;
-  v87 = v8;
+  v54 = v8;
   v11 = operator new(0x20uLL);
   v11[1] = 0;
   v12 = v11 + 1;
   *v11 = &unk_1F5F05B80;
   v11[2] = 0;
   v11[3] = v8;
-  v88 = v11;
+  v55 = v11;
   v13 = *(v8 + 2);
   if (!v13)
   {
@@ -722,9 +1497,9 @@ LABEL_14:
   }
 
 LABEL_46:
-  v39 = v11;
+  v27 = v11;
   (*(*v11 + 16))();
-  std::__shared_weak_count::__release_weak(v39);
+  std::__shared_weak_count::__release_weak(v27);
   if (v10)
   {
 LABEL_15:
@@ -737,25 +1512,25 @@ LABEL_16:
     CFRelease(v9);
   }
 
-  v15 = v87;
+  v15 = v54;
   v16 = *a3;
-  v84 = v16;
+  v51 = v16;
   if (v16)
   {
     CFRetain(v16);
   }
 
-  cf = 0;
+  cf[0] = 0;
   v17 = *MEMORY[0x1E695E480];
   error[0] = 0;
-  error[1] = &cf;
-  v21 = CFPropertyListCreateWithData(v17, v16, 0, 0, error);
-  v89 = v21;
-  v22 = *error[1];
+  error[1] = cf;
+  v18 = CFPropertyListCreateWithData(v17, v16, 0, 0, error);
+  v56 = v18;
+  v19 = *error[1];
   if (error[0])
   {
     *error[1] = error[0];
-    if (!v22)
+    if (!v19)
     {
       goto LABEL_25;
     }
@@ -764,78 +1539,78 @@ LABEL_16:
   else
   {
     *error[1] = 0;
-    if (!v22)
+    if (!v19)
     {
       goto LABEL_25;
     }
   }
 
-  CFRelease(v22);
+  CFRelease(v19);
 LABEL_25:
-  if (!v21)
+  if (!v18)
   {
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", v18, v19, v20, "plistRef");
+    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", "plistRef", "", "", 51);
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    ctu::cf::show(error, cf, v29);
+    ctu::cf::show(error, cf[0], v23);
     if (SHIBYTE(error[2]) >= 0)
     {
-      v33 = error;
+      v24 = error;
     }
 
     else
     {
-      LOBYTE(v33) = error[0];
+      v24 = error[0];
     }
 
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "%s\n", v30, v31, v32, v33);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "%s\n", v24);
     goto LABEL_70;
   }
 
   TypeID = CFDictionaryGetTypeID();
-  if (TypeID != CFGetTypeID(v21))
+  if (TypeID != CFGetTypeID(v18))
   {
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", v24, v25, v26, "CFDictionaryGetTypeID() == CFGetTypeID(plistRef.get())");
+    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", "CFDictionaryGetTypeID() == CFGetTypeID(plistRef.get())", "", "", 52);
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    ctu::cf::show(error, v21, v34);
+    ctu::cf::show(error, v18, v25);
     if (SHIBYTE(error[2]) >= 0)
     {
-      v38 = error;
+      v26 = error;
     }
 
     else
     {
-      LOBYTE(v38) = error[0];
+      v26 = error[0];
     }
 
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "info.plist is wrong type %s\n", v35, v36, v37, v38);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "info.plist is wrong type %s\n", v26);
     goto LABEL_70;
   }
 
-  v27 = CFGetTypeID(v21);
-  if (v27 != CFDictionaryGetTypeID())
+  v21 = CFGetTypeID(v18);
+  if (v21 != CFDictionaryGetTypeID())
   {
-    v21 = 0;
-    v28 = v15[5];
+    v18 = 0;
+    v22 = v15[5];
     v15[5] = 0;
-    if (!v28)
+    if (!v22)
     {
       goto LABEL_50;
     }
@@ -843,18 +1618,18 @@ LABEL_25:
     goto LABEL_49;
   }
 
-  CFRetain(v21);
-  v28 = v15[5];
-  v15[5] = v21;
-  if (v28)
+  CFRetain(v18);
+  v22 = v15[5];
+  v15[5] = v18;
+  if (v22)
   {
 LABEL_49:
-    CFRelease(v28);
-    v21 = v15[5];
+    CFRelease(v22);
+    v18 = v15[5];
   }
 
 LABEL_50:
-  Value = CFDictionaryGetValue(v21, @"com.apple.EmbeddedSoftwareRestore.eUICC.firmwareMac");
+  Value = CFDictionaryGetValue(v18, @"com.apple.EmbeddedSoftwareRestore.eUICC.firmwareMac");
   if (!Value)
   {
     if (gBBULogMaskGet(void)::once != -1)
@@ -862,17 +1637,17 @@ LABEL_50:
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", v40, v41, v42, "fwMacData");
+    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", "fwMacData", "", "", 58);
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Missing firmwareMac in info.plist -- firmware too old\n", v56, v57, v58, v80);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Missing firmwareMac in info.plist -- firmware too old\n");
 LABEL_72:
-    v54 = 0;
-    v55 = v89;
-    if (!v89)
+    v33 = 0;
+    v34 = v56;
+    if (!v56)
     {
       goto LABEL_74;
     }
@@ -880,32 +1655,32 @@ LABEL_72:
     goto LABEL_73;
   }
 
-  v44 = CFDataGetTypeID();
-  if (v44 != CFGetTypeID(Value))
+  v29 = CFDataGetTypeID();
+  if (v29 != CFGetTypeID(Value))
   {
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", v45, v46, v47, "CFDataGetTypeID() == CFGetTypeID(fwMacData)");
+    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", "CFDataGetTypeID() == CFGetTypeID(fwMacData)", "", "", 59);
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    ctu::cf::show(error, Value, v59);
+    ctu::cf::show(error, Value, v35);
     if (SHIBYTE(error[2]) >= 0)
     {
-      v63 = error;
+      v36 = error;
     }
 
     else
     {
-      LOBYTE(v63) = error[0];
+      v36 = error[0];
     }
 
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "fwMacData is wrong type %s\n", v60, v61, v62, v63);
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "fwMacData is wrong type %s\n", v36);
 LABEL_70:
     if (SHIBYTE(error[2]) < 0)
     {
@@ -917,51 +1692,51 @@ LABEL_70:
 
   memset(error, 0, sizeof(error));
   ctu::cf::assign();
-  v51 = error[0];
-  v52 = *&error[1];
-  v53 = v15[6];
-  if (v53)
+  v30 = error[0];
+  v31 = *&error[1];
+  v32 = v15[6];
+  if (v32)
   {
-    v15[7] = v53;
-    v81 = v52;
-    operator delete(v53);
-    v52 = v81;
+    v15[7] = v32;
+    v48 = v31;
+    operator delete(v32);
+    v31 = v48;
     v15[6] = 0;
     v15[7] = 0;
     v15[8] = 0;
   }
 
-  v15[6] = v51;
-  *(v15 + 7) = v52;
-  if (v52 - v51 != 8)
+  v15[6] = v30;
+  *(v15 + 7) = v31;
+  if (v31 - v30 != 8)
   {
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", v48, v49, v50, "fwMac.size() == kFWMacSize");
+    _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", "fwMac.size() == kFWMacSize", "", "", 62);
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "firmwareMac is wrong size %zu\n", v77, v78, v79, *(v15 + 56) - *(v15 + 48));
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "firmwareMac is wrong size %zu\n", v15[7] - v15[6]);
     goto LABEL_72;
   }
 
-  v54 = 1;
-  v55 = v89;
-  if (v89)
+  v33 = 1;
+  v34 = v56;
+  if (v56)
   {
 LABEL_73:
-    CFRelease(v55);
+    CFRelease(v34);
   }
 
 LABEL_74:
-  if (cf)
+  if (cf[0])
   {
-    CFRelease(cf);
+    CFRelease(cf[0]);
   }
 
   if (v16)
@@ -969,34 +1744,44 @@ LABEL_74:
     CFRelease(v16);
   }
 
-  if (v54)
+  if (v33)
   {
-    v64 = v87;
-    v65 = (*(*v87 + 8))(v87);
-    v67 = v66;
+    v37 = v54;
+    v38 = (*(*v54 + 8))(v54);
+    v40 = v39;
     memset(error, 170, sizeof(error));
-    (**v64)(error, v64);
+    (**v37)(error, v37);
     if (gBBULogMaskGet(void)::once != -1)
     {
       dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     }
 
-    v68 = SHIBYTE(error[2]);
-    v69 = error[0];
-    ctu::hex(v65, v67);
-    v73 = error;
-    if (v68 < 0)
+    v41 = SHIBYTE(error[2]);
+    v42 = error[0];
+    ctu::hex(cf, v38, v40);
+    v43 = error;
+    if (v41 < 0)
     {
-      LOBYTE(v73) = v69;
+      v43 = v42;
     }
 
-    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "eUICC Firmware loaded! Version %s MAC %s\n", v70, v71, v72, v73);
-    if (v83 < 0)
+    if (v50 >= 0)
     {
-      operator delete(cf);
-      v76 = v88;
-      *a4 = v64;
-      a4[1] = v76;
+      v44 = cf;
+    }
+
+    else
+    {
+      v44 = cf[0];
+    }
+
+    _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "eUICC Firmware loaded! Version %s MAC %s\n", v43, v44);
+    if (v50 < 0)
+    {
+      operator delete(cf[0]);
+      v47 = v55;
+      *a4 = v37;
+      a4[1] = v47;
       if ((SHIBYTE(error[2]) & 0x80000000) == 0)
       {
         return;
@@ -1005,9 +1790,9 @@ LABEL_74:
 
     else
     {
-      v74 = v88;
-      *a4 = v64;
-      a4[1] = v74;
+      v45 = v55;
+      *a4 = v37;
+      a4[1] = v45;
       if ((SHIBYTE(error[2]) & 0x80000000) == 0)
       {
         return;
@@ -1021,11 +1806,11 @@ LABEL_74:
   {
     *a4 = 0;
     a4[1] = 0;
-    v75 = v88;
-    if (v88 && !atomic_fetch_add((v88 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    v46 = v55;
+    if (v55 && !atomic_fetch_add((v55 + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v75->__on_zero_shared)(v75);
-      std::__shared_weak_count::__release_weak(v75);
+      (v46->__on_zero_shared)(v46);
+      std::__shared_weak_count::__release_weak(v46);
     }
   }
 }
@@ -1048,25 +1833,25 @@ void *eUICC::Firmware::GetVersionString@<X0>(CFMutableDataRef *this@<X0>, void *
 {
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v21[0] = v4;
-  v21[1] = v4;
-  v19 = v4;
-  v20 = v4;
+  v15[0] = v4;
+  v15[1] = v4;
+  v13 = v4;
+  v14 = v4;
   *__len = v4;
-  v17[0] = CFDataGetMutableBytePtr(this[3]);
-  v17[1] = CFDataGetLength(this[3]);
-  if (DERParseSequence(v17, 2u, &eUICC::DER::firmwareImageItemSpec, v21, 0x20uLL))
+  v11[0] = CFDataGetMutableBytePtr(this[3]);
+  v11[1] = CFDataGetLength(this[3]);
+  if (DERParseSequence(v11, 2u, &eUICC::DER::firmwareImageItemSpec, v15, 0x20uLL))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x51u, "Assertion failure(( DR_Success == ret) && Invalid input Firmware.)", v11, v12, v13, v17[0]);
+    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x51u, "Assertion failure(( DR_Success == ret) && Invalid input Firmware.)", v11[0]);
     goto LABEL_14;
   }
 
-  result = DERParseSequenceContent(v21, 3u, &eUICC::DER::firmwareImageHeaderItemSpec, __len, 0x30uLL);
+  result = DERParseSequenceContent(v15, 3u, &eUICC::DER::firmwareImageHeaderItemSpec, __len, 0x30uLL);
   if (result)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x54u, "Assertion failure(( DR_Success == ret) && Invalid input Firmware.)", v14, v15, v16, v17[0]);
+    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x54u, "Assertion failure(( DR_Success == ret) && Invalid input Firmware.)", v11[0]);
 LABEL_14:
   }
 
@@ -1135,32 +1920,32 @@ uint64_t eUICC::Firmware::GetFirmwareAPDUs@<X0>(CFMutableDataRef *this@<X0>, voi
   a2[2] = 0;
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v40 = v3;
-  v41 = v3;
-  v39[0] = CFDataGetMutableBytePtr(this[3]);
-  v39[1] = CFDataGetLength(this[3]);
-  memset(v38, 170, sizeof(v38));
-  if (DERParseSequence(v39, 2u, &eUICC::DER::firmwareImageItemSpec, &v40, 0x20uLL))
+  v27 = v3;
+  v28 = v3;
+  v26[0] = CFDataGetMutableBytePtr(this[3]);
+  v26[1] = CFDataGetLength(this[3]);
+  memset(v25, 170, sizeof(v25));
+  if (DERParseSequence(v26, 2u, &eUICC::DER::firmwareImageItemSpec, &v27, 0x20uLL))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x71u, "Assertion failure(( DR_Success == ret) && Invalid input Firmware.)", v24, v25, v26, v30);
+    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x71u, "Assertion failure(( DR_Success == ret) && Invalid input Firmware.)");
     goto LABEL_29;
   }
 
-  if (DERDecodeSeqInit(&v41, &v38[2], v38))
+  if (DERDecodeSeqInit(&v28, &v25[2], v25))
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x74u, "Assertion failure(( DR_Success == ret) && Invalid input Firmware.)", v27, v28, v29, v30);
+    _BBUException::_BBUException(exception, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x74u, "Assertion failure(( DR_Success == ret) && Invalid input Firmware.)");
 LABEL_29:
   }
 
   v4 = 0;
-  v33 = 0;
+  v20 = 0;
   v5 = 0;
   while (1)
   {
-    memset(v37, 170, sizeof(v37));
-    result = DERDecodeSeqNext(v38, v37);
+    memset(v24, 170, sizeof(v24));
+    result = DERDecodeSeqNext(v25, v24);
     if (result)
     {
       break;
@@ -1168,23 +1953,23 @@ LABEL_29:
 
     *&v7 = 0xAAAAAAAAAAAAAAAALL;
     *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v35 = v7;
-    v36 = v7;
-    v34 = v7;
-    if (DERParseSequenceContent(&v37[1], 3u, &eUICC::DER::firmwareImageAPDUItemSpec, &v34, 0x30uLL))
+    v22 = v7;
+    v23 = v7;
+    v21 = v7;
+    if (DERParseSequenceContent(&v24[1], 3u, &eUICC::DER::firmwareImageAPDUItemSpec, &v21, 0x30uLL))
     {
       a2[1] = v5;
-      a2[2] = v33;
+      a2[2] = v20;
       *a2 = v4;
       v15 = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(v15, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x82u, "Assertion failure(( DR_Success == ret) && Corrupt eUICC FW Data!)", v16, v17, v18, v30);
+      _BBUException::_BBUException(v15, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x82u, "Assertion failure(( DR_Success == ret) && Corrupt eUICC FW Data!)");
     }
 
-    v8 = v34;
-    v9 = v35;
-    if (v5 < v33)
+    v8 = v21;
+    v9 = v22;
+    if (v5 < v20)
     {
-      *v5 = v34;
+      *v5 = v21;
       *(v5 + 1) = v9;
       v5 += 32;
     }
@@ -1198,17 +1983,17 @@ LABEL_29:
       if ((v11 + 1) >> 59)
       {
         a2[1] = v5;
-        a2[2] = v33;
+        a2[2] = v20;
         *a2 = v4;
         std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
       }
 
-      if ((v33 - v4) >> 4 > v12)
+      if ((v20 - v4) >> 4 > v12)
       {
-        v12 = (v33 - v4) >> 4;
+        v12 = (v20 - v4) >> 4;
       }
 
-      if ((v33 - v4) >= 0x7FFFFFFFFFFFFFE0)
+      if ((v20 - v4) >= 0x7FFFFFFFFFFFFFE0)
       {
         v13 = 0x7FFFFFFFFFFFFFFLL;
       }
@@ -1223,7 +2008,7 @@ LABEL_29:
         if (v13 >> 59)
         {
           a2[1] = v5;
-          a2[2] = v33;
+          a2[2] = v20;
           *a2 = v4;
           std::__throw_bad_array_new_length[abi:ne200100]();
         }
@@ -1238,7 +2023,7 @@ LABEL_29:
 
       v14 = &v4[32 * v11];
       *v14 = v8;
-      v33 = &v4[32 * v13];
+      v20 = &v4[32 * v13];
       v14[1] = v9;
       v5 = (v14 + 2);
       memcpy(v4, __src, v10);
@@ -1252,14 +2037,14 @@ LABEL_29:
   if (result != 1)
   {
     a2[1] = v5;
-    a2[2] = v33;
+    a2[2] = v20;
     *a2 = v4;
-    v19 = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(v19, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x7Eu, "Assertion failure(( DR_Success == ret) && Corrupt eUICC FW Data!)", v20, v21, v22, v30);
+    v16 = __cxa_allocate_exception(0x210uLL);
+    _BBUException::_BBUException(v16, 35, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/eUICC/Source/eUICCFirmware.cpp", 0x7Eu, "Assertion failure(( DR_Success == ret) && Corrupt eUICC FW Data!)");
   }
 
   a2[1] = v5;
-  a2[2] = v33;
+  a2[2] = v20;
   *a2 = v4;
   return result;
 }
@@ -1280,7 +2065,7 @@ void sub_1E53619B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t eUICC::Firmware::BundleVersionsSupported(uint64_t a1, void ***a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v4 = *a2;
   v5 = a2[1];
   while (v5 != v4)
@@ -1294,12 +2079,12 @@ uint64_t eUICC::Firmware::BundleVersionsSupported(uint64_t a1, void ***a2)
   }
 
   a2[1] = v4;
-  v57[0] = 0xAAAAAAAAAAAAAAAALL;
-  v57[1] = 0xAAAAAAAAAAAAAAAALL;
-  ctu::cf::dict_adapter::dict_adapter(v57, *(a1 + 40));
+  v46[0] = 0xAAAAAAAAAAAAAAAALL;
+  v46[1] = 0xAAAAAAAAAAAAAAAALL;
+  ctu::cf::dict_adapter::dict_adapter(v46, *(a1 + 40));
   context = a2;
   ctu::cf::MakeCFString::MakeCFString(&__dst, "com.apple.EmbeddedSoftwareRestore.eUICC.bootloaderVersionsSupported");
-  v7 = (*v57[0])(v57, __dst);
+  v7 = (*v46[0])(v46, __dst);
   v8 = v7;
   if (v7)
   {
@@ -1307,9 +2092,9 @@ uint64_t eUICC::Firmware::BundleVersionsSupported(uint64_t a1, void ***a2)
     TypeID = CFArrayGetTypeID();
     if (v9 == TypeID)
     {
-      v66.length = CFArrayGetCount(v8);
-      v66.location = 0;
-      CFArrayApplyFunction(v8, v66, ctu::cf::_Applier_InsertArrayDefault<std::string,std::back_insert_iterator<std::vector<std::string>>>, &context);
+      v55.length = CFArrayGetCount(v8);
+      v55.location = 0;
+      CFArrayApplyFunction(v8, v55, ctu::cf::_Applier_InsertArrayDefault<std::string,std::back_insert_iterator<std::vector<std::string>>>, &context);
     }
 
     CFRelease(v8);
@@ -1325,12 +2110,12 @@ uint64_t eUICC::Firmware::BundleVersionsSupported(uint64_t a1, void ***a2)
     MEMORY[0x1E6926590](&__dst);
   }
 
-  Int = ctu::cf::map_adapter::getInt(v57, @"com.apple.EmbeddedSoftwareRestore.eUICC.bootloaderMajorVersion");
-  v15 = ctu::cf::map_adapter::getInt(v57, @"com.apple.EmbeddedSoftwareRestore.eUICC.bootloaderMinorVersion");
+  Int = ctu::cf::map_adapter::getInt(v46, @"com.apple.EmbeddedSoftwareRestore.eUICC.bootloaderMajorVersion");
+  v12 = ctu::cf::map_adapter::getInt(v46, @"com.apple.EmbeddedSoftwareRestore.eUICC.bootloaderMinorVersion");
   if ((Int & 0x80000000) == 0)
   {
-    v19 = v15;
-    if ((v15 & 0x80000000) == 0)
+    v13 = v12;
+    if ((v12 & 0x80000000) == 0)
     {
       if (gBBULogMaskGet(void)::once == -1)
       {
@@ -1348,159 +2133,159 @@ uint64_t eUICC::Firmware::BundleVersionsSupported(uint64_t a1, void ***a2)
 LABEL_15:
           if (gBBULogVerbosity >= 1)
           {
-            _BBULog(22, 1, "eUICCFirmwareParser", "", "[LEGACY] Bundle Version: %d.%d\n", v16, v17, v18, Int);
+            _BBULog(22, 1, "eUICCFirmwareParser", "", "[LEGACY] Bundle Version: %d.%d\n", Int, v13);
           }
         }
       }
 
-      eUICC::Firmware::BootloaderVersion(Int, v19, &v64);
-      v20 = a2[2];
-      v21 = *a2;
-      if (v20 == *a2)
+      eUICC::Firmware::BootloaderVersion(&v53, Int, v13);
+      v14 = a2[2];
+      v15 = *a2;
+      if (v14 == *a2)
       {
-        if (v20)
+        if (v14)
         {
-          v28 = a2[1];
-          v29 = *a2;
-          if (v28 != v20)
+          v19 = a2[1];
+          v20 = *a2;
+          if (v19 != v14)
           {
             do
             {
-              v30 = *(v28 - 1);
-              v28 -= 3;
-              if (v30 < 0)
+              v21 = *(v19 - 1);
+              v19 -= 3;
+              if (v21 < 0)
               {
-                operator delete(*v28);
+                operator delete(*v19);
               }
             }
 
-            while (v28 != v20);
-            v29 = *a2;
+            while (v19 != v14);
+            v20 = *a2;
           }
 
-          a2[1] = v21;
-          operator delete(v29);
+          a2[1] = v15;
+          operator delete(v20);
           *a2 = 0;
           a2[1] = 0;
           a2[2] = 0;
         }
 
-        v33 = operator new(0x18uLL);
-        *a2 = &v33->__r_.__value_.__l.__data_;
-        a2[1] = &v33->__r_.__value_.__l.__data_;
-        a2[2] = &v33[1].__r_.__value_.__l.__data_;
-        v62 = v33;
-        v63 = v33;
+        v24 = operator new(0x18uLL);
+        *a2 = &v24->__r_.__value_.__l.__data_;
+        a2[1] = &v24->__r_.__value_.__l.__data_;
+        a2[2] = &v24[1].__r_.__value_.__l.__data_;
+        p_data = &v24->__r_.__value_.__l.__data_;
+        v52 = v24;
         __dst = a2;
-        v59 = &v62;
-        v60 = &v63;
-        v61 = 0xAAAAAAAAAAAAAA00;
-        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+        p_p_data = &p_data;
+        v49 = &v52;
+        v50 = 0xAAAAAAAAAAAAAA00;
+        if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(v33, v64.__r_.__value_.__l.__data_, v64.__r_.__value_.__l.__size_);
-          v33 = v63;
+          std::string::__init_copy_ctor_external(v24, v53.__r_.__value_.__l.__data_, v53.__r_.__value_.__l.__size_);
+          v24 = v52;
         }
 
         else
         {
-          *v33 = v64;
+          *v24 = v53;
         }
 
-        v34 = &v33[1];
+        v25 = &v24[1].__r_.__value_.__l.__data_;
       }
 
       else
       {
-        v22 = a2[1];
-        if (v22 == v21)
+        v16 = a2[1];
+        if (v16 == v15)
         {
-          v62 = a2[1];
-          v63 = v22;
+          p_data = a2[1];
+          v52 = v16;
           __dst = a2;
-          v59 = &v62;
-          v60 = &v63;
-          v61 = 0xAAAAAAAAAAAAAA00;
-          if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+          p_p_data = &p_data;
+          v49 = &v52;
+          v50 = 0xAAAAAAAAAAAAAA00;
+          if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v22, v64.__r_.__value_.__l.__data_, v64.__r_.__value_.__l.__size_);
-            v32 = v63;
+            std::string::__init_copy_ctor_external(v16, v53.__r_.__value_.__l.__data_, v53.__r_.__value_.__l.__size_);
+            v23 = v52;
           }
 
           else
           {
-            v31 = *&v64.__r_.__value_.__l.__data_;
-            v22->__r_.__value_.__r.__words[2] = v64.__r_.__value_.__r.__words[2];
-            *&v22->__r_.__value_.__l.__data_ = v31;
-            v32 = v22;
+            v22 = *&v53.__r_.__value_.__l.__data_;
+            v16->__r_.__value_.__r.__words[2] = v53.__r_.__value_.__r.__words[2];
+            *&v16->__r_.__value_.__l.__data_ = v22;
+            v23 = v16;
           }
 
-          v34 = &v22[1] + v32 - v21;
+          v25 = (&v16[1].__r_.__value_.__l.__data_ + v23 - v15);
         }
 
         else
         {
-          if (v21 != &v64)
+          if (v15 != &v53)
           {
-            if (*(v21 + 23) < 0)
+            if (*(v15 + 23) < 0)
             {
-              if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                v35 = &v64;
+                v26 = &v53;
               }
 
               else
               {
-                v35 = v64.__r_.__value_.__r.__words[0];
+                v26 = v53.__r_.__value_.__r.__words[0];
               }
 
-              if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              if ((v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
               {
-                size = HIBYTE(v64.__r_.__value_.__r.__words[2]);
+                size = HIBYTE(v53.__r_.__value_.__r.__words[2]);
               }
 
               else
               {
-                size = v64.__r_.__value_.__l.__size_;
+                size = v53.__r_.__value_.__l.__size_;
               }
 
-              std::string::__assign_no_alias<false>(*a2, v35, size);
+              std::string::__assign_no_alias<false>(*a2, v26, size);
             }
 
-            else if ((*(&v64.__r_.__value_.__s + 23) & 0x80) != 0)
+            else if ((*(&v53.__r_.__value_.__s + 23) & 0x80) != 0)
             {
-              std::string::__assign_no_alias<true>(*a2, v64.__r_.__value_.__l.__data_, v64.__r_.__value_.__l.__size_);
+              std::string::__assign_no_alias<true>(*a2, v53.__r_.__value_.__l.__data_, v53.__r_.__value_.__l.__size_);
             }
 
             else
             {
-              v23 = *&v64.__r_.__value_.__l.__data_;
-              v21[2] = v64.__r_.__value_.__r.__words[2];
-              *v21 = v23;
+              v17 = *&v53.__r_.__value_.__l.__data_;
+              v15[2] = v53.__r_.__value_.__r.__words[2];
+              *v15 = v17;
             }
           }
 
-          v34 = (v21 + 3);
-          v53 = a2[1];
-          while (v53 != v34)
+          v25 = v15 + 3;
+          v43 = a2[1];
+          while (v43 != v25)
           {
-            v54 = *(v53 - 1);
-            v53 -= 3;
-            if (v54 < 0)
+            v44 = *(v43 - 1);
+            v43 -= 3;
+            if (v44 < 0)
             {
-              operator delete(*v53);
+              operator delete(*v43);
             }
           }
         }
       }
 
-      a2[1] = v34;
-      if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+      a2[1] = v25;
+      if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v64.__r_.__value_.__l.__data_);
+        operator delete(v53.__r_.__value_.__l.__data_);
       }
 
 LABEL_53:
-      v27 = 1;
+      v18 = 1;
       goto LABEL_54;
     }
   }
@@ -1510,20 +2295,20 @@ LABEL_53:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
   }
 
-  _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", v16, v17, v18, "success");
+  _BBULog(25, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Condition <<%s>> failed %s %s/%d\n", "success", "", "", 156);
   if (gBBULogMaskGet(void)::once != -1)
   {
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
   }
 
-  _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Bunk legacy keys?\n", v24, v25, v26, v55);
-  v27 = 0;
+  _BBULog(22, 0xFFFFFFFFLL, "eUICCFirmwareParser", "", "Bunk legacy keys?\n");
+  v18 = 0;
 LABEL_54:
   if (gBBULogMaskGet(void)::once == -1)
   {
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x40) == 0)
     {
-      goto LABEL_66;
+      goto LABEL_68;
     }
   }
 
@@ -1532,40 +2317,40 @@ LABEL_54:
     dispatch_once(&gBBULogMaskGet(void)::once, &__block_literal_global_7);
     if ((*(gBBULogMaskGet(void)::sBBULogMask + 2) & 0x40) == 0)
     {
-      goto LABEL_66;
+      goto LABEL_68;
     }
   }
 
   if ((gBBULogVerbosity & 0x80000000) == 0)
   {
-    v37 = *a2;
-    v38 = a2[1];
-    memset(&v64, 0, sizeof(v64));
-    if (v37 != v38)
+    v28 = *a2;
+    v29 = a2[1];
+    memset(&v53, 0, sizeof(v53));
+    if (v28 != v29)
     {
-      if (v37 != &v64)
+      if (v28 != &v53)
       {
-        if (*(v37 + 23) < 0)
+        if (*(v28 + 23) < 0)
         {
-          std::string::__assign_no_alias<true>(&v64, *v37, v37[1]);
+          std::string::__assign_no_alias<true>(&v53, *v28, v28[1]);
         }
 
         else
         {
-          v39 = *v37;
-          v64.__r_.__value_.__r.__words[2] = v37[2];
-          *&v64.__r_.__value_.__l.__data_ = v39;
+          v30 = *v28;
+          v53.__r_.__value_.__r.__words[2] = v28[2];
+          *&v53.__r_.__value_.__l.__data_ = v30;
         }
       }
 
       if (", ")
       {
-        for (i = v37 + 3; i != v38; i += 3)
+        for (i = v28 + 3; i != v29; i += 3)
         {
-          HIBYTE(v60) = 2;
+          HIBYTE(v49) = 2;
           memmove(&__dst, ", ", 2uLL);
           BYTE2(__dst) = 0;
-          if (SHIBYTE(v60) >= 0)
+          if (SHIBYTE(v49) >= 0)
           {
             p_dst = &__dst;
           }
@@ -1575,92 +2360,96 @@ LABEL_54:
             p_dst = __dst;
           }
 
-          if (SHIBYTE(v60) >= 0)
+          if (SHIBYTE(v49) >= 0)
           {
-            v52 = HIBYTE(v60);
+            v42 = HIBYTE(v49);
           }
 
           else
           {
-            v52 = v59;
+            v42 = p_p_data;
           }
 
-          std::string::append(&v64, p_dst, v52);
-          if (SHIBYTE(v60) < 0)
+          std::string::append(&v53, p_dst, v42);
+          if (SHIBYTE(v49) < 0)
           {
             operator delete(__dst);
           }
 
-          v48 = *(i + 23);
-          if (v48 >= 0)
+          v38 = *(i + 23);
+          if (v38 >= 0)
           {
-            v49 = i;
+            v39 = i;
           }
 
           else
           {
-            v49 = *i;
+            v39 = *i;
           }
 
-          if (v48 >= 0)
+          if (v38 >= 0)
           {
-            v50 = *(i + 23);
+            v40 = *(i + 23);
           }
 
           else
           {
-            v50 = i[1];
+            v40 = i[1];
           }
 
-          std::string::append(&v64, v49, v50);
+          std::string::append(&v53, v39, v40);
         }
       }
 
       else
       {
-        for (j = v37 + 3; j != v38; j += 3)
+        for (j = v28 + 3; j != v29; j += 3)
         {
-          v43 = j[1];
-          v44 = *(j + 23);
-          if (v44 >= 0)
+          v34 = *(j + 23);
+          if (v34 >= 0)
           {
-            v45 = j;
+            v35 = j;
           }
 
           else
           {
-            v45 = *j;
+            v35 = *j;
           }
 
-          if (v44 >= 0)
+          if (v34 >= 0)
           {
-            v46 = *(j + 23);
+            v36 = *(j + 23);
           }
 
           else
           {
-            v46 = j[1];
+            v36 = j[1];
           }
 
-          std::string::append(&v64, v45, v46);
+          std::string::append(&v53, v35, v36);
         }
       }
     }
 
-    _BBULog(22, 0, "eUICCFirmwareParser", "", "Supported Bootloader Versions success %d ret { %s }\n", v11, v12, v13, v27);
-    if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+    v31 = &v53;
+    if ((v53.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      operator delete(v64.__r_.__value_.__l.__data_);
+      v31 = v53.__r_.__value_.__r.__words[0];
+    }
+
+    _BBULog(22, 0, "eUICCFirmwareParser", "", "Supported Bootloader Versions success %d ret { %s }\n", v18, v31);
+    if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v53.__r_.__value_.__l.__data_);
     }
   }
 
-LABEL_66:
-  MEMORY[0x1E69265E0](v57);
-  v40 = *MEMORY[0x1E69E9840];
-  return v27;
+LABEL_68:
+  MEMORY[0x1E69265E0](v46);
+  return v18;
 }
 
-void sub_1E5362190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_1E5362190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](&__p);
   *(v22 + 8) = v23;
@@ -1673,7 +2462,7 @@ void sub_1E5362190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void eUICC::Firmware::BootloaderVersion(eUICC::Firmware *this@<X0>, int a2@<W1>, std::string *a3@<X8>)
+void eUICC::Firmware::BootloaderVersion(std::string *__return_ptr a1@<X8>, eUICC::Firmware *this@<X0>, int a3@<W1>)
 {
   std::to_string(&v21, this);
   size = SHIBYTE(v21.__r_.__value_.__r.__words[2]);
@@ -1776,7 +2565,7 @@ LABEL_26:
   *v15 = 0;
   v22 = v21;
   memset(&v21, 0, sizeof(v21));
-  std::to_string(&__p, a2);
+  std::to_string(&__p, a3);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -1798,7 +2587,7 @@ LABEL_26:
   }
 
   v19 = std::string::append(&v22, p_p, v18);
-  *a3 = *v19;
+  *a1 = *v19;
   v19->__r_.__value_.__l.__size_ = 0;
   v19->__r_.__value_.__r.__words[2] = 0;
   v19->__r_.__value_.__r.__words[0] = 0;
@@ -1999,7 +2788,7 @@ void *BBUBootLogger::create@<X0>(int a1@<W0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v6 = operator new(0x90uLL);
   ctu::OsLogContext::OsLogContext(v8, "com.apple.telephony.bb", "BBUBootLogger");
-  ctu::SharedLoggable<BBUBootLogger,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(v6, "BBUBootLogger", QOS_CLASS_UTILITY);
+  ctu::SharedLoggable<BBUBootLogger,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(v6, "BBUBootLogger", 17, v8);
   ctu::OsLogContext::~OsLogContext(v8);
   *(v6 + 32) = a1;
   v6[17] = a2;
@@ -2021,7 +2810,7 @@ void sub_1E53628FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *ctu::SharedLoggable<BBUBootLogger,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(void *a1, const char *a2, dispatch_qos_class_t a3)
+void *ctu::SharedLoggable<BBUBootLogger,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(void *a1, const char *a2, uint64_t a3, const ctu::OsLogContext *a4)
 {
   object = 0;
   ctu::SharedSynchronizable<BBUBootLogger>::SharedSynchronizable(a1, a2, a3, &object);
@@ -2133,7 +2922,7 @@ void __destroy_helper_block_e8_40c38_ZTSNSt3__18weak_ptrI13BBUBootLoggerEE(uint6
 
 void ___ZN13BBUBootLogger18openTransport_syncEv_block_invoke_2(void *a1, int a2, char *a3, int a4)
 {
-  *&v27[7] = *MEMORY[0x1E69E9840];
+  *&v26[7] = *MEMORY[0x1E69E9840];
   v6 = a1[4];
   v7 = a1[6];
   if (v7)
@@ -2171,9 +2960,9 @@ void ___ZN13BBUBootLogger18openTransport_syncEv_block_invoke_2(void *a1, int a2,
               if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
               {
                 *buf = 68157954;
-                v25 = v12;
-                v26 = 2080;
-                *v27 = a3;
+                v24 = v12;
+                v25 = 2080;
+                *v26 = a3;
                 _os_log_error_impl(&dword_1E5234000, v21, OS_LOG_TYPE_ERROR, "feedback object is null, logging to oslog instead:\n%.*s", buf, 0x12u);
               }
             }
@@ -2185,9 +2974,9 @@ void ___ZN13BBUBootLogger18openTransport_syncEv_block_invoke_2(void *a1, int a2,
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109378;
-              v25 = v12;
-              v26 = 2080;
-              *v27 = a3;
+              v24 = v12;
+              v25 = 2080;
+              *v26 = a3;
               _os_log_impl(&dword_1E5234000, v14, OS_LOG_TYPE_DEFAULT, "#I %*.s", buf, 0x12u);
             }
           }
@@ -2214,18 +3003,18 @@ void ___ZN13BBUBootLogger18openTransport_syncEv_block_invoke_2(void *a1, int a2,
             v16 = *(v6 + 32);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              v23 = "invalid";
+              v22 = "invalid";
               *buf = 67109634;
-              v25 = a2;
+              v24 = a2;
               if (a3)
               {
-                v23 = "valid";
+                v22 = "valid";
               }
 
-              v26 = 1024;
-              *v27 = a4;
-              v27[2] = 2080;
-              *&v27[3] = v23;
+              v25 = 1024;
+              *v26 = a4;
+              v26[2] = 2080;
+              *&v26[3] = v22;
               v18 = "feedback object is null, logging to oslog instead:\nreadCompletionBlock: status: 0x%x, size: %u, buffer: %s";
 LABEL_42:
               _os_log_error_impl(&dword_1E5234000, v16, OS_LOG_TYPE_ERROR, v18, buf, 0x18u);
@@ -2238,7 +3027,7 @@ LABEL_36:
                   std::__shared_weak_count::__release_weak(v10);
                 }
 
-                goto LABEL_38;
+                return;
               }
 
 LABEL_35:
@@ -2255,16 +3044,16 @@ LABEL_35:
           {
             v17 = "invalid";
             *buf = 67109634;
-            v25 = a2;
+            v24 = a2;
             if (a3)
             {
               v17 = "valid";
             }
 
-            v26 = 1024;
-            *v27 = a4;
-            v27[2] = 2080;
-            *&v27[3] = v17;
+            v25 = 1024;
+            *v26 = a4;
+            v26[2] = 2080;
+            *&v26[3] = v17;
             v18 = "readCompletionBlock: status: 0x%x, size: %u, buffer: %s";
             goto LABEL_42;
           }
@@ -2294,21 +3083,18 @@ LABEL_35:
   {
     goto LABEL_36;
   }
-
-LABEL_38:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E5362E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E5362E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E5362E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E5362E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2630,7 +3416,7 @@ uint64_t ___ZN8dispatch19async_and_wait_implIRU13block_pointerFbvEEENSt3__15deca
   return result;
 }
 
-uint64_t compareVersionString(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t compareVersionString(std::basic_regex<char> *a1, uint64_t a2, uint64_t a3, int a4)
 {
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -3319,43 +4105,40 @@ void KernelPCIRestoreTrace::stop(uint64_t *a1, dispatch_object_t *a2)
 
 void KernelPCIRestoreTrace::deregisterWithKernel_sync(KernelPCIRestoreTrace *this)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = **(this + 13);
-  if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
+    v7 = 136315138;
+    v8 = "deregisterWithKernel_sync";
+    _os_log_debug_impl(&dword_1E5234000, v2, OS_LOG_TYPE_DEBUG, "%s", &v7, 0xCu);
+    v2 = **(this + 13);
     if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_3;
-    }
-
-LABEL_6:
-    LOWORD(v8) = 0;
-    _os_log_impl(&dword_1E5234000, v2, OS_LOG_TYPE_INFO, "stopping kernel trace interface", &v8, 2u);
-    v4 = (this + 40);
-    v3 = *(this + 5);
-    if (!v3)
-    {
-      goto LABEL_14;
-    }
-
-    goto LABEL_7;
-  }
-
-  v8 = 136315138;
-  v9 = "deregisterWithKernel_sync";
-  _os_log_debug_impl(&dword_1E5234000, v2, OS_LOG_TYPE_DEBUG, "%s", &v8, 0xCu);
-  v2 = **(this + 13);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    goto LABEL_6;
-  }
-
 LABEL_3:
+      v4 = (this + 40);
+      v3 = *(this + 5);
+      if (!v3)
+      {
+        return;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if (!os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  {
+    goto LABEL_3;
+  }
+
+  LOWORD(v7) = 0;
+  _os_log_impl(&dword_1E5234000, v2, OS_LOG_TYPE_INFO, "stopping kernel trace interface", &v7, 2u);
   v4 = (this + 40);
   v3 = *(this + 5);
   if (!v3)
   {
-    goto LABEL_14;
+    return;
   }
 
 LABEL_7:
@@ -3374,10 +4157,13 @@ LABEL_7:
     v6 = *(this + 6);
     *v4 = 0;
     v4[1] = 0;
-    if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v6)
     {
-      (v6->__on_zero_shared)(v6);
-      std::__shared_weak_count::__release_weak(v6);
+      if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v6->__on_zero_shared)(v6);
+        std::__shared_weak_count::__release_weak(v6);
+      }
     }
   }
 
@@ -3386,20 +4172,17 @@ LABEL_7:
     *v4 = 0;
     v4[1] = 0;
   }
-
-LABEL_14:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void *KernelPCIRestoreTrace::createBuffContext_sync(uint64_t *a1, uint64_t a2, uint64_t *a3, NSObject **a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v8 = *a1[13];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v28 = 136315138;
-    v29 = "createBuffContext_sync";
-    _os_log_debug_impl(&dword_1E5234000, v8, OS_LOG_TYPE_DEBUG, "%s", &v28, 0xCu);
+    v27 = 136315138;
+    v28 = "createBuffContext_sync";
+    _os_log_debug_impl(&dword_1E5234000, v8, OS_LOG_TYPE_DEBUG, "%s", &v27, 0xCu);
   }
 
   v9 = operator new(0x38uLL);
@@ -3476,7 +4259,7 @@ LABEL_33:
 
   std::__shared_weak_count::__release_weak(v14);
   std::__shared_weak_count::__release_weak(v13);
-  v21 = (a1 + 20);
+  v21 = a1 + 20;
   v20 = a1[20];
   if (v20)
   {
@@ -3485,7 +4268,7 @@ LABEL_33:
       while (1)
       {
         v22 = v20;
-        v23 = v20[4];
+        v23 = *(v20 + 32);
         if (v9 >= v23)
         {
           break;
@@ -3515,7 +4298,7 @@ LABEL_33:
 
   else
   {
-    v22 = (a1 + 20);
+    v22 = a1 + 20;
 LABEL_27:
     v24 = operator new(0x28uLL);
     v24[4] = v9;
@@ -3533,7 +4316,6 @@ LABEL_27:
     ++a1[21];
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -3577,22 +4359,22 @@ LABEL_4:
 
 void readLogsCompletionCB(void *a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_10;
+    return;
   }
 
   v4 = a1[3];
   if (!v4)
   {
-    goto LABEL_10;
+    return;
   }
 
   v7 = std::__shared_weak_count::lock(v4);
   if (!v7)
   {
-    goto LABEL_10;
+    return;
   }
 
   v8 = v7;
@@ -3605,9 +4387,9 @@ void readLogsCompletionCB(void *a1, int a2, void *a3)
   v10 = *v9[13];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 136315138;
-    v21 = "readLogsCompletion";
-    _os_log_debug_impl(&dword_1E5234000, v10, OS_LOG_TYPE_DEBUG, "%s", &v20, 0xCu);
+    v18 = 136315138;
+    v19 = "readLogsCompletion";
+    _os_log_debug_impl(&dword_1E5234000, v10, OS_LOG_TYPE_DEBUG, "%s", &v18, 0xCu);
     v11 = v9[1];
     if (!v11)
     {
@@ -3651,7 +4433,7 @@ LABEL_16:
     std::__shared_weak_count::__release_weak(v14);
     if (atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      goto LABEL_10;
+      return;
     }
 
     goto LABEL_12;
@@ -3660,14 +4442,11 @@ LABEL_16:
 LABEL_9:
   if (atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-LABEL_10:
-    v18 = *MEMORY[0x1E69E9840];
     return;
   }
 
 LABEL_12:
   (v8->__on_zero_shared)(v8);
-  v19 = *MEMORY[0x1E69E9840];
 
   std::__shared_weak_count::__release_weak(v8);
 }
@@ -3684,22 +4463,22 @@ void sub_1E5364A70(_Unwind_Exception *a1, int a2)
 
 void KernelPCIRestoreTrace::deleteBuffContext_sync(uint64_t a1, unint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = **(a1 + 104);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 136315138;
-    v21 = "deleteBuffContext_sync";
-    _os_log_debug_impl(&dword_1E5234000, v4, OS_LOG_TYPE_DEBUG, "%s", &v20, 0xCu);
+    v19 = 136315138;
+    v20 = "deleteBuffContext_sync";
+    _os_log_debug_impl(&dword_1E5234000, v4, OS_LOG_TYPE_DEBUG, "%s", &v19, 0xCu);
     if (!a2)
     {
-      goto LABEL_32;
+      return;
     }
   }
 
   else if (!a2)
   {
-    goto LABEL_32;
+    return;
   }
 
   v5 = *(a1 + 160);
@@ -3709,7 +4488,7 @@ void KernelPCIRestoreTrace::deleteBuffContext_sync(uint64_t a1, unint64_t a2)
     v7 = *(a1 + 160);
     do
     {
-      v8 = v7[4];
+      v8 = *(v7 + 32);
       v9 = v8 >= a2;
       v10 = v8 < a2;
       if (v9)
@@ -3717,7 +4496,7 @@ void KernelPCIRestoreTrace::deleteBuffContext_sync(uint64_t a1, unint64_t a2)
         v6 = v7;
       }
 
-      v7 = v7[v10];
+      v7 = *(v7 + 8 * v10);
     }
 
     while (v7);
@@ -3788,29 +4567,26 @@ void KernelPCIRestoreTrace::deleteBuffContext_sync(uint64_t a1, unint64_t a2)
       operator delete(a2);
     }
   }
-
-LABEL_32:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void flushLogsCompletionCB(void *a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_10;
+    return;
   }
 
   v4 = a1[3];
   if (!v4)
   {
-    goto LABEL_10;
+    return;
   }
 
   v7 = std::__shared_weak_count::lock(v4);
   if (!v7)
   {
-    goto LABEL_10;
+    return;
   }
 
   v8 = v7;
@@ -3823,9 +4599,9 @@ void flushLogsCompletionCB(void *a1, int a2, void *a3)
   v10 = *v9[13];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 136315138;
-    v21 = "flushLogsCompletion";
-    _os_log_debug_impl(&dword_1E5234000, v10, OS_LOG_TYPE_DEBUG, "%s", &v20, 0xCu);
+    v18 = 136315138;
+    v19 = "flushLogsCompletion";
+    _os_log_debug_impl(&dword_1E5234000, v10, OS_LOG_TYPE_DEBUG, "%s", &v18, 0xCu);
     v11 = v9[1];
     if (!v11)
     {
@@ -3869,7 +4645,7 @@ LABEL_16:
     std::__shared_weak_count::__release_weak(v14);
     if (atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      goto LABEL_10;
+      return;
     }
 
     goto LABEL_12;
@@ -3878,14 +4654,11 @@ LABEL_16:
 LABEL_9:
   if (atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-LABEL_10:
-    v18 = *MEMORY[0x1E69E9840];
     return;
   }
 
 LABEL_12:
   (v8->__on_zero_shared)(v8);
-  v19 = *MEMORY[0x1E69E9840];
 
   std::__shared_weak_count::__release_weak(v8);
 }
@@ -4271,9 +5044,9 @@ void std::__tree<std::shared_ptr<PipeContext>>::destroy(void *a1)
 
 void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::start(dispatch::group_session)::$_0>(KernelPCIRestoreTrace::start(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::start(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::start(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t a1)
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   v1 = *a1;
-  v79 = *a1;
+  v78 = *a1;
   v2 = **a1;
   v3 = **(v2 + 104);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -4433,9 +5206,9 @@ LABEL_36:
     _os_log_impl(&dword_1E5234000, v16, OS_LOG_TYPE_INFO, "set buffer size to %d KB", &buf, 8u);
   }
 
-  LODWORD(v82[0]) = 0;
-  (*(**(v2 + 40) + 136))(*(v2 + 40), v82);
-  v17 = v82[0];
+  LODWORD(v81[0]) = 0;
+  (*(**(v2 + 40) + 136))(*(v2 + 40), v81);
+  v17 = v81[0];
   if (v17 < *(v2 + 140) * (*(**(v2 + 40) + 40))(*(v2 + 40)))
   {
     v18 = **(v2 + 104);
@@ -4444,7 +5217,7 @@ LABEL_36:
       goto LABEL_150;
     }
 
-    v19 = v82[0];
+    v19 = v81[0];
     v20 = *(v2 + 140) * (*(**(v2 + 40) + 40))(*(v2 + 40));
     LODWORD(buf) = 67109376;
     DWORD1(buf) = v19;
@@ -4470,8 +5243,8 @@ LABEL_90:
     {
       v51 = v50[4];
       v52 = v50[5];
-      v82[0] = v51;
-      v82[1] = v52;
+      v81[0] = v51;
+      v81[1] = v52;
       if (v52)
       {
         atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -4504,27 +5277,27 @@ LABEL_132:
 
       *&v53 = 0xAAAAAAAAAAAAAAAALL;
       *(&v53 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *&v92[32] = v53;
-      v93 = v53;
-      *v92 = v53;
-      *&v92[16] = v53;
+      *&v91[32] = v53;
+      v92 = v53;
+      *v91 = v53;
+      *&v91[16] = v53;
       buf = v53;
-      v91 = v53;
+      v90 = v53;
       if (*(v51 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v81, *v51, *(v51 + 1));
+        std::string::__init_copy_ctor_external(&v80, *v51, *(v51 + 1));
       }
 
       else
       {
         v54 = *v51;
-        v81.__r_.__value_.__r.__words[2] = *(v51 + 2);
-        *&v81.__r_.__value_.__l.__data_ = v54;
+        v80.__r_.__value_.__r.__words[2] = *(v51 + 2);
+        *&v80.__r_.__value_.__l.__data_ = v54;
       }
 
       v56 = *(v2 + 144);
       capabilities::ipc::ABPLogExtension(block, v24);
-      if (SHIBYTE(v86) >= 0)
+      if (SHIBYTE(v85) >= 0)
       {
         v57 = block;
       }
@@ -4534,29 +5307,29 @@ LABEL_132:
         v57 = *block;
       }
 
-      if (SHIBYTE(v81.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v80.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&buf, v81.__r_.__value_.__l.__data_, v81.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&buf, v80.__r_.__value_.__l.__data_, v80.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        buf = *&v81.__r_.__value_.__l.__data_;
-        *&v91 = *(&v81.__r_.__value_.__l + 2);
+        buf = *&v80.__r_.__value_.__l.__data_;
+        *&v90 = *(&v80.__r_.__value_.__l + 2);
       }
 
       v1 &= 0xFFFFFFFFFFFFFF00;
-      *&v92[8] = *v80;
-      *&v92[11] = *&v80[3];
-      memset(&v92[15], 0, 25);
-      *(&v91 + 1) = v1;
-      *&v92[40] = (v56 << 20);
-      *&v93 = 0x100000;
-      BYTE8(v93) = 0;
+      *&v91[8] = *v79;
+      *&v91[11] = *&v79[3];
+      memset(&v91[15], 0, 25);
+      *(&v90 + 1) = v1;
+      *&v91[40] = (v56 << 20);
+      *&v92 = 0x100000;
+      BYTE8(v92) = 0;
       if (v57)
       {
-        std::string::__assign_external(&v92[16], v57);
-        if ((SHIBYTE(v86) & 0x80000000) == 0)
+        std::string::__assign_external(&v91[16], v57);
+        if ((SHIBYTE(v85) & 0x80000000) == 0)
         {
           goto LABEL_110;
         }
@@ -4564,12 +5337,12 @@ LABEL_132:
 
       else
       {
-        v92[39] = 4;
-        strcpy(&v92[16], ".log");
-        if ((SHIBYTE(v86) & 0x80000000) == 0)
+        v91[39] = 4;
+        strcpy(&v91[16], ".log");
+        if ((SHIBYTE(v85) & 0x80000000) == 0)
         {
 LABEL_110:
-          if ((SHIBYTE(v81.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
             goto LABEL_111;
           }
@@ -4579,7 +5352,7 @@ LABEL_110:
       }
 
       operator delete(*block);
-      if ((SHIBYTE(v81.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v80.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_111:
         v58 = **(v2 + 104);
@@ -4592,7 +5365,7 @@ LABEL_111:
       }
 
 LABEL_116:
-      operator delete(v81.__r_.__value_.__l.__data_);
+      operator delete(v80.__r_.__value_.__l.__data_);
       v58 = **(v2 + 104);
       if (!os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
       {
@@ -4653,24 +5426,24 @@ LABEL_120:
         goto LABEL_129;
       }
 
-      v83[0] = MEMORY[0x1E69E9820];
-      v83[1] = 0x40000000;
-      v83[2] = ___ZN21CircularFileLogWriter4openEv_block_invoke;
-      v83[3] = &__block_descriptor_tmp;
-      v83[4] = v64;
-      v84 = v83;
+      v82[0] = MEMORY[0x1E69E9820];
+      v82[1] = 0x40000000;
+      v82[2] = ___ZN21CircularFileLogWriter4openEv_block_invoke;
+      v82[3] = &__block_descriptor_tmp;
+      v82[4] = v64;
+      v83 = v82;
       *block = MEMORY[0x1E69E9820];
       *&block[8] = 0x40000000;
-      v86 = ___ZNK3ctu20SharedSynchronizableI21CircularFileLogWriterE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
-      v87 = &__block_descriptor_tmp_21;
-      v88 = v64 + 1;
-      v89 = &v84;
+      v85 = ___ZNK3ctu20SharedSynchronizableI21CircularFileLogWriterE20execute_wrapped_syncIRU13block_pointerFvvEEEDTclsr8dispatchE4syncLDnEclsr3stdE7forwardIT_Efp_EEEOS7__block_invoke;
+      v86 = &__block_descriptor_tmp_21;
+      v87 = v64 + 1;
+      v88 = &v83;
       isa = v64[3].isa;
       if (v64[4].isa)
       {
         dispatch_async_and_wait(isa, block);
 LABEL_129:
-        if ((v92[39] & 0x80000000) == 0)
+        if ((v91[39] & 0x80000000) == 0)
         {
           goto LABEL_130;
         }
@@ -4679,10 +5452,10 @@ LABEL_129:
       }
 
       dispatch_sync(isa, block);
-      if ((v92[39] & 0x80000000) == 0)
+      if ((v91[39] & 0x80000000) == 0)
       {
 LABEL_130:
-        if ((v92[15] & 0x80000000) == 0)
+        if ((v91[15] & 0x80000000) == 0)
         {
           goto LABEL_131;
         }
@@ -4691,11 +5464,11 @@ LABEL_130:
       }
 
 LABEL_136:
-      operator delete(*&v92[16]);
-      if ((v92[15] & 0x80000000) == 0)
+      operator delete(*&v91[16]);
+      if ((v91[15] & 0x80000000) == 0)
       {
 LABEL_131:
-        if ((SBYTE7(v91) & 0x80000000) == 0)
+        if ((SBYTE7(v90) & 0x80000000) == 0)
         {
           goto LABEL_132;
         }
@@ -4704,8 +5477,8 @@ LABEL_131:
       }
 
 LABEL_137:
-      operator delete(*(&v91 + 1));
-      if ((SBYTE7(v91) & 0x80000000) == 0)
+      operator delete(*(&v90 + 1));
+      if ((SBYTE7(v90) & 0x80000000) == 0)
       {
         goto LABEL_132;
       }
@@ -4750,8 +5523,8 @@ LABEL_139:
       v50 = v67;
       if (v67 == (v2 + 184))
       {
-        v1 = v79;
-        if (!v79)
+        v1 = v78;
+        if (!v78)
         {
           goto LABEL_157;
         }
@@ -4763,11 +5536,11 @@ LABEL_139:
 
   v25 = 0;
   v26 = v2 + 200;
-  v76 = (v2 + 184);
+  v75 = (v2 + 184);
   while (1)
   {
-    LODWORD(v84) = -1431655766;
-    if ((*(**(v2 + 40) + 48))(*(v2 + 40), v25, &v84, &KernelPCIRestoreTrace::registerWithKernel_sync(void)::name, 256))
+    LODWORD(v83) = -1431655766;
+    if ((*(**(v2 + 40) + 48))(*(v2 + 40), v25, &v83, &KernelPCIRestoreTrace::registerWithKernel_sync(void)::name, 256))
     {
       byte_1ECFD5847 = 0;
       v27 = KernelPCIRestoreTrace::registerWithKernel_sync(void)::name == 0x76655F7374617473 && dword_1ECFD5750 == 7630437;
@@ -4790,7 +5563,7 @@ LABEL_89:
   v28->__shared_owners_ = 0;
   v28->__shared_weak_owners_ = 0;
   v28->__vftable = &unk_1F5F05DC8;
-  v29 = v84;
+  v29 = v83;
   v30 = *(v2 + 224);
   p_shared_owners = &v28->__shared_owners_;
   if (!v30)
@@ -4802,11 +5575,11 @@ LABEL_89:
   {
     v30 = (*(*v30 + 16))(v30);
 LABEL_47:
-    *(&v91 + 1) = v30;
+    *(&v90 + 1) = v30;
     goto LABEL_49;
   }
 
-  *(&v91 + 1) = &buf;
+  *(&v90 + 1) = &buf;
   (*(*v30 + 24))(v30, &buf);
 LABEL_49:
   v31 = strlen(&KernelPCIRestoreTrace::registerWithKernel_sync(void)::name);
@@ -4846,10 +5619,10 @@ LABEL_57:
 
   *(&v34->~__shared_weak_count + v32) = 0;
   LODWORD(v28[2].__vftable) = v29;
-  v36 = *(&v91 + 1);
-  if (*(&v91 + 1))
+  v36 = *(&v90 + 1);
+  if (*(&v90 + 1))
   {
-    if (*(&v91 + 1) == &buf)
+    if (*(&v90 + 1) == &buf)
     {
       v28[3].__shared_owners_ = &v28[2].__shared_owners_;
       (*(*v36 + 24))(v36);
@@ -4857,7 +5630,7 @@ LABEL_57:
 
     else
     {
-      v28[3].__shared_owners_ = (*(**(&v91 + 1) + 16))(*(&v91 + 1));
+      v28[3].__shared_owners_ = (*(**(&v90 + 1) + 16))(*(&v90 + 1));
     }
   }
 
@@ -4868,15 +5641,15 @@ LABEL_57:
 
   v28[3].__shared_weak_owners_ = 0;
   v28[4].__vftable = 0;
-  if (*(&v91 + 1) == &buf)
+  if (*(&v90 + 1) == &buf)
   {
-    (*(**(&v91 + 1) + 32))(*(&v91 + 1));
+    (*(**(&v90 + 1) + 32))(*(&v90 + 1));
     *block = v28 + 1;
     *&block[8] = v28;
     v37 = (v2 + 184);
     v38 = (v2 + 184);
-    v39 = *v76;
-    if (*v76)
+    v39 = *v75;
+    if (*v75)
     {
       goto LABEL_71;
     }
@@ -4884,17 +5657,17 @@ LABEL_57:
     goto LABEL_75;
   }
 
-  if (*(&v91 + 1))
+  if (*(&v90 + 1))
   {
-    (*(**(&v91 + 1) + 40))(*(&v91 + 1));
+    (*(**(&v90 + 1) + 40))(*(&v90 + 1));
   }
 
   *block = v28 + 1;
   *&block[8] = v28;
   v37 = (v2 + 184);
   v38 = (v2 + 184);
-  v39 = *v76;
-  if (!*v76)
+  v39 = *v75;
+  if (!*v75)
   {
 LABEL_75:
     v41 = operator new(0x30uLL);
@@ -4982,8 +5755,8 @@ LABEL_80:
   while (1)
   {
     v45 = *(v2 + 136);
-    v83[0] = 0;
-    BuffContext_sync = KernelPCIRestoreTrace::createBuffContext_sync(v2, v45, block, v83);
+    v82[0] = 0;
+    BuffContext_sync = KernelPCIRestoreTrace::createBuffContext_sync(v2, v45, block, v82);
     v47 = (*(**(v2 + 40) + 72))(*(v2 + 40), LODWORD(v28[2].__vftable), *BuffContext_sync, *(BuffContext_sync + 2), 0, readLogsCompletionCB, BuffContext_sync);
     v48 = **(v2 + 104);
     if (v47)
@@ -5010,13 +5783,13 @@ LABEL_80:
 
   if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
   {
-    v75 = *(v2 + 136) >> 10;
+    v74 = *(v2 + 136) >> 10;
     LODWORD(buf) = 67109632;
     DWORD1(buf) = v44 + 1;
     WORD4(buf) = 1024;
-    *(&buf + 10) = v75;
+    *(&buf + 10) = v74;
     HIWORD(buf) = 1024;
-    LODWORD(v91) = v47;
+    LODWORD(v90) = v47;
     _os_log_error_impl(&dword_1E5234000, v48, OS_LOG_TYPE_ERROR, "error: failed to pre-assign buffer # %u of size %u KB to fetch logs (error [0x%x])", &buf, 0x14u);
   }
 
@@ -5066,17 +5839,18 @@ LABEL_157:
   if (a1)
   {
     v73 = *(a1 + 16);
-    if (v73 && !atomic_fetch_add(&v73->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v73)
     {
-      (v73->__on_zero_shared)(v73);
-      std::__shared_weak_count::__release_weak(v73);
-      v72 = a1;
+      if (!atomic_fetch_add(&v73->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v73->__on_zero_shared)(v73);
+        std::__shared_weak_count::__release_weak(v73);
+        v72 = a1;
+      }
     }
 
     operator delete(v72);
   }
-
-  v74 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E5366770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41)
@@ -5121,7 +5895,7 @@ LABEL_7:
 void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0>(KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
   v1 = a1;
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = **a1;
   v4 = **(v3 + 104);
@@ -5171,7 +5945,7 @@ LABEL_101:
 
 LABEL_3:
   v6 = v5;
-  v74 = v1;
+  v73 = v1;
   dispatch_retain(v5);
   dispatch_group_enter(v6);
   v7 = **(v3 + 104);
@@ -5191,8 +5965,8 @@ LABEL_3:
     goto LABEL_96;
   }
 
-  v72 = v2;
-  v73 = v6;
+  v71 = v2;
+  v72 = v6;
   v8 = dispatch_group_create();
   v9 = operator new(0x38uLL);
   v10 = v9;
@@ -5206,10 +5980,10 @@ LABEL_3:
     v9[4] = 0;
     v9[5] = 0;
     v9[6] = 0;
-    v82 = (v9 + 3);
-    v83 = v9;
+    v81 = (v9 + 3);
+    v82 = v9;
     v12 = *(v3 + 176);
-    v76 = (v3 + 184);
+    v75 = (v3 + 184);
     if (v12 == (v3 + 184))
     {
       goto LABEL_82;
@@ -5223,49 +5997,49 @@ LABEL_3:
   v10[1].__shared_weak_owners_ = 0;
   v10[2].__vftable = 0;
   dispatch_release(v8);
-  v82 = v11;
-  v83 = v10;
+  v81 = v11;
+  v82 = v10;
   v12 = *(v3 + 176);
-  v76 = (v3 + 184);
+  v75 = (v3 + 184);
   if (v12 != (v3 + 184))
   {
 LABEL_9:
-    v13 = &v86;
-    v75 = v3;
+    v13 = &v85;
+    v74 = v3;
     do
     {
       v15 = v12[4];
       v14 = v12[5];
-      v81[0] = v15;
-      v81[1] = v14;
+      v80[0] = v15;
+      v80[1] = v14;
       if (v14)
       {
         atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v16 = v82;
-      v77 = v14;
-      v78 = v15;
+      v16 = v81;
+      v76 = v14;
+      v77 = v15;
       if (*(v15 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v79, *v15, *(v15 + 8));
+        std::string::__init_copy_ctor_external(&v78, *v15, *(v15 + 8));
       }
 
       else
       {
         v17 = *v15;
-        v79.__r_.__value_.__r.__words[2] = *(v15 + 16);
-        *&v79.__r_.__value_.__l.__data_ = v17;
+        v78.__r_.__value_.__r.__words[2] = *(v15 + 16);
+        *&v78.__r_.__value_.__l.__data_ = v17;
       }
 
-      v88[0] = v79.__r_.__value_.__l.__size_;
-      v18 = v79.__r_.__value_.__r.__words[0];
-      *(v88 + 7) = *(&v79.__r_.__value_.__r.__words[1] + 7);
-      v19 = HIBYTE(v79.__r_.__value_.__r.__words[2]);
-      memset(&v79, 0, sizeof(v79));
+      v87[0] = v78.__r_.__value_.__l.__size_;
+      v18 = v78.__r_.__value_.__r.__words[0];
+      *(v87 + 7) = *(&v78.__r_.__value_.__r.__words[1] + 7);
+      v19 = HIBYTE(v78.__r_.__value_.__r.__words[2]);
+      memset(&v78, 0, sizeof(v78));
       *object = 0u;
+      v85 = 0u;
       v86 = 0u;
-      v87 = 0u;
       v20 = dispatch_group_create();
       v21 = v20;
       group = v20;
@@ -5282,13 +6056,13 @@ LABEL_9:
       v23[2] = 0;
       *v23 = &unk_1F5F05D28;
       v23[3] = v18;
-      v23[4] = v88[0];
-      *(v23 + 39) = *(v88 + 7);
+      v23[4] = v87[0];
+      *(v23 + 39) = *(v87 + 7);
       *(v23 + 47) = v19;
-      v88[0] = 0;
-      *(v88 + 7) = 0;
-      *&v84 = v23 + 3;
-      *(&v84 + 1) = v23;
+      v87[0] = 0;
+      *(v87 + 7) = 0;
+      *&v83 = v23 + 3;
+      *(&v83 + 1) = v23;
       v24 = *v16;
       if (*v16)
       {
@@ -5306,19 +6080,19 @@ LABEL_9:
       *&buf = v23 + 3;
       *(&buf + 1) = v23;
       atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
-      v90 = v24;
+      v89 = v24;
       if (v24)
       {
         dispatch_retain(v24);
         dispatch_group_enter(v24);
       }
 
-      v96 = 0;
+      v95 = 0;
+      v90 = 0;
       v91 = 0;
-      v92 = 0;
       object[0] = 0;
       object[1] = 0;
-      *(&v87 + 1) = 0;
+      *(&v86 + 1) = 0;
       v27 = operator new(0x48uLL);
       *v27 = v23 + 3;
       v27[1] = v23;
@@ -5327,10 +6101,10 @@ LABEL_9:
       v27[4] = 0;
       v27[2] = v24;
       v27[8] = 0;
-      v91 = 0;
-      v92 = 0;
       v90 = 0;
-      v96 = 0;
+      v91 = 0;
+      v89 = 0;
+      v95 = 0;
       dispatch_group_notify_f(v21, v26, v27, dispatch::detail::group_notify<ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
       ctu::TrackedGroup::fork(std::string,ctu::os::signpost_interval)::{lambda(void)#1}::~signpost_interval(&buf);
       if (v26)
@@ -5342,9 +6116,9 @@ LABEL_9:
       v29 = v16[3];
       if (v28 < v29)
       {
-        *v28 = v84;
-        v30 = *(&v84 + 1);
-        *(v28 + 1) = *(&v84 + 1);
+        *v28 = v83;
+        v30 = *(&v83 + 1);
+        *(v28 + 1) = *(&v83 + 1);
         if (v30)
         {
           atomic_fetch_add_explicit((v30 + 16), 1uLL, memory_order_relaxed);
@@ -5393,8 +6167,8 @@ LABEL_9:
 
         v41 = operator new(16 * v40);
         v42 = &v41[16 * v37];
-        v43 = *(&v84 + 1);
-        *v42 = v84;
+        v43 = *(&v83 + 1);
+        *v42 = v83;
         v44 = v43;
         if (v43)
         {
@@ -5410,8 +6184,8 @@ LABEL_52:
       {
         v41 = 0;
         v42 = (16 * v37);
-        v56 = *(&v84 + 1);
-        *(16 * v37) = v84;
+        v56 = *(&v83 + 1);
+        *(16 * v37) = v83;
         v44 = v56;
         if (v56)
         {
@@ -5431,7 +6205,7 @@ LABEL_52:
         operator delete(v35);
       }
 
-      v3 = v75;
+      v3 = v74;
       v13 = v22;
       v16[2] = v46;
       if (v24)
@@ -5442,13 +6216,13 @@ LABEL_30:
       }
 
 LABEL_31:
-      v31 = *(&v84 + 1);
-      if (*(&v84 + 1) && !atomic_fetch_add((*(&v84 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+      v31 = *(&v83 + 1);
+      if (*(&v83 + 1) && !atomic_fetch_add((*(&v83 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
         (v31->__on_zero_shared)(v31);
         std::__shared_weak_count::__release_weak(v31);
-        v32 = *(&v87 + 1);
-        if (!*(&v87 + 1))
+        v32 = *(&v86 + 1);
+        if (!*(&v86 + 1))
         {
           goto LABEL_36;
         }
@@ -5456,8 +6230,8 @@ LABEL_31:
 
       else
       {
-        v32 = *(&v87 + 1);
-        if (!*(&v87 + 1))
+        v32 = *(&v86 + 1);
+        if (!*(&v86 + 1))
         {
           goto LABEL_36;
         }
@@ -5466,8 +6240,8 @@ LABEL_31:
       if (object[0])
       {
         *&buf = object[1];
-        *&v84 = object[0];
-        (*(*v32 + 48))(v32, &buf, &v84);
+        *&v83 = object[0];
+        (*(*v32 + 48))(v32, &buf, &v83);
       }
 
 LABEL_36:
@@ -5476,15 +6250,15 @@ LABEL_36:
         os_release(object[1]);
       }
 
-      v33 = *(&v87 + 1);
+      v33 = *(&v86 + 1);
       object[1] = 0;
-      *(&v87 + 1) = 0;
+      *(&v86 + 1) = 0;
       if (v33 == v13)
       {
         (*(*v33 + 32))(v33);
-        v34 = *(&v87 + 1);
+        v34 = *(&v86 + 1);
         object[0] = 0;
-        if (*(&v87 + 1) == v13)
+        if (*(&v86 + 1) == v13)
         {
           goto LABEL_58;
         }
@@ -5498,9 +6272,9 @@ LABEL_36:
         }
 
         (*(*v33 + 40))(v33);
-        v34 = *(&v87 + 1);
+        v34 = *(&v86 + 1);
         object[0] = 0;
-        if (*(&v87 + 1) == v13)
+        if (*(&v86 + 1) == v13)
         {
 LABEL_58:
           (*(*v34 + 32))(v34);
@@ -5514,7 +6288,7 @@ LABEL_58:
       }
 
 LABEL_59:
-      v48 = KernelPCIRestoreTrace::createBuffContext_sync(v3, 0, v81, &group);
+      v48 = KernelPCIRestoreTrace::createBuffContext_sync(v3, 0, v80, &group);
       v49 = group;
       if (group)
       {
@@ -5522,12 +6296,12 @@ LABEL_59:
         dispatch_release(v49);
       }
 
-      if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v79.__r_.__value_.__l.__data_);
+        operator delete(v78.__r_.__value_.__l.__data_);
       }
 
-      v50 = (*(**(v3 + 40) + 80))(*(v3 + 40), *(v78 + 24), 1, flushLogsCompletionCB, v48);
+      v50 = (*(**(v3 + 40) + 80))(*(v3 + 40), *(v77 + 24), 1, flushLogsCompletionCB, v48);
       v51 = *(v3 + 104);
       v52 = *v51;
       if (v50)
@@ -5547,10 +6321,10 @@ LABEL_59:
         _os_log_impl(&dword_1E5234000, v52, OS_LOG_TYPE_INFO, "assigned null-buffer to trigger snapshot", &buf, 2u);
       }
 
-      if (v77 && !atomic_fetch_add(&v77->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (v76 && !atomic_fetch_add(&v76->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v77->__on_zero_shared)(v77);
-        std::__shared_weak_count::__release_weak(v77);
+        (v76->__on_zero_shared)(v76);
+        std::__shared_weak_count::__release_weak(v76);
         v53 = v12[1];
         if (!v53)
         {
@@ -5587,7 +6361,7 @@ LABEL_10:
       v12 = v54;
     }
 
-    while (v54 != v76);
+    while (v54 != v75);
   }
 
 LABEL_82:
@@ -5605,43 +6379,43 @@ LABEL_82:
     std::__shared_weak_count::__release_weak(v60);
   }
 
-  v61 = *v82;
+  v61 = *v81;
   v62 = *(v3 + 16);
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 1174405120;
-  v90 = ___ZN21KernelPCIRestoreTrace18dumpPCIEState_syncEN8dispatch13group_sessionE_block_invoke;
-  v91 = &__block_descriptor_tmp_22;
-  v92 = v3;
-  v93 = v73;
-  dispatch_retain(v73);
-  if (v93)
+  v89 = ___ZN21KernelPCIRestoreTrace18dumpPCIEState_syncEN8dispatch13group_sessionE_block_invoke;
+  v90 = &__block_descriptor_tmp_22;
+  v91 = v3;
+  v92 = v72;
+  dispatch_retain(v72);
+  if (v92)
   {
-    dispatch_group_enter(v93);
+    dispatch_group_enter(v92);
   }
 
-  v94 = v58;
-  v95 = v60;
+  v93 = v58;
+  v94 = v60;
   atomic_fetch_add_explicit(&v60->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   dispatch_group_notify(v61, v62, &buf);
-  if (v95)
+  if (v94)
   {
-    std::__shared_weak_count::__release_weak(v95);
+    std::__shared_weak_count::__release_weak(v94);
   }
 
-  v2 = v72;
-  v6 = v73;
-  if (v93)
+  v2 = v71;
+  v6 = v72;
+  if (v92)
   {
-    dispatch_group_leave(v93);
-    if (v93)
+    dispatch_group_leave(v92);
+    if (v92)
     {
-      dispatch_release(v93);
+      dispatch_release(v92);
     }
   }
 
   std::__shared_weak_count::__release_weak(v60);
-  v63 = v83;
-  if (v83 && !atomic_fetch_add(&v83->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v63 = v82;
+  if (v82 && !atomic_fetch_add(&v82->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v63->__on_zero_shared)(v63);
     std::__shared_weak_count::__release_weak(v63);
@@ -5665,7 +6439,7 @@ LABEL_96:
   v66[1] = v64;
   dispatch_group_notify_f(v6, v65, v66, dispatch::detail::group_notify<KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1}>(dispatch_group_s *,dispatch_queue_s *,KernelPCIRestoreTrace::stop(dispatch::group_session)::$_0::operator() const(void)::{lambda(void)#1} &&,std::integral_constant<BOOL,false>)::{lambda(void *)#1}::__invoke);
   dispatch_release(v6);
-  v1 = v74;
+  v1 = v73;
   v67 = v2[1];
   if (v67)
   {
@@ -5688,7 +6462,6 @@ LABEL_105:
   }
 
   operator delete(v1);
-  v71 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E536746C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, dispatch_group_t group, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, dispatch_group_t a25, char a26, uint64_t a27, char a28, uint64_t a29, char a30, uint64_t a31, char a32)
@@ -5821,18 +6594,18 @@ LABEL_10:
   }
 }
 
-void sub_1E53677DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E53677DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<DaleBootLogger::startROMLogging(dispatch::group_session)::$_0,std::default_delete<DaleBootLogger::startROMLogging(dispatch::group_session)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E53677F0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E53677F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void *);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va1);
   std::unique_ptr<DaleBootLogger::startROMLogging(dispatch::group_session)::$_0,std::default_delete<DaleBootLogger::startROMLogging(dispatch::group_session)::$_0>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -5974,12 +6747,12 @@ void std::__shared_ptr_emplace<ctu::TrackedGroup>::__on_zero_shared(void *a1)
   }
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0>(KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0>(KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::readLogsCompletion(BuffContext *,unsigned long,int)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   if (!v4)
   {
     v13 = **(v3 + 104);
@@ -5993,7 +6766,7 @@ void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::exec
 LABEL_33:
     _os_log_error_impl(&dword_1E5234000, v13, OS_LOG_TYPE_ERROR, v14, buf, 2u);
     operator delete(v2);
-    v23 = *(a1 + 2);
+    v23 = a1[2];
     if (!v23)
     {
       goto LABEL_31;
@@ -6051,9 +6824,9 @@ LABEL_33:
     v21 = *(v17 + 56);
     if (v21)
     {
-      v26 = v19;
+      v25 = v19;
       *buf = v18;
-      (*(*v21 + 48))(v21, buf, &v26);
+      (*(*v21 + 48))(v21, buf, &v25);
     }
   }
 
@@ -6086,18 +6859,18 @@ LABEL_33:
     v12 = v9;
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
     {
-      v25 = *(v7 + 8) >> 10;
+      v24 = *(v7 + 8) >> 10;
       *buf = 134218240;
-      *&buf[4] = v25;
-      v28 = 1024;
-      v29 = v12;
+      *&buf[4] = v24;
+      v27 = 1024;
+      v28 = v12;
       _os_log_error_impl(&dword_1E5234000, v11, OS_LOG_TYPE_ERROR, "error: failed re-assigning new buffer of size %zu KB to fetch logs (error [0x%x])", buf, 0x12u);
     }
 
     KernelPCIRestoreTrace::deleteBuffContext_sync(v3, v7);
 LABEL_28:
     operator delete(v2);
-    v23 = *(a1 + 2);
+    v23 = a1[2];
     if (!v23)
     {
       goto LABEL_31;
@@ -6116,7 +6889,7 @@ LABEL_28:
   *&buf[4] = v22;
   _os_log_debug_impl(&dword_1E5234000, v11, OS_LOG_TYPE_DEBUG, "assigning new buffer of size %zu KB to fetch logs", buf, 0xCu);
   operator delete(v2);
-  v23 = *(a1 + 2);
+  v23 = a1[2];
   if (!v23)
   {
     goto LABEL_31;
@@ -6131,7 +6904,6 @@ LABEL_29:
 
 LABEL_31:
   operator delete(a1);
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E5367F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
@@ -6141,12 +6913,12 @@ void sub_1E5367F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0>(KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0>>)::{lambda(void *)#1}::__invoke(void *a1)
+void dispatch::async<void ctu::SharedSynchronizable<KernelPCIRestoreTrace>::execute_wrapped<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0>(KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0,dispatch_queue_s *::default_delete<KernelPCIRestoreTrace::flushLogsCompletion(BuffContext *,unsigned long,int)::$_0>>)::{lambda(void *)#1}::__invoke(uint64_t **a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = **a1;
-  v4 = *(*a1 + 8);
+  v4 = (*a1)[1];
   if (v4)
   {
     if (*v4)
@@ -6190,9 +6962,9 @@ LABEL_21:
         v17 = *(v13 + 56);
         if (v17)
         {
-          v20 = v15;
+          v19 = v15;
           *buf = v14;
-          (*(*v17 + 48))(v17, buf, &v20);
+          (*(*v17 + 48))(v17, buf, &v19);
         }
 
         goto LABEL_21;
@@ -6254,7 +7026,7 @@ LABEL_8:
 
 LABEL_22:
   operator delete(v2);
-  v18 = *(a1 + 2);
+  v18 = a1[2];
   if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v18->__on_zero_shared)(v18);
@@ -6262,7 +7034,6 @@ LABEL_22:
   }
 
   operator delete(a1);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E5368288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
@@ -6382,11 +7153,11 @@ void *BBUICEBinaryImage::getWritePayloadData(BBUICEBinaryImage *this, unsigned _
   if (result + 8 <= a4)
   {
     exception = __cxa_allocate_exception(0x210uLL);
-    _BBUException::_BBUException(exception, 80, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEBinaryImage.cpp", 0x1Eu, "Assertion failure(( offset < (getWritePayloadLength() + kBinHeaderSize)) && Error: Chunk size is not sufficient to write payload data of the binary image.)", v11, v12, v13, v20);
+    _BBUException::_BBUException(exception, 80, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEBinaryImage.cpp", 0x1Eu, "Assertion failure(( offset < (getWritePayloadLength() + kBinHeaderSize)) && Error: Chunk size is not sufficient to write payload data of the binary image.)");
     goto LABEL_14;
   }
 
-  v21 = -1431655766;
+  v11 = -1431655766;
   if (a4 <= 7)
   {
     if (8 - a4 >= a3)
@@ -6406,22 +7177,22 @@ void *BBUICEBinaryImage::getWritePayloadData(BBUICEBinaryImage *this, unsigned _
 
   if (a3)
   {
-    result = (*(**(this + 6) + 16))(*(this + 6), a2, a3, &v21, a4 + *(this + 10) - 8);
+    result = (*(**(this + 6) + 16))(*(this + 6), a2, a3, &v11, a4 + *(this + 10) - 8);
     if (result)
     {
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 80, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEBinaryImage.cpp", 0x2Eu, "Assertion failure((ret == kBBUReturnSuccess) && Failed to copy binary image payload data to buffer!)", v14, v15, v16, v20);
+      _BBUException::_BBUException(exception, 80, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEBinaryImage.cpp", 0x2Eu, "Assertion failure((ret == kBBUReturnSuccess) && Failed to copy binary image payload data to buffer!)");
     }
 
     else
     {
-      if (v21 == a3)
+      if (v11 == a3)
       {
         return result;
       }
 
       exception = __cxa_allocate_exception(0x210uLL);
-      _BBUException::_BBUException(exception, 80, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEBinaryImage.cpp", 0x2Fu, "Assertion failure((amountCopied == amount) && Copied data size mismatch: Failed to copy binary image payload data to buffer!)", v17, v18, v19, v20);
+      _BBUException::_BBUException(exception, 80, "/Library/Caches/com.apple.xbs/Sources/AppleBasebandServices/BBUpdater/Legacy/Framework/Images/ICE/BBUICEBinaryImage.cpp", 0x2Fu, "Assertion failure((amountCopied == amount) && Copied data size mismatch: Failed to copy binary image payload data to buffer!)");
     }
 
 LABEL_14:
@@ -6511,20 +7282,19 @@ void BasebandUpdaterTransport::create(void **a1@<X0>, uint64_t *a2@<X1>, unint64
     atomic_fetch_add_explicit(&v14->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v16 = *MEMORY[0x1E695E480];
   Controller = TelephonyBasebandCreateController();
-  v18 = *v11;
+  v17 = *v11;
   *v11 = Controller;
-  if (v18)
+  if (v17)
   {
-    CFRelease(v18);
+    CFRelease(v17);
     Controller = *v11;
   }
 
   if (!Controller)
   {
-    ACFULogging::getLogInstance(0);
-    v20 = ACFULogging::handleMessage();
+    LogInstance = ACFULogging::getLogInstance(0);
+    v20 = ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to create baseband controller object\n", "BasebandUpdaterTransport", "init");
     v21 = 0;
     goto LABEL_59;
   }
@@ -6565,20 +7335,20 @@ LABEL_11:
   {
     ctu::FirstBootAfterUpdate::create();
     *__p = v45;
-    v19 = *(&v45 + 1);
+    v18 = *(&v45 + 1);
     v22 = operator new(0x10uLL);
     *v22 = v45;
-    if (v19)
+    if (v18)
     {
-      atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     v40 = v22;
     v41 = v22 + 16;
-    if (v19 && !atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v19->__on_zero_shared)(v19);
-      std::__shared_weak_count::__release_weak(v19);
+      (v18->__on_zero_shared)(v18);
+      std::__shared_weak_count::__release_weak(v18);
     }
   }
 
@@ -6643,27 +7413,27 @@ LABEL_26:
 
   if (HIDWORD(a3))
   {
-    ACFULogging::getLogInstance(v25);
-    ACFULogging::handleMessage();
+    v26 = ACFULogging::getLogInstance(v25);
+    ACFULogging::handleMessage(v26, 4, "%s::%s: Transfer segment size provided for read/write chunking: %d\n", "BasebandUpdaterTransport", "init", HIDWORD(a3));
     *(v10 + 10) = HIDWORD(a3);
     *(v10 + 11) = HIDWORD(a3);
   }
 
-  v26 = v10 + 56;
+  v27 = v10 + 56;
   __p[0] = &unk_1F5F06018;
-  v27 = *(v10 + 10);
-  if (v27 != (v10 + 56))
+  v28 = *(v10 + 10);
+  if (v28 != (v10 + 56))
   {
     *(v10 + 7) = &unk_1F5F06018;
-    v44 = v27;
-    *(v10 + 10) = v26;
-    if (v27 != __p)
+    v44 = v28;
+    *(v10 + 10) = v27;
+    if (v28 != __p)
     {
       goto LABEL_37;
     }
 
 LABEL_40:
-    (*(*v27 + 4))(v27);
+    (*(*v28 + 4))(v28);
     goto LABEL_41;
   }
 
@@ -6671,53 +7441,53 @@ LABEL_40:
   v46 = 0xAAAAAAAAAAAAAAAALL;
   *&v45 = &unk_1F5F06018;
   v44 = 0;
-  (*(*v27 + 3))(v27, __p);
+  (*(*v28 + 3))(v28, __p);
   (*(**(v10 + 10) + 32))(*(v10 + 10));
   *(v10 + 10) = 0;
   v44 = __p;
   (*(v45 + 24))(&v45, v10 + 56);
   (*(v45 + 32))(&v45);
-  *(v10 + 10) = v26;
-  v27 = v44;
+  *(v10 + 10) = v27;
+  v28 = v44;
   if (v44 == __p)
   {
     goto LABEL_40;
   }
 
 LABEL_37:
-  if (v27)
+  if (v28)
   {
-    (*(*v27 + 5))(v27);
+    (*(*v28 + 5))(v28);
   }
 
 LABEL_41:
-  v28 = v10 + 88;
+  v29 = v10 + 88;
   __p[0] = &unk_1F5F060A8;
   __p[1] = v10;
-  v29 = *(v10 + 14);
-  if (v29 == (v10 + 88))
+  v30 = *(v10 + 14);
+  if (v30 == (v10 + 88))
   {
     *(&v45 + 1) = v10;
     v46 = 0xAAAAAAAAAAAAAAAALL;
     *&v45 = &unk_1F5F060A8;
     v44 = 0;
-    (*(*v29 + 3))(v29, __p);
+    (*(*v30 + 3))(v30, __p);
     (*(**(v10 + 14) + 32))(*(v10 + 14));
     *(v10 + 14) = 0;
     v44 = __p;
     (*(v45 + 24))(&v45, v10 + 88);
     (*(v45 + 32))(&v45);
-    *(v10 + 14) = v28;
-    v29 = v44;
+    *(v10 + 14) = v29;
+    v30 = v44;
     if (v44 != __p)
     {
 LABEL_43:
-      if (v29)
+      if (v30)
       {
-        (*(*v29 + 5))(v29);
+        (*(*v30 + 5))(v30);
       }
 
-      v30 = v13;
+      v31 = v13;
       __p[0] = v39;
       __p[1] = v13;
       if (!v13)
@@ -6733,57 +7503,57 @@ LABEL_43:
   {
     *(v10 + 11) = &unk_1F5F060A8;
     *(v10 + 12) = v10;
-    v44 = v29;
-    *(v10 + 14) = v28;
-    if (v29 != __p)
+    v44 = v30;
+    *(v10 + 14) = v29;
+    if (v30 != __p)
     {
       goto LABEL_43;
     }
   }
 
-  (*(*v29 + 4))(v29);
-  v30 = v13;
+  (*(*v30 + 4))(v30);
+  v31 = v13;
   __p[0] = v39;
   __p[1] = v13;
   if (v13)
   {
 LABEL_46:
-    atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
 LABEL_47:
   v20 = ACFUACIPCTransport::init();
   v21 = v20;
-  v31 = __p[1];
+  v32 = __p[1];
   if (__p[1] && !atomic_fetch_add(__p[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v31->__on_zero_shared)(v31);
-    std::__shared_weak_count::__release_weak(v31);
+    (v32->__on_zero_shared)(v32);
+    std::__shared_weak_count::__release_weak(v32);
   }
 
   if (v40)
   {
-    v32 = v41;
-    v33 = v40;
+    v33 = v41;
+    v34 = v40;
     if (v41 != v40)
     {
       do
       {
-        v34 = *(v32 - 1);
-        if (v34 && !atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        v35 = *(v33 - 1);
+        if (v35 && !atomic_fetch_add(&v35->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v34->__on_zero_shared)(v34);
-          std::__shared_weak_count::__release_weak(v34);
+          (v35->__on_zero_shared)(v35);
+          std::__shared_weak_count::__release_weak(v35);
         }
 
-        v32 -= 16;
+        v33 -= 16;
       }
 
-      while (v32 != v40);
-      v33 = v40;
+      while (v33 != v40);
+      v34 = v40;
     }
 
-    operator delete(v33);
+    operator delete(v34);
   }
 
 LABEL_59:
@@ -6798,271 +7568,282 @@ LABEL_59:
     std::__shared_weak_count::__release_weak(v13);
   }
 
-  if ((v21 & 1) != 0 || (ACFULogging::getLogInstance(v20), ACFULogging::handleMessage(), v36 = *a5, *a5 = 0, !v36))
+  if ((v21 & 1) == 0)
   {
-    v35 = *MEMORY[0x1E69E9840];
-  }
+    v36 = ACFULogging::getLogInstance(v20);
+    ACFULogging::handleMessage(v36, 2, "%s::%s: Failed to initialize BasebandUpdaterTransport object\n", "BasebandUpdaterTransport", "create");
+    v37 = *a5;
+    *a5 = 0;
+    if (v37)
+    {
+      v38 = *(*v37 + 64);
 
-  else
-  {
-    v37 = *(*v36 + 64);
-    v38 = *MEMORY[0x1E69E9840];
-
-    v37();
+      v38();
+    }
   }
 }
 
-void sub_1E5369258(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_1E5369258(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
   v30 = *v28;
   *v28 = 0;
   if (v30)
   {
-    (*(*v30 + 64))(v30);
+    (*(*v30 + 64))(v30, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BasebandUpdaterTransport::IOACIPCHelper::init(BasebandUpdaterTransport::IOACIPCHelper *this, const char *a2)
+uint64_t BasebandUpdaterTransport::IOACIPCHelper::init(BasebandUpdaterTransport::IOACIPCHelper *this, const char *a2, uint64_t a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
-  v37[0] = 0;
-  v37[1] = v37;
-  v37[2] = 0x3052000000;
-  v37[3] = __Block_byref_object_copy__3;
-  v37[4] = __Block_byref_object_dispose__3;
-  v35[4] = v37;
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3254779904;
-  v36[2] = ___ZN24BasebandUpdaterTransport13IOACIPCHelper4initEPKcj_block_invoke;
-  v36[3] = &__block_descriptor_48_e8_32r_e8_v12__0I8l;
-  v36[4] = &v38;
-  v36[5] = this;
-  v37[5] = v36;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3254779904;
-  v35[2] = ___ZN24BasebandUpdaterTransport13IOACIPCHelper4initEPKcj_block_invoke_7;
-  v35[3] = &__block_descriptor_40_e8_32r_e8_v12__0I8l;
-  v42 = 0;
-  v4 = IOServiceMatching("IOAppleConvergedIPCInterface");
-  v30 = v4;
-  if (v4)
+  v3 = a3;
+  v61 = *MEMORY[0x1E69E9840];
+  v54 = 0;
+  v55 = &v54;
+  v56 = 0x2020000000;
+  v57 = 0;
+  v53[0] = 0;
+  v53[1] = v53;
+  v53[2] = 0x3052000000;
+  v53[3] = __Block_byref_object_copy__3;
+  v53[4] = __Block_byref_object_dispose__3;
+  v51[4] = v53;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3254779904;
+  v52[2] = ___ZN24BasebandUpdaterTransport13IOACIPCHelper4initEPKcj_block_invoke;
+  v52[3] = &__block_descriptor_48_e8_32r_e8_v12__0I8l;
+  v52[4] = &v54;
+  v52[5] = this;
+  v53[5] = v52;
+  v51[0] = MEMORY[0x1E69E9820];
+  v51[1] = 3254779904;
+  v51[2] = ___ZN24BasebandUpdaterTransport13IOACIPCHelper4initEPKcj_block_invoke_7;
+  v51[3] = &__block_descriptor_40_e8_32r_e8_v12__0I8l;
+  v58 = 0;
+  v6 = IOServiceMatching("IOAppleConvergedIPCInterface");
+  v46 = v6;
+  if (v6)
   {
-    v5 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x600u);
-    v42 = v5;
-    if (v5)
+    v7 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a2, 0x600u);
+    v58 = v7;
+    if (v7)
     {
-      CFDictionarySetValue(v4, @"ACIPCInterfaceProtocol", v5);
-      CFDictionarySetValue(v4, @"ACIPCInterfaceProviderDevice", @"cellular");
+      CFDictionarySetValue(v6, @"ACIPCInterfaceProtocol", v7);
+      CFDictionarySetValue(v6, @"ACIPCInterfaceProviderDevice", @"cellular");
     }
 
     else
     {
-      ACFULogging::getLogInstance(0);
-      ACFULogging::handleMessage();
+      LogInstance = ACFULogging::getLogInstance(0);
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to create CFString for interface protocol\n", "BasebandUpdaterTransport", "getACIPCMatchingDict");
     }
 
-    v6 = CFGetTypeID(v4);
+    v8 = CFGetTypeID(v6);
     TypeID = CFDictionaryGetTypeID();
-    if (v6 == TypeID)
+    if (v8 == TypeID)
     {
-      v34 = v4;
-      TypeID = CFRetain(v4);
+      v50 = v6;
+      TypeID = CFRetain(v6);
     }
 
     else
     {
-      v34 = 0;
+      v50 = 0;
     }
 
-    if (v5)
+    if (v7)
     {
-      CFRelease(v5);
+      CFRelease(v7);
     }
   }
 
   else
   {
-    ACFULogging::getLogInstance(0);
-    TypeID = ACFULogging::handleMessage();
-    v34 = 0;
+    v36 = ACFULogging::getLogInstance(0);
+    TypeID = ACFULogging::handleMessage(v36, 2, "%s::%s: Failed to obtain matching dictionary for %s interface\n", "BasebandUpdaterTransport", "getACIPCMatchingDict", "IOAppleConvergedIPCInterface");
+    v50 = 0;
   }
 
-  if (v4)
+  if (v6)
   {
-    CFRelease(v4);
+    CFRelease(v6);
   }
 
-  v8 = v34;
-  if (!v34)
+  v10 = v50;
+  if (!v50)
   {
-    goto LABEL_40;
-  }
-
-  v9 = operator new(0xC0uLL);
-  *(v9 + 10) = 0u;
-  *(v9 + 11) = 0u;
-  *(v9 + 8) = 0u;
-  *(v9 + 9) = 0u;
-  *(v9 + 6) = 0u;
-  *(v9 + 7) = 0u;
-  *(v9 + 4) = 0u;
-  *(v9 + 5) = 0u;
-  *(v9 + 2) = 0u;
-  *(v9 + 3) = 0u;
-  *v9 = 0u;
-  *(v9 + 1) = 0u;
-  IOACIPCClass::IOACIPCClass(v9);
-  *v9 = MEMORY[0x1E69E50D8] + 16;
-  v10 = *(this + 1);
-  *(this + 1) = v9;
-  if (v10)
-  {
-    TypeID = (*(*v10 + 8))(v10);
-    if (!*(this + 1))
-    {
-      goto LABEL_40;
-    }
-  }
-
-  v11 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
-  v12 = dispatch_queue_create("com.apple.bbu.acipcTransport", v11);
-  v13 = *(this + 2);
-  *(this + 2) = v12;
-  if (v13)
-  {
-    dispatch_release(v13);
-    v12 = *(this + 2);
-  }
-
-  if (!v12)
-  {
-    ACFULogging::getLogInstance(0);
+    v37 = ACFULogging::getLogInstance(TypeID);
+    ACFULogging::handleMessage(v37, 2, "%s::%s: Failed to create ACIPC interface matching dictionary\n");
 LABEL_41:
-    ACFULogging::handleMessage();
-    v25 = 0;
+    v33 = 0;
     goto LABEL_28;
   }
 
-  TypeID = operator new(0x78uLL);
-  *(TypeID + 112) = 0;
-  *TypeID = 1018212795;
-  *(TypeID + 8) = 0u;
-  *(TypeID + 24) = 0u;
-  *(TypeID + 40) = 0;
-  *(TypeID + 48) = 850045863;
-  *(TypeID + 56) = 0u;
-  *(TypeID + 72) = 0u;
-  *(TypeID + 88) = 0u;
-  *(TypeID + 100) = 0u;
-  v14 = *(this + 3);
-  *(this + 3) = TypeID;
-  if (v14)
+  v11 = operator new(0xC0uLL);
+  *(v11 + 10) = 0u;
+  *(v11 + 11) = 0u;
+  *(v11 + 8) = 0u;
+  *(v11 + 9) = 0u;
+  *(v11 + 6) = 0u;
+  *(v11 + 7) = 0u;
+  *(v11 + 4) = 0u;
+  *(v11 + 5) = 0u;
+  *(v11 + 2) = 0u;
+  *(v11 + 3) = 0u;
+  *v11 = 0u;
+  *(v11 + 1) = 0u;
+  IOACIPCClass::IOACIPCClass(v11);
+  *v11 = MEMORY[0x1E69E50D8] + 16;
+  v12 = *(this + 1);
+  *(this + 1) = v11;
+  if (v12)
   {
-    std::mutex::~mutex((v14 + 48));
-    std::condition_variable::~condition_variable(v14);
-    operator delete(v15);
-    if (!*(this + 3))
+    v13 = (*(*v12 + 8))(v12);
+    if (!*(this + 1))
     {
-LABEL_40:
-      ACFULogging::getLogInstance(TypeID);
+      v39 = ACFULogging::getLogInstance(v13);
+      ACFULogging::handleMessage(v39, 2, "%s::%s: Failed to create ACIPC interface object\n");
       goto LABEL_41;
     }
   }
 
-  ACFULogging::getLogInstance(TypeID);
-  v16 = ACFULogging::handleMessage();
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = 0;
-  v18 = *(this + 1);
-  v17 = *(this + 2);
-  ACFULogging::getLogInstance(v16);
-  ACFULogging::handleMessage();
-  v19 = (*(*v18 + 24))(v18, v8, v17, v35, &__block_literal_global_8, 0);
-  if (v19)
+  v14 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+  v15 = dispatch_queue_create("com.apple.bbu.acipcTransport", v14);
+  v16 = *(this + 2);
+  *(this + 2) = v15;
+  if (v16)
   {
-    v20 = *(this + 3);
-    v43[0] = &unk_1F5F061B8;
-    v44 = v43;
-    v21 = ACFUSynchronize::Syncher::wait();
-    v22 = v44;
-    if (v44 == v43)
-    {
-      v22 = (*(*v44 + 32))(v44);
-      if (v21)
-      {
-LABEL_25:
-        if (*(v31 + 24) != 1)
-        {
-          v22 = (*(**(this + 1) + 40))(*(this + 1), *(v39 + 6));
-          if (!v22)
-          {
-            _Block_object_dispose(&v30, 8);
-            ACFULogging::getLogInstance(v24);
-            ACFULogging::handleMessage();
-            v25 = 1;
-            goto LABEL_28;
-          }
-        }
+    dispatch_release(v16);
+    v15 = *(this + 2);
+  }
 
-        ACFULogging::getLogInstance(v22);
-        ACFULogging::handleMessage();
-        goto LABEL_44;
+  if (!v15)
+  {
+    v40 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v40, 2, "%s::%s: Failed to create ACIPC dispatch queue\n");
+    goto LABEL_41;
+  }
+
+  v17 = operator new(0x78uLL);
+  *(v17 + 14) = 0;
+  *v17 = 1018212795;
+  *(v17 + 8) = 0u;
+  *(v17 + 24) = 0u;
+  *(v17 + 5) = 0;
+  *(v17 + 6) = 850045863;
+  *(v17 + 56) = 0u;
+  *(v17 + 72) = 0u;
+  *(v17 + 88) = 0u;
+  *(v17 + 100) = 0u;
+  v18 = *(this + 3);
+  *(this + 3) = v17;
+  if (v18)
+  {
+    std::mutex::~mutex((v18 + 48));
+    std::condition_variable::~condition_variable(v18);
+    operator delete(v19);
+    if (!*(this + 3))
+    {
+      v41 = ACFULogging::getLogInstance(v17);
+      ACFULogging::handleMessage(v41, 2, "%s::%s: Failed to create syncher\n");
+      goto LABEL_41;
+    }
+  }
+
+  v20 = ACFULogging::getLogInstance(v17);
+  v21 = ACFULogging::handleMessage(v20, 0, "%s::%s: Opening ACIPC interface\n", "BasebandUpdaterTransport", "init");
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v23 = *(this + 1);
+  v22 = *(this + 2);
+  v24 = ACFULogging::getLogInstance(v21);
+  ACFULogging::handleMessage(v24, 3, "%s::%s: Waiting %u seconds for ACIPC %s interface to start\n", "BasebandUpdaterTransport", "init", v3, a2);
+  v25 = (*(*v23 + 24))(v23, v10, v22, v51, &__block_literal_global_8, 0);
+  if (v25)
+  {
+    v59[0] = &unk_1F5F061B8;
+    v60 = v59;
+    v26 = ACFUSynchronize::Syncher::wait();
+    v27 = v60;
+    if (v60 == v59)
+    {
+      v27 = (*(*v60 + 32))(v60);
+      if ((v26 & 1) == 0)
+      {
+LABEL_24:
+        v28 = *(this + 2);
+        block[0] = MEMORY[0x1E69E9820];
+        block[1] = 3254779904;
+        block[2] = ___ZN24BasebandUpdaterTransport13IOACIPCHelper4initEPKcj_block_invoke_2;
+        block[3] = &__block_descriptor_48_e8_32r40r_e5_v8__0l;
+        block[4] = v53;
+        block[5] = &v46;
+        dispatch_sync(v28, block);
       }
     }
 
     else
     {
-      if (v44)
+      if (v60)
       {
-        v22 = (*(*v44 + 40))(v44);
+        v27 = (*(*v60 + 40))(v60);
       }
 
-      if (v21)
+      if ((v26 & 1) == 0)
       {
-        goto LABEL_25;
+        goto LABEL_24;
       }
     }
 
-    v23 = *(this + 2);
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3254779904;
-    block[2] = ___ZN24BasebandUpdaterTransport13IOACIPCHelper4initEPKcj_block_invoke_2;
-    block[3] = &__block_descriptor_48_e8_32r40r_e5_v8__0l;
-    block[4] = v37;
-    block[5] = &v30;
-    dispatch_sync(v23, block);
-    goto LABEL_25;
+    if (*(v47 + 24) == 1)
+    {
+      v43 = ACFULogging::getLogInstance(v27);
+      ACFULogging::handleMessage(v43, 2, "%s::%s: ACIPC start interface timeout\n", "BasebandUpdaterTransport", "init");
+    }
+
+    else
+    {
+      v29 = (*(**(this + 1) + 40))(*(this + 1), *(v55 + 6));
+      v30 = v29;
+      if (!v29)
+      {
+        _Block_object_dispose(&v46, 8);
+        v32 = ACFULogging::getLogInstance(v31);
+        ACFULogging::handleMessage(v32, 3, "%s::%s: ACIPC %s interface opened successfully\n", "BasebandUpdaterTransport", "init", a2);
+        v33 = 1;
+        goto LABEL_28;
+      }
+
+      v44 = ACFULogging::getLogInstance(v29);
+      ACFULogging::handleMessage(v44, 2, "%s::%s: Failed to open ACIPC interface: 0x%08x\n", "BasebandUpdaterTransport", "init", v30);
+    }
+
+    goto LABEL_45;
   }
 
-  ACFULogging::getLogInstance(v19);
-  ACFULogging::handleMessage();
-LABEL_44:
-  _Block_object_dispose(&v30, 8);
-  v25 = 0;
+  v42 = ACFULogging::getLogInstance(v25);
+  ACFULogging::handleMessage(v42, 2, "%s::%s: Failed to start ACIPC %s interface\n", "BasebandUpdaterTransport", "init", a2);
+LABEL_45:
+  _Block_object_dispose(&v46, 8);
+  v33 = 0;
 LABEL_28:
-  v26 = *(v39 + 6);
-  if (v26)
+  v34 = *(v55 + 6);
+  if (v34)
   {
-    IOObjectRelease(v26);
+    IOObjectRelease(v34);
   }
 
-  if (v8)
+  if (v10)
   {
-    CFRelease(v8);
+    CFRelease(v10);
   }
 
-  _Block_object_dispose(v37, 8);
-  _Block_object_dispose(&v38, 8);
-  v27 = *MEMORY[0x1E69E9840];
-  return v25;
+  _Block_object_dispose(v53, 8);
+  _Block_object_dispose(&v54, 8);
+  return v33;
 }
 
 void sub_1E5369A0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
@@ -7075,36 +7856,33 @@ void sub_1E5369A0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ___ZN24BasebandUpdaterTransport13IOACIPCHelper4initEPKcj_block_invoke(ACFULogging *a1, int a2)
+void *___ZN24BasebandUpdaterTransport13IOACIPCHelper4initEPKcj_block_invoke(ACFULogging *a1, int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 5);
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  v8 = *MEMORY[0x1E69E9840];
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 4, "%s::%s: Interface added\n", "BasebandUpdaterTransport", "init_block_invoke");
   *(*(*(a1 + 4) + 8) + 24) = a2;
   IOObjectRetain(*(*(*(a1 + 4) + 8) + 24));
-  v5 = *(v4 + 24);
-  v9[0] = &unk_1F5F06138;
-  v10 = v9;
+  v6[0] = &unk_1F5F06138;
+  v7 = v6;
   ACFUSynchronize::Syncher::notify();
-  result = v10;
-  if (v10 == v9)
+  result = v7;
+  if (v7 == v6)
   {
-    result = (*(*v10 + 32))(v10);
+    return (*(*v7 + 32))(v7);
   }
 
-  else if (v10)
+  if (v7)
   {
-    result = (*(*v10 + 40))(v10, v6);
+    return (*(*v7 + 40))();
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1E5369C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E5369C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::function<void ()(void)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -7134,725 +7912,762 @@ void BasebandUpdaterTransport::getBoardParameters(BasebandUpdaterTransport *this
   if (a2)
   {
     memset(__dst, 0, 32);
-    ACFULogging::getLogInstance(this);
-    ACFULogging::handleMessage();
-    v6 = operator new(0xE8uLL);
-    v6->__shared_owners_ = 0;
-    v6->__shared_weak_owners_ = 0;
-    v6->__vftable = &unk_1F5F06238;
-    v7 = operator new(0x40uLL);
-    *(&v85 + 1) = v7 + 4;
-    *&v86[0] = v7 + 4;
-    *v7 = xmmword_1E876EE28;
-    v7[1] = *&off_1E876EE38;
-    v7[2] = xmmword_1E876EE48;
-    v7[3] = *off_1E876EE58;
-    *&v85 = v7;
+    LogInstance = ACFULogging::getLogInstance(this);
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Retrieving personalization parameters for preflight\n", "BasebandUpdaterTransport", "preflightGetBoardParameters");
+    v7 = operator new(0xE8uLL);
+    v7->__shared_owners_ = 0;
+    v7->__shared_weak_owners_ = 0;
+    v7->__vftable = &unk_1F5F06238;
+    v8 = operator new(0x40uLL);
+    *(&v111 + 1) = v8 + 4;
+    *&v112[0] = v8 + 4;
+    *v8 = xmmword_1E876EE28;
+    v8[1] = *&off_1E876EE38;
+    v8[2] = xmmword_1E876EE48;
+    v8[3] = *off_1E876EE58;
+    *&v111 = v8;
     ACFUCommon::PersonalizeParams::PersonalizeParams();
-    if (v85)
+    if (v111)
     {
-      *(&v85 + 1) = v85;
-      operator delete(v85);
+      *(&v111 + 1) = v111;
+      operator delete(v111);
     }
 
-    v83 = v6 + 1;
-    v84 = v6;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v86[0] = v8;
-    v86[1] = v8;
-    v85 = v8;
-    v87 = 0xAAAAAAAAAAAAAAAALL;
-    v88 = 0xAAAAAAAAFFFFFFFFLL;
-    security::ARICommandDriver::ARICommandDriver();
+    v109 = v7 + 1;
+    v110 = v7;
     *&v9 = 0xAAAAAAAAAAAAAAAALL;
     *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v81 = v9;
-    v82 = v9;
-    v79 = v9;
-    v80 = v9;
-    AriSdk::ARI_CsiSecGetRandomNumReq_SDK::ARI_CsiSecGetRandomNumReq_SDK(&v79);
-    v78 = 0;
+    v112[0] = v9;
+    v112[1] = v9;
+    v111 = v9;
+    v113 = 0xAAAAAAAAAAAAAAAALL;
+    v114 = 0xAAAAAAAAFFFFFFFFLL;
+    security::ARICommandDriver::ARICommandDriver();
     *&v10 = 0xAAAAAAAAAAAAAAAALL;
     *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v77[2] = v10;
-    v77[3] = v10;
-    v77[0] = v10;
-    v77[1] = v10;
-    AriSdk::ARI_GetPersonalizationParametersReq_SDK::ARI_GetPersonalizationParametersReq_SDK(v77);
-    *v75 = 0xAAAAAAAAAAAAAAAALL;
-    *v76 = 0;
-    support::transport::ARI::create("BasebandUpdaterTransport", 0x2710, 0, 0, v75);
-    if (!*v75)
+    v107 = v10;
+    v108 = v10;
+    v105 = v10;
+    v106 = v10;
+    AriSdk::ARI_CsiSecGetRandomNumReq_SDK::ARI_CsiSecGetRandomNumReq_SDK(&v105);
+    v104 = 0;
+    *&v11 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v103[2] = v11;
+    v103[3] = v11;
+    v103[0] = v11;
+    v103[1] = v11;
+    AriSdk::ARI_GetPersonalizationParametersReq_SDK::ARI_GetPersonalizationParametersReq_SDK(v103);
+    *v101 = 0xAAAAAAAAAAAAAAAALL;
+    *v102 = 0;
+    support::transport::ARI::create("BasebandUpdaterTransport", 0x2710, 0, 0, v101);
+    if (!*v101)
     {
-      ACFULogging::getLogInstance(v11);
-      ACFULogging::handleMessage();
-      v26 = 3019;
+      v71 = ACFULogging::getLogInstance(v12);
+      ACFULogging::handleMessage(v71, 2, "%s::%s: Failed to open ARI interface (is baseband booted and ready?)\n", "BasebandUpdaterTransport", "preflightGetBoardParameters");
+      v29 = 3019;
       goto LABEL_13;
     }
 
-    v12 = *(*v75 + 24);
     security::ARICommandDriver::ARICommandDriver();
-    *&v86[0] = v72;
-    LODWORD(v88) = v74;
-    std::__hash_table<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,void *> *>>(v86 + 8, v73);
+    *&v112[0] = v98;
+    LODWORD(v114) = v100;
+    std::__hash_table<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,void *> *>>(v112 + 8, v99);
     security::ARICommandDriver::~ARICommandDriver(bytes);
     if (a3)
     {
       RandomNum = security::ARICommandDriver::GetRandomNum();
       if ((RandomNum & 1) == 0)
       {
-LABEL_61:
-        ACFULogging::getLogInstance(RandomNum);
-        ACFULogging::handleMessage();
+        v80 = ACFULogging::getLogInstance(RandomNum);
+        ACFULogging::handleMessage(v80, 2, "%s::%s: Failed GetRandomNum ARI command\n");
         goto LABEL_62;
       }
 
-      ACFULogging::getLogInstance(RandomNum);
-      v60 = *(v78[8] + 32);
-      v14 = ACFULogging::handleMessage();
-      v15 = v78[8];
-      v16 = v15[8];
-      if ((v16 - 33) <= 0xFFFFFFDF)
+      v14 = ACFULogging::getLogInstance(RandomNum);
+      v15 = ACFULogging::handleMessage(v14, 4, "%s::%s: BootNonceHash size: %u\n", "BasebandUpdaterTransport", "preflightGetBoardParameters", *(v104[8] + 32));
+      v16 = v104[8];
+      v17 = v16[8];
+      if ((v17 - 33) <= 0xFFFFFFDF)
       {
-        ACFULogging::getLogInstance(v14);
-        v61 = *(v78[8] + 32);
-        ACFULogging::handleMessage();
-LABEL_62:
-        v26 = 3000;
-        goto LABEL_13;
+        v74 = ACFULogging::getLogInstance(v15);
+        ACFULogging::handleMessage(v74, 2, "%s::%s: Received unexpected bootNonceHash size %u bytes. Expected > 0 and <= %u bytes\n", "BasebandUpdaterTransport", "preflightGetBoardParameters", *(v104[8] + 32), 32);
+        goto LABEL_62;
       }
 
-      memcpy(__dst, v15, v16);
-      v17 = CFDataCreate(*MEMORY[0x1E695E480], __dst, 32);
-      v6[3].__shared_owners_ = v17;
-      LOBYTE(v6[3].__shared_weak_owners_) = v17 != 0;
+      memcpy(__dst, v16, v17);
+      v18 = CFDataCreate(*MEMORY[0x1E695E480], __dst, 32);
+      v7[3].__shared_owners_ = v18;
+      LOBYTE(v7[3].__shared_weak_owners_) = v18 != 0;
     }
 
-    RandomNum = security::ARICommandDriver::GetPersonalizationParams();
-    if (RandomNum)
+    PersonalizationParams = security::ARICommandDriver::GetPersonalizationParams();
+    if (PersonalizationParams)
     {
-      if (**(*v76 + 104) >= 2u || **(*v76 + 120) >= 2u)
+      if (**(*v102 + 104) >= 2u)
       {
-        ACFULogging::getLogInstance(RandomNum);
-        ACFULogging::handleMessage();
-        v26 = 3011;
+        v83 = ACFULogging::getLogInstance(PersonalizationParams);
+        ACFULogging::handleMessage(v83, 2, "%s::%s: Invalid productionMode\n");
       }
 
       else
       {
-        *bytes = **(*v76 + 64);
-        v18 = *MEMORY[0x1E695E480];
-        v19 = CFDataCreate(*MEMORY[0x1E695E480], bytes, 2);
-        v6[2].__vftable = v19;
-        LOBYTE(v6[2].__shared_owners_) = v19 != 0;
-        v20 = CFDataCreate(v18, *(*v76 + 72), 2);
-        v6[1].__shared_owners_ = v20;
-        LOBYTE(v6[1].__shared_weak_owners_) = v20 != 0;
-        *bytes = **(*v76 + 80) | (**(*v76 + 88) << 32);
-        v21 = CFDataCreate(v18, bytes, 8);
-        v6[2].__shared_weak_owners_ = v21;
-        LOBYTE(v6[3].__vftable) = v21 != 0;
-        v22 = CFDataCreate(v18, *(*v76 + 96), 1);
-        v6[6].__shared_weak_owners_ = v22;
-        LOBYTE(v6[7].__vftable) = v22 != 0;
-        bytes[0] = **(*v76 + 104);
-        v23 = CFDataCreate(v18, bytes, 1);
-        v6[4].__shared_weak_owners_ = v23;
-        LOBYTE(v6[5].__vftable) = v23 != 0;
-        v24 = CFDataCreate(v18, *(*v76 + 112), 1);
-        v6[5].__shared_owners_ = v24;
-        LOBYTE(v6[5].__shared_weak_owners_) = v24 != 0;
-        v25 = CFDataCreate(v18, *(*v76 + 120), 1);
-        v6[6].__vftable = v25;
-        LOBYTE(v6[6].__shared_owners_) = v25 != 0;
-        ACFULogging::getLogInstance(v25);
-        ACFULogging::handleMessage();
-        ACFUCommon::PersonalizeParams::logParameters(&v6[1]);
-        v26 = 0;
+        if (**(*v102 + 120) < 2u)
+        {
+          *bytes = **(*v102 + 64);
+          v20 = *MEMORY[0x1E695E480];
+          v21 = CFDataCreate(*MEMORY[0x1E695E480], bytes, 2);
+          v7[2].__vftable = v21;
+          LOBYTE(v7[2].__shared_owners_) = v21 != 0;
+          v22 = CFDataCreate(v20, *(*v102 + 72), 2);
+          v7[1].__shared_owners_ = v22;
+          LOBYTE(v7[1].__shared_weak_owners_) = v22 != 0;
+          *bytes = **(*v102 + 80) | (**(*v102 + 88) << 32);
+          v23 = CFDataCreate(v20, bytes, 8);
+          v7[2].__shared_weak_owners_ = v23;
+          LOBYTE(v7[3].__vftable) = v23 != 0;
+          v24 = CFDataCreate(v20, *(*v102 + 96), 1);
+          v7[6].__shared_weak_owners_ = v24;
+          LOBYTE(v7[7].__vftable) = v24 != 0;
+          bytes[0] = **(*v102 + 104);
+          v25 = CFDataCreate(v20, bytes, 1);
+          v7[4].__shared_weak_owners_ = v25;
+          LOBYTE(v7[5].__vftable) = v25 != 0;
+          v26 = CFDataCreate(v20, *(*v102 + 112), 1);
+          v7[5].__shared_owners_ = v26;
+          LOBYTE(v7[5].__shared_weak_owners_) = v26 != 0;
+          v27 = CFDataCreate(v20, *(*v102 + 120), 1);
+          v7[6].__vftable = v27;
+          LOBYTE(v7[6].__shared_owners_) = v27 != 0;
+          v28 = ACFULogging::getLogInstance(v27);
+          ACFULogging::handleMessage(v28, 0, "%s::%s: Retrieved personalization parameters for preflight successfully\n", "BasebandUpdaterTransport", "preflightGetBoardParameters");
+          ACFUCommon::PersonalizeParams::logParameters(&v7[1]);
+          v29 = 0;
+          goto LABEL_13;
+        }
+
+        v85 = ACFULogging::getLogInstance(PersonalizationParams);
+        ACFULogging::handleMessage(v85, 2, "%s::%s: Invalid uidMode\n");
       }
 
+      v29 = 3011;
 LABEL_13:
-      if (v78)
+      if (v104)
       {
-        (*(*v78 + 16))(v78);
+        (*(*v104 + 16))(v104);
       }
 
-      if (*v76)
+      if (*v102)
       {
-        (*(**v76 + 16))(*v76);
+        (*(**v102 + 16))(*v102);
       }
 
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-      *a4 = v6 + 1;
-      *(a4 + 8) = v6;
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-      *(a4 + 16) = v26;
-      if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      *a4 = v7 + 1;
+      *(a4 + 8) = v7;
+      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+      *(a4 + 16) = v29;
+      if (!atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v6->__on_zero_shared)(v6);
-        std::__shared_weak_count::__release_weak(v6);
+        (v7->__on_zero_shared)(v7);
+        std::__shared_weak_count::__release_weak(v7);
       }
 
-      v27 = *v75;
-      *v75 = 0;
-      if (v27)
+      v30 = *v101;
+      *v101 = 0;
+      if (v30)
       {
-        (*(*v27 + 8))(v27);
+        (*(*v30 + 8))(v30);
       }
 
-      MEMORY[0x1E6926C50](v77);
-      MEMORY[0x1E6926B30](&v79);
-      security::ARICommandDriver::~ARICommandDriver(&v85);
-      v28 = v84;
-      if (!v84)
+      MEMORY[0x1E6926C50](v103);
+      MEMORY[0x1E6926B30](&v105);
+      security::ARICommandDriver::~ARICommandDriver(&v111);
+      v31 = v110;
+      if (!v110)
       {
-        goto LABEL_48;
+        return;
       }
 
 LABEL_46:
-      if (!atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v31->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        (v28->__on_zero_shared)(v28);
-        std::__shared_weak_count::__release_weak(v28);
+        (v31->__on_zero_shared)(v31);
+        std::__shared_weak_count::__release_weak(v31);
       }
 
-      goto LABEL_48;
+      return;
     }
 
-    goto LABEL_61;
+    v73 = ACFULogging::getLogInstance(PersonalizationParams);
+    ACFULogging::handleMessage(v73, 2, "%s::%s: Failed GetPersonalizationParams ARI command\n");
+LABEL_62:
+    v29 = 3000;
+    goto LABEL_13;
   }
 
-  v85 = 0u;
-  v86[0] = 0u;
-  LODWORD(v83) = 32;
+  v111 = 0u;
+  v112[0] = 0u;
+  LODWORD(v109) = 32;
   *bytes = 57005;
-  LODWORD(v78) = 8;
+  LODWORD(v104) = 8;
   __dst[0] = 0xDEADBEEFDEADBEEFLL;
-  v76[0] = 8;
-  *v75 = 0;
-  *v69 = 0;
-  v70 = 4;
-  v68 = 4;
-  *v67 = -8531;
-  v66 = -34;
-  v65 = -34;
-  v64 = -34;
-  v63 = -34;
-  v62 = -34;
-  ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage();
-  v30 = operator new(0xE8uLL);
-  v30->__shared_owners_ = 0;
-  v30->__shared_weak_owners_ = 0;
-  v30->__vftable = &unk_1F5F06238;
-  v31 = operator new(0x40uLL);
-  *(&v79 + 1) = v31 + 4;
-  *&v80 = v31 + 4;
-  *v31 = xmmword_1E876EE28;
-  v31[1] = *&off_1E876EE38;
-  v31[2] = xmmword_1E876EE48;
-  v31[3] = *off_1E876EE58;
-  *&v79 = v31;
+  v102[0] = 8;
+  *v101 = 0;
+  *v95 = 0;
+  v96 = 4;
+  v94 = 4;
+  *v93 = -8531;
+  v92 = -34;
+  v91 = -34;
+  v90 = -34;
+  v89 = -34;
+  v88 = -34;
+  v33 = ACFULogging::getLogInstance(this);
+  ACFULogging::handleMessage(v33, 3, "%s::%s: Retrieving personalization parameters for live boot\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters");
+  v34 = operator new(0xE8uLL);
+  v34->__shared_owners_ = 0;
+  v34->__shared_weak_owners_ = 0;
+  v34->__vftable = &unk_1F5F06238;
+  v35 = operator new(0x40uLL);
+  *(&v105 + 1) = v35 + 4;
+  *&v106 = v35 + 4;
+  *v35 = xmmword_1E876EE28;
+  v35[1] = *&off_1E876EE38;
+  v35[2] = xmmword_1E876EE48;
+  v35[3] = *off_1E876EE58;
+  *&v105 = v35;
   ACFUCommon::PersonalizeParams::PersonalizeParams();
-  if (v79)
+  if (v105)
   {
-    *(&v79 + 1) = v79;
-    operator delete(v79);
+    *(&v105 + 1) = v105;
+    operator delete(v105);
   }
 
-  *&v77[0] = v30 + 1;
-  *(&v77[0] + 1) = v30;
-  *&v79 = 0;
-  v32 = *(this + 23);
-  ctu::AdaptiveTimerService::getScaledTime();
-  v33 = operator new(0x20uLL);
-  *(v33 + 1) = 0;
-  *v33 = &unk_1F5F05FE8;
-  *(v33 + 2) = 0;
-  *(v33 + 3) = 0;
-  v34 = BasebandUpdaterTransport::IOACIPCHelper::init(v33, "rom");
-  if ((v34 & 1) == 0)
+  *&v103[0] = v34 + 1;
+  *(&v103[0] + 1) = v34;
+  *&v105 = 0;
+  ScaledTime = ctu::AdaptiveTimerService::getScaledTime();
+  v37 = operator new(0x20uLL);
+  *(v37 + 1) = 0;
+  *v37 = &unk_1F5F05FE8;
+  *(v37 + 2) = 0;
+  *(v37 + 3) = 0;
+  v38 = BasebandUpdaterTransport::IOACIPCHelper::init(v37, "rom", (ScaledTime / 1000000));
+  if ((v38 & 1) == 0)
   {
-    v58 = (*(*v33 + 8))(v33);
-    ACFULogging::getLogInstance(v58);
-    v59 = ACFULogging::handleMessage();
-    ACFULogging::getLogInstance(v59);
-    ACFULogging::handleMessage();
-    v33 = 0;
-    v56 = 3019;
+    v67 = (*(*v37 + 8))(v37);
+    v68 = ACFULogging::getLogInstance(v67);
+    v69 = ACFULogging::handleMessage(v68, 2, "%s::%s: Failed to init IOACIPCHelper\n", "BasebandUpdaterTransport", "create");
+    v70 = ACFULogging::getLogInstance(v69);
+    ACFULogging::handleMessage(v70, 2, "%s::%s: Failed to open ACIPC %s interface\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters", "rom");
+    v37 = 0;
+    v66 = 3019;
     goto LABEL_41;
   }
 
-  *&v79 = *(v33 + 1);
-  if (!v79)
+  *&v105 = *(v37 + 1);
+  if (!v105)
   {
-    ACFULogging::getLogInstance(v34);
-    ACFULogging::handleMessage();
-    v56 = 3000;
+    v72 = ACFULogging::getLogInstance(v38);
+    ACFULogging::handleMessage(v72, 2, "%s::%s: Failed to get the ACIPC interface object\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters");
+    v66 = 3000;
     goto LABEL_41;
   }
 
-  v35 = MEMORY[0x1E695E480];
+  v39 = MEMORY[0x1E695E480];
   if (a3)
   {
-    BootNonce = ACFUACIPCTransport::generateBootNonce(this, &v79);
+    BootNonce = ACFUACIPCTransport::generateBootNonce(this, &v105);
+    v41 = BootNonce;
     if (BootNonce)
     {
-      ACFULogging::getLogInstance(BootNonce);
-      ACFULogging::handleMessage();
-      v56 = 3008;
+      v81 = ACFULogging::getLogInstance(BootNonce);
+      ACFULogging::handleMessage(v81, 2, "%s::%s: Failed to generate bootNonce (ret: 0x%08x)\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters", v41);
+      v66 = 3008;
       goto LABEL_41;
     }
 
-    Register = ACFUACIPCTransport::readRegister(this, &v79, 5, &v85, &v83);
+    Register = ACFUACIPCTransport::readRegister(this, &v105, 5, &v111, &v109);
+    v43 = Register;
     if (Register)
     {
-      ACFULogging::getLogInstance(Register);
-      ACFULogging::handleMessage();
-      v56 = 3017;
+      v82 = ACFULogging::getLogInstance(Register);
+      ACFULogging::handleMessage(v82, 2, "%s::%s: Failed to get bootNonceHash0 (ret: 0x%08x)\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters", v43);
+      v66 = 3017;
       goto LABEL_41;
     }
 
-    ACFULogging::getLogInstance(Register);
-    v38 = ACFULogging::handleMessage();
-    if ((v83 - 33) <= 0xFFFFFFDF)
+    v44 = ACFULogging::getLogInstance(Register);
+    v45 = ACFULogging::handleMessage(v44, 4, "%s::%s: BootNonceHash size: %u\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters", v109);
+    if ((v109 - 33) <= 0xFFFFFFDF)
     {
-      ACFULogging::getLogInstance(v38);
-      ACFULogging::handleMessage();
-      v56 = 3018;
+      v84 = ACFULogging::getLogInstance(v45);
+      ACFULogging::handleMessage(v84, 2, "%s::%s: Bad bootNonceHash size %u\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters", v109);
+      v66 = 3018;
       goto LABEL_41;
     }
 
-    v39 = *v35;
-    v40 = CFDataCreate(*v35, &v85, 32);
-    v30[3].__shared_owners_ = v40;
-    LOBYTE(v30[3].__shared_weak_owners_) = v40 != 0;
-    v41 = ACFUACIPCTransport::readRegister(this, &v79, 13, bytes, &v78);
-    if (v41)
+    v46 = *v39;
+    v47 = CFDataCreate(*v39, &v111, 32);
+    v34[3].__shared_owners_ = v47;
+    LOBYTE(v34[3].__shared_weak_owners_) = v47 != 0;
+    v48 = ACFUACIPCTransport::readRegister(this, &v105, 13, bytes, &v104);
+    v49 = v48;
+    if (v48)
     {
-      ACFULogging::getLogInstance(v41);
-      ACFULogging::handleMessage();
-      v56 = 3007;
+      v86 = ACFULogging::getLogInstance(v48);
+      ACFULogging::handleMessage(v86, 2, "%s::%s: Failed to get bootNonce (ret: 0x%08x)\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters", v49);
+      v66 = 3007;
       goto LABEL_41;
     }
 
-    ACFULogging::getLogInstance(v41);
-    v42 = ACFULogging::handleMessage();
-    if ((v78 - 9) <= 0xFFFFFFF7)
+    v50 = ACFULogging::getLogInstance(v48);
+    v51 = ACFULogging::handleMessage(v50, 4, "%s::%s: BootNonce size: %u\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters", v104);
+    if ((v104 - 9) <= 0xFFFFFFF7)
     {
-      ACFULogging::getLogInstance(v42);
-      ACFULogging::handleMessage();
-      v56 = 3009;
+      v87 = ACFULogging::getLogInstance(v51);
+      ACFULogging::handleMessage(v87, 2, "%s::%s: Bad bootNonce size %u\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters", v104);
+      v66 = 3009;
       goto LABEL_41;
     }
 
-    v43 = CFDataCreate(v39, bytes, 8);
-    v30[4].__vftable = v43;
-    LOBYTE(v30[4].__shared_owners_) = v43 != 0;
+    v52 = CFDataCreate(v46, bytes, 8);
+    v34[4].__vftable = v52;
+    LOBYTE(v34[4].__shared_owners_) = v52 != 0;
   }
 
-  v44 = ACFUACIPCTransport::readRegister(this, &v79, 3, __dst, v76);
-  if (v44 || __dst[0] == 0xDEADBEEFDEADBEEFLL)
+  v53 = ACFUACIPCTransport::readRegister(this, &v105, 3, __dst, v102);
+  if (v53 || __dst[0] == 0xDEADBEEFDEADBEEFLL)
   {
-    ACFULogging::getLogInstance(v44);
+    v75 = ACFULogging::getLogInstance(v53);
+    ACFULogging::handleMessage(v75, 2, "%s::%s: Failed to get ecid\n");
 LABEL_56:
-    ACFULogging::handleMessage();
-    v56 = 3025;
+    v66 = 3025;
     goto LABEL_41;
   }
 
-  v45 = ACFUACIPCTransport::readRegister(this, &v79, 2, v75, &v70);
-  if (v45)
+  v54 = ACFUACIPCTransport::readRegister(this, &v105, 2, v101, &v96);
+  if (v54)
   {
-    ACFULogging::getLogInstance(v45);
+    v76 = ACFULogging::getLogInstance(v54);
+    ACFULogging::handleMessage(v76, 2, "%s::%s: Failed to get chip information\n");
     goto LABEL_56;
   }
 
-  v66 = v75[0];
-  if (v75[0] == 222 || (*v67 = *&v75[2], *&v75[2] == 57005))
+  v92 = v101[0];
+  if (v101[0] == 222)
   {
-    ACFULogging::getLogInstance(v45);
+    v77 = ACFULogging::getLogInstance(v54);
+    ACFULogging::handleMessage(v77, 2, "%s::%s: Invalid boardID\n");
   }
 
   else
   {
-    v46 = ACFUACIPCTransport::readRegister(this, &v79, 1, v69, &v68);
-    if (!v46)
+    *v93 = *&v101[2];
+    if (*&v101[2] == 57005)
     {
-      v63 = (*v69 >> 7) & 3;
-      v65 = (*v69 & 0x200) != 0;
-      v64 = (*v69 & 0x400) != 0;
-      v62 = (*v69 & 0x800) != 0;
-      v47 = *v35;
-      v48 = CFDataCreate(*v35, __dst, 8);
-      v30[2].__shared_weak_owners_ = v48;
-      LOBYTE(v30[3].__vftable) = v48 != 0;
-      v49 = CFDataCreate(v47, &v66, 1);
-      v30[2].__vftable = v49;
-      LOBYTE(v30[2].__shared_owners_) = v49 != 0;
-      v50 = CFDataCreate(v47, v67, 2);
-      v30[1].__shared_owners_ = v50;
-      LOBYTE(v30[1].__shared_weak_owners_) = v50 != 0;
-      v51 = CFDataCreate(v47, &v65, 1);
-      v30[4].__shared_weak_owners_ = v51;
-      LOBYTE(v30[5].__vftable) = v51 != 0;
-      v52 = CFDataCreate(v47, &v64, 1);
-      v30[5].__shared_owners_ = v52;
-      LOBYTE(v30[5].__shared_weak_owners_) = v52 != 0;
-      v53 = CFDataCreate(v47, &v63, 1);
-      v30[6].__shared_weak_owners_ = v53;
-      LOBYTE(v30[7].__vftable) = v53 != 0;
-      v54 = CFDataCreate(v47, &v62, 1);
-      v30[6].__vftable = v54;
-      LOBYTE(v30[6].__shared_owners_) = v54 != 0;
-      v55 = ACFUCommon::PersonalizeParams::logParameters(&v30[1]);
-      ACFULogging::getLogInstance(v55);
-      ACFULogging::handleMessage();
-      v56 = 0;
-      goto LABEL_41;
+      v78 = ACFULogging::getLogInstance(v54);
+      ACFULogging::handleMessage(v78, 2, "%s::%s: Invalid chipId\n");
     }
 
-    ACFULogging::getLogInstance(v46);
+    else
+    {
+      v55 = ACFUACIPCTransport::readRegister(this, &v105, 1, v95, &v94);
+      if (!v55)
+      {
+        v89 = (*v95 >> 7) & 3;
+        v91 = (*v95 & 0x200) != 0;
+        v90 = (*v95 & 0x400) != 0;
+        v88 = (*v95 & 0x800) != 0;
+        v56 = *v39;
+        v57 = CFDataCreate(*v39, __dst, 8);
+        v34[2].__shared_weak_owners_ = v57;
+        LOBYTE(v34[3].__vftable) = v57 != 0;
+        v58 = CFDataCreate(v56, &v92, 1);
+        v34[2].__vftable = v58;
+        LOBYTE(v34[2].__shared_owners_) = v58 != 0;
+        v59 = CFDataCreate(v56, v93, 2);
+        v34[1].__shared_owners_ = v59;
+        LOBYTE(v34[1].__shared_weak_owners_) = v59 != 0;
+        v60 = CFDataCreate(v56, &v91, 1);
+        v34[4].__shared_weak_owners_ = v60;
+        LOBYTE(v34[5].__vftable) = v60 != 0;
+        v61 = CFDataCreate(v56, &v90, 1);
+        v34[5].__shared_owners_ = v61;
+        LOBYTE(v34[5].__shared_weak_owners_) = v61 != 0;
+        v62 = CFDataCreate(v56, &v89, 1);
+        v34[6].__shared_weak_owners_ = v62;
+        LOBYTE(v34[7].__vftable) = v62 != 0;
+        v63 = CFDataCreate(v56, &v88, 1);
+        v34[6].__vftable = v63;
+        LOBYTE(v34[6].__shared_owners_) = v63 != 0;
+        v64 = ACFUCommon::PersonalizeParams::logParameters(&v34[1]);
+        v65 = ACFULogging::getLogInstance(v64);
+        ACFULogging::handleMessage(v65, 3, "%s::%s: Retrieved personalization parameters for live boot successfully\n", "BasebandUpdaterTransport", "liveBootGetBoardParameters");
+        v66 = 0;
+        goto LABEL_41;
+      }
+
+      v79 = ACFULogging::getLogInstance(v55);
+      ACFULogging::handleMessage(v79, 2, "%s::%s: Failed to get domain mode registers\n");
+    }
   }
 
-  ACFULogging::handleMessage();
-  v56 = 3011;
+  v66 = 3011;
 LABEL_41:
-  atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
-  *a4 = v30 + 1;
-  *(a4 + 8) = v30;
-  atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
-  *(a4 + 16) = v56;
-  if (!atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+  *a4 = v34 + 1;
+  *(a4 + 8) = v34;
+  atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
+  *(a4 + 16) = v66;
+  if (!atomic_fetch_add(&v34->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v30->__on_zero_shared)(v30);
-    std::__shared_weak_count::__release_weak(v30);
+    (v34->__on_zero_shared)(v34);
+    std::__shared_weak_count::__release_weak(v34);
   }
 
-  if (v33)
+  if (v37)
   {
-    (*(*v33 + 8))(v33);
+    (*(*v37 + 8))(v37);
   }
 
-  v28 = *(&v77[0] + 1);
-  if (*(&v77[0] + 1))
+  v31 = *(&v103[0] + 1);
+  if (*(&v103[0] + 1))
   {
     goto LABEL_46;
   }
-
-LABEL_48:
-  v57 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E536AA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1E536AA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E536AA24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E536AA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
   if (a25)
   {
-    (*(*a25 + 8))(a25);
+    (*(*a25 + 8))(a25, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  MEMORY[0x1E6926C50](&a27);
-  MEMORY[0x1E6926B30](&a37);
-  security::ARICommandDriver::~ARICommandDriver((v37 - 208));
-  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v37 - 224);
+  MEMORY[0x1E6926C50](&a27, a2, a3, a4, a5, a6, a7, a8);
+  MEMORY[0x1E6926B30](va);
+  security::ARICommandDriver::~ARICommandDriver((v36 - 208));
+  std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](v36 - 224);
   _Unwind_Resume(a1);
 }
 
 uint64_t BasebandUpdaterTransport::pushFirmware(uint64_t a1, uint64_t *a2)
 {
-  v4 = *(a1 + 160);
-  v5 = TelephonyBasebandSetBasebandState();
-  ACFULogging::getLogInstance(v5);
-  ACFULogging::handleMessage();
-  v6 = *(a1 + 184);
-  ctu::AdaptiveTimerService::getScaledTime();
-  v7 = operator new(0x20uLL);
-  *(v7 + 1) = 0;
-  *v7 = &unk_1F5F05FE8;
-  *(v7 + 2) = 0;
-  *(v7 + 3) = 0;
-  v8 = BasebandUpdaterTransport::IOACIPCHelper::init(v7, "rom");
-  if ((v8 & 1) == 0)
+  v3 = TelephonyBasebandSetBasebandState();
+  LogInstance = ACFULogging::getLogInstance(v3);
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: ======== ENTERING FIRST BOOT STAGE (ROM) ========\n", "BasebandUpdaterTransport", "pushFirmware");
+  ScaledTime = ctu::AdaptiveTimerService::getScaledTime();
+  v6 = operator new(0x20uLL);
+  *(v6 + 1) = 0;
+  *v6 = &unk_1F5F05FE8;
+  v7 = ScaledTime;
+  *(v6 + 2) = 0;
+  *(v6 + 3) = 0;
+  v8 = "rom";
+  v9 = BasebandUpdaterTransport::IOACIPCHelper::init(v6, "rom", (v7 / 1000000));
+  if ((v9 & 1) == 0)
   {
-LABEL_39:
-    v35 = (*(*v7 + 8))(v7);
-    ACFULogging::getLogInstance(v35);
-    v34 = ACFULogging::handleMessage();
-    goto LABEL_40;
+LABEL_41:
+    v45 = (*(*v6 + 8))(v6);
+    v46 = ACFULogging::getLogInstance(v45);
+    v41 = ACFULogging::handleMessage(v46, 2, "%s::%s: Failed to init IOACIPCHelper\n", "BasebandUpdaterTransport", "create");
+    goto LABEL_42;
   }
 
-  if (*(v7 + 1))
+  if (*(v6 + 1))
   {
-    v9 = *(a1 + 184);
     ctu::AdaptiveTimerService::getScaledTime();
     v10 = a2[1];
-    v40 = *a2;
-    v41 = v10;
+    v52 = v10;
     if (v10)
     {
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
     }
 
     ImageOnBTIStage = ACFUACIPCTransport::loadImageOnBTIStage();
-    if (v41 && !atomic_fetch_add(&v41->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v52 && !atomic_fetch_add(&v52->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       v12 = ImageOnBTIStage;
-      (v41->__on_zero_shared)(v41);
-      std::__shared_weak_count::__release_weak(v41);
+      (v52->__on_zero_shared)(v52);
+      std::__shared_weak_count::__release_weak(v52);
       ImageOnBTIStage = v12;
     }
 
     if (ImageOnBTIStage)
     {
-      ACFULogging::getLogInstance(ImageOnBTIStage);
-      ACFULogging::handleMessage();
-      v14 = 0;
-      v13 = 3026;
+      v38 = ACFULogging::getLogInstance(ImageOnBTIStage);
+      ACFULogging::handleMessage(v38, 2, "%s::%s: Failed to load image on FIRST (ROM) boot stage\n", "BasebandUpdaterTransport", "pushFirmware");
+      v15 = 0;
+      v14 = 3026;
     }
 
     else
     {
-      ACFULogging::getLogInstance(ImageOnBTIStage);
-      ACFULogging::handleMessage();
-      v13 = 0;
-      v14 = 1;
+      v13 = ACFULogging::getLogInstance(ImageOnBTIStage);
+      ACFULogging::handleMessage(v13, 0, "%s::%s: ======== COMPLETED FIRST BOOT STAGE (ROM) ========\n", "BasebandUpdaterTransport", "pushFirmware");
+      v14 = 0;
+      v15 = 1;
     }
   }
 
   else
   {
-    ACFULogging::getLogInstance(v8);
-    ACFULogging::handleMessage();
-    v14 = 0;
-    v13 = 3000;
+    v37 = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(v37, 2, "%s::%s: Failed to get the ACIPC interface object\n", "BasebandUpdaterTransport", "pushFirmware");
+    v15 = 0;
+    v14 = 3000;
   }
 
-  v15 = (*(*v7 + 8))(v7);
-  if (v14)
+  v16 = (*(*v6 + 8))(v6);
+  if (v15)
   {
-    ACFULogging::getLogInstance(v15);
-    ACFULogging::handleMessage();
-    v16 = *(a1 + 184);
-    ctu::AdaptiveTimerService::getScaledTime();
-    v17 = operator new(0x20uLL);
-    *(v17 + 1) = 0;
-    *v17 = &unk_1F5F05FE8;
-    *(v17 + 2) = 0;
-    *(v17 + 3) = 0;
-    if ((BasebandUpdaterTransport::IOACIPCHelper::init(v17, "iboot") & 1) == 0)
+    v17 = ACFULogging::getLogInstance(v16);
+    ACFULogging::handleMessage(v17, 0, "%s::%s: ======== ENTERING SECOND BOOT STAGE (iBoot) ========\n", "BasebandUpdaterTransport", "pushFirmware");
+    v18 = ctu::AdaptiveTimerService::getScaledTime();
+    v19 = operator new(0x20uLL);
+    *(v19 + 1) = 0;
+    *v19 = &unk_1F5F05FE8;
+    v20 = v18;
+    *(v19 + 2) = 0;
+    *(v19 + 3) = 0;
+    v8 = "iboot";
+    if ((BasebandUpdaterTransport::IOACIPCHelper::init(v19, "iboot", (v20 / 1000000)) & 1) == 0)
     {
-      v33 = (*(*v17 + 8))(v17);
-      ACFULogging::getLogInstance(v33);
-      v34 = ACFULogging::handleMessage();
-LABEL_40:
-      ACFULogging::getLogInstance(v34);
-      ACFULogging::handleMessage();
-      v13 = 3019;
+      v39 = (*(*v19 + 8))(v19);
+      v40 = ACFULogging::getLogInstance(v39);
+      v41 = ACFULogging::handleMessage(v40, 2, "%s::%s: Failed to init IOACIPCHelper\n", "BasebandUpdaterTransport", "create");
+LABEL_42:
+      v47 = ACFULogging::getLogInstance(v41);
+      ACFULogging::handleMessage(v47, 2, "%s::%s: Failed to open ACIPC %s interface\n", "BasebandUpdaterTransport", "pushFirmware", v8);
+      v14 = 3019;
       goto LABEL_32;
     }
 
-    v18 = validateBootStage(4);
-    if ((v18 & 1) != 0 && *(v17 + 1))
+    v21 = validateBootStage(4);
+    if (v21)
     {
-      v19 = *(a1 + 184);
-      ctu::AdaptiveTimerService::getScaledTime();
-      v20 = a2[1];
-      v38 = *a2;
-      v39 = v20;
-      if (v20)
+      if (*(v19 + 1))
       {
-        atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v21 = ACFUACIPCTransport::processRTIStage();
-      if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        v22 = v21;
-        (v39->__on_zero_shared)(v39);
-        std::__shared_weak_count::__release_weak(v39);
-        v21 = v22;
-      }
-
-      if (v21)
-      {
-        ACFULogging::getLogInstance(v21);
-        ACFULogging::handleMessage();
-        v23 = 0;
-        v13 = 3027;
-      }
-
-      else
-      {
-        ACFULogging::getLogInstance(v21);
-        ACFULogging::handleMessage();
-        v13 = 0;
-        v23 = 1;
-      }
-    }
-
-    else
-    {
-      ACFULogging::getLogInstance(v18);
-      ACFULogging::handleMessage();
-      v23 = 0;
-      v13 = 3000;
-    }
-
-    v24 = (*(*v17 + 8))(v17);
-    if (v23)
-    {
-      ACFULogging::getLogInstance(v24);
-      ACFULogging::handleMessage();
-      v25 = *(a1 + 184);
-      ctu::AdaptiveTimerService::getScaledTime();
-      v7 = operator new(0x20uLL);
-      *(v7 + 1) = 0;
-      *v7 = &unk_1F5F05FE8;
-      *(v7 + 2) = 0;
-      *(v7 + 3) = 0;
-      v26 = BasebandUpdaterTransport::IOACIPCHelper::init(v7, "cps");
-      if (v26)
-      {
-        if (*(v7 + 1))
+        ctu::AdaptiveTimerService::getScaledTime();
+        v22 = a2[1];
+        v51 = v22;
+        if (v22)
         {
-          v27 = *(a1 + 184);
-          ctu::AdaptiveTimerService::getScaledTime();
-          v28 = a2[1];
-          v36 = *a2;
-          v37 = v28;
-          if (v28)
-          {
-            atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
+          atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
+        }
 
-          v29 = ACFUACIPCTransport::processRTIStage();
-          if (v37 && !atomic_fetch_add(&v37->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-          {
-            v30 = v29;
-            (v37->__on_zero_shared)(v37);
-            std::__shared_weak_count::__release_weak(v37);
-            v29 = v30;
-          }
+        v23 = ACFUACIPCTransport::processRTIStage();
+        if (v51 && !atomic_fetch_add(&v51->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          v24 = v23;
+          (v51->__on_zero_shared)(v51);
+          std::__shared_weak_count::__release_weak(v51);
+          v23 = v24;
+        }
 
-          if (v29)
-          {
-            ACFULogging::getLogInstance(v29);
-            ACFULogging::handleMessage();
-            v13 = 3027;
-          }
-
-          else
-          {
-            ACFULogging::getLogInstance(v29);
-            ACFULogging::handleMessage();
-            v13 = 0;
-          }
+        if (v23)
+        {
+          v44 = ACFULogging::getLogInstance(v23);
+          ACFULogging::handleMessage(v44, 2, "%s::%s: Failed to load image on SECOND (iBoot) boot stage\n", "BasebandUpdaterTransport", "pushFirmware");
+          v26 = 0;
+          v14 = 3027;
         }
 
         else
         {
-          ACFULogging::getLogInstance(v26);
-          ACFULogging::handleMessage();
-          v13 = 3000;
+          v25 = ACFULogging::getLogInstance(v23);
+          ACFULogging::handleMessage(v25, 0, "%s::%s: ======== COMPLETED SECOND BOOT STAGE (iBoot) ========\n", "BasebandUpdaterTransport", "pushFirmware");
+          v14 = 0;
+          v26 = 1;
         }
 
-        (*(*v7 + 8))(v7);
-        goto LABEL_32;
+LABEL_21:
+        v27 = (*(*v19 + 8))(v19);
+        if (!v26)
+        {
+          goto LABEL_32;
+        }
+
+        v28 = ACFULogging::getLogInstance(v27);
+        ACFULogging::handleMessage(v28, 0, "%s::%s: ======== ENTERING THIRD BOOT STAGE (CPS) ========\n", "BasebandUpdaterTransport", "pushFirmware");
+        v29 = ctu::AdaptiveTimerService::getScaledTime();
+        v6 = operator new(0x20uLL);
+        *(v6 + 1) = 0;
+        *v6 = &unk_1F5F05FE8;
+        v30 = v29;
+        *(v6 + 2) = 0;
+        *(v6 + 3) = 0;
+        v8 = "cps";
+        v31 = BasebandUpdaterTransport::IOACIPCHelper::init(v6, "cps", (v30 / 1000000));
+        if (v31)
+        {
+          if (*(v6 + 1))
+          {
+            ctu::AdaptiveTimerService::getScaledTime();
+            v32 = a2[1];
+            v50 = v32;
+            if (v32)
+            {
+              atomic_fetch_add_explicit((v32 + 8), 1uLL, memory_order_relaxed);
+            }
+
+            v33 = ACFUACIPCTransport::processRTIStage();
+            if (v50 && !atomic_fetch_add(&v50->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+            {
+              v34 = v33;
+              (v50->__on_zero_shared)(v50);
+              std::__shared_weak_count::__release_weak(v50);
+              v33 = v34;
+            }
+
+            if (v33)
+            {
+              v49 = ACFULogging::getLogInstance(v33);
+              ACFULogging::handleMessage(v49, 2, "%s::%s: Failed to load image on THIRD (CPS) boot stage\n", "BasebandUpdaterTransport", "pushFirmware");
+              v14 = 3027;
+            }
+
+            else
+            {
+              v35 = ACFULogging::getLogInstance(v33);
+              ACFULogging::handleMessage(v35, 0, "%s::%s: ======== COMPLETED THIRD BOOT STAGE (CPS) ========\n", "BasebandUpdaterTransport", "pushFirmware");
+              v14 = 0;
+            }
+          }
+
+          else
+          {
+            v48 = ACFULogging::getLogInstance(v31);
+            ACFULogging::handleMessage(v48, 2, "%s::%s: Failed to get the ACIPC interface object\n", "BasebandUpdaterTransport", "pushFirmware");
+            v14 = 3000;
+          }
+
+          (*(*v6 + 8))(v6);
+          goto LABEL_32;
+        }
+
+        goto LABEL_41;
       }
 
-      goto LABEL_39;
+      v43 = ACFULogging::getLogInstance(v21);
+      ACFULogging::handleMessage(v43, 2, "%s::%s: Failed to get the ACIPC interface object\n");
     }
+
+    else
+    {
+      v42 = ACFULogging::getLogInstance(v21);
+      ACFULogging::handleMessage(v42, 2, "%s::%s: Unexpected acipc boot stage\n");
+    }
+
+    v26 = 0;
+    v14 = 3000;
+    goto LABEL_21;
   }
 
 LABEL_32:
-  v31 = *(a1 + 160);
   TelephonyBasebandSetBasebandState();
-  return v13;
+  return v14;
 }
 
-void sub_1E536B3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E536B3B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
-  (*(*v9 + 8))(v9);
+  (*(*v16 + 8))(v16);
   _Unwind_Resume(a1);
 }
 
 uint64_t ___ZN24BasebandUpdaterTransport12pushFirmwareENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke(ACFULogging *a1)
 {
   v1 = *(a1 + 4);
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Image transfer timeout on ROM stage, aborting via force warm reset\n", "BasebandUpdaterTransport", "pushFirmware_block_invoke");
 
   return BasebandUpdaterTransport::warmResetForce(v1);
 }
 
 uint64_t BasebandUpdaterTransport::warmResetForce(BasebandUpdaterTransport *this)
 {
-  result = TelephonyCapabilitiesGetHardwareModel();
-  if (*(result + 8) == 3)
+  HardwareModel = TelephonyCapabilitiesGetHardwareModel();
+  if (*(HardwareModel + 8) == 3)
   {
-    goto LABEL_12;
+    LogInstance = ACFULogging::getLogInstance(HardwareModel);
+    v4 = "%s::%s: Skipping force warm reset for ConfigSimConfigSim\n";
+LABEL_6:
+    v5 = 0;
+    return ACFULogging::handleMessage(LogInstance, v5, v4, "BasebandUpdaterTransport", "warmResetForce");
   }
 
-  if (*(this + 200) != 1)
+  if (*(this + 200) == 1)
   {
-LABEL_11:
-    v6 = *(this + 20);
-    result = TelephonyBasebandForceResetModem();
-    if (result)
+    if (*(this + 203))
     {
-      return result;
+LABEL_5:
+      LogInstance = ACFULogging::getLogInstance(HardwareModel);
+      v4 = "%s::%s: User requested not to force warm reset, skipping...\n";
+      goto LABEL_6;
     }
 
-    goto LABEL_12;
-  }
-
-  if ((*(this + 203) & 1) == 0)
-  {
     if (*(this + 202) == 1)
     {
-      v3 = MEMORY[0x1E69E9858];
-      while (1)
+      v6 = MEMORY[0x1E69E9858];
+      do
       {
         printf("        %s - %c/%c?: ", "force warm reset", 121, 110);
-        fflush(*v3);
-        result = getchar();
-        v4 = result;
+        fflush(*v6);
+        HardwareModel = getchar();
+        v7 = HardwareModel;
           ;
         }
 
         if (i == 110)
         {
-          goto LABEL_12;
-        }
-
-        if (v4 == 121)
-        {
-          goto LABEL_11;
+          goto LABEL_5;
         }
       }
-    }
 
-    goto LABEL_11;
+      while (v7 != 121);
+    }
   }
 
-LABEL_12:
-  ACFULogging::getLogInstance(result);
-  return ACFULogging::handleMessage();
+  result = TelephonyBasebandForceResetModem();
+  if (result)
+  {
+    return result;
+  }
+
+  LogInstance = ACFULogging::getLogInstance(result);
+  v4 = "%s::%s: Failed to force warm reset baseband\n";
+  v5 = 2;
+  return ACFULogging::handleMessage(LogInstance, v5, v4, "BasebandUpdaterTransport", "warmResetForce");
 }
 
 uint64_t validateBootStage(int a1)
 {
-  v12 = 0;
+  v17 = 0;
   valuePtr = 0;
   v2 = IOServiceMatching("AppleConvergedIPCLedaBBControl");
   if (!v2)
   {
-    ACFULogging::getLogInstance(0);
-LABEL_14:
-    ACFULogging::handleMessage();
+    LogInstance = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Failed to create matching dictionary\n");
     return 0;
   }
 
@@ -7860,18 +8675,18 @@ LABEL_14:
   v4 = MatchingService;
   if (!MatchingService)
   {
-    ACFULogging::getLogInstance(MatchingService);
-    goto LABEL_14;
+    v13 = ACFULogging::getLogInstance(MatchingService);
+    ACFULogging::handleMessage(v13, 2, "%s::%s: Failed to find matching service for BB Control\n");
+    return 0;
   }
 
   CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"bootstage", *MEMORY[0x1E695E480], 0);
   v6 = CFProperty;
-  v12 = CFProperty;
+  v17 = CFProperty;
   if (!CFProperty || (v7 = CFGetTypeID(CFProperty), CFProperty = CFNumberGetTypeID(), v7 != CFProperty))
   {
-    ACFULogging::getLogInstance(CFProperty);
-LABEL_16:
-    ACFULogging::handleMessage();
+    v11 = ACFULogging::getLogInstance(CFProperty);
+    ACFULogging::handleMessage(v11, 2, "%s::%s: Failed to find boot stage\n");
 LABEL_18:
     v9 = 0;
     goto LABEL_8;
@@ -7880,14 +8695,15 @@ LABEL_18:
   Value = CFNumberGetValue(v6, kCFNumberSInt32Type, &valuePtr);
   if (!Value)
   {
-    ACFULogging::getLogInstance(Value);
-    goto LABEL_16;
+    v14 = ACFULogging::getLogInstance(Value);
+    ACFULogging::handleMessage(v14, 2, "%s::%s: Failed to determine the value of the boot stage\n");
+    goto LABEL_18;
   }
 
   if (valuePtr != a1)
   {
-    ACFULogging::getLogInstance(Value);
-    ACFULogging::handleMessage();
+    v15 = ACFULogging::getLogInstance(Value);
+    ACFULogging::handleMessage(v15, 2, "%s::%s: Mismatch - expected boot stage: %u, current boot stage: %u\n", "BasebandUpdaterTransport", "validateBootStage", a1, valuePtr);
     goto LABEL_18;
   }
 
@@ -7902,16 +8718,16 @@ LABEL_8:
   return v9;
 }
 
-void sub_1E536B7F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1E536B7F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E536B804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1E536B804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   ctu::cf::CFSharedRef<void const>::~CFSharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -7919,8 +8735,8 @@ void sub_1E536B804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t ___ZN24BasebandUpdaterTransport12pushFirmwareENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke_2(ACFULogging *a1)
 {
   v1 = *(a1 + 4);
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Image transfer timeout on iBoot stage, aborting via force warm reset\n", "BasebandUpdaterTransport", "pushFirmware_block_invoke_2");
 
   return BasebandUpdaterTransport::warmResetForce(v1);
 }
@@ -7928,8 +8744,8 @@ uint64_t ___ZN24BasebandUpdaterTransport12pushFirmwareENSt3__110shared_ptrI12ACF
 uint64_t ___ZN24BasebandUpdaterTransport12pushFirmwareENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke_3(ACFULogging *a1)
 {
   v1 = *(a1 + 4);
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Image transfer timeout on CPS stage, aborting via force warm reset\n", "BasebandUpdaterTransport", "pushFirmware_block_invoke_3");
 
   return BasebandUpdaterTransport::warmResetForce(v1);
 }
@@ -7937,8 +8753,8 @@ uint64_t ___ZN24BasebandUpdaterTransport12pushFirmwareENSt3__110shared_ptrI12ACF
 uint64_t ___ZN24BasebandUpdaterTransport15collectCoredumpENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke(ACFULogging *a1)
 {
   v1 = *(a1 + 4);
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Image transfer timeout on ROM stage for coredump, aborting via force warm reset\n", "BasebandUpdaterTransport", "collectCoredump_block_invoke");
 
   return BasebandUpdaterTransport::warmResetForce(v1);
 }
@@ -7946,16 +8762,16 @@ uint64_t ___ZN24BasebandUpdaterTransport15collectCoredumpENSt3__110shared_ptrI12
 uint64_t ___ZN24BasebandUpdaterTransport15collectCoredumpENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke_2(ACFULogging *a1)
 {
   v1 = *(a1 + 4);
-  ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(a1);
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Image transfer timeout for coredump, aborting via force warm reset\n", "BasebandUpdaterTransport", "collectCoredump_block_invoke_2");
 
   return BasebandUpdaterTransport::warmResetForce(v1);
 }
 
 uint64_t BasebandUpdaterTransport::setNonce(BasebandUpdaterTransport *this, void *a2)
 {
-  ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage();
+  LogInstance = ACFULogging::getLogInstance(this);
+  ACFULogging::handleMessage(LogInstance, 3, "%s::%s: Not implemented\n", "BasebandUpdaterTransport", "setNonce");
   return 0;
 }
 
@@ -7964,50 +8780,51 @@ uint64_t BasebandUpdaterTransport::reset(BasebandUpdaterTransport *this)
   HardwareModel = TelephonyCapabilitiesGetHardwareModel();
   if (*(HardwareModel + 8) == 3)
   {
-    goto LABEL_4;
+    LogInstance = ACFULogging::getLogInstance(HardwareModel);
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Skipping cold reset for ConfigSim\n");
+    return 0;
   }
 
   if (*(this + 200) == 1)
   {
     if (*(this + 203))
     {
-LABEL_4:
-      ACFULogging::getLogInstance(HardwareModel);
-      ACFULogging::handleMessage();
+LABEL_5:
+      v4 = ACFULogging::getLogInstance(HardwareModel);
+      ACFULogging::handleMessage(v4, 0, "%s::%s: User requested not to cold reset, skipping...\n");
       return 0;
     }
 
     if (*(this + 202) == 1)
     {
-      v4 = MEMORY[0x1E69E9858];
+      v6 = MEMORY[0x1E69E9858];
       do
       {
         printf("        %s - %c/%c?: ", "Cold reset", 121, 110);
-        fflush(*v4);
+        fflush(*v6);
         HardwareModel = getchar();
-        v5 = HardwareModel;
+        v7 = HardwareModel;
           ;
         }
 
         if (i == 110)
         {
-          goto LABEL_4;
+          goto LABEL_5;
         }
       }
 
-      while (v5 != 121);
+      while (v7 != 121);
     }
   }
 
-  ACFULogging::getLogInstance(HardwareModel);
-  ACFULogging::handleMessage();
-  v7 = *(this + 20);
-  v8 = TelephonyBasebandPowercycleModem();
+  v9 = ACFULogging::getLogInstance(HardwareModel);
+  ACFULogging::handleMessage(v9, 0, "%s::%s: Cold resetting baseband...\n", "BasebandUpdaterTransport", "reset");
+  v10 = TelephonyBasebandPowercycleModem();
   result = 0;
-  if ((v8 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage();
+    v11 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v11, 2, "%s::%s: failed to cold reset baseband\n", "BasebandUpdaterTransport", "reset");
     return 1;
   }
 
@@ -8017,7 +8834,7 @@ LABEL_4:
 ACFULogging *BasebandUpdaterTransport::pingCheck(BasebandUpdaterTransport *this)
 {
   v2 = capabilities::updater::pingDelay(this);
-  v20 = v2;
+  v22 = v2;
   v3 = capabilities::updater::pingAttemptCount(v2);
   v4 = *(this + 22);
   if (!v4)
@@ -8026,7 +8843,7 @@ ACFULogging *BasebandUpdaterTransport::pingCheck(BasebandUpdaterTransport *this)
   }
 
   v4 = std::__shared_weak_count::lock(v4);
-  v19 = v4;
+  v21 = v4;
   if (!v4)
   {
     goto LABEL_13;
@@ -8049,7 +8866,7 @@ ACFULogging *BasebandUpdaterTransport::pingCheck(BasebandUpdaterTransport *this)
           v9 = CFGetTypeID(value);
           if (v9 == CFNumberGetTypeID())
           {
-            ctu::cf::assign(&v20, v8, v10);
+            ctu::cf::assign(&v22, v8, v10);
           }
         }
       }
@@ -8066,69 +8883,69 @@ ACFULogging *BasebandUpdaterTransport::pingCheck(BasebandUpdaterTransport *this)
   if (atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
 LABEL_13:
-    ACFULogging::getLogInstance(v4);
+    LogInstance = ACFULogging::getLogInstance(v4);
     if (v3)
     {
       goto LABEL_14;
     }
 
 LABEL_22:
-    ACFULogging::handleMessage();
+    ACFULogging::handleMessage(LogInstance, 3, "%s::%s: Skipping baseband ping\n", "BasebandUpdaterTransport", "pingCheck");
     return 0;
   }
 
-  v14 = v4;
+  v16 = v4;
   (v4->__on_zero_shared)();
-  std::__shared_weak_count::__release_weak(v14);
-  ACFULogging::getLogInstance(v15);
+  std::__shared_weak_count::__release_weak(v16);
+  LogInstance = ACFULogging::getLogInstance(v17);
   if (!v3)
   {
     goto LABEL_22;
   }
 
 LABEL_14:
-  ACFULogging::handleMessage();
-  if (v20)
+  ACFULogging::handleMessage(LogInstance, 3, "%s::%s: Pinging baseband with %u ms delay and %zu attempts\n", "BasebandUpdaterTransport", "pingCheck", v22, v3);
+  if (v22)
   {
-    __ns.__rep_ = 1000000 * v20;
+    __ns.__rep_ = 1000000 * v22;
     std::this_thread::sleep_for (&__ns);
   }
 
-  v11 = v3 - 1;
-  v12 = 1;
+  v12 = v3 - 1;
+  v13 = 1;
   while (1)
   {
     FWVersion = BasebandUpdaterTransport::pingAndGetFWVersion(this, 0);
-    ACFULogging::getLogInstance(FWVersion);
+    v15 = ACFULogging::getLogInstance(FWVersion);
     if (!FWVersion)
     {
       break;
     }
 
-    ACFULogging::handleMessage();
-    ++v12;
-    --v11;
-    if (v12 > v3)
+    ACFULogging::handleMessage(v15, 2, "%s::%s: Ping failed, %zu attempts left\n", "BasebandUpdaterTransport", "pingCheck", v12);
+    ++v13;
+    --v12;
+    if (v13 > v3)
     {
       return FWVersion;
     }
   }
 
-  ACFULogging::handleMessage();
+  ACFULogging::handleMessage(v15, 3, "%s::%s: Ping success on attempt %zu\n", "BasebandUpdaterTransport", "pingCheck", v13);
   return FWVersion;
 }
 
-void sub_1E536BD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1E536BD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::shared_ptr<std::__empty_state<char>>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t BasebandUpdaterTransport::pingAndGetFWVersion(BasebandUpdaterTransport *this, const __CFDictionary **a2)
 {
-  v87 = *MEMORY[0x1E69E9840];
-  v54 = capabilities::updater::pingTimeout(this);
+  v98 = *MEMORY[0x1E69E9840];
+  v65 = capabilities::updater::pingTimeout(this);
   v3 = *(this + 22);
   if (v3)
   {
@@ -8153,7 +8970,7 @@ uint64_t BasebandUpdaterTransport::pingAndGetFWVersion(BasebandUpdaterTransport 
               v8 = CFGetTypeID(value[0]);
               if (v8 == CFNumberGetTypeID())
               {
-                ctu::cf::assign(&v54, v7, v9);
+                ctu::cf::assign(&v65, v7, v9);
               }
             }
           }
@@ -8171,46 +8988,44 @@ uint64_t BasebandUpdaterTransport::pingAndGetFWVersion(BasebandUpdaterTransport 
     }
   }
 
-  ACFULogging::getLogInstance(v3);
-  ACFULogging::handleMessage();
-  v11.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-  v12 = 0;
+  LogInstance = ACFULogging::getLogInstance(v3);
+  ACFULogging::handleMessage(LogInstance, 3, "%s::%s: Using %u ms timeout for ping\n", "BasebandUpdaterTransport", "pingAndGetFWVersion", v65);
+  v12.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+  v13 = 0;
   while (1)
   {
-    *&v74 = 0xAAAAAAAAAAAAAAAALL;
-    *&v13 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v72 = v13;
-    v73 = v13;
-    *&__ns[0].__rep_ = v13;
-    *(&v74 + 1) = 0xAAAAAAAAFFFFFFFFLL;
-    Bsp::ARICommandDriver::ARICommandDriver();
+    *&v85 = 0xAAAAAAAAAAAAAAAALL;
     *&v14 = 0xAAAAAAAAAAAAAAAALL;
     *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v60 = v14;
-    v61 = v14;
-    *value = v14;
-    v59 = v14;
+    v83 = v14;
+    v84 = v14;
+    *&__ns[0].__rep_ = v14;
+    *(&v85 + 1) = 0xAAAAAAAAFFFFFFFFLL;
+    Bsp::ARICommandDriver::ARICommandDriver();
+    *&v15 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v15 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v71 = v15;
+    v72 = v15;
+    *value = v15;
+    v70 = v15;
     AriSdk::ARI_CsiGetCurrentBootStateReq_SDK::ARI_CsiGetCurrentBootStateReq_SDK(value);
-    v55[0] = 0;
-    v15 = *(this + 23);
+    v66[0] = 0;
     ScaledTime = ctu::AdaptiveTimerService::getScaledTime();
-    v70 = 0xAAAAAAAAAAAAAAAALL;
-    support::transport::ARI::create("BasebandUpdaterTransport", (ScaledTime / 1000), 1, 0, &v70);
-    if (v70)
+    v81 = 0xAAAAAAAAAAAAAAAALL;
+    support::transport::ARI::create("BasebandUpdaterTransport", (ScaledTime / 1000), 1, 0, &v81);
+    if (v81)
     {
-      length = v70->length;
       Bsp::ARICommandDriver::ARICommandDriver();
-      *&v72 = v64;
-      DWORD2(v74) = v67;
-      std::__hash_table<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,void *> *>>(&v72 + 8, *(&v65 + 1));
-      Bsp::ARICommandDriver::~ARICommandDriver(&v63);
+      *&v83 = v75;
+      DWORD2(v85) = v78;
+      std::__hash_table<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,void *> *>>(&v83 + 8, *(&v76 + 1));
+      Bsp::ARICommandDriver::~ARICommandDriver(&v74);
       CurrentBootState = Bsp::ARICommandDriver::GetCurrentBootState();
       if (CurrentBootState)
       {
         v19 = 1;
-        v20 = v70;
-        v70 = 0;
+        v20 = v81;
+        v81 = 0;
         if (!v20)
         {
           goto LABEL_17;
@@ -8220,13 +9035,20 @@ LABEL_16:
         v20 = (*(*v20 + 8))(v20);
         goto LABEL_17;
       }
+
+      v31 = ACFULogging::getLogInstance(CurrentBootState);
+      ACFULogging::handleMessage(v31, 2, "%s::%s: Failed GetCurrentBootState ARI command\n");
     }
 
-    ACFULogging::getLogInstance(CurrentBootState);
-    ACFULogging::handleMessage();
+    else
+    {
+      v30 = ACFULogging::getLogInstance(v17);
+      ACFULogging::handleMessage(v30, 2, "%s::%s: Failed to open ARI interface (is baseband booted and ready?)\n");
+    }
+
     v19 = 0;
-    v20 = v70;
-    v70 = 0;
+    v20 = v81;
+    v81 = 0;
     if (v20)
     {
       goto LABEL_16;
@@ -8235,8 +9057,8 @@ LABEL_16:
 LABEL_17:
     if (!v19)
     {
-      v21 = v55[0];
-      if (!v55[0])
+      v22 = v66[0];
+      if (!v66[0])
       {
         goto LABEL_25;
       }
@@ -8244,9 +9066,8 @@ LABEL_17:
       goto LABEL_24;
     }
 
-    ACFULogging::getLogInstance(v20);
-    v51 = **(v55[0] + 8);
-    ACFULogging::handleMessage();
+    v21 = ACFULogging::getLogInstance(v20);
+    ACFULogging::handleMessage(v21, 3, "%s::%s: Baseband boot state: %d\n", "BasebandUpdaterTransport", "ping", **(v66[0] + 8));
     if (BBUpdaterCommon::inRestoreOS(void)::sOnceRestoreOS == -1)
     {
       if (BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS == -1)
@@ -8266,13 +9087,13 @@ LABEL_17:
 
     dispatch_once(&BBUpdaterCommon::inRestoreOS(void)::sOnceRecoveryOS, &__block_literal_global_13);
 LABEL_20:
-    v21 = v55[0];
-    v22 = **(v55[0] + 8);
-    v23 = v22 == 4;
-    v24 = (v22 - 3) < 2;
-    v12 = ((BBUpdaterCommon::inRestoreOS(void)::restoreOS | BBUpdaterCommon::inRestoreOS(void)::recoveryOS) & 1) != 0 ? v24 : v23;
+    v22 = v66[0];
+    v23 = **(v66[0] + 8);
+    v24 = v23 == 4;
+    v25 = (v23 - 3) < 2;
+    v13 = ((BBUpdaterCommon::inRestoreOS(void)::restoreOS | BBUpdaterCommon::inRestoreOS(void)::recoveryOS) & 1) != 0 ? v25 : v24;
 LABEL_24:
-    (*(*v21 + 16))(v21);
+    (*(*v22 + 16))(v22);
 LABEL_25:
     MEMORY[0x1E6926BF0](value);
     Bsp::ARICommandDriver::~ARICommandDriver(__ns);
@@ -8281,228 +9102,232 @@ LABEL_25:
       break;
     }
 
-    v26.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-    v27 = (v26.__d_.__rep_ - v11.__d_.__rep_) / 1000 < v54;
-    ACFULogging::getLogInstance(v26.__d_.__rep_);
-    if (!v27)
+    v27.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+    v28 = (v27.__d_.__rep_ - v12.__d_.__rep_) / 1000 < v65;
+    v29 = ACFULogging::getLogInstance(v27.__d_.__rep_);
+    if (!v28)
     {
-      ACFULogging::handleMessage();
-      goto LABEL_61;
+      ACFULogging::handleMessage(v29, 3, "%s::%s: Ping timeout\n", "BasebandUpdaterTransport", "pingAndGetFWVersion");
+      return 3003;
     }
 
-    ACFULogging::handleMessage();
+    ACFULogging::handleMessage(v29, 3, "%s::%s: Ping returned failure but did not timeout. Waiting for 500 ms and trying again\n", "BasebandUpdaterTransport", "pingAndGetFWVersion");
     __ns[0].__rep_ = 500000000;
     std::this_thread::sleep_for (__ns);
   }
 
-  ACFULogging::getLogInstance(v25);
-  if (!v12)
+  v32 = ACFULogging::getLogInstance(v26);
+  if (!v13)
   {
-    ACFULogging::handleMessage();
-    v45.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-    v46 = (LODWORD(v45.__d_.__rep_) - LODWORD(v11.__d_.__rep_)) / 1000;
-    if (v54 > v46)
+    ACFULogging::handleMessage(v32, 3, "%s::%s: Ping returned success, but baseband boot state is not ready. Treating as failed\n", "BasebandUpdaterTransport", "pingAndGetFWVersion");
+    v51.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
+    v52 = (LODWORD(v51.__d_.__rep_) - LODWORD(v12.__d_.__rep_)) / 1000;
+    if (v65 > v52)
     {
-      ACFULogging::getLogInstance(v45.__d_.__rep_);
-      ACFULogging::handleMessage();
-      if (v54 != v46)
+      v53 = ACFULogging::getLogInstance(v51.__d_.__rep_);
+      ACFULogging::handleMessage(v53, 3, "%s::%s: Waiting for %u ms\n", "BasebandUpdaterTransport", "pingAndGetFWVersion", v65 - v52);
+      if (v65 != v52)
       {
-        __ns[0].__rep_ = 1000000 * (v54 - v46);
+        __ns[0].__rep_ = 1000000 * (v65 - v52);
         std::this_thread::sleep_for (__ns);
       }
     }
 
-    goto LABEL_61;
+    return 3003;
   }
 
-  ACFULogging::handleMessage();
-  v85 = 0u;
+  ACFULogging::handleMessage(v32, 3, "%s::%s: Ping returned success and baseband boot state is ready. Getting the FW version\n", "BasebandUpdaterTransport", "pingAndGetFWVersion");
+  v96 = 0u;
+  v97 = 0u;
+  v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
   v86 = 0u;
-  v83 = 0u;
+  v87 = 0u;
   v84 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
+  v85 = 0u;
   *&__ns[0].__rep_ = 0u;
-  v72 = 0u;
-  v66 = 0xAAAAAAAAAAAAAAAALL;
-  *&v28 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v28 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v64 = v28;
-  v65 = v28;
-  v63 = v28;
-  v67 = -1;
-  v68 = -1431655766;
+  v83 = 0u;
+  v77 = 0xAAAAAAAAAAAAAAAALL;
+  *&v33 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v33 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v75 = v33;
+  v76 = v33;
+  v74 = v33;
+  v78 = -1;
+  v79 = -1431655766;
   Bsp::ARICommandDriver::ARICommandDriver();
-  v62 = 0xAAAAAAAAAAAAAAAALL;
-  *&v29 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v29 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v60 = v29;
-  v61 = v29;
-  *value = v29;
-  v59 = v29;
+  v73 = 0xAAAAAAAAAAAAAAAALL;
+  *&v34 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v34 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v71 = v34;
+  v72 = v34;
+  *value = v34;
+  v70 = v34;
   AriSdk::ARI_CsiSysGetInfoReqV2_SDK::ARI_CsiSysGetInfoReqV2_SDK(value);
-  v57 = 0;
-  v70 = 0xAAAAAAAAAAAAAAAALL;
-  support::transport::ARI::create("BasebandUpdaterTransport", 0x2710, 1, 0, &v70);
-  if (!v70)
+  v68 = 0;
+  v81 = 0xAAAAAAAAAAAAAAAALL;
+  support::transport::ARI::create("BasebandUpdaterTransport", 0x2710, 1, 0, &v81);
+  if (v81)
   {
-    goto LABEL_63;
-  }
-
-  v31 = v70->length;
-  Bsp::ARICommandDriver::ARICommandDriver();
-  *&v64 = v55[2];
-  v67 = v56;
-  std::__hash_table<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,void *> *>>(&v64 + 8, v55[5]);
-  Bsp::ARICommandDriver::~ARICommandDriver(v55);
-  v32 = operator new(4uLL);
-  *v32 = 4;
-  v33 = v62;
-  v62 = v32;
-  if (v33)
-  {
-    operator delete(v33);
-  }
-
-  InfoV2 = Bsp::ARICommandDriver::SysGetInfoV2();
-  if (InfoV2)
-  {
-    v34 = 1;
-    v35 = v70;
-    v70 = 0;
-    if (v35)
+    Bsp::ARICommandDriver::ARICommandDriver();
+    *&v75 = v66[2];
+    v78 = v67;
+    std::__hash_table<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,dispatch::block<int({block_pointer})(unsigned char *,unsigned int)>>,void *> *>>(&v75 + 8, v66[5]);
+    Bsp::ARICommandDriver::~ARICommandDriver(v66);
+    v36 = operator new(4uLL);
+    *v36 = 4;
+    v37 = v73;
+    v73 = v36;
+    if (v37)
     {
-      goto LABEL_38;
+      operator delete(v37);
     }
+
+    InfoV2 = Bsp::ARICommandDriver::SysGetInfoV2();
+    if (InfoV2)
+    {
+      v39 = 1;
+      v40 = v81;
+      v81 = 0;
+      if (v40)
+      {
+        goto LABEL_40;
+      }
+
+      goto LABEL_41;
+    }
+
+    v59 = ACFULogging::getLogInstance(InfoV2);
+    ACFULogging::handleMessage(v59, 2, "%s::%s: Failed SysGetInfoV2 ARI command\n");
   }
 
   else
   {
-LABEL_63:
-    ACFULogging::getLogInstance(InfoV2);
-    ACFULogging::handleMessage();
-    v34 = 0;
-    v35 = v70;
-    v70 = 0;
-    if (v35)
+    v58 = ACFULogging::getLogInstance(v35);
+    ACFULogging::handleMessage(v58, 2, "%s::%s: Failed to open ARI interface (is baseband booted and ready?)\n");
+  }
+
+  v39 = 0;
+  v40 = v81;
+  v81 = 0;
+  if (v40)
+  {
+LABEL_40:
+    v40 = (*(*v40 + 8))(v40);
+  }
+
+LABEL_41:
+  if (!v39)
+  {
+    goto LABEL_59;
+  }
+
+  v41 = *(v68 + 64);
+  if (v41[129])
+  {
+    v60 = ACFULogging::getLogInstance(v40);
+    ACFULogging::handleMessage(v60, 2, "%s::%s: SysGetInfoV2 response err_stat is: %d\n");
+    goto LABEL_72;
+  }
+
+  v42 = v41[128];
+  if (v42 >= 0x201)
+  {
+    v61 = ACFULogging::getLogInstance(v40);
+    ACFULogging::handleMessage(v61, 2, "%s::%s: SysGetInfoV2 response contains invalid info_valid_str_len: %d\n");
+    goto LABEL_72;
+  }
+
+  if (v42 >= 0x100)
+  {
+    v62 = ACFULogging::getLogInstance(v40);
+    ACFULogging::handleMessage(v62, 2, "%s::%s: Invalid Baseband FW version size (%d)\n");
+LABEL_72:
+    LOBYTE(v39) = 0;
+    v50 = v68;
+    if (!v68)
     {
-LABEL_38:
-      v35 = (*(*v35 + 8))(v35);
-    }
-  }
-
-  if (!v34)
-  {
-    goto LABEL_56;
-  }
-
-  v36 = *(v57 + 64);
-  if (v36[129])
-  {
-    ACFULogging::getLogInstance(v35);
-    v50 = 516;
-    goto LABEL_67;
-  }
-
-  v37 = v36[128];
-  if (v37 >= 0x100)
-  {
-    ACFULogging::getLogInstance(v35);
-    v50 = 512;
-LABEL_67:
-    v52 = *(*(v57 + 64) + v50);
-    ACFULogging::handleMessage();
-    LOBYTE(v34) = 0;
-    v44 = v57;
-    if (!v57)
-    {
-      goto LABEL_58;
+      goto LABEL_61;
     }
 
-LABEL_57:
-    (*(*v44 + 16))(v44);
-    goto LABEL_58;
+LABEL_60:
+    (*(*v50 + 16))(v50);
+    goto LABEL_61;
   }
 
-  v38 = memcpy(__ns, v36, v36[128]);
-  *(&__ns[0].__rep_ + v37) = 0;
-  ACFULogging::getLogInstance(v38);
-  ACFULogging::handleMessage();
+  v43 = memcpy(__ns, v41, v41[128]);
+  *(&__ns[0].__rep_ + v42) = 0;
+  v44 = ACFULogging::getLogInstance(v43);
+  ACFULogging::handleMessage(v44, 3, "%s::%s: Baseband FW version: %s\n", "BasebandUpdaterTransport", "getFWVersion", __ns);
   if (!a2)
   {
-    goto LABEL_48;
+    goto LABEL_51;
   }
 
-  v39 = *MEMORY[0x1E695E480];
+  v45 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    ACFULogging::getLogInstance(0);
-LABEL_55:
-    ACFULogging::handleMessage();
-    LOBYTE(v34) = 0;
-LABEL_56:
-    v44 = v57;
-    if (!v57)
+    v54 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v54, 2, "%s::%s: Failed to create output dictionary\n");
+LABEL_58:
+    LOBYTE(v39) = 0;
+LABEL_59:
+    v50 = v68;
+    if (!v68)
     {
-      goto LABEL_58;
+      goto LABEL_61;
     }
 
-    goto LABEL_57;
+    goto LABEL_60;
   }
 
-  v70 = @"FirmwareVersion";
+  v81 = @"FirmwareVersion";
   CFRetain(@"FirmwareVersion");
-  v55[0] = 0;
-  ctu::cf::convert_copy(v55, __ns, 0x8000100, v39, v41);
-  v42 = v55[0];
-  v69 = v55[0];
-  if (v55[0])
+  v66[0] = 0;
+  ctu::cf::convert_copy(v66, __ns, 0x8000100, v45, v47);
+  v48 = v66[0];
+  v80 = v66[0];
+  if (v66[0])
   {
-    CFDictionaryAddValue(Mutable, @"FirmwareVersion", v55[0]);
-    CFRelease(v42);
+    CFDictionaryAddValue(Mutable, @"FirmwareVersion", v66[0]);
+    CFRelease(v48);
   }
 
   CFRelease(@"FirmwareVersion");
-  if (!v42)
+  if (!v48)
   {
-    ACFULogging::getLogInstance(v43);
-    goto LABEL_55;
+    v63 = ACFULogging::getLogInstance(v49);
+    ACFULogging::handleMessage(v63, 2, "%s::%s: Failed to insert fw version to output dictionary\n");
+    goto LABEL_58;
   }
 
   *a2 = Mutable;
-LABEL_48:
-  LOBYTE(v34) = 1;
-  v44 = v57;
-  if (v57)
+LABEL_51:
+  LOBYTE(v39) = 1;
+  v50 = v68;
+  if (v68)
   {
-    goto LABEL_57;
+    goto LABEL_60;
   }
 
-LABEL_58:
-  MEMORY[0x1E6926A70](value);
-  Bsp::ARICommandDriver::~ARICommandDriver(&v63);
-  if (v34)
-  {
-    result = 0;
-    goto LABEL_62;
-  }
-
-  ACFULogging::getLogInstance(v47);
-  ACFULogging::handleMessage();
 LABEL_61:
-  result = 3003;
-LABEL_62:
-  v49 = *MEMORY[0x1E69E9840];
-  return result;
+  MEMORY[0x1E6926A70](value);
+  Bsp::ARICommandDriver::~ARICommandDriver(&v74);
+  if (v39)
+  {
+    return 0;
+  }
+
+  v57 = ACFULogging::getLogInstance(v55);
+  ACFULogging::handleMessage(v57, 2, "%s::%s: Failed to get the baseband FW version\n", "BasebandUpdaterTransport", "pingAndGetFWVersion");
+  return 3003;
 }
 
 void sub_1E536C654(_Unwind_Exception *a1, int a2)
@@ -8520,44 +9345,42 @@ uint64_t BasebandUpdaterTransport::getDebugInfo(uint64_t a1, uint64_t a2)
   __dst[3] = *MEMORY[0x1E69E9840];
   if (*(a1 + 201) != 1)
   {
-    ACFULogging::getLogInstance(a1);
-    ACFULogging::handleMessage();
-    v6 = 0;
-    goto LABEL_232;
+    LogInstance = ACFULogging::getLogInstance(a1);
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Skipping gathering of debug info as requested by the client\n", "BasebandUpdaterTransport", "getDebugInfo");
+    return 0;
   }
 
   LOBYTE(__dst[0]) = 0;
-  v4 = *(a1 + 160);
   Reset = TelephonyBasebandGetReset();
   if ((Reset & 1) == 0)
   {
-    ACFULogging::getLogInstance(Reset);
-    Reset = ACFULogging::handleMessage();
+    v7 = ACFULogging::getLogInstance(Reset);
+    Reset = ACFULogging::handleMessage(v7, 2, "%s::%s: Failed to get baseband reset state\n", "BasebandUpdaterTransport", "crashBaseband");
     LOBYTE(__dst[0]) = 0;
   }
 
-  v7 = capabilities::coredump::supportsSPMISignalling(Reset);
-  v8 = v7;
-  ACFULogging::getLogInstance(v7);
-  if (v8)
+  v8 = capabilities::coredump::supportsSPMISignalling(Reset);
+  v9 = v8;
+  v10 = ACFULogging::getLogInstance(v8);
+  if (v9)
   {
-    ACFULogging::handleMessage();
-    memset(v147, 170, 24);
+    ACFULogging::handleMessage(v10, 0, "%s::%s: Crashing baseband (SPMI)\n", "BasebandUpdaterTransport", "crashBaseband");
+    memset(v170, 170, 24);
     if (*(a1 + 231) < 0)
     {
-      std::string::__init_copy_ctor_external(v147, *(a1 + 208), *(a1 + 216));
+      std::string::__init_copy_ctor_external(v170, *(a1 + 208), *(a1 + 216));
       if (*(a1 + 231) < 0)
       {
         **(a1 + 208) = 0;
         *(a1 + 216) = 0;
-        v124 = v147[23];
-        v20 = v147[23];
-        if (v147[23] < 0)
+        v134 = v170[23];
+        v21 = v170[23];
+        if (v170[23] < 0)
         {
-          v124 = *&v147[8];
+          v134 = *&v170[8];
         }
 
-        if (!v124)
+        if (!v134)
         {
           goto LABEL_28;
         }
@@ -8568,185 +9391,184 @@ uint64_t BasebandUpdaterTransport::getDebugInfo(uint64_t a1, uint64_t a2)
 
     else
     {
-      *v147 = *(a1 + 208);
-      *&v147[16] = *(a1 + 224);
+      *v170 = *(a1 + 208);
+      *&v170[16] = *(a1 + 224);
     }
 
     *(a1 + 208) = 0;
     *(a1 + 231) = 0;
-    v19 = v147[23];
-    v20 = v147[23];
-    if (v147[23] < 0)
+    v20 = v170[23];
+    v21 = v170[23];
+    if (v170[23] < 0)
     {
-      v19 = *&v147[8];
+      v20 = *&v170[8];
     }
 
-    if (!v19)
+    if (!v20)
     {
 LABEL_28:
-      std::string::__assign_external(v147, "BasebandUpdaterTransport::crashBaseband()", 0x29uLL);
-      v20 = v147[23];
+      std::string::__assign_external(v170, "BasebandUpdaterTransport::crashBaseband()", 0x29uLL);
+      v21 = v170[23];
     }
 
 LABEL_29:
-    *&v21 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v21 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&__p[6] = v21;
-    *&__p[2] = v21;
-    *&__p[4] = v21;
-    *__p = v21;
+    *&v22 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&__p[6] = v22;
+    *&__p[2] = v22;
+    *&__p[4] = v22;
+    *__p = v22;
     LOBYTE(__p[0]) = 12;
-    v22 = &__p[1];
-    if (v20 < 0)
+    v23 = &__p[1];
+    if (v21 < 0)
     {
-      std::string::__init_copy_ctor_external(&__p[1], *v147, *&v147[8]);
+      std::string::__init_copy_ctor_external(&__p[1], *v170, *&v170[8]);
     }
 
     else
     {
-      *&__p[1] = *v147;
-      __p[3] = *&v147[16];
+      *&__p[1] = *v170;
+      __p[3] = *&v170[16];
     }
 
     LOBYTE(__p[4]) = 1;
     memset(&__p[5], 0, 24);
-    v23 = capabilities::coredump::supportsSPMIResetReasonEncoding(v22);
-    if (v23)
+    v24 = capabilities::coredump::supportsSPMIResetReasonEncoding(v23);
+    if (v24)
     {
-      v146 = -86;
-      *&v24 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v144 = v24;
-      v145 = v24;
-      __src = v24;
-      v143 = v24;
+      v169 = -86;
+      *&v25 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v167 = v25;
+      v168 = v25;
+      __src = v25;
+      v166 = v25;
       ResetReasonEncoder::encode(__p, &__src);
-      if (v146 == 1)
+      if (v169 == 1)
       {
-        v26 = *(a1 + 160);
         v27 = TelephonyBasebandCrashModemWithSPMIWithReason();
         if ((v27 & 1) == 0)
         {
-          goto LABEL_239;
+          v28 = ACFULogging::getLogInstance(v27);
+          ACFULogging::handleMessage(v28, 2, "%s::%s: Failed to crash baseband via SPMI (with reason)\n");
+          goto LABEL_243;
         }
-      }
 
-      else
-      {
-        ACFULogging::getLogInstance(v25);
-        ACFULogging::handleMessage();
-        v30 = *(a1 + 160);
-        v27 = TelephonyBasebandCrashModemWithSPMI();
-        if ((v27 & 1) == 0)
+LABEL_39:
+        v34 = 1;
+        v17 = __p[5];
+        if (!__p[5])
         {
-LABEL_239:
-          ACFULogging::getLogInstance(v27);
-          ACFULogging::handleMessage();
-LABEL_240:
-          v31 = 0;
-          v16 = __p[5];
-          if (!__p[5])
+LABEL_41:
+          if (LOBYTE(__p[4]) == 1 && SHIBYTE(__p[3]) < 0)
           {
-            goto LABEL_41;
+            operator delete(__p[1]);
           }
 
-          goto LABEL_40;
+          if ((v170[23] & 0x80000000) != 0)
+          {
+            operator delete(*v170);
+          }
+
+          if ((v34 & 1) == 0)
+          {
+            goto LABEL_47;
+          }
+
+          goto LABEL_48;
         }
+
+LABEL_40:
+        __p[6] = v17;
+        operator delete(v17);
+        goto LABEL_41;
       }
+
+      v32 = ACFULogging::getLogInstance(v26);
+      ACFULogging::handleMessage(v32, 2, "%s::%s: Failed to encode reset reason, so crashing baseband with SPMI without specifying reason\n", "BasebandUpdaterTransport", "crashBaseband");
+      v33 = TelephonyBasebandCrashModemWithSPMI();
+      if (v33)
+      {
+        goto LABEL_39;
+      }
+
+      v157 = ACFULogging::getLogInstance(v33);
+      ACFULogging::handleMessage(v157, 2, "%s::%s: Failed to crash baseband via SPMI\n");
     }
 
     else
     {
-      ACFULogging::getLogInstance(v23);
-      ACFULogging::handleMessage();
-      v28 = *(a1 + 160);
-      v29 = TelephonyBasebandCrashModemWithSPMI();
-      if ((v29 & 1) == 0)
+      v29 = ACFULogging::getLogInstance(v24);
+      ACFULogging::handleMessage(v29, 4, "%s::%s: reset reason encoding is not supported, so crashing baseband with SPMI without specifying reason\n", "BasebandUpdaterTransport", "crashBaseband");
+      v30 = TelephonyBasebandCrashModemWithSPMI();
+      if (v30)
       {
-        ACFULogging::getLogInstance(v29);
-        ACFULogging::handleMessage();
-        goto LABEL_240;
+        goto LABEL_39;
       }
+
+      v31 = ACFULogging::getLogInstance(v30);
+      ACFULogging::handleMessage(v31, 2, "%s::%s: Failed to crash baseband via SPMI\n", "BasebandUpdaterTransport", "crashBaseband");
     }
 
-    v31 = 1;
-    v16 = __p[5];
+LABEL_243:
+    v34 = 0;
+    v17 = __p[5];
     if (!__p[5])
     {
-LABEL_41:
-      if (LOBYTE(__p[4]) == 1 && SHIBYTE(__p[3]) < 0)
-      {
-        operator delete(__p[1]);
-      }
-
-      if ((v147[23] & 0x80000000) != 0)
-      {
-        operator delete(*v147);
-      }
-
-      if ((v31 & 1) == 0)
-      {
-        goto LABEL_47;
-      }
-
-      goto LABEL_48;
+      goto LABEL_41;
     }
 
-LABEL_40:
-    __p[6] = v16;
-    operator delete(v16);
-    goto LABEL_41;
+    goto LABEL_40;
   }
 
-  ACFULogging::handleMessage();
-  *v147 = 0xAAAAAAAAAAAAAAAALL;
-  support::transport::ARI::create("BasebandUpdaterTransport", 0x2710, 0, 0, v147);
-  if (*v147)
+  ACFULogging::handleMessage(v10, 0, "%s::%s: Crashing baseband (ARI)\n", "BasebandUpdaterTransport", "crashBaseband");
+  *v170 = 0xAAAAAAAAAAAAAAAALL;
+  support::transport::ARI::create("BasebandUpdaterTransport", 0x2710, 0, 0, v170);
+  if (*v170)
   {
-    *&v10 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v143 = v10;
-    v144 = v10;
-    __src = v10;
-    *&v145 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v145 + 1) = 0xAAAAAAAAFFFFFFFFLL;
-    v11 = *(*v147 + 24);
+    *&v12 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v166 = v12;
+    v167 = v12;
+    __src = v12;
+    *&v168 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v168 + 1) = 0xAAAAAAAAFFFFFFFFLL;
     Bsp::BspCommandDriver::BspCommandDriver();
     __p[0] = operator new(0x28uLL);
     *&__p[1] = xmmword_1E538EA40;
     strcpy(__p[0], "AP triggered baseband reset over ARI");
-    v12 = Bsp::BspCommandDriver::SwTrap();
+    v13 = Bsp::BspCommandDriver::SwTrap();
     operator delete(__p[0]);
-    if ((v12 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      ACFULogging::getLogInstance(v13);
-      ACFULogging::handleMessage();
+      v156 = ACFULogging::getLogInstance(v14);
+      ACFULogging::handleMessage(v156, 2, "%s::%s: Failed to send SW Trap\n", "BasebandUpdaterTransport", "crashBaseband");
     }
 
-    v14 = *(&v144 + 1);
-    if (*(&v144 + 1))
+    v15 = *(&v167 + 1);
+    if (*(&v167 + 1))
     {
       do
       {
-        v17 = *v14;
-        v18 = v14[3];
-        if (v18)
+        v18 = *v15;
+        v19 = v15[3];
+        if (v19)
         {
-          _Block_release(v18);
+          _Block_release(v19);
         }
 
-        operator delete(v14);
-        v14 = v17;
+        operator delete(v15);
+        v15 = v18;
       }
 
-      while (v17);
+      while (v18);
     }
 
-    v15 = *(&v143 + 1);
-    *(&v143 + 1) = 0;
-    if (v15)
+    v16 = *(&v166 + 1);
+    *(&v166 + 1) = 0;
+    if (v16)
     {
-      operator delete(v15);
+      operator delete(v16);
     }
 
     if (*(&__src + 1))
@@ -8754,9 +9576,9 @@ LABEL_40:
       std::__shared_weak_count::__release_weak(*(&__src + 1));
     }
 
-    v16 = *v147;
-    *v147 = 0;
-    if (v16)
+    v17 = *v170;
+    *v170 = 0;
+    if (v17)
     {
       goto LABEL_18;
     }
@@ -8764,60 +9586,59 @@ LABEL_40:
 
   else
   {
-    ACFULogging::getLogInstance(v9);
-    ACFULogging::handleMessage();
-    v12 = 0;
-    v16 = *v147;
-    *v147 = 0;
-    if (v16)
+    v155 = ACFULogging::getLogInstance(v11);
+    ACFULogging::handleMessage(v155, 2, "%s::%s: Failed to open ARI interface (is baseband booted and ready?)\n", "BasebandUpdaterTransport", "crashBaseband");
+    v13 = 0;
+    v17 = *v170;
+    *v170 = 0;
+    if (v17)
     {
 LABEL_18:
-      v16 = (*(*v16 + 8))(v16);
+      v17 = (*(*v17 + 8))(v17);
     }
   }
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
 LABEL_47:
-    ACFULogging::getLogInstance(v16);
-    ACFULogging::handleMessage();
+    v35 = ACFULogging::getLogInstance(v17);
+    ACFULogging::handleMessage(v35, 2, "%s::%s: Failed to crash Baseband, proceeding with coredump anyway\n", "BasebandUpdaterTransport", "getDebugInfo");
   }
 
 LABEL_48:
-  v155 = 0xAAAAAAAAAAAAAAAALL;
-  *&v32 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v32 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v154[8] = v32;
-  v154[7] = v32;
-  v154[6] = v32;
-  v154[5] = v32;
-  v154[4] = v32;
-  v154[3] = v32;
-  v154[2] = v32;
-  v154[1] = v32;
-  v154[0] = v32;
-  v153 = v32;
-  v152 = v32;
-  v151 = v32;
-  v150 = v32;
-  v149 = v32;
-  v148 = v32;
-  *&v147[16] = v32;
-  *v147 = v32;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v147);
+  v178 = 0xAAAAAAAAAAAAAAAALL;
+  *&v36 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v36 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v177[8] = v36;
+  v177[7] = v36;
+  v177[6] = v36;
+  v177[5] = v36;
+  v177[4] = v36;
+  v177[3] = v36;
+  v177[2] = v36;
+  v177[1] = v36;
+  v177[0] = v36;
+  v176 = v36;
+  v175 = v36;
+  v174 = v36;
+  v173 = v36;
+  v172 = v36;
+  v171 = v36;
+  *&v170[16] = v36;
+  *v170 = v36;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v170);
   cf = 0;
-  LODWORD(v139) = 0;
-  v33 = *(a1 + 160);
+  LODWORD(v162) = 0;
   PMUTrace = TelephonyBasebandGetPMUTrace();
   if (PMUTrace)
   {
-    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v147[16], "Baseband PMU trace: ", 20);
-    v36 = TelephonyBasebandPMUTraceToString();
-    v37 = strlen(v36);
-    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, v36, v37);
-    std::ios_base::getloc((v38 + *(*v38 - 24)));
-    v39 = std::locale::use_facet(&__src, MEMORY[0x1E69E5318]);
-    (v39->__vftable[2].~facet_0)(v39, 10);
+    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v170[16], "Baseband PMU trace: ", 20);
+    v39 = TelephonyBasebandPMUTraceToString();
+    v40 = strlen(v39);
+    v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, v39, v40);
+    std::ios_base::getloc((v41 + *(*v41 - 24)));
+    v42 = std::locale::use_facet(&__src, MEMORY[0x1E69E5318]);
+    (v42->__vftable[2].~facet_0)(v42, 10);
     std::locale::~locale(&__src);
     std::ostream::put();
     std::ostream::flush();
@@ -8825,83 +9646,83 @@ LABEL_48:
 
   else
   {
-    ACFULogging::getLogInstance(PMUTrace);
-    ACFULogging::handleMessage();
+    v43 = ACFULogging::getLogInstance(PMUTrace);
+    ACFULogging::handleMessage(v43, 0, "%s::%s: Failed to get Baseband PMU trace (not fatal)\n", "BasebandUpdaterTransport", "collectPreCoredump");
   }
 
-  v40 = ACFUDiagnostics::copyDiagnosticsPath(*(a1 + 8));
-  cf = v40;
-  if (!v40)
+  v44 = ACFUDiagnostics::copyDiagnosticsPath(*(a1 + 8));
+  cf = v44;
+  if (!v44)
   {
-    ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage();
+    v135 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v135, 2, "%s::%s: Invalid coredump path\n", "BasebandUpdaterTransport", "collectPreCoredump");
     goto LABEL_157;
   }
 
   bzero(&__src, 0x400uLL);
-  CFStringGetCString(v40, &__src, 1024, 0x8000100u);
+  CFStringGetCString(v44, &__src, 1024, 0x8000100u);
   memset(__dst, 170, 24);
-  v41 = strlen(&__src);
-  if (v41 > 0x7FFFFFFFFFFFFFF7)
+  v45 = strlen(&__src);
+  if (v45 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v42 = v41;
-  if (v41 >= 0x17)
+  v46 = v45;
+  if (v45 >= 0x17)
   {
-    if ((v41 | 7) == 0x17)
+    if ((v45 | 7) == 0x17)
     {
-      v44 = 25;
+      v48 = 25;
     }
 
     else
     {
-      v44 = (v41 | 7) + 1;
+      v48 = (v45 | 7) + 1;
     }
 
-    v43 = operator new(v44);
-    __dst[1] = v42;
-    __dst[2] = (v44 | 0x8000000000000000);
-    __dst[0] = v43;
+    v47 = operator new(v48);
+    __dst[1] = v46;
+    __dst[2] = (v48 | 0x8000000000000000);
+    __dst[0] = v47;
     goto LABEL_60;
   }
 
-  HIBYTE(__dst[2]) = v41;
-  v43 = __dst;
-  if (v41)
+  HIBYTE(__dst[2]) = v45;
+  v47 = __dst;
+  if (v45)
   {
 LABEL_60:
-    memcpy(v43, &__src, v42);
+    memcpy(v47, &__src, v46);
   }
 
-  *(v42 + v43) = 0;
+  *(v46 + v47) = 0;
   memset(__p, 170, 0x238uLL);
-  v45 = SHIBYTE(__dst[2]);
+  v49 = SHIBYTE(__dst[2]);
   if (SHIBYTE(__dst[2]) >= 0)
   {
-    v46 = HIBYTE(__dst[2]);
+    v50 = HIBYTE(__dst[2]);
   }
 
   else
   {
-    v46 = __dst[1];
+    v50 = __dst[1];
   }
 
-  v47 = v46 + 1;
-  if (v46 + 1 > 0x7FFFFFFFFFFFFFF7)
+  v51 = v50 + 1;
+  if (v50 + 1 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  if (v47 < 0x17)
+  if (v51 < 0x17)
   {
-    v135[1] = 0;
-    v136 = 0;
-    v135[0] = 0;
-    v49 = v135;
-    HIBYTE(v136) = v46 + 1;
-    if (!v46)
+    v158[1] = 0;
+    v159 = 0;
+    v158[0] = 0;
+    v53 = v158;
+    HIBYTE(v159) = v50 + 1;
+    if (!v50)
     {
       goto LABEL_75;
     }
@@ -8909,168 +9730,168 @@ LABEL_60:
 
   else
   {
-    if ((v47 | 7) == 0x17)
+    if ((v51 | 7) == 0x17)
     {
-      v48 = 25;
+      v52 = 25;
     }
 
     else
     {
-      v48 = (v47 | 7) + 1;
+      v52 = (v51 | 7) + 1;
     }
 
-    v49 = operator new(v48);
-    v135[1] = (v46 + 1);
-    v136 = v48 | 0x8000000000000000;
-    v135[0] = v49;
+    v53 = operator new(v52);
+    v158[1] = (v50 + 1);
+    v159 = v52 | 0x8000000000000000;
+    v158[0] = v53;
   }
 
-  if (v45 >= 0)
+  if (v49 >= 0)
   {
-    v50 = __dst;
+    v54 = __dst;
   }
 
   else
   {
-    v50 = __dst[0];
+    v54 = __dst[0];
   }
 
-  memmove(v49, v50, v46);
+  memmove(v53, v54, v50);
 LABEL_75:
-  *&v49[v46] = 47;
-  v51 = SHIBYTE(v136);
-  if ((SHIBYTE(v136) & 0x8000000000000000) == 0)
+  *&v53[v50] = 47;
+  v55 = SHIBYTE(v159);
+  if ((SHIBYTE(v159) & 0x8000000000000000) == 0)
   {
-    if ((SHIBYTE(v136) - 12) < 0xB)
+    if ((SHIBYTE(v159) - 12) < 0xB)
     {
-      v52 = (SHIBYTE(v136) + 11);
-      v53 = v135;
-      v54 = 22;
+      v56 = (SHIBYTE(v159) + 11);
+      v57 = v158;
+      v58 = 22;
 LABEL_81:
-      v55 = 2 * v54;
-      if (v52 > 2 * v54)
+      v59 = 2 * v58;
+      if (v56 > 2 * v58)
       {
-        v55 = v52;
+        v59 = v56;
       }
 
-      if ((v55 | 7) == 0x17)
+      if ((v59 | 7) == 0x17)
       {
-        v56 = 25;
-      }
-
-      else
-      {
-        v56 = (v55 | 7) + 1;
-      }
-
-      if (v55 >= 0x17)
-      {
-        v57 = v56;
+        v60 = 25;
       }
 
       else
       {
-        v57 = 23;
+        v60 = (v59 | 7) + 1;
       }
 
-      v58 = v54 == 22;
+      if (v59 >= 0x17)
+      {
+        v61 = v60;
+      }
+
+      else
+      {
+        v61 = 23;
+      }
+
+      v62 = v58 == 22;
       goto LABEL_90;
     }
 
-    v63 = v135;
+    v67 = v158;
 LABEL_97:
-    v64 = v63 + v51;
-    *v64 = *"precoredump";
-    *(v64 + 7) = 1886221668;
-    v65 = v51 + 11;
-    if (SHIBYTE(v136) < 0)
+    v68 = v67 + v55;
+    *v68 = *"precoredump";
+    *(v68 + 7) = 1886221668;
+    v69 = v55 + 11;
+    if (SHIBYTE(v159) < 0)
     {
-      v135[1] = (v51 + 11);
+      v158[1] = (v55 + 11);
     }
 
     else
     {
-      HIBYTE(v136) = v65 & 0x7F;
+      HIBYTE(v159) = v69 & 0x7F;
     }
 
-    v62 = v63 + v65;
+    v66 = v67 + v69;
     goto LABEL_101;
   }
 
-  v51 = v135[1];
-  v54 = (v136 & 0x7FFFFFFFFFFFFFFFLL) - 1;
-  if (v54 - v135[1] >= 0xB)
+  v55 = v158[1];
+  v58 = (v159 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+  if (v58 - v158[1] >= 0xB)
   {
-    v63 = v135[0];
+    v67 = v158[0];
     goto LABEL_97;
   }
 
-  v52 = v135[1] + 11;
-  if ((0x7FFFFFFFFFFFFFF7 - (v136 & 0x7FFFFFFFFFFFFFFFLL)) < v135[1] - v54 + 11)
+  v56 = v158[1] + 11;
+  if ((0x7FFFFFFFFFFFFFF7 - (v159 & 0x7FFFFFFFFFFFFFFFLL)) < v158[1] - v58 + 11)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v53 = v135[0];
-  if (v54 <= 0x3FFFFFFFFFFFFFF2)
+  v57 = v158[0];
+  if (v58 <= 0x3FFFFFFFFFFFFFF2)
   {
     goto LABEL_81;
   }
 
-  v58 = 0;
-  v57 = 0x7FFFFFFFFFFFFFF7;
+  v62 = 0;
+  v61 = 0x7FFFFFFFFFFFFFF7;
 LABEL_90:
-  v59 = operator new(v57);
-  v60 = v59;
-  if (v51)
+  v63 = operator new(v61);
+  v64 = v63;
+  if (v55)
   {
-    memmove(v59, v53, v51);
+    memmove(v63, v57, v55);
   }
 
-  v61 = v60 + v51;
-  *v61 = *"precoredump";
-  *(v61 + 7) = 1886221668;
-  if (!v58)
+  v65 = v64 + v55;
+  *v65 = *"precoredump";
+  *(v65 + 7) = 1886221668;
+  if (!v62)
   {
-    operator delete(v53);
+    operator delete(v57);
   }
 
-  v135[1] = v52;
-  v136 = v57 | 0x8000000000000000;
-  v135[0] = v60;
-  v62 = &v52[v60];
+  v158[1] = v56;
+  v159 = v61 | 0x8000000000000000;
+  v158[0] = v64;
+  v66 = &v56[v64];
 LABEL_101:
-  *v62 = 0;
-  *&v137[0].__locale_ = *v135;
-  v138 = v136;
-  v135[1] = 0;
-  v136 = 0;
-  v135[0] = 0;
+  *v66 = 0;
+  *&v160[0].__locale_ = *v158;
+  v161 = v159;
+  v158[1] = 0;
+  v159 = 0;
+  v158[0] = 0;
   __p[58] = 0;
-  v66 = (MEMORY[0x1E69E5530] + 64);
+  v70 = (MEMORY[0x1E69E5530] + 64);
   __p[52] = (MEMORY[0x1E69E5530] + 64);
-  v67 = MEMORY[0x1E69E54D0];
-  v68 = *(MEMORY[0x1E69E54D0] + 16);
+  v71 = MEMORY[0x1E69E54D0];
+  v72 = *(MEMORY[0x1E69E54D0] + 16);
   __p[0] = *(MEMORY[0x1E69E54D0] + 8);
-  *(__p + *(__p[0] - 3)) = v68;
-  v69 = (__p + *(__p[0] - 3));
-  std::ios_base::init(v69, &__p[1]);
-  v70 = (MEMORY[0x1E69E5530] + 24);
-  v69[1].__vftable = 0;
-  v69[1].__fmtflags_ = -1;
-  __p[0] = v70;
-  __p[52] = v66;
+  *(__p + *(__p[0] - 3)) = v72;
+  v73 = (__p + *(__p[0] - 3));
+  std::ios_base::init(v73, &__p[1]);
+  v74 = (MEMORY[0x1E69E5530] + 24);
+  v73[1].__vftable = 0;
+  v73[1].__fmtflags_ = -1;
+  __p[0] = v74;
+  __p[52] = v70;
   MEMORY[0x1E6926FC0](&__p[1]);
-  v71 = std::filebuf::open();
-  if (!v71)
+  v75 = std::filebuf::open();
+  if (!v75)
   {
     std::ios_base::clear((__p + *(__p[0] - 3)), *(&__p[4] + *(__p[0] - 3)) | 4);
   }
 
-  if (SHIBYTE(v138) < 0)
+  if (SHIBYTE(v161) < 0)
   {
-    operator delete(v137[0].__locale_);
-    if ((SHIBYTE(v136) & 0x80000000) == 0)
+    operator delete(v160[0].__locale_);
+    if ((SHIBYTE(v159) & 0x80000000) == 0)
     {
 LABEL_105:
       if (__p[16])
@@ -9079,36 +9900,36 @@ LABEL_105:
       }
 
 LABEL_121:
-      ACFULogging::getLogInstance(v71);
-      ACFULogging::handleMessage();
+      v83 = ACFULogging::getLogInstance(v75);
+      ACFULogging::handleMessage(v83, 2, "%s::%s: Failed to open precoredump file\n", "BasebandUpdaterTransport", "collectPreCoredump");
       goto LABEL_152;
     }
   }
 
-  else if ((SHIBYTE(v136) & 0x80000000) == 0)
+  else if ((SHIBYTE(v159) & 0x80000000) == 0)
   {
     goto LABEL_105;
   }
 
-  operator delete(v135[0]);
+  operator delete(v158[0]);
   if (!__p[16])
   {
     goto LABEL_121;
   }
 
 LABEL_106:
-  if ((BYTE8(v153) & 0x10) != 0)
+  if ((BYTE8(v176) & 0x10) != 0)
   {
-    v73 = v153;
-    if (v153 < *(&v150 + 1))
+    v77 = v176;
+    if (v176 < *(&v173 + 1))
     {
-      *&v153 = *(&v150 + 1);
-      v73 = *(&v150 + 1);
+      *&v176 = *(&v173 + 1);
+      v77 = *(&v173 + 1);
     }
 
-    v74 = v150;
-    v75 = v73 - v150;
-    if ((v73 - v150) > 0x7FFFFFFFFFFFFFF7)
+    v78 = v173;
+    v79 = v77 - v173;
+    if ((v77 - v173) > 0x7FFFFFFFFFFFFFF7)
     {
       goto LABEL_136;
     }
@@ -9116,50 +9937,50 @@ LABEL_106:
 
   else
   {
-    if ((BYTE8(v153) & 8) == 0)
+    if ((BYTE8(v176) & 8) == 0)
     {
-      HIBYTE(v138) = 0;
-      LOBYTE(v137[0].__locale_) = 0;
-      v72 = 0;
+      HIBYTE(v161) = 0;
+      LOBYTE(v160[0].__locale_) = 0;
+      v76 = 0;
       goto LABEL_115;
     }
 
-    v74 = *(&v148 + 1);
-    v75 = *(&v149 + 1) - *(&v148 + 1);
-    if (*(&v149 + 1) - *(&v148 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+    v78 = *(&v171 + 1);
+    v79 = *(&v172 + 1) - *(&v171 + 1);
+    if (*(&v172 + 1) - *(&v171 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
     {
 LABEL_136:
       std::string::__throw_length_error[abi:ne200100]();
     }
   }
 
-  if (v75 >= 0x17)
+  if (v79 >= 0x17)
   {
-    if ((v75 | 7) == 0x17)
+    if ((v79 | 7) == 0x17)
     {
-      v79 = 25;
+      v84 = 25;
     }
 
     else
     {
-      v79 = (v75 | 7) + 1;
+      v84 = (v79 | 7) + 1;
     }
 
-    v76 = operator new(v79);
-    v137[1].__locale_ = v75;
-    v138 = v79 | 0x8000000000000000;
-    v137[0].__locale_ = v76;
+    v80 = operator new(v84);
+    v160[1].__locale_ = v79;
+    v161 = v84 | 0x8000000000000000;
+    v160[0].__locale_ = v80;
   }
 
   else
   {
-    HIBYTE(v138) = v75;
-    v76 = v137;
-    if (!v75)
+    HIBYTE(v161) = v79;
+    v80 = v160;
+    if (!v79)
     {
-      LOBYTE(v137[0].__locale_) = 0;
-      v72 = SHIBYTE(v138);
-      if ((SHIBYTE(v138) & 0x80000000) == 0)
+      LOBYTE(v160[0].__locale_) = 0;
+      v76 = SHIBYTE(v161);
+      if ((SHIBYTE(v161) & 0x80000000) == 0)
       {
         goto LABEL_115;
       }
@@ -9168,13 +9989,13 @@ LABEL_136:
     }
   }
 
-  memmove(v76, v74, v75);
-  *(v76 + v75) = 0;
-  v72 = SHIBYTE(v138);
-  if ((SHIBYTE(v138) & 0x80000000) == 0)
+  memmove(v80, v78, v79);
+  *(v80 + v79) = 0;
+  v76 = SHIBYTE(v161);
+  if ((SHIBYTE(v161) & 0x80000000) == 0)
   {
 LABEL_115:
-    if (v72)
+    if (v76)
     {
       goto LABEL_116;
     }
@@ -9183,113 +10004,113 @@ LABEL_115:
   }
 
 LABEL_127:
-  locale = v137[1].__locale_;
-  operator delete(v137[0].__locale_);
+  locale = v160[1].__locale_;
+  operator delete(v160[0].__locale_);
   if (locale)
   {
 LABEL_116:
-    if ((BYTE8(v153) & 0x10) != 0)
+    if ((BYTE8(v176) & 0x10) != 0)
     {
-      v83 = v153;
-      if (v153 < *(&v150 + 1))
+      v88 = v176;
+      if (v176 < *(&v173 + 1))
       {
-        *&v153 = *(&v150 + 1);
-        v83 = *(&v150 + 1);
+        *&v176 = *(&v173 + 1);
+        v88 = *(&v173 + 1);
       }
 
-      v84 = v150;
-      v77 = v83 - v150;
-      if ((v83 - v150) > 0x7FFFFFFFFFFFFFF7)
+      v89 = v173;
+      v81 = v88 - v173;
+      if ((v88 - v173) > 0x7FFFFFFFFFFFFFF7)
       {
-        goto LABEL_164;
+        goto LABEL_166;
       }
     }
 
     else
     {
-      if ((BYTE8(v153) & 8) == 0)
+      if ((BYTE8(v176) & 8) == 0)
       {
-        v77 = 0;
-        HIBYTE(v138) = 0;
-        v78 = v137;
+        v81 = 0;
+        HIBYTE(v161) = 0;
+        v82 = v160;
         goto LABEL_142;
       }
 
-      v84 = *(&v148 + 1);
-      v77 = *(&v149 + 1) - *(&v148 + 1);
-      if (*(&v149 + 1) - *(&v148 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
+      v89 = *(&v171 + 1);
+      v81 = *(&v172 + 1) - *(&v171 + 1);
+      if (*(&v172 + 1) - *(&v171 + 1) > 0x7FFFFFFFFFFFFFF7uLL)
       {
-LABEL_164:
+LABEL_166:
         std::string::__throw_length_error[abi:ne200100]();
       }
     }
 
-    if (v77 >= 0x17)
+    if (v81 >= 0x17)
     {
-      if ((v77 | 7) == 0x17)
+      if ((v81 | 7) == 0x17)
       {
-        v85 = 25;
+        v90 = 25;
       }
 
       else
       {
-        v85 = (v77 | 7) + 1;
+        v90 = (v81 | 7) + 1;
       }
 
-      v78 = operator new(v85);
-      v137[1].__locale_ = v77;
-      v138 = v85 | 0x8000000000000000;
-      v137[0].__locale_ = v78;
+      v82 = operator new(v90);
+      v160[1].__locale_ = v81;
+      v161 = v90 | 0x8000000000000000;
+      v160[0].__locale_ = v82;
     }
 
     else
     {
-      HIBYTE(v138) = v77;
-      v78 = v137;
-      if (!v77)
+      HIBYTE(v161) = v81;
+      v82 = v160;
+      if (!v81)
       {
 LABEL_142:
-        *(v78 + v77) = 0;
-        if (v138 >= 0)
+        *(v82 + v81) = 0;
+        if (v161 >= 0)
         {
-          v86 = v137;
+          v91 = v160;
         }
 
         else
         {
-          v86 = v137[0].__locale_;
+          v91 = v160[0].__locale_;
         }
 
-        if (v138 >= 0)
+        if (v161 >= 0)
         {
-          v87 = HIBYTE(v138);
+          v92 = HIBYTE(v161);
         }
 
         else
         {
-          v87 = v137[1].__locale_;
+          v92 = v160[1].__locale_;
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, v86, v87);
-        if (SHIBYTE(v138) < 0)
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, v91, v92);
+        if (SHIBYTE(v161) < 0)
         {
-          operator delete(v137[0].__locale_);
+          operator delete(v160[0].__locale_);
         }
 
         goto LABEL_150;
       }
     }
 
-    memmove(v78, v84, v77);
+    memmove(v82, v89, v81);
     goto LABEL_142;
   }
 
 LABEL_128:
-  v81 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "empty", 5);
-  std::ios_base::getloc((v81 + *(*v81 - 24)));
-  v82 = std::locale::use_facet(v137, MEMORY[0x1E69E5318]);
-  (v82->__vftable[2].~facet_0)(v82, 10);
-  std::locale::~locale(v137);
+  v86 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "empty", 5);
+  std::ios_base::getloc((v86 + *(*v86 - 24)));
+  v87 = std::locale::use_facet(v160, MEMORY[0x1E69E5318]);
+  (v87->__vftable[2].~facet_0)(v87, 10);
+  std::locale::~locale(v160);
   std::ostream::put();
   std::ostream::flush();
 LABEL_150:
@@ -9299,15 +10120,15 @@ LABEL_150:
   }
 
 LABEL_152:
-  __p[0] = *v67;
-  *(__p + *(__p[0] - 3)) = *(v67 + 24);
+  __p[0] = *v71;
+  *(__p + *(__p[0] - 3)) = *(v71 + 24);
   MEMORY[0x1E6926FD0](&__p[1]);
   std::ostream::~ostream();
   MEMORY[0x1E69273B0](&__p[52]);
   if (SHIBYTE(__dst[2]) < 0)
   {
     operator delete(__dst[0]);
-    v88 = cf;
+    v93 = cf;
     if (!cf)
     {
       goto LABEL_157;
@@ -9316,339 +10137,341 @@ LABEL_152:
     goto LABEL_156;
   }
 
-  v88 = cf;
+  v93 = cf;
   if (cf)
   {
 LABEL_156:
-    CFRelease(v88);
+    CFRelease(v93);
   }
 
 LABEL_157:
-  *v147 = *MEMORY[0x1E69E54D8];
-  v89 = *(MEMORY[0x1E69E54D8] + 72);
-  *&v147[*(*v147 - 24)] = *(MEMORY[0x1E69E54D8] + 64);
-  *&v147[16] = v89;
-  *&v147[24] = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v152) < 0)
+  *v170 = *MEMORY[0x1E69E54D8];
+  v94 = *(MEMORY[0x1E69E54D8] + 72);
+  *&v170[*(*v170 - 24)] = *(MEMORY[0x1E69E54D8] + 64);
+  *&v170[16] = v94;
+  *&v170[24] = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v175) < 0)
   {
-    operator delete(*(&v151 + 1));
+    operator delete(*(&v174 + 1));
   }
 
-  *&v147[24] = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v148);
+  *&v170[24] = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(&v171);
   std::iostream::~basic_iostream();
-  MEMORY[0x1E69273B0](v154);
+  MEMORY[0x1E69273B0](v177);
   HardwareModel = TelephonyCapabilitiesGetHardwareModel();
   if (*(HardwareModel + 8) == 3)
   {
-    goto LABEL_162;
+    v96 = "%s::%s: Skipping safe warm reset for ConfigSim\n";
+LABEL_164:
+    v97 = ACFULogging::getLogInstance(HardwareModel);
+    ACFULogging::handleMessage(v97, 0, v96, "BasebandUpdaterTransport", "warmResetSafe");
+    goto LABEL_174;
   }
 
   if (*(a1 + 200) == 1)
   {
     if (*(a1 + 203))
     {
-LABEL_162:
-      ACFULogging::getLogInstance(HardwareModel);
-      ACFULogging::handleMessage();
-      goto LABEL_172;
+LABEL_163:
+      v96 = "%s::%s: User requested not to safe warm reset, skipping...\n";
+      goto LABEL_164;
     }
 
     if (*(a1 + 202) == 1)
     {
-      v91 = MEMORY[0x1E69E9858];
+      v98 = MEMORY[0x1E69E9858];
       do
       {
         printf("        %s - %c/%c?: ", "safe warm reset", 121, 110);
-        fflush(*v91);
+        fflush(*v98);
         HardwareModel = getchar();
-        v92 = HardwareModel;
+        v99 = HardwareModel;
           ;
         }
 
         if (i == 110)
         {
-          goto LABEL_162;
+          goto LABEL_163;
         }
       }
 
-      while (v92 != 121);
+      while (v99 != 121);
     }
   }
 
-  v94 = *(a1 + 160);
-  v95 = TelephonyBasebandResetModem();
-  if ((v95 & 1) == 0)
-  {
-    ACFULogging::getLogInstance(v95);
-    v116 = ACFULogging::handleMessage();
-    ACFULogging::getLogInstance(v116);
-    v6 = 1;
-LABEL_194:
-    ACFULogging::handleMessage();
-    goto LABEL_232;
-  }
-
-LABEL_172:
-  v97 = *a2;
-  v96 = *(a2 + 8);
-  if (v96)
-  {
-    atomic_fetch_add_explicit(v96 + 1, 1uLL, memory_order_relaxed);
-  }
-
-  v98 = *(a1 + 160);
-  TelephonyBasebandSetBasebandState();
-  __p[0] = 0;
-  v99 = *(a1 + 184);
-  ctu::AdaptiveTimerService::getScaledTime();
-  v100 = operator new(0x20uLL);
-  *(v100 + 1) = 0;
-  *v100 = &unk_1F5F05FE8;
-  *(v100 + 2) = 0;
-  *(v100 + 3) = 0;
-  v101 = BasebandUpdaterTransport::IOACIPCHelper::init(v100, "rom");
+  v101 = TelephonyBasebandResetModem();
   if ((v101 & 1) == 0)
   {
-    v125 = (*(*v100 + 8))(v100);
-    ACFULogging::getLogInstance(v125);
-    v126 = ACFULogging::handleMessage();
-    ACFULogging::getLogInstance(v126);
-    ACFULogging::handleMessage();
-    v6 = 3019;
-    goto LABEL_228;
+    v122 = ACFULogging::getLogInstance(v101);
+    v123 = ACFULogging::handleMessage(v122, 2, "%s::%s: Failed to safe warm reset baseband\n", "BasebandUpdaterTransport", "warmResetSafe");
+    v124 = ACFULogging::getLogInstance(v123);
+    v6 = 1;
+    ACFULogging::handleMessage(v124, 2, "%s::%s: Failed to warm reset baseband (ACFU error code = %d)\n");
+    return v6;
   }
 
-  __p[0] = *(v100 + 1);
-  if (__p[0])
+LABEL_174:
+  v103 = *a2;
+  v102 = *(a2 + 8);
+  if (v102)
   {
-    ACFULogging::getLogInstance(v101);
-    ACFULogging::handleMessage();
-    v102 = *(a1 + 184);
-    ctu::AdaptiveTimerService::getScaledTime();
-    v137[0].__locale_ = v97;
-    v137[1].__locale_ = v96;
-    if (v96)
-    {
-      atomic_fetch_add_explicit(v96 + 1, 1uLL, memory_order_relaxed);
-    }
+    atomic_fetch_add_explicit(v102 + 1, 1uLL, memory_order_relaxed);
+  }
 
-    *&__src = MEMORY[0x1E69E9820];
-    *(&__src + 1) = 3221225472;
-    *&v143 = ___ZN24BasebandUpdaterTransport15collectCoredumpENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke;
-    *(&v143 + 1) = &__block_descriptor_40_e5_v8__0l;
-    *&v144 = a1;
-    ImageOnBTIStage = ACFUACIPCTransport::loadImageOnBTIStage();
-    v104 = v137[1].__locale_;
-    if (v137[1].__locale_ && !atomic_fetch_add(v137[1].__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+  TelephonyBasebandSetBasebandState();
+  __p[0] = 0;
+  ScaledTime = ctu::AdaptiveTimerService::getScaledTime();
+  v105 = operator new(0x20uLL);
+  *(v105 + 1) = 0;
+  *v105 = &unk_1F5F05FE8;
+  *(v105 + 2) = 0;
+  *(v105 + 3) = 0;
+  v106 = BasebandUpdaterTransport::IOACIPCHelper::init(v105, "rom", (ScaledTime / 1000000));
+  if (v106)
+  {
+    __p[0] = *(v105 + 1);
+    if (__p[0])
     {
-      v105 = ImageOnBTIStage;
-      (*(*v104 + 16))(v104);
-      std::__shared_weak_count::__release_weak(v104);
-      ImageOnBTIStage = v105;
-    }
+      v107 = ACFULogging::getLogInstance(v106);
+      ACFULogging::handleMessage(v107, 3, "%s::%s: ======== ENTERING FIRST BOOT STAGE (ROM) ========\n", "BasebandUpdaterTransport", "collectCoredump");
+      ctu::AdaptiveTimerService::getScaledTime();
+      v160[0].__locale_ = v103;
+      v160[1].__locale_ = v102;
+      if (v102)
+      {
+        atomic_fetch_add_explicit(v102 + 1, 1uLL, memory_order_relaxed);
+      }
 
-    if (ImageOnBTIStage)
-    {
-      ACFULogging::getLogInstance(ImageOnBTIStage);
-      ACFULogging::handleMessage();
-      v106 = 0;
-      v6 = 3026;
+      *&__src = MEMORY[0x1E69E9820];
+      *(&__src + 1) = 3221225472;
+      *&v166 = ___ZN24BasebandUpdaterTransport15collectCoredumpENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke;
+      *(&v166 + 1) = &__block_descriptor_40_e5_v8__0l;
+      *&v167 = a1;
+      ImageOnBTIStage = ACFUACIPCTransport::loadImageOnBTIStage();
+      v109 = v160[1].__locale_;
+      if (v160[1].__locale_ && !atomic_fetch_add(v160[1].__locale_ + 1, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        v110 = ImageOnBTIStage;
+        (*(*v109 + 16))(v109);
+        std::__shared_weak_count::__release_weak(v109);
+        ImageOnBTIStage = v110;
+      }
+
+      if (ImageOnBTIStage)
+      {
+        v141 = ACFULogging::getLogInstance(ImageOnBTIStage);
+        ACFULogging::handleMessage(v141, 2, "%s::%s: Failed to load image on FIRST (ROM) boot stage\n", "BasebandUpdaterTransport", "collectCoredump");
+        v112 = 0;
+        v6 = 3026;
+      }
+
+      else
+      {
+        v111 = ACFULogging::getLogInstance(ImageOnBTIStage);
+        ACFULogging::handleMessage(v111, 3, "%s::%s: ======== COMPLETED FIRST BOOT STAGE (ROM) ========\n", "BasebandUpdaterTransport", "collectCoredump");
+        v6 = 0;
+        v112 = 1;
+      }
     }
 
     else
     {
-      ACFULogging::getLogInstance(ImageOnBTIStage);
-      ACFULogging::handleMessage();
-      v6 = 0;
-      v106 = 1;
+      v140 = ACFULogging::getLogInstance(v106);
+      ACFULogging::handleMessage(v140, 2, "%s::%s: Failed to get the ACIPC interface object\n", "BasebandUpdaterTransport", "collectCoredump");
+      v112 = 0;
+      v6 = 3000;
     }
-  }
 
-  else
-  {
-    ACFULogging::getLogInstance(v101);
-    ACFULogging::handleMessage();
-    v106 = 0;
-    v6 = 3000;
-  }
+    (*(*v105 + 8))(v105);
+    if (!v112)
+    {
+      goto LABEL_229;
+    }
 
-  (*(*v100 + 8))(v100);
-  if (v106)
-  {
-    v139 = 0;
+    v162 = 0;
     cf = 0;
     memset(__p, 0, 32);
     __p[4] = 0xAAAAAAAA3F800000;
-    v107 = *(a1 + 184);
-    ctu::AdaptiveTimerService::getScaledTime();
-    v108 = operator new(0x20uLL);
-    *(v108 + 1) = 0;
-    *v108 = &unk_1F5F05FE8;
-    *(v108 + 2) = 0;
-    *(v108 + 3) = 0;
-    if (BasebandUpdaterTransport::IOACIPCHelper::init(v108, "iboot"))
+    v113 = ctu::AdaptiveTimerService::getScaledTime();
+    v114 = operator new(0x20uLL);
+    *(v114 + 1) = 0;
+    *v114 = &unk_1F5F05FE8;
+    *(v114 + 2) = 0;
+    *(v114 + 3) = 0;
+    if (BasebandUpdaterTransport::IOACIPCHelper::init(v114, "iboot", (v113 / 1000000)))
     {
-      v109 = validateBootStage(5);
-      if ((v109 & 1) == 0 || (v139 = *(v108 + 1)) == 0)
+      v115 = validateBootStage(5);
+      if (v115)
       {
-        ACFULogging::getLogInstance(v109);
-        ACFULogging::handleMessage();
-        v6 = 3000;
-        goto LABEL_206;
-      }
-
-      v110 = ACFUDiagnostics::copyDiagnosticsPath(*(a1 + 8));
-      v111 = v110;
-      cf = v110;
-      if (!v110)
-      {
-        ACFULogging::getLogInstance(0);
-        ACFULogging::handleMessage();
-        v6 = 1014;
-        goto LABEL_206;
-      }
-
-      CFRetain(v110);
-      v112 = a1 + 120;
-      v113 = &unk_1F5F06288;
-      *v147 = &unk_1F5F06288;
-      *&v147[8] = v111;
-      *&v147[16] = __p;
-      *&v147[24] = v147;
-      if ((a1 + 120) == v147)
-      {
-        v115 = v147;
-      }
-
-      else
-      {
-        if (*(a1 + 144) == v112)
+        v162 = *(v114 + 1);
+        if (v162)
         {
-          __dst[1] = v111;
-          __dst[2] = 0xAAAAAAAAAAAAAAAALL;
-          __dst[0] = &unk_1F5F06288;
-          CFRetain(v111);
-          __dst[2] = *&v147[16];
-          (*(**&v147[24] + 32))(*&v147[24]);
-          *&v147[24] = 0;
-          (*(**(a1 + 144) + 24))(*(a1 + 144), v147);
-          (*(**(a1 + 144) + 32))(*(a1 + 144));
-          *(a1 + 144) = 0;
-          *&v147[24] = v147;
-          (*(__dst[0] + 3))(__dst, a1 + 120);
-          (*(__dst[0] + 4))(__dst);
-          *(a1 + 144) = v112;
-          v115 = *&v147[24];
-          if (*&v147[24] != v147)
+          v116 = ACFUDiagnostics::copyDiagnosticsPath(*(a1 + 8));
+          v117 = v116;
+          cf = v116;
+          if (!v116)
           {
-LABEL_191:
-            if (v115)
+            v153 = ACFULogging::getLogInstance(0);
+            ACFULogging::handleMessage(v153, 2, "%s::%s: Invalid coredump path\n", "BasebandUpdaterTransport", "collectCoredump");
+            v6 = 1014;
+            goto LABEL_207;
+          }
+
+          CFRetain(v116);
+          v118 = a1 + 120;
+          v119 = &unk_1F5F06288;
+          *v170 = &unk_1F5F06288;
+          *&v170[8] = v117;
+          *&v170[16] = __p;
+          *&v170[24] = v170;
+          if ((a1 + 120) == v170)
+          {
+            v121 = v170;
+          }
+
+          else
+          {
+            if (*(a1 + 144) == v118)
             {
-              v115 = (*(*v115 + 40))(v115);
+              __dst[1] = v117;
+              __dst[2] = 0xAAAAAAAAAAAAAAAALL;
+              __dst[0] = &unk_1F5F06288;
+              CFRetain(v117);
+              __dst[2] = *&v170[16];
+              (*(**&v170[24] + 32))(*&v170[24]);
+              *&v170[24] = 0;
+              (*(**(a1 + 144) + 24))(*(a1 + 144), v170);
+              (*(**(a1 + 144) + 32))(*(a1 + 144));
+              *(a1 + 144) = 0;
+              *&v170[24] = v170;
+              (*(__dst[0] + 3))(__dst, a1 + 120);
+              (*(__dst[0] + 4))(__dst);
+              *(a1 + 144) = v118;
+              v121 = *&v170[24];
+              if (*&v170[24] != v170)
+              {
+LABEL_193:
+                if (v121)
+                {
+                  v121 = (*(*v121 + 40))(v121);
+                }
+
+                goto LABEL_200;
+              }
             }
 
-            goto LABEL_199;
-          }
-        }
+            else
+            {
+              *(a1 + 120) = &unk_1F5F06288;
+              *(a1 + 128) = v117;
+              CFRetain(v117);
+              v120 = *&v170[24];
+              *(a1 + 136) = *&v170[16];
+              (*(*v120 + 32))(v120);
+              *&v170[24] = *(a1 + 144);
+              v121 = *&v170[24];
+              *(a1 + 144) = v118;
+              if (v121 != v170)
+              {
+                goto LABEL_193;
+              }
+            }
 
-        else
-        {
-          *(a1 + 120) = &unk_1F5F06288;
-          *(a1 + 128) = v111;
-          CFRetain(v111);
-          v114 = *&v147[24];
-          *(a1 + 136) = *&v147[16];
-          (*(*v114 + 32))(v114);
-          *&v147[24] = *(a1 + 144);
-          v115 = *&v147[24];
-          *(a1 + 144) = v112;
-          if (v115 != v147)
+            v119 = *v121;
+          }
+
+          v121 = (v119)[4](v121);
+LABEL_200:
+          v125 = ACFULogging::getLogInstance(v121);
+          ACFULogging::handleMessage(v125, 0, "%s::%s: ======== COREDUMP BEGIN ========\n", "BasebandUpdaterTransport", "collectCoredump");
+          v158[0] = 0;
+          v158[1] = 0;
+          *v170 = MEMORY[0x1E69E9820];
+          *&v170[8] = 3221225472;
+          *&v170[16] = ___ZN24BasebandUpdaterTransport15collectCoredumpENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke_2;
+          *&v170[24] = &__block_descriptor_40_e5_v8__0l;
+          *&v171 = a1;
+          v126 = ACFUACIPCTransport::processRTIStage();
+          v127 = v158[1];
+          if (v158[1] && !atomic_fetch_add(v158[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
           {
-            goto LABEL_191;
+            v128 = v126;
+            (v127->__on_zero_shared)(v127);
+            std::__shared_weak_count::__release_weak(v127);
+            v126 = v128;
           }
+
+          if (v126)
+          {
+            v154 = ACFULogging::getLogInstance(v126);
+            ACFULogging::handleMessage(v154, 2, "%s::%s: Failed to load image on SECOND (iBoot) boot stage\n", "BasebandUpdaterTransport", "collectCoredump");
+            v6 = 3027;
+          }
+
+          else
+          {
+            ACFULogging::getLogInstance(v126);
+            v129 = operator new(0x20uLL);
+            strcpy(v129, "BasebandUpdaterTransport::");
+            v130 = operator new(0x40uLL);
+            *v130 = *v129;
+            *(v130 + 10) = *(v129 + 10);
+            strcpy(v130 + 26, "collectCoredump");
+            operator delete(v129);
+            __dst[0] = v130;
+            *&__dst[1] = xmmword_1E5394F50;
+            v131 = ACFULogging::handleMessageCFType();
+            if (SHIBYTE(__dst[2]) < 0)
+            {
+              operator delete(__dst[0]);
+            }
+
+            v132 = ACFULogging::getLogInstance(v131);
+            ACFULogging::handleMessage(v132, 0, "%s::%s: ======== COREDUMP COMPLETE ========\n", "BasebandUpdaterTransport", "collectCoredump");
+            v6 = 0;
+          }
+
+LABEL_207:
+          (*(*v114 + 8))(v114);
+          v133 = __p[2];
+          if (__p[2])
+          {
+            goto LABEL_222;
+          }
+
+          goto LABEL_225;
         }
 
-        v113 = *v115;
-      }
-
-      v115 = (v113)[4](v115);
-LABEL_199:
-      ACFULogging::getLogInstance(v115);
-      ACFULogging::handleMessage();
-      v135[0] = 0;
-      v135[1] = 0;
-      *v147 = MEMORY[0x1E69E9820];
-      *&v147[8] = 3221225472;
-      *&v147[16] = ___ZN24BasebandUpdaterTransport15collectCoredumpENSt3__110shared_ptrI12ACFUFirmwareEE_block_invoke_2;
-      *&v147[24] = &__block_descriptor_40_e5_v8__0l;
-      *&v148 = a1;
-      v117 = ACFUACIPCTransport::processRTIStage();
-      v118 = v135[1];
-      if (v135[1] && !atomic_fetch_add(v135[1] + 1, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        v119 = v117;
-        (v118->__on_zero_shared)(v118);
-        std::__shared_weak_count::__release_weak(v118);
-        v117 = v119;
-      }
-
-      if (v117)
-      {
-        ACFULogging::getLogInstance(v117);
-        ACFULogging::handleMessage();
-        v6 = 3027;
+        v152 = ACFULogging::getLogInstance(v115);
+        ACFULogging::handleMessage(v152, 2, "%s::%s: Failed to get the ACIPC interface object\n");
       }
 
       else
       {
-        ACFULogging::getLogInstance(v117);
-        v120 = operator new(0x20uLL);
-        strcpy(v120, "BasebandUpdaterTransport::");
-        v121 = operator new(0x40uLL);
-        *v121 = *v120;
-        *(v121 + 10) = *(v120 + 10);
-        strcpy(v121 + 26, "collectCoredump");
-        operator delete(v120);
-        __dst[0] = v121;
-        *&__dst[1] = xmmword_1E5394F50;
-        v122 = ACFULogging::handleMessageCFType();
-        if (SHIBYTE(__dst[2]) < 0)
-        {
-          operator delete(__dst[0]);
-        }
-
-        ACFULogging::getLogInstance(v122);
-        ACFULogging::handleMessage();
-        v6 = 0;
+        v151 = ACFULogging::getLogInstance(v115);
+        ACFULogging::handleMessage(v151, 2, "%s::%s: Unexpected acipc boot stage\n");
       }
 
-LABEL_206:
-      (*(*v108 + 8))(v108);
-      v123 = __p[2];
-      if (__p[2])
-      {
-        goto LABEL_221;
-      }
-
-      goto LABEL_224;
+      v6 = 3000;
+      goto LABEL_207;
     }
 
-    v127 = (*(*v108 + 8))(v108);
-    ACFULogging::getLogInstance(v127);
-    v128 = ACFULogging::handleMessage();
-    ACFULogging::getLogInstance(v128);
-    ACFULogging::handleMessage();
+    v142 = (*(*v114 + 8))(v114);
+    v143 = ACFULogging::getLogInstance(v142);
+    v144 = ACFULogging::handleMessage(v143, 2, "%s::%s: Failed to init IOACIPCHelper\n", "BasebandUpdaterTransport", "create");
+    v145 = ACFULogging::getLogInstance(v144);
+    ACFULogging::handleMessage(v145, 2, "%s::%s: Failed to open ACIPC %s interface\n", "BasebandUpdaterTransport", "collectCoredump", "iboot");
     v6 = 3019;
-    v123 = __p[2];
+    v133 = __p[2];
     if (!__p[2])
     {
-LABEL_224:
-      v130 = __p[0];
+LABEL_225:
+      v147 = __p[0];
       __p[0] = 0;
-      if (v130)
+      if (v147)
       {
-        operator delete(v130);
+        operator delete(v147);
       }
 
       if (cf)
@@ -9656,135 +10479,67 @@ LABEL_224:
         CFRelease(cf);
       }
 
-      goto LABEL_228;
+      goto LABEL_229;
     }
 
     while (1)
     {
-LABEL_221:
-      v129 = *v123;
-      if (v123[63] < 0)
+LABEL_222:
+      v146 = *v133;
+      if (v133[63] < 0)
       {
-        operator delete(*(v123 + 5));
-        if ((v123[39] & 0x80000000) == 0)
+        operator delete(*(v133 + 5));
+        if ((v133[39] & 0x80000000) == 0)
         {
-          goto LABEL_220;
+          goto LABEL_221;
         }
 
-LABEL_223:
-        operator delete(*(v123 + 2));
-        operator delete(v123);
-        v123 = v129;
-        if (!v129)
+LABEL_224:
+        operator delete(*(v133 + 2));
+        operator delete(v133);
+        v133 = v146;
+        if (!v146)
         {
-          goto LABEL_224;
+          goto LABEL_225;
         }
       }
 
       else
       {
-        if (v123[39] < 0)
-        {
-          goto LABEL_223;
-        }
-
-LABEL_220:
-        operator delete(v123);
-        v123 = v129;
-        if (!v129)
+        if (v133[39] < 0)
         {
           goto LABEL_224;
+        }
+
+LABEL_221:
+        operator delete(v133);
+        v133 = v146;
+        if (!v146)
+        {
+          goto LABEL_225;
         }
       }
     }
   }
 
-LABEL_228:
-  v131 = *(a1 + 160);
-  v132 = TelephonyBasebandSetBasebandState();
-  if (v96 && !atomic_fetch_add(v96 + 1, 0xFFFFFFFFFFFFFFFFLL))
+  v136 = (*(*v105 + 8))(v105);
+  v137 = ACFULogging::getLogInstance(v136);
+  v138 = ACFULogging::handleMessage(v137, 2, "%s::%s: Failed to init IOACIPCHelper\n", "BasebandUpdaterTransport", "create");
+  v139 = ACFULogging::getLogInstance(v138);
+  ACFULogging::handleMessage(v139, 2, "%s::%s: Failed to open ACIPC %s interface\n", "BasebandUpdaterTransport", "collectCoredump", "rom");
+  v6 = 3019;
+LABEL_229:
+  v148 = TelephonyBasebandSetBasebandState();
+  if (v102 && !atomic_fetch_add(v102 + 1, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v96 + 16))(v96);
-    std::__shared_weak_count::__release_weak(v96);
+    (*(*v102 + 16))(v102);
+    std::__shared_weak_count::__release_weak(v102);
   }
 
   if (v6)
   {
-    ACFULogging::getLogInstance(v132);
-    goto LABEL_194;
-  }
-
-LABEL_232:
-  v133 = *MEMORY[0x1E69E9840];
-  return v6;
-}
-
-void sub_1E536E2AC(_Unwind_Exception *a1)
-{
-  Bsp::BspCommandDriver::~BspCommandDriver(&STACK[0x2B0]);
-  v2 = STACK[0x6B0];
-  STACK[0x6B0] = 0;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-    _Unwind_Resume(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t BasebandUpdaterTransport::setPreflightMode(BasebandUpdaterTransport *this)
-{
-  v10 = 8;
-  v1 = *(this + 23);
-  ctu::AdaptiveTimerService::getScaledTime();
-  v2 = operator new(0x20uLL);
-  *(v2 + 1) = 0;
-  *v2 = &unk_1F5F05FE8;
-  *(v2 + 2) = 0;
-  *(v2 + 3) = 0;
-  v3 = BasebandUpdaterTransport::IOACIPCHelper::init(v2, "rom");
-  if (v3)
-  {
-    v4 = *(v2 + 1);
-    if (v4)
-    {
-      ACFULogging::getLogInstance(v3);
-      ACFULogging::handleMessage();
-      v5 = (*(*v4 + 120))(v4, 15, &v10, 4);
-      if (v5)
-      {
-        ACFULogging::getLogInstance(v5);
-        ACFULogging::handleMessage();
-        v6 = 3025;
-      }
-
-      else
-      {
-        ACFULogging::getLogInstance(v5);
-        ACFULogging::handleMessage();
-        v6 = 0;
-      }
-    }
-
-    else
-    {
-      ACFULogging::getLogInstance(v3);
-      ACFULogging::handleMessage();
-      v6 = 3000;
-    }
-
-    (*(*v2 + 8))(v2);
-  }
-
-  else
-  {
-    v8 = (*(*v2 + 8))(v2);
-    ACFULogging::getLogInstance(v8);
-    v9 = ACFULogging::handleMessage();
-    ACFULogging::getLogInstance(v9);
-    ACFULogging::handleMessage();
-    return 3019;
+    v150 = ACFULogging::getLogInstance(v148);
+    ACFULogging::handleMessage(v150, 2, "%s::%s: Failed to collect coredump (ACFU error code = %d)\n");
   }
 
   return v6;

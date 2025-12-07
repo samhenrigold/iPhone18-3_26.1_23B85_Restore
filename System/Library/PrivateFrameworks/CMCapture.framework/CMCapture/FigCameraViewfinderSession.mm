@@ -50,7 +50,7 @@
 {
   if (self)
   {
-    [(FigCameraViewfinderSession *)self clientAuditToken];
+    objc_msgSend_clientAuditToken(self, a2);
   }
 
   else

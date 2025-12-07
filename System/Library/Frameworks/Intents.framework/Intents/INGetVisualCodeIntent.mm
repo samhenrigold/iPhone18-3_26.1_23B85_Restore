@@ -20,8 +20,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"visualCodeType";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"visualCodeType";
   visualCodeType = [(INGetVisualCodeIntent *)self visualCodeType];
   if ((visualCodeType - 1) > 5)
   {
@@ -34,10 +34,8 @@
   }
 
   v4 = v3;
-  v9[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }

@@ -103,7 +103,7 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [CRKCertificatesRequestResult isEqual:];
+      [CRKCertificatesRequestResult isEqual:v6];
     }
 
     v7 = [(CRKCertificatesRequestResult *)self isEqualToResult:v6];
@@ -146,15 +146,15 @@
   return v7;
 }
 
-- (void)isEqual:.cold.1()
+- (void)isEqual:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKCertificatesRequestResult isEqual:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CRKCertificatesRequestResult.m" lineNumber:78 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CRKCertificatesRequestResult isEqual:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CRKCertificatesRequestResult.m" lineNumber:78 description:{@"expected %@, got %@", v3, v5}];
 }
 
 @end

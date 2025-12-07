@@ -2,6 +2,7 @@
 - (id).cxx_construct;
 - (id)geometryDescriptor;
 - (id)resources;
+- (void)addSphereWithOrigin:(SphereGeometry *)self radius:(SEL)radius color:(float)color;
 - (void)uploadToBuffers;
 @end
 
@@ -111,6 +112,72 @@
     v27 = __p;
     operator delete(__p);
   }
+}
+
+- (void)addSphereWithOrigin:(SphereGeometry *)self radius:(SEL)radius color:(float)color
+{
+  v5 = v3 * v3;
+  p_spheres = &self->_spheres;
+  end = self->_spheres.__end_;
+  cap = self->_spheres.__cap_;
+  if (end >= cap)
+  {
+    begin = p_spheres->__begin_;
+    v12 = end - p_spheres->__begin_;
+    v13 = v12 >> 5;
+    v14 = (v12 >> 5) + 1;
+    if (v14 >> 59)
+    {
+      sub_100003598();
+    }
+
+    v15 = cap - begin;
+    if (v15 >> 4 > v14)
+    {
+      v14 = v15 >> 4;
+    }
+
+    if (v15 >= 0x7FFFFFFFFFFFFFE0)
+    {
+      v14 = 0x7FFFFFFFFFFFFFFLL;
+    }
+
+    if (v14)
+    {
+      sub_1000037B0(&self->_spheres, v14);
+    }
+
+    v16 = 32 * v13;
+    *v16 = *&color;
+    *(v16 + 8) = v17;
+    *(v16 + 12) = v5;
+    *(v16 + 16) = v4;
+    *(v16 + 24) = DWORD2(v4);
+    *(v16 + 28) = v3;
+    v10 = 32 * v13 + 32;
+    memcpy(0, begin, v12);
+    v18 = p_spheres->__begin_;
+    p_spheres->__begin_ = 0;
+    p_spheres->__end_ = v10;
+    p_spheres->__cap_ = 0;
+    if (v18)
+    {
+      operator delete(v18);
+    }
+  }
+
+  else
+  {
+    *end = *&color;
+    *(end + 2) = v9;
+    *(end + 3) = v5;
+    *(end + 2) = v4;
+    v10 = end + 32;
+    *(end + 6) = DWORD2(v4);
+    *(end + 7) = v3;
+  }
+
+  p_spheres->__end_ = v10;
 }
 
 - (id)geometryDescriptor

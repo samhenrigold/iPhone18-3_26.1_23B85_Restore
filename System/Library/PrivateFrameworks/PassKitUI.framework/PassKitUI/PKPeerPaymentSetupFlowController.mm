@@ -539,7 +539,7 @@ LABEL_50:
 LABEL_51:
 }
 
-uint64_t __70__PKPeerPaymentSetupFlowController__nextViewControllerWithCompletion___block_invoke(uint64_t a1, int a2)
+void *__70__PKPeerPaymentSetupFlowController__nextViewControllerWithCompletion___block_invoke(uint64_t a1, int a2)
 {
   v3 = *(a1 + 32);
   if (a2)
@@ -1198,54 +1198,54 @@ void __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithC
   dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
-void __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithCompletion___block_invoke_2(uint64_t a1)
+void __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = PKSecurityCapabilitiesErrorToString(*(a1 + 56));
-    v4 = *(a1 + 32);
+    v4 = PKSecurityCapabilitiesErrorToString(*(a1 + 56));
+    v5 = *(a1 + 32);
     *buf = 138412546;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Finished checking peer payment security capabilities with upgrade error %@, error %@", buf, 0x16u);
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Finished checking peer payment security capabilities with upgrade error %@, error %@", buf, 0x16u);
   }
 
-  v5 = *(a1 + 56);
-  if (v5 == 3)
+  v6 = *(a1 + 56);
+  if (v6 == 3)
   {
-    v6 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
     goto LABEL_8;
   }
 
-  if (v5 || *(a1 + 32))
+  if (v6 || *(a1 + 32))
   {
     *(*(a1 + 40) + 32) = 1;
-    v6 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
 LABEL_8:
-    v6();
+    v7();
     return;
   }
 
   *(*(a1 + 40) + 32) = 1;
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = PKPeerPaymentSetupOperationDescriptionForOperations(2uLL);
+    v8 = PKPeerPaymentSetupOperationDescriptionForOperations(2uLL);
     *buf = 138412290;
-    v12 = v7;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "User successfully completed %@. Ensuring that they indeed supportsDeviceToDeviceEncryption", buf, 0xCu);
+    v13 = v8;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "User successfully completed %@. Ensuring that they indeed supportsDeviceToDeviceEncryption", buf, 0xCu);
   }
 
-  v8 = *(a1 + 40);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithCompletion___block_invoke_79;
-  v9[3] = &unk_1E80158C0;
-  v9[4] = v8;
-  v10 = *(a1 + 48);
-  [v8 _checkManateeCapabilityWithCompletion:v9];
+  v9 = *(a1 + 40);
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithCompletion___block_invoke_79;
+  v10[3] = &unk_1E80158C0;
+  v10[4] = v9;
+  v11 = *(a1 + 48);
+  [v9 _checkManateeCapabilityWithCompletion:v10];
 }
 
 void __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithCompletion___block_invoke_79(uint64_t a1, char a2)
@@ -1261,29 +1261,29 @@ void __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithC
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithCompletion___block_invoke_2_80(uint64_t a1)
+void __82__PKPeerPaymentSetupFlowController__presentManateeCapableOperationWithCompletion___block_invoke_2_80(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 48) == 1)
   {
     [*(a1 + 32) _completedOperation:2];
-    v2 = *(a1 + 32);
-    v3 = *(a1 + 40);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
 
-    [v2 _nextViewControllerWithCompletion:v3];
+    [v3 _nextViewControllerWithCompletion:v4];
   }
 
   else
   {
-    v4 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Error: Possible bug on CoreCDP. User is not manatee capable after successful completion of hsa2 upgrade flow", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1BD026000, v5, OS_LOG_TYPE_DEFAULT, "Error: Possible bug on CoreCDP. User is not manatee capable after successful completion of hsa2 upgrade flow", v8, 2u);
     }
 
-    v5 = *(a1 + 40);
-    v6 = [MEMORY[0x1E69B8F28] displayableErrorForError:0];
-    (*(v5 + 16))(v5, 0, 0, v6);
+    v6 = *(a1 + 40);
+    v7 = [MEMORY[0x1E69B8F28] displayableErrorForError:0];
+    (*(v6 + 16))(v6, 0, 0, v7);
   }
 }
 
@@ -1362,19 +1362,19 @@ void __74__PKPeerPaymentSetupFlowController__presentMissingTLKsFlowWithCompletio
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __74__PKPeerPaymentSetupFlowController__presentMissingTLKsFlowWithCompletion___block_invoke_2(void *a1)
+uint64_t __74__PKPeerPaymentSetupFlowController__presentMissingTLKsFlowWithCompletion___block_invoke_2(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = PKSecurityCapabilitiesErrorToString(a1[6]);
-    v4 = a1[4];
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Finished checking missing tlks with upgrade error %@, error %@", &v6, 0x16u);
+    v4 = PKSecurityCapabilitiesErrorToString(a1[6]);
+    v5 = a1[4];
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Finished checking missing tlks with upgrade error %@, error %@", &v7, 0x16u);
   }
 
   return (*(a1[5] + 16))();
@@ -1422,38 +1422,38 @@ void __67__PKPeerPaymentSetupFlowController__setupCloudStoreWithCompletion___blo
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __67__PKPeerPaymentSetupFlowController__setupCloudStoreWithCompletion___block_invoke_2(void *a1)
+uint64_t __67__PKPeerPaymentSetupFlowController__setupCloudStoreWithCompletion___block_invoke_2(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = PKSecurityCapabilitiesErrorToString(a1[6]);
-    v4 = a1[4];
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Finished checking cloud store setup upgrade error %@, error %@", &v8, 0x16u);
+    v4 = PKSecurityCapabilitiesErrorToString(a1[6]);
+    v5 = a1[4];
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Finished checking cloud store setup upgrade error %@, error %@", &v9, 0x16u);
   }
 
-  v5 = a1[6];
-  if (v5 == 3)
+  v6 = a1[6];
+  if (v6 == 3)
   {
-    v6 = *(a1[5] + 16);
+    v7 = *(a1[5] + 16);
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
       MEMORY[0x1BFB41980](*MEMORY[0x1E69BA0A8], 0);
     }
 
-    v6 = *(a1[5] + 16);
+    v7 = *(a1[5] + 16);
   }
 
-  return v6();
+  return v7();
 }
 
 - (void)_provisionPassWithCompletion:(id)completion
@@ -1498,26 +1498,26 @@ void __65__PKPeerPaymentSetupFlowController__provisionPassWithCompletion___block
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __65__PKPeerPaymentSetupFlowController__provisionPassWithCompletion___block_invoke_2(uint64_t a1)
+void __65__PKPeerPaymentSetupFlowController__provisionPassWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Completed provisioning pass for peer payment setup", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Completed provisioning pass for peer payment setup", v6, 2u);
   }
 
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 40);
   if (*(a1 + 48) == 1)
   {
-    (*(v3 + 16))(*(a1 + 40), 1, 0);
+    (*(v4 + 16))(*(a1 + 40), 1, 0);
     MEMORY[0x1BFB41980](*MEMORY[0x1E69BA190], 0);
   }
 
   else
   {
-    v4 = [MEMORY[0x1E69B8F28] displayableErrorForError:*(a1 + 32)];
-    (*(v3 + 16))(v3, 0, v4);
+    v5 = [MEMORY[0x1E69B8F28] displayableErrorForError:*(a1 + 32)];
+    (*(v4 + 16))(v4, 0, v5);
   }
 }
 
@@ -1729,23 +1729,23 @@ void __89__PKPeerPaymentSetupFlowController__presentIdentityVerificationFlowWith
   }
 }
 
-void __89__PKPeerPaymentSetupFlowController__presentIdentityVerificationFlowWithError_completion___block_invoke_6(uint64_t a1)
+void __89__PKPeerPaymentSetupFlowController__presentIdentityVerificationFlowWithError_completion___block_invoke_6(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Error: no view controller defined for identity verification flow.", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error: no view controller defined for identity verification flow.", v8, 2u);
   }
 
   MEMORY[0x1BFB41980](*MEMORY[0x1E69BA0C0], 0);
-  v3 = *(*(a1 + 32) + 80);
-  v4 = [MEMORY[0x1E69B8F28] displayableErrorForError:0];
-  (*(v3 + 16))(v3, 0, 0, v4);
+  v4 = *(*(a1 + 32) + 80);
+  v5 = [MEMORY[0x1E69B8F28] displayableErrorForError:0];
+  (*(v4 + 16))(v4, 0, 0, v5);
 
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 80);
-  *(v5 + 80) = 0;
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 80);
+  *(v6 + 80) = 0;
 }
 
 void __89__PKPeerPaymentSetupFlowController__presentIdentityVerificationFlowWithError_completion___block_invoke_2_98(uint64_t a1)
@@ -1893,51 +1893,51 @@ void __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion_
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion___block_invoke_2(uint64_t a1)
+void __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v13 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Addition of associated account completed with error %@", buf, 0xCu);
+    v14 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Addition of associated account completed with error %@", buf, 0xCu);
   }
 
   if (*(a1 + 32) || !*(a1 + 40))
   {
-    v4 = *(a1 + 64);
-    v5 = [MEMORY[0x1E69B8F28] displayableErrorForError:?];
-    (*(v4 + 16))(v4, 0, 0, v5);
+    v5 = *(a1 + 64);
+    v6 = [MEMORY[0x1E69B8F28] displayableErrorForError:?];
+    (*(v5 + 16))(v5, 0, 0, v6);
   }
 
   else
   {
-    v6 = [*(a1 + 48) updatedPreferences];
+    v7 = [*(a1 + 48) updatedPreferences];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion___block_invoke_104;
     aBlock[3] = &unk_1E8027B78;
     aBlock[4] = *(a1 + 56);
-    v5 = v6;
-    v11 = v5;
-    v7 = _Block_copy(aBlock);
-    if (v5)
+    v6 = v7;
+    v12 = v6;
+    v8 = _Block_copy(aBlock);
+    if (v6)
     {
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v13 = v5;
-        _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Updating preferences for newly added associated account %@", buf, 0xCu);
+        v14 = v6;
+        _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Updating preferences for newly added associated account %@", buf, 0xCu);
       }
 
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion___block_invoke_107;
-      v8[3] = &unk_1E8010B50;
-      v9 = *(a1 + 64);
-      v7[2](v7, v8);
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion___block_invoke_107;
+      v9[3] = &unk_1E8010B50;
+      v10 = *(a1 + 64);
+      v8[2](v8, v9);
     }
 
     else
@@ -1974,18 +1974,18 @@ void __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion_
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion___block_invoke_3(uint64_t a1)
+uint64_t __72__PKPeerPaymentSetupFlowController__addAssociatedAccountWithCompletion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (v2)
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error updating preferences for new associated account %@", &v5, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Error updating preferences for new associated account %@", &v6, 0xCu);
     }
   }
 
@@ -2615,31 +2615,31 @@ void __68__PKPeerPaymentSetupFlowController__checkMissingTLKsWithCompletion___bl
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __68__PKPeerPaymentSetupFlowController__checkMissingTLKsWithCompletion___block_invoke_2(uint64_t a1)
+uint64_t __68__PKPeerPaymentSetupFlowController__checkMissingTLKsWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 40);
+  v4 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = @"YES";
-    if (v2)
+    v5 = @"YES";
+    if (v3)
     {
-      v4 = @"NO";
+      v5 = @"NO";
     }
 
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Need to present missing TLKs flow %@ for peer payment setup", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = v5;
+    _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Need to present missing TLKs flow %@ for peer payment setup", &v8, 0xCu);
   }
 
-  v5 = MEMORY[0x1E69BA0B0];
-  if (!v2)
+  v6 = MEMORY[0x1E69BA0B0];
+  if (!v3)
   {
-    v5 = MEMORY[0x1E69B9F38];
+    v6 = MEMORY[0x1E69B9F38];
   }
 
-  MEMORY[0x1BFB41980](*v5, 0);
+  MEMORY[0x1BFB41980](*v6, 0);
   return (*(*(a1 + 32) + 16))();
 }
 

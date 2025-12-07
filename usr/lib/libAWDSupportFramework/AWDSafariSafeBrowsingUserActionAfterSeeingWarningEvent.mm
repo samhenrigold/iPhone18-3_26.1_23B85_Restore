@@ -1,5 +1,6 @@
 @interface AWDSafariSafeBrowsingUserActionAfterSeeingWarningEvent
 - (BOOL)isEqual:(id)equal;
+- (id)actionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -40,6 +41,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)actionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32D80[string];
+  }
 }
 
 - (int)StringAsAction:(id)action
@@ -103,14 +117,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    action = self->_action;
 
     PBDataWriterWriteInt32Field();
   }

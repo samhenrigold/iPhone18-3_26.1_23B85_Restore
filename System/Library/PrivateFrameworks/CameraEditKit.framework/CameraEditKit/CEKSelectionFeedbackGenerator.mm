@@ -103,9 +103,10 @@
 {
   if (self->_profile != profile)
   {
+    feedbackGenerator = self->__feedbackGenerator;
     self->_profile = profile;
     self->__feedbackGenerator = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, feedbackGenerator);
   }
 }
 

@@ -11,7 +11,7 @@ void sub_100083AA8(uint64_t a1)
     {
       v6 = *(a1 + 32);
       *buf = 134217984;
-      v23 = v6;
+      v22 = v6;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - already connected to library, running pending changes operation", buf, 0xCu);
     }
 
@@ -24,45 +24,44 @@ void sub_100083AA8(uint64_t a1)
     dispatch_group_enter(v7);
 
     [*(a1 + 32) setLoginRequestInFlight:1];
-    v8 = *(a1 + 32);
-    v9 = [NSString stringWithFormat:@"%@ Ensure Connection", objc_opt_class()];
-    v10 = [[MSVXPCTransaction alloc] initWithName:v9];
-    [v10 beginTransaction];
+    v8 = [NSString stringWithFormat:@"%@ Ensure Connection", objc_opt_class()];
+    v9 = [[MSVXPCTransaction alloc] initWithName:v8];
+    [v9 beginTransaction];
     objc_initWeak(buf, *(a1 + 32));
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_100083DAC;
-    v19[3] = &unk_1001DC218;
-    objc_copyWeak(&v21, buf);
-    v19[4] = *(a1 + 32);
-    v11 = v10;
-    v20 = v11;
-    v12 = objc_retainBlock(v19);
-    v13 = [*(*(a1 + 32) + 32) baseURL];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100083DAC;
+    v18[3] = &unk_1001DC218;
+    objc_copyWeak(&v20, buf);
+    v18[4] = *(a1 + 32);
+    v10 = v9;
+    v19 = v10;
+    v11 = objc_retainBlock(v18);
+    v12 = [*(*(a1 + 32) + 32) baseURL];
 
-    v14 = *(a1 + 32);
-    if (v13)
+    v13 = *(a1 + 32);
+    if (v12)
     {
-      [v14 _continueConnectingToLibraryWithCompletionHandler:v12];
+      [v13 _continueConnectingToLibraryWithCompletionHandler:v11];
     }
 
     else
     {
-      [v14 _connectToLibraryWithCompletionHandler:v12 allowRetry:1 forceBagReload:0];
+      [v13 _connectToLibraryWithCompletionHandler:v11 allowRetry:1 forceBagReload:0];
     }
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
-  v15 = [*(a1 + 32) connectionGroup];
-  v16 = [*(a1 + 32) connectionQueue];
+  v14 = [*(a1 + 32) connectionGroup];
+  v15 = [*(a1 + 32) connectionQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100083F24;
   block[3] = &unk_1001DF5C8;
-  v18 = *(a1 + 40);
-  dispatch_group_notify(v15, v16, block);
+  v17 = *(a1 + 40);
+  dispatch_group_notify(v14, v15, block);
 }
 
 void sub_100083D88(_Unwind_Exception *a1)
@@ -78,24 +77,23 @@ void sub_100083DAC(uint64_t a1, void *a2)
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() logCategory];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = [objc_opt_class() logCategory];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v13 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Connected to library", buf, 0xCu);
+      v12 = WeakRetained;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Connected to library", buf, 0xCu);
     }
 
-    v7 = [WeakRetained connectionQueue];
+    v6 = [WeakRetained connectionQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100083F34;
     block[3] = &unk_1001DE918;
-    v9 = WeakRetained;
-    v10 = v3;
-    v11 = *(a1 + 40);
-    dispatch_async(v7, block);
+    v8 = WeakRetained;
+    v9 = v3;
+    v10 = *(a1 + 40);
+    dispatch_async(v6, block);
   }
 
   else
@@ -130,24 +128,22 @@ id sub_100083F34(uint64_t a1)
 void sub_100084594(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() logCategory];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = [objc_opt_class() logCategory];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = objc_opt_class();
     v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = *(a1 + 32);
-    v9 = v7;
-    v11 = 138544130;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2114;
-    v16 = objc_opt_class();
-    v17 = 2048;
-    v18 = v3;
-    v10 = v16;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ %p - Cancelling one of our operations [%{public}@ %p]", &v11, 0x2Au);
+    v7 = v5;
+    v9 = 138544130;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2114;
+    v14 = objc_opt_class();
+    v15 = 2048;
+    v16 = v3;
+    v8 = v14;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p - Cancelling one of our operations [%{public}@ %p]", &v9, 0x2Au);
   }
 
   [v3 cancel];
@@ -156,24 +152,22 @@ void sub_100084594(uint64_t a1, void *a2)
 void sub_1000847D8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() logCategory];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = [objc_opt_class() logCategory];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = objc_opt_class();
     v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = *(a1 + 32);
-    v9 = v7;
-    v11 = 138544130;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2114;
-    v16 = objc_opt_class();
-    v17 = 2048;
-    v18 = v3;
-    v10 = v16;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Increasing priority of one of our operations [%{public}@ %p]", &v11, 0x2Au);
+    v7 = v5;
+    v9 = 138544130;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2114;
+    v14 = objc_opt_class();
+    v15 = 2048;
+    v16 = v3;
+    v8 = v14;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Increasing priority of one of our operations [%{public}@ %p]", &v9, 0x2Au);
   }
 
   [v3 increasePriority];
@@ -182,24 +176,22 @@ void sub_1000847D8(uint64_t a1, void *a2)
 void sub_100084A1C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() logCategory];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = [objc_opt_class() logCategory];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = objc_opt_class();
     v6 = *(a1 + 32);
-    v7 = objc_opt_class();
-    v8 = *(a1 + 32);
-    v9 = v7;
-    v11 = 138544130;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2114;
-    v16 = objc_opt_class();
-    v17 = 2048;
-    v18 = v3;
-    v10 = v16;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Decreasing priority of one of our operations [%{public}@ %p]", &v11, 0x2Au);
+    v7 = v5;
+    v9 = 138544130;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2114;
+    v14 = objc_opt_class();
+    v15 = 2048;
+    v16 = v3;
+    v8 = v14;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Decreasing priority of one of our operations [%{public}@ %p]", &v9, 0x2Au);
   }
 
   [v3 decreasePriority];
@@ -255,125 +247,121 @@ void sub_100084D7C(uint64_t a1)
   {
     if ([WeakRetained status] == 1)
     {
-      v7 = *(a1 + 32);
-      v8 = [objc_opt_class() logCategory];
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = [objc_opt_class() logCategory];
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_10:
 
         goto LABEL_11;
       }
 
-      v9 = *(a1 + 32);
-      v24 = 134218498;
-      v25 = v9;
-      v26 = 2114;
-      v27 = objc_opt_class();
-      v28 = 2048;
-      v29 = v6;
-      v10 = v27;
-      v11 = "CloudLibrary %p - Background operation of type %{public}@ %p completed with status CloudLibraryOperationStatusSuccess.";
+      v8 = *(a1 + 32);
+      v20 = 134218498;
+      v21 = v8;
+      v22 = 2114;
+      v23 = objc_opt_class();
+      v24 = 2048;
+      v25 = v6;
+      v9 = v23;
+      v10 = "CloudLibrary %p - Background operation of type %{public}@ %p completed with status CloudLibraryOperationStatusSuccess.";
     }
 
     else
     {
       if ([v6 status] == 2)
       {
-        v12 = *(a1 + 32);
-        v13 = [objc_opt_class() logCategory];
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v11 = [objc_opt_class() logCategory];
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = *(a1 + 32);
-          v24 = 134218498;
-          v25 = v14;
-          v26 = 2114;
-          v27 = objc_opt_class();
-          v28 = 2048;
-          v29 = v6;
-          v15 = v27;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Background operation of type %{public}@ %p completed with status CloudLibraryOperationStatusFailed.", &v24, 0x20u);
+          v12 = *(a1 + 32);
+          v20 = 134218498;
+          v21 = v12;
+          v22 = 2114;
+          v23 = objc_opt_class();
+          v24 = 2048;
+          v25 = v6;
+          v13 = v23;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Background operation of type %{public}@ %p completed with status CloudLibraryOperationStatusFailed.", &v20, 0x20u);
         }
 
         [*(a1 + 32) _enqueueFailedOperation:v6];
-        v8 = [*(a1 + 32) underlyingConnection];
-        [v8 disconnect];
+        v7 = [*(a1 + 32) underlyingConnection];
+        [v7 disconnect];
         goto LABEL_10;
       }
 
       if ([v6 status] == 3)
       {
-        v17 = *(a1 + 32);
-        v8 = [objc_opt_class() logCategory];
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v7 = [objc_opt_class() logCategory];
+        if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_10;
         }
 
-        v18 = *(a1 + 32);
-        v24 = 134218498;
-        v25 = v18;
-        v26 = 2114;
-        v27 = objc_opt_class();
-        v28 = 2048;
-        v29 = v6;
-        v10 = v27;
-        v11 = "CloudLibrary %p - Background operation of type %{public}@ %p completed with status CloudLibraryOperationStatusPermanentlyFailed.";
+        v15 = *(a1 + 32);
+        v20 = 134218498;
+        v21 = v15;
+        v22 = 2114;
+        v23 = objc_opt_class();
+        v24 = 2048;
+        v25 = v6;
+        v9 = v23;
+        v10 = "CloudLibrary %p - Background operation of type %{public}@ %p completed with status CloudLibraryOperationStatusPermanentlyFailed.";
       }
 
       else
       {
-        v19 = [v6 status];
-        v20 = *(a1 + 32);
-        v8 = [objc_opt_class() logCategory];
-        v21 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-        if (v19 == 4)
+        v16 = [v6 status];
+        v7 = [objc_opt_class() logCategory];
+        v17 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+        if (v16 == 4)
         {
-          if (!v21)
+          if (!v17)
           {
             goto LABEL_10;
           }
 
-          v22 = *(a1 + 32);
-          v24 = 134218498;
-          v25 = v22;
-          v26 = 2114;
-          v27 = objc_opt_class();
-          v28 = 2048;
-          v29 = v6;
-          v10 = v27;
-          v11 = "CloudLibrary %p - Background operation of type %{public}@ %p completed with status CloudLibraryOperationStatusCancelled.";
+          v18 = *(a1 + 32);
+          v20 = 134218498;
+          v21 = v18;
+          v22 = 2114;
+          v23 = objc_opt_class();
+          v24 = 2048;
+          v25 = v6;
+          v9 = v23;
+          v10 = "CloudLibrary %p - Background operation of type %{public}@ %p completed with status CloudLibraryOperationStatusCancelled.";
         }
 
         else
         {
-          if (!v21)
+          if (!v17)
           {
             goto LABEL_10;
           }
 
-          v23 = *(a1 + 32);
-          v24 = 134218498;
-          v25 = v23;
-          v26 = 2114;
-          v27 = objc_opt_class();
-          v28 = 2048;
-          v29 = v6;
-          v10 = v27;
-          v11 = "CloudLibrary %p - BACKGROUND OPERATION FAILED TO SET STATUS %{public}@ %p";
+          v19 = *(a1 + 32);
+          v20 = 134218498;
+          v21 = v19;
+          v22 = 2114;
+          v23 = objc_opt_class();
+          v24 = 2048;
+          v25 = v6;
+          v9 = v23;
+          v10 = "CloudLibrary %p - BACKGROUND OPERATION FAILED TO SET STATUS %{public}@ %p";
         }
       }
     }
 
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v11, &v24, 0x20u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v10, &v20, 0x20u);
 
     goto LABEL_10;
   }
 
 LABEL_11:
-  v16 = *(a1 + 40);
-  if (v16)
+  v14 = *(a1 + 40);
+  if (v14)
   {
-    (*(v16 + 16))(v16, v3, v4, v5);
+    (*(v14 + 16))(v14, v3, v4, v5);
   }
 }
 
@@ -427,125 +415,121 @@ void sub_1000852EC(uint64_t a1)
   {
     if ([WeakRetained status] == 1)
     {
-      v7 = *(a1 + 32);
-      v8 = [objc_opt_class() logCategory];
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = [objc_opt_class() logCategory];
+      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_10:
 
         goto LABEL_11;
       }
 
-      v9 = *(a1 + 32);
-      v24 = 134218498;
-      v25 = v9;
-      v26 = 2114;
-      v27 = objc_opt_class();
-      v28 = 2048;
-      v29 = v6;
-      v10 = v27;
-      v11 = "CloudLibrary %p - Operation of type %{public}@ %p completed with status CloudLibraryOperationStatusSuccess.";
+      v8 = *(a1 + 32);
+      v20 = 134218498;
+      v21 = v8;
+      v22 = 2114;
+      v23 = objc_opt_class();
+      v24 = 2048;
+      v25 = v6;
+      v9 = v23;
+      v10 = "CloudLibrary %p - Operation of type %{public}@ %p completed with status CloudLibraryOperationStatusSuccess.";
     }
 
     else
     {
       if ([v6 status] == 2)
       {
-        v12 = *(a1 + 32);
-        v13 = [objc_opt_class() logCategory];
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v11 = [objc_opt_class() logCategory];
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = *(a1 + 32);
-          v24 = 134218498;
-          v25 = v14;
-          v26 = 2114;
-          v27 = objc_opt_class();
-          v28 = 2048;
-          v29 = v6;
-          v15 = v27;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Operation of type %{public}@ %p completed with status CloudLibraryOperationStatusFailed.", &v24, 0x20u);
+          v12 = *(a1 + 32);
+          v20 = 134218498;
+          v21 = v12;
+          v22 = 2114;
+          v23 = objc_opt_class();
+          v24 = 2048;
+          v25 = v6;
+          v13 = v23;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Operation of type %{public}@ %p completed with status CloudLibraryOperationStatusFailed.", &v20, 0x20u);
         }
 
         [*(a1 + 32) _enqueueFailedOperation:v6];
-        v8 = [*(a1 + 32) underlyingConnection];
-        [v8 disconnect];
+        v7 = [*(a1 + 32) underlyingConnection];
+        [v7 disconnect];
         goto LABEL_10;
       }
 
       if ([v6 status] == 3)
       {
-        v17 = *(a1 + 32);
-        v8 = [objc_opt_class() logCategory];
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v7 = [objc_opt_class() logCategory];
+        if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_10;
         }
 
-        v18 = *(a1 + 32);
-        v24 = 134218498;
-        v25 = v18;
-        v26 = 2114;
-        v27 = objc_opt_class();
-        v28 = 2048;
-        v29 = v6;
-        v10 = v27;
-        v11 = "CloudLibrary %p - Operation of type %{public}@ %p completed with status CloudLibraryOperationStatusPermanentlyFailed.";
+        v15 = *(a1 + 32);
+        v20 = 134218498;
+        v21 = v15;
+        v22 = 2114;
+        v23 = objc_opt_class();
+        v24 = 2048;
+        v25 = v6;
+        v9 = v23;
+        v10 = "CloudLibrary %p - Operation of type %{public}@ %p completed with status CloudLibraryOperationStatusPermanentlyFailed.";
       }
 
       else
       {
-        v19 = [v6 status];
-        v20 = *(a1 + 32);
-        v8 = [objc_opt_class() logCategory];
-        v21 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-        if (v19 == 4)
+        v16 = [v6 status];
+        v7 = [objc_opt_class() logCategory];
+        v17 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+        if (v16 == 4)
         {
-          if (!v21)
+          if (!v17)
           {
             goto LABEL_10;
           }
 
-          v22 = *(a1 + 32);
-          v24 = 134218498;
-          v25 = v22;
-          v26 = 2114;
-          v27 = objc_opt_class();
-          v28 = 2048;
-          v29 = v6;
-          v10 = v27;
-          v11 = "CloudLibrary %p - Operation of type %{public}@ %p completed with status CloudLibraryOperationStatusCancelled.";
+          v18 = *(a1 + 32);
+          v20 = 134218498;
+          v21 = v18;
+          v22 = 2114;
+          v23 = objc_opt_class();
+          v24 = 2048;
+          v25 = v6;
+          v9 = v23;
+          v10 = "CloudLibrary %p - Operation of type %{public}@ %p completed with status CloudLibraryOperationStatusCancelled.";
         }
 
         else
         {
-          if (!v21)
+          if (!v17)
           {
             goto LABEL_10;
           }
 
-          v23 = *(a1 + 32);
-          v24 = 134218498;
-          v25 = v23;
-          v26 = 2114;
-          v27 = objc_opt_class();
-          v28 = 2048;
-          v29 = v6;
-          v10 = v27;
-          v11 = "CloudLibrary %p - OPERATION FAILED TO SET STATUS %{public}@ %p";
+          v19 = *(a1 + 32);
+          v20 = 134218498;
+          v21 = v19;
+          v22 = 2114;
+          v23 = objc_opt_class();
+          v24 = 2048;
+          v25 = v6;
+          v9 = v23;
+          v10 = "CloudLibrary %p - OPERATION FAILED TO SET STATUS %{public}@ %p";
         }
       }
     }
 
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v11, &v24, 0x20u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v10, &v20, 0x20u);
 
     goto LABEL_10;
   }
 
 LABEL_11:
-  v16 = *(a1 + 40);
-  if (v16)
+  v14 = *(a1 + 40);
+  if (v14)
   {
-    (*(v16 + 16))(v16, v3, v4, v5);
+    (*(v14 + 16))(v14, v3, v4, v5);
   }
 }
 
@@ -815,7 +799,7 @@ void sub_100087A40(uint64_t a1)
     {
       v3 = *(a1 + 32);
       *buf = 138543362;
-      v39 = v3;
+      v38 = v3;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - Cloud library update already in progress, attaching completion handler.", buf, 0xCu);
     }
 
@@ -831,44 +815,43 @@ void sub_100087A40(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v11 = *(a1 + 64);
-      v12 = ICCloudClientGetStringForRequestReason();
+      v11 = ICCloudClientGetStringForRequestReason();
       *buf = 138543618;
-      v39 = v10;
-      v40 = 2114;
-      v41 = v12;
+      v38 = v10;
+      v39 = 2114;
+      v40 = v11;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ - Enqueuing update cloud library operation (requestReason = %{public}@)", buf, 0x16u);
     }
 
-    v13 = +[ICDServer server];
-    v7 = [v13 daemonOptionsForConfiguration:*(*(a1 + 32) + 96)];
+    v12 = +[ICDServer server];
+    v7 = [v12 daemonOptionsForConfiguration:*(*(a1 + 32) + 96)];
 
-    v14 = [v7 prohibitLibraryUpload];
-    v15 = [v7 prohibitArtworkPrefetch];
-    v16 = +[ICDeviceInfo currentDeviceInfo];
-    v17 = v15 ^ 1;
-    if ([v16 isWatch])
+    v13 = [v7 prohibitLibraryUpload];
+    v14 = [v7 prohibitArtworkPrefetch];
+    v15 = +[ICDeviceInfo currentDeviceInfo];
+    v16 = v14 ^ 1;
+    if ([v15 isWatch])
     {
-      v18 = +[ICEnvironmentMonitor sharedMonitor];
-      v19 = [v18 isCharging];
+      v17 = +[ICEnvironmentMonitor sharedMonitor];
+      v18 = [v17 isCharging];
 
-      if (v19)
+      if (v18)
       {
 LABEL_20:
-        v20 = *(*(a1 + 32) + 96);
-        v21 = [[CloudUpdateLibraryOperation alloc] initWithConfiguration:v20 clientIdentity:*(a1 + 40) reason:*(a1 + 64) updateTaskHelper:*(*(a1 + 32) + 88)];
-        v22 = *(*(a1 + 32) + 56);
-        *(*(a1 + 32) + 56) = v21;
+        v19 = *(*(a1 + 32) + 96);
+        v20 = [[CloudUpdateLibraryOperation alloc] initWithConfiguration:v19 clientIdentity:*(a1 + 40) reason:*(a1 + 64) updateTaskHelper:*(*(a1 + 32) + 88)];
+        v21 = *(*(a1 + 32) + 56);
+        *(*(a1 + 32) + 56) = v20;
 
-        v23 = *(a1 + 56);
-        if (v23)
+        v22 = *(a1 + 56);
+        if (v22)
         {
-          v24 = *(*(a1 + 32) + 64);
-          v25 = [v23 copy];
-          [v24 addObject:v25];
+          v23 = *(*(a1 + 32) + 64);
+          v24 = [v22 copy];
+          [v23 addObject:v24];
         }
 
-        [*(*(a1 + 32) + 56) setUploadingLibraryIsSupported:v14 ^ 1];
+        [*(*(a1 + 32) + 56) setUploadingLibraryIsSupported:v13 ^ 1];
         [*(*(a1 + 32) + 56) setAllowNoisyAuthPrompt:*(a1 + 72)];
         [*(*(a1 + 32) + 56) setIsExplicitUserAction:*(a1 + 73)];
         if (*(a1 + 74) == 1 && *(a1 + 64) == 9)
@@ -878,42 +861,42 @@ LABEL_20:
 
         objc_initWeak(&location, *(a1 + 32));
         objc_initWeak(&from, *(*(a1 + 32) + 56));
-        v28 = _NSConcreteStackBlock;
-        v29 = 3221225472;
-        v30 = sub_100087F90;
-        v31 = &unk_1001DC498;
-        objc_copyWeak(&v33, &location);
-        objc_copyWeak(&v34, &from);
-        v35 = v17;
-        v32 = *(a1 + 40);
-        [*(*(a1 + 32) + 56) setCompletionBlock:&v28];
-        [*(*(a1 + 32) + 56) setName:{@"com.apple.itunescloudd.SagaRequestHandler.updateLibraryOperation", v28, v29, v30, v31}];
+        v27 = _NSConcreteStackBlock;
+        v28 = 3221225472;
+        v29 = sub_100087F90;
+        v30 = &unk_1001DC498;
+        objc_copyWeak(&v32, &location);
+        objc_copyWeak(&v33, &from);
+        v34 = v16;
+        v31 = *(a1 + 40);
+        [*(*(a1 + 32) + 56) setCompletionBlock:&v27];
+        [*(*(a1 + 32) + 56) setName:{@"com.apple.itunescloudd.SagaRequestHandler.updateLibraryOperation", v27, v28, v29, v30}];
         [*(a1 + 48) addOperation:*(*(a1 + 32) + 56) priority:2];
-        v26 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v25 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = *(a1 + 32);
+          v26 = *(a1 + 32);
           *buf = 138543362;
-          v39 = v27;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ - Posting Saga update in progress changed notification", buf, 0xCu);
+          v38 = v26;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ - Posting Saga update in progress changed notification", buf, 0xCu);
         }
 
-        objc_destroyWeak(&v34);
         objc_destroyWeak(&v33);
+        objc_destroyWeak(&v32);
         objc_destroyWeak(&from);
         objc_destroyWeak(&location);
 
         goto LABEL_28;
       }
 
-      v16 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Not performing artwork update because power is required", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Not performing artwork update because power is required", buf, 2u);
       }
 
-      v17 = 0;
+      v16 = 0;
     }
 
     goto LABEL_20;
@@ -927,7 +910,7 @@ LABEL_20:
     {
       v8 = *(a1 + 32);
       *buf = 138543362;
-      v39 = v8;
+      v38 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ - Will perform a followup cloud update to reconcile pins", buf, 0xCu);
     }
 
@@ -2871,9 +2854,9 @@ void sub_100093F48(double *a1)
   *(v18 + 72) = 0;
 }
 
-void sub_1000942B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000942B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3401,48 +3384,8 @@ void sub_10009C048(uint64_t a1, void *a2)
 {
   v3 = [a2 dictionaryForBagKey:ICURLBagKeyPurchaseDAAP];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) == 0 || ((ICGetCloudDAAPClientPrefix(), v4 = objc_claimAutoreleasedReturnValue(), [v4 stringByAppendingString:@"update-on-app-focus-enabled"], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "objectForKey:", v5), v6 = objc_claimAutoreleasedReturnValue(), (v7 = v6) == 0) ? (objc_msgSend(v3, "objectForKey:", @"update-on-app-focus-enabled"), v8 = objc_claimAutoreleasedReturnValue()) : (v8 = v6), (v9 = v8, v7, v5, v4, (objc_opt_respondsToSelector() & 1) == 0) ? (v10 = 0) : (v10 = objc_msgSend(v9, "BOOLValue")), (ICGetCloudDAAPClientPrefix(), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "stringByAppendingString:", @"update-polling-frequency-secs"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "objectForKey:", v12), v13 = objc_claimAutoreleasedReturnValue(), (v14 = v13) == 0) ? (objc_msgSend(v3, "objectForKey:", @"update-polling-frequency-secs"), v15 = objc_claimAutoreleasedReturnValue()) : (v15 = v13), (v16 = v15, v14, v12, v11, (objc_opt_respondsToSelector() & 1) == 0) ? (v17 = 900.0) : (v17 = objc_msgSend(v16, "intValue")), v16, v9, !v10))
   {
-    goto LABEL_23;
-  }
-
-  v4 = ICGetCloudDAAPClientPrefix();
-  v5 = [v4 stringByAppendingString:@"update-on-app-focus-enabled"];
-  v6 = [v3 objectForKey:v5];
-  v7 = v6;
-  if (v6)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    v8 = [v3 objectForKey:@"update-on-app-focus-enabled"];
-  }
-
-  v9 = v8;
-
-  v10 = (objc_opt_respondsToSelector() & 1) != 0 ? [v9 BOOLValue] : 0;
-  v11 = ICGetCloudDAAPClientPrefix();
-  v12 = [v11 stringByAppendingString:@"update-polling-frequency-secs"];
-  v13 = [v3 objectForKey:v12];
-  v14 = v13;
-  if (v13)
-  {
-    v15 = v13;
-  }
-
-  else
-  {
-    v15 = [v3 objectForKey:@"update-polling-frequency-secs"];
-  }
-
-  v16 = v15;
-
-  v17 = (objc_opt_respondsToSelector() & 1) != 0 ? [v16 intValue] : 900.0;
-  if (!v10)
-  {
-LABEL_23:
     v26 = os_log_create("com.apple.amp.itunescloudd", "XPC");
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
@@ -4297,18 +4240,18 @@ LABEL_25:
   return v27;
 }
 
-void sub_1000A7B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A7B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4585,9 +4528,11 @@ void *sub_1000A8FEC(void *result)
 
 void sub_1000A92DC(id a1)
 {
-  qword_100213C98 = [[CloudMusicSubscriptionStatusServiceListener alloc] _init];
+  v1 = [[CloudMusicSubscriptionStatusServiceListener alloc] _init];
+  v2 = qword_100213C98;
+  qword_100213C98 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000A9C80(uint64_t a1, void *a2)
@@ -5323,7 +5268,7 @@ void sub_1000AE3DC(uint64_t a1)
       {
         v7 = *(a1 + 32);
         *buf = 138543362;
-        v41 = v7;
+        v40 = v7;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - Update library operation in progress, attaching completion handler.", buf, 0xCu);
       }
 
@@ -5391,37 +5336,36 @@ void sub_1000AE3DC(uint64_t a1)
     {
       v24 = v18 == 0;
       v25 = *(a1 + 32);
-      v26 = *(a1 + 80);
-      v27 = ICCloudClientGetStringForRequestReason();
-      v28 = *(*(a1 + 32) + 64);
+      v26 = ICCloudClientGetStringForRequestReason();
+      v27 = *(*(a1 + 32) + 64);
       *buf = 138544386;
-      v41 = v25;
-      v42 = 2114;
-      v43 = v27;
-      v44 = 1024;
-      v45 = v24;
-      v46 = 1024;
-      v47 = v17;
-      v48 = 2048;
-      v49 = v28;
+      v40 = v25;
+      v41 = 2114;
+      v42 = v26;
+      v43 = 1024;
+      v44 = v24;
+      v45 = 1024;
+      v46 = v17;
+      v47 = 2048;
+      v48 = v27;
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ - Updating media purchase history - Reason=%{public}@ - isInitialImport=%{BOOL}u - prefetchArtwork=%{BOOL}u, _updateLibraryOperation=%p", buf, 0x2Cu);
     }
 
     [*(*(a1 + 32) + 40) startingUpdateOperationForLibraryType:0 isInitialImport:*(a1 + 80) == 1];
     objc_initWeak(&location, *(a1 + 32));
     objc_initWeak(&from, *(*(a1 + 32) + 64));
-    v29 = *(*(a1 + 32) + 64);
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_1000AE960;
-    v32[3] = &unk_1001DC970;
-    objc_copyWeak(&v34, &location);
-    objc_copyWeak(v35, &from);
-    v35[1] = *(a1 + 80);
-    v36 = v19;
-    v37 = v17;
-    v33 = *(a1 + 40);
-    [v29 setCompletionBlock:v32];
+    v28 = *(*(a1 + 32) + 64);
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1000AE960;
+    v31[3] = &unk_1001DC970;
+    objc_copyWeak(&v33, &location);
+    objc_copyWeak(v34, &from);
+    v34[1] = *(a1 + 80);
+    v35 = v19;
+    v36 = v17;
+    v32 = *(a1 + 40);
+    [v28 setCompletionBlock:v31];
     if ([*(*(a1 + 32) + 64) isInitialImport])
     {
       [*(a1 + 32) cancelPendingChanges];
@@ -5430,17 +5374,17 @@ void sub_1000AE3DC(uint64_t a1)
     [*(*(a1 + 32) + 64) setName:@"com.apple.itunescloudd.JaliscoRequestHandler.updateLibraryOperation"];
     [*(a1 + 64) addOperation:*(*(a1 + 32) + 64) priority:2];
     notify_post("com.apple.itunescloudd.jaliscoUpdateInProgressChanged");
-    v30 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = os_log_create("com.apple.amp.itunescloudd", "PurchaseSync");
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = *(a1 + 32);
+      v30 = *(a1 + 32);
       *buf = 138543362;
-      v41 = v31;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ - Posting Jalisco update in progress notification", buf, 0xCu);
+      v40 = v30;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ - Posting Jalisco update in progress notification", buf, 0xCu);
     }
 
-    objc_destroyWeak(v35);
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
@@ -5570,9 +5514,9 @@ void sub_1000AEBC4(uint64_t a1)
   *(v19 + 64) = 0;
 }
 
-void sub_1000AEF0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AEF0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5589,11 +5533,11 @@ id sub_1000AEF24(uint64_t a1)
   return result;
 }
 
-void sub_1000AF05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AF05C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5626,11 +5570,12 @@ void sub_1000AF3B0(uint64_t a1)
   *(v2 + 64) = 0;
 }
 
-void sub_1000AFFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
+void sub_1000AFFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
 {
+  va_start(va, a41);
   _Block_object_dispose(&a34, 8);
   _Block_object_dispose(&a38, 8);
-  _Block_object_dispose(&a42, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5965,6 +5910,13 @@ uint64_t sub_1000B00E8(uint64_t a1, void *a2)
   return v70 & 1;
 }
 
+void sub_1000B0FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1000B0FDC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -5972,63 +5924,62 @@ void sub_1000B0FDC(uint64_t a1, void *a2, void *a3)
   v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = *(a1 + 32);
-    v12 = [v11 method];
-    v13 = @"POST";
-    if (!v12)
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = *(a1 + 32);
+    v11 = [v10 method];
+    v12 = @"POST";
+    if (!v11)
     {
-      v13 = @"GET";
+      v12 = @"GET";
     }
 
-    v25 = v13;
-    v14 = [*(a1 + 32) action];
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v17 = [v5 responseCode];
-    v18 = [v5 responseData];
+    v24 = v12;
+    v13 = [*(a1 + 32) action];
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    v16 = [v5 responseCode];
+    v17 = [v5 responseData];
     *buf = 138545154;
-    v27 = v10;
-    v28 = 2048;
-    v29 = v11;
-    v30 = 2114;
-    v31 = v25;
-    v32 = 2114;
-    v33 = v14;
-    v34 = 2114;
-    v35 = v16;
-    v36 = 2048;
-    v37 = v5;
-    v38 = 2048;
-    v39 = v17;
-    v40 = 2048;
-    v41 = [v18 length];
+    v26 = v9;
+    v27 = 2048;
+    v28 = v10;
+    v29 = 2114;
+    v30 = v24;
+    v31 = 2114;
+    v32 = v13;
+    v33 = 2114;
+    v34 = v15;
+    v35 = 2048;
+    v36 = v5;
+    v37 = 2048;
+    v38 = v16;
+    v39 = 2048;
+    v40 = [v17 length];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p method=%{public}@ action=%{public}@> received response: <%{public}@: %p code=%ld, length=%{bytes}lu>", buf, 0x52u);
   }
 
   if (v6)
   {
-    v19 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      v20 = *(a1 + 40);
+      v20 = *(a1 + 32);
+      v19 = *(a1 + 40);
       *buf = 138543874;
-      v27 = v20;
-      v28 = 2114;
-      v29 = v21;
-      v30 = 2114;
-      v31 = v6;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed with error: %{public}@", buf, 0x20u);
+      v26 = v19;
+      v27 = 2114;
+      v28 = v20;
+      v29 = 2114;
+      v30 = v6;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed with error: %{public}@", buf, 0x20u);
     }
   }
 
-  v22 = *(*(a1 + 56) + 8);
-  v23 = *(v22 + 40);
-  *(v22 + 40) = v5;
-  v24 = v5;
+  v21 = *(*(a1 + 56) + 8);
+  v22 = *(v21 + 40);
+  *(v21 + 40) = v5;
+  v23 = v5;
 
   [*(a1 + 40) setError:v6];
   dispatch_semaphore_signal(*(a1 + 48));
@@ -6080,9 +6031,9 @@ void sub_1000B13D4(uint64_t a1)
   v3[2](v3, v2);
 }
 
-void sub_1000B4000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B4000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6271,7 +6222,7 @@ void sub_1000B7948(uint64_t a1, void *a2, void *a3)
     {
       v8 = [v6 msv_description];
       *buf = 138543362;
-      v40 = v8;
+      v39 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Failed to complete artist update request error=%{public}@", buf, 0xCu);
     }
   }
@@ -6284,7 +6235,7 @@ void sub_1000B7948(uint64_t a1, void *a2, void *a3)
     {
       v11 = *(a1 + 32);
       *buf = 138543362;
-      v40 = v11;
+      v39 = v11;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@ Received non-200 response for artists request, failing update", buf, 0xCu);
     }
 
@@ -6317,24 +6268,24 @@ void sub_1000B7948(uint64_t a1, void *a2, void *a3)
           v15 = *(a1 + 32);
           v16 = [*(a1 + 48) count];
           *buf = 138543618;
-          v40 = v15;
-          v41 = 1024;
-          *v42 = v16;
+          v39 = v15;
+          v40 = 1024;
+          *v41 = v16;
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ Server requested restart for artists request. clearing %d previous pages and starting again...", buf, 0x12u);
         }
 
         v17 = +[NSFileManager defaultManager];
         v18 = *(a1 + 56);
-        v38 = 0;
-        v19 = [v17 removeItemAtPath:v18 error:&v38];
-        v20 = v38;
+        v37 = 0;
+        v19 = [v17 removeItemAtPath:v18 error:&v37];
+        v20 = v37;
         if ((v19 & 1) == 0)
         {
           v21 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v40 = v20;
+            v39 = v20;
             _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to remove obsolete items DAAP files with error: %@", buf, 0xCu);
           }
         }
@@ -6359,15 +6310,15 @@ void sub_1000B7948(uint64_t a1, void *a2, void *a3)
           v30 = [(SagaImportController *)v13 processedItemCount];
           v31 = [(SagaImportController *)v13 totalItemCount];
           *buf = 138544386;
-          v40 = v28;
-          v41 = 1024;
-          *v42 = v29;
-          *&v42[4] = 2048;
-          *&v42[6] = (v25 * 100.0);
-          v43 = 1024;
-          v44 = v30;
-          v45 = 1024;
-          v46 = v31;
+          v39 = v28;
+          v40 = 1024;
+          *v41 = v29;
+          *&v41[4] = 2048;
+          *&v41[6] = (v25 * 100.0);
+          v42 = 1024;
+          v43 = v30;
+          v44 = 1024;
+          v45 = v31;
           _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ Downloaded artists response contains %u artists -- overall progress = %.0f%% (%u/%u)", buf, 0x28u);
         }
 
@@ -6382,9 +6333,9 @@ void sub_1000B7948(uint64_t a1, void *a2, void *a3)
           {
             v35 = *(a1 + 32);
             *buf = 138543618;
-            v40 = v35;
-            v41 = 2114;
-            *v42 = v17;
+            v39 = v35;
+            v40 = 2114;
+            *v41 = v17;
             _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ Requesting next batch of artist data with token: %{public}@", buf, 0x16u);
           }
 
@@ -6397,11 +6348,10 @@ void sub_1000B7948(uint64_t a1, void *a2, void *a3)
           {
             v36 = *(a1 + 32);
             *buf = 138543362;
-            v40 = v36;
+            v39 = v36;
             _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished fetching artist data", buf, 0xCu);
           }
 
-          v37 = *(a1 + 48);
           (*(*(a1 + 64) + 16))();
         }
       }
@@ -6421,9 +6371,9 @@ void sub_1000B82BC(uint64_t a1, void *a2, void *a3)
       v8 = *(a1 + 32);
       v9 = [v6 msv_description];
       *buf = 138543618;
-      v42 = v8;
-      v43 = 2114;
-      *v44 = v9;
+      v41 = v8;
+      v42 = 2114;
+      *v43 = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to complete albums update request error=%{public}@", buf, 0x16u);
     }
   }
@@ -6436,7 +6386,7 @@ void sub_1000B82BC(uint64_t a1, void *a2, void *a3)
     {
       v12 = *(a1 + 32);
       *buf = 138543362;
-      v42 = v12;
+      v41 = v12;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@ Received non-200 response for albums request, failing update", buf, 0xCu);
     }
 
@@ -6469,17 +6419,17 @@ void sub_1000B82BC(uint64_t a1, void *a2, void *a3)
           v16 = *(a1 + 32);
           v17 = [*(a1 + 48) count];
           *buf = 138543618;
-          v42 = v16;
-          v43 = 1024;
-          *v44 = v17;
+          v41 = v16;
+          v42 = 1024;
+          *v43 = v17;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ Server requested restart for albums request. clearing %d previous pages and starting again...", buf, 0x12u);
         }
 
         v18 = +[NSFileManager defaultManager];
         v19 = *(a1 + 56);
-        v40 = 0;
-        v20 = [v18 removeItemAtPath:v19 error:&v40];
-        v21 = v40;
+        v39 = 0;
+        v20 = [v18 removeItemAtPath:v19 error:&v39];
+        v21 = v39;
         if ((v20 & 1) == 0)
         {
           v22 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
@@ -6487,9 +6437,9 @@ void sub_1000B82BC(uint64_t a1, void *a2, void *a3)
           {
             v23 = *(a1 + 32);
             *buf = 138543618;
-            v42 = v23;
-            v43 = 2112;
-            *v44 = v21;
+            v41 = v23;
+            v42 = 2112;
+            *v43 = v21;
             _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}@ Failed to remove obsolete items DAAP files with error: %@", buf, 0x16u);
           }
         }
@@ -6514,15 +6464,15 @@ void sub_1000B82BC(uint64_t a1, void *a2, void *a3)
           v32 = [(SagaImportController *)v14 processedItemCount];
           v33 = [(SagaImportController *)v14 totalItemCount];
           *buf = 138544386;
-          v42 = v30;
-          v43 = 1024;
-          *v44 = v31;
-          *&v44[4] = 2048;
-          *&v44[6] = (v27 * 100.0);
-          v45 = 1024;
-          v46 = v32;
-          v47 = 1024;
-          v48 = v33;
+          v41 = v30;
+          v42 = 1024;
+          *v43 = v31;
+          *&v43[4] = 2048;
+          *&v43[6] = (v27 * 100.0);
+          v44 = 1024;
+          v45 = v32;
+          v46 = 1024;
+          v47 = v33;
           _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ Downloaded albums response contains %u albums -- overall progress = %.0f%% (%u/%u)", buf, 0x28u);
         }
 
@@ -6537,9 +6487,9 @@ void sub_1000B82BC(uint64_t a1, void *a2, void *a3)
           {
             v37 = *(a1 + 32);
             *buf = 138543618;
-            v42 = v37;
-            v43 = 2114;
-            *v44 = v18;
+            v41 = v37;
+            v42 = 2114;
+            *v43 = v18;
             _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ Requesting next batch of album data with token: %{public}@", buf, 0x16u);
           }
 
@@ -6552,11 +6502,10 @@ void sub_1000B82BC(uint64_t a1, void *a2, void *a3)
           {
             v38 = *(a1 + 32);
             *buf = 138543362;
-            v42 = v38;
+            v41 = v38;
             _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished fetching album data", buf, 0xCu);
           }
 
-          v39 = *(a1 + 48);
           (*(*(a1 + 64) + 16))();
         }
       }
@@ -6575,11 +6524,11 @@ void sub_1000B8B48(uint64_t a1, void *a2, void *a3)
     {
       v8 = *(a1 + 32);
       v9 = [v6 msv_description];
-      v19 = 138543618;
-      v20 = v8;
-      v21 = 2114;
-      v22 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to complete pins update request error=%{public}@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to complete pins update request error=%{public}@", &v18, 0x16u);
     }
   }
 
@@ -6590,9 +6539,9 @@ void sub_1000B8B48(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = *(a1 + 32);
-      v19 = 138543362;
-      v20 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@ Received non-200 response for pins request, failing update", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@ Received non-200 response for pins request, failing update", &v18, 0xCu);
     }
 
     v10 = [NSError errorWithDomain:@"SagaImporterErrorDomain" code:-5 userInfo:0];
@@ -6612,13 +6561,12 @@ LABEL_16:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = *(a1 + 32);
-      v19 = 138543362;
-      v20 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished fetching pins data", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished fetching pins data", &v18, 0xCu);
     }
 
     [*(a1 + 32) _updateProgressWithItemsProgress:0.0 albumsProgress:0.0 artistsProgress:0.0 playlistProgress:0.0 importerProgress:0.0];
-    v18 = *(a1 + 40);
     v13 = *(*(a1 + 48) + 16);
     goto LABEL_16;
   }
@@ -6641,11 +6589,11 @@ void sub_1000B9104(uint64_t a1, void *a2, void *a3)
     {
       v8 = *(a1 + 32);
       v9 = [v6 msv_description];
-      v20 = 138543618;
-      v21 = v8;
-      v22 = 2114;
-      v23 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to complete playlist update request error=%{public}@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v8;
+      v21 = 2114;
+      v22 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to complete playlist update request error=%{public}@", &v19, 0x16u);
     }
   }
 
@@ -6656,9 +6604,9 @@ void sub_1000B9104(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = *(a1 + 32);
-      v20 = 138543362;
-      v21 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@ Received non-200 response for playlist request, failing update", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@ Received non-200 response for playlist request, failing update", &v19, 0xCu);
     }
 
     v10 = [NSError errorWithDomain:@"SagaImporterErrorDomain" code:-5 userInfo:0];
@@ -6678,14 +6626,13 @@ LABEL_16:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = *(a1 + 32);
-      v20 = 138543362;
-      v21 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished fetching playlist data", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished fetching playlist data", &v19, 0xCu);
     }
 
     LODWORD(v18) = 1.0;
     [*(a1 + 32) _updateProgressWithItemsProgress:0.0 albumsProgress:0.0 artistsProgress:0.0 playlistProgress:v18 importerProgress:0.0];
-    v19 = *(a1 + 40);
     v13 = *(*(a1 + 48) + 16);
     goto LABEL_16;
   }
@@ -6709,9 +6656,9 @@ void sub_1000B96D4(uint64_t a1, void *a2, void *a3)
       v8 = *(a1 + 32);
       v9 = [v6 msv_description];
       *buf = 138543618;
-      v49 = v8;
-      v50 = 2114;
-      *v51 = v9;
+      v47 = v8;
+      v48 = 2114;
+      *v49 = v9;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@ Failed to complete playlist update request error=%{public}@", buf, 0x16u);
     }
   }
@@ -6724,7 +6671,7 @@ void sub_1000B96D4(uint64_t a1, void *a2, void *a3)
     {
       v12 = *(a1 + 32);
       *buf = 138543362;
-      v49 = v12;
+      v47 = v12;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@ Received non-200 response for playlist request, failing update", buf, 0xCu);
     }
 
@@ -6757,17 +6704,17 @@ void sub_1000B96D4(uint64_t a1, void *a2, void *a3)
           v16 = *(a1 + 32);
           v17 = [*(a1 + 48) count];
           *buf = 138543618;
-          v49 = v16;
-          v50 = 1024;
-          *v51 = v17;
+          v47 = v16;
+          v48 = 1024;
+          *v49 = v17;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ Server requested restart for items request. clearing %d previous pages and starting again...", buf, 0x12u);
         }
 
         v18 = +[NSFileManager defaultManager];
         v19 = *(a1 + 56);
-        v47 = 0;
-        v20 = [v18 removeItemAtPath:v19 error:&v47];
-        v21 = v47;
+        v45 = 0;
+        v20 = [v18 removeItemAtPath:v19 error:&v45];
+        v21 = v45;
         if ((v20 & 1) == 0)
         {
           v22 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
@@ -6775,9 +6722,9 @@ void sub_1000B96D4(uint64_t a1, void *a2, void *a3)
           {
             v23 = *(a1 + 32);
             *buf = 138543618;
-            v49 = v23;
-            v50 = 2112;
-            *v51 = v21;
+            v47 = v23;
+            v48 = 2112;
+            *v49 = v21;
             _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%{public}@ Failed to remove obsolete items DAAP files with error: %@", buf, 0x16u);
           }
         }
@@ -6814,15 +6761,15 @@ void sub_1000B96D4(uint64_t a1, void *a2, void *a3)
           v38 = [(SagaImportController *)v14 processedItemCount];
           v39 = [(SagaImportController *)v14 totalItemCount];
           *buf = 138544386;
-          v49 = v36;
+          v47 = v36;
+          v48 = 1024;
+          *v49 = v37;
+          *&v49[4] = 2048;
+          *&v49[6] = (v33 * 100.0);
           v50 = 1024;
-          *v51 = v37;
-          *&v51[4] = 2048;
-          *&v51[6] = (v33 * 100.0);
+          v51 = v38;
           v52 = 1024;
-          v53 = v38;
-          v54 = 1024;
-          v55 = v39;
+          v53 = v39;
           _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ Downloaded items response contains %u items -- overall progress = %.0f%% (%u/%u)", buf, 0x28u);
         }
 
@@ -6837,9 +6784,9 @@ void sub_1000B96D4(uint64_t a1, void *a2, void *a3)
           {
             v43 = *(a1 + 32);
             *buf = 138543618;
-            v49 = v43;
-            v50 = 2114;
-            *v51 = v18;
+            v47 = v43;
+            v48 = 2114;
+            *v49 = v18;
             _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%{public}@ Requesting next batch of item data with token: %{public}@", buf, 0x16u);
           }
 
@@ -6852,12 +6799,10 @@ void sub_1000B96D4(uint64_t a1, void *a2, void *a3)
           {
             v44 = *(a1 + 32);
             *buf = 138543362;
-            v49 = v44;
+            v47 = v44;
             _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished fetching items data", buf, 0xCu);
           }
 
-          v45 = *(a1 + 48);
-          v46 = *(a1 + 64);
           (*(*(a1 + 72) + 16))();
         }
       }
@@ -6958,28 +6903,32 @@ void sub_1000BA60C(uint64_t a1, uint64_t a2)
 uint64_t sub_1000BA66C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v5 = v3;
-    if ([v3 length])
+    v6 = v3;
+    v3 = [v3 length];
+    v4 = v6;
+    if (v3)
     {
-      [*(a1 + 32) addObject:v5];
+      v3 = [*(a1 + 32) addObject:v6];
+      v4 = v6;
     }
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v4);
 }
 
 void sub_1000BAE08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x210], 8);
   _Block_object_dispose(&STACK[0x240], 8);
   _Block_object_dispose(&STACK[0x270], 8);
-  _Block_object_dispose((v71 - 256), 8);
-  _Block_object_dispose((v71 - 208), 8);
-  _Block_object_dispose((v71 - 160), 8);
+  _Block_object_dispose((v66 - 256), 8);
+  _Block_object_dispose((v66 - 208), 8);
+  _Block_object_dispose((v66 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7101,7 +7050,7 @@ void sub_1000BB270(uint64_t a1)
     {
       v3 = *(a1 + 32);
       *buf = 138543362;
-      v53 = v3;
+      v52 = v3;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Stopping saga import as the operation is cancelled", buf, 0xCu);
     }
 
@@ -7122,13 +7071,12 @@ void sub_1000BB270(uint64_t a1)
         v9 = *(a1 + 32);
         v10 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138543618;
-        v53 = v9;
-        v54 = 2114;
-        v55 = v10;
+        v52 = v9;
+        v53 = 2114;
+        v54 = v10;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@ Failed to obtain updated library data. err=%{public}@", buf, 0x16u);
       }
 
-      v11 = *(*(*(a1 + 48) + 8) + 40);
       (*(*(a1 + 40) + 16))();
     }
 
@@ -7136,91 +7084,91 @@ void sub_1000BB270(uint64_t a1)
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 32);
+        v11 = *(a1 + 32);
         *buf = 138543362;
-        v53 = v12;
+        v52 = v11;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Metadata update complete - starting import", buf, 0xCu);
       }
 
-      v13 = *(a1 + 32);
-      v15 = *(v13 + 40);
-      v14 = *(v13 + 44);
-      v16 = *(*(*(a1 + 56) + 8) + 40);
-      v51 = *(*(*(a1 + 64) + 8) + 40);
-      v17 = [NSArray arrayWithObjects:&v51 count:1];
-      v18 = *(*(*(a1 + 72) + 8) + 40);
-      v19 = *(*(*(a1 + 80) + 8) + 40);
+      v12 = *(a1 + 32);
+      v14 = *(v12 + 40);
+      v13 = *(v12 + 44);
+      v15 = *(*(*(a1 + 56) + 8) + 40);
+      v50 = *(*(*(a1 + 64) + 8) + 40);
+      v16 = [NSArray arrayWithObjects:&v50 count:1];
+      v17 = *(*(*(a1 + 72) + 8) + 40);
+      v18 = *(*(*(a1 + 80) + 8) + 40);
       if (_os_feature_enabled_impl())
       {
-        v50 = *(*(*(a1 + 88) + 8) + 40);
-        v20 = [NSArray arrayWithObjects:&v50 count:1];
-        sub_1000E5FD8(2, v15, v14, v16, v17, v18, v19, v20);
+        v49 = *(*(*(a1 + 88) + 8) + 40);
+        v19 = [NSArray arrayWithObjects:&v49 count:1];
+        sub_1000E5FD8(2, v14, v13, v15, v16, v17, v18, v19);
       }
 
       else
       {
-        sub_1000E5FD8(2, v15, v14, v16, v17, v18, v19, 0);
+        sub_1000E5FD8(2, v14, v13, v15, v16, v17, v18, 0);
       }
 
-      v21 = *(a1 + 32);
-      v22 = v21[10];
-      v38 = v22 == 0;
-      if (!v22)
+      v20 = *(a1 + 32);
+      v21 = v20[10];
+      v37 = v21 == 0;
+      if (!v21)
       {
-        v49 = objc_opt_class();
-        v23 = [NSArray arrayWithObjects:&v49 count:1];
-        v24 = [*(a1 + 32) configuration];
-        [CloudKeepLocalUtilities downPinCollectionsForClasses:v23 configuration:v24];
+        v48 = objc_opt_class();
+        v22 = [NSArray arrayWithObjects:&v48 count:1];
+        v23 = [*(a1 + 32) configuration];
+        [CloudKeepLocalUtilities downPinCollectionsForClasses:v22 configuration:v23];
 
-        v21 = *(a1 + 32);
+        v20 = *(a1 + 32);
       }
 
-      v39 = [v21 _importDataFromResponseFileURLs:*(*(*(a1 + 56) + 8) + 40)];
-      v25 = [*(a1 + 32) _importDataFromResponseFileURLs:*(*(*(a1 + 72) + 8) + 40)];
-      v26 = [*(a1 + 32) _importDataFromResponseFileURLs:*(*(*(a1 + 80) + 8) + 40)];
-      v27 = *(a1 + 32);
-      v48 = *(*(*(a1 + 64) + 8) + 40);
-      v28 = [NSArray arrayWithObjects:&v48 count:1];
-      v29 = [v27 _importDataFromResponseFileURLs:v28];
+      v38 = [v20 _importDataFromResponseFileURLs:*(*(*(a1 + 56) + 8) + 40)];
+      v24 = [*(a1 + 32) _importDataFromResponseFileURLs:*(*(*(a1 + 72) + 8) + 40)];
+      v25 = [*(a1 + 32) _importDataFromResponseFileURLs:*(*(*(a1 + 80) + 8) + 40)];
+      v26 = *(a1 + 32);
+      v47 = *(*(*(a1 + 64) + 8) + 40);
+      v27 = [NSArray arrayWithObjects:&v47 count:1];
+      v28 = [v26 _importDataFromResponseFileURLs:v27];
 
       if (_os_feature_enabled_impl())
       {
-        v30 = *(a1 + 32);
-        v47 = *(*(*(a1 + 88) + 8) + 40);
-        v31 = [NSArray arrayWithObjects:&v47 count:1];
-        v32 = [v30 _importDataFromResponseFileURLs:v31];
+        v29 = *(a1 + 32);
+        v46 = *(*(*(a1 + 88) + 8) + 40);
+        v30 = [NSArray arrayWithObjects:&v46 count:1];
+        v31 = [v29 _importDataFromResponseFileURLs:v30];
       }
 
       else
       {
-        v32 = 0;
+        v31 = 0;
       }
 
-      v33 = [ML3MusicLibrary musicLibraryForUserAccount:*(*(a1 + 32) + 8)];
-      [v33 setClientIdentity:*(*(a1 + 32) + 24)];
-      v34 = [v33 databasePath];
-      v35 = [[ML3DatabaseImport alloc] initWithLibraryPath:v34 trackData:v39 playlistData:v29 albumArtistData:v25 albumData:v26 libraryPinsData:v32 clientIdentity:*(*(a1 + 32) + 24)];
-      [v35 setClientInitiatedReset:*(*(a1 + 32) + 17)];
+      v32 = [ML3MusicLibrary musicLibraryForUserAccount:*(*(a1 + 32) + 8)];
+      [v32 setClientIdentity:*(*(a1 + 32) + 24)];
+      v33 = [v32 databasePath];
+      v34 = [[ML3DatabaseImport alloc] initWithLibraryPath:v33 trackData:v38 playlistData:v28 albumArtistData:v24 albumData:v25 libraryPinsData:v31 clientIdentity:*(*(a1 + 32) + 24)];
+      [v34 setClientInitiatedReset:*(*(a1 + 32) + 17)];
       objc_initWeak(buf, *(a1 + 32));
-      v36 = +[MLMediaLibraryService sharedMediaLibraryService];
-      v45[0] = _NSConcreteStackBlock;
-      v45[1] = 3221225472;
-      v45[2] = sub_1000BB8CC;
-      v45[3] = &unk_1001DE448;
-      objc_copyWeak(&v46, buf);
-      v40[0] = _NSConcreteStackBlock;
-      v40[1] = 3221225472;
-      v40[2] = sub_1000BB930;
-      v40[3] = &unk_1001DCB10;
-      v40[4] = *(a1 + 32);
-      v44 = v38;
-      v37 = v33;
-      v41 = v37;
-      v43 = *(a1 + 96);
-      v42 = *(a1 + 40);
-      [v36 performImport:v35 fromSource:2 withProgressBlock:v45 completionHandler:v40];
+      v35 = +[MLMediaLibraryService sharedMediaLibraryService];
+      v44[0] = _NSConcreteStackBlock;
+      v44[1] = 3221225472;
+      v44[2] = sub_1000BB8CC;
+      v44[3] = &unk_1001DE448;
+      objc_copyWeak(&v45, buf);
+      v39[0] = _NSConcreteStackBlock;
+      v39[1] = 3221225472;
+      v39[2] = sub_1000BB930;
+      v39[3] = &unk_1001DCB10;
+      v39[4] = *(a1 + 32);
+      v43 = v37;
+      v36 = v32;
+      v40 = v36;
+      v42 = *(a1 + 96);
+      v41 = *(a1 + 40);
+      [v35 performImport:v34 fromSource:2 withProgressBlock:v44 completionHandler:v39];
 
-      objc_destroyWeak(&v46);
+      objc_destroyWeak(&v45);
       objc_destroyWeak(buf);
     }
   }
@@ -7613,46 +7561,52 @@ void sub_1000BD800(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_1000BD9A8(uint64_t a1)
+void sub_1000BD9A8(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
+  v2 = *(a1 + 32);
   ICDAAPUtilitiesWriteContainer();
 }
 
 void sub_1000BDA3C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v10 + 1) + 8 * v8);
         ICDAAPUtilitiesWriteProperty();
-        v8 = v8 + 1;
+        ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
+}
+
+void sub_1000BE294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1000BE2D8(uint64_t a1)
@@ -7812,63 +7766,62 @@ void sub_1000BE968(uint64_t a1, void *a2, void *a3)
   v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = *(a1 + 32);
-    v12 = [v11 method];
-    v13 = @"POST";
-    if (!v12)
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = *(a1 + 32);
+    v11 = [v10 method];
+    v12 = @"POST";
+    if (!v11)
     {
-      v13 = @"GET";
+      v12 = @"GET";
     }
 
-    v25 = v13;
-    v14 = [*(a1 + 32) action];
-    v15 = objc_opt_class();
-    v16 = NSStringFromClass(v15);
-    v17 = [v5 responseCode];
-    v18 = [v5 responseData];
+    v24 = v12;
+    v13 = [*(a1 + 32) action];
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    v16 = [v5 responseCode];
+    v17 = [v5 responseData];
     *buf = 138545154;
-    v27 = v10;
-    v28 = 2048;
-    v29 = v11;
-    v30 = 2114;
-    v31 = v25;
-    v32 = 2114;
-    v33 = v14;
-    v34 = 2114;
-    v35 = v16;
-    v36 = 2048;
-    v37 = v5;
-    v38 = 2048;
-    v39 = v17;
-    v40 = 2048;
-    v41 = [v18 length];
+    v26 = v9;
+    v27 = 2048;
+    v28 = v10;
+    v29 = 2114;
+    v30 = v24;
+    v31 = 2114;
+    v32 = v13;
+    v33 = 2114;
+    v34 = v15;
+    v35 = 2048;
+    v36 = v5;
+    v37 = 2048;
+    v38 = v16;
+    v39 = 2048;
+    v40 = [v17 length];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p method=%{public}@ action=%{public}@> received response: <%{public}@: %p code=%ld, length=%{bytes}lu>", buf, 0x52u);
   }
 
   if (v6)
   {
-    v19 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      v20 = *(a1 + 40);
+      v20 = *(a1 + 32);
+      v19 = *(a1 + 40);
       *buf = 138543874;
-      v27 = v20;
-      v28 = 2114;
-      v29 = v21;
-      v30 = 2114;
-      v31 = v6;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed with error: %{public}@", buf, 0x20u);
+      v26 = v19;
+      v27 = 2114;
+      v28 = v20;
+      v29 = 2114;
+      v30 = v6;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ failed with error: %{public}@", buf, 0x20u);
     }
   }
 
-  v22 = *(*(a1 + 56) + 8);
-  v23 = *(v22 + 40);
-  *(v22 + 40) = v5;
-  v24 = v5;
+  v21 = *(*(a1 + 56) + 8);
+  v22 = *(v21 + 40);
+  *(v21 + 40) = v5;
+  v23 = v5;
 
   [*(a1 + 40) setError:v6];
   dispatch_semaphore_signal(*(a1 + 48));
@@ -7917,10 +7870,11 @@ void sub_1000BED20(uint64_t a1)
   v3[2](v3, v2);
 }
 
-void sub_1000C0078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
+void sub_1000C0078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
 {
-  _Block_object_dispose(&a46, 8);
-  _Block_object_dispose((v46 - 176), 8);
+  va_start(va, a45);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v45 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8093,9 +8047,9 @@ void sub_1000C19EC(uint64_t a1, void *a2)
   [v4 writeString:v5 withCode:1634354025];
 }
 
-void sub_1000C23C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000C23C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8115,109 +8069,108 @@ void sub_1000C2400(uint64_t a1, void *a2, void *a3)
   v8 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = *(a1 + 32);
-    v29 = v4;
-    if ([v12 method])
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = *(a1 + 32);
+    v28 = v4;
+    if ([v11 method])
     {
-      v13 = @"POST";
+      v12 = @"POST";
     }
 
     else
     {
-      v13 = @"GET";
+      v12 = @"GET";
     }
 
-    v14 = [*(a1 + 32) action];
-    v15 = objc_opt_class();
-    NSStringFromClass(v15);
-    v16 = v31 = v7;
-    v17 = [v6 responseCode];
-    v18 = [v6 responseData];
+    v13 = [*(a1 + 32) action];
+    v14 = objc_opt_class();
+    NSStringFromClass(v14);
+    v15 = v30 = v7;
+    v16 = [v6 responseCode];
+    v17 = [v6 responseData];
     *buf = 138545154;
-    v36 = v11;
-    v37 = 2048;
-    v38 = v12;
-    v39 = 2114;
-    v40 = v13;
-    v4 = v30;
-    v41 = 2114;
-    v42 = v14;
-    v43 = 2114;
-    v44 = v16;
-    v45 = 2048;
-    v46 = v6;
-    v47 = 2048;
-    v48 = v17;
-    v49 = 2048;
-    v50 = [v18 length];
+    v35 = v10;
+    v36 = 2048;
+    v37 = v11;
+    v38 = 2114;
+    v39 = v12;
+    v4 = v29;
+    v40 = 2114;
+    v41 = v13;
+    v42 = 2114;
+    v43 = v15;
+    v44 = 2048;
+    v45 = v6;
+    v46 = 2048;
+    v47 = v16;
+    v48 = 2048;
+    v49 = [v17 length];
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@: %p method=%{public}@ action=%{public}@> received response: <%{public}@: %p code=%ld, length=%{bytes}lu>", buf, 0x52u);
 
-    v7 = v31;
+    v7 = v30;
   }
 
-  v19 = *(a1 + 40);
-  v20 = [v6 responseCode];
-  if (v20 > 399)
+  v18 = *(a1 + 40);
+  v19 = [v6 responseCode];
+  if (v19 > 399)
   {
-    if (v20 == 404 || v20 == 400)
+    if (v19 == 404 || v19 == 400)
     {
-      v21 = 3;
+      v20 = 3;
       goto LABEL_14;
     }
 
     goto LABEL_13;
   }
 
-  v21 = 1;
-  if (v20 != 200 && v20 != 204)
+  v20 = 1;
+  if (v19 != 200 && v19 != 204)
   {
 LABEL_13:
-    v21 = 2;
+    v20 = 2;
   }
 
 LABEL_14:
-  [v19 setStatus:v21];
+  [v18 setStatus:v20];
   if (v7)
   {
-    v22 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v36 = v7;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "SagaRemovePlaylistOperation failed with error: %{public}@", buf, 0xCu);
+      v35 = v7;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "SagaRemovePlaylistOperation failed with error: %{public}@", buf, 0xCu);
     }
   }
 
   objc_storeStrong((*(*(a1 + 64) + 8) + 40), v4);
   if (v6)
   {
-    v23 = [v6 deletedItems];
-    v24 = +[NSMutableArray array];
-    v25 = *(a1 + 48);
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_1000C27D0;
-    v32[3] = &unk_1001DCCB8;
+    v22 = [v6 deletedItems];
+    v23 = +[NSMutableArray array];
+    v24 = *(a1 + 48);
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1000C27D0;
+    v31[3] = &unk_1001DCCB8;
+    v25 = v22;
+    v32 = v25;
     v26 = v23;
     v33 = v26;
-    v27 = v24;
-    v34 = v27;
-    [v25 enumerateObjectsUsingBlock:v32];
-    if ([v27 count])
+    [v24 enumerateObjectsUsingBlock:v31];
+    if ([v26 count])
     {
-      v28 = os_log_create("com.apple.amp.itunescloudd", "CloudSync_Oversize");
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = os_log_create("com.apple.amp.itunescloudd", "CloudSync_Oversize");
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v36 = v27;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "SagaRemovePlaylistOperation failed to delete saga IDs: %{public}@", buf, 0xCu);
+        v35 = v26;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "SagaRemovePlaylistOperation failed to delete saga IDs: %{public}@", buf, 0xCu);
       }
 
       [*(a1 + 40) setStatus:2];
-      objc_storeStrong((*(a1 + 40) + 88), v24);
+      objc_storeStrong((*(a1 + 40) + 88), v23);
     }
   }
 
@@ -8292,9 +8245,9 @@ void sub_1000C382C(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000C39E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C39E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8368,11 +8321,11 @@ void sub_1000C3B5C(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000C404C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C404C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8392,9 +8345,9 @@ void sub_1000C4074(void *a1, void *a2)
   *(*(a1[6] + 8) + 24) = v7;
 }
 
-void sub_1000C4348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000C4348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8591,13 +8544,14 @@ LABEL_24:
   return v42 & 1;
 }
 
-void sub_1000C4A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1000C4A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8645,9 +8599,9 @@ void sub_1000C4B4C(void *a1, void *a2)
   *(*(a1[8] + 8) + 24) = 1;
 }
 
-void sub_1000C4CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C4CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8730,9 +8684,9 @@ LABEL_12:
   return v16;
 }
 
-void sub_1000C5014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000C5014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8762,11 +8716,11 @@ void sub_1000C5038(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_1000C52B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C52B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8784,9 +8738,9 @@ void sub_1000C52D8(void *a1, void *a2)
   *(*(a1[5] + 8) + 24) = v6;
 }
 
-void sub_1000C550C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C550C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8948,27 +8902,13 @@ void sub_1000C5F6C(uint64_t a1, void *a2, void *a3)
       v10 = [v6 valueForProperty:ML3TrackPropertyStoreBookmarkMetadataEntityRevision];
       v11 = [v10 unsignedLongLongValue];
 
-      if (v11 <= *(a1 + 40))
-      {
-        goto LABEL_5;
-      }
-
-      v12 = [v6 valueForProperty:ML3TrackPropertyStoreBookmarkMetadataTimestamp];
-      [v12 doubleValue];
-      v14 = v13;
-
-      v15 = [v5 bookmarkTimestamp];
-      [v15 doubleValue];
-      v17 = v16;
-
-      if (v14 >= v17)
+      if (v11 > *(a1 + 40) && ([v6 valueForProperty:ML3TrackPropertyStoreBookmarkMetadataTimestamp], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "doubleValue"), v14 = v13, v12, objc_msgSend(v5, "bookmarkTimestamp"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "doubleValue"), v17 = v16, v15, v14 >= v17))
       {
         [*(a1 + 32) addObject:v5];
       }
 
       else
       {
-LABEL_5:
         v18 = [v5 hasBeenPlayed];
         v19 = v18;
         v20 = &off_1001ED708;
@@ -9062,4 +9002,65 @@ uint64_t sub_1000C6300(id *a1, void *a2)
   [v15 enumerateRowsWithBlock:v22];
 
   return 1;
+}
+
+void sub_1000C656C(uint64_t a1, uint64_t a2)
+{
+  v7 = [[ICPlaybackPositionEntity alloc] initWithDomain:*(a1 + 32)];
+  v4 = [[ML3Track alloc] initWithPersistentID:a2 inLibrary:*(a1 + 40)];
+  v5 = [v4 valueForProperty:ML3TrackPropertyStoreBookmarkMetadataIdentifier];
+  if ([v5 length])
+  {
+    [*(a1 + 40) _populateMetadataValues:v7 fromDataSourceTrack:v4];
+    v6 = [*(a1 + 48) ubiquitousIdentifiersToSync];
+    [v6 addObject:v5];
+  }
+
+  (*(*(a1 + 56) + 16))();
+}
+
+void sub_1000C6650(uint64_t a1, void *a2)
+{
+  v5 = [a2 stringForColumnIndex:0];
+  v3 = [*(a1 + 32) _kvsEntityWithKVSKey:v5 domain:*(a1 + 40)];
+  (*(*(a1 + 56) + 16))();
+  v4 = [*(a1 + 48) ubiquitousIdentifiersToSync];
+  [v4 addObject:v5];
+}
+
+void sub_1000C6C24(uint64_t a1, int a2)
+{
+  if (a2)
+  {
+    objc_terminate();
+  }
+
+  JUMPOUT(0x1000C6C30);
+}
+
+void sub_1000C6E70(uint64_t a1)
+{
+  v2 = [*(a1 + 32) _mediaContentTasteCacheFilePathForAccount:*(a1 + 40)];
+  if (v2)
+  {
+    v3 = +[NSFileManager defaultManager];
+    v8 = 0;
+    v4 = [v3 removeItemAtPath:v2 error:&v8];
+    v5 = v8;
+
+    v6 = os_log_create("com.apple.amp.itunescloudd", "ContentTaste");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *(a1 + 32);
+      *buf = 138544130;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v2;
+      v13 = 1024;
+      v14 = v4;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ Cached content taste response at %{public}@ was deleted with status=%{BOOL}u, error=%{public}@ ", buf, 0x26u);
+    }
+  }
 }

@@ -71,337 +71,317 @@ void __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_2(uint64_t a1, 
 
 + (id)entryEventPointDefinitions
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"HomeKitBTLE";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"HomeKitBTLE";
   entryEventPointDefinitionHomeKitAdvt = [self entryEventPointDefinitionHomeKitAdvt];
-  v11[0] = entryEventPointDefinitionHomeKitAdvt;
-  v10[1] = @"HomeKitEvents";
+  v10[0] = entryEventPointDefinitionHomeKitAdvt;
+  v9[1] = @"HomeKitEvents";
   entryEventPointDefinitionHomeKitEvents = [self entryEventPointDefinitionHomeKitEvents];
-  v11[1] = entryEventPointDefinitionHomeKitEvents;
-  v10[2] = @"HomeKitSummary";
+  v10[1] = entryEventPointDefinitionHomeKitEvents;
+  v9[2] = @"HomeKitSummary";
   entryEventPointDefinitionHomeKitSummary = [self entryEventPointDefinitionHomeKitSummary];
-  v11[2] = entryEventPointDefinitionHomeKitSummary;
-  v10[3] = @"HomeKitRegistration";
+  v10[2] = entryEventPointDefinitionHomeKitSummary;
+  v9[3] = @"HomeKitRegistration";
   entryEventPointDefinitionHomeKitRegistration = [self entryEventPointDefinitionHomeKitRegistration];
-  v11[3] = entryEventPointDefinitionHomeKitRegistration;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = entryEventPointDefinitionHomeKitRegistration;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionHomeKitEvents
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18[0] = *MEMORY[0x277D3F4E8];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v16[0] = *MEMORY[0x277D3F568];
-  v16[1] = v2;
-  v17[0] = &unk_282C1BC28;
-  v17[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v19[0] = v3;
-  v18[1] = *MEMORY[0x277D3F540];
-  v14[0] = @"eventType";
+  v15[0] = *MEMORY[0x277D3F568];
+  v15[1] = v2;
+  v16[0] = &unk_282C1BC28;
+  v16[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v18[0] = v3;
+  v17[1] = *MEMORY[0x277D3F540];
+  v13[0] = @"eventType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v15[0] = commonTypeDict_IntegerFormat;
-  v14[1] = @"kHMFPowerLogDeviceIdentiferKey";
+  v14[0] = commonTypeDict_IntegerFormat;
+  v13[1] = @"kHMFPowerLogDeviceIdentiferKey";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v15[1] = commonTypeDict_StringFormat;
-  v14[2] = @"accessoryCategory";
+  v14[1] = commonTypeDict_StringFormat;
+  v13[2] = @"accessoryCategory";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v15[2] = commonTypeDict_IntegerFormat2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v19[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[2] = commonTypeDict_IntegerFormat2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v18[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v11;
 }
 
 + (id)entryEventPointDefinitionHomeKitAdvt
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1BC28;
-  v15[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"kHMFPowerLogEventType";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1BC28;
+  v14[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"kHMFPowerLogEventType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v12[1] = @"kHMFPowerLogDeviceIdentiferKey";
-  v13[0] = commonTypeDict_IntegerFormat;
+  v11[1] = @"kHMFPowerLogDeviceIdentiferKey";
+  v12[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v13[1] = commonTypeDict_StringFormat;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_StringFormat;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventPointDefinitionHomeKitRegistration
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18[0] = *MEMORY[0x277D3F4E8];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v16[0] = *MEMORY[0x277D3F568];
-  v16[1] = v2;
-  v17[0] = &unk_282C1BC38;
-  v17[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v19[0] = v3;
-  v18[1] = *MEMORY[0x277D3F540];
-  v14[0] = @"Enabled";
+  v15[0] = *MEMORY[0x277D3F568];
+  v15[1] = v2;
+  v16[0] = &unk_282C1BC38;
+  v16[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v18[0] = v3;
+  v17[1] = *MEMORY[0x277D3F540];
+  v13[0] = @"Enabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v15[0] = commonTypeDict_BoolFormat;
-  v14[1] = @"BundleID";
+  v14[0] = commonTypeDict_BoolFormat;
+  v13[1] = @"BundleID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v15[1] = commonTypeDict_StringFormat_withBundleID;
-  v14[2] = @"RegistrationType";
+  v14[1] = commonTypeDict_StringFormat_withBundleID;
+  v13[2] = @"RegistrationType";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v15[2] = commonTypeDict_IntegerFormat;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v19[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[2] = commonTypeDict_IntegerFormat;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v18[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v11;
 }
 
 + (id)entryEventPointDefinitionHomeKitSummary
 {
-  v35[2] = *MEMORY[0x277D85DE8];
-  v34[0] = *MEMORY[0x277D3F4E8];
+  v34[2] = *MEMORY[0x277D85DE8];
+  v33[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v32[0] = *MEMORY[0x277D3F568];
-  v32[1] = v2;
-  v33[0] = &unk_282C1BC38;
-  v33[1] = MEMORY[0x277CBEC28];
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-  v35[0] = v29;
-  v34[1] = *MEMORY[0x277D3F540];
-  v30[0] = @"numBTPushes";
+  v31[0] = *MEMORY[0x277D3F568];
+  v31[1] = v2;
+  v32[0] = &unk_282C1BC38;
+  v32[1] = MEMORY[0x277CBEC28];
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v34[0] = v28;
+  v33[1] = *MEMORY[0x277D3F540];
+  v29[0] = @"numBTPushes";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v31[0] = commonTypeDict_IntegerFormat;
-  v30[1] = @"numConnections";
+  v30[0] = commonTypeDict_IntegerFormat;
+  v29[1] = @"numConnections";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v31[1] = commonTypeDict_IntegerFormat2;
-  v30[2] = @"numBTConnections";
+  v30[1] = commonTypeDict_IntegerFormat2;
+  v29[2] = @"numBTConnections";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v31[2] = commonTypeDict_IntegerFormat3;
-  v30[3] = @"numIPConnections";
+  v30[2] = commonTypeDict_IntegerFormat3;
+  v29[3] = @"numIPConnections";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v31[3] = commonTypeDict_IntegerFormat4;
-  v30[4] = @"numIPEvents";
+  v30[3] = commonTypeDict_IntegerFormat4;
+  v29[4] = @"numIPEvents";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v31[4] = commonTypeDict_IntegerFormat5;
-  v30[5] = @"numIDSPushes";
+  v30[4] = commonTypeDict_IntegerFormat5;
+  v29[5] = @"numIDSPushes";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v31[5] = commonTypeDict_IntegerFormat6;
-  v30[6] = @"numCloudPushes";
+  v30[5] = commonTypeDict_IntegerFormat6;
+  v29[6] = @"numCloudPushes";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v31[6] = commonTypeDict_IntegerFormat7;
-  v30[7] = @"numBonjour";
+  v30[6] = commonTypeDict_IntegerFormat7;
+  v29[7] = @"numBonjour";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v31[7] = commonTypeDict_IntegerFormat8;
-  v30[8] = @"numBTWakeAdvt";
+  v30[7] = commonTypeDict_IntegerFormat8;
+  v29[8] = @"numBTWakeAdvt";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v31[8] = commonTypeDict_IntegerFormat9;
-  v30[9] = @"numBTWakes";
+  v30[8] = commonTypeDict_IntegerFormat9;
+  v29[9] = @"numBTWakes";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v31[9] = commonTypeDict_IntegerFormat10;
-  v30[10] = @"Reason";
+  v30[9] = commonTypeDict_IntegerFormat10;
+  v29[10] = @"Reason";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]11 commonTypeDict_IntegerFormat];
-  v31[10] = commonTypeDict_IntegerFormat11;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:11];
-  v35[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v30[10] = commonTypeDict_IntegerFormat11;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:11];
+  v34[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
 
   return v12;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"HomeConfiguration";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"HomeConfiguration";
   entryEventForwardDefinitionHomeConfiguration = [self entryEventForwardDefinitionHomeConfiguration];
-  v8[1] = @"CameraConfiguration";
-  v9[0] = entryEventForwardDefinitionHomeConfiguration;
+  v7[1] = @"CameraConfiguration";
+  v8[0] = entryEventForwardDefinitionHomeConfiguration;
   entryEventForwardDefinitionCameraConfiguration = [self entryEventForwardDefinitionCameraConfiguration];
-  v9[1] = entryEventForwardDefinitionCameraConfiguration;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryEventForwardDefinitionCameraConfiguration;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)entryEventForwardDefinitionHomeConfiguration
 {
-  v26[2] = *MEMORY[0x277D85DE8];
-  v25[0] = *MEMORY[0x277D3F4E8];
-  v23 = *MEMORY[0x277D3F568];
-  v24 = &unk_282C1BC48;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-  v26[0] = v20;
-  v25[1] = *MEMORY[0x277D3F540];
-  v21[0] = @"numHomes";
+  v25[2] = *MEMORY[0x277D85DE8];
+  v24[0] = *MEMORY[0x277D3F4E8];
+  v22 = *MEMORY[0x277D3F568];
+  v23 = &unk_282C1BC48;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v25[0] = v19;
+  v24[1] = *MEMORY[0x277D3F540];
+  v20[0] = @"numHomes";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v22[0] = commonTypeDict_IntegerFormat;
-  v21[1] = @"numNonEmptyHomes";
+  v21[0] = commonTypeDict_IntegerFormat;
+  v20[1] = @"numNonEmptyHomes";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v22[1] = commonTypeDict_IntegerFormat2;
-  v21[2] = @"numUsers";
+  v21[1] = commonTypeDict_IntegerFormat2;
+  v20[2] = @"numUsers";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v22[2] = commonTypeDict_IntegerFormat3;
-  v21[3] = @"numHAPAccessories";
+  v21[2] = commonTypeDict_IntegerFormat3;
+  v20[3] = @"numHAPAccessories";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v22[3] = commonTypeDict_IntegerFormat4;
-  v21[4] = @"numEnabledResidents";
+  v21[3] = commonTypeDict_IntegerFormat4;
+  v20[4] = @"numEnabledResidents";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v22[4] = commonTypeDict_IntegerFormat5;
-  v21[5] = @"isCurrentDevicePrimaryResident";
+  v21[4] = commonTypeDict_IntegerFormat5;
+  v20[5] = @"isCurrentDevicePrimaryResident";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]6 commonTypeDict_BoolFormat];
-  v22[5] = commonTypeDict_BoolFormat;
-  v21[6] = @"HomeHubVersion";
+  v21[5] = commonTypeDict_BoolFormat;
+  v20[6] = @"HomeHubVersion";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v22[6] = commonTypeDict_IntegerFormat6;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:7];
-  v26[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v21[6] = commonTypeDict_IntegerFormat6;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:7];
+  v25[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
 
   return v11;
 }
 
 + (id)entryEventForwardDefinitionCameraConfiguration
 {
-  v24[2] = *MEMORY[0x277D85DE8];
-  v23[0] = *MEMORY[0x277D3F4E8];
-  v21 = *MEMORY[0x277D3F568];
-  v22 = &unk_282C1BC28;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v24[0] = v18;
-  v23[1] = *MEMORY[0x277D3F540];
-  v19[0] = @"numCameras";
+  v23[2] = *MEMORY[0x277D85DE8];
+  v22[0] = *MEMORY[0x277D3F4E8];
+  v20 = *MEMORY[0x277D3F568];
+  v21 = &unk_282C1BC28;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v23[0] = v17;
+  v22[1] = *MEMORY[0x277D3F540];
+  v18[0] = @"numCameras";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v20[0] = commonTypeDict_IntegerFormat;
-  v19[1] = @"numCamerasRecordingEnabled";
+  v19[0] = commonTypeDict_IntegerFormat;
+  v18[1] = @"numCamerasRecordingEnabled";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v20[1] = commonTypeDict_IntegerFormat2;
-  v19[2] = @"numCamerasSmartBulletinNotificationEnabled";
+  v19[1] = commonTypeDict_IntegerFormat2;
+  v18[2] = @"numCamerasSmartBulletinNotificationEnabled";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v20[2] = commonTypeDict_IntegerFormat3;
-  v19[3] = @"numCamerasReachabilityNotificationEnabled";
+  v19[2] = commonTypeDict_IntegerFormat3;
+  v18[3] = @"numCamerasReachabilityNotificationEnabled";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v20[3] = commonTypeDict_IntegerFormat4;
-  v19[4] = @"numCamerasAnyMotionEventEnabled";
+  v19[3] = commonTypeDict_IntegerFormat4;
+  v18[4] = @"numCamerasAnyMotionEventEnabled";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v20[4] = commonTypeDict_IntegerFormat5;
-  v19[5] = @"numCamerasHSVMotionEventEnabled";
+  v19[4] = commonTypeDict_IntegerFormat5;
+  v18[5] = @"numCamerasHSVMotionEventEnabled";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v20[5] = commonTypeDict_IntegerFormat6;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
-  v24[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v19[5] = commonTypeDict_IntegerFormat6;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v23[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
   return v11;
 }
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"IDSPushMessageTypes";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"IDSPushMessageTypes";
   entryAggregateDefinitionIDSPushMessageTypes = [self entryAggregateDefinitionIDSPushMessageTypes];
-  v7[0] = entryAggregateDefinitionIDSPushMessageTypes;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryAggregateDefinitionIDSPushMessageTypes;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryAggregateDefinitionIDSPushMessageTypes
 {
-  v24[4] = *MEMORY[0x277D85DE8];
-  v23[0] = *MEMORY[0x277D3F4E8];
-  v21 = *MEMORY[0x277D3F568];
-  v22 = &unk_282C1BC38;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-  v24[0] = v2;
-  v23[1] = *MEMORY[0x277D3F540];
-  v19[0] = @"MessageType";
+  v23[4] = *MEMORY[0x277D85DE8];
+  v22[0] = *MEMORY[0x277D3F4E8];
+  v20 = *MEMORY[0x277D3F568];
+  v21 = &unk_282C1BC38;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+  v23[0] = v2;
+  v22[1] = *MEMORY[0x277D3F540];
+  v18[0] = @"MessageType";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v19[1] = @"Count";
-  v20[0] = commonTypeDict_StringFormat;
+  v18[1] = @"Count";
+  v19[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v20[1] = commonTypeDict_IntegerFormat;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-  v24[1] = v7;
-  v23[2] = *MEMORY[0x277D3F478];
-  v17 = &unk_282C1BC58;
-  v15 = *MEMORY[0x277D3F470];
-  v16 = &unk_282C1BC68;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18 = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-  v24[2] = v9;
-  v23[3] = *MEMORY[0x277D3F488];
-  v14 = @"Count";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v24[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v19[1] = commonTypeDict_IntegerFormat;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v23[1] = v7;
+  v22[2] = *MEMORY[0x277D3F478];
+  v16 = &unk_282C1BC58;
+  v14 = *MEMORY[0x277D3F470];
+  v15 = &unk_282C1BC68;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v17 = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v23[2] = v9;
+  v22[3] = *MEMORY[0x277D3F488];
+  v13 = @"Count";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v23[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
 
   return v11;
 }
@@ -510,66 +490,62 @@ void __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_2(uint64_t a1, 
 
 void __42__PLHomeKitAgent_initOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogHomeKit();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HomeKitEvent callback for PLHomeKitAgent_EventPoint_HomeKitEvents: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HomeKitEvent callback for PLHomeKitAgent_EventPoint_HomeKitEvents: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointHomeKitEvents:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_308(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogHomeKit();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HomeConfiguration payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HomeConfiguration payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardHomeConfiguration:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_313(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogHomeKit();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "CameraConfiguration payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "CameraConfiguration payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardCameraConfiguration:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_318(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogHomeKit();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HomeKitRegistration payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "HomeKitRegistration payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointHomeKitRegistration:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_339(uint64_t result)
@@ -663,7 +639,7 @@ uint64_t __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_339(uint64_
 
 - (void)logEventPointHomeKitEvents:(id)events
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v5 = [eventsCopy objectForKeyedSubscript:@"kHMFPowerLogEventType"];
   v6 = [(PLHomeKitAgent *)self eventTypeStringToEnum:v5];
@@ -690,7 +666,7 @@ uint64_t __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_339(uint64_
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v32 = v5;
+    v31 = v5;
     _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "Logging for type HomeKit %@\n", buf, 0xCu);
   }
 
@@ -723,23 +699,23 @@ uint64_t __42__PLHomeKitAgent_initOperatorDependancies__block_invoke_339(uint64_
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v32 = v16;
+          v31 = v16;
           _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@ is not an allowed Message Type, changing to 'Unknown'", buf, 0xCu);
         }
 
         v16 = @"Unknown";
       }
 
-      v29[0] = @"MessageType";
-      v29[1] = @"Count";
-      v30[0] = v16;
-      v30[1] = &unk_282C0D0B0;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+      v28[0] = @"MessageType";
+      v28[1] = @"Count";
+      v29[0] = v16;
+      v29[1] = &unk_282C0D0B0;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
       v19 = PLLogHomeKit();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v32 = v18;
+        v31 = v18;
         _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "Got callback for IDSPushMessageTypes: %@", buf, 0xCu);
       }
 
@@ -805,7 +781,7 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v28 = &OBJC_IVAR___PLHomeKitAgent__numBTConnections;
+  v27 = &OBJC_IVAR___PLHomeKitAgent__numBTConnections;
   ++self->_numConnections;
   v20 = [eventsCopy objectForKeyedSubscript:@"kHMFPowerLogLinkTypeKey"];
   if ([v20 isEqualToString:@"HomeKitLinkTypeBluetoothLE"])
@@ -815,15 +791,14 @@ LABEL_30:
 
   if ([v20 isEqualToString:@"HomeKitLinkTypeIP"])
   {
-    v28 = &OBJC_IVAR___PLHomeKitAgent__numIPConnections;
+    v27 = &OBJC_IVAR___PLHomeKitAgent__numIPConnections;
 LABEL_36:
-    ++*(&self->super.super.super.isa + *v28);
+    ++*(&self->super.super.super.isa + *v27);
   }
 
 LABEL_27:
 
 LABEL_31:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventPointHomeKitRegistration:(id)registration
@@ -848,24 +823,24 @@ LABEL_31:
 
 - (void)writeAggregateCounters:(id)counters
 {
-  v28[11] = *MEMORY[0x277D85DE8];
+  v27[11] = *MEMORY[0x277D85DE8];
   countersCopy = counters;
   v5 = [(PLOperator *)PLHomeKitAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"HomeKitSummary"];
   if (self->_enablelog)
   {
-    v19 = [countersCopy isEqualToString:@"btwake"];
-    v25 = v5;
-    v26 = countersCopy;
-    if (v19)
+    v18 = [countersCopy isEqualToString:@"btwake"];
+    v24 = v5;
+    v25 = countersCopy;
+    if (v18)
     {
-      v20 = 0;
+      v19 = 0;
       v6 = 1;
     }
 
     else
     {
-      v20 = [countersCopy isEqualToString:@"sbc"];
-      if (v20)
+      v19 = [countersCopy isEqualToString:@"sbc"];
+      if (v19)
       {
         v6 = 2;
       }
@@ -876,63 +851,61 @@ LABEL_31:
       }
     }
 
-    v27[0] = @"numBTPushes";
-    v24 = [MEMORY[0x277CCABB0] numberWithInteger:{self->_numBTPushes, 88}];
-    v28[0] = v24;
-    v27[1] = @"numConnections";
-    v23 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numConnections];
-    v28[1] = v23;
-    v27[2] = @"numBTConnections";
-    v22 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numBTConnections];
-    v28[2] = v22;
-    v27[3] = @"numIPConnections";
-    v21 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numIPConnections];
-    v28[3] = v21;
-    v27[4] = @"numIPEvents";
+    v26[0] = @"numBTPushes";
+    v23 = [MEMORY[0x277CCABB0] numberWithInteger:{self->_numBTPushes, 88}];
+    v27[0] = v23;
+    v26[1] = @"numConnections";
+    v22 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numConnections];
+    v27[1] = v22;
+    v26[2] = @"numBTConnections";
+    v21 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numBTConnections];
+    v27[2] = v21;
+    v26[3] = @"numIPConnections";
+    v20 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numIPConnections];
+    v27[3] = v20;
+    v26[4] = @"numIPEvents";
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numIPEvents];
-    v28[4] = v7;
-    v27[5] = @"numIDSPushes";
+    v27[4] = v7;
+    v26[5] = @"numIDSPushes";
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numIDSPushes];
-    v28[5] = v8;
-    v27[6] = @"numCloudPushes";
+    v27[5] = v8;
+    v26[6] = @"numCloudPushes";
     v9 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numCloudPushes];
-    v28[6] = v9;
-    v27[7] = @"numBonjour";
+    v27[6] = v9;
+    v26[7] = @"numBonjour";
     v10 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numBonjour];
-    v28[7] = v10;
-    v27[8] = @"numBTWakeAdvt";
+    v27[7] = v10;
+    v26[8] = @"numBTWakeAdvt";
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numBTWakeAdvt];
-    v28[8] = v11;
-    v27[9] = @"numBTWakes";
+    v27[8] = v11;
+    v26[9] = @"numBTWakes";
     v12 = [MEMORY[0x277CCABB0] numberWithInteger:self->_numBTWakes];
-    v28[9] = v12;
-    v27[10] = @"Reason";
+    v27[9] = v12;
+    v26[10] = @"Reason";
     v13 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
-    v28[10] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:11];
+    v27[10] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:11];
 
-    v5 = v25;
-    v15 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v25 withRawData:v14];
+    v5 = v24;
+    v15 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v24 withRawData:v14];
     v16 = self->_numaggregatelines + 1;
     self->_numaggregatelines = v16;
     if (v16 <= 0x1D)
     {
-      if (v20)
+      if (v19)
       {
         [(PLOperator *)self logEntry:v15];
       }
 
-      else if (v19 && *(&self->super.super.super.isa + v18) > self->_numPrevBTPushes)
+      else if (v18 && *(&self->super.super.super.isa + v17) > self->_numPrevBTPushes)
       {
         [(PLOperator *)self logEntry:v15];
-        self->_numPrevBTPushes = *(&self->super.super.super.isa + v18);
+        self->_numPrevBTPushes = *(&self->super.super.super.isa + v17);
       }
     }
 
-    countersCopy = v26;
+    countersCopy = v25;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventForwardHomeConfiguration:(id)configuration

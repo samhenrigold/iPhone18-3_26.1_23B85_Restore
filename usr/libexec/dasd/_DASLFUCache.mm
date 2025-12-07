@@ -98,7 +98,7 @@
   v11 = [freqToKeys objectForKeyedSubscript:v10];
 
   [v11 removeObject:frequencyCopy];
-  if (![v11 count])
+  if (!objc_msgSend_count(v11))
   {
     freqToKeys2 = [(_DASLFUCache *)self freqToKeys];
     v13 = [NSNumber numberWithUnsignedInteger:unsignedIntegerValue];

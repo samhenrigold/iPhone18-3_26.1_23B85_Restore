@@ -145,9 +145,9 @@
   UIRectGetCenter();
   v51 = v50;
   v53 = v52;
-  [*(&self->super.super.super.isa + v35) frame];
+  objc_msgSend_frame(*(&self->super.super.super.isa + v35));
   v55 = v51 - v54 * v48;
-  [*(&self->super.super.super.isa + v35) frame];
+  objc_msgSend_frame(*(&self->super.super.super.isa + v35));
   [(UIView *)self->_containerView setCenter:v55, v53 - v56 * v48];
   v57 = [MEMORY[0x277CBEB58] setWithArray:self->_regionViews];
   _regions = [(_UIHyperregionUnion *)self->_regionUnion _regions];
@@ -224,7 +224,7 @@ void __61__SBPIPInteractionControllerVisualizationView_layoutSubviews__block_inv
   [v14 setFrame:?];
 
   v15 = [*(*(a1 + 32) + 456) objectAtIndexedSubscript:a3];
-  [v15 frame];
+  objc_msgSend_frame(v15);
   Width = CGRectGetWidth(v29);
 
   v17 = [*(*(a1 + 32) + 456) objectAtIndexedSubscript:a3];

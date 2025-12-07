@@ -20,6 +20,7 @@
 - (id)createClarityUIIntroductionGroupSpecifier;
 - (id)specifiers;
 - (void)_appCustomizationSpecifiers;
+- (void)_canUseOneTapUnlock;
 - (void)_checkExistenceOfSettingsForAppSpecifier:(id)specifier identifier:(id)identifier bundleIdentifiersCheckingExistenceOfSettings:(id)settings specifiersRequiringReload:(id)reload;
 - (void)_goToSiriSettings:(id)settings;
 - (void)_loadAppSetupControllerForSpecifier:(id)specifier;
@@ -106,13 +107,13 @@ void __27__ClarityUIController_init__block_invoke_2(uint64_t a1)
   [WeakRetained reloadSpecifiers];
 }
 
-void __27__ClarityUIController_init__block_invoke_3(uint64_t a1)
+void __27__ClarityUIController_init__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = CLFLogSettings();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CLFLogSettings();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Reloading specifiers because app availability changed.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Reloading specifiers because app availability changed.", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -781,45 +782,45 @@ LABEL_22:
   dispatch_async(v15, block);
 }
 
-void __146__ClarityUIController__checkExistenceOfSettingsForAppSpecifier_identifier_bundleIdentifiersCheckingExistenceOfSettings_specifiersRequiringReload___block_invoke(uint64_t a1)
+void __146__ClarityUIController__checkExistenceOfSettingsForAppSpecifier_identifier_bundleIdentifiersCheckingExistenceOfSettings_specifiersRequiringReload___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CLFLogSettings();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CLFLogSettings();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138412290;
-    v19 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Fetching whether app %@ has settings in the background.", buf, 0xCu);
+    v20 = v4;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Fetching whether app %@ has settings in the background.", buf, 0xCu);
   }
 
-  v4 = +[ClarityUIAppSetupCoordinator sharedInstance];
-  v5 = [v4 bundleIdentifierHasClaritySettings:*(a1 + 32)];
+  v5 = +[ClarityUIAppSetupCoordinator sharedInstance];
+  v6 = [v5 bundleIdentifierHasClaritySettings:*(a1 + 32)];
 
-  v6 = CLFLogSettings();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CLFLogSettings();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
+    v8 = *(a1 + 32);
     *buf = 138412546;
-    v19 = v7;
-    v20 = 1024;
-    v21 = v5;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Finished fetching whether app %@ has settings in the background: %i", buf, 0x12u);
+    v20 = v8;
+    v21 = 1024;
+    v22 = v6;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Finished fetching whether app %@ has settings in the background: %i", buf, 0x12u);
   }
 
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __146__ClarityUIController__checkExistenceOfSettingsForAppSpecifier_identifier_bundleIdentifiersCheckingExistenceOfSettings_specifiersRequiringReload___block_invoke_566;
   block[3] = &unk_256498;
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 32);
-  v17 = v5;
-  v12 = *(a1 + 48);
-  v10 = *(&v12 + 1);
-  *&v11 = v8;
-  *(&v11 + 1) = v9;
-  v14 = v11;
+  v9 = *(a1 + 40);
+  v10 = *(a1 + 32);
+  v18 = v6;
+  v13 = *(a1 + 48);
+  v11 = *(&v13 + 1);
+  *&v12 = v9;
+  *(&v12 + 1) = v10;
   v15 = v12;
-  v16 = *(a1 + 64);
+  v16 = v13;
+  v17 = *(a1 + 64);
   dispatch_async(&_dispatch_main_q, block);
 }
 
@@ -1193,11 +1194,25 @@ id __146__ClarityUIController__checkExistenceOfSettingsForAppSpecifier_identifie
   [(ClarityUIController *)self reloadSpecifiers];
 }
 
+- (void)_canUseOneTapUnlock
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_4(&dword_0, a2, a3, "error fetching identities: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_appCustomizationSpecifiers
 {
   *buf = 0;
   *a2 = 0;
   _os_log_fault_impl(&dword_0, log, OS_LOG_TYPE_FAULT, "Found unavailable application that was not covered by checks.", buf, 2u);
+}
+
+- (void)_colorFromData:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_0, a2, a3, "Failed to decode Clarity Lock Screen color: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

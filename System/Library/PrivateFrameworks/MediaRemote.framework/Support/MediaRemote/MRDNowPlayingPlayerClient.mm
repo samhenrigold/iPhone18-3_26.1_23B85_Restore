@@ -25,15 +25,20 @@
 - (id)activeContent;
 - (id)handleHandoffEvent:(id)event;
 - (id)playbackQueueForRequest:(id)request cachingPolicy:(unsigned int)policy playerPath:(id)path partiallyCachedItems:(id *)items;
+- (id)snapshotForIsPlaying:(BOOL)playing;
 - (id)snapshotForPlaybackState:(unsigned int)state;
 - (id)snapshotsForIsPlaying:(BOOL)playing;
 - (unint64_t)playbackQueueCapabilities;
 - (unsigned)inferredPlaybackState;
 - (unsigned)playbackState;
 - (void)_handleNowPlayingAppDidChange:(id)change;
+- (void)_onQueue_canBeNowPlayingDidChange:(BOOL)change;
+- (void)_onQueue_isPlayingDidChange:(BOOL)change;
+- (void)_onQueue_pictureInPictureEnabledDidChanged:(BOOL)changed;
 - (void)_onQueue_playbackQueueCapabilitiesDidChange:(unint64_t)change;
 - (void)_onQueue_playbackQueueContentItemsArtworkDidChange:(id)change;
 - (void)_onQueue_playbackQueueContentItemsDidChange:(id)change;
+- (void)_onQueue_playbackQueueDidChange:(id)change nowPlayingItemChanged:(BOOL)changed;
 - (void)_onQueue_playbackStateDidChanged:(id)changed;
 - (void)_onQueue_popState;
 - (void)_onQueue_pushState;
@@ -118,34 +123,32 @@
 
 - (unsigned)playbackState
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = sub_10003500C;
-  v10 = sub_1000359BC;
-  v11 = 0;
-  serialQueue = self->_serialQueue;
-  msv_dispatch_sync_on_queue();
-  playbackState = [v7[5] playbackState];
-  _Block_object_dispose(&v6, 8);
-
-  return playbackState;
-}
-
-- (MRPlayerPath)playerPath
-{
   v5 = 0;
   v6 = &v5;
   v7 = 0x3032000000;
   v8 = sub_10003500C;
   v9 = sub_1000359BC;
   v10 = 0;
-  serialQueue = self->_serialQueue;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
+  playbackState = [v6[5] playbackState];
   _Block_object_dispose(&v5, 8);
 
-  return v3;
+  return playbackState;
+}
+
+- (MRPlayerPath)playerPath
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_10003500C;
+  v8 = sub_1000359BC;
+  v9 = 0;
+  msv_dispatch_sync_on_queue();
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
+
+  return v2;
 }
 
 - (BOOL)_onQueue_isPlaying
@@ -160,28 +163,26 @@
 
 - (BOOL)hasNowPlayingData
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (BOOL)canBeNowPlayingPlayer
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)_onQueue_pushState
@@ -207,15 +208,14 @@
 
 - (BOOL)isPictureInPictureEnabled
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)_onQueue_popState
@@ -236,7 +236,7 @@
       {
         playerPath = self->_playerPath;
         *buf = 138543362;
-        *v69 = playerPath;
+        *v68 = playerPath;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] Taking hasNowPlayingData transaction for %{public}@", buf, 0xCu);
       }
 
@@ -247,19 +247,18 @@
       hasNowPlayingDataTransaction = self->_hasNowPlayingDataTransaction;
       self->_hasNowPlayingDataTransaction = v8;
 
-      v10 = self->_hasNowPlayingDataTransaction;
       MRRegisterTransaction();
     }
 
     else
     {
-      v11 = _MRLogForCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v10 = _MRLogForCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = self->_playerPath;
+        v11 = self->_playerPath;
         *buf = 138543362;
-        *v69 = v12;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] Removing hasNowPlayingData transaction for %{public}@", buf, 0xCu);
+        *v68 = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] Removing hasNowPlayingData transaction for %{public}@", buf, 0xCu);
       }
 
       v7 = self->_hasNowPlayingDataTransaction;
@@ -271,28 +270,28 @@ LABEL_11:
   isPictureInPictureEnabled = [(MRDNowPlayingPlayerClient *)self isPictureInPictureEnabled];
   if (isPictureInPictureEnabled != [(MRDNowPlayingPlayerClient *)self pushStatePictureInPictureEnabled])
   {
-    v14 = _MRLogForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = _MRLogForCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = @"false";
-      v16 = self->_playerPath;
+      v14 = @"false";
+      v15 = self->_playerPath;
       if (isPictureInPictureEnabled)
       {
-        v15 = @"true";
+        v14 = @"true";
       }
 
       *buf = 138543618;
+      *v68 = v14;
+      *&v68[8] = 2114;
       *v69 = v15;
-      *&v69[8] = 2114;
-      *v70 = v16;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] isPictureInPictureEnabled changed to %{public}@ for %{public}@", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] isPictureInPictureEnabled changed to %{public}@ for %{public}@", buf, 0x16u);
     }
 
     [(MRDNowPlayingPlayerClient *)self _onQueue_pictureInPictureEnabledDidChanged:isPictureInPictureEnabled];
   }
 
   _onQueue_isPlaying = [(MRDNowPlayingPlayerClient *)self _onQueue_isPlaying];
-  v18 = _onQueue_isPlaying ^ [(MRDNowPlayingPlayerClient *)self pushStateIsPlaying];
+  v17 = _onQueue_isPlaying ^ [(MRDNowPlayingPlayerClient *)self pushStateIsPlaying];
   _onQueue_playbackState = [(MRDNowPlayingPlayerClient *)self _onQueue_playbackState];
   pushStatePlaybackState = [(MRDNowPlayingPlayerClient *)self pushStatePlaybackState];
   playbackState = [pushStatePlaybackState playbackState];
@@ -302,87 +301,87 @@ LABEL_11:
   {
     pushStatePlaybackState2 = [(MRDNowPlayingPlayerClient *)self pushStatePlaybackState];
     [pushStatePlaybackState2 playbackState];
-    v24 = MRMediaRemoteCopyPlaybackStateDescription();
+    v23 = MRMediaRemoteCopyPlaybackStateDescription();
 
     [_onQueue_playbackState playbackState];
-    v25 = MRMediaRemoteCopyPlaybackStateDescription();
-    v26 = _MRLogForCategory();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v24 = MRMediaRemoteCopyPlaybackStateDescription();
+    v25 = _MRLogForCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = self->_playerPath;
+      v26 = self->_playerPath;
       *buf = 138543874;
+      *v68 = v23;
+      *&v68[8] = 2114;
       *v69 = v24;
       *&v69[8] = 2114;
-      *v70 = v25;
-      *&v70[8] = 2114;
-      v71 = v27;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] PlaybackState changed from %{public}@ to %{public}@ for %{public}@", buf, 0x20u);
+      v70 = v26;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] PlaybackState changed from %{public}@ to %{public}@ for %{public}@", buf, 0x20u);
     }
 
     [(MRDNowPlayingPlayerClient *)self _onQueue_playbackStateDidChanged:_onQueue_playbackState];
   }
 
-  if (v18)
+  if (v17)
   {
-    v28 = _MRLogForCategory();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = _MRLogForCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = @"false";
-      v30 = self->_playerPath;
+      v28 = @"false";
+      v29 = self->_playerPath;
       if (_onQueue_isPlaying)
       {
-        v29 = @"true";
+        v28 = @"true";
       }
 
       *buf = 138543618;
+      *v68 = v28;
+      *&v68[8] = 2114;
       *v69 = v29;
-      *&v69[8] = 2114;
-      *v70 = v30;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] isPlaying changed to %{public}@ for %{public}@", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] isPlaying changed to %{public}@ for %{public}@", buf, 0x16u);
     }
 
     [(MRDNowPlayingPlayerClient *)self _onQueue_isPlayingDidChange:_onQueue_isPlaying];
   }
 
   playbackQueue = [(MRDPlaybackQueue *)self->_playbackQueueInternal playbackQueue];
-  v32 = [playbackQueue contentItemWithOffset:0];
-  metadata = [v32 metadata];
+  v31 = [playbackQueue contentItemWithOffset:0];
+  metadata = [v31 metadata];
   [metadata playbackRate];
-  v35 = v34;
+  v34 = v33;
 
   [(MRDNowPlayingPlayerClient *)self pushStatePlaybackRate];
-  if (vabds_f32(v35, v36) > 0.00000011921)
+  if (vabds_f32(v34, v35) > 0.00000011921)
   {
-    v37 = _MRLogForCategory();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v36 = _MRLogForCategory();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = self->_playerPath;
+      v37 = self->_playerPath;
       *buf = 134218242;
-      *v69 = v35;
-      *&v69[8] = 2114;
-      *v70 = v38;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] playbackRate changed to %lf for %{public}@", buf, 0x16u);
+      *v68 = v34;
+      *&v68[8] = 2114;
+      *v69 = v37;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] playbackRate changed to %lf for %{public}@", buf, 0x16u);
     }
   }
 
   canBeNowPlayingPlayer = [(MRDNowPlayingPlayerClient *)self canBeNowPlayingPlayer];
   if (canBeNowPlayingPlayer != [(MRDNowPlayingPlayerClient *)self pushStateCanBeNowPlayingPlayer])
   {
-    v40 = _MRLogForCategory();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v39 = _MRLogForCategory();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = @"false";
-      v42 = self->_playerPath;
+      v40 = @"false";
+      v41 = self->_playerPath;
       if (canBeNowPlayingPlayer)
       {
-        v41 = @"true";
+        v40 = @"true";
       }
 
       *buf = 138543618;
+      *v68 = v40;
+      *&v68[8] = 2114;
       *v69 = v41;
-      *&v69[8] = 2114;
-      *v70 = v42;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] CanBeNowPlayingPlayer changed to %{public}@ for %{public}@", buf, 0x16u);
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] CanBeNowPlayingPlayer changed to %{public}@ for %{public}@", buf, 0x16u);
     }
 
     [(MRDNowPlayingPlayerClient *)self _onQueue_canBeNowPlayingDidChange:canBeNowPlayingPlayer];
@@ -391,69 +390,69 @@ LABEL_11:
   player = [(MRPlayerPath *)self->_playerPath player];
   displayName = [player displayName];
   displayName2 = [(MRPlayer *)self->_pushStatePlayer displayName];
-  v67 = _onQueue_playbackState;
+  v66 = _onQueue_playbackState;
   if (displayName && ([displayName isEqualToString:displayName2] & 1) == 0)
   {
-    v47 = _MRLogForCategory();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v46 = _MRLogForCategory();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = self->_playerPath;
+      v47 = self->_playerPath;
       *buf = 138412802;
-      *v69 = displayName2;
-      *&v69[8] = 2112;
-      *v70 = displayName;
-      *&v70[8] = 2114;
-      v71 = v48;
-      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] DisplayName changed from %@ to %@ for %{public}@", buf, 0x20u);
+      *v68 = displayName2;
+      *&v68[8] = 2112;
+      *v69 = displayName;
+      *&v69[8] = 2114;
+      v70 = v47;
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] DisplayName changed from %@ to %@ for %{public}@", buf, 0x20u);
     }
 
-    v46 = 1;
+    v45 = 1;
   }
 
   else
   {
-    v46 = 0;
+    v45 = 0;
   }
 
   audioSessionType = [player audioSessionType];
   if (audioSessionType != [(MRPlayer *)self->_pushStatePlayer audioSessionType])
   {
+    v49 = NSStringFromMRPlayerAudioSessionType();
     v50 = NSStringFromMRPlayerAudioSessionType();
-    v51 = NSStringFromMRPlayerAudioSessionType();
-    v52 = _MRLogForCategory();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v51 = _MRLogForCategory();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
-      v53 = self->_playerPath;
+      v52 = self->_playerPath;
       *buf = 138543874;
+      *v68 = v49;
+      *&v68[8] = 2114;
       *v69 = v50;
       *&v69[8] = 2114;
-      *v70 = v51;
-      *&v70[8] = 2114;
-      v71 = v53;
-      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] AudioSessionType changed from %{public}@ to %{public}@ for %{public}@", buf, 0x20u);
+      v70 = v52;
+      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] AudioSessionType changed from %{public}@ to %{public}@ for %{public}@", buf, 0x20u);
     }
 
-    v46 = 1;
+    v45 = 1;
   }
 
   mxSessionIDs = [player mxSessionIDs];
   mxSessionIDs2 = [(MRPlayer *)self->_pushStatePlayer mxSessionIDs];
   if (mxSessionIDs != mxSessionIDs2 && ([mxSessionIDs isEqual:mxSessionIDs2] & 1) == 0)
   {
-    v56 = _MRLogForCategory();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+    v55 = _MRLogForCategory();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
-      v57 = self->_playerPath;
+      v56 = self->_playerPath;
       *buf = 138543874;
-      *v69 = mxSessionIDs2;
+      *v68 = mxSessionIDs2;
+      *&v68[8] = 2114;
+      *v69 = mxSessionIDs;
       *&v69[8] = 2114;
-      *v70 = mxSessionIDs;
-      *&v70[8] = 2114;
-      v71 = v57;
-      _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] MXSessionIDs changed from %{public}@ to %{public}@ for %{public}@", buf, 0x20u);
+      v70 = v56;
+      _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] MXSessionIDs changed from %{public}@ to %{public}@ for %{public}@", buf, 0x20u);
     }
 
-    v46 = 1;
+    v45 = 1;
   }
 
   pushStatePlayer = [(MRDNowPlayingPlayerClient *)self pushStatePlayer];
@@ -462,7 +461,7 @@ LABEL_11:
 
   if (audioSessionID == audioSessionID2)
   {
-    if (!v46)
+    if (!v45)
     {
       goto LABEL_59;
     }
@@ -470,20 +469,20 @@ LABEL_11:
 
   else
   {
-    v61 = _MRLogForCategory();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+    v60 = _MRLogForCategory();
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
     {
       pushStatePlayer2 = [(MRDNowPlayingPlayerClient *)self pushStatePlayer];
       audioSessionID3 = [pushStatePlayer2 audioSessionID];
       audioSessionID4 = [player audioSessionID];
-      v65 = self->_playerPath;
+      v64 = self->_playerPath;
       *buf = 67109634;
-      *v69 = audioSessionID3;
-      *&v69[4] = 1024;
-      *&v69[6] = audioSessionID4;
-      *v70 = 2114;
-      *&v70[2] = v65;
-      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] AudioSessionID changed from %u to %u for %{public}@", buf, 0x18u);
+      *v68 = audioSessionID3;
+      *&v68[4] = 1024;
+      *&v68[6] = audioSessionID4;
+      *v69 = 2114;
+      *&v69[2] = v64;
+      _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingPlayerClient] AudioSessionID changed from %u to %u for %{public}@", buf, 0x18u);
     }
   }
 
@@ -503,18 +502,17 @@ LABEL_59:
 
 - (NSArray)supportedRemoteControlCommands
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_10003500C;
-  v9 = sub_1000359BC;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_10003500C;
+  v8 = sub_1000359BC;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (NSArray)participants
@@ -531,15 +529,14 @@ LABEL_59:
 
 - (double)timeSincePlaying
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[3];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (id)_onQueue_lastPlayingDate
@@ -569,15 +566,14 @@ LABEL_59:
 
 - (unint64_t)playbackQueueCapabilities
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[3];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (MRContentItem)nowPlayingContentItem
@@ -590,31 +586,29 @@ LABEL_59:
 
 - (MRPlaybackQueue)playbackQueue
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_10003500C;
-  v9 = sub_1000359BC;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_10003500C;
+  v8 = sub_1000359BC;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)isPlaying
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (id)activeContent
@@ -781,21 +775,56 @@ LABEL_22:
 
 - (NSString)description
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = sub_10003500C;
-  v10 = sub_1000359BC;
-  v11 = objc_alloc_init(NSMutableString);
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_10003500C;
+  v8 = sub_1000359BC;
+  v9 = objc_alloc_init(NSMutableString);
   msv_dispatch_sync_on_queue();
-  v4 = v7[5];
-  _Block_object_dispose(&v6, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v4;
+  return v2;
 }
 
 - (NSData)supportedRemoteControlCommandsData
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_10003500C;
+  v8 = sub_1000359BC;
+  v9 = 0;
+  msv_dispatch_sync_on_queue();
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
+
+  return v2;
+}
+
+- (void)setSupportedRemoteControlCommands:(id)commands
+{
+  commandsCopy = commands;
+  v3 = commandsCopy;
+  msv_dispatch_sync_on_queue();
+}
+
+- (void)setSupportedRemoteControlCommandsData:(id)data
+{
+  dataCopy = data;
+  v3 = dataCopy;
+  msv_dispatch_sync_on_queue();
+}
+
+- (void)setPlaybackQueue:(id)queue
+{
+  queueCopy = queue;
+  v3 = queueCopy;
+  msv_dispatch_sync_on_queue();
+}
+
+- (unsigned)inferredPlaybackState
 {
   v5 = 0;
   v6 = &v5;
@@ -803,53 +832,9 @@ LABEL_22:
   v8 = sub_10003500C;
   v9 = sub_1000359BC;
   v10 = 0;
-  serialQueue = self->_serialQueue;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
+  playbackState = [v6[5] playbackState];
   _Block_object_dispose(&v5, 8);
-
-  return v3;
-}
-
-- (void)setSupportedRemoteControlCommands:(id)commands
-{
-  commandsCopy = commands;
-  serialQueue = self->_serialQueue;
-  v7 = commandsCopy;
-  v6 = commandsCopy;
-  msv_dispatch_sync_on_queue();
-}
-
-- (void)setSupportedRemoteControlCommandsData:(id)data
-{
-  dataCopy = data;
-  serialQueue = self->_serialQueue;
-  v7 = dataCopy;
-  v6 = dataCopy;
-  msv_dispatch_sync_on_queue();
-}
-
-- (void)setPlaybackQueue:(id)queue
-{
-  queueCopy = queue;
-  serialQueue = self->_serialQueue;
-  v7 = queueCopy;
-  v6 = queueCopy;
-  msv_dispatch_sync_on_queue();
-}
-
-- (unsigned)inferredPlaybackState
-{
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = sub_10003500C;
-  v10 = sub_1000359BC;
-  v11 = 0;
-  serialQueue = self->_serialQueue;
-  msv_dispatch_sync_on_queue();
-  playbackState = [v7[5] playbackState];
-  _Block_object_dispose(&v6, 8);
 
   return playbackState;
 }
@@ -857,9 +842,7 @@ LABEL_22:
 - (void)updatePlaybackState:(unsigned int)state date:(id)date
 {
   dateCopy = date;
-  serialQueue = self->_serialQueue;
-  v8 = dateCopy;
-  v7 = dateCopy;
+  v4 = dateCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -879,26 +862,23 @@ LABEL_22:
 
 - (NSDate)canBeNowPlayingPlayerTimestamp
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_10003500C;
-  v9 = sub_1000359BC;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_10003500C;
+  v8 = sub_1000359BC;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (void)setCanBeNowPlayingPlayerTimestamp:(id)timestamp
 {
   timestampCopy = timestamp;
-  serialQueue = self->_serialQueue;
-  v7 = timestampCopy;
-  v6 = timestampCopy;
+  v3 = timestampCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -926,18 +906,17 @@ LABEL_22:
 
 - (MRNowPlayingState)nowPlayingState
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_10003500C;
-  v9 = sub_1000359BC;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_10003500C;
+  v8 = sub_1000359BC;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (NSMapTable)handoffSessions
@@ -965,27 +944,21 @@ LABEL_22:
 - (void)setPlayerPath:(id)path
 {
   pathCopy = path;
-  serialQueue = self->_serialQueue;
-  v7 = pathCopy;
-  v6 = pathCopy;
+  v3 = pathCopy;
   msv_dispatch_sync_on_queue();
 }
 
 - (void)updateClient:(id)client
 {
   clientCopy = client;
-  serialQueue = self->_serialQueue;
-  v7 = clientCopy;
-  v6 = clientCopy;
+  v3 = clientCopy;
   msv_dispatch_sync_on_queue();
 }
 
 - (void)updatePlayer:(id)player
 {
   playerCopy = player;
-  serialQueue = self->_serialQueue;
-  v7 = playerCopy;
-  v6 = playerCopy;
+  v3 = playerCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -993,11 +966,8 @@ LABEL_22:
 {
   queueCopy = queue;
   requestCopy = request;
-  serialQueue = self->_serialQueue;
-  v11 = queueCopy;
-  v12 = requestCopy;
-  v9 = requestCopy;
-  v10 = queueCopy;
+  v5 = requestCopy;
+  v6 = queueCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -1203,6 +1173,14 @@ LABEL_22:
   return v8;
 }
 
+- (id)snapshotForIsPlaying:(BOOL)playing
+{
+  v3 = [(MRDNowPlayingPlayerClient *)self snapshotsForIsPlaying:playing];
+  firstObject = [v3 firstObject];
+
+  return firstObject;
+}
+
 - (NSArray)snapshots
 {
   v6 = 0;
@@ -1352,6 +1330,37 @@ LABEL_22:
   dispatch_sync(serialQueue, v8);
 }
 
+- (void)_onQueue_canBeNowPlayingDidChange:(BOOL)change
+{
+  changeCopy = change;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained nowPlayingPlayerClient:self playerCanBeNowPlayingDidChange:changeCopy];
+}
+
+- (void)_onQueue_isPlayingDidChange:(BOOL)change
+{
+  changeCopy = change;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  if (!changeCopy)
+  {
+    v5 = +[NSDate date];
+    lastPlayingDate = self->_lastPlayingDate;
+    self->_lastPlayingDate = v5;
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained nowPlayingPlayerClient:self isPlayingDidChange:changeCopy];
+}
+
+- (void)_onQueue_pictureInPictureEnabledDidChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained nowPlayingPlayerClient:self pictureInPictureEnabledDidChange:changedCopy];
+}
+
 - (void)_onQueue_playbackStateDidChanged:(id)changed
 {
   serialQueue = self->_serialQueue;
@@ -1378,6 +1387,18 @@ LABEL_22:
   v6 = [changeCopy copy];
 
   [WeakRetained nowPlayingPlayerClient:self supportedCommandsDidChange:v6];
+}
+
+- (void)_onQueue_playbackQueueDidChange:(id)change nowPlayingItemChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  serialQueue = self->_serialQueue;
+  changeCopy = change;
+  dispatch_assert_queue_V2(serialQueue);
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v8 = [changeCopy copy];
+
+  [WeakRetained nowPlayingPlayerClient:self playbackQueueDidChange:v8 nowPlayingItemDidChange:changedCopy];
 }
 
 - (void)_onQueue_playbackQueueCapabilitiesDidChange:(unint64_t)change

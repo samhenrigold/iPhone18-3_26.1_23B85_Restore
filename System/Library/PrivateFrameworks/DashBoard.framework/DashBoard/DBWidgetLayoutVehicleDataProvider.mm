@@ -50,7 +50,7 @@
   v9 = v8;
   if (areas)
   {
-    sub_24814FB28(0, &unk_27EE90E00);
+    sub_24814FB28(0, &unk_27EE90E00, 0x277CCAE60);
     areas = sub_248383B10();
   }
 
@@ -68,7 +68,7 @@
 - (void)updateViewAreas:(id)areas completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  sub_24814FB28(0, &unk_27EE90E00);
+  sub_24814FB28(0, &unk_27EE90E00, 0x277CCAE60);
   v6 = sub_248383B10();
   _Block_copy(v5);
   selfCopy = self;
@@ -79,7 +79,7 @@
 
 - (void)getWidgetStateWithCompletion:(id)completion
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE90480);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE90480, &qword_24839D5D0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15 - v6;
   v8 = _Block_copy(completion);
@@ -100,7 +100,7 @@
   v13[6] = v9;
   sub_2482E9E44(0, 0, v7, 0, 0, &unk_2483A0C38, v13);
 
-  sub_24822D578(v7, &qword_27EE90480);
+  sub_24822D578(v7, &qword_27EE90480, &qword_24839D5D0);
 }
 
 - (void)setWidgetState:(id)state initiatedBy:(unint64_t)by

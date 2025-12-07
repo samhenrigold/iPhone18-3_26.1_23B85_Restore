@@ -64,11 +64,11 @@
 {
   paramsCopy = params;
   messages = [prompt messages];
-  if ([messages count] > 1)
+  if (objc_msgSend_count(messages) > 1)
   {
     v31 = paramsCopy;
-    v9 = [messages objectAtIndexedSubscript:{objc_msgSend(messages, "count") - 2}];
-    v10 = [messages objectAtIndexedSubscript:{objc_msgSend(messages, "count") - 1}];
+    v9 = [messages objectAtIndexedSubscript:objc_msgSend_count(messages) - 2];
+    v10 = [messages objectAtIndexedSubscript:objc_msgSend_count(messages) - 1];
     v30 = v9;
     message = [v9 message];
     sender = [message sender];
@@ -133,10 +133,10 @@
   return v8;
 }
 
-id __63__SGTextMessageConversationTracker_getMergedPrompt_withParams___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+id __63__SGTextMessageConversationTracker_getMergedPrompt_withParams___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
-  if ([*(a1 + 32) count] - 1 <= a3)
+  if (objc_msgSend_count(*(a1 + 32)) - 1 <= a3)
   {
     v13 = 0;
   }

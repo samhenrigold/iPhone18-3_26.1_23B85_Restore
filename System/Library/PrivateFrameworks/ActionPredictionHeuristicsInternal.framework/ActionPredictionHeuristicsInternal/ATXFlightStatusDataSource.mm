@@ -188,56 +188,56 @@ LABEL_13:
 
 void __60__ATXFlightStatusDataSource_flightStatusForFlight_callback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6 && [v5 count])
   {
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     v9 = v5;
-    v53 = [v9 countByEnumeratingWithState:&v64 objects:v75 count:16];
-    if (v53)
+    v52 = [v9 countByEnumeratingWithState:&v63 objects:v74 count:16];
+    if (v52)
     {
-      v10 = *v65;
-      v57 = v5;
-      v58 = a1;
-      v56 = v9;
-      v52 = *v65;
+      v10 = *v64;
+      v56 = v5;
+      v57 = a1;
+      v55 = v9;
+      v51 = *v64;
       do
       {
         v11 = 0;
         do
         {
-          if (*v65 != v10)
+          if (*v64 != v10)
           {
             objc_enumerationMutation(v9);
           }
 
-          v54 = v11;
-          v12 = *(*(&v64 + 1) + 8 * v11);
+          v53 = v11;
+          v12 = *(*(&v63 + 1) + 8 * v11);
+          v59 = 0u;
           v60 = 0u;
           v61 = 0u;
           v62 = 0u;
-          v63 = 0u;
           obj = [v12 legs];
-          v13 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
+          v13 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v61;
+            v15 = *v60;
             while (2)
             {
               for (i = 0; i != v14; ++i)
               {
-                if (*v61 != v15)
+                if (*v60 != v15)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v17 = *(*(&v60 + 1) + 8 * i);
+                v17 = *(*(&v59 + 1) + 8 * i);
                 v18 = [v17 arrival];
                 v19 = [v18 airport];
                 v20 = [v19 IATACode];
@@ -271,54 +271,54 @@ void __60__ATXFlightStatusDataSource_flightStatusForFlight_callback___block_invo
 
                     if (v25 && v27 && v30 && v32)
                     {
-                      v72[0] = @"estimatedDepartureTimestamp";
+                      v71[0] = @"estimatedDepartureTimestamp";
                       v42 = MEMORY[0x277CCABB0];
-                      v55 = v25;
+                      v54 = v25;
                       [v25 timeIntervalSinceReferenceDate];
                       v43 = [v42 numberWithDouble:?];
-                      v73[0] = v43;
-                      v73[1] = v27;
-                      v72[1] = @"departureDelay";
-                      v72[2] = @"arrivalAirport";
-                      v73[2] = v20;
-                      v72[3] = @"estimatedArrivalTimestamp";
+                      v72[0] = v43;
+                      v72[1] = v27;
+                      v71[1] = @"departureDelay";
+                      v71[2] = @"arrivalAirport";
+                      v72[2] = v20;
+                      v71[3] = @"estimatedArrivalTimestamp";
                       v44 = MEMORY[0x277CCABB0];
                       [v30 timeIntervalSinceReferenceDate];
                       v45 = [v44 numberWithDouble:?];
-                      v73[3] = v45;
-                      v73[4] = v32;
-                      v72[4] = @"arrivalDelay";
-                      v72[5] = @"arrivalAirportLocation";
-                      v70[0] = @"lat";
+                      v72[3] = v45;
+                      v72[4] = v32;
+                      v71[4] = @"arrivalDelay";
+                      v71[5] = @"arrivalAirportLocation";
+                      v69[0] = @"lat";
                       v46 = [MEMORY[0x277CCABB0] numberWithDouble:v36];
-                      v70[1] = @"lon";
-                      v71[0] = v46;
+                      v69[1] = @"lon";
+                      v70[0] = v46;
                       v47 = [MEMORY[0x277CCABB0] numberWithDouble:v38];
-                      v71[1] = v47;
-                      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
-                      v73[5] = v48;
-                      v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:v72 count:6];
+                      v70[1] = v47;
+                      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
+                      v72[5] = v48;
+                      v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:6];
 
                       v50 = __atxlog_handle_heuristic();
                       if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
                       {
                         *buf = 138412290;
-                        v69 = v49;
+                        v68 = v49;
                         _os_log_impl(&dword_23E3EA000, v50, OS_LOG_TYPE_INFO, "Received metadata about the flight from FlightUtilities. Flight card: %@", buf, 0xCu);
                       }
 
-                      (*(*(v58 + 40) + 16))();
+                      (*(*(v57 + 40) + 16))();
                       v6 = 0;
-                      v5 = v57;
+                      v5 = v56;
                       goto LABEL_36;
                     }
 
-                    a1 = v58;
+                    a1 = v57;
                   }
                 }
               }
 
-              v14 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
+              v14 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
               if (v14)
               {
                 continue;
@@ -328,18 +328,18 @@ void __60__ATXFlightStatusDataSource_flightStatusForFlight_callback___block_invo
             }
           }
 
-          v11 = v54 + 1;
+          v11 = v53 + 1;
           v6 = 0;
-          v5 = v57;
-          v9 = v56;
-          v10 = v52;
+          v5 = v56;
+          v9 = v55;
+          v10 = v51;
         }
 
-        while (v54 + 1 != v53);
-        v53 = [v56 countByEnumeratingWithState:&v64 objects:v75 count:16];
+        while (v53 + 1 != v52);
+        v52 = [v55 countByEnumeratingWithState:&v63 objects:v74 count:16];
       }
 
-      while (v53);
+      while (v52);
     }
 
     v39 = __atxlog_handle_heuristic();
@@ -372,26 +372,22 @@ LABEL_32:
 
   (*(v8 + 16))(*(a1 + 40), 0, v6);
 LABEL_36:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flightStatusForFlight:(uint64_t)a1 callback:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Requested flight status with flightID: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_DEBUG, "Requested flight status with flightID: %@", &v2, 0xCu);
 }
 
 void __60__ATXFlightStatusDataSource_flightStatusForFlight_callback___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Encountered an error, or got back no flights -- Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Encountered an error, or got back no flights -- Error: %@", &v2, 0xCu);
 }
 
 @end

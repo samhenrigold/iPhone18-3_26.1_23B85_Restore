@@ -50,20 +50,20 @@ void __77___NCWidgetExtensionContext_initWithInputItems_listenerEndpoint_context
 
 void __55___NCWidgetExtensionContext_openURL_completionHandler___block_invoke(uint64_t a1)
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D0AC70];
-  v15[0] = *MEMORY[0x277D0AC58];
-  v15[1] = v2;
-  v16[0] = MEMORY[0x277CBEC38];
-  v16[1] = MEMORY[0x277CBEC38];
-  v15[2] = *MEMORY[0x277D0AC28];
-  v16[2] = @"NCAppLaunchOriginWidget";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v14[0] = *MEMORY[0x277D0AC58];
+  v14[1] = v2;
+  v15[0] = MEMORY[0x277CBEC38];
+  v15[1] = MEMORY[0x277CBEC38];
+  v14[2] = *MEMORY[0x277D0AC28];
+  v15[2] = @"NCAppLaunchOriginWidget";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   v4 = [MEMORY[0x277CC1E80] defaultWorkspace];
   v5 = *(a1 + 32);
-  v14 = 0;
-  v6 = [v4 openSensitiveURL:v5 withOptions:v3 error:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [v4 openSensitiveURL:v5 withOptions:v3 error:&v13];
+  v7 = v13;
   *(*(*(a1 + 48) + 8) + 24) = v6;
 
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
@@ -79,12 +79,10 @@ void __55___NCWidgetExtensionContext_openURL_completionHandler___block_invoke(ui
     block[3] = &unk_278750C10;
     v8 = *(a1 + 40);
     v9 = *(a1 + 48);
-    v12 = v8;
-    v13 = v9;
+    v11 = v8;
+    v12 = v9;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

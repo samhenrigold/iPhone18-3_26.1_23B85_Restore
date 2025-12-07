@@ -17,7 +17,10 @@
 - (id)pedigreeWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
 - (id)referenceURLWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
 - (id)tagSpecificationWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
+- (id)versionWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes;
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 - (void)_enumerateRelatedTypeStructuresWithContext:(LSContext *)context unitID:(unsigned int)d maximumDegreeOfSeparation:(int64_t)separation block:(id)block;
+- (void)_enumerateRelatedTypeUnitsOrDynamicIdsWithContext:(LSContext *)context unitID:(unsigned int)d maximumDegreeOfSeparation:(int64_t)separation block:(id)block;
 @end
 
 @implementation _UTDeclaredTypeRecord
@@ -35,23 +38,22 @@
 
 + (id)_propertyClasses
 {
-  v5[7] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[7] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v4[6] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:7];
 
   return v2;
 }
 
 - (id)_declaringBundleRecordWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_weakDeclaringBundleRecord);
 
   if (WeakRetained)
@@ -77,9 +79,9 @@ LABEL_2:
     v10 = _LSBundleGet(db, var5);
     if (v10)
     {
-      v15 = v10;
-      v16 = v10[42];
-      switch(v16)
+      v14 = v10;
+      v15 = v10[42];
+      switch(v15)
       {
         case 11:
           v10 = +[LSBundleRecord coreTypesBundleRecord];
@@ -91,16 +93,16 @@ LABEL_2:
           v10 = [[LSApplicationRecord alloc] _initWithContext:context bundleID:bytes->var5 bundleData:v10 error:0];
           break;
         default:
-          v17 = _LSRecordLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v16 = _LSRecordLog(v10);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            v18 = v15[42];
+            v17 = v14[42];
             identifier = [(_UTDeclaredTypeRecord *)self identifier];
             *buf = 134218242;
-            v21 = v18;
-            v22 = 2114;
-            v23 = identifier;
-            _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_ERROR, "Unexpected bundle class %lu declaring type %{public}@", buf, 0x16u);
+            v20 = v17;
+            v21 = 2114;
+            v22 = identifier;
+            _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_ERROR, "Unexpected bundle class %lu declaring type %{public}@", buf, 0x16u);
           }
 
           goto LABEL_2;
@@ -109,7 +111,6 @@ LABEL_2:
   }
 
 LABEL_3:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -137,7 +138,7 @@ LABEL_3:
 
       v9[4] = block;
       v9[5] = context;
-      _UTTypeSearchConformingTypesWithBlock(db, d, v8, 0, v9);
+      _UTTypeSearchConformingTypesWithBlock(db, *&d, v8, 0, v9);
     }
   }
 
@@ -150,17 +151,31 @@ LABEL_3:
     v10[3] = &unk_1E6A1F140;
     v10[4] = block;
     v10[5] = context;
-    _UTTypeSearchConformsToTypesWithBlock(v6, d, separation, 0, v10);
+    _UTTypeSearchConformsToTypesWithBlock(v6, *&d, separation, 0, v10);
   }
 }
 
 - (id)identifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
 {
-  var3 = bytes->var3;
   [(_LSDatabase *)context->db store];
-  v7 = _CSStringCopyCFString();
+  v6 = _CSStringCopyCFString();
 
-  return v7;
+  return v6;
+}
+
+- (id)versionWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
+{
+  if ((bytes->var2 & 0x100) != 0)
+  {
+    v8 = [MEMORY[0x1E696AD98] numberWithInt:{bytes->var4, *&d, *&iD, v6}];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (id)declarationWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
@@ -176,10 +191,9 @@ LABEL_3:
   defaultStringValue = [_localizedDescription defaultStringValue];
   [v9 setObject:defaultStringValue forKeyedSubscript:@"UTTypeDescription"];
 
-  var12 = bytes->var12;
   [(_LSDatabase *)context->db store];
-  v15 = _CSStringCopyCFString();
-  [v9 setObject:v15 forKeyedSubscript:@"UTKEXTIdentifier"];
+  v14 = _CSStringCopyCFString();
+  [v9 setObject:v14 forKeyedSubscript:@"UTKEXTIdentifier"];
 
   tagSpecification = [(_UTDeclaredTypeRecord *)self tagSpecification];
   _expensiveDictionaryRepresentation = [tagSpecification _expensiveDictionaryRepresentation];
@@ -191,38 +205,38 @@ LABEL_3:
     db = context->db;
     schema = [(_LSDatabase *)context->db schema];
     EntryWithClass = _LSBindingListGetEntryWithClass(db, var14, *(schema + 216));
-    if (EntryWithClass && (v22 = EntryWithClass[1], v22))
+    if (EntryWithClass && (v21 = EntryWithClass[1], v21))
     {
-      v23 = 0;
-      v24 = (EntryWithClass + 2);
+      v22 = 0;
+      v23 = EntryWithClass + 2;
       do
       {
-        v25 = *v24++;
+        ++v23;
         [(_LSDatabase *)context->db store];
-        v26 = _CSStringCopyCFString();
-        v27 = v26;
-        if (v26 && [v26 length])
+        v24 = _CSStringCopyCFString();
+        v25 = v24;
+        if (v24 && [v24 length])
         {
-          if (!v23)
+          if (!v22)
           {
-            v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
           }
 
-          [v23 addObject:v27];
+          [v22 addObject:v25];
         }
 
-        --v22;
+        --v21;
       }
 
-      while (v22);
+      while (v21);
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    [v9 setObject:v23 forKeyedSubscript:@"UTTypeConformsTo"];
+    [v9 setObject:v22 forKeyedSubscript:@"UTTypeConformsTo"];
   }
 
   referenceURL = [(_UTDeclaredTypeRecord *)self referenceURL];
@@ -234,9 +248,9 @@ LABEL_3:
     [v9 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"UTTypeIsWildcard"];
   }
 
-  v30 = [_LSLazyPropertyList lazyPropertyListWithPropertyList:v9];
+  v28 = [_LSLazyPropertyList lazyPropertyListWithPropertyList:v9];
 
-  return v30;
+  return v28;
 }
 
 - (id)tagSpecificationWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
@@ -247,57 +261,54 @@ LABEL_3:
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  var13 = bytes->var13;
-  EntryCount = _LSBindingListGetEntryCount(context->db);
+  EntryCount = _LSBindingListGetEntryCount(context->db, bytes->var13);
   if (EntryCount)
   {
     for (i = 0; i != EntryCount; ++i)
     {
       EntryAtIndex = _LSBindingListGetEntryAtIndex(context->db, bytes->var13, i);
-      v13 = EntryAtIndex;
       if (EntryAtIndex)
       {
-        v14 = *EntryAtIndex;
         [(_LSDatabase *)context->db store];
-        v15 = _CSStringCopyCFString();
-        if (v15)
+        v12 = _CSStringCopyCFString();
+        if (v12)
         {
-          v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
-          v17 = v13[1];
-          if (v17)
+          v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v14 = EntryAtIndex[1];
+          if (v14)
           {
-            v18 = v13 + 2;
+            v15 = EntryAtIndex + 2;
             do
             {
-              v19 = *v18++;
+              ++v15;
               [(_LSDatabase *)context->db store];
-              v20 = _CSStringCopyCFString();
-              if (v20)
+              v16 = _CSStringCopyCFString();
+              if (v16)
               {
-                [v16 addObject:v20];
+                [v13 addObject:v16];
               }
 
-              --v17;
+              --v14;
             }
 
-            while (v17);
+            while (v14);
           }
 
-          if ([v16 count])
+          if ([v13 count])
           {
-            v21 = [v8 objectForKeyedSubscript:v15];
-            v22 = v21;
-            if (v21)
+            v17 = [v8 objectForKeyedSubscript:v12];
+            v18 = v17;
+            if (v17)
             {
-              v23 = [v21 arrayByAddingObjectsFromArray:v16];
+              v19 = [v17 arrayByAddingObjectsFromArray:v13];
             }
 
             else
             {
-              v23 = [v16 copy];
+              v19 = [v13 copy];
             }
 
-            [v8 setObject:v23 forKeyedSubscript:v15];
+            [v8 setObject:v19 forKeyedSubscript:v12];
           }
         }
       }
@@ -306,34 +317,33 @@ LABEL_3:
 
   if (v8)
   {
-    v24 = [_LSLazyPropertyList lazyPropertyListWithPropertyList:v8];
+    v20 = [_LSLazyPropertyList lazyPropertyListWithPropertyList:v8];
   }
 
   else
   {
 LABEL_21:
-    v24 = _LSLazyPropertyListGetSharedEmptyPropertyList();
+    v20 = _LSLazyPropertyListGetSharedEmptyPropertyList();
   }
 
-  return v24;
+  return v20;
 }
 
 - (id)referenceURLWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
 {
-  var15 = bytes->var15;
   [(_LSDatabase *)context->db store];
-  v7 = _CSStringCopyCFString();
-  if (v7)
+  v6 = _CSStringCopyCFString();
+  if (v6)
   {
-    v8 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v7];
+    v7 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v6];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)conformsToTypeIdentifier:(id)identifier
@@ -363,7 +373,7 @@ LABEL_21:
 
 - (id)pedigreeWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
 {
-  PedigreeInternal = _UTTypeGetPedigreeInternal(&context->db, iD, bytes);
+  PedigreeInternal = _UTTypeGetPedigreeInternal(&context->db, *&iD, bytes);
   v7 = PedigreeInternal;
   if (PedigreeInternal)
   {
@@ -382,6 +392,7 @@ LABEL_21:
 
 - (id)parentTypeIdentifiersWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
 {
+  v6 = *&iD;
   v8 = objc_alloc_init(MEMORY[0x1E695DFA0]);
   db = context->db;
   v13 = MEMORY[0x1E69E9820];
@@ -391,7 +402,7 @@ LABEL_21:
   contextCopy = context;
   v10 = v8;
   v17 = v10;
-  _UTTypeSearchConformsToTypesWithBlock(db, iD, 1, 0, &v13);
+  _UTTypeSearchConformsToTypesWithBlock(db, v6, 1, 0, &v13);
   v11 = [v10 copy];
 
   return v11;
@@ -399,6 +410,7 @@ LABEL_21:
 
 - (id)childTypeIdentifiersWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
 {
+  v6 = *&iD;
   v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   db = context->db;
   v13 = MEMORY[0x1E69E9820];
@@ -408,7 +420,7 @@ LABEL_21:
   contextCopy = context;
   v10 = v8;
   v17 = v10;
-  _UTTypeSearchConformingTypesWithBlock(db, iD, 1, 0, &v13);
+  _UTTypeSearchConformingTypesWithBlock(db, v6, 1, 0, &v13);
   v11 = [v10 copy];
 
   return v11;
@@ -416,7 +428,7 @@ LABEL_21:
 
 - (id)_localizedDescriptionWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
 {
-  v6 = [[_LSLocalizedStringRecord alloc] _initWithContext:context unitID:_UTGetLocalizedDescription(context->db, iD)];
+  v6 = [[_LSLocalizedStringRecord alloc] _initWithContext:context unitID:_UTGetLocalizedDescription(context->db, *&iD)];
 
   return v6;
 }
@@ -442,35 +454,33 @@ LABEL_21:
 {
   if ((bytes->var2 & 0x2000) != 0)
   {
-    v15 = 0;
+    v11 = 0;
   }
 
   else
   {
-    var11 = bytes->var11;
     [(_LSDatabase *)context->db store];
-    v9 = _CSStringCopyCFString();
-    if (v9)
+    v8 = _CSStringCopyCFString();
+    if (v8)
     {
-      v10 = _LSBundleGet(context->db, bytes->var5);
-      if (v10 && (db = context->db, v12 = *(v10 + 464), [(_LSDatabase *)db store], v13 = _CSStringCopyCFString(), (v14 = v13) != 0))
+      if (_LSBundleGet(context->db, bytes->var5) && ([(_LSDatabase *)context->db store], v9 = _CSStringCopyCFString(), (v10 = v9) != 0))
       {
-        v15 = [v13 stringByAppendingPathComponent:v9];
+        v11 = [v9 stringByAppendingPathComponent:v8];
       }
 
       else
       {
-        v15 = v9;
+        v11 = v8;
       }
     }
 
     else
     {
-      v15 = 0;
+      v11 = 0;
     }
   }
 
-  return v15;
+  return v11;
 }
 
 - (BOOL)_isOneTapOpenable
@@ -499,6 +509,36 @@ LABEL_21:
   return v3 & 1;
 }
 
+- (void)_enumerateRelatedTypeUnitsOrDynamicIdsWithContext:(LSContext *)context unitID:(unsigned int)d maximumDegreeOfSeparation:(int64_t)separation block:(id)block
+{
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __114___UTDeclaredTypeRecord__enumerateRelatedTypeUnitsOrDynamicIdsWithContext_unitID_maximumDegreeOfSeparation_block___block_invoke;
+  v6[3] = &unk_1E6A1F1E0;
+  v6[4] = block;
+  [(_UTDeclaredTypeRecord *)self _enumerateRelatedTypeStructuresWithContext:context unitID:*&d maximumDegreeOfSeparation:separation block:v6];
+}
+
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  v11.receiver = self;
+  v11.super_class = _UTDeclaredTypeRecord;
+  [(UTTypeRecord *)&v11 _detachFromContext:context tableID:*&d unitID:*&iD unitBytes:bytes];
+  v7 = [(LSRecord *)self _resolvedPropertyValueForGetter:sel__declaringBundleRecord];
+  v8 = v7;
+  if (v7)
+  {
+    [v7 detach];
+  }
+
+  v9 = [(LSRecord *)self _resolvedPropertyValueForGetter:sel__localizedDescription];
+  v10 = v9;
+  if (v9)
+  {
+    [v9 detach];
+  }
+}
+
 - (id)copyWithZone:(_NSZone *)zone
 {
   v7.receiver = self;
@@ -515,11 +555,10 @@ LABEL_21:
 
 - (id)_referenceAccessoryPathWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(id *)bytes
 {
-  var16 = bytes->var16;
   [(_LSDatabase *)context->db store];
-  v7 = _CSStringCopyCFString();
+  v6 = _CSStringCopyCFString();
 
-  return v7;
+  return v6;
 }
 
 - (id)_referenceAccessoryURLNoConformances

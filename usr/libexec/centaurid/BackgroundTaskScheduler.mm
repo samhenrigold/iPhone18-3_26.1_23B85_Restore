@@ -40,7 +40,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100025204();
+  v3 = sub_100025204(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [objc_opt_class() description];
@@ -52,7 +52,7 @@
     _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: assertion failure: NO -- unexpected dealloc", &v8, 0x16u);
   }
 
-  v6 = abort_report_np();
+  v6 = abort_report_np("assertion failure: NO -- unexpected dealloc");
   [(BackgroundTaskScheduler *)v6 activate];
 }
 
@@ -87,66 +87,67 @@ LABEL_27:
   v4 = +[BGSystemTaskScheduler sharedScheduler];
   identifier = self->_identifier;
   internalQueue = self->_internalQueue;
-  v51[0] = _NSConcreteStackBlock;
-  v51[1] = 3221225472;
-  v51[2] = sub_1000182E8;
-  v51[3] = &unk_10005CAF0;
-  v51[4] = self;
-  v7 = [v4 registerForTaskWithIdentifier:identifier usingQueue:internalQueue launchHandler:v51];
+  v56[0] = _NSConcreteStackBlock;
+  v56[1] = 3221225472;
+  v56[2] = sub_1000182E8;
+  v56[3] = &unk_10005CAF0;
+  v56[4] = self;
+  v7 = [v4 registerForTaskWithIdentifier:identifier usingQueue:internalQueue launchHandler:v56];
 
   if ((v7 & 1) == 0)
   {
-    v13 = sub_100025204();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100025204(v8);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_22;
     }
 
-    v40 = [objc_opt_class() description];
-    v41 = NSStringFromSelector(a2);
-    v42 = self->_identifier;
+    v45 = [objc_opt_class() description];
+    v46 = NSStringFromSelector(a2);
+    v47 = self->_identifier;
     *buf = 138543874;
-    v53 = v40;
-    v54 = 2114;
-    v55 = v41;
-    v56 = 2112;
-    v57 = v42;
-    _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to register task: %@", buf, 0x20u);
+    v58 = v45;
+    v59 = 2114;
+    v60 = v46;
+    v61 = 2112;
+    v62 = v47;
+    _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to register task: %@", buf, 0x20u);
 
     goto LABEL_32;
   }
 
-  v8 = sub_100025204();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100025204(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [objc_opt_class() description];
-    v10 = NSStringFromSelector(a2);
-    v11 = self->_identifier;
+    v10 = [objc_opt_class() description];
+    v11 = NSStringFromSelector(a2);
+    v12 = self->_identifier;
     *buf = 138543874;
-    v53 = v9;
-    v54 = 2114;
-    v55 = v10;
-    v56 = 2112;
-    v57 = v11;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: registered task: %@", buf, 0x20u);
+    v58 = v10;
+    v59 = 2114;
+    v60 = v11;
+    v61 = 2112;
+    v62 = v12;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: registered task: %@", buf, 0x20u);
   }
 
-  v12 = +[BGSystemTaskScheduler sharedScheduler];
-  v13 = [v12 taskRequestForIdentifier:self->_identifier];
+  v13 = +[BGSystemTaskScheduler sharedScheduler];
+  v14 = [v13 taskRequestForIdentifier:self->_identifier];
 
-  if (v13)
+  if (v14)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      [v13 interval];
-      v15 = v14;
+      interval = [v14 interval];
+      v18 = v17;
       interval = self->_interval;
-      v17 = sub_100025204();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-      if (v15 == interval)
+      v20 = sub_100025204(interval);
+      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+      if (v18 == interval)
       {
-        if (!v18)
+        if (!v21)
         {
 LABEL_21:
 
@@ -156,98 +157,98 @@ LABEL_22:
           return;
         }
 
-        v19 = [objc_opt_class() description];
-        v20 = NSStringFromSelector(a2);
-        v21 = self->_identifier;
+        v22 = [objc_opt_class() description];
+        v23 = NSStringFromSelector(a2);
+        v24 = self->_identifier;
         *buf = 138543874;
-        v53 = v19;
-        v54 = 2114;
-        v55 = v20;
-        v56 = 2112;
-        v57 = v21;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: task request already exists, skipping submission: %@", buf, 0x20u);
+        v58 = v22;
+        v59 = 2114;
+        v60 = v23;
+        v61 = 2112;
+        v62 = v24;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: task request already exists, skipping submission: %@", buf, 0x20u);
 
 LABEL_20:
         goto LABEL_21;
       }
 
-      if (v18)
+      if (v21)
       {
-        v29 = [objc_opt_class() description];
-        v30 = NSStringFromSelector(a2);
-        v31 = self->_identifier;
+        v33 = [objc_opt_class() description];
+        v34 = NSStringFromSelector(a2);
+        v35 = self->_identifier;
         *buf = 138543874;
-        v53 = v29;
-        v54 = 2114;
-        v55 = v30;
-        v56 = 2112;
-        v57 = v31;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: task request already exists, but needs reconfiguration: %@", buf, 0x20u);
+        v58 = v33;
+        v59 = 2114;
+        v60 = v34;
+        v61 = 2112;
+        v62 = v35;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: task request already exists, but needs reconfiguration: %@", buf, 0x20u);
       }
 
-      [v13 setInterval:self->_interval];
-      v32 = +[BGSystemTaskScheduler sharedScheduler];
-      v50 = 0;
-      v33 = [v32 updateTaskRequest:v13 error:&v50];
-      v17 = v50;
+      [v14 setInterval:self->_interval];
+      v36 = +[BGSystemTaskScheduler sharedScheduler];
+      v55 = 0;
+      v37 = [v36 updateTaskRequest:v14 error:&v55];
+      v20 = v55;
 
-      v19 = sub_100025204();
-      v34 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-      if (!v33)
+      v22 = sub_100025204(v38);
+      v39 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+      if (!v37)
       {
-        if (v34)
+        if (v39)
         {
-          v37 = [objc_opt_class() description];
-          v38 = NSStringFromSelector(a2);
-          v39 = self->_identifier;
+          v42 = [objc_opt_class() description];
+          v43 = NSStringFromSelector(a2);
+          v44 = self->_identifier;
           *buf = 138544130;
-          v53 = v37;
-          v54 = 2114;
-          v55 = v38;
-          v56 = 2112;
-          v57 = v39;
-          v58 = 2114;
-          v59 = v17;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: failed to update task: %@: %{public}@", buf, 0x2Au);
+          v58 = v42;
+          v59 = 2114;
+          v60 = v43;
+          v61 = 2112;
+          v62 = v44;
+          v63 = 2114;
+          v64 = v20;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: failed to update task: %@: %{public}@", buf, 0x2Au);
         }
 
         self->_updateRequired = 1;
         goto LABEL_21;
       }
 
-      if (!v34)
+      if (!v39)
       {
         goto LABEL_20;
       }
 
-      v24 = [objc_opt_class() description];
-      v35 = NSStringFromSelector(a2);
-      v36 = self->_identifier;
+      v28 = [objc_opt_class() description];
+      v40 = NSStringFromSelector(a2);
+      v41 = self->_identifier;
       *buf = 138543874;
-      v53 = v24;
-      v54 = 2114;
-      v55 = v35;
-      v56 = 2112;
-      v57 = v36;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: updated task: %@", buf, 0x20u);
+      v58 = v28;
+      v59 = 2114;
+      v60 = v40;
+      v61 = 2112;
+      v62 = v41;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: updated task: %@", buf, 0x20u);
 
 LABEL_19:
       goto LABEL_20;
     }
 
-    v40 = sub_100025204();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v45 = sub_100025204(isKindOfClass);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      v46 = [objc_opt_class() description];
-      v47 = NSStringFromSelector(a2);
-      v48 = self->_identifier;
+      v51 = [objc_opt_class() description];
+      v52 = NSStringFromSelector(a2);
+      v53 = self->_identifier;
       *buf = 138543874;
-      v53 = v46;
-      v54 = 2114;
-      v55 = v47;
-      v56 = 2112;
-      v57 = v48;
-      _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: task request already exists, but is not repeating: %@", buf, 0x20u);
+      v58 = v51;
+      v59 = 2114;
+      v60 = v52;
+      v61 = 2112;
+      v62 = v53;
+      _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: task request already exists, but is not repeating: %@", buf, 0x20u);
     }
 
 LABEL_32:
@@ -255,59 +256,59 @@ LABEL_32:
     goto LABEL_22;
   }
 
-  v17 = [[BGRepeatingSystemTaskRequest alloc] initWithIdentifier:self->_identifier];
-  [v17 setPriority:2];
-  [v17 setRequiresNetworkConnectivity:0];
-  [v17 setRequiresExternalPower:0];
-  [v17 setInterval:self->_interval];
-  [v17 setRequiresUserInactivity:self->_requiresUserInactivity];
-  [v17 setRequiresProtectionClass:5];
-  v22 = +[BGSystemTaskScheduler sharedScheduler];
-  v49 = 0;
-  v23 = [v22 submitTaskRequest:v17 error:&v49];
-  v19 = v49;
+  v20 = [[BGRepeatingSystemTaskRequest alloc] initWithIdentifier:self->_identifier];
+  [v20 setPriority:2];
+  [v20 setRequiresNetworkConnectivity:0];
+  [v20 setRequiresExternalPower:0];
+  [v20 setInterval:self->_interval];
+  [v20 setRequiresUserInactivity:self->_requiresUserInactivity];
+  [v20 setRequiresProtectionClass:5];
+  v25 = +[BGSystemTaskScheduler sharedScheduler];
+  v54 = 0;
+  v26 = [v25 submitTaskRequest:v20 error:&v54];
+  v22 = v54;
 
-  v24 = sub_100025204();
-  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-  if (v23)
+  v28 = sub_100025204(v27);
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+  if (v26)
   {
-    if (v25)
+    if (v29)
     {
-      v26 = [objc_opt_class() description];
-      v27 = NSStringFromSelector(a2);
-      v28 = self->_identifier;
+      v30 = [objc_opt_class() description];
+      v31 = NSStringFromSelector(a2);
+      v32 = self->_identifier;
       *buf = 138543874;
-      v53 = v26;
-      v54 = 2114;
-      v55 = v27;
-      v56 = 2112;
-      v57 = v28;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: submitted task: %@", buf, 0x20u);
+      v58 = v30;
+      v59 = 2114;
+      v60 = v31;
+      v61 = 2112;
+      v62 = v32;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: submitted task: %@", buf, 0x20u);
     }
 
     goto LABEL_19;
   }
 
-  if (v25)
+  if (v29)
   {
-    v43 = [objc_opt_class() description];
-    v44 = NSStringFromSelector(a2);
-    v45 = self->_identifier;
+    v48 = [objc_opt_class() description];
+    v49 = NSStringFromSelector(a2);
+    v50 = self->_identifier;
     *buf = 138544130;
-    v53 = v43;
-    v54 = 2114;
-    v55 = v44;
-    v56 = 2112;
-    v57 = v45;
-    v58 = 2114;
-    v59 = v19;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: failed to submit task: %@: %{public}@", buf, 0x2Au);
+    v58 = v48;
+    v59 = 2114;
+    v60 = v49;
+    v61 = 2112;
+    v62 = v50;
+    v63 = 2114;
+    v64 = v22;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: failed to submit task: %@: %{public}@", buf, 0x2Au);
   }
 }
 
 - (void)log
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
@@ -360,8 +361,7 @@ LABEL_32:
   v18 = a2;
   v7 = v6;
   v17 = v7;
-  [taskCopy setExpirationHandler:v16];
-  v8 = sub_100025204();
+  v8 = sub_100025204([taskCopy setExpirationHandler:v16]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [objc_opt_class() description];
@@ -396,19 +396,19 @@ LABEL_32:
   if (WeakRetained)
   {
     identifier = self->_identifier;
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_100018864;
-    v9[3] = &unk_10005CB40;
-    v9[4] = self;
-    v10 = queueCopy;
-    [WeakRetained runBackgroundTaskWithIdentifier:identifier completion:v9];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_100018864;
+    v10[3] = &unk_10005CB40;
+    v10[4] = self;
+    v11 = queueCopy;
+    [WeakRetained runBackgroundTaskWithIdentifier:identifier completion:v10];
   }
 
   else
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100025204(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10002BD04(self, a2);
     }
@@ -438,7 +438,7 @@ LABEL_32:
   ++self->_completedCount;
   if (!self->_updateRequired)
   {
-    v9 = 0;
+    v12 = 0;
     v5 = 0;
     goto LABEL_10;
   }
@@ -448,114 +448,113 @@ LABEL_32:
 
   if (!v5)
   {
-    v10 = sub_100025204();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v14 = sub_100025204(v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v27 = [objc_opt_class() description];
+      v29 = [objc_opt_class() description];
       NSStringFromSelector(a2);
       *buf = 138543618;
-      v35 = v27;
-      v37 = v36 = 2114;
+      v37 = v29;
+      v39 = v38 = 2114;
       sub_1000189E0();
-      _os_log_error_impl(v28, v29, v30, v31, v32, 0x16u);
+      _os_log_error_impl(v30, v31, v32, v33, v34, 0x16u);
     }
 
-    v9 = 0;
+    v12 = 0;
     v5 = 0;
     goto LABEL_9;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = sub_100025204();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v14 = sub_100025204(isKindOfClass);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
 LABEL_18:
-      v9 = 0;
+      v12 = 0;
       goto LABEL_9;
     }
 
-    v17 = [objc_opt_class() description];
-    v18 = NSStringFromSelector(a2);
-    identifier = self->_identifier;
+    v20 = [objc_opt_class() description];
+    v21 = NSStringFromSelector(a2);
     *buf = 138543874;
-    v35 = v17;
+    v37 = v20;
     sub_1000189C4();
     sub_1000189E0();
-    v25 = 32;
+    v27 = 32;
 LABEL_22:
-    _os_log_error_impl(v20, v21, v22, v23, v24, v25);
+    _os_log_error_impl(v22, v23, v24, v25, v26, v27);
 
     goto LABEL_18;
   }
 
-  [v5 interval];
-  if (v6 == self->_interval)
+  interval = [v5 interval];
+  if (v9 == self->_interval)
   {
-    v10 = sub_100025204();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v14 = sub_100025204(interval);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_18;
     }
 
-    v17 = [objc_opt_class() description];
-    v18 = NSStringFromSelector(a2);
+    v20 = [objc_opt_class() description];
+    v21 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v35 = v17;
-    v36 = 2114;
-    v37 = v18;
+    v37 = v20;
+    v38 = 2114;
+    v39 = v21;
     sub_1000189E0();
-    v25 = 22;
+    v27 = 22;
     goto LABEL_22;
   }
 
   [v5 setInterval:?];
-  v7 = +[BGSystemTaskScheduler sharedScheduler];
-  v33 = 0;
-  v8 = [v7 updateTaskRequest:v5 error:&v33];
-  v9 = v33;
+  v10 = +[BGSystemTaskScheduler sharedScheduler];
+  v35 = 0;
+  v11 = [v10 updateTaskRequest:v5 error:&v35];
+  v12 = v35;
 
-  if ((v8 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
     self->_updateRequired = 1;
-    v10 = sub_100025204();
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100025204(v13);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
 
-    v11 = [objc_opt_class() description];
-    v12 = NSStringFromSelector(a2);
-    v26 = self->_identifier;
+    v15 = [objc_opt_class() description];
+    v16 = NSStringFromSelector(a2);
+    identifier = self->_identifier;
     *buf = 138544130;
-    v35 = v11;
-    v36 = 2114;
-    v37 = v12;
-    v38 = 2112;
-    v39 = v26;
-    v40 = 2114;
-    v41 = v9;
-    v14 = "%{public}@::%{public}@: failed to update task: %@: %{public}@";
-    v15 = v10;
-    v16 = 42;
+    v37 = v15;
+    v38 = 2114;
+    v39 = v16;
+    v40 = 2112;
+    v41 = identifier;
+    v42 = 2114;
+    v43 = v12;
+    v17 = "%{public}@::%{public}@: failed to update task: %@: %{public}@";
+    v18 = v14;
+    v19 = 42;
     goto LABEL_8;
   }
 
-  v10 = sub_100025204();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100025204(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [objc_opt_class() description];
-    v12 = NSStringFromSelector(a2);
-    v13 = self->_identifier;
+    v15 = [objc_opt_class() description];
+    v16 = NSStringFromSelector(a2);
     *buf = 138543874;
-    v35 = v11;
+    v37 = v15;
     sub_1000189C4();
-    v14 = "%{public}@::%{public}@: updated task: %@";
-    v15 = v10;
-    v16 = 32;
+    v17 = "%{public}@::%{public}@: updated task: %@";
+    v18 = v14;
+    v19 = 32;
 LABEL_8:
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, buf, v16);
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
   }
 
 LABEL_9:

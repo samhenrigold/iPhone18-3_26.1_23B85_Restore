@@ -89,7 +89,7 @@
     v20 = v28[1];
     v9 = type metadata accessor for _NSSwiftURLComponents();
     v10 = objc_allocWithZone(v9);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMR);
     v11 = swift_allocObject();
     *(v11 + 172) = 0;
     v12 = v26;
@@ -122,7 +122,7 @@
   URLComponents.init()(v12);
   v2 = type metadata accessor for _NSSwiftURLComponents();
   v3 = objc_allocWithZone(v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCy10Foundation13URLComponentsVSo16os_unfair_lock_sVGMR);
   v4 = swift_allocObject();
   *(v4 + 172) = 0;
   v5 = v12[7];

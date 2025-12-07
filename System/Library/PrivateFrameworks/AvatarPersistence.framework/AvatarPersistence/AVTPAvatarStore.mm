@@ -29,18 +29,18 @@
 + (id)defaultBackendWithWorkQueue:(id)queue environment:(id)environment
 {
   environmentCopy = environment;
-  if (AVTUIIsAvatarUIEnabled_once())
+  if (AVTUIIsAvatarUIEnabled_once(environmentCopy, v5))
   {
-    v5 = [AVTCoreDataPersistentStoreConfiguration remoteConfigurationWithEnvironment:environmentCopy];
-    v6 = [[AVTCoreDataStoreBackend alloc] initWithConfiguration:v5 environment:environmentCopy];
+    v6 = [AVTCoreDataPersistentStoreConfiguration remoteConfigurationWithEnvironment:environmentCopy];
+    v7 = [[AVTCoreDataStoreBackend alloc] initWithConfiguration:v6 environment:environmentCopy];
   }
 
   else
   {
-    v6 = objc_alloc_init(AVTStubbedStoreBackend);
+    v7 = objc_alloc_init(AVTStubbedStoreBackend);
   }
 
-  return v6;
+  return v7;
 }
 
 - (AVTPAvatarStore)init
@@ -163,32 +163,32 @@ void __44__AVTPAvatarStore_canCreateAvatarWithError___block_invoke(uint64_t a1, 
 
 - (id)avatarsForFetchRequest:(id)request error:(id *)error
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  v55 = 0;
-  v56[0] = &v55;
-  v56[1] = 0x3032000000;
-  v56[2] = __Block_byref_object_copy__3;
-  v56[3] = __Block_byref_object_dispose__3;
-  v57 = 0;
-  v52 = 0;
-  v53[0] = &v52;
-  v53[1] = 0x3032000000;
-  v53[2] = __Block_byref_object_copy__3;
-  v53[3] = __Block_byref_object_dispose__3;
   v54 = 0;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__3;
-  v50 = __Block_byref_object_dispose__3;
+  v55[0] = &v54;
+  v55[1] = 0x3032000000;
+  v55[2] = __Block_byref_object_copy__3;
+  v55[3] = __Block_byref_object_dispose__3;
+  v56 = 0;
   v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__3;
-  v44 = __Block_byref_object_dispose__3;
+  v52[0] = &v51;
+  v52[1] = 0x3032000000;
+  v52[2] = __Block_byref_object_copy__3;
+  v52[3] = __Block_byref_object_dispose__3;
+  v53 = 0;
   v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__3;
+  v49 = __Block_byref_object_dispose__3;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__3;
+  v43 = __Block_byref_object_dispose__3;
+  v44 = 0;
   if (AVTIsRunningAsSetupUser())
   {
     logger = [(AVTPAvatarStore *)self logger];
@@ -198,46 +198,46 @@ void __44__AVTPAvatarStore_canCreateAvatarWithError___block_invoke(uint64_t a1, 
   else
   {
     logger2 = [(AVTPAvatarStore *)self logger];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __48__AVTPAvatarStore_avatarsForFetchRequest_error___block_invoke;
-    v36[3] = &unk_278CFAC28;
-    v36[4] = self;
-    v38 = &v55;
-    v37 = requestCopy;
-    v39 = &v46;
-    [logger2 fetchingRecords:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __48__AVTPAvatarStore_avatarsForFetchRequest_error___block_invoke;
+    v35[3] = &unk_278CFAC28;
+    v35[4] = self;
+    v37 = &v54;
+    v36 = requestCopy;
+    v38 = &v45;
+    [logger2 fetchingRecords:v35];
   }
 
-  v29 = MEMORY[0x277D85DD0];
-  v30 = 3221225472;
-  v31 = __48__AVTPAvatarStore_avatarsForFetchRequest_error___block_invoke_3;
-  v32 = &unk_278CFAC50;
-  v34 = &v52;
+  v28 = MEMORY[0x277D85DD0];
+  v29 = 3221225472;
+  v30 = __48__AVTPAvatarStore_avatarsForFetchRequest_error___block_invoke_3;
+  v31 = &unk_278CFAC50;
+  v33 = &v51;
   v9 = requestCopy;
-  v33 = v9;
-  v35 = &v40;
-  [(AVTPAvatarStore *)self performPuppetStoreWork:&v29];
-  v10 = *(v56[0] + 40);
-  v11 = *(v53[0] + 40);
+  v32 = v9;
+  v34 = &v39;
+  [(AVTPAvatarStore *)self performPuppetStoreWork:&v28];
+  v10 = *(v55[0] + 40);
+  v11 = *(v52[0] + 40);
   if (v10)
   {
     if (v11)
     {
-      v12 = [v10 arrayByAddingObjectsFromArray:{v29, v30, v31, v32}];
+      v12 = [v10 arrayByAddingObjectsFromArray:{v28, v29, v30, v31}];
       goto LABEL_24;
     }
 
-    domain = [v41[5] domain];
-    v14 = v56;
+    domain = [v40[5] domain];
+    v14 = v55;
     if ([domain isEqual:@"AVTAvatarUIErrorDomain"])
     {
-      v19 = [v41[5] code] == 404;
+      v19 = [v40[5] code] == 404;
 
       if (v19)
       {
         logger3 = [(AVTPAvatarStore *)self logger];
-        v17 = [v41[5] description];
+        v17 = [v40[5] description];
         [logger3 logRecordsNotFoundInPuppetStore:v17];
         goto LABEL_23;
       }
@@ -248,23 +248,23 @@ void __44__AVTPAvatarStore_canCreateAvatarWithError___block_invoke(uint64_t a1, 
     }
 
     logger3 = [(AVTPAvatarStore *)self logger];
-    v17 = [v41[5] description];
+    v17 = [v40[5] description];
     [logger3 logReadingError:v17];
     goto LABEL_23;
   }
 
   if (v11)
   {
-    domain2 = [v47[5] domain];
-    v14 = v53;
+    domain2 = [v46[5] domain];
+    v14 = v52;
     if ([domain2 isEqual:@"AVTAvatarUIErrorDomain"])
     {
-      v15 = [v47[5] code] == 404;
+      v15 = [v46[5] code] == 404;
 
       if (v15)
       {
         logger3 = [(AVTPAvatarStore *)self logger];
-        v17 = [v47[5] description];
+        v17 = [v46[5] description];
         [logger3 logRecordsNotFoundInRecordStore:v17];
 LABEL_23:
 
@@ -286,27 +286,27 @@ LABEL_24:
     }
 
     logger3 = [(AVTPAvatarStore *)self logger];
-    v17 = [v47[5] description];
+    v17 = [v46[5] description];
     [logger3 logReadingError:v17];
     goto LABEL_23;
   }
 
   array = [MEMORY[0x277CBEB18] array];
   v21 = array;
-  if (v47[5])
+  if (v46[5])
   {
     [array addObject:?];
   }
 
-  if (v41[5])
+  if (v40[5])
   {
     [v21 addObject:?];
   }
 
-  v58 = @"AVTAvatarUIMultipleErrorsKey";
+  v57 = @"AVTAvatarUIMultipleErrorsKey";
   v22 = [v21 copy];
-  v59[0] = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+  v58[0] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
   v24 = [AVTError errorWithCode:666 userInfo:v23];
 
 LABEL_25:
@@ -324,13 +324,11 @@ LABEL_25:
 
 LABEL_28:
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
 
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v55, 8);
-
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v54, 8);
 
   return v25;
 }
@@ -503,14 +501,14 @@ void __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thu
 
 void __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thumbnailGenerationCompletionBlock___block_invoke_2(uint64_t a1)
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) imageHandlingDelegate];
   v3 = [*(a1 + 40) identifier];
-  v45[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
-  v42 = 0;
-  v5 = [v2 deleteThumbnailsForAvatarRecordsWithIdentifiers:v4 error:&v42];
-  v6 = v42;
+  v44[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+  v41 = 0;
+  v5 = [v2 deleteThumbnailsForAvatarRecordsWithIdentifiers:v4 error:&v41];
+  v6 = v41;
 
   if (v5)
   {
@@ -519,26 +517,26 @@ void __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thu
     v9 = [*(a1 + 32) environment];
     [v7 clearStickersForAvatarRecordIdentifier:v8 withEnvironment:v9];
 
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = __Block_byref_object_copy__3;
-    v40 = __Block_byref_object_dispose__3;
-    v41 = 0;
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
     v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = __Block_byref_object_copy__3;
+    v39 = __Block_byref_object_dispose__3;
+    v40 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
     v10 = *(a1 + 32);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thumbnailGenerationCompletionBlock___block_invoke_3;
-    v28[3] = &unk_278CFAC00;
-    v30 = &v32;
-    v29 = *(a1 + 40);
-    v31 = &v36;
-    [v10 performBackendWork:v28];
-    if (v33[3])
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thumbnailGenerationCompletionBlock___block_invoke_3;
+    v27[3] = &unk_278CFAC00;
+    v29 = &v31;
+    v28 = *(a1 + 40);
+    v30 = &v35;
+    [v10 performBackendWork:v27];
+    if (v32[3])
     {
       v11 = *(a1 + 32);
       if (*(a1 + 48))
@@ -546,19 +544,19 @@ void __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thu
         v12 = [v11 imageHandlingDelegate];
         v13 = *(a1 + 40);
         v14 = *(a1 + 48);
-        v27 = v6;
-        v15 = [v12 generateThumbnailsForAvatarRecord:v13 avatar:v14 error:&v27];
-        v16 = v27;
+        v26 = v6;
+        v15 = [v12 generateThumbnailsForAvatarRecord:v13 avatar:v14 error:&v26];
+        v16 = v26;
       }
 
       else
       {
         v12 = [v11 imageHandlingDelegate];
-        v44 = *(a1 + 40);
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-        v26 = v6;
-        v15 = [v12 generateThumbnailsForAvatarRecords:v19 error:&v26];
-        v16 = v26;
+        v43 = *(a1 + 40);
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+        v25 = v6;
+        v15 = [v12 generateThumbnailsForAvatarRecords:v19 error:&v25];
+        v16 = v25;
 
         v6 = v19;
       }
@@ -572,13 +570,13 @@ void __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thu
       v21 = *(a1 + 56);
       if (v21)
       {
-        (*(v21 + 16))(v21, *(v33 + 24), v37[5]);
+        (*(v21 + 16))(v21, *(v32 + 24), v36[5]);
       }
 
       v22 = *(a1 + 32);
       v23 = [*(a1 + 40) identifier];
-      v43 = v23;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+      v42 = v23;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
       [v22 postChangeNotificationForRecordWithIdentifiers:v24 remote:0];
 
       v6 = v16;
@@ -589,12 +587,12 @@ void __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thu
       v18 = *(a1 + 56);
       if (v18)
       {
-        (*(v18 + 16))(v18, 0, v37[5]);
+        (*(v18 + 16))(v18, 0, v36[5]);
       }
     }
 
-    _Block_object_dispose(&v32, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v35, 8);
   }
 
   else
@@ -605,8 +603,6 @@ void __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thu
       (*(v17 + 16))(v17, 0, v6);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __103__AVTPAvatarStore_saveAvatarRecord_thumbnailAvatar_completionBlock_thumbnailGenerationCompletionBlock___block_invoke_3(void *a1, void *a2)
@@ -668,35 +664,35 @@ void __62__AVTPAvatarStore_deleteAvatarWithIdentifier_completionBlock___block_in
 
 void __62__AVTPAvatarStore_deleteAvatarWithIdentifier_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v35[1] = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__3;
-  v32 = __Block_byref_object_dispose__3;
-  v33 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
+  v34[1] = *MEMORY[0x277D85DE8];
   v27 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __62__AVTPAvatarStore_deleteAvatarWithIdentifier_completionBlock___block_invoke_3;
-  v20[3] = &unk_278CFAC00;
-  v22 = &v24;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__3;
+  v31 = __Block_byref_object_dispose__3;
+  v32 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __62__AVTPAvatarStore_deleteAvatarWithIdentifier_completionBlock___block_invoke_3;
+  v19[3] = &unk_278CFAC00;
+  v21 = &v23;
   v2 = *(a1 + 32);
-  v21 = *(a1 + 40);
-  v23 = &v28;
-  [v2 performBackendWork:v20];
-  v3 = v25;
-  if (*(v25 + 24) == 1)
+  v20 = *(a1 + 40);
+  v22 = &v27;
+  [v2 performBackendWork:v19];
+  v3 = v24;
+  if (*(v24 + 24) == 1)
   {
     v4 = [*(a1 + 32) imageHandlingDelegate];
-    v35[0] = *(a1 + 40);
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
-    v19 = 0;
-    v6 = [v4 deleteThumbnailsForAvatarRecordsWithIdentifiers:v5 error:&v19];
-    v7 = v19;
+    v34[0] = *(a1 + 40);
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+    v18 = 0;
+    v6 = [v4 deleteThumbnailsForAvatarRecordsWithIdentifiers:v5 error:&v18];
+    v7 = v18;
 
     if ((v6 & 1) == 0)
     {
@@ -714,28 +710,26 @@ void __62__AVTPAvatarStore_deleteAvatarWithIdentifier_completionBlock___block_in
     v14 = [*(a1 + 32) environment];
     [v12 clearStickersForAvatarRecordIdentifier:v13 withEnvironment:v14];
 
-    v3 = v25;
+    v3 = v24;
   }
 
   v15 = *(a1 + 48);
   if (v15)
   {
-    (*(v15 + 16))(v15, *(v3 + 24), v29[5]);
-    v3 = v25;
+    (*(v15 + 16))(v15, *(v3 + 24), v28[5]);
+    v3 = v24;
   }
 
   if (*(v3 + 24) == 1)
   {
     v16 = *(a1 + 32);
-    v34 = *(a1 + 40);
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+    v33 = *(a1 + 40);
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
     [v16 postChangeNotificationForRecordWithIdentifiers:v17 remote:0];
   }
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v28, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v27, 8);
 }
 
 void __62__AVTPAvatarStore_deleteAvatarWithIdentifier_completionBlock___block_invoke_3(void *a1, void *a2)
@@ -794,37 +788,37 @@ void __51__AVTPAvatarStore_duplicateAvatar_completionBlock___block_invoke(uint64
 
 void __51__AVTPAvatarStore_duplicateAvatar_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__3;
-  v34 = __Block_byref_object_dispose__3;
-  v35 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__3;
-  v28 = __Block_byref_object_dispose__3;
+  v30[1] = *MEMORY[0x277D85DE8];
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__3;
+  v28[4] = __Block_byref_object_dispose__3;
   v29 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __51__AVTPAvatarStore_duplicateAvatar_completionBlock___block_invoke_3;
-  v20[3] = &unk_278CFAC00;
-  v22 = &v24;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__3;
+  v26 = __Block_byref_object_dispose__3;
+  v27 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __51__AVTPAvatarStore_duplicateAvatar_completionBlock___block_invoke_3;
+  v18[3] = &unk_278CFAC00;
+  v20 = &v22;
   v2 = *(a1 + 32);
-  v21 = *(a1 + 40);
-  v23 = &v30;
-  [v2 performBackendWork:v20];
-  v3 = v25;
-  if (v25[5])
+  v19 = *(a1 + 40);
+  v21 = v28;
+  [v2 performBackendWork:v18];
+  v3 = v23;
+  if (v23[5])
   {
     v4 = [*(a1 + 32) imageHandlingDelegate];
-    v5 = v25[5];
+    v5 = v23[5];
     v6 = *(a1 + 40);
-    v19 = 0;
-    v7 = [v4 generateThumbnailsForDuplicateAvatarRecord:v5 originalRecord:v6 error:&v19];
-    v8 = v19;
+    v17 = 0;
+    v7 = [v4 generateThumbnailsForDuplicateAvatarRecord:v5 originalRecord:v6 error:&v17];
+    v8 = v17;
 
     if ((v7 & 1) == 0)
     {
@@ -834,31 +828,28 @@ void __51__AVTPAvatarStore_duplicateAvatar_completionBlock___block_invoke_2(uint
       [v9 logErrorDuplicatingThumbnailsForIdentifier:v10 error:v11];
     }
 
-    v3 = v25;
+    v3 = v23;
   }
 
   v12 = *(a1 + 48);
   if (v12)
   {
-    v13 = v31[5];
     (*(v12 + 16))(v12, v3[5] != 0);
-    v3 = v25;
+    v3 = v23;
   }
 
-  v14 = v3[5];
-  if (v14)
+  v13 = v3[5];
+  if (v13)
   {
-    v15 = *(a1 + 32);
-    v16 = [v14 identifier];
-    v36[0] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
-    [v15 postChangeNotificationForRecordWithIdentifiers:v17 remote:0];
+    v14 = *(a1 + 32);
+    v15 = [v13 identifier];
+    v30[0] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    [v14 postChangeNotificationForRecordWithIdentifiers:v16 remote:0];
   }
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v30, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(v28, 8);
 }
 
 void __51__AVTPAvatarStore_duplicateAvatar_completionBlock___block_invoke_3(void *a1, void *a2)
@@ -876,14 +867,14 @@ void __51__AVTPAvatarStore_duplicateAvatar_completionBlock___block_invoke_3(void
 - (void)postChangeNotificationForRecordWithIdentifiers:(id)identifiers remote:(BOOL)remote
 {
   remoteCopy = remote;
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v7 = identifiersCopy;
   if (identifiersCopy)
   {
-    v15 = @"changedRecordIDs";
-    v16[0] = identifiersCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"changedRecordIDs";
+    v15[0] = identifiersCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   }
 
   else
@@ -908,13 +899,11 @@ void __51__AVTPAvatarStore_duplicateAvatar_completionBlock___block_invoke_3(void
   }
 
   [notificationCenter postNotificationName:@"AVTAvatarStoreDidChangeNotification" object:selfCopy userInfo:v8];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)maximumNumberOfSavableAvatars
 {
-  if (AVTUIRestrictMaximumAvatarCount_once())
+  if (AVTUIRestrictMaximumAvatarCount_once(self, a2))
   {
     return 3;
   }

@@ -374,7 +374,7 @@ void __58__PXCuratedLibraryViewModel__updateDraggedAssetReferences__block_invoke
   v5 = zoomablePhotosViewModel;
   if (zoomablePhotosViewModel)
   {
-    [zoomablePhotosViewModel zoomState];
+    objc_msgSend_zoomState(zoomablePhotosViewModel);
   }
 
   else
@@ -809,11 +809,11 @@ LABEL_63:
   [(PXCuratedLibraryViewModel *)self setAllowedActions:v59];
 }
 
-uint64_t __50__PXCuratedLibraryViewModel__updateAllowedActions__block_invoke(uint64_t result, int a2)
+id *__50__PXCuratedLibraryViewModel__updateAllowedActions__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:?];
+    return [result[4] addObject:?];
   }
 
   return result;
@@ -2139,7 +2139,7 @@ uint64_t __58__PXCuratedLibraryViewModel_observable_didChange_context___block_in
   v6 = currentDataSource;
   if (currentDataSource)
   {
-    [currentDataSource indexPathForAssetCollectionReference:referenceCopy];
+    objc_msgSend_indexPathForAssetCollectionReference_(currentDataSource);
   }
 
   else
@@ -2185,7 +2185,7 @@ uint64_t __58__PXCuratedLibraryViewModel_observable_didChange_context___block_in
   v8 = currentDataSource;
   if (currentDataSource)
   {
-    [currentDataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(currentDataSource);
   }
 
   else
@@ -2517,7 +2517,7 @@ LABEL_10:
   {
     if (selectionSnapshot)
     {
-      [selectionSnapshot firstSelectedIndexPath];
+      objc_msgSend_firstSelectedIndexPath(selectionSnapshot);
     }
 
     else

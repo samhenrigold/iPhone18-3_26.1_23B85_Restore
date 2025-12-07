@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBDeviceDetail)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deviceClassAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsDeviceClass:(id)class;
 - (unint64_t)hash;
@@ -303,7 +304,6 @@ LABEL_32:
 
   if ([(_INPBDeviceDetail *)self hasDeviceClass])
   {
-    deviceClass = self->_deviceClass;
     PBDataWriterWriteInt32Field();
   }
 
@@ -327,19 +327,18 @@ LABEL_32:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
   productName = [(_INPBDeviceDetail *)self productName];
 
-  v14 = toCopy;
+  v12 = toCopy;
   if (productName)
   {
     productName2 = [(_INPBDeviceDetail *)self productName];
     PBDataWriterWriteSubmessage();
 
-    v14 = toCopy;
+    v12 = toCopy;
   }
 }
 
@@ -408,6 +407,21 @@ LABEL_32:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)deviceClassAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287678 + string);
   }
 
   return v4;

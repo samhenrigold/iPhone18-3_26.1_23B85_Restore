@@ -53,11 +53,11 @@
   v4 = [columns objectAtIndex:0];
 
   info = [(TSDLayout *)self info];
-  v6 = [info length];
+  [info length];
 
   if (v4)
   {
-    [v4 lineMetricsAtCharIndex:v6 - 1 allowEndOfLine:{1, 0, 0}];
+    objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(v4, 0, 0);
   }
 
   return 0.0;

@@ -1,5 +1,7 @@
 @interface MPSMatrixRandomPhilox
 - (MPSMatrixRandomPhilox)initWithCoder:(NSCoder *)aDecoder device:(id)device;
+- (MPSMatrixRandomPhilox)initWithDevice:(id)device destinationDataType:(MPSDataType)destinationDataType seed:(NSUInteger)seed;
+- (MPSMatrixRandomPhilox)initWithDevice:(id)device destinationDataType:(MPSDataType)destinationDataType seed:(NSUInteger)seed distributionDescriptor:(MPSMatrixRandomDistributionDescriptor *)distributionDescriptor;
 - (void)dealloc;
 - (void)encodeToCommandBuffer:(id)buffer destinationMatrix:(id)matrix;
 - (void)encodeToCommandBuffer:(id)buffer destinationVector:(id)vector;
@@ -8,67 +10,100 @@
 
 @implementation MPSMatrixRandomPhilox
 
+- (MPSMatrixRandomPhilox)initWithDevice:(id)device destinationDataType:(MPSDataType)destinationDataType seed:(NSUInteger)seed distributionDescriptor:(MPSMatrixRandomDistributionDescriptor *)distributionDescriptor
+{
+  v8 = *&destinationDataType;
+  v11 = objc_msgSend_distributionType(distributionDescriptor, a2, device);
+  v37.receiver = self;
+  v37.super_class = MPSMatrixRandomPhilox;
+  v12 = [(MPSMatrixRandom *)&v37 initWithDevice:device destinationDataType:v8 distributionType:v11];
+  if (v12)
+  {
+    v13 = objc_alloc(MEMORY[0x277CD7280]);
+    v16 = objc_msgSend_distributionType(distributionDescriptor, v14, v15);
+    objc_msgSend_setDistributionType_(v13, v17, v16);
+    objc_msgSend_minimum(distributionDescriptor, v18, v19);
+    objc_msgSend_setMinimum_(v13, v20, v21);
+    objc_msgSend_maximum(distributionDescriptor, v22, v23);
+    objc_msgSend_setMaximum_(v13, v24, v25);
+    objc_msgSend_mean(distributionDescriptor, v26, v27);
+    objc_msgSend_setMean_(v13, v28, v29);
+    objc_msgSend_standardDeviation(distributionDescriptor, v30, v31);
+    objc_msgSend_setStandardDeviation_(v13, v32, v33);
+    v34 = objc_alloc(MEMORY[0x277CD7298]);
+    v12->_parallelFilter = objc_msgSend_initWithDevice_destinationDataType_seed_distributionDescriptor_(v34, v35, device, v8, seed, v13);
+  }
+
+  return v12;
+}
+
+- (MPSMatrixRandomPhilox)initWithDevice:(id)device destinationDataType:(MPSDataType)destinationDataType seed:(NSUInteger)seed
+{
+  v6 = *&destinationDataType;
+  v9 = objc_msgSend_defaultDistributionDescriptor(MPSMatrixRandomDistributionDescriptor, a2, device);
+  v11 = objc_msgSend_initWithDevice_destinationDataType_seed_distributionDescriptor_(self, v10, device, v6, seed, v9);
+
+  return v11;
+}
+
 - (void)encodeToCommandBuffer:(id)buffer destinationVector:(id)vector
 {
-  objc_msgSend_batchSize(self, a2, buffer, vector, v4, v5, v6, v7);
-  if (objc_msgSend_batchSize(self, v11, v12, v13, v14, v15, v16, v17) != 1 && MTLReportFailureTypeEnabled())
+  objc_msgSend_batchSize(self, a2, buffer);
+  if (objc_msgSend_batchSize(self, v7, v8) != 1 && MTLReportFailureTypeEnabled())
   {
-    v54 = objc_opt_class();
-    v55 = NSStringFromClass(v54);
-    v56 = objc_opt_class();
-    v57 = v55;
-    v58 = NSStringFromClass(v56);
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = objc_opt_class();
+    v21 = v19;
+    v22 = NSStringFromClass(v20);
     MTLReportFailure();
   }
 
   parallelFilter = self->_parallelFilter;
-  v26 = objc_msgSend_data(vector, v18, v19, v20, v21, v22, v23, v24, v57, v58);
-  v27 = *(vector + *MEMORY[0x277CD74A8]);
-  v35 = objc_msgSend_batchStart(self, v28, v29, v30, v31, v32, v33, v34);
-  v43 = v27 + objc_msgSend_vectorBytes(vector, v36, v37, v38, v39, v40, v41, v42) * v35;
-  v51 = objc_msgSend_length(vector, v44, v45, v46, v47, v48, v49, v50);
+  objc_msgSend_data(vector, v9, v10, v21, v22);
+  objc_msgSend_batchStart(self, v12, v13);
+  objc_msgSend_vectorBytes(vector, v14, v15);
+  objc_msgSend_length(vector, v16, v17);
 
-  MEMORY[0x2821F9670](parallelFilter, sel_encodeToCommandBuffer_destinationBuffer_destinationOffset_numEntries_, buffer, v26, v43, v51, v52, v53);
+  MEMORY[0x2821F9670](parallelFilter, sel_encodeToCommandBuffer_destinationBuffer_destinationOffset_numEntries_, buffer);
 }
 
 - (void)encodeToCommandBuffer:(id)buffer destinationMatrix:(id)matrix
 {
-  objc_msgSend_batchSize(self, a2, buffer, matrix, v4, v5, v6, v7);
-  if (objc_msgSend_batchSize(self, v11, v12, v13, v14, v15, v16, v17) != 1 && MTLReportFailureTypeEnabled())
+  objc_msgSend_batchSize(self, a2, buffer);
+  if (objc_msgSend_batchSize(self, v7, v8) != 1 && MTLReportFailureTypeEnabled())
   {
-    v71 = objc_opt_class();
-    v72 = NSStringFromClass(v71);
-    v73 = objc_opt_class();
-    v74 = v72;
-    v75 = NSStringFromClass(v73);
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
+    v24 = objc_opt_class();
+    v25 = v23;
+    v26 = NSStringFromClass(v24);
     MTLReportFailure();
   }
 
-  v25 = objc_msgSend_rowBytes(matrix, v18, v19, v20, v21, v22, v23, v24, v74, v75);
-  v33 = objc_msgSend_dataType(matrix, v26, v27, v28, v29, v30, v31, v32);
+  objc_msgSend_rowBytes(matrix, v9, v10, v25, v26);
+  objc_msgSend_dataType(matrix, v11, v12);
   parallelFilter = self->_parallelFilter;
-  v35 = v25 / (v33 >> 3);
-  v43 = objc_msgSend_data(matrix, v36, v37, v38, v39, v40, v41, v42);
-  v44 = *(matrix + *MEMORY[0x277CD73A8]);
-  v52 = objc_msgSend_batchStart(self, v45, v46, v47, v48, v49, v50, v51);
-  v60 = v44 + objc_msgSend_matrixBytes(matrix, v53, v54, v55, v56, v57, v58, v59) * v52;
-  v68 = objc_msgSend_rows(matrix, v61, v62, v63, v64, v65, v66, v67) * v35;
+  objc_msgSend_data(matrix, v14, v15);
+  objc_msgSend_batchStart(self, v16, v17);
+  objc_msgSend_matrixBytes(matrix, v18, v19);
+  objc_msgSend_rows(matrix, v20, v21);
 
-  MEMORY[0x2821F9670](parallelFilter, sel_encodeToCommandBuffer_destinationBuffer_destinationOffset_numEntries_, buffer, v43, v60, v68, v69, v70);
+  MEMORY[0x2821F9670](parallelFilter, sel_encodeToCommandBuffer_destinationBuffer_destinationOffset_numEntries_, buffer);
 }
 
 - (MPSMatrixRandomPhilox)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v15.receiver = self;
-  v15.super_class = MPSMatrixRandomPhilox;
+  v11.receiver = self;
+  v11.super_class = MPSMatrixRandomPhilox;
   result = [MPSMatrixRandom initWithCoder:sel_initWithCoder_device_ device:?];
   if (result)
   {
     v7 = result;
     v8 = objc_alloc(MEMORY[0x277CD7298]);
-    v14 = objc_msgSend_initWithCoder_device_(v8, v9, aDecoder, device, v10, v11, v12, v13);
+    v10 = objc_msgSend_initWithCoder_device_(v8, v9, aDecoder, device);
     result = v7;
-    v7->_parallelFilter = v14;
+    v7->_parallelFilter = v10;
   }
 
   return result;
@@ -76,18 +111,18 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v11.receiver = self;
-  v11.super_class = MPSMatrixRandomPhilox;
-  [(MPSMatrixRandom *)&v11 encodeWithCoder:?];
-  objc_msgSend_encodeWithCoder_(self->_parallelFilter, v5, coder, v6, v7, v8, v9, v10);
+  v6.receiver = self;
+  v6.super_class = MPSMatrixRandomPhilox;
+  [(MPSMatrixRandom *)&v6 encodeWithCoder:?];
+  objc_msgSend_encodeWithCoder_(self->_parallelFilter, v5, coder);
 }
 
 - (void)dealloc
 {
-  objc_msgSend_dealloc(self->_parallelFilter, a2, v2, v3, v4, v5, v6, v7);
-  v9.receiver = self;
-  v9.super_class = MPSMatrixRandomPhilox;
-  [(MPSKernel *)&v9 dealloc];
+  objc_msgSend_dealloc(self->_parallelFilter, a2, v2);
+  v4.receiver = self;
+  v4.super_class = MPSMatrixRandomPhilox;
+  [(MPSKernel *)&v4 dealloc];
 }
 
 @end

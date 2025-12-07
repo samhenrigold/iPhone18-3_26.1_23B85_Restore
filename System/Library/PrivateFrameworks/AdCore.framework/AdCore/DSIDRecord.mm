@@ -66,10 +66,10 @@
 
 - (id)_parseItunesFlags
 {
-  v34[14] = *MEMORY[0x277D85DE8];
+  v33[14] = *MEMORY[0x277D85DE8];
   dSID = [(DSIDRecord *)self DSID];
   iCloudDSID = [(DSIDRecord *)self iCloudDSID];
-  v32 = dSID;
+  v31 = dSID;
   v4 = [dSID isEqualToString:?];
   accountAgeUnknown = [(DSIDRecord *)self accountAgeUnknown];
   if (accountAgeUnknown)
@@ -108,56 +108,54 @@
     }
   }
 
-  v23 = +[ADCoreSettings sharedInstance];
-  v33[0] = @"iTunesDSID";
+  v22 = +[ADCoreSettings sharedInstance];
+  v32[0] = @"iTunesDSID";
   dSID2 = [(DSIDRecord *)self DSID];
-  v34[0] = dSID2;
-  v33[1] = @"isChild";
-  v29 = [MEMORY[0x277CCABB0] numberWithBool:accountIsU13];
-  v34[1] = v29;
-  v33[2] = @"isAdolescent";
-  v28 = [MEMORY[0x277CCABB0] numberWithBool:v7];
-  v34[2] = v28;
-  v33[3] = @"isAdult";
-  v27 = [MEMORY[0x277CCABB0] numberWithBool:v6];
-  v34[3] = v27;
-  v33[4] = @"ageUnknown";
-  v26 = [MEMORY[0x277CCABB0] numberWithBool:accountAgeUnknown];
-  v34[4] = v26;
-  v33[5] = @"isiCloudLoggedIn";
+  v33[0] = dSID2;
+  v32[1] = @"isChild";
+  v28 = [MEMORY[0x277CCABB0] numberWithBool:accountIsU13];
+  v33[1] = v28;
+  v32[2] = @"isAdolescent";
+  v27 = [MEMORY[0x277CCABB0] numberWithBool:v7];
+  v33[2] = v27;
+  v32[3] = @"isAdult";
+  v26 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+  v33[3] = v26;
+  v32[4] = @"ageUnknown";
+  v25 = [MEMORY[0x277CCABB0] numberWithBool:accountAgeUnknown];
+  v33[4] = v25;
+  v32[5] = @"isiCloudLoggedIn";
   v9 = MEMORY[0x277CCABB0];
   iCloudDSID2 = [(DSIDRecord *)self iCloudDSID];
-  v24 = [v9 numberWithInt:iCloudDSID2 != 0];
-  v34[5] = v24;
-  v33[6] = @"isiTunesLoggedIn";
+  v23 = [v9 numberWithInt:iCloudDSID2 != 0];
+  v33[5] = v23;
+  v32[6] = @"isiTunesLoggedIn";
   v10 = MEMORY[0x277CCABB0];
   dSID3 = [(DSIDRecord *)self DSID];
   v11 = [v10 numberWithInt:dSID3 != 0];
-  v34[6] = v11;
-  v33[7] = @"isiCloudSameAsiTunes";
+  v33[6] = v11;
+  v32[7] = @"isiCloudSameAsiTunes";
   v12 = [MEMORY[0x277CCABB0] numberWithBool:v4];
-  v34[7] = v12;
-  v33[8] = @"isNoServicesRegion";
-  v13 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v23, "isRestrictedRegion")}];
-  v34[8] = v13;
-  v33[9] = @"sensitiveContentEligible";
+  v33[7] = v12;
+  v32[8] = @"isNoServicesRegion";
+  v13 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v22, "isRestrictedRegion")}];
+  v33[8] = v13;
+  v32[9] = @"sensitiveContentEligible";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:{-[DSIDRecord sensitiveContentEligible](self, "sensitiveContentEligible")}];
-  v34[9] = v14;
-  v33[10] = @"effectiveBirthYear";
+  v33[9] = v14;
+  v32[10] = @"effectiveBirthYear";
   v15 = [MEMORY[0x277CCABB0] numberWithInt:{-[DSIDRecord effectiveBirthYear](self, "effectiveBirthYear")}];
-  v34[10] = v15;
-  v33[11] = @"isProtoU13";
+  v33[10] = v15;
+  v32[11] = @"isProtoU13";
   v16 = [MEMORY[0x277CCABB0] numberWithBool:{-[DSIDRecord isProtoU13](self, "isProtoU13")}];
-  v34[11] = v16;
-  v33[12] = @"isProtoTeen";
+  v33[11] = v16;
+  v32[12] = @"isProtoTeen";
   v17 = [MEMORY[0x277CCABB0] numberWithBool:{-[DSIDRecord isProtoTeen](self, "isProtoTeen")}];
-  v34[12] = v17;
-  v33[13] = @"actualBirthYear";
+  v33[12] = v17;
+  v32[13] = @"actualBirthYear";
   v18 = [MEMORY[0x277CCABB0] numberWithInt:{-[DSIDRecord actualBirthYear](self, "actualBirthYear")}];
-  v34[13] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:14];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v33[13] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:14];
 
   return v19;
 }
@@ -612,7 +610,7 @@ void __38__DSIDRecord_dictionaryRepresentation__block_invoke(uint64_t a1, void *
   }
 }
 
-uint64_t __23__DSIDRecord_setDirty___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__23__DSIDRecord_setDirty___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 setDirty:*(a1 + 32)];
   *a4 = 0;
@@ -638,7 +636,7 @@ uint64_t __23__DSIDRecord_setDirty___block_invoke(uint64_t a1, uint64_t a2, void
   return aDIDRecords;
 }
 
-uint64_t __31__DSIDRecord_iAdIDRecordsDirty__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__31__DSIDRecord_iAdIDRecordsDirty__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 dirty];
   *(*(*(a1 + 32) + 8) + 24) = result;

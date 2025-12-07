@@ -116,8 +116,8 @@
 
 - (VKCameraRegionRestriction)regionRestriction
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  regionRestriction = [vkCamera regionRestriction];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  regionRestriction = [v2 regionRestriction];
 
   return regionRestriction;
 }
@@ -330,8 +330,8 @@
 {
   y = point.y;
   x = point.x;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera pitch];
+  v8 = objc_msgSend_vkCamera(self, a2);
+  [v8 pitch];
   v10 = v9;
 
   v16.receiver = self;
@@ -339,8 +339,8 @@
   [(VKScreenCameraController *)&v16 updatePitchWithFocusPoint:x translation:y, translation];
   if (self->_stablePitch.__engaged_)
   {
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    [vkCamera2 pitch];
+    v11 = objc_msgSend_vkCamera(self);
+    [v11 pitch];
     v13 = v12;
     value = self->_stablePitch.var0.__val_._value;
 
@@ -980,7 +980,7 @@ void __75__VKDeferredCameraController_executeZoom_withFocusPoint_completionHandl
   v72.receiver = self;
   v72.super_class = VKDeferredCameraController;
   [VKMapCameraController updateWithTimestamp:sel_updateWithTimestamp_withContext_ withContext:?];
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   v6 = *buf;
   if (*&buf[8])
   {
@@ -1322,7 +1322,7 @@ LABEL_53:
     goto LABEL_18;
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2, context);
   v9 = gdc::Camera::cameraFrame(v39[0]);
   if (!self->_nextCameraFrame.__engaged_)
   {
@@ -1358,7 +1358,7 @@ LABEL_53:
   if (v10)
   {
 LABEL_18:
-    [(VKDeferredCameraController *)self nextCameraFrameWithTick:0, currentTimestamp];
+    objc_msgSend_nextCameraFrameWithTick_(self, currentTimestamp);
   }
 
   if (!self->_nextCameraFrame.__engaged_)
@@ -1374,8 +1374,8 @@ LABEL_37:
   v15 = self->_nextCameraFrame.var0.__val_._pitch._value;
   v16 = self->_nextCameraFrame.var0.__val_._heading._value;
   v17 = self->_nextCameraFrame.var0.__val_._roll._value;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [(VKCameraController *)self camera];
+  v18 = objc_msgSend_vkCamera(self, currentTimestamp);
+  objc_msgSend_camera(self);
   v19 = fmax(v13, 0.00001);
   v39[0] = v11;
   v39[1] = *&value;
@@ -1385,7 +1385,7 @@ LABEL_37:
   v43 = v16;
   v44 = v17;
   std::__function::__value_func<BOOL ()(std::shared_ptr<gdc::Camera>,geo::Unit<geo::MeterUnitDescription,double> &,geo::Unit<geo::MeterUnitDescription,double> &)>::__value_func[abi:nn200100](v38, v45);
-  [vkCamera updateCamera:v36 cameraFrame:v39 withAdjustment:v38];
+  [v18 updateCamera:v36 cameraFrame:v39 withAdjustment:v38];
   std::__function::__value_func<BOOL ()(std::shared_ptr<gdc::Camera>,geo::Unit<geo::MeterUnitDescription,double> &,geo::Unit<geo::MeterUnitDescription,double> &)>::~__value_func[abi:nn200100](v38);
   if (v37)
   {
@@ -1409,14 +1409,14 @@ LABEL_37:
     self->_nextCameraFrame.__engaged_ = 0;
   }
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  position = [vkCamera2 position];
+  v20 = objc_msgSend_vkCamera(self);
+  v21 = objc_msgSend_position(v20);
   v22 = 0;
   v23 = fmax(v33 - lastTimestamp, 2.22044605e-16);
   p_lastTransform = &self->_lastTransform;
   do
   {
-    *&v39[v22] = *(position + v22 * 8) - p_lastTransform->_translation._e[v22];
+    *&v39[v22] = *(v21 + v22 * 8) - p_lastTransform->_translation._e[v22];
     ++v22;
   }
 
@@ -1441,8 +1441,8 @@ LABEL_37:
     self->_lastVelocity.__engaged_ = 1;
   }
 
-  vkCamera3 = [(VKCameraController *)self vkCamera];
-  transform = [vkCamera3 transform];
+  v29 = objc_msgSend_vkCamera(self);
+  transform = [v29 transform];
   for (i = 0; i != 3; ++i)
   {
     self->_lastTransform._rotation._imaginary._e[i] = *(transform + 24 + i * 8);
@@ -1465,7 +1465,7 @@ LABEL_37:
 - (void)commitCameraResponse:(const void *)response
 {
   v120 = *MEMORY[0x1E69E9840];
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (*&buf[8])
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](*&buf[8]);
@@ -1493,10 +1493,10 @@ LABEL_37:
       v117 = v5;
       v114 = *self->_lastTransform._translation._e;
       v115 = self->_lastTransform._translation._e[2];
-      vkCamera = [(VKCameraController *)self vkCamera];
-      position = [vkCamera position];
-      v12 = *position;
-      v113 = *(position + 16);
+      v10 = objc_msgSend_vkCamera(self);
+      v11 = objc_msgSend_position(v10);
+      v12 = *v11;
+      v113 = *(v11 + 16);
       v112 = v12;
 
       v13 = 0;
@@ -1769,11 +1769,11 @@ LABEL_37:
         while (v62 != 24);
         v112 = *buf;
         v113 = *&buf[16];
-        vkCamera2 = [(VKCameraController *)self vkCamera];
-        position2 = [vkCamera2 position];
+        v63 = objc_msgSend_vkCamera(self);
+        v64 = objc_msgSend_position(v63);
         for (i = 0; i != 24; i += 8)
         {
-          *&buf[i] = *(&v112 + i) - *(position2 + i);
+          *&buf[i] = *(&v112 + i) - *(v64 + i);
         }
 
         v66 = 0;
@@ -1791,22 +1791,23 @@ LABEL_37:
 
         if (v68)
         {
-          vkCamera3 = [(VKCameraController *)self vkCamera];
-          [vkCamera3 groundPlaneIntersectionPoint];
+          v69 = objc_msgSend_vkCamera(self);
+          [v69 groundPlaneIntersectionPoint];
           *&v108 = v70;
           *(&v108 + 1) = v71;
           v109 = v72;
 
-          vkCamera4 = [(VKCameraController *)self vkCamera];
-          [vkCamera4 setPosition:&v112];
+          v73 = objc_msgSend_vkCamera(self);
+          [v73 setPosition:&v112];
 
           [(VKMapCameraController *)self updateCameraZBounds];
           if ([(VKDeferredCameraController *)self shouldFixOrientation])
           {
-            vkCamera5 = [(VKCameraController *)self vkCamera];
-            vkCamera6 = [(VKCameraController *)self vkCamera];
-            -[VKDeferredCameraController recalculateRotation:cameraPosition:](self, "recalculateRotation:cameraPosition:", &v108, [vkCamera6 position]);
-            [vkCamera5 setOrientation:buf];
+            v74 = objc_msgSend_vkCamera(self);
+            v75 = objc_msgSend_vkCamera(self);
+            objc_msgSend_position(v75);
+            objc_msgSend_recalculateRotation_cameraPosition_(self);
+            [v74 setOrientation:buf];
 
             [(VKMapCameraController *)self updateCameraZBounds];
           }
@@ -1822,18 +1823,18 @@ LABEL_37:
 
       if (![(VKDeferredCameraController *)self wasPitching:v94])
       {
-        vkCamera7 = [(VKCameraController *)self vkCamera];
-        [vkCamera7 pitch];
+        v76 = objc_msgSend_vkCamera(self);
+        [v76 pitch];
         v78 = v77;
 
-        vkCamera8 = [(VKCameraController *)self vkCamera];
-        [vkCamera8 maxPitch];
+        v79 = objc_msgSend_vkCamera(self);
+        [v79 maxPitch];
         v81 = v80;
 
         if (self->_lastCameraFrame.__engaged_ && v78 > v81 && v81 > 0.0 && self->_lastCameraFrame.var0.__val_._target.altitude._value != 0.0 && self->_collisionResponse.__engaged_)
         {
-          vkCamera9 = [(VKCameraController *)self vkCamera];
-          [vkCamera9 groundPlaneIntersectionPoint];
+          v82 = objc_msgSend_vkCamera(self);
+          [v82 groundPlaneIntersectionPoint];
           *buf = v83;
           *&buf[8] = v84;
           *&buf[16] = v85;
@@ -1855,10 +1856,10 @@ LABEL_37:
         if (*(response + 72) == 1)
         {
           p_stablePitch = &self->_stablePitch;
-          if (!self->_stablePitch.__engaged_ || (-[VKCameraController vkCamera](self, "vkCamera"), v88 = objc_claimAutoreleasedReturnValue(), [v88 pitch], v90 = v89 < p_stablePitch->var0.__val_._value, v88, v90))
+          if (!self->_stablePitch.__engaged_ || (objc_msgSend_vkCamera(self), v88 = objc_claimAutoreleasedReturnValue(), [v88 pitch], v90 = v89 < p_stablePitch->var0.__val_._value, v88, v90))
           {
-            vkCamera10 = [(VKCameraController *)self vkCamera];
-            [vkCamera10 pitch];
+            v91 = objc_msgSend_vkCamera(self);
+            [v91 pitch];
             if (!self->_stablePitch.__engaged_)
             {
               self->_stablePitch.__engaged_ = 1;
@@ -1910,11 +1911,11 @@ LABEL_37:
     return 1;
   }
 
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera pitch];
+  v5 = objc_msgSend_vkCamera(self);
+  [v5 pitch];
   v7 = v6;
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  [vkCamera2 maxPitch];
+  v8 = objc_msgSend_vkCamera(self);
+  [v8 maxPitch];
   v3 = v7 > v9;
 
   return v3;
@@ -1963,7 +1964,7 @@ LABEL_37:
 {
   v4 = a4;
   v20 = *MEMORY[0x1E69E9840];
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a3);
   if (*&v17[8])
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](*&v17[8]);
@@ -1971,7 +1972,8 @@ LABEL_37:
 
   if (*v17)
   {
-    result = [(VKDeferredCameraController *)self cameraFrameFromVkCameraWithFiltering:[(VKDeferredCameraController *)self gestureInitiatedMovement]];
+    [(VKDeferredCameraController *)self gestureInitiatedMovement];
+    result = objc_msgSend_cameraFrameFromVkCameraWithFiltering_(self);
     p_nextCameraFrame = &self->_nextCameraFrame;
     if (self->_nextCameraFrame.__engaged_)
     {
@@ -2052,8 +2054,8 @@ LABEL_16:
 
 - (CameraCollisionResolutionRequest)collisionResolutionRequest:(SEL)request
 {
-  v115 = *MEMORY[0x1E69E9840];
-  [(VKCameraController *)self camera];
+  v117 = *MEMORY[0x1E69E9840];
+  objc_msgSend_camera(self, request);
   if (*&buf[8])
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](*&buf[8]);
@@ -2067,14 +2069,14 @@ LABEL_16:
       p_lastCameraFrame = a4;
     }
 
-    v57 = *&p_lastCameraFrame->var0.__null_state_;
-    v58 = *&p_lastCameraFrame->var0.__val_._target.altitude._value;
-    v103 = *&p_lastCameraFrame->var0.__null_state_;
-    v104 = v58;
-    v56 = *&p_lastCameraFrame->var0.__val_._pitch._value;
-    v105 = v56;
+    v59 = *&p_lastCameraFrame->var0.__null_state_;
+    v60 = *&p_lastCameraFrame->var0.__val_._target.altitude._value;
+    v105 = *&p_lastCameraFrame->var0.__null_state_;
+    v106 = v60;
+    v58 = *&p_lastCameraFrame->var0.__val_._pitch._value;
+    v107 = v58;
     value = p_lastCameraFrame->var0.__val_._roll._value;
-    v106 = value;
+    v108 = value;
     v9 = +[VKDebugSettings sharedSettings];
     if ([v9 shouldFreezeLayoutCamera])
     {
@@ -2085,18 +2087,18 @@ LABEL_16:
       {
         if (self->_debugCameraFrame.__engaged_)
         {
-          v12 = v104;
-          *&p_debugCameraFrame->var0.__null_state_ = v103;
+          v12 = v106;
+          *&p_debugCameraFrame->var0.__null_state_ = v105;
           *&self->_debugCameraFrame.var0.__val_._target.altitude._value = v12;
-          *&self->_debugCameraFrame.var0.__val_._pitch._value = v105;
-          self->_debugCameraFrame.var0.__val_._roll._value = v106;
+          *&self->_debugCameraFrame.var0.__val_._pitch._value = v107;
+          self->_debugCameraFrame.var0.__val_._roll._value = v108;
         }
 
         else
         {
-          *&p_debugCameraFrame->var0.__null_state_ = v57;
-          *&self->_debugCameraFrame.var0.__val_._target.altitude._value = v58;
-          *&self->_debugCameraFrame.var0.__val_._pitch._value = v56;
+          *&p_debugCameraFrame->var0.__null_state_ = v59;
+          *&self->_debugCameraFrame.var0.__val_._target.altitude._value = v60;
+          *&self->_debugCameraFrame.var0.__val_._pitch._value = v58;
           self->_debugCameraFrame.var0.__val_._roll._value = value;
           self->_debugCameraFrame.__engaged_ = 1;
         }
@@ -2125,207 +2127,209 @@ LABEL_16:
     if (!self->_debugCameraFrame.__engaged_)
     {
 LABEL_23:
-      [(VKDeferredCameraController *)self zScale:v56];
+      [(VKDeferredCameraController *)self zScale:v58];
       a4->_target.altitude._value = a4->_target.altitude._value * v20;
-      *&v104 = *&v58 * v20;
-      [(VKCameraController *)self camera];
-      v69[0] = **buf;
-      v70 = *(*buf + 8);
-      v71 = *(*buf + 24);
-      v72 = *(*buf + 40);
-      v73 = *(*buf + 56);
-      v74 = *(*buf + 72);
+      *&v106 = *&v60 * v20;
+      objc_msgSend_camera(self);
+      v71[0] = **buf;
+      v72 = *(*buf + 8);
+      v73 = *(*buf + 24);
+      v74 = *(*buf + 40);
+      v75 = *(*buf + 56);
+      v76 = *(*buf + 72);
       v21 = *(*buf + 80);
       v22 = *(*buf + 96);
-      v77 = *(*buf + 112);
-      v76 = v22;
-      v75 = v21;
+      v79 = *(*buf + 112);
+      v78 = v22;
+      v77 = v21;
       v23 = *(*buf + 344);
-      v91 = *(*buf + 328);
-      v92 = v23;
+      v93 = *(*buf + 328);
+      v94 = v23;
       v24 = *(*buf + 280);
       v26 = *(*buf + 296);
       v25 = *(*buf + 312);
       v27 = *(*buf + 128);
-      v87 = *(*buf + 264);
-      v88 = v24;
-      v89 = v26;
-      v90 = v25;
+      v89 = *(*buf + 264);
+      v90 = v24;
+      v91 = v26;
+      v92 = v25;
       v28 = *(*buf + 360);
-      v78 = v27;
-      v93 = v28;
-      v86 = *(*buf + 248);
-      v82 = *(*buf + 184);
-      v83 = *(*buf + 200);
-      v84 = *(*buf + 216);
-      v85 = *(*buf + 232);
-      v79 = *(*buf + 136);
-      v80 = *(*buf + 152);
-      v81 = *(*buf + 168);
+      v80 = v27;
+      v95 = v28;
+      v88 = *(*buf + 248);
+      v84 = *(*buf + 184);
+      v85 = *(*buf + 200);
+      v86 = *(*buf + 216);
+      v87 = *(*buf + 232);
+      v81 = *(*buf + 136);
+      v82 = *(*buf + 152);
+      v83 = *(*buf + 168);
       v29 = *(*buf + 384);
-      v94 = *(*buf + 368);
-      v95 = v29;
+      v96 = *(*buf + 368);
+      v97 = v29;
       v30 = *(*buf + 416);
-      v96 = *(*buf + 400);
-      v97 = v30;
-      v98 = *(*buf + 432);
-      v99 = *(*buf + 448);
-      v100 = *(*buf + 456);
+      v98 = *(*buf + 400);
+      v99 = v30;
+      v100 = *(*buf + 432);
+      v101 = *(*buf + 448);
+      v102 = *(*buf + 456);
       v31 = *(*buf + 480);
-      v101 = *(*buf + 464);
-      v102 = v31;
+      v103 = *(*buf + 464);
+      v104 = v31;
       if (*&buf[8])
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](*&buf[8]);
       }
 
-      [(VKCameraController *)self camera:gdc::Camera::setCameraFrame(v69];
-      if (gdc::ToCoordinateSystem(*v61))
+      *&v32 = gdc::Camera::setCameraFrame(v71, &v105).n128_u64[0];
+      objc_msgSend_camera(self, v32);
+      if (gdc::ToCoordinateSystem(*v63))
       {
-        gdc::CameraView::geocentricCameraView(buf, v69);
+        gdc::CameraView::geocentricCameraView(buf, v71);
       }
 
       else
       {
-        gdc::CameraView::mercatorCameraView(buf, v69);
+        gdc::CameraView::mercatorCameraView(buf, v71);
       }
 
-      if (*(&v61 + 1))
+      if (*(&v63 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](*(&v61 + 1));
+        std::__shared_weak_count::__release_shared[abi:nn200100](*(&v63 + 1));
       }
 
-      v32 = +[VKDebugSettings sharedSettings];
-      [v32 cameraCollisionSphereIsNearPlaneCentred];
+      v33 = +[VKDebugSettings sharedSettings];
+      [v33 cameraCollisionSphereIsNearPlaneCentred];
 
       for (i = 0; i != 24; i += 8)
       {
-        *(&v61 + i) = *&v114[i + 144] + *&v114[i];
+        *(&v63 + i) = *&v116[i + 144] + *&v116[i];
       }
 
-      v34 = 0;
-      v64 = v61;
-      v65 = v62;
+      v35 = 0;
+      v66 = v63;
+      v67 = v64;
       do
       {
-        *(&v61 + v34) = *(&v64 + v34) * 0.5;
-        v34 += 8;
+        *(&v63 + v35) = *(&v66 + v35) * 0.5;
+        v35 += 8;
       }
 
-      while (v34 != 24);
-      v67 = v61;
-      v68 = v62;
-      gdc::Camera::verticalFieldOfView(&v61, buf);
-      v35 = tan(*&v61 * 0.5);
+      while (v35 != 24);
+      v69 = v63;
+      v70 = v64;
+      gdc::Camera::verticalFieldOfView(&v63, buf);
+      v36 = tan(*&v63 * 0.5);
       canvas = [(VKCameraController *)self canvas];
       [canvas size];
-      v38 = v37;
+      v39 = v38;
       canvas2 = [(VKCameraController *)self canvas];
       [canvas2 size];
-      v41 = v40;
+      v42 = v41;
 
-      v42 = +[VKDebugSettings sharedSettings];
-      [v42 cameraCollisionRadius];
-      v44 = v43;
+      v43 = +[VKDebugSettings sharedSettings];
+      [v43 cameraCollisionRadius];
+      v45 = v44;
 
-      if (v44 >= 0.0)
+      if (v45 >= 0.0)
       {
-        v46 = v44;
+        v47 = v45;
       }
 
       else
       {
-        v45 = +[VKDebugSettings sharedSettings];
-        if ([v45 cameraCollisionSphereIsNearPlaneCentred])
+        v46 = +[VKDebugSettings sharedSettings];
+        if ([v46 cameraCollisionSphereIsNearPlaneCentred])
         {
-          v46 = gm::Matrix<double,3,1>::distanceToPoint<int,void>(v114, &v67);
+          v47 = gm::Matrix<double,3,1>::distanceToPoint<int,void>(v116, &v69);
         }
 
         else
         {
-          v46 = *gdc::Camera::near(buf) * sqrt(v35 * v35 + 1.0 + v38 * v35 / v41 * (v38 * v35 / v41));
+          v47 = *gdc::Camera::near(buf) * sqrt(v36 * v36 + 1.0 + v39 * v36 / v42 * (v39 * v36 / v42));
         }
       }
 
-      [(VKDeferredCameraController *)self lookAtFromCameraFrame:a4];
-      [(VKCameraController *)self camera:gdc::Camera::setCameraFrame(v69];
-      if (gdc::ToCoordinateSystem(*v109))
+      objc_msgSend_lookAtFromCameraFrame_(self);
+      *&v48 = gdc::Camera::setCameraFrame(v71, a4).n128_u64[0];
+      objc_msgSend_camera(self, v48);
+      if (gdc::ToCoordinateSystem(*v111))
       {
-        gdc::CameraView::geocentricCameraView(&v61, v69);
+        gdc::CameraView::geocentricCameraView(&v63, v71);
       }
 
       else
       {
-        gdc::CameraView::mercatorCameraView(&v61, v69);
+        gdc::CameraView::mercatorCameraView(&v63, v71);
       }
 
-      if (*(&v109 + 1))
+      if (*(&v111 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](*(&v109 + 1));
+        std::__shared_weak_count::__release_shared[abi:nn200100](*(&v111 + 1));
       }
 
-      v47 = +[VKDebugSettings sharedSettings];
-      [v47 cameraCollisionSphereIsNearPlaneCentred];
+      v49 = +[VKDebugSettings sharedSettings];
+      [v49 cameraCollisionSphereIsNearPlaneCentred];
 
       for (j = 0; j != 24; j += 8)
       {
-        *(&v109 + j) = *&v63[j + 144] + *&v63[j];
+        *(&v111 + j) = *&v65[j + 144] + *&v65[j];
       }
 
-      v49 = 0;
-      v107 = v109;
-      v108 = v110;
-      do
-      {
-        *(&v109 + v49) = *(&v107 + v49) * 0.5;
-        v49 += 8;
-      }
-
-      while (v49 != 24);
-      v50 = 0;
-      v59 = v109;
-      v60 = v110;
-      do
-      {
-        *(&v109 + v50) = *(&v59 + v50) - *(&v67 + v50);
-        v50 += 8;
-      }
-
-      while (v50 != 24);
       v51 = 0;
-      v52 = v110;
-      v53 = v109;
-      *retstr->var0.var0._e = v67;
-      retstr->var0.var0._e[2] = v68;
-      retstr->var0.var1 = v46;
-      *retstr->var1._e = v53;
-      retstr->var1._e[2] = v52;
+      v109 = v111;
+      v110 = v112;
       do
       {
-        *(&v109 + v51) = *&v66[v51] - *(&v64 + v51);
+        *(&v111 + v51) = *(&v109 + v51) * 0.5;
         v51 += 8;
       }
 
       while (v51 != 24);
-      retstr->var2._e[0] = gm::Matrix<double,3,1>::normalized<int,void>(&v109);
-      retstr->var2._e[1] = v54;
-      retstr->var2._e[2] = v55;
+      v52 = 0;
+      v61 = v111;
+      v62 = v112;
+      do
+      {
+        *(&v111 + v52) = *(&v61 + v52) - *(&v69 + v52);
+        v52 += 8;
+      }
+
+      while (v52 != 24);
+      v53 = 0;
+      v54 = v112;
+      v55 = v111;
+      *retstr->var0.var0._e = v69;
+      retstr->var0.var0._e[2] = v70;
+      retstr->var0.var1 = v47;
+      *retstr->var1._e = v55;
+      retstr->var1._e[2] = v54;
+      do
+      {
+        *(&v111 + v53) = *&v68[v53] - *(&v66 + v53);
+        v53 += 8;
+      }
+
+      while (v53 != 24);
+      retstr->var2._e[0] = gm::Matrix<double,3,1>::normalized<int,void>(&v111);
+      retstr->var2._e[1] = v56;
+      retstr->var2._e[2] = v57;
       return geo::_retain_ptr<VKDeferredCameraController * {__strong},geo::_retain_objc_arc,geo::_release_objc_arc,geo::_hash_objc,geo::_equal_objc>::_retain_ptr(&retstr->var3.var0, self);
     }
 
 LABEL_22:
     v18 = *&self->_debugCameraFrame.var0.__null_state_;
-    v104 = *&self->_debugCameraFrame.var0.__val_._target.altitude._value;
-    v17 = v104;
-    v103 = v18;
-    v105 = *&self->_debugCameraFrame.var0.__val_._pitch._value;
-    v19 = v105;
-    v106 = self->_debugCameraFrame.var0.__val_._roll._value;
-    a4->_roll._value = v106;
+    v106 = *&self->_debugCameraFrame.var0.__val_._target.altitude._value;
+    v17 = v106;
+    v105 = v18;
+    v107 = *&self->_debugCameraFrame.var0.__val_._pitch._value;
+    v19 = v107;
+    v108 = self->_debugCameraFrame.var0.__val_._roll._value;
+    a4->_roll._value = v108;
     *&a4->_target.altitude._value = v17;
     *&a4->_pitch._value = v19;
     *&a4->_target.latitude._value = v18;
-    *&v58 = v104;
+    *&v60 = v106;
     goto LABEL_23;
   }
 
@@ -2341,8 +2345,8 @@ LABEL_22:
     *&buf[4] = "false";
     *&buf[12] = 2080;
     *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/VectorKit/src/VKDeferredCameraController.mm";
-    v112 = 1024;
-    v113 = 485;
+    v114 = 1024;
+    v115 = 485;
     _os_log_impl(&dword_1B2754000, v13, OS_LOG_TYPE_ERROR, "collisionResolutionRequest with no camera: Assertion with expression - %s : Failed in file - %s line - %i", buf, 0x1Cu);
   }
 
@@ -2358,11 +2362,12 @@ LABEL_22:
   [v7 altitudeChangeFactor];
   v9 = v8;
 
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [(VKCameraController *)self camera];
-  if (vkCamera)
+  v10 = objc_msgSend_vkCamera(self);
+  objc_msgSend_camera(self);
+  if (v10)
   {
-    [vkCamera cameraFrame:!gdc::ToCoordinateSystem(*v33)];
+    gdc::ToCoordinateSystem(*v33);
+    objc_msgSend_cameraFrame_(v10);
   }
 
   else
@@ -2427,10 +2432,10 @@ LABEL_20:
     }
   }
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  position = [vkCamera2 position];
-  v33 = *position;
-  v34 = *(position + 16);
+  v22 = objc_msgSend_vkCamera(self);
+  v23 = objc_msgSend_position(v22);
+  v33 = *v23;
+  v34 = *(v23 + 16);
 
   v25 = gm::Matrix<double,3,1>::distanceToPoint<int,void>(&v33, &self->_lastTransform);
   v26 = vabdd_f64(self->_lastElevationSample, v16);
@@ -2460,11 +2465,11 @@ LABEL_20:
 
 - (VKCameraState)cameraState
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  v6 = vkCamera;
-  if (vkCamera)
+  v4 = objc_msgSend_vkCamera(self, a3);
+  v6 = v4;
+  if (v4)
   {
-    [vkCamera cameraState];
+    objc_msgSend_cameraState(v4);
   }
 
   else
@@ -2481,8 +2486,8 @@ LABEL_20:
 
 - (Matrix<double,)groundPoint
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera groundPoint];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 groundPoint];
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -2498,8 +2503,8 @@ LABEL_20:
 
 - (double)maxPitchRadian
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera maxPitchRadian];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 maxPitchRadian];
   v4 = v3;
 
   return v4;
@@ -2507,8 +2512,8 @@ LABEL_20:
 
 - (Matrix<double,)forwardVector
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera forwardVector];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 forwardVector];
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -2524,8 +2529,8 @@ LABEL_20:
 
 - (Matrix<double,)upVector
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera upVector];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 upVector];
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -2541,8 +2546,8 @@ LABEL_20:
 
 - (Matrix<double,)rightVector
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera rightVector];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 rightVector];
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -2558,8 +2563,8 @@ LABEL_20:
 
 - (double)yawRadian
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera yaw];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 yaw];
   v4 = v3;
 
   return v4;
@@ -2567,8 +2572,8 @@ LABEL_20:
 
 - (double)pitchRadian
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera pitchRadian];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 pitchRadian];
   v4 = v3;
 
   return v4;
@@ -2576,8 +2581,8 @@ LABEL_20:
 
 - (double)maxHeight
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera maxHeight];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 maxHeight];
   v4 = v3;
 
   return v4;
@@ -2585,8 +2590,8 @@ LABEL_20:
 
 - (double)minHeight
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera minHeight];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 minHeight];
   v4 = v3;
 
   return v4;
@@ -2596,11 +2601,11 @@ LABEL_20:
 {
   y = a4.y;
   x = a4.x;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  v9 = vkCamera;
-  if (vkCamera)
+  v7 = objc_msgSend_vkCamera(self, a3);
+  v9 = v7;
+  if (v7)
   {
-    [vkCamera groundPointFromScreenPoint:{x, y}];
+    objc_msgSend_groundPointFromScreenPoint_(v7, x, y);
   }
 
   else
@@ -2614,39 +2619,39 @@ LABEL_20:
 
 - (const)orientation
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  orientation = [vkCamera orientation];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  orientation = [v2 orientation];
 
   return orientation;
 }
 
 - (void)setOrientation:(const void *)orientation
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera setOrientation:orientation];
+  v5 = objc_msgSend_vkCamera(self, a2);
+  [v5 setOrientation:orientation];
 
   self->_pendingGesture = 1;
 }
 
 - (const)position
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  position = [vkCamera position];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  v3 = objc_msgSend_position(v2);
 
-  return position;
+  return v3;
 }
 
 - (void)setPosition:(const void *)position
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera setPosition:position];
+  v5 = objc_msgSend_vkCamera(self, a2);
+  [v5 setPosition:position];
 
   self->_pendingGesture = 1;
 }
 
 - (Matrix<double,)worldPositionFromVkCamera
 {
-  [(VKDeferredCameraController *)self lookAtFromVkCameraPosition];
+  objc_msgSend_lookAtFromVkCameraPosition(self, a2);
   v2 = v5;
   v3 = v6;
   v4 = v7;
@@ -2658,17 +2663,12 @@ LABEL_20:
 
 - (pair<gm::Matrix<double,)lookAtFromVkCameraPosition
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [(VKCameraController *)self camera];
-  if (vkCamera)
+  v4 = objc_msgSend_vkCamera(self, a3);
+  objc_msgSend_camera(self);
+  if (v4)
   {
-    [vkCamera cameraFrame:!gdc::ToCoordinateSystem(*v6)];
-  }
-
-  else
-  {
-    v9 = 0;
-    memset(v8, 0, sizeof(v8));
+    gdc::ToCoordinateSystem(*v6);
+    objc_msgSend_cameraFrame_(v4);
   }
 
   if (v7)
@@ -2676,12 +2676,12 @@ LABEL_20:
     std::__shared_weak_count::__release_shared[abi:nn200100](v7);
   }
 
-  return [(VKDeferredCameraController *)self lookAtFromCameraFrame:v8];
+  return objc_msgSend_lookAtFromCameraFrame_(self);
 }
 
 - (pair<gm::Matrix<double,)lookAtFromCameraFrame:()1>
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a3);
   v6 = gdc::ToCoordinateSystem(*v8);
   if (*(&v8 + 1))
   {
@@ -2710,7 +2710,7 @@ LABEL_20:
   v5 = *position;
   v6 = *(position + 1);
   v7 = *(position + 2);
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v8 = gdc::ToCoordinateSystem(**&v26);
   if (v27)
   {
@@ -2753,7 +2753,7 @@ LABEL_20:
   v5 = *position;
   v6 = *(position + 1);
   v7 = *(position + 2);
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v8 = gdc::ToCoordinateSystem(*v14);
   if (*(&v14 + 1))
   {
@@ -2817,7 +2817,7 @@ LABEL_20:
 
 - (double)unitsPerMeterAtPoint:(const void *)point
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   v4 = gdc::ToCoordinateSystem(*v8);
   if (v9)
   {

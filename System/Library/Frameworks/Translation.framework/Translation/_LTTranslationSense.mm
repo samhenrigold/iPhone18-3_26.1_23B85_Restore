@@ -48,21 +48,19 @@
 
 + (id)senseWithPhrasebookMatchMeta:(id)meta
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = [_LTTranslationSense senseFromDictionary:meta];
   v4 = v3;
   if (v3)
   {
-    v8[0] = v3;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v3;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -167,11 +165,11 @@
 
 - (_LTTranslationSense)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = _LTTranslationSense;
-  v5 = [(_LTTranslationSense *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = _LTTranslationSense;
+  v5 = [(_LTTranslationSense *)&v22 init];
   if (v5)
   {
     v5->_phrasebookMatch = [coderCopy decodeBoolForKey:@"pbMatch"];
@@ -192,9 +190,9 @@
     v5->_targetMatch = v12;
 
     v14 = MEMORY[0x277CBEB98];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v16 = [v14 setWithArray:v15];
 
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"labels"];
@@ -214,7 +212,6 @@
     v20 = v5;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

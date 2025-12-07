@@ -10,6 +10,7 @@
 + (void)_setHeaders:(id)headers on:(id)on;
 - (AMSUIPaymentVerificationProtocolHandler)initWithAccount:(id)account accountParameters:(id)parameters;
 - (void)AMSURLSession:(id)session task:(id)task handleAuthenticateRequest:(id)request completion:(id)completion;
+- (void)reconfigureNewRequest:(id)request originalTask:(id)task redirect:(BOOL)redirect error:(id *)error;
 @end
 
 @implementation AMSUIPaymentVerificationProtocolHandler
@@ -65,32 +66,32 @@
 
 + (id)_headersFromAccount:(id)account
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   deviceGUID = [MEMORY[0x1E698C8A8] deviceGUID];
   ams_sharedAccountStore = [MEMORY[0x1E6959A48] ams_sharedAccountStore];
-  v27 = 0;
-  v6 = [ams_sharedAccountStore ams_fetchGrandSlamTokenForAccount:accountCopy withIdentifier:@"com.apple.gs.ams.pvkit" error:&v27];
-  v7 = v27;
+  v26 = 0;
+  v6 = [ams_sharedAccountStore ams_fetchGrandSlamTokenForAccount:accountCopy withIdentifier:@"com.apple.gs.ams.pvkit" error:&v26];
+  v7 = v26;
 
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2050000000;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2050000000;
   v8 = getAADeviceInfoClass_softClass;
-  v31 = getAADeviceInfoClass_softClass;
+  v30 = getAADeviceInfoClass_softClass;
   if (!getAADeviceInfoClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getAADeviceInfoClass_block_invoke;
-    v35 = &unk_1E7F241B0;
-    v36 = &v28;
+    v34 = &unk_1E7F241B0;
+    v35 = &v27;
     __getAADeviceInfoClass_block_invoke(buf);
-    v8 = v29[3];
+    v8 = v28[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
   currentInfo = [v8 currentInfo];
   clientInfoHeader = [currentInfo clientInfoHeader];
 
@@ -116,7 +117,7 @@
       *&buf[12] = 2114;
       *&buf[14] = v18;
       *&buf[22] = 2114;
-      v35 = v7;
+      v34 = v7;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Unable to fetch GS Token from account %{public}@", buf, 0x20u);
     }
 
@@ -124,8 +125,8 @@
   }
 
   v19 = *MEMORY[0x1E698C598];
-  v32[0] = *MEMORY[0x1E698C588];
-  v32[1] = v19;
+  v31[0] = *MEMORY[0x1E698C588];
+  v31[1] = v19;
   if (clientInfoHeader)
   {
     v20 = clientInfoHeader;
@@ -136,8 +137,8 @@
     v20 = &stru_1F3921360;
   }
 
-  v33[0] = v14;
-  v33[1] = v20;
+  v32[0] = v14;
+  v32[1] = v20;
   if (uniqueDeviceIdentifier)
   {
     v21 = uniqueDeviceIdentifier;
@@ -149,8 +150,8 @@
   }
 
   v22 = *MEMORY[0x1E698C590];
-  v32[2] = *MEMORY[0x1E698C5A0];
-  v32[3] = v22;
+  v31[2] = *MEMORY[0x1E698C5A0];
+  v31[3] = v22;
   if (deviceGUID)
   {
     v23 = deviceGUID;
@@ -161,26 +162,24 @@
     v23 = &stru_1F3921360;
   }
 
-  v33[2] = v21;
-  v33[3] = v23;
-  v32[4] = @"X-Guid";
-  v32[5] = @"X-Apple-Payment-Verification";
-  v33[4] = v23;
-  v33[5] = @"1";
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:6];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v32[2] = v21;
+  v32[3] = v23;
+  v31[4] = @"X-Guid";
+  v31[5] = @"X-Apple-Payment-Verification";
+  v32[4] = v23;
+  v32[5] = @"1";
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:6];
 
   return v24;
 }
 
 + (id)_headersFromAccountParameters:(id)parameters
 {
-  v20[6] = *MEMORY[0x1E69E9840];
+  v19[6] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698C8A8];
   parametersCopy = parameters;
   deviceGUID = [v3 deviceGUID];
-  v19[0] = *MEMORY[0x1E698C588];
+  v18[0] = *MEMORY[0x1E698C588];
   v6 = [parametersCopy objectForKeyedSubscript:@"gsToken"];
   v7 = v6;
   if (v6)
@@ -193,8 +192,8 @@
     v8 = &stru_1F3921360;
   }
 
-  v20[0] = v8;
-  v19[1] = *MEMORY[0x1E698C598];
+  v19[0] = v8;
+  v18[1] = *MEMORY[0x1E698C598];
   v9 = [parametersCopy objectForKeyedSubscript:@"mmeClientInfo"];
   v10 = v9;
   if (v9)
@@ -207,8 +206,8 @@
     v11 = &stru_1F3921360;
   }
 
-  v20[1] = v11;
-  v19[2] = *MEMORY[0x1E698C5A0];
+  v19[1] = v11;
+  v18[2] = *MEMORY[0x1E698C5A0];
   v12 = [parametersCopy objectForKeyedSubscript:@"deviceId"];
 
   if (v12)
@@ -232,16 +231,14 @@
     v15 = &stru_1F3921360;
   }
 
-  v20[2] = v13;
-  v20[3] = v15;
-  v19[3] = v14;
-  v19[4] = @"X-Guid";
-  v19[5] = @"X-Apple-Payment-Verification";
-  v20[4] = v15;
-  v20[5] = @"1";
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:6];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v19[2] = v13;
+  v19[3] = v15;
+  v18[3] = v14;
+  v18[4] = @"X-Guid";
+  v18[5] = @"X-Apple-Payment-Verification";
+  v19[4] = v15;
+  v19[5] = @"1";
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
 
   return v16;
 }
@@ -258,9 +255,54 @@
   [headers enumerateKeysAndObjectsUsingBlock:v7];
 }
 
+- (void)reconfigureNewRequest:(id)request originalTask:(id)task redirect:(BOOL)redirect error:(id *)error
+{
+  redirectCopy = redirect;
+  v31 = *MEMORY[0x1E69E9840];
+  v10 = MEMORY[0x1E698C968];
+  taskCopy = task;
+  requestCopy = request;
+  sharedConfig = [v10 sharedConfig];
+  if (!sharedConfig)
+  {
+    sharedConfig = [MEMORY[0x1E698C968] sharedConfig];
+  }
+
+  oSLogObject = [sharedConfig OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = objc_opt_class();
+    v16 = AMSLogKey();
+    *buf = 138543618;
+    v28 = v15;
+    v29 = 2114;
+    v30 = v16;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Adding required headers to request", buf, 0x16u);
+  }
+
+  v26.receiver = self;
+  v26.super_class = AMSUIPaymentVerificationProtocolHandler;
+  [(AMSURLProtocolHandler *)&v26 reconfigureNewRequest:requestCopy originalTask:taskCopy redirect:redirectCopy error:error];
+
+  v17 = objc_opt_class();
+  account = [(AMSUIPaymentVerificationProtocolHandler *)self account];
+  accountParameters = [(AMSUIPaymentVerificationProtocolHandler *)self accountParameters];
+  v20 = [v17 headersFromAccount:account accountParameters:accountParameters];
+
+  [objc_opt_class() _setHeaders:v20 on:requestCopy];
+  account2 = [(AMSUIPaymentVerificationProtocolHandler *)self account];
+  ams_DSID = [account2 ams_DSID];
+  stringValue = [ams_DSID stringValue];
+  [requestCopy setValue:stringValue forHTTPHeaderField:*MEMORY[0x1E698C580]];
+
+  account3 = [(AMSUIPaymentVerificationProtocolHandler *)self account];
+  ams_altDSID = [account3 ams_altDSID];
+  [requestCopy setValue:ams_altDSID forHTTPHeaderField:*MEMORY[0x1E698C570]];
+}
+
 - (void)AMSURLSession:(id)session task:(id)task handleAuthenticateRequest:(id)request completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v9 = MEMORY[0x1E698C968];
   requestCopy = request;
@@ -276,9 +318,9 @@
     v13 = objc_opt_class();
     v14 = AMSLogKey();
     *buf = 138543618;
-    v25 = v13;
-    v26 = 2114;
-    v27 = v14;
+    v24 = v13;
+    v25 = 2114;
+    v26 = v14;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Attempting GS token update", buf, 0x16u);
   }
 
@@ -289,21 +331,19 @@
   account = [(AMSUIPaymentVerificationProtocolHandler *)self account];
   v18 = [objc_alloc(MEMORY[0x1E698C7A8]) initWithAccount:account options:v16];
   performAuthKitUpdate = [v18 performAuthKitUpdate];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __99__AMSUIPaymentVerificationProtocolHandler_AMSURLSession_task_handleAuthenticateRequest_completion___block_invoke;
-  v22[3] = &unk_1E7F25758;
-  v22[4] = self;
-  v23 = completionCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __99__AMSUIPaymentVerificationProtocolHandler_AMSURLSession_task_handleAuthenticateRequest_completion___block_invoke;
+  v21[3] = &unk_1E7F25758;
+  v21[4] = self;
+  v22 = completionCopy;
   v20 = completionCopy;
-  [performAuthKitUpdate addFinishBlock:v22];
-
-  v21 = *MEMORY[0x1E69E9840];
+  [performAuthKitUpdate addFinishBlock:v21];
 }
 
 void __99__AMSUIPaymentVerificationProtocolHandler_AMSURLSession_task_handleAuthenticateRequest_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 authenticationResults];
@@ -324,21 +364,20 @@ void __99__AMSUIPaymentVerificationProtocolHandler_AMSURLSession_task_handleAuth
     v12 = [v11 OSLogObject];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
-      v14 = objc_opt_class();
-      v15 = AMSLogKey();
-      *v32 = 138543874;
-      *&v32[4] = v14;
-      *&v32[12] = 2114;
-      *&v32[14] = v15;
-      *&v32[22] = 2112;
-      v33 = v9;
-      v16 = "%{public}@: [%{public}@] Received an updated GS token %@";
-      v17 = v12;
-      v18 = OS_LOG_TYPE_DEFAULT;
-      v19 = 32;
+      v13 = objc_opt_class();
+      v14 = AMSLogKey();
+      *v28 = 138543874;
+      *&v28[4] = v13;
+      *&v28[12] = 2114;
+      *&v28[14] = v14;
+      *&v28[22] = 2112;
+      v29 = v9;
+      v15 = "%{public}@: [%{public}@] Received an updated GS token %@";
+      v16 = v12;
+      v17 = OS_LOG_TYPE_DEFAULT;
+      v18 = 32;
 LABEL_10:
-      _os_log_impl(&dword_1BB036000, v17, v18, v16, v32, v19);
+      _os_log_impl(&dword_1BB036000, v16, v17, v15, v28, v18);
     }
   }
 
@@ -353,42 +392,40 @@ LABEL_10:
     v12 = [v11 OSLogObject];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 32);
-      v21 = objc_opt_class();
-      v15 = AMSLogKey();
-      *v32 = 138543618;
-      *&v32[4] = v21;
-      *&v32[12] = 2114;
-      *&v32[14] = v15;
-      v16 = "%{public}@: [%{public}@] Unable to locate GS Token in auth result";
-      v17 = v12;
-      v18 = OS_LOG_TYPE_ERROR;
-      v19 = 22;
+      v19 = objc_opt_class();
+      v14 = AMSLogKey();
+      *v28 = 138543618;
+      *&v28[4] = v19;
+      *&v28[12] = 2114;
+      *&v28[14] = v14;
+      v15 = "%{public}@: [%{public}@] Unable to locate GS Token in auth result";
+      v16 = v12;
+      v17 = OS_LOG_TYPE_ERROR;
+      v18 = 22;
       goto LABEL_10;
     }
   }
 
   if (v6)
   {
-    v22 = [MEMORY[0x1E698C968] sharedConfig];
-    if (!v22)
+    v20 = [MEMORY[0x1E698C968] sharedConfig];
+    if (!v20)
     {
-      v22 = [MEMORY[0x1E698C968] sharedConfig];
+      v20 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v23 = [v22 OSLogObject];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = [v20 OSLogObject];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
-      v25 = objc_opt_class();
-      v26 = AMSLogKey();
-      *v32 = 138543874;
-      *&v32[4] = v25;
-      *&v32[12] = 2114;
-      *&v32[14] = v26;
-      *&v32[22] = 2114;
-      v33 = v6;
-      _os_log_impl(&dword_1BB036000, v23, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] token update error: %{public}@", v32, 0x20u);
+      v22 = objc_opt_class();
+      v23 = AMSLogKey();
+      *v28 = 138543874;
+      *&v28[4] = v22;
+      *&v28[12] = 2114;
+      *&v28[14] = v23;
+      *&v28[22] = 2114;
+      v29 = v6;
+      _os_log_impl(&dword_1BB036000, v21, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] token update error: %{public}@", v28, 0x20u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -396,14 +433,12 @@ LABEL_10:
 
   else
   {
-    v27 = objc_alloc(MEMORY[0x1E698C7C0]);
-    v28 = [v5 account];
-    v29 = [v27 initWithAccount:v28];
+    v24 = objc_alloc(MEMORY[0x1E698C7C0]);
+    v25 = [v5 account];
+    v26 = [v24 initWithAccount:v25];
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), v29, 0, v30);
+    (*(*(a1 + 40) + 16))(*(a1 + 40), v26, 0, v27);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_encoderWithBag:(id)bag account:(id)account

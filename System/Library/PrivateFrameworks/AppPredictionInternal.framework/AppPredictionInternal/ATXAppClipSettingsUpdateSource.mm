@@ -22,27 +22,27 @@
     bOOLValue = 1;
   }
 
-  v6 = __atxlog_handle_default();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_default(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = v8;
-    v10 = @"NO";
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = v9;
+    v11 = @"NO";
     if (bOOLValue)
     {
-      v10 = @"YES";
+      v11 = @"YES";
     }
 
     v15 = 138412546;
-    v16 = v8;
+    v16 = v9;
     v17 = 2112;
-    v18 = v10;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%@ - got siri settings notification, canSuggestAppClips is: %@", &v15, 0x16u);
+    v18 = v11;
+    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%@ - got siri settings notification, canSuggestAppClips is: %@", &v15, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v12 = WeakRetained;
+  v13 = WeakRetained;
   if (bOOLValue)
   {
     [WeakRetained tryUpdatePredictionsDefaultIntervalWithReason:4];
@@ -53,10 +53,8 @@
     [WeakRetained forceUpdatePredictionsImmediatelyWithReason:4];
   }
 
-  v13 = +[ATXAppDirectoryOrderingProvider sharedInstance];
-  [v13 updateRecents];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14 = +[ATXAppDirectoryOrderingProvider sharedInstance];
+  [v14 updateRecents];
 }
 
 - (ATXAppClipSettingsUpdateSource)init

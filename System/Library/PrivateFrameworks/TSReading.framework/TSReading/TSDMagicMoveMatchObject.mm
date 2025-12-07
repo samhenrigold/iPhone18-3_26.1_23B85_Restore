@@ -141,7 +141,7 @@ LABEL_3:
       v14.location = [(TSDMagicMoveMatchObject *)self stringRange];
       v9 = NSStringFromRange(v14);
       [(TSDMagicMoveMatchObject *)self position];
-      name = [v5 stringWithFormat:@"<%@: %p> (\"%@\"", v6, v7, stringValue2, v9, NSStringFromCGPoint(v15)];
+      name = [v5 stringWithFormat:@"<%@: %p> (%@", v6, v7, stringValue2, v9, NSStringFromCGPoint(v15)];
     }
 
     else

@@ -474,7 +474,7 @@ LABEL_16:
 
 - (void)candidateViewDidTapArrowButton:(id)button
 {
-  v3 = CACLogCorrections();
+  v3 = CACLogCorrections(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CACCorrectionsCandidatesViewController candidateViewDidTapArrowButton:];
@@ -506,7 +506,7 @@ LABEL_16:
   candidateCopy = candidate;
   pathCopy = path;
   viewCopy = view;
-  v12 = CACLogCorrections();
+  v12 = CACLogCorrections(viewCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [CACCorrectionsCandidatesViewController candidateView:candidateCopy didAcceptCandidate:pathCopy atIndexPath:v12 inGridType:?];
@@ -525,7 +525,7 @@ LABEL_16:
 
 - (void)candidateViewSelectionDidChange:(id)change inGridType:(int64_t)type
 {
-  v4 = CACLogCorrections();
+  v4 = CACLogCorrections(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [CACCorrectionsCandidatesViewController candidateViewSelectionDidChange:inGridType:];
@@ -534,7 +534,7 @@ LABEL_16:
 
 - (void)candidateViewWillBeginDragging:(id)dragging
 {
-  v3 = CACLogCorrections();
+  v3 = CACLogCorrections(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CACCorrectionsCandidatesViewController candidateViewWillBeginDragging:];
@@ -543,7 +543,7 @@ LABEL_16:
 
 - (void)candidateViewNeedsToExpand:(id)expand
 {
-  v3 = CACLogCorrections();
+  v3 = CACLogCorrections(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [CACCorrectionsCandidatesViewController candidateViewNeedsToExpand:];

@@ -11,21 +11,19 @@
     return 0;
   }
 
-  v15.receiver = self;
-  v15.super_class = _LSAppToUnregister;
-  v7 = objc_msgSendSuper2(&v15, sel_init);
+  v13.receiver = self;
+  v13.super_class = _LSAppToUnregister;
+  v7 = objc_msgSendSuper2(&v13, sel_init);
   if (v7)
   {
     v8 = [LSApplicationProxy applicationProxyWithBundleUnitID:context withContext:a2];
     v9 = v7[1];
     v7[1] = v8;
 
-    v10 = *a2;
-    v11 = *(unit + 12);
-    [(_LSDatabase *)v10 store];
-    v12 = _CSStringCopyCFString();
-    v13 = v7[2];
-    v7[2] = v12;
+    [(_LSDatabase *)*a2 store];
+    v10 = _CSStringCopyCFString();
+    v11 = v7[2];
+    v7[2] = v10;
 
     *(v7 + 24) = (*(unit + 172) & 0x40000) != 0;
   }

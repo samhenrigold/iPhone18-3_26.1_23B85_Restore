@@ -99,117 +99,107 @@ BOOL __32__TAEventBuffer_purgeWithClock___block_invoke(uint64_t a1, void *a2)
 
 - (id)getAllTAEventsOf:(Class)of
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA920];
   v5 = [MEMORY[0x277CCAC30] predicateForTAEventsClass:of];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [v4 andPredicateWithSubpredicates:v6];
 
   v8 = [(TAEventBuffer *)self getAllTAEventsMatchingCompoundPredicate:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)getAllTAEventsOf:(Class)of andEventSubtype:(unint64_t)subtype
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA920];
   v6 = [MEMORY[0x277CCAC30] predicateForTAEventsClass:of andEventSubtype:subtype];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v8 = [v5 andPredicateWithSubpredicates:v7];
 
   v9 = [(TAEventBuffer *)self getAllTAEventsMatchingCompoundPredicate:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)getAllTAEventsOf:(Class)of between:(id)between
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCA920];
   v7 = [MEMORY[0x277CCAC30] predicateForTAEventsInDateInterval:between];
-  v14[0] = v7;
+  v13[0] = v7;
   v8 = [MEMORY[0x277CCAC30] predicateForTAEventsClass:of];
-  v14[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v10 = [v6 andPredicateWithSubpredicates:v9];
 
   v11 = [(TAEventBuffer *)self getAllTAEventsMatchingCompoundPredicate:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)getAllTAEventsOf:(Class)of andEventSubtype:(unint64_t)subtype between:(id)between
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCA920];
   v9 = [MEMORY[0x277CCAC30] predicateForTAEventsInDateInterval:between];
-  v16[0] = v9;
+  v15[0] = v9;
   v10 = [MEMORY[0x277CCAC30] predicateForTAEventsClass:of andEventSubtype:subtype];
-  v16[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v12 = [v8 andPredicateWithSubpredicates:v11];
 
   v13 = [(TAEventBuffer *)self getAllTAEventsMatchingCompoundPredicate:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)getAllTAEventsBetween:(id)between
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA920];
   v5 = [MEMORY[0x277CCAC30] predicateForTAEventsInDateInterval:between];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v7 = [v4 andPredicateWithSubpredicates:v6];
 
   v8 = [(TAEventBuffer *)self getAllTAEventsMatchingCompoundPredicate:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)getAllTAEventsMatchingCompoundPredicate:(id)predicate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = self->_latestExpiredElements;
-  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(NSMutableDictionary *)self->_latestExpiredElements objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i), v16];
+        v11 = [(NSMutableDictionary *)self->_latestExpiredElements objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i), v15];
         [v5 addObject:v11];
       }
 
-      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -219,8 +209,6 @@ BOOL __32__TAEventBuffer_purgeWithClock___block_invoke(uint64_t a1, void *a2)
   [v5 sortUsingComparator:&__block_literal_global_4];
   v12 = [(TACircularBuffer *)self->_eventBuffer objectsMatchingPredicate:predicateCopy];
   v13 = [v5 arrayByAddingObjectsFromArray:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -237,7 +225,7 @@ uint64_t __57__TAEventBuffer_getAllTAEventsMatchingCompoundPredicate___block_inv
 
 - (void)ingestTAEvent:(id)event
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   lastObject = [(TACircularBuffer *)self->_eventBuffer lastObject];
   v6 = lastObject;
@@ -248,9 +236,9 @@ uint64_t __57__TAEventBuffer_getAllTAEventsMatchingCompoundPredicate___block_inv
     {
       v20 = v19;
       v21 = [eventCopy description];
-      v24 = 136642819;
+      v23 = 136642819;
       uTF8String = [v21 UTF8String];
-      _os_log_impl(&dword_26F2E2000, v20, OS_LOG_TYPE_DEFAULT, "#TAStore adding:%{sensitive}s", &v24, 0xCu);
+      _os_log_impl(&dword_26F2E2000, v20, OS_LOG_TYPE_DEFAULT, "#TAStore adding:%{sensitive}s", &v23, 0xCu);
     }
 
     v18 = [(TACircularBuffer *)self->_eventBuffer add:eventCopy];
@@ -271,9 +259,9 @@ uint64_t __57__TAEventBuffer_getAllTAEventsMatchingCompoundPredicate___block_inv
     {
       v16 = v15;
       v17 = [eventCopy description];
-      v24 = 136642819;
+      v23 = 136642819;
       uTF8String = [v17 UTF8String];
-      _os_log_impl(&dword_26F2E2000, v16, OS_LOG_TYPE_DEFAULT, "#TAStore inserting OOO event:%{sensitive}s", &v24, 0xCu);
+      _os_log_impl(&dword_26F2E2000, v16, OS_LOG_TYPE_DEFAULT, "#TAStore inserting OOO event:%{sensitive}s", &v23, 0xCu);
     }
 
     v18 = [(TACircularBuffer *)self->_eventBuffer insert:eventCopy at:v12];
@@ -294,8 +282,6 @@ LABEL_10:
 
 LABEL_14:
   [(TAEventBuffer *)self _updateLatestElement:eventCopy];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __31__TAEventBuffer_ingestTAEvent___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -336,30 +322,30 @@ uint64_t __31__TAEventBuffer_ingestTAEvent___block_invoke(uint64_t a1, void *a2,
 
 - (id)getEarliestEventDate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([(NSMutableDictionary *)self->_latestExpiredElements count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v3 = self->_latestExpiredElements;
-    v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v4)
     {
       v5 = v4;
       getDate2 = 0;
-      v7 = *v17;
+      v7 = *v16;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = [(NSMutableDictionary *)self->_latestExpiredElements objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i), v16];
+          v9 = [(NSMutableDictionary *)self->_latestExpiredElements objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i), v15];
           getDate = [v9 getDate];
           v11 = getDate;
           if (getDate2)
@@ -375,7 +361,7 @@ uint64_t __31__TAEventBuffer_ingestTAEvent___block_invoke(uint64_t a1, void *a2,
           }
         }
 
-        v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v5);
@@ -397,8 +383,6 @@ uint64_t __31__TAEventBuffer_ingestTAEvent___block_invoke(uint64_t a1, void *a2,
   {
     getDate2 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return getDate2;
 }
@@ -469,14 +453,12 @@ uint64_t __31__TAEventBuffer_ingestTAEvent___block_invoke(uint64_t a1, void *a2,
 
 - (void)ingestTAEvent:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 description];
-  v6 = 136642819;
-  v7 = [v4 UTF8String];
-  _os_log_fault_impl(&dword_26F2E2000, v3, OS_LOG_TYPE_FAULT, "#TAStore unreachable state; in-order TAEvent should be added already: %{sensitive}s", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 136642819;
+  v6 = [v4 UTF8String];
+  _os_log_fault_impl(&dword_26F2E2000, v3, OS_LOG_TYPE_FAULT, "#TAStore unreachable state; in-order TAEvent should be added already: %{sensitive}s", &v5, 0xCu);
 }
 
 @end

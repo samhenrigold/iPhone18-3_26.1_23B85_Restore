@@ -91,7 +91,7 @@
 
 - (SGDelivery)initWithRecordId:(id)id origin:(id)origin parentURL:(id)l provider:(unint64_t)provider trackingNumber:(id)number
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   idCopy = id;
   originCopy = origin;
   lCopy = l;
@@ -149,9 +149,9 @@ LABEL_11:
   [currentHandler4 handleFailureInMethod:a2 object:self file:@"SGDelivery.m" lineNumber:33 description:{@"Invalid parameter not satisfying: %@", @"trackingNumber"}];
 
 LABEL_5:
-  v29.receiver = self;
-  v29.super_class = SGDelivery;
-  v17 = [(SGObject *)&v29 initWithRecordId:idCopy origin:originCopy];
+  v28.receiver = self;
+  v28.super_class = SGDelivery;
+  v17 = [(SGObject *)&v28 initWithRecordId:idCopy origin:originCopy];
   v18 = v17;
   if (v17)
   {
@@ -159,15 +159,14 @@ LABEL_5:
     v18->_provider = provider;
     objc_storeStrong(&v18->_trackingNumber, number);
     v19 = [objc_opt_class() stringForProvider:v18->_provider];
-    v30[0] = v19;
-    v30[1] = v18->_trackingNumber;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+    v29[0] = v19;
+    v29[1] = v18->_trackingNumber;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
     v21 = SGDelimitedStringsSerializeArray(v20);
     externalIdentifier = v18->_externalIdentifier;
     v18->_externalIdentifier = v21;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

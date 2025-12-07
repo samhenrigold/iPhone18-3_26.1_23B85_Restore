@@ -66,8 +66,7 @@
 
     font = [(UILabel *)self->_titleLabel font];
     [font _bodyLeading];
-    UIRoundToViewScale();
-    v17 = v16 + -4.0;
+    v17 = UIRoundToViewScale(v16 * 1.83333333) + -4.0;
 
     [(UILabel *)self->_titleLabel setFrame:v12, v17, v9, v11];
   }

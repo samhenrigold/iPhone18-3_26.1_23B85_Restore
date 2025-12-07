@@ -78,7 +78,7 @@
 
 - (id)languageModelTree
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_languageModelTree)
@@ -86,31 +86,31 @@
     if ([(NSArray *)selfCopy->_strings count])
     {
       v3 = [(NSArray *)selfCopy->_strings componentsJoinedByString:@"|"];
-      v26 = 0;
-      v4 = [SRCSCommandStringsTable languageModelDictionaryFromCommandText:v3 parsingErrorString:&v26];
-      commandRecognitionSystem = v26;
+      v27 = 0;
+      v4 = [SRCSCommandStringsTable languageModelDictionaryFromCommandText:v3 parsingErrorString:&v27];
+      commandRecognitionSystem = v27;
 
-      if (v4 && ![commandRecognitionSystem length])
+      if (v4 && (v6 = [commandRecognitionSystem length]) == 0)
       {
         [v4 setObject:selfCopy->_identifier forKey:kSRCSCommandParseDictionaryKeyIdentifier[0]];
-        v19 = v4;
+        v21 = v4;
         p_super = &selfCopy->_languageModelTree->super.super;
-        selfCopy->_languageModelTree = v19;
+        selfCopy->_languageModelTree = v21;
       }
 
       else
       {
-        p_super = SRCSLogGeneral();
+        p_super = SRCSLogGeneral(v6);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
         {
           identifier = selfCopy->_identifier;
-          v8 = [(NSArray *)selfCopy->_strings componentsJoinedByString:@"|"];
+          v9 = [(NSArray *)selfCopy->_strings componentsJoinedByString:@"|"];
           *buf = 138412802;
-          v28 = identifier;
-          v29 = 2112;
-          v30 = v8;
-          v31 = 2112;
-          v32 = commandRecognitionSystem;
+          v29 = identifier;
+          v30 = 2112;
+          v31 = v9;
+          v32 = 2112;
+          v33 = commandRecognitionSystem;
           _os_log_impl(&dword_26B44D000, p_super, OS_LOG_TYPE_DEFAULT, "Error found while creating language model for (%@) %@: %@", buf, 0x20u);
         }
       }
@@ -121,47 +121,47 @@
       WeakRetained = objc_loadWeakRetained(&selfCopy->_commandRecognizer);
       commandRecognitionSystem = [WeakRetained commandRecognitionSystem];
 
-      v10 = +[SRCSSpokenCommandUtilities sharedSpokenCommandUtilities];
+      v11 = +[SRCSSpokenCommandUtilities sharedSpokenCommandUtilities];
       localeIdentifier = [commandRecognitionSystem localeIdentifier];
-      v12 = [v10 commandStringsTableForLocaleIdentifier:localeIdentifier];
+      v13 = [v11 commandStringsTableForLocaleIdentifier:localeIdentifier];
 
-      v13 = selfCopy->_identifier;
+      v14 = selfCopy->_identifier;
       targetTypes = [commandRecognitionSystem targetTypes];
-      v25 = 0;
-      v15 = [v12 languageModelDictionaryForCommandIdentifier:v13 targetTypes:targetTypes parsingErrorString:&v25];
-      v16 = v25;
+      v26 = 0;
+      v16 = [v13 languageModelDictionaryForCommandIdentifier:v14 targetTypes:targetTypes parsingErrorString:&v26];
+      v17 = v26;
 
-      if (v15 && ![v16 length])
+      if (v16 && (v18 = [v17 length]) == 0)
       {
-        [v15 setObject:selfCopy->_identifier forKey:kSRCSCommandParseDictionaryKeyIdentifier[0]];
-        v21 = v15;
-        v17 = &selfCopy->_languageModelTree->super.super;
-        selfCopy->_languageModelTree = v21;
+        [v16 setObject:selfCopy->_identifier forKey:kSRCSCommandParseDictionaryKeyIdentifier[0]];
+        v23 = v16;
+        v19 = &selfCopy->_languageModelTree->super.super;
+        selfCopy->_languageModelTree = v23;
       }
 
       else
       {
-        v17 = SRCSLogGeneral();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = SRCSLogGeneral(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = selfCopy->_identifier;
+          v20 = selfCopy->_identifier;
           *buf = 138412546;
-          v28 = v18;
-          v29 = 2112;
-          v30 = v16;
-          _os_log_impl(&dword_26B44D000, v17, OS_LOG_TYPE_DEFAULT, "Error found while creating language model for %@: %@", buf, 0x16u);
+          v29 = v20;
+          v30 = 2112;
+          v31 = v17;
+          _os_log_impl(&dword_26B44D000, v19, OS_LOG_TYPE_DEFAULT, "Error found while creating language model for %@: %@", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      commandRecognitionSystem = SRCSLogGeneral();
+      commandRecognitionSystem = SRCSLogGeneral(0);
       if (os_log_type_enabled(commandRecognitionSystem, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = selfCopy->_identifier;
+        v22 = selfCopy->_identifier;
         *buf = 138412290;
-        v28 = v20;
+        v29 = v22;
         _os_log_impl(&dword_26B44D000, commandRecognitionSystem, OS_LOG_TYPE_DEFAULT, "Error found while creating language model for %@", buf, 0xCu);
       }
     }
@@ -175,14 +175,13 @@
   objc_sync_exit(selfCopy);
 
   languageModelTree = selfCopy->_languageModelTree;
-  v23 = *MEMORY[0x277D85DE8];
 
   return languageModelTree;
 }
 
 - (void)_replaceBuiltInIdentiferNodesWithSubTreesInMutableLM:(id)m
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   mCopy = m;
   v5 = [mCopy objectForKey:kSRCSCommandParseDictionaryKeyIsBuiltInIdentifier[0]];
   if (![v5 BOOLValue])
@@ -216,37 +215,35 @@ LABEL_7:
   }
 
 LABEL_8:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = [mCopy objectForKey:{kSRCSCommandParseDictionaryKeyChildren[0], 0}];
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(SRCSSpokenCommand *)self _replaceBuiltInIdentiferNodesWithSubTreesInMutableLM:*(*(&v18 + 1) + 8 * v16++)];
+        [(SRCSSpokenCommand *)self _replaceBuiltInIdentiferNodesWithSubTreesInMutableLM:*(*(&v17 + 1) + 8 * v16++)];
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fstGrammar

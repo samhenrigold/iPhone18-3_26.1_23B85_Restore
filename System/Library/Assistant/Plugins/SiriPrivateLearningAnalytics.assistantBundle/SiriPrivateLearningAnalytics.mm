@@ -1,33 +1,31 @@
 uint64_t sub_14DC(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v28 = a1;
+  v25 = a1;
   v5 = sub_2918();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2A48();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = &v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_2A48();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_8248 != -1)
   {
     swift_once();
   }
 
-  v15 = sub_2AF8();
-  sub_2180(v15, qword_8250);
-  v16 = sub_2AD8();
-  v17 = sub_2B18();
-  if (os_log_type_enabled(v16, v17))
+  v13 = sub_2AF8();
+  sub_2180(v13, qword_8250);
+  v14 = sub_2AD8();
+  v15 = sub_2B18();
+  if (os_log_type_enabled(v14, v15))
   {
-    v18 = swift_slowAlloc();
-    v27 = v11;
-    *v18 = 0;
-    _os_log_impl(&dword_0, v16, v17, "Running SiriPrivateLearningAnalytics maintenance plugin", v18, 2u);
-    v11 = v27;
+    v16 = swift_slowAlloc();
+    v24 = v10;
+    *v16 = 0;
+    _os_log_impl(&dword_0, v14, v15, "Running SiriPrivateLearningAnalytics maintenance plugin", v16, 2u);
+    v10 = v24;
   }
 
   if (qword_8228 != -1)
@@ -35,90 +33,87 @@ uint64_t sub_14DC(uint64_t a1, uint64_t a2)
     swift_once();
   }
 
-  v19 = sub_2A78();
-  v20 = sub_2180(v19, qword_8230);
+  v17 = sub_2A78();
+  v18 = sub_2180(v17, qword_8230);
   sub_2A38();
-  v21 = sub_21B8(v20, "runMaintenance", 14, 2, v14);
-  (*(v11 + 8))(v14, v10);
-  v22 = *&v3[OBJC_IVAR___PLAnalyticsServiceMaintenance_pluginScheduler];
-  (*(v6 + 104))(v9, enum case for PrivateLearningPluginRunContext.maintenance(_:), v5);
-  v23 = swift_allocObject();
-  v24 = v28;
-  v23[2] = v21;
-  v23[3] = v24;
-  v23[4] = a2;
-  v23[5] = v3;
+  v19 = sub_21B8(v18, "runMaintenance", 14, 2, v12);
+  (*(v10 + 8))(v12, v9);
+  (*(v6 + 104))(v8, enum case for PrivateLearningPluginRunContext.maintenance(_:), v5);
+  v20 = swift_allocObject();
+  v21 = v25;
+  v20[2] = v19;
+  v20[3] = v21;
+  v20[4] = a2;
+  v20[5] = v3;
 
-  sub_24B8(v24);
-  v25 = v3;
+  sub_24B8(v21, a2);
+  v22 = v3;
   sub_2928();
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t sub_1848(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
+uint64_t sub_1848(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v40 = a3;
-  v41 = a4;
-  v39 = a2;
-  v52 = sub_2908();
-  v5 = *(v52 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v52);
-  v51 = v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v50 = v38 - v9;
-  v49 = sub_2968();
-  v10 = *(*(v49 - 8) + 64);
-  __chkstk_darwin(v49);
-  v48 = v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = *(a1 + 16);
-  v38[0] = v13;
-  v38[1] = a1;
-  v14 = 0;
-  if (v13)
+  v38 = a3;
+  v39 = a4;
+  v37 = a2;
+  v50 = sub_2908();
+  v5 = *(v50 - 8);
+  v6 = __chkstk_darwin(v50);
+  v49 = v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v48 = v36 - v8;
+  v47 = sub_2968();
+  __chkstk_darwin(v47);
+  v46 = v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(a1 + 16);
+  v36[0] = v11;
+  v36[1] = a1;
+  v12 = 0;
+  if (v11)
   {
-    v16 = *(v11 + 16);
-    v15 = v11 + 16;
-    v47 = v16;
-    v17 = a1 + ((*(v15 + 64) + 32) & ~*(v15 + 64));
-    v18 = *(v15 + 56);
-    v46 = enum case for PrivateLearningPluginResult.success(_:);
-    v44 = (v5 + 8);
-    v45 = (v5 + 104);
-    v42 = v18;
-    v43 = (v15 - 8);
-    v20 = v50;
-    v19 = v51;
+    v14 = *(v9 + 16);
+    v13 = v9 + 16;
+    v45 = v14;
+    v15 = a1 + ((*(v13 + 64) + 32) & ~*(v13 + 64));
+    v16 = *(v13 + 56);
+    v44 = enum case for PrivateLearningPluginResult.success(_:);
+    v42 = (v5 + 8);
+    v43 = (v5 + 104);
+    v40 = v16;
+    v41 = (v13 - 8);
+    v18 = v48;
+    v17 = v49;
     while (1)
     {
-      v54 = v14;
-      v21 = v48;
-      v22 = v49;
-      v23 = v15;
-      v47(v48, v17, v49);
+      v52 = v12;
+      v19 = v46;
+      v20 = v47;
+      v21 = v13;
+      v45(v46, v15, v47);
       sub_2958();
-      v24 = v52;
-      (*v45)(v19, v46, v52);
-      v53 = sub_28F8();
-      v25 = *v44;
-      (*v44)(v19, v24);
-      v25(v20, v24);
-      v26 = v22;
-      v27 = v54;
-      (*v43)(v21, v26);
-      v28 = (v53 & 1) == 0;
-      v29 = __OFADD__(v27, v28);
-      v14 = v27 + v28;
-      if (v29)
+      v22 = v50;
+      (*v43)(v17, v44, v50);
+      v51 = sub_28F8();
+      v23 = *v42;
+      (*v42)(v17, v22);
+      v23(v18, v22);
+      v24 = v20;
+      v25 = v52;
+      (*v41)(v19, v24);
+      v26 = (v51 & 1) == 0;
+      v27 = __OFADD__(v25, v26);
+      v12 = v25 + v26;
+      if (v27)
       {
         break;
       }
 
-      v17 += v42;
-      --v13;
-      v15 = v23;
-      if (!v13)
+      v15 += v40;
+      --v11;
+      v13 = v21;
+      if (!v11)
       {
         goto LABEL_5;
       }
@@ -138,83 +133,81 @@ LABEL_5:
 
   swift_once();
 LABEL_6:
-  v30 = sub_2AF8();
-  sub_2180(v30, qword_8250);
+  v28 = sub_2AF8();
+  sub_2180(v28, qword_8250);
 
-  v31 = sub_2AD8();
-  v32 = sub_2B18();
-  if (os_log_type_enabled(v31, v32))
+  v29 = sub_2AD8();
+  v30 = sub_2B18();
+  if (os_log_type_enabled(v29, v30))
   {
-    v33 = swift_slowAlloc();
-    *v33 = 134218240;
-    *(v33 + 4) = v38[0];
+    v31 = swift_slowAlloc();
+    *v31 = 134218240;
+    *(v31 + 4) = v36[0];
 
-    *(v33 + 12) = 2048;
-    *(v33 + 14) = v14;
-    _os_log_impl(&dword_0, v31, v32, "SiriPrivateLearningAnalytics maintenance plugin run %ld plugin(s) with %ld failure(s)", v33, 0x16u);
+    *(v31 + 12) = 2048;
+    *(v31 + 14) = v12;
+    _os_log_impl(&dword_0, v29, v30, "SiriPrivateLearningAnalytics maintenance plugin run %ld plugin(s) with %ld failure(s)", v31, 0x16u);
   }
 
   else
   {
   }
 
-  v35 = v40;
-  v34 = v41;
-  v36 = v39;
+  v33 = v38;
+  v32 = v39;
+  v34 = v37;
   sub_24C8();
-  return sub_1BFC(v36, v35, v34);
+  return sub_1BFC(v34, v33, v32);
 }
 
 uint64_t sub_1BFC(uint64_t a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
-  v20 = a3;
-  v21 = a2;
+  v18 = a3;
+  v19 = a2;
   v3 = sub_2A88();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_2A48();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_2A48();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_8228 != -1)
   {
     swift_once();
   }
 
-  v13 = sub_2A78();
-  sub_2180(v13, qword_8230);
-  v14 = sub_2A68();
+  v11 = sub_2A78();
+  sub_2180(v11, qword_8230);
+  v12 = sub_2A68();
   sub_2A98();
-  v15 = sub_2B38();
+  v13 = sub_2B38();
   if (sub_2B58())
   {
 
     sub_2AC8();
 
-    if ((*(v4 + 88))(v7, v3) == enum case for OSSignpostError.doubleEnd(_:))
+    if ((*(v4 + 88))(v6, v3) == enum case for OSSignpostError.doubleEnd(_:))
     {
-      v16 = "[Error] Interval already ended";
+      v14 = "[Error] Interval already ended";
     }
 
     else
     {
-      (*(v4 + 8))(v7, v3);
-      v16 = "";
+      (*(v4 + 8))(v6, v3);
+      v14 = "";
     }
 
-    v17 = swift_slowAlloc();
-    *v17 = 0;
-    v18 = sub_2A28();
-    _os_signpost_emit_with_name_impl(&dword_0, v14, v15, v18, "runMaintenance", v16, v17, 2u);
+    v15 = swift_slowAlloc();
+    *v15 = 0;
+    v16 = sub_2A28();
+    _os_signpost_emit_with_name_impl(&dword_0, v12, v13, v16, "runMaintenance", v14, v15, 2u);
   }
 
-  result = (*(v9 + 8))(v12, v8);
-  if (v21)
+  result = (*(v8 + 8))(v10, v7);
+  if (v19)
   {
-    return v21(result);
+    return v19(result);
   }
 
   return result;
@@ -231,19 +224,18 @@ uint64_t sub_1FC4()
 {
   v0 = sub_2AF8();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_2A78();
-  sub_283C(v5, qword_8230);
-  sub_2180(v5, qword_8230);
+  __chkstk_darwin(v0);
+  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_2A78();
+  sub_283C(v4, qword_8230);
+  sub_2180(v4, qword_8230);
   if (qword_8248 != -1)
   {
     swift_once();
   }
 
-  v6 = sub_2180(v0, qword_8250);
-  (*(v1 + 16))(v4, v6, v0);
+  v5 = sub_2180(v0, qword_8250);
+  (*(v1 + 16))(v3, v5, v0);
   return sub_2A58();
 }
 
@@ -269,26 +261,23 @@ uint64_t sub_21B8(uint64_t a1, const char *a2, uint64_t a3, char a4, uint64_t a5
 {
   v8 = sub_2A48();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin();
-  v12 = &v25[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v13 = [objc_opt_self() standardUserDefaults];
-  v14 = sub_2B08();
-  v15 = [v13 BOOLForKey:v14];
+  __chkstk_darwin(v8);
+  v11 = &v21[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = [objc_opt_self() standardUserDefaults];
+  v13 = sub_2B08();
+  v14 = [v12 BOOLForKey:v13];
 
-  v16 = sub_2A68();
-  v17 = sub_2B48();
+  v15 = sub_2A68();
+  v16 = sub_2B48();
   result = sub_2B58();
-  if (v15)
+  if (v14)
   {
     if ((result & 1) == 0)
     {
 LABEL_21:
 
-      (*(v9 + 16))(v12, a5, v8);
-      v22 = sub_2AB8();
-      v23 = *(v22 + 48);
-      v24 = *(v22 + 52);
+      (*(v9 + 16))(v11, a5, v8);
+      sub_2AB8();
       swift_allocObject();
       return sub_2AA8();
     }
@@ -307,7 +296,7 @@ LABEL_26:
 
         if (a2 >> 16 <= 0x10)
         {
-          a2 = v25;
+          a2 = v21;
           goto LABEL_14;
         }
 
@@ -325,12 +314,12 @@ LABEL_24:
     if (a2)
     {
 LABEL_14:
-      v19 = swift_slowAlloc();
-      *v19 = 0;
-      v20 = sub_2A28();
-      v21 = "";
+      v18 = swift_slowAlloc();
+      *v18 = 0;
+      v19 = sub_2A28();
+      v20 = "";
 LABEL_20:
-      _os_signpost_emit_with_name_impl(&dword_0, v16, v17, v20, a2, v21, v19, 2u);
+      _os_signpost_emit_with_name_impl(&dword_0, v15, v16, v19, a2, v20, v18, 2u);
 
       goto LABEL_21;
     }
@@ -352,10 +341,10 @@ LABEL_20:
     }
 
 LABEL_19:
-    v19 = swift_slowAlloc();
-    *v19 = 0;
-    v20 = sub_2A28();
-    v21 = "enableTelemetry=YES";
+    v18 = swift_slowAlloc();
+    *v18 = 0;
+    v19 = sub_2A28();
+    v20 = "enableTelemetry=YES";
     goto LABEL_20;
   }
 
@@ -373,7 +362,7 @@ LABEL_25:
       goto LABEL_26;
     }
 
-    a2 = &v26;
+    a2 = &v22;
     goto LABEL_19;
   }
 
@@ -384,17 +373,15 @@ LABEL_27:
 
 uint64_t sub_245C()
 {
-  v1 = *(v0 + 16);
 
   if (*(v0 + 24))
   {
-    v2 = *(v0 + 32);
   }
 
   return _swift_deallocObject(v0, 48, 7);
 }
 
-uint64_t sub_24B8(uint64_t result)
+uint64_t sub_24B8(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -405,25 +392,21 @@ uint64_t sub_24B8(uint64_t result)
 
 uint64_t sub_24C8()
 {
-  v0 = sub_29F8();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  sub_29F8();
   swift_allocObject();
   sub_29E8();
   sub_29B8();
-  v3 = sub_2988();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  v0 = sub_2988();
   swift_allocObject();
-  v6 = sub_2998();
-  if (v6)
+  v1 = sub_2998();
+  if (v1)
   {
-    v24 = v3;
-    v25 = &protocol witness table for InferredGroundTruthStoreCoreData;
-    v23[0] = v6;
+    v17 = v0;
+    v18 = &protocol witness table for InferredGroundTruthStoreCoreData;
+    v16[0] = v1;
 
     sub_29D8();
-    sub_27F0(v23);
+    sub_27F0(v16);
     sub_2978();
   }
 
@@ -434,42 +417,40 @@ uint64_t sub_24C8()
       swift_once();
     }
 
-    v7 = sub_2AF8();
-    sub_2180(v7, qword_8250);
-    v8 = sub_2AD8();
-    v9 = sub_2B28();
-    if (os_log_type_enabled(v8, v9))
+    v2 = sub_2AF8();
+    sub_2180(v2, qword_8250);
+    v3 = sub_2AD8();
+    v4 = sub_2B28();
+    if (os_log_type_enabled(v3, v4))
     {
-      v10 = swift_slowAlloc();
-      *v10 = 0;
-      _os_log_impl(&dword_0, v8, v9, "SiriPrivateLearningAnalytics maintenance couldn't check ground truth store size", v10, 2u);
+      v5 = swift_slowAlloc();
+      *v5 = 0;
+      _os_log_impl(&dword_0, v3, v4, "SiriPrivateLearningAnalytics maintenance couldn't check ground truth store size", v5, 2u);
     }
 
-    v11 = sub_2AD8();
-    v12 = sub_2B28();
-    if (os_log_type_enabled(v11, v12))
+    v6 = sub_2AD8();
+    v7 = sub_2B28();
+    if (os_log_type_enabled(v6, v7))
     {
-      v13 = swift_slowAlloc();
-      *v13 = 0;
-      _os_log_impl(&dword_0, v11, v12, "SiriPrivateLearningAnalytics maintenance could not load ground truth store to evaluate contact references", v13, 2u);
+      v8 = swift_slowAlloc();
+      *v8 = 0;
+      _os_log_impl(&dword_0, v6, v7, "SiriPrivateLearningAnalytics maintenance could not load ground truth store to evaluate contact references", v8, 2u);
     }
   }
 
   sub_29A8();
-  v14 = sub_2A08();
-  v15 = *(v14 + 48);
-  v16 = *(v14 + 52);
+  v9 = sub_2A08();
   swift_allocObject();
-  v17 = sub_2A18();
-  if (v17)
+  v10 = sub_2A18();
+  if (v10)
   {
-    v24 = v14;
-    v25 = &protocol witness table for PICSStoreCoreData;
-    v23[0] = v17;
+    v17 = v9;
+    v18 = &protocol witness table for PICSStoreCoreData;
+    v16[0] = v10;
 
     sub_29C8();
 
-    return sub_27F0(v23);
+    return sub_27F0(v16);
   }
 
   else
@@ -479,46 +460,45 @@ uint64_t sub_24C8()
       swift_once();
     }
 
-    v19 = sub_2AF8();
-    sub_2180(v19, qword_8250);
-    v20 = sub_2AD8();
-    v21 = sub_2B28();
-    if (os_log_type_enabled(v20, v21))
+    v12 = sub_2AF8();
+    sub_2180(v12, qword_8250);
+    v13 = sub_2AD8();
+    v14 = sub_2B28();
+    if (os_log_type_enabled(v13, v14))
     {
-      v22 = swift_slowAlloc();
-      *v22 = 0;
-      _os_log_impl(&dword_0, v20, v21, "SiriPrivateLearningAnalytics maintenance could not load pics store to evaluate contact references", v22, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&dword_0, v13, v14, "SiriPrivateLearningAnalytics maintenance could not load pics store to evaluate contact references", v15, 2u);
     }
   }
 }
 
-uint64_t sub_27F0(uint64_t *a1)
+uint64_t sub_27F0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t *sub_283C(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-uint64_t sub_28A0(uint64_t result)
+uint64_t sub_28A0(uint64_t result, uint64_t a2)
 {
   if (result)
   {

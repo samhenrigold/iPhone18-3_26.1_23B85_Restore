@@ -141,7 +141,7 @@
   if (grid)
   {
     memset(&v18, 0, sizeof(v18));
-    [(UIView *)self transform];
+    objc_msgSend_transform(self, a2);
     v17 = v18;
     IsIdentity = CGAffineTransformIsIdentity(&v17);
     if (!IsIdentity)

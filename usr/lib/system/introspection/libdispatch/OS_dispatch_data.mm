@@ -114,7 +114,6 @@
   if (self[7].super.isa == (&dword_0 + 1))
   {
     self = self[8].super.isa;
-    isa = self[7].super.isa;
   }
 
   return self[4].super.isa != 0;

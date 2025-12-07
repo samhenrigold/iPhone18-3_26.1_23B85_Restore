@@ -35,22 +35,22 @@
 
 - (void)viewDidLoad
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = TSTransferQRCodeViewController;
-  [(TSOBWelcomeController *)&v35 viewDidLoad];
+  v39 = *MEMORY[0x277D85DE8];
+  v34.receiver = self;
+  v34.super_class = TSTransferQRCodeViewController;
+  [(TSOBWelcomeController *)&v34 viewDidLoad];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   [navigationItem setLeftBarButtonItem:self->_cancelButton];
 
   qrCode = [(NSString *)self->_transferCredentials qrCode];
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(qrCode);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     transferCredentials = self->_transferCredentials;
     *buf = 138412546;
-    v37 = transferCredentials;
-    v38 = 2080;
-    v39 = "[TSTransferQRCodeViewController viewDidLoad]";
+    v36 = transferCredentials;
+    v37 = 2080;
+    v38 = "[TSTransferQRCodeViewController viewDidLoad]";
     _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "generate CIImage with transferCredentials: %@ @%s", buf, 0x16u);
   }
 
@@ -119,8 +119,6 @@
   centerXAnchor4 = [v9 centerXAnchor];
   v33 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
   [v33 setActive:1];
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_userDidTapCancel

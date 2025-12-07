@@ -63,7 +63,7 @@
 {
   if (equal == self)
   {
-    LOBYTE(v6) = 1;
+    LOBYTE(isEqualToString) = 1;
   }
 
   else if (equal && (objc_opt_isKindOfClass() & 1) != 0)
@@ -71,28 +71,30 @@
     orthographyFlags = [(NSOrthography *)self orthographyFlags];
     if (orthographyFlags)
     {
-      LOBYTE(v6) = orthographyFlags == [equal orthographyFlags];
+      LOBYTE(isEqualToString) = orthographyFlags == [equal orthographyFlags];
     }
 
     else
     {
-      v6 = -[NSString isEqualToString:](-[NSOrthography dominantScript](self, "dominantScript"), "isEqualToString:", [equal dominantScript]);
-      if (v6)
+      dominantScript = [(NSOrthography *)self dominantScript];
+      [equal dominantScript];
+      isEqualToString = objc_msgSend_isEqualToString_(dominantScript);
+      if (isEqualToString)
       {
         languageMap = [(NSOrthography *)self languageMap];
         languageMap2 = [equal languageMap];
 
-        LOBYTE(v6) = [(NSDictionary *)languageMap isEqual:languageMap2];
+        LOBYTE(isEqualToString) = [(NSDictionary *)languageMap isEqual:languageMap2];
       }
     }
   }
 
   else
   {
-    LOBYTE(v6) = 0;
+    LOBYTE(isEqualToString) = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (id)description

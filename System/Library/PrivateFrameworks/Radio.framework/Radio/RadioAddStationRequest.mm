@@ -1,6 +1,8 @@
 @interface RadioAddStationRequest
 - (RadioAddStationRequest)init;
+- (RadioAddStationRequest)initWithLibraryTrackDictionary:(id)dictionary useArtist:(BOOL)artist;
 - (RadioAddStationRequest)initWithQueryTerm:(id)term queryID:(int64_t)d;
+- (RadioAddStationRequest)initWithRadioTrackDictionary:(id)dictionary useArtist:(BOOL)artist;
 - (RadioAddStationRequest)initWithStation:(id)station;
 - (RadioAddStationRequest)initWithStationDictionary:(id)dictionary;
 - (id)changeList;
@@ -44,29 +46,29 @@ uint64_t __63__RadioAddStationRequest_startWithAddStationCompletionHandler___blo
 
 void __63__RadioAddStationRequest_startWithAddStationCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = os_log_create("com.apple.amp.radio", "Requests");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [*(a1 + 32) responseDictionary];
     *buf = 138412290;
-    v33 = v7;
+    v32 = v7;
     _os_log_impl(&dword_261792000, v6, OS_LOG_TYPE_INFO, "[RadioAddStationRequest] Add station response: %@", buf, 0xCu);
   }
 
   if ([*(a1 + 32) status] != 1)
   {
     v17 = *(a1 + 40);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __63__RadioAddStationRequest_startWithAddStationCompletionHandler___block_invoke_63;
-    v24[3] = &unk_279AEAC78;
-    v25 = v17;
-    v26 = a2;
-    [v25 performWriteTransactionWithBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __63__RadioAddStationRequest_startWithAddStationCompletionHandler___block_invoke_63;
+    v23[3] = &unk_279AEAC78;
+    v24 = v17;
+    v25 = a2;
+    [v24 performWriteTransactionWithBlock:v23];
     v9 = 0;
-    v18 = v25;
+    v18 = v24;
 LABEL_25:
 
     goto LABEL_26;
@@ -77,28 +79,28 @@ LABEL_25:
 
   if (*(*(a1 + 32) + 128) && (!v9 || ([v9 isFeatured] & 1) != 0 || objc_msgSend(v9, "isSponsored")))
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v10 = +[RadioModel sharedModel];
     v11 = [v10 userStations];
 
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v27;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
+          v16 = *(*(&v26 + 1) + 8 * i);
           if (![v16 persistentID] && (objc_msgSend(v16, "isFeatured") & 1) == 0 && (objc_msgSend(v16, "isSponsored") & 1) == 0)
           {
             v19 = v16;
@@ -108,7 +110,7 @@ LABEL_25:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v13)
         {
           continue;
@@ -139,11 +141,9 @@ LABEL_26:
   {
     (*(v22 + 16))(v22, v9, a2, v5);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __63__RadioAddStationRequest_startWithAddStationCompletionHandler___block_invoke_63(uint64_t a1)
+char *__63__RadioAddStationRequest_startWithAddStationCompletionHandler___block_invoke_63(uint64_t a1)
 {
   result = [*(a1 + 32) globalVersion];
   if (result == *(a1 + 40))
@@ -159,7 +159,7 @@ uint64_t __63__RadioAddStationRequest_startWithAddStationCompletionHandler___blo
 
 - (id)changeList
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (self->_matchDictionary)
   {
     v2 = 0;
@@ -171,18 +171,16 @@ uint64_t __63__RadioAddStationRequest_startWithAddStationCompletionHandler___blo
     stationDictionary = self->_stationDictionary;
     v5 = [MEMORY[0x277CCABB0] numberWithInt:1];
     v6 = [v3 dictionaryWithObjectsAndKeys:{stationDictionary, @"station-dict", v5, @"change-type", 0}];
-    v9[0] = v6;
-    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v6;
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (RadioAddStationRequest)initWithQueryTerm:(id)term queryID:(int64_t)d
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   termCopy = term;
   if (!termCopy)
   {
@@ -190,9 +188,9 @@ uint64_t __63__RadioAddStationRequest_startWithAddStationCompletionHandler___blo
     [currentHandler handleFailureInMethod:a2 object:self file:@"RadioAddStationRequest.m" lineNumber:86 description:{@"Invalid parameter not satisfying: %@", @"queryTerm"}];
   }
 
-  v16.receiver = self;
-  v16.super_class = RadioAddStationRequest;
-  v8 = [(RadioSyncRequest *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = RadioAddStationRequest;
+  v8 = [(RadioSyncRequest *)&v15 init];
   if (v8)
   {
     v8->_persistentID = arc4random();
@@ -208,15 +206,92 @@ uint64_t __63__RadioAddStationRequest_startWithAddStationCompletionHandler___blo
       [v9 setObject:termCopy forKey:@"term"];
     }
 
-    v17 = @"query";
-    v18[0] = v9;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = @"query";
+    v17[0] = v9;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     matchDictionary = v8->_matchDictionary;
     v8->_matchDictionary = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
+}
+
+- (RadioAddStationRequest)initWithRadioTrackDictionary:(id)dictionary useArtist:(BOOL)artist
+{
+  artistCopy = artist;
+  v16[3] = *MEMORY[0x277D85DE8];
+  dictionaryCopy = dictionary;
+  if (dictionaryCopy)
+  {
+    v14.receiver = self;
+    v14.super_class = RadioAddStationRequest;
+    v7 = [(RadioSyncRequest *)&v14 init];
+    if (v7)
+    {
+      v7->_persistentID = arc4random();
+      v16[0] = dictionaryCopy;
+      v15[0] = @"radio-track";
+      v15[1] = @"use-artist";
+      v8 = [MEMORY[0x277CCABB0] numberWithBool:artistCopy];
+      v16[1] = v8;
+      v15[2] = @"persistent-id";
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llx", v7->_persistentID];
+      v16[2] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+      matchDictionary = v7->_matchDictionary;
+      v7->_matchDictionary = v10;
+    }
+
+    self = v7;
+    selfCopy = self;
+  }
+
+  else
+  {
+    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"radioTrackDictionary must be non-nil"];
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
+
+- (RadioAddStationRequest)initWithLibraryTrackDictionary:(id)dictionary useArtist:(BOOL)artist
+{
+  artistCopy = artist;
+  v16[3] = *MEMORY[0x277D85DE8];
+  dictionaryCopy = dictionary;
+  if (dictionaryCopy)
+  {
+    v14.receiver = self;
+    v14.super_class = RadioAddStationRequest;
+    v7 = [(RadioSyncRequest *)&v14 init];
+    if (v7)
+    {
+      v7->_persistentID = arc4random();
+      v16[0] = dictionaryCopy;
+      v15[0] = @"library-track";
+      v15[1] = @"use-artist";
+      v8 = [MEMORY[0x277CCABB0] numberWithBool:artistCopy];
+      v16[1] = v8;
+      v15[2] = @"persistent-id";
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llx", v7->_persistentID];
+      v16[2] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+      matchDictionary = v7->_matchDictionary;
+      v7->_matchDictionary = v10;
+    }
+
+    self = v7;
+    selfCopy = self;
+  }
+
+  else
+  {
+    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"libraryTrackDictionary must be non-nil"];
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (RadioAddStationRequest)initWithStationDictionary:(id)dictionary

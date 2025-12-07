@@ -33,31 +33,7 @@
     v5 = equalCopy;
     deviceID = self->_deviceID;
     deviceID = [v5 deviceID];
-    if (![(NSUUID *)deviceID isEqual:deviceID])
-    {
-      goto LABEL_16;
-    }
-
-    pHash = self->_pHash;
-    if (pHash != [v5 pHash])
-    {
-      goto LABEL_16;
-    }
-
-    goodness = self->_goodness;
-    if (goodness != [v5 goodness])
-    {
-      goto LABEL_16;
-    }
-
-    rawAudioGoodnessScore = self->_rawAudioGoodnessScore;
-    if (rawAudioGoodnessScore != [v5 rawAudioGoodnessScore])
-    {
-      goto LABEL_16;
-    }
-
-    bump = self->_bump;
-    if (bump == [v5 bump] && (userConfidence = self->_userConfidence, userConfidence == objc_msgSend(v5, "userConfidence")) && (deviceGroup = self->_deviceGroup, deviceGroup == objc_msgSend(v5, "deviceGroup")) && (deviceClass = self->_deviceClass, deviceClass == objc_msgSend(v5, "deviceClass")) && (tieBreaker = self->_tieBreaker, tieBreaker == objc_msgSend(v5, "tieBreaker")) && (productType = self->_productType, productType == objc_msgSend(v5, "productType")) && (isMe = self->_isMe, isMe == objc_msgSend(v5, "isMe")))
+    if (-[NSUUID isEqual:](deviceID, "isEqual:", deviceID) && (pHash = self->_pHash, pHash == [v5 pHash]) && (goodness = self->_goodness, goodness == objc_msgSend(v5, "goodness")) && (rawAudioGoodnessScore = self->_rawAudioGoodnessScore, rawAudioGoodnessScore == objc_msgSend(v5, "rawAudioGoodnessScore")) && (bump = self->_bump, bump == objc_msgSend(v5, "bump")) && (userConfidence = self->_userConfidence, userConfidence == objc_msgSend(v5, "userConfidence")) && (deviceGroup = self->_deviceGroup, deviceGroup == objc_msgSend(v5, "deviceGroup")) && (deviceClass = self->_deviceClass, deviceClass == objc_msgSend(v5, "deviceClass")) && (tieBreaker = self->_tieBreaker, tieBreaker == objc_msgSend(v5, "tieBreaker")) && (productType = self->_productType, productType == objc_msgSend(v5, "productType")) && (isMe = self->_isMe, isMe == objc_msgSend(v5, "isMe")))
     {
       isCollectedFromContextCollector = self->_isCollectedFromContextCollector;
       v19 = isCollectedFromContextCollector == [v5 isCollectedFromContextCollector];
@@ -65,7 +41,6 @@
 
     else
     {
-LABEL_16:
       v19 = 0;
     }
   }
@@ -205,23 +180,21 @@ LABEL_16:
 
 - (BOOL)isSane
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   goodness = self->_goodness;
   v6 = goodness == 224 || goodness == 208 || goodness > -17;
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v8 = self->_deviceClass < 0xBu && v6;
-    v11 = 136315394;
-    v12 = "[AFMyriadRecord isSane]";
-    v13 = 1024;
-    v14 = v8;
-    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s AFMyriadRecord sanity: %d", &v11, 0x12u);
+    v10 = 136315394;
+    v11 = "[AFMyriadRecord isSane]";
+    v12 = 1024;
+    v13 = v8;
+    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s AFMyriadRecord sanity: %d", &v10, 0x12u);
   }
 
-  result = self->_deviceClass < 0xBu && v6;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->_deviceClass < 0xBu && v6;
 }
 
 - (BOOL)isALateSupressionTrumpFor:(id)for
@@ -308,17 +281,17 @@ LABEL_16:
 
 - (void)adjustByMultiplier:(float)multiplier adding:(int)adding
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   LOBYTE(v4) = self->_goodness;
   v6 = (adding + (v4 * multiplier));
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[AFMyriadRecord adjustByMultiplier:adding:]";
-    v12 = 1024;
-    v13 = v6;
-    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s #myriad newGoodness: %d", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = "[AFMyriadRecord adjustByMultiplier:adding:]";
+    v11 = 1024;
+    v12 = v6;
+    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s #myriad newGoodness: %d", &v9, 0x12u);
   }
 
   v8 = v6 & ~(v6 >> 31);
@@ -335,12 +308,11 @@ LABEL_16:
   self->_bump = v8;
   [(AFMyriadRecord *)self setGoodness:v8];
   self->_advertisementDataIsDirty = 1;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRawAudioGoodnessScore:(unsigned __int8)score withBump:(unsigned __int8)bump
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   self->_rawAudioGoodnessScore = score;
   self->_bump = bump;
   v5 = bump + score;
@@ -351,13 +323,13 @@ LABEL_16:
     v8 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315650;
-      v15 = "[AFMyriadRecord setRawAudioGoodnessScore:withBump:]";
-      v16 = 1024;
-      v17 = scoreCopy;
-      v18 = 1024;
+      v13 = 136315650;
+      v14 = "[AFMyriadRecord setRawAudioGoodnessScore:withBump:]";
+      v15 = 1024;
+      v16 = scoreCopy;
+      v17 = 1024;
       bumpCopy2 = bumpCopy;
-      _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s [(rawAudioGoodnessScore + bump) overflow] rawAudioGoodnessScore: %d, bump: %d. Overwriting goodness score to 0xff", &v14, 0x18u);
+      _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s [(rawAudioGoodnessScore + bump) overflow] rawAudioGoodnessScore: %d, bump: %d. Overwriting goodness score to 0xff", &v13, 0x18u);
     }
 
     v5 = -1;
@@ -371,18 +343,16 @@ LABEL_16:
     rawAudioGoodnessScore = self->_rawAudioGoodnessScore;
     bump = self->_bump;
     goodness = self->_goodness;
-    v14 = 136315906;
-    v15 = "[AFMyriadRecord setRawAudioGoodnessScore:withBump:]";
-    v16 = 1024;
-    v17 = rawAudioGoodnessScore;
-    v18 = 1024;
+    v13 = 136315906;
+    v14 = "[AFMyriadRecord setRawAudioGoodnessScore:withBump:]";
+    v15 = 1024;
+    v16 = rawAudioGoodnessScore;
+    v17 = 1024;
     bumpCopy2 = bump;
-    v20 = 1024;
-    v21 = goodness;
-    _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s rawAudioGoodnessScore: %d, bump: %d goodness: %d", &v14, 0x1Eu);
+    v19 = 1024;
+    v20 = goodness;
+    _os_log_impl(&dword_1912FE000, v9, OS_LOG_TYPE_INFO, "%s rawAudioGoodnessScore: %d, bump: %d goodness: %d", &v13, 0x1Eu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPHash:(unsigned __int16)hash
@@ -396,23 +366,23 @@ LABEL_16:
 
 - (AFMyriadRecord)initWithDeviceID:(id)d data:(id)data
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dataCopy = data;
-  v24.receiver = self;
-  v24.super_class = AFMyriadRecord;
-  v9 = [(AFMyriadRecord *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = AFMyriadRecord;
+  v9 = [(AFMyriadRecord *)&v23 init];
   if (v9)
   {
     v10 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v26 = "[AFMyriadRecord initWithDeviceID:data:]";
-      v27 = 2112;
-      v28 = dCopy;
-      v29 = 2112;
-      v30 = dataCopy;
+      v25 = "[AFMyriadRecord initWithDeviceID:data:]";
+      v26 = 2112;
+      v27 = dCopy;
+      v28 = 2112;
+      v29 = dataCopy;
       _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s AFMyriadRecord initfrom: %@ - %@", buf, 0x20u);
     }
 
@@ -429,16 +399,16 @@ LABEL_16:
         v15 = AFSiriLogContextConnection;
         if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
         {
-          v21 = MEMORY[0x1E696AD98];
-          v22 = v15;
-          v23 = [v21 numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
+          v20 = MEMORY[0x1E696AD98];
+          v21 = v15;
+          v22 = [v20 numberWithUnsignedInteger:{objc_msgSend(dataCopy, "length")}];
           *buf = 136315650;
-          v26 = "[AFMyriadRecord initWithDeviceID:data:]";
-          v27 = 2112;
-          v28 = v23;
-          v29 = 2112;
-          v30 = dataCopy;
-          _os_log_error_impl(&dword_1912FE000, v22, OS_LOG_TYPE_ERROR, "%s Bad data of unexpected length %@ : %@", buf, 0x20u);
+          v25 = "[AFMyriadRecord initWithDeviceID:data:]";
+          v26 = 2112;
+          v27 = v22;
+          v28 = 2112;
+          v29 = dataCopy;
+          _os_log_error_impl(&dword_1912FE000, v21, OS_LOG_TYPE_ERROR, "%s Bad data of unexpected length %@ : %@", buf, 0x20u);
         }
       }
 
@@ -474,26 +444,25 @@ LABEL_16:
     v18 = v9;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (AFMyriadRecord)initWithAudioData:(id)data
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v13.receiver = self;
-  v13.super_class = AFMyriadRecord;
-  v5 = [(AFMyriadRecord *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = AFMyriadRecord;
+  v5 = [(AFMyriadRecord *)&v12 init];
   if (v5)
   {
     v6 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v15 = "[AFMyriadRecord initWithAudioData:]";
-      v16 = 2112;
-      v17 = dataCopy;
+      v14 = "[AFMyriadRecord initWithAudioData:]";
+      v15 = 2112;
+      v16 = dataCopy;
       _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s AFMyriadRecord initfrom: <THISDEVICE> - %@", buf, 0x16u);
     }
 
@@ -528,7 +497,6 @@ LABEL_16:
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

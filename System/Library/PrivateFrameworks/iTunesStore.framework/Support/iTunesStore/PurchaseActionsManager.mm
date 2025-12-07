@@ -76,14 +76,14 @@
       if (v15 && [v15 integerValue])
       {
         integerValue = [v15 integerValue];
-LABEL_19:
+LABEL_20:
 
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-LABEL_18:
+LABEL_19:
       integerValue = 100;
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
     v15 = +[SSLogConfig sharediTunesStoreConfig];
@@ -95,16 +95,21 @@ LABEL_18:
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -114,26 +119,24 @@ LABEL_18:
       v37 = 138543362;
       v38 = objc_opt_class();
       v19 = v38;
-      LODWORD(v34) = 12;
-      v33 = &v37;
-      v20 = _os_log_send_and_compose_impl();
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to load URL bag", &v37, 12);
 
       if (!v20)
       {
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, &v37, v34];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       v33 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   integerValue = 100;
-LABEL_20:
+LABEL_21:
   campaignId = [paramsCopy campaignId];
   integerValue2 = [campaignId integerValue];
 
@@ -147,7 +150,7 @@ LABEL_20:
     v36 = handlerCopy;
     [(PurchaseActionsDatabase *)database insertInstallAttributionParams:paramsCopy completionHandler:v35];
     v24 = v36;
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   v25 = +[SSLogConfig sharediTunesStoreConfig];
@@ -159,23 +162,28 @@ LABEL_20:
   shouldLog2 = [v25 shouldLog];
   if ([v25 shouldLogToDisk])
   {
-    v27 = shouldLog2 | 2;
+    LODWORD(v27) = shouldLog2 | 2;
   }
 
   else
   {
-    v27 = shouldLog2;
+    LODWORD(v27) = shouldLog2;
   }
 
   oSLogObject2 = [v25 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v27 = v27;
+  }
+
+  else
   {
     v27 &= 2u;
   }
 
   if (!v27)
   {
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
   v29 = objc_opt_class();
@@ -187,28 +195,28 @@ LABEL_20:
   v42 = integerValue;
   v30 = v29;
   LODWORD(v34) = 32;
-  v31 = _os_log_send_and_compose_impl();
+  v31 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Tried to insert IA params with campaign ID %{public}li, must be between 0 and %{public}li", &v37, v34);
 
   if (v31)
   {
-    oSLogObject2 = [NSString stringWithCString:v31 encoding:4, &v37, v34];
+    oSLogObject2 = [NSString stringWithCString:v31 encoding:4];
     free(v31);
     SSFileLog();
-LABEL_36:
+LABEL_38:
   }
 
   if (!handlerCopy)
   {
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
   v32 = [NSString stringWithFormat:@"Campaign id must be between 0 and %li", integerValue];
   v24 = SSError();
 
   (*(handlerCopy + 2))(handlerCopy, 0, v24);
-LABEL_24:
-
 LABEL_25:
+
+LABEL_26:
 }
 
 - (void)removeInstallAttributionParamsBeforeDate:(id)date
@@ -223,39 +231,43 @@ LABEL_25:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v12 = 138543618;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2114;
-  *&v12[14] = dateCopy;
-  v9 = *&v12[4];
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v11 = 138543618;
+  v12 = objc_opt_class();
+  v13 = 2114;
+  v14 = dateCopy;
+  v9 = v12;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Removing IA params before date: %{public}@", &v11, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, v12, v11, *v12, *&v12[16]];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [(PurchaseActionsDatabase *)self->_database removeInstallAttributionParamsBeforeDate:dateCopy];
@@ -300,8 +312,8 @@ LABEL_11:
 {
   v3 = objc_alloc_init(ISLoadURLBagOperation);
   v4 = +[ISOperationQueue mainQueue];
-  v19 = v3;
-  v5 = [NSArray arrayWithObjects:&v19 count:1];
+  v18 = v3;
+  v5 = [NSArray arrayWithObjects:&v18 count:1];
   [v4 addOperations:v5 waitUntilFinished:1];
 
   if (![v3 success])
@@ -315,41 +327,45 @@ LABEL_11:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      v17 = 138543362;
-      v18 = objc_opt_class();
-      v12 = v18;
-      LODWORD(v15) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      v16 = 138543362;
+      v17 = objc_opt_class();
+      v12 = v17;
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Failed to load URL bag when sending Install Attribution pingbacks", &v16, 12);
 
       if (!v13)
       {
-LABEL_16:
+LABEL_17:
         integerValue = 10;
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, &v17, v15];
+      oSLogObject = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   uRLBag = [v3 URLBag];
@@ -357,20 +373,20 @@ LABEL_16:
 
   if (!v7 || ![v7 integerValue])
   {
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   integerValue = [v7 integerValue];
-LABEL_17:
+LABEL_18:
 
   database = self->_database;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10022EAC0;
-  v16[3] = &unk_10032CE20;
-  v16[4] = self;
-  v16[5] = integerValue;
-  [(PurchaseActionsDatabase *)database getPendingInstallAttributionPingbacksWithCompletionHandler:v16];
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10022EAC0;
+  v15[3] = &unk_10032CE20;
+  v15[4] = self;
+  v15[5] = integerValue;
+  [(PurchaseActionsDatabase *)database getPendingInstallAttributionPingbacksWithCompletionHandler:v15];
 }
 
 + (void)registerInstallAttributionPingbackRetryTask

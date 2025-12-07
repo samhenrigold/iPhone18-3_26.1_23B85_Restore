@@ -102,21 +102,21 @@
 
 + (id)photosSyndicationIdentifiersForMessage:(id)message transcriptChatItem:(id)item
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   itemCopy = item;
   if (messageCopy)
   {
-    v9 = objc_msgSend_fileTransferGUIDs(messageCopy, v6, v7);
-    v12 = objc_msgSend_count(v9, v10, v11);
+    fileTransferGUIDs = [messageCopy fileTransferGUIDs];
+    v8 = [fileTransferGUIDs count];
 
-    if (v12)
+    if (v8)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
       {
-        v15 = objc_msgSend_message(itemCopy, v13, v14);
-        v18 = objc_msgSend_fileTransferGUIDs(v15, v16, v17);
+        message = [itemCopy message];
+        fileTransferGUIDs2 = [message fileTransferGUIDs];
       }
 
       else
@@ -124,52 +124,50 @@
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v19 = 0;
+          v11 = 0;
           goto LABEL_8;
         }
 
-        v30 = objc_msgSend_transferGUID(itemCopy, v28, v29);
-        v15 = v30;
-        if (!v30)
+        transferGUID = [itemCopy transferGUID];
+        message = transferGUID;
+        if (!transferGUID)
         {
-          v19 = MEMORY[0x1E695E0F0];
+          v11 = MEMORY[0x1E695E0F0];
           goto LABEL_7;
         }
 
-        v38[0] = v30;
-        v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v31, v38, 1);
+        v23[0] = transferGUID;
+        fileTransferGUIDs2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
       }
 
-      v19 = v18;
+      v11 = fileTransferGUIDs2;
 LABEL_7:
 
 LABEL_8:
-      v20 = objc_opt_new();
-      v32 = MEMORY[0x1E69E9820];
-      v33 = 3221225472;
-      v34 = sub_1A83005FC;
-      v35 = &unk_1E7811580;
-      v36 = messageCopy;
-      v37 = v20;
-      v21 = v20;
-      objc_msgSend_enumerateObjectsUsingBlock_(v19, v22, &v32);
-      v25 = objc_msgSend_copy(v21, v23, v24, v32, v33, v34, v35);
+      v12 = objc_opt_new();
+      v17 = MEMORY[0x1E69E9820];
+      v18 = 3221225472;
+      v19 = sub_1A83005FC;
+      v20 = &unk_1E7811580;
+      v21 = messageCopy;
+      v22 = v12;
+      v13 = v12;
+      [v11 enumerateObjectsUsingBlock:&v17];
+      v14 = [v13 copy];
 
       goto LABEL_10;
     }
   }
 
-  v25 = MEMORY[0x1E695E0F0];
+  v14 = MEMORY[0x1E695E0F0];
 LABEL_10:
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v14;
 }
 
 - (BOOL)_invalidateCacheDueToChanges:(id)changes
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   if (IMOSLoggingEnabled())
   {
@@ -183,198 +181,195 @@ LABEL_10:
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (objc_msgSend_IMDeviceIsChinaRegion(MEMORY[0x1E69A8020], v5, v6) && (objc_msgSend_deletedObjectIDs(changesCopy, v7, v8), v9 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_count(v9, v10, v11) == 0, v9, v12))
+  if ([MEMORY[0x1E69A8020] IMDeviceIsChinaRegion] && (objc_msgSend(changesCopy, "deletedObjectIDs"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count") == 0, v5, v6))
   {
     if (IMOSLoggingEnabled())
     {
-      v44 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v44, OS_LOG_TYPE_INFO, "Not flushing save state cache as there were no deletions", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v22, OS_LOG_TYPE_INFO, "Not flushing save state cache as there were no deletions", buf, 2u);
       }
     }
 
-    v15 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v13 = objc_msgSend_allKeys(selfCopy->_syndicationIdentifierFetchResultCache, v7, v8);
-    v15 = 0;
-    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v50, v56, 16);
-    if (v17)
+    v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    allKeys = [(NSMutableDictionary *)selfCopy->_syndicationIdentifierFetchResultCache allKeys];
+    v8 = 0;
+    v9 = [allKeys countByEnumeratingWithState:&v27 objects:v33 count:16];
+    if (v9)
     {
-      v18 = *v51;
-      obj = v13;
+      v10 = *v28;
+      obj = allKeys;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v51 != v18)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v50 + 1) + 8 * i);
-          v21 = objc_msgSend_objectForKey_(selfCopy->_syndicationIdentifierFetchResultCache, v16, v20);
-          v23 = objc_msgSend_changeDetailsForFetchResult_(changesCopy, v22, v21);
-          v26 = v23;
-          if (v23)
+          v12 = *(*(&v27 + 1) + 8 * i);
+          v13 = [(NSMutableDictionary *)selfCopy->_syndicationIdentifierFetchResultCache objectForKey:v12];
+          v14 = [changesCopy changeDetailsForFetchResult:v13];
+          v15 = v14;
+          if (v14)
           {
-            v29 = objc_msgSend_fetchResultAfterChanges(v23, v24, v25);
-            if (v29)
+            fetchResultAfterChanges = [v14 fetchResultAfterChanges];
+            if (fetchResultAfterChanges)
             {
-              v30 = objc_msgSend_fetchResultAfterChanges(v26, v27, v28);
-              v33 = objc_msgSend_count(v30, v31, v32);
+              fetchResultAfterChanges2 = [v15 fetchResultAfterChanges];
+              v18 = [fetchResultAfterChanges2 count];
 
-              v36 = objc_msgSend_fetchResultBeforeChanges(v26, v34, v35);
-              v39 = objc_msgSend_count(v36, v37, v38);
+              fetchResultBeforeChanges = [v15 fetchResultBeforeChanges];
+              v20 = [fetchResultBeforeChanges count];
 
-              objc_msgSend_setObject_forKey_(selfCopy->_syndicationIdentifierFetchResultCache, v40, v29, v20);
-              v15 = (v33 != 0) ^ (v39 != 0);
+              [(NSMutableDictionary *)selfCopy->_syndicationIdentifierFetchResultCache setObject:fetchResultAfterChanges forKey:v12];
+              v8 = (v18 != 0) ^ (v20 != 0);
             }
 
             else
             {
-              objc_msgSend_removeObjectForKey_(selfCopy->_syndicationIdentifierFetchResultCache, v27, v20);
-              v15 = 1;
+              [(NSMutableDictionary *)selfCopy->_syndicationIdentifierFetchResultCache removeObjectForKey:v12];
+              v8 = 1;
             }
           }
         }
 
-        v13 = obj;
-        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v50, v56, 16);
+        allKeys = obj;
+        v9 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
-      while (v17);
+      while (v9);
     }
 
-    objc_msgSend_removeAllObjects(selfCopy->_syndicationIdentifierToAssetUUIDCache, v41, v42);
+    [(NSMutableDictionary *)selfCopy->_syndicationIdentifierToAssetUUIDCache removeAllObjects];
     if (IMOSLoggingEnabled())
     {
-      v43 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      v21 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        v55 = v15 & 1;
-        _os_log_impl(&dword_1A823F000, v43, OS_LOG_TYPE_INFO, "Photo library changed, will invalidate %d", buf, 8u);
+        v32 = v8 & 1;
+        _os_log_impl(&dword_1A823F000, v21, OS_LOG_TYPE_INFO, "Photo library changed, will invalidate %d", buf, 8u);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
 
-  v45 = *MEMORY[0x1E69E9840];
-  return v15 & 1;
+  return v8 & 1;
 }
 
 - (id)_cachedSaveStateForIdentifier:(id)identifier
 {
   v4 = MEMORY[0x1E69A8020];
   identifierCopy = identifier;
-  if (objc_msgSend_IMDeviceIsChinaRegion(v4, v6, v7))
+  if ([v4 IMDeviceIsChinaRegion])
   {
-    v9 = objc_msgSend_objectForKey_(self->_syndicationIdentifierSaveStateCache, v8, identifierCopy);
+    v6 = [(NSMutableDictionary *)self->_syndicationIdentifierSaveStateCache objectForKey:identifierCopy];
   }
 
   else
   {
-    v10 = objc_msgSend_objectForKey_(self->_syndicationIdentifierFetchResultCache, v8, identifierCopy);
+    v7 = [(NSMutableDictionary *)self->_syndicationIdentifierFetchResultCache objectForKey:identifierCopy];
 
-    if (v10)
+    if (v7)
     {
-      v13 = MEMORY[0x1E696AD98];
-      v14 = objc_msgSend_count(v10, v11, v12) != 0;
-      v9 = objc_msgSend_numberWithBool_(v13, v15, v14);
+      v6 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v7, "count") != 0}];
     }
 
     else
     {
-      v9 = 0;
+      v6 = 0;
     }
 
-    identifierCopy = v10;
+    identifierCopy = v7;
   }
 
-  return v9;
+  return v6;
 }
 
 - (unint64_t)cachedCountOfSyndicationIdentifiersSavedToSystemPhotoLibrary:(id)library shouldFetchAndNotifyAsNeeded:(BOOL)needed didStartFetch:(BOOL *)fetch
 {
   neededCopy = needed;
-  v56 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  v11 = libraryCopy;
+  v9 = libraryCopy;
   if (fetch)
   {
     *fetch = 0;
   }
 
-  if (objc_msgSend_count(libraryCopy, v9, v10))
+  if ([libraryCopy count])
   {
-    v45 = neededCopy;
+    v26 = neededCopy;
     fetchCopy = fetch;
-    v46 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v44 = v11;
-    v12 = v11;
-    v14 = 0;
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v47, v55, 16);
-    if (v15)
+    v27 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v25 = v9;
+    v10 = v9;
+    v11 = 0;
+    v12 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    if (v12)
     {
-      v16 = *v48;
+      v13 = *v29;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v48 != v16)
+          if (*v29 != v13)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v10);
           }
 
-          v18 = *(*(&v47 + 1) + 8 * i);
+          v15 = *(*(&v28 + 1) + 8 * i);
           selfCopy = self;
           objc_sync_enter(selfCopy);
-          v21 = objc_msgSend__cachedSaveStateForIdentifier_(selfCopy, v20, v18);
+          v17 = [(IMPhotoLibraryPersistenceManager *)selfCopy _cachedSaveStateForIdentifier:v15];
           objc_sync_exit(selfCopy);
 
-          if (v21)
+          if (v17)
           {
-            if (objc_msgSend_BOOLValue(v21, v22, v23))
+            if ([v17 BOOLValue])
             {
-              ++v14;
+              ++v11;
             }
           }
 
-          else if ((objc_msgSend_IMDeviceIsChinaRegion(MEMORY[0x1E69A8020], v22, v23) & 1) == 0)
+          else if (([MEMORY[0x1E69A8020] IMDeviceIsChinaRegion] & 1) == 0)
           {
-            v24 = selfCopy;
-            objc_sync_enter(v24);
-            v26 = objc_msgSend_containsObject_(self->_syndicationIdentifiersWithActiveFetch, v25, v18);
-            objc_sync_exit(v24);
+            v18 = selfCopy;
+            objc_sync_enter(v18);
+            v19 = [(NSMutableSet *)self->_syndicationIdentifiersWithActiveFetch containsObject:v15];
+            objc_sync_exit(v18);
 
-            if ((v26 & 1) == 0)
+            if ((v19 & 1) == 0)
             {
-              objc_msgSend_addObject_(v46, v27, v18);
+              [v27 addObject:v15];
             }
           }
         }
 
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v28, &v47, v55, 16);
+        v12 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
-      while (v15);
+      while (v12);
     }
 
-    if (v45 && objc_msgSend_count(v46, v29, v30))
+    if (v26 && [v27 count])
     {
       if (fetchCopy)
       {
@@ -383,421 +378,408 @@ LABEL_10:
 
       if (IMOSLoggingEnabled())
       {
-        v33 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v36 = objc_msgSend_count(v46, v34, v35);
+          v21 = [v27 count];
           *buf = 136315394;
-          v52 = "[IMPhotoLibraryPersistenceManager cachedCountOfSyndicationIdentifiersSavedToSystemPhotoLibrary:shouldFetchAndNotifyAsNeeded:didStartFetch:]";
-          v53 = 2048;
-          v54 = v36;
-          _os_log_impl(&dword_1A823F000, v33, OS_LOG_TYPE_INFO, "%s Adding %lu identifiers to coalesced fetch", buf, 0x16u);
+          v33 = "[IMPhotoLibraryPersistenceManager cachedCountOfSyndicationIdentifiersSavedToSystemPhotoLibrary:shouldFetchAndNotifyAsNeeded:didStartFetch:]";
+          v34 = 2048;
+          v35 = v21;
+          _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "%s Adding %lu identifiers to coalesced fetch", buf, 0x16u);
         }
       }
 
-      v37 = objc_msgSend_syndicationIdentifiersPendingFetch(self, v31, v32, fetchCopy);
-      objc_msgSend_unionSet_(v37, v38, v46);
+      syndicationIdentifiersPendingFetch = [(IMPhotoLibraryPersistenceManager *)self syndicationIdentifiersPendingFetch];
+      [syndicationIdentifiersPendingFetch unionSet:v27];
 
-      objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x1E69E58C0], v39, self, sel__coalescedFetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary, 0);
-      objc_msgSend_performSelector_withObject_afterDelay_(self, v40, sel__coalescedFetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary, 0, 0.25);
+      [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel__coalescedFetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary object:0];
+      [(IMPhotoLibraryPersistenceManager *)self performSelector:sel__coalescedFetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary withObject:0 afterDelay:0.25];
     }
 
-    v11 = v44;
+    v9 = v25;
   }
 
   else
   {
-    v14 = 0;
+    v11 = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v11;
 }
 
 - (void)cacheCompletedSaveForSyndicationIdentifiers:(id)identifiers
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
-  if (objc_msgSend_IMDeviceIsChinaRegion(MEMORY[0x1E69A8020], v5, v6))
+  if ([MEMORY[0x1E69A8020] IMDeviceIsChinaRegion])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v7 = identifiersCopy;
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v18, v22, 16);
-    if (v9)
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v5 = identifiersCopy;
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v6)
     {
-      v10 = *v19;
-      v11 = MEMORY[0x1E695E118];
+      v7 = *v13;
+      v8 = MEMORY[0x1E695E118];
       do
       {
-        v12 = 0;
+        v9 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v13 != v7)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v5);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * v12);
+          v10 = *(*(&v12 + 1) + 8 * v9);
           selfCopy = self;
           objc_sync_enter(selfCopy);
-          objc_msgSend_setObject_forKey_(self->_syndicationIdentifierSaveStateCache, v15, v11, v13, v18);
+          [(NSMutableDictionary *)self->_syndicationIdentifierSaveStateCache setObject:v8 forKey:v10, v12];
           objc_sync_exit(selfCopy);
 
-          ++v12;
+          ++v9;
         }
 
-        while (v9 != v12);
-        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v16, &v18, v22, 16);
+        while (v6 != v9);
+        v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
-      while (v9);
+      while (v6);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_coalescedFetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_syndicationIdentifiersPendingFetch(self, a2, v2);
-  v7 = objc_msgSend_count(v4, v5, v6);
+  v19 = *MEMORY[0x1E69E9840];
+  syndicationIdentifiersPendingFetch = [(IMPhotoLibraryPersistenceManager *)self syndicationIdentifiersPendingFetch];
+  v4 = [syndicationIdentifiersPendingFetch count];
 
-  if (v7)
+  if (v4)
   {
-    v10 = objc_msgSend_syndicationIdentifiersPendingFetch(self, v8, v9);
-    v13 = objc_msgSend_copy(v10, v11, v12);
+    syndicationIdentifiersPendingFetch2 = [(IMPhotoLibraryPersistenceManager *)self syndicationIdentifiersPendingFetch];
+    v6 = [syndicationIdentifiersPendingFetch2 copy];
 
     if (IMOSLoggingEnabled())
     {
-      v14 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v32 = 134217984;
-        v33 = objc_msgSend_count(v13, v15, v16);
-        _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Fetching %lu identifiers that weren't cached", &v32, 0xCu);
+        v17 = 134217984;
+        v18 = [v6 count];
+        _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Fetching %lu identifiers that weren't cached", &v17, 0xCu);
       }
     }
 
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = sub_1A83013E4;
-    v29 = &unk_1E7812040;
-    v30 = v13;
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = sub_1A83013E4;
+    v14 = &unk_1E7812040;
+    v15 = v6;
     selfCopy = self;
-    v17 = v13;
-    objc_msgSend_fetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary_completion_(self, v18, v17, &v26);
-    v21 = objc_msgSend_syndicationIdentifiersPendingFetch(self, v19, v20, v26, v27, v28, v29);
-    objc_msgSend_removeAllObjects(v21, v22, v23);
+    v8 = v6;
+    [(IMPhotoLibraryPersistenceManager *)self fetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary:v8 completion:&v11];
+    v9 = [(IMPhotoLibraryPersistenceManager *)self syndicationIdentifiersPendingFetch:v11];
+    [v9 removeAllObjects];
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v32) = 0;
-      _os_log_impl(&dword_1A823F000, v24, OS_LOG_TYPE_INFO, "IMPhotoLibraryPersistenceManager -- syndicationIdentifiersPendingFetch cleared before fetch could begin, this is an invalid state", &v32, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "IMPhotoLibraryPersistenceManager -- syndicationIdentifiersPendingFetch cleared before fetch could begin, this is an invalid state", &v17, 2u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary:(id)library completion:(id)completion
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   completionCopy = completion;
-  v53 = libraryCopy;
-  if (objc_msgSend_count(libraryCopy, v8, v9))
+  v29 = libraryCopy;
+  if ([libraryCopy count])
   {
-    v76 = 0;
-    v77 = &v76;
-    v78 = 0x2020000000;
-    v79 = 0;
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x3032000000;
-    v73 = sub_1A8259BA0;
-    v74 = sub_1A825AEFC;
-    v75 = 0;
-    v54 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v10 = libraryCopy;
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v66, v82, 16);
-    v52 = completionCopy;
-    if (v12)
+    v52 = 0;
+    v53 = &v52;
+    v54 = 0x2020000000;
+    v55 = 0;
+    v46 = 0;
+    v47 = &v46;
+    v48 = 0x3032000000;
+    v49 = sub_1A8259BA0;
+    v50 = sub_1A825AEFC;
+    v51 = 0;
+    v30 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v8 = libraryCopy;
+    v9 = [v8 countByEnumeratingWithState:&v42 objects:v58 count:16];
+    v28 = completionCopy;
+    if (v9)
     {
-      v13 = *v67;
+      v10 = *v43;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v67 != v13)
+          if (*v43 != v10)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v66 + 1) + 8 * i);
+          v12 = *(*(&v42 + 1) + 8 * i);
           selfCopy = self;
           objc_sync_enter(selfCopy);
-          v19 = objc_msgSend__cachedSaveStateForIdentifier_(selfCopy, v17, v15);
-          if (!v71[5])
+          v14 = [(IMPhotoLibraryPersistenceManager *)selfCopy _cachedSaveStateForIdentifier:v12];
+          if (!v47[5])
           {
-            v20 = objc_msgSend_objectForKey_(self->_syndicationIdentifierToAssetUUIDCache, v18, v15);
-            v21 = v71[5];
-            v71[5] = v20;
+            v15 = [(NSMutableDictionary *)self->_syndicationIdentifierToAssetUUIDCache objectForKey:v12];
+            v16 = v47[5];
+            v47[5] = v15;
           }
 
           objc_sync_exit(selfCopy);
 
-          if (v19)
+          if (v14)
           {
-            if (objc_msgSend_BOOLValue(v19, v22, v23))
+            if ([v14 BOOLValue])
             {
-              ++v77[3];
+              ++v53[3];
             }
           }
 
-          else if ((objc_msgSend_IMDeviceIsChinaRegion(MEMORY[0x1E69A8020], v22, v23) & 1) == 0)
+          else if (([MEMORY[0x1E69A8020] IMDeviceIsChinaRegion] & 1) == 0)
           {
-            v24 = selfCopy;
-            objc_sync_enter(v24);
-            v26 = objc_msgSend_containsObject_(self->_syndicationIdentifiersWithActiveFetch, v25, v15);
-            objc_sync_exit(v24);
+            v17 = selfCopy;
+            objc_sync_enter(v17);
+            v18 = [(NSMutableSet *)self->_syndicationIdentifiersWithActiveFetch containsObject:v12];
+            objc_sync_exit(v17);
 
-            if ((v26 & 1) == 0)
+            if ((v18 & 1) == 0)
             {
-              objc_msgSend_addObject_(v54, v27, v15);
+              [v30 addObject:v12];
             }
           }
         }
 
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v28, &v66, v82, 16);
+        v9 = [v8 countByEnumeratingWithState:&v42 objects:v58 count:16];
       }
 
-      while (v12);
+      while (v9);
     }
 
-    v31 = objc_msgSend_count(v54, v29, v30);
-    if (v31 && (sub_1A8301A70(v31, v32, v33), (objc_opt_respondsToSelector() & 1) != 0))
+    if ([v30 count] && (sub_1A8301A70(), (objc_opt_respondsToSelector() & 1) != 0))
     {
       if (IMOSLoggingEnabled())
       {
-        v34 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          v37 = objc_msgSend_count(v54, v35, v36);
+          v20 = [v30 count];
           *buf = 136315394;
           *&buf[4] = "[IMPhotoLibraryPersistenceManager fetchInfoForSyndicationIdentifiersSavedToSystemPhotoLibrary:completion:]";
           *&buf[12] = 2048;
-          *&buf[14] = v37;
-          _os_log_impl(&dword_1A823F000, v34, OS_LOG_TYPE_INFO, "%s: %ld identifiers need save state fetch", buf, 0x16u);
+          *&buf[14] = v20;
+          _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "%s: %ld identifiers need save state fetch", buf, 0x16u);
         }
       }
 
       selfCopy2 = self;
       objc_sync_enter(selfCopy2);
       syndicationIdentifiersWithActiveFetch = selfCopy2->_syndicationIdentifiersWithActiveFetch;
-      v42 = objc_msgSend_allObjects(v54, v40, v41);
-      objc_msgSend_addObjectsFromArray_(syndicationIdentifiersWithActiveFetch, v43, v42);
+      allObjects = [v30 allObjects];
+      [(NSMutableSet *)syndicationIdentifiersWithActiveFetch addObjectsFromArray:allObjects];
 
       objc_sync_exit(selfCopy2);
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v81 = 0;
-      v44 = selfCopy2->_photoLibrary == 0;
-      v45 = dispatch_group_create();
-      dispatch_group_enter(v45);
-      v46 = objc_opt_class();
-      v49 = objc_msgSend__assetFetchQueue(v46, v47, v48);
+      v57 = 0;
+      v24 = selfCopy2->_photoLibrary == 0;
+      v25 = dispatch_group_create();
+      dispatch_group_enter(v25);
+      _assetFetchQueue = [objc_opt_class() _assetFetchQueue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = sub_1A8301B50;
       block[3] = &unk_1E7812068;
-      v65 = v44;
+      v41 = v24;
       block[4] = selfCopy2;
-      v63 = buf;
-      v64 = &v70;
-      v61 = v54;
-      v62 = v45;
-      v50 = v45;
-      dispatch_async(v49, block);
+      v39 = buf;
+      v40 = &v46;
+      v37 = v30;
+      v38 = v25;
+      v27 = v25;
+      dispatch_async(_assetFetchQueue, block);
 
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = sub_1A8301E9C;
-      v55[3] = &unk_1E7812090;
-      v57 = &v76;
-      v58 = buf;
-      v56 = v52;
-      v59 = &v70;
-      dispatch_group_notify(v50, MEMORY[0x1E69E96A0], v55);
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = sub_1A8301E9C;
+      v31[3] = &unk_1E7812090;
+      v33 = &v52;
+      v34 = buf;
+      v32 = v28;
+      v35 = &v46;
+      dispatch_group_notify(v27, MEMORY[0x1E69E96A0], v31);
 
       _Block_object_dispose(buf, 8);
     }
 
     else if (completionCopy)
     {
-      (*(completionCopy + 2))(completionCopy, v77[3], v71[5]);
+      (*(completionCopy + 2))(completionCopy, v53[3], v47[5]);
     }
 
-    _Block_object_dispose(&v70, 8);
-    _Block_object_dispose(&v76, 8);
-    completionCopy = v52;
+    _Block_object_dispose(&v46, 8);
+    _Block_object_dispose(&v52, 8);
+    completionCopy = v28;
   }
 
   else if (completionCopy)
   {
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isListenerRegistered:(id)registered
 {
   registeredCopy = registered;
-  v7 = objc_msgSend_listeners(self, v5, v6);
-  v9 = objc_msgSend_containsObject_(v7, v8, registeredCopy);
+  listeners = [(IMPhotoLibraryPersistenceManager *)self listeners];
+  v6 = [listeners containsObject:registeredCopy];
 
-  return v9;
+  return v6;
 }
 
 - (void)registerPhotoLibraryPersistenceManagerListener:(id)listener
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   if (!listenerCopy)
   {
-    v9 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    listeners = IMLogHandleForCategory();
+    if (os_log_type_enabled(listeners, OS_LOG_TYPE_ERROR))
     {
-      sub_1A84E03B0(v9, v11, v12, v13, v14, v15, v16, v17);
+      sub_1A84E03B0(listeners, v7, v8, v9, v10, v11, v12, v13);
     }
 
     goto LABEL_10;
   }
 
-  if ((objc_msgSend__isListenerRegistered_(self, v4, listenerCopy) & 1) == 0)
+  if (![(IMPhotoLibraryPersistenceManager *)self _isListenerRegistered:listenerCopy])
   {
     if (IMOSLoggingEnabled())
     {
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v19 = 134217984;
-        v20 = listenerCopy;
-        _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Registering as photo library persistence change listener %p", &v19, 0xCu);
+        v14 = 134217984;
+        v15 = listenerCopy;
+        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Registering as photo library persistence change listener %p", &v14, 0xCu);
       }
     }
 
-    v9 = objc_msgSend_listeners(self, v6, v7);
-    objc_msgSend_addObject_(v9, v10, listenerCopy);
+    listeners = [(IMPhotoLibraryPersistenceManager *)self listeners];
+    [listeners addObject:listenerCopy];
 LABEL_10:
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterAllPhotoLibraryPersistenceManagerListeners
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Unregistering all persistence manager listeners", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Unregistering all persistence manager listeners", buf, 2u);
     }
   }
 
   listeners = self->_listeners;
   if (listeners)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v7 = objc_msgSend_copy(listeners, v3, v4, 0);
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v14, v19, 16);
-    if (v10)
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    v5 = [(NSHashTable *)listeners copy];
+    v6 = [v5 countByEnumeratingWithState:&v9 objects:v14 count:16];
+    if (v6)
     {
-      v11 = *v15;
+      v7 = *v10;
       do
       {
-        v12 = 0;
+        v8 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v10 != v7)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v5);
           }
 
-          objc_msgSend_unregisterPhotoLibraryPersistenceManagerListener_(self, v9, *(*(&v14 + 1) + 8 * v12++));
+          [(IMPhotoLibraryPersistenceManager *)self unregisterPhotoLibraryPersistenceManagerListener:*(*(&v9 + 1) + 8 * v8++)];
         }
 
-        while (v10 != v12);
-        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v14, v19, 16);
+        while (v6 != v8);
+        v6 = [v5 countByEnumeratingWithState:&v9 objects:v14 count:16];
       }
 
-      while (v10);
+      while (v6);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterPhotoLibraryPersistenceManagerListener:(id)listener
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v23 = 134217984;
-      v24 = listenerCopy;
-      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Unregistering listener %p", &v23, 0xCu);
+      v18 = 134217984;
+      v19 = listenerCopy;
+      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Unregistering listener %p", &v18, 0xCu);
     }
   }
 
   if (!listenerCopy)
   {
-    v14 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v10 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1A84E03E8(v14, v15, v16, v17, v18, v19, v20, v21);
+      sub_1A84E03E8(v10, v11, v12, v13, v14, v15, v16, v17);
     }
 
     goto LABEL_19;
   }
 
-  isListenerRegistered = objc_msgSend__isListenerRegistered_(self, v5, listenerCopy);
-  v8 = IMOSLoggingEnabled();
-  if ((isListenerRegistered & 1) == 0)
+  v6 = [(IMPhotoLibraryPersistenceManager *)self _isListenerRegistered:listenerCopy];
+  v7 = IMOSLoggingEnabled();
+  if (!v6)
   {
-    if (!v8)
+    if (!v7)
     {
       goto LABEL_20;
     }
 
-    v14 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v23 = 134217984;
-      v24 = listenerCopy;
-      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Not unregistering listener because it's already not listening %p", &v23, 0xCu);
+      v18 = 134217984;
+      v19 = listenerCopy;
+      _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Not unregistering listener because it's already not listening %p", &v18, 0xCu);
     }
 
 LABEL_19:
@@ -805,106 +787,100 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  if (v8)
+  if (v7)
   {
-    v11 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v23 = 134217984;
-      v24 = listenerCopy;
-      _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Unregistering as photo library persistence change listener %p", &v23, 0xCu);
+      v18 = 134217984;
+      v19 = listenerCopy;
+      _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Unregistering as photo library persistence change listener %p", &v18, 0xCu);
     }
   }
 
   if (self->_listeners)
   {
-    v12 = objc_msgSend_listeners(self, v9, v10);
-    objc_msgSend_removeObject_(v12, v13, listenerCopy);
+    listeners = [(IMPhotoLibraryPersistenceManager *)self listeners];
+    [listeners removeObject:listenerCopy];
   }
 
 LABEL_20:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerPhotoLibraryPersistenceManagerSession:(id)session
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   if (sessionCopy)
   {
     if (IMOSLoggingEnabled())
     {
-      v7 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = sessionCopy;
-        _os_log_impl(&dword_1A823F000, v7, OS_LOG_TYPE_INFO, "Registering active session with GUID %@", &v11, 0xCu);
+        v7 = 138412290;
+        v8 = sessionCopy;
+        _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Registering active session with GUID %@", &v7, 0xCu);
       }
     }
 
-    v8 = objc_msgSend_sessions(self, v5, v6);
-    objc_msgSend_addObject_(v8, v9, sessionCopy);
+    sessions = [(IMPhotoLibraryPersistenceManager *)self sessions];
+    [sessions addObject:sessionCopy];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterPhotoLibraryPersistenceManagerSession:(id)session
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   if (sessionCopy)
   {
-    v7 = objc_msgSend_sessions(self, v4, v5);
-    objc_msgSend_removeObject_(v7, v8, sessionCopy);
+    sessions = [(IMPhotoLibraryPersistenceManager *)self sessions];
+    [sessions removeObject:sessionCopy];
 
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v6 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v14 = objc_msgSend_sessions(self, v12, v13);
-        v27 = 138412546;
-        v28 = sessionCopy;
-        v29 = 2048;
-        v30 = objc_msgSend_count(v14, v15, v16);
-        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Unregistering session with GUID %@ remaining sessions active %lu", &v27, 0x16u);
+        sessions2 = [(IMPhotoLibraryPersistenceManager *)self sessions];
+        v11 = 138412546;
+        v12 = sessionCopy;
+        v13 = 2048;
+        v14 = [sessions2 count];
+        _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "Unregistering session with GUID %@ remaining sessions active %lu", &v11, 0x16u);
       }
     }
 
-    v17 = objc_msgSend_sessions(self, v9, v10);
-    v20 = objc_msgSend_count(v17, v18, v19) == 0;
+    sessions3 = [(IMPhotoLibraryPersistenceManager *)self sessions];
+    v9 = [sessions3 count] == 0;
 
-    if (v20)
+    if (v9)
     {
       if (IMOSLoggingEnabled())
       {
-        v23 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v10 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v27) = 0;
-          _os_log_impl(&dword_1A823F000, v23, OS_LOG_TYPE_INFO, "No more active sessions, unregistering all listeners and clearing caches", &v27, 2u);
+          LOWORD(v11) = 0;
+          _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "No more active sessions, unregistering all listeners and clearing caches", &v11, 2u);
         }
       }
 
-      objc_msgSend_unregisterAllPhotoLibraryPersistenceManagerListeners(self, v21, v22);
-      objc_msgSend__invalidateCaches(self, v24, v25);
+      [(IMPhotoLibraryPersistenceManager *)self unregisterAllPhotoLibraryPersistenceManagerListeners];
+      [(IMPhotoLibraryPersistenceManager *)self _invalidateCaches];
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidateCaches
 {
-  if ((objc_msgSend_IMDeviceIsChinaRegion(MEMORY[0x1E69A8020], a2, v2) & 1) == 0)
+  if (([MEMORY[0x1E69A8020] IMDeviceIsChinaRegion] & 1) == 0)
   {
-    objc_msgSend_removeAllObjects(self->_syndicationIdentifierSaveStateCache, v4, v5);
+    [(NSMutableDictionary *)self->_syndicationIdentifierSaveStateCache removeAllObjects];
     syndicationIdentifierFetchResultCache = self->_syndicationIdentifierFetchResultCache;
 
-    objc_msgSend_removeAllObjects(syndicationIdentifierFetchResultCache, v6, v7);
+    [(NSMutableDictionary *)syndicationIdentifierFetchResultCache removeAllObjects];
   }
 }
 
@@ -913,32 +889,30 @@ LABEL_20:
   listeners = self->_listeners;
   if (!listeners)
   {
-    v5 = objc_msgSend_weakObjectsHashTable(MEMORY[0x1E696AC70], a2, v2);
-    v6 = self->_listeners;
-    self->_listeners = v5;
+    weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+    v5 = self->_listeners;
+    self->_listeners = weakObjectsHashTable;
 
-    v7 = objc_opt_class();
-    v10 = objc_msgSend__photoLibraryInternalQueue(v7, v8, v9);
+    _photoLibraryInternalQueue = [objc_opt_class() _photoLibraryInternalQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A8302874;
     block[3] = &unk_1E780FCB0;
     block[4] = self;
-    dispatch_async(v10, block);
+    dispatch_async(_photoLibraryInternalQueue, block);
 
     listeners = self->_listeners;
   }
 
   if (!self->_photoLibrary && listeners)
   {
-    v11 = objc_opt_class();
-    v14 = objc_msgSend__photoLibraryInternalQueue(v11, v12, v13);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_1A830291C;
-    v16[3] = &unk_1E780FCB0;
-    v16[4] = self;
-    dispatch_async(v14, v16);
+    _photoLibraryInternalQueue2 = [objc_opt_class() _photoLibraryInternalQueue];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1A830291C;
+    v9[3] = &unk_1E780FCB0;
+    v9[4] = self;
+    dispatch_async(_photoLibraryInternalQueue2, v9);
 
     listeners = self->_listeners;
   }
@@ -961,100 +935,97 @@ LABEL_20:
 
 - (void)_notifyListeners
 {
-  objc_msgSend_cancelPreviousPerformRequestsWithTarget_selector_object_(MEMORY[0x1E69E58C0], a2, self, sel___notifyListeners, 0);
+  [MEMORY[0x1E69E58C0] cancelPreviousPerformRequestsWithTarget:self selector:sel___notifyListeners object:0];
 
-  objc_msgSend_performSelector_withObject_afterDelay_(self, v3, sel___notifyListeners, 0, 0.25);
+  [(IMPhotoLibraryPersistenceManager *)self performSelector:sel___notifyListeners withObject:0 afterDelay:0.25];
 }
 
 - (void)__notifyListeners
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v8 = objc_msgSend_listeners(self, v6, v7);
+      listeners = [(IMPhotoLibraryPersistenceManager *)self listeners];
       *buf = 134217984;
-      v25 = objc_msgSend_count(v8, v9, v10);
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Broadcasting changes to %lu listeners", buf, 0xCu);
+      v15 = [listeners count];
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Broadcasting changes to %lu listeners", buf, 0xCu);
     }
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v11 = objc_msgSend_allObjects(self->_listeners, v3, v4, 0);
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v19, v23, 16);
-  if (v15)
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  allObjects = [(NSHashTable *)self->_listeners allObjects];
+  v6 = [allObjects countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v6)
   {
-    v16 = *v20;
+    v7 = *v10;
     do
     {
-      v17 = 0;
+      v8 = 0;
       do
       {
-        if (*v20 != v16)
+        if (*v10 != v7)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(allObjects);
         }
 
-        objc_msgSend_photoLibraryPersistedSyndicatedAssetSetDidChange(*(*(&v19 + 1) + 8 * v17++), v13, v14);
+        [*(*(&v9 + 1) + 8 * v8++) photoLibraryPersistedSyndicatedAssetSetDidChange];
       }
 
-      while (v15 != v17);
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v19, v23, 16);
+      while (v6 != v8);
+      v6 = [allObjects countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v15);
+    while (v6);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_openPhotoLibraryIfNecessary
 {
   if (!self->_photoLibrary)
   {
-    v35[5] = v3;
-    v35[6] = v4;
-    v6 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], a2, v2);
-    isRedesignedDetailsViewEnabled = objc_msgSend_isRedesignedDetailsViewEnabled(v6, v7, v8);
+    v22[5] = v2;
+    v22[6] = v3;
+    mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+    isRedesignedDetailsViewEnabled = [mEMORY[0x1E69A8070] isRedesignedDetailsViewEnabled];
 
-    v13 = sub_1A8302D8C(v10, v11, v12);
+    v7 = sub_1A8302D8C();
     if (isRedesignedDetailsViewEnabled)
     {
-      v16 = objc_msgSend_systemPhotoLibraryURL(v13, v14, v15);
-      if (!v16)
+      systemPhotoLibraryURL = [v7 systemPhotoLibraryURL];
+      if (!systemPhotoLibraryURL)
       {
-        v22 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        sharedPhotoLibrary = IMLogHandleForCategory();
+        if (os_log_type_enabled(sharedPhotoLibrary, OS_LOG_TYPE_ERROR))
         {
-          sub_1A84E0498(v22, v28, v29, v30, v31, v32, v33, v34);
+          sub_1A84E0498(sharedPhotoLibrary, v15, v16, v17, v18, v19, v20, v21);
         }
 
         goto LABEL_11;
       }
 
-      v19 = v16;
-      v20 = objc_alloc(sub_1A8302D8C(v16, v17, v18));
-      v22 = objc_msgSend_initWithPhotoLibraryURL_(v20, v21, v19);
+      v9 = systemPhotoLibraryURL;
+      sharedPhotoLibrary = [objc_alloc(sub_1A8302D8C()) initWithPhotoLibraryURL:systemPhotoLibraryURL];
     }
 
     else
     {
-      v22 = objc_msgSend_sharedPhotoLibrary(v13, v14, v15);
+      sharedPhotoLibrary = [v7 sharedPhotoLibrary];
     }
 
-    v35[0] = 0;
-    v24 = objc_msgSend_openAndWaitWithUpgrade_error_(v22, v23, 0, v35);
-    v25 = v35[0];
-    if (v24)
+    v22[0] = 0;
+    v11 = [sharedPhotoLibrary openAndWaitWithUpgrade:0 error:v22];
+    v12 = v22[0];
+    if (v11)
     {
-      v26 = v22;
+      v13 = sharedPhotoLibrary;
       p_super = &self->_photoLibrary->super;
-      self->_photoLibrary = v26;
+      self->_photoLibrary = v13;
     }
 
     else
@@ -1062,7 +1033,7 @@ LABEL_20:
       p_super = IMLogHandleForCategory();
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
-        sub_1A84E0420(v25, p_super);
+        sub_1A84E0420(v12, p_super);
       }
     }
 

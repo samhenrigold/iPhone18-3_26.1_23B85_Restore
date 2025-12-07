@@ -7,9 +7,9 @@
 - (id)objectForData:(id)data response:(id)response error:(id *)error
 {
   responseCopy = response;
-  v16 = 0;
-  v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:data options:0 error:&v16];
-  v9 = v16;
+  v17 = 0;
+  v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:data options:0 error:&v17];
+  v9 = v17;
   objc_opt_class();
   v10 = 0;
   if (objc_opt_isKindOfClass())
@@ -27,16 +27,17 @@
     }
 
     v10 = v12;
-    if (SSURLResponseExpirationInterval(responseCopy) >= 0.0)
+    SSURLResponseExpirationInterval(responseCopy);
+    if (v13 >= 0.0)
     {
-      v13 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:?];
-      [(SSLookupResponse *)v10 setExpirationDate:v13];
+      v14 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:?];
+      [(SSLookupResponse *)v10 setExpirationDate:v14];
     }
   }
 
   if (!responseCopy && error)
   {
-    v14 = v9;
+    v15 = v9;
     *error = v9;
   }
 

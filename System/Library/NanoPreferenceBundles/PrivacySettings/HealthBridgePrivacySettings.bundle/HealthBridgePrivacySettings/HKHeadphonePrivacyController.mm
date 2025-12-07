@@ -9,6 +9,7 @@
 - (void)_updateSpecifiersForPruningPreference:(BOOL)preference;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
 - (void)toggleSecondSection;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HKHeadphonePrivacyController
@@ -64,6 +65,14 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = HKHeadphonePrivacyController;
+  [(HKHeadphonePrivacyController *)&v3 viewWillAppear:appear];
+  +[HKBridgePrivacyUserVisitDonation donateUserVisitForHeadphonePrivacySection];
 }
 
 - (void)_setupPruningGroup
@@ -187,7 +196,7 @@
 
   manager = self->_manager;
   v11 = ADAFPreferenceKeyHAESampleTransient;
-  v12 = [NSNumber numberWithBool:v6, *v14, *&v14[16]];
+  v12 = [NSNumber numberWithBool:v6, *v14, *&v14[8]];
   v13 = [(ADASManager *)manager setNanoPreferenceFor:v11 value:v12];
 
   [(HKHeadphonePrivacyController *)self _updateSpecifiersForPruningPreference:v6];

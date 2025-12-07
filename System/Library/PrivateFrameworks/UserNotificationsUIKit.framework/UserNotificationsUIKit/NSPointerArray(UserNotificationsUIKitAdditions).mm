@@ -1,10 +1,10 @@
 @interface NSPointerArray(UserNotificationsUIKitAdditions)
-- (uint64_t)unui_compact;
+- (char)unui_compact;
 @end
 
 @implementation NSPointerArray(UserNotificationsUIKitAdditions)
 
-- (uint64_t)unui_compact
+- (char)unui_compact
 {
   result = [self count];
   if (result)

@@ -112,26 +112,24 @@ LABEL_19:
 
 - (void)addCornerStatus:(id)status inView:(id)view timestamp:
 {
-  v15 = v4;
-  v16[3] = *MEMORY[0x277D85DE8];
+  v14 = v4;
+  v15[3] = *MEMORY[0x277D85DE8];
   statusCopy = status;
   viewCopy = view;
-  v9 = [MEMORY[0x277CCABB0] numberWithFloat:*&v15];
-  v16[0] = v9;
-  HIDWORD(v10) = DWORD1(v15);
-  LODWORD(v10) = DWORD1(v15);
+  v9 = [MEMORY[0x277CCABB0] numberWithFloat:*&v14];
+  v15[0] = v9;
+  HIDWORD(v10) = DWORD1(v14);
+  LODWORD(v10) = DWORD1(v14);
   v11 = [MEMORY[0x277CCABB0] numberWithFloat:v10];
-  v16[1] = v11;
-  v12 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v15), DWORD2(v15)))}];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[1] = v11;
+  v12 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(DWORD1(v14), DWORD2(v14)))}];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   [(NSMutableArray *)self->_coordinate addObject:v13];
   [(NSMutableArray *)self->_inView addObject:statusCopy];
   [(NSMutableArray *)self->_timer addObject:viewCopy];
   [(OU3DObjectCorner *)self updateIsCompleted];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

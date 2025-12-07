@@ -114,7 +114,7 @@
     v9 = v8;
     if (v7 == v8)
     {
-      v11 = 1;
+      isEqualToString = 1;
     }
 
     else
@@ -131,22 +131,22 @@
 
       if (v10)
       {
-        v11 = 0;
+        isEqualToString = 0;
       }
 
       else
       {
-        v11 = [(NSString *)v7 isEqualToString:v8];
+        isEqualToString = objc_msgSend_isEqualToString_(v7);
       }
     }
   }
 
   else
   {
-    v11 = 0;
+    isEqualToString = 0;
   }
 
-  return v11;
+  return isEqualToString;
 }
 
 @end

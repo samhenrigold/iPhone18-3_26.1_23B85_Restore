@@ -56,14 +56,14 @@
 
 - (EFSQLTableSchema)initWithName:(id)name rowIDType:(unint64_t)type rowIDAlias:(id)alias columns:(id)columns primaryKeyColumns:(id)keyColumns conflictResolution:(unint64_t)resolution
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   aliasCopy = alias;
   columnsCopy = columns;
   keyColumnsCopy = keyColumns;
-  v55.receiver = self;
-  v55.super_class = EFSQLTableSchema;
-  v15 = [(EFSQLTableSchema *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = EFSQLTableSchema;
+  v15 = [(EFSQLTableSchema *)&v54 init];
   v16 = v15;
   if (v15)
   {
@@ -76,32 +76,32 @@
     columnsByName = v16->_columnsByName;
     v16->_columnsByName = v19;
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v21 = columnsCopy;
-    v22 = [v21 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v22)
     {
-      v23 = *v52;
+      v23 = *v51;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v52 != v23)
+          if (*v51 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v25 = *(*(&v51 + 1) + 8 * i);
+          v25 = *(*(&v50 + 1) + 8 * i);
           [v25 setTable:v16];
           v26 = v16->_columnsByName;
           name = [v25 name];
           [(NSMutableDictionary *)v26 setObject:v25 forKeyedSubscript:name];
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v22);
@@ -158,7 +158,6 @@
     v16->_indexes = v41;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -184,12 +183,12 @@
 - (id)definitionWithDatabaseName:(id)name includeIndexes:(BOOL)indexes
 {
   indexesCopy = indexes;
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v41 = [(NSMutableArray *)self->_columns ef_map:&__block_literal_global_38];
+  v40 = [(NSMutableArray *)self->_columns ef_map:&__block_literal_global_38];
   selfCopy = self;
   primaryKeyColumns = [(EFSQLTableSchema *)self primaryKeyColumns];
-  v40 = primaryKeyColumns;
+  v39 = primaryKeyColumns;
   if (primaryKeyColumns)
   {
     v7 = [primaryKeyColumns ef_map:&__block_literal_global_25_0];
@@ -204,40 +203,40 @@
 
     v12 = objc_alloc(MEMORY[0x1E696AEC0]);
     v13 = [v7 componentsJoinedByString:{@", "}];
-    v42 = [v12 initWithFormat:@", \nPRIMARY KEY(%@)%@", v13, v8];
+    v41 = [v12 initWithFormat:@", \nPRIMARY KEY(%@)%@", v13, v8];
 
-    v39 = @" WITHOUT ROWID";
+    v38 = @" WITHOUT ROWID";
   }
 
   else
   {
-    v39 = &stru_1F459BF68;
-    v42 = &stru_1F459BF68;
+    v38 = &stru_1F459BF68;
+    v41 = &stru_1F459BF68;
   }
 
-  v38 = indexesCopy;
+  v37 = indexesCopy;
   if ([(NSMutableArray *)selfCopy->_uniquenessConstraints count])
   {
-    v46 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](selfCopy->_uniquenessConstraints, "count")}];
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
+    v45 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](selfCopy->_uniquenessConstraints, "count")}];
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     obj = selfCopy->_uniquenessConstraints;
-    v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v14)
     {
-      v15 = *v50;
+      v15 = *v49;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v50 != v15)
+          if (*v49 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v49 + 1) + 8 * i);
+          v17 = *(*(&v48 + 1) + 8 * i);
           first = [v17 first];
           v19 = [first ef_map:&__block_literal_global_39];
           v20 = [v19 componentsJoinedByString:{@", "}];
@@ -247,17 +246,17 @@
           v23 = EFSQLStringForConflictResolution([second unsignedIntegerValue]);
           v24 = [v21 initWithFormat:@"UNIQUE(%@) ON CONFLICT %@", v20, v23];
 
-          [v46 addObject:v24];
+          [v45 addObject:v24];
         }
 
-        v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v14);
     }
 
     v25 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v26 = [v46 componentsJoinedByString:{@", \n"}];
+    v26 = [v45 componentsJoinedByString:{@", \n"}];
     v27 = [v25 initWithFormat:@", \n%@", v26];
   }
 
@@ -270,20 +269,20 @@
   string = [MEMORY[0x1E696AD60] string];
   if ([checkConstraints count])
   {
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __62__EFSQLTableSchema_definitionWithDatabaseName_includeIndexes___block_invoke_4;
-    v47[3] = &unk_1E824A040;
-    v48 = string;
-    [checkConstraints enumerateObjectsUsingBlock:v47];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __62__EFSQLTableSchema_definitionWithDatabaseName_includeIndexes___block_invoke_4;
+    v46[3] = &unk_1E824A040;
+    v47 = string;
+    [checkConstraints enumerateObjectsUsingBlock:v46];
   }
 
   v30 = [(EFSQLTableSchema *)selfCopy fullNameWithDatabaseName:nameCopy];
   v31 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v32 = [v41 componentsJoinedByString:{@", \n"}];
-  v33 = [v31 initWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@%@%@%@)%@;", v30, v32, v42, v27, string, v39];
+  v32 = [v40 componentsJoinedByString:{@", \n"}];
+  v33 = [v31 initWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@%@%@%@)%@;", v30, v32, v41, v27, string, v38];
 
-  if (v38)
+  if (v37)
   {
     v34 = [(EFSQLTableSchema *)selfCopy indexDefinitionsWithDatabaseName:nameCopy];
     if ([v34 length])
@@ -293,8 +292,6 @@
       v33 = v35;
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v33;
 }

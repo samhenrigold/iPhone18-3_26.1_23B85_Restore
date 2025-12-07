@@ -29,11 +29,11 @@
 
 - (SGExternalEventExtraction)initWithCoder:(id)coder
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v57.receiver = self;
-  v57.super_class = SGExternalEventExtraction;
-  v6 = [(SGExternalEventExtraction *)&v57 init];
+  v56.receiver = self;
+  v56.super_class = SGExternalEventExtraction;
+  v6 = [(SGExternalEventExtraction *)&v56 init];
   if (!v6)
   {
 LABEL_18:
@@ -70,7 +70,7 @@ LABEL_18:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v59 = v15;
+      v58 = v15;
       v17 = "SGExternalEventExtraction: invalid statusValue: %ld";
 LABEL_21:
       _os_log_error_impl(&dword_1BA729000, v16, OS_LOG_TYPE_ERROR, v17, buf, 0xCu);
@@ -168,7 +168,7 @@ LABEL_21:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v59 = v19;
+    v58 = v19;
     v17 = "SGExternalEventExtraction: invalid categoryValue: %ld";
     goto LABEL_21;
   }
@@ -178,7 +178,6 @@ LABEL_12:
   v24 = 0;
 LABEL_19:
 
-  v55 = *MEMORY[0x1E69E9840];
   return v24;
 }
 

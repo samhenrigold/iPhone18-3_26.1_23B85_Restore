@@ -12,20 +12,25 @@
 - (void)headerButtonsSectionController:(id)controller didSelectPrimaryType:(unint64_t)type withPresentationOptions:(id)options;
 - (void)headerButtonsSectionControllerDidUpdateContent:(id)content;
 - (void)incidentsSectionController:(id)controller didSelectDetailsForIncidents:(id)incidents;
+- (void)infoCardAnalyticsDidSelectAction:(int)action target:(int)target eventValue:(id)value actionURL:(id)l photoID:(id)d moduleMetadata:(id)metadata feedbackDelegateSelector:(int)selector actionRichProviderId:(id)self0 classification:(id)self1;
+- (void)infoCardTransitAnalyticsDidSelectionAction:(int)action resultIndex:(int64_t)index targetID:(unint64_t)d transitSystem:(id)system transitDepartureSequence:(id)sequence transitCardCategory:(int)category transitIncident:(id)incident feedbackDelegateSelector:(int)self0;
 - (void)lineItemManager:(id)manager didSelectReportAProblemWithEnvironment:(id)environment;
 - (void)nearestStationSectionController:(id)controller didSelectStationAttributionURL:(id)l;
 - (void)nearestStationSectionController:(id)controller didTapStationItem:(id)item;
 - (void)placeDescriptionSectionControllerDidTapAttribution:(id)attribution;
 - (void)resetNearestStation;
+- (void)scrollToTopAnimated:(BOOL)animated;
 - (void)scrollViewDidScroll:(id)scroll;
 - (void)scrollViewWillBeginDragging:(id)dragging;
 - (void)setAutomobileOptions:(id)options;
 - (void)setCyclingOptions:(id)options;
 - (void)setTransitLineItem:(id)item;
+- (void)setTransitLineItem:(id)item loading:(BOOL)loading;
 - (void)setTransitOptions:(id)options;
 - (void)setWalkingOptions:(id)options;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MUTransitLineItemViewController
@@ -42,6 +47,44 @@
   WeakRetained = objc_loadWeakRetained(&self->_scrollViewDelegate);
 
   return WeakRetained;
+}
+
+- (void)infoCardAnalyticsDidSelectAction:(int)action target:(int)target eventValue:(id)value actionURL:(id)l photoID:(id)d moduleMetadata:(id)metadata feedbackDelegateSelector:(int)selector actionRichProviderId:(id)self0 classification:(id)self1
+{
+  v14 = *&target;
+  v15 = *&action;
+  v24[1] = *MEMORY[0x1E69E9840];
+  valueCopy = value;
+  lCopy = l;
+  dCopy = d;
+  metadataCopy = metadata;
+  classificationCopy = classification;
+  if (metadataCopy)
+  {
+    v24[0] = metadataCopy;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+  }
+
+  else
+  {
+    v21 = MEMORY[0x1E695E0F0];
+  }
+
+  mEMORY[0x1E696F298] = [MEMORY[0x1E696F298] sharedService];
+  LODWORD(v23) = 6;
+  [mEMORY[0x1E696F298] capturePlaceCardUserAction:v15 onTarget:v14 eventValue:valueCopy mapItem:0 timestamp:0xFFFFFFFFLL resultIndex:0 targetID:CFAbsoluteTimeGetCurrent() providerID:0 animationID:0 actionURL:lCopy photoID:dCopy placeCardType:v23 localizedMapItemCategory:0 availableActions:0 unactionableUIElements:0 modules:v21 commingledPhotoProviderIDs:0 actionRichProviderId:0 classification:classificationCopy];
+}
+
+- (void)infoCardTransitAnalyticsDidSelectionAction:(int)action resultIndex:(int64_t)index targetID:(unint64_t)d transitSystem:(id)system transitDepartureSequence:(id)sequence transitCardCategory:(int)category transitIncident:(id)incident feedbackDelegateSelector:(int)self0
+{
+  v15 = *&action;
+  v16 = MEMORY[0x1E696F298];
+  incidentCopy = incident;
+  sequenceCopy = sequence;
+  systemCopy = system;
+  sharedService = [v16 sharedService];
+  LODWORD(v20) = category;
+  [sharedService captureTransitPlaceCardUserAction:v15 onTarget:201 eventValue:0 mapItem:0 timestamp:index resultIndex:d targetID:CFAbsoluteTimeGetCurrent() providerID:0 animationID:-1 transitCardCategory:v20 transitSystem:systemCopy transitDepartureSequence:sequenceCopy transitIncident:incidentCopy];
 }
 
 - (void)incidentsSectionController:(id)controller didSelectDetailsForIncidents:(id)incidents
@@ -83,7 +126,7 @@
 
 - (void)headerButtonsSectionControllerDidUpdateContent:(id)content
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = v4;
   if (self->_headerView)
@@ -91,26 +134,26 @@
     [v4 addObject:?];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = self->_sectionControllers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         if ([v11 hasContent])
         {
           sectionView = [v11 sectionView];
@@ -123,7 +166,7 @@
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -132,8 +175,6 @@
   contentStackView = self->_contentStackView;
   v15 = [v5 copy];
   [(MUScrollableStackView *)contentStackView setArrangedSubviews:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCyclingOptions:(id)options
@@ -210,35 +251,48 @@
   }
 }
 
+- (void)scrollToTopAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = *MEMORY[0x1E695EFF8];
+  v6 = *(MEMORY[0x1E695EFF8] + 8);
+  [(MUScrollableStackView *)self->_contentStackView adjustedContentInset];
+  v8 = v5 - v7;
+  [(MUScrollableStackView *)self->_contentStackView adjustedContentInset];
+  contentStackView = self->_contentStackView;
+
+  [(MUScrollableStackView *)contentStackView setContentOffset:animatedCopy animated:v8, v6 - v9];
+}
+
 - (void)_openAttributionURLStrings:(id)strings usingAttribution:(id)attribution
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   attributionCopy = attribution;
   if ([stringsCopy count])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v8 = stringsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
-      v19 = attributionCopy;
-      v20 = stringsCopy;
+      v11 = *v21;
+      v18 = attributionCopy;
+      v19 = stringsCopy;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [MEMORY[0x1E695DFF8] URLWithString:*(*(&v21 + 1) + 8 * i)];
+          v13 = [MEMORY[0x1E695DFF8] URLWithString:*(*(&v20 + 1) + 8 * i)];
           scheme = [v13 scheme];
           if ([scheme isEqualToString:@"http"])
           {
@@ -247,8 +301,8 @@ LABEL_13:
             delegate = [(MUTransitLineItemViewController *)self delegate];
             [delegate lineItemViewController:self openURL:v13];
 
-            attributionCopy = v19;
-            stringsCopy = v20;
+            attributionCopy = v18;
+            stringsCopy = v19;
             goto LABEL_14;
           }
 
@@ -261,9 +315,9 @@ LABEL_13:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
-        attributionCopy = v19;
-        stringsCopy = v20;
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        attributionCopy = v18;
+        stringsCopy = v19;
         if (v10)
         {
           continue;
@@ -277,8 +331,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)placeDescriptionSectionControllerDidTapAttribution:(id)attribution
@@ -412,7 +464,7 @@ void __55__MUTransitLineItemViewController__fetchNearestStation__block_invoke(ui
 
 - (void)_updateSectionControllers
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (self->_transitLineItem)
@@ -438,16 +490,16 @@ void __55__MUTransitLineItemViewController__fetchNearestStation__block_invoke(ui
 
   v11 = [MUTransitLineItemHeaderViewModel alloc];
   transitLineItem = [(MUTransitLineItemViewController *)self transitLineItem];
-  v72 = [(MUTransitLineItemHeaderViewModel *)v11 initWithTransitLineItem:transitLineItem];
+  v71 = [(MUTransitLineItemHeaderViewModel *)v11 initWithTransitLineItem:transitLineItem];
 
   objc_initWeak(&location, self);
   v13 = [MUPlaceHeaderView alloc];
-  v86[0] = MEMORY[0x1E69E9820];
-  v86[1] = 3221225472;
-  v86[2] = __60__MUTransitLineItemViewController__updateSectionControllers__block_invoke;
-  v86[3] = &unk_1E821BA58;
-  objc_copyWeak(&v87, &location);
-  v14 = [(MUPlaceHeaderView *)v13 initWithViewModel:v72 trailingConstraintProvider:v86 paddingConstraintProvider:&__block_literal_global_25241];
+  v85[0] = MEMORY[0x1E69E9820];
+  v85[1] = 3221225472;
+  v85[2] = __60__MUTransitLineItemViewController__updateSectionControllers__block_invoke;
+  v85[3] = &unk_1E821BA58;
+  objc_copyWeak(&v86, &location);
+  v14 = [(MUPlaceHeaderView *)v13 initWithViewModel:v71 trailingConstraintProvider:v85 paddingConstraintProvider:&__block_literal_global_25241];
   headerView = self->_headerView;
   self->_headerView = v14;
 
@@ -478,15 +530,15 @@ void __55__MUTransitLineItemViewController__fetchNearestStation__block_invoke(ui
     {
       v26 = MEMORY[0x1E696F490];
       v27 = _MULocalizedStringFromThisBundle(@"View [Line Card]");
-      v84[0] = MEMORY[0x1E69E9820];
-      v84[1] = 3221225472;
-      v84[2] = __60__MUTransitLineItemViewController__updateSectionControllers__block_invoke_3;
-      v84[3] = &unk_1E821BAA0;
-      objc_copyWeak(&v85, &location);
-      v28 = [v26 actionButtonControllerWithTitle:v27 subTitle:0 selectedBlock:v84 disabled:0 symbolName:@"map"];
+      v83[0] = MEMORY[0x1E69E9820];
+      v83[1] = 3221225472;
+      v83[2] = __60__MUTransitLineItemViewController__updateSectionControllers__block_invoke_3;
+      v83[3] = &unk_1E821BAA0;
+      objc_copyWeak(&v84, &location);
+      v28 = [v26 actionButtonControllerWithTitle:v27 subTitle:0 selectedBlock:v83 disabled:0 symbolName:@"map"];
 
       [(MUHeaderButtonsSectionController *)self->_headerButtonsSectionController setSecondaryButtonController:v28];
-      objc_destroyWeak(&v85);
+      objc_destroyWeak(&v84);
     }
   }
 
@@ -497,10 +549,10 @@ void __55__MUTransitLineItemViewController__fetchNearestStation__block_invoke(ui
   [(MUNearestStationSectionController *)v31 setNearestStationDelegate:self];
   objc_storeStrong(&self->_nearestStationSectionController, v31);
   v32 = v22;
-  v74 = v31;
-  if (v74)
+  v73 = v31;
+  if (v73)
   {
-    [v32 addObject:v74];
+    [v32 addObject:v73];
   }
 
   transitLineItem3 = [(MUTransitLineItemViewController *)self transitLineItem];
@@ -531,39 +583,39 @@ void __55__MUTransitLineItemViewController__fetchNearestStation__block_invoke(ui
 
   [(MUTransitLineIncidentsSectionController *)v45 setIncidentsDelegate:self];
   v46 = v32;
-  v73 = v45;
-  if (v73)
+  v72 = v45;
+  if (v72)
   {
-    [v46 addObject:v73];
+    [v46 addObject:v72];
   }
 
   _footerSectionController = [(MUTransitLineItemViewController *)self _footerSectionController];
-  v75 = v46;
+  v74 = v46;
   v48 = _footerSectionController;
   if (v48)
   {
-    [v75 addObject:v48];
+    [v74 addObject:v48];
   }
 
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
   v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v49 = self->_sectionControllers;
-  v50 = [(NSArray *)v49 countByEnumeratingWithState:&v80 objects:v90 count:16];
+  v50 = [(NSArray *)v49 countByEnumeratingWithState:&v79 objects:v89 count:16];
   if (v50)
   {
-    v51 = *v81;
+    v51 = *v80;
     do
     {
       for (i = 0; i != v50; ++i)
       {
-        if (*v81 != v51)
+        if (*v80 != v51)
         {
           objc_enumerationMutation(v49);
         }
 
-        v53 = *(*(&v80 + 1) + 8 * i);
+        v53 = *(*(&v79 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           sectionViewController = [v53 sectionViewController];
@@ -577,35 +629,35 @@ void __55__MUTransitLineItemViewController__fetchNearestStation__block_invoke(ui
         }
       }
 
-      v50 = [(NSArray *)v49 countByEnumeratingWithState:&v80 objects:v90 count:16];
+      v50 = [(NSArray *)v49 countByEnumeratingWithState:&v79 objects:v89 count:16];
     }
 
     while (v50);
   }
 
-  v57 = [v75 copy];
+  v57 = [v74 copy];
   sectionControllers = self->_sectionControllers;
   self->_sectionControllers = v57;
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v59 = self->_sectionControllers;
-  v60 = [(NSArray *)v59 countByEnumeratingWithState:&v76 objects:v89 count:16];
+  v60 = [(NSArray *)v59 countByEnumeratingWithState:&v75 objects:v88 count:16];
   if (v60)
   {
-    v61 = *v77;
+    v61 = *v76;
     do
     {
       for (j = 0; j != v60; ++j)
       {
-        if (*v77 != v61)
+        if (*v76 != v61)
         {
           objc_enumerationMutation(v59);
         }
 
-        v63 = *(*(&v76 + 1) + 8 * j);
+        v63 = *(*(&v75 + 1) + 8 * j);
         if ([v63 hasContent])
         {
           sectionView = [v63 sectionView];
@@ -636,17 +688,15 @@ void __55__MUTransitLineItemViewController__fetchNearestStation__block_invoke(ui
         [v63 setActive:1];
       }
 
-      v60 = [(NSArray *)v59 countByEnumeratingWithState:&v76 objects:v89 count:16];
+      v60 = [(NSArray *)v59 countByEnumeratingWithState:&v75 objects:v88 count:16];
     }
 
     while (v60);
   }
 
   [(MUScrollableStackView *)self->_contentStackView setArrangedSubviews:v4];
-  objc_destroyWeak(&v87);
+  objc_destroyWeak(&v86);
   objc_destroyWeak(&location);
-
-  v71 = *MEMORY[0x1E69E9840];
 }
 
 double __60__MUTransitLineItemViewController__updateSectionControllers__block_invoke(uint64_t a1)
@@ -679,6 +729,55 @@ void __60__MUTransitLineItemViewController__updateSectionControllers__block_invo
 
     WeakRetained = v3;
   }
+}
+
+- (void)setTransitLineItem:(id)item loading:(BOOL)loading
+{
+  loadingCopy = loading;
+  itemCopy = item;
+  transitLineItem = [(MUTransitLineItemViewController *)self transitLineItem];
+  if (transitLineItem == itemCopy)
+  {
+    isLoading = [(MUTransitLineItemViewController *)self isLoading];
+
+    if (isLoading == loadingCopy)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+  }
+
+  [(MUTransitLineItemViewController *)self setTransitLineItem:itemCopy];
+  [(MUTransitLineItemViewController *)self setLoading:loadingCopy];
+  if (![(MUTransitLineItemViewController *)self isLoading])
+  {
+    [(MUTransitLineItemViewController *)self _attachLoadingOverlayIfNeeded];
+  }
+
+  if ([(MUTransitLineItemViewController *)self isViewLoaded])
+  {
+    [(MUTransitLineItemViewController *)self _updateSectionControllers];
+    [(MUTransitLineItemViewController *)self _fetchNearestStation];
+    if ([(MUTransitLineItemViewController *)self isLoading])
+    {
+      [(MUTransitLineItemViewController *)self _removeLoadingOverlayIfNeeded];
+    }
+
+    [(MUTransitLineItemViewController *)self _updatePocketInsets];
+  }
+
+LABEL_10:
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MUTransitLineItemViewController;
+  [(MUTransitLineItemViewController *)&v4 viewWillAppear:appear];
+  [(MUTransitLineItemViewController *)self _fetchNearestStation];
 }
 
 - (void)viewDidLoad

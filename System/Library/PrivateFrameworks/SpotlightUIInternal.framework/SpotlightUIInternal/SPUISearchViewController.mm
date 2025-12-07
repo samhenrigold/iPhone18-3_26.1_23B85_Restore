@@ -30,18 +30,22 @@
 - (id)searchTextField;
 - (id)searchViewRestorationContext;
 - (unint64_t)currentQueryId;
+- (void)activateFirstTimeExperienceViewAnimate:(BOOL)animate;
 - (void)activateFirstTimeExperienceViewIfNecessary;
 - (void)appIconDragged;
 - (void)backButtonPressed;
 - (void)cancelButtonPressed;
+- (void)clearSearchResultsAndFetchZKW:(BOOL)w resetZKW:(BOOL)kW;
 - (void)clearTimerExpired;
 - (void)dealloc;
 - (void)dictationButtonPressed;
 - (void)didBeginEditing;
 - (void)didBeginScrollingResults;
+- (void)didChangeExpansionStateForSection:(id)section expanded:(BOOL)expanded;
 - (void)didEngageResult:(id)result;
 - (void)didScrollPastBottomOfContent;
 - (void)didUpdateActiveViewController;
+- (void)didUpdateContentScrolledOffScreenStatus:(BOOL)status animated:(BOOL)animated;
 - (void)didUpdateKeyboardFocusToResult:(id)result cardSection:(id)section;
 - (void)dragInitiated;
 - (void)endBackgroundTaskIfNeeded;
@@ -58,6 +62,7 @@
 - (void)purgeMemory;
 - (void)queryContextDidChange:(id)change fromSearchHeader:(id)header allowZKW:(BOOL)w;
 - (void)refreshTrial;
+- (void)removeCompletionAndHighlightAsTyped:(BOOL)typed;
 - (void)resultsDidBecomeVisible:(id)visible;
 - (void)resultsViewController:(id)controller didChangeContentSize:(CGSize)size animated:(BOOL)animated;
 - (void)returnKeyPressed;
@@ -69,14 +74,18 @@
 - (void)searchViewWillPresentFromSource:(unint64_t)source;
 - (void)sendPresentationFeedback;
 - (void)setAdditionalKeyboardHeight:(double)height;
+- (void)setExpansionValueForZKW:(BOOL)w;
 - (void)setFooterViewsForProactive:(id)proactive forResults:(id)results;
+- (void)setIsInStateRestoration:(BOOL)restoration;
 - (void)setLegibilitySettings:(id)settings;
+- (void)showVerticalScrollIndicators:(BOOL)indicators;
 - (void)spotlightDidBackground;
 - (void)spotlight_leftArrowPressed;
 - (void)spotlight_rightArrowPressed;
 - (void)updateHeaderViewsWithBlock:(id)block;
 - (void)updatePlatterMode;
 - (void)updateResponderChainIfNeeded;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willUpdateActiveViewController;
 - (void)willUpdateFromResultsWithHighlightedResult:(id)result viewController:(id)controller;
 @end
@@ -85,10 +94,10 @@
 
 - (SPUISearchViewController)init
 {
-  v58[4] = *MEMORY[0x277D85DE8];
-  v56.receiver = self;
-  v56.super_class = SPUISearchViewController;
-  v2 = [(SPUIViewController *)&v56 init];
+  v57[4] = *MEMORY[0x277D85DE8];
+  v55.receiver = self;
+  v55.super_class = SPUISearchViewController;
+  v2 = [(SPUIViewController *)&v55 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -171,35 +180,35 @@
     v38 = [MEMORY[0x277D75650] keyCommandWithInput:*MEMORY[0x277D76B60] modifierFlags:0 action:sel_spotlight_rightArrowPressed];
     [v38 setWantsPriorityOverSystemBehavior:1];
     v39 = [MEMORY[0x277D75650] keyCommandWithInput:@"b" modifierFlags:0x100000 action:sel_performWebSearch];
-    v58[0] = v36;
-    v58[1] = v37;
-    v58[2] = v38;
-    v58[3] = v39;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:4];
+    v57[0] = v36;
+    v57[1] = v37;
+    v57[2] = v38;
+    v57[3] = v39;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:4];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v40 = v55 = 0u;
-    v41 = [v40 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v40 = v54 = 0u;
+    v41 = [v40 countByEnumeratingWithState:&v51 objects:v56 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v53;
+      v43 = *v52;
       do
       {
         v44 = 0;
         do
         {
-          if (*v53 != v43)
+          if (*v52 != v43)
           {
             objc_enumerationMutation(v40);
           }
 
-          [(SPUISearchViewController *)v2 addKeyCommand:*(*(&v52 + 1) + 8 * v44++), v52];
+          [(SPUISearchViewController *)v2 addKeyCommand:*(*(&v51 + 1) + 8 * v44++), v51];
         }
 
         while (v42 != v44);
-        v42 = [v40 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
       while (v42);
@@ -222,7 +231,6 @@
     [MEMORY[0x277D4C898] prewarmApplicationLibrary];
   }
 
-  v50 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -862,7 +870,7 @@ LABEL_19:
 
 - (void)performCommand:(id)command
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   if ([(SPUISearchViewController *)self isQueryCommand:commandCopy])
   {
@@ -885,8 +893,8 @@ LABEL_19:
 
       v13 = [MEMORY[0x277D65890] searchEntityWithCommand:v5 fromSuggestion:1];
 
-      v36[0] = v13;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+      v35[0] = v13;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
       [v9 setSearchEntities:v14];
 
       [v9 setAllowInternet:1];
@@ -963,8 +971,6 @@ LABEL_19:
   }
 
 LABEL_11:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isQueryCommand:(id)command
@@ -1003,39 +1009,37 @@ LABEL_11:
 
 - (void)updateHeaderViewsWithBlock:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allHeaderViews = [(SPUISearchViewController *)self allHeaderViews];
-  v6 = [allHeaderViews countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allHeaderViews countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allHeaderViews);
         }
 
-        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9++));
+        blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [allHeaderViews countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allHeaderViews countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateKeyboardFocusToResult:(id)result cardSection:(id)section
@@ -1119,7 +1123,7 @@ LABEL_11:
 
 - (void)searchViewWillPresentFromSource:(unint64_t)source
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   v5 = MEMORY[0x277D65D40];
   v6 = *(MEMORY[0x277D65D40] + 32);
@@ -1175,9 +1179,9 @@ LABEL_11:
     if (v14)
     {
       restorationData = [(SPUISearchViewController *)self restorationData];
-      v114 = 0;
-      searchField = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:restorationData error:&v114];
-      v16 = v114;
+      v113 = 0;
+      searchField = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:restorationData error:&v113];
+      v16 = v113;
       if (v16 && [restorationData length])
       {
         v17 = *(v5 + 40);
@@ -1209,7 +1213,7 @@ LABEL_51:
         goto LABEL_52;
       }
 
-      v102 = restorationData;
+      v101 = restorationData;
       searchViewContext = [searchField searchViewContext];
       searchString = [searchViewContext searchString];
       sourceCopy = source;
@@ -1230,26 +1234,26 @@ LABEL_51:
           if (!v44)
           {
 LABEL_34:
-            v112 = 0u;
-            v113 = 0u;
-            v110 = 0u;
             v111 = 0u;
+            v112 = 0u;
+            v109 = 0u;
+            v110 = 0u;
             viewControllerContexts2 = [searchField viewControllerContexts];
-            v49 = [viewControllerContexts2 countByEnumeratingWithState:&v110 objects:v116 count:16];
+            v49 = [viewControllerContexts2 countByEnumeratingWithState:&v109 objects:v115 count:16];
             if (v49)
             {
               v50 = v49;
-              v51 = *v111;
+              v51 = *v110;
               do
               {
                 for (i = 0; i != v50; ++i)
                 {
-                  if (*v111 != v51)
+                  if (*v110 != v51)
                   {
                     objc_enumerationMutation(viewControllerContexts2);
                   }
 
-                  v53 = *(*(&v110 + 1) + 8 * i);
+                  v53 = *(*(&v109 + 1) + 8 * i);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
@@ -1264,14 +1268,14 @@ LABEL_34:
                     [(SearchUIResultsViewController *)v57 setSearchField:searchField2];
 
                     v60 = MEMORY[0x277D75D18];
-                    v108[0] = MEMORY[0x277D85DD0];
-                    v108[1] = 3221225472;
-                    v108[2] = __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invoke;
-                    v108[3] = &unk_279D070B8;
-                    v108[4] = self;
-                    v109 = v57;
+                    v107[0] = MEMORY[0x277D85DD0];
+                    v107[1] = 3221225472;
+                    v107[2] = __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invoke;
+                    v107[3] = &unk_279D070B8;
+                    v107[4] = self;
+                    v108 = v57;
                     v61 = v57;
-                    [v60 performWithoutAnimation:v108];
+                    [v60 performWithoutAnimation:v107];
                     [(SearchUIResultsViewController *)v61 setFeedbackListener:self];
                     [(SearchUIResultsViewController *)v61 setCommandDelegate:self];
                   }
@@ -1303,18 +1307,18 @@ LABEL_34:
 
                     [v62 setRestorationContext:v53];
                     v66 = MEMORY[0x277D75D18];
-                    v106[0] = MEMORY[0x277D85DD0];
-                    v106[1] = 3221225472;
-                    v106[2] = __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invoke_2;
-                    v106[3] = &unk_279D070B8;
-                    v106[4] = self;
+                    v105[0] = MEMORY[0x277D85DD0];
+                    v105[1] = 3221225472;
+                    v105[2] = __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invoke_2;
+                    v105[3] = &unk_279D070B8;
+                    v105[4] = self;
                     v54 = v62;
-                    v107 = v54;
-                    [v66 performWithoutAnimation:v106];
+                    v106 = v54;
+                    [v66 performWithoutAnimation:v105];
                   }
                 }
 
-                v50 = [viewControllerContexts2 countByEnumeratingWithState:&v110 objects:v116 count:16];
+                v50 = [viewControllerContexts2 countByEnumeratingWithState:&v109 objects:v115 count:16];
               }
 
               while (v50);
@@ -1330,7 +1334,7 @@ LABEL_34:
 
             wantsGo = [searchField wantsGo];
             v5 = MEMORY[0x277D65D40];
-            restorationData = v102;
+            restorationData = v101;
             source = sourceCopy;
             v16 = 0;
             if (wantsGo)
@@ -1542,16 +1546,14 @@ LABEL_52:
 
       [searchResultViewController7 scrollAndSelectLastSelectedIndexPath];
       v100 = MEMORY[0x277D4C898];
-      v104[0] = MEMORY[0x277D85DD0];
-      v104[1] = 3221225472;
-      v104[2] = __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invoke_355;
-      v104[3] = &unk_279D06C78;
-      v105 = searchResultViewController7;
-      [v100 performAnimatableChanges:v104];
+      v103[0] = MEMORY[0x277D85DD0];
+      v103[1] = 3221225472;
+      v103[2] = __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invoke_355;
+      v103[3] = &unk_279D06C78;
+      v104 = searchResultViewController7;
+      [v100 performAnimatableChanges:v103];
     }
   }
-
-  v101 = *MEMORY[0x277D85DE8];
 }
 
 void __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invoke_355(uint64_t a1)
@@ -1615,6 +1617,16 @@ void __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invo
   LocalCache = CGFontCacheGetLocalCache();
 
   MEMORY[0x282110E20](LocalCache);
+}
+
+- (void)showVerticalScrollIndicators:(BOOL)indicators
+{
+  indicatorsCopy = indicators;
+  proactiveResultViewController = [(SPUIViewController *)self proactiveResultViewController];
+  [proactiveResultViewController setShowsVerticalScrollIndicator:indicatorsCopy];
+
+  searchResultViewController = [(SPUIViewController *)self searchResultViewController];
+  [searchResultViewController setShowsVerticalScrollIndicator:indicatorsCopy];
 }
 
 - (void)searchViewDidPresentFromSource:(unint64_t)source
@@ -1695,37 +1707,37 @@ void __60__SPUISearchViewController_searchViewWillPresentFromSource___block_invo
   }
 }
 
-void __59__SPUISearchViewController_searchViewDidPresentFromSource___block_invoke()
+void __59__SPUISearchViewController_searchViewDidPresentFromSource___block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x277D65D40];
-  v1 = *(MEMORY[0x277D65D40] + 32);
-  if (!v1)
+  v1 = MEMORY[0x277D65D40];
+  v2 = *(MEMORY[0x277D65D40] + 32);
+  if (!v2)
   {
     SPUIInitLogging();
-    v1 = *(v0 + 32);
+    v2 = *(v1 + 32);
   }
 
-  if (os_signpost_enabled(v1))
+  if (os_signpost_enabled(v2))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_26B837000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "finalPrewarm", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_26B837000, v2, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "finalPrewarm", "", buf, 2u);
   }
 
-  v2 = +[SPUISearchModel sharedGeneralInstance];
-  [v2 activate];
+  v3 = +[SPUISearchModel sharedGeneralInstance];
+  [v3 activate];
 
   [MEMORY[0x277D65D88] prewarmVisionForImageDerivedColors];
-  v3 = *(v0 + 32);
-  if (!v3)
+  v4 = *(v1 + 32);
+  if (!v4)
   {
     SPUIInitLogging();
-    v3 = *(v0 + 32);
+    v4 = *(v1 + 32);
   }
 
-  if (os_signpost_enabled(v3))
+  if (os_signpost_enabled(v4))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_26B837000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "finalPrewarm", " enableTelemetry=YES ", v4, 2u);
+    *v5 = 0;
+    _os_signpost_emit_with_name_impl(&dword_26B837000, v4, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "finalPrewarm", " enableTelemetry=YES ", v5, 2u);
   }
 }
 
@@ -1948,6 +1960,40 @@ void __44__SPUISearchViewController_returnKeyPressed__block_invoke(uint64_t a1)
   }
 }
 
+- (void)removeCompletionAndHighlightAsTyped:(BOOL)typed
+{
+  typedCopy = typed;
+  activeViewController = [(SPUIViewController *)self activeViewController];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    activeViewController2 = [(SPUIViewController *)self activeViewController];
+    [activeViewController2 removeCompletionAndHighlightAsTyped:typedCopy];
+  }
+}
+
+- (void)clearSearchResultsAndFetchZKW:(BOOL)w resetZKW:(BOOL)kW
+{
+  kWCopy = kW;
+  wCopy = w;
+  searchResultViewController = [(SPUIViewController *)self searchResultViewController];
+  [searchResultViewController purgeMemory];
+
+  if (kWCopy)
+  {
+    proactiveResultViewController = [(SPUIViewController *)self proactiveResultViewController];
+    [proactiveResultViewController updateWithResultSections:MEMORY[0x277CBEBF8]];
+  }
+
+  navigationController = [(SPUISearchViewController *)self navigationController];
+  v10 = [navigationController popToRootViewControllerAnimated:0];
+
+  searchHeader = [(SPUISearchViewController *)self searchHeader];
+  [searchHeader clearSearchFieldWhyQuery:9 allowZKW:wCopy];
+}
+
 - (void)searchViewDidDismissWithReason:(unint64_t)reason
 {
   searchHeader = [(SPUISearchViewController *)self searchHeader];
@@ -2107,6 +2153,61 @@ uint64_t __53__SPUISearchViewController_endBackgroundTaskIfNeeded__block_invoke(
 
 LABEL_7:
   return v8;
+}
+
+- (void)setExpansionValueForZKW:(BOOL)w
+{
+  wCopy = w;
+  spotlightUserDefaults = [objc_opt_class() spotlightUserDefaults];
+  [spotlightUserDefaults setBool:wCopy forKey:@"SpotlightZKWExpanded"];
+}
+
+- (void)didChangeExpansionStateForSection:(id)section expanded:(BOOL)expanded
+{
+  expandedCopy = expanded;
+  sectionCopy = section;
+  bundleIdentifier = [sectionCopy bundleIdentifier];
+  if ([bundleIdentifier isEqualToString:*MEMORY[0x277D65CE0]])
+  {
+    results = [sectionCopy results];
+    firstObject = [results firstObject];
+    renderHorizontallyWithOtherResultsInCategory = [firstObject renderHorizontallyWithOtherResultsInCategory];
+
+    if (renderHorizontallyWithOtherResultsInCategory)
+    {
+      [(SPUISearchViewController *)self setExpansionValueForZKW:expandedCopy];
+    }
+  }
+
+  else
+  {
+  }
+}
+
+- (void)setIsInStateRestoration:(BOOL)restoration
+{
+  restorationCopy = restoration;
+  spotlightUserDefaults = [objc_opt_class() spotlightUserDefaults];
+  [spotlightUserDefaults setBool:restorationCopy forKey:@"RestorationCurrentState"];
+}
+
+- (void)didUpdateContentScrolledOffScreenStatus:(BOOL)status animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  statusCopy = status;
+  navigationController = [(SPUISearchViewController *)self navigationController];
+  navigationBar = [navigationController navigationBar];
+
+  if ([MEMORY[0x277D65D28] enableFloatingWindow])
+  {
+    navigationController2 = [(SPUISearchViewController *)self navigationController];
+    [navigationBar showSeparator:objc_msgSend(navigationController2 animated:{"navigationMode") != 0, 0}];
+  }
+
+  else
+  {
+    [navigationBar showSeparator:statusCopy animated:animatedCopy];
+  }
 }
 
 - (void)resultsViewController:(id)controller didChangeContentSize:(CGSize)size animated:(BOOL)animated
@@ -2314,6 +2415,53 @@ uint64_t __70__SPUISearchViewController_activateFirstTimeExperienceViewIfNecessa
   v6 = *(a1 + 32);
 
   return [v6 activateFirstTimeExperienceViewAnimate:1];
+}
+
+- (void)activateFirstTimeExperienceViewAnimate:(BOOL)animate
+{
+  animateCopy = animate;
+  if ([(SPUISearchViewController *)self hasContentInSearchField])
+  {
+    v5 = MEMORY[0x277D65D40];
+    v6 = *(MEMORY[0x277D65D40] + 40);
+    if (!v6)
+    {
+      SPUIInitLogging();
+      v6 = *(v5 + 40);
+    }
+
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v11 = 0;
+      _os_log_impl(&dword_26B837000, v6, OS_LOG_TYPE_DEFAULT, "[FTE] query was present, so did not show FTE", v11, 2u);
+    }
+  }
+
+  else
+  {
+    firstTimeExperienceViewController = [(SPUISearchViewController *)self firstTimeExperienceViewController];
+    [(SPUIViewController *)self activateViewController:firstTimeExperienceViewController animate:animateCopy];
+
+    v8 = MEMORY[0x277D65D40];
+    v9 = *(MEMORY[0x277D65D40] + 40);
+    if (!v9)
+    {
+      SPUIInitLogging();
+      v9 = *(v8 + 40);
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_26B837000, v9, OS_LOG_TYPE_DEFAULT, "[FTE] displaying FTE view", buf, 2u);
+    }
+
+    if ([(SPUISearchViewController *)self _appearState]== 2 || [(SPUISearchViewController *)self _appearState]== 1)
+    {
+      firstTimeExperienceViewController2 = [(SPUISearchViewController *)self firstTimeExperienceViewController];
+      [firstTimeExperienceViewController2 updateViewCount];
+    }
+  }
 }
 
 - (void)firstTimeExperienceContinueButtonPressed
@@ -2557,9 +2705,8 @@ void __76__SPUISearchViewController_queryContextDidChange_fromSearchHeader_allow
 {
   if (a1[4] != a2)
   {
-    v4 = a1[5];
-    v5 = a2;
-    [objc_opt_class() _updateHeaderView:v5 fromText:a1[6] fromToken:a1[7]];
+    v4 = a2;
+    [objc_opt_class() _updateHeaderView:v4 fromText:a1[6] fromToken:a1[7]];
   }
 }
 
@@ -2734,9 +2881,17 @@ LABEL_5:
   [v2 setForceStableResults:1];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SPUISearchViewController;
+  [(SPUISearchViewController *)&v4 viewWillAppear:appear];
+  [(SPUISearchViewController *)self updatePlatterMode];
+}
+
 - (id)searchViewRestorationContext
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   activeViewController = [(SPUIViewController *)self activeViewController];
   searchResultViewController = [(SPUIViewController *)self searchResultViewController];
@@ -2747,7 +2902,7 @@ LABEL_5:
 
     if (!sections)
     {
-      v26 = 0;
+      v25 = 0;
       restorationContext = 0;
       goto LABEL_6;
     }
@@ -2769,37 +2924,37 @@ LABEL_5:
     restorationContext = 0;
   }
 
-  v26 = sections;
+  v25 = sections;
 
 LABEL_6:
-  v27 = v3;
+  v26 = v3;
   [v3 setSearchViewContext:restorationContext];
   v11 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   navigationController = [(SPUISearchViewController *)self navigationController];
   viewControllers = [navigationController viewControllers];
 
-  v14 = [viewControllers countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v14 = [viewControllers countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v14)
   {
     goto LABEL_21;
   }
 
   v15 = v14;
-  v16 = *v29;
+  v16 = *v28;
   do
   {
     for (i = 0; i != v15; ++i)
     {
-      if (*v29 != v16)
+      if (*v28 != v16)
       {
         objc_enumerationMutation(viewControllers);
       }
 
-      v18 = *(*(&v28 + 1) + 8 * i);
+      v18 = *(*(&v27 + 1) + 8 * i);
       if (v18 != self)
       {
         objc_opt_class();
@@ -2833,23 +2988,21 @@ LABEL_18:
       }
     }
 
-    v15 = [viewControllers countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v15 = [viewControllers countByEnumeratingWithState:&v27 objects:v31 count:16];
   }
 
   while (v15);
 LABEL_21:
 
-  [v27 setViewControllerContexts:v11];
-  [v27 setSearchViewContext:restorationContext];
+  [v26 setViewControllerContexts:v11];
+  [v26 setSearchViewContext:restorationContext];
   [(SPUISearchViewController *)self timeAtDismissal];
-  [v27 setTimeAtDismissal:?];
+  [v26 setTimeAtDismissal:?];
   searchHeader = [(SPUISearchViewController *)self searchHeader];
   searchField = [searchHeader searchField];
-  [v27 setWantsGo:{objc_msgSend(searchField, "returnKeyType") == 1}];
+  [v26 setWantsGo:{objc_msgSend(searchField, "returnKeyType") == 1}];
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 - (void)presentSpotlightWithCompletionHandler:(id)handler
@@ -2877,11 +3030,10 @@ LABEL_21:
 
 - (void)searchViewWillPresentFromSource:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B837000, a2, OS_LOG_TYPE_ERROR, "Failed to unpack restoration with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B837000, a2, OS_LOG_TYPE_ERROR, "Failed to unpack restoration with error %@", &v2, 0xCu);
 }
 
 @end

@@ -33,19 +33,21 @@
 - (void)setOriginalMatchmakingMode:(int64_t)mode
 {
   selfCopy = self;
-  MultiplayerModeSelectionViewController.originalMatchmakingMode.setter(mode);
+  MultiplayerModeSelectionViewController.originalMatchmakingMode.setter(mode, selfCopy);
 }
 
 - (void)setIsEligibleForGroupSession:(BOOL)session
 {
+  sessionCopy = session;
   selfCopy = self;
-  MultiplayerModeSelectionViewController.isEligibleForGroupSession.setter(session);
+  MultiplayerModeSelectionViewController.isEligibleForGroupSession.setter(sessionCopy);
 }
 
 - (void)setIsEntitledToUseGroupActivities:(BOOL)activities
 {
+  activitiesCopy = activities;
   selfCopy = self;
-  MultiplayerModeSelectionViewController.isEntitledToUseGroupActivities.setter(activities);
+  MultiplayerModeSelectionViewController.isEntitledToUseGroupActivities.setter(activitiesCopy);
 }
 
 - (void)launchSharePlayChiclet
@@ -109,7 +111,7 @@
   selfCopy = self;
   MultiplayerModeSelectionViewController.preferredFocusEnvironments.getter();
 
-  sub_100005BC4(&qword_100028BB8);
+  sub_100005BC4(&qword_100028BB8, &qword_100016AC8);
   v3.super.isa = sub_100014308().super.isa;
 
   return v3.super.isa;
@@ -165,7 +167,7 @@
 
   sub_10000FE2C();
 
-  sub_100013B48(v6, &qword_100028D28);
+  sub_100013B48(v6, &qword_100028D28, "Ti");
 }
 
 + (id)viewControllerWithRequest:(id)request game:(id)game multiplayerViewController:(id)controller dismissHandler:(id)handler
@@ -188,7 +190,7 @@
   gameCopy = game;
   controllerCopy = controller;
   v14 = static MultiplayerModeSelectionViewController.viewController(request:game:multiplayerViewController:dismissHandler:)(requestCopy, gameCopy, controllerCopy, v9, v10);
-  sub_10000D204(v9);
+  sub_10000D204(v9, v10);
 
   return v14;
 }
@@ -209,7 +211,7 @@
 
 - (id)indexPathForPreferredFocusedViewInCollectionView:(id)view
 {
-  v5 = sub_100005BC4(&qword_100028D20);
+  v5 = sub_100005BC4(&qword_100028D20, "Ti");
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   viewCopy = view;
@@ -252,7 +254,7 @@
   sub_100014188();
   viewCopy = view;
   selfCopy = self;
-  MultiplayerModeSelectionViewController.collectionView(_:didSelectItemAt:)();
+  MultiplayerModeSelectionViewController.collectionView(_:didSelectItemAt:)(selfCopy);
 
   (*(v7 + 8))(v9, v6);
 }

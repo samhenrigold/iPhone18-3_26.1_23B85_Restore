@@ -72,7 +72,7 @@ void __53__WFiTunesSessionManager_getMediaWithURL_completion___block_invoke(uint
 
 - (void)lookupMediaWithISBN:(unint64_t)n completion:(id)completion
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AF20];
   completionCopy = completion;
   baseURL = [(WFiTunesSessionManager *)self baseURL];
@@ -82,19 +82,17 @@ void __53__WFiTunesSessionManager_getMediaWithURL_completion___block_invoke(uint
   v10 = MEMORY[0x1E696AF60];
   v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%llu", n];
   v12 = [v10 queryItemWithName:@"isbn" value:v11];
-  v16[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   [v9 setQueryItems:v13];
 
   v14 = [v9 URL];
   [(WFiTunesSessionManager *)self getMediaWithURL:v14 completion:completionCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lookupMediaWithUPC:(unint64_t)c completion:(id)completion
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AF20];
   completionCopy = completion;
   baseURL = [(WFiTunesSessionManager *)self baseURL];
@@ -104,14 +102,12 @@ void __53__WFiTunesSessionManager_getMediaWithURL_completion___block_invoke(uint
   v10 = MEMORY[0x1E696AF60];
   v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%llu", c];
   v12 = [v10 queryItemWithName:@"upc" value:v11];
-  v16[0] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   [v9 setQueryItems:v13];
 
   v14 = [v9 URL];
   [(WFiTunesSessionManager *)self getMediaWithURL:v14 completion:completionCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lookupMediaWithBundleIdentifier:(id)identifier countryCode:(id)code completion:(id)completion

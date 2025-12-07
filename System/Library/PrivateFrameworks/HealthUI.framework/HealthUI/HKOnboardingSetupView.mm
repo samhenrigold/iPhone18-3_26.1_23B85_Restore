@@ -190,38 +190,38 @@
 
 - (id)createHeroView
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
-  v2 = objc_alloc_init(MEMORY[0x1E69DD250]);
+  v2 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v2);
+  v3 = objc_alloc_init(MEMORY[0x1E69DD250]);
 
-  return v2;
+  return v3;
 }
 
 - (NSString)titleString
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
+  v2 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v2);
   return &stru_1F42FFBE0;
 }
 
 - (NSString)bodyString
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
+  v2 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v2);
   return &stru_1F42FFBE0;
 }
 
 - (NSString)buttonTitleString
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
+  v2 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v2);
   return &stru_1F42FFBE0;
 }
 
 - (int64_t)accessibilityGroupID
 {
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2_2();
+  v2 = OUTLINED_FUNCTION_1_7(self);
+  OUTLINED_FUNCTION_2_2(v2);
   return 0;
 }
 

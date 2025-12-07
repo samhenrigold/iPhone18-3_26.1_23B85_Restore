@@ -113,7 +113,7 @@ void __28__TPSURLSessionManager_init__block_invoke(uint64_t a1)
   v5 = [v2 mutableCopy];
   [*(a1 + 32) setURLSessionMap:v5];
 
-  if (+[TPSCommonDefines isInternalDevice]&& PingPongClientLibraryCore_0())
+  if (+[TPSCommonDefines isInternalDevice]&& PingPongClientLibraryCore_0(0))
   {
     v14 = 0;
     v15 = &v14;
@@ -379,7 +379,7 @@ LABEL_6:
 
 - (id)newURLSessionItemWithRequest:(id)request identifier:(id)identifier attributionIdentifier:(id)attributionIdentifier requestType:(id)type networkDelegate:(id)delegate completionHandler:(id)handler
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   identifierCopy = identifier;
   attributionIdentifierCopy = attributionIdentifier;
@@ -392,74 +392,53 @@ LABEL_6:
     attributionIdentifierCopy = 0;
   }
 
-  v40 = requestCopy;
+  v39 = requestCopy;
   v18 = [(TPSURLSessionManager *)self _mappedURLRequest:requestCopy];
   v19 = [v18 URL];
   v20 = v19;
   if (v19 && (identifierCopy || ([v19 lastPathComponent], (identifierCopy = objc_claimAutoreleasedReturnValue()) != 0)))
   {
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x3032000000;
-    v55 = __Block_byref_object_copy__7;
-    v56 = __Block_byref_object_dispose__7;
-    v57 = 0;
-    if (delegateCopy)
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy__7;
+    v55 = __Block_byref_object_dispose__7;
+    v56 = 0;
+    if (delegateCopy || !self->_coalesceRequests || (v21 = self->_sessionTaskQueue, block[0] = MEMORY[0x1E69E9820], block[1] = 3221225472, block[2] = __132__TPSURLSessionManager_newURLSessionItemWithRequest_identifier_attributionIdentifier_requestType_networkDelegate_completionHandler___block_invoke, block[3] = &unk_1E8101EE0, v50 = &v51, block[4] = self, v49 = v20, dispatch_sync(v21, block), v49, !v52[5]))
     {
-      goto LABEL_10;
-    }
-
-    if (!self->_coalesceRequests)
-    {
-      goto LABEL_10;
-    }
-
-    sessionTaskQueue = self->_sessionTaskQueue;
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __132__TPSURLSessionManager_newURLSessionItemWithRequest_identifier_attributionIdentifier_requestType_networkDelegate_completionHandler___block_invoke;
-    block[3] = &unk_1E8101EE0;
-    v51 = &v52;
-    block[4] = self;
-    v50 = v20;
-    dispatch_sync(sessionTaskQueue, block);
-
-    if (!v53[5])
-    {
-LABEL_10:
       v22 = [(TPSURLSessionManager *)self URLSessionForAttributionIdentifier:attributionIdentifierCopy];
       v23 = [v22 dataTaskWithRequest:v18];
       v24 = +[TPSLogger data];
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        v39 = [requestCopy URL];
+        v38 = [requestCopy URL];
         configuration = [v22 configuration];
         _sourceApplicationBundleIdentifier = [configuration _sourceApplicationBundleIdentifier];
-        v38 = configuration;
+        v37 = configuration;
         *buf = 138412802;
-        v59 = v39;
-        v60 = 2112;
-        v61 = attributionIdentifierCopy;
-        v62 = 2112;
-        v63 = _sourceApplicationBundleIdentifier;
-        v37 = _sourceApplicationBundleIdentifier;
+        v58 = v38;
+        v59 = 2112;
+        v60 = attributionIdentifierCopy;
+        v61 = 2112;
+        v62 = _sourceApplicationBundleIdentifier;
+        v36 = _sourceApplicationBundleIdentifier;
         _os_log_debug_impl(&dword_1C00A7000, v24, OS_LOG_TYPE_DEBUG, "Network request - %@. Attribution - Requested: %@, Effective: %@", buf, 0x20u);
       }
 
       [v23 setTaskDescription:attributionIdentifierCopy];
       v25 = [[TPSURLSessionTask alloc] initWithSessionTask:v23 identifier:identifierCopy];
-      v26 = v53[5];
-      v53[5] = v25;
+      v26 = v52[5];
+      v52[5] = v25;
 
-      [v53[5] setUnderlyingSession:v22];
-      [v53[5] setRequestType:typeCopy];
+      [v52[5] setUnderlyingSession:v22];
+      [v52[5] setRequestType:typeCopy];
       WeakRetained = delegateCopy;
       if (!delegateCopy)
       {
         WeakRetained = objc_loadWeakRetained(&self->_defaultSessionDelegate);
       }
 
-      [v53[5] setNetworkDelegate:WeakRetained];
+      [v52[5] setNetworkDelegate:WeakRetained];
       if (delegateCopy)
       {
         v28 = [TPSURLSessionTask delegateRespondsWithDelegate:delegateCopy];
@@ -471,24 +450,24 @@ LABEL_10:
         v28 = *&self->_defaultSessionDelegateResponds.willCacheResponse | (self->_defaultSessionDelegateResponds.taskDidReceiveChallenge << 32);
       }
 
-      [v53[5] setDelegateResponds:v28 & 0xFFFFFFFFFFLL];
-      v30 = self->_sessionTaskQueue;
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __132__TPSURLSessionManager_newURLSessionItemWithRequest_identifier_attributionIdentifier_requestType_networkDelegate_completionHandler___block_invoke_25;
-      v43[3] = &unk_1E8102B88;
-      v44 = delegateCopy;
+      [v52[5] setDelegateResponds:v28 & 0xFFFFFFFFFFLL];
+      sessionTaskQueue = self->_sessionTaskQueue;
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __132__TPSURLSessionManager_newURLSessionItemWithRequest_identifier_attributionIdentifier_requestType_networkDelegate_completionHandler___block_invoke_25;
+      v42[3] = &unk_1E8102B88;
+      v43 = delegateCopy;
       selfCopy = self;
-      v47 = v23;
-      v48 = &v52;
-      v46 = v20;
+      v46 = v23;
+      v47 = &v51;
+      v45 = v20;
       v31 = v23;
-      dispatch_sync(v30, v43);
+      dispatch_sync(sessionTaskQueue, v42);
     }
 
     v32 = [TPSURLSessionItem alloc];
-    v29 = [(TPSURLSessionItem *)v32 initWithSessionTask:v53[5] completionHandler:handlerCopy];
-    _Block_object_dispose(&v52, 8);
+    v29 = [(TPSURLSessionItem *)v32 initWithSessionTask:v52[5] completionHandler:handlerCopy];
+    _Block_object_dispose(&v51, 8);
   }
 
   else
@@ -496,7 +475,6 @@ LABEL_10:
     v29 = 0;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -675,7 +653,7 @@ void __43__TPSURLSessionManager_sessionTaskForTask___block_invoke(uint64_t a1)
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   responseCopy = response;
   handlerCopy = handler;
@@ -688,17 +666,17 @@ void __43__TPSURLSessionManager_sessionTaskForTask___block_invoke(uint64_t a1)
     aBlock[2] = __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke;
     aBlock[3] = &unk_1E8102BD8;
     v14 = v12;
-    v32 = v14;
+    v31 = v14;
     v15 = responseCopy;
-    v33 = v15;
+    v32 = v15;
     selfCopy = self;
     v16 = handlerCopy;
-    v35 = v16;
+    v34 = v16;
     v17 = _Block_copy(aBlock);
     authenticationHandler = [(TPSURLSessionManager *)self authenticationHandler];
     if ([objc_opt_class() canAuthenticateWithURLResponse:v15])
     {
-      v24 = v16;
+      v23 = v16;
       retryCount = [v14 retryCount];
 
       if (!retryCount)
@@ -708,22 +686,22 @@ void __43__TPSURLSessionManager_sessionTaskForTask___block_invoke(uint64_t a1)
         {
           v21 = [v15 URL];
           *buf = 138412290;
-          v37 = v21;
+          v36 = v21;
           _os_log_impl(&dword_1C00A7000, v20, OS_LOG_TYPE_INFO, "Authentication required for URL: %@", buf, 0xCu);
         }
 
         [v14 setRetryCount:{objc_msgSend(v14, "retryCount") + 1}];
         authenticationHandler2 = [(TPSURLSessionManager *)self authenticationHandler];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_29;
-        v25[3] = &unk_1E8102C28;
-        v29 = v17;
-        v26 = taskCopy;
-        v30 = v24;
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_29;
+        v24[3] = &unk_1E8102C28;
+        v28 = v17;
+        v25 = taskCopy;
+        v29 = v23;
         selfCopy2 = self;
-        v28 = v14;
-        [authenticationHandler2 authenticateForURLResponse:v15 completion:v25];
+        v27 = v14;
+        [authenticationHandler2 authenticateForURLResponse:v15 completion:v24];
 
         goto LABEL_10;
       }
@@ -741,8 +719,6 @@ LABEL_10:
 
   (*(handlerCopy + 2))(handlerCopy, 0);
 LABEL_11:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(uint64_t a1)
@@ -793,7 +769,7 @@ uint64_t __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_compl
 
 void __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_29(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = a5;
   if (v8)
@@ -822,15 +798,15 @@ void __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completio
     v15 = +[TPSLogger data];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v21 = [v11 URL];
-      v23 = [v13 configuration];
-      v22 = [v23 _sourceApplicationBundleIdentifier];
+      v20 = [v11 URL];
+      v22 = [v13 configuration];
+      v21 = [v22 _sourceApplicationBundleIdentifier];
       *buf = 138412802;
-      v29 = v21;
-      v30 = 2112;
-      v31 = v12;
-      v32 = 2112;
-      v33 = v22;
+      v28 = v20;
+      v29 = 2112;
+      v30 = v12;
+      v31 = 2112;
+      v32 = v21;
       _os_log_debug_impl(&dword_1C00A7000, v15, OS_LOG_TYPE_DEBUG, "Network request - %@. Attribution - Requested: %@, Effective: %@", buf, 0x20u);
     }
 
@@ -842,15 +818,13 @@ void __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completio
     block[2] = __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_30;
     block[3] = &unk_1E8102C00;
     block[4] = v17;
-    v25 = v16;
-    v26 = v14;
-    v27 = *(a1 + 48);
+    v24 = v16;
+    v25 = v14;
+    v26 = *(a1 + 48);
     v19 = v14;
     dispatch_sync(v18, block);
     [v19 resume];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_30(uint64_t a1)
@@ -1090,22 +1064,19 @@ void __66__TPSURLSessionManager_URLSession_dataTask_didBecomeDownloadTask___bloc
 
 - (void)_mappedURLRequest:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 URL];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "Mapped URL Request: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "Mapped URL Request: %@", &v4, 0xCu);
 }
 
 void __81__TPSURLSessionManager_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_29_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "Failed to authenticate: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C00A7000, a2, OS_LOG_TYPE_DEBUG, "Failed to authenticate: %@", &v2, 0xCu);
 }
 
 @end

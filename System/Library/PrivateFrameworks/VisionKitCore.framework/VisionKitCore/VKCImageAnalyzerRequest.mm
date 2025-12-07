@@ -476,82 +476,83 @@
 
 - (id)viRequest
 {
-  if (([(VKCImageAnalyzerRequest *)self requestedAnalysisTypes]& 0x40) != 0)
+  requestedAnalysisTypes = [(VKCImageAnalyzerRequest *)self requestedAnalysisTypes];
+  if ((requestedAnalysisTypes & 0x40) != 0)
   {
-    v4 = _VKSignpostLog();
-    if (os_signpost_enabled(v4))
+    v5 = _VKSignpostLog(requestedAnalysisTypes);
+    if (os_signpost_enabled(v5))
     {
-      LOWORD(v19) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B4335000, v4, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VKCImageAnalyzerRequest Visual Intelligence Request", &unk_1B4435C0E, &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B4335000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "VKCImageAnalyzerRequest Visual Intelligence Request", &unk_1B4435C0E, &v21, 2u);
     }
 
-    v5 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1B4335000, v5, OS_LOG_TYPE_INFO, "Signpost Begin: VKCImageAnalyzerRequest Visual Intelligence Request", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1B4335000, v6, OS_LOG_TYPE_INFO, "Signpost Begin: VKCImageAnalyzerRequest Visual Intelligence Request", &v21, 2u);
     }
 
     if (vk_deviceSupportsVisualIntelligence() && !+[VKCInternalSettings disableVisualIntelligence])
     {
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2050000000;
-      v10 = getVICVisualIntelligenceAnalysisRequestClass_softClass;
-      v27 = getVICVisualIntelligenceAnalysisRequestClass_softClass;
+      v26 = 0;
+      v27 = &v26;
+      v28 = 0x2050000000;
+      v12 = getVICVisualIntelligenceAnalysisRequestClass_softClass;
+      v29 = getVICVisualIntelligenceAnalysisRequestClass_softClass;
       if (!getVICVisualIntelligenceAnalysisRequestClass_softClass)
       {
-        v19 = MEMORY[0x1E69E9820];
-        v20 = 3221225472;
-        v21 = __getVICVisualIntelligenceAnalysisRequestClass_block_invoke;
-        v22 = &unk_1E7BE3F48;
-        v23 = &v24;
+        v21 = MEMORY[0x1E69E9820];
+        v22 = 3221225472;
+        v23 = __getVICVisualIntelligenceAnalysisRequestClass_block_invoke;
+        v24 = &unk_1E7BE3F48;
+        v25 = &v26;
         VisualIntelligenceCoreLibraryCore_0();
         Class = objc_getClass("VICVisualIntelligenceAnalysisRequest");
-        *(v23[1] + 24) = Class;
-        getVICVisualIntelligenceAnalysisRequestClass_softClass = *(v23[1] + 24);
-        v10 = v25[3];
+        *(v25[1] + 24) = Class;
+        getVICVisualIntelligenceAnalysisRequestClass_softClass = *(v25[1] + 24);
+        v12 = v27[3];
       }
 
-      v12 = v10;
-      _Block_object_dispose(&v24, 8);
-      v3 = objc_alloc_init(v10);
-      [v3 setRequest:self];
+      v14 = v12;
+      _Block_object_dispose(&v26, 8);
+      v4 = objc_alloc_init(v12);
+      [v4 setRequest:self];
       viConfiguration = [(VKCImageAnalyzerRequest *)self viConfiguration];
       if (viConfiguration && (objc_opt_respondsToSelector() & 1) != 0)
       {
-        v24 = 0;
-        v25 = &v24;
-        v26 = 0x2050000000;
-        v13 = getVICVisualIntelligenceAnalysisRequestConfigClass_softClass_0;
-        v27 = getVICVisualIntelligenceAnalysisRequestConfigClass_softClass_0;
+        v26 = 0;
+        v27 = &v26;
+        v28 = 0x2050000000;
+        v15 = getVICVisualIntelligenceAnalysisRequestConfigClass_softClass_0;
+        v29 = getVICVisualIntelligenceAnalysisRequestConfigClass_softClass_0;
         if (!getVICVisualIntelligenceAnalysisRequestConfigClass_softClass_0)
         {
-          v19 = MEMORY[0x1E69E9820];
-          v20 = 3221225472;
-          v21 = __getVICVisualIntelligenceAnalysisRequestConfigClass_block_invoke_0;
-          v22 = &unk_1E7BE3F48;
-          v23 = &v24;
+          v21 = MEMORY[0x1E69E9820];
+          v22 = 3221225472;
+          v23 = __getVICVisualIntelligenceAnalysisRequestConfigClass_block_invoke_0;
+          v24 = &unk_1E7BE3F48;
+          v25 = &v26;
           VisualIntelligenceCoreLibraryCore_0();
-          v14 = objc_getClass("VICVisualIntelligenceAnalysisRequestConfig");
-          *(v23[1] + 24) = v14;
-          getVICVisualIntelligenceAnalysisRequestConfigClass_softClass_0 = *(v23[1] + 24);
-          v13 = v25[3];
+          v16 = objc_getClass("VICVisualIntelligenceAnalysisRequestConfig");
+          *(v25[1] + 24) = v16;
+          getVICVisualIntelligenceAnalysisRequestConfigClass_softClass_0 = *(v25[1] + 24);
+          v15 = v27[3];
         }
 
-        v15 = v13;
-        _Block_object_dispose(&v24, 8);
-        v16 = objc_alloc_init(v13);
+        v17 = v15;
+        _Block_object_dispose(&v26, 8);
+        v18 = objc_alloc_init(v15);
         isScreenshotsVLUAuthorized = [viConfiguration isScreenshotsVLUAuthorized];
-        [v16 setVluAuthorized:isScreenshotsVLUAuthorized];
+        [v18 setVluAuthorized:isScreenshotsVLUAuthorized];
 
         if (objc_opt_respondsToSelector())
         {
           environmentBundleIdentifier = [viConfiguration environmentBundleIdentifier];
-          [v16 setEnvironmentBundleIdentifier:environmentBundleIdentifier];
+          [v18 setEnvironmentBundleIdentifier:environmentBundleIdentifier];
         }
 
-        [v3 setConfig:v16];
+        [v4 setConfig:v18];
       }
     }
 
@@ -563,30 +564,30 @@
         [VKCImageAnalyzerRequest viRequest];
       }
 
-      v3 = 0;
+      v4 = 0;
     }
 
-    v7 = _VKSignpostLog();
-    if (os_signpost_enabled(v7))
+    v9 = _VKSignpostLog(v8);
+    if (os_signpost_enabled(v9))
     {
-      LOWORD(v19) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1B4335000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VKCImageAnalyzerRequest Visual Intelligence Request", &unk_1B4435C0E, &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1B4335000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "VKCImageAnalyzerRequest Visual Intelligence Request", &unk_1B4435C0E, &v21, 2u);
     }
 
-    v8 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = os_log_create("com.apple.VisionKit", "com.apple.VisionKit");
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1B4335000, v8, OS_LOG_TYPE_INFO, "Signpost End: VKCImageAnalyzerRequest Visual Intelligence Request", &v19, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_1B4335000, v10, OS_LOG_TYPE_INFO, "Signpost End: VKCImageAnalyzerRequest Visual Intelligence Request", &v21, 2u);
     }
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)madRequests
@@ -1467,25 +1468,26 @@ void __63__VKCImageAnalyzerRequest_blockingCreatePNGAssetDataWithError___block_i
 {
   v6 = a2;
   v7 = a3;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
   v8 = getPHImageErrorKeySymbolLoc_ptr;
-  v17 = getPHImageErrorKeySymbolLoc_ptr;
+  v18 = getPHImageErrorKeySymbolLoc_ptr;
   if (!getPHImageErrorKeySymbolLoc_ptr)
   {
     v9 = PhotosLibrary();
-    v15[3] = dlsym(v9, "PHImageErrorKey");
-    getPHImageErrorKeySymbolLoc_ptr = v15[3];
-    v8 = v15[3];
+    v16[3] = dlsym(v9, "PHImageErrorKey");
+    getPHImageErrorKeySymbolLoc_ptr = v16[3];
+    v8 = v16[3];
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v15, 8);
   if (!v8)
   {
-    v13 = getkDDRVInteractionDidFinishNotification_cold_1();
-    _Block_object_dispose(&v14, 8);
-    _Unwind_Resume(v13);
+    getkDDRVInteractionDidFinishNotification_cold_1();
+    v14 = v13;
+    _Block_object_dispose(&v15, 8);
+    _Unwind_Resume(v14);
   }
 
   v10 = *v8;

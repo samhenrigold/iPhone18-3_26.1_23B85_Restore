@@ -13,23 +13,25 @@
   v5 = sub_10012211C(size.width);
   v7 = v6;
   v8 = [[CRLInstantAlphaImage alloc] initWithWidth:v5 height:v6];
+  p_isa = &v8->super.isa;
   if (v8)
   {
-    v9 = sub_1000CCC44();
+    v11 = sub_1000CCC44(v8, v9);
     ColorSpace = CGImageGetColorSpace(image);
-    if (CGColorSpaceIsWideGamutRGB(ColorSpace))
+    IsWideGamutRGB = CGColorSpaceIsWideGamutRGB(ColorSpace);
+    if (IsWideGamutRGB)
     {
-      v9 = sub_1000CCE28();
+      v11 = sub_1000CCE28(IsWideGamutRGB, v14);
     }
 
-    v11 = CGBitmapContextCreate(v8->mImageData, v5, v7, 8uLL, 4 * v5, v9, 0x2001u);
-    v14.origin.x = sub_10011ECB4();
-    CGContextDrawImage(v11, v14, image);
-    CGContextRelease(v11);
-    v12 = v8;
+    v15 = CGBitmapContextCreate(p_isa[3], v5, v7, 8uLL, 4 * v5, v11, 0x2001u);
+    v18.origin.x = sub_10011ECB4();
+    CGContextDrawImage(v15, v18, image);
+    CGContextRelease(v15);
+    v16 = p_isa;
   }
 
-  return v8;
+  return p_isa;
 }
 
 + (id)newMaskBitmapWithPoint:(CGPoint)point image:(id)image tolerance:(unint64_t)tolerance oldMaskBitmap:(id)bitmap

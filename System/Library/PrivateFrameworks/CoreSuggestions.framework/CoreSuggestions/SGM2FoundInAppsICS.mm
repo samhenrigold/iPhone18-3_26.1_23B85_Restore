@@ -2,8 +2,10 @@
 - (BOOL)isEqual:(id)equal;
 - (NSString)key;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)datetimeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)timezoneAsString:(int)string;
 - (int)StringAsDatetime:(id)datetime;
 - (int)StringAsTimezone:(id)timezone;
 - (int)datetime;
@@ -169,27 +171,25 @@ LABEL_14:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timezone = self->_timezone;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    datetime = self->_datetime;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -277,6 +277,29 @@ LABEL_14:
   return v4;
 }
 
+- (id)datetimeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SGMFoundInAppsDatetimeTypeEnd";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SGMFoundInAppsDatetimeTypeStart";
+  }
+
+  return v4;
+}
+
 - (int)datetime
 {
   if (*&self->_has)
@@ -311,6 +334,21 @@ LABEL_14:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)timezoneAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFCC50[string];
   }
 
   return v4;

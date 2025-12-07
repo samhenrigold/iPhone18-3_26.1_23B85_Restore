@@ -24,7 +24,7 @@
 
 - (void)setOwners:(id)owners
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   ownersCopy = owners;
   v4 = [ownersCopy mutableCopy];
   ownersCopy2 = owners;
@@ -40,30 +40,30 @@
       vendorName = [firstObject vendorName];
       if ([vendorName length])
       {
-        v33 = firstObject;
-        v34 = v5;
+        v32 = firstObject;
+        v33 = v5;
         v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
         v9 = v6;
-        v10 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v36;
+          v12 = *v35;
           v13 = 1;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v36 != v12)
+              if (*v35 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v15 = *(*(&v35 + 1) + 8 * i);
+              v15 = *(*(&v34 + 1) + 8 * i);
               vendorName2 = [v15 vendorName];
               v17 = [vendorName2 isEqualToString:vendorName];
 
@@ -78,7 +78,7 @@
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v34 objects:v38 count:16];
           }
 
           while (v11);
@@ -89,18 +89,18 @@
           v13 = 1;
         }
 
-        v18 = v13 <= v34;
-        v5 = v34;
+        v18 = v13 <= v33;
+        v5 = v33;
         if (v18)
         {
-          firstObject = v33;
+          firstObject = v32;
         }
 
         else
         {
-          v5 = v34 + 1;
-          firstObject = v33;
-          v19 = v33;
+          v5 = v33 + 1;
+          firstObject = v32;
+          v19 = v32;
 
           obj = v19;
         }
@@ -158,8 +158,6 @@
   v26 = STStorageDataLocStr(@"SHARED_FMT %ld");
   v27 = [v25 localizedStringWithFormat:v26, -[NSArray count](self->_owners, "count")];
   [(STStorageApp *)self setVendorName:v27];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

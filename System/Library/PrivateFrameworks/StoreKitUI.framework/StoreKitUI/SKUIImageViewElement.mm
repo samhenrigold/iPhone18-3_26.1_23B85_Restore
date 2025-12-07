@@ -84,9 +84,9 @@
     }
 
     v26 = [(NSURL *)v19->_url scheme:v40];
-    v27 = [v26 isEqualToString:@"resource"];
+    isEqualToString = objc_msgSend_isEqualToString_(v26);
 
-    if (v27)
+    if (isEqualToString)
     {
       host = [(NSURL *)v19->_url host];
       resourceName = v19->_resourceName;
@@ -432,9 +432,9 @@ LABEL_8:
         v9 = [entityValueProvider imageURLForEntityArtworkProperty:v6 fittingSize:self->_size.width destinationScale:{self->_size.height, v8}];
 
         scheme = [(NSURL *)v9 scheme];
-        v11 = [scheme isEqualToString:@"resource"];
+        isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-        if (v11)
+        if (isEqualToString)
         {
           host = [(NSURL *)v9 host];
         }
@@ -487,6 +487,12 @@ LABEL_8:
   result.height = height;
   result.width = width;
   return result;
+}
+
+- (void)initWithDOMElement:(uint64_t)a3 parent:(uint64_t)a4 elementFactory:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageViewElement initWithDOMElement:parent:elementFactory:]";
 }
 
 @end

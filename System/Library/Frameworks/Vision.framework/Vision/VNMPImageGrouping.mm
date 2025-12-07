@@ -70,9 +70,9 @@
 
 + (vector<MPClusteringTreeNode)computeNaturalClusteringForHierarchicalTree:(id)tree context:(SEL)context
 {
-  v8 = a5;
-  [v8 naturalClusteringDistanceThreshold];
-  [tree computeClusteringIntoKGroups:0x7FFFFFFFLL orUsingDistanceThreshold:a4 forHierarchicalTree:v8 context:?];
+  v7 = a5;
+  [v7 naturalClusteringDistanceThreshold];
+  objc_msgSend_computeClusteringIntoKGroups_orUsingDistanceThreshold_forHierarchicalTree_context_(tree);
 
   return result;
 }
@@ -80,8 +80,13 @@
 + (vector<MPClusteringTreeNode)computeClusteringIntoKGroups:(id)groups orUsingDistanceThreshold:(SEL)threshold forHierarchicalTree:(int)tree context:(float)context
 {
   v9 = a7;
+  v14[0] = 0;
+  v14[1] = 0;
+  v13 = v14;
   [groups getDistanceForClusterNode:a6 splitDistanceType:{objc_msgSend(v9, "clusterSplitDistanceType", v9)}];
-  std::__tree<std::__value_type<float,MPClusteringTreeNode *>,std::__map_value_compare<float,std::__value_type<float,MPClusteringTreeNode *>,std::less<float>,true>,std::allocator<std::__value_type<float,MPClusteringTreeNode *>>>::__emplace_multi<std::pair<float,MPClusteringTreeNode *>>();
+  v12[0] = v10;
+  v12[1] = a6;
+  std::__tree<std::__value_type<float,MPClusteringTreeNode *>,std::__map_value_compare<float,std::__value_type<float,MPClusteringTreeNode *>,std::less<float>,true>,std::allocator<std::__value_type<float,MPClusteringTreeNode *>>>::__emplace_multi<std::pair<float,MPClusteringTreeNode *>>(&v13, v12);
 }
 
 + (float)getDistanceForClusterNode:(MPClusteringTreeNode *)node splitDistanceType:(int)type
@@ -106,12 +111,12 @@
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v53[0] = 0;
-  v53[1] = 0;
-  v51 = 0;
-  v52 = v53;
-  v49 = &v50;
-  v50 = 0;
+  v57[0] = 0;
+  v57[1] = 0;
+  v55 = 0;
+  v56 = v57;
+  v53 = &v54;
+  v54 = 0;
   while (v7 < [descriptorsCopy count])
   {
     v10 = [descriptorsCopy objectAtIndexedSubscript:v7];
@@ -144,18 +149,18 @@
   }
 
   syslog(5, "starting clustering");
-  if (v51)
+  if (v55)
   {
     v18 = 0;
     do
     {
-      v19 = v49;
-      v20 = *(v49 + 8);
-      v21 = v49[5];
-      v22 = v49[6];
+      v19 = v53;
+      v20 = *(v53 + 8);
+      v21 = v53[5];
+      v22 = v53[6];
       syslog(5, "merging leaf clusters [%d, %d] with score : %f", v21->var1, v22->var1, v20);
-      v23 = v49[1];
-      v24 = v49;
+      v23 = v19[1];
+      v24 = v19;
       if (v23)
       {
         do
@@ -179,17 +184,21 @@
         while (!v26);
       }
 
-      v49 = v25;
-      --v51;
-      std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v50, v19);
+      if (v53 == v19)
+      {
+        v53 = v25;
+      }
+
+      --v55;
+      std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v54, v19);
       operator delete(v19);
-      if (v53[0])
+      if (v57[0])
       {
         while (1)
         {
           var1 = v21->var1;
-          v28 = v53;
-          v29 = v53[0];
+          v28 = v57;
+          v29 = v57[0];
           do
           {
             v30 = v29;
@@ -204,7 +213,7 @@
           }
 
           while (v29);
-          if (v28 == v53)
+          if (v28 == v57)
           {
             break;
           }
@@ -225,8 +234,8 @@
         while (1)
         {
           v33 = v22->var1;
-          v34 = v53;
-          v35 = v53[0];
+          v34 = v57;
+          v35 = v57[0];
           do
           {
             v36 = v35;
@@ -241,7 +250,7 @@
           }
 
           while (v35);
-          if (v34 == v53)
+          if (v34 == v57)
           {
             break;
           }
@@ -291,13 +300,19 @@
       v44 = v22->var4 + v21->var4;
       v39->var4 = v44;
       v39->var3 = (((v21->var3 * (v21->var4 - 1)) + (v22->var3 * (v22->var4 - 1))) + v20) / (v44 - 1);
-      std::__tree<std::__value_type<int,MPClusteringTreeNode *>,std::__map_value_compare<int,std::__value_type<int,MPClusteringTreeNode *>,std::less<int>,true>,std::allocator<std::__value_type<int,MPClusteringTreeNode *>>>::__emplace_unique_key_args<int,std::pair<int,MPClusteringTreeNode *>>(&v52, v21->var1);
-      std::__tree<std::__value_type<int,MPClusteringTreeNode *>,std::__map_value_compare<int,std::__value_type<int,MPClusteringTreeNode *>,std::less<int>,true>,std::allocator<std::__value_type<int,MPClusteringTreeNode *>>>::__emplace_unique_key_args<int,std::pair<int,MPClusteringTreeNode *>>(&v52, v22->var1);
+      v45 = v21->var1;
+      v51 = v45;
+      v52 = v39;
+      std::__tree<std::__value_type<int,MPClusteringTreeNode *>,std::__map_value_compare<int,std::__value_type<int,MPClusteringTreeNode *>,std::less<int>,true>,std::allocator<std::__value_type<int,MPClusteringTreeNode *>>>::__emplace_unique_key_args<int,std::pair<int,MPClusteringTreeNode *>>(&v56, v45, &v51);
+      v46 = v22->var1;
+      v51 = v46;
+      v52 = v39;
+      std::__tree<std::__value_type<int,MPClusteringTreeNode *>,std::__map_value_compare<int,std::__value_type<int,MPClusteringTreeNode *>,std::less<int>,true>,std::allocator<std::__value_type<int,MPClusteringTreeNode *>>>::__emplace_unique_key_args<int,std::pair<int,MPClusteringTreeNode *>>(&v56, v46, &v51);
       ++v18;
       LODWORD(v7) = v7 + 1;
     }
 
-    while (v51);
+    while (v55);
   }
 
   else
@@ -309,8 +324,8 @@
   syslog(5, "end clustering, iterations : %d", v18);
   *results = v39;
 
-  std::__tree<std::__value_type<long long,int>,std::__map_value_compare<long long,std::__value_type<long long,int>,std::less<long long>,true>,std::allocator<std::__value_type<long long,int>>>::destroy(v50);
-  std::__tree<std::__value_type<long long,int>,std::__map_value_compare<long long,std::__value_type<long long,int>,std::less<long long>,true>,std::allocator<std::__value_type<long long,int>>>::destroy(v53[0]);
+  std::__tree<std::__value_type<long long,int>,std::__map_value_compare<long long,std::__value_type<long long,int>,std::less<long long>,true>,std::allocator<std::__value_type<long long,int>>>::destroy(v54);
+  std::__tree<std::__value_type<long long,int>,std::__map_value_compare<long long,std::__value_type<long long,int>,std::less<long long>,true>,std::allocator<std::__value_type<long long,int>>>::destroy(v57[0]);
 
   return 2432;
 }

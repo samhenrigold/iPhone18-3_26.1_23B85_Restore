@@ -17,7 +17,7 @@
 
     v5(v7);
 
-    sub_21BB5AEC4(v5);
+    sub_21BB5AEC4(v5, v6);
   }
 
   else

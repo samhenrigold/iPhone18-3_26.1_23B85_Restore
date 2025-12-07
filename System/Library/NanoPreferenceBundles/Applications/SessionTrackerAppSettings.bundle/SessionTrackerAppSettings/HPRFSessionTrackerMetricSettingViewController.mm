@@ -15,9 +15,9 @@
 
 - (HPRFSessionTrackerMetricSettingViewController)init
 {
-  v19.receiver = self;
-  v19.super_class = HPRFSessionTrackerMetricSettingViewController;
-  v2 = [(HPRFSessionTrackerMetricSettingViewController *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = HPRFSessionTrackerMetricSettingViewController;
+  v2 = [(HPRFSessionTrackerMetricSettingViewController *)&v18 init];
   if (v2)
   {
     v3 = objc_alloc_init(NPSManager);
@@ -36,15 +36,14 @@
     device = v2->_device;
     v2->_device = firstObject;
 
-    v13 = v2->_device;
-    v14 = FIUIHealthStoreForDevice();
+    v13 = FIUIHealthStoreForDevice();
     healthStore = v2->_healthStore;
-    v2->_healthStore = v14;
+    v2->_healthStore = v13;
 
     [(HPRFSessionTrackerMetricSettingViewController *)v2 _obliterateUserConfiguredWorkoutMetricsIfNeeded];
-    v16 = [[_HKWheelchairUseCharacteristicCache alloc] initWithHealthStore:v2->_healthStore];
+    v15 = [[_HKWheelchairUseCharacteristicCache alloc] initWithHealthStore:v2->_healthStore];
     wheelchairUseCharacteristicCache = v2->_wheelchairUseCharacteristicCache;
-    v2->_wheelchairUseCharacteristicCache = v16;
+    v2->_wheelchairUseCharacteristicCache = v15;
 
     [(_HKWheelchairUseCharacteristicCache *)v2->_wheelchairUseCharacteristicCache addObserver:v2];
   }
@@ -71,13 +70,12 @@
 - (void)_obliterateUserConfiguredWorkoutMetricsIfNeeded
 {
   v3 = +[FIUIWorkoutSettingsManager readWorkoutMetricsActivityMoveMode];
-  healthStore = self->_healthStore;
-  v5 = FIActivityMoveModeWithHealthStore();
-  if ([(HPRFSessionTrackerMetricSettingViewController *)self _shouldObliterateWorkoutMetricsForMetricsActivityMoveMode:v3 activityMoveModeHealthDB:v5])
+  v4 = FIActivityMoveModeWithHealthStore();
+  if ([(HPRFSessionTrackerMetricSettingViewController *)self _shouldObliterateWorkoutMetricsForMetricsActivityMoveMode:v3 activityMoveModeHealthDB:v4])
   {
     +[FIUIWorkoutSettingsManager obliterateUserConfiguredWorkoutMetrics];
 
-    [(HPRFSessionTrackerMetricSettingViewController *)self _saveWorkoutMetricsActivityMoveMode:v5];
+    [(HPRFSessionTrackerMetricSettingViewController *)self _saveWorkoutMetricsActivityMoveMode:v4];
   }
 }
 

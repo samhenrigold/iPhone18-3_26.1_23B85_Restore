@@ -74,15 +74,15 @@
 {
   if (self->_allowsWideGamutImages)
   {
-    v8 = 13;
+    v2 = 13;
   }
 
   else
   {
-    v8 = 10;
+    v2 = 10;
   }
 
-  return CUIDefaultThemeRenditionKeyFormat(2, v8, v2, v3, v4, v5, v6, v7);
+  return CUIDefaultThemeRenditionKeyFormat(2, v2);
 }
 
 - (void)_finalizeNameIdentifiers
@@ -139,22 +139,22 @@ void __54__CUISingleNamedAssetCreator__finalizeNameIdentifiers__block_invoke_2(u
     }
 
     v6 = [a2 layerReferences];
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = __54__CUISingleNamedAssetCreator__finalizeNameIdentifiers__block_invoke_3;
-    v24[3] = &unk_1E7249880;
-    v24[4] = *(a1 + 32);
-    v24[5] = v4;
-    v24[6] = a2;
-    [v6 enumerateObjectsUsingBlock:v24];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = __54__CUISingleNamedAssetCreator__finalizeNameIdentifiers__block_invoke_3;
+    v10[3] = &unk_1E7249880;
+    v10[4] = *(a1 + 32);
+    v10[5] = v4;
+    v10[6] = a2;
+    [v6 enumerateObjectsUsingBlock:v10];
     v7 = [a2 mipReferences];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = __54__CUISingleNamedAssetCreator__finalizeNameIdentifiers__block_invoke_4;
-    v23[3] = &unk_1E72498A8;
-    v23[4] = *(a1 + 32);
-    v23[5] = a2;
-    [v7 enumerateObjectsUsingBlock:v23];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = __54__CUISingleNamedAssetCreator__finalizeNameIdentifiers__block_invoke_4;
+    v9[3] = &unk_1E72498A8;
+    v9[4] = *(a1 + 32);
+    v9[5] = a2;
+    [v7 enumerateObjectsUsingBlock:v9];
     if ([a2 layout] == 1008)
     {
       v8 = [*(*(a1 + 32) + 80) objectForKey:{objc_msgSend(a2, "name")}];
@@ -165,16 +165,14 @@ void __54__CUISingleNamedAssetCreator__finalizeNameIdentifiers__block_invoke_2(u
 
       else
       {
-        v22 = [a2 name];
-        _CUILog(4, "CoreUI: Error: Found a  mipa reference with no name entry for %@", v15, v16, v17, v18, v19, v20, v22);
+        _CUILog(4, "CoreUI: Error: Found a  mipa reference with no name entry for %@", [a2 name]);
       }
     }
   }
 
   else
   {
-    v21 = [a2 name];
-    _CUILog(4, "CoreUI: Error: Found a rendition with no name entry for %@", v9, v10, v11, v12, v13, v14, v21);
+    _CUILog(4, "CoreUI: Error: Found a rendition with no name entry for %@", [a2 name]);
   }
 }
 
@@ -196,8 +194,7 @@ void __54__CUISingleNamedAssetCreator__finalizeNameIdentifiers__block_invoke_3(u
 
   else
   {
-    v7 = [a2 layerName];
-    _CUILog(4, "CoreUI: Error: Found a layer reference with no name entry for %@", v8, v9, v10, v11, v12, v13, v7);
+    _CUILog(4, "CoreUI: Error: Found a layer reference with no name entry for %@", [a2 layerName]);
   }
 }
 
@@ -220,8 +217,7 @@ void __54__CUISingleNamedAssetCreator__finalizeNameIdentifiers__block_invoke_4(u
 
   else
   {
-    v6 = [*(a1 + 40) name];
-    _CUILog(4, "CoreUI: Error: Found a  mipa reference with no name entry for %@", v7, v8, v9, v10, v11, v12, v6);
+    _CUILog(4, "CoreUI: Error: Found a  mipa reference with no name entry for %@", [*(a1 + 40) name]);
   }
 }
 
@@ -576,7 +572,7 @@ id __48__CUISingleNamedAssetCreator__generatorForName___block_invoke(uint64_t a1
 {
   if (self->_allowsWideGamutImages)
   {
-    DisplayP3 = _CUIColorSpaceGetDisplayP3();
+    DisplayP3 = _CUIColorSpaceGetDisplayP3(self, a2);
     g = CUIConvertDeepImageTo8(g, DisplayP3);
   }
 
@@ -1198,7 +1194,7 @@ id __50__CUISingleNamedAssetCreator__distillNameEntries___block_invoke(uint64_t 
 
 id __49__CUISingleNamedAssetCreator__distillRenditions___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v7 = [*(a1 + 32) _keyDataFromKey:{objc_msgSend(objc_msgSend(a2, "baseKey"), "keyList")}];
+  v7 = [*(a1 + 32) _keyDataFromKey:{objc_msgSend(objc_msgSend(a2, "baseKey", a3), "keyList")}];
   result = [a2 CSIRepresentationWithCompression:1];
   if (v7)
   {

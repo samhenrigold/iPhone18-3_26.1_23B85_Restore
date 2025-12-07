@@ -103,88 +103,106 @@ LABEL_12:
     if (infoCopy)
     {
       v19 = *__error();
-      if (!sub_1000E95F0())
+      v20 = sub_1000E95F0();
+      if (!v20)
       {
-        v26 = sub_1000E957C();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v35 = sub_1000E957C(v20, v21);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           *buf = 68158722;
-          v38 = 62;
-          v39 = 2080;
-          v40 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
-          v41 = 2114;
-          v42 = descriptionCopy;
-          v43 = 2114;
-          v44 = infoCopy;
-          v45 = 2114;
-          v46 = codeCopy2;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%.*s: %{public}@ - %{public}@ %{public}@", buf, 0x30u);
+          v49 = 62;
+          v50 = 2080;
+          v51 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
+          v52 = 2114;
+          v53 = descriptionCopy;
+          v54 = 2114;
+          v55 = infoCopy;
+          v56 = 2114;
+          v57 = codeCopy2;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "%.*s: %{public}@ - %{public}@ %{public}@", buf, 0x30u);
         }
 
-        goto LABEL_33;
+        goto LABEL_45;
       }
 
-      v20 = sub_1000E957C();
-      os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      v47 = 0;
+      v22 = sub_1000E957C(v20, v21);
       *buf = 68158722;
-      v38 = 62;
-      v39 = 2080;
-      v40 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
-      v41 = 2114;
-      v42 = descriptionCopy;
-      v43 = 2114;
-      v44 = infoCopy;
-      v45 = 2114;
-      v46 = codeCopy2;
-      LODWORD(v36) = 48;
-      v35 = buf;
-      v21 = _os_log_send_and_compose_impl();
-
-      if (v21)
+      v49 = 62;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_19;
+        v23 = 3;
       }
 
-      goto LABEL_33;
+      else
+      {
+        v23 = 2;
+      }
+
+      v50 = 2080;
+      v51 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
+      v52 = 2114;
+      v53 = descriptionCopy;
+      v54 = 2114;
+      v55 = infoCopy;
+      v56 = 2114;
+      v57 = codeCopy2;
+      v24 = _os_log_send_and_compose_impl(v23, &v47, 0, 0, &_mh_execute_header, v22, 16, "%.*s: %{public}@ - %{public}@ %{public}@", buf, 48);
+
+      if (v24)
+      {
+        goto LABEL_25;
+      }
+
+      goto LABEL_45;
     }
 
-    v23 = *__error();
-    if (!sub_1000E95F0())
+    v29 = *__error();
+    v30 = sub_1000E95F0();
+    if (!v30)
     {
-      v29 = sub_1000E957C();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v41 = sub_1000E957C(v30, v31);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         *buf = 68158466;
-        v38 = 62;
-        v39 = 2080;
-        v40 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
-        v41 = 2114;
-        v42 = descriptionCopy;
-        v43 = 2114;
-        v44 = codeCopy2;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%.*s: %{public}@ %{public}@", buf, 0x26u);
+        v49 = 62;
+        v50 = 2080;
+        v51 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
+        v52 = 2114;
+        v53 = descriptionCopy;
+        v54 = 2114;
+        v55 = codeCopy2;
+        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%.*s: %{public}@ %{public}@", buf, 0x26u);
       }
 
-      goto LABEL_41;
+      goto LABEL_53;
     }
 
-    v24 = sub_1000E957C();
-    os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+    v47 = 0;
+    v32 = sub_1000E957C(v30, v31);
     *buf = 68158466;
-    v38 = 62;
-    v39 = 2080;
-    v40 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
-    v41 = 2114;
-    v42 = descriptionCopy;
-    v43 = 2114;
-    v44 = codeCopy2;
-    LODWORD(v36) = 38;
-    v35 = buf;
-    v25 = _os_log_send_and_compose_impl();
-
-    if (v25)
+    v49 = 62;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_29;
+      v33 = 3;
+    }
+
+    else
+    {
+      v33 = 2;
+    }
+
+    v50 = 2080;
+    v51 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
+    v52 = 2114;
+    v53 = descriptionCopy;
+    v54 = 2114;
+    v55 = codeCopy2;
+    v34 = _os_log_send_and_compose_impl(v33, &v47, 0, 0, &_mh_execute_header, v32, 16, "%.*s: %{public}@ %{public}@", buf, 38);
+
+    if (v34)
+    {
+      goto LABEL_41;
     }
   }
 
@@ -193,106 +211,124 @@ LABEL_12:
     if (infoCopy)
     {
       v19 = *__error();
-      if (!sub_1000E95F0())
+      v25 = sub_1000E95F0();
+      if (!v25)
       {
-        v28 = sub_1000E957C();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v40 = sub_1000E957C(v25, v26);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           *buf = 68158466;
-          v38 = 62;
-          v39 = 2080;
-          v40 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
-          v41 = 2114;
-          v42 = infoCopy;
-          v43 = 2114;
-          v44 = codeCopy2;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%.*s: %{public}@ %{public}@", buf, 0x26u);
+          v49 = 62;
+          v50 = 2080;
+          v51 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
+          v52 = 2114;
+          v53 = infoCopy;
+          v54 = 2114;
+          v55 = codeCopy2;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%.*s: %{public}@ %{public}@", buf, 0x26u);
         }
 
-        goto LABEL_33;
+        goto LABEL_45;
       }
 
-      v22 = sub_1000E957C();
-      os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+      v47 = 0;
+      v27 = sub_1000E957C(v25, v26);
       *buf = 68158466;
-      v38 = 62;
-      v39 = 2080;
-      v40 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
-      v41 = 2114;
-      v42 = infoCopy;
-      v43 = 2114;
-      v44 = codeCopy2;
-      LODWORD(v36) = 38;
-      v35 = buf;
-      v21 = _os_log_send_and_compose_impl();
-
-      if (v21)
+      v49 = 62;
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-LABEL_19:
-        fprintf(__stderrp, "%s\n", v21);
-        free(v21);
+        v28 = 3;
       }
 
-LABEL_33:
+      else
+      {
+        v28 = 2;
+      }
+
+      v50 = 2080;
+      v51 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
+      v52 = 2114;
+      v53 = infoCopy;
+      v54 = 2114;
+      v55 = codeCopy2;
+      v24 = _os_log_send_and_compose_impl(v28, &v47, 0, 0, &_mh_execute_header, v27, 16, "%.*s: %{public}@ %{public}@", buf, 38);
+
+      if (v24)
+      {
+LABEL_25:
+        fprintf(__stderrp, "%s\n", v24);
+        free(v24);
+      }
+
+LABEL_45:
       *__error() = v19;
-      [v14 setObject:infoCopy forKeyedSubscript:{@"DIErrorVerboseInfo", v35, v36}];
-      goto LABEL_42;
+      [v14 setObject:infoCopy forKeyedSubscript:@"DIErrorVerboseInfo"];
+      goto LABEL_54;
     }
 
-    v23 = *__error();
-    if (!sub_1000E95F0())
+    v29 = *__error();
+    v36 = sub_1000E95F0();
+    if (!v36)
     {
-      v30 = sub_1000E957C();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v42 = sub_1000E957C(v36, v37);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         *buf = 68158466;
-        v38 = 62;
-        v39 = 2080;
-        v40 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
-        v41 = 2114;
-        v42 = domainCopy;
-        v43 = 2114;
-        v44 = codeCopy2;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%.*s: %{public}@ error %{public}@", buf, 0x26u);
+        v49 = 62;
+        v50 = 2080;
+        v51 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
+        v52 = 2114;
+        v53 = domainCopy;
+        v54 = 2114;
+        v55 = codeCopy2;
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "%.*s: %{public}@ error %{public}@", buf, 0x26u);
       }
 
-      goto LABEL_41;
+      goto LABEL_53;
     }
 
-    v27 = sub_1000E957C();
-    os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
+    v47 = 0;
+    v38 = sub_1000E957C(v36, v37);
     *buf = 68158466;
-    v38 = 62;
-    v39 = 2080;
-    v40 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
-    v41 = 2114;
-    v42 = domainCopy;
-    v43 = 2114;
-    v44 = codeCopy2;
-    LODWORD(v36) = 38;
-    v35 = buf;
-    v25 = _os_log_send_and_compose_impl();
-
-    if (v25)
+    v49 = 62;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-LABEL_29:
-      fprintf(__stderrp, "%s\n", v25);
-      free(v25);
+      v39 = 3;
+    }
+
+    else
+    {
+      v39 = 2;
+    }
+
+    v50 = 2080;
+    v51 = "+[DIError errorWithDomain:code:description:verboseInfo:error:]";
+    v52 = 2114;
+    v53 = domainCopy;
+    v54 = 2114;
+    v55 = codeCopy2;
+    v34 = _os_log_send_and_compose_impl(v39, &v47, 0, 0, &_mh_execute_header, v38, 16, "%.*s: %{public}@ error %{public}@", buf, 38);
+
+    if (v34)
+    {
+LABEL_41:
+      fprintf(__stderrp, "%s\n", v34);
+      free(v34);
     }
   }
 
-LABEL_41:
-  *__error() = v23;
-LABEL_42:
-  v31 = [NSError errorWithDomain:domainCopy code:codeCopy2 userInfo:v14, v35, v36];
-  v32 = v31;
+LABEL_53:
+  *__error() = v29;
+LABEL_54:
+  v43 = [NSError errorWithDomain:domainCopy code:codeCopy2 userInfo:v14];
+  v44 = v43;
   if (error)
   {
-    v33 = v31;
-    *error = v32;
+    v45 = v43;
+    *error = v44;
   }
 
-  return v32;
+  return v44;
 }
 
 + (id)errorWithPOSIXCode:(int)code verboseInfo:(id)info

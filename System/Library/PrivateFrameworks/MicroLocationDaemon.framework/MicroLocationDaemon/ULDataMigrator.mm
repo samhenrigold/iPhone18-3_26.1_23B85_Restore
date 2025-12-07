@@ -26,7 +26,7 @@
 
 - (BOOL)migrateMiloData
 {
-  v20 = *MEMORY[0x277D85DE8];
+  *&v19 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULDataMigrator migrateMiloData];
@@ -44,16 +44,16 @@
   {
     dbStore = [(ULDataMigrator *)self dbStore];
     v6 = (*(dbStore->var0 + 15))(dbStore);
-    v18 = cl::chrono::CFAbsoluteTimeClock::now();
-    ULMigrationDO::ULMigrationDO(v19, 3, &v18);
+    v17 = cl::chrono::CFAbsoluteTimeClock::now();
+    ULMigrationDO::ULMigrationDO(&v18, 3, &v17);
     *buf = 0;
+    v14 = 0;
     v15 = 0;
-    v16 = 0;
-    std::vector<ULMigrationDO>::__init_with_size[abi:ne200100]<ULMigrationDO const*,ULMigrationDO const*>(buf, v19, &v20, 1uLL);
+    std::vector<ULMigrationDO>::__init_with_size[abi:ne200100]<ULMigrationDO const*,ULMigrationDO const*>(buf, &v18, &v19, 1uLL);
     [v6 insertDataObjects:buf];
     if (*buf)
     {
-      v15 = *buf;
+      v14 = *buf;
       operator delete(*buf);
     }
 
@@ -61,19 +61,19 @@
     [v7 log:@"Data Migration Event"];
 
     *buf = 0;
-    v15 = buf;
-    v16 = 0x2020000000;
-    v17 = 0;
+    v14 = buf;
+    v15 = 0x2020000000;
+    v16 = 0;
     v8 = +[ULTransactionManager shared];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __33__ULDataMigrator_migrateMiloData__block_invoke;
-    v13[3] = &unk_2798D44D8;
-    v13[4] = self;
-    v13[5] = buf;
-    [v8 performUnderTransaction:@"com.apple.milod.migrateData" block:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __33__ULDataMigrator_migrateMiloData__block_invoke;
+    v12[3] = &unk_2798D44D8;
+    v12[4] = self;
+    v12[5] = buf;
+    [v8 performUnderTransaction:@"com.apple.milod.migrateData" block:v12];
 
-    v9 = v15[24];
+    v9 = v14[24];
     _Block_object_dispose(buf, 8);
   }
 
@@ -94,11 +94,10 @@
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
-uint64_t __33__ULDataMigrator_migrateMiloData__block_invoke(uint64_t a1)
+void *__33__ULDataMigrator_migrateMiloData__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _migrateMiloDataTransaction];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -107,7 +106,7 @@ uint64_t __33__ULDataMigrator_migrateMiloData__block_invoke(uint64_t a1)
 
 - (BOOL)_migrateMiloDataTransaction
 {
-  v20 = *MEMORY[0x277D85DE8];
+  *&v19 = *MEMORY[0x277D85DE8];
   v3 = [[ULBackupAndRestore alloc] initWithDbStore:[(ULDataMigrator *)self dbStore] andDbManagement:[(ULDataMigrator *)self dbManagement]];
   if ([MEMORY[0x277D28868] isMac])
   {
@@ -140,16 +139,16 @@ uint64_t __33__ULDataMigrator_migrateMiloData__block_invoke(uint64_t a1)
 LABEL_8:
     dbStore = [(ULDataMigrator *)self dbStore];
     v9 = (*(dbStore->var0 + 15))(dbStore);
-    v16 = cl::chrono::CFAbsoluteTimeClock::now();
-    ULMigrationDO::ULMigrationDO(v19, 2, &v16);
+    v15 = cl::chrono::CFAbsoluteTimeClock::now();
+    ULMigrationDO::ULMigrationDO(&v18, 2, &v15);
     *buf = 0;
-    *v18 = 0;
-    *&v18[8] = 0;
-    std::vector<ULMigrationDO>::__init_with_size[abi:ne200100]<ULMigrationDO const*,ULMigrationDO const*>(buf, v19, &v20, 1uLL);
+    *v17 = 0;
+    *&v17[8] = 0;
+    std::vector<ULMigrationDO>::__init_with_size[abi:ne200100]<ULMigrationDO const*,ULMigrationDO const*>(buf, &v18, &v19, 1uLL);
     [v9 insertDataObjects:buf];
     if (*buf)
     {
-      *v18 = *buf;
+      *v17 = *buf;
       operator delete(*buf);
     }
 
@@ -172,15 +171,15 @@ LABEL_8:
     v12 = "fail";
     *buf = 68289282;
     *&buf[4] = 0;
-    *v18 = 2082;
-    *&v18[2] = "";
+    *v17 = 2082;
+    *&v17[2] = "";
     if (v10)
     {
       v12 = "success";
     }
 
-    *&v18[10] = 2082;
-    *&v18[12] = v12;
+    *&v17[10] = 2082;
+    *&v17[12] = v12;
     _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:data migration iteration status., result:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
@@ -190,13 +189,12 @@ LABEL_8:
     [(ULDataMigrator *)self _sendCoreAnalyticsEventForMigrationIfNecessary:0];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_sendCoreAnalyticsEventForMigrationIfNecessary:(int64_t)necessary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = +[ULDefaultsSingleton shared];
   defaultsDictionary = [v5 defaultsDictionary];
 
@@ -227,15 +225,15 @@ LABEL_8:
       v12 = logObject_MicroLocation_Default;
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v15[0] = 68289538;
-        v15[1] = 0;
-        v16 = 2082;
-        v17 = "";
-        v18 = 2082;
+        v14[0] = 68289538;
+        v14[1] = 0;
+        v15 = 2082;
+        v16 = "";
+        v17 = 2082;
         uTF8String = [@"com.apple.MicroLocation.DataMigration" UTF8String];
-        v20 = 2114;
-        v21 = dictionary;
-        _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Sending Migration CoreAnalytics, Event name:%{public, location:escape_only}s, metricsDict:%{public, location:escape_only}@}", v15, 0x26u);
+        v19 = 2114;
+        v20 = dictionary;
+        _os_log_impl(&dword_258FE9000, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Sending Migration CoreAnalytics, Event name:%{public, location:escape_only}s, metricsDict:%{public, location:escape_only}@}", v14, 0x26u);
       }
 
       AnalyticsSendEvent();
@@ -252,12 +250,10 @@ LABEL_8:
     v13 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15[0]) = 0;
-      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "#Data Migrator, CoreAnalytics Disabled", v15, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "#Data Migrator, CoreAnalytics Disabled", v14, 2u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_getCAMigrationErrorTypeForLastMigrationStateAfterMaxFailures:(int)failures
@@ -283,7 +279,7 @@ LABEL_8:
     v9 = v8;
     if (v8)
     {
-      [v8 fetchAllRecordsWithLimit:0];
+      objc_msgSend_fetchAllRecordsWithLimit_(v8);
     }
 
     else

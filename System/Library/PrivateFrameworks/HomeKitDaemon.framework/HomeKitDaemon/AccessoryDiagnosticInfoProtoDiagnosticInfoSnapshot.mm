@@ -127,9 +127,7 @@
 - (void)setNetworkInfoProto:(id)proto
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D87D798, &qword_22A578BE8);
-  v4 = sub_22A4DD49C();
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC13HomeKitDaemon50AccessoryDiagnosticInfoProtoDiagnosticInfoSnapshot____lazy_storage___networkInfoProto);
-  *(&self->super.isa + OBJC_IVAR____TtC13HomeKitDaemon50AccessoryDiagnosticInfoProtoDiagnosticInfoSnapshot____lazy_storage___networkInfoProto) = v4;
+  *(&self->super.isa + OBJC_IVAR____TtC13HomeKitDaemon50AccessoryDiagnosticInfoProtoDiagnosticInfoSnapshot____lazy_storage___networkInfoProto) = sub_22A4DD49C();
 }
 
 - (HMDAppleMediaAccessory)currentAppleMediaAccessory

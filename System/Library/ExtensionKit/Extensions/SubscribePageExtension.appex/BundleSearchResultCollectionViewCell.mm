@@ -9,9 +9,9 @@
 - (_TtC22SubscribePageExtension36BundleSearchResultCollectionViewCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC22SubscribePageExtension36BundleSearchResultCollectionViewCell_lockupView;
-  *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(type metadata accessor for SmallSearchLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   v5 = OBJC_IVAR____TtC22SubscribePageExtension36BundleSearchResultCollectionViewCell_bundleView;
-  *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for BundleView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(type metadata accessor for BundleView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   result = sub_100754644();
   __break(1u);
   return result;
@@ -36,7 +36,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1005FB9C0();
+  sub_1005FB9C0(selfCopy);
 }
 
 @end

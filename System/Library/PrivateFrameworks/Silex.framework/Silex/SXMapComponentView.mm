@@ -588,34 +588,34 @@ uint64_t __39__SXMapComponentView_dismissFullScreen__block_invoke(uint64_t a1)
 
 - (void)setupToolbar
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v22[3] = *MEMORY[0x1E69E9840];
   segmentedControl = [(SXMapComponentView *)self segmentedControl];
 
   if (!segmentedControl)
   {
-    v4 = SXBundle();
-    v5 = [v4 localizedStringForKey:@"Standard" value:&stru_1F532F6C0 table:0];
-    v21[0] = v5;
-    v6 = SXBundle();
-    v7 = [v6 localizedStringForKey:@"Hybrid" value:&stru_1F532F6C0 table:0];
-    v21[1] = v7;
-    v8 = SXBundle();
-    v9 = [v8 localizedStringForKey:@"Satellite" value:&stru_1F532F6C0 table:0];
-    v21[2] = v9;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+    v5 = SXBundle(v4);
+    v6 = [v5 localizedStringForKey:@"Standard" value:&stru_1F532F6C0 table:0];
+    v22[0] = v6;
+    v7 = SXBundle(v6);
+    v8 = [v7 localizedStringForKey:@"Hybrid" value:&stru_1F532F6C0 table:0];
+    v22[1] = v8;
+    v9 = SXBundle(v8);
+    v10 = [v9 localizedStringForKey:@"Satellite" value:&stru_1F532F6C0 table:0];
+    v22[2] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
 
-    v11 = [objc_alloc(MEMORY[0x1E69DCF38]) initWithItems:v10];
-    [v11 addTarget:self action:sel_mapTypeChanged_ forControlEvents:4096];
-    v12 = [objc_alloc(MEMORY[0x1E69DC708]) initWithCustomView:v11];
-    v13 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:5 target:0 action:0];
+    v12 = [objc_alloc(MEMORY[0x1E69DCF38]) initWithItems:v11];
+    [v12 addTarget:self action:sel_mapTypeChanged_ forControlEvents:4096];
+    v13 = [objc_alloc(MEMORY[0x1E69DC708]) initWithCustomView:v12];
     v14 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:5 target:0 action:0];
-    v20[0] = v13;
-    v20[1] = v12;
-    v20[2] = v14;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
-    [(SXMapComponentView *)self setToolbarItems:v15];
+    v15 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:5 target:0 action:0];
+    v21[0] = v14;
+    v21[1] = v13;
+    v21[2] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
+    [(SXMapComponentView *)self setToolbarItems:v16];
 
-    [(SXMapComponentView *)self setSegmentedControl:v11];
+    [(SXMapComponentView *)self setSegmentedControl:v12];
   }
 
   segmentedControl2 = [(SXMapComponentView *)self segmentedControl];

@@ -354,7 +354,7 @@ LABEL_11:
   return v10;
 }
 
-uint64_t __66__OKMediaEventClusterPredicate_clusterLocationStringForLocations___block_invoke(uint64_t a1, void *a2)
+void *__66__OKMediaEventClusterPredicate_clusterLocationStringForLocations___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [objc_msgSend(a2 "placemarks")];
   if ([v3 country] || objc_msgSend(v3, "administrativeArea") || objc_msgSend(v3, "subAdministrativeArea") || (result = objc_msgSend(v3, "locality")) != 0)

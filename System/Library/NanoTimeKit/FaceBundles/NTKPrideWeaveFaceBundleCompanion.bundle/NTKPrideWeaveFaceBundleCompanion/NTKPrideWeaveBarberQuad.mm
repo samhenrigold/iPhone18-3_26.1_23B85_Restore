@@ -347,64 +347,54 @@
     v9 = (self->_currentIndex + 1) % 3;
     self->_currentIndex = v9;
     contents = [(MTLBuffer *)self->_curvesBuffer[v9] contents];
-    maxWidthRect = self->_maxWidthRect;
-    viewMode = self->_viewMode;
     CLKInterpolateBetweenFloatsUnclipped();
-    v14 = v13;
-    v15 = ((self->_uniforms.screenWidth / self->_uniforms.screenHeight) - v14) - (self->_screenEdgeBuffer / self->_uniforms.screenWidth);
-    v16 = v15 * 3.14159265 / (v14 * 22.0);
-    v17 = sqrt(v16 * v16 + -1.0) / v15;
-    v18 = self->_winding * v17;
-    v19 = ((v15 * 0.2856) / sqrtf((((v15 * v15) * v18) * v18) + 1.0)) * 0.5;
-    if (v19 >= v14)
+    v12 = v11;
+    v13 = ((self->_uniforms.screenWidth / self->_uniforms.screenHeight) - v12) - (self->_screenEdgeBuffer / self->_uniforms.screenWidth);
+    v14 = v13 * 3.14159265 / (v12 * 22.0);
+    v15 = sqrt(v14 * v14 + -1.0) / v13;
+    v16 = self->_winding * v15;
+    v17 = ((v13 * 0.2856) / sqrtf((((v13 * v13) * v16) * v16) + 1.0)) * 0.5;
+    if (v17 >= v12)
     {
-      v20 = v14;
+      v18 = v12;
     }
 
     else
     {
-      v20 = v19;
+      v18 = v17;
     }
 
-    tritiumProgress = self->_tritiumProgress;
     CLKInterpolateBetweenFloatsUnclipped();
-    v22 = 0;
-    v24 = v23;
-    if (v20 >= v24)
+    v19 = 0;
+    v21 = v20;
+    if (v18 >= v21)
     {
-      v25 = v24;
+      v22 = v21;
     }
 
     else
     {
-      v25 = v20;
+      v22 = v18;
     }
 
-    v26 = contents + 16;
+    v23 = contents + 16;
     do
     {
-      *(v26 + 1) = LODWORD(self->_tritiumProgress);
-      v27 = v25 * self->_thickness;
-      *(v26 - 1) = v20;
-      *v26 = v27;
-      *(v26 - 4) = v15;
-      *(v26 - 3) = v18;
-      v28 = self->_rotation + (v22 / 22.0) * 3.14159265 * 2.0;
-      *(v26 - 2) = v28;
-      v29 = v22 - 11;
-      if (v22 < 0xB)
-      {
-        v29 = v22;
-      }
-
-      v30 = vmovl_s16(PRIDE_WEAVE_COLORS[v29]);
+      *(v23 + 1) = LODWORD(self->_tritiumProgress);
+      v24 = v22 * self->_thickness;
+      *(v23 - 1) = v18;
+      *v23 = v24;
+      *(v23 - 4) = v13;
+      *(v23 - 3) = v16;
+      v25 = self->_rotation + (v19 / 22.0) * 3.14159265 * 2.0;
+      *(v23 - 2) = v25;
       CLKUIConvertToRGBfFromSRGBf_fast();
-      *(v26 + 1) = v31;
-      ++v22;
-      v26 += 176;
+      *(v23 + 1) = v26;
+      ++v19;
+      v23 += 176;
     }
 
-    while (v22 != 22);
+    while (v19 != 22);
   }
 
   return thickness != 0.0;

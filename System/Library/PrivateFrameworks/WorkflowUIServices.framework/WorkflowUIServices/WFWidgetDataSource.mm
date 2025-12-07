@@ -11,7 +11,7 @@
 
 - (WFWidgetDataSource)initWithActions:(id)actions
 {
-  sub_1C8312180(0, &qword_1EC29C890);
+  sub_1C8312180(0, &qword_1EC29C890, 0x1E69E09F8);
   v3 = sub_1C840CFDC();
   return sub_1C836427C(v3, 1);
 }
@@ -32,7 +32,7 @@
   selfCopy = self;
   sub_1C836485C();
 
-  sub_1C8312180(0, &qword_1EC29C890);
+  sub_1C8312180(0, &qword_1EC29C890, 0x1E69E09F8);
   v3 = sub_1C840CFCC();
 
   return v3;
@@ -51,11 +51,12 @@
 
 + (id)systemActionForWorkflowIdentifier:(id)identifier
 {
-  sub_1C840CDDC();
+  v3 = sub_1C840CDDC();
+  v5 = v4;
   swift_getObjCClassMetadata();
-  v3 = sub_1C8365214();
+  v6 = sub_1C8365214(v3, v5);
 
-  return v3;
+  return v6;
 }
 
 - (id)folderIdentifierForDeepLinking

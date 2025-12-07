@@ -6,31 +6,30 @@
 
 - (id)npkPossiblyOverriddenPeerPaymentServiceURL
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   peerPaymentServiceURL = [self peerPaymentServiceURL];
   v2 = PKPeerPaymentServiceOverrideURL();
+  v3 = v2;
   if (v2)
   {
-    v3 = pk_Payment_log();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = pk_Payment_log(v2);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = pk_Payment_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_Payment_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138412290;
-        v10 = v2;
-        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Using overridden peer payment service url '%@' for registration.", &v9, 0xCu);
+        v10 = 138412290;
+        v11 = v3;
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Using overridden peer payment service url '%@' for registration.", &v10, 0xCu);
       }
     }
 
-    v6 = v2;
+    v8 = v3;
 
-    peerPaymentServiceURL = v6;
+    peerPaymentServiceURL = v8;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return peerPaymentServiceURL;
 }

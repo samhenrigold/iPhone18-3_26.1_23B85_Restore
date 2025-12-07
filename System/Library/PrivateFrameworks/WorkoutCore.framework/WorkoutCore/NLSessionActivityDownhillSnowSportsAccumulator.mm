@@ -19,8 +19,7 @@
 - (NSDate)distanceEndDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
+  MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v14 - v5;
   v7 = OBJC_IVAR___NLSessionActivityDownhillSnowSportsAccumulator_lastUpdated;
   swift_beginAccess();
@@ -84,9 +83,8 @@
 - (void)accumulatorDidStartWithStartDate:(id)date handler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v15 - v9;
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v16 - v9;
   v11 = _Block_copy(handler);
   if (date)
   {
@@ -103,13 +101,19 @@
 
   if (v11)
   {
-    *(swift_allocObject() + 16) = v11;
+    v14 = swift_allocObject();
+    *(v14 + 16) = v11;
     v11 = _sIeyB_Ieg_TRTA_7;
+  }
+
+  else
+  {
+    v14 = 0;
   }
 
   selfCopy = self;
   specialized DownhillSnowSportsAccumulator.accumulatorDidStart(withStart:handler:)();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v11, v14);
 
   _sSo8NSObjectCSgWOhTm_16(v10, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 }
@@ -124,8 +128,7 @@
 - (void)recoverWithDownhillRunEvents:(NSArray *)events pauseResumeEvents:(NSArray *)resumeEvents healthStore:(HKHealthStore *)store completionHandler:(id)handler
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
+  MEMORY[0x28223BE20](v11 - 8, v12);
   v14 = &v24 - v13;
   v15 = _Block_copy(handler);
   v16 = swift_allocObject();

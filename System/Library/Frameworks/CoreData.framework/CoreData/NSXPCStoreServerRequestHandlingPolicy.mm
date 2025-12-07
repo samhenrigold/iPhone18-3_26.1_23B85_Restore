@@ -37,323 +37,317 @@
 
 - (id)_coreProcessFetchRequest:(void *)request fromClientWithContext:(void *)context error:
 {
-  v81 = *MEMORY[0x1E69E9840];
-  if (self)
+  v80 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x3052000000;
-    v67 = __Block_byref_object_copy__1;
-    v68 = __Block_byref_object_dispose__1;
-    v69 = 0;
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x3052000000;
-    v61 = __Block_byref_object_copy__1;
-    v62 = __Block_byref_object_dispose__1;
-    v63 = 0;
-    v48 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-    managedObjectContext = [request managedObjectContext];
-    [a2 _resolveEntityWithContext:managedObjectContext];
-    if ([a2 resultType])
+    return 0;
+  }
+
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x3052000000;
+  v66 = __Block_byref_object_copy__1;
+  v67 = __Block_byref_object_dispose__1;
+  v68 = 0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x3052000000;
+  v60 = __Block_byref_object_copy__1;
+  v61 = __Block_byref_object_dispose__1;
+  v62 = 0;
+  v47 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  managedObjectContext = [request managedObjectContext];
+  [a2 _resolveEntityWithContext:managedObjectContext];
+  if ([a2 resultType])
+  {
+    v8 = 0;
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = [objc_msgSend(a2 "propertiesToFetch")] != 0;
+    relationshipKeyPathsForPrefetching = [a2 relationshipKeyPathsForPrefetching];
+    if (relationshipKeyPathsForPrefetching)
     {
-      v8 = 0;
-      v9 = 0;
-    }
-
-    else
-    {
-      v9 = [objc_msgSend(a2 "propertiesToFetch")] != 0;
-      relationshipKeyPathsForPrefetching = [a2 relationshipKeyPathsForPrefetching];
-      if (relationshipKeyPathsForPrefetching)
-      {
-        v8 = [_PFRoutines _coalescedPrefetchKeypaths:relationshipKeyPathsForPrefetching];
-        if (![v8 count])
-        {
-          v8 = 0;
-        }
-
-        if (+[NSXPCStoreServer debugDefault])
-        {
-          v22 = objc_autoreleasePoolPush();
-          _pflogInitialize(8);
-          if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
-          {
-            if (_pflogging_catastrophic_mode)
-            {
-              LogStream = _PFLogGetLogStream(1);
-              if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-              {
-                LODWORD(buf) = 138412290;
-                *(&buf + 4) = v8;
-                _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Coalesced prefetch keypaths to : %@\n", &buf, 0xCu);
-              }
-            }
-
-            else
-            {
-              v46 = _PFLogGetLogStream(8);
-              if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
-              {
-                LODWORD(buf) = 138412290;
-                *(&buf + 4) = v8;
-                _os_log_impl(&dword_18565F000, v46, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Coalesced prefetch keypaths to : %@\n", &buf, 0xCu);
-              }
-            }
-          }
-
-          if (_pflogging_catastrophic_mode)
-          {
-            v47 = 1;
-          }
-
-          else
-          {
-            v47 = 8;
-          }
-
-          _NSCoreDataLog_console(v47, "Coalesced prefetch keypaths to : %@", v8);
-          objc_autoreleasePoolPop(v22);
-        }
-      }
-
-      else
+      v8 = [_PFRoutines _coalescedPrefetchKeypaths:relationshipKeyPathsForPrefetching];
+      if (![v8 count])
       {
         v8 = 0;
-      }
-    }
-
-    [a2 setRelationshipKeyPathsForPrefetching:0];
-    includesPropertyValues = [a2 includesPropertyValues];
-    if (v8)
-    {
-      v11 = includesPropertyValues;
-    }
-
-    else
-    {
-      v11 = 1;
-    }
-
-    if ((v11 & 1) == 0 && [v8 count])
-    {
-      [a2 setIncludesPropertyValues:1];
-    }
-
-    persistentStoreCoordinator = [managedObjectContext persistentStoreCoordinator];
-    v13 = persistentStoreCoordinator;
-    if (request)
-    {
-      v14 = request[4];
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v54 = 0;
-    v55 = &v54;
-    v56 = 0x2020000000;
-    v57 = 0;
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromClientWithContext_error___block_invoke;
-    v53[3] = &unk_1E6EC1628;
-    v53[4] = a2;
-    v53[5] = v14;
-    v53[8] = &v64;
-    v53[9] = &v58;
-    v53[10] = &v54;
-    v53[6] = managedObjectContext;
-    v53[7] = self;
-    [persistentStoreCoordinator performBlockAndWait:v53];
-    v15 = v65[5];
-    v16 = v59[5];
-    v17 = v65[5];
-    v18 = v17 != 0;
-    if (v17)
-    {
-      *&buf = 0;
-      *(&buf + 1) = &buf;
-      v77 = 0x3052000000;
-      v78 = __Block_byref_object_copy__1;
-      v79 = __Block_byref_object_dispose__1;
-      v80 = 0;
-      if (v8)
-      {
-        if (!v9)
-        {
-          [a2 setResultType:1];
-        }
-
-        v19 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-        *v70 = 0;
-        v71 = v70;
-        v72 = 0x3052000000;
-        v73 = __Block_byref_object_copy__1;
-        v74 = __Block_byref_object_dispose__1;
-        v75 = 0;
-        v51[0] = MEMORY[0x1E69E9820];
-        v51[1] = 3221225472;
-        v51[2] = __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromClientWithContext_error___block_invoke_8;
-        v51[3] = &unk_1E6EC1650;
-        v52 = v9;
-        v51[6] = v70;
-        v51[7] = &v64;
-        v51[4] = a2;
-        v51[5] = v14;
-        v51[8] = &buf;
-        [v13 performBlockAndWait:v51];
-        v20 = [(NSXPCStoreServerRequestHandlingPolicy *)self prefetchRelationships:v8 forFetch:a2 sourceOIDs:*(v71 + 5) fromClientWithContext:request];
-
-        [v19 drain];
-        _Block_object_dispose(v70, 8);
-      }
-
-      else
-      {
-        v20 = 0;
-      }
-
-      if ((v55[3] & 1) == 0)
-      {
-        v26 = v65[5];
-        [a2 resultType];
-        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v26, v20, 0}];
-        v65[5] = v27;
-      }
-
-      if (*(*(&buf + 1) + 40))
-      {
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromClientWithContext_error___block_invoke_2;
-        v50[3] = &unk_1E6EC1330;
-        v50[4] = v14;
-        v50[5] = &buf;
-        [v13 performBlockAndWait:v50];
       }
 
       if (+[NSXPCStoreServer debugDefault])
       {
-        v28 = objc_autoreleasePoolPush();
+        v22 = objc_autoreleasePoolPush();
         _pflogInitialize(8);
         if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
         {
           if (_pflogging_catastrophic_mode)
           {
-            v29 = _PFLogGetLogStream(1);
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            LogStream = _PFLogGetLogStream(1);
+            if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
-              v30 = [v65[5] count];
-              *v70 = 67109120;
-              *&v70[4] = v30;
-              _os_log_error_impl(&dword_18565F000, v29, OS_LOG_TYPE_ERROR, "CoreData: error: Process fetch request got %d results.\n", v70, 8u);
+              LODWORD(buf) = 138412290;
+              *(&buf + 4) = v8;
+              _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Coalesced prefetch keypaths to : %@\n", &buf, 0xCu);
             }
           }
 
           else
           {
-            v31 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v45 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = [v65[5] count];
-              *v70 = 67109120;
-              *&v70[4] = v32;
-              _os_log_impl(&dword_18565F000, v31, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Process fetch request got %d results.\n", v70, 8u);
+              LODWORD(buf) = 138412290;
+              *(&buf + 4) = v8;
+              _os_log_impl(&dword_18565F000, v45, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Coalesced prefetch keypaths to : %@\n", &buf, 0xCu);
             }
           }
         }
 
-        v33 = v65[5];
         if (_pflogging_catastrophic_mode)
         {
-          v34 = [v33 count];
-          v35 = 1;
+          v46 = 1;
         }
 
         else
         {
-          v34 = [v33 count];
-          v35 = 8;
+          v46 = 8;
         }
 
-        _NSCoreDataLog_console(v35, "Process fetch request got %d results.", v34);
-        objc_autoreleasePoolPop(v28);
+        _NSCoreDataLog_console(v46, "Coalesced prefetch keypaths to : %@", v8);
+        objc_autoreleasePoolPop(v22);
       }
-
-      _Block_object_dispose(&buf, 8);
     }
 
-    else if (+[NSXPCStoreServer debugDefault])
+    else
     {
-      v24 = objc_autoreleasePoolPush();
+      v8 = 0;
+    }
+  }
+
+  [a2 setRelationshipKeyPathsForPrefetching:0];
+  includesPropertyValues = [a2 includesPropertyValues];
+  if (v8)
+  {
+    v11 = includesPropertyValues;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  if ((v11 & 1) == 0 && [v8 count])
+  {
+    [a2 setIncludesPropertyValues:1];
+  }
+
+  persistentStoreCoordinator = [managedObjectContext persistentStoreCoordinator];
+  v13 = persistentStoreCoordinator;
+  if (request)
+  {
+    v14 = request[4];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromClientWithContext_error___block_invoke;
+  v52[3] = &unk_1E6EC1628;
+  v52[4] = a2;
+  v52[5] = v14;
+  v52[8] = &v63;
+  v52[9] = &v57;
+  v52[10] = &v53;
+  v52[6] = managedObjectContext;
+  v52[7] = self;
+  [persistentStoreCoordinator performBlockAndWait:v52];
+  v15 = v64[5];
+  v16 = v58[5];
+  v17 = v64[5];
+  v18 = v17 != 0;
+  if (v17)
+  {
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v76 = 0x3052000000;
+    v77 = __Block_byref_object_copy__1;
+    v78 = __Block_byref_object_dispose__1;
+    v79 = 0;
+    if (v8)
+    {
+      if (!v9)
+      {
+        [a2 setResultType:1];
+      }
+
+      v19 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+      *v69 = 0;
+      v70 = v69;
+      v71 = 0x3052000000;
+      v72 = __Block_byref_object_copy__1;
+      v73 = __Block_byref_object_dispose__1;
+      v74 = 0;
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromClientWithContext_error___block_invoke_8;
+      v50[3] = &unk_1E6EC1650;
+      v51 = v9;
+      v50[6] = v69;
+      v50[7] = &v63;
+      v50[4] = a2;
+      v50[5] = v14;
+      v50[8] = &buf;
+      [v13 performBlockAndWait:v50];
+      v20 = [(NSXPCStoreServerRequestHandlingPolicy *)self prefetchRelationships:v8 forFetch:a2 sourceOIDs:*(v70 + 5) fromClientWithContext:request];
+
+      [v19 drain];
+      _Block_object_dispose(v69, 8);
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    if ((v54[3] & 1) == 0)
+    {
+      v26 = v64[5];
+      [a2 resultType];
+      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v26, v20, 0}];
+      v64[5] = v27;
+    }
+
+    if (*(*(&buf + 1) + 40))
+    {
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromClientWithContext_error___block_invoke_2;
+      v49[3] = &unk_1E6EC1330;
+      v49[4] = v14;
+      v49[5] = &buf;
+      [v13 performBlockAndWait:v49];
+    }
+
+    if (+[NSXPCStoreServer debugDefault])
+    {
+      v28 = objc_autoreleasePoolPush();
       _pflogInitialize(8);
       if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
       {
         if (_pflogging_catastrophic_mode)
         {
-          v25 = _PFLogGetLogStream(1);
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v29 = _PFLogGetLogStream(1);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(buf) = 0;
-            _os_log_error_impl(&dword_18565F000, v25, OS_LOG_TYPE_ERROR, "CoreData: error: Process fetch request got nil result (check system log for details).\n", &buf, 2u);
+            v30 = [v64[5] count];
+            *v69 = 67109120;
+            *&v69[4] = v30;
+            _os_log_error_impl(&dword_18565F000, v29, OS_LOG_TYPE_ERROR, "CoreData: error: Process fetch request got %d results.\n", v69, 8u);
           }
         }
 
         else
         {
-          v36 = _PFLogGetLogStream(8);
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v31 = _PFLogGetLogStream(8);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(buf) = 0;
-            _os_log_impl(&dword_18565F000, v36, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Process fetch request got nil result (check system log for details).\n", &buf, 2u);
+            v32 = [v64[5] count];
+            *v69 = 67109120;
+            *&v69[4] = v32;
+            _os_log_impl(&dword_18565F000, v31, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Process fetch request got %d results.\n", v69, 8u);
           }
         }
       }
 
+      v33 = v64[5];
       if (_pflogging_catastrophic_mode)
       {
-        v37 = 1;
+        v34 = [v33 count];
+        v35 = 1;
       }
 
       else
       {
-        v37 = 8;
+        v34 = [v33 count];
+        v35 = 8;
       }
 
-      _NSCoreDataLog_console(v37, "Process fetch request got nil result (check system log for details).");
-      objc_autoreleasePoolPop(v24);
+      _NSCoreDataLog_console(v35, "Process fetch request got %d results.", v34);
+      objc_autoreleasePoolPop(v28);
     }
 
-    _Block_object_dispose(&v54, 8);
-    v38 = v65[5];
-    v39 = v59[5];
-    if (context)
+    _Block_object_dispose(&buf, 8);
+  }
+
+  else if (+[NSXPCStoreServer debugDefault])
+  {
+    v24 = objc_autoreleasePoolPush();
+    _pflogInitialize(8);
+    if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
     {
-      v40 = v59[5];
-      if (v40)
+      if (_pflogging_catastrophic_mode)
       {
-        *context = v40;
+        v25 = _PFLogGetLogStream(1);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        {
+          LOWORD(buf) = 0;
+          _os_log_error_impl(&dword_18565F000, v25, OS_LOG_TYPE_ERROR, "CoreData: error: Process fetch request got nil result (check system log for details).\n", &buf, 2u);
+        }
+      }
+
+      else
+      {
+        v36 = _PFLogGetLogStream(8);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(buf) = 0;
+          _os_log_impl(&dword_18565F000, v36, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Process fetch request got nil result (check system log for details).\n", &buf, 2u);
+        }
       }
     }
 
-    [v48 drain];
-    v41 = 0;
-    v42 = v59[5];
-    if (v18)
+    if (_pflogging_catastrophic_mode)
     {
-      v43 = v65[5];
+      v37 = 1;
     }
 
     else
     {
-      v43 = 0;
+      v37 = 8;
     }
 
-    _Block_object_dispose(&v58, 8);
-    _Block_object_dispose(&v64, 8);
+    _NSCoreDataLog_console(v37, "Process fetch request got nil result (check system log for details).");
+    objc_autoreleasePoolPop(v24);
+  }
+
+  _Block_object_dispose(&v53, 8);
+  v38 = v64[5];
+  v39 = v58[5];
+  if (context)
+  {
+    v40 = v58[5];
+    if (v40)
+    {
+      *context = v40;
+    }
+  }
+
+  [v47 drain];
+  v41 = 0;
+  v42 = v58[5];
+  if (v18)
+  {
+    v43 = v64[5];
   }
 
   else
@@ -361,7 +355,8 @@
     v43 = 0;
   }
 
-  v44 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v63, 8);
   return v43;
 }
 
@@ -398,56 +393,54 @@ id __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromClie
 
 void __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromClientWithContext_error___block_invoke_8(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (*(a1 + 72))
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v3 = [_NSXPCStoreUtilities _decodeResultSetData:*(a1 + 32) forFetchRequest:0 options:*(a1 + 40) store:0 context:(*(*(a1 + 64) + 8) + 40) rowCacheRows:0 error:?];
+    v10 = 0u;
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v4 = [(_PFArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [(_PFArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [v2 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "valueAtIndex:", 0)}];
+          [v2 addObject:{objc_msgSend(*(*(&v10 + 1) + 8 * i), "valueAtIndex:", 0)}];
         }
 
-        v5 = [(_PFArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [(_PFArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
     }
 
     *(*(*(a1 + 48) + 8) + 40) = v2;
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     *(*(*(a1 + 48) + 8) + 40) = [_NSXPCStoreUtilities _decodeResultSetData:*(a1 + 32) forFetchRequest:0 options:*(a1 + 40) store:0 context:(*(*(a1 + 64) + 8) + 40) rowCacheRows:0 error:?];
-    v9 = *(a1 + 40);
-    v10 = *(*(*(a1 + 64) + 8) + 40);
-    v11 = *MEMORY[0x1E69E9840];
+    v8 = *(a1 + 40);
+    v9 = *(*(*(a1 + 64) + 8) + 40);
 
-    [(NSSQLCore *)v9 _cacheRows:v10];
+    [(NSSQLCore *)v8 _cacheRows:v9];
   }
 }
 
 - (id)prefetchRelationships:(void *)relationships forFetch:(void *)fetch sourceOIDs:(void *)ds fromClientWithContext:
 {
-  v267[1] = *MEMORY[0x1E69E9840];
+  v265[1] = *MEMORY[0x1E69E9840];
   if (+[NSXPCStoreServer debugDefault])
   {
     v7 = objc_autoreleasePoolPush();
@@ -505,32 +498,32 @@ void __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromCl
     result = [a2 count];
     if (result)
     {
-      v156 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v148 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+      v154 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v146 = objc_alloc_init(MEMORY[0x1E696AAC8]);
       entity = [relationships entity];
-      v189 = 0u;
-      v190 = 0u;
       v187 = 0u;
       v188 = 0u;
-      v150 = [a2 countByEnumeratingWithState:&v187 objects:v237 count:16];
-      if (!v150)
+      v185 = 0u;
+      v186 = 0u;
+      v148 = [a2 countByEnumeratingWithState:&v185 objects:v235 count:16];
+      if (!v148)
       {
         goto LABEL_227;
       }
 
-      v149 = *v188;
+      v147 = *v186;
       while (1)
       {
-        for (i = 0; i != v150; ++i)
+        for (i = 0; i != v148; ++i)
         {
-          if (*v188 != v149)
+          if (*v186 != v147)
           {
             objc_enumerationMutation(a2);
           }
 
-          v172 = *(*(&v187 + 1) + 8 * i);
+          v170 = *(*(&v185 + 1) + 8 * i);
           context = objc_autoreleasePoolPush();
-          v12 = [a2 objectForKey:v172];
+          v12 = [a2 objectForKey:v170];
           if ([v12 count])
           {
             v13 = v12;
@@ -541,7 +534,7 @@ void __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromCl
             v13 = 0;
           }
 
-          v155 = v13;
+          v153 = v13;
           if (+[NSXPCStoreServer debugDefault])
           {
             v14 = objc_autoreleasePoolPush();
@@ -554,9 +547,9 @@ void __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromCl
                 if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  *&buf[4] = v172;
+                  *&buf[4] = v170;
                   *&buf[12] = 2112;
-                  *&buf[14] = v155;
+                  *&buf[14] = v153;
                   _os_log_error_impl(&dword_18565F000, v15, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetching %@, subkeypaths = %@\n", buf, 0x16u);
                 }
               }
@@ -567,9 +560,9 @@ void __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromCl
                 if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  *&buf[4] = v172;
+                  *&buf[4] = v170;
                   *&buf[12] = 2112;
-                  *&buf[14] = v155;
+                  *&buf[14] = v153;
                   _os_log_impl(&dword_18565F000, v16, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetching %@, subkeypaths = %@\n", buf, 0x16u);
                 }
               }
@@ -585,7 +578,7 @@ void __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromCl
               v17 = 8;
             }
 
-            _NSCoreDataLog_console(v17, "Prefetching %@, subkeypaths = %@", v172, v155);
+            _NSCoreDataLog_console(v17, "Prefetching %@, subkeypaths = %@", v170, v153);
             objc_autoreleasePoolPop(v14);
           }
 
@@ -602,178 +595,178 @@ void __94__NSXPCStoreServerRequestHandlingPolicy__coreProcessFetchRequest_fromCl
               goto LABEL_225;
             }
 
-            v133 = [objc_msgSend(entity "subentities")];
+            v132 = [objc_msgSend(entity "subentities")];
             array = [MEMORY[0x1E695DF70] array];
-            while ([v133 count])
+            while ([v132 count])
             {
-              v134 = [v133 objectAtIndex:0];
-              [v133 removeObjectAtIndex:0];
-              if ([objc_msgSend(v134 "relationshipsByName")])
+              v133 = [v132 objectAtIndex:0];
+              [v132 removeObjectAtIndex:0];
+              if ([objc_msgSend(v133 "relationshipsByName")])
               {
-                [array addObject:v134];
+                [array addObject:v133];
               }
 
-              else if ([objc_msgSend(v134 "subentitiesByName")])
+              else if ([objc_msgSend(v133 "subentitiesByName")])
               {
-                [v133 addObjectsFromArray:{objc_msgSend(v134, "subentities")}];
+                [v132 addObjectsFromArray:{objc_msgSend(v133, "subentities")}];
               }
             }
 
             if ([array count])
             {
-              v185 = 0u;
-              v186 = 0u;
               v183 = 0u;
               v184 = 0u;
-              v171 = [array countByEnumeratingWithState:&v183 objects:v236 count:16];
-              if (v171)
+              v181 = 0u;
+              v182 = 0u;
+              v169 = [array countByEnumeratingWithState:&v181 objects:v234 count:16];
+              if (v169)
               {
-                v135 = 0;
-                v167 = *v184;
+                v134 = 0;
+                v165 = *v182;
                 do
                 {
-                  v136 = 0;
+                  v135 = 0;
                   do
                   {
-                    if (*v184 != v167)
+                    if (*v182 != v165)
                     {
-                      v137 = v136;
+                      v136 = v135;
                       objc_enumerationMutation(array);
-                      v136 = v137;
+                      v135 = v136;
                     }
 
-                    v174 = v136;
-                    v138 = *(*(&v183 + 1) + 8 * v136);
-                    v139 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                    v181 = 0u;
-                    v182 = 0u;
+                    v172 = v135;
+                    v137 = *(*(&v181 + 1) + 8 * v135);
+                    v138 = objc_alloc_init(MEMORY[0x1E695DF70]);
                     v179 = 0u;
                     v180 = 0u;
-                    v140 = [fetch countByEnumeratingWithState:&v179 objects:v235 count:16];
-                    if (v140)
+                    v177 = 0u;
+                    v178 = 0u;
+                    v139 = [fetch countByEnumeratingWithState:&v177 objects:v233 count:16];
+                    if (v139)
                     {
-                      v141 = *v180;
+                      v140 = *v178;
                       do
                       {
-                        for (j = 0; j != v140; ++j)
+                        for (j = 0; j != v139; ++j)
                         {
-                          if (*v180 != v141)
+                          if (*v178 != v140)
                           {
                             objc_enumerationMutation(fetch);
                           }
 
-                          v143 = *(*(&v179 + 1) + 8 * j);
-                          entity2 = [v143 entity];
-                          v145 = entity2;
-                          v146 = entity2 == v138 || entity2 == v135;
-                          if (v146 || [entity2 isKindOfEntity:v138])
+                          v142 = *(*(&v177 + 1) + 8 * j);
+                          entity2 = [v142 entity];
+                          v144 = entity2;
+                          v145 = entity2 == v137 || entity2 == v134;
+                          if (v145 || [entity2 isKindOfEntity:v137])
                           {
-                            [v139 addObject:v143];
-                            if (v145 != v138)
+                            [v138 addObject:v142];
+                            if (v144 != v137)
                             {
-                              v135 = v145;
+                              v134 = v144;
                             }
                           }
                         }
 
-                        v140 = [fetch countByEnumeratingWithState:&v179 objects:v235 count:16];
+                        v139 = [fetch countByEnumeratingWithState:&v177 objects:v233 count:16];
                       }
 
-                      while (v140);
+                      while (v139);
                     }
 
-                    if ([v139 count])
+                    if ([v138 count])
                     {
-                      [dictionary setObject:v139 forKey:{objc_msgSend(v138, "name")}];
+                      [dictionary setObject:v138 forKey:{objc_msgSend(v137, "name")}];
                     }
 
-                    v136 = v174 + 1;
+                    v135 = v172 + 1;
                   }
 
-                  while (v174 + 1 != v171);
-                  v171 = [array countByEnumeratingWithState:&v183 objects:v236 count:16];
+                  while (v172 + 1 != v169);
+                  v169 = [array countByEnumeratingWithState:&v181 objects:v234 count:16];
                 }
 
-                while (v171);
+                while (v169);
               }
             }
           }
 
           if ([dictionary count])
           {
-            v177 = 0u;
-            v178 = 0u;
             v175 = 0u;
             v176 = 0u;
-            v166 = [dictionary countByEnumeratingWithState:&v175 objects:v234 count:16];
-            if (v166)
+            v173 = 0u;
+            v174 = 0u;
+            v164 = [dictionary countByEnumeratingWithState:&v173 objects:v232 count:16];
+            if (v164)
             {
-              v162 = *v176;
+              v160 = *v174;
               do
               {
                 v18 = 0;
                 do
                 {
-                  if (*v176 != v162)
+                  if (*v174 != v160)
                   {
                     objc_enumerationMutation(dictionary);
                   }
 
-                  v19 = *(*(&v175 + 1) + 8 * v18);
+                  v19 = *(*(&v173 + 1) + 8 * v18);
                   v20 = objc_autoreleasePoolPush();
-                  v173 = [objc_msgSend(objc_msgSend(entity "managedObjectModel")];
-                  if (v173)
+                  v171 = [objc_msgSend(objc_msgSend(entity "managedObjectModel")];
+                  if (v171)
                   {
                     v21 = [dictionary objectForKey:v19];
                     managedObjectContext = [ds managedObjectContext];
                     persistentStoreCoordinator = [managedObjectContext persistentStoreCoordinator];
                     if (ds && (v22 = ds[4]) != 0)
                     {
-                      v157 = v22[6];
-                      v158 = ds[4];
-                      v23 = _sqlCoreLookupSQLEntityForEntityDescription(v22, v173);
+                      v155 = v22[6];
+                      v156 = ds[4];
+                      v23 = _sqlCoreLookupSQLEntityForEntityDescription(v22, v171);
                       v24 = v23;
                       if (v23)
                       {
-                        v25 = [*(v23 + 40) objectForKey:v172];
-                        v164 = 0;
+                        v25 = [*(v23 + 40) objectForKey:v170];
+                        v162 = 0;
 LABEL_49:
-                        v26 = [(NSEntityDescription *)v173 _relationshipNamed:v172];
+                        v26 = [(NSEntityDescription *)v171 _relationshipNamed:v170];
                         if (!v25 || !v26 || ![v21 count])
                         {
                           v31 = MEMORY[0x1E695DEC8];
-                          name = [v173 name];
-                          v33 = [v31 arrayWithObjects:{v172, name, NSArray_EmptyArray, 0}];
+                          name = [v171 name];
+                          v33 = [v31 arrayWithObjects:{v170, name, NSArray_EmptyArray, 0}];
                           goto LABEL_178;
                         }
 
                         v27 = *(v25 + 56);
-                        v228 = 0;
-                        v229 = &v228;
-                        v230 = 0x3052000000;
-                        v231 = __Block_byref_object_copy__1;
-                        v232 = __Block_byref_object_dispose__1;
-                        v233 = 0;
-                        v222 = 0;
-                        v223 = &v222;
-                        v224 = 0x3052000000;
-                        v225 = __Block_byref_object_copy__1;
-                        v226 = __Block_byref_object_dispose__1;
-                        v227 = 0;
-                        v216 = 0;
-                        v217 = &v216;
-                        v218 = 0x3052000000;
-                        v219 = __Block_byref_object_copy__1;
-                        v220 = __Block_byref_object_dispose__1;
-                        v221 = NSArray_EmptyArray;
-                        v210 = 0;
-                        v211 = &v210;
-                        v212 = 0x3052000000;
-                        v213 = __Block_byref_object_copy__1;
-                        v214 = __Block_byref_object_dispose__1;
-                        v215 = 0;
-                        v160 = v20;
-                        v161 = v18;
+                        v226 = 0;
+                        v227 = &v226;
+                        v228 = 0x3052000000;
+                        v229 = __Block_byref_object_copy__1;
+                        v230 = __Block_byref_object_dispose__1;
+                        v231 = 0;
+                        v220 = 0;
+                        v221 = &v220;
+                        v222 = 0x3052000000;
+                        v223 = __Block_byref_object_copy__1;
+                        v224 = __Block_byref_object_dispose__1;
+                        v225 = 0;
+                        v214 = 0;
+                        v215 = &v214;
+                        v216 = 0x3052000000;
+                        v217 = __Block_byref_object_copy__1;
+                        v218 = __Block_byref_object_dispose__1;
+                        v219 = NSArray_EmptyArray;
+                        v208 = 0;
+                        v209 = &v208;
+                        v210 = 0x3052000000;
+                        v211 = __Block_byref_object_copy__1;
+                        v212 = __Block_byref_object_dispose__1;
+                        v213 = 0;
+                        v158 = v20;
+                        v159 = v18;
                         if (v27 && v27[24] == 7)
                         {
                           if (+[NSXPCStoreServer debugDefault])
@@ -788,9 +781,9 @@ LABEL_49:
                                 if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
                                 {
                                   name2 = [v27 name];
-                                  *v262 = 138412290;
-                                  *&v262[4] = name2;
-                                  _os_log_error_impl(&dword_18565F000, v29, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetching inverse to-one relationship %@.\n", v262, 0xCu);
+                                  *v260 = 138412290;
+                                  *&v260[4] = name2;
+                                  _os_log_error_impl(&dword_18565F000, v29, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetching inverse to-one relationship %@.\n", v260, 0xCu);
                                 }
                               }
 
@@ -800,9 +793,9 @@ LABEL_49:
                                 if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
                                 {
                                   name3 = [v27 name];
-                                  *v262 = 138412290;
-                                  *&v262[4] = name3;
-                                  _os_log_impl(&dword_18565F000, v63, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetching inverse to-one relationship %@.\n", v262, 0xCu);
+                                  *v260 = 138412290;
+                                  *&v260[4] = name3;
+                                  _os_log_impl(&dword_18565F000, v63, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetching inverse to-one relationship %@.\n", v260, 0xCu);
                                 }
                               }
                             }
@@ -823,38 +816,38 @@ LABEL_49:
                             objc_autoreleasePoolPop(v28);
                           }
 
-                          v67 = [ds inverseIsToOnePrefetchRequestForRelationshipNamed:v172 onEntity:v173];
-                          v229[5] = v67;
-                          v266 = @"destinations";
-                          v267[0] = [MEMORY[0x1E696ABC8] expressionForConstantValue:v21];
-                          v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v267 forKeys:&v266 count:1];
+                          v67 = [ds inverseIsToOnePrefetchRequestForRelationshipNamed:v170 onEntity:v171];
+                          v227[5] = v67;
+                          v264 = @"destinations";
+                          v265[0] = [MEMORY[0x1E696ABC8] expressionForConstantValue:v21];
+                          v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v265 forKeys:&v264 count:1];
 LABEL_98:
-                          v223[5] = v68;
+                          v221[5] = v68;
 
-                          v211[5] = 0;
-                          *v262 = 0;
-                          *&v262[8] = v262;
-                          *&v262[16] = 0x3052000000;
-                          v263 = __Block_byref_object_copy__1;
-                          v264 = __Block_byref_object_dispose__1;
-                          v265 = 0;
-                          v203 = 0;
-                          v204 = &v203;
-                          v205 = 0x3052000000;
-                          v206 = __Block_byref_object_copy__1;
-                          v207 = __Block_byref_object_dispose__1;
-                          v208 = 0;
-                          v197 = 0;
-                          v198 = &v197;
-                          v199 = 0x3052000000;
-                          v200 = __Block_byref_object_copy__1;
-                          v201 = __Block_byref_object_dispose__1;
-                          v202 = 0;
-                          v193 = 0;
-                          v194 = &v193;
-                          v195 = 0x2020000000;
-                          v196 = 0;
-                          v69 = v229[5];
+                          v209[5] = 0;
+                          *v260 = 0;
+                          *&v260[8] = v260;
+                          *&v260[16] = 0x3052000000;
+                          v261 = __Block_byref_object_copy__1;
+                          v262 = __Block_byref_object_dispose__1;
+                          v263 = 0;
+                          v201 = 0;
+                          v202 = &v201;
+                          v203 = 0x3052000000;
+                          v204 = __Block_byref_object_copy__1;
+                          v205 = __Block_byref_object_dispose__1;
+                          v206 = 0;
+                          v195 = 0;
+                          v196 = &v195;
+                          v197 = 0x3052000000;
+                          v198 = __Block_byref_object_copy__1;
+                          v199 = __Block_byref_object_dispose__1;
+                          v200 = 0;
+                          v191 = 0;
+                          v192 = &v191;
+                          v193 = 0x2020000000;
+                          v194 = 0;
+                          v69 = v227[5];
                           if (!v69)
                           {
                             goto LABEL_101;
@@ -863,30 +856,30 @@ LABEL_98:
                           v70 = [self restrictingReadPredicateForEntity:objc_msgSend(v69 fromClientWithContext:{"entity"), ds}];
                           if (_MergedGlobals_64 != v70)
                           {
-                            v229[5] = 0;
+                            v227[5] = 0;
                             goto LABEL_101;
                           }
 
-                          if (v229[5])
+                          if (v227[5])
                           {
                             *buf = MEMORY[0x1E69E9820];
                             *&buf[8] = 3221225472;
                             *&buf[16] = __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke_59;
                             fetchCopy2 = &unk_1E6EC16C8;
-                            v254 = &v228;
-                            v255 = v262;
-                            v248 = v158;
-                            v249 = managedObjectContext;
-                            v256 = &v222;
-                            v257 = &v210;
-                            v258 = &v203;
-                            v259 = &v197;
+                            v252 = &v226;
+                            v253 = v260;
+                            v246 = v156;
+                            v247 = managedObjectContext;
+                            v254 = &v220;
+                            v255 = &v208;
+                            v256 = &v201;
+                            v257 = &v195;
+                            v248 = v153;
+                            v249 = v170;
+                            v258 = &v214;
+                            v259 = &v191;
                             v250 = v155;
-                            v251 = v172;
-                            v260 = &v216;
-                            v261 = &v193;
-                            v252 = v157;
-                            v253 = v173;
+                            v251 = v171;
                             [persistentStoreCoordinator performBlockAndWait:buf];
                             if (+[NSXPCStoreServer debugDefault])
                             {
@@ -899,61 +892,61 @@ LABEL_98:
                                   v80 = _PFLogGetLogStream(1);
                                   if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
                                   {
-                                    name5 = [v173 name];
-                                    v82 = [*(*&v262[8] + 40) length];
-                                    *v238 = 138412802;
-                                    v239 = name5;
-                                    v240 = 2112;
-                                    v241 = v172;
-                                    v242 = 2048;
-                                    v243 = v82;
-                                    _os_log_error_impl(&dword_18565F000, v80, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetched for source entity %@, key '%@'.  Got data with length %lu.\n", v238, 0x20u);
+                                    name5 = [v171 name];
+                                    v82 = [*(*&v260[8] + 40) length];
+                                    *v236 = 138412802;
+                                    v237 = name5;
+                                    v238 = 2112;
+                                    v239 = v170;
+                                    v240 = 2048;
+                                    v241 = v82;
+                                    _os_log_error_impl(&dword_18565F000, v80, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetched for source entity %@, key '%@'.  Got data with length %lu.\n", v236, 0x20u);
                                   }
                                 }
 
                                 else
                                 {
-                                  v126 = _PFLogGetLogStream(8);
-                                  if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
+                                  v125 = _PFLogGetLogStream(8);
+                                  if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    name6 = [v173 name];
-                                    v128 = [*(*&v262[8] + 40) length];
-                                    *v238 = 138412802;
-                                    v239 = name6;
-                                    v240 = 2112;
-                                    v241 = v172;
-                                    v242 = 2048;
-                                    v243 = v128;
-                                    _os_log_impl(&dword_18565F000, v126, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched for source entity %@, key '%@'.  Got data with length %lu.\n", v238, 0x20u);
+                                    name6 = [v171 name];
+                                    v127 = [*(*&v260[8] + 40) length];
+                                    *v236 = 138412802;
+                                    v237 = name6;
+                                    v238 = 2112;
+                                    v239 = v170;
+                                    v240 = 2048;
+                                    v241 = v127;
+                                    _os_log_impl(&dword_18565F000, v125, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched for source entity %@, key '%@'.  Got data with length %lu.\n", v236, 0x20u);
                                   }
                                 }
                               }
 
                               if (_pflogging_catastrophic_mode)
                               {
-                                name7 = [v173 name];
-                                v130 = [*(*&v262[8] + 40) length];
-                                v131 = 1;
+                                name7 = [v171 name];
+                                v129 = [*(*&v260[8] + 40) length];
+                                v130 = 1;
                               }
 
                               else
                               {
-                                name7 = [v173 name];
-                                v130 = [*(*&v262[8] + 40) length];
-                                v131 = 8;
+                                name7 = [v171 name];
+                                v129 = [*(*&v260[8] + 40) length];
+                                v130 = 8;
                               }
 
-                              _NSCoreDataLog_console(v131, "Prefetched for source entity %@, key '%@'.  Got data with length %lu.", name7, v172, v130);
+                              _NSCoreDataLog_console(v130, "Prefetched for source entity %@, key '%@'.  Got data with length %lu.", name7, v170, v129);
                               objc_autoreleasePoolPop(v79);
                             }
 
-                            v71 = *&v262[8];
-                            if (*(v194 + 24) == 1)
+                            v71 = *&v260[8];
+                            if (*(v192 + 24) == 1)
                             {
 
-                              *(*&v262[8] + 40) = 0;
+                              *(*&v260[8] + 40) = 0;
                               v77 = MEMORY[0x1E695DEC8];
-                              name8 = [v173 name];
+                              name8 = [v171 name];
                               goto LABEL_113;
                             }
                           }
@@ -961,12 +954,12 @@ LABEL_98:
                           else
                           {
 LABEL_101:
-                            v71 = *&v262[8];
+                            v71 = *&v260[8];
                           }
 
                           if (*(v71 + 40))
                           {
-                            if (v155)
+                            if (v153)
                             {
                               if (+[NSXPCStoreServer debugDefault])
                               {
@@ -979,18 +972,18 @@ LABEL_101:
                                     v73 = _PFLogGetLogStream(1);
                                     if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
                                     {
-                                      v74 = v229[5];
-                                      v75 = v211[5];
-                                      v76 = v204[5];
-                                      *v238 = 138413058;
-                                      v239 = v155;
+                                      v74 = v227[5];
+                                      v75 = v209[5];
+                                      v76 = v202[5];
+                                      *v236 = 138413058;
+                                      v237 = v153;
+                                      v238 = 2112;
+                                      v239 = v74;
                                       v240 = 2112;
-                                      v241 = v74;
+                                      v241 = v75;
                                       v242 = 2112;
-                                      v243 = v75;
-                                      v244 = 2112;
-                                      v245 = v76;
-                                      _os_log_error_impl(&dword_18565F000, v73, OS_LOG_TYPE_ERROR, "CoreData: error: Recursively prefetching subkeys %@ of fetch %@ using OIDs %@ for objects %@\n", v238, 0x2Au);
+                                      v243 = v76;
+                                      _os_log_error_impl(&dword_18565F000, v73, OS_LOG_TYPE_ERROR, "CoreData: error: Recursively prefetching subkeys %@ of fetch %@ using OIDs %@ for objects %@\n", v236, 0x2Au);
                                     }
                                   }
 
@@ -999,18 +992,18 @@ LABEL_101:
                                     v84 = _PFLogGetLogStream(8);
                                     if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
                                     {
-                                      v85 = v229[5];
-                                      v86 = v211[5];
-                                      v87 = v204[5];
-                                      *v238 = 138413058;
-                                      v239 = v155;
+                                      v85 = v227[5];
+                                      v86 = v209[5];
+                                      v87 = v202[5];
+                                      *v236 = 138413058;
+                                      v237 = v153;
+                                      v238 = 2112;
+                                      v239 = v85;
                                       v240 = 2112;
-                                      v241 = v85;
+                                      v241 = v86;
                                       v242 = 2112;
-                                      v243 = v86;
-                                      v244 = 2112;
-                                      v245 = v87;
-                                      _os_log_impl(&dword_18565F000, v84, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Recursively prefetching subkeys %@ of fetch %@ using OIDs %@ for objects %@\n", v238, 0x2Au);
+                                      v243 = v87;
+                                      _os_log_impl(&dword_18565F000, v84, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Recursively prefetching subkeys %@ of fetch %@ using OIDs %@ for objects %@\n", v236, 0x2Au);
                                     }
                                   }
                                 }
@@ -1025,12 +1018,12 @@ LABEL_101:
                                   v88 = 8;
                                 }
 
-                                _NSCoreDataLog_console(v88, "Recursively prefetching subkeys %@ of fetch %@ using OIDs %@ for objects %@", v155, v229[5], v211[5], v204[5]);
+                                _NSCoreDataLog_console(v88, "Recursively prefetching subkeys %@ of fetch %@ using OIDs %@ for objects %@", v153, v227[5], v209[5], v202[5]);
                                 objc_autoreleasePoolPop(v72);
                               }
 
                               v89 = [_PFRoutines newArrayOfObjectIDsFromCollection:?];
-                              v83 = [(NSXPCStoreServerRequestHandlingPolicy *)self prefetchRelationships:v155 forFetch:v229[5] sourceOIDs:v89 fromClientWithContext:ds];
+                              v83 = [(NSXPCStoreServerRequestHandlingPolicy *)self prefetchRelationships:v153 forFetch:v227[5] sourceOIDs:v89 fromClientWithContext:ds];
                             }
 
                             else
@@ -1049,12 +1042,12 @@ LABEL_101:
                                   v91 = _PFLogGetLogStream(1);
                                   if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
                                   {
-                                    name9 = [v173 name];
-                                    *v238 = 138412546;
-                                    v239 = name9;
-                                    v240 = 2112;
-                                    v241 = v172;
-                                    _os_log_error_impl(&dword_18565F000, v91, OS_LOG_TYPE_ERROR, "CoreData: error: Done prefetching for %@, %@\n", v238, 0x16u);
+                                    name9 = [v171 name];
+                                    *v236 = 138412546;
+                                    v237 = name9;
+                                    v238 = 2112;
+                                    v239 = v170;
+                                    _os_log_error_impl(&dword_18565F000, v91, OS_LOG_TYPE_ERROR, "CoreData: error: Done prefetching for %@, %@\n", v236, 0x16u);
                                   }
                                 }
 
@@ -1063,80 +1056,79 @@ LABEL_101:
                                   v93 = _PFLogGetLogStream(8);
                                   if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    name10 = [v173 name];
-                                    *v238 = 138412546;
-                                    v239 = name10;
-                                    v240 = 2112;
-                                    v241 = v172;
-                                    _os_log_impl(&dword_18565F000, v93, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Done prefetching for %@, %@\n", v238, 0x16u);
+                                    name10 = [v171 name];
+                                    *v236 = 138412546;
+                                    v237 = name10;
+                                    v238 = 2112;
+                                    v239 = v170;
+                                    _os_log_impl(&dword_18565F000, v93, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Done prefetching for %@, %@\n", v236, 0x16u);
                                   }
                                 }
                               }
 
                               if (_pflogging_catastrophic_mode)
                               {
-                                name11 = [v173 name];
+                                name11 = [v171 name];
                                 v96 = 1;
                               }
 
                               else
                               {
-                                name11 = [v173 name];
+                                name11 = [v171 name];
                                 v96 = 8;
                               }
 
-                              _NSCoreDataLog_console(v96, "Done prefetching for %@, %@", name11, v172);
+                              _NSCoreDataLog_console(v96, "Done prefetching for %@, %@", name11, v170);
                               objc_autoreleasePoolPop(v90);
                             }
 
                             v97 = MEMORY[0x1E695DEC8];
-                            name12 = [v173 name];
-                            v99 = v217[5];
-                            v33 = [v97 arrayWithObjects:{v172, name12, v99, *(*&v262[8] + 40), v83, 0}];
+                            name12 = [v171 name];
+                            v33 = [v97 arrayWithObjects:{v170, name12, v215[5], *(*&v260[8] + 40), v83, 0}];
 
-                            if (v198[5])
+                            if (v196[5])
                             {
-                              v191[0] = MEMORY[0x1E69E9820];
-                              v191[1] = 3221225472;
-                              v191[2] = __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke_69;
-                              v191[3] = &unk_1E6EC1330;
-                              v191[4] = v158;
-                              v191[5] = &v197;
-                              [persistentStoreCoordinator performBlockAndWait:v191];
+                              v189[0] = MEMORY[0x1E69E9820];
+                              v189[1] = 3221225472;
+                              v189[2] = __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke_69;
+                              v189[3] = &unk_1E6EC1330;
+                              v189[4] = v156;
+                              v189[5] = &v195;
+                              [persistentStoreCoordinator performBlockAndWait:v189];
                             }
                           }
 
                           else
                           {
 
-                            if (v198[5])
+                            if (v196[5])
                             {
-                              v192[0] = MEMORY[0x1E69E9820];
-                              v192[1] = 3221225472;
-                              v192[2] = __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke_65;
-                              v192[3] = &unk_1E6EC1330;
-                              v192[4] = v158;
-                              v192[5] = &v197;
-                              [persistentStoreCoordinator performBlockAndWait:v192];
+                              v190[0] = MEMORY[0x1E69E9820];
+                              v190[1] = 3221225472;
+                              v190[2] = __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke_65;
+                              v190[3] = &unk_1E6EC1330;
+                              v190[4] = v156;
+                              v190[5] = &v195;
+                              [persistentStoreCoordinator performBlockAndWait:v190];
                             }
 
                             v77 = MEMORY[0x1E695DEC8];
-                            name8 = [v173 name];
+                            name8 = [v171 name];
 LABEL_113:
-                            v33 = [v77 arrayWithObjects:{v172, name8, NSArray_EmptyArray, 0}];
+                            v33 = [v77 arrayWithObjects:{v170, name8, NSArray_EmptyArray, 0}];
                           }
 
-                          _Block_object_dispose(&v193, 8);
-                          _Block_object_dispose(&v197, 8);
-                          _Block_object_dispose(&v203, 8);
-                          _Block_object_dispose(v262, 8);
+                          _Block_object_dispose(&v191, 8);
+                          _Block_object_dispose(&v195, 8);
+                          _Block_object_dispose(&v201, 8);
+                          _Block_object_dispose(v260, 8);
 LABEL_177:
-                          _Block_object_dispose(&v210, 8);
-                          _Block_object_dispose(&v216, 8);
-                          _Block_object_dispose(&v222, 8);
-                          _Block_object_dispose(&v228, 8);
+                          _Block_object_dispose(&v208, 8);
+                          _Block_object_dispose(&v214, 8);
+                          _Block_object_dispose(&v220, 8);
+                          _Block_object_dispose(&v226, 8);
 LABEL_178:
-                          [v156 addObject:v33];
+                          [v154 addObject:v33];
                           goto LABEL_179;
                         }
 
@@ -1157,16 +1149,16 @@ LABEL_178:
                             [(NSFetchRequest *)v40 setPredicate:v39];
 
                             v41 = v40;
-                            v217[5] = 0;
-                            v209[0] = MEMORY[0x1E69E9820];
-                            v209[1] = 3221225472;
-                            v209[2] = __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke;
-                            v209[3] = &unk_1E6EC16A0;
-                            v209[4] = v158;
-                            v209[5] = v40;
-                            v209[7] = &v216;
-                            v209[6] = v21;
-                            [persistentStoreCoordinator performBlockAndWait:v209];
+                            v215[5] = 0;
+                            v207[0] = MEMORY[0x1E69E9820];
+                            v207[1] = 3221225472;
+                            v207[2] = __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke;
+                            v207[3] = &unk_1E6EC16A0;
+                            v207[4] = v156;
+                            v207[5] = v40;
+                            v207[7] = &v214;
+                            v207[6] = v21;
+                            [persistentStoreCoordinator performBlockAndWait:v207];
                             if (+[NSXPCStoreServer debugDefault])
                             {
                               v42 = objc_autoreleasePoolPush();
@@ -1179,27 +1171,27 @@ LABEL_178:
                                   if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                                   {
                                     name13 = [v25 name];
-                                    v45 = [v217[5] count];
-                                    *v262 = 138412546;
-                                    *&v262[4] = name13;
-                                    *&v262[12] = 2048;
-                                    *&v262[14] = v45;
-                                    _os_log_error_impl(&dword_18565F000, v43, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetched for many-to-many relationship %@.  Got %lu rows\n", v262, 0x16u);
+                                    v45 = [v215[5] count];
+                                    *v260 = 138412546;
+                                    *&v260[4] = name13;
+                                    *&v260[12] = 2048;
+                                    *&v260[14] = v45;
+                                    _os_log_error_impl(&dword_18565F000, v43, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetched for many-to-many relationship %@.  Got %lu rows\n", v260, 0x16u);
                                   }
                                 }
 
                                 else
                                 {
-                                  v100 = _PFLogGetLogStream(8);
-                                  if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
+                                  v99 = _PFLogGetLogStream(8);
+                                  if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
                                   {
                                     name14 = [v25 name];
-                                    v102 = [v217[5] count];
-                                    *v262 = 138412546;
-                                    *&v262[4] = name14;
-                                    *&v262[12] = 2048;
-                                    *&v262[14] = v102;
-                                    _os_log_impl(&dword_18565F000, v100, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched for many-to-many relationship %@.  Got %lu rows\n", v262, 0x16u);
+                                    v101 = [v215[5] count];
+                                    *v260 = 138412546;
+                                    *&v260[4] = name14;
+                                    *&v260[12] = 2048;
+                                    *&v260[14] = v101;
+                                    _os_log_impl(&dword_18565F000, v99, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched for many-to-many relationship %@.  Got %lu rows\n", v260, 0x16u);
                                   }
                                 }
                               }
@@ -1207,83 +1199,83 @@ LABEL_178:
                               if (_pflogging_catastrophic_mode)
                               {
                                 name15 = [v25 name];
-                                v104 = [v217[5] count];
-                                v105 = 1;
+                                v103 = [v215[5] count];
+                                v104 = 1;
                               }
 
                               else
                               {
                                 name15 = [v25 name];
-                                v104 = [v217[5] count];
-                                v105 = 8;
+                                v103 = [v215[5] count];
+                                v104 = 8;
                               }
 
-                              _NSCoreDataLog_console(v105, "Prefetched for many-to-many relationship %@.  Got %lu rows", name15, v104);
+                              _NSCoreDataLog_console(v104, "Prefetched for many-to-many relationship %@.  Got %lu rows", name15, v103);
                               objc_autoreleasePoolPop(v42);
-                              v106 = objc_autoreleasePoolPush();
+                              v105 = objc_autoreleasePoolPush();
                               _pflogInitialize(8);
                               if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
                               {
                                 if (_pflogging_catastrophic_mode)
                                 {
-                                  v107 = _PFLogGetLogStream(1);
-                                  if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+                                  v106 = _PFLogGetLogStream(1);
+                                  if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
                                   {
-                                    v108 = v217[5];
-                                    *v262 = 138412290;
-                                    *&v262[4] = v108;
-                                    _os_log_error_impl(&dword_18565F000, v107, OS_LOG_TYPE_ERROR, "CoreData: error: Which means oidSets %@\n", v262, 0xCu);
+                                    v107 = v215[5];
+                                    *v260 = 138412290;
+                                    *&v260[4] = v107;
+                                    _os_log_error_impl(&dword_18565F000, v106, OS_LOG_TYPE_ERROR, "CoreData: error: Which means oidSets %@\n", v260, 0xCu);
                                   }
                                 }
 
                                 else
                                 {
-                                  v109 = _PFLogGetLogStream(8);
-                                  if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
+                                  v108 = _PFLogGetLogStream(8);
+                                  if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v110 = v217[5];
-                                    *v262 = 138412290;
-                                    *&v262[4] = v110;
-                                    _os_log_impl(&dword_18565F000, v109, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which means oidSets %@\n", v262, 0xCu);
+                                    v109 = v215[5];
+                                    *v260 = 138412290;
+                                    *&v260[4] = v109;
+                                    _os_log_impl(&dword_18565F000, v108, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Which means oidSets %@\n", v260, 0xCu);
                                   }
                                 }
                               }
 
                               if (_pflogging_catastrophic_mode)
                               {
-                                v111 = 1;
+                                v110 = 1;
                               }
 
                               else
                               {
-                                v111 = 8;
+                                v110 = 8;
                               }
 
-                              _NSCoreDataLog_console(v111, "Which means oidSets %@", v217[5]);
-                              objc_autoreleasePoolPop(v106);
+                              _NSCoreDataLog_console(v110, "Which means oidSets %@", v215[5]);
+                              objc_autoreleasePoolPop(v105);
                             }
 
-                            v112 = [v217[5] count];
-                            v113 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v112 + 256];
-                            v211[5] = v113;
-                            if (v112)
+                            v111 = [v215[5] count];
+                            v112 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v111 + 256];
+                            v209[5] = v112;
+                            if (v111)
                             {
-                              for (k = 0; k < v112; k += 2)
+                              for (k = 0; k < v111; k += 2)
                               {
-                                v115 = [v217[5] objectAtIndex:k + 1];
-                                [v211[5] addObjectsFromArray:v115];
+                                v114 = [v215[5] objectAtIndex:k + 1];
+                                [v209[5] addObjectsFromArray:v114];
                               }
 
-                              v113 = v211[5];
+                              v112 = v209[5];
                             }
 
-                            if ([v113 count])
+                            if ([v112 count])
                             {
-                              v116 = [ds manyToManyPrefetchRequestsForRelationshipNamed:v172 onEntity:v173];
-                              v229[5] = v116;
-                              v266 = @"mtmObjects";
-                              v267[0] = [MEMORY[0x1E696ABC8] expressionForConstantValue:v211[5]];
-                              v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v267 forKeys:&v266 count:1];
+                              v115 = [ds manyToManyPrefetchRequestsForRelationshipNamed:v170 onEntity:v171];
+                              v227[5] = v115;
+                              v264 = @"mtmObjects";
+                              v265[0] = [MEMORY[0x1E696ABC8] expressionForConstantValue:v209[5]];
+                              v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v265 forKeys:&v264 count:1];
                               goto LABEL_98;
                             }
 
@@ -1291,8 +1283,8 @@ LABEL_178:
                           }
 
                           v56 = MEMORY[0x1E695DEC8];
-                          name16 = [v173 name];
-                          v58 = [v56 arrayWithObjects:{v172, name16, NSArray_EmptyArray, 0}];
+                          name16 = [v171 name];
+                          v58 = [v56 arrayWithObjects:{v170, name16, NSArray_EmptyArray, 0}];
 LABEL_176:
                           v33 = v58;
                           goto LABEL_177;
@@ -1300,7 +1292,7 @@ LABEL_176:
 
                         v46 = [v21 count];
                         v47 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v46];
-                        v211[5] = v47;
+                        v209[5] = v47;
                         if (!v46)
                         {
 LABEL_85:
@@ -1316,27 +1308,27 @@ LABEL_85:
                                 if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
                                 {
                                   name17 = [v25 name];
-                                  v62 = [v211[5] count];
-                                  *v262 = 138412546;
-                                  *&v262[4] = name17;
-                                  *&v262[12] = 2048;
-                                  *&v262[14] = v62;
-                                  _os_log_error_impl(&dword_18565F000, v60, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetched for one-to-many relationship %@.  Got %lu rows\n", v262, 0x16u);
+                                  v62 = [v209[5] count];
+                                  *v260 = 138412546;
+                                  *&v260[4] = name17;
+                                  *&v260[12] = 2048;
+                                  *&v260[14] = v62;
+                                  _os_log_error_impl(&dword_18565F000, v60, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetched for one-to-many relationship %@.  Got %lu rows\n", v260, 0x16u);
                                 }
                               }
 
                               else
                               {
-                                v117 = _PFLogGetLogStream(8);
-                                if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
+                                v116 = _PFLogGetLogStream(8);
+                                if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
                                 {
                                   name18 = [v25 name];
-                                  v119 = [v211[5] count];
-                                  *v262 = 138412546;
-                                  *&v262[4] = name18;
-                                  *&v262[12] = 2048;
-                                  *&v262[14] = v119;
-                                  _os_log_impl(&dword_18565F000, v117, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched for one-to-many relationship %@.  Got %lu rows\n", v262, 0x16u);
+                                  v118 = [v209[5] count];
+                                  *v260 = 138412546;
+                                  *&v260[4] = name18;
+                                  *&v260[12] = 2048;
+                                  *&v260[14] = v118;
+                                  _os_log_impl(&dword_18565F000, v116, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched for one-to-many relationship %@.  Got %lu rows\n", v260, 0x16u);
                                 }
                               }
                             }
@@ -1344,36 +1336,36 @@ LABEL_85:
                             if (_pflogging_catastrophic_mode)
                             {
                               name19 = [v25 name];
-                              v121 = [v211[5] count];
-                              v122 = 1;
+                              v120 = [v209[5] count];
+                              v121 = 1;
                             }
 
                             else
                             {
                               name19 = [v25 name];
-                              v121 = [v211[5] count];
-                              v122 = 8;
+                              v120 = [v209[5] count];
+                              v121 = 8;
                             }
 
-                            _NSCoreDataLog_console(v122, "Prefetched for one-to-many relationship %@.  Got %lu rows", name19, v121);
+                            _NSCoreDataLog_console(v121, "Prefetched for one-to-many relationship %@.  Got %lu rows", name19, v120);
                             objc_autoreleasePoolPop(v59);
                           }
 
-                          if ([v211[5] count])
+                          if ([v209[5] count])
                           {
-                            v123 = [ds manyToOnePrefetchRequestForRelationshipNamed:v172 onEntity:v173];
-                            v229[5] = v123;
-                            v266 = @"objects";
-                            v267[0] = [MEMORY[0x1E696ABC8] expressionForConstantValue:v211[5]];
-                            v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v267 forKeys:&v266 count:1];
+                            v122 = [ds manyToOnePrefetchRequestForRelationshipNamed:v170 onEntity:v171];
+                            v227[5] = v122;
+                            v264 = @"objects";
+                            v265[0] = [MEMORY[0x1E696ABC8] expressionForConstantValue:v209[5]];
+                            v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v265 forKeys:&v264 count:1];
                             goto LABEL_98;
                           }
 
 LABEL_175:
 
-                          v124 = MEMORY[0x1E695DEC8];
-                          name20 = [v173 name];
-                          v58 = [v124 arrayWithObjects:{v172, name20, NSArray_EmptyArray, 0}];
+                          v123 = MEMORY[0x1E695DEC8];
+                          name20 = [v171 name];
+                          v58 = [v123 arrayWithObjects:{v170, name20, NSArray_EmptyArray, 0}];
                           goto LABEL_176;
                         }
 
@@ -1382,12 +1374,12 @@ LABEL_175:
                         {
                           v49 = objc_autoreleasePoolPush();
                           v50 = [v21 objectAtIndex:v48];
-                          *v262 = 0;
+                          *v260 = 0;
                           v51 = [managedObjectContext objectRegisteredForID:v50];
                           if (v51)
                           {
                             slot = [v25 slot];
-                            if (v164)
+                            if (v162)
                             {
                               v53 = 0;
                             }
@@ -1399,18 +1391,18 @@ LABEL_175:
 
                             entity3 = [v51 entity];
                             v55 = v53 + slot;
-                            if (entity3 != v173)
+                            if (entity3 != v171)
                             {
                               v55 = [entity3 _offsetRelationshipIndex:v53 + slot fromSuperEntity:? andIsToMany:?];
                             }
 
-                            if ((_PF_InternalToOneRelationshipForeignKeyCache(v51, v55, v262) & 1) == 0 || !*v262)
+                            if ((_PF_InternalToOneRelationshipForeignKeyCache(v51, v55, v260) & 1) == 0 || !*v260)
                             {
 LABEL_81:
                               objc_autoreleasePoolPop(v49);
                               ++v48;
-                              v20 = v160;
-                              v18 = v161;
+                              v20 = v158;
+                              v18 = v159;
                               if (v46 == v48)
                               {
                                 goto LABEL_85;
@@ -1422,8 +1414,8 @@ LABEL_81:
 
                           else
                           {
-                            *v262 = [objc_msgSend(objc_msgSend(managedObjectContext existingObjectWithID:v50 error:{0), "primitiveValueForKey:", v172), "objectID"}];
-                            if (!*v262)
+                            *v260 = [objc_msgSend(objc_msgSend(managedObjectContext existingObjectWithID:v50 error:{0), "primitiveValueForKey:", v170), "objectID"}];
+                            if (!*v260)
                             {
                               goto LABEL_81;
                             }
@@ -1432,7 +1424,7 @@ LABEL_81:
                           break;
                         }
 
-                        [v211[5] addObject:?];
+                        [v209[5] addObject:?];
                         goto LABEL_81;
                       }
                     }
@@ -1440,12 +1432,12 @@ LABEL_81:
                     else
                     {
                       v24 = 0;
-                      v157 = 0;
-                      v158 = 0;
+                      v155 = 0;
+                      v156 = 0;
                     }
 
                     v25 = 0;
-                    v164 = 1;
+                    v162 = 1;
                     goto LABEL_49;
                   }
 
@@ -1454,12 +1446,12 @@ LABEL_179:
                   ++v18;
                 }
 
-                while (v18 != v166);
-                v132 = [dictionary countByEnumeratingWithState:&v175 objects:v234 count:16];
-                v166 = v132;
+                while (v18 != v164);
+                v131 = [dictionary countByEnumeratingWithState:&v173 objects:v232 count:16];
+                v164 = v131;
               }
 
-              while (v132);
+              while (v131);
             }
           }
 
@@ -1467,19 +1459,17 @@ LABEL_225:
           objc_autoreleasePoolPop(context);
         }
 
-        v150 = [a2 countByEnumeratingWithState:&v187 objects:v237 count:16];
-        if (!v150)
+        v148 = [a2 countByEnumeratingWithState:&v185 objects:v235 count:16];
+        if (!v148)
         {
 LABEL_227:
-          [v148 drain];
-          result = v156;
-          break;
+          [v146 drain];
+          return v154;
         }
       }
     }
   }
 
-  v147 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1674,9 +1664,9 @@ LABEL_30:
 
 - (id)processFaultForRelationshipWithName:(id)name onObjectWithID:(id)d fromClientWithContext:(id)context error:(id *)error
 {
-  v75 = *MEMORY[0x1E69E9840];
-  v70 = 0;
-  v69 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v74 = *MEMORY[0x1E69E9840];
+  v69 = 0;
+  v68 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   if (!self)
   {
     goto LABEL_59;
@@ -1830,7 +1820,7 @@ LABEL_38:
   [v11 drain];
   if (v17)
   {
-    v70 = v17;
+    v69 = v17;
   }
 
   v30 = v17;
@@ -1881,18 +1871,18 @@ LABEL_38:
     {
       if ([MEMORY[0x1E696AE18] predicateWithValue:1] == v41)
       {
-        v56 = [v31 valueForKey:name];
-        if (v56)
+        v55 = objc_msgSend_valueForKey_(v31);
+        if (v55)
         {
-          array = [v56 valueForKey:@"objectID"];
-          goto LABEL_89;
+          array = objc_msgSend_valueForKey_(v55);
+          goto LABEL_88;
         }
 
         if ([v33 isToMany])
         {
-LABEL_70:
+LABEL_69:
           array = [MEMORY[0x1E695DEC8] array];
-          goto LABEL_89;
+          goto LABEL_88;
         }
       }
 
@@ -1922,58 +1912,58 @@ LABEL_70:
               v47 = @"%K == %@";
             }
 
-            v64 = [v45 predicateWithFormat:v47, dCopy3, d];
-            v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v64, v41, 0}];
-            v66 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v65];
+            v63 = [v45 predicateWithFormat:v47, dCopy3, d];
+            v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v63, v41, 0}];
+            v65 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v64];
             [(NSFetchRequest *)v43 setEntity:v35];
-            [(NSFetchRequest *)v43 setPredicate:v66];
+            [(NSFetchRequest *)v43 setPredicate:v65];
           }
 
           else
           {
             if (context)
             {
-              v58 = *(context + 4);
+              v57 = *(context + 4);
             }
 
             else
             {
-              v58 = 0;
+              v57 = 0;
             }
 
-            v59 = [v58 newValueForRelationship:v33 forObjectWithID:d withContext:managedObjectContext error:&v70];
-            if (!v59 || [MEMORY[0x1E695DFB0] null] == v59)
+            v58 = [v57 newValueForRelationship:v33 forObjectWithID:d withContext:managedObjectContext error:&v69];
+            if (!v58 || [MEMORY[0x1E695DFB0] null] == v58)
             {
-              v63 = [(NSXPCStoreServerRequestHandlingPolicy *)self restrictingReadPredicateForEntity:v35 fromClientWithContext:context];
+              v62 = [(NSXPCStoreServerRequestHandlingPolicy *)self restrictingReadPredicateForEntity:v35 fromClientWithContext:context];
             }
 
             else
             {
               if ([v33 isToMany])
               {
-                v60 = @"self IN %@";
+                v59 = @"self IN %@";
               }
 
               else
               {
-                v60 = @"self == %@";
+                v59 = @"self == %@";
               }
 
-              v61 = [MEMORY[0x1E696AE18] predicateWithFormat:v60, v59];
-              v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v61, v41, 0}];
-              v63 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v62];
+              v60 = [MEMORY[0x1E696AE18] predicateWithFormat:v59, v58];
+              v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:{v60, v41, 0}];
+              v62 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v61];
             }
 
-            v67 = v63;
+            v66 = v62;
             [(NSFetchRequest *)v43 setEntity:v35];
-            [(NSFetchRequest *)v43 setPredicate:v67];
+            [(NSFetchRequest *)v43 setPredicate:v66];
           }
 
           [(NSFetchRequest *)v43 setResultType:1];
-          v49 = [managedObjectContext executeFetchRequest:v43 error:&v70];
+          v49 = [managedObjectContext executeFetchRequest:v43 error:&v69];
           if ([v33 isToMany])
           {
-            goto LABEL_90;
+            goto LABEL_89;
           }
 
           if ([v49 count])
@@ -1986,21 +1976,21 @@ LABEL_70:
             array = [MEMORY[0x1E695DFB0] null];
           }
 
-LABEL_89:
+LABEL_88:
           v49 = array;
-LABEL_90:
+LABEL_89:
           LODWORD(self) = 1;
           goto LABEL_60;
         }
 
         if ([v33 isToMany])
         {
-          goto LABEL_70;
+          goto LABEL_69;
         }
       }
 
       array = [MEMORY[0x1E695DFB0] null];
-      goto LABEL_89;
+      goto LABEL_88;
     }
 
     if (error)
@@ -2022,51 +2012,48 @@ LABEL_59:
   }
 
   v38 = MEMORY[0x1E696ABC0];
-  v71[0] = @"relationship name";
-  v71[1] = @"objectID";
-  v72[0] = name;
-  v72[1] = d;
-  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v72 forKeys:v71 count:2];
+  v70[0] = @"relationship name";
+  v70[1] = @"objectID";
+  v71[0] = name;
+  v71[1] = d;
+  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:2];
   v40 = [v38 errorWithDomain:*MEMORY[0x1E696A250] code:134094 userInfo:v39];
 LABEL_57:
   LODWORD(self) = 0;
   v49 = 0;
-  v70 = v40;
+  v69 = v40;
 LABEL_60:
   v50 = v49;
-  v51 = v70;
-  [v69 drain];
-  v52 = v70;
-  if (error && v70)
+  v51 = v69;
+  [v68 drain];
+  v52 = v69;
+  if (error && v69)
   {
-    *error = v70;
+    *error = v69;
   }
 
   v53 = v52;
   if (self)
   {
-    result = v49;
+    return v49;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v55 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-id __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke(uint64_t a1)
+id __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke(void *a1)
 {
-  result = [(NSSQLCore *)*(a1 + 32) newObjectIDSetsForToManyPrefetchingRequest:*(a1 + 48) andSourceObjectIDs:0 orderColumnName:?];
-  *(*(*(a1 + 56) + 8) + 40) = result;
+  result = [(NSSQLCore *)a1[4] newObjectIDSetsForToManyPrefetchingRequest:a1[6] andSourceObjectIDs:0 orderColumnName:?];
+  *(*(a1[7] + 8) + 40) = result;
   return result;
 }
 
 void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourceEntityDescription_sourceObjectIDs_prefetchRelationshipKeys_inContext___block_invoke_59(uint64_t a1)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (+[NSXPCStoreServer debugDefault])
   {
     v2 = objc_autoreleasePoolPush();
@@ -2080,7 +2067,7 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
         {
           v4 = *(*(*(a1 + 80) + 8) + 40);
           *buf = 138412290;
-          v44 = v4;
+          v42 = v4;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Decoding prefetched rows for fetch %@\n", buf, 0xCu);
         }
       }
@@ -2092,7 +2079,7 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
         {
           v6 = *(*(*(a1 + 80) + 8) + 40);
           *buf = 138412290;
-          v44 = v6;
+          v42 = v6;
           _os_log_impl(&dword_18565F000, v5, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Decoding prefetched rows for fetch %@\n", buf, 0xCu);
         }
       }
@@ -2147,11 +2134,11 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
               v12 = *(a1 + 56);
               v13 = *(*(*(a1 + 104) + 8) + 40);
               *buf = 138412802;
-              v44 = v11;
+              v42 = v11;
+              v43 = 2112;
+              v44 = v12;
               v45 = 2112;
-              v46 = v12;
-              v47 = 2112;
-              v48 = v13;
+              v46 = v13;
               _os_log_error_impl(&dword_18565F000, v10, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetched %@/%@ and got %@\n", buf, 0x20u);
             }
           }
@@ -2165,11 +2152,11 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
               v20 = *(a1 + 56);
               v21 = *(*(*(a1 + 104) + 8) + 40);
               *buf = 138412802;
-              v44 = v19;
+              v42 = v19;
+              v43 = 2112;
+              v44 = v20;
               v45 = 2112;
-              v46 = v20;
-              v47 = 2112;
-              v48 = v21;
+              v46 = v21;
               _os_log_impl(&dword_18565F000, v18, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched %@/%@ and got %@\n", buf, 0x20u);
             }
           }
@@ -2188,39 +2175,38 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
           v24 = 8;
         }
 
-        v25 = *(a1 + 56);
-        _NSCoreDataLog_console(v24, "Prefetched %@/%@ and got %@", v23, v25, *(*(*(a1 + 104) + 8) + 40));
+        _NSCoreDataLog_console(v24, "Prefetched %@/%@ and got %@", v23, *(a1 + 56), *(*(*(a1 + 104) + 8) + 40));
         objc_autoreleasePoolPop(v9);
       }
 
       if (*(*(*(a1 + 120) + 8) + 40))
       {
-        v40 = 0u;
-        v41 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v26 = *(*(*(a1 + 112) + 8) + 40);
-        v27 = [v26 countByEnumeratingWithState:&v38 objects:v42 count:16];
-        if (v27)
+        v36 = 0u;
+        v37 = 0u;
+        v25 = *(*(*(a1 + 112) + 8) + 40);
+        v26 = [v25 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        if (v26)
         {
-          v28 = 0;
-          v29 = *v39;
+          v27 = 0;
+          v28 = *v37;
           do
           {
-            for (i = 0; i != v27; ++i)
+            for (i = 0; i != v26; ++i)
             {
-              if (*v39 != v29)
+              if (*v37 != v28)
               {
-                objc_enumerationMutation(v26);
+                objc_enumerationMutation(v25);
               }
 
-              _PFFaultHandlerFulfillFault(*(a1 + 64), *(*(&v38 + 1) + 8 * i), *(a1 + 40), [*(*(*(a1 + 120) + 8) + 40) objectAtIndex:v28++], 0);
+              _PFFaultHandlerFulfillFault(*(a1 + 64), *(*(&v36 + 1) + 8 * i), *(a1 + 40), [*(*(*(a1 + 120) + 8) + 40) objectAtIndex:v27++], 0);
             }
 
-            v27 = [v26 countByEnumeratingWithState:&v38 objects:v42 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v36 objects:v40 count:16];
           }
 
-          while (v27);
+          while (v26);
         }
       }
     }
@@ -2241,43 +2227,43 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
               v16 = [*(*(*(a1 + 80) + 8) + 40) entity];
               v17 = *(a1 + 56);
               *buf = 138412546;
-              v44 = v16;
-              v45 = 2112;
-              v46 = v17;
+              v42 = v16;
+              v43 = 2112;
+              v44 = v17;
               _os_log_error_impl(&dword_18565F000, v15, OS_LOG_TYPE_ERROR, "CoreData: error: Prefetched %@/%@ and got no results, stopping now\n", buf, 0x16u);
             }
           }
 
           else
           {
-            v31 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v30 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = [*(*(*(a1 + 80) + 8) + 40) entity];
-              v33 = *(a1 + 56);
+              v31 = [*(*(*(a1 + 80) + 8) + 40) entity];
+              v32 = *(a1 + 56);
               *buf = 138412546;
+              v42 = v31;
+              v43 = 2112;
               v44 = v32;
-              v45 = 2112;
-              v46 = v33;
-              _os_log_impl(&dword_18565F000, v31, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched %@/%@ and got no results, stopping now\n", buf, 0x16u);
+              _os_log_impl(&dword_18565F000, v30, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Prefetched %@/%@ and got no results, stopping now\n", buf, 0x16u);
             }
           }
         }
 
-        v34 = *(*(*(a1 + 80) + 8) + 40);
+        v33 = *(*(*(a1 + 80) + 8) + 40);
         if (_pflogging_catastrophic_mode)
         {
-          v35 = [v34 entity];
-          v36 = 1;
+          v34 = [v33 entity];
+          v35 = 1;
         }
 
         else
         {
-          v35 = [v34 entity];
-          v36 = 8;
+          v34 = [v33 entity];
+          v35 = 8;
         }
 
-        _NSCoreDataLog_console(v36, "Prefetched %@/%@ and got no results, stopping now", v35, *(a1 + 56));
+        _NSCoreDataLog_console(v35, "Prefetched %@/%@ and got no results, stopping now", v34, *(a1 + 56));
         objc_autoreleasePoolPop(v14);
       }
 
@@ -2285,13 +2271,11 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
       *(*(*(a1 + 136) + 8) + 24) = 1;
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (id)processRequest:(id)request fromClientWithContext:(id)context error:(id *)error
 {
-  v142 = *MEMORY[0x1E69E9840];
+  v140 = *MEMORY[0x1E69E9840];
   requestType = [request requestType];
   if (requestType > 5)
   {
@@ -2316,11 +2300,10 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
             }
 
             v22 = v21;
-            array = v18;
-            goto LABEL_196;
+            return v18;
           }
 
-          goto LABEL_175;
+          return 0;
         }
 
         goto LABEL_40;
@@ -2328,7 +2311,7 @@ void __141__NSXPCStoreServerRequestHandlingPolicy__prefetchRelationshipKey_sourc
 
       if (!self)
       {
-        goto LABEL_175;
+        return 0;
       }
 
       *buf = 0;
@@ -2409,7 +2392,7 @@ LABEL_142:
 
     if (!self)
     {
-      goto LABEL_175;
+      return 0;
     }
 
     *buf = 0;
@@ -2527,31 +2510,30 @@ LABEL_136:
 
               else
               {
-                v108 = _PFLogGetLogStream(8);
-                if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+                v107 = _PFLogGetLogStream(8);
+                if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_18565F000, v108, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Process fetch request returning no results (predicate is false)\n", buf, 2u);
+                  _os_log_impl(&dword_18565F000, v107, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Process fetch request returning no results (predicate is false)\n", buf, 2u);
                 }
               }
             }
 
             if (_pflogging_catastrophic_mode)
             {
-              v109 = 1;
+              v108 = 1;
             }
 
             else
             {
-              v109 = 8;
+              v108 = 8;
             }
 
-            _NSCoreDataLog_console(v109, "Process fetch request returning no results (predicate is false)");
+            _NSCoreDataLog_console(v108, "Process fetch request returning no results (predicate is false)");
             objc_autoreleasePoolPop(v28);
           }
 
-          array = [MEMORY[0x1E695DEC8] array];
-          goto LABEL_196;
+          return [MEMORY[0x1E695DEC8] array];
         }
 
         if (([_MergedGlobals_64 isEqual:v27] & 1) == 0)
@@ -2571,8 +2553,6 @@ LABEL_136:
 
           [requestCopy2 setPredicate:v92];
         }
-
-        v102 = *MEMORY[0x1E69E9840];
 
         return [(NSXPCStoreServerRequestHandlingPolicy *)self _coreProcessFetchRequest:request fromClientWithContext:context error:error];
       }
@@ -2600,31 +2580,31 @@ LABEL_136:
 
           else
           {
-            v106 = _PFLogGetLogStream(8);
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
+            v105 = _PFLogGetLogStream(8);
+            if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_18565F000, v106, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Process fetch request aborting (predicate is nil)\n", buf, 2u);
+              _os_log_impl(&dword_18565F000, v105, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Process fetch request aborting (predicate is nil)\n", buf, 2u);
             }
           }
         }
 
         if (_pflogging_catastrophic_mode)
         {
-          v107 = 1;
+          v106 = 1;
         }
 
         else
         {
-          v107 = 8;
+          v106 = 8;
         }
 
-        _NSCoreDataLog_console(v107, "Process fetch request aborting (predicate is nil)");
+        _NSCoreDataLog_console(v106, "Process fetch request aborting (predicate is nil)");
         objc_autoreleasePoolPop(v63);
       }
     }
 
-    goto LABEL_175;
+    return 0;
   }
 
   if (requestType != 2)
@@ -2710,13 +2690,10 @@ LABEL_149:
 
 LABEL_157:
         v101 = v96;
-        array = v15;
-        goto LABEL_196;
+        return v15;
       }
 
-LABEL_175:
-      array = 0;
-      goto LABEL_196;
+      return 0;
     }
 
 LABEL_40:
@@ -2733,50 +2710,50 @@ LABEL_40:
         v38 = @"Request description was nil.";
       }
 
-      array = 0;
+      v124 = 0;
       *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:0 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", v38, @"Request"}];
-      goto LABEL_196;
+      return v124;
     }
 
-    goto LABEL_175;
+    return 0;
   }
 
   if (!self)
   {
-    goto LABEL_175;
+    return 0;
   }
 
-  v139 = 0;
-  v119 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v137 = 0;
+  v117 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   managedObjectContext4 = [context managedObjectContext];
-  v127 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v125 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
   [v39 addObjectsFromArray:{objc_msgSend(objc_msgSend(request, "insertedObjects"), "allObjects")}];
   [v39 addObjectsFromArray:{objc_msgSend(objc_msgSend(request, "updatedObjects"), "allObjects")}];
   [v39 addObjectsFromArray:{objc_msgSend(objc_msgSend(request, "lockedObjects"), "allObjects")}];
-  v137 = 0u;
-  v138 = 0u;
   v135 = 0u;
   v136 = 0u;
+  v133 = 0u;
+  v134 = 0u;
   obj = v39;
-  v40 = [v39 countByEnumeratingWithState:&v135 objects:buf count:16];
+  v40 = [v39 countByEnumeratingWithState:&v133 objects:buf count:16];
   if (v40)
   {
-    v123 = 0;
-    v41 = *v136;
-    v121 = *MEMORY[0x1E696A250];
+    v121 = 0;
+    v41 = *v134;
+    v119 = *MEMORY[0x1E696A250];
     do
     {
       v42 = 0;
       do
       {
-        if (*v136 != v41)
+        if (*v134 != v41)
         {
           objc_enumerationMutation(obj);
         }
 
-        v43 = *(*(&v135 + 1) + 8 * v42);
+        v43 = *(*(&v133 + 1) + 8 * v42);
         v44 = objc_autoreleasePoolPush();
         objectID = [v43 objectID];
         entity4 = [objectID entity];
@@ -2811,12 +2788,12 @@ LABEL_40:
         {
           if (([v50 evaluateWithObject:v43] & 1) == 0)
           {
-            if (![v127 count])
+            if (![v125 count])
             {
-              [v127 setObject:objc_msgSend(MEMORY[0x1E695DF70] forKey:{"array"), @"NSAffectedObjectsErrorKey"}];
+              [v125 setObject:objc_msgSend(MEMORY[0x1E695DF70] forKey:{"array"), @"NSAffectedObjectsErrorKey"}];
             }
 
-            [objc_msgSend(v127 objectForKey:{@"NSAffectedObjectsErrorKey", "addObject:", v43}];
+            [objc_msgSend(v125 objectForKey:{@"NSAffectedObjectsErrorKey", "addObject:", v43}];
           }
 
           v52 = [dictionary objectForKey:name];
@@ -2833,11 +2810,11 @@ LABEL_40:
         {
           if (error)
           {
-            v139 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v121 code:134092 userInfo:0];
+            v137 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v119 code:134092 userInfo:0];
           }
 
-          v123 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:0];
-          array = v123;
+          v121 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:0];
+          v124 = v121;
         }
 
         objc_autoreleasePoolPop(v44);
@@ -2851,7 +2828,7 @@ LABEL_40:
       }
 
       while (v42 != v40);
-      v53 = [obj countByEnumeratingWithState:&v135 objects:buf count:16];
+      v53 = [obj countByEnumeratingWithState:&v133 objects:buf count:16];
       v40 = v53;
     }
 
@@ -2860,7 +2837,7 @@ LABEL_40:
 
   else
   {
-    v123 = 0;
+    v121 = 0;
   }
 
   v74 = objc_alloc_init(NSFetchRequest);
@@ -2868,28 +2845,28 @@ LABEL_40:
   [(NSManagedObjectContext *)v75 setUndoManager:0];
   -[NSManagedObjectContext setPersistentStoreCoordinator:](v75, "setPersistentStoreCoordinator:", [managedObjectContext4 persistentStoreCoordinator]);
   obja = [objc_msgSend(managedObjectContext4 "persistentStoreCoordinator")];
-  v133 = 0u;
-  v134 = 0u;
   v131 = 0u;
   v132 = 0u;
-  v76 = [dictionary countByEnumeratingWithState:&v131 objects:v140 count:16];
+  v129 = 0u;
+  v130 = 0u;
+  v76 = [dictionary countByEnumeratingWithState:&v129 objects:v138 count:16];
   if (!v76)
   {
     goto LABEL_126;
   }
 
-  v122 = *v132;
-  v120 = *MEMORY[0x1E696A250];
+  v120 = *v130;
+  v118 = *MEMORY[0x1E696A250];
   while (2)
   {
     for (i = 0; i != v76; ++i)
     {
-      if (*v132 != v122)
+      if (*v130 != v120)
       {
         objc_enumerationMutation(dictionary);
       }
 
-      v78 = *(*(&v131 + 1) + 8 * i);
+      v78 = *(*(&v129 + 1) + 8 * i);
       v79 = objc_autoreleasePoolPush();
       v80 = [objc_msgSend(obja "entitiesByName")];
       [(NSFetchRequest *)v74 setEntity:v80];
@@ -2899,12 +2876,12 @@ LABEL_40:
       {
         if ([objc_msgSend(MEMORY[0x1E696AE18] predicateWithValue:{0), "isEqual:", v82}])
         {
-          if (![v127 count])
+          if (![v125 count])
           {
-            [v127 setObject:objc_msgSend(MEMORY[0x1E695DF70] forKey:{"array"), @"NSAffectedObjectsErrorKey"}];
+            [v125 setObject:objc_msgSend(MEMORY[0x1E695DF70] forKey:{"array"), @"NSAffectedObjectsErrorKey"}];
           }
 
-          [objc_msgSend(v127 objectForKey:{@"NSAffectedObjectsErrorKey", "addObjectsFromArray:", v81}];
+          [objc_msgSend(v125 objectForKey:{@"NSAffectedObjectsErrorKey", "addObjectsFromArray:", v81}];
         }
 
         else if ([objc_msgSend(MEMORY[0x1E696AE18] predicateWithValue:{1), "isEqual:", v82}])
@@ -2925,17 +2902,17 @@ LABEL_40:
         v86 = v85;
         v87 = [MEMORY[0x1E696AB28] notPredicateWithSubpredicate:v82];
         -[NSFetchRequest setPredicate:](v74, "setPredicate:", [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:", v87, v86, 0)}]);
-        v88 = [(NSManagedObjectContext *)v75 executeFetchRequest:v74 error:&v139];
+        v88 = [(NSManagedObjectContext *)v75 executeFetchRequest:v74 error:&v137];
         if (v88)
         {
           if ([(NSArray *)v88 count])
           {
-            if (![v127 count])
+            if (![v125 count])
             {
-              [v127 setObject:objc_msgSend(MEMORY[0x1E695DF70] forKey:{"array"), @"NSAffectedObjectsErrorKey"}];
+              [v125 setObject:objc_msgSend(MEMORY[0x1E695DF70] forKey:{"array"), @"NSAffectedObjectsErrorKey"}];
             }
 
-            [objc_msgSend(v127 objectForKey:{@"NSAffectedObjectsErrorKey", "addObjectsFromArray:", v81}];
+            [objc_msgSend(v125 objectForKey:{@"NSAffectedObjectsErrorKey", "addObjectsFromArray:", v81}];
           }
 
 LABEL_118:
@@ -2945,26 +2922,26 @@ LABEL_118:
 
         if (error)
         {
-          v139 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v120 code:134030 userInfo:0];
+          v137 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v118 code:134030 userInfo:0];
         }
 
         v83 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:0];
         v84 = 0;
-        v123 = v83;
+        v121 = v83;
       }
 
       else
       {
         if (error)
         {
-          v139 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v120 code:134092 userInfo:0];
+          v137 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:v118 code:134092 userInfo:0];
         }
 
         v83 = [MEMORY[0x1E696AD98] numberWithBool:0];
         v84 = 0;
       }
 
-      array = v83;
+      v124 = v83;
 LABEL_123:
       objc_autoreleasePoolPop(v79);
       if (!v84)
@@ -2974,7 +2951,7 @@ LABEL_123:
       }
     }
 
-    v76 = [dictionary countByEnumeratingWithState:&v131 objects:v140 count:16];
+    v76 = [dictionary countByEnumeratingWithState:&v129 objects:v138 count:16];
     if (v76)
     {
       continue;
@@ -2984,269 +2961,263 @@ LABEL_123:
   }
 
 LABEL_126:
-  if ([v127 count])
+  if ([v125 count])
   {
     if (error)
     {
       v89 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v139 = [v89 initWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v127];
+      v137 = [v89 initWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v125];
     }
 
     v90 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:0];
 LABEL_191:
     v62 = 0;
-    array = v90;
-    v123 = v90;
+    v124 = v90;
+    v121 = v90;
   }
 
   else
   {
     if (+[NSXPCStoreServer debugDefault])
     {
-      v104 = objc_autoreleasePoolPush();
+      v103 = objc_autoreleasePoolPush();
       _pflogInitialize(8);
       if (_NSCoreDataIsLogEnabled(8) && _pflogging_enable_oslog >= 1)
       {
         if (_pflogging_catastrophic_mode)
         {
-          v105 = _PFLogGetLogStream(1);
-          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+          v104 = _PFLogGetLogStream(1);
+          if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
           {
-            *v130 = 0;
-            _os_log_error_impl(&dword_18565F000, v105, OS_LOG_TYPE_ERROR, "CoreData: error: Saving.\n", v130, 2u);
+            *v128 = 0;
+            _os_log_error_impl(&dword_18565F000, v104, OS_LOG_TYPE_ERROR, "CoreData: error: Saving.\n", v128, 2u);
           }
         }
 
         else
         {
-          v110 = _PFLogGetLogStream(8);
-          if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+          v109 = _PFLogGetLogStream(8);
+          if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
           {
-            *v130 = 0;
-            _os_log_impl(&dword_18565F000, v110, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Saving.\n", v130, 2u);
+            *v128 = 0;
+            _os_log_impl(&dword_18565F000, v109, OS_LOG_TYPE_DEFAULT, "CoreData: XPC: Saving.\n", v128, 2u);
           }
         }
       }
 
       if (_pflogging_catastrophic_mode)
       {
-        v111 = 1;
+        v110 = 1;
       }
 
       else
       {
-        v111 = 8;
+        v110 = 8;
       }
 
-      _NSCoreDataLog_console(v111, "Saving.");
-      objc_autoreleasePoolPop(v104);
+      _NSCoreDataLog_console(v110, "Saving.");
+      objc_autoreleasePoolPop(v103);
       NSLog(@"\tInserted = %@", [managedObjectContext4 insertedObjects]);
       NSLog(@"\tUpdated = %@", [managedObjectContext4 updatedObjects]);
       NSLog(@"\tDeleted = %@", [managedObjectContext4 deletedObjects]);
     }
 
-    v112 = [managedObjectContext4 save:&v139];
-    v113 = v139;
-    if (v112)
+    v111 = [managedObjectContext4 save:&v137];
+    v112 = v137;
+    if (v111)
     {
       v90 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:1];
       goto LABEL_191;
     }
 
     v62 = 0;
-    array = v123;
+    v124 = v121;
   }
 
 LABEL_192:
 
-  [v119 drain];
-  v114 = v123;
-  v115 = v139;
-  if (error && v139)
+  [v117 drain];
+  v113 = v121;
+  v114 = v137;
+  if (error && v137)
   {
-    *error = v139;
+    *error = v137;
   }
 
-  v116 = v115;
-LABEL_196:
-  v117 = *MEMORY[0x1E69E9840];
-  return array;
+  v115 = v114;
+  return v124;
 }
 
 - (void)processObtainRequest:(void *)request inContext:(void *)context error:
 {
-  v55 = *MEMORY[0x1E69E9840];
-  if (self)
+  v54 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    dictionary = [MEMORY[0x1E695DF90] dictionary];
-    context = objc_autoreleasePoolPush();
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    obj = a2;
-    v40 = [a2 countByEnumeratingWithState:&v44 objects:v53 count:16];
-    if (v40)
+    return 0;
+  }
+
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  context = objc_autoreleasePoolPush();
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  obj = a2;
+  v39 = [a2 countByEnumeratingWithState:&v43 objects:v52 count:16];
+  if (v39)
+  {
+    v5 = 0;
+    v37 = *v44;
+    v36 = *MEMORY[0x1E696A250];
+    while (1)
     {
-      v5 = 0;
-      v38 = *v45;
-      v37 = *MEMORY[0x1E696A250];
-      while (1)
+      v6 = 0;
+      do
       {
-        v6 = 0;
-        do
+        if (*v44 != v37)
         {
-          if (*v45 != v38)
-          {
-            objc_enumerationMutation(obj);
-          }
+          objc_enumerationMutation(obj);
+        }
 
-          v7 = *(*(&v44 + 1) + 8 * v6);
-          v8 = [obj objectForKey:v7];
-          v52 = 0;
-          v9 = objc_alloc_init(MEMORY[0x1E696AAC8]);
-          managedObjectContext = [request managedObjectContext];
-          v11 = [objc_msgSend(managedObjectContext "persistentStoreCoordinator")];
-          if (!v11)
-          {
-            v13 = 0;
+        v7 = *(*(&v43 + 1) + 8 * v6);
+        v8 = [obj objectForKey:v7];
+        v51 = 0;
+        v9 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+        managedObjectContext = [request managedObjectContext];
+        v11 = [objc_msgSend(managedObjectContext "persistentStoreCoordinator")];
+        if (!v11)
+        {
+          v13 = 0;
 LABEL_37:
-            v15 = 0;
-            goto LABEL_12;
-          }
+          v15 = 0;
+          goto LABEL_12;
+        }
 
-          superentity = [*(v11 + 32) objectForKey:v7];
-          v13 = superentity;
-          if (!superentity)
+        superentity = [*(v11 + 32) objectForKey:v7];
+        v13 = superentity;
+        if (!superentity)
+        {
+          goto LABEL_37;
+        }
+
+        if (atomic_load((superentity + 124)))
+        {
+          v15 = *(superentity + 72);
+        }
+
+        else
+        {
+          do
           {
-            goto LABEL_37;
+            v15 = superentity;
+            superentity = [superentity superentity];
           }
 
-          if (atomic_load((superentity + 124)))
-          {
-            v15 = *(superentity + 72);
-          }
-
-          else
-          {
-            do
-            {
-              v15 = superentity;
-              superentity = [superentity superentity];
-            }
-
-            while (superentity);
-          }
+          while (superentity);
+        }
 
 LABEL_12:
-          v16 = [self restrictingWritePredicateForEntity:v15 fromClientWithContext:request];
-          if (!v16)
-          {
-            v25 = [MEMORY[0x1E696ABC0] errorWithDomain:v37 code:134092 userInfo:0];
+        v16 = [self restrictingWritePredicateForEntity:v15 fromClientWithContext:request];
+        if (!v16)
+        {
+          v25 = [MEMORY[0x1E696ABC0] errorWithDomain:v36 code:134092 userInfo:0];
 LABEL_27:
-            v26 = 0;
-            v24 = 0;
-            v52 = v25;
-            goto LABEL_30;
-          }
+          v26 = 0;
+          v24 = 0;
+          v51 = v25;
+          goto LABEL_30;
+        }
 
-          if ([MEMORY[0x1E696AE18] predicateWithValue:0] == v16)
-          {
-            v25 = [MEMORY[0x1E696ABC0] errorWithDomain:v37 code:134030 userInfo:0];
-            goto LABEL_27;
-          }
+        if ([MEMORY[0x1E696AE18] predicateWithValue:0] == v16)
+        {
+          v25 = [MEMORY[0x1E696ABC0] errorWithDomain:v36 code:134030 userInfo:0];
+          goto LABEL_27;
+        }
 
-          unsignedIntegerValue = [v8 unsignedIntegerValue];
-          for (i = objc_alloc_init(MEMORY[0x1E695DF70]); unsignedIntegerValue; --unsignedIntegerValue)
-          {
-            v19 = [[NSManagedObject alloc] initWithEntity:v13 insertIntoManagedObjectContext:managedObjectContext];
-            [i addObject:v19];
-          }
+        unsignedIntegerValue = [v8 unsignedIntegerValue];
+        for (i = objc_alloc_init(MEMORY[0x1E695DF70]); unsignedIntegerValue; --unsignedIntegerValue)
+        {
+          v19 = [[NSManagedObject alloc] initWithEntity:v13 insertIntoManagedObjectContext:managedObjectContext];
+          [i addObject:v19];
+        }
 
-          if ([managedObjectContext obtainPermanentIDsForObjects:i error:&v52])
+        if ([managedObjectContext obtainPermanentIDsForObjects:i error:&v51])
+        {
+          v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v49 = 0u;
+          v50 = 0u;
+          v47 = 0u;
+          v48 = 0u;
+          v21 = [i countByEnumeratingWithState:&v47 objects:v53 count:16];
+          if (v21)
           {
-            v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
-            v50 = 0u;
-            v51 = 0u;
-            v48 = 0u;
-            v49 = 0u;
-            v21 = [i countByEnumeratingWithState:&v48 objects:v54 count:16];
-            if (v21)
+            v22 = *v48;
+            do
             {
-              v22 = *v49;
-              do
+              for (j = 0; j != v21; ++j)
               {
-                for (j = 0; j != v21; ++j)
+                if (*v48 != v22)
                 {
-                  if (*v49 != v22)
-                  {
-                    objc_enumerationMutation(i);
-                  }
-
-                  [v20 addObject:{objc_msgSend(*(*(&v48 + 1) + 8 * j), "objectID")}];
+                  objc_enumerationMutation(i);
                 }
 
-                v21 = [i countByEnumeratingWithState:&v48 objects:v54 count:16];
+                [v20 addObject:{objc_msgSend(*(*(&v47 + 1) + 8 * j), "objectID")}];
               }
 
-              while (v21);
+              v21 = [i countByEnumeratingWithState:&v47 objects:v53 count:16];
             }
 
-            v24 = v20;
+            while (v21);
           }
 
-          else
-          {
-            v24 = 0;
-          }
-
-          v26 = 1;
-LABEL_30:
-          v27 = v52;
-          [v9 drain];
-          if (v52)
-          {
-            v5 = v52;
-          }
-
-          v28 = v52;
-          if ((v26 & 1) == 0 || (v29 = v24) == 0)
-          {
-            dictionary = 0;
-            goto LABEL_42;
-          }
-
-          [dictionary setValue:v29 forKey:v7];
-          ++v6;
+          v24 = v20;
         }
 
-        while (v6 != v40);
-        v30 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
-        v40 = v30;
-        if (!v30)
+        else
         {
+          v24 = 0;
+        }
+
+        v26 = 1;
+LABEL_30:
+        v27 = v51;
+        [v9 drain];
+        if (v51)
+        {
+          v5 = v51;
+        }
+
+        v28 = v51;
+        if ((v26 & 1) == 0 || (v29 = v24) == 0)
+        {
+          dictionary = 0;
           goto LABEL_42;
         }
+
+        [dictionary setValue:v29 forKey:v7];
+        ++v6;
+      }
+
+      while (v6 != v39);
+      v30 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
+      v39 = v30;
+      if (!v30)
+      {
+        goto LABEL_42;
       }
     }
+  }
 
-    v5 = 0;
+  v5 = 0;
 LABEL_42:
-    v31 = v5;
-    objc_autoreleasePoolPop(context);
-    v32 = v5;
-    if (context && v5)
-    {
-      *context = v5;
-    }
-  }
-
-  else
+  v31 = v5;
+  objc_autoreleasePoolPop(context);
+  v32 = v5;
+  if (context && v5)
   {
-    dictionary = 0;
+    *context = v5;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return dictionary;
 }
 

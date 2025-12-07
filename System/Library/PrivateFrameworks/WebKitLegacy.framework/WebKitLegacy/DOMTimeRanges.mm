@@ -55,42 +55,48 @@
 
 - (double)start:(unsigned int)start
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v10);
-  v4 = WebCore::TimeRanges::start(self->super._internal);
-  if (v9)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v12);
+  v4 = WebCore::TimeRanges::start(&v9, self->super._internal);
+  if (v11)
   {
-    if (v9 == 1)
+    if (v11 == 1)
     {
-      v10[80] = LOBYTE(v7);
-      v11 = v8;
+      v12[80] = LOBYTE(v9);
+      v8 = v10;
+      v10 = 0;
+      v13 = v8;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(v4);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v10, v5);
-  return v7;
+  v6 = v9;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v12, v5);
+  return v6;
 }
 
 - (double)end:(unsigned int)end
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v10);
-  v4 = WebCore::TimeRanges::end(self->super._internal);
-  if (v9)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v12);
+  v4 = WebCore::TimeRanges::end(&v9, self->super._internal);
+  if (v11)
   {
-    if (v9 == 1)
+    if (v11 == 1)
     {
-      v10[80] = LOBYTE(v7);
-      v11 = v8;
+      v12[80] = LOBYTE(v9);
+      v8 = v10;
+      v10 = 0;
+      v13 = v8;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(v4);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v10, v5);
-  return v7;
+  v6 = v9;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v12, v5);
+  return v6;
 }
 
 @end

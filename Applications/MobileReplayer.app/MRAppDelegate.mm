@@ -54,17 +54,18 @@
     self->_interposeDylib = v11;
     if (!v11)
     {
-      dlerror();
-      dy_abort();
-LABEL_19:
-      __break(1u);
-      return;
+      v15 = dlerror();
+      dy_abort("failed to dlopen interpose dylib: %s", v15);
+      goto LABEL_20;
     }
   }
 
   if (!v10)
   {
-    goto LABEL_18;
+    dy_abort("no transport url is provided");
+LABEL_20:
+    __break(1u);
+    return;
   }
 
   v12 = dlsym(0xFFFFFFFFFFFFFFFELL, v9);
@@ -80,11 +81,17 @@ LABEL_19:
   }
 
   v14 = +[MRReplayController sharedController];
-  if (([v14 initializeTransportWith:v13] & 1) == 0 || (objc_msgSend(v14, "setDelegate:", self), (objc_msgSend(v14, "informReady") & 1) == 0))
+  if (([v14 initializeTransportWith:v13] & 1) == 0)
   {
-LABEL_18:
-    dy_abort();
-    goto LABEL_19;
+    dy_abort("transport could not be initialized");
+    goto LABEL_20;
+  }
+
+  [v14 setDelegate:self];
+  if (([v14 informReady] & 1) == 0)
+  {
+    dy_abort("inform ready failed");
+    goto LABEL_20;
   }
 }
 

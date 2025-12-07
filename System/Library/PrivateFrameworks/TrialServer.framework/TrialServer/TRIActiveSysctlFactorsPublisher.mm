@@ -25,34 +25,34 @@
 
 - (BOOL)publishSysctlFactors
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   activeSysctlFactorLevels = [(TRIActiveSysctlFactorsProviding *)self->_factorsProvider activeSysctlFactorLevels];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [activeSysctlFactorLevels countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [activeSysctlFactorLevels countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(activeSysctlFactorLevels);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         sysctlWriter = self->_sysctlWriter;
         sysctlName = [v9 sysctlName];
         v7 &= -[TRISysctlWriting writeSysctlWithName:intValue:](sysctlWriter, "writeSysctlWithName:intValue:", sysctlName, [v9 level]);
       }
 
-      v5 = [activeSysctlFactorLevels countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [activeSysctlFactorLevels countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -63,7 +63,6 @@
     LOBYTE(v7) = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

@@ -9,17 +9,17 @@
 
 - (EQKitMathMLTernaryNode)initWithFirst:(id)first second:(id)second third:(id)third
 {
-  v16.receiver = self;
-  v16.super_class = EQKitMathMLTernaryNode;
-  v8 = [(EQKitMathMLTernaryNode *)&v16 init];
+  v10.receiver = self;
+  v10.super_class = EQKitMathMLTernaryNode;
+  v8 = [(EQKitMathMLTernaryNode *)&v10 init];
   if (v8)
   {
     v8->mFirst = first;
     v8->mSecond = second;
     v8->mThird = third;
-    objc_msgSend_setParent_(v8->mFirst, v9, v8, v10);
-    objc_msgSend_setParent_(v8->mSecond, v11, v8, v12);
-    objc_msgSend_setParent_(v8->mThird, v13, v8, v14);
+    [(EQKitMathMLNode *)v8->mFirst setParent:v8];
+    [(EQKitMathMLNode *)v8->mSecond setParent:v8];
+    [(EQKitMathMLNode *)v8->mThird setParent:v8];
   }
 
   return v8;
@@ -34,19 +34,19 @@
 
 - (id)initFromXMLNode:(_xmlNode *)node parser:(id)parser
 {
-  v7 = objc_msgSend_parseChildrenAsArrayFromXMLNode_(parser, a2, node, parser);
-  if (objc_msgSend_count(v7, v8, v9, v10) == 3)
+  v7 = [parser parseChildrenAsArrayFromXMLNode:?];
+  if ([v7 count] == 3)
   {
-    v13 = objc_msgSend_objectAtIndex_(v7, v11, 0, v12);
-    v16 = objc_msgSend_objectAtIndex_(v7, v14, 1, v15);
-    objc_msgSend_objectAtIndex_(v7, v17, 2, v18);
+    [v7 objectAtIndex:0];
+    [v7 objectAtIndex:1];
+    [v7 objectAtIndex:2];
 
-    return MEMORY[0x2821F9670](self, sel_initWithFirst_second_third_, v13, v16);
+    return MEMORY[0x2821F9670](self, sel_initWithFirst_second_third_);
   }
 
   else
   {
-    objc_msgSend_reportError_withNode_(parser, v11, 5, node);
+    [parser reportError:5 withNode:node];
 
     return 0;
   }
@@ -54,14 +54,14 @@
 
 - (BOOL)isBaseFontNameUsed
 {
-  if (objc_msgSend_isBaseFontNameUsed(self->mFirst, a2, v2, v3) & 1) != 0 || (objc_msgSend_isBaseFontNameUsed(self->mSecond, v5, v6, v7))
+  if ([(EQKitMathMLNode *)self->mFirst isBaseFontNameUsed]|| [(EQKitMathMLNode *)self->mSecond isBaseFontNameUsed])
   {
     return 1;
   }
 
   mThird = self->mThird;
 
-  return objc_msgSend_isBaseFontNameUsed(mThird, v8, v9, v10);
+  return [(EQKitMathMLNode *)mThird isBaseFontNameUsed];
 }
 
 @end

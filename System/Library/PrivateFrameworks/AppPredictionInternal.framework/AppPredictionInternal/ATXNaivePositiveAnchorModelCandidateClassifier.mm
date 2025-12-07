@@ -38,20 +38,16 @@
 
 - (void)train
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = *(self + 24);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
 }
 
 - (id)classifyCandidateForAnchorOccurrence:(id)occurrence trainingResult:(id)result
 {
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ATXNaivePositiveAnchorModelCandidateClassifier classifyCandidateForAnchorOccurrence:? trainingResult:?];
@@ -120,7 +116,7 @@ LABEL_14:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -137,11 +133,11 @@ LABEL_14:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -152,7 +148,6 @@ LABEL_14:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -162,10 +157,9 @@ LABEL_7:
   coderCopy = coder;
   [coderCopy encodeObject:candidateId forKey:@"codingKeyForCandidateId"];
   [coderCopy encodeObject:self->_candidateType forKey:@"codingKeyForCandidateType"];
-  anchor = self->_anchor;
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  [coderCopy encodeObject:v8 forKey:@"codingKeyForAnchor"];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [coderCopy encodeObject:v7 forKey:@"codingKeyForAnchor"];
 }
 
 - (ATXNaivePositiveAnchorModelCandidateClassifier)initWithCoder:(id)coder
@@ -200,40 +194,41 @@ LABEL_20:
     {
       if (NSClassFromString(v8))
       {
-        v12 = objc_opt_new();
+        v13 = objc_opt_new();
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          self = [(ATXNaivePositiveAnchorModelCandidateClassifier *)self initWithCandidateId:v5 candidateType:v7 anchor:v12];
+          self = [(ATXNaivePositiveAnchorModelCandidateClassifier *)self initWithCandidateId:v5 candidateType:v7 anchor:v13];
           selfCopy = self;
 LABEL_19:
 
           goto LABEL_20;
         }
 
-        v13 = __atxlog_handle_anchor();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+        v15 = __atxlog_handle_anchor(isKindOfClass);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
         {
-          [ATXGamePlayKitDecisionTreeAnchorModelCandidateClassifier initWithCoder:];
+          [ATXGamePlayKitDecisionTreeAnchorModelCandidateClassifier initWithCoder:?];
         }
       }
 
       else
       {
-        v12 = __atxlog_handle_anchor();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+        v13 = __atxlog_handle_anchor(0);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
-          [ATXGamePlayKitDecisionTreeAnchorModelCandidateClassifier initWithCoder:];
+          [ATXGamePlayKitDecisionTreeAnchorModelCandidateClassifier initWithCoder:?];
         }
       }
     }
 
     else
     {
-      v12 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_anchor(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [ATXGamePlayKitDecisionTreeAnchorModelCandidateClassifier initWithCoder:];
+        [ATXGamePlayKitDecisionTreeAnchorModelCandidateClassifier initWithCoder:?];
       }
     }
 
@@ -249,15 +244,11 @@ LABEL_22:
 
 - (void)classifyCandidateForAnchorOccurrence:(uint64_t)a1 trainingResult:.cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = *(a1 + 24);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
 }
 
 @end

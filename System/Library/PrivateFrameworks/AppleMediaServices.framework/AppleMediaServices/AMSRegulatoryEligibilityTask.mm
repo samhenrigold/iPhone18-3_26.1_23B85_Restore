@@ -69,28 +69,28 @@ uint64_t __46__AMSRegulatoryEligibilityTask_sharedInstance__block_invoke()
 
 - (id)update
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
+  v34 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v3 = off_1ED6E1F80;
-  v28 = off_1ED6E1F80;
+  v29 = off_1ED6E1F80;
   if (!off_1ED6E1F80)
   {
     *&buf = MEMORY[0x1E69E9820];
     *(&buf + 1) = 3221225472;
-    v30 = __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke_1;
-    v31 = &unk_1E73B3880;
-    v32 = &v25;
+    v31 = __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke_1;
+    v32 = &unk_1E73B3880;
+    v33 = &v26;
     __getMKBDeviceUnlockedSinceBootSymbolLoc_block_invoke_1(&buf);
-    v3 = v26[3];
+    v3 = v27[3];
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
   if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v24 = dlerror();
+    abort_report_np("%s", v24);
     __break(1u);
   }
 
@@ -173,19 +173,19 @@ uint64_t __46__AMSRegulatoryEligibilityTask_sharedInstance__block_invoke()
     }
 
     fetchRegulatoryiTunesAccounts = [objc_opt_class() fetchRegulatoryiTunesAccounts];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __38__AMSRegulatoryEligibilityTask_update__block_invoke;
-    v24[3] = &unk_1E73BB898;
-    v24[4] = self;
-    v21 = [fetchRegulatoryiTunesAccounts continueWithBlock:v24];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __38__AMSRegulatoryEligibilityTask_update__block_invoke;
+    v25[3] = &unk_1E73BB898;
+    v25[4] = self;
+    v21 = [fetchRegulatoryiTunesAccounts continueWithBlock:v25];
     binaryPromiseAdapter = [v21 binaryPromiseAdapter];
   }
 
   return binaryPromiseAdapter;
 }
 
-id __38__AMSRegulatoryEligibilityTask_update__block_invoke(uint64_t a1, void *a2, void *a3)
+id __38__AMSRegulatoryEligibilityTask_update__block_invoke(id *a1, void *a2, void *a3)
 {
   v47 = *MEMORY[0x1E69E9840];
   v6 = a2;
@@ -204,13 +204,13 @@ id __38__AMSRegulatoryEligibilityTask_update__block_invoke(uint64_t a1, void *a2
       v12 = [MEMORY[0x1E695DFD8] setWithArray:v10];
       v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
       v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v15 = [*(a1 + 32) cachedServerDataService];
+      v15 = [a1[4] cachedServerDataService];
       v16 = [v12 allObjects];
       v38[0] = MEMORY[0x1E69E9820];
       v38[1] = 3221225472;
       v38[2] = __38__AMSRegulatoryEligibilityTask_update__block_invoke_41;
       v38[3] = &unk_1E73BBBC0;
-      v38[4] = *(a1 + 32);
+      v38[4] = a1[4];
       v39 = v14;
       v40 = v6;
       v41 = v13;
@@ -313,7 +313,7 @@ id __38__AMSRegulatoryEligibilityTask_update__block_invoke(uint64_t a1, void *a2
       goto LABEL_28;
     }
 
-    [*(a1 + 32) clearAMSDefaults];
+    [a1[4] clearAMSDefaults];
     [AMSDefaults setRegulatoryEligibilityAccounts:0];
     v10 = +[AMSBinaryPromise promiseWithSuccess];
     v19 = [v10 promiseAdapter];
@@ -893,20 +893,20 @@ void __38__AMSRegulatoryEligibilityTask_update__block_invoke_41(uint64_t a1, voi
   return v10;
 }
 
-id __61__AMSRegulatoryEligibilityTask_fetchRegulatoryiTunesAccounts__block_invoke(uint64_t a1, void *a2, void *a3)
+id __61__AMSRegulatoryEligibilityTask_fetchRegulatoryiTunesAccounts__block_invoke(id *a1, void *a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    [*(a1 + 32) setObject:v5 forKeyedSubscript:@"OS_ELIGIBILITY_INPUT_COUNTRY_BILLING_KEY_MUSIC_ACCOUNT"];
-    [*(a1 + 32) setObject:v5 forKeyedSubscript:@"OS_ELIGIBILITY_INPUT_COUNTRY_BILLING_KEY_APP_STORE_ACCOUNT"];
+    [a1[4] setObject:v5 forKeyedSubscript:@"OS_ELIGIBILITY_INPUT_COUNTRY_BILLING_KEY_MUSIC_ACCOUNT"];
+    [a1[4] setObject:v5 forKeyedSubscript:@"OS_ELIGIBILITY_INPUT_COUNTRY_BILLING_KEY_APP_STORE_ACCOUNT"];
   }
 
-  if ([*(a1 + 32) count])
+  if ([a1[4] count])
   {
-    v7 = [AMSPromise promiseWithResult:*(a1 + 32)];
+    v7 = [AMSPromise promiseWithResult:a1[4]];
   }
 
   else

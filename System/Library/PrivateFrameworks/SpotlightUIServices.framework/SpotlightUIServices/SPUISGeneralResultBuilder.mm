@@ -20,10 +20,10 @@
 
 - (id)buildTitle
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = SPUISGeneralResultBuilder;
-  buildTitle = [(SPUISResultBuilder *)&v19 buildTitle];
+  v19[2] = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = SPUISGeneralResultBuilder;
+  buildTitle = [(SPUISResultBuilder *)&v18 buildTitle];
   if (+[SPUISUtilities isMacOS])
   {
     result = [(SPUISResultBuilder *)self result];
@@ -44,14 +44,12 @@
       v14 = [v12 stringWithFormat:@" — %@", v13];
       v15 = [v11 textWithString:v14];
 
-      v20[0] = v10;
-      v20[1] = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+      v19[0] = v10;
+      v19[1] = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
       [buildTitle setFormattedTextPieces:v16];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return buildTitle;
 }
@@ -92,18 +90,16 @@ LABEL_9:
 
 void __48__SPUISGeneralResultBuilder_buildSecondaryTitle__block_invoke()
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = [*MEMORY[0x277CE1D60] identifier];
-  v7[0] = v1;
+  v6[0] = v1;
   v2 = [*MEMORY[0x277CE1DF8] identifier];
-  v7[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[1] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v4 = [v0 setWithArray:v3];
   v5 = buildSecondaryTitle_utiTypesWithSecondaryTitle;
   buildSecondaryTitle_utiTypesWithSecondaryTitle = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildDescriptions
@@ -211,7 +207,7 @@ void __48__SPUISGeneralResultBuilder_buildSecondaryTitle__block_invoke()
     [v14 addObject:v34];
   }
 
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
     v35 = v14;
   }

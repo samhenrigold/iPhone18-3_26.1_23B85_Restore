@@ -59,12 +59,12 @@
   if ([(BatteryUIGraphsViewController *)self validateDictionary:viewCopy])
   {
     objc_storeStrong(&self->_currentDictionary, view);
-    v59 = viewCopy;
+    v58 = viewCopy;
     v6 = [viewCopy objectForKeyedSubscript:@"ModelData"];
     v7 = [UIScrollView alloc];
     navigationController = [(BatteryUIGraphsViewController *)self navigationController];
     [navigationController navigationBar];
-    v9 = v60 = self;
+    v9 = v59 = self;
     [v9 frame];
     v10 = 20.0;
     v12 = v11 + 20.0;
@@ -85,69 +85,68 @@
     [view3 addSubview:rootScrollView];
 
     selfCopy = self;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     obj = v6;
-    v26 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
+    v26 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
     if (v26)
     {
       v27 = v26;
       v28 = 20;
       v29 = &UITableViewAutomaticDimension_ptr;
-      v30 = *v63;
+      v30 = *v62;
       do
       {
         for (i = 0; i != v27; i = i + 1)
         {
-          if (*v63 != v30)
+          if (*v62 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v62 + 1) + 8 * i);
-          v33 = v29[142];
+          v32 = *(*(&v61 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v34 = [UILabel alloc];
+            v33 = [UILabel alloc];
             rootScrollView2 = [(BatteryUIGraphsViewController *)selfCopy rootScrollView];
             [rootScrollView2 frame];
-            v37 = [v34 initWithFrame:{10.0, v28, v36 + -20.0, 20.0}];
+            v36 = [v33 initWithFrame:{10.0, v28, v35 + -20.0, 20.0}];
 
-            v38 = [v32 objectForKeyedSubscript:@"ModelGraphName"];
-            [v37 setText:v38];
+            v37 = [v32 objectForKeyedSubscript:@"ModelGraphName"];
+            [v36 setText:v37];
 
-            [v37 frame];
-            [v37 sizeThatFits:{v39, v40}];
+            [v36 frame];
+            [v36 sizeThatFits:{v38, v39}];
             rootScrollView3 = [(BatteryUIGraphsViewController *)selfCopy rootScrollView];
-            [rootScrollView3 addSubview:v37];
+            [rootScrollView3 addSubview:v36];
 
-            v42 = v30;
-            v43 = v29;
-            v44 = [PLBatteryUIGraphViewInternal alloc];
+            v41 = v30;
+            v42 = v29;
+            v43 = [PLBatteryUIGraphViewInternal alloc];
             rootScrollView4 = [(BatteryUIGraphsViewController *)selfCopy rootScrollView];
             [rootScrollView4 frame];
-            v47 = v46 + -20.0;
-            v48 = +[PLBatteryUIGraphViewInternal graphHeight];
-            v49 = [v32 objectForKeyedSubscript:@"ModelGraphArray"];
-            v50 = [(PLBatteryUIGraphViewInternal *)v44 initWithFrame:v49 andData:10.0, (v28 + 20), v47, v48];
+            v46 = v45 + -20.0;
+            v47 = +[PLBatteryUIGraphViewInternal graphHeight];
+            v48 = [v32 objectForKeyedSubscript:@"ModelGraphArray"];
+            v49 = [(PLBatteryUIGraphViewInternal *)v43 initWithFrame:v48 andData:10.0, (v28 + 20), v46, v47];
 
-            selfCopy = v60;
-            v51 = [v32 objectForKeyedSubscript:@"ModelGraphType"];
-            -[PLBatteryUIGraphViewInternal setGraphType:](v50, "setGraphType:", [v51 intValue]);
+            selfCopy = v59;
+            v50 = [v32 objectForKeyedSubscript:@"ModelGraphType"];
+            -[PLBatteryUIGraphViewInternal setGraphType:](v49, "setGraphType:", [v50 intValue]);
 
-            rootScrollView5 = [(BatteryUIGraphsViewController *)v60 rootScrollView];
-            [rootScrollView5 addSubview:v50];
+            rootScrollView5 = [(BatteryUIGraphsViewController *)v59 rootScrollView];
+            [rootScrollView5 addSubview:v49];
 
-            v29 = v43;
-            v30 = v42;
+            v29 = v42;
+            v30 = v41;
             v28 += +[PLBatteryUIGraphViewInternal graphHeight]+ 40;
           }
         }
 
-        v27 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
+        v27 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
       }
 
       while (v27);
@@ -156,9 +155,9 @@
 
     rootScrollView6 = [(BatteryUIGraphsViewController *)selfCopy rootScrollView];
     [rootScrollView6 frame];
-    v55 = v54;
+    v54 = v53;
     rootScrollView7 = [(BatteryUIGraphsViewController *)selfCopy rootScrollView];
-    [rootScrollView7 setContentSize:{v55, v10}];
+    [rootScrollView7 setContentSize:{v54, v10}];
 
     rootScrollView8 = [(BatteryUIGraphsViewController *)selfCopy rootScrollView];
     [rootScrollView8 setScrollEnabled:1];
@@ -166,7 +165,7 @@
     view4 = [(BatteryUIGraphsViewController *)selfCopy view];
     [view4 setUserInteractionEnabled:1];
 
-    viewCopy = v59;
+    viewCopy = v58;
   }
 }
 

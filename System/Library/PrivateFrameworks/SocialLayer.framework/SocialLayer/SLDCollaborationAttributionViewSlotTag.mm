@@ -108,29 +108,28 @@
     v35 = [v33 displayNamesForPersons:allObjects];
     [v23 addObjectsFromArray:v35];
 
-    v36 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v37 = SLDaemonLogHandle(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v51 = v25;
       v52 = 2112;
       v53 = v24;
-      _os_log_impl(&dword_231772000, v36, OS_LOG_TYPE_DEFAULT, "SLDCollaborationAttributionViewSlotTag attributions: %@ Generated people %@", buf, 0x16u);
+      _os_log_impl(&dword_231772000, v37, OS_LOG_TYPE_DEFAULT, "SLDCollaborationAttributionViewSlotTag attributions: %@ Generated people %@", buf, 0x16u);
     }
 
-    v37 = [v23 copy];
+    v38 = [v23 copy];
     collaboratorDisplayNames = v19->_collaboratorDisplayNames;
-    v19->_collaboratorDisplayNames = v37;
+    v19->_collaboratorDisplayNames = v38;
 
-    v39 = [objc_opt_class() conversationDrawingMetadataForAttributions:v25];
+    v40 = [objc_opt_class() conversationDrawingMetadataForAttributions:v25];
     conversationDrawingMetadata = v19->_conversationDrawingMetadata;
-    v19->_conversationDrawingMetadata = v39;
+    v19->_conversationDrawingMetadata = v40;
 
     configurationCopy = v43;
     titleCopy = v44;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -164,122 +163,124 @@
 
 + (id)conversationDrawingMetadataForAttributions:(id)attributions
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   attributionsCopy = attributions;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v52 = 0u;
-  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   obj = attributionsCopy;
-  v45 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
-  if (v45)
+  v47 = [obj countByEnumeratingWithState:&v54 objects:v65 count:16];
+  if (v47)
   {
-    v44 = *v53;
+    v46 = *v55;
     *&v6 = 138412546;
-    v40 = v6;
-    v41 = v5;
+    v42 = v6;
+    v43 = v5;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v45; ++i)
+      for (i = 0; i != v47; ++i)
       {
-        if (*v53 != v44)
+        if (*v55 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v52 + 1) + 8 * i);
-        v9 = [self recipientsForAttribution:{v8, v40}];
-        if (![v9 count])
+        v8 = *(*(&v54 + 1) + 8 * i);
+        v9 = [self recipientsForAttribution:{v8, v42}];
+        v10 = [v9 count];
+        if (!v10)
         {
-          v10 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v11 = SLDaemonLogHandle(0);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             uniqueIdentifier = [v8 uniqueIdentifier];
-            *buf = v40;
+            *buf = v42;
             selfCopy5 = self;
-            v59 = 2112;
-            v60 = uniqueIdentifier;
-            _os_log_error_impl(&dword_231772000, v10, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewSlotTag Found no recipients for attribution with identifier %@", buf, 0x16u);
+            v61 = 2112;
+            v62 = uniqueIdentifier;
+            _os_log_error_impl(&dword_231772000, v11, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewSlotTag Found no recipients for attribution with identifier %@", buf, 0x16u);
           }
         }
 
-        v11 = SLDaemonLogHandle();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v12 = SLDaemonLogHandle(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           uniqueIdentifier2 = [v8 uniqueIdentifier];
           *buf = 138412802;
           selfCopy5 = self;
-          v59 = 2112;
-          v60 = uniqueIdentifier2;
           v61 = 2112;
-          v62 = v9;
-          _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_DEFAULT, "[%@] SLDCollaborationAttributionViewSlotTag ID: %@ found recipients %@", buf, 0x20u);
+          v62 = uniqueIdentifier2;
+          v63 = 2112;
+          v64 = v9;
+          _os_log_impl(&dword_231772000, v12, OS_LOG_TYPE_DEFAULT, "[%@] SLDCollaborationAttributionViewSlotTag ID: %@ found recipients %@", buf, 0x20u);
         }
 
-        v46 = v8;
-        v47 = v9;
+        v48 = v8;
+        v49 = v9;
         if ([v8 isGroupConversation] && objc_msgSend(v9, "count") >= 2)
         {
           firstObject = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v48 = 0u;
-          v49 = 0u;
           v50 = 0u;
           v51 = 0u;
-          v14 = v9;
-          v15 = [v14 countByEnumeratingWithState:&v48 objects:v56 count:16];
-          if (v15)
+          v52 = 0u;
+          v53 = 0u;
+          v15 = v9;
+          v16 = [v15 countByEnumeratingWithState:&v50 objects:v58 count:16];
+          if (v16)
           {
-            v16 = v15;
-            v17 = *v49;
+            v17 = v16;
+            v18 = *v51;
             do
             {
-              for (j = 0; j != v16; ++j)
+              for (j = 0; j != v17; ++j)
               {
-                if (*v49 != v17)
+                if (*v51 != v18)
                 {
-                  objc_enumerationMutation(v14);
+                  objc_enumerationMutation(v15);
                 }
 
-                v19 = *(*(&v48 + 1) + 8 * j);
-                v20 = [SLCollaborationAttributionRecipientDrawingMetadata alloc];
-                contact = [v19 contact];
-                thumbnailImageData = [v19 thumbnailImageData];
-                v23 = [(SLCollaborationAttributionRecipientDrawingMetadata *)v20 initWithContact:contact contactImageData:thumbnailImageData];
+                v20 = *(*(&v50 + 1) + 8 * j);
+                v21 = [SLCollaborationAttributionRecipientDrawingMetadata alloc];
+                contact = [v20 contact];
+                thumbnailImageData = [v20 thumbnailImageData];
+                v24 = [(SLCollaborationAttributionRecipientDrawingMetadata *)v21 initWithContact:contact contactImageData:thumbnailImageData];
 
-                [firstObject addObject:v23];
+                [firstObject addObject:v24];
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v48 objects:v56 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v50 objects:v58 count:16];
             }
 
-            while (v16);
+            while (v17);
           }
 
-          v24 = [SLCollaborationAttributionConversationDrawingMetadata alloc];
-          groupPhotoPath = [v46 groupPhotoPath];
-          groupID = [v46 groupID];
+          v25 = [SLCollaborationAttributionConversationDrawingMetadata alloc];
+          groupPhotoPath = [v48 groupPhotoPath];
+          groupID = [v48 groupID];
           uUIDString = [(SLCollaborationAttributionRecipientDrawingMetadata *)groupID UUIDString];
-          v28 = [(SLCollaborationAttributionConversationDrawingMetadata *)v24 initWithGroupPhotoFileURL:groupPhotoPath recipientDrawingMetadata:firstObject groupID:uUIDString];
+          v29 = [(SLCollaborationAttributionConversationDrawingMetadata *)v25 initWithGroupPhotoFileURL:groupPhotoPath recipientDrawingMetadata:firstObject groupID:uUIDString];
 
-          v5 = v41;
+          v5 = v43;
           self = selfCopy;
         }
 
         else
         {
-          if ([v9 count] >= 2)
+          v30 = [v9 count];
+          if (v30 >= 2)
           {
-            v29 = SLDaemonLogHandle();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v31 = SLDaemonLogHandle(v30);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               uniqueIdentifier3 = [v8 uniqueIdentifier];
-              *buf = v40;
+              *buf = v42;
               selfCopy5 = self;
-              v59 = 2112;
-              v60 = uniqueIdentifier3;
-              _os_log_error_impl(&dword_231772000, v29, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewSlotTag Found more than one recipient, but attribution.isGroupConversation was NO. attribution.uniqueIdentifier: %@", buf, 0x16u);
+              v61 = 2112;
+              v62 = uniqueIdentifier3;
+              _os_log_error_impl(&dword_231772000, v31, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewSlotTag Found more than one recipient, but attribution.isGroupConversation was NO. attribution.uniqueIdentifier: %@", buf, 0x16u);
             }
           }
 
@@ -292,68 +293,67 @@
             groupPhotoPath = [firstObject thumbnailImageData];
           }
 
-          v31 = [SLCollaborationAttributionRecipientDrawingMetadata alloc];
+          v33 = [SLCollaborationAttributionRecipientDrawingMetadata alloc];
           contact3 = [firstObject contact];
-          groupID = [(SLCollaborationAttributionRecipientDrawingMetadata *)v31 initWithContact:contact3 contactImageData:groupPhotoPath];
+          groupID = [(SLCollaborationAttributionRecipientDrawingMetadata *)v33 initWithContact:contact3 contactImageData:groupPhotoPath];
 
-          v28 = [[SLCollaborationAttributionConversationDrawingMetadata alloc] initWithRecipientDrawingMetadata:groupID];
+          v29 = [[SLCollaborationAttributionConversationDrawingMetadata alloc] initWithRecipientDrawingMetadata:groupID];
         }
 
-        if (v28)
+        if (v29)
         {
-          [v5 addObject:v28];
+          [v5 addObject:v29];
         }
 
         else
         {
-          v33 = SLDaemonLogHandle();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v36 = SLDaemonLogHandle(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            uniqueIdentifier4 = [v46 uniqueIdentifier];
-            *buf = v40;
+            uniqueIdentifier4 = [v48 uniqueIdentifier];
+            *buf = v42;
             selfCopy5 = self;
-            v59 = 2112;
-            v60 = uniqueIdentifier4;
-            _os_log_error_impl(&dword_231772000, v33, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewSlotTag conversationDrawingMetadata was nil! Skipping. attribution.uniqueIdentifier: %@", buf, 0x16u);
+            v61 = 2112;
+            v62 = uniqueIdentifier4;
+            _os_log_error_impl(&dword_231772000, v36, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewSlotTag conversationDrawingMetadata was nil! Skipping. attribution.uniqueIdentifier: %@", buf, 0x16u);
           }
         }
       }
 
-      v45 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+      v47 = [obj countByEnumeratingWithState:&v54 objects:v65 count:16];
     }
 
-    while (v45);
+    while (v47);
   }
 
-  v37 = [v5 copy];
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = [v5 copy];
 
-  return v37;
+  return v40;
 }
 
 + (id)_personOtherThanPerson:(id)person inArray:(id)array
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   personCopy = person;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   arrayCopy = array;
-  v7 = [arrayCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ((SLPersonIsEqualToPerson(v10, personCopy) & 1) == 0)
         {
           v7 = v10;
@@ -361,7 +361,7 @@
         }
       }
 
-      v7 = [arrayCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [arrayCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -373,36 +373,34 @@
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)displayNamesForPersons:(id)persons
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   personsCopy = persons;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = personsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         shortDisplayName = [v10 shortDisplayName];
         if (shortDisplayName)
         {
@@ -416,20 +414,18 @@ LABEL_11:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)recipientsForAttribution:(id)attribution
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   attributionCopy = attribution;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = +[SLPerson fetchMeContact];
@@ -443,27 +439,27 @@ LABEL_11:
     sender = 0;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v17 = attributionCopy;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v16 = attributionCopy;
   relatedPersons = [attributionCopy relatedPersons];
-  v8 = [relatedPersons countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [relatedPersons countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(relatedPersons);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         contact = [v12 contact];
         if ([contact isEqual:v5])
         {
@@ -480,24 +476,22 @@ LABEL_11:
         }
       }
 
-      v9 = [relatedPersons countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [relatedPersons countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (SLDCollaborationAttributionViewSlotTag)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = SLDCollaborationAttributionViewSlotTag;
-  v5 = [(SLDCollaborationAttributionViewSlotTag *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SLDCollaborationAttributionViewSlotTag;
+  v5 = [(SLDCollaborationAttributionViewSlotTag *)&v21 init];
   if (v5)
   {
     v5->_isPlaceholder = [coderCopy decodeBoolForKey:@"isPlaceholder"];
@@ -506,9 +500,9 @@ LABEL_11:
     v5->_title = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"collaboratorDisplayNames"];
     collaboratorDisplayNames = v5->_collaboratorDisplayNames;
@@ -530,7 +524,6 @@ LABEL_11:
     v5->_placeholderGlyphConfiguration = v18;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -107,7 +107,7 @@ LABEL_6:
 
 - (void)ea_updateAlertCategory:()EmergencyAlerts
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   categoryIdentifier = [self categoryIdentifier];
   if ([categoryIdentifier isEqualToString:@"alert-configurable"] & 1) != 0 || (objc_msgSend(categoryIdentifier, "isEqualToString:", @"alert-configurable-spinner"))
   {
@@ -131,28 +131,26 @@ LABEL_5:
     {
       v5 = v4;
       categoryIdentifier2 = [self categoryIdentifier];
-      v9 = 138412290;
-      v10 = categoryIdentifier2;
-      _os_log_impl(&dword_249FC1000, v5, OS_LOG_TYPE_DEFAULT, "Alert Category updated: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = categoryIdentifier2;
+      _os_log_impl(&dword_249FC1000, v5, OS_LOG_TYPE_DEFAULT, "Alert Category updated: %@", &v8, 0xCu);
     }
 
     goto LABEL_7;
   }
 
-  v8 = EALogDefault;
+  v7 = EALogDefault;
   if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_ERROR))
   {
-    [(UNMutableNotificationContent(EmergencyAlerts) *)v8 ea_updateAlertCategory:self];
+    [(UNMutableNotificationContent(EmergencyAlerts) *)v7 ea_updateAlertCategory:self];
   }
 
 LABEL_7:
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ea_setAlertCategory:()EmergencyAlerts
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 objectForKey:*MEMORY[0x277CC4100]];
   v6 = [v5 objectForKey:@"UserConfigurable"];
@@ -167,8 +165,8 @@ LABEL_7:
       v10 = EALogDefault;
       if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_249FC1000, v10, OS_LOG_TYPE_DEFAULT, "Overriding user configurable category to NO", &v21, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_249FC1000, v10, OS_LOG_TYPE_DEFAULT, "Overriding user configurable category to NO", &v20, 2u);
       }
 
       [self setCategoryIdentifier:@"igneous"];
@@ -225,14 +223,12 @@ LABEL_7:
   {
     v18 = v17;
     categoryIdentifier = [self categoryIdentifier];
-    v21 = 138412290;
-    v22 = categoryIdentifier;
-    _os_log_impl(&dword_249FC1000, v18, OS_LOG_TYPE_DEFAULT, "Alert Category: %@", &v21, 0xCu);
+    v20 = 138412290;
+    v21 = categoryIdentifier;
+    _os_log_impl(&dword_249FC1000, v18, OS_LOG_TYPE_DEFAULT, "Alert Category: %@", &v20, 0xCu);
   }
 
 LABEL_20:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)ea_getUpdatedBodyString:()EmergencyAlerts withMessageDictionary:
@@ -358,7 +354,7 @@ LABEL_18:
 
 - (void)ea_setPropertiesForCellBroadcastMessage:()EmergencyAlerts withActivePhoneCall:
 {
-  v109[5] = *MEMORY[0x277D85DE8];
+  v108[5] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = EALogDefault;
   if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
@@ -382,15 +378,15 @@ LABEL_18:
     v11 = 1;
   }
 
-  v90 = v7;
+  v89 = v7;
   if (!v11)
   {
-    v109[0] = v8;
-    v109[1] = @":\n";
-    v109[2] = v7;
-    v109[3] = @"\n\n";
-    v109[4] = v10;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:5];
+    v108[0] = v8;
+    v108[1] = @":\n";
+    v108[2] = v7;
+    v108[3] = @"\n\n";
+    v108[4] = v10;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v108 count:5];
     v13 = [v12 componentsJoinedByString:&stru_285D24188];
 
     v10 = v13;
@@ -400,7 +396,7 @@ LABEL_18:
   bOOLValue = [v14 BOOLValue];
 
   v15 = [v5 objectForKey:*MEMORY[0x277CC4108]];
-  v99 = [v5 objectForKey:*MEMORY[0x277CC40F0]];
+  v98 = [v5 objectForKey:*MEMORY[0x277CC40F0]];
   v16 = [v5 objectForKey:*MEMORY[0x277CC4100]];
   v17 = [v16 objectForKey:@"SoundIsMutableInDND"];
   bOOLValue2 = [v17 BOOLValue];
@@ -411,15 +407,15 @@ LABEL_18:
   v19 = [v16 objectForKey:@"ShowTimestamp"];
   bOOLValue4 = [v19 BOOLValue];
 
-  v91 = [v16 objectForKey:@"SoundAlertPeriod"];
-  v98 = v16;
+  v90 = [v16 objectForKey:@"SoundAlertPeriod"];
+  v97 = v16;
   v21 = [v16 objectForKey:@"NotificationTitle"];
   v22 = [v5 objectForKey:*MEMORY[0x277CC40F8]];
   v23 = [v22 objectForKey:@"PlaySoundUntilAcknowledged"];
   bOOLValue5 = [v23 BOOLValue];
 
   v24 = [v5 objectForKey:*MEMORY[0x277CC4130]];
-  v87 = v24;
+  v86 = v24;
   if (v24)
   {
     v25 = v24;
@@ -430,13 +426,13 @@ LABEL_18:
     v25 = [v22 objectForKey:@"Sound"];
   }
 
-  v100 = v25;
-  v89 = v8;
-  v84 = [v22 objectForKey:@"OverrideAccessibilityVibrationSetting"];
+  v99 = v25;
+  v88 = v8;
+  v83 = [v22 objectForKey:@"OverrideAccessibilityVibrationSetting"];
 
-  v97 = [v22 objectForKey:@"Vibration"];
+  v96 = [v22 objectForKey:@"Vibration"];
   v26 = [v22 objectForKey:@"SystemSound"];
-  v86 = v26;
+  v85 = v26;
   if (v26)
   {
     v27 = [v26 caseInsensitiveCompare:@"TEXT"] == 0;
@@ -447,7 +443,7 @@ LABEL_18:
     v27 = 1;
   }
 
-  v88 = v22;
+  v87 = v22;
   v28 = [v22 objectForKey:@"AllowCallAudioInterruption"];
   bOOLValue6 = [v28 BOOLValue];
 
@@ -458,9 +454,9 @@ LABEL_18:
     v21 = ea_defaultTitle;
   }
 
-  v82 = bOOLValue6;
-  v96 = v5;
-  v94 = v21;
+  v81 = bOOLValue6;
+  v95 = v5;
+  v93 = v21;
   if (bOOLValue4)
   {
     ea_timestampSubtitleForNow = [self ea_timestampSubtitleForNow];
@@ -488,7 +484,7 @@ LABEL_18:
     if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v104 = i;
+      *v103 = i;
       _os_log_impl(&dword_249FC1000, v36, OS_LOG_TYPE_DEFAULT, "Trimming leading whitespace to index %lu", buf, 0xCu);
     }
 
@@ -515,7 +511,7 @@ LABEL_18:
     if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v104 = v38;
+      *v103 = v38;
       _os_log_impl(&dword_249FC1000, v40, OS_LOG_TYPE_DEFAULT, "Trimming trailing whitespace from index %lu", buf, 0xCu);
     }
 
@@ -530,56 +526,56 @@ LABEL_18:
     if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v104 = v34;
+      *v103 = v34;
       _os_log_impl(&dword_249FC1000, v42, OS_LOG_TYPE_DEFAULT, "Post trimming message: %@", buf, 0xCu);
     }
   }
 
-  [self setTitle:v94];
+  [self setTitle:v93];
   [self setSubtitle:ea_timestampSubtitleForNow];
   [self setBody:v34];
   [self setShouldIgnoreDoNotDisturb:bOOLValue2 ^ 1u];
   [self setShouldSuppressDefaultAction:1];
   [self setShouldPreemptPresentedNotification:1];
-  if (v99)
+  if (v98)
   {
     v43 = EALogDefault;
     if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v104 = v99;
+      *v103 = v98;
       _os_log_impl(&dword_249FC1000, v43, OS_LOG_TYPE_DEFAULT, "Setting speech language to: %@", buf, 0xCu);
     }
 
-    [self setSpeechLanguage:v99];
+    [self setSpeechLanguage:v98];
   }
 
-  v85 = ea_timestampSubtitleForNow;
-  v95 = v15;
+  v84 = ea_timestampSubtitleForNow;
+  v94 = v15;
   v44 = [self ea_bundleForBundleIdentifier:v15];
-  v45 = [self ea_externalToneFileURLForTone:v100 inBundle:v44];
+  v45 = [self ea_externalToneFileURLForTone:v99 inBundle:v44];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v93 = v45;
+  v92 = v45;
   if (!v27)
   {
     v52 = [MEMORY[0x277CE1F70] soundWithAlertType:2];
-    v53 = v97;
+    v53 = v96;
     goto LABEL_46;
   }
 
   v46 = [MEMORY[0x277CE1F70] soundWithAlertType:18];
   v47 = v46;
-  v48 = v82;
-  if (((v82 | a4 ^ 1) & 1) == 0)
+  v48 = v81;
+  if (((v81 | a4 ^ 1) & 1) == 0)
   {
     [v46 setAlertTopic:*MEMORY[0x277D71FC0]];
   }
 
-  v49 = [v98 objectForKey:@"AlwaysDeliverPref"];
+  v49 = [v97 objectForKey:@"AlwaysDeliverPref"];
 
   if (v49)
   {
-    v50 = [v98 objectForKey:@"AlwaysDeliverPref"];
+    v50 = [v97 objectForKey:@"AlwaysDeliverPref"];
     bOOLValue7 = [v50 BOOLValue];
   }
 
@@ -590,7 +586,7 @@ LABEL_18:
 
   [v47 setShouldIgnoreRingerSwitch:bOOLValue7 & 1];
   v55 = EALogDefault;
-  v53 = v97;
+  v53 = v96;
   if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
   {
     v56 = @"NO";
@@ -600,24 +596,24 @@ LABEL_18:
     }
 
     *buf = 138412290;
-    *v104 = v56;
+    *v103 = v56;
     _os_log_impl(&dword_249FC1000, v55, OS_LOG_TYPE_DEFAULT, "Always Deliver: %@", buf, 0xCu);
   }
 
   if (bOOLValue5)
   {
     [v47 setShouldRepeat:1];
-    v57 = v100;
-    v45 = v93;
+    v57 = v99;
+    v45 = v92;
   }
 
   else
   {
-    v45 = v93;
-    if (v91)
+    v45 = v92;
+    if (v90)
     {
       [v47 setShouldRepeat:1];
-      [v91 doubleValue];
+      [v90 doubleValue];
       v59 = v58 / 1000.0;
     }
 
@@ -627,9 +623,9 @@ LABEL_18:
       v59 = 14.0;
     }
 
-    v57 = v100;
+    v57 = v99;
     [v47 setMaximumDuration:v59];
-    v48 = v82;
+    v48 = v81;
   }
 
   if ((a4 & v48) != 1)
@@ -647,14 +643,14 @@ LABEL_18:
     }
 
 LABEL_46:
-    v54 = v84;
+    v54 = v83;
     goto LABEL_63;
   }
 
   v52 = v47;
   [v47 setToneIdentifier:*MEMORY[0x277D72068]];
 LABEL_62:
-  v54 = v84;
+  v54 = v83;
 LABEL_63:
   [v52 setShouldIgnoreAccessibilityDisabledVibrationSetting:v54 != 0];
   v60 = EALogDefault;
@@ -663,12 +659,12 @@ LABEL_63:
     v61 = v60;
     shouldIgnoreAccessibilityDisabledVibrationSetting = [v52 shouldIgnoreAccessibilityDisabledVibrationSetting];
     *buf = 67109120;
-    *v104 = shouldIgnoreAccessibilityDisabledVibrationSetting;
+    *v103 = shouldIgnoreAccessibilityDisabledVibrationSetting;
     _os_log_impl(&dword_249FC1000, v61, OS_LOG_TYPE_DEFAULT, "Setting alert override-accessibility-vibration: %{BOOL}d", buf, 8u);
   }
 
   v63 = [self ea_externalVibrationPatternFileURLForVibration:v53 inBundle:v44];
-  v83 = v44;
+  v82 = v44;
   if (v63)
   {
     [v52 setVibrationPatternFileURL:v63];
@@ -690,32 +686,32 @@ LABEL_63:
     [v52 maximumDuration];
     v70 = [v69 numberWithDouble:?];
     *buf = 67109890;
-    *v104 = shouldIgnoreRingerSwitch;
-    v45 = v93;
-    *&v104[4] = 1024;
-    *&v104[6] = shouldRepeat;
+    *v103 = shouldIgnoreRingerSwitch;
+    v45 = v92;
+    *&v103[4] = 1024;
+    *&v103[6] = shouldRepeat;
     self = selfCopy;
-    v105 = 2114;
-    v106 = v70;
-    v107 = 1024;
-    v108 = a4;
+    v104 = 2114;
+    v105 = v70;
+    v106 = 1024;
+    v107 = a4;
     _os_log_impl(&dword_249FC1000, v65, OS_LOG_TYPE_DEFAULT, "Setting alert sound: prevent-muting: %{BOOL}d, repeat: %{BOOL}d, max-duration: %{public}@, active-call: %{BOOL}d", buf, 0x1Eu);
 
-    v53 = v97;
+    v53 = v96;
   }
 
   selfCopy2 = self;
   [self setSound:v52];
   [dictionary setObject:MEMORY[0x277CBEC38] forKey:@"FromPhone"];
-  v72 = [v98 objectForKey:@"SoundIsMutableInRelayMode"];
+  v72 = [v97 objectForKey:@"SoundIsMutableInRelayMode"];
   if (v72)
   {
     [dictionary setObject:v72 forKey:@"SoundIsMutableInRelayMode"];
   }
 
-  if (v95)
+  if (v94)
   {
-    [dictionary setObject:v95 forKey:@"carrierBundleIdentifier"];
+    [dictionary setObject:v94 forKey:@"carrierBundleIdentifier"];
   }
 
   path = [v45 path];
@@ -726,9 +722,9 @@ LABEL_63:
     [dictionary setObject:path forKey:@"externalToneFileURL"];
   }
 
-  if (v100)
+  if (v99)
   {
-    [dictionary setObject:v100 forKey:@"externalToneFileName"];
+    [dictionary setObject:v99 forKey:@"externalToneFileName"];
   }
 
   path2 = [v63 path];
@@ -742,38 +738,33 @@ LABEL_63:
     [dictionary setObject:v53 forKey:@"externalVibrationPatternFileName"];
   }
 
-  [selfCopy2 ea_updateUserInfo:dictionary withMessageDictionary:v96];
-  [selfCopy2 ea_setAlertCategory:v96];
+  [selfCopy2 ea_updateUserInfo:dictionary withMessageDictionary:v95];
+  [selfCopy2 ea_setAlertCategory:v95];
   v77 = EALogDefault;
   if (os_log_type_enabled(EALogDefault, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v104 = dictionary;
+    *v103 = dictionary;
     _os_log_impl(&dword_249FC1000, v77, OS_LOG_TYPE_DEFAULT, "UserInfo dict: %@", buf, 0xCu);
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ea_bundleForBundleIdentifier:()EmergencyAlerts .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_249FC1000, a2, OS_LOG_TYPE_ERROR, "Cannot find bundle for %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_249FC1000, a2, OS_LOG_TYPE_ERROR, "Cannot find bundle for %{public}@", &v2, 0xCu);
 }
 
 - (void)ea_updateAlertCategory:()EmergencyAlerts .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 categoryIdentifier];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_249FC1000, v3, OS_LOG_TYPE_ERROR, "Alert category: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_249FC1000, v3, OS_LOG_TYPE_ERROR, "Alert category: %@", &v5, 0xCu);
 }
 
 @end

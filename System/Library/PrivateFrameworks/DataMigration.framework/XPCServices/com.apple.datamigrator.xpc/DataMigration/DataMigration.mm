@@ -38,9 +38,9 @@ intptr_t sub_100001CA8(uint64_t a1, uint64_t a2, uint64_t a3)
   return dispatch_semaphore_signal(v4);
 }
 
-void sub_100003100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100003100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -91,7 +91,6 @@ Class sub_100003414(uint64_t a1)
 
 uint64_t sub_100003540(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100030978 = result;
   return result;
@@ -835,10 +834,11 @@ id sub_10000924C(uint64_t a1)
   return [*(a1 + 32) _telemetryDictionaryMigrationDidCompleteWithDuration:*(a1 + 56) fastPluginDuration:*(a1 + 60) pluginCrashCount:*(a1 + 64) pluginWatchdogCount:*(a1 + 40) pluginReturnedFalseCount:*(a1 + 68) previousBuildVersion:*(a1 + 72) userDataDisposition:*(a1 + 48) pluginCategories:*(*(a1 + 32) + 120) userCategory:v2 inAppleStore:? isFromFactory:?];
 }
 
-void sub_10000A4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_10000A4A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
+  va_start(va, a52);
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a53, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -851,29 +851,27 @@ uint64_t sub_10000A5A8(uint64_t result, uint64_t a2)
 
 void sub_10000A5C0(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [NSNumber numberWithLongLong:*(a1 + 56)];
-  v5 = [NSNumber numberWithInt:*(a1 + 72)];
+  v2 = [NSNumber numberWithLongLong:*(a1 + 56)];
+  v4 = [NSNumber numberWithInt:*(a1 + 72)];
   _DMLogFunc();
 
-  v4 = *(a1 + 64);
+  v3 = *(a1 + 64);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000A6DC;
   block[3] = &unk_1000249A8;
-  v7 = *(a1 + 32);
-  v10 = *(a1 + 72);
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 56);
-  dispatch_after(v4, &_dispatch_main_q, block);
+  v6 = *(a1 + 32);
+  v9 = *(a1 + 72);
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 56);
+  dispatch_after(v3, &_dispatch_main_q, block);
 }
 
 void sub_10000A6DC(uint64_t a1)
 {
   v2 = dispatch_semaphore_create(0);
   v3 = *(a1 + 32);
-  [NSNumber numberWithInt:*(a1 + 64)];
-  v12 = v11 = v3;
+  v10 = [NSNumber numberWithInt:*(a1 + 64)];
   _DMLogFunc();
 
   v4 = *(*(a1 + 40) + OBJC_IVAR___DMXPCConnection__connection);
@@ -882,9 +880,9 @@ void sub_10000A6DC(uint64_t a1)
   barrier[2] = sub_10000A868;
   barrier[3] = &unk_100024980;
   v5 = *(a1 + 32);
-  v17 = *(a1 + 64);
-  v15 = v5;
-  v16 = v2;
+  v15 = *(a1 + 64);
+  v13 = v5;
+  v14 = v2;
   v6 = v2;
   xpc_connection_send_barrier(v4, barrier);
   dispatch_semaphore_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
@@ -892,9 +890,8 @@ void sub_10000A6DC(uint64_t a1)
   v8 = *(v7 + 40);
   *(v7 + 40) = 0;
 
-  v9 = *(a1 + 32);
-  v10 = [NSNumber numberWithLongLong:*(a1 + 56), v11, v12];
-  v13 = [NSNumber numberWithInt:*(a1 + 64)];
+  v9 = [NSNumber numberWithLongLong:*(a1 + 56), v3, v10];
+  v11 = [NSNumber numberWithInt:*(a1 + 64)];
   _DMLogFunc();
 
   xpc_transaction_exit_clean();
@@ -902,20 +899,18 @@ void sub_10000A6DC(uint64_t a1)
 
 intptr_t sub_10000A868(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v5 = [NSNumber numberWithInt:*(a1 + 48)];
+  v4 = [NSNumber numberWithInt:*(a1 + 48)];
   _DMLogFunc();
 
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  return dispatch_semaphore_signal(v3);
+  return dispatch_semaphore_signal(v2);
 }
 
 void sub_10000A8EC(uint64_t a1, int64_t a2)
 {
-  v4 = *(a1 + 32);
-  v5 = [NSNumber numberWithLongLong:a2];
-  v6 = [NSNumber numberWithInt:*(a1 + 48)];
+  v4 = [NSNumber numberWithLongLong:a2];
+  v5 = [NSNumber numberWithInt:*(a1 + 48)];
   _DMLogFunc();
 
   message = xpc_dictionary_create_reply(*(a1 + 32));
@@ -1082,14 +1077,14 @@ void sub_10000B764(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10000BA88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000BA88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_10000BDEC()
+uint64_t sub_10000BDEC(uint64_t a1)
 {
   if (!qword_100030A38)
   {
@@ -1101,7 +1096,6 @@ uint64_t sub_10000BDEC()
 
 uint64_t sub_10000BEBC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100030A38 = result;
   return result;
@@ -1110,9 +1104,14 @@ uint64_t sub_10000BEBC(uint64_t a1)
 Class sub_10000BF30(uint64_t a1)
 {
   v3 = 0;
-  if (!sub_10000BDEC())
+  if (!sub_10000BDEC(&v3))
   {
     sub_100012BF0(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("LockdownModeManager");
@@ -1126,16 +1125,16 @@ Class sub_10000BF30(uint64_t a1)
   return result;
 }
 
-id _executePluginsSemaphore()
+id _executePluginsSemaphore(uint64_t a1)
 {
   if (qword_100030A50 != -1)
   {
     sub_100012C70();
   }
 
-  v1 = qword_100030A48;
+  v2 = qword_100030A48;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000C93C(id a1)
@@ -1147,9 +1146,9 @@ void sub_10000C93C(id a1)
 
 void _excecutePluginsNotificationCallback()
 {
-  _DMLogFunc();
-  v0 = _executePluginsSemaphore();
-  dispatch_semaphore_signal(v0);
+  v0 = _DMLogFunc();
+  v1 = _executePluginsSemaphore(v0);
+  dispatch_semaphore_signal(v1);
 }
 
 void sub_10000CA4C(id a1)
@@ -1353,10 +1352,11 @@ LABEL_5:
   }
 }
 
-void sub_10000F524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_10000F524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose((v37 - 160), 8);
-  _Block_object_dispose(&a37, 8);
+  va_start(va, a36);
+  _Block_object_dispose((v36 - 160), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1427,6 +1427,13 @@ uint64_t sub_10000F810(uint64_t a1)
   return CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0.001, 0);
 }
 
+void sub_10000FDEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_10000FE14(uint64_t a1)
 {
   v2 = [PUIProgressWindow alloc];
@@ -1488,7 +1495,6 @@ Class sub_100010148(uint64_t a1)
 
 uint64_t sub_100010274(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100030A80 = result;
   return result;
@@ -1621,9 +1627,9 @@ id sub_100010D10(uint64_t a1)
   return [v3 _killIfAppropriate_onPropertyAccessQueue];
 }
 
-void sub_100010EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100010EC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1709,9 +1715,9 @@ LABEL_13:
   }
 }
 
-void sub_1000114BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000114BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1722,11 +1728,11 @@ void sub_1000114D4(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = [v2 count];
 }
 
-void sub_100011E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100011E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1820,6 +1826,13 @@ void sub_100011E3C(uint64_t a1)
 
   [v15 invalidate];
   _Block_object_dispose(&v44, 8);
+}
+
+void sub_1000121F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10001220C(uint64_t a1)
@@ -1951,15 +1964,11 @@ void sub_1000126D8(uint64_t a1)
   {
     if (*(*(*(a1 + 64) + 8) + 24) == 1)
     {
-      v13 = *(a1 + 40);
-      v15 = *(a1 + 48);
       _DMLogFunc();
     }
 
     else if (*(a1 + 48))
     {
-      v14 = *(a1 + 40);
-      v16 = *(a1 + 48);
       _DMLogFunc();
       **(a1 + 88) = 1;
     }
@@ -1974,8 +1983,8 @@ void sub_1000126D8(uint64_t a1)
       v12 = *(v11 + 40);
       *(v11 + 40) = v10;
 
-      v17 = +[DMDiagnostics sharedInstance];
-      [v17 captureDiagnosticsForIncident:*(*(*(a1 + 80) + 8) + 40) async:1];
+      v13 = +[DMDiagnostics sharedInstance];
+      [v13 captureDiagnosticsForIncident:*(*(*(a1 + 80) + 8) + 40) async:1];
     }
   }
 }

@@ -29,15 +29,13 @@
 
 - (DOCFolderStateProviding)folderObservationProvider
 {
-  v2 = *(self + OBJC_IVAR___DOCSBFolderStatesObservervationManager_folderObservationProvider);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setFolderObservationProvider:(id)provider
 {
-  v3 = *(self + OBJC_IVAR___DOCSBFolderStatesObservervationManager_folderObservationProvider);
   *(self + OBJC_IVAR___DOCSBFolderStatesObservervationManager_folderObservationProvider) = provider;
   swift_unknownObjectRetain();
 
@@ -46,20 +44,17 @@
 
 - (NSDictionary)folderStates
 {
-  v2 = *(self + OBJC_IVAR___DOCSBFolderStatesObservervationManager_folderStates);
   type metadata accessor for DOCSBFolderState(self);
 
-  v3 = sub_24938A3EC();
+  v2 = sub_24938A3EC();
 
-  return v3;
+  return v2;
 }
 
 - (void)setFolderStates:(id)states
 {
   type metadata accessor for DOCSBFolderState(self);
-  v4 = sub_24938A3FC();
-  v5 = *(self + OBJC_IVAR___DOCSBFolderStatesObservervationManager_folderStates);
-  *(self + OBJC_IVAR___DOCSBFolderStatesObservervationManager_folderStates) = v4;
+  *(self + OBJC_IVAR___DOCSBFolderStatesObservervationManager_folderStates) = sub_24938A3FC();
 }
 
 - (void)stopObservingFolderID:(id)d

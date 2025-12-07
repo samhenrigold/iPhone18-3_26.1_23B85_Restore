@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_21D1AF050();
+  sub_21D1AF050(selfCopy, v2);
 }
 
 - (void)viewWillLayoutSubviews
@@ -158,7 +158,7 @@
 
   [(TTRIReminderListPickerViewController *)self dismissViewControllerAnimated:1 completion:0, v6, v7];
 
-  sub_21D0CF7E0(&v6, &qword_27CE5C690);
+  sub_21D0CF7E0(&v6, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (void)moveButtonAction:(id)action
@@ -179,7 +179,7 @@
 
   sub_21D1B1850();
 
-  sub_21D0CF7E0(v6, &qword_27CE5C690);
+  sub_21D0CF7E0(v6, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 - (_TtC15RemindersUICore36TTRIReminderListPickerViewController)initWithStyle:(int64_t)style

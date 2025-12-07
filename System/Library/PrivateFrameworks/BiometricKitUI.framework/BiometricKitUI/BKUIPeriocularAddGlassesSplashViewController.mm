@@ -6,20 +6,20 @@
 
 - (void)viewDidLoad
 {
-  v29[2] = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = BKUIPeriocularAddGlassesSplashViewController;
-  [(BKUIFaceIDSplashViewController *)&v28 viewDidLoad];
+  v28[2] = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = BKUIPeriocularAddGlassesSplashViewController;
+  [(BKUIFaceIDSplashViewController *)&v27 viewDidLoad];
   if ([(BKUIFaceIDSplashViewController *)self inBuddy])
   {
     [BKUIPeriocularAddGlassesSplashViewController viewDidLoad];
   }
 
   v3 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"State 1" darkStateName:@"Dark 1" transitionDuration:0.01 transitionSpeed:1.0];
-  v29[0] = v3;
+  v28[0] = v3;
   v4 = [objc_alloc(MEMORY[0x277D37608]) initWithStateName:@"State 2" darkStateName:@"Dark 2" transitionDuration:1.5 transitionSpeed:0.8];
-  v29[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+  v28[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
 
   v6 = objc_alloc(MEMORY[0x277D37600]);
   v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -60,8 +60,6 @@
   v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v26 = [v25 localizedStringForKey:@"GLASSES_SPLASH_DETAIL_TEXT" value:&stru_2853BB280 table:@"Pearl-periocular"];
   [headerView5 setDetailText:v26];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 @end

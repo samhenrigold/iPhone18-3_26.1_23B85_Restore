@@ -6,12 +6,15 @@
 + (Class)resultBuilderClassForResult:(id)result preferAppVendedView:(BOOL)view;
 + (id)fetchAttributes;
 + (id)getWhitespaceCharacterAtIndex:(unint64_t)index ofString:(id)string;
++ (id)resultBuilderForItem:(id)item preferAppVendedView:(BOOL)view;
++ (id)resultBuilderWithResult:(id)result preferAppVendedView:(BOOL)view;
 + (id)resultForItem:(id)item;
 + (id)richTextsFromStrings:(id)strings;
 + (id)stringForSFRichText:(id)text;
 + (id)whiteSpaceCondensedStringForString:(id)string;
 + (void)condenseWhiteSpaceForDescriptions:(id)descriptions;
 + (void)condenseWhiteSpaceForRichText:(id)text;
++ (void)setDefaultSizeForThumbnail:(id)thumbnail isCompact:(BOOL)compact;
 - (BOOL)buildSecondaryTitleIsDetached;
 - (BOOL)isToolParameterFilling;
 - (BOOL)supportsClearingBackendData;
@@ -53,293 +56,301 @@
 
 + (id)fetchAttributes
 {
-  v282 = *MEMORY[0x277D85DE8];
+  v281 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CC30E8];
-  v36[0] = *MEMORY[0x277CC23B8];
-  v36[1] = v2;
+  v35[0] = *MEMORY[0x277CC23B8];
+  v35[1] = v2;
   v3 = *MEMORY[0x277CC2EC0];
-  v36[2] = *MEMORY[0x277CC31F8];
-  v36[3] = v3;
+  v35[2] = *MEMORY[0x277CC31F8];
+  v35[3] = v3;
   v4 = *MEMORY[0x277CC2EE8];
-  v36[4] = *MEMORY[0x277CC2ED0];
-  v36[5] = v4;
+  v35[4] = *MEMORY[0x277CC2ED0];
+  v35[5] = v4;
   v5 = *MEMORY[0x277CC2F28];
-  v37 = *MEMORY[0x277CC2F20];
-  v38 = v5;
+  v36 = *MEMORY[0x277CC2F20];
+  v37 = v5;
   v6 = *MEMORY[0x277CC2F58];
-  v39 = *MEMORY[0x277CC2F40];
-  v40 = v6;
+  v38 = *MEMORY[0x277CC2F40];
+  v39 = v6;
   v7 = *MEMORY[0x277CC2EA0];
-  v41 = *MEMORY[0x277CC2F88];
-  v42 = v7;
+  v40 = *MEMORY[0x277CC2F88];
+  v41 = v7;
   v8 = *MEMORY[0x277CC2EA8];
-  v43 = *MEMORY[0x277CC2EB0];
-  v44 = v8;
+  v42 = *MEMORY[0x277CC2EB0];
+  v43 = v8;
   v9 = *MEMORY[0x277CC23F8];
-  v45 = *MEMORY[0x277CC23D0];
-  v46 = v9;
+  v44 = *MEMORY[0x277CC23D0];
+  v45 = v9;
   v10 = *MEMORY[0x277CC2450];
-  v47 = *MEMORY[0x277CC2408];
-  v48 = v10;
+  v46 = *MEMORY[0x277CC2408];
+  v47 = v10;
   v11 = *MEMORY[0x277CC2468];
-  v49 = *MEMORY[0x277CC2458];
-  v50 = v11;
+  v48 = *MEMORY[0x277CC2458];
+  v49 = v11;
   v12 = *MEMORY[0x277CC2470];
-  v51 = *MEMORY[0x277CC2448];
-  v52 = v12;
+  v50 = *MEMORY[0x277CC2448];
+  v51 = v12;
   v13 = *MEMORY[0x277CC2478];
-  v53 = *MEMORY[0x277CC2460];
-  v54 = v13;
+  v52 = *MEMORY[0x277CC2460];
+  v53 = v13;
   v14 = *MEMORY[0x277CC2490];
-  v55 = *MEMORY[0x277CC2480];
-  v56 = v14;
+  v54 = *MEMORY[0x277CC2480];
+  v55 = v14;
   v15 = *MEMORY[0x277CC24A0];
-  v57 = *MEMORY[0x277CC2498];
-  v58 = v15;
+  v56 = *MEMORY[0x277CC2498];
+  v57 = v15;
   v16 = *MEMORY[0x277CC24C0];
-  v59 = *MEMORY[0x277CC24B0];
-  v60 = v16;
+  v58 = *MEMORY[0x277CC24B0];
+  v59 = v16;
   v17 = *MEMORY[0x277CC24E0];
-  v61 = *MEMORY[0x277CC24C8];
-  v62 = v17;
+  v60 = *MEMORY[0x277CC24C8];
+  v61 = v17;
   v18 = *MEMORY[0x277CC2520];
-  v63 = *MEMORY[0x277CC24F0];
-  v64 = v18;
+  v62 = *MEMORY[0x277CC24F0];
+  v63 = v18;
   v19 = *MEMORY[0x277CC25F0];
-  v65 = *MEMORY[0x277CC25E0];
-  v66 = v19;
+  v64 = *MEMORY[0x277CC25E0];
+  v65 = v19;
   v20 = *MEMORY[0x277CC2640];
-  v67 = *MEMORY[0x277CC2630];
-  v68 = v20;
+  v66 = *MEMORY[0x277CC2630];
+  v67 = v20;
   v21 = *MEMORY[0x277CC2660];
-  v69 = *MEMORY[0x277CC2A70];
-  v70 = v21;
+  v68 = *MEMORY[0x277CC2A70];
+  v69 = v21;
   v22 = *MEMORY[0x277CC2680];
-  v71 = *MEMORY[0x277CC2678];
-  v72 = v22;
+  v70 = *MEMORY[0x277CC2678];
+  v71 = v22;
   v23 = *MEMORY[0x277CC2690];
-  v73 = *MEMORY[0x277CC2688];
-  v74 = v23;
+  v72 = *MEMORY[0x277CC2688];
+  v73 = v23;
   v24 = *MEMORY[0x277CC2750];
-  v75 = @"SSAttributeDefinitions";
-  v76 = v24;
+  v74 = @"SSAttributeDefinitions";
+  v75 = v24;
   v25 = *MEMORY[0x277CC2778];
-  v77 = *MEMORY[0x277CC2760];
-  v78 = v25;
+  v76 = *MEMORY[0x277CC2760];
+  v77 = v25;
   v26 = *MEMORY[0x277CC27A0];
-  v79 = *MEMORY[0x277CC2780];
-  v80 = v26;
+  v78 = *MEMORY[0x277CC2780];
+  v79 = v26;
   v27 = *MEMORY[0x277CC2B38];
-  v81 = *MEMORY[0x277CC2A80];
-  v82 = v27;
+  v80 = *MEMORY[0x277CC2A80];
+  v81 = v27;
   v28 = *MEMORY[0x277CC2B30];
-  v83 = *MEMORY[0x277CC2B28];
-  v84 = v28;
+  v82 = *MEMORY[0x277CC2B28];
+  v83 = v28;
   v29 = *MEMORY[0x277CC2B68];
-  v85 = *MEMORY[0x277CC2B48];
-  v86 = v29;
-  v87 = *MEMORY[0x277CC2BD8];
-  v88 = @"SSAttributeCalculatorInput";
+  v84 = *MEMORY[0x277CC2B48];
+  v85 = v29;
+  v86 = *MEMORY[0x277CC2BD8];
+  v87 = @"SSAttributeCalculatorInput";
   v30 = *MEMORY[0x277CC2C60];
-  v89 = *MEMORY[0x277CC2C48];
-  v90 = v30;
-  v91 = @"SSAttributeIsCalculation";
-  v92 = @"SSAttributeIsCurrencyConversion";
+  v88 = *MEMORY[0x277CC2C48];
+  v89 = v30;
+  v90 = @"SSAttributeIsCalculation";
+  v91 = @"SSAttributeIsCurrencyConversion";
   v31 = *MEMORY[0x277CC2D10];
-  v93 = *MEMORY[0x277CC2CF0];
-  v94 = v31;
-  v95 = *MEMORY[0x277CC2D18];
-  v96 = *MEMORY[0x277CC2D48];
-  v97 = *MEMORY[0x277CC2D50];
-  v98 = *MEMORY[0x277CC2DD0];
-  v99 = *MEMORY[0x277CC2E08];
-  v100 = @"SSAttributeCalculatorOutput";
-  v101 = *MEMORY[0x277CC2DB8];
-  v102 = *MEMORY[0x277CC2E88];
-  v103 = *MEMORY[0x277CC2EB8];
-  v104 = *MEMORY[0x277CC2788];
-  v105 = *MEMORY[0x277CC2FE8];
-  v106 = *MEMORY[0x277CC3008];
-  v107 = *MEMORY[0x277CC3028];
-  v108 = *MEMORY[0x277CC3018];
-  v109 = *MEMORY[0x277CC3020];
-  v110 = *MEMORY[0x277CC3040];
-  v111 = *MEMORY[0x277CC3038];
-  v112 = *MEMORY[0x277CC3098];
-  v113 = *MEMORY[0x277CC3078];
-  v114 = *MEMORY[0x277CC30A0];
-  v115 = *MEMORY[0x277CC30B0];
-  v116 = *MEMORY[0x277CC30C8];
-  v117 = *MEMORY[0x277CC30D0];
-  v118 = *MEMORY[0x277CC30A8];
-  v119 = *MEMORY[0x277CC3080];
-  v120 = *MEMORY[0x277CC30C0];
-  v121 = *MEMORY[0x277CC3090];
-  v122 = @"com_apple_shortcuts_spotlight_tool_icon";
-  v123 = *MEMORY[0x277CC3100];
-  v124 = *MEMORY[0x277CC24B8];
-  v125 = *MEMORY[0x277CC2FA8];
-  v126 = *MEMORY[0x277CC3118];
-  v127 = *MEMORY[0x277CC3120];
-  v128 = *MEMORY[0x277CC3128];
-  v129 = *MEMORY[0x277CC3140];
+  v92 = *MEMORY[0x277CC2CF0];
+  v93 = v31;
+  v94 = *MEMORY[0x277CC2D18];
+  v95 = *MEMORY[0x277CC2D48];
+  v96 = *MEMORY[0x277CC2D50];
+  v97 = *MEMORY[0x277CC2DD0];
+  v98 = *MEMORY[0x277CC2E08];
+  v99 = @"SSAttributeCalculatorOutput";
+  v100 = *MEMORY[0x277CC2DB8];
+  v101 = *MEMORY[0x277CC2E88];
+  v102 = *MEMORY[0x277CC2EB8];
+  v103 = *MEMORY[0x277CC2788];
+  v104 = *MEMORY[0x277CC2FE8];
+  v105 = *MEMORY[0x277CC3008];
+  v106 = *MEMORY[0x277CC3028];
+  v107 = *MEMORY[0x277CC3018];
+  v108 = *MEMORY[0x277CC3020];
+  v109 = *MEMORY[0x277CC3040];
+  v110 = *MEMORY[0x277CC3038];
+  v111 = *MEMORY[0x277CC3098];
+  v112 = *MEMORY[0x277CC3078];
+  v113 = *MEMORY[0x277CC30A0];
+  v114 = *MEMORY[0x277CC30B0];
+  v115 = *MEMORY[0x277CC30C8];
+  v116 = *MEMORY[0x277CC30D0];
+  v117 = *MEMORY[0x277CC30A8];
+  v118 = *MEMORY[0x277CC3080];
+  v119 = *MEMORY[0x277CC30C0];
+  v120 = *MEMORY[0x277CC3090];
+  v121 = @"com_apple_shortcuts_spotlight_tool_icon";
+  v122 = *MEMORY[0x277CC3100];
+  v123 = *MEMORY[0x277CC24B8];
+  v124 = *MEMORY[0x277CC2FA8];
+  v125 = *MEMORY[0x277CC3118];
+  v126 = *MEMORY[0x277CC3120];
+  v127 = *MEMORY[0x277CC3128];
+  v128 = *MEMORY[0x277CC3140];
   v32 = *MEMORY[0x277CC3190];
-  v131 = @"SSAttributeTopMatchedStrings";
-  v132 = *MEMORY[0x277CC31C8];
-  v133 = *MEMORY[0x277CC31D0];
-  v134 = *MEMORY[0x277CC31D8];
-  v135 = *MEMORY[0x277CC31E0];
-  v136 = *MEMORY[0x277CC26D8];
-  v137 = *MEMORY[0x277CC31F0];
-  v138 = *MEMORY[0x277CC3208];
-  v139 = *MEMORY[0x277CC3230];
-  v140 = *MEMORY[0x277CC3238];
-  v141 = *MEMORY[0x277CC2B98];
-  v130 = v32;
-  v142 = *MEMORY[0x277CC2CF8];
-  v143 = *MEMORY[0x277CC2B78];
-  v144 = v32;
-  v145 = *MEMORY[0x277CC3188];
-  v146 = *MEMORY[0x277CC3220];
-  v147 = *MEMORY[0x277CC2770];
-  v148 = *MEMORY[0x277CC23E8];
-  v149 = *MEMORY[0x277CC25C8];
-  v150 = *MEMORY[0x277CC26A8];
-  v151 = *MEMORY[0x277CC26C0];
-  v152 = *MEMORY[0x277CC2508];
-  v153 = v81;
-  v154 = *MEMORY[0x277CC2B60];
-  v155 = *MEMORY[0x277CC2B88];
-  v156 = *MEMORY[0x277CC2C50];
-  v157 = v37;
-  v158 = *MEMORY[0x277CC2FA0];
-  v159 = *MEMORY[0x277CC2FC0];
-  v160 = *MEMORY[0x277CC3010];
-  v161 = v109;
-  v162 = v159;
-  v163 = v126;
-  v164 = *MEMORY[0x277CC3138];
-  v165 = v159;
-  v166 = *MEMORY[0x277CC31A0];
-  v167 = *MEMORY[0x277CC2DC0];
-  v168 = *MEMORY[0x277CC2C58];
-  v169 = *MEMORY[0x277CC2E70];
-  v170 = *MEMORY[0x277CC2E78];
-  v171 = *MEMORY[0x277CC3338];
-  v172 = *MEMORY[0x277CC32E8];
-  v173 = *MEMORY[0x277CC32E0];
-  v174 = *MEMORY[0x277CC3340];
-  v175 = *MEMORY[0x277CC2A58];
-  v176 = *MEMORY[0x277CC28F0];
-  v177 = *MEMORY[0x277CC28F8];
-  v178 = *MEMORY[0x277CC2890];
-  v179 = *MEMORY[0x277CC2878];
-  v180 = *MEMORY[0x277CC2880];
-  v181 = *MEMORY[0x277CC2888];
-  v182 = *MEMORY[0x277CC2868];
-  v183 = *MEMORY[0x277CC28E8];
-  v184 = *MEMORY[0x277CC2830];
-  v185 = *MEMORY[0x277CC2848];
-  v186 = *MEMORY[0x277CC28A8];
-  v187 = *MEMORY[0x277CC28C0];
-  v188 = *MEMORY[0x277CC2898];
-  v189 = *MEMORY[0x277CC2860];
-  v190 = *MEMORY[0x277CC28E0];
-  v191 = *MEMORY[0x277CC2828];
-  v192 = *MEMORY[0x277CC2840];
-  v193 = *MEMORY[0x277CC2850];
-  v194 = *MEMORY[0x277CC2838];
-  v195 = *MEMORY[0x277CC28A0];
-  v196 = *MEMORY[0x277CC28B8];
-  v197 = *MEMORY[0x277CC28C8];
-  v198 = *MEMORY[0x277CC28B0];
-  v199 = *MEMORY[0x277CC2950];
-  v200 = *MEMORY[0x277CC2960];
-  v201 = *MEMORY[0x277CC2958];
-  v202 = *MEMORY[0x277CC2930];
-  v203 = *MEMORY[0x277CC2940];
-  v204 = *MEMORY[0x277CC2948];
-  v205 = *MEMORY[0x277CC29B8];
-  v206 = *MEMORY[0x277CC2D58];
-  v207 = *MEMORY[0x277CC2418];
-  v208 = *MEMORY[0x277CC2430];
-  v209 = *MEMORY[0x277CC2428];
-  v210 = *MEMORY[0x277CC2978];
-  v211 = *MEMORY[0x277CC2A88];
-  v212 = *MEMORY[0x277CC2A00];
-  v213 = *MEMORY[0x277CC27D8];
-  v214 = *MEMORY[0x277CC29F8];
-  v215 = *MEMORY[0x277CC29A8];
-  v216 = *MEMORY[0x277CC2980];
-  v217 = *MEMORY[0x277CC2A18];
-  v218 = *MEMORY[0x277CC2A10];
-  v219 = *MEMORY[0x277CC27F8];
-  v220 = *MEMORY[0x277CC27F0];
-  v221 = *MEMORY[0x277CC2A30];
-  v222 = *MEMORY[0x277CC2A38];
-  v223 = *MEMORY[0x277CC2AB0];
-  v224 = *MEMORY[0x277CC2AF0];
-  v225 = *MEMORY[0x277CC2AC0];
-  v226 = *MEMORY[0x277CC2B08];
-  v227 = *MEMORY[0x277CC2B00];
-  v228 = *MEMORY[0x277CC2A98];
-  v229 = *MEMORY[0x277CC2AD0];
-  v230 = *MEMORY[0x277CC2AE0];
-  v231 = *MEMORY[0x277CC2AA0];
-  v232 = *MEMORY[0x277CC2B10];
-  v233 = *MEMORY[0x277CC29B0];
-  v234 = *MEMORY[0x277CC25A8];
-  v235 = *MEMORY[0x277CC25B0];
-  v236 = *MEMORY[0x277CC2530];
-  v237 = *MEMORY[0x277CC2628];
-  v238 = *MEMORY[0x277CC2D38];
-  v239 = *MEMORY[0x277CC2D30];
-  v240 = *MEMORY[0x277CC3130];
-  v241 = *MEMORY[0x277CC27A8];
-  v242 = *MEMORY[0x277CC31E8];
-  v243 = *MEMORY[0x277CC3378];
-  v244 = *MEMORY[0x277CC2758];
-  v245 = *MEMORY[0x277CC2870];
-  v246 = *MEMORY[0x277CC2998];
-  v247 = *MEMORY[0x277CC27E8];
-  v248 = *MEMORY[0x277CC29F0];
-  v249 = *MEMORY[0x277CC2988];
-  v250 = *MEMORY[0x277CC29A0];
-  v251 = *MEMORY[0x277CC2A40];
-  v252 = *MEMORY[0x277CC2A60];
-  v253 = *MEMORY[0x277CC2A20];
-  v254 = *MEMORY[0x277CC2800];
-  v255 = *MEMORY[0x277CC2D40];
-  v256 = *MEMORY[0x277CC24F8];
-  v257 = *MEMORY[0x277CC23F0];
-  v258 = *MEMORY[0x277CC2510];
-  v259 = *MEMORY[0x277CC2588];
-  v260 = *MEMORY[0x277CC25B8];
-  v261 = *MEMORY[0x277CC2578];
-  v262 = *MEMORY[0x277CC2558];
-  v263 = *MEMORY[0x277CC2568];
-  v264 = *MEMORY[0x277CC2548];
-  v265 = *MEMORY[0x277CC2570];
-  v266 = *MEMORY[0x277CC2590];
-  v267 = *MEMORY[0x277CC2540];
-  v268 = *MEMORY[0x277CC2538];
-  v269 = *MEMORY[0x277CC26A0];
-  v270 = *MEMORY[0x277CC2698];
-  v271 = *MEMORY[0x277CC26D0];
-  v272 = *MEMORY[0x277CC27B8];
-  v273 = *MEMORY[0x277CC2F98];
-  v274 = *MEMORY[0x277CC3200];
-  v275 = *MEMORY[0x277CC3030];
-  v276 = *MEMORY[0x277CC2D28];
-  v277 = *MEMORY[0x277CC2E68];
-  v278 = *MEMORY[0x277CC2A68];
-  v279 = *MEMORY[0x277CC2C70];
-  v280 = *MEMORY[0x277CC3328];
-  v281 = *MEMORY[0x277CC3320];
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:251];
-  v34 = *MEMORY[0x277D85DE8];
+  v130 = @"SSAttributeTopMatchedStrings";
+  v131 = *MEMORY[0x277CC31C8];
+  v132 = *MEMORY[0x277CC31D0];
+  v133 = *MEMORY[0x277CC31D8];
+  v134 = *MEMORY[0x277CC31E0];
+  v135 = *MEMORY[0x277CC26D8];
+  v136 = *MEMORY[0x277CC31F0];
+  v137 = *MEMORY[0x277CC3208];
+  v138 = *MEMORY[0x277CC3230];
+  v139 = *MEMORY[0x277CC3238];
+  v140 = *MEMORY[0x277CC2B98];
+  v129 = v32;
+  v141 = *MEMORY[0x277CC2CF8];
+  v142 = *MEMORY[0x277CC2B78];
+  v143 = v32;
+  v144 = *MEMORY[0x277CC3188];
+  v145 = *MEMORY[0x277CC3220];
+  v146 = *MEMORY[0x277CC2770];
+  v147 = *MEMORY[0x277CC23E8];
+  v148 = *MEMORY[0x277CC25C8];
+  v149 = *MEMORY[0x277CC26A8];
+  v150 = *MEMORY[0x277CC26C0];
+  v151 = *MEMORY[0x277CC2508];
+  v152 = v80;
+  v153 = *MEMORY[0x277CC2B60];
+  v154 = *MEMORY[0x277CC2B88];
+  v155 = *MEMORY[0x277CC2C50];
+  v156 = v36;
+  v157 = *MEMORY[0x277CC2FA0];
+  v158 = *MEMORY[0x277CC2FC0];
+  v159 = *MEMORY[0x277CC3010];
+  v160 = v108;
+  v161 = v158;
+  v162 = v125;
+  v163 = *MEMORY[0x277CC3138];
+  v164 = v158;
+  v165 = *MEMORY[0x277CC31A0];
+  v166 = *MEMORY[0x277CC2DC0];
+  v167 = *MEMORY[0x277CC2C58];
+  v168 = *MEMORY[0x277CC2E70];
+  v169 = *MEMORY[0x277CC2E78];
+  v170 = *MEMORY[0x277CC3338];
+  v171 = *MEMORY[0x277CC32E8];
+  v172 = *MEMORY[0x277CC32E0];
+  v173 = *MEMORY[0x277CC3340];
+  v174 = *MEMORY[0x277CC2A58];
+  v175 = *MEMORY[0x277CC28F0];
+  v176 = *MEMORY[0x277CC28F8];
+  v177 = *MEMORY[0x277CC2890];
+  v178 = *MEMORY[0x277CC2878];
+  v179 = *MEMORY[0x277CC2880];
+  v180 = *MEMORY[0x277CC2888];
+  v181 = *MEMORY[0x277CC2868];
+  v182 = *MEMORY[0x277CC28E8];
+  v183 = *MEMORY[0x277CC2830];
+  v184 = *MEMORY[0x277CC2848];
+  v185 = *MEMORY[0x277CC28A8];
+  v186 = *MEMORY[0x277CC28C0];
+  v187 = *MEMORY[0x277CC2898];
+  v188 = *MEMORY[0x277CC2860];
+  v189 = *MEMORY[0x277CC28E0];
+  v190 = *MEMORY[0x277CC2828];
+  v191 = *MEMORY[0x277CC2840];
+  v192 = *MEMORY[0x277CC2850];
+  v193 = *MEMORY[0x277CC2838];
+  v194 = *MEMORY[0x277CC28A0];
+  v195 = *MEMORY[0x277CC28B8];
+  v196 = *MEMORY[0x277CC28C8];
+  v197 = *MEMORY[0x277CC28B0];
+  v198 = *MEMORY[0x277CC2950];
+  v199 = *MEMORY[0x277CC2960];
+  v200 = *MEMORY[0x277CC2958];
+  v201 = *MEMORY[0x277CC2930];
+  v202 = *MEMORY[0x277CC2940];
+  v203 = *MEMORY[0x277CC2948];
+  v204 = *MEMORY[0x277CC29B8];
+  v205 = *MEMORY[0x277CC2D58];
+  v206 = *MEMORY[0x277CC2418];
+  v207 = *MEMORY[0x277CC2430];
+  v208 = *MEMORY[0x277CC2428];
+  v209 = *MEMORY[0x277CC2978];
+  v210 = *MEMORY[0x277CC2A88];
+  v211 = *MEMORY[0x277CC2A00];
+  v212 = *MEMORY[0x277CC27D8];
+  v213 = *MEMORY[0x277CC29F8];
+  v214 = *MEMORY[0x277CC29A8];
+  v215 = *MEMORY[0x277CC2980];
+  v216 = *MEMORY[0x277CC2A18];
+  v217 = *MEMORY[0x277CC2A10];
+  v218 = *MEMORY[0x277CC27F8];
+  v219 = *MEMORY[0x277CC27F0];
+  v220 = *MEMORY[0x277CC2A30];
+  v221 = *MEMORY[0x277CC2A38];
+  v222 = *MEMORY[0x277CC2AB0];
+  v223 = *MEMORY[0x277CC2AF0];
+  v224 = *MEMORY[0x277CC2AC0];
+  v225 = *MEMORY[0x277CC2B08];
+  v226 = *MEMORY[0x277CC2B00];
+  v227 = *MEMORY[0x277CC2A98];
+  v228 = *MEMORY[0x277CC2AD0];
+  v229 = *MEMORY[0x277CC2AE0];
+  v230 = *MEMORY[0x277CC2AA0];
+  v231 = *MEMORY[0x277CC2B10];
+  v232 = *MEMORY[0x277CC29B0];
+  v233 = *MEMORY[0x277CC25A8];
+  v234 = *MEMORY[0x277CC25B0];
+  v235 = *MEMORY[0x277CC2530];
+  v236 = *MEMORY[0x277CC2628];
+  v237 = *MEMORY[0x277CC2D38];
+  v238 = *MEMORY[0x277CC2D30];
+  v239 = *MEMORY[0x277CC3130];
+  v240 = *MEMORY[0x277CC27A8];
+  v241 = *MEMORY[0x277CC31E8];
+  v242 = *MEMORY[0x277CC3378];
+  v243 = *MEMORY[0x277CC2758];
+  v244 = *MEMORY[0x277CC2870];
+  v245 = *MEMORY[0x277CC2998];
+  v246 = *MEMORY[0x277CC27E8];
+  v247 = *MEMORY[0x277CC29F0];
+  v248 = *MEMORY[0x277CC2988];
+  v249 = *MEMORY[0x277CC29A0];
+  v250 = *MEMORY[0x277CC2A40];
+  v251 = *MEMORY[0x277CC2A60];
+  v252 = *MEMORY[0x277CC2A20];
+  v253 = *MEMORY[0x277CC2800];
+  v254 = *MEMORY[0x277CC2D40];
+  v255 = *MEMORY[0x277CC24F8];
+  v256 = *MEMORY[0x277CC23F0];
+  v257 = *MEMORY[0x277CC2510];
+  v258 = *MEMORY[0x277CC2588];
+  v259 = *MEMORY[0x277CC25B8];
+  v260 = *MEMORY[0x277CC2578];
+  v261 = *MEMORY[0x277CC2558];
+  v262 = *MEMORY[0x277CC2568];
+  v263 = *MEMORY[0x277CC2548];
+  v264 = *MEMORY[0x277CC2570];
+  v265 = *MEMORY[0x277CC2590];
+  v266 = *MEMORY[0x277CC2540];
+  v267 = *MEMORY[0x277CC2538];
+  v268 = *MEMORY[0x277CC26A0];
+  v269 = *MEMORY[0x277CC2698];
+  v270 = *MEMORY[0x277CC26D0];
+  v271 = *MEMORY[0x277CC27B8];
+  v272 = *MEMORY[0x277CC2F98];
+  v273 = *MEMORY[0x277CC3200];
+  v274 = *MEMORY[0x277CC3030];
+  v275 = *MEMORY[0x277CC2D28];
+  v276 = *MEMORY[0x277CC2E68];
+  v277 = *MEMORY[0x277CC2A68];
+  v278 = *MEMORY[0x277CC2C70];
+  v279 = *MEMORY[0x277CC3328];
+  v280 = *MEMORY[0x277CC3320];
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:251];
 
   return v33;
+}
+
++ (id)resultBuilderForItem:(id)item preferAppVendedView:(BOOL)view
+{
+  viewCopy = view;
+  v5 = [SPUISResultBuilder resultForItem:item];
+  v6 = [SPUISResultBuilder resultBuilderWithResult:v5 preferAppVendedView:viewCopy];
+
+  return v6;
 }
 
 + (id)resultForItem:(id)item
@@ -365,72 +376,72 @@
 + (Class)resultBuilderClassForResult:(id)result preferAppVendedView:(BOOL)view
 {
   viewCopy = view;
-  v32[43] = *MEMORY[0x277D85DE8];
+  v31[43] = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v32[0] = objc_opt_class();
-  v32[1] = objc_opt_class();
-  v32[2] = objc_opt_class();
-  v32[3] = objc_opt_class();
-  v32[4] = objc_opt_class();
-  v32[5] = objc_opt_class();
-  v32[6] = objc_opt_class();
-  v32[7] = objc_opt_class();
-  v32[8] = objc_opt_class();
-  v32[9] = objc_opt_class();
-  v32[10] = objc_opt_class();
-  v32[11] = objc_opt_class();
-  v32[12] = objc_opt_class();
-  v32[13] = objc_opt_class();
-  v32[14] = objc_opt_class();
-  v32[15] = objc_opt_class();
-  v32[16] = objc_opt_class();
-  v32[17] = objc_opt_class();
-  v32[18] = objc_opt_class();
-  v32[19] = objc_opt_class();
-  v32[20] = objc_opt_class();
-  v32[21] = objc_opt_class();
-  v32[22] = objc_opt_class();
-  v32[23] = objc_opt_class();
-  v32[24] = objc_opt_class();
-  v32[25] = objc_opt_class();
-  v32[26] = objc_opt_class();
-  v32[27] = objc_opt_class();
-  v32[28] = objc_opt_class();
-  v32[29] = objc_opt_class();
-  v32[30] = objc_opt_class();
-  v32[31] = objc_opt_class();
-  v32[32] = objc_opt_class();
-  v32[33] = objc_opt_class();
-  v32[34] = objc_opt_class();
-  v32[35] = objc_opt_class();
-  v32[36] = objc_opt_class();
-  v32[37] = objc_opt_class();
-  v32[38] = objc_opt_class();
-  v32[39] = objc_opt_class();
-  v32[40] = objc_opt_class();
-  v32[41] = objc_opt_class();
-  v32[42] = objc_opt_class();
-  [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:43];
+  v31[0] = objc_opt_class();
+  v31[1] = objc_opt_class();
+  v31[2] = objc_opt_class();
+  v31[3] = objc_opt_class();
+  v31[4] = objc_opt_class();
+  v31[5] = objc_opt_class();
+  v31[6] = objc_opt_class();
+  v31[7] = objc_opt_class();
+  v31[8] = objc_opt_class();
+  v31[9] = objc_opt_class();
+  v31[10] = objc_opt_class();
+  v31[11] = objc_opt_class();
+  v31[12] = objc_opt_class();
+  v31[13] = objc_opt_class();
+  v31[14] = objc_opt_class();
+  v31[15] = objc_opt_class();
+  v31[16] = objc_opt_class();
+  v31[17] = objc_opt_class();
+  v31[18] = objc_opt_class();
+  v31[19] = objc_opt_class();
+  v31[20] = objc_opt_class();
+  v31[21] = objc_opt_class();
+  v31[22] = objc_opt_class();
+  v31[23] = objc_opt_class();
+  v31[24] = objc_opt_class();
+  v31[25] = objc_opt_class();
+  v31[26] = objc_opt_class();
+  v31[27] = objc_opt_class();
+  v31[28] = objc_opt_class();
+  v31[29] = objc_opt_class();
+  v31[30] = objc_opt_class();
+  v31[31] = objc_opt_class();
+  v31[32] = objc_opt_class();
+  v31[33] = objc_opt_class();
+  v31[34] = objc_opt_class();
+  v31[35] = objc_opt_class();
+  v31[36] = objc_opt_class();
+  v31[37] = objc_opt_class();
+  v31[38] = objc_opt_class();
+  v31[39] = objc_opt_class();
+  v31[40] = objc_opt_class();
+  v31[41] = objc_opt_class();
+  v31[42] = objc_opt_class();
+  [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:43];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v6 = v22 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v31 count:16];
+  v6 = v21 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v19 + 1) + 8 * v10);
-      if ([v11 supportsResult:{resultCopy, v19}])
+      v11 = *(*(&v18 + 1) + 8 * v10);
+      if ([v11 supportsResult:{resultCopy, v18}])
       {
         if (v11 != objc_opt_class() || viewCopy)
         {
@@ -440,7 +451,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v31 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v30 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -467,27 +478,35 @@ LABEL_14:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     contentType = [resultCopy contentType];
-    v17 = contentType;
-    v18 = @"NO";
+    v16 = contentType;
+    v17 = @"NO";
     *buf = 138478595;
-    v24 = resultCopy;
-    v25 = 2112;
+    v23 = resultCopy;
+    v24 = 2112;
     if (viewCopy)
     {
-      v18 = @"YES";
+      v17 = @"YES";
     }
 
-    v26 = contentType;
-    v27 = 2112;
-    v28 = v11;
-    v29 = 2112;
-    v30 = v18;
+    v25 = contentType;
+    v26 = 2112;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v17;
     _os_log_debug_impl(&dword_26B882000, v12, OS_LOG_TYPE_DEBUG, "SPUISResultBuilder result: %{private}@ withContentType: %@ resolved to class: %@ preferringAppVendedView: %@", buf, 0x2Au);
   }
 
   v13 = v11;
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
+}
+
++ (id)resultBuilderWithResult:(id)result preferAppVendedView:(BOOL)view
+{
+  viewCopy = view;
+  resultCopy = result;
+  v7 = [objc_alloc(objc_msgSend(self resultBuilderClassForResult:resultCopy preferAppVendedView:{viewCopy)), "initWithResult:", resultCopy}];
+
+  return v7;
 }
 
 + (BOOL)supportsResult:(id)result
@@ -501,39 +520,37 @@ LABEL_14:
 
 + (id)richTextsFromStrings:(id)strings
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = stringsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x277D4C598] textWithString:{*(*(&v13 + 1) + 8 * i), v13}];
+        v10 = [MEMORY[0x277D4C598] textWithString:{*(*(&v12 + 1) + 8 * i), v12}];
         [v4 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -563,6 +580,18 @@ LABEL_14:
   result.height = v7;
   result.width = v5;
   return result;
+}
+
++ (void)setDefaultSizeForThumbnail:(id)thumbnail isCompact:(BOOL)compact
+{
+  compactCopy = compact;
+  thumbnailCopy = thumbnail;
+  [thumbnailCopy size];
+  if (v7 == 0.0 && v6 == 0.0)
+  {
+    [self defaultThumbnailSizeIsCompact:compactCopy];
+    [thumbnailCopy setSize:?];
+  }
 }
 
 + (id)getWhitespaceCharacterAtIndex:(unint64_t)index ofString:(id)string
@@ -609,39 +638,39 @@ LABEL_14:
 
 + (void)condenseWhiteSpaceForRichText:(id)text
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   textCopy = text;
   formattedTextPieces = [textCopy formattedTextPieces];
 
   if (formattedTextPieces)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     formattedTextPieces2 = [textCopy formattedTextPieces];
-    v6 = [formattedTextPieces2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [formattedTextPieces2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(formattedTextPieces2);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           v11 = objc_opt_class();
           text = [v10 text];
           v13 = [v11 whiteSpaceCondensedStringForString:text];
           [v10 setText:v13];
         }
 
-        v7 = [formattedTextPieces2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [formattedTextPieces2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -662,44 +691,40 @@ LABEL_14:
 
 LABEL_12:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)condenseWhiteSpaceForDescriptions:(id)descriptions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [descriptionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [descriptionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(descriptionsCopy);
         }
 
-        [self condenseWhiteSpaceForRichText:*(*(&v10 + 1) + 8 * v8++)];
+        [self condenseWhiteSpaceForRichText:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [descriptionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [descriptionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (SPUISResultBuilder)initWithResult:(id)result
@@ -848,27 +873,27 @@ LABEL_29:
 
 - (void)setMaxLinesForDescriptions:(id)descriptions
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [descriptionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [descriptionsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(descriptionsCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         maxLines = [v9 maxLines];
         if (!maxLines)
         {
@@ -878,13 +903,11 @@ LABEL_29:
         [v9 setMaxLines:maxLines];
       }
 
-      v6 = [descriptionsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [descriptionsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resultAppBundleId
@@ -976,33 +999,33 @@ LABEL_29:
 
 - (id)buildInlineCard
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   buildInlineCardSections = [(SPUISResultBuilder *)self buildInlineCardSections];
   if (buildInlineCardSections)
   {
     v4 = objc_opt_new();
     [v4 setCardSections:buildInlineCardSections];
     isTopHit = [(SPUISResultBuilder *)self isTopHit];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v6 = buildInlineCardSections;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           if (isTopHit)
           {
             [(SPUISResultBuilder *)self buildBackgroundColor];
@@ -1010,13 +1033,13 @@ LABEL_29:
 
           else
           {
-            [*(*(&v15 + 1) + 8 * i) backgroundColor];
+            [*(*(&v14 + 1) + 8 * i) backgroundColor];
           }
           v12 = ;
-          [v11 setBackgroundColor:{v12, v15}];
+          [v11 setBackgroundColor:{v12, v14}];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -1028,14 +1051,12 @@ LABEL_29:
     v4 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)buildCompactCardSections
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   buildCompactCardSection = [(SPUISResultBuilder *)self buildCompactCardSection];
   descriptions = [buildCompactCardSection descriptions];
   [(SPUISResultBuilder *)self setMaxLinesForDescriptions:descriptions];
@@ -1058,8 +1079,8 @@ LABEL_29:
 
   if (buildCompactCardSection)
   {
-    v13[0] = buildCompactCardSection;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = buildCompactCardSection;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   }
 
   else
@@ -1067,14 +1088,12 @@ LABEL_29:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)buildInlineCardSections
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   buildInlineCardSection = [(SPUISResultBuilder *)self buildInlineCardSection];
   descriptions = [buildInlineCardSection descriptions];
   [(SPUISResultBuilder *)self setMaxLinesForDescriptions:descriptions];
@@ -1085,16 +1104,14 @@ LABEL_29:
 
   if (buildInlineCardSection)
   {
-    v10[0] = buildInlineCardSection;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = buildInlineCardSection;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   else
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1140,10 +1157,10 @@ LABEL_29:
 {
   v3 = objc_opt_new();
   buildTitle = [(SPUISResultBuilder *)self buildTitle];
-  [v3 setTitle:buildTitle];
+  objc_msgSend_setTitle_(v3);
 
-  title = [v3 title];
-  [title setMaxLines:2];
+  v5 = objc_msgSend_title(v3);
+  [v5 setMaxLines:2];
 
   buildThumbnail = [(SPUISResultBuilder *)self buildThumbnail];
   [v3 setThumbnail:buildThumbnail];
@@ -1265,7 +1282,7 @@ LABEL_18:
 
 - (id)buildDetailedRowCardSection
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
   buildPunchouts = [(SPUISResultBuilder *)self buildPunchouts];
   [v4 setPunchoutOptions:buildPunchouts];
@@ -1282,7 +1299,7 @@ LABEL_18:
   [v4 setTrailingThumbnail:buildTrailingThumbnail];
 
   buildTitle = [(SPUISResultBuilder *)self buildTitle];
-  [v4 setTitle:buildTitle];
+  objc_msgSend_setTitle_(v4);
 
   buildSecondaryTitle = [(SPUISResultBuilder *)self buildSecondaryTitle];
   [v4 setSecondaryTitle:buildSecondaryTitle];
@@ -1308,47 +1325,47 @@ LABEL_18:
   [v4 setIsSecondaryTitleDetached:{-[SPUISResultBuilder buildSecondaryTitleIsDetached](self, "buildSecondaryTitleIsDetached")}];
   selfCopy = self;
   buildDescriptions = [(SPUISResultBuilder *)self buildDescriptions];
-  v59 = objc_opt_new();
+  v58 = objc_opt_new();
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v19 = buildDescriptions;
-  v20 = [v19 countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v59 objects:v63 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v61;
+    v22 = *v60;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v61 != v22)
+        if (*v60 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v60 + 1) + 8 * i);
+        v24 = *(*(&v59 + 1) + 8 * i);
         text = [v24 text];
-        title = [v4 title];
-        text2 = [title text];
+        v25 = objc_msgSend_title(v4);
+        text2 = [v25 text];
         v27 = [text isEqualToString:text2];
 
         if ((v27 & 1) == 0)
         {
-          [v59 addObject:v24];
+          [v58 addObject:v24];
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v59 objects:v63 count:16];
     }
 
     while (v21);
   }
 
-  if ([v59 count])
+  if (objc_msgSend_count(v58))
   {
-    v28 = v59;
+    v28 = v58;
   }
 
   else
@@ -1357,8 +1374,8 @@ LABEL_18:
   }
 
   [v4 setDescriptions:v28];
-  title2 = [v4 title];
-  maxLines2 = [title2 maxLines];
+  v29 = objc_msgSend_title(v4);
+  maxLines2 = [v29 maxLines];
   v31 = maxLines2;
   if (!maxLines2)
   {
@@ -1374,8 +1391,8 @@ LABEL_18:
     }
   }
 
-  title3 = [v4 title];
-  [title3 setMaxLines:v31];
+  v32 = objc_msgSend_title(v4);
+  [v32 setMaxLines:v31];
 
   if (!maxLines2)
   {
@@ -1481,7 +1498,6 @@ LABEL_18:
   [(SPUISResultBuilder *)selfCopy setMaxLinesForDescriptions:descriptions];
 
   [(SPUISResultBuilder *)selfCopy buildDefaultPropertiesForCardSection:v4];
-  v56 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1527,7 +1543,7 @@ LABEL_18:
 
 - (id)buildPreviewButtonItems
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   result = [(SPUISResultBuilder *)self result];
   applicationBundleIdentifier = [result applicationBundleIdentifier];
@@ -1539,7 +1555,7 @@ LABEL_18:
   result3 = [(SPUISResultBuilder *)self result];
   v9 = [result3 valueForAttribute:*MEMORY[0x277CC23B8] withType:objc_opt_class()];
 
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v10 = objc_opt_new();
     [v10 setActionItemTypes:v9];
@@ -1557,9 +1573,9 @@ LABEL_18:
   result6 = [(SPUISResultBuilder *)self result];
   v16 = [result6 valueForAttribute:*MEMORY[0x277CC30E8] withType:objc_opt_class()];
 
-  v30[0] = @"com.apple.mobilemail";
-  v30[1] = @"com.apple.mobilenotes";
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[0] = @"com.apple.mobilemail";
+  v29[1] = @"com.apple.mobilenotes";
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   v18 = [v17 containsObject:applicationBundleIdentifier];
 
   if (itemProviderDataTypes || itemProviderFileTypes || v16)
@@ -1574,8 +1590,8 @@ LABEL_18:
       [v20 setFileProviderTypeIdentifiers:itemProviderFileTypes];
       if (!itemProviderFileTypes && v16)
       {
-        v29 = v16;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+        v28 = v16;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
         [v20 setFileProviderTypeIdentifiers:v21];
       }
 
@@ -1600,14 +1616,12 @@ LABEL_18:
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)buildPunchouts
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   result = [(SPUISResultBuilder *)self result];
   v4 = [result valueForAttribute:*MEMORY[0x277CC2FE8] withType:objc_opt_class()];
   v5 = [result valueForAttribute:*MEMORY[0x277CC24F0] withType:objc_opt_class()];
@@ -1629,8 +1643,8 @@ LABEL_18:
     v11 = v10;
     if (v10)
     {
-      v17[0] = v10;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+      v16[0] = v10;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
       [v9 setUrls:v12];
     }
 
@@ -1646,8 +1660,8 @@ LABEL_18:
 
   if (v9)
   {
-    v16 = v9;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15 = v9;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
   }
 
   else
@@ -1655,8 +1669,6 @@ LABEL_18:
 LABEL_12:
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1810,8 +1822,8 @@ LABEL_17:
   v3 = [result valueForAttribute:*MEMORY[0x277CC2760] withType:objc_opt_class()];
   v4 = [result valueForAttribute:*MEMORY[0x277CC31F0] withType:objc_opt_class()];
   v5 = [result valueForAttribute:*MEMORY[0x277CC3140] withType:objc_opt_class()];
-  title = [result title];
-  text = [title text];
+  v6 = objc_msgSend_title(result);
+  text = [v6 text];
 
   if ([v3 length])
   {
@@ -1915,12 +1927,12 @@ LABEL_10:
     [v6 addObject:v8];
   }
 
-  else if ([descriptions count])
+  else if (objc_msgSend_count(descriptions))
   {
     [v6 addObjectsFromArray:descriptions];
   }
 
-  if ([v6 count])
+  if (objc_msgSend_count(v6))
   {
     v9 = v6;
   }
@@ -2082,7 +2094,7 @@ LABEL_10:
 - (id)buildHighlightedMatchedTextWithTitle:(id)title headTruncation:(BOOL)truncation
 {
   truncationCopy = truncation;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   queryContext = [(SPUISResultBuilder *)self queryContext];
   searchString = [queryContext searchString];
@@ -2093,26 +2105,26 @@ LABEL_10:
     queryContext2 = [(SPUISResultBuilder *)self queryContext];
     evaluator = [queryContext2 evaluator];
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     matchedStrings = [(SPUISResultBuilder *)self matchedStrings];
-    v13 = [matchedStrings countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v13 = [matchedStrings countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v20;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(matchedStrings);
           }
 
-          v17 = getHighlightedRichText(*(*(&v20 + 1) + 8 * i), evaluator, titleCopy, truncationCopy);
+          v17 = getHighlightedRichText(*(*(&v19 + 1) + 8 * i), evaluator, titleCopy, truncationCopy);
           if (v17)
           {
             v9 = v17;
@@ -2120,7 +2132,7 @@ LABEL_10:
           }
         }
 
-        v14 = [matchedStrings countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v14 = [matchedStrings countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v14)
         {
           continue;
@@ -2134,15 +2146,13 @@ LABEL_10:
 LABEL_12:
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)buildHighlightedTextWithString:(id)string includeQuotes:(BOOL)quotes
 {
   quotesCopy = quotes;
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   queryContext = [(SPUISResultBuilder *)self queryContext];
   searchString = [queryContext searchString];
@@ -2198,7 +2208,7 @@ LABEL_12:
 
     v23 = getHighlightedRichText(stringCopy, evaluator, 0, 1);
     formattedTextPieces = [v23 formattedTextPieces];
-    v25 = [formattedTextPieces count];
+    v25 = objc_msgSend_count(formattedTextPieces);
 
     if (v25)
     {
@@ -2207,12 +2217,12 @@ LABEL_12:
       if (quotesCopy)
       {
         v27 = MEMORY[0x277D4C3A0];
-        v38 = [SPUISUtilities localizedStringForKey:@"OPEN_QUOTE"];
-        v37 = [v27 textWithString:v38];
-        v39[0] = v37;
-        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+        v37 = [SPUISUtilities localizedStringForKey:@"OPEN_QUOTE"];
+        v36 = [v27 textWithString:v37];
+        v38[0] = v36;
+        v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
         formattedTextPieces2 = [v26 formattedTextPieces];
-        v29 = [v36 arrayByAddingObjectsFromArray:formattedTextPieces2];
+        v29 = [v35 arrayByAddingObjectsFromArray:formattedTextPieces2];
         v30 = MEMORY[0x277D4C3A0];
         v31 = [SPUISUtilities localizedStringForKey:@"CLOSED_QUOTE"];
         v32 = [v30 textWithString:v31];
@@ -2230,8 +2240,6 @@ LABEL_12:
   }
 
 LABEL_16:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -2402,7 +2410,7 @@ LABEL_9:
 
 + (id)stringForSFRichText:(id)text
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   textCopy = text;
   text = [textCopy text];
   v5 = [text mutableCopy];
@@ -2416,26 +2424,26 @@ LABEL_9:
   {
     v6 = objc_opt_new();
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     formattedTextPieces = [textCopy formattedTextPieces];
-    v8 = [formattedTextPieces countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [formattedTextPieces countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(formattedTextPieces);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           text2 = [v12 text];
           if ([text2 length])
           {
@@ -2444,14 +2452,12 @@ LABEL_9:
           }
         }
 
-        v9 = [formattedTextPieces countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [formattedTextPieces countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -2492,13 +2498,12 @@ void __40__SPUISResultBuilder_isSearchToolClient__block_invoke()
 
 - (void)buildPunchouts
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = 138412546;
-  v7 = objc_opt_class();
-  v8 = 2112;
-  v9 = a2;
-  _os_log_fault_impl(&dword_26B882000, a3, OS_LOG_TYPE_FAULT, "URLString present but invalid in %@: %@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = objc_opt_class();
+  v7 = 2112;
+  v8 = a2;
+  _os_log_fault_impl(&dword_26B882000, a3, OS_LOG_TYPE_FAULT, "URLString present but invalid in %@: %@", &v5, 0x16u);
 }
 
 @end

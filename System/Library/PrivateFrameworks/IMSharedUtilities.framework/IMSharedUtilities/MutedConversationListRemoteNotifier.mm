@@ -7,7 +7,7 @@
 
 + (void)notifyListChanged
 {
-  v2 = sub_1A870CCE0(&unk_1EB3090D0);
+  v2 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v7 - v3;
   v5 = sub_1A88C87A8();

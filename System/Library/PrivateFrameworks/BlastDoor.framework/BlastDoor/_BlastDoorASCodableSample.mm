@@ -29,15 +29,13 @@
 
 - (id)description
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
-  v9.receiver = self;
-  v9.super_class = _BlastDoorASCodableSample;
-  v4 = [(_BlastDoorASCodableSample *)&v9 description];
+  v8.receiver = self;
+  v8.super_class = _BlastDoorASCodableSample;
+  v4 = [(_BlastDoorASCodableSample *)&v8 description];
   dictionaryRepresentation = [(_BlastDoorASCodableSample *)self dictionaryRepresentation];
   v6 = [v3 stringWithFormat:@"%@ %@", v4, dictionaryRepresentation];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -73,27 +71,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_uuid)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startDate = self->_startDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    endDate = self->_endDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

@@ -87,32 +87,28 @@ void __80__NDAppConfigAnalyticsPayloadAssemblerConfigProvider_fetchConfigWithCom
 
 - (void)initWithAppConfigurationManager:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfigurationManager"];
   *buf = 136315906;
-  v3 = "[NDAppConfigAnalyticsPayloadAssemblerConfigProvider initWithAppConfigurationManager:]";
-  v4 = 2080;
-  v5 = "NDAppConfigAnalyticsPayloadAssemblerConfigProvider.m";
-  v6 = 1024;
+  v2 = "[NDAppConfigAnalyticsPayloadAssemblerConfigProvider initWithAppConfigurationManager:]";
+  v3 = 2080;
+  v4 = "NDAppConfigAnalyticsPayloadAssemblerConfigProvider.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BDF7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchConfigWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   *buf = 136315906;
-  v3 = "[NDAppConfigAnalyticsPayloadAssemblerConfigProvider fetchConfigWithCompletion:]";
-  v4 = 2080;
-  v5 = "NDAppConfigAnalyticsPayloadAssemblerConfigProvider.m";
-  v6 = 1024;
+  v2 = "[NDAppConfigAnalyticsPayloadAssemblerConfigProvider fetchConfigWithCompletion:]";
+  v3 = 2080;
+  v4 = "NDAppConfigAnalyticsPayloadAssemblerConfigProvider.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BDF7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

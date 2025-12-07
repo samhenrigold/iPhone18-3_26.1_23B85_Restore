@@ -1,6 +1,7 @@
 @interface MSCommunityID
 + (Class)managedClass;
 - (BOOL)expired;
+- (MSCommunityID)initWithCommunityIdentifier:(id)identifier expired:(BOOL)expired positionIndex:(int64_t)index usedCount:(int64_t)count;
 - (MSCommunityID)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (MSCommunityID)initWithStore:(id)store communityIdentifier:(id)identifier expired:(BOOL)expired positionIndex:(int64_t)index usedCount:(int64_t)count;
 - (NSString)communityIdentifier;
@@ -17,6 +18,41 @@
 @end
 
 @implementation MSCommunityID
+
+- (MSCommunityID)initWithCommunityIdentifier:(id)identifier expired:(BOOL)expired positionIndex:(int64_t)index usedCount:(int64_t)count
+{
+  expiredCopy = expired;
+  if (identifier)
+  {
+    sub_1B63BEBD4();
+    v11 = v10;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  if (qword_1EDB0F2A0 != -1)
+  {
+    swift_once();
+  }
+
+  v12 = qword_1EDB0F2A8;
+  if (v11)
+  {
+    v13 = sub_1B63BEBC4();
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = [(MSCommunityID *)self initWithStore:v12 communityIdentifier:v13 expired:expiredCopy positionIndex:index usedCount:count];
+
+  return v14;
+}
 
 - (MSCommunityID)initWithStore:(id)store communityIdentifier:(id)identifier expired:(BOOL)expired positionIndex:(int64_t)index usedCount:(int64_t)count
 {
@@ -39,20 +75,17 @@
 {
   v3 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__editBlocks;
   swift_beginAccess();
-  v4 = *(&self->super.super.isa + v3);
-  v5 = MEMORY[0x1E69E7CC0];
+  v4 = MEMORY[0x1E69E7CC0];
   *(&self->super.super.isa + v3) = MEMORY[0x1E69E7CC0];
   selfCopy = self;
 
-  v7 = OBJC_IVAR___MSCommunityID__rapRecordChanges;
+  v6 = OBJC_IVAR___MSCommunityID__rapRecordChanges;
   swift_beginAccess();
-  v8 = *(&selfCopy->super.super.isa + v7);
-  *(&selfCopy->super.super.isa + v7) = v5;
+  *(&selfCopy->super.super.isa + v6) = v4;
 
-  v9 = OBJC_IVAR___MSCommunityID__reviewedPlaceChanges;
+  v7 = OBJC_IVAR___MSCommunityID__reviewedPlaceChanges;
   swift_beginAccess();
-  v10 = *(&selfCopy->super.super.isa + v9);
-  *(&selfCopy->super.super.isa + v9) = v5;
+  *(&selfCopy->super.super.isa + v7) = v4;
 }
 
 + (Class)managedClass
@@ -72,20 +105,20 @@
 - (NSString)communityIdentifier
 {
   selfCopy = self;
-  sub_1B62DBEC0();
-  v4 = v3;
+  sub_1B62DBEC0(selfCopy, v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1B63BEBC4();
+    v6 = sub_1B63BEBC4();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setCommunityIdentifier:(id)identifier

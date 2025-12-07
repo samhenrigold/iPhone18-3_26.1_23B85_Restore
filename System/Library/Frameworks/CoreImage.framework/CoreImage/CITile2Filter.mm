@@ -198,7 +198,7 @@
     *(&v34 + 1) = v17;
     *&v35 = v18;
     *(&v35 + 1) = v19;
-    affine::inverse(&v36, v32);
+    affine::inverse(v32, &v36);
     v20 = [CIVector vectorWithX:v32[0] * 0.5 Y:v32[2] * 0.5 Z:v32[1] * 0.5 W:v32[3] * 0.5];
     v21 = [CIVector vectorWithX:v36 Y:v38 Z:v37 W:v39];
     _kernel = [(CITileFilter *)self _kernel];

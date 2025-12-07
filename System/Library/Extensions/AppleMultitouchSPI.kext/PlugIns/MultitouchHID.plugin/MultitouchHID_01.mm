@@ -46,7 +46,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v30 = a1[1];
         if (v29 <= v30)
         {
-          v31 = a1[1];
+          v31 = *(a1 + 1);
           v30 = v29;
         }
 
@@ -63,7 +63,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v49 = a1[2];
+          v49 = *(a1 + 2);
         }
 
         if (*a1 <= v47)
@@ -155,16 +155,16 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v7 = a1[1];
+          v7 = *(a1 + 1);
         }
 
         if (*a1 > v6)
         {
-          v5 = a1[1];
+          v5 = *(a1 + 1);
         }
 
         *a1 = v7;
-        a1[1] = v5;
+        *(a1 + 1) = v5;
         v8 = a1[3];
         v9 = *(a2 - 1);
         if (v8 > v9)
@@ -250,7 +250,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         if (v22 <= v21)
         {
-          v19 = a1[2];
+          v19 = *(a1 + 2);
           v21 = v22;
         }
 
@@ -591,7 +591,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<floa
   return result;
 }
 
-float *std::__introsort<std::_ClassicAlgPolicy,MTPointVelocityGreaterThan &,MTPoint *,false>(float *result, float *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,MTPointVelocityGreaterThan &,MTPoint *,false>(uint64_t result, float *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -1827,7 +1827,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTPointVelocityGrea
   return result;
 }
 
-uint64_t std::vector<MTPoint>::__init_with_size[abi:ne200100]<MTPoint*,MTPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MTPoint>::__init_with_size[abi:ne200100]<MTPoint*,MTPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1849,7 +1849,7 @@ void sub_29D391644(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MTPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1859,27 +1859,26 @@ void std::vector<MTPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<MTPoint>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::__split_buffer<MTPoint>::emplace_back<MTPoint const&>(void *result, void *a2)
+void std::__split_buffer<MTPoint>::emplace_back<MTPoint const&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<MTPoint>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<MTPoint>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1888,21 +1887,20 @@ void *std::__split_buffer<MTPoint>::emplace_back<MTPoint const&>(void *result, v
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1924,7 +1922,7 @@ void sub_29D391804(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -2051,7 +2049,7 @@ double MTParserPath::clearTimestamps(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t MTParserPath::updateCurPrevContactsWith(MTParserPath *this, __int128 *a2, float *a3, float *a4, double a5)
+uint64_t MTParserPath::updateCurPrevContactsWith(MTParserPath *this, __int128 *a2, uint64_t a3, float *a4, double a5)
 {
   *(this + 152) = *(this + 56);
   *(this + 168) = *(this + 72);
@@ -2220,11 +2218,11 @@ uint64_t MTParserPath::updateTotalDiscountedDistance(uint64_t this, double a2)
   return this;
 }
 
-uint64_t MTParserPath::updateZonesAndEdges(uint64_t a1, float *a2, float *a3, double a4)
+uint64_t MTParserPath::updateZonesAndEdges(uint64_t a1, uint64_t a2, float *a3, double a4)
 {
-  v8 = MTSurfaceDimensions::convertSurfaceFractionToMillimeters(a2, 0, 1.0, 1.0);
+  v8 = MTSurfaceDimensions::convertSurfaceFractionToMillimeters(a2, 1.0);
   v10 = v9;
-  v11 = MTSurfaceDimensions::convertSurfaceFractionToMillimeters(a2, 0, *(a1 + 56), *(a1 + 60));
+  v11 = MTSurfaceDimensions::convertSurfaceFractionToMillimeters(a2, *(a1 + 56));
   v13 = v12;
   result = MTParserPath::computeZonesAndEdgesMask(v11, v12, v8, v10, v14, a3);
   *(a1 + 280) = result;
@@ -2244,7 +2242,7 @@ uint64_t MTParserPath::updateZonesAndEdges(uint64_t a1, float *a2, float *a3, do
     else
     {
       *(a1 + 284) |= result;
-      v17 = v11 + (v11 - MTSurfaceDimensions::convertPixelsToMillimeters(a2, *(a1 + 152), *(a1 + 156))) * -2.5;
+      v17 = v11 + (v11 - MTSurfaceDimensions::convertPixelsToMillimeters(a2, *(a1 + 152))) * -2.5;
       v19 = v13 + (v13 - v18) * -2.5;
       result = MTParserPath::computeZonesAndEdgesMask(v17, v19, v8, v10, v20, a3);
       *(a1 + 284) |= result;
@@ -2880,32 +2878,32 @@ LABEL_32:
   return result;
 }
 
-void MTParserPath::detectSustainedHoverAtEdge(uint64_t a1, uint64_t a2, uint64_t a3)
+void MTParserPath::detectSustainedHoverAtEdge(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v5 = MTSurfaceDimensions::convertMillimetersToSurfaceFraction(a3, 4.0, 4.0);
-  v6 = 248;
+  v6 = MTSurfaceDimensions::convertMillimetersToSurfaceFraction(a3, 4.0);
+  v7 = 248;
   if (*(a1 + 44) == 2)
   {
-    v6 = 32;
+    v7 = 32;
   }
 
-  v7 = *(a1 + v6);
-  v8 = *(a1 + 56);
-  v9 = *(a1 + 84);
-  v10 = *(a2 + 40);
-  v11 = v9 > v10 && ((v9 - v10) / (*(a2 + 44) - v10)) > 0.5;
-  v12 = v7 - *(a1 + 240);
-  v13 = v8;
-  v14 = fabs(v8);
-  v15 = fabs(v13 + -1.0);
-  if (v14 < v15)
+  v8 = *(a1 + v7);
+  v9 = *(a1 + 56);
+  v10 = *(a1 + 84);
+  v11 = *(a2 + 40);
+  v12 = v10 > v11 && ((v10 - v11) / (*(a2 + 44) - v11)) > 0.5;
+  v13 = v8 - *(a1 + 240);
+  v14 = v9;
+  v15 = fabs(v9);
+  v16 = fabs(v14 + -1.0);
+  if (v15 < v16)
   {
-    v15 = v14;
+    v16 = v15;
   }
 
-  v16 = v15;
-  v18 = v12 > 2.0 && v5 > v16;
-  *(a1 + 580) |= v18 && v11;
+  v17 = v16;
+  v19 = v13 > 2.0 && v6 > v17;
+  *(a1 + 580) |= v19 && v12;
 }
 
 void MTParserPath::computeDebounceTimeInstability(uint64_t a1, uint64_t a2, double a3)
@@ -3272,15 +3270,15 @@ void MTParserPath::pullHysteresisCenterHidingUnstablePixelDeltasXY(float a1, flo
   a7[1] = a2;
 }
 
-void MTParserPath::pullHysteresisCenterCancelingEllipseTipMotion(float *a1, uint64_t a2, float *a3, MTSurfaceDimensions *this, float a5, int8x16_t a6, int8x16_t a7, float a8, int8x16_t a9, float a10)
+void MTParserPath::pullHysteresisCenterCancelingEllipseTipMotion(float *result, uint64_t a2, float *a3, MTSurfaceDimensions *this, float a5, int8x16_t a6, int8x16_t a7, float a8, int8x16_t a9, float a10)
 {
   v15 = *a3;
   *a7.i32 = *a7.i32 - *a9.i32;
   *v10.i32 = a8 - a10;
   if (*(a2 + 43) == 1)
   {
-    *a7.i32 = *a7.i32 + a1[118];
-    *v10.i32 = *v10.i32 + a1[119];
+    *a7.i32 = *a7.i32 + result[118];
+    *v10.i32 = *v10.i32 + result[119];
   }
 
   v16 = a3[1];
@@ -3312,7 +3310,7 @@ void MTParserPath::pullHysteresisCenterCancelingEllipseTipMotion(float *a1, uint
     *a3 = v19;
     a9.i32[0] = 0;
 LABEL_11:
-    a1[118] = *a9.i32;
+    result[118] = *a9.i32;
   }
 
   v21 = *a6.i32 - v16;
@@ -3342,7 +3340,7 @@ LABEL_11:
         *a6.i32 = v23 - fabsf(v21);
         v26.i64[0] = 0x8000000080000000;
         v26.i64[1] = 0x8000000080000000;
-        *(a1 + 119) = vbslq_s8(v26, a6, v10).u32[0];
+        *(result + 119) = vbslq_s8(v26, a6, v10).u32[0];
         goto LABEL_24;
       }
 
@@ -3355,19 +3353,19 @@ LABEL_11:
     }
 
     a3[1] = v25;
-    a1[119] = 0.0;
+    result[119] = 0.0;
   }
 
 LABEL_24:
-  v27 = a1[24];
-  v28 = a1[98];
-  if (!v17 || (*a7.i32 * (a1[23] - a1[97])) < 0.0)
+  v27 = result[24];
+  v28 = result[98];
+  if (!v17 || (*a7.i32 * (result[23] - result[97])) < 0.0)
   {
     v38 = v10.i32[0];
     v29 = MTSurfaceDimensions::convertPixelDeltaToMillimeters(this, v18, 0);
     v10.i32[0] = v38;
-    v30 = a1[23];
-    v31 = a1[97];
+    v30 = result[23];
+    v31 = result[97];
     v32 = v30 - v31;
     if ((v30 - v31) < -v29)
     {
@@ -3385,15 +3383,15 @@ LABEL_24:
       v34 = v30;
     }
 
-    a1[97] = v34;
+    result[97] = v34;
     LOBYTE(v22) = *(a2 + 41);
   }
 
   if ((v22 & 1) == 0 || (*v10.i32 * (v27 - v28)) < 0.0)
   {
     v35 = MTSurfaceDimensions::convertPixelDeltaToMillimeters(this, v23, 1);
-    v36 = a1[24];
-    v37 = a1[98];
+    v36 = result[24];
+    v37 = result[98];
     if ((v36 - v37) <= v35)
     {
       if ((v36 - v37) < -v35)
@@ -3407,7 +3405,7 @@ LABEL_24:
       v36 = v35 + v37;
     }
 
-    a1[98] = v36;
+    result[98] = v36;
   }
 }
 
@@ -3665,48 +3663,47 @@ float MTParserPath::computeDivingButtonChangeInstability(uint64_t a1, uint64_t a
   {
     v7 = *(a2 + 408);
     v8 = v6 != v7;
-    v9 = *(a2 + 372);
-    v10 = *(a2 + 352);
+    v9 = *(a2 + 352);
     if (*(a2 + 384) != 1)
     {
       v8 = 1;
     }
 
-    v11 = 0.25;
-    v12 = 0.5;
+    v10 = 0.25;
+    v11 = 0.5;
     if (*(a2 + 372))
     {
-      v11 = 0.5;
-      v12 = 1.0;
+      v10 = 0.5;
+      v11 = 1.0;
     }
 
-    v13 = 0.07;
+    v12 = 0.07;
     if (*(a2 + 372))
     {
-      v13 = 0.15;
+      v12 = 0.15;
     }
 
-    v14 = v8 | ~(v10 != 0);
-    v15 = v11 * result;
-    if (v10)
+    v13 = v8 | ~(v9 != 0);
+    v14 = v10 * result;
+    if (v9)
     {
       v8 = 1;
     }
 
-    if ((v14 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      result = v15;
+      result = v14;
     }
 
     if (!v8)
     {
-      v16 = v12 * result;
-      result = v16;
+      v15 = v11 * result;
+      result = v15;
     }
 
     if (v6 != v7)
     {
-      return v13 * result;
+      return v12 * result;
     }
   }
 
@@ -3726,7 +3723,7 @@ void MTParserPath::isStuckOnDivingRegion(MTParserPath *this, const MTPathStates 
     {
       v5 = *(this + 23) - *(this + 97);
       v6 = (*(this + 24) - *(this + 98)) * (*(this + 24) - *(this + 98));
-      MTSurfaceDimensions::convertSurfaceFractionToMillimeters(*(a2 + 5), 1, *(this + 14), 1.0 - *(this + 15));
+      MTSurfaceDimensions::convertSurfaceFractionToMillimeters(*(a2 + 5), *(this + 14));
       v8 = v7;
       ThumbRestingOrPolarZoneHeight = MTPathStates::getThumbRestingOrPolarZoneHeight(a2);
       v10 = 1.0;
@@ -3816,7 +3813,7 @@ double MTParserPath::clearPathSpeedSymmetries(MTParserPath *this)
 
 float MTParserPath::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, float *a4)
 {
-  v55 = *MEMORY[0x29EDCA608];
+  v56 = *MEMORY[0x29EDCA608];
   v8 = *(a1 + 32) - *(a1 + 224);
   if ((*(a1 + 8) - 1000) >= 0xBB8)
   {
@@ -3826,8 +3823,8 @@ float MTParserPath::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
 
   else
   {
-    v46 = *(a1 + 92);
-    v9 = hypotf(v46.f32[0] - *(a1 + 376), v46.f32[1] - *(a1 + 380));
+    v47 = *(a1 + 92);
+    v9 = hypotf(v47.f32[0] - *(a1 + 376), v47.f32[1] - *(a1 + 380));
     if (v9 > *(a1 + 384))
     {
       *(a1 + 384) = v9;
@@ -3853,7 +3850,7 @@ float MTParserPath::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
     v13 = v12 * -0.1 + 0.9;
     v14 = (*(a2 + 8) - *(a2 + 16)) / 0.00800000038;
     v15 = pow(v13, v14);
-    *(a1 + 388) = vmla_n_f32(vmul_n_f32(v46, 1.0 - v15), *(a1 + 388), v15);
+    *(a1 + 388) = vmla_n_f32(vmul_n_f32(v47, 1.0 - v15), *(a1 + 388), v15);
     v16 = 0.0;
     if ((*(a2 + 28) & 2) != 0)
     {
@@ -3890,44 +3887,44 @@ float MTParserPath::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
   {
     MTParserPath::computeDebounceTimeInstability(a1, a3, v8);
     v27 = v28;
-    v29 = MTLoggingPlugin();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v31 = MTLoggingPlugin(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      v45 = *(a1 + 40);
+      v46 = *(a1 + 40);
       *buf = 67109888;
-      v48 = v45;
-      v49 = 2048;
-      v50 = v25;
-      v51 = 2048;
-      v52 = v27;
-      v53 = 2048;
-      v54 = v8;
-      _os_log_debug_impl(&dword_29D381000, v29, OS_LOG_TYPE_DEBUG, "\tDHML:  P%d Wating for slide, ZInstability=%f, TimeInstability=%f (from dtstart=%lfs)", buf, 0x26u);
+      v49 = v46;
+      v50 = 2048;
+      v51 = v25;
+      v52 = 2048;
+      v53 = v27;
+      v54 = 2048;
+      v55 = v8;
+      _os_log_debug_impl(&dword_29D381000, v31, OS_LOG_TYPE_DEBUG, "\tDHML:  P%d Wating for slide, ZInstability=%f, TimeInstability=%f (from dtstart=%lfs)", buf, 0x26u);
     }
   }
 
-  v30 = 0.0;
+  v32 = 0.0;
   if ((*(a1 + 8) - 1000) <= 0xBB7)
   {
     if ((*(a2 + 28) & 2) != 0 && (*(a1 + 370) & 1) == 0)
     {
       MTParserPath::isStuckOnDivingRegion(a1, a2);
-      v26 = v31;
+      v26 = v33;
     }
 
     if ((*(a2 + 24) - 1000) <= 0x3E7)
     {
-      v32 = 48;
+      v34 = 48;
       if (*(a1 + 44) == 7)
       {
-        v32 = 144;
+        v34 = 144;
       }
 
-      if ((*(a1 + v32) | 4) == 5 && *(a2 + 384) >= 5 && (*(a1 + 368) & 1) == 0)
+      if ((*(a1 + v34) | 4) == 5 && *(a2 + 384) >= 5 && (*(a1 + 368) & 1) == 0)
       {
-        v33 = MTPathStatesBasic::numFingerSlidWhileEngaged(a2);
-        v30 = v33 >= 3 ? 0.0 : 0.3;
-        if (v33 < 3)
+        v35 = MTPathStatesBasic::numFingerSlidWhileEngaged(a2);
+        v32 = v35 >= 3 ? 0.0 : 0.3;
+        if (v35 < 3)
         {
           v16 = v16 + v16;
         }
@@ -3943,87 +3940,86 @@ float MTParserPath::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
 
   if (a4)
   {
-    if (v25 <= v30)
+    if (v25 <= v32)
     {
-      v34 = v30;
+      v36 = v32;
     }
 
     else
     {
-      v34 = v25;
+      v36 = v25;
     }
 
     if (v27 <= v16)
     {
-      v35 = v16;
+      v37 = v16;
     }
 
     else
     {
-      v35 = v27;
+      v37 = v27;
     }
 
-    if (v34 <= v35)
+    if (v36 <= v37)
     {
-      v34 = v35;
+      v36 = v37;
     }
 
-    *a4 = v34;
+    *a4 = v36;
   }
 
-  v36 = *(a1 + 16);
-  if (v36 && MTSLGLogger::isSLGEnabled(v36))
+  v38 = *(a1 + 16);
+  if (v38 && MTSLGLogger::isSLGEnabled(v38))
   {
-    v37 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"[Hysteresis debugging MTParserPath::measureInstability INSTABILITY] instability_ contactZShape = %.2f divingButtonZone = %.2f restingHand = %.2f touchTimeDebounce = %.2f buttonTimeDebounce = %.2f ", v25, v26, v30, v27, v16);
-    MTSLGLogger::logString(*(a1 + 16), v37);
-    CFRelease(v37);
+    v39 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"[Hysteresis debugging MTParserPath::measureInstability INSTABILITY] instability_ contactZShape = %.2f divingButtonZone = %.2f restingHand = %.2f touchTimeDebounce = %.2f buttonTimeDebounce = %.2f ", v25, v26, v32, v27, v16);
+    MTSLGLogger::logString(*(a1 + 16), v39);
+    CFRelease(v39);
   }
 
   if (v25 <= v26)
   {
-    v38 = v26;
+    v40 = v26;
   }
 
   else
   {
-    v38 = v25;
+    v40 = v25;
   }
 
-  if (v38 < v30)
+  if (v40 < v32)
   {
-    v38 = v30;
+    v40 = v32;
   }
 
   if (v27 <= v16)
   {
-    v39 = v16;
+    v41 = v16;
   }
 
   else
   {
-    v39 = v27;
+    v41 = v27;
   }
 
-  if (v38 <= v39)
+  if (v40 <= v41)
   {
-    v40 = v39;
+    v42 = v41;
   }
 
   else
   {
-    v40 = v38;
+    v42 = v40;
   }
 
-  v41 = *(a1 + 16);
-  if (v41 && MTSLGLogger::isSLGEnabled(v41))
+  v43 = *(a1 + 16);
+  if (v43 && MTSLGLogger::isSLGEnabled(v43))
   {
-    v42 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"[Hysteresis debugging MTParserPath::measureInstability] total instability = %.2f", v40);
-    MTSLGLogger::logString(*(a1 + 16), v42);
-    CFRelease(v42);
+    v44 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"[Hysteresis debugging MTParserPath::measureInstability] total instability = %.2f", v42);
+    MTSLGLogger::logString(*(a1 + 16), v44);
+    CFRelease(v44);
   }
 
-  v43 = *MEMORY[0x29EDCA608];
-  return v40;
+  return v42;
 }
 
 void MTParserPath::filterContactForScreenUI(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int8x16_t a6, double a7, int8x16_t a8, int8x16_t a9)
@@ -4041,7 +4037,7 @@ void MTParserPath::filterContactForScreenUI(uint64_t a1, uint64_t a2, uint64_t a
     v18 = v22;
   }
 
-  *&v23 = MTSurfaceDimensions::convertSurfaceFractionToPixels(a3, *(a1 + 56), *(a1 + 60));
+  *&v23 = MTSurfaceDimensions::convertSurfaceFractionToPixels(a3, *(a1 + 56));
   v86 = v24;
   v87 = v23;
   v94[0] = 0.0;
@@ -4059,7 +4055,7 @@ void MTParserPath::filterContactForScreenUI(uint64_t a1, uint64_t a2, uint64_t a
 
   if (*(a4 + 98) == 1)
   {
-    MTParserPath::detectSustainedHoverAtEdge(a1, a4, a3);
+    MTParserPath::detectSustainedHoverAtEdge(a1, a4, a3, v23);
     v28 |= *(a1 + 580);
   }
 
@@ -4232,11 +4228,15 @@ LABEL_49:
   }
 
   v48 = *(a1 + 16);
-  if (v48 && MTSLGLogger::isSLGEnabled(v48))
+  if (v48)
   {
-    v49 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"Hysteresis debugging [MTParserPath::filterContactForScreenUI] reset_from_stage = %1d reset_from_zero_velocity = %1d, reset_from_pause = %1d\n", v28 & 1, v32, v34);
-    MTSLGLogger::logString(*(a1 + 16), v49);
-    CFRelease(v49);
+    v48 = MTSLGLogger::isSLGEnabled(v48);
+    if (v48)
+    {
+      v49 = CFStringCreateWithFormat(*MEMORY[0x29EDB8ED8], 0, @"Hysteresis debugging [MTParserPath::filterContactForScreenUI] reset_from_stage = %1d reset_from_zero_velocity = %1d, reset_from_pause = %1d\n", v28 & 1, v32, v34);
+      MTSLGLogger::logString(*(a1 + 16), v49);
+      CFRelease(v49);
+    }
   }
 
   *(a1 + 416) = vdupq_lane_s64(__SPAIR64__(v86.u32[0], LODWORD(v87)), 0);
@@ -4329,7 +4329,7 @@ LABEL_66:
 LABEL_76:
   if (*(a1 + 48) <= 5 && *(a1 + 144) < 6)
   {
-    v70 = MTLoggingPlugin();
+    v70 = MTLoggingPlugin(v48, v29);
     v60 = os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG);
     v38 = 0.0;
     if (v60)
@@ -4340,7 +4340,7 @@ LABEL_76:
 
   else
   {
-    v69 = MTLoggingPlugin();
+    v69 = MTLoggingPlugin(v48, v29);
     v60 = os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG);
     v38 = 0.0;
     if (v60)
@@ -4361,7 +4361,7 @@ LABEL_82:
   }
 
   *(a1 + 56) = vcvt_f32_s32(vcvt_s32_f32(*(a1 + 416)));
-  *(a1 + 64) = MTSurfaceDimensions::convertSurfaceFractionVelocityToPixelsPerSecond(a3, *(a1 + 64), *(a1 + 68));
+  *(a1 + 64) = MTSurfaceDimensions::convertSurfaceFractionVelocityToPixelsPerSecond(a3, *(a1 + 64));
   *(a1 + 68) = v71;
   *(a1 + 500) = *(a1 + 64);
   *(a1 + 508) = hypotf(*(a1 + 100), *(a1 + 104));
@@ -4401,26 +4401,33 @@ LABEL_82:
   }
 }
 
-void MTParserPath::correctAndQuantizeRadius(uint64_t a1, uint64_t a2, double a3, double a4, float64x2_t _Q2, int8x16_t a6)
+void sub_29D394918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  MTSurfaceDimensions::~MTSurfaceDimensions(va);
+  _Unwind_Resume(a1);
+}
+
+void MTParserPath::correctAndQuantizeRadius(uint64_t result, uint64_t a2, double a3, double a4, float64x2_t _Q2, int8x16_t a6)
 {
   v7 = 0.0;
   if (*(a2 + 102) == 1)
   {
-    v8 = *(a1 + 44) - 1;
-    if (v8 <= 5 && (*(a1 + 140) - 1) >= 6)
+    v8 = *(result + 44) - 1;
+    if (v8 <= 5 && (*(result + 140) - 1) >= 6)
     {
-      _D1 = vrev64_s32(*(a1 + 84));
+      _D1 = vrev64_s32(*(result + 84));
     }
 
     else
     {
       __asm { FMOV            V2.2D, #0.5 }
 
-      v13 = vmulq_f64(vcvtq_f64_f32(*(a1 + 84)), _Q2);
-      _D1 = vcvt_f32_f64(vmlaq_f64(vextq_s8(v13, v13, 8uLL), _Q2, vcvtq_f64_f32(*(a1 + 540))));
+      v13 = vmulq_f64(vcvtq_f64_f32(*(result + 84)), _Q2);
+      _D1 = vcvt_f32_f64(vmlaq_f64(vextq_s8(v13, v13, 8uLL), _Q2, vcvtq_f64_f32(*(result + 540))));
     }
 
-    *(a1 + 540) = _D1;
+    *(result + 540) = _D1;
     v15 = 0.0;
     v16 = 0.0;
     if (v8 <= 3)
@@ -4430,16 +4437,16 @@ void MTParserPath::correctAndQuantizeRadius(uint64_t a1, uint64_t a2, double a3,
       __asm { FMLA            S2, S0, V1.S[1]; float }
 
       v18 = fmaxf(*_Q2.f64, 2.0);
-      v15 = _QuantizedRadius(fmaxf(*a6.i32, 2.0), *(a1 + 556), _Q2, a6);
-      v16 = _QuantizedRadius(v18, *(a1 + 560), v19, v20);
+      v15 = _QuantizedRadius(fmaxf(*a6.i32, 2.0), *(result + 556), _Q2, a6);
+      v16 = _QuantizedRadius(v18, *(result + 560), v19, v20);
     }
 
-    *(a1 + 548) = v15;
-    *(a1 + 552) = v16;
+    *(result + 548) = v15;
+    *(result + 552) = v16;
     v7 = 1.0;
   }
 
-  *(a1 + 564) = v7;
+  *(result + 564) = v7;
 }
 
 float _QuantizedRadius(float a1, float a2, int8x16_t a3, int8x16_t a4)
@@ -4543,27 +4550,24 @@ uint64_t MTInputDeviceManagement::MTInputDeviceManagement(uint64_t result, uint6
 
 void MTInputDeviceManagement::scheduleOnDispatchQueue(MTInputDeviceManagement *this, NSObject *a2)
 {
-  v35[2] = *MEMORY[0x29EDCA608];
-  v4 = *(this + 1);
+  v36[2] = *MEMORY[0x29EDCA608];
   Service = MTDeviceGetService();
   if (!Service)
   {
-    v15 = MTLoggingPlugin();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = MTLoggingPlugin(Service, v5);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_14;
+      return;
     }
 
-    v22 = 136315650;
-    v23 = "[Error] ";
-    v24 = 2080;
-    v25 = "";
-    v26 = 2080;
-    v27 = "scheduleOnDispatchQueue";
-    v16 = "[HID] [MT] %s%s%s Could not get service";
-LABEL_13:
-    _os_log_impl(&dword_29D381000, v15, OS_LOG_TYPE_ERROR, v16, &v22, 0x20u);
-    goto LABEL_14;
+    v23 = 136315650;
+    v24 = "[Error] ";
+    v25 = 2080;
+    v26 = "";
+    v27 = 2080;
+    v28 = "scheduleOnDispatchQueue";
+    v17 = "[HID] [MT] %s%s%s Could not get service";
+    goto LABEL_13;
   }
 
   CFProperty = IORegistryEntryCreateCFProperty(Service, @"SerialNumber", *MEMORY[0x29EDB8ED8], 0);
@@ -4572,91 +4576,94 @@ LABEL_13:
     goto LABEL_11;
   }
 
-  v7 = CFProperty;
-  v8 = CFGetTypeID(CFProperty);
-  if (v8 != CFStringGetTypeID())
+  v8 = CFProperty;
+  v9 = CFGetTypeID(CFProperty);
+  if (v9 != CFStringGetTypeID())
   {
-    CFRelease(v7);
+    CFRelease(v8);
     goto LABEL_11;
   }
 
-  v9 = v7;
-  if (!v9)
+  CFProperty = v8;
+  if (!CFProperty)
   {
 LABEL_11:
-    v15 = MTLoggingPlugin();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = MTLoggingPlugin(CFProperty, v7);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_14;
+      return;
     }
 
-    v22 = 136315650;
-    v23 = "[Error] ";
-    v24 = 2080;
-    v25 = "";
-    v26 = 2080;
-    v27 = "scheduleOnDispatchQueue";
-    v16 = "[HID] [MT] %s%s%s Could not get serial number key (cannot match AMD and DM)";
+    v23 = 136315650;
+    v24 = "[Error] ";
+    v25 = 2080;
+    v26 = "";
+    v27 = 2080;
+    v28 = "scheduleOnDispatchQueue";
+    v17 = "[HID] [MT] %s%s%s Could not get serial number key (cannot match AMD and DM)";
     goto LABEL_13;
   }
 
-  v33 = v9;
-  v34[0] = @"IOPropertyMatch";
-  v32 = @"SerialNumber";
-  v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-  v34[1] = @"IONameMatch";
-  v35[0] = v10;
-  v35[1] = @"AppleDeviceManagementHIDEventService";
-  v11 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v34 = CFProperty;
+  v35[0] = @"IOPropertyMatch";
+  v33 = @"SerialNumber";
+  v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+  v35[1] = @"IONameMatch";
+  v36[0] = v10;
+  v36[1] = @"AppleDeviceManagementHIDEventService";
+  v11 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
   v12 = IONotificationPortCreate(0);
   *(this + 2) = v12;
   if (!v12)
   {
-    v15 = MTLoggingPlugin();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = MTLoggingPlugin(0, v13);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_14;
+      return;
     }
 
-    v22 = 136315650;
-    v23 = "[Error] ";
-    v24 = 2080;
-    v25 = "";
-    v26 = 2080;
-    v27 = "scheduleOnDispatchQueue";
-    v16 = "[HID] [MT] %s%s%s Could not create notification port";
-    goto LABEL_13;
+    v23 = 136315650;
+    v24 = "[Error] ";
+    v25 = 2080;
+    v26 = "";
+    v27 = 2080;
+    v28 = "scheduleOnDispatchQueue";
+    v17 = "[HID] [MT] %s%s%s Could not create notification port";
+LABEL_13:
+    _os_log_impl(&dword_29D381000, v16, OS_LOG_TYPE_ERROR, v17, &v23, 0x20u);
+    return;
   }
 
-  v13 = v12;
+  v14 = v12;
   if (v11)
   {
-    v14 = CFRetain(v11);
+    v15 = CFRetain(v11);
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v18 = IOServiceAddMatchingNotification(v13, "IOServiceFirstMatch", v14, MTInputDeviceManagement::DeviceManagerMatchedCallback, this, this + 6);
-  if (v18 || (v21 = *(this + 6), !v21))
+  v18 = IOServiceAddMatchingNotification(v14, "IOServiceFirstMatch", v15, MTInputDeviceManagement::DeviceManagerMatchedCallback, this, this + 6);
+  v20 = v18;
+  if (v18 || (v19 = *(this + 6), !v19))
   {
-    v19 = MTLoggingPlugin();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = MTLoggingPlugin(v18, v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(this + 6);
-      v22 = 136316162;
-      v23 = "[Error] ";
-      v24 = 2080;
-      v25 = "";
-      v26 = 2080;
-      v27 = "scheduleOnDispatchQueue";
-      v28 = 1024;
-      v29 = v18;
-      v30 = 2048;
-      v31 = v20;
-      _os_log_impl(&dword_29D381000, v19, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Could not create notification port: 0x%08x (deviceIterator: 0x%08jx)", &v22, 0x30u);
+      v22 = *(this + 6);
+      v23 = 136316162;
+      v24 = "[Error] ";
+      v25 = 2080;
+      v26 = "";
+      v27 = 2080;
+      v28 = "scheduleOnDispatchQueue";
+      v29 = 1024;
+      v30 = v20;
+      v31 = 2048;
+      v32 = v22;
+      _os_log_impl(&dword_29D381000, v21, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Could not create notification port: 0x%08x (deviceIterator: 0x%08jx)", &v23, 0x30u);
     }
 
     IONotificationPortDestroy(*(this + 2));
@@ -4665,18 +4672,15 @@ LABEL_11:
 
   else
   {
-    MTInputDeviceManagement::DeviceManagerMatchedCallback(this, v21);
+    MTInputDeviceManagement::DeviceManagerMatchedCallback(this, v19);
     IONotificationPortSetDispatchQueue(*(this + 2), a2);
   }
-
-LABEL_14:
-  v17 = *MEMORY[0x29EDCA608];
 }
 
-void MTInputDeviceManagement::DeviceManagerMatchedCallback(MTInputDeviceManagement *this, void *a2)
+void MTInputDeviceManagement::DeviceManagerMatchedCallback(CFTypeRef *this, void *a2)
 {
   v2 = a2;
-  v17 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v4 = objc_autoreleasePoolPush();
   if (IOIteratorIsValid(v2))
   {
@@ -4691,18 +4695,19 @@ void MTInputDeviceManagement::DeviceManagerMatchedCallback(MTInputDeviceManageme
 
       v7 = v6;
       properties = 0;
-      if (IORegistryEntryCreateCFProperties(v6, &properties, v5, 0) || !properties)
+      v8 = IORegistryEntryCreateCFProperties(v6, &properties, v5, 0);
+      if (v8 || (v9 = properties) == 0)
       {
-        v8 = MTLoggingPlugin();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v10 = MTLoggingPlugin(v8, v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v12 = "[Error] ";
-          v13 = 2080;
-          v14 = "";
-          v15 = 2080;
-          v16 = "DeviceManagerMatchedCallback";
-          _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Could not retrieve the service properties", buf, 0x20u);
+          v13 = "[Error] ";
+          v14 = 2080;
+          v15 = "";
+          v16 = 2080;
+          v17 = "DeviceManagerMatchedCallback";
+          _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Could not retrieve the service properties", buf, 0x20u);
         }
       }
 
@@ -4719,39 +4724,38 @@ void MTInputDeviceManagement::DeviceManagerMatchedCallback(MTInputDeviceManageme
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x29EDCA608];
 }
 
-void MTInputDeviceManagement::unscheduleFromDispatchQueue(MTInputDeviceManagement *this, dispatch_queue_t queue)
+void MTInputDeviceManagement::unscheduleFromDispatchQueue(CFTypeRef *this, dispatch_queue_t queue)
 {
   dispatch_assert_queue_not_V2(queue);
-  if (*(this + 5))
+  if (this[5])
   {
-    MTInputDeviceManagement::unpublishService(this);
+    MTInputDeviceManagement::unpublishService(this, v3);
   }
 
-  v3 = *(this + 6);
-  if (v3)
+  v4 = *(this + 6);
+  if (v4)
   {
-    IOObjectRelease(v3);
+    IOObjectRelease(v4);
     *(this + 6) = 0;
   }
 
-  v4 = *(this + 2);
-  if (v4)
+  v5 = this[2];
+  if (v5)
   {
-    IONotificationPortDestroy(v4);
-    *(this + 2) = 0;
+    IONotificationPortDestroy(v5);
+    this[2] = 0;
   }
 }
 
-void MTInputDeviceManagement::unpublishService(MTInputDeviceManagement *this)
+void MTInputDeviceManagement::unpublishService(CFTypeRef *this, uint64_t a2)
 {
   v13 = *MEMORY[0x29EDCA608];
-  v2 = MTLoggingPlugin();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = MTLoggingPlugin(this, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(this + 5);
+    v4 = this[5];
     v5 = 136315906;
     v6 = "";
     v7 = 2080;
@@ -4759,55 +4763,53 @@ void MTInputDeviceManagement::unpublishService(MTInputDeviceManagement *this)
     v9 = 2080;
     v10 = "unpublishService";
     v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Unpublishing device with connection UUID %{public}@", &v5, 0x2Au);
+    v12 = v4;
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Unpublishing device with connection UUID %{public}@", &v5, 0x2Au);
   }
 
   [objc_msgSend(MEMORY[0x29EDC0D38] "sharedClient")];
-  CFRelease(*(this + 5));
-  *(this + 5) = 0;
-  v4 = *MEMORY[0x29EDCA608];
+  CFRelease(this[5]);
+  this[5] = 0;
 }
 
-void MTInputDeviceManagement::publishService(MTInputDeviceManagement *this, __CFDictionary *a2)
+void MTInputDeviceManagement::publishService(CFTypeRef *this, __CFDictionary *a2)
 {
-  v58 = *MEMORY[0x29EDCA608];
-  if (*(this + 5))
+  v61 = *MEMORY[0x29EDCA608];
+  if (this[5])
   {
-    MTInputDeviceManagement::unpublishService(this);
+    MTInputDeviceManagement::unpublishService(this, a2);
   }
 
   v4 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"MTFW Version"];
   if (!v4 || ![v4 intValue])
   {
     *buf = 0;
-    v5 = *(this + 1);
     MTDeviceGetVersion();
     -[__CFDictionary setObject:forKeyedSubscript:](a2, "setObject:forKeyedSubscript:", [MEMORY[0x29EDBA070] numberWithInt:0], @"MTFW Version");
   }
 
-  v6 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"SerialNumber"];
-  if (!v6)
+  v5 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"SerialNumber"];
+  if (!v5)
   {
-    v11 = MTLoggingPlugin();
+    v11 = MTLoggingPlugin(0, v6);
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      return;
     }
 
     *buf = 136315650;
-    v47 = "[Error] ";
-    v48 = 2080;
-    v49 = "";
-    v50 = 2080;
-    v51 = "publishService";
+    v50 = "[Error] ";
+    v51 = 2080;
+    v52 = "";
+    v53 = 2080;
+    v54 = "publishService";
     v12 = "[HID] [MT] %s%s%s Could not get a service identifier";
 LABEL_27:
     _os_log_impl(&dword_29D381000, v11, OS_LOG_TYPE_ERROR, v12, buf, 0x20u);
-    goto LABEL_52;
+    return;
   }
 
-  v7 = v6;
+  v7 = v5;
   v8 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"Transport"];
   if ([v8 isEqualToString:@"AID"])
   {
@@ -4848,46 +4850,79 @@ LABEL_27:
   v14 = [objc_msgSend(MEMORY[0x29EDC0D38] "sharedClient")];
   if (!v14)
   {
-    v11 = MTLoggingPlugin();
+    v11 = MTLoggingPlugin(0, v15);
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      return;
     }
 
     *buf = 136315650;
-    v47 = "[Error] ";
-    v48 = 2080;
-    v49 = "";
-    v50 = 2080;
-    v51 = "publishService";
+    v50 = "[Error] ";
+    v51 = 2080;
+    v52 = "";
+    v53 = 2080;
+    v54 = "publishService";
     v12 = "[HID] [MT] %s%s%s Could not create CoreAccessories connection";
     goto LABEL_27;
   }
 
-  v15 = v14;
-  v16 = [objc_msgSend(MEMORY[0x29EDC0D38] "sharedClient")];
-  if (!v16)
+  v16 = v14;
+  v17 = [objc_msgSend(MEMORY[0x29EDC0D38] "sharedClient")];
+  if (!v17)
   {
-    v11 = MTLoggingPlugin();
+    v11 = MTLoggingPlugin(0, v18);
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      return;
     }
 
     *buf = 136315650;
-    v47 = "[Error] ";
-    v48 = 2080;
-    v49 = "";
-    v50 = 2080;
-    v51 = "publishService";
+    v50 = "[Error] ";
+    v51 = 2080;
+    v52 = "";
+    v53 = 2080;
+    v54 = "publishService";
     v12 = "[HID] [MT] %s%s%s Could not create CoreAccessories endpoint";
     goto LABEL_27;
   }
 
-  v38 = v16;
+  v41 = v17;
   if ([(__CFDictionary *)a2 objectForKeyedSubscript:@"SerialNumber"])
   {
-    v37 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"SerialNumber"];
+    v40 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"SerialNumber"];
+  }
+
+  else
+  {
+    v40 = &stru_2A2414198;
+  }
+
+  if ([(__CFDictionary *)a2 objectForKeyedSubscript:@"Product"])
+  {
+    v39 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"Product"];
+  }
+
+  else
+  {
+    v39 = &stru_2A2414198;
+  }
+
+  if ([(__CFDictionary *)a2 objectForKeyedSubscript:@"Manufacturer"])
+  {
+    v38 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"Manufacturer"];
+  }
+
+  else
+  {
+    v38 = @"Apple Inc.";
+  }
+
+  v42 = this;
+  v19 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"HardwareID"];
+  v36 = v7;
+  if (v19)
+  {
+    v37 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%04X", objc_msgSend_unsignedIntegerValue(v19)];
   }
 
   else
@@ -4895,118 +4930,83 @@ LABEL_27:
     v37 = &stru_2A2414198;
   }
 
-  if ([(__CFDictionary *)a2 objectForKeyedSubscript:@"Product"])
-  {
-    v36 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"Product"];
-  }
-
-  else
-  {
-    v36 = &stru_2A2414198;
-  }
-
-  if ([(__CFDictionary *)a2 objectForKeyedSubscript:@"Manufacturer"])
-  {
-    v35 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"Manufacturer"];
-  }
-
-  else
-  {
-    v35 = @"Apple Inc.";
-  }
-
-  v39 = this;
-  v17 = [(__CFDictionary *)a2 objectForKeyedSubscript:@"HardwareID"];
-  v33 = v7;
-  if (v17)
-  {
-    v34 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%04X", objc_msgSend(v17, "unsignedIntegerValue")];
-  }
-
-  else
-  {
-    v34 = &stru_2A2414198;
-  }
-
-  v18 = [MEMORY[0x29EDBA050] stringWithCapacity:20];
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
+  v20 = [MEMORY[0x29EDBA050] stringWithCapacity:20];
   v43 = 0u;
-  v19 = [&unk_2A2419B98 countByEnumeratingWithState:&v40 objects:buf count:16];
-  if (v19)
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v21 = [&unk_2A2419B98 countByEnumeratingWithState:&v43 objects:buf count:16];
+  if (v21)
   {
-    v20 = v19;
-    v21 = *v41;
+    v22 = v21;
+    v23 = *v44;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v41 != v21)
+        if (*v44 != v23)
         {
           objc_enumerationMutation(&unk_2A2419B98);
         }
 
-        v23 = [(__CFDictionary *)a2 objectForKeyedSubscript:*(*(&v40 + 1) + 8 * i)];
-        if (v23)
+        v25 = [(__CFDictionary *)a2 objectForKeyedSubscript:*(*(&v43 + 1) + 8 * i)];
+        if (v25)
         {
-          v24 = v23;
-          if ([v18 length])
+          v26 = v25;
+          if ([v20 length])
           {
-            [v18 appendString:@"."];
+            [v20 appendString:@"."];
           }
 
-          [v18 appendString:{objc_msgSend(MEMORY[0x29EDBA0F8], "stringWithFormat:", @"%04X", objc_msgSend(v24, "unsignedIntegerValue"))}];
+          [v20 appendString:{objc_msgSend(MEMORY[0x29EDBA0F8], "stringWithFormat:", @"%04X", objc_msgSend_unsignedIntegerValue(v26))}];
         }
       }
 
-      v20 = [&unk_2A2419B98 countByEnumeratingWithState:&v40 objects:buf count:16];
+      v22 = [&unk_2A2419B98 countByEnumeratingWithState:&v43 objects:buf count:16];
     }
 
-    while (v20);
+    while (v22);
   }
 
-  v25 = *MEMORY[0x29EDC0D60];
-  v26 = *MEMORY[0x29EDC0D50];
-  v44[0] = *MEMORY[0x29EDC0D60];
-  v44[1] = v26;
-  v45[0] = v36;
-  v45[1] = v35;
-  v27 = *MEMORY[0x29EDC0D40];
-  v44[2] = *MEMORY[0x29EDC0D68];
-  v44[3] = v27;
-  v45[2] = v37;
-  v45[3] = v18;
-  v28 = *MEMORY[0x29EDC0D58];
-  v44[4] = *MEMORY[0x29EDC0D48];
-  v44[5] = v28;
-  v45[4] = v34;
-  v45[5] = &stru_2A2414198;
-  v29 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v45 forKeys:v44 count:6];
-  [objc_msgSend(MEMORY[0x29EDC0D38] "sharedClient")];
-  v30 = MTLoggingPlugin();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v27 = *MEMORY[0x29EDC0D60];
+  v28 = *MEMORY[0x29EDC0D50];
+  v47[0] = *MEMORY[0x29EDC0D60];
+  v47[1] = v28;
+  v48[0] = v39;
+  v48[1] = v38;
+  v29 = *MEMORY[0x29EDC0D40];
+  v47[2] = *MEMORY[0x29EDC0D68];
+  v47[3] = v29;
+  v48[2] = v40;
+  v48[3] = v20;
+  v30 = *MEMORY[0x29EDC0D58];
+  v47[4] = *MEMORY[0x29EDC0D48];
+  v47[5] = v30;
+  v48[4] = v37;
+  v48[5] = &stru_2A2414198;
+  v31 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v48 forKeys:v47 count:6];
+  v32 = [objc_msgSend(MEMORY[0x29EDC0D38] "sharedClient")];
+  v34 = MTLoggingPlugin(v32, v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = [v29 objectForKeyedSubscript:v25];
+    v35 = [v31 objectForKeyedSubscript:v27];
     *buf = 136316418;
-    v47 = "";
-    v48 = 2080;
-    v49 = "";
-    v50 = 2080;
-    v51 = "publishService";
-    v52 = 2114;
-    v53 = v33;
-    v54 = 2114;
-    v55 = v31;
-    v56 = 2114;
-    v57 = v15;
-    _os_log_impl(&dword_29D381000, v30, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Publishing device %{public}@ (%{public}@) with connection UUID %{public}@", buf, 0x3Eu);
+    v50 = "";
+    v51 = 2080;
+    v52 = "";
+    v53 = 2080;
+    v54 = "publishService";
+    v55 = 2114;
+    v56 = v36;
+    v57 = 2114;
+    v58 = v35;
+    v59 = 2114;
+    v60 = v16;
+    _os_log_impl(&dword_29D381000, v34, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Publishing device %{public}@ (%{public}@) with connection UUID %{public}@", buf, 0x3Eu);
   }
 
   [objc_msgSend(MEMORY[0x29EDC0D38] "sharedClient")];
-  *(v39 + 5) = CFRetain(v15);
-LABEL_52:
-  v32 = *MEMORY[0x29EDCA608];
+  v42[5] = CFRetain(v16);
 }
 
 uint64_t MTChordTable::MTChordTable(uint64_t a1, int a2, uint64_t a3)
@@ -5041,15 +5041,15 @@ uint64_t MTChordTable::MTChordTable(uint64_t a1, int a2, uint64_t a3)
   return a1;
 }
 
-void sub_29D395918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_29D395918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v12 = (v10 + 344);
+  v12 = v10 + 344;
   v13 = -336;
   do
   {
     a10 = v12;
     std::vector<MTChordGestureSet>::__destroy_vector::operator()[abi:ne200100](&a10);
-    v12 -= 3;
+    v12 -= 24;
     v13 += 24;
   }
 
@@ -5399,14 +5399,14 @@ void std::vector<MTChordGestureSet>::__destroy_vector::operator()[abi:ne200100](
   }
 }
 
-void std::vector<MTChordGestureSet>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<MTChordGestureSet>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<MTChordGestureSet>>::destroy[abi:ne200100]<MTChordGestureSet,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<MTChordGestureSet>>::destroy[abi:ne200100]<MTChordGestureSet,0>(result, i))
   {
     i -= 240;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<MTChordGestureSet>>::destroy[abi:ne200100]<MTChordGestureSet,0>(uint64_t a1, uint64_t a2)
@@ -5538,9 +5538,9 @@ uint64_t std::vector<MTChordGestureSet>::__emplace_back_slow_path<MTChordGesture
   return v12;
 }
 
-void sub_29D396210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29D396210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<MTChordGestureSet>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5747,8 +5747,9 @@ void MTGestureConfig::clearAllChords(MTGestureConfig *this)
   }
 }
 
-void MTGestureConfig::MTGestureConfig(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void MTGestureConfig::MTGestureConfig(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a2;
   a1[2] = 0;
   a1[1] = a1 + 2;
   *a1 = &unk_2A2411808;
@@ -5760,12 +5761,12 @@ void MTGestureConfig::MTGestureConfig(void *a1, int a2, uint64_t a3, uint64_t a4
   a1[8] = 0;
   a1[9] = a5;
   mtgp_InitUSBKeyNames();
-  if ((a2 - 1000) <= 0x3E7)
+  if ((v5 - 1000) <= 0x3E7)
   {
     operator new();
   }
 
-  if ((a2 - 2000) <= 0x3E7)
+  if ((v5 - 2000) <= 0x3E7)
   {
     operator new();
   }
@@ -5827,7 +5828,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::string const,std::vector<MTA
 
 double mtgp_InitUSBKeyNames()
 {
-  gUSBKeyNames = @"NULL";
+  gUSBKeyNames[0] = @"NULL";
   *algn_2A17A1ED8 = @"ErrorRollOver";
   qword_2A17A1EE0 = @"POSTFail";
   unk_2A17A1EE8 = @"ErrorUndefined";
@@ -5876,7 +5877,7 @@ double mtgp_InitUSBKeyNames()
   qword_2A17A2040 = @"=";
   unk_2A17A2048 = @"[";
   qword_2A17A2050 = @"]";
-  unk_2A17A2058 = @"\";
+  unk_2A17A2058 = @"\"";
   qword_2A17A2060 = @"#";
   unk_2A17A2068 = @";";
   qword_2A17A2070 = @"'";
@@ -6045,71 +6046,67 @@ double mtgp_InitUSBKeyNames()
   return result;
 }
 
-uint64_t MTAppendGestureStartedToCollectionEvent()
+uint64_t MTAppendGestureStartedToCollectionEvent(uint64_t a1)
 {
   IOHIDEventGetIntegerValue();
   IOHIDEventSetIntegerValue();
   return 0;
 }
 
-uint64_t MTAppendGestureEndedToCollectionEvent()
+uint64_t MTAppendGestureEndedToCollectionEvent(uint64_t a1)
 {
   IOHIDEventGetIntegerValue();
   IOHIDEventSetIntegerValue();
   return 0;
 }
 
-uint64_t MTAppendRelativeMouseEvent()
+uint64_t MTAppendRelativeMouseEvent(uint64_t a1, int a2, int a3, uint64_t a4)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   MouseEvent = IOHIDEventCreateMouseEvent();
   if (MouseEvent)
   {
-    v2 = MouseEvent;
+    v5 = MouseEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v2);
+    CFRelease(v5);
   }
 
   return 0;
 }
 
-uint64_t MTAppendMouseButtonEvent()
+uint64_t MTAppendMouseButtonEvent(uint64_t a1, uint64_t a2)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   ButtonEvent = IOHIDEventCreateButtonEvent();
   if (ButtonEvent)
   {
-    v2 = ButtonEvent;
+    v3 = ButtonEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
   return 0;
 }
 
-uint64_t MTAppendVelocityEvent()
+uint64_t MTAppendVelocityEvent(uint64_t a1, float a2, float a3)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   VelocityEvent = IOHIDEventCreateVelocityEvent();
   if (VelocityEvent)
   {
-    v2 = VelocityEvent;
+    v4 = VelocityEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v2);
+    CFRelease(v4);
   }
 
   return 0;
 }
 
-uint64_t MTAppendTranslationEvent(uint64_t a1, int a2)
+uint64_t MTAppendTranslationEvent(uint64_t a1, int a2, float a3, float a4)
 {
-  v3 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   TranslationEvent = IOHIDEventCreateTranslationEvent();
-  v5 = TranslationEvent;
+  v6 = TranslationEvent;
   if (a2 <= 15)
   {
     if (a2 != 2)
@@ -6161,28 +6158,25 @@ LABEL_10:
 LABEL_15:
     IOHIDEventSetPhase();
     IOHIDEventAppendEvent();
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
   return 0;
 }
 
-uint64_t MTAppendFluidSwipeEvent(double a1, float a2, uint64_t a3, int a4)
+uint64_t MTAppendFluidSwipeEvent(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, int a6, float a7, float a8, float a9, float a10)
 {
-  switch(a4)
+  switch(a2)
   {
     case 27:
-      v8 = *MEMORY[0x29EDB8ED8];
       mach_absolute_time();
       FluidTouchGestureEvent = IOHIDEventCreateFluidTouchGestureEvent();
       break;
     case 23:
-      v7 = *MEMORY[0x29EDB8ED8];
       mach_absolute_time();
       FluidTouchGestureEvent = IOHIDEventCreateDockSwipeEvent();
       break;
     case 16:
-      v5 = *MEMORY[0x29EDB8ED8];
       mach_absolute_time();
       FluidTouchGestureEvent = IOHIDEventCreateNavigationSwipeEvent();
       break;
@@ -6190,17 +6184,17 @@ uint64_t MTAppendFluidSwipeEvent(double a1, float a2, uint64_t a3, int a4)
       return 0;
   }
 
-  v9 = FluidTouchGestureEvent;
+  v12 = FluidTouchGestureEvent;
   if (FluidTouchGestureEvent)
   {
     IOHIDEventSetPhase();
-    if (a2 != 0.0)
+    if (a8 != 0.0)
     {
-      MTAppendVelocityEvent();
+      MTAppendVelocityEvent(v12, a8, a8);
     }
 
     IOHIDEventAppendEvent();
-    CFRelease(v9);
+    CFRelease(v12);
   }
 
   return 0;
@@ -6208,73 +6202,65 @@ uint64_t MTAppendFluidSwipeEvent(double a1, float a2, uint64_t a3, int a4)
 
 uint64_t MTAppendSwipeEvent(uint64_t a1, int a2)
 {
-  if ((a2 - 1) <= 7)
-  {
-    v2 = *&asc_29D3D693C[4 * (a2 - 1)];
-  }
-
-  v3 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   SwipeEvent = IOHIDEventCreateSwipeEvent();
   if (SwipeEvent)
   {
-    v5 = SwipeEvent;
+    v3 = SwipeEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v5);
+    CFRelease(v3);
   }
 
   return 0;
 }
 
-uint64_t MTAppendForceGestureEvent()
+uint64_t MTAppendForceGestureEvent(uint64_t a1, uint64_t a2, float a3, float a4, uint64_t a5, int a6, uint64_t a7)
 {
   if (!IOHIDEventGetIntegerValue())
   {
     return 3758097090;
   }
 
-  v1 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   result = IOHIDEventCreateForceEvent();
   if (result)
   {
-    v2 = result;
+    v8 = result;
     IOHIDEventSetPhase();
     IOHIDEventAppendEvent();
-    CFRelease(v2);
+    CFRelease(v8);
     return 0;
   }
 
   return result;
 }
 
-uint64_t MTAppendKeyboardEvent()
+uint64_t MTAppendKeyboardEvent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   KeyboardEvent = IOHIDEventCreateKeyboardEvent();
   if (KeyboardEvent)
   {
-    v2 = KeyboardEvent;
+    v4 = KeyboardEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v2);
+    CFRelease(v4);
   }
 
   return 0;
 }
 
-uint64_t MTAppendKeystrokeEvent()
+uint64_t MTAppendKeystrokeEvent(uint64_t a1, uint64_t a2)
 {
-  MTAppendKeyboardEvent();
-  MTAppendKeyboardEvent();
+  MTAppendKeyboardEvent(a1, a2, 1);
+  MTAppendKeyboardEvent(a1, a2, 0);
   return 0;
 }
 
-uint64_t MTAppendModifierKeyEvent(uint64_t a1, char a2)
+uint64_t MTAppendModifierKeyEvent(uint64_t a1, char a2, uint64_t a3)
 {
   if ((a2 & 2) != 0)
   {
-    MTAppendKeyboardEvent();
+    MTAppendKeyboardEvent(a1, 225, a3);
     if ((a2 & 1) == 0)
     {
 LABEL_3:
@@ -6284,7 +6270,7 @@ LABEL_3:
       }
 
 LABEL_9:
-      MTAppendKeyboardEvent();
+      MTAppendKeyboardEvent(a1, 226, a3);
       if ((a2 & 8) == 0)
       {
         return 0;
@@ -6299,7 +6285,7 @@ LABEL_9:
     goto LABEL_3;
   }
 
-  MTAppendKeyboardEvent();
+  MTAppendKeyboardEvent(a1, 1, a3);
   if ((a2 & 4) != 0)
   {
     goto LABEL_9;
@@ -6309,15 +6295,14 @@ LABEL_4:
   if ((a2 & 8) != 0)
   {
 LABEL_5:
-    MTAppendKeyboardEvent();
+    MTAppendKeyboardEvent(a1, 227, a3);
   }
 
   return 0;
 }
 
-uint64_t MTAppendZoomToggleEvent()
+uint64_t MTAppendZoomToggleEvent(uint64_t a1)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   ZoomToggleEvent = IOHIDEventCreateZoomToggleEvent();
   if (ZoomToggleEvent)
@@ -6330,9 +6315,8 @@ uint64_t MTAppendZoomToggleEvent()
   return 0;
 }
 
-uint64_t MTAppendShowDefinitionEvent()
+uint64_t MTAppendShowDefinitionEvent(uint64_t a1)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   SymbolicHotKeyEvent = IOHIDEventCreateSymbolicHotKeyEvent();
   if (SymbolicHotKeyEvent)
@@ -6346,70 +6330,13 @@ uint64_t MTAppendShowDefinitionEvent()
   return 0;
 }
 
-uint64_t MTAppendBoundaryScrollEvent()
+uint64_t MTAppendBoundaryScrollEvent(uint64_t a1, int a2, int a3)
 {
-  v0 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
   BoundaryScrollEvent = IOHIDEventCreateBoundaryScrollEvent();
   if (BoundaryScrollEvent)
   {
-    v2 = BoundaryScrollEvent;
-    IOHIDEventAppendEvent();
-    CFRelease(v2);
-  }
-
-  return 0;
-}
-
-uint64_t MTAppendScrollEvent()
-{
-  v0 = *MEMORY[0x29EDB8ED8];
-  mach_absolute_time();
-  ScrollEvent = IOHIDEventCreateScrollEvent();
-  if (ScrollEvent)
-  {
-    v2 = ScrollEvent;
-    IOHIDEventSetPhase();
-    IOHIDEventAppendEvent();
-    CFRelease(v2);
-  }
-
-  return 0;
-}
-
-uint64_t MTAppendMomentumEnableEvent()
-{
-  v0 = *MEMORY[0x29EDB8ED8];
-  mach_absolute_time();
-  VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
-  if (VendorDefinedEvent)
-  {
-    v2 = VendorDefinedEvent;
-    IOHIDEventAppendEvent();
-    CFRelease(v2);
-  }
-
-  return 0;
-}
-
-uint64_t MTAppendOrientationEvent()
-{
-  v0 = *MEMORY[0x29EDB8ED8];
-  mach_absolute_time();
-  PolarOrientationEvent = IOHIDEventCreatePolarOrientationEvent();
-  if (PolarOrientationEvent)
-  {
-    v2 = PolarOrientationEvent;
-    IOHIDEventAppendEvent();
-    CFRelease(v2);
-  }
-
-  mach_absolute_time();
-  v3 = IOHIDEventCreatePolarOrientationEvent();
-  if (v3)
-  {
-    v4 = v3;
-    IOHIDEventSetPhase();
+    v4 = BoundaryScrollEvent;
     IOHIDEventAppendEvent();
     CFRelease(v4);
   }
@@ -6417,46 +6344,98 @@ uint64_t MTAppendOrientationEvent()
   return 0;
 }
 
-uint64_t MTAppendOrientationEventWithTranslation(uint64_t a1, int a2)
+uint64_t MTAppendScrollEvent(uint64_t a1, int a2, int a3, int a4, int a5)
 {
-  v3 = *MEMORY[0x29EDB8ED8];
   mach_absolute_time();
-  PolarOrientationEvent = IOHIDEventCreatePolarOrientationEvent();
-  if (PolarOrientationEvent)
+  ScrollEvent = IOHIDEventCreateScrollEvent();
+  if (ScrollEvent)
   {
-    v5 = PolarOrientationEvent;
-    IOHIDEventAppendEvent();
-    CFRelease(v5);
-  }
-
-  mach_absolute_time();
-  v6 = IOHIDEventCreatePolarOrientationEvent();
-  if (v6)
-  {
-    v7 = v6;
+    v6 = ScrollEvent;
     IOHIDEventSetPhase();
-    MTAppendTranslationEvent(v7, a2);
     IOHIDEventAppendEvent();
-    CFRelease(v7);
+    CFRelease(v6);
   }
 
   return 0;
 }
 
-uint64_t MTAppendZoomRotateTranslateEvent(double a1, double a2, float a3, uint64_t a4, int a5, int a6, int a7, int a8, int a9)
+uint64_t MTAppendMomentumEnableEvent(uint64_t a1, char a2, char a3)
 {
-  if (a3 <= 0.0)
+  mach_absolute_time();
+  VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
+  if (VendorDefinedEvent)
   {
-    v9 = a5 == 16 || a5 == 32;
+    v4 = VendorDefinedEvent;
+    IOHIDEventAppendEvent();
+    CFRelease(v4);
+  }
+
+  return 0;
+}
+
+uint64_t MTAppendOrientationEvent(uint64_t a1, int a2, int a3, int a4, double a5, double a6, float a7, float a8)
+{
+  mach_absolute_time();
+  PolarOrientationEvent = IOHIDEventCreatePolarOrientationEvent();
+  if (PolarOrientationEvent)
+  {
+    v9 = PolarOrientationEvent;
+    IOHIDEventAppendEvent();
+    CFRelease(v9);
+  }
+
+  mach_absolute_time();
+  v10 = IOHIDEventCreatePolarOrientationEvent();
+  if (v10)
+  {
+    v11 = v10;
+    IOHIDEventSetPhase();
+    IOHIDEventAppendEvent();
+    CFRelease(v11);
+  }
+
+  return 0;
+}
+
+uint64_t MTAppendOrientationEventWithTranslation(uint64_t a1, int a2, int a3, int a4, double a5, double a6, float a7, float a8, uint64_t a9, int a10, int a11)
+{
+  mach_absolute_time();
+  PolarOrientationEvent = IOHIDEventCreatePolarOrientationEvent();
+  if (PolarOrientationEvent)
+  {
+    v15 = PolarOrientationEvent;
+    IOHIDEventAppendEvent();
+    CFRelease(v15);
+  }
+
+  mach_absolute_time();
+  v16 = IOHIDEventCreatePolarOrientationEvent();
+  if (v16)
+  {
+    v17 = v16;
+    IOHIDEventSetPhase();
+    MTAppendTranslationEvent(v17, a2, a10, a11);
+    IOHIDEventAppendEvent();
+    CFRelease(v17);
+  }
+
+  return 0;
+}
+
+uint64_t MTAppendZoomRotateTranslateEvent(uint64_t a1, int a2, int a3, int a4, int a5, int a6, double a7, double a8, float a9)
+{
+  if (a9 <= 0.0)
+  {
+    v9 = a2 == 16 || a2 == 32;
     goto LABEL_11;
   }
 
-  v9 = a5 == 16 || a5 == 32;
-  if ((a7 / a3) == 0.0)
+  v9 = a2 == 16 || a2 == 32;
+  if ((a4 / a9) == 0.0)
   {
 LABEL_11:
     v10 = v9 & MTAppendZoomRotateTranslateEvent_rotate_in_progress;
-    if (!a6)
+    if (!a3)
     {
       goto LABEL_7;
     }
@@ -6465,7 +6444,7 @@ LABEL_11:
   }
 
   v10 = 1;
-  if (!a6)
+  if (!a3)
   {
 LABEL_7:
     v11 = v9 & MTAppendZoomRotateTranslateEvent_zoom_in_progress;
@@ -6475,7 +6454,7 @@ LABEL_7:
 LABEL_12:
   v11 = 1;
 LABEL_13:
-  if (a9 | a8)
+  if (a6 | a5)
   {
     v12 = 1;
   }
@@ -6485,48 +6464,44 @@ LABEL_13:
     v12 = v9 & MTAppendZoomRotateTranslateEvent_translate_in_progress;
   }
 
-  v13 = MEMORY[0x29EDB8ED8];
   if (v10)
   {
-    v14 = *MEMORY[0x29EDB8ED8];
     mach_absolute_time();
     RotationEvent = IOHIDEventCreateRotationEvent();
     if (RotationEvent)
     {
-      v16 = RotationEvent;
+      v14 = RotationEvent;
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
-      CFRelease(v16);
+      CFRelease(v14);
       MTAppendZoomRotateTranslateEvent_rotate_in_progress = !v9;
     }
   }
 
   if (v11)
   {
-    v17 = *v13;
     mach_absolute_time();
     ScaleEvent = IOHIDEventCreateScaleEvent();
     if (ScaleEvent)
     {
-      v19 = ScaleEvent;
+      v16 = ScaleEvent;
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
-      CFRelease(v19);
+      CFRelease(v16);
       MTAppendZoomRotateTranslateEvent_zoom_in_progress = !v9;
     }
   }
 
   if (v12)
   {
-    v20 = *v13;
     mach_absolute_time();
     TranslationEvent = IOHIDEventCreateTranslationEvent();
     if (TranslationEvent)
     {
-      v22 = TranslationEvent;
+      v18 = TranslationEvent;
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
-      CFRelease(v22);
+      CFRelease(v18);
       MTAppendZoomRotateTranslateEvent_translate_in_progress = !v9;
     }
   }
@@ -6711,12 +6686,12 @@ uint64_t MTDragManagerEventQueue::dispatchModifierUpdates(uint64_t result, uint6
         *(v11 + 108) = v13;
         if (v7 > 7)
         {
-          result = MTAppendMouseButtonEvent();
+          result = MTAppendMouseButtonEvent(a2, BYTE1(v13));
         }
 
         else
         {
-          result = MTAppendModifierKeyEvent(a2, v12);
+          result = MTAppendModifierKeyEvent(a2, v12, a4 ^ 1u);
         }
       }
 
@@ -6729,20 +6704,20 @@ uint64_t MTDragManagerEventQueue::dispatchModifierUpdates(uint64_t result, uint6
   return result;
 }
 
-uint64_t MTDragManagerEventQueue::autoInsertModifierEvents(uint64_t result, uint64_t a2, unsigned __int16 *a3, int a4)
+_DWORD *MTDragManagerEventQueue::autoInsertModifierEvents(_DWORD *result, uint64_t a2, unsigned __int16 *a3, int a4)
 {
   v5 = result;
   if (!a3)
   {
-    v10 = (result + 104);
-    v8 = *(result + 112);
-    if (!(v8 | *(result + 104)))
+    v10 = result + 26;
+    v8 = result[28];
+    if (!(v8 | *(result + 52)))
     {
       return result;
     }
 
     v11 = 0;
-    v12 = (v8 | *(result + 104)) & ~a4;
+    v12 = (v8 | result[26]) & ~a4;
     goto LABEL_15;
   }
 
@@ -6764,9 +6739,9 @@ uint64_t MTDragManagerEventQueue::autoInsertModifierEvents(uint64_t result, uint
 
 LABEL_10:
     v13 = 0;
-    v14 = *(result + 112);
-    v15 = *(result + 108) & ~v9;
-    *(result + 108) = v15;
+    v14 = result[28];
+    v15 = result[27] & ~v9;
+    result[27] = v15;
     v8 = v14 & ~v9;
     v16 = ~v15;
     v12 = v6;
@@ -6781,9 +6756,9 @@ LABEL_10:
 
   v8 = *(a3 + 1);
 LABEL_12:
-  v17 = *(result + 112);
-  v18 = *(result + 108) | v9;
-  *(result + 108) = v18;
+  v17 = result[28];
+  v18 = result[27] | v9;
+  result[27] = v18;
   v16 = ~v18;
   v13 = v6 & ~v18;
   v12 = v17 & ~(v9 | v6);
@@ -6791,13 +6766,13 @@ LABEL_13:
   v11 = v16 & a4 | v13;
   if (!v9)
   {
-    v10 = (result + 104);
-    v12 |= *(result + 104) & ~(v6 | a4);
+    v10 = result + 26;
+    v12 |= result[26] & ~(v6 | a4);
 LABEL_15:
     *v10 = a4;
   }
 
-  *(result + 112) = v8 & ~v12;
+  result[28] = v8 & ~v12;
   if (v12)
   {
     result = MTDragManagerEventQueue::dispatchModifierUpdates(result, a2, v12, 1, 0xFu, -1);
@@ -6812,165 +6787,215 @@ LABEL_15:
   return result;
 }
 
-uint64_t MTDragManagerEventQueue::dispatchFluid(uint64_t a1, unsigned __int16 *a2, uint64_t a3, float a4, float a5, uint64_t a6, uint64_t a7, int *a8)
+uint64_t MTDragManagerEventQueue::dispatchFluid(uint64_t a1, unsigned __int16 *a2, uint64_t a3, int a4, int a5, float *a6, int a7, float a8, float a9)
 {
-  v14 = *(a1 + 16);
-  if (!v14 || !MTForceManagement::whichForceButtonActivated(v14))
+  v18 = *(a1 + 16);
+  if (!v18 || !MTForceManagement::whichForceButtonActivated(v18))
   {
     MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, a2, 0);
   }
 
-  v16 = *a2;
-  if (v16 > 0x25)
+  v19 = *a2;
+  if (v19 <= 0x25)
   {
-    if (v16 != 38 && v16 != 39)
+    if (v19 == 36)
     {
-LABEL_10:
-      v17 = 0;
-      goto LABEL_13;
+      v21 = 16;
+LABEL_13:
+      if (v19 == 36)
+      {
+        v20 = 5;
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      goto LABEL_18;
     }
 
-    v17 = 27;
+    if (v19 == 37)
+    {
+      v20 = 3;
+      v21 = 23;
+      goto LABEL_18;
+    }
+
+LABEL_11:
+    v21 = 0;
+    goto LABEL_13;
+  }
+
+  if (v19 == 38)
+  {
+    v20 = 1;
   }
 
   else
   {
-    if (v16 != 36)
+    if (v19 != 39)
     {
-      if (v16 == 37)
-      {
-        v17 = 23;
-        goto LABEL_13;
-      }
-
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
-    v17 = 16;
+    v20 = 2;
   }
 
-LABEL_13:
-  v18 = *a8;
-  v19 = a8[1];
-  *&v15 = a4;
+  v21 = 27;
+LABEL_18:
+  if (a5 <= 0)
+  {
+    v22 = a7 & (a5 >> 31) & 0xAA;
+  }
 
-  return MTAppendFluidSwipeEvent(v15, a5, a3, v17);
+  else
+  {
+    v22 = a7 & 0x55;
+  }
+
+  v23 = *a6;
+  v24 = a6[1];
+
+  return MTAppendFluidSwipeEvent(a3, v21, v20, a4, v22, a7, a8, a9, v23, v24);
 }
 
-uint64_t MTDragManagerEventQueue::dispatch(uint64_t a1, unsigned __int16 *a2, uint64_t a3, int a4, int *a5, float *a6, int a7)
+_DWORD *MTDragManagerEventQueue::dispatch(uint64_t a1, unsigned __int16 *a2, uint64_t a3, int a4, int *a5, float *a6, int a7, unsigned __int16 a8)
 {
-  v14 = MTTapDragManager::dragHandModifiers(a1);
-  MTAppendChordMotionCodeToCollectionEvent();
-  result = MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, a2, v14);
-  v18 = *a2;
-  if (v18 == 32)
+  v16 = MTTapDragManager::dragHandModifiers(a1);
+  MTAppendChordMotionCodeToCollectionEvent(a3, a7, a8);
+  result = MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, a2, v16);
+  v20 = *a2;
+  if (v20 == 32)
   {
 
-    return MTAppendGestureEndedToCollectionEvent();
+    return MTAppendGestureEndedToCollectionEvent(a3);
   }
 
-  if (v18 == 33)
+  if (v20 == 33)
   {
 
-    return MTAppendGestureStartedToCollectionEvent();
+    return MTAppendGestureStartedToCollectionEvent(a3);
   }
 
-  if ((v18 - 35) <= 4)
+  if ((v20 - 35) <= 4)
   {
-    if (*a2 > 0x25u)
+    if (*a2 <= 0x25u)
     {
-      if (v18 == 38 || v18 == 39)
+      if (v20 == 36)
       {
-        v19 = 27;
-        goto LABEL_37;
+        v22 = 16;
+LABEL_36:
+        if (v20 == 36)
+        {
+          v21 = 5;
+        }
+
+        else
+        {
+          v21 = 0;
+        }
+
+        goto LABEL_41;
       }
+
+      if (v20 == 37)
+      {
+        v21 = 3;
+        v22 = 23;
+LABEL_41:
+
+        return MTAppendFluidSwipeEvent(a3, v22, v21, 0, 0, a7, 0.0, 0.0, 0.0, 0.0);
+      }
+
+LABEL_34:
+      v22 = 0;
+      goto LABEL_36;
+    }
+
+    if (v20 == 38)
+    {
+      v21 = 1;
     }
 
     else
     {
-      if (v18 == 36)
+      if (v20 != 39)
       {
-        v19 = 16;
-        goto LABEL_37;
+        goto LABEL_34;
       }
 
-      if (v18 == 37)
-      {
-        v19 = 23;
-LABEL_37:
-
-        return MTAppendFluidSwipeEvent(0.0, 0.0, a3, v19);
-      }
+      v21 = 2;
     }
 
-    v19 = 0;
-    goto LABEL_37;
+    v22 = 27;
+    goto LABEL_41;
   }
 
-  if ((v18 & 0x80) != 0)
+  if ((v20 & 0x80) != 0)
   {
     if (*a2 > 0x85u)
     {
-      if (v18 == 134)
+      if (v20 == 134)
       {
         return result;
       }
 
-      if (v18 == 140)
+      if (v20 == 140)
       {
 
-        return MTAppendShowDefinitionEvent();
+        return MTAppendShowDefinitionEvent(a3);
       }
     }
 
     else
     {
-      if ((v18 - 129) < 2)
+      if ((v20 - 129) < 2)
       {
-        v20 = a2[1];
+        v23 = a2[1];
 
-        return MTAppendKeyboardEvent();
+        return MTAppendKeyboardEvent(a3, v23, v20 == 129);
       }
 
-      if (v18 == 133)
+      if (v20 == 133)
       {
 
         return MTAppendSwipeEvent(a3, a7);
       }
     }
 
-    v21 = a2[1];
+    v24 = a2[1];
 
-    return MTAppendKeystrokeEvent();
+    return MTAppendKeystrokeEvent(a3, v24);
   }
 
-  if ((v18 & 0x40) == 0 || (v18 - 65) < 2)
+  if ((v20 & 0x40) == 0 || (v20 - 65) < 2)
   {
     return result;
   }
 
-  switch(v18)
+  switch(v20)
   {
     case 'I':
 
-      return MTAppendZoomToggleEvent();
+      return MTAppendZoomToggleEvent(a3);
     case 'H':
-      v39 = a2[1];
-      v40 = *(a1 + 108);
-      v38 = 66;
-      MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, &v38, v14);
-      v38 = 65;
-      MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, &v38, v14);
-      v38 = 66;
-      return MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, &v38, v14);
+      v42 = a2[1];
+      v43 = *(a1 + 108);
+      v41 = 66;
+      MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, &v41, v16);
+      v41 = 65;
+      MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, &v41, v16);
+      v41 = 66;
+      return MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, &v41, v16);
     case 'C':
-      v39 = a2[1];
-      v40 = *(a1 + 108);
-      v38 = 66;
-      return MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, &v38, v14);
+      v42 = a2[1];
+      v43 = *(a1 + 108);
+      v41 = 66;
+      return MTDragManagerEventQueue::autoInsertModifierEvents(a1, a3, &v41, v16);
   }
 
-  if ((~v18 & 0x44) != 0)
+  if ((~v20 & 0x44) != 0)
   {
     return result;
   }
@@ -6982,62 +7007,66 @@ LABEL_37:
       return result;
     }
 
-    if (v18 == 71)
+    if (v20 == 71)
     {
-      *&v16 = *a6;
-      *&v17 = a6[1];
-      v26 = a6[2];
-      v37 = *(a6 + 3);
-      v28 = a3;
-      v29 = a4;
-      v22 = 0;
-      v23 = 0;
-      v24 = 0;
+      *&v18 = *a6;
+      *&v19 = a6[1];
+      v29 = a6[2];
+      v30 = a3;
+      v31 = a4;
       v25 = 0;
-      goto LABEL_74;
+      v26 = 0;
+      v27 = 0;
+      v28 = 0;
+      goto LABEL_78;
     }
 
-    if (v18 != 70)
+    if (v20 != 70)
     {
       return result;
     }
 
-    goto LABEL_67;
+    v32 = a3;
+    v33 = a4;
+    v34 = 0;
+    v35 = 0;
+    goto LABEL_71;
   }
 
-  switch(v18)
+  switch(v20)
   {
     case 'F':
-      v32 = -*a5;
-      v33 = -a5[1];
-LABEL_67:
+      v34 = -*a5;
+      v35 = -a5[1];
+      v32 = a3;
+      v33 = a4;
+LABEL_71:
 
-      return MTAppendScrollEvent();
+      return MTAppendScrollEvent(v32, v33, v34, v35, 0);
     case 'N':
-      v30 = -*a5;
-      v31 = -a5[1];
+      v36 = -*a5;
+      v37 = -a5[1];
 
-      return MTAppendBoundaryScrollEvent();
+      return MTAppendBoundaryScrollEvent(a3, v36, v37);
     case 'G':
-      v22 = a5[2];
-      v23 = a5[3];
-      v24 = *a5;
-      v25 = a5[1];
-      *&v16 = *a6;
-      *&v17 = a6[1];
-      v26 = a6[2];
-      v27 = *(a6 + 3);
-      v28 = a3;
-      v29 = a4;
-LABEL_74:
+      v25 = a5[2];
+      v26 = a5[3];
+      v27 = *a5;
+      v28 = a5[1];
+      *&v18 = *a6;
+      *&v19 = a6[1];
+      v29 = a6[2];
+      v30 = a3;
+      v31 = a4;
+LABEL_78:
 
-      return MTAppendZoomRotateTranslateEvent(v16, v17, v26, v28, v29, v22, v23, v24, v25);
+      return MTAppendZoomRotateTranslateEvent(v30, v31, v25, v26, v27, v28, v18, v19, v29);
     default:
-      v34 = *a5;
-      v35 = a5[1];
-      v36 = *(a1 + 109);
+      v38 = *a5;
+      v39 = a5[1];
+      v40 = *(a1 + 109);
 
-      return MTAppendRelativeMouseEvent();
+      return MTAppendRelativeMouseEvent(a3, v38, v39, v40);
   }
 }
 
@@ -7102,14 +7131,14 @@ uint64_t MTDragManagerEventQueue::ready2autoReleaseModifiers(uint64_t a1, uint64
   }
 }
 
-uint64_t MTDragManagerEventQueue::serviceEventQueue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
+uint64_t MTDragManagerEventQueue::serviceEventQueue(MTTapDragManager *a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
-  if (*(a1 + 24) == 1)
+  if (*(a1 + 6) == 1)
   {
     return MTTapDragManager::sendWaitingClickAtHalfTimeout(a1, a2, a4, a5) ^ 1;
   }
 
-  if (*(a1 + 108) && *(a1 + 112) | *(a1 + 104) && ((*(*a3 + 16))(a3, a4) & 1) == 0)
+  if (*(a1 + 27) && *(a1 + 28) | *(a1 + 26) && ((*(*a3 + 16))(a3, a4) & 1) == 0)
   {
     MTDragManagerEventQueue::autoInsertModifierEvents(a1, a2, 0, 0);
     if (((**a1)(a1) & 1) == 0)
@@ -7118,37 +7147,37 @@ uint64_t MTDragManagerEventQueue::serviceEventQueue(uint64_t a1, uint64_t a2, ui
     }
   }
 
-  return *(a1 + 108) != 0;
+  return *(a1 + 27) != 0;
 }
 
 uint64_t MTDragManagerEventQueue::startMomentum(uint64_t a1, uint64_t a2, int a3)
 {
   *(a1 + 1268) = a3;
   *(a1 + 1264) = 1;
-  return MTAppendMomentumEnableEvent();
+  return MTAppendMomentumEnableEvent(a2, a3, 1);
 }
 
 uint64_t MTDragManagerEventQueue::stopMomentum(uint64_t a1, uint64_t a2, int a3)
 {
   *(a1 + 1268) = a3;
   *(a1 + 1264) = 0;
-  return MTAppendMomentumEnableEvent();
+  return MTAppendMomentumEnableEvent(a2, a3, 0);
 }
 
-uint64_t MTTrackpadEmbeddedHIDManager::initialize(MTModeSwitcher *a1, uint64_t a2, CFTypeRef cf, int a4, int a5)
+uint64_t MTTrackpadEmbeddedHIDManager::initialize(MTModeSwitcher *a1, uint64_t a2, CFTypeRef a3, int a4, int a5)
 {
   *(a1 + 354) = 0;
   *(a1 + 176) = 0;
   *(a1 + 89) = 0;
-  return MTTrackpadHIDManager::initialize(a1, a2, cf, a4, a5);
+  return MTTrackpadHIDManager::initialize(a1, a2, a3, a4, a5);
 }
 
-void MTTrackpadEmbeddedHIDManager::finalize(MTTrackpadEmbeddedHIDManager *this)
+void MTTrackpadEmbeddedHIDManager::finalize(MTTrackpadEmbeddedHIDManager *this, uint64_t a2)
 {
-  v2 = *(this + 45);
-  if (v2)
+  v3 = *(this + 45);
+  if (v3)
   {
-    MTPowerLogger::release(v2);
+    MTPowerLogger::release(v3, a2);
     *(this + 45) = 0;
   }
 
@@ -7277,45 +7306,37 @@ uint64_t MTTrackpadEmbeddedHIDManager::setProperty(MTTrackpadEmbeddedHIDManager 
   return MTTrackpadHIDManager::setProperty(this, v5, a3);
 }
 
-uint64_t MTTrackpadEmbeddedHIDManager::setPropertyInternal(uint64_t a1, int a2, CFTypeRef cf, int a4)
+uint64_t MTTrackpadEmbeddedHIDManager::setPropertyInternal(uint64_t a1, uint64_t a2, CFTypeRef cf, int a4)
 {
-  v37 = *MEMORY[0x29EDCA608];
+  v36 = *MEMORY[0x29EDCA608];
   if (a2 <= 78)
   {
     switch(a2)
     {
       case 9:
-        v8 = MTLoggingPlugin();
-        result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-        if (result)
-        {
-          goto LABEL_27;
-        }
-
-        break;
-      case 18:
-        v8 = MTLoggingPlugin();
+        v8 = MTLoggingPlugin(a1, a2);
         result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
         if (!result)
         {
-          break;
+          return result;
         }
 
-        goto LABEL_27;
-      case 43:
-        v8 = MTLoggingPlugin();
+        break;
+      case 0x12:
+        v8 = MTLoggingPlugin(a1, a2);
         result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-        if (result)
+        if (!result)
         {
-LABEL_27:
-          v31 = 136315650;
-          v32 = "[Error] ";
-          v33 = 2080;
-          v34 = "MTTrackpadEmbeddedHIDManager::";
-          v35 = 2080;
-          v36 = "setPropertyInternal";
-          _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unsupported", &v31, 0x20u);
-          goto LABEL_28;
+          return result;
+        }
+
+        break;
+      case 0x2B:
+        v8 = MTLoggingPlugin(a1, a2);
+        result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+        if (!result)
+        {
+          return result;
         }
 
         break;
@@ -7323,89 +7344,87 @@ LABEL_27:
         goto LABEL_32;
     }
 
-LABEL_29:
-    v18 = *MEMORY[0x29EDCA608];
-    return result;
+    v30 = 136315650;
+    v31 = "[Error] ";
+    v32 = 2080;
+    v33 = "MTTrackpadEmbeddedHIDManager::";
+    v34 = 2080;
+    v35 = "setPropertyInternal";
+    _os_log_impl(&dword_29D381000, v8, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unsupported", &v30, 0x20u);
+    return 0;
   }
 
   if (a2 <= 80)
   {
-    if (a2 != 79)
+    if (a2 == 79)
     {
       if (!cf)
       {
-        goto LABEL_28;
+        return 0;
       }
 
-      goto LABEL_19;
-    }
-
-    if (!cf)
-    {
-      goto LABEL_28;
-    }
-
-    v10 = CFGetTypeID(cf);
-    if (v10 != CFBooleanGetTypeID())
-    {
-LABEL_19:
-      v11 = CFGetTypeID(cf);
-      if (v11 == CFDictionaryGetTypeID())
+      v10 = CFGetTypeID(cf);
+      if (v10 == CFBooleanGetTypeID())
       {
-        v12 = *(a1 + 353);
-        Value = CFDictionaryGetValue(cf, @"DigitizerSurfaceCovered");
-        v16 = Value && (v14 = Value, v15 = CFGetTypeID(Value), v15 == CFBooleanGetTypeID()) && v14 == *MEMORY[0x29EDB8F00];
-        *(a1 + 353) = v16;
-        v22 = *(a1 + 354);
-        v23 = CFDictionaryGetValue(cf, @"ScreenOn");
-        v26 = !v23 || (v24 = v23, v25 = CFGetTypeID(v23), v25 != CFBooleanGetTypeID()) || v24 != *MEMORY[0x29EDB8F00];
-        *(a1 + 354) = v26;
-        v27 = *(a1 + 356);
-        LOWORD(v31) = 0;
-        v28 = CFDictionaryGetValue(cf, @"DeviceOrientation");
-        if (v28)
-        {
-          v29 = v28;
-          v30 = CFGetTypeID(v28);
-          if (v30 == CFNumberGetTypeID())
-          {
-            if (CFNumberGetValue(v29, kCFNumberSInt16Type, &v31))
-            {
-              *(a1 + 356) = v31;
-            }
-          }
-        }
-
-        if (v12 != *(a1 + 353) || v22 != *(a1 + 354) || v27 != *(a1 + 356) || (a4 & 1) != 0 || (*(a1 + 352) & 1) == 0)
-        {
-          if (MTTrackpadEmbeddedHIDManager::setHostState(a1))
-          {
-            result = 0;
-            *(a1 + 353) = v12;
-            *(a1 + 354) = v22;
-            *(a1 + 356) = v27;
-          }
-
-          else
-          {
-            result = 1;
-            *(a1 + 352) = 1;
-          }
-
-          goto LABEL_29;
-        }
-
-        goto LABEL_25;
+        return 1;
       }
-
-LABEL_28:
-      result = 0;
-      goto LABEL_29;
     }
 
-LABEL_25:
-    result = 1;
-    goto LABEL_29;
+    else if (!cf)
+    {
+      return 0;
+    }
+
+    v11 = CFGetTypeID(cf);
+    if (v11 == CFDictionaryGetTypeID())
+    {
+      v12 = *(a1 + 353);
+      Value = CFDictionaryGetValue(cf, @"DigitizerSurfaceCovered");
+      v16 = Value && (v14 = Value, v15 = CFGetTypeID(Value), v15 == CFBooleanGetTypeID()) && v14 == *MEMORY[0x29EDB8F00];
+      *(a1 + 353) = v16;
+      v20 = *(a1 + 354);
+      v21 = CFDictionaryGetValue(cf, @"ScreenOn");
+      v24 = !v21 || (v22 = v21, v23 = CFGetTypeID(v21), v23 != CFBooleanGetTypeID()) || v22 != *MEMORY[0x29EDB8F00];
+      *(a1 + 354) = v24;
+      v25 = *(a1 + 356);
+      LOWORD(v30) = 0;
+      v26 = CFDictionaryGetValue(cf, @"DeviceOrientation");
+      if (v26)
+      {
+        v28 = v26;
+        v29 = CFGetTypeID(v26);
+        if (v29 == CFNumberGetTypeID())
+        {
+          if (CFNumberGetValue(v28, kCFNumberSInt16Type, &v30))
+          {
+            *(a1 + 356) = v30;
+          }
+        }
+      }
+
+      if (v12 != *(a1 + 353) || v20 != *(a1 + 354) || v25 != *(a1 + 356) || (a4 & 1) != 0 || (*(a1 + 352) & 1) == 0)
+      {
+        if (MTTrackpadEmbeddedHIDManager::setHostState(a1, v27))
+        {
+          result = 0;
+          *(a1 + 353) = v12;
+          *(a1 + 354) = v20;
+          *(a1 + 356) = v25;
+        }
+
+        else
+        {
+          result = 1;
+          *(a1 + 352) = 1;
+        }
+
+        return result;
+      }
+
+      return 1;
+    }
+
+    return 0;
   }
 
   if (a2 != 81)
@@ -7416,8 +7435,8 @@ LABEL_25:
     }
 
 LABEL_30:
-    v19 = CFGetTypeID(cf);
-    if (v19 == CFBooleanGetTypeID())
+    v18 = CFGetTypeID(cf);
+    if (v18 == CFBooleanGetTypeID())
     {
       (*(*a1 + 80))(a1);
       Service = MTDeviceGetService();
@@ -7432,96 +7451,95 @@ LABEL_30:
     v17 = CFGetTypeID(cf);
     if (v17 == CFNumberGetTypeID())
     {
-      goto LABEL_25;
+      return 1;
     }
 
     goto LABEL_30;
   }
 
 LABEL_32:
-  v21 = *MEMORY[0x29EDCA608];
 
   return MTTrackpadHIDManager::setPropertyInternal(a1, a2, cf, a4);
 }
 
-uint64_t MTTrackpadEmbeddedHIDManager::setHostState(MTTrackpadEmbeddedHIDManager *this)
+uint64_t MTTrackpadEmbeddedHIDManager::setHostState(MTTrackpadEmbeddedHIDManager *this, uint64_t a2)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  v2 = *(this + 353);
-  v3 = *(this + 354);
-  v4 = *(this + 89);
-  v5 = MTLoggingPlugin();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v28 = *MEMORY[0x29EDCA608];
+  v3 = *(this + 353);
+  v4 = *(this + 354);
+  v5 = *(this + 89);
+  v6 = MTLoggingPlugin(this, a2);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316674;
-    v13 = "";
-    v14 = 2080;
-    v15 = "MTTrackpadEmbeddedHIDManager::";
+    v15 = "";
     v16 = 2080;
-    v17 = "setHostState";
-    v18 = 1024;
-    v19 = 0;
+    v17 = "MTTrackpadEmbeddedHIDManager::";
+    v18 = 2080;
+    v19 = "setHostState";
     v20 = 1024;
-    v21 = v2;
+    v21 = 0;
     v22 = 1024;
     v23 = v3;
     v24 = 1024;
     v25 = v4;
-    _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Host state - graphics orientation: %u, cover closed: %u, display off: %u, device orientation: %u", buf, 0x38u);
+    v26 = 1024;
+    v27 = v5;
+    _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Host state - graphics orientation: %u, cover closed: %u, display off: %u, device orientation: %u", buf, 0x38u);
   }
 
   (*(*this + 80))(this);
-  v6 = MTDeviceSetReport();
-  if (v6)
+  v7 = MTDeviceSetReport();
+  v9 = v7;
+  if (v7)
   {
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = MTLoggingPlugin(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v13 = "[Error] ";
-      v14 = 2080;
-      v15 = "MTTrackpadEmbeddedHIDManager::";
+      v15 = "[Error] ";
       v16 = 2080;
-      v17 = "setHostState";
-      v18 = 1024;
-      v19 = v6;
-      _os_log_impl(&dword_29D381000, v7, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Error 0x%08X setting host state", buf, 0x26u);
+      v17 = "MTTrackpadEmbeddedHIDManager::";
+      v18 = 2080;
+      v19 = "setHostState";
+      v20 = 1024;
+      v21 = v9;
+      _os_log_impl(&dword_29D381000, v10, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Error 0x%08X setting host state", buf, 0x26u);
     }
   }
 
   else
   {
-    v8 = *(this + 45);
-    if (v8)
+    v11 = *(this + 45);
+    if (v11)
     {
       if (*(this + 353) == 1)
       {
-        v9 = 3;
+        v12 = 3;
       }
 
       else if (*(this + 354) == 1)
       {
-        v9 = 2;
+        v12 = 2;
       }
 
       else
       {
-        v9 = 1;
+        v12 = 1;
       }
 
-      MTPowerLogger::transitionTo(v8, v9);
+      MTPowerLogger::transitionTo(v11, v12);
     }
   }
 
-  v10 = *MEMORY[0x29EDCA608];
-  return v6;
+  return v9;
 }
 
-uint64_t MTTrackpadEmbeddedHIDManager::setOrientation(MTTrackpadEmbeddedHIDManager *this)
+uint64_t MTTrackpadEmbeddedHIDManager::setOrientation(MTTrackpadEmbeddedHIDManager *this, uint64_t a2)
 {
   v10 = *MEMORY[0x29EDCA608];
-  v1 = MTLoggingPlugin();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v2 = MTLoggingPlugin(this, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v4 = 136315650;
     v5 = "[Error] ";
@@ -7529,48 +7547,45 @@ uint64_t MTTrackpadEmbeddedHIDManager::setOrientation(MTTrackpadEmbeddedHIDManag
     v7 = "MTTrackpadEmbeddedHIDManager::";
     v8 = 2080;
     v9 = "setOrientation";
-    _os_log_impl(&dword_29D381000, v1, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unsupported", &v4, 0x20u);
+    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unsupported", &v4, 0x20u);
   }
 
-  v2 = *MEMORY[0x29EDCA608];
   return 3758097095;
 }
 
-uint64_t MTTrackpadEmbeddedHIDManager::setPowerState()
+uint64_t MTTrackpadEmbeddedHIDManager::setPowerState(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v0 = MTLoggingPlugin();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v10 = *MEMORY[0x29EDCA608];
+  v2 = MTLoggingPlugin(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v3 = 136315650;
-    v4 = "[Error] ";
-    v5 = 2080;
-    v6 = "MTTrackpadEmbeddedHIDManager::";
-    v7 = 2080;
-    v8 = "setPowerState";
-    _os_log_impl(&dword_29D381000, v0, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unsupported", &v3, 0x20u);
+    v4 = 136315650;
+    v5 = "[Error] ";
+    v6 = 2080;
+    v7 = "MTTrackpadEmbeddedHIDManager::";
+    v8 = 2080;
+    v9 = "setPowerState";
+    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unsupported", &v4, 0x20u);
   }
 
-  v1 = *MEMORY[0x29EDCA608];
   return 3758097095;
 }
 
-uint64_t MTTrackpadEmbeddedHIDManager::setPowerStateWithReset()
+uint64_t MTTrackpadEmbeddedHIDManager::setPowerStateWithReset(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v0 = MTLoggingPlugin();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v10 = *MEMORY[0x29EDCA608];
+  v2 = MTLoggingPlugin(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v3 = 136315650;
-    v4 = "[Error] ";
-    v5 = 2080;
-    v6 = "MTTrackpadEmbeddedHIDManager::";
-    v7 = 2080;
-    v8 = "setPowerStateWithReset";
-    _os_log_impl(&dword_29D381000, v0, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unsupported", &v3, 0x20u);
+    v4 = 136315650;
+    v5 = "[Error] ";
+    v6 = 2080;
+    v7 = "MTTrackpadEmbeddedHIDManager::";
+    v8 = 2080;
+    v9 = "setPowerStateWithReset";
+    _os_log_impl(&dword_29D381000, v2, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unsupported", &v4, 0x20u);
   }
 
-  v1 = *MEMORY[0x29EDCA608];
   return 3758097095;
 }
 
@@ -7671,20 +7686,20 @@ double MTSlideGesture::clearIntegrationState(MTSlideGesture *this)
   return result;
 }
 
-uint64_t MTSlideGesture::MTSlideGesture(uint64_t a1, int a2, int a3, __int128 *a4, uint64_t *a5, float a6, float a7)
+uint64_t MTSlideGesture::MTSlideGesture(uint64_t a1, int a2, int a3, __int128 *a4, float a5, float a6, const MTActionEvent **a7)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(a1, *a5, a5[1], (a5[1] - *a5) >> 3);
+  std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(a1, *a7, a7[1], (a7[1] - *a7) >> 3);
   *(a1 + 24) = 16;
   *(a1 + 28) = a3;
   *(a1 + 32) = a2;
   v13 = *a4;
   *(a1 + 52) = a4[1];
   *(a1 + 36) = v13;
-  *(a1 + 152) = a6;
-  *(a1 + 156) = a7;
+  *(a1 + 152) = a5;
+  *(a1 + 156) = a6;
   *(a1 + 68) = 0;
   *(a1 + 144) = 0;
   if ((a2 & 0x1000000) != 0)
@@ -7702,12 +7717,12 @@ uint64_t MTSlideGesture::MTSlideGesture(uint64_t a1, int a2, int a3, __int128 *a
   *(a1 + 104) = 0u;
   *(a1 + 120) = 0u;
   *(a1 + 136) = 0;
-  if ((a2 & 3) != 0 || a7 > 0.0)
+  if ((a2 & 3) != 0 || a6 > 0.0)
   {
     *(a1 + 124) = v14;
   }
 
-  if ((a2 & 0xC) != 0 || a7 > 0.0)
+  if ((a2 & 0xC) != 0 || a6 > 0.0)
   {
     *(a1 + 128) = v14;
   }
@@ -7800,13 +7815,13 @@ uint64_t MTSlideGesture::operator=(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-uint64_t MTGesture::operator=(uint64_t a1, uint64_t a2)
+MTActionEvent *MTGesture::operator=(MTActionEvent *a1, uint64_t a2)
 {
   if (a1 != a2)
   {
     std::vector<MTActionEvent>::__assign_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
-    *(a1 + 24) = *(a2 + 24);
-    *(a1 + 28) = *(a2 + 28);
+    *(a1 + 6) = *(a2 + 24);
+    *(a1 + 7) = *(a2 + 28);
   }
 
   return a1;
@@ -7841,7 +7856,7 @@ uint64_t MTSlideGesture::getDegreesOfFreedomMask(MTSlideGesture *this)
   return v2;
 }
 
-double MTSlideGesture::relativeSensitivity(MTSlideGesture *this, unsigned int a2)
+double MTSlideGesture::relativeSensitivity(MTSlideGesture *this, int a2)
 {
   LODWORD(result) = *(this + a2 + 31);
   if (*&result == 0.0)
@@ -7941,7 +7956,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t MTSlideGesture::sendSlideMickeys(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int32x4_t *a7, double a8)
+uint64_t MTSlideGesture::sendSlideMickeys(uint64_t a1, double *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int32x4_t *a7, double a8)
 {
   if (MTChordIntegrating::sendSlidePreamble(a6, a2, a3, a4, a5, a1, 8u, a8))
   {
@@ -7955,7 +7970,7 @@ uint64_t MTSlideGesture::sendSlideMickeys(uint64_t a1, uint64_t a2, uint64_t a3,
 
   v18 = *(a3 + 168);
   MTChordIntegrating::updateMomentumMickeys(a6, a7, a2);
-  v16 = *(a2 + 8);
+  v16 = a2[1];
   *(a1 + 144) = v16;
   return MTGesture::dispatchEvents(a1, a4, a5, v15, a7, &v18, *(a1 + 32), *(a6 + 224), v16);
 }
@@ -8138,12 +8153,12 @@ uint64_t MTSlideGesture::thresholdAxisMotion(MTSlideGesture *this, const MTHandS
   return v7;
 }
 
-float MTSlideGesture::accelerateAxisMotion(MTSlideGesture *this, int a2, const MTHandStatistics *a3, const MTHandMotion *a4, float a5, int a6)
+float MTSlideGesture::accelerateAxisMotion(MTSlideGesture *this, unsigned int a2, const MTHandStatistics *a3, const MTHandMotion *a4, float a5, int a6)
 {
   v11 = 0.0;
   if (a2 <= 3)
   {
-    v11 = *(a4 + (4 * a2) + 316);
+    v11 = *(a4 + a2 + 79);
   }
 
   v12 = *(this + a2 + 31);
@@ -8339,7 +8354,7 @@ float MTSlideGesture::someMovingMultiplier(MTSlideGesture *this, uint64_t a2, MT
   return SpeedSymmetry;
 }
 
-float MTSlideGesture::integrateManipulativeGesture(uint64_t a1, unsigned __int8 *a2, MTHandMotion *a3, uint64_t a4, uint64_t a5, double a6, float a7)
+float MTSlideGesture::integrateManipulativeGesture(uint64_t a1, const MTHandStatistics *a2, MTHandMotion *a3, uint64_t a4, uint64_t a5, double a6, float a7)
 {
   v14 = MTSlideGesture::someMovingMultiplier(a1, a2, a3, a5);
   for (i = 0; i != 4; ++i)
@@ -8348,7 +8363,7 @@ float MTSlideGesture::integrateManipulativeGesture(uint64_t a1, unsigned __int8 
     {
       if (*(a5 + 264) == 1)
       {
-        v16 = (*(a1 + 34) & 0x80) == 0 || a2[302] <= (a2[186] >> 1);
+        v16 = (*(a1 + 34) & 0x80) == 0 || *(a2 + 302) <= (*(a2 + 186) >> 1);
       }
 
       else
@@ -8365,7 +8380,7 @@ float MTSlideGesture::integrateManipulativeGesture(uint64_t a1, unsigned __int8 
   return v18 + MTSlideGesture::cumulativeMotionMagnitude(a1);
 }
 
-uint64_t MTSlideGesture::fireManipulativeGesture(uint64_t result, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
+uint64_t MTSlideGesture::fireManipulativeGesture(uint64_t result, double *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
 {
   v8 = result;
   v9 = 0;
@@ -8396,9 +8411,9 @@ uint64_t MTSlideGesture::fireManipulativeGesture(uint64_t result, unsigned __int
   }
 
   while (v9 != 4);
-  if ((*(result + 35) & 2) == 0 || (*(a6 + 264) & 1) != 0 || (*(a3 + 128) - 2000) <= 0x3E7 && a2[298] < a2[186] || (v16 = vabs_s32(*v17.i8), (vcgt_u32(v16, vdup_lane_s32(v16, 1)).u8[0] & 1) == 0))
+  if ((*(result + 35) & 2) == 0 || (*(a6 + 264) & 1) != 0 || (*(a3 + 128) - 2000) <= 0x3E7 && *(a2 + 298) < *(a2 + 186) || (v16 = vabs_s32(*v17.i8), (vcgt_u32(v16, vdup_lane_s32(v16, 1)).u8[0] & 1) == 0))
   {
-    if (*result == *(result + 8) || **result != 68 || (a2[222] & 1) == 0)
+    if (*result == *(result + 8) || **result != 68 || (*(a2 + 222) & 1) == 0)
     {
       if (v10)
       {
@@ -8545,58 +8560,56 @@ float MTSlideGesture::integrateFluidGesture(MTSlideGesture *this, const MTHandSt
 
 void MTSlideGesture::integrateMotionWithinArc(MTSlideGesture *this, const MTHandStatistics *a2, const MTHandMotion *a3, float a4, int a5)
 {
-  v10 = *(this + 31);
-  if (v10 == 0.0)
+  v9 = *(this + 31);
+  if (v9 == 0.0)
   {
-    if (*this == *(this + 1) || **this != 71 || (v10 = 1.0, *(this + 18) <= 0.0))
+    if (*this == *(this + 1) || **this != 71 || (v9 = 1.0, *(this + 18) <= 0.0))
     {
-      v10 = 0.0;
+      v9 = 0.0;
     }
   }
 
-  v11 = *(a3 + 79) * v10;
-  v12 = *(this + 32);
-  if (v12 == 0.0)
+  v10 = *(a3 + 79) * v9;
+  v11 = *(this + 32);
+  if (v11 == 0.0)
   {
-    if (*this == *(this + 1) || **this != 71 || (v12 = 1.0, *(this + 18) <= 0.0))
+    if (*this == *(this + 1) || **this != 71 || (v11 = 1.0, *(this + 18) <= 0.0))
     {
-      v12 = 0.0;
+      v11 = 0.0;
     }
   }
 
-  v13 = (*(a3 + 80) * v12) * a4;
-  v14 = sqrtf((*(a3 + 84) * *(a3 + 84)) + (*(a3 + 83) * *(a3 + 83)));
+  v12 = (*(a3 + 80) * v11) * a4;
+  v13 = sqrtf((*(a3 + 84) * *(a3 + 84)) + (*(a3 + 83) * *(a3 + 83)));
   if ((*(a3 + 32) - 2000) <= 0x3E7)
   {
-    MTSlideGesture::suppressVelocityFromMouseFeeback(this, 0, a3, v11 * a4);
-    MTSlideGesture::suppressVelocityFromMouseFeeback(v15, 0, a3, v13);
+    MTSlideGesture::suppressVelocityFromMouseFeeback(this, 0, a3, v10 * a4);
+    MTSlideGesture::suppressVelocityFromMouseFeeback(v14, 0, a3, v12);
   }
 
-  if (v14 != 0.0)
+  if (v13 != 0.0)
   {
-    v16 = atan2f(-*(a3 + 84), *(a3 + 83)) + (a4 + -1.0) * 1.57079633;
-    v17 = 1.0;
+    v15 = atan2f(-*(a3 + 84), *(a3 + 83)) + (a4 + -1.0) * 1.57079633;
     if (a5)
     {
-      v18 = *(this + 11);
-      if (v18 < v14 && v18 > 0.0)
+      v16 = *(this + 11);
+      if (v16 < v13 && v16 > 0.0)
       {
-        v19 = *(this + 12);
-        if (v19 > 0.0)
+        v17 = *(this + 12);
+        if (v17 > 0.0)
         {
-          v17 = powf(v14 / v18, v19);
+          powf(v13 / v16, v17);
         }
       }
     }
 
-    v20 = *(this + 38);
-    v21 = *(this + 39);
-    v22 = cosf(v16 - v20);
-    v23 = cosf(v21 * 0.5);
-    if (v22 > v23 || v22 < -v23)
+    v18 = *(this + 38);
+    v19 = *(this + 39);
+    v20 = cosf(v15 - v18);
+    v21 = cosf(v19 * 0.5);
+    if (v20 > v21 || v20 < -v21)
     {
-      v25 = v17 * (*(a2 + 1) - *(a2 + 2));
-      __sincosf_stret(v20);
+      __sincosf_stret(v18);
     }
   }
 }
@@ -8760,20 +8773,20 @@ double MTSlideGesture::fluidDOFPercentageDeltas(float32x4_t *this)
   return result;
 }
 
-float32x4_t *MTSlideGesture::fireFluidGesture(float32x4_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, MTChordIntegrating *this, double a7)
+uint64_t MTSlideGesture::fireFluidGesture(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, MTChordIntegrating *this, double a7)
 {
   v13 = result;
   v14 = *(this + 264);
-  if (v14 != 1 || (result[4].i8[4] & 1) == 0)
+  if (v14 != 1 || (*(result + 68) & 1) == 0)
   {
-    v15 = fabsf(result[5].f32[3]);
-    if (v15 <= result[3].f32[2])
+    v15 = fabsf(*(result + 92));
+    if (v15 <= *(result + 56))
     {
       return result;
     }
 
-    result[7].f32[0] = v15 + result[7].f32[0];
-    result[5].i32[3] = result[5].i32[0];
+    *(result + 112) = v15 + *(result + 112);
+    *(result + 92) = *(result + 80);
     if ((v14 & 1) == 0)
     {
       MTChordIntegrating::resetMostIntegrators(this, result);
@@ -8781,25 +8794,22 @@ float32x4_t *MTSlideGesture::fireFluidGesture(float32x4_t *result, uint64_t a2, 
   }
 
   result = MTChordIntegrating::sendSlidePreamble(this, a2, a3, a4, a5, v13, 8u, a7);
-  if (v13[5].f32[0] != 0.0)
+  if (*(v13 + 80) != 0.0)
   {
-    v16 = v13[5].f32[3];
-    v17 = v13[3].f32[3];
+    v16 = *(v13 + 92);
+    v17 = *(v13 + 60);
     MTSlideGesture::cumulativeSwipeToDiscreteDelta(v13);
-    *(this + 71) = v13[2].u8[0];
-    v13[9].i64[0] = *(a2 + 8);
-    if (v13->i64[1] == v13->i64[0])
+    *(this + 71) = *(v13 + 32);
+    *(v13 + 144) = *(a2 + 8);
+    if (*(v13 + 8) == *v13)
     {
       std::vector<MTActionEvent>::__throw_out_of_range[abi:ne200100]();
     }
 
-    v13[4].i8[4];
-    v18 = &v13[3].f32[3];
-    v19 = vld1q_dup_f32(v18);
-    v21 = vdivq_f32(v13[6], v19);
-    v20 = v13[2].u8[0];
+    v18 = (v13 + 60);
+    vld1q_dup_f32(v18);
     result = (*(*a4 + 32))(a4, v16 / v17, 0.0);
-    v13[4].i8[4] = 1;
+    *(v13 + 68) = 1;
   }
 
   return result;
@@ -9004,7 +9014,7 @@ uint64_t MTSlideGesture::isActiveEdgeSlide(unsigned __int16 **a1, uint64_t a2, u
   }
 }
 
-uint64_t MTSlideGesture::isBlocked(unsigned __int16 **a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+BOOL MTSlideGesture::isBlocked(unsigned __int16 **a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = *(a1 + 8);
   if (*(a2 + 316))
@@ -9051,7 +9061,6 @@ uint64_t MTSlideGesture::isBlocked(unsigned __int16 **a1, uint64_t a2, uint64_t 
   {
     if ((*(a4 + 264) & 1) == 0 && *(a4 + 216) == 1 && *(a2 + 8) - *(a4 + 248) < *&qword_2A17A1D80)
     {
-      v15 = *(a3 + 136);
       if ((a5 & 1) != 0 || (v8 & 3) == 0)
       {
         if (*(a3 + 136) && (*(a2 + 224) & 0x20) != 0 || *(a3 + 137) == 1 && (*(a2 + 224) & 0x10) != 0)
@@ -9116,7 +9125,7 @@ LABEL_13:
   }
 }
 
-float32x4_t *MTSlideGesture::fireGesture(uint64_t result, MTHandStatistics *a2, MTHandMotion *a3, uint64_t a4, uint64_t a5, MTChordIntegrating *this, double a7)
+uint64_t MTSlideGesture::fireGesture(uint64_t result, MTHandStatistics *a2, MTHandMotion *a3, uint64_t a4, uint64_t a5, MTChordIntegrating *this, double a7)
 {
   if (*result == *(result + 8))
   {
@@ -9140,7 +9149,7 @@ float32x4_t *MTSlideGesture::fireGesture(uint64_t result, MTHandStatistics *a2, 
   }
 }
 
-uint64_t std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MTActionEvent>::__init_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(uint64_t *result, const MTActionEvent *a2, const MTActionEvent *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9176,17 +9185,17 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void *std::vector<MTActionEvent>::__assign_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(void *result, const MTActionEvent *a2, const MTActionEvent *a3, unint64_t a4)
+MTActionEvent *std::vector<MTActionEvent>::__assign_with_size[abi:ne200100]<MTActionEvent*,MTActionEvent*>(MTActionEvent *result, const MTActionEvent *a2, const MTActionEvent *a3, unint64_t a4)
 {
   v6 = a2;
   v7 = result;
-  v8 = result[2];
+  v8 = *(result + 2);
   v9 = *result;
   if (a4 > (v8 - *result) >> 3)
   {
     if (v9)
     {
-      result[1] = v9;
+      *(result + 1) = v9;
       operator delete(v9);
       v8 = 0;
       *v7 = 0;
@@ -9218,15 +9227,15 @@ void *std::vector<MTActionEvent>::__assign_with_size[abi:ne200100]<MTActionEvent
     std::vector<MTPoint>::__throw_length_error[abi:ne200100]();
   }
 
-  v12 = result[1];
+  v12 = *(result + 1);
   v13 = v12 - v9;
-  if (a4 <= (v12 - v9) >> 3)
+  if (a4 <= v12 - v9)
   {
     while (v6 != a3)
     {
       result = MTActionEvent::operator=(v9, v6);
       v6 = (v6 + 8);
-      v9 += 2;
+      ++v9;
     }
 
     v7[1] = v9;
@@ -9241,7 +9250,7 @@ void *std::vector<MTActionEvent>::__assign_with_size[abi:ne200100]<MTActionEvent
       {
         result = MTActionEvent::operator=(v9, v6);
         v6 = (v6 + 8);
-        v9 += 2;
+        ++v9;
         v13 -= 8;
       }
 
@@ -9259,7 +9268,7 @@ void *std::vector<MTActionEvent>::__assign_with_size[abi:ne200100]<MTActionEvent
         MTActionEvent::MTActionEvent(result, v14);
         v14 = (v14 + 8);
         result = (v16 + 8);
-        v15 += 8;
+        ++v15;
       }
 
       while (v14 != a3);
@@ -9411,13 +9420,6 @@ LABEL_12:
   return result;
 }
 
-float MTSurfaceDimensions::convertPixelsToSurfaceFraction(uint64_t a1, float a2, float a3)
-{
-  result = a2 / *(a1 + 24);
-  v4 = a3 / *(a1 + 28);
-  return result;
-}
-
 float MTSurfaceDimensions::convertPixelDeltaToMillimeters(MTSurfaceDimensions *this, float a2, int a3)
 {
   v3 = 32;
@@ -9429,101 +9431,61 @@ float MTSurfaceDimensions::convertPixelDeltaToMillimeters(MTSurfaceDimensions *t
   return *(this + v3) * a2;
 }
 
-float MTSurfaceDimensions::convertPixelDeltaToMillimetersPerSecond(MTSurfaceDimensions *this, float a2, double a3)
+float MTSurfaceDimensions::convertPixelDeltaToMillimetersPerSecond(MTSurfaceDimensions *this, float a2, double a3, uint64_t a4)
 {
   v16 = *MEMORY[0x29EDCA608];
-  if (a3 == 0.0)
+  if (a3 != 0.0)
   {
-    v5 = MTLoggingPlugin();
-    v4 = 0.0;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 136315906;
-      v9 = "[Error] ";
-      v10 = 2080;
-      v11 = "";
-      v12 = 2080;
-      v13 = "convertPixelDeltaToMillimetersPerSecond";
-      v14 = 2048;
-      v15 = a3;
-      _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected frame interval %g, setting velocity to 0.0", &v8, 0x2Au);
-    }
+    return ((*(this + 8) + *(this + 9)) * a2) / (a3 + a3);
   }
 
-  else
+  v6 = MTLoggingPlugin(this, a4);
+  v5 = 0.0;
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v4 = ((*(this + 8) + *(this + 9)) * a2) / (a3 + a3);
+    v8 = 136315906;
+    v9 = "[Error] ";
+    v10 = 2080;
+    v11 = "";
+    v12 = 2080;
+    v13 = "convertPixelDeltaToMillimetersPerSecond";
+    v14 = 2048;
+    v15 = a3;
+    _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected frame interval %g, setting velocity to 0.0", &v8, 0x2Au);
   }
 
-  v6 = *MEMORY[0x29EDCA608];
-  return v4;
+  return v5;
 }
 
-void MTSurfaceDimensions::convertPixelDeltasToMillimetersPerSecond(float32x2_t *a1, float32x2_t a2, float32_t a3, double a4)
+float32x2_t MTSurfaceDimensions::convertPixelDeltasToMillimetersPerSecond(float32x2_t *a1, float32x2_t a2, float32_t a3, double a4, uint64_t a5)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (a4 == 0.0)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = MTLoggingPlugin(a1, a5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    result = 0;
+    if (v7)
     {
       *buf = 136315906;
-      v9 = "[Error] ";
-      v10 = 2080;
-      v11 = "";
-      v12 = 2080;
-      v13 = "convertPixelDeltasToMillimetersPerSecond";
-      v14 = 2048;
-      v15 = a4;
-      _os_log_impl(&dword_29D381000, v5, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected frame interval %g, setting velocity to 0.0", buf, 0x2Au);
+      v10 = "[Error] ";
+      v11 = 2080;
+      v12 = "";
+      v13 = 2080;
+      v14 = "convertPixelDeltasToMillimetersPerSecond";
+      v15 = 2048;
+      v16 = a4;
+      _os_log_impl(&dword_29D381000, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected frame interval %g, setting velocity to 0.0", buf, 0x2Au);
+      return 0;
     }
   }
 
   else
   {
     a2.f32[1] = a3;
-    v4 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(vmul_f32(a2, a1[4])), vdupq_lane_s64(*&a4, 0)));
+    return vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(vmul_f32(a2, a1[4])), vdupq_lane_s64(*&a4, 0)));
   }
 
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-float MTSurfaceDimensions::convertPixelsToMillimeters(float *a1, float a2, float a3)
-{
-  result = a2 * a1[8];
-  v4 = (a1[7] - a3) * a1[9];
-  return result;
-}
-
-float MTSurfaceDimensions::convertMillimetersToSurfaceFraction(uint64_t a1, float a2, float a3)
-{
-  result = a2 / *(a1 + 16);
-  v4 = a3 / *(a1 + 20);
-  return result;
-}
-
-float MTSurfaceDimensions::convertSurfaceFractionToPixels(uint64_t a1, float a2, float a3)
-{
-  result = a2 * *(a1 + 24);
-  v4 = *(a1 + 28) - (a3 * *(a1 + 28));
-  return result;
-}
-
-float MTSurfaceDimensions::convertSurfaceFractionToMillimeters(uint64_t a1, int a2, float a3, float a4)
-{
-  if (a2)
-  {
-    a4 = 1.0 - a4;
-  }
-
-  v4 = a4 * *(a1 + 20);
-  return a3 * *(a1 + 16);
-}
-
-float MTSurfaceDimensions::convertSurfaceFractionVelocityToPixelsPerSecond(uint64_t a1, float a2, float a3)
-{
-  result = a2 * *(a1 + 24);
-  v4 = -(a3 * *(a1 + 28));
   return result;
 }
 
@@ -9551,7 +9513,7 @@ const void *MTMouseEmbeddedHIDManager::setDeviceAccelerationData(MTMouseEmbedded
   return MTTrackpadHIDManager::setDeviceAccelerationData(this, theDict);
 }
 
-uint64_t MTMouseEmbeddedHIDManager::setPropertyInternal(MTSimpleHIDManager *a1, int a2, const __CFString *cf, int a4)
+uint64_t MTMouseEmbeddedHIDManager::setPropertyInternal(MTSimpleHIDManager *a1, uint64_t a2, const __CFString *cf, int a4)
 {
   v26 = *MEMORY[0x29EDCA608];
   if (a2 == 83)
@@ -9572,55 +9534,46 @@ uint64_t MTMouseEmbeddedHIDManager::setPropertyInternal(MTSimpleHIDManager *a1, 
     v8 = CFGetTypeID(cf);
     if (v8 == CFNumberGetTypeID())
     {
-      goto LABEL_18;
+      return 1;
     }
   }
 
   v9 = CFGetTypeID(cf);
-  if (v9 == CFStringGetTypeID() && (CFStringCompare(cf, @"TwoButton", 0) == kCFCompareEqualTo || CFStringCompare(cf, @"TwoButtonSwapped", 0) == kCFCompareEqualTo || CFStringCompare(cf, @"OneButton", 0) == kCFCompareEqualTo))
+  if (v9 != CFStringGetTypeID() || CFStringCompare(cf, @"TwoButton", 0) && CFStringCompare(cf, @"TwoButtonSwapped", 0) && CFStringCompare(cf, @"OneButton", 0) || (Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020])) == 0)
   {
-    Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-    if (Mutable)
-    {
-      v11 = Mutable;
-      CFDictionarySetValue(Mutable, @"MouseButtonMode", cf);
-      (*(*a1 + 80))(a1);
-      Service = MTDeviceGetService();
-      v13 = IORegistryEntrySetCFProperty(Service, @"MouseUserPreferences", v11);
-      CFRelease(v11);
-      if (v13)
-      {
-        v14 = MTLoggingPlugin();
-        result = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-        if (result)
-        {
-          v18 = 136315906;
-          v19 = "[Error] ";
-          v20 = 2080;
-          v21 = "";
-          v22 = 2080;
-          v23 = "setPropertyInternal";
-          v24 = 1024;
-          v25 = v13;
-          _os_log_impl(&dword_29D381000, v14, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Could not set mouse user preferences on the driver 0x%08X", &v18, 0x26u);
-          result = 0;
-        }
+LABEL_15:
 
-        goto LABEL_19;
-      }
-
-LABEL_18:
-      result = 1;
-LABEL_19:
-      v17 = *MEMORY[0x29EDCA608];
-      return result;
-    }
+    return MTTrackpadHIDManager::setPropertyInternal(a1, a2, cf, a4);
   }
 
-LABEL_15:
-  v16 = *MEMORY[0x29EDCA608];
+  v11 = Mutable;
+  CFDictionarySetValue(Mutable, @"MouseButtonMode", cf);
+  (*(*a1 + 80))(a1);
+  Service = MTDeviceGetService();
+  v13 = IORegistryEntrySetCFProperty(Service, @"MouseUserPreferences", v11);
+  CFRelease(v11);
+  if (!v13)
+  {
+    return 1;
+  }
 
-  return MTTrackpadHIDManager::setPropertyInternal(a1, a2, cf, a4);
+  v16 = MTLoggingPlugin(v14, v15);
+  result = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    v18 = 136315906;
+    v19 = "[Error] ";
+    v20 = 2080;
+    v21 = "";
+    v22 = 2080;
+    v23 = "setPropertyInternal";
+    v24 = 1024;
+    v25 = v13;
+    _os_log_impl(&dword_29D381000, v16, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Could not set mouse user preferences on the driver 0x%08X", &v18, 0x26u);
+    return 0;
+  }
+
+  return result;
 }
 
 void MTMouseEmbeddedHIDManager::~MTMouseEmbeddedHIDManager(MTMouseEmbeddedHIDManager *this)
@@ -9690,11 +9643,11 @@ uint64_t MTSLGLogger::createLogger(MTSLGLogger *this)
 
 void MTSLGLogger::registerControlInterface(MTSLGLogger *this, NSObject *a2)
 {
-  v4 = MTLoggingPlugin();
+  v4 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "StudyLog logger: register for control interface", v12, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_29D381000, v4, OS_LOG_TYPE_DEFAULT, "StudyLog logger: register for control interface", v14, 2u);
   }
 
   MTSLGLogger::unregisterControlInterface(this);
@@ -9704,15 +9657,16 @@ void MTSLGLogger::registerControlInterface(MTSLGLogger *this, NSObject *a2)
   if (v5)
   {
     IONotificationPortSetDispatchQueue(v5, a2);
-    v6 = *(this + 2);
-    v7 = IOServiceNameMatching("AppleMultitouchDevice");
-    v8 = IOServiceAddMatchingNotification(v6, "IOServiceFirstMatch", v7, MTSLGLoggerControlServiceMatchedCallback, this, this + 6);
-    if (v8 || (v11 = *(this + 6)) == 0)
+    v7 = *(this + 2);
+    v8 = IOServiceNameMatching("AppleMultitouchDevice");
+    v9 = IOServiceAddMatchingNotification(v7, "IOServiceFirstMatch", v8, MTSLGLoggerControlServiceMatchedCallback, this, this + 6);
+    v11 = v9;
+    if (v9 || (v10 = *(this + 6), !v10))
     {
-      v9 = MTLoggingPlugin();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v12 = MTLoggingPlugin(v9, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        MTSLGLogger::registerControlInterface(this + 6, v8, v9);
+        MTSLGLogger::registerControlInterface(this + 6, v11, v12);
       }
 
       IONotificationPortDestroy(*(this + 2));
@@ -9721,16 +9675,16 @@ void MTSLGLogger::registerControlInterface(MTSLGLogger *this, NSObject *a2)
 
     else
     {
-      MTSLGLoggerControlServiceMatchedCallback(this, v11);
+      MTSLGLoggerControlServiceMatchedCallback(this, v10);
     }
   }
 
   else
   {
-    v10 = MTLoggingPlugin();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = MTLoggingPlugin(0, v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      MTSLGLogger::registerControlInterface(v10);
+      MTSLGLogger::registerControlInterface(v13);
     }
   }
 }
@@ -9783,7 +9737,7 @@ LABEL_12:
           }
 
           CFRelease(v7);
-          MTSLGLogger::addControlService(a1);
+          MTSLGLogger::addControlService(a1, v5);
         }
       }
 
@@ -9795,4 +9749,64 @@ LABEL_12:
   }
 
   return result;
+}
+
+void MTSLGLogger::removeControlService(MTSLGLogger *this)
+{
+  if (*(this + 4))
+  {
+    MTDeviceStop();
+    MTDeviceRelease();
+    *(this + 4) = 0;
+  }
+
+  v2 = *(this + 5);
+  if (v2)
+  {
+    dispatch_source_cancel(v2);
+    *(this + 5) = 0;
+  }
+}
+
+void MTSLGLogger::addControlService(MTSLGLogger *this, uint64_t a2)
+{
+  v3 = MTLoggingPlugin(this, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v12 = 0;
+    _os_log_impl(&dword_29D381000, v3, OS_LOG_TYPE_DEFAULT, "StudyLog logger: control interface service appeared", v12, 2u);
+  }
+
+  MTSLGLogger::removeControlService(this);
+  v4 = MTDeviceCreateFromService();
+  *(this + 4) = v4;
+  if (!v4)
+  {
+    MTSLGLogger::addControlService(0, v5);
+LABEL_12:
+    MTSLGLogger::removeControlService(this);
+    return;
+  }
+
+  v6 = MTDeviceStart();
+  if (v6)
+  {
+    MTSLGLogger::addControlService(v6, v7);
+    goto LABEL_12;
+  }
+
+  MultitouchDispatchSource = MTDeviceCreateMultitouchDispatchSource();
+  *(this + 5) = MultitouchDispatchSource;
+  if (!MultitouchDispatchSource)
+  {
+    MTSLGLogger::addControlService(0, v9);
+    goto LABEL_12;
+  }
+
+  v10 = MTRegisterProcessedFrameCallback();
+  if ((v10 & 1) == 0)
+  {
+    MTSLGLogger::addControlService(v10, v11);
+    goto LABEL_12;
+  }
 }

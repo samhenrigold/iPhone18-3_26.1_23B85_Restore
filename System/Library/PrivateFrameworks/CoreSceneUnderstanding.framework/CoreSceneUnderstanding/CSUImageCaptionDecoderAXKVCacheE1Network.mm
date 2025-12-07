@@ -13,7 +13,6 @@
 - (vector<float,)positionInput;
 - (vector<float,)scaleInput;
 - (vector<float,)wordProbs;
-- (void)buildNetworkForSequenceLength:(unint64_t)length error:(id *)error;
 - (void)copyInputContextIDs:(const void *)ds EncoderFeatures:(const void *)features KVCache:(const void *)cache MaskPosition:(unint64_t)position;
 - (void)copyInputState:(const void *)state;
 @end
@@ -50,14 +49,6 @@
   sub_1AC060A04();
 }
 
-- (void)buildNetworkForSequenceLength:(unint64_t)length error:(id *)error
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v4 = *(*(self->_decoderNet.__ptr_ + 1) + 24);
-  espresso_plan_build_clean();
-  operator new();
-}
-
 - (void)copyInputContextIDs:(const void *)ds EncoderFeatures:(const void *)features KVCache:(const void *)cache MaskPosition:(unint64_t)position
 {
   memset(v32, 0, sizeof(v32));
@@ -65,7 +56,7 @@
   v31 = 21;
   strcpy(__p, "att_feats_placeholder");
   v29[0] = __p;
-  v10 = sub_1AC0CF398(v32, __p);
+  v10 = sub_1AC0CF398(v32, __p, &unk_1AC129258, v29);
   v11 = v10;
   *(v10 + 12) = *(features + 2);
   if (v10 + 5 != features)
@@ -181,7 +172,7 @@ LABEL_13:
 {
   if (!*state)
   {
-    v46 = sub_1AC090E50();
+    v46 = sub_1AC090E50(self);
     if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -479,11 +470,11 @@ LABEL_78:
     if (v49)
     {
       *buf = v51;
-      v37 = sub_1AC0CDDC8(&self->_stateInputEspressoBuffers, v51);
+      v37 = sub_1AC0CDDC8(&self->_stateInputEspressoBuffers, v51, &unk_1AC129258, buf);
       if (v49 > (v37[8] - v37[7]) >> 2)
       {
         *buf = v51;
-        v38 = sub_1AC0CDDC8(&self->_stateInputEspressoBuffers, v51);
+        v38 = sub_1AC0CDDC8(&self->_stateInputEspressoBuffers, v51, &unk_1AC129258, buf);
         v39 = v38[7];
         v40 = (v38[8] - v39) >> 2;
         if (v49 <= v40)
@@ -501,7 +492,7 @@ LABEL_78:
       }
 
       *buf = v51;
-      v41 = (sub_1AC0CDDC8(&self->_stateInputEspressoBuffers, v51) + 7);
+      v41 = (sub_1AC0CDDC8(&self->_stateInputEspressoBuffers, v51, &unk_1AC129258, buf) + 7);
       if (v41 != &v55)
       {
         sub_1AC098720(v41, v55, v56, (v56 - v55) >> 2);
@@ -509,7 +500,7 @@ LABEL_78:
 
       v42 = *(self->_decoderNet.__ptr_ + 1);
       v60 = v51;
-      v43 = sub_1AC0CDDC8(&self->_stateInputEspressoBuffers, v51);
+      v43 = sub_1AC0CDDC8(&self->_stateInputEspressoBuffers, v51, &unk_1AC129258, &v60);
       sub_1AC0C9D84(buf, *v42, v42[1], v51, v43[7]);
     }
 
@@ -570,14 +561,13 @@ LABEL_97:
 - (ModelOutput)predict
 {
   sub_1AC0CB8EC(self->_decoderNet.__ptr_, &self->_outputTensors);
-  sub_1AC0669EC(self->_decoderNet.__ptr_, &self->_inputTensors, v14);
-  sub_1AC06ABB4(v14);
+  sub_1AC0669EC(self->_decoderNet.__ptr_, &self->_inputTensors, v13);
+  sub_1AC06ABB4(v13);
   vocabSize = self->_vocabSize;
   if (vocabSize)
   {
     if ((vocabSize & 0x8000000000000000) == 0)
     {
-      begin = self->_wordProbs.__begin_;
       operator new();
     }
 
@@ -585,24 +575,24 @@ LABEL_97:
   }
 
   result = objc_msgSend_getOutputState(self, v5, v6, v7, v8);
-  if (v13)
+  if (v12)
   {
-    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
   }
 
   retstr->var0.__begin_ = 0;
   retstr->var0.__end_ = 0;
   retstr->var0.__cap_ = 0;
-  retstr->var1.var0 = v12;
-  retstr->var1.var1 = v13;
-  if (v13)
+  retstr->var1.var0 = v11;
+  retstr->var1.var1 = v12;
+  if (v12)
   {
-    atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
     retstr->var2 = 1;
-    if (!atomic_fetch_add((v13 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add((v12 + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (*(*v13 + 16))();
-      std::__shared_weak_count::__release_weak(v13);
+      (*(*v12 + 16))();
+      std::__shared_weak_count::__release_weak(v12);
     }
   }
 
@@ -611,10 +601,10 @@ LABEL_97:
     retstr->var2 = 1;
   }
 
-  if (v13 && !atomic_fetch_add((v13 + 8), 0xFFFFFFFFFFFFFFFFLL))
+  if (v12 && !atomic_fetch_add((v12 + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (*(*v13 + 16))();
-    std::__shared_weak_count::__release_weak(v13);
+    (*(*v12 + 16))();
+    std::__shared_weak_count::__release_weak(v12);
   }
 
   return result;
@@ -710,11 +700,11 @@ LABEL_98:
 
     *(__p + v6) = 7235935;
     v56 = __p;
-    v8 = *(sub_1AC0CDC18(&self->_stateInputEspressoBuffersShape, __p)[7] + 8);
+    v8 = *(sub_1AC0CDC18(&self->_stateInputEspressoBuffersShape, __p, &unk_1AC129258, &v56)[7] + 8);
     v56 = __p;
-    v9 = *(sub_1AC0CDC18(&self->_stateInputEspressoBuffersShape, __p)[7] + 16);
+    v9 = *(sub_1AC0CDC18(&self->_stateInputEspressoBuffersShape, __p, &unk_1AC129258, &v56)[7] + 16);
     v56 = __p;
-    v45 = *sub_1AC0CDC18(&self->_stateInputEspressoBuffersShape, __p)[7];
+    v45 = *sub_1AC0CDC18(&self->_stateInputEspressoBuffersShape, __p, &unk_1AC129258, &v56)[7];
     v10 = v9 * (v8 + 1) * v45;
     if (v10)
     {
@@ -955,7 +945,7 @@ LABEL_28:
     }
 
     v56 = __dst;
-    v39 = sub_1AC0D0570(v54, __dst);
+    v39 = sub_1AC0D0570(v54, __dst, &unk_1AC129258, &v56);
     sub_1AC098720(v39 + 5, 0, 0, 0);
     if (SHIBYTE(v51) < 0)
     {
@@ -1070,7 +1060,7 @@ LABEL_3:
   {
     do
     {
-      self = sub_1AC0CD6E4(retstr, p_end_node, &begin_node[1].__tree_.__end_node_.__left_);
+      self = sub_1AC0CD6E4(retstr, p_end_node, &begin_node[1].__tree_.__end_node_.__left_, &begin_node[1].__tree_.__end_node_);
       left = begin_node->__tree_.__end_node_.__left_;
       if (left)
       {
@@ -1116,7 +1106,7 @@ LABEL_3:
   {
     do
     {
-      self = sub_1AC0CD6E4(retstr, p_end_node, &begin_node[1].__tree_.__end_node_.__left_);
+      self = sub_1AC0CD6E4(retstr, p_end_node, &begin_node[1].__tree_.__end_node_.__left_, &begin_node[1].__tree_.__end_node_);
       left = begin_node->__tree_.__end_node_.__left_;
       if (left)
       {

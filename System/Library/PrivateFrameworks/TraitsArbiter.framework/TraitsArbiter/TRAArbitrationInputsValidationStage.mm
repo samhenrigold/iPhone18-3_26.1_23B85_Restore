@@ -201,44 +201,42 @@ __CFString *__54__TRAArbitrationInputsValidationStage__setupStateDump__block_inv
 
 - (id)validateInputs:(id)inputs withContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
   contextCopy = context;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = self->_inputsValidators;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       v13 = inputsCopy;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        inputsCopy = [*(*(&v16 + 1) + 8 * v12) validateInputs:v13 withContext:{contextCopy, v16}];
+        inputsCopy = [*(*(&v15 + 1) + 8 * v12) validateInputs:v13 withContext:{contextCopy, v15}];
 
         ++v12;
         v13 = inputsCopy;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return inputsCopy;
 }

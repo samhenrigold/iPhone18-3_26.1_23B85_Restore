@@ -3,18 +3,17 @@
 
 @implementation MRCreatePlaybackQueueForIdentifier
 
-void ___onQueue_MRCreatePlaybackQueueForIdentifier_block_invoke(void *a1)
+void ___onQueue_MRCreatePlaybackQueueForIdentifier_block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = (*(a1[6] + 16))();
-  if (v3)
+  v2 = (*(*(a1 + 48) + 16))();
+  if (v2)
   {
-    v4 = a1[5];
-    v6 = v3;
-    SkeletonFrom = MRContentItemCreateSkeletonFrom(v3);
-    [v4 addObject:SkeletonFrom];
+    v3 = *(a1 + 40);
+    v5 = v2;
+    SkeletonFrom = MRContentItemCreateSkeletonFrom(v2);
+    [v3 addObject:SkeletonFrom];
 
-    v3 = v6;
+    v2 = v5;
   }
 }
 

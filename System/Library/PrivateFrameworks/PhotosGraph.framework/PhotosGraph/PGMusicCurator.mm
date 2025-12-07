@@ -59,7 +59,7 @@
   graphCopy = graph;
   contextCopy = context;
   reporterCopy = reporter;
-  sub_22F32CFEC(memory, graph, contextCopy);
+  sub_22F32CFEC(memory, graph, contextCopy, reporterCopy);
   v15 = v14;
 
   swift_unknownObjectRelease();

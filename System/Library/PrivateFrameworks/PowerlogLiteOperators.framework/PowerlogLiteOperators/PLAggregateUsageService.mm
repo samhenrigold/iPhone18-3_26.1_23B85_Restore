@@ -8,6 +8,8 @@
 - (void)handleExternalConnectedChange:(id)change;
 - (void)handleLargeTimeGap;
 - (void)handleLockStateChange:(id)change;
+- (void)handleScreenStateChange:(id)change withState:(BOOL)state;
+- (void)handleWakeStateChange:(id)change withState:(BOOL)state;
 - (void)initOperatorDependancies;
 - (void)initializeMetrics;
 - (void)instantiateMetrics;
@@ -44,7 +46,7 @@
 
 - (int)numIntervalsToFill
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   intervalData = [(PLAggregateUsageService *)self intervalData];
   currentInterval = [intervalData currentInterval];
@@ -59,21 +61,21 @@
     }
 
     v17 = objc_opt_class();
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __45__PLAggregateUsageService_numIntervalsToFill__block_invoke;
-    v27[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v27[4] = v17;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __45__PLAggregateUsageService_numIntervalsToFill__block_invoke;
+    v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v26[4] = v17;
     if (qword_2811F4F58 != -1)
     {
-      dispatch_once(&qword_2811F4F58, v27);
+      dispatch_once(&qword_2811F4F58, v26);
     }
 
     if (byte_2811F4EB6 != 1)
     {
 LABEL_22:
       LODWORD(v8) = 0;
-      goto LABEL_23;
+      return v8;
     }
 
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Intervals to fill = 0"];
@@ -87,7 +89,7 @@ LABEL_22:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v29 = v11;
+      v28 = v11;
       _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -106,14 +108,14 @@ LABEL_22:
   }
 
   v8 = (v7 / *&qword_2811F4F68 + 1);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __45__PLAggregateUsageService_numIntervalsToFill__block_invoke_2;
-  v25[3] = &unk_2782591D0;
-  v25[4] = self;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __45__PLAggregateUsageService_numIntervalsToFill__block_invoke_2;
+  v24[3] = &unk_2782591D0;
+  v24[4] = self;
   if (qword_2811F4F70 != -1)
   {
-    dispatch_once(&qword_2811F4F70, v25);
+    dispatch_once(&qword_2811F4F70, v24);
   }
 
   v9 = 86400.0 / *&qword_2811F4F78;
@@ -126,14 +128,14 @@ LABEL_22:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v10 = objc_opt_class();
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __45__PLAggregateUsageService_numIntervalsToFill__block_invoke_3;
-    v24[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v24[4] = v10;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __45__PLAggregateUsageService_numIntervalsToFill__block_invoke_3;
+    v23[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v23[4] = v10;
     if (qword_2811F4F80 != -1)
     {
-      dispatch_once(&qword_2811F4F80, v24);
+      dispatch_once(&qword_2811F4F80, v23);
     }
 
     if (byte_2811F4EB7 == 1)
@@ -149,7 +151,7 @@ LABEL_22:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = v11;
+        v28 = v11;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -157,8 +159,6 @@ LABEL_21:
     }
   }
 
-LABEL_23:
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -274,7 +274,7 @@ LABEL_23:
   [(PLIntervalData *)v28 addMetric:v29];
 }
 
-uint64_t __45__PLAggregateUsageService_instantiateMetrics__block_invoke(uint64_t a1)
+void *__45__PLAggregateUsageService_instantiateMetrics__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"IntervalDuration"];
   qword_2811F4EE8 = v2;
@@ -285,8 +285,8 @@ uint64_t __45__PLAggregateUsageService_instantiateMetrics__block_invoke(uint64_t
 {
   v3 = *MEMORY[0x277D3F5D0];
   v4 = [(PLOperator *)PLSleepWakeAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"PowerState"];
-  storage = [(PLOperator *)self storage];
-  v6 = [storage lastEntryForKey:v4];
+  v5 = objc_msgSend_storage(self);
+  v6 = [v5 lastEntryForKey:v4];
 
   if (v6)
   {
@@ -314,8 +314,8 @@ uint64_t __45__PLAggregateUsageService_instantiateMetrics__block_invoke(uint64_t
   }
 
   v15 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"Battery"];
-  storage2 = [(PLOperator *)self storage];
-  v17 = [storage2 lastEntryForKey:v15];
+  v16 = objc_msgSend_storage(self);
+  v17 = [v16 lastEntryForKey:v15];
 
   if (v17)
   {
@@ -329,8 +329,8 @@ uint64_t __45__PLAggregateUsageService_instantiateMetrics__block_invoke(uint64_t
   }
 
   v22 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:v3 andName:@"SBLock"];
-  storage3 = [(PLOperator *)self storage];
-  v24 = [storage3 lastEntryForKey:v22];
+  v23 = objc_msgSend_storage(self);
+  v24 = [v23 lastEntryForKey:v22];
 
   if (v24)
   {
@@ -360,7 +360,7 @@ uint64_t __45__PLAggregateUsageService_instantiateMetrics__block_invoke(uint64_t
   [intervalData6 updateMetric:@"PowerlogInit" withTimestamp:0 forEvent:1 withValue:1];
 }
 
-uint64_t __44__PLAggregateUsageService_initializeMetrics__block_invoke(uint64_t a1)
+void *__44__PLAggregateUsageService_initializeMetrics__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"IntervalDuration"];
   qword_2811F4EF8 = v2;
@@ -369,128 +369,238 @@ uint64_t __44__PLAggregateUsageService_initializeMetrics__block_invoke(uint64_t 
 
 - (void)registerForEntryNotifications
 {
-  v59[1] = *MEMORY[0x277D85DE8];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke;
-  v43[3] = &unk_2782597E8;
-  v43[4] = self;
-  v3 = [MEMORY[0x277D3F1A8] displayOnNotificationWithOperator:self withBlock:v43];
-  [(PLAggregateUsageService *)self setDisplayOnNotification:v3];
-
+  v58[1] = *MEMORY[0x277D85DE8];
   v42[0] = MEMORY[0x277D85DD0];
   v42[1] = 3221225472;
-  v42[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_2;
+  v42[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke;
   v42[3] = &unk_2782597E8;
   v42[4] = self;
-  v4 = [MEMORY[0x277D3F1A8] displayOffNotificationWithOperator:self withBlock:v42];
-  [(PLAggregateUsageService *)self setDisplayOffNotification:v4];
+  v3 = [MEMORY[0x277D3F1A8] displayOnNotificationWithOperator:self withBlock:v42];
+  [(PLAggregateUsageService *)self setDisplayOnNotification:v3];
 
   v41[0] = MEMORY[0x277D85DD0];
   v41[1] = 3221225472;
-  v41[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_3;
+  v41[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_2;
   v41[3] = &unk_2782597E8;
   v41[4] = self;
-  v5 = [MEMORY[0x277D3F1A8] wakeEntryNotificationWithOperator:self withBlock:v41];
-  [(PLAggregateUsageService *)self setWakeEntryNotification:v5];
+  v4 = [MEMORY[0x277D3F1A8] displayOffNotificationWithOperator:self withBlock:v41];
+  [(PLAggregateUsageService *)self setDisplayOffNotification:v4];
 
   v40[0] = MEMORY[0x277D85DD0];
   v40[1] = 3221225472;
-  v40[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_4;
+  v40[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_3;
   v40[3] = &unk_2782597E8;
   v40[4] = self;
-  v6 = [MEMORY[0x277D3F1A8] canSleepEntryNotificationWithOperator:self withBlock:v40];
+  v5 = [MEMORY[0x277D3F1A8] wakeEntryNotificationWithOperator:self withBlock:v40];
+  [(PLAggregateUsageService *)self setWakeEntryNotification:v5];
+
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_4;
+  v39[3] = &unk_2782597E8;
+  v39[4] = self;
+  v6 = [MEMORY[0x277D3F1A8] canSleepEntryNotificationWithOperator:self withBlock:v39];
   [(PLAggregateUsageService *)self setSleepEntryNotification:v6];
 
   v7 = *MEMORY[0x277D3F5D0];
-  v34 = [(PLOperator *)PLAudioAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"Routing"];
+  v33 = [(PLOperator *)PLAudioAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"Routing"];
   v8 = objc_alloc(MEMORY[0x277D3F1A8]);
-  v58 = @"Active";
-  v56 = &unk_282C11B98;
+  v57 = @"Active";
+  v55 = &unk_282C11B98;
   null = [MEMORY[0x277CBEB68] null];
-  v57 = null;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-  v59[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_230;
-  v39[3] = &unk_2782597E8;
-  v39[4] = self;
-  v12 = [v8 initWithOperator:self forEntryKey:v34 withFilter:v11 withBlock:v39];
-  [(PLAggregateUsageService *)self setAudioEntryNotification:v12];
-
-  v33 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:v7 andName:@"SBLock"];
-  v13 = objc_alloc(MEMORY[0x277D3F1A8]);
+  v56 = null;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+  v58[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
   v38[0] = MEMORY[0x277D85DD0];
   v38[1] = 3221225472;
-  v38[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_2_231;
+  v38[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_230;
   v38[3] = &unk_2782597E8;
   v38[4] = self;
-  v14 = [v13 initWithOperator:self forEntryKey:v33 withBlock:v38];
-  [(PLAggregateUsageService *)self setLockStateEntryNotification:v14];
+  v12 = [v8 initWithOperator:self forEntryKey:v33 withFilter:v11 withBlock:v38];
+  [(PLAggregateUsageService *)self setAudioEntryNotification:v12];
 
-  v32 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"ChargingInfo"];
-  v15 = objc_alloc(MEMORY[0x277D3F1A8]);
-  v54 = @"Connected";
-  v52 = &unk_282C11B98;
-  null2 = [MEMORY[0x277CBEB68] null];
-  v53 = null2;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-  v55 = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+  v32 = [(PLOperator *)PLSpringBoardAgent entryKeyForType:v7 andName:@"SBLock"];
+  v13 = objc_alloc(MEMORY[0x277D3F1A8]);
   v37[0] = MEMORY[0x277D85DD0];
   v37[1] = 3221225472;
-  v37[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_3_235;
+  v37[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_2_231;
   v37[3] = &unk_2782597E8;
   v37[4] = self;
-  v19 = [v15 initWithOperator:self forEntryKey:v32 withFilter:v18 withBlock:v37];
+  v14 = [v13 initWithOperator:self forEntryKey:v32 withBlock:v37];
+  [(PLAggregateUsageService *)self setLockStateEntryNotification:v14];
+
+  v31 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"ChargingInfo"];
+  v15 = objc_alloc(MEMORY[0x277D3F1A8]);
+  v53 = @"Connected";
+  v51 = &unk_282C11B98;
+  null2 = [MEMORY[0x277CBEB68] null];
+  v52 = null2;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+  v54 = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_3_235;
+  v36[3] = &unk_2782597E8;
+  v36[4] = self;
+  v19 = [v15 initWithOperator:self forEntryKey:v31 withFilter:v18 withBlock:v36];
   [(PLAggregateUsageService *)self setChargingEntryNotification:v19];
 
   v20 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"Battery"];
   v21 = objc_alloc(MEMORY[0x277D3F1A8]);
-  v50 = @"IsCharging";
-  v48 = &unk_282C11B98;
+  v49 = @"IsCharging";
+  v47 = &unk_282C11B98;
   null3 = [MEMORY[0x277CBEB68] null];
-  v49 = null3;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-  v51 = v23;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_4_239;
-  v36[3] = &unk_2782597E8;
-  v36[4] = self;
-  v25 = [v21 initWithOperator:self forEntryKey:v20 withFilter:v24 withBlock:v36];
+  v48 = null3;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+  v50 = v23;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_4_239;
+  v35[3] = &unk_2782597E8;
+  v35[4] = self;
+  v25 = [v21 initWithOperator:self forEntryKey:v20 withFilter:v24 withBlock:v35];
   [(PLAggregateUsageService *)self setBatteryIsChargingEntryNotification:v25];
 
   v26 = objc_alloc(MEMORY[0x277D3F1A8]);
-  v46 = @"ExternalConnected";
-  v44 = &unk_282C11B98;
+  v45 = @"ExternalConnected";
+  v43 = &unk_282C11B98;
   null4 = [MEMORY[0x277CBEB68] null];
-  v45 = null4;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
-  v47 = v28;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_5;
-  v35[3] = &unk_2782597E8;
-  v35[4] = self;
-  v30 = [v26 initWithOperator:self forEntryKey:v20 withFilter:v29 withBlock:v35];
+  v44 = null4;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+  v46 = v28;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __56__PLAggregateUsageService_registerForEntryNotifications__block_invoke_5;
+  v34[3] = &unk_2782597E8;
+  v34[4] = self;
+  v30 = [v26 initWithOperator:self forEntryKey:v20 withFilter:v29 withBlock:v34];
   [(PLAggregateUsageService *)self setBatteryExternalConnectedEntryNotification:v30];
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __61__PLAggregateUsageService_handleScreenStateChange_withState___block_invoke(uint64_t a1)
+- (void)handleScreenStateChange:(id)change withState:(BOOL)state
+{
+  stateCopy = state;
+  v27 = *MEMORY[0x277D85DE8];
+  v6 = MEMORY[0x277D3F180];
+  changeCopy = change;
+  if ([v6 debugEnabled])
+  {
+    v8 = objc_opt_class();
+    block = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __61__PLAggregateUsageService_handleScreenStateChange_withState___block_invoke;
+    v23 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v24 = v8;
+    if (qword_2811F4F00 != -1)
+    {
+      dispatch_once(&qword_2811F4F00, &block);
+    }
+
+    if (byte_2811F4EAD == 1)
+    {
+      v9 = @"OFF";
+      if (stateCopy)
+      {
+        v9 = @"ON";
+      }
+
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle display %@", v9, block, v21, v22, v23, v24];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
+      lastPathComponent = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateUsageService handleScreenStateChange:withState:]"];
+      [v11 logMessage:v10 fromFile:lastPathComponent fromFunction:v14 fromLineNumber:582];
+
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v26 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  [(PLAggregateUsageService *)self submitMetricsToAggd];
+  v16 = [changeCopy objectForKey:@"entry"];
+
+  if (v16)
+  {
+    intervalData = [(PLAggregateUsageService *)self intervalData];
+    entryDate = [v16 entryDate];
+    convertFromMonotonicToSystem = [entryDate convertFromMonotonicToSystem];
+    [intervalData updateMetric:@"ScreenOnDuration" withTimestamp:convertFromMonotonicToSystem forEvent:stateCopy withValue:0xFFFFFFFFLL];
+  }
+}
+
+void *__61__PLAggregateUsageService_handleScreenStateChange_withState___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EAD = result;
   return result;
 }
 
-uint64_t __59__PLAggregateUsageService_handleWakeStateChange_withState___block_invoke(uint64_t a1)
+- (void)handleWakeStateChange:(id)change withState:(BOOL)state
+{
+  stateCopy = state;
+  v27 = *MEMORY[0x277D85DE8];
+  v6 = MEMORY[0x277D3F180];
+  changeCopy = change;
+  if ([v6 debugEnabled])
+  {
+    v8 = objc_opt_class();
+    block = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __59__PLAggregateUsageService_handleWakeStateChange_withState___block_invoke;
+    v23 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v24 = v8;
+    if (qword_2811F4F08 != -1)
+    {
+      dispatch_once(&qword_2811F4F08, &block);
+    }
+
+    if (byte_2811F4EAE == 1)
+    {
+      v9 = @"Sleep";
+      if (stateCopy)
+      {
+        v9 = @"Wake";
+      }
+
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle device %@", v9, block, v21, v22, v23, v24];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
+      lastPathComponent = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateUsageService handleWakeStateChange:withState:]"];
+      [v11 logMessage:v10 fromFile:lastPathComponent fromFunction:v14 fromLineNumber:593];
+
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v26 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  [(PLAggregateUsageService *)self submitMetricsToAggd];
+  v16 = [changeCopy objectForKey:@"entry"];
+
+  if (v16)
+  {
+    intervalData = [(PLAggregateUsageService *)self intervalData];
+    entryDate = [v16 entryDate];
+    convertFromMonotonicToSystem = [entryDate convertFromMonotonicToSystem];
+    [intervalData updateMetric:@"WakeDuration" withTimestamp:convertFromMonotonicToSystem forEvent:stateCopy withValue:0xFFFFFFFFLL];
+  }
+}
+
+void *__59__PLAggregateUsageService_handleWakeStateChange_withState___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EAE = result;
@@ -499,7 +609,7 @@ uint64_t __59__PLAggregateUsageService_handleWakeStateChange_withState___block_i
 
 - (void)handleAudioStateChange:(id)change
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   [(PLAggregateUsageService *)self submitMetricsToAggd];
   v5 = [changeCopy objectForKey:@"entry"];
@@ -513,10 +623,10 @@ uint64_t __59__PLAggregateUsageService_handleWakeStateChange_withState___block_i
     {
       v8 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v21 = 3221225472;
-      v22 = __50__PLAggregateUsageService_handleAudioStateChange___block_invoke;
-      v23 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v24 = v8;
+      v20 = 3221225472;
+      v21 = __50__PLAggregateUsageService_handleAudioStateChange___block_invoke;
+      v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v23 = v8;
       if (qword_2811F4F10 != -1)
       {
         dispatch_once(&qword_2811F4F10, &block);
@@ -530,7 +640,7 @@ uint64_t __59__PLAggregateUsageService_handleWakeStateChange_withState___block_i
           v9 = @"ON";
         }
 
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle audio %@", v9, block, v21, v22, v23, v24];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle audio %@", v9, block, v20, v21, v22, v23];
         v11 = MEMORY[0x277D3F178];
         v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
         lastPathComponent = [v12 lastPathComponent];
@@ -541,7 +651,7 @@ uint64_t __59__PLAggregateUsageService_handleWakeStateChange_withState___block_i
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v26 = v10;
+          v25 = v10;
           _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -552,11 +662,9 @@ uint64_t __59__PLAggregateUsageService_handleWakeStateChange_withState___block_i
     convertFromMonotonicToSystem = [entryDate convertFromMonotonicToSystem];
     [intervalData updateMetric:@"AudioOnDuration" withTimestamp:convertFromMonotonicToSystem forEvent:bOOLValue withValue:0xFFFFFFFFLL];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __50__PLAggregateUsageService_handleAudioStateChange___block_invoke(uint64_t a1)
+void *__50__PLAggregateUsageService_handleAudioStateChange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EAF = result;
@@ -565,7 +673,7 @@ uint64_t __50__PLAggregateUsageService_handleAudioStateChange___block_invoke(uin
 
 - (void)handleLockStateChange:(id)change
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   [(PLAggregateUsageService *)self submitMetricsToAggd];
   v5 = [changeCopy objectForKey:@"entry"];
@@ -579,10 +687,10 @@ uint64_t __50__PLAggregateUsageService_handleAudioStateChange___block_invoke(uin
     {
       v8 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v21 = 3221225472;
-      v22 = __49__PLAggregateUsageService_handleLockStateChange___block_invoke;
-      v23 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v24 = v8;
+      v20 = 3221225472;
+      v21 = __49__PLAggregateUsageService_handleLockStateChange___block_invoke;
+      v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v23 = v8;
       if (qword_2811F4F18 != -1)
       {
         dispatch_once(&qword_2811F4F18, &block);
@@ -596,7 +704,7 @@ uint64_t __50__PLAggregateUsageService_handleAudioStateChange___block_invoke(uin
           v9 = @"Lock";
         }
 
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle device %@", v9, block, v21, v22, v23, v24];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle device %@", v9, block, v20, v21, v22, v23];
         v11 = MEMORY[0x277D3F178];
         v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
         lastPathComponent = [v12 lastPathComponent];
@@ -607,7 +715,7 @@ uint64_t __50__PLAggregateUsageService_handleAudioStateChange___block_invoke(uin
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v26 = v10;
+          v25 = v10;
           _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -618,11 +726,9 @@ uint64_t __50__PLAggregateUsageService_handleAudioStateChange___block_invoke(uin
     convertFromMonotonicToSystem = [entryDate convertFromMonotonicToSystem];
     [intervalData updateMetric:@"LockState" withTimestamp:convertFromMonotonicToSystem forEvent:bOOLValue ^ 1u withValue:bOOLValue ^ 1u];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__PLAggregateUsageService_handleLockStateChange___block_invoke(uint64_t a1)
+void *__49__PLAggregateUsageService_handleLockStateChange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EB0 = result;
@@ -631,7 +737,7 @@ uint64_t __49__PLAggregateUsageService_handleLockStateChange___block_invoke(uint
 
 - (void)handleConnectedChange:(id)change
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   [(PLAggregateUsageService *)self submitMetricsToAggd];
   v5 = [changeCopy objectForKey:@"entry"];
@@ -643,10 +749,10 @@ uint64_t __49__PLAggregateUsageService_handleLockStateChange___block_invoke(uint
     {
       v7 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __49__PLAggregateUsageService_handleConnectedChange___block_invoke;
-      v22 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v23 = v7;
+      v19 = 3221225472;
+      v20 = __49__PLAggregateUsageService_handleConnectedChange___block_invoke;
+      v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v22 = v7;
       if (qword_2811F4F20 != -1)
       {
         dispatch_once(&qword_2811F4F20, &block);
@@ -654,7 +760,7 @@ uint64_t __49__PLAggregateUsageService_handleLockStateChange___block_invoke(uint
 
       if (byte_2811F4EB1 == 1)
       {
-        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle charger change: %@", v6, block, v20, v21, v22, v23];
+        v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle charger change: %@", v6, block, v19, v20, v21, v22];
         v9 = MEMORY[0x277D3F178];
         v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
         lastPathComponent = [v10 lastPathComponent];
@@ -665,7 +771,7 @@ uint64_t __49__PLAggregateUsageService_handleLockStateChange___block_invoke(uint
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v25 = v8;
+          v24 = v8;
           _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -680,11 +786,9 @@ uint64_t __49__PLAggregateUsageService_handleLockStateChange___block_invoke(uint
       [intervalData updateMetric:@"AdapterType" withTimestamp:convertFromMonotonicToSystem forEvent:bOOLValue withValue:{objc_msgSend(v6, "intValue")}];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__PLAggregateUsageService_handleConnectedChange___block_invoke(uint64_t a1)
+void *__49__PLAggregateUsageService_handleConnectedChange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EB1 = result;
@@ -693,7 +797,7 @@ uint64_t __49__PLAggregateUsageService_handleConnectedChange___block_invoke(uint
 
 - (void)handleChargingChange:(id)change
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   [(PLAggregateUsageService *)self submitMetricsToAggd];
   v5 = [changeCopy objectForKey:@"entry"];
@@ -713,10 +817,10 @@ uint64_t __49__PLAggregateUsageService_handleConnectedChange___block_invoke(uint
     {
       v12 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v31 = 3221225472;
-      v32 = __48__PLAggregateUsageService_handleChargingChange___block_invoke;
-      v33 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v34 = v12;
+      v30 = 3221225472;
+      v31 = __48__PLAggregateUsageService_handleChargingChange___block_invoke;
+      v32 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v33 = v12;
       if (qword_2811F4F28 != -1)
       {
         dispatch_once(&qword_2811F4F28, &block);
@@ -730,7 +834,7 @@ uint64_t __49__PLAggregateUsageService_handleConnectedChange___block_invoke(uint
           v13 = @"Start";
         }
 
-        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle charging: %@ Current: %d, Voltage: %d", v13, intValue, intValue2, block, v31, v32, v33, v34];
+        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle charging: %@ Current: %d, Voltage: %d", v13, intValue, intValue2, block, v30, v31, v32, v33];
         v15 = MEMORY[0x277D3F178];
         v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
         lastPathComponent = [v16 lastPathComponent];
@@ -741,7 +845,7 @@ uint64_t __49__PLAggregateUsageService_handleConnectedChange___block_invoke(uint
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v36 = v14;
+          v35 = v14;
           _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -762,11 +866,9 @@ uint64_t __49__PLAggregateUsageService_handleConnectedChange___block_invoke(uint
     convertFromMonotonicToSystem3 = [entryDate3 convertFromMonotonicToSystem];
     [intervalData3 updateMetric:@"ChargerVoltage" withTimestamp:convertFromMonotonicToSystem3 forEvent:bOOLValue withValue:intValue2];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __48__PLAggregateUsageService_handleChargingChange___block_invoke(uint64_t a1)
+void *__48__PLAggregateUsageService_handleChargingChange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EB2 = result;
@@ -775,7 +877,7 @@ uint64_t __48__PLAggregateUsageService_handleChargingChange___block_invoke(uint6
 
 - (void)handleExternalConnectedChange:(id)change
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   [(PLAggregateUsageService *)self submitMetricsToAggd];
   v5 = [changeCopy objectForKey:@"entry"];
@@ -789,10 +891,10 @@ uint64_t __48__PLAggregateUsageService_handleChargingChange___block_invoke(uint6
     {
       v8 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __57__PLAggregateUsageService_handleExternalConnectedChange___block_invoke;
-      v22 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v23 = v8;
+      v19 = 3221225472;
+      v20 = __57__PLAggregateUsageService_handleExternalConnectedChange___block_invoke;
+      v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v22 = v8;
       if (qword_2811F4F30 != -1)
       {
         dispatch_once(&qword_2811F4F30, &block);
@@ -800,7 +902,7 @@ uint64_t __48__PLAggregateUsageService_handleChargingChange___block_invoke(uint6
 
       if (byte_2811F4EB3 == 1)
       {
-        v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle external connected change: %d", bOOLValue, block, v20, v21, v22, v23];
+        v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Handle external connected change: %d", bOOLValue, block, v19, v20, v21, v22];
         v10 = MEMORY[0x277D3F178];
         v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
         lastPathComponent = [v11 lastPathComponent];
@@ -811,7 +913,7 @@ uint64_t __48__PLAggregateUsageService_handleChargingChange___block_invoke(uint6
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v25 = v9;
+          v24 = v9;
           _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -822,11 +924,9 @@ uint64_t __48__PLAggregateUsageService_handleChargingChange___block_invoke(uint6
     convertFromMonotonicToSystem = [entryDate convertFromMonotonicToSystem];
     [intervalData updateMetric:@"ConnectedState" withTimestamp:convertFromMonotonicToSystem forEvent:bOOLValue withValue:bOOLValue];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __57__PLAggregateUsageService_handleExternalConnectedChange___block_invoke(uint64_t a1)
+void *__57__PLAggregateUsageService_handleExternalConnectedChange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EB3 = result;
@@ -835,7 +935,7 @@ uint64_t __57__PLAggregateUsageService_handleExternalConnectedChange___block_inv
 
 - (void)scheduleSubmissionAfter:(unint64_t)after
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = dispatch_walltime(0, 1000000000 * after);
   workQueue = [(PLOperator *)self workQueue];
   block[0] = MEMORY[0x277D85DD0];
@@ -848,14 +948,14 @@ uint64_t __57__PLAggregateUsageService_handleExternalConnectedChange___block_inv
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v6 = objc_opt_class();
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2_299;
-    v16[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v16[4] = v6;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2_299;
+    v15[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v15[4] = v6;
     if (qword_2811F4F50 != -1)
     {
-      dispatch_once(&qword_2811F4F50, v16);
+      dispatch_once(&qword_2811F4F50, v15);
     }
 
     if (byte_2811F4EB5 == 1)
@@ -874,58 +974,55 @@ uint64_t __57__PLAggregateUsageService_handleExternalConnectedChange___block_inv
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = v9;
+        v18 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2;
-    v18[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v18[4] = v3;
+    v2 = objc_opt_class();
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2;
+    v16[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v16[4] = v2;
     if (qword_2811F4F38 != -1)
     {
-      dispatch_once(&qword_2811F4F38, v18);
+      dispatch_once(&qword_2811F4F38, v16);
     }
 
     if (byte_2811F4EB4 == 1)
     {
-      v4 = MEMORY[0x277CCACA8];
-      v5 = [MEMORY[0x277CBEAA8] date];
-      v6 = [v4 stringWithFormat:@"Submit metrics triggered at %@!", v5];
+      v3 = MEMORY[0x277CCACA8];
+      v4 = [MEMORY[0x277CBEAA8] date];
+      v5 = [v3 stringWithFormat:@"Submit metrics triggered at %@!", v4];
 
-      v7 = MEMORY[0x277D3F178];
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
-      v9 = [v8 lastPathComponent];
-      v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateUsageService scheduleSubmissionAfter:]_block_invoke"];
-      [v7 logMessage:v6 fromFile:v9 fromFunction:v10 fromLineNumber:673];
+      v6 = MEMORY[0x277D3F178];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLAggregateUsageService.m"];
+      v8 = [v7 lastPathComponent];
+      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLAggregateUsageService scheduleSubmissionAfter:]_block_invoke"];
+      [v6 logMessage:v5 fromFile:v8 fromFunction:v9 fromLineNumber:673];
 
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v10 = PLLogCommon();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v6;
-        _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v18 = v5;
+        _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   [*(a1 + 32) submitMetricsToAggd];
-  v12 = [MEMORY[0x277CBEAA8] date];
-  [v12 timeIntervalSince1970];
-  v14 = v13;
+  v11 = [MEMORY[0x277CBEAA8] date];
+  [v11 timeIntervalSince1970];
+  v13 = v12;
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -937,26 +1034,24 @@ uint64_t __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke(ui
     dispatch_once(&qword_2811F4F40, block);
   }
 
-  result = [*(a1 + 32) scheduleSubmissionAfter:*&qword_2811F4F48 + v14 / *&qword_2811F4F48 * *&qword_2811F4F48 - v14];
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) scheduleSubmissionAfter:*&qword_2811F4F48 + v13 / *&qword_2811F4F48 * *&qword_2811F4F48 - v13];
 }
 
-uint64_t __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2(uint64_t a1)
+void *__51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EB4 = result;
   return result;
 }
 
-uint64_t __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_298(uint64_t a1)
+void *__51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_298(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"IntervalDuration"];
   qword_2811F4F48 = v2;
   return result;
 }
 
-uint64_t __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2_299(uint64_t a1)
+void *__51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2_299(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EB5 = result;
@@ -966,8 +1061,8 @@ uint64_t __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2_
 - (void)updateSampledMetrics
 {
   v20 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"Battery"];
-  storage = [(PLOperator *)self storage];
-  v4 = [storage lastEntryForKey:v20];
+  v3 = objc_msgSend_storage(self);
+  v4 = [v3 lastEntryForKey:v20];
 
   if (v4)
   {
@@ -1003,28 +1098,28 @@ uint64_t __51__PLAggregateUsageService_scheduleSubmissionAfter___block_invoke_2_
   }
 }
 
-uint64_t __45__PLAggregateUsageService_numIntervalsToFill__block_invoke(uint64_t a1)
+void *__45__PLAggregateUsageService_numIntervalsToFill__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EB6 = result;
   return result;
 }
 
-uint64_t __45__PLAggregateUsageService_numIntervalsToFill__block_invoke_307(uint64_t a1)
+void *__45__PLAggregateUsageService_numIntervalsToFill__block_invoke_307(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"IntervalDuration"];
   qword_2811F4F68 = v2;
   return result;
 }
 
-uint64_t __45__PLAggregateUsageService_numIntervalsToFill__block_invoke_2(uint64_t a1)
+void *__45__PLAggregateUsageService_numIntervalsToFill__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) defaultDoubleForKey:@"IntervalDuration"];
   qword_2811F4F78 = v2;
   return result;
 }
 
-uint64_t __45__PLAggregateUsageService_numIntervalsToFill__block_invoke_3(uint64_t a1)
+void *__45__PLAggregateUsageService_numIntervalsToFill__block_invoke_3(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4EB7 = result;

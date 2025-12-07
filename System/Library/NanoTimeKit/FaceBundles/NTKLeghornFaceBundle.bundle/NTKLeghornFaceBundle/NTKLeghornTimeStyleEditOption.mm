@@ -28,25 +28,25 @@
 - (id)localizedName
 {
   v3 = objc_msgSend_timeStyle(self, a2, v2);
-  v6 = @"EDIT_OPTION_LABEL_LEGHORN_TIME_STYLE_ANALOG";
+  v5 = @"EDIT_OPTION_LABEL_LEGHORN_TIME_STYLE_ANALOG";
   if (v3 != 1)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   if (v3)
   {
-    objc_msgSend_stringByAppendingString_(v6, v4, v5, @"_COMPANION");
+    objc_msgSend_stringByAppendingString_(v5, v4, @"_COMPANION");
   }
 
   else
   {
-    objc_msgSend_stringByAppendingString_(@"EDIT_OPTION_LABEL_LEGHORN_TIME_STYLE_DIGITAL", v4, v5, @"_COMPANION");
+    objc_msgSend_stringByAppendingString_(@"EDIT_OPTION_LABEL_LEGHORN_TIME_STYLE_DIGITAL", v4, @"_COMPANION");
   }
-  v7 = ;
-  v8 = NTKFoghornFaceLocalizedString(v7);
+  v6 = ;
+  v7 = NTKFoghornFaceLocalizedString(v6);
 
-  return v8;
+  return v7;
 }
 
 - (id)_valueToFaceBundleStringDict

@@ -32,9 +32,12 @@
 - (void)_enumerateCurrentVideoUsageIntervalsDuringInterval:(id)interval exemptApplications:(id)applications exemptWebDomains:(id)domains referenceDate:(id)date block:(id)block;
 - (void)_enumerateCurrentWebUsageIntervalsDuringInterval:(id)interval exemptWebDomains:(id)domains referenceDate:(id)date focalOnly:(BOOL)only block:(id)block;
 - (void)_enumerateEvents:(id)events intervalEndDate:(id)date block:(id)block;
+- (void)_updateApplicationUsageWithInterval:(id)interval unboundInterval:(id)unboundInterval bundleIdentifier:(id)identifier trustedApplicationUsage:(BOOL)usage deviceIdentifier:(id)deviceIdentifier event:(id)event applicationUsageIntervalsByDevice:(id)device unboundApplicationUsageIntervalsByDevice:(id)self0 categoryUsageIntervalsByDevice:(id)self1 aggregatedApplicationUsageIntervalsByDevice:(id)self2 categoryByBundleIdentifier:(id)self3 timeZoneByDevice:(id)self4 lastEventDateByDevice:(id)self5;
 - (void)_updateLocalReports:(id)reports remoteReports:(id)remoteReports aggregateReports:(id)aggregateReports nonIntersectingScreenTimeIntervals:(id)intervals intersectingScreenTimeIntervals:(id)timeIntervals longestSessionByDevice:(id)device applicationUsageIntervals:(id)usageIntervals unboundApplicationUsageIntervals:(id)self0 webUsageIntervalsByDevice:(id)self1 categoryUsageIntervalsByDevice:(id)self2 aggregatedApplicationUsageIntervalsByDevice:(id)self3 aggregatedWebUsageIntervalsByDevice:(id)self4 categoryByBundleIdentifier:(id)self5 categoryByWebDomain:(id)self6 notificationsByDevice:(id)self7 interval:(id)self8 timeZoneByDevice:(id)self9 lastEventDateByDevice:(id)dateByDevice;
+- (void)_updateNotificationsWithEvent:(id)event bundleIdentifier:(id)identifier trustedNotification:(BOOL)notification deviceIdentifier:(id)deviceIdentifier notificationsByDevice:(id)device timeZoneByDevice:(id)byDevice lastEventDateByDevice:(id)dateByDevice;
 - (void)_updateNowPlayingUsageWithInterval:(id)interval event:(id)event deviceIdentifier:(id)identifier categoryUsageIntervalsByDevice:(id)device timeZoneByDevice:(id)byDevice lastEventDateByDevice:(id)dateByDevice;
 - (void)_updateScreenTimeWithInterval:(id)interval rawInterval:(id)rawInterval deviceIdentifier:(id)identifier partition:(id)partition event:(id)event nonIntersectingScreenTimeIntervalsByDevice:(id)device intersectingScreenTimeIntervalsByDevice:(id)byDevice longestSessionByDevice:(id)self0 timeZoneByDevice:(id)self1 lastEventDateByDevice:(id)self2;
+- (void)_updateWebUsageWithInterval:(id)interval webDomain:(id)domain trustedWebUsage:(BOOL)usage deviceIdentifier:(id)identifier event:(id)event webUsageIntervalsByDevice:(id)device categoryUsageIntervalsByDevice:(id)byDevice aggregatedApplicationUsageIntervalsByDevice:(id)self0 aggregatedWebUsageIntervalsByDevice:(id)self1 categoryByWebDomain:(id)self2 timeZoneByDevice:(id)self3 lastEventDateByDevice:(id)self4;
 - (void)queryForUncategorizedLocalWebUsageDuringInterval:(id)interval completionHandler:(id)handler;
 - (void)queryUsageDuringInterval:(id)interval partitionInterval:(double)partitionInterval focalOnly:(BOOL)only completionHandler:(id)handler;
 @end
@@ -107,7 +110,7 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
 
 + (void)synchronizeUsageWithCompletionHandler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   MainBundle = CFBundleGetMainBundle();
   Identifier = CFBundleGetIdentifier(MainBundle);
@@ -124,26 +127,24 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
-    v13 = processName;
-    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Requesting high urgency synchronization on behalf of %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = processName;
+    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Requesting high urgency synchronization on behalf of %{public}@", &v11, 0xCu);
   }
 
   v8 = qos_class_self();
   v9 = dispatch_get_global_queue(v8, 0);
   userKnowledgeStore = [MEMORY[0x277CFE208] userKnowledgeStore];
   [userKnowledgeStore synchronizeWithUrgency:10 client:@"UsageTracking" responseQueue:v9 completion:handlerCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryUsageDuringInterval:(id)interval partitionInterval:(double)partitionInterval focalOnly:(BOOL)only completionHandler:(id)handler
 {
   onlyCopy = only;
-  v170 = *MEMORY[0x277D85DE8];
+  v169 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   handlerCopy = handler;
-  v147 = objc_opt_new();
+  v146 = objc_opt_new();
   selfCopy = self;
   duetStream = [(USUsageQuerying *)self duetStream];
   v11 = intervalCopy;
@@ -152,15 +153,15 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   [v12 setDeviceIDs:allDevices];
 
   displayIsBacklit = [MEMORY[0x277CFE298] displayIsBacklit];
-  v161 = displayIsBacklit;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v161 count:1];
+  v160 = displayIsBacklit;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v160 count:1];
   [v12 setEventStreams:v15];
 
   v16 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v163 = v16;
+  v162 = v16;
   v17 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v164 = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v163 count:2];
+  v163 = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v162 count:2];
   [v12 setSortDescriptors:v18];
 
   v19 = MEMORY[0x277CFE260];
@@ -173,9 +174,9 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   v25 = [v23 predicateForEventsWithCategoryValue:v24];
 
   v26 = objc_alloc(MEMORY[0x277CCA920]);
-  v168 = v22;
-  v169 = v25;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v168 count:2];
+  v167 = v22;
+  v168 = v25;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:2];
 
   v28 = [v26 initWithType:1 subpredicates:v27];
   [v12 setPredicate:v28];
@@ -192,19 +193,19 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   v34 = [v30 predicateForEventsIntersectingDateRangeFrom:startDate2 to:endDate2];
 
   usageType = [MEMORY[0x277CFE1D0] usageType];
-  v139 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType andIntegerValue:1];
-  v148 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType];
-  v36 = [MEMORY[0x277CCA920] notPredicateWithSubpredicate:v148];
+  v138 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType andIntegerValue:1];
+  v147 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType];
+  v36 = [MEMORY[0x277CCA920] notPredicateWithSubpredicate:v147];
   v37 = MEMORY[0x277CCA920];
-  v163 = v139;
-  v164 = v36;
-  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v163 count:2];
+  v162 = v138;
+  v163 = v36;
+  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v162 count:2];
   v39 = [v37 orPredicateWithSubpredicates:v38];
 
   v40 = objc_alloc(MEMORY[0x277CCA920]);
-  v168 = v34;
-  v169 = v39;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v168 count:2];
+  v167 = v34;
+  v168 = v39;
+  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:2];
   v42 = [v40 initWithType:1 subpredicates:v41];
 
   v43 = objc_opt_new();
@@ -212,8 +213,8 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   [v43 setDeviceIDs:allDevices2];
 
   appUsageStream = [MEMORY[0x277CFE298] appUsageStream];
-  v167 = appUsageStream;
-  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:1];
+  v166 = appUsageStream;
+  v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v166 count:1];
   [v43 setEventStreams:v46];
 
   if (onlyCopy)
@@ -228,10 +229,10 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
 
   [v43 setPredicate:v47];
   v48 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v161 = v48;
+  v160 = v48;
   v49 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v162 = v49;
-  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v161 count:2];
+  v161 = v49;
+  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v160 count:2];
 
   [v43 setSortDescriptors:v50];
   v51 = [duetStream2 publisherForQuery:v43];
@@ -252,9 +253,9 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   {
     v60 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType2 andIntegerValue:0];
     v61 = objc_alloc(MEMORY[0x277CCA920]);
-    v163 = v58;
-    v164 = v60;
-    v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v163 count:2];
+    v162 = v58;
+    v163 = v60;
+    v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v162 count:2];
     v59 = [v61 initWithType:2 subpredicates:v62];
   }
 
@@ -263,22 +264,22 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   [v63 setDeviceIDs:allDevices3];
 
   appWebUsageStream = [MEMORY[0x277CFE298] appWebUsageStream];
-  v167 = appWebUsageStream;
-  v66 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:1];
+  v166 = appWebUsageStream;
+  v66 = [MEMORY[0x277CBEA60] arrayWithObjects:&v166 count:1];
   [v63 setEventStreams:v66];
 
   v67 = objc_alloc(MEMORY[0x277CCA920]);
-  v168 = v56;
-  v169 = v59;
-  v68 = [MEMORY[0x277CBEA60] arrayWithObjects:&v168 count:2];
+  v167 = v56;
+  v168 = v59;
+  v68 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:2];
   v69 = [v67 initWithType:1 subpredicates:v68];
   [v63 setPredicate:v69];
 
   v70 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v161 = v70;
+  v160 = v70;
   v71 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v162 = v71;
-  v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v161 count:2];
+  v161 = v71;
+  v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v160 count:2];
   [v63 setSortDescriptors:v72];
 
   v73 = [duetStream3 publisherForQuery:v63];
@@ -290,22 +291,22 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   v75 = v52;
   startDate4 = [v75 startDate];
   endDate4 = [v75 endDate];
-  v135 = [v74 predicateForEventsIntersectingDateRangeFrom:startDate4 to:endDate4];
+  v134 = [v74 predicateForEventsIntersectingDateRangeFrom:startDate4 to:endDate4];
 
   v78 = MEMORY[0x277CFE260];
   playing = [MEMORY[0x277CFE248] playing];
-  v134 = [v78 predicateForObjectsWithMetadataKey:playing andIntegerValue:1];
+  v133 = [v78 predicateForObjectsWithMetadataKey:playing andIntegerValue:1];
 
   v80 = MEMORY[0x277CFE260];
   mediaType = [MEMORY[0x277CFE248] mediaType];
   v82 = [v80 predicateForObjectsWithMetadataKey:mediaType andStringValue:*MEMORY[0x277D27CB8]];
 
-  v141 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:@"com.apple.quicklook.QuickLookUIService"];
-  v136 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:@"com.apple.quicklook.extension.previewUI"];
+  v140 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:@"com.apple.quicklook.QuickLookUIService"];
+  v135 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:@"com.apple.quicklook.extension.previewUI"];
   v83 = objc_alloc(MEMORY[0x277CCA920]);
-  v168 = v141;
-  v169 = v136;
-  v84 = [MEMORY[0x277CBEA60] arrayWithObjects:&v168 count:2];
+  v167 = v140;
+  v168 = v135;
+  v84 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:2];
   v85 = [v83 initWithType:2 subpredicates:v84];
 
   v86 = objc_opt_new();
@@ -313,24 +314,24 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   [v86 setDeviceIDs:allDevices4];
 
   nowPlayingStream = [MEMORY[0x277CFE298] nowPlayingStream];
-  v167 = nowPlayingStream;
-  v89 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:1];
+  v166 = nowPlayingStream;
+  v89 = [MEMORY[0x277CBEA60] arrayWithObjects:&v166 count:1];
   [v86 setEventStreams:v89];
 
   v90 = objc_alloc(MEMORY[0x277CCA920]);
-  v163 = v135;
-  v164 = v134;
-  v165 = v82;
-  v166 = v85;
-  v91 = [MEMORY[0x277CBEA60] arrayWithObjects:&v163 count:4];
+  v162 = v134;
+  v163 = v133;
+  v164 = v82;
+  v165 = v85;
+  v91 = [MEMORY[0x277CBEA60] arrayWithObjects:&v162 count:4];
   v92 = [v90 initWithType:1 subpredicates:v91];
   [v86 setPredicate:v92];
 
   v93 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v161 = v93;
+  v160 = v93;
   v94 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v162 = v94;
-  v95 = [MEMORY[0x277CBEA60] arrayWithObjects:&v161 count:2];
+  v161 = v94;
+  v95 = [MEMORY[0x277CBEA60] arrayWithObjects:&v160 count:2];
 
   [v86 setSortDescriptors:v95];
   v96 = [duetStream4 publisherForQuery:v86];
@@ -344,8 +345,8 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   [v99 setDeviceIDs:allDevices5];
 
   appMediaUsageStream = [MEMORY[0x277CFE298] appMediaUsageStream];
-  v168 = appMediaUsageStream;
-  v102 = [MEMORY[0x277CBEA60] arrayWithObjects:&v168 count:1];
+  v167 = appMediaUsageStream;
+  v102 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:1];
   [v99 setEventStreams:v102];
 
   v103 = MEMORY[0x277CFE260];
@@ -355,10 +356,10 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   [v99 setPredicate:v106];
 
   v107 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v163 = v107;
+  v162 = v107;
   v108 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v164 = v108;
-  v109 = [MEMORY[0x277CBEA60] arrayWithObjects:&v163 count:2];
+  v163 = v108;
+  v109 = [MEMORY[0x277CBEA60] arrayWithObjects:&v162 count:2];
 
   [v99 setSortDescriptors:v109];
   v110 = [duetStream5 publisherForQuery:v99];
@@ -372,8 +373,8 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
   [v113 setDeviceIDs:allDevices6];
 
   notificationUsageStream = [MEMORY[0x277CFE298] notificationUsageStream];
-  v168 = notificationUsageStream;
-  v116 = [MEMORY[0x277CBEA60] arrayWithObjects:&v168 count:1];
+  v167 = notificationUsageStream;
+  v116 = [MEMORY[0x277CBEA60] arrayWithObjects:&v167 count:1];
   [v113 setEventStreams:v116];
 
   v117 = MEMORY[0x277CFE260];
@@ -383,9 +384,9 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
 
   v121 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:@"Receive"];
   v122 = objc_alloc(MEMORY[0x277CCA920]);
-  v163 = v120;
-  v164 = v121;
-  v123 = [MEMORY[0x277CBEA60] arrayWithObjects:&v163 count:2];
+  v162 = v120;
+  v163 = v121;
+  v123 = [MEMORY[0x277CBEA60] arrayWithObjects:&v162 count:2];
 
   v124 = [v122 initWithType:1 subpredicates:v123];
   [v113 setPredicate:v124];
@@ -394,34 +395,32 @@ uint64_t __37__USUsageQuerying_userKnowledgeStore__block_invoke()
 
   collect6 = [v125 collect];
 
-  v160[0] = collect2;
-  v160[1] = collect3;
-  v160[2] = collect4;
-  v160[3] = collect5;
-  v160[4] = collect6;
-  v127 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:5];
+  v159[0] = collect2;
+  v159[1] = collect3;
+  v159[2] = collect4;
+  v159[3] = collect5;
+  v159[4] = collect6;
+  v127 = [MEMORY[0x277CBEA60] arrayWithObjects:v159 count:5];
   v128 = [collect zipWithOthers:v127];
-  v158[0] = MEMORY[0x277D85DD0];
-  v158[1] = 3221225472;
-  v158[2] = __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke;
-  v158[3] = &unk_279E09C00;
-  v159 = handlerCopy;
-  v152[0] = MEMORY[0x277D85DD0];
-  v152[1] = 3221225472;
-  v152[2] = __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2;
-  v152[3] = &unk_279E09C50;
-  v152[4] = selfCopy;
-  v153 = v112;
-  v157 = onlyCopy;
-  v154 = v147;
-  v155 = v159;
+  v157[0] = MEMORY[0x277D85DD0];
+  v157[1] = 3221225472;
+  v157[2] = __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke;
+  v157[3] = &unk_279E09C00;
+  v158 = handlerCopy;
+  v151[0] = MEMORY[0x277D85DD0];
+  v151[1] = 3221225472;
+  v151[2] = __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2;
+  v151[3] = &unk_279E09C50;
+  v151[4] = selfCopy;
+  v152 = v112;
+  v156 = onlyCopy;
+  v153 = v146;
+  v154 = v158;
   partitionIntervalCopy = partitionInterval;
-  v129 = v159;
-  v130 = v147;
+  v129 = v158;
+  v130 = v146;
   v131 = v112;
-  v132 = [v128 sinkWithCompletion:v158 receiveInput:v152];
-
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = [v128 sinkWithCompletion:v157 receiveInput:v151];
 }
 
 void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -437,46 +436,46 @@ void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_
 
 void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count] != 6)
   {
     __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2_cold_1();
   }
 
-  v39 = [v3 objectAtIndexedSubscript:0];
+  v37 = [v3 objectAtIndexedSubscript:0];
   v4 = [v3 objectAtIndexedSubscript:1];
-  v42 = [v3 objectAtIndexedSubscript:2];
-  v41 = [v3 objectAtIndexedSubscript:3];
+  v40 = [v3 objectAtIndexedSubscript:2];
+  v39 = [v3 objectAtIndexedSubscript:3];
   v5 = [v3 objectAtIndexedSubscript:4];
-  v40 = v3;
+  v38 = v3;
   v6 = [v3 objectAtIndexedSubscript:5];
   v7 = [MEMORY[0x277CFE158] appBundleID];
   v8 = [MEMORY[0x277CFE240] bundleID];
-  v36 = a1;
-  v37 = v5;
-  v38 = v4;
+  v34 = a1;
+  v35 = v5;
+  v36 = v4;
   v9 = [*(a1 + 32) _getBundleIdentiersFromApplicationUsageEvents:v4 videoUsageEvents:v5 interval:*(a1 + 40) referenceDate:*(a1 + 48) focalOnly:*(a1 + 72)];
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
   v10 = v6;
-  v11 = [v10 countByEnumeratingWithState:&v58 objects:v62 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v55 objects:v59 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v59;
+    v13 = *v56;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v59 != v13)
+        if (*v56 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v58 + 1) + 8 * i);
+        v15 = *(*(&v55 + 1) + 8 * i);
         v16 = [v15 metadata];
         v17 = [v16 objectForKeyedSubscript:v7];
 
@@ -501,11 +500,11 @@ void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2_cold_2(&buf, v57);
+          __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2_cold_2(buf, &buf[1]);
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v55 objects:v59 count:16];
     }
 
     while (v12);
@@ -513,7 +512,7 @@ void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_
 
   if ([v9 count])
   {
-    v22 = v38;
+    v22 = v36;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2_cold_3();
@@ -521,48 +520,45 @@ void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_
 
     v23 = [MEMORY[0x277CF9650] sharedCategories];
     v24 = [v9 array];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_38;
-    v43[3] = &unk_279E09C28;
-    v25 = *(v36 + 56);
-    v26 = *(v36 + 32);
-    v53 = v25;
-    v43[4] = v26;
-    v44 = v42;
-    v27 = v37;
-    v45 = v37;
-    v46 = *(v36 + 40);
-    v28 = *(v36 + 48);
-    v55 = *(v36 + 72);
-    v47 = v28;
-    v48 = v23;
-    v29 = v39;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_38;
+    v41[3] = &unk_279E09C28;
+    v25 = *(v34 + 56);
+    v26 = *(v34 + 32);
+    v51 = v25;
+    v41[4] = v26;
+    v42 = v40;
+    v27 = v35;
+    v43 = v35;
+    v44 = *(v34 + 40);
+    v28 = *(v34 + 48);
+    v53 = *(v34 + 72);
+    v45 = v28;
+    v46 = v23;
+    v29 = v37;
+    v47 = v37;
+    v48 = v36;
     v49 = v39;
-    v50 = v38;
-    v51 = v41;
-    v52 = v10;
-    v54 = *(v36 + 64);
+    v50 = v10;
+    v52 = *(v34 + 64);
     v30 = v23;
-    [v30 categoriesForBundleIDs:v24 completionHandler:v43];
+    [v30 categoriesForBundleIDs:v24 completionHandler:v41];
 
-    v31 = v42;
-    v32 = v41;
+    v31 = v40;
+    v32 = v39;
   }
 
   else
   {
-    v33 = *(v36 + 40);
-    LOBYTE(v35) = *(v36 + 72);
-    v22 = v38;
-    v29 = v39;
-    v32 = v41;
-    v31 = v42;
-    v27 = v37;
-    [*(v36 + 32) _computeUsageWithDisplayBacklitEvents:v39 applicationUsageEvents:v38 webUsageEvents:v42 nowPlayingEvents:v41 videoUsageEvents:v37 notificationEvents:v10 categoryByBundleIdentifier:*(v36 + 64) categoryByWebDomain:0 interval:0 partitionInterval:v33 referenceDate:*(v36 + 48) focalOnly:v35 completionHandler:*(v36 + 56)];
+    LOBYTE(v33) = *(v34 + 72);
+    v22 = v36;
+    v29 = v37;
+    v32 = v39;
+    v31 = v40;
+    v27 = v35;
+    [*(v34 + 32) _computeUsageWithDisplayBacklitEvents:v37 applicationUsageEvents:v36 webUsageEvents:v40 nowPlayingEvents:v39 videoUsageEvents:v35 notificationEvents:v10 categoryByBundleIdentifier:*(v34 + 64) categoryByWebDomain:0 interval:0 partitionInterval:*(v34 + 40) referenceDate:*(v34 + 48) focalOnly:v33 completionHandler:*(v34 + 56)];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_38(uint64_t a1, void *a2)
@@ -580,33 +576,32 @@ void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_
 
       v5 = *(a1 + 72);
       v6 = [v4 array];
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_39;
-      v11[3] = &unk_279E09C28;
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_39;
+      v10[3] = &unk_279E09C28;
       v7 = *(a1 + 112);
       v8 = *(a1 + 32);
-      v21 = v7;
-      v11[4] = v8;
-      v12 = *(a1 + 80);
-      v13 = *(a1 + 88);
-      v14 = *(a1 + 40);
-      v15 = *(a1 + 96);
-      v16 = *(a1 + 48);
-      v17 = *(a1 + 104);
-      v18 = v3;
-      v19 = *(a1 + 56);
-      v22 = *(a1 + 120);
-      v20 = *(a1 + 64);
-      v23 = *(a1 + 128);
-      [v5 categoriesForDomainNames:v6 completionHandler:v11];
+      v20 = v7;
+      v10[4] = v8;
+      v11 = *(a1 + 80);
+      v12 = *(a1 + 88);
+      v13 = *(a1 + 40);
+      v14 = *(a1 + 96);
+      v15 = *(a1 + 48);
+      v16 = *(a1 + 104);
+      v17 = v3;
+      v18 = *(a1 + 56);
+      v21 = *(a1 + 120);
+      v19 = *(a1 + 64);
+      v22 = *(a1 + 128);
+      [v5 categoriesForDomainNames:v6 completionHandler:v10];
     }
 
     else
     {
-      v9 = *(a1 + 56);
-      LOBYTE(v10) = *(a1 + 128);
-      [*(a1 + 32) _computeUsageWithDisplayBacklitEvents:*(a1 + 80) applicationUsageEvents:*(a1 + 88) webUsageEvents:*(a1 + 40) nowPlayingEvents:*(a1 + 96) videoUsageEvents:*(a1 + 48) notificationEvents:*(a1 + 104) categoryByBundleIdentifier:*(a1 + 120) categoryByWebDomain:v3 interval:0 partitionInterval:v9 referenceDate:*(a1 + 64) focalOnly:v10 completionHandler:*(a1 + 112)];
+      LOBYTE(v9) = *(a1 + 128);
+      [*(a1 + 32) _computeUsageWithDisplayBacklitEvents:*(a1 + 80) applicationUsageEvents:*(a1 + 88) webUsageEvents:*(a1 + 40) nowPlayingEvents:*(a1 + 96) videoUsageEvents:*(a1 + 48) notificationEvents:*(a1 + 104) categoryByBundleIdentifier:*(a1 + 120) categoryByWebDomain:v3 interval:0 partitionInterval:*(a1 + 56) referenceDate:*(a1 + 64) focalOnly:v9 completionHandler:*(a1 + 112)];
     }
   }
 
@@ -882,12 +877,12 @@ void __473__USUsageQuerying__updateLocalReports_remoteReports_aggregateReports_n
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
   v8 = [*(a1 + 40) objectForKeyedSubscript:v5];
   v9 = [*(a1 + 48) objectForKeyedSubscript:v5];
-  v35 = [*(a1 + 56) objectForKeyedSubscript:v5];
-  v34 = [*(a1 + 64) objectForKeyedSubscript:v5];
-  v33 = [*(a1 + 72) objectForKeyedSubscript:v5];
-  v32 = [*(a1 + 80) objectForKeyedSubscript:v5];
+  v33 = [*(a1 + 56) objectForKeyedSubscript:v5];
+  v32 = [*(a1 + 64) objectForKeyedSubscript:v5];
+  v31 = [*(a1 + 72) objectForKeyedSubscript:v5];
+  v30 = [*(a1 + 80) objectForKeyedSubscript:v5];
   v10 = [*(a1 + 88) objectForKeyedSubscript:v5];
-  v31 = [*(a1 + 96) objectForKeyedSubscript:v5];
+  v29 = [*(a1 + 96) objectForKeyedSubscript:v5];
   v11 = [*(a1 + 104) objectForKeyedSubscript:v5];
   v12 = v11;
   v13 = MEMORY[0x277CBEC10];
@@ -898,67 +893,65 @@ void __473__USUsageQuerying__updateLocalReports_remoteReports_aggregateReports_n
 
   v14 = v13;
 
-  v39 = 0;
-  v15 = *(a1 + 112);
-  v38 = 0;
-  v29 = v10;
-  v30 = v9;
-  v16 = [objc_opt_class() _generatePickupsByBundleIdentifierWithPickupIntervals:v10 applicationUsageIntervals:v9 pickupsWithoutApplicationUsage:&v39 firstPickup:&v38];
-  v17 = v38;
-  v18 = v38;
-  v19 = v18;
-  *(*(*(a1 + 176) + 8) + 24) += v39;
-  v20 = *(*(a1 + 184) + 8);
-  if (!*(v20 + 40))
+  v37 = 0;
+  v36 = 0;
+  v27 = v10;
+  v28 = v9;
+  v15 = [objc_opt_class() _generatePickupsByBundleIdentifierWithPickupIntervals:v10 applicationUsageIntervals:v9 pickupsWithoutApplicationUsage:&v37 firstPickup:&v36];
+  v16 = v36;
+  v17 = v36;
+  v18 = v17;
+  *(*(*(a1 + 176) + 8) + 24) += v37;
+  v19 = *(*(a1 + 184) + 8);
+  if (!*(v19 + 40))
   {
     goto LABEL_7;
   }
 
-  if ([v18 compare:?] == -1)
+  if ([v17 compare:?] == -1)
   {
-    v20 = *(*(a1 + 184) + 8);
+    v19 = *(*(a1 + 184) + 8);
 LABEL_7:
-    objc_storeStrong((v20 + 40), v17);
+    objc_storeStrong((v19 + 40), v16);
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __473__USUsageQuerying__updateLocalReports_remoteReports_aggregateReports_nonIntersectingScreenTimeIntervals_intersectingScreenTimeIntervals_longestSessionByDevice_applicationUsageIntervals_unboundApplicationUsageIntervals_webUsageIntervalsByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_aggregatedWebUsageIntervalsByDevice_categoryByBundleIdentifier_categoryByWebDomain_notificationsByDevice_interval_timeZoneByDevice_lastEventDateByDevice___block_invoke_2;
-  v36[3] = &unk_279E09C78;
-  v37 = *(a1 + 120);
-  [v16 enumerateKeysAndObjectsUsingBlock:v36];
-  v21 = [*(a1 + 128) objectForKeyedSubscript:v5];
-  if (!v21)
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __473__USUsageQuerying__updateLocalReports_remoteReports_aggregateReports_nonIntersectingScreenTimeIntervals_intersectingScreenTimeIntervals_longestSessionByDevice_applicationUsageIntervals_unboundApplicationUsageIntervals_webUsageIntervalsByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_aggregatedWebUsageIntervalsByDevice_categoryByBundleIdentifier_categoryByWebDomain_notificationsByDevice_interval_timeZoneByDevice_lastEventDateByDevice___block_invoke_2;
+  v34[3] = &unk_279E09C78;
+  v35 = *(a1 + 120);
+  [v15 enumerateKeysAndObjectsUsingBlock:v34];
+  v20 = [*(a1 + 128) objectForKeyedSubscript:v5];
+  if (!v20)
   {
     __473__USUsageQuerying__updateLocalReports_remoteReports_aggregateReports_nonIntersectingScreenTimeIntervals_intersectingScreenTimeIntervals_longestSessionByDevice_applicationUsageIntervals_unboundApplicationUsageIntervals_webUsageIntervalsByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_aggregatedWebUsageIntervalsByDevice_categoryByBundleIdentifier_categoryByWebDomain_notificationsByDevice_interval_timeZoneByDevice_lastEventDateByDevice___block_invoke_cold_1(a1, (a1 + 112));
   }
 
-  v22 = *(a1 + 112);
-  v23 = [objc_opt_class() _newReportWithNonIntersectingScreenTimeIntervals:v7 pickupsByBundleIdentifier:v16 pickupsWithoutApplicationUsage:v39 firstPickup:v19 longestSession:v31 applicationUsageIntervals:v8 webUsageIntervals:v35 categoryUsageIntervals:v34 aggregatedApplicationUsageIntervals:v33 aggregatedWebUsageIntervals:v32 categoryByBundleIdentifier:*(a1 + 136) categoryByWebDomain:*(a1 + 144) notifications:v14 interval:*(a1 + 152) timeZone:v6 lastEventDate:v21];
+  v21 = [objc_opt_class() _newReportWithNonIntersectingScreenTimeIntervals:v7 pickupsByBundleIdentifier:v15 pickupsWithoutApplicationUsage:v37 firstPickup:v18 longestSession:v29 applicationUsageIntervals:v8 webUsageIntervals:v33 categoryUsageIntervals:v32 aggregatedApplicationUsageIntervals:v31 aggregatedWebUsageIntervals:v30 categoryByBundleIdentifier:*(a1 + 136) categoryByWebDomain:*(a1 + 144) notifications:v14 interval:*(a1 + 152) timeZone:v6 lastEventDate:v20];
 
   if ([v5 isEqualToString:@"LocalDevice"])
   {
-    [*(a1 + 160) addObject:v23];
+    [*(a1 + 160) addObject:v21];
   }
 
   else
   {
-    v24 = [*(a1 + 168) objectForKeyedSubscript:v5];
-    v25 = v24;
-    if (v24)
+    v22 = [*(a1 + 168) objectForKeyedSubscript:v5];
+    v23 = v22;
+    if (v22)
     {
-      [v24 addObject:v23];
+      [v22 addObject:v21];
     }
 
     else
     {
-      v28 = v8;
-      v26 = v7;
-      v27 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v23, 0}];
-      [*(a1 + 168) setObject:v27 forKeyedSubscript:v5];
+      v26 = v8;
+      v24 = v7;
+      v25 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v21, 0}];
+      [*(a1 + 168) setObject:v25 forKeyedSubscript:v5];
 
-      v7 = v26;
-      v8 = v28;
+      v7 = v24;
+      v8 = v26;
     }
   }
 
@@ -982,74 +975,74 @@ void __473__USUsageQuerying__updateLocalReports_remoteReports_aggregateReports_n
 + (id)_generatePickupsByBundleIdentifierWithPickupIntervals:(id)intervals applicationUsageIntervals:(id)usageIntervals pickupsWithoutApplicationUsage:(unint64_t *)usage firstPickup:(id *)pickup
 {
   pickupCopy = pickup;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
   usageIntervalsCopy = usageIntervals;
-  v30 = objc_opt_new();
+  v29 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = intervalsCopy;
   startDate = 0;
-  v9 = [obj countByEnumeratingWithState:&v31 objects:v48 count:16];
+  v9 = [obj countByEnumeratingWithState:&v30 objects:v47 count:16];
   if (!v9)
   {
-    v27 = 0;
+    v26 = 0;
     goto LABEL_17;
   }
 
-  v10 = *v32;
-  v27 = 0;
+  v10 = *v31;
+  v26 = 0;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v32 != v10)
+      if (*v31 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v31 + 1) + 8 * i);
+      v12 = *(*(&v30 + 1) + 8 * i);
       [v12 duration];
       v14 = v13;
       if (v13 >= 5.0)
       {
         v15 = usageIntervalsCopy;
         v16 = v12;
-        v42 = 0;
-        v43 = &v42;
-        v44 = 0x3032000000;
-        v45 = __Block_byref_object_copy__0;
-        v46 = __Block_byref_object_dispose__0;
-        v47 = 0;
-        v40[0] = 0;
-        v40[1] = v40;
-        v40[2] = 0x3032000000;
-        v40[3] = __Block_byref_object_copy__0;
-        v40[4] = __Block_byref_object_dispose__0;
         v41 = 0;
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __USTrustIdentifierKeyedNonIntersectingIntervalsGetKeyOfEarliestIntersectionWithThreshold_block_invoke;
-        v35[3] = &unk_279E0A150;
+        v42 = &v41;
+        v43 = 0x3032000000;
+        v44 = __Block_byref_object_copy__0;
+        v45 = __Block_byref_object_dispose__0;
+        v46 = 0;
+        v39[0] = 0;
+        v39[1] = v39;
+        v39[2] = 0x3032000000;
+        v39[3] = __Block_byref_object_copy__0;
+        v39[4] = __Block_byref_object_dispose__0;
+        v40 = 0;
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __USTrustIdentifierKeyedNonIntersectingIntervalsGetKeyOfEarliestIntersectionWithThreshold_block_invoke;
+        v34[3] = &unk_279E0A150;
         v17 = v16;
-        v36 = v17;
-        v37 = v40;
-        v38 = &v42;
-        v39 = 0x4014000000000000;
-        [v15 enumerateKeysAndObjectsUsingBlock:v35];
-        v18 = v43[5];
+        v35 = v17;
+        v36 = v39;
+        v37 = &v41;
+        v38 = 0x4014000000000000;
+        [v15 enumerateKeysAndObjectsUsingBlock:v34];
+        v18 = v42[5];
 
-        _Block_object_dispose(v40, 8);
-        _Block_object_dispose(&v42, 8);
+        _Block_object_dispose(v39, 8);
+        _Block_object_dispose(&v41, 8);
 
         identifier = [v18 identifier];
         if (identifier)
         {
-          v20 = [v30 objectForKeyedSubscript:identifier];
+          v20 = [v29 objectForKeyedSubscript:identifier];
           v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v20, "unsignedIntegerValue") + 1}];
-          [v30 setObject:v21 forKeyedSubscript:identifier];
+          [v29 setObject:v21 forKeyedSubscript:identifier];
 
           if (!startDate)
           {
@@ -1059,7 +1052,7 @@ void __473__USUsageQuerying__updateLocalReports_remoteReports_aggregateReports_n
 
         else if (v14 >= 9.0)
         {
-          ++v27;
+          ++v26;
           if (!startDate)
           {
 LABEL_9:
@@ -1071,24 +1064,22 @@ LABEL_9:
       }
     }
 
-    v9 = [obj countByEnumeratingWithState:&v31 objects:v48 count:16];
+    v9 = [obj countByEnumeratingWithState:&v30 objects:v47 count:16];
   }
 
   while (v9);
 LABEL_17:
 
-  *usage = v27;
+  *usage = v26;
   v22 = startDate;
   *pickupCopy = startDate;
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v29;
 }
 
 + (id)_newReportWithNonIntersectingScreenTimeIntervals:(id)intervals pickupsByBundleIdentifier:(id)identifier pickupsWithoutApplicationUsage:(unint64_t)usage firstPickup:(id)pickup longestSession:(id)session applicationUsageIntervals:(id)usageIntervals webUsageIntervals:(id)webUsageIntervals categoryUsageIntervals:(id)self0 aggregatedApplicationUsageIntervals:(id)self1 aggregatedWebUsageIntervals:(id)self2 categoryByBundleIdentifier:(id)self3 categoryByWebDomain:(id)self4 notifications:(id)self5 interval:(id)self6 timeZone:(id)self7 lastEventDate:(id)self8
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v106 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
   identifierCopy = identifier;
   pickupCopy = pickup;
@@ -1104,33 +1095,33 @@ LABEL_17:
   intervalCopy = interval;
   zoneCopy = zone;
   dateCopy = date;
-  v59 = intervalsCopy;
+  v58 = intervalsCopy;
   if (intervalsCopy)
   {
     v27 = intervalsCopy;
+    v94 = 0u;
     v95 = 0u;
     v96 = 0u;
     v97 = 0u;
-    v98 = 0u;
-    v28 = [v27 countByEnumeratingWithState:&v95 objects:&v103 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v94 objects:&v102 count:16];
     if (v28)
     {
-      v29 = *v96;
+      v29 = *v95;
       v30 = 0.0;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v96 != v29)
+          if (*v95 != v29)
           {
             objc_enumerationMutation(v27);
           }
 
-          [*(*(&v95 + 1) + 8 * i) duration];
+          [*(*(&v94 + 1) + 8 * i) duration];
           v30 = v30 + v32;
         }
 
-        v28 = [v27 countByEnumeratingWithState:&v95 objects:&v103 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v94 objects:&v102 count:16];
       }
 
       while (v28);
@@ -1148,47 +1139,47 @@ LABEL_17:
   }
 
   v33 = applicationUsageIntervalsCopy;
-  v103 = 0;
-  v104 = &v103;
-  v105 = 0x2020000000;
-  v106 = 0;
+  v102 = 0;
+  v103 = &v102;
+  v104 = 0x2020000000;
+  v105 = 0;
   v34 = objc_opt_new();
-  v91[0] = MEMORY[0x277D85DD0];
-  v91[1] = 3221225472;
-  v91[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke;
-  v91[3] = &unk_279E09CC8;
-  v94 = &v103;
+  v90[0] = MEMORY[0x277D85DD0];
+  v90[1] = 3221225472;
+  v90[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke;
+  v90[3] = &unk_279E09CC8;
+  v93 = &v102;
   v35 = bundleIdentifierCopy;
-  v92 = v35;
+  v91 = v35;
   v36 = v34;
-  v93 = v36;
-  [usageIntervalsCopy enumerateKeysAndObjectsUsingBlock:v91];
+  v92 = v36;
+  [usageIntervalsCopy enumerateKeysAndObjectsUsingBlock:v90];
   v37 = aggregatedWebUsageIntervalsCopy;
-  *&v95 = 0;
-  *(&v95 + 1) = &v95;
-  v96 = 0x2020000000uLL;
+  *&v94 = 0;
+  *(&v94 + 1) = &v94;
+  v95 = 0x2020000000uLL;
   v38 = objc_opt_new();
   v39 = objc_opt_new();
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_2;
-  v86[3] = &unk_279E09CF0;
-  v90 = &v95;
-  v62 = domainCopy;
-  v87 = v62;
+  v85[0] = MEMORY[0x277D85DD0];
+  v85[1] = 3221225472;
+  v85[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_2;
+  v85[3] = &unk_279E09CF0;
+  v89 = &v94;
+  v61 = domainCopy;
+  v86 = v61;
   v40 = v38;
-  v88 = v40;
+  v87 = v40;
   v41 = v39;
-  v89 = v41;
-  [webUsageIntervalsCopy enumerateKeysAndObjectsUsingBlock:v86];
-  if (v104[3] >= *(*(&v95 + 1) + 24))
+  v88 = v41;
+  [webUsageIntervalsCopy enumerateKeysAndObjectsUsingBlock:v85];
+  if (v103[3] >= *(*(&v94 + 1) + 24))
   {
-    v42 = v104[3];
+    v42 = v103[3];
   }
 
   else
   {
-    v42 = *(*(&v95 + 1) + 24);
+    v42 = *(*(&v94 + 1) + 24);
   }
 
   if (v30 >= v42)
@@ -1199,89 +1190,88 @@ LABEL_17:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v100 = v30;
-    v101 = 2048;
-    v102 = v42;
+    v99 = v30;
+    v100 = 2048;
+    v101 = v42;
     _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Adjusting total Screen Time usage (%f) to be at least as long as the max application or web usage (%f)", buf, 0x16u);
   }
 
   v43 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(notificationsCopy, "count")}];
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_54;
-  v83[3] = &unk_279E09D18;
-  v58 = v35;
-  v84 = v58;
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_54;
+  v82[3] = &unk_279E09D18;
+  v57 = v35;
+  v83 = v57;
   v44 = v43;
-  v85 = v44;
-  [notificationsCopy enumerateKeysAndObjectsUsingBlock:v83];
+  v84 = v44;
+  [notificationsCopy enumerateKeysAndObjectsUsingBlock:v82];
   v45 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(categoryUsageIntervalsCopy, "count")}];
-  v74[0] = MEMORY[0x277D85DD0];
-  v74[1] = 3221225472;
-  v74[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_2_56;
-  v74[3] = &unk_279E09DE0;
+  v73[0] = MEMORY[0x277D85DD0];
+  v73[1] = 3221225472;
+  v73[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_2_56;
+  v73[3] = &unk_279E09DE0;
   v46 = v40;
-  v75 = v46;
+  v74 = v46;
   v47 = v44;
-  v76 = v47;
+  v75 = v47;
   v48 = v36;
-  v77 = v48;
+  v76 = v48;
   v49 = v33;
-  v78 = v49;
+  v77 = v49;
   v50 = identifierCopy;
-  v79 = v50;
+  v78 = v50;
   v51 = v41;
-  v80 = v51;
+  v79 = v51;
   v52 = v37;
-  v81 = v52;
+  v80 = v52;
   v53 = v45;
-  v82 = v53;
-  [categoryUsageIntervalsCopy enumerateKeysAndObjectsUsingBlock:v74];
-  v72[0] = MEMORY[0x277D85DD0];
-  v72[1] = 3221225472;
-  v72[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_7;
-  v72[3] = &unk_279E09E08;
+  v81 = v53;
+  [categoryUsageIntervalsCopy enumerateKeysAndObjectsUsingBlock:v73];
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v71[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_7;
+  v71[3] = &unk_279E09E08;
   v54 = v53;
-  v73 = v54;
-  [v47 enumerateKeysAndObjectsUsingBlock:v72];
+  v72 = v54;
+  [v47 enumerateKeysAndObjectsUsingBlock:v71];
   v55 = [[USUsageReport alloc] initWithScreenTime:sessionCopy longestSession:v54 categoryUsage:usage pickupsWithoutApplicationUsage:pickupCopy firstPickup:intervalCopy interval:zoneCopy timeZone:v42 lastEventDate:dateCopy];
 
-  _Block_object_dispose(&v95, 8);
-  _Block_object_dispose(&v103, 8);
+  _Block_object_dispose(&v94, 8);
+  _Block_object_dispose(&v102, 8);
 
-  v56 = *MEMORY[0x277D85DE8];
   return v55;
 }
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
+    v9 = *v32;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v32 + 1) + 8 * i) duration];
+        [*(*(&v31 + 1) + 8 * i) duration];
         v10 = v10 + v12;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v8);
@@ -1356,39 +1346,37 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
   }
 
   [v27 setObject:v29 forKeyedSubscript:v30];
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = *v35;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v35 + 1) + 8 * i) duration];
+        [*(*(&v34 + 1) + 8 * i) duration];
         v10 = v10 + v12;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v8);
@@ -1405,7 +1393,7 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
     *(v13 + 24) = v10;
   }
 
-  v34 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
+  v33 = [MEMORY[0x277CCABB0] numberWithDouble:v10];
   v14 = [v5 identifier];
   v15 = [*(a1 + 32) objectForKeyedSubscript:v14];
   v16 = [v15 identifier];
@@ -1426,7 +1414,7 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
     v23 = [v22 objectForKeyedSubscript:v21];
     if (!v23)
     {
-      v24 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v34, v5, 0}];
+      v24 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v33, v5, 0}];
       if (!v22)
       {
         v22 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v24, v21, 0}];
@@ -1463,7 +1451,7 @@ LABEL_26:
     v23 = [v22 objectForKeyedSubscript:v21];
     if (!v23)
     {
-      v24 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v34, v5, 0}];
+      v24 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v33, v5, 0}];
       if (!v22)
       {
         v22 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v24, v21, 0}];
@@ -1477,17 +1465,15 @@ LABEL_24:
       v32 = v21;
 LABEL_27:
       [v25 setObject:v31 forKeyedSubscript:v32];
-      v30 = v34;
+      v30 = v33;
       goto LABEL_28;
     }
   }
 
   v24 = v23;
-  v30 = v34;
-  [v23 setObject:v34 forKeyedSubscript:v5];
+  v30 = v33;
+  [v23 setObject:v33 forKeyedSubscript:v5];
 LABEL_28:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_54(uint64_t a1, void *a2, void *a3)
@@ -1555,80 +1541,80 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_2_56(uint64_t a1, void *a2, void *a3)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_opt_new();
   v8 = [*(a1 + 32) objectForKeyedSubscript:v5];
   v9 = [*(a1 + 40) objectForKeyedSubscript:v5];
   v10 = [*(a1 + 48) objectForKeyedSubscript:v5];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_3;
-  v41[3] = &unk_279E09D40;
-  v42 = *(a1 + 56);
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_3;
+  v40[3] = &unk_279E09D40;
+  v41 = *(a1 + 56);
   v11 = v8;
-  v43 = v11;
+  v42 = v11;
   v12 = v9;
-  v44 = v12;
-  v45 = *(a1 + 64);
+  v43 = v12;
+  v44 = *(a1 + 64);
   v13 = v7;
-  v46 = v13;
-  v31 = v10;
-  [v10 enumerateKeysAndObjectsUsingBlock:v41];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_4;
-  v37[3] = &unk_279E09D68;
-  v38 = *(a1 + 56);
+  v45 = v13;
+  v30 = v10;
+  [v10 enumerateKeysAndObjectsUsingBlock:v40];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_4;
+  v36[3] = &unk_279E09D68;
+  v37 = *(a1 + 56);
   v14 = v12;
-  v39 = v14;
+  v38 = v14;
   v15 = v13;
-  v40 = v15;
-  v30 = v11;
-  [v11 enumerateKeysAndObjectsUsingBlock:v37];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_5;
-  v35[3] = &unk_279E09D90;
+  v39 = v15;
+  v29 = v11;
+  [v11 enumerateKeysAndObjectsUsingBlock:v36];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_5;
+  v34[3] = &unk_279E09D90;
   v16 = v15;
-  v36 = v16;
-  [v14 enumerateKeysAndObjectsUsingBlock:v35];
+  v35 = v16;
+  [v14 enumerateKeysAndObjectsUsingBlock:v34];
   v17 = objc_opt_new();
   v18 = [*(a1 + 72) objectForKeyedSubscript:v5];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_6;
-  v32[3] = &unk_279E09DB8;
-  v33 = *(a1 + 80);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_6;
+  v31[3] = &unk_279E09DB8;
+  v32 = *(a1 + 80);
   v19 = v17;
-  v34 = v19;
-  [v18 enumerateKeysAndObjectsUsingBlock:v32];
+  v33 = v19;
+  [v18 enumerateKeysAndObjectsUsingBlock:v31];
   v20 = v6;
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v21 = [v20 countByEnumeratingWithState:&v47 objects:v51 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v46 objects:v50 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v48;
+    v23 = *v47;
     v24 = 0.0;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v48 != v23)
+        if (*v47 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [*(*(&v47 + 1) + 8 * i) duration];
+        [*(*(&v46 + 1) + 8 * i) duration];
         v24 = v24 + v26;
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v46 objects:v50 count:16];
     }
 
     while (v22);
@@ -1644,39 +1630,38 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
   [v27 addObject:v28];
 
   [*(a1 + 40) setObject:0 forKeyedSubscript:v5];
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v57 objects:&v62 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v56 objects:&v61 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v58;
+    v10 = *v57;
     v11 = 0.0;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v58 != v10)
+        if (*v57 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v57 + 1) + 8 * i) duration];
+        [*(*(&v56 + 1) + 8 * i) duration];
         v11 = v11 + v13;
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v57 objects:&v62 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v56 objects:&v61 count:16];
     }
 
     while (v9);
@@ -1702,7 +1687,7 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
 
   v18 = v17;
 
-  v52 = v5;
+  v51 = v5;
   v19 = [*(a1 + 48) objectForKeyedSubscript:v5];
   v20 = v19;
   if (v19)
@@ -1715,34 +1700,34 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
     v21 = v16;
   }
 
-  v51 = v21;
+  v50 = v21;
 
   v22 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v23 = v6;
-  v24 = [v23 countByEnumeratingWithState:&v53 objects:v61 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v52 objects:v60 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v54;
+    v26 = *v53;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v54 != v26)
+        if (*v53 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [*(*(&v53 + 1) + 8 * j) identifier];
+        v28 = [*(*(&v52 + 1) + 8 * j) identifier];
         v29 = [*(a1 + 56) objectForKeyedSubscript:v28];
         [v22 setObject:v29 forKeyedSubscript:v28];
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v52 objects:v60 count:16];
     }
 
     while (v25);
@@ -1751,82 +1736,80 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
   v30 = MEMORY[0x277CBEB38];
   v31 = v23;
   v32 = [[v30 alloc] initWithCapacity:{objc_msgSend(v31, "count")}];
-  v62 = MEMORY[0x277D85DD0];
-  v63 = 3221225472;
-  v64 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
-  v65 = &unk_279E0A1F0;
-  v66 = v32;
+  v61 = MEMORY[0x277D85DD0];
+  v62 = 3221225472;
+  v63 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
+  v64 = &unk_279E0A1F0;
+  v65 = v32;
   v33 = v32;
-  v50 = v31;
-  [v31 enumerateKeysAndObjectsUsingBlock:&v62];
+  v49 = v31;
+  [v31 enumerateKeysAndObjectsUsingBlock:&v61];
 
-  v49 = [v33 copy];
+  v48 = [v33 copy];
   v34 = MEMORY[0x277CBEB38];
   v35 = v18;
   v36 = [[v34 alloc] initWithCapacity:{objc_msgSend(v35, "count")}];
-  v62 = MEMORY[0x277D85DD0];
-  v63 = 3221225472;
-  v64 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
-  v65 = &unk_279E0A1F0;
-  v66 = v36;
+  v61 = MEMORY[0x277D85DD0];
+  v62 = 3221225472;
+  v63 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
+  v64 = &unk_279E0A1F0;
+  v65 = v36;
   v37 = v36;
-  [v35 enumerateKeysAndObjectsUsingBlock:&v62];
+  [v35 enumerateKeysAndObjectsUsingBlock:&v61];
 
   v38 = [v37 copy];
   v39 = MEMORY[0x277CBEB38];
-  v40 = v51;
+  v40 = v50;
   v41 = [[v39 alloc] initWithCapacity:{objc_msgSend(v40, "count")}];
-  v62 = MEMORY[0x277D85DD0];
-  v63 = 3221225472;
-  v64 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
-  v65 = &unk_279E0A1F0;
-  v66 = v41;
+  v61 = MEMORY[0x277D85DD0];
+  v62 = 3221225472;
+  v63 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
+  v64 = &unk_279E0A1F0;
+  v65 = v41;
   v42 = v41;
-  [v40 enumerateKeysAndObjectsUsingBlock:&v62];
+  [v40 enumerateKeysAndObjectsUsingBlock:&v61];
 
   v43 = [v42 copy];
   v44 = *(a1 + 64);
   v45 = [USApplicationUsageReport alloc];
-  v46 = [v52 identifier];
-  v47 = -[USApplicationUsageReport initWithCanonicalBundleIdentifier:applicationUsageTrusted:totalUsageTime:applicationUsageByBundleIdentifier:webUsageByDomain:userNotificationsByBundleIdentifier:pickupsByBundleIdentifier:](v45, "initWithCanonicalBundleIdentifier:applicationUsageTrusted:totalUsageTime:applicationUsageByBundleIdentifier:webUsageByDomain:userNotificationsByBundleIdentifier:pickupsByBundleIdentifier:", v46, [v52 trusted], v49, v38, v43, v22, v11);
+  v46 = [v51 identifier];
+  v47 = -[USApplicationUsageReport initWithCanonicalBundleIdentifier:applicationUsageTrusted:totalUsageTime:applicationUsageByBundleIdentifier:webUsageByDomain:userNotificationsByBundleIdentifier:pickupsByBundleIdentifier:](v45, "initWithCanonicalBundleIdentifier:applicationUsageTrusted:totalUsageTime:applicationUsageByBundleIdentifier:webUsageByDomain:userNotificationsByBundleIdentifier:pickupsByBundleIdentifier:", v46, [v51 trusted], v48, v38, v43, v22, v11);
   [v44 addObject:v47];
 
-  [*(a1 + 40) setObject:0 forKeyedSubscript:v52];
-  [*(a1 + 48) setObject:0 forKeyedSubscript:v52];
-
-  v48 = *MEMORY[0x277D85DE8];
+  [*(a1 + 40) setObject:0 forKeyedSubscript:v51];
+  [*(a1 + 48) setObject:0 forKeyedSubscript:v51];
 }
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v34 objects:&v38 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v33 objects:&v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     v11 = 0.0;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v34 + 1) + 8 * i) duration];
+        [*(*(&v33 + 1) + 8 * i) duration];
         v11 = v11 + v13;
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v34 objects:&v38 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v33 objects:&v37 count:16];
     }
 
     while (v9);
@@ -1850,25 +1833,25 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
   v18 = MEMORY[0x277CBEB38];
   v19 = v6;
   v20 = [[v18 alloc] initWithCapacity:{objc_msgSend(v19, "count")}];
-  v38 = MEMORY[0x277D85DD0];
-  v39 = 3221225472;
-  v40 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
-  v41 = &unk_279E0A1F0;
-  v42 = v20;
+  v37 = MEMORY[0x277D85DD0];
+  v38 = 3221225472;
+  v39 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
+  v40 = &unk_279E0A1F0;
+  v41 = v20;
   v21 = v20;
-  [v19 enumerateKeysAndObjectsUsingBlock:&v38];
+  [v19 enumerateKeysAndObjectsUsingBlock:&v37];
 
   v22 = [v21 copy];
   v23 = MEMORY[0x277CBEB38];
   v24 = v17;
   v25 = [[v23 alloc] initWithCapacity:{objc_msgSend(v24, "count")}];
-  v38 = MEMORY[0x277D85DD0];
-  v39 = 3221225472;
-  v40 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
-  v41 = &unk_279E0A1F0;
-  v42 = v25;
+  v37 = MEMORY[0x277D85DD0];
+  v38 = 3221225472;
+  v39 = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
+  v40 = &unk_279E0A1F0;
+  v41 = v25;
   v26 = v25;
-  [v24 enumerateKeysAndObjectsUsingBlock:&v38];
+  [v24 enumerateKeysAndObjectsUsingBlock:&v37];
 
   v27 = [v26 copy];
   v28 = *(a1 + 48);
@@ -1879,7 +1862,6 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
   [v28 addObject:v32];
 
   [*(a1 + 40) setObject:0 forKeyedSubscript:v5];
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_5(uint64_t a1, void *a2, void *a3)
@@ -1908,34 +1890,34 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_6(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     v11 = 0.0;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v24 + 1) + 8 * i) duration];
+        [*(*(&v23 + 1) + 8 * i) duration];
         v11 = v11 + v13;
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
@@ -1949,13 +1931,13 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
   v14 = MEMORY[0x277CBEB38];
   v15 = v6;
   v16 = [[v14 alloc] initWithCapacity:{objc_msgSend(v15, "count")}];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
-  v28[3] = &unk_279E0A1F0;
-  v29 = v16;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __rekeyUsageByTrustIdentifierToUsageByIdentifier_block_invoke;
+  v27[3] = &unk_279E0A1F0;
+  v28 = v16;
   v17 = v16;
-  [v15 enumerateKeysAndObjectsUsingBlock:v28];
+  [v15 enumerateKeysAndObjectsUsingBlock:v27];
 
   v18 = [v17 copy];
   v19 = *(a1 + 40);
@@ -1963,8 +1945,6 @@ void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pic
   v21 = [v5 identifier];
   v22 = -[USWebUsageReport initWithDomainIdentifier:webUsageTrusted:totalUsageTime:webUsageByDomain:](v20, "initWithDomainIdentifier:webUsageTrusted:totalUsageTime:webUsageByDomain:", v21, [v5 trusted], v18, v11);
   [v19 addObject:v22];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __376__USUsageQuerying__newReportWithNonIntersectingScreenTimeIntervals_pickupsByBundleIdentifier_pickupsWithoutApplicationUsage_firstPickup_longestSession_applicationUsageIntervals_webUsageIntervals_categoryUsageIntervals_aggregatedApplicationUsageIntervals_aggregatedWebUsageIntervals_categoryByBundleIdentifier_categoryByWebDomain_notifications_interval_timeZone_lastEventDate___block_invoke_7(uint64_t a1, void *a2, void *a3)
@@ -2088,13 +2068,13 @@ LABEL_6:
 - (id)queryForApplications:(id)applications exemptApplications:(id)exemptApplications webDomains:(id)domains categories:(id)categories interval:(id)interval focalOnly:(BOOL)only error:(id *)error
 {
   onlyCopy = only;
-  v161[1] = *MEMORY[0x277D85DE8];
+  v160[1] = *MEMORY[0x277D85DE8];
   applicationsCopy = applications;
   exemptApplicationsCopy = exemptApplications;
   domainsCopy = domains;
   categoriesCopy = categories;
   intervalCopy = interval;
-  v115 = objc_opt_new();
+  v114 = objc_opt_new();
   selfCopy = self;
   duetStream = [(USUsageQuerying *)self duetStream];
   v15 = MEMORY[0x277CFE260];
@@ -2104,19 +2084,19 @@ LABEL_6:
   v19 = [v15 predicateForEventsIntersectingDateRangeFrom:startDate to:endDate];
 
   usageType = [MEMORY[0x277CFE1D0] usageType];
-  v123 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType andIntegerValue:1];
-  v125 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType];
-  v21 = [MEMORY[0x277CCA920] notPredicateWithSubpredicate:v125];
+  v122 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType andIntegerValue:1];
+  v124 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType];
+  v21 = [MEMORY[0x277CCA920] notPredicateWithSubpredicate:v124];
   v22 = MEMORY[0x277CCA920];
-  v153 = v123;
-  v154 = v21;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v153 count:2];
+  v152 = v122;
+  v153 = v21;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v152 count:2];
   v24 = [v22 orPredicateWithSubpredicates:v23];
 
   v25 = objc_alloc(MEMORY[0x277CCA920]);
-  v147 = v19;
-  v148 = v24;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v147 count:2];
+  v146 = v19;
+  v147 = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v146 count:2];
   v27 = [v25 initWithType:1 subpredicates:v26];
 
   v28 = objc_opt_new();
@@ -2124,8 +2104,8 @@ LABEL_6:
   [v28 setDeviceIDs:allDevices];
 
   appUsageStream = [MEMORY[0x277CFE298] appUsageStream];
-  v161[0] = appUsageStream;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:1];
+  v160[0] = appUsageStream;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:1];
   [v28 setEventStreams:v31];
 
   if (onlyCopy)
@@ -2140,10 +2120,10 @@ LABEL_6:
 
   [v28 setPredicate:v32];
   v33 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v159 = v33;
+  v158 = v33;
   v34 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v160 = v34;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v159 count:2];
+  v159 = v34;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v158 count:2];
 
   [v28 setSortDescriptors:v35];
   v36 = [duetStream publisherForQuery:v28];
@@ -2164,9 +2144,9 @@ LABEL_6:
   {
     v46 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType2 andIntegerValue:0];
     v47 = objc_alloc(MEMORY[0x277CCA920]);
-    v153 = v44;
-    v154 = v46;
-    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v153 count:2];
+    v152 = v44;
+    v153 = v46;
+    v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v152 count:2];
     v45 = [v47 initWithType:2 subpredicates:v48];
   }
 
@@ -2175,22 +2155,22 @@ LABEL_6:
   [v49 setDeviceIDs:allDevices2];
 
   appWebUsageStream = [MEMORY[0x277CFE298] appWebUsageStream];
-  v161[0] = appWebUsageStream;
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:1];
+  v160[0] = appWebUsageStream;
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:1];
   [v49 setEventStreams:v52];
 
   v53 = objc_alloc(MEMORY[0x277CCA920]);
-  v147 = v42;
-  v148 = v45;
-  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v147 count:2];
+  v146 = v42;
+  v147 = v45;
+  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v146 count:2];
   v55 = [v53 initWithType:1 subpredicates:v54];
   [v49 setPredicate:v55];
 
   v56 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v159 = v56;
+  v158 = v56;
   v57 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v160 = v57;
-  v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v159 count:2];
+  v159 = v57;
+  v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v158 count:2];
   [v49 setSortDescriptors:v58];
 
   v59 = [duetStream2 publisherForQuery:v49];
@@ -2204,22 +2184,22 @@ LABEL_6:
     v62 = v38;
     startDate3 = [v62 startDate];
     endDate3 = [v62 endDate];
-    v121 = [v61 predicateForEventsIntersectingDateRangeFrom:startDate3 to:endDate3];
+    v120 = [v61 predicateForEventsIntersectingDateRangeFrom:startDate3 to:endDate3];
 
     v65 = MEMORY[0x277CFE260];
     playing = [MEMORY[0x277CFE248] playing];
-    v114 = [v65 predicateForObjectsWithMetadataKey:playing andIntegerValue:1];
+    v113 = [v65 predicateForObjectsWithMetadataKey:playing andIntegerValue:1];
 
     v67 = MEMORY[0x277CFE260];
     mediaType = [MEMORY[0x277CFE248] mediaType];
-    v113 = [v67 predicateForObjectsWithMetadataKey:mediaType andStringValue:*MEMORY[0x277D27CB8]];
+    v112 = [v67 predicateForObjectsWithMetadataKey:mediaType andStringValue:*MEMORY[0x277D27CB8]];
 
     v69 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:@"com.apple.quicklook.QuickLookUIService"];
     v70 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:@"com.apple.quicklook.extension.previewUI"];
     v71 = objc_alloc(MEMORY[0x277CCA920]);
-    v147 = v69;
-    v148 = v70;
-    v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v147 count:2];
+    v146 = v69;
+    v147 = v70;
+    v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v146 count:2];
     v73 = [v71 initWithType:2 subpredicates:v72];
 
     v74 = objc_opt_new();
@@ -2227,24 +2207,24 @@ LABEL_6:
     [v74 setDeviceIDs:allDevices3];
 
     nowPlayingStream = [MEMORY[0x277CFE298] nowPlayingStream];
-    v161[0] = nowPlayingStream;
-    v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:1];
+    v160[0] = nowPlayingStream;
+    v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:1];
     [v74 setEventStreams:v77];
 
     v78 = objc_alloc(MEMORY[0x277CCA920]);
-    v153 = v121;
-    v154 = v114;
-    v155 = v113;
-    v156 = v73;
-    v79 = [MEMORY[0x277CBEA60] arrayWithObjects:&v153 count:4];
+    v152 = v120;
+    v153 = v113;
+    v154 = v112;
+    v155 = v73;
+    v79 = [MEMORY[0x277CBEA60] arrayWithObjects:&v152 count:4];
     v80 = [v78 initWithType:1 subpredicates:v79];
     [v74 setPredicate:v80];
 
     v81 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-    v159 = v81;
+    v158 = v81;
     v82 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-    v160 = v82;
-    v83 = [MEMORY[0x277CBEA60] arrayWithObjects:&v159 count:2];
+    v159 = v82;
+    v83 = [MEMORY[0x277CBEA60] arrayWithObjects:&v158 count:2];
 
     [v74 setSortDescriptors:v83];
     v84 = [duetStream3 publisherForQuery:v74];
@@ -2265,8 +2245,8 @@ LABEL_6:
   [v87 setDeviceIDs:allDevices4];
 
   appMediaUsageStream = [MEMORY[0x277CFE298] appMediaUsageStream];
-  v147 = appMediaUsageStream;
-  v90 = [MEMORY[0x277CBEA60] arrayWithObjects:&v147 count:1];
+  v146 = appMediaUsageStream;
+  v90 = [MEMORY[0x277CBEA60] arrayWithObjects:&v146 count:1];
   [v87 setEventStreams:v90];
 
   v91 = MEMORY[0x277CFE260];
@@ -2276,79 +2256,77 @@ LABEL_6:
   [v87 setPredicate:v94];
 
   v95 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v153 = v95;
+  v152 = v95;
   v96 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v154 = v96;
-  v97 = [MEMORY[0x277CBEA60] arrayWithObjects:&v153 count:2];
+  v153 = v96;
+  v97 = [MEMORY[0x277CBEA60] arrayWithObjects:&v152 count:2];
 
   [v87 setSortDescriptors:v97];
   v98 = [duetStream4 publisherForQuery:v87];
 
   collect4 = [v98 collect];
 
-  v153 = 0;
-  v154 = &v153;
-  v155 = 0x3032000000;
-  v156 = __Block_byref_object_copy__0;
-  v157 = __Block_byref_object_dispose__0;
-  v158 = 0;
-  v147 = 0;
-  v148 = &v147;
-  v149 = 0x3032000000;
-  v150 = __Block_byref_object_copy__0;
-  v151 = __Block_byref_object_dispose__0;
   v152 = 0;
+  v153 = &v152;
+  v154 = 0x3032000000;
+  v155 = __Block_byref_object_copy__0;
+  v156 = __Block_byref_object_dispose__0;
+  v157 = 0;
+  v146 = 0;
+  v147 = &v146;
+  v148 = 0x3032000000;
+  v149 = __Block_byref_object_copy__0;
+  v150 = __Block_byref_object_dispose__0;
+  v151 = 0;
   v100 = [objc_alloc(MEMORY[0x277CCA930]) initWithCondition:0];
-  v146[0] = collect2;
-  v146[1] = collect3;
-  v146[2] = collect4;
-  v101 = [MEMORY[0x277CBEA60] arrayWithObjects:v146 count:3];
+  v145[0] = collect2;
+  v145[1] = collect3;
+  v145[2] = collect4;
+  v101 = [MEMORY[0x277CBEA60] arrayWithObjects:v145 count:3];
   v102 = [collect zipWithOthers:v101];
-  v142[0] = MEMORY[0x277D85DD0];
-  v142[1] = 3221225472;
-  v142[2] = __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke;
-  v142[3] = &unk_279E09E30;
-  v143 = v100;
-  v144 = &v147;
-  v145 = 1;
-  v130[0] = MEMORY[0x277D85DD0];
-  v130[1] = 3221225472;
-  v130[2] = __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke_2;
-  v130[3] = &unk_279E09EA8;
-  v130[4] = selfCopy;
+  v141[0] = MEMORY[0x277D85DD0];
+  v141[1] = 3221225472;
+  v141[2] = __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke;
+  v141[3] = &unk_279E09E30;
+  v142 = v100;
+  v143 = &v146;
+  v144 = 1;
+  v129[0] = MEMORY[0x277D85DD0];
+  v129[1] = 3221225472;
+  v129[2] = __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke_2;
+  v129[3] = &unk_279E09EA8;
+  v129[4] = selfCopy;
   v103 = v86;
-  v131 = v103;
-  v104 = v115;
-  v132 = v104;
-  v141 = onlyCopy;
-  v129 = applicationsCopy;
-  v133 = v129;
+  v130 = v103;
+  v104 = v114;
+  v131 = v104;
+  v140 = onlyCopy;
+  v128 = applicationsCopy;
+  v132 = v128;
   v105 = exemptApplicationsCopy;
-  v134 = v105;
-  v106 = v143;
-  v135 = v106;
-  v140 = 1;
+  v133 = v105;
+  v106 = v142;
+  v134 = v106;
+  v139 = 1;
   v107 = domainsCopy;
-  v136 = v107;
+  v135 = v107;
   v108 = categoriesCopy;
-  v137 = v108;
-  v138 = &v153;
-  v139 = &v147;
-  v109 = [v102 sinkWithCompletion:v142 receiveInput:v130];
+  v136 = v108;
+  v137 = &v152;
+  v138 = &v146;
+  v109 = [v102 sinkWithCompletion:v141 receiveInput:v129];
 
   [v106 lockWhenCondition:1];
   [v106 unlock];
   if (error)
   {
-    *error = v148[5];
+    *error = v147[5];
   }
 
-  v110 = v154[5];
+  v110 = v153[5];
 
-  _Block_object_dispose(&v147, 8);
-  _Block_object_dispose(&v153, 8);
-
-  v111 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v146, 8);
+  _Block_object_dispose(&v152, 8);
 
   return v110;
 }
@@ -2390,59 +2368,58 @@ void __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_c
     }
 
     v9 = [MEMORY[0x277CF9650] sharedCategories];
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x3032000000;
-    v43 = __Block_byref_object_copy__0;
-    v44 = __Block_byref_object_dispose__0;
-    v45 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x3032000000;
+    v42 = __Block_byref_object_copy__0;
+    v43 = __Block_byref_object_dispose__0;
+    v44 = 0;
     v10 = [v8 array];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke_68;
-    v22[3] = &unk_279E09E80;
-    v36 = &v40;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke_68;
+    v21[3] = &unk_279E09E80;
+    v35 = &v39;
     v11 = *(a1 + 72);
-    v38 = *(a1 + 112);
+    v37 = *(a1 + 112);
     v12 = *(a1 + 32);
-    v23 = v11;
-    v24 = v12;
-    v25 = v5;
-    v26 = v7;
-    v27 = *(a1 + 40);
-    v28 = *(a1 + 48);
-    v39 = *(a1 + 120);
-    v29 = *(a1 + 80);
+    v22 = v11;
+    v23 = v12;
+    v24 = v5;
+    v25 = v7;
+    v26 = *(a1 + 40);
+    v27 = *(a1 + 48);
+    v38 = *(a1 + 120);
+    v28 = *(a1 + 80);
     v13 = v9;
-    v30 = v13;
-    v31 = *(a1 + 56);
-    v32 = *(a1 + 64);
-    v33 = *(a1 + 88);
-    v34 = v4;
+    v29 = v13;
+    v30 = *(a1 + 56);
+    v31 = *(a1 + 64);
+    v32 = *(a1 + 88);
+    v33 = v4;
     v14 = v6;
     v15 = *(a1 + 96);
-    v35 = v14;
-    v37 = v15;
-    [v13 categoriesForBundleIDs:v10 completionHandler:v22];
+    v34 = v14;
+    v36 = v15;
+    [v13 categoriesForBundleIDs:v10 completionHandler:v21];
 
-    v16 = v41[5];
+    v16 = v40[5];
     if (v16)
     {
       objc_storeStrong((*(*(a1 + 104) + 8) + 40), v16);
     }
 
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v39, 8);
   }
 
   else
   {
-    v17 = *(a1 + 40);
-    LOBYTE(v21) = *(a1 + 120);
-    [*(a1 + 32) _computeUsageForApplications:*(a1 + 56) exemptApplications:*(a1 + 64) webDomains:*(a1 + 80) categories:*(a1 + 88) applicationUsageEvents:v4 webUsageEvents:v5 nowPlayingEvents:v6 videoUsageEvents:v7 categoryByBundleIdentifier:0 categoryByWebDomain:0 interval:v17 referenceDate:*(a1 + 48) focalOnly:v21];
-    v18 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-    v19 = *(*(a1 + 96) + 8);
-    v20 = *(v19 + 40);
-    *(v19 + 40) = v18;
+    LOBYTE(v20) = *(a1 + 120);
+    [*(a1 + 32) _computeUsageForApplications:*(a1 + 56) exemptApplications:*(a1 + 64) webDomains:*(a1 + 80) categories:*(a1 + 88) applicationUsageEvents:v4 webUsageEvents:v5 nowPlayingEvents:v6 videoUsageEvents:v7 categoryByBundleIdentifier:0 categoryByWebDomain:0 interval:*(a1 + 40) referenceDate:*(a1 + 48) focalOnly:v20];
+    v17 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+    v18 = *(*(a1 + 96) + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
 
     [*(a1 + 72) lock];
     [*(a1 + 72) unlockWithCondition:*(a1 + 112)];
@@ -2466,44 +2443,43 @@ void __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_c
 
       v8 = *(a1 + 88);
       v9 = [v7 array];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke_69;
-      v20[3] = &unk_279E09E58;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke_69;
+      v19[3] = &unk_279E09E58;
       v10 = *(a1 + 40);
-      v33 = *(a1 + 136);
-      v20[4] = v10;
-      v21 = *(a1 + 96);
-      v22 = *(a1 + 104);
-      v23 = *(a1 + 80);
-      v24 = *(a1 + 112);
-      v25 = *(a1 + 120);
-      v26 = *(a1 + 48);
-      v27 = *(a1 + 128);
-      v28 = *(a1 + 56);
-      v29 = v5;
-      v30 = *(a1 + 64);
+      v32 = *(a1 + 136);
+      v19[4] = v10;
+      v20 = *(a1 + 96);
+      v21 = *(a1 + 104);
+      v22 = *(a1 + 80);
+      v23 = *(a1 + 112);
+      v24 = *(a1 + 120);
+      v25 = *(a1 + 48);
+      v26 = *(a1 + 128);
+      v27 = *(a1 + 56);
+      v28 = v5;
+      v29 = *(a1 + 64);
       v11 = *(a1 + 72);
-      v36 = *(a1 + 160);
+      v35 = *(a1 + 160);
       v12 = *(a1 + 144);
-      v31 = v11;
-      v34 = v12;
+      v30 = v11;
+      v33 = v12;
       v13 = *(a1 + 32);
       v14 = *(a1 + 152);
-      v32 = v13;
-      v35 = v14;
-      [v8 categoriesForDomainNames:v9 completionHandler:v20];
+      v31 = v13;
+      v34 = v14;
+      [v8 categoriesForDomainNames:v9 completionHandler:v19];
     }
 
     else
     {
-      v15 = *(a1 + 128);
-      LOBYTE(v19) = *(a1 + 160);
-      [*(a1 + 40) _computeUsageForApplications:*(a1 + 96) exemptApplications:*(a1 + 104) webDomains:*(a1 + 80) categories:*(a1 + 112) applicationUsageEvents:*(a1 + 120) webUsageEvents:*(a1 + 48) nowPlayingEvents:v15 videoUsageEvents:*(a1 + 56) categoryByBundleIdentifier:v5 categoryByWebDomain:0 interval:*(a1 + 64) referenceDate:*(a1 + 72) focalOnly:v19];
-      v16 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-      v17 = *(*(a1 + 144) + 8);
-      v18 = *(v17 + 40);
-      *(v17 + 40) = v16;
+      LOBYTE(v18) = *(a1 + 160);
+      [*(a1 + 40) _computeUsageForApplications:*(a1 + 96) exemptApplications:*(a1 + 104) webDomains:*(a1 + 80) categories:*(a1 + 112) applicationUsageEvents:*(a1 + 120) webUsageEvents:*(a1 + 48) nowPlayingEvents:*(a1 + 128) videoUsageEvents:*(a1 + 56) categoryByBundleIdentifier:v5 categoryByWebDomain:0 interval:*(a1 + 64) referenceDate:*(a1 + 72) focalOnly:v18];
+      v15 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+      v16 = *(*(a1 + 144) + 8);
+      v17 = *(v16 + 40);
+      *(v16 + 40) = v15;
 
       [*(a1 + 32) lock];
       [*(a1 + 32) unlockWithCondition:*(a1 + 152)];
@@ -2689,7 +2665,7 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
 
 - (double)_generateUsageTimeWithApplicationUsageIntervals:(id)intervals webUsageIntervalsByDevice:(id)device categoryUsageIntervalsByDevice:(id)byDevice aggregatedApplicationUsageIntervalsByDevice:(id)intervalsByDevice aggregatedWebUsageIntervalsByDevice:(id)usageIntervalsByDevice categoryByBundleIdentifier:(id)identifier categoryByWebDomain:(id)domain applications:(id)self0 webDomains:(id)self1 categories:(id)self2
 {
-  v182 = *MEMORY[0x277D85DE8];
+  v181 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
   deviceCopy = device;
   byDeviceCopy = byDevice;
@@ -2700,32 +2676,32 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
   applicationsCopy = applications;
   domainsCopy = domains;
   categoriesCopy = categories;
-  v144 = objc_opt_new();
-  v116 = applicationsCopy;
-  v140 = intervalsByDeviceCopy;
+  v143 = objc_opt_new();
+  v115 = applicationsCopy;
+  v139 = intervalsByDeviceCopy;
   if ([applicationsCopy count])
   {
-    v165 = 0u;
-    v166 = 0u;
-    v163 = 0u;
     v164 = 0u;
+    v165 = 0u;
+    v162 = 0u;
+    v163 = 0u;
     v20 = applicationsCopy;
-    v21 = [v20 countByEnumeratingWithState:&v163 objects:v175 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v162 objects:v174 count:16];
     if (v21)
     {
       v22 = v21;
       v23 = 0;
-      v24 = *v164;
+      v24 = *v163;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v164 != v24)
+          if (*v163 != v24)
           {
             objc_enumerationMutation(v20);
           }
 
-          v26 = [identifierCopy objectForKeyedSubscript:*(*(&v163 + 1) + 8 * i)];
+          v26 = [identifierCopy objectForKeyedSubscript:*(*(&v162 + 1) + 8 * i)];
           equivalentBundleIdentifiers = [v26 equivalentBundleIdentifiers];
 
           if ([equivalentBundleIdentifiers count] >= 2)
@@ -2739,7 +2715,7 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v163 objects:v175 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v162 objects:v174 count:16];
       }
 
       while (v22);
@@ -2750,7 +2726,7 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
       v23 = 0;
     }
 
-    if (!v140)
+    if (!v139)
     {
       [USUsageQuerying _generateUsageTimeWithApplicationUsageIntervals:a2 webUsageIntervalsByDevice:self categoryUsageIntervalsByDevice:? aggregatedApplicationUsageIntervalsByDevice:? aggregatedWebUsageIntervalsByDevice:? categoryByBundleIdentifier:? categoryByWebDomain:? applications:? webDomains:? categories:?];
     }
@@ -2767,26 +2743,26 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
 
     v29 = v28;
     v30 = objc_opt_new();
+    v158 = 0u;
     v159 = 0u;
     v160 = 0u;
     v161 = 0u;
-    v162 = 0u;
     v31 = v29;
-    v32 = [v31 countByEnumeratingWithState:&v159 objects:v174 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v158 objects:v173 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v160;
+      v34 = *v159;
       do
       {
         for (j = 0; j != v33; ++j)
         {
-          if (*v160 != v34)
+          if (*v159 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v36 = *(*(&v159 + 1) + 8 * j);
+          v36 = *(*(&v158 + 1) + 8 * j);
           v37 = [USTrustIdentifier identifierWithIdentifier:v36 trusted:1];
           [v30 addObject:v37];
 
@@ -2794,67 +2770,67 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
           [v30 addObject:v38];
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v159 objects:v174 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v158 objects:v173 count:16];
       }
 
       while (v33);
     }
 
-    v39 = v144;
+    v39 = v143;
     v40 = v30;
-    v41 = [v140 objectForKeyedSubscript:@"AllDevices"];
-    v176 = MEMORY[0x277D85DD0];
-    v177 = 3221225472;
-    v178 = __unionIntervalsWithUsageTrustIntervalsByDeviceFilteredByItems_block_invoke;
-    v179 = &unk_279E0A1A0;
-    v180 = v40;
-    v181 = v39;
+    v41 = [v139 objectForKeyedSubscript:@"AllDevices"];
+    v175 = MEMORY[0x277D85DD0];
+    v176 = 3221225472;
+    v177 = __unionIntervalsWithUsageTrustIntervalsByDeviceFilteredByItems_block_invoke;
+    v178 = &unk_279E0A1A0;
+    v179 = v40;
+    v180 = v39;
     v42 = v40;
     v43 = v39;
-    [v41 enumerateKeysAndObjectsUsingBlock:&v176];
+    [v41 enumerateKeysAndObjectsUsingBlock:&v175];
 
-    intervalsByDeviceCopy = v140;
+    intervalsByDeviceCopy = v139;
   }
 
-  v124 = [intervalsByDeviceCopy objectForKeyedSubscript:@"AllDevices"];
-  v122 = [usageIntervalsByDeviceCopy objectForKeyedSubscript:@"AllDevices"];
-  v121 = [deviceCopy objectForKeyedSubscript:@"AllDevices"];
+  v123 = [intervalsByDeviceCopy objectForKeyedSubscript:@"AllDevices"];
+  v121 = [usageIntervalsByDeviceCopy objectForKeyedSubscript:@"AllDevices"];
+  v120 = [deviceCopy objectForKeyedSubscript:@"AllDevices"];
+  v154 = 0u;
   v155 = 0u;
   v156 = 0u;
   v157 = 0u;
-  v158 = 0u;
   obj = domainsCopy;
   v44 = 0x279E09000uLL;
-  v128 = [obj countByEnumeratingWithState:&v155 objects:v173 count:16];
-  if (v128)
+  v127 = [obj countByEnumeratingWithState:&v154 objects:v172 count:16];
+  if (v127)
   {
-    v126 = *v156;
+    v125 = *v155;
     do
     {
       v45 = 0;
       do
       {
-        if (*v156 != v126)
+        if (*v155 != v125)
         {
           v46 = v45;
           objc_enumerationMutation(obj);
           v45 = v46;
         }
 
-        v130 = v45;
-        v47 = *(*(&v155 + 1) + 8 * v45);
+        v129 = v45;
+        v47 = *(*(&v154 + 1) + 8 * v45);
         v48 = [domainCopy objectForKeyedSubscript:v47];
         canonicalBundleIdentifier = [v48 canonicalBundleIdentifier];
-        v129 = canonicalBundleIdentifier;
+        v128 = canonicalBundleIdentifier;
         if (canonicalBundleIdentifier)
         {
           v50 = canonicalBundleIdentifier;
           [*(v44 + 1408) identifierWithIdentifier:canonicalBundleIdentifier trusted:1];
           v52 = v51 = v44;
-          v53 = [v124 objectForKeyedSubscript:v52];
+          v53 = [v123 objectForKeyedSubscript:v52];
 
           v54 = [*(v51 + 1408) identifierWithIdentifier:v50 trusted:0];
-          v131 = [v124 objectForKeyedSubscript:v54];
+          v130 = [v123 objectForKeyedSubscript:v54];
         }
 
         else
@@ -2865,69 +2841,69 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
           if (v54)
           {
             v57 = [v56 identifierWithIdentifier:v54 trusted:1];
-            v53 = [v122 objectForKeyedSubscript:v57];
+            v53 = [v121 objectForKeyedSubscript:v57];
 
             v58 = [*(v55 + 1408) identifierWithIdentifier:v54 trusted:0];
-            v59 = v122;
+            v59 = v121;
           }
 
           else
           {
             v60 = [v56 identifierWithIdentifier:v47 trusted:1];
-            v53 = [v121 objectForKeyedSubscript:v60];
+            v53 = [v120 objectForKeyedSubscript:v60];
 
             v58 = [*(v55 + 1408) identifierWithIdentifier:v47 trusted:0];
-            v59 = v121;
+            v59 = v120;
           }
 
-          v131 = [v59 objectForKeyedSubscript:v58];
+          v130 = [v59 objectForKeyedSubscript:v58];
         }
 
-        v153 = 0u;
-        v154 = 0u;
-        v151 = 0u;
         v152 = 0u;
-        v133 = v53;
-        v141 = v48;
-        v136 = [v133 countByEnumeratingWithState:&v151 objects:v172 count:16];
-        if (v136)
+        v153 = 0u;
+        v150 = 0u;
+        v151 = 0u;
+        v132 = v53;
+        v140 = v48;
+        v135 = [v132 countByEnumeratingWithState:&v150 objects:v171 count:16];
+        if (v135)
         {
-          v134 = *v152;
+          v133 = *v151;
           do
           {
             v61 = 0;
             do
             {
-              if (*v152 != v134)
+              if (*v151 != v133)
               {
-                objc_enumerationMutation(v133);
+                objc_enumerationMutation(v132);
               }
 
-              v142 = v61;
-              v62 = *(*(&v151 + 1) + 8 * v61);
-              v63 = v144;
+              v141 = v61;
+              v62 = *(*(&v150 + 1) + 8 * v61);
+              v63 = v143;
               v64 = v62;
+              v166 = 0u;
               v167 = 0u;
               v168 = 0u;
               v169 = 0u;
-              v170 = 0u;
-              v65 = [v63 countByEnumeratingWithState:&v167 objects:&v176 count:16];
+              v65 = [v63 countByEnumeratingWithState:&v166 objects:&v175 count:16];
               if (v65)
               {
                 v66 = v65;
-                v145 = 0;
-                v67 = *v168;
-                v138 = v64;
+                v144 = 0;
+                v67 = *v167;
+                v137 = v64;
                 do
                 {
                   for (k = 0; k != v66; ++k)
                   {
-                    if (*v168 != v67)
+                    if (*v167 != v67)
                     {
                       objc_enumerationMutation(v63);
                     }
 
-                    v69 = *(*(&v167 + 1) + 8 * k);
+                    v69 = *(*(&v166 + 1) + 8 * k);
                     if ([v69 intersectsDateInterval:v64])
                     {
                       v70 = v63;
@@ -2940,14 +2916,14 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
                       v76 = [endDate laterDate:endDate2];
 
                       v77 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v73 endDate:v76];
-                      if (v145)
+                      if (v144)
                       {
-                        [v145 addObject:v69];
+                        [v144 addObject:v69];
                       }
 
                       else
                       {
-                        v145 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v69, 0}];
+                        v144 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v69, 0}];
                       }
 
                       v64 = v77;
@@ -2955,19 +2931,19 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
                     }
                   }
 
-                  v66 = [v63 countByEnumeratingWithState:&v167 objects:&v176 count:16];
+                  v66 = [v63 countByEnumeratingWithState:&v166 objects:&v175 count:16];
                 }
 
                 while (v66);
-                v48 = v141;
-                v78 = v145;
-                if (v145)
+                v48 = v140;
+                v78 = v144;
+                if (v144)
                 {
-                  [v63 removeObjectsInArray:v145];
+                  [v63 removeObjectsInArray:v144];
                 }
 
-                v79 = v138;
-                intervalsByDeviceCopy = v140;
+                v79 = v137;
+                intervalsByDeviceCopy = v139;
               }
 
               else
@@ -2978,61 +2954,61 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
 
               [v63 addObject:v64];
 
-              v61 = v142 + 1;
+              v61 = v141 + 1;
             }
 
-            while (v142 + 1 != v136);
-            v136 = [v133 countByEnumeratingWithState:&v151 objects:v172 count:16];
+            while (v141 + 1 != v135);
+            v135 = [v132 countByEnumeratingWithState:&v150 objects:v171 count:16];
           }
 
-          while (v136);
+          while (v135);
         }
 
-        v149 = 0u;
-        v150 = 0u;
-        v147 = 0u;
         v148 = 0u;
-        v132 = v131;
-        v137 = [v132 countByEnumeratingWithState:&v147 objects:v171 count:16];
-        if (v137)
+        v149 = 0u;
+        v146 = 0u;
+        v147 = 0u;
+        v131 = v130;
+        v136 = [v131 countByEnumeratingWithState:&v146 objects:v170 count:16];
+        if (v136)
         {
-          v135 = *v148;
+          v134 = *v147;
           do
           {
-            for (m = 0; m != v137; ++m)
+            for (m = 0; m != v136; ++m)
             {
-              if (*v148 != v135)
+              if (*v147 != v134)
               {
-                objc_enumerationMutation(v132);
+                objc_enumerationMutation(v131);
               }
 
-              v81 = *(*(&v147 + 1) + 8 * m);
-              v82 = v144;
+              v81 = *(*(&v146 + 1) + 8 * m);
+              v82 = v143;
               v83 = v81;
+              v166 = 0u;
               v167 = 0u;
               v168 = 0u;
               v169 = 0u;
-              v170 = 0u;
-              v84 = [v82 countByEnumeratingWithState:&v167 objects:&v176 count:16];
+              v84 = [v82 countByEnumeratingWithState:&v166 objects:&v175 count:16];
               if (v84)
               {
                 v85 = v84;
-                v143 = m;
+                v142 = m;
                 v86 = 0;
-                v87 = *v168;
-                v139 = v83;
+                v87 = *v167;
+                v138 = v83;
                 do
                 {
                   v88 = 0;
-                  v146 = v85;
+                  v145 = v85;
                   do
                   {
-                    if (*v168 != v87)
+                    if (*v167 != v87)
                     {
                       objc_enumerationMutation(v82);
                     }
 
-                    v89 = *(*(&v167 + 1) + 8 * v88);
+                    v89 = *(*(&v166 + 1) + 8 * v88);
                     if ([v89 intersectsDateInterval:v83])
                     {
                       v90 = v82;
@@ -3057,14 +3033,14 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
 
                       v83 = v97;
                       v82 = v90;
-                      v85 = v146;
+                      v85 = v145;
                     }
 
                     ++v88;
                   }
 
                   while (v85 != v88);
-                  v85 = [v82 countByEnumeratingWithState:&v167 objects:&v176 count:16];
+                  v85 = [v82 countByEnumeratingWithState:&v166 objects:&v175 count:16];
                 }
 
                 while (v85);
@@ -3073,9 +3049,9 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
                   [v82 removeObjectsInArray:v86];
                 }
 
-                v98 = v139;
-                intervalsByDeviceCopy = v140;
-                m = v143;
+                v98 = v138;
+                intervalsByDeviceCopy = v139;
+                m = v142;
               }
 
               else
@@ -3086,24 +3062,24 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
 
               [v82 addObject:v83];
 
-              v48 = v141;
+              v48 = v140;
             }
 
-            v137 = [v132 countByEnumeratingWithState:&v147 objects:v171 count:16];
+            v136 = [v131 countByEnumeratingWithState:&v146 objects:v170 count:16];
           }
 
-          while (v137);
+          while (v136);
         }
 
-        v45 = v130 + 1;
+        v45 = v129 + 1;
         v44 = 0x279E09000;
       }
 
-      while (v130 + 1 != v128);
-      v128 = [obj countByEnumeratingWithState:&v155 objects:v173 count:16];
+      while (v129 + 1 != v127);
+      v127 = [obj countByEnumeratingWithState:&v154 objects:v172 count:16];
     }
 
-    while (v128);
+    while (v127);
   }
 
   if ([categoriesCopy count])
@@ -3113,45 +3089,45 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
       [USUsageQuerying _generateUsageTimeWithApplicationUsageIntervals:a2 webUsageIntervalsByDevice:self categoryUsageIntervalsByDevice:? aggregatedApplicationUsageIntervalsByDevice:? aggregatedWebUsageIntervalsByDevice:? categoryByBundleIdentifier:? categoryByWebDomain:? applications:? webDomains:? categories:?];
     }
 
-    v99 = v144;
+    v99 = v143;
     v100 = categoriesCopy;
     v101 = [byDeviceCopy objectForKeyedSubscript:@"AllDevices"];
-    v176 = MEMORY[0x277D85DD0];
-    v177 = 3221225472;
-    v178 = __unionIntervalsWithUsageIntervalsByDeviceFilteredByItems_block_invoke;
-    v179 = &unk_279E0A178;
-    v180 = v100;
-    v181 = v99;
+    v175 = MEMORY[0x277D85DD0];
+    v176 = 3221225472;
+    v177 = __unionIntervalsWithUsageIntervalsByDeviceFilteredByItems_block_invoke;
+    v178 = &unk_279E0A178;
+    v179 = v100;
+    v180 = v99;
     v102 = v100;
     v103 = v99;
-    [v101 enumerateKeysAndObjectsUsingBlock:&v176];
+    [v101 enumerateKeysAndObjectsUsingBlock:&v175];
   }
 
-  v104 = v144;
+  v104 = v143;
+  v166 = 0u;
   v167 = 0u;
   v168 = 0u;
   v169 = 0u;
-  v170 = 0u;
-  v105 = [v104 countByEnumeratingWithState:&v167 objects:&v176 count:16];
+  v105 = [v104 countByEnumeratingWithState:&v166 objects:&v175 count:16];
   if (v105)
   {
     v106 = v105;
-    v107 = *v168;
+    v107 = *v167;
     v108 = 0.0;
     do
     {
       for (n = 0; n != v106; ++n)
       {
-        if (*v168 != v107)
+        if (*v167 != v107)
         {
           objc_enumerationMutation(v104);
         }
 
-        [*(*(&v167 + 1) + 8 * n) duration];
+        [*(*(&v166 + 1) + 8 * n) duration];
         v108 = v108 + v110;
       }
 
-      v106 = [v104 countByEnumeratingWithState:&v167 objects:&v176 count:16];
+      v106 = [v104 countByEnumeratingWithState:&v166 objects:&v175 count:16];
     }
 
     while (v106);
@@ -3162,30 +3138,29 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
     v108 = 0.0;
   }
 
-  v111 = *MEMORY[0x277D85DE8];
   return v108;
 }
 
 - (void)queryForUncategorizedLocalWebUsageDuringInterval:(id)interval completionHandler:(id)handler
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   handlerCopy = handler;
-  v38 = objc_opt_new();
+  v37 = objc_opt_new();
   duetStream = [(USUsageQuerying *)self duetStream];
   v7 = MEMORY[0x277CFE260];
   v8 = intervalCopy;
   startDate = [v8 startDate];
   endDate = [v8 endDate];
-  v34 = [v7 predicateForEventsIntersectingDateRangeFrom:startDate to:endDate];
+  v33 = [v7 predicateForEventsIntersectingDateRangeFrom:startDate to:endDate];
 
   usageType = [MEMORY[0x277CFE1D0] usageType];
   v12 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType andIntegerValue:1];
   v13 = [MEMORY[0x277CFE260] predicateForObjectsWithMetadataKey:usageType andIntegerValue:0];
   v14 = objc_alloc(MEMORY[0x277CCA920]);
-  v48[0] = v12;
-  v48[1] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+  v47[0] = v12;
+  v47[1] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
   v16 = [v14 initWithType:2 subpredicates:v15];
 
   v17 = objc_opt_new();
@@ -3193,47 +3168,45 @@ void __98__USUsageQuerying__calculateAllExemptWebDomainsFromExemptApplications_c
   [v17 setDeviceIDs:onlyLocalDevice];
 
   appWebUsageStream = [MEMORY[0x277CFE298] appWebUsageStream];
-  v47 = appWebUsageStream;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+  v46 = appWebUsageStream;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
   [v17 setEventStreams:v20];
 
   v21 = objc_alloc(MEMORY[0x277CCA920]);
-  v46[0] = v34;
-  v46[1] = v16;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v45[0] = v33;
+  v45[1] = v16;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
   v23 = [v21 initWithType:1 subpredicates:v22];
   [v17 setPredicate:v23];
 
   v24 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v45[0] = v24;
+  v44[0] = v24;
   v25 = [MEMORY[0x277CFE260] endDateSortDescriptorAscending:1];
-  v45[1] = v25;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+  v44[1] = v25;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
 
   [v17 setSortDescriptors:v26];
   v27 = [duetStream publisherForQuery:v17];
 
   collect = [v27 collect];
 
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __86__USUsageQuerying_queryForUncategorizedLocalWebUsageDuringInterval_completionHandler___block_invoke;
-  v43[3] = &unk_279E09C00;
-  v44 = handlerCopy;
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __86__USUsageQuerying_queryForUncategorizedLocalWebUsageDuringInterval_completionHandler___block_invoke_2;
-  v39[3] = &unk_279E09F20;
-  v39[4] = self;
-  v40 = v8;
-  v41 = v38;
-  v42 = v44;
-  v29 = v44;
-  v30 = v38;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __86__USUsageQuerying_queryForUncategorizedLocalWebUsageDuringInterval_completionHandler___block_invoke;
+  v42[3] = &unk_279E09C00;
+  v43 = handlerCopy;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __86__USUsageQuerying_queryForUncategorizedLocalWebUsageDuringInterval_completionHandler___block_invoke_2;
+  v38[3] = &unk_279E09F20;
+  v38[4] = self;
+  v39 = v8;
+  v40 = v37;
+  v41 = v43;
+  v29 = v43;
+  v30 = v37;
   v31 = v8;
-  v32 = [collect sinkWithCompletion:v43 receiveInput:v39];
-
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = [collect sinkWithCompletion:v42 receiveInput:v38];
 }
 
 void __86__USUsageQuerying_queryForUncategorizedLocalWebUsageDuringInterval_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3525,7 +3498,7 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
 
 - (void)_updateScreenTimeWithInterval:(id)interval rawInterval:(id)rawInterval deviceIdentifier:(id)identifier partition:(id)partition event:(id)event nonIntersectingScreenTimeIntervalsByDevice:(id)device intersectingScreenTimeIntervalsByDevice:(id)byDevice longestSessionByDevice:(id)self0 timeZoneByDevice:(id)self1 lastEventDateByDevice:(id)self2
 {
-  v116 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   rawIntervalCopy = rawInterval;
   identifierCopy = identifier;
@@ -3536,39 +3509,39 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
   sessionByDeviceCopy = sessionByDevice;
   zoneByDeviceCopy = zoneByDevice;
   dateByDeviceCopy = dateByDevice;
-  v108 = deviceCopy;
+  v107 = deviceCopy;
   if (deviceCopy)
   {
     v20 = intervalCopy;
     v21 = [deviceCopy objectForKeyedSubscript:identifierCopy];
-    v99 = identifierCopy;
-    v100 = intervalCopy;
+    v98 = identifierCopy;
+    v99 = intervalCopy;
     if (v21)
     {
       v22 = v21;
       v23 = v20;
+      v110 = 0u;
       v111 = 0u;
       v112 = 0u;
       v113 = 0u;
-      v114 = 0u;
-      v24 = [v22 countByEnumeratingWithState:&v111 objects:v115 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v110 objects:v114 count:16];
       if (v24)
       {
         v25 = v24;
-        v97 = v20;
+        v96 = v20;
         v26 = 0;
-        v27 = *v112;
-        v109 = *v112;
+        v27 = *v111;
+        v108 = *v111;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v112 != v27)
+            if (*v111 != v27)
             {
               objc_enumerationMutation(v22);
             }
 
-            v29 = *(*(&v111 + 1) + 8 * i);
+            v29 = *(*(&v110 + 1) + 8 * i);
             if ([v29 intersectsDateInterval:v23])
             {
               v30 = v22;
@@ -3596,11 +3569,11 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
 
               v23 = v38;
               v22 = v30;
-              v27 = v109;
+              v27 = v108;
             }
           }
 
-          v25 = [v22 countByEnumeratingWithState:&v111 objects:v115 count:16];
+          v25 = [v22 countByEnumeratingWithState:&v110 objects:v114 count:16];
         }
 
         while (v25);
@@ -3609,8 +3582,8 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
           [v22 removeObjectsInArray:v26];
         }
 
-        deviceCopy = v108;
-        v20 = v97;
+        deviceCopy = v107;
+        v20 = v96;
       }
 
       else
@@ -3620,8 +3593,8 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
 
       [v22 addObject:v23];
 
-      identifierCopy = v99;
-      intervalCopy = v100;
+      identifierCopy = v98;
+      intervalCopy = v99;
     }
 
     else
@@ -3635,30 +3608,30 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
     v41 = [v39 objectForKeyedSubscript:@"AllDevices"];
     if (v41)
     {
-      v98 = v39;
+      v97 = v39;
       v42 = v41;
-      v96 = v40;
+      v95 = v40;
       v43 = v40;
+      v110 = 0u;
       v111 = 0u;
       v112 = 0u;
       v113 = 0u;
-      v114 = 0u;
-      v44 = [v42 countByEnumeratingWithState:&v111 objects:v115 count:16];
+      v44 = [v42 countByEnumeratingWithState:&v110 objects:v114 count:16];
       if (v44)
       {
         v45 = v44;
-        v110 = 0;
-        v46 = *v112;
+        v109 = 0;
+        v46 = *v111;
         do
         {
           for (j = 0; j != v45; ++j)
           {
-            if (*v112 != v46)
+            if (*v111 != v46)
             {
               objc_enumerationMutation(v42);
             }
 
-            v48 = *(*(&v111 + 1) + 8 * j);
+            v48 = *(*(&v110 + 1) + 8 * j);
             if ([v48 intersectsDateInterval:v43])
             {
               v49 = v42;
@@ -3671,14 +3644,14 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
               v55 = [endDate2 laterDate:endDate3];
 
               v56 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v52 endDate:v55];
-              if (v110)
+              if (v109)
               {
-                [v110 addObject:v48];
+                [v109 addObject:v48];
               }
 
               else
               {
-                v110 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v48, 0}];
+                v109 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v48, 0}];
               }
 
               v43 = v56;
@@ -3686,18 +3659,18 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
             }
           }
 
-          v45 = [v42 countByEnumeratingWithState:&v111 objects:v115 count:16];
+          v45 = [v42 countByEnumeratingWithState:&v110 objects:v114 count:16];
         }
 
         while (v45);
-        v57 = v110;
-        if (v110)
+        v57 = v109;
+        if (v109)
         {
-          [v42 removeObjectsInArray:v110];
+          [v42 removeObjectsInArray:v109];
         }
 
-        identifierCopy = v99;
-        deviceCopy = v108;
+        identifierCopy = v98;
+        deviceCopy = v107;
       }
 
       else
@@ -3707,9 +3680,9 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
 
       [v42 addObject:v43];
 
-      intervalCopy = v100;
-      v40 = v96;
-      v39 = v98;
+      intervalCopy = v99;
+      v40 = v95;
+      v39 = v97;
     }
 
     else
@@ -3726,7 +3699,7 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
     startDate5 = [rawIntervalCopy startDate];
     v61 = [partitionCopy containsDate:startDate5];
 
-    deviceCopy = v108;
+    deviceCopy = v107;
     if (v61)
     {
       v62 = [byDeviceCopy objectForKeyedSubscript:identifierCopy];
@@ -3742,7 +3715,7 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
         [byDeviceCopy setObject:v63 forKeyedSubscript:identifierCopy];
       }
 
-      deviceCopy = v108;
+      deviceCopy = v107;
     }
   }
 
@@ -3763,7 +3736,7 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
     [v69 duration];
     v71 = v70;
 
-    deviceCopy = v108;
+    deviceCopy = v107;
     if (v65 > v71)
     {
       [sessionByDeviceCopy setObject:rawIntervalCopy forKeyedSubscript:@"AllDevices"];
@@ -3834,12 +3807,10 @@ void __175__USUsageQuerying__computeScreenTime_withEvents_intersectingScreenTime
     }
 
     identifierCopy = v77;
-    deviceCopy = v108;
+    deviceCopy = v107;
     v58 = sessionByDeviceCopy;
     v59 = byDeviceCopy;
   }
-
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_currentScreenTimeIntervalDuringInterval:(id)interval usageStartDate:(id *)date referenceDate:(id)referenceDate
@@ -3907,33 +3878,33 @@ LABEL_13:
 - (id)_getBundleIdentiersFromApplicationUsageEvents:(id)events videoUsageEvents:(id)usageEvents interval:(id)interval referenceDate:(id)date focalOnly:(BOOL)only
 {
   onlyCopy = only;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   usageEventsCopy = usageEvents;
   intervalCopy = interval;
   dateCopy = date;
   v12 = objc_opt_new();
   appBundleID = [MEMORY[0x277CFE158] appBundleID];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v14 = eventsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v49 objects:v54 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v48 objects:v53 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v50;
+    v17 = *v49;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v50 != v17)
+        if (*v49 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v49 + 1) + 8 * i);
+        v19 = *(*(&v48 + 1) + 8 * i);
         metadata = [v19 metadata];
         v21 = [metadata objectForKeyedSubscript:appBundleID];
 
@@ -3951,61 +3922,60 @@ LABEL_13:
         [v12 addObject:stringValue];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
     while (v16);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v24 = usageEventsCopy;
-  v25 = [v24 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v46;
+    v27 = *v45;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v46 != v27)
+        if (*v45 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        value2 = [*(*(&v45 + 1) + 8 * j) value];
+        value2 = [*(*(&v44 + 1) + 8 * j) value];
         stringValue2 = [value2 stringValue];
 
         [v12 addObject:stringValue2];
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v26);
   }
 
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __115__USUsageQuerying__getBundleIdentiersFromApplicationUsageEvents_videoUsageEvents_interval_referenceDate_focalOnly___block_invoke;
-  v43[3] = &unk_279E09F98;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __115__USUsageQuerying__getBundleIdentiersFromApplicationUsageEvents_videoUsageEvents_interval_referenceDate_focalOnly___block_invoke;
+  v42[3] = &unk_279E09F98;
   v31 = v12;
-  v44 = v31;
-  [(USUsageQuerying *)self _enumerateCurrentApplicationUsageIntervalsDuringInterval:intervalCopy exemptApplications:0 referenceDate:dateCopy focalOnly:onlyCopy block:v43];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __115__USUsageQuerying__getBundleIdentiersFromApplicationUsageEvents_videoUsageEvents_interval_referenceDate_focalOnly___block_invoke_2;
-  v41[3] = &unk_279E09FC0;
+  v43 = v31;
+  [(USUsageQuerying *)self _enumerateCurrentApplicationUsageIntervalsDuringInterval:intervalCopy exemptApplications:0 referenceDate:dateCopy focalOnly:onlyCopy block:v42];
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __115__USUsageQuerying__getBundleIdentiersFromApplicationUsageEvents_videoUsageEvents_interval_referenceDate_focalOnly___block_invoke_2;
+  v40[3] = &unk_279E09FC0;
   v32 = v31;
-  v42 = v32;
-  [(USUsageQuerying *)self _enumerateCurrentVideoUsageIntervalsDuringInterval:intervalCopy exemptApplications:0 exemptWebDomains:0 referenceDate:dateCopy block:v41];
-  v33 = v42;
+  v41 = v32;
+  [(USUsageQuerying *)self _enumerateCurrentVideoUsageIntervalsDuringInterval:intervalCopy exemptApplications:0 exemptWebDomains:0 referenceDate:dateCopy block:v40];
+  v33 = v41;
   v34 = v32;
 
-  v35 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -4226,7 +4196,6 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
       v31 = *(a1 + 64);
       v32 = [v30 BOOLValue];
 
-      v33 = *(a1 + 88);
       [v31 _updateApplicationUsageWithInterval:v11 unboundInterval:v15 bundleIdentifier:v23 trustedApplicationUsage:v32 deviceIdentifier:v20 event:v3 applicationUsageIntervalsByDevice:*(a1 + 72) unboundApplicationUsageIntervalsByDevice:*(a1 + 80) categoryUsageIntervalsByDevice:*(a1 + 88) aggregatedApplicationUsageIntervalsByDevice:*(a1 + 96) categoryByBundleIdentifier:*(a1 + 104) timeZoneByDevice:*(a1 + 112) lastEventDateByDevice:*(a1 + 120)];
     }
   }
@@ -4238,10 +4207,9 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
   v10 = a4;
   v11 = a3;
   v12 = a2;
-  v14 = [[v9 alloc] initWithStartDate:v11 endDate:*(a1 + 32)];
+  v13 = [[v9 alloc] initWithStartDate:v11 endDate:*(a1 + 32)];
 
-  v13 = *(a1 + 64);
-  [*(a1 + 40) _updateApplicationUsageWithInterval:v12 unboundInterval:v14 bundleIdentifier:v10 trustedApplicationUsage:a5 deviceIdentifier:@"LocalDevice" event:0 applicationUsageIntervalsByDevice:*(a1 + 48) unboundApplicationUsageIntervalsByDevice:*(a1 + 56) categoryUsageIntervalsByDevice:*(a1 + 64) aggregatedApplicationUsageIntervalsByDevice:*(a1 + 72) categoryByBundleIdentifier:*(a1 + 80) timeZoneByDevice:*(a1 + 88) lastEventDateByDevice:*(a1 + 96)];
+  [*(a1 + 40) _updateApplicationUsageWithInterval:v12 unboundInterval:v13 bundleIdentifier:v10 trustedApplicationUsage:a5 deviceIdentifier:@"LocalDevice" event:0 applicationUsageIntervalsByDevice:*(a1 + 48) unboundApplicationUsageIntervalsByDevice:*(a1 + 56) categoryUsageIntervalsByDevice:*(a1 + 64) aggregatedApplicationUsageIntervalsByDevice:*(a1 + 72) categoryByBundleIdentifier:*(a1 + 80) timeZoneByDevice:*(a1 + 88) lastEventDateByDevice:*(a1 + 96)];
 }
 
 void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplications_exemptWebDomains_unboundApplicationUsageIntervalsByDevice_timeZoneByDevice_lastEventDateByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_categoryByBundleIdentifier_partition_referenceDate_focalOnly___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
@@ -4252,17 +4220,1046 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
     v11 = a4;
     v12 = a3;
     v13 = a2;
-    v15 = [[v10 alloc] initWithStartDate:v12 endDate:*(a1 + 32)];
+    v14 = [[v10 alloc] initWithStartDate:v12 endDate:*(a1 + 32)];
 
-    v14 = *(a1 + 64);
-    [*(a1 + 40) _updateApplicationUsageWithInterval:v13 unboundInterval:v15 bundleIdentifier:v11 trustedApplicationUsage:a6 deviceIdentifier:@"LocalDevice" event:0 applicationUsageIntervalsByDevice:*(a1 + 48) unboundApplicationUsageIntervalsByDevice:*(a1 + 56) categoryUsageIntervalsByDevice:*(a1 + 64) aggregatedApplicationUsageIntervalsByDevice:*(a1 + 72) categoryByBundleIdentifier:*(a1 + 80) timeZoneByDevice:*(a1 + 88) lastEventDateByDevice:*(a1 + 96)];
+    [*(a1 + 40) _updateApplicationUsageWithInterval:v13 unboundInterval:v14 bundleIdentifier:v11 trustedApplicationUsage:a6 deviceIdentifier:@"LocalDevice" event:0 applicationUsageIntervalsByDevice:*(a1 + 48) unboundApplicationUsageIntervalsByDevice:*(a1 + 56) categoryUsageIntervalsByDevice:*(a1 + 64) aggregatedApplicationUsageIntervalsByDevice:*(a1 + 72) categoryByBundleIdentifier:*(a1 + 80) timeZoneByDevice:*(a1 + 88) lastEventDateByDevice:*(a1 + 96)];
+  }
+}
+
+- (void)_updateApplicationUsageWithInterval:(id)interval unboundInterval:(id)unboundInterval bundleIdentifier:(id)identifier trustedApplicationUsage:(BOOL)usage deviceIdentifier:(id)deviceIdentifier event:(id)event applicationUsageIntervalsByDevice:(id)device unboundApplicationUsageIntervalsByDevice:(id)self0 categoryUsageIntervalsByDevice:(id)self1 aggregatedApplicationUsageIntervalsByDevice:(id)self2 categoryByBundleIdentifier:(id)self3 timeZoneByDevice:(id)self4 lastEventDateByDevice:(id)self5
+{
+  usageCopy = usage;
+  v337 = *MEMORY[0x277D85DE8];
+  intervalCopy = interval;
+  unboundIntervalCopy = unboundInterval;
+  identifierCopy = identifier;
+  deviceIdentifierCopy = deviceIdentifier;
+  eventCopy = event;
+  deviceCopy = device;
+  byDeviceCopy = byDevice;
+  intervalsByDeviceCopy = intervalsByDevice;
+  usageIntervalsByDeviceCopy = usageIntervalsByDevice;
+  bundleIdentifierCopy = bundleIdentifier;
+  zoneByDeviceCopy = zoneByDevice;
+  dateByDeviceCopy = dateByDevice;
+  v299 = identifierCopy;
+  v283 = usageCopy;
+  v23 = [USTrustIdentifier identifierWithIdentifier:identifierCopy trusted:usageCopy];
+  v24 = deviceCopy;
+  v25 = deviceIdentifierCopy;
+  v26 = v23;
+  v27 = intervalCopy;
+  v28 = [v24 objectForKeyedSubscript:v25];
+  v292 = v25;
+  if (v28)
+  {
+    v29 = v28;
+    v30 = v26;
+    v31 = v27;
+    v32 = [v29 objectForKeyedSubscript:v30];
+    if (v32)
+    {
+      v33 = v32;
+      v317 = v31;
+      v34 = v31;
+      v332 = 0u;
+      v333 = 0u;
+      v334 = 0u;
+      v335 = 0u;
+      v35 = v33;
+      v36 = [v35 countByEnumeratingWithState:&v332 objects:v336 count:16];
+      if (v36)
+      {
+        v37 = v36;
+        v288 = v30;
+        v293 = v29;
+        v297 = v27;
+        v303 = v26;
+        v310 = v24;
+        v38 = 0;
+        v39 = *v333;
+        v276 = v34;
+        do
+        {
+          v40 = 0;
+          v325 = v37;
+          do
+          {
+            if (*v333 != v39)
+            {
+              objc_enumerationMutation(v35);
+            }
+
+            v41 = *(*(&v332 + 1) + 8 * v40);
+            if ([v41 intersectsDateInterval:v34])
+            {
+              v42 = v35;
+              startDate = [v41 startDate];
+              startDate2 = [v34 startDate];
+              v45 = [startDate earlierDate:startDate2];
+
+              endDate = [v41 endDate];
+              endDate2 = [v34 endDate];
+              v48 = [endDate laterDate:endDate2];
+
+              v49 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v45 endDate:v48];
+              if (v38)
+              {
+                [v38 addObject:v41];
+              }
+
+              else
+              {
+                v38 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v41, 0}];
+              }
+
+              v34 = v49;
+              v35 = v42;
+              v37 = v325;
+            }
+
+            ++v40;
+          }
+
+          while (v37 != v40);
+          v37 = [v35 countByEnumeratingWithState:&v332 objects:v336 count:16];
+        }
+
+        while (v37);
+
+        if (v38)
+        {
+          [v35 removeObjectsInArray:v38];
+          v50 = v38;
+        }
+
+        else
+        {
+          v50 = 0;
+        }
+
+        v26 = v303;
+        v24 = v310;
+        v27 = v297;
+        v29 = v293;
+        v30 = v288;
+        v52 = v276;
+      }
+
+      else
+      {
+
+        v50 = 0;
+        v52 = v34;
+      }
+
+      [v35 addObject:v34];
+
+      v25 = v292;
+      v31 = v317;
+    }
+
+    else
+    {
+      v35 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v31, 0}];
+      [v29 setObject:v35 forKeyedSubscript:v30];
+    }
+  }
+
+  else
+  {
+    v51 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v27, 0}];
+    v29 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v51, v26, 0}];
+    [v24 setObject:v29 forKeyedSubscript:v25];
+  }
+
+  v53 = v24;
+  v54 = v26;
+  v55 = v27;
+  v56 = [v53 objectForKeyedSubscript:@"AllDevices"];
+  v298 = v55;
+  v294 = v54;
+  v289 = v53;
+  if (v56)
+  {
+    v57 = v56;
+    v58 = v54;
+    v59 = v55;
+    v60 = [v57 objectForKeyedSubscript:v58];
+    if (v60)
+    {
+      v61 = v60;
+      v62 = v59;
+      v332 = 0u;
+      v333 = 0u;
+      v334 = 0u;
+      v335 = 0u;
+      v63 = v61;
+      v64 = [v63 countByEnumeratingWithState:&v332 objects:v336 count:16];
+      if (v64)
+      {
+        v304 = v59;
+        v311 = v58;
+        v318 = v57;
+        v65 = 0;
+        v66 = *v333;
+        v277 = v62;
+        v67 = v62;
+        do
+        {
+          v68 = 0;
+          v326 = v64;
+          do
+          {
+            if (*v333 != v66)
+            {
+              objc_enumerationMutation(v63);
+            }
+
+            v69 = *(*(&v332 + 1) + 8 * v68);
+            if ([v69 intersectsDateInterval:v67])
+            {
+              v70 = v63;
+              startDate3 = [v69 startDate];
+              startDate4 = [v67 startDate];
+              v73 = [startDate3 earlierDate:startDate4];
+
+              endDate3 = [v69 endDate];
+              [v67 endDate];
+              v76 = v75 = v65;
+              v77 = [endDate3 laterDate:v76];
+
+              v65 = v75;
+              v78 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v73 endDate:v77];
+
+              if (v75)
+              {
+                [v75 addObject:v69];
+              }
+
+              else
+              {
+                v65 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v69, 0}];
+              }
+
+              v67 = v78;
+              v63 = v70;
+              v64 = v326;
+            }
+
+            v68 = v68 + 1;
+          }
+
+          while (v64 != v68);
+          v64 = [v63 countByEnumeratingWithState:&v332 objects:v336 count:16];
+        }
+
+        while (v64);
+
+        if (v65)
+        {
+          [v63 removeObjectsInArray:v65];
+          v55 = v298;
+          v57 = v318;
+          v64 = v65;
+        }
+
+        else
+        {
+          v64 = 0;
+          v55 = v298;
+          v57 = v318;
+        }
+
+        v59 = v304;
+        v58 = v311;
+        v62 = v277;
+      }
+
+      else
+      {
+
+        v67 = v62;
+      }
+
+      [v63 addObject:v67];
+
+      v25 = v292;
+    }
+
+    else
+    {
+      v63 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v59, 0}];
+      [v57 setObject:v63 forKeyedSubscript:v58];
+    }
+
+    v80 = v57;
+    v79 = v289;
+    v54 = v294;
+  }
+
+  else
+  {
+    v57 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v55, 0}];
+    v79 = v53;
+    v80 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v57, v54, 0}];
+    [v79 setObject:v80 forKeyedSubscript:@"AllDevices"];
+  }
+
+  if (intervalsByDeviceCopy)
+  {
+    v81 = [bundleIdentifierCopy objectForKeyedSubscript:v299];
+    identifier = [v81 identifier];
+    v83 = identifier;
+    v84 = *MEMORY[0x277CF95E8];
+    if (identifier)
+    {
+      v84 = identifier;
+    }
+
+    v85 = v84;
+
+    v86 = intervalsByDeviceCopy;
+    v87 = v25;
+    v88 = v85;
+    v89 = v55;
+    v90 = [v86 objectForKeyedSubscript:v87];
+    if (v90)
+    {
+      v91 = v90;
+      v92 = v88;
+      v278 = v89;
+      v93 = v89;
+      v94 = v92;
+      v95 = v93;
+      v96 = [v91 objectForKeyedSubscript:v94];
+      if (v96)
+      {
+        v261 = v94;
+        v266 = v91;
+        v271 = v88;
+        v97 = v96;
+        v98 = v95;
+        v332 = 0u;
+        v333 = 0u;
+        v334 = 0u;
+        v335 = 0u;
+        v99 = v97;
+        v100 = [v99 countByEnumeratingWithState:&v332 objects:v336 count:16];
+        if (v100)
+        {
+          v101 = v100;
+          v259 = v86;
+          v327 = 0;
+          v102 = *v333;
+          v103 = v98;
+          v305 = *v333;
+          v312 = v98;
+          do
+          {
+            v104 = 0;
+            v319 = v101;
+            do
+            {
+              if (*v333 != v102)
+              {
+                objc_enumerationMutation(v99);
+              }
+
+              v105 = *(*(&v332 + 1) + 8 * v104);
+              if ([v105 intersectsDateInterval:v103])
+              {
+                v106 = v99;
+                v107 = v95;
+                v108 = v87;
+                startDate5 = [v105 startDate];
+                startDate6 = [v103 startDate];
+                v111 = [startDate5 earlierDate:startDate6];
+
+                endDate4 = [v105 endDate];
+                endDate5 = [v103 endDate];
+                v114 = [endDate4 laterDate:endDate5];
+
+                v115 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v111 endDate:v114];
+                if (v327)
+                {
+                  [v327 addObject:v105];
+                }
+
+                else
+                {
+                  v327 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v105, 0}];
+                }
+
+                v103 = v115;
+                v87 = v108;
+                v95 = v107;
+                v99 = v106;
+                v102 = v305;
+                v98 = v312;
+                v101 = v319;
+              }
+
+              ++v104;
+            }
+
+            while (v101 != v104);
+            v101 = [v99 countByEnumeratingWithState:&v332 objects:v336 count:16];
+          }
+
+          while (v101);
+
+          v116 = v327;
+          if (v327)
+          {
+            [v99 removeObjectsInArray:v327];
+          }
+
+          v55 = v298;
+          v86 = v259;
+        }
+
+        else
+        {
+
+          v116 = 0;
+          v103 = v98;
+        }
+
+        v88 = v271;
+        [v99 addObject:v103];
+
+        v25 = v292;
+        v94 = v261;
+        v91 = v266;
+      }
+
+      else
+      {
+        v99 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v95, 0}];
+        [v91 setObject:v99 forKeyedSubscript:v94];
+      }
+
+      v118 = v91;
+      v117 = v278;
+    }
+
+    else
+    {
+      v91 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v89, 0}];
+      v117 = v89;
+      v118 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v91, v88, 0}];
+      [v86 setObject:v118 forKeyedSubscript:v87];
+    }
+
+    v119 = v86;
+    v120 = v88;
+    v121 = v117;
+    v122 = [v119 objectForKeyedSubscript:@"AllDevices"];
+    if (v122)
+    {
+      v123 = v122;
+      v124 = v120;
+      v125 = v121;
+      v126 = [v123 objectForKeyedSubscript:v124];
+      if (v126)
+      {
+        v127 = v126;
+        v320 = v125;
+        v128 = v125;
+        v332 = 0u;
+        v333 = 0u;
+        v334 = 0u;
+        v335 = 0u;
+        v129 = v127;
+        v130 = [v129 countByEnumeratingWithState:&v332 objects:v336 count:16];
+        if (v130)
+        {
+          v131 = v130;
+          v267 = v124;
+          v272 = v123;
+          v279 = v121;
+          v306 = v120;
+          v313 = v119;
+          v132 = 0;
+          v133 = *v333;
+          v262 = v128;
+          v134 = v129;
+          do
+          {
+            v135 = 0;
+            v328 = v131;
+            do
+            {
+              if (*v333 != v133)
+              {
+                objc_enumerationMutation(v134);
+              }
+
+              v136 = *(*(&v332 + 1) + 8 * v135);
+              if ([v136 intersectsDateInterval:v128])
+              {
+                v137 = v134;
+                startDate7 = [v136 startDate];
+                startDate8 = [v128 startDate];
+                v140 = [startDate7 earlierDate:startDate8];
+
+                endDate6 = [v136 endDate];
+                endDate7 = [v128 endDate];
+                v143 = [endDate6 laterDate:endDate7];
+
+                v144 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v140 endDate:v143];
+                if (v132)
+                {
+                  [v132 addObject:v136];
+                }
+
+                else
+                {
+                  v132 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v136, 0}];
+                }
+
+                v128 = v144;
+                v134 = v137;
+                v131 = v328;
+              }
+
+              ++v135;
+            }
+
+            while (v131 != v135);
+            v131 = [v134 countByEnumeratingWithState:&v332 objects:v336 count:16];
+          }
+
+          while (v131);
+
+          if (v132)
+          {
+            [v134 removeObjectsInArray:v132];
+            v55 = v298;
+            v129 = v134;
+            v120 = v306;
+            v119 = v313;
+            v145 = v132;
+          }
+
+          else
+          {
+            v145 = 0;
+            v55 = v298;
+            v129 = v134;
+            v120 = v306;
+            v119 = v313;
+          }
+
+          v123 = v272;
+          v121 = v279;
+          v147 = v262;
+          v124 = v267;
+        }
+
+        else
+        {
+
+          v145 = 0;
+          v147 = v128;
+        }
+
+        [v129 addObject:v128];
+
+        v25 = v292;
+        v125 = v320;
+      }
+
+      else
+      {
+        v129 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v125, 0}];
+        [v123 setObject:v129 forKeyedSubscript:v124];
+      }
+
+      v146 = v123;
+    }
+
+    else
+    {
+      v123 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v121, 0}];
+      v146 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v123, v120, 0}];
+      [v119 setObject:v146 forKeyedSubscript:@"AllDevices"];
+    }
+  }
+
+  if (usageIntervalsByDeviceCopy)
+  {
+    v148 = [bundleIdentifierCopy objectForKeyedSubscript:v299];
+    canonicalBundleIdentifier = [v148 canonicalBundleIdentifier];
+
+    if (!canonicalBundleIdentifier)
+    {
+      canonicalBundleIdentifier = v299;
+    }
+
+    v150 = [USTrustIdentifier identifierWithIdentifier:canonicalBundleIdentifier trusted:v283];
+    v151 = usageIntervalsByDeviceCopy;
+    v152 = v25;
+    v153 = v150;
+    v154 = v55;
+    v155 = [v151 objectForKeyedSubscript:v152];
+    if (v155)
+    {
+      v156 = v155;
+      v157 = v153;
+      v158 = v154;
+      v159 = [v156 objectForKeyedSubscript:v157];
+      if (v159)
+      {
+        v273 = v156;
+        v280 = v152;
+        v284 = v154;
+        v307 = v153;
+        v160 = v159;
+        v161 = v158;
+        v332 = 0u;
+        v333 = 0u;
+        v334 = 0u;
+        v335 = 0u;
+        v162 = v160;
+        v163 = [v162 countByEnumeratingWithState:&v332 objects:v336 count:16];
+        v268 = v158;
+        v314 = canonicalBundleIdentifier;
+        if (v163)
+        {
+          v164 = v163;
+          v260 = v161;
+          v263 = v151;
+          v329 = 0;
+          v165 = *v333;
+          v166 = v161;
+          do
+          {
+            v167 = 0;
+            v321 = v164;
+            do
+            {
+              if (*v333 != v165)
+              {
+                objc_enumerationMutation(v162);
+              }
+
+              v168 = *(*(&v332 + 1) + 8 * v167);
+              if ([v168 intersectsDateInterval:v166])
+              {
+                v169 = v162;
+                v170 = v157;
+                startDate9 = [v168 startDate];
+                startDate10 = [v166 startDate];
+                v173 = [startDate9 earlierDate:startDate10];
+
+                endDate8 = [v168 endDate];
+                endDate9 = [v166 endDate];
+                v176 = [endDate8 laterDate:endDate9];
+
+                v177 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v173 endDate:v176];
+                if (v329)
+                {
+                  [v329 addObject:v168];
+                }
+
+                else
+                {
+                  v329 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v168, 0}];
+                }
+
+                v157 = v170;
+
+                v166 = v177;
+                v162 = v169;
+                v164 = v321;
+              }
+
+              ++v167;
+            }
+
+            while (v164 != v167);
+            v164 = [v162 countByEnumeratingWithState:&v332 objects:v336 count:16];
+          }
+
+          while (v164);
+
+          v178 = v329;
+          if (v329)
+          {
+            [v162 removeObjectsInArray:v329];
+          }
+
+          v179 = v260;
+          v151 = v263;
+        }
+
+        else
+        {
+
+          v178 = 0;
+          v166 = v161;
+          v179 = v161;
+        }
+
+        v153 = v307;
+        v152 = v280;
+        v154 = v284;
+        v156 = v273;
+        [v162 addObject:v166];
+
+        v181 = v162;
+        v25 = v292;
+        v158 = v268;
+        canonicalBundleIdentifier = v314;
+      }
+
+      else
+      {
+        v181 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v158, 0}];
+        [v156 setObject:v181 forKeyedSubscript:v157];
+      }
+
+      v180 = v156;
+    }
+
+    else
+    {
+      v156 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v154, 0}];
+      v180 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v156, v153, 0}];
+      [v151 setObject:v180 forKeyedSubscript:v152];
+    }
+
+    v182 = v151;
+    v183 = v153;
+    v184 = v154;
+    v185 = [v182 objectForKeyedSubscript:@"AllDevices"];
+    if (v185)
+    {
+      v186 = v185;
+      v187 = v183;
+      v188 = v184;
+      v189 = [v186 objectForKeyedSubscript:v187];
+      v55 = v298;
+      if (v189)
+      {
+        v190 = v189;
+        v322 = v188;
+        v191 = v188;
+        v332 = 0u;
+        v333 = 0u;
+        v334 = 0u;
+        v335 = 0u;
+        v192 = v190;
+        v193 = [v192 countByEnumeratingWithState:&v332 objects:v336 count:16];
+        v315 = canonicalBundleIdentifier;
+        if (v193)
+        {
+          v194 = v193;
+          v269 = v187;
+          v274 = v186;
+          v281 = v184;
+          v285 = v183;
+          v308 = v182;
+          v195 = 0;
+          v196 = *v333;
+          v264 = v191;
+          do
+          {
+            v197 = 0;
+            v330 = v194;
+            do
+            {
+              if (*v333 != v196)
+              {
+                objc_enumerationMutation(v192);
+              }
+
+              v198 = *(*(&v332 + 1) + 8 * v197);
+              if ([v198 intersectsDateInterval:v191])
+              {
+                v199 = v192;
+                startDate11 = [v198 startDate];
+                startDate12 = [v191 startDate];
+                v202 = [startDate11 earlierDate:startDate12];
+
+                endDate10 = [v198 endDate];
+                endDate11 = [v191 endDate];
+                v205 = [endDate10 laterDate:endDate11];
+
+                v206 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v202 endDate:v205];
+                if (v195)
+                {
+                  [v195 addObject:v198];
+                }
+
+                else
+                {
+                  v195 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v198, 0}];
+                }
+
+                v191 = v206;
+                v192 = v199;
+                v194 = v330;
+              }
+
+              ++v197;
+            }
+
+            while (v194 != v197);
+            v194 = [v192 countByEnumeratingWithState:&v332 objects:v336 count:16];
+          }
+
+          while (v194);
+
+          if (v195)
+          {
+            [v192 removeObjectsInArray:v195];
+            v182 = v308;
+            v207 = v195;
+          }
+
+          else
+          {
+            v207 = 0;
+            v182 = v308;
+          }
+
+          v184 = v281;
+          v183 = v285;
+          v187 = v269;
+          v186 = v274;
+          v188 = v322;
+          v209 = v264;
+        }
+
+        else
+        {
+
+          v207 = 0;
+          v209 = v191;
+        }
+
+        [v192 addObject:v191];
+
+        v25 = v292;
+        v55 = v298;
+        canonicalBundleIdentifier = v315;
+      }
+
+      else
+      {
+        v192 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v188, 0}];
+        [v186 setObject:v192 forKeyedSubscript:v187];
+      }
+
+      v208 = v186;
+    }
+
+    else
+    {
+      v186 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v184, 0}];
+      v208 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v186, v183, 0}];
+      [v182 setObject:v208 forKeyedSubscript:@"AllDevices"];
+      v55 = v298;
+    }
+  }
+
+  if (zoneByDeviceCopy && dateByDeviceCopy)
+  {
+    v210 = zoneByDeviceCopy;
+    v211 = dateByDeviceCopy;
+    v212 = eventCopy;
+    v213 = v55;
+    v214 = v25;
+    v215 = [v210 objectForKeyedSubscript:v214];
+
+    if (!v215)
+    {
+      timeZone = [v212 timeZone];
+      if (timeZone)
+      {
+        [v210 setObject:timeZone forKeyedSubscript:v214];
+      }
+
+      else
+      {
+        localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
+        [v210 setObject:localTimeZone forKeyedSubscript:v214];
+      }
+    }
+
+    endDate12 = [v213 endDate];
+    v219 = [v211 objectForKeyedSubscript:v214];
+    v220 = v219;
+    if (!v219 || [v219 compare:endDate12] == -1)
+    {
+      [v211 setObject:endDate12 forKeyedSubscript:v214];
+    }
+
+    v221 = v210;
+    v222 = v211;
+    v223 = v212;
+    v224 = v213;
+    v225 = [v221 objectForKeyedSubscript:@"AllDevices"];
+
+    v55 = v298;
+    if (!v225)
+    {
+      timeZone2 = [v223 timeZone];
+      if (timeZone2)
+      {
+        [v221 setObject:timeZone2 forKeyedSubscript:@"AllDevices"];
+      }
+
+      else
+      {
+        localTimeZone2 = [MEMORY[0x277CBEBB0] localTimeZone];
+        [v221 setObject:localTimeZone2 forKeyedSubscript:@"AllDevices"];
+      }
+    }
+
+    endDate13 = [v224 endDate];
+    v229 = [v222 objectForKeyedSubscript:@"AllDevices"];
+    v230 = v229;
+    if (!v229 || [v229 compare:endDate13] == -1)
+    {
+      [v222 setObject:endDate13 forKeyedSubscript:@"AllDevices"];
+    }
+  }
+
+  v231 = byDeviceCopy;
+  if (byDeviceCopy)
+  {
+    v232 = byDeviceCopy;
+    v233 = v25;
+    v234 = v294;
+    v235 = unboundIntervalCopy;
+    v236 = [v232 objectForKeyedSubscript:v233];
+    if (v236)
+    {
+      v237 = v236;
+      v238 = v234;
+      v239 = v235;
+      v240 = [v237 objectForKeyedSubscript:v238];
+      if (v240)
+      {
+        v286 = v238;
+        v309 = v237;
+        v316 = v235;
+        v323 = v234;
+        v241 = v240;
+        v282 = v239;
+        v242 = v239;
+        v332 = 0u;
+        v333 = 0u;
+        v334 = 0u;
+        v335 = 0u;
+        v243 = v241;
+        v244 = [v243 countByEnumeratingWithState:&v332 objects:v336 count:16];
+        if (v244)
+        {
+          v245 = v244;
+          v270 = v233;
+          v275 = v232;
+          v331 = 0;
+          v246 = *v333;
+          v265 = v242;
+          do
+          {
+            for (i = 0; i != v245; ++i)
+            {
+              if (*v333 != v246)
+              {
+                objc_enumerationMutation(v243);
+              }
+
+              v248 = *(*(&v332 + 1) + 8 * i);
+              if ([v248 intersectsDateInterval:v242])
+              {
+                startDate13 = [v248 startDate];
+                startDate14 = [v242 startDate];
+                v251 = [startDate13 earlierDate:startDate14];
+
+                endDate14 = [v248 endDate];
+                endDate15 = [v242 endDate];
+                v254 = [endDate14 laterDate:endDate15];
+
+                v255 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v251 endDate:v254];
+                if (v331)
+                {
+                  [v331 addObject:v248];
+                }
+
+                else
+                {
+                  v331 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v248, 0}];
+                }
+
+                v242 = v255;
+              }
+            }
+
+            v245 = [v243 countByEnumeratingWithState:&v332 objects:v336 count:16];
+          }
+
+          while (v245);
+
+          v256 = v331;
+          if (v331)
+          {
+            [v243 removeObjectsInArray:v331];
+          }
+
+          v25 = v292;
+          v233 = v270;
+          v232 = v275;
+          v257 = v265;
+        }
+
+        else
+        {
+
+          v256 = 0;
+          v257 = v242;
+          v25 = v292;
+        }
+
+        [v243 addObject:v242];
+
+        v55 = v298;
+        v235 = v316;
+        v234 = v323;
+        v237 = v309;
+        v239 = v282;
+        v238 = v286;
+      }
+
+      else
+      {
+        v243 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v239, 0}];
+        [v237 setObject:v243 forKeyedSubscript:v238];
+      }
+
+      v258 = v237;
+    }
+
+    else
+    {
+      v237 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v235, 0}];
+      v258 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v237, v234, 0}];
+      [v232 setObject:v258 forKeyedSubscript:v233];
+    }
+
+    v231 = byDeviceCopy;
   }
 }
 
 - (void)_enumerateCurrentApplicationUsageIntervalsDuringInterval:(id)interval exemptApplications:(id)applications referenceDate:(id)date focalOnly:(BOOL)only block:(id)block
 {
   onlyCopy = only;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   applicationsCopy = applications;
   dateCopy = date;
@@ -4272,37 +5269,37 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
   v14 = [context objectForKeyedSubscript:keyPathForAppUsageDataDictionaries];
   if (v14)
   {
-    v39 = context;
-    v40 = keyPathForAppUsageDataDictionaries;
+    v38 = context;
+    v39 = keyPathForAppUsageDataDictionaries;
     appUsageBundleID = [MEMORY[0x277CFE338] appUsageBundleID];
     appUsageStartDate = [MEMORY[0x277CFE338] appUsageStartDate];
     isUsageTrusted = [MEMORY[0x277CFE338] isUsageTrusted];
     appUsageType = [MEMORY[0x277CFE338] appUsageType];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v38 = v14;
+    v37 = v14;
     obj = v14;
-    v15 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+    v15 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
     if (v15)
     {
       v16 = v15;
-      v51 = *v54;
-      v42 = applicationsCopy;
+      v50 = *v53;
+      v41 = applicationsCopy;
       do
       {
         v17 = 0;
-        v48 = v16;
+        v47 = v16;
         do
         {
-          if (*v54 != v51)
+          if (*v53 != v50)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v53 + 1) + 8 * v17);
-          v19 = [v18 objectForKeyedSubscript:{appUsageType, v38}];
+          v18 = *(*(&v52 + 1) + 8 * v17);
+          v19 = [v18 objectForKeyedSubscript:{appUsageType, v37}];
           v20 = v19;
           if (!v19 || (v21 = [v19 integerValue], !onlyCopy) || v21 == 1)
           {
@@ -4312,7 +5309,7 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
               {
-                [USUsageQuerying _enumerateCurrentApplicationUsageIntervalsDuringInterval:v23 exemptApplications:&v58 referenceDate:? focalOnly:? block:?];
+                [USUsageQuerying _enumerateCurrentApplicationUsageIntervalsDuringInterval:v23 exemptApplications:&v57 referenceDate:? focalOnly:? block:?];
               }
             }
 
@@ -4353,8 +5350,8 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
                 blockCopy[2](blockCopy, v36, v30, v23, [v28 BOOLValue]);
               }
 
-              applicationsCopy = v42;
-              v16 = v48;
+              applicationsCopy = v41;
+              v16 = v47;
             }
           }
 
@@ -4362,55 +5359,53 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
         }
 
         while (v16 != v17);
-        v16 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
+        v16 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
       }
 
       while (v16);
     }
 
-    context = v39;
-    keyPathForAppUsageDataDictionaries = v40;
-    v14 = v38;
+    context = v38;
+    keyPathForAppUsageDataDictionaries = v39;
+    v14 = v37;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     [USUsageQuerying _currentScreenTimeIntervalDuringInterval:usageStartDate:referenceDate:];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getWebDomainsFromWebUsageEvents:(id)events videoUsageEvents:(id)usageEvents interval:(id)interval referenceDate:(id)date focalOnly:(BOOL)only
 {
   onlyCopy = only;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   usageEventsCopy = usageEvents;
   intervalCopy = interval;
   dateCopy = date;
   v13 = objc_opt_new();
   webDomain = [MEMORY[0x277CFE1D0] webDomain];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   v15 = eventsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v48;
+    v18 = *v47;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v48 != v18)
+        if (*v47 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        metadata = [*(*(&v47 + 1) + 8 * i) metadata];
+        metadata = [*(*(&v46 + 1) + 8 * i) metadata];
         v21 = [metadata objectForKeyedSubscript:webDomain];
 
         if (v21)
@@ -4419,7 +5414,7 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v17);
@@ -4427,29 +5422,29 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
 
   if (usageEventsCopy)
   {
-    v34 = intervalCopy;
+    v33 = intervalCopy;
     v22 = [MEMORY[0x277CFE168] URL];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v35 = usageEventsCopy;
+    v34 = usageEventsCopy;
     v23 = usageEventsCopy;
-    v24 = [v23 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v44;
+      v26 = *v43;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v44 != v26)
+          if (*v43 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          metadata2 = [*(*(&v43 + 1) + 8 * j) metadata];
+          metadata2 = [*(*(&v42 + 1) + 8 * j) metadata];
           v29 = [metadata2 objectForKeyedSubscript:v22];
 
           host = [v29 host];
@@ -4459,34 +5454,32 @@ void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplication
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
       while (v25);
     }
 
-    intervalCopy = v34;
-    usageEventsCopy = v35;
+    intervalCopy = v33;
+    usageEventsCopy = v34;
   }
 
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __102__USUsageQuerying__getWebDomainsFromWebUsageEvents_videoUsageEvents_interval_referenceDate_focalOnly___block_invoke;
-  v41[3] = &unk_279E0A060;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __102__USUsageQuerying__getWebDomainsFromWebUsageEvents_videoUsageEvents_interval_referenceDate_focalOnly___block_invoke;
+  v40[3] = &unk_279E0A060;
   v31 = v13;
-  v42 = v31;
-  [(USUsageQuerying *)self _enumerateCurrentWebUsageIntervalsDuringInterval:intervalCopy exemptWebDomains:0 referenceDate:dateCopy focalOnly:onlyCopy block:v41];
+  v41 = v31;
+  [(USUsageQuerying *)self _enumerateCurrentWebUsageIntervalsDuringInterval:intervalCopy exemptWebDomains:0 referenceDate:dateCopy focalOnly:onlyCopy block:v40];
   if (usageEventsCopy)
   {
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __102__USUsageQuerying__getWebDomainsFromWebUsageEvents_videoUsageEvents_interval_referenceDate_focalOnly___block_invoke_2;
-    v39[3] = &unk_279E09FC0;
-    v40 = v31;
-    [(USUsageQuerying *)self _enumerateCurrentVideoUsageIntervalsDuringInterval:intervalCopy exemptApplications:0 exemptWebDomains:0 referenceDate:dateCopy block:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __102__USUsageQuerying__getWebDomainsFromWebUsageEvents_videoUsageEvents_interval_referenceDate_focalOnly___block_invoke_2;
+    v38[3] = &unk_279E09FC0;
+    v39 = v31;
+    [(USUsageQuerying *)self _enumerateCurrentVideoUsageIntervalsDuringInterval:intervalCopy exemptApplications:0 exemptWebDomains:0 referenceDate:dateCopy block:v38];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -4703,20 +5696,1178 @@ void __267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_timeZone
   }
 }
 
-uint64_t __267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_timeZoneByDevice_lastEventDateByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_aggregatedWebUsageIntervalsByDevice_categoryByWebDomain_partition_referenceDate_focalOnly___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+id *__267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_timeZoneByDevice_lastEventDateByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_aggregatedWebUsageIntervalsByDevice_categoryByWebDomain_partition_referenceDate_focalOnly___block_invoke_2(id *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a5)
   {
-    return [*(result + 32) _updateWebUsageWithInterval:a2 webDomain:a5 trustedWebUsage:a6 deviceIdentifier:@"LocalDevice" event:0 webUsageIntervalsByDevice:*(result + 40) categoryUsageIntervalsByDevice:*(result + 48) aggregatedApplicationUsageIntervalsByDevice:*(result + 56) aggregatedWebUsageIntervalsByDevice:*(result + 64) categoryByWebDomain:*(result + 72) timeZoneByDevice:*(result + 80) lastEventDateByDevice:*(result + 88)];
+    return [result[4] _updateWebUsageWithInterval:a2 webDomain:a5 trustedWebUsage:a6 deviceIdentifier:@"LocalDevice" event:0 webUsageIntervalsByDevice:result[5] categoryUsageIntervalsByDevice:result[6] aggregatedApplicationUsageIntervalsByDevice:result[7] aggregatedWebUsageIntervalsByDevice:result[8] categoryByWebDomain:result[9] timeZoneByDevice:result[10] lastEventDateByDevice:result[11]];
   }
 
   return result;
 }
 
+- (void)_updateWebUsageWithInterval:(id)interval webDomain:(id)domain trustedWebUsage:(BOOL)usage deviceIdentifier:(id)identifier event:(id)event webUsageIntervalsByDevice:(id)device categoryUsageIntervalsByDevice:(id)byDevice aggregatedApplicationUsageIntervalsByDevice:(id)self0 aggregatedWebUsageIntervalsByDevice:(id)self1 categoryByWebDomain:(id)self2 timeZoneByDevice:(id)self3 lastEventDateByDevice:(id)self4
+{
+  usageCopy = usage;
+  v368 = *MEMORY[0x277D85DE8];
+  intervalCopy = interval;
+  domainCopy = domain;
+  identifierCopy = identifier;
+  eventCopy = event;
+  deviceCopy = device;
+  byDeviceCopy = byDevice;
+  *(&v347 + 1) = intervalsByDevice;
+  *&v347 = usageIntervalsByDevice;
+  webDomainCopy = webDomain;
+  zoneByDeviceCopy = zoneByDevice;
+  dateByDeviceCopy = dateByDevice;
+  v342 = domainCopy;
+  v337 = usageCopy;
+  v22 = [USTrustIdentifier identifierWithIdentifier:domainCopy trusted:usageCopy];
+  v23 = deviceCopy;
+  v24 = identifierCopy;
+  v25 = v22;
+  v26 = intervalCopy;
+  v27 = [v23 objectForKeyedSubscript:v24];
+  v343 = v24;
+  if (v27)
+  {
+    v28 = v27;
+    v29 = v25;
+    v30 = v26;
+    v31 = [v28 objectForKeyedSubscript:v29];
+    if (v31)
+    {
+      v32 = v31;
+      v352 = v30;
+      v33 = v30;
+      v363 = 0u;
+      v364 = 0u;
+      v365 = 0u;
+      v366 = 0u;
+      v34 = v32;
+      v35 = [v34 countByEnumeratingWithState:&v363 objects:v367 count:16];
+      if (v35)
+      {
+        v319 = v29;
+        v326 = v28;
+        v332 = v26;
+        v348 = v25;
+        v350 = v23;
+        v36 = 0;
+        v37 = *v364;
+        v311 = v33;
+        do
+        {
+          v38 = 0;
+          v355 = v35;
+          do
+          {
+            if (*v364 != v37)
+            {
+              objc_enumerationMutation(v34);
+            }
+
+            v39 = *(*(&v363 + 1) + 8 * v38);
+            if ([v39 intersectsDateInterval:v33])
+            {
+              v40 = v34;
+              startDate = [v39 startDate];
+              startDate2 = [v33 startDate];
+              v43 = [startDate earlierDate:startDate2];
+
+              endDate = [v39 endDate];
+              [v33 endDate];
+              v46 = v45 = v36;
+              v47 = [endDate laterDate:v46];
+
+              v36 = v45;
+              v48 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v43 endDate:v47];
+
+              if (v45)
+              {
+                [v45 addObject:v39];
+              }
+
+              else
+              {
+                v36 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v39, 0}];
+              }
+
+              v33 = v48;
+              v34 = v40;
+              v35 = v355;
+            }
+
+            v38 = v38 + 1;
+          }
+
+          while (v35 != v38);
+          v35 = [v34 countByEnumeratingWithState:&v363 objects:v367 count:16];
+        }
+
+        while (v35);
+
+        if (v36)
+        {
+          [v34 removeObjectsInArray:v36];
+          v23 = v350;
+          v35 = v36;
+        }
+
+        else
+        {
+          v35 = 0;
+          v23 = v350;
+        }
+
+        v25 = v348;
+        v28 = v326;
+        v26 = v332;
+        v50 = v311;
+        v29 = v319;
+      }
+
+      else
+      {
+
+        v50 = v33;
+      }
+
+      [v34 addObject:v33];
+
+      v24 = v343;
+      v30 = v352;
+    }
+
+    else
+    {
+      v34 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v30, 0}];
+      [v28 setObject:v34 forKeyedSubscript:v29];
+    }
+  }
+
+  else
+  {
+    v49 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v26, 0}];
+    v28 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v49, v25, 0}];
+    [v23 setObject:v28 forKeyedSubscript:v24];
+  }
+
+  v51 = v23;
+  v52 = v25;
+  v53 = v26;
+  v54 = [v51 objectForKeyedSubscript:@"AllDevices"];
+  v349 = v53;
+  v351 = v51;
+  v353 = v52;
+  if (v54)
+  {
+    v55 = v54;
+    v56 = v52;
+    v57 = v53;
+    v58 = [v55 objectForKeyedSubscript:v56];
+    if (v58)
+    {
+      v59 = v58;
+      v60 = v57;
+      v363 = 0u;
+      v364 = 0u;
+      v365 = 0u;
+      v366 = 0u;
+      v61 = v59;
+      v62 = [v61 countByEnumeratingWithState:&v363 objects:v367 count:16];
+      if (v62)
+      {
+        v63 = v62;
+        v320 = v57;
+        v327 = v56;
+        v333 = v55;
+        v356 = 0;
+        v64 = *v364;
+        v312 = v60;
+        v52 = v353;
+        v65 = v61;
+        do
+        {
+          for (i = 0; i != v63; ++i)
+          {
+            if (*v364 != v64)
+            {
+              objc_enumerationMutation(v65);
+            }
+
+            v67 = *(*(&v363 + 1) + 8 * i);
+            if ([v67 intersectsDateInterval:v60])
+            {
+              startDate3 = [v67 startDate];
+              startDate4 = [v60 startDate];
+              v70 = [startDate3 earlierDate:startDate4];
+
+              endDate2 = [v67 endDate];
+              endDate3 = [v60 endDate];
+              v73 = [endDate2 laterDate:endDate3];
+
+              v74 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v70 endDate:v73];
+              if (v356)
+              {
+                [v356 addObject:v67];
+              }
+
+              else
+              {
+                v356 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v67, 0}];
+              }
+
+              v60 = v74;
+              v51 = v351;
+              v52 = v353;
+            }
+          }
+
+          v63 = [v65 countByEnumeratingWithState:&v363 objects:v367 count:16];
+        }
+
+        while (v63);
+
+        v75 = v356;
+        if (v356)
+        {
+          [v65 removeObjectsInArray:v356];
+        }
+
+        v24 = v343;
+        v56 = v327;
+        v55 = v333;
+        v61 = v65;
+        v76 = v312;
+        v57 = v320;
+      }
+
+      else
+      {
+
+        v75 = 0;
+        v76 = v60;
+        v24 = v343;
+        v52 = v353;
+      }
+
+      [v61 addObject:v60];
+
+      v53 = v349;
+    }
+
+    else
+    {
+      v61 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v57, 0}];
+      [v55 setObject:v61 forKeyedSubscript:v56];
+    }
+
+    v77 = v55;
+  }
+
+  else
+  {
+    v55 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v53, 0}];
+    v77 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v55, v52, 0}];
+    [v51 setObject:v77 forKeyedSubscript:@"AllDevices"];
+  }
+
+  if (byDeviceCopy)
+  {
+    v78 = [webDomainCopy objectForKeyedSubscript:v342];
+    identifier = [v78 identifier];
+    v80 = identifier;
+    v81 = *MEMORY[0x277CF95E8];
+    if (identifier)
+    {
+      v81 = identifier;
+    }
+
+    v82 = v81;
+
+    v83 = byDeviceCopy;
+    v84 = v24;
+    v85 = v82;
+    v86 = v53;
+    v87 = [v83 objectForKeyedSubscript:v84];
+    if (v87)
+    {
+      v334 = v84;
+      v88 = v87;
+      v89 = v85;
+      v90 = v86;
+      v91 = [v88 objectForKeyedSubscript:v89];
+      if (v91)
+      {
+        v321 = v89;
+        v328 = v88;
+        v92 = v91;
+        v313 = v90;
+        v93 = v90;
+        v363 = 0u;
+        v364 = 0u;
+        v365 = 0u;
+        v366 = 0u;
+        v94 = v92;
+        v95 = [v94 countByEnumeratingWithState:&v363 objects:v367 count:16];
+        if (v95)
+        {
+          v293 = v86;
+          v299 = v85;
+          v305 = v83;
+          v357 = 0;
+          v96 = *v364;
+          v288 = v93;
+          v97 = v94;
+          do
+          {
+            for (j = 0; j != v95; j = j + 1)
+            {
+              if (*v364 != v96)
+              {
+                objc_enumerationMutation(v97);
+              }
+
+              v99 = *(*(&v363 + 1) + 8 * j);
+              if ([v99 intersectsDateInterval:v93])
+              {
+                startDate5 = [v99 startDate];
+                startDate6 = [v93 startDate];
+                v102 = [startDate5 earlierDate:startDate6];
+
+                endDate4 = [v99 endDate];
+                endDate5 = [v93 endDate];
+                v105 = [endDate4 laterDate:endDate5];
+
+                v106 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v102 endDate:v105];
+                if (v357)
+                {
+                  [v357 addObject:v99];
+                }
+
+                else
+                {
+                  v357 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v99, 0}];
+                }
+
+                v53 = v349;
+
+                v93 = v106;
+              }
+            }
+
+            v95 = [v97 countByEnumeratingWithState:&v363 objects:v367 count:16];
+          }
+
+          while (v95);
+
+          v95 = v357;
+          if (v357)
+          {
+            [v97 removeObjectsInArray:v357];
+          }
+
+          v52 = v353;
+          v85 = v299;
+          v83 = v305;
+          v94 = v97;
+          v107 = v288;
+          v86 = v293;
+        }
+
+        else
+        {
+
+          v107 = v93;
+          v52 = v353;
+        }
+
+        [v94 addObject:v93];
+
+        v51 = v351;
+        v89 = v321;
+        v88 = v328;
+        v110 = v313;
+      }
+
+      else
+      {
+        v94 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v90, 0}];
+        [v88 setObject:v94 forKeyedSubscript:v89];
+        v110 = v90;
+        v52 = v353;
+      }
+
+      v108 = v88;
+      v109 = v334;
+    }
+
+    else
+    {
+      v88 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v86, 0}];
+      v108 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v88, v85, 0}];
+      [v83 setObject:v108 forKeyedSubscript:v84];
+      v109 = v84;
+      v52 = v353;
+    }
+
+    v111 = v83;
+    v112 = v85;
+    v113 = v86;
+    v114 = [v111 objectForKeyedSubscript:@"AllDevices"];
+    if (v114)
+    {
+      v115 = v114;
+      v116 = v112;
+      v117 = v113;
+      v118 = [v115 objectForKeyedSubscript:v116];
+      if (v118)
+      {
+        v306 = v116;
+        v314 = v115;
+        v322 = v113;
+        v329 = v112;
+        v335 = v111;
+        v119 = v118;
+        v300 = v117;
+        v120 = v117;
+        v363 = 0u;
+        v364 = 0u;
+        v365 = 0u;
+        v366 = 0u;
+        v121 = v119;
+        v122 = [v121 countByEnumeratingWithState:&v363 objects:v367 count:16];
+        if (v122)
+        {
+          v123 = v122;
+          v358 = 0;
+          v124 = *v364;
+          v294 = v120;
+          do
+          {
+            for (k = 0; k != v123; ++k)
+            {
+              if (*v364 != v124)
+              {
+                objc_enumerationMutation(v121);
+              }
+
+              v126 = *(*(&v363 + 1) + 8 * k);
+              if ([v126 intersectsDateInterval:v120])
+              {
+                startDate7 = [v126 startDate];
+                startDate8 = [v120 startDate];
+                v129 = [startDate7 earlierDate:startDate8];
+
+                endDate6 = [v126 endDate];
+                endDate7 = [v120 endDate];
+                v132 = [endDate6 laterDate:endDate7];
+
+                v133 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v129 endDate:v132];
+                if (v358)
+                {
+                  [v358 addObject:v126];
+                }
+
+                else
+                {
+                  v358 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v126, 0}];
+                }
+
+                v120 = v133;
+              }
+            }
+
+            v123 = [v121 countByEnumeratingWithState:&v363 objects:v367 count:16];
+          }
+
+          while (v123);
+
+          v53 = v349;
+          v134 = v358;
+          if (v358)
+          {
+            [v121 removeObjectsInArray:v358];
+          }
+
+          v51 = v351;
+          v52 = v353;
+          v135 = v294;
+        }
+
+        else
+        {
+
+          v134 = 0;
+          v135 = v120;
+          v51 = v351;
+        }
+
+        [v121 addObject:v120];
+
+        v112 = v329;
+        v111 = v335;
+        v115 = v314;
+        v113 = v322;
+        v137 = v121;
+        v117 = v300;
+        v116 = v306;
+      }
+
+      else
+      {
+        v137 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v117, 0}];
+        [v115 setObject:v137 forKeyedSubscript:v116];
+      }
+
+      v136 = v115;
+    }
+
+    else
+    {
+      v115 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v113, 0}];
+      v136 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v115, v112, 0}];
+      [v111 setObject:v136 forKeyedSubscript:@"AllDevices"];
+    }
+
+    v24 = v343;
+  }
+
+  if (v347 != 0)
+  {
+    v138 = [webDomainCopy objectForKeyedSubscript:v342];
+    v139 = v138;
+    if (*(&v347 + 1))
+    {
+      canonicalBundleIdentifier = [v138 canonicalBundleIdentifier];
+      v141 = canonicalBundleIdentifier;
+      if (canonicalBundleIdentifier)
+      {
+        v330 = v139;
+        v336 = canonicalBundleIdentifier;
+        v142 = [USTrustIdentifier identifierWithIdentifier:canonicalBundleIdentifier trusted:v337];
+        v143 = *(&v347 + 1);
+        v144 = v24;
+        v145 = v142;
+        v146 = v53;
+        v147 = [v143 objectForKeyedSubscript:v144];
+        if (v147)
+        {
+          v148 = v147;
+          v149 = v145;
+          v150 = v146;
+          v151 = [v148 objectForKeyedSubscript:v149];
+          v323 = v145;
+          if (v151)
+          {
+            v289 = v149;
+            v295 = v148;
+            v301 = v144;
+            v307 = v146;
+            v315 = v143;
+            v152 = v151;
+            v153 = v150;
+            v363 = 0u;
+            v364 = 0u;
+            v365 = 0u;
+            v366 = 0u;
+            v154 = v152;
+            v155 = [v154 countByEnumeratingWithState:&v363 objects:v367 count:16];
+            v284 = v150;
+            if (v155)
+            {
+              v156 = v155;
+              v359 = 0;
+              v157 = *v364;
+              v282 = v153;
+              do
+              {
+                for (m = 0; m != v156; ++m)
+                {
+                  if (*v364 != v157)
+                  {
+                    objc_enumerationMutation(v154);
+                  }
+
+                  v159 = *(*(&v363 + 1) + 8 * m);
+                  if ([v159 intersectsDateInterval:v153])
+                  {
+                    v160 = v154;
+                    startDate9 = [v159 startDate];
+                    startDate10 = [v153 startDate];
+                    v163 = [startDate9 earlierDate:startDate10];
+
+                    endDate8 = [v159 endDate];
+                    endDate9 = [v153 endDate];
+                    v166 = [endDate8 laterDate:endDate9];
+
+                    v167 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v163 endDate:v166];
+                    if (v359)
+                    {
+                      [v359 addObject:v159];
+                    }
+
+                    else
+                    {
+                      v359 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v159, 0}];
+                    }
+
+                    v53 = v349;
+
+                    v153 = v167;
+                    v154 = v160;
+                  }
+                }
+
+                v156 = [v154 countByEnumeratingWithState:&v363 objects:v367 count:16];
+              }
+
+              while (v156);
+
+              v168 = v359;
+              if (v359)
+              {
+                [v154 removeObjectsInArray:v359];
+              }
+
+              v24 = v343;
+              v149 = v289;
+              v169 = v282;
+            }
+
+            else
+            {
+
+              v168 = 0;
+              v169 = v153;
+              v24 = v343;
+              v149 = v289;
+            }
+
+            [v154 addObject:v153];
+
+            v51 = v351;
+            v146 = v307;
+            v143 = v315;
+            v148 = v295;
+            v171 = v301;
+            v150 = v284;
+          }
+
+          else
+          {
+            v171 = v144;
+            v154 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v150, 0}];
+            [v148 setObject:v154 forKeyedSubscript:v149];
+          }
+
+          v170 = v148;
+          v144 = v171;
+          v145 = v323;
+        }
+
+        else
+        {
+          v148 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v146, 0}];
+          v170 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v148, v145, 0}];
+          [v143 setObject:v170 forKeyedSubscript:v144];
+        }
+
+        v172 = v143;
+        v173 = v145;
+        v174 = v146;
+        v175 = [v172 objectForKeyedSubscript:@"AllDevices"];
+        if (v175)
+        {
+          v176 = v175;
+          v177 = v173;
+          v178 = v174;
+          v179 = [v176 objectForKeyedSubscript:v177];
+          v316 = v172;
+          if (v179)
+          {
+            v296 = v177;
+            v302 = v176;
+            v308 = v174;
+            v324 = v173;
+            v180 = v179;
+            v290 = v178;
+            v181 = v178;
+            v363 = 0u;
+            v364 = 0u;
+            v365 = 0u;
+            v366 = 0u;
+            v182 = v180;
+            v183 = [v182 countByEnumeratingWithState:&v363 objects:v367 count:16];
+            if (v183)
+            {
+              v184 = 0;
+              v185 = *v364;
+              v285 = v181;
+              do
+              {
+                v186 = 0;
+                v360 = v183;
+                do
+                {
+                  if (*v364 != v185)
+                  {
+                    objc_enumerationMutation(v182);
+                  }
+
+                  v187 = *(*(&v363 + 1) + 8 * v186);
+                  if ([v187 intersectsDateInterval:v181])
+                  {
+                    startDate11 = [v187 startDate];
+                    startDate12 = [v181 startDate];
+                    v190 = [startDate11 earlierDate:startDate12];
+
+                    endDate10 = [v187 endDate];
+                    [v181 endDate];
+                    v193 = v192 = v184;
+                    v194 = [endDate10 laterDate:v193];
+
+                    v184 = v192;
+                    v195 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v190 endDate:v194];
+
+                    if (v192)
+                    {
+                      [v192 addObject:v187];
+                    }
+
+                    else
+                    {
+                      v184 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v187, 0}];
+                    }
+
+                    v181 = v195;
+                    v183 = v360;
+                  }
+
+                  v186 = v186 + 1;
+                }
+
+                while (v183 != v186);
+                v183 = [v182 countByEnumeratingWithState:&v363 objects:v367 count:16];
+              }
+
+              while (v183);
+
+              v52 = v353;
+              if (v184)
+              {
+                [v182 removeObjectsInArray:v184];
+                v53 = v349;
+                v51 = v351;
+                v183 = v184;
+              }
+
+              else
+              {
+                v183 = 0;
+                v53 = v349;
+                v51 = v351;
+              }
+
+              v199 = v285;
+            }
+
+            else
+            {
+
+              v199 = v181;
+              v51 = v351;
+              v52 = v353;
+            }
+
+            [v182 addObject:v181];
+
+            v24 = v343;
+            v173 = v324;
+            v176 = v302;
+            v174 = v308;
+            v198 = v182;
+            v178 = v290;
+            v177 = v296;
+          }
+
+          else
+          {
+            v198 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v178, 0}];
+            [v176 setObject:v198 forKeyedSubscript:v177];
+            v52 = v353;
+          }
+
+          v196 = v176;
+          v197 = v316;
+        }
+
+        else
+        {
+          v176 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v174, 0}];
+          v196 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v176, v173, 0}];
+          [v172 setObject:v196 forKeyedSubscript:@"AllDevices"];
+          v197 = v172;
+          v52 = v353;
+        }
+
+        v139 = v330;
+        v141 = v336;
+      }
+    }
+
+    else
+    {
+      v141 = 0;
+    }
+
+    if (v347 && !v141)
+    {
+      primaryWebDomain = [v139 primaryWebDomain];
+      v201 = primaryWebDomain;
+      if (primaryWebDomain)
+      {
+        v325 = primaryWebDomain;
+        v331 = v139;
+        v202 = [USTrustIdentifier identifierWithIdentifier:primaryWebDomain trusted:v337];
+        v203 = v347;
+        v204 = v24;
+        v205 = v202;
+        v206 = v53;
+        v207 = [v203 objectForKeyedSubscript:v204];
+        if (v207)
+        {
+          v208 = v207;
+          v209 = v205;
+          v210 = v206;
+          v211 = [v208 objectForKeyedSubscript:v209];
+          v338 = v205;
+          if (v211)
+          {
+            v291 = v209;
+            v297 = v208;
+            v303 = v204;
+            v309 = v206;
+            v317 = v203;
+            v212 = v211;
+            v213 = v210;
+            v363 = 0u;
+            v364 = 0u;
+            v365 = 0u;
+            v366 = 0u;
+            v214 = v212;
+            v215 = [v214 countByEnumeratingWithState:&v363 objects:v367 count:16];
+            v286 = v210;
+            if (v215)
+            {
+              v216 = v215;
+              v361 = 0;
+              v217 = *v364;
+              v283 = v213;
+              do
+              {
+                for (n = 0; n != v216; ++n)
+                {
+                  if (*v364 != v217)
+                  {
+                    objc_enumerationMutation(v214);
+                  }
+
+                  v219 = *(*(&v363 + 1) + 8 * n);
+                  if ([v219 intersectsDateInterval:v213])
+                  {
+                    v220 = v214;
+                    startDate13 = [v219 startDate];
+                    startDate14 = [v213 startDate];
+                    v223 = [startDate13 earlierDate:startDate14];
+
+                    endDate11 = [v219 endDate];
+                    endDate12 = [v213 endDate];
+                    v226 = [endDate11 laterDate:endDate12];
+
+                    v227 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v223 endDate:v226];
+                    if (v361)
+                    {
+                      [v361 addObject:v219];
+                    }
+
+                    else
+                    {
+                      v361 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v219, 0}];
+                    }
+
+                    v213 = v227;
+                    v53 = v349;
+                    v214 = v220;
+                  }
+                }
+
+                v216 = [v214 countByEnumeratingWithState:&v363 objects:v367 count:16];
+              }
+
+              while (v216);
+
+              v228 = v361;
+              if (v361)
+              {
+                [v214 removeObjectsInArray:v361];
+              }
+
+              v24 = v343;
+              v209 = v291;
+              v229 = v283;
+            }
+
+            else
+            {
+
+              v228 = 0;
+              v229 = v213;
+              v24 = v343;
+              v209 = v291;
+            }
+
+            [v214 addObject:v213];
+
+            v51 = v351;
+            v206 = v309;
+            v203 = v317;
+            v208 = v297;
+            v231 = v303;
+            v210 = v286;
+          }
+
+          else
+          {
+            v231 = v204;
+            v214 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v210, 0}];
+            [v208 setObject:v214 forKeyedSubscript:v209];
+          }
+
+          v230 = v208;
+          v204 = v231;
+          v205 = v338;
+        }
+
+        else
+        {
+          v208 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v206, 0}];
+          v230 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v208, v205, 0}];
+          [v203 setObject:v230 forKeyedSubscript:v204];
+        }
+
+        v232 = v203;
+        v233 = v205;
+        v234 = v206;
+        v235 = [v232 objectForKeyedSubscript:@"AllDevices"];
+        if (v235)
+        {
+          v236 = v235;
+          v237 = v233;
+          v238 = v234;
+          v239 = [v236 objectForKeyedSubscript:v237];
+          v318 = v232;
+          if (v239)
+          {
+            v298 = v237;
+            v304 = v236;
+            v310 = v234;
+            v339 = v233;
+            v240 = v239;
+            v292 = v238;
+            v241 = v238;
+            v363 = 0u;
+            v364 = 0u;
+            v365 = 0u;
+            v366 = 0u;
+            v242 = v240;
+            v243 = [v242 countByEnumeratingWithState:&v363 objects:v367 count:16];
+            if (v243)
+            {
+              v244 = v243;
+              v245 = 0;
+              v246 = *v364;
+              v287 = v241;
+              do
+              {
+                v247 = 0;
+                v362 = v244;
+                do
+                {
+                  if (*v364 != v246)
+                  {
+                    objc_enumerationMutation(v242);
+                  }
+
+                  v248 = *(*(&v363 + 1) + 8 * v247);
+                  if ([v248 intersectsDateInterval:v241])
+                  {
+                    startDate15 = [v248 startDate];
+                    startDate16 = [v241 startDate];
+                    v251 = [startDate15 earlierDate:startDate16];
+
+                    endDate13 = [v248 endDate];
+                    [v241 endDate];
+                    v254 = v253 = v245;
+                    v255 = [endDate13 laterDate:v254];
+
+                    v245 = v253;
+                    v256 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v251 endDate:v255];
+
+                    if (v253)
+                    {
+                      [v253 addObject:v248];
+                    }
+
+                    else
+                    {
+                      v245 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v248, 0}];
+                    }
+
+                    v241 = v256;
+                    v244 = v362;
+                  }
+
+                  ++v247;
+                }
+
+                while (v244 != v247);
+                v244 = [v242 countByEnumeratingWithState:&v363 objects:v367 count:16];
+              }
+
+              while (v244);
+
+              v53 = v349;
+              v52 = v353;
+              if (v245)
+              {
+                [v242 removeObjectsInArray:v245];
+              }
+
+              v51 = v351;
+              v257 = v287;
+            }
+
+            else
+            {
+
+              v245 = 0;
+              v257 = v241;
+              v51 = v351;
+              v52 = v353;
+            }
+
+            [v242 addObject:v241];
+
+            v24 = v343;
+            v233 = v339;
+            v236 = v304;
+            v234 = v310;
+            v260 = v242;
+            v238 = v292;
+            v237 = v298;
+          }
+
+          else
+          {
+            v260 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v238, 0}];
+            [v236 setObject:v260 forKeyedSubscript:v237];
+            v52 = v353;
+          }
+
+          v258 = v236;
+          v259 = v318;
+        }
+
+        else
+        {
+          v236 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v234, 0}];
+          v258 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v236, v233, 0}];
+          [v232 setObject:v258 forKeyedSubscript:@"AllDevices"];
+          v259 = v232;
+          v52 = v353;
+        }
+
+        v201 = v325;
+        v139 = v331;
+      }
+
+      v141 = 0;
+    }
+  }
+
+  if (zoneByDeviceCopy && dateByDeviceCopy)
+  {
+    v261 = zoneByDeviceCopy;
+    v262 = dateByDeviceCopy;
+    v263 = eventCopy;
+    v264 = v53;
+    v265 = v24;
+    v266 = [v261 objectForKeyedSubscript:v265];
+
+    if (!v266)
+    {
+      timeZone = [v263 timeZone];
+      if (timeZone)
+      {
+        [v261 setObject:timeZone forKeyedSubscript:v265];
+      }
+
+      else
+      {
+        localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
+        [v261 setObject:localTimeZone forKeyedSubscript:v265];
+      }
+    }
+
+    endDate14 = [v264 endDate];
+    v270 = [v262 objectForKeyedSubscript:v265];
+    v271 = v270;
+    if (!v270 || [v270 compare:endDate14] == -1)
+    {
+      [v262 setObject:endDate14 forKeyedSubscript:v265];
+    }
+
+    v272 = v261;
+    v273 = v262;
+    v274 = v263;
+    v275 = v264;
+    v276 = [v272 objectForKeyedSubscript:@"AllDevices"];
+
+    v24 = v343;
+    if (!v276)
+    {
+      timeZone2 = [v274 timeZone];
+      if (timeZone2)
+      {
+        [v272 setObject:timeZone2 forKeyedSubscript:@"AllDevices"];
+      }
+
+      else
+      {
+        localTimeZone2 = [MEMORY[0x277CBEBB0] localTimeZone];
+        [v272 setObject:localTimeZone2 forKeyedSubscript:@"AllDevices"];
+      }
+    }
+
+    endDate15 = [v275 endDate];
+    v280 = [v273 objectForKeyedSubscript:@"AllDevices"];
+    v281 = v280;
+    if (!v280 || [v280 compare:endDate15] == -1)
+    {
+      [v273 setObject:endDate15 forKeyedSubscript:@"AllDevices"];
+    }
+
+    v52 = v353;
+  }
+}
+
 - (void)_enumerateCurrentWebUsageIntervalsDuringInterval:(id)interval exemptWebDomains:(id)domains referenceDate:(id)date focalOnly:(BOOL)only block:(id)block
 {
   onlyCopy = only;
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   domainsCopy = domains;
   dateCopy = date;
@@ -4726,41 +6877,41 @@ uint64_t __267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_time
   v15 = [context objectForKeyedSubscript:keyPathForAppWebUsageDataDictionaries];
   if (v15)
   {
-    v43 = context;
-    v44 = keyPathForAppWebUsageDataDictionaries;
+    v42 = context;
+    v43 = keyPathForAppWebUsageDataDictionaries;
     appWebUsageWebDomain = [MEMORY[0x277CFE338] appWebUsageWebDomain];
     appWebUsageStartDate = [MEMORY[0x277CFE338] appWebUsageStartDate];
     isUsageTrusted = [MEMORY[0x277CFE338] isUsageTrusted];
     appWebUsageBundleID = [MEMORY[0x277CFE338] appWebUsageBundleID];
     appWebUsageType = [MEMORY[0x277CFE338] appWebUsageType];
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
-    v42 = v15;
+    v41 = v15;
     obj = v15;
-    v17 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
+    v17 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v60;
-      v50 = domainsCopy;
-      v49 = onlyCopy;
-      v47 = *v60;
-      v48 = appWebUsageType;
+      v19 = *v59;
+      v49 = domainsCopy;
+      v48 = onlyCopy;
+      v46 = *v59;
+      v47 = appWebUsageType;
       do
       {
         v20 = 0;
-        v55 = v18;
+        v54 = v18;
         do
         {
-          if (*v60 != v19)
+          if (*v59 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v59 + 1) + 8 * v20);
-          v22 = [v21 objectForKeyedSubscript:{appWebUsageType, v42}];
+          v21 = *(*(&v58 + 1) + 8 * v20);
+          v22 = [v21 objectForKeyedSubscript:{appWebUsageType, v41}];
           integerValue = [v22 integerValue];
           integerValue2 = [v22 integerValue];
           v25 = integerValue == 1;
@@ -4777,7 +6928,7 @@ uint64_t __267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_time
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
               {
-                [USUsageQuerying _enumerateCurrentWebUsageIntervalsDuringInterval:v27 exemptWebDomains:&v64 referenceDate:? focalOnly:? block:?];
+                [USUsageQuerying _enumerateCurrentWebUsageIntervalsDuringInterval:v27 exemptWebDomains:&v63 referenceDate:? focalOnly:? block:?];
               }
             }
 
@@ -4792,7 +6943,7 @@ uint64_t __267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_time
                 v31 = v29;
               }
 
-              v58 = v31;
+              v57 = v31;
 
               v32 = intervalCopy;
               v33 = v28;
@@ -4816,14 +6967,14 @@ uint64_t __267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_time
               if (v39)
               {
                 v40 = [v21 objectForKeyedSubscript:appWebUsageBundleID];
-                blockCopy[2](blockCopy, v39, v27, v40, [v58 BOOLValue]);
+                blockCopy[2](blockCopy, v39, v27, v40, [v57 BOOLValue]);
               }
 
-              domainsCopy = v50;
-              onlyCopy = v49;
-              v19 = v47;
-              appWebUsageType = v48;
-              v18 = v55;
+              domainsCopy = v49;
+              onlyCopy = v48;
+              v19 = v46;
+              appWebUsageType = v47;
+              v18 = v54;
             }
           }
 
@@ -4831,23 +6982,21 @@ uint64_t __267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_time
         }
 
         while (v18 != v20);
-        v18 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
+        v18 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
       }
 
       while (v18);
     }
 
-    context = v43;
-    keyPathForAppWebUsageDataDictionaries = v44;
-    v15 = v42;
+    context = v42;
+    keyPathForAppWebUsageDataDictionaries = v43;
+    v15 = v41;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     [USUsageQuerying _currentScreenTimeIntervalDuringInterval:usageStartDate:referenceDate:];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_computeNowPlayingUsageWithEvents:(id)events categoryUsageIntervalsByDevice:(id)device timeZoneByDevice:(id)byDevice lastEventDateByDevice:(id)dateByDevice partition:(id)partition referenceDate:(id)date
@@ -4904,7 +7053,7 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
 
 - (void)_updateNowPlayingUsageWithInterval:(id)interval event:(id)event deviceIdentifier:(id)identifier categoryUsageIntervalsByDevice:(id)device timeZoneByDevice:(id)byDevice lastEventDateByDevice:(id)dateByDevice
 {
-  v128 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   eventCopy = event;
   identifierCopy = identifier;
@@ -4913,13 +7062,13 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
   dateByDeviceCopy = dateByDevice;
   if (deviceCopy)
   {
-    v106 = dateByDeviceCopy;
+    v105 = dateByDeviceCopy;
     v18 = *MEMORY[0x277CF95D0];
     v19 = intervalCopy;
     v20 = deviceCopy;
     v21 = identifierCopy;
     v22 = v18;
-    v107 = v19;
+    v106 = v19;
     v23 = v19;
     v24 = [v20 objectForKeyedSubscript:v21];
     if (v24)
@@ -4929,38 +7078,38 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
       v27 = [v25 objectForKeyedSubscript:v22];
       if (v27)
       {
-        v100 = v22;
-        v102 = v20;
-        v104 = identifierCopy;
+        v99 = v22;
+        v101 = v20;
+        v103 = identifierCopy;
         v28 = v27;
         v29 = v26;
+        v122 = 0u;
         v123 = 0u;
         v124 = 0u;
         v125 = 0u;
-        v126 = 0u;
-        v30 = [v28 countByEnumeratingWithState:&v123 objects:v127 count:16];
-        v99 = v26;
+        v30 = [v28 countByEnumeratingWithState:&v122 objects:v126 count:16];
+        v98 = v26;
         if (v30)
         {
           v31 = v30;
-          v108 = byDeviceCopy;
-          v111 = deviceCopy;
+          v107 = byDeviceCopy;
+          v110 = deviceCopy;
           obj = 0;
-          v32 = *v124;
-          v115 = *v124;
-          v117 = v28;
+          v32 = *v123;
+          v114 = *v123;
+          v116 = v28;
           do
           {
             v33 = 0;
-            v119 = v31;
+            v118 = v31;
             do
             {
-              if (*v124 != v32)
+              if (*v123 != v32)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v34 = *(*(&v123 + 1) + 8 * v33);
+              v34 = *(*(&v122 + 1) + 8 * v33);
               if ([v34 intersectsDateInterval:v29])
               {
                 v35 = v25;
@@ -4990,16 +7139,16 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
                 v29 = v44;
                 v21 = v36;
                 v25 = v35;
-                v32 = v115;
-                v28 = v117;
-                v31 = v119;
+                v32 = v114;
+                v28 = v116;
+                v31 = v118;
               }
 
               ++v33;
             }
 
             while (v31 != v33);
-            v31 = [v28 countByEnumeratingWithState:&v123 objects:v127 count:16];
+            v31 = [v28 countByEnumeratingWithState:&v122 objects:v126 count:16];
           }
 
           while (v31);
@@ -5009,9 +7158,9 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
             [v28 removeObjectsInArray:obj];
           }
 
-          identifierCopy = v104;
-          byDeviceCopy = v108;
-          deviceCopy = v111;
+          identifierCopy = v103;
+          byDeviceCopy = v107;
+          deviceCopy = v110;
         }
 
         else
@@ -5021,9 +7170,9 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
 
         [v28 addObject:v29];
 
-        v22 = v100;
-        v20 = v102;
-        v26 = v99;
+        v22 = v99;
+        v20 = v101;
+        v26 = v98;
       }
 
       else
@@ -5049,41 +7198,41 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
       v51 = v50;
       v52 = v49;
       v53 = [v51 objectForKeyedSubscript:v48];
-      intervalCopy = v107;
+      intervalCopy = v106;
       if (v53)
       {
-        v112 = deviceCopy;
-        v105 = identifierCopy;
+        v111 = deviceCopy;
+        v104 = identifierCopy;
         v54 = v53;
         v55 = v52;
+        v122 = 0u;
         v123 = 0u;
         v124 = 0u;
         v125 = 0u;
-        v126 = 0u;
         obja = v54;
-        v56 = [v54 countByEnumeratingWithState:&v123 objects:v127 count:16];
+        v56 = [v54 countByEnumeratingWithState:&v122 objects:v126 count:16];
         if (v56)
         {
           v57 = v56;
-          v101 = v52;
-          v103 = v51;
-          v116 = v49;
-          v118 = v48;
-          v120 = v47;
-          v109 = byDeviceCopy;
+          v100 = v52;
+          v102 = v51;
+          v115 = v49;
+          v117 = v48;
+          v119 = v47;
+          v108 = byDeviceCopy;
           v58 = 0;
-          v59 = *v124;
+          v59 = *v123;
           v60 = obja;
           do
           {
             for (i = 0; i != v57; ++i)
             {
-              if (*v124 != v59)
+              if (*v123 != v59)
               {
                 objc_enumerationMutation(v60);
               }
 
-              v62 = *(*(&v123 + 1) + 8 * i);
+              v62 = *(*(&v122 + 1) + 8 * i);
               if ([v62 intersectsDateInterval:v55])
               {
                 startDate3 = [v62 startDate];
@@ -5110,7 +7259,7 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
               }
             }
 
-            v57 = [v60 countByEnumeratingWithState:&v123 objects:v127 count:16];
+            v57 = [v60 countByEnumeratingWithState:&v122 objects:v126 count:16];
           }
 
           while (v57);
@@ -5119,14 +7268,14 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
             [v60 removeObjectsInArray:v58];
           }
 
-          v51 = v103;
-          identifierCopy = v105;
-          byDeviceCopy = v109;
-          v48 = v118;
-          v47 = v120;
-          v49 = v116;
+          v51 = v102;
+          identifierCopy = v104;
+          byDeviceCopy = v108;
+          v48 = v117;
+          v47 = v119;
+          v49 = v115;
           v70 = v60;
-          v52 = v101;
+          v52 = v100;
         }
 
         else
@@ -5137,8 +7286,8 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
 
         [v70 addObject:v55];
 
-        intervalCopy = v107;
-        deviceCopy = v112;
+        intervalCopy = v106;
+        deviceCopy = v111;
       }
 
       else
@@ -5155,16 +7304,16 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
       v51 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v49, 0}];
       v71 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{v51, v48, 0}];
       [v47 setObject:v71 forKeyedSubscript:@"AllDevices"];
-      intervalCopy = v107;
+      intervalCopy = v106;
     }
 
-    dateByDeviceCopy = v106;
+    dateByDeviceCopy = v105;
   }
 
   if (byDeviceCopy && dateByDeviceCopy)
   {
-    v110 = byDeviceCopy;
-    v113 = deviceCopy;
+    v109 = byDeviceCopy;
+    v112 = deviceCopy;
     v72 = dateByDeviceCopy;
     v73 = byDeviceCopy;
     v74 = v72;
@@ -5230,12 +7379,10 @@ void __147__USUsageQuerying__computeNowPlayingUsageWithEvents_categoryUsageInter
     }
 
     identifierCopy = v80;
-    byDeviceCopy = v110;
-    deviceCopy = v113;
+    byDeviceCopy = v109;
+    deviceCopy = v112;
     dateByDeviceCopy = v74;
   }
-
-  v98 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_currentNowPlayingUsageIntervalsDuringInterval:(id)interval referenceDate:(id)date
@@ -5287,7 +7434,7 @@ LABEL_10:
 
 - (void)_enumerateCurrentVideoUsageIntervalsDuringInterval:(id)interval exemptApplications:(id)applications exemptWebDomains:(id)domains referenceDate:(id)date block:(id)block
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   applicationsCopy = applications;
   domainsCopy = domains;
@@ -5298,52 +7445,52 @@ LABEL_10:
   v15 = [context objectForKeyedSubscript:keyPathForAppMediaUsageDataDictionaries];
   if (v15)
   {
-    v36 = context;
-    v37 = keyPathForAppMediaUsageDataDictionaries;
+    v35 = context;
+    v36 = keyPathForAppMediaUsageDataDictionaries;
     appMediaUsageBundleID = [MEMORY[0x277CFE338] appMediaUsageBundleID];
     appMediaUsageStartDate = [MEMORY[0x277CFE338] appMediaUsageStartDate];
     appMediaUsageURL = [MEMORY[0x277CFE338] appMediaUsageURL];
     isUsageTrusted = [MEMORY[0x277CFE338] isUsageTrusted];
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v35 = v15;
+    v34 = v15;
     obj = v15;
-    v48 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
-    if (v48)
+    v47 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
+    if (v47)
     {
-      v40 = *v52;
-      v41 = applicationsCopy;
+      v39 = *v51;
+      v40 = applicationsCopy;
       do
       {
-        for (i = 0; i != v48; ++i)
+        for (i = 0; i != v47; ++i)
         {
-          if (*v52 != v40)
+          if (*v51 != v39)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v51 + 1) + 8 * i);
+          v17 = *(*(&v50 + 1) + 8 * i);
           v18 = [v17 objectForKeyedSubscript:appMediaUsageBundleID];
           if (applicationsCopy && [applicationsCopy containsObject:v18])
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
             {
-              [USUsageQuerying _enumerateCurrentVideoUsageIntervalsDuringInterval:v18 exemptApplications:&v58 exemptWebDomains:? referenceDate:? block:?];
+              [USUsageQuerying _enumerateCurrentVideoUsageIntervalsDuringInterval:v18 exemptApplications:&v57 exemptWebDomains:? referenceDate:? block:?];
             }
 
             v18 = 0;
           }
 
-          v50 = [v17 objectForKeyedSubscript:appMediaUsageURL];
-          host = [v50 host];
+          v49 = [v17 objectForKeyedSubscript:appMediaUsageURL];
+          host = [v49 host];
           v20 = host;
           if (domainsCopy && host && [domainsCopy containsObject:host])
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
             {
-              [USUsageQuerying _enumerateCurrentVideoUsageIntervalsDuringInterval:v18 exemptApplications:&v56 exemptWebDomains:? referenceDate:? block:?];
+              [USUsageQuerying _enumerateCurrentVideoUsageIntervalsDuringInterval:v18 exemptApplications:&v55 exemptWebDomains:? referenceDate:? block:?];
             }
 
             v20 = 0;
@@ -5384,26 +7531,24 @@ LABEL_10:
             blockCopy[2](blockCopy, v33, v27, v18, v20, [v25 BOOLValue]);
           }
 
-          applicationsCopy = v41;
+          applicationsCopy = v40;
         }
 
-        v48 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
+        v47 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
       }
 
-      while (v48);
+      while (v47);
     }
 
-    context = v36;
-    keyPathForAppMediaUsageDataDictionaries = v37;
-    v15 = v35;
+    context = v35;
+    keyPathForAppMediaUsageDataDictionaries = v36;
+    v15 = v34;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     [USUsageQuerying _currentScreenTimeIntervalDuringInterval:usageStartDate:referenceDate:];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_computeNotificationsWithEvents:(id)events timeZoneByDevice:(id)device lastEventDateByDevice:(id)byDevice partition:(id)partition
@@ -5491,6 +7636,116 @@ void __100__USUsageQuerying__computeNotificationsWithEvents_timeZoneByDevice_las
   }
 }
 
+- (void)_updateNotificationsWithEvent:(id)event bundleIdentifier:(id)identifier trustedNotification:(BOOL)notification deviceIdentifier:(id)deviceIdentifier notificationsByDevice:(id)device timeZoneByDevice:(id)byDevice lastEventDateByDevice:(id)dateByDevice
+{
+  notificationCopy = notification;
+  eventCopy = event;
+  deviceIdentifierCopy = deviceIdentifier;
+  deviceCopy = device;
+  byDeviceCopy = byDevice;
+  dateByDeviceCopy = dateByDevice;
+  v19 = [USTrustIdentifier identifierWithIdentifier:identifier trusted:notificationCopy];
+  v20 = deviceCopy;
+  v21 = deviceIdentifierCopy;
+  v22 = [v20 objectForKeyedSubscript:v21];
+  if (v22)
+  {
+    v23 = v22;
+    v24 = MEMORY[0x277CCABB0];
+    v25 = [v22 objectForKeyedSubscript:v19];
+    v26 = [v24 numberWithUnsignedInteger:{objc_msgSend(v25, "unsignedIntegerValue") + 1}];
+    [v23 setObject:v26 forKeyedSubscript:v19];
+  }
+
+  else
+  {
+    v23 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{&unk_2880871F8, v19, 0}];
+    [v20 setObject:v23 forKeyedSubscript:v21];
+  }
+
+  v27 = v20;
+  v28 = v19;
+  v29 = [v27 objectForKeyedSubscript:@"AllDevices"];
+  if (v29)
+  {
+    v30 = v29;
+    v31 = MEMORY[0x277CCABB0];
+    v32 = [v29 objectForKeyedSubscript:v28];
+    v33 = [v31 numberWithUnsignedInteger:{objc_msgSend(v32, "unsignedIntegerValue") + 1}];
+    [v30 setObject:v33 forKeyedSubscript:v28];
+  }
+
+  else
+  {
+    v30 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjectsAndKeys:{&unk_2880871F8, v28, 0}];
+    [v27 setObject:v30 forKeyedSubscript:@"AllDevices"];
+  }
+
+  v34 = objc_alloc(MEMORY[0x277CCA970]);
+  startDate = [eventCopy startDate];
+  endDate = [eventCopy endDate];
+  v37 = [v34 initWithStartDate:startDate endDate:endDate];
+
+  v38 = byDeviceCopy;
+  v39 = dateByDeviceCopy;
+  v40 = eventCopy;
+  v41 = v37;
+  v42 = v21;
+  v43 = [v38 objectForKeyedSubscript:v42];
+
+  if (!v43)
+  {
+    timeZone = [v40 timeZone];
+    if (timeZone)
+    {
+      [v38 setObject:timeZone forKeyedSubscript:v42];
+    }
+
+    else
+    {
+      localTimeZone = [MEMORY[0x277CBEBB0] localTimeZone];
+      [v38 setObject:localTimeZone forKeyedSubscript:v42];
+    }
+  }
+
+  endDate2 = [v41 endDate];
+  v47 = [v39 objectForKeyedSubscript:v42];
+  v48 = v47;
+  if (!v47 || [v47 compare:endDate2] == -1)
+  {
+    [v39 setObject:endDate2 forKeyedSubscript:v42];
+  }
+
+  v49 = v38;
+  v50 = v39;
+  v58 = v40;
+  v51 = v41;
+  v52 = [v49 objectForKeyedSubscript:@"AllDevices"];
+
+  if (!v52)
+  {
+    timeZone2 = [v58 timeZone];
+    if (timeZone2)
+    {
+      [v49 setObject:timeZone2 forKeyedSubscript:@"AllDevices"];
+    }
+
+    else
+    {
+      localTimeZone2 = [MEMORY[0x277CBEBB0] localTimeZone];
+      [v49 setObject:localTimeZone2 forKeyedSubscript:@"AllDevices"];
+    }
+  }
+
+  endDate3 = [v51 endDate];
+  v56 = [v50 objectForKeyedSubscript:@"AllDevices"];
+  v57 = v56;
+  if (!v56 || [v56 compare:endDate3] == -1)
+  {
+    [v50 setObject:endDate3 forKeyedSubscript:@"AllDevices"];
+  }
+}
+
 - (void)_enumerateEvents:(id)events intervalEndDate:(id)date block:(id)block
 {
   dateCopy = date;
@@ -5540,7 +7795,7 @@ void __58__USUsageQuerying__enumerateEvents_intervalEndDate_block___block_invoke
 
 + (void)queryUsageDuringInterval:(id)interval partitionInterval:(double)partitionInterval adjustedStartDate:(id)date eventStreams:(id)streams categoryByBundleIdentifier:(id)identifier categoryByWebDomain:(id)domain usageReportHandler:(id)handler completionHandler:(id)self0
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   dateCopy = date;
   streamsCopy = streams;
@@ -5548,33 +7803,33 @@ void __58__USUsageQuerying__enumerateEvents_intervalEndDate_block___block_invoke
   domainCopy = domain;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  v45 = intervalCopy;
+  v44 = intervalCopy;
   startDate = [intervalCopy startDate];
-  v44 = [[USUsageAccumulator alloc] initWithApplicationCategories:identifierCopy webCategories:domainCopy];
+  v43 = [[USUsageAccumulator alloc] initWithApplicationCategories:identifierCopy webCategories:domainCopy];
   if ([dateCopy compare:startDate] == -1)
   {
-    v41 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:dateCopy endDate:startDate maxEvents:0 lastN:0 reversed:0];
+    v40 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:dateCopy endDate:startDate maxEvents:0 lastN:0 reversed:0];
     v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(streamsCopy, "count")}];
+    v71 = 0u;
     v72 = 0u;
     v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
     v19 = streamsCopy;
-    v20 = [v19 countByEnumeratingWithState:&v72 objects:v76 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v71 objects:v75 count:16];
     if (v20)
     {
-      v21 = *v73;
+      v21 = *v72;
       v22 = *MEMORY[0x277CF0E88];
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v73 != v21)
+          if (*v72 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v72 + 1) + 8 * i);
+          v24 = *(*(&v71 + 1) + 8 * i);
           identifier = [v24 identifier];
           v26 = [identifier isEqualToString:v22];
 
@@ -5584,68 +7839,67 @@ void __58__USUsageQuerying__enumerateEvents_intervalEndDate_block___block_invoke
           }
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v72 objects:v76 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v71 objects:v75 count:16];
       }
 
       while (v20);
     }
 
-    v27 = [self _chronologicalPublisherWithOptions:v41 eventStreams:v18];
-    v69[0] = MEMORY[0x277D85DD0];
-    v69[1] = 3221225472;
-    v69[2] = __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke;
-    v69[3] = &unk_279E0A330;
-    v70 = v41;
+    v27 = [self _chronologicalPublisherWithOptions:v40 eventStreams:v18];
+    v68[0] = MEMORY[0x277D85DD0];
+    v68[1] = 3221225472;
+    v68[2] = __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke;
+    v68[3] = &unk_279E0A330;
+    v69 = v40;
     selfCopy = self;
-    v66[0] = MEMORY[0x277D85DD0];
-    v66[1] = 3221225472;
-    v66[2] = __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke_2;
-    v66[3] = &unk_279E0A358;
-    v67 = v44;
-    v68 = startDate;
-    v28 = v41;
-    v29 = [v27 sinkWithCompletion:v69 receiveInput:v66];
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke_2;
+    v65[3] = &unk_279E0A358;
+    v66 = v43;
+    v67 = startDate;
+    v28 = v40;
+    v29 = [v27 sinkWithCompletion:v68 receiveInput:v65];
   }
 
-  v64[0] = 0;
-  v64[1] = v64;
-  v64[2] = 0x3032000000;
-  v64[3] = __Block_byref_object_copy__1;
-  v64[4] = __Block_byref_object_dispose__1;
-  v65 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:startDate duration:partitionInterval];
+  v63[0] = 0;
+  v63[1] = v63;
+  v63[2] = 0x3032000000;
+  v63[3] = __Block_byref_object_copy__1;
+  v63[4] = __Block_byref_object_dispose__1;
+  v64 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:startDate duration:partitionInterval];
   v30 = objc_alloc(MEMORY[0x277CF1A50]);
-  endDate = [v45 endDate];
+  endDate = [v44 endDate];
   v32 = [v30 initWithStartDate:startDate endDate:endDate maxEvents:0 lastN:0 reversed:0];
 
   v33 = [self _chronologicalPublisherWithOptions:v32 eventStreams:streamsCopy];
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke_155;
-  v57[3] = &unk_279E0A380;
-  v58 = v44;
-  v62 = v64;
-  v60 = handlerCopy;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke_155;
+  v56[3] = &unk_279E0A380;
+  v57 = v43;
+  v61 = v63;
+  v59 = handlerCopy;
   selfCopy2 = self;
   v34 = v32;
-  v59 = v34;
+  v58 = v34;
   v35 = completionHandlerCopy;
-  v61 = v35;
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke_2_156;
-  v51[3] = &unk_279E0A3A8;
-  v55 = v64;
-  v36 = v45;
-  v52 = v36;
-  v37 = v58;
-  v53 = v37;
-  v38 = v60;
-  v54 = v38;
+  v60 = v35;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke_2_156;
+  v50[3] = &unk_279E0A3A8;
+  v54 = v63;
+  v36 = v44;
+  v51 = v36;
+  v37 = v57;
+  v52 = v37;
+  v38 = v59;
+  v53 = v38;
   partitionIntervalCopy = partitionInterval;
-  v39 = [v33 sinkWithCompletion:v57 receiveInput:v51];
+  v39 = [v33 sinkWithCompletion:v56 receiveInput:v50];
 
-  _Block_object_dispose(v64, 8);
-  v40 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v63, 8);
 }
 
 uint64_t __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke_155(uint64_t a1, void *a2)
@@ -5670,7 +7924,7 @@ uint64_t __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterva
 
 void __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_adjustedStartDate_eventStreams_categoryByBundleIdentifier_categoryByWebDomain_usageReportHandler_completionHandler___block_invoke_2_156(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 eventBody];
   objc_opt_class();
@@ -5715,19 +7969,17 @@ void __184__USUsageQuerying_Biome__queryUsageDuringInterval_partitionInterval_ad
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v13 = [v3 eventBody];
-    v15 = 138543362;
-    v16 = v13;
-    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Skipping event that occurred outside of the report interval %{public}@", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v13;
+    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Skipping event that occurred outside of the report interval %{public}@", &v14, 0xCu);
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_chronologicalPublisherWithOptions:(id)options eventStreams:(id)streams
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   streamsCopy = streams;
   if ([streamsCopy count])
@@ -5736,51 +7988,51 @@ LABEL_12:
     v8 = [firstObject publisherWithOptions:optionsCopy];
     if ([streamsCopy count] >= 2)
     {
-      v22 = v8;
-      v24 = optionsCopy;
+      v21 = v8;
+      v23 = optionsCopy;
       v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(streamsCopy, "count") - 1}];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v23 = streamsCopy;
+      v22 = streamsCopy;
       v10 = streamsCopy;
-      v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v26;
+        v13 = *v25;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v26 != v13)
+            if (*v25 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v25 + 1) + 8 * i);
+            v15 = *(*(&v24 + 1) + 8 * i);
             identifier = [v15 identifier];
             identifier2 = [firstObject identifier];
             v18 = [identifier isEqualToString:identifier2];
 
             if ((v18 & 1) == 0)
             {
-              v19 = [v15 publisherWithOptions:v24];
+              v19 = [v15 publisherWithOptions:v23];
               [v9 addObject:v19];
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v12);
       }
 
-      v8 = [v22 orderedMergeWithOthers:v9 comparator:&__block_literal_global_0];
+      v8 = [v21 orderedMergeWithOthers:v9 comparator:&__block_literal_global_0];
 
-      streamsCopy = v23;
-      optionsCopy = v24;
+      streamsCopy = v22;
+      optionsCopy = v23;
     }
   }
 
@@ -5788,8 +8040,6 @@ LABEL_12:
   {
     v8 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -5824,7 +8074,7 @@ uint64_t __74__USUsageQuerying_Biome___chronologicalPublisherWithOptions_eventSt
 
 + (void)_completion:(id)_completion options:(id)options
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _completionCopy = _completion;
   optionsCopy = options;
   state = [_completionCopy state];
@@ -5838,12 +8088,10 @@ uint64_t __74__USUsageQuerying_Biome___chronologicalPublisherWithOptions_eventSt
 
   else if (!state && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = optionsCopy;
-    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Successfully queried Biome for usage reports with options %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = optionsCopy;
+    _os_log_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Successfully queried Biome for usage reports with options %{public}@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2_cold_1()
@@ -5860,22 +8108,6 @@ void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_
   _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Found notification event with no bundle ID. Skipping event", buf, 2u);
 }
 
-void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_2_cold_3()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Looking up %lu application categories to build a usage report", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __90__USUsageQuerying_queryUsageDuringInterval_partitionInterval_focalOnly_completionHandler___block_invoke_38_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Looking up %lu web domain categories to build a usage report", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __473__USUsageQuerying__updateLocalReports_remoteReports_aggregateReports_nonIntersectingScreenTimeIntervals_intersectingScreenTimeIntervals_longestSessionByDevice_applicationUsageIntervals_unboundApplicationUsageIntervals_webUsageIntervalsByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_aggregatedWebUsageIntervalsByDevice_categoryByBundleIdentifier_categoryByWebDomain_notificationsByDevice_interval_timeZoneByDevice_lastEventDateByDevice___block_invoke_cold_1(uint64_t a1, void *a2)
 {
   v4 = [MEMORY[0x277CCA890] currentHandler];
@@ -5889,40 +8121,22 @@ void __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_c
   [v1 handleFailureInFunction:v0 file:@"USUsageQuerying.m" lineNumber:675 description:@"Expecting event types count to be 4"];
 }
 
-void __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke_2_cold_2()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Looking up %lu application categories to determine remaining budget time", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __106__USUsageQuerying_queryForApplications_exemptApplications_webDomains_categories_interval_focalOnly_error___block_invoke_68_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Looking up %lu web domain categories to determine remaining budget time", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_computeUsageForApplications:exemptApplications:webDomains:categories:applicationUsageEvents:webUsageEvents:nowPlayingEvents:videoUsageEvents:categoryByBundleIdentifier:categoryByWebDomain:interval:referenceDate:focalOnly:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v3 = 2114;
-  v4 = v0;
-  _os_log_debug_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Exempt bundleIdentifiers was %{public}@ and has been expanded to %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 2114;
+  v3 = v0;
+  _os_log_debug_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Exempt bundleIdentifiers was %{public}@ and has been expanded to %{public}@", v1, 0x16u);
 }
 
 - (void)_computeUsageForApplications:exemptApplications:webDomains:categories:applicationUsageEvents:webUsageEvents:nowPlayingEvents:videoUsageEvents:categoryByBundleIdentifier:categoryByWebDomain:interval:referenceDate:focalOnly:.cold.2()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v3 = 2114;
-  v4 = v0;
-  _os_log_debug_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Exempt bundleIdentifiers %{public}@ have associated web domains %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 2114;
+  v3 = v0;
+  _os_log_debug_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Exempt bundleIdentifiers %{public}@ have associated web domains %{public}@", v1, 0x16u);
 }
 
 - (void)_generateUsageTimeWithApplicationUsageIntervals:(uint64_t)a1 webUsageIntervalsByDevice:(uint64_t)a2 categoryUsageIntervalsByDevice:aggregatedApplicationUsageIntervalsByDevice:aggregatedWebUsageIntervalsByDevice:categoryByBundleIdentifier:categoryByWebDomain:applications:webDomains:categories:.cold.1(uint64_t a1, uint64_t a2)
@@ -5942,38 +8156,6 @@ void __86__USUsageQuerying_queryForUncategorizedLocalWebUsageDuringInterval_comp
   v1 = [MEMORY[0x277CCA890] currentHandler];
   v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[USUsageQuerying queryForUncategorizedLocalWebUsageDuringInterval:completionHandler:]_block_invoke_2"];
   [v1 handleFailureInFunction:v0 file:@"USUsageQuerying.m" lineNumber:939 description:@"Expecting event to be non-nil"];
-}
-
-void __86__USUsageQuerying_queryForUncategorizedLocalWebUsageDuringInterval_completionHandler___block_invoke_2_cold_2()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Looking up %lu web domain categories to report uncategorized web domain usage", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_currentScreenTimeIntervalDuringInterval:usageStartDate:referenceDate:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "_CDClientContext has no knowledge of %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __306__USUsageQuerying__computeApplicationUsageWithEvents_exemptApplications_exemptWebDomains_unboundApplicationUsageIntervalsByDevice_timeZoneByDevice_lastEventDateByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_categoryByBundleIdentifier_partition_referenceDate_focalOnly___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Skipping calculating usage for event %{public}@ because it is considered exempt", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __267__USUsageQuerying__computeWebUsageWithEvents_exemptWebDomains_timeZoneByDevice_lastEventDateByDevice_categoryUsageIntervalsByDevice_aggregatedApplicationUsageIntervalsByDevice_aggregatedWebUsageIntervalsByDevice_categoryByWebDomain_partition_referenceDate_focalOnly___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_2707F8000, MEMORY[0x277D86220], v0, "Skipping calculating usage for %{public}@ because it is considered exempt", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

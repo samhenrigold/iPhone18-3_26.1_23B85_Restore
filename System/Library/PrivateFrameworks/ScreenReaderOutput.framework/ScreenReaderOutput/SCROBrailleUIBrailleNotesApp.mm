@@ -102,7 +102,7 @@
 
     else
     {
-      v8 = _SCROD_LOG();
+      v8 = _SCROD_LOG(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -907,7 +907,7 @@ LABEL_16:
 
 - (id)_itemsArrayInFolder:(id)folder
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   folderCopy = folder;
   v5 = objc_opt_new();
   v6 = [SCROBrailleUIListItem alloc];
@@ -917,27 +917,27 @@ LABEL_16:
   [v5 addObject:v8];
   if (!+[SCROBrailleUIApp isUnitTesting])
   {
-    v42 = v8;
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
+    v41 = v8;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     visibleSubFolders = [folderCopy visibleSubFolders];
-    v10 = [visibleSubFolders countByEnumeratingWithState:&v52 objects:v58 count:16];
+    v10 = [visibleSubFolders countByEnumeratingWithState:&v51 objects:v57 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v53;
+      v12 = *v52;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v53 != v12)
+          if (*v52 != v12)
           {
             objc_enumerationMutation(visibleSubFolders);
           }
 
-          v14 = *(*(&v52 + 1) + 8 * i);
+          v14 = *(*(&v51 + 1) + 8 * i);
           v15 = [SCROBrailleUIListItem alloc];
           identifier = [v14 identifier];
           v17 = [(SCROBrailleUIBrailleNotesApp *)self _labelForFolder:v14];
@@ -946,34 +946,34 @@ LABEL_16:
           [v5 addObject:v18];
         }
 
-        v11 = [visibleSubFolders countByEnumeratingWithState:&v52 objects:v58 count:16];
+        v11 = [visibleSubFolders countByEnumeratingWithState:&v51 objects:v57 count:16];
       }
 
       while (v11);
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
-    v43 = folderCopy;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v42 = folderCopy;
     v19 = [(SCROBrailleUIBrailleNotesApp *)self _pinnedNotesInFolder:folderCopy];
-    v20 = [v19 countByEnumeratingWithState:&v48 objects:v57 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v47 objects:v56 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v49;
+      v22 = *v48;
       v23 = 1;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v49 != v22)
+          if (*v48 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v25 = *(*(&v48 + 1) + 8 * j);
+          v25 = *(*(&v47 + 1) + 8 * j);
           v26 = [SCROBrailleUIListItem alloc];
           identifier2 = [v25 identifier];
           v28 = [(SCROBrailleUIBrailleNotesApp *)self _labelForPinnedNote:v25 order:v23];
@@ -983,7 +983,7 @@ LABEL_16:
           ++v23;
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v47 objects:v56 count:16];
       }
 
       while (v21);
@@ -994,26 +994,26 @@ LABEL_16:
       v23 = 1;
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
-    v30 = [(SCROBrailleUIBrailleNotesApp *)self _unpinnedNotesInFolder:v43];
-    v31 = [v30 countByEnumeratingWithState:&v44 objects:v56 count:16];
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v30 = [(SCROBrailleUIBrailleNotesApp *)self _unpinnedNotesInFolder:v42];
+    v31 = [v30 countByEnumeratingWithState:&v43 objects:v55 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v45;
+      v33 = *v44;
       do
       {
         for (k = 0; k != v32; ++k)
         {
-          if (*v45 != v33)
+          if (*v44 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = *(*(&v44 + 1) + 8 * k);
+          v35 = *(*(&v43 + 1) + 8 * k);
           v36 = [SCROBrailleUIListItem alloc];
           identifier3 = [v35 identifier];
           v38 = [(SCROBrailleUIBrailleNotesApp *)self _labelForNote:v35 order:v23];
@@ -1023,17 +1023,15 @@ LABEL_16:
           ++v23;
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v44 objects:v56 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v43 objects:v55 count:16];
       }
 
       while (v32);
     }
 
-    v8 = v42;
-    folderCopy = v43;
+    v8 = v41;
+    folderCopy = v42;
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1097,24 +1095,24 @@ LABEL_16:
     v25 = contentCopy;
     [_brailleNotesContext performBlockAndWait:v23];
 
-    v12 = _SCROD_LOG();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _SCROD_LOG(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [v29[5] identifier];
       *buf = 138412290;
       v37 = identifier;
-      _os_log_impl(&dword_26490B000, v12, OS_LOG_TYPE_DEFAULT, "Braille Notes: modified the note with id %@", buf, 0xCu);
+      _os_log_impl(&dword_26490B000, v13, OS_LOG_TYPE_DEFAULT, "Braille Notes: modified the note with id %@", buf, 0xCu);
     }
 
-    v14 = MEMORY[0x277CBEA90];
+    v15 = MEMORY[0x277CBEA90];
     editorView = [(SCROBrailleUIBrailleNotesApp *)self editorView];
     selection = [editorView selection];
-    v18 = [v14 dataWithRange:{selection, v17}];
+    v19 = [v15 dataWithRange:{selection, v18}];
 
-    v19 = +[SCROBrailleUIPersistenceManager sharedInstance];
-    [v19 setValue:v18 forKey:v11 cache:@"BrailleNotes" maxRecordCount:100];
+    v20 = +[SCROBrailleUIPersistenceManager sharedInstance];
+    [v20 setValue:v19 forKey:v11 cache:@"BrailleNotes" maxRecordCount:100];
 
-    v20 = v29[5];
+    v21 = v29[5];
     _Block_object_dispose(&v28, 8);
 
     _Block_object_dispose(v34, 8);
@@ -1122,12 +1120,10 @@ LABEL_16:
 
   else
   {
-    v20 = [(SCROBrailleUIBrailleNotesApp *)self _createNoteWithContent:contentCopy];
+    v21 = [(SCROBrailleUIBrailleNotesApp *)self _createNoteWithContent:contentCopy];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v21;
 }
 
 void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent___block_invoke(uint64_t a1)
@@ -1166,47 +1162,45 @@ void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent
       _brailleNotesContext = [(SCROBrailleUIBrailleNotesApp *)self _brailleNotesContext];
       [_brailleNotesContext ic_save];
 
-      v10 = _SCROD_LOG();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _SCROD_LOG(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         identifier = [v7 identifier];
         v16 = 138412290;
         v17 = identifier;
-        _os_log_impl(&dword_26490B000, v10, OS_LOG_TYPE_DEFAULT, "Braille Notes: created note with id %@", &v16, 0xCu);
+        _os_log_impl(&dword_26490B000, v11, OS_LOG_TYPE_DEFAULT, "Braille Notes: created note with id %@", &v16, 0xCu);
       }
 
       v7 = v7;
-      v12 = v7;
+      v13 = v7;
     }
 
     else
     {
-      v13 = _SCROD_LOG();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = _SCROD_LOG(0);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v16) = 0;
-        _os_log_impl(&dword_26490B000, v13, OS_LOG_TYPE_DEFAULT, "Braille Notes: creation failed due to new note being nil", &v16, 2u);
+        _os_log_impl(&dword_26490B000, v14, OS_LOG_TYPE_DEFAULT, "Braille Notes: creation failed due to new note being nil", &v16, 2u);
       }
 
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v7 = _SCROD_LOG();
+    v7 = _SCROD_LOG(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v16) = 0;
       _os_log_impl(&dword_26490B000, v7, OS_LOG_TYPE_DEFAULT, "Braille Notes: creation failed due to open folder being nil", &v16, 2u);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 - (id)_pinnedNotesInFolder:(id)folder
@@ -1248,7 +1242,7 @@ void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent
 
 - (id)_sortedArrayOfNotesFor:(id)for
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   forCopy = for;
   v5 = +[SCROBrailleUISettingsManager sharedInstance];
   v6 = [v5 brailleNotesSortType] == 1;
@@ -1259,51 +1253,49 @@ void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent
   v11 = [v9 sortedArrayUsingDescriptors:v10];
 
   v12 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * i);
-        if ([(SCROBrailleUIBrailleNotesApp *)self _isNoteOnlyUnicodeBraille:v18, v21])
+        v18 = *(*(&v20 + 1) + 8 * i);
+        if ([(SCROBrailleUIBrailleNotesApp *)self _isNoteOnlyUnicodeBraille:v18, v20])
         {
           [v12 addObject:v18];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)_brailleNotesContext
 {
-  if (([(objc_class *)getICNoteContextClass() hasSharedContext]& 1) == 0)
+  if (([getICNoteContextClass(self a2)] & 1) == 0)
   {
-    [(objc_class *)getICNoteContextClass() startSharedContextWithOptions:2048];
+    [(objc_class *)(getICNoteContextClass)() startSharedContextWithOptions:2048];
   }
 
-  sharedContext = [(objc_class *)getICNoteContextClass() sharedContext];
+  sharedContext = [(objc_class *)(getICNoteContextClass)() sharedContext];
   managedObjectContext = [sharedContext managedObjectContext];
 
   return managedObjectContext;
@@ -1438,15 +1430,15 @@ void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent
 
 - (void)_deleteNote:(id)note
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   noteCopy = note;
-  v5 = _SCROD_LOG();
+  v5 = _SCROD_LOG(noteCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [noteCopy identifier];
-    v11 = 138412290;
-    v12 = identifier;
-    _os_log_impl(&dword_26490B000, v5, OS_LOG_TYPE_DEFAULT, "Braille Notes: deleting note with id %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = identifier;
+    _os_log_impl(&dword_26490B000, v5, OS_LOG_TYPE_DEFAULT, "Braille Notes: deleting note with id %@", &v10, 0xCu);
   }
 
   if ([noteCopy isDeletable] && (objc_msgSend(noteCopy, "markedForDeletion") & 1) == 0)
@@ -1466,8 +1458,6 @@ void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent
     _brailleNotesContext = [(SCROBrailleUIBrailleNotesApp *)self _brailleNotesContext];
     [_brailleNotesContext ic_save];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isShowingContextMenu
@@ -1488,7 +1478,7 @@ void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent
 
 - (void)_openContextMenuForCreateNote
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if (![(SCROBrailleUIBrailleNotesApp *)self _isShowingContextMenu])
   {
     v3 = [SCROBrailleUIListItem alloc];
@@ -1500,22 +1490,20 @@ void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent
     v8 = [(SCROBrailleUIListItem *)v6 initWithIdentifier:@"braille.notes.context.menu.create.folder" label:v7 isInline:1];
 
     v9 = [SCROBrailleUIListView alloc];
-    v14[0] = v5;
-    v14[1] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = v5;
+    v13[1] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v11 = [(SCROBrailleUIListView *)v9 initWithIdentifier:@"braille.notes.context.menu" items:v10];
     [(SCROBrailleUIBrailleNotesApp *)self setContextMenuView:v11];
 
     contextMenuView = [(SCROBrailleUIBrailleNotesApp *)self contextMenuView];
     [contextMenuView display];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_openContextMenuForFolder:(id)folder
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   if (![(SCROBrailleUIBrailleNotesApp *)self _isShowingContextMenu])
   {
     v4 = [SCROBrailleUIListItem alloc];
@@ -1531,23 +1519,21 @@ void __73__SCROBrailleUIBrailleNotesApp__modifyNoteWithIdentifier_updatedContent
     v12 = [(SCROBrailleUIListItem *)v10 initWithIdentifier:@"braille.notes.context.menu.rename" label:v11 isInline:1];
 
     v13 = [SCROBrailleUIListView alloc];
-    v18[0] = v9;
-    v18[1] = v6;
-    v18[2] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
+    v17[0] = v9;
+    v17[1] = v6;
+    v17[2] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
     v15 = [(SCROBrailleUIListView *)v13 initWithIdentifier:@"braille.notes.context.menu" items:v14];
     [(SCROBrailleUIBrailleNotesApp *)self setContextMenuView:v15];
 
     contextMenuView = [(SCROBrailleUIBrailleNotesApp *)self contextMenuView];
     [contextMenuView display];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_openContextMenuForNote:(id)note
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   noteCopy = note;
   if (![(SCROBrailleUIBrailleNotesApp *)self _isShowingContextMenu])
   {
@@ -1574,11 +1560,11 @@ LABEL_10:
       v14 = [(SCROBrailleUIListItem *)v12 initWithIdentifier:@"braille.notes.context.menu.unpin" label:v13 isInline:0];
 
       v15 = [SCROBrailleUIListView alloc];
-      v27[0] = v11;
-      v27[1] = v8;
-      v27[2] = v14;
+      v26[0] = v11;
+      v26[1] = v8;
+      v26[2] = v14;
       v16 = MEMORY[0x277CBEA60];
-      v17 = v27;
+      v17 = v26;
     }
 
     else
@@ -1586,9 +1572,9 @@ LABEL_10:
       if (![v5 isPinnable])
       {
         v22 = [SCROBrailleUIListView alloc];
-        v25[0] = v11;
-        v25[1] = v8;
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+        v24[0] = v11;
+        v24[1] = v8;
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
         v20 = [(SCROBrailleUIListView *)v22 initWithIdentifier:@"braille.notes.context.menu" items:v14];
         [(SCROBrailleUIBrailleNotesApp *)self setContextMenuView:v20];
         goto LABEL_9;
@@ -1599,11 +1585,11 @@ LABEL_10:
       v14 = [(SCROBrailleUIListItem *)v18 initWithIdentifier:@"braille.notes.context.menu.pin" label:v19 isInline:0];
 
       v15 = [SCROBrailleUIListView alloc];
-      v26[0] = v11;
-      v26[1] = v8;
-      v26[2] = v14;
+      v25[0] = v11;
+      v25[1] = v8;
+      v25[2] = v14;
       v16 = MEMORY[0x277CBEA60];
-      v17 = v26;
+      v17 = v25;
     }
 
     v20 = [v16 arrayWithObjects:v17 count:3];
@@ -1618,8 +1604,6 @@ LABEL_9:
   }
 
 LABEL_11:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isShowingContextMenuOptions
@@ -1640,32 +1624,32 @@ LABEL_11:
 
 - (void)_openContextMenuOptionsForIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   selfCopy = self;
   openFolder = [(SCROBrailleUIBrailleNotesApp *)self openFolder];
   visibleSubFolders = [openFolder visibleSubFolders];
 
-  v8 = [visibleSubFolders countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [visibleSubFolders countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(visibleSubFolders);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         identifier = [v12 identifier];
         v14 = [identifierCopy isEqualToString:identifier];
 
@@ -1680,7 +1664,7 @@ LABEL_11:
         }
       }
 
-      v9 = [visibleSubFolders countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v9 = [visibleSubFolders countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v9);
@@ -1704,8 +1688,6 @@ LABEL_11:
 
   contextMenuOptionsView = [(SCROBrailleUIBrailleNotesApp *)selfCopy contextMenuOptionsView];
   [contextMenuOptionsView display];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isShowingFindField
@@ -1726,7 +1708,7 @@ LABEL_11:
 
 - (void)_openFindField
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if (![(SCROBrailleUIBrailleNotesApp *)self _isShowingFindField])
   {
     v3 = [SCROBrailleUIListItem alloc];
@@ -1734,16 +1716,14 @@ LABEL_11:
     v5 = [(SCROBrailleUIListItem *)v3 initWithIdentifier:@"braille.notes.find.field.enter.search.text" label:v4 isInline:1];
 
     v6 = [SCROBrailleUIListView alloc];
-    v11[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v8 = [(SCROBrailleUIListView *)v6 initWithIdentifier:@"braille.notes.find.field" items:v7];
     [(SCROBrailleUIBrailleNotesApp *)self setFindFieldView:v8];
 
     findFieldView = [(SCROBrailleUIBrailleNotesApp *)self findFieldView];
     [findFieldView display];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startAutoSave
@@ -1757,7 +1737,7 @@ LABEL_11:
   [autoSaveTimer afterDelay:v4 processBlock:5.0];
 }
 
-uint64_t __46__SCROBrailleUIBrailleNotesApp__startAutoSave__block_invoke(uint64_t a1)
+void *__46__SCROBrailleUIBrailleNotesApp__startAutoSave__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isEditing];
   if (result)
@@ -1798,22 +1778,20 @@ uint64_t __46__SCROBrailleUIBrailleNotesApp__startAutoSave__block_invoke(uint64_
 
 - (void)_openAlertWithMessage:(id)message
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (![(SCROBrailleUIBrailleNotesApp *)self _isShowingAlert])
   {
     v5 = [[SCROBrailleUIListItem alloc] initWithIdentifier:@"braille.notes.alert.message" label:messageCopy isInline:0];
     v6 = [SCROBrailleUIListView alloc];
-    v11[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     v8 = [(SCROBrailleUIListView *)v6 initWithIdentifier:@"braille.notes.alert" items:v7];
     [(SCROBrailleUIBrailleNotesApp *)self setAlertView:v8];
 
     alertView = [(SCROBrailleUIBrailleNotesApp *)self alertView];
     [alertView display];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isShowingDeleteConfirmView
@@ -1837,7 +1815,7 @@ uint64_t __46__SCROBrailleUIBrailleNotesApp__startAutoSave__block_invoke(uint64_
 
 - (void)_openDeleteConfirmView
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if (![(SCROBrailleUIBrailleNotesApp *)self _isShowingDeleteConfirmView])
   {
     v3 = [SCROBrailleUIListItem alloc];
@@ -1849,17 +1827,15 @@ uint64_t __46__SCROBrailleUIBrailleNotesApp__startAutoSave__block_invoke(uint64_
     v8 = [(SCROBrailleUIListItem *)v6 initWithIdentifier:@"braille.notes.delete.confirm.delete" label:v7 isInline:0];
 
     v9 = [SCROBrailleUIListView alloc];
-    v14[0] = v5;
-    v14[1] = v8;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = v5;
+    v13[1] = v8;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v11 = [(SCROBrailleUIListView *)v9 initWithIdentifier:@"braille.notes.delete.confirm" items:v10];
     [(SCROBrailleUIBrailleNotesApp *)self setDeleteConfirmView:v11];
 
     deleteConfirmView = [(SCROBrailleUIBrailleNotesApp *)self deleteConfirmView];
     [deleteConfirmView display];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

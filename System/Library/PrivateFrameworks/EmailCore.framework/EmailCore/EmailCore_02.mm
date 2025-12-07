@@ -1,4 +1,4 @@
-uint64_t gssapi_common_mech_dispose(uint64_t a1, uint64_t a2)
+uint64_t gssapi_common_mech_dispose(gss_name_t *a1, uint64_t a2)
 {
   sasl_gss_free_context_contents(a1);
   v4 = *(a2 + 64);
@@ -118,71 +118,71 @@ uint64_t sasl_gss_free_context_contents(uint64_t input_name)
 
 uint64_t sasl_gss_seterror_(uint64_t result, OM_uint32 a2, OM_uint32 a3, int a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   status_string.length = 0xAAAAAAAAAAAAAAAALL;
   status_string.value = 0xAAAAAAAAAAAAAAAALL;
   __dst = 0;
-  v18 = 0;
+  v17 = 0;
   strcpy(__src, "GSSAPI Error: ");
   if (!result)
   {
-    goto LABEL_3;
+    return result;
   }
 
   v7 = result;
   minor_status = -1431655766;
   message_content = -1431655766;
-  result = _plug_buf_alloc(result, &__dst, &v18, 0x100u);
+  result = _plug_buf_alloc(result, &__dst, &v17, 0x100u);
   if (result)
   {
-    goto LABEL_3;
+    return result;
   }
 
   strcpy(__dst, __src);
   message_content = 0;
-  v9 = 15;
+  v8 = 15;
   do
   {
     result = (*(v7 + 80))(gss_mutex);
     if (result)
     {
-      goto LABEL_3;
+      return result;
     }
 
-    v10 = gss_display_status(&minor_status, a2, 1, 0, &message_content, &status_string);
+    v9 = gss_display_status(&minor_status, a2, 1, 0, &message_content, &status_string);
     result = (*(v7 + 88))(gss_mutex);
     if (result)
     {
-      goto LABEL_3;
+      return result;
     }
 
-    if (v10 >= 0x10000)
+    if (v9 >= 0x10000)
     {
-      v14 = *(v7 + 8);
+      v13 = *(v7 + 8);
       if (a4)
       {
-        v15 = *(v7 + 256);
-        v16 = "GSSAPI Failure: (could not get major error message)";
+        v14 = *(v7 + 256);
+        v15 = "GSSAPI Failure: (could not get major error message)";
 LABEL_28:
-        v17 = 2;
+        v16 = 2;
       }
 
       else
       {
-        v15 = *(v7 + 264);
-        v16 = "GSSAPI Failure (could not get major error message)";
+        v14 = *(v7 + 264);
+        v15 = "GSSAPI Failure (could not get major error message)";
 LABEL_30:
-        v17 = 0;
+        v16 = 0;
       }
 
-      v15(v14, v17, v16);
-      goto LABEL_32;
+      v14(v13, v16, v15);
+      return (*(v7 + 64))(__dst);
     }
 
-    v9 += status_string.length;
-    if (_plug_buf_alloc(v7, &__dst, &v18, v9))
+    v8 += status_string.length;
+    if (_plug_buf_alloc(v7, &__dst, &v17, v8))
     {
-      goto LABEL_32;
+      return (*(v7 + 64))(__dst);
     }
 
     strncat(__dst, status_string.value, status_string.length);
@@ -197,16 +197,14 @@ LABEL_30:
       }
     }
 
-    goto LABEL_3;
+    return result;
   }
 
   while (message_content);
-  v11 = v9 + 2;
-  if (_plug_buf_alloc(v7, &__dst, &v18, v9 + 2))
+  v10 = v8 + 2;
+  if (_plug_buf_alloc(v7, &__dst, &v17, v8 + 2))
   {
-LABEL_32:
-    result = (*(v7 + 64))(__dst);
-    goto LABEL_3;
+    return (*(v7 + 64))(__dst);
   }
 
   strcat(__dst, " (");
@@ -216,80 +214,76 @@ LABEL_32:
     result = (*(v7 + 80))(gss_mutex);
     if (result)
     {
-      break;
+      return result;
     }
 
-    v12 = gss_display_status(&minor_status, a3, 2, 0, &message_content, &status_string);
+    v11 = gss_display_status(&minor_status, a3, 2, 0, &message_content, &status_string);
     result = (*(v7 + 88))(gss_mutex);
     if (result)
     {
-      break;
+      return result;
     }
 
-    if (v12 >= 0x10000)
+    if (v11 >= 0x10000)
     {
-      v14 = *(v7 + 8);
+      v13 = *(v7 + 8);
       if (a4)
       {
-        v15 = *(v7 + 256);
-        v16 = "GSSAPI Failure: (could not get minor error message)";
+        v14 = *(v7 + 256);
+        v15 = "GSSAPI Failure: (could not get minor error message)";
         goto LABEL_28;
       }
 
-      v15 = *(v7 + 264);
-      v16 = "GSSAPI Failure (could not get minor error message)";
+      v14 = *(v7 + 264);
+      v15 = "GSSAPI Failure (could not get minor error message)";
       goto LABEL_30;
     }
 
-    v11 += status_string.length;
-    if (_plug_buf_alloc(v7, &__dst, &v18, v11))
+    v10 += status_string.length;
+    if (_plug_buf_alloc(v7, &__dst, &v17, v10))
     {
-      goto LABEL_32;
+      return (*(v7 + 64))(__dst);
     }
 
     strncat(__dst, status_string.value, status_string.length);
     result = (*(v7 + 80))(gss_mutex);
     if (result)
     {
-      break;
+      return result;
     }
 
     gss_release_buffer(&minor_status, &status_string);
     result = (*(v7 + 88))(gss_mutex);
     if (result)
     {
-      break;
+      return result;
     }
 
     if (!message_content)
     {
-      if (!_plug_buf_alloc(v7, &__dst, &v18, v11 + 1))
+      if (!_plug_buf_alloc(v7, &__dst, &v17, v10 + 1))
       {
         *&__dst[strlen(__dst)] = 41;
-        if (v11 != strlen(__dst))
+        if (v10 != strlen(__dst))
         {
           sasl_gss_seterror__cold_1();
         }
 
-        v13 = 256;
+        v12 = 256;
         if (!a4)
         {
-          v13 = 264;
+          v12 = 264;
         }
 
-        (*(v7 + v13))(*(v7 + 8), 2 * (a4 != 0), "%s");
+        (*(v7 + v12))(*(v7 + 8), 2 * (a4 != 0), "%s");
       }
 
-      goto LABEL_32;
+      return (*(v7 + 64))(__dst);
     }
   }
-
-LABEL_3:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t gssapi_decode(uint64_t a1, char *a2, unsigned int a3, void *a4, unsigned int *a5)
+uint64_t gssapi_decode(uint64_t a1, char *a2, uint64_t a3, void *a4, unsigned int *a5)
 {
   result = _plug_decode(a1 + 88, a2, a3, (a1 + 136), (a1 + 156), a5, gssapi_decode_packet, a1);
   *a4 = *(a1 + 136);
@@ -434,7 +428,7 @@ uint64_t gssapi_decode_packet(uint64_t a1, void *a2, unsigned int a3, void *a4, 
 {
   if (*a1 != 4)
   {
-    (*(*(a1 + 80) + 264))(*(*(a1 + 80) + 8), 0, "GSSAPI Failure");
+    (*(*(a1 + 80) + 264))(*(*(a1 + 80) + 8), 0, "GSSAPI Failure", a4, a5);
     return 4294967290;
   }
 
@@ -1197,7 +1191,7 @@ uint64_t login_server_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWOR
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "LOGIN version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "LOGIN version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -1216,7 +1210,7 @@ uint64_t login_client_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWOR
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "Version mismatch in LOGIN");
+    (*(a1 + 264))(*(a1 + 8), 0, "Version mismatch in LOGIN", a4, a5);
     return 4294967273;
   }
 
@@ -1396,7 +1390,7 @@ uint64_t login_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   {
     if (!a3)
     {
-      (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "Server didn't issue challenge for PASSWORD");
+      (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "Server didn't issue challenge for PASSWORD", a4);
       return 4294967291;
     }
 
@@ -1463,13 +1457,13 @@ uint64_t login_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
 
   if (*(a2 + 80) > *(a2 + 112))
   {
-    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "SSF requested of LOGIN plugin");
+    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "SSF requested of LOGIN plugin", a4);
     return 4294967281;
   }
 
   if (!a3)
   {
-    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "Server didn't issue challenge for USERNAME");
+    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "Server didn't issue challenge for USERNAME", a4);
     return 4294967291;
   }
 
@@ -1605,11 +1599,11 @@ void _sasl_MD5Update(MD5_CTX *a1, const unsigned __int8 *a2, unsigned int a3)
 void _sasl_MD5Final(unsigned __int8 a1[16], MD5_CTX *a2)
 {
   v4 = 0;
-  v11[1] = *MEMORY[0x277D85DE8];
-  v11[0] = 0xAAAAAAAAAAAAAAAALL;
+  v10[1] = *MEMORY[0x277D85DE8];
+  v10[0] = 0xAAAAAAAAAAAAAAAALL;
   do
   {
-    *(v11 + v4 * 4) = a2->count[v4];
+    *(v10 + v4 * 4) = a2->count[v4];
     ++v4;
   }
 
@@ -1626,7 +1620,7 @@ void _sasl_MD5Final(unsigned __int8 a1[16], MD5_CTX *a2)
   }
 
   _sasl_MD5Update(a2, PADDING, v6 - v5);
-  _sasl_MD5Update(a2, v11, 8u);
+  _sasl_MD5Update(a2, v10, 8u);
   v7 = 0;
   v8 = a1 + 1;
   do
@@ -1640,7 +1634,6 @@ void _sasl_MD5Final(unsigned __int8 a1[16], MD5_CTX *a2)
   }
 
   while (v7 != 4);
-  v10 = *MEMORY[0x277D85DE8];
 
   MD5_memset(a2, 0, 0x58uLL);
 }
@@ -1648,8 +1641,8 @@ void _sasl_MD5Final(unsigned __int8 a1[16], MD5_CTX *a2)
 void _sasl_hmac_md5_init(HMAC_MD5_CTX *hmac, const unsigned __int8 *key, int key_len)
 {
   v3 = key;
-  v19 = *MEMORY[0x277D85DE8];
-  memset(v13, 170, sizeof(v13));
+  v18 = *MEMORY[0x277D85DE8];
+  memset(v12, 170, sizeof(v12));
   if (key_len >= 65)
   {
     *&v5 = 0xAAAAAAAAAAAAAAAALL;
@@ -1661,28 +1654,28 @@ void _sasl_hmac_md5_init(HMAC_MD5_CTX *hmac, const unsigned __int8 *key, int key
     *__dst.count = 0;
     *__dst.state = xmmword_22D0EEF50;
     _sasl_MD5Update(&__dst, key, key_len);
-    v3 = v13;
-    _sasl_MD5Final(v13, &__dst);
+    v3 = v12;
+    _sasl_MD5Final(v12, &__dst);
     memset(&__dst, 0, 65);
-    *v14 = 0u;
+    *v13 = 0u;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     key_len = 16;
-    v18 = 0;
+    v17 = 0;
 LABEL_4:
     v6 = key_len;
     memcpy(&__dst, v3, key_len);
-    memcpy(v14, v3, v6);
+    memcpy(v13, v3, v6);
     goto LABEL_5;
   }
 
   memset(&__dst, 0, 65);
-  *v14 = 0u;
+  *v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0;
+  v17 = 0;
   if (key_len)
   {
     goto LABEL_4;
@@ -1697,7 +1690,7 @@ LABEL_5:
   do
   {
     *&__dst.state[v7] = veorq_s8(*&__dst.state[v7], v8);
-    *&v14[v7 * 4] = veorq_s8(*&v14[v7 * 4], v9);
+    *&v13[v7 * 4] = veorq_s8(*&v13[v7 * 4], v9);
     v7 += 4;
   }
 
@@ -1708,31 +1701,29 @@ LABEL_5:
   *hmac->octx.state = xmmword_22D0EEF50;
   p_octx = &hmac->octx;
   *p_octx->count = 0;
-  _sasl_MD5Update(p_octx, v14, 0x40u);
-  v11 = *MEMORY[0x277D85DE8];
+  _sasl_MD5Update(p_octx, v13, 0x40u);
 }
 
 void _sasl_hmac_md5_precalc(HMAC_MD5_STATE *hmac, const unsigned __int8 *key, int key_len)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v7.octx.buffer[32] = v4;
-  *&v7.octx.buffer[48] = v4;
-  *v7.octx.buffer = v4;
-  *&v7.octx.buffer[16] = v4;
-  *&v7.ictx.buffer[56] = v4;
-  *&v7.octx.state[2] = v4;
-  *&v7.ictx.buffer[24] = v4;
-  *&v7.ictx.buffer[40] = v4;
-  *v7.ictx.count = v4;
-  *&v7.ictx.buffer[8] = v4;
-  *v7.ictx.state = v4;
-  _sasl_hmac_md5_init(&v7, key, key_len);
-  v5 = vrev32q_s8(*v7.octx.state);
-  *hmac->istate = vrev32q_s8(*v7.ictx.state);
+  *&v6.octx.buffer[32] = v4;
+  *&v6.octx.buffer[48] = v4;
+  *v6.octx.buffer = v4;
+  *&v6.octx.buffer[16] = v4;
+  *&v6.ictx.buffer[56] = v4;
+  *&v6.octx.state[2] = v4;
+  *&v6.ictx.buffer[24] = v4;
+  *&v6.ictx.buffer[40] = v4;
+  *v6.ictx.count = v4;
+  *&v6.ictx.buffer[8] = v4;
+  *v6.ictx.state = v4;
+  _sasl_hmac_md5_init(&v6, key, key_len);
+  v5 = vrev32q_s8(*v6.octx.state);
+  *hmac->istate = vrev32q_s8(*v6.ictx.state);
   *hmac->ostate = v5;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void _sasl_hmac_md5_import(HMAC_MD5_CTX *hmac, HMAC_MD5_STATE *state)
@@ -1776,14 +1767,14 @@ void _sasl_hmac_md5_final(unsigned __int8 digest[16], HMAC_MD5_CTX *hmac)
 void _sasl_hmac_md5(const unsigned __int8 *text, int text_len, const unsigned __int8 *key, int key_len, unsigned __int8 digest[16])
 {
   v6 = key;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v22.buffer[48] = v9;
-  *&v22.buffer[32] = v9;
-  *&v22.buffer[16] = v9;
-  *v22.buffer = v9;
-  memset(v16, 170, sizeof(v16));
+  *&v21.buffer[48] = v9;
+  *&v21.buffer[32] = v9;
+  *&v21.buffer[16] = v9;
+  *v21.buffer = v9;
+  memset(v15, 170, sizeof(v15));
   if (key_len >= 65)
   {
     *&__dst.buffer[48] = v9;
@@ -1793,28 +1784,28 @@ void _sasl_hmac_md5(const unsigned __int8 *text, int text_len, const unsigned __
     *__dst.count = 0;
     *__dst.state = xmmword_22D0EEF50;
     _sasl_MD5Update(&__dst, key, key_len);
-    v6 = v16;
-    _sasl_MD5Final(v16, &__dst);
+    v6 = v15;
+    _sasl_MD5Final(v15, &__dst);
     memset(&__dst, 0, 65);
-    *v17 = 0u;
+    *v16 = 0u;
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     key_len = 16;
-    v21 = 0;
+    v20 = 0;
 LABEL_4:
     v10 = key_len;
     memcpy(&__dst, v6, key_len);
-    memcpy(v17, v6, v10);
+    memcpy(v16, v6, v10);
     goto LABEL_5;
   }
 
   memset(&__dst, 0, 65);
-  *v17 = 0u;
+  *v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0;
+  v20 = 0;
   if (key_len)
   {
     goto LABEL_4;
@@ -1829,22 +1820,21 @@ LABEL_5:
   do
   {
     *&__dst.state[v11] = veorq_s8(*&__dst.state[v11], v12);
-    *&v17[v11 * 4] = veorq_s8(*&v17[v11 * 4], v13);
+    *&v16[v11 * 4] = veorq_s8(*&v16[v11 * 4], v13);
     v11 += 4;
   }
 
   while (v11 != 16);
-  *v22.count = 0;
-  *v22.state = xmmword_22D0EEF50;
-  _sasl_MD5Update(&v22, &__dst, 0x40u);
-  _sasl_MD5Update(&v22, text, text_len);
-  _sasl_MD5Final(digest, &v22);
-  *v22.count = 0;
-  *v22.state = xmmword_22D0EEF50;
-  _sasl_MD5Update(&v22, v17, 0x40u);
-  _sasl_MD5Update(&v22, digest, 0x10u);
-  _sasl_MD5Final(digest, &v22);
-  v14 = *MEMORY[0x277D85DE8];
+  *v21.count = 0;
+  *v21.state = xmmword_22D0EEF50;
+  _sasl_MD5Update(&v21, &__dst, 0x40u);
+  _sasl_MD5Update(&v21, text, text_len);
+  _sasl_MD5Final(digest, &v21);
+  *v21.count = 0;
+  *v21.state = xmmword_22D0EEF50;
+  _sasl_MD5Update(&v21, v16, 0x40u);
+  _sasl_MD5Update(&v21, digest, 0x10u);
+  _sasl_MD5Final(digest, &v21);
 }
 
 int8x16_t MD5Transform(_DWORD *a1, const char *a2)
@@ -2097,7 +2087,7 @@ uint64_t ntlm_server_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWORD
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "NTLM version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "NTLM version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -2116,7 +2106,7 @@ uint64_t ntlm_client_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWORD
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "NTLM version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "NTLM version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -2130,31 +2120,29 @@ uint64_t ntlm_server_mech_new(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   if (!v7)
   {
     (*(*(a2 + 80) + 264))(*(*(a2 + 80) + 8), 0, "Out of Memory in /Library/Caches/com.apple.xbs/Sources/Mail_Email/Email/SASL/cyrus_sasl/plugins/ntlm.c near line %d", 1353);
-    goto LABEL_6;
+    return 4294967294;
   }
 
   v8 = v7;
-  v46 = 0xAAAAAAAAAAAAAAAALL;
-  v45 = -1431655766;
-  (*(*(a2 + 80) + 32))(*(*(a2 + 80) + 24), "NTLM", "ntlm_server", &v46, &v45);
-  if (!v46)
+  v45 = 0xAAAAAAAAAAAAAAAALL;
+  v44 = -1431655766;
+  (*(*(a2 + 80) + 32))(*(*(a2 + 80) + 24), "NTLM", "ntlm_server", &v45, &v44);
+  if (!v45)
   {
     v10 = -1;
     goto LABEL_59;
   }
 
   __s = 0xAAAAAAAAAAAAAAAALL;
-  if (_plug_strdup(*(a2 + 80), v46, &__s, 0))
+  if (_plug_strdup(*(a2 + 80), v45, &__s, 0))
   {
     (*(*(a2 + 80) + 264))(*(*(a2 + 80) + 8), 0, "Out of Memory in /Library/Caches/com.apple.xbs/Sources/Mail_Email/Email/SASL/cyrus_sasl/plugins/ntlm.c near line %d", 1365);
-LABEL_6:
-    result = 4294967294;
-    goto LABEL_60;
+    return 4294967294;
   }
 
-  v42 = v8;
-  v43 = a5;
-  if (v45)
+  v41 = v8;
+  v42 = a5;
+  if (v44)
   {
     v11 = 0;
     v12 = 0;
@@ -2174,7 +2162,7 @@ LABEL_6:
       }
 
 LABEL_13:
-      if (++v11 >= v45)
+      if (++v11 >= v44)
       {
         v16 = v12;
         goto LABEL_18;
@@ -2202,12 +2190,12 @@ LABEL_18:
 LABEL_19:
       while (1)
       {
-        v46 = v17;
+        v45 = v17;
         v18 = strchr(v17, 44);
         if (v18)
         {
           *v18 = 0;
-          v19 = v46;
+          v19 = v45;
           v17 = v18 + 1;
         }
 
@@ -2219,25 +2207,25 @@ LABEL_19:
 
         v20 = *(a2 + 80);
         v21 = *(a2 + 16);
-        v49 = 0;
+        v48 = 0;
         memset(__b, 170, 0x401uLL);
         *&v22 = 0xAAAAAAAAAAAAAAAALL;
         *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v59[0] = v22;
-        v59[1] = v22;
-        v58 = -21846;
-        v57[0] = v22;
-        v57[1] = v22;
-        v56 = -21846;
-        v55[0] = v22;
-        v55[1] = v22;
-        v53 = 0;
-        v51 = 0;
-        v52 = 0u;
-        memset(&v50, 0, sizeof(v50));
-        v50.ai_socktype = 1;
-        v50.ai_flags = 2;
-        v23 = getaddrinfo(v19, "139", &v50, &v49);
+        v58[0] = v22;
+        v58[1] = v22;
+        v57 = -21846;
+        v56[0] = v22;
+        v56[1] = v22;
+        v55 = -21846;
+        v54[0] = v22;
+        v54[1] = v22;
+        v52 = 0;
+        v50 = 0;
+        v51 = 0u;
+        memset(&v49, 0, sizeof(v49));
+        v49.ai_socktype = 1;
+        v49.ai_flags = 2;
+        v23 = getaddrinfo(v19, "139", &v49, &v48);
         if (!v23)
         {
           break;
@@ -2252,21 +2240,21 @@ LABEL_19:
         }
       }
 
-      v26 = v49;
-      ai_family = v49->ai_family;
+      v26 = v48;
+      ai_family = v48->ai_family;
       if (ai_family == 2 || ai_family == 30)
       {
         break;
       }
 
-      ai_canonname = v49->ai_canonname;
+      ai_canonname = v48->ai_canonname;
       if (!ai_canonname)
       {
         ai_canonname = v19;
       }
 
       (*(v20 + 256))(0, 1, "NTLM: no IP address info for %s", ai_canonname);
-      freeaddrinfo(v49);
+      freeaddrinfo(v48);
       if (!v17)
       {
         goto LABEL_57;
@@ -2285,19 +2273,19 @@ LABEL_37:
       v26 = v26->ai_next;
       if (!v26)
       {
-        if (getnameinfo(v49->ai_addr, v49->ai_addrlen, 0, 0, v59, 0x20u, 8))
+        if (getnameinfo(v48->ai_addr, v48->ai_addrlen, 0, 0, v58, 0x20u, 8))
         {
-          strcpy(v59, "unknown");
+          *&v58[0] = 0x6E776F6E6B6E75;
         }
 
-        v34 = v49->ai_canonname;
+        v34 = v48->ai_canonname;
         if (!v34)
         {
           v34 = v19;
         }
 
-        (*(v20 + 256))(0, 1, "NTLM: couldn't connect to %s/%s", v34, v59);
-        freeaddrinfo(v49);
+        (*(v20 + 256))(0, 1, "NTLM: couldn't connect to %s/%s", v34, v58);
+        freeaddrinfo(v48);
 LABEL_43:
         if (v17)
         {
@@ -2323,54 +2311,54 @@ LABEL_43:
         v30 = 10;
       }
 
-      if (getnameinfo(v26->ai_addr, v26->ai_addrlen, __b, 0x401u, v59, 0x20u, v30))
+      if (getnameinfo(v26->ai_addr, v26->ai_addrlen, __b, 0x401u, v58, 0x20u, v30))
       {
         __b[0] = 0x6E776F6E6B6E75;
-        strcpy(v59, "unknown");
+        *&v58[0] = 0x6E776F6E6B6E75;
       }
 
       error_message = _plug_get_error_message(v20, v29);
       v32 = error_message;
-      v33 = v49->ai_canonname;
+      v33 = v48->ai_canonname;
       if (!v33)
       {
         v33 = v19;
       }
 
-      (*(v20 + 256))(0, 3, "NTLM: connect %s[%s]/%s: %s", v33, __b, v59, error_message);
+      (*(v20 + 256))(0, 3, "NTLM: connect %s[%s]/%s: %s", v33, __b, v58, error_message);
       (*(v20 + 64))(v32);
       goto LABEL_37;
     }
 
-    freeaddrinfo(v49);
-    v48 = 1140850817;
-    make_netbios_name(v19, v57);
-    make_netbios_name(v21, v55);
-    v51.iov_base = &v48;
-    v51.iov_len = 4;
-    *&v52 = v57;
-    *(&v52 + 1) = 34;
-    v53 = v55;
-    v54 = 34;
-    if (retry_writev(v10, &v51, 3) == -1)
+    freeaddrinfo(v48);
+    v47 = 1140850817;
+    make_netbios_name(v19, v56);
+    make_netbios_name(v21, v54);
+    v50.iov_base = &v47;
+    v50.iov_len = 4;
+    *&v51 = v56;
+    *(&v51 + 1) = 34;
+    v52 = v54;
+    v53 = 34;
+    if (retry_writev(v10, &v50, 3) == -1)
     {
       (*(v20 + 256))(0, 1, "NTLM: error sending NetBIOS session request");
       close(v10);
       goto LABEL_43;
     }
 
-    v36 = retry_read(v10, &v48, 4u);
-    v37 = v48;
-    v48 = bswap32(v48);
+    v36 = retry_read(v10, &v47, 4u);
+    v37 = v47;
+    v47 = bswap32(v47);
     if (v36 != -1 && v37 == 130)
     {
       v40 = 1;
       goto LABEL_58;
     }
 
-    v47 = -113;
-    retry_read(v10, &v47, 1u);
-    v38 = v47 ^ 0x80;
+    v46 = -113;
+    retry_read(v10, &v46, 1u);
+    v38 = v46 ^ 0x80;
     v39 = "Unspecified error";
     if (v38 <= 3)
     {
@@ -2387,101 +2375,96 @@ LABEL_57:
   v10 = -1;
 LABEL_58:
   (*(*(a2 + 80) + 64))(__s);
-  v8 = v42;
-  a5 = v43;
-  if (v40)
+  v8 = v41;
+  a5 = v42;
+  if (!v40)
   {
+    return 4294967272;
+  }
+
 LABEL_59:
-    result = 0;
-    *v8 = 0u;
-    *(v8 + 16) = 0u;
-    *v8 = 1;
-    *(v8 + 28) = v10;
-    *a5 = v8;
-  }
-
-  else
-  {
-    result = 4294967272;
-  }
-
-LABEL_60:
-  v41 = *MEMORY[0x277D85DE8];
+  result = 0;
+  *v8 = 0u;
+  *(v8 + 16) = 0u;
+  *v8 = 1;
+  *(v8 + 28) = v10;
+  *a5 = v8;
   return result;
 }
 
-uint64_t ntlm_server_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, void *a5, unsigned int *a6, uint64_t a7)
+uint64_t ntlm_server_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, unsigned int *a6, uint64_t a7)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   *a5 = 0;
   *a6 = 0;
   if (!a1)
   {
-    goto LABEL_35;
+    return 4294967291;
   }
 
+  v10 = a4;
   (*(*(a2 + 80) + 256))(0, 5, "NTLM server step %d\n", *a1);
   if (*a1 == 2)
   {
-    v71 = 0uLL;
+    v70 = 0uLL;
+    v68 = 0;
     v69 = 0;
-    v70 = 0;
-    if (!a3 || a4 < 0x34 || *a3 != 0x5053534D4C544ELL || (*(a3 + 8) | (*(a3 + 9) << 8) | (*(a3 + 10) << 16) | (*(a3 + 11) << 24)) != 3)
+    if (!a3 || v10 < 0x34 || *a3 != 0x5053534D4C544ELL || (*(a3 + 8) | (*(a3 + 9) << 8) | (*(a3 + 10) << 16) | (*(a3 + 11) << 24)) != 3)
     {
       (*(*(a2 + 80) + 264))(*(*(a2 + 80) + 8), 0, "client didn't issue valid NTLM response");
-      goto LABEL_35;
+      return 4294967291;
     }
 
-    v67 = -1431655766;
-    v68 = -1431655766;
-    v65 = -1431655766;
     v66 = -1431655766;
-    v19 = unload_buffer(*(a2 + 80), (a3 + 12), &v71 + 1, &v68, 0, a3, a4);
-    v64 = v19;
+    v67 = -1431655766;
+    v64 = -1431655766;
+    v65 = -1431655766;
+    v19 = unload_buffer(*(a2 + 80), (a3 + 12), &v70 + 1, &v67, 0, a3, v10);
+    v63 = v19;
     if (v19)
     {
       goto LABEL_23;
     }
 
-    v19 = unload_buffer(*(a2 + 80), (a3 + 20), &v71, &v67, 0, a3, a4);
+    v19 = unload_buffer(*(a2 + 80), (a3 + 20), &v70, &v66, 0, a3, v10);
     if (v19)
     {
       goto LABEL_23;
     }
 
-    v19 = unload_buffer(*(a2 + 80), (a3 + 28), &v70, &v66, *(a1 + 4) & 1, a3, a4);
+    v19 = unload_buffer(*(a2 + 80), (a3 + 28), &v69, &v65, *(a1 + 4) & 1, a3, v10);
     if (v19)
     {
       goto LABEL_23;
     }
 
-    v19 = unload_buffer(*(a2 + 80), (a3 + 36), &v69, &v65, *(a1 + 4) & 1, a3, a4);
+    v19 = unload_buffer(*(a2 + 80), (a3 + 36), &v68, &v64, *(a1 + 4) & 1, a3, v10);
     if (v19)
     {
       goto LABEL_23;
     }
 
-    v32 = v71;
-    if (v71 == 0 || *(&v71 + 1) && v68 < 0x18 || (v67 <= 0x17 ? (v34 = v71 == 0) : (v34 = 1), !v34 || (v35 = v69) == 0))
+    v31 = v70;
+    if (v70 == 0 || *(&v70 + 1) && v67 < 0x18 || (v66 <= 0x17 ? (v33 = v70 == 0) : (v33 = 1), !v33 || (v34 = v68) == 0))
     {
       (*(*(a2 + 80) + 264))(*(*(a2 + 80) + 8), 0, "client issued incorrect/nonexistent responses");
       v20 = 4294967291;
       goto LABEL_24;
     }
 
-    (*(*(a2 + 80) + 256))(0, 5, "client user: %s", v69);
-    v36 = v70;
-    if (v70)
+    (*(*(a2 + 80) + 256))(0, 5, "client user: %s", v68);
+    v35 = v69;
+    if (v69)
     {
-      (*(*(a2 + 80) + 256))(0, 5, "client domain: %s", v70);
+      (*(*(a2 + 80) + 256))(0, 5, "client domain: %s", v69);
     }
 
     if (*(a1 + 28) != -1)
     {
-      v37 = smb_session_setup(*(a2 + 80), a1, v35, v36, *(&v32 + 1), v68, v32, v67);
-      if (!v37)
+      v36 = smb_session_setup(*(a2 + 80), a1, v34, v35, *(&v31 + 1), v67, v31, v66);
+      if (!v36)
       {
-        v19 = (*(a2 + 144))(*(*(a2 + 80) + 8), v35, v65, 3, a7);
+        v19 = (*(a2 + 144))(*(*(a2 + 80) + 8), v34, v64, 3, a7);
         if (v19)
         {
 LABEL_23:
@@ -2495,115 +2478,115 @@ LABEL_23:
       goto LABEL_94;
     }
 
-    *&v79[0] = "*userPassword";
-    *(&v79[0] + 1) = 0;
-    v39.iov_base = 0xAAAAAAAAAAAAAAAALL;
-    v39.iov_len = 0xAAAAAAAAAAAAAAAALL;
-    v73 = v39;
-    v74 = v39;
-    v72 = v39;
-    memset(v80, 170, 21);
+    *&v78[0] = "*userPassword";
+    *(&v78[0] + 1) = 0;
+    v38.iov_base = 0xAAAAAAAAAAAAAAAALL;
+    v38.iov_len = 0xAAAAAAAAAAAAAAAALL;
+    v72 = v38;
+    v73 = v38;
+    v71 = v38;
+    memset(v79, 170, 21);
     memset(dataOut, 170, 24);
-    v37 = (*(*(a2 + 80) + 296))(*(a2 + 152), v79);
-    if (v37 || (v37 = (*(a2 + 144))(*(*(a2 + 80) + 8), v35, v65, 3, a7), v37))
+    v36 = (*(*(a2 + 80) + 296))(*(a2 + 152), v78);
+    if (v36 || (v36 = (*(a2 + 144))(*(*(a2 + 80) + 8), v34, v64, 3, a7), v36))
     {
 LABEL_94:
-      v40 = v37;
+      v39 = v36;
       goto LABEL_95;
     }
 
-    if (((*(*(a2 + 80) + 312))(*(a2 + 152), v79, &v72) & 0x80000000) != 0 || !v72.iov_base || !v72.iov_len)
+    if (((*(*(a2 + 80) + 312))(*(a2 + 152), v78, &v71) & 0x80000000) != 0 || !v71.iov_base || !v71.iov_len)
     {
       (*(*(a2 + 80) + 264))(*(*(a2 + 80) + 8), 0, "no secret in database");
       if (*(a2 + 136))
       {
-        v40 = 4294967279;
+        v39 = 4294967279;
       }
 
       else
       {
-        v40 = 4294967276;
+        v39 = 4294967276;
       }
 
       goto LABEL_95;
     }
 
-    v41 = strlen(*v72.iov_len);
-    v42 = *(a2 + 80);
-    if (!v41)
+    v40 = strlen(*v71.iov_len);
+    v41 = *(a2 + 80);
+    if (!v40)
     {
-      (*(v42 + 264))(*(v42 + 8), 0, "empty secret");
-      v40 = 0xFFFFFFFFLL;
+      (*(v41 + 264))(*(v41 + 8), 0, "empty secret");
+      v39 = 0xFFFFFFFFLL;
       goto LABEL_95;
     }
 
-    v43 = v41;
-    v44 = (*(v42 + 40))(v41 + 16);
-    v63 = v44;
-    if (!v44)
+    v42 = v40;
+    v43 = (*(v41 + 40))(v40 + 16);
+    v62 = v43;
+    if (!v43)
     {
-      v40 = 4294967294;
+      v39 = 4294967294;
       goto LABEL_95;
     }
 
-    v45 = v44;
-    *v44 = v43;
-    strncpy((v44 + 8), *v72.iov_len, v43 + 1);
-    (*(*(a2 + 80) + 360))(*(a2 + 152), *&v79[0]);
-    v64 = 0;
-    if (v32 && v67 >= 0x19)
+    v44 = v43;
+    *v43 = v42;
+    strncpy((v43 + 8), *v71.iov_len, v42 + 1);
+    (*(*(a2 + 80) + 360))(*(a2 + 152), *&v78[0]);
+    v63 = 0;
+    if (v31 && v66 >= 0x19)
     {
       (*(*(a2 + 80) + 256))(0, 5, "calculating NTv2 response");
-      V2(dataOut, v45, v35, v36, (a1 + 8), (v32 + 16), v67 - 16, *(a2 + 80), (a1 + 16), (a1 + 24), &v64);
-      if (*v32 != *&dataOut[0] || *(v32 + 8) != *(&dataOut[0] + 1))
+      V2(dataOut, v44, v34, v35, (a1 + 8), (v31 + 16), v66 - 16, *(a2 + 80), (a1 + 16), (a1 + 24), &v63);
+      if (*v31 != *&dataOut[0] || *(v31 + 8) != *(&dataOut[0] + 1))
       {
-        v47 = "incorrect NTLMv2 response";
+        v46 = "incorrect NTLMv2 response";
 LABEL_131:
-        (*(*(a2 + 80) + 264))(*(*(a2 + 80) + 8), 0, v47);
-        _plug_free_secret(*(a2 + 80), &v63);
-        v40 = 4294967283;
+        (*(*(a2 + 80) + 264))(*(*(a2 + 80) + 8), 0, v46);
+        _plug_free_secret(*(a2 + 80), &v62);
+        v39 = 4294967283;
         goto LABEL_95;
       }
     }
 
-    else if (v32)
+    else if (v31)
     {
       (*(*(a2 + 80) + 256))(0, 5, "calculating NT response");
-      P16_nt(v80, v45, *(a2 + 80), (a1 + 16), (a1 + 24), &v64);
-      v80[20] = 0;
-      *&v80[16] = 0;
-      E(dataOut, v80, 0x15u, (a1 + 8));
-      if (*v32 != *&dataOut[0] || *(v32 + 8) != *(&dataOut[0] + 1) || *(v32 + 16) != *&dataOut[1])
+      P16_nt(v79, v44, *(a2 + 80), (a1 + 16), (a1 + 24), &v63);
+      v79[20] = 0;
+      *&v79[16] = 0;
+      E(dataOut, v79, 0x15u, (a1 + 8));
+      if (*v31 != *&dataOut[0] || *(v31 + 8) != *(&dataOut[0] + 1) || *(v31 + 16) != *&dataOut[1])
       {
-        v47 = "incorrect NTLM response";
+        v46 = "incorrect NTLM response";
         goto LABEL_131;
       }
     }
 
-    else if (*(&v32 + 1))
+    else if (*(&v31 + 1))
     {
       (*(*(a2 + 80) + 256))(0, 5, "calculating LMv2 response");
-      V2(dataOut, v45, v35, v36, (a1 + 8), (*(&v32 + 1) + 16), v68 - 16, *(a2 + 80), (a1 + 16), (a1 + 24), &v64);
-      if (**(&v32 + 1) != *&dataOut[0] || *(*(&v32 + 1) + 8) != *(&dataOut[0] + 1))
+      V2(dataOut, v44, v34, v35, (a1 + 8), (*(&v31 + 1) + 16), v67 - 16, *(a2 + 80), (a1 + 16), (a1 + 24), &v63);
+      if (**(&v31 + 1) != *&dataOut[0] || *(*(&v31 + 1) + 8) != *(&dataOut[0] + 1))
       {
         (*(*(a2 + 80) + 256))(0, 5, "calculating LM response");
-        P16_lm(v80, v45, v57, v58, v59, &v64);
-        v80[20] = 0;
-        *&v80[16] = 0;
-        E(dataOut, v80, 0x15u, (a1 + 8));
-        v60 = **(&v32 + 1) == *&dataOut[0] && *(*(&v32 + 1) + 8) == *(&dataOut[0] + 1);
-        if (!v60 || *(*(&v32 + 1) + 16) != *&dataOut[1])
+        P16_lm(v79, v44, v56, v57, v58, &v63);
+        v79[20] = 0;
+        *&v79[16] = 0;
+        E(dataOut, v79, 0x15u, (a1 + 8));
+        v59 = **(&v31 + 1) == *&dataOut[0] && *(*(&v31 + 1) + 8) == *(&dataOut[0] + 1);
+        if (!v59 || *(*(&v31 + 1) + 16) != *&dataOut[1])
         {
-          v47 = "incorrect LMv1/v2 response";
+          v46 = "incorrect LMv1/v2 response";
           goto LABEL_131;
         }
       }
     }
 
-    v62 = v64;
-    _plug_free_secret(*(a2 + 80), &v63);
-    v40 = v62;
-    if (!v62)
+    v61 = v63;
+    _plug_free_secret(*(a2 + 80), &v62);
+    v39 = v61;
+    if (!v61)
     {
 LABEL_82:
       v20 = 0;
@@ -2616,14 +2599,9 @@ LABEL_82:
     }
 
 LABEL_95:
-    v20 = v40;
+    v20 = v39;
 LABEL_24:
-    if (*(&v71 + 1))
-    {
-      (*(*(a2 + 80) + 64))();
-    }
-
-    if (v71)
+    if (*(&v70 + 1))
     {
       (*(*(a2 + 80) + 64))();
     }
@@ -2633,29 +2611,31 @@ LABEL_24:
       (*(*(a2 + 80) + 64))();
     }
 
-    v21 = v69;
     if (v69)
+    {
+      (*(*(a2 + 80) + 64))();
+    }
+
+    v21 = v68;
+    if (v68)
     {
       goto LABEL_59;
     }
 
-    goto LABEL_36;
+    return v20;
   }
 
   if (*a1 != 1)
   {
     (*(*(a2 + 80) + 256))(0, 1, "Invalid NTLM server step %d\n", *a1);
-    v20 = 0xFFFFFFFFLL;
-    goto LABEL_36;
+    return 0xFFFFFFFFLL;
   }
 
-  *(&v71 + 1) = 0;
-  if (!a3 || a4 < 0x10 || *a3 != 0x5053534D4C544ELL || (*(a3 + 8) | (*(a3 + 9) << 8) | (*(a3 + 10) << 16) | (*(a3 + 11) << 24)) != 1)
+  *(&v70 + 1) = 0;
+  if (!a3 || v10 < 0x10 || *a3 != 0x5053534D4C544ELL || (*(a3 + 8) | (*(a3 + 9) << 8) | (*(a3 + 10) << 16) | (*(a3 + 11) << 24)) != 1)
   {
     (*(*(a2 + 80) + 264))(*(*(a2 + 80) + 8), 0, "client didn't issue valid NTLM request");
-LABEL_35:
-    v20 = 4294967291;
-    goto LABEL_36;
+    return 4294967291;
   }
 
   v14 = *(a3 + 12) | (*(a3 + 13) << 8) | (*(a3 + 14) << 16) | (*(a3 + 15) << 24);
@@ -2677,18 +2657,18 @@ LABEL_35:
   {
     if ((v15 & 4) != 0)
     {
-      v20 = _plug_strdup(*(a2 + 80), *(a2 + 16), &v71 + 1, 0);
+      v20 = _plug_strdup(*(a2 + 80), *(a2 + 16), &v70 + 1, 0);
       if (v20)
       {
-        goto LABEL_36;
+        return v20;
       }
 
       *(a1 + 4) |= 0x20000u;
     }
 
     (*(*(a2 + 80) + 184))(*(*(a2 + 80) + 16), a1 + 8, 8);
-    v24 = *(&v71 + 1);
-    v25 = *(a1 + 4);
+    v23 = *(&v70 + 1);
+    v24 = *(a1 + 4);
   }
 
   else
@@ -2696,35 +2676,35 @@ LABEL_35:
     v17 = *(a2 + 80);
     *&v18 = 0xAAAAAAAAAAAAAAAALL;
     *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v79[0] = v18;
-    v79[1] = v18;
-    LOBYTE(v69) = 0;
+    v78[0] = v18;
+    v78[1] = v18;
+    LOBYTE(v68) = 0;
     memset(dataOut, 0, sizeof(dataOut));
-    v83 = 0;
+    v82 = 0;
     BYTE4(dataOut[0]) = 114;
     getpid();
     HIWORD(dataOut[1]) = 0;
     LOWORD(dataOut[1]) = 0;
-    load_smb_header(v79, dataOut);
-    v72.iov_base = &v71;
-    v72.iov_len = 4;
-    v73.iov_base = v79;
-    v73.iov_len = 32;
-    v74.iov_base = &v69;
-    v74.iov_len = 1;
-    v75 = &v70;
-    v76 = 2;
-    v77 = "\x02NT LM 0.12";
-    v78 = 12;
-    LODWORD(v71) = 788529152;
-    LOWORD(v70) = 12;
-    if (retry_writev(*(a1 + 28), &v72, 5) == -1)
+    load_smb_header(v78, dataOut);
+    v71.iov_base = &v70;
+    v71.iov_len = 4;
+    v72.iov_base = v78;
+    v72.iov_len = 32;
+    v73.iov_base = &v68;
+    v73.iov_len = 1;
+    v74 = &v69;
+    v75 = 2;
+    v76 = "\x02NT LM 0.12";
+    v77 = 12;
+    LODWORD(v70) = 788529152;
+    LOWORD(v69) = 12;
+    if (retry_writev(*(a1 + 28), &v71, 5) == -1)
     {
       (*(v17 + 256))(0, 1, "NTLM: error sending NEGPROT request");
       goto LABEL_46;
     }
 
-    if (retry_read(*(a1 + 28), &v71, 4u) <= 3)
+    if (retry_read(*(a1 + 28), &v70, 4u) <= 3)
     {
       (*(v17 + 256))(0, 1, "NTLM: error reading NEGPROT response length");
 LABEL_46:
@@ -2732,160 +2712,158 @@ LABEL_46:
       goto LABEL_58;
     }
 
-    v28 = v71;
-    v29 = bswap32(v71);
-    if (_plug_buf_alloc(v17, (a1 + 16), (a1 + 24), v29))
+    v27 = v70;
+    v28 = bswap32(v70);
+    if (_plug_buf_alloc(v17, (a1 + 16), (a1 + 24), v28))
     {
       (*(v17 + 264))(*(v17 + 8), 0, "cannot allocate NTLM NEGPROT response buffer");
       goto LABEL_49;
     }
 
-    if (retry_read(*(a1 + 28), *(a1 + 16), v29) < v29)
+    if (retry_read(*(a1 + 28), *(a1 + 16), v28) < v28)
     {
       (*(v17 + 256))(0, 1, "NTLM: error reading NEGPROT response");
       goto LABEL_46;
     }
 
-    if (v29 <= 0x1F)
+    if (v28 <= 0x1F)
     {
       (*(v17 + 256))(0, 1, "NTLM: not enough data for NEGPROT response header");
       goto LABEL_46;
     }
 
-    v33 = *(a1 + 16);
-    unload_smb_header(v33, dataOut);
+    v32 = *(a1 + 16);
+    unload_smb_header(v32, dataOut);
     if (LODWORD(dataOut[0]) != 1112364031 || BYTE4(dataOut[0]) != 114 || DWORD2(dataOut[0]) || (SBYTE12(dataOut[0]) & 0x80000000) == 0)
     {
       (*(v17 + 256))(0, 1, "NTLM: error in NEGPROT response header: %u", DWORD2(dataOut[0]));
       goto LABEL_46;
     }
 
-    if (v28 == 0x20000000)
+    if (v27 == 0x20000000)
     {
       (*(v17 + 256))(0, 1, "NTLM: not enough data for NEGPROT response wordcount");
       goto LABEL_46;
     }
 
-    LOBYTE(v69) = *(v33 + 32);
-    if (v69 != 17)
+    LOBYTE(v68) = *(v32 + 32);
+    if (v68 != 17)
     {
       (*(v17 + 256))(0, 1, "NTLM: incorrect NEGPROT wordcount for NT LM 0.12");
       goto LABEL_46;
     }
 
-    v81 = -1431655766;
-    *&v38 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v38 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v80 = v38;
-    *&v80[16] = v38;
-    unload_negprot_resp(v33 + 33, v80);
-    if (*v80 || (v80[2] & 0xB) != 3 || (*&v80[20] & 0x80000000) != 0 || BYTE2(v81) != 8)
+    v80 = -1431655766;
+    *&v37 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v37 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *v79 = v37;
+    *&v79[16] = v37;
+    unload_negprot_resp(v32 + 33, v79);
+    if (*v79 || (v79[2] & 0xB) != 3 || (*&v79[20] & 0x80000000) != 0 || BYTE2(v80) != 8)
     {
       (*(v17 + 256))(0, 1, "NTLM: error in NEGPROT response parameters");
       goto LABEL_46;
     }
 
-    if (v29 - 67 <= 1)
+    if (v28 - 67 <= 1)
     {
       (*(v17 + 256))(0, 1, "NTLM: not enough data for NEGPROT response bytecount");
       goto LABEL_46;
     }
 
-    v48 = *(v33 + 67);
-    if (v29 - 69 != v48)
+    v47 = *(v32 + 67);
+    if (v28 - 69 != v47)
     {
       (*(v17 + 256))(0, 1, "NTLM: incorrect bytecount for NEGPROT response data");
       goto LABEL_46;
     }
 
-    *(a1 + 8) = *(v33 + 69);
-    v25 = *(a1 + 4);
-    if ((v25 & 4) != 0)
+    *(a1 + 8) = *(v32 + 69);
+    v24 = *(a1 + 4);
+    if ((v24 & 4) != 0)
     {
-      v49 = (v48 - 8);
-      v50 = (*(v17 + 40))(v49);
-      *(&v71 + 1) = v50;
-      if (!v50)
+      v48 = (v47 - 8);
+      v49 = (*(v17 + 40))(v48);
+      *(&v70 + 1) = v49;
+      if (!v49)
       {
         (*(v17 + 264))(*(v17 + 8), 0, "Out of Memory in /Library/Caches/com.apple.xbs/Sources/Mail_Email/Email/SASL/cyrus_sasl/plugins/ntlm.c near line %d");
         goto LABEL_49;
       }
 
-      v24 = v50;
-      memcpy(v50, (v33 + 77), v49);
-      if (v49)
+      v23 = v49;
+      memcpy(v49, (v32 + 77), v48);
+      if (v48)
       {
-        v51 = v24;
-        v52 = v24;
+        v50 = v23;
+        v51 = v23;
         do
         {
-          v53 = *v51;
-          v51 += 2;
-          *v52++ = v53 & 0x7F;
-          LODWORD(v49) = v49 - 1;
+          v52 = *v50;
+          v50 += 2;
+          *v51++ = v52 & 0x7F;
+          LODWORD(v48) = v48 - 1;
         }
 
-        while (v49);
+        while (v48);
       }
 
-      v25 = *(a1 + 4) | 0x10000;
-      *(a1 + 4) = v25;
+      v24 = *(a1 + 4) | 0x10000;
+      *(a1 + 4) = v24;
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
   }
 
-  v26 = *(a2 + 80);
-  v27 = 48;
-  LODWORD(v72.iov_base) = 48;
-  if (v24)
+  v25 = *(a2 + 80);
+  v26 = 48;
+  LODWORD(v71.iov_base) = 48;
+  if (v23)
   {
-    v27 = 2 * strlen(v24) + 48;
+    v26 = 2 * strlen(v23) + 48;
   }
 
-  *a6 = v27;
-  if (_plug_buf_alloc(v26, (a1 + 16), (a1 + 24), v27))
+  *a6 = v26;
+  if (_plug_buf_alloc(v25, (a1 + 16), (a1 + 24), v26))
   {
-    (*(v26 + 264))(*(v26 + 8), 0, "cannot allocate NTLM challenge");
+    (*(v25 + 264))(*(v25 + 8), 0, "cannot allocate NTLM challenge");
 LABEL_49:
     v20 = 4294967294;
     goto LABEL_58;
   }
 
-  v30 = *(a1 + 16);
-  bzero(v30, *a6);
-  *v30 = 0x5053534D4C544ELL;
-  *(v30 + 2) = 2;
-  ucase(v24, 0);
-  if (v24)
+  v29 = *(a1 + 16);
+  bzero(v29, *a6);
+  *v29 = 0x5053534D4C544ELL;
+  *(v29 + 2) = 2;
+  ucase(v23, 0);
+  if (v23)
   {
-    v31 = strlen(v24);
+    v30 = strlen(v23);
   }
 
   else
   {
-    v31 = 0;
+    v30 = 0;
   }
 
-  load_buffer(v30 + 12, v24, v31, v25 & 1, v30, &v72);
-  *(v30 + 5) = v25;
-  v30[3] = *(a1 + 8);
+  load_buffer(v29 + 12, v23, v30, v24 & 1, v29, &v71);
+  *(v29 + 5) = v24;
+  v29[3] = *(a1 + 8);
   *a5 = *(a1 + 16);
   *a1 = 2;
   v20 = 1;
 LABEL_58:
-  v21 = *(&v71 + 1);
-  if (*(&v71 + 1))
+  v21 = *(&v70 + 1);
+  if (*(&v70 + 1))
   {
 LABEL_59:
     (*(*(a2 + 80) + 64))(v21);
   }
 
-LABEL_36:
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -3370,7 +3348,6 @@ void *V2(void *a1, int *a2, char *__s, const char *a4, const void *a5, const voi
   }
 
   *a11 = v20;
-  v27 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -3415,8 +3392,8 @@ unsigned __int8 *P16_nt(unsigned __int8 *a1, int *a2, uint64_t a3, uint64_t *a4,
 
 char *P16_lm(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11 = 0x252423402153474BLL;
+  v12 = *MEMORY[0x277D85DE8];
+  v10 = 0x252423402153474BLL;
   strncpy(__dst, (a2 + 8), 0xEuLL);
   for (i = 0; i != 14; ++i)
   {
@@ -3428,37 +3405,36 @@ char *P16_lm(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWOR
     __dst[i] = __toupper(__dst[i]);
   }
 
-  E(a1, __dst, 0xEu, &v11);
+  E(a1, __dst, 0xEu, &v10);
   *a6 = 0;
-  v9 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
-uint64_t smb_session_setup(uint64_t a1, uint64_t a2, const char *a3, const char *a4, uint64_t a5, __int16 a6, void *a7, __int16 a8)
+uint64_t smb_session_setup(uint64_t a1, uint64_t a2, char *a3, const char *a4, uint64_t a5, __int16 a6, void *a7, __int16 a8)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   *&v16 = 0xAAAAAAAAAAAAAAAALL;
   *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v64[0] = v16;
-  v64[1] = v16;
-  v39 = 13;
-  v38 = -21846;
-  v37 = -1431655766;
-  v56 = v16;
-  v57 = v16;
-  v54 = v16;
+  v63[0] = v16;
+  v63[1] = v16;
+  v38 = 13;
+  v37 = -21846;
+  v36 = -1431655766;
   v55 = v16;
-  v52 = v16;
+  v56 = v16;
   v53 = v16;
+  v54 = v16;
   v51 = v16;
+  v52 = v16;
+  v50 = v16;
   memset(__b, 170, sizeof(__b));
   memset(__str, 170, 20);
+  v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v67 = 0;
-  BYTE4(v65) = 115;
-  LOWORD(v66) = 0;
-  load_smb_header(v64, &v65);
+  v66 = 0;
+  BYTE4(v64) = 115;
+  LOWORD(v65) = 0;
+  load_smb_header(v63, &v64);
   if (a5)
   {
     v17 = a6;
@@ -3469,9 +3445,9 @@ uint64_t smb_session_setup(uint64_t a1, uint64_t a2, const char *a3, const char 
     v17 = 0;
   }
 
-  v58 = 255;
-  v59 = -1;
-  v60 = 0;
+  v57 = 255;
+  v58 = -1;
+  v59 = 0;
   if (a7)
   {
     v18 = a8;
@@ -3482,25 +3458,25 @@ uint64_t smb_session_setup(uint64_t a1, uint64_t a2, const char *a3, const char 
     v18 = 0;
   }
 
-  v61 = v17;
-  v62 = v18;
-  v63 = 0;
+  v60 = v17;
+  v61 = v18;
+  v62 = 0;
   _plug_snprintf_os_info(__b, 514);
   snprintf(__str, 0x14uLL, "Cyrus SASL %u.%u.%u", 2, 1, 27);
-  v42.iov_base = &v37;
-  v42.iov_len = 4;
-  v43 = v64;
-  v44 = 32;
-  v45 = &v39;
-  v46 = 1;
-  v47 = &v58;
-  v48 = 26;
-  v49 = &v38;
-  v50 = 2;
+  v41.iov_base = &v36;
+  v41.iov_len = 4;
+  v42 = v63;
+  v43 = 32;
+  v44 = &v38;
+  v45 = 1;
+  v46 = &v57;
+  v47 = 26;
+  v48 = &v37;
+  v49 = 2;
   if (a5)
   {
-    *&v51 = a5;
-    *(&v51 + 1) = 24;
+    *&v50 = a5;
+    *(&v50 + 1) = 24;
     v19 = 6;
     if (!a7)
     {
@@ -3514,13 +3490,13 @@ uint64_t smb_session_setup(uint64_t a1, uint64_t a2, const char *a3, const char 
   if (a7)
   {
 LABEL_9:
-    v20 = &v42 + v19++;
+    v20 = &v41 + v19++;
     v20->iov_base = a7;
     v20->iov_len = 24;
   }
 
 LABEL_10:
-  v21 = &v42 + v19;
+  v21 = &v41 + v19;
   v21->iov_base = a3;
   v21->iov_len = strlen(a3) + 1;
   if (a4)
@@ -3533,20 +3509,20 @@ LABEL_10:
     v22 = "";
   }
 
-  v23 = &v42 + v19 + 1;
+  v23 = &v41 + v19 + 1;
   v23->iov_base = v22;
   v23->iov_len = strlen(v22) + 1;
-  v24 = &v42 + v19 + 2;
+  v24 = &v41 + v19 + 2;
   v24->iov_base = __b;
   v24->iov_len = strlen(__b) + 1;
-  v25 = &v42 + v19 + 3;
+  v25 = &v41 + v19 + 3;
   v25->iov_base = __str;
   v26 = strlen(__str);
   v27 = 0;
   v25->iov_len = v26 + 1;
   for (i = 24; i != 88; i += 16)
   {
-    v27 += *(&v42.iov_base + i);
+    v27 += *(&v41.iov_base + i);
   }
 
   v29 = 0;
@@ -3554,101 +3530,85 @@ LABEL_10:
   v31 = 88;
   do
   {
-    v29 += *(&v42.iov_base + v31);
+    v29 += *(&v41.iov_base + v31);
     v31 += 16;
     --v30;
   }
 
   while (v30);
-  v37 = bswap32(v27 + v29);
-  v38 = v29;
-  if (retry_writev(*(a2 + 28), &v42, v19 + 4) == -1)
+  v36 = bswap32(v27 + v29);
+  v37 = v29;
+  if (retry_writev(*(a2 + 28), &v41, v19 + 4) == -1)
   {
     (*(a1 + 256))(0, 1, "NTLM: error sending SESSIONSETUP request");
+    return 0xFFFFFFFFLL;
   }
 
-  else if (retry_read(*(a2 + 28), &v37, 4u) > 3)
-  {
-    v34 = v37;
-    v35 = bswap32(v37);
-    if (_plug_buf_alloc(a1, (a2 + 16), (a2 + 24), v35))
-    {
-      (*(a1 + 264))(*(a1 + 8), 0, "cannot allocate NTLM SESSIONSETUP response buffer");
-      result = 4294967294;
-      goto LABEL_24;
-    }
-
-    if (retry_read(*(a2 + 28), *(a2 + 16), v35) >= v35)
-    {
-      if (v35 > 0x1F)
-      {
-        v36 = *(a2 + 16);
-        unload_smb_header(v36, &v65);
-        if (v65 == 1112364031 && BYTE4(v65) == 115 && SBYTE12(v65) < 0)
-        {
-          if (DWORD2(v65))
-          {
-            (*(a1 + 256))(0, 1, "NTLM: auth failure: %u", DWORD2(v65));
-          }
-
-          else
-          {
-            if (v34 == 0x20000000)
-            {
-              (*(a1 + 256))(0, 1, "NTLM: not enough data for SESSIONSETUP response wordcount");
-              goto LABEL_23;
-            }
-
-            v39 = *(v36 + 32);
-            if (v39 <= 2u)
-            {
-              (*(a1 + 256))(0, 1, "NTLM: incorrect SESSIONSETUP wordcount");
-              goto LABEL_23;
-            }
-
-            if ((*(v36 + 37) & 1) == 0)
-            {
-              result = 0;
-              goto LABEL_24;
-            }
-
-            (*(a1 + 256))(0, 1, "NTLM: authenticated as guest");
-          }
-
-          result = 4294967283;
-          goto LABEL_24;
-        }
-
-        (*(a1 + 256))(0, 1, "NTLM: error in SESSIONSETUP response header");
-      }
-
-      else
-      {
-        (*(a1 + 256))(0, 1, "NTLM: not enough data for SESSIONSETUP response header");
-      }
-    }
-
-    else
-    {
-      (*(a1 + 256))(0, 1, "NTLM: error reading SESSIONSETUP response");
-    }
-  }
-
-  else
+  if (retry_read(*(a2 + 28), &v36, 4u) <= 3)
   {
     (*(a1 + 256))(0, 1, "NTLM: error reading SESSIONSETUP response length");
+    return 0xFFFFFFFFLL;
   }
 
-LABEL_23:
-  result = 0xFFFFFFFFLL;
-LABEL_24:
-  v33 = *MEMORY[0x277D85DE8];
-  return result;
+  v33 = v36;
+  v34 = bswap32(v36);
+  if (_plug_buf_alloc(a1, (a2 + 16), (a2 + 24), v34))
+  {
+    (*(a1 + 264))(*(a1 + 8), 0, "cannot allocate NTLM SESSIONSETUP response buffer");
+    return 4294967294;
+  }
+
+  if (retry_read(*(a2 + 28), *(a2 + 16), v34) < v34)
+  {
+    (*(a1 + 256))(0, 1, "NTLM: error reading SESSIONSETUP response");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (v34 <= 0x1F)
+  {
+    (*(a1 + 256))(0, 1, "NTLM: not enough data for SESSIONSETUP response header");
+    return 0xFFFFFFFFLL;
+  }
+
+  v35 = *(a2 + 16);
+  unload_smb_header(v35, &v64);
+  if (v64 != 1112364031 || BYTE4(v64) != 115 || (SBYTE12(v64) & 0x80000000) == 0)
+  {
+    (*(a1 + 256))(0, 1, "NTLM: error in SESSIONSETUP response header");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (DWORD2(v64))
+  {
+    (*(a1 + 256))(0, 1, "NTLM: auth failure: %u", DWORD2(v64));
+    return 4294967283;
+  }
+
+  if (v33 == 0x20000000)
+  {
+    (*(a1 + 256))(0, 1, "NTLM: not enough data for SESSIONSETUP response wordcount");
+    return 0xFFFFFFFFLL;
+  }
+
+  v38 = *(v35 + 32);
+  if (v38 <= 2u)
+  {
+    (*(a1 + 256))(0, 1, "NTLM: incorrect SESSIONSETUP wordcount");
+    return 0xFFFFFFFFLL;
+  }
+
+  if (*(v35 + 37))
+  {
+    (*(a1 + 256))(0, 1, "NTLM: authenticated as guest");
+    return 4294967283;
+  }
+
+  return 0;
 }
 
 char *E(char *dataOut, uint64_t a2, unsigned int a3, void *dataIn)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v7 = dataOut;
@@ -3690,7 +3650,6 @@ char *E(char *dataOut, uint64_t a2, unsigned int a3, void *dataIn)
     while (v8 < a3);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return dataOut;
 }
 
@@ -3719,7 +3678,7 @@ uint64_t ntlm_client_mech_new(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t ntlm_client_mech_step(_DWORD *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t **a5, void *a6, unsigned int *a7, uint64_t a8)
 {
-  v46[3] = *MEMORY[0x277D85DE8];
+  v45[3] = *MEMORY[0x277D85DE8];
   *a6 = 0;
   *a7 = 0;
   (*(*(a2 + 24) + 256))(0, 5, "NTLM client step %d\n", *a1);
@@ -3736,7 +3695,7 @@ uint64_t ntlm_client_mech_step(_DWORD *a1, uint64_t a2, uint64_t a3, unsigned in
         if (_plug_buf_alloc(v18, a1 + 1, a1 + 4, 0x20u))
         {
           (*(v18 + 264))(*(v18 + 8), 0, "cannot allocate NTLM request");
-          password = 4294967294;
+          return 4294967294;
         }
 
         else
@@ -3754,40 +3713,37 @@ uint64_t ntlm_client_mech_step(_DWORD *a1, uint64_t a2, uint64_t a3, unsigned in
           *(v26 + 7) = 32;
           *a6 = *(a1 + 1);
           *a1 = 2;
-          password = 1;
+          return 1;
         }
       }
 
       else
       {
         (*(v18 + 264))(*(v18 + 8), 0, "SSF requested of NTLM plugin");
-        password = 4294967281;
+        return 4294967281;
       }
     }
 
     else
     {
       (*(*(a2 + 24) + 256))(0, 1, "Invalid NTLM client step %d\n", *a1);
-      password = 0xFFFFFFFFLL;
+      return 0xFFFFFFFFLL;
     }
-
-    goto LABEL_25;
   }
 
-  *v43 = 0;
-  v44 = 0;
-  v41 = 0;
-  memset(v46, 170, 21);
+  *v42 = 0;
+  v43 = 0;
+  v40 = 0;
+  memset(v45, 170, 21);
   memset(dataOut, 170, sizeof(dataOut));
   if (!a3 || a4 < 0x20 || *a3 != 0x5053534D4C544ELL || (*(a3 + 8) | (*(a3 + 9) << 8) | (*(a3 + 10) << 16) | (*(a3 + 11) << 24)) != 2)
   {
     (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "server didn't issue valid NTLM challenge");
-    password = 4294967291;
-    goto LABEL_25;
+    return 4294967291;
   }
 
-  v42 = -1431655766;
-  v39 = 0xAAAAAAAAAAAAAAAALL;
+  v41 = -1431655766;
+  v38 = 0xAAAAAAAAAAAAAAAALL;
   if (*(a8 + 16))
   {
     v20 = 0;
@@ -3795,16 +3751,16 @@ uint64_t ntlm_client_mech_step(_DWORD *a1, uint64_t a2, uint64_t a3, unsigned in
 
   else
   {
-    simple = _plug_get_simple(*(a2 + 24), 16386, 1, &v44, a5);
+    simple = _plug_get_simple(*(a2 + 24), 16386, 1, &v43, a5);
     v20 = simple;
     password = simple;
     if ((simple & 0xFFFFFFFD) != 0)
     {
-      goto LABEL_25;
+      return password;
     }
   }
 
-  password = _plug_get_password(*(a2 + 24), v43, &v42, a5);
+  password = _plug_get_password(*(a2 + 24), v42, &v41, a5);
   if ((password & 0xFFFFFFFD) == 0)
   {
     if (a5 && *a5)
@@ -3817,7 +3773,17 @@ uint64_t ntlm_client_mech_step(_DWORD *a1, uint64_t a2, uint64_t a3, unsigned in
     {
       if (v20 == 2)
       {
-        v30 = "Please enter your authentication name";
+        v29 = "Please enter your authentication name";
+      }
+
+      else
+      {
+        v29 = 0;
+      }
+
+      if (password == 2)
+      {
+        v30 = "Please enter your password";
       }
 
       else
@@ -3825,35 +3791,24 @@ uint64_t ntlm_client_mech_step(_DWORD *a1, uint64_t a2, uint64_t a3, unsigned in
         v30 = 0;
       }
 
-      if (password == 2)
-      {
-        v31 = "Please enter your password";
-      }
-
-      else
-      {
-        v31 = 0;
-      }
-
-      prompts = _plug_make_prompts(*(a2 + 24), a5, 0, 0, v30, 0, v31, 0, 0, 0, 0, 0, 0, 0);
+      prompts = _plug_make_prompts(*(a2 + 24), a5, 0, 0, v29, 0, v30, 0, 0, 0, 0, 0, 0, 0);
       if (!prompts)
       {
-        password = 2;
-        goto LABEL_25;
+        return 2;
       }
     }
 
     else
     {
-      prompts = (*(a2 + 152))(*(*(a2 + 24) + 8), v44, 0, 3, a8);
+      prompts = (*(a2 + 152))(*(*(a2 + 24) + 8), v43, 0, 3, a8);
       if (!prompts)
       {
         v22 = *(a3 + 20);
         v23 = v22 | (*(a3 + 21) << 8);
         (*(*(a2 + 24) + 256))(0, 5, "server flags: %x", (*(a3 + 22) << 16) | (*(a3 + 23) << 24) | v23);
-        v24 = unload_buffer(*(a2 + 24), (a3 + 12), &v41, 0, v22 & 1, a3, a4);
-        v40 = v24;
-        v25 = v41;
+        v24 = unload_buffer(*(a2 + 24), (a3 + 12), &v40, 0, v22 & 1, a3, a4);
+        v39 = v24;
+        v25 = v40;
         if (v24)
         {
           password = v24;
@@ -3866,51 +3821,51 @@ LABEL_55:
           goto LABEL_36;
         }
 
-        (*(*(a2 + 24) + 256))(0, 5, "server domain: %s", v41);
-        (*(*(a2 + 24) + 32))(*(*(a2 + 24) + 24), "NTLM", "ntlm_v2", &v39, 0);
-        if (!v39)
+        (*(*(a2 + 24) + 256))(0, 5, "server domain: %s", v40);
+        (*(*(a2 + 24) + 32))(*(*(a2 + 24) + 24), "NTLM", "ntlm_v2", &v38, 0);
+        if (!v38)
         {
           goto LABEL_48;
         }
 
-        v32 = *v39;
-        if (v32 > 0x73)
+        v31 = *v38;
+        if (v31 > 0x73)
         {
-          if (v32 != 116 && v32 != 121)
+          if (v31 != 116 && v31 != 121)
           {
             goto LABEL_48;
           }
         }
 
-        else if (v32 != 49 && (v32 != 111 || v39[1] != 110))
+        else if (v31 != 49 && (v31 != 111 || v38[1] != 110))
         {
 LABEL_48:
-          v33 = *(*(a2 + 24) + 256);
+          v32 = *(*(a2 + 24) + 256);
           if ((v23 & 0x200) != 0)
           {
-            v33(0, 5, "calculating NT response");
-            P16_nt(v46, *v43, *(a2 + 24), a1 + 1, a1 + 4, &v40);
-            BYTE4(v46[2]) = 0;
-            LODWORD(v46[2]) = 0;
-            v37 = dataOut;
-            E(dataOut, v46, 0x15u, (a3 + 24));
-            v38 = 0;
+            v32(0, 5, "calculating NT response");
+            P16_nt(v45, *v42, *(a2 + 24), a1 + 1, a1 + 4, &v39);
+            BYTE4(v45[2]) = 0;
+            LODWORD(v45[2]) = 0;
+            v36 = dataOut;
+            E(dataOut, v45, 0x15u, (a3 + 24));
+            v37 = 0;
             goto LABEL_52;
           }
 
-          v33(0, 5, "calculating LM response");
-          P16_lm(v46, *v43, v34, v35, v36, &v40);
-          BYTE4(v46[2]) = 0;
-          LODWORD(v46[2]) = 0;
-          v38 = dataOut;
-          E(dataOut, v46, 0x15u, (a3 + 24));
+          v32(0, 5, "calculating LM response");
+          P16_lm(v45, *v42, v33, v34, v35, &v39);
+          BYTE4(v45[2]) = 0;
+          LODWORD(v45[2]) = 0;
+          v37 = dataOut;
+          E(dataOut, v45, 0x15u, (a3 + 24));
 LABEL_50:
-          v37 = 0;
+          v36 = 0;
 LABEL_52:
-          password = v40;
-          if (!v40)
+          password = v39;
+          if (!v39)
           {
-            password = create_response_0(*(a2 + 24), a1 + 1, a1 + 4, v38, v37, v25, *(a8 + 16), v23, a7);
+            password = create_response_0(*(a2 + 24), a1 + 1, a1 + 4, v37, v36, v25, *(a8 + 16), v23, a7);
             if (!password)
             {
               *a6 = *(a1 + 1);
@@ -3927,22 +3882,20 @@ LABEL_52:
 
         (*(*(a2 + 24) + 256))(0, 5, "calculating LMv2 response");
         (*(*(a2 + 24) + 184))(*(*(a2 + 24) + 16), &dataOut[2], 8);
-        v38 = dataOut;
-        V2(dataOut, *v43, *(a8 + 16), v25, (a3 + 24), &dataOut[2], 8u, *(a2 + 24), a1 + 1, a1 + 4, &v40);
+        v37 = dataOut;
+        V2(dataOut, *v42, *(a8 + 16), v25, (a3 + 24), &dataOut[2], 8u, *(a2 + 24), a1 + 1, a1 + 4, &v39);
         goto LABEL_50;
       }
     }
 
     password = prompts;
 LABEL_36:
-    if (v42)
+    if (v41)
     {
-      _plug_free_secret(*(a2 + 24), v43);
+      _plug_free_secret(*(a2 + 24), v42);
     }
   }
 
-LABEL_25:
-  v27 = *MEMORY[0x277D85DE8];
   return password;
 }
 
@@ -4110,7 +4063,7 @@ uint64_t oauthbearer_client_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4,
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "OAUTHBEARER version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "OAUTHBEARER version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -4151,7 +4104,6 @@ uint64_t oauthbearer_client_mech_step(uint64_t a1, uint64_t a2, const void *a3, 
     if (v16 != 1)
     {
       v18 = *(*(a2 + 24) + 256);
-      v40 = *(a1 + 12);
       v19 = "Invalid OAUTHBEARER client step %d\n";
       v20 = 0;
       v21 = 1;
@@ -4179,7 +4131,6 @@ LABEL_8:
       v24 = _plug_get_simple(*(a2 + 24), 16385, 0, (a8 + 8), a5) == 2;
     }
 
-    v25 = (a1 + 24);
     if (*(a1 + 24))
     {
       LODWORD(simple) = 0;
@@ -4202,44 +4153,44 @@ LABEL_8:
 
     if (((simple != 2) & ~v24) == 0)
     {
-      v26 = (*(*(a2 + 24) + 40))(144);
-      *a5 = v26;
-      if (v26)
+      v25 = (*(*(a2 + 24) + 40))(144);
+      *a5 = v25;
+      if (v25)
       {
-        *(v26 + 7) = 0u;
-        *(v26 + 8) = 0u;
-        *(v26 + 5) = 0u;
-        *(v26 + 6) = 0u;
-        *(v26 + 3) = 0u;
-        *(v26 + 4) = 0u;
-        *(v26 + 1) = 0u;
-        *(v26 + 2) = 0u;
-        *v26 = 0u;
+        *(v25 + 7) = 0u;
+        *(v25 + 8) = 0u;
+        *(v25 + 5) = 0u;
+        *(v25 + 6) = 0u;
+        *(v25 + 3) = 0u;
+        *(v25 + 4) = 0u;
+        *(v25 + 1) = 0u;
+        *(v25 + 2) = 0u;
+        *v25 = 0u;
         if (v24)
         {
-          v27 = *a5;
-          *v27 = 16385;
-          v27[1] = "Authorization Name";
+          v26 = *a5;
+          *v26 = 16385;
+          v26[1] = "Authorization Name";
           (*a5)[2] = "Please enter your authentication name";
-          v28 = 1;
+          v27 = 1;
         }
 
         else
         {
-          v28 = 0;
+          v27 = 0;
         }
 
         if (simple == 2)
         {
-          v32 = (16 * v28) | (32 * v28);
-          v33 = (*a5 + v32);
-          *v33 = 18948;
-          v33[1] = "OAUTH2 Bearer Token";
-          *(*a5 + v32 + 16) = "Please enter your access token";
-          LODWORD(v28) = v28 + 1;
+          v31 = (16 * v27) | (32 * v27);
+          v32 = (*a5 + v31);
+          *v32 = 18948;
+          v32[1] = "OAUTH2 Bearer Token";
+          *(*a5 + v31 + 16) = "Please enter your access token";
+          LODWORD(v27) = v27 + 1;
         }
 
-        (*a5)[6 * v28] = 0;
+        (*a5)[6 * v27] = 0;
         return 2;
       }
 
@@ -4250,37 +4201,35 @@ LABEL_8:
       }
     }
 
-    v49 = 0;
+    v36 = 0;
     __dst = 0;
     if ((*(a1 + 16) & 1) == 0)
     {
       sasl_getprop(*(*(a2 + 24) + 8), 13, &__dst);
     }
 
-    if (sasl_getprop(*(*(a2 + 24) + 8), 9, &v49))
+    if (sasl_getprop(*(*(a2 + 24) + 8), 9, &v36))
     {
-      v29 = 0;
+      v28 = 0;
     }
 
     else
     {
-      v30 = strchr(v49, 59);
-      if (!v30)
+      v29 = strchr(v36, 59);
+      if (!v29)
       {
-        v34 = *(a2 + 24);
-        v18 = *(v34 + 264);
-        v20 = *(v34 + 8);
+        v33 = *(a2 + 24);
+        v18 = *(v33 + 264);
+        v20 = *(v33 + 8);
         v19 = "failed to split SASL_IPREMOTEPORT";
 LABEL_49:
         v21 = 0;
         goto LABEL_8;
       }
 
-      v29 = atoi(v30 + 1);
+      v28 = atoi(v29 + 1);
     }
 
-    *(a1 + 16);
-    *(a1 + 16);
     if (*v23 && **v23)
     {
       simple = (*(a2 + 152))(*(*(a2 + 24) + 8));
@@ -4291,17 +4240,15 @@ LABEL_49:
 
       if (__dst)
       {
-        if (*__dst && v29)
+        if (*__dst && v28)
         {
-          v48 = *v25;
-          v42 = *v23;
           asprintf(a6, "%s=%s%s\x01host=%s\x01port=%d\x01auth=Bearer %s\x01\x01");
 LABEL_60:
-          v38 = *a6;
-          v39 = strlen(v38);
-          *a7 = v39;
-          *a1 = v38;
-          *(a1 + 8) = v39;
+          v34 = *a6;
+          v35 = strlen(v34);
+          *a7 = v35;
+          *a1 = v34;
+          *(a1 + 8) = v35;
           *(a8 + 136) = 0;
           *(a8 + 32) = 0u;
           *(a8 + 48) = 0u;
@@ -4313,23 +4260,18 @@ LABEL_60:
 
         if (*__dst)
         {
-          v47 = *v25;
-          v44 = *v23;
           asprintf(a6, "%s=%s%s\x01host=%s\x01auth=Bearer %s\x01\x01");
           goto LABEL_60;
         }
       }
 
-      v36 = *v23;
-      v37 = *v25;
-      if (v29)
+      if (v28)
       {
         asprintf(a6, "%s=%s%s\x01port=%d\x01auth=Bearer %s\x01\x01");
       }
 
       else
       {
-        v46 = *v25;
         asprintf(a6, "%s=%s%s\x01auth=Bearer %s\x01\x01");
       }
 
@@ -4340,49 +4282,45 @@ LABEL_60:
     {
       if (__dst)
       {
-        if (*__dst && v29)
+        if (*__dst && v28)
         {
-          v45 = *v25;
           asprintf(a6, "n,\x01host=%s\x01port=%d\x01auth=Bearer %s\x01\x01");
           goto LABEL_60;
         }
 
         if (*__dst)
         {
-          v43 = *v25;
           asprintf(a6, "n,\x01host=%s\x01auth=Bearer %s\x01\x01");
           goto LABEL_60;
         }
       }
 
-      v35 = *v25;
-      if (v29)
+      if (v28)
       {
         asprintf(a6, "n,\x01port=%d\x01auth=Bearer %s\x01\x01");
       }
 
       else
       {
-        v41 = *v25;
         asprintf(a6, "n,\x01auth=Bearer %s\x01\x01");
       }
 
       goto LABEL_60;
     }
 
-    v31 = *(a2 + 24);
-    v18 = *(v31 + 264);
-    v20 = *(v31 + 8);
+    v30 = *(a2 + 24);
+    v18 = *(v30 + 264);
+    v20 = *(v30 + 8);
     v19 = "XOAUTH2 requires user";
     goto LABEL_49;
   }
 
   __dst = 0;
-  LODWORD(v49) = a4 + 1;
-  simple = _plug_buf_alloc(*(a2 + 24), &__dst, &v49, a4 + 1);
+  LODWORD(v36) = a4 + 1;
+  simple = _plug_buf_alloc(*(a2 + 24), &__dst, &v36, a4 + 1);
   if (!simple)
   {
-    bzero(__dst, v49);
+    bzero(__dst, v36);
     memcpy(__dst, a3, a4);
     sasl_seterror(*(*(a2 + 24) + 8), 0, __dst);
     *a6 = "\x01";
@@ -4446,7 +4384,7 @@ uint64_t plain_server_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWOR
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "PLAIN version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "PLAIN version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -4465,7 +4403,7 @@ uint64_t plain_client_plug_init(uint64_t a1, int a2, _DWORD *a3, void *a4, _DWOR
 
   else
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "PLAIN version mismatch");
+    (*(a1 + 264))(*(a1 + 8), 0, "PLAIN version mismatch", a4, a5);
     return 4294967273;
   }
 
@@ -4675,7 +4613,7 @@ uint64_t plain_client_mech_new(uint64_t a1, uint64_t a2, void *a3)
   return result;
 }
 
-uint64_t plain_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t **a5, void *a6, int *a7, uint64_t a8)
+uint64_t plain_client_mech_step(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t **a5, void **a6, int *a7, uint64_t a8)
 {
   v31 = 0;
   v32 = 0;
@@ -4685,7 +4623,7 @@ uint64_t plain_client_mech_step(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   *a7 = 0;
   if (*(a2 + 80) > *(a2 + 112))
   {
-    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "SSF requested of PLAIN plugin");
+    (*(*(a2 + 24) + 264))(*(*(a2 + 24) + 8), 0, "SSF requested of PLAIN plugin", a4, a5);
     return 4294967281;
   }
 
@@ -4817,7 +4755,7 @@ LABEL_36:
 
     v26 = v25 + *(a8 + 28) + *v30;
     *a7 = v26;
-    prompts = _plug_buf_alloc(*(a2 + 24), a1, (a1 + 8), v26 + 1);
+    prompts = _plug_buf_alloc(*(a2 + 24), a1, a1 + 2, v26 + 1);
     if (!prompts)
     {
       bzero(*a1, (*a7 + 1));
@@ -4884,7 +4822,7 @@ uint64_t _plug_iovec_to_buf(uint64_t a1, uint64_t a2, int a3, char ***a4)
       }
 
       *v9 = 0;
-      v9[1] = 0;
+      *(v9 + 8) = 0;
       v8 = *a4;
     }
 
@@ -5330,7 +5268,7 @@ uint64_t _plug_make_prompts(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uin
 
   if (v15 == 1)
   {
-    (*(a1 + 264))(*(a1 + 8), 0, "make_prompts() called with no actual prompts");
+    (*(a1 + 264))(*(a1 + 8), 0, "make_prompts() called with no actual prompts", a4);
     return 0xFFFFFFFFLL;
   }
 
@@ -5550,12 +5488,10 @@ char *_plug_get_error_message(uint64_t a1, int __errnum)
 
 uint64_t _plug_snprintf_os_info(char *a1, int a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   memset(&__b, 170, sizeof(__b));
   uname(&__b);
-  result = snprintf(a1, a2, "%s %s", __b.sysname, __b.release);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return snprintf(a1, a2, "%s %s", __b.sysname, __b.release);
 }
 
 int sasl_encode64(const char *in, unsigned int inlen, char *out, unsigned int outmax, unsigned int *outlen)
@@ -5629,21 +5565,19 @@ LABEL_17:
 
 int sasl_decode64(const char *in, unsigned int inlen, char *out, unsigned int outmax, unsigned int *outlen)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v18 = 0xAAAAAAAAAAAAAAAALL;
   v19 = 0xAAAAAAAAAAAAAAAALL;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
   if (!out)
   {
-    goto LABEL_4;
+    return -1;
   }
 
   if (inlen)
   {
     if (*in == 13)
     {
-LABEL_4:
-      v5 = -1;
-      goto LABEL_59;
+      return -1;
     }
 
     if (inlen < 4)
@@ -5660,46 +5594,59 @@ LABEL_4:
       {
         if (v7)
         {
-          goto LABEL_58;
+          return -5;
         }
 
         for (i = 0; i != 16; i += 4)
         {
           v9 = *in++;
-          *(&v19 + i) = v9;
+          *(&v18 + i) = v9;
         }
 
-        if (v19 > 0x7F || (v10 = *(index_64 + v19), v10 == 255) || HIDWORD(v19) > 0x7F || (v11 = *(index_64 + HIDWORD(v19)), v11 == 255) || v20 != 61 && (v20 > 0x7F || *(index_64 + v20) == 255))
+        if (v18 > 0x7F)
         {
-LABEL_58:
-          v5 = -5;
-          goto LABEL_59;
+          return -5;
         }
 
-        if (HIDWORD(v20) != 61)
+        v10 = *(index_64 + v18);
+        if (v10 == 255)
         {
-          if (HIDWORD(v20) > 0x7F)
+          return -5;
+        }
+
+        if (HIDWORD(v18) > 0x7F)
+        {
+          return -5;
+        }
+
+        v11 = *(index_64 + HIDWORD(v18));
+        if (v11 == 255 || v19 != 61 && (v19 > 0x7F || *(index_64 + v19) == 255))
+        {
+          return -5;
+        }
+
+        if (HIDWORD(v19) != 61)
+        {
+          if (HIDWORD(v19) > 0x7F)
           {
-            goto LABEL_58;
+            return -5;
           }
 
           v5 = -5;
-          if (v20 == 61 || *(index_64 + HIDWORD(v20)) == 255)
+          if (v19 == 61 || *(index_64 + HIDWORD(v19)) == 255)
           {
-            goto LABEL_59;
+            return v5;
           }
         }
 
-        v7 = v20 == 61 || HIDWORD(v20) == 61;
+        v7 = v19 == 61 || HIDWORD(v19) == 61;
         *out = (v11 >> 4) | (4 * v10);
         if (v6 + 1 >= outmax)
         {
-LABEL_60:
-          v5 = -3;
-          goto LABEL_59;
+          return -3;
         }
 
-        if (v20 == 61)
+        if (v19 == 61)
         {
           ++out;
           ++v6;
@@ -5707,9 +5654,9 @@ LABEL_60:
 
         else
         {
-          if (HIDWORD(v19) <= 0x7F)
+          if (HIDWORD(v18) <= 0x7F)
           {
-            v13 = 16 * *(index_64 + HIDWORD(v19));
+            v13 = 16 * *(index_64 + HIDWORD(v18));
           }
 
           else
@@ -5717,9 +5664,9 @@ LABEL_60:
             v13 = -16;
           }
 
-          if (v20 <= 0x7F)
+          if (v19 <= 0x7F)
           {
-            v14 = *(index_64 + v20) >> 2;
+            v14 = *(index_64 + v19) >> 2;
           }
 
           else
@@ -5730,10 +5677,10 @@ LABEL_60:
           out[1] = v14 | v13;
           if (v6 + 2 >= outmax)
           {
-            goto LABEL_60;
+            return -3;
           }
 
-          if (HIDWORD(v20) == 61)
+          if (HIDWORD(v19) == 61)
           {
             out += 2;
             v6 += 2;
@@ -5741,9 +5688,9 @@ LABEL_60:
 
           else
           {
-            if (v20 <= 0x7F)
+            if (v19 <= 0x7F)
             {
-              v15 = *(index_64 + v20) << 6;
+              v15 = *(index_64 + v19) << 6;
             }
 
             else
@@ -5751,9 +5698,9 @@ LABEL_60:
               v15 = -64;
             }
 
-            if (HIDWORD(v20) <= 0x7F)
+            if (HIDWORD(v19) <= 0x7F)
             {
-              v16 = *(index_64 + HIDWORD(v20));
+              v16 = *(index_64 + HIDWORD(v19));
             }
 
             else
@@ -5765,7 +5712,7 @@ LABEL_60:
             v6 += 3;
             if (v6 >= outmax)
             {
-              goto LABEL_60;
+              return -3;
             }
 
             out += 3;
@@ -5805,8 +5752,6 @@ LABEL_60:
     *outlen = v6;
   }
 
-LABEL_59:
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -5957,71 +5902,72 @@ uint64_t get_fqhostname(char *a1, int a2, int a3)
 
 int sasl_server_add_plugin(const char *plugname, sasl_server_plug_init_t *splugfunc)
 {
-  v20 = 0;
+  v16 = 0;
   v2 = -7;
   if (plugname && splugfunc)
   {
-    v21 = -1431655766;
-    v19 = -1431655766;
-    v2 = (splugfunc)(*mechlist, 4, &v19, &v20, &v21);
-    if ((v2 + 20) > 0x15 || ((1 << (v2 + 20)) & 0x300001) == 0)
+    v17 = -1431655766;
+    v15 = -1431655766;
+    v4 = (splugfunc)(*mechlist, 4, &v15, &v16, &v17);
+    v2 = v4;
+    if ((v4 + 20) > 0x15 || ((1 << (v4 + 20)) & 0x300001) == 0)
     {
-      _sasl_log(0, 5, "%s_client_plug_init() failed in sasl_server_add_plugin(): %z\n", v4, v5, v6, v7, v8, plugname);
+      _sasl_log(0, 5, "%s_client_plug_init() failed in sasl_server_add_plugin(): %z\n", plugname, v4);
     }
 
-    else if (v19 == 4)
+    else if (v15 == 4)
     {
-      if (v21 < 1)
+      if (v17 < 1)
       {
         return 0;
       }
 
       else
       {
-        v10 = 0;
+        v6 = 0;
         while (1)
         {
-          v11 = _sasl_allocation_utils(40);
-          if (!v11)
+          v7 = _sasl_allocation_utils(40);
+          if (!v7)
           {
             break;
           }
 
-          v12 = v11;
-          *(v11 + 32) = 0;
-          *v11 = 0u;
-          *(v11 + 16) = 0u;
-          *(v11 + 16) = v20;
-          if (_sasl_strdup(plugname, (v11 + 8), 0))
+          v8 = v7;
+          *(v7 + 32) = 0;
+          *v7 = 0u;
+          *(v7 + 16) = 0u;
+          *(v7 + 16) = v16;
+          if (_sasl_strdup(plugname, (v7 + 8), 0))
           {
-            off_280B0E738(v12);
+            off_280B0E738(v8);
             return -2;
           }
 
-          *v12 = v19;
-          *(v12 + 4) = v2;
-          v13 = mechlist;
-          v15 = (mechlist + 16);
-          v14 = *(mechlist + 16);
-          v16 = v20;
-          if (v14 && (mech_compare(v20, *(v14 + 16)) & 0x80000000) != 0)
+          *v8 = v15;
+          *(v8 + 4) = v2;
+          v9 = mechlist;
+          v11 = (mechlist + 16);
+          v10 = *(mechlist + 16);
+          v12 = v16;
+          if (v10 && (mech_compare(v16, *(v10 + 16)) & 0x80000000) != 0)
           {
             do
             {
-              v17 = v14;
-              v14 = *(v14 + 32);
+              v13 = v10;
+              v10 = *(v10 + 32);
             }
 
-            while (v14 && mech_compare(v16, *(v14 + 16)) < 1);
-            v15 = (v17 + 32);
+            while (v10 && mech_compare(v12, *(v10 + 16)) < 1);
+            v11 = (v13 + 32);
           }
 
-          *(v12 + 32) = v14;
-          *v15 = v12;
-          ++*(v13 + 24);
-          ++v10;
-          v20 = v16 + 26;
-          if (v10 >= v21)
+          *(v8 + 32) = v10;
+          *v11 = v8;
+          ++*(v9 + 24);
+          ++v6;
+          v16 = v12 + 26;
+          if (v6 >= v17)
           {
             return 0;
           }
@@ -6033,7 +5979,7 @@ int sasl_server_add_plugin(const char *plugname, sasl_server_plug_init_t *splugf
 
     else
     {
-      _sasl_log(0, 1, "version mismatch on  sasl_server_add_plugin for '%s': %d expected, but %d reported", v4, v5, v6, v7, v8, plugname);
+      _sasl_log(0, 1, "version mismatch on  sasl_server_add_plugin for '%s': %d expected, but %d reported", plugname, 4, v15);
       return -23;
     }
   }
@@ -6128,20 +6074,17 @@ int sasl_checkapop(sasl_conn_t *conn, const char *challenge, unsigned int challe
   names[1] = 0;
   if (!_sasl_server_active)
   {
-    v12 = -12;
-    goto LABEL_15;
+    return -12;
   }
 
   if (!challenge)
   {
-    v12 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   if (!conn)
   {
-    v12 = -7;
-    goto LABEL_15;
+    return -7;
   }
 
   if (!response)
@@ -6158,7 +6101,7 @@ int sasl_checkapop(sasl_conn_t *conn, const char *challenge, unsigned int challe
     v12 = -5;
 LABEL_14:
     *(conn + 600) = v12;
-    goto LABEL_15;
+    return v12;
   }
 
   v10 = _sasl_allocation_utils(v9 - response + 1);
@@ -6178,11 +6121,10 @@ LABEL_14:
     off_280B0E738(v10);
     if (!v12)
     {
-      v15 = *(conn + 569);
-      v16 = _sasl_auxprop_verify_apop(conn, *(conn + 272), challenge, v9 + 1);
-      if (v16)
+      v14 = _sasl_auxprop_verify_apop(conn, *(conn + 272), challenge, v9 + 1);
+      if (v14)
       {
-        v12 = v16;
+        v12 = v14;
         *(conn + 2168) = 0u;
       }
 
@@ -6198,8 +6140,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -6207,49 +6147,45 @@ void sasl_seterror(sasl_conn_t *conn, unsigned int flags, const char *fmt, ...)
 {
   va_start(va, fmt);
   v3 = flags;
-  v36 = *MEMORY[0x277D85DE8];
-  v30 = 0;
-  v31 = 0;
-  memset(v29, 170, sizeof(v29));
-  if (!conn)
+  v38 = *MEMORY[0x277D85DE8];
+  v32 = 0;
+  v33 = 0;
+  memset(v31, 170, sizeof(v31));
+  if (conn)
   {
-    if ((flags & 1) == 0)
+    if (!fmt)
     {
-      _sasl_getcallback(0);
+      return;
     }
 
-    goto LABEL_47;
-  }
+    _sasl_get_errorbuf(conn, &v31[1], v31);
+    v6 = strlen(fmt);
+    va_copy(&v31[2], va);
+    if (!v6)
+    {
+      v27 = 1;
+      goto LABEL_44;
+    }
 
-  if (!fmt)
-  {
-    goto LABEL_47;
-  }
-
-  _sasl_get_errorbuf(conn, &v29[1], v29);
-  v6 = strlen(fmt);
-  va_copy(&v29[2], va);
-  if (v6)
-  {
     v7 = v6;
     v8 = 0;
     while (1)
     {
       if (fmt[v8] != 37)
       {
-        if (!_buf_alloc(v29[1], v29[0], v31 + 1))
+        if (!_buf_alloc(v31[1], v31[0], v33 + 1))
         {
-          *(*v29[1] + v31) = fmt[v8];
+          *(*v31[1] + v33) = fmt[v8];
 LABEL_23:
-          ++v31;
+          ++v33;
           goto LABEL_36;
         }
 
-        goto LABEL_47;
+        return;
       }
 
-      v34 = 0xAAAAAAAAAAAAAAAALL;
-      v35 = -86;
+      v36 = 0xAAAAAAAAAAAAAAAALL;
+      v37 = -86;
       memset(__str, 170, 21);
       ++v8;
       v9 = 2;
@@ -6263,9 +6199,9 @@ LABEL_23:
           {
             if (v10 == 122)
             {
-              v20 = v29[0];
-              v19 = v29[1];
-              v23 = v29[2]++;
+              v20 = v31[0];
+              v19 = v31[1];
+              v23 = v31[2]++;
               v24 = *v23;
               if (v24 == -20)
               {
@@ -6283,10 +6219,10 @@ LABEL_23:
 
             if (v10 == 115)
             {
-              v15 = v29[1];
-              v16 = v29[2]++;
+              v15 = v31[1];
+              v16 = v31[2]++;
               v17 = *v16;
-              v18 = v29[0];
+              v18 = v31[0];
               goto LABEL_35;
             }
           }
@@ -6300,9 +6236,9 @@ LABEL_23:
 
             if (v10 == 109)
             {
-              v20 = v29[0];
-              v19 = v29[1];
-              v21 = v29[2]++;
+              v20 = v31[0];
+              v19 = v31[1];
+              v21 = v31[2]++;
               v22 = strerror(*v21);
 LABEL_32:
               v17 = v22;
@@ -6317,12 +6253,12 @@ LABEL_32:
 
         if (v10 == 37)
         {
-          if (_buf_alloc(v29[1], v29[0], v31 + 1))
+          if (_buf_alloc(v31[1], v31[0], v33 + 1))
           {
-            goto LABEL_47;
+            return;
           }
 
-          *(*v29[1] + v31) = 37;
+          *(*v31[1] + v33) = 37;
           goto LABEL_23;
         }
 
@@ -6337,7 +6273,7 @@ LABEL_24:
           v13 = &__format + v9;
           *(v13 - 1) = v10;
           *v13 = 0;
-          v14 = v29[2]++;
+          v14 = v31[2]++;
           snprintf(__str, 0x14uLL, &__format, *v14);
           goto LABEL_34;
         }
@@ -6359,17 +6295,17 @@ LABEL_18:
       }
 
       *(&__format + v9 - 1) = 99;
-      v26 = v29[2]++;
+      v26 = v31[2]++;
       __str[0] = *v26;
       __str[1] = 0;
 LABEL_34:
-      v18 = v29[0];
-      v15 = v29[1];
+      v18 = v31[0];
+      v15 = v31[1];
       v17 = __str;
 LABEL_35:
-      if (_sasl_add_string(v15, v18, &v31, v17))
+      if (_sasl_add_string(v15, v18, &v33, v17))
       {
-        goto LABEL_47;
+        return;
       }
 
 LABEL_36:
@@ -6377,34 +6313,47 @@ LABEL_36:
 LABEL_37:
       if (v8 >= v7)
       {
-        v27 = v31 + 1;
-        goto LABEL_42;
+        v27 = v33 + 1;
+LABEL_44:
+        if (!_buf_alloc(v31[1], v31[0], v27))
+        {
+          *(*v31[1] + v33) = 0;
+          if ((v3 & 1) == 0 && !_sasl_getcallback(conn, 2, &v32, &v31[3]))
+          {
+            v28 = v32;
+            if (v32)
+            {
+              v29 = v31[3];
+              v30 = *(conn + 301);
+LABEL_49:
+              v28(v29, 2, v30);
+            }
+          }
+        }
+
+        return;
       }
     }
   }
 
-  v27 = 1;
-LABEL_42:
-  if (!_buf_alloc(v29[1], v29[0], v27))
+  if ((flags & 1) == 0 && !_sasl_getcallback(0, 2, &v32, &v31[3]))
   {
-    *(*v29[1] + v31) = 0;
-    if ((v3 & 1) == 0 && !_sasl_getcallback(conn) && v30)
+    v28 = v32;
+    if (v32)
     {
-      v30(v29[3], 2, *(conn + 301));
+      v29 = v31[3];
+      v30 = "No sasl_conn_t passed to sasl_seterror";
+      goto LABEL_49;
     }
   }
-
-LABEL_47:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void _stringByApplyingIDNATranslationWithRange_cold_2(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_22D092000, a2, OS_LOG_TYPE_ERROR, "failed to allocate buffer of size %d for IDNA conversion", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_22D092000, a2, OS_LOG_TYPE_ERROR, "failed to allocate buffer of size %d for IDNA conversion", v2, 8u);
 }
 
 void ___stringByApplyingIDNATranslationWithRange_block_invoke_cold_1(uint64_t a1, uint8_t *buf, os_log_t log)

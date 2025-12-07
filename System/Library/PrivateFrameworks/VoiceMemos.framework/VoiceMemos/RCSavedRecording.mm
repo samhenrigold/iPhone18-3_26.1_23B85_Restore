@@ -67,7 +67,7 @@
     v7 = avAsset;
     if (avAsset)
     {
-      [avAsset duration];
+      objc_msgSend_duration(avAsset);
     }
 
     else
@@ -220,22 +220,20 @@
 
 - (void)_validatePath
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   path = [self path];
-  v7 = 136315650;
-  v8 = "[RCSavedRecording _validatePath]";
-  v9 = 2112;
-  v10 = path;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_272442000, a3, OS_LOG_TYPE_ERROR, "%s -- WARNING: bogus path (%@) detected for recording %@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
+  v7 = "[RCSavedRecording _validatePath]";
+  v8 = 2112;
+  v9 = path;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_272442000, a3, OS_LOG_TYPE_ERROR, "%s -- WARNING: bogus path (%@) detected for recording %@", &v6, 0x20u);
 }
 
 + (void)deleteOrphanedEntityRevisionsWithContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = objc_alloc_init(MEMORY[0x277CBE428]);
   v5 = [MEMORY[0x277CBE408] entityForName:@"Recording" inManagedObjectContext:contextCopy];
@@ -253,79 +251,77 @@
   [v8 setPredicate:v10];
 
   v11 = [contextCopy executeFetchRequest:v8 error:0];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [contextCopy deleteObject:*(*(&v17 + 1) + 8 * v15++)];
+        [contextCopy deleteObject:*(*(&v16 + 1) + 8 * v15++)];
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (id)fetchLegacyRecordingsForMigrationWithContext:(id)context
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = objc_alloc_init(MEMORY[0x277CBE428]);
   v5 = [MEMORY[0x277CBE408] entityForName:@"EntityRevision" inManagedObjectContext:contextCopy];
   [v4 setEntity:v5];
 
   [v4 setPropertiesToFetch:&unk_2881AE2C0];
-  v29 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"revision_id" ascending:1];
+  v28 = [objc_alloc(MEMORY[0x277CCAC98]) initWithKey:@"revision_id" ascending:1];
   v6 = [MEMORY[0x277CBEA60] arrayWithObject:?];
   [v4 setSortDescriptors:v6];
 
   v7 = objc_opt_new();
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v30 = v4;
+  v29 = v4;
   v8 = [contextCopy executeFetchRequest:v4 error:0];
-  v9 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v37;
+    v11 = *v36;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
+        v13 = *(*(&v35 + 1) + 8 * i);
         v14 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v13, "revisionID")}];
         v15 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v13, "recordingID")}];
         [v7 setObject:v14 forKeyedSubscript:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v10);
@@ -336,41 +332,39 @@
   [v16 setEntity:v17];
 
   [v16 setPropertiesToFetch:&unk_2881AE2D8];
-  v31 = contextCopy;
+  v30 = contextCopy;
   v18 = [contextCopy executeFetchRequest:v16 error:0];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v33;
+    v21 = *v32;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v33 != v21)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v32 + 1) + 8 * j);
+        v23 = *(*(&v31 + 1) + 8 * j);
         v24 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v23, "recordingID")}];
         v25 = [v7 objectForKeyedSubscript:v24];
         [v23 setRevisionID:{objc_msgSend(v25, "longLongValue")}];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v20);
   }
 
   v26 = [v18 sortedArrayUsingComparator:&__block_literal_global_4];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

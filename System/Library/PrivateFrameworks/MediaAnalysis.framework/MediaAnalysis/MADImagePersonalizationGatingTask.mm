@@ -75,94 +75,94 @@
 - (int)processPixelBuffer:(__CVBuffer *)buffer orientation:(unsigned int)orientation faces:(id)faces
 {
   v5 = *&orientation;
-  v52 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   facesCopy = faces;
-  v41 = +[MADFaceDetectionResource sharedResource];
+  v44 = +[MADFaceDetectionResource sharedResource];
   v9 = +[VCPMADResourceManager sharedManager];
-  v40 = [v9 activateResource:v41];
+  v43 = [v9 activateResource:v44];
 
   v10 = objc_alloc_init(MEMORY[0x1E69844D0]);
-  v47 = 0;
-  v11 = [v10 setRevision:3737841670 error:&v47];
-  v12 = v47;
+  v50 = 0;
+  v11 = [v10 setRevision:3737841670 error:&v50];
+  v12 = v50;
   if (v11)
   {
     v13 = objc_alloc(MEMORY[0x1E69845B8]);
-    session = [v41 session];
-    v39 = [v13 initWithCVPixelBuffer:buffer orientation:v5 options:MEMORY[0x1E695E0F8] session:session];
+    session = [v44 session];
+    v42 = [v13 initWithCVPixelBuffer:buffer orientation:v5 options:MEMORY[0x1E695E0F8] session:session];
 
-    v15 = VCPSignPostLog();
-    v16 = os_signpost_id_generate(v15);
+    v16 = VCPSignPostLog(v15);
+    v17 = os_signpost_id_generate(v16);
 
-    v17 = VCPSignPostLog();
-    v18 = v17;
-    if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v19 = VCPSignPostLog(v18);
+    v20 = v19;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       signpostPayload = self->_signpostPayload;
       *buf = 138412290;
-      v51 = signpostPayload;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VNDetectFaceRectanglesRequest", "%@", buf, 0xCu);
+      v54 = signpostPayload;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VNDetectFaceRectanglesRequest", "%@", buf, 0xCu);
     }
 
-    v49 = v10;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
-    v46 = v12;
-    v21 = [v39 performRequests:v20 error:&v46];
-    v22 = v46;
+    v52 = v10;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+    v49 = v12;
+    v23 = [v42 performRequests:v22 error:&v49];
+    v24 = v49;
 
-    if (v21)
+    if (v23)
     {
-      v23 = VCPSignPostLog();
-      v24 = v23;
-      if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+      v26 = VCPSignPostLog(v25);
+      v27 = v26;
+      if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
-        v25 = self->_signpostPayload;
+        v28 = self->_signpostPayload;
         *buf = 138412290;
-        v51 = v25;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v16, "VNDetectFaceRectanglesRequest", "%@", buf, 0xCu);
+        v54 = v28;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v17, "VNDetectFaceRectanglesRequest", "%@", buf, 0xCu);
       }
 
-      [v40 reset];
-      v44 = 0u;
+      [v43 reset];
+      v47 = 0u;
+      v48 = 0u;
       v45 = 0u;
-      v42 = 0u;
-      v43 = 0u;
+      v46 = 0u;
       results = [v10 results];
-      v27 = [results countByEnumeratingWithState:&v42 objects:v48 count:16];
-      if (v27)
+      v30 = [results countByEnumeratingWithState:&v45 objects:v51 count:16];
+      if (v30)
       {
-        v28 = *v43;
+        v31 = *v46;
         do
         {
-          for (i = 0; i != v27; ++i)
+          for (i = 0; i != v30; ++i)
           {
-            if (*v43 != v28)
+            if (*v46 != v31)
             {
               objc_enumerationMutation(results);
             }
 
-            [*(*(&v42 + 1) + 8 * i) boundingBox];
+            [*(*(&v45 + 1) + 8 * i) boundingBox];
             [(MADImagePersonalizationGatingTask *)self expandNormalizedRect:?];
-            v34 = [objc_alloc(MEMORY[0x1E69AE320]) initWithNormalizedCropRect:{v30, v31, v32, v33}];
-            [facesCopy addObject:v34];
+            v37 = [objc_alloc(MEMORY[0x1E69AE320]) initWithNormalizedCropRect:{v33, v34, v35, v36}];
+            [facesCopy addObject:v37];
           }
 
-          v27 = [results countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v30 = [results countByEnumeratingWithState:&v45 objects:v51 count:16];
         }
 
-        while (v27);
+        while (v30);
       }
 
       [facesCopy sortUsingComparator:&__block_literal_global_98];
       if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        v35 = [facesCopy count];
+        v38 = [facesCopy count];
         *buf = 67109120;
-        LODWORD(v51) = v35;
+        LODWORD(v54) = v38;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Total Faces: %d", buf, 8u);
       }
 
-      v36 = 0;
+      v39 = 0;
     }
 
     else
@@ -173,26 +173,26 @@
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to perform face detection", buf, 2u);
       }
 
-      v36 = -18;
+      v39 = -18;
     }
 
-    v12 = v22;
+    v12 = v24;
   }
 
   else
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v37 = [v12 description];
+      v40 = [v12 description];
       *buf = 138412290;
-      v51 = v37;
+      v54 = v40;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to configure face detection (%@)", buf, 0xCu);
     }
 
-    v36 = -18;
+    v39 = -18;
   }
 
-  return v36;
+  return v39;
 }
 
 uint64_t __74__MADImagePersonalizationGatingTask_processPixelBuffer_orientation_faces___block_invoke(uint64_t a1, void *a2, void *a3)

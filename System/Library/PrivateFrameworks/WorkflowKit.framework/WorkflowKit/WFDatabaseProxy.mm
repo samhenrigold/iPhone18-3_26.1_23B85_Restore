@@ -24,6 +24,7 @@
 - (void)quarantineWorkflowWithReference:(id)reference;
 - (void)saveOutputActionSmartPromtDataForWorkflowReference:(id)reference error:(id *)error;
 - (void)setOutcome:(int64_t)outcome forRunEvent:(id)event;
+- (void)setTrustedToRunScripts:(BOOL)scripts forReference:(id)reference onDomain:(id)domain;
 - (void)storeQuarantineHashForWorkflowWithReference:(id)reference quarantineHash:(id)hash;
 - (void)updateAppDescriptor:(id)descriptor atKey:(id)key actionUUID:(id)d actionIndex:(id)index actionIdentifier:(id)identifier workflowID:(id)iD error:(id *)error;
 @end
@@ -523,18 +524,36 @@ void __68__WFDatabaseProxy_serializedParametersForAppEntityIdentifier_error___bl
   }
 }
 
-void __64__WFDatabaseProxy_setTrustedToRunScripts_forReference_onDomain___block_invoke_2()
+- (void)setTrustedToRunScripts:(BOOL)scripts forReference:(id)reference onDomain:(id)domain
+{
+  scriptsCopy = scripts;
+  domainCopy = domain;
+  referenceCopy = reference;
+  databaseProxyHostConnection = [(WFDatabaseProxy *)self databaseProxyHostConnection];
+
+  if (databaseProxyHostConnection)
+  {
+    database = [(WFDatabaseProxy *)self hostProxyWithErrorHandler:?];
+    [database setTrustedToRunScripts:scriptsCopy forReference:referenceCopy onDomain:domainCopy completion:&__block_literal_global_319_56178];
+  }
+
+  else
+  {
+    database = [(WFDatabaseProxy *)self database];
+    [database setTrustedToRunScripts:scriptsCopy forReference:referenceCopy onDomain:domainCopy];
+  }
+}
+
+void __64__WFDatabaseProxy_setTrustedToRunScripts_forReference_onDomain___block_invoke_2(uint64_t a1)
 {
   v4 = *MEMORY[0x1E69E9840];
-  v0 = getWFDatabaseLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = getWFDatabaseLogObject();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     v2 = 136315138;
     v3 = "[WFDatabaseProxy setTrustedToRunScripts:forReference:onDomain:]_block_invoke_2";
-    _os_log_impl(&dword_1CA256000, v0, OS_LOG_TYPE_ERROR, "%s Cannot set trust value for workflow reference due to insufficient database access", &v2, 0xCu);
+    _os_log_impl(&dword_1CA256000, v1, OS_LOG_TYPE_ERROR, "%s Cannot set trust value for workflow reference due to insufficient database access", &v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isReference:(id)reference allowedToRunOnDomain:(id)domain

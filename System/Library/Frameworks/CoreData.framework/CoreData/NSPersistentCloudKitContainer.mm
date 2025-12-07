@@ -13,12 +13,12 @@
 - (NSDictionary)recordIDsForManagedObjectIDs:(NSArray *)managedObjectIDs;
 - (NSDictionary)recordsForManagedObjectIDs:(NSArray *)managedObjectIDs;
 - (NSPersistentCloudKitContainer)initWithName:(id)name managedObjectModel:(id)model;
-- (uint64_t)createTimeoutErrorForRequest:(uint64_t)request withLabel:;
 - (uint64_t)hasMetadataMarkedForExportInStore:(void *)store error:;
 - (uint64_t)mostRecentExportedHistoryToken:(uint64_t)token;
 - (void)_acceptShareInvitationsWithURLs:(void *)ls shareMetadatas:(void *)metadatas forPersistentStore:(uint64_t)store completion:;
 - (void)_loadStoreDescriptions:(id)descriptions withCompletionHandler:(id)handler;
 - (void)applyActivityVoucher:(id)voucher toStores:(id)stores;
+- (void)createTimeoutErrorForRequest:(uint64_t)request withLabel:;
 - (void)dealloc;
 - (void)doWorkOnMetadataContext:(uint64_t)context withBlock:;
 - (void)eventUpdated:(id)updated;
@@ -94,26 +94,26 @@
 
 - (void)setPersistentStoreDescriptions:(id)descriptions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(descriptions, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v6 = [descriptions countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [descriptions countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v6)
   {
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(descriptions);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [objc_msgSend(v9 "cloudKitContainerOptions")];
         v11 = v10;
         if (v10 && [v10 length])
@@ -124,11 +124,11 @@
             v13 = [objc_msgSend(v12 "cloudKitContainerOptions")];
             if (v13 == [objc_msgSend(v9 "cloudKitContainerOptions")])
             {
-              v15 = MEMORY[0x1E695DF30];
-              v22 = @"storeURL";
-              v23 = [v9 URL];
-              v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-              objc_exception_throw([v15 exceptionWithName:*MEMORY[0x1E695D940] reason:@"Cannot assign the same iCloud Container Identifier to multiple persistent stores with the same database scope." userInfo:v16]);
+              v14 = MEMORY[0x1E695DF30];
+              v21 = @"storeURL";
+              v22 = [v9 URL];
+              v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+              objc_exception_throw([v14 exceptionWithName:*MEMORY[0x1E695D940] reason:@"Cannot assign the same iCloud Container Identifier to multiple persistent stores with the same database scope." userInfo:v15]);
             }
           }
 
@@ -139,16 +139,15 @@
         }
       }
 
-      v6 = [descriptions countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v6 = [descriptions countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v6);
   }
 
-  v17.receiver = self;
-  v17.super_class = NSPersistentCloudKitContainer;
-  [(NSPersistentContainer *)&v17 setPersistentStoreDescriptions:descriptions];
-  v14 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = NSPersistentCloudKitContainer;
+  [(NSPersistentContainer *)&v16 setPersistentStoreDescriptions:descriptions];
 }
 
 - (void)_loadStoreDescriptions:(id)descriptions withCompletionHandler:(id)handler
@@ -184,17 +183,18 @@
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v16 = MEMORY[0x1E695DF30];
-              v17 = *MEMORY[0x1E695D940];
-              v18 = MEMORY[0x1E696AEC0];
-              v19 = objc_opt_class();
-              v20 = NSStringFromClass(v19);
-              v21 = NSStringFromSelector(sel_cloudKitContainerOptions);
-              v22 = objc_opt_class();
-              v23 = [v18 stringWithFormat:@"%@.%@ must be of type '%@'", v20, v21, NSStringFromClass(v22)];
+              v15 = MEMORY[0x1E695DF30];
+              v16 = *MEMORY[0x1E695D940];
+              v17 = MEMORY[0x1E696AEC0];
+              v18 = objc_opt_class();
+              v19 = NSStringFromClass(v18);
+              v20 = NSStringFromSelector(sel_cloudKitContainerOptions);
+              v21 = objc_opt_class();
+              v22 = NSStringFromClass(v21);
+              v23 = objc_msgSend_stringWithFormat_(v17, v19, v20, v22);
               v30 = @"offendingObject";
               cloudKitContainerOptions2 = [v10 cloudKitContainerOptions];
-              objc_exception_throw([v16 exceptionWithName:v17 reason:v23 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &cloudKitContainerOptions2, &v30, 1)}]);
+              objc_exception_throw([v15 exceptionWithName:v16 reason:v23 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &cloudKitContainerOptions2, &v30, 1)}]);
             }
 
             cloudKitContainerOptions = [v10 cloudKitContainerOptions];
@@ -241,44 +241,43 @@ LABEL_17:
   v25.receiver = self;
   v25.super_class = NSPersistentCloudKitContainer;
   [(NSPersistentContainer *)&v25 _loadStoreDescriptions:descriptions withCompletionHandler:handler];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)initializeCloudKitSchemaWithOptions:(NSPersistentCloudKitContainerSchemaInitializationOptions)options error:(NSError *)error
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
-  v56 = 1;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3052000000;
-  v50 = __Block_byref_object_copy__21;
-  v51 = __Block_byref_object_dispose__21;
+  v73 = *MEMORY[0x1E69E9840];
   v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 1;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3052000000;
+  v49 = __Block_byref_object_copy__21;
+  v50 = __Block_byref_object_dispose__21;
+  v51 = 0;
   group = dispatch_group_create();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   persistentStores = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator] persistentStores];
-  v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v43 objects:v73 count:16];
-  v38 = options;
+  v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v42 objects:v72 count:16];
+  v37 = options;
   v7 = 0;
   if (v6)
   {
-    v8 = *v44;
+    v8 = *v43;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v44 != v8)
+        if (*v43 != v8)
         {
           objc_enumerationMutation(persistentStores);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * i);
+        v10 = *(*(&v42 + 1) + 8 * i);
         if ([v10 isCloudKitEnabled])
         {
           v11 = objc_autoreleasePoolPush();
@@ -297,13 +296,13 @@ LABEL_17:
           if (os_log_type_enabled(Stream, v14))
           {
             *buf = 136315906;
-            v66 = "[NSPersistentCloudKitContainer initializeCloudKitSchemaWithOptions:error:]";
-            v67 = 1024;
-            v68 = 240;
-            v69 = 2112;
+            v65 = "[NSPersistentCloudKitContainer initializeCloudKitSchemaWithOptions:error:]";
+            v66 = 1024;
+            v67 = 240;
+            v68 = 2112;
             selfCopy = self;
-            v71 = 2112;
-            v72 = v10;
+            v70 = 2112;
+            v71 = v10;
             _os_log_impl(&dword_18565F000, v13, v14, "CoreData+CloudKit: %s(%d): %@: will initialize cloudkit schema for store: %@", buf, 0x26u);
           }
 
@@ -313,7 +312,7 @@ LABEL_17:
         }
       }
 
-      v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v43 objects:v73 count:16];
+      v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v42 objects:v72 count:16];
     }
 
     while (v6);
@@ -322,71 +321,71 @@ LABEL_17:
   v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (!v7)
   {
-    *(v54 + 24) = 0;
+    *(v53 + 24) = 0;
     v27 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v57 = *MEMORY[0x1E696A588];
-    v58 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Couldn't initialize CloudKit schema because no stores in the coordinator are configured to use CloudKit: %@", -[NSPersistentStoreCoordinator persistentStores](-[NSPersistentContainer persistentStoreCoordinator](self, "persistentStoreCoordinator"), "persistentStores")];
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v56 = *MEMORY[0x1E696A588];
+    v57 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator] persistentStores]);
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
     v29 = [v27 initWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v28];
-    v48[5] = v29;
+    v47[5] = v29;
     goto LABEL_29;
   }
 
   v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v17 = [NSCloudKitMirroringInitializeSchemaRequest alloc];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_error___block_invoke;
-  v42[3] = &unk_1E6EC3108;
-  v42[4] = v15;
-  v42[5] = v16;
-  v42[7] = &v53;
-  v42[6] = group;
-  v18 = [(NSCloudKitMirroringRequest *)v17 initWithOptions:0 completionBlock:v42];
-  [(NSCloudKitMirroringInitializeSchemaRequest *)v18 setSchemaInitializationOptions:v38];
-  newBackgroundContext = [(NSPersistentContainer *)self newBackgroundContext];
   v41[0] = MEMORY[0x1E69E9820];
   v41[1] = 3221225472;
-  v41[2] = __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_error___block_invoke_36;
-  v41[3] = &unk_1E6EC1A00;
-  v41[4] = newBackgroundContext;
-  v41[5] = v18;
-  v41[6] = &v53;
-  v41[7] = &v47;
-  [(NSManagedObjectContext *)newBackgroundContext performBlockAndWait:v41];
-  if (*(v54 + 24) == 1)
+  v41[2] = __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_error___block_invoke;
+  v41[3] = &unk_1E6EC3108;
+  v41[4] = v15;
+  v41[5] = v16;
+  v41[7] = &v52;
+  v41[6] = group;
+  v18 = [(NSCloudKitMirroringRequest *)v17 initWithOptions:0 completionBlock:v41];
+  [(NSCloudKitMirroringInitializeSchemaRequest *)v18 setSchemaInitializationOptions:v37];
+  newBackgroundContext = [(NSPersistentContainer *)self newBackgroundContext];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_error___block_invoke_36;
+  v40[3] = &unk_1E6EC1A00;
+  v40[4] = newBackgroundContext;
+  v40[5] = v18;
+  v40[6] = &v52;
+  v40[7] = &v46;
+  [(NSManagedObjectContext *)newBackgroundContext performBlockAndWait:v40];
+  if (*(v53 + 24) == 1)
   {
     v20 = dispatch_time(0, 1000000000 * self->_operationTimeout);
     if (dispatch_group_wait(group, v20))
     {
-      *(v54 + 24) = 0;
+      *(v53 + 24) = 0;
       v21 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v63 = *MEMORY[0x1E696A588];
-      v64 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to initialize CloudKit schema because the requests timed out (a %lds wait failed).", self->_operationTimeout];
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+      v62 = *MEMORY[0x1E696A588];
+      v63 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_operationTimeout);
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
       v23 = [v21 initWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v22];
       [v16 addObject:v23];
     }
 
-    v24 = *(v54 + 24);
+    v24 = *(v53 + 24);
     if (v24 == 1)
     {
       if (v7 == [v15 count])
       {
-        *(v54 + 24) = 0;
+        *(v53 + 24) = 0;
         v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v61[0] = *MEMORY[0x1E696A588];
-        v61[1] = @"NSDetailedErrors";
-        v62[0] = @"Couldn't initialize CloudKit schema because no stores were able to succesfully initialize.";
-        v62[1] = v15;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
+        v60[0] = *MEMORY[0x1E696A588];
+        v60[1] = @"NSDetailedErrors";
+        v61[0] = @"Couldn't initialize CloudKit schema because no stores were able to succesfully initialize.";
+        v61[1] = v15;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
 LABEL_27:
         v30 = [v25 initWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v26];
-        v48[5] = v30;
+        v47[5] = v30;
         goto LABEL_28;
       }
 
-      v24 = *(v54 + 24);
+      v24 = *(v53 + 24);
     }
 
     if (v24 || ![v16 count])
@@ -395,23 +394,23 @@ LABEL_27:
     }
 
     v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v59 = @"encounteredErrors";
-    v60 = v16;
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+    v58 = @"encounteredErrors";
+    v59 = v16;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
     goto LABEL_27;
   }
 
 LABEL_28:
 
 LABEL_29:
-  if ((v54[3] & 1) == 0)
+  if ((v53[3] & 1) == 0)
   {
-    v34 = v48[5];
-    if (v34)
+    v33 = v47[5];
+    if (v33)
     {
       if (error)
       {
-        *error = v34;
+        *error = v33;
       }
     }
 
@@ -421,36 +420,35 @@ LABEL_29:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-        v67 = 1024;
-        v68 = 325;
+        v65 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v66 = 1024;
+        v67 = 325;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v36 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+      v35 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v66 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-        v67 = 1024;
-        v68 = 325;
-        _os_log_fault_impl(&dword_18565F000, v36, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v65 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v66 = 1024;
+        v67 = 325;
+        _os_log_fault_impl(&dword_18565F000, v35, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
   dispatch_release(group);
-  v48[5] = 0;
-  v31 = *(v54 + 24);
-  _Block_object_dispose(&v47, 8);
-  _Block_object_dispose(&v53, 8);
-  v32 = *MEMORY[0x1E69E9840];
+  v47[5] = 0;
+  v31 = *(v53 + 24);
+  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v52, 8);
   return v31;
 }
 
 void __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_error___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if ([a2 success])
   {
     v4 = objc_autoreleasePoolPush();
@@ -483,13 +481,13 @@ void __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_err
 
     if (os_log_type_enabled(Stream, v8))
     {
-      v24 = 136315650;
-      v25 = "[NSPersistentCloudKitContainer initializeCloudKitSchemaWithOptions:error:]_block_invoke";
-      v26 = 1024;
-      v27 = 252;
-      v28 = 2112;
-      v29 = a2;
-      _os_log_impl(&dword_18565F000, v6, v8, "CoreData+CloudKit: %s(%d): Finished initialize schema with result: %@", &v24, 0x1Cu);
+      v23 = 136315650;
+      v24 = "[NSPersistentCloudKitContainer initializeCloudKitSchemaWithOptions:error:]_block_invoke";
+      v25 = 1024;
+      v26 = 252;
+      v27 = 2112;
+      v28 = a2;
+      _os_log_impl(&dword_18565F000, v6, v8, "CoreData+CloudKit: %s(%d): Finished initialize schema with result: %@", &v23, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -524,13 +522,13 @@ void __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_err
 
   if (os_log_type_enabled(v13, v15))
   {
-    v24 = 136315650;
-    v25 = "[NSPersistentCloudKitContainer initializeCloudKitSchemaWithOptions:error:]_block_invoke";
-    v26 = 1024;
-    v27 = 261;
-    v28 = 2112;
-    v29 = a2;
-    _os_log_impl(&dword_18565F000, v14, v15, "CoreData+CloudKit: %s(%d): Initialize schema request failed: %@", &v24, 0x1Cu);
+    v23 = 136315650;
+    v24 = "[NSPersistentCloudKitContainer initializeCloudKitSchemaWithOptions:error:]_block_invoke";
+    v25 = 1024;
+    v26 = 261;
+    v27 = 2112;
+    v28 = a2;
+    _os_log_impl(&dword_18565F000, v14, v15, "CoreData+CloudKit: %s(%d): Initialize schema request failed: %@", &v23, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -559,22 +557,21 @@ LABEL_25:
   LogStream = _PFLogGetLogStream(17);
   if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
-    v24 = 138412290;
-    v25 = a2;
-    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Initialize schema failed but did not set an error: %@\n", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = a2;
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Initialize schema failed but did not set an error: %@\n", &v23, 0xCu);
   }
 
-  v23 = _PFLogGetLogStream(17);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+  v22 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
   {
-    v24 = 138412290;
-    v25 = a2;
-    _os_log_fault_impl(&dword_18565F000, v23, OS_LOG_TYPE_FAULT, "CoreData: Initialize schema failed but did not set an error: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = a2;
+    _os_log_fault_impl(&dword_18565F000, v22, OS_LOG_TYPE_FAULT, "CoreData: Initialize schema failed but did not set an error: %@", &v23, 0xCu);
   }
 
 LABEL_27:
   dispatch_group_leave(*(a1 + 48));
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 id __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_error___block_invoke_36(uint64_t a1)
@@ -593,28 +590,28 @@ id __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_error
 
 - (CKRecord)recordForManagedObjectID:(NSManagedObjectID *)managedObjectID
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
+  v22 = 0;
   v23 = 0;
-  v24 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3052000000;
-  v21 = __Block_byref_object_copy__21;
-  v22 = __Block_byref_object_dispose__21;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3052000000;
+  v20 = __Block_byref_object_copy__21;
+  v21 = __Block_byref_object_dispose__21;
   newBackgroundContext = [(NSPersistentContainer *)self newBackgroundContext];
   v5 = objc_alloc_init(_PFRequestExecutor);
   v6 = [NSCloudKitMirroringDelegateSerializationRequest alloc];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __58__NSPersistentCloudKitContainer_recordForManagedObjectID___block_invoke;
-  v17[3] = &unk_1E6EC3130;
-  v17[5] = v5;
-  v17[6] = &v18;
-  v17[4] = managedObjectID;
-  v7 = [(NSCloudKitMirroringDelegateSerializationRequest *)v6 initWithOptions:0 completionBlock:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __58__NSPersistentCloudKitContainer_recordForManagedObjectID___block_invoke;
+  v16[3] = &unk_1E6EC3130;
+  v16[5] = v5;
+  v16[6] = &v17;
+  v16[4] = managedObjectID;
+  v7 = [(NSCloudKitMirroringDelegateSerializationRequest *)v6 initWithOptions:0 completionBlock:v16];
   [(NSCloudKitMirroringDelegateSerializationRequest *)v7 setResultType:1];
   -[NSCloudKitMirroringDelegateSerializationRequest setObjectIDsToSerialize:](v7, "setObjectIDsToSerialize:", [MEMORY[0x1E695DFD8] setWithObject:managedObjectID]);
-  if ([(_PFRequestExecutor *)v5 executeRequest:v7 inContext:newBackgroundContext error:&v24])
+  if ([(_PFRequestExecutor *)v5 executeRequest:v7 inContext:newBackgroundContext error:&v23])
   {
     if (![(_PFRequestExecutor *)v5 wait])
     {
@@ -652,30 +649,29 @@ id __75__NSPersistentCloudKitContainer_initializeCloudKitSchemaWithOptions_error
     if (os_log_type_enabled(Stream, v13))
     {
       *buf = 136315906;
-      v26 = "[NSPersistentCloudKitContainer recordForManagedObjectID:]";
-      v27 = 1024;
-      v28 = 364;
-      v29 = 2112;
-      v30 = managedObjectID;
-      v31 = 2112;
-      v32 = v24;
+      v25 = "[NSPersistentCloudKitContainer recordForManagedObjectID:]";
+      v26 = 1024;
+      v27 = 364;
+      v28 = 2112;
+      v29 = managedObjectID;
+      v30 = 2112;
+      v31 = v23;
       _os_log_impl(&dword_18565F000, v12, v13, "CoreData+CloudKit: %s(%d): Failed to retrieve record for object '%@'\n%@", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v10);
 
-    v19[5] = 0;
+    v18[5] = 0;
   }
 
-  v14 = v19[5];
-  _Block_object_dispose(&v18, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = v18[5];
+  _Block_object_dispose(&v17, 8);
   return v14;
 }
 
 uint64_t __58__NSPersistentCloudKitContainer_recordForManagedObjectID___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([a2 success])
   {
     objc_opt_class();
@@ -693,15 +689,15 @@ uint64_t __58__NSPersistentCloudKitContainer_recordForManagedObjectID___block_in
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v13) = 0;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: NSPersistentCloudKitContainer got a result back that isn't of type 'NSCloudKitMirroringDelegateSerializationRequestResult' when asking about the record for a managed object id.\n", &v13, 2u);
+        LOWORD(v12) = 0;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: NSPersistentCloudKitContainer got a result back that isn't of type 'NSCloudKitMirroringDelegateSerializationRequestResult' when asking about the record for a managed object id.\n", &v12, 2u);
       }
 
       v10 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        LOWORD(v13) = 0;
-        _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: NSPersistentCloudKitContainer got a result back that isn't of type 'NSCloudKitMirroringDelegateSerializationRequestResult' when asking about the record for a managed object id.", &v13, 2u);
+        LOWORD(v12) = 0;
+        _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: NSPersistentCloudKitContainer got a result back that isn't of type 'NSCloudKitMirroringDelegateSerializationRequestResult' when asking about the record for a managed object id.", &v12, 2u);
       }
     }
   }
@@ -723,41 +719,39 @@ uint64_t __58__NSPersistentCloudKitContainer_recordForManagedObjectID___block_in
 
     if (os_log_type_enabled(Stream, v8))
     {
-      v13 = 136315650;
-      v14 = "[NSPersistentCloudKitContainer recordForManagedObjectID:]_block_invoke";
-      v15 = 1024;
-      v16 = 350;
-      v17 = 2112;
-      v18 = [a2 error];
-      _os_log_impl(&dword_18565F000, v7, v8, "CoreData+CloudKit: %s(%d): Record serialization failed with error: %@", &v13, 0x1Cu);
+      v12 = 136315650;
+      v13 = "[NSPersistentCloudKitContainer recordForManagedObjectID:]_block_invoke";
+      v14 = 1024;
+      v15 = 350;
+      v16 = 2112;
+      v17 = [a2 error];
+      _os_log_impl(&dword_18565F000, v7, v8, "CoreData+CloudKit: %s(%d): Record serialization failed with error: %@", &v12, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
 
-  result = [*(a1 + 40) requestFinished];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) requestFinished];
 }
 
 - (NSDictionary)recordsForManagedObjectIDs:(NSArray *)managedObjectIDs
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v19 = 0;
+  v25 = *MEMORY[0x1E69E9840];
+  v18 = 0;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   newBackgroundContext = [(NSPersistentContainer *)self newBackgroundContext];
   v7 = objc_alloc_init(_PFRequestExecutor);
   v8 = [NSCloudKitMirroringDelegateSerializationRequest alloc];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __60__NSPersistentCloudKitContainer_recordsForManagedObjectIDs___block_invoke;
-  v18[3] = &unk_1E6EC3158;
-  v18[4] = v5;
-  v18[5] = v7;
-  v9 = [(NSCloudKitMirroringDelegateSerializationRequest *)v8 initWithOptions:0 completionBlock:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __60__NSPersistentCloudKitContainer_recordsForManagedObjectIDs___block_invoke;
+  v17[3] = &unk_1E6EC3158;
+  v17[4] = v5;
+  v17[5] = v7;
+  v9 = [(NSCloudKitMirroringDelegateSerializationRequest *)v8 initWithOptions:0 completionBlock:v17];
   [(NSCloudKitMirroringDelegateSerializationRequest *)v9 setResultType:1];
   -[NSCloudKitMirroringDelegateSerializationRequest setObjectIDsToSerialize:](v9, "setObjectIDsToSerialize:", [MEMORY[0x1E695DFD8] setWithArray:managedObjectIDs]);
-  if ([(_PFRequestExecutor *)v7 executeRequest:v9 inContext:newBackgroundContext error:&v19])
+  if ([(_PFRequestExecutor *)v7 executeRequest:v9 inContext:newBackgroundContext error:&v18])
   {
     if (![(_PFRequestExecutor *)v7 wait])
     {
@@ -795,11 +789,11 @@ uint64_t __58__NSPersistentCloudKitContainer_recordForManagedObjectID___block_in
     if (os_log_type_enabled(Stream, v15))
     {
       *buf = 136315650;
-      v21 = "[NSPersistentCloudKitContainer recordsForManagedObjectIDs:]";
-      v22 = 1024;
-      v23 = 409;
-      v24 = 2112;
-      v25 = v19;
+      v20 = "[NSPersistentCloudKitContainer recordsForManagedObjectIDs:]";
+      v21 = 1024;
+      v22 = 409;
+      v23 = 2112;
+      v24 = v18;
       _os_log_impl(&dword_18565F000, v14, v15, "CoreData+CloudKit: %s(%d): Failed to retrieve records for objects %@", buf, 0x1Cu);
     }
 
@@ -808,39 +802,37 @@ uint64_t __58__NSPersistentCloudKitContainer_recordForManagedObjectID___block_in
     v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   }
 
-  result = v5;
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return v5;
 }
 
 uint64_t __60__NSPersistentCloudKitContainer_recordsForManagedObjectIDs___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if ([a2 success])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v4 = [objc_msgSend(a2 "request")];
-      v5 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v18 objects:v28 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v20;
+        v7 = *v19;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v20 != v7)
+            if (*v19 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = *(*(&v19 + 1) + 8 * i);
+            v9 = *(*(&v18 + 1) + 8 * i);
             v10 = [objc_msgSend(a2 "serializedObjects")];
             if (v10)
             {
@@ -848,7 +840,7 @@ uint64_t __60__NSPersistentCloudKitContainer_recordsForManagedObjectIDs___block_
             }
           }
 
-          v6 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v18 objects:v28 count:16];
         }
 
         while (v6);
@@ -891,20 +883,18 @@ uint64_t __60__NSPersistentCloudKitContainer_recordsForManagedObjectIDs___block_
     if (os_log_type_enabled(Stream, v14))
     {
       *buf = 136315650;
-      v24 = "[NSPersistentCloudKitContainer recordsForManagedObjectIDs:]_block_invoke";
-      v25 = 1024;
-      v26 = 395;
-      v27 = 2112;
-      v28 = [a2 error];
+      v23 = "[NSPersistentCloudKitContainer recordsForManagedObjectIDs:]_block_invoke";
+      v24 = 1024;
+      v25 = 395;
+      v26 = 2112;
+      v27 = [a2 error];
       _os_log_impl(&dword_18565F000, v13, v14, "CoreData+CloudKit: %s(%d): Record serialization failed with error: %@", buf, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
 
-  result = [*(a1 + 40) requestFinished];
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) requestFinished];
 }
 
 - (CKRecordID)recordIDForManagedObjectID:(NSManagedObjectID *)managedObjectID
@@ -916,61 +906,59 @@ uint64_t __60__NSPersistentCloudKitContainer_recordsForManagedObjectIDs___block_
 
 - (NSDictionary)recordIDsForManagedObjectIDs:(NSArray *)managedObjectIDs
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [(NSPersistentCloudKitContainer *)self recordsForManagedObjectIDs:managedObjectIDs];
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        [v4 setObject:objc_msgSend(-[NSDictionary objectForKey:](v3 forKey:{"objectForKey:", *(*(&v11 + 1) + 8 * v8)), "recordID"), *(*(&v11 + 1) + 8 * v8)}];
+        [v4 setObject:objc_msgSend(-[NSDictionary objectForKey:](v3 forKey:{"objectForKey:", *(*(&v10 + 1) + 8 * v8)), "recordID"), *(*(&v10 + 1) + 8 * v8)}];
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSDictionary *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSDictionary *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  result = v4;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4;
 }
 
 - (BOOL)canUpdateRecordForManagedObjectWithID:(NSManagedObjectID *)objectID
 {
-  v29[1] = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v28[1] = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   if (![(NSManagedObjectID *)objectID isTemporaryID])
   {
     persistentStore = [(NSManagedObjectID *)objectID persistentStore];
     v7 = persistentStore;
     if (!persistentStore || ![(NSString *)[(NSPersistentStore *)persistentStore type] isEqualToString:@"SQLite"])
     {
-      *(v22 + 24) = 1;
+      *(v21 + 24) = 1;
 LABEL_20:
 
-      v5 = *(v22 + 24);
+      v5 = *(v21 + 24);
       goto LABEL_21;
     }
 
@@ -997,16 +985,16 @@ LABEL_20:
             }
 
             v13 = metadataContext;
-            v20[0] = MEMORY[0x1E69E9820];
-            v20[1] = 3221225472;
-            v20[2] = __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID___block_invoke;
-            v20[3] = &unk_1E6EC3450;
-            v20[4] = objectID;
-            v20[5] = v7;
-            v20[6] = v13;
-            v20[7] = v9;
-            v20[8] = &v21;
-            [(NSManagedObjectContext *)v13 performBlockAndWait:v20];
+            v19[0] = MEMORY[0x1E69E9820];
+            v19[1] = 3221225472;
+            v19[2] = __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID___block_invoke;
+            v19[3] = &unk_1E6EC3450;
+            v19[4] = objectID;
+            v19[5] = v7;
+            v19[6] = v13;
+            v19[7] = v9;
+            v19[8] = &v20;
+            [(NSManagedObjectContext *)v13 performBlockAndWait:v19];
           }
 
           goto LABEL_19;
@@ -1014,29 +1002,29 @@ LABEL_20:
 
         if ([v9[1] databaseScope] == 3)
         {
-          v19 = 0;
-          v29[0] = objectID;
-          v14 = -[NSDictionary objectForKey:](-[NSPersistentCloudKitContainer fetchSharesMatchingObjectIDs:error:](self, "fetchSharesMatchingObjectIDs:error:", [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1], &v19), "objectForKey:", objectID);
+          v18 = 0;
+          v28[0] = objectID;
+          v14 = -[NSDictionary objectForKey:](-[NSPersistentCloudKitContainer fetchSharesMatchingObjectIDs:error:](self, "fetchSharesMatchingObjectIDs:error:", [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1], &v18), "objectForKey:", objectID);
           if (!v14)
           {
             LogStream = _PFLogGetLogStream(17);
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v26 = objectID;
-              v27 = 2112;
-              v28 = v19;
+              v25 = objectID;
+              v26 = 2112;
+              v27 = v18;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to fetch the CKShare for an object in the shared database: %@ - %@\n", buf, 0x16u);
             }
 
-            v18 = _PFLogGetLogStream(17);
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+            v17 = _PFLogGetLogStream(17);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v26 = objectID;
-              v27 = 2112;
-              v28 = v19;
-              _os_log_fault_impl(&dword_18565F000, v18, OS_LOG_TYPE_FAULT, "CoreData: Failed to fetch the CKShare for an object in the shared database: %@ - %@", buf, 0x16u);
+              v25 = objectID;
+              v26 = 2112;
+              v27 = v18;
+              _os_log_fault_impl(&dword_18565F000, v17, OS_LOG_TYPE_FAULT, "CoreData: Failed to fetch the CKShare for an object in the shared database: %@ - %@", buf, 0x16u);
             }
 
             goto LABEL_19;
@@ -1057,23 +1045,22 @@ LABEL_19:
       }
     }
 
-    *(v22 + 24) = 1;
+    *(v21 + 24) = 1;
     goto LABEL_19;
   }
 
   v5 = 1;
-  *(v22 + 24) = 1;
+  *(v21 + 24) = 1;
 LABEL_21:
-  _Block_object_dispose(&v21, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
   return v5 & 1;
 }
 
 void __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v16[0] = *(a1 + 32);
+  v15[1] = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v15[0] = *(a1 + 32);
   v2 = [+[NSCKRecordMetadata metadataForObjectIDs:inStore:withManagedObjectContext:error:](NSCKRecordMetadata objc_msgSend(MEMORY[0x1E695DEC8]];
   if (v2)
   {
@@ -1085,16 +1072,16 @@ void __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID__
     }
   }
 
-  else if (v11)
+  else if (v10)
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 138412546;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v11;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v10;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: An error occured while fetching record metadata to figure out if an object is mutable: %@\n%@\n", buf, 0x16u);
     }
 
@@ -1103,9 +1090,9 @@ void __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID__
     {
       v8 = *(a1 + 32);
       *buf = 138412546;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v11;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v10;
       _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: An error occured while fetching record metadata to figure out if an object is mutable: %@\n%@", buf, 0x16u);
     }
   }
@@ -1114,13 +1101,11 @@ void __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID__
   {
     *(*(*(a1 + 64) + 8) + 24) = 1;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canDeleteRecordForManagedObjectWithID:(NSManagedObjectID *)objectID
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   mirroringDelegate = [(NSPersistentStore *)[(NSManagedObjectID *)objectID persistentStore] mirroringDelegate];
   v6 = mirroringDelegate;
   if (!mirroringDelegate)
@@ -1143,9 +1128,9 @@ void __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID__
         goto LABEL_3;
       }
 
-      v13 = 0;
-      v18[0] = objectID;
-      v8 = -[NSDictionary objectForKey:](-[NSPersistentCloudKitContainer fetchSharesMatchingObjectIDs:error:](self, "fetchSharesMatchingObjectIDs:error:", [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1], &v13), "objectForKey:", objectID);
+      v12 = 0;
+      v17[0] = objectID;
+      v8 = -[NSDictionary objectForKey:](-[NSPersistentCloudKitContainer fetchSharesMatchingObjectIDs:error:](self, "fetchSharesMatchingObjectIDs:error:", [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1], &v12), "objectForKey:", objectID);
       if (v8)
       {
         v7 = [objc_msgSend(v8 "currentUserParticipant")] == 3;
@@ -1156,9 +1141,9 @@ void __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID__
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v15 = objectID;
-        v16 = 2112;
-        v17 = v13;
+        v14 = objectID;
+        v15 = 2112;
+        v16 = v12;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Failed to fetch the CKShare for an object in the shared database: %@ - %@\n", buf, 0x16u);
       }
 
@@ -1166,9 +1151,9 @@ void __71__NSPersistentCloudKitContainer_canUpdateRecordForManagedObjectWithID__
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v15 = objectID;
-        v16 = 2112;
-        v17 = v13;
+        v14 = objectID;
+        v15 = 2112;
+        v16 = v12;
         _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Failed to fetch the CKShare for an object in the shared database: %@ - %@", buf, 0x16u);
       }
     }
@@ -1181,7 +1166,6 @@ LABEL_3:
   v7 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1225,14 +1209,13 @@ LABEL_9:
 
 - (void)eventUpdated:(id)updated
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v8 = @"event";
-  v9[0] = updated;
-  [defaultCenter postNotificationName:@"NSPersistentCloudKitContainerEventChangedNotification" object:self userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v9, &v8, 1)}];
+  v7 = @"event";
+  v8[0] = updated;
+  [defaultCenter postNotificationName:@"NSPersistentCloudKitContainerEventChangedNotification" object:self userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v8, &v7, 1)}];
   objc_autoreleasePoolPop(v5);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)publishActivity:(id)activity
@@ -1248,50 +1231,50 @@ LABEL_9:
 
 - (BOOL)assignManagedObjects:(id)objects toCloudKitRecordZone:(id)zone inPersistentStore:(id)store error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3052000000;
-  v24 = __Block_byref_object_copy__21;
-  v25 = __Block_byref_object_dispose__21;
+  v34 = *MEMORY[0x1E69E9840];
   v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3052000000;
+  v23 = __Block_byref_object_copy__21;
+  v24 = __Block_byref_object_dispose__21;
+  v25 = 0;
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v12 = [objc_msgSend(objects "lastObject")];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone_inPersistentStore_error___block_invoke;
-  v20[3] = &unk_1E6EC3180;
-  v20[4] = v12;
-  v20[5] = objects;
-  v20[6] = v10;
-  v20[7] = v11;
-  v20[8] = &v27;
-  v20[9] = &v21;
-  [v12 performBlockAndWait:v20];
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
-  v19[2] = __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone_inPersistentStore_error___block_invoke_64;
-  v19[3] = &unk_1E6EC31F8;
-  v19[4] = v11;
-  v19[5] = zone;
+  v19[2] = __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone_inPersistentStore_error___block_invoke;
+  v19[3] = &unk_1E6EC3180;
+  v19[4] = v12;
+  v19[5] = objects;
   v19[6] = v10;
-  v19[7] = &v27;
-  v19[8] = &v21;
-  [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v19 withBlock:?];
+  v19[7] = v11;
+  v19[8] = &v26;
+  v19[9] = &v20;
+  [v12 performBlockAndWait:v19];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone_inPersistentStore_error___block_invoke_64;
+  v18[3] = &unk_1E6EC31F8;
+  v18[4] = v11;
+  v18[5] = zone;
+  v18[6] = v10;
+  v18[7] = &v26;
+  v18[8] = &v20;
+  [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v18 withBlock:?];
 
-  if ((v28[3] & 1) == 0)
+  if ((v27[3] & 1) == 0)
   {
-    v16 = v22[5];
-    if (v16)
+    v15 = v21[5];
+    if (v15)
     {
       if (error)
       {
-        *error = v16;
+        *error = v15;
       }
     }
 
@@ -1301,59 +1284,58 @@ LABEL_9:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-        v33 = 1024;
-        v34 = 728;
+        v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v32 = 1024;
+        v33 = 728;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v18 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v17 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v32 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-        v33 = 1024;
-        v34 = 728;
-        _os_log_fault_impl(&dword_18565F000, v18, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v31 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v32 = 1024;
+        v33 = 728;
+        _os_log_fault_impl(&dword_18565F000, v17, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v22[5] = 0;
-  v13 = *(v28 + 24);
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  v21[5] = 0;
+  v13 = *(v27 + 24);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
   return v13;
 }
 
 id __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone_inPersistentStore_error___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v25 = 0;
-  if ([*(a1 + 32) obtainPermanentIDsForObjects:*(a1 + 40) error:&v25])
+  v26 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  if ([*(a1 + 32) obtainPermanentIDsForObjects:*(a1 + 40) error:&v24])
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = *(a1 + 40);
-    result = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
-    v19 = result;
+    result = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v18 = result;
     if (result)
     {
-      v18 = *v22;
+      v17 = *v21;
       do
       {
         v3 = 0;
         do
         {
-          if (*v22 != v18)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v4 = *(*(&v21 + 1) + 8 * v3);
+          v4 = *(*(&v20 + 1) + 8 * v3);
           if ([v4 managedObjectContext] != *(a1 + 32))
           {
             LogStream = _PFLogGetLogStream(17);
@@ -1391,7 +1373,7 @@ id __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone
           [v10 addObject:{objc_msgSend(v4, "objectID")}];
 
           v12 = [objc_msgSend(objc_msgSend(v4 "entity")];
-          if (!v12 || (v13 = [v4 valueForKey:@"ckRecordID"]) == 0)
+          if (!v12 || (v13 = objc_msgSend_valueForKey_(v4)) == 0)
           {
             v13 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
             if (v12)
@@ -1419,9 +1401,9 @@ id __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone
           v3 = v3 + 1;
         }
 
-        while (v19 != v3);
-        result = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
-        v19 = result;
+        while (v18 != v3);
+        result = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v18 = result;
       }
 
       while (result);
@@ -1431,11 +1413,10 @@ id __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone
   else
   {
     *(*(*(a1 + 64) + 8) + 24) = 0;
-    result = v25;
+    result = v24;
     *(*(*(a1 + 72) + 8) + 40) = result;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1455,9 +1436,9 @@ uint64_t __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitReco
 
 void __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZone_inPersistentStore_error___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v6 = [objc_alloc(getCloudKitCKRecordZoneClass[0]()) initWithZoneID:*(a1 + 32)];
-  v40 = 0;
+  v47 = *MEMORY[0x1E69E9840];
+  v6 = [objc_alloc(getCloudKitCKRecordZoneClass()) initWithZoneID:*(a1 + 32)];
+  v39 = 0;
   v7 = [objc_msgSend(*(a1 + 40) "persistentStoreCoordinator")];
   if (v7)
   {
@@ -1466,37 +1447,37 @@ void __99__NSPersistentCloudKitContainer_assignManagedObjects_toCloudKitRecordZo
     v10 = v9;
     if (v9)
     {
-      v33 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, *(a1 + 32), [v9[1] databaseScope], v8, *(a1 + 40), &v40);
-      if (v33)
+      v32 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, *(a1 + 32), [v9[1] databaseScope], v8, *(a1 + 40), &v39);
+      if (v32)
       {
-        v11 = +[NSCKRecordMetadata createMapOfMetadataMatchingObjectIDs:inStore:inManagedObjectContext:error:](NSCKRecordMetadata, [*(a1 + 48) objectForKey:a2], v8, *(a1 + 40), &v40);
+        v11 = +[NSCKRecordMetadata createMapOfMetadataMatchingObjectIDs:inStore:inManagedObjectContext:error:](NSCKRecordMetadata, [*(a1 + 48) objectForKey:a2], v8, *(a1 + 40), &v39);
         if (!v11)
         {
           goto LABEL_24;
         }
 
-        v30 = v10;
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
+        v29 = v10;
         v37 = 0u;
-        v12 = [a3 countByEnumeratingWithState:&v36 objects:v47 count:16];
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
+        v12 = [a3 countByEnumeratingWithState:&v35 objects:v46 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v37;
-          v32 = *MEMORY[0x1E696A250];
-          v31 = *MEMORY[0x1E696A580];
+          v14 = *v36;
+          v31 = *MEMORY[0x1E696A250];
+          v30 = *MEMORY[0x1E696A580];
 LABEL_7:
           v15 = 0;
           while (1)
           {
-            if (*v37 != v14)
+            if (*v36 != v14)
             {
               objc_enumerationMutation(a3);
             }
 
-            v16 = *(*(&v36 + 1) + 8 * v15);
+            v16 = *(*(&v35 + 1) + 8 * v15);
             v17 = [v11 objectForKey:{objc_msgSend(v16, "objectID")}];
             if (v17)
             {
@@ -1505,9 +1486,9 @@ LABEL_7:
               {
                 *(*(*(a1 + 56) + 8) + 24) = 0;
                 v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v45 = v31;
-                v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The object %@ is already assigned to the zone '%@' and cannot be moved to '%@'.", objc_msgSend(v16, "objectID"), v18, *(a1 + 32)];
-                *(*(*(a1 + 64) + 8) + 40) = [v19 initWithDomain:v32 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v46, &v45, 1)}];
+                v44 = v30;
+                v45 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [v16 objectID], v18, *(a1 + 32));
+                *(*(*(a1 + 64) + 8) + 40) = [v19 initWithDomain:v31 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v45, &v44, 1)}];
                 *a4 = 1;
               }
             }
@@ -1522,7 +1503,7 @@ LABEL_7:
               v23 = v22 ? *(v22 + 184) : 0;
               -[NSManagedObject setEntityId:](v20, "setEntityId:", [v21 numberWithUnsignedInt:v23]);
               -[NSManagedObject setEntityPK:](v20, "setEntityPK:", [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(objc_msgSend(v16, "objectID"), "_referenceData64")}]);
-              [(NSManagedObject *)v20 setRecordZone:v33];
+              [(NSManagedObject *)v20 setRecordZone:v32];
               [(NSManagedObject *)v20 setNeedsUpload:1];
             }
 
@@ -1533,7 +1514,7 @@ LABEL_7:
 
             if (v13 == ++v15)
             {
-              v24 = [a3 countByEnumeratingWithState:&v36 objects:v47 count:16];
+              v24 = [a3 countByEnumeratingWithState:&v35 objects:v46 count:16];
               v13 = v24;
               if (v24)
               {
@@ -1545,20 +1526,20 @@ LABEL_7:
           }
         }
 
-        v10 = v30;
-        if (*(*(*(a1 + 56) + 8) + 24) == 1 && ([*(a1 + 40) save:&v40] & 1) == 0)
+        v10 = v29;
+        if (*(*(*(a1 + 56) + 8) + 24) == 1 && ([*(a1 + 40) save:&v39] & 1) == 0)
         {
 LABEL_24:
           *(*(*(a1 + 56) + 8) + 24) = 0;
           *a4 = 1;
-          *(*(*(a1 + 64) + 8) + 40) = v40;
+          *(*(*(a1 + 64) + 8) + 40) = v39;
         }
       }
 
       else
       {
         *(*(*(a1 + 56) + 8) + 24) = 0;
-        *(*(*(a1 + 64) + 8) + 40) = v40;
+        *(*(*(a1 + 64) + 8) + 40) = v39;
       }
     }
 
@@ -1567,14 +1548,14 @@ LABEL_24:
       *(*(*(a1 + 56) + 8) + 24) = 0;
       v25 = objc_alloc(MEMORY[0x1E696ABC0]);
       v26 = *MEMORY[0x1E696A250];
-      v43 = *MEMORY[0x1E696A580];
-      v44 = @"Target store has no mirroring delegate.";
-      *(*(*(a1 + 64) + 8) + 40) = [v25 initWithDomain:v26 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v44, &v43, 1)}];
+      v42 = *MEMORY[0x1E696A580];
+      v43 = @"Target store has no mirroring delegate.";
+      *(*(*(a1 + 64) + 8) + 40) = [v25 initWithDomain:v26 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v43, &v42, 1)}];
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v42 = v8;
+        v41 = v8;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Target store has no mirroring delegate: %@\n", buf, 0xCu);
       }
 
@@ -1582,13 +1563,11 @@ LABEL_24:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v42 = v8;
+        v41 = v8;
         _os_log_fault_impl(&dword_18565F000, v28, OS_LOG_TYPE_FAULT, "CoreData: Target store has no mirroring delegate: %@", buf, 0xCu);
       }
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)doWorkOnMetadataContext:(uint64_t)context withBlock:
@@ -1623,45 +1602,45 @@ LABEL_24:
 
 - (void)_acceptShareInvitationsWithURLs:(void *)ls shareMetadatas:(void *)metadatas forPersistentStore:(uint64_t)store completion:
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_9;
+    return;
   }
 
   mirroringDelegate = [metadatas mirroringDelegate];
   v10 = mirroringDelegate;
   if (!mirroringDelegate)
   {
-    v17 = MEMORY[0x1E695DF30];
-    v25 = *MEMORY[0x1E696A998];
-    v26 = [metadatas URL];
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v19 = [v17 exceptionWithName:*MEMORY[0x1E695D940] reason:@"Provided persistent store is not backed by CloudKit." userInfo:v18];
+    v16 = MEMORY[0x1E695DF30];
+    v24 = *MEMORY[0x1E696A998];
+    v25 = [metadatas URL];
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v18 = [v16 exceptionWithName:*MEMORY[0x1E695D940] reason:@"Provided persistent store is not backed by CloudKit." userInfo:v17];
     goto LABEL_11;
   }
 
   if ([(objc_class *)mirroringDelegate[1].super.isa databaseScope]!= 3)
   {
-    v20 = MEMORY[0x1E695DF30];
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Provided persistent store is not set to the shared database scope and cannot accept share invitation."];
-    v27[0] = *MEMORY[0x1E696A998];
-    v28[0] = [metadatas URL];
-    v27[1] = @"databaseScope";
-    v28[1] = (softLinkCKDatabaseScopeString[0])([(objc_class *)v10[1].super.isa databaseScope]);
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
-    v19 = [v20 exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:v22];
+    v19 = MEMORY[0x1E695DF30];
+    v20 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
+    v26[0] = *MEMORY[0x1E696A998];
+    v27[0] = [metadatas URL];
+    v26[1] = @"databaseScope";
+    v27[1] = softLinkCKDatabaseScopeString([(objc_class *)v10[1].super.isa databaseScope]);
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v18 = [v19 exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:v21];
 LABEL_11:
-    objc_exception_throw(v19);
+    objc_exception_throw(v18);
   }
 
   v11 = [NSCloudKitMirroringAcceptShareInvitationsRequest alloc];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __110__NSPersistentCloudKitContainer__acceptShareInvitationsWithURLs_shareMetadatas_forPersistentStore_completion___block_invoke;
-  v24[3] = &unk_1E6EC31D0;
-  v24[4] = store;
-  v12 = [(NSCloudKitMirroringAcceptShareInvitationsRequest *)v11 initWithOptions:0 completionBlock:v24];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __110__NSPersistentCloudKitContainer__acceptShareInvitationsWithURLs_shareMetadatas_forPersistentStore_completion___block_invoke;
+  v23[3] = &unk_1E6EC31D0;
+  v23[4] = store;
+  v12 = [(NSCloudKitMirroringAcceptShareInvitationsRequest *)v11 initWithOptions:0 completionBlock:v23];
   v14 = v12;
   if (v12)
   {
@@ -1670,86 +1649,78 @@ LABEL_11:
     objc_setProperty_nonatomic_copy(v14, v15, ls, 88);
   }
 
-  v23 = 0;
-  if (![(NSCloudKitMirroringDelegate *)v10 executeMirroringRequest:v14 error:&v23])
+  v22 = 0;
+  if (![(NSCloudKitMirroringDelegate *)v10 executeMirroringRequest:v14 error:&v22])
   {
-    (*(store + 16))(store, 0, v23);
+    (*(store + 16))(store, 0, v22);
   }
-
-LABEL_9:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __110__NSPersistentCloudKitContainer__acceptShareInvitationsWithURLs_shareMetadatas_forPersistentStore_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (![a2 success])
   {
-    v12 = *(a1 + 32);
-    if (v12)
+    v11 = *(a1 + 32);
+    if (!v11)
     {
-      v13 = [a2 error];
-      v7 = *(v12 + 16);
-      v14 = *MEMORY[0x1E69E9840];
-      v9 = v13;
-      v10 = v12;
-      v11 = 0;
-      goto LABEL_7;
+      return;
     }
 
-    goto LABEL_16;
+    v12 = [a2 error];
+    v7 = *(v11 + 16);
+    v8 = v12;
+    v9 = v11;
+    v10 = 0;
+    goto LABEL_7;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    LogStream = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+    v4 = *(a1 + 32);
+    if (!v4)
     {
-      *buf = 138412290;
-      v24 = [a2 request];
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Share acceptance succeeded but did not return NSCloudKitMirroringAcceptShareInvitationsResult: %@\n", buf, 0xCu);
+      return;
     }
 
-    v16 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
-    {
-      v20 = [a2 request];
-      *buf = 138412290;
-      v24 = v20;
-      _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Share acceptance succeeded but did not return NSCloudKitMirroringAcceptShareInvitationsResult: %@", buf, 0xCu);
-    }
+    v5 = [a2 acceptedShareMetadatas];
+    v6 = [a2 error];
+    v7 = *(v4 + 16);
+    v8 = v6;
+    v9 = v4;
+    v10 = v5;
+LABEL_7:
 
-    v17 = *(a1 + 32);
-    if (v17)
-    {
-      v18 = *MEMORY[0x1E696A250];
-      v21 = *MEMORY[0x1E696A588];
-      v22 = @"Share acceptance succeeded but did not return an acceptance result.";
-      (*(v17 + 16))(v17, 0, [MEMORY[0x1E696ABC0] errorWithDomain:v18 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v22, &v21, 1)}]);
-    }
-
-    goto LABEL_16;
-  }
-
-  v4 = *(a1 + 32);
-  if (!v4)
-  {
-LABEL_16:
-    v19 = *MEMORY[0x1E69E9840];
+    v7(v9, v10, v8);
     return;
   }
 
-  v5 = [a2 acceptedShareMetadatas];
-  v6 = [a2 error];
-  v7 = *(v4 + 16);
-  v8 = *MEMORY[0x1E69E9840];
-  v9 = v6;
-  v10 = v4;
-  v11 = v5;
-LABEL_7:
+  LogStream = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412290;
+    v21 = [a2 request];
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Share acceptance succeeded but did not return NSCloudKitMirroringAcceptShareInvitationsResult: %@\n", buf, 0xCu);
+  }
 
-  v7(v10, v11, v9);
+  v14 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  {
+    v17 = [a2 request];
+    *buf = 138412290;
+    v21 = v17;
+    _os_log_fault_impl(&dword_18565F000, v14, OS_LOG_TYPE_FAULT, "CoreData: Share acceptance succeeded but did not return NSCloudKitMirroringAcceptShareInvitationsResult: %@", buf, 0xCu);
+  }
+
+  v15 = *(a1 + 32);
+  if (v15)
+  {
+    v16 = *MEMORY[0x1E696A250];
+    v18 = *MEMORY[0x1E696A588];
+    v19 = @"Share acceptance succeeded but did not return an acceptance result.";
+    (*(v15 + 16))(v15, 0, [MEMORY[0x1E696ABC0] errorWithDomain:v16 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v19, &v18, 1)}]);
+  }
 }
 
 - (void)persistUpdatedShare:(CKShare *)share inPersistentStore:(NSPersistentStore *)persistentStore completion:(void *)completion
@@ -1937,9 +1908,9 @@ LABEL_11:
   return [*(a1 + 48) requestFinished];
 }
 
-- (uint64_t)createTimeoutErrorForRequest:(uint64_t)request withLabel:
+- (void)createTimeoutErrorForRequest:(uint64_t)request withLabel:
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (result)
   {
     LogStream = _PFLogGetLogStream(17);
@@ -1947,8 +1918,8 @@ LABEL_11:
     {
       *buf = 138412546;
       requestCopy2 = request;
-      v14 = 2112;
-      v15 = a2;
+      v13 = 2112;
+      v14 = a2;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: NSPersistentCloudKitContainer timed out waiting for request: %@ - %@\n", buf, 0x16u);
     }
 
@@ -1957,27 +1928,26 @@ LABEL_11:
     {
       *buf = 138412546;
       requestCopy2 = request;
-      v14 = 2112;
-      v15 = a2;
+      v13 = 2112;
+      v14 = a2;
       _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: NSPersistentCloudKitContainer timed out waiting for request: %@ - %@", buf, 0x16u);
     }
 
     v7 = objc_alloc(MEMORY[0x1E696ABC0]);
     v8 = *MEMORY[0x1E696A250];
-    v10[0] = @"request";
-    v10[1] = @"label";
-    v11[0] = a2;
-    v11[1] = request;
-    result = [v7 initWithDomain:v8 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v11, v10, 2)}];
+    v9[0] = @"request";
+    v9[1] = @"label";
+    v10[0] = a2;
+    v10[1] = request;
+    return [v7 initWithDomain:v8 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v10, v9, 2)}];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __123__NSPersistentCloudKitContainer__finishPersistShareRequestForShareWithRecordID_inPersistentStoreWithIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = [objc_msgSend(a2 "persistentStoreCoordinator")];
   if (v4)
   {
@@ -1988,17 +1958,17 @@ void __123__NSPersistentCloudKitContainer__finishPersistShareRequestForShareWith
       LogStream = _PFLogGetLogStream(17);
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
-        *v21 = 138412290;
-        *&v21[4] = v5;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unsupported store type for CloudKit request %@\n", v21, 0xCu);
+        *v20 = 138412290;
+        *&v20[4] = v5;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unsupported store type for CloudKit request %@\n", v20, 0xCu);
       }
 
       v7 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        *v21 = 138412290;
-        *&v21[4] = v5;
-        _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: Unsupported store type for CloudKit request %@", v21, 0xCu);
+        *v20 = 138412290;
+        *&v20[4] = v5;
+        _os_log_fault_impl(&dword_18565F000, v7, OS_LOG_TYPE_FAULT, "CoreData: Unsupported store type for CloudKit request %@", v20, 0xCu);
       }
     }
 
@@ -2008,21 +1978,21 @@ void __123__NSPersistentCloudKitContainer__finishPersistShareRequestForShareWith
       v9 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        *v21 = 138412290;
-        *&v21[4] = v5;
-        _os_log_error_impl(&dword_18565F000, v9, OS_LOG_TYPE_ERROR, "CoreData: fault: Store is not mirrored %@\n", v21, 0xCu);
+        *v20 = 138412290;
+        *&v20[4] = v5;
+        _os_log_error_impl(&dword_18565F000, v9, OS_LOG_TYPE_ERROR, "CoreData: fault: Store is not mirrored %@\n", v20, 0xCu);
       }
 
       v10 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        *v21 = 138412290;
-        *&v21[4] = v5;
-        _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Store is not mirrored %@", v21, 0xCu);
+        *v20 = 138412290;
+        *&v20[4] = v5;
+        _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Store is not mirrored %@", v20, 0xCu);
       }
     }
 
-    *v21 = 0;
+    *v20 = 0;
     v11 = [*(a1 + 40) zoneID];
     v12 = [v5 mirroringDelegate];
     if (v12)
@@ -2030,7 +2000,7 @@ void __123__NSPersistentCloudKitContainer__finishPersistShareRequestForShareWith
       v12 = v12[1];
     }
 
-    v13 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, v11, [v12 databaseScope], v5, a2, v21);
+    v13 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, v11, [v12 databaseScope], v5, a2, v20);
     if (v13)
     {
       if (v8 && (v14 = *(v8 + 8)) != 0)
@@ -2060,17 +2030,15 @@ void __123__NSPersistentCloudKitContainer__finishPersistShareRequestForShareWith
         v17 = v18;
       }
 
-      v19 = -[PFCloudKitArchivingUtilities shareFromEncodedData:inZoneWithID:error:](v15, v17, [*(a1 + 40) zoneID], v21);
+      v19 = -[PFCloudKitArchivingUtilities shareFromEncodedData:inZoneWithID:error:](v15, v17, [*(a1 + 40) zoneID], v20);
       (*(*(a1 + 48) + 16))();
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchParticipantsMatchingLookupInfos:(NSArray *)lookupInfos intoPersistentStore:(NSPersistentStore *)persistentStore completion:(void *)completion
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if ([(NSArray *)lookupInfos count])
   {
     mirroringDelegate = [(NSPersistentStore *)persistentStore mirroringDelegate];
@@ -2078,19 +2046,19 @@ void __123__NSPersistentCloudKitContainer__finishPersistShareRequestForShareWith
     {
       v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v10 = [objc_alloc(getCloudKitCKFetchShareParticipantsOperationClass()) initWithUserIdentityLookupInfos:lookupInfos];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __101__NSPersistentCloudKitContainer_fetchParticipantsMatchingLookupInfos_intoPersistentStore_completion___block_invoke;
-      v19[3] = &unk_1E6EC3270;
-      v19[4] = v9;
-      [v10 setPerShareParticipantCompletionBlock:v19];
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __101__NSPersistentCloudKitContainer_fetchParticipantsMatchingLookupInfos_intoPersistentStore_completion___block_invoke_96;
-      v18[3] = &unk_1E6EC3298;
-      v18[4] = v9;
-      v18[5] = completion;
-      [v10 setFetchShareParticipantsCompletionBlock:v18];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __101__NSPersistentCloudKitContainer_fetchParticipantsMatchingLookupInfos_intoPersistentStore_completion___block_invoke;
+      v17[3] = &unk_1E6EC3270;
+      v17[4] = v9;
+      [v10 setPerShareParticipantCompletionBlock:v17];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __101__NSPersistentCloudKitContainer_fetchParticipantsMatchingLookupInfos_intoPersistentStore_completion___block_invoke_96;
+      v16[3] = &unk_1E6EC3298;
+      v16[4] = v9;
+      v16[5] = completion;
+      [v10 setFetchShareParticipantsCompletionBlock:v16];
       mirroringDelegate2 = [(NSPersistentStore *)persistentStore mirroringDelegate];
       if (mirroringDelegate2)
       {
@@ -2102,79 +2070,74 @@ void __123__NSPersistentCloudKitContainer__finishPersistShareRequestForShareWith
 
     else
     {
-      v15 = MEMORY[0x1E696ABC0];
-      v16 = *MEMORY[0x1E696A250];
-      v21 = @"NSAffectedStoresErrorKey";
+      v14 = MEMORY[0x1E696ABC0];
+      v15 = *MEMORY[0x1E696A250];
+      v19 = @"NSAffectedStoresErrorKey";
       if (!persistentStore)
       {
         persistentStore = [MEMORY[0x1E695DFB0] null];
       }
 
-      v20 = persistentStore;
-      v22[0] = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
-      (*(completion + 2))(completion, 0, [v15 errorWithDomain:v16 code:134091 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v22, &v21, 1)}]);
+      v18 = persistentStore;
+      v20[0] = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+      (*(completion + 2))(completion, 0, [v14 errorWithDomain:v15 code:134091 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v20, &v19, 1)}]);
     }
-
-    v17 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
     v12 = *(completion + 2);
-    v13 = *MEMORY[0x1E69E9840];
-    v14 = MEMORY[0x1E695E0F0];
+    v13 = MEMORY[0x1E695E0F0];
 
-    v12(completion, v14, 0);
+    v12(completion, v13, 0);
   }
 }
 
 void __101__NSPersistentCloudKitContainer_fetchParticipantsMatchingLookupInfos_intoPersistentStore_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v4 = *(a1 + 32);
-    v5 = *MEMORY[0x1E69E9840];
 
     [v4 addObject:?];
   }
 
   else
   {
-    v8 = objc_autoreleasePoolPush();
+    v7 = objc_autoreleasePoolPush();
     Stream = __PFCloudKitLoggingGetStream();
-    v10 = Stream;
+    v9 = Stream;
     if (__ckLoggingOverride == 17)
     {
-      v11 = OS_LOG_TYPE_FAULT;
+      v10 = OS_LOG_TYPE_FAULT;
     }
 
     else
     {
-      v11 = OS_LOG_TYPE_ERROR;
+      v10 = OS_LOG_TYPE_ERROR;
     }
 
-    if (os_log_type_enabled(Stream, v11))
+    if (os_log_type_enabled(Stream, v10))
     {
-      v13 = 136315906;
-      v14 = "[NSPersistentCloudKitContainer fetchParticipantsMatchingLookupInfos:intoPersistentStore:completion:]_block_invoke";
-      v15 = 1024;
-      v16 = 962;
+      v11 = 136315906;
+      v12 = "[NSPersistentCloudKitContainer fetchParticipantsMatchingLookupInfos:intoPersistentStore:completion:]_block_invoke";
+      v13 = 1024;
+      v14 = 962;
+      v15 = 2112;
+      v16 = a2;
       v17 = 2112;
-      v18 = a2;
-      v19 = 2112;
-      v20 = a4;
-      _os_log_impl(&dword_18565F000, v10, v11, "CoreData+CloudKit: %s(%d): Failed to fetch participant with lookup info: %@\n%@", &v13, 0x26u);
+      v18 = a4;
+      _os_log_impl(&dword_18565F000, v9, v10, "CoreData+CloudKit: %s(%d): Failed to fetch participant with lookup info: %@\n%@", &v11, 0x26u);
     }
 
-    objc_autoreleasePoolPop(v8);
-    v12 = *MEMORY[0x1E69E9840];
+    objc_autoreleasePoolPop(v7);
   }
 }
 
 - (void)purgeObjectsAndRecordsInZoneWithID:(CKRecordZoneID *)zoneID inPersistentStore:(NSPersistentStore *)persistentStore completion:(void *)completion
 {
-  v35[4] = *MEMORY[0x1E69E9840];
+  v34[4] = *MEMORY[0x1E69E9840];
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   ownerName = [(CKRecordZoneID *)zoneID ownerName];
   if ([(NSString *)ownerName isEqualToString:getCloudKitCKCurrentUserDefaultName()])
@@ -2203,59 +2166,59 @@ void __101__NSPersistentCloudKitContainer_fetchParticipantsMatchingLookupInfos_i
         goto LABEL_22;
       }
 
-      v20 = MEMORY[0x1E695DF30];
-      v34[0] = @"storeURL";
-      v35[0] = [(NSPersistentStore *)persistentStore URL];
-      v34[1] = @"databaseScope";
-      v24 = MEMORY[0x1E696AD98];
+      v19 = MEMORY[0x1E695DF30];
+      v33[0] = @"storeURL";
+      v34[0] = [(NSPersistentStore *)persistentStore URL];
+      v33[1] = @"databaseScope";
+      v23 = MEMORY[0x1E696AD98];
       mirroringDelegate2 = [(NSPersistentStore *)persistentStore mirroringDelegate];
       if (mirroringDelegate2)
       {
         mirroringDelegate2 = mirroringDelegate2[1];
       }
 
-      v35[1] = [v24 numberWithInteger:{objc_msgSend(mirroringDelegate2, "databaseScope")}];
-      v34[2] = @"requiredDatabaseScope";
-      v34[3] = @"zoneID";
-      v35[2] = (softLinkCKDatabaseScopeString[0])(v11);
-      v35[3] = zoneID;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:4];
-      v22 = *MEMORY[0x1E695D940];
-      v23 = @"Illegal attempt to purge a zone from the wrong store";
+      v34[1] = [v23 numberWithInteger:{objc_msgSend(mirroringDelegate2, "databaseScope")}];
+      v33[2] = @"requiredDatabaseScope";
+      v33[3] = @"zoneID";
+      v34[2] = softLinkCKDatabaseScopeString(v11);
+      v34[3] = zoneID;
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:4];
+      v21 = *MEMORY[0x1E695D940];
+      v22 = @"Illegal attempt to purge a zone from the wrong store";
     }
 
     else
     {
-      v20 = MEMORY[0x1E695DF30];
-      v32 = *MEMORY[0x1E696A998];
-      v33 = [(NSPersistentStore *)persistentStore URL];
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-      v22 = *MEMORY[0x1E695D940];
-      v23 = @"Provided persistent store is not backed by CloudKit.";
+      v19 = MEMORY[0x1E695DF30];
+      v31 = *MEMORY[0x1E696A998];
+      v32 = [(NSPersistentStore *)persistentStore URL];
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v21 = *MEMORY[0x1E695D940];
+      v22 = @"Provided persistent store is not backed by CloudKit.";
     }
 
-    objc_exception_throw([v20 exceptionWithName:v22 reason:v23 userInfo:v21]);
+    objc_exception_throw([v19 exceptionWithName:v21 reason:v22 userInfo:v20]);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   persistentStores = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator] persistentStores];
-  v14 = [(NSArray *)persistentStores countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v14 = [(NSArray *)persistentStores countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v14)
   {
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(persistentStores);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
+        v17 = *(*(&v26 + 1) + 8 * i);
         if ([v17 mirroringDelegate])
         {
           mirroringDelegate3 = [v17 mirroringDelegate];
@@ -2271,48 +2234,46 @@ void __101__NSPersistentCloudKitContainer_fetchParticipantsMatchingLookupInfos_i
         }
       }
 
-      v14 = [(NSArray *)persistentStores countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v14 = [(NSArray *)persistentStores countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v14);
   }
 
 LABEL_22:
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __97__NSPersistentCloudKitContainer_purgeObjectsAndRecordsInZoneWithID_inPersistentStore_completion___block_invoke;
-  v26[3] = &unk_1E6EC32C0;
-  v26[4] = v9;
-  v26[5] = self;
-  v26[6] = zoneID;
-  v26[7] = completion;
-  [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v26 withBlock:?];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __97__NSPersistentCloudKitContainer_purgeObjectsAndRecordsInZoneWithID_inPersistentStore_completion___block_invoke;
+  v25[3] = &unk_1E6EC32C0;
+  v25[4] = v9;
+  v25[5] = self;
+  v25[6] = zoneID;
+  v25[7] = completion;
+  [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v25 withBlock:?];
 }
 
 uint64_t __97__NSPersistentCloudKitContainer_purgeObjectsAndRecordsInZoneWithID_inPersistentStore_completion___block_invoke(void *a1, void *a2)
 {
-  v73[1] = *MEMORY[0x1E69E9840];
+  v72[1] = *MEMORY[0x1E69E9840];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = a1[4];
-  v3 = [obj countByEnumeratingWithState:&v43 objects:v62 count:16];
+  v3 = [obj countByEnumeratingWithState:&v42 objects:v61 count:16];
   if (v3)
   {
-    v42 = 0;
-    v5 = *v44;
-    v38 = *MEMORY[0x1E696A250];
-    v39 = *MEMORY[0x1E696AA08];
+    v41 = 0;
+    v5 = *v43;
+    v37 = *MEMORY[0x1E696A250];
+    v38 = *MEMORY[0x1E696AA08];
     *&v4 = 136315394;
-    v37 = v4;
+    v36 = v4;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v44 != v5)
+      if (*v43 != v5)
       {
         objc_enumerationMutation(obj);
       }
@@ -2324,24 +2285,24 @@ LABEL_58:
         result = a1[7];
         if (result)
         {
-          result = (*(result + 16))(result, 0, v42);
+          return (*(result + 16))(result, 0, v41);
         }
 
-        goto LABEL_60;
+        return result;
       }
 
-      v8 = *(*(&v43 + 1) + 8 * v6);
+      v8 = *(*(&v42 + 1) + 8 * v6);
       v9 = a1[6];
-      v57 = 0;
-      v58 = &v57;
-      v59 = 0x2020000000;
-      v60 = 1;
-      v51 = 0;
-      v52 = &v51;
-      v53 = 0x3052000000;
-      v54 = __Block_byref_object_copy__21;
-      v55 = __Block_byref_object_dispose__21;
       v56 = 0;
+      v57 = &v56;
+      v58 = 0x2020000000;
+      v59 = 1;
+      v50 = 0;
+      v51 = &v50;
+      v52 = 0x3052000000;
+      v53 = __Block_byref_object_copy__21;
+      v54 = __Block_byref_object_dispose__21;
+      v55 = 0;
       v10 = [v8 mirroringDelegate];
       if (v10)
       {
@@ -2365,53 +2326,53 @@ LABEL_58:
       }
 
       v19 = 0;
-      v61 = *(v58 + 24);
+      v60 = *(v57 + 24);
 LABEL_42:
 
       if (v19)
       {
-        if (v58[3])
+        if (v57[3])
         {
           goto LABEL_44;
         }
 
-        v30 = v52[5];
+        v30 = v51[5];
         if (!v30)
         {
           v32 = _PFLogGetLogStream(17);
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            *buf = v37;
+            *buf = v36;
             *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-            v67 = 1024;
-            v68 = 1152;
+            v66 = 1024;
+            v67 = 1152;
             _os_log_error_impl(&dword_18565F000, v32, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
           }
 
           v33 = _PFLogGetLogStream(17);
           if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
           {
-            *buf = v37;
+            *buf = v36;
             *&buf[4] = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-            v67 = 1024;
-            v68 = 1152;
+            v66 = 1024;
+            v67 = 1152;
             _os_log_fault_impl(&dword_18565F000, v33, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
           }
 
 LABEL_44:
-          v30 = v42;
+          v30 = v41;
         }
 
-        v52[5] = 0;
-        v31 = *(v58 + 24);
-        v42 = v30;
+        v51[5] = 0;
+        v31 = *(v57 + 24);
+        v41 = v30;
         goto LABEL_48;
       }
 
-      v31 = v61;
+      v31 = v60;
 LABEL_48:
-      _Block_object_dispose(&v51, 8);
-      _Block_object_dispose(&v57, 8);
+      _Block_object_dispose(&v50, 8);
+      _Block_object_dispose(&v56, 8);
       if ((v31 & 1) == 0)
       {
         goto LABEL_58;
@@ -2419,7 +2380,7 @@ LABEL_48:
 
       if (v3 == ++v6)
       {
-        v34 = [obj countByEnumeratingWithState:&v43 objects:v62 count:16];
+        v34 = [obj countByEnumeratingWithState:&v42 objects:v61 count:16];
         v3 = v34;
         if (v34)
         {
@@ -2434,16 +2395,16 @@ LABEL_48:
     if ([v10[1] databaseScope] != 3)
     {
       v20 = [NSCloudKitMirroringResetZoneRequest alloc];
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v47[2] = __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZoneWithID_inPersistentStore_withContext_error___block_invoke_115;
-      v47[3] = &unk_1E6EC32E8;
-      v47[6] = &v51;
-      v47[4] = v11;
-      v47[5] = &v57;
-      v13 = [(NSCloudKitMirroringResetZoneRequest *)v20 initWithOptions:0 completionBlock:v47];
-      v63 = v9;
-      -[NSCloudKitMirroringResetZoneRequest setRecordZoneIDsToReset:](v13, [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1]);
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 3221225472;
+      v46[2] = __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZoneWithID_inPersistentStore_withContext_error___block_invoke_115;
+      v46[3] = &unk_1E6EC32E8;
+      v46[6] = &v50;
+      v46[4] = v11;
+      v46[5] = &v56;
+      v13 = [(NSCloudKitMirroringResetZoneRequest *)v20 initWithOptions:0 completionBlock:v46];
+      v62 = v9;
+      -[NSCloudKitMirroringResetZoneRequest setRecordZoneIDsToReset:](v13, [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1]);
       *buf = 0;
       if ([(_PFRequestExecutor *)v11 executeRequest:v13 onMirroringDelegate:v10 error:buf])
       {
@@ -2452,23 +2413,23 @@ LABEL_48:
           goto LABEL_40;
         }
 
-        *(v58 + 24) = 0;
+        *(v57 + 24) = 0;
         v21 = [(NSPersistentCloudKitContainer *)v7 createTimeoutErrorForRequest:v13 withLabel:@"Zone-Purge-Reset"];
       }
 
       else
       {
-        *(v58 + 24) = 0;
+        *(v57 + 24) = 0;
         v21 = *buf;
       }
 
-      v52[5] = v21;
+      v51[5] = v21;
       goto LABEL_40;
     }
 
-    v50 = 0;
-    -[NSManagedObject setNeedsShareDelete:](+[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, v9, [v10[1] databaseScope], v8, a2, &v50), "setNeedsShareDelete:", 1);
-    if (![a2 save:&v50])
+    v49 = 0;
+    -[NSManagedObject setNeedsShareDelete:](+[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, v9, [v10[1] databaseScope], v8, a2, &v49), "setNeedsShareDelete:", 1);
+    if (![a2 save:&v49])
     {
       v22 = objc_autoreleasePoolPush();
       Stream = __PFCloudKitLoggingGetStream();
@@ -2487,56 +2448,56 @@ LABEL_48:
       {
         *buf = 136315906;
         *&buf[4] = "[NSPersistentCloudKitContainer _doPurgeForObjectsAndRecordsInZoneWithID:inPersistentStore:withContext:error:]";
-        v67 = 1024;
-        v68 = 1114;
-        v69 = 2112;
-        v70 = v9;
-        v71 = 2112;
-        v72 = v50;
+        v66 = 1024;
+        v67 = 1114;
+        v68 = 2112;
+        v69 = v9;
+        v70 = 2112;
+        v71 = v49;
         _os_log_impl(&dword_18565F000, v24, v25, "CoreData+CloudKit: %s(%d): Encountered an error trying to update the store metadata while attempting to purge zone '%@': %@", buf, 0x26u);
       }
 
       objc_autoreleasePoolPop(v22);
-      *(v58 + 24) = 0;
+      *(v57 + 24) = 0;
       v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v64 = v39;
-      v27 = v50;
-      if (!v50)
+      v63 = v38;
+      v27 = v49;
+      if (!v49)
       {
         v27 = [MEMORY[0x1E695DFB0] null];
       }
 
-      v65 = v27;
-      v28 = [v26 initWithDomain:v38 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v65, &v64, 1, v37)}];
-      v52[5] = v28;
+      v64 = v27;
+      v28 = [v26 initWithDomain:v37 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v64, &v63, 1, v36)}];
+      v51[5] = v28;
       goto LABEL_41;
     }
 
     v12 = [NSCloudKitMirroringExportRequest alloc];
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZoneWithID_inPersistentStore_withContext_error___block_invoke;
-    v49[3] = &unk_1E6EC32E8;
-    v49[6] = &v51;
-    v49[4] = v11;
-    v49[5] = &v57;
-    v13 = [(NSCloudKitMirroringRequest *)v12 initWithOptions:0 completionBlock:v49];
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZoneWithID_inPersistentStore_withContext_error___block_invoke;
+    v48[3] = &unk_1E6EC32E8;
+    v48[6] = &v50;
+    v48[4] = v11;
+    v48[5] = &v56;
+    v13 = [(NSCloudKitMirroringRequest *)v12 initWithOptions:0 completionBlock:v48];
     *buf = 0;
     if ([(_PFRequestExecutor *)v11 executeRequest:v13 onMirroringDelegate:v10 error:buf])
     {
       if ([(_PFRequestExecutor *)v11 wait])
       {
         v14 = [NSCloudKitMirroringResetZoneRequest alloc];
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZoneWithID_inPersistentStore_withContext_error___block_invoke_2;
-        v48[3] = &unk_1E6EC32E8;
-        v48[6] = &v51;
-        v48[4] = v11;
-        v48[5] = &v57;
-        v15 = [(NSCloudKitMirroringResetZoneRequest *)v14 initWithOptions:0 completionBlock:v48];
-        v73[0] = v9;
-        -[NSCloudKitMirroringResetZoneRequest setRecordZoneIDsToReset:](v15, [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:1]);
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZoneWithID_inPersistentStore_withContext_error___block_invoke_2;
+        v47[3] = &unk_1E6EC32E8;
+        v47[6] = &v50;
+        v47[4] = v11;
+        v47[5] = &v56;
+        v15 = [(NSCloudKitMirroringResetZoneRequest *)v14 initWithOptions:0 completionBlock:v47];
+        v72[0] = v9;
+        -[NSCloudKitMirroringResetZoneRequest setRecordZoneIDsToReset:](v15, [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:1]);
         if ([(_PFRequestExecutor *)v11 executeRequest:v15 onMirroringDelegate:v10 error:buf])
         {
           if ([(_PFRequestExecutor *)v11 wait])
@@ -2546,31 +2507,31 @@ LABEL_39:
             goto LABEL_40;
           }
 
-          *(v58 + 24) = 0;
+          *(v57 + 24) = 0;
           v16 = [(NSPersistentCloudKitContainer *)v7 createTimeoutErrorForRequest:v15 withLabel:@"Zone-Purge-PostExportReset"];
         }
 
         else
         {
-          *(v58 + 24) = 0;
+          *(v57 + 24) = 0;
           v16 = *buf;
         }
 
-        v52[5] = v16;
+        v51[5] = v16;
         goto LABEL_39;
       }
 
-      *(v58 + 24) = 0;
+      *(v57 + 24) = 0;
       v29 = [(NSPersistentCloudKitContainer *)v7 createTimeoutErrorForRequest:v13 withLabel:@"Zone-Purge-Export"];
     }
 
     else
     {
-      *(v58 + 24) = 0;
+      *(v57 + 24) = 0;
       v29 = *buf;
     }
 
-    v52[5] = v29;
+    v51[5] = v29;
 LABEL_40:
 
 LABEL_41:
@@ -2582,11 +2543,9 @@ LABEL_56:
   result = a1[7];
   if (result)
   {
-    result = (*(result + 16))(result, a1[6], 0);
+    return (*(result + 16))(result, a1[6], 0);
   }
 
-LABEL_60:
-  v36 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2631,38 +2590,38 @@ uint64_t __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZone
 
 - (NSDictionary)fetchSharesMatchingObjectIDs:(NSArray *)objectIDs error:(NSError *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3052000000;
-  v38 = __Block_byref_object_copy__21;
-  v39 = __Block_byref_object_dispose__21;
-  v40 = 0;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x3052000000;
-  v32 = __Block_byref_object_copy__21;
-  v33 = __Block_byref_object_dispose__21;
+  v45 = *MEMORY[0x1E69E9840];
   v34 = 0;
+  v35 = &v34;
+  v36 = 0x3052000000;
+  v37 = __Block_byref_object_copy__21;
+  v38 = __Block_byref_object_dispose__21;
+  v39 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3052000000;
+  v31 = __Block_byref_object_copy__21;
+  v32 = __Block_byref_object_dispose__21;
+  v33 = 0;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
-  v6 = [(NSArray *)objectIDs countByEnumeratingWithState:&v25 objects:v45 count:16];
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v6 = [(NSArray *)objectIDs countByEnumeratingWithState:&v24 objects:v44 count:16];
   if (v6)
   {
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(objectIDs);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         persistentStore = [v9 persistentStore];
         if ([objc_msgSend(persistentStore "type")])
         {
@@ -2687,7 +2646,7 @@ uint64_t __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZone
         }
       }
 
-      v6 = [(NSArray *)objectIDs countByEnumeratingWithState:&v25 objects:v45 count:16];
+      v6 = [(NSArray *)objectIDs countByEnumeratingWithState:&v24 objects:v44 count:16];
     }
 
     while (v6);
@@ -2695,26 +2654,26 @@ uint64_t __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZone
 
   if ([v5 count])
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __68__NSPersistentCloudKitContainer_fetchSharesMatchingObjectIDs_error___block_invoke;
-    v24[3] = &unk_1E6EC3310;
-    v24[4] = v5;
-    v24[5] = &v29;
-    v24[6] = &v35;
-    [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v24 withBlock:?];
-    v13 = v36[5];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __68__NSPersistentCloudKitContainer_fetchSharesMatchingObjectIDs_error___block_invoke;
+    v23[3] = &unk_1E6EC3310;
+    v23[4] = v5;
+    v23[5] = &v28;
+    v23[6] = &v34;
+    [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v23 withBlock:?];
+    v13 = v35[5];
   }
 
   else
   {
     v13 = objc_alloc_init(MEMORY[0x1E695DF20]);
-    v36[5] = v13;
+    v35[5] = v13;
   }
 
   if (!v13)
   {
-    v14 = v30[5];
+    v14 = v29[5];
     if (v14)
     {
       if (error)
@@ -2729,9 +2688,9 @@ uint64_t __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZone
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v42 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-        v43 = 1024;
-        v44 = 1236;
+        v41 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v42 = 1024;
+        v43 = 1236;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -2739,14 +2698,14 @@ uint64_t __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZone
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v42 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-        v43 = 1024;
-        v44 = 1236;
+        v41 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v42 = 1024;
+        v43 = 1236;
         _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
 
-    if (!v30[5])
+    if (!v29[5])
     {
       v17 = _PFLogGetLogStream(17);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -2764,64 +2723,63 @@ uint64_t __110__NSPersistentCloudKitContainer__doPurgeForObjectsAndRecordsInZone
     }
   }
 
-  v30[5] = 0;
-  v19 = v36[5];
-  _Block_object_dispose(&v29, 8);
-  _Block_object_dispose(&v35, 8);
-  v20 = *MEMORY[0x1E69E9840];
+  v29[5] = 0;
+  v19 = v35[5];
+  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v34, 8);
   return v19;
 }
 
 void __68__NSPersistentCloudKitContainer_fetchSharesMatchingObjectIDs_error___block_invoke(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = *(a1 + 32);
-  v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  if (v32)
   {
-    v32 = *v41;
+    v31 = *v40;
 LABEL_3:
     v4 = 0;
     while (1)
     {
-      if (*v41 != v32)
+      if (*v40 != v31)
       {
         objc_enumerationMutation(obj);
       }
 
-      v35 = v4;
-      v5 = *(*(&v40 + 1) + 8 * v4);
+      v34 = v4;
+      v5 = *(*(&v39 + 1) + 8 * v4);
       v6 = [*(a1 + 32) objectForKey:v5];
       v7 = [objc_msgSend(a2 "persistentStoreCoordinator")];
       v8 = [NSCKRecordMetadata metadataForObjectIDs:v6 inStore:v7 withManagedObjectContext:a2 error:(*(*(a1 + 40) + 8) + 40)];
       if (v8)
       {
         v9 = v8;
-        v38 = 0u;
-        v39 = 0u;
-        v36 = 0u;
         v37 = 0u;
-        v10 = [v8 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v38 = 0u;
+        v35 = 0u;
+        v36 = 0u;
+        v10 = [v8 countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v37;
+          v12 = *v36;
           do
           {
             v13 = 0;
             do
             {
-              if (*v37 != v12)
+              if (*v36 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v36 + 1) + 8 * v13);
+              v14 = *(*(&v35 + 1) + 8 * v13);
               v15 = -[NSCKRecordZoneMetadata createRecordZoneID]([v14 recordZone]);
               v16 = [objc_msgSend(v14 "recordZone")];
               if (v16)
@@ -2871,7 +2829,7 @@ LABEL_3:
             }
 
             while (v11 != v13);
-            v26 = [v9 countByEnumeratingWithState:&v36 objects:v44 count:16];
+            v26 = [v9 countByEnumeratingWithState:&v35 objects:v43 count:16];
             v11 = v26;
           }
 
@@ -2894,11 +2852,11 @@ LABEL_31:
         break;
       }
 
-      v4 = v35 + 1;
-      if (v35 + 1 == v33)
+      v4 = v34 + 1;
+      if (v34 + 1 == v32)
       {
-        v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-        if (v33)
+        v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+        if (v32)
         {
           goto LABEL_3;
         }
@@ -2912,25 +2870,23 @@ LABEL_31:
   {
     *(*(*(a1 + 48) + 8) + 40) = [v3 copy];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)fetchSharesInPersistentStore:(NSPersistentStore *)persistentStore error:(NSError *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3052000000;
-  v42 = __Block_byref_object_copy__21;
-  v43 = __Block_byref_object_dispose__21;
-  v44 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3052000000;
-  v36 = __Block_byref_object_copy__21;
-  v37 = __Block_byref_object_dispose__21;
+  v49 = *MEMORY[0x1E69E9840];
   v38 = 0;
+  v39 = &v38;
+  v40 = 0x3052000000;
+  v41 = __Block_byref_object_copy__21;
+  v42 = __Block_byref_object_dispose__21;
+  v43 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3052000000;
+  v35 = __Block_byref_object_copy__21;
+  v36 = __Block_byref_object_dispose__21;
+  v37 = 0;
   if (persistentStore)
   {
     persistentStores = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{persistentStore, 0}];
@@ -2943,24 +2899,24 @@ LABEL_31:
 
   v7 = persistentStores;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v9 = [(NSArray *)v7 countByEnumeratingWithState:&v29 objects:v49 count:16];
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v9 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v48 count:16];
   if (v9)
   {
-    v10 = *v30;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         if ([objc_msgSend(v12 "type")])
         {
           if ([objc_msgSend(v12 "ancillaryModels")])
@@ -2977,30 +2933,30 @@ LABEL_31:
         }
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v29 objects:v49 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v28 objects:v48 count:16];
     }
 
     while (v9);
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3052000000;
-  v26 = __Block_byref_object_copy__21;
-  v27 = __Block_byref_object_dispose__21;
-  v28 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3052000000;
+  v25 = __Block_byref_object_copy__21;
+  v26 = __Block_byref_object_dispose__21;
+  v27 = 0;
   if ([v8 count])
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __68__NSPersistentCloudKitContainer_fetchSharesInPersistentStore_error___block_invoke;
-    v22[3] = &unk_1E6EC3338;
-    v22[4] = v8;
-    v22[5] = &v33;
-    v22[6] = &v39;
-    v22[7] = &v23;
-    [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v22 withBlock:?];
-    if (v40[5])
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __68__NSPersistentCloudKitContainer_fetchSharesInPersistentStore_error___block_invoke;
+    v21[3] = &unk_1E6EC3338;
+    v21[4] = v8;
+    v21[5] = &v32;
+    v21[6] = &v38;
+    v21[7] = &v22;
+    [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v21 withBlock:?];
+    if (v39[5])
     {
       goto LABEL_21;
     }
@@ -3009,21 +2965,21 @@ LABEL_31:
   else
   {
     v14 = objc_alloc_init(MEMORY[0x1E695DEC8]);
-    v40[5] = v14;
+    v39[5] = v14;
     if (v14)
     {
       goto LABEL_21;
     }
   }
 
-  if (!v24[5])
+  if (!v23[5])
   {
-    v19 = v34[5];
-    if (v19)
+    v18 = v33[5];
+    if (v18)
     {
       if (error)
       {
-        *error = v19;
+        *error = v18;
       }
     }
 
@@ -3033,47 +2989,46 @@ LABEL_31:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-        v47 = 1024;
-        v48 = 1321;
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v46 = 1024;
+        v47 = 1321;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v21 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v20 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-        v47 = 1024;
-        v48 = 1321;
-        _os_log_fault_impl(&dword_18565F000, v21, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v46 = 1024;
+        v47 = 1321;
+        _os_log_fault_impl(&dword_18565F000, v20, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
 LABEL_21:
 
-  v34[5] = 0;
-  v15 = v40[5];
-  if (v24[5])
+  v33[5] = 0;
+  v15 = v39[5];
+  if (v23[5])
   {
 
-    v40[5] = 0;
-    objc_exception_throw(v24[5]);
+    v39[5] = 0;
+    objc_exception_throw(v23[5]);
   }
 
   v16 = v15;
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
   return v16;
 }
 
 void __68__NSPersistentCloudKitContainer_fetchSharesInPersistentStore_error___block_invoke(void *a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v38 = *MEMORY[0x1E69E9840];
+  v28 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordZoneMetadata entityPath]);
   -[NSFetchRequest setPredicate:](v4, "setPredicate:", [MEMORY[0x1E696AE18] predicateWithFormat:@"encodedShareAsset.binaryData != nil || encodedShareAsset.externalBinaryData != nil"]);
   [(NSFetchRequest *)v4 setAffectedStores:a1[4]];
@@ -3081,27 +3036,27 @@ void __68__NSPersistentCloudKitContainer_fetchSharesInPersistentStore_error___bl
   v6 = v5;
   if (v5)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v7 = [v5 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v7)
     {
-      v9 = *v31;
+      v9 = *v30;
       *&v8 = 138412546;
-      v28 = v8;
+      v27 = v8;
       do
       {
         v10 = 0;
         do
         {
-          if (*v31 != v9)
+          if (*v30 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v30 + 1) + 8 * v10);
+          v11 = *(*(&v29 + 1) + 8 * v10);
           v12 = [(NSCKRecordZoneMetadata *)v11 createRecordZoneID];
           v13 = [objc_msgSend(v11 "objectID")];
           v14 = [v13 mirroringDelegate];
@@ -3125,20 +3080,20 @@ void __68__NSPersistentCloudKitContainer_fetchSharesInPersistentStore_error___bl
             LogStream = _PFLogGetLogStream(17);
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
-              *buf = v28;
-              v35 = v13;
-              v36 = 2112;
-              v37 = v11;
+              *buf = v27;
+              v34 = v13;
+              v35 = 2112;
+              v36 = v11;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Fetched a zone metadata with an encoded share but can't unarchive it because it doesn't have an associated mirroring delegate: %@ - %@\n", buf, 0x16u);
             }
 
             v18 = _PFLogGetLogStream(17);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
             {
-              *buf = v28;
-              v35 = v13;
-              v36 = 2112;
-              v37 = v11;
+              *buf = v27;
+              v34 = v13;
+              v35 = 2112;
+              v36 = v11;
               _os_log_fault_impl(&dword_18565F000, v18, OS_LOG_TYPE_FAULT, "CoreData: Fetched a zone metadata with an encoded share but can't unarchive it because it doesn't have an associated mirroring delegate: %@ - %@", buf, 0x16u);
             }
           }
@@ -3167,7 +3122,7 @@ void __68__NSPersistentCloudKitContainer_fetchSharesInPersistentStore_error___bl
 
           if (v22)
           {
-            [v29 addObject:v22];
+            [v28 addObject:v22];
           }
 
           else
@@ -3184,7 +3139,7 @@ void __68__NSPersistentCloudKitContainer_fetchSharesInPersistentStore_error___bl
         }
 
         while (v7 != v10);
-        v24 = [v6 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v24 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
         v7 = v24;
       }
 
@@ -3194,7 +3149,7 @@ void __68__NSPersistentCloudKitContainer_fetchSharesInPersistentStore_error___bl
 LABEL_30:
     if (!*(*(a1[5] + 8) + 40))
     {
-      *(*(a1[6] + 8) + 40) = [v29 copy];
+      *(*(a1[6] + 8) + 40) = [v28 copy];
     }
   }
 
@@ -3202,15 +3157,13 @@ LABEL_30:
   {
     v25 = *(*(a1[5] + 8) + 40);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shareManagedObjects:(NSArray *)managedObjects toShare:(CKShare *)share completion:(void *)completion
 {
-  v97 = *MEMORY[0x1E69E9840];
-  v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v60 = [-[NSArray lastObject](managedObjects "lastObject")];
+  v96 = *MEMORY[0x1E69E9840];
+  v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v59 = [-[NSArray lastObject](managedObjects "lastObject")];
   if (share)
   {
     v7 = [objc_msgSend(-[CKShare recordID](share "recordID")];
@@ -3230,25 +3183,25 @@ LABEL_30:
     v8 = 2;
   }
 
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
   v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   persistentStores = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator] persistentStores];
-  v10 = [(NSArray *)persistentStores countByEnumeratingWithState:&v86 objects:v96 count:16];
+  v10 = [(NSArray *)persistentStores countByEnumeratingWithState:&v85 objects:v95 count:16];
   if (v10)
   {
-    v11 = *v87;
+    v11 = *v86;
 LABEL_8:
     v12 = 0;
     while (1)
     {
-      if (*v87 != v11)
+      if (*v86 != v11)
       {
         objc_enumerationMutation(persistentStores);
       }
 
-      v13 = *(*(&v86 + 1) + 8 * v12);
+      v13 = *(*(&v85 + 1) + 8 * v12);
       mirroringDelegate = [v13 mirroringDelegate];
       if (mirroringDelegate)
       {
@@ -3262,7 +3215,7 @@ LABEL_8:
 
       if (v10 == ++v12)
       {
-        v10 = [(NSArray *)persistentStores countByEnumeratingWithState:&v86 objects:v96 count:16];
+        v10 = [(NSArray *)persistentStores countByEnumeratingWithState:&v85 objects:v95 count:16];
         if (v10)
         {
           goto LABEL_8;
@@ -3319,9 +3272,9 @@ LABEL_16:
     *&buf[28] = 2048;
     *&buf[30] = v20;
     *&buf[38] = 2112;
-    v93 = v13;
-    v94 = 2112;
-    v95 = share;
+    v92 = v13;
+    v93 = 2112;
+    v94 = share;
     _os_log_impl(&dword_18565F000, v17, v19, "CoreData+CloudKit: %s(%d): %@: Sharing %lu objects from store: %@ to share: %@", buf, 0x3Au);
   }
 
@@ -3344,37 +3297,37 @@ LABEL_16:
   *&buf[16] = 0x3052000000;
   *&buf[24] = __Block_byref_object_copy__21;
   *&buf[32] = __Block_byref_object_dispose__21;
-  v93 = 0;
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x2020000000;
-  v85 = 1;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3052000000;
-  v79 = __Block_byref_object_copy__21;
-  v80 = __Block_byref_object_dispose__21;
+  v92 = 0;
   v81 = 0;
-  v74 = 0;
-  v75[0] = &v74;
-  v75[1] = 0x3052000000;
-  v75[2] = __Block_byref_object_copy__21;
-  v75[3] = __Block_byref_object_dispose__21;
-  v75[4] = 0;
-  v72 = 0;
-  v73[0] = &v72;
-  v73[1] = 0x3052000000;
-  v73[2] = __Block_byref_object_copy__21;
-  v73[3] = __Block_byref_object_dispose__21;
-  v73[4] = 0;
-  v58 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v82 = &v81;
+  v83 = 0x2020000000;
+  v84 = 1;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x3052000000;
+  v78 = __Block_byref_object_copy__21;
+  v79 = __Block_byref_object_dispose__21;
+  v80 = 0;
+  v73 = 0;
+  v74[0] = &v73;
+  v74[1] = 0x3052000000;
+  v74[2] = __Block_byref_object_copy__21;
+  v74[3] = __Block_byref_object_dispose__21;
+  v74[4] = 0;
+  v71 = 0;
+  v72[0] = &v71;
+  v72[1] = 0x3052000000;
+  v72[2] = __Block_byref_object_copy__21;
+  v72[3] = __Block_byref_object_dispose__21;
+  v72[4] = 0;
+  v57 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   if (!v13)
   {
-    *(v83 + 24) = 0;
+    *(v82 + 24) = 0;
     v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v90 = *MEMORY[0x1E696A588];
-    v91 = @"Could not locate private store in which to share.";
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+    v89 = *MEMORY[0x1E696A588];
+    v90 = @"Could not locate private store in which to share.";
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
     v32 = [v30 initWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v31];
     *(*&buf[8] + 40) = v32;
     goto LABEL_45;
@@ -3382,26 +3335,26 @@ LABEL_16:
 
   v25 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke;
-  v71[3] = &unk_1E6EC3428;
-  v71[4] = managedObjects;
-  v71[5] = v60;
-  v71[6] = v26;
-  v71[7] = v13;
-  v71[8] = v25;
-  v71[9] = &v82;
-  v71[10] = buf;
-  [v60 performBlockAndWait:v71];
-  if (*(v83 + 24) == 1)
+  v70[0] = MEMORY[0x1E69E9820];
+  v70[1] = 3221225472;
+  v70[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke;
+  v70[3] = &unk_1E6EC3428;
+  v70[4] = managedObjects;
+  v70[5] = v59;
+  v70[6] = v26;
+  v70[7] = v13;
+  v70[8] = v25;
+  v70[9] = &v81;
+  v70[10] = buf;
+  [v59 performBlockAndWait:v70];
+  if (*(v82 + 24) == 1)
   {
     if (share)
     {
       v27 = share;
-      *(v75[0] + 40) = v27;
+      *(v74[0] + 40) = v27;
       v28 = [-[CKShare recordID](v27 "recordID")];
-      v29 = v73;
+      v29 = v72;
     }
 
     else
@@ -3416,46 +3369,46 @@ LABEL_16:
           if ([(NSDictionary *)v34 count])
           {
             v36 = [(NSDictionary *)v35 objectForKey:[(NSArray *)[(NSDictionary *)v35 allKeys] lastObject]];
-            *(v75[0] + 40) = v36;
+            *(v74[0] + 40) = v36;
             v37 = [objc_msgSend(v36 "recordID")];
-            *(v73[0] + 40) = v37;
+            *(v72[0] + 40) = v37;
           }
         }
 
         else
         {
-          *(v83 + 24) = 0;
+          *(v82 + 24) = 0;
           v38 = *(*&buf[8] + 40);
         }
 
-        if (*(v83 + 24) == 1 && !*(v73[0] + 40))
+        if (*(v82 + 24) == 1 && !*(v72[0] + 40))
         {
-          v70[0] = MEMORY[0x1E69E9820];
-          v70[1] = 3221225472;
-          v70[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_139;
-          v70[3] = &unk_1E6EC3360;
-          v70[4] = v25;
-          v70[5] = v13;
-          v70[6] = &v72;
-          v70[7] = &v74;
-          v70[8] = &v82;
-          v70[9] = buf;
-          [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v70 withBlock:?];
+          v69[0] = MEMORY[0x1E69E9820];
+          v69[1] = 3221225472;
+          v69[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_139;
+          v69[3] = &unk_1E6EC3360;
+          v69[4] = v25;
+          v69[5] = v13;
+          v69[6] = &v71;
+          v69[7] = &v73;
+          v69[8] = &v81;
+          v69[9] = buf;
+          [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v69 withBlock:?];
         }
       }
 
-      if (*(v75[0] + 40))
+      if (*(v74[0] + 40))
       {
         goto LABEL_44;
       }
 
-      v53 = objc_alloc(getCloudKitCKRecordZoneIDClass[0]());
-      v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", @"com.apple.coredata.cloudkit.share.", objc_msgSend(objc_msgSend(MEMORY[0x1E696AFB0], "UUID"), "UUIDString")];
-      v55 = [v53 initWithZoneName:v54 ownerName:getCloudKitCKCurrentUserDefaultName()];
-      *(v73[0] + 40) = v55;
-      v56 = objc_alloc(getCloudKitCKShareClass[0]());
-      v28 = [v56 initWithRecordZoneID:*(v73[0] + 40)];
-      v29 = v75;
+      v52 = objc_alloc(getCloudKitCKRecordZoneIDClass[0]());
+      v53 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"com.apple.coredata.cloudkit.share.", [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")]);
+      v54 = [v52 initWithZoneName:v53 ownerName:getCloudKitCKCurrentUserDefaultName()];
+      *(v72[0] + 40) = v54;
+      v55 = objc_alloc(getCloudKitCKShareClass());
+      v28 = [v55 initWithRecordZoneID:*(v72[0] + 40)];
+      v29 = v74;
     }
 
     *(*v29 + 40) = v28;
@@ -3463,54 +3416,54 @@ LABEL_16:
 
 LABEL_44:
 
-  v69[0] = MEMORY[0x1E69E9820];
-  v69[1] = 3221225472;
-  v69[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_2;
-  v69[3] = &unk_1E6EC3388;
-  v69[4] = self;
-  v69[5] = v26;
-  v69[10] = &v82;
-  v69[11] = &v74;
-  v69[6] = v13;
-  v69[7] = managedObjects;
-  v69[12] = buf;
-  v69[8] = v59;
-  v69[9] = v60;
-  [v60 performBlockAndWait:v69];
+  v68[0] = MEMORY[0x1E69E9820];
+  v68[1] = 3221225472;
+  v68[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_2;
+  v68[3] = &unk_1E6EC3388;
+  v68[4] = self;
+  v68[5] = v26;
+  v68[10] = &v81;
+  v68[11] = &v73;
+  v68[6] = v13;
+  v68[7] = managedObjects;
+  v68[12] = buf;
+  v68[8] = v58;
+  v68[9] = v59;
+  [v59 performBlockAndWait:v68];
 
-  if (*(v83 + 24) != 1)
+  if (*(v82 + 24) != 1)
   {
     goto LABEL_64;
   }
 
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_146;
-  v68[3] = &unk_1E6EC33B0;
-  v68[4] = v13;
-  v68[5] = v59;
-  v68[6] = self;
-  v68[7] = v58;
-  v68[9] = &v74;
-  v68[10] = &v82;
-  v68[11] = buf;
-  v68[12] = v8;
-  v68[8] = v22;
-  [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v68 withBlock:?];
-  if (*(v83 + 24) != 1)
+  v67[0] = MEMORY[0x1E69E9820];
+  v67[1] = 3221225472;
+  v67[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_146;
+  v67[3] = &unk_1E6EC33B0;
+  v67[4] = v13;
+  v67[5] = v58;
+  v67[6] = self;
+  v67[7] = v57;
+  v67[9] = &v73;
+  v67[10] = &v81;
+  v67[11] = buf;
+  v67[12] = v8;
+  v67[8] = v22;
+  [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v67 withBlock:?];
+  if (*(v82 + 24) != 1)
   {
     goto LABEL_64;
   }
 
 LABEL_45:
   v39 = 0;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x2020000000;
-  v67 = 0;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x2020000000;
+  v66 = 0;
   do
   {
-    *(v83 + 24) = 1;
+    *(v82 + 24) = 1;
     v40 = *(*&buf[8] + 40);
     if (v40)
     {
@@ -3520,76 +3473,76 @@ LABEL_45:
 
     v41 = objc_alloc_init(_PFRequestExecutor);
     v42 = [NSCloudKitMirroringExportRequest alloc];
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_150;
-    v63[3] = &unk_1E6EC33D8;
-    v63[4] = v13;
-    v63[5] = self;
-    v63[9] = buf;
-    v63[10] = v39 + 1;
-    v63[7] = &v64;
-    v63[8] = &v82;
-    v63[6] = v41;
-    v43 = [(NSCloudKitMirroringRequest *)v42 initWithOptions:0 completionBlock:v63];
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_150;
+    v62[3] = &unk_1E6EC33D8;
+    v62[4] = v13;
+    v62[5] = self;
+    v62[9] = buf;
+    v62[10] = v39 + 1;
+    v62[7] = &v63;
+    v62[8] = &v81;
+    v62[6] = v41;
+    v43 = [(NSCloudKitMirroringRequest *)v42 initWithOptions:0 completionBlock:v62];
     v44 = v43;
     if (v43)
     {
       *(v43 + 56) = 1;
     }
 
-    if (*(v83 + 24) == 1)
+    if (*(v82 + 24) == 1)
     {
-      if ([(_PFRequestExecutor *)v41 executeRequest:v43 inContext:v60 error:*&buf[8] + 40])
+      if ([(_PFRequestExecutor *)v41 executeRequest:v43 inContext:v59 error:*&buf[8] + 40])
       {
         if ([(_PFRequestExecutor *)v41 wait])
         {
-          if (*(v83 + 24) == 1)
+          if (*(v82 + 24) == 1)
           {
-            v62[0] = MEMORY[0x1E69E9820];
-            v62[1] = 3221225472;
-            v62[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_151;
-            v62[3] = &unk_1E6EC3400;
-            v62[9] = buf;
-            v62[10] = v8;
-            v62[6] = &v72;
-            v62[7] = &v76;
-            v62[8] = &v82;
-            v62[4] = v13;
-            v62[5] = v22;
-            [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v62 withBlock:?];
+            v61[0] = MEMORY[0x1E69E9820];
+            v61[1] = 3221225472;
+            v61[2] = __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_151;
+            v61[3] = &unk_1E6EC3400;
+            v61[9] = buf;
+            v61[10] = v8;
+            v61[6] = &v71;
+            v61[7] = &v75;
+            v61[8] = &v81;
+            v61[4] = v13;
+            v61[5] = v22;
+            [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v61 withBlock:?];
           }
         }
 
         else
         {
-          *(v83 + 24) = 0;
+          *(v82 + 24) = 0;
           v46 = [(NSPersistentCloudKitContainer *)self createTimeoutErrorForRequest:v44 withLabel:@"Share-Export"];
           *(*&buf[8] + 40) = v46;
-          *(v65 + 24) = 1;
+          *(v64 + 24) = 1;
         }
       }
 
       else
       {
-        *(v83 + 24) = 0;
+        *(v82 + 24) = 0;
         v45 = *(*&buf[8] + 40);
       }
     }
 
-    if (v65[3])
+    if (v64[3])
     {
       break;
     }
   }
 
   while (v39++ < 9);
-  _Block_object_dispose(&v64, 8);
-  if (v83[3])
+  _Block_object_dispose(&v63, 8);
+  if (v82[3])
   {
     v48 = 0;
-    v49 = v77[5];
-    v50 = v58;
+    v49 = v76[5];
+    v50 = v57;
     v51 = v24;
   }
 
@@ -3604,21 +3557,20 @@ LABEL_64:
 
   (*(completion + 2))(completion, v50, v49, v51, v48);
 
-  v77[5] = 0;
+  v76[5] = 0;
   *(*&buf[8] + 40) = 0;
 
-  *(v75[0] + 40) = 0;
-  *(v73[0] + 40) = 0;
+  *(v74[0] + 40) = 0;
+  *(v72[0] + 40) = 0;
 
-  _Block_object_dispose(&v72, 8);
-  _Block_object_dispose(&v74, 8);
-  _Block_object_dispose(&v76, 8);
-  _Block_object_dispose(&v82, 8);
+  _Block_object_dispose(&v71, 8);
+  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v81, 8);
   _Block_object_dispose(buf, 8);
-  v52 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke(uint64_t a1)
+void *__72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke(uint64_t a1)
 {
   v43 = *MEMORY[0x1E69E9840];
   v35 = 0u;
@@ -3714,26 +3666,15 @@ uint64_t __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_complet
             v18 = NSStringFromClass(v17);
             v19 = NSStringFromSelector(sel_shareManagedObjects_toShare_completion_);
             v20 = NSStringFromSelector(sel_shareManagedObjects_toShare_completion_);
-            v21 = [v16 stringWithFormat:@"%@ does not support sharing objects across persistent stores. %@ needs to be called with objects that are either inserted (with temporary objectIDs) or objects assigned to the correct desination store. Objects that exist in the 'wrong' store must be cloned (and their originals deleted) after which they can be assigned to the correct store by %@ or %@.", v18, v19, v20, NSStringFromSelector(sel_assignObject_toPersistentStore_)];
-            v22 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v40[0] = v21;
+            v21 = NSStringFromSelector(sel_assignObject_toPersistentStore_);
+            v22 = objc_msgSend_stringWithFormat_(v16, v18, v19, v20, v21);
+            v23 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v40[0] = v22;
             v39[0] = v27;
             v39[1] = @"offendingObject";
             if ([v6 objectID])
             {
-              v23 = [v6 objectID];
-            }
-
-            else
-            {
-              v23 = @"nil";
-            }
-
-            v40[1] = v23;
-            v39[2] = @"destinationStoreURL";
-            if ([*(a1 + 56) URL])
-            {
-              v24 = [*(a1 + 56) URL];
+              v24 = [v6 objectID];
             }
 
             else
@@ -3741,11 +3682,11 @@ uint64_t __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_complet
               v24 = @"nil";
             }
 
-            v40[2] = v24;
-            v39[3] = @"storeURL";
-            if ([objc_msgSend(objc_msgSend(v6 "objectID")])
+            v40[1] = v24;
+            v39[2] = @"destinationStoreURL";
+            if ([*(a1 + 56) URL])
             {
-              v25 = [objc_msgSend(objc_msgSend(v6 "objectID")];
+              v25 = [*(a1 + 56) URL];
             }
 
             else
@@ -3753,12 +3694,24 @@ uint64_t __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_complet
               v25 = @"nil";
             }
 
-            v40[3] = v25;
-            *(*(*(a1 + 80) + 8) + 40) = [v22 initWithDomain:v28 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v40, v39, 4)}];
+            v40[2] = v25;
+            v39[3] = @"storeURL";
+            if ([objc_msgSend(objc_msgSend(v6 "objectID")])
+            {
+              v26 = [objc_msgSend(objc_msgSend(v6 "objectID")];
+            }
+
+            else
+            {
+              v26 = @"nil";
+            }
+
+            v40[3] = v26;
+            *(*(*(a1 + 80) + 8) + 40) = [v23 initWithDomain:v28 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v40, v39, 4)}];
           }
         }
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v5 != v3);
@@ -3769,47 +3722,46 @@ uint64_t __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_complet
     while (result);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_139(void *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v3 = [NSCKRecordZoneMetadata fetchZoneIDsAssignedToObjectsWithIDs:a1[4] fromStore:a1[5] inContext:a2 error:&v17];
+  v18 = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  v3 = [NSCKRecordZoneMetadata fetchZoneIDsAssignedToObjectsWithIDs:a1[4] fromStore:a1[5] inContext:a2 error:&v16];
   v4 = v3;
   if (v3)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v5 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           if ([objc_msgSend(v9 "zoneName")])
           {
             *(*(a1[6] + 8) + 40) = v9;
-            v10 = [objc_alloc(getCloudKitCKShareClass[0]()) initWithRecordZoneID:v9];
+            v10 = [objc_alloc(getCloudKitCKShareClass()) initWithRecordZoneID:v9];
             v11 = 7;
             goto LABEL_13;
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -3823,19 +3775,17 @@ void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion_
   else
   {
     *(*(a1[8] + 8) + 24) = 0;
-    v10 = v17;
+    v10 = v16;
     v11 = 9;
 LABEL_13:
     *(*(a1[v11] + 8) + 40) = v10;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_2(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v23 = 0;
+  v32 = *MEMORY[0x1E69E9840];
+  v22 = 0;
   if (*(*(*(a1 + 80) + 8) + 24) == 1)
   {
     v2 = objc_autoreleasePoolPush();
@@ -3886,40 +3836,40 @@ void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion_
       v8 = *(a1 + 32);
       v9 = [*(a1 + 40) count];
       *buf = 136315906;
-      v26 = "[NSPersistentCloudKitContainer shareManagedObjects:toShare:completion:]_block_invoke_2";
-      v27 = 1024;
-      v28 = 1471;
-      v29 = 2112;
-      v30 = v8;
-      v31 = 2048;
-      v32 = v9;
+      v25 = "[NSPersistentCloudKitContainer shareManagedObjects:toShare:completion:]_block_invoke_2";
+      v26 = 1024;
+      v27 = 1471;
+      v28 = 2112;
+      v29 = v8;
+      v30 = 2048;
+      v31 = v9;
       _os_log_impl(&dword_18565F000, v4, v7, "CoreData+CloudKit: %s(%d): %@: Found %lu inserted objects to share.", buf, 0x26u);
     }
 
     objc_autoreleasePoolPop(v2);
-    if ([*(a1 + 32) assignManagedObjects:*(a1 + 40) toCloudKitRecordZone:objc_msgSend(objc_msgSend(*(*(*(a1 + 88) + 8) + 40) inPersistentStore:"recordID") error:{"zoneID"), *(a1 + 48), &v23}])
+    if ([*(a1 + 32) assignManagedObjects:*(a1 + 40) toCloudKitRecordZone:objc_msgSend(objc_msgSend(*(*(*(a1 + 88) + 8) + 40) inPersistentStore:"recordID") error:{"zoneID"), *(a1 + 48), &v22}])
     {
       v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v11 = *(a1 + 56);
-      v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v20;
+        v14 = *v19;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v20 != v14)
+            if (*v19 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v19 + 1) + 8 * i);
+            v16 = *(*(&v18 + 1) + 8 * i);
             if (([v10 containsObject:{objc_msgSend(v16, "objectID")}] & 1) == 0)
             {
               v17 = [PFCloudKitSerializer createSetOfObjectIDsRelatedToObject:v16];
@@ -3927,7 +3877,7 @@ void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion_
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v18 objects:v23 count:16];
         }
 
         while (v13);
@@ -3939,41 +3889,39 @@ void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion_
     else
     {
       *(*(*(a1 + 80) + 8) + 24) = 0;
-      *(*(*(a1 + 96) + 8) + 40) = v23;
+      *(*(*(a1 + 96) + 8) + 40) = v22;
     }
   }
 
-  if (*(*(*(a1 + 80) + 8) + 24) == 1 && [*(a1 + 72) hasChanges] && (objc_msgSend(*(a1 + 72), "save:", &v23) & 1) == 0)
+  if (*(*(*(a1 + 80) + 8) + 24) == 1 && [*(a1 + 72) hasChanges] && (objc_msgSend(*(a1 + 72), "save:", &v22) & 1) == 0)
   {
     *(*(*(a1 + 80) + 8) + 24) = 0;
-    *(*(*(a1 + 96) + 8) + 40) = v23;
+    *(*(*(a1 + 96) + 8) + 40) = v22;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_146(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v60 = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  v36 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, [objc_msgSend(*(*(*(a1 + 72) + 8) + 40) "recordID")], *(a1 + 96), *(a1 + 32), a2, &v47);
-  if (!v36)
+  v59 = *MEMORY[0x1E69E9840];
+  v46 = 0;
+  v35 = +[NSCKRecordZoneMetadata zoneMetadataForZoneID:inDatabaseWithScope:forStore:inContext:error:](NSCKRecordZoneMetadata, [objc_msgSend(*(*(*(a1 + 72) + 8) + 40) "recordID")], *(a1 + 96), *(a1 + 32), a2, &v46);
+  if (!v35)
   {
     *(*(*(a1 + 80) + 8) + 24) = 0;
-    *(*(*(a1 + 88) + 8) + 40) = v47;
+    *(*(*(a1 + 88) + 8) + 40) = v46;
     goto LABEL_55;
   }
 
-  v4 = [NSCKRecordMetadata createMapOfMetadataMatchingObjectIDs:*(a1 + 32) inStore:v2 inManagedObjectContext:&v47 error:?];
+  v4 = [NSCKRecordMetadata createMapOfMetadataMatchingObjectIDs:*(a1 + 32) inStore:v2 inManagedObjectContext:&v46 error:?];
   if (!v4)
   {
     *(*(*(a1 + 80) + 8) + 24) = 0;
-    *(*(*(a1 + 88) + 8) + 40) = v47;
+    *(*(*(a1 + 88) + 8) + 40) = v46;
     goto LABEL_54;
   }
 
-  v38 = v2;
+  v37 = v2;
   v5 = objc_autoreleasePoolPush();
   Stream = __PFCloudKitLoggingGetStream();
   v7 = Stream;
@@ -4021,40 +3969,40 @@ void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion_
   {
     v11 = *(a1 + 48);
     *buf = 136316162;
-    v51 = "[NSPersistentCloudKitContainer shareManagedObjects:toShare:completion:]_block_invoke";
-    v52 = 1024;
-    v53 = 1522;
-    v54 = 2112;
-    v55 = v11;
-    v56 = 2112;
-    v57 = v36;
-    v58 = 2112;
-    v59 = v4;
+    v50 = "[NSPersistentCloudKitContainer shareManagedObjects:toShare:completion:]_block_invoke";
+    v51 = 1024;
+    v52 = 1522;
+    v53 = 2112;
+    v54 = v11;
+    v55 = 2112;
+    v56 = v35;
+    v57 = 2112;
+    v58 = v4;
     _os_log_impl(&dword_18565F000, v7, v10, "CoreData+CloudKit: %s(%d): %@: Got zone and metadatas: %@\n%@", buf, 0x30u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   obj = *(a1 + 40);
-  v12 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+  v12 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v44;
+    v14 = *v43;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v44 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v43 + 1) + 8 * i);
+        v16 = *(*(&v42 + 1) + 8 * i);
         v17 = [v4 objectForKey:v16];
         [*(a1 + 56) addObject:v16];
         if (v17)
@@ -4068,26 +4016,26 @@ void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion_
             [v17 destroySystemFields];
             [v17 destroyEncodedRecord];
             v19 = [v17 recordZone];
-            v20 = +[NSEntityDescription insertNewObjectForEntityForName:inManagedObjectContext:](NSEntityDescription, "insertNewObjectForEntityForName:inManagedObjectContext:", +[NSCKRecordZoneMoveReceipt entityPath], v38);
-            [v38 assignObject:v20 toPersistentStore:*(a1 + 32)];
+            v20 = +[NSEntityDescription insertNewObjectForEntityForName:inManagedObjectContext:](NSEntityDescription, "insertNewObjectForEntityForName:inManagedObjectContext:", +[NSCKRecordZoneMoveReceipt entityPath], v37);
+            [v37 assignObject:v20 toPersistentStore:*(a1 + 32)];
             [(NSManagedObject *)v20 setRecordMetadata:v17];
             -[NSManagedObject setMovedAt:](v20, "setMovedAt:", [MEMORY[0x1E695DF00] date]);
             [(NSManagedObject *)v20 setNeedsCloudDelete:1];
             -[NSManagedObject setZoneName:](v20, "setZoneName:", [v19 ckRecordZoneName]);
             -[NSManagedObject setOwnerName:](v20, "setOwnerName:", [v19 ckOwnerName]);
             -[NSManagedObject setRecordName:](v20, "setRecordName:", [v17 ckRecordName]);
-            [v17 setRecordZone:v36];
-            [v35 addObject:v18];
+            [v17 setRecordZone:v35];
+            [v34 addObject:v18];
           }
         }
 
         else
         {
-          v21 = [v38 existingObjectWithID:v16 error:&v47];
-          if (!v21 || (v22 = +[NSCKRecordMetadata insertMetadataForObject:setRecordName:inZoneWithID:recordNamePrefix:error:](NSCKRecordMetadata, "insertMetadataForObject:setRecordName:inZoneWithID:recordNamePrefix:error:", v21, 1, [objc_msgSend(*(*(*(a1 + 72) + 8) + 40) "recordID")], 0, &v47)) == 0)
+          v21 = [v37 existingObjectWithID:v16 error:&v46];
+          if (!v21 || (v22 = +[NSCKRecordMetadata insertMetadataForObject:setRecordName:inZoneWithID:recordNamePrefix:error:](NSCKRecordMetadata, "insertMetadataForObject:setRecordName:inZoneWithID:recordNamePrefix:error:", v21, 1, [objc_msgSend(*(*(*(a1 + 72) + 8) + 40) "recordID")], 0, &v46)) == 0)
           {
             *(*(*(a1 + 80) + 8) + 24) = 0;
-            *(*(*(a1 + 88) + 8) + 40) = v47;
+            *(*(*(a1 + 88) + 8) + 40) = v46;
             goto LABEL_35;
           }
 
@@ -4095,7 +4043,7 @@ void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion_
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v13 = [obj countByEnumeratingWithState:&v42 objects:v48 count:16];
       if (v13)
       {
         continue;
@@ -4107,50 +4055,50 @@ void __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion_
 
 LABEL_35:
   v23 = *(*(a1 + 80) + 8);
-  v2 = v38;
+  v2 = v37;
   if (*(v23 + 24) == 1)
   {
     v24 = *(a1 + 64);
     if (v24 && (v25 = *(v24 + 8)) != 0 && (v26 = *(v25 + 136)) != 0)
     {
-      v27 = [(PFCloudKitArchivingUtilities *)v26 encodeRecord:&v47 error:?];
+      v27 = [(PFCloudKitArchivingUtilities *)v26 encodeRecord:&v46 error:?];
       if (v27)
       {
-        [(NSManagedObject *)v36 updateEncodedShareWithData:v27];
-        [(NSManagedObject *)v36 setNeedsShareUpdate:1];
-        v28 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:v35 andRelatingRecordIDs:*(a1 + 32) fromStore:v38 inManagedObjectContext:&v47 error:?];
+        [(NSManagedObject *)v35 updateEncodedShareWithData:v27];
+        [(NSManagedObject *)v35 setNeedsShareUpdate:1];
+        v28 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingRelatingRecords:v34 andRelatingRecordIDs:*(a1 + 32) fromStore:v37 inManagedObjectContext:&v46 error:?];
         if (v28)
         {
           v29 = v28;
-          v41 = 0u;
-          v42 = 0u;
-          v39 = 0u;
           v40 = 0u;
-          v30 = [v28 countByEnumeratingWithState:&v39 objects:v48 count:16];
+          v41 = 0u;
+          v38 = 0u;
+          v39 = 0u;
+          v30 = [v28 countByEnumeratingWithState:&v38 objects:v47 count:16];
           if (v30)
           {
             v31 = v30;
-            v32 = *v40;
+            v32 = *v39;
             do
             {
               for (j = 0; j != v31; ++j)
               {
-                if (*v40 != v32)
+                if (*v39 != v32)
                 {
                   objc_enumerationMutation(v29);
                 }
 
-                [*(*(&v39 + 1) + 8 * j) setNeedsDeleteBool:1];
+                [*(*(&v38 + 1) + 8 * j) setNeedsDeleteBool:1];
               }
 
-              v31 = [v29 countByEnumeratingWithState:&v39 objects:v48 count:16];
+              v31 = [v29 countByEnumeratingWithState:&v38 objects:v47 count:16];
             }
 
             while (v31);
           }
 
-          v2 = v38;
-          if ([v38 save:&v47])
+          v2 = v37;
+          if ([v37 save:&v46])
           {
             goto LABEL_51;
           }
@@ -4166,7 +4114,7 @@ LABEL_35:
     }
 
     *(v23 + 24) = 0;
-    *(*(*(a1 + 88) + 8) + 40) = v47;
+    *(*(*(a1 + 88) + 8) + 40) = v46;
 LABEL_51:
   }
 
@@ -4176,13 +4124,11 @@ LABEL_55:
   {
     [v2 reset];
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_150(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ([objc_msgSend(a2 "storeIdentifier")])
   {
     v4 = [a2 success];
@@ -4206,17 +4152,17 @@ uint64_t __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_complet
       {
         v9 = *(a1 + 40);
         v10 = *(a1 + 80);
-        v14 = 136316162;
-        v15 = "[NSPersistentCloudKitContainer shareManagedObjects:toShare:completion:]_block_invoke";
-        v16 = 1024;
-        v17 = 1640;
-        v18 = 2112;
-        v19 = v9;
-        v20 = 2048;
-        v21 = v10;
-        v22 = 2112;
-        v23 = [a2 error];
-        _os_log_impl(&dword_18565F000, v7, v8, "CoreData+CloudKit: %s(%d): %@: Failed to export for share (%lu): %@", &v14, 0x30u);
+        v13 = 136316162;
+        v14 = "[NSPersistentCloudKitContainer shareManagedObjects:toShare:completion:]_block_invoke";
+        v15 = 1024;
+        v16 = 1640;
+        v17 = 2112;
+        v18 = v9;
+        v19 = 2048;
+        v20 = v10;
+        v21 = 2112;
+        v22 = [a2 error];
+        _os_log_impl(&dword_18565F000, v7, v8, "CoreData+CloudKit: %s(%d): %@: Failed to export for share (%lu): %@", &v13, 0x30u);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -4231,49 +4177,15 @@ uint64_t __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_complet
     }
   }
 
-  result = [*(a1 + 48) requestFinished];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) requestFinished];
 }
 
-id __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_151(uint64_t *a1, void *a2)
+id __72__NSPersistentCloudKitContainer_shareManagedObjects_toShare_completion___block_invoke_151(void *a1, void *a2)
 {
   v12 = 0;
   v3 = [NSCKRecordZoneMetadata zoneMetadataForZoneID:a1[10] inDatabaseWithScope:a1[4] forStore:a2 inContext:&v12 error:?];
-  if (!v3)
+  if (!v3 || ((v4 = a1[5]) == 0 || (v5 = *(v4 + 8)) == 0 ? (v6 = 0) : (v6 = *(v5 + 136)), (v7 = -[NSManagedObject encodedShareAsset](v3, "encodedShareAsset")) == 0 ? (v10 = 0) : ((v8 = v7, ![objc_msgSend(v7 "binaryData")]) ? (v9 = objc_msgSend(v8, "externalBinaryData")) : (v9 = objc_msgSend(v8, "binaryData")), v10 = v9), result = -[PFCloudKitArchivingUtilities shareFromEncodedData:inZoneWithID:error:](v6, v10, *(*(a1[6] + 8) + 40), &v12), (*(*(a1[7] + 8) + 40) = result) == 0))
   {
-    goto LABEL_11;
-  }
-
-  v4 = a1[5];
-  if (v4 && (v5 = *(v4 + 8)) != 0)
-  {
-    v6 = *(v5 + 136);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = [(NSManagedObject *)v3 encodedShareAsset];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = [objc_msgSend(v7 "binaryData")] ? objc_msgSend(v8, "binaryData") : objc_msgSend(v8, "externalBinaryData");
-    v10 = v9;
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  result = [(PFCloudKitArchivingUtilities *)v6 shareFromEncodedData:v10 inZoneWithID:*(*(a1[6] + 8) + 40) error:&v12];
-  *(*(a1[7] + 8) + 40) = result;
-  if (!*(*(a1[7] + 8) + 40))
-  {
-LABEL_11:
     *(*(a1[8] + 8) + 24) = 0;
     result = v12;
     *(*(a1[9] + 8) + 40) = result;
@@ -4284,296 +4196,281 @@ LABEL_11:
 
 - (void)applyActivityVoucher:(id)voucher toStores:(id)stores
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  persistentStores = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator:voucher] persistentStores];
-  v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v6)
-  {
-    v7 = v6;
-    v8 = *v12;
-    do
-    {
-      v9 = 0;
-      do
-      {
-        if (*v12 != v8)
-        {
-          objc_enumerationMutation(persistentStores);
-        }
-
-        [objc_msgSend(*(*(&v11 + 1) + 8 * v9++) "mirroringDelegate")];
-      }
-
-      while (v7 != v9);
-      v7 = [(NSArray *)persistentStores countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v7);
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-- (void)expireActivityVoucher:(id)voucher
-{
   v15 = *MEMORY[0x1E69E9840];
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
+  persistentStores = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator:voucher] persistentStores];
+  v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(persistentStores);
+        }
+
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "mirroringDelegate")];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSArray *)persistentStores countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
+}
+
+- (void)expireActivityVoucher:(id)voucher
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   persistentStores = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator] persistentStores];
-  v5 = [(NSArray *)persistentStores countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSArray *)persistentStores countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(persistentStores);
         }
 
-        [objc_msgSend(*(*(&v10 + 1) + 8 * v8++) "mirroringDelegate")];
+        [objc_msgSend(*(*(&v9 + 1) + 8 * v8++) "mirroringDelegate")];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__NSPersistentCloudKitContainer_doWorkOnMetadataContext_withBlock___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([objc_msgSend(*(a1 + 32) "registeredObjects")])
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v9 = [*(a1 + 32) registeredObjects];
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: An operation left registered objects in NSPersistentCloudKitContainer's metadata context: %@\n", &v13, 0xCu);
+      v7 = [*(a1 + 32) registeredObjects];
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: An operation left registered objects in NSPersistentCloudKitContainer's metadata context: %@\n", &v11, 0xCu);
     }
 
     v3 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      v10 = [*(a1 + 32) registeredObjects];
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: An operation left registered objects in NSPersistentCloudKitContainer's metadata context: %@", &v13, 0xCu);
+      v8 = [*(a1 + 32) registeredObjects];
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: An operation left registered objects in NSPersistentCloudKitContainer's metadata context: %@", &v11, 0xCu);
     }
   }
 
-  v4 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
   if ([*(a1 + 32) hasChanges])
   {
-    v5 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v11;
-      _os_log_error_impl(&dword_18565F000, v5, OS_LOG_TYPE_ERROR, "CoreData: fault: An operation left NSPersistentCloudKitContainer's metadata context dirty: %@\n", &v13, 0xCu);
+      v9 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_error_impl(&dword_18565F000, v4, OS_LOG_TYPE_ERROR, "CoreData: fault: An operation left NSPersistentCloudKitContainer's metadata context dirty: %@\n", &v11, 0xCu);
     }
 
-    v6 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v12 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: An operation left NSPersistentCloudKitContainer's metadata context dirty: %@", &v13, 0xCu);
+      v10 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: An operation left NSPersistentCloudKitContainer's metadata context dirty: %@", &v11, 0xCu);
     }
   }
 
-  result = [*(a1 + 32) reset];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) reset];
 }
 
 uint64_t __67__NSPersistentCloudKitContainer_doWorkOnMetadataContext_withBlock___block_invoke_161(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([objc_msgSend(*(a1 + 32) "registeredObjects")])
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v9 = [*(a1 + 32) registeredObjects];
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: An operation left registered objects in NSPersistentCloudKitContainer's metadata context: %@\n", &v13, 0xCu);
+      v7 = [*(a1 + 32) registeredObjects];
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: An operation left registered objects in NSPersistentCloudKitContainer's metadata context: %@\n", &v11, 0xCu);
     }
 
     v3 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      v10 = [*(a1 + 32) registeredObjects];
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: An operation left registered objects in NSPersistentCloudKitContainer's metadata context: %@", &v13, 0xCu);
+      v8 = [*(a1 + 32) registeredObjects];
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_fault_impl(&dword_18565F000, v3, OS_LOG_TYPE_FAULT, "CoreData: An operation left registered objects in NSPersistentCloudKitContainer's metadata context: %@", &v11, 0xCu);
     }
   }
 
-  v4 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
   if ([*(a1 + 32) hasChanges])
   {
-    v5 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v11;
-      _os_log_error_impl(&dword_18565F000, v5, OS_LOG_TYPE_ERROR, "CoreData: fault: An operation left NSPersistentCloudKitContainer's metadata context dirty: %@\n", &v13, 0xCu);
+      v9 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_error_impl(&dword_18565F000, v4, OS_LOG_TYPE_ERROR, "CoreData: fault: An operation left NSPersistentCloudKitContainer's metadata context dirty: %@\n", &v11, 0xCu);
     }
 
-    v6 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v5 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v12 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v12;
-      _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: An operation left NSPersistentCloudKitContainer's metadata context dirty: %@", &v13, 0xCu);
+      v10 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_fault_impl(&dword_18565F000, v5, OS_LOG_TYPE_FAULT, "CoreData: An operation left NSPersistentCloudKitContainer's metadata context dirty: %@", &v11, 0xCu);
     }
   }
 
-  result = [*(a1 + 32) reset];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) reset];
 }
 
 - (uint64_t)mostRecentExportedHistoryToken:(uint64_t)token
 {
-  v33 = *MEMORY[0x1E69E9840];
-  if (token)
+  v32 = *MEMORY[0x1E69E9840];
+  if (!token)
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3052000000;
-    v26 = __Block_byref_object_copy__21;
-    v27 = __Block_byref_object_dispose__21;
-    v28 = 0;
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3052000000;
-    v20 = __Block_byref_object_copy__21;
-    v21 = __Block_byref_object_dispose__21;
-    v22 = 0;
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3052000000;
-    v14 = __Block_byref_object_copy__21;
-    v15 = __Block_byref_object_dispose__21;
-    v16 = 0;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __64__NSPersistentCloudKitContainer_mostRecentExportedHistoryToken___block_invoke;
-    v10[3] = &unk_1E6EC3338;
-    v10[4] = token;
-    v10[5] = &v17;
-    v10[6] = &v23;
-    v10[7] = &v11;
-    [(NSPersistentCloudKitContainer *)token doWorkOnMetadataContext:v10 withBlock:?];
-    v3 = v12[5];
-    if (v3)
+    return 0;
+  }
+
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3052000000;
+  v25 = __Block_byref_object_copy__21;
+  v26 = __Block_byref_object_dispose__21;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3052000000;
+  v19 = __Block_byref_object_copy__21;
+  v20 = __Block_byref_object_dispose__21;
+  v21 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3052000000;
+  v13 = __Block_byref_object_copy__21;
+  v14 = __Block_byref_object_dispose__21;
+  v15 = 0;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __64__NSPersistentCloudKitContainer_mostRecentExportedHistoryToken___block_invoke;
+  v9[3] = &unk_1E6EC3338;
+  v9[4] = token;
+  v9[5] = &v16;
+  v9[6] = &v22;
+  v9[7] = &v10;
+  [(NSPersistentCloudKitContainer *)token doWorkOnMetadataContext:v9 withBlock:?];
+  v3 = v11[5];
+  if (v3)
+  {
+    objc_exception_throw(v3);
+  }
+
+  if (!v23[5])
+  {
+    v6 = v17[5];
+    if (v6)
     {
-      objc_exception_throw(v3);
-    }
-
-    if (!v24[5])
-    {
-      v7 = v18[5];
-      if (v7)
+      if (a2)
       {
-        if (a2)
-        {
-          *a2 = v7;
-        }
-      }
-
-      else
-      {
-        LogStream = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315394;
-          v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-          v31 = 1024;
-          v32 = 1846;
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
-        }
-
-        v9 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 136315394;
-          v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-          v31 = 1024;
-          v32 = 1846;
-          _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-        }
+        *a2 = v6;
       }
     }
 
-    v18[5] = 0;
-    v4 = v24[5];
-    _Block_object_dispose(&v11, 8);
-    _Block_object_dispose(&v17, 8);
-    _Block_object_dispose(&v23, 8);
+    else
+    {
+      LogStream = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v29 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v30 = 1024;
+        v31 = 1846;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
+      }
+
+      v8 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 136315394;
+        v29 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+        v30 = 1024;
+        v31 = 1846;
+        _os_log_fault_impl(&dword_18565F000, v8, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+      }
+    }
   }
 
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
+  v17[5] = 0;
+  v4 = v23[5];
+  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
   return v4;
 }
 
 void __64__NSPersistentCloudKitContainer_mostRecentExportedHistoryToken___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v18 = *MEMORY[0x1E69E9840];
+  v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = [objc_msgSend(*(a1 + 32) "persistentStoreCoordinator")];
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [NSCKMetadataEntry entryForKey:v8 fromStore:a2 inManagedObjectContext:*(*(a1 + 40) + 8) + 40 error:?];
         if (v9)
         {
-          [v13 setObject:objc_msgSend(objc_msgSend(objc_msgSend(v9 forKey:{"transformedValue"), "storeTokens"), "objectForKey:", objc_msgSend(v8, "identifier")), objc_msgSend(v8, "identifier")}];
+          [v12 setObject:objc_msgSend(objc_msgSend(objc_msgSend(v9 forKey:{"transformedValue"), "storeTokens"), "objectForKey:", objc_msgSend(v8, "identifier")), objc_msgSend(v8, "identifier")}];
         }
 
         else
@@ -4585,11 +4482,11 @@ void __64__NSPersistentCloudKitContainer_mostRecentExportedHistoryToken___block_
             goto LABEL_14;
           }
 
-          [v13 setObject:&unk_1EF435C38 forKey:{objc_msgSend(v8, "identifier")}];
+          [v12 setObject:&unk_1EF435C38 forKey:{objc_msgSend(v8, "identifier")}];
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -4602,49 +4499,47 @@ void __64__NSPersistentCloudKitContainer_mostRecentExportedHistoryToken___block_
 LABEL_14:
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    *(*(*(a1 + 48) + 8) + 40) = [[NSPersistentHistoryToken alloc] initWithDictionary:v13];
+    *(*(*(a1 + 48) + 8) + 40) = [[NSPersistentHistoryToken alloc] initWithDictionary:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)hasMetadataMarkedForExportInStore:(void *)store error:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2020000000;
-    v28 = 0;
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x3052000000;
-    v22 = __Block_byref_object_copy__21;
-    v23 = __Block_byref_object_dispose__21;
     v24 = 0;
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x3052000000;
-    v16 = __Block_byref_object_copy__21;
-    v17 = __Block_byref_object_dispose__21;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
     v18 = 0;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __73__NSPersistentCloudKitContainer_hasMetadataMarkedForExportInStore_error___block_invoke;
-    v12[3] = &unk_1E6EC3338;
-    v12[4] = a2;
-    v12[5] = &v19;
-    v12[6] = &v25;
-    v12[7] = &v13;
-    [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v12 withBlock:?];
-    v4 = v14[5];
+    v19 = &v18;
+    v20 = 0x3052000000;
+    v21 = __Block_byref_object_copy__21;
+    v22 = __Block_byref_object_dispose__21;
+    v23 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3052000000;
+    v15 = __Block_byref_object_copy__21;
+    v16 = __Block_byref_object_dispose__21;
+    v17 = 0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __73__NSPersistentCloudKitContainer_hasMetadataMarkedForExportInStore_error___block_invoke;
+    v11[3] = &unk_1E6EC3338;
+    v11[4] = a2;
+    v11[5] = &v18;
+    v11[6] = &v24;
+    v11[7] = &v12;
+    [(NSPersistentCloudKitContainer *)self doWorkOnMetadataContext:v11 withBlock:?];
+    v4 = v13[5];
     if (v4)
     {
       objc_exception_throw(v4);
     }
 
-    v5 = v20[5];
+    v5 = v19[5];
     if (v5)
     {
       v6 = v5;
@@ -4662,9 +4557,9 @@ LABEL_14:
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-          v31 = 1024;
-          v32 = 1917;
+          v29 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+          v30 = 1024;
+          v31 = 1917;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
         }
 
@@ -4672,19 +4567,19 @@ LABEL_14:
         if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315394;
-          v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
-          v31 = 1024;
-          v32 = 1917;
+          v29 = "/Library/Caches/com.apple.xbs/Sources/Persistence/NSPersistentCloudKitContainer.m";
+          v30 = 1024;
+          v31 = 1917;
           _os_log_fault_impl(&dword_18565F000, v8, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
         }
       }
     }
 
-    v20[5] = 0;
-    v9 = *(v26 + 24);
-    _Block_object_dispose(&v13, 8);
-    _Block_object_dispose(&v19, 8);
-    _Block_object_dispose(&v25, 8);
+    v19[5] = 0;
+    v9 = *(v25 + 24);
+    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
   else
@@ -4692,11 +4587,10 @@ LABEL_14:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9 & 1;
 }
 
-uint64_t __73__NSPersistentCloudKitContainer_hasMetadataMarkedForExportInStore_error___block_invoke(uint64_t *a1, uint64_t a2)
+uint64_t __73__NSPersistentCloudKitContainer_hasMetadataMarkedForExportInStore_error___block_invoke(uint64_t *a1, unint64_t a2)
 {
   v4 = +[NSCKRecordMetadata countRecordMetadataInStore:matchingPredicate:withManagedObjectContext:error:](NSCKRecordMetadata, a1[4], [MEMORY[0x1E696AE18] predicateWithFormat:@"needsUpload = YES"], a2, (*(a1[5] + 8) + 40));
   if (!v4)
@@ -4753,36 +4647,36 @@ LABEL_3:
 
 - (BOOL)hasFinishedExportingCurrentData:(id *)data
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v21 = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator] currentPersistentHistoryTokenFromStores:0];
-  v26 = 0;
-  v20 = [(NSPersistentCloudKitContainer *)self mostRecentExportedHistoryToken:?];
-  if (v20)
+  v29 = *MEMORY[0x1E69E9840];
+  v20 = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator] currentPersistentHistoryTokenFromStores:0];
+  v25 = 0;
+  v19 = [(NSPersistentCloudKitContainer *)self mostRecentExportedHistoryToken:?];
+  if (v19)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     persistentStores = [(NSPersistentStoreCoordinator *)[(NSPersistentContainer *)self persistentStoreCoordinator] persistentStores];
-    v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v22 objects:v29 count:16];
+    v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v21 objects:v28 count:16];
     if (!v6)
     {
       v13 = 1;
       goto LABEL_25;
     }
 
-    v7 = *v23;
+    v7 = *v22;
 LABEL_4:
     v8 = 0;
-    v9 = v20;
+    v9 = v19;
     while (1)
     {
-      if (*v23 != v7)
+      if (*v22 != v7)
       {
         objc_enumerationMutation(persistentStores);
       }
 
-      v10 = *(*(&v22 + 1) + 8 * v8);
+      v10 = *(*(&v21 + 1) + 8 * v8);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -4799,11 +4693,11 @@ LABEL_4:
             }
 
             LogStream = _PFLogGetLogStream(17);
-            v9 = v20;
+            v9 = v19;
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
               *buf = 134217984;
-              v28 = v12;
+              v27 = v12;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: New comparison result? %ld\n", buf, 0xCu);
             }
 
@@ -4811,13 +4705,13 @@ LABEL_4:
             if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
             {
               *buf = 134217984;
-              v28 = v12;
+              v27 = v12;
               _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, "CoreData: New comparison result? %ld", buf, 0xCu);
             }
           }
 
-          v16 = [(NSPersistentCloudKitContainer *)self hasMetadataMarkedForExportInStore:v10 error:&v26];
-          v17 = v26 ? 1 : v16;
+          v16 = [(NSPersistentCloudKitContainer *)self hasMetadataMarkedForExportInStore:v10 error:&v25];
+          v17 = v25 ? 1 : v16;
           if (v17)
           {
             break;
@@ -4827,7 +4721,7 @@ LABEL_4:
 
       if (v6 == ++v8)
       {
-        v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v22 objects:v29 count:16];
+        v6 = [(NSArray *)persistentStores countByEnumeratingWithState:&v21 objects:v28 count:16];
         v13 = 1;
         if (v6)
         {
@@ -4842,12 +4736,11 @@ LABEL_4:
   v13 = 0;
 LABEL_25:
 
-  if (data && v26)
+  if (data && v25)
   {
-    *data = v26;
+    *data = v25;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

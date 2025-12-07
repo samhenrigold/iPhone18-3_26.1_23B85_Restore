@@ -132,7 +132,7 @@ LABEL_17:
 - (BOOL)computeScore:(id)score rankingConfig:(id)config hasGoodLocalResult:(BOOL)result pos:(int)pos queryContext:(id)context
 {
   resultCopy = result;
-  v226 = *MEMORY[0x1E69E9840];
+  v225 = *MEMORY[0x1E69E9840];
   scoreCopy = score;
   configCopy = config;
   contextCopy = context;
@@ -152,33 +152,33 @@ LABEL_17:
       sectionBundleIdentifier = [rankingItem sectionBundleIdentifier];
     }
 
-    v212 = 0;
-    v190 = [(SectionL3Scores *)self getIFunScore:sectionBundleIdentifier rankingConfig:configCopy isLocal:domain != 2 result:v13 queryContext:contextCopy isQUIntent:&v212];
-    if (v212 == 1)
+    v211 = 0;
+    v189 = [(SectionL3Scores *)self getIFunScore:sectionBundleIdentifier rankingConfig:configCopy isLocal:domain != 2 result:v13 queryContext:contextCopy isQUIntent:&v211];
+    if (v211 == 1)
     {
-      v187 = v13;
+      v186 = v13;
       v18 = sectionBundleIdentifier;
       selfCopy = self;
-      v210 = 0u;
-      v211 = 0u;
-      v208 = 0u;
       v209 = 0u;
+      v210 = 0u;
+      v207 = 0u;
+      v208 = 0u;
       resultSet = [scoreCopy resultSet];
-      v21 = [resultSet countByEnumeratingWithState:&v208 objects:v225 count:16];
+      v21 = [resultSet countByEnumeratingWithState:&v207 objects:v224 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v209;
+        v23 = *v208;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v209 != v23)
+            if (*v208 != v23)
             {
               objc_enumerationMutation(resultSet);
             }
 
-            v25 = *(*(&v208 + 1) + 8 * i);
+            v25 = *(*(&v207 + 1) + 8 * i);
             rankingItem2 = [v25 rankingItem];
 
             if (rankingItem2)
@@ -188,7 +188,7 @@ LABEL_17:
             }
           }
 
-          v22 = [resultSet countByEnumeratingWithState:&v208 objects:v225 count:16];
+          v22 = [resultSet countByEnumeratingWithState:&v207 objects:v224 count:16];
         }
 
         while (v22);
@@ -196,14 +196,14 @@ LABEL_17:
 
       self = selfCopy;
       sectionBundleIdentifier = v18;
-      v13 = v187;
+      v13 = v186;
     }
 
     resultsCount = [scoreCopy resultsCount];
-    v223 = 0xBF800000BF800000;
-    v224 = -1082130432;
-    v221 = 0xBF800000BF800000;
-    v222 = -1082130432;
+    v222 = 0xBF800000BF800000;
+    v223 = -1082130432;
+    v220 = 0xBF800000BF800000;
+    v221 = -1082130432;
     if (resultsCount >= 1)
     {
       v29 = 0;
@@ -233,19 +233,19 @@ LABEL_17:
 
         v13 = v32;
         [(SectionL3Scores *)self getResultScore:v32 section:scoreCopy isLegacy:1];
-        *(&v223 + v29) = v33;
+        *(&v222 + v29) = v33;
         [(SectionL3Scores *)self getResultScore:v32 section:scoreCopy isLegacy:0];
-        *(&v221 + v29++) = v34;
+        *(&v220 + v29++) = v34;
       }
 
       while (v31 != v29);
       l3ScoreLegacy = self->l3ScoreLegacy;
-      v36 = &v221;
-      v37 = &v223;
+      v36 = &v220;
+      v37 = &v222;
       v38 = &computeScore_rankingConfig_hasGoodLocalResult_pos_queryContext__positionDiscount;
       v39 = 1.0;
       v40 = 1.0;
-      v41 = v190;
+      v41 = v189;
       do
       {
         if (*v37 >= 0.0)
@@ -270,7 +270,7 @@ LABEL_17:
           }
 
           v43 = *(l3ScoreLegacy - 3);
-          v41 = v190;
+          v41 = v189;
           if (v43 > 0.0)
           {
             *(l3ScoreLegacy - 3) = v43 * self->_iFunScore;
@@ -288,7 +288,7 @@ LABEL_17:
       v13 = v32;
     }
 
-    v186 = contextCopy;
+    v185 = contextCopy;
     if ([scoreCopy domain] == 2)
     {
       serverRelevanceScores = [configCopy serverRelevanceScores];
@@ -300,35 +300,35 @@ LABEL_17:
         if (v46)
         {
           v47 = v13;
-          v206 = 0u;
-          v207 = 0u;
-          v204 = 0u;
           v205 = 0u;
+          v206 = 0u;
+          v203 = 0u;
+          v204 = 0u;
           results = [scoreCopy results];
-          v49 = [results countByEnumeratingWithState:&v204 objects:v220 count:16];
+          v49 = [results countByEnumeratingWithState:&v203 objects:v219 count:16];
           if (v49)
           {
             v50 = v49;
-            v181 = sectionBundleIdentifier;
-            v183 = scoreCopy;
+            v180 = sectionBundleIdentifier;
+            v182 = scoreCopy;
             selfCopy2 = self;
             v52 = 0;
-            v53 = *v205;
+            v53 = *v204;
             v54 = v47;
             while (2)
             {
               v55 = 0;
               v56 = v52;
-              v196 = v52 + v50;
+              v195 = v52 + v50;
               v57 = v54;
               do
               {
-                if (*v205 != v53)
+                if (*v204 != v53)
                 {
                   objc_enumerationMutation(results);
                 }
 
-                v54 = *(*(&v204 + 1) + 8 * v55);
+                v54 = *(*(&v203 + 1) + 8 * v55);
 
                 serverRelevanceScores2 = [configCopy serverRelevanceScores];
                 identifier = [v54 identifier];
@@ -351,11 +351,11 @@ LABEL_17:
                     memset_pattern16(selfCopy2->l3Score, &unk_1DA0D53B0, 0xCuLL);
                     *selfCopy2->l3ScoreLegacy = 0x80000000800000;
                     selfCopy2->l3ScoreLegacy[2] = -3.4028e38;
-                    scoreCopy = v183;
-                    results2 = [v183 results];
-                    v67 = [results2 count] - v56;
+                    scoreCopy = v182;
+                    results2 = [v182 results];
+                    v67 = objc_msgSend_count(results2) - v56;
 
-                    resultSet2 = [v183 resultSet];
+                    resultSet2 = [v182 resultSet];
                     [resultSet2 removeObjectsInRange:{v56, v67}];
 
                     v69 = SSGeneralLog();
@@ -365,11 +365,11 @@ LABEL_17:
                     {
                       [configCopy serverRelevanceScoreThreshold];
                       *buf = 138412802;
-                      v215 = v60;
-                      v216 = 2048;
-                      v217 = v71;
-                      v218 = 1024;
-                      v219 = v56;
+                      v214 = v60;
+                      v215 = 2048;
+                      v216 = v71;
+                      v217 = 1024;
+                      v218 = v56;
                       _os_log_impl(&dword_1D9F69000, v69, OS_LOG_TYPE_DEFAULT, "[SpotlightRanking] L3: website relevance score %@ < threshold %f, filter results starting from index %i", buf, 0x1Cu);
                     }
 
@@ -383,8 +383,8 @@ LABEL_17:
               }
 
               while (v50 != v55);
-              v50 = [results countByEnumeratingWithState:&v204 objects:v220 count:16];
-              v52 = v196;
+              v50 = [results countByEnumeratingWithState:&v203 objects:v219 count:16];
+              v52 = v195;
               if (v50)
               {
                 continue;
@@ -395,10 +395,10 @@ LABEL_17:
 
             v47 = v54;
             v54 = 0;
-            scoreCopy = v183;
+            scoreCopy = v182;
             self = selfCopy2;
 LABEL_59:
-            sectionBundleIdentifier = v181;
+            sectionBundleIdentifier = v180;
           }
 
           else
@@ -412,23 +412,23 @@ LABEL_59:
     }
 
     [(NSMutableDictionary *)self->_features setObject:sectionBundleIdentifier forKeyedSubscript:@"section_bundle_id"];
-    v202 = 0u;
-    v203 = 0u;
-    v200 = 0u;
     v201 = 0u;
+    v202 = 0u;
+    v199 = 0u;
+    v200 = 0u;
     obj = [scoreCopy resultSet];
-    v197 = [obj countByEnumeratingWithState:&v200 objects:v213 count:16];
-    if (v197)
+    v196 = [obj countByEnumeratingWithState:&v199 objects:v212 count:16];
+    if (v196)
     {
-      v188 = v13;
-      v182 = sectionBundleIdentifier;
-      v184 = scoreCopy;
+      v187 = v13;
+      v181 = sectionBundleIdentifier;
+      v183 = scoreCopy;
       v72 = 0;
       v73 = 0;
       v74 = 0;
-      v195 = 0;
+      v194 = 0;
       v75 = 0;
-      v194 = *v201;
+      v193 = *v200;
       v76 = 0.0;
       v77 = 0.0;
       v78 = 0.0;
@@ -438,13 +438,13 @@ LABEL_59:
         v80 = 0;
         do
         {
-          if (*v201 != v194)
+          if (*v200 != v193)
           {
             objc_enumerationMutation(obj);
           }
 
-          v81 = *(*(&v200 + 1) + 8 * v80);
-          v199 = v80;
+          v81 = *(*(&v199 + 1) + 8 * v80);
+          v198 = v80;
           if (v72 <= 2)
           {
             if ([v81 topHit])
@@ -457,11 +457,11 @@ LABEL_59:
               v82 = &unk_1F55B39F0;
             }
 
-            v193 = v75;
+            v192 = v75;
             selfCopy3 = self;
             features = self->_features;
             [MEMORY[0x1E696AEC0] stringWithFormat:@"results_top3_is_tophit_%d", v72];
-            v85 = v192 = v74;
+            v85 = v191 = v74;
             [(NSMutableDictionary *)features setObject:v82 forKeyedSubscript:v85];
 
             if ([v81 topHit])
@@ -567,11 +567,11 @@ LABEL_59:
             v136 = selfCopy3->_features;
             v137 = [MEMORY[0x1E696AEC0] stringWithFormat:@"results_top3_originalL2Score_%d", v72];
             v138 = v136;
-            v74 = v192;
+            v74 = v191;
             [(NSMutableDictionary *)v138 setObject:v135 forKeyedSubscript:v137];
 
             self = selfCopy3;
-            v75 = v193;
+            v75 = v192;
 
             v139 = MEMORY[0x1E696AD98];
             [v81 l2score];
@@ -589,13 +589,13 @@ LABEL_59:
           else
           {
             topHit2 = [v81 topHit];
-            v144 = v195;
+            v144 = v194;
             if (topHit2 == 2)
             {
-              v144 = v195 + 1;
+              v144 = v194 + 1;
             }
 
-            v195 = v144;
+            v194 = v144;
           }
 
           v75 += [SSTopHitNominationManager passLikelihoodForTopHitCandidate:v81];
@@ -634,21 +634,21 @@ LABEL_59:
           }
 
           v72 = (v72 + 1);
-          v80 = v199 + 1;
+          v80 = v198 + 1;
         }
 
-        while (v197 != v199 + 1);
-        v197 = [obj countByEnumeratingWithState:&v200 objects:v213 count:16];
+        while (v196 != v198 + 1);
+        v196 = [obj countByEnumeratingWithState:&v199 objects:v212 count:16];
       }
 
-      while (v197);
+      while (v196);
       v156 = v73;
       v157 = v74;
-      v158 = v195;
+      v158 = v194;
       v159 = v75;
-      sectionBundleIdentifier = v182;
-      scoreCopy = v184;
-      v13 = v188;
+      sectionBundleIdentifier = v181;
+      scoreCopy = v183;
+      v13 = v187;
     }
 
     else
@@ -663,7 +663,7 @@ LABEL_59:
       v79 = 0.0;
     }
 
-    contextCopy = v186;
+    contextCopy = v185;
     if ([scoreCopy domain] == 2)
     {
       *&v160 = posCopy;
@@ -704,11 +704,11 @@ LABEL_59:
     [(NSMutableDictionary *)self->_features setObject:v176 forKeyedSubscript:@"max_l2_score"];
 
     v177 = MEMORY[0x1E696AD98];
-    [v190 floatValue];
+    [v189 floatValue];
     v178 = [v177 numberWithFloat:?];
     [(NSMutableDictionary *)self->_features setObject:v178 forKeyedSubscript:@"ifun_score"];
 
-    v17 = v212;
+    v17 = v211;
   }
 
   else
@@ -716,7 +716,6 @@ LABEL_59:
     v17 = 0;
   }
 
-  v179 = *MEMORY[0x1E69E9840];
   return v17 & 1;
 }
 
@@ -1507,16 +1506,7 @@ LABEL_5:
 
     if (iFunScores4)
     {
-      if (v20 != 34)
-      {
-        goto LABEL_198;
-      }
-
-      iFunScores5 = [configCopy iFunScores];
-      domainScores2 = [iFunScores5 domainScores];
-      localScore2 = [domainScores2 objectForKey:&unk_1F55B3A08];
-
-      if (!localScore2)
+      if (v20 != 34 || ([configCopy iFunScores], v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v35, "domainScores"), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v36, "objectForKey:", &unk_1F55B3A08), localScore2 = objc_claimAutoreleasedReturnValue(), v36, v35, !localScore2))
       {
 LABEL_198:
         localScore2 = &unk_1F55B6F48;
@@ -1540,7 +1530,7 @@ LABEL_200:
   mappingCopy = mapping;
   id1Copy = id1;
   id2Copy = id2;
-  if (SSEnableSpotlightFullPageRanking())
+  if (SSEnableSpotlightFullPageRanking(id2Copy))
   {
     v18 = [scoreCopy objectForKey:id1Copy];
     v19 = [scoreCopy objectForKey:id2Copy];
@@ -1633,7 +1623,7 @@ LABEL_22:
   scoreCopy = score;
   id1Copy = id1;
   id2Copy = id2;
-  if (SSEnableSpotlightFullPageRanking())
+  if (SSEnableSpotlightFullPageRanking(id2Copy))
   {
     v13 = [scoreCopy objectForKey:id1Copy];
     v14 = [scoreCopy objectForKey:id2Copy];

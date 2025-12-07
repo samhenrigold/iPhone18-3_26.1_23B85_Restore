@@ -23,7 +23,7 @@
 
 - (void)streamReceiver:(id)receiver didReceiveFileAtURL:(id)l dateCaptured:(id)captured error:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   receiverCopy = receiver;
   lCopy = l;
   capturedCopy = captured;
@@ -41,9 +41,9 @@
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v34 = v25;
-      v35 = 2112;
-      v36 = errorCopy;
+      v33 = v25;
+      v34 = 2112;
+      v35 = errorCopy;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Image receive failed: %@", buf, 0x16u);
     }
 
@@ -56,7 +56,7 @@
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v34 = v19;
+    v33 = v19;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Image receive has completed successfully", buf, 0xCu);
   }
 
@@ -64,9 +64,9 @@
   path = [lCopy path];
   snapshotRequestHandler = [(HMDCameraSnapshotReceiver *)selfCopy snapshotRequestHandler];
   imageCacheDirectory = [snapshotRequestHandler imageCacheDirectory];
-  v32 = 0;
-  v23 = [HMDCameraSnapshotFile snapshotFileCopiedFromFilePath:path toDirectory:imageCacheDirectory dateCaptured:capturedCopy error:&v32];
-  v24 = v32;
+  v31 = 0;
+  v23 = [HMDCameraSnapshotFile snapshotFileCopiedFromFilePath:path toDirectory:imageCacheDirectory dateCaptured:capturedCopy error:&v31];
+  v24 = v31;
 
   if (v23)
   {
@@ -77,30 +77,29 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v27 = objc_autoreleasePoolPush();
-  v28 = selfCopy;
-  v29 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v26 = objc_autoreleasePoolPush();
+  v27 = selfCopy;
+  v28 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    v30 = HMFGetLogIdentifier();
+    v29 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v34 = v30;
-    v35 = 2112;
-    v36 = v24;
-    _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to create snapshot file from received file: %@", buf, 0x16u);
+    v33 = v29;
+    v34 = 2112;
+    v35 = v24;
+    _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to create snapshot file from received file: %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v27);
-  v31 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1035];
-  [(HMDCameraSnapshotRemoteStreamReceiver *)v28 _callDidSaveImageDelegateWithSnapshotFile:0 error:v31];
+  objc_autoreleasePoolPop(v26);
+  v30 = [MEMORY[0x277CCA9B8] hmInternalErrorWithCode:1035];
+  [(HMDCameraSnapshotRemoteStreamReceiver *)v27 _callDidSaveImageDelegateWithSnapshotFile:0 error:v30];
 
 LABEL_11:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callDidSaveImageDelegateWithSnapshotFile:(id)file error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   errorCopy = error;
   workQueue = [(HMDCameraSnapshotReceiver *)self workQueue];
@@ -112,13 +111,13 @@ LABEL_11:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v16 = 138543874;
-    v17 = v12;
-    v18 = 2112;
-    v19 = fileCopy;
-    v20 = 2112;
-    v21 = errorCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Calling delegate that download of image %@ has completed with error %@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v12;
+    v17 = 2112;
+    v18 = fileCopy;
+    v19 = 2112;
+    v20 = errorCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Calling delegate that download of image %@ has completed with error %@", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -128,8 +127,6 @@ LABEL_11:
     sessionID = [(HMDCameraSnapshotReceiver *)selfCopy sessionID];
     [delegate snapshotStreamReceiver:selfCopy didSaveSnapshotFile:fileCopy error:errorCopy sessionID:sessionID];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callDidStartImageCaptureDelegate
@@ -147,7 +144,7 @@ LABEL_11:
 
 - (void)snapshotSendFailed:(id)failed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   failedCopy = failed;
   workQueue = [(HMDCameraSnapshotReceiver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -158,11 +155,11 @@ LABEL_11:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v9;
-    v15 = 2112;
-    v16 = failedCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Snapshot send failed: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2112;
+    v15 = failedCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Snapshot send failed: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -178,8 +175,6 @@ LABEL_11:
 
   v11 = v10;
   [(HMDCameraSnapshotRemoteStreamReceiver *)selfCopy _callDidSaveImageDelegateWithSnapshotFile:0 error:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getSnapshot:(unint64_t)snapshot
@@ -207,7 +202,7 @@ LABEL_11:
 
 void __54__HMDCameraSnapshotRemoteStreamReceiver__getSnapshot___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -222,11 +217,11 @@ void __54__HMDCameraSnapshotRemoteStreamReceiver__getSnapshot___block_invoke(uin
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v15 = 138543618;
-        v16 = v12;
-        v17 = 2112;
-        v18 = v5;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Take snapshot relayed to resident has ended in error %@", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = v12;
+        v16 = 2112;
+        v17 = v5;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Take snapshot relayed to resident has ended in error %@", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -238,17 +233,15 @@ void __54__HMDCameraSnapshotRemoteStreamReceiver__getSnapshot___block_invoke(uin
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v13;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Take snapshot relayed to resident succeeded", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v13;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Take snapshot relayed to resident succeeded", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
       [v9 _callDidStartImageCaptureDelegate];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSnapshot:(unint64_t)snapshot
@@ -269,7 +262,7 @@ void __54__HMDCameraSnapshotRemoteStreamReceiver__getSnapshot___block_invoke(uin
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -277,15 +270,14 @@ void __54__HMDCameraSnapshotRemoteStreamReceiver__getSnapshot___block_invoke(uin
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Resetting HMDCameraSnapshotRemoteStreamReceiver", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDCameraSnapshotRemoteStreamReceiver;
-  [(HMDCameraSnapshotRemoteStreamReceiver *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDCameraSnapshotRemoteStreamReceiver;
+  [(HMDCameraSnapshotRemoteStreamReceiver *)&v7 dealloc];
 }
 
 - (HMDCameraSnapshotRemoteStreamReceiver)initWithSessionID:(id)d workQueue:(id)queue accessory:(id)accessory delegate:(id)delegate uniqueIdentifier:(id)identifier snapshotRequestHandler:(id)handler residentMessageHandler:(id)messageHandler remoteDevice:(id)self0
@@ -373,10 +365,9 @@ LABEL_17:
 
 void __52__HMDCameraSnapshotRemoteStreamReceiver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_226071;
-  logCategory__hmf_once_v2_226071 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_226071;
+  logCategory__hmf_once_v2_226071 = v0;
 }
 
 @end

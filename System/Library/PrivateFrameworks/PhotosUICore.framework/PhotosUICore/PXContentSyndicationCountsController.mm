@@ -122,7 +122,7 @@ uint64_t __68__PXContentSyndicationCountsController_settings_changedValueForKey_
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
-  [(PXContentSyndicationCountsController *)self actualDetailedCounts];
+  objc_msgSend_actualDetailedCounts(self, a3);
   v5 = +[PXContentSyndicationSettings sharedInstance];
   if ([v5 mockNumberOfAssetsSaved])
   {
@@ -143,7 +143,7 @@ uint64_t __68__PXContentSyndicationCountsController_settings_changedValueForKey_
 
 - (NSString)savedCountDescription
 {
-  [(PXContentSyndicationCountsController *)self detailedCounts];
+  objc_msgSend_detailedCounts(self, a2);
   savedCount = [(PXContentSyndicationCountsController *)self savedCount];
   if (v12 == 0x7FFFFFFFFFFFFFFFLL || *(&v12 + 1) == 0x7FFFFFFFFFFFFFFFLL || v13 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -195,7 +195,7 @@ uint64_t __68__PXContentSyndicationCountsController_settings_changedValueForKey_
 
 - (NSString)totalCountDescription
 {
-  [(PXContentSyndicationCountsController *)self detailedCounts];
+  objc_msgSend_detailedCounts(self, a2);
   v3 = v6 == 0x7FFFFFFFFFFFFFFFLL || v7 == 0x7FFFFFFFFFFFFFFFLL || v8 == 0x7FFFFFFFFFFFFFFFLL;
   if (!v3 && v7 + v6 + v8)
   {

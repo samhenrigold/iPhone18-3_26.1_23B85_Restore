@@ -588,7 +588,7 @@ LABEL_31:
   if (!storefrontCopy || (+[NSCharacterSet characterSetWithCharactersInString:](NSCharacterSet, "characterSetWithCharactersInString:", @" -,"), v4 = objc_claimAutoreleasedReturnValue(), [storefrontCopy componentsSeparatedByCharactersInSet:v4], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "firstObject"), v6 = objc_claimAutoreleasedReturnValue(), v5, v4, !v6))
   {
     v6 = +[BRCNamespaceData fallbackStorefrontID];
-    v7 = BRCConfigLog();
+    v7 = BRCConfigLog(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = 138412290;

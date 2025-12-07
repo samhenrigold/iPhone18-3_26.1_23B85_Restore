@@ -56,7 +56,13 @@ unint64_t sub_100001E18()
   v2 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup33SetupInProgressCardViewController_remoteSetupManager);
   if (!v2)
   {
-    goto LABEL_9;
+    sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+    v4 = static OS_os_log.default.getter();
+    v5 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unable to get device class. Using generic title for in progress card", 68, 2, &_mh_execute_header, v4, v5, &_swiftEmptyArrayStorage);
+LABEL_10:
+
+    return v1;
   }
 
   v3 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
@@ -85,10 +91,9 @@ unint64_t sub_100001E18()
 LABEL_9:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v4 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
-
-    return v1;
+    v6 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unsupported device class. Using generic title for in progress card", 66, 2, &_mh_execute_header, v4, v6, &_swiftEmptyArrayStorage);
+    goto LABEL_10;
   }
 
   return 0xD00000000000001BLL;
@@ -100,7 +105,13 @@ unint64_t sub_100001F84()
   v2 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup33SetupInProgressCardViewController_remoteSetupManager);
   if (!v2)
   {
-    goto LABEL_9;
+    sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+    v4 = static OS_os_log.default.getter();
+    v5 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unable to get device class. Using generic subtitle for in progress card", 71, 2, &_mh_execute_header, v4, v5, &_swiftEmptyArrayStorage);
+LABEL_10:
+
+    return v1;
   }
 
   v3 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
@@ -129,10 +140,9 @@ unint64_t sub_100001F84()
 LABEL_9:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v4 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
-
-    return v1;
+    v6 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unsupported device class. Using generic subtitle for in progress card", 69, 2, &_mh_execute_header, v4, v6, &_swiftEmptyArrayStorage);
+    goto LABEL_10;
   }
 
   return 0xD00000000000001ELL;
@@ -175,77 +185,69 @@ _DWORD *sub_100002300@<X0>(_DWORD *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_10000231C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10000231C@<X0>(void *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_100002364@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_100002390(uint64_t a1)
 {
-  v2 = sub_100002A2C(&qword_100022DA0);
-  v3 = sub_100002A2C(&qword_100022DA8);
+  v2 = sub_100002A2C(&qword_100022DA0, &unk_1000144AC);
+  v3 = sub_100002A2C(&qword_100022DA8, &unk_10001444C);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
 uint64_t sub_100002428()
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String.hashValue.getter();
+  v0 = String.hashValue.getter();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_100002464()
+uint64_t sub_100002464(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int sub_1000024B8()
+Swift::Int sub_1000024B8(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_10000252C(uint64_t *a1, uint64_t *a2)
+uint64_t sub_10000252C(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 void sub_1000025B4()
@@ -295,7 +297,6 @@ uint64_t sub_1000028AC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -303,12 +304,11 @@ uint64_t sub_1000028AC(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_1000028F4(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_1000028F4(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -317,19 +317,19 @@ uint64_t sub_1000028F4(uint64_t a1, unint64_t *a2, uint64_t *a3)
   return result;
 }
 
-void sub_100002978(uint64_t a1, unint64_t *a2)
+void sub_100002978(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t sub_100002A2C(unint64_t *a1)
+uint64_t sub_100002A2C(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -344,36 +344,32 @@ uint64_t sub_100002A2C(unint64_t *a1)
 
 char *sub_100002AB0(void *a1)
 {
-  v16.receiver = v1;
-  v16.super_class = type metadata accessor for CaptivePortalDetectedCardViewController();
-  v3 = objc_msgSendSuper2(&v16, "initWithContentView:", a1);
+  v12.receiver = v1;
+  v12.super_class = type metadata accessor for CaptivePortalDetectedCardViewController();
+  v3 = objc_msgSendSuper2(&v12, "initWithContentView:", a1);
   v4 = &v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle];
-  v5 = *&v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle + 8];
   *v4 = 0xD00000000000001ALL;
   *(v4 + 1) = 0x8000000100014EE0;
-  v6 = v3;
+  v5 = v3;
 
-  v7 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase];
-  v8 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase + 8];
-  *v7 = 0xD00000000000001DLL;
-  *(v7 + 1) = 0x8000000100014F00;
+  v6 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase];
+  *v6 = 0xD00000000000001DLL;
+  *(v6 + 1) = 0x8000000100014F00;
 
-  v9 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText];
-  v10 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText + 8];
-  *v9 = 0xD000000000000020;
-  *(v9 + 1) = 0x8000000100014F20;
+  v7 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText];
+  *v7 = 0xD000000000000020;
+  *(v7 + 1) = 0x8000000100014F20;
 
-  v11 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
-  v12 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName + 8];
-  *v11 = 0xD000000000000014;
-  *(v11 + 1) = 0x8000000100014F50;
+  v8 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
+  *v8 = 0xD000000000000014;
+  *(v8 + 1) = 0x8000000100014F50;
 
-  v13 = [objc_opt_self() systemGrayColor];
+  v9 = [objc_opt_self() systemGrayColor];
 
-  v14 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor];
-  *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor] = v13;
+  v10 = *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor];
+  *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor] = v9;
 
-  return v6;
+  return v5;
 }
 
 id sub_100002C48()
@@ -442,109 +438,110 @@ void sub_100002D60(void *a1, void (*a2)(void))
   }
 
   AnyHashable.init<A>(_:)();
-  if (!*(v6 + 16) || (v7 = v2, v8 = sub_100011F40(v32), (v9 & 1) == 0))
+  if (!*(v6 + 16) || (v7 = v2, v8 = sub_100011F40(v36), (v9 & 1) == 0))
   {
 
-    sub_1000052AC(v32);
+    sub_1000052AC(v36);
 LABEL_10:
-    v33 = 0u;
-    v34 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     goto LABEL_11;
   }
 
-  sub_10000534C(*(v6 + 56) + 32 * v8, &v33);
-  sub_1000052AC(v32);
+  sub_10000534C(*(v6 + 56) + 32 * v8, &v37);
+  sub_1000052AC(v36);
 
-  if (!*(&v34 + 1))
+  if (!*(&v38 + 1))
   {
 LABEL_11:
-    sub_10000515C(&v33);
+    sub_10000515C(&v37);
     goto LABEL_12;
   }
 
   sub_1000028AC(&qword_100022F18, &unk_1000145D8);
   if (swift_dynamicCast())
   {
-    v10 = objc_allocWithZone(CBDevice);
-    v12 = sub_1000051C4();
+    v10 = v36[0];
+    v11 = objc_allocWithZone(CBDevice);
+    v14 = sub_1000051C4(v10);
     sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
-    v13 = swift_allocObject();
-    *(v13 + 16) = xmmword_100014570;
-    *(v13 + 56) = sub_1000028F4(0, &qword_100022F20, CBDevice_ptr);
-    *(v13 + 64) = sub_1000055F8();
-    *(v13 + 32) = v12;
+    v15 = swift_allocObject();
+    *(v15 + 16) = xmmword_100014570;
+    *(v15 + 56) = sub_1000028F4(0, &qword_100022F20, CBDevice_ptr);
+    *(v15 + 64) = sub_1000055F8();
+    *(v15 + 32) = v14;
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-    v14 = v12;
-    v15 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v16 = v14;
+    v17 = static OS_os_log.default.getter();
+    v18 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Started CoreBluetooth device %@", 31, 2, &_mh_execute_header, v17, v18, v15);
 
-    v16 = v7;
-    v17 = *(v7 + OBJC_IVAR___RemoteViewController_cbDevice);
-    *(v7 + OBJC_IVAR___RemoteViewController_cbDevice) = v14;
+    v19 = v7;
+    v20 = *(v7 + OBJC_IVAR___RemoteViewController_cbDevice);
+    *(v7 + OBJC_IVAR___RemoteViewController_cbDevice) = v16;
 
-    v18 = *(v7 + OBJC_IVAR___RemoteViewController_remoteSetupManager);
-    if (v18)
+    v21 = *(v7 + OBJC_IVAR___RemoteViewController_remoteSetupManager);
+    if (v21)
     {
-      v19 = *(v7 + OBJC_IVAR___RemoteViewController_cbDevice);
-      v20 = v19;
-      v21 = v18;
-      sub_10000F98C(v19);
-      v16 = v7;
+      v22 = *(v7 + OBJC_IVAR___RemoteViewController_cbDevice);
+      v23 = v22;
+      v24 = v21;
+      sub_10000F98C(v22);
+      v19 = v7;
     }
 
-    v22 = objc_opt_self();
-    v23 = [v22 defaultCenter];
+    v25 = objc_opt_self();
+    v26 = [v25 defaultCenter];
     if (qword_100022D18 != -1)
     {
       swift_once();
     }
 
-    [v23 addObserver:v16 selector:? name:? object:?];
+    [v26 addObserver:v19 selector:? name:? object:?];
 
-    v24 = [v22 defaultCenter];
+    v27 = [v25 defaultCenter];
     if (qword_100022D10 != -1)
     {
       swift_once();
     }
 
-    [v24 addObserver:v16 selector:? name:? object:?];
+    [v27 addObserver:v19 selector:? name:? object:?];
 
-    v25 = [v22 defaultCenter];
+    v28 = [v25 defaultCenter];
     if (qword_100022D20 != -1)
     {
       swift_once();
     }
 
-    [v25 addObserver:v16 selector:? name:? object:?];
+    [v28 addObserver:v19 selector:? name:? object:?];
 
-    v26 = [v22 defaultCenter];
+    v29 = [v25 defaultCenter];
     if (qword_100022CF8 != -1)
     {
       swift_once();
     }
 
-    [v26 addObserver:v16 selector:? name:? object:?];
+    [v29 addObserver:v19 selector:? name:? object:?];
 
-    v27 = [v22 defaultCenter];
+    v30 = [v25 defaultCenter];
     if (qword_100022D00 != -1)
     {
       swift_once();
     }
 
-    [v27 addObserver:v16 selector:? name:? object:?];
+    [v30 addObserver:v19 selector:? name:? object:?];
 
-    v28 = [v22 defaultCenter];
+    v31 = [v25 defaultCenter];
     if (qword_100022D08 != -1)
     {
       swift_once();
     }
 
-    [v28 addObserver:v16 selector:? name:? object:?];
+    [v31 addObserver:v19 selector:? name:? object:?];
 
-    v29 = [objc_allocWithZone(SFClient) init];
-    v30 = *(v16 + OBJC_IVAR___RemoteViewController_sharingClient);
-    *(v16 + OBJC_IVAR___RemoteViewController_sharingClient) = v29;
+    v32 = [objc_allocWithZone(SFClient) init];
+    v33 = *(v19 + OBJC_IVAR___RemoteViewController_sharingClient);
+    *(v19 + OBJC_IVAR___RemoteViewController_sharingClient) = v32;
 
     if (a2)
     {
@@ -552,18 +549,18 @@ LABEL_11:
     }
 
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-    v31 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v34 = static OS_os_log.default.getter();
+    v35 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("RemoteAlert configure complete", 30, 2, &_mh_execute_header, v34, v35, &_swiftEmptyArrayStorage);
 
     return;
   }
 
 LABEL_12:
   sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-  v11 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v12 = static OS_os_log.default.getter();
+  v13 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Failed to get CBExtensionKeyDevice from userInfo dictionary", 59, 2, &_mh_execute_header, v12, v13, &_swiftEmptyArrayStorage);
 
   if (a2)
   {
@@ -574,17 +571,30 @@ LABEL_12:
 void sub_100003614(char a1)
 {
   v2 = v1;
-  v13.receiver = v2;
-  v13.super_class = type metadata accessor for RemoteViewController();
-  objc_msgSendSuper2(&v13, "viewDidAppear:", a1 & 1);
+  v16.receiver = v2;
+  v16.super_class = type metadata accessor for RemoteViewController();
+  objc_msgSendSuper2(&v16, "viewDidAppear:", a1 & 1);
   if (qword_100022CC8 != -1)
   {
     swift_once();
   }
 
-  if (byte_100023FB0 != 1 || !*&v2[OBJC_IVAR___RemoteViewController_cbDevice])
+  if (byte_100023FB0 != 1)
   {
-    goto LABEL_9;
+    sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+    v6 = static OS_os_log.default.getter();
+    v8 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Remote setup prox card triggered, but flow is not enabled. Bailing", 66, 2, &_mh_execute_header, v6, v8, &_swiftEmptyArrayStorage);
+    goto LABEL_12;
+  }
+
+  if (!*&v2[OBJC_IVAR___RemoteViewController_cbDevice])
+  {
+    sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+    v6 = static OS_os_log.default.getter();
+    v9 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("RemoteViewController was presented without a remote device. Bailing", 67, 2, &_mh_execute_header, v6, v9, &_swiftEmptyArrayStorage);
+    goto LABEL_12;
   }
 
   if (qword_100022CE0 != -1)
@@ -594,38 +604,36 @@ void sub_100003614(char a1)
 
   v4 = qword_100023310;
   v5 = [qword_100023310 networkName];
-  if (v5 && (v5, ([v4 reachabilityFlags] & 2) != 0))
+  if (!v5 || (v5, ([v4 reachabilityFlags] & 2) == 0))
   {
-    v7 = *&v2[OBJC_IVAR___RemoteViewController_sharingClient];
-    if (v7)
-    {
-      v8 = swift_allocObject();
-      *(v8 + 16) = v2;
-      v12[4] = sub_1000054E8;
-      v12[5] = v8;
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 1107296256;
-      v12[2] = sub_100003A80;
-      v12[3] = &unk_10001CB38;
-      v9 = _Block_copy(v12);
-      v10 = v7;
-      v11 = v2;
-
-      [v10 startProxCardTransactionWithOptions:0 completion:v9];
-
-      _Block_release(v9);
-    }
-  }
-
-  else
-  {
-LABEL_9:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v6 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v7 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Device is not connected to a wifi network. Bailing", 50, 2, &_mh_execute_header, v6, v7, &_swiftEmptyArrayStorage);
+LABEL_12:
 
     sub_100003B94();
+    return;
+  }
+
+  v10 = *&v2[OBJC_IVAR___RemoteViewController_sharingClient];
+  if (v10)
+  {
+    v11 = swift_allocObject();
+    *(v11 + 16) = v2;
+    v15[4] = sub_1000054E8;
+    v15[5] = v11;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 1107296256;
+    v15[2] = sub_100003A80;
+    v15[3] = &unk_10001CB38;
+    v12 = _Block_copy(v15);
+    v13 = v10;
+    v14 = v2;
+
+    [v13 startProxCardTransactionWithOptions:0 completion:v12];
+
+    _Block_release(v12);
   }
 }
 
@@ -633,24 +641,24 @@ void sub_1000038E4(char a1, char *a2)
 {
   sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
   v4 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
+  v5 = static os_log_type_t.default.getter();
   if (a1)
   {
-    os_log(_:dso:log:type:_:)();
+    os_log(_:dso:log:type:_:)("About to present prox card...", 29, 2, &_mh_execute_header, v4, v5, &_swiftEmptyArrayStorage);
 
-    v5 = sub_1000054F0();
-    v6 = [v5 navigationController];
-    v7 = *&a2[OBJC_IVAR___RemoteViewController_cardNavigationController];
-    *&a2[OBJC_IVAR___RemoteViewController_cardNavigationController] = v6;
+    v6 = sub_1000054F0();
+    v7 = [v6 navigationController];
+    v8 = *&a2[OBJC_IVAR___RemoteViewController_cardNavigationController];
+    *&a2[OBJC_IVAR___RemoteViewController_cardNavigationController] = v7;
 
-    v8 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v10 = static OS_os_log.default.getter();
+    v9 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Initial prox card presented", 27, 2, &_mh_execute_header, v10, v9, &_swiftEmptyArrayStorage);
   }
 
   else
   {
-    os_log(_:dso:log:type:_:)();
+    os_log(_:dso:log:type:_:)("SharingClient does not want us to proceed showing the prox card. Bailing.", 73, 2, &_mh_execute_header, v4, v5, &_swiftEmptyArrayStorage);
 
     a2[OBJC_IVAR___RemoteViewController_resetSetupFlowOnExit] = 1;
     sub_100003B94();
@@ -659,10 +667,9 @@ void sub_1000038E4(char a1, char *a2)
 
 uint64_t sub_100003A80(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
 id sub_100003B94()
@@ -690,24 +697,24 @@ id sub_100003B94()
   {
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v5 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v6 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Flow dismissed in a non-manual manner. Resetting.", 49, 2, &_mh_execute_header, v5, v6, &_swiftEmptyArrayStorage);
 
-    v6 = [objc_allocWithZone(CBController) init];
-    v7 = String._bridgeToObjectiveC()();
-    v8 = swift_allocObject();
-    *(v8 + 16) = v6;
-    v12[4] = sub_10000548C;
-    v12[5] = v8;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 1107296256;
-    v12[2] = sub_100003EC8;
-    v12[3] = &unk_10001CAE8;
-    v9 = _Block_copy(v12);
-    v10 = v6;
+    v7 = [objc_allocWithZone(CBController) init];
+    v8 = String._bridgeToObjectiveC()();
+    v9 = swift_allocObject();
+    *(v9 + 16) = v7;
+    v13[4] = sub_10000548C;
+    v13[5] = v9;
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 1107296256;
+    v13[2] = sub_100003EC8;
+    v13[3] = &unk_10001CAE8;
+    v10 = _Block_copy(v13);
+    v11 = v7;
 
-    [v10 resetCBExtensionID:v7 completionHandler:v9];
-    _Block_release(v9);
+    [v11 resetCBExtensionID:v8 completionHandler:v10];
+    _Block_release(v10);
   }
 
   return [*(v1 + OBJC_IVAR___RemoteViewController_sharingClient) invalidate];
@@ -731,8 +738,8 @@ id sub_100003DA0(uint64_t a1, id a2)
     *(v5 + 64) = sub_100005494();
     *(v5 + 32) = v6;
     *(v5 + 40) = v8;
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v9 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Failed to reset flow with error: %@", 35, 2, &_mh_execute_header, v4, v9, v5);
   }
 
   return result;
@@ -740,11 +747,10 @@ id sub_100003DA0(uint64_t a1, id a2)
 
 void sub_100003EC8(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 void sub_100003F7C()
@@ -771,16 +777,16 @@ uint64_t sub_10000404C(void *a1)
     v4 = v3;
     v5 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-    strcpy(v21, "CancelReason");
-    BYTE13(v21[0]) = 0;
-    HIWORD(v21[0]) = -5120;
+    strcpy(v22, "CancelReason");
+    BYTE13(v22[0]) = 0;
+    HIWORD(v22[0]) = -5120;
     AnyHashable.init<A>(_:)();
     if (*(v5 + 16))
     {
       v6 = sub_100011F40(aBlock);
       if (v7)
       {
-        sub_10000534C(*(v5 + 56) + 32 * v6, v21);
+        sub_10000534C(*(v5 + 56) + 32 * v6, v22);
         sub_1000052AC(aBlock);
 
         goto LABEL_7;
@@ -790,10 +796,10 @@ uint64_t sub_10000404C(void *a1)
     sub_1000052AC(aBlock);
   }
 
-  memset(v21, 0, sizeof(v21));
+  memset(v22, 0, sizeof(v22));
 LABEL_7:
-  sub_1000053A8(v21, aBlock);
-  if (!v17)
+  sub_1000053A8(v22, aBlock);
+  if (!v18)
   {
     sub_10000515C(aBlock);
     goto LABEL_13;
@@ -804,22 +810,22 @@ LABEL_7:
 LABEL_13:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v13 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v14 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Recieved a setupCancelled notification with an invalid cancel reason", 68, 2, &_mh_execute_header, v13, v14, &_swiftEmptyArrayStorage);
 
     type metadata accessor for SetupFailedCardViewController();
     goto LABEL_14;
   }
 
-  if ((v20 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
     type metadata accessor for SetupCancelledCardViewController();
 LABEL_14:
     v11 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-    v14 = *&v2[OBJC_IVAR___RemoteViewController_cardNavigationController];
-    if (v14)
+    v15 = *&v2[OBJC_IVAR___RemoteViewController_cardNavigationController];
+    if (v15)
     {
-      [v14 pushViewController:v11 animated:1];
+      [v15 pushViewController:v11 animated:1];
     }
 
     goto LABEL_16;
@@ -830,12 +836,12 @@ LABEL_14:
   {
     v9 = swift_allocObject();
     *(v9 + 16) = v2;
-    v18 = sub_100005450;
-    v19 = v9;
+    v19 = sub_100005450;
+    v20 = v9;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_100008948;
-    v17 = &unk_10001CA98;
+    v18 = &unk_10001CA98;
     v10 = _Block_copy(aBlock);
     v11 = v8;
     v12 = v2;
@@ -845,7 +851,7 @@ LABEL_14:
 LABEL_16:
   }
 
-  return sub_10000515C(v21);
+  return sub_10000515C(v22);
 }
 
 uint64_t sub_1000043E4(void *a1)
@@ -857,97 +863,102 @@ uint64_t sub_1000043E4(void *a1)
     v4 = v3;
     v5 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-    *&v18[0] = 0xD000000000000011;
-    *(&v18[0] + 1) = 0x8000000100015050;
+    *&v20[0] = 0xD000000000000011;
+    *(&v20[0] + 1) = 0x8000000100015050;
     AnyHashable.init<A>(_:)();
     if (*(v5 + 16))
     {
-      v6 = sub_100011F40(v16);
+      v6 = sub_100011F40(v18);
       if (v7)
       {
-        sub_10000534C(*(v5 + 56) + 32 * v6, v18);
-        sub_1000052AC(v16);
+        sub_10000534C(*(v5 + 56) + 32 * v6, v20);
+        sub_1000052AC(v18);
 
         goto LABEL_7;
       }
     }
 
-    sub_1000052AC(v16);
+    sub_1000052AC(v18);
   }
 
-  memset(v18, 0, sizeof(v18));
+  memset(v20, 0, sizeof(v20));
 LABEL_7:
-  sub_1000053A8(v18, v16);
-  if (!v16[3])
+  sub_1000053A8(v20, v18);
+  if (!v18[3])
   {
-    sub_10000515C(v16);
+    sub_10000515C(v18);
     goto LABEL_12;
   }
 
   type metadata accessor for CUPasswordType(0);
   if ((swift_dynamicCast() & 1) == 0)
   {
-    goto LABEL_12;
-  }
-
-  v8 = v17;
-  if (v17 == 8)
-  {
-    type metadata accessor for QRCodeScannerCardViewController();
-LABEL_16:
-    v12 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-    goto LABEL_17;
-  }
-
-  if (v17 != 1 && v17 != 2 && v17 != 3)
-  {
 LABEL_12:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v9 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v10 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Recieved a password request notification with wrong data type for password key", 78, 2, &_mh_execute_header, v9, v10, &_swiftEmptyArrayStorage);
+    goto LABEL_13;
+  }
 
-    v10 = *(v2 + OBJC_IVAR___RemoteViewController_remoteSetupManager);
-    if (v10)
+  v8 = v19;
+  if (v19 == 8)
+  {
+    type metadata accessor for QRCodeScannerCardViewController();
+LABEL_17:
+    v13 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
+    goto LABEL_18;
+  }
+
+  if (v19 != 1 && v19 != 2 && v19 != 3)
+  {
+    sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+    v9 = static OS_os_log.default.getter();
+    v16 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Requested password is not a numeric pin or QR code", 50, 2, &_mh_execute_header, v9, v16, &_swiftEmptyArrayStorage);
+LABEL_13:
+
+    v11 = *(v2 + OBJC_IVAR___RemoteViewController_remoteSetupManager);
+    if (v11)
     {
-      *(v10 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-      v11 = *(v10 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-      if (v11)
+      *(v11 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
+      v12 = *(v11 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+      if (v12)
       {
-        [v11 invalidate];
+        [v12 invalidate];
       }
     }
 
     type metadata accessor for SetupFailedCardViewController();
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   type metadata accessor for PinEntryCardViewController();
-  v15 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-  v12 = v15;
+  v17 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
+  v13 = v17;
   if (v8 == 3)
   {
-    [v15 setNumberOfDigits:8];
+    [v17 setNumberOfDigits:8];
   }
 
   else if (v8 == 2)
   {
-    [v15 setNumberOfDigits:6];
+    [v17 setNumberOfDigits:6];
   }
 
   else
   {
-    [v15 setNumberOfDigits:4];
+    [v17 setNumberOfDigits:4];
   }
 
-LABEL_17:
-  v13 = *(v2 + OBJC_IVAR___RemoteViewController_cardNavigationController);
-  if (v13)
+LABEL_18:
+  v14 = *(v2 + OBJC_IVAR___RemoteViewController_cardNavigationController);
+  if (v14)
   {
-    [v13 pushViewController:v12 animated:1];
+    [v14 pushViewController:v13 animated:1];
   }
 
-  return sub_10000515C(v18);
+  return sub_10000515C(v20);
 }
 
 void sub_100004780(void *a1)
@@ -963,23 +974,23 @@ void sub_100004780(void *a1)
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   AnyHashable.init<A>(_:)();
-  if (!*(v6 + 16) || (v7 = sub_100011F40(v32), (v8 & 1) == 0))
+  if (!*(v6 + 16) || (v7 = sub_100011F40(v33), (v8 & 1) == 0))
   {
 
-    sub_1000052AC(v32);
+    sub_1000052AC(v33);
 LABEL_15:
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
     goto LABEL_16;
   }
 
-  sub_10000534C(*(v6 + 56) + 32 * v7, &v33);
-  sub_1000052AC(v32);
+  sub_10000534C(*(v6 + 56) + 32 * v7, &v34);
+  sub_1000052AC(v33);
 
-  if (!*(&v34 + 1))
+  if (!*(&v35 + 1))
   {
 LABEL_16:
-    sub_10000515C(&v33);
+    sub_10000515C(&v34);
     goto LABEL_17;
   }
 
@@ -988,35 +999,35 @@ LABEL_16:
 LABEL_17:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v17 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
+    v19 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Recieved a password present notification with no password or password type", 74, 2, &_mh_execute_header, v17, v19, &_swiftEmptyArrayStorage);
 LABEL_18:
-    os_log(_:dso:log:type:_:)();
 
-    v18 = *(v2 + OBJC_IVAR___RemoteViewController_remoteSetupManager);
-    if (v18)
+    v20 = *(v2 + OBJC_IVAR___RemoteViewController_remoteSetupManager);
+    if (v20)
     {
-      *(v18 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-      v19 = *(v18 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-      if (v19)
+      *(v20 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
+      v21 = *(v20 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+      if (v21)
       {
-        [v19 invalidate];
+        [v21 invalidate];
       }
     }
 
     type metadata accessor for SetupFailedCardViewController();
-    v20 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-    v21 = *(v2 + OBJC_IVAR___RemoteViewController_cardNavigationController);
-    if (v21)
+    v22 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
+    v23 = *(v2 + OBJC_IVAR___RemoteViewController_cardNavigationController);
+    if (v23)
     {
-      v22 = v21;
-      [v22 pushViewController:v20 animated:1];
+      v24 = v23;
+      [v24 pushViewController:v22 animated:1];
     }
 
     return;
   }
 
-  v10 = v32[0];
-  v9 = v32[1];
+  v10 = v33[0];
+  v9 = v33[1];
   v11 = [a1 userInfo];
   if (!v11)
   {
@@ -1028,19 +1039,19 @@ LABEL_18:
   v13 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   AnyHashable.init<A>(_:)();
-  if (!*(v13 + 16) || (v14 = sub_100011F40(v32), (v15 & 1) == 0))
+  if (!*(v13 + 16) || (v14 = sub_100011F40(v33), (v15 & 1) == 0))
   {
 
-    sub_1000052AC(v32);
-    v33 = 0u;
+    sub_1000052AC(v33);
     v34 = 0u;
+    v35 = 0u;
     goto LABEL_26;
   }
 
-  sub_10000534C(*(v13 + 56) + 32 * v14, &v33);
-  sub_1000052AC(v32);
+  sub_10000534C(*(v13 + 56) + 32 * v14, &v34);
+  sub_1000052AC(v33);
 
-  if (!*(&v34 + 1))
+  if (!*(&v35 + 1))
   {
 LABEL_26:
 
@@ -1054,50 +1065,50 @@ LABEL_26:
     goto LABEL_17;
   }
 
-  v16 = v32[0];
-  if (LODWORD(v32[0]) != 8 && LODWORD(v32[0]) != 2)
+  v16 = v33[0];
+  if (LODWORD(v33[0]) != 8 && LODWORD(v33[0]) != 2)
   {
 
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v17 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
+    v18 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Requested password present is not a QR code or AppClip code", 59, 2, &_mh_execute_header, v17, v18, &_swiftEmptyArrayStorage);
     goto LABEL_18;
   }
 
   type metadata accessor for QRCodeDisplayCardViewController();
-  v23 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
-  v24 = &v23[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password];
-  v25 = *&v23[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password + 8];
-  *v24 = v10;
-  v24[1] = v9;
+  v25 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
+  v26 = &v25[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password];
+  *v26 = v10;
+  v26[1] = v9;
 
   if (v16 == 2)
   {
-    v23[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_codeDisplayType] = 1;
+    v25[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_codeDisplayType] = 1;
   }
 
-  v26 = *(v2 + OBJC_IVAR___RemoteViewController_cardNavigationController);
-  if (v26)
+  v27 = *(v2 + OBJC_IVAR___RemoteViewController_cardNavigationController);
+  if (v27)
   {
-    [v26 pushViewController:v23 animated:1];
+    [v27 pushViewController:v25 animated:1];
   }
 
   sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
 
-  v27 = static OS_os_log.default.getter();
-  v28 = static os_log_type_t.default.getter();
+  v28 = static OS_os_log.default.getter();
+  v29 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v27, v28))
+  if (os_log_type_enabled(v28, v29))
   {
-    v29 = swift_slowAlloc();
     v30 = swift_slowAlloc();
-    v32[0] = v30;
-    *v29 = 136315138;
-    v31 = sub_10000DC70(v10, v9, v32);
+    v31 = swift_slowAlloc();
+    v33[0] = v31;
+    *v30 = 136315138;
+    v32 = sub_10000DC70(v10, v9, v33);
 
-    *(v29 + 4) = v31;
-    _os_log_impl(&_mh_execute_header, v27, v28, "Presented authentication for code %s", v29, 0xCu);
-    sub_100005300(v30);
+    *(v30 + 4) = v32;
+    _os_log_impl(&_mh_execute_header, v28, v29, "Presented authentication for code %s", v30, 0xCu);
+    sub_100005300(v31);
   }
 
   else
@@ -1105,7 +1116,7 @@ LABEL_26:
   }
 }
 
-void sub_100004D44(void (*a1)(void))
+void sub_100004D44(uint64_t (*a1)(void))
 {
   a1(0);
   v2 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
@@ -1178,11 +1189,11 @@ id sub_100004F8C(void *a1)
   return v6;
 }
 
-id sub_100005098()
+id sub_100005098(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for RemoteViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for RemoteViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_10000515C(uint64_t a1)
@@ -1192,38 +1203,40 @@ uint64_t sub_10000515C(uint64_t a1)
   return a1;
 }
 
-id sub_1000051C4()
+id sub_1000051C4(uint64_t a1)
 {
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  v6 = 0;
-  v2 = [v0 initWithDictionary:isa error:&v6];
+  v7 = 0;
+  v3 = [v1 initWithDictionary:isa error:&v7];
 
-  if (v2)
+  if (v3)
   {
-    v3 = v6;
+    v4 = v7;
   }
 
   else
   {
-    v4 = v6;
+    v5 = v7;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t sub_100005300(uint64_t *a1)
+uint64_t sub_100005300(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_10000534C(uint64_t a1, uint64_t a2)
@@ -1272,8 +1285,8 @@ id sub_1000054F0()
   {
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v0 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v1 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("The current network is a captive portal network. Presenting captive network failure card instead of ", 100, 2, &_mh_execute_header, v0, v1, &_swiftEmptyArrayStorage);
 
     type metadata accessor for CaptivePortalDetectedCardViewController();
   }
@@ -1283,12 +1296,12 @@ id sub_1000054F0()
     type metadata accessor for WelcomeCardViewController();
   }
 
-  v1 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v2 = objc_allocWithZone(swift_getObjCClassFromMetadata());
 
-  return [v1 init];
+  return [v2 init];
 }
 
-uint64_t sub_1000055A0(uint64_t result)
+uint64_t sub_1000055A0(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1317,11 +1330,11 @@ unint64_t sub_1000055F8()
   return result;
 }
 
-id sub_1000056C0()
+id sub_1000056C0(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AppDelegate();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for AppDelegate();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -1394,32 +1407,31 @@ id sub_100005774(void *a1)
   return v12;
 }
 
-void sub_100005A68(uint64_t a1, uint64_t a2)
+void sub_100005A68(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v5 = Strong;
-    v6 = [Strong navigationController];
-    if (v6)
+    v6 = Strong;
+    v7 = [Strong navigationController];
+    if (v7)
     {
-      v7 = v6;
+      v8 = v7;
     }
 
-    v8 = *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26PinEntryCardViewController_remoteSetupManager];
-    if (v8)
+    v9 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26PinEntryCardViewController_remoteSetupManager];
+    if (v9)
     {
-      v9 = v8;
+      v10 = v9;
       sub_10001030C(a1, a2);
     }
   }
 }
 
-uint64_t sub_100005B30(uint64_t a1)
+uint64_t sub_100005B30(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
   v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = v4;
 
@@ -1432,7 +1444,13 @@ unint64_t sub_100005BCC()
   v2 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup26PinEntryCardViewController_remoteSetupManager);
   if (!v2)
   {
-    goto LABEL_7;
+    sub_100005D48();
+    v4 = static OS_os_log.default.getter();
+    v5 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unable to get device class. Using generic subtitle for pin card", 63, 2, &_mh_execute_header, v4, v5, &_swiftEmptyArrayStorage);
+LABEL_8:
+
+    return v1;
   }
 
   v3 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
@@ -1443,23 +1461,21 @@ unint64_t sub_100005BCC()
 
   if (v3 != 3)
   {
-LABEL_7:
     sub_100005D48();
     v4 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
-
-    return v1;
+    v6 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unsupported device class. Using generic title subtitle for pin card", 67, 2, &_mh_execute_header, v4, v6, &_swiftEmptyArrayStorage);
+    goto LABEL_8;
   }
 
   return 0xD000000000000016;
 }
 
-id sub_100005CE0()
+id sub_100005CE0(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for PinEntryCardViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for PinEntryCardViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 unint64_t sub_100005D48()
@@ -1587,59 +1603,59 @@ id sub_100005DEC(void *a1)
   return v10;
 }
 
-void sub_10000634C()
+void sub_10000634C(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = [objc_opt_self() mainBundle];
-    v11._object = 0xED00002E2E2E676ELL;
-    v11._countAndFlagsBits = 0x697463656E6E6F43;
-    v3._object = 0x8000000100015760;
-    v3._countAndFlagsBits = 0xD000000000000017;
-    v4._countAndFlagsBits = 0;
-    v4._object = 0xE000000000000000;
-    NSLocalizedString(_:tableName:bundle:value:comment:)(v3, 0, v2, v4, v11);
+    v3 = Strong;
+    v4 = [objc_opt_self() mainBundle];
+    v14._object = 0xED00002E2E2E676ELL;
+    v14._countAndFlagsBits = 0x697463656E6E6F43;
+    v5._object = 0x8000000100015760;
+    v5._countAndFlagsBits = 0xD000000000000017;
+    v6._countAndFlagsBits = 0;
+    v6._object = 0xE000000000000000;
+    NSLocalizedString(_:tableName:bundle:value:comment:)(v5, 0, v4, v6, v14);
 
-    v5 = String._bridgeToObjectiveC()();
+    v7 = String._bridgeToObjectiveC()();
 
-    [v1 showActivityIndicatorWithStatus:v5];
+    [v3 showActivityIndicatorWithStatus:v7];
 
-    v6 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup36TermsAndConditionsCardViewController_remoteSetupManager];
-    if (v6)
+    v8 = *&v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup36TermsAndConditionsCardViewController_remoteSetupManager];
+    if (v8)
     {
-      v7 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient];
-      if (v7 && v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState])
+      v9 = *&v8[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient];
+      if (v9 && v8[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState])
       {
-        v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState] = 2;
-        v8 = v6;
-        [v7 activate];
+        v8[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState] = 2;
+        v10 = v8;
+        [v9 activate];
       }
 
       else
       {
         sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-        v9 = v6;
-        v10 = static OS_os_log.default.getter();
-        static os_log_type_t.default.getter();
-        os_log(_:dso:log:type:_:)();
+        v11 = v8;
+        v12 = static OS_os_log.default.getter();
+        v13 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("startSetup called while not in a ready state. setRemoteDevice may not have been called", 86, 2, &_mh_execute_header, v12, v13, &_swiftEmptyArrayStorage);
 
-        v8 = v1;
-        v1 = v10;
+        v10 = v3;
+        v3 = v12;
       }
     }
   }
 }
 
-void sub_10000651C()
+void sub_10000651C(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     [Strong dismissViewControllerAnimated:1 completion:0];
   }
 }
@@ -1897,13 +1913,13 @@ LABEL_9:
 void sub_100007168()
 {
   v1 = [objc_opt_self() mainBundle];
-  v10._object = 0xED00002E2E2E676ELL;
-  v10._countAndFlagsBits = 0x697463656E6E6F43;
+  v11._object = 0xED00002E2E2E676ELL;
+  v11._countAndFlagsBits = 0x697463656E6E6F43;
   v2._object = 0x8000000100015760;
   v2._countAndFlagsBits = 0xD000000000000017;
   v3._countAndFlagsBits = 0;
   v3._object = 0xE000000000000000;
-  NSLocalizedString(_:tableName:bundle:value:comment:)(v2, 0, v1, v3, v10);
+  NSLocalizedString(_:tableName:bundle:value:comment:)(v2, 0, v1, v3, v11);
 
   v4 = String._bridgeToObjectiveC()();
 
@@ -1924,9 +1940,9 @@ void sub_100007168()
     {
       sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
       v7 = v5;
-      v8 = static OS_os_log.default.getter();
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      v9 = static OS_os_log.default.getter();
+      v8 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("startSetup called while not in a ready state. setRemoteDevice may not have been called", 86, 2, &_mh_execute_header, v9, v8, &_swiftEmptyArrayStorage);
     }
   }
 }
@@ -1997,8 +2013,8 @@ uint64_t sub_1000075E8()
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    sub_100007A1C(v7, v8);
-    sub_10000534C(v8, v7);
+    sub_100007A1C(v8, v9);
+    sub_10000534C(v9, v8);
     if (swift_dynamicCast())
     {
       sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
@@ -2006,17 +2022,17 @@ uint64_t sub_1000075E8()
       *(v3 + 16) = xmmword_100014570;
       *(v3 + 56) = &type metadata for Bool;
       *(v3 + 64) = &protocol witness table for Bool;
-      *(v3 + 32) = v6;
+      *(v3 + 32) = v7;
       sub_100005D48();
       v4 = static OS_os_log.default.getter();
       static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      os_log(_:dso:log:type:_:)("Prefer client side auth key found in defaults with value %d", v6);
 
-      sub_100005300(v8);
-      return v6;
+      sub_100005300(v9);
+      return v7;
     }
 
-    sub_100005300(v8);
+    sub_100005300(v9);
   }
 
   return 2;
@@ -2049,15 +2065,15 @@ unint64_t sub_1000077C4()
 
   else
   {
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
   }
 
-  v11[0] = v9;
-  v11[1] = v10;
-  if (!*(&v10 + 1))
+  v12[0] = v10;
+  v12[1] = v11;
+  if (!*(&v11 + 1))
   {
-    sub_10000515C(v11);
+    sub_10000515C(v12);
     goto LABEL_10;
   }
 
@@ -2069,27 +2085,27 @@ LABEL_10:
     return v3 | (v6 << 32);
   }
 
-  v3 = v8;
+  v3 = v9;
   sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100014570;
   *(v4 + 56) = &type metadata for Int32;
   *(v4 + 64) = &protocol witness table for Int32;
-  *(v4 + 32) = v8;
+  *(v4 + 32) = v9;
   sub_100005D48();
   v5 = static OS_os_log.default.getter();
   static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  os_log(_:dso:log:type:_:)("Prefer client side auth type key found in defaults with value %d", v8);
 
   v6 = 0;
   return v3 | (v6 << 32);
 }
 
-id sub_1000079C0()
+id sub_1000079C0(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for RemoteSetupUserDefaults();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for RemoteSetupUserDefaults();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 _OWORD *sub_100007A1C(_OWORD *a1, _OWORD *a2)
@@ -2102,84 +2118,147 @@ _OWORD *sub_100007A1C(_OWORD *a1, _OWORD *a2)
 
 char *sub_100007A2C(void *a1)
 {
-  v16.receiver = v1;
-  v16.super_class = type metadata accessor for SetupFailedCardViewController();
-  v3 = objc_msgSendSuper2(&v16, "initWithContentView:", a1);
+  v12.receiver = v1;
+  v12.super_class = type metadata accessor for SetupFailedCardViewController();
+  v3 = objc_msgSendSuper2(&v12, "initWithContentView:", a1);
   v4 = &v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle];
-  v5 = *&v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle + 8];
   *v4 = 0xD000000000000011;
   *(v4 + 1) = 0x8000000100015AE0;
-  v6 = v3;
+  v5 = v3;
 
-  v7 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase];
-  v8 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase + 8];
-  *v7 = 0xD000000000000014;
-  *(v7 + 1) = 0x8000000100015B00;
+  v6 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase];
+  *v6 = 0xD000000000000014;
+  *(v6 + 1) = 0x8000000100015B00;
 
-  v9 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText];
-  v10 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText + 8];
-  *v9 = 0xD000000000000017;
-  *(v9 + 1) = 0x8000000100015B20;
+  v7 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText];
+  *v7 = 0xD000000000000017;
+  *(v7 + 1) = 0x8000000100015B20;
 
-  v11 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
-  v12 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName + 8];
-  *v11 = 0xD000000000000016;
-  *(v11 + 1) = 0x8000000100015B40;
+  v8 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
+  *v8 = 0xD000000000000016;
+  *(v8 + 1) = 0x8000000100015B40;
 
-  v13 = [objc_opt_self() systemRedColor];
+  v9 = [objc_opt_self() systemRedColor];
 
-  v14 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor];
-  *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor] = v13;
+  v10 = *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor];
+  *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor] = v9;
 
-  return v6;
+  return v5;
 }
 
-id sub_100007BC0()
+id sub_100007BC0(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SetupFailedCardViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SetupFailedCardViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 char *sub_100007C18(void *a1)
 {
-  v16.receiver = v1;
-  v16.super_class = type metadata accessor for SetupCancelledCardViewController();
-  v3 = objc_msgSendSuper2(&v16, "initWithContentView:", a1);
+  v12.receiver = v1;
+  v12.super_class = type metadata accessor for SetupCancelledCardViewController();
+  v3 = objc_msgSendSuper2(&v12, "initWithContentView:", a1);
   v4 = &v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle];
-  v5 = *&v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle + 8];
   *v4 = 0xD000000000000014;
   *(v4 + 1) = 0x8000000100015BB0;
-  v6 = v3;
+  v5 = v3;
 
-  v7 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase];
-  v8 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase + 8];
-  *v7 = 0xD000000000000017;
-  *(v7 + 1) = 0x8000000100015BD0;
+  v6 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase];
+  *v6 = 0xD000000000000017;
+  *(v6 + 1) = 0x8000000100015BD0;
 
-  v9 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText];
-  v10 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText + 8];
-  *v9 = 0xD00000000000001ALL;
-  *(v9 + 1) = 0x8000000100015BF0;
+  v7 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText];
+  *v7 = 0xD00000000000001ALL;
+  *(v7 + 1) = 0x8000000100015BF0;
 
-  v11 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
-  v12 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName + 8];
-  *v11 = 0xD000000000000020;
-  *(v11 + 1) = 0x8000000100015C10;
+  v8 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
+  *v8 = 0xD000000000000020;
+  *(v8 + 1) = 0x8000000100015C10;
 
-  v13 = [objc_opt_self() systemOrangeColor];
+  v9 = [objc_opt_self() systemOrangeColor];
 
-  v14 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor];
-  *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor] = v13;
+  v10 = *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor];
+  *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor] = v9;
 
-  return v6;
+  return v5;
 }
 
-id sub_100007DAC()
+id sub_100007DAC(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SetupCancelledCardViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SetupCancelledCardViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
+}
+
+uint64_t sub_100007E04()
+{
+  v1 = v0;
+  v2 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_remoteSetupManager);
+  if (v2)
+  {
+    v3 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
+    if (v3 > 5)
+    {
+      if (v3 == 6)
+      {
+        v11 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase);
+
+        v4 = 0x48435441575FLL;
+        v5 = 0xE600000000000000;
+        goto LABEL_15;
+      }
+
+      if (v3 != 11)
+      {
+LABEL_10:
+        sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+        v6 = static OS_os_log.default.getter();
+        v8 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("Unsupported device class. Using generic subtitle for symbol card", 64, 2, &_mh_execute_header, v6, v8, &_swiftEmptyArrayStorage);
+        goto LABEL_11;
+      }
+
+      v11 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase);
+
+      v4 = 0x4E4F495349565FLL;
+    }
+
+    else
+    {
+      if (v3 != 1)
+      {
+        if (v3 == 3)
+        {
+          v11 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase);
+
+          v4 = 0x444150495FLL;
+          v5 = 0xE500000000000000;
+LABEL_15:
+          String.append(_:)(*&v4);
+          return v11;
+        }
+
+        goto LABEL_10;
+      }
+
+      v11 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase);
+
+      v4 = 0x454E4F4850495FLL;
+    }
+
+    v5 = 0xE700000000000000;
+    goto LABEL_15;
+  }
+
+  sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+  v6 = static OS_os_log.default.getter();
+  v7 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Unable to get device class. Using generic subtitle for symbol card", 66, 2, &_mh_execute_header, v6, v7, &_swiftEmptyArrayStorage);
+LABEL_11:
+
+  v9 = *(v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase);
+
+  return v9;
 }
 
 id sub_100008000(void *a1)
@@ -2219,21 +2298,21 @@ id sub_100008000(void *a1)
 
 void sub_1000081D8(char a1)
 {
-  v44.receiver = v1;
-  v44.super_class = type metadata accessor for SFSymbolCardViewController();
-  objc_msgSendSuper2(&v44, "viewWillAppear:", a1 & 1);
+  v42.receiver = v1;
+  v42.super_class = type metadata accessor for SFSymbolCardViewController();
+  objc_msgSendSuper2(&v42, "viewWillAppear:", a1 & 1);
   v3 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle];
   v4 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle + 8];
   v5 = objc_opt_self();
 
   v6 = [v5 mainBundle];
-  v45._object = 0xEA0000000000656CLL;
-  v45._countAndFlagsBits = 0x7469742064726143;
+  v43._object = 0xEA0000000000656CLL;
+  v43._countAndFlagsBits = 0x7469742064726143;
   v7._countAndFlagsBits = v3;
   v7._object = v4;
   v8._countAndFlagsBits = 0;
   v8._object = 0xE000000000000000;
-  NSLocalizedString(_:tableName:bundle:value:comment:)(v7, 0, v6, v8, v45);
+  NSLocalizedString(_:tableName:bundle:value:comment:)(v7, 0, v6, v8, v43);
 
   v9 = String._bridgeToObjectiveC()();
 
@@ -2245,13 +2324,13 @@ void sub_1000081D8(char a1)
   v12 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText + 8];
 
   v13 = [v5 mainBundle];
-  v46._object = 0xEB000000006E6F74;
-  v46._countAndFlagsBits = 0x74756220656E6F44;
+  v44._object = 0xEB000000006E6F74;
+  v44._countAndFlagsBits = 0x74756220656E6F44;
   v14._countAndFlagsBits = v11;
   v14._object = v12;
   v15._countAndFlagsBits = 0;
   v15._object = 0xE000000000000000;
-  NSLocalizedString(_:tableName:bundle:value:comment:)(v14, 0, v13, v15, v46);
+  NSLocalizedString(_:tableName:bundle:value:comment:)(v14, 0, v13, v15, v44);
 
   v16 = String._bridgeToObjectiveC()();
 
@@ -2266,55 +2345,52 @@ void sub_1000081D8(char a1)
 
   _Block_release(v17);
 
-  v19 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
-  v20 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName + 8];
+  v19 = String._bridgeToObjectiveC()();
 
-  v21 = String._bridgeToObjectiveC()();
+  v20 = [objc_opt_self() systemImageNamed:v19];
 
-  v22 = [objc_opt_self() systemImageNamed:v21];
+  v21 = [objc_allocWithZone(UIImageView) initWithImage:v20];
+  [v21 setTintColor:*&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor]];
+  v22 = v21;
+  [v22 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v23 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolSize];
+  v24 = objc_opt_self();
+  v25 = [v24 configurationWithPointSize:v23];
+  v26 = [v24 configurationWithColorRenderingMode:2];
+  v27 = [v25 configurationByApplyingConfiguration:v26];
 
-  v23 = [objc_allocWithZone(UIImageView) initWithImage:v22];
-  [v23 setTintColor:*&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor]];
-  v24 = v23;
-  [v24 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v25 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolSize];
-  v26 = objc_opt_self();
-  v27 = [v26 configurationWithPointSize:v25];
-  v28 = [v26 configurationWithColorRenderingMode:2];
-  v29 = [v27 configurationByApplyingConfiguration:v28];
+  [v22 setPreferredSymbolConfiguration:v27];
+  [v22 setContentMode:1];
 
-  [v24 setPreferredSymbolConfiguration:v29];
-  [v24 setContentMode:1];
-
-  v30 = [v1 contentView];
+  v28 = [v1 contentView];
   sub_1000028AC(&qword_100022D68, "4S");
-  v31 = swift_allocObject();
-  *(v31 + 16) = xmmword_1000146D0;
-  *(v31 + 32) = v24;
+  v29 = swift_allocObject();
+  *(v29 + 16) = xmmword_1000146D0;
+  *(v29 + 32) = v22;
   sub_1000028F4(0, &qword_1000231A8, UIImageView_ptr);
-  v32 = v24;
+  v30 = v22;
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v30 setImageViews:isa];
+  [v28 setImageViews:isa];
 
-  v34 = [objc_allocWithZone(PRXLabel) initWithStyle:1];
-  v35 = sub_100007E04();
-  v37 = v36;
-  v38 = [v5 mainBundle];
-  v47._object = 0xED0000656C746974;
-  v47._countAndFlagsBits = 0x6275732064726143;
-  v39._countAndFlagsBits = v35;
-  v39._object = v37;
-  v40._countAndFlagsBits = 0;
-  v40._object = 0xE000000000000000;
-  NSLocalizedString(_:tableName:bundle:value:comment:)(v39, 0, v38, v40, v47);
+  v32 = [objc_allocWithZone(PRXLabel) initWithStyle:1];
+  v33 = sub_100007E04();
+  v35 = v34;
+  v36 = [v5 mainBundle];
+  v45._object = 0xED0000656C746974;
+  v45._countAndFlagsBits = 0x6275732064726143;
+  v37._countAndFlagsBits = v33;
+  v37._object = v35;
+  v38._countAndFlagsBits = 0;
+  v38._object = 0xE000000000000000;
+  NSLocalizedString(_:tableName:bundle:value:comment:)(v37, 0, v36, v38, v45);
 
-  v41 = String._bridgeToObjectiveC()();
+  v39 = String._bridgeToObjectiveC()();
 
-  [v34 setText:v41];
+  [v32 setText:v39];
 
-  v42 = [v1 contentView];
-  [v42 setBodyLabel:v34];
+  v40 = [v1 contentView];
+  [v40 setBodyLabel:v32];
 }
 
 id sub_100008804()
@@ -2341,9 +2417,8 @@ uint64_t sub_100008930(uint64_t a1, uint64_t a2)
 uint64_t sub_100008948(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 id sub_10000898C(void *a1)
@@ -2445,40 +2520,40 @@ id sub_10000898C(void *a1)
   return v8;
 }
 
-void sub_100008F70()
+void sub_100008F70(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = [objc_opt_self() mainBundle];
-    v11._object = 0xED00002E2E2E676ELL;
-    v11._countAndFlagsBits = 0x697463656E6E6F43;
-    v3._object = 0x8000000100015760;
-    v3._countAndFlagsBits = 0xD000000000000017;
-    v4._countAndFlagsBits = 0;
-    v4._object = 0xE000000000000000;
-    NSLocalizedString(_:tableName:bundle:value:comment:)(v3, 0, v2, v4, v11);
+    v3 = Strong;
+    v4 = [objc_opt_self() mainBundle];
+    v13._object = 0xED00002E2E2E676ELL;
+    v13._countAndFlagsBits = 0x697463656E6E6F43;
+    v5._object = 0x8000000100015760;
+    v5._countAndFlagsBits = 0xD000000000000017;
+    v6._countAndFlagsBits = 0;
+    v6._object = 0xE000000000000000;
+    NSLocalizedString(_:tableName:bundle:value:comment:)(v5, 0, v4, v6, v13);
 
-    v5 = String._bridgeToObjectiveC()();
+    v7 = String._bridgeToObjectiveC()();
 
-    [v1 showActivityIndicatorWithStatus:v5];
+    [v3 showActivityIndicatorWithStatus:v7];
 
-    v6 = objc_opt_self();
-    v7 = swift_allocObject();
-    *(v7 + 16) = v1;
+    v8 = objc_opt_self();
+    v9 = swift_allocObject();
+    *(v9 + 16) = v3;
     aBlock[4] = sub_100009ECC;
-    aBlock[5] = v7;
+    aBlock[5] = v9;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_1000094C4;
     aBlock[3] = &unk_10001CD18;
-    v8 = _Block_copy(aBlock);
-    v9 = v1;
+    v10 = _Block_copy(aBlock);
+    v11 = v3;
 
-    [v6 prepareLocalizedStringsWithCompletionHandler:v8];
-    _Block_release(v8);
+    [v8 prepareLocalizedStringsWithCompletionHandler:v10];
+    _Block_release(v10);
   }
 }
 
@@ -2486,34 +2561,32 @@ uint64_t sub_100009138(char a1, uint64_t a2, void *a3)
 {
   v5 = type metadata accessor for DispatchWorkItemFlags();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin();
-  v9 = aBlock - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for DispatchQoS();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin();
-  v14 = aBlock - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v8 = aBlock - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for DispatchQoS();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((a1 & 1) == 0)
   {
-    static os_log_type_t.error.getter();
+    v13 = static os_log_type_t.error.getter();
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-    v15 = static OS_os_log.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v14 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Unable to get localized strings from AST 2. Bundled text will be used from here", 79, 2, &_mh_execute_header, v14, v13, &_swiftEmptyArrayStorage);
   }
 
   sub_1000028F4(0, &qword_1000231E0, OS_dispatch_queue_ptr);
-  v16 = static OS_dispatch_queue.main.getter();
-  v17 = swift_allocObject();
-  *(v17 + 16) = a3;
+  v15 = static OS_dispatch_queue.main.getter();
+  v16 = swift_allocObject();
+  *(v16 + 16) = a3;
   aBlock[4] = sub_100009F0C;
-  aBlock[5] = v17;
+  aBlock[5] = v16;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_100008948;
   aBlock[3] = &unk_10001CD68;
-  v18 = _Block_copy(aBlock);
-  v19 = a3;
+  v17 = _Block_copy(aBlock);
+  v18 = a3;
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = &_swiftEmptyArrayStorage;
@@ -2522,10 +2595,10 @@ uint64_t sub_100009138(char a1, uint64_t a2, void *a3)
   sub_100009F6C();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
-  _Block_release(v18);
+  _Block_release(v17);
 
-  (*(v6 + 8))(v9, v5);
-  return (*(v11 + 8))(v14, v10);
+  (*(v6 + 8))(v8, v5);
+  return (*(v10 + 8))(v12, v9);
 }
 
 void sub_100009430(void *a1)
@@ -2542,11 +2615,10 @@ void sub_100009430(void *a1)
 
 void sub_1000094C4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v7 = a3;
-  v6(a2, a3);
+  v6 = a3;
+  v5(a2, a3);
 }
 
 unint64_t sub_10000956C()
@@ -2555,7 +2627,13 @@ unint64_t sub_10000956C()
   v2 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup25WelcomeCardViewController_remoteSetupManager);
   if (!v2)
   {
-    goto LABEL_9;
+    sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+    v4 = static OS_os_log.default.getter();
+    v5 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unable to get device class. Using generic subtitle for welcome card", 67, 2, &_mh_execute_header, v4, v5, &_swiftEmptyArrayStorage);
+LABEL_10:
+
+    return v1;
   }
 
   v3 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
@@ -2584,10 +2662,9 @@ unint64_t sub_10000956C()
 LABEL_9:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v4 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
-
-    return v1;
+    v6 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unsupported device class. Using generic title subtitle for welcome card", 71, 2, &_mh_execute_header, v4, v6, &_swiftEmptyArrayStorage);
+    goto LABEL_10;
   }
 
   return 0xD00000000000001ALL;
@@ -2643,11 +2720,11 @@ uint64_t sub_1000096D8()
   return v18;
 }
 
-id sub_1000098B0()
+id sub_1000098B0(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for WelcomeCardViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for WelcomeCardViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_100009918()
@@ -2668,13 +2745,13 @@ uint64_t sub_100009918()
   }
 
   v1 = [objc_opt_self() mainBundle];
-  v13._object = 0xE700000000000000;
-  v13._countAndFlagsBits = 0x6B726F7774654ELL;
+  v14._object = 0xE700000000000000;
+  v14._countAndFlagsBits = 0x6B726F7774654ELL;
   v2._object = (v0 | 0x8000000000000000);
   v2._countAndFlagsBits = 0xD000000000000026;
   v3._countAndFlagsBits = 0;
   v3._object = 0xE000000000000000;
-  NSLocalizedString(_:tableName:bundle:value:comment:)(v2, 0, v1, v3, v13);
+  NSLocalizedString(_:tableName:bundle:value:comment:)(v2, 0, v1, v3, v14);
 
   if (qword_100022CE0 != -1)
   {
@@ -2701,10 +2778,10 @@ uint64_t sub_100009918()
   else
   {
 
-    static os_log_type_t.error.getter();
+    v11 = static os_log_type_t.error.getter();
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-    v11 = static OS_os_log.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v12 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Failed to get device network. Welcome card will present without transferred network", 83, 2, &_mh_execute_header, v12, v11, &_swiftEmptyArrayStorage);
 
     return 0;
   }
@@ -2716,61 +2793,60 @@ uint64_t sub_100009B5C()
 {
   v0 = type metadata accessor for Locale();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v20 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = objc_opt_self();
-  v6 = [v5 mainBundle];
-  v21._object = 0xE800000000000000;
-  v21._countAndFlagsBits = 0x65676175676E614CLL;
-  v7._object = 0x8000000100015E40;
-  v7._countAndFlagsBits = 0xD00000000000002ALL;
-  v8._countAndFlagsBits = 0;
-  v8._object = 0xE000000000000000;
-  NSLocalizedString(_:tableName:bundle:value:comment:)(v7, 0, v6, v8, v21);
+  __chkstk_darwin(v0);
+  v3 = &v21 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = objc_opt_self();
+  v5 = [v4 mainBundle];
+  v22._object = 0xE800000000000000;
+  v22._countAndFlagsBits = 0x65676175676E614CLL;
+  v6._object = 0x8000000100015E40;
+  v6._countAndFlagsBits = 0xD00000000000002ALL;
+  v7._countAndFlagsBits = 0;
+  v7._object = 0xE000000000000000;
+  NSLocalizedString(_:tableName:bundle:value:comment:)(v6, 0, v5, v7, v22);
 
-  v9 = [v5 mainBundle];
-  v10 = [v9 preferredLocalizations];
+  v8 = [v4 mainBundle];
+  v9 = [v8 preferredLocalizations];
 
-  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  if (v11[2])
+  v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  if (v10[2])
   {
-    v12 = v11[4];
-    v13 = v11[5];
+    v11 = v10[4];
+    v12 = v10[5];
 
     static Locale.current.getter();
-    v14._countAndFlagsBits = v12;
-    v14._object = v13;
-    v15 = Locale.localizedString(forLanguageCode:)(v14);
+    v13._countAndFlagsBits = v11;
+    v13._object = v12;
+    v14 = Locale.localizedString(forLanguageCode:)(v13);
 
-    (*(v1 + 8))(v4, v0);
-    if (v15.value._object)
+    (*(v1 + 8))(v3, v0);
+    if (v14.value._object)
     {
       sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
-      v16 = swift_allocObject();
-      *(v16 + 16) = xmmword_100014570;
-      *(v16 + 56) = &type metadata for String;
-      *(v16 + 64) = sub_100005494();
-      *(v16 + 32) = v15;
-      v17 = String.init(format:_:)();
+      v15 = swift_allocObject();
+      *(v15 + 16) = xmmword_100014570;
+      *(v15 + 56) = &type metadata for String;
+      *(v15 + 64) = sub_100005494();
+      *(v15 + 32) = v14;
+      v16 = String.init(format:_:)();
 
-      return v17;
+      return v16;
     }
 
-    static os_log_type_t.error.getter();
+    v20 = static os_log_type_t.error.getter();
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v19 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Failed to get localized language for the current locale. Welcome card will display without Language setting", 107, 2, &_mh_execute_header, v19, v20, &_swiftEmptyArrayStorage);
   }
 
   else
   {
 
-    static os_log_type_t.error.getter();
+    v18 = static os_log_type_t.error.getter();
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v19 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Failed to get language code from bundle. Welcome card will display without Language setting", 91, 2, &_mh_execute_header, v19, v18, &_swiftEmptyArrayStorage);
   }
-
-  os_log(_:dso:log:type:_:)();
 
   return 0;
 }
@@ -2826,7 +2902,6 @@ uint64_t sub_100009FD0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -2916,10 +2991,9 @@ void sub_10000A440(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10000A52C(uint64_t a1)
+uint64_t sub_10000A52C(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   v2(v3);
@@ -2956,29 +3030,29 @@ void sub_10000A6C4()
 void sub_10000A7EC()
 {
   v1 = v0;
-  v67 = [objc_allocWithZone(AVCaptureSession) init];
+  v69 = [objc_allocWithZone(AVCaptureSession) init];
   v2 = [objc_opt_self() defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:1];
   if (v2)
   {
     v3 = v2;
     v4 = objc_allocWithZone(AVCaptureDeviceInput);
-    v69 = 0;
+    v71 = 0;
     v5 = v3;
-    v6 = [v4 initWithDevice:v5 error:&v69];
+    v6 = [v4 initWithDevice:v5 error:&v71];
     if (v6)
     {
       v7 = v6;
-      v8 = v69;
+      v8 = v71;
 
-      if ([v67 canAddInput:v7])
+      if ([v69 canAddInput:v7])
       {
-        [v67 addInput:v7];
+        [v69 addInput:v7];
       }
 
-      [v67 commitConfiguration];
+      [v69 commitConfiguration];
       v9 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeScannerCardViewController_captureSession];
-      *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeScannerCardViewController_captureSession] = v67;
-      v10 = v67;
+      *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeScannerCardViewController_captureSession] = v69;
+      v10 = v69;
 
       v11 = [v1 contentView];
       [v11 frame];
@@ -3003,19 +3077,19 @@ void sub_10000A7EC()
       v26 = [v25 mainContentGuide];
 
       [v26 layoutFrame];
-      Width = CGRectGetWidth(v71);
+      Width = CGRectGetWidth(v73);
       v28 = [v1 contentView];
       v29 = [v28 subtitleLabel];
 
       if (v29)
       {
-        v66 = v10;
-        v68 = objc_opt_self();
+        v68 = v10;
+        v70 = objc_opt_self();
         sub_1000028AC(&qword_100022D68, "4S");
         v30 = swift_allocObject();
         *(v30 + 16) = xmmword_100014740;
         v31 = [v24 topAnchor];
-        v65 = v29;
+        v67 = v29;
         v32 = [v29 bottomAnchor];
         v33 = [v31 constraintGreaterThanOrEqualToAnchor:v32 constant:25.0];
 
@@ -3047,7 +3121,7 @@ void sub_10000A7EC()
         sub_1000028F4(0, &qword_1000232F0, NSLayoutConstraint_ptr);
         isa = Array._bridgeToObjectiveC()().super.isa;
 
-        [v68 activateConstraints:isa];
+        [v70 activateConstraints:isa];
 
         v49 = [v1 view];
         if (v49)
@@ -3055,7 +3129,7 @@ void sub_10000A7EC()
           v50 = v49;
           [v49 layoutIfNeeded];
 
-          v51 = [objc_allocWithZone(AVCaptureVideoPreviewLayer) initWithSession:v66];
+          v51 = [objc_allocWithZone(AVCaptureVideoPreviewLayer) initWithSession:v68];
           [v51 setVideoGravity:AVLayerVideoGravityResizeAspectFill];
           v52 = [v51 connection];
           if (v52)
@@ -3084,10 +3158,10 @@ void sub_10000A7EC()
 
       else
       {
-        static os_log_type_t.error.getter();
+        v65 = static os_log_type_t.error.getter();
         sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-        v64 = static OS_os_log.default.getter();
-        os_log(_:dso:log:type:_:)();
+        v66 = static OS_os_log.default.getter();
+        os_log(_:dso:log:type:_:)("QR code scanner card has no subtitle label, which preview constraints depend on", 79, 2, &_mh_execute_header, v66, v65, &_swiftEmptyArrayStorage);
 
         sub_10000A6C4();
       }
@@ -3095,26 +3169,26 @@ void sub_10000A7EC()
 
     else
     {
-      v58 = v69;
+      v58 = v71;
       _convertNSErrorToError(_:)();
 
       swift_willThrow();
-      static os_log_type_t.error.getter();
+      v59 = static os_log_type_t.error.getter();
       sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
-      v59 = swift_allocObject();
-      *(v59 + 16) = xmmword_100014570;
+      v60 = swift_allocObject();
+      *(v60 + 16) = xmmword_100014570;
       swift_getErrorValue();
       Error.localizedDescription.getter();
-      v60 = String.debugDescription.getter();
-      v62 = v61;
+      v61 = String.debugDescription.getter();
+      v63 = v62;
 
-      *(v59 + 56) = &type metadata for String;
-      *(v59 + 64) = sub_100005494();
-      *(v59 + 32) = v60;
-      *(v59 + 40) = v62;
+      *(v60 + 56) = &type metadata for String;
+      *(v60 + 64) = sub_100005494();
+      *(v60 + 32) = v61;
+      *(v60 + 40) = v63;
       sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-      v63 = static OS_os_log.default.getter();
-      os_log(_:dso:log:type:_:)();
+      v64 = static OS_os_log.default.getter();
+      os_log(_:dso:log:type:_:)("Setting up viewfinder for QR code scanner card failed with error %@", 67, 2, &_mh_execute_header, v64, v59, v60);
 
       sub_10000A6C4();
     }
@@ -3295,7 +3369,13 @@ unint64_t sub_10000B5B0()
   v2 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeScannerCardViewController_remoteSetupManager);
   if (!v2)
   {
-    goto LABEL_9;
+    sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+    v4 = static OS_os_log.default.getter();
+    v5 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unable to get device class. Using generic subtitle for QR code scanner card", 75, 2, &_mh_execute_header, v4, v5, &_swiftEmptyArrayStorage);
+LABEL_10:
+
+    return v1;
   }
 
   v3 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
@@ -3324,20 +3404,19 @@ unint64_t sub_10000B5B0()
 LABEL_9:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v4 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
-
-    return v1;
+    v6 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unsupported device class. Using generic subtitle for in QR code scanner card", 76, 2, &_mh_execute_header, v4, v6, &_swiftEmptyArrayStorage);
+    goto LABEL_10;
   }
 
   return 0xD00000000000001DLL;
 }
 
-id sub_10000B71C()
+id sub_10000B71C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for QRCodeScannerCardViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for QRCodeScannerCardViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 char *sub_10000B7E0(char *result, int64_t a2, char a3, char *a4)
@@ -3482,11 +3561,11 @@ void sub_10000BAA0()
   }
 }
 
-id sub_10000BB28()
+id sub_10000BB28(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for WifiUtilities();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for WifiUtilities();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 uint64_t sub_10000BB84()
@@ -3509,8 +3588,8 @@ uint64_t sub_10000BB84()
   {
     sub_100005D48();
     v17 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v18 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Not connected to wifi, so we aren't connected to a captive portal network.", 74, 2, &_mh_execute_header, v17, v18, &_swiftEmptyArrayStorage);
 
 LABEL_9:
     v11 = 0;
@@ -3533,9 +3612,9 @@ LABEL_9:
   {
     v14 = swift_slowAlloc();
     v15 = swift_slowAlloc();
-    v19 = v15;
+    v20 = v15;
     *v14 = 136315650;
-    v16 = sub_10000DC70(v6, v8, &v19);
+    v16 = sub_10000DC70(v6, v8, &v20);
 
     *(v14 + 4) = v16;
     *(v14 + 12) = 1024;
@@ -3555,52 +3634,47 @@ LABEL_9:
 
 char *sub_10000BDF4(void *a1)
 {
-  v16.receiver = v1;
-  v16.super_class = type metadata accessor for SetupCompleteCardViewController();
-  v3 = objc_msgSendSuper2(&v16, "initWithContentView:", a1);
+  v12.receiver = v1;
+  v12.super_class = type metadata accessor for SetupCompleteCardViewController();
+  v3 = objc_msgSendSuper2(&v12, "initWithContentView:", a1);
   v4 = &v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle];
-  v5 = *&v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardTitle + 8];
   *v4 = 0xD000000000000013;
   *(v4 + 1) = 0x8000000100016670;
-  v6 = v3;
+  v5 = v3;
 
-  v7 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase];
-  v8 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase + 8];
-  *v7 = 0xD000000000000016;
-  *(v7 + 1) = 0x8000000100016690;
+  v6 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_cardSubtitleBase];
+  *v6 = 0xD000000000000016;
+  *(v6 + 1) = 0x8000000100016690;
 
-  v9 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText];
-  v10 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText + 8];
-  *v9 = 0xD000000000000019;
-  *(v9 + 1) = 0x80000001000166B0;
+  v7 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_buttonText];
+  *v7 = 0xD000000000000019;
+  *(v7 + 1) = 0x80000001000166B0;
 
-  v11 = &v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
-  v12 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName + 8];
-  *v11 = 0xD000000000000010;
-  *(v11 + 1) = 0x80000001000166D0;
+  v8 = &v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolName];
+  *v8 = 0xD000000000000010;
+  *(v8 + 1) = 0x80000001000166D0;
 
-  v13 = [objc_opt_self() systemBlueColor];
+  v9 = [objc_opt_self() systemBlueColor];
 
-  v14 = *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor];
-  *&v6[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor] = v13;
+  v10 = *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor];
+  *&v5[OBJC_IVAR____TtC23CheckerBoardRemoteSetup26SFSymbolCardViewController_symbolColor] = v9;
 
-  return v6;
+  return v5;
 }
 
-id sub_10000BF8C()
+id sub_10000BF8C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SetupCompleteCardViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SetupCompleteCardViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void sub_10000BFE4(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 Swift::Int sub_10000C064()
@@ -3611,11 +3685,11 @@ Swift::Int sub_10000C064()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_10000C0D8()
+Swift::Int sub_10000C0D8(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -3701,18 +3775,18 @@ id sub_10000C11C(void *a1)
   return v7;
 }
 
-void sub_10000C538()
+void sub_10000C538(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v3 = Strong;
     [Strong dismissViewControllerAnimated:1 completion:0];
-    v2 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager];
-    if (v2)
+    v4 = *&v3[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager];
+    if (v4)
     {
-      v3 = v2;
+      v5 = v4;
       sub_100011904();
     }
   }
@@ -3722,99 +3796,75 @@ id sub_10000C634()
 {
   v1 = type metadata accessor for String.Encoding();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin();
-  v5 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password);
-  v7 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password + 8);
+  __chkstk_darwin(v1);
+  v4 = &v22 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
 
   static String.Encoding.ascii.getter();
-  v8 = String.data(using:allowLossyConversion:)();
-  v10 = v9;
+  v5 = String.data(using:allowLossyConversion:)();
+  v7 = v6;
 
-  (*(v2 + 8))(v5, v1);
-  v11 = String._bridgeToObjectiveC()();
-  v12 = [objc_opt_self() filterWithName:v11];
+  (*(v2 + 8))(v4, v1);
+  v8 = String._bridgeToObjectiveC()();
+  v9 = [objc_opt_self() filterWithName:v8];
 
-  if (v12)
+  if (v9)
   {
-    v13 = v12;
-    if (v10 >> 60 == 15)
+    v10 = v9;
+    if (v7 >> 60 == 15)
     {
       isa = 0;
     }
 
     else
     {
-      sub_10000F0FC(v8, v10);
+      sub_10000F0FC(v5, v7);
       isa = Data._bridgeToObjectiveC()().super.isa;
-      sub_10000F0E8(v8, v10);
+      sub_10000F0E8(v5, v7);
     }
 
-    v15 = String._bridgeToObjectiveC()();
-    [v13 setValue:isa forKey:v15];
+    v12 = String._bridgeToObjectiveC()();
+    [v10 setValue:isa forKey:v12];
 
     swift_unknownObjectRelease();
   }
 
-  CGAffineTransformMakeScale(&v28, 5.5, 5.5);
-  if (!v12)
+  CGAffineTransformMakeScale(&v25, 5.5, 5.5);
+  if (v9 && (v23 = *&v25.c, v24 = *&v25.a, v22 = *&v25.tx, (v13 = [v9 outputImage]) != 0) && (*&v25.a = v24, *&v25.c = v23, *&v25.tx = v22, v14 = v13, v15 = objc_msgSend(v13, "imageByApplyingTransform:", &v25), v14, v15))
   {
-    goto LABEL_10;
-  }
+    v16 = [objc_allocWithZone(UIImage) initWithCIImage:v15];
 
-  v26 = *&v28.c;
-  v27 = *&v28.a;
-  v25 = *&v28.tx;
-  v16 = [v12 outputImage];
-  if (!v16)
-  {
-    goto LABEL_10;
-  }
-
-  *&v28.a = v27;
-  *&v28.c = v26;
-  *&v28.tx = v25;
-  v17 = v16;
-  v18 = [v16 imageByApplyingTransform:&v28];
-
-  if (v18)
-  {
-    v19 = [objc_allocWithZone(UIImage) initWithCIImage:v18];
-
-    sub_10000F0E8(v8, v10);
-    return v19;
+    sub_10000F0E8(v5, v7);
+    return v16;
   }
 
   else
   {
-LABEL_10:
-    v21 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager);
-    if (v21)
+    v18 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager);
+    if (v18)
     {
-      v21[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState] = 1;
-      v22 = *&v21[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient];
-      v23 = v21;
-      if (v22)
+      v18[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState] = 1;
+      v19 = *&v18[OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient];
+      v20 = v18;
+      if (v19)
       {
-        [v22 invalidate];
+        [v19 invalidate];
       }
 
-      v24 = [objc_opt_self() defaultCenter];
+      v21 = [objc_opt_self() defaultCenter];
       if (qword_100022D20 != -1)
       {
         swift_once();
       }
 
-      [v24 postNotificationName:qword_100023FF0 object:0 userInfo:0];
+      [v21 postNotificationName:qword_100023FF0 object:0 userInfo:0];
 
-      sub_10000F0E8(v8, v10);
+      sub_10000F0E8(v5, v7);
     }
 
     else
     {
 
-      sub_10000F0E8(v8, v10);
+      sub_10000F0E8(v5, v7);
     }
 
     return 0;
@@ -3825,262 +3875,258 @@ id sub_10000C9EC()
 {
   v1 = v0;
   swift_getObjectType();
-  v56 = type metadata accessor for URL();
-  v2 = *(v56 - 8);
-  v3 = *(v2 + 64);
-  v4 = (__chkstk_darwin)();
-  v53 = &v47 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v7 = &v47 - v6;
-  v55 = sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-  v8 = static OS_os_log.default.getter();
-  v9 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v8, v9))
+  v58 = type metadata accessor for URL();
+  v2 = *(v58 - 8);
+  v3 = __chkstk_darwin(v58);
+  v55 = &v49 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v49 - v5;
+  v57 = sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+  v7 = static OS_os_log.default.getter();
+  v8 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v7, v8))
   {
+    v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v52 = v0;
-    v12 = v11;
-    v57 = v11;
-    *v10 = 136446210;
-    v13 = _typeName(_:qualified:)();
-    v54 = v7;
-    v15 = v2;
-    v16 = sub_10000DC70(v13, v14, &v57);
-    v7 = v54;
+    v54 = v0;
+    v11 = v10;
+    v59 = v10;
+    *v9 = 136446210;
+    v12 = _typeName(_:qualified:)();
+    v56 = v6;
+    v14 = v2;
+    v15 = sub_10000DC70(v12, v13, &v59);
+    v6 = v56;
 
-    *(v10 + 4) = v16;
-    v2 = v15;
-    _os_log_impl(&_mh_execute_header, v8, v9, "%{public}s generating App Clip Code.", v10, 0xCu);
-    sub_100005300(v12);
-    v1 = v52;
+    *(v9 + 4) = v15;
+    v2 = v14;
+    _os_log_impl(&_mh_execute_header, v7, v8, "%{public}s generating App Clip Code.", v9, 0xCu);
+    sub_100005300(v11);
+    v1 = v54;
   }
 
-  sub_10000D020();
+  sub_10000D020(v16);
   if (v1)
   {
-    return v9;
+    return v8;
   }
 
-  sub_10000D478(v17, v18, v7);
-  v51 = sub_10000EC18();
-  v52 = v20;
+  sub_10000D478(v17, v18, v6);
+  v53 = sub_10000EC18();
+  v54 = v20;
   isa = Data._bridgeToObjectiveC()().super.isa;
   v22 = CGSVGDocumentCreateFromData();
 
   if (!v22)
   {
 
-    static os_log_type_t.error.getter();
-    v42 = static OS_os_log.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v42 = static os_log_type_t.error.getter();
+    v43 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Failed to create CGSVGDocument from Data.", 41, 2, &_mh_execute_header, v43, v42, &_swiftEmptyArrayStorage);
 
     sub_10000DC1C();
-    v9 = swift_allocError();
-    *v43 = 3;
+    v8 = swift_allocError();
+    *v44 = 3;
     swift_willThrow();
-    sub_10000F04C(v51, v52);
+    sub_10000F04C(v53, v54);
 LABEL_12:
-    (*(v2 + 8))(v7, v56);
-    return v9;
+    (*(v2 + 8))(v6, v58);
+    return v8;
   }
 
   v23 = [objc_opt_self() _imageWithCGSVGDocument:v22 scale:0 orientation:1.0];
   if (!v23)
   {
 
-    static os_log_type_t.error.getter();
-    v44 = static OS_os_log.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v45 = static os_log_type_t.error.getter();
+    v46 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Failed to create UIImage from CGSVGDocument.", 44, 2, &_mh_execute_header, v46, v45, &_swiftEmptyArrayStorage);
 
     sub_10000DC1C();
-    v9 = swift_allocError();
-    *v45 = 4;
+    v8 = swift_allocError();
+    *v47 = 4;
     swift_willThrow();
-    sub_10000F04C(v51, v52);
+    sub_10000F04C(v53, v54);
 
     goto LABEL_12;
   }
 
-  v50 = v23;
-  v24 = v53;
-  (*(v2 + 16))(v53, v7, v56);
+  v52 = v23;
+  v24 = v55;
+  (*(v2 + 16))(v55, v6, v58);
   v25 = static OS_os_log.default.getter();
   v26 = static os_log_type_t.default.getter();
   v27 = os_log_type_enabled(v25, v26);
-  v49 = v2;
+  v51 = v2;
   if (v27)
   {
     v28 = swift_slowAlloc();
-    v54 = v7;
-    v48 = v26;
+    v56 = v6;
+    v50 = v26;
     v29 = v28;
-    v55 = swift_slowAlloc();
-    v57 = v55;
+    v57 = swift_slowAlloc();
+    v59 = v57;
     *v29 = 136446466;
     v30 = _typeName(_:qualified:)();
     v31 = v24;
-    v33 = sub_10000DC70(v30, v32, &v57);
-    v47 = v25;
+    v33 = sub_10000DC70(v30, v32, &v59);
+    v49 = v25;
     v34 = v33;
 
     *(v29 + 4) = v34;
     *(v29 + 12) = 2082;
-    sub_10000F0A0(&qword_1000233E0, &type metadata accessor for URL);
-    v35 = v56;
+    sub_10000F0A0(&qword_1000233E0, &type metadata accessor for URL, &protocol conformance descriptor for URL);
+    v35 = v58;
     v36 = dispatch thunk of CustomStringConvertible.description.getter();
     v38 = v37;
     v39 = *(v2 + 8);
     v39(v31, v35);
-    v40 = sub_10000DC70(v36, v38, &v57);
+    v40 = sub_10000DC70(v36, v38, &v59);
 
     *(v29 + 14) = v40;
-    v41 = v47;
-    _os_log_impl(&_mh_execute_header, v47, v48, "%{public}s successfully generated VisualPairingAppClipCode with URL: %{public}s.", v29, 0x16u);
+    v41 = v49;
+    _os_log_impl(&_mh_execute_header, v49, v50, "%{public}s successfully generated VisualPairingAppClipCode with URL: %{public}s.", v29, 0x16u);
     swift_arrayDestroy();
 
-    v7 = v54;
+    v6 = v56;
   }
 
   else
   {
 
     v39 = *(v2 + 8);
-    v39(v24, v56);
+    v39(v24, v58);
   }
 
-  v46 = v50;
-  result = [v50 sbf_resizeImageToSize:{200.0, 200.0}];
+  v48 = v52;
+  result = [v52 sbf_resizeImageToSize:{200.0, 200.0}];
   if (result)
   {
-    v9 = result;
-    v39(v7, v56);
+    v8 = result;
+    v39(v6, v58);
 
-    sub_10000F04C(v51, v52);
+    sub_10000F04C(v53, v54);
 
-    return v9;
+    return v8;
   }
 
   __break(1u);
   return result;
 }
 
-void sub_10000D020()
+void sub_10000D020(unsigned __int8 *result)
 {
-  v1 = (v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password);
-  v2 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password);
-  v3 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password + 8);
-  v4 = HIBYTE(v3) & 0xF;
-  v5 = v2 & 0xFFFFFFFFFFFFLL;
-  if ((v3 & 0x2000000000000000) != 0)
+  v2 = (v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password);
+  v3 = *(v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password);
+  v4 = *(v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password + 8);
+  v5 = HIBYTE(v4) & 0xF;
+  v6 = v3 & 0xFFFFFFFFFFFFLL;
+  if ((v4 & 0x2000000000000000) != 0)
   {
-    v6 = HIBYTE(v3) & 0xF;
+    v7 = HIBYTE(v4) & 0xF;
   }
 
   else
   {
-    v6 = v2 & 0xFFFFFFFFFFFFLL;
+    v7 = v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v6)
+  if (!v7)
   {
     goto LABEL_66;
   }
 
-  if ((v3 & 0x1000000000000000) != 0)
+  if ((v4 & 0x1000000000000000) != 0)
   {
-    v28 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password + 8);
 
-    v9 = sub_10000E218(v2, v3, 10);
+    v10 = sub_10000E218(v3, v4, 10);
     v30 = v29;
 
     if ((v30 & 1) == 0)
     {
 LABEL_63:
-      if (v9 <= 999999)
+      if (v10 <= 999999)
       {
         sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
-        v27 = swift_allocObject();
-        *(v27 + 16) = xmmword_100014570;
-        *(v27 + 56) = &type metadata for Int;
-        *(v27 + 64) = &protocol witness table for Int;
-        *(v27 + 32) = v9;
+        v28 = swift_allocObject();
+        *(v28 + 16) = xmmword_100014570;
+        *(v28 + 56) = &type metadata for Int;
+        *(v28 + 64) = &protocol witness table for Int;
+        *(v28 + 32) = v10;
         String.init(format:_:)();
         return;
       }
     }
 
 LABEL_66:
-    static os_log_type_t.error.getter();
+    v31 = static os_log_type_t.error.getter();
     sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
-    v31 = swift_allocObject();
-    *(v31 + 16) = xmmword_100014570;
-    v33 = *v1;
-    v32 = v1[1];
-    *(v31 + 56) = &type metadata for String;
-    *(v31 + 64) = sub_100005494();
-    *(v31 + 32) = v33;
-    *(v31 + 40) = v32;
+    v32 = swift_allocObject();
+    *(v32 + 16) = xmmword_100014570;
+    v34 = *v2;
+    v33 = v2[1];
+    *(v32 + 56) = &type metadata for String;
+    *(v32 + 64) = sub_100005494();
+    *(v32 + 32) = v34;
+    *(v32 + 40) = v33;
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
 
-    v34 = static OS_os_log.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v35 = static OS_os_log.default.getter();
+    os_log(_:dso:log:type:_:)("Received invalid PIN: %@.", 25, 2, &_mh_execute_header, v35, v31, v32);
 
     sub_10000DC1C();
     swift_allocError();
-    *v35 = 0;
+    *v36 = 0;
     swift_willThrow();
     return;
   }
 
-  if ((v3 & 0x2000000000000000) == 0)
+  if ((v4 & 0x2000000000000000) == 0)
   {
-    if ((v2 & 0x1000000000000000) != 0)
+    if ((v3 & 0x1000000000000000) != 0)
     {
-      v7 = ((v3 & 0xFFFFFFFFFFFFFFFLL) + 32);
+      v8 = ((v4 & 0xFFFFFFFFFFFFFFFLL) + 32);
     }
 
     else
     {
-      v36 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password);
-      v37 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password + 8);
-      v7 = _StringObject.sharedUTF8.getter();
+      v8 = _StringObject.sharedUTF8.getter();
     }
 
-    v8 = *v7;
-    if (v8 == 43)
+    v9 = *v8;
+    if (v9 == 43)
     {
-      if (v5 >= 1)
+      if (v6 >= 1)
       {
-        v4 = v5 - 1;
-        if (v5 != 1)
+        v5 = v6 - 1;
+        if (v6 != 1)
         {
-          v9 = 0;
-          if (v7)
+          v10 = 0;
+          if (v8)
           {
-            v16 = v7 + 1;
+            v17 = v8 + 1;
             while (1)
             {
-              v17 = *v16 - 48;
-              if (v17 > 9)
+              v18 = *v17 - 48;
+              if (v18 > 9)
               {
                 goto LABEL_61;
               }
 
-              v18 = 10 * v9;
-              if ((v9 * 10) >> 64 != (10 * v9) >> 63)
+              v19 = 10 * v10;
+              if ((v10 * 10) >> 64 != (10 * v10) >> 63)
               {
                 goto LABEL_61;
               }
 
-              v9 = v18 + v17;
-              if (__OFADD__(v18, v17))
+              v10 = v19 + v18;
+              if (__OFADD__(v19, v18))
               {
                 goto LABEL_61;
               }
 
-              ++v16;
-              if (!--v4)
+              ++v17;
+              if (!--v5)
               {
                 goto LABEL_62;
               }
@@ -4096,35 +4142,35 @@ LABEL_66:
       goto LABEL_70;
     }
 
-    if (v8 != 45)
+    if (v9 != 45)
     {
-      if (v5)
+      if (v6)
       {
-        v9 = 0;
-        if (v7)
+        v10 = 0;
+        if (v8)
         {
           while (1)
           {
-            v22 = *v7 - 48;
-            if (v22 > 9)
+            v23 = *v8 - 48;
+            if (v23 > 9)
             {
               goto LABEL_61;
             }
 
-            v23 = 10 * v9;
-            if ((v9 * 10) >> 64 != (10 * v9) >> 63)
+            v24 = 10 * v10;
+            if ((v10 * 10) >> 64 != (10 * v10) >> 63)
             {
               goto LABEL_61;
             }
 
-            v9 = v23 + v22;
-            if (__OFADD__(v23, v22))
+            v10 = v24 + v23;
+            if (__OFADD__(v24, v23))
             {
               goto LABEL_61;
             }
 
-            ++v7;
-            if (!--v5)
+            ++v8;
+            if (!--v6)
             {
               goto LABEL_53;
             }
@@ -4135,11 +4181,11 @@ LABEL_66:
       }
 
 LABEL_61:
-      v9 = 0;
-      LOBYTE(v4) = 1;
+      v10 = 0;
+      LOBYTE(v5) = 1;
 LABEL_62:
-      v39 = v4;
-      if ((v4 & 1) == 0)
+      v38 = v5;
+      if ((v5 & 1) == 0)
       {
         goto LABEL_63;
       }
@@ -4147,37 +4193,37 @@ LABEL_62:
       goto LABEL_66;
     }
 
-    if (v5 >= 1)
+    if (v6 >= 1)
     {
-      v4 = v5 - 1;
-      if (v5 != 1)
+      v5 = v6 - 1;
+      if (v6 != 1)
       {
-        v9 = 0;
-        if (v7)
+        v10 = 0;
+        if (v8)
         {
-          v10 = v7 + 1;
+          v11 = v8 + 1;
           while (1)
           {
-            v11 = *v10 - 48;
-            if (v11 > 9)
+            v12 = *v11 - 48;
+            if (v12 > 9)
             {
               goto LABEL_61;
             }
 
-            v12 = 10 * v9;
-            if ((v9 * 10) >> 64 != (10 * v9) >> 63)
+            v13 = 10 * v10;
+            if ((v10 * 10) >> 64 != (10 * v10) >> 63)
             {
               goto LABEL_61;
             }
 
-            v9 = v12 - v11;
-            if (__OFSUB__(v12, v11))
+            v10 = v13 - v12;
+            if (__OFSUB__(v13, v12))
             {
               goto LABEL_61;
             }
 
-            ++v10;
-            if (!--v4)
+            ++v11;
+            if (!--v5)
             {
               goto LABEL_62;
             }
@@ -4185,7 +4231,7 @@ LABEL_62:
         }
 
 LABEL_53:
-        LOBYTE(v4) = 0;
+        LOBYTE(v5) = 0;
         goto LABEL_62;
       }
 
@@ -4200,38 +4246,38 @@ LABEL_70:
     goto LABEL_71;
   }
 
-  v38[0] = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password);
-  v38[1] = v3 & 0xFFFFFFFFFFFFFFLL;
-  if (v2 != 43)
+  v37[0] = *(v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password);
+  v37[1] = v4 & 0xFFFFFFFFFFFFFFLL;
+  if (v3 != 43)
   {
-    if (v2 != 45)
+    if (v3 != 45)
     {
-      if (v4)
+      if (v5)
       {
-        v9 = 0;
-        v24 = v38;
+        v10 = 0;
+        v25 = v37;
         while (1)
         {
-          v25 = *v24 - 48;
-          if (v25 > 9)
+          v26 = *v25 - 48;
+          if (v26 > 9)
           {
             break;
           }
 
-          v26 = 10 * v9;
-          if ((v9 * 10) >> 64 != (10 * v9) >> 63)
+          v27 = 10 * v10;
+          if ((v10 * 10) >> 64 != (10 * v10) >> 63)
           {
             break;
           }
 
-          v9 = v26 + v25;
-          if (__OFADD__(v26, v25))
+          v10 = v27 + v26;
+          if (__OFADD__(v27, v26))
           {
             break;
           }
 
-          ++v24;
-          if (!--v4)
+          ++v25;
+          if (!--v5)
           {
             goto LABEL_62;
           }
@@ -4241,34 +4287,34 @@ LABEL_70:
       goto LABEL_61;
     }
 
-    if (v4)
+    if (v5)
     {
-      if (--v4)
+      if (--v5)
       {
-        v9 = 0;
-        v13 = v38 + 1;
+        v10 = 0;
+        v14 = v37 + 1;
         while (1)
         {
-          v14 = *v13 - 48;
-          if (v14 > 9)
+          v15 = *v14 - 48;
+          if (v15 > 9)
           {
             break;
           }
 
-          v15 = 10 * v9;
-          if ((v9 * 10) >> 64 != (10 * v9) >> 63)
+          v16 = 10 * v10;
+          if ((v10 * 10) >> 64 != (10 * v10) >> 63)
           {
             break;
           }
 
-          v9 = v15 - v14;
-          if (__OFSUB__(v15, v14))
+          v10 = v16 - v15;
+          if (__OFSUB__(v16, v15))
           {
             break;
           }
 
-          ++v13;
-          if (!--v4)
+          ++v14;
+          if (!--v5)
           {
             goto LABEL_62;
           }
@@ -4281,34 +4327,34 @@ LABEL_70:
     goto LABEL_69;
   }
 
-  if (v4)
+  if (v5)
   {
-    if (--v4)
+    if (--v5)
     {
-      v9 = 0;
-      v19 = v38 + 1;
+      v10 = 0;
+      v20 = v37 + 1;
       while (1)
       {
-        v20 = *v19 - 48;
-        if (v20 > 9)
+        v21 = *v20 - 48;
+        if (v21 > 9)
         {
           break;
         }
 
-        v21 = 10 * v9;
-        if ((v9 * 10) >> 64 != (10 * v9) >> 63)
+        v22 = 10 * v10;
+        if ((v10 * 10) >> 64 != (10 * v10) >> 63)
         {
           break;
         }
 
-        v9 = v21 + v20;
-        if (__OFADD__(v21, v20))
+        v10 = v22 + v21;
+        if (__OFADD__(v22, v21))
         {
           break;
         }
 
-        ++v19;
-        if (!--v4)
+        ++v20;
+        if (!--v5)
         {
           goto LABEL_62;
         }
@@ -4324,15 +4370,15 @@ LABEL_71:
 
 uint64_t sub_10000D478@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = (*(*(sub_1000028AC(&qword_1000233C8, &unk_100014888) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v8 = &v16 - v7;
-  v16 = 0;
-  v17 = 0xE000000000000000;
+  v6 = sub_1000028AC(&qword_1000233C8, &unk_100014888);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v17 - v7;
+  v17 = 0;
+  v18 = 0xE000000000000000;
   _StringGuts.grow(_:)(33);
 
-  v16 = 0xD000000000000021;
-  v17 = 0x8000000100016960;
+  v17 = 0xD000000000000021;
+  v18 = 0x8000000100016960;
   v9._countAndFlagsBits = a1;
   v9._object = a2;
   String.append(_:)(v9);
@@ -4346,22 +4392,22 @@ uint64_t sub_10000D478@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
   }
 
   sub_10000DBB4(v8);
-  static os_log_type_t.error.getter();
+  v12 = static os_log_type_t.error.getter();
   sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_100014570;
-  *(v12 + 56) = &type metadata for String;
-  *(v12 + 64) = sub_100005494();
-  *(v12 + 32) = a1;
-  *(v12 + 40) = a2;
+  v13 = swift_allocObject();
+  *(v13 + 16) = xmmword_100014570;
+  *(v13 + 56) = &type metadata for String;
+  *(v13 + 64) = sub_100005494();
+  *(v13 + 32) = a1;
+  *(v13 + 40) = a2;
   sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
 
-  v13 = static OS_os_log.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v14 = static OS_os_log.default.getter();
+  os_log(_:dso:log:type:_:)("Failed to create URL for payload: %@.", 37, 2, &_mh_execute_header, v14, v12, v13);
 
   sub_10000DC1C();
   swift_allocError();
-  *v14 = 1;
+  *v15 = 1;
   return swift_willThrow();
 }
 
@@ -4369,34 +4415,36 @@ unint64_t sub_10000D6D4()
 {
   v1 = 0xD000000000000018;
   v2 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager);
-  if (!v2)
+  if (v2)
   {
-    goto LABEL_9;
+    v3 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
+    switch(v3)
+    {
+      case 1:
+        return 0xD00000000000001FLL;
+      case 11:
+        return 0xD000000000000020;
+      case 3:
+        return 0xD00000000000001DLL;
+      default:
+        sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+        v6 = static OS_os_log.default.getter();
+        v7 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("Unsupported device class. Using generic subtitle for in QR code display card", 76, 2, &_mh_execute_header, v6, v7, &_swiftEmptyArrayStorage);
+
+        break;
+    }
   }
 
-  v3 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
-  if (v3 == 1)
+  else
   {
-    return 0xD00000000000001FLL;
-  }
-
-  if (v3 == 11)
-  {
-    return 0xD000000000000020;
-  }
-
-  if (v3 != 3)
-  {
-LABEL_9:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v4 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
-
-    return v1;
+    v5 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unable to get device class. Using generic subtitle for QR code display card", 75, 2, &_mh_execute_header, v4, v5, &_swiftEmptyArrayStorage);
   }
 
-  return 0xD00000000000001DLL;
+  return v1;
 }
 
 uint64_t sub_10000D83C()
@@ -4404,7 +4452,13 @@ uint64_t sub_10000D83C()
   v1 = *(v0 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager);
   if (!v1)
   {
-    goto LABEL_10;
+    sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+    v5 = static OS_os_log.default.getter();
+    v6 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unable to get device class. Not supporting fallback auth.", 57, 2, &_mh_execute_header, v5, v6, &_swiftEmptyArrayStorage);
+LABEL_11:
+
+    return 0;
   }
 
   v2 = *(v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass);
@@ -4415,21 +4469,21 @@ uint64_t sub_10000D83C()
 
   if (v2 != 11)
   {
-LABEL_10:
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v5 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v7 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Unsupported device class. Not supporting fallback auth.", 55, 2, &_mh_execute_header, v5, v7, &_swiftEmptyArrayStorage);
+    goto LABEL_11;
   }
 
   return 0;
 }
 
-id sub_10000D93C()
+id sub_10000D93C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for QRCodeDisplayCardViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for QRCodeDisplayCardViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t getEnumTagSinglePayload for CodeDisplayType(unsigned __int8 *a1, unsigned int a2)
@@ -4625,7 +4679,7 @@ unint64_t sub_10000DC1C()
   return result;
 }
 
-uint64_t sub_10000DC70(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_10000DC70(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_10000DD3C(v11, 0, 0, 1, a1, a2);
@@ -4725,11 +4779,9 @@ LABEL_8:
 
 char *sub_10000DE48(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_10000DE94(a1, a2);
+  v3 = sub_10000DE94(a1, a2);
   sub_10000DFC4(&off_10001C950);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_10000DE94(uint64_t a1, unint64_t a2)
@@ -4829,7 +4881,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -4843,15 +4894,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_10000E124(result, v12, 1, v3);
+  result = sub_10000E124(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -4866,15 +4917,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -4883,12 +4934,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -5005,7 +5056,7 @@ unsigned __int8 *sub_10000E218(uint64_t a1, uint64_t a2, uint64_t a3)
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = sub_10000E7A4();
+    v6 = sub_10000E7A4(result, v5);
     v35 = v34;
 
     v5 = v35;
@@ -5506,22 +5557,35 @@ LABEL_132:
   return result;
 }
 
-uint64_t sub_10000E7A4()
+uint64_t sub_10000E7A4(uint64_t a1, unint64_t a2)
 {
-  v0 = String.subscript.getter();
-  v4 = sub_10000E824(v0, v1, v2, v3);
+  v2 = String.subscript.getter();
+  v6 = sub_10000E824(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t sub_10000E824(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = sub_10000E0B0(v9, 0), v12 = sub_10000E97C(v14, v11 + 32, v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -5529,32 +5593,8 @@ uint64_t sub_10000E824(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = &_swiftEmptyArrayStorage;
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = sub_10000E0B0(v9, 0);
-  v12 = sub_10000E97C(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -5723,7 +5763,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t sub_10000EB9C(unsigned __int16 a1, uint64_t a2, uint64_t a3)
+unint64_t sub_10000EB9C(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -5763,71 +5803,96 @@ uint64_t sub_10000EC18()
 
   v2 = sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
   v3 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
-  v4 = v1 != 2;
+  v4 = static os_log_type_t.default.getter();
+  if (v1)
+  {
+    if (v1 == 1)
+    {
+      os_log(_:dso:log:type:_:)("Using black strokes on white background for ACC in light mode UI style.", 71, 2, &_mh_execute_header, v3, v4, &_swiftEmptyArrayStorage);
+    }
+
+    else
+    {
+      if (v1 == 2)
+      {
+        os_log(_:dso:log:type:_:)("Using white strokes on black background for ACC in dark mode UI style.", 70, 2, &_mh_execute_header, v3, v4, &_swiftEmptyArrayStorage);
+        v5 = 0;
+        goto LABEL_9;
+      }
+
+      os_log(_:dso:log:type:_:)("Using black strokes on white background for ACC in unknown UI style.", 68, 2, &_mh_execute_header, v3, v4, &_swiftEmptyArrayStorage);
+    }
+  }
+
+  else
+  {
+    os_log(_:dso:log:type:_:)("Using black strokes on white background for ACC in unspecified UI style.", 72, 2, &_mh_execute_header, v3, v4, &_swiftEmptyArrayStorage);
+  }
+
+  v5 = 1;
+LABEL_9:
 
   sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_1000147D0;
-  v6 = URL.absoluteString.getter();
-  v8 = v7;
-  *(v5 + 56) = &type metadata for String;
-  v9 = sub_100005494();
-  *(v5 + 32) = v6;
-  *(v5 + 40) = v8;
-  *(v5 + 96) = &type metadata for Int;
-  *(v5 + 104) = &protocol witness table for Int;
-  *(v5 + 64) = v9;
-  *(v5 + 72) = v4;
-  v10 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v6 = swift_allocObject();
+  *(v6 + 16) = xmmword_1000147D0;
+  v7 = URL.absoluteString.getter();
+  v9 = v8;
+  *(v6 + 56) = &type metadata for String;
+  v10 = sub_100005494();
+  *(v6 + 32) = v7;
+  *(v6 + 40) = v9;
+  *(v6 + 96) = &type metadata for Int;
+  *(v6 + 104) = &protocol witness table for Int;
+  *(v6 + 64) = v10;
+  *(v6 + 72) = v5;
+  v11 = static OS_os_log.default.getter();
+  v12 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Encoding URL: %@ with preset color: %d.", 39, 2, &_mh_execute_header, v11, v12, v6);
 
   URL._bridgeToObjectiveC()(ACCBakerDataVersion2);
-  v12 = v11;
-  v13 = ACCBakerCreate();
+  v14 = v13;
+  v15 = ACCBakerCreate();
 
-  if (v13)
+  if (v15)
   {
-    v14 = v13;
+    v16 = v15;
     v2 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v15 = swift_allocObject();
-    *(v15 + 16) = xmmword_100014570;
-    v16 = URL.absoluteString.getter();
-    *(v15 + 56) = &type metadata for String;
-    *(v15 + 64) = v9;
-    *(v15 + 32) = v16;
-    *(v15 + 40) = v17;
-    v18 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v17 = swift_allocObject();
+    *(v17 + 16) = xmmword_100014570;
+    v18 = URL.absoluteString.getter();
+    *(v17 + 56) = &type metadata for String;
+    *(v17 + 64) = v10;
+    *(v17 + 32) = v18;
+    *(v17 + 40) = v19;
+    v20 = static OS_os_log.default.getter();
+    v21 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Failed to create SVG Data from URL %@.", 38, 2, &_mh_execute_header, v20, v21, v17);
 
     sub_10000DC1C();
     swift_allocError();
-    *v19 = 2;
+    *v22 = 2;
     swift_willThrow();
   }
 
   return v2;
 }
 
-uint64_t sub_10000F04C(uint64_t a1, unint64_t a2)
+uint64_t sub_10000F04C(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_10000F0A0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10000F0A0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5840,14 +5905,14 @@ uint64_t sub_10000F0A0(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_10000F0E8(uint64_t a1, unint64_t a2)
+uint64_t sub_10000F0E8(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_10000F04C(a1, a2);
+    return sub_10000F04C(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t sub_10000F0FC(uint64_t a1, unint64_t a2)
@@ -5860,13 +5925,13 @@ uint64_t sub_10000F0FC(uint64_t a1, unint64_t a2)
   return a1;
 }
 
-uint64_t sub_10000F110(uint64_t a1, unint64_t a2)
+uint64_t sub_10000F110(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -5876,62 +5941,15 @@ void sub_10000F164()
   v1 = v0;
   if (v0[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_codeDisplayType])
   {
-    v2 = *&v0[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password];
-    v3 = *&v0[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password + 8];
-    v4 = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_password + 8];
 
-    v5 = String.count.getter();
+    v2 = String.count.getter();
 
-    if (v5 > 6)
+    if (v2 > 6)
     {
       sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-      v6 = static OS_os_log.default.getter();
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
-
-      isa = *&v1[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager];
-      if (!isa)
-      {
-        return;
-      }
-
-      *(isa + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-      v8 = *(isa + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-      if (v8)
-      {
-LABEL_5:
-        v9 = isa;
-        [v8 invalidate];
-LABEL_15:
-        v29 = [objc_opt_self() defaultCenter];
-        v31 = v29;
-        if (qword_100022D20 != -1)
-        {
-          swift_once();
-          v29 = v31;
-        }
-
-        [v29 postNotificationName:qword_100023FF0 object:0 userInfo:{0, v31}];
-        goto LABEL_18;
-      }
-
-LABEL_14:
-      v28 = isa;
-      goto LABEL_15;
-    }
-
-    v10 = sub_10000C9EC();
-  }
-
-  else
-  {
-    v10 = sub_10000C634();
-    if (!v10)
-    {
-      sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-      v11 = static OS_os_log.default.getter();
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      v3 = static OS_os_log.default.getter();
+      v4 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("Password to display is too large to use an AppClip code as requested", 68, 2, &_mh_execute_header, v3, v4, &_swiftEmptyArrayStorage);
 
       isa = *&v0[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager];
       if (!isa)
@@ -5940,8 +5958,52 @@ LABEL_14:
       }
 
       *(isa + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-      v8 = *(isa + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-      if (v8)
+      v6 = *(isa + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+      if (v6)
+      {
+LABEL_5:
+        v7 = isa;
+        [v6 invalidate];
+LABEL_15:
+        v28 = [objc_opt_self() defaultCenter];
+        v30 = v28;
+        if (qword_100022D20 != -1)
+        {
+          swift_once();
+          v28 = v30;
+        }
+
+        [v28 postNotificationName:qword_100023FF0 object:0 userInfo:{0, v30}];
+        goto LABEL_18;
+      }
+
+LABEL_14:
+      v27 = isa;
+      goto LABEL_15;
+    }
+
+    v8 = sub_10000C9EC();
+  }
+
+  else
+  {
+    v8 = sub_10000C634();
+    if (!v8)
+    {
+      sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
+      v9 = static OS_os_log.default.getter();
+      v10 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("Failed to generate image for code to display", 44, 2, &_mh_execute_header, v9, v10, &_swiftEmptyArrayStorage);
+
+      isa = *&v0[OBJC_IVAR____TtC23CheckerBoardRemoteSetup31QRCodeDisplayCardViewController_remoteSetupManager];
+      if (!isa)
+      {
+        return;
+      }
+
+      *(isa + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
+      v6 = *(isa + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+      if (v6)
       {
         goto LABEL_5;
       }
@@ -5950,42 +6012,42 @@ LABEL_14:
     }
   }
 
-  v30 = v10;
-  v12 = [objc_allocWithZone(UIImageView) initWithImage:v10];
-  [v12 setUserInteractionEnabled:0];
-  v13 = v12;
-  [v13 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v13 setContentMode:1];
+  v29 = v8;
+  v11 = [objc_allocWithZone(UIImageView) initWithImage:v8];
+  [v11 setUserInteractionEnabled:0];
+  v12 = v11;
+  [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v12 setContentMode:1];
+  v13 = [v0 contentView];
+  [v13 addSubview:v12];
+
   v14 = [v1 contentView];
-  [v14 addSubview:v13];
+  v15 = [v14 mainContentGuide];
 
-  v15 = [v1 contentView];
-  v16 = [v15 mainContentGuide];
-
-  v17 = objc_opt_self();
+  v16 = objc_opt_self();
   sub_1000028AC(&qword_100022D68, "4S");
-  v18 = swift_allocObject();
-  *(v18 + 16) = xmmword_1000147E0;
-  v19 = [v13 topAnchor];
-  v20 = [v16 topAnchor];
-  v21 = [v19 constraintGreaterThanOrEqualToAnchor:v20];
+  v17 = swift_allocObject();
+  *(v17 + 16) = xmmword_1000147E0;
+  v18 = [v12 topAnchor];
+  v19 = [v15 topAnchor];
+  v20 = [v18 constraintGreaterThanOrEqualToAnchor:v19];
 
-  *(v18 + 32) = v21;
-  v22 = [v13 bottomAnchor];
-  v23 = [v16 bottomAnchor];
-  v24 = [v22 constraintLessThanOrEqualToAnchor:v23];
+  *(v17 + 32) = v20;
+  v21 = [v12 bottomAnchor];
+  v22 = [v15 bottomAnchor];
+  v23 = [v21 constraintLessThanOrEqualToAnchor:v22];
 
-  *(v18 + 40) = v24;
-  v25 = [v13 centerXAnchor];
+  *(v17 + 40) = v23;
+  v24 = [v12 centerXAnchor];
 
-  v26 = [v16 centerXAnchor];
-  v27 = [v25 constraintEqualToAnchor:v26];
+  v25 = [v15 centerXAnchor];
+  v26 = [v24 constraintEqualToAnchor:v25];
 
-  *(v18 + 48) = v27;
+  *(v17 + 48) = v26;
   sub_1000028F4(0, &qword_1000232F0, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v17 activateConstraints:isa];
+  [v16 activateConstraints:isa];
 
 LABEL_18:
 }
@@ -6225,7 +6287,7 @@ void sub_10000F98C(void *a1)
   {
     sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
     v4 = swift_allocObject();
-    v60 = xmmword_100014570;
+    *(&v64 + 1) = 2;
     *(v4 + 16) = xmmword_100014570;
     v5 = a1;
     v6 = [v5 identifier];
@@ -6260,180 +6322,180 @@ void sub_10000F98C(void *a1)
     *(v4 + 40) = v15;
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v16 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v17 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Remote device set to %@", 23, 2, &_mh_execute_header, v16, v17, v4);
 
-    v17 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDevice);
+    v18 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDevice);
     *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDevice) = a1;
-    v18 = v5;
+    v19 = v5;
 
-    v19 = [v18 nearbyActionDeviceClass];
-    v20 = OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass;
-    *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass) = v19;
+    v20 = [v19 nearbyActionDeviceClass];
+    v21 = OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass;
+    *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDeviceClass) = v20;
     if (qword_100022CD0 != -1)
     {
       swift_once();
     }
 
-    LOBYTE(v21) = byte_100023FB1;
+    LOBYTE(v22) = byte_100023FB1;
     if (byte_100023FB1 == 2)
     {
-      v22 = *(v2 + v20);
-      if (v22 > 0xB)
+      v23 = *(v2 + v21);
+      if (v23 > 0xB)
       {
-        LOBYTE(v21) = 0;
+        LOBYTE(v22) = 0;
       }
 
       else
       {
-        v21 = 0x80Au >> v22;
+        v22 = 0x80Au >> v23;
       }
     }
 
-    v23 = OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_clientSideAuth;
-    *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_clientSideAuth) = v21 & 1;
-    v24 = swift_allocObject();
-    v25 = *(v2 + v20);
-    *(v24 + 16) = xmmword_100014570;
-    *(v24 + 56) = &type metadata for Int32;
-    *(v24 + 64) = &protocol witness table for Int32;
-    *(v24 + 32) = v25;
-    v26 = static OS_os_log.default.getter();
+    v24 = OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_clientSideAuth;
+    *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_clientSideAuth) = v22 & 1;
+    v25 = swift_allocObject();
+    v26 = *(v2 + v21);
+    *(v25 + 16) = xmmword_100014570;
+    *(v25 + 56) = &type metadata for Int32;
+    *(v25 + 64) = &protocol witness table for Int32;
+    *(v25 + 32) = v26;
+    v27 = static OS_os_log.default.getter();
     static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    os_log(_:dso:log:type:_:)("Remote device class is %d", 1);
 
-    v27 = OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_reverseFlowForDevices;
+    v28 = OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_reverseFlowForDevices;
     swift_beginAccess();
-    v28 = *(v2 + v27);
+    v29 = *(v2 + v28);
 
-    v29 = [v18 identifier];
-    if (v29)
+    v30 = [v19 identifier];
+    if (v30)
     {
-      v30 = v29;
-      v31 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v33 = v32;
+      v31 = v30;
+      v32 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v34 = v33;
     }
 
     else
     {
-      v31 = 0;
-      v33 = 0xE000000000000000;
+      v32 = 0;
+      v34 = 0xE000000000000000;
     }
 
-    v34 = sub_1000101B8(v31, v33, v28);
+    v35 = sub_1000101B8(v32, v34, v29);
 
-    if (v34)
+    if (v35)
     {
-      v35 = static OS_os_log.default.getter();
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      v36 = static OS_os_log.default.getter();
+      v37 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("Remote device is marked for reverse flow", 40, 2, &_mh_execute_header, v36, v37, &_swiftEmptyArrayStorage);
 
-      *(v2 + v23) = (*(v2 + v23) & 1) == 0;
+      *(v2 + v24) = (*(v2 + v24) & 1) == 0;
     }
 
-    v36 = [objc_allocWithZone(SKSetupFieldDiagnosticsClient) init];
-    v37 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-    *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient) = v36;
-    v38 = v36;
+    v38 = [objc_allocWithZone(SKSetupFieldDiagnosticsClient) init];
+    v39 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+    *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient) = v38;
+    v40 = v38;
 
-    if (v38)
+    if (v40)
     {
-      if (*(v2 + v23) == 1)
+      if (*(v2 + v24) == 1)
       {
         if (qword_100022CD8 != -1)
         {
           swift_once();
         }
 
-        if ((byte_100023FB8 & 1) == 0 && ((v39 = dword_100023FB4, dword_100023FB4 == 8) || dword_100023FB4 == 2))
+        if ((byte_100023FB8 & 1) == 0 && ((v41 = dword_100023FB4, dword_100023FB4 == 8) || dword_100023FB4 == 2))
         {
-          v46 = swift_allocObject();
-          *(v46 + 16) = xmmword_100014570;
-          *(v46 + 56) = &type metadata for Int32;
-          *(v46 + 64) = &protocol witness table for Int32;
-          *(v46 + 32) = v39;
-          v47 = static OS_os_log.default.getter();
+          v50 = swift_allocObject();
+          *(v50 + 16) = v64;
+          *(v50 + 56) = &type metadata for Int32;
+          *(v50 + 64) = &protocol witness table for Int32;
+          *(v50 + 32) = v41;
+          v51 = static OS_os_log.default.getter();
           static os_log_type_t.default.getter();
-          os_log(_:dso:log:type:_:)();
+          os_log(_:dso:log:type:_:)("Overriding client side auth type to %d", v64);
 
-          [v38 setPasswordType:v39];
+          [v40 setPasswordType:v41];
         }
 
         else
         {
-          v40 = *(v2 + v20);
-          v41 = v38;
-          if (v40 == 11)
+          v42 = *(v2 + v21);
+          v43 = v40;
+          if (v42 == 11)
           {
-            v43 = 2;
+            v46 = 2;
           }
 
-          else if (v40 == 6)
+          else if (v42 == 6)
           {
-            static os_log_type_t.fault.getter();
-            v42 = static OS_os_log.default.getter();
-            os_log(_:dso:log:type:_:)();
+            v44 = static os_log_type_t.fault.getter();
+            v45 = static OS_os_log.default.getter();
+            os_log(_:dso:log:type:_:)("Client side auth type requested for watch, which is unsupported.", 64, 2, &_mh_execute_header, v45, v44, &_swiftEmptyArrayStorage);
 
-            v43 = 0;
+            v46 = 0;
           }
 
           else
           {
-            v43 = 8;
+            v46 = 8;
           }
 
-          [v41 setPasswordType:{v43, 1, 2}];
-          v48 = swift_allocObject();
-          *(v48 + 16) = v60;
-          v49 = [v41 passwordType];
+          [v43 setPasswordType:v46];
+          v52 = swift_allocObject();
+          *(v52 + 16) = v64;
+          v53 = [v43 passwordType];
 
-          *(v48 + 56) = &type metadata for Int32;
-          *(v48 + 64) = &protocol witness table for Int32;
-          *(v48 + 32) = v49;
-          v50 = static OS_os_log.default.getter();
+          *(v52 + 56) = &type metadata for Int32;
+          *(v52 + 64) = &protocol witness table for Int32;
+          *(v52 + 32) = v53;
+          v54 = static OS_os_log.default.getter();
           static os_log_type_t.default.getter();
-          os_log(_:dso:log:type:_:)();
+          os_log(_:dso:log:type:_:)("Using device class specific auth type of %d", v64);
         }
       }
 
-      v51 = *(v2 + v23);
-      v52 = v38;
-      [v52 setReversePairing:v51];
-      v53 = [objc_allocWithZone(SKDevice) init];
-      v54 = [v18 identifier];
-      [v53 setIdentifier:v54];
+      v55 = *(v2 + v24);
+      v56 = v40;
+      [v56 setReversePairing:v55];
+      v57 = [objc_allocWithZone(SKDevice) init];
+      v58 = [v19 identifier];
+      [v57 setIdentifier:v58];
 
-      [v52 setPeerDevice:v53];
+      [v56 setPeerDevice:v57];
       *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-      v55 = swift_allocObject();
-      *(v55 + 16) = v60;
-      v56 = [v52 reversePairing];
-      *(v55 + 56) = &type metadata for Bool;
-      *(v55 + 64) = &protocol witness table for Bool;
-      *(v55 + 32) = v56;
-      v57 = static OS_os_log.default.getter();
+      v59 = swift_allocObject();
+      *(v59 + 16) = v64;
+      v60 = [v56 reversePairing];
+      *(v59 + 56) = &type metadata for Bool;
+      *(v59 + 64) = &protocol witness table for Bool;
+      *(v59 + 32) = v60;
+      v61 = static OS_os_log.default.getter();
       static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      os_log(_:dso:log:type:_:)("Reverse paring is %d", v64);
 
-      v58 = swift_allocObject();
+      v62 = swift_allocObject();
       swift_unknownObjectWeakInit();
       aBlock[4] = sub_100012F10;
-      aBlock[5] = v58;
+      aBlock[5] = v62;
       aBlock[0] = _NSConcreteStackBlock;
       aBlock[1] = 1107296256;
       aBlock[2] = sub_10000BFE4;
       aBlock[3] = &unk_10001D008;
-      v59 = _Block_copy(aBlock);
+      v63 = _Block_copy(aBlock);
 
-      [v52 setEventHandler:v59];
-      _Block_release(v59);
+      [v56 setEventHandler:v63];
+      _Block_release(v63);
     }
 
     else
     {
-      v44 = static OS_os_log.default.getter();
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      v47 = static OS_os_log.default.getter();
+      v48 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("Failed to get FieldDiagnostics SetupKit client!", 47, 2, &_mh_execute_header, v47, v48, &_swiftEmptyArrayStorage);
     }
   }
 
@@ -6455,7 +6517,7 @@ void sub_10000F98C(void *a1)
 
     *(v2 + v11) = 0;
 
-    v45 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDevice);
+    v49 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDevice);
     *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_remoteDevice) = 0;
   }
 }
@@ -6467,29 +6529,28 @@ uint64_t sub_1000101B8(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  v6 = *(a3 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v7 = Hasher._finalize()();
-  v8 = -1 << *(a3 + 32);
-  v9 = v7 & ~v8;
-  if (((*(a3 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+  v6 = Hasher._finalize()();
+  v7 = -1 << *(a3 + 32);
+  v8 = v6 & ~v7;
+  if (((*(a3 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
   {
     return 0;
   }
 
-  v10 = ~v8;
+  v9 = ~v7;
   while (1)
   {
-    v11 = (*(a3 + 48) + 16 * v9);
-    v12 = *v11 == a1 && v11[1] == a2;
-    if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    v10 = (*(a3 + 48) + 16 * v8);
+    v11 = *v10 == a1 && v10[1] == a2;
+    if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
       break;
     }
 
-    v9 = (v9 + 1) & v10;
-    if (((*(a3 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+    v8 = (v8 + 1) & v9;
+    if (((*(a3 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
     {
       return 0;
     }
@@ -6498,13 +6559,13 @@ uint64_t sub_1000101B8(uint64_t a1, uint64_t a2, uint64_t a3)
   return 1;
 }
 
-void sub_1000102B0(void *a1)
+void sub_1000102B0(void *a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = Strong;
+    v4 = Strong;
     sub_1000104E8(a1);
   }
 }
@@ -6526,23 +6587,23 @@ void sub_10001030C(uint64_t a1, uint64_t a2)
     v8 = v3;
 
     v9 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v10 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Sending password %@ to SetupKit", 31, 2, &_mh_execute_header, v9, v10, v7);
 
     *(v4 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 2;
-    v10 = objc_allocWithZone(SKAuthenticationResponseEvent);
-    v11 = String._bridgeToObjectiveC()();
-    v12 = [v10 initWithPassword:v11];
+    v11 = objc_allocWithZone(SKAuthenticationResponseEvent);
+    v12 = String._bridgeToObjectiveC()();
+    v14 = [v11 initWithPassword:v12];
 
-    [v8 postEvent:v12];
+    [v8 postEvent:v14];
   }
 
   else
   {
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-    v12 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v14 = static OS_os_log.default.getter();
+    v13 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Attempted to send password to SetupKit when setup client is not running!", 72, 2, &_mh_execute_header, v14, v13, &_swiftEmptyArrayStorage);
   }
 }
 
@@ -6558,60 +6619,66 @@ void sub_1000104E8(void *a1)
   sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
   v5 = a1;
   v6 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v7 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("SetupKit In event: %@", 21, 2, &_mh_execute_header, v6, v7, v4);
 
-  v7 = [v5 eventType];
-  if (v7 > 119)
+  v8 = [v5 eventType];
+  if (v8 > 119)
   {
-    if (v7 > 199)
+    if (v8 > 199)
     {
-      if ((v7 - 200) < 3)
+      if ((v8 - 200) < 3)
       {
-        v10 = static OS_os_log.default.getter();
-        static os_log_type_t.default.getter();
-        os_log(_:dso:log:type:_:)();
+        v12 = static OS_os_log.default.getter();
+        v13 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("SKSetupClient captive network event", 35, 2, &_mh_execute_header, v12, v13, &_swiftEmptyArrayStorage);
 
         *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-        v11 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-        if (v11)
+        v14 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+        if (v14)
         {
-          [v11 invalidate];
+          [v14 invalidate];
         }
 
         goto LABEL_52;
       }
 
-      if (v7 == 300)
+      if (v8 == 300)
       {
-        goto LABEL_46;
+        v38 = static OS_os_log.default.getter();
+        v24 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("SKSetupClient basicConfigUpdated", 32, 2, &_mh_execute_header, v38, v24, &_swiftEmptyArrayStorage, v38);
+        goto LABEL_56;
       }
 
       goto LABEL_47;
     }
 
-    if (v7 != 120)
+    if (v8 != 120)
     {
-      if (v7 == 130)
+      if (v8 == 130)
       {
-        goto LABEL_46;
+        v41 = static OS_os_log.default.getter();
+        v30 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("SKSetupClient authentication response", 37, 2, &_mh_execute_header, v41, v30, &_swiftEmptyArrayStorage, v41);
+        goto LABEL_56;
       }
 
-      if (v7 == 140)
+      if (v8 == 140)
       {
-        v14 = static OS_os_log.default.getter();
-        static os_log_type_t.default.getter();
-        os_log(_:dso:log:type:_:)();
+        v18 = static OS_os_log.default.getter();
+        v19 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("SKSetupClient authentication completed", 38, 2, &_mh_execute_header, v18, v19, &_swiftEmptyArrayStorage);
 
-        v15 = [objc_opt_self() defaultCenter];
-        v25 = v15;
+        v20 = [objc_opt_self() defaultCenter];
+        v37 = v20;
         if (qword_100022D08 != -1)
         {
           swift_once();
-          v15 = v25;
+          v20 = v37;
         }
 
-        v16 = qword_100023FD8;
+        v21 = qword_100023FD8;
         goto LABEL_55;
       }
 
@@ -6623,25 +6690,25 @@ void sub_1000104E8(void *a1)
 
   else
   {
-    if (v7 <= 39)
+    if (v8 <= 39)
     {
-      if (v7 == 10)
+      if (v8 == 10)
       {
-        v19 = static OS_os_log.default.getter();
-        static os_log_type_t.default.getter();
-        os_log(_:dso:log:type:_:)();
+        v28 = static OS_os_log.default.getter();
+        v29 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("SetupKit client started", 23, 2, &_mh_execute_header, v28, v29, &_swiftEmptyArrayStorage);
 
         *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 2;
         return;
       }
 
-      if (v7 != 20)
+      if (v8 != 20)
       {
-        if (v7 == 30)
+        if (v8 == 30)
         {
-          v12 = static OS_os_log.default.getter();
-          static os_log_type_t.default.getter();
-          os_log(_:dso:log:type:_:)();
+          v15 = static OS_os_log.default.getter();
+          v16 = static os_log_type_t.default.getter();
+          os_log(_:dso:log:type:_:)("SetupKit invalidated", 20, 2, &_mh_execute_header, v15, v16, &_swiftEmptyArrayStorage);
 
           if ((*(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) & 0xFE) != 2)
           {
@@ -6649,10 +6716,10 @@ void sub_1000104E8(void *a1)
           }
 
           *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-          v13 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-          if (v13)
+          v17 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+          if (v17)
           {
-            [v13 invalidate];
+            [v17 invalidate];
           }
 
           goto LABEL_52;
@@ -6664,23 +6731,23 @@ void sub_1000104E8(void *a1)
 
     else
     {
-      if (v7 <= 99)
+      if (v8 <= 99)
       {
-        if (v7 != 40)
+        if (v8 != 40)
         {
-          if (v7 == 41)
+          if (v8 == 41)
           {
-            v8 = static OS_os_log.default.getter();
-            static os_log_type_t.default.getter();
-            os_log(_:dso:log:type:_:)();
+            v9 = static OS_os_log.default.getter();
+            v10 = static os_log_type_t.default.getter();
+            os_log(_:dso:log:type:_:)("SetupKit connection ended", 25, 2, &_mh_execute_header, v9, v10, &_swiftEmptyArrayStorage);
 
-            v9 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState);
-            if (v9 == 1)
+            v11 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState);
+            if (v11 == 1)
             {
               return;
             }
 
-            if (v9 == 3)
+            if (v11 == 3)
             {
 
               sub_100011760(0);
@@ -6688,10 +6755,10 @@ void sub_1000104E8(void *a1)
             }
 
             *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-            v24 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-            if (v24)
+            v36 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+            if (v36)
             {
-              [v24 invalidate];
+              [v36 invalidate];
             }
 
             goto LABEL_52;
@@ -6700,63 +6767,62 @@ void sub_1000104E8(void *a1)
           goto LABEL_47;
         }
 
-LABEL_46:
-        v26 = static OS_os_log.default.getter();
-        static os_log_type_t.default.getter();
-        os_log(_:dso:log:type:_:)();
+        v40 = static OS_os_log.default.getter();
+        v25 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("SetupKit connection started", 27, 2, &_mh_execute_header, v40, v25, &_swiftEmptyArrayStorage, v40);
 LABEL_56:
 
         return;
       }
 
-      if (v7 != 100)
+      if (v8 != 100)
       {
-        if (v7 == 110)
+        if (v8 == 110)
         {
-          v17 = static OS_os_log.default.getter();
-          static os_log_type_t.default.getter();
-          os_log(_:dso:log:type:_:)();
+          v22 = static OS_os_log.default.getter();
+          v23 = static os_log_type_t.default.getter();
+          os_log(_:dso:log:type:_:)("SKSetupClient authentication present.", 37, 2, &_mh_execute_header, v22, v23, &_swiftEmptyArrayStorage);
 
           sub_100011058(v5);
           return;
         }
 
 LABEL_47:
-        v20 = swift_allocObject();
-        *(v20 + 16) = xmmword_100014570;
-        v21 = [v5 eventType];
-        *(v20 + 56) = &type metadata for Int32;
-        *(v20 + 64) = &protocol witness table for Int32;
-        *(v20 + 32) = v21;
-        v22 = static OS_os_log.default.getter();
-        static os_log_type_t.default.getter();
-        os_log(_:dso:log:type:_:)();
+        v31 = swift_allocObject();
+        *(v31 + 16) = xmmword_100014570;
+        v32 = [v5 eventType];
+        *(v31 + 56) = &type metadata for Int32;
+        *(v31 + 64) = &protocol witness table for Int32;
+        *(v31 + 32) = v32;
+        v33 = static OS_os_log.default.getter();
+        v34 = static os_log_type_t.default.getter();
+        os_log(_:dso:log:type:_:)("SKSetupClient event type %@ is unrecognized", 43, 2, &_mh_execute_header, v33, v34, v31);
 
         *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-        v23 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-        if (v23)
+        v35 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+        if (v35)
         {
-          [v23 invalidate];
+          [v35 invalidate];
         }
 
 LABEL_52:
-        v15 = [objc_opt_self() defaultCenter];
-        v25 = v15;
+        v20 = [objc_opt_self() defaultCenter];
+        v37 = v20;
         if (qword_100022D20 != -1)
         {
           swift_once();
-          v15 = v25;
+          v20 = v37;
         }
 
-        v16 = qword_100023FF0;
+        v21 = qword_100023FF0;
 LABEL_55:
-        [v15 postNotificationName:v16 object:0 userInfo:{0, v25}];
+        [v20 postNotificationName:v21 object:0 userInfo:{0, v37}];
         goto LABEL_56;
       }
 
-      v18 = static OS_os_log.default.getter();
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      v26 = static OS_os_log.default.getter();
+      v27 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("SKSetupClient authentication type changed.", 42, 2, &_mh_execute_header, v26, v27, &_swiftEmptyArrayStorage);
 
       if (*(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) != 3)
       {
@@ -6782,25 +6848,25 @@ void sub_100010C44(void *a1)
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v17 = a1;
     v18 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v19 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("_handleAuthenticationRequestEvent called with invalid event %@", 62, 2, &_mh_execute_header, v18, v19, v16);
 
     *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-    v19 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-    if (v19)
+    v20 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+    if (v20)
     {
-      [v19 invalidate];
+      [v20 invalidate];
     }
 
-    v20 = [objc_opt_self() defaultCenter];
-    v21 = v20;
+    v21 = [objc_opt_self() defaultCenter];
+    v23 = v21;
     if (qword_100022D20 != -1)
     {
       swift_once();
-      v20 = v21;
+      v21 = v23;
     }
 
-    [v20 postNotificationName:qword_100023FF0 object:0 userInfo:{0, v21}];
+    [v21 postNotificationName:qword_100023FF0 object:0 userInfo:{0, v23}];
   }
 
   else
@@ -6808,6 +6874,7 @@ void sub_100010C44(void *a1)
     v5 = v4;
     sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
     v6 = swift_allocObject();
+    *(&v22 + 1) = 2;
     *(v6 + 16) = xmmword_100014570;
     v7 = a1;
     v8 = [v5 passwordType];
@@ -6817,7 +6884,7 @@ void sub_100010C44(void *a1)
     sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
     v9 = static OS_os_log.default.getter();
     static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    os_log(_:dso:log:type:_:)("Authentication request with password type %d", 1);
 
     *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 3;
     v10 = [objc_opt_self() defaultCenter];
@@ -6829,7 +6896,7 @@ void sub_100010C44(void *a1)
     v11 = qword_100023FC8;
     sub_1000028AC(&qword_100023460, &qword_100014A50);
     inited = swift_initStackObject();
-    *(inited + 16) = xmmword_100014570;
+    *(inited + 16) = v22;
     AnyHashable.init<A>(_:)();
     v13 = [v5 passwordType];
     type metadata accessor for CUPasswordType(0);
@@ -6904,25 +6971,25 @@ void sub_100011058(void *a1)
   sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
   v19 = a1;
   v20 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v21 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("_handleAuthenticationPresentEvent called with invalid event %@", 62, 2, &_mh_execute_header, v20, v21, v18);
 
   *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-  v21 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-  if (v21)
+  v22 = *(v2 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+  if (v22)
   {
-    [v21 invalidate];
+    [v22 invalidate];
   }
 
-  v22 = [objc_opt_self() defaultCenter];
-  v23 = v22;
+  v23 = [objc_opt_self() defaultCenter];
+  v24 = v23;
   if (qword_100022D20 != -1)
   {
     swift_once();
-    v22 = v23;
+    v23 = v24;
   }
 
-  [v22 postNotificationName:qword_100023FF0 object:0 userInfo:0];
+  [v23 postNotificationName:qword_100023FF0 object:0 userInfo:0];
 }
 
 void sub_100011470()
@@ -6934,80 +7001,79 @@ void sub_100011470()
     v3 = OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_reverseFlowForDevices;
     swift_beginAccess();
     v4 = *(v0 + v3);
-    v5 = *(v1 + v3);
 
-    v6 = v2;
-    v7 = [v6 identifier];
-    if (v7)
+    v5 = v2;
+    v6 = [v5 identifier];
+    if (v6)
     {
-      v8 = v7;
-      v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v11 = v10;
+      v7 = v6;
+      v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v10 = v9;
     }
 
     else
     {
-      v9 = 0;
-      v11 = 0xE000000000000000;
+      v8 = 0;
+      v10 = 0xE000000000000000;
     }
 
-    v12 = sub_1000101B8(v9, v11, v4);
+    v11 = sub_1000101B8(v8, v10, v4);
 
-    if (v12)
+    if (v11)
     {
       sub_1000028AC(&unk_100022EA0, &unk_1000145C0);
-      v13 = swift_allocObject();
-      *(v13 + 16) = xmmword_100014570;
-      v14 = [v6 identifier];
-      if (v14)
+      v12 = swift_allocObject();
+      *(v12 + 16) = xmmword_100014570;
+      v13 = [v5 identifier];
+      if (v13)
       {
-        v15 = v14;
-        v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v18 = v17;
+        v14 = v13;
+        v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v17 = v16;
       }
 
       else
       {
-        v16 = 0;
+        v15 = 0;
+        v17 = 0;
+      }
+
+      *(v12 + 56) = &type metadata for String;
+      *(v12 + 64) = sub_100005494();
+      if (v17)
+      {
+        v18 = v15;
+      }
+
+      else
+      {
         v18 = 0;
       }
 
-      *(v13 + 56) = &type metadata for String;
-      *(v13 + 64) = sub_100005494();
-      if (v18)
+      v19 = 0xE000000000000000;
+      if (v17)
       {
-        v19 = v16;
+        v20 = v17;
       }
 
       else
       {
-        v19 = 0;
+        v20 = 0xE000000000000000;
       }
 
-      v20 = 0xE000000000000000;
-      if (v18)
-      {
-        v21 = v18;
-      }
-
-      else
-      {
-        v21 = 0xE000000000000000;
-      }
-
-      *(v13 + 32) = v19;
-      *(v13 + 40) = v21;
+      *(v12 + 32) = v18;
+      *(v12 + 40) = v20;
       sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
-      v22 = static OS_os_log.default.getter();
-      static os_log_type_t.default.getter();
-      os_log(_:dso:log:type:_:)();
+      v21 = static OS_os_log.default.getter();
+      v22 = static os_log_type_t.default.getter();
+      os_log(_:dso:log:type:_:)("Clearing reverse flow for device %@", 35, 2, &_mh_execute_header, v21, v22, v12);
 
-      v23 = [v6 identifier];
+      v23 = [v5 identifier];
       if (v23)
       {
         v24 = v23;
         v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v20 = v26;
+        v19 = v26;
       }
 
       else
@@ -7016,7 +7082,7 @@ void sub_100011470()
       }
 
       swift_beginAccess();
-      sub_10001204C(v25, v20);
+      sub_10001204C(v25, v19);
       swift_endAccess();
     }
 
@@ -7086,7 +7152,7 @@ void sub_100011904()
       v8 = v7;
 
       swift_beginAccess();
-      sub_100012940(&v14, v6, v8);
+      sub_100012940(&v15, v6, v8);
       swift_endAccess();
 
       sub_100011760(1);
@@ -7097,25 +7163,25 @@ void sub_100011904()
 
   sub_1000028F4(0, &qword_1000232C0, OS_os_log_ptr);
   v9 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v10 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Unable to reference remote device identifier for tracking reverse authentication", 80, 2, &_mh_execute_header, v9, v10, &_swiftEmptyArrayStorage);
 
   *(v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupState) = 1;
-  v10 = *(v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
-  if (v10)
+  v11 = *(v1 + OBJC_IVAR____TtC23CheckerBoardRemoteSetup24RemoteSetupClientManager_setupClient);
+  if (v11)
   {
-    [v10 invalidate];
+    [v11 invalidate];
   }
 
-  v11 = [objc_opt_self() defaultCenter];
-  v12 = v11;
+  v12 = [objc_opt_self() defaultCenter];
+  v13 = v12;
   if (qword_100022D20 != -1)
   {
     swift_once();
-    v11 = v12;
+    v12 = v13;
   }
 
-  [v11 postNotificationName:qword_100023FF0 object:0 userInfo:{0, v12}];
+  [v12 postNotificationName:qword_100023FF0 object:0 userInfo:{0, v13}];
 }
 
 id sub_100011B94()
@@ -7378,50 +7444,46 @@ unint64_t sub_100011F84(uint64_t a1, uint64_t a2)
 uint64_t sub_10001204C(uint64_t a1, uint64_t a2)
 {
   v5 = *v2;
-  v6 = *(*v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v7 = Hasher._finalize()();
-  v8 = -1 << *(v5 + 32);
-  v9 = v7 & ~v8;
-  if (((*(v5 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+  v6 = Hasher._finalize()();
+  v7 = -1 << *(v5 + 32);
+  v8 = v6 & ~v7;
+  if (((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
   {
     return 0;
   }
 
-  v10 = ~v8;
+  v9 = ~v7;
   while (1)
   {
-    v11 = (*(v5 + 48) + 16 * v9);
-    v12 = *v11 == a1 && v11[1] == a2;
-    if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    v10 = (*(v5 + 48) + 16 * v8);
+    v11 = *v10 == a1 && v10[1] == a2;
+    if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
       break;
     }
 
-    v9 = (v9 + 1) & v10;
-    if (((*(v5 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+    v8 = (v8 + 1) & v9;
+    if (((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
     {
       return 0;
     }
   }
 
-  v14 = *v2;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v14 = *v2;
   v16 = *v2;
-  v20 = *v2;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
     sub_100012188();
-    v16 = v20;
+    v14 = v16;
   }
 
-  v17 = (*(v16 + 48) + 16 * v9);
-  v13 = *v17;
-  v18 = v17[1];
-  sub_10001277C(v9);
-  *v2 = v20;
-  return v13;
+  v12 = *(*(v14 + 48) + 16 * v8);
+  sub_10001277C(v8);
+  *v2 = v16;
+  return v12;
 }
 
 void *sub_100012188()
@@ -7507,22 +7569,130 @@ LABEL_19:
   return result;
 }
 
-uint64_t sub_1000122E4(uint64_t a1)
+Swift::Int sub_1000122E4(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   sub_1000028AC(&qword_100023458, &qword_100014A48);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v29 = v2;
-    v7 = 0;
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
+    {
+      v8 = ~(-1 << v7);
+    }
+
+    else
+    {
+      v8 = -1;
+    }
+
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
+    {
+      v14 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
+LABEL_15:
+      v17 = (*(v3 + 48) + 16 * (v14 | (v6 << 6)));
+      v18 = *v17;
+      v19 = v17[1];
+      Hasher.init(_seed:)();
+
+      String.hash(into:)();
+      result = Hasher._finalize()();
+      v20 = -1 << *(v5 + 32);
+      v21 = result & ~v20;
+      v22 = v21 >> 6;
+      if (((-1 << v21) & ~*(v11 + 8 * (v21 >> 6))) == 0)
+      {
+        v23 = 0;
+        v24 = (63 - v20) >> 6;
+        while (++v22 != v24 || (v23 & 1) == 0)
+        {
+          v25 = v22 == v24;
+          if (v22 == v24)
+          {
+            v22 = 0;
+          }
+
+          v23 |= v25;
+          v26 = *(v11 + 8 * v22);
+          if (v26 != -1)
+          {
+            v12 = __clz(__rbit64(~v26)) + (v22 << 6);
+            goto LABEL_7;
+          }
+        }
+
+        goto LABEL_28;
+      }
+
+      v12 = __clz(__rbit64((-1 << v21) & ~*(v11 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      v13 = (*(v5 + 48) + 16 * v12);
+      *v13 = v18;
+      v13[1] = v19;
+      ++*(v5 + 16);
+    }
+
+    v15 = v6;
+    while (1)
+    {
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
+      {
+        break;
+      }
+
+      if (v6 >= v10)
+      {
+
+        v2 = v1;
+        goto LABEL_26;
+      }
+
+      v16 = *(v3 + 56 + 8 * v6);
+      ++v15;
+      if (v16)
+      {
+        v14 = __clz(__rbit64(v16));
+        v9 = (v16 - 1) & v16;
+        goto LABEL_15;
+      }
+    }
+
+    __break(1u);
+LABEL_28:
+    __break(1u);
+  }
+
+  else
+  {
+
+LABEL_26:
+    *v2 = v5;
+  }
+
+  return result;
+}
+
+Swift::Int sub_10001251C(uint64_t a1)
+{
+  v2 = v1;
+  v3 = *v1;
+  sub_1000028AC(&qword_100023458, &qword_100014A48);
+  result = static _SetStorage.resize(original:capacity:move:)();
+  v5 = result;
+  if (*(v3 + 16))
+  {
+    v6 = 0;
+    v7 = (v3 + 56);
     v8 = 1 << *(v3 + 32);
     if (v8 < 64)
     {
@@ -7541,214 +7711,92 @@ uint64_t sub_1000122E4(uint64_t a1)
     {
       v15 = __clz(__rbit64(v10));
       v10 &= v10 - 1;
-LABEL_17:
-      v18 = (*(v3 + 48) + 16 * (v15 | (v7 << 6)));
+LABEL_15:
+      v18 = (*(v3 + 48) + 16 * (v15 | (v6 << 6)));
       v19 = *v18;
       v20 = v18[1];
-      v21 = *(v6 + 40);
       Hasher.init(_seed:)();
-
       String.hash(into:)();
       result = Hasher._finalize()();
-      v22 = -1 << *(v6 + 32);
-      v23 = result & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v12 + 8 * (v23 >> 6))) == 0)
+      v21 = -1 << *(v5 + 32);
+      v22 = result & ~v21;
+      v23 = v22 >> 6;
+      if (((-1 << v22) & ~*(v12 + 8 * (v22 >> 6))) == 0)
       {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
+        v24 = 0;
+        v25 = (63 - v21) >> 6;
+        while (++v23 != v25 || (v24 & 1) == 0)
         {
-          v27 = v24 == v26;
-          if (v24 == v26)
+          v26 = v23 == v25;
+          if (v23 == v25)
           {
-            v24 = 0;
+            v23 = 0;
           }
 
-          v25 |= v27;
-          v28 = *(v12 + 8 * v24);
-          if (v28 != -1)
+          v24 |= v26;
+          v27 = *(v12 + 8 * v23);
+          if (v27 != -1)
           {
-            v13 = __clz(__rbit64(~v28)) + (v24 << 6);
-            goto LABEL_9;
+            v13 = __clz(__rbit64(~v27)) + (v23 << 6);
+            goto LABEL_7;
           }
         }
 
+LABEL_30:
+        __break(1u);
+        return result;
+      }
+
+      v13 = __clz(__rbit64((-1 << v22) & ~*(v12 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      v14 = (*(v5 + 48) + 16 * v13);
+      *v14 = v19;
+      v14[1] = v20;
+      ++*(v5 + 16);
+    }
+
+    v16 = v6;
+    while (1)
+    {
+      v6 = v16 + 1;
+      if (__OFADD__(v16, 1))
+      {
+        __break(1u);
         goto LABEL_30;
       }
 
-      v13 = __clz(__rbit64((-1 << v23) & ~*(v12 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
-      v14 = (*(v6 + 48) + 16 * v13);
-      *v14 = v19;
-      v14[1] = v20;
-      ++*(v6 + 16);
-    }
-
-    v16 = v7;
-    while (1)
-    {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      if (v6 >= v11)
       {
         break;
       }
 
-      if (v7 >= v11)
-      {
-
-        v2 = v29;
-        goto LABEL_28;
-      }
-
-      v17 = *(v3 + 56 + 8 * v7);
+      v17 = v7[v6];
       ++v16;
       if (v17)
       {
         v15 = __clz(__rbit64(v17));
         v10 = (v17 - 1) & v17;
-        goto LABEL_17;
+        goto LABEL_15;
       }
     }
 
-    __break(1u);
-LABEL_30:
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_28:
-    *v2 = v6;
-  }
-
-  return result;
-}
-
-uint64_t sub_10001251C(uint64_t a1)
-{
-  v2 = v1;
-  v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
-  sub_1000028AC(&qword_100023458, &qword_100014A48);
-  result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
-  if (*(v3 + 16))
-  {
-    v31 = v2;
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
+    v28 = 1 << *(v3 + 32);
+    if (v28 >= 64)
     {
-      v10 = ~(-1 << v9);
+      bzero((v3 + 56), ((v28 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      v10 = -1;
+      *v7 = -1 << v28;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
-    {
-      v16 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v19 = (*(v3 + 48) + 16 * (v16 | (v7 << 6)));
-      v20 = *v19;
-      v21 = v19[1];
-      v22 = *(v6 + 40);
-      Hasher.init(_seed:)();
-      String.hash(into:)();
-      result = Hasher._finalize()();
-      v23 = -1 << *(v6 + 32);
-      v24 = result & ~v23;
-      v25 = v24 >> 6;
-      if (((-1 << v24) & ~*(v13 + 8 * (v24 >> 6))) == 0)
-      {
-        v26 = 0;
-        v27 = (63 - v23) >> 6;
-        while (++v25 != v27 || (v26 & 1) == 0)
-        {
-          v28 = v25 == v27;
-          if (v25 == v27)
-          {
-            v25 = 0;
-          }
-
-          v26 |= v28;
-          v29 = *(v13 + 8 * v25);
-          if (v29 != -1)
-          {
-            v14 = __clz(__rbit64(~v29)) + (v25 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_32:
-        __break(1u);
-        return result;
-      }
-
-      v14 = __clz(__rbit64((-1 << v24) & ~*(v13 + 8 * (v24 >> 6)))) | v24 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      v15 = (*(v6 + 48) + 16 * v14);
-      *v15 = v20;
-      v15[1] = v21;
-      ++*(v6 + 16);
-    }
-
-    v17 = v7;
-    while (1)
-    {
-      v7 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        __break(1u);
-        goto LABEL_32;
-      }
-
-      if (v7 >= v12)
-      {
-        break;
-      }
-
-      v18 = v8[v7];
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v11 = (v18 - 1) & v18;
-        goto LABEL_17;
-      }
-    }
-
-    v30 = 1 << *(v3 + 32);
-    if (v30 >= 64)
-    {
-      bzero((v3 + 56), ((v30 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v8 = -1 << v30;
-    }
-
-    v2 = v31;
+    v2 = v1;
     *(v3 + 16) = 0;
   }
 
-  *v2 = v6;
+  *v2 = v5;
   return result;
 }
 
@@ -7762,46 +7810,41 @@ unint64_t sub_10001277C(unint64_t result)
   if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
   {
     v7 = ~v5;
-    v8 = *v1;
 
-    v9 = _HashTable.previousHole(before:)();
+    v8 = _HashTable.previousHole(before:)();
     if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
     {
-      v10 = (v9 + 1) & v7;
+      v9 = (v8 + 1) & v7;
       do
       {
-        v11 = *(v3 + 40);
-        v12 = (*(v3 + 48) + 16 * v6);
-        v13 = *v12;
-        v14 = v12[1];
         Hasher.init(_seed:)();
 
         String.hash(into:)();
-        v15 = Hasher._finalize()();
+        v10 = Hasher._finalize()();
 
-        v16 = v15 & v7;
-        if (v2 >= v10)
+        v11 = v10 & v7;
+        if (v2 >= v9)
         {
-          if (v16 < v10)
+          if (v11 < v9)
           {
             goto LABEL_5;
           }
         }
 
-        else if (v16 >= v10)
+        else if (v11 >= v9)
         {
           goto LABEL_11;
         }
 
-        if (v2 >= v16)
+        if (v2 >= v11)
         {
 LABEL_11:
-          v17 = *(v3 + 48);
-          v18 = (v17 + 16 * v2);
-          v19 = (v17 + 16 * v6);
-          if (v2 != v6 || v18 >= v19 + 1)
+          v12 = *(v3 + 48);
+          v13 = (v12 + 16 * v2);
+          v14 = (v12 + 16 * v6);
+          if (v2 != v6 || v13 >= v14 + 1)
           {
-            *v18 = *v19;
+            *v13 = *v14;
             v2 = v6;
           }
         }
@@ -7821,55 +7864,54 @@ LABEL_5:
     *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
   }
 
-  v20 = *(v3 + 16);
-  v21 = __OFSUB__(v20, 1);
-  v22 = v20 - 1;
-  if (v21)
+  v15 = *(v3 + 16);
+  v16 = __OFSUB__(v15, 1);
+  v17 = v15 - 1;
+  if (v16)
   {
     __break(1u);
   }
 
   else
   {
-    *(v3 + 16) = v22;
+    *(v3 + 16) = v17;
     ++*(v3 + 36);
   }
 
   return result;
 }
 
-uint64_t sub_100012940(Swift::Int *a1, Swift::Int a2, Swift::Int a3)
+uint64_t sub_100012940(void *a1, uint64_t a2, uint64_t a3)
 {
   v7 = *v3;
-  v8 = *(*v3 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v9 = Hasher._finalize()();
-  v10 = -1 << *(v7 + 32);
-  v11 = v9 & ~v10;
-  if ((*(v7 + 56 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11))
+  v8 = Hasher._finalize()();
+  v9 = -1 << *(v7 + 32);
+  v10 = v8 & ~v9;
+  if ((*(v7 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
   {
-    v12 = ~v10;
+    v11 = ~v9;
     while (1)
     {
-      v13 = (*(v7 + 48) + 16 * v11);
-      v14 = *v13 == a2 && v13[1] == a3;
-      if (v14 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      v12 = (*(v7 + 48) + 16 * v10);
+      v13 = *v12 == a2 && v12[1] == a3;
+      if (v13 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
       {
         break;
       }
 
-      v11 = (v11 + 1) & v12;
-      if (((*(v7 + 56 + ((v11 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v11) & 1) == 0)
+      v10 = (v10 + 1) & v11;
+      if (((*(v7 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
       {
         goto LABEL_9;
       }
     }
 
-    v18 = (*(v7 + 48) + 16 * v11);
-    v19 = v18[1];
-    *a1 = *v18;
-    a1[1] = v19;
+    v16 = (*(v7 + 48) + 16 * v10);
+    v17 = v16[1];
+    *a1 = *v16;
+    a1[1] = v17;
 
     return 0;
   }
@@ -7877,19 +7919,18 @@ uint64_t sub_100012940(Swift::Int *a1, Swift::Int a2, Swift::Int a3)
   else
   {
 LABEL_9:
-    v15 = *v3;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v20 = *v3;
+    v18 = *v3;
 
-    sub_100012A90(a2, a3, v11, isUniquelyReferenced_nonNull_native);
-    *v3 = v20;
+    sub_100012A90(a2, a3, v10, isUniquelyReferenced_nonNull_native);
+    *v3 = v18;
     *a1 = a2;
     a1[1] = a3;
     return 1;
   }
 }
 
-Swift::Int sub_100012A90(Swift::Int result, Swift::Int a2, unint64_t a3, char a4)
+uint64_t sub_100012A90(uint64_t result, uint64_t a2, unint64_t a3, char a4)
 {
   v7 = result;
   v8 = *(*v4 + 16);
@@ -7916,19 +7957,18 @@ Swift::Int sub_100012A90(Swift::Int result, Swift::Int a2, unint64_t a3, char a4
   }
 
   v10 = *v4;
-  v11 = *(*v4 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
   result = Hasher._finalize()();
-  v12 = -1 << *(v10 + 32);
-  a3 = result & ~v12;
+  v11 = -1 << *(v10 + 32);
+  a3 = result & ~v11;
   if ((*(v10 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3))
   {
-    v13 = ~v12;
+    v12 = ~v11;
     do
     {
-      v14 = (*(v10 + 48) + 16 * a3);
-      if (*v14 == v7 && v14[1] == a2)
+      v13 = (*(v10 + 48) + 16 * a3);
+      if (*v13 == v7 && v13[1] == a2)
       {
         goto LABEL_19;
       }
@@ -7939,24 +7979,24 @@ Swift::Int sub_100012A90(Swift::Int result, Swift::Int a2, unint64_t a3, char a4
         goto LABEL_19;
       }
 
-      a3 = (a3 + 1) & v13;
+      a3 = (a3 + 1) & v12;
     }
 
     while (((*(v10 + 56 + ((a3 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a3) & 1) != 0);
   }
 
 LABEL_16:
-  v16 = *v4;
+  v15 = *v4;
   *(*v4 + 8 * (a3 >> 6) + 56) |= 1 << a3;
-  v17 = (*(v16 + 48) + 16 * a3);
-  *v17 = v7;
-  v17[1] = a2;
-  v18 = *(v16 + 16);
-  v19 = __OFADD__(v18, 1);
-  v20 = v18 + 1;
-  if (!v19)
+  v16 = (*(v15 + 48) + 16 * a3);
+  *v16 = v7;
+  v16[1] = a2;
+  v17 = *(v15 + 16);
+  v18 = __OFADD__(v17, 1);
+  v19 = v17 + 1;
+  if (!v18)
   {
-    *(v16 + 16) = v20;
+    *(v15 + 16) = v19;
     return result;
   }
 

@@ -283,8 +283,9 @@ LABEL_6:
 LABEL_7:
 }
 
-uint64_t __61__GKHostedViewController_requestRemoteViewControllerIfNeeded__block_invoke_67(uint64_t a1, int a2)
+uint64_t __61__GKHostedViewController_requestRemoteViewControllerIfNeeded__block_invoke_67(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     if (!*MEMORY[0x277D0C2A0])
@@ -298,7 +299,7 @@ uint64_t __61__GKHostedViewController_requestRemoteViewControllerIfNeeded__block
     }
   }
 
-  return a2 ^ 1u;
+  return v2 ^ 1u;
 }
 
 - (void)resetRemoteViewController

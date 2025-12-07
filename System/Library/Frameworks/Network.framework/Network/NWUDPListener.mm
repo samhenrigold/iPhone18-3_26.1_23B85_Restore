@@ -25,7 +25,7 @@
     v34 = __nwlog_obj();
     *buf = 136446210;
     v67 = "[NWUDPListener initWithParameters:delegate:]";
-    v35 = _os_log_send_and_compose_impl();
+    v35 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v34, 16, "%{public}s called with null parameters", buf, 12);
 
     LOBYTE(location) = 16;
     v65 = OS_LOG_TYPE_DEFAULT;
@@ -99,7 +99,7 @@ LABEL_72:
     v38 = __nwlog_obj();
     *buf = 136446210;
     v67 = "[NWUDPListener initWithParameters:delegate:]";
-    v39 = _os_log_send_and_compose_impl();
+    v39 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v38, 16, "%{public}s called with null delegate", buf, 12);
 
     LOBYTE(location) = 16;
     v65 = OS_LOG_TYPE_DEFAULT;
@@ -180,7 +180,7 @@ LABEL_86:
     v42 = __nwlog_obj();
     *buf = 136446210;
     v67 = "[NWUDPListener initWithParameters:delegate:]";
-    v43 = _os_log_send_and_compose_impl();
+    v43 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v42, 16, "%{public}s [super init] failed", buf, 12);
 
     LOBYTE(location) = 16;
     v65 = OS_LOG_TYPE_DEFAULT;
@@ -309,7 +309,7 @@ LABEL_84:
   v25 = gLogObj;
   *buf = 136446210;
   v67 = "[NWUDPListener initWithParameters:delegate:]";
-  v26 = _os_log_send_and_compose_impl();
+  v26 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s nw_listener_create failed", buf, 12);
 
   v65 = OS_LOG_TYPE_ERROR;
   v62 = 0;

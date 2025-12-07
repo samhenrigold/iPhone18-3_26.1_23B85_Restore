@@ -7,7 +7,7 @@
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
-- (uint64_t)addRecreationReason:(uint64_t)result;
+- (void)addRecreationReason:(void *)result;
 - (void)recreationReasons;
 @end
 
@@ -82,19 +82,19 @@
   return v11;
 }
 
-- (uint64_t)addRecreationReason:(uint64_t)result
+- (void)addRecreationReason:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 8);
+    v4 = result[1];
     if (!v4)
     {
       v5 = objc_opt_new();
-      v6 = *(v3 + 8);
-      *(v3 + 8) = v5;
+      v6 = v3[1];
+      v3[1] = v5;
 
-      v4 = *(v3 + 8);
+      v4 = v3[1];
     }
 
     if ([v4 containsObject:a2])
@@ -103,7 +103,7 @@
       [currentHandler handleFailureInMethod:sel_addRecreationReason_ object:v3 file:@"_UIEventDeferringRecord.m" lineNumber:84 description:{@"%s: Invalid to mark a record as needing recreation for the same reason twice: %@", "-[_UIEventDeferringRecord addRecreationReason:]", v3}];
     }
 
-    v7 = *(v3 + 8);
+    v7 = v3[1];
 
     return [v7 addObject:a2];
   }

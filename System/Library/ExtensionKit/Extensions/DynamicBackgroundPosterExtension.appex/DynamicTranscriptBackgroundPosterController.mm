@@ -88,7 +88,7 @@
 {
   invalidateCopy = invalidate;
   selfCopy = self;
-  sub_10003B010();
+  sub_10003B010(selfCopy);
 }
 
 - (void)editor:(id)editor finalizeWithCompletion:(id)completion
@@ -106,7 +106,7 @@
 {
   layoutCopy = layout;
   selfCopy = self;
-  sub_10003B8B8();
+  sub_10003B8B8(selfCopy);
 }
 
 - (void)editor:(id)editor didUpdateEnvironment:(id)environment withTransition:(id)transition
@@ -124,7 +124,7 @@
 {
   editorCopy = editor;
   selfCopy = self;
-  sub_10003BC3C();
+  sub_10003BC3C(selfCopy);
 
   sub_10000D024(0, &unk_100070AE8, PREditingLook_ptr);
   v6.super.isa = sub_10004D22C().super.isa;
@@ -136,7 +136,7 @@
 {
   editorCopy = editor;
   selfCopy = self;
-  sub_10003C3DC();
+  sub_10003C3DC(selfCopy);
 
   v6 = sub_10004D05C();
 
@@ -177,15 +177,14 @@
 {
   v6 = sub_10004CDFC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10004CDEC();
   rendererCopy = renderer;
   selfCopy = self;
   LOBYTE(self) = sub_10003CDD0();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
   return self & 1;
 }
 
@@ -193,31 +192,29 @@
 {
   v6 = sub_10004CDFC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10004CDEC();
   rendererCopy = renderer;
   selfCopy = self;
   sub_10003CEA0();
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)renderer:(id)renderer failedToSnapshotWithError:(id)error handle:(id)handle
 {
   v8 = sub_10004CDFC();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10004CDEC();
   rendererCopy = renderer;
   errorCopy = error;
   selfCopy = self;
-  sub_10003CFFC();
+  sub_10003CFFC(errorCopy);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)renderer:(id)renderer didUpdateEnvironment:(id)environment withTransition:(id)transition
@@ -251,7 +248,7 @@
 {
   invalidateCopy = invalidate;
   selfCopy = self;
-  sub_10003D56C();
+  sub_10003D56C(selfCopy);
 }
 
 - (void)rendererDidInvalidate:(id)invalidate completion:(id)completion

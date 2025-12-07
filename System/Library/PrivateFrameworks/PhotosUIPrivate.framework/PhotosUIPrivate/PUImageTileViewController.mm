@@ -1884,7 +1884,7 @@ LABEL_14:
     }
 
 LABEL_15:
-    [(PUImageTileViewController *)self _setAssetLoadingStartDate:v6, *v18];
+    [(PUImageTileViewController *)self _setAssetLoadingStartDate:v6, *v18, *&v18[8]];
   }
 }
 

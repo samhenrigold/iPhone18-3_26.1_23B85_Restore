@@ -36,7 +36,7 @@
 
       self->_updateSequenceItem = 0;
 
-      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, _animatorUpdateRequest, 0x10002Au);
+      _UIUpdateRequestRegistryRemoveRecord(&mainRegistry, _animatorUpdateRequest, 1048618);
     }
   }
 }
@@ -68,7 +68,7 @@
     v16[3] = &unk_1E70F5B90;
     v17 = v7;
     v17->_updateSequenceItem = _UIUpdateSequenceInsertItem(_UIUpdateSequenceCADisplayLinksItemInternal, 1, "UIAnimation", 0, 0, v16);
-    _UIUpdateRequestRegistryAddRecord(&mainRegistry, _animatorUpdateRequest, 0x10002Au);
+    _UIUpdateRequestRegistryAddRecord(&mainRegistry, _animatorUpdateRequest, 1048618);
     displayLink = v17;
   }
 

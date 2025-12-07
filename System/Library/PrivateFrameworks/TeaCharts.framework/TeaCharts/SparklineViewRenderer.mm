@@ -7,7 +7,7 @@
 - (void)didReceiveMemoryWarning
 {
 
-  sub_26D15EB64();
+  sub_26D15EB64(v2);
 }
 
 @end

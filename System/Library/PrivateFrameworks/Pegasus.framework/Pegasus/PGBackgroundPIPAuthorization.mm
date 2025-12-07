@@ -64,8 +64,7 @@
     v30 = identifierCopy;
     v35 = v30;
     v36 = bundleIdentifierCopy;
-    [(BSServiceConnection *)v28 configureConnection:v33];
-    v31 = PGLogCommon();
+    v31 = PGLogCommon([(BSServiceConnection *)v28 configureConnection:v33]);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
@@ -121,7 +120,7 @@ void __109__PGBackgroundPIPAuthorization_initWithActivitySessionIdentifier_appBu
 {
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PGLogCommon();
+  v4 = PGLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -145,7 +144,7 @@ void __109__PGBackgroundPIPAuthorization_initWithActivitySessionIdentifier_appBu
 {
   v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = PGLogCommon();
+  v3 = PGLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136315394;
@@ -162,7 +161,7 @@ void __109__PGBackgroundPIPAuthorization_initWithActivitySessionIdentifier_appBu
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = PGLogCommon();
+  v4 = PGLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;
@@ -186,18 +185,18 @@ void __109__PGBackgroundPIPAuthorization_initWithActivitySessionIdentifier_appBu
 
 - (void)transitionToState:(id)state
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   stateCopy = state;
-  BSDispatchQueueAssertNotMain();
-  v5 = PGLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = BSDispatchQueueAssertNotMain();
+  v6 = PGLogCommon(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromPGBackgroundPIPAuthorizationState([stateCopy integerValue]);
-    v7 = 136315394;
-    v8 = "[PGBackgroundPIPAuthorization transitionToState:]";
-    v9 = 2112;
-    v10 = v6;
-    _os_log_impl(&dword_1BB282000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v7, 0x16u);
+    v7 = NSStringFromPGBackgroundPIPAuthorizationState([stateCopy integerValue]);
+    v8 = 136315394;
+    v9 = "[PGBackgroundPIPAuthorization transitionToState:]";
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_1BB282000, v6, OS_LOG_TYPE_DEFAULT, "%s %@", &v8, 0x16u);
   }
 
   -[PGBackgroundPIPAuthorization _transitionToState:](self, "_transitionToState:", [stateCopy integerValue]);

@@ -1,8 +1,6 @@
 @interface VGSkeleton
 - (BOOL)isEqual:(id)equal;
 - (VGSkeleton)initWithCoder:(id)coder;
-- (__n128)floorAlignedRootTransform;
-- (__n128)rootTransform;
 - (__n128)setFloorAlignedRootTransform:(__n128)transform;
 - (__n128)setRootTransform:(__n128)transform;
 - (void)encodeWithCoder:(id)coder;
@@ -36,11 +34,11 @@
 
 - (VGSkeleton)initWithCoder:(id)coder
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v30.receiver = self;
-  v30.super_class = VGSkeleton;
-  v5 = [(VGSkeleton *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = VGSkeleton;
+  v5 = [(VGSkeleton *)&v29 init];
   if (v5)
   {
     -[VGSkeleton setSkeletonType:](v5, "setSkeletonType:", [coderCopy decodeIntForKey:@"skeletonType"]);
@@ -48,17 +46,17 @@
     [(VGSkeleton *)v5 setSkeletonDefinition:v6];
 
     v7 = MEMORY[0x277CBEB98];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     v9 = [v7 setWithArray:v8];
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"localPoses"];
     [(VGSkeleton *)v5 setLocalPoses:v10];
 
     v11 = MEMORY[0x277CBEB98];
-    v32[0] = objc_opt_class();
-    v32[1] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[0] = objc_opt_class();
+    v31[1] = objc_opt_class();
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"modelPoses"];
     [(VGSkeleton *)v5 setModelPoses:v14];
@@ -68,9 +66,9 @@
     v16 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"floorAlignedRootTransform"];
     [v16 getBytes:&v5[1] length:64];
     v17 = MEMORY[0x277CBEB98];
-    v31[0] = objc_opt_class();
-    v31[1] = objc_opt_class();
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+    v30[0] = objc_opt_class();
+    v30[1] = objc_opt_class();
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
     v19 = [v17 setWithArray:v18];
     v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"jointConfidence"];
     [(VGSkeleton *)v5 setJointConfidence:v20];
@@ -86,7 +84,6 @@
     v27 = v5;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -144,30 +141,12 @@
   return v17;
 }
 
-- (__n128)rootTransform
-{
-  result = *(self + 64);
-  v2 = *(self + 80);
-  v3 = *(self + 96);
-  v4 = *(self + 112);
-  return result;
-}
-
 - (__n128)setRootTransform:(__n128)transform
 {
   result[4] = a2;
   result[5] = transform;
   result[6] = a4;
   result[7] = a5;
-  return result;
-}
-
-- (__n128)floorAlignedRootTransform
-{
-  result = *(self + 128);
-  v2 = *(self + 144);
-  v3 = *(self + 160);
-  v4 = *(self + 176);
   return result;
 }
 

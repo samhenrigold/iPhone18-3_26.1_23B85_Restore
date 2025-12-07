@@ -188,26 +188,23 @@ LABEL_22:
   v6 = @"NO";
   if (self)
   {
-    valueExpression = self->_valueExpression;
-    propertyName = self->_propertyName;
-    prerequisiteTransform = self->_prerequisiteTransform;
     if (self->_replaceMissingValueOnly)
     {
       v6 = @"YES";
     }
+
+    v7 = objc_msgSend_stringWithFormat_(v4, v5, self->_propertyName, self->_valueExpression, self->_prerequisiteTransform, v6);
   }
 
   else
   {
-    valueExpression = 0;
-    propertyName = 0;
-    prerequisiteTransform = 0;
+    v7 = objc_msgSend_stringWithFormat_(v4, v5, 0, 0, 0, @"NO");
   }
 
-  v10 = [v4 stringWithFormat:@"(%@), propertyName %@, valueExpression %@, prerequisiteTransform %@, replaceMissingValueOnly %@", v5, propertyName, valueExpression, prerequisiteTransform, v6];
+  v8 = v7;
   objc_autoreleasePoolPop(v3);
 
-  return v10;
+  return v8;
 }
 
 @end

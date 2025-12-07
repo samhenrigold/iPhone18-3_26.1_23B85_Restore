@@ -1,3 +1,18 @@
+void sub_2180A516C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, std::__shared_weak_count *a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, char a24)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a17)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a17);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 void MIL::UnexpectedTokenValueError::~UnexpectedTokenValueError(std::runtime_error *this)
 {
   this->__vftable = &unk_2829E8C90;
@@ -8,7 +23,7 @@ void MIL::UnexpectedTokenValueError::~UnexpectedTokenValueError(std::runtime_err
   }
 
   this->__vftable = &unk_2829E6258;
-  MIL::ParseResult::~ParseResult(&this[1]);
+  MIL::ParseResult::~ParseResult(&this[1].__vftable);
 
   std::runtime_error::~runtime_error(this);
 }
@@ -19,7 +34,7 @@ void MIL::UnexpectedTokenValueError::~UnexpectedTokenValueError(std::runtime_err
   JUMPOUT(0x21CEAFEA0);
 }
 
-uint64_t MIL::UnexpectedTokenValueError::UnexpectedTokenValueError(uint64_t a1, uint64_t *a2, uint64_t a3, MIL::ParserContext *a4, uint64_t a5)
+uint64_t MIL::UnexpectedTokenValueError::UnexpectedTokenValueError(uint64_t a1, uint64_t *a2, uint64_t **a3, MIL::ParserContext *a4, uint64_t **a5)
 {
   v9 = a2[1];
   v26 = *a2;
@@ -45,7 +60,7 @@ uint64_t MIL::UnexpectedTokenValueError::UnexpectedTokenValueError(uint64_t a1, 
 
   else
   {
-    v12 = *(a5 + 8);
+    v12 = a5[1];
   }
 
   v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, v11, v12);
@@ -71,7 +86,7 @@ uint64_t MIL::UnexpectedTokenValueError::UnexpectedTokenValueError(uint64_t a1, 
 
   else
   {
-    v20 = *(a3 + 8);
+    v20 = a3[1];
   }
 
   v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v19, v20);
@@ -102,10 +117,10 @@ uint64_t MIL::UnexpectedTokenValueError::UnexpectedTokenValueError(uint64_t a1, 
 
   *a1 = &unk_2829E8C90;
   v22 = *a3;
-  *(a1 + 88) = *(a3 + 16);
+  *(a1 + 88) = a3[2];
   *(a1 + 72) = v22;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  a3[1] = 0;
+  a3[2] = 0;
   *a3 = 0;
   MIL::Scanner::Token::Token((a1 + 96), a4);
   return a1;
@@ -129,14 +144,14 @@ void sub_2180A5504(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void MIL::UnexpectedEOFError::~UnexpectedEOFError(std::runtime_error *this)
 {
   this->__vftable = &unk_2829E6258;
-  MIL::ParseResult::~ParseResult(&this[1]);
+  MIL::ParseResult::~ParseResult(&this[1].__vftable);
 
   std::runtime_error::~runtime_error(this);
 }
 
 {
   this->__vftable = &unk_2829E6258;
-  MIL::ParseResult::~ParseResult(&this[1]);
+  MIL::ParseResult::~ParseResult(&this[1].__vftable);
   std::runtime_error::~runtime_error(this);
 
   JUMPOUT(0x21CEAFEA0);
@@ -145,8 +160,7 @@ void MIL::UnexpectedEOFError::~UnexpectedEOFError(std::runtime_error *this)
 void *MIL::UnexpectedEOFError::UnexpectedEOFError(void *a1, __int128 *a2, uint64_t a3)
 {
   v7 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   *__p = *a3;
   v6 = *(a3 + 16);
   *(a3 + 8) = 0;
@@ -229,7 +243,7 @@ BOOL MIL::Scanner::Token::operator==(uint64_t a1, uint64_t a2)
   return v4 == *(a2 + 16) && !memcmp(*(a1 + 8), *(a2 + 8), v4) && *(a1 + 24) == *(a2 + 24) && *(a1 + 28) == *(a2 + 28);
 }
 
-uint64_t MIL::Scanner::Expect(uint64_t a1, int a2, uint64_t a3)
+uint64_t MIL::Scanner::Expect(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(*(*a1 + 24))(a1) != a2)
   {
@@ -283,7 +297,7 @@ void sub_2180A59F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::Scanner::Expect(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t MIL::Scanner::Expect(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
   v6 = (*(*a1 + 24))(a1);
   if (*a2 != *v6)
@@ -311,8 +325,8 @@ uint64_t MIL::Scanner::Expect(uint64_t a1, uint64_t a2, uint64_t a3)
     MIL::TextFileLocation::Make();
   }
 
-  v7 = *(a2 + 16);
-  if (v7 != *(v6 + 16) || memcmp(*(a2 + 8), *(v6 + 8), v7))
+  v7 = *(a2 + 2);
+  if (v7 != *(v6 + 16) || memcmp(*(a2 + 1), *(v6 + 8), v7))
   {
     if (*(a3 + 23) < 0)
     {
@@ -385,18 +399,18 @@ void MIL::Scanner::Make()
   operator new();
 }
 
-void sub_2180A61D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_2180A61D8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x21CEAFEA0](v15, v16);
+  MEMORY[0x21CEAFEA0](v15, v16, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-_BYTE *MIL::GetTokenName@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *MIL::GetTokenName@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 >= 0x39)
   {
@@ -531,7 +545,7 @@ uint64_t anonymous namespace::ScannerImpl<std::string>::Peek(uint64_t a1)
     v7 = a1 + 8;
   }
 
-  MIL::NextToken(v2, v7 + v6, &v9);
+  MIL::NextToken(v2, (v7 + v6), &v9);
   *(a1 + 96) = v9;
   v5 = a1 + 96;
   *(v5 + 8) = v10;
@@ -611,12 +625,24 @@ uint64_t anonymous namespace::ScannerImpl<std::string_view>::Peek(uint64_t a1)
     return a1 + 88;
   }
 
-  MIL::NextToken(v2, *(a1 + 8) + *(a1 + 16), &v7);
+  MIL::NextToken(v2, (*(a1 + 8) + *(a1 + 16)), &v7);
   *(a1 + 88) = v7;
   v5 = a1 + 88;
   *(v5 + 8) = v8;
   *(v5 + 24) = v9;
   return v5;
+}
+
+void MIL::Text::Serialize(MIL::Text *this, const MIL::IRProgram *a2)
+{
+  MIL::Text::SerializerOptions::Make();
+}
+
+{
+  MIL::Text::BasicSerializer::BasicSerializer(v4, a2);
+  MIL::Text::BasicSerializer::Program(v4, this);
+  MIL::Text::BasicSerializer::GetOutput();
+  MIL::Text::BasicSerializer::~BasicSerializer(v4);
 }
 
 void sub_2180A6844(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
@@ -629,17 +655,9 @@ void sub_2180A6844(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Serialize(MIL::Text *this, const MIL::IRProgram *a2, const MIL::Text::SerializerOptions *a3)
+void sub_2180A68B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  MIL::Text::BasicSerializer::BasicSerializer(v5, a2);
-  v4 = MIL::Text::BasicSerializer::Program(v5, this);
-  MIL::Text::BasicSerializer::GetOutput(v4);
-  MIL::Text::BasicSerializer::~BasicSerializer(v5);
-}
-
-void sub_2180A68B8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   MIL::Text::BasicSerializer::~BasicSerializer(va);
   _Unwind_Resume(a1);
 }
@@ -651,16 +669,16 @@ void MIL::Text::SerializeToStream(const MIL::IRProgram *a1, uint64_t a2, uint64_
   MIL::Text::BasicSerializer::~BasicSerializer(v4);
 }
 
-void sub_2180A691C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180A691C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MIL::Text::BasicSerializer::~BasicSerializer(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t MIL::Text::SerializeToFile(MIL::Text *this, const MIL::IRProgram *a2, const MIL::Text::SerializerOptions *a3)
 {
-  v12[19] = *MEMORY[0x277D85DE8];
+  v13[19] = *MEMORY[0x277D85DE8];
   v5 = (*(*a2 + 16))(a2);
   v6 = *(v5 + 23);
   if ((v6 & 0x80u) != 0)
@@ -675,16 +693,16 @@ uint64_t MIL::Text::SerializeToFile(MIL::Text *this, const MIL::IRProgram *a2, c
     __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
   }
 
-  (*(*a2 + 16))(a2);
-  std::ofstream::basic_ofstream(&v10);
-  MIL::Text::BasicSerializer::BasicSerializer(v9, &v10, a2);
-  MIL::Text::BasicSerializer::Program(v9, this);
-  MIL::Text::BasicSerializer::~BasicSerializer(v9);
-  v10 = *MEMORY[0x277D82810];
-  *(&v10 + *(v10 - 24)) = *(MEMORY[0x277D82810] + 24);
-  MEMORY[0x21CEAFA60](&v11);
+  v7 = (*(*a2 + 16))(a2);
+  std::ofstream::basic_ofstream(&v11, v7, 16);
+  MIL::Text::BasicSerializer::BasicSerializer(v10, &v11, a2);
+  MIL::Text::BasicSerializer::Program(v10, this);
+  MIL::Text::BasicSerializer::~BasicSerializer(v10);
+  v11 = *MEMORY[0x277D82810];
+  *(&v11 + *(v11 - 24)) = *(MEMORY[0x277D82810] + 24);
+  MEMORY[0x21CEAFA60](&v12);
   std::ostream::~ostream();
-  return MEMORY[0x21CEAFDA0](v12);
+  return MEMORY[0x21CEAFDA0](v13);
 }
 
 uint64_t std::ofstream::~ofstream(uint64_t *a1, uint64_t *a2)
@@ -938,7 +956,7 @@ void sub_2180A7188(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL anonymous namespace::SerializerOptionsImpl::RemoveModelPath(uint64_t a1, uint64_t *a2)
+BOOL anonymous namespace::SerializerOptionsImpl::RemoveModelPath(uint64_t a1, char **a2)
 {
   v3 = *(a2 + 23);
   if (v3 < 0)
@@ -970,7 +988,7 @@ BOOL anonymous namespace::SerializerOptionsImpl::RemoveModelPath(uint64_t a1, ui
     v5 = *a2;
   }
 
-  if (*(v5 + v4 - 1) == 47)
+  if (v4[v5 - 1] == 47)
   {
     v6 = std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__erase_unique<std::string>((a1 + 80), a2);
     return v6 != 0;
@@ -1014,7 +1032,7 @@ uint64_t *anonymous namespace::SerializerOptionsImpl::SetFloatSerializeMode(uint
 {
   v5 = a3;
   v6 = &v5;
-  result = std::__hash_table<std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::__unordered_map_hasher<MIL::IRDataType,std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::hash<MIL::IRDataType>,std::equal_to<MIL::IRDataType>,true>,std::__unordered_map_equal<MIL::IRDataType,std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::equal_to<MIL::IRDataType>,std::hash<MIL::IRDataType>,true>,std::allocator<std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>>>::__emplace_unique_key_args<MIL::IRDataType,std::piecewise_construct_t const&,std::tuple<MIL::IRDataType const&>,std::tuple<>>((a1 + 40), &v5);
+  result = std::__hash_table<std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::__unordered_map_hasher<MIL::IRDataType,std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::hash<MIL::IRDataType>,std::equal_to<MIL::IRDataType>,true>,std::__unordered_map_equal<MIL::IRDataType,std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::equal_to<MIL::IRDataType>,std::hash<MIL::IRDataType>,true>,std::allocator<std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>>>::__emplace_unique_key_args<MIL::IRDataType,std::piecewise_construct_t const&,std::tuple<MIL::IRDataType const&>,std::tuple<>>((a1 + 40), &v5, &std::piecewise_construct, &v6);
   *(result + 5) = a2;
   return result;
 }
@@ -1034,7 +1052,7 @@ __n128 anonymous namespace::SerializerOptionsImpl::SetWeightsFilePath(uint64_t a
   return result;
 }
 
-uint64_t anonymous namespace::SerializerOptionsImpl::AddModelPath(std::string *a1, uint64_t a2)
+uint64_t anonymous namespace::SerializerOptionsImpl::AddModelPath(std::string *a1, uint64_t **a2)
 {
   v4 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
   if (v4 < 0)
@@ -1065,7 +1083,7 @@ uint64_t anonymous namespace::SerializerOptionsImpl::AddModelPath(std::string *a
 
   if (v7->__r_.__value_.__s.__data_[v6] == 47)
   {
-    std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a2, a1);
+    std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a2, a1, a1);
     v9 = v8;
     return v9 & 1;
   }
@@ -1077,7 +1095,7 @@ LABEL_9:
   a1->__r_.__value_.__l.__size_ = 0;
   a1->__r_.__value_.__r.__words[2] = 0;
   a1->__r_.__value_.__r.__words[0] = 0;
-  std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a2, __p);
+  std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(a2, __p, __p);
   v9 = v10;
   if (SHIBYTE(v13) < 0)
   {
@@ -1097,15 +1115,15 @@ void sub_2180A7474(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(uint64_t a1, void *a2)
+uint64_t std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(uint64_t **a1, void *a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::allocator<std::string>>::__find_equal<std::string>(uint64_t a1, void *a2, void *a3)
@@ -1208,33 +1226,33 @@ uint64_t std::__tree<std::string,MIL::Text::ModelPathLengthComparator,std::alloc
   return v5;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::__unordered_map_hasher<MIL::IRDataType,std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::hash<MIL::IRDataType>,std::equal_to<MIL::IRDataType>,true>,std::__unordered_map_equal<MIL::IRDataType,std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::equal_to<MIL::IRDataType>,std::hash<MIL::IRDataType>,true>,std::allocator<std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>>>::__emplace_unique_key_args<MIL::IRDataType,std::piecewise_construct_t const&,std::tuple<MIL::IRDataType const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::__unordered_map_hasher<MIL::IRDataType,std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::hash<MIL::IRDataType>,std::equal_to<MIL::IRDataType>,true>,std::__unordered_map_equal<MIL::IRDataType,std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>,std::equal_to<MIL::IRDataType>,std::hash<MIL::IRDataType>,true>,std::allocator<std::__hash_value_type<MIL::IRDataType,MIL::Text::SerializerOptions::FloatSerializeMode>>>::__emplace_unique_key_args<MIL::IRDataType,std::piecewise_construct_t const&,std::tuple<MIL::IRDataType const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1242,44 +1260,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t MIL::Text::Parser::TensorVal::ParseToken<MIL::Fp8E4M3FN>(uint64_t a1, MIL::Scanner::Token *a2)
@@ -1744,7 +1762,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-BOOL MIL::Text::Parser::TensorVal::ParseToken<BOOL>(uint64_t a1, MIL::Scanner::Token *this)
+uint64_t MIL::Text::Parser::TensorVal::ParseToken<BOOL>(uint64_t a1, MIL::Scanner::Token *this)
 {
   v4 = *MIL::Scanner::Token::GetLocation(this);
   Options = MIL::ParserContext::GetOptions(*(a1 + 24));
@@ -1930,7 +1948,7 @@ void sub_2180A8EF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t anonymous namespace::TokenToInt<unsigned char,unsigned short,unsigned long>(MIL::Scanner::Token *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t anonymous namespace::TokenToInt<unsigned char,unsigned short,unsigned long>(MIL::Scanner::Token *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (MIL::Scanner::Token::GetType(a1) != 18)
   {
@@ -2485,7 +2503,7 @@ void sub_2180AA438(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t anonymous namespace::TokenToInt<signed char,short,int>(MIL::Scanner::Token *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t anonymous namespace::TokenToInt<signed char,short,int>(MIL::Scanner::Token *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (MIL::Scanner::Token::GetType(a1) != 18)
   {
@@ -3013,11 +3031,11 @@ LABEL_18:
 
   else
   {
-    v17 = a3->__r_.__value_.__r.__words[0] + a3->__r_.__value_.__l.__size_;
+    v17 = (a3->__r_.__value_.__r.__words[0] + a3->__r_.__value_.__l.__size_);
     v18 = a3->__r_.__value_.__r.__words[0];
   }
 
-  std::string::erase(a3, &v14[-v18], v17 - v14);
+  std::string::erase(a3, v14 - v18, v17 - v14);
   if ((SHIBYTE(v22.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if ((v9 & 0x80000000) == 0)
@@ -3097,127 +3115,127 @@ void sub_2180AB96C(_Unwind_Exception *exception_object)
 
 void MIL::Text::Parser::TensorVal::ParseScalar(MIL::Text::Parser::TensorVal *this, const MIL::IRTensorValueType *a2)
 {
-  v4 = *(this + 4);
+  v5 = *(this + 4);
   Options = MIL::ParserContext::GetOptions(*(this + 3));
-  v6 = (*(*Options + 24))(Options);
+  v7 = (*(*Options + 24))(Options);
   if (MIL::IRTensorValueType::IsScalar(a2))
   {
     switch((*(*a2 + 88))(a2))
     {
       case 2u:
-        (*(**(this + 2) + 16))(&v29);
-        v7 = MIL::Text::Parser::TensorVal::ParseToken<BOOL>(this, &v29);
-        MIL::IRTensorValueType::MakeBoolValue(a2, v7);
+        (*(**(this + 2) + 16))(&v30);
+        v8 = MIL::Text::Parser::TensorVal::ParseToken<BOOL>(this, &v30);
+        MIL::IRTensorValueType::MakeBoolValue(a2, v8);
       case 3u:
-        (*(**(this + 2) + 16))(&v29);
-        MIL::Text::Parser::TensorVal::ParseToken<std::string>(&v29, this, &v26);
-        MIL::IRTensorValueType::MakeStringValue(a2, &v26);
+        (*(**(this + 2) + 16))(&v30);
+        MIL::Text::Parser::TensorVal::ParseToken<std::string>(&v30, this, &v27);
+        MIL::IRTensorValueType::MakeStringValue(a2, &v27);
       case 4u:
-        (*(**(this + 2) + 16))(&v29);
-        v21 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Fp16>(this, &v29);
-        MIL::IRTensorValueType::MakeFloat16Value(a2, v21);
+        (*(**(this + 2) + 16))(&v30);
+        v22 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Fp16>(this, &v30);
+        MIL::IRTensorValueType::MakeFloat16Value(a2, v22);
       case 5u:
-        (*(**(this + 2) + 16))(&v29);
-        v16 = MIL::Text::Parser::TensorVal::ParseToken<float>(this, &v29);
-        MIL::IRTensorValueType::MakeFloat32Value(a2, v16, v17);
+        (*(**(this + 2) + 16))(&v30);
+        v17 = MIL::Text::Parser::TensorVal::ParseToken<float>(this, &v30);
+        MIL::IRTensorValueType::MakeFloat32Value(a2, v17, v18);
       case 6u:
-        (*(**(this + 2) + 16))(&v29);
-        v19 = MIL::Text::Parser::TensorVal::ParseToken<double>(this, &v29);
-        MIL::IRTensorValueType::MakeFloat64Value(a2, v19, v20);
+        (*(**(this + 2) + 16))(&v30);
+        v20 = MIL::Text::Parser::TensorVal::ParseToken<double>(this, &v30);
+        MIL::IRTensorValueType::MakeFloat64Value(a2, v20, v21);
       case 7u:
-        (*(**(this + 2) + 16))(&v29);
-        v23 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Bf16>(this, &v29);
-        MIL::IRTensorValueType::MakeBFloat16Value(a2, v23);
+        (*(**(this + 2) + 16))(&v30);
+        v24 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Bf16>(this, &v30);
+        MIL::IRTensorValueType::MakeBFloat16Value(a2, v24);
       case 9u:
-        (*(**(this + 2) + 16))(&v29);
-        v12 = MIL::Text::Parser::TensorVal::ParseToken<signed char>(this, &v29);
-        MIL::IRTensorValueType::MakeInt8Value(a2, v12);
+        (*(**(this + 2) + 16))(&v30);
+        v13 = MIL::Text::Parser::TensorVal::ParseToken<signed char>(this, &v30);
+        MIL::IRTensorValueType::MakeInt8Value(a2, v13);
       case 0xAu:
-        (*(**(this + 2) + 16))(&v29);
-        v22 = MIL::Text::Parser::TensorVal::ParseToken<short>(this, &v29);
-        MIL::IRTensorValueType::MakeInt16Value(a2, v22);
+        (*(**(this + 2) + 16))(&v30);
+        v23 = MIL::Text::Parser::TensorVal::ParseToken<short>(this, &v30);
+        MIL::IRTensorValueType::MakeInt16Value(a2, v23);
       case 0xBu:
-        (*(**(this + 2) + 16))(&v29);
-        v13 = MIL::Text::Parser::TensorVal::ParseToken<int>(this, &v29);
-        MIL::IRTensorValueType::MakeInt32Value(a2, v13);
+        (*(**(this + 2) + 16))(&v30);
+        v14 = MIL::Text::Parser::TensorVal::ParseToken<int>(this, &v30);
+        MIL::IRTensorValueType::MakeInt32Value(a2, v14);
       case 0xCu:
-        (*(**(this + 2) + 16))(&v29);
-        v10 = MIL::Text::Parser::TensorVal::ParseToken<long long>(this, &v29);
-        MIL::IRTensorValueType::MakeInt64Value(a2, v10);
+        (*(**(this + 2) + 16))(&v30);
+        v11 = MIL::Text::Parser::TensorVal::ParseToken<long long>(this, &v30);
+        MIL::IRTensorValueType::MakeInt64Value(a2, v11);
       case 0xDu:
-        (*(**(this + 2) + 16))(&v29);
-        v24 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Int4>(this, &v29);
-        memset(&v27, 0, sizeof(v27));
-        std::vector<MIL::Int4>::__init_with_size[abi:ne200100]<MIL::Int4 const*,MIL::Int4 const*>(&v27, &v24, v25, 1);
-        MIL::PackSubByteVec(&v27, &__p);
+        (*(**(this + 2) + 16))(&v30);
+        v25 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Int4>(this, &v30);
+        memset(&v28, 0, sizeof(v28));
+        std::vector<MIL::Int4>::__init_with_size[abi:ne200100]<MIL::Int4 const*,MIL::Int4 const*>(&v28, &v25, v26, 1);
+        MIL::PackSubByteVec(&v28, &__p);
         MIL::IRTensorValueType::MakeInt4Value(a2, *__p);
       case 0xEu:
-        (*(**(this + 2) + 16))(&v29);
-        v8 = MIL::Text::Parser::TensorVal::ParseToken<unsigned char>(this, &v29);
-        MIL::IRTensorValueType::MakeUInt8Value(a2, v8);
+        (*(**(this + 2) + 16))(&v30);
+        v9 = MIL::Text::Parser::TensorVal::ParseToken<unsigned char>(this, &v30);
+        MIL::IRTensorValueType::MakeUInt8Value(a2, v9);
       case 0xFu:
-        (*(**(this + 2) + 16))(&v29);
-        v11 = MIL::Text::Parser::TensorVal::ParseToken<unsigned short>(this, &v29);
-        MIL::IRTensorValueType::MakeUInt16Value(a2, v11);
+        (*(**(this + 2) + 16))(&v30);
+        v12 = MIL::Text::Parser::TensorVal::ParseToken<unsigned short>(this, &v30);
+        MIL::IRTensorValueType::MakeUInt16Value(a2, v12);
       case 0x10u:
-        (*(**(this + 2) + 16))(&v29);
-        v14 = MIL::Text::Parser::TensorVal::ParseToken<unsigned int>(this, &v29);
-        MIL::IRTensorValueType::MakeUInt32Value(a2, v14);
+        (*(**(this + 2) + 16))(&v30);
+        v15 = MIL::Text::Parser::TensorVal::ParseToken<unsigned int>(this, &v30);
+        MIL::IRTensorValueType::MakeUInt32Value(a2, v15);
       case 0x11u:
-        (*(**(this + 2) + 16))(&v29);
-        v18 = MIL::Text::Parser::TensorVal::ParseToken<unsigned long long>(this, &v29);
-        MIL::IRTensorValueType::MakeUInt64Value(a2, v18);
+        (*(**(this + 2) + 16))(&v30);
+        v19 = MIL::Text::Parser::TensorVal::ParseToken<unsigned long long>(this, &v30);
+        MIL::IRTensorValueType::MakeUInt64Value(a2, v19);
       case 0x13u:
-        (*(**(this + 2) + 16))(&v29);
-        v24 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt2>(this, &v29);
-        memset(&v27, 0, sizeof(v27));
-        std::vector<MIL::UInt2>::__init_with_size[abi:ne200100]<MIL::UInt2 const*,MIL::UInt2 const*>(&v27, &v24, v25, 1);
-        MIL::PackSubByteVec(&v27, &__p);
+        (*(**(this + 2) + 16))(&v30);
+        v25 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt2>(this, &v30);
+        memset(&v28, 0, sizeof(v28));
+        std::vector<MIL::UInt2>::__init_with_size[abi:ne200100]<MIL::UInt2 const*,MIL::UInt2 const*>(&v28, &v25, v26, 1);
+        MIL::PackSubByteVec(&v28, &__p);
         MIL::IRTensorValueType::MakeUInt2Value(a2, *__p);
       case 0x14u:
-        (*(**(this + 2) + 16))(&v29);
-        v24 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt4>(this, &v29);
-        memset(&v27, 0, sizeof(v27));
-        std::vector<MIL::UInt4>::__init_with_size[abi:ne200100]<MIL::UInt4 const*,MIL::UInt4 const*>(&v27, &v24, v25, 1);
-        MIL::PackSubByteVec(&v27, &__p);
+        (*(**(this + 2) + 16))(&v30);
+        v25 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt4>(this, &v30);
+        memset(&v28, 0, sizeof(v28));
+        std::vector<MIL::UInt4>::__init_with_size[abi:ne200100]<MIL::UInt4 const*,MIL::UInt4 const*>(&v28, &v25, v26, 1);
+        MIL::PackSubByteVec(&v28, &__p);
         MIL::IRTensorValueType::MakeUInt4Value(a2, *__p);
       case 0x15u:
-        (*(**(this + 2) + 16))(&v29);
-        v24 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt1>(this, &v29);
-        memset(&v27, 0, sizeof(v27));
-        std::vector<MIL::UInt1>::__init_with_size[abi:ne200100]<MIL::UInt1 const*,MIL::UInt1 const*>(&v27, &v24, v25, 1);
-        MIL::PackSubByteVec(&v27, &__p);
+        (*(**(this + 2) + 16))(&v30);
+        v25 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt1>(this, &v30);
+        memset(&v28, 0, sizeof(v28));
+        std::vector<MIL::UInt1>::__init_with_size[abi:ne200100]<MIL::UInt1 const*,MIL::UInt1 const*>(&v28, &v25, v26, 1);
+        MIL::PackSubByteVec(&v28, &__p);
         MIL::IRTensorValueType::MakeUInt1Value(a2, *__p);
       case 0x16u:
-        (*(**(this + 2) + 16))(&v29);
-        v24 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt3>(this, &v29);
-        memset(&v27, 0, sizeof(v27));
-        std::vector<MIL::UInt3>::__init_with_size[abi:ne200100]<MIL::UInt3 const*,MIL::UInt3 const*>(&v27, &v24, v25, 1);
-        MIL::PackSubByteVec(&v27, &__p);
+        (*(**(this + 2) + 16))(&v30);
+        v25 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt3>(this, &v30);
+        memset(&v28, 0, sizeof(v28));
+        std::vector<MIL::UInt3>::__init_with_size[abi:ne200100]<MIL::UInt3 const*,MIL::UInt3 const*>(&v28, &v25, v26, 1);
+        MIL::PackSubByteVec(&v28, &__p);
         MIL::IRTensorValueType::MakeUInt3Value(a2, *__p);
       case 0x17u:
-        (*(**(this + 2) + 16))(&v29);
-        v24 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt6>(this, &v29);
-        memset(&v27, 0, sizeof(v27));
-        std::vector<MIL::UInt6>::__init_with_size[abi:ne200100]<MIL::UInt6 const*,MIL::UInt6 const*>(&v27, &v24, v25, 1);
-        MIL::PackSubByteVec(&v27, &__p);
+        (*(**(this + 2) + 16))(&v30);
+        v25 = MIL::Text::Parser::TensorVal::ParseToken<MIL::UInt6>(this, &v30);
+        memset(&v28, 0, sizeof(v28));
+        std::vector<MIL::UInt6>::__init_with_size[abi:ne200100]<MIL::UInt6 const*,MIL::UInt6 const*>(&v28, &v25, v26, 1);
+        MIL::PackSubByteVec(&v28, &__p);
         MIL::IRTensorValueType::MakeUInt6Value(a2, *__p);
       case 0x18u:
-        (*(**(this + 2) + 16))(&v29);
-        v9 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Fp8E4M3FN>(this, &v29);
-        MIL::IRTensorValueType::MakeFloat8E4M3FNValue(a2, v9);
+        (*(**(this + 2) + 16))(&v30);
+        v10 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Fp8E4M3FN>(this, &v30);
+        MIL::IRTensorValueType::MakeFloat8E4M3FNValue(a2, v10);
       case 0x19u:
-        (*(**(this + 2) + 16))(&v29);
-        v15 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Fp8E5M2>(this, &v29);
-        MIL::IRTensorValueType::MakeFloat8E5M2Value(a2, v15);
+        (*(**(this + 2) + 16))(&v30);
+        v16 = MIL::Text::Parser::TensorVal::ParseToken<MIL::Fp8E5M2>(this, &v30);
+        MIL::IRTensorValueType::MakeFloat8E5M2Value(a2, v16);
       default:
         __cxa_allocate_exception(0x48uLL);
-        MIL::TextLocationFromScannerLocation(v4, v6);
+        MIL::TextLocationFromScannerLocation(v5, v7);
     }
   }
 
   __cxa_allocate_exception(0x48uLL);
-  MIL::TextLocationFromScannerLocation(v4, v6);
+  MIL::TextLocationFromScannerLocation(v5, v7);
 }
 
 void sub_2180AC3FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, std::__shared_weak_count *a26, uint64_t a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
@@ -3271,7 +3289,7 @@ LABEL_18:
   goto LABEL_18;
 }
 
-void MIL::Text::Parser::TensorVal::ParseDim(uint64_t a1@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseDim(uint64_t a1@<X0>, void *a2@<X1>, void **a3@<X8>)
 {
   v56[2] = *MEMORY[0x277D85DE8];
   MIL::Text::Parser::Rule<MIL::Text::Parser::Program,std::unique_ptr<MIL::IRProgram>>::Expect(a1, 3);
@@ -3284,7 +3302,7 @@ void MIL::Text::Parser::TensorVal::ParseDim(uint64_t a1@<X0>, uint64_t a2@<X1>, 
   v50 = 0;
   v51 = 0;
   v49 = 0;
-  std::vector<MIL::Scanner::TokenType>::__init_with_size[abi:ne200100]<MIL::Scanner::TokenType const*,MIL::Scanner::TokenType const*>(&v49, &v53, &v54 + 4, 5uLL);
+  std::vector<MIL::Scanner::TokenType>::__init_with_size[abi:ne200100]<MIL::Scanner::TokenType const*,MIL::Scanner::TokenType const*>(&v49, &v53, &v54 + 1, 5uLL);
   v46 = 0;
   v47 = 0;
   v48 = 0;
@@ -3294,7 +3312,7 @@ void MIL::Text::Parser::TensorVal::ParseDim(uint64_t a1@<X0>, uint64_t a2@<X1>, 
   {
     v53 = 0uLL;
     v54 = 0;
-    MIL::Text::Parser::TensorVal::ParseDim(&__p, a1, a2);
+    MIL::Text::Parser::TensorVal::ParseDim(a1, a2, &__p);
     std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](&v53, &__p);
     if (__p)
     {
@@ -3312,7 +3330,7 @@ void MIL::Text::Parser::TensorVal::ParseDim(uint64_t a1@<X0>, uint64_t a2@<X1>, 
 
       (*(**(a1 + 16) + 16))(v42);
       UnknownLocationImpl::~UnknownLocationImpl(v42);
-      MIL::Text::Parser::TensorVal::ParseDim(&__p, a1, a2);
+      MIL::Text::Parser::TensorVal::ParseDim(a1, a2, &__p);
       std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](&v53, &__p);
       if (__p)
       {
@@ -3543,11 +3561,11 @@ void sub_2180ACD38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -3589,8 +3607,8 @@ uint64_t std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](uint64
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -3607,24 +3625,24 @@ uint64_t std::vector<std::vector<unsigned long>>::push_back[abi:ne200100](uint64
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
   return result;
 }
 
-uint64_t std::vector<MIL::Scanner::Token>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<MIL::Scanner::Token>::push_back[abi:ne200100](void *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<MIL::Scanner::Token>::__emplace_back_slow_path<MIL::Scanner::Token>(a1, a2);
   }
@@ -3635,7 +3653,7 @@ uint64_t std::vector<MIL::Scanner::Token>::push_back[abi:ne200100](uint64_t a1, 
     result = v4 + 32;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -3643,156 +3661,157 @@ void MIL::Text::Parser::TensorVal::ParseTensor(MIL::IRConstantDimension **this, 
 {
   if (!MIL::IRTensorValueType::IsScalar(a2))
   {
+    memset(v39, 0, sizeof(v39));
+    MIL::Text::Parser::TensorVal::ParseDim(this, v39, &v37);
     memset(v36, 0, sizeof(v36));
-    MIL::Text::Parser::TensorVal::ParseDim(this, v36, &v34);
-    memset(v33, 0, sizeof(v33));
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v33, v34, v35, v35 - v34);
-    v30 = 0;
-    v31 = 0;
-    v32 = 0;
-    v4 = v34;
-    v5 = v35;
-    if (v34 != v35)
+    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(v36, v37, v38, v38 - v37);
+    v33 = 0;
+    v34 = 0;
+    v35 = 0;
+    v5 = v37;
+    v6 = v38;
+    if (v37 != v38)
     {
       do
       {
-        v6 = MIL::IRConstantDimension::Make(this[1], *v4);
-        v7 = v31;
-        if (v31 >= v32)
+        v7 = MIL::IRConstantDimension::Make(this[1], *v5);
+        v8 = v34;
+        if (v34 >= v35)
         {
-          v9 = (v31 - v30) >> 3;
-          if ((v9 + 1) >> 61)
+          v10 = (v34 - v33) >> 3;
+          if ((v10 + 1) >> 61)
           {
             std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
           }
 
-          v10 = (v32 - v30) >> 2;
-          if (v10 <= v9 + 1)
+          v11 = (v35 - v33) >> 2;
+          if (v11 <= v10 + 1)
           {
-            v10 = v9 + 1;
+            v11 = v10 + 1;
           }
 
-          if (v32 - v30 >= 0x7FFFFFFFFFFFFFF8)
+          if (v35 - v33 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v11 = 0x1FFFFFFFFFFFFFFFLL;
+            v12 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v11 = v10;
+            v12 = v11;
           }
 
-          if (v11)
+          if (v12)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<std::string const*>>(&v30, v11);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<std::string const*>>(&v33, v12);
           }
 
-          v12 = (8 * v9);
-          *v12 = v6;
-          v8 = (8 * v9 + 8);
-          v13 = v12 - (v31 - v30);
-          memcpy(v13, v30, v31 - v30);
-          v14 = v30;
-          v30 = v13;
-          v31 = v8;
-          v32 = 0;
-          if (v14)
+          v13 = (8 * v10);
+          *v13 = v7;
+          v9 = (8 * v10 + 8);
+          v14 = v13 - (v34 - v33);
+          memcpy(v14, v33, v34 - v33);
+          v15 = v33;
+          v33 = v14;
+          v34 = v9;
+          v35 = 0;
+          if (v15)
           {
-            operator delete(v14);
+            operator delete(v15);
           }
         }
 
         else
         {
-          *v31 = v6;
-          v8 = v7 + 8;
+          *v34 = v7;
+          v9 = v8 + 8;
         }
 
-        v31 = v8;
-        ++v4;
+        v34 = v9;
+        ++v5;
       }
 
-      while (v4 != v5);
-      if (v30 != v8)
+      while (v5 != v6);
+      if (v33 != v9)
       {
-        v15 = MIL::IRDimension::AsConstant(*(v8 - 1));
-        if (!(*(*v15 + 48))(v15))
+        v16 = MIL::IRDimension::AsConstant(*(v9 - 1));
+        if (!(*(*v16 + 48))(v16))
         {
-          for (i = (v31 - v30) >> 3; ; ++i)
+          for (i = (v34 - v33) >> 3; ; ++i)
           {
-            v17 = (*(*a2 + 96))(a2);
-            if (i >= (v17[1] - *v17) >> 3)
+            v20 = (*(*a2 + 96))(a2);
+            if (i >= (v20[1] - *v20) >> 3)
             {
               break;
             }
 
-            v18 = *(*(*a2 + 96))(a2);
-            v19 = v31;
-            if (v31 >= v32)
+            v21 = *(*(*a2 + 96))(a2);
+            v22 = v34;
+            if (v34 >= v35)
             {
-              v21 = (v31 - v30) >> 3;
-              if ((v21 + 1) >> 61)
+              v24 = (v34 - v33) >> 3;
+              if ((v24 + 1) >> 61)
               {
                 std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
               }
 
-              v22 = (v32 - v30) >> 2;
-              if (v22 <= v21 + 1)
+              v25 = (v35 - v33) >> 2;
+              if (v25 <= v24 + 1)
               {
-                v22 = v21 + 1;
+                v25 = v24 + 1;
               }
 
-              if (v32 - v30 >= 0x7FFFFFFFFFFFFFF8)
+              if (v35 - v33 >= 0x7FFFFFFFFFFFFFF8)
               {
-                v23 = 0x1FFFFFFFFFFFFFFFLL;
+                v26 = 0x1FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v23 = v22;
+                v26 = v25;
               }
 
-              if (v23)
-              {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<std::string const*>>(&v30, v23);
-              }
-
-              v24 = (8 * v21);
-              *v24 = *(v18 + 8 * i);
-              v20 = 8 * v21 + 8;
-              v25 = v24 - (v31 - v30);
-              memcpy(v25, v30, v31 - v30);
-              v26 = v30;
-              v30 = v25;
-              v31 = v20;
-              v32 = 0;
               if (v26)
               {
-                operator delete(v26);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<std::string const*>>(&v33, v26);
+              }
+
+              v27 = (8 * v24);
+              *v27 = *(v21 + 8 * i);
+              v23 = 8 * v24 + 8;
+              v28 = v27 - (v34 - v33);
+              memcpy(v28, v33, v34 - v33);
+              v29 = v33;
+              v33 = v28;
+              v34 = v23;
+              v35 = 0;
+              if (v29)
+              {
+                operator delete(v29);
               }
             }
 
             else
             {
-              *v31 = *(v18 + 8 * i);
-              v20 = (v19 + 8);
+              *v34 = *(v21 + 8 * i);
+              v23 = (v22 + 8);
             }
 
-            v31 = v20;
+            v34 = v23;
           }
         }
       }
     }
 
-    (*(*a2 + 88))(a2);
-    MIL::IRTensorValueType::MakeWithShape();
+    v17 = this[1];
+    v18 = (*(*a2 + 88))(a2);
+    MIL::IRTensorValueType::MakeWithShape(v17, v18, &v33);
   }
 
   __cxa_allocate_exception(0x48uLL);
-  v27 = this[4];
+  v30 = this[4];
   Options = MIL::ParserContext::GetOptions(this[3]);
-  v29 = (*(*Options + 24))(Options);
-  MIL::TextLocationFromScannerLocation(v27, v29);
+  v32 = (*(*Options + 24))(Options);
+  MIL::TextLocationFromScannerLocation(v30, v32);
 }
 
 void sub_2180ADB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28)
@@ -3943,7 +3962,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void sub_2180AE04C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void **a25)
+void sub_2180AE04C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
 {
   __cxa_end_catch();
   v27 = *(v25 - 232);
@@ -3967,25 +3986,25 @@ void sub_2180AE04C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(v29);
   }
 
-  a25 = (v25 - 160);
+  a25 = v25 - 160;
   std::vector<MIL::Scanner::Token>::__destroy_vector::operator()[abi:ne200100](&a25);
   _Unwind_Resume(a1);
 }
 
 uint64_t MIL::Text::Parser::TensorVal::ParseTensor(MIL::IRTensorValueType const*)::$_0::operator()(unint64_t **a1)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v16);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
   __p = 0;
-  v14 = 0;
   v15 = 0;
-  v2 = *a1;
-  v3 = a1[1];
-  if (*a1 != v3)
+  v16 = 0;
+  v3 = *a1;
+  v4 = a1[1];
+  if (*a1 != v4)
   {
     do
     {
-      v4 = *v2;
-      if (v15 >= 0)
+      v5 = *v3;
+      if (v16 >= 0)
       {
         p_p = &__p;
       }
@@ -3995,87 +4014,87 @@ uint64_t MIL::Text::Parser::TensorVal::ParseTensor(MIL::IRTensorValueType const*
         p_p = __p;
       }
 
-      if (v15 >= 0)
+      if (v16 >= 0)
       {
-        v6 = HIBYTE(v15);
+        v7 = HIBYTE(v16);
       }
 
       else
       {
-        v6 = v14;
+        v7 = v15;
       }
 
-      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, p_p, v6);
-      std::to_string(&v12, v4);
-      if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, p_p, v7);
+      std::to_string(&v13, v5);
+      if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v8 = &v12;
-      }
-
-      else
-      {
-        v8 = v12.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        size = HIBYTE(v12.__r_.__value_.__r.__words[2]);
+        v9 = &v13;
       }
 
       else
       {
-        size = v12.__r_.__value_.__l.__size_;
+        v9 = v13.__r_.__value_.__r.__words[0];
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v8, size);
-      if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+      if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        operator delete(v12.__r_.__value_.__l.__data_);
+        size = HIBYTE(v13.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        size = v13.__r_.__value_.__l.__size_;
+      }
+
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v9, size);
+      if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v13.__r_.__value_.__l.__data_);
       }
 
       MEMORY[0x21CEAF970](&__p, ", ");
-      ++v2;
+      ++v3;
     }
 
-    while (v2 != v3);
+    while (v3 != v4);
   }
 
   std::stringbuf::str();
-  if (SHIBYTE(v15) < 0)
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p);
   }
 
-  v16[0] = *MEMORY[0x277D82818];
-  v10 = *(MEMORY[0x277D82818] + 72);
-  *(v16 + *(v16[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v17 = v10;
-  v18 = MEMORY[0x277D82878] + 16;
-  if (v20 < 0)
+  v17[0] = *MEMORY[0x277D82818];
+  v11 = *(MEMORY[0x277D82818] + 72);
+  *(v17 + *(v17[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v18 = v11;
+  v19 = MEMORY[0x277D82878] + 16;
+  if (v21 < 0)
   {
-    operator delete(v19[7].__locale_);
+    operator delete(v20[7].__locale_);
   }
 
-  v18 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v19);
+  v19 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v20);
   std::iostream::~basic_iostream();
-  return MEMORY[0x21CEAFDA0](&v21);
+  return MEMORY[0x21CEAFDA0](&v22);
 }
 
-void sub_2180AE358(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, int a5, __int16 a6, char a7, char a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+void sub_2180AE358(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, int a5, __int16 a6, char a7, char a8, void *__p, void *a10, int a11, __int16 a12, char a13, char a14, char a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a30);
-  if (a14 < 0)
+  va_start(va, a34);
+  if (SHIBYTE(a18) < 0)
   {
-    operator delete(__p);
+    operator delete(a16);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15, MEMORY[0x277D82818]);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a19, MEMORY[0x277D82818]);
   MEMORY[0x21CEAFDA0](va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp8E4M3FN,MIL::Fp8E4M3FN>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp8E4M3FN,MIL::Fp8E4M3FN>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -4093,7 +4112,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp8E4M3FN,MIL::Fp8E4M3FN>(ui
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -4121,7 +4140,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp8E4M3FN,MIL::Fp8E4M3FN>(ui
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -4160,7 +4179,7 @@ void sub_2180AE4F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp8E5M2,MIL::Fp8E5M2>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp8E5M2,MIL::Fp8E5M2>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -4178,7 +4197,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp8E5M2,MIL::Fp8E5M2>(uint64
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -4206,7 +4225,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp8E5M2,MIL::Fp8E5M2>(uint64
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -4297,7 +4316,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Bf16,MIL::Bf16>(uint64_t a1@
         }
 
         *(2 * v14) = v8;
-        v11 = 2 * v14 + 2;
+        v11 = (2 * v14 + 2);
         memcpy(0, v12, v13);
         v18 = *a3;
         *a3 = 0;
@@ -4312,7 +4331,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Bf16,MIL::Bf16>(uint64_t a1@
       else
       {
         *v10 = v8;
-        v11 = (v10 + 2);
+        v11 = v10 + 2;
       }
 
       a3[1] = v11;
@@ -4387,7 +4406,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp16,MIL::Fp16>(uint64_t a1@
         }
 
         *(2 * v14) = v8;
-        v11 = 2 * v14 + 2;
+        v11 = (2 * v14 + 2);
         memcpy(0, v12, v13);
         v18 = *a3;
         *a3 = 0;
@@ -4402,7 +4421,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Fp16,MIL::Fp16>(uint64_t a1@
       else
       {
         *v10 = v8;
-        v11 = (v10 + 2);
+        v11 = v10 + 2;
       }
 
       a3[1] = v11;
@@ -4473,7 +4492,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<float,float>(uint64_t a1@<X0>, MI
         }
 
         *(4 * v14) = v8;
-        v11 = 4 * v14 + 4;
+        v11 = (4 * v14 + 4);
         memcpy(0, begin, v13);
         v18 = a3->__begin_;
         a3->__begin_ = 0;
@@ -4488,7 +4507,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<float,float>(uint64_t a1@<X0>, MI
       else
       {
         *end = v8;
-        v11 = (end + 1);
+        v11 = end + 1;
       }
 
       a3->__end_ = v11;
@@ -4559,7 +4578,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<double,double>(uint64_t a1@<X0>, 
         }
 
         *(8 * v14) = v8;
-        v11 = 8 * v14 + 8;
+        v11 = (8 * v14 + 8);
         memcpy(0, v12, v13);
         v18 = *a3;
         *a3 = 0;
@@ -4574,7 +4593,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<double,double>(uint64_t a1@<X0>, 
       else
       {
         *v10 = v8;
-        v11 = (v10 + 1);
+        v11 = v10 + 1;
       }
 
       a3[1] = v11;
@@ -4597,7 +4616,7 @@ void sub_2180AEBE4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Int4,MIL::Int4>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Int4,MIL::Int4>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -4615,7 +4634,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Int4,MIL::Int4>(uint64_t a1@
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -4643,7 +4662,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::Int4,MIL::Int4>(uint64_t a1@
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -4682,7 +4701,7 @@ void sub_2180AED4C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt6,MIL::UInt6>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt6,MIL::UInt6>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -4700,7 +4719,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt6,MIL::UInt6>(uint64_t a
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -4728,7 +4747,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt6,MIL::UInt6>(uint64_t a
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -4767,7 +4786,7 @@ void sub_2180AEEB4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt4,MIL::UInt4>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt4,MIL::UInt4>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -4785,7 +4804,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt4,MIL::UInt4>(uint64_t a
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -4813,7 +4832,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt4,MIL::UInt4>(uint64_t a
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -4852,7 +4871,7 @@ void sub_2180AF01C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt3,MIL::UInt3>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt3,MIL::UInt3>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -4870,7 +4889,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt3,MIL::UInt3>(uint64_t a
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -4898,7 +4917,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt3,MIL::UInt3>(uint64_t a
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -4937,7 +4956,7 @@ void sub_2180AF184(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt2,MIL::UInt2>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt2,MIL::UInt2>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -4955,7 +4974,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt2,MIL::UInt2>(uint64_t a
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -4983,7 +5002,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt2,MIL::UInt2>(uint64_t a
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -5022,7 +5041,7 @@ void sub_2180AF2EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt1,MIL::UInt1>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt1,MIL::UInt1>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -5040,7 +5059,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt1,MIL::UInt1>(uint64_t a
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -5068,7 +5087,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<MIL::UInt1,MIL::UInt1>(uint64_t a
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -5187,7 +5206,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<unsigned short,unsigned short>(ui
         }
 
         *(2 * v14) = v8;
-        v11 = 2 * v14 + 2;
+        v11 = (2 * v14 + 2);
         memcpy(0, v12, v13);
         v18 = *a3;
         *a3 = 0;
@@ -5202,7 +5221,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<unsigned short,unsigned short>(ui
       else
       {
         *v10 = v8;
-        v11 = (v10 + 2);
+        v11 = v10 + 2;
       }
 
       a3[1] = v11;
@@ -5273,7 +5292,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<unsigned int,unsigned int>(uint64
         }
 
         *(4 * v14) = v8;
-        v11 = 4 * v14 + 4;
+        v11 = (4 * v14 + 4);
         memcpy(0, begin, v13);
         v18 = a3->__begin_;
         a3->__begin_ = 0;
@@ -5288,7 +5307,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<unsigned int,unsigned int>(uint64
       else
       {
         *end = v8;
-        v11 = (end + 4);
+        v11 = end + 1;
       }
 
       a3->__end_ = v11;
@@ -5359,7 +5378,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<unsigned long long,unsigned long 
         }
 
         *(8 * v14) = v8;
-        v11 = 8 * v14 + 8;
+        v11 = (8 * v14 + 8);
         memcpy(0, v12, v13);
         v18 = *a3;
         *a3 = 0;
@@ -5374,7 +5393,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<unsigned long long,unsigned long 
       else
       {
         *v10 = v8;
-        v11 = (v10 + 1);
+        v11 = v10 + 8;
       }
 
       a3[1] = v11;
@@ -5397,7 +5416,7 @@ void sub_2180AF914(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Text::Parser::TensorVal::ParseTokens<signed char,signed char>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void *a3@<X8>)
+void MIL::Text::Parser::TensorVal::ParseTokens<signed char,signed char>(uint64_t a1@<X0>, MIL::Scanner::Token **a2@<X1>, void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -5415,7 +5434,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<signed char,signed char>(uint64_t
       if (v10 >= v9)
       {
         v12 = *a3;
-        v13 = &v10[-*a3];
+        v13 = (v10 - *a3);
         v14 = (v13 + 1);
         if ((v13 + 1) < 0)
         {
@@ -5443,7 +5462,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<signed char,signed char>(uint64_t
           operator new();
         }
 
-        v17 = &v10[-*a3];
+        v17 = v10 - *a3;
         *v13 = v8;
         v11 = v13 + 1;
         memcpy(0, v12, v17);
@@ -5534,7 +5553,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<short,short>(uint64_t a1@<X0>, MI
         }
 
         *(2 * v14) = v8;
-        v11 = 2 * v14 + 2;
+        v11 = (2 * v14 + 2);
         memcpy(0, v12, v13);
         v18 = *a3;
         *a3 = 0;
@@ -5549,7 +5568,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<short,short>(uint64_t a1@<X0>, MI
       else
       {
         *v10 = v8;
-        v11 = (v10 + 2);
+        v11 = v10 + 2;
       }
 
       a3[1] = v11;
@@ -5620,7 +5639,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<int,int>(uint64_t a1@<X0>, MIL::S
         }
 
         *(4 * v14) = v8;
-        v11 = 4 * v14 + 4;
+        v11 = (4 * v14 + 4);
         memcpy(0, begin, v13);
         v18 = a3->__begin_;
         a3->__begin_ = 0;
@@ -5635,7 +5654,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<int,int>(uint64_t a1@<X0>, MIL::S
       else
       {
         *end = v8;
-        v11 = (end + 4);
+        v11 = end + 1;
       }
 
       a3->__end_ = v11;
@@ -5706,7 +5725,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<long long,long long>(uint64_t a1@
         }
 
         *(8 * v14) = v8;
-        v11 = 8 * v14 + 8;
+        v11 = (8 * v14 + 8);
         memcpy(0, v12, v13);
         v18 = *a3;
         *a3 = 0;
@@ -5721,7 +5740,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<long long,long long>(uint64_t a1@
       else
       {
         *v10 = v8;
-        v11 = (v10 + 1);
+        v11 = v10 + 8;
       }
 
       a3[1] = v11;
@@ -5795,7 +5814,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<std::string,std::string>(uint64_t
         *(v15 + 16) = *(&__p.__r_.__value_.__l + 2);
         *v15 = v16;
         memset(&__p, 0, sizeof(__p));
-        v17 = 24 * v11 + 24;
+        v17 = (24 * v11 + 24);
         v18 = a3->__end_ - a3->__begin_;
         v19 = (24 * v11 - v18);
         memcpy((v15 - v18), a3->__begin_, v18);
@@ -5832,7 +5851,7 @@ void MIL::Text::Parser::TensorVal::ParseTokens<std::string,std::string>(uint64_t
   }
 }
 
-unsigned __int8 *std::remove[abi:ne200100]<std::__wrap_iter<char *>,char>(void *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+unsigned __int8 *std::remove[abi:ne200100]<std::__wrap_iter<char *>,char>(void *a1, unsigned __int8 *a2, char *a3)
 {
   result = memchr(a1, *a3, a2 - a1);
   if (!result)
@@ -5860,7 +5879,7 @@ unsigned __int8 *std::remove[abi:ne200100]<std::__wrap_iter<char *>,char>(void *
   return result;
 }
 
-uint64_t std::vector<MIL::Scanner::TokenType>::__init_with_size[abi:ne200100]<MIL::Scanner::TokenType const*,MIL::Scanner::TokenType const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MIL::Scanner::TokenType>::__init_with_size[abi:ne200100]<MIL::Scanner::TokenType const*,MIL::Scanner::TokenType const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5882,7 +5901,7 @@ void sub_2180B0154(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MIL::Scanner::TokenType>::__init_with_size[abi:ne200100]<MIL::Scanner::TokenType*,MIL::Scanner::TokenType*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MIL::Scanner::TokenType>::__init_with_size[abi:ne200100]<MIL::Scanner::TokenType*,MIL::Scanner::TokenType*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5904,7 +5923,7 @@ void sub_2180B01D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5926,16 +5945,16 @@ void sub_2180B024C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MIL::Scanner::Token>::__emplace_back_slow_path<MIL::Scanner::Token>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<MIL::Scanner::Token>::__emplace_back_slow_path<MIL::Scanner::Token>(void *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -5961,14 +5980,14 @@ uint64_t std::vector<MIL::Scanner::Token>::__emplace_back_slow_path<MIL::Scanner
   v15 = 32 * v2;
   MIL::Scanner::Token::Token((32 * v2), a2);
   v16 = (32 * v2 + 32);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = (32 * v2 + *a1 - v8);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MIL::Scanner::Token>,MIL::Scanner::Token*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -5977,9 +5996,9 @@ uint64_t std::vector<MIL::Scanner::Token>::__emplace_back_slow_path<MIL::Scanner
   return v13;
 }
 
-void sub_2180B0360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2180B0360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<MIL::Scanner::Token>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6003,7 +6022,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<MIL::S
     do
     {
       MIL::Scanner::Token::Token(a4, v7);
-      v7 += 32;
+      v7 = (v7 + 32);
       a4 = (v8 + 32);
     }
 
@@ -6058,7 +6077,7 @@ void std::vector<MIL::Scanner::Token>::__destroy_vector::operator()[abi:ne200100
   }
 }
 
-void *MIL::PackSubByteVec@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t *MIL::PackSubByteVec@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = a1[1];
   v3 = v2 - *a1;
@@ -6123,7 +6142,7 @@ void *MIL::PackSubByteVec@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return MIL::PackSubByteVecImpl<MIL::UInt1>(v4, v3, a2);
 }
 
-void *MIL::PackSubByteVecImpl<MIL::Int4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *MIL::PackSubByteVecImpl<MIL::Int4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<unsigned char>::vector[abi:ne200100](a3, vcvtpd_u64_f64(vcvtd_n_f64_u64(4 * a2, 3uLL)));
   if (a2)
@@ -6304,7 +6323,7 @@ LABEL_22:
   goto LABEL_22;
 }
 
-void *MIL::PackSubByteVec@<X0>(unsigned __int8 **a1@<X0>, void *a2@<X8>)
+uint64_t *MIL::PackSubByteVec@<X0>(unsigned __int8 **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = a1[1];
   v3 = v2 - *a1;
@@ -6337,7 +6356,7 @@ void *MIL::PackSubByteVec@<X0>(unsigned __int8 **a1@<X0>, void *a2@<X8>)
   return MIL::PackSubByteVecForNonByteAligned<MIL::UInt3>(v4, v3, a2);
 }
 
-void *MIL::PackSubByteVecImpl<MIL::UInt4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *MIL::PackSubByteVecImpl<MIL::UInt4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<unsigned char>::vector[abi:ne200100](a3, vcvtpd_u64_f64(vcvtd_n_f64_u64(4 * a2, 3uLL)));
   if (a2)
@@ -6518,7 +6537,7 @@ LABEL_22:
   goto LABEL_22;
 }
 
-void *MIL::PackSubByteVecImpl<MIL::UInt2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *MIL::PackSubByteVecImpl<MIL::UInt2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<unsigned char>::vector[abi:ne200100](a3, vcvtpd_u64_f64(vcvtd_n_f64_u64(2 * a2, 3uLL)));
   if (a2)
@@ -6699,7 +6718,7 @@ LABEL_22:
   goto LABEL_22;
 }
 
-void *MIL::PackSubByteVecImpl<MIL::UInt1>@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *MIL::PackSubByteVecImpl<MIL::UInt1>@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<unsigned char>::vector[abi:ne200100](a3, vcvtpd_u64_f64(vcvtd_n_f64_u64(a2, 3uLL)));
   if (a2)
@@ -6880,7 +6899,7 @@ LABEL_22:
   goto LABEL_22;
 }
 
-uint64_t MIL::UnPackSubByteVecImpl<MIL::Int4>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t MIL::UnPackSubByteVecImpl<MIL::Int4>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<MIL::Int4>::vector[abi:ne200100](a3, a2);
   v7 = *a1;
@@ -6926,7 +6945,7 @@ void sub_2180B1404(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt6>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt6>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<MIL::UInt6>::vector[abi:ne200100](a3, a2);
   v7 = *a1;
@@ -6972,7 +6991,7 @@ void sub_2180B1524(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt4>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt4>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<MIL::UInt4>::vector[abi:ne200100](a3, a2);
   v7 = *a1;
@@ -7018,7 +7037,7 @@ void sub_2180B1640(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt3>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt3>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<MIL::UInt3>::vector[abi:ne200100](a3, a2);
   v7 = *a1;
@@ -7064,7 +7083,7 @@ void sub_2180B175C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt2>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt2>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<MIL::UInt2>::vector[abi:ne200100](a3, a2);
   v7 = *a1;
@@ -7110,7 +7129,7 @@ void sub_2180B1878(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt1>@<X0>(uint64_t *a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t MIL::UnPackSubByteVecImpl<MIL::UInt1>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   result = std::vector<MIL::UInt1>::vector[abi:ne200100](a3, a2);
   v7 = *a1;
@@ -7404,11 +7423,11 @@ _BYTE *MIL::UInt1::SetInt(_BYTE *this, unsigned int a2)
   return this;
 }
 
-void *MIL::PackSubByteVecForNonByteAligned<MIL::UInt6>@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *MIL::PackSubByteVecForNonByteAligned<MIL::UInt6>@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v3 = a2;
   v34.__r_.__value_.__s.__data_[0] = 0;
-  result = std::vector<unsigned char>::vector[abi:ne200100](a3, vcvtpd_u64_f64(vcvtd_n_f64_u64(6 * a2, 3uLL)));
+  result = std::vector<unsigned char>::vector[abi:ne200100](a3, vcvtpd_u64_f64(vcvtd_n_f64_u64(6 * a2, 3uLL)), &v34);
   if (v3)
   {
     v7 = 0;
@@ -7593,11 +7612,11 @@ LABEL_22:
   goto LABEL_22;
 }
 
-void *MIL::PackSubByteVecForNonByteAligned<MIL::UInt3>@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *MIL::PackSubByteVecForNonByteAligned<MIL::UInt3>@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v3 = a2;
   v34.__r_.__value_.__s.__data_[0] = 0;
-  result = std::vector<unsigned char>::vector[abi:ne200100](a3, vcvtpd_u64_f64(vcvtd_n_f64_u64(3 * a2, 3uLL)));
+  result = std::vector<unsigned char>::vector[abi:ne200100](a3, vcvtpd_u64_f64(vcvtd_n_f64_u64(3 * a2, 3uLL)), &v34);
   if (v3)
   {
     v7 = 0;
@@ -7796,17 +7815,17 @@ uint64_t MIL::Util::Span<MIL::Int4,18446744073709551615ul>::ValueAt(void *a1, un
   return v5;
 }
 
-void *std::vector<MIL::Int4>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<MIL::Int4>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2180B2A38(_Unwind_Exception *exception_object)
@@ -7893,17 +7912,17 @@ uint64_t MIL::Util::Span<MIL::UInt6,18446744073709551615ul>::ValueAt(void *a1, u
   return v36;
 }
 
-void *std::vector<MIL::UInt6>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<MIL::UInt6>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2180B2CD8(_Unwind_Exception *exception_object)
@@ -7931,17 +7950,17 @@ uint64_t MIL::Util::Span<MIL::UInt4,18446744073709551615ul>::ValueAt(void *a1, u
   return v4;
 }
 
-void *std::vector<MIL::UInt4>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<MIL::UInt4>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2180B2DEC(_Unwind_Exception *exception_object)
@@ -7995,17 +8014,17 @@ uint64_t MIL::Util::Span<MIL::UInt3,18446744073709551615ul>::ValueAt(void *a1, u
   return v16;
 }
 
-void *std::vector<MIL::UInt3>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<MIL::UInt3>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2180B2F94(_Unwind_Exception *exception_object)
@@ -8033,17 +8052,17 @@ uint64_t MIL::Util::Span<MIL::UInt2,18446744073709551615ul>::ValueAt(void *a1, u
   return v4;
 }
 
-void *std::vector<MIL::UInt2>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<MIL::UInt2>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2180B30A8(_Unwind_Exception *exception_object)
@@ -8071,17 +8090,17 @@ uint64_t MIL::Util::Span<MIL::UInt1,18446744073709551615ul>::ValueAt(void *a1, u
   return v4;
 }
 
-void *std::vector<MIL::UInt1>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<MIL::UInt1>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2180B31BC(_Unwind_Exception *exception_object)
@@ -8290,16 +8309,16 @@ MIL::Transform::ArgumentDescription *MIL::Transform::ArgumentDescription::Argume
 
 void MIL::Transform::ArgumentDescription::ArgumentDescription(MIL::Transform::ArgumentDescription *this, const MIL::Matching::OutputView *a2)
 {
-  Name = MIL::Matching::OutputView::GetName(a2);
-  if (*(Name + 23) < 0)
+  MIL::Matching::OutputView::GetName(a2);
+  if (*(v2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, *Name, *(Name + 8));
+    std::string::__init_copy_ctor_external(&__p, *v2, *(v2 + 1));
   }
 
   else
   {
-    v3 = *Name;
-    __p.__r_.__value_.__r.__words[2] = *(Name + 16);
+    v3 = *v2;
+    __p.__r_.__value_.__r.__words[2] = *(v2 + 2);
     *&__p.__r_.__value_.__l.__data_ = v3;
   }
 
@@ -8590,7 +8609,7 @@ MIL::Transform::ArgumentDescription *MIL::Transform::ArgumentDescription::Argume
   return this;
 }
 
-_BYTE *MIL::Transform::ArgumentDescription::ArgumentDescriptionImpl::SetString(uint64_t a1, const void *a2, size_t a3)
+void MIL::Transform::ArgumentDescription::ArgumentDescriptionImpl::SetString(uint64_t a1, const void *a2, size_t a3)
 {
   if (a3 > 0x17)
   {
@@ -8603,7 +8622,6 @@ _BYTE *MIL::Transform::ArgumentDescription::ArgumentDescriptionImpl::SetString(u
   }
 
   *(a1 + 24) = 11;
-  return result;
 }
 
 void sub_2180B3B60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8636,7 +8654,7 @@ uint64_t MIL::Transform::ArgumentDescription::ArgumentDescription(uint64_t a1, v
   return a1;
 }
 
-uint64_t MIL::Transform::ArgumentDescription::ArgumentDescription(uint64_t a1, const void **a2)
+uint64_t MIL::Transform::ArgumentDescription::ArgumentDescription(uint64_t a1, uint64_t *a2)
 {
   *a1 = 0;
   *(a1 + 24) = 0;
@@ -8644,7 +8662,7 @@ uint64_t MIL::Transform::ArgumentDescription::ArgumentDescription(uint64_t a1, c
   return a1;
 }
 
-_BYTE *MIL::Transform::ArgumentDescription::ArgumentDescriptionImpl::SetString(uint64_t a1, const void **a2)
+_BYTE *MIL::Transform::ArgumentDescription::ArgumentDescriptionImpl::SetString(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a2 + 23);
   if ((v4 & 0x80u) != 0)
@@ -8681,42 +8699,41 @@ _BYTE *MIL::Transform::ArgumentDescription::ArgumentDescriptionImpl::SetString(u
   return result;
 }
 
-unsigned __int8 *MIL::Transform::ArgumentDescription::ArgumentDescriptionImpl::CreateIRArgument@<X0>(unsigned __int8 *result@<X0>, _anonymous_namespace_ *a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>)
+void MIL::Transform::ArgumentDescription::ArgumentDescriptionImpl::CreateIRArgument(unsigned __int8 *a1@<X0>, _anonymous_namespace_ *a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>)
 {
-  v6 = result;
-  v8 = *(result + 6);
+  v8 = *(a1 + 6);
   switch(v8)
   {
     case 12:
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(a2, 3);
     case 11:
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(a2, 3);
     case 10:
-      v10 = *result;
+      v10 = *a1;
       v11 = 25;
       goto LABEL_17;
     case 9:
-      v10 = *result;
+      v10 = *a1;
       v11 = 24;
       goto LABEL_17;
     case 8:
-      v10 = *result;
+      v10 = *a1;
       v11 = 4;
       goto LABEL_17;
     case 7:
-      v10 = *result;
+      v10 = *a1;
       v11 = 7;
       goto LABEL_17;
     case 6:
-      v10 = *result;
+      v10 = *a1;
       v11 = 6;
       goto LABEL_17;
     case 5:
-      v10 = *result;
+      v10 = *a1;
       v11 = 5;
 LABEL_17:
     case 4:
-      v38 = *(result + 2);
+      v36 = *(a1 + 2);
       v12 = *(a3 + 16);
       if (v12)
       {
@@ -8786,11 +8803,11 @@ LABEL_35:
       v14 = 0;
       v13 = 0;
 LABEL_60:
-      if (v38 > 15)
+      if (v36 > 15)
       {
-        if (v38 != 16)
+        if (v36 != 16)
         {
-          if (v38 != 17)
+          if (v36 != 17)
           {
 LABEL_66:
             exception = __cxa_allocate_exception(0x10uLL);
@@ -8801,7 +8818,7 @@ LABEL_66:
 LABEL_76:
           if (v16)
           {
-            MIL::IRTensorValueType::MakeScalar();
+            MIL::IRTensorValueType::MakeScalar(a2, 17);
           }
 
           v34 = __cxa_allocate_exception(0x10uLL);
@@ -8813,33 +8830,33 @@ LABEL_76:
 
       else
       {
-        if (v38 == 14)
+        if (v36 == 14)
         {
           if (v13)
           {
-            MIL::IRTensorValueType::MakeScalar();
+            MIL::IRTensorValueType::MakeScalar(a2, 14);
           }
         }
 
-        else if (v38 != 15)
+        else if (v36 != 15)
         {
           goto LABEL_66;
         }
 
         if (v14)
         {
-          MIL::IRTensorValueType::MakeScalar();
+          MIL::IRTensorValueType::MakeScalar(a2, 15);
         }
       }
 
       if (v15)
       {
-        MIL::IRTensorValueType::MakeScalar();
+        MIL::IRTensorValueType::MakeScalar(a2, 16);
       }
 
       goto LABEL_76;
     case 3:
-      v39 = *(result + 2);
+      v37 = *(a1 + 2);
       v21 = *(a3 + 16);
       if (v21)
       {
@@ -8909,11 +8926,11 @@ LABEL_53:
       v23 = 0;
       v22 = 0;
 LABEL_79:
-      if (v39 > 10)
+      if (v37 > 10)
       {
-        if (v39 != 11)
+        if (v37 != 11)
         {
-          if (v39 != 12)
+          if (v37 != 12)
           {
             goto LABEL_66;
           }
@@ -8921,57 +8938,57 @@ LABEL_79:
 LABEL_95:
           if (v25)
           {
-            MIL::IRTensorValueType::MakeScalar();
+            MIL::IRTensorValueType::MakeScalar(a2, 12);
           }
 
-          v37 = __cxa_allocate_exception(0x10uLL);
-          std::logic_error::logic_error(v37, &__dst);
-          v37->__vftable = (MEMORY[0x277D828F8] + 16);
-          __cxa_throw(v37, off_278235F80, MEMORY[0x277D82610]);
+          v35 = __cxa_allocate_exception(0x10uLL);
+          std::logic_error::logic_error(v35, &__dst);
+          v35->__vftable = (MEMORY[0x277D828F8] + 16);
+          __cxa_throw(v35, off_278235F80, MEMORY[0x277D82610]);
         }
       }
 
       else
       {
-        if (v39 == 9)
+        if (v37 == 9)
         {
           if (v22)
           {
-            MIL::IRTensorValueType::MakeScalar();
+            MIL::IRTensorValueType::MakeScalar(a2, 9);
           }
         }
 
-        else if (v39 != 10)
+        else if (v37 != 10)
         {
           goto LABEL_66;
         }
 
         if (v23)
         {
-          MIL::IRTensorValueType::MakeScalar();
+          MIL::IRTensorValueType::MakeScalar(a2, 10);
         }
       }
 
       if (v24)
       {
-        MIL::IRTensorValueType::MakeScalar();
+        MIL::IRTensorValueType::MakeScalar(a2, 11);
       }
 
       goto LABEL_95;
     case 2:
-      if (*result < ((a4[1] - *a4) >> 4))
+      if (*a1 < ((a4[1] - *a4) >> 4))
       {
-        v30 = (*a4 + 16 * *result);
-        v41 = 0;
-        v42 = 0;
+        v30 = (*a4 + 16 * *a1);
+        v39 = 0;
+        v40 = 0;
         Operator = MIL::Builder::OperationBuilder::GetOperator(*v30);
         if ((*(*Operator + 104))(Operator))
         {
           MIL::Builder::OperationBuilder::CreateOperation(*v30);
         }
 
-        OutputType = MIL::Builder::OperationBuilder::GetOutputType(*v30, *(v6 + 1));
-        MIL::IRTypedArgument::Make(OutputType, v36);
+        MIL::Builder::OperationBuilder::GetOutputType(*v30, *(a1 + 1));
+        MIL::IRTypedArgument::Make();
       }
 
       std::vector<MIL::IRDimension const*>::__throw_out_of_range[abi:ne200100]();
@@ -8981,7 +8998,7 @@ LABEL_95:
   {
     if (!v8)
     {
-      MIL::IRTensorValueType::MakeScalar();
+      MIL::IRTensorValueType::MakeScalar(a2, 2);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8990,8 +9007,8 @@ LABEL_101:
     __cxa_throw(exception, MEMORY[0x277D82750], MEMORY[0x277D825D8]);
   }
 
-  v33 = *(result + 1);
-  *a5 = *result;
+  v33 = *(a1 + 1);
+  *a5 = *a1;
   *(a5 + 8) = v33;
   if (v33)
   {
@@ -9002,7 +9019,6 @@ LABEL_101:
   *(a5 + 16) = 0;
   *(a5 + 24) = 0;
   *(a5 + 32) = 0;
-  return result;
 }
 
 void sub_2180B4F3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, std::__shared_weak_count *a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25)
@@ -9095,44 +9111,44 @@ void std::__shared_ptr_emplace<std::string>::__on_zero_shared(uint64_t a1)
 
 void anonymous namespace::CreateIRArgumentFromFloatScalar(_anonymous_namespace_ *CanTakeScalar, const MIL::IRTensorValueType *a2, _anonymous_namespace_ *a3, uint64_t a4)
 {
-  v21 = *&CanTakeScalar;
-  v5 = a2;
-  v6 = *(a4 + 16);
-  if (v6)
+  v22 = CanTakeScalar;
+  v6 = a2;
+  v7 = *(a4 + 16);
+  if (v7)
   {
-    v7 = 0;
     v8 = 0;
     v9 = 0;
     v10 = 0;
     v11 = 0;
     v12 = 0;
+    v13 = 0;
     while (1)
     {
-      CanTakeScalar = (*(*v6[2] + 24))(v6[2]);
+      CanTakeScalar = (*(*v7[2] + 24))(v7[2]);
       if (!CanTakeScalar)
       {
         goto LABEL_21;
       }
 
-      v13 = CanTakeScalar;
+      v15 = CanTakeScalar;
       if (!CanTakeScalar)
       {
         goto LABEL_21;
       }
 
-      CanTakeScalar = (*(*v13 + 88))(v13);
+      CanTakeScalar = (*(*v15 + 88))(v15);
       if (CanTakeScalar <= 6)
       {
         switch(CanTakeScalar)
         {
           case 4:
-            v8 = 1;
-            break;
-          case 5:
             v9 = 1;
             break;
-          case 6:
+          case 5:
             v10 = 1;
+            break;
+          case 6:
+            v11 = 1;
             break;
         }
 
@@ -9143,12 +9159,12 @@ void anonymous namespace::CreateIRArgumentFromFloatScalar(_anonymous_namespace_ 
       {
         if (CanTakeScalar == 24)
         {
-          v12 = 1;
+          v13 = 1;
         }
 
         else if (CanTakeScalar == 25)
         {
-          v11 = 1;
+          v12 = 1;
         }
 
         goto LABEL_21;
@@ -9165,10 +9181,10 @@ void anonymous namespace::CreateIRArgumentFromFloatScalar(_anonymous_namespace_ 
       }
 
 LABEL_21:
-      v6 = *v6;
-      if (!v6)
+      v7 = *v7;
+      if (!v7)
       {
-        if (v7)
+        if (v8)
         {
           goto LABEL_30;
         }
@@ -9177,71 +9193,71 @@ LABEL_21:
       }
     }
 
+    v13 = 1;
     v12 = 1;
     v11 = 1;
     v10 = 1;
     v9 = 1;
-    v8 = 1;
 LABEL_10:
-    v7 = 1;
+    v8 = 1;
     goto LABEL_21;
   }
 
+  v13 = 0;
   v12 = 0;
   v11 = 0;
   v10 = 0;
   v9 = 0;
   v8 = 0;
-  v7 = 0;
 LABEL_25:
-  if ((v8 & 1) == 0 && (v9 & 1) == 0 && (v10 & 1) == 0 && (v11 & 1) == 0 && (v12 & 1) == 0)
+  if ((v9 & 1) == 0 && (v10 & 1) == 0 && (v11 & 1) == 0 && (v12 & 1) == 0 && (v13 & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(exception, &v23);
+    std::logic_error::logic_error(exception, &v24);
     exception->__vftable = (MEMORY[0x277D828F8] + 16);
     __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
   }
 
 LABEL_30:
-  if (v5 > 6)
+  if (v6 > 6)
   {
-    switch(v5)
+    switch(v6)
     {
       case 7:
-        if (v7)
+        if (v8)
         {
-          MIL::IRTensorValueType::MakeScalar();
+          MIL::IRTensorValueType::MakeScalar(a3, 7);
         }
 
-        LOWORD(v23.__r_.__value_.__l.__data_) = LOWORD(v21);
-        Float = MIL::Bf16::GetFloat(&v23);
+        LOWORD(v24.__r_.__value_.__l.__data_) = v22;
+        Float = MIL::Bf16::GetFloat(&v24);
         break;
       case 25:
-        if (v11)
-        {
-          MIL::IRTensorValueType::MakeScalar();
-        }
-
-        v23.__r_.__value_.__s.__data_[0] = LOBYTE(v21);
-        Float = MIL::Fp8E5M2::GetFloat(&v23);
-        break;
-      case 24:
-        v16 = a3;
         if (v12)
         {
-          MIL::IRTensorValueType::MakeScalar();
+          MIL::IRTensorValueType::MakeScalar(a3, 25);
         }
 
-        v23.__r_.__value_.__s.__data_[0] = LOBYTE(v21);
-        Float = MIL::Fp8E4M3FN::GetFloat(&v23);
-        if (v9)
+        v24.__r_.__value_.__s.__data_[0] = v22;
+        Float = MIL::Fp8E5M2::GetFloat(&v24);
+        break;
+      case 24:
+        v17 = a3;
+        if (v13)
+        {
+          MIL::IRTensorValueType::MakeScalar(a3, 24);
+        }
+
+        v24.__r_.__value_.__s.__data_[0] = v22;
+        Float = MIL::Fp8E4M3FN::GetFloat(&v24);
+        if (v10)
         {
 LABEL_57:
         }
 
 LABEL_51:
-        v14 = Float;
-        if ((v10 & 1) == 0)
+        v16 = Float;
+        if ((v11 & 1) == 0)
         {
           goto LABEL_53;
         }
@@ -9254,45 +9270,45 @@ LABEL_51:
 
   else
   {
-    switch(v5)
+    switch(v6)
     {
       case 4:
-        if (v8)
+        if (v9)
         {
         }
 
-        LOWORD(v23.__r_.__value_.__l.__data_) = LOWORD(v21);
-        Float = MIL::Fp16::GetFloat(&v23);
+        LOWORD(v24.__r_.__value_.__l.__data_) = v22;
+        Float = MIL::Fp16::GetFloat(&v24);
         break;
       case 5:
-        Float = *&v21;
+        Float = *&v22;
         break;
       case 6:
-        v14 = v21;
-        if ((v10 & 1) == 0)
+        v16 = *&v22;
+        v17 = a3;
+        if ((v11 & 1) == 0)
         {
-          if (v9)
+          if (v10)
           {
-            v15 = v21;
           }
 
 LABEL_53:
-          v18 = v14;
-          MIL::Fp16::FromFloat(CanTakeScalar, v18);
+          v19 = v16;
+          MIL::Fp16::FromFloat(CanTakeScalar, v19);
         }
 
 LABEL_52:
-        MIL::IRTensorValueType::MakeScalar();
+        MIL::IRTensorValueType::MakeScalar(v17, 6);
       default:
 LABEL_59:
-        v20 = __cxa_allocate_exception(0x10uLL);
-        std::logic_error::logic_error(v20, "Unexpected type");
-        __cxa_throw(v20, MEMORY[0x277D82750], MEMORY[0x277D825D8]);
+        v21 = __cxa_allocate_exception(0x10uLL);
+        std::logic_error::logic_error(v21, "Unexpected type");
+        __cxa_throw(v21, MEMORY[0x277D82750], MEMORY[0x277D825D8]);
     }
   }
 
-  v16 = a3;
-  if (v9)
+  v17 = a3;
+  if (v10)
   {
     goto LABEL_57;
   }
@@ -9331,10 +9347,10 @@ uint64_t anonymous namespace::CanTakeScalar(_anonymous_namespace_ *this, const M
 
 uint64_t anonymous namespace::MakeCantConvertErrorMessage(int a1, uint64_t a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v17);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, "Can't convert a scalar of type ", 31);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v18);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, "Can't convert a scalar of type ", 31);
   MIL::IRDataTypeToString(a1, &__p);
-  if ((v16 & 0x80u) == 0)
+  if ((v17 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -9344,107 +9360,107 @@ uint64_t anonymous namespace::MakeCantConvertErrorMessage(int a1, uint64_t a2)
     p_p = __p;
   }
 
-  if ((v16 & 0x80u) == 0)
+  if ((v17 & 0x80u) == 0)
   {
-    v6 = v16;
+    v7 = v17;
   }
 
   else
   {
-    v6 = v15;
+    v7 = v16;
   }
 
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, p_p, v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " to any of the following types: ", 32);
-  if (v16 < 0)
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, p_p, v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " to any of the following types: ", 32);
+  if (v17 < 0)
   {
     operator delete(__p);
   }
 
-  v8 = *(a2 + 16);
-  if (v8)
+  v9 = *(a2 + 16);
+  if (v9)
   {
-    v9 = 1;
+    v10 = 1;
     do
     {
-      v10 = v8[2];
-      if ((v9 & 1) == 0)
+      v11 = v9[2];
+      if ((v10 & 1) == 0)
       {
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, ", ", 2);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, ", ", 2);
       }
 
-      (*(*v10 + 56))(&__p, v10);
-      if ((v16 & 0x80u) == 0)
+      (*(*v11 + 56))(&__p, v11);
+      if ((v17 & 0x80u) == 0)
       {
-        v11 = &__p;
-      }
-
-      else
-      {
-        v11 = __p;
-      }
-
-      if ((v16 & 0x80u) == 0)
-      {
-        v12 = v16;
+        v12 = &__p;
       }
 
       else
       {
-        v12 = v15;
+        v12 = __p;
       }
 
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v17, v11, v12);
-      if (v16 < 0)
+      if ((v17 & 0x80u) == 0)
+      {
+        v13 = v17;
+      }
+
+      else
+      {
+        v13 = v16;
+      }
+
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v18, v12, v13);
+      if (v17 < 0)
       {
         operator delete(__p);
       }
 
-      v9 = 0;
-      v8 = *v8;
+      v10 = 0;
+      v9 = *v9;
     }
 
-    while (v8);
+    while (v9);
   }
 
   std::stringbuf::str();
-  v17 = *MEMORY[0x277D82828];
-  *(&v17 + *(v17 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v18 = MEMORY[0x277D82878] + 16;
-  if (v20 < 0)
+  v18 = *MEMORY[0x277D82828];
+  *(&v18 + *(v18 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v19 = MEMORY[0x277D82878] + 16;
+  if (v21 < 0)
   {
-    operator delete(v19[7].__locale_);
+    operator delete(v20[7].__locale_);
   }
 
-  v18 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v19);
+  v19 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v20);
   std::ostream::~ostream();
-  return MEMORY[0x21CEAFDA0](&v21);
+  return MEMORY[0x21CEAFDA0](&v22);
 }
 
-void sub_2180B6120(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+void sub_2180B6120(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, char a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  va_start(va, a21);
-  std::ostringstream::~ostringstream(&a8, MEMORY[0x277D82828]);
+  va_start(va, a25);
+  std::ostringstream::~ostringstream(&a12, MEMORY[0x277D82828]);
   MEMORY[0x21CEAFDA0](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2180B6254(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_2180B6254(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2180B638C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_2180B638C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9512,8 +9528,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatc
 {
   result = *a2;
   **a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
@@ -9551,8 +9566,7 @@ __n128 std::__variant_detail::__visitation::__base::__dispatcher<12ul>::__dispat
 {
   result = *a2;
   **a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
@@ -9609,10 +9623,10 @@ void _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE1
   }
 }
 
-__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN12_GLOBAL__N_113BooleanScalarENS8_8ArgumentENS8_22FromNewOperationOutputENS8_19SignedIntegerScalarENS8_21UnsignedIntegerScalarENS8_11FloatScalarIfEENSE_IdEENSE_IN3MIL4Bf16EEENSE_INSH_4Fp16EEENSE_INSH_9Fp8E4M3FNEEENSE_INSH_7Fp8E5M2EEENS8_19SmallStringConstantENS8_19LargeStringConstantEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISS_LNS0_6_TraitE1EEEEEvOT_EUlRS10_OT0_E_JRNS0_6__baseILSW_1EJS9_SA_SB_SC_SD_SF_SG_SJ_SL_SN_SP_SQ_SR_EEERKS18_EEEDcS10_DpT0_(uint64_t *a1, __n128 *a2, __n128 *a3)
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN12_GLOBAL__N_113BooleanScalarENS8_8ArgumentENS8_22FromNewOperationOutputENS8_19SignedIntegerScalarENS8_21UnsignedIntegerScalarENS8_11FloatScalarIfEENSE_IdEENSE_IN3MIL4Bf16EEENSE_INSH_4Fp16EEENSE_INSH_9Fp8E4M3FNEEENSE_INSH_7Fp8E5M2EEENS8_19SmallStringConstantENS8_19LargeStringConstantEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISS_LNS0_6_TraitE1EEEEEvOT_EUlRS10_OT0_E_JRNS0_6__baseILSW_1EJS9_SA_SB_SC_SD_SF_SG_SJ_SL_SN_SP_SQ_SR_EEERKS18_EEEDcS10_DpT0_(__n128 **a1, __n128 *a2, __n128 *a3)
 {
   v4 = *a1;
-  if (*(*a1 + 24) == 2)
+  if ((*a1)[1].n128_u32[2] == 2)
   {
     result = *a3;
     *a2 = *a3;
@@ -9622,7 +9636,7 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EE
   {
     result = *a3;
     *v4 = *a3;
-    *(v4 + 24) = 2;
+    v4[1].n128_u32[2] = 2;
   }
 
   return result;
@@ -9770,10 +9784,10 @@ uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm10EL
   return result;
 }
 
-__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm11ELm11EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN12_GLOBAL__N_113BooleanScalarENS8_8ArgumentENS8_22FromNewOperationOutputENS8_19SignedIntegerScalarENS8_21UnsignedIntegerScalarENS8_11FloatScalarIfEENSE_IdEENSE_IN3MIL4Bf16EEENSE_INSH_4Fp16EEENSE_INSH_9Fp8E4M3FNEEENSE_INSH_7Fp8E5M2EEENS8_19SmallStringConstantENS8_19LargeStringConstantEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISS_LNS0_6_TraitE1EEEEEvOT_EUlRS10_OT0_E_JRNS0_6__baseILSW_1EJS9_SA_SB_SC_SD_SF_SG_SJ_SL_SN_SP_SQ_SR_EEERKS18_EEEDcS10_DpT0_(uint64_t *a1, __n128 *a2, __n128 *a3)
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm11ELm11EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN12_GLOBAL__N_113BooleanScalarENS8_8ArgumentENS8_22FromNewOperationOutputENS8_19SignedIntegerScalarENS8_21UnsignedIntegerScalarENS8_11FloatScalarIfEENSE_IdEENSE_IN3MIL4Bf16EEENSE_INSH_4Fp16EEENSE_INSH_9Fp8E4M3FNEEENSE_INSH_7Fp8E5M2EEENS8_19SmallStringConstantENS8_19LargeStringConstantEEEEE16__generic_assignB8ne200100IRKNS0_17__copy_assignmentISS_LNS0_6_TraitE1EEEEEvOT_EUlRS10_OT0_E_JRNS0_6__baseILSW_1EJS9_SA_SB_SC_SD_SF_SG_SJ_SL_SN_SP_SQ_SR_EEERKS18_EEEDcS10_DpT0_(__n128 **a1, __n128 *a2, __n128 *a3)
 {
   v4 = *a1;
-  if (*(*a1 + 24) == 11)
+  if ((*a1)[1].n128_u32[2] == 11)
   {
     result = *a3;
     a2[1].n128_u64[0] = a3[1].n128_u64[0];
@@ -9844,14 +9858,13 @@ uint64_t *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0ELm
   return result;
 }
 
-__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN12_GLOBAL__N_113BooleanScalarENS8_8ArgumentENS8_22FromNewOperationOutputENS8_19SignedIntegerScalarENS8_21UnsignedIntegerScalarENS8_11FloatScalarIfEENSE_IdEENSE_IN3MIL4Bf16EEENSE_INSH_4Fp16EEENSE_INSH_9Fp8E4M3FNEEENSE_INSH_7Fp8E5M2EEENS8_19SmallStringConstantENS8_19LargeStringConstantEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISS_LNS0_6_TraitE1EEEEEvOT_EUlRSY_OT0_E_JRNS0_6__baseILSW_1EJS9_SA_SB_SC_SD_SF_SG_SJ_SL_SN_SP_SQ_SR_EEEOS16_EEEDcSY_DpT0_(uint64_t *a1, __n128 *a2, __n128 *a3)
+__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN12_GLOBAL__N_113BooleanScalarENS8_8ArgumentENS8_22FromNewOperationOutputENS8_19SignedIntegerScalarENS8_21UnsignedIntegerScalarENS8_11FloatScalarIfEENSE_IdEENSE_IN3MIL4Bf16EEENSE_INSH_4Fp16EEENSE_INSH_9Fp8E4M3FNEEENSE_INSH_7Fp8E5M2EEENS8_19SmallStringConstantENS8_19LargeStringConstantEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISS_LNS0_6_TraitE1EEEEEvOT_EUlRSY_OT0_E_JRNS0_6__baseILSW_1EJS9_SA_SB_SC_SD_SF_SG_SJ_SL_SN_SP_SQ_SR_EEEOS16_EEEDcSY_DpT0_(__n128 **a1, __n128 *a2, __n128 *a3)
 {
   v4 = *a1;
-  if (*(*a1 + 24) == 1)
+  if ((*a1)[1].n128_u32[2] == 1)
   {
     result = *a3;
-    a3->n128_u64[0] = 0;
-    a3->n128_u64[1] = 0;
+    *a3 = 0uLL;
     v6 = a2->n128_u64[1];
     *a2 = result;
     if (v6)
@@ -9867,26 +9880,7 @@ __n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm1ELm1EE
     *v4 = *a3;
     a3->n128_u64[0] = 0;
     a3->n128_u64[1] = 0;
-    *(v4 + 24) = 1;
-  }
-
-  return result;
-}
-
-__n128 _ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm2ELm2EEE10__dispatchB8ne200100IOZNS0_12__assignmentINS0_8__traitsIJN12_GLOBAL__N_113BooleanScalarENS8_8ArgumentENS8_22FromNewOperationOutputENS8_19SignedIntegerScalarENS8_21UnsignedIntegerScalarENS8_11FloatScalarIfEENSE_IdEENSE_IN3MIL4Bf16EEENSE_INSH_4Fp16EEENSE_INSH_9Fp8E4M3FNEEENSE_INSH_7Fp8E5M2EEENS8_19SmallStringConstantENS8_19LargeStringConstantEEEEE16__generic_assignB8ne200100INS0_17__move_assignmentISS_LNS0_6_TraitE1EEEEEvOT_EUlRSY_OT0_E_JRNS0_6__baseILSW_1EJS9_SA_SB_SC_SD_SF_SG_SJ_SL_SN_SP_SQ_SR_EEEOS16_EEEDcSY_DpT0_(uint64_t *a1, __n128 *a2, __n128 *a3)
-{
-  v4 = *a1;
-  if (*(*a1 + 24) == 2)
-  {
-    result = *a3;
-    *a2 = *a3;
-  }
-
-  else
-  {
-    result = *a3;
-    *v4 = *a3;
-    *(v4 + 24) = 2;
+    v4[1].n128_u32[2] = 1;
   }
 
   return result;

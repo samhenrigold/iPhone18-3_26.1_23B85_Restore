@@ -11,7 +11,7 @@
 
 + (BOOL)verifyConstraints:(id)constraints withError:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   constraintsCopy = constraints;
   v6 = [constraintsCopy objectForKeyedSubscript:@"ipv4NetworkSignature"];
   if (v6)
@@ -29,56 +29,55 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v10 = WALogCategoryDeviceStoreHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v9 = WALogCategoryDeviceStoreHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v11 = [constraintsCopy objectForKeyedSubscript:@"ipv4NetworkSignature"];
-    if (v11)
+    v10 = [constraintsCopy objectForKeyedSubscript:@"ipv4NetworkSignature"];
+    if (v10)
     {
-      v12 = @"not nil";
+      v11 = @"not nil";
     }
 
     else
     {
-      v12 = @"nil";
+      v11 = @"nil";
     }
 
-    v13 = [constraintsCopy objectForKeyedSubscript:@"ipv6NetworkSignature"];
-    v20 = "+[LANMO verifyConstraints:withError:]";
+    v12 = [constraintsCopy objectForKeyedSubscript:@"ipv6NetworkSignature"];
+    v19 = "+[LANMO verifyConstraints:withError:]";
     *buf = 136446978;
-    if (v13)
+    if (v12)
     {
-      v14 = @"not nil";
+      v13 = @"not nil";
     }
 
     else
     {
-      v14 = @"nil";
+      v13 = @"nil";
     }
 
-    v21 = 1024;
-    v22 = 24;
-    v23 = 2112;
-    v24 = v12;
-    v25 = 2112;
-    v26 = v14;
-    _os_log_impl(&dword_1C8460000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:Neither ipv4 signature (%@) nor ipv6 signature (%@) were provided", buf, 0x26u);
+    v20 = 1024;
+    v21 = 24;
+    v22 = 2112;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v13;
+    _os_log_impl(&dword_1C8460000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:Neither ipv4 signature (%@) nor ipv6 signature (%@) were provided", buf, 0x26u);
   }
 
   if (error)
   {
-    v15 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A588];
-    v18 = @"WAErrorCodeLacksRequiredArgument";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-    *error = [v15 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9010 userInfo:v16];
+    v14 = MEMORY[0x1E696ABC0];
+    v16 = *MEMORY[0x1E696A588];
+    v17 = @"WAErrorCodeLacksRequiredArgument";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    *error = [v14 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9010 userInfo:v15];
 
     LOBYTE(error) = 0;
   }
 
 LABEL_5:
 
-  v8 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -118,7 +117,7 @@ LABEL_5:
 
 + (id)predicateForLANsInNetwork:(id)network withError:(id *)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   networkCopy = network;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -137,26 +136,24 @@ LABEL_5:
 
   if (error)
   {
-    v8 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A588];
+    v7 = MEMORY[0x1E696ABC0];
+    v10 = *MEMORY[0x1E696A588];
     networkCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid network %@ (%@)", objc_opt_class(), networkCopy];
-    v12[0] = networkCopy;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    *error = [v8 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9039 userInfo:v10];
+    v11[0] = networkCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    *error = [v7 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9039 userInfo:v9];
 
     error = 0;
   }
 
 LABEL_6:
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 + (id)predicateForLanContainingBSS:(id)s withError:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   sCopy = s;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -177,17 +174,15 @@ LABEL_6:
     else if (error)
     {
       v8 = MEMORY[0x1E696ABC0];
-      v13 = *MEMORY[0x1E696A588];
+      v12 = *MEMORY[0x1E696A588];
       sCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid bss %@ (%@)", objc_opt_class(), sCopy];
-      v14[0] = sCopy;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v13[0] = sCopy;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       *error = [v8 errorWithDomain:@"com.apple.wifi.analytics.errordomain" code:9038 userInfo:v10];
 
       error = 0;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return error;
 }

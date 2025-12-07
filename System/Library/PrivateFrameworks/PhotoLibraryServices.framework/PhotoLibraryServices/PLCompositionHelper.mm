@@ -75,24 +75,24 @@ void __102__PLCompositionHelper_compositionController_updateSemanticEnhanceFromC
   if (v7)
   {
     adjustmentKeys = [controllerCopy adjustmentKeys];
-    if ([adjustmentKeys count] == 1)
+    if (objc_msgSend_count(adjustmentKeys) == 1)
     {
       v9 = [adjustmentKeys objectAtIndexedSubscript:0];
-      v10 = [v9 isEqualToString:keyCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
     }
 
     else
     {
-      v10 = 0;
+      isEqualToString = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqualToString = 0;
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 + (void)compositionController:(id)controller applyAssetVariation:(unsigned __int16)variation withRecipe:(id)recipe
@@ -396,7 +396,7 @@ void __73__PLCompositionHelper_compositionController_setEffectFilterName_version
 
   kind = [portraitAdjustmentController kind];
   kind2 = [portraitAdjustmentController2 kind];
-  if ([kind isEqualToString:kind2])
+  if (objc_msgSend_isEqualToString_(kind))
   {
     enabled = [portraitAdjustmentController enabled];
     v11 = enabled ^ [portraitAdjustmentController2 enabled] ^ 1;
@@ -459,12 +459,12 @@ void __73__PLCompositionHelper_compositionController_setEffectFilterName_version
   {
     kind = [effectAdjustmentController kind];
     kind2 = [effectAdjustmentController2 kind];
-    v11 = [kind isEqualToString:kind2];
+    isEqualToString = objc_msgSend_isEqualToString_(kind);
   }
 
   else
   {
-    v11 = 1;
+    isEqualToString = 1;
   }
 
   effect3DAdjustmentController = [controllerCopy effect3DAdjustmentController];
@@ -473,7 +473,7 @@ void __73__PLCompositionHelper_compositionController_setEffectFilterName_version
   {
     kind3 = [effect3DAdjustmentController kind];
     kind4 = [effect3DAdjustmentController2 kind];
-    v16 = [kind3 isEqualToString:kind4];
+    v16 = objc_msgSend_isEqualToString_(kind3);
   }
 
   else
@@ -481,7 +481,7 @@ void __73__PLCompositionHelper_compositionController_setEffectFilterName_version
     v16 = 1;
   }
 
-  return v11 & v16;
+  return isEqualToString & v16;
 }
 
 + (BOOL)compositionController:(id)controller isCropConstraintEqualToCompositionController:(id)compositionController
@@ -511,9 +511,9 @@ uint64_t __90__PLCompositionHelper_compositionController_isCropConstraintEqualTo
   v10 = a2;
   v11 = [v9 adjustmentConstants];
   v12 = [v11 PICropAdjustmentKey];
-  v13 = [v10 isEqualToString:v12];
+  isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-  if (v13)
+  if (isEqualToString)
   {
     v14 = [v7 isEqual:v8 forKeys:&unk_1F0FBFA00];
   }
@@ -922,7 +922,7 @@ LABEL_9:
   if (v3)
   {
     v7 = [v3 allKeys];
-    v8 = [v7 count];
+    v8 = objc_msgSend_count(v7);
 
     if (v8)
     {

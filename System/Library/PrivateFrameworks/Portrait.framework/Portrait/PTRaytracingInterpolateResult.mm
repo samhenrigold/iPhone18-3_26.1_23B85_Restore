@@ -11,13 +11,13 @@
 {
   noiseCopy = noise;
   contextCopy = context;
-  v95.receiver = self;
-  v95.super_class = PTRaytracingInterpolateResult;
-  v8 = [(PTRaytracingInterpolateResult *)&v95 init];
+  v101.receiver = self;
+  v101.super_class = PTRaytracingInterpolateResult;
+  v8 = [(PTRaytracingInterpolateResult *)&v101 init];
   v9 = v8;
   if (!v8)
   {
-    v44 = 0;
+    v50 = 0;
     goto LABEL_29;
   }
 
@@ -32,14 +32,14 @@
     v10 = 256;
   }
 
-  v94 = v10;
+  v100 = v10;
   v11 = [PTPrecomputeRandom computeGaussian:v9->_metalContext sideLength:?];
   precomputedGaussian = v9->_precomputedGaussian;
   v9->_precomputedGaussian = v11;
 
   v9->_precomputedGaussianOffsetMaxValue = 0x7FFF;
   v13 = objc_opt_new();
-  [v13 setConstantValue:&v94 type:29 withName:@"kSizePrecomputedGaussian"];
+  [v13 setConstantValue:&v100 type:29 withName:@"kSizePrecomputedGaussian"];
   LODWORD(v14) = 2.0;
   [v13 setConstantFloat:@"kSizeNoiseGrain_float" withName:v14];
   imageblocksSupported = [contextCopy imageblocksSupported];
@@ -60,71 +60,71 @@
   while (1)
   {
     v21 = contextCopy;
-    v93 = supportedColorTransferFunctions_2[v18];
-    [v13 setConstantValue:&v93 type:29 withName:@"kColorTransferFunctionToLinear"];
+    v99 = supportedColorTransferFunctions_2[v18];
+    [v13 setConstantValue:&v99 type:29 withName:@"kColorTransferFunctionToLinear"];
     metalContext = v9->_metalContext;
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightSourceYUVDestRGBA%@", v17];
     v24 = [(PTMetalContext *)metalContext computePipelineStateFor:v23 withConstants:v13];
-    v25 = interpolateRGBWeightSourceYUVDestRGBA[v93];
-    interpolateRGBWeightSourceYUVDestRGBA[v93] = v24;
+    v25 = interpolateRGBWeightSourceYUVDestRGBA[v99];
+    interpolateRGBWeightSourceYUVDestRGBA[v99] = v24;
 
-    if (!interpolateRGBWeightSourceYUVDestRGBA[v93])
+    if (!interpolateRGBWeightSourceYUVDestRGBA[v99])
     {
-      v45 = _PTLogSystem();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v51 = _PTLogSystem(v26);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        [(PTRaytracingInterpolateResult *)v45 initWithMetalContext:v46 useExportQualityNoise:v47, v48, v49, v50, v51, v52];
+        [(PTRaytracingInterpolateResult *)v51 initWithMetalContext:v52 useExportQualityNoise:v53, v54, v55, v56, v57, v58];
       }
 
       goto LABEL_26;
     }
 
-    v26 = v9->_metalContext;
-    v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightSourceYUVDestYUV%@", v17];
-    v28 = [(PTMetalContext *)v26 computePipelineStateFor:v27 withConstants:v13];
-    v29 = interpolateRGBWeightSourceYUVDestYUV[v93];
-    interpolateRGBWeightSourceYUVDestYUV[v93] = v28;
+    v27 = v9->_metalContext;
+    v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightSourceYUVDestYUV%@", v17];
+    v29 = [(PTMetalContext *)v27 computePipelineStateFor:v28 withConstants:v13];
+    v30 = interpolateRGBWeightSourceYUVDestYUV[v99];
+    interpolateRGBWeightSourceYUVDestYUV[v99] = v29;
 
-    if (!interpolateRGBWeightSourceYUVDestYUV[v93])
+    if (!interpolateRGBWeightSourceYUVDestYUV[v99])
     {
-      v45 = _PTLogSystem();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v51 = _PTLogSystem(v31);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        [(PTRaytracingInterpolateResult *)v45 initWithMetalContext:v53 useExportQualityNoise:v54, v55, v56, v57, v58, v59];
+        [(PTRaytracingInterpolateResult *)v51 initWithMetalContext:v59 useExportQualityNoise:v60, v61, v62, v63, v64, v65];
       }
 
       goto LABEL_26;
     }
 
-    v30 = v9->_metalContext;
-    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightSourceRGBADestRGBA%@", v17];
-    v32 = [(PTMetalContext *)v30 computePipelineStateFor:v31 withConstants:v13];
-    v33 = interpolateRGBWeightSourceRGBADestRGBA[v93];
-    interpolateRGBWeightSourceRGBADestRGBA[v93] = v32;
+    v32 = v9->_metalContext;
+    v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightSourceRGBADestRGBA%@", v17];
+    v34 = [(PTMetalContext *)v32 computePipelineStateFor:v33 withConstants:v13];
+    v35 = interpolateRGBWeightSourceRGBADestRGBA[v99];
+    interpolateRGBWeightSourceRGBADestRGBA[v99] = v34;
 
-    if (!interpolateRGBWeightSourceRGBADestRGBA[v93])
+    if (!interpolateRGBWeightSourceRGBADestRGBA[v99])
     {
-      v45 = _PTLogSystem();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v51 = _PTLogSystem(v36);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        [(PTRaytracingInterpolateResult *)v45 initWithMetalContext:v60 useExportQualityNoise:v61, v62, v63, v64, v65, v66];
+        [(PTRaytracingInterpolateResult *)v51 initWithMetalContext:v66 useExportQualityNoise:v67, v68, v69, v70, v71, v72];
       }
 
       goto LABEL_26;
     }
 
-    v34 = v9->_metalContext;
-    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightRGBALinearDestRGBA%@", v17];
-    v36 = [(PTMetalContext *)v34 computePipelineStateFor:v35 withConstants:v13];
-    v37 = interpolateRGBWeightRGBALinearDestRGBA[v93];
-    interpolateRGBWeightRGBALinearDestRGBA[v93] = v36;
+    v37 = v9->_metalContext;
+    v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightRGBALinearDestRGBA%@", v17];
+    v39 = [(PTMetalContext *)v37 computePipelineStateFor:v38 withConstants:v13];
+    v40 = interpolateRGBWeightRGBALinearDestRGBA[v99];
+    interpolateRGBWeightRGBALinearDestRGBA[v99] = v39;
 
-    if (!interpolateRGBWeightRGBALinearDestRGBA[v93])
+    if (!interpolateRGBWeightRGBALinearDestRGBA[v99])
     {
-      v45 = _PTLogSystem();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v51 = _PTLogSystem(v41);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        [(PTRaytracingInterpolateResult *)v45 initWithMetalContext:v67 useExportQualityNoise:v68, v69, v70, v71, v72, v73];
+        [(PTRaytracingInterpolateResult *)v51 initWithMetalContext:v73 useExportQualityNoise:v74, v75, v76, v77, v78, v79];
       }
 
 LABEL_26:
@@ -132,19 +132,19 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    v38 = v9->_metalContext;
-    v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightRGBALinearDestYUV%@", v17];
-    v40 = [(PTMetalContext *)v38 computePipelineStateFor:v39 withConstants:v13];
-    v41 = interpolateRGBWeightRGBALinearDestYUV[v93];
-    interpolateRGBWeightRGBALinearDestYUV[v93] = v40;
+    v42 = v9->_metalContext;
+    v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"interpolateRGBWeightRGBALinearDestYUV%@", v17];
+    v44 = [(PTMetalContext *)v42 computePipelineStateFor:v43 withConstants:v13];
+    v45 = interpolateRGBWeightRGBALinearDestYUV[v99];
+    interpolateRGBWeightRGBALinearDestYUV[v99] = v44;
 
-    if (!interpolateRGBWeightRGBALinearDestYUV[v93])
+    if (!interpolateRGBWeightRGBALinearDestYUV[v99])
     {
-      v45 = _PTLogSystem();
+      v51 = _PTLogSystem(v46);
       contextCopy = v21;
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        [(PTRaytracingInterpolateResult *)v45 initWithMetalContext:v75 useExportQualityNoise:v76, v77, v78, v79, v80, v81];
+        [(PTRaytracingInterpolateResult *)v51 initWithMetalContext:v81 useExportQualityNoise:v82, v83, v84, v85, v86, v87];
       }
 
       goto LABEL_27;
@@ -153,11 +153,11 @@ LABEL_26:
     contextCopy = v21;
     if ([v21 imageblocksSupported])
     {
-      v42 = [(PTMetalContext *)v9->_metalContext computePipelineStateFor:@"interpolateRGBWeightSourceYUVDestYUVPostModify" withConstants:v13];
-      v43 = interpolateRGBWeightSourceYUVDestYUVPostProcess[v93];
-      interpolateRGBWeightSourceYUVDestYUVPostProcess[v93] = v42;
+      v47 = [(PTMetalContext *)v9->_metalContext computePipelineStateFor:@"interpolateRGBWeightSourceYUVDestYUVPostModify" withConstants:v13];
+      v48 = interpolateRGBWeightSourceYUVDestYUVPostProcess[v99];
+      interpolateRGBWeightSourceYUVDestYUVPostProcess[v99] = v47;
 
-      if (!interpolateRGBWeightSourceYUVDestYUVPostProcess[v93])
+      if (!interpolateRGBWeightSourceYUVDestYUVPostProcess[v99])
       {
         break;
       }
@@ -165,24 +165,24 @@ LABEL_26:
 
     if (++v18 == 5)
     {
-      v44 = v9;
+      v50 = v9;
       goto LABEL_28;
     }
   }
 
-  v45 = _PTLogSystem();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+  v51 = _PTLogSystem(v49);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
-    [(PTRaytracingInterpolateResult *)v45 initWithMetalContext:v82 useExportQualityNoise:v83, v84, v85, v86, v87, v88];
+    [(PTRaytracingInterpolateResult *)v51 initWithMetalContext:v88 useExportQualityNoise:v89, v90, v91, v92, v93, v94];
   }
 
 LABEL_27:
 
-  v44 = 0;
+  v50 = 0;
 LABEL_28:
 
 LABEL_29:
-  return v44;
+  return v50;
 }
 
 - (void)interpolateRGBWeightUsingSourceToDest:(id)dest renderRequest:(id)request inRGBWeight:(id)weight
@@ -204,7 +204,7 @@ LABEL_29:
   destinationColor = [requestCopy destinationColor];
   if (requestCopy)
   {
-    [requestCopy scissorRect];
+    objc_msgSend_scissorRect(requestCopy);
   }
 
   else
@@ -232,7 +232,7 @@ LABEL_11:
     v68 = 0uLL;
     *&v69 = 0;
     sourceColor3 = [requestCopy sourceColor];
-    [PTColorConversion getColorMatrix:sourceColor3 toRGB:1];
+    objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
 
     sourceColor4 = [requestCopy sourceColor];
     texLuma = [sourceColor4 texLuma];
@@ -280,7 +280,7 @@ LABEL_11:
     v64 = 0;
     v65 = 0;
     sourceColor8 = [requestCopy sourceColor];
-    [PTColorConversion getColorMatrix:sourceColor8 toRGB:0];
+    objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
 
     integratedStyleCoefficientsTextureArray = [requestCopy integratedStyleCoefficientsTextureArray];
     weightCopy = v29;
@@ -339,8 +339,8 @@ LABEL_18:
     }
 
 LABEL_19:
-    [(PTImageblockConfig *)v19 threads];
-    [(PTImageblockConfig *)v19 threadsPerGroup];
+    objc_msgSend_threads(v19);
+    objc_msgSend_threadsPerGroup(v19);
     goto LABEL_20;
   }
 
@@ -402,7 +402,7 @@ LABEL_20:
   destinationColor = [requestCopy destinationColor];
   if (requestCopy)
   {
-    [requestCopy scissorRect];
+    objc_msgSend_scissorRect(requestCopy);
   }
 
   else
@@ -445,7 +445,7 @@ LABEL_20:
     v48 = 0uLL;
     *&v49 = 0;
     sourceColor2 = [requestCopy sourceColor];
-    [PTColorConversion getColorMatrix:sourceColor2 toRGB:0];
+    objc_msgSend_getColorMatrix_toRGB_(PTColorConversion);
 
     sourceColor3 = [requestCopy sourceColor];
     [sourceColor3 texLuma];
@@ -484,8 +484,8 @@ LABEL_20:
   [v30 setBytes:v47 length:4 atIndex:v31];
   if (v23)
   {
-    [(PTImageblockConfig *)v23 threads];
-    [(PTImageblockConfig *)v23 threadsPerGroup];
+    objc_msgSend_threads(v23);
+    objc_msgSend_threadsPerGroup(v23);
   }
 
   else
@@ -546,6 +546,48 @@ LABEL_20:
   result.var1 = v33;
   result.var0 = v32;
   return result;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 useExportQualityNoise:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_interpolateRGBWeightSourceYUVDestYUVPostProcess[colorTransferFunctionToLinear]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 useExportQualityNoise:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_interpolateRGBWeightRGBALinearDestYUV[colorTransferFunctionToLinear]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 useExportQualityNoise:(uint64_t)a4 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_interpolateRGBWeightRGBALinearDestRGBA[colorTransferFunctionToLinear]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 useExportQualityNoise:(uint64_t)a4 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_interpolateRGBWeightSourceRGBADestRGBA[colorTransferFunctionToLinear]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 useExportQualityNoise:(uint64_t)a4 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_interpolateRGBWeightSourceYUVDestYUV[colorTransferFunctionToLinear]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 useExportQualityNoise:(uint64_t)a4 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_interpolateRGBWeightSourceYUVDestRGBA[colorTransferFunctionToLinear]";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

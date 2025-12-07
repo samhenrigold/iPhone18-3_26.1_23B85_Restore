@@ -76,13 +76,13 @@
   appBundleIdentifier = [configurationCopy appBundleIdentifier];
   [v6 setSourceApplicationBundleIdentifier:appBundleIdentifier];
 
-  v8 = sub_100002660();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100002660(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     containerIdentifier2 = [configurationCopy containerIdentifier];
-    v12 = 138543362;
-    v13 = containerIdentifier2;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[Notification] Registering for notifications for container %{public}@", &v12, 0xCu);
+    v13 = 138543362;
+    v14 = containerIdentifier2;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[Notification] Registering for notifications for container %{public}@", &v13, 0xCu);
   }
 
   dbSubscriptionID = [configurationCopy dbSubscriptionID];

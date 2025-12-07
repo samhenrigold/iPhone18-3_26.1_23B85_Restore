@@ -761,11 +761,11 @@ LABEL_12:
   {
     v10 = hidesOnlyDeniedApplicationBadges;
     displayIDsWithBadgingEnabled = [(SBIconController *)self displayIDsWithBadgingEnabled];
-    v12 = [displayIDsWithBadgingEnabled containsObject:identifierCopy];
+    v12 = objc_msgSend_containsObject_(displayIDsWithBadgingEnabled);
     if (showsOnlyAllowedApplicationBadges)
     {
       allowedApplicationBundleIdentifiers = [activeFocusMode allowedApplicationBundleIdentifiers];
-      LOBYTE(v14) = [allowedApplicationBundleIdentifiers containsObject:identifierCopy];
+      LOBYTE(v14) = objc_msgSend_containsObject_(allowedApplicationBundleIdentifiers);
     }
 
     else
@@ -778,7 +778,7 @@ LABEL_8:
       }
 
       allowedApplicationBundleIdentifiers = [activeFocusMode deniedApplicationBundleIdentifiers];
-      v14 = [allowedApplicationBundleIdentifiers containsObject:identifierCopy] ^ 1;
+      v14 = objc_msgSend_containsObject_(allowedApplicationBundleIdentifiers) ^ 1;
     }
 
     v12 &= v14;
@@ -1208,18 +1208,18 @@ void __40__SBIconController_sharedIconRepository__block_invoke()
 
 - (id)proactiveOnboardingDefaultStacks
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEB450] = [MEMORY[0x277CEB450] sharedInstance];
   v3 = MEMORY[0x277CBEA60];
   fetchWidgetDiscoverabilityStacks = [mEMORY[0x277CEB450] fetchWidgetDiscoverabilityStacks];
   v5 = [v3 arrayWithArray:fetchWidgetDiscoverabilityStacks];
 
-  v6 = SBLogWidgetDiscoverability();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogWidgetDiscoverability(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Synchronously fetched proactive onboarding stack %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = v5;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Synchronously fetched proactive onboarding stack %@", &v9, 0xCu);
   }
 
   return v5;
@@ -1273,7 +1273,7 @@ void __59__SBIconController__updateUninstallingSystemAppsRestricted__block_invok
   dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
-uint64_t __59__SBIconController__updateUninstallingSystemAppsRestricted__block_invoke_220(uint64_t a1)
+void *__59__SBIconController__updateUninstallingSystemAppsRestricted__block_invoke_220(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
@@ -1577,7 +1577,7 @@ void __38__SBIconController__registerAnalytics__block_invoke_7(uint64_t a1)
 
 - (void)_mutateIconListsForInstalledAppsDidChangeWithController:(id)controller added:(id)added modified:(id)modified removed:(id)removed
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   addedCopy = added;
   modifiedCopy = modified;
@@ -1590,76 +1590,81 @@ void __38__SBIconController__registerAnalytics__block_invoke_7(uint64_t a1)
     v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
     if ([v14 count] || objc_msgSend(removedCopy, "count"))
     {
-      v30 = removedCopy;
-      v31 = modifiedCopy;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
+      v29 = removedCopy;
+      v30 = modifiedCopy;
       v37 = 0u;
-      v29 = v14;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v28 = v14;
       v16 = v14;
-      v17 = [v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v37;
+        v19 = *v36;
         do
         {
-          for (i = 0; i != v18; ++i)
+          v20 = 0;
+          do
           {
-            if (*v37 != v19)
+            if (*v36 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = *(*(&v36 + 1) + 8 * i);
-            v22 = [controllerCopy applicationWithBundleIdentifier:v21];
-            if ([addedCopy containsObject:v21])
+            v21 = [controllerCopy applicationWithBundleIdentifier:*(*(&v35 + 1) + 8 * v20)];
+            if (objc_msgSend_containsObject_(addedCopy))
             {
-              [v15 addObject:v22];
-              [v22 setRestoringIcon:1];
+              [v15 addObject:v21];
+              [v21 setRestoringIcon:1];
             }
+
+            ++v20;
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          while (v18 != v20);
+          v18 = [v16 countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v18);
       }
 
-      removedCopy = v30;
-      modifiedCopy = v31;
-      v14 = v29;
+      removedCopy = v29;
+      modifiedCopy = v30;
+      v14 = v28;
     }
 
     iconModel = [(SBIconController *)self iconModel];
     [(SBIconController *)self _iconModel:iconModel wantsToRevealAnyApplicationFromIdentifiers:v14];
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v24 = v15;
-    v25 = [v24 countByEnumeratingWithState:&v32 objects:v40 count:16];
-    if (v25)
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v23 = v15;
+    v24 = [v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v33;
+      v25 = v24;
+      v26 = *v32;
       do
       {
-        for (j = 0; j != v26; ++j)
+        v27 = 0;
+        do
         {
-          if (*v33 != v27)
+          if (*v32 != v26)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v23);
           }
 
-          [*(*(&v32 + 1) + 8 * j) setRestoringIcon:0];
+          [*(*(&v31 + 1) + 8 * v27++) setRestoringIcon:0];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        while (v25 != v27);
+        v25 = [v23 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
-      while (v26);
+      while (v25);
     }
   }
 }
@@ -1804,7 +1809,7 @@ void __38__SBIconController__registerAnalytics__block_invoke_7(uint64_t a1)
 
 - (void)_updateIconModelStore
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
   restrictionEnforcedHomeScreenLayout = [mEMORY[0x277D262A0] restrictionEnforcedHomeScreenLayout];
 
@@ -1815,11 +1820,11 @@ void __38__SBIconController__registerAnalytics__block_invoke_7(uint64_t a1)
       goto LABEL_32;
     }
 
-    v7 = SBLogIconController();
+    v7 = SBLogIconController(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "No visible tag information available when creating icon model for first time", &v21, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "No visible tag information available when creating icon model for first time", &v22, 2u);
     }
 
     v5 = objc_alloc_init(MEMORY[0x277D663E8]);
@@ -1831,11 +1836,11 @@ LABEL_32:
         goto LABEL_8;
       }
 
-      v6 = SBLogIconController();
+      v6 = SBLogIconController(v5);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Using read-only variant of default icon model store because app allowlist is being treated as transient", &v21, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Using read-only variant of default icon model store because app allowlist is being treated as transient", &v22, 2u);
       }
 
       v5 = objc_alloc_init(SBReadOnlyDefaultIconModelStore);
@@ -1851,21 +1856,21 @@ LABEL_8:
   iconModel = [(SBIconController *)self iconModel];
   store = [(SBHIconModel *)iconModel store];
 
-  v11 = SBLogWidgetDiscoverability();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogWidgetDiscoverability(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     store2 = [(SBHIconModel *)iconModel store];
-    v21 = 138412546;
-    v22 = store2;
-    v23 = 2112;
-    v24 = v8;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "iconModelStore(%@), store(%@)", &v21, 0x16u);
+    v22 = 138412546;
+    v23 = store2;
+    v24 = 2112;
+    v25 = v8;
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "iconModelStore(%@), store(%@)", &v22, 0x16u);
   }
 
   if (store != v8)
   {
     [(SBIconController *)self setHasRestrictedEnforcedLayout:restrictionEnforcedHomeScreenLayout != 0];
-    v13 = objc_opt_self();
+    v14 = objc_opt_self();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
@@ -1873,28 +1878,27 @@ LABEL_8:
       currentIconStateURL = [(SBReadOnlyDefaultIconModelStore *)v8 currentIconStateURL];
       if ([currentIconStateURL checkResourceIsReachableAndReturnError:0])
       {
-        v16 = 2;
+        v17 = 2;
       }
 
       else
       {
-        v16 = 1;
+        v17 = 1;
       }
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
 
-    [(SBIconController *)self setUserIconStateFileStatus:v16];
-    v17 = SBLogWidgetDiscoverability();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = SBLogWidgetDiscoverability([(SBIconController *)self setUserIconStateFileStatus:v17]);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       userIconStateFileStatus = [(SBIconController *)self userIconStateFileStatus];
-      v21 = 67109120;
-      LODWORD(v22) = userIconStateFileStatus;
-      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Icon state = %d", &v21, 8u);
+      v22 = 67109120;
+      LODWORD(v23) = userIconStateFileStatus;
+      _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Icon state = %d", &v22, 8u);
     }
 
     if (iconModel)
@@ -1903,9 +1907,9 @@ LABEL_8:
       if (restrictionEnforcedHomeScreenLayout)
       {
 LABEL_25:
-        v19 = +[SBDefaultIconModelStore sharedInstance];
+        v20 = +[SBDefaultIconModelStore sharedInstance];
 LABEL_28:
-        [(SBHIconModel *)iconModel setTodayListsStore:v19];
+        [(SBHIconModel *)iconModel setTodayListsStore:v20];
 
         goto LABEL_29;
       }
@@ -1924,7 +1928,7 @@ LABEL_28:
       }
     }
 
-    v19 = 0;
+    v20 = 0;
     goto LABEL_28;
   }
 
@@ -1933,7 +1937,7 @@ LABEL_29:
 
 - (void)setModel:(id)model
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   p_iconModel = &self->_iconModel;
   if (self->_iconModel != modelCopy)
@@ -1945,16 +1949,16 @@ LABEL_29:
     categoryMapProvider = self->_categoryMapProvider;
     self->_categoryMapProvider = 0;
 
-    v11 = SBLogIcon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = SBLogIcon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [SBIconController setModel:];
     }
 
     objc_storeStrong(&self->_iconModel, model);
     iconModel = self->_iconModel;
-    v13 = +[SBSyncController sharedInstance];
-    -[SBHIconModel setRestoring:](iconModel, "setRestoring:", [v13 isRestoring]);
+    v14 = +[SBSyncController sharedInstance];
+    -[SBHIconModel setRestoring:](iconModel, "setRestoring:", [v14 isRestoring]);
 
     if (*&self->_visibleTags != 0)
     {
@@ -1970,22 +1974,22 @@ LABEL_29:
       [(SBIconController *)self _rootFolderDidChange];
     }
 
-    v15 = [[SBIconVisibilityService alloc] initWithIconModel:self->_iconModel];
+    v16 = [[SBIconVisibilityService alloc] initWithIconModel:self->_iconModel];
     iconVisibilityService = self->_iconVisibilityService;
-    self->_iconVisibilityService = v15;
+    self->_iconVisibilityService = v16;
 
     [defaultCenter postNotificationName:SBIconControllerIconModelDidChangeNotification object:self];
     if ([(SBHIconModel *)self->_iconModel hasDesiredIconState])
     {
       missingDesiredIconIdentifiers = [(SBHIconModel *)*p_iconModel missingDesiredIconIdentifiers];
-      v26 = *MEMORY[0x277D67548];
+      v27 = *MEMORY[0x277D67548];
       allObjects = [missingDesiredIconIdentifiers allObjects];
-      v27[0] = allObjects;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-      v20 = MEMORY[0x277D65DD0];
-      v21 = v19;
-      sharedInstance = [v20 sharedInstance];
-      [sharedInstance emitEvent:35 withPayload:v21];
+      v28[0] = allObjects;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v21 = MEMORY[0x277D65DD0];
+      v22 = v20;
+      sharedInstance = [v21 sharedInstance];
+      [sharedInstance emitEvent:35 withPayload:v22];
     }
 
     analyticsEventsController = self->_analyticsEventsController;
@@ -1996,9 +2000,9 @@ LABEL_29:
 
     else
     {
-      v24 = [[SBAnalyticsEventsControllerForIconController alloc] initWithIconModel:modelCopy];
-      v25 = self->_analyticsEventsController;
-      self->_analyticsEventsController = v24;
+      v25 = [[SBAnalyticsEventsControllerForIconController alloc] initWithIconModel:modelCopy];
+      v26 = self->_analyticsEventsController;
+      self->_analyticsEventsController = v25;
     }
   }
 }
@@ -2249,7 +2253,7 @@ LABEL_8:
 
 void __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v2 = dispatch_group_create();
   dispatch_group_enter(v2);
   v3 = [*(a1 + 32) suggestedOnboardingStack];
@@ -2287,44 +2291,44 @@ LABEL_4:
 
 LABEL_11:
   v11 = *v5;
-  v12 = SBLogWidgetDiscoverability();
+  v12 = SBLogWidgetDiscoverability(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v58) = v11;
+    LODWORD(v59) = v11;
     _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Suggested widgets size class = %d", buf, 8u);
   }
 
   if (v3 && [v3 count])
   {
-    v36 = a1;
-    v38 = v2;
-    v40 = [MEMORY[0x277CBEB18] array];
-    v53 = 0u;
+    v37 = a1;
+    v39 = v2;
+    v41 = [MEMORY[0x277CBEB18] array];
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v37 = v3;
+    v57 = 0u;
+    v38 = v3;
     obj = v3;
-    v13 = [obj countByEnumeratingWithState:&v53 objects:v60 count:16];
+    v13 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
     if (v13)
     {
       v14 = v13;
-      v44 = *v54;
+      v45 = *v55;
       v15 = *MEMORY[0x277D66548];
-      v39 = *MEMORY[0x277D66520];
-      v42 = *MEMORY[0x277D66548];
-      v43 = v11;
+      v40 = *MEMORY[0x277D66520];
+      v43 = *MEMORY[0x277D66548];
+      v44 = v11;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v54 != v44)
+          if (*v55 != v45)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v53 + 1) + 8 * i);
+          v17 = *(*(&v54 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -2345,7 +2349,7 @@ LABEL_11:
               v21 = [v19 smallDefaultStack];
             }
 
-            else if (v11 == v39 || [v11 isEqualToString:?])
+            else if (v11 == v40 || [v11 isEqualToString:?])
             {
               v21 = [v19 mediumDefaultStack];
             }
@@ -2355,32 +2359,32 @@ LABEL_11:
               v21 = [v19 largeDefaultStack];
             }
 
+            v53 = 0u;
+            v51 = 0u;
             v52 = 0u;
             v50 = 0u;
-            v51 = 0u;
-            v49 = 0u;
             v22 = v21;
-            v23 = [v22 countByEnumeratingWithState:&v49 objects:v59 count:16];
+            v23 = [v22 countByEnumeratingWithState:&v50 objects:v60 count:16];
             if (v23)
             {
               v24 = v23;
-              v25 = *v50;
+              v25 = *v51;
               do
               {
                 for (j = 0; j != v24; ++j)
                 {
-                  if (*v50 != v25)
+                  if (*v51 != v25)
                   {
                     objc_enumerationMutation(v22);
                   }
 
-                  v27 = [*(*(&v49 + 1) + 8 * j) avocadoDescriptor];
+                  v27 = [*(*(&v50 + 1) + 8 * j) avocadoDescriptor];
                   v28 = [v27 sanitizedDescriptor];
 
                   [v20 addObject:v28];
                 }
 
-                v24 = [v22 countByEnumeratingWithState:&v49 objects:v59 count:16];
+                v24 = [v22 countByEnumeratingWithState:&v50 objects:v60 count:16];
               }
 
               while (v24);
@@ -2388,44 +2392,44 @@ LABEL_11:
 
             if ([v20 count])
             {
-              [v40 addObject:v20];
+              [v41 addObject:v20];
             }
 
-            v15 = v42;
-            v11 = v43;
+            v15 = v43;
+            v11 = v44;
           }
         }
 
-        v14 = [obj countByEnumeratingWithState:&v53 objects:v60 count:16];
+        v14 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
       }
 
       while (v14);
     }
 
-    v29 = SBLogWidgetDiscoverability();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = SBLogWidgetDiscoverability(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v58 = v40;
-      _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_DEFAULT, "Smart stack %@", buf, 0xCu);
+      v59 = v41;
+      _os_log_impl(&dword_21ED4E000, v30, OS_LOG_TYPE_DEFAULT, "Smart stack %@", buf, 0xCu);
     }
 
-    a1 = v36;
-    v30 = *(v36 + 32);
-    v3 = v37;
-    v2 = v38;
+    a1 = v37;
+    v31 = *(v37 + 32);
+    v3 = v38;
+    v2 = v39;
     if (__sb__runningInSpringBoard())
     {
-      [v30 _updateDefaultFirstPageWidgetDescriptors:v40 withSizeClass:v11 andGridCellInfoOptions:2 * (SBFEffectiveDeviceClass() == 2)];
+      [v31 _updateDefaultFirstPageWidgetDescriptors:v41 withSizeClass:v11 andGridCellInfoOptions:2 * (SBFEffectiveDeviceClass() == 2)];
     }
 
     else
     {
-      v31 = [MEMORY[0x277D75418] currentDevice];
-      [v30 _updateDefaultFirstPageWidgetDescriptors:v40 withSizeClass:v11 andGridCellInfoOptions:{2 * (objc_msgSend(v31, "userInterfaceIdiom") == 1)}];
+      v32 = [MEMORY[0x277D75418] currentDevice];
+      [v31 _updateDefaultFirstPageWidgetDescriptors:v41 withSizeClass:v11 andGridCellInfoOptions:{2 * (objc_msgSend(v32, "userInterfaceIdiom") == 1)}];
     }
 
-    dispatch_group_leave(v38);
+    dispatch_group_leave(v39);
   }
 
   else
@@ -2433,30 +2437,30 @@ LABEL_11:
     dispatch_group_leave(v2);
   }
 
-  v32 = [MEMORY[0x277D75418] currentDevice];
-  v33 = [v32 userInterfaceIdiom];
+  v33 = [MEMORY[0x277D75418] currentDevice];
+  v34 = [v33 userInterfaceIdiom];
 
-  if ((v33 & 0xFFFFFFFFFFFFFFFBLL) == 1)
+  if ((v34 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
     dispatch_group_enter(v2);
-    v34 = objc_alloc_init(MEMORY[0x277CEB478]);
-    v35 = [*(a1 + 32) iconManager];
-    [v35 setProactiveWidgetSuggesterClient:v34];
+    v35 = objc_alloc_init(MEMORY[0x277CEB478]);
+    v36 = [*(a1 + 32) iconManager];
+    [v36 setProactiveWidgetSuggesterClient:v35];
 
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithCompletionHandler___block_invoke_252;
-    v47[3] = &unk_2783B0038;
-    v47[4] = *(a1 + 32);
-    v48 = v2;
-    [v34 defaultWidgetSuggestionOfType:1 completionHandler:v47];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithCompletionHandler___block_invoke_252;
+    v48[3] = &unk_2783B0038;
+    v48[4] = *(a1 + 32);
+    v49 = v2;
+    [v35 defaultWidgetSuggestionOfType:1 completionHandler:v48];
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithCompletionHandler___block_invoke_254;
   block[3] = &unk_2783A9348;
-  v46 = *(a1 + 40);
+  v47 = *(a1 + 40);
   dispatch_group_notify(v2, MEMORY[0x277D85CD0], block);
 }
 
@@ -2476,7 +2480,7 @@ void __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithComplet
 
   else
   {
-    v4 = SBLogWidgetDiscoverability();
+    v4 = SBLogWidgetDiscoverability(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -2489,8 +2493,7 @@ void __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithComplet
 
 void __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  [*(a1 + 32) obtainProactiveSecondPageWidgetSuggestion];
-  v2 = SBLogWidgetDiscoverability();
+  v2 = SBLogWidgetDiscoverability([*(a1 + 32) obtainProactiveSecondPageWidgetSuggestion]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -2505,7 +2508,7 @@ uint64_t __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithCom
   if (*(result + 32))
   {
     v1 = result;
-    v2 = SBLogWidgetDiscoverability();
+    v2 = SBLogWidgetDiscoverability(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v3 = 0;
@@ -2618,52 +2621,52 @@ uint64_t __83__SBIconController__obtainSmartStackForWidgetDiscoverabilityWithCom
 
 - (BOOL)_enableWidgetSuggestionsForIconsInModel:(id)model withRootFolder:(id)folder
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   folderCopy = folder;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __75__SBIconController__enableWidgetSuggestionsForIconsInModel_withRootFolder___block_invoke;
-  v11[3] = &unk_2783B0088;
-  v11[4] = &v12;
-  [folderCopy enumerateListsWithOptions:1 usingBlock:v11];
-  if (*(v13 + 24) == 1)
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __75__SBIconController__enableWidgetSuggestionsForIconsInModel_withRootFolder___block_invoke;
+  v12[3] = &unk_2783B0088;
+  v12[4] = &v13;
+  v7 = [folderCopy enumerateListsWithOptions:1 usingBlock:v12];
+  if (*(v14 + 24) == 1)
   {
-    v7 = SBLogIconController();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogIconController(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Enabled Widget Suggestions for at least one widget icon; saving icon state...", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Enabled Widget Suggestions for at least one widget icon; saving icon state...", buf, 2u);
     }
 
     [folderCopy markIconStateDirty];
     saveIconStateIfNeeded = [modelCopy saveIconStateIfNeeded];
-    v9 = SBLogIconController();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogIconController(saveIconStateIfNeeded);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v17 = saveIconStateIfNeeded;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Enabled Widget Suggestions for at least one widget icon; icon state saved: %{BOOL}u", buf, 8u);
+      v18 = saveIconStateIfNeeded;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Enabled Widget Suggestions for at least one widget icon; icon state saved: %{BOOL}u", buf, 8u);
     }
   }
 
   else
   {
-    v9 = SBLogIconController();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogIconController(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Did not enable Widget Suggestions for any widget icons", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Did not enable Widget Suggestions for any widget icons", buf, 2u);
     }
 
     LOBYTE(saveIconStateIfNeeded) = 1;
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   return saveIconStateIfNeeded;
 }
 
@@ -2759,7 +2762,7 @@ void __75__SBIconController__enableWidgetSuggestionsForIconsInModel_withRootFold
 void __55__SBIconController__setupWidgetIntroductionIfNecessary__block_invoke(uint64_t a1, int a2)
 {
   v18 = *MEMORY[0x277D85DE8];
-  v4 = SBLogWidgetDiscoverability();
+  v4 = SBLogWidgetDiscoverability(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"unsuccessfully";
@@ -2847,7 +2850,7 @@ void __55__SBIconController__setupWidgetIntroductionIfNecessary__block_invoke(ui
   }
 }
 
-uint64_t __57__SBIconController__prepareDefaultTodayLayoutIfNecessary__block_invoke(uint64_t a1)
+void *__57__SBIconController__prepareDefaultTodayLayoutIfNecessary__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _tryToPrepareNonDynamicDefaultTodayLayout];
   if (result)
@@ -2947,11 +2950,11 @@ void __58__SBIconController__tryToPrepareDynamicDefaultTodayLayout__block_invoke
   [WeakRetained _addSmartStackToTodayList:v3 completionHandler:v4];
 }
 
-uint64_t __58__SBIconController__tryToPrepareDynamicDefaultTodayLayout__block_invoke_3(uint64_t result, int a2)
+id *__58__SBIconController__tryToPrepareDynamicDefaultTodayLayout__block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) setShouldPrepareStackForDefaultTodayList:0];
+    return [result[4] setShouldPrepareStackForDefaultTodayList:0];
   }
 
   return result;
@@ -2986,14 +2989,13 @@ uint64_t __58__SBIconController__tryToPrepareDynamicDefaultTodayLayout__block_in
         sectionID = [v11 sectionID];
         if (![(SBIconController *)self _badgesAreEnabledForSectionInfo:v11])
         {
-          if (![(NSMutableSet *)self->_displayIDsWithBadgingEnabled containsObject:sectionID])
+          if (!objc_msgSend_containsObject_(self->_displayIDsWithBadgingEnabled))
           {
             goto LABEL_18;
           }
 
           [(NSMutableSet *)self->_displayIDsWithBadgingEnabled removeObject:sectionID];
-          [v5 addObject:sectionID];
-          v15 = SBLogIcon();
+          v15 = SBLogIcon([v5 addObject:sectionID]);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v37;
@@ -3009,7 +3011,7 @@ LABEL_17:
           goto LABEL_18;
         }
 
-        if (sectionID && ([(NSMutableSet *)self->_displayIDsWithBadgingEnabled containsObject:sectionID]& 1) == 0)
+        if (sectionID && (objc_msgSend_containsObject_(self->_displayIDsWithBadgingEnabled) & 1) == 0)
         {
           if (!self->_displayIDsWithBadgingEnabled)
           {
@@ -3019,8 +3021,7 @@ LABEL_17:
           }
 
           [v5 addObject:sectionID];
-          [(NSMutableSet *)self->_displayIDsWithBadgingEnabled addObject:sectionID];
-          v15 = SBLogIcon();
+          v15 = SBLogIcon([(NSMutableSet *)self->_displayIDsWithBadgingEnabled addObject:sectionID]);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v37;
@@ -3230,15 +3231,16 @@ uint64_t __56__SBIconController__applicationIconDataSourceDidChange___block_invo
 
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info
 {
-  v8 = *MEMORY[0x277D85DE8];
-  self->_allowsUninstall = [notification effectiveBoolValueForSetting:{*MEMORY[0x277D25D20], info}] != 2;
-  v5 = SBLogIconController();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = [notification effectiveBoolValueForSetting:{*MEMORY[0x277D25D20], info}];
+  self->_allowsUninstall = v5 != 2;
+  v6 = SBLogIconController(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     allowsUninstall = self->_allowsUninstall;
-    v7[0] = 67109120;
-    v7[1] = allowsUninstall;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Profile connection settings changed; allowsUninstall: %{BOOL}u", v7, 8u);
+    v8[0] = 67109120;
+    v8[1] = allowsUninstall;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Profile connection settings changed; allowsUninstall: %{BOOL}u", v8, 8u);
   }
 }
 
@@ -3256,13 +3258,14 @@ uint64_t __56__SBIconController__applicationIconDataSourceDidChange___block_invo
 
 - (void)applicationRestrictionControllerWillPostAppVisibilityUpdate:(id)update
 {
-  if ([update isAllowlistActiveAndTransient] && !self->_isAppAllowlistActiveAndTransient)
+  isAllowlistActiveAndTransient = [update isAllowlistActiveAndTransient];
+  if (isAllowlistActiveAndTransient && !self->_isAppAllowlistActiveAndTransient)
   {
-    v4 = SBLogIconController();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogIconController(isAllowlistActiveAndTransient);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "App visibility updates will be treated as transient. Updating icon model store.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "App visibility updates will be treated as transient. Updating icon model store.", v6, 2u);
     }
 
     self->_isAppAllowlistActiveAndTransient = 1;
@@ -3287,13 +3290,14 @@ uint64_t __56__SBIconController__applicationIconDataSourceDidChange___block_invo
 
 - (void)applicationRestrictionControllerDidPostAppVisibilityUpdate:(id)update
 {
-  if (([update isAllowlistActiveAndTransient] & 1) == 0 && self->_isAppAllowlistActiveAndTransient)
+  isAllowlistActiveAndTransient = [update isAllowlistActiveAndTransient];
+  if ((isAllowlistActiveAndTransient & 1) == 0 && self->_isAppAllowlistActiveAndTransient)
   {
-    v4 = SBLogIconController();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogIconController(isAllowlistActiveAndTransient);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "App visibility updates will no longer be treated as transient. Updating icon model store.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "App visibility updates will no longer be treated as transient. Updating icon model store.", v6, 2u);
     }
 
     self->_isAppAllowlistActiveAndTransient = 0;
@@ -3386,14 +3390,14 @@ uint64_t __56__SBIconController__applicationIconDataSourceDidChange___block_invo
 
 - (BOOL)_isWidgetWithContainerBundleIdentifierValid:(id)valid
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   validCopy = valid;
-  v5 = SBLogWidgetDiscoverability();
+  v5 = SBLogWidgetDiscoverability(validCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 138412290;
-    v24 = validCopy;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] applicationIdentifier = %@", &v23, 0xCu);
+    v26 = 138412290;
+    v27 = validCopy;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] applicationIdentifier = %@", &v26, 0xCu);
   }
 
   v6 = +[SBSyncController sharedInstance];
@@ -3406,11 +3410,11 @@ uint64_t __56__SBIconController__applicationIconDataSourceDidChange___block_invo
 
     if (v10)
     {
-      applicationController = SBLogWidgetDiscoverability();
+      applicationController = SBLogWidgetDiscoverability(v11);
       if (os_log_type_enabled(applicationController, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_21ED4E000, applicationController, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] valid placeholder", &v23, 2u);
+        LOWORD(v26) = 0;
+        _os_log_impl(&dword_21ED4E000, applicationController, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] valid placeholder", &v26, 2u);
       }
 
       LOBYTE(v8) = 1;
@@ -3418,38 +3422,38 @@ uint64_t __56__SBIconController__applicationIconDataSourceDidChange___block_invo
     }
 
     applicationController = [(SBIconController *)self applicationController];
-    v12 = SBLogWidgetDiscoverability();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = SBLogWidgetDiscoverability(applicationController);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       allBundleIdentifiers = [applicationController allBundleIdentifiers];
-      v23 = 138412290;
-      v24 = allBundleIdentifiers;
-      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] all application bundle identifiers = %@", &v23, 0xCu);
+      v26 = 138412290;
+      v27 = allBundleIdentifiers;
+      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] all application bundle identifiers = %@", &v26, 0xCu);
     }
 
-    v14 = [applicationController applicationWithBundleIdentifier:validCopy];
-    v15 = SBLogWidgetDiscoverability();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = [applicationController applicationWithBundleIdentifier:validCopy];
+    v16 = SBLogWidgetDiscoverability(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412290;
-      v24 = v14;
-      _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] application = %@", &v23, 0xCu);
+      v26 = 138412290;
+      v27 = v15;
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] application = %@", &v26, 0xCu);
     }
 
-    if (!v14)
+    if (!v15)
     {
-      info = SBLogWidgetDiscoverability();
+      info = SBLogWidgetDiscoverability(v17);
       if (os_log_type_enabled(info, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v23) = 0;
-        _os_log_impl(&dword_21ED4E000, info, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] not valid application", &v23, 2u);
+        LOWORD(v26) = 0;
+        _os_log_impl(&dword_21ED4E000, info, OS_LOG_TYPE_DEFAULT, "[ContainerBundleIdentifier debugging] not valid application", &v26, 2u);
       }
 
       LOBYTE(v8) = 0;
       goto LABEL_28;
     }
 
-    info = [v14 info];
+    info = [v15 info];
     if (![info isRestricted])
     {
       LOBYTE(v8) = 1;
@@ -3461,30 +3465,30 @@ LABEL_29:
 
     v8 = [validCopy isEqualToString:@"com.apple.news"];
     mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
-    v18 = [mEMORY[0x277D262A0] effectiveBoolValueForSetting:*MEMORY[0x277D25FC0]];
+    v20 = [mEMORY[0x277D262A0] effectiveBoolValueForSetting:*MEMORY[0x277D25FC0]];
 
-    if (v18 != 1)
+    if (v20 != 1)
     {
       v8 = 0;
     }
 
-    v19 = SBLogWidgetDiscoverability();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v22 = SBLogWidgetDiscoverability(v21);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
     if (v8 == 1)
     {
-      if (v20)
+      if (v23)
       {
-        LOWORD(v23) = 0;
-        v21 = "[ContainerBundleIdentifier debugging] News app is restricted, but the widget is valid and not restricted";
+        LOWORD(v26) = 0;
+        v24 = "[ContainerBundleIdentifier debugging] News app is restricted, but the widget is valid and not restricted";
 LABEL_26:
-        _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, v21, &v23, 2u);
+        _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, v24, &v26, 2u);
       }
     }
 
-    else if (v20)
+    else if (v23)
     {
-      LOWORD(v23) = 0;
-      v21 = "[ContainerBundleIdentifier debugging] not valid restricted";
+      LOWORD(v26) = 0;
+      v24 = "[ContainerBundleIdentifier debugging] not valid restricted";
       goto LABEL_26;
     }
 
@@ -3516,7 +3520,7 @@ LABEL_30:
 void __65__SBIconController_appProtectionSubjectsChanged_forSubscription___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) appProtectionSubjectMonitorSubscription];
   LODWORD(v2) = [v2 isEqual:v3];
@@ -3524,30 +3528,30 @@ void __65__SBIconController_appProtectionSubjectsChanged_forSubscription___block
   if (v2)
   {
     [*(v1 + 48) bs_map:&__block_literal_global_294];
-    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    obj = v26 = 0u;
-    v4 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v26 = 0u;
+    obj = v27 = 0u;
+    v4 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
     if (v4)
     {
       v6 = v4;
-      v7 = *v24;
+      v7 = *v25;
       *&v5 = 138412290;
-      v19 = v5;
-      v20 = v1;
+      v20 = v5;
+      v21 = v1;
       do
       {
         v8 = 0;
-        v21 = v6;
+        v22 = v6;
         do
         {
-          if (*v24 != v7)
+          if (*v25 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v23 + 1) + 8 * v8);
+          v9 = *(*(&v24 + 1) + 8 * v8);
           v10 = [v9 bundleIdentifier];
           v11 = [*(v1 + 40) hiddenAppBundleIdentifiers];
           if ([v9 isHidden])
@@ -3571,22 +3575,22 @@ void __65__SBIconController_appProtectionSubjectsChanged_forSubscription___block
 
             else
             {
-              v17 = SBLogAppProtection();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              v18 = SBLogAppProtection(v17);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
-                v18 = [v9 bundleIdentifier];
-                *buf = v19;
-                v28 = v18;
-                _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Could not add bundle identifier:%@ to ignored list. app icon is nil", buf, 0xCu);
+                v19 = [v9 bundleIdentifier];
+                *buf = v20;
+                v29 = v19;
+                _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Could not add bundle identifier:%@ to ignored list. app icon is nil", buf, 0xCu);
               }
             }
 
-            v6 = v21;
+            v6 = v22;
 
-            v1 = v20;
+            v1 = v21;
           }
 
-          else if ([v11 containsObject:v10])
+          else if (objc_msgSend_containsObject_(v11))
           {
             [v11 removeObject:v10];
           }
@@ -3595,7 +3599,7 @@ void __65__SBIconController_appProtectionSubjectsChanged_forSubscription___block
         }
 
         while (v6 != v8);
-        v6 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v6 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
       while (v6);
@@ -3895,7 +3899,7 @@ void __76__SBIconController_modeConfigurationService_didReceiveAvailableModesUpd
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if (([*(a1 + 32) containsObject:v3] & 1) == 0)
+  if ((objc_msgSend_containsObject_(*(a1 + 32)) & 1) == 0)
   {
     v4 = SBLogFocusModes();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -4278,7 +4282,7 @@ id __64__SBIconController__addStateCaptureHandlerForHomeScreenDefaults__block_in
 
 + (SBIconController)sharedInstance
 {
-  v2 = SBLogIconController();
+  v2 = SBLogIconController(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     +[SBIconController(AXStagingHack) sharedInstance];
@@ -4293,7 +4297,7 @@ id __64__SBIconController__addStateCaptureHandlerForHomeScreenDefaults__block_in
 
 + (id)sharedInstanceIfExists
 {
-  v2 = SBLogIconController();
+  v2 = SBLogIconController(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     +[SBIconController(AXStagingHack) sharedInstance];
@@ -4308,7 +4312,7 @@ id __64__SBIconController__addStateCaptureHandlerForHomeScreenDefaults__block_in
 
 - (BOOL)isTodayOverlayPresented
 {
-  v3 = SBLogIconController();
+  v3 = SBLogIconController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     +[SBIconController(AXStagingHack) sharedInstance];
@@ -4322,7 +4326,7 @@ id __64__SBIconController__addStateCaptureHandlerForHomeScreenDefaults__block_in
 
 - (id)_currentFolderController
 {
-  v3 = SBLogIconController();
+  v3 = SBLogIconController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     +[SBIconController(AXStagingHack) sharedInstance];
@@ -4336,7 +4340,7 @@ id __64__SBIconController__addStateCaptureHandlerForHomeScreenDefaults__block_in
 
 - (SBTodayViewController)coverSheetTodayViewController
 {
-  v3 = SBLogIconController();
+  v3 = SBLogIconController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     +[SBIconController(AXStagingHack) sharedInstance];
@@ -4385,7 +4389,7 @@ void __64__SBIconController__addSmartStackToTodayList_completionHandler___block_
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Couldn't fetch default widget stack with error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "Couldn't fetch default widget stack with error: %@", v4, v5, v6, v7);
 }
 
 void __64__SBIconController__addSmartStackToTodayList_completionHandler___block_invoke_247_cold_1()

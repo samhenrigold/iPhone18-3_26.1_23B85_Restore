@@ -53,99 +53,100 @@
 
 - (id)outputImage
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   [(CIImage *)self->inputImage extent];
-  IsEmpty = CGRectIsEmpty(v41);
+  IsEmpty = CGRectIsEmpty(v45);
   result = self->inputImage;
   if (!IsEmpty)
   {
     [result extent];
-    x = v42.origin.x;
-    y = v42.origin.y;
-    width = v42.size.width;
-    height = v42.size.height;
-    if (CGRectIsInfinite(v42))
+    x = v46.origin.x;
+    y = v46.origin.y;
+    width = v46.size.width;
+    height = v46.size.height;
+    IsInfinite = CGRectIsInfinite(v46);
+    if (IsInfinite)
     {
-      v9 = ci_logger_filter();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = ci_logger_filter(IsInfinite, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [CIDistanceGradientFromRedMask outputImage];
+        [(CIDistanceGradientFromRedMask *)self outputImage];
       }
 
       return 0;
     }
 
-    [(NSNumber *)self->inputMaximumHoleSize floatValue];
-    v11 = v10;
-    if (v10 >= 1.0)
+    floatValue = [(NSNumber *)self->inputMaximumHoleSize floatValue];
+    v15 = v14;
+    if (v14 >= 1.0)
     {
-      if (v10 > 500.0)
+      if (v14 > 500.0)
       {
-        v12 = ci_logger_filter();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v16 = ci_logger_filter(floatValue, v13);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          [CIFillHolesInRedMask outputImage];
+          [(CIFillHolesInRedMask *)self outputImage];
         }
 
         return 0;
       }
 
-      v34 = x;
+      v38 = x;
       intValue = [(NSNumber *)self->inputRefinementPassCount intValue];
       if (intValue <= 1)
       {
-        v15 = 1;
+        v19 = 1;
       }
 
       else
       {
-        v15 = intValue;
+        v19 = intValue;
       }
 
       inputImage = self->inputImage;
-      if (v15 >= 32)
+      if (v19 >= 32)
       {
-        v17 = 32;
+        v21 = 32;
       }
 
       else
       {
-        v17 = v15;
+        v21 = v19;
       }
 
-      v39 = @"inputMaximumDistance";
-      *&v14 = v11;
-      v40[0] = [MEMORY[0x1E696AD98] numberWithFloat:v14];
-      v18 = -[CIImage imageByApplyingFilter:withInputParameters:](inputImage, "imageByApplyingFilter:withInputParameters:", @"CIDistanceGradientFromRedMask", [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1]);
+      v43 = @"inputMaximumDistance";
+      *&v18 = v15;
+      v44[0] = [MEMORY[0x1E696AD98] numberWithFloat:v18];
+      v22 = -[CIImage imageByApplyingFilter:withInputParameters:](inputImage, "imageByApplyingFilter:withInputParameters:", @"CIDistanceGradientFromRedMask", [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1]);
       [(CIImage *)self->inputImage extent];
-      v44 = CGRectInset(v43, -v11, -v11);
-      v45 = CGRectIntegral(v44);
-      v19 = [(CIImage *)v18 imageByCroppingToRect:v45.origin.x, v45.origin.y, v45.size.width, v45.size.height];
-      v20 = [CIKernel kernelWithInternalRepresentation:&CI::_holeFillRefine];
+      v48 = CGRectInset(v47, -v15, -v15);
+      v49 = CGRectIntegral(v48);
+      v23 = [(CIImage *)v22 imageByCroppingToRect:v49.origin.x, v49.origin.y, v49.size.width, v49.size.height];
+      v24 = [CIKernel kernelWithInternalRepresentation:&CI::_holeFillRefine];
       do
       {
-        [(CIImage *)v19 extent];
-        v22 = v21;
-        v24 = v23;
+        [(CIImage *)v23 extent];
         v26 = v25;
         v28 = v27;
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __35__CIFillHolesInRedMask_outputImage__block_invoke;
-        v35[3] = &__block_descriptor_36_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l;
-        v36 = v11;
-        v38[0] = v19;
-        *&v21 = v11;
-        v38[1] = [MEMORY[0x1E696AD98] numberWithFloat:v21];
-        v19 = -[CIImage imageBySamplingNearest](-[CIKernel applyWithExtent:roiCallback:arguments:](v20, "applyWithExtent:roiCallback:arguments:", v35, [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2], v22, v24, v26, v28), "imageBySamplingNearest");
-        --v17;
+        v30 = v29;
+        v32 = v31;
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __35__CIFillHolesInRedMask_outputImage__block_invoke;
+        v39[3] = &__block_descriptor_36_e73__CGRect__CGPoint_dd__CGSize_dd__44__0i8_CGRect__CGPoint_dd__CGSize_dd__12l;
+        v40 = v15;
+        v42[0] = v23;
+        *&v25 = v15;
+        v42[1] = [MEMORY[0x1E696AD98] numberWithFloat:v25];
+        v23 = -[CIImage imageBySamplingNearest](-[CIKernel applyWithExtent:roiCallback:arguments:](v24, "applyWithExtent:roiCallback:arguments:", v39, [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2], v26, v28, v30, v32), "imageBySamplingNearest");
+        --v21;
       }
 
-      while (v17);
-      v29 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_holeFillPost];
-      [(CIImage *)v19 extent];
-      v37 = v19;
-      return -[CIImage imageByCroppingToRect:](-[CIColorKernel applyWithExtent:arguments:](v29, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1], v30, v31, v32, v33), "imageByCroppingToRect:", v34, y, width, height);
+      while (v21);
+      v33 = [(CIKernel *)CIColorKernel kernelWithInternalRepresentation:&CI::_holeFillPost];
+      [(CIImage *)v23 extent];
+      v41 = v23;
+      return -[CIImage imageByCroppingToRect:](-[CIColorKernel applyWithExtent:arguments:](v33, "applyWithExtent:arguments:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1], v34, v35, v36, v37), "imageByCroppingToRect:", v38, y, width, height);
     }
 
     else
@@ -161,7 +162,7 @@
 {
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_19CC36000, v0, v1, "%{public}@: inputMaximumHoleSize must be in the range 1...500.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_19CC36000, v2, v3, "%{public}@: inputMaximumHoleSize must be in the range 1...500.", v4, v5, v6, v7);
 }
 
 @end

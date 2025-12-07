@@ -6,7 +6,7 @@
 void __28___DKPluggedInMonitor_start__block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 160);
-  v3 = _DKPluggedInMonitorLog();
+  v3 = _DKPluggedInMonitorLog(a1);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2 == 1)
   {

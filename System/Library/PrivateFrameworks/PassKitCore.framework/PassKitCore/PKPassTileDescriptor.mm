@@ -103,7 +103,7 @@
                     if (v30 && [v30 isGroupType])
                     {
                       v32 = [PKPassTileDescriptor alloc];
-                      v33 = [(PKPassTileDescriptor *)v32 _initWithMetadata:v31 dictionary:v29 privateDictionary:v63];
+                      v33 = [(PKPassTileDescriptor *)&v32->super.isa _initWithMetadata:v31 dictionary:v29 privateDictionary:v63];
                       if (v33)
                       {
                         v34 = v11;
@@ -275,7 +275,7 @@ LABEL_25:
             }
 
             v18 = [PKPassTileDescriptor alloc];
-            v19 = [(PKPassTileDescriptor *)v18 _initWithMetadata:v16 dictionary:v14 privateDictionary:v27];
+            v19 = [(PKPassTileDescriptor *)&v18->super.isa _initWithMetadata:v16 dictionary:v14 privateDictionary:v27];
             if (v19)
             {
               [v26 addObject:v19];

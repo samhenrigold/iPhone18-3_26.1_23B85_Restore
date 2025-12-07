@@ -126,7 +126,7 @@ uint64_t __27__VTPolicy_notifyCallback___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __21__VTPolicy_isEnabled__block_invoke(uint64_t a1)
+void *__21__VTPolicy_isEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _checkAllConditionsEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;

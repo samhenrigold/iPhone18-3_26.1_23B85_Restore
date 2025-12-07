@@ -12,7 +12,9 @@
 - (void)setLiveListenRemoteControlEnabled:(id)enabled;
 - (void)updateLiveListenCell:(id)cell;
 - (void)updateLiveListenWithState:(int64_t)state andLevel:(double)level;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation LiveListenViewController
@@ -56,6 +58,25 @@
   [table registerClass:v4 forCellReuseIdentifier:v5];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = LiveListenViewController;
+  [(LiveListenViewController *)&v4 viewWillAppear:appear];
+  [(LiveListenViewController *)self _setupListeners];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = LiveListenViewController;
+  [(LiveListenViewController *)&v5 viewDidDisappear:disappear];
+  v4 = +[AXHAServer sharedInstance];
+  [v4 unregisterLiveListenLevelListener:self];
+
+  [(LiveListenViewController *)self restartSoundRecognitionIfNecessary];
+}
+
 - (void)_setupListeners
 {
   objc_initWeak(&location, self);
@@ -64,7 +85,7 @@
   v5[3] = sub_21D34;
   v5[4] = &unk_48918;
   objc_copyWeak(&v6, &location);
-  AXPerformBlockOnMainThreadAfterDelay();
+  AXPerformBlockOnMainThreadAfterDelay(0.0);
   v3 = +[AXHAServer sharedInstance];
   v4[0] = _NSConcreteStackBlock;
   v4[1] = 3221225472;

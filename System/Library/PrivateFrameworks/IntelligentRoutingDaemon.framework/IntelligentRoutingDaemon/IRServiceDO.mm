@@ -83,60 +83,8 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (v6 = self->_lastSeenDate == 0, [oCopy lastSeenDate], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (lastSeenDate = self->_lastSeenDate) != 0 && (objc_msgSend(v5, "lastSeenDate"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSDate isEqual:](lastSeenDate, "isEqual:", v10), v10, !v11) || (v12 = self->_clientIdentifier == 0, objc_msgSend_clientIdentifier(v5), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (clientIdentifier = self->_clientIdentifier) != 0 && (objc_msgSend_clientIdentifier(v5), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](clientIdentifier, "isEqual:", v16), v16, !v17) || (v18 = self->_serviceIdentifier == 0, objc_msgSend(v5, "serviceIdentifier"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (serviceIdentifier = self->_serviceIdentifier) != 0 && (objc_msgSend(v5, "serviceIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](serviceIdentifier, "isEqual:", v22), v22, !v23))
   {
-    goto LABEL_12;
-  }
-
-  v6 = self->_lastSeenDate == 0;
-  lastSeenDate = [oCopy lastSeenDate];
-  v8 = lastSeenDate != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_12;
-  }
-
-  lastSeenDate = self->_lastSeenDate;
-  if (lastSeenDate)
-  {
-    lastSeenDate2 = [v5 lastSeenDate];
-    v11 = [(NSDate *)lastSeenDate isEqual:lastSeenDate2];
-
-    if (!v11)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v12 = self->_clientIdentifier == 0;
-  clientIdentifier = [v5 clientIdentifier];
-  v14 = clientIdentifier != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_12;
-  }
-
-  clientIdentifier = self->_clientIdentifier;
-  if (clientIdentifier)
-  {
-    clientIdentifier2 = [v5 clientIdentifier];
-    v17 = [(NSString *)clientIdentifier isEqual:clientIdentifier2];
-
-    if (!v17)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v18 = self->_serviceIdentifier == 0;
-  serviceIdentifier = [v5 serviceIdentifier];
-  v20 = serviceIdentifier != 0;
-
-  if (v18 == v20 || (serviceIdentifier = self->_serviceIdentifier) != 0 && ([v5 serviceIdentifier], v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSString isEqual:](serviceIdentifier, "isEqual:", v22), v22, !v23))
-  {
-LABEL_12:
     v25 = 0;
   }
 
@@ -176,7 +124,7 @@ LABEL_12:
 
 - (IRServiceDO)initWithCoder:(id)coder
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"lastSeenDate"];
   if (v5)
@@ -189,9 +137,9 @@ LABEL_12:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRServiceDO key lastSeenDate (expected %@, decoded %@)", v7, v9, 0];
-      v33 = *MEMORY[0x277CCA450];
-      v34[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+      v32 = *MEMORY[0x277CCA450];
+      v33[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRServiceDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_15:
@@ -216,9 +164,9 @@ LABEL_6:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRServiceDO key clientIdentifier (expected %@, decoded %@)", v9, v10, 0];
-        v31 = *MEMORY[0x277CCA450];
-        v32 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v30 = *MEMORY[0x277CCA450];
+        v31 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
         v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRServiceDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v17];
 LABEL_14:
@@ -251,9 +199,9 @@ LABEL_19:
         v20 = objc_opt_class();
         v11 = NSStringFromClass(v20);
         v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRServiceDO key serviceIdentifier (expected %@, decoded %@)", v10, v11, 0];
-        v29 = *MEMORY[0x277CCA450];
-        v30 = v12;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        v28 = *MEMORY[0x277CCA450];
+        v29 = v12;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
         v21 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRServiceDOOCNTErrorDomain" code:3 userInfo:v17];
         [coderCopy failWithError:v21];
 
@@ -271,8 +219,8 @@ LABEL_19:
       }
     }
 
-    v25 = [coderCopy decodeInt64ForKey:@"servicePackage"];
-    if (v25)
+    v24 = [coderCopy decodeInt64ForKey:@"servicePackage"];
+    if (v24)
     {
       goto LABEL_23;
     }
@@ -287,14 +235,14 @@ LABEL_19:
     if ([coderCopy containsValueForKey:@"servicePackage"])
     {
 LABEL_23:
-      self = [(IRServiceDO *)self initWithLastSeenDate:v5 clientIdentifier:v7 serviceIdentifier:v9 servicePackage:v25];
+      self = [(IRServiceDO *)self initWithLastSeenDate:v5 clientIdentifier:v7 serviceIdentifier:v9 servicePackage:v24];
       selfCopy = self;
       goto LABEL_18;
     }
 
-    v27 = *MEMORY[0x277CCA450];
-    v28 = @"Missing serialized value for IRServiceDO.servicePackage";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27 = @"Missing serialized value for IRServiceDO.servicePackage";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     v11 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRServiceDOOCNTErrorDomain" code:1 userInfo:v10];
     [coderCopy failWithError:v11];
     goto LABEL_16;
@@ -310,7 +258,6 @@ LABEL_23:
   selfCopy = 0;
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

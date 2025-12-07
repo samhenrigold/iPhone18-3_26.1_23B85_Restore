@@ -815,23 +815,24 @@
 - (void)addObserver:(id)observer
 {
   observerCopy = observer;
+  v5 = observerCopy;
   if (observerCopy)
   {
     observers = self->_observers;
-    v8 = observerCopy;
+    v9 = v5;
     if (!observers)
     {
-      v6 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
-      v7 = self->_observers;
-      self->_observers = v6;
+      v7 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
+      v8 = self->_observers;
+      self->_observers = v7;
 
       observers = self->_observers;
     }
 
-    [(NSHashTable *)observers addObject:v8];
+    observerCopy = [(NSHashTable *)observers addObject:v9];
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](observerCopy);
 }
 
 - (void)removeObserver:(id)observer
@@ -1850,8 +1851,9 @@ void __84__NCNotificationViewController__askDelegateToExecuteAction_withParamete
   [WeakRetained _dismissPresentedViewControllerAnimated:a2];
 }
 
-void __84__NCNotificationViewController__askDelegateToExecuteAction_withParameters_animated___block_invoke_118(uint64_t a1, int a2)
+void __84__NCNotificationViewController__askDelegateToExecuteAction_withParameters_animated___block_invoke_118(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v17 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D77DD0];
   if (os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_DEFAULT))
@@ -1867,7 +1869,7 @@ void __84__NCNotificationViewController__askDelegateToExecuteAction_withParamete
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  if (a2)
+  if (v2)
   {
     if (([*(a1 + 40) isSystemAction] & 1) == 0 && (objc_msgSend(WeakRetained, "isShortLook") & 1) == 0)
     {

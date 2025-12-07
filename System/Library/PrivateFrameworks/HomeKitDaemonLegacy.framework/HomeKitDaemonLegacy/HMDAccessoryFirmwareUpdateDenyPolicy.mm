@@ -19,17 +19,16 @@
 
 uint64_t __51__HMDAccessoryFirmwareUpdateDenyPolicy_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_103600;
-  logCategory__hmf_once_v11_103600 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_103600;
+  logCategory__hmf_once_v11_103600 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)configure
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [(HMDAccessoryFirmwareUpdatePolicy *)self setStatus:0];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -37,13 +36,12 @@ uint64_t __51__HMDAccessoryFirmwareUpdateDenyPolicy_logCategory__block_invoke()
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Deny policy configured", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Deny policy configured", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

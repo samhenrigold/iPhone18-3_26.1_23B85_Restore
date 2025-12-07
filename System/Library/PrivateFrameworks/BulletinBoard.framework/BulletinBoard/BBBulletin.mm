@@ -142,14 +142,12 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   bulletinID = [a2 bulletinID];
-  v6 = 138412290;
-  v7 = bulletinID;
-  _os_log_debug_impl(&dword_241EFF000, selfCopy, OS_LOG_TYPE_DEBUG, "Deallocating %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = bulletinID;
+  _os_log_debug_impl(&dword_241EFF000, selfCopy, OS_LOG_TYPE_DEBUG, "Deallocating %@", &v5, 0xCu);
 }
 
 - (NSString)title
@@ -516,35 +514,33 @@
 
 + (void)vetSortDescriptor:(id)descriptor
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
-  v12 = descriptorCopy;
+  v11 = descriptorCopy;
   if (vetSortDescriptor__onceToken != -1)
   {
     +[BBBulletin vetSortDescriptor:];
-    descriptorCopy = v12;
+    descriptorCopy = v11;
   }
 
   v4 = [descriptorCopy key];
   if (([vetSortDescriptor__sKeyAllowedList containsObject:v4] & 1) == 0)
   {
-    v6 = MEMORY[0x277CBEAD8];
-    v7 = *MEMORY[0x277CBE660];
+    v5 = MEMORY[0x277CBEAD8];
+    v6 = *MEMORY[0x277CBE660];
     vetSortDescriptor__sKeyAllowedList = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid sort descriptor key passed from BBDataProvider: %@ Only the following keys may be used: %@", v4, vetSortDescriptor__sKeyAllowedList];;
-    v13[0] = @"sortDescriptor";
-    v13[1] = @"offendingKey";
-    v14[0] = v12;
-    v14[1] = v4;
-    v13[2] = @"allowedKeys";
-    v14[2] = vetSortDescriptor__sKeyAllowedList;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-    v10 = [v6 exceptionWithName:v7 reason:vetSortDescriptor__sKeyAllowedList userInfo:v9];
-    v11 = v10;
+    v12[0] = @"sortDescriptor";
+    v12[1] = @"offendingKey";
+    v13[0] = v11;
+    v13[1] = v4;
+    v12[2] = @"allowedKeys";
+    v13[2] = vetSortDescriptor__sKeyAllowedList;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+    v9 = [v5 exceptionWithName:v6 reason:vetSortDescriptor__sKeyAllowedList userInfo:v8];
+    v10 = v9;
 
-    objc_exception_throw(v10);
+    objc_exception_throw(v9);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __32__BBBulletin_vetSortDescriptor___block_invoke()
@@ -556,40 +552,38 @@ uint64_t __32__BBBulletin_vetSortDescriptor___block_invoke()
 
 + (id)validSortDescriptorsFromSortDescriptors:(id)descriptors
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(descriptorsCopy, "count")}];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = descriptorsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         [BBBulletin vetSortDescriptor:v9];
         [v9 allowEvaluation];
         [v4 addObject:v9];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -3312,7 +3306,7 @@ LABEL_136:
 
 - (void)setAlertSuppressionContexts:(id)contexts
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   contextsCopy = contexts;
   alertSuppressionContexts = self->_alertSuppressionContexts;
   self->_alertSuppressionContexts = 0;
@@ -3320,27 +3314,27 @@ LABEL_136:
   if (contextsCopy)
   {
     v6 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(contextsCopy, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v7 = contextsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         v11 = 0;
         do
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * v11);
+          v12 = *(*(&v16 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -3352,7 +3346,7 @@ LABEL_136:
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -3362,8 +3356,6 @@ LABEL_136:
     v15 = self->_alertSuppressionContexts;
     self->_alertSuppressionContexts = v14;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)primaryAttachmentType
@@ -3384,37 +3376,37 @@ LABEL_136:
 
 - (unint64_t)numberOfAdditionalAttachmentsOfType:(int64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   additionalAttachments = [(BBBulletin *)self additionalAttachments];
   v5 = [additionalAttachments copy];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([*(*(&v14 + 1) + 8 * i) type] == type)
+        if ([*(*(&v13 + 1) + 8 * i) type] == type)
         {
           ++v9;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -3425,7 +3417,6 @@ LABEL_136:
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3543,28 +3534,28 @@ LABEL_136:
 
 - (id)_actionWithID:(id)d fromActions:(id)actions
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   actionsCopy = actions;
-  v8 = [actionsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [actionsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(actionsCopy);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -3593,7 +3584,7 @@ LABEL_136:
         }
       }
 
-      v9 = [actionsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [actionsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -3601,8 +3592,6 @@ LABEL_136:
 
   v14 = 0;
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -3820,7 +3809,7 @@ void __31__BBBulletin_responseSendBlock__block_invoke(uint64_t a1, void *a2)
 
 - (id)actionForResponse:(id)response
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   if (!responseCopy)
   {
@@ -3868,28 +3857,28 @@ LABEL_11:
     goto LABEL_23;
   }
 
-  v27 = v8;
+  v26 = v8;
   actionID = [responseCopy buttonID];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v15 = self->_buttons;
-  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v29;
+    v18 = *v28;
 LABEL_15:
     v19 = 0;
     while (1)
     {
-      if (*v29 != v18)
+      if (*v28 != v18)
       {
         objc_enumerationMutation(v15);
       }
 
-      v20 = *(*(&v28 + 1) + 8 * v19);
+      v20 = *(*(&v27 + 1) + 8 * v19);
       identifier = [v20 identifier];
       v22 = [identifier isEqualToString:actionID];
 
@@ -3900,7 +3889,7 @@ LABEL_15:
 
       if (v17 == ++v19)
       {
-        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v17)
         {
           goto LABEL_15;
@@ -3917,7 +3906,7 @@ LABEL_15:
       goto LABEL_29;
     }
 
-    v8 = v27;
+    v8 = v26;
     goto LABEL_6;
   }
 
@@ -3925,8 +3914,8 @@ LABEL_21:
 
 LABEL_29:
   integerValue = [actionID integerValue];
-  v8 = v27;
-  if (integerValue >= -[NSArray count](self->_buttons, "count") || (-[NSArray objectAtIndex:](self->_buttons, "objectAtIndex:", integerValue), v26 = objc_claimAutoreleasedReturnValue(), [v26 action], action = objc_claimAutoreleasedReturnValue(), v26, !action))
+  v8 = v26;
+  if (integerValue >= -[NSArray count](self->_buttons, "count") || (-[NSArray objectAtIndex:](self->_buttons, "objectAtIndex:", integerValue), v25 = objc_claimAutoreleasedReturnValue(), [v25 action], action = objc_claimAutoreleasedReturnValue(), v25, !action))
   {
     NSLog(&cfstr_BbbulletinHand_2.isa, actionID);
 
@@ -3937,8 +3926,6 @@ LABEL_6:
 
 LABEL_23:
 LABEL_24:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return action;
 }
@@ -4164,11 +4151,11 @@ LABEL_24:
 
 - (BBBulletin)initWithCoder:(id)coder
 {
-  v95[2] = *MEMORY[0x277D85DE8];
+  v94[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v89.receiver = self;
-  v89.super_class = BBBulletin;
-  v5 = [(BBBulletin *)&v89 init];
+  v88.receiver = self;
+  v88.super_class = BBBulletin;
+  v5 = [(BBBulletin *)&v88 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bulletinID"];
@@ -4190,9 +4177,9 @@ LABEL_24:
     [(BBBulletin *)v5 setParentSectionID:v11];
 
     v12 = MEMORY[0x277CBEB98];
-    v95[0] = objc_opt_class();
-    v95[1] = objc_opt_class();
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:2];
+    v94[0] = objc_opt_class();
+    v94[1] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"subsectionIDs"];
     [(BBBulletin *)v5 setSubsectionIDs:v15];
@@ -4304,36 +4291,36 @@ LABEL_24:
     -[BBBulletin setPreemptsPresentedAlert:](v5, "setPreemptsPresentedAlert:", [coderCopy decodeBoolForKey:@"preemptsPresentedAlert"]);
     -[BBBulletin setDisplaysActionsInline:](v5, "setDisplaysActionsInline:", [coderCopy decodeBoolForKey:@"displaysActionsInline"]);
     v50 = MEMORY[0x277CBEB98];
-    v94[0] = objc_opt_class();
-    v94[1] = objc_opt_class();
-    v94[2] = objc_opt_class();
-    v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:3];
+    v93[0] = objc_opt_class();
+    v93[1] = objc_opt_class();
+    v93[2] = objc_opt_class();
+    v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:3];
     v52 = [v50 setWithArray:v51];
     v53 = [coderCopy decodeObjectOfClasses:v52 forKey:@"actions"];
     [(BBBulletin *)v5 setActions:v53];
 
     v54 = MEMORY[0x277CBEB98];
-    v93[0] = objc_opt_class();
-    v93[1] = objc_opt_class();
-    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+    v92[0] = objc_opt_class();
+    v92[1] = objc_opt_class();
+    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:2];
     v56 = [v54 setWithArray:v55];
     v57 = [coderCopy decodeObjectOfClasses:v56 forKey:@"buttons"];
     [(BBBulletin *)v5 setButtons:v57];
 
     v58 = MEMORY[0x277CBEB98];
-    v92[0] = objc_opt_class();
-    v92[1] = objc_opt_class();
-    v92[2] = objc_opt_class();
-    v92[3] = objc_opt_class();
-    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:4];
+    v91[0] = objc_opt_class();
+    v91[1] = objc_opt_class();
+    v91[2] = objc_opt_class();
+    v91[3] = objc_opt_class();
+    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:4];
     v60 = [v58 setWithArray:v59];
     v61 = [coderCopy decodeObjectOfClasses:v60 forKey:@"supplementaryActionsByLayout"];
     [(BBBulletin *)v5 setSupplementaryActionsByLayout:v61];
 
     v62 = MEMORY[0x277CBEB98];
-    v91[0] = objc_opt_class();
-    v91[1] = objc_opt_class();
-    v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:2];
+    v90[0] = objc_opt_class();
+    v90[1] = objc_opt_class();
+    v63 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
     v64 = [v62 setWithArray:v63];
     v65 = [coderCopy decodeObjectOfClasses:v64 forKey:@"alertSuppressionContexts"];
     [(BBBulletin *)v5 setAlertSuppressionContexts:v65];
@@ -4371,9 +4358,9 @@ LABEL_24:
 
     -[BBBulletin setRealertCount:](v5, "setRealertCount:", [coderCopy decodeIntegerForKey:@"realertCount"]);
     v75 = MEMORY[0x277CBEB98];
-    v90[0] = objc_opt_class();
-    v90[1] = objc_opt_class();
-    v76 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:2];
+    v89[0] = objc_opt_class();
+    v89[1] = objc_opt_class();
+    v76 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
     v77 = [v75 setWithArray:v76];
     v78 = [coderCopy decodeObjectOfClasses:v77 forKey:@"alertSuppressionIDs"];
     [(BBBulletin *)v5 setAlertSuppressionAppIDs_deprecated:v78];
@@ -4418,7 +4405,6 @@ LABEL_24:
     }
   }
 
-  v87 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -4705,19 +4691,16 @@ LABEL_24:
 {
   if (self->_sectionID || self->_bulletinID)
   {
-    v3 = MEMORY[0x277CCACA8];
-    v4 = objc_opt_class();
-    intentIDs = self->_intentIDs;
-    [v3 stringWithFormat:@"<%@: %p; [%@] bulletinID: %@; publisherBulletinID: %@, categoryID:%@, threadID:%@, peopleIDs:%@, recordID: %@; intentIDs: %@; revisionID: %@>", v4, self, self->_sectionID, self->_bulletinID, self->_publisherBulletinID, self->_categoryID, self->_threadID, self->_peopleIDs, self->_publisherRecordID, intentIDs, self->_bulletinVersionID];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"<%@: %p; [%@] bulletinID: %@; publisherBulletinID: %@, categoryID:%@, threadID:%@, peopleIDs:%@, recordID: %@; intentIDs: %@; revisionID: %@>", objc_opt_class(), self, self->_sectionID, self->_bulletinID, self->_publisherBulletinID, self->_categoryID, self->_threadID, self->_peopleIDs, self->_publisherRecordID, self->_intentIDs, self->_bulletinVersionID];
   }
 
   else
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"<%@: %p; (no identifying details)>", objc_opt_class(), self, v8, v9, v10, v11, v12, v13, v14, v15, v16];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"<%@: %p; (no identifying details)>", objc_opt_class(), self, v4, v5, v6, v7, v8, v9, v10, v11, v12];
   }
-  v6 = ;
+  v2 = ;
 
-  return v6;
+  return v2;
 }
 
 uint64_t __56__BBBulletin_Associations___lifeAssertionAssociationSet__block_invoke()
@@ -4959,7 +4942,7 @@ uint64_t __51__BBBulletin_Associations___observerAssociationSet__block_invoke()
 
 - (id)syncHash
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   title = [(BBBulletin *)self title];
   if (title)
@@ -4986,8 +4969,6 @@ uint64_t __51__BBBulletin_Associations___observerAssociationSet__block_invoke()
   {
     [v8 appendFormat:@"%02x", md[i]];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -9,35 +9,35 @@
 
 - (void)setPropertiesFromJSONObject:(id)object
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   array = [MEMORY[0x1E695DF70] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [objectCopy objectForKeyedSubscript:@"status"];
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
     selfCopy = self;
-    v20 = objectCopy;
+    v19 = objectCopy;
     v9 = 0;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       v11 = 0;
       v12 = v9;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * v11);
+        v13 = *(*(&v21 + 1) + 8 * v11);
         v9 = [v13 objectForKeyedSubscript:@"key"];
 
         v14 = [v13 objectForKeyedSubscript:@"value"];
@@ -49,13 +49,13 @@
       }
 
       while (v8 != v11);
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
 
     self = selfCopy;
-    objectCopy = v20;
+    objectCopy = v19;
   }
 
   v15 = [array copy];
@@ -66,40 +66,38 @@
 
   date = [MEMORY[0x1E695DF00] date];
   [(FBKFeedbackStatus *)self setUpdatedAt:date];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (FBKQuestionGroupStub)questionGroupStubRepresentation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   orderedKeys = [(FBKFeedbackStatus *)self orderedKeys];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(orderedKeys, "count")}];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = [(FBKFeedbackStatus *)self orderedKeys];
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       v10 = 0;
       v11 = v8;
       do
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * v10);
+        v12 = *(*(&v22 + 1) + 8 * v10);
         v13 = [FBKQuestionAnswerPair alloc];
         statusPairs = [(FBKFeedbackStatus *)self statusPairs];
         v15 = [statusPairs objectForKeyedSubscript:v12];
@@ -111,7 +109,7 @@
       }
 
       while (v7 != v10);
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
@@ -121,8 +119,6 @@
   v17 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v18 = [v17 localizedStringForKey:@"STATUS_SECTION_TITLE" value:&stru_1F5F14EC0 table:@"CommonStrings"];
   v19 = [(FBKQuestionGroupStub *)v16 initWithTitle:v18 questions:v5];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -148,7 +144,7 @@
 
 - (NSAttributedString)attributedStringRepresentation
 {
-  v51[2] = *MEMORY[0x1E69E9840];
+  v50[2] = *MEMORY[0x1E69E9840];
   if (FBKIsInternalInstall(self, a2) && ([MEMORY[0x1E695E000] standardUserDefaults], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "BOOLForKey:", @"HideFeedbackStatus"), v3, v4))
   {
     v5 = +[FBKLog appHandle];
@@ -172,21 +168,21 @@
       secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
       v12 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:v9];
       v14 = *MEMORY[0x1E69DB648];
-      v50[0] = *MEMORY[0x1E69DB650];
-      v13 = v50[0];
-      v50[1] = v14;
-      v43 = v10;
-      v44 = labelColor;
-      v51[0] = labelColor;
-      v51[1] = v10;
-      v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:2];
-      v48[0] = v13;
-      v48[1] = v14;
-      v41 = v12;
-      v42 = secondaryLabelColor;
-      v49[0] = secondaryLabelColor;
-      v49[1] = v12;
-      v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2];
+      v49[0] = *MEMORY[0x1E69DB650];
+      v13 = v49[0];
+      v49[1] = v14;
+      v42 = v10;
+      v43 = labelColor;
+      v50[0] = labelColor;
+      v50[1] = v10;
+      v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:2];
+      v47[0] = v13;
+      v47[1] = v14;
+      v40 = v12;
+      v41 = secondaryLabelColor;
+      v48[0] = secondaryLabelColor;
+      v48[1] = v12;
+      v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
       orderedKeys = [(FBKFeedbackStatus *)self orderedKeys];
       v16 = [orderedKeys count];
 
@@ -244,8 +240,8 @@
             }
           }
 
-          v32 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v25 attributes:v46];
-          v33 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v26 attributes:v45];
+          v32 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v25 attributes:v45];
+          v33 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v26 attributes:v44];
           v34 = isLanguageRTL();
           if (v34)
           {
@@ -281,8 +277,6 @@
 
     v6 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithAttributedString:v7];
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

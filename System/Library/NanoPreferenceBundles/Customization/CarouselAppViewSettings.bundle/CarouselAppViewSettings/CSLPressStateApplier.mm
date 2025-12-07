@@ -128,7 +128,7 @@ LABEL_8:
   v7 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained originalLayoutAttributesForHex:hex];
+    objc_msgSend_originalLayoutAttributesForHex_(WeakRetained);
   }
 
   else
@@ -143,78 +143,58 @@ LABEL_8:
   v11 = 0;
   [(CSLPressStateApplier *)self _reversePressStatesAtTime:v5];
   sub_2A94(&self->_pressStates, v10);
-  sub_3B50();
+  sub_3B50(&self->_pressedHexes, &hexCopy);
 }
 
 - ($153C3A5BC4E016D58A1B9CA554FFC462)layoutAttributesForHex:(Hex)hex
 {
-  v6 = v3;
+  v5 = v3;
   *v3 = 0u;
   v3[1] = 0u;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v8 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained originalLayoutAttributesForHex:hex];
+    objc_msgSend_originalLayoutAttributesForHex_(WeakRetained);
   }
 
   else
   {
-    *v6 = 0u;
-    v6[1] = 0u;
+    *v5 = 0u;
+    v5[1] = 0u;
   }
 
   begin = self->_pressStates.__map_.__begin_;
   if (self->_pressStates.__map_.__end_ != begin)
   {
     start = self->_pressStates.__start_;
-    v12 = &begin[start >> 6];
-    v13 = *v12 + 64 * (start & 0x3F);
-    v14 = *(begin + (((self->_pressStates.__size_ + start) >> 3) & 0x1FFFFFFFFFFFFFF8)) + 64 * ((self->_pressStates.__size_ + start) & 0x3F);
-    while (v13 != v14)
+    v11 = &begin[start >> 6];
+    v12 = *v11 + 64 * (start & 0x3F);
+    v13 = *(begin + (((self->_pressStates.__size_ + start) >> 3) & 0x1FFFFFFFFFFFFFF8)) + 64 * ((self->_pressStates.__size_ + start) & 0x3F);
+    while (v12 != v13)
     {
-      v15 = *v13;
-      v16 = *(v13 + 1);
-      v17 = *(v13 + 3);
-      v34 = *(v13 + 2);
-      v35 = v17;
-      v32 = v15;
-      v33 = v16;
-      v30 = 0u;
-      v31 = 0u;
-      v18 = v6[1];
-      v28 = *v6;
-      v29 = v18;
-      v24 = v15;
-      v25 = v33;
-      v26 = v34;
-      v27 = v17;
-      [(CSLPressStateApplier *)self _computeTargetAttributesForHex:hex sourceAttributes:&v28 forPressState:&v24];
-      v19 = v6[1];
-      v23[0] = *v6;
-      v23[1] = v19;
-      v22[0] = v30;
-      v22[1] = v31;
-      v24 = v32;
-      v25 = v33;
-      v26 = v34;
-      v27 = v35;
-      [(CSLPressStateApplier *)self _interpolateBetweenSourceAttributes:v23 targetAttributes:v22 pressState:&v24];
-      *&v9.var0 = v28;
-      v20 = v29;
-      *v6 = v28;
-      v6[1] = v20;
-      v13 += 64;
-      if (v13 - *v12 == 4096)
+      v19 = *(v12 + 2);
+      v20 = *(v12 + 3);
+      v17 = *v12;
+      v18 = *(v12 + 1);
+      v15 = *v5;
+      v16 = v5[1];
+      objc_msgSend__computeTargetAttributesForHex_sourceAttributes_forPressState_(self);
+      objc_msgSend__interpolateBetweenSourceAttributes_targetAttributes_pressState_(self, 0, 0, *v5, *(v5 + 1), *(v5 + 2), *(v5 + 3), v17, v18, v19, v20);
+      *&v8.var0 = v15;
+      *v5 = v15;
+      v5[1] = v16;
+      v12 += 64;
+      if (v12 - *v11 == 4096)
       {
-        v21 = v12[1];
-        ++v12;
-        v13 = v21;
+        v14 = v11[1];
+        ++v11;
+        v12 = v14;
       }
     }
   }
 
-  return v9;
+  return v8;
 }
 
 - ($153C3A5BC4E016D58A1B9CA554FFC462)_interpolateBetweenSourceAttributes:(id)attributes targetAttributes:(id)targetAttributes fraction:(double)fraction
@@ -235,49 +215,36 @@ LABEL_8:
   v11 = fmaxf(fmaxf(v10.f32[0], v10.f32[2]), v10.f32[1]);
   if (fmaxf(fmaxf(v9.f32[0], v9.f32[2]), v9.f32[1]) < 0.00000011921 && v11 < 0.00000011921)
   {
-    v20 = *&state->var0;
-    v21 = *&state->var2;
+    v15 = *&state->var0;
+    v16 = *&state->var2;
     *v7 = *&state->var0;
-    v7[1] = v21;
+    v7[1] = v16;
   }
 
   else
   {
-    v13 = v5;
     if (*(v6 + 16) == 1)
     {
-      v15 = v6 + 24;
+      v14 = v6 + 24;
       [(CASpringAnimation *)self->_spring _timeFunction:(*(v6 + 24) - *v6) / self->_springDuration];
-      v16 = *&stateCopy->var2;
-      v25 = *&stateCopy->var0;
-      v26 = v16;
-      v17 = v13[1];
-      v23 = *v13;
-      v24 = v17;
-      [(CSLPressStateApplier *)self _interpolateBetweenSourceAttributes:&v25 targetAttributes:&v23 fraction:?];
-      v6 = v15;
+      objc_msgSend__interpolateBetweenSourceAttributes_targetAttributes_fraction_(self);
+      v6 = v14;
     }
 
     else
     {
-      v18 = *&state->var2;
-      v27 = *&state->var0;
-      v28 = v18;
+      v19 = *&state->var0;
+      v20 = *&state->var2;
       stateCopy = v5;
     }
 
-    v19 = *&stateCopy->var2;
-    v25 = *&stateCopy->var0;
-    v26 = v19;
+    v17 = *&stateCopy->var0;
+    v18 = *&stateCopy->var2;
     [(CASpringAnimation *)self->_spring _timeFunction:(self->_updateTime - *v6) / self->_springDuration];
-    v23 = v27;
-    v24 = v28;
-    v22[0] = v25;
-    v22[1] = v26;
-    [(CSLPressStateApplier *)self _interpolateBetweenSourceAttributes:&v23 targetAttributes:v22 fraction:?];
+    objc_msgSend__interpolateBetweenSourceAttributes_targetAttributes_fraction_(self, v17, v18, v19, v20);
   }
 
-  return v20;
+  return v15;
 }
 
 - ($153C3A5BC4E016D58A1B9CA554FFC462)_computeTargetAttributesForHex:(Hex)hex sourceAttributes:(id)attributes forPressState:(id *)state
@@ -383,7 +350,7 @@ LABEL_8:
       v9 = WeakRetained;
       if (WeakRetained)
       {
-        [WeakRetained originalLayoutAttributesForHex:*(v6 + 8)];
+        objc_msgSend_originalLayoutAttributesForHex_(WeakRetained);
       }
 
       else

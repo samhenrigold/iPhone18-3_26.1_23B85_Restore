@@ -31,7 +31,7 @@ uint64_t __46__ATXDocumentInteractionDonationClient_shared__block_invoke()
 {
   interactionCopy = interaction;
   completionCopy = completion;
-  v7 = __atxlog_handle_client_donations();
+  v7 = __atxlog_handle_client_donations(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ATXDocumentInteractionDonationClient donateDocumentInteraction:interactionCopy completion:v7];

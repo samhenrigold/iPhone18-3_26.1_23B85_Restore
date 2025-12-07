@@ -1,10 +1,27 @@
 @interface AUInternalSettingsController
 - (AUInternalSettingsController)initWithCoder:(id)coder;
 - (AUInternalSettingsController)initWithNibName:(id)name bundle:(id)bundle;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
 @implementation AUInternalSettingsController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  sub_23D46BF08();
+  sub_23D46BEF8();
+  sub_23D46BEE8();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for AUInternalSettingsController();
+  [(AUInternalSettingsController *)&v5 viewDidAppear:appearCopy];
+}
 
 - (void)viewDidLoad
 {

@@ -193,7 +193,7 @@
 - (void)processAdHocModeEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v5 = _CRKLogASM_13();
+  v5 = _CRKLogASM_13(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (enabledCopy)
   {

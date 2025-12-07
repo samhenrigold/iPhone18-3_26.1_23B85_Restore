@@ -58,11 +58,11 @@
 void __66__HKSharedSummaryCloudSyncManager_fetchAccountInfoWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogDefault;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
   {
-    __66__HKSharedSummaryCloudSyncManager_fetchAccountInfoWithCompletion___block_invoke_2_cold_1(v3, v4);
+    __66__HKSharedSummaryCloudSyncManager_fetchAccountInfoWithCompletion___block_invoke_2_cold_1(v3, v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -90,10 +90,10 @@ void __66__HKSharedSummaryCloudSyncManager_fetchAccountInfoWithCompletion___bloc
 void __54__HKSharedSummaryCloudSyncManager_pushWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __54__HKSharedSummaryCloudSyncManager_pushWithCompletion___block_invoke_2_cold_1(a1);
+    __54__HKSharedSummaryCloudSyncManager_pushWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -121,10 +121,10 @@ void __54__HKSharedSummaryCloudSyncManager_pushWithCompletion___block_invoke_2(u
 void __54__HKSharedSummaryCloudSyncManager_pullWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __54__HKSharedSummaryCloudSyncManager_pullWithCompletion___block_invoke_2_cold_1(a1);
+    __54__HKSharedSummaryCloudSyncManager_pullWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -146,29 +146,10 @@ void __54__HKSharedSummaryCloudSyncManager_pullWithCompletion___block_invoke_2(u
 
 void __66__HKSharedSummaryCloudSyncManager_fetchAccountInfoWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch account info with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __54__HKSharedSummaryCloudSyncManager_pushWithCompletion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "[summary-sharing] %{public}@: Failed to push with error: %{public}@");
   v4 = *MEMORY[0x1E69E9840];
-}
-
-void __54__HKSharedSummaryCloudSyncManager_pullWithCompletion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v2, v3, "[summary-sharing] %{public}@: Failed to pull with error: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch account info with error: %{public}@", &v2, 0xCu);
 }
 
 @end

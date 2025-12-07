@@ -6,30 +6,30 @@
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   v5 = [(WFRemovePhotoFromAlbumAction *)self parameterValueForKey:@"WFRemoveAlbumSelectedGroup" ofClass:objc_opt_class()];
   v6 = WFPHAssetCollectionMatchingDescriptor(v5);
   if (v6)
   {
     mEMORY[0x277CFC520] = [MEMORY[0x277CFC520] sharedLibrary];
-    v20 = 0;
-    v8 = [mEMORY[0x277CFC520] fetchOptionsWithError:&v20];
-    v9 = v20;
+    v19 = 0;
+    v8 = [mEMORY[0x277CFC520] fetchOptionsWithError:&v19];
+    v9 = v19;
 
     if (v8)
     {
       [v8 setWantsIncrementalChangeDetails:0];
       v10 = [getPHAssetClass() fetchAssetsInAssetCollection:v6 options:v8];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __59__WFRemovePhotoFromAlbumAction_runAsynchronouslyWithInput___block_invoke;
-      v17[3] = &unk_278C1A3E8;
-      v17[4] = self;
-      v18 = v6;
-      v19 = v10;
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __59__WFRemovePhotoFromAlbumAction_runAsynchronouslyWithInput___block_invoke;
+      v16[3] = &unk_278C1A3E8;
+      v16[4] = self;
+      v17 = v6;
+      v18 = v10;
       v11 = v10;
-      [inputCopy getObjectRepresentations:v17 forClass:getPHAssetClass()];
+      [inputCopy getObjectRepresentations:v16 forClass:getPHAssetClass()];
     }
 
     else
@@ -42,18 +42,16 @@
   {
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277D7CB30];
-    v21[0] = *MEMORY[0x277CCA470];
+    v20[0] = *MEMORY[0x277CCA470];
     v9 = WFLocalizedString(@"Unknown Album");
-    v22[0] = v9;
-    v21[1] = *MEMORY[0x277CCA450];
+    v21[0] = v9;
+    v20[1] = *MEMORY[0x277CCA450];
     v8 = WFLocalizedString(@"The photo album that was selected does not exist.");
-    v22[1] = v8;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v21[1] = v8;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
     v15 = [v12 errorWithDomain:v13 code:5 userInfo:v14];
     [(WFRemovePhotoFromAlbumAction *)self finishRunningWithError:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __59__WFRemovePhotoFromAlbumAction_runAsynchronouslyWithInput___block_invoke(id *a1, void *a2, void *a3, void *a4)
@@ -153,29 +151,29 @@ void __59__WFRemovePhotoFromAlbumAction_runAsynchronouslyWithInput___block_invok
 
 void __59__WFRemovePhotoFromAlbumAction_runAsynchronouslyWithInput___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = *(*(*(a1 + 40) + 8) + 40);
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = [*(a1 + 32) output];
         [v11 addObject:v10];
 
@@ -183,14 +181,13 @@ void __59__WFRemovePhotoFromAlbumAction_runAsynchronouslyWithInput___block_invok
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   [*(a1 + 32) finishRunningWithError:v4];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

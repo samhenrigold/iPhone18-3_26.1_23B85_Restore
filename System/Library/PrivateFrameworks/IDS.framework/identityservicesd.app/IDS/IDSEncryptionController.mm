@@ -68,7 +68,7 @@
 
   if (v9)
   {
-    [v9 doubleValue];
+    objc_msgSend_doubleValue(v9);
     v11 = v10;
   }
 

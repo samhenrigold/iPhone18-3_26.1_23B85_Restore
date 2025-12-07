@@ -65,11 +65,11 @@
   queue = [(MSDRapportDeviceAdvertiser *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Activating advertiser!", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Activating advertiser!", buf, 2u);
   }
 
   CFPrefs_SetValue();
@@ -79,8 +79,8 @@
 
   if (!rpClient)
   {
-    v6 = objc_alloc_init(RPCompanionLinkClient);
-    [(MSDRapportDeviceAdvertiser *)self setRpClient:v6];
+    v7 = objc_alloc_init(RPCompanionLinkClient);
+    [(MSDRapportDeviceAdvertiser *)self setRpClient:v7];
 
     queue2 = [(MSDRapportDeviceAdvertiser *)self queue];
     rpClient2 = [(MSDRapportDeviceAdvertiser *)self rpClient];
@@ -92,32 +92,32 @@
     rpClient4 = [(MSDRapportDeviceAdvertiser *)self rpClient];
     [rpClient4 setInvalidationHandler:&stru_10016B158];
 
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_1000631A0;
-    v33[3] = &unk_10016AD10;
-    objc_copyWeak(&v34, buf);
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_1000631A0;
+    v34[3] = &unk_10016AD10;
+    objc_copyWeak(&v35, buf);
     rpClient5 = [(MSDRapportDeviceAdvertiser *)self rpClient];
-    [rpClient5 setLocalDeviceUpdatedHandler:v33];
+    [rpClient5 setLocalDeviceUpdatedHandler:v34];
 
     rpClient6 = [(MSDRapportDeviceAdvertiser *)self rpClient];
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_1000631E0;
-    v31[3] = &unk_10016A178;
-    objc_copyWeak(&v32, buf);
-    [rpClient6 activateWithCompletion:v31];
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_1000631E0;
+    v32[3] = &unk_10016A178;
+    objc_copyWeak(&v33, buf);
+    [rpClient6 activateWithCompletion:v32];
 
-    objc_destroyWeak(&v32);
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v35);
   }
 
   rpServer = [(MSDRapportDeviceAdvertiser *)self rpServer];
 
   if (!rpServer)
   {
-    v14 = objc_alloc_init(RPServer);
-    [(MSDRapportDeviceAdvertiser *)self setRpServer:v14];
+    v15 = objc_alloc_init(RPServer);
+    [(MSDRapportDeviceAdvertiser *)self setRpServer:v15];
 
     queue3 = [(MSDRapportDeviceAdvertiser *)self queue];
     rpServer2 = [(MSDRapportDeviceAdvertiser *)self rpServer];
@@ -144,23 +144,23 @@
     rpServer9 = [(MSDRapportDeviceAdvertiser *)self rpServer];
     [rpServer9 setInvalidationHandler:&stru_10016B1B8];
 
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100063318;
-    v29[3] = &unk_10016B1E0;
-    objc_copyWeak(&v30, buf);
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_100063318;
+    v30[3] = &unk_10016B1E0;
+    objc_copyWeak(&v31, buf);
     rpServer10 = [(MSDRapportDeviceAdvertiser *)self rpServer];
-    [rpServer10 setShowPasswordHandler:v29];
+    [rpServer10 setShowPasswordHandler:v30];
 
-    objc_copyWeak(&v28, buf);
-    v25 = [(MSDRapportDeviceAdvertiser *)self rpServer:_NSConcreteStackBlock];
-    [v25 setHidePasswordHandler:&v27];
+    objc_copyWeak(&v29, buf);
+    v26 = [(MSDRapportDeviceAdvertiser *)self rpServer:_NSConcreteStackBlock];
+    [v26 setHidePasswordHandler:&v28];
 
     rpServer11 = [(MSDRapportDeviceAdvertiser *)self rpServer];
     [rpServer11 activate];
 
-    objc_destroyWeak(&v28);
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v31);
   }
 
   objc_destroyWeak(buf);
@@ -171,11 +171,11 @@
   queue = [(MSDRapportDeviceAdvertiser *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Deactivating advertiser!", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Deactivating advertiser!", v10, 2u);
   }
 
   CFPrefs_RemoveValue();
@@ -207,14 +207,14 @@
   rpClient = [(MSDRapportDeviceAdvertiser *)self rpClient];
   localDevice = [rpClient localDevice];
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = rpLocalDevice;
-    v13 = 2114;
-    v14 = localDevice;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Local device updated from: <%{public}@> to: <%{public}@>", &v11, 0x16u);
+    v12 = 138543618;
+    v13 = rpLocalDevice;
+    v14 = 2114;
+    v15 = localDevice;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Local device updated from: <%{public}@> to: <%{public}@>", &v12, 0x16u);
   }
 
   [(MSDRapportDeviceAdvertiser *)self setRpLocalDevice:localDevice];
@@ -237,8 +237,8 @@
 
   if (errorCopy)
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100063A54(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000D6798(errorCopy);
     }
@@ -268,14 +268,14 @@
   queue = [(MSDRapportDeviceAdvertiser *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v8 = sub_100063A54();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100063A54(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = passwordCopy;
-    v13 = 1024;
+    v12 = 138412546;
+    v13 = passwordCopy;
+    v14 = 1024;
     flagsCopy = flags;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Show password: %@ with flags: %u", &v11, 0x12u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Show password: %@ with flags: %u", &v12, 0x12u);
   }
 
   observer = [(MSDRapportDeviceAdvertiser *)self observer];
@@ -292,12 +292,12 @@
   queue = [(MSDRapportDeviceAdvertiser *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100063A54();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100063A54(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = flags;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Hide password with flags: %u", v9, 8u);
+    v10[0] = 67109120;
+    v10[1] = flags;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "MSDRapportDeviceAdvertiser: Hide password with flags: %u", v10, 8u);
   }
 
   observer = [(MSDRapportDeviceAdvertiser *)self observer];

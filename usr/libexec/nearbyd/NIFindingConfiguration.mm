@@ -269,12 +269,9 @@
   isObserver = self->_isObserver;
   configType_low = LODWORD(self->_configType);
   descriptionInternal = [(NIDiscoveryToken *)self->_specifiedToken descriptionInternal];
-  v7 = [NIInternalUtils NINearbyObjectUpdateRateToString:self->_preferredUpdateRate];
-  v8 = [NIInternalUtils NINearbyObjectDiscoveryPriorityToString:self->_preferredDiscoveryPriority];
-  discoveryTokenVariant = self->_discoveryTokenVariant;
-  v10 = [NSString stringWithFormat:@"<finder: %d [observer %d], cfg-type: %d, ses-token: %@, rate: %s, disc-prio: %s, camera: %d [client %d], debug-params: %@, disc-token-var: %d>, requested-meas-qual: %d", isFinder, isObserver, configType_low, descriptionInternal, v7, v8, self->_cameraAssistanceEnabled, self->_cameraAssistanceInClientProcess, self->_debugParameters, discoveryTokenVariant, self->_requestedMeasurementQuality];
+  v7 = [NSString stringWithFormat:@"<finder: %d [observer %d], cfg-type: %d, ses-token: %@, rate: %s, disc-prio: %s, camera: %d [client %d], debug-params: %@, disc-token-var: %d>, requested-meas-qual: %d", isFinder, isObserver, configType_low, descriptionInternal, [NIInternalUtils NINearbyObjectUpdateRateToString:self->_preferredUpdateRate], [NIInternalUtils NINearbyObjectDiscoveryPriorityToString:self->_preferredDiscoveryPriority], self->_cameraAssistanceEnabled, self->_cameraAssistanceInClientProcess, self->_debugParameters, self->_discoveryTokenVariant, self->_requestedMeasurementQuality];
 
-  return v10;
+  return v7;
 }
 
 @end

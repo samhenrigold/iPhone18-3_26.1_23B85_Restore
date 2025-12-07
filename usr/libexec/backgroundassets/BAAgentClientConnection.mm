@@ -289,7 +289,7 @@
   v4 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -300,10 +300,11 @@
   cf = 0;
   staticCode = 0;
   bzero(buffer, 0x400uLL);
-  if (proc_pidpath_audittoken(&audittoken, buffer, 0x400u) < 0)
+  v5 = proc_pidpath_audittoken(&audittoken, buffer, 0x400u);
+  if ((v5 & 0x80000000) != 0)
   {
-    v6 = sub_100010584();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100010584(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10004D0BC();
     }
@@ -311,12 +312,12 @@
     goto LABEL_16;
   }
 
-  v5 = [NSString stringWithUTF8String:buffer];
-  v6 = v5;
-  if (!v5 || ![v5 length])
+  v6 = [NSString stringWithUTF8String:buffer];
+  v7 = v6;
+  if (!v6 || (v6 = [v6 length]) == 0)
   {
-    v11 = sub_100010584();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100010584(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10004D080();
     }
@@ -325,11 +326,11 @@
   }
 
   token = audittoken;
-  v7 = SecTaskCreateWithAuditToken(kCFAllocatorDefault, &token);
-  if (!v7)
+  v8 = SecTaskCreateWithAuditToken(kCFAllocatorDefault, &token);
+  if (!v8)
   {
-    v11 = sub_100010584();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100010584(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10004D044();
     }
@@ -337,16 +338,17 @@
 LABEL_13:
 
 LABEL_16:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_17;
   }
 
-  v8 = v7;
-  v9 = [NSURL fileURLWithPath:v6];
-  if (SecStaticCodeCreateWithPath(v9, 0, &staticCode))
+  v9 = v8;
+  v10 = [NSURL fileURLWithPath:v7];
+  v11 = SecStaticCodeCreateWithPath(v10, 0, &staticCode);
+  if (v11)
   {
-    v10 = sub_100010584();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100010584(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10004C8DC();
     }
@@ -354,10 +356,11 @@ LABEL_16:
     goto LABEL_83;
   }
 
-  if (SecCodeCopySigningInformation(staticCode, 0, &cf))
+  v15 = SecCodeCopySigningInformation(staticCode, 0, &cf);
+  if (v15)
   {
-    v10 = sub_100010584();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100010584(v15);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10004C950();
     }
@@ -365,11 +368,11 @@ LABEL_16:
     goto LABEL_83;
   }
 
-  v13 = CFDictionaryGetValue(cf, kSecCodeInfoPList);
-  if (!v13)
+  v16 = CFDictionaryGetValue(cf, kSecCodeInfoPList);
+  if (!v16)
   {
-    v10 = sub_100010584();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100010584(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10004D008();
     }
@@ -377,24 +380,24 @@ LABEL_16:
     goto LABEL_83;
   }
 
-  v10 = v13;
-  v14 = [v13 objectForKey:@"EXAppExtensionAttributes"];
-  if (v14)
+  v12 = v16;
+  v17 = [v16 objectForKey:@"EXAppExtensionAttributes"];
+  if (v17)
   {
 
     goto LABEL_33;
   }
 
-  v15 = [v10 objectForKey:@"NSExtension"];
+  v18 = [v12 objectForKey:@"NSExtension"];
 
-  if (v15)
+  if (v18)
   {
 LABEL_33:
-    v16 = [v10 objectForKey:kCFBundleIdentifierKey];
-    if (!v16)
+    v19 = [v12 objectForKey:kCFBundleIdentifierKey];
+    if (!v19)
     {
-      v17 = sub_100010584();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v20 = sub_100010584(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_10004CB78();
       }
@@ -402,64 +405,67 @@ LABEL_33:
       goto LABEL_82;
     }
 
-    v17 = v16;
-    v65 = 0;
+    v20 = v19;
+    v80 = 0;
     token = audittoken;
-    v18 = [LSBundleRecord bundleRecordForAuditToken:&token error:&v65];
-    v19 = v65;
-    if (v18)
+    v21 = [LSBundleRecord bundleRecordForAuditToken:&token error:&v80];
+    v22 = v80;
+    v23 = v22;
+    if (v21)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        bundleIdentifier = [v18 bundleIdentifier];
+        bundleIdentifier = [v21 bundleIdentifier];
         [(BAAgentClientConnection *)self setClientBundleIdentifier:bundleIdentifier];
 
         clientBundleIdentifier = [(BAAgentClientConnection *)self clientBundleIdentifier];
         if (clientBundleIdentifier)
         {
-          v22 = clientBundleIdentifier;
+          v27 = clientBundleIdentifier;
           [(BAAgentClientConnection *)self clientBundleIdentifier];
-          v23 = v61 = v19;
-          v24 = [v23 length];
+          v28 = v76 = v23;
+          v29 = [v28 length];
 
-          v19 = v61;
-          if (v24)
+          v23 = v76;
+          if (v29)
           {
-            containingBundleRecord = [v18 containingBundleRecord];
+            containingBundleRecord = [v21 containingBundleRecord];
             objc_opt_class();
-            if ((objc_opt_isKindOfClass() & 1) == 0 || ([containingBundleRecord bundleIdentifier], (_baassets_stringByRemovingLastIdentifierComponent = objc_claimAutoreleasedReturnValue()) == 0))
+            v31 = objc_opt_isKindOfClass();
+            if ((v31 & 1) == 0 || ([containingBundleRecord bundleIdentifier], v31 = objc_claimAutoreleasedReturnValue(), (_baassets_stringByRemovingLastIdentifierComponent = v31) == 0))
             {
-              v27 = sub_100010584();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+              v33 = sub_100010584(v31);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
                 sub_10004CA54();
               }
 
-              _baassets_stringByRemovingLastIdentifierComponent = [v17 _baassets_stringByRemovingLastIdentifierComponent];
+              _baassets_stringByRemovingLastIdentifierComponent = [v20 _baassets_stringByRemovingLastIdentifierComponent];
             }
 
             [(BAAgentClientConnection *)self setApplicationBundleIdentifier:_baassets_stringByRemovingLastIdentifierComponent];
             applicationBundleIdentifier = [(BAAgentClientConnection *)self applicationBundleIdentifier];
             if (applicationBundleIdentifier)
             {
-              v29 = applicationBundleIdentifier;
+              v35 = applicationBundleIdentifier;
               [(BAAgentClientConnection *)self applicationBundleIdentifier];
-              v30 = v60 = containingBundleRecord;
-              v59 = [v30 length];
+              v36 = v75 = containingBundleRecord;
+              v74 = [v36 length];
 
-              containingBundleRecord = v60;
-              if (v59)
+              containingBundleRecord = v75;
+              if (v74)
               {
-                -[BAAgentClientConnection setIsAppClip:](self, "setIsAppClip:", [v60 ba_isAppClip]);
+                -[BAAgentClientConnection setIsAppClip:](self, "setIsAppClip:", [v75 ba_isAppClip]);
                 [(BAAgentClientConnection *)self setIsApplication:0];
 
                 goto LABEL_56;
               }
             }
 
-            v53 = sub_100010584();
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+            v67 = sub_100010584(applicationBundleIdentifier);
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
             {
               sub_10004CA90();
             }
@@ -469,8 +475,8 @@ LABEL_81:
           }
         }
 
-        v31 = sub_100010584();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v37 = sub_100010584(clientBundleIdentifier);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           sub_10004CACC();
         }
@@ -478,18 +484,18 @@ LABEL_81:
 
       else
       {
-        v31 = sub_100010584();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v37 = sub_100010584(isKindOfClass);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          sub_10004C9C4();
+          sub_10004C9C4(v21);
         }
       }
     }
 
     else
     {
-      v31 = sub_100010584();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v37 = sub_100010584(v22);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         sub_10004CB08();
       }
@@ -498,14 +504,15 @@ LABEL_81:
     goto LABEL_82;
   }
 
-  v64 = 0;
+  v79 = 0;
   token = audittoken;
-  _baassets_stringByRemovingLastIdentifierComponent = [LSBundleRecord bundleRecordForAuditToken:&token error:&v64];
-  v17 = v64;
+  _baassets_stringByRemovingLastIdentifierComponent = [LSBundleRecord bundleRecordForAuditToken:&token error:&v79];
+  v38 = v79;
+  v20 = v38;
   if (!_baassets_stringByRemovingLastIdentifierComponent)
   {
-    v52 = sub_100010584();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v66 = sub_100010584(v38);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       sub_10004CB08();
     }
@@ -514,12 +521,13 @@ LABEL_81:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v39 = objc_opt_isKindOfClass();
+  if ((v39 & 1) == 0)
   {
-    v52 = sub_100010584();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v66 = sub_100010584(v39);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      sub_10004CBB4();
+      sub_10004CBB4(_baassets_stringByRemovingLastIdentifierComponent);
     }
 
     goto LABEL_80;
@@ -535,8 +543,8 @@ LABEL_81:
 
   if (!applicationBundleIdentifier3)
   {
-    v52 = sub_100010584();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v66 = sub_100010584(v43);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       sub_10004CF98();
     }
@@ -551,38 +559,39 @@ LABEL_80:
 LABEL_56:
 
   applicationBundleIdentifier4 = [(BAAgentClientConnection *)self applicationBundleIdentifier];
-  v17 = [LSApplicationProxy applicationProxyForIdentifier:applicationBundleIdentifier4];
+  v20 = [LSApplicationProxy applicationProxyForIdentifier:applicationBundleIdentifier4];
 
-  if (v17)
+  if (v20)
   {
-    v36 = [[FBSApplicationInfo alloc] initWithApplicationProxy:v17];
-    if (v36)
+    v46 = [[FBSApplicationInfo alloc] initWithApplicationProxy:v20];
+    if (v46)
     {
-      v37 = v36;
-      if ([v36 unauthoritativeTrustState]== 8)
+      v47 = v46;
+      unauthoritativeTrustState = [v46 unauthoritativeTrustState];
+      if (unauthoritativeTrustState == 8)
       {
-        v62 = v37;
+        v77 = v47;
         applicationBundleIdentifier5 = [(BAAgentClientConnection *)self applicationBundleIdentifier];
         applicationBundleIdentifier6 = [(BAAgentClientConnection *)self applicationBundleIdentifier];
         _baassets_validUTI = [applicationBundleIdentifier6 _baassets_validUTI];
-        v41 = [applicationBundleIdentifier5 isEqualToString:_baassets_validUTI];
+        v52 = [applicationBundleIdentifier5 isEqualToString:_baassets_validUTI];
 
-        if (v41)
+        if (v52)
         {
           clientBundleIdentifier2 = [(BAAgentClientConnection *)self clientBundleIdentifier];
           clientBundleIdentifier3 = [(BAAgentClientConnection *)self clientBundleIdentifier];
           _baassets_validUTI2 = [clientBundleIdentifier3 _baassets_validUTI];
-          v45 = [clientBundleIdentifier2 isEqualToString:_baassets_validUTI2];
+          v57 = [clientBundleIdentifier2 isEqualToString:_baassets_validUTI2];
 
-          if (v45)
+          if (v57)
           {
             error = 0;
-            v46 = SecTaskCopySigningIdentifier(v8, &error);
-            [(BAAgentClientConnection *)self setSigningIdentifier:v46];
+            v59 = SecTaskCopySigningIdentifier(v9, &error);
+            [(BAAgentClientConnection *)self setSigningIdentifier:v59];
 
             signingIdentifier = [(BAAgentClientConnection *)self signingIdentifier];
 
-            v48 = error;
+            v62 = error;
             if (signingIdentifier)
             {
               if (error)
@@ -591,26 +600,26 @@ LABEL_56:
               }
 
               isApplication = [(BAAgentClientConnection *)self isApplication];
-              v50 = +[BAAgentCore sharedCore];
+              v64 = +[BAAgentCore sharedCore];
               applicationBundleIdentifier7 = [(BAAgentClientConnection *)self applicationBundleIdentifier];
               if (isApplication)
               {
-                [v50 handleApplicationLaunched:applicationBundleIdentifier7];
+                [v64 handleApplicationLaunched:applicationBundleIdentifier7];
               }
 
               else
               {
-                v58 = [v50 applicationInfoForIdentifier:applicationBundleIdentifier7];
+                v73 = [v64 applicationInfoForIdentifier:applicationBundleIdentifier7];
 
-                [v58 setApplicationExtensionState:4];
+                [v73 setApplicationExtensionState:4];
               }
 
-              v12 = 1;
+              v14 = 1;
               goto LABEL_84;
             }
 
-            v57 = sub_100010584();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+            v72 = sub_100010584(v61);
+            if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
             {
               sub_10004CE10();
             }
@@ -618,8 +627,8 @@ LABEL_56:
 
           else
           {
-            v56 = sub_100010584();
-            if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+            v71 = sub_100010584(v58);
+            if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
             {
               sub_10004CD84(self);
             }
@@ -630,8 +639,8 @@ LABEL_56:
 
         else
         {
-          v55 = sub_100010584();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+          v70 = sub_100010584(v53);
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
           {
             sub_10004CCF8(self);
           }
@@ -642,17 +651,18 @@ LABEL_56:
         goto LABEL_82;
       }
 
-      v54 = sub_100010584();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      v68 = unauthoritativeTrustState;
+      v69 = sub_100010584(unauthoritativeTrustState);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
-        sub_10004CC44(self);
+        sub_10004CC44(self, v68);
       }
     }
 
     else
     {
-      v37 = sub_100010584();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v47 = sub_100010584(0);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         sub_10004CE80(self);
       }
@@ -661,8 +671,8 @@ LABEL_56:
 
   else
   {
-    v17 = sub_100010584();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = sub_100010584(v45);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_10004CF0C(self);
     }
@@ -671,11 +681,11 @@ LABEL_56:
 LABEL_82:
 
 LABEL_83:
-  v12 = 0;
+  v14 = 0;
 LABEL_84:
 
-  CFRelease(v8);
-  v6 = v9;
+  CFRelease(v9);
+  v7 = v10;
 LABEL_17:
 
   if (staticCode)
@@ -688,7 +698,7 @@ LABEL_17:
     CFRelease(cf);
   }
 
-  [(BAAgentClientConnection *)self setConnectionIsValid:v12, v59];
+  [(BAAgentClientConnection *)self setConnectionIsValid:v14, v74];
 }
 
 - (BOOL)_entitledForCloudKitWithDownload:(id)download outError:(id *)error
@@ -1069,39 +1079,32 @@ LABEL_35:
 
 - (id)extendClientSandboxForStagedURL:(id)l allowWrites:(BOOL)writes
 {
-  v6 = &APP_SANDBOX_READ_WRITE;
-  if (!writes)
-  {
-    v6 = &APP_SANDBOX_READ;
-  }
-
-  v7 = *v6;
   lCopy = l;
   [l fileSystemRepresentation];
   connection = [(BAAgentConnection *)self connection];
-  v10 = connection;
+  v8 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
-  v11 = sandbox_extension_issue_file_to_process();
+  v9 = sandbox_extension_issue_file_to_process();
 
-  v12 = *__error();
-  if (v11)
+  v10 = *__error();
+  if (v9)
   {
-    v13 = [NSString stringWithCString:v11 encoding:4];
-    free(v11);
+    v11 = [NSString stringWithCString:v9 encoding:4];
+    free(v9);
   }
 
   else
   {
-    v13 = 0;
+    v11 = 0;
   }
 
-  *__error() = v12;
+  *__error() = v10;
 
-  return v13;
+  return v11;
 }
 
 - (NSString)debugDescription

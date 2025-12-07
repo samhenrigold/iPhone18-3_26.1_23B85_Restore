@@ -1,8 +1,11 @@
 @interface AWDProactiveAppPredictionIntentPredictionSession
 - (BOOL)isEqual:(id)equal;
+- (id)consumerSubTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)currentLOITypeAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)engagementTypeAsString:(int)string;
 - (int)StringAsConsumerSubType:(id)type;
 - (int)StringAsCurrentLOIType:(id)type;
 - (int)StringAsEngagementType:(id)type;
@@ -111,6 +114,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFF7 | v3);
+}
+
+- (id)consumerSubTypeAsString:(int)string
+{
+  if (string >= 0x28)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2785A2300[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsConsumerSubType:(id)type
@@ -352,6 +370,21 @@
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
 }
 
+- (id)currentLOITypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2785A2440[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCurrentLOIType:(id)type
 {
   typeCopy = type;
@@ -440,6 +473,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFBF | v3);
+}
+
+- (id)engagementTypeAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2785A2460[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEngagementType:(id)type
@@ -807,7 +855,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -818,30 +866,30 @@
   if ([(NSMutableArray *)self->_actionDatas count])
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_actionDatas, "count")}];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v6 = self->_actionDatas;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v52 objects:v56 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v51 objects:v55 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v53;
+      v9 = *v52;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v53 != v9)
+          if (*v52 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          dictionaryRepresentation = [*(*(&v52 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v51 + 1) + 8 * i) dictionaryRepresentation];
           [v5 addObject:dictionaryRepresentation];
         }
 
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v52 objects:v56 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v51 objects:v55 count:16];
       }
 
       while (v8);
@@ -869,15 +917,15 @@
     consumerSubType = self->_consumerSubType;
     if (consumerSubType >= 0x28)
     {
-      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_consumerSubType];
+      v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_consumerSubType];
     }
 
     else
     {
-      v30 = off_2785A2300[consumerSubType];
+      v29 = off_2785A2300[consumerSubType];
     }
 
-    [dictionary setObject:v30 forKey:@"consumerSubType"];
+    [dictionary setObject:v29 forKey:@"consumerSubType"];
 
     has = self->_has;
     if ((*&has & 0x10) == 0)
@@ -900,15 +948,15 @@ LABEL_18:
   currentLOIType = self->_currentLOIType;
   if (currentLOIType >= 4)
   {
-    v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_currentLOIType];
+    v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_currentLOIType];
   }
 
   else
   {
-    v40 = off_2785A2440[currentLOIType];
+    v39 = off_2785A2440[currentLOIType];
   }
 
-  [dictionary setObject:v40 forKey:@"currentLOIType"];
+  [dictionary setObject:v39 forKey:@"currentLOIType"];
 
   if ((*&self->_has & 0x20) != 0)
   {
@@ -927,15 +975,15 @@ LABEL_20:
     engagementType = self->_engagementType;
     if (engagementType >= 0xB)
     {
-      v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_engagementType];
+      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_engagementType];
     }
 
     else
     {
-      v32 = off_2785A2460[engagementType];
+      v31 = off_2785A2460[engagementType];
     }
 
-    [dictionary setObject:v32 forKey:@"engagementType"];
+    [dictionary setObject:v31 forKey:@"engagementType"];
 
     v18 = self->_has;
     if ((*&v18 & 0x800000) == 0)
@@ -955,8 +1003,8 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v41 = [MEMORY[0x277CCABB0] numberWithBool:self->_inAirplaneMode];
-  [dictionary setObject:v41 forKey:@"inAirplaneMode"];
+  v40 = [MEMORY[0x277CCABB0] numberWithBool:self->_inAirplaneMode];
+  [dictionary setObject:v40 forKey:@"inAirplaneMode"];
 
   v18 = self->_has;
   if ((*&v18 & 0x80) == 0)
@@ -971,8 +1019,8 @@ LABEL_23:
   }
 
 LABEL_67:
-  v42 = [MEMORY[0x277CCABB0] numberWithInt:self->_intentDonationDelay];
-  [dictionary setObject:v42 forKey:@"intentDonationDelay"];
+  v41 = [MEMORY[0x277CCABB0] numberWithInt:self->_intentDonationDelay];
+  [dictionary setObject:v41 forKey:@"intentDonationDelay"];
 
   v18 = self->_has;
   if ((*&v18 & 0x1000000) == 0)
@@ -987,8 +1035,8 @@ LABEL_24:
   }
 
 LABEL_68:
-  v43 = [MEMORY[0x277CCABB0] numberWithBool:self->_isInternalBuild];
-  [dictionary setObject:v43 forKey:@"isInternalBuild"];
+  v42 = [MEMORY[0x277CCABB0] numberWithBool:self->_isInternalBuild];
+  [dictionary setObject:v42 forKey:@"isInternalBuild"];
 
   v18 = self->_has;
   if ((*&v18 & 0x400) == 0)
@@ -1003,8 +1051,8 @@ LABEL_25:
   }
 
 LABEL_69:
-  v44 = [MEMORY[0x277CCABB0] numberWithInt:self->_logType];
-  [dictionary setObject:v44 forKey:@"logType"];
+  v43 = [MEMORY[0x277CCABB0] numberWithInt:self->_logType];
+  [dictionary setObject:v43 forKey:@"logType"];
 
   v18 = self->_has;
   if ((*&v18 & 0x800) == 0)
@@ -1019,8 +1067,8 @@ LABEL_26:
   }
 
 LABEL_70:
-  v45 = [MEMORY[0x277CCABB0] numberWithInt:self->_predictionAge];
-  [dictionary setObject:v45 forKey:@"predictionAge"];
+  v44 = [MEMORY[0x277CCABB0] numberWithInt:self->_predictionAge];
+  [dictionary setObject:v44 forKey:@"predictionAge"];
 
   v18 = self->_has;
   if ((*&v18 & 0x2000) == 0)
@@ -1035,8 +1083,8 @@ LABEL_27:
   }
 
 LABEL_71:
-  v46 = [MEMORY[0x277CCABB0] numberWithInt:self->_timeOfDayInterval];
-  [dictionary setObject:v46 forKey:@"timeOfDayInterval"];
+  v45 = [MEMORY[0x277CCABB0] numberWithInt:self->_timeOfDayInterval];
+  [dictionary setObject:v45 forKey:@"timeOfDayInterval"];
 
   v18 = self->_has;
   if ((*&v18 & 0x4000) == 0)
@@ -1051,8 +1099,8 @@ LABEL_28:
   }
 
 LABEL_72:
-  v47 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppActionAirplaneModeLaunches];
-  [dictionary setObject:v47 forKey:@"totalAppActionAirplaneModeLaunches"];
+  v46 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppActionAirplaneModeLaunches];
+  [dictionary setObject:v46 forKey:@"totalAppActionAirplaneModeLaunches"];
 
   v18 = self->_has;
   if ((*&v18 & 0x10000) == 0)
@@ -1067,8 +1115,8 @@ LABEL_29:
   }
 
 LABEL_73:
-  v48 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppActionCurrentDayOfWeekLaunches];
-  [dictionary setObject:v48 forKey:@"totalAppActionCurrentDayOfWeekLaunches"];
+  v47 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppActionCurrentDayOfWeekLaunches];
+  [dictionary setObject:v47 forKey:@"totalAppActionCurrentDayOfWeekLaunches"];
 
   v18 = self->_has;
   if ((*&v18 & 0x80000) == 0)
@@ -1083,8 +1131,8 @@ LABEL_30:
   }
 
 LABEL_74:
-  v49 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppForAllActionsAirplaneModeLaunches];
-  [dictionary setObject:v49 forKey:@"totalAppForAllActionsAirplaneModeLaunches"];
+  v48 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppForAllActionsAirplaneModeLaunches];
+  [dictionary setObject:v48 forKey:@"totalAppForAllActionsAirplaneModeLaunches"];
 
   v18 = self->_has;
   if ((*&v18 & 0x200000) == 0)
@@ -1099,8 +1147,8 @@ LABEL_31:
   }
 
 LABEL_75:
-  v50 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppForAllActionsCurrentDayOfWeekLaunches];
-  [dictionary setObject:v50 forKey:@"totalAppForAllActionsCurrentDayOfWeekLaunches"];
+  v49 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppForAllActionsCurrentDayOfWeekLaunches];
+  [dictionary setObject:v49 forKey:@"totalAppForAllActionsCurrentDayOfWeekLaunches"];
 
   v18 = self->_has;
   if ((*&v18 & 0x400000) == 0)
@@ -1115,8 +1163,8 @@ LABEL_32:
   }
 
 LABEL_76:
-  v51 = [MEMORY[0x277CCABB0] numberWithInt:self->_uiFeedbackDelay];
-  [dictionary setObject:v51 forKey:@"uiFeedbackDelay"];
+  v50 = [MEMORY[0x277CCABB0] numberWithInt:self->_uiFeedbackDelay];
+  [dictionary setObject:v50 forKey:@"uiFeedbackDelay"];
 
   if ((*&self->_has & 0x1000) != 0)
   {
@@ -1135,8 +1183,8 @@ LABEL_34:
   v21 = self->_has;
   if ((*&v21 & 4) != 0)
   {
-    v33 = [MEMORY[0x277CCABB0] numberWithInt:self->_appForAllActionsCoreMotionCurrentMotionLaunches];
-    [dictionary setObject:v33 forKey:@"appForAllActionsCoreMotionCurrentMotionLaunches"];
+    v32 = [MEMORY[0x277CCABB0] numberWithInt:self->_appForAllActionsCoreMotionCurrentMotionLaunches];
+    [dictionary setObject:v32 forKey:@"appForAllActionsCoreMotionCurrentMotionLaunches"];
 
     v21 = self->_has;
     if ((*&v21 & 0x100) == 0)
@@ -1156,8 +1204,8 @@ LABEL_38:
     goto LABEL_38;
   }
 
-  v34 = [MEMORY[0x277CCABB0] numberWithInt:self->_locationDistanceFromHome];
-  [dictionary setObject:v34 forKey:@"locationDistanceFromHome"];
+  v33 = [MEMORY[0x277CCABB0] numberWithInt:self->_locationDistanceFromHome];
+  [dictionary setObject:v33 forKey:@"locationDistanceFromHome"];
 
   v21 = self->_has;
   if ((*&v21 & 0x200) == 0)
@@ -1172,8 +1220,8 @@ LABEL_39:
   }
 
 LABEL_55:
-  v35 = [MEMORY[0x277CCABB0] numberWithInt:self->_locationDistanceFromWork];
-  [dictionary setObject:v35 forKey:@"locationDistanceFromWork"];
+  v34 = [MEMORY[0x277CCABB0] numberWithInt:self->_locationDistanceFromWork];
+  [dictionary setObject:v34 forKey:@"locationDistanceFromWork"];
 
   v21 = self->_has;
   if ((*&v21 & 0x20000) == 0)
@@ -1188,8 +1236,8 @@ LABEL_40:
   }
 
 LABEL_56:
-  v36 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppActionTimeOfDayLaunches];
-  [dictionary setObject:v36 forKey:@"totalAppActionTimeOfDayLaunches"];
+  v35 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppActionTimeOfDayLaunches];
+  [dictionary setObject:v35 forKey:@"totalAppActionTimeOfDayLaunches"];
 
   v21 = self->_has;
   if ((*&v21 & 0x40000) == 0)
@@ -1204,8 +1252,8 @@ LABEL_41:
   }
 
 LABEL_57:
-  v37 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppForAllActionTimeOfDayLaunches];
-  [dictionary setObject:v37 forKey:@"totalAppForAllActionTimeOfDayLaunches"];
+  v36 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppForAllActionTimeOfDayLaunches];
+  [dictionary setObject:v36 forKey:@"totalAppForAllActionTimeOfDayLaunches"];
 
   v21 = self->_has;
   if ((*&v21 & 0x8000) == 0)
@@ -1220,8 +1268,8 @@ LABEL_42:
   }
 
 LABEL_58:
-  v38 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppActionCoarseTimeOfDayLaunches];
-  [dictionary setObject:v38 forKey:@"totalAppActionCoarseTimeOfDayLaunches"];
+  v37 = [MEMORY[0x277CCABB0] numberWithInt:self->_totalAppActionCoarseTimeOfDayLaunches];
+  [dictionary setObject:v37 forKey:@"totalAppActionCoarseTimeOfDayLaunches"];
 
   if ((*&self->_has & 0x100000) != 0)
   {
@@ -1246,52 +1294,51 @@ LABEL_44:
 
   v26 = dictionary;
 
-  v27 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v6 = self->_actionDatas;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v42 objects:v46 count:16];
-  if (v7)
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = self->_actionDatas;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v43;
+    v7 = v6;
+    v8 = *v15;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v9 = 0;
+      do
       {
-        if (*v43 != v9)
+        if (*v15 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v42 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v9;
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    appActionCoreMotionCurrentMotionLaunches = self->_appActionCoreMotionCurrentMotionLaunches;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1303,7 +1350,6 @@ LABEL_44:
   has = self->_has;
   if ((*&has & 8) != 0)
   {
-    consumerSubType = self->_consumerSubType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((*&has & 0x10) == 0)
@@ -1323,39 +1369,35 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  currentLOIType = self->_currentLOIType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_17:
-    dayOfWeek = self->_dayOfWeek;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_18:
   if (self->_engagedActionCacheIndices.count)
   {
-    v15 = 0;
+    v11 = 0;
     do
     {
-      v16 = self->_engagedActionCacheIndices.list[v15];
       PBDataWriterWriteInt32Field();
-      ++v15;
+      ++v11;
     }
 
-    while (v15 < self->_engagedActionCacheIndices.count);
+    while (v11 < self->_engagedActionCacheIndices.count);
   }
 
-  v17 = self->_has;
-  if ((*&v17 & 0x40) != 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x40) != 0)
   {
-    engagementType = self->_engagementType;
     PBDataWriterWriteInt32Field();
-    v17 = self->_has;
-    if ((*&v17 & 0x800000) == 0)
+    v12 = self->_has;
+    if ((*&v12 & 0x800000) == 0)
     {
 LABEL_23:
-      if ((*&v17 & 0x80) == 0)
+      if ((*&v12 & 0x80) == 0)
       {
         goto LABEL_24;
       }
@@ -1364,18 +1406,17 @@ LABEL_23:
     }
   }
 
-  else if ((*&v17 & 0x800000) == 0)
+  else if ((*&v12 & 0x800000) == 0)
   {
     goto LABEL_23;
   }
 
-  inAirplaneMode = self->_inAirplaneMode;
   PBDataWriterWriteBOOLField();
-  v17 = self->_has;
-  if ((*&v17 & 0x80) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x80) == 0)
   {
 LABEL_24:
-    if ((*&v17 & 0x1000000) == 0)
+    if ((*&v12 & 0x1000000) == 0)
     {
       goto LABEL_25;
     }
@@ -1384,13 +1425,12 @@ LABEL_24:
   }
 
 LABEL_55:
-  intentDonationDelay = self->_intentDonationDelay;
   PBDataWriterWriteInt32Field();
-  v17 = self->_has;
-  if ((*&v17 & 0x1000000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x1000000) == 0)
   {
 LABEL_25:
-    if ((*&v17 & 0x400) == 0)
+    if ((*&v12 & 0x400) == 0)
     {
       goto LABEL_26;
     }
@@ -1399,13 +1439,12 @@ LABEL_25:
   }
 
 LABEL_56:
-  isInternalBuild = self->_isInternalBuild;
   PBDataWriterWriteBOOLField();
-  v17 = self->_has;
-  if ((*&v17 & 0x400) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x400) == 0)
   {
 LABEL_26:
-    if ((*&v17 & 0x800) == 0)
+    if ((*&v12 & 0x800) == 0)
     {
       goto LABEL_27;
     }
@@ -1414,13 +1453,12 @@ LABEL_26:
   }
 
 LABEL_57:
-  logType = self->_logType;
   PBDataWriterWriteInt32Field();
-  v17 = self->_has;
-  if ((*&v17 & 0x800) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x800) == 0)
   {
 LABEL_27:
-    if ((*&v17 & 0x2000) == 0)
+    if ((*&v12 & 0x2000) == 0)
     {
       goto LABEL_28;
     }
@@ -1429,13 +1467,12 @@ LABEL_27:
   }
 
 LABEL_58:
-  predictionAge = self->_predictionAge;
   PBDataWriterWriteInt32Field();
-  v17 = self->_has;
-  if ((*&v17 & 0x2000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x2000) == 0)
   {
 LABEL_28:
-    if ((*&v17 & 0x4000) == 0)
+    if ((*&v12 & 0x4000) == 0)
     {
       goto LABEL_29;
     }
@@ -1444,13 +1481,12 @@ LABEL_28:
   }
 
 LABEL_59:
-  timeOfDayInterval = self->_timeOfDayInterval;
   PBDataWriterWriteInt32Field();
-  v17 = self->_has;
-  if ((*&v17 & 0x4000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x4000) == 0)
   {
 LABEL_29:
-    if ((*&v17 & 0x10000) == 0)
+    if ((*&v12 & 0x10000) == 0)
     {
       goto LABEL_30;
     }
@@ -1459,13 +1495,12 @@ LABEL_29:
   }
 
 LABEL_60:
-  totalAppActionAirplaneModeLaunches = self->_totalAppActionAirplaneModeLaunches;
   PBDataWriterWriteInt32Field();
-  v17 = self->_has;
-  if ((*&v17 & 0x10000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x10000) == 0)
   {
 LABEL_30:
-    if ((*&v17 & 0x80000) == 0)
+    if ((*&v12 & 0x80000) == 0)
     {
       goto LABEL_31;
     }
@@ -1474,13 +1509,12 @@ LABEL_30:
   }
 
 LABEL_61:
-  totalAppActionCurrentDayOfWeekLaunches = self->_totalAppActionCurrentDayOfWeekLaunches;
   PBDataWriterWriteInt32Field();
-  v17 = self->_has;
-  if ((*&v17 & 0x80000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x80000) == 0)
   {
 LABEL_31:
-    if ((*&v17 & 0x200000) == 0)
+    if ((*&v12 & 0x200000) == 0)
     {
       goto LABEL_32;
     }
@@ -1489,13 +1523,12 @@ LABEL_31:
   }
 
 LABEL_62:
-  totalAppForAllActionsAirplaneModeLaunches = self->_totalAppForAllActionsAirplaneModeLaunches;
   PBDataWriterWriteInt32Field();
-  v17 = self->_has;
-  if ((*&v17 & 0x200000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x200000) == 0)
   {
 LABEL_32:
-    if ((*&v17 & 0x400000) == 0)
+    if ((*&v12 & 0x400000) == 0)
     {
       goto LABEL_33;
     }
@@ -1504,13 +1537,12 @@ LABEL_32:
   }
 
 LABEL_63:
-  totalAppForAllActionsCurrentDayOfWeekLaunches = self->_totalAppForAllActionsCurrentDayOfWeekLaunches;
   PBDataWriterWriteInt32Field();
-  v17 = self->_has;
-  if ((*&v17 & 0x400000) == 0)
+  v12 = self->_has;
+  if ((*&v12 & 0x400000) == 0)
   {
 LABEL_33:
-    if ((*&v17 & 0x1000) == 0)
+    if ((*&v12 & 0x1000) == 0)
     {
       goto LABEL_35;
     }
@@ -1519,12 +1551,10 @@ LABEL_33:
   }
 
 LABEL_64:
-  uiFeedbackDelay = self->_uiFeedbackDelay;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_34:
-    sessionLogVersion = self->_sessionLogVersion;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1534,16 +1564,15 @@ LABEL_35:
     PBDataWriterWriteStringField();
   }
 
-  v19 = self->_has;
-  if ((*&v19 & 4) != 0)
+  v13 = self->_has;
+  if ((*&v13 & 4) != 0)
   {
-    appForAllActionsCoreMotionCurrentMotionLaunches = self->_appForAllActionsCoreMotionCurrentMotionLaunches;
     PBDataWriterWriteInt32Field();
-    v19 = self->_has;
-    if ((*&v19 & 0x100) == 0)
+    v13 = self->_has;
+    if ((*&v13 & 0x100) == 0)
     {
 LABEL_39:
-      if ((*&v19 & 0x200) == 0)
+      if ((*&v13 & 0x200) == 0)
       {
         goto LABEL_40;
       }
@@ -1552,18 +1581,17 @@ LABEL_39:
     }
   }
 
-  else if ((*&v19 & 0x100) == 0)
+  else if ((*&v13 & 0x100) == 0)
   {
     goto LABEL_39;
   }
 
-  locationDistanceFromHome = self->_locationDistanceFromHome;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x200) == 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x200) == 0)
   {
 LABEL_40:
-    if ((*&v19 & 0x20000) == 0)
+    if ((*&v13 & 0x20000) == 0)
     {
       goto LABEL_41;
     }
@@ -1572,13 +1600,12 @@ LABEL_40:
   }
 
 LABEL_68:
-  locationDistanceFromWork = self->_locationDistanceFromWork;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x20000) == 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x20000) == 0)
   {
 LABEL_41:
-    if ((*&v19 & 0x40000) == 0)
+    if ((*&v13 & 0x40000) == 0)
     {
       goto LABEL_42;
     }
@@ -1587,13 +1614,12 @@ LABEL_41:
   }
 
 LABEL_69:
-  totalAppActionTimeOfDayLaunches = self->_totalAppActionTimeOfDayLaunches;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x40000) == 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x40000) == 0)
   {
 LABEL_42:
-    if ((*&v19 & 0x8000) == 0)
+    if ((*&v13 & 0x8000) == 0)
     {
       goto LABEL_43;
     }
@@ -1602,13 +1628,12 @@ LABEL_42:
   }
 
 LABEL_70:
-  totalAppForAllActionTimeOfDayLaunches = self->_totalAppForAllActionTimeOfDayLaunches;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x8000) == 0)
+  v13 = self->_has;
+  if ((*&v13 & 0x8000) == 0)
   {
 LABEL_43:
-    if ((*&v19 & 0x100000) == 0)
+    if ((*&v13 & 0x100000) == 0)
     {
       goto LABEL_45;
     }
@@ -1617,12 +1642,10 @@ LABEL_43:
   }
 
 LABEL_71:
-  totalAppActionCoarseTimeOfDayLaunches = self->_totalAppActionCoarseTimeOfDayLaunches;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x100000) != 0)
   {
 LABEL_44:
-    totalAppForAllActionsCoarseTimeOfDayLaunches = self->_totalAppForAllActionsCoarseTimeOfDayLaunches;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1636,8 +1659,6 @@ LABEL_45:
   {
     PBDataWriterWriteStringField();
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -2026,7 +2047,7 @@ LABEL_43:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -2035,34 +2056,34 @@ LABEL_43:
     *(v5 + 184) |= 1u;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v7 = self->_actionDatas;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       v11 = 0;
       do
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v26 + 1) + 8 * v11) copyWithZone:{zone, v26}];
+        v12 = [*(*(&v25 + 1) + 8 * v11) copyWithZone:{zone, v25}];
         [v6 addActionData:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v9);
@@ -2074,7 +2095,7 @@ LABEL_43:
     *(v6 + 184) |= 2u;
   }
 
-  v13 = [(AWDProactiveAppPredictionAppLaunchSequence *)self->_appSequence copyWithZone:zone, v26];
+  v13 = [(AWDProactiveAppPredictionAppLaunchSequence *)self->_appSequence copyWithZone:zone, v25];
   v14 = *(v6 + 80);
   *(v6 + 80) = v13;
 
@@ -2400,7 +2421,6 @@ LABEL_38:
   v23 = *(v6 + 128);
   *(v6 + 128) = v22;
 
-  v24 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2506,7 +2526,7 @@ LABEL_38:
   if (!PBRepeatedInt32IsEqual())
   {
 LABEL_147:
-    v19 = 0;
+    v17 = 0;
     goto LABEL_148;
   }
 
@@ -2532,7 +2552,6 @@ LABEL_147:
       goto LABEL_147;
     }
 
-    v13 = *(equalCopy + 180);
     if (self->_inAirplaneMode)
     {
       if ((*(equalCopy + 180) & 1) == 0)
@@ -2572,7 +2591,6 @@ LABEL_147:
       goto LABEL_147;
     }
 
-    v14 = *(equalCopy + 181);
     if (self->_isInternalBuild)
     {
       if ((*(equalCopy + 181) & 1) == 0)
@@ -2722,94 +2740,94 @@ LABEL_147:
   }
 
 LABEL_108:
-  v16 = *(equalCopy + 46);
+  v14 = *(equalCopy + 46);
   if ((*&v11 & 4) != 0)
   {
-    if ((v16 & 4) == 0 || self->_appForAllActionsCoreMotionCurrentMotionLaunches != *(equalCopy + 18))
+    if ((v14 & 4) == 0 || self->_appForAllActionsCoreMotionCurrentMotionLaunches != *(equalCopy + 18))
     {
       goto LABEL_147;
     }
   }
 
-  else if ((v16 & 4) != 0)
+  else if ((v14 & 4) != 0)
   {
     goto LABEL_147;
   }
 
   if ((*&v11 & 0x100) != 0)
   {
-    if ((v16 & 0x100) == 0 || self->_locationDistanceFromHome != *(equalCopy + 27))
+    if ((v14 & 0x100) == 0 || self->_locationDistanceFromHome != *(equalCopy + 27))
     {
       goto LABEL_147;
     }
   }
 
-  else if ((v16 & 0x100) != 0)
+  else if ((v14 & 0x100) != 0)
   {
     goto LABEL_147;
   }
 
   if ((*&v11 & 0x200) != 0)
   {
-    if ((v16 & 0x200) == 0 || self->_locationDistanceFromWork != *(equalCopy + 28))
+    if ((v14 & 0x200) == 0 || self->_locationDistanceFromWork != *(equalCopy + 28))
     {
       goto LABEL_147;
     }
   }
 
-  else if ((v16 & 0x200) != 0)
+  else if ((v14 & 0x200) != 0)
   {
     goto LABEL_147;
   }
 
   if ((*&v11 & 0x20000) != 0)
   {
-    if ((v16 & 0x20000) == 0 || self->_totalAppActionTimeOfDayLaunches != *(equalCopy + 39))
+    if ((v14 & 0x20000) == 0 || self->_totalAppActionTimeOfDayLaunches != *(equalCopy + 39))
     {
       goto LABEL_147;
     }
   }
 
-  else if ((v16 & 0x20000) != 0)
+  else if ((v14 & 0x20000) != 0)
   {
     goto LABEL_147;
   }
 
   if ((*&v11 & 0x40000) != 0)
   {
-    if ((v16 & 0x40000) == 0 || self->_totalAppForAllActionTimeOfDayLaunches != *(equalCopy + 40))
+    if ((v14 & 0x40000) == 0 || self->_totalAppForAllActionTimeOfDayLaunches != *(equalCopy + 40))
     {
       goto LABEL_147;
     }
   }
 
-  else if ((v16 & 0x40000) != 0)
+  else if ((v14 & 0x40000) != 0)
   {
     goto LABEL_147;
   }
 
   if ((*&v11 & 0x8000) != 0)
   {
-    if ((v16 & 0x8000) == 0 || self->_totalAppActionCoarseTimeOfDayLaunches != *(equalCopy + 37))
+    if ((v14 & 0x8000) == 0 || self->_totalAppActionCoarseTimeOfDayLaunches != *(equalCopy + 37))
     {
       goto LABEL_147;
     }
   }
 
-  else if ((v16 & 0x8000) != 0)
+  else if ((v14 & 0x8000) != 0)
   {
     goto LABEL_147;
   }
 
   if ((*&v11 & 0x100000) != 0)
   {
-    if ((v16 & 0x100000) == 0 || self->_totalAppForAllActionsCoarseTimeOfDayLaunches != *(equalCopy + 42))
+    if ((v14 & 0x100000) == 0 || self->_totalAppForAllActionsCoarseTimeOfDayLaunches != *(equalCopy + 42))
     {
       goto LABEL_147;
     }
   }
 
-  else if ((v16 & 0x100000) != 0)
+  else if ((v14 & 0x100000) != 0)
   {
     goto LABEL_147;
   }
@@ -2823,17 +2841,17 @@ LABEL_108:
   sessionId = self->_sessionId;
   if (sessionId | *(equalCopy + 16))
   {
-    v19 = [(NSString *)sessionId isEqual:?];
+    v17 = [(NSString *)sessionId isEqual:?];
   }
 
   else
   {
-    v19 = 1;
+    v17 = 1;
   }
 
 LABEL_148:
 
-  return v19;
+  return v17;
 }
 
 - (unint64_t)hash
@@ -3176,7 +3194,7 @@ LABEL_56:
 
 - (void)mergeFrom:(id)from
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (*(fromCopy + 184))
@@ -3185,29 +3203,29 @@ LABEL_56:
     *&self->_has |= 1u;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = *(fromCopy + 6);
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDProactiveAppPredictionIntentPredictionSession *)self addActionData:*(*(&v22 + 1) + 8 * i), v22];
+        [(AWDProactiveAppPredictionIntentPredictionSession *)self addActionData:*(*(&v21 + 1) + 8 * i), v21];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
@@ -3577,8 +3595,6 @@ LABEL_48:
   {
     [(AWDProactiveAppPredictionIntentPredictionSession *)self setSessionId:?];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

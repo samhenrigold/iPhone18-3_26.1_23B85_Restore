@@ -4,6 +4,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)downloadTypeAsString:(int)string;
+- (id)runStateAsString:(int)string;
 - (int)StringAsDownloadType:(id)type;
 - (int)StringAsRunState:(id)state;
 - (int)downloadType;
@@ -129,6 +131,21 @@ void __31__ADAttributionRequest_options__block_invoke()
   *&self->_has = *&self->_has & 0xBF | v3;
 }
 
+- (id)runStateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C54FC0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRunState:(id)state
 {
   stateCopy = state;
@@ -196,6 +213,21 @@ void __31__ADAttributionRequest_options__block_invoke()
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)downloadTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278C54FD8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDownloadType:(id)type
@@ -398,37 +430,36 @@ LABEL_23:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v15 = toCopy;
+  v7 = toCopy;
   if (self->_iAdID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
   if (self->_tiltID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
   if (self->_anonymousDemandiAdID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    purchaseTimestamp = self->_purchaseTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v15;
+    toCopy = v7;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -447,9 +478,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  iAdConversionTimestamp = self->_iAdConversionTimestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v7;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -463,9 +493,8 @@ LABEL_12:
   }
 
 LABEL_32:
-  iAdImpressionTimestamp = self->_iAdImpressionTimestamp;
   PBDataWriterWriteDoubleField();
-  toCopy = v15;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -479,57 +508,52 @@ LABEL_13:
   }
 
 LABEL_33:
-  attributedByiTunes = self->_attributedByiTunes;
   PBDataWriterWriteBOOLField();
-  toCopy = v15;
+  toCopy = v7;
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_14:
-    runState = self->_runState;
     PBDataWriterWriteInt32Field();
-    toCopy = v15;
+    toCopy = v7;
   }
 
 LABEL_15:
   if (self->_toroID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
   if (self->_dPID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    searchAdClickTimestamp = self->_searchAdClickTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
   if (self->_adMetadata)
   {
     PBDataWriterWriteStringField();
-    toCopy = v15;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if (v8)
+  v6 = self->_has;
+  if (v6)
   {
-    downloadClickTimestamp = self->_downloadClickTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v15;
-    v8 = self->_has;
+    toCopy = v7;
+    v6 = self->_has;
   }
 
-  if ((v8 & 0x20) != 0)
+  if ((v6 & 0x20) != 0)
   {
-    downloadType = self->_downloadType;
     PBDataWriterWriteInt32Field();
-    toCopy = v15;
+    toCopy = v7;
   }
 }
 
@@ -824,7 +848,6 @@ LABEL_7:
     }
   }
 
-  v9 = *(equalCopy + 124);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 124) & 8) == 0 || self->_purchaseTimestamp != *(equalCopy + 4))
@@ -871,7 +894,6 @@ LABEL_7:
       goto LABEL_60;
     }
 
-    v10 = *(equalCopy + 120);
     if (self->_attributedByiTunes)
     {
       if ((*(equalCopy + 120) & 1) == 0)
@@ -920,7 +942,6 @@ LABEL_7:
   }
 
   has = self->_has;
-  v14 = *(equalCopy + 124);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 124) & 0x10) == 0 || self->_searchAdClickTimestamp != *(equalCopy + 5))
@@ -944,7 +965,7 @@ LABEL_7:
     }
 
 LABEL_60:
-    v16 = 0;
+    v13 = 0;
     goto LABEL_61;
   }
 
@@ -969,17 +990,17 @@ LABEL_50:
       goto LABEL_60;
     }
 
-    v16 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v16 = (*(equalCopy + 124) & 0x20) == 0;
+    v13 = (*(equalCopy + 124) & 0x20) == 0;
   }
 
 LABEL_61:
 
-  return v16;
+  return v13;
 }
 
 - (unint64_t)hash

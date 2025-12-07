@@ -1593,9 +1593,9 @@ LABEL_32:
   dispatch_async(workQueue, v7);
 }
 
-uint64_t __46__ATLegacyDeviceSyncManager_sessionWillBegin___block_invoke(uint64_t result)
+void *__46__ATLegacyDeviceSyncManager_sessionWillBegin___block_invoke(void *result)
 {
-  if (*(result + 32) == *(*(result + 40) + 208))
+  if (result[4] == *(result[5] + 208))
   {
     v2 = result;
     ATReportEventIncrementingScalarKey();
@@ -1603,24 +1603,24 @@ uint64_t __46__ATLegacyDeviceSyncManager_sessionWillBegin___block_invoke(uint64_
     proc_disable_cpumon();
     SBSSetStatusBarShowsSyncActivity();
     v3 = [ATLegacyAssetLink alloc];
-    v4 = *(v2 + 40);
+    v4 = v2[5];
     v5 = *(v4 + 72);
     v6 = [*(v4 + 216) valueForKey:@"Version"];
     v7 = [(ATLegacyAssetLink *)v3 initWithMessageLink:v5 hostVersion:v6];
-    v8 = *(v2 + 40);
+    v8 = v2[5];
     v9 = *(v8 + 80);
     *(v8 + 80) = v7;
 
-    [*(*(v2 + 40) + 80) setSupportedDataClasses:*(*(v2 + 40) + 88)];
-    [*(*(v2 + 40) + 80) setProgressDelegate:?];
-    [*(*(v2 + 40) + 192) removeAllObjects];
+    [*(v2[5] + 80) setSupportedDataClasses:*(v2[5] + 88)];
+    [*(v2[5] + 80) setProgressDelegate:?];
+    [*(v2[5] + 192) removeAllObjects];
     v10 = [MEMORY[0x277CEA430] sharedInstance];
-    [v10 createAirlockForDataclasses:*(*(v2 + 40) + 88)];
+    [v10 createAirlockForDataclasses:*(v2[5] + 88)];
 
     v11 = [MEMORY[0x277CE53F0] sharedInstance];
-    [v11 addAssetLink:*(*(v2 + 40) + 80)];
+    [v11 addAssetLink:*(v2[5] + 80)];
 
-    v12 = *(*(v2 + 40) + 80);
+    v12 = *(v2[5] + 80);
 
     return [v12 open];
   }
@@ -2288,7 +2288,7 @@ void __66__ATLegacyDeviceSyncManager_initiateSyncForLibrary_onMessageLink___bloc
   return v2;
 }
 
-uint64_t __33__ATLegacyDeviceSyncManager_init__block_invoke(uint64_t a1)
+void *__33__ATLegacyDeviceSyncManager_init__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) count];
   if (result)

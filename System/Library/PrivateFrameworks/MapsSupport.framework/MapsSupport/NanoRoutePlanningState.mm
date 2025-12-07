@@ -31,7 +31,7 @@
 {
   self->_sessionState = state;
   self->_previousState = fromState;
-  v6 = sub_100053324();
+  v6 = sub_100053324(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_100013558(state);
@@ -56,7 +56,7 @@
 {
   sessionState = [(NanoRoutePlanningState *)self sessionState];
   self->_nextState = state;
-  v6 = sub_100053324();
+  v6 = sub_100053324(sessionState);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = sub_100013558(sessionState);
@@ -83,15 +83,16 @@
 {
   if (self->_sessionState == 4)
   {
-    v6 = v2;
-    v7 = v3;
-    if ([objc_opt_class() controlsDiskRouteStorage])
+    v7 = v2;
+    v8 = v3;
+    controlsDiskRouteStorage = [objc_opt_class() controlsDiskRouteStorage];
+    if (controlsDiskRouteStorage)
     {
-      v4 = sub_100053324();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = sub_100053324(controlsDiskRouteStorage);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        *v5 = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Will clear disk route storage", v5, 2u);
+        *v6 = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Will clear disk route storage", v6, 2u);
       }
 
       +[NanoRoutePlanningResponse clearDiskRouteStorage];

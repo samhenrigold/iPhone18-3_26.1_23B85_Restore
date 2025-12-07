@@ -397,12 +397,11 @@ void __52__MOPlatformInfo_generativeModelsAvailabilityStatus__block_invoke(uint6
 
 + (void)getDeviceClass
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_25E48F000, a2, OS_LOG_TYPE_ERROR, "Could not get device class (MGError=%d)", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_25E48F000, a2, OS_LOG_TYPE_ERROR, "Could not get device class (MGError=%d)", v3, 8u);
 }
 
 @end

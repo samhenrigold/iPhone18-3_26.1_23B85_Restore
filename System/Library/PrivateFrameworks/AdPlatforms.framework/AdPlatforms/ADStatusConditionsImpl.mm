@@ -96,40 +96,36 @@ LABEL_9:
 
 void __63__ADStatusConditionsImpl_setStatusCondition_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  ADLOG(@"ADStatusConditions XPC connection invalidated. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v14);
+  v15[1] = *MEMORY[0x277D85DE8];
+  ADLOG(@"ADStatusConditions XPC connection invalidated. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v13);
   [*(a1 + 32) resetRateLimitingBuffer];
   v9 = *(a1 + 40);
   if (v9)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"A serious error occurred. The XPC connection was invalidated.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"A serious error occurred. The XPC connection was invalidated.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v10 errorWithDomain:@"ADStatusConditionsErrorDomain" code:-1101 userInfo:v11];
     (*(v9 + 16))(v9, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __63__ADStatusConditionsImpl_setStatusCondition_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  ADLOG(@"ADStatusConditions XPC connection interrupted. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v14);
+  v15[1] = *MEMORY[0x277D85DE8];
+  ADLOG(@"ADStatusConditions XPC connection interrupted. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v13);
   [*(a1 + 32) resetRateLimitingBuffer];
   v9 = *(a1 + 40);
   if (v9)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"A serious error occurred. The XPC connection was interrupted.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"A serious error occurred. The XPC connection was interrupted.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v10 errorWithDomain:@"ADStatusConditionsErrorDomain" code:-1101 userInfo:v11];
     (*(v9 + 16))(v9, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __63__ADStatusConditionsImpl_setStatusCondition_completionHandler___block_invoke_3(uint64_t a1, void *a2)
@@ -211,40 +207,36 @@ LABEL_9:
 
 void __65__ADStatusConditionsImpl_clearStatusCondition_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  ADLOG(@"ADStatusConditions XPC connection invalidated. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v14);
+  v15[1] = *MEMORY[0x277D85DE8];
+  ADLOG(@"ADStatusConditions XPC connection invalidated. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v13);
   [*(a1 + 32) resetRateLimitingBuffer];
   v9 = *(a1 + 40);
   if (v9)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"A serious error occurred. The XPC connection was invalidated.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"A serious error occurred. The XPC connection was invalidated.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v10 errorWithDomain:@"ADStatusConditionsErrorDomain" code:-1101 userInfo:v11];
     (*(v9 + 16))(v9, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ADStatusConditionsImpl_clearStatusCondition_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  ADLOG(@"ADStatusConditions XPC connection interrupted. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v14);
+  v15[1] = *MEMORY[0x277D85DE8];
+  ADLOG(@"ADStatusConditions XPC connection interrupted. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v13);
   [*(a1 + 32) resetRateLimitingBuffer];
   v9 = *(a1 + 40);
   if (v9)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"A serious error occurred. The XPC connection was interrupted.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"A serious error occurred. The XPC connection was interrupted.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v10 errorWithDomain:@"ADStatusConditionsErrorDomain" code:-1101 userInfo:v11];
     (*(v9 + 16))(v9, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ADStatusConditionsImpl_clearStatusCondition_completionHandler___block_invoke_3(uint64_t a1, void *a2)
@@ -314,38 +306,34 @@ LABEL_6:
 
 void __89__ADStatusConditionsImpl_isStatusConditionRegistered_bundleIdentifier_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  ADLOG(@"ADStatusConditions XPC connection invalidated. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v14);
+  v15[1] = *MEMORY[0x277D85DE8];
+  ADLOG(@"ADStatusConditions XPC connection invalidated. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v13);
   v9 = *(a1 + 32);
   if (v9)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"A serious error occurred. The XPC connection was invalidated.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"A serious error occurred. The XPC connection was invalidated.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v10 errorWithDomain:@"ADStatusConditionsErrorDomain" code:-1101 userInfo:v11];
     (*(v9 + 16))(v9, 0, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ADStatusConditionsImpl_isStatusConditionRegistered_bundleIdentifier_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  ADLOG(@"ADStatusConditions XPC connection interrupted. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v14);
+  v15[1] = *MEMORY[0x277D85DE8];
+  ADLOG(@"ADStatusConditions XPC connection interrupted. Lost connection.", a2, a3, a4, a5, a6, a7, a8, v13);
   v9 = *(a1 + 32);
   if (v9)
   {
     v10 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"A serious error occurred. The XPC connection was interrupted.";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"A serious error occurred. The XPC connection was interrupted.";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v12 = [v10 errorWithDomain:@"ADStatusConditionsErrorDomain" code:-1101 userInfo:v11];
     (*(v9 + 16))(v9, 0, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ADStatusConditionsImpl_isStatusConditionRegistered_bundleIdentifier_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
@@ -413,28 +401,28 @@ void __89__ADStatusConditionsImpl_isStatusConditionRegistered_bundleIdentifier_c
 
 - (BOOL)operationWithCondition:(id)condition forType:(int64_t)type
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   conditionCopy = condition;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v6 = ringBuffer;
-  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         statusCondition = [v11 statusCondition];
         if ([statusCondition isEqual:conditionCopy])
         {
@@ -452,20 +440,20 @@ void __89__ADStatusConditionsImpl_isStatusConditionRegistered_bundleIdentifier_c
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v8);
   }
 
   v14 = MEMORY[0x277CCAC30];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __57__ADStatusConditionsImpl_operationWithCondition_forType___block_invoke;
-  v23[3] = &unk_278C59E60;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __57__ADStatusConditionsImpl_operationWithCondition_forType___block_invoke;
+  v22[3] = &unk_278C59E60;
   v15 = conditionCopy;
-  v24 = v15;
-  v16 = [v14 predicateWithBlock:v23];
+  v23 = v15;
+  v16 = [v14 predicateWithBlock:v22];
   [ringBuffer filterUsingPredicate:v16];
   v17 = [ADStatusConditionRateLimitedObject alloc];
   v18 = [MEMORY[0x277CBEAA8] now];
@@ -473,10 +461,9 @@ void __89__ADStatusConditionsImpl_isStatusConditionRegistered_bundleIdentifier_c
 
   [ringBuffer addObject:v19];
   v20 = 0;
-  v6 = v24;
+  v6 = v23;
 LABEL_13:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

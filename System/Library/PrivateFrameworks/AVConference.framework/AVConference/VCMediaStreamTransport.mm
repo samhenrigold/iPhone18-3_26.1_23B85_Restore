@@ -63,7 +63,7 @@
 - (void)dealloc
 {
   v7 = *MEMORY[0x1E69E9840];
-  RTPCloseHandle();
+  RTPCloseHandle(self->_rtpHandle);
 
   receiverSframeCryptor = self->_receiverSframeCryptor;
   if (receiverSframeCryptor)
@@ -135,7 +135,7 @@
 {
   if (self->_transportStreamInfo.creationCallback)
   {
-    RTPClearTransportStreams();
+    RTPClearTransportStreams(self->_rtpHandle);
   }
 }
 
@@ -143,9 +143,9 @@
 {
   collectorCopy = collector;
   pPacketsCopy = pPackets;
-  packetsCopy = packets;
-  v105 = *MEMORY[0x1E69E9840];
-  LODWORD(v91) = [(VCMediaStreamTransport *)self isSameSRTPConfig:?];
+  LODWORD(v11) = packets;
+  v106 = *MEMORY[0x1E69E9840];
+  LODWORD(v92) = [(VCMediaStreamTransport *)self isSameSRTPConfig:?];
 
   self->_streamConfig = config;
   defaultMediaKeyIndex = self->_defaultMediaKeyIndex;
@@ -170,82 +170,82 @@
         goto LABEL_139;
       }
 
-      v49 = VRTraceErrorLogLevelToCSTR();
+      v50 = VRTraceErrorLogLevelToCSTR();
       IsOSFaultDisabled = VRTraceIsOSFaultDisabled();
-      v51 = *MEMORY[0x1E6986650];
+      v52 = *MEMORY[0x1E6986650];
       if (IsOSFaultDisabled)
       {
-        v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-        if (!v48)
+        v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+        if (!v49)
         {
-          return v48;
+          return v49;
         }
 
         if (error)
         {
           if (*error)
           {
-            v52 = [objc_msgSend(*error "description")];
+            v53 = [objc_msgSend(*error "description")];
           }
 
           else
           {
-            v52 = "<nil>";
+            v53 = "<nil>";
           }
         }
 
         else
         {
-          v52 = "";
+          v53 = "";
         }
 
         *buf = 136315906;
-        *&buf[4] = v49;
+        *&buf[4] = v50;
         *&buf[12] = 2080;
         *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
         *&buf[22] = 1024;
         *&buf[24] = 153;
         *&buf[28] = 2080;
-        *&buf[30] = v52;
-        v69 = " [%s] %s:%d Setup error[%s]";
+        *&buf[30] = v53;
+        v70 = " [%s] %s:%d Setup error[%s]";
         goto LABEL_137;
       }
 
-      v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_FAULT);
-      if (!v48)
+      v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_FAULT);
+      if (!v49)
       {
-        return v48;
+        return v49;
       }
 
       if (error)
       {
         if (*error)
         {
-          v70 = [objc_msgSend(*error "description")];
+          v71 = [objc_msgSend(*error "description")];
         }
 
         else
         {
-          v70 = "<nil>";
+          v71 = "<nil>";
         }
       }
 
       else
       {
-        v70 = "";
+        v71 = "";
       }
 
       *buf = 136315906;
-      *&buf[4] = v49;
+      *&buf[4] = v50;
       *&buf[12] = 2080;
       *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
       *&buf[22] = 1024;
       *&buf[24] = 153;
       *&buf[28] = 2080;
-      *&buf[30] = v70;
-      v80 = " [%s] %s:%d Setup error[%s]";
-      v81 = v51;
-      v82 = 38;
+      *&buf[30] = v71;
+      v81 = " [%s] %s:%d Setup error[%s]";
+      v82 = v52;
+      v83 = 38;
     }
 
     else
@@ -265,37 +265,37 @@
         goto LABEL_139;
       }
 
-      v54 = VRTraceErrorLogLevelToCSTR();
-      v55 = VRTraceIsOSFaultDisabled();
-      v56 = *MEMORY[0x1E6986650];
-      if (v55)
+      v55 = VRTraceErrorLogLevelToCSTR();
+      v56 = VRTraceIsOSFaultDisabled();
+      v57 = *MEMORY[0x1E6986650];
+      if (v56)
       {
-        v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-        if (!v48)
+        v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+        if (!v49)
         {
-          return v48;
+          return v49;
         }
 
         if (error)
         {
           if (*error)
           {
-            v57 = [objc_msgSend(*error "description")];
+            v58 = [objc_msgSend(*error "description")];
           }
 
           else
           {
-            v57 = "<nil>";
+            v58 = "<nil>";
           }
         }
 
         else
         {
-          v57 = "";
+          v58 = "";
         }
 
         *buf = 136316418;
-        *&buf[4] = v54;
+        *&buf[4] = v55;
         *&buf[12] = 2080;
         *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
         *&buf[22] = 1024;
@@ -304,39 +304,39 @@
         *&buf[30] = v19;
         *&buf[38] = 2048;
         *&buf[40] = self;
-        v103 = 2080;
-        v104 = v57;
-        v69 = " [%s] %s:%d %@(%p) Setup error[%s]";
-        v79 = v56;
+        v104 = 2080;
+        v105 = v58;
+        v70 = " [%s] %s:%d %@(%p) Setup error[%s]";
+        v80 = v57;
         goto LABEL_132;
       }
 
-      v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_FAULT);
-      if (!v48)
+      v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_FAULT);
+      if (!v49)
       {
-        return v48;
+        return v49;
       }
 
       if (error)
       {
         if (*error)
         {
-          v59 = [objc_msgSend(*error "description")];
+          v60 = [objc_msgSend(*error "description")];
         }
 
         else
         {
-          v59 = "<nil>";
+          v60 = "<nil>";
         }
       }
 
       else
       {
-        v59 = "";
+        v60 = "";
       }
 
       *buf = 136316418;
-      *&buf[4] = v54;
+      *&buf[4] = v55;
       *&buf[12] = 2080;
       *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
       *&buf[22] = 1024;
@@ -345,14 +345,14 @@
       *&buf[30] = v19;
       *&buf[38] = 2048;
       *&buf[40] = self;
-      v103 = 2080;
-      v104 = v59;
-      v80 = " [%s] %s:%d %@(%p) Setup error[%s]";
-      v81 = v56;
-      v82 = 58;
+      v104 = 2080;
+      v105 = v60;
+      v81 = " [%s] %s:%d %@(%p) Setup error[%s]";
+      v82 = v57;
+      v83 = 58;
     }
 
-    _os_log_fault_impl(&dword_1DB56E000, v81, OS_LOG_TYPE_FAULT, v80, buf, v82);
+    _os_log_fault_impl(&dword_1DB56E000, v82, OS_LOG_TYPE_FAULT, v81, buf, v83);
     goto LABEL_139;
   }
 
@@ -369,16 +369,16 @@
 
       if (![(NSString *)[(VCNetworkAddress *)[(VCMediaStreamConfig *)self->_streamConfig remoteAddress] ip] length])
       {
-        *&v101.sa_len = 0xAAAAAAAAAAAAAAAALL;
-        *&v101.sa_data[6] = 0xAAAAAAAAAAAAAAAALL;
-        v92 = 16;
-        if (getpeername(info->var0.socketInfo.rtpSocket, &v101, &v92) != -1)
+        *&v102.sa_len = 0xAAAAAAAAAAAAAAAALL;
+        *&v102.sa_data[6] = 0xAAAAAAAAAAAAAAAALL;
+        v93 = 16;
+        if (getpeername(info->var0.socketInfo.rtpSocket, &v102, &v93) != -1)
         {
-          v100 = 0xAAAAAAAAAAAAAAAALL;
+          v101 = 0xAAAAAAAAAAAAAAAALL;
           *&v20 = 0xAAAAAAAAAAAAAAAALL;
           *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v98 = v20;
           v99 = v20;
+          v100 = v20;
           *&buf[16] = v20;
           *&buf[32] = v20;
           *buf = v20;
@@ -387,9 +387,9 @@
           IPToString();
           remoteAddress = [(VCMediaStreamConfig *)self->_streamConfig remoteAddress];
           -[VCNetworkAddress setIp:](remoteAddress, "setIp:", [MEMORY[0x1E696AEC0] stringWithUTF8String:buf]);
-          [(VCNetworkAddress *)remoteAddress setPort:WORD2(v100)];
-          -[VCNetworkAddress setInterfaceName:](remoteAddress, "setInterfaceName:", [MEMORY[0x1E696AEC0] stringWithUTF8String:&v98 + 4]);
-          if (v98)
+          [(VCNetworkAddress *)remoteAddress setPort:WORD2(v101)];
+          -[VCNetworkAddress setInterfaceName:](remoteAddress, "setInterfaceName:", [MEMORY[0x1E696AEC0] stringWithUTF8String:&v99 + 4]);
+          if (v99)
           {
             v22 = 6;
           }
@@ -438,12 +438,12 @@ LABEL_10:
     {
       if (objc_opt_respondsToSelector())
       {
-        v58 = [(VCMediaStreamTransport *)self performSelector:sel_logPrefix];
+        v59 = [(VCMediaStreamTransport *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v58 = &stru_1F570E008;
+        v59 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -451,51 +451,51 @@ LABEL_10:
         goto LABEL_139;
       }
 
-      v73 = VRTraceErrorLogLevelToCSTR();
-      v67 = *MEMORY[0x1E6986650];
-      v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-      if (!v48)
+      v74 = VRTraceErrorLogLevelToCSTR();
+      v68 = *MEMORY[0x1E6986650];
+      v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (!v49)
       {
-        return v48;
+        return v49;
       }
 
       if (errorCopy)
       {
         if (*errorCopy)
         {
-          v74 = [objc_msgSend(*errorCopy "description")];
+          v75 = [objc_msgSend(*errorCopy "description")];
         }
 
         else
         {
-          v74 = "<nil>";
+          v75 = "<nil>";
         }
       }
 
       else
       {
-        v74 = "";
+        v75 = "";
       }
 
       *buf = 136316418;
-      *&buf[4] = v73;
+      *&buf[4] = v74;
       *&buf[12] = 2080;
       *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
       *&buf[22] = 1024;
       *&buf[24] = 195;
       *&buf[28] = 2112;
-      *&buf[30] = v58;
+      *&buf[30] = v59;
       *&buf[38] = 2048;
       *&buf[40] = self;
-      v103 = 2080;
-      v104 = v74;
-      v69 = " [%s] %s:%d %@(%p) error[%s]";
+      v104 = 2080;
+      v105 = v75;
+      v70 = " [%s] %s:%d %@(%p) error[%s]";
 LABEL_131:
-      v79 = v67;
+      v80 = v68;
 LABEL_132:
-      v83 = 58;
+      v84 = 58;
 LABEL_138:
-      _os_log_error_impl(&dword_1DB56E000, v79, OS_LOG_TYPE_ERROR, v69, buf, v83);
+      _os_log_error_impl(&dword_1DB56E000, v80, OS_LOG_TYPE_ERROR, v70, buf, v84);
       goto LABEL_139;
     }
 
@@ -504,52 +504,52 @@ LABEL_138:
       goto LABEL_139;
     }
 
-    v71 = VRTraceErrorLogLevelToCSTR();
-    v51 = *MEMORY[0x1E6986650];
-    v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-    if (!v48)
+    v72 = VRTraceErrorLogLevelToCSTR();
+    v52 = *MEMORY[0x1E6986650];
+    v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+    if (!v49)
     {
-      return v48;
+      return v49;
     }
 
     if (errorCopy)
     {
       if (*errorCopy)
       {
-        v72 = [objc_msgSend(*errorCopy "description")];
+        v73 = [objc_msgSend(*errorCopy "description")];
       }
 
       else
       {
-        v72 = "<nil>";
+        v73 = "<nil>";
       }
     }
 
     else
     {
-      v72 = "";
+      v73 = "";
     }
 
     *buf = 136315906;
-    *&buf[4] = v71;
+    *&buf[4] = v72;
     *&buf[12] = 2080;
     *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
     *&buf[22] = 1024;
     *&buf[24] = 195;
     *&buf[28] = 2080;
-    *&buf[30] = v72;
-    v69 = " [%s] %s:%d error[%s]";
+    *&buf[30] = v73;
+    v70 = " [%s] %s:%d error[%s]";
 LABEL_137:
-    v79 = v51;
-    v83 = 38;
+    v80 = v52;
+    v84 = 38;
     goto LABEL_138;
   }
 
-  v100 = 0xAAAAAAAAAAAAAAAALL;
+  v101 = 0xAAAAAAAAAAAAAAAALL;
   *&v24 = 0xAAAAAAAAAAAAAAAALL;
   *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v98 = v24;
   v99 = v24;
+  v100 = v24;
   *&buf[16] = v24;
   *&buf[32] = v24;
   *buf = v24;
@@ -560,8 +560,8 @@ LABEL_137:
   [(VCNetworkAddress *)remoteAddress2 port];
   MakeIPPORT();
   IPToString();
-  v27 = RTPGetPacketMultiplexMode();
-  v28 = packetsCopy;
+  v27 = RTPGetPacketMultiplexMode(self->_rtpHandle);
+  v28 = v11;
   v29 = pPacketsCopy;
   rtpHandle = self->_rtpHandle;
   isIPv6 = [(VCNetworkAddress *)remoteAddress2 isIPv6];
@@ -571,34 +571,35 @@ LABEL_137:
   detector = detectorCopy2;
   if (v32)
   {
-    v33 = WORD2(v100);
+    v33 = WORD2(v101);
   }
 
   else
   {
-    v33 = WORD2(v100) + 1;
+    v33 = WORD2(v101) + 1;
   }
 
   v34 = rtpHandle;
   pPacketsCopy = v29;
-  packetsCopy = v28;
-  RTPSetDestination(v34, isIPv6, buf, WORD2(v100), v33, 0, 1);
+  LODWORD(v11) = v28;
+  RTPSetDestination(v34, isIPv6, buf, WORD2(v101), v33, 0, 1);
 LABEL_28:
   RTPSetStreamDirection(self->_rtpHandle, [(VCMediaStreamConfig *)self->_streamConfig direction]);
   self->_rtcpXREnabled = VCDefaults_GetBoolValueForKey(@"rtcpXrEnabled", [(VCMediaStreamConfig *)self->_streamConfig isRTCPXREnabled]);
   RTPSetRTCPEnabled(self->_rtpHandle, [(VCMediaStreamConfig *)self->_streamConfig isRTCPEnabled]);
   RTPSetRTCPXREnabled(self->_rtpHandle, self->_rtcpXREnabled);
+  v35 = self->_rtpHandle;
   [(VCMediaStreamConfig *)self->_streamConfig rtcpSendInterval];
-  RTPSetRTCPSendInterval(v35);
+  RTPSetRTCPSendInterval(v35, v36);
   isSRTPInitialized = self->_isSRTPInitialized;
-  if (!(v91 & 1 | !isSRTPInitialized))
+  if (!(v92 & 1 | !isSRTPInitialized))
   {
-    SRTPCleanUpEncryption();
+    SRTPCleanUpEncryption(self->_rtpHandle);
     isSRTPInitialized = self->_isSRTPInitialized;
   }
 
-  v37 = errorCopy;
-  if ((isSRTPInitialized & v91 & 1) == 0)
+  v38 = errorCopy;
+  if ((isSRTPInitialized & v92 & 1) == 0)
   {
     setupSRTP = [(VCMediaStreamTransport *)self setupSRTP];
     if ((setupSRTP & 0x80000000) == 0)
@@ -607,20 +608,20 @@ LABEL_28:
       goto LABEL_33;
     }
 
-    v60 = setupSRTP;
     v61 = setupSRTP;
-    v62 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStreamTransport.m", 234];
-    +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", errorCopy, 32018, 238, v61, v62, @"Failed to setup SRTP encryption", [MEMORY[0x1E696AEC0] stringWithFormat:@"setupSRTP failed with error %d", v60]);
+    v62 = setupSRTP;
+    v63 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStreamTransport.m", 234];
+    +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", errorCopy, 32018, 238, v62, v63, @"Failed to setup SRTP encryption", [MEMORY[0x1E696AEC0] stringWithFormat:@"setupSRTP failed with error %d", v61]);
     if (objc_opt_class() != self)
     {
       if (objc_opt_respondsToSelector())
       {
-        v63 = [(VCMediaStreamTransport *)self performSelector:sel_logPrefix];
+        v64 = [(VCMediaStreamTransport *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v63 = &stru_1F570E008;
+        v64 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -628,45 +629,45 @@ LABEL_28:
         goto LABEL_139;
       }
 
-      v77 = VRTraceErrorLogLevelToCSTR();
-      v67 = *MEMORY[0x1E6986650];
-      v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-      if (!v48)
+      v78 = VRTraceErrorLogLevelToCSTR();
+      v68 = *MEMORY[0x1E6986650];
+      v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (!v49)
       {
-        return v48;
+        return v49;
       }
 
       if (errorCopy)
       {
         if (*errorCopy)
         {
-          v78 = [objc_msgSend(*errorCopy "description")];
+          v79 = [objc_msgSend(*errorCopy "description")];
         }
 
         else
         {
-          v78 = "<nil>";
+          v79 = "<nil>";
         }
       }
 
       else
       {
-        v78 = "";
+        v79 = "";
       }
 
       *buf = 136316418;
-      *&buf[4] = v77;
+      *&buf[4] = v78;
       *&buf[12] = 2080;
       *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
       *&buf[22] = 1024;
       *&buf[24] = 237;
       *&buf[28] = 2112;
-      *&buf[30] = v63;
+      *&buf[30] = v64;
       *&buf[38] = 2048;
       *&buf[40] = self;
-      v103 = 2080;
-      v104 = v78;
-      v69 = " [%s] %s:%d %@(%p) SRTP setup error[%s]";
+      v104 = 2080;
+      v105 = v79;
+      v70 = " [%s] %s:%d %@(%p) SRTP setup error[%s]";
       goto LABEL_131;
     }
 
@@ -675,57 +676,57 @@ LABEL_28:
       goto LABEL_139;
     }
 
-    v75 = VRTraceErrorLogLevelToCSTR();
-    v51 = *MEMORY[0x1E6986650];
-    v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-    if (!v48)
+    v76 = VRTraceErrorLogLevelToCSTR();
+    v52 = *MEMORY[0x1E6986650];
+    v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+    if (!v49)
     {
-      return v48;
+      return v49;
     }
 
     if (errorCopy)
     {
       if (*errorCopy)
       {
-        v76 = [objc_msgSend(*errorCopy "description")];
+        v77 = [objc_msgSend(*errorCopy "description")];
       }
 
       else
       {
-        v76 = "<nil>";
+        v77 = "<nil>";
       }
     }
 
     else
     {
-      v76 = "";
+      v77 = "";
     }
 
     *buf = 136315906;
-    *&buf[4] = v75;
+    *&buf[4] = v76;
     *&buf[12] = 2080;
     *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
     *&buf[22] = 1024;
     *&buf[24] = 237;
     *&buf[28] = 2080;
-    *&buf[30] = v76;
-    v69 = " [%s] %s:%d SRTP setup error[%s]";
+    *&buf[30] = v77;
+    v70 = " [%s] %s:%d SRTP setup error[%s]";
     goto LABEL_137;
   }
 
 LABEL_33:
-  if (![(VCMediaStreamTransport *)self setupSframeCryptorsWithError:v37])
+  if (![(VCMediaStreamTransport *)self setupSframeCryptorsWithError:v38])
   {
     if (objc_opt_class() != self)
     {
       if (objc_opt_respondsToSelector())
       {
-        v53 = [(VCMediaStreamTransport *)self performSelector:sel_logPrefix];
+        v54 = [(VCMediaStreamTransport *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v53 = &stru_1F570E008;
+        v54 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -733,47 +734,47 @@ LABEL_33:
         goto LABEL_139;
       }
 
-      v66 = VRTraceErrorLogLevelToCSTR();
-      v67 = *MEMORY[0x1E6986650];
-      v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-      if (!v48)
+      v67 = VRTraceErrorLogLevelToCSTR();
+      v68 = *MEMORY[0x1E6986650];
+      v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (!v49)
       {
-        return v48;
+        return v49;
       }
 
-      v68 = *v37;
+      v69 = *v38;
       *buf = 136316418;
-      *&buf[4] = v66;
+      *&buf[4] = v67;
       *&buf[12] = 2080;
       *&buf[14] = "[VCMediaStreamTransport configureWithStreamConfig:setupInfo:reducedSizeRTCPPackets:hopByHopEncryptRTCPPackets:statisticsCollector:basebandCongestionDetector:error:]";
       *&buf[22] = 1024;
       *&buf[24] = 245;
       *&buf[28] = 2112;
-      *&buf[30] = v53;
+      *&buf[30] = v54;
       *&buf[38] = 2048;
       *&buf[40] = self;
-      v103 = 2112;
-      v104 = v68;
-      v69 = " [%s] %s:%d %@(%p) SFrame cryptors setup error[%@]";
+      v104 = 2112;
+      v105 = v69;
+      v70 = " [%s] %s:%d %@(%p) SFrame cryptors setup error[%@]";
       goto LABEL_131;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v64 = VRTraceErrorLogLevelToCSTR();
-      v65 = *MEMORY[0x1E6986650];
-      v48 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
-      if (!v48)
+      v65 = VRTraceErrorLogLevelToCSTR();
+      v66 = *MEMORY[0x1E6986650];
+      v49 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+      if (!v49)
       {
-        return v48;
+        return v49;
       }
 
-      [VCMediaStreamTransport configureWithStreamConfig:v64 setupInfo:v37 reducedSizeRTCPPackets:v65 hopByHopEncryptRTCPPackets:? statisticsCollector:? basebandCongestionDetector:? error:?];
+      [VCMediaStreamTransport configureWithStreamConfig:v65 setupInfo:v38 reducedSizeRTCPPackets:v66 hopByHopEncryptRTCPPackets:? statisticsCollector:? basebandCongestionDetector:? error:?];
     }
 
 LABEL_139:
-    LOBYTE(v48) = 0;
-    return v48;
+    LOBYTE(v49) = 0;
+    return v49;
   }
 
   if ([(NSString *)[(VCMediaStreamConfig *)self->_streamConfig cName] length])
@@ -789,53 +790,53 @@ LABEL_139:
 
   [(VCMediaStreamTransport *)self registerRTPPayloadMappings];
   rxNetworkPayloads = [(VCMediaStreamTransport *)self rxNetworkPayloads];
-  v40 = [rxNetworkPayloads count];
-  v91 = &configCopy2;
-  v41 = (4 * v40 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v42 = &configCopy2 - v41;
-  if (v40)
+  v41 = [rxNetworkPayloads count];
+  v92 = &configCopy2;
+  v42 = (4 * v41 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v43 = &configCopy2 - v42;
+  if (v41)
   {
-    memset(&configCopy2 - v41, 170, 4 * v40);
+    memset(&configCopy2 - v42, 170, 4 * v41);
   }
 
-  v96 = 0u;
   v97 = 0u;
-  v94 = 0u;
+  v98 = 0u;
   v95 = 0u;
-  v43 = [rxNetworkPayloads countByEnumeratingWithState:&v94 objects:v93 count:16];
-  if (v43)
+  v96 = 0u;
+  v44 = [rxNetworkPayloads countByEnumeratingWithState:&v95 objects:v94 count:16];
+  if (v44)
   {
-    v44 = v43;
+    v45 = v44;
     configCopy2 = config;
-    v86 = packetsCopy;
+    v87 = v11;
     LODWORD(errorCopy) = pPacketsCopy;
     infoCopy3 = info;
-    packetsCopy = 0;
-    v45 = *v95;
+    LODWORD(v11) = 0;
+    v46 = *v96;
     do
     {
-      v46 = 0;
-      v47 = packetsCopy;
+      v47 = 0;
+      v48 = v11;
       do
       {
-        if (*v95 != v45)
+        if (*v96 != v46)
         {
           objc_enumerationMutation(rxNetworkPayloads);
         }
 
-        packetsCopy = v47 + 1;
-        *&v42[4 * v47++] = [*(*(&v94 + 1) + 8 * v46++) intValue];
+        v11 = v48 + 1;
+        *&v43[4 * v48++] = [*(*(&v95 + 1) + 8 * v47++) intValue];
       }
 
-      while (v44 != v46);
-      v44 = [rxNetworkPayloads countByEnumeratingWithState:&v94 objects:v93 count:16];
+      while (v45 != v47);
+      v45 = [rxNetworkPayloads countByEnumeratingWithState:&v95 objects:v94 count:16];
     }
 
-    while (v44);
-    RTPSetRxPayloadList(self->_rtpHandle, packetsCopy, v42);
+    while (v45);
+    RTPSetRxPayloadList(self->_rtpHandle, v11, v43);
     info = infoCopy3;
     LOBYTE(pPacketsCopy) = errorCopy;
-    LOBYTE(packetsCopy) = v86;
+    LOBYTE(v11) = v87;
     config = configCopy2;
   }
 
@@ -845,13 +846,13 @@ LABEL_139:
   }
 
   RTPSetSourceRate(self->_rtpHandle, info->sourceRate);
-  RTCPReducedSizePackets(self->_rtpHandle, packetsCopy);
+  RTCPReducedSizePackets(self->_rtpHandle, v11);
   RTCPSetHopByHopEncryptionEnabled(self->_rtpHandle, pPacketsCopy);
   RTCPSetEnableReceptionFromMultipleSSRC(self->_rtpHandle, info->var0.ipInfo.srcIPPORT.szIfName[14]);
   RTPSetStatisticsCollector(self->_rtpHandle, collectorCopy);
   [(VCMediaStreamTransport *)self setBasebandCongestionDetector:detectorCopy2];
-  LOBYTE(v48) = 1;
-  return v48;
+  LOBYTE(v49) = 1;
+  return v49;
 }
 
 - (BOOL)isSendingMedia:(id)media
@@ -1135,7 +1136,7 @@ LABEL_9:
 - (int)setupSRTP
 {
   v73 = *MEMORY[0x1E69E9840];
-  v3 = SRTPPrepareEncryption();
+  v3 = SRTPPrepareEncryption(self->_rtpHandle);
   if ((v3 & 0x80000000) == 0)
   {
     if (![+[VCDefaults forceDisableMediaEncryption] sharedInstance]
@@ -1446,7 +1447,7 @@ LABEL_51:
         }
 
 LABEL_56:
-        SRTPCancelEncryption();
+        SRTPCancelEncryption(self->_rtpHandle);
         goto LABEL_51;
       }
 
@@ -1562,26 +1563,26 @@ LABEL_8:
 
 - (BOOL)setupRTPForIDS:(id *)s
 {
-  v4 = RTPSetPacketMultiplexMode(self->_rtpHandle, 2);
-  if (v4 < 0)
+  v5 = RTPSetPacketMultiplexMode(self->_rtpHandle, 2);
+  if (v5 < 0)
   {
-    v6 = @"RTP set multiplex mode failed";
-    v7 = 600;
+    v7 = @"RTP set multiplex mode failed";
+    v8 = 600;
   }
 
   else
   {
-    v4 = RTPCreateSocketsForIDS();
-    if ((v4 & 0x80000000) == 0)
+    v5 = RTPCreateSocketsForIDS(self->_rtpHandle);
+    if ((v5 & 0x80000000) == 0)
     {
       return 1;
     }
 
-    v6 = @"RTP set IDS descriptor";
-    v7 = 612;
+    v7 = @"RTP set IDS descriptor";
+    v8 = 612;
   }
 
-  +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", s, 32016, 105, v4, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStreamTransport.m", v7], @"Could not setup RTP", v6);
+  +[GKVoiceChatError getNSError:code:detailedCode:returnCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:returnCode:filePath:description:reason:", s, 32016, 105, v5, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCMediaStreamTransport.m", v8], @"Could not setup RTP", v7);
   return 0;
 }
 
@@ -1645,7 +1646,7 @@ LABEL_20:
 - (void)registerRTPPayloadMappings
 {
   v35 = *MEMORY[0x1E69E9840];
-  RTPResetPayloadMapping();
+  RTPResetPayloadMapping(self->_rtpHandle);
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
@@ -1945,8 +1946,9 @@ LABEL_20:
   if (v5 != interval)
   {
     [(VCMediaStreamConfig *)self->_streamConfig setRtcpSendInterval:interval];
+    rtpHandle = self->_rtpHandle;
 
-    RTPSetRTCPSendInterval(interval);
+    RTPSetRTCPSendInterval(rtpHandle, interval);
   }
 }
 
@@ -2309,7 +2311,7 @@ LABEL_20:
     setupRTPWithTransportStreams = 0;
   }
 
-  RTPResetHandle();
+  RTPResetHandle(self->_rtpHandle);
   [(VCMediaStreamTransport *)self updateLastGeneratedKeyMaterial];
   return setupRTPWithTransportStreams;
 }

@@ -94,9 +94,11 @@ double __47__HMFNetworkDiagnostic_runDiagnostics_timeout___block_invoke(uint64_t
 
 uint64_t __35__HMFNetworkDiagnostic_logCategory__block_invoke()
 {
-  qword_280AFC320 = HMFCreateOSLogHandle(@"HMFNetworkDiagnostic", @"com.apple.HomeKit");
+  v0 = HMFCreateOSLogHandle(@"HMFNetworkDiagnostic", @"com.apple.HomeKit");
+  v1 = qword_280AFC320;
+  qword_280AFC320 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)shortDescription

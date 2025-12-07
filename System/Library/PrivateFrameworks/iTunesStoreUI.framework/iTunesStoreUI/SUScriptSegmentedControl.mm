@@ -166,7 +166,7 @@ uint64_t __49__SUScriptSegmentedControl_showMoreListAnimated___block_invoke(uint
   WebThreadRunOnMainThread();
 }
 
-uint64_t __76__SUScriptSegmentedControl_showPopoverController_fromSegmentIndex_animated___block_invoke(uint64_t a1)
+void *__76__SUScriptSegmentedControl_showPopoverController_fromSegmentIndex_animated___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) presentablePopoverController];
   if (result)
@@ -274,7 +274,7 @@ id __45__SUScriptSegmentedControl_cancelButtonTitle__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __48__SUScriptSegmentedControl_maximumNumberOfItems__block_invoke(uint64_t a1)
+void *__48__SUScriptSegmentedControl_maximumNumberOfItems__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "activeSegmentedControl")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -293,7 +293,7 @@ uint64_t __48__SUScriptSegmentedControl_maximumNumberOfItems__block_invoke(uint6
   return v2;
 }
 
-uint64_t __40__SUScriptSegmentedControl_maximumWidth__block_invoke(uint64_t a1)
+void *__40__SUScriptSegmentedControl_maximumWidth__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "activeSegmentedControl")];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -381,7 +381,7 @@ id __36__SUScriptSegmentedControl_segments__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __41__SUScriptSegmentedControl_selectedIndex__block_invoke(uint64_t a1)
+void *__41__SUScriptSegmentedControl_selectedIndex__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "activeSegmentedControl")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -401,7 +401,7 @@ uint64_t __41__SUScriptSegmentedControl_selectedIndex__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __48__SUScriptSegmentedControl_selectedSegmentIndex__block_invoke(uint64_t a1)
+void *__48__SUScriptSegmentedControl_selectedSegmentIndex__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "activeSegmentedControl")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -483,7 +483,7 @@ LABEL_8:
 LABEL_9:
 }
 
-uint64_t __40__SUScriptSegmentedControl_setSegments___block_invoke(uint64_t a1)
+void *__40__SUScriptSegmentedControl_setSegments___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _setRawSegments:*(a1 + 40)];
   v2 = [*(a1 + 32) storePageViewController];
@@ -583,7 +583,7 @@ uint64_t __58__SUScriptSegmentedControl_setShowsMoreListAutomatically___block_in
   }
 }
 
-uint64_t __37__SUScriptSegmentedControl_setStyle___block_invoke(uint64_t a1)
+void *__37__SUScriptSegmentedControl_setStyle___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 80) = [*(a1 + 32) _sectionsStyleForString:*(a1 + 40)];
   v2 = [*(a1 + 32) storePageViewController];
@@ -704,7 +704,7 @@ uint64_t __41__SUScriptSegmentedControl_setTintStyle___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __54__SUScriptSegmentedControl_showsMoreListAutomatically__block_invoke(uint64_t a1)
+void *__54__SUScriptSegmentedControl_showsMoreListAutomatically__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "activeSegmentedControl")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -783,7 +783,7 @@ SUScriptColor *__37__SUScriptSegmentedControl_tintColor__block_invoke(uint64_t a
   return v2;
 }
 
-uint64_t __37__SUScriptSegmentedControl_tintStyle__block_invoke(uint64_t a1)
+void *__37__SUScriptSegmentedControl_tintStyle__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "activeSegmentedControl")];
   *(*(*(a1 + 40) + 8) + 24) = result;

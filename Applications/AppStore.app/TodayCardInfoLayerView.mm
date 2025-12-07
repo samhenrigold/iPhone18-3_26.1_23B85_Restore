@@ -19,17 +19,17 @@
 
 - (void)_setContinuousCornerRadius:(double)radius
 {
-  v5.receiver = self;
-  v5.super_class = swift_getObjectType();
-  v4 = v5.receiver;
-  [(TodayCardInfoLayerView *)&v5 _setContinuousCornerRadius:radius];
-  sub_1000A3894();
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  v5 = [(TodayCardInfoLayerView *)&v7 _setContinuousCornerRadius:radius];
+  sub_1000A3894(v5, v6);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000A6820();
+  sub_1000A6820(selfCopy, v2);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -38,9 +38,9 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_1000A71C4(event, x, y);
+  v11 = sub_1000A71C4(event, v10, x, y);
 
-  return v10;
+  return v11;
 }
 
 - (NSString)accessibilityLabel

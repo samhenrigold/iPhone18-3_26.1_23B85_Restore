@@ -55,14 +55,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   filePath = [(HMDAccessoryDiagnosticsSessionInternal *)self filePath];
   v5 = [v3 initWithName:@"filePath" value:filePath];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -102,10 +100,9 @@
 
 void __53__HMDAccessoryDiagnosticsSessionInternal_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_219570;
-  logCategory__hmf_once_v6_219570 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_219570;
+  logCategory__hmf_once_v6_219570 = v0;
 }
 
 @end

@@ -40,20 +40,22 @@
 
 uint64_t __61__ATXCandidateRelevanceModelServerCoordinator_sharedInstance__block_invoke()
 {
-  sharedInstance_modelServerCoordinator = objc_alloc_init(ATXCandidateRelevanceModelServerCoordinator);
+  v0 = objc_alloc_init(ATXCandidateRelevanceModelServerCoordinator);
+  v1 = sharedInstance_modelServerCoordinator;
+  sharedInstance_modelServerCoordinator = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (ATXCandidateRelevanceModelServerCoordinator)init
 {
   v3 = objc_opt_new();
-  v4 = allRelevanceModelConfigs();
-  v5 = objc_alloc(MEMORY[0x277CBEBD0]);
-  v6 = [v5 initWithSuiteName:*MEMORY[0x277CEBD00]];
-  v7 = [(ATXCandidateRelevanceModelServerCoordinator *)self initWithContextHelper:v3 configs:v4 defaults:v6];
+  v5 = allRelevanceModelConfigs(v3, v4);
+  v6 = objc_alloc(MEMORY[0x277CBEBD0]);
+  v7 = [v6 initWithSuiteName:*MEMORY[0x277CEBD00]];
+  v8 = [(ATXCandidateRelevanceModelServerCoordinator *)self initWithContextHelper:v3 configs:v5 defaults:v7];
 
-  return v7;
+  return v8;
 }
 
 - (ATXCandidateRelevanceModelServerCoordinator)initWithContextHelper:(id)helper configs:(id)configs defaults:(id)defaults
@@ -93,66 +95,62 @@ uint64_t __61__ATXCandidateRelevanceModelServerCoordinator_sharedInstance__block
 
 - (void)registerForSupportedAnchorNotificatons
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   supportedAnchorsForNotifications = [(ATXCandidateRelevanceModelServerCoordinator *)self supportedAnchorsForNotifications];
-  v4 = [supportedAnchorsForNotifications countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [supportedAnchorsForNotifications countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(supportedAnchorsForNotifications);
         }
 
-        [(ATXCandidateRelevanceModelServerCoordinator *)self registerAnchorEventNotificationsForAnchor:*(*(&v9 + 1) + 8 * v7++)];
+        [(ATXCandidateRelevanceModelServerCoordinator *)self registerAnchorEventNotificationsForAnchor:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [supportedAnchorsForNotifications countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [supportedAnchorsForNotifications countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)supportedAnchorsForNotifications
 {
-  v15[10] = *MEMORY[0x277D85DE8];
-  v14 = objc_opt_new();
-  v15[0] = v14;
+  v14[10] = *MEMORY[0x277D85DE8];
+  v13 = objc_opt_new();
+  v14[0] = v13;
   v2 = objc_opt_new();
-  v15[1] = v2;
+  v14[1] = v2;
   v3 = objc_opt_new();
-  v15[2] = v3;
+  v14[2] = v3;
   v4 = objc_opt_new();
-  v15[3] = v4;
+  v14[3] = v4;
   v5 = objc_opt_new();
-  v15[4] = v5;
+  v14[4] = v5;
   v6 = objc_opt_new();
-  v15[5] = v6;
+  v14[5] = v6;
   v7 = objc_opt_new();
-  v15[6] = v7;
+  v14[6] = v7;
   v8 = objc_opt_new();
-  v15[7] = v8;
+  v14[7] = v8;
   v9 = objc_opt_new();
-  v15[8] = v9;
+  v14[8] = v9;
   v10 = objc_opt_new();
-  v15[9] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:10];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[9] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:10];
 
   return v11;
 }
@@ -160,7 +158,7 @@ uint64_t __61__ATXCandidateRelevanceModelServerCoordinator_sharedInstance__block
 - (void)registerAnchorEventNotificationsForAnchor:(id)anchor
 {
   anchorCopy = anchor;
-  v5 = __atxlog_handle_relevance_model();
+  v5 = __atxlog_handle_relevance_model(anchorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ATXCandidateRelevanceModelServerCoordinator registerAnchorEventNotificationsForAnchor:];
@@ -176,23 +174,24 @@ uint64_t __61__ATXCandidateRelevanceModelServerCoordinator_sharedInstance__block
     context = [(ATXCoreDuetContextHelper *)self->_contextHelper context];
     [v8 registerWithContextStoreForAnchorEntranceWithCallback:v9 notificationId:v10 registrationPersistenceContext:context];
 
-    if ([objc_opt_class() anchorType] == 18)
+    anchorType = [objc_opt_class() anchorType];
+    if (anchorType == 18)
     {
       invalidationPredicateForContextStoreRegistration = [objc_opt_class() invalidationPredicateForContextStoreRegistration];
 
       if (invalidationPredicateForContextStoreRegistration)
       {
-        v13 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v14 = __atxlog_handle_relevance_model(anchorType);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           [ATXCandidateRelevanceModelServerCoordinator registerAnchorEventNotificationsForAnchor:];
         }
 
-        v14 = objc_opt_class();
-        v15 = [(ATXCandidateRelevanceModelServerCoordinator *)self callbackForAnchor:anchorCopy];
-        v16 = [(ATXCandidateRelevanceModelServerCoordinator *)self exitNotificationIdentifierForAnchor:anchorCopy];
+        v15 = objc_opt_class();
+        v16 = [(ATXCandidateRelevanceModelServerCoordinator *)self callbackForAnchor:anchorCopy];
+        v17 = [(ATXCandidateRelevanceModelServerCoordinator *)self exitNotificationIdentifierForAnchor:anchorCopy];
         context2 = [(ATXCoreDuetContextHelper *)self->_contextHelper context];
-        [v14 registerWithContextStoreForAnchorExitWithCallback:v15 notificationId:v16 registrationPersistenceContext:context2];
+        [v15 registerWithContextStoreForAnchorExitWithCallback:v16 notificationId:v17 registrationPersistenceContext:context2];
       }
     }
 
@@ -203,46 +202,47 @@ uint64_t __61__ATXCandidateRelevanceModelServerCoordinator_sharedInstance__block
   {
     objc_initWeak(&location, self);
     mEMORY[0x277CEBC98] = [MEMORY[0x277CEBC98] sharedInstance];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __89__ATXCandidateRelevanceModelServerCoordinator_registerAnchorEventNotificationsForAnchor___block_invoke;
-    v26[3] = &unk_278596D20;
-    objc_copyWeak(&v27, &location);
-    v19 = [mEMORY[0x277CEBC98] subscribeWithCallback:v26 onQueue:self->_updateQueue];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __89__ATXCandidateRelevanceModelServerCoordinator_registerAnchorEventNotificationsForAnchor___block_invoke;
+    v28[3] = &unk_278596D20;
+    objc_copyWeak(&v29, &location);
+    v20 = [mEMORY[0x277CEBC98] subscribeWithCallback:v28 onQueue:self->_updateQueue];
     microLocationSchedulerToken = self->_microLocationSchedulerToken;
-    self->_microLocationSchedulerToken = v19;
+    self->_microLocationSchedulerToken = v20;
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
     goto LABEL_19;
   }
 
-  anchorType = [objc_opt_class() anchorType];
-  v22 = objc_opt_class();
-  if (anchorType == 7)
+  anchorType2 = [objc_opt_class() anchorType];
+  v23 = objc_opt_class();
+  if (anchorType2 == 7)
   {
-    v23 = sel_handleLOIEntranceNotification;
+    v24 = sel_handleLOIEntranceNotification;
 LABEL_15:
-    [v22 registerForNotificationsWithoutUsingContextStoreForObserver:self enterSelector:v23 exitSelector:0];
+    anchorType = [v23 registerForNotificationsWithoutUsingContextStoreForObserver:self enterSelector:v24 exitSelector:0];
     goto LABEL_19;
   }
 
-  if ([v22 anchorType] == 8)
+  anchorType3 = [v23 anchorType];
+  if (anchorType3 == 8)
   {
-    v22 = objc_opt_class();
-    v23 = sel_handleLOIExitNotification;
+    v23 = objc_opt_class();
+    v24 = sel_handleLOIExitNotification;
     goto LABEL_15;
   }
 
-  v24 = __atxlog_handle_relevance_model();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+  v26 = __atxlog_handle_relevance_model(anchorType3);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
   {
     [ATXCandidateRelevanceModelServerCoordinator registerAnchorEventNotificationsForAnchor:];
   }
 
 LABEL_19:
-  v25 = __atxlog_handle_relevance_model();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v27 = __atxlog_handle_relevance_model(anchorType);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     [ATXCandidateRelevanceModelServerCoordinator registerAnchorEventNotificationsForAnchor:];
   }
@@ -282,71 +282,62 @@ void __89__ATXCandidateRelevanceModelServerCoordinator_registerAnchorEventNotifi
 
 void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_relevance_model();
+  v4 = __atxlog_handle_relevance_model(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = *(a1 + 40);
-    v12 = 138412802;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - (%@) Anchor Event notification received, %@. Generating new predictions.", &v12, 0x20u);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = *(a1 + 40);
+    v9 = 138412802;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - (%@) Anchor Event notification received, %@. Generating new predictions.", &v9, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  if (WeakRetained)
+  if (WeakRetained && [objc_opt_class() shouldProcessContextStoreNotification])
   {
-    v10 = *(a1 + 40);
-    if ([objc_opt_class() shouldProcessContextStoreNotification])
-    {
-      [WeakRetained handleAnchorNotificationForAnchor:*(a1 + 40)];
-    }
+    [WeakRetained handleAnchorNotificationForAnchor:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterAnchorEventListeners
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   supportedAnchorsForNotifications = [(ATXCandidateRelevanceModelServerCoordinator *)self supportedAnchorsForNotifications];
-  v4 = [supportedAnchorsForNotifications countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [supportedAnchorsForNotifications countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(supportedAnchorsForNotifications);
         }
 
-        [(ATXCandidateRelevanceModelServerCoordinator *)self unregisterAnchorEventListenerForAnchor:*(*(&v9 + 1) + 8 * v7++)];
+        [(ATXCandidateRelevanceModelServerCoordinator *)self unregisterAnchorEventListenerForAnchor:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [supportedAnchorsForNotifications countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [supportedAnchorsForNotifications countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterAnchorEventListenerForAnchor:(id)anchor
@@ -354,17 +345,18 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
   anchorCopy = anchor;
   if (([objc_opt_class() usesContextStoreForRealTimeNotifications] & 1) == 0)
   {
-    if ([objc_opt_class() anchorType] == 8 || objc_msgSend(objc_opt_class(), "anchorType") == 7)
+    anchorType = [objc_opt_class() anchorType];
+    if (anchorType == 8 || (anchorType = [objc_opt_class() anchorType], anchorType == 7))
     {
-      v5 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = __atxlog_handle_relevance_model(anchorType);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         [ATXCandidateRelevanceModelServerCoordinator unregisterAnchorEventListenerForAnchor:];
       }
 
-      [objc_opt_class() unregisterForNotificationsWithoutUsingContextStoreForObserver:self];
-      v6 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = [objc_opt_class() unregisterForNotificationsWithoutUsingContextStoreForObserver:self];
+      v8 = __atxlog_handle_relevance_model(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         [ATXCandidateRelevanceModelServerCoordinator unregisterAnchorEventListenerForAnchor:];
       }
@@ -372,8 +364,8 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
 
     if ([objc_opt_class() anchorType] == 19)
     {
-      v7 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v9 = __atxlog_handle_relevance_model(19);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [ATXCandidateRelevanceModelServerCoordinator unregisterAnchorEventListenerForAnchor:];
       }
@@ -387,8 +379,8 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
         self->_microLocationSchedulerToken = 0;
       }
 
-      v10 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = __atxlog_handle_relevance_model(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         [ATXCandidateRelevanceModelServerCoordinator unregisterAnchorEventListenerForAnchor:];
       }
@@ -442,11 +434,11 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
     v5 = [(NSUserDefaults *)self->_defaults stringForKey:@"ATXCandidateRelevanceModelServer-ATXMicrolocationAnchorLastIdentifierKey"];
     if (v5 && ([v4 identifier], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", v5), v6, v7))
     {
-      v8 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = __atxlog_handle_anchor(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Received a high confidence anchor event, but ignoring since it's the same event as what we received last time.", v12, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Received a high confidence anchor event, but ignoring since it's the same event as what we received last time.", v13, 2u);
       }
     }
 
@@ -456,8 +448,8 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
       identifier = [v4 identifier];
       [(NSUserDefaults *)defaults setValue:identifier forKey:@"ATXCandidateRelevanceModelServer-ATXMicrolocationAnchorLastIdentifierKey"];
 
-      v11 = objc_opt_new();
-      [(ATXCandidateRelevanceModelServerCoordinator *)self handleAnchorNotificationForAnchor:v11];
+      v12 = objc_opt_new();
+      [(ATXCandidateRelevanceModelServerCoordinator *)self handleAnchorNotificationForAnchor:v12];
     }
   }
 }
@@ -471,29 +463,29 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
 
 - (void)handleAnchorNotificationForAnchor:(id)anchor
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
-  v5 = __atxlog_handle_relevance_model();
+  v5 = __atxlog_handle_relevance_model(anchorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     anchorTypeString = [anchorCopy anchorTypeString];
-    v10 = 138412546;
-    v11 = v7;
-    v12 = 2112;
-    v13 = anchorTypeString;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%@ - %@ Anchor notification received. Updating suggestions immediately.", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v7;
+    v11 = 2112;
+    v12 = anchorTypeString;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%@ - %@ Anchor notification received. Updating suggestions immediately.", &v9, 0x16u);
   }
 
   [(ATXCandidateRelevanceModelServerCoordinator *)self sendSuggestionsToBlendingForEachConfigImmediately];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSuggestionsToBlendingForEachConfigImmediately
 {
   v11 = *MEMORY[0x277D85DE8];
-  if ([(ATXTimeBucketedRateLimiter *)self->_rateLimiter tryToIncrementCountAndReturnSuccess])
+  tryToIncrementCountAndReturnSuccess = [(ATXTimeBucketedRateLimiter *)self->_rateLimiter tryToIncrementCountAndReturnSuccess];
+  if (tryToIncrementCountAndReturnSuccess)
   {
     updateQueue = self->_updateQueue;
     block[0] = MEMORY[0x277D85DD0];
@@ -506,25 +498,23 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
 
   else
   {
-    v4 = __atxlog_handle_relevance_model();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = __atxlog_handle_relevance_model(tryToIncrementCountAndReturnSuccess);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
-      v6 = NSStringFromClass(v5);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%@ - Encountered rate limit. Not updating predictions immediately.", buf, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%@ - Encountered rate limit. Not updating predictions immediately.", buf, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSuggestionsToBlendingForEachConfigIfCacheIsOlderThan:(double)than
 {
   v43 = *MEMORY[0x277D85DE8];
   v30 = os_transaction_create();
-  v5 = __atxlog_handle_relevance_model();
+  v5 = __atxlog_handle_relevance_model(v30);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -557,51 +547,51 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
 
         v14 = *(*(&v32 + 1) + 8 * i);
         v15 = [(ATXCandidateRelevanceModelServerCoordinator *)self lastCacheUpdateDateForConfig:v14];
-        [v15 timeIntervalSinceNow];
-        v17 = -v16;
+        timeIntervalSinceNow = [v15 timeIntervalSinceNow];
+        v18 = -v17;
         if (v15)
         {
-          v18 = v17 <= than;
+          v19 = v18 <= than;
         }
 
         else
         {
-          v18 = 0;
+          v19 = 0;
         }
 
-        if (v18)
+        if (v19)
         {
-          v20 = __atxlog_handle_relevance_model();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v21 = __atxlog_handle_relevance_model(timeIntervalSinceNow);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            v21 = objc_opt_class();
-            v22 = NSStringFromClass(v21);
+            v22 = objc_opt_class();
+            v23 = NSStringFromClass(v22);
             clientModel = [v14 clientModel];
             [clientModel clientModelId];
-            v24 = v10;
-            v25 = v11;
-            v26 = v8;
-            v28 = v27 = v12;
+            v25 = v10;
+            v26 = v11;
+            v27 = v8;
+            v29 = v28 = v12;
             *buf = 138412802;
-            v37 = v22;
+            v37 = v23;
             v38 = 2048;
-            v39 = v17;
+            v39 = v18;
             v40 = 2112;
-            v41 = v28;
-            _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "%@ - Skipping model serving due to recent cache update %f seconds ago for model id %@", buf, 0x20u);
+            v41 = v29;
+            _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "%@ - Skipping model serving due to recent cache update %f seconds ago for model id %@", buf, 0x20u);
 
-            v12 = v27;
-            v8 = v26;
-            v11 = v25;
-            v10 = v24;
+            v12 = v28;
+            v8 = v27;
+            v11 = v26;
+            v10 = v25;
             self = selfCopy;
           }
         }
 
         else
         {
-          v19 = [*(v12 + 2728) now];
-          [(ATXCandidateRelevanceModelServerCoordinator *)self setCacheUpdateDate:v19 forConfig:v14];
+          v20 = [*(v12 + 2728) now];
+          [(ATXCandidateRelevanceModelServerCoordinator *)self setCacheUpdateDate:v20 forConfig:v14];
 
           [(ATXCandidateRelevanceModelServerCoordinator *)self sendSuggestionsToBlendingForConfig:v14];
         }
@@ -612,8 +602,6 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
 
     while (v10);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendSuggestionsToBlendingForConfig:(id)config
@@ -659,74 +647,57 @@ void __65__ATXCandidateRelevanceModelServerCoordinator_callbackForAnchor___block
 - (void)registerAnchorEventNotificationsForAnchor:.cold.1()
 {
   OUTLINED_FUNCTION_3_6();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Setting up Anchor Event listener.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Setting up Anchor Event listener.", v4, v5, v6, v7);
 }
 
 - (void)registerAnchorEventNotificationsForAnchor:.cold.2()
 {
   OUTLINED_FUNCTION_3_6();
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_12();
-  v6 = v1;
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "%@ - (%@) Tried to register for real-time notifications, but the Anchor doesn't support the ContextStore and it's not another known anchor.", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = v1;
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "%@ - (%@) Tried to register for real-time notifications, but the Anchor doesn't support the ContextStore and it's not another known anchor.", v4, 0x16u);
 }
 
 - (void)registerAnchorEventNotificationsForAnchor:.cold.3()
 {
   OUTLINED_FUNCTION_3_6();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Setting up Anchor Event invalidation listener.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Setting up Anchor Event invalidation listener.", v4, v5, v6, v7);
 }
 
 - (void)registerAnchorEventNotificationsForAnchor:.cold.4()
 {
   OUTLINED_FUNCTION_3_6();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Done registering.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Done registering.", v4, v5, v6, v7);
 }
 
 - (void)unregisterAnchorEventListenerForAnchor:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Unregistering Anchor Event listener.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Unregistering Anchor Event listener.", v4, v5, v6, v7);
 }
 
 - (void)unregisterAnchorEventListenerForAnchor:.cold.2()
 {
   OUTLINED_FUNCTION_2_1();
-  v10 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_0_12();
-  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Done unregistering.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_5(&dword_2263AA000, v2, v3, "%@ - (%@) Done unregistering.", v4, v5, v6, v7);
 }
 
 @end

@@ -25,7 +25,7 @@
       [v8 setObject:@"internal" forKeyedSubscript:@"OSBuildType"];
     }
 
-    v9 = sub_1003D64DC();
+    v9 = sub_1003D64DC(AppDefaultsManager);
     v10 = v9;
     if (v9 && (([v9 isEqualToNumber:&off_100547368] & 1) != 0 || objc_msgSend(v10, "isEqualToNumber:", &off_100547380)))
     {

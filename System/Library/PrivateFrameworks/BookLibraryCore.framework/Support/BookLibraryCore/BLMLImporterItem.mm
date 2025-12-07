@@ -425,7 +425,7 @@ LABEL_8:
       v17 = 0;
     }
 
-    [v9 duration];
+    objc_msgSend_duration(v9);
     Seconds = CMTimeGetSeconds(&time);
     dispatchQueue = self->_dispatchQueue;
     block[0] = _NSConcreteStackBlock;

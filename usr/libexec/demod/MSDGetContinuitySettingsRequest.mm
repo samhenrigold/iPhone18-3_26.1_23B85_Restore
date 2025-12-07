@@ -43,89 +43,89 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v44.receiver = self;
-  v44.super_class = MSDGetContinuitySettingsRequest;
-  v8 = [(MSDServerRequest *)&v44 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v47.receiver = self;
+  v47.super_class = MSDGetContinuitySettingsRequest;
+  v8 = [(MSDServerRequest *)&v47 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (!error)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100063A54(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       getName = [(MSDServerRequest *)self getName];
       data = [v8 data];
       *buf = 138543618;
-      v46 = getName;
-      v47 = 2114;
-      v48 = data;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: data from server: %{public}@", buf, 0x16u);
+      v49 = getName;
+      v50 = 2114;
+      v51 = data;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: data from server: %{public}@", buf, 0x16u);
     }
 
-    v13 = [payloadCopy objectForKey:@"statusCode"];
-    if (!v13)
+    v14 = [payloadCopy objectForKey:@"statusCode"];
+    if (!v14)
     {
-      v15 = sub_100063A54();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = sub_100063A54(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         getName2 = [(MSDServerRequest *)self getName];
         sub_1000792B4();
-        v48 = @"statusCode";
-        sub_1000792C8(&_mh_execute_header, v35, v36, "%{public}@ response payload does not contain: %{public}@", v37, v38, v39, v40, v42, v43, v44.receiver, v44.super_class, buf[0]);
+        v51 = @"statusCode";
+        sub_1000792C8(&_mh_execute_header, v38, v39, "%{public}@ response payload does not contain: %{public}@", v40, v41, v42, v43, v45, v46, v47.receiver, v47.super_class);
       }
 
-      v14 = 0;
+      v15 = 0;
       goto LABEL_16;
     }
 
-    v14 = v13;
-    if ([(__CFString *)v13 intValue]== 200 || [(__CFString *)v14 intValue]== 202)
+    v15 = v14;
+    if ([(__CFString *)v14 intValue]== 200 || (v16 = [(__CFString *)v15 intValue], v16 == 202))
     {
-      v15 = [payloadCopy objectForKey:@"retryAfter"];
-      if ([(__CFString *)v14 intValue]== 202)
+      v17 = [payloadCopy objectForKey:@"retryAfter"];
+      if ([(__CFString *)v15 intValue]== 202)
       {
-        v16 = v15;
+        v18 = v17;
       }
 
       else
       {
-        v16 = 0;
+        v18 = 0;
       }
 
-      [v8 setRetryAfter:v16];
+      [v8 setRetryAfter:v18];
       data2 = [v8 data];
       if (data2)
       {
-        v18 = data2;
+        v20 = data2;
         data3 = [v8 data];
-        v20 = [data3 length];
+        v22 = [data3 length];
 
-        if (v20)
+        if (v22)
         {
           data4 = [v8 data];
-          v22 = [NSDictionary dictionaryFromJsonData:data4];
+          v24 = [NSDictionary dictionaryFromJsonData:data4];
 
-          if (v22)
+          if (v24)
           {
-            [v8 setContinuityDict:v22];
+            [v8 setContinuityDict:v24];
           }
 
           else
           {
-            v32 = sub_100063A54();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v35 = sub_100063A54(v25);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
               getName3 = [(MSDServerRequest *)self getName];
               *buf = 138543362;
-              v46 = getName3;
-              _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "%{public}@: failed to convert data to dict", buf, 0xCu);
+              v49 = getName3;
+              _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "%{public}@: failed to convert data to dict", buf, 0xCu);
             }
 
-            v43 = errorCopy;
-            sub_1000C1390(&v43, 3727744512, @"Unexpected server response.");
-            v33 = v43;
+            v46 = errorCopy;
+            sub_1000C1390(&v46, 3727744512, @"Unexpected server response.");
+            v36 = v46;
 
-            errorCopy = v33;
+            errorCopy = v36;
           }
 
           goto LABEL_16;
@@ -138,23 +138,23 @@
 
     else
     {
-      v15 = sub_100063A54();
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = sub_100063A54(v16);
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_16;
       }
 
       getName4 = [(MSDServerRequest *)self getName];
       sub_1000792B4();
-      v48 = v14;
-      sub_1000792C8(&_mh_execute_header, v26, v27, "%{public}@: HTTP status code is %{public}@.", v28, v29, v30, v31, v42, v43, v44.receiver, v44.super_class, buf[0]);
+      v51 = v15;
+      sub_1000792C8(&_mh_execute_header, v29, v30, "%{public}@: HTTP status code is %{public}@.", v31, v32, v33, v34, v45, v46, v47.receiver, v47.super_class);
     }
 
 LABEL_16:
     goto LABEL_17;
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_17:
   error2 = [v8 error];
 

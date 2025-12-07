@@ -142,7 +142,7 @@ LABEL_7:
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"KEY_CONTEXTUALACTION" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXShortcutsAction" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -152,7 +152,7 @@ LABEL_7:
   {
     v11 = MEMORY[0x1E69C5D78];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"KEY_ACTION_CRITERIA" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXShortcutsAction" errorCode:-1 logHandle:v13];
 
     error2 = [coderCopy error];

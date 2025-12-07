@@ -16,69 +16,56 @@
 
 - (NSString)fullName
 {
-  v3 = type metadata accessor for User();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for User(0);
   MEMORY[0x28223BE20](v3);
-  v6 = &v12[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_248135858(self + OBJC_IVAR___DDQUser__user, v12);
+  v5 = &v8[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_248135858(self + OBJC_IVAR___DDQUser__user, v8);
   swift_dynamicCast();
-  v7 = &v6[*(v3 + 28)];
-  v8 = *v7;
-  v9 = v7[1];
 
-  sub_248138234(v6, type metadata accessor for User);
-  v10 = sub_248143B50();
+  sub_248138234(v5, type metadata accessor for User);
+  v6 = sub_248143B50();
 
-  return v10;
+  return v6;
 }
 
 - (NSString)homeDirectory
 {
-  v3 = type metadata accessor for User();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for User(0);
   MEMORY[0x28223BE20](v3);
-  v6 = &v12[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_248135858(self + OBJC_IVAR___DDQUser__user, v12);
+  v5 = &v8[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_248135858(self + OBJC_IVAR___DDQUser__user, v8);
   swift_dynamicCast();
-  v7 = &v6[*(v3 + 32)];
-  v8 = *v7;
-  v9 = v7[1];
 
-  sub_248138234(v6, type metadata accessor for User);
-  v10 = sub_248143B50();
+  sub_248138234(v5, type metadata accessor for User);
+  v6 = sub_248143B50();
 
-  return v10;
+  return v6;
 }
 
 - (unsigned)primaryGroupID
 {
-  v3 = type metadata accessor for User();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for User(0);
   MEMORY[0x28223BE20](v3);
-  v6 = &v8[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_248135858(self + OBJC_IVAR___DDQUser__user, v8);
+  v5 = &v7[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_248135858(self + OBJC_IVAR___DDQUser__user, v7);
   swift_dynamicCast();
-  LODWORD(self) = *&v6[*(v3 + 36)];
-  sub_248138234(v6, type metadata accessor for User);
+  LODWORD(self) = *&v5[*(v3 + 36)];
+  sub_248138234(v5, type metadata accessor for User);
   return self;
 }
 
 - (NSString)shell
 {
-  v3 = type metadata accessor for User();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for User(0);
   MEMORY[0x28223BE20](v3);
-  v6 = &v12[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  sub_248135858(self + OBJC_IVAR___DDQUser__user, v12);
+  v5 = &v8[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  sub_248135858(self + OBJC_IVAR___DDQUser__user, v8);
   swift_dynamicCast();
-  v7 = &v6[*(v3 + 40)];
-  v8 = *v7;
-  v9 = v7[1];
 
-  sub_248138234(v6, type metadata accessor for User);
-  v10 = sub_248143B50();
+  sub_248138234(v5, type metadata accessor for User);
+  v6 = sub_248143B50();
 
-  return v10;
+  return v6;
 }
 
 - (DDQUser)userWithUID:(unsigned int)d
@@ -106,14 +93,13 @@
 {
   v3 = sub_248143B30();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_248143B00();
-  v8 = sub_248137370(v7);
-  (*(v4 + 8))(v7, v3);
+  v7 = sub_248137370(v6);
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 + (id)userWithUID:(unsigned int)d

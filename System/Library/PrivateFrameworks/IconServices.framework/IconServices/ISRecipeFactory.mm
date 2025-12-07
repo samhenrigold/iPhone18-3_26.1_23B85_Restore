@@ -76,8 +76,8 @@
     resourceProvider2 = [(ISRecipeFactory *)self resourceProvider];
     suggestedRecipe2 = [resourceProvider2 suggestedRecipe];
 
-    v10 = _ISDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = _ISDefaultLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [(ISRecipeFactory *)suggestedRecipe2 _recipe];
     }
@@ -90,9 +90,9 @@ LABEL_7:
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
-      if ((isKindOfClass & 1) != 0 && (v14 = objc_alloc_init(ISGenericRecipe)) != 0 || (-[ISRecipeFactory resourceProvider](self, "resourceProvider"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 isCompositedDocument], v15, v16) && (v14 = objc_alloc_init(ISDocumentRecipe)) != 0)
+      if ((isKindOfClass & 1) != 0 && (v15 = objc_alloc_init(ISGenericRecipe)) != 0 || (-[ISRecipeFactory resourceProvider](self, "resourceProvider"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 isCompositedDocument], v16, v17) && (v15 = objc_alloc_init(ISDocumentRecipe)) != 0)
       {
-        suggestedRecipe2 = v14;
+        suggestedRecipe2 = v15;
         goto LABEL_24;
       }
 
@@ -112,19 +112,19 @@ LABEL_7:
         resourceProvider6 = [(ISRecipeFactory *)self resourceProvider];
         platform = [resourceProvider6 platform];
         descriptor2 = [(ISRecipeFactory *)self descriptor];
-        v28 = [ISRecipeInfo documentRecipeForPlatform:platform descriptor:descriptor2];
+        v30 = [ISRecipeInfo documentRecipeForPlatform:platform descriptor:descriptor2];
 LABEL_18:
-        suggestedRecipe2 = v28;
+        suggestedRecipe2 = v30;
         goto LABEL_19;
       }
 
       if (resourceType2 != 1)
       {
 LABEL_21:
-        v29 = _ISDefaultLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v31 = _ISDefaultLog(v20);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          [(ISRecipeFactory *)v29 _recipe];
+          [(ISRecipeFactory *)v31 _recipe];
         }
 
         descriptor3 = [(ISRecipeFactory *)self descriptor];
@@ -158,9 +158,9 @@ LABEL_19:
         {
           resourceProvider6 = [(ISRecipeFactory *)self descriptor];
           preferRichRecipe = [(ISRecipeFactory *)self preferRichRecipe];
-          v47 = 1;
+          v49 = 1;
 LABEL_49:
-          suggestedRecipe2 = [ISRecipeInfo appRecipeForPlatform:v47 descriptor:resourceProvider6 preferRichRecipe:preferRichRecipe];
+          suggestedRecipe2 = [ISRecipeInfo appRecipeForPlatform:v49 descriptor:resourceProvider6 preferRichRecipe:preferRichRecipe];
 LABEL_20:
 
           if (suggestedRecipe2)
@@ -179,8 +179,8 @@ LABEL_20:
       resourceProvider10 = [(ISRecipeFactory *)self resourceProvider];
       if ([resourceProvider10 platform] == 4)
       {
-        v49 = +[ISPlatformInfo sharedInstance];
-        if ([v49 nativePlatform] == 1)
+        v51 = +[ISPlatformInfo sharedInstance];
+        if ([v51 nativePlatform] == 1)
         {
           resourceProvider11 = [(ISRecipeFactory *)self resourceProvider];
           isPrecomposed2 = [resourceProvider11 isPrecomposed];
@@ -189,7 +189,7 @@ LABEL_20:
           {
             resourceProvider6 = [(ISRecipeFactory *)self descriptor];
             preferRichRecipe = [(ISRecipeFactory *)self preferRichRecipe];
-            v47 = 2;
+            v49 = 2;
             goto LABEL_49;
           }
 
@@ -201,7 +201,7 @@ LABEL_52:
       resourceProvider6 = [(ISRecipeFactory *)self resourceProvider];
       platform2 = [resourceProvider6 platform];
       descriptor2 = [(ISRecipeFactory *)self descriptor];
-      v28 = [ISRecipeInfo appRecipeForPlatform:platform2 descriptor:descriptor2 preferRichRecipe:[(ISRecipeFactory *)self preferRichRecipe]];
+      v30 = [ISRecipeInfo appRecipeForPlatform:platform2 descriptor:descriptor2 preferRichRecipe:[(ISRecipeFactory *)self preferRichRecipe]];
       goto LABEL_18;
     }
   }
@@ -229,9 +229,9 @@ LABEL_24:
   else
   {
     objc_opt_class();
-    v33 = objc_opt_isKindOfClass();
+    v35 = objc_opt_isKindOfClass();
 
-    if ((v33 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
       goto LABEL_32;
     }
@@ -242,20 +242,20 @@ LABEL_32:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = suggestedRecipe2;
-    [v34 setMaskBadgeResource:1];
+    v36 = suggestedRecipe2;
+    [v36 setMaskBadgeResource:1];
     resourceProvider13 = [(ISRecipeFactory *)self resourceProvider];
-    [v34 setBadgeWithSymbol:{objc_msgSend(resourceProvider13, "isBadgedWithSymbol")}];
+    [v36 setBadgeWithSymbol:{objc_msgSend(resourceProvider13, "isBadgedWithSymbol")}];
 
     resourceProvider14 = [(ISRecipeFactory *)self resourceProvider];
-    [v34 setPlatform:{objc_msgSend(resourceProvider14, "platform")}];
+    [v36 setPlatform:{objc_msgSend(resourceProvider14, "platform")}];
 
     resourceProvider15 = [(ISRecipeFactory *)self resourceProvider];
     textResource = [resourceProvider15 textResource];
 
     if (textResource)
     {
-      [v34 setHasText:1];
+      [v36 setHasText:1];
     }
 
     resourceProvider16 = [(ISRecipeFactory *)self resourceProvider];
@@ -263,9 +263,9 @@ LABEL_32:
 
     if (backgroundResource)
     {
-      [v34 setHasBespokeBackground:1];
+      [v36 setHasBespokeBackground:1];
       resourceProvider17 = [(ISRecipeFactory *)self resourceProvider];
-      [v34 setTreatLikeSymbol:{objc_msgSend(resourceProvider17, "treatLikeSymbol")}];
+      [v36 setTreatLikeSymbol:{objc_msgSend(resourceProvider17, "treatLikeSymbol")}];
     }
   }
 
@@ -448,7 +448,7 @@ LABEL_22:
 
 - (id)recipeForDecoration:(id)decoration
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   decorationCopy = decoration;
   if ([decorationCopy identifierKind] == 2)
   {
@@ -468,101 +468,102 @@ LABEL_22:
   v6 = 0;
 LABEL_6:
   position = [decorationCopy position];
+  v8 = position;
   if (!position)
   {
-    v10 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration.emboss"];
-    v11 = [v6 conformsToType:v10];
+    v11 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration.emboss"];
+    v12 = [v6 conformsToType:v11];
 
-    if (v11)
+    if (v12)
     {
-      v9 = 1;
-      position = 1;
+      v10 = 1;
+      v8 = 1;
       goto LABEL_22;
     }
 
-    v12 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration-position.trailing-bottom"];
-    v13 = [v6 conformsToType:v12];
+    v13 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration-position.trailing-bottom"];
+    v14 = [v6 conformsToType:v13];
 
-    if (v13)
+    if (v14)
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v14 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration-position.leading-bottom"];
-      v15 = [v6 conformsToType:v14];
+      v15 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration-position.leading-bottom"];
+      v16 = [v6 conformsToType:v15];
 
-      if (v15)
+      if (v16)
       {
-        v9 = 0;
-        position = 2;
+        v10 = 0;
+        v8 = 2;
         goto LABEL_22;
       }
 
-      v16 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration.system"];
-      v17 = [v6 conformsToType:v16];
+      v17 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration.system"];
+      v18 = [v6 conformsToType:v17];
 
-      if (v17 & 1) != 0 || ([identifier isEqualToString:@"com.apple.icon-decoration.folderbadge"])
+      if (v18 & 1) != 0 || ([identifier isEqualToString:@"com.apple.icon-decoration.folderbadge"])
       {
-        position = 1;
-        v9 = 1;
+        v8 = 1;
+        v10 = 1;
         goto LABEL_22;
       }
 
-      v39 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.graphic-icon"];
-      v40 = [v6 conformsToType:v39];
+      v40 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.graphic-icon"];
+      v41 = [v6 conformsToType:v40];
 
-      if ((v40 & 1) == 0)
+      if ((v41 & 1) == 0)
       {
-        v41 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.application-icon"];
-        v42 = [v6 conformsToType:v41];
+        v42 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.application-icon"];
+        v43 = [v6 conformsToType:v42];
 
-        if (v42)
+        if (v43)
         {
-          position = 3;
+          v8 = 3;
         }
 
         else
         {
-          position = 0;
+          v8 = 0;
         }
 
         goto LABEL_7;
       }
 
-      v9 = 1;
+      v10 = 1;
     }
 
-    position = 3;
+    v8 = 3;
     goto LABEL_22;
   }
 
 LABEL_7:
-  if ((position & 0xFFFFFFFFFFFFFFFELL) == 4)
+  if ((v8 & 0xFFFFFFFFFFFFFFFELL) == 4)
   {
-    v8 = _ISDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = _ISDefaultLog(position);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v43 = 134217984;
-      v44 = position;
-      _os_log_impl(&dword_1A77B8000, v8, OS_LOG_TYPE_INFO, "Invalid position: %lu. Using default positioning instead..", &v43, 0xCu);
+      v44 = 134217984;
+      v45 = v8;
+      _os_log_impl(&dword_1A77B8000, v9, OS_LOG_TYPE_INFO, "Invalid position: %lu. Using default positioning instead..", &v44, 0xCu);
     }
 
-    position = 0;
+    v8 = 0;
   }
 
-  v9 = 1;
+  v10 = 1;
 LABEL_22:
   mode = [decorationCopy mode];
   if (!mode)
   {
-    v20 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration.emboss"];
-    v21 = [v6 conformsToType:v20];
+    v21 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.icon-decoration.emboss"];
+    v22 = [v6 conformsToType:v21];
 
-    if ((v21 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
-      if (position < 2)
+      if (v8 < 2)
       {
         goto LABEL_25;
       }
@@ -571,20 +572,20 @@ LABEL_22:
     }
 
 LABEL_27:
-    if (position >= 2)
+    if (v8 >= 2)
     {
-      v22 = _ISDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v23 = _ISDefaultLog(mode);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        v43 = 134218240;
-        v44 = position;
-        v45 = 2048;
-        v46 = 2;
-        _os_log_impl(&dword_1A77B8000, v22, OS_LOG_TYPE_INFO, "Incompatible decoration position/mode combo: p:%lu,m:%lu. Preferring mode...", &v43, 0x16u);
+        v44 = 134218240;
+        v45 = v8;
+        v46 = 2048;
+        v47 = 2;
+        _os_log_impl(&dword_1A77B8000, v23, OS_LOG_TYPE_INFO, "Incompatible decoration position/mode combo: p:%lu,m:%lu. Preferring mode...", &v44, 0x16u);
       }
     }
 
-    v19 = ISCenterEmbossRecipe;
+    v20 = ISCenterEmbossRecipe;
     goto LABEL_32;
   }
 
@@ -593,14 +594,14 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  if (position <= 1)
+  if (v8 <= 1)
   {
 LABEL_25:
-    v19 = ISGenericRecipe;
+    v20 = ISGenericRecipe;
 LABEL_32:
-    v23 = objc_alloc_init(v19);
+    v24 = objc_alloc_init(v20);
 LABEL_33:
-    v24 = v23;
+    v25 = v24;
     goto LABEL_34;
   }
 
@@ -637,69 +638,66 @@ LABEL_38:
   resourceProvider4 = [(ISRecipeFactory *)self resourceProvider];
   _shouldTreatLikeFolder = [resourceProvider4 _shouldTreatLikeFolder];
 
-  if ((v9 & v29) == 1)
+  if ((v10 & v29) == 1)
   {
-    if (position == 2)
+    if (v8 == 2)
     {
-      v36 = _ISDefaultLog();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+      v37 = _ISDefaultLog(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v43) = 0;
-        _os_log_impl(&dword_1A77B8000, v36, OS_LOG_TYPE_INFO, "Invalid decoration position configuration for resource. Defaulting to trailing bottom...", &v43, 2u);
+        LOWORD(v44) = 0;
+        _os_log_impl(&dword_1A77B8000, v37, OS_LOG_TYPE_INFO, "Invalid decoration position configuration for resource. Defaulting to trailing bottom...", &v44, 2u);
       }
     }
 
-    v23 = objc_opt_new();
+    v24 = objc_opt_new();
     goto LABEL_33;
   }
 
-  v24 = objc_alloc_init(ISGenericRecipe);
-  if (position == 2)
+  v25 = objc_alloc_init(ISGenericRecipe);
+  if (v8 == 2)
   {
-    v37 = off_1E77C5F80;
+    v38 = off_1E77C5F80;
   }
 
   else
   {
-    if (position != 3)
+    if (v8 != 3)
     {
       goto LABEL_54;
     }
 
-    v37 = off_1E77C5FE0;
+    v38 = off_1E77C5FE0;
   }
 
-  v38 = objc_alloc_init(*v37);
+  v39 = objc_alloc_init(*v38);
 
-  v24 = v38;
+  v25 = v39;
 LABEL_54:
   if (objc_opt_respondsToSelector())
   {
     if (((v29 | _shouldTreatLikeFolder) & 1) == 0)
     {
-      [(ISGenericRecipe *)v24 setPrimaryIconType:1];
+      [(ISGenericRecipe *)v25 setPrimaryIconType:1];
     }
 
     if (_shouldTreatLikeFolder)
     {
-      [(ISGenericRecipe *)v24 setPrimaryIconType:2];
+      [(ISGenericRecipe *)v25 setPrimaryIconType:2];
     }
   }
 
 LABEL_34:
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v25;
 }
 
 - (void)_recipe
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Allowing provider to suggest recipe: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Allowing provider to suggest recipe: %@", &v2, 0xCu);
 }
 
 @end

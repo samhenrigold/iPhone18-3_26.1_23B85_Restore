@@ -1,8 +1,8 @@
 @interface BWBreadthFirstEnumerator
 - (BWBreadthFirstEnumerator)initWithGraph:(id)graph;
 - (id)nextObject;
-- (uint64_t)addChildren:(uint64_t)result;
 - (uint64_t)nextObject;
+- (void)addChildren:(void *)result;
 - (void)dealloc;
 @end
 
@@ -38,7 +38,7 @@
 
           v10 = *(*(&v13 + 1) + 8 * i);
           [(NSMutableArray *)v4->_queue addObject:v10];
-          [(BWNodeEnumerator *)v4 _updateVisitedCount:v10];
+          [(BWNodeEnumerator *)&v4->super.super.super.isa _updateVisitedCount:v10];
         }
 
         v7 = [_sourceNodes countByEnumeratingWithState:&v13 objects:v12 count:16];
@@ -79,41 +79,41 @@ LABEL_7:
   return 0;
 }
 
-- (uint64_t)addChildren:(uint64_t)result
+- (void)addChildren:(void *)result
 {
   if (result)
   {
     v5 = [OUTLINED_FUNCTION_0_73(result a2)];
-    result = OUTLINED_FUNCTION_44_0(v5, v6);
+    result = OUTLINED_FUNCTION_44_0(v5, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57);
     if (result)
     {
-      v7 = result;
-      v8 = *v39;
+      v13 = result;
+      v14 = *v60;
       do
       {
-        v9 = 0;
+        v15 = 0;
         do
         {
-          if (*v39 != v8)
+          if (*v60 != v14)
           {
             objc_enumerationMutation(v3);
           }
 
-          v10 = [objc_msgSend(objc_msgSend(*(v38 + 8 * v9) "connection")];
-          if (v10)
+          v16 = [objc_msgSend(objc_msgSend(*(v59 + 8 * v15) "connection")];
+          if (v16)
           {
-            if ((v18 = OUTLINED_FUNCTION_3_66(v10), v18 == [objc_msgSend(v4 "inputs")] - 1) && (v19 = objc_msgSend(*(v2 + 40), "containsObject:", v4), v20 = &OBJC_IVAR___BWBreadthFirstEnumerator__queue, !v19) || (v10 = objc_msgSend(*(v2 + 40), "containsObject:", v4), v20 = &OBJC_IVAR___BWBreadthFirstEnumerator__holdQueue, (v10 & 1) == 0))
+            if ((v24 = OUTLINED_FUNCTION_3_66(v16), v24 == ([objc_msgSend(v4 "inputs")] - 1)) && (v25 = objc_msgSend(*(v2 + 40), "containsObject:", v4), v26 = &OBJC_IVAR___BWBreadthFirstEnumerator__queue, !v25) || (v16 = objc_msgSend(*(v2 + 40), "containsObject:", v4), v26 = &OBJC_IVAR___BWBreadthFirstEnumerator__holdQueue, (v16 & 1) == 0))
             {
-              v10 = [*(v2 + *v20) addObject:v4];
+              v16 = [*(v2 + *v26) addObject:v4];
             }
           }
 
-          ++v9;
+          v15 = v15 + 1;
         }
 
-        while (v7 != v9);
-        result = OUTLINED_FUNCTION_1_3(v10, v11, v12, v13, v14, v15, v16, v17, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37);
-        v7 = result;
+        while (v13 != v15);
+        result = OUTLINED_FUNCTION_1_3(v16, v17, v18, v19, v20, v21, v22, v23, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
+        v13 = result;
       }
 
       while (result);

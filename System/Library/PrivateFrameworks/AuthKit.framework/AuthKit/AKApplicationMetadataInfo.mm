@@ -72,43 +72,42 @@ void __50__AKApplicationMetadataInfo_initWithResponseInfo___block_invoke(void *a
 
 - (AKApplicationMetadataInfo)initWithCoder:(id)coder
 {
-  v20 = &selfCopy;
+  v19 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v21 = [(AKApplicationMetadataInfo *)v3 init];
-  selfCopy = v21;
-  objc_storeStrong(&selfCopy, v21);
-  if (v21)
+  v20 = [(AKApplicationMetadataInfo *)v3 init];
+  selfCopy = v20;
+  objc_storeStrong(&selfCopy, v20);
+  if (v20)
   {
-    v13 = location[0];
-    v14 = 0x1E696A000uLL;
+    v12 = location[0];
+    v13 = 0x1E696A000uLL;
     v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"authorizedAppListVersion"];
     authorizedAppListVersion = selfCopy->_authorizedAppListVersion;
     selfCopy->_authorizedAppListVersion = v4;
     MEMORY[0x1E69E5920](authorizedAppListVersion);
-    v18 = location[0];
-    v17 = MEMORY[0x1E695DFD8];
-    v16 = objc_opt_class();
+    v17 = location[0];
+    v16 = MEMORY[0x1E695DFD8];
     v15 = objc_opt_class();
-    v6 = *(v14 + 3776);
-    v19 = [v17 setWithObjects:{v16, v15, objc_opt_class(), 0}];
-    v7 = [v18 decodeObjectOfClasses:? forKey:?];
+    v14 = objc_opt_class();
+    v18 = [v16 setWithObjects:{v15, v14, objc_opt_class(), 0}];
+    v6 = [v17 decodeObjectOfClasses:? forKey:?];
     teams = selfCopy->_teams;
-    selfCopy->_teams = v7;
+    selfCopy->_teams = v6;
     MEMORY[0x1E69E5920](teams);
-    MEMORY[0x1E69E5920](v19);
+    MEMORY[0x1E69E5920](v18);
   }
 
-  v10 = &selfCopy;
-  v12 = MEMORY[0x1E69E5928](selfCopy);
+  v9 = &selfCopy;
+  v11 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v10, obj);
-  return v12;
+  objc_storeStrong(v9, obj);
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -31,7 +31,6 @@
 
 uint64_t __47__HMDManagedObjectContext_performBlockAndWait___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   _HMFThreadLocalAsyncContextPush();
   (*(*(a1 + 40) + 16))();
   return _HMFThreadLocalAsyncContextPop();
@@ -54,7 +53,6 @@ uint64_t __47__HMDManagedObjectContext_performBlockAndWait___block_invoke(uint64
 
 uint64_t __40__HMDManagedObjectContext_performBlock___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   _HMFThreadLocalAsyncContextPush();
   (*(*(a1 + 40) + 16))();
   return _HMFThreadLocalAsyncContextPop();

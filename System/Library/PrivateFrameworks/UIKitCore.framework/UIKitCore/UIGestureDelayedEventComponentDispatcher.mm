@@ -2,9 +2,9 @@
 - (BOOL)pressesBeganWasDelayedForPress:(uint64_t)press;
 - (BOOL)touchesBeganWasDelayedForTouch:(uint64_t)touch;
 - (UIGestureDelayedEventComponentDispatcher)init;
-- (uint64_t)enqueueDelayedPressToSend:(uint64_t)result;
-- (uint64_t)enqueueDelayedTouchToSend:(uint64_t)result;
-- (uint64_t)removeDelayedPress:(uint64_t)result;
+- (id)enqueueDelayedPressToSend:(id *)result;
+- (id)enqueueDelayedTouchToSend:(id *)result;
+- (id)removeDelayedPress:(id *)result;
 - (void)cancelDelayedPresses:(void *)presses presses:(void *)a4 fromEvent:;
 - (void)cancelDelayedTouches:(void *)touches touches:(void *)a4 fromEvent:;
 - (void)delayedPressForPress:(void *)press event:;
@@ -1418,7 +1418,7 @@ uint64_t __62__UIGestureDelayedEventComponentDispatcher_sendDelayedTouches__bloc
   }
 }
 
-- (uint64_t)enqueueDelayedTouchToSend:(uint64_t)result
+- (id)enqueueDelayedTouchToSend:(id *)result
 {
   v32 = *MEMORY[0x1E69E9840];
   if (!result)
@@ -1526,7 +1526,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)enqueueDelayedPressToSend:(uint64_t)result
+- (id)enqueueDelayedPressToSend:(id *)result
 {
   v32 = *MEMORY[0x1E69E9840];
   if (!result)
@@ -1819,7 +1819,7 @@ LABEL_7:
   }
 }
 
-- (uint64_t)removeDelayedPress:(uint64_t)result
+- (id)removeDelayedPress:(id *)result
 {
   v18 = *MEMORY[0x1E69E9840];
   if (result)

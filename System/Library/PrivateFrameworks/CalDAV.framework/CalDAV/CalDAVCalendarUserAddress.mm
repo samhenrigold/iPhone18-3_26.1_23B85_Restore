@@ -31,21 +31,19 @@
 
 + (id)packCalDAVUserAdress:(id)adress
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"packedCalendarUserAddressAddress";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"packedCalendarUserAddressAddress";
   adressCopy = adress;
   address = [adressCopy address];
   absoluteString = [address absoluteString];
-  v12[1] = @"packedCalendarUserAddressPreferred";
-  v13[0] = absoluteString;
+  v11[1] = @"packedCalendarUserAddressPreferred";
+  v12[0] = absoluteString;
   v6 = MEMORY[0x277CCABB0];
   preferred = [adressCopy preferred];
 
   v8 = [v6 numberWithInteger:preferred];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }
@@ -103,28 +101,28 @@
 
 + (id)_minPreferredAddress:(id)address
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   addressCopy = address;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = [addressCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [addressCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(addressCopy);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         preferred = [v9 preferred];
         if (preferred != [objc_opt_class() defaultPreferredAttribute])
         {
@@ -146,7 +144,7 @@
         }
       }
 
-      v5 = [addressCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [addressCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -157,14 +155,12 @@
     v6 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)_preferredAddressNoPreferred:(id)preferred
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   preferredCopy = preferred;
   allObjects = [preferredCopy allObjects];
   v5 = [allObjects sortedArrayUsingSelector:sel_compare_];
@@ -175,19 +171,19 @@
     goto LABEL_3;
   }
 
-  v29 = v5;
-  v30 = preferredCopy;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
+  v28 = v5;
+  v29 = preferredCopy;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (!v9)
   {
     v11 = 0;
+    v30 = 0;
     v31 = 0;
-    v32 = 0;
     v12 = 0;
 LABEL_24:
 
@@ -203,17 +199,17 @@ LABEL_25:
     {
       v7 = v12;
 
-      v26 = v32;
+      v26 = v31;
     }
 
     else
     {
-      if (!v32)
+      if (!v31)
       {
-        v5 = v29;
-        preferredCopy = v30;
-        v7 = v31;
-        if (v31)
+        v5 = v28;
+        preferredCopy = v29;
+        v7 = v30;
+        if (v30)
         {
           goto LABEL_34;
         }
@@ -230,8 +226,8 @@ LABEL_3:
         goto LABEL_34;
       }
 
-      v7 = v32;
-      v26 = v31;
+      v7 = v31;
+      v26 = v30;
     }
 
     goto LABEL_33;
@@ -239,21 +235,21 @@ LABEL_3:
 
   v10 = v9;
   v11 = 0;
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
   v12 = 0;
-  v13 = *v35;
+  v13 = *v34;
   obj = v8;
 LABEL_6:
   v14 = 0;
   while (1)
   {
-    if (*v35 != v13)
+    if (*v34 != v13)
     {
       objc_enumerationMutation(obj);
     }
 
-    v15 = *(*(&v34 + 1) + 8 * v14);
+    v15 = *(*(&v33 + 1) + 8 * v14);
     address = [v15 address];
     absoluteString = [address absoluteString];
     lowercaseString = [absoluteString lowercaseString];
@@ -276,17 +272,17 @@ LABEL_17:
 
     if (v23)
     {
-      v19 = v32;
+      v19 = v31;
       v20 = v11;
-      v32 = v15;
+      v31 = v15;
       goto LABEL_17;
     }
 
     if ([lowercaseString hasPrefix:@"http"])
     {
-      v19 = v31;
+      v19 = v30;
       v20 = v11;
-      v31 = v15;
+      v30 = v15;
       goto LABEL_17;
     }
 
@@ -307,7 +303,7 @@ LABEL_18:
     if (v10 == ++v14)
     {
       v8 = obj;
-      v10 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v10 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v10)
       {
         goto LABEL_6;
@@ -329,11 +325,9 @@ LABEL_18:
 
 LABEL_27:
 LABEL_33:
-  v5 = v29;
-  preferredCopy = v30;
+  v5 = v28;
+  preferredCopy = v29;
 LABEL_34:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

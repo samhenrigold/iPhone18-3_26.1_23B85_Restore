@@ -14,38 +14,8 @@
   v24.receiver = self;
   v24.super_class = TPSAssetSizes;
   v5 = [(TPSSerializableObject *)&v24 initWithDictionary:dictionaryCopy];
-  if (!v5)
+  if (!v5 || (v6 = [TPSSizes alloc], [dictionaryCopy TPSSafeDictionaryForKey:@"tip"], v7 = objc_claimAutoreleasedReturnValue(), v8 = -[TPSSizes initWithDictionary:](v6, "initWithDictionary:", v7), tip = v5->_tip, v5->_tip = v8, tip, v7, v10 = [TPSSizes alloc], objc_msgSend(dictionaryCopy, "TPSSafeDictionaryForKey:", @"tipIntro"), v11 = objc_claimAutoreleasedReturnValue(), v12 = -[TPSSizes initWithDictionary:](v10, "initWithDictionary:", v11), tipIntro = v5->_tipIntro, v5->_tipIntro = v12, tipIntro, v11, v14 = [TPSSizes alloc], objc_msgSend(dictionaryCopy, "TPSSafeDictionaryForKey:", @"collectionHero"), v15 = objc_claimAutoreleasedReturnValue(), v16 = -[TPSSizes initWithDictionary:](v14, "initWithDictionary:", v15), collectionFeatured = v5->_collectionFeatured, v5->_collectionFeatured = v16, collectionFeatured, v15, v18 = [TPSSizes alloc], objc_msgSend(dictionaryCopy, "TPSSafeDictionaryForKey:", @"thumbnail"), v19 = objc_claimAutoreleasedReturnValue(), v20 = -[TPSSizes initWithDictionary:](v18, "initWithDictionary:", v19), thumbnail = v5->_thumbnail, v5->_thumbnail = v20, thumbnail, v19, v5->_tip) || v5->_tipIntro || v5->_collectionFeatured || v5->_thumbnail)
   {
-    goto LABEL_6;
-  }
-
-  v6 = [TPSSizes alloc];
-  v7 = [dictionaryCopy TPSSafeDictionaryForKey:@"tip"];
-  v8 = [(TPSSizes *)v6 initWithDictionary:v7];
-  tip = v5->_tip;
-  v5->_tip = v8;
-
-  v10 = [TPSSizes alloc];
-  v11 = [dictionaryCopy TPSSafeDictionaryForKey:@"tipIntro"];
-  v12 = [(TPSSizes *)v10 initWithDictionary:v11];
-  tipIntro = v5->_tipIntro;
-  v5->_tipIntro = v12;
-
-  v14 = [TPSSizes alloc];
-  v15 = [dictionaryCopy TPSSafeDictionaryForKey:@"collectionHero"];
-  v16 = [(TPSSizes *)v14 initWithDictionary:v15];
-  collectionFeatured = v5->_collectionFeatured;
-  v5->_collectionFeatured = v16;
-
-  v18 = [TPSSizes alloc];
-  v19 = [dictionaryCopy TPSSafeDictionaryForKey:@"thumbnail"];
-  v20 = [(TPSSizes *)v18 initWithDictionary:v19];
-  thumbnail = v5->_thumbnail;
-  v5->_thumbnail = v20;
-
-  if (v5->_tip || v5->_tipIntro || v5->_collectionFeatured || v5->_thumbnail)
-  {
-LABEL_6:
     v22 = v5;
   }
 

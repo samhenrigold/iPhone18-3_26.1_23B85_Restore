@@ -10,36 +10,28 @@
 
 - (void)setURL:(id)l
 {
-  v4 = [l copy];
-  URL = self->super._URL;
-  self->super._URL = v4;
+  self->super._URL = [l copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  identifier = self->super._identifier;
-  self->super._identifier = v4;
+  self->super._identifier = [identifier copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setUniformType:(id)type
 {
-  v4 = [type copy];
-  uniformType = self->super._uniformType;
-  self->super._uniformType = v4;
+  self->super._uniformType = [type copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setThumbnailGeneratorUserInfo:(id)info
 {
-  v4 = [info copy];
-  thumbnailGeneratorUserInfo = self->super._thumbnailGeneratorUserInfo;
-  self->super._thumbnailGeneratorUserInfo = v4;
+  self->super._thumbnailGeneratorUserInfo = [info copy];
 
   MEMORY[0x2821F96F8]();
 }

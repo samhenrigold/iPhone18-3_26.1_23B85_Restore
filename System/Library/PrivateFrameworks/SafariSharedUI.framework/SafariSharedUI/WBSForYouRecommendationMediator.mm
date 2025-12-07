@@ -161,29 +161,30 @@
 
 void __70__WBSForYouRecommendationMediator_updatedTopicsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   atomic_store(1u, (*(*(a1 + 40) + 8) + 24));
-  if ([v3 count])
+  v4 = [v3 count];
+  if (v4)
   {
-    v4 = *(*(*(a1 + 48) + 8) + 40);
-    objc_sync_enter(v4);
-    v5 = atomic_load((*(*(a1 + 56) + 8) + 24));
-    if ((v5 & 1) == 0)
+    v6 = *(*(*(a1 + 48) + 8) + 40);
+    objc_sync_enter(v6);
+    v7 = atomic_load((*(*(a1 + 56) + 8) + 24));
+    if ((v7 & 1) == 0)
     {
       [*(*(*(a1 + 48) + 8) + 40) addObjectsFromArray:v3];
     }
 
-    objc_sync_exit(v4);
+    objc_sync_exit(v6);
   }
 
-  v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v4, v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
-    v8 = 134217984;
-    v9 = [v3 count];
-    _os_log_impl(&dword_1C6968000, v7, OS_LOG_TYPE_INFO, "Obtained %ld ContextKit topics.", &v8, 0xCu);
+    v9 = v8;
+    v10 = 134217984;
+    v11 = [v3 count];
+    _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Obtained %ld ContextKit topics.", &v10, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -191,29 +192,30 @@ void __70__WBSForYouRecommendationMediator_updatedTopicsWithCompletionHandler___
 
 void __70__WBSForYouRecommendationMediator_updatedTopicsWithCompletionHandler___block_invoke_16(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   atomic_store(1u, (*(*(a1 + 40) + 8) + 24));
-  if ([v3 count])
+  v4 = [v3 count];
+  if (v4)
   {
-    v4 = *(*(*(a1 + 48) + 8) + 40);
-    objc_sync_enter(v4);
-    v5 = atomic_load((*(*(a1 + 56) + 8) + 24));
-    if ((v5 & 1) == 0)
+    v6 = *(*(*(a1 + 48) + 8) + 40);
+    objc_sync_enter(v6);
+    v7 = atomic_load((*(*(a1 + 56) + 8) + 24));
+    if ((v7 & 1) == 0)
     {
       [*(*(*(a1 + 48) + 8) + 40) addObjectsFromArray:v3];
     }
 
-    objc_sync_exit(v4);
+    objc_sync_exit(v6);
   }
 
-  v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v4, v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
-    v8 = 134217984;
-    v9 = [v3 count];
-    _os_log_impl(&dword_1C6968000, v7, OS_LOG_TYPE_INFO, "Obtained %ld Portrait topics.", &v8, 0xCu);
+    v9 = v8;
+    v10 = 134217984;
+    v11 = [v3 count];
+    _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Obtained %ld Portrait topics.", &v10, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 32));
@@ -222,26 +224,27 @@ void __70__WBSForYouRecommendationMediator_updatedTopicsWithCompletionHandler___
 void __70__WBSForYouRecommendationMediator_updatedTopicsWithCompletionHandler___block_invoke_17(void *a1, uint64_t a2)
 {
   v4 = *(*(a1[5] + 8) + 40);
-  objc_sync_enter(v4);
+  v5 = objc_sync_enter(v4);
   if (a1[4])
   {
     if (a2 == 1)
     {
-      v5 = atomic_load((*(a1[6] + 8) + 24));
-      if ((v5 & 1) == 0)
+      v7 = atomic_load((*(a1[6] + 8) + 24));
+      if ((v7 & 1) == 0)
       {
-        v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v5, v6);
+        v5 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+        if (v5)
         {
           __70__WBSForYouRecommendationMediator_updatedTopicsWithCompletionHandler___block_invoke_17_cold_1();
         }
       }
 
-      v7 = atomic_load((*(a1[7] + 8) + 24));
-      if ((v7 & 1) == 0)
+      v9 = atomic_load((*(a1[7] + 8) + 24));
+      if ((v9 & 1) == 0)
       {
-        v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v10 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v5, v6);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           __70__WBSForYouRecommendationMediator_updatedTopicsWithCompletionHandler___block_invoke_17_cold_2();
         }
@@ -250,8 +253,8 @@ void __70__WBSForYouRecommendationMediator_updatedTopicsWithCompletionHandler___
       atomic_store(1u, (*(a1[8] + 8) + 24));
     }
 
-    v9 = [WBSForYouRecommendationMediator _adjustedTopicsWithTopics:*(*(a1[5] + 8) + 40)];
-    v10 = [v9 copy];
+    v11 = [WBSForYouRecommendationMediator _adjustedTopicsWithTopics:*(*(a1[5] + 8) + 40)];
+    v12 = [v11 copy];
 
     (*(a1[4] + 16))();
   }
@@ -406,33 +409,34 @@ void __94__WBSForYouRecommendationMediator_banURLsOfSameDomainAsURL_postingChang
 
 void __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  if ([v3 count])
+  v4 = [v3 count];
+  if (v4)
   {
-    v4 = *(a1 + 32);
-    objc_sync_enter(v4);
-    v5 = atomic_load((*(*(a1 + 56) + 8) + 24));
-    if ((v5 & 1) == 0)
+    v6 = *(a1 + 32);
+    objc_sync_enter(v6);
+    v7 = atomic_load((*(*(a1 + 56) + 8) + 24));
+    if ((v7 & 1) == 0)
     {
       [*(a1 + 32) addObjectsFromArray:v3];
     }
 
-    objc_sync_exit(v4);
+    objc_sync_exit(v6);
   }
 
-  v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v4, v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v7 = v6;
-    v8 = [v3 count];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v12 = 134218242;
-    v13 = v8;
-    v14 = 2114;
+    v9 = v8;
+    v10 = [v3 count];
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v14 = 134218242;
     v15 = v10;
-    _os_log_impl(&dword_1C6968000, v7, OS_LOG_TYPE_INFO, "Retrieved %ld link recommendations from %{public}@", &v12, 0x16u);
+    v16 = 2114;
+    v17 = v12;
+    _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Retrieved %ld link recommendations from %{public}@", &v14, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -470,16 +474,16 @@ void __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withC
 void __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withCompletionHandler___block_invoke_25(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 32);
-  objc_sync_enter(v4);
+  v5 = objc_sync_enter(v4);
   if (*(a1 + 48))
   {
     if (a2 == 1)
     {
-      v5 = atomic_load((*(*(a1 + 56) + 8) + 24));
-      if (v5)
+      v7 = atomic_load((*(*(a1 + 56) + 8) + 24));
+      if (v7)
       {
-        v6 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v5, v6);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withCompletionHandler___block_invoke_25_cold_2();
         }
@@ -487,8 +491,8 @@ void __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withC
 
       else
       {
-        v7 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v9 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v5, v6);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withCompletionHandler___block_invoke_25_cold_1();
         }
@@ -500,16 +504,16 @@ void __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withC
     if ([*(a1 + 32) count])
     {
       [*(a1 + 40) _createPreferenceManagerIfNecessary];
-      v9 = *(a1 + 32);
-      v8 = *(a1 + 40);
-      v10 = *(v8 + 32);
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withCompletionHandler___block_invoke_26;
-      v11[3] = &unk_1E8284A38;
-      v11[4] = v8;
-      v12 = *(a1 + 48);
-      [v10 allowedForYouRecommendationsFromRecommendations:v9 completionHandler:v11];
+      v11 = *(a1 + 32);
+      v10 = *(a1 + 40);
+      v12 = *(v10 + 32);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __89__WBSForYouRecommendationMediator_updatedRecommendationsForTopics_withCompletionHandler___block_invoke_26;
+      v13[3] = &unk_1E8284A38;
+      v13[4] = v10;
+      v14 = *(a1 + 48);
+      [v12 allowedForYouRecommendationsFromRecommendations:v11 completionHandler:v13];
     }
 
     else
@@ -729,7 +733,7 @@ uint64_t __105__WBSForYouRecommendationMediator_obtainMessagesImagesWherePossibl
 {
   if (a2 == 1)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
+    v3 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(a1, 1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __105__WBSForYouRecommendationMediator_obtainMessagesImagesWherePossibleForRecommendations_completionHandler___block_invoke_2_cold_1();
@@ -857,20 +861,20 @@ void __86__WBSForYouRecommendationMediator_retrieveHandoffRecommendationWithComp
   v5 = a2;
   v6 = a3;
   v7 = [v5 webpageURL];
-  v8 = v7;
+  v9 = v7;
   if (!v7)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    v11 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(0, v8);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
     if (v6)
     {
-      if (v11)
+      if (v12)
       {
-        __86__WBSForYouRecommendationMediator_retrieveHandoffRecommendationWithCompletionHandler___block_invoke_cold_1(v10, v6);
+        __86__WBSForYouRecommendationMediator_retrieveHandoffRecommendationWithCompletionHandler___block_invoke_cold_1(v11, v6);
       }
     }
 
-    else if (v11)
+    else if (v12)
     {
       __86__WBSForYouRecommendationMediator_retrieveHandoffRecommendationWithCompletionHandler___block_invoke_cold_2();
     }
@@ -885,34 +889,34 @@ LABEL_10:
     goto LABEL_18;
   }
 
-  v9 = [v5 title];
-  if ([v9 length])
+  v10 = [v5 title];
+  if ([v10 length])
   {
     [v5 title];
   }
 
   else
   {
-    [v8 host];
+    [v9 host];
   }
-  v12 = ;
+  v13 = ;
 
-  if ([v12 length])
+  if ([v13 length])
   {
-    v13 = [WBSForYouLinkRecommendation alloc];
-    v14 = [MEMORY[0x1E695DF00] distantPast];
-    v15 = [(WBSForYouLinkRecommendation *)v13 initWithTitle:v12 url:v8 lastSeenDate:v14 source:3 topicSource:0];
+    v14 = [WBSForYouLinkRecommendation alloc];
+    v15 = [MEMORY[0x1E695DF00] distantPast];
+    v16 = [(WBSForYouLinkRecommendation *)v14 initWithTitle:v13 url:v9 lastSeenDate:v15 source:3 topicSource:0];
 
-    v16 = [*(*(a1 + 32) + 48) originatingDeviceType];
-    [(WBSForYouLinkRecommendation *)v15 setSecondarySourceIdentifier:v16];
+    v17 = [*(*(a1 + 32) + 48) originatingDeviceType];
+    [(WBSForYouLinkRecommendation *)v16 setSecondarySourceIdentifier:v17];
 
-    v17 = *(a1 + 40);
-    if ([v17 length])
+    v18 = *(a1 + 40);
+    if ([v18 length])
     {
-      v18 = MEMORY[0x1E696AEC0];
-      v19 = _WBSLocalizedString();
-      v20 = [v18 stringWithFormat:v19, v17];
-      [(WBSForYouLinkRecommendation *)v15 setFootnote:v20];
+      v19 = MEMORY[0x1E696AEC0];
+      v20 = _WBSLocalizedString();
+      v21 = [v19 stringWithFormat:v20, v18];
+      [(WBSForYouLinkRecommendation *)v16 setFootnote:v21];
     }
 
     (*(*(a1 + 48) + 16))();
@@ -1151,37 +1155,37 @@ void __60__WBSForYouRecommendationMediator_bestAppSuggestionChanged___block_invo
 
 + (void)_rankRecommendationsInPlace:(id)place history:(id)history weightManager:(id)manager suppressHistoryDeduplication:(BOOL)deduplication
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   placeCopy = place;
   historyCopy = history;
   managerCopy = manager;
-  v38 = placeCopy;
+  v40 = placeCopy;
   if ([placeCopy count])
   {
     selfCopy = self;
-    v36 = managerCopy;
+    v38 = managerCopy;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     if (!deduplication)
     {
+      v64 = 0u;
+      v65 = 0u;
       v62 = 0u;
       v63 = 0u;
-      v60 = 0u;
-      v61 = 0u;
       v12 = placeCopy;
-      v13 = [v12 countByEnumeratingWithState:&v60 objects:v69 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v62 objects:v71 count:16];
       if (v13)
       {
-        v14 = *v61;
+        v14 = *v63;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v61 != v14)
+            if (*v63 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            simplifiedURLString = [*(*(&v60 + 1) + 8 * i) simplifiedURLString];
+            simplifiedURLString = [*(*(&v62 + 1) + 8 * i) simplifiedURLString];
             if ([simplifiedURLString length])
             {
               distantPast = [MEMORY[0x1E695DF00] distantPast];
@@ -1189,52 +1193,52 @@ void __60__WBSForYouRecommendationMediator_bestAppSuggestionChanged___block_invo
             }
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v60 objects:v69 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v62 objects:v71 count:16];
         }
 
         while (v13);
       }
 
-      v58[0] = MEMORY[0x1E69E9820];
-      v58[1] = 3221225472;
-      v58[2] = __114__WBSForYouRecommendationMediator__rankRecommendationsInPlace_history_weightManager_suppressHistoryDeduplication___block_invoke;
-      v58[3] = &unk_1E82853A8;
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __114__WBSForYouRecommendationMediator__rankRecommendationsInPlace_history_weightManager_suppressHistoryDeduplication___block_invoke;
+      v60[3] = &unk_1E82853A8;
       v18 = dictionary;
-      v59 = v18;
-      [historyCopy enumerateItemsUsingBlock:v58];
+      v61 = v18;
+      [historyCopy enumerateItemsUsingBlock:v60];
       [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
       v20 = v19;
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = __114__WBSForYouRecommendationMediator__rankRecommendationsInPlace_history_weightManager_suppressHistoryDeduplication___block_invoke_2;
-      v55[3] = &unk_1E82853D0;
-      v56 = v18;
-      v57 = v20;
-      removeLinkRecommendationsPassingTestWithReductionReason(v12, @"recently visited items", v55);
+      v57[0] = MEMORY[0x1E69E9820];
+      v57[1] = 3221225472;
+      v57[2] = __114__WBSForYouRecommendationMediator__rankRecommendationsInPlace_history_weightManager_suppressHistoryDeduplication___block_invoke_2;
+      v57[3] = &unk_1E82853D0;
+      v58 = v18;
+      v59 = v20;
+      removeLinkRecommendationsPassingTestWithReductionReason(v12, @"recently visited items", v57);
     }
 
-    if ([v38 count] >= 2)
+    if ([v40 count] >= 2)
     {
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+      v55 = 0u;
+      v56 = 0u;
       v53 = 0u;
       v54 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      obj = v38;
-      v22 = [obj countByEnumeratingWithState:&v51 objects:v68 count:16];
+      obj = v40;
+      v22 = [obj countByEnumeratingWithState:&v53 objects:v70 count:16];
       if (v22)
       {
-        v23 = *v52;
+        v23 = *v54;
         do
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v52 != v23)
+            if (*v54 != v23)
             {
               objc_enumerationMutation(obj);
             }
 
-            v25 = *(*(&v51 + 1) + 8 * j);
+            v25 = *(*(&v53 + 1) + 8 * j);
             pageURL = [v25 pageURL];
             v27 = [dictionary2 objectForKeyedSubscript:pageURL];
             if (!v27 || ([v25 lastSeenDate], v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "lastSeenDate"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v28, "compare:", v29) == 1, v29, v28, v30))
@@ -1243,7 +1247,7 @@ void __60__WBSForYouRecommendationMediator_bestAppSuggestionChanged___block_invo
             }
           }
 
-          v22 = [obj countByEnumeratingWithState:&v51 objects:v68 count:16];
+          v22 = [obj countByEnumeratingWithState:&v53 objects:v70 count:16];
         }
 
         while (v22);
@@ -1252,28 +1256,28 @@ void __60__WBSForYouRecommendationMediator_bestAppSuggestionChanged___block_invo
       allValues = [dictionary2 allValues];
       [obj setArray:allValues];
 
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __114__WBSForYouRecommendationMediator__rankRecommendationsInPlace_history_weightManager_suppressHistoryDeduplication___block_invoke_3;
-      v46[3] = &unk_1E82853F8;
-      v49 = selfCopy;
-      v47 = v36;
-      v48 = dictionary;
-      v50 = 0x3F7BB0247985D58DLL;
-      removeLinkRecommendationsPassingTestWithReductionReason(obj, @"old items", v46);
+      v48[0] = MEMORY[0x1E69E9820];
+      v48[1] = 3221225472;
+      v48[2] = __114__WBSForYouRecommendationMediator__rankRecommendationsInPlace_history_weightManager_suppressHistoryDeduplication___block_invoke_3;
+      v48[3] = &unk_1E82853F8;
+      v51 = selfCopy;
+      v49 = v38;
+      v50 = dictionary;
+      v52 = 0x3F7BB0247985D58DLL;
+      removeLinkRecommendationsPassingTestWithReductionReason(obj, @"old items", v48);
       [obj sortUsingComparator:&__block_literal_global_117];
-      v42 = 0;
-      v43 = &v42;
-      v44 = 0x2020000000;
-      v45 = malloc_type_calloc(8uLL, 8uLL, 0x100004000313F17uLL);
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __114__WBSForYouRecommendationMediator__rankRecommendationsInPlace_history_weightManager_suppressHistoryDeduplication___block_invoke_5;
-      v41[3] = &unk_1E8285440;
-      v41[4] = &v42;
-      removeLinkRecommendationsPassingTestWithReductionReason(obj, @"less relevant items for each data source", v41);
-      free(v43[3]);
-      v43[3] = 0;
+      v44 = 0;
+      v45 = &v44;
+      v46 = 0x2020000000;
+      v47 = malloc_type_calloc(8uLL, 8uLL, 0x100004000313F17uLL);
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __114__WBSForYouRecommendationMediator__rankRecommendationsInPlace_history_weightManager_suppressHistoryDeduplication___block_invoke_5;
+      v43[3] = &unk_1E8285440;
+      v43[4] = &v44;
+      removeLinkRecommendationsPassingTestWithReductionReason(obj, @"less relevant items for each data source", v43);
+      free(v45[3]);
+      v45[3] = 0;
       if ([obj count] <= 0xA)
       {
         v32 = [obj count];
@@ -1284,26 +1288,27 @@ void __60__WBSForYouRecommendationMediator_bestAppSuggestionChanged___block_invo
         v32 = 10;
       }
 
-      if (v32 != [obj count])
+      v33 = [obj count];
+      if (v32 != v33)
       {
-        v33 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+        v35 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v33, v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
-          v34 = [obj count];
+          v36 = [obj count];
           *buf = 134218240;
-          v65 = v34;
-          v66 = 2048;
-          v67 = 10;
-          _os_log_impl(&dword_1C6968000, v33, OS_LOG_TYPE_INFO, "End up having %ld recommendations. Keep the top %ld", buf, 0x16u);
+          v67 = v36;
+          v68 = 2048;
+          v69 = 10;
+          _os_log_impl(&dword_1C6968000, v35, OS_LOG_TYPE_INFO, "End up having %ld recommendations. Keep the top %ld", buf, 0x16u);
         }
 
         [obj removeObjectsInRange:{v32, objc_msgSend(obj, "count") - v32}];
       }
 
-      _Block_object_dispose(&v42, 8);
+      _Block_object_dispose(&v44, 8);
     }
 
-    managerCopy = v36;
+    managerCopy = v38;
   }
 }
 

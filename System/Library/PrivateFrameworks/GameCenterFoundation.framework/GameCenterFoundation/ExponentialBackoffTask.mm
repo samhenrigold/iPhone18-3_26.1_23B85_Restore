@@ -18,7 +18,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_227A2C888();
+  sub_227A2C888(delegate, selfCopy);
 }
 
 - (void)startWithTask:(id)task successCondition:(id)condition

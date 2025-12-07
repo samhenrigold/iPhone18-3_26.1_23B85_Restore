@@ -38,13 +38,13 @@
 - (NSArray)assets
 {
   swift_beginAccess();
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   _s12PhotosUICore13SpriteBuilderV11buildEither5firstSayAA0C13Configuration_pGAG_tFZ_0();
 }
 
 - (void)setAssets:(id)assets
 {
-  sub_1A3C52C70(0, &qword_1EB126660);
+  sub_1A3C52C70(0, &qword_1EB126660, 0x1E6978630);
   v4 = sub_1A524CA34();
   selfCopy = self;
   sub_1A4921A98(v4);
@@ -74,7 +74,7 @@
   selfCopy = self;
   sub_1A4922444();
 
-  sub_1A3C52C70(0, &qword_1EB120AD0);
+  sub_1A3C52C70(0, &qword_1EB120AD0, 0x1E696ACA0);
   v3 = sub_1A524CA14();
 
   return v3;

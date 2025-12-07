@@ -22,7 +22,7 @@
 {
   if (*(self + OBJC_IVAR___VUWGalleryPersonalizationOptions_boundingBox))
   {
-    sub_1D2174E10(0, &qword_1EDC876F8);
+    sub_1D2174E10(0, &qword_1EDC876F8, 0x1E696AD98);
 
     v2 = sub_1D2250AEC();
   }
@@ -39,7 +39,7 @@
 {
   if (box)
   {
-    sub_1D2174E10(0, &qword_1EDC876F8);
+    sub_1D2174E10(0, &qword_1EDC876F8, 0x1E696AD98);
     v4 = sub_1D2250AFC();
   }
 

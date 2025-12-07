@@ -1,9 +1,9 @@
 @interface TriangleGeometry
 - (id).cxx_construct;
-- (id)addCubeWithFaces:(float32x4_t)faces color:(float32x4_t)color transform:(float32x4_t)transform inwardNormals:(float32x4_t)normals;
 - (id)geometryDescriptor;
 - (id)resources;
 - (void)addCubeFaceWithCubeVertices:(TriangleGeometry *)self color:(SEL)color i0:i1:i2:i3:inwardNormals:;
+- (void)addCubeWithFaces:(float32x4_t)faces color:(float32x4_t)color transform:(float32x4_t)transform inwardNormals:(float32x4_t)normals;
 - (void)clear;
 - (void)uploadToBuffers;
 @end
@@ -235,7 +235,7 @@
   while ((v44 & 1) != 0);
 }
 
-- (id)addCubeWithFaces:(float32x4_t)faces color:(float32x4_t)color transform:(float32x4_t)transform inwardNormals:(float32x4_t)normals
+- (void)addCubeWithFaces:(float32x4_t)faces color:(float32x4_t)color transform:(float32x4_t)transform inwardNormals:(float32x4_t)normals
 {
   v11 = result;
   v12 = 0;

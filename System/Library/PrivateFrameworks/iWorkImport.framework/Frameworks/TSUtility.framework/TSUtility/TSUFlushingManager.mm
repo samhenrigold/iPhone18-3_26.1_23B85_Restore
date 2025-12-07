@@ -528,12 +528,12 @@ LABEL_2:
   {
     if ([(TSUFlushingManager *)self isNewObject:?])
     {
-      sub_277027AE4(self->_sortedNewObjects, &infoCopy);
+      sub_277027AE4(self->_sortedNewObjects, &infoCopy, &infoCopy);
     }
 
     else
     {
-      sub_2770283E4(self->_sortedObjects, &infoCopy);
+      sub_2770283E4(self->_sortedObjects, &infoCopy, &infoCopy);
     }
   }
 
@@ -566,7 +566,7 @@ LABEL_2:
       }
 
       sub_27702833C(self->_sortedNewObjects, &v6);
-      sub_2770283E4(self->_sortedObjects, &v6);
+      sub_2770283E4(self->_sortedObjects, &v6, &v6);
       v5 = self->_sortedNewObjects;
       v3 = *v5;
     }

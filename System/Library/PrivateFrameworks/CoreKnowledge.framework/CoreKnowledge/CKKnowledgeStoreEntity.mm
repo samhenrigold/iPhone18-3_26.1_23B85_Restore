@@ -32,7 +32,7 @@
 
   v6 = sub_1C86C7E6C(v8);
 
-  sub_1C86A5148(v8, &qword_1EC2AD810);
+  sub_1C86A5148(v8, &qword_1EC2AD810, &qword_1C86FCC90);
   return v6 & 1;
 }
 
@@ -64,7 +64,7 @@
   {
     v9 = __swift_project_boxed_opaque_existential_0(&v15, v16);
     v10 = *(v8 - 8);
-    MEMORY[0x1EEE9AC00](v9, v9);
+    MEMORY[0x1EEE9AC00](v9);
     v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v10 + 16))(v12);
     v13 = sub_1C86F947C();

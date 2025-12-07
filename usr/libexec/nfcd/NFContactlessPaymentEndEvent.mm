@@ -113,52 +113,49 @@
 {
   if (self->_keyIdentifier)
   {
-    v3 = [NSString alloc];
-    appletIdentifier = self->_appletIdentifier;
-    v5 = [v3 initWithFormat:@"applet=%@ endpoint=%@ ", appletIdentifier, self->_keyIdentifier];
+    v3 = [[NSString alloc] initWithFormat:@"applet=%@ endpoint=%@ ", self->_appletIdentifier, self->_keyIdentifier];
   }
 
   else
   {
     readerIdentifier = self->_readerIdentifier;
-    v7 = [NSString alloc];
-    v8 = self->_appletIdentifier;
+    v5 = [NSString alloc];
     if (readerIdentifier)
     {
-      v5 = [v7 initWithFormat:@"applet=%@ reader=%@ ", self->_appletIdentifier, self->_readerIdentifier];
+      v3 = [v5 initWithFormat:@"applet=%@ reader=%@ ", self->_appletIdentifier, self->_readerIdentifier];
     }
 
     else
     {
-      v5 = [v7 initWithFormat:@"applet=%@ ", self->_appletIdentifier, v36];
+      v3 = [v5 initWithFormat:@"applet=%@ ", self->_appletIdentifier, v33];
     }
   }
 
   type = self->_type;
-  v10 = @"UNKNOWN";
+  v7 = @"UNKNOWN";
   if (type <= 0x16)
   {
     if (self->_type > 1u)
     {
       if (type == 2)
       {
-        v10 = @"VoidRefund";
+        v7 = @"VoidRefund";
       }
 
       else if (type == 9)
       {
-        v10 = @"PurchaseWithCashback";
+        v7 = @"PurchaseWithCashback";
       }
     }
 
     else if (self->_type)
     {
-      v10 = @"Cashback";
+      v7 = @"Cashback";
     }
 
     else
     {
-      v10 = @"Purchase";
+      v7 = @"Purchase";
     }
   }
 
@@ -166,12 +163,12 @@
   {
     if (type == 23)
     {
-      v10 = @"CashDisbursement";
+      v7 = @"CashDisbursement";
     }
 
     else if (type == 32)
     {
-      v10 = @"RefundPurchase";
+      v7 = @"RefundPurchase";
     }
   }
 
@@ -180,51 +177,51 @@
     switch(type)
     {
       case 0x22u:
-        v10 = @"VoidPurchase";
+        v7 = @"VoidPurchase";
         break;
       case 0x100u:
-        v10 = @"Felica";
+        v7 = @"Felica";
         break;
       case 0xF001u:
-        v10 = @"Parsed by ATL";
+        v7 = @"Parsed by ATL";
         break;
     }
   }
 
-  v11 = self->_result;
-  v12 = @"UNKNOWN";
-  v41 = v10;
-  v42 = v5;
-  if (v11 > 0xF001)
+  v8 = self->_result;
+  v9 = @"UNKNOWN";
+  v38 = v7;
+  v39 = v3;
+  if (v8 > 0xF001)
   {
     if (self->_result > 0xF004u)
     {
-      switch(v11)
+      switch(v8)
       {
         case 0xF005u:
-          v12 = @"key not found";
+          v9 = @"key not found";
           break;
         case 0xF006u:
-          v12 = @"reader in pairing mode";
+          v9 = @"reader in pairing mode";
           break;
         case 0xF007u:
-          v12 = @"no matching key";
+          v9 = @"no matching key";
           break;
       }
     }
 
     else
     {
-      switch(v11)
+      switch(v8)
       {
         case 0xF002u:
-          v12 = @"online type f";
+          v9 = @"online type f";
           break;
         case 0xF003u:
-          v12 = @"express transit";
+          v9 = @"express transit";
           break;
         case 0xF004u:
-          v12 = @"incompatible applet";
+          v9 = @"incompatible applet";
           break;
       }
     }
@@ -232,44 +229,44 @@
 
   else if (self->_result > 0xFFu)
   {
-    switch(v11)
+    switch(v8)
     {
       case 0x100u:
-        v12 = @"failed";
+        v9 = @"failed";
         break;
       case 0xF000u:
-        v12 = @"failed/field tear";
+        v9 = @"failed/field tear";
         break;
       case 0xF001u:
-        v12 = @"offline type f";
+        v9 = @"offline type f";
         break;
     }
   }
 
   else if (self->_result)
   {
-    if (v11 == 64)
+    if (v8 == 64)
     {
-      v12 = @"offline/approved";
+      v9 = @"offline/approved";
     }
 
-    else if (v11 == 128)
+    else if (v8 == 128)
     {
-      v12 = @"online/pending";
+      v9 = @"online/pending";
     }
   }
 
   else
   {
-    v12 = @"offline/declined";
+    v9 = @"offline/declined";
   }
 
-  v13 = objc_opt_new();
-  v14 = v13;
+  v10 = objc_opt_new();
+  v11 = v10;
   informative = self->_informative;
   if (informative)
   {
-    [v13 addObject:@"PINRequired"];
+    [v10 addObject:@"PINRequired"];
     informative = self->_informative;
     if ((informative & 2) == 0)
     {
@@ -288,7 +285,7 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  [v14 addObject:@"WarningPresent"];
+  [v11 addObject:@"WarningPresent"];
   informative = self->_informative;
   if ((informative & 4) == 0)
   {
@@ -302,7 +299,7 @@ LABEL_56:
   }
 
 LABEL_66:
-  [v14 addObject:@"ContactIssuer"];
+  [v11 addObject:@"ContactIssuer"];
   informative = self->_informative;
   if ((informative & 8) == 0)
   {
@@ -313,7 +310,7 @@ LABEL_57:
     }
 
 LABEL_68:
-    [v14 addObject:@"EMVTransaction"];
+    [v11 addObject:@"EMVTransaction"];
     if ((self->_informative & 0x8000) == 0)
     {
       goto LABEL_59;
@@ -323,7 +320,7 @@ LABEL_68:
   }
 
 LABEL_67:
-  [v14 addObject:@"PINAttemptsExceeded"];
+  [v11 addObject:@"PINAttemptsExceeded"];
   informative = self->_informative;
   if ((informative & 0x100) != 0)
   {
@@ -337,18 +334,18 @@ LABEL_58:
   }
 
 LABEL_69:
-  [v14 addObject:@"ActionNeeded"];
+  [v11 addObject:@"ActionNeeded"];
 LABEL_59:
-  v40 = v12;
+  v37 = v9;
   if (!+[NFContactlessPaymentEndEvent logsTransactionDetails])
   {
 LABEL_71:
-    v39 = &stru_10031EA18;
+    v36 = &stru_10031EA18;
     goto LABEL_76;
   }
 
-  v16 = self->_type;
-  if (v16 == 61441)
+  v13 = self->_type;
+  if (v13 == 61441)
   {
     parsedInfo = self->_parsedInfo;
     if (parsedInfo)
@@ -359,64 +356,64 @@ LABEL_71:
     goto LABEL_71;
   }
 
-  if (v16 == 256)
+  if (v13 == 256)
   {
     parsedInfo = self->_felicaInfo;
     if (parsedInfo)
     {
 LABEL_63:
-      v39 = [(NSDictionary *)parsedInfo description];
+      v36 = [(NSDictionary *)parsedInfo description];
       goto LABEL_76;
     }
 
     goto LABEL_71;
   }
 
-  v18 = v14;
-  v19 = [NSString alloc];
-  v20 = v19;
+  v15 = v11;
+  v16 = [NSString alloc];
+  v17 = v16;
   transactionIdentifier = self->_transactionIdentifier;
   if (self->_amount)
   {
-    v22 = [[NSString alloc] initWithFormat:@"%@", self->_amount];
-    v39 = [v20 initWithFormat:@"transID=%@ amount=%@ tlv=%@ ", transactionIdentifier, v22, self->_tlv];
+    v19 = [[NSString alloc] initWithFormat:@"%@", self->_amount];
+    v36 = [v17 initWithFormat:@"transID=%@ amount=%@ tlv=%@ ", transactionIdentifier, v19, self->_tlv];
   }
 
   else
   {
-    v39 = [v19 initWithFormat:@"transID=%@ amount=%@ tlv=%@ ", transactionIdentifier, @"NOT_PRESENT", self->_tlv];
+    v36 = [v16 initWithFormat:@"transID=%@ amount=%@ tlv=%@ ", transactionIdentifier, @"NOT_PRESENT", self->_tlv];
   }
 
-  v14 = v18;
+  v11 = v15;
 LABEL_76:
-  v37 = v14;
-  v38 = [NSString alloc];
-  v43.receiver = self;
-  v43.super_class = NFContactlessPaymentEndEvent;
-  v23 = [(NFContactlessPaymentEndEvent *)&v43 description];
+  v34 = v11;
+  v35 = [NSString alloc];
+  v40.receiver = self;
+  v40.super_class = NFContactlessPaymentEndEvent;
+  v20 = [(NFContactlessPaymentEndEvent *)&v40 description];
   didError = self->_didError;
   status = self->_status;
-  v26 = self->_type;
-  v27 = self->_result;
-  v28 = self->_informative;
+  v23 = self->_type;
+  v24 = self->_result;
+  v25 = self->_informative;
   command = self->_command;
-  v30 = [v14 componentsJoinedByString:{@", "}];
-  v31 = v30;
+  v27 = [v11 componentsJoinedByString:{@", "}];
+  v28 = v27;
   currency = self->_currency;
   if (!currency)
   {
     currency = @"NOT_PRESENT";
   }
 
-  v33 = @"NO";
+  v30 = @"NO";
   if (didError)
   {
-    v33 = @"YES";
+    v30 = @"YES";
   }
 
-  v34 = [v38 initWithFormat:@"%@ { %@ didError=%@ command=0x%04x status=0x%04x type=0x%04x(%@) result=0x%04x(%@) informative=0x%04x(%@) currency=%@ %@}", v23, v42, v33, command, status, v26, v41, v27, v40, v28, v30, currency, v39];
+  v31 = [v35 initWithFormat:@"%@ { %@ didError=%@ command=0x%04x status=0x%04x type=0x%04x(%@) result=0x%04x(%@) informative=0x%04x(%@) currency=%@ %@}", v20, v39, v30, command, status, v23, v38, v24, v37, v25, v27, currency, v36];
 
-  return v34;
+  return v31;
 }
 
 - (id)asDictionary

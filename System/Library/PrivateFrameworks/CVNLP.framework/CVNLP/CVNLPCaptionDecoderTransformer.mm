@@ -289,7 +289,7 @@ LABEL_26:
 
 - (id)computeCaptionForImageWithInputsImpl:(id)impl genderOption:(int)option
 {
-  v216 = *MEMORY[0x1E69E9840];
+  v215 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   implCopy = impl;
   v9 = 9;
@@ -298,9 +298,9 @@ LABEL_26:
     v9 = 10;
   }
 
-  v167 = *(&self->super.super.super.super.isa + OBJC_IVAR___CVNLPCaptionDecoderTransformer__startID[v9]);
-  v164 = implCopy;
-  v169 = objc_msgSend_objectAtIndexedSubscript_(implCopy, v7, 0, v8);
+  v166 = *(&self->super.super.super.super.isa + OBJC_IVAR___CVNLPCaptionDecoderTransformer__startID[v9]);
+  v163 = implCopy;
+  v168 = objc_msgSend_objectAtIndexedSubscript_(implCopy, v7, 0, v8);
   v13 = objc_msgSend_decoderBlocks(self, v10, v11, v12);
   v17 = objc_msgSend_firstObject(v13, v14, v15, v16);
   v21 = v17;
@@ -347,25 +347,25 @@ LABEL_26:
   if (v23 < 5)
   {
 LABEL_15:
-    v208 = 0u;
-    v209 = 0u;
-    v206 = 0u;
     v207 = 0u;
+    v208 = 0u;
+    v205 = 0u;
+    v206 = 0u;
     v29 = objc_msgSend_decoderBlocks(selfCopy, v26, v27, v28);
-    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v206, v215, 16);
+    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v30, &v205, v214, 16);
     if (v34)
     {
-      v35 = *v207;
+      v35 = *v206;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v207 != v35)
+          if (*v206 != v35)
           {
             objc_enumerationMutation(v29);
           }
 
-          v37 = *(*(&v206 + 1) + 8 * i);
+          v37 = *(*(&v205 + 1) + 8 * i);
           v38 = selfCopy;
           if (v37)
           {
@@ -374,23 +374,23 @@ LABEL_15:
 
           else
           {
-            v205 = 0;
-            v203 = 0u;
-            v204 = 0u;
-            v201 = 0u;
+            v204 = 0;
             v202 = 0u;
-            v199 = 0u;
+            v203 = 0u;
             v200 = 0u;
-            v197 = 0u;
+            v201 = 0u;
             v198 = 0u;
-            *__p = 0u;
+            v199 = 0u;
             v196 = 0u;
+            v197 = 0u;
+            *__p = 0u;
+            v195 = 0u;
           }
 
-          objc_msgSend__copy_data_to_blob_repeated_to_(v38, v31, v169, __p);
+          objc_msgSend__copy_data_to_blob_repeated_to_(v38, v31, v168, __p);
         }
 
-        v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v206, v215, 16);
+        v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v29, v31, &v205, v214, 16);
       }
 
       while (v34);
@@ -399,12 +399,12 @@ LABEL_15:
 
 LABEL_26:
   v39 = objc_msgSend_decoderBlocks(selfCopy, v26, v27, v28);
-  v194 = objc_msgSend_firstObject(v39, v40, v41, v42);
+  v193 = objc_msgSend_firstObject(v39, v40, v41, v42);
 
   v46 = objc_msgSend_decoderBlocks(selfCopy, v43, v44, v45);
-  v193 = objc_msgSend_lastObject(v46, v47, v48, v49);
+  v192 = objc_msgSend_lastObject(v46, v47, v48, v49);
 
-  v165 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v50, v51, v52);
+  v164 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v50, v51, v52);
   v56 = objc_msgSend_maxCaptionLen(selfCopy, v53, v54, v55);
   if (v56)
   {
@@ -416,21 +416,21 @@ LABEL_26:
     sub_1D9D84AB0();
   }
 
-  v163 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v57, v58, v59);
-  objc_msgSend_setObject_forKeyedSubscript_(v165, v60, v163, CVNLPBeamSearchNextTokenMetaData);
+  v162 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v57, v58, v59);
+  objc_msgSend_setObject_forKeyedSubscript_(v164, v60, v162, CVNLPBeamSearchNextTokenMetaData);
   v61 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startID(selfCopy, v62, v63, v64);
   v68 = objc_msgSend_numberWithUnsignedInteger_(v61, v66, started, v67);
-  objc_msgSend_setObject_forKeyedSubscript_(v165, v69, v68, CVNLPBeamSearchNextTokenID);
+  objc_msgSend_setObject_forKeyedSubscript_(v164, v69, v68, CVNLPBeamSearchNextTokenID);
 
   __p[0] = 0;
   __p[1] = __p;
-  *&v196 = 0x3032000000;
-  *(&v196 + 1) = sub_1D9DD2168;
-  *&v197 = sub_1D9DD2178;
-  v214 = v165;
-  *(&v197 + 1) = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v70, &v214, 1);
-  v166 = v194;
+  *&v195 = 0x3032000000;
+  *(&v195 + 1) = sub_1D9DD2168;
+  *&v196 = sub_1D9DD2178;
+  v213 = v164;
+  *(&v196 + 1) = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v70, &v213, 1);
+  v165 = v193;
   v74 = 0;
   do
   {
@@ -441,62 +441,62 @@ LABEL_26:
 
     v78 = objc_msgSend_array(MEMORY[0x1E695DF70], v75, v76, v77);
     v82 = objc_msgSend_perfResults(selfCopy, v79, v80, v81);
-    v181[0] = MEMORY[0x1E69E9820];
-    v181[1] = 3321888768;
-    v181[2] = sub_1D9DD2D08;
-    v181[3] = &unk_1F554FD28;
-    v182 = v194;
-    v187 = v74;
-    v183 = v169;
-    v184 = selfCopy;
-    v186 = __p;
-    v188 = &selfCopy;
-    v189 = v166;
-    v190 = &selfCopy;
+    v180[0] = MEMORY[0x1E69E9820];
+    v180[1] = 3321888768;
+    v180[2] = sub_1D9DD2D08;
+    v180[3] = &unk_1F554FD28;
+    v181 = v193;
+    v186 = v74;
+    v182 = v168;
+    v183 = selfCopy;
+    v185 = __p;
+    v187 = &selfCopy;
+    v188 = v165;
+    v189 = &selfCopy;
+    v190 = &v192;
     v191 = &v193;
-    v192 = &v194;
     v83 = v78;
-    v185 = v83;
-    objc_msgSend_run_block_(v82, v84, @"DecodeBlock", v181);
+    v184 = v83;
+    objc_msgSend_run_block_(v82, v84, @"DecodeBlock", v180);
 
     v88 = objc_msgSend_perfResults(selfCopy, v85, v86, v87);
-    v177[0] = MEMORY[0x1E69E9820];
-    v177[1] = 3221225472;
-    v177[2] = sub_1D9DD3F50;
-    v177[3] = &unk_1E858E598;
-    v179 = __p;
-    v180 = v167;
+    v176[0] = MEMORY[0x1E69E9820];
+    v176[1] = 3221225472;
+    v176[2] = sub_1D9DD3F50;
+    v176[3] = &unk_1E858E598;
+    v178 = __p;
+    v179 = v166;
     v89 = v83;
-    v178 = v89;
-    objc_msgSend_run_block_(v88, v90, @"OneStep", v177);
+    v177 = v89;
+    objc_msgSend_run_block_(v88, v90, @"OneStep", v176);
 
     LOBYTE(v78) = objc_msgSend_count(*(__p[1] + 5), v91, v92, v93) == 0;
     ++v74;
   }
 
   while ((v78 & 1) == 0);
-  v162 = CVNLPBeamSearchCopyTopBeams(v167);
-  v171 = objc_msgSend_array(MEMORY[0x1E695DF70], v94, v95, v96);
-  v175 = 0u;
-  v176 = 0u;
-  v173 = 0u;
+  v161 = CVNLPBeamSearchCopyTopBeams(v166);
+  v170 = objc_msgSend_array(MEMORY[0x1E695DF70], v94, v95, v96);
   v174 = 0u;
-  obj = v162;
-  v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v97, &v173, v213, 16);
+  v175 = 0u;
+  v172 = 0u;
+  v173 = 0u;
+  obj = v161;
+  v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v97, &v172, v212, 16);
   if (v98)
   {
-    v170 = *v174;
+    v169 = *v173;
     do
     {
-      v172 = v98;
-      for (j = 0; j != v172; ++j)
+      v171 = v98;
+      for (j = 0; j != v171; ++j)
       {
-        if (*v174 != v170)
+        if (*v173 != v169)
         {
           objc_enumerationMutation(obj);
         }
 
-        v103 = *(*(&v173 + 1) + 8 * j);
+        v103 = *(*(&v172 + 1) + 8 * j);
         v104 = objc_msgSend_array(MEMORY[0x1E695DF70], v99, v100, v101);
         v107 = objc_msgSend_objectForKeyedSubscript_(v103, v105, CVNLPBeamTokens, v106);
         v110 = objc_msgSend_objectForKeyedSubscript_(v103, v108, CVNLPBeamScore, v109);
@@ -525,72 +525,69 @@ LABEL_26:
         objc_msgSend_captionModelMinimumConfidence(v144, v145, v146, v147);
         v149 = v148;
 
-        v211[0] = CVNLPGeneratedCaption;
+        v210[0] = CVNLPGeneratedCaption;
         v152 = objc_msgSend_componentsJoinedByString_(v104, v150, @" ", v151);
-        v212[0] = v152;
-        v212[1] = v110;
-        v211[1] = CVNLPGeneratedCaptionScore;
-        v211[2] = CVNLPGeneratedCaptionConfidenceLow;
+        v211[0] = v152;
+        v211[1] = v110;
+        v210[1] = CVNLPGeneratedCaptionScore;
+        v210[2] = CVNLPGeneratedCaptionConfidenceLow;
         v155 = objc_msgSend_numberWithBool_(MEMORY[0x1E696AD98], v153, v149 >= v140, v154);
-        v212[2] = v155;
-        v157 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v156, v212, v211, 3);
+        v211[2] = v155;
+        v157 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v156, v211, v210, 3);
 
-        objc_msgSend_addObject_(v171, v158, v157, v159);
+        objc_msgSend_addObject_(v170, v158, v157, v159);
       }
 
-      v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v99, &v173, v213, 16);
+      v98 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v99, &v172, v212, 16);
     }
 
     while (v98);
   }
 
-  sub_1D9D9AA4C((v167 + 16));
+  sub_1D9D9AA4C((v166 + 16));
   _Block_object_dispose(__p, 8);
 
-  v160 = *MEMORY[0x1E69E9840];
-
-  return v171;
+  return v170;
 }
 
 - (id)performanceResults
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, v2, v3);
-  v33.receiver = self;
-  v33.super_class = CVNLPCaptionDecoderTransformer;
-  performanceResults = [(CVNLPModelBase *)&v33 performanceResults];
+  v32.receiver = self;
+  v32.super_class = CVNLPCaptionDecoderTransformer;
+  performanceResults = [(CVNLPModelBase *)&v32 performanceResults];
   objc_msgSend_addEntriesFromDictionary_(v5, v7, performanceResults, v8);
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v12 = objc_msgSend_decoderBlocks(self, v9, v10, v11, 0);
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v29, v34, 16);
+  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v28, v33, 16);
   if (v17)
   {
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(v12);
         }
 
-        v20 = objc_msgSend_performanceResults(*(*(&v29 + 1) + 8 * i), v14, v15, v16);
+        v20 = objc_msgSend_performanceResults(*(*(&v28 + 1) + 8 * i), v14, v15, v16);
         objc_msgSend_addEntriesFromDictionary_(v5, v21, v20, v22);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v29, v34, 16);
+      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v28, v33, 16);
     }
 
     while (v17);
   }
 
   v26 = objc_msgSend_copy(v5, v23, v24, v25);
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }

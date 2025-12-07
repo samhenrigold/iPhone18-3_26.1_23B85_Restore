@@ -23,18 +23,16 @@
   }
 
   v3 = sub_100006184();
-  v4 = type metadata accessor for PinnedContentManagerProvider();
-  v5 = *(v4 + 48);
-  v6 = *(v4 + 52);
+  type metadata accessor for PinnedContentManagerProvider();
   swift_allocObject();
-  v7 = v2;
-  v8 = PinnedContentManagerProvider.init(healthStore:)();
-  v9 = objc_allocWithZone(type metadata accessor for TabBarController());
-  v10 = sub_100009A60(v7, v3, v8, v9);
+  v4 = v2;
+  v5 = PinnedContentManagerProvider.init(healthStore:)();
+  v6 = objc_allocWithZone(type metadata accessor for TabBarController());
+  v7 = sub_100009A60(v4, v3, v5, v6);
 
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v10;
+  return v7;
 }
 
 - (unint64_t)supportedInterfaceOrientations

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)networkTypeAsString:(int)string;
 - (int)StringAsNetworkType:(id)type;
 - (int)networkType;
 - (unint64_t)hash;
@@ -34,6 +35,21 @@
   {
     return 0;
   }
+}
+
+- (id)networkTypeAsString:(int)string
+{
+  if (!string)
+  {
+    return @"NonCellular";
+  }
+
+  if (string == 1)
+  {
+    return @"Cellular";
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
 }
 
 - (int)StringAsNetworkType:(id)type
@@ -125,14 +141,12 @@
   has = self->_has;
   if (has)
   {
-    networkType = self->_networkType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    serverID = self->_serverID;
 
     PBDataWriterWriteUint32Field();
   }

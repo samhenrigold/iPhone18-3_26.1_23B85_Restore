@@ -3013,9 +3013,9 @@ LABEL_14:
 
 - (void)layoutSubviews
 {
-  v16.receiver = self;
-  v16.super_class = CRLiOSInspectorTableViewCell;
-  [(CRLiOSInspectorTableViewCell *)&v16 layoutSubviews];
+  v18.receiver = self;
+  v18.super_class = CRLiOSInspectorTableViewCell;
+  [(CRLiOSInspectorTableViewCell *)&v18 layoutSubviews];
   if ([(CRLiOSInspectorTableViewCell *)self showsReorderControl])
   {
     contentView = [(CRLiOSInspectorTableViewCell *)self contentView];
@@ -3025,15 +3025,15 @@ LABEL_14:
     v9 = v8;
     v11 = v10;
 
-    if (sub_100076BAC())
+    if (sub_100076BAC(v12, v13))
     {
       [(CRLiOSInspectorTableViewCell *)self bounds];
-      MaxX = CGRectGetMaxX(v17);
-      v18.origin.x = v5;
-      v18.origin.y = v7;
-      v18.size.width = v9;
-      v18.size.height = v11;
-      if (MaxX - CGRectGetMaxX(v18) == 40.0)
+      MaxX = CGRectGetMaxX(v19);
+      v20.origin.x = v5;
+      v20.origin.y = v7;
+      v20.size.width = v9;
+      v20.size.height = v11;
+      if (MaxX - CGRectGetMaxX(v20) == 40.0)
       {
         v9 = v9 + 3.0;
         contentView2 = [(CRLiOSInspectorTableViewCell *)self contentView];
@@ -3043,13 +3043,13 @@ LABEL_14:
 
     if (sub_1004A48FC())
     {
-      v19.origin.x = v5;
-      v19.origin.y = v7;
-      v19.size.width = v9;
-      v19.size.height = v11;
-      MinX = CGRectGetMinX(v19);
+      v21.origin.x = v5;
+      v21.origin.y = v7;
+      v21.size.width = v9;
+      v21.size.height = v11;
+      MinX = CGRectGetMinX(v21);
       [(CRLiOSInspectorTableViewCell *)self bounds];
-      if (MinX - CGRectGetMinX(v20) == 64.0)
+      if (MinX - CGRectGetMinX(v22) == 64.0)
       {
         contentView3 = [(CRLiOSInspectorTableViewCell *)self contentView];
         [contentView3 setFrame:{v5 + -27.0, v7, v9 + 27.0, v11}];

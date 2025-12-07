@@ -19,9 +19,11 @@
 
 uint64_t __35__NURAWGainMapFilter_gainMapKernel__block_invoke()
 {
-  gainMapKernel_s_gainMapKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 _gainMap(__sample im, float gainCompensation) \n{ \n  vec3 stopDown = 0.25 * gainCompensation * im.rgb \n  float y = dot(stopDown, vec3(0.299, 0.587, 0.114)); \n  y = smoothstep(0.0, 1.0, sqrt(clamp(y, 0.0, 4.0))); \n  return vec4(y, y, y, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 _gainMap(__sample im, float gainCompensation) \n{ \n  vec3 stopDown = 0.25 * gainCompensation * im.rgb \n  float y = dot(stopDown, vec3(0.299, 0.587, 0.114)); \n  y = smoothstep(0.0, 1.0, sqrt(clamp(y, 0.0, 4.0))); \n  return vec4(y, y, y, 1.0); \n}\n"}];;
+  v1 = gainMapKernel_s_gainMapKernel;
+  gainMapKernel_s_gainMapKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)outputImage
@@ -39,7 +41,7 @@ uint64_t __35__NURAWGainMapFilter_gainMapKernel__block_invoke()
   v7 = v6;
 
   gainMapKernel = [objc_opt_class() gainMapKernel];
-  [inputImage extent];
+  objc_msgSend_extent(inputImage);
   v10 = v9;
   v12 = v11;
   v14 = v13;

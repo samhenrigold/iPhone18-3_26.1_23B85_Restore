@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -72,6 +73,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278F66E88[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -193,7 +209,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -213,7 +228,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numfiles = self->_numfiles;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -228,12 +242,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  numbytes = self->_numbytes;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 

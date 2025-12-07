@@ -27,27 +27,27 @@
 {
   v3 = sub_10006036C();
   v4 = *(v3 - 8);
-  v5 = __chkstk_darwin(v3);
-  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v9 = &v17 - v8;
+  v6 = __chkstk_darwin(v3, v5);
+  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6, v9);
+  v11 = &v19 - v10;
   selfCopy = self;
   sub_1000604BC();
-  v11 = *(v4 + 16);
-  v11(v7, v9, v3);
-  v12 = type metadata accessor for MessageID(0);
-  v13 = objc_allocWithZone(v12);
-  v11(&v13[OBJC_IVAR___MPMessageID_value], v7, v3);
+  v13 = *(v4 + 16);
+  v13(v8, v11, v3);
+  v14 = type metadata accessor for MessageID(0);
+  v15 = objc_allocWithZone(v14);
+  v13(&v15[OBJC_IVAR___MPMessageID_value], v8, v3);
   type metadata accessor for MessageID.Value(0);
   swift_storeEnumTagMultiPayload();
-  v17.receiver = v13;
-  v17.super_class = v12;
-  v14 = [(FTMessage *)&v17 init];
-  v15 = *(v4 + 8);
-  v15(v7, v3);
-  v15(v9, v3);
+  v19.receiver = v15;
+  v19.super_class = v14;
+  v16 = [(FTMessage *)&v19 init];
+  v17 = *(v4 + 8);
+  v17(v8, v3);
+  v17(v11, v3);
 
-  return v14;
+  return v16;
 }
 
 - (NSString)provider
@@ -228,13 +228,13 @@
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  sub_100017538(&unk_100099930);
-  sub_1000608CC();
+  sub_100017538(&unk_100099930, &qword_1000791F8);
+  v6 = sub_1000608CC();
   storeCopy = store;
   selfCopy = self;
-  v8 = sub_1000265CC(storeCopy);
+  v9 = sub_1000265CC(storeCopy, v6);
 
-  return v8;
+  return v9;
 }
 
 - (id)displayNameUsingContactStore:(id)store

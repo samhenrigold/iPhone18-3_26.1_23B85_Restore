@@ -39,23 +39,23 @@
 
 - (id)formattedDescription:(unint64_t)description withPrintedTypes:(id)types
 {
-  v11[15] = *MEMORY[0x1E69E9840];
+  v10[15] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = MEMORY[0x1E696AEC0];
-  v11[0] = v5;
-  v11[1] = @"DataType =";
-  v11[2] = MTLDataTypeString([(MTLTensorReferenceType *)self dataType]);
-  v11[3] = v5;
-  v11[4] = @"TensorDataType =";
-  v11[5] = MTLTensorDataTypeString(self->_tensorDataType);
-  v11[6] = v5;
-  v11[7] = @"IndexType =";
-  v11[8] = MTLDataTypeString(self->_indexType);
-  v11[9] = v5;
-  v11[10] = @"Dimensions =";
-  v11[11] = [(MTLTensorExtents *)self->_dimensions formattedDescription:0];
-  v11[12] = v5;
-  v11[13] = @"Access =";
+  v10[0] = v5;
+  v10[1] = @"DataType =";
+  v10[2] = MTLDataTypeString([(MTLTensorReferenceType *)self dataType]);
+  v10[3] = v5;
+  v10[4] = @"TensorDataType =";
+  v10[5] = MTLTensorDataTypeString(self->_tensorDataType);
+  v10[6] = v5;
+  v10[7] = @"IndexType =";
+  v10[8] = MTLDataTypeString(self->_indexType);
+  v10[9] = v5;
+  v10[10] = @"Dimensions =";
+  v10[11] = [(MTLTensorExtents *)self->_dimensions formattedDescription:0];
+  v10[12] = v5;
+  v10[13] = @"Access =";
   access = self->_access;
   if (access > 2)
   {
@@ -67,10 +67,8 @@
     v8 = off_1E6EECDC0[access];
   }
 
-  v11[14] = v8;
-  result = [v6 stringWithFormat:@"%@", objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v11, 15), "componentsJoinedByString:", @" "];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v10[14] = v8;
+  return [v6 stringWithFormat:@"%@", objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v10, 15), "componentsJoinedByString:", @" "];
 }
 
 - (BOOL)isEqual:(id)equal

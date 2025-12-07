@@ -85,17 +85,18 @@
 
 - (void)music_inheritedLayoutInsetsDidChange
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for BadgingView();
-  v2 = v4.receiver;
-  [(BadgingView *)&v4 music_inheritedLayoutInsetsDidChange];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for BadgingView();
+  v2 = v5.receiver;
+  [(BadgingView *)&v5 music_inheritedLayoutInsetsDidChange];
   [v2 setNeedsLayout];
   v3 = *&v2[OBJC_IVAR____TtC16MusicApplication11BadgingView_layoutInvalidationHandler];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC16MusicApplication11BadgingView_layoutInvalidationHandler + 8];
 
     v3(v2);
-    sub_17654(v3);
+    sub_17654(v3, v4);
   }
 }
 
@@ -117,7 +118,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_2800DC();
+  sub_2800DC(selfCopy, v2);
 }
 
 @end

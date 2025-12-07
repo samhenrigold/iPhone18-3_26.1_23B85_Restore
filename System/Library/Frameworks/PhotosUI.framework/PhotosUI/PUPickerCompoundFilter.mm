@@ -71,35 +71,35 @@
 
 - (unint64_t)generatedRequiredAssetTypes
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   filterType = [(PUPickerCompoundFilter *)self filterType];
   switch(filterType)
   {
     case 2:
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       subfilters = [(PUPickerCompoundFilter *)self subfilters];
-      v14 = [subfilters countByEnumeratingWithState:&v21 objects:v33 count:16];
+      v14 = [subfilters countByEnumeratingWithState:&v20 objects:v32 count:16];
       if (v14)
       {
         v15 = v14;
         v16 = 0;
-        v17 = *v22;
+        v17 = *v21;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v22 != v17)
+            if (*v21 != v17)
             {
               objc_enumerationMutation(subfilters);
             }
 
-            v16 |= [*(*(&v21 + 1) + 8 * i) generatedPossibleAssetTypes];
+            v16 |= [*(*(&v20 + 1) + 8 * i) generatedPossibleAssetTypes];
           }
 
-          v15 = [subfilters countByEnumeratingWithState:&v21 objects:v33 count:16];
+          v15 = [subfilters countByEnumeratingWithState:&v20 objects:v32 count:16];
         }
 
         while (v15);
@@ -111,32 +111,32 @@ LABEL_29:
       v7 = 131070;
 LABEL_31:
 
-      goto LABEL_32;
+      return v7;
     case 1:
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       subfilters = [(PUPickerCompoundFilter *)self subfilters];
-      v10 = [subfilters countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v10 = [subfilters countByEnumeratingWithState:&v24 objects:v33 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v26;
+        v12 = *v25;
         v7 = 131070;
         do
         {
           for (j = 0; j != v11; ++j)
           {
-            if (*v26 != v12)
+            if (*v25 != v12)
             {
               objc_enumerationMutation(subfilters);
             }
 
-            v7 &= [*(*(&v25 + 1) + 8 * j) generatedRequiredAssetTypes];
+            v7 &= [*(*(&v24 + 1) + 8 * j) generatedRequiredAssetTypes];
           }
 
-          v11 = [subfilters countByEnumeratingWithState:&v25 objects:v34 count:16];
+          v11 = [subfilters countByEnumeratingWithState:&v24 objects:v33 count:16];
         }
 
         while (v11);
@@ -145,30 +145,30 @@ LABEL_31:
 
       goto LABEL_29;
     case 0:
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       subfilters = [(PUPickerCompoundFilter *)self subfilters];
-      v5 = [subfilters countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v5 = [subfilters countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (v5)
       {
         v6 = v5;
         v7 = 0;
-        v8 = *v30;
+        v8 = *v29;
         do
         {
           for (k = 0; k != v6; ++k)
           {
-            if (*v30 != v8)
+            if (*v29 != v8)
             {
               objc_enumerationMutation(subfilters);
             }
 
-            v7 |= [*(*(&v29 + 1) + 8 * k) generatedRequiredAssetTypes];
+            v7 |= [*(*(&v28 + 1) + 8 * k) generatedRequiredAssetTypes];
           }
 
-          v6 = [subfilters countByEnumeratingWithState:&v29 objects:v35 count:16];
+          v6 = [subfilters countByEnumeratingWithState:&v28 objects:v34 count:16];
         }
 
         while (v6);
@@ -182,43 +182,40 @@ LABEL_31:
       goto LABEL_31;
   }
 
-  v7 = 0;
-LABEL_32:
-  v19 = *MEMORY[0x1E69E9840];
-  return v7;
+  return 0;
 }
 
 - (unint64_t)generatedPossibleAssetTypes
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   filterType = [(PUPickerCompoundFilter *)self filterType];
   switch(filterType)
   {
     case 2:
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       subfilters = [(PUPickerCompoundFilter *)self subfilters];
-      v14 = [subfilters countByEnumeratingWithState:&v21 objects:v33 count:16];
+      v14 = [subfilters countByEnumeratingWithState:&v20 objects:v32 count:16];
       if (v14)
       {
         v15 = v14;
         v16 = 0;
-        v17 = *v22;
+        v17 = *v21;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v22 != v17)
+            if (*v21 != v17)
             {
               objc_enumerationMutation(subfilters);
             }
 
-            v16 |= [*(*(&v21 + 1) + 8 * i) generatedRequiredAssetTypes];
+            v16 |= [*(*(&v20 + 1) + 8 * i) generatedRequiredAssetTypes];
           }
 
-          v15 = [subfilters countByEnumeratingWithState:&v21 objects:v33 count:16];
+          v15 = [subfilters countByEnumeratingWithState:&v20 objects:v32 count:16];
         }
 
         while (v15);
@@ -230,32 +227,32 @@ LABEL_29:
       v7 = 131070;
 LABEL_31:
 
-      goto LABEL_32;
+      return v7;
     case 1:
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       subfilters = [(PUPickerCompoundFilter *)self subfilters];
-      v10 = [subfilters countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v10 = [subfilters countByEnumeratingWithState:&v24 objects:v33 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v26;
+        v12 = *v25;
         v7 = 131070;
         do
         {
           for (j = 0; j != v11; ++j)
           {
-            if (*v26 != v12)
+            if (*v25 != v12)
             {
               objc_enumerationMutation(subfilters);
             }
 
-            v7 &= [*(*(&v25 + 1) + 8 * j) generatedPossibleAssetTypes];
+            v7 &= [*(*(&v24 + 1) + 8 * j) generatedPossibleAssetTypes];
           }
 
-          v11 = [subfilters countByEnumeratingWithState:&v25 objects:v34 count:16];
+          v11 = [subfilters countByEnumeratingWithState:&v24 objects:v33 count:16];
         }
 
         while (v11);
@@ -264,30 +261,30 @@ LABEL_31:
 
       goto LABEL_29;
     case 0:
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       subfilters = [(PUPickerCompoundFilter *)self subfilters];
-      v5 = [subfilters countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v5 = [subfilters countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (v5)
       {
         v6 = v5;
         v7 = 0;
-        v8 = *v30;
+        v8 = *v29;
         do
         {
           for (k = 0; k != v6; ++k)
           {
-            if (*v30 != v8)
+            if (*v29 != v8)
             {
               objc_enumerationMutation(subfilters);
             }
 
-            v7 |= [*(*(&v29 + 1) + 8 * k) generatedPossibleAssetTypes];
+            v7 |= [*(*(&v28 + 1) + 8 * k) generatedPossibleAssetTypes];
           }
 
-          v6 = [subfilters countByEnumeratingWithState:&v29 objects:v35 count:16];
+          v6 = [subfilters countByEnumeratingWithState:&v28 objects:v34 count:16];
         }
 
         while (v6);
@@ -301,10 +298,7 @@ LABEL_31:
       goto LABEL_31;
   }
 
-  v7 = 0;
-LABEL_32:
-  v19 = *MEMORY[0x1E69E9840];
-  return v7;
+  return 0;
 }
 
 - (id)generatedAssetPredicate
@@ -339,7 +333,7 @@ LABEL_6:
 
 - (BOOL)containsFilter:(id)filter
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   filterCopy = filter;
   if ([(PUPickerCompoundFilter *)self isEqual:filterCopy])
   {
@@ -348,32 +342,32 @@ LABEL_6:
 
   else
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     subfilters = [(PUPickerCompoundFilter *)self subfilters];
-    v5 = [subfilters countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v5 = [subfilters countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v5)
     {
-      v7 = *v12;
+      v7 = *v11;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(subfilters);
           }
 
-          if ([*(*(&v11 + 1) + 8 * i) containsFilter:filterCopy])
+          if ([*(*(&v10 + 1) + 8 * i) containsFilter:filterCopy])
           {
             LOBYTE(v5) = 1;
             goto LABEL_13;
           }
         }
 
-        v5 = [subfilters countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [subfilters countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v5)
         {
           continue;
@@ -386,7 +380,6 @@ LABEL_6:
 LABEL_13:
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -418,7 +411,7 @@ LABEL_13:
 
 - (BOOL)isValidFilter
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   filterType = [(PUPickerCompoundFilter *)self filterType];
   v4 = filterType < 3;
   if (filterType >= 3)
@@ -428,7 +421,7 @@ LABEL_13:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1D2128000, v6, OS_LOG_TYPE_ERROR, "PUPickerCompoundFilter: invalid filter type: %ld", buf, 0xCu);
     }
   }
@@ -441,40 +434,40 @@ LABEL_13:
     {
       v9 = [subfilters count];
       *buf = 134217984;
-      v25 = v9;
+      v24 = v9;
       _os_log_impl(&dword_1D2128000, v8, OS_LOG_TYPE_ERROR, "PUPickerCompoundFilter: invalid subfilters count: %lu", buf, 0xCu);
     }
 
     v4 = 0;
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = subfilters;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
+        v15 = *(*(&v18 + 1) + 8 * i);
         if (([v15 isValidFilter] & 1) == 0)
         {
           v16 = PLPickerGetLog();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v25 = v15;
+            v24 = v15;
             _os_log_impl(&dword_1D2128000, v16, OS_LOG_TYPE_ERROR, "PUPickerCompoundFilter: invalid subfilter: %@", buf, 0xCu);
           }
 
@@ -483,7 +476,7 @@ LABEL_13:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v12)
       {
         continue;
@@ -495,7 +488,6 @@ LABEL_13:
 
 LABEL_21:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

@@ -1,8 +1,10 @@
 @interface ASNoteDataHandler
+- (BOOL)closeDBAndSave:(BOOL)save;
 - (BOOL)saveContainer;
 - (BOOL)wipeServerIds;
 - (id)copyOfAllLocalObjectsInContainer;
 - (int)getIdFromLocalObject:(void *)object;
+- (void)copyLocalObjectFromId:(int)id;
 - (void)drainContainer;
 - (void)openDB;
 @end
@@ -15,6 +17,25 @@
   intValue = [integerId intValue];
 
   return intValue;
+}
+
+- (void)copyLocalObjectFromId:(int)id
+{
+  v4 = [NSNumber numberWithInt:*&id];
+  v5 = [NSSet setWithObject:v4];
+
+  v6 = [*&self->super.ESDataHandler_opaque[OBJC_IVAR___ESDataHandler__container] notesForIntegerIds:v5];
+  if ([v6 count])
+  {
+    v7 = [v6 objectAtIndexedSubscript:0];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
 }
 
 - (BOOL)saveContainer
@@ -122,6 +143,15 @@
 {
   v2 = +[ASLocalDBHelper sharedInstance];
   [v2 noteOpenDB];
+}
+
+- (BOOL)closeDBAndSave:(BOOL)save
+{
+  saveCopy = save;
+  v4 = +[ASLocalDBHelper sharedInstance];
+  LOBYTE(saveCopy) = [v4 noteCloseDBAndSave:saveCopy];
+
+  return saveCopy;
 }
 
 @end

@@ -95,14 +95,13 @@
   path = container_get_path();
   if (path)
   {
-    v9 = 0;
     v4 = container_copy_info();
     if (!v4)
     {
       v6 = SALog();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_1000415D4(path, &v9);
+        sub_1000415D4();
       }
 
       LOBYTE(path) = 0;

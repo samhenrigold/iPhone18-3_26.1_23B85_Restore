@@ -188,7 +188,7 @@ LABEL_18:
 
 - (void)wf_getProcessedIntentValueForParameterValue:()Workflow parameter:parameterState:completionHandler:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v10 = a3;
   v11 = a4;
   v12 = a5;
@@ -205,29 +205,28 @@ LABEL_18:
     if (objc_opt_isKindOfClass())
     {
       selfCopy = self;
-      v29 = 0u;
-      v30 = 0u;
       v27 = 0u;
       v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v15 = v10;
-      v16 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v28;
+        v18 = *v26;
         while (2)
         {
           v19 = 0;
           do
           {
-            if (*v28 != v18)
+            if (*v26 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v27 + 1) + 8 * v19);
-            v21 = objc_opt_class();
-            if (v21 == objc_opt_class())
+            v20 = objc_opt_class();
+            if (v20 == objc_opt_class())
             {
               v13[2](v13, v15, 0);
 
@@ -238,7 +237,7 @@ LABEL_18:
           }
 
           while (v17 != v19);
-          v17 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
           if (v17)
           {
             continue;
@@ -252,19 +251,17 @@ LABEL_18:
     }
 
     metadata = [self metadata];
-    v23 = [metadata wf_processParameterValue:v10 forParameter:v11 parameterState:v12 codableAttribute:self completionHandler:v13];
+    v22 = [metadata wf_processParameterValue:v10 forParameter:v11 parameterState:v12 codableAttribute:self completionHandler:v13];
 
-    if ((v23 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
-      v26.receiver = self;
-      v26.super_class = &off_1F4B00488;
-      objc_msgSendSuper2(&v26, sel_wf_getProcessedIntentValueForParameterValue_parameter_parameterState_completionHandler_, v10, v11, v12, v13);
+      v24.receiver = self;
+      v24.super_class = &off_1F4B00488;
+      objc_msgSendSuper2(&v24, sel_wf_getProcessedIntentValueForParameterValue_parameter_parameterState_completionHandler_, v10, v11, v12, v13);
     }
   }
 
 LABEL_16:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)wf_updatedParameterDefinition:()Workflow parameterClass:localizer:

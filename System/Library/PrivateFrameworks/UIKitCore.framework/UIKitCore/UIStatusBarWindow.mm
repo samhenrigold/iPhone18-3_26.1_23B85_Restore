@@ -221,7 +221,7 @@ uint64_t __56__UIStatusBarWindow_setOrientation_animationParameters___block_invo
   return [v2 _rotate];
 }
 
-uint64_t __56__UIStatusBarWindow_setOrientation_animationParameters___block_invoke_4(uint64_t a1)
+void *__56__UIStatusBarWindow_setOrientation_animationParameters___block_invoke_4(uint64_t a1)
 {
   [*(a1 + 32) _rotate];
   result = [*(*(a1 + 32) + 920) isHidden];

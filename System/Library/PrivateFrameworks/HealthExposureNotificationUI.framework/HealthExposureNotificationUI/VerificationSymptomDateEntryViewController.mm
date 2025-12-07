@@ -39,58 +39,55 @@
 - (void)datePickerValueChanged:(id)changed
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F4538C0, &qword_2517090F0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v14 - v7;
+  v7 = &v13 - v6;
   changedCopy = changed;
   selfCopy = self;
   date = [changedCopy date];
   sub_251702E04();
 
-  v12 = sub_251702E24();
-  (*(*(v12 - 8) + 56))(v8, 0, 1, v12);
-  v13 = OBJC_IVAR____TtC28HealthExposureNotificationUI42VerificationSymptomDateEntryViewController_symptomOnsetDate;
+  v11 = sub_251702E24();
+  (*(*(v11 - 8) + 56))(v7, 0, 1, v11);
+  v12 = OBJC_IVAR____TtC28HealthExposureNotificationUI42VerificationSymptomDateEntryViewController_symptomOnsetDate;
   swift_beginAccess();
-  sub_25168A95C(v8, selfCopy + v13);
+  sub_25168A95C(v7, selfCopy + v12);
   swift_endAccess();
   sub_2516852E0();
 
-  sub_25168B718(v8, &unk_27F4538C0, &qword_2517090F0);
+  sub_25168B718(v7, &unk_27F4538C0, &qword_2517090F0);
 }
 
 - (void)viewDidLayoutSubviews
 {
   ObjectType = swift_getObjectType();
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27F4538B0, &unk_2517068C0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v12 - v6;
-  v12.receiver = self;
-  v12.super_class = ObjectType;
+  v6 = &v11 - v5;
+  v11.receiver = self;
+  v11.super_class = ObjectType;
   selfCopy = self;
-  [(OBTableWelcomeController *)&v12 viewDidLayoutSubviews];
-  v9 = *(&selfCopy->super.super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI42VerificationSymptomDateEntryViewController_primaryButton);
-  sub_251685530(v7);
-  v10 = type metadata accessor for SymptomOnset(0);
-  v11 = (*(*(v10 - 8) + 48))(v7, 1, v10) != 1;
-  sub_25168B718(v7, &unk_27F4538B0, &unk_2517068C0);
-  [v9 setEnabled_];
+  [(OBTableWelcomeController *)&v11 viewDidLayoutSubviews];
+  v8 = *(&selfCopy->super.super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI42VerificationSymptomDateEntryViewController_primaryButton);
+  sub_251685530(v6);
+  v9 = type metadata accessor for SymptomOnset(0);
+  v10 = (*(*(v9 - 8) + 48))(v6, 1, v9) != 1;
+  sub_25168B718(v6, &unk_27F4538B0, &unk_2517068C0);
+  [v8 setEnabled_];
 }
 
 - (BOOL)tableView:(id)view shouldHighlightRowAtIndexPath:(id)path
 {
   v6 = sub_251702EE4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251702EC4();
   viewCopy = view;
   selfCopy = self;
-  sub_25168A8AC();
-  LOBYTE(self) = v13;
+  sub_25168A8AC(v9);
+  LOBYTE(self) = v12;
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
   return self & 1;
 }
 
@@ -98,15 +95,14 @@
 {
   v6 = sub_251702EE4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251702EC4();
   viewCopy = view;
   selfCopy = self;
-  VerificationSymptomDateEntryViewController.tableView(_:didSelectRowAt:)(viewCopy);
+  VerificationSymptomDateEntryViewController.tableView(_:didSelectRowAt:)(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section
@@ -131,12 +127,11 @@
 
 - (void)didTapCancel
 {
-  v3 = *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI42VerificationSymptomDateEntryViewController_flow);
-  v4 = *(&self->super.super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI42VerificationSymptomDateEntryViewController_flow);
+  v3 = *(&self->super.super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI42VerificationSymptomDateEntryViewController_flow);
   swift_getObjectType();
-  v5 = *(v4 + 128);
+  v4 = *(v3 + 128);
   selfCopy = self;
-  v5();
+  v4();
 }
 
 - (_TtC28HealthExposureNotificationUI42VerificationSymptomDateEntryViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name

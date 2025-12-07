@@ -33,16 +33,16 @@
 
 - (RTTokenBucket)initWithFillRate:(double)rate capacity:(double)capacity initialAllocation:(double)allocation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (rate <= 0.0)
   {
     v9 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTTokenBucket initWithFillRate:capacity:initialAllocation:]";
-      v21 = 1024;
-      v22 = 64;
+      v19 = "[RTTokenBucket initWithFillRate:capacity:initialAllocation:]";
+      v20 = 1024;
+      v21 = 64;
       _os_log_error_impl(&dword_1BF1C4000, v9, OS_LOG_TYPE_ERROR, "Rate must be greater than 0. (in %s:%d)", buf, 0x12u);
     }
   }
@@ -53,9 +53,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTTokenBucket initWithFillRate:capacity:initialAllocation:]";
-      v21 = 1024;
-      v22 = 65;
+      v19 = "[RTTokenBucket initWithFillRate:capacity:initialAllocation:]";
+      v20 = 1024;
+      v21 = 65;
       _os_log_error_impl(&dword_1BF1C4000, v10, OS_LOG_TYPE_ERROR, "Capacity must be greater than 0. (in %s:%d)", buf, 0x12u);
     }
   }
@@ -66,9 +66,9 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTTokenBucket initWithFillRate:capacity:initialAllocation:]";
-      v21 = 1024;
-      v22 = 66;
+      v19 = "[RTTokenBucket initWithFillRate:capacity:initialAllocation:]";
+      v20 = 1024;
+      v21 = 66;
       _os_log_error_impl(&dword_1BF1C4000, v11, OS_LOG_TYPE_ERROR, "Initial allocation must be greater than 0. (in %s:%d)", buf, 0x12u);
     }
   }
@@ -79,9 +79,9 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[RTTokenBucket initWithFillRate:capacity:initialAllocation:]";
-      v21 = 1024;
-      v22 = 67;
+      v19 = "[RTTokenBucket initWithFillRate:capacity:initialAllocation:]";
+      v20 = 1024;
+      v21 = 67;
       _os_log_error_impl(&dword_1BF1C4000, v12, OS_LOG_TYPE_ERROR, "Initial allocation must be less than capacity. (in %s:%d)", buf, 0x12u);
     }
   }
@@ -89,9 +89,9 @@
   selfCopy = 0;
   if (allocation <= capacity && rate > 0.0 && capacity > 0.0 && allocation >= 0.0)
   {
-    v18.receiver = self;
-    v18.super_class = RTTokenBucket;
-    v14 = [(RTTokenBucket *)&v18 init];
+    v17.receiver = self;
+    v17.super_class = RTTokenBucket;
+    v14 = [(RTTokenBucket *)&v17 init];
     v15 = v14;
     if (v14)
     {
@@ -107,23 +107,22 @@
     selfCopy = self;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (BOOL)_consumeTokens:(unint64_t)tokens
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!tokens)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGeneral);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136315394;
-      v15 = "[RTTokenBucket _consumeTokens:]";
-      v16 = 1024;
-      v17 = 106;
-      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Token count less than 1. (in %s:%d)", &v14, 0x12u);
+      v13 = 136315394;
+      v14 = "[RTTokenBucket _consumeTokens:]";
+      v15 = 1024;
+      v16 = 106;
+      _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Token count less than 1. (in %s:%d)", &v13, 0x12u);
     }
   }
 
@@ -149,9 +148,7 @@
     ++self->_operationsAllowed;
   }
 
-  result = tokenBucket >= tokensCopy;
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return tokenBucket >= tokensCopy;
 }
 
 - (BOOL)operationAllowedWithCost:(double)cost

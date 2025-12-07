@@ -22,9 +22,9 @@ void __125___PIWhiteColorCalculator__whitePointColorFromGrayEdgesImage_grayWorld
   [v4 readBufferFromImage:v5 withRGBAfBufferBlock:v9];
 }
 
-__n128 __125___PIWhiteColorCalculator__whitePointColorFromGrayEdgesImage_grayWorldImage_greenChannelPercentage_RAWCameraSpaceProperties___block_invoke_2(uint64_t a1, uint64_t a2)
+__n128 __125___PIWhiteColorCalculator__whitePointColorFromGrayEdgesImage_grayWorldImage_greenChannelPercentage_RAWCameraSpaceProperties___block_invoke_2(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) _computeWhitePointColorWithGrayEdgesBuffer:*(a1 + 40) grayWorldBuffer:a2 greenChannelPercentage:*(a1 + 48) RAWCameraSpaceProperties:*(a1 + 64)];
+  objc_msgSend__computeWhitePointColorWithGrayEdgesBuffer_grayWorldBuffer_greenChannelPercentage_RAWCameraSpaceProperties_(*(a1 + 32), a2, *(a1 + 40), a2, *(a1 + 48), *(a1 + 64));
   v3 = *(*(a1 + 56) + 8);
   *(v3 + 64) = v7;
   *(v3 + 80) = v8;
@@ -138,7 +138,7 @@ void __67___PIWhiteColorCalculator_calculateColorWithProperties_completion___blo
     v6 = *(a1 + 48);
     if (v6)
     {
-      [v6 _whitePointColorFromGrayEdgesImage:*(*(*(a1 + 80) + 8) + 40) grayWorldImage:*(*(*(a1 + 88) + 8) + 40) greenChannelPercentage:v5 RAWCameraSpaceProperties:*(*(*(a1 + 72) + 8) + 24)];
+      objc_msgSend__whitePointColorFromGrayEdgesImage_grayWorldImage_greenChannelPercentage_RAWCameraSpaceProperties_(v6, *(*(*(a1 + 72) + 8) + 24));
     }
 
     [*(a1 + 32) doubleValue];

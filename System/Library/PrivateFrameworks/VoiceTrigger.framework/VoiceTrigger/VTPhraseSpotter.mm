@@ -1271,7 +1271,7 @@ void __53__VTPhraseSpotter__getNumberOfAudioFilesInDirectory___block_invoke(uint
     }
   }
 
-  nd_initlog(ndapilog_callback);
+  nd_initlog(ndapilog_callback, 0);
   nd_logcontrol("NLogLevelVerbose", v12);
 }
 
@@ -2755,7 +2755,7 @@ LABEL_60:
   dispatch_sync(ndetectQueue, v4);
 }
 
-uint64_t __43__VTPhraseSpotter__analyzeResetWithOption___block_invoke(uint64_t a1)
+void *__43__VTPhraseSpotter__analyzeResetWithOption___block_invoke(uint64_t a1)
 {
   if (+[VTUtilities VTIsHorseman])
   {
@@ -3376,7 +3376,7 @@ LABEL_14:
   return v14;
 }
 
-uint64_t __34__VTPhraseSpotter__analyzeEvents___block_invoke_553(uint64_t a1)
+void *__34__VTPhraseSpotter__analyzeEvents___block_invoke_553(uint64_t a1)
 {
   v17 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 16) getSATVectorCount];
@@ -3609,16 +3609,16 @@ void __41__VTPhraseSpotter__storeFirstChanceAudio__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __44__VTPhraseSpotter__getSecondChanceEffective__block_invoke(uint64_t result)
+void *__44__VTPhraseSpotter__getSecondChanceEffective__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 377) == 1)
+  if (*(result[4] + 377) == 1)
   {
     v1 = result;
     result = +[VTUtilities systemUpTime];
-    v3 = *(v1 + 32);
+    v3 = v1[4];
     if (v2 > 0.0 && (v4 = *(v3 + 384), v4 > 0.0) && ((v5 = v2 - v4, v5 > 0.0) ? (v6 = v5 < 8.0) : (v6 = 0), v6))
     {
-      *(*(*(v1 + 40) + 8) + 24) = 1;
+      *(*(v1[5] + 8) + 24) = 1;
     }
 
     else
@@ -3652,7 +3652,7 @@ uint64_t __44__VTPhraseSpotter__getSecondChanceEffective__block_invoke(uint64_t 
   dispatch_async(ndetectQueue, block);
 }
 
-uint64_t __35__VTPhraseSpotter__setSecondChance__block_invoke(uint64_t a1)
+void *__35__VTPhraseSpotter__setSecondChance__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 377) = 1;
   result = +[VTUtilities systemUpTime];
@@ -4334,7 +4334,7 @@ LABEL_66:
   return v15;
 }
 
-uint64_t __27__VTPhraseSpotter_analyze___block_invoke(uint64_t a1)
+void *__27__VTPhraseSpotter_analyze___block_invoke(uint64_t a1)
 {
   v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 60) >> 1;

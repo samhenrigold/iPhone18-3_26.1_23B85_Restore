@@ -66,367 +66,358 @@
   v4 = host;
   if (host)
   {
-    v41 = host;
+    v38 = host;
     *buf = 0;
-    v94 = buf;
-    v95 = 0x3032000000;
-    v96 = sub_1001A3E94;
-    v97 = sub_1001A3EA4;
-    v98 = 0;
-    v87 = 0;
-    v88 = &v87;
-    v89 = 0x3032000000;
-    v90 = sub_1001A3E94;
-    v91 = sub_1001A3EA4;
-    v92 = 0;
-    v81 = 0;
-    v82 = &v81;
-    v83 = 0x3032000000;
-    v84 = sub_1001A3E94;
-    v85 = sub_1001A3EA4;
-    v86 = 0;
-    v75 = 0;
-    v76 = &v75;
-    v77 = 0x3032000000;
-    v78 = sub_1001A3E94;
-    v79 = sub_1001A3EA4;
-    v80 = 0;
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x3032000000;
-    v72 = sub_1001A3E94;
-    v73 = sub_1001A3EA4;
-    v74 = 0;
-    v63 = 0;
-    v64 = &v63;
-    v65 = 0x3032000000;
-    v66 = sub_1001A3E94;
-    v67 = sub_1001A3EA4;
-    v68 = 0;
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x3032000000;
-    v60 = sub_1001A3E94;
-    v61 = sub_1001A3EA4;
-    v62 = 0;
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x3032000000;
-    v54 = sub_1001A3E94;
-    v55 = sub_1001A3EA4;
-    v56 = 0;
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = sub_1001A3E94;
-    v49 = sub_1001A3EA4;
-    v50 = 0;
+    v91 = buf;
+    v92 = 0x3032000000;
+    v93 = sub_1001A3E94;
+    v94 = sub_1001A3EA4;
+    v95 = 0;
+    v84 = 0;
+    v85 = &v84;
+    v86 = 0x3032000000;
+    v87 = sub_1001A3E94;
+    v88 = sub_1001A3EA4;
+    v89 = 0;
+    v78 = 0;
+    v79 = &v78;
+    v80 = 0x3032000000;
+    v81 = sub_1001A3E94;
+    v82 = sub_1001A3EA4;
+    v83 = 0;
+    v72 = 0;
+    v73 = &v72;
+    v74 = 0x3032000000;
+    v75 = sub_1001A3E94;
+    v76 = sub_1001A3EA4;
+    v77 = 0;
+    v66 = 0;
+    v67 = &v66;
+    v68 = 0x3032000000;
+    v69 = sub_1001A3E94;
+    v70 = sub_1001A3EA4;
+    v71 = 0;
+    v60 = 0;
+    v61 = &v60;
+    v62 = 0x3032000000;
+    v63 = sub_1001A3E94;
+    v64 = sub_1001A3EA4;
+    v65 = 0;
+    v54 = 0;
+    v55 = &v54;
+    v56 = 0x3032000000;
+    v57 = sub_1001A3E94;
+    v58 = sub_1001A3EA4;
+    v59 = 0;
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x3032000000;
+    v51 = sub_1001A3E94;
+    v52 = sub_1001A3EA4;
+    v53 = 0;
+    v42 = 0;
+    v43 = &v42;
+    v44 = 0x3032000000;
+    v45 = sub_1001A3E94;
+    v46 = sub_1001A3EA4;
+    v47 = 0;
     queryItems = [fromCopy queryItems];
-    v44[0] = _NSConcreteStackBlock;
-    v44[1] = 3221225472;
-    v44[2] = sub_1001A3EAC;
-    v44[3] = &unk_10036A618;
-    v44[4] = buf;
-    v44[5] = &v87;
-    v44[6] = &v81;
-    v44[7] = &v75;
-    v44[8] = &v69;
-    v44[9] = &v63;
-    v44[10] = &v57;
-    v44[11] = &v45;
-    v44[12] = &v51;
-    [queryItems enumerateObjectsUsingBlock:v44];
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_1001A3EAC;
+    v41[3] = &unk_10036A618;
+    v41[4] = buf;
+    v41[5] = &v84;
+    v41[6] = &v78;
+    v41[7] = &v72;
+    v41[8] = &v66;
+    v41[9] = &v60;
+    v41[10] = &v54;
+    v41[11] = &v42;
+    v41[12] = &v48;
+    [queryItems enumerateObjectsUsingBlock:v41];
 
-    if ([v41 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentDashboard])
+    if ([v38 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentDashboard])
     {
-      if ([v64[5] length])
+      if ([v61[5] length])
       {
-        v107[0] = GKRemoteAlertDeeplinkActionKey;
-        v107[1] = GKRemoteAlertDeeplinkActionIdentifierKey;
-        v6 = v64[5];
+        v132 = GKRemoteAlertDeeplinkActionKey;
+        v133 = GKRemoteAlertDeeplinkActionIdentifierKey;
+        v6 = v61[5];
         if (!v6)
         {
           v6 = &stru_100374F10;
         }
 
-        v108[0] = GKRemoteAlertDeeplinkActionActivityIdValue;
-        v108[1] = v6;
-        v7 = v46[5];
+        v138 = GKRemoteAlertDeeplinkActionActivityIdValue;
+        v139 = v6;
+        v7 = v43[5];
         if (!v7)
         {
           v7 = &stru_100374F10;
         }
 
-        v107[2] = GKRemoteAlertDeeplinkActionWidgetFamilyKey;
-        v107[3] = GKRemoteAlertDeeplinkActionActivityTypeKey;
-        v8 = v58[5];
+        v134 = GKRemoteAlertDeeplinkActionWidgetFamilyKey;
+        v135 = GKRemoteAlertDeeplinkActionActivityTypeKey;
+        v8 = v55[5];
         if (!v8)
         {
           v8 = &stru_100374F10;
         }
 
-        v108[2] = v7;
-        v108[3] = v8;
-        v9 = v52[5];
+        v140 = v7;
+        v141 = v8;
+        v9 = v49[5];
         if (!v9)
         {
           v9 = &stru_100374F10;
         }
 
-        v107[4] = GKRemoteAlertDeeplinkActionWidgetIdKey;
-        v107[5] = GKRemoteAlertDeeplinkGameAdamIdKey;
-        v10 = v88[5];
+        v136 = GKRemoteAlertDeeplinkActionWidgetIdKey;
+        v137 = GKRemoteAlertDeeplinkGameAdamIdKey;
+        v10 = v85[5];
         if (!v10)
         {
           v10 = &stru_100374F10;
         }
 
-        v11 = v107;
-        v12 = v108;
-        v108[4] = v9;
-        v108[5] = v10;
-        v13 = 6;
-        goto LABEL_37;
+        v142 = v9;
+        v143 = v10;
       }
 
-      v23 = v46[5];
-      if (!v23)
+      else
       {
-        v23 = &stru_100374F10;
+        v20 = v43[5];
+        if (!v20)
+        {
+          v20 = &stru_100374F10;
+        }
+
+        v144 = GKRemoteAlertDeeplinkActionWidgetFamilyKey;
+        v145 = GKRemoteAlertDeeplinkActionWidgetIdKey;
+        v21 = v49[5];
+        if (!v21)
+        {
+          v21 = &stru_100374F10;
+        }
+
+        v146 = v20;
+        v147 = v21;
       }
 
-      v109[0] = GKRemoteAlertDeeplinkActionWidgetFamilyKey;
-      v109[1] = GKRemoteAlertDeeplinkActionWidgetIdKey;
-      v24 = v52[5];
-      if (!v24)
-      {
-        v24 = &stru_100374F10;
-      }
-
-      v110[0] = v23;
-      v110[1] = v24;
-      v11 = v109;
-      v12 = v110;
-LABEL_36:
-      v13 = 2;
-LABEL_37:
-      v16 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:v13];
-LABEL_73:
-      v4 = v41;
-LABEL_74:
-      _Block_object_dispose(&v45, 8);
-
-      _Block_object_dispose(&v51, 8);
-      _Block_object_dispose(&v57, 8);
-
-      _Block_object_dispose(&v63, 8);
-      _Block_object_dispose(&v69, 8);
-
-      _Block_object_dispose(&v75, 8);
-      _Block_object_dispose(&v81, 8);
-
-      _Block_object_dispose(&v87, 8);
-      _Block_object_dispose(buf, 8);
-
-      goto LABEL_75;
+      goto LABEL_36;
     }
 
-    if ([v41 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentPlayer])
+    if ([v38 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentPlayer])
     {
-      if ([v76[5] length])
+      if ([v73[5] length])
       {
-        v105[0] = GKRemoteAlertDeeplinkActionKey;
-        v105[1] = GKRemoteAlertDeeplinkPlayerIdentifierKey;
-        v17 = v76[5];
-        v106[0] = GKRemoteAlertDeeplinkActionPlayerProfileValue;
-        v106[1] = v17;
-        v11 = v105;
-        v12 = v106;
-        goto LABEL_36;
+        v128 = GKRemoteAlertDeeplinkActionKey;
+        v129 = GKRemoteAlertDeeplinkPlayerIdentifierKey;
+        v14 = v73[5];
+        v130 = GKRemoteAlertDeeplinkActionPlayerProfileValue;
+        v131 = v14;
+LABEL_36:
+        v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+LABEL_72:
+        v4 = v38;
+LABEL_73:
+        _Block_object_dispose(&v42, 8);
+
+        _Block_object_dispose(&v48, 8);
+        _Block_object_dispose(&v54, 8);
+
+        _Block_object_dispose(&v60, 8);
+        _Block_object_dispose(&v66, 8);
+
+        _Block_object_dispose(&v72, 8);
+        _Block_object_dispose(&v78, 8);
+
+        _Block_object_dispose(&v84, 8);
+        _Block_object_dispose(buf, 8);
+
+        goto LABEL_74;
       }
 
       if (!os_log_GKGeneral)
       {
-        v31 = GKOSLoggers();
+        v28 = GKOSLoggers();
       }
 
-      v32 = os_log_GKDaemon;
+      v29 = os_log_GKDaemon;
       if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
       {
-        *v43 = 0;
-        v33 = "GKWidgetEventListener: Received malformed player data";
-LABEL_71:
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, v33, v43, 2u);
+        *v40 = 0;
+        v30 = "GKWidgetEventListener: Received malformed player data";
+LABEL_70:
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, v30, v40, 2u);
       }
     }
 
     else
     {
-      if ([v41 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentLeaderboard])
+      if ([v38 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentLeaderboard])
       {
-        [*(v94 + 5) firstObject];
-        v18 = v4 = v41;
-        if ([v18 length] && objc_msgSend(v70[5], "length") && objc_msgSend(v76[5], "length") && objc_msgSend(v82[5], "length"))
+        [*(v91 + 5) firstObject];
+        v15 = v4 = v38;
+        if ([v15 length] && objc_msgSend(v67[5], "length") && objc_msgSend(v73[5], "length") && objc_msgSend(v79[5], "length"))
         {
-          v103[0] = GKRemoteAlertDeeplinkActionKey;
-          v103[1] = GKRemoteAlertDeeplinkActionIdentifierKey;
-          v19 = v82[5];
-          v103[2] = GKRemoteAlertDeeplinkGameBundleIdentifierKey;
-          v103[3] = GKRemoteAlertDeeplinkPlayerIdentifierKey;
-          v20 = v76[5];
-          v104[2] = v19;
-          v104[3] = v20;
-          v21 = v70[5];
-          v103[4] = GKRemoteAlertDeeplinkActionNameKey;
-          v103[5] = GKRemoteAlertDeeplinkGameAdamIdKey;
-          v22 = v88[5];
-          if (!v22)
+          v116 = GKRemoteAlertDeeplinkActionKey;
+          v117 = GKRemoteAlertDeeplinkActionIdentifierKey;
+          v16 = v79[5];
+          v118 = GKRemoteAlertDeeplinkGameBundleIdentifierKey;
+          v119 = GKRemoteAlertDeeplinkPlayerIdentifierKey;
+          v17 = v73[5];
+          v124 = v16;
+          v125 = v17;
+          v18 = v67[5];
+          v120 = GKRemoteAlertDeeplinkActionNameKey;
+          v121 = GKRemoteAlertDeeplinkGameAdamIdKey;
+          v19 = v85[5];
+          if (!v19)
           {
-            v22 = &stru_100374F10;
+            v19 = &stru_100374F10;
           }
 
-          v104[0] = GKRemoteAlertDeeplinkActionLeaderboardValue;
-          v104[1] = v18;
-          v104[4] = v21;
-          v104[5] = v22;
-          v16 = [NSDictionary dictionaryWithObjects:v104 forKeys:v103 count:6];
+          v122 = GKRemoteAlertDeeplinkActionLeaderboardValue;
+          v123 = v15;
+          v126 = v18;
+          v127 = v19;
+          v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
         }
 
         else
         {
           if (!os_log_GKGeneral)
           {
-            v29 = GKOSLoggers();
+            v26 = GKOSLoggers();
           }
 
-          v30 = os_log_GKDaemon;
+          v27 = os_log_GKDaemon;
           if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
           {
-            *v43 = 0;
-            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Received malformed leaderboard data", v43, 2u);
+            *v40 = 0;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Received malformed leaderboard data", v40, 2u);
           }
 
-          v16 = 0;
+          v13 = 0;
         }
 
-        goto LABEL_74;
+        goto LABEL_73;
       }
 
-      if ([v41 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentAchievement])
+      if ([v38 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentAchievement])
       {
-        if ([v82[5] length] && objc_msgSend(v76[5], "length") && objc_msgSend(v70[5], "length"))
+        if ([v79[5] length] && objc_msgSend(v73[5], "length") && objc_msgSend(v67[5], "length"))
         {
-          v102[0] = GKRemoteAlertDeeplinkActionAchievementsValue;
-          v101[0] = GKRemoteAlertDeeplinkActionKey;
-          v101[1] = GKRemoteAlertDeeplinkAchievementsIdsKey;
-          v25 = [*(v94 + 5) componentsJoinedByString:{@", "}];
-          v26 = v82[5];
-          v102[1] = v25;
-          v102[2] = v26;
-          v101[2] = GKRemoteAlertDeeplinkGameBundleIdentifierKey;
-          v101[3] = GKRemoteAlertDeeplinkPlayerIdentifierKey;
-          v27 = v70[5];
-          v102[3] = v76[5];
-          v102[4] = v27;
-          v101[4] = GKRemoteAlertDeeplinkActionNameKey;
-          v101[5] = GKRemoteAlertDeeplinkGameAdamIdKey;
-          v28 = v88[5];
-          if (!v28)
+          v110 = GKRemoteAlertDeeplinkActionAchievementsValue;
+          v104 = GKRemoteAlertDeeplinkActionKey;
+          v105 = GKRemoteAlertDeeplinkAchievementsIdsKey;
+          v22 = [*(v91 + 5) componentsJoinedByString:{@", "}];
+          v23 = v79[5];
+          v111 = v22;
+          v112 = v23;
+          v106 = GKRemoteAlertDeeplinkGameBundleIdentifierKey;
+          v107 = GKRemoteAlertDeeplinkPlayerIdentifierKey;
+          v24 = v67[5];
+          v113 = v73[5];
+          v114 = v24;
+          v108 = GKRemoteAlertDeeplinkActionNameKey;
+          v109 = GKRemoteAlertDeeplinkGameAdamIdKey;
+          v25 = v85[5];
+          if (!v25)
           {
-            v28 = &stru_100374F10;
+            v25 = &stru_100374F10;
           }
 
-          v102[5] = v28;
-          v16 = [NSDictionary dictionaryWithObjects:v102 forKeys:v101 count:6];
+          v115 = v25;
+          v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-          v4 = v41;
-          goto LABEL_74;
+          v4 = v38;
+          goto LABEL_73;
         }
 
         if (!os_log_GKGeneral)
         {
-          v38 = GKOSLoggers();
+          v35 = GKOSLoggers();
         }
 
-        v32 = os_log_GKDaemon;
+        v29 = os_log_GKDaemon;
         if (!os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
         {
-          goto LABEL_72;
+          goto LABEL_71;
         }
 
-        *v43 = 0;
-        v33 = "GKWidgetEventListener: Received malformed achievement data";
-        goto LABEL_71;
+        *v40 = 0;
+        v30 = "GKWidgetEventListener: Received malformed achievement data";
+        goto LABEL_70;
       }
 
-      if ([v41 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentGame])
+      if ([v38 isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentGame])
       {
-        if ([v82[5] length] && objc_msgSend(v88[5], "length"))
+        if ([v79[5] length] && objc_msgSend(v85[5], "length"))
         {
-          v34 = v82[5];
-          v99[0] = GKRemoteAlertDeeplinkGameBundleIdentifierKey;
-          v99[1] = GKRemoteAlertDeeplinkGameAdamIdKey;
-          v35 = v88[5];
-          v100[0] = v34;
-          v100[1] = v35;
-          v36 = v46[5];
-          if (!v36)
+          v31 = v79[5];
+          v96 = GKRemoteAlertDeeplinkGameBundleIdentifierKey;
+          v97 = GKRemoteAlertDeeplinkGameAdamIdKey;
+          v32 = v85[5];
+          v100 = v31;
+          v101 = v32;
+          v33 = v43[5];
+          if (!v33)
           {
-            v36 = &stru_100374F10;
+            v33 = &stru_100374F10;
           }
 
-          v99[2] = GKRemoteAlertDeeplinkActionWidgetFamilyKey;
-          v99[3] = GKRemoteAlertDeeplinkActionWidgetIdKey;
-          v37 = v52[5];
-          if (!v37)
+          v98 = GKRemoteAlertDeeplinkActionWidgetFamilyKey;
+          v99 = GKRemoteAlertDeeplinkActionWidgetIdKey;
+          v34 = v49[5];
+          if (!v34)
           {
-            v37 = &stru_100374F10;
+            v34 = &stru_100374F10;
           }
 
-          v100[2] = v36;
-          v100[3] = v37;
-          v11 = v99;
-          v12 = v100;
-          v13 = 4;
-          goto LABEL_37;
+          v102 = v33;
+          v103 = v34;
+          goto LABEL_36;
         }
 
         if (!os_log_GKGeneral)
         {
-          v39 = GKOSLoggers();
+          v36 = GKOSLoggers();
         }
 
-        v32 = os_log_GKDaemon;
+        v29 = os_log_GKDaemon;
         if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
         {
-          *v43 = 0;
-          v33 = "GKWidgetEventListener: Received malformed achievement data";
-          goto LABEL_71;
+          *v40 = 0;
+          v30 = "GKWidgetEventListener: Received malformed achievement data";
+          goto LABEL_70;
         }
       }
     }
 
-LABEL_72:
-    v16 = 0;
-    goto LABEL_73;
+LABEL_71:
+    v13 = 0;
+    goto LABEL_72;
   }
 
   if (!os_log_GKGeneral)
   {
-    v14 = GKOSLoggers();
+    v11 = GKOSLoggers();
   }
 
-  v15 = os_log_GKDaemon;
+  v12 = os_log_GKDaemon;
   if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Missing host from recived url", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Missing host from recived url", buf, 2u);
   }
 
-  v16 = 0;
-LABEL_75:
+  v13 = 0;
+LABEL_74:
 
-  return v16;
+  return v13;
 }
 
 - (void)eventServiceListener:(id)listener didReceiveOpenEventWithURL:(id)l
@@ -444,7 +435,7 @@ LABEL_75:
     v10 = v9;
     absoluteString = [lCopy absoluteString];
     *buf = 138412290;
-    v126 = absoluteString;
+    v143 = absoluteString;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Received url %@", buf, 0xCu);
   }
 
@@ -486,16 +477,16 @@ LABEL_75:
       {
         v22 = objc_opt_new();
         queryItems = [v12 queryItems];
-        v119[0] = _NSConcreteStackBlock;
-        v119[1] = 3221225472;
-        v119[2] = sub_1001A4FAC;
-        v119[3] = &unk_10036A640;
+        v118[0] = _NSConcreteStackBlock;
+        v118[1] = 3221225472;
+        v118[2] = sub_1001A4FAC;
+        v118[3] = &unk_10036A640;
         v24 = v22;
-        v120 = v24;
-        [queryItems enumerateObjectsUsingBlock:v119];
+        v119 = v24;
+        [queryItems enumerateObjectsUsingBlock:v118];
 
-        v104 = [(__CFString *)v24 objectForKeyedSubscript:GKActivityFeedMarkdownURLFormulationQueryAdamId];
-        v102 = [(__CFString *)v24 objectForKeyedSubscript:GKActivityFeedMarkdownURLFormulationQueryBundleId];
+        v103 = [(__CFString *)v24 objectForKeyedSubscript:GKActivityFeedMarkdownURLFormulationQueryAdamId];
+        v101 = [(__CFString *)v24 objectForKeyedSubscript:GKActivityFeedMarkdownURLFormulationQueryBundleId];
         v25 = [(__CFString *)v24 objectForKeyedSubscript:GKMarkdownURLFormulationQueryWidgetId];
         v26 = v25;
         if (v25)
@@ -508,7 +499,7 @@ LABEL_75:
           v27 = &stru_100374F10;
         }
 
-        v99 = v27;
+        v98 = v27;
 
         v28 = GKMarkdownURLFormulationQueryWidgetSize;
         v29 = [(__CFString *)v24 objectForKeyedSubscript:GKMarkdownURLFormulationQueryWidgetSize];
@@ -535,12 +526,12 @@ LABEL_75:
           v58 = &stru_100374F10;
         }
 
-        v97 = v58;
+        v96 = v58;
 
-        v107 = v20;
-        if (v104)
+        v106 = v20;
+        if (v103)
         {
-          v101 = listenerCopy;
+          v100 = listenerCopy;
           v59 = [(__CFString *)v24 objectForKeyedSubscript:GKMarkdownURLFormulationQueryOpenInGamesUI];
           v60 = v59;
           v61 = @"false";
@@ -567,35 +558,35 @@ LABEL_75:
 
           if (v63)
           {
-            v68 = v104;
-            v69 = v99;
+            v68 = v103;
+            v69 = v98;
             v70 = intValue;
-            v71 = v97;
-            [ASCAppLaunchTrampolineURL gamesURLWithAdamId:v104 bundleId:v102 widgetId:v99 widgetSize:v70 deepLinkUrl:0 localizedName:v97 sourceApplication:@"com.apple.gamecenter.widgets.extension" topic:v67];
+            v71 = v96;
+            [ASCAppLaunchTrampolineURL gamesURLWithAdamId:v103 bundleId:v101 widgetId:v98 widgetSize:v70 deepLinkUrl:0 localizedName:v96 sourceApplication:@"com.apple.gamecenter.widgets.extension" topic:v67];
           }
 
           else
           {
-            v68 = v104;
-            v69 = v99;
+            v68 = v103;
+            v69 = v98;
             v74 = intValue;
-            v71 = v97;
-            [ASCAppLaunchTrampolineURL URLWithAdamId:v104 bundleId:v102 widgetId:v99 widgetSize:v74 localizedName:v97 sourceApplication:@"com.apple.gamecenter.widgets.extension" topic:v67];
+            v71 = v96;
+            [ASCAppLaunchTrampolineURL URLWithAdamId:v103 bundleId:v101 widgetId:v98 widgetSize:v74 localizedName:v96 sourceApplication:@"com.apple.gamecenter.widgets.extension" topic:v67];
           }
           v75 = ;
 
-          v113[0] = _NSConcreteStackBlock;
-          v113[1] = 3221225472;
-          v113[2] = sub_1001A5048;
-          v113[3] = &unk_10036A668;
-          v114 = v69;
-          v115 = v30;
-          v116 = v71;
-          v117 = v68;
-          v118 = v107;
-          [v118 invokeASCAppLaunchTrampolineWithURL:v75 handler:v113];
+          v112[0] = _NSConcreteStackBlock;
+          v112[1] = 3221225472;
+          v112[2] = sub_1001A5048;
+          v112[3] = &unk_10036A668;
+          v113 = v69;
+          v114 = v30;
+          v115 = v71;
+          v116 = v68;
+          v117 = v106;
+          [v117 invokeASCAppLaunchTrampolineWithURL:v75 handler:v112];
 
-          listenerCopy = v101;
+          listenerCopy = v100;
         }
 
         else
@@ -607,25 +598,25 @@ LABEL_75:
 
           v73 = os_log_GKDaemon;
           v68 = 0;
-          v71 = v97;
-          v69 = v99;
+          v71 = v96;
+          v69 = v98;
           if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v126 = v99;
-            v127 = 2112;
-            v128 = v30;
+            v143 = v98;
+            v144 = 2112;
+            v145 = v30;
             _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Unexpected nil value returned in adamId for widgetId: %@, size: %@", buf, 0x16u);
           }
         }
 
-        v20 = v107;
+        v20 = v106;
       }
 
       else if ([(GKWidgetEventListener *)self isActionDefined:host])
       {
-        v106 = v20;
-        v100 = listenerCopy;
+        v105 = v20;
+        v99 = listenerCopy;
         v39 = [(GKWidgetEventListener *)self makeDeepLinkDictionaryFrom:v12];
         v40 = v39;
         v41 = &__NSDictionary0__struct;
@@ -644,7 +635,7 @@ LABEL_75:
           v44 = v42;
         }
 
-        v105 = v44;
+        v104 = v44;
 
         v45 = GKRemoteAlertDeeplinkActionWidgetFamilyKey;
         v46 = [(__CFString *)v24 objectForKeyedSubscript:GKRemoteAlertDeeplinkActionWidgetFamilyKey];
@@ -657,21 +648,21 @@ LABEL_75:
           if (v49)
           {
             v50 = [(__CFString *)v24 objectForKeyedSubscript:v45];
-            v103 = [&off_100383320 objectForKeyedSubscript:v50];
+            v102 = [&off_100383320 objectForKeyedSubscript:v50];
           }
 
           else
           {
-            v103 = &off_100382CA0;
+            v102 = &off_100382CA0;
           }
 
-          v20 = v106;
+          v20 = v105;
         }
 
         else
         {
-          v103 = &off_100382CA0;
-          v20 = v106;
+          v102 = &off_100382CA0;
+          v20 = v105;
         }
 
         if ([(__CFString *)host isEqualToString:GKActivityFeedMarkdownURLFormulationPathComponentGame])
@@ -680,39 +671,39 @@ LABEL_75:
           v77 = [(__CFString *)v24 objectForKeyedSubscript:GKRemoteAlertDeeplinkGameBundleIdentifierKey];
           if (v76)
           {
-            intValue2 = [v103 intValue];
-            [ASCAppLaunchTrampolineURL URLWithAdamId:v76 bundleId:v77 widgetId:v105 widgetSize:intValue2 localizedName:&stru_100374F10 sourceApplication:@"com.apple.gamecenter.widgets.extension" topic:GKReporterCSTopic];
+            intValue2 = [v102 intValue];
+            [ASCAppLaunchTrampolineURL URLWithAdamId:v76 bundleId:v77 widgetId:v104 widgetSize:intValue2 localizedName:&stru_100374F10 sourceApplication:@"com.apple.gamecenter.widgets.extension" topic:GKReporterCSTopic];
             v80 = v79 = v77;
-            v108[0] = _NSConcreteStackBlock;
-            v108[1] = 3221225472;
-            v108[2] = sub_1001A5390;
-            v108[3] = &unk_10036A690;
-            v109 = v105;
-            v110 = v103;
-            v111 = v76;
-            v112 = v20;
-            [v112 invokeASCAppLaunchTrampolineWithURL:v80 handler:v108];
+            v107[0] = _NSConcreteStackBlock;
+            v107[1] = 3221225472;
+            v107[2] = sub_1001A5390;
+            v107[3] = &unk_10036A690;
+            v108 = v104;
+            v109 = v102;
+            v110 = v76;
+            v111 = v20;
+            [v111 invokeASCAppLaunchTrampolineWithURL:v80 handler:v107];
 
-            listenerCopy = v100;
+            listenerCopy = v99;
           }
 
           else
           {
             if (!os_log_GKGeneral)
             {
-              v95 = GKOSLoggers();
+              v94 = GKOSLoggers();
             }
 
-            v96 = os_log_GKDaemon;
-            listenerCopy = v100;
+            v95 = os_log_GKDaemon;
+            listenerCopy = v99;
             v79 = v77;
             if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v126 = v105;
-              v127 = 2112;
-              v128 = v103;
-              _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Unexpected nil value returned in adamId for widgetId: %@, size: %@", buf, 0x16u);
+              v143 = v104;
+              v144 = 2112;
+              v145 = v102;
+              _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Unexpected nil value returned in adamId for widgetId: %@, size: %@", buf, 0x16u);
             }
           }
         }
@@ -728,7 +719,7 @@ LABEL_75:
           if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v126 = v24;
+            v143 = v24;
             _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Opening remote dashboard with deepLink %@", buf, 0xCu);
           }
 
@@ -747,45 +738,44 @@ LABEL_75:
 
           v90 = v89;
 
-          v98 = [NSMutableDictionary alloc];
-          v123[0] = @"eventType";
-          v123[1] = @"actionType";
-          v124[0] = @"click";
-          v124[1] = @"navigate";
-          v124[2] = v105;
-          v123[2] = @"pageType";
-          v123[3] = @"widgetContext";
-          v121[0] = @"widgetId";
-          v121[1] = @"size";
-          v122[0] = v105;
-          v122[1] = v103;
-          v91 = [NSDictionary dictionaryWithObjects:v122 forKeys:v121 count:2];
-          v124[3] = v91;
-          v124[4] = v105;
-          v123[4] = @"widgetId";
-          v123[5] = @"size";
-          v124[5] = v103;
-          v124[6] = @"dashboard";
-          v123[6] = @"targetId";
-          v123[7] = @"targetType";
-          v123[8] = @"location";
-          v124[7] = v90;
-          v124[8] = &off_1003834C0;
-          v92 = [NSDictionary dictionaryWithObjects:v124 forKeys:v123 count:9];
+          v97 = [NSMutableDictionary alloc];
+          v124 = @"eventType";
+          v125 = @"actionType";
+          v133 = @"click";
+          v134 = @"navigate";
+          v135 = v104;
+          v126 = @"pageType";
+          v127 = @"widgetContext";
+          v120 = @"widgetId";
+          v121 = @"size";
+          v122 = v104;
+          v123 = v102;
+          v136 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+          v137 = v104;
+          v128 = @"widgetId";
+          v129 = @"size";
+          v138 = v102;
+          v139 = @"dashboard";
+          v130 = @"targetId";
+          v131 = @"targetType";
+          v132 = @"location";
+          v140 = v90;
+          v141 = &off_1003834C0;
+          v91 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-          v93 = [v98 initWithDictionary:v92];
-          v94 = [(__CFString *)v24 objectForKeyedSubscript:GKRemoteAlertDeeplinkGameAdamIdKey];
-          if (v94)
+          v92 = [v97 initWithDictionary:v91];
+          v93 = [(__CFString *)v24 objectForKeyedSubscript:GKRemoteAlertDeeplinkGameAdamIdKey];
+          if (v93)
           {
-            [v93 setObject:v94 forKeyedSubscript:@"subjectId"];
+            [v92 setObject:v93 forKeyedSubscript:@"subjectId"];
           }
 
-          v20 = v106;
-          [v106 reportMetricsEventWithTopic:GKReporterCSTopic shouldFlush:&__kCFBooleanFalse metricsFields:v93];
+          v20 = v105;
+          [v105 reportMetricsEventWithTopic:GKReporterCSTopic shouldFlush:&__kCFBooleanFalse metricsFields:v92];
 
           v76 = +[GKGameInternal createGamedGameInternal];
-          [v106 openDashboardAsRemoteAlertForGame:v76 hostPID:getpid() deeplink:v24 launchContext:GKDashboardLaunchContextWidget];
-          listenerCopy = v100;
+          [v105 openDashboardAsRemoteAlertForGame:v76 hostPID:getpid() deeplink:v24 launchContext:GKDashboardLaunchContextWidget];
+          listenerCopy = v99;
         }
       }
 
@@ -800,7 +790,7 @@ LABEL_75:
         if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v126 = host;
+          v143 = host;
           _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "GKWidgetEventListener: No action defined for %@", buf, 0xCu);
         }
 
@@ -831,7 +821,7 @@ LABEL_27:
         v36 = v16;
         scheme4 = [v12 scheme];
         *buf = 138412290;
-        v126 = scheme4;
+        v143 = scheme4;
         _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Received a known scheme %@ and will open the URL", buf, 0xCu);
 
 LABEL_28:
@@ -853,7 +843,7 @@ LABEL_29:
         v38 = v52;
         scheme5 = [v12 scheme];
         *buf = 138412290;
-        v126 = scheme5;
+        v143 = scheme5;
         _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "GKWidgetEventListener: Received an unknown scheme %@", buf, 0xCu);
 
         goto LABEL_29;

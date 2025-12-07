@@ -30,11 +30,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v12.receiver = self;
-  v12.super_class = _BlastDoorLPImageProperties;
-  if ([(_BlastDoorLPImageProperties *)&v12 isEqual:equalCopy])
+  v11.receiver = self;
+  v11.super_class = _BlastDoorLPImageProperties;
+  if ([(_BlastDoorLPImageProperties *)&v11 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -72,7 +72,6 @@
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

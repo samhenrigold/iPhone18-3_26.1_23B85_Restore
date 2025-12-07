@@ -18,7 +18,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FMDevicePasscodeViewController();
+  v3.super_class = type metadata accessor for FMDevicePasscodeViewController(0);
   v2 = v3.receiver;
   [(FMDevicePasscodeViewController *)&v3 viewDidLoad];
   sub_1002B38BC();
@@ -29,7 +29,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for FMDevicePasscodeViewController();
+  v5.super_class = type metadata accessor for FMDevicePasscodeViewController(0);
   v4 = v5.receiver;
   [(FMDevicePasscodeViewController *)&v5 viewWillAppear:appearCopy];
   sub_1002B58CC();
@@ -41,7 +41,7 @@
 {
   appearCopy = appear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for FMDevicePasscodeViewController();
+  v6.super_class = type metadata accessor for FMDevicePasscodeViewController(0);
   v4 = v6.receiver;
   [(FMDevicePasscodeViewController *)&v6 viewDidAppear:appearCopy];
   v5 = *&v4[OBJC_IVAR____TtC6FindMy30FMDevicePasscodeViewController_hiddenPasscodeTextField];
@@ -55,7 +55,7 @@
   selfCopy = self;
   [v4 resignFirstResponder];
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for FMDevicePasscodeViewController();
+  v6.super_class = type metadata accessor for FMDevicePasscodeViewController(0);
   [(FMDevicePasscodeViewController *)&v6 viewWillDisappear:disappearCopy];
   sub_1002B44BC();
 }
@@ -63,7 +63,7 @@
 - (void)viewWillLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FMDevicePasscodeViewController();
+  v3.super_class = type metadata accessor for FMDevicePasscodeViewController(0);
   v2 = v3.receiver;
   [(FMDevicePasscodeViewController *)&v3 viewWillLayoutSubviews];
   sub_1002B5200();

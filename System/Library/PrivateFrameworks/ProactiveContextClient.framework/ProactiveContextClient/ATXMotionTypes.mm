@@ -12,7 +12,7 @@
     return off_279AB7F50[type];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(ATXMotionTypes *)type stringForMotionType:v5];
@@ -65,11 +65,10 @@ LABEL_9:
 
 + (void)stringForMotionType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_260C9F000, a2, OS_LOG_TYPE_ERROR, "stringForMotionType called with invalid ATXMotionType of %tu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_260C9F000, a2, OS_LOG_TYPE_ERROR, "stringForMotionType called with invalid ATXMotionType of %tu", &v2, 0xCu);
 }
 
 @end

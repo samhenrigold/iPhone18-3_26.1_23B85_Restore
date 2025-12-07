@@ -46,7 +46,7 @@
 
 - (void)clearCache
 {
-  v3 = DefaultLog();
+  v3 = DefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -59,20 +59,18 @@
 
 - (void)clearCacheForAssetType:(id)type
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   typeCopy = type;
-  v5 = DefaultLog();
+  v5 = DefaultLog(typeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = typeCopy;
-    _os_log_impl(&dword_1DF7C6000, v5, OS_LOG_TYPE_DEFAULT, "Asked to clear cache for asset type: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = typeCopy;
+    _os_log_impl(&dword_1DF7C6000, v5, OS_LOG_TYPE_DEFAULT, "Asked to clear cache for asset type: %@", &v7, 0xCu);
   }
 
   cache = [(DDSAssetQueryResultCache *)self cache];
   [cache removeEntriesWithPrefixKey:typeCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

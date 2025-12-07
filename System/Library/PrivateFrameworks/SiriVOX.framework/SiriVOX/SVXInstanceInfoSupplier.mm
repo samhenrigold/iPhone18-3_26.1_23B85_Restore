@@ -8,7 +8,7 @@
 
 - (void)_updateInstanceInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   cacheInstanceInfo = self->_cacheInstanceInfo;
   if (cacheInstanceInfo != infoCopy && ([(AFInstanceInfo *)cacheInstanceInfo isEqual:infoCopy]& 1) == 0)
@@ -17,21 +17,19 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       v7 = self->_cacheInstanceInfo;
-      v11 = 136315650;
-      v12 = "[SVXInstanceInfoSupplier _updateInstanceInfo:]";
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = infoCopy;
-      _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s instanceInfo: %@ -> %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[SVXInstanceInfoSupplier _updateInstanceInfo:]";
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = infoCopy;
+      _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s instanceInfo: %@ -> %@", &v10, 0x20u);
     }
 
     v8 = [(AFInstanceInfo *)infoCopy copy];
     v9 = self->_cacheInstanceInfo;
     self->_cacheInstanceInfo = v8;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getInstanceInfoWithConnection:(id)connection completion:(id)completion
@@ -53,7 +51,7 @@
 
 void __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 48);
   if (v1)
   {
@@ -65,9 +63,9 @@ void __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___bl
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v15 = "[SVXInstanceInfoSupplier getInstanceInfoWithConnection:completion:]_block_invoke";
-        v16 = 2112;
-        v17 = v4;
+        v14 = "[SVXInstanceInfoSupplier getInstanceInfoWithConnection:completion:]_block_invoke";
+        v15 = 2112;
+        v16 = v4;
         _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s %@", buf, 0x16u);
         v1 = *(a1 + 48);
         v4 = *(*(a1 + 32) + 24);
@@ -80,24 +78,22 @@ void __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___bl
     {
       v6 = *(v3 + 16);
       v7 = *(a1 + 40);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___block_invoke_1;
-      v12[3] = &unk_279C68310;
-      v12[4] = v3;
-      v13 = v1;
-      v8 = [v6 remoteServiceDelegateWithConnection:v7 errorHandler:v12];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___block_invoke_3;
-      v10[3] = &unk_279C66718;
-      v10[4] = *(a1 + 32);
-      v11 = *(a1 + 48);
-      [v8 getInstanceInfoWithCompletion:v10];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___block_invoke_1;
+      v11[3] = &unk_279C68310;
+      v11[4] = v3;
+      v12 = v1;
+      v8 = [v6 remoteServiceDelegateWithConnection:v7 errorHandler:v11];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___block_invoke_3;
+      v9[3] = &unk_279C66718;
+      v9[4] = *(a1 + 32);
+      v10 = *(a1 + 48);
+      [v8 getInstanceInfoWithCompletion:v9];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___block_invoke_1(uint64_t a1, void *a2)
@@ -135,18 +131,18 @@ void __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___bl
 
 uint64_t __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___block_invoke_2_4(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[SVXInstanceInfoSupplier getInstanceInfoWithConnection:completion:]_block_invoke_2";
-      v12 = 2112;
-      v13 = v2;
-      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v10, 0x16u);
+      v8 = 136315394;
+      v9 = "[SVXInstanceInfoSupplier getInstanceInfoWithConnection:completion:]_block_invoke_2";
+      v10 = 2112;
+      v11 = v2;
+      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %@", &v8, 0x16u);
     }
 
     v4 = *(*(a1 + 56) + 16);
@@ -158,40 +154,35 @@ uint64_t __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion_
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
-      v9 = *(a1 + 48);
-      v10 = 136315394;
-      v11 = "[SVXInstanceInfoSupplier getInstanceInfoWithConnection:completion:]_block_invoke";
-      v12 = 2112;
-      v13 = v9;
-      _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s %@", &v10, 0x16u);
+      v7 = *(a1 + 48);
+      v8 = 136315394;
+      v9 = "[SVXInstanceInfoSupplier getInstanceInfoWithConnection:completion:]_block_invoke";
+      v10 = 2112;
+      v11 = v7;
+      _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s %@", &v8, 0x16u);
     }
 
-    v6 = *(a1 + 48);
     v4 = *(*(a1 + 56) + 16);
   }
 
-  result = v4();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v4();
 }
 
 uint64_t __68__SVXInstanceInfoSupplier_getInstanceInfoWithConnection_completion___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[SVXInstanceInfoSupplier getInstanceInfoWithConnection:completion:]_block_invoke_2";
-    v8 = 2112;
-    v9 = v5;
-    _os_log_error_impl(&dword_2695B9000, v2, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = 136315394;
+    v6 = "[SVXInstanceInfoSupplier getInstanceInfoWithConnection:completion:]_block_invoke_2";
+    v7 = 2112;
+    v8 = v4;
+    _os_log_error_impl(&dword_2695B9000, v2, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (SVXInstanceInfoSupplier)initWithRemoteDelegateSupplier:(id)supplier performer:(id)performer

@@ -30,7 +30,7 @@
 
 + (id)wrapCommandInStartLocalRequest:(id)request
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D47940];
   requestCopy = request;
   v5 = objc_alloc_init(v3);
@@ -38,8 +38,8 @@
   uUIDString = [uUID UUIDString];
   [v5 setAceId:uUIDString];
 
-  v34[0] = requestCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+  v33[0] = requestCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
   [v5 setClientBoundCommands:v8];
 
   v9 = objc_alloc_init(MEMORY[0x277D476E8]);
@@ -59,8 +59,8 @@
   [v13 setRefId:aceId2];
 
   [v13 setCode:0];
-  v33 = v9;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+  v32 = v9;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
   [v13 setCommands:v17];
 
   v18 = objc_alloc_init(MEMORY[0x277D47208]);
@@ -80,19 +80,17 @@
   [v22 setRefId:aceId4];
 
   [v22 setCode:-1];
-  v32 = v18;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+  v31 = v18;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
   [v22 setCommands:v26];
 
-  v31[0] = v13;
-  v31[1] = v22;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+  v30[0] = v13;
+  v30[1] = v22;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
   [requestCopy setCallbacks:v27];
 
   aceId5 = [v5 aceId];
   [requestCopy setRefId:aceId5];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -152,34 +150,33 @@
   v7 = MEMORY[0x277CCAC58];
   userData = [payloadCopy userData];
 
-  v14 = 0;
-  v9 = [v7 dataWithPropertyList:userData format:200 options:0 error:&v14];
-  v10 = v14;
+  v15 = 0;
+  v9 = [v7 dataWithPropertyList:userData format:200 options:0 error:&v15];
+  v10 = v15;
   [v5 setData:v9];
 
   if (v10)
   {
-    v11 = SKIDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = SKIDefaultLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(SKIDirectInvocation *)v10 makeParseWithDirectInvocationPayload:v11];
+      [(SKIDirectInvocation *)v10 makeParseWithDirectInvocationPayload:v12];
     }
   }
 
-  v12 = objc_alloc_init(MEMORY[0x277D47400]);
-  [v12 setType:*MEMORY[0x277D484E0]];
-  [v12 setDirectInvocation:v5];
+  v13 = objc_alloc_init(MEMORY[0x277D47400]);
+  [v13 setType:*MEMORY[0x277D484E0]];
+  [v13 setDirectInvocation:v5];
 
-  return v12;
+  return v13;
 }
 
 + (void)makeParseWithDirectInvocationPayload:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_267542000, a2, OS_LOG_TYPE_ERROR, "error serializing SKIDirectInvocationPayload: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_267542000, a2, OS_LOG_TYPE_ERROR, "error serializing SKIDirectInvocationPayload: %@", &v2, 0xCu);
 }
 
 @end

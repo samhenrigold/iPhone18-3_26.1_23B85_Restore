@@ -371,11 +371,11 @@ LABEL_43:
 
 - (CWFXPCEvent)initWithCoder:(id)coder
 {
-  v24[17] = *MEMORY[0x1E69E9840];
+  v23[17] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = CWFXPCEvent;
-  v5 = [(CWFXPCEvent *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = CWFXPCEvent;
+  v5 = [(CWFXPCEvent *)&v22 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_UUID"];
@@ -400,24 +400,24 @@ LABEL_43:
 
     v5->_type = [coderCopy decodeIntegerForKey:@"_type"];
     v5->_internalType = [coderCopy decodeIntegerForKey:@"_internalType"];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v24[2] = objc_opt_class();
-    v24[3] = objc_opt_class();
-    v24[4] = objc_opt_class();
-    v24[5] = objc_opt_class();
-    v24[6] = objc_opt_class();
-    v24[7] = objc_opt_class();
-    v24[8] = objc_opt_class();
-    v24[9] = objc_opt_class();
-    v24[10] = objc_opt_class();
-    v24[11] = objc_opt_class();
-    v24[12] = objc_opt_class();
-    v24[13] = objc_opt_class();
-    v24[14] = objc_opt_class();
-    v24[15] = objc_opt_class();
-    v24[16] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:17];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v23[2] = objc_opt_class();
+    v23[3] = objc_opt_class();
+    v23[4] = objc_opt_class();
+    v23[5] = objc_opt_class();
+    v23[6] = objc_opt_class();
+    v23[7] = objc_opt_class();
+    v23[8] = objc_opt_class();
+    v23[9] = objc_opt_class();
+    v23[10] = objc_opt_class();
+    v23[11] = objc_opt_class();
+    v23[12] = objc_opt_class();
+    v23[13] = objc_opt_class();
+    v23[14] = objc_opt_class();
+    v23[15] = objc_opt_class();
+    v23[16] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:17];
     v17 = [MEMORY[0x1E695DFD8] setWithArray:v16];
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"_info"];
     info = v5->_info;
@@ -427,7 +427,6 @@ LABEL_43:
     v5->_acknowledgementTimeout = [v20 unsignedLongLongValue];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

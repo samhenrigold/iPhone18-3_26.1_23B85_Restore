@@ -988,26 +988,22 @@ uint64_t CMMsl::Pose::hash_value(CMMsl::Pose *this)
   {
     if (*(this + 7) == 0.0)
     {
-      v2 = 0;
+      v1 = 0;
     }
 
     else
     {
-      v2 = *(this + 7);
+      v1 = *(this + 7);
     }
   }
 
   else
   {
-    v2 = 0;
+    v1 = 0;
   }
 
-  v3 = *(this + 1);
-  v4 = *(this + 2);
-  v5 = PBHashBytes() ^ v2;
-  v6 = *(this + 4);
-  v7 = *(this + 5);
-  return v5 ^ PBHashBytes();
+  v2 = PBHashBytes() ^ v1;
+  return v2 ^ PBHashBytes();
 }
 
 void CMMsl::PoseState::~PoseState(CMMsl::PoseState *this)
@@ -1523,25 +1519,23 @@ uint64_t CMMsl::PoseState::hash_value(CMMsl::PoseState *this)
     v3 = 0;
   }
 
-  v4 = *(this + 1);
-  v5 = *(this + 2);
-  v6 = PBHashBytes();
+  v4 = PBHashBytes();
   if (*(this + 44))
   {
-    v7 = *(this + 40);
+    v5 = *(this + 40);
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  return v6 ^ v3 ^ v7;
+  return v4 ^ v3 ^ v5;
 }
 
-uint64_t CMMsl::PoseState::makePose(uint64_t this)
+void *CMMsl::PoseState::makePose(void *this)
 {
-  if (!*(this + 32))
+  if (!this[4])
   {
     operator new();
   }
@@ -1575,11 +1569,11 @@ void CMMsl::PostureJoint::~PostureJoint(CMMsl::PostureJoint *this)
   operator delete();
 }
 
-CMMsl::PostureJoint *CMMsl::PostureJoint::PostureJoint(char **this, char **a2)
+char **CMMsl::PostureJoint::PostureJoint(char **this, char **a2)
 {
   *this = off_1004210C8;
   *(this + 1) = 0u;
-  v4 = this + 1;
+  v4 = (this + 1);
   *(this + 3) = 0u;
   *(this + 5) = 0u;
   this[7] = 0;
@@ -2258,23 +2252,19 @@ uint64_t CMMsl::PostureJoint::writeTo(uint64_t this, PB::Writer *a2)
 
 uint64_t CMMsl::PostureJoint::hash_value(CMMsl::PostureJoint *this)
 {
-  v2 = *(this + 1);
-  v3 = *(this + 2);
-  v4 = PBHashBytes();
-  v5 = *(this + 4);
-  v6 = *(this + 5);
-  v7 = PBHashBytes();
+  v2 = PBHashBytes();
+  v3 = PBHashBytes();
   if (*(this + 60))
   {
-    v8 = *(this + 14);
+    v4 = *(this + 14);
   }
 
   else
   {
-    v8 = 0;
+    v4 = 0;
   }
 
-  return v7 ^ v4 ^ v8;
+  return v3 ^ v2 ^ v4;
 }
 
 void CMMsl::PostureSkeleton::~PostureSkeleton(CMMsl::PostureSkeleton *this)
@@ -2300,17 +2290,16 @@ void CMMsl::PostureSkeleton::~PostureSkeleton(CMMsl::PostureSkeleton *this)
   operator delete();
 }
 
-void *CMMsl::PostureSkeleton::PostureSkeleton(void *this, const CMMsl::PostureSkeleton *a2)
+CMMsl::PostureSkeleton *CMMsl::PostureSkeleton::PostureSkeleton(CMMsl::PostureSkeleton *this, const CMMsl::PostureSkeleton *a2)
 {
-  this[1] = 0;
+  *(this + 1) = 0;
   *this = off_100421100;
-  this[2] = 0;
-  this[3] = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   v2 = *(a2 + 1);
   if (v2 != *(a2 + 2))
   {
-    v3 = *v2;
-    sub_100222FE8();
+    sub_100222FE8(this + 1, *v2);
   }
 
   return this;
@@ -2350,16 +2339,16 @@ void *CMMsl::swap(void *this, CMMsl::PostureSkeleton *a2, CMMsl::PostureSkeleton
   return this;
 }
 
-uint64_t CMMsl::PostureSkeleton::PostureSkeleton(uint64_t a1, uint64_t a2)
+void **CMMsl::PostureSkeleton::PostureSkeleton(void **a1, uint64_t a2)
 {
   *a1 = off_100421100;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -2368,13 +2357,13 @@ uint64_t CMMsl::PostureSkeleton::PostureSkeleton(uint64_t a1, uint64_t a2)
 
 {
   *a1 = off_100421100;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -2423,7 +2412,7 @@ uint64_t CMMsl::PostureSkeleton::formatText(CMMsl::PostureSkeleton *this, PB::Te
   return PB::TextFormatter::endObject(a2);
 }
 
-uint64_t CMMsl::PostureSkeleton::readFrom(CMMsl::PostureSkeleton *this, PB::Reader *a2)
+uint64_t CMMsl::PostureSkeleton::readFrom(const void **this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -2433,78 +2422,78 @@ uint64_t CMMsl::PostureSkeleton::readFrom(CMMsl::PostureSkeleton *this, PB::Read
     v4 = 0;
     do
     {
-      v6 = *a2;
+      v7 = *a2;
       if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
       {
-        v14 = 0;
         v15 = 0;
-        v9 = 0;
-        v16 = v3 >= v2;
-        v17 = v3 - v2;
-        if (!v16)
+        v16 = 0;
+        v10 = 0;
+        v17 = v3 >= v2;
+        v18 = v3 - v2;
+        if (!v17)
         {
-          v17 = 0;
+          v18 = 0;
         }
 
-        v18 = (v6 + v2);
-        v19 = v2 + 1;
+        v19 = (v7 + v2);
+        v20 = v2 + 1;
         while (1)
         {
-          if (!v17)
+          if (!v18)
           {
             v4 = 1;
             *(a2 + 24) = 1;
             goto LABEL_29;
           }
 
-          v20 = *v18;
-          *(a2 + 1) = v19;
-          v9 |= (v20 & 0x7F) << v14;
-          if ((v20 & 0x80) == 0)
+          v21 = *v19;
+          *(a2 + 1) = v20;
+          v10 |= (v21 & 0x7F) << v15;
+          if ((v21 & 0x80) == 0)
           {
             break;
           }
 
-          v14 += 7;
-          --v17;
-          ++v18;
+          v15 += 7;
+          --v18;
           ++v19;
-          v13 = v15++ > 8;
-          if (v13)
+          ++v20;
+          v14 = v16++ > 8;
+          if (v14)
           {
 LABEL_18:
-            v9 = 0;
+            v10 = 0;
             goto LABEL_21;
           }
         }
 
         if (v4)
         {
-          v9 = 0;
+          v10 = 0;
         }
       }
 
       else
       {
-        v7 = 0;
         v8 = 0;
         v9 = 0;
-        v10 = (v6 + v2);
-        v11 = v2 + 1;
+        v10 = 0;
+        v11 = (v7 + v2);
+        v12 = v2 + 1;
         while (1)
         {
-          *(a2 + 1) = v11;
-          v12 = *v10++;
-          v9 |= (v12 & 0x7F) << v7;
-          if ((v12 & 0x80) == 0)
+          *(a2 + 1) = v12;
+          v13 = *v11++;
+          v10 |= (v13 & 0x7F) << v8;
+          if ((v13 & 0x80) == 0)
           {
             break;
           }
 
-          v7 += 7;
-          ++v11;
-          v13 = v8++ > 8;
-          if (v13)
+          v8 += 7;
+          ++v12;
+          v14 = v9++ > 8;
+          if (v14)
           {
             goto LABEL_18;
           }
@@ -2512,20 +2501,20 @@ LABEL_18:
       }
 
 LABEL_21:
-      if (v4 & 1 | ((v9 & 7) == 4))
+      if (v4 & 1 | ((v10 & 7) == 4))
       {
         break;
       }
 
-      if ((v9 >> 3) == 1)
+      if ((v10 >> 3) == 1)
       {
-        sub_100223610();
+        sub_100223610(this + 1);
       }
 
-      if ((PB::Reader::skip(a2, v9 >> 3, v9 & 7, 0) & 1) == 0)
+      if ((PB::Reader::skip(a2, v10 >> 3, v10 & 7, 0) & 1) == 0)
       {
-        v21 = 0;
-        return v21 & 1;
+        v22 = 0;
+        return v22 & 1;
       }
 
       v2 = *(a2 + 1);
@@ -2537,8 +2526,8 @@ LABEL_21:
   }
 
 LABEL_29:
-  v21 = v4 ^ 1;
-  return v21 & 1;
+  v22 = v4 ^ 1;
+  return v22 & 1;
 }
 
 uint64_t CMMsl::PostureSkeleton::writeTo(uint64_t this, PB::Writer *a2)
@@ -4734,7 +4723,7 @@ double CMMsl::PrecisionFindingState::PrecisionFindingState(uint64_t a1, uint64_t
   return result;
 }
 
-CMMsl *CMMsl::PrecisionFindingState::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::PrecisionFindingState::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7812,7 +7801,7 @@ double CMMsl::PredictedRelativeDeviceMotion::PredictedRelativeDeviceMotion(uint6
   return result;
 }
 
-CMMsl *CMMsl::PredictedRelativeDeviceMotion::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::PredictedRelativeDeviceMotion::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

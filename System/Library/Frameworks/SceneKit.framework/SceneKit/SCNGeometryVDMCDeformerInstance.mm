@@ -1,189 +1,209 @@
 @interface SCNGeometryVDMCDeformerInstance
-- (id)initWithNode:(uint64_t)node deformer:(uint64_t)deformer outputs:(uint64_t)outputs computeVertexCount:(void *)count context:;
 - (unint64_t)updateWithContext:(id)context;
 - (void)dealloc;
+- (void)initWithNode:(uint64_t)node deformer:(uint64_t)deformer outputs:(uint64_t)outputs computeVertexCount:(void *)count context:;
 @end
 
 @implementation SCNGeometryVDMCDeformerInstance
 
-- (id)initWithNode:(uint64_t)node deformer:(uint64_t)deformer outputs:(uint64_t)outputs computeVertexCount:(void *)count context:
+- (void)initWithNode:(uint64_t)node deformer:(uint64_t)deformer outputs:(uint64_t)outputs computeVertexCount:(void *)count context:
 {
-  *(&v130[2] + 4) = *MEMORY[0x277D85DE8];
+  *(&v141[2] + 4) = *MEMORY[0x277D85DE8];
   if (!self)
   {
     return 0;
   }
 
-  v126.receiver = self;
-  v126.super_class = SCNGeometryVDMCDeformerInstance;
-  v68 = objc_msgSendSuper2(&v126, sel_init);
-  if (!v68)
+  v137.receiver = self;
+  v137.super_class = SCNGeometryVDMCDeformerInstance;
+  v79 = objc_msgSendSuper2(&v137, sel_init, node, deformer, outputs);
+  if (!v79)
   {
     return 0;
   }
 
-  Geometry = C3DNodeGetGeometry([a2 nodeRef]);
-  Mesh = C3DGeometryGetMesh(Geometry);
+  nodeRef = [a2 nodeRef];
+  Geometry = C3DNodeGetGeometry(nodeRef, v8);
+  Mesh = C3DGeometryGetMesh(Geometry, v10);
   _currentResourceManager = [count _currentResourceManager];
-  if (!C3DEntityGetName(Mesh))
+  if (!C3DEntityGetName(Mesh, v12))
   {
-    C3DEntityGetName(Geometry);
+    C3DEntityGetName(Geometry, v13);
   }
 
-  ElementsCount = C3DMeshGetElementsCount(Mesh);
-  v61 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:ElementsCount];
-  *(v68 + 2) = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:ElementsCount];
+  ElementsCount = C3DMeshGetElementsCount(Mesh, v13);
+  v72 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:ElementsCount];
+  v79[2] = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:ElementsCount];
   [SCNMTLResourceManager newBufferWithLength:_currentResourceManager options:?];
-  newValue = v9;
-  memset(&v125, 0, sizeof(v125));
-  v122 = 0;
-  v123 = 0;
-  v124 = 0;
-  v119 = 0;
-  v120 = 0;
-  v121 = 0;
-  v117 = 0;
-  v116 = 0;
-  v118 = 0;
-  TotalTriangleCount = getTotalTriangleCount(Mesh);
-  v11 = (logf(3000000.0 / TotalTriangleCount) / 1.38629436);
-  v12 = exp2(v11 + v11);
-  v60 = v11;
-  printf("Original mesh has %d triangles, will reach a maximum of %d after %d levels of subdivision\n", TotalTriangleCount, (v12 * TotalTriangleCount), v11);
+  newValue = v14;
+  memset(&v136, 0, sizeof(v136));
+  v133 = 0;
+  v134 = 0;
+  v135 = 0;
+  v130 = 0;
+  v131 = 0;
+  v132 = 0;
+  v128 = 0;
+  v127 = 0;
+  v129 = 0;
+  TotalTriangleCount = getTotalTriangleCount(Mesh, v15);
+  v17 = (logf(3000000.0 / TotalTriangleCount) / 1.38629436);
+  v18 = exp2(v17 + v17);
+  v71 = v17;
+  printf("Original mesh has %d triangles, will reach a maximum of %d after %d levels of subdivision\n", TotalTriangleCount, (v18 * TotalTriangleCount), v17);
   if (ElementsCount >= 1)
   {
-    v13 = 0;
-    v65 = v11 + 1;
+    v19 = 0;
+    v76 = v17 + 1;
     do
     {
-      v67 = v13;
-      ElementAtIndex = C3DMeshGetElementAtIndex(Mesh, v13, 1);
-      Type = C3DMeshElementGetType(ElementAtIndex);
-      if (C3DMeshElementTypeMapsToMTLPrimitiveType(Type))
+      v78 = v19;
+      ElementAtIndex = C3DMeshGetElementAtIndex(Mesh, v19, 1);
+      Type = C3DMeshElementGetType(ElementAtIndex, v21);
+      v23 = C3DMeshElementTypeMapsToMTLPrimitiveType(Type);
+      if (v23)
       {
-        if (C3DMeshElementGetType(ElementAtIndex))
+        v25 = C3DMeshElementGetType(ElementAtIndex, v24);
+        if (v25)
         {
-          v16 = scn_default_log();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v27 = scn_default_log(v25, v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
           {
-            [SCNGeometryVDMCDeformerInstance initWithNode:v127 deformer:&v128 outputs:v16 computeVertexCount:? context:?];
+            [SCNGeometryVDMCDeformerInstance initWithNode:v138 deformer:&v139 outputs:v27 computeVertexCount:? context:?];
           }
         }
 
-        v17 = [SCNMTLResourceManager renderResourceForMeshElement:_currentResourceManager];
-        commandQueue = [(SCNMTLResourceManager *)v17 commandQueue];
+        v28 = [SCNMTLResourceManager renderResourceForMeshElement:_currentResourceManager];
+        commandQueue = [(SCNMTLResourceManager *)v28 commandQueue];
         C3DMeshElementGetPrimitiveCount(ElementAtIndex);
-        std::vector<unsigned int>::reserve(&v125, v125.__end_ - v125.__begin_ + commandQueue);
-        if (![(SCNMTLMesh *)v17 elements])
+        std::vector<unsigned int>::reserve(&v136, v136.__end_ - v136.__begin_ + commandQueue);
+        if (![(SCNMTLMesh *)v28 elements])
         {
-          buffer = [-[SCNMTLMeshElement indexBuffer](v17) buffer];
+          buffer = [-[SCNMTLMeshElement indexBuffer](v28) buffer];
           [count currentBlitEncoder];
-          v20 = newUInt32BufferFromUInt16Buffer(buffer, commandQueue, _currentResourceManager);
-          v21 = objc_alloc_init(SCNMTLBuffer);
-          [(SCNMTLMeshElement *)v17 setIndexBuffer:v21];
-          [-[SCNMTLMeshElement indexBuffer](v17) setBuffer:v20];
+          v31 = newUInt32BufferFromUInt16Buffer(buffer, commandQueue, _currentResourceManager);
+          v32 = objc_alloc_init(SCNMTLBuffer);
+          [(SCNMTLMeshElement *)v28 setIndexBuffer:v32];
+          [-[SCNMTLMeshElement indexBuffer](v28) setBuffer:v31];
         }
 
-        contents = [-[SCNMTLMeshElement indexBuffer](v17) contents];
+        contents = [-[SCNMTLMeshElement indexBuffer](v28) contents];
         if (commandQueue >= 1)
         {
-          v23 = contents;
-          v24 = commandQueue & 0x7FFFFFFF;
-          end = v125.__end_;
+          v34 = contents;
+          v35 = commandQueue & 0x7FFFFFFF;
+          end = v136.__end_;
           do
           {
-            if (end >= v125.__end_cap_.__value_)
+            if (end >= v136.__end_cap_.__value_)
             {
-              begin = v125.__begin_;
-              v27 = end - v125.__begin_;
-              v28 = end - v125.__begin_;
-              v29 = v28 + 1;
-              if ((v28 + 1) >> 62)
+              begin = v136.__begin_;
+              v38 = end - v136.__begin_;
+              v39 = end - v136.__begin_;
+              v40 = v39 + 1;
+              if ((v39 + 1) >> 62)
               {
                 std::string::__throw_length_error[abi:nn200100]();
               }
 
-              v30 = v125.__end_cap_.__value_ - v125.__begin_;
-              if ((v125.__end_cap_.__value_ - v125.__begin_) >> 1 > v29)
+              v41 = v136.__end_cap_.__value_ - v136.__begin_;
+              if ((v136.__end_cap_.__value_ - v136.__begin_) >> 1 > v40)
               {
-                v29 = v30 >> 1;
+                v40 = v41 >> 1;
               }
 
-              v31 = v30 >= 0x7FFFFFFFFFFFFFFCLL;
-              v32 = 0x3FFFFFFFFFFFFFFFLL;
-              if (!v31)
+              v42 = v41 >= 0x7FFFFFFFFFFFFFFCLL;
+              v43 = 0x3FFFFFFFFFFFFFFFLL;
+              if (!v42)
               {
-                v32 = v29;
+                v43 = v40;
               }
 
-              if (v32)
+              if (v43)
               {
-                std::__allocate_at_least[abi:nn200100]<std::allocator<float>>(&v125, v32);
+                std::__allocate_at_least[abi:nn200100]<std::allocator<float>>(&v136, v43);
               }
 
-              v33 = end - v125.__begin_;
-              v34 = (4 * v28);
-              v35 = (4 * v28 - 4 * v33);
-              *v34 = *v23;
-              end = v34 + 1;
-              memcpy(v35, begin, v27);
-              v36 = v125.__begin_;
-              v125.__begin_ = v35;
-              v125.__end_ = end;
-              v125.__end_cap_.__value_ = 0;
-              if (v36)
+              v44 = end - v136.__begin_;
+              v45 = (4 * v39);
+              v46 = (4 * v39 - 4 * v44);
+              *v45 = *v34;
+              end = v45 + 1;
+              memcpy(v46, begin, v38);
+              v47 = v136.__begin_;
+              v136.__begin_ = v46;
+              v136.__end_ = end;
+              v136.__end_cap_.__value_ = 0;
+              if (v47)
               {
-                operator delete(v36);
+                operator delete(v47);
               }
             }
 
             else
             {
-              *end++ = *v23;
+              *end++ = *v34;
             }
 
-            v125.__end_ = end;
-            ++v23;
-            --v24;
+            v136.__end_ = end;
+            ++v34;
+            --v35;
           }
 
-          while (v24);
+          while (v35);
         }
 
-        v37 = objc_alloc_init(SCNGeometryVDMCDeformerMeshElementData);
-        v84 = 0;
-        v85 = 0uLL;
-        std::vector<float>::__vallocate[abi:nn200100](&v84, v65);
+        v48 = objc_alloc_init(SCNGeometryVDMCDeformerMeshElementData);
+        v95 = 0;
+        v96 = 0uLL;
+        std::vector<float>::__vallocate[abi:nn200100](&v95, v76);
       }
 
-      v38 = scn_default_log();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+      v49 = scn_default_log(v23, v24);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
       {
-        [SCNGeometryVariableTopologySampleDeformerInstance initWithNode:v129 deformer:v130 outputs:v38 computeVertexCount:? context:?];
+        [SCNGeometryVariableTopologySampleDeformerInstance initWithNode:v140 deformer:v141 outputs:v49 computeVertexCount:? context:?];
       }
 
-      v13 = v67 + 1;
+      v19 = v78 + 1;
     }
 
-    while ((v67 + 1) != ElementsCount);
+    while ((v78 + 1) != ElementsCount);
   }
 
-  v39 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:C3DMeshGetSourcesCount(Mesh)];
+  v50 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:C3DMeshGetSourcesCount(Mesh)];
   vertexDescriptor = [MEMORY[0x277CD7090] vertexDescriptor];
-  v115[0] = 0;
-  v115[1] = v115;
-  v115[2] = 0x2020000000;
-  v115[3] = 0;
-  v114[0] = MEMORY[0x277D85DD0];
-  v114[1] = 3221225472;
-  v114[2] = __92__SCNGeometryVDMCDeformerInstance_initWithNode_deformer_outputs_computeVertexCount_context___block_invoke;
-  v114[3] = &unk_278300A38;
-  v114[4] = v115;
-  v114[5] = &v122;
-  v114[6] = &v119;
-  v114[7] = &v116;
-  C3DMeshApplySources(Mesh, 1, v114);
-  LODWORD(v84) = 0;
+  v126[0] = 0;
+  v126[1] = v126;
+  v126[2] = 0x2020000000;
+  v126[3] = 0;
+  v125[0] = MEMORY[0x277D85DD0];
+  v125[1] = 3221225472;
+  v125[2] = __92__SCNGeometryVDMCDeformerInstance_initWithNode_deformer_outputs_computeVertexCount_context___block_invoke;
+  v125[3] = &unk_278300A38;
+  v125[4] = v126;
+  v125[5] = &v133;
+  v125[6] = &v130;
+  v125[7] = &v127;
+  C3DMeshApplySources(Mesh, 1, v125);
+  LODWORD(v95) = 0;
+  v112 = 0u;
+  v113 = 0u;
+  v114 = 0u;
+  v115 = 0u;
+  v116 = 0u;
+  v117 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v123 = 0u;
+  v96 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  v99 = 0u;
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
@@ -195,283 +215,267 @@
   v109 = 0u;
   v110 = 0u;
   v111 = 0u;
-  v112 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
-  v91 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v94 = 0u;
-  v95 = 0u;
-  v96 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v99 = 0u;
-  v100 = 0u;
-  v113 = 0;
-  v81 = 0;
+  v124 = 0;
+  v92 = 0;
   __dst = 0;
+  v94 = 0;
+  if (v136.__end_ != v136.__begin_)
+  {
+    std::vector<float>::__vallocate[abi:nn200100](&v92, v136.__end_ - v136.__begin_);
+  }
+
+  vmesh::DisplacedSubdivisionMesh::loadBaseMeshFromVectors(&v95, &v133, &v130, &v127, &v92);
+  if (v92)
+  {
+    __dst = v92;
+    operator delete(v92);
+  }
+
+  vmesh::DisplacedSubdivisionMesh::preprocessForSCN(&v95, v71);
+  v89 = 0;
+  v90 = 0;
+  v91 = 0;
+  if (v98 != *(&v97 + 1))
+  {
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(&v89, (v98 - *(&v97 + 1)) >> 4);
+  }
+
+  v86 = 0;
+  v87 = 0;
+  v88 = 0;
+  if (v101 != *(&v100 + 1))
+  {
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(&v86, (v101 - *(&v100 + 1)) >> 4);
+  }
+
   v83 = 0;
-  if (v125.__end_ != v125.__begin_)
+  v84 = 0;
+  v85 = 0;
+  if (*(&v99 + 1) != v99)
   {
-    std::vector<float>::__vallocate[abi:nn200100](&v81, v125.__end_ - v125.__begin_);
+    std::vector<double>::__vallocate[abi:nn200100](&v83, (*(&v99 + 1) - v99) >> 3);
   }
 
-  vmesh::DisplacedSubdivisionMesh::loadBaseMeshFromVectors(&v84, &v122, &v119, &v116, &v81);
-  if (v81)
-  {
-    __dst = v81;
-    operator delete(v81);
-  }
-
-  vmesh::DisplacedSubdivisionMesh::preprocessForSCN(&v84, v60);
-  v78 = 0;
-  v79 = 0;
-  v80 = 0;
-  if (v87 != *(&v86 + 1))
-  {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(&v78, (v87 - *(&v86 + 1)) >> 4);
-  }
-
-  v75 = 0;
-  v76 = 0;
-  v77 = 0;
-  if (v90 != *(&v89 + 1))
-  {
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(&v75, (v90 - *(&v89 + 1)) >> 4);
-  }
-
-  v72 = 0;
-  v73 = 0;
-  v74 = 0;
-  if (*(&v88 + 1) != v88)
-  {
-    std::vector<double>::__vallocate[abi:nn200100](&v72, (*(&v88 + 1) - v88) >> 3);
-  }
-
-  v41 = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](_currentResourceManager, v78, v79 - v78, [count currentBlitEncoder]);
-  v42 = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](_currentResourceManager, v75, v76 - v75, [count currentBlitEncoder]);
-  v43 = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](_currentResourceManager, v72, v73 - v72, [count currentBlitEncoder]);
+  v52 = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](_currentResourceManager, v89, v90 - v89, [count currentBlitEncoder]);
+  v53 = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](_currentResourceManager, v86, v87 - v86, [count currentBlitEncoder]);
+  v54 = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](_currentResourceManager, v83, v84 - v83, [count currentBlitEncoder]);
   currentBlitEncoder = [count currentBlitEncoder];
-  v45 = [(SCNMTLResourceManager *)_currentResourceManager newPrivateBufferWithBytes:v109 length:*(&v109 + 1) - v109 blitEncoder:currentBlitEncoder];
+  v56 = [(SCNMTLResourceManager *)_currentResourceManager newPrivateBufferWithBytes:v120 length:*(&v120 + 1) - v120 blitEncoder:currentBlitEncoder];
   currentBlitEncoder2 = [count currentBlitEncoder];
-  v47 = [(SCNMTLResourceManager *)_currentResourceManager newPrivateBufferWithBytes:v112 length:*(&v112 + 1) - v112 blitEncoder:currentBlitEncoder2];
-  v70 = (*(&v109 + 1) - v109) >> 2;
-  v71 = (*(&v112 + 1) - v112) >> 3;
-  v48 = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](_currentResourceManager, v69, 48, [count currentBlitEncoder]);
+  v58 = [(SCNMTLResourceManager *)_currentResourceManager newPrivateBufferWithBytes:v123 length:*(&v123 + 1) - v123 blitEncoder:currentBlitEncoder2];
+  v81 = (*(&v120 + 1) - v120) >> 2;
+  v82 = (*(&v123 + 1) - v123) >> 3;
+  v59 = -[SCNMTLResourceManager newPrivateBufferWithBytes:length:blitEncoder:](_currentResourceManager, v80, 48, [count currentBlitEncoder]);
   [SCNMTLResourceManager _fillVertexDescriptor:vertexDescriptor withSemantic:0 inputSet:0 bufferIndex:0 vertexFormat:30 offset:0 stride:16];
-  [v39 addObject:v41];
+  [v50 addObject:v52];
   [SCNMTLResourceManager _fillVertexDescriptor:vertexDescriptor withSemantic:1 inputSet:0 bufferIndex:1 vertexFormat:30 offset:0 stride:16];
-  [v39 addObject:v42];
+  [v50 addObject:v53];
   [SCNMTLResourceManager _fillVertexDescriptor:vertexDescriptor withSemantic:3 inputSet:0 bufferIndex:2 vertexFormat:29 offset:0 stride:8];
-  [v39 addObject:v43];
+  [v50 addObject:v54];
   if (ElementsCount >= 1)
   {
     for (i = 0; i != ElementsCount; i = (i + 1))
     {
-      v50 = [*(v68 + 2) objectAtIndexedSubscript:i];
-      if (v50)
+      v61 = [v79[2] objectAtIndexedSubscript:i];
+      if (v61)
       {
-        objc_setProperty_nonatomic(v50, v51, v41, 24);
+        objc_setProperty_nonatomic(v61, v62, v52, 24);
       }
 
-      v52 = [*(v68 + 2) objectAtIndexedSubscript:i];
-      if (v52)
+      v63 = [v79[2] objectAtIndexedSubscript:i];
+      if (v63)
       {
-        objc_setProperty_nonatomic(v52, v53, v45, 56);
+        objc_setProperty_nonatomic(v63, v64, v56, 56);
       }
 
-      v54 = [*(v68 + 2) objectAtIndexedSubscript:i];
-      if (v54)
+      v65 = [v79[2] objectAtIndexedSubscript:i];
+      if (v65)
       {
-        objc_setProperty_nonatomic(v54, v55, v47, 64);
+        objc_setProperty_nonatomic(v65, v66, v58, 64);
       }
 
-      v56 = [*(v68 + 2) objectAtIndexedSubscript:i];
-      if (v56)
+      v67 = [v79[2] objectAtIndexedSubscript:i];
+      if (v67)
       {
-        objc_setProperty_nonatomic(v56, v57, v48, 80);
+        objc_setProperty_nonatomic(v67, v68, v59, 80);
       }
     }
   }
 
-  v58 = objc_alloc_init(SCNMTLMesh);
-  *(v68 + 1) = v58;
-  [(SCNMTLMesh *)v58 setVertexDescriptor:vertexDescriptor];
-  [(SCNMTLMesh *)*(v68 + 1) setBuffers:v39];
-  [(SCNMTLMesh *)*(v68 + 1) setElements:v61];
+  v69 = objc_alloc_init(SCNMTLMesh);
+  v79[1] = v69;
+  [(SCNMTLMesh *)v69 setVertexDescriptor:vertexDescriptor];
+  [(SCNMTLMesh *)v79[1] setBuffers:v50];
+  [(SCNMTLMesh *)v79[1] setElements:v72];
 
-  if (v72)
+  if (v83)
   {
-    v73 = v72;
-    operator delete(v72);
+    v84 = v83;
+    operator delete(v83);
   }
 
-  if (v75)
+  if (v86)
   {
-    v76 = v75;
-    operator delete(v75);
+    v87 = v86;
+    operator delete(v86);
   }
 
-  if (v78)
+  if (v89)
   {
-    v79 = v78;
-    operator delete(v78);
+    v90 = v89;
+    operator delete(v89);
   }
 
-  vmesh::DisplacedSubdivisionMesh::~DisplacedSubdivisionMesh(&v84);
-  _Block_object_dispose(v115, 8);
-  if (v116)
+  vmesh::DisplacedSubdivisionMesh::~DisplacedSubdivisionMesh(&v95);
+  _Block_object_dispose(v126, 8);
+  if (v127)
   {
-    v117 = v116;
-    operator delete(v116);
+    v128 = v127;
+    operator delete(v127);
   }
 
-  if (v119)
+  if (v130)
   {
-    v120 = v119;
-    operator delete(v119);
+    v131 = v130;
+    operator delete(v130);
   }
 
-  if (v122)
+  if (v133)
   {
-    v123 = v122;
-    operator delete(v122);
+    v134 = v133;
+    operator delete(v133);
   }
 
-  if (v125.__begin_)
+  if (v136.__begin_)
   {
-    v125.__end_ = v125.__begin_;
-    operator delete(v125.__begin_);
+    v136.__end_ = v136.__begin_;
+    operator delete(v136.__begin_);
   }
 
-  return v68;
+  return v79;
 }
 
 void __92__SCNGeometryVDMCDeformerInstance_initWithNode_deformer_outputs_computeVertexCount_context___block_invoke(void *a1, uint64_t a2, int a3, uint64_t a4)
 {
   if (a4 <= 0)
   {
-    if (C3DMeshSourceIsVolatile(a2))
+    IsVolatile = C3DMeshSourceIsVolatile(a2);
+    if (IsVolatile)
     {
-      v7 = scn_default_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = scn_default_log(IsVolatile, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __110__SCNGeometryVariableTopologySampleDeformerInstance_initWithNode_deformer_outputs_computeVertexCount_context___block_invoke_cold_1(v7);
+        __110__SCNGeometryVariableTopologySampleDeformerInstance_initWithNode_deformer_outputs_computeVertexCount_context___block_invoke_cold_1(v9);
       }
     }
 
     else
     {
-      v30 = 0u;
-      v31 = 0u;
-      C3DMeshSourceGetContent(a2, &v30);
-      *(*(a1[4] + 8) + 24) = v31;
+      v32 = 0u;
+      v33 = 0u;
+      C3DMeshSourceGetContent(a2, v8, &v32);
+      *(*(a1[4] + 8) + 24) = v33;
       if (a3)
       {
         if (a3 == 3)
         {
           if (*(*(a1[4] + 8) + 24))
           {
-            LODWORD(v14) = 0;
+            LODWORD(v16) = 0;
             do
             {
-              *v8.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v31), (v30 + v14 * BYTE6(v31)), v8, v9, v10);
-              v15 = a1[6];
-              v17 = *(v15 + 8);
-              v16 = *(v15 + 16);
-              if (v17 >= v16)
+              *v10.i64 = C3DConvertFloatingTypeToFloat4(BYTE4(v33), (v32 + v16 * BYTE6(v33)), v10, v11, v12);
+              v17 = a1[6];
+              v19 = *(v17 + 8);
+              v18 = *(v17 + 16);
+              if (v19 >= v18)
               {
-                v19 = (v17 - *v15) >> 3;
-                if ((v19 + 1) >> 61)
+                v21 = (v19 - *v17) >> 3;
+                if ((v21 + 1) >> 61)
                 {
                   std::string::__throw_length_error[abi:nn200100]();
                 }
 
-                v20 = v16 - *v15;
-                v21 = v20 >> 2;
-                if (v20 >> 2 <= (v19 + 1))
+                v22 = v18 - *v17;
+                v23 = v22 >> 2;
+                if (v22 >> 2 <= (v21 + 1))
                 {
-                  v21 = v19 + 1;
+                  v23 = v21 + 1;
                 }
 
-                if (v20 >= 0x7FFFFFFFFFFFFFF8)
+                if (v22 >= 0x7FFFFFFFFFFFFFF8)
                 {
-                  v22 = 0x1FFFFFFFFFFFFFFFLL;
+                  v24 = 0x1FFFFFFFFFFFFFFFLL;
                 }
 
                 else
                 {
-                  v22 = v21;
+                  v24 = v23;
                 }
 
-                if (v22)
+                if (v24)
                 {
-                  std::__allocate_at_least[abi:nn200100]<std::allocator<double>>(a1[6], v22);
+                  std::__allocate_at_least[abi:nn200100]<std::allocator<double>>(a1[6], v24);
                 }
 
-                *(8 * v19) = v8.i64[0];
-                v18 = 8 * v19 + 8;
-                v23 = *(v15 + 8) - *v15;
-                v24 = (8 * v19 - v23);
-                memcpy(v24, *v15, v23);
-                v25 = *v15;
-                *v15 = v24;
-                *(v15 + 8) = v18;
-                *(v15 + 16) = 0;
-                if (v25)
+                *(8 * v21) = v10.i64[0];
+                v20 = 8 * v21 + 8;
+                v25 = *(v17 + 8) - *v17;
+                v26 = (8 * v21 - v25);
+                memcpy(v26, *v17, v25);
+                v27 = *v17;
+                *v17 = v26;
+                *(v17 + 8) = v20;
+                *(v17 + 16) = 0;
+                if (v27)
                 {
-                  operator delete(v25);
+                  operator delete(v27);
                 }
               }
 
               else
               {
-                *v17 = v8.i64[0];
-                v18 = (v17 + 1);
+                *v19 = v10.i64[0];
+                v20 = (v19 + 1);
               }
 
-              *(v15 + 8) = v18;
-              v14 = (v14 + 1);
+              *(v17 + 8) = v20;
+              v16 = (v16 + 1);
             }
 
-            while (*(*(a1[4] + 8) + 24) > v14);
+            while (*(*(a1[4] + 8) + 24) > v16);
           }
         }
 
         else if (a3 == 1 && *(*(a1[4] + 8) + 24))
         {
-          LODWORD(v11) = 0;
+          LODWORD(v13) = 0;
           do
           {
-            *&v12 = C3DConvertFloatingTypeToFloat4(BYTE4(v31), (v30 + v11 * BYTE6(v31)), v8, v9, v10);
-            v13 = a1[7];
-            v29 = v12;
-            _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(v13, &v29);
-            v11 = (v11 + 1);
+            *&v14 = C3DConvertFloatingTypeToFloat4(BYTE4(v33), (v32 + v13 * BYTE6(v33)), v10, v11, v12);
+            v15 = a1[7];
+            v31 = v14;
+            _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(v15, &v31);
+            v13 = (v13 + 1);
           }
 
-          while (*(*(a1[4] + 8) + 24) > v11);
+          while (*(*(a1[4] + 8) + 24) > v13);
         }
       }
 
       else if (*(*(a1[4] + 8) + 24))
       {
-        LODWORD(v26) = 0;
+        LODWORD(v28) = 0;
         do
         {
-          *&v27 = C3DConvertFloatingTypeToFloat4(BYTE4(v31), (v30 + v26 * BYTE6(v31)), v8, v9, v10);
-          v28 = a1[5];
-          v29 = v27;
-          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(v28, &v29);
-          v26 = (v26 + 1);
+          *&v29 = C3DConvertFloatingTypeToFloat4(BYTE4(v33), (v32 + v28 * BYTE6(v33)), v10, v11, v12);
+          v30 = a1[5];
+          v31 = v29;
+          _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(v30, &v31);
+          v28 = (v28 + 1);
         }
 
-        while (*(*(a1[4] + 8) + 24) > v26);
+        while (*(*(a1[4] + 8) + 24) > v28);
       }
     }
   }
@@ -486,34 +490,35 @@ void __92__SCNGeometryVDMCDeformerInstance_initWithNode_deformer_outputs_compute
 
 - (unint64_t)updateWithContext:(id)context
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v5 = -[SCNMTLRenderContext resourceComputeEncoder]([context _currentRenderContext]);
   [(MTLComputeCommandEncoder *)v5->_encoder pushDebugGroup:@"VDMC deformer"];
-  bzero(v57, 0xC0uLL);
+  bzero(v62, 0xC0uLL);
   if (context)
   {
-    [context _currentTransforms];
-    [context _currentFrustumInfo];
-  }
-
-  else
-  {
+    objc_msgSend__currentTransforms(context);
     v6 = OUTLINED_FUNCTION_2_15();
-  }
-
-  v55 = 1090519040;
-  v7 = [(NSMutableArray *)self->_meshElementData objectAtIndexedSubscript:0, v6];
-  if (v7)
-  {
-    v9 = v7[3];
+    objc_msgSend__currentFrustumInfo(context, v6);
   }
 
   else
   {
-    v9 = 0;
+    v7 = OUTLINED_FUNCTION_2_15();
   }
 
-  if (v5->_buffers[0] == v9)
+  v60 = 1090519040;
+  v8 = [(NSMutableArray *)self->_meshElementData objectAtIndexedSubscript:0, v7];
+  if (v8)
+  {
+    v12 = v8[3];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if (v5->_buffers[0] == v12)
   {
     if (!v5->_offsets[0])
     {
@@ -523,23 +528,23 @@ void __92__SCNGeometryVDMCDeformerInstance_initWithNode_deformer_outputs_compute
 
   else
   {
-    v5->_buffers[0] = v9;
+    v5->_buffers[0] = v12;
   }
 
   v5->_offsets[0] = 0;
   v5->_buffersToBind[0] |= 1uLL;
 LABEL_10:
-  if (v7)
+  if (v8)
   {
-    v10 = v7[7];
+    v13 = v8[7];
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  if (v5->_buffers[1] == v10)
+  if (v5->_buffers[1] == v13)
   {
     if (!v5->_offsets[1])
     {
@@ -549,23 +554,23 @@ LABEL_10:
 
   else
   {
-    v5->_buffers[1] = v10;
+    v5->_buffers[1] = v13;
   }
 
   v5->_offsets[1] = 0;
   v5->_buffersToBind[0] |= 2uLL;
 LABEL_16:
-  if (v7)
+  if (v8)
   {
-    v11 = v7[8];
+    v14 = v8[8];
   }
 
   else
   {
-    v11 = 0;
+    v14 = 0;
   }
 
-  if (v5->_buffers[2] == v11)
+  if (v5->_buffers[2] == v14)
   {
     if (!v5->_offsets[2])
     {
@@ -575,25 +580,25 @@ LABEL_16:
 
   else
   {
-    v5->_buffers[2] = v11;
+    v5->_buffers[2] = v14;
   }
 
   v5->_offsets[2] = 0;
   v5->_buffersToBind[0] |= 4uLL;
 LABEL_22:
-  if (v7)
+  if (v8)
   {
-    v12 = v7[10];
+    v15 = v8[10];
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
-  if (v5->_buffers[15] != v12)
+  if (v5->_buffers[15] != v15)
   {
-    v5->_buffers[15] = v12;
+    v5->_buffers[15] = v15;
 LABEL_27:
     v5->_offsets[15] = 0;
     v5->_buffersToBind[0] |= 0x8000uLL;
@@ -607,36 +612,36 @@ LABEL_27:
 
 LABEL_28:
   meshElementData = self->_meshElementData;
-  v14 = OUTLINED_FUNCTION_4_7(v7, v8);
-  if (!v14)
+  v17 = OUTLINED_FUNCTION_4_7(v8, v9, v10, v11);
+  if (!v17)
   {
     goto LABEL_83;
   }
 
-  v15 = v14;
-  v16 = MEMORY[0];
+  v18 = v17;
+  v19 = MEMORY[0];
   do
   {
-    v17 = 0;
+    v20 = 0;
     do
     {
-      if (MEMORY[0] != v16)
+      if (MEMORY[0] != v19)
       {
         objc_enumerationMutation(meshElementData);
       }
 
-      v18 = *(8 * v17);
-      if (v18)
+      v21 = *(8 * v20);
+      if (v21)
       {
-        v19 = *(v18 + 72);
+        v22 = *(v21 + 72);
       }
 
       else
       {
-        v19 = 0;
+        v22 = 0;
       }
 
-      if (v5->_buffers[11] == v19)
+      if (v5->_buffers[11] == v22)
       {
         if (!v5->_offsets[11])
         {
@@ -646,26 +651,26 @@ LABEL_28:
 
       else
       {
-        v5->_buffers[11] = v19;
+        v5->_buffers[11] = v22;
       }
 
       OUTLINED_FUNCTION_3_4();
 LABEL_39:
-      SCNMTLComputeCommandEncoder::setBytes(v5, &v55, 4uLL, 0xAuLL);
-      SCNMTLComputeCommandEncoder::setBytes(v5, v57, 0xC0uLL, 0xDuLL);
-      v20 = SCNMTLComputeCommandEncoder::setBytes(v5, v56, 0x70uLL, 0xEuLL);
-      *v53 = 0;
-      if (v18)
+      SCNMTLComputeCommandEncoder::setBytes(v5, &v60, 4uLL, 0xAuLL);
+      SCNMTLComputeCommandEncoder::setBytes(v5, v62, 0xC0uLL, 0xDuLL);
+      v23 = SCNMTLComputeCommandEncoder::setBytes(v5, v61, 0x70uLL, 0xEuLL);
+      *v58 = 0;
+      if (v21)
       {
-        v28 = *(v18 + 104);
-        if (v28)
+        v31 = *(v21 + 104);
+        if (v31)
         {
-          v22 = 0;
+          v25 = 0;
           do
           {
-            v29 = [objc_msgSend(*(v18 + 88) objectAtIndex:{v22), "integerValue"}];
-            v30 = [*(v18 + 40) objectAtIndex:*v53];
-            if (v5->_buffers[3] == v30)
+            v32 = [objc_msgSend(*(v21 + 88) objectAtIndex:{v25), "integerValue"}];
+            v33 = [*(v21 + 40) objectAtIndex:*v58];
+            if (v5->_buffers[3] == v33)
             {
               if (!v5->_offsets[3])
               {
@@ -675,14 +680,14 @@ LABEL_39:
 
             else
             {
-              v5->_buffers[3] = v30;
+              v5->_buffers[3] = v33;
             }
 
             v5->_offsets[3] = 0;
             v5->_buffersToBind[0] |= 8uLL;
 LABEL_46:
-            v31 = [*(v18 + 40) objectAtIndex:(*v53 + 1)];
-            if (v5->_buffers[4] == v31)
+            v34 = [*(v21 + 40) objectAtIndex:(*v58 + 1)];
+            if (v5->_buffers[4] == v34)
             {
               if (!v5->_offsets[4])
               {
@@ -692,14 +697,14 @@ LABEL_46:
 
             else
             {
-              v5->_buffers[4] = v31;
+              v5->_buffers[4] = v34;
             }
 
             v5->_offsets[4] = 0;
             v5->_buffersToBind[0] |= 0x10uLL;
 LABEL_50:
-            v32 = [*(v18 + 48) objectAtIndex:*v53];
-            if (v5->_buffers[6] == v32)
+            v35 = [*(v21 + 48) objectAtIndex:*v58];
+            if (v5->_buffers[6] == v35)
             {
               if (!v5->_offsets[6])
               {
@@ -709,16 +714,16 @@ LABEL_50:
 
             else
             {
-              v5->_buffers[6] = v32;
+              v5->_buffers[6] = v35;
             }
 
             v5->_offsets[6] = 0;
             v5->_buffersToBind[0] |= 0x40uLL;
 LABEL_54:
-            v33 = [*(v18 + 48) objectAtIndex:(*v53 + 1)];
-            if (v5->_buffers[7] != v33)
+            v36 = [*(v21 + 48) objectAtIndex:(*v58 + 1)];
+            if (v5->_buffers[7] != v36)
             {
-              v5->_buffers[7] = v33;
+              v5->_buffers[7] = v36;
 LABEL_57:
               v5->_offsets[7] = 0;
               v5->_buffersToBind[0] |= 0x80uLL;
@@ -731,34 +736,34 @@ LABEL_57:
             }
 
 LABEL_58:
-            OUTLINED_FUNCTION_0_13(v33, v34, v35, v36, v37, v38, v39, v40, v51, v52, v53[0]);
-            computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)*(v18 + 136) computeEvaluator];
+            OUTLINED_FUNCTION_0_13(v36, v37, v38, v39, v40, v41, v42, v43, v56, v57, v58[0]);
+            computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)*(v21 + 136) computeEvaluator];
             if (v5->_computePipelineState != computeEvaluator)
             {
               v5->_computePipelineState = computeEvaluator;
               [(MTLComputeCommandEncoder *)v5->_encoder setComputePipelineState:computeEvaluator];
             }
 
-            v20 = SCNMTLComputeCommandEncoder::dispatchOnGrid1D(v5, v29);
-            *v53 = *v54 + 1;
-            v22 = *v53;
-            v28 = *(v18 + 104);
+            v23 = SCNMTLComputeCommandEncoder::dispatchOnGrid1D(v5, v32);
+            *v58 = *v59 + 1;
+            v25 = *v58;
+            v31 = *(v21 + 104);
           }
 
-          while (v28 > *v53);
+          while (v31 > *v58);
         }
 
-        OUTLINED_FUNCTION_0_13(v20, v21, v22, v23, v24, v25, v26, v27, v51, v52, v28);
-        v42 = *(v18 + 72);
+        OUTLINED_FUNCTION_0_13(v23, v24, v25, v26, v27, v28, v29, v30, v56, v57, v31);
+        v45 = *(v21 + 72);
       }
 
       else
       {
-        OUTLINED_FUNCTION_0_13(v20, v21, v22, v23, v24, v25, v26, v27, v51, v52, 0);
-        v42 = 0;
+        OUTLINED_FUNCTION_0_13(v23, v24, v25, v26, v27, v28, v29, v30, v56, v57, 0);
+        v45 = 0;
       }
 
-      if (v5->_buffers[11] == v42)
+      if (v5->_buffers[11] == v45)
       {
         if (!v5->_offsets[11])
         {
@@ -768,26 +773,26 @@ LABEL_58:
 
       else
       {
-        v5->_buffers[11] = v42;
+        v5->_buffers[11] = v45;
       }
 
       OUTLINED_FUNCTION_3_4();
 LABEL_66:
-      if (v18)
+      if (v21)
       {
-        v44 = *(v18 + 112);
-        v43 = *(v18 + 120);
+        v47 = *(v21 + 112);
+        v46 = *(v21 + 120);
       }
 
       else
       {
-        v44 = 0;
-        v43 = 0;
+        v47 = 0;
+        v46 = 0;
       }
 
-      if (v5->_buffers[9] == v44)
+      if (v5->_buffers[9] == v47)
       {
-        if (v5->_offsets[9] == v43)
+        if (v5->_offsets[9] == v46)
         {
           goto LABEL_72;
         }
@@ -795,39 +800,39 @@ LABEL_66:
 
       else
       {
-        v5->_buffers[9] = v44;
+        v5->_buffers[9] = v47;
       }
 
-      v5->_offsets[9] = v43;
+      v5->_offsets[9] = v46;
       v5->_buffersToBind[0] |= 0x200uLL;
 LABEL_72:
-      if (v18)
+      if (v21)
       {
-        v45 = *(v18 + 144);
+        v48 = *(v21 + 144);
       }
 
       else
       {
-        v45 = 0;
+        v48 = 0;
       }
 
-      computeEvaluator2 = [(SCNMTLOpenSubdivComputeEvaluator *)v45 computeEvaluator];
+      computeEvaluator2 = [(SCNMTLOpenSubdivComputeEvaluator *)v48 computeEvaluator];
       if (v5->_computePipelineState != computeEvaluator2)
       {
         v5->_computePipelineState = computeEvaluator2;
         [(MTLComputeCommandEncoder *)v5->_encoder setComputePipelineState:computeEvaluator2];
       }
 
-      v47 = SCNMTLComputeCommandEncoder::dispatchOnGrid1D(v5, 1uLL);
-      ++v17;
+      v50 = SCNMTLComputeCommandEncoder::dispatchOnGrid1D(v5, 1uLL);
+      ++v20;
     }
 
-    while (v17 != v15);
-    v49 = OUTLINED_FUNCTION_4_7(v47, v48);
-    v15 = v49;
+    while (v20 != v18);
+    v54 = OUTLINED_FUNCTION_4_7(v50, v51, v52, v53);
+    v18 = v54;
   }
 
-  while (v49);
+  while (v54);
 LABEL_83:
   [(MTLComputeCommandEncoder *)v5->_encoder popDebugGroup];
   return 1;

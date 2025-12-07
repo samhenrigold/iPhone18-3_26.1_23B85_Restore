@@ -26,28 +26,28 @@
 - (optional<ULUWBMeasurementDO>)convertToDO
 {
   v3 = v1;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(ULUWBMeasurementMO *)self timestamp];
-  v14 = v4;
+  v13 = v4;
   sourceIdsUUID = [(ULUWBMeasurementMO *)self sourceIdsUUID];
   v6 = sourceIdsUUID;
   if (sourceIdsUUID)
   {
-    [sourceIdsUUID boostUUID];
+    objc_msgSend_boostUUID(sourceIdsUUID);
   }
 
   else
   {
-    v16 = 0uLL;
-    v17 = 0;
+    v15 = 0uLL;
+    v16 = 0;
   }
 
-  if (v17)
+  if (v16)
   {
     [(ULUWBMeasurementMO *)self range];
     v8 = v7;
     deviceModel = [(ULUWBMeasurementMO *)self deviceModel];
-    ULUWBMeasurementDO::ULUWBMeasurementDO(buf, &v14, &v16, &deviceModel, v8);
+    ULUWBMeasurementDO::ULUWBMeasurementDO(buf, &v13, &v15, &deviceModel, v8);
     ULUWBMeasurementDO::ULUWBMeasurementDO(v3, buf);
     v3[32] = 1;
   }
@@ -71,7 +71,6 @@
     v3[32] = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   *(&result.var0.var4 + 1) = v10;
   *&result.var0.var0 = v9;
   return result;

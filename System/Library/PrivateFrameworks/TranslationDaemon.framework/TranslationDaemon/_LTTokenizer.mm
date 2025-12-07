@@ -24,7 +24,7 @@
     operator new();
   }
 
-  v41 = v9;
+  v39 = v9;
   if (v9)
   {
     memmove(&__dst, uTF8String, v9);
@@ -32,10 +32,10 @@
 
   *(&__dst + v10) = 0;
 
-  std::vector<unsigned short>::vector[abi:ne200100](&v38, [tokenizeCopy length]);
+  std::vector<unsigned short>::vector[abi:ne200100](&v36, [tokenizeCopy length]);
   [tokenizeCopy getCharacters:? range:?];
-  v11 = v39 - v38;
-  v12 = (v39 - v38) >> 1;
+  v11 = v37 - v36;
+  v12 = (v37 - v36) >> 1;
   if (v12 > 0x7FFFFFFFFFFFFFF7)
   {
     std::basic_string<char16_t>::__throw_length_error[abi:ne200100]();
@@ -53,16 +53,16 @@
       v13 = (v12 | 3) + 1;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(&v36, v13);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<char16_t>>(&v34, v13);
   }
 
-  v37 = v11 >> 1;
-  if (v39 != v38)
+  v35 = v11 >> 1;
+  if (v37 != v36)
   {
-    memmove(&v36, v38, v11);
+    memmove(&v34, v36, v11);
   }
 
-  *(&v36 + v12) = 0;
+  *(&v34 + v12) = 0;
   languageCode = [localeCopy languageCode];
   v15 = [languageCode isEqualToString:@"de"];
 
@@ -78,47 +78,45 @@
   else
   {
     __p = 0;
-    v33 = 0;
-    v34 = 0;
+    v31 = 0;
+    v32 = 0;
     morphun::util::ULocale::ULocale();
     Tokenizer = morphun::TokenizerFactory::createTokenizer();
-    morphun::util::ULocale::~ULocale(v35);
-    v21 = (*(*Tokenizer + 24))(Tokenizer, &v36);
+    morphun::util::ULocale::~ULocale(v33);
+    v21 = (*(*Tokenizer + 24))(Tokenizer, &v34);
     array = [MEMORY[0x277CBEB18] array];
-    v22 = *(v21 + 1);
-    v23 = *(v21 + 2);
     morphun::TokenIterator::TokenIterator();
-    v35[0] = morphun::Chunk::end(v21);
-    v35[1] = v24;
+    v33[0] = morphun::Chunk::end(v21);
+    v33[1] = v22;
     while ((morphun::TokenIterator::operator!=() & 1) != 0)
     {
-      v25 = morphun::TokenIterator::operator*();
-      if ((morphun::Token::isHead(v25) & 1) == 0 && (morphun::Token::isTail(v25) & 1) == 0 && (morphun::Token::isWhitespace(v25) & 1) == 0)
+      v23 = morphun::TokenIterator::operator*();
+      if ((morphun::Token::isHead(v23) & 1) == 0 && (morphun::Token::isTail(v23) & 1) == 0 && (morphun::Token::isWhitespace(v23) & 1) == 0)
       {
-        Value = morphun::Token::getValue(v25);
-        v27 = *(Value + 23);
-        if (v27 >= 0)
+        Value = morphun::Token::getValue(v23);
+        v25 = *(Value + 23);
+        if (v25 >= 0)
         {
-          v28 = Value;
+          v26 = Value;
         }
 
         else
         {
-          v28 = *Value;
+          v26 = *Value;
         }
 
-        if (v27 >= 0)
+        if (v25 >= 0)
         {
-          v29 = *(Value + 23);
+          v27 = *(Value + 23);
         }
 
         else
         {
-          v29 = *(Value + 8);
+          v27 = *(Value + 8);
         }
 
-        v30 = [MEMORY[0x277CCACA8] stringWithCharacters:v28 length:{v29, __p, v33, v34}];
-        [array addObject:v30];
+        v28 = [MEMORY[0x277CCACA8] stringWithCharacters:v26 length:{v27, __p, v31, v32}];
+        [array addObject:v28];
       }
 
       morphun::TokenIterator::operator++();
@@ -132,18 +130,18 @@
     (*(*Tokenizer + 16))(Tokenizer);
   }
 
-  if (v37 < 0)
+  if (v35 < 0)
   {
+    operator delete(v34);
+  }
+
+  if (v36)
+  {
+    v37 = v36;
     operator delete(v36);
   }
 
-  if (v38)
-  {
-    v39 = v38;
-    operator delete(v38);
-  }
-
-  if (v41 < 0)
+  if (v39 < 0)
   {
     operator delete(__dst);
   }

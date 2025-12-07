@@ -6,6 +6,9 @@
 - (NSString)name;
 - (float)volume;
 - (void)playerIDs;
+- (void)setActive:(BOOL)active;
+- (void)setMute:(BOOL)isMuted forPlayer:(NSString *)playerID;
+- (void)setPlayer:(GKPlayer *)player muted:(BOOL)isMuted;
 - (void)setVolume:(float)volume;
 - (void)start;
 - (void)stateUpdate:(int64_t)update forPlayerID:(id)d;
@@ -51,12 +54,38 @@
   [gkVoiceChat stop];
 }
 
+- (void)setPlayer:(GKPlayer *)player muted:(BOOL)isMuted
+{
+  v4 = isMuted;
+  v6 = player;
+  gkVoiceChat = [(GKVoiceChat *)self gkVoiceChat];
+  internal = [(GKPlayer *)v6 internal];
+
+  playerID = [internal playerID];
+  [gkVoiceChat setMuted:v4 forPlayerID:playerID];
+}
+
+- (void)setMute:(BOOL)isMuted forPlayer:(NSString *)playerID
+{
+  v4 = isMuted;
+  v6 = playerID;
+  gkVoiceChat = [(GKVoiceChat *)self gkVoiceChat];
+  [gkVoiceChat setMuted:v4 forPlayerID:v6];
+}
+
 - (NSString)name
 {
   gkVoiceChat = [(GKVoiceChat *)self gkVoiceChat];
   name = [gkVoiceChat name];
 
   return name;
+}
+
+- (void)setActive:(BOOL)active
+{
+  v3 = active;
+  gkVoiceChat = [(GKVoiceChat *)self gkVoiceChat];
+  [gkVoiceChat setActive:v3];
 }
 
 - (BOOL)isActive
@@ -85,32 +114,32 @@
 
 - (void)stateUpdate:(int64_t)update forPlayerID:(id)d
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   playerVoiceChatStateDidChangeHandler = [(GKVoiceChat *)self playerVoiceChatStateDidChangeHandler];
 
   if (playerVoiceChatStateDidChangeHandler)
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__0;
-    v26 = __Block_byref_object_dispose__0;
-    v27 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__0;
+    v25 = __Block_byref_object_dispose__0;
+    v26 = 0;
     players = [(GKVoiceChat *)self players];
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __39__GKVoiceChat_stateUpdate_forPlayerID___block_invoke;
-    v19 = &unk_2785DD658;
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __39__GKVoiceChat_stateUpdate_forPlayerID___block_invoke;
+    v18 = &unk_2785DD658;
     v9 = dCopy;
-    v20 = v9;
-    v21 = &v22;
-    [players enumerateObjectsUsingBlock:&v16];
+    v19 = v9;
+    v20 = &v21;
+    [players enumerateObjectsUsingBlock:&v15];
 
-    if (v23[5])
+    if (v22[5])
     {
-      v10 = [(GKVoiceChat *)self playerVoiceChatStateDidChangeHandler:v16];
-      (v10[2].isa)(v10, v23[5], update);
+      v10 = [(GKVoiceChat *)self playerVoiceChatStateDidChangeHandler:v15];
+      (v10[2].isa)(v10, v22[5], update);
     }
 
     else
@@ -123,16 +152,16 @@
       v10 = os_log_GKMatch;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v14 = [(GKVoiceChat *)self players:v16];
+        v14 = [(GKVoiceChat *)self players:v15];
         *buf = 138412546;
-        v29 = v9;
-        v30 = 2112;
-        v31 = v14;
+        v28 = v9;
+        v29 = 2112;
+        v30 = v14;
         _os_log_impl(&dword_227904000, v10, OS_LOG_TYPE_INFO, "cannot find player for participant %@ (%@)", buf, 0x16u);
       }
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
   }
 
   else
@@ -145,8 +174,6 @@
       (playerStateUpdateHandler2)[2](playerStateUpdateHandler2, dCopy, update);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __39__GKVoiceChat_stateUpdate_forPlayerID___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -182,7 +209,7 @@ void __39__GKVoiceChat_stateUpdate_forPlayerID___block_invoke(uint64_t a1, void 
 
 - (NSArray)playerIDs
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (GKApplicationLinkedOnOrAfter(917504, 659456))
   {
     if (!os_log_GKGeneral)
@@ -196,8 +223,8 @@ void __39__GKVoiceChat_stateUpdate_forPlayerID___block_invoke(uint64_t a1, void 
       [(GKVoiceChat *)v4 playerIDs];
     }
 
-    v9[0] = @"playerID is no longer available";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = @"playerID is no longer available";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -205,8 +232,6 @@ void __39__GKVoiceChat_stateUpdate_forPlayerID___block_invoke(uint64_t a1, void 
     players = [(GKVoiceChat *)self players];
     v5 = [players _gkMapWithBlock:&__block_literal_global_0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -221,15 +246,14 @@ id __24__GKVoiceChat_playerIDs__block_invoke(uint64_t a1, void *a2)
 
 - (void)playerIDs
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = 136446722;
-  v3 = "[GKVoiceChat playerIDs]";
-  v4 = 2114;
-  v5 = @"14.0";
-  v6 = 2114;
-  v7 = @"11.0";
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v2, 0x20u);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = 136446722;
+  v2 = "[GKVoiceChat playerIDs]";
+  v3 = 2114;
+  v4 = @"14.0";
+  v5 = 2114;
+  v6 = @"11.0";
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v1, 0x20u);
 }
 
 @end

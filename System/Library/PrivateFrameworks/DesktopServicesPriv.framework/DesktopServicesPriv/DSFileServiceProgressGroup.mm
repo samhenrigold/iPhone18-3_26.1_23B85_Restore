@@ -22,33 +22,33 @@
 
 - (DSFileServiceProgressGroup)initWithUUID:(id)d operationKind:(id)kind groupCount:(int64_t)count publishingURL:(id)l firstChildName:(id)name dateStarted:(id)started utType:(id)type
 {
-  v52[6] = *MEMORY[0x1E69E9840];
+  v51[6] = *MEMORY[0x1E69E9840];
   dCopy = d;
   kindCopy = kind;
   lCopy = l;
   nameCopy = name;
   startedCopy = started;
   typeCopy = type;
-  v45.receiver = self;
-  v45.super_class = DSFileServiceProgressGroup;
-  v19 = [(DSFileServiceProgressGroup *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = DSFileServiceProgressGroup;
+  v19 = [(DSFileServiceProgressGroup *)&v44 init];
   if (v19)
   {
     v20 = *MEMORY[0x1E696A880];
-    v51[0] = *MEMORY[0x1E696A858];
-    v51[1] = v20;
-    v52[0] = kindCopy;
-    v52[1] = lCopy;
-    v51[2] = *MEMORY[0x1E696A8A0];
-    v51[3] = @"DSFileOperationUUID";
-    v52[2] = MEMORY[0x1E695E118];
-    v52[3] = dCopy;
-    v52[4] = startedCopy;
-    v51[4] = @"DSFileOperationDateStarted";
-    v51[5] = @"DSFileOperationIconUTTypeIdentifier";
+    v50[0] = *MEMORY[0x1E696A858];
+    v50[1] = v20;
+    v51[0] = kindCopy;
+    v51[1] = lCopy;
+    v50[2] = *MEMORY[0x1E696A8A0];
+    v50[3] = @"DSFileOperationUUID";
+    v51[2] = MEMORY[0x1E695E118];
+    v51[3] = dCopy;
+    v51[4] = startedCopy;
+    v50[4] = @"DSFileOperationDateStarted";
+    v50[5] = @"DSFileOperationIconUTTypeIdentifier";
     identifier = [typeCopy identifier];
-    v52[5] = identifier;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:6];
+    v51[5] = identifier;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:6];
     v23 = [v22 mutableCopy];
 
     if (count <= 1 && [nameCopy length])
@@ -68,38 +68,38 @@
     [v24 setFileCompletedCount:&unk_1F5F4A3B8];
     make_nsweak<FIRenameOperation>(v19, &from);
     objc_copyWeak(&to, &from);
-    v46 = MEMORY[0x1E69E9820];
-    v47 = 3321888768;
-    v48 = ___ZZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__ENK3__1cvU13block_pointerFvvEEv_block_invoke;
-    v49 = &__block_descriptor_40_ea8_32c130_ZTSKZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__E3__1_e5_v8__0l;
-    objc_copyWeak(&v50, &to);
-    v26 = MEMORY[0x1E692D6D0](&v46);
-    objc_destroyWeak(&v50);
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3321888768;
+    v47 = ___ZZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__ENK3__1cvU13block_pointerFvvEEv_block_invoke;
+    v48 = &__block_descriptor_40_ea8_32c130_ZTSKZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__E3__1_e5_v8__0l;
+    objc_copyWeak(&v49, &to);
+    v26 = MEMORY[0x1E692D6D0](&v45);
+    objc_destroyWeak(&v49);
     [v24 setCancellationHandler:v26];
 
     objc_destroyWeak(&to);
     objc_copyWeak(&location, &from);
-    v46 = MEMORY[0x1E69E9820];
-    v47 = 3321888768;
-    v48 = ___ZZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__ENK3__2cvU13block_pointerFvvEEv_block_invoke;
-    v49 = &__block_descriptor_40_ea8_32c130_ZTSKZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__E3__2_e5_v8__0l;
-    objc_copyWeak(&v50, &location);
-    v27 = MEMORY[0x1E692D6D0](&v46);
-    objc_destroyWeak(&v50);
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3321888768;
+    v47 = ___ZZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__ENK3__2cvU13block_pointerFvvEEv_block_invoke;
+    v48 = &__block_descriptor_40_ea8_32c130_ZTSKZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__E3__2_e5_v8__0l;
+    objc_copyWeak(&v49, &location);
+    v27 = MEMORY[0x1E692D6D0](&v45);
+    objc_destroyWeak(&v49);
     [v24 setResumingHandler:v27];
 
     objc_destroyWeak(&location);
-    objc_copyWeak(&v41, &from);
-    v46 = MEMORY[0x1E69E9820];
-    v47 = 3321888768;
-    v48 = ___ZZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__ENK3__3cvU13block_pointerFvvEEv_block_invoke;
-    v49 = &__block_descriptor_40_ea8_32c130_ZTSKZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__E3__3_e5_v8__0l;
-    objc_copyWeak(&v50, &v41);
-    v28 = MEMORY[0x1E692D6D0](&v46);
-    objc_destroyWeak(&v50);
+    objc_copyWeak(&v40, &from);
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3321888768;
+    v47 = ___ZZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__ENK3__3cvU13block_pointerFvvEEv_block_invoke;
+    v48 = &__block_descriptor_40_ea8_32c130_ZTSKZ116__DSFileServiceProgressGroup_initWithUUID_operationKind_groupCount_publishingURL_firstChildName_dateStarted_utType__E3__3_e5_v8__0l;
+    objc_copyWeak(&v49, &v40);
+    v28 = MEMORY[0x1E692D6D0](&v45);
+    objc_destroyWeak(&v49);
     [v24 setPausingHandler:v28];
 
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v40);
     v29 = Copy<NSMutableArray<FILocalAppContainerNode *>>(dCopy);
     uuid = v19->_uuid;
     v19->_uuid = v29;
@@ -122,7 +122,6 @@
     objc_destroyWeak(&from);
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -190,9 +189,9 @@
 
 - (void)addChildProgress:(id)progress
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   progressCopy = progress;
-  v33 = progressCopy;
+  v32 = progressCopy;
   totalUnitCount = [progressCopy totalUnitCount];
   progress = [(DSFileServiceProgressGroup *)self progress];
   totalUnitCount2 = [progress totalUnitCount];
@@ -213,81 +212,80 @@
   make_nsweak<FIRenameOperation>(self, &from);
   objc_copyWeak(&to, &from);
   cancellationHandler = [progressCopy cancellationHandler];
-  v37 = MEMORY[0x1E69E9820];
-  v38 = 3321888768;
-  v39 = ___ZZ47__DSFileServiceProgressGroup_addChildProgress__ENK3__4cvU13block_pointerFvvEEv_block_invoke;
-  v40 = &__block_descriptor_48_ea8_32c60_ZTSKZ47__DSFileServiceProgressGroup_addChildProgress__E3__4_e5_v8__0l;
-  objc_copyWeak(&v41, &to);
-  v42 = MEMORY[0x1E692D6D0](cancellationHandler);
-  v13 = MEMORY[0x1E692D6D0](&v37);
+  v36 = MEMORY[0x1E69E9820];
+  v37 = 3321888768;
+  v38 = ___ZZ47__DSFileServiceProgressGroup_addChildProgress__ENK3__4cvU13block_pointerFvvEEv_block_invoke;
+  v39 = &__block_descriptor_48_ea8_32c60_ZTSKZ47__DSFileServiceProgressGroup_addChildProgress__E3__4_e5_v8__0l;
+  objc_copyWeak(&v40, &to);
+  v41 = MEMORY[0x1E692D6D0](cancellationHandler);
+  v13 = MEMORY[0x1E692D6D0](&v36);
 
-  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v40);
   [progressCopy setCancellationHandler:v13];
 
   objc_destroyWeak(&to);
   objc_copyWeak(&location, &from);
   resumingHandler = [progressCopy resumingHandler];
-  v37 = MEMORY[0x1E69E9820];
-  v38 = 3321888768;
-  v39 = ___ZZ47__DSFileServiceProgressGroup_addChildProgress__ENK3__5cvU13block_pointerFvvEEv_block_invoke;
-  v40 = &__block_descriptor_48_ea8_32c60_ZTSKZ47__DSFileServiceProgressGroup_addChildProgress__E3__5_e5_v8__0l;
-  objc_copyWeak(&v41, &location);
-  v42 = MEMORY[0x1E692D6D0](resumingHandler);
-  v14 = MEMORY[0x1E692D6D0](&v37);
+  v36 = MEMORY[0x1E69E9820];
+  v37 = 3321888768;
+  v38 = ___ZZ47__DSFileServiceProgressGroup_addChildProgress__ENK3__5cvU13block_pointerFvvEEv_block_invoke;
+  v39 = &__block_descriptor_48_ea8_32c60_ZTSKZ47__DSFileServiceProgressGroup_addChildProgress__E3__5_e5_v8__0l;
+  objc_copyWeak(&v40, &location);
+  v41 = MEMORY[0x1E692D6D0](resumingHandler);
+  v14 = MEMORY[0x1E692D6D0](&v36);
 
-  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v40);
   [progressCopy setResumingHandler:v14];
 
   objc_destroyWeak(&location);
-  objc_copyWeak(&v26, &from);
+  objc_copyWeak(&v25, &from);
   pausingHandler = [progressCopy pausingHandler];
-  v37 = MEMORY[0x1E69E9820];
-  v38 = 3321888768;
-  v39 = ___ZZ47__DSFileServiceProgressGroup_addChildProgress__ENK3__6cvU13block_pointerFvvEEv_block_invoke;
-  v40 = &__block_descriptor_48_ea8_32c60_ZTSKZ47__DSFileServiceProgressGroup_addChildProgress__E3__6_e5_v8__0l;
-  objc_copyWeak(&v41, &v26);
-  v42 = MEMORY[0x1E692D6D0](pausingHandler);
-  v15 = MEMORY[0x1E692D6D0](&v37);
+  v36 = MEMORY[0x1E69E9820];
+  v37 = 3321888768;
+  v38 = ___ZZ47__DSFileServiceProgressGroup_addChildProgress__ENK3__6cvU13block_pointerFvvEEv_block_invoke;
+  v39 = &__block_descriptor_48_ea8_32c60_ZTSKZ47__DSFileServiceProgressGroup_addChildProgress__E3__6_e5_v8__0l;
+  objc_copyWeak(&v40, &v25);
+  v41 = MEMORY[0x1E692D6D0](pausingHandler);
+  v15 = MEMORY[0x1E692D6D0](&v36);
 
-  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v40);
   [progressCopy setPausingHandler:v15];
 
-  objc_destroyWeak(&v26);
-  v37 = &v33;
-  v16 = std::__hash_table<std::__hash_value_type<NSProgress * {__strong},TKeyValueObserver>,std::__unordered_map_hasher<NSProgress * {__strong},std::__hash_value_type<NSProgress * {__strong},TKeyValueObserver>,std::hash<NSProgress * {__strong}>,std::equal_to<NSProgress * {__strong}>,true>,std::__unordered_map_equal<NSProgress * {__strong},std::__hash_value_type<NSProgress * {__strong},TKeyValueObserver>,std::equal_to<NSProgress * {__strong}>,std::hash<NSProgress * {__strong}>,true>,std::allocator<std::__hash_value_type<NSProgress * {__strong},TKeyValueObserver>>>::__emplace_unique_key_args<NSProgress * {__strong},std::piecewise_construct_t const&,std::tuple<NSProgress * const {__strong}&>,std::tuple<>>(&self->_completedUnitCountObservers.__table_.__bucket_list_.__ptr_, &v33);
-  v17 = v33;
+  objc_destroyWeak(&v25);
+  v36 = &v32;
+  v16 = std::__hash_table<std::__hash_value_type<NSProgress * {__strong},TKeyValueObserver>,std::__unordered_map_hasher<NSProgress * {__strong},std::__hash_value_type<NSProgress * {__strong},TKeyValueObserver>,std::hash<NSProgress * {__strong}>,std::equal_to<NSProgress * {__strong}>,true>,std::__unordered_map_equal<NSProgress * {__strong},std::__hash_value_type<NSProgress * {__strong},TKeyValueObserver>,std::equal_to<NSProgress * {__strong}>,std::hash<NSProgress * {__strong}>,true>,std::allocator<std::__hash_value_type<NSProgress * {__strong},TKeyValueObserver>>>::__emplace_unique_key_args<NSProgress * {__strong},std::piecewise_construct_t const&,std::tuple<NSProgress * const {__strong}&>,std::tuple<>>(&self->_completedUnitCountObservers.__table_.__bucket_list_.__ptr_, &v32, &std::piecewise_construct, &v36, &v42);
+  v17 = v32;
   v18 = NSStringFromSelector(sel_completedUnitCount);
-  v25.fString.fRef = &stru_1F5F42870;
+  v24.fString.fRef = &stru_1F5F42870;
   CFRetain(&stru_1F5F42870);
-  TString::SetStringRefAsImmutable(&v25, v18);
+  TString::SetStringRefAsImmutable(&v24, v18);
 
-  objc_copyWeak(&v23, &from);
-  v24 = v33;
+  objc_copyWeak(&v22, &from);
+  v23 = v32;
   v19 = v17;
-  objc_copyWeak(&v34, &v23);
-  v35 = v24;
-  v45 = 0;
-  v43 = &unk_1F5F41148;
-  objc_copyWeak(v44, &v34);
-  objc_storeWeak(&v34, 0);
-  v20 = v35;
-  v35 = 0;
-  v44[1] = v20;
-  v45 = &v43;
-  v36 = v19;
-  std::unordered_set<NSObject *>::unordered_set(&v37, &v36, 1);
-  v21 = TKeyValueObserver::CreateObserver((v16 + 3), &v43, &v37, &v25);
-  std::__hash_table<std::__hash_value_type<unsigned long long,TRecordProgress>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,TRecordProgress>>>::~__hash_table(&v37);
-  std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::~__value_func[abi:ne200100](&v43);
+  objc_copyWeak(&v33, &v22);
+  v34 = v23;
+  v44 = 0;
+  v42 = &unk_1F5F41148;
+  objc_copyWeak(v43, &v33);
+  objc_storeWeak(&v33, 0);
+  v20 = v34;
+  v34 = 0;
+  v43[1] = v20;
+  v44 = &v42;
+  v35 = v19;
+  std::unordered_set<NSObject *>::unordered_set(&v36, &v35, 1);
+  v21 = TKeyValueObserver::CreateObserver((v16 + 3), &v42, &v36, &v24);
+  std::__hash_table<std::__hash_value_type<unsigned long long,TRecordProgress>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,TRecordProgress>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,TRecordProgress>>>::~__hash_table(&v36);
+  std::__function::__value_func<void ()(NSDictionary<NSString *,NSObject *> *)>::~__value_func[abi:ne200100](&v42);
 
-  objc_destroyWeak(&v34);
-  TKeyValueObserver::StartObservingPriv((v16 + 3), v21, v19, &v25, 3);
+  objc_destroyWeak(&v33);
+  TKeyValueObserver::StartObservingPriv((v16 + 3), v21, v19, &v24, 3);
 
-  objc_destroyWeak(&v23);
-  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v25.fString.fRef);
+  objc_destroyWeak(&v22);
+  TRef<__CFString const*,TRetainReleasePolicy<__CFString const*>>::~TRef(&v24.fString.fRef);
 
   objc_destroyWeak(&from);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeChildProgress:(id)progress

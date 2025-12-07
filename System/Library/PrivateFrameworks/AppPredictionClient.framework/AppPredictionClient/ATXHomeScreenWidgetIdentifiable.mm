@@ -70,16 +70,16 @@
     v6 = MEMORY[0x1E696ACD0];
     v7 = objc_opt_class();
     intentProtoData = selfCopy->_intentProtoData;
-    v14 = 0;
-    v9 = [v6 unarchivedObjectOfClass:v7 fromData:intentProtoData error:&v14];
-    v10 = v14;
+    v15 = 0;
+    v9 = [v6 unarchivedObjectOfClass:v7 fromData:intentProtoData error:&v15];
+    v10 = v15;
     v11 = selfCopy->_intent;
     selfCopy->_intent = v9;
 
     if (v10)
     {
-      v12 = __atxlog_handle_default();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_default(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [(ATXHomeScreenWidgetIdentifiable *)v10 intent];
       }
@@ -138,16 +138,16 @@
       v8 = objc_autoreleasePoolPush();
       v9 = MEMORY[0x1E696ACC8];
       intent2 = [(ATXHomeScreenWidgetIdentifiable *)selfCopy intent];
-      v15 = 0;
-      v11 = [v9 archivedDataWithRootObject:intent2 requiringSecureCoding:1 error:&v15];
-      v12 = v15;
+      v16 = 0;
+      v11 = [v9 archivedDataWithRootObject:intent2 requiringSecureCoding:1 error:&v16];
+      v12 = v16;
       [(ATXPBHomeScreenWidgetIdentifiable *)v3 setIntent:v11];
 
       objc_autoreleasePoolPop(v8);
       if (v12)
       {
-        v13 = __atxlog_handle_default();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = __atxlog_handle_default(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [(ATXHomeScreenWidgetIdentifiable *)v12 proto];
         }
@@ -327,14 +327,14 @@ LABEL_6:
 - (void)handleMemoryPressure
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (selfCopy->_intentProtoData && selfCopy->_intent)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "Purging intent proto data due to memory pressure", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1BF549000, v4, OS_LOG_TYPE_DEFAULT, "Purging intent proto data due to memory pressure", v6, 2u);
     }
 
     intentProtoData = selfCopy->_intentProtoData;
@@ -459,59 +459,60 @@ LABEL_7:
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [(ATXHomeScreenWidgetIdentifiable *)self initWithProto:v5];
+        [(ATXHomeScreenWidgetIdentifiable *)self initWithProto:v6];
       }
 
       selfCopy2 = 0;
       goto LABEL_11;
     }
 
-    v23.receiver = self;
-    v23.super_class = ATXHomeScreenWidgetIdentifiable;
-    self = [(ATXHomeScreenWidgetIdentifiable *)&v23 init];
+    v24.receiver = self;
+    v24.super_class = ATXHomeScreenWidgetIdentifiable;
+    self = [(ATXHomeScreenWidgetIdentifiable *)&v24 init];
     if (self)
     {
-      v5 = protoCopy;
+      v6 = protoCopy;
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      intent = [(ATXPBHomeScreenWidgetIdentifiable *)v5 intent];
+      intent = [(ATXPBHomeScreenWidgetIdentifiable *)v6 intent];
 
       if (intent)
       {
-        intent2 = [(ATXPBHomeScreenWidgetIdentifiable *)v5 intent];
+        intent2 = [(ATXPBHomeScreenWidgetIdentifiable *)v6 intent];
         intentProtoData = selfCopy->_intentProtoData;
         selfCopy->_intentProtoData = intent2;
       }
 
       objc_sync_exit(selfCopy);
 
-      appBundleId = [(ATXPBHomeScreenWidgetIdentifiable *)v5 appBundleId];
+      appBundleId = [(ATXPBHomeScreenWidgetIdentifiable *)v6 appBundleId];
       appBundleId = selfCopy->_appBundleId;
       selfCopy->_appBundleId = appBundleId;
 
-      extensionBundleId = [(ATXPBHomeScreenWidgetIdentifiable *)v5 extensionBundleId];
+      extensionBundleId = [(ATXPBHomeScreenWidgetIdentifiable *)v6 extensionBundleId];
       extensionBundleId = selfCopy->_extensionBundleId;
       selfCopy->_extensionBundleId = extensionBundleId;
 
-      widgetUniqueId = [(ATXPBHomeScreenWidgetIdentifiable *)v5 widgetUniqueId];
+      widgetUniqueId = [(ATXPBHomeScreenWidgetIdentifiable *)v6 widgetUniqueId];
       widgetUniqueId = selfCopy->_widgetUniqueId;
       selfCopy->_widgetUniqueId = widgetUniqueId;
 
-      widgetKind = [(ATXPBHomeScreenWidgetIdentifiable *)v5 widgetKind];
+      widgetKind = [(ATXPBHomeScreenWidgetIdentifiable *)v6 widgetKind];
       widgetKind = selfCopy->_widgetKind;
       selfCopy->_widgetKind = widgetKind;
 
-      v18 = [(ATXPBHomeScreenWidgetIdentifiable *)v5 size];
-      selfCopy->_size = ATXStackLayoutSizeFromProto(v18);
-      selfCopy->_suggestedWidget = [(ATXPBHomeScreenWidgetIdentifiable *)v5 suggestedWidget];
-      selfCopy->_onboardingWidget = [(ATXPBHomeScreenWidgetIdentifiable *)v5 onboardingWidget];
-      selfCopy->_score = [(ATXPBHomeScreenWidgetIdentifiable *)v5 score];
-      predictionSource = [(ATXPBHomeScreenWidgetIdentifiable *)v5 predictionSource];
+      v19 = [(ATXPBHomeScreenWidgetIdentifiable *)v6 size];
+      selfCopy->_size = ATXStackLayoutSizeFromProto(v19);
+      selfCopy->_suggestedWidget = [(ATXPBHomeScreenWidgetIdentifiable *)v6 suggestedWidget];
+      selfCopy->_onboardingWidget = [(ATXPBHomeScreenWidgetIdentifiable *)v6 onboardingWidget];
+      selfCopy->_score = [(ATXPBHomeScreenWidgetIdentifiable *)v6 score];
+      predictionSource = [(ATXPBHomeScreenWidgetIdentifiable *)v6 predictionSource];
       predictionSource = selfCopy->_predictionSource;
       selfCopy->_predictionSource = predictionSource;
 

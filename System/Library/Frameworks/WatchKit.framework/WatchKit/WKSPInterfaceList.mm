@@ -74,8 +74,8 @@
       else
       {
         NSLog(&cfstr_ErrorUnableToI.isa, v10, v6);
-        v18 = wk_default_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v19 = wk_default_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           *buf = 136446978;
           v27 = "[WKSPInterfaceList setRowTypes:]";
@@ -85,7 +85,7 @@
           v31 = v10;
           v32 = 2048;
           v33 = v6;
-          _os_log_error_impl(&dword_23B338000, v18, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error unable to instantiate row controller class %{public}@ for row %ld", buf, 0x26u);
+          _os_log_error_impl(&dword_23B338000, v19, OS_LOG_TYPE_ERROR, "%{public}s:%d: Error unable to instantiate row controller class %{public}@ for row %ld", buf, 0x26u);
         }
       }
 
@@ -97,8 +97,6 @@
 
   [(WKSPInterfaceList *)self setRowControllers:v21];
   [(WKSPInterfaceList *)self setRowControllerProperties:array];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)numberOfRows

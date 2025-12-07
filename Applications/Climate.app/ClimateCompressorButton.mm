@@ -9,7 +9,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  sub_100003390();
+  sub_100003390(selfCopy);
 }
 
 - (void)didUpdateColorFilterPreferenceWithFilter:(int64_t)filter

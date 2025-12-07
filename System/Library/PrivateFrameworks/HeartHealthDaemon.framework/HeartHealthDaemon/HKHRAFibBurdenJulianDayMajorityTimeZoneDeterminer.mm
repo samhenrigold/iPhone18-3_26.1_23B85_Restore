@@ -31,7 +31,7 @@
 {
   var1 = range.var1;
   var0 = range.var0;
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v9 = MEMORY[0x277D10848];
   seriesType = self->_seriesType;
@@ -43,38 +43,38 @@
 
   [v12 setEncodingOption:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D10400]];
   v14 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D104A8] entityClass:objc_opt_class() ascending:1];
-  v37[0] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+  v36[0] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
   [v12 setOrderingTerms:v15];
 
-  v36 = 0;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __104__HKHRAFibBurdenJulianDayMajorityTimeZoneDeterminer_determineJulianDayToMajorityTimeZoneForRange_error___block_invoke;
-  v32[3] = &unk_278660178;
-  v32[4] = self;
-  v34 = var0;
-  v35 = var1;
+  v35 = 0;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __104__HKHRAFibBurdenJulianDayMajorityTimeZoneDeterminer_determineJulianDayToMajorityTimeZoneForRange_error___block_invoke;
+  v31[3] = &unk_278660178;
+  v31[4] = self;
+  v33 = var0;
+  v34 = var1;
   v16 = v8;
-  v33 = v16;
-  LOBYTE(v8) = [v12 enumerateWithError:&v36 handler:v32];
-  v17 = v36;
+  v32 = v16;
+  LOBYTE(v8) = [v12 enumerateWithError:&v35 handler:v31];
+  v17 = v35;
   if (v8)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__2;
-    v30 = __Block_byref_object_dispose__2;
-    v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __104__HKHRAFibBurdenJulianDayMajorityTimeZoneDeterminer_determineJulianDayToMajorityTimeZoneForRange_error___block_invoke_322;
-    v25[3] = &unk_2786601C8;
-    v25[4] = &v26;
-    [v16 enumerateKeysAndObjectsUsingBlock:v25];
-    v18 = v27[5];
-    _Block_object_dispose(&v26, 8);
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__2;
+    v29 = __Block_byref_object_dispose__2;
+    v30 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __104__HKHRAFibBurdenJulianDayMajorityTimeZoneDeterminer_determineJulianDayToMajorityTimeZoneForRange_error___block_invoke_322;
+    v24[3] = &unk_2786601C8;
+    v24[4] = &v25;
+    [v16 enumerateKeysAndObjectsUsingBlock:v24];
+    v18 = v26[5];
+    _Block_object_dispose(&v25, 8);
   }
 
   else
@@ -104,8 +104,6 @@
 
     v18 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -221,26 +219,24 @@ void __104__HKHRAFibBurdenJulianDayMajorityTimeZoneDeterminer_determineJulianDay
 
 - (id)_totalDatePredicateForStartDayIndex:(int64_t)index endDayIndex:(int64_t)dayIndex
 {
-  v7 = objc_alloc(MEMORY[0x277CCA970]);
-  v8 = [MEMORY[0x277CBEAA8] hk_earliestPossibleDateWithDayIndex:index];
-  v9 = [MEMORY[0x277CBEAA8] hk_latestPossibleDateWithDayIndex:dayIndex];
-  v10 = [v7 initWithStartDate:v8 endDate:v9];
+  v6 = objc_alloc(MEMORY[0x277CCA970]);
+  v7 = [MEMORY[0x277CBEAA8] hk_earliestPossibleDateWithDayIndex:index];
+  v8 = [MEMORY[0x277CBEAA8] hk_latestPossibleDateWithDayIndex:dayIndex];
+  v9 = [v6 initWithStartDate:v7 endDate:v8];
 
-  seriesType = self->_seriesType;
-  v12 = HDSampleEntityPredicateForDateInterval();
+  v10 = HDSampleEntityPredicateForDateInterval();
 
-  return v12;
+  return v10;
 }
 
 - (void)determineJulianDayToMajorityTimeZoneForRange:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%@] Failed to enumerate across samples, received error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%@] Failed to enumerate across samples, received error: %@", &v3, 0x16u);
 }
 
 @end

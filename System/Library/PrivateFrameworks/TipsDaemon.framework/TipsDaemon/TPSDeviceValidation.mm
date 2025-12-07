@@ -128,35 +128,31 @@ LABEL_9:
 
 - (void)validateWithCompletion:(NSObject *)a3 .cold.1(void *a1, char a2, NSObject *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = objc_opt_class();
   v7 = v6;
   v8 = [a1 targetDevices];
   v9 = [v8 componentsJoinedByString:{@", "}];
   v10 = [a1 excludeDevices];
   v11 = [v10 componentsJoinedByString:{@", "}];
-  v13 = 138413058;
-  v14 = v6;
-  v15 = 2112;
-  v16 = v9;
-  v17 = 2112;
-  v18 = v11;
-  v19 = 1024;
-  v20 = a2 & 1;
-  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - target devices: %@, exclude devices: %@. Valid: %d", &v13, 0x26u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = 138413058;
+  v13 = v6;
+  v14 = 2112;
+  v15 = v9;
+  v16 = 2112;
+  v17 = v11;
+  v18 = 1024;
+  v19 = a2 & 1;
+  _os_log_debug_impl(&dword_232D6F000, a3, OS_LOG_TYPE_DEBUG, "%@ - target devices: %@, exclude devices: %@. Valid: %d", &v12, 0x26u);
 }
 
 - (void)validateWithCompletion:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "%@ - neither target nor exclude device(s) is specified.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "%@ - neither target nor exclude device(s) is specified.", &v4, 0xCu);
 }
 
 @end

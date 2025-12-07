@@ -128,9 +128,9 @@ LABEL_16:
   v25 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   identifier = [objectCopy identifier];
-  v6 = [identifier isEqualToString:self->_identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if (v6)
+  if (isEqualToString)
   {
     self->_version = [objectCopy version];
     ruleIdentifier = [objectCopy ruleIdentifier];
@@ -172,7 +172,7 @@ LABEL_16:
     }
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (void)updatedStatusForAction:(int64_t)action

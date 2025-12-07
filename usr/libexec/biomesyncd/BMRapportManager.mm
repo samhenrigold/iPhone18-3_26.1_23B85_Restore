@@ -363,7 +363,7 @@
         }
       }
 
-      [deviceCopy invalidateClientWithError:{errorCopy, *v18, *&v18[16]}];
+      [deviceCopy invalidateClientWithError:{errorCopy, *v18, *&v18[8]}];
     }
 
     else

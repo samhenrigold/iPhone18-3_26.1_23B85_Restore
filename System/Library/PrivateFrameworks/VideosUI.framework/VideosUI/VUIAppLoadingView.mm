@@ -143,13 +143,14 @@ uint64_t __54__VUIAppLoadingView_showOverKeyWindowWithSpinnerOnly___block_invoke
 
 - (void)timeout
 {
-  if ([(VUIAppLoadingView *)self isVisible])
+  isVisible = [(VUIAppLoadingView *)self isVisible];
+  if (isVisible)
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = VUIDefaultLogObject(isVisible);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_INFO, "VUIAppLoadingView - VUIAppLoadingView timed out, hiding", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_INFO, "VUIAppLoadingView - VUIAppLoadingView timed out, hiding", v5, 2u);
     }
 
     [(VUIAppLoadingView *)self hide];

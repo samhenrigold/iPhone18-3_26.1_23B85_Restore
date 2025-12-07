@@ -32,18 +32,18 @@
 
 - (CKFetchShareMetadataOperationInfo)initWithCoder:(id)coder
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v36.receiver = self;
-  v36.super_class = CKFetchShareMetadataOperationInfo;
-  v5 = [(CKOperationInfo *)&v36 initWithCoder:coderCopy];
+  v35.receiver = self;
+  v35.super_class = CKFetchShareMetadataOperationInfo;
+  v5 = [(CKOperationInfo *)&v35 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
     v7 = MEMORY[0x1E695DFD8];
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v38, 2);
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v37, 2);
     v11 = objc_msgSend_setWithArray_(v7, v10, v9);
     v13 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v12, v11, @"URLsToFetch");
     shareURLsToFetch = v5->_shareURLsToFetch;
@@ -59,10 +59,10 @@
 
     v5->_shouldFetchRootRecord = objc_msgSend_decodeBoolForKey_(coderCopy, v23, @"ShouldFetchRootRecord");
     v24 = MEMORY[0x1E695DFD8];
-    v37[0] = objc_opt_class();
-    v37[1] = objc_opt_class();
-    v37[2] = objc_opt_class();
-    v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v25, v37, 3);
+    v36[0] = objc_opt_class();
+    v36[1] = objc_opt_class();
+    v36[2] = objc_opt_class();
+    v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v25, v36, 3);
     v28 = objc_msgSend_setWithArray_(v24, v27, v26);
     v30 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v29, v28, @"ShareInvitationTokensByShareURL");
     shareInvitationTokensByShareURL = v5->_shareInvitationTokensByShareURL;
@@ -73,7 +73,6 @@
     objc_autoreleasePoolPop(v6);
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

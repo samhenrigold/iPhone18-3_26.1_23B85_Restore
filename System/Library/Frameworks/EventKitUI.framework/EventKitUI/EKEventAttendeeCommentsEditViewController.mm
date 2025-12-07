@@ -304,21 +304,21 @@ uint64_t __61__EKEventAttendeeCommentsEditViewController__createTableData__block
   }
 }
 
-uint64_t __51__EKEventAttendeeCommentsEditViewController__done___block_invoke_37(uint64_t result, uint64_t a2)
+void *__51__EKEventAttendeeCommentsEditViewController__done___block_invoke_37(void *result, uint64_t a2)
 {
   if ((a2 - 3) >= 3)
   {
     v2 = result;
-    (*(*(result + 40) + 16))();
-    v3 = *(*(v2 + 48) + 8);
+    (*(result[5] + 16))();
+    v3 = *(v2[6] + 8);
     v4 = *(v3 + 40);
     *(v3 + 40) = 0;
 
-    [*(v2 + 32) _transitionTableViewOutOfEditingMode];
-    result = [*(*(v2 + 32) + 1000) numberOfSections];
+    [v2[4] _transitionTableViewOutOfEditingMode];
+    result = [*(v2[4] + 1000) numberOfSections];
     if (!result)
     {
-      v5 = *(v2 + 32);
+      v5 = v2[4];
 
       return [v5 _popViewControllerAnimated:1];
     }

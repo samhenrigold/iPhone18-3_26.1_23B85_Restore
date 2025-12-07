@@ -35,60 +35,61 @@
 
 - (void)runOperations
 {
-  v29 = 0;
-  v3 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v29];
-  v4 = v29;
+  v30 = 0;
+  v3 = [(CPLCloudKitTransportTask *)self shouldRunOperationsWithError:&v30];
+  v4 = v30;
   v5 = v4;
   if (v3)
   {
-    v22 = v4;
+    v23 = v4;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_100003C94();
+      v6 = sub_100003C94(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         resources = self->_resources;
         *buf = 138412290;
-        v32 = resources;
+        v33 = resources;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Checking resources %@", buf, 0xCu);
       }
     }
 
     v8 = [[NSMutableDictionary alloc] initWithCapacity:{-[NSArray count](self->_resources, "count")}];
-    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
     selfCopy = self;
     v9 = self->_resources;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v27;
       do
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v26 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v26 + 1) + 8 * i);
           itemScopedIdentifier = [(NSArray *)v14 itemScopedIdentifier];
+          v16 = itemScopedIdentifier;
           if (itemScopedIdentifier)
           {
-            v16 = [v8 objectForKeyedSubscript:itemScopedIdentifier];
-            v17 = [v16 mutableCopy];
+            v17 = [v8 objectForKeyedSubscript:itemScopedIdentifier];
+            v18 = [v17 mutableCopy];
 
-            if (!v17)
+            if (!v18)
             {
-              v17 = objc_alloc_init(NSMutableArray);
-              [v8 setObject:v17 forKeyedSubscript:itemScopedIdentifier];
+              v18 = objc_alloc_init(NSMutableArray);
+              [v8 setObject:v18 forKeyedSubscript:v16];
             }
 
-            [v17 addObject:v14];
+            [v18 addObject:v14];
           }
 
           else
@@ -98,19 +99,19 @@
               goto LABEL_19;
             }
 
-            v17 = sub_100003C94();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v18 = sub_100003C94(0);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v32 = v14;
-              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Missing identifier to check for resource %@", buf, 0xCu);
+              v33 = v14;
+              _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Missing identifier to check for resource %@", buf, 0xCu);
             }
           }
 
 LABEL_19:
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v11);
@@ -118,16 +119,16 @@ LABEL_19:
 
     allKeys = [v8 allKeys];
     targetMapping = selfCopy->_targetMapping;
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_1000B4000;
-    v23[3] = &unk_100275080;
-    v23[4] = selfCopy;
-    v24 = v8;
-    v20 = v8;
-    [(CPLCloudKitTransportTask *)selfCopy fetchFullRecordsForScopedIdentifiers:allKeys targetMapping:targetMapping completionHandler:v23];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_1000B4000;
+    v24[3] = &unk_100275080;
+    v24[4] = selfCopy;
+    v25 = v8;
+    v21 = v8;
+    [(CPLCloudKitTransportTask *)selfCopy fetchFullRecordsForScopedIdentifiers:allKeys targetMapping:targetMapping completionHandler:v24];
 
-    v5 = v22;
+    v5 = v23;
   }
 
   else

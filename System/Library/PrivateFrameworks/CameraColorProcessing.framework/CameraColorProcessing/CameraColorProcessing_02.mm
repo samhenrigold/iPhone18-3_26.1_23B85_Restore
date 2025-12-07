@@ -4,7 +4,7 @@ void *LTMComputeV2::LTMCompute::levelSmoothHFFCB(LTMComputeV2::LTMCompute *this,
   v263 = a4;
   v267 = a2;
   v11 = this + 61440;
-  MEMORY[0x1EEE9AC00](this);
+  MEMORY[0x1EEE9AC00](this, a2, a3, a8.n128_f32[0]);
   v266 = &v243 - 4 * v12;
   v265 = v13;
   v264 = v14;
@@ -326,7 +326,7 @@ void *LTMComputeV2::LTMCompute::levelSmoothHFFCB(LTMComputeV2::LTMCompute *this,
         v116 = &LTMComputeV2::LTMCompute::upsampleHFFInterpsIndices + 4 * v108;
         v117 = &v110[4 * v108];
         v118 = &v111[4 * v108];
-        v119 = v109->i64 + 4 * v108;
+        v119 = &v109->i8[4 * v108];
         do
         {
           v120 = dword_1C93341E4[v112];
@@ -339,7 +339,7 @@ void *LTMComputeV2::LTMCompute::levelSmoothHFFCB(LTMComputeV2::LTMCompute *this,
           v122 += 36;
           *&v117[4 * v112] = (v113 * ((v120 * *(v60 + v122)) + ((1.0 - v120) * v126))) + (v114 * v124);
           *&v118[4 * v112] = (v113 * ((v120 * *&v58[v122]) + ((1.0 - v120) * *(v125 + v58)))) + (v114 * ((v120 * *&v58[v123]) + ((1.0 - v120) * *&v58[4 * v121])));
-          *(v119 + 4 * v112++) = (v113 * ((v120 * *(v56 + v122)) + ((1.0 - v120) * *(v125 + v56)))) + (v114 * ((v120 * *(v56 + v123)) + ((1.0 - v120) * *(v56 + v121))));
+          *&v119[4 * v112++] = (v113 * ((v120 * *(v56 + v122)) + ((1.0 - v120) * *(v125 + v56)))) + (v114 * ((v120 * *(v56 + v123)) + ((1.0 - v120) * *(v56 + v121))));
         }
 
         while (v112 != 16);
@@ -820,172 +820,172 @@ void *LTMComputeV2::LTMCompute::levelSmoothHFFCB(LTMComputeV2::LTMCompute *this,
 
 void *LTMComputeV2::LTMCompute::applyCBBlending(LTMComputeV2::LTMCompute *this, float *a2, const float *a3, __n128 a4, const float *a5, float a6)
 {
-  v51 = a4;
-  v10 = memcpy(v52, a5, 0x300uLL);
-  v11 = v51.n128_f32[0];
-  v12 = 0;
+  v53 = a4;
+  v10 = memcpy(v54, a5, 0x300uLL);
+  v13 = v53.n128_f32[0];
+  v14 = 0;
   __asm { FMOV            V0.4S, #1.0 }
 
   do
   {
-    v18 = vmulq_n_f32(*&v52[v12], v11);
-    *&v52[v12] = v18;
-    *&v52[v12 + 768] = vsubq_f32(_Q0, v18);
-    v12 += 16;
+    v20 = vmulq_n_f32(*&v54[v14], v13);
+    *&v54[v14] = v20;
+    *&v54[v14 + 768] = vsubq_f32(_Q0, v20);
+    v14 += 16;
   }
 
-  while (v12 != 768);
-  v19 = *(this + 5);
-  if (v19)
+  while (v14 != 768);
+  v21 = *(this + 5);
+  if (v21)
   {
-    v20 = 0;
-    v21 = 0;
+    v22 = 0;
+    v23 = 0;
     do
     {
-      v22 = 0;
-      v23 = &a2[v21];
-      v24 = &a3[v21];
-      v21 += 192;
+      v24 = 0;
+      v25 = &a2[v23];
+      v26 = &a3[v23];
+      v23 += 192;
       do
       {
-        v23[v22] = v23[v22] + ((((*&v52[v22 * 4 + 768] * v23[v22]) + (*&v52[v22 * 4] * v24[v22])) - v23[v22]) * a6);
-        ++v22;
+        v25[v24] = v25[v24] + ((((*&v54[v24 * 4 + 768] * v25[v24]) + (*&v54[v24 * 4] * v26[v24])) - v25[v24]) * a6);
+        ++v24;
       }
 
-      while (v22 != 192);
-      ++v20;
+      while (v24 != 192);
+      ++v22;
     }
 
-    while (v20 != v19);
+    while (v22 != v21);
   }
 
-  MEMORY[0x1EEE9AC00](v10);
-  v27 = (&v51 - 4 * v26);
-  v28 = 0;
-  v29 = 0;
-  v30 = *(this + 5);
-  v31 = a2 + 192;
+  MEMORY[0x1EEE9AC00](v10, v11, v12, _Q0.f32[0]);
+  v29 = (&v53 - 4 * v28);
+  v30 = 0;
+  v31 = 0;
+  v32 = *(this + 5);
+  v33 = a2 + 192;
   do
   {
-    v32 = 0;
-    v33 = v31;
-    v34 = v29;
+    v34 = 0;
+    v35 = v33;
+    v36 = v31;
     do
     {
-      v27->f32[v34] = a2[16 * v28 + v32];
-      v29 = v34 + 1;
-      if (v30 >= 2)
+      v29->f32[v36] = a2[16 * v30 + v34];
+      v31 = v36 + 1;
+      if (v32 >= 2)
       {
-        v35 = &v27->f32[v29];
-        v36 = v30 - 1;
-        v37 = v33;
+        v37 = &v29->f32[v31];
+        v38 = v32 - 1;
+        v39 = v35;
         do
         {
-          v38 = *v37;
-          if (*v37 < v27->f32[v34])
+          v40 = *v39;
+          if (*v39 < v29->f32[v36])
           {
-            v38 = v27->f32[v34];
+            v40 = v29->f32[v36];
           }
 
-          *v35++ = v38;
-          v37 += 192;
-          ++v34;
-          --v36;
+          *v37++ = v40;
+          v39 += 192;
+          ++v36;
+          --v38;
         }
 
-        while (v36);
-        v29 = v34 + 1;
+        while (v38);
+        v31 = v36 + 1;
       }
 
-      ++v32;
-      ++v33;
-      v34 = v29;
+      ++v34;
+      ++v35;
+      v36 = v31;
     }
 
-    while (v32 != 16);
-    ++v28;
-    v31 += 16;
+    while (v34 != 16);
+    ++v30;
+    v33 += 16;
   }
 
-  while (v28 != 12);
-  v39 = (192 * v30);
-  if (v39 < 1)
+  while (v30 != 12);
+  v41 = (192 * v32);
+  if (v41 < 1)
   {
-    LODWORD(v40) = 0;
+    LODWORD(v42) = 0;
   }
 
   else
   {
-    v40 = 0;
-    v41 = v27;
+    v42 = 0;
+    v43 = v29;
     do
     {
-      *v41 = vmaxq_f32(*v41, 0);
-      ++v41;
-      v40 += 4;
+      *v43 = vmaxq_f32(*v43, 0);
+      ++v43;
+      v42 += 4;
     }
 
-    while (v40 < v39);
+    while (v42 < v41);
   }
 
-  if (v40 < v39)
+  if (v42 < v41)
   {
-    v42 = v39 - v40;
-    v43 = &v27->f32[v40];
+    v44 = v41 - v42;
+    v45 = &v29->f32[v42];
     do
     {
-      v44 = *v43;
-      if (*v43 < 0.0)
+      v46 = *v45;
+      if (*v45 < 0.0)
       {
-        v44 = 0.0;
+        v46 = 0.0;
       }
 
-      *v43++ = v44;
-      --v42;
+      *v45++ = v46;
+      --v44;
     }
 
-    while (v42);
+    while (v44);
   }
 
-  if (v39 < 1)
+  if (v41 < 1)
   {
-    LODWORD(v45) = 0;
+    LODWORD(v47) = 0;
   }
 
   else
   {
-    v45 = 0;
-    v46 = v27;
+    v47 = 0;
+    v48 = v29;
     do
     {
-      *v46 = vminq_f32(*v46, v25);
-      ++v46;
-      v45 += 4;
+      *v48 = vminq_f32(*v48, v27);
+      ++v48;
+      v47 += 4;
     }
 
-    while (v45 < v39);
+    while (v47 < v41);
   }
 
-  if (v45 < v39)
+  if (v47 < v41)
   {
-    v47 = v39 - v45;
-    v48 = &v27->f32[v45];
+    v49 = v41 - v47;
+    v50 = &v29->f32[v47];
     do
     {
-      v49 = *v48;
-      if (*v48 > 1.0)
+      v51 = *v50;
+      if (*v50 > 1.0)
       {
-        v49 = 1.0;
+        v51 = 1.0;
       }
 
-      *v48++ = v49;
-      --v47;
+      *v50++ = v51;
+      --v49;
     }
 
-    while (v47);
+    while (v49);
   }
 
-  return memcpy(a2, v27, 768 * v30);
+  return memcpy(a2, v29, 768 * v32);
 }
 
 void LTMComputeV2::LTMCompute::levelSmoothHFF(LTMComputeV2::LTMCompute *this, float *a2, const float *a3, const float *a4, int a5, int a6, int a7)
@@ -3006,7 +3006,7 @@ float32x4_t *LTMComputeV2::LTMCompute::LTCGridCalcAlgo(LTMComputeV2::LTMCompute 
       {
         v123 = v117 - v119;
         v124 = &v116[4 * v119];
-        v125 = &LTMComputeV2::LTMCompute::globalHist2 + v119;
+        v125 = LTMComputeV2::LTMCompute::globalHist2 + v119;
         do
         {
           v126 = *v125++;
@@ -3842,7 +3842,7 @@ uint64_t LTMDriverV2::LTMDriver::Process(LTMDriverV2::LTMDriver *this, const sCL
   {
     LTMDriverV2::LTMDriver::computeGlobalHistogram(v16, a2->globalFaceHistStat + 192, a4->ltmComputeInput.globalHist2, HIWORD(globalFaceHistWindow), globalFaceHistWindow, 1, 0x40u, v17);
     *p_faceFraction = (HIWORD(globalFaceHistWindow) * globalFaceHistWindow);
-    v16 = LTMDriverV2::LTMDriver::computeFaceWeight(v18, &a3->localHistGridConfig, v19, &a3->faceInfo.rectArray[a3->faceInfo.primaryFaceIndex], 1, a4->ltmComputeInput.faceWeightForHistBlend, v49, 1.0);
+    v16 = LTMDriverV2::LTMDriver::computeFaceWeight(v18, &a3->localHistGridConfig, v19, &a3->faceInfo.rectArray[a3->faceInfo.primaryFaceIndex], 1u, a4->ltmComputeInput.faceWeightForHistBlend, v49, 1.0);
   }
 
   LTMDriverV2::LTMDriver::computeFaceWeightForToneHFF(v16, a3, &a4->ltmComputeInput);
@@ -4108,9 +4108,9 @@ float LTMDriverV2::LTMDriver::computeGlobalHistogram(LTMDriverV2::LTMDriver *thi
   return result;
 }
 
-uint64_t LTMDriverV2::LTMDriver::computeFaceWeight(LTMDriverV2::LTMDriver *this, const sBTRect *a2, sLtmComputeInput *a3, const sCIspFDRect *a4, int a5, float *a6, const int *a7, float a8)
+uint64_t LTMDriverV2::LTMDriver::computeFaceWeight(LTMDriverV2::LTMDriver *this, const sBTRect *a2, sLtmComputeInput *a3, const sCIspFDRect *a4, unsigned int a5, float *a6, const int *a7, float a8)
 {
-  v95 = a4;
+  v99 = a4;
   if (LTMDriverV2::LTMDriver::computeFaceWeight(sBTRect const*,sLtmComputeInput *,sCIspFDRect const*,int,float *,int const*,float)::onceToken != -1)
   {
     LTMDriverV2::LTMDriver::computeFaceWeight();
@@ -4131,7 +4131,7 @@ uint64_t LTMDriverV2::LTMDriver::computeFaceWeight(LTMDriverV2::LTMDriver *this,
   }
 
   v18 = llroundf(v14 * 0.5);
-  v19 = (floorf(v14) * 0.5);
+  v19 = floorf(v14) * 0.5;
   if (v18 >= v19)
   {
     v20 = v19;
@@ -4145,217 +4145,217 @@ uint64_t LTMDriverV2::LTMDriver::computeFaceWeight(LTMDriverV2::LTMDriver *this,
   x = a2->x;
   y = a2->y;
   v23 = *a7;
-  MEMORY[0x1EEE9AC00]();
-  v25 = (&v89 - ((v24 + 15) & 0x7FFFFFFF0));
+  MEMORY[0x1EEE9AC00](this, a2, a3, v19);
+  v25 = (&v93 - ((v24 + 15) & 0x7FFFFFFF0));
   bzero(v25, 4 * v26);
   v27 = *(a7 + 1);
-  MEMORY[0x1EEE9AC00]();
-  v29 = (&v89 - ((v28 + 15) & 0x7FFFFFFF0));
-  bzero(v29, 4 * v30);
+  MEMORY[0x1EEE9AC00](v28, v29, v30, v31);
+  v33 = (&v93 - ((v32 + 15) & 0x7FFFFFFF0));
+  bzero(v33, 4 * v34);
   if (a5 >= 1)
   {
-    v33 = 0;
-    v93 = ((v13 + v17) * 0.5) + x;
-    v92 = ((v14 + v20) * 0.5) + y;
-    *&v31 = sqrtf(v13 * v14);
-    *&v32 = v13 / *&v31;
-    v101 = v32;
-    v94 = a5;
-    v34 = vdupq_n_s64(v23 - 1);
-    v108 = vdupq_n_s64(v27 - 1);
-    v109 = v34;
-    v91 = v25 + 2;
-    v90 = v29 + 2;
-    v97 = xmmword_1C932FAE0;
-    v96 = xmmword_1C932FAF0;
+    v37 = 0;
+    v97 = ((v13 + v17) * 0.5) + x;
+    v96 = ((v14 + v20) * 0.5) + y;
+    *&v35 = sqrtf(v13 * v14);
+    *&v36 = v13 / *&v35;
+    v105 = v36;
+    v98 = a5;
+    v38 = vdupq_n_s64(v23 - 1);
+    v112 = vdupq_n_s64(v27 - 1);
+    v113 = v38;
+    v95 = v25 + 2;
+    v94 = v33 + 2;
+    v101 = xmmword_1C932FAE0;
+    v100 = xmmword_1C932FAF0;
     __asm { FMOV            V1.4S, #1.0 }
 
-    v107 = _Q1;
-    v40 = vdupq_n_s64(4uLL);
-    v100 = v40;
-    *&v31 = v14 / *&v31;
-    v99 = v31;
+    v111 = _Q1;
+    v44 = vdupq_n_s64(4uLL);
+    v104 = v44;
+    *&v35 = v14 / *&v35;
+    v103 = v35;
     do
     {
-      v98 = v33;
-      v41 = &v95[v33];
-      height = v41->height;
-      v43 = v41->y;
+      v102 = v37;
+      v45 = &v99[v37];
+      height = v45->height;
+      v47 = v45->y;
       if (v23 >= 1)
       {
-        v44 = 0;
-        v45 = v41->width / v13;
-        *v40.i32 = v45 * 0.5;
-        *v34.i32 = (v45 * 0.5) + ((v41->x - v93) / v13);
-        v103 = vdupq_lane_s32(*v40.i8, 0);
-        v46 = sqrtf(fminf(v45, 1.0));
-        v102 = vdupq_lane_s32(*v34.i8, 0);
-        v47 = v91;
-        v34 = v96;
-        v48 = v97;
+        v48 = 0;
+        v49 = v45->width / v13;
+        *v44.i32 = v49 * 0.5;
+        *v38.i32 = (v49 * 0.5) + ((v45->x - v97) / v13);
+        v107 = vdupq_lane_s32(*v44.i8, 0);
+        v50 = sqrtf(fminf(v49, 1.0));
+        v106 = vdupq_lane_s32(*v38.i8, 0);
+        v51 = v95;
+        v38 = v100;
+        v52 = v101;
         do
         {
-          v105 = v48;
-          v49 = vorr_s8(vdup_n_s32(v44), 0x300000002);
-          v106 = v34;
-          v50 = vcgeq_u64(v109, v34);
-          v51 = vmovn_s64(v50);
-          *v50.i8 = vuzp1_s16(v51, v49);
-          v104 = v50;
-          v50.i32[0] = v44;
-          v50.i32[1] = v44 + 1;
-          v50.u64[1] = v49;
-          v111 = vaddq_f32(vmulq_n_f32(vmaxnmq_f32(vsubq_f32(vabdq_f32(vcvtq_f32_u32(v50), v102), v103), 0), *&v101), v107);
-          *&v52 = powf(v111.f32[1], 4.0);
-          v110 = v52;
-          *&v53 = powf(v111.f32[0], 4.0);
-          DWORD1(v53) = v110;
-          v110 = v53;
-          v54 = powf(v111.f32[2], 4.0);
-          v55 = v110;
-          *(&v55 + 2) = v54;
-          v110 = v55;
-          v56 = powf(v111.f32[3], 4.0);
-          v57 = v110;
-          *(&v57 + 3) = v56;
-          v58 = *v104.i8;
-          if (v104.i8[0])
+          v109 = v52;
+          v53 = vorr_s8(vdup_n_s32(v48), 0x300000002);
+          v110 = v38;
+          v54 = vcgeq_u64(v113, v38);
+          v55 = vmovn_s64(v54);
+          *v54.i8 = vuzp1_s16(v55, v53);
+          v108 = v54;
+          v54.i32[0] = v48;
+          v54.i32[1] = v48 + 1;
+          v54.u64[1] = v53;
+          v115 = vaddq_f32(vmulq_n_f32(vmaxnmq_f32(vsubq_f32(vabdq_f32(vcvtq_f32_u32(v54), v106), v107), 0), *&v105), v111);
+          *&v56 = powf(v115.f32[1], 4.0);
+          v114 = v56;
+          *&v57 = powf(v115.f32[0], 4.0);
+          DWORD1(v57) = v114;
+          v114 = v57;
+          v58 = powf(v115.f32[2], 4.0);
+          v59 = v114;
+          *(&v59 + 2) = v58;
+          v114 = v59;
+          v60 = powf(v115.f32[3], 4.0);
+          v61 = v114;
+          *(&v61 + 3) = v60;
+          v62 = *v108.i8;
+          if (v108.i8[0])
           {
-            *v58.i32 = v46 / *&v110;
-            *(v47 - 2) = v46 / *&v110;
+            *v62.i32 = v50 / *&v114;
+            *(v51 - 2) = v50 / *&v114;
           }
 
-          v59 = v105;
-          if (vuzp1_s16(v51, v58).i8[2])
+          v63 = v109;
+          if (vuzp1_s16(v55, v62).i8[2])
           {
-            *(v47 - 1) = v46 / *(&v57 + 1);
+            *(v51 - 1) = v50 / *(&v61 + 1);
           }
 
-          v60 = vmovn_s64(vcgeq_u64(v109, v59));
-          *v40.i8 = vuzp1_s16(v60, v60);
-          v61 = v106;
-          if (v40.i8[4])
+          v64 = vmovn_s64(vcgeq_u64(v113, v63));
+          *v44.i8 = vuzp1_s16(v64, v64);
+          v65 = v110;
+          if (v44.i8[4])
           {
-            *v47 = v46 / *(&v57 + 2);
+            *v51 = v50 / *(&v61 + 2);
           }
 
-          if (vuzp1_s16(v60, v60).i8[6])
+          if (vuzp1_s16(v64, v64).i8[6])
           {
-            v47[1] = v46 / *(&v57 + 3);
+            v51[1] = v50 / *(&v61 + 3);
           }
 
-          v44 += 4;
-          v48 = vaddq_s64(v59, v100);
-          v34 = vaddq_s64(v61, v100);
-          v47 += 4;
+          v48 += 4;
+          v52 = vaddq_s64(v63, v104);
+          v38 = vaddq_s64(v65, v104);
+          v51 += 4;
         }
 
-        while (((v23 + 3) & 0xFFFFFFFC) != v44);
+        while (((v23 + 3) & 0xFFFFFFFC) != v48);
       }
 
       if (v27 >= 1)
       {
-        v62 = 0;
-        v63 = height / v14;
-        *v34.i32 = v63 * 0.5;
-        *v40.i32 = (v63 * 0.5) + ((v43 - v92) / v14);
-        v103 = vdupq_lane_s32(*v34.i8, 0);
-        v64 = sqrtf(fminf(v63, 1.0));
-        v102 = vdupq_lane_s32(*v40.i8, 0);
-        v65 = v90;
-        v34 = v96;
-        v66 = v97;
+        v66 = 0;
+        v67 = height / v14;
+        *v38.i32 = v67 * 0.5;
+        *v44.i32 = (v67 * 0.5) + ((v47 - v96) / v14);
+        v107 = vdupq_lane_s32(*v38.i8, 0);
+        v68 = sqrtf(fminf(v67, 1.0));
+        v106 = vdupq_lane_s32(*v44.i8, 0);
+        v69 = v94;
+        v38 = v100;
+        v70 = v101;
         do
         {
-          v105 = v66;
-          v67 = vorr_s8(vdup_n_s32(v62), 0x300000002);
-          v106 = v34;
-          v68 = vcgeq_u64(v108, v34);
-          v69 = vmovn_s64(v68);
-          *v68.i8 = vuzp1_s16(v69, v67);
-          v104 = v68;
-          v68.i32[0] = v62;
-          v68.i32[1] = v62 + 1;
-          v68.u64[1] = v67;
-          v111 = vaddq_f32(vmulq_n_f32(vmaxnmq_f32(vsubq_f32(vabdq_f32(vcvtq_f32_u32(v68), v102), v103), 0), *&v99), v107);
-          *&v70 = powf(v111.f32[1], 4.0);
-          v110 = v70;
-          *&v71 = powf(v111.f32[0], 4.0);
-          DWORD1(v71) = v110;
-          v110 = v71;
-          v72 = powf(v111.f32[2], 4.0);
-          v73 = v110;
-          *(&v73 + 2) = v72;
-          v110 = v73;
-          v74 = powf(v111.f32[3], 4.0);
-          v75 = v110;
-          *(&v75 + 3) = v74;
-          v76 = *v104.i8;
-          if (v104.i8[0])
+          v109 = v70;
+          v71 = vorr_s8(vdup_n_s32(v66), 0x300000002);
+          v110 = v38;
+          v72 = vcgeq_u64(v112, v38);
+          v73 = vmovn_s64(v72);
+          *v72.i8 = vuzp1_s16(v73, v71);
+          v108 = v72;
+          v72.i32[0] = v66;
+          v72.i32[1] = v66 + 1;
+          v72.u64[1] = v71;
+          v115 = vaddq_f32(vmulq_n_f32(vmaxnmq_f32(vsubq_f32(vabdq_f32(vcvtq_f32_u32(v72), v106), v107), 0), *&v103), v111);
+          *&v74 = powf(v115.f32[1], 4.0);
+          v114 = v74;
+          *&v75 = powf(v115.f32[0], 4.0);
+          DWORD1(v75) = v114;
+          v114 = v75;
+          v76 = powf(v115.f32[2], 4.0);
+          v77 = v114;
+          *(&v77 + 2) = v76;
+          v114 = v77;
+          v78 = powf(v115.f32[3], 4.0);
+          v79 = v114;
+          *(&v79 + 3) = v78;
+          v80 = *v108.i8;
+          if (v108.i8[0])
           {
-            *v76.i32 = v64 / *&v110;
-            *(v65 - 2) = v64 / *&v110;
+            *v80.i32 = v68 / *&v114;
+            *(v69 - 2) = v68 / *&v114;
           }
 
-          v77 = v105;
-          if (vuzp1_s16(v69, v76).i8[2])
+          v81 = v109;
+          if (vuzp1_s16(v73, v80).i8[2])
           {
-            *(v65 - 1) = v64 / *(&v75 + 1);
+            *(v69 - 1) = v68 / *(&v79 + 1);
           }
 
-          v78 = vmovn_s64(vcgeq_u64(v108, v77));
-          *v40.i8 = vuzp1_s16(v78, v78);
-          v79 = v106;
-          if (v40.i8[4])
+          v82 = vmovn_s64(vcgeq_u64(v112, v81));
+          *v44.i8 = vuzp1_s16(v82, v82);
+          v83 = v110;
+          if (v44.i8[4])
           {
-            *v65 = v64 / *(&v75 + 2);
+            *v69 = v68 / *(&v79 + 2);
           }
 
-          if (vuzp1_s16(v78, v78).i8[6])
+          if (vuzp1_s16(v82, v82).i8[6])
           {
-            v65[1] = v64 / *(&v75 + 3);
+            v69[1] = v68 / *(&v79 + 3);
           }
 
-          v62 += 4;
-          v80 = vdupq_n_s64(4uLL);
-          v66 = vaddq_s64(v77, v80);
-          v34 = vaddq_s64(v79, v80);
-          v65 += 4;
+          v66 += 4;
+          v84 = vdupq_n_s64(4uLL);
+          v70 = vaddq_s64(v81, v84);
+          v38 = vaddq_s64(v83, v84);
+          v69 += 4;
         }
 
-        while (((v27 + 3) & 0xFFFFFFFC) != v62);
-        v81 = 0;
-        v82 = 0;
+        while (((v27 + 3) & 0xFFFFFFFC) != v66);
+        v85 = 0;
+        v86 = 0;
         do
         {
           if (v23 >= 1)
           {
-            v83 = &a6[v82];
-            v82 += v23;
-            v84 = v23;
-            v85 = v29[v81];
-            v86 = v25;
+            v87 = &a6[v86];
+            v86 += v23;
+            v88 = v23;
+            v89 = v33[v85];
+            v90 = v25;
             do
             {
-              v87 = *v86++;
-              *v83 = *v83 + (v87 * v85);
-              ++v83;
-              --v84;
+              v91 = *v90++;
+              *v87 = *v87 + (v91 * v89);
+              ++v87;
+              --v88;
             }
 
-            while (v84);
+            while (v88);
           }
 
-          ++v81;
+          ++v85;
         }
 
-        while (v81 != v27);
+        while (v85 != v27);
       }
 
-      v33 = v98 + 1;
+      v37 = v102 + 1;
     }
 
-    while (v98 + 1 != v94);
+    while (v102 + 1 != v98);
   }
 
   return 0;
@@ -4368,93 +4368,93 @@ uint64_t LTMDriverV2::LTMDriver::computeFaceWeightForToneHFF(LTMDriverV2::LTMDri
     LTMDriverV2::LTMDriver::computeFaceWeightForToneHFF();
   }
 
-  *v40 = 0xC00000010;
+  *v43 = 0xC00000010;
   fmapHFF = a3->fmapHFF;
-  v6 = LTMDriverV2::LTMDriver::computeFaceWeight(this, &a2->localHistGridConfig, a3, a2->faceInfo.rectArray, a2->faceInfo.numFaces, a3->fmapHFF, v40, 2.0);
-  MEMORY[0x1EEE9AC00](v6);
-  memcpy(v39, a3->fmapHFF, 0x300uLL);
-  v7 = 0;
-  v8 = 0;
+  v6 = LTMDriverV2::LTMDriver::computeFaceWeight(this, &a2->localHistGridConfig, a3, a2->faceInfo.rectArray, a2->faceInfo.numFaces, a3->fmapHFF, v43, 2.0);
+  MEMORY[0x1EEE9AC00](v6, v7, v8, v9);
+  memcpy(v42, a3->fmapHFF, 0x300uLL);
+  v10 = 0;
+  v11 = 0;
   do
   {
-    v9 = v8;
-    v10 = *&v39[4 * v8 + 4];
-    fmapHFF[v8] = (((*&v39[4 * v8] * 0.22561) + 0.0) + (*&v39[4 * v8] * 0.54882)) + (v10 * 0.22561);
-    v11 = (v8 << 32) + 0x100000000;
-    v12 = 14;
+    v12 = v11;
+    v13 = *&v42[4 * v11 + 4];
+    fmapHFF[v11] = (((*&v42[4 * v11] * 0.22561) + 0.0) + (*&v42[4 * v11] * 0.54882)) + (v13 * 0.22561);
+    v14 = (v11 << 32) + 0x100000000;
+    v15 = 14;
     do
     {
-      v13 = &v39[4 * v9];
-      v14 = ((*v13 * 0.22561) + 0.0) + (v10 * 0.54882);
-      v10 = v13[2];
-      a3->fmapHFF[++v9] = v14 + (v10 * 0.22561);
-      v11 += 0x100000000;
-      --v12;
+      v16 = &v42[4 * v12];
+      v17 = ((*v16 * 0.22561) + 0.0) + (v13 * 0.54882);
+      v13 = v16[2];
+      a3->fmapHFF[++v12] = v17 + (v13 * 0.22561);
+      v14 += 0x100000000;
+      --v15;
     }
 
-    while (v12);
-    *(fmapHFF + (v11 >> 30)) = (((*&v39[(v11 >> 30) - 4] * 0.22561) + 0.0) + (*&v39[v11 >> 30] * 0.54882)) + (*&v39[v11 >> 30] * 0.22561);
-    v8 = v9 + 2;
-    ++v7;
+    while (v15);
+    *(fmapHFF + (v14 >> 30)) = (((*&v42[(v14 >> 30) - 4] * 0.22561) + 0.0) + (*&v42[v14 >> 30] * 0.54882)) + (*&v42[v14 >> 30] * 0.22561);
+    v11 = v12 + 2;
+    ++v10;
   }
 
-  while (v7 != 12);
-  memcpy(v39, a3->fmapHFF, 0x300uLL);
-  v15 = 0;
-  v16 = &v39[64];
-  v17 = vdupq_n_s32(0x3E67064Fu);
-  v18 = vdupq_n_s32(0x3F0C7F35u);
+  while (v10 != 12);
+  memcpy(v42, a3->fmapHFF, 0x300uLL);
+  v18 = 0;
+  v19 = &v42[64];
+  v20 = vdupq_n_s32(0x3E67064Fu);
+  v21 = vdupq_n_s32(0x3F0C7F35u);
   do
   {
-    v19 = vmlaq_f32(vmlaq_f32(0, v17, v16[-4]), v18, v16[-4]);
-    v20 = *v16++;
-    *&fmapHFF[v15] = vmlaq_f32(v19, v17, v20);
-    v15 += 4;
+    v22 = vmlaq_f32(vmlaq_f32(0, v20, v19[-4]), v21, v19[-4]);
+    v23 = *v19++;
+    *&fmapHFF[v18] = vmlaq_f32(v22, v20, v23);
+    v18 += 4;
   }
 
-  while (v15 != 16);
-  v21 = &v39[128];
+  while (v18 != 16);
+  v24 = &v42[128];
   f32 = &a3->fmapHFF[32];
-  v23 = &v39[64];
-  v24 = &a3->fmapHFF[16];
-  v25 = vdupq_n_s32(0x3E67064Fu);
-  v26 = vdupq_n_s32(0x3F0C7F35u);
-  v27 = 1;
+  v26 = &v42[64];
+  v27 = &a3->fmapHFF[16];
+  v28 = vdupq_n_s32(0x3E67064Fu);
+  v29 = vdupq_n_s32(0x3F0C7F35u);
+  v30 = 1;
   do
   {
-    v28 = v21;
-    v29 = f32;
-    v30 = v24;
-    v31 = v23;
-    v32 = 16;
+    v31 = v24;
+    v32 = f32;
+    v33 = v27;
+    v34 = v26;
+    v35 = 16;
     do
     {
-      *v30++ = vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v25, v31[-4]), v26, *v31), v25, v31[4]);
-      ++v31;
-      v32 -= 4;
+      *v33++ = vmlaq_f32(vmlaq_f32(vmlaq_f32(0, v28, v34[-4]), v29, *v34), v28, v34[4]);
+      ++v34;
+      v35 -= 4;
     }
 
-    while (v32);
-    ++v27;
-    v21 = v28 + 4;
-    f32 = v29[4].f32;
-    v23 += 4;
-    v24 += 16;
+    while (v35);
+    ++v30;
+    v24 = v31 + 4;
+    f32 = v32[4].f32;
+    v26 += 4;
+    v27 += 16;
   }
 
-  while (v27 != 11);
-  v33 = 16;
-  v34 = vdupq_n_s32(0x3E67064Fu);
-  v35 = vdupq_n_s32(0x3F0C7F35u);
+  while (v30 != 11);
+  v36 = 16;
+  v37 = vdupq_n_s32(0x3E67064Fu);
+  v38 = vdupq_n_s32(0x3F0C7F35u);
   do
   {
-    v36 = vmlaq_f32(0, v34, v28[-4]);
-    v37 = *v28++;
-    *v29++ = vmlaq_f32(vmlaq_f32(v36, v35, v37), v34, v37);
-    v33 -= 4;
+    v39 = vmlaq_f32(0, v37, v31[-4]);
+    v40 = *v31++;
+    *v32++ = vmlaq_f32(vmlaq_f32(v39, v38, v40), v37, v40);
+    v36 -= 4;
   }
 
-  while (v33);
+  while (v36);
   return 0;
 }
 
@@ -4526,7 +4526,7 @@ void LTMDriverV2::LTMDriver::UpdateColorInformation(LTMDriverV2::LTMDriver *this
   }
 }
 
-unsigned __int16 *LTMDriverV2::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV2::LTMDriver *this, const sCLRProcHITHStat_SOFTISP *a2, float a3, float a4, sLtmComputeInput *a5)
+unint64_t LTMDriverV2::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV2::LTMDriver *this, const sCLRProcHITHStat_SOFTISP *a2, float a3, float a4, sLtmComputeInput *a5)
 {
   v5 = 0;
   v6 = 0;
@@ -4595,7 +4595,7 @@ unsigned __int16 *LTMDriverV2::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV2::
         v25 = 0;
         v26 = 0;
         v27 = v21 + result;
-        v28 = result - 1;
+        v28 = (result - 2);
         v29 = result - 2;
         v30 = v20 + 6;
         if (v10 < v20 + 6)
@@ -4606,7 +4606,7 @@ unsigned __int16 *LTMDriverV2::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV2::
         thumbnailTotal = a2->thumbnailTotal;
         v32 = v30;
         v33 = thumbnailTotal * v27;
-        result = (17 * thumbnailTotal);
+        result = 17 * thumbnailTotal;
         v34 = v18;
         do
         {
@@ -4616,14 +4616,14 @@ unsigned __int16 *LTMDriverV2::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV2::
           {
             do
             {
-              result = &thumbnailStat[2 * v35];
-              v37 = result[2];
-              if (result[1] > v37)
+              result = thumbnailStat + 2 * v35;
+              v37 = *(result + 4);
+              if (*(result + 2) > v37)
               {
-                v37 = result[1];
+                v37 = *(result + 2);
               }
 
-              v38 = result[3];
+              v38 = *(result + 6);
               if (v38 <= v37)
               {
                 v38 = v37;
@@ -4720,408 +4720,412 @@ void LTMDriverV2::LTMDriver::HFFThumbnailDownscaleConvert(LTMDriverV2::LTMDriver
   while (v24 != 192);
   if (a6 == 1)
   {
-    LTMDriverV2::LTMDriver::calcBlendingMask(this, a3->CBBrightMap, blendingMaskInputTh, 24, 32, *(this + 6) == 1);
+    LTMDriverV2::LTMDriver::calcBlendingMask(this, a3->CBBrightMap, blendingMaskInputTh, 24, 0x20u, *(this + 6) == 1, v35);
   }
 
   LTMDriverV2::LTMDriver::calcHFFDampWeight(v34, &a3->HFFDampWeight, blendingMaskInputTh, a7);
 }
 
-float LTMDriverV2::LTMDriver::calcBlendingMask(LTMDriverV2::LTMDriver *this, float *a2, const float *a3, int a4, int a5, int a6)
+float LTMDriverV2::LTMDriver::calcBlendingMask(LTMDriverV2::LTMDriver *this, float *a2, const float *a3, int a4, unsigned int a5, int a6, float a7)
 {
-  v124 = a6;
-  v121 = a4;
-  v122 = a3;
-  v8 = (a5 * a4);
-  MEMORY[0x1EEE9AC00](this);
-  v10 = MEMORY[0x1EEE9AC00](&v120[-((v9 + 15) & 0x7FFFFFFF0)]);
-  v12 = &v120[-v11];
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = &v120[-v14];
-  v16 = MEMORY[0x1EEE9AC00](v13);
-  v18 = &v120[-v17];
-  v19 = MEMORY[0x1EEE9AC00](v16);
-  v21 = &v120[-v20];
-  v22 = MEMORY[0x1EEE9AC00](v19);
-  v24 = &v120[-v23];
-  v125 = v22;
-  bzero(v22, 4 * v8);
-  bzero(v12, 4 * v8);
-  bzero(v15, 4 * v8);
-  bzero(v18, 4 * v8);
-  bzero(v21, 4 * v8);
-  v123 = 4 * v8;
-  v25 = v15;
-  v26 = v121;
-  bzero(v24, v123);
-  LTMDriverV2::LTMDriver::average3x3(v27, v122, v25, v26, a5);
-  LODWORD(v122) = a5;
-  LTMDriverV2::LTMDriver::average3x3(v28, v25, v18, v26, a5);
-  if (v8 >= 1)
+  v151 = a6;
+  v148 = a4;
+  v149 = a3;
+  v9 = a5 * a4;
+  MEMORY[0x1EEE9AC00](this, a2, a3, a7);
+  v14 = MEMORY[0x1EEE9AC00](&v147[-((v10 + 15) & 0x7FFFFFFF0)], v11, v12, v13);
+  v16 = &v147[-v15];
+  v20 = MEMORY[0x1EEE9AC00](v14, v17, v18, v19);
+  v22 = &v147[-v21];
+  v26 = MEMORY[0x1EEE9AC00](v20, v23, v24, v25);
+  v28 = &v147[-v27];
+  v32 = MEMORY[0x1EEE9AC00](v26, v29, v30, v31);
+  v34 = &v147[-v33];
+  v38 = MEMORY[0x1EEE9AC00](v32, v35, v36, v37);
+  v40 = &v147[-v39];
+  v152 = v38;
+  bzero(v38, 4 * v9);
+  bzero(v16, 4 * v9);
+  bzero(v22, 4 * v9);
+  bzero(v28, 4 * v9);
+  bzero(v34, 4 * v9);
+  v150 = 4 * v9;
+  v41 = v22;
+  v42 = v148;
+  bzero(v40, v150);
+  v45 = LTMDriverV2::LTMDriver::average3x3(v43, v149, v41, v42, a5, v44);
+  LODWORD(v149) = a5;
+  v50.f32[0] = LTMDriverV2::LTMDriver::average3x3(v46, v41, v28, v42, a5, v45);
+  if (v9 >= 1)
   {
-    v30 = v8;
-    v31 = v18;
-    v32 = v24;
+    v50.i32[0] = -8388608;
+    v51 = v9;
+    v52 = v28;
+    v53 = v40;
     do
     {
-      v33 = *v31++;
-      v34 = fabsf(sqrtf(v33));
-      if (v33 == -INFINITY)
+      v54 = *v52++;
+      v55 = fabsf(sqrtf(v54));
+      if (v54 == -INFINITY)
       {
-        v35 = INFINITY;
+        v56 = INFINITY;
       }
 
       else
       {
-        v35 = v34;
+        v56 = v55;
       }
 
-      *v32++ = v35;
-      --v30;
-    }
-
-    while (v30);
-  }
-
-  v36 = v8 & 0xFFFFFFFC;
-  if (v36 < 1)
-  {
-    LODWORD(v37) = 0;
-  }
-
-  else
-  {
-    v37 = 0;
-    v38 = v25;
-    v39 = v18;
-    v40 = v21;
-    do
-    {
-      v41 = *v38++;
-      v42 = v41;
-      v43 = *v39++;
-      *v40++ = vsubq_f32(v42, v43);
-      v37 += 4;
-    }
-
-    while (v37 < v36);
-  }
-
-  if (v37 < v8)
-  {
-    v44 = v8 - v37;
-    v45 = &v21[v37];
-    v46 = &v18[v37];
-    v47 = &v25[v37];
-    do
-    {
-      v48 = *v47++;
-      v49 = v48;
-      v50 = *v46++;
-      *v45++ = v49 - v50;
-      --v44;
-    }
-
-    while (v44);
-  }
-
-  if (v8 >= 1)
-  {
-    v51 = v8;
-    v52 = v125;
-    v53 = v12;
-    do
-    {
-      v54 = *v18++;
-      v55 = *v21 / (v54 + 0.001);
-      *v21++ = v55;
-      v56 = *v24++;
-      v57 = v56;
-      v58 = ((1.0 - v56) * 0.05) + (v55 * -0.95);
-      v59 = v58 <= 0.0;
-      v60 = v58 < 1.0 || v58 <= 0.0;
-      if (v58 >= 1.0)
-      {
-        v59 = 1;
-      }
-
-      if (v60)
-      {
-        v61 = 0.0;
-      }
-
-      else
-      {
-        v61 = 1.0;
-      }
-
-      if (v59)
-      {
-        v58 = v61;
-      }
-
-      *v52++ = v58;
-      v62 = (v57 * 0.1) + (v55 * 0.9);
-      v63 = v62 <= 0.0;
-      v64 = v62 < 1.0 || v62 <= 0.0;
-      if (v62 >= 1.0)
-      {
-        v63 = 1;
-      }
-
-      if (v64)
-      {
-        v65 = 0.0;
-      }
-
-      else
-      {
-        v65 = 1.0;
-      }
-
-      if (v63)
-      {
-        v62 = v65;
-      }
-
-      *v53++ = v62;
+      *v53++ = v56;
       --v51;
     }
 
     while (v51);
   }
 
-  MEMORY[0x1EEE9AC00](v29);
-  v66 = (4 * v8 + 15) & 0x7FFFFFFF0;
-  v67 = v125;
-  v68 = v123;
-  v69 = memcpy(&v120[-v66], v125, v123);
-  v70 = v122;
-  LTMDriverV2::LTMDriver::average3x3(v69, &v120[-v66], v67, v26, v122);
-  MEMORY[0x1EEE9AC00](v71);
-  v72 = memcpy(&v120[-v66], v12, v68);
-  LTMDriverV2::LTMDriver::average3x3(v72, &v120[-v66], v12, v26, v70);
-  v73 = v8 & 0xFFFFFFF0;
-  if (v124)
+  v57 = v9 & 0xFFFFFFFC;
+  if (v57 < 1)
   {
-    if (v73 < 1)
+    LODWORD(v58) = 0;
+  }
+
+  else
+  {
+    v58 = 0;
+    v59 = v41;
+    v60 = v28;
+    v61 = v34;
+    do
     {
-      LODWORD(v74) = 0;
+      v62 = *v59++;
+      v63 = v62;
+      v64 = *v60++;
+      v50 = vsubq_f32(v63, v64);
+      *v61++ = v50;
+      v58 += 4;
+    }
+
+    while (v58 < v57);
+  }
+
+  if (v58 < v9)
+  {
+    v65 = v9 - v58;
+    v66 = &v34[v58];
+    v67 = &v28[v58];
+    v68 = &v41[v58];
+    do
+    {
+      v69 = *v68++;
+      v70 = v69;
+      v71 = *v67++;
+      v50.f32[0] = v70 - v71;
+      *v66++ = v50.f32[0];
+      --v65;
+    }
+
+    while (v65);
+  }
+
+  if (v9 >= 1)
+  {
+    v50.i32[0] = 981668463;
+    v72 = v9;
+    v73 = v152;
+    v74 = v16;
+    do
+    {
+      v75 = *v28++;
+      v76 = *v34 / (v75 + 0.001);
+      *v34++ = v76;
+      v77 = *v40++;
+      v78 = v77;
+      v79 = ((1.0 - v77) * 0.05) + (v76 * -0.95);
+      v80 = v79 <= 0.0;
+      v81 = v79 < 1.0 || v79 <= 0.0;
+      if (v79 >= 1.0)
+      {
+        v80 = 1;
+      }
+
+      if (v81)
+      {
+        v82 = 0.0;
+      }
+
+      else
+      {
+        v82 = 1.0;
+      }
+
+      if (v80)
+      {
+        v79 = v82;
+      }
+
+      *v73++ = v79;
+      v83 = (v78 * 0.1) + (v76 * 0.9);
+      v84 = v83 <= 0.0;
+      v85 = v83 < 1.0 || v83 <= 0.0;
+      if (v83 >= 1.0)
+      {
+        v84 = 1;
+      }
+
+      if (v85)
+      {
+        v86 = 0.0;
+      }
+
+      else
+      {
+        v86 = 1.0;
+      }
+
+      if (v84)
+      {
+        v83 = v86;
+      }
+
+      *v74++ = v83;
+      --v72;
+    }
+
+    while (v72);
+  }
+
+  MEMORY[0x1EEE9AC00](v47, v48, v49, v50.f32[0]);
+  v87 = (4 * v9 + 15) & 0x7FFFFFFF0;
+  v88 = v152;
+  v89 = v150;
+  v90 = memcpy(&v147[-v87], v152, v150);
+  v91 = v149;
+  v93 = LTMDriverV2::LTMDriver::average3x3(v90, &v147[-v87], v88, v42, v149, v92);
+  MEMORY[0x1EEE9AC00](v94, v95, v96, v93);
+  v97 = memcpy(&v147[-v87], v16, v89);
+  LTMDriverV2::LTMDriver::average3x3(v97, &v147[-v87], v16, v42, v91, v98);
+  v99 = v9 & 0xFFFFFFF0;
+  if (v151)
+  {
+    if (v99 < 1)
+    {
+      LODWORD(v100) = 0;
     }
 
     else
     {
-      v74 = 0;
-      v75 = (v67 + 8);
-      v76 = vdupq_n_s32(0x3ECCCCCDu);
+      v100 = 0;
+      v101 = (v88 + 8);
+      v102 = vdupq_n_s32(0x3ECCCCCDu);
       do
       {
-        v77 = vmulq_f32(v75[-1], v76);
-        v78 = vmulq_f32(*v75, v76);
-        v79 = vmulq_f32(v75[1], v76);
-        v75[-2] = vmulq_f32(v75[-2], v76);
-        v75[-1] = v77;
-        *v75 = v78;
-        v75[1] = v79;
-        v75 += 4;
-        v74 += 16;
+        v103 = vmulq_f32(v101[-1], v102);
+        v104 = vmulq_f32(*v101, v102);
+        v105 = vmulq_f32(v101[1], v102);
+        v101[-2] = vmulq_f32(v101[-2], v102);
+        v101[-1] = v103;
+        *v101 = v104;
+        v101[1] = v105;
+        v101 += 4;
+        v100 += 16;
       }
 
-      while (v74 < v73);
+      while (v100 < v99);
     }
 
-    if (v74 < v8)
+    if (v100 < v9)
     {
-      v86 = v8 - v74;
-      v87 = &v67[v74];
+      v112 = v9 - v100;
+      v113 = &v88[v100];
       do
       {
-        *v87 = *v87 * 0.4;
-        ++v87;
-        --v86;
+        *v113 = *v113 * 0.4;
+        ++v113;
+        --v112;
       }
 
-      while (v86);
+      while (v112);
     }
 
-    if (v73 < 1)
+    if (v99 < 1)
     {
-      LODWORD(v88) = 0;
+      LODWORD(v114) = 0;
     }
 
     else
     {
-      v88 = 0;
-      v89 = (v12 + 8);
-      v90 = vdupq_n_s32(0x3EE66666u);
+      v114 = 0;
+      v115 = (v16 + 8);
+      v116 = vdupq_n_s32(0x3EE66666u);
       do
       {
-        v91 = vmulq_f32(v89[-1], v90);
-        v92 = vmulq_f32(*v89, v90);
-        v93 = vmulq_f32(v89[1], v90);
-        v89[-2] = vmulq_f32(v89[-2], v90);
-        v89[-1] = v91;
-        *v89 = v92;
-        v89[1] = v93;
-        v89 += 4;
-        v88 += 16;
+        v117 = vmulq_f32(v115[-1], v116);
+        v118 = vmulq_f32(*v115, v116);
+        v119 = vmulq_f32(v115[1], v116);
+        v115[-2] = vmulq_f32(v115[-2], v116);
+        v115[-1] = v117;
+        *v115 = v118;
+        v115[1] = v119;
+        v115 += 4;
+        v114 += 16;
       }
 
-      while (v88 < v73);
+      while (v114 < v99);
     }
 
-    v102 = 0.25;
-    if (v88 < v8)
+    v128 = 0.25;
+    if (v114 < v9)
     {
-      v103 = v8 - v88;
-      v104 = &v12[v88];
+      v129 = v9 - v114;
+      v130 = &v16[v114];
       do
       {
-        *v104 = *v104 * 0.45;
-        ++v104;
-        --v103;
+        *v130 = *v130 * 0.45;
+        ++v130;
+        --v129;
       }
 
-      while (v103);
+      while (v129);
     }
   }
 
   else
   {
-    if (v73 < 1)
+    if (v99 < 1)
     {
-      LODWORD(v80) = 0;
+      LODWORD(v106) = 0;
     }
 
     else
     {
-      v80 = 0;
-      v81 = (v67 + 8);
-      v82 = vdupq_n_s32(0x3EB33333u);
+      v106 = 0;
+      v107 = (v88 + 8);
+      v108 = vdupq_n_s32(0x3EB33333u);
       do
       {
-        v83 = vmulq_f32(v81[-1], v82);
-        v84 = vmulq_f32(*v81, v82);
-        v85 = vmulq_f32(v81[1], v82);
-        v81[-2] = vmulq_f32(v81[-2], v82);
-        v81[-1] = v83;
-        *v81 = v84;
-        v81[1] = v85;
-        v81 += 4;
-        v80 += 16;
+        v109 = vmulq_f32(v107[-1], v108);
+        v110 = vmulq_f32(*v107, v108);
+        v111 = vmulq_f32(v107[1], v108);
+        v107[-2] = vmulq_f32(v107[-2], v108);
+        v107[-1] = v109;
+        *v107 = v110;
+        v107[1] = v111;
+        v107 += 4;
+        v106 += 16;
       }
 
-      while (v80 < v73);
+      while (v106 < v99);
     }
 
-    if (v80 < v8)
+    if (v106 < v9)
     {
-      v94 = v8 - v80;
-      v95 = &v67[v80];
+      v120 = v9 - v106;
+      v121 = &v88[v106];
       do
       {
-        *v95 = *v95 * 0.35;
-        ++v95;
-        --v94;
+        *v121 = *v121 * 0.35;
+        ++v121;
+        --v120;
       }
 
-      while (v94);
+      while (v120);
     }
 
-    if (v73 < 1)
+    if (v99 < 1)
     {
-      LODWORD(v96) = 0;
+      LODWORD(v122) = 0;
     }
 
     else
     {
-      v96 = 0;
-      v97 = (v12 + 8);
-      v98.i64[0] = 0x3F0000003F000000;
-      v98.i64[1] = 0x3F0000003F000000;
+      v122 = 0;
+      v123 = (v16 + 8);
+      v124.i64[0] = 0x3F0000003F000000;
+      v124.i64[1] = 0x3F0000003F000000;
       do
       {
-        v99 = vmulq_f32(v97[-1], v98);
-        v100 = vmulq_f32(*v97, v98);
-        v101 = vmulq_f32(v97[1], v98);
-        v97[-2] = vmulq_f32(v97[-2], v98);
-        v97[-1] = v99;
-        *v97 = v100;
-        v97[1] = v101;
-        v97 += 4;
-        v96 += 16;
+        v125 = vmulq_f32(v123[-1], v124);
+        v126 = vmulq_f32(*v123, v124);
+        v127 = vmulq_f32(v123[1], v124);
+        v123[-2] = vmulq_f32(v123[-2], v124);
+        v123[-1] = v125;
+        *v123 = v126;
+        v123[1] = v127;
+        v123 += 4;
+        v122 += 16;
       }
 
-      while (v96 < v73);
+      while (v122 < v99);
     }
 
-    v102 = 0.3;
-    if (v96 < v8)
+    v128 = 0.3;
+    if (v122 < v9)
     {
-      v105 = v8 - v96;
-      v106 = &v12[v96];
+      v131 = v9 - v122;
+      v132 = &v16[v122];
       do
       {
-        *v106 = *v106 * 0.5;
-        ++v106;
-        --v105;
+        *v132 = *v132 * 0.5;
+        ++v132;
+        --v131;
       }
 
-      while (v105);
+      while (v131);
     }
   }
 
-  if (v8 >= 1)
+  if (v9 >= 1)
   {
-    v107 = v67;
+    v133 = v88;
     do
     {
-      v108 = *v12++;
-      *v107 = *v107 * (1.0 / (v102 + (v108 + *v107)));
-      ++v107;
-      --v8;
+      v134 = *v16++;
+      *v133 = *v133 * (1.0 / (v128 + (v134 + *v133)));
+      ++v133;
+      --v9;
     }
 
-    while (v8);
+    while (v9);
   }
 
   bzero(a2, 0x300uLL);
-  if (v26 > 0)
+  if (v42 > 0)
   {
-    v109 = 0;
-    v110 = 0;
+    v135 = 0;
+    v136 = 0;
     do
     {
-      if (v70 >= 1)
+      if (v91 >= 1)
       {
-        v111 = 0;
+        v137 = 0;
         do
         {
-          a2[((8 * v109) & 0x7FFFFFF0) + (v111 >> 1)] = v67[v110 + v111] + a2[((8 * v109) & 0x7FFFFFF0) + (v111 >> 1)];
-          ++v111;
+          a2[((8 * v135) & 0x7FFFFFF0) + (v137 >> 1)] = v88[v136 + v137] + a2[((8 * v135) & 0x7FFFFFF0) + (v137 >> 1)];
+          ++v137;
         }
 
-        while (v70 != v111);
-        v110 += v111;
+        while (v91 != v137);
+        v136 += v137;
       }
 
-      ++v109;
+      ++v135;
     }
 
-    while (v109 != v26);
+    while (v135 != v42);
   }
 
-  v112 = 0;
+  v138 = 0;
   __asm { FMOV            V0.4S, #0.25 }
 
   do
   {
-    *&a2[v112] = vmulq_f32(*&a2[v112], _Q0);
-    v112 += 4;
+    *&a2[v138] = vmulq_f32(*&a2[v138], _Q0);
+    v138 += 4;
   }
 
-  while (v112 != 192);
-  v118 = memcpy(v126, a2, 0x300uLL);
-  return LTMDriverV2::LTMDriver::average3x3(v118, v126, a2, 12, 16);
+  while (v138 != 192);
+  v144 = memcpy(v153, a2, 0x300uLL);
+  return LTMDriverV2::LTMDriver::average3x3(v144, v153, a2, 12, 0x10u, v145);
 }
 
 void LTMDriverV2::LTMDriver::calcHFFDampWeight(LTMDriverV2::LTMDriver *this, float *a2, const float *__src, int a4)
@@ -5683,125 +5687,125 @@ _DWORD *LTMDriverV2::LTMDriver::CalculateSpatialCCMWeightMapForLEDFlash(LTMDrive
   return result;
 }
 
-float LTMDriverV2::LTMDriver::average3x3(LTMDriverV2::LTMDriver *this, const float *a2, float *a3, int a4, int a5)
+float LTMDriverV2::LTMDriver::average3x3(LTMDriverV2::LTMDriver *this, const float *a2, float *a3, int a4, unsigned int a5, float a6)
 {
   if (a5 <= 2)
-  {
-    v7 = 2;
-  }
-
-  else
-  {
-    v7 = a5;
-  }
-
-  if (a4 <= 2)
   {
     v8 = 2;
   }
 
   else
   {
-    v8 = a4;
+    v8 = a5;
   }
 
-  MEMORY[0x1EEE9AC00](this);
-  v14 = &v42 - v13;
-  v15 = 0;
+  if (a4 <= 2)
+  {
+    v9 = 2;
+  }
+
+  else
+  {
+    v9 = a4;
+  }
+
+  MEMORY[0x1EEE9AC00](this, a2, a3, a6);
+  v15 = &v43 - v14;
   v16 = 0;
-  v17 = (&v42 - v13);
+  v17 = 0;
+  v18 = (&v43 - v14);
   do
   {
-    v18 = v16;
-    v19 = v16 + 1;
-    a3[v16] = (*(v9 + 4 * v19) + (*(v9 + 4 * v16) + (*(v9 + 4 * v16) + 0.0))) / 3.0;
-    if (v11 < 3)
+    v19 = v17;
+    v20 = v17 + 1;
+    a3[v17] = (*(v10 + 4 * v20) + (*(v10 + 4 * v17) + (*(v10 + 4 * v17) + 0.0))) / 3.0;
+    if (v12 < 3)
     {
-      v22 = v16 + 1;
+      v23 = v17 + 1;
     }
 
     else
     {
-      v20 = (v9 + 8 + 4 * v16);
-      v21 = (v10 + 4 + 4 * v16);
-      v22 = v16 + 1;
-      v23 = v7 - 2;
-      v24 = (v18 << 32) + 0x100000000;
+      v21 = (v10 + 8 + 4 * v17);
+      v22 = (v11 + 4 + 4 * v17);
+      v23 = v17 + 1;
+      v24 = v8 - 2;
+      v25 = (v19 << 32) + 0x100000000;
       do
       {
-        v25 = *(v20 - 1) + (*(v20 - 2) + 0.0);
-        v26 = *v20++;
-        *v21++ = (v26 + v25) / 3.0;
-        v24 += 0x100000000;
-        ++v22;
-        --v23;
+        v26 = *(v21 - 1) + (*(v21 - 2) + 0.0);
+        v27 = *v21++;
+        *v22++ = (v27 + v26) / 3.0;
+        v25 += 0x100000000;
+        ++v23;
+        --v24;
       }
 
-      while (v23);
-      v19 = v24 >> 32;
+      while (v24);
+      v20 = v25 >> 32;
     }
 
-    a3[v19] = (*(v9 + 4 * v19) + (*(v9 + 4 * v19) + (*(v9 + 4 * v19 - 4) + 0.0))) / 3.0;
-    v16 = v22 + 1;
-    ++v15;
+    a3[v20] = (*(v10 + 4 * v20) + (*(v10 + 4 * v20) + (*(v10 + 4 * v20 - 4) + 0.0))) / 3.0;
+    v17 = v23 + 1;
+    ++v16;
   }
 
-  while (v15 != v8);
-  if (v12 <= 1)
+  while (v16 != v9);
+  if (v13 <= 1)
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  memcpy(&v42 - v13, a3, 4 * v12);
-  v27 = 0;
+  memcpy(&v43 - v14, a3, 4 * v13);
+  v28 = 0;
   do
   {
-    a3[v27] = (v17[v7] + (*v17 + (*v17 + 0.0))) / 3.0;
-    ++v17;
-    ++v27;
+    a3[v28] = (v18[v8] + (*v18 + (*v18 + 0.0))) / 3.0;
+    ++v18;
+    ++v28;
   }
 
-  while (v7 != v27);
-  v28 = v7;
+  while (v8 != v28);
+  v29 = v8;
   if (a4 >= 3)
   {
-    v29 = 1;
-    v30 = v7;
+    v30 = 1;
+    v31 = v8;
     do
     {
-      v31 = &v14[4 * v30];
-      v32 = v30 << 32;
-      v33 = v7;
-      v34 = &a3[v30];
+      v32 = &v15[4 * v31];
+      v33 = v31 << 32;
+      v34 = v8;
+      v35 = &a3[v31];
       do
       {
-        *v34++ = (v31[v7] + (*v31 + (v31[-v7] + 0.0))) / 3.0;
-        ++v31;
-        v30 = (v30 + 1);
-        v32 += 0x100000000;
-        --v33;
+        *v35++ = (v32[v8] + (*v32 + (v32[-v8] + 0.0))) / 3.0;
+        ++v32;
+        v31 = (v31 + 1);
+        v33 += 0x100000000;
+        --v34;
       }
 
-      while (v33);
+      while (v34);
     }
 
-    while (v29++ != v8 - 2);
-    v28 = v32 >> 32;
+    while (v30++ != v9 - 2);
+    v29 = v33 >> 32;
   }
 
-  v36 = -1 * v7;
-  v37 = &v14[4 * v28];
+  v37 = -1 * v8;
+  v38 = &v15[4 * v29];
   result = 0.0;
-  v39 = &a3[v28];
+  v40 = &a3[v29];
   do
   {
-    v40 = v37[v36] + 0.0;
-    v41 = *v37++;
-    *v39++ = (v41 + (v41 + v40)) / 3.0;
-    LODWORD(v7) = v7 - 1;
+    v41 = v38[v37] + 0.0;
+    v42 = *v38++;
+    *v40++ = (v42 + (v42 + v41)) / 3.0;
+    LODWORD(v8) = v8 - 1;
   }
 
-  while (v7);
+  while (v8);
   return result;
 }
 
@@ -5861,7 +5865,7 @@ void LTMComputeV1::LTMCompute::computeLocalLuma(LTMComputeV1::LTMCompute *this, 
       do
       {
         v23 = v22;
-        v24 = *(&LTMComputeV1::LTMCompute::localCurveInputs + v22++);
+        v24 = LTMComputeV1::LTMCompute::localCurveInputs[v22++];
       }
 
       while (v23 <= 0x40 && v24 < v21);
@@ -5869,7 +5873,7 @@ void LTMComputeV1::LTMCompute::computeLocalLuma(LTMComputeV1::LTMCompute *this, 
       if (v22 != 1)
       {
         v26 = (v22 - 2);
-        v27 = *(&LTMComputeV1::LTMCompute::localCurveInputs + v26);
+        v27 = LTMComputeV1::LTMCompute::localCurveInputs[v26];
         if (vabds_f32(v24, v27) >= 0.00000011921)
         {
           v25 = a4->var0[v26] + (((v21 - v27) / (v24 - v27)) * (*&p_var2[4 * v22] - a4->var0[v26]));
@@ -7219,7 +7223,7 @@ LTMComputeV2::LTMCompute *LTMComputeV1::LTMCompute::calculateGlobalLUTandModifyS
     }
 
 LABEL_20:
-    memcpy(&a8->LTC[3185], &LTMComputeV1::LTMCompute::globalCurveInputs, 0x404uLL);
+    memcpy(&a8->LTC[3185], LTMComputeV1::LTMCompute::globalCurveInputs, 0x404uLL);
 LABEL_136:
     result = memcpy(a7->var6, &v10->var0[65], 0x104uLL);
     goto LABEL_137;
@@ -7463,7 +7467,7 @@ LABEL_7:
   v67 = &a8->LTC[3185];
   do
   {
-    v67[v64] = powf(*(&LTMComputeV1::LTMCompute::globalCurveInputs + v64 * 4), v66);
+    v67[v64] = powf(LTMComputeV1::LTMCompute::globalCurveInputs[v64], v66);
     ++v64;
   }
 
@@ -7517,7 +7521,7 @@ LABEL_7:
     v77 = (this + 3352);
   }
 
-  LTMComputeV2::LTMCompute::interpolate(v76, v67, &LTMComputeV1::LTMCompute::globalCurveInputs, 257, v75, v77, 65);
+  LTMComputeV2::LTMCompute::interpolate(v76, v67, LTMComputeV1::LTMCompute::globalCurveInputs, 257, v75, v77, 65);
   LTMComputeV2::LTMCompute::interpolate(v78, LTMComputeV1::LTMCompute::localCurveInputs, a6->var0, 65, v77, v75, 65);
   v80 = 0;
   *(this + 8824) = 1;
@@ -7695,7 +7699,7 @@ LABEL_7:
     do
     {
       v124 = v123;
-      v125 = *(&LTMComputeV1::LTMCompute::globalCurveInputs + v123++);
+      v125 = LTMComputeV1::LTMCompute::globalCurveInputs[v123++];
     }
 
     while (v124 <= 0x100 && v125 < v116);
@@ -7703,7 +7707,7 @@ LABEL_7:
     if (v123 != 1)
     {
       v127 = (v123 - 2);
-      v128 = *(&LTMComputeV1::LTMCompute::globalCurveInputs + v127);
+      v128 = LTMComputeV1::LTMCompute::globalCurveInputs[v127];
       if (vabds_f32(v125, v128) >= 0.00000011921)
       {
         v126 = v67[v127] + (((v116 - v128) / (v125 - v128)) * (a8->LTC[v123 + 3184] - v67[v127]));
@@ -7755,7 +7759,7 @@ LABEL_7:
     }
   }
 
-  LTMComputeV2::LTMCompute::interpolate(v106, v75, LTMComputeV1::LTMCompute::localCurveInputs, 64, &LTMComputeV1::LTMCompute::globalCurveInputs, v163, var5);
+  LTMComputeV2::LTMCompute::interpolate(v106, v75, LTMComputeV1::LTMCompute::localCurveInputs, 64, LTMComputeV1::LTMCompute::globalCurveInputs, v163, var5);
   result = LTMComputeV2::LTMCompute::interpolate(v137, LTMComputeV1::LTMCompute::localCurveInputs, v108, 65, v163, v67, var5, v129);
   v139 = var5 & 0xFFFFFFF8;
   v140 = v126 / v134;
@@ -7804,7 +7808,7 @@ LABEL_7:
     *(this + 8827) = 1;
     v146 = 1.0 - v142;
     v147 = -4;
-    v148 = &LTMComputeV1::LTMCompute::globalCurveInputs;
+    v148 = LTMComputeV1::LTMCompute::globalCurveInputs;
     v149 = &LTMComputeV1::LTMCompute::liftedGTC;
     v150 = (this + 4720);
     do
@@ -7818,8 +7822,8 @@ LABEL_7:
 
     while (v147 < 0xFC);
     *(this + 1436) = v142 + v146;
-    LTMComputeV2::LTMCompute::interpolate(result, this + 1180, &LTMComputeV1::LTMCompute::globalCurveInputs, 257, v160, a7->var6, 65);
-    LTMComputeV2::LTMCompute::interpolate(v154, &LTMComputeV1::LTMCompute::globalCurveInputs, this + 1180, 257, v67, this + 1864, 257);
+    LTMComputeV2::LTMCompute::interpolate(result, this + 1180, LTMComputeV1::LTMCompute::globalCurveInputs, 257, v160, a7->var6, 65);
+    LTMComputeV2::LTMCompute::interpolate(v154, LTMComputeV1::LTMCompute::globalCurveInputs, this + 1180, 257, v67, this + 1864, 257);
     result = memcpy(v67, this + 7456, 0x404uLL);
     v142 = v158;
     *(this + 8825) = 0;
@@ -8740,7 +8744,7 @@ void *LTMComputeV1::LTMCompute::makeScaleGTC(LTMComputeV1::LTMCompute *this, flo
     do
     {
       v7 = v6;
-      v8 = *(&LTMComputeV1::LTMCompute::globalCurveInputs + v6++);
+      v8 = LTMComputeV1::LTMCompute::globalCurveInputs[v6++];
     }
 
     while (v7 <= 0x100 && v8 < a4);
@@ -8748,7 +8752,7 @@ void *LTMComputeV1::LTMCompute::makeScaleGTC(LTMComputeV1::LTMCompute *this, flo
     if (v6 != 1)
     {
       v10 = (v6 - 2);
-      v11 = *(&LTMComputeV1::LTMCompute::globalCurveInputs + v10);
+      v11 = LTMComputeV1::LTMCompute::globalCurveInputs[v10];
       if (vabds_f32(v8, v11) >= 0.00000011921)
       {
         v9 = __src[v10] + (((a4 - v11) / (v8 - v11)) * (__src[v6 - 1] - __src[v10]));
@@ -8874,7 +8878,7 @@ void LTMComputeV1::LTMCompute::computeRGBToneCurve(LTMComputeV1::LTMCompute *thi
     do
     {
       v28 = v27;
-      v29 = *(&LTMComputeV1::LTMCompute::globalCurveInputs + v27++);
+      v29 = LTMComputeV1::LTMCompute::globalCurveInputs[v27++];
     }
 
     while (v28 <= 0x100 && v29 < v25);
@@ -8882,7 +8886,7 @@ void LTMComputeV1::LTMCompute::computeRGBToneCurve(LTMComputeV1::LTMCompute *thi
     if (v27 != 1)
     {
       v31 = (v27 - 2);
-      v32 = *(&LTMComputeV1::LTMCompute::globalCurveInputs + v31);
+      v32 = LTMComputeV1::LTMCompute::globalCurveInputs[v31];
       if (vabds_f32(v29, v32) >= 0.00000011921)
       {
         v30 = v26[v31] + (((v25 - v32) / (v29 - v32)) * (a5->LTC[v27 + 3184] - v26[v31]));
@@ -8906,7 +8910,7 @@ void LTMComputeV1::LTMCompute::computeRGBToneCurve(LTMComputeV1::LTMCompute *thi
     v33 = (this + 4720);
   }
 
-  LTMComputeV1::LTMCompute::makeScaleGTC(this, v33, &LTMComputeV1::LTMCompute::globalCurveInputs, v30, a4->var6[78]);
+  LTMComputeV1::LTMCompute::makeScaleGTC(this, v33, LTMComputeV1::LTMCompute::globalCurveInputs, v30, a4->var6[78]);
   v34 = 0;
   v35 = *(this + 2);
   do
@@ -8949,7 +8953,7 @@ void LTMComputeV1::LTMCompute::computeRGBToneCurve(LTMComputeV1::LTMCompute *thi
     v40 = (this + 6088);
   }
 
-  ScaleGTC = LTMComputeV1::LTMCompute::makeScaleGTC(v37, v38, &LTMComputeV1::LTMCompute::globalCurveInputs, a4->var6[89], 0.28);
+  ScaleGTC = LTMComputeV1::LTMCompute::makeScaleGTC(v37, v38, LTMComputeV1::LTMCompute::globalCurveInputs, a4->var6[89], 0.28);
   v42 = 256;
   v43 = v39;
   do
@@ -8958,10 +8962,10 @@ void LTMComputeV1::LTMCompute::computeRGBToneCurve(LTMComputeV1::LTMCompute *thi
   }
 
   while (v42 != -1);
-  LTMComputeV2::LTMCompute::interpolate(ScaleGTC, v39, &LTMComputeV1::LTMCompute::globalCurveInputs, 257, &LTMComputeV1::LTMCompute::globalCurveInputs, v40, 257);
+  LTMComputeV2::LTMCompute::interpolate(ScaleGTC, v39, LTMComputeV1::LTMCompute::globalCurveInputs, 257, LTMComputeV1::LTMCompute::globalCurveInputs, v40, 257);
   v44 = powf(a4->var6[89], 0.8);
   v45 = powf(1.0 / ((0.4704 / v44) + 0.5146), 1.25);
-  LTMComputeV1::LTMCompute::makeScaleGTC(v46, v38, &LTMComputeV1::LTMCompute::globalCurveInputs, v45, 0.12);
+  LTMComputeV1::LTMCompute::makeScaleGTC(v46, v38, LTMComputeV1::LTMCompute::globalCurveInputs, v45, 0.12);
   v47 = 0;
   v48 = v38 + 256;
   do
@@ -8973,7 +8977,7 @@ void LTMComputeV1::LTMCompute::computeRGBToneCurve(LTMComputeV1::LTMCompute *thi
   while (v47 != 257);
   v9[635] = 1;
   v50 = memcpy(this + 7456, &a5->LTC[3185], 0x404uLL);
-  LTMComputeV2::LTMCompute::interpolate(v50, &LTMComputeV1::LTMCompute::globalCurveInputs, v40, 257, this + 1864, &a5->LTC[3185], 257);
+  LTMComputeV2::LTMCompute::interpolate(v50, LTMComputeV1::LTMCompute::globalCurveInputs, v40, 257, this + 1864, &a5->LTC[3185], 257);
   v51 = 0;
   v52 = *(this + 2);
   do
@@ -8986,7 +8990,7 @@ void LTMComputeV1::LTMCompute::computeRGBToneCurve(LTMComputeV1::LTMCompute *thi
   v54 = &a5->LTC[3442];
   if (*(v63 + 2473))
   {
-    memcpy(&a5->LTC[3442], &LTMComputeV1::LTMCompute::globalCurveInputs, 0x404uLL);
+    memcpy(&a5->LTC[3442], LTMComputeV1::LTMCompute::globalCurveInputs, 0x404uLL);
     for (i = 0; i != 257; ++i)
     {
       v56 = v54[i];
@@ -9006,9 +9010,9 @@ void LTMComputeV1::LTMCompute::computeRGBToneCurve(LTMComputeV1::LTMCompute *thi
 
   else
   {
-    LTMComputeV2::LTMCompute::interpolate(v53, &LTMComputeV1::LTMCompute::globalCurveInputs, v40, 257, v33, &a5->LTC[3442], 257);
-    LTMComputeV2::LTMCompute::interpolate(v58, v40, &a5->LTC[3442], 257, &LTMComputeV1::LTMCompute::globalCurveInputs, this + 1864, 257);
-    LTMComputeV2::LTMCompute::interpolate(v59, &LTMComputeV1::LTMCompute::globalCurveInputs, v39, 257, this + 1864, &a5->LTC[3442], 257);
+    LTMComputeV2::LTMCompute::interpolate(v53, LTMComputeV1::LTMCompute::globalCurveInputs, v40, 257, v33, &a5->LTC[3442], 257);
+    LTMComputeV2::LTMCompute::interpolate(v58, v40, &a5->LTC[3442], 257, LTMComputeV1::LTMCompute::globalCurveInputs, this + 1864, 257);
+    LTMComputeV2::LTMCompute::interpolate(v59, LTMComputeV1::LTMCompute::globalCurveInputs, v39, 257, this + 1864, &a5->LTC[3442], 257);
     for (j = 0; j != 257; ++j)
     {
       v61 = v54[j];
@@ -9258,7 +9262,8 @@ LABEL_13:
   v173 = &a2->localHist[4092];
   if (a2->localHist[4502] < 1.0)
   {
-    memset(v186, 0, 16);
+    *v186 = 0;
+    *&v186[2] = 0;
     v185 = 0;
     v183 = 0;
     LODWORD(v53) = 1025758986;

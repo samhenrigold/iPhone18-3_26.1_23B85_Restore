@@ -25,18 +25,16 @@
 
 uint64_t __41__DEDImageResourceManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = sharedInstance__sharedInstance;
-  sharedInstance__sharedInstance = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance__sharedInstance;
+  sharedInstance__sharedInstance = v1;
 
-  v4 = objc_alloc_init(ResourceLoader);
-  v5 = *(sharedInstance__sharedInstance + 8);
-  *(sharedInstance__sharedInstance + 8) = v4;
+  v3 = objc_alloc_init(ResourceLoader);
+  v4 = *(sharedInstance__sharedInstance + 8);
+  *(sharedInstance__sharedInstance + 8) = v3;
 
-  v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:4];
-  v7 = *(sharedInstance__sharedInstance + 16);
-  *(sharedInstance__sharedInstance + 16) = v6;
+  v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:4];
+  *(sharedInstance__sharedInstance + 16) = v5;
 
   return MEMORY[0x2821F96F8]();
 }

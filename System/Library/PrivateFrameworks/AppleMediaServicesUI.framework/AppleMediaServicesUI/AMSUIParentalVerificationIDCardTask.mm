@@ -41,7 +41,7 @@
 
 - (id)performTask
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -53,11 +53,11 @@
   {
     v5 = objc_opt_class();
     v6 = AMSLogKey();
-    v21 = 138543618;
-    v22 = v5;
-    v23 = 2114;
-    v24 = v6;
-    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running AMSUIParentalVerificationIDCardTask", &v21, 0x16u);
+    v19 = 138543618;
+    v20 = v5;
+    v21 = 2114;
+    v22 = v6;
+    _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running AMSUIParentalVerificationIDCardTask", &v19, 0x16u);
   }
 
   v7 = [MEMORY[0x1E6959A48] ams_sharedAccountStoreForMediaType:*MEMORY[0x1E698C4C0]];
@@ -73,8 +73,7 @@
 
   else
   {
-    v12 = *MEMORY[0x1E698C548];
-    v13 = AMSCustomError();
+    v12 = AMSCustomError();
     mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedConfig];
     if (!mEMORY[0x1E698C968]2)
     {
@@ -84,23 +83,21 @@
     oSLogObject2 = [mEMORY[0x1E698C968]2 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
     {
-      v16 = objc_opt_class();
-      v17 = AMSLogKey();
-      v21 = 138543874;
+      v15 = objc_opt_class();
+      v16 = AMSLogKey();
+      v19 = 138543874;
+      v20 = v15;
+      v21 = 2114;
       v22 = v16;
       v23 = 2114;
-      v24 = v17;
-      v25 = 2114;
-      v26 = v13;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] %{public}@", &v21, 0x20u);
+      v24 = v12;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] %{public}@", &v19, 0x20u);
     }
 
-    _promiseToRequestIDCardData = [MEMORY[0x1E698CAD0] promiseWithError:v13];
+    _promiseToRequestIDCardData = [MEMORY[0x1E698CAD0] promiseWithError:v12];
     metrics = [(AMSUIParentalVerificationIDCardTask *)self metrics];
     [metrics setDisplayReason:@"Missing account"];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return _promiseToRequestIDCardData;
 }
@@ -138,14 +135,13 @@
 
 uint64_t __66__AMSUIParentalVerificationIDCardTask__promiseToRequestIDCardData__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _minAgeFromObject:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() _minAgeFromObject:v3];
 
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
 
-  return [v6 _dataFromIDCardForMinimumAge:v5 nonce:v7];
+  return [v5 _dataFromIDCardForMinimumAge:v4 nonce:v6];
 }
 
 - (id)_dataFromIDCardForMinimumAge:(int64_t)age nonce:(id)nonce
@@ -207,7 +203,7 @@ void __74__AMSUIParentalVerificationIDCardTask__dataFromIDCardForMinimumAge_nonc
 
 void __74__AMSUIParentalVerificationIDCardTask__dataFromIDCardForMinimumAge_nonce___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v5 encryptedData];
@@ -215,126 +211,118 @@ void __74__AMSUIParentalVerificationIDCardTask__dataFromIDCardForMinimumAge_nonc
   if (v7)
   {
     v8 = [v5 encryptedData];
-    v9 = *(a1 + 32);
-    v10 = [objc_opt_class() _requestDictFromMinimumAge:*(a1 + 56) walletData:v8 nonce:*(a1 + 48)];
-    v11 = *(a1 + 40);
-    v12 = [*(a1 + 32) _promiseToLoadPVTURLWithBody:v10];
-    [v11 finishWithPromise:v12];
+    v9 = [objc_opt_class() _requestDictFromMinimumAge:*(a1 + 56) walletData:v8 nonce:*(a1 + 48)];
+    v10 = *(a1 + 40);
+    v11 = [*(a1 + 32) _promiseToLoadPVTURLWithBody:v9];
+    [v10 finishWithPromise:v11];
   }
 
   else
   {
-    v13 = [v6 code];
-    v14 = [*(a1 + 32) metrics];
-    v15 = v14;
-    if (v13 == 2)
+    v12 = [v6 code];
+    v13 = [*(a1 + 32) metrics];
+    v14 = v13;
+    if (v12 == 2)
     {
-      [v14 setDisplayReason:@"User closed wallet UI"];
+      [v13 setDisplayReason:@"User closed wallet UI"];
 
-      v16 = [MEMORY[0x1E698C968] sharedConfig];
-      if (!v16)
+      v15 = [MEMORY[0x1E698C968] sharedConfig];
+      if (!v15)
       {
-        v16 = [MEMORY[0x1E698C968] sharedConfig];
+        v15 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v17 = [v16 OSLogObject];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = [v15 OSLogObject];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v18 = *(a1 + 32);
-        v19 = objc_opt_class();
-        v20 = AMSLogKey();
+        v17 = objc_opt_class();
+        v18 = AMSLogKey();
         *buf = 138543874;
-        v39 = v19;
-        v40 = 2114;
-        v41 = v20;
-        v42 = 2114;
-        v43 = v6;
-        _os_log_impl(&dword_1BB036000, v17, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] ID Card UI was cancelled by user: %{public}@", buf, 0x20u);
+        v34 = v17;
+        v35 = 2114;
+        v36 = v18;
+        v37 = 2114;
+        v38 = v6;
+        _os_log_impl(&dword_1BB036000, v16, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] ID Card UI was cancelled by user: %{public}@", buf, 0x20u);
       }
 
-      v21 = *(a1 + 40);
-      v22 = *MEMORY[0x1E698C548];
-      v36 = @"really_cancelled";
-      v37 = MEMORY[0x1E695E118];
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-      v24 = AMSCustomError();
-      [v21 finishWithError:v24];
+      v19 = *(a1 + 40);
+      v31 = @"really_cancelled";
+      v32 = MEMORY[0x1E695E118];
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v21 = AMSCustomError();
+      [v19 finishWithError:v21];
     }
 
     else
     {
-      [v14 setDisplayReason:@"ID Card document request failed"];
+      [v13 setDisplayReason:@"ID Card document request failed"];
 
-      v25 = [MEMORY[0x1E698C968] sharedConfig];
-      if (!v25)
+      v22 = [MEMORY[0x1E698C968] sharedConfig];
+      if (!v22)
       {
-        v25 = [MEMORY[0x1E698C968] sharedConfig];
+        v22 = [MEMORY[0x1E698C968] sharedConfig];
       }
 
-      v26 = [v25 OSLogObject];
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v23 = [v22 OSLogObject];
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v27 = *(a1 + 32);
-        v28 = objc_opt_class();
-        v29 = AMSLogKey();
+        v24 = objc_opt_class();
+        v25 = AMSLogKey();
         *buf = 138543874;
-        v39 = v28;
-        v40 = 2114;
-        v41 = v29;
-        v42 = 2114;
-        v43 = v6;
-        _os_log_impl(&dword_1BB036000, v26, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Request document from wallet failed: %{public}@", buf, 0x20u);
+        v34 = v24;
+        v35 = 2114;
+        v36 = v25;
+        v37 = 2114;
+        v38 = v6;
+        _os_log_impl(&dword_1BB036000, v23, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Request document from wallet failed: %{public}@", buf, 0x20u);
       }
 
-      v30 = *(a1 + 40);
-      v31 = [*(a1 + 32) bag];
-      v32 = [*(a1 + 32) viewController];
-      v33 = [*(a1 + 32) metrics];
-      v34 = [AMSUIParentalVerificationCommon _promiseToPromptAfterFailureWithBag:v31 viewController:v32 metrics:v33 pageID:@"ContinueNoIDCard" flowName:@"Wallet ID card"];
-      [v30 finishWithPromise:v34];
+      v26 = *(a1 + 40);
+      v27 = [*(a1 + 32) bag];
+      v28 = [*(a1 + 32) viewController];
+      v29 = [*(a1 + 32) metrics];
+      v30 = [AMSUIParentalVerificationCommon _promiseToPromptAfterFailureWithBag:v27 viewController:v28 metrics:v29 pageID:@"ContinueNoIDCard" flowName:@"Wallet ID card"];
+      [v26 finishWithPromise:v30];
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_descriptorForMinimumAge:(int64_t)age
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69B8930] ageThresholdElementWithAge:age];
-  v4 = objc_alloc_init(getPKIdentityDriversLicenseDescriptorClass[0]());
-  v20[0] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+  v4 = objc_alloc_init(getPKIdentityDriversLicenseDescriptorClass());
+  v19[0] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
   willNotStoreIntent = [MEMORY[0x1E69B8938] willNotStoreIntent];
   [v4 addElements:v5 withIntentToStore:willNotStoreIntent];
 
-  v7 = objc_alloc_init(getPKIdentityPhotoIDDescriptorClass[0]());
-  v19 = v3;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+  v7 = objc_alloc_init(getPKIdentityPhotoIDDescriptorClass());
+  v18 = v3;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
   willNotStoreIntent2 = [MEMORY[0x1E69B8938] willNotStoreIntent];
   [v7 addElements:v8 withIntentToStore:willNotStoreIntent2];
 
-  v10 = objc_alloc_init(getPKIdentityNationalIDCardDescriptorClass[0]());
+  v10 = objc_alloc_init(getPKIdentityNationalIDCardDescriptorClass());
   [v10 setRegionCode:@"JP"];
-  v18 = v3;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v17 = v3;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
   willNotStoreIntent3 = [MEMORY[0x1E69B8938] willNotStoreIntent];
   [v10 addElements:v11 withIntentToStore:willNotStoreIntent3];
 
-  v17[0] = v4;
-  v17[1] = v7;
-  v17[2] = v10;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
-  v14 = [objc_alloc(getPKIdentityAnyOfDescriptorClass[0]()) initWithDescriptors:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v16[0] = v4;
+  v16[1] = v7;
+  v16[2] = v10;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:3];
+  v14 = [objc_alloc(getPKIdentityAnyOfDescriptorClass()) initWithDescriptors:v13];
 
   return v14;
 }
 
 + (id)_identityController
 {
-  v2 = objc_alloc_init(getPKIdentityAuthorizationControllerClass[0]());
+  v2 = objc_alloc_init(getPKIdentityAuthorizationControllerClass(self, a2));
 
   return v2;
 }
@@ -398,7 +386,7 @@ void __74__AMSUIParentalVerificationIDCardTask__dataFromIDCardForMinimumAge_nonc
 
 id __81__AMSUIParentalVerificationIDCardTask__promiseToFetchIDCardTokenURL_requestBody___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -415,86 +403,82 @@ id __81__AMSUIParentalVerificationIDCardTask__promiseToFetchIDCardTokenURL_reque
     v9 = [v8 OSLogObject];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = AMSLogKey();
-      v31 = 138543874;
-      v32 = v11;
-      v33 = 2114;
-      v34 = v12;
-      v35 = 2114;
-      v36 = v6;
-      _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Fetch PVT for ID Card failed: %{public}@", &v31, 0x20u);
+      v10 = objc_opt_class();
+      v11 = AMSLogKey();
+      v28 = 138543874;
+      v29 = v10;
+      v30 = 2114;
+      v31 = v11;
+      v32 = 2114;
+      v33 = v6;
+      _os_log_impl(&dword_1BB036000, v9, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Fetch PVT for ID Card failed: %{public}@", &v28, 0x20u);
     }
 
-    v13 = [*(a1 + 32) bag];
-    v14 = [*(a1 + 32) viewController];
-    v15 = [*(a1 + 32) metrics];
-    v16 = [AMSUIParentalVerificationCommon _promiseToPromptAfterFailureWithBag:v13 viewController:v14 metrics:v15 pageID:@"ContinueNoIDCard" flowName:@"Wallet ID card"];
+    v12 = [*(a1 + 32) bag];
+    v13 = [*(a1 + 32) viewController];
+    v14 = [*(a1 + 32) metrics];
+    v15 = [AMSUIParentalVerificationCommon _promiseToPromptAfterFailureWithBag:v12 viewController:v13 metrics:v14 pageID:@"ContinueNoIDCard" flowName:@"Wallet ID card"];
 LABEL_7:
 
     goto LABEL_10;
   }
 
-  v17 = [v5 object];
-  v13 = [AMSUIParentalVerificationCore _tokenFromObject:v17];
+  v16 = [v5 object];
+  v12 = [AMSUIParentalVerificationCore _tokenFromObject:v16];
 
-  v14 = [AMSUIParentalVerificationCore _tokenResultFromTokenString:v13];
-  if (!v14)
+  v13 = [AMSUIParentalVerificationCore _tokenResultFromTokenString:v12];
+  if (!v13)
   {
-    v22 = [MEMORY[0x1E698C968] sharedConfig];
-    if (!v22)
+    v20 = [MEMORY[0x1E698C968] sharedConfig];
+    if (!v20)
     {
-      v22 = [MEMORY[0x1E698C968] sharedConfig];
+      v20 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v23 = [v22 OSLogObject];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v21 = [v20 OSLogObject];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
-      v25 = objc_opt_class();
-      v26 = AMSLogKey();
-      v27 = [v5 object];
-      v31 = 138543874;
-      v32 = v25;
-      v33 = 2114;
-      v34 = v26;
-      v35 = 2114;
-      v36 = v27;
-      _os_log_impl(&dword_1BB036000, v23, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Fetch PVT for ID Card response had no token: %{public}@", &v31, 0x20u);
+      v22 = objc_opt_class();
+      v23 = AMSLogKey();
+      v24 = [v5 object];
+      v28 = 138543874;
+      v29 = v22;
+      v30 = 2114;
+      v31 = v23;
+      v32 = 2114;
+      v33 = v24;
+      _os_log_impl(&dword_1BB036000, v21, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Fetch PVT for ID Card response had no token: %{public}@", &v28, 0x20u);
     }
 
-    v28 = [*(a1 + 32) metrics];
-    [v28 setDisplayReason:@"ID card data failed"];
+    v25 = [*(a1 + 32) metrics];
+    [v25 setDisplayReason:@"ID card data failed"];
 
-    v15 = [*(a1 + 32) bag];
-    v29 = [*(a1 + 32) viewController];
-    v30 = [*(a1 + 32) metrics];
-    v16 = [AMSUIParentalVerificationCommon _promiseToPromptAfterFailureWithBag:v15 viewController:v29 metrics:v30 pageID:@"ContinueNoIDCard" flowName:@"Wallet ID card"];
+    v14 = [*(a1 + 32) bag];
+    v26 = [*(a1 + 32) viewController];
+    v27 = [*(a1 + 32) metrics];
+    v15 = [AMSUIParentalVerificationCommon _promiseToPromptAfterFailureWithBag:v14 viewController:v26 metrics:v27 pageID:@"ContinueNoIDCard" flowName:@"Wallet ID card"];
 
     goto LABEL_7;
   }
 
+  v17 = [*(a1 + 32) metrics];
+  [v17 enqueueEventWithPageId:@"ParentVerified" displayReason:@"IDCard"];
+
   v18 = [*(a1 + 32) metrics];
-  [v18 enqueueEventWithPageId:@"ParentVerified" displayReason:@"IDCard"];
+  [v18 flushEvents];
 
-  v19 = [*(a1 + 32) metrics];
-  [v19 flushEvents];
-
-  v16 = [MEMORY[0x1E698CAD0] promiseWithResult:v14];
+  v15 = [MEMORY[0x1E698CAD0] promiseWithResult:v13];
 LABEL_10:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v15;
 }
 
 + (id)_requestDictFromMinimumAge:(int64_t)age walletData:(id)data nonce:(id)nonce
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   nonceCopy = nonce;
   v8 = [data base64EncodedStringWithOptions:1];
-  v16[0] = @"ageThreshold";
+  v15[0] = @"ageThreshold";
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:age];
   v10 = v9;
   if (v8)
@@ -507,10 +491,10 @@ LABEL_10:
     v11 = &stru_1F3921360;
   }
 
-  v17[0] = v9;
-  v17[1] = v11;
-  v16[1] = @"digitalId";
-  v16[2] = @"nonce";
+  v16[0] = v9;
+  v16[1] = v11;
+  v15[1] = @"digitalId";
+  v15[2] = @"nonce";
   if (nonceCopy)
   {
     v12 = nonceCopy;
@@ -521,10 +505,8 @@ LABEL_10:
     v12 = &stru_1F3921360;
   }
 
-  v17[2] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v16[2] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
   return v13;
 }

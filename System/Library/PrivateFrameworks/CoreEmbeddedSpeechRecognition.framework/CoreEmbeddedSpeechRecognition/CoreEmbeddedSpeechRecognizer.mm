@@ -1,6 +1,7 @@
 @interface CoreEmbeddedSpeechRecognizer
 + (BOOL)purgeInstalledAssetsExceptLanguages:(id)languages assetType:(unint64_t)type error:(id *)error;
 + (id)dictionaryWithContentsProfilePathForLanguage:(id)language errorOut:(id *)out;
++ (id)offlineDictationStatusIgnoringCache:(BOOL)cache error:(id *)error;
 + (id)profilePathForLanguage:(id)language errorOut:(id *)out;
 + (id)purgeInstalledAssetsExceptLanguages:(id)languages error:(id *)error;
 + (id)speechProfileDataLastModifiedDataForLanguage:(id)language;
@@ -39,6 +40,7 @@
 - (void)requestEagerResult;
 - (void)resetDESWithCompletion:(id)completion;
 - (void)resumeRecognitionWithPrefixText:(id)text postfixText:(id)postfixText selectedText:(id)selectedText;
+- (void)runCorrectedTextEvaluationWithAudioDatas:(id)datas recordDatas:(id)recordDatas language:(id)language samplingRate:(unint64_t)rate caseSensitive:(BOOL)sensitive skipLME:(BOOL)e wordSenseAccessListSet:(id)set completion:(id)self0;
 - (void)runEvaluationWithDESRecordDatas:(id)datas language:(id)language recipe:(id)recipe attachments:(id)attachments fidesPersonalizedLMPath:(id)path fidesPersonalizedLMTrainingAsset:(id)asset scrubResult:(BOOL)result completion:(id)self0;
 - (void)sendSpeechCorrectionInfo:(id)info interactionIdentifier:(id)identifier;
 - (void)speechServiceDidFinishRecognitionWithStatistics:(id)statistics error:(id)error;
@@ -92,19 +94,17 @@ void __48__CoreEmbeddedSpeechRecognizer_invalidateUaapLM__block_invoke(uint64_t 
 
 void __48__CoreEmbeddedSpeechRecognizer_invalidateUaapLM__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[CoreEmbeddedSpeechRecognizer invalidateUaapLM]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_225EEB000, v3, OS_LOG_TYPE_ERROR, "%s UaaP: Invalidation error %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CoreEmbeddedSpeechRecognizer invalidateUaapLM]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_225EEB000, v3, OS_LOG_TYPE_ERROR, "%s UaaP: Invalidation error %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePersonalizedLMForFidesOnly:(BOOL)only
@@ -127,33 +127,29 @@ void __65__CoreEmbeddedSpeechRecognizer_removePersonalizedLMForFidesOnly___block
 
 void __65__CoreEmbeddedSpeechRecognizer_removePersonalizedLMForFidesOnly___block_invoke_426()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[CoreEmbeddedSpeechRecognizer removePersonalizedLMForFidesOnly:]_block_invoke";
-    _os_log_impl(&dword_225EEB000, v0, OS_LOG_TYPE_INFO, "%s PLM: Removed", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[CoreEmbeddedSpeechRecognizer removePersonalizedLMForFidesOnly:]_block_invoke";
+    _os_log_impl(&dword_225EEB000, v0, OS_LOG_TYPE_INFO, "%s PLM: Removed", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __65__CoreEmbeddedSpeechRecognizer_removePersonalizedLMForFidesOnly___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[CoreEmbeddedSpeechRecognizer removePersonalizedLMForFidesOnly:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_225EEB000, v3, OS_LOG_TYPE_ERROR, "%s PLM: Removal error %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CoreEmbeddedSpeechRecognizer removePersonalizedLMForFidesOnly:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_225EEB000, v3, OS_LOG_TYPE_ERROR, "%s PLM: Removal error %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidatePersonalizedLM
@@ -177,19 +173,17 @@ void __56__CoreEmbeddedSpeechRecognizer_invalidatePersonalizedLM__block_invoke(u
 
 void __56__CoreEmbeddedSpeechRecognizer_invalidatePersonalizedLM__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[CoreEmbeddedSpeechRecognizer invalidatePersonalizedLM]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_225EEB000, v3, OS_LOG_TYPE_ERROR, "%s PLM: Invalidation error %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CoreEmbeddedSpeechRecognizer invalidatePersonalizedLM]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_225EEB000, v3, OS_LOG_TYPE_ERROR, "%s PLM: Invalidation error %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeUaapOovsForLanguage:(id)language bundleId:(id)id customProns:(id)prons newOovs:(id)oovs completion:(id)completion
@@ -252,22 +246,20 @@ void __57__CoreEmbeddedSpeechRecognizer_startMissingAssetDownload__block_invoke(
 
 - (void)fetchUserDataForLanguage:(id)language completion:(id)completion
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (completion)
   {
     v4 = MEMORY[0x277CCA9B8];
     completionCopy = completion;
     v6 = [v4 alloc];
     v7 = *MEMORY[0x277CEF588];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = @"No API is available to fetch user data.";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = @"No API is available to fetch user data.";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v6 initWithDomain:v7 code:500 userInfo:v8];
 
     completionCopy[2](completionCopy, v9, 0);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechServiceDidProduceLoggablePackage:(id)package
@@ -298,7 +290,7 @@ void __57__CoreEmbeddedSpeechRecognizer_startMissingAssetDownload__block_invoke(
 
 - (void)speechServiceDidFinishRecognitionWithStatistics:(id)statistics error:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   statisticsCopy = statistics;
   errorCopy = error;
   if (!errorCopy)
@@ -313,9 +305,9 @@ void __57__CoreEmbeddedSpeechRecognizer_startMissingAssetDownload__block_invoke(
       v8 = *MEMORY[0x277CEF0E8];
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
       {
-        v12 = 136315138;
-        v13 = "[CoreEmbeddedSpeechRecognizer speechServiceDidFinishRecognitionWithStatistics:error:]";
-        _os_log_impl(&dword_225EEB000, v8, OS_LOG_TYPE_INFO, "%s No speech recognized, synthesizing local speech error", &v12, 0xCu);
+        v11 = 136315138;
+        v12 = "[CoreEmbeddedSpeechRecognizer speechServiceDidFinishRecognitionWithStatistics:error:]";
+        _os_log_impl(&dword_225EEB000, v8, OS_LOG_TYPE_INFO, "%s No speech recognized, synthesizing local speech error", &v11, 0xCu);
       }
 
       errorCopy = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CEF588] code:1110 userInfo:0];
@@ -328,37 +320,35 @@ void __57__CoreEmbeddedSpeechRecognizer_startMissingAssetDownload__block_invoke(
   self->_recognitionActive = 0;
   recognitionError = self->_recognitionError;
   self->_recognitionError = errorCopy;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechServiceDidRecognizePackage:(id)package withMetadata:(id)metadata
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   packageCopy = package;
   metadataCopy = metadata;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   recognition = [packageCopy recognition];
   utterances = [recognition utterances];
 
-  v10 = [utterances countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [utterances countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(utterances);
         }
 
-        interpretationIndices = [*(*(&v20 + 1) + 8 * i) interpretationIndices];
+        interpretationIndices = [*(*(&v19 + 1) + 8 * i) interpretationIndices];
         v15 = [interpretationIndices count];
 
         if (v15)
@@ -368,7 +358,7 @@ void __57__CoreEmbeddedSpeechRecognizer_startMissingAssetDownload__block_invoke(
         }
       }
 
-      v11 = [utterances countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [utterances countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v11)
       {
         continue;
@@ -388,36 +378,34 @@ LABEL_11:
     v18 = objc_loadWeakRetained(&self->_delegate);
     [v18 localSpeechRecognizer:self didRecognizePackage:packageCopy withMetadata:metadataCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechServiceDidRecognizePackage:(id)package
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   packageCopy = package;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   recognition = [packageCopy recognition];
   utterances = [recognition utterances];
 
-  v7 = [utterances countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [utterances countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(utterances);
         }
 
-        interpretationIndices = [*(*(&v15 + 1) + 8 * i) interpretationIndices];
+        interpretationIndices = [*(*(&v14 + 1) + 8 * i) interpretationIndices];
         v12 = [interpretationIndices count];
 
         if (v12)
@@ -427,7 +415,7 @@ LABEL_11:
         }
       }
 
-      v8 = [utterances countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [utterances countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -441,8 +429,6 @@ LABEL_11:
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained localSpeechRecognizer:self didRecognizePackage:packageCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)speechServiceDidRecognizeVoiceCommandCandidatePackage:(id)package withMetadata:(id)metadata
@@ -597,39 +583,35 @@ void __78__CoreEmbeddedSpeechRecognizer_deleteAllDESRecordsForDictationPersonali
 
 void __78__CoreEmbeddedSpeechRecognizer_deleteAllDESRecordsForDictationPersonalization__block_invoke_400(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
-      v5 = 136315394;
-      v6 = "[CoreEmbeddedSpeechRecognizer deleteAllDESRecordsForDictationPersonalization]_block_invoke";
-      v7 = 2112;
-      v8 = v2;
-      _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Failed to delete DES Records for Dictation Personalization with error=%@", &v5, 0x16u);
+      v4 = 136315394;
+      v5 = "[CoreEmbeddedSpeechRecognizer deleteAllDESRecordsForDictationPersonalization]_block_invoke";
+      v6 = 2112;
+      v7 = v2;
+      _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Failed to delete DES Records for Dictation Personalization with error=%@", &v4, 0x16u);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __78__CoreEmbeddedSpeechRecognizer_deleteAllDESRecordsForDictationPersonalization__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315394;
-    v6 = "[CoreEmbeddedSpeechRecognizer deleteAllDESRecordsForDictationPersonalization]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Failed to delete DES Records for Dictation Personalization with error=%@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CoreEmbeddedSpeechRecognizer deleteAllDESRecordsForDictationPersonalization]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Failed to delete DES Records for Dictation Personalization with error=%@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -754,7 +736,7 @@ void __47__CoreEmbeddedSpeechRecognizer_addAudioPacket___block_invoke(uint64_t a
 
 - (id)modelPropertiesForAssetConfig:(id)config error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   configCopy = config;
   language = [configCopy language];
 
@@ -786,38 +768,37 @@ LABEL_7:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__4503;
-  v26 = __Block_byref_object_dispose__4504;
-  v27 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__4503;
-  v21 = __Block_byref_object_dispose__4504;
-  v22 = 0;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__4503;
+  v25 = __Block_byref_object_dispose__4504;
+  v26 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__4503;
+  v20 = __Block_byref_object_dispose__4504;
+  v21 = 0;
   queue = self->_queue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __68__CoreEmbeddedSpeechRecognizer_modelPropertiesForAssetConfig_error___block_invoke;
-  v13[3] = &unk_278580370;
-  v13[4] = self;
-  v15 = &v17;
-  v14 = configCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __68__CoreEmbeddedSpeechRecognizer_modelPropertiesForAssetConfig_error___block_invoke;
+  v12[3] = &unk_278580370;
+  v12[4] = self;
+  v14 = &v16;
+  v13 = configCopy;
   p_buf = &buf;
-  dispatch_sync(queue, v13);
+  dispatch_sync(queue, v12);
   if (error)
   {
-    *error = v18[5];
+    *error = v17[5];
   }
 
   v9 = *(*(&buf + 1) + 40);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
   _Block_object_dispose(&buf, 8);
 
 LABEL_10:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -900,18 +881,18 @@ void __55__CoreEmbeddedSpeechRecognizer_resetDESWithCompletion___block_invoke(ui
 
 void __55__CoreEmbeddedSpeechRecognizer_resetDESWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277CEF0B8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "[CoreEmbeddedSpeechRecognizer resetDESWithCompletion:]_block_invoke_2";
-      v11 = 2114;
-      v12 = v3;
-      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Error deleting all DES records (SPI v2): %{public}@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[CoreEmbeddedSpeechRecognizer resetDESWithCompletion:]_block_invoke_2";
+      v10 = 2114;
+      v11 = v3;
+      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Error deleting all DES records (SPI v2): %{public}@", &v8, 0x16u);
     }
   }
 
@@ -921,7 +902,6 @@ void __55__CoreEmbeddedSpeechRecognizer_resetDESWithCompletion___block_invoke_2(
   v7 = v3;
 
   dispatch_group_leave(*(a1 + 32));
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readProfileAndUserDataWithLanguage:(id)language allowOverride:(BOOL)override completion:(id)completion
@@ -974,21 +954,19 @@ void __92__CoreEmbeddedSpeechRecognizer_readProfileAndUserDataWithLanguage_allow
 
 void __92__CoreEmbeddedSpeechRecognizer_readProfileAndUserDataWithLanguage_allowOverride_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[CoreEmbeddedSpeechRecognizer readProfileAndUserDataWithLanguage:allowOverride:completion:]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[CoreEmbeddedSpeechRecognizer readProfileAndUserDataWithLanguage:allowOverride:completion:]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s %@", &v5, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)redecodeWithAudioDatas:(id)datas language:(id)language task:(id)task samplingRate:(unint64_t)rate completion:(id)completion
@@ -1055,7 +1033,7 @@ void __93__CoreEmbeddedSpeechRecognizer_redecodeWithAudioDatas_language_task_sam
 
 void __93__CoreEmbeddedSpeechRecognizer_redecodeWithAudioDatas_language_task_samplingRate_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -1063,15 +1041,13 @@ void __93__CoreEmbeddedSpeechRecognizer_redecodeWithAudioDatas_language_task_sam
     v7 = *MEMORY[0x277CEF0B8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[CoreEmbeddedSpeechRecognizer redecodeWithAudioDatas:language:task:samplingRate:completion:]_block_invoke_3";
-      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s User edit ASR redecoding was successful", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CoreEmbeddedSpeechRecognizer redecodeWithAudioDatas:language:task:samplingRate:completion:]_block_invoke_3";
+      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s User edit ASR redecoding was successful", &v8, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runEvaluationWithDESRecordDatas:(id)datas language:(id)language recipe:(id)recipe attachments:(id)attachments fidesPersonalizedLMPath:(id)path fidesPersonalizedLMTrainingAsset:(id)asset scrubResult:(BOOL)result completion:(id)self0
@@ -1142,7 +1118,7 @@ void __172__CoreEmbeddedSpeechRecognizer_runEvaluationWithDESRecordDatas_languag
 
 void __172__CoreEmbeddedSpeechRecognizer_runEvaluationWithDESRecordDatas_language_recipe_attachments_fidesPersonalizedLMPath_fidesPersonalizedLMTrainingAsset_scrubResult_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -1150,15 +1126,64 @@ void __172__CoreEmbeddedSpeechRecognizer_runEvaluationWithDESRecordDatas_languag
     v7 = *MEMORY[0x277CEF0B8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[CoreEmbeddedSpeechRecognizer runEvaluationWithDESRecordDatas:language:recipe:attachments:fidesPersonalizedLMPath:fidesPersonalizedLMTrainingAsset:scrubResult:completion:]_block_invoke_3";
-      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s DES recipe evaluation was successful", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CoreEmbeddedSpeechRecognizer runEvaluationWithDESRecordDatas:language:recipe:attachments:fidesPersonalizedLMPath:fidesPersonalizedLMTrainingAsset:scrubResult:completion:]_block_invoke_3";
+      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s DES recipe evaluation was successful", &v8, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)runCorrectedTextEvaluationWithAudioDatas:(id)datas recordDatas:(id)recordDatas language:(id)language samplingRate:(unint64_t)rate caseSensitive:(BOOL)sensitive skipLME:(BOOL)e wordSenseAccessListSet:(id)set completion:(id)self0
+{
+  eCopy = e;
+  sensitiveCopy = sensitive;
+  datasCopy = datas;
+  recordDatasCopy = recordDatas;
+  languageCopy = language;
+  setCopy = set;
+  completionCopy = completion;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__4503;
+  v36 = __Block_byref_object_dispose__4504;
+  v37 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__4503;
+  v30 = __Block_byref_object_dispose__4504;
+  v31 = 0;
+  queue = self->_queue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __163__CoreEmbeddedSpeechRecognizer_runCorrectedTextEvaluationWithAudioDatas_recordDatas_language_samplingRate_caseSensitive_skipLME_wordSenseAccessListSet_completion___block_invoke;
+  block[3] = &unk_278580280;
+  block[4] = self;
+  block[5] = &v26;
+  block[6] = &v32;
+  dispatch_sync(queue, block);
+  if (v33[5])
+  {
+    completionCopy[2](completionCopy, 0);
+  }
+
+  else
+  {
+    v22 = v27[5];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __163__CoreEmbeddedSpeechRecognizer_runCorrectedTextEvaluationWithAudioDatas_recordDatas_language_samplingRate_caseSensitive_skipLME_wordSenseAccessListSet_completion___block_invoke_3;
+    v23[3] = &unk_2785802A8;
+    v24 = completionCopy;
+    [v22 runCorrectedTextEvaluationWithAudioDatas:datasCopy recordDatas:recordDatasCopy language:languageCopy samplingRate:rate caseSensitive:sensitiveCopy skipLME:eCopy wordSenseAccessListSet:setCopy completion:v23];
+  }
+
+  _Block_object_dispose(&v26, 8);
+
+  _Block_object_dispose(&v32, 8);
 }
 
 void __163__CoreEmbeddedSpeechRecognizer_runCorrectedTextEvaluationWithAudioDatas_recordDatas_language_samplingRate_caseSensitive_skipLME_wordSenseAccessListSet_completion___block_invoke(void *a1)
@@ -1177,7 +1202,7 @@ void __163__CoreEmbeddedSpeechRecognizer_runCorrectedTextEvaluationWithAudioData
 
 void __163__CoreEmbeddedSpeechRecognizer_runCorrectedTextEvaluationWithAudioDatas_recordDatas_language_samplingRate_caseSensitive_skipLME_wordSenseAccessListSet_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -1185,15 +1210,13 @@ void __163__CoreEmbeddedSpeechRecognizer_runCorrectedTextEvaluationWithAudioData
     v7 = *MEMORY[0x277CEF0B8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[CoreEmbeddedSpeechRecognizer runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke_3";
-      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s DES recipe evaluation was successful", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[CoreEmbeddedSpeechRecognizer runCorrectedTextEvaluationWithAudioDatas:recordDatas:language:samplingRate:caseSensitive:skipLME:wordSenseAccessListSet:completion:]_block_invoke_3";
+      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s DES recipe evaluation was successful", &v8, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getOfflineDictationStatusIgnoringCache:(BOOL)cache withCompletion:(id)completion
@@ -1361,7 +1384,7 @@ void __93__CoreEmbeddedSpeechRecognizer_updateSpeechProfileWithLanguage_modelOve
 
 void __93__CoreEmbeddedSpeechRecognizer_updateSpeechProfileWithLanguage_modelOverridePath_completion___block_invoke_4(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1379,11 +1402,11 @@ void __93__CoreEmbeddedSpeechRecognizer_updateSpeechProfileWithLanguage_modelOve
         if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
         {
           v28 = *(a1 + 32);
-          *v43 = 136315394;
-          *&v43[4] = "[CoreEmbeddedSpeechRecognizer updateSpeechProfileWithLanguage:modelOverridePath:completion:]_block_invoke_4";
-          *&v43[12] = 2112;
-          *&v43[14] = v28;
-          _os_log_impl(&dword_225EEB000, v27, OS_LOG_TYPE_INFO, "%s Update skipped for %@, not propagating an error", v43, 0x16u);
+          *v42 = 136315394;
+          *&v42[4] = "[CoreEmbeddedSpeechRecognizer updateSpeechProfileWithLanguage:modelOverridePath:completion:]_block_invoke_4";
+          *&v42[12] = 2112;
+          *&v42[14] = v28;
+          _os_log_impl(&dword_225EEB000, v27, OS_LOG_TYPE_INFO, "%s Update skipped for %@, not propagating an error", v42, 0x16u);
         }
 
         v29 = *(*(a1 + 40) + 16);
@@ -1404,58 +1427,58 @@ LABEL_18:
   v11 = *(a1 + 40);
   v12 = *(a1 + 32);
   v13 = v11;
-  v35 = 0;
-  v14 = [CoreEmbeddedSpeechRecognizer profilePathForLanguage:v12 errorOut:&v35];
-  v15 = v35;
+  v34 = 0;
+  v14 = [CoreEmbeddedSpeechRecognizer profilePathForLanguage:v12 errorOut:&v34];
+  v15 = v34;
   if (v14)
   {
     v16 = [v12 stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
 
-    v42[0] = @"data";
-    v42[1] = @"version";
-    *v43 = v7;
-    *&v43[8] = @"2.0";
-    v42[2] = @"language";
-    v42[3] = @"assetPath";
-    *&v43[16] = v16;
-    v44 = v8;
-    v32 = v8;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
-    v34 = 0;
-    v18 = [MEMORY[0x277CCAC58] dataWithPropertyList:v17 format:200 options:0 error:&v34];
-    v19 = v34;
+    v41[0] = @"data";
+    v41[1] = @"version";
+    *v42 = v7;
+    *&v42[8] = @"2.0";
+    v41[2] = @"language";
+    v41[3] = @"assetPath";
+    *&v42[16] = v16;
+    v43 = v8;
+    v31 = v8;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
+    v33 = 0;
+    v18 = [MEMORY[0x277CCAC58] dataWithPropertyList:v17 format:200 options:0 error:&v33];
+    v19 = v33;
 
     v20 = MEMORY[0x277CEF0E8];
     v21 = *MEMORY[0x277CEF0E8];
     if (v18)
     {
-      v31 = v17;
+      v30 = v17;
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v37 = "WriteSpeechProfileData";
-        v38 = 2112;
-        v39 = v16;
+        v36 = "WriteSpeechProfileData";
+        v37 = 2112;
+        v38 = v16;
         _os_log_impl(&dword_225EEB000, v21, OS_LOG_TYPE_INFO, "%s Serialization of %@ speech profile done.", buf, 0x16u);
       }
 
-      v33 = v19;
-      v22 = [v18 writeToFile:v14 options:0x40000000 error:&v33];
-      v15 = v33;
+      v32 = v19;
+      v22 = [v18 writeToFile:v14 options:0x40000000 error:&v32];
+      v15 = v32;
 
       v23 = *v20;
       v24 = *v20;
       if (v22)
       {
-        v17 = v31;
+        v17 = v30;
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v37 = "WriteSpeechProfileData";
-          v38 = 2112;
-          v39 = v16;
-          v40 = 2112;
-          v41 = v14;
+          v36 = "WriteSpeechProfileData";
+          v37 = 2112;
+          v38 = v16;
+          v39 = 2112;
+          v40 = v14;
           _os_log_impl(&dword_225EEB000, v23, OS_LOG_TYPE_INFO, "%s Persisted %@ speech profile to path=%@", buf, 0x20u);
         }
 
@@ -1464,15 +1487,15 @@ LABEL_18:
 
       else
       {
-        v17 = v31;
+        v17 = v30;
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v37 = "WriteSpeechProfileData";
-          v38 = 2112;
-          v39 = v16;
-          v40 = 2114;
-          v41 = v15;
+          v36 = "WriteSpeechProfileData";
+          v37 = 2112;
+          v38 = v16;
+          v39 = 2114;
+          v40 = v15;
           _os_log_error_impl(&dword_225EEB000, v23, OS_LOG_TYPE_ERROR, "%s Persisting %@ speech profile to disk failed with error=%{public}@", buf, 0x20u);
         }
 
@@ -1485,11 +1508,11 @@ LABEL_18:
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v37 = "WriteSpeechProfileData";
-        v38 = 2112;
-        v39 = v16;
-        v40 = 2114;
-        v41 = v19;
+        v36 = "WriteSpeechProfileData";
+        v37 = 2112;
+        v38 = v16;
+        v39 = 2114;
+        v40 = v19;
         _os_log_error_impl(&dword_225EEB000, v21, OS_LOG_TYPE_ERROR, "%s Serialization of  %@ speech profile failed with error=%{public}@", buf, 0x20u);
       }
 
@@ -1498,7 +1521,7 @@ LABEL_18:
 
     v13[2](v13, v19);
 
-    v8 = v32;
+    v8 = v31;
   }
 
   else
@@ -1508,7 +1531,6 @@ LABEL_18:
   }
 
 LABEL_27:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createSpeechProfileWithLanguage:(id)language modelOverridePath:(id)path JSONData:(id)data completion:(id)completion
@@ -1574,7 +1596,7 @@ void __79__CoreEmbeddedSpeechRecognizer_sendSpeechCorrectionInfo_interactionIden
 
 void __79__CoreEmbeddedSpeechRecognizer_sendSpeechCorrectionInfo_interactionIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -1583,15 +1605,13 @@ void __79__CoreEmbeddedSpeechRecognizer_sendSpeechCorrectionInfo_interactionIden
     {
       v4 = v3;
       v5 = [v2 localizedDescription];
-      v7 = 136315394;
-      v8 = "[CoreEmbeddedSpeechRecognizer sendSpeechCorrectionInfo:interactionIdentifier:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v5;
-      _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s Failed to send speech correction info: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[CoreEmbeddedSpeechRecognizer sendSpeechCorrectionInfo:interactionIdentifier:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s Failed to send speech correction info: %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSpeechRecognitionWithParameters:(id)parameters didStartHandlerWithInfo:(id)info
@@ -1613,14 +1633,14 @@ void __79__CoreEmbeddedSpeechRecognizer_sendSpeechCorrectionInfo_interactionIden
 
 void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_didStartHandlerWithInfo___block_invoke(id *a1)
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   if (*(a1[4] + 8) == 1)
   {
     v2 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v33 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
+      v32 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
       _os_log_error_impl(&dword_225EEB000, v2, OS_LOG_TYPE_ERROR, "%s Local speech recognizer restarted while already recognizing", buf, 0xCu);
     }
 
@@ -1646,9 +1666,9 @@ void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_did
       aBlock[3] = &unk_2785800D0;
       v6 = a1[5];
       v7 = a1[4];
-      v29 = v6;
-      v30 = v7;
-      v31 = a1[6];
+      v28 = v6;
+      v29 = v7;
+      v30 = a1[6];
       v8 = _Block_copy(aBlock);
       v9 = a1[4];
       v10 = v9[10];
@@ -1658,7 +1678,7 @@ void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_did
         if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v33 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
+          v32 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
           _os_log_impl(&dword_225EEB000, v11, OS_LOG_TYPE_INFO, "%s Using preheat-loaded speech profile", buf, 0xCu);
           v9 = a1[4];
           v10 = v9[10];
@@ -1676,35 +1696,35 @@ void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_did
 
       else
       {
-        v23 = [v4 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
-        v24 = SFReplacementLocaleCodeForLocaleIdentifier();
-        v25 = v24;
-        if (v24)
+        v22 = [v4 stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
+        v23 = SFReplacementLocaleCodeForLocaleIdentifier();
+        v24 = v23;
+        if (v23)
         {
-          v26 = v24;
+          v25 = v23;
         }
 
         else
         {
-          v26 = v23;
+          v25 = v22;
         }
 
-        v15 = v26;
+        v15 = v25;
 
-        v27 = *MEMORY[0x277CEF0E8];
+        v26 = *MEMORY[0x277CEF0E8];
         if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v33 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
-          v34 = 2112;
-          v35 = v15;
-          _os_log_impl(&dword_225EEB000, v27, OS_LOG_TYPE_INFO, "%s Loading speech profile for language %@", buf, 0x16u);
+          v32 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
+          v33 = 2112;
+          v34 = v15;
+          _os_log_impl(&dword_225EEB000, v26, OS_LOG_TYPE_INFO, "%s Loading speech profile for language %@", buf, 0x16u);
         }
 
         [a1[4] readProfileAndUserDataWithLanguage:v15 allowOverride:1 completion:v8];
       }
 
-      v16 = v29;
+      v16 = v28;
     }
 
     else
@@ -1713,22 +1733,20 @@ void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_did
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v33 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
+        v32 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
         _os_log_error_impl(&dword_225EEB000, v17, OS_LOG_TYPE_ERROR, "%s Invalid nil language", buf, 0xCu);
       }
 
       v18 = a1[6];
       v19 = MEMORY[0x277CCA9B8];
       v20 = *MEMORY[0x277CEF588];
-      v36 = *MEMORY[0x277CCA470];
-      v37[0] = @"Language is nil";
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+      v35 = *MEMORY[0x277CCA470];
+      v36[0] = @"Language is nil";
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
       v21 = [v19 errorWithDomain:v20 code:1107 userInfo:v16];
       v18[2](v18, 0, v21);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_didStartHandlerWithInfo___block_invoke_375(uint64_t a1, void *a2)
@@ -1762,7 +1780,7 @@ void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_did
 
 void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_didStartHandlerWithInfo___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1772,33 +1790,29 @@ void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_did
     {
       v8 = v7;
       v9 = [v6 localizedDescription];
-      v11 = 136315394;
-      v12 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke_4";
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_225EEB000, v8, OS_LOG_TYPE_INFO, "%s Failed to start local recognition: %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke_4";
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_225EEB000, v8, OS_LOG_TYPE_INFO, "%s Failed to start local recognition: %@", &v10, 0x16u);
     }
 
     *(*(a1 + 32) + 8) = 0;
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __93__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_didStartHandlerWithInfo___block_invoke_374()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
-    _os_log_impl(&dword_225EEB000, v0, OS_LOG_TYPE_INFO, "%s Local speech recognition completed", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[CoreEmbeddedSpeechRecognizer startSpeechRecognitionWithParameters:didStartHandlerWithInfo:]_block_invoke";
+    _os_log_impl(&dword_225EEB000, v0, OS_LOG_TYPE_INFO, "%s Local speech recognition completed", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startSpeechRecognitionWithParameters:(id)parameters didStartHandler:(id)handler
@@ -1846,39 +1860,37 @@ void __85__CoreEmbeddedSpeechRecognizer_startSpeechRecognitionWithParameters_did
 
 void __103__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithAssetConfig_preheatSource_modelOverrideURL___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) language];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v9 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithAssetConfig:preheatSource:modelOverrideURL:]_block_invoke";
-    v10 = 2112;
-    v11 = v2;
+    v8 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithAssetConfig:preheatSource:modelOverrideURL:]_block_invoke";
+    v9 = 2112;
+    v10 = v2;
     _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s Preheat loading profile with language %@", buf, 0x16u);
   }
 
   v4 = *(a1 + 40);
   if (!v4[9] && !v4[10])
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __103__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithAssetConfig_preheatSource_modelOverrideURL___block_invoke_348;
-    v7[3] = &unk_27857FEA8;
-    v7[4] = v4;
-    [v4 readProfileAndUserDataWithLanguage:v2 allowOverride:1 completion:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __103__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithAssetConfig_preheatSource_modelOverrideURL___block_invoke_348;
+    v6[3] = &unk_27857FEA8;
+    v6[4] = v4;
+    [v4 readProfileAndUserDataWithLanguage:v2 allowOverride:1 completion:v6];
     v4 = *(a1 + 40);
   }
 
   v5 = [v4 _service];
   [v5 preheatSpeechRecognitionWithAssetConfig:*(a1 + 32) preheatSource:*(a1 + 48) modelOverrideURL:*(a1 + 56)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __103__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithAssetConfig_preheatSource_modelOverrideURL___block_invoke_348(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 16));
@@ -1888,9 +1900,9 @@ void __103__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithAssetConfig
   {
     if (v8)
     {
-      v16 = 136315138;
-      v17 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithAssetConfig:preheatSource:modelOverrideURL:]_block_invoke";
-      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Loaded preheat-loaded speech profile", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithAssetConfig:preheatSource:modelOverrideURL:]_block_invoke";
+      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Loaded preheat-loaded speech profile", &v15, 0xCu);
     }
 
     v9 = [v5 copy];
@@ -1906,12 +1918,10 @@ void __103__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithAssetConfig
 
   else if (v8)
   {
-    v16 = 136315138;
-    v17 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithAssetConfig:preheatSource:modelOverrideURL:]_block_invoke";
-    _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Failed to load speech profile during preheat", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithAssetConfig:preheatSource:modelOverrideURL:]_block_invoke";
+    _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Failed to load speech profile during preheat", &v15, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preheatSpeechRecognitionWithLanguage:(id)language modelOverrideURL:(id)l
@@ -1933,15 +1943,15 @@ void __103__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithAssetConfig
 
 void __86__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithLanguage_modelOverrideURL___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     v3 = a1[4];
     *buf = 136315394;
-    v10 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithLanguage:modelOverrideURL:]_block_invoke";
-    v11 = 2112;
-    v12 = v3;
+    v9 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithLanguage:modelOverrideURL:]_block_invoke";
+    v10 = 2112;
+    v11 = v3;
     _os_log_impl(&dword_225EEB000, v2, OS_LOG_TYPE_INFO, "%s Preheat loading profile with language %@", buf, 0x16u);
   }
 
@@ -1949,24 +1959,22 @@ void __86__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithLanguage_mod
   if (!v4[9] && !v4[10])
   {
     v5 = a1[4];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __86__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithLanguage_modelOverrideURL___block_invoke_346;
-    v8[3] = &unk_27857FEA8;
-    v8[4] = v4;
-    [v4 readProfileAndUserDataWithLanguage:v5 allowOverride:1 completion:v8];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __86__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithLanguage_modelOverrideURL___block_invoke_346;
+    v7[3] = &unk_27857FEA8;
+    v7[4] = v4;
+    [v4 readProfileAndUserDataWithLanguage:v5 allowOverride:1 completion:v7];
     v4 = a1[5];
   }
 
   v6 = [v4 _service];
   [v6 preheatSpeechRecognitionWithLanguage:a1[4] modelOverrideURL:a1[6]];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __86__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithLanguage_modelOverrideURL___block_invoke_346(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   dispatch_assert_queue_V2(*(*(a1 + 32) + 16));
@@ -1976,9 +1984,9 @@ void __86__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithLanguage_mod
   {
     if (v8)
     {
-      v16 = 136315138;
-      v17 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithLanguage:modelOverrideURL:]_block_invoke";
-      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Loaded preheat-loaded speech profile", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithLanguage:modelOverrideURL:]_block_invoke";
+      _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Loaded preheat-loaded speech profile", &v15, 0xCu);
     }
 
     v9 = [v5 copy];
@@ -1994,12 +2002,10 @@ void __86__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithLanguage_mod
 
   else if (v8)
   {
-    v16 = 136315138;
-    v17 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithLanguage:modelOverrideURL:]_block_invoke";
-    _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Failed to load speech profile during preheat", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[CoreEmbeddedSpeechRecognizer preheatSpeechRecognitionWithLanguage:modelOverrideURL:]_block_invoke";
+    _os_log_impl(&dword_225EEB000, v7, OS_LOG_TYPE_INFO, "%s Failed to load speech profile during preheat", &v15, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_synchronousServiceWithErrorHandler:(id)handler
@@ -2052,24 +2058,22 @@ void __86__CoreEmbeddedSpeechRecognizer_preheatSpeechRecognitionWithLanguage_mod
 
 void __70__CoreEmbeddedSpeechRecognizer__serviceWithFunctionName_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[CoreEmbeddedSpeechRecognizer _serviceWithFunctionName:errorHandler:]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s %@: Local speech recognition not reachable: %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[CoreEmbeddedSpeechRecognizer _serviceWithFunctionName:errorHandler:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s %@: Local speech recognition not reachable: %@", &v6, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_service
@@ -2127,15 +2131,15 @@ void __70__CoreEmbeddedSpeechRecognizer__serviceWithFunctionName_errorHandler___
 
 void __43__CoreEmbeddedSpeechRecognizer__connection__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "[CoreEmbeddedSpeechRecognizer _connection]_block_invoke";
-    v11 = 2112;
-    v12 = @"com.apple.siri.embeddedspeech";
-    _os_log_impl(&dword_225EEB000, v2, OS_LOG_TYPE_INFO, "%s %@ Interrupted", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CoreEmbeddedSpeechRecognizer _connection]_block_invoke";
+    v10 = 2112;
+    v11 = @"com.apple.siri.embeddedspeech";
+    _os_log_impl(&dword_225EEB000, v2, OS_LOG_TYPE_INFO, "%s %@ Interrupted", &v8, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2153,21 +2157,19 @@ void __43__CoreEmbeddedSpeechRecognizer__connection__block_invoke(uint64_t a1)
       [v6 localSpeechRecognizer:v4 didCompletionRecognitionWithStatistics:0 error:v7];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __43__CoreEmbeddedSpeechRecognizer__connection__block_invoke_344(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
-    v9 = 136315394;
-    v10 = "[CoreEmbeddedSpeechRecognizer _connection]_block_invoke";
-    v11 = 2112;
-    v12 = @"com.apple.siri.embeddedspeech";
-    _os_log_impl(&dword_225EEB000, v2, OS_LOG_TYPE_INFO, "%s %@ Invalidated", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CoreEmbeddedSpeechRecognizer _connection]_block_invoke";
+    v10 = 2112;
+    v11 = @"com.apple.siri.embeddedspeech";
+    _os_log_impl(&dword_225EEB000, v2, OS_LOG_TYPE_INFO, "%s %@ Invalidated", &v8, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2184,8 +2186,6 @@ void __43__CoreEmbeddedSpeechRecognizer__connection__block_invoke_344(uint64_t a
       [v6 localSpeechRecognizer:v4 didCompletionRecognitionWithStatistics:0 error:v7];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newConnection
@@ -2207,28 +2207,27 @@ void __43__CoreEmbeddedSpeechRecognizer__connection__block_invoke_344(uint64_t a
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v7 = "[CoreEmbeddedSpeechRecognizer dealloc]";
+    v6 = "[CoreEmbeddedSpeechRecognizer dealloc]";
     _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s CoreEmbeddedSpeechRecognizer Dealloc", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = CoreEmbeddedSpeechRecognizer;
-  [(CoreEmbeddedSpeechRecognizer *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = CoreEmbeddedSpeechRecognizer;
+  [(CoreEmbeddedSpeechRecognizer *)&v4 dealloc];
 }
 
 - (CoreEmbeddedSpeechRecognizer)initWithDelegate:(id)delegate instanceUUID:(unsigned __int8)d[16]
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v22.receiver = self;
-  v22.super_class = CoreEmbeddedSpeechRecognizer;
-  v7 = [(CoreEmbeddedSpeechRecognizer *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = CoreEmbeddedSpeechRecognizer;
+  v7 = [(CoreEmbeddedSpeechRecognizer *)&v21 init];
   v8 = v7;
   if (v7)
   {
@@ -2248,9 +2247,9 @@ void __43__CoreEmbeddedSpeechRecognizer__connection__block_invoke_344(uint64_t a
           if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v24 = "[CoreEmbeddedSpeechRecognizer initWithDelegate:instanceUUID:]";
-            v25 = 1024;
-            v26 = v12;
+            v23 = "[CoreEmbeddedSpeechRecognizer initWithDelegate:instanceUUID:]";
+            v24 = 1024;
+            v25 = v12;
             _os_log_impl(&dword_225EEB000, v13, OS_LOG_TYPE_INFO, "%s ASR: Using QoS class %#02X.", buf, 0x12u);
           }
 
@@ -2274,8 +2273,63 @@ void __43__CoreEmbeddedSpeechRecognizer__connection__block_invoke_344(uint64_t a
     uuid_copy(v8->_instanceUUID, d);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
+}
+
++ (id)offlineDictationStatusIgnoringCache:(BOOL)cache error:(id *)error
+{
+  cacheCopy = cache;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__4503;
+  v33 = __Block_byref_object_dispose__4504;
+  v34 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__4503;
+  v27 = __Block_byref_object_dispose__4504;
+  v28 = 0;
+  v6 = [[CoreEmbeddedSpeechRecognizer alloc] initWithDelegate:0 instanceUUID:CoreEmbeddedSpeechRecognizerInstanceUUIDInteractive];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__4503;
+  v21 = __Block_byref_object_dispose__4504;
+  v22 = 0;
+  queue = v6->_queue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __74__CoreEmbeddedSpeechRecognizer_offlineDictationStatusIgnoringCache_error___block_invoke;
+  block[3] = &unk_278580280;
+  v15 = &v17;
+  v8 = v6;
+  v14 = v8;
+  v16 = &v29;
+  dispatch_sync(queue, block);
+  v9 = v18[5];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __74__CoreEmbeddedSpeechRecognizer_offlineDictationStatusIgnoringCache_error___block_invoke_3;
+  v12[3] = &unk_278580410;
+  v12[4] = &v29;
+  v12[5] = &v23;
+  [v9 getOfflineDictationStatusIgnoringCache:cacheCopy withCompletion:v12];
+  [(CoreEmbeddedSpeechRecognizer *)v8 invalidate];
+  if (error)
+  {
+    *error = v30[5];
+  }
+
+  v10 = v24[5];
+
+  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v23, 8);
+
+  _Block_object_dispose(&v29, 8);
+
+  return v10;
 }
 
 void __74__CoreEmbeddedSpeechRecognizer_offlineDictationStatusIgnoringCache_error___block_invoke(void *a1)
@@ -2472,18 +2526,18 @@ void __74__CoreEmbeddedSpeechRecognizer_purgeInstalledAssetsExceptLanguages_erro
 
 + (id)dictionaryWithContentsProfilePathForLanguage:(id)language errorOut:(id *)out
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = [self profilePathForLanguage:language errorOut:?];
   if (v5)
   {
     v6 = *MEMORY[0x277CEF0B8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0B8], OS_LOG_TYPE_INFO))
     {
-      v12 = 136315394;
-      v13 = "+[CoreEmbeddedSpeechRecognizer dictionaryWithContentsProfilePathForLanguage:errorOut:]";
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_225EEB000, v6, OS_LOG_TYPE_INFO, "%s Using user profile from %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[CoreEmbeddedSpeechRecognizer dictionaryWithContentsProfilePathForLanguage:errorOut:]";
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_225EEB000, v6, OS_LOG_TYPE_INFO, "%s Using user profile from %@", &v11, 0x16u);
     }
 
     v7 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v5 options:0 error:out];
@@ -2512,14 +2566,12 @@ void __74__CoreEmbeddedSpeechRecognizer_purgeInstalledAssetsExceptLanguages_erro
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 + (id)profilePathForLanguage:(id)language errorOut:(id *)out
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   languageCopy = language;
   v5 = sysconf(71);
   if (v5 == -1)
@@ -2529,16 +2581,16 @@ void __74__CoreEmbeddedSpeechRecognizer_purgeInstalledAssetsExceptLanguages_erro
 
   else
   {
-    memset(&v19, 0, sizeof(v19));
-    v18 = 0;
-    if (getpwnam_r("mobile", &v19, &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5, &v18))
+    memset(&v18, 0, sizeof(v18));
+    v17 = 0;
+    if (getpwnam_r("mobile", &v18, &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v5, &v17))
     {
       v6 = 1;
     }
 
     else
     {
-      v6 = v18 == 0;
+      v6 = v17 == 0;
     }
 
     if (v6)
@@ -2549,11 +2601,11 @@ void __74__CoreEmbeddedSpeechRecognizer_purgeInstalledAssetsExceptLanguages_erro
     else
     {
       v8 = MEMORY[0x277CCACA8];
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v19.pw_dir];
-      v20[0] = v9;
-      v20[1] = @"Library";
-      v20[2] = @"/Assistant";
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v18.pw_dir];
+      v19[0] = v9;
+      v19[1] = @"Library";
+      v19[2] = @"/Assistant";
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
       v11 = [v8 pathWithComponents:v10];
 
       if (v11)
@@ -2573,8 +2625,6 @@ void __74__CoreEmbeddedSpeechRecognizer_purgeInstalledAssetsExceptLanguages_erro
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2612,29 +2662,27 @@ void __74__CoreEmbeddedSpeechRecognizer_purgeInstalledAssetsExceptLanguages_erro
 
 void __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "+[CoreEmbeddedSpeechRecognizer forceCooldownIfIdle]_block_invoke";
+    v7 = "+[CoreEmbeddedSpeechRecognizer forceCooldownIfIdle]_block_invoke";
     _os_log_impl(&dword_225EEB000, v2, OS_LOG_TYPE_INFO, "%s Starting to cooldown", buf, 0xCu);
   }
 
   v3 = [*(a1 + 32) _service];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke_361;
-  v5[3] = &unk_27857FFC0;
-  v6 = *(a1 + 32);
-  [v3 forceCooldownIfIdleWithCompletion:v5];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke_361;
+  v4[3] = &unk_27857FFC0;
+  v5 = *(a1 + 32);
+  [v3 forceCooldownIfIdleWithCompletion:v4];
 }
 
 uint64_t __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke_361(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF0E8];
   if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
   {
@@ -2644,21 +2692,19 @@ uint64_t __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke_36
       v5 = &stru_283946208;
     }
 
-    v8 = 136315394;
-    v9 = "+[CoreEmbeddedSpeechRecognizer forceCooldownIfIdle]_block_invoke";
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s Forced cooldown and was %@successful", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "+[CoreEmbeddedSpeechRecognizer forceCooldownIfIdle]_block_invoke";
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s Forced cooldown and was %@successful", &v7, 0x16u);
   }
 
-  result = [*(a1 + 32) invalidate];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) invalidate];
 }
 
 + (void)compilePrimaryAssistantAssetWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (AFDeviceHighestLanguageModelCapabilityIdentifier() > 9)
   {
@@ -2674,11 +2720,11 @@ uint64_t __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke_36
     aBlock[1] = 3221225472;
     aBlock[2] = __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompletion___block_invoke;
     aBlock[3] = &unk_27857FF70;
-    v23 = v6;
+    v22 = v6;
     v11 = v5;
-    v24 = v11;
-    v25 = v10;
-    v26 = completionCopy;
+    v23 = v11;
+    v24 = v10;
+    v25 = completionCopy;
     v12 = v10;
     v13 = v6;
     v14 = _Block_copy(aBlock);
@@ -2687,8 +2733,8 @@ uint64_t __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke_36
     block[1] = 3221225472;
     block[2] = __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompletion___block_invoke_360;
     block[3] = &unk_27857FF48;
-    v20 = v11;
-    v21 = v14;
+    v19 = v11;
+    v20 = v14;
     v16 = v14;
     v17 = v11;
     dispatch_async(queue, block);
@@ -2700,7 +2746,7 @@ uint64_t __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke_36
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v28 = "+[CoreEmbeddedSpeechRecognizer compilePrimaryAssistantAssetWithCompletion:]";
+      v27 = "+[CoreEmbeddedSpeechRecognizer compilePrimaryAssistantAssetWithCompletion:]";
       _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s Skipping model compilation as this device does not support ANE.", buf, 0xCu);
     }
 
@@ -2709,27 +2755,25 @@ uint64_t __51__CoreEmbeddedSpeechRecognizer_forceCooldownIfIdle__block_invoke_36
       (*(completionCopy + 2))(completionCopy, 1, 0);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315650;
-      v9 = "+[CoreEmbeddedSpeechRecognizer compilePrimaryAssistantAssetWithCompletion:]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Error requesting model compilation for the primary %@ asset: %@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 136315650;
+      v8 = "+[CoreEmbeddedSpeechRecognizer compilePrimaryAssistantAssetWithCompletion:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Error requesting model compilation for the primary %@ asset: %@", &v7, 0x20u);
     }
   }
 
@@ -2739,8 +2783,6 @@ void __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompleti
   {
     (*(v5 + 16))(v5, v3 == 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompletion___block_invoke_360(uint64_t a1)
@@ -2753,7 +2795,7 @@ void __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompleti
 
 + (void)compileAllAssetsWithType:(unint64_t)type completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (AFDeviceHighestLanguageModelCapabilityIdentifier() > 9)
   {
@@ -2769,11 +2811,11 @@ void __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompleti
     aBlock[1] = 3221225472;
     aBlock[2] = __68__CoreEmbeddedSpeechRecognizer_compileAllAssetsWithType_completion___block_invoke;
     aBlock[3] = &unk_27857FF70;
-    v26 = v8;
+    v25 = v8;
     v13 = v7;
-    v27 = v13;
-    v28 = v12;
-    v29 = completionCopy;
+    v26 = v13;
+    v27 = v12;
+    v28 = completionCopy;
     v14 = v12;
     v15 = v8;
     v16 = _Block_copy(aBlock);
@@ -2782,8 +2824,8 @@ void __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompleti
     block[1] = 3221225472;
     block[2] = __68__CoreEmbeddedSpeechRecognizer_compileAllAssetsWithType_completion___block_invoke_356;
     block[3] = &unk_27857FF98;
-    v22 = v13;
-    v23 = v16;
+    v21 = v13;
+    v22 = v16;
     typeCopy = type;
     v18 = v16;
     v19 = v13;
@@ -2796,7 +2838,7 @@ void __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompleti
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v31 = "+[CoreEmbeddedSpeechRecognizer compileAllAssetsWithType:completion:]";
+      v30 = "+[CoreEmbeddedSpeechRecognizer compileAllAssetsWithType:completion:]";
       _os_log_impl(&dword_225EEB000, v6, OS_LOG_TYPE_INFO, "%s Skipping model compilation as this device does not support ANE.", buf, 0xCu);
     }
 
@@ -2805,27 +2847,25 @@ void __75__CoreEmbeddedSpeechRecognizer_compilePrimaryAssistantAssetWithCompleti
       (*(completionCopy + 2))(completionCopy, 0, 0);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CoreEmbeddedSpeechRecognizer_compileAllAssetsWithType_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315650;
-      v9 = "+[CoreEmbeddedSpeechRecognizer compileAllAssetsWithType:completion:]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Error requesting model compilation for %@ assets: %@", &v8, 0x20u);
+      v6 = *(a1 + 32);
+      v7 = 136315650;
+      v8 = "+[CoreEmbeddedSpeechRecognizer compileAllAssetsWithType:completion:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_error_impl(&dword_225EEB000, v4, OS_LOG_TYPE_ERROR, "%s Error requesting model compilation for %@ assets: %@", &v7, 0x20u);
     }
   }
 
@@ -2835,8 +2875,6 @@ void __68__CoreEmbeddedSpeechRecognizer_compileAllAssetsWithType_completion___bl
   {
     (*(v5 + 16))(v5, v3 == 0, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CoreEmbeddedSpeechRecognizer_compileAllAssetsWithType_completion___block_invoke_356(void *a1)
@@ -2871,26 +2909,24 @@ void __68__CoreEmbeddedSpeechRecognizer_compileAllAssetsWithType_completion___bl
 
 void __58__CoreEmbeddedSpeechRecognizer_cleanupUnusedSubscriptions__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v6 = v4;
-      v7 = [v3 localizedDescription];
-      v8 = 136315394;
-      v9 = "+[CoreEmbeddedSpeechRecognizer cleanupUnusedSubscriptions]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_error_impl(&dword_225EEB000, v6, OS_LOG_TYPE_ERROR, "%s Error requesting daily subscriptions cleanup: %@", &v8, 0x16u);
+      v5 = v4;
+      v6 = [v3 localizedDescription];
+      v7 = 136315394;
+      v8 = "+[CoreEmbeddedSpeechRecognizer cleanupUnusedSubscriptions]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_error_impl(&dword_225EEB000, v5, OS_LOG_TYPE_ERROR, "%s Error requesting daily subscriptions cleanup: %@", &v7, 0x16u);
     }
   }
 
   [*(a1 + 32) invalidate];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __58__CoreEmbeddedSpeechRecognizer_cleanupUnusedSubscriptions__block_invoke_352(uint64_t a1)
@@ -2925,26 +2961,24 @@ void __58__CoreEmbeddedSpeechRecognizer_cleanupUnusedSubscriptions__block_invoke
 
 void __62__CoreEmbeddedSpeechRecognizer_handlePostInstallSubscriptions__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *MEMORY[0x277CEF0E8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_ERROR))
     {
-      v6 = v4;
-      v7 = [v3 localizedDescription];
-      v8 = 136315394;
-      v9 = "+[CoreEmbeddedSpeechRecognizer handlePostInstallSubscriptions]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_error_impl(&dword_225EEB000, v6, OS_LOG_TYPE_ERROR, "%s Error requesting post-install subscriptions: %@", &v8, 0x16u);
+      v5 = v4;
+      v6 = [v3 localizedDescription];
+      v7 = 136315394;
+      v8 = "+[CoreEmbeddedSpeechRecognizer handlePostInstallSubscriptions]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_error_impl(&dword_225EEB000, v5, OS_LOG_TYPE_ERROR, "%s Error requesting post-install subscriptions: %@", &v7, 0x16u);
     }
   }
 
   [*(a1 + 32) invalidate];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__CoreEmbeddedSpeechRecognizer_handlePostInstallSubscriptions__block_invoke_350(uint64_t a1)

@@ -493,7 +493,7 @@ void __63__BNBannerSourcePresentableContext_handleTemplateContentEvent___block_i
   v3 = OUTLINED_FUNCTION_4_0();
   v4 = BNPresentableIdentificationDescription(v3);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v5, v6, "Error asking client presentable to handle template content event: presentable: %{public}@; error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v5, v6, "Error asking client presentable to handle template content event: presentable: %{public}@; error: %{public}@", v7, v8, v9, v10);
 }
 
 void __72__BNBannerSourcePresentableContext_updatePresentableAppearState_reason___block_invoke_cold_1()
@@ -503,7 +503,7 @@ void __72__BNBannerSourcePresentableContext_updatePresentableAppearState_reason_
   v3 = OUTLINED_FUNCTION_4_0();
   v4 = BNPresentableIdentificationDescription(v3);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v5, v6, "Error updating client presentable appearance state: presentable: %{public}@; error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v5, v6, "Error updating client presentable appearance state: presentable: %{public}@; error: %{public}@", v7, v8, v9, v10);
 }
 
 void __77__BNBannerSourcePresentableContext_handlePresentableWillNotAppearWithReason___block_invoke_cold_1()
@@ -513,7 +513,7 @@ void __77__BNBannerSourcePresentableContext_handlePresentableWillNotAppearWithRe
   v3 = OUTLINED_FUNCTION_4_0();
   v4 = BNPresentableIdentificationDescription(v3);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v5, v6, "Error notifying client presentable will not appear: presentable: %{public}@; error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v5, v6, "Error notifying client presentable will not appear: presentable: %{public}@; error: %{public}@", v7, v8, v9, v10);
 }
 
 void __67__BNBannerSourcePresentableContext_updateUserInteractionWillBegin___block_invoke_cold_1()
@@ -523,7 +523,7 @@ void __67__BNBannerSourcePresentableContext_updateUserInteractionWillBegin___blo
   v3 = OUTLINED_FUNCTION_4_0();
   v4 = BNPresentableIdentificationDescription(v3);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v5, v6, "Error informing client of user interaction change: presentable: %{public}@; error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_0(&dword_1C42DC000, v5, v6, "Error informing client of user interaction change: presentable: %{public}@; error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)listener:(void *)a1 didReceiveConnection:(uint64_t)a2 withContext:(void *)a3 .cold.1(void *a1, uint64_t a2, void *a3)

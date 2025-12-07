@@ -23,7 +23,7 @@
   uCopy = u;
   modelCopy = model;
   lightweightCopy = lightweight;
-  v40[2] = *MEMORY[0x1E69E9840];
+  v42[2] = *MEMORY[0x1E69E9840];
   ratioCopy = ratio;
   vcp_mediaAnalysisBundle = [MEMORY[0x1E696AAE8] vcp_mediaAnalysisBundle];
   resourceURL = [vcp_mediaAnalysisBundle resourceURL];
@@ -32,9 +32,9 @@
   netFileUrl = self->_netFileUrl;
   self->_netFileUrl = v13;
 
-  v38.receiver = self;
-  v38.super_class = VCPImageHumanPoseAnalyzer;
-  v15 = [(VCPImageHumanPoseAnalyzer *)&v38 init];
+  v40.receiver = self;
+  v40.super_class = VCPImageHumanPoseAnalyzer;
+  v15 = [(VCPImageHumanPoseAnalyzer *)&v40 init];
   v16 = v15;
   if (!v15)
   {
@@ -59,7 +59,7 @@
   if (ratioCopy && [(VCPImageHumanPoseAnalyzer *)v16 configForAspectRatio:ratioCopy])
   {
 LABEL_12:
-    v31 = 0;
+    v33 = 0;
     goto LABEL_13;
   }
 
@@ -74,31 +74,31 @@ LABEL_6:
   results = v16->_results;
   v16->_results = array2;
 
-  if ((DeviceHasANE() & modelCopy) != 1 || uCopy)
+  if ((DeviceHasANE(v23, v24) & modelCopy) != 1 || uCopy)
   {
-    v25 = [VCPCNNModelEspresso alloc];
-    v26 = v16->_netFileUrl;
-    v39[0] = @"forceCPU";
-    v24 = [MEMORY[0x1E696AD98] numberWithBool:uCopy];
-    v40[0] = v24;
-    v39[1] = @"sharedContext";
-    v27 = [MEMORY[0x1E696AD98] numberWithBool:modelCopy];
-    v40[1] = v27;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
-    v29 = [(VCPCNNModelEspresso *)v25 initWithParameters:v26 inputNames:0 outputNames:0 properties:v28];
+    v27 = [VCPCNNModelEspresso alloc];
+    v28 = v16->_netFileUrl;
+    v41[0] = @"forceCPU";
+    v26 = [MEMORY[0x1E696AD98] numberWithBool:uCopy];
+    v42[0] = v26;
+    v41[1] = @"sharedContext";
+    v29 = [MEMORY[0x1E696AD98] numberWithBool:modelCopy];
+    v42[1] = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
+    v31 = [(VCPCNNModelEspresso *)v27 initWithParameters:v28 inputNames:0 outputNames:0 properties:v30];
     modelEspresso = v16->_modelEspresso;
-    v16->_modelEspresso = v29;
+    v16->_modelEspresso = v31;
   }
 
   else
   {
-    v23 = [objc_opt_class() sharedModel:v16->_netFileUrl];
-    v24 = v16->_modelEspresso;
-    v16->_modelEspresso = v23;
+    v25 = [objc_opt_class() sharedModel:v16->_netFileUrl];
+    v26 = v16->_modelEspresso;
+    v16->_modelEspresso = v25;
   }
 
-  v31 = v16->_modelEspresso;
-  if (v31)
+  v33 = v16->_modelEspresso;
+  if (v33)
   {
     if (![(VCPImageHumanPoseAnalyzer *)v16 createModelWithHeight:v16->_inputHeight srcWidth:v16->_inputWidth])
     {
@@ -107,7 +107,7 @@ LABEL_6:
       v16->_forceCPU = uCopy;
       v16->_sharedModel = modelCopy;
       v16->_flushModel = flushModel;
-      v31 = v16;
+      v33 = v16;
       goto LABEL_13;
     }
 
@@ -115,9 +115,9 @@ LABEL_6:
   }
 
 LABEL_13:
-  v32 = v31;
+  v34 = v33;
 
-  return v32;
+  return v34;
 }
 
 - (int)reInitModel
@@ -281,7 +281,7 @@ VCPCNNModelEspresso *__41__VCPImageHumanPoseAnalyzer_sharedModel___block_invoke(
   }
 
   selfCopy = self;
-  [(VCPCNNModelEspresso *)modelEspresso outputBlob];
+  objc_msgSend_outputBlob(modelEspresso, a2);
   __src = v125;
   if (!v125)
   {
@@ -861,12 +861,12 @@ LABEL_49:
     modelEspresso = self->_modelEspresso;
     if (modelEspresso)
     {
-      [(VCPCNNModelEspresso *)modelEspresso outputBlob];
+      objc_msgSend_outputBlob(modelEspresso);
       v7 = self->_modelEspresso;
       v8 = v11;
       if (v7)
       {
-        [(VCPCNNModelEspresso *)v7 outputBlob];
+        objc_msgSend_outputBlob(v7);
         v9 = v12;
       }
 
@@ -1001,14 +1001,14 @@ LABEL_49:
   if (!result)
   {
     modelEspresso = self->_modelEspresso;
-    if (modelEspresso && ([(VCPCNNModelEspresso *)modelEspresso inputBlob], (v9 = self->_modelEspresso) != 0))
+    if (modelEspresso && (objc_msgSend_inputBlob(modelEspresso), (v9 = self->_modelEspresso) != 0))
     {
-      [(VCPCNNModelEspresso *)v9 inputBlob];
+      objc_msgSend_inputBlob(v9);
       v10 = self->_modelEspresso;
       v11 = v17 * v18;
       if (v10)
       {
-        [(VCPCNNModelEspresso *)v10 inputBlob];
+        objc_msgSend_inputBlob(v10);
         v12 = v16;
 LABEL_12:
         v13 = v11 * v12;
